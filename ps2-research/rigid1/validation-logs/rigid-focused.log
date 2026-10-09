@@ -1,0 +1,42 @@
+test_original_instruction_words (test_rigid_runtime.RigidCorpusTests.test_original_instruction_words) ... ok
+test_pc_collision_and_baked_candidates (test_rigid_runtime.RigidCorpusTests.test_pc_collision_and_baked_candidates) ... ok
+test_reextract_all_36_and_83 (test_rigid_runtime.RigidCorpusTests.test_reextract_all_36_and_83) ... ok
+test_shapes_and_aliases_independent_sdk (test_rigid_runtime.RigidCorpusTests.test_shapes_and_aliases_independent_sdk) ... ok
+test_activation_3d_inclusive_boundary (test_rigid_runtime.RigidSyntheticTests.test_activation_3d_inclusive_boundary) ... ok
+test_bad_declaration_fails_closed (test_rigid_runtime.RigidSyntheticTests.test_bad_declaration_fails_closed) ... ok
+test_bad_matrix_fails_closed (test_rigid_runtime.RigidSyntheticTests.test_bad_matrix_fails_closed) ... ok
+test_bad_moi_length_fails_closed (test_rigid_runtime.RigidSyntheticTests.test_bad_moi_length_fails_closed) ... ok
+test_committed_inventory_totals_and_duplicate_control (test_rigid_runtime.RigidSyntheticTests.test_committed_inventory_totals_and_duplicate_control) ... ok
+test_compact_inventory_excludes_original_matrices (test_rigid_runtime.RigidSyntheticTests.test_compact_inventory_excludes_original_matrices) ... ok
+test_constructor_defaults (test_rigid_runtime.RigidSyntheticTests.test_constructor_defaults) ... ok
+test_contact_wake_acknowledged (test_rigid_runtime.RigidSyntheticTests.test_contact_wake_acknowledged) ... ok
+test_contract_stays_static_and_contact_unknowns_explicit (test_rigid_runtime.RigidSyntheticTests.test_contract_stays_static_and_contact_unknowns_explicit) ... ok
+test_derivative_accumulators_not_lost (test_rigid_runtime.RigidSyntheticTests.test_derivative_accumulators_not_lost) ... ok
+test_duplicates_and_order_preserved (test_rigid_runtime.RigidSyntheticTests.test_duplicates_and_order_preserved) ... ok
+test_far_decay_not_restarted_and_last_zeroed (test_rigid_runtime.RigidSyntheticTests.test_far_decay_not_restarted_and_last_zeroed) ... ok
+test_far_pause_starts_60_invocation_decay (test_rigid_runtime.RigidSyntheticTests.test_far_pause_starts_60_invocation_decay) ... ok
+test_finite_unusual_authored_values_retained (test_rigid_runtime.RigidSyntheticTests.test_finite_unusual_authored_values_retained) ... ok
+test_first_typed_mass_not_last_duplicate (test_rigid_runtime.RigidSyntheticTests.test_first_typed_mass_not_last_duplicate) ... ok
+test_linear_rk4_matches_independent_constant_acceleration (test_rigid_runtime.RigidSyntheticTests.test_linear_rk4_matches_independent_constant_acceleration) ... ok
+test_malformed_activation_fields_fail (test_rigid_runtime.RigidSyntheticTests.test_malformed_activation_fields_fail) ... ok
+test_mass_and_inverse_diagonal (test_rigid_runtime.RigidSyntheticTests.test_mass_and_inverse_diagonal) ... ok
+test_near_does_not_wake_initial_settled_body (test_rigid_runtime.RigidSyntheticTests.test_near_does_not_wake_initial_settled_body) ... ok
+test_near_resumes_far_body (test_rigid_runtime.RigidSyntheticTests.test_near_resumes_far_body) ... ok
+test_original_instruction_derivative_and_gravity (test_rigid_runtime.RigidSyntheticTests.test_original_instruction_derivative_and_gravity) ... ok
+test_original_view_predicate_boundary (test_rigid_runtime.RigidSyntheticTests.test_original_view_predicate_boundary) ... ok
+test_output_boundary (test_rigid_runtime.RigidSyntheticTests.test_output_boundary) ... ok
+test_paused_state_and_external_force (test_rigid_runtime.RigidSyntheticTests.test_paused_state_and_external_force) ... ok
+test_pc_collision_exists_without_claiming_pc_dynamics (test_rigid_runtime.RigidSyntheticTests.test_pc_collision_exists_without_claiming_pc_dynamics) ... ok
+test_quaternion_derivative_independent_hamilton_product (test_rigid_runtime.RigidSyntheticTests.test_quaternion_derivative_independent_hamilton_product) ... ok
+test_quaternion_fallback_and_original_y_rotation (test_rigid_runtime.RigidSyntheticTests.test_quaternion_fallback_and_original_y_rotation) ... ok
+test_second_view_and_ignored_third (test_rigid_runtime.RigidSyntheticTests.test_second_view_and_ignored_third) ... ok
+test_synthetic_cli_is_repeatable_and_matches_committed_trace (test_rigid_runtime.RigidSyntheticTests.test_synthetic_cli_is_repeatable_and_matches_committed_trace) ... ok
+test_unknown_model_remains_unknown (test_rigid_runtime.RigidSyntheticTests.test_unknown_model_remains_unknown) ... ok
+test_unknown_properties_retained (test_rigid_runtime.RigidSyntheticTests.test_unknown_properties_retained) ... ok
+test_view_predicate_is_independent_of_distance (test_rigid_runtime.RigidSyntheticTests.test_view_predicate_is_independent_of_distance) ... ok
+test_visual_pose_com_and_row_convention (test_rigid_runtime.RigidSyntheticTests.test_visual_pose_com_and_row_convention) ... ok
+
+----------------------------------------------------------------------
+Ran 37 tests in 10.267s
+
+OK

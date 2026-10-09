@@ -1,0 +1,148 @@
+{
+  "activation": {
+    "contact_wake": "16e498 successful vehicle/paused-prop pair",
+    "distance": "3D squared separation from view+c0 to entity en3d+50; <= 10000",
+    "far_decay": {
+      "dt_scaled": false,
+      "factor": 0.01666666753590107,
+      "invocations": 60
+    },
+    "initial_paused": true,
+    "observers": "first two entries of 201350 view registry",
+    "predicate": "200550(radius=4)",
+    "proximity_wakes_initial_body": false,
+    "scheduler_frequency": "UNKNOWN",
+    "update": "0x001a0258"
+  },
+  "authored_owner": "gaAiRigidBody",
+  "contact": {
+    "convex_bsp": "0x002470f8",
+    "convex_convex": "0x0024d870",
+    "dispatcher": "0x0016e498",
+    "energy_helper": "25dd60 computes .5*(P dot v + L dot omega) for both bodies",
+    "magnitude": "UNKNOWN; evaluator intentionally has no complete contact simulator",
+    "pair_backend": "0x002e3270",
+    "selected_impulse": "Given solver-selected lambda: J=lambda*n; P_A+=J; P_B-=J; L_A+=(c-x_A) cross J; L_B-=(c-x_B) cross J",
+    "solver_branch": "25c980 -> 25cd78 -> 25ca30 -> 25d988 -> 25da08",
+    "velocity_commit": "23e968; P=m*v and angular setter 267940; contact accumulators 23e6d8/23e7b0"
+  },
+  "factory": {
+    "allocation_size": 60,
+    "constructor": "0x0019fcd0",
+    "function": "0x0015b190",
+    "prop_callsite": "0x0015d014"
+  },
+  "integration": {
+    "derivative": {
+      "angular_momentum": "base torque + extra torque",
+      "function": "0x00266e20",
+      "linear_momentum": "base force + extra force",
+      "position": "v",
+      "quaternion": "0.5 * ((0,omega) Hamilton-product q)"
+    },
+    "global_tick_va": "0x00479c98",
+    "global_tick_word": "0x3d088889",
+    "gravity": {
+      "force": "(0,-g*m,0)",
+      "function": "0x0027d060",
+      "source_word": "0x411cf5c3",
+      "value": 9.8100004196167
+    },
+    "half_step": 0.01666666753590107,
+    "integrator": "0x00269968",
+    "manager": "0x001733a0",
+    "method": "RK4: x + (dt * (k1+k2+k2+k3+k3+k4))/6",
+    "mode": 1,
+    "restore": {
+      "function": "0x002670b0",
+      "omega": "R IbodyInv R^T * L",
+      "velocity": "P/m"
+    },
+    "sleep": "267e00 speed-norm sum <0.3; 174178 uses contact condition and count*halfstep > Physics/RigidBody/MaxClampTime",
+    "state_order": [
+      "position xyz",
+      "quaternion wxyz",
+      "linear momentum xyz",
+      "angular momentum xyz"
+    ],
+    "step": "0x00173b68",
+    "substeps": 2,
+    "tick": 0.03333333507180214,
+    "wind": "NOT_FOUND_IN_TRACED_GRAVITY_CALLBACK_OR_OWNER_PATH; broader accumulator writers not exhausted"
+  },
+  "phase": "PS2-RIGID1",
+  "pose": {
+    "basis_initializer": "21cec0 writes global identity q, zero XYZ and right/up/forward",
+    "broker_get": "0x001e36d8",
+    "broker_set": "0x001e3f50",
+    "consumer": "0x00265d18",
+    "destination": "same entity en3d+0x20..+0x5c",
+    "equation": "matrix rows = right/up/forward, translation = body_position - R*local_COM",
+    "key": "Physics/{entity name}/Transform",
+    "key_builder": "0x00265e80",
+    "producer": "0x00267f60",
+    "quaternion_normalize": "2661e0; length < float32(.001) -> startup identity q",
+    "rendering": "shared entity draw 21ea20 -> 3301c8 -> 3302b8 -> 330780 (TREEBLEND1 verified infrastructure)",
+    "rotation": "205580 quaternion wxyz -> R; en3d rotation = transpose(R)",
+    "transform_ai_ctor": "0x00265ae8"
+  },
+  "precision": {
+    "bit_exact_ps2": "UNKNOWN",
+    "diagonal_inverse": "MATHEMATICALLY_EQUIVALENT",
+    "host_evaluator": "FLOAT32_RECONSTRUCTION",
+    "original_word_probes": "EXACT_ELF_OPERATION"
+  },
+  "properties": {
+    "defaults": {
+      "casts_shadow": false,
+      "mass": 500,
+      "moi": [
+        100,
+        100,
+        100
+      ],
+      "trigger_distance": 5
+    },
+    "float_reader": "0x001e2510",
+    "mass": "Direct authored float -> body+20 and 1/m -> +24",
+    "moi": "Direct diagonal body inertia, inverse via 203358, world inverse R IbodyInv R^T",
+    "moi_reader": "0x001e2a48",
+    "parser": "0x0019fe98",
+    "shadow_reader": "0x001e2470"
+  },
+  "runtime_validation": "NOT_PERFORMED",
+  "schema": 1,
+  "shadow": {
+    "consumer": "UNKNOWN beyond typed schema/read; not read in selected init/update",
+    "storage": "owner+0x10"
+  },
+  "shape": {
+    "attach": "0x002e2f10",
+    "backend_install": "0x002dc664 / 0x002dc680 (interior instructions, enclosing function UNKNOWN)",
+    "bind_body": "0x00244230",
+    "instantiate": "0x00244108",
+    "loader": "0x003946e0",
+    "model_field": "+0x34",
+    "reader": "0x003b4c20",
+    "selection": "Both A/B representations retained; phase-specific choice inside narrowphase UNKNOWN",
+    "source": "PSM tag101 convex container"
+  },
+  "static_status": "COMPLETE_BOUNDED_CONTRACT",
+  "trigger_distance": {
+    "other_consumer": "UNKNOWN",
+    "storage": "owner+0x18",
+    "update_consumer": "NOT_READ_IN_1a0258"
+  },
+  "unknowns": [
+    "impulse magnitude",
+    "friction/restitution coefficient meanings and mixing",
+    "narrowphase A/B representation selection",
+    "Trigger Distance consumer outside selected update",
+    "Casts Shadow runtime consumer",
+    "wall-clock scheduler frequency",
+    "complete per-entity removal/restart sequence",
+    "local COM writers after constructor",
+    "live collision and pose capture",
+    "initial matrix-to-quaternion 205628 nonpositive-trace branch"
+  ]
+}

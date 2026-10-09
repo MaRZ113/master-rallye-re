@@ -1,0 +1,117 @@
+{
+  "cases": [
+    {
+      "counts": {
+        "authored_eggs": 14,
+        "distinct_matrix_hashes": 13,
+        "families": {
+          "haybale": 14
+        }
+      },
+      "course": "ITALYS1",
+      "decoded_sha256": "56603a9b51f509032a3f15953f161eeaa25044b2c00b5988a73e0c2cbc9c9a92",
+      "evidence_grade": "CONFIRMED_BY_BOTH",
+      "first_source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML:list:3:egg:2:ai:0",
+      "independent_checks": [
+        "authored byte payload and source hashes",
+        "canonical property-reader instructions",
+        "independent SDK convex reader"
+      ],
+      "limitations": [
+        "No simultaneous live population claim.",
+        "Original matrices retained only in ignored diagnostics; compact hashes preserve duplicate controls."
+      ],
+      "list_name": "Physics",
+      "model": "misc\\haybale\\haybale",
+      "model_family": "haybale",
+      "properties": {
+        "casts_shadow": true,
+        "mass": 500.0,
+        "moi": [
+          565.0,
+          447.0,
+          565.0
+        ],
+        "trigger_distance": 5.0
+      },
+      "runtime_validation": "NOT_PERFORMED",
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML"
+    },
+    {
+      "counts": {
+        "authored_eggs": 7,
+        "distinct_matrix_hashes": 7,
+        "families": {
+          "tumbleweed": 7
+        }
+      },
+      "course": "TURKEY1",
+      "decoded_sha256": "dca7c2e5887e346312681cb7a3fc2451b9febe03e5361ffef39437604a12ee03",
+      "evidence_grade": "CONFIRMED_BY_BOTH",
+      "first_source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEY1.XML:list:11:egg:4:ai:0",
+      "independent_checks": [
+        "authored byte payload and source hashes",
+        "canonical property-reader instructions",
+        "independent SDK convex reader"
+      ],
+      "limitations": [
+        "No simultaneous live population claim.",
+        "Original matrices retained only in ignored diagnostics; compact hashes preserve duplicate controls."
+      ],
+      "list_name": "IContManager",
+      "model": "misc\\objects\\tumbleweed\\tumblweed",
+      "model_family": "tumbleweed",
+      "properties": {
+        "casts_shadow": true,
+        "mass": 5.0,
+        "moi": [
+          2.0,
+          2.0,
+          2.0
+        ],
+        "trigger_distance": 15.0
+      },
+      "runtime_validation": "NOT_PERFORMED",
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEY1.XML"
+    },
+    {
+      "counts": {
+        "authored_eggs": 11,
+        "distinct_matrix_hashes": 11,
+        "families": {
+          "haybale": 11
+        }
+      },
+      "course": "ITALY2",
+      "decoded_sha256": "56ef29e13f9cc3f64fb1d2d31b0cc293d3ccd08deed8e88e2a78752b90574c69",
+      "evidence_grade": "CONFIRMED_BY_BOTH",
+      "first_source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML:list:12:egg:4:ai:0",
+      "independent_checks": [
+        "authored byte payload and source hashes",
+        "canonical property-reader instructions",
+        "independent SDK convex reader"
+      ],
+      "limitations": [
+        "No simultaneous live population claim.",
+        "Original matrices retained only in ignored diagnostics; compact hashes preserve duplicate controls."
+      ],
+      "list_name": "IContManager",
+      "model": "misc\\haybale\\haybale",
+      "model_family": "haybale",
+      "properties": {
+        "casts_shadow": false,
+        "mass": 500.0,
+        "moi": [
+          562.0,
+          447.0,
+          562.0
+        ],
+        "trigger_distance": 5.0
+      },
+      "runtime_validation": "NOT_PERFORMED",
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML"
+    }
+  ],
+  "schema": 1,
+  "source_coverage": "36 matched canonical course scenes; 9 with owner records"
+}

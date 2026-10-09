@@ -1,0 +1,76 @@
+{
+  "schema": 1,
+  "full_unittest": {
+    "passed": 345,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 75.105
+  },
+  "full_pytest": {
+    "passed": 345,
+    "failed": 0,
+    "skipped": 0,
+    "subtests": 290,
+    "seconds": 76.4
+  },
+  "focused": {
+    "passed": 37,
+    "failed": 0,
+    "skipped": 0
+  },
+  "isolated_pytest": {
+    "passed": 301,
+    "failed": 0,
+    "skipped": 44,
+    "subtests": 174,
+    "seconds": 2.78
+  },
+  "runtime_validation": "NOT_PERFORMED",
+  "logs": [
+    {
+      "path": "ps2-research\\rigid1\\validation-logs\\compileall.log",
+      "lines": 5,
+      "sha256": "05a80638ada97177a742cb5492e3fad2e70ab5959aa44006e7c91e4f3d54e634"
+    },
+    {
+      "path": "ps2-research\\rigid1\\validation-logs\\pytest-isolated-dependency.log",
+      "lines": 1,
+      "sha256": "32fe901bcf7014b3857ce766b8960465a57b3346658c30e1d63fa3fa098a2725"
+    },
+    {
+      "path": "ps2-research\\rigid1\\validation-logs\\pytest-isolated-final.log",
+      "lines": 6,
+      "sha256": "8892574102f9f0c23126f51a68beacb3d337ea11817e971e435ccddf0ef13d3f"
+    },
+    {
+      "path": "ps2-research\\rigid1\\validation-logs\\pytest-isolated.log",
+      "lines": 6,
+      "sha256": "99a82f211dd5988d997b2a4f250cf8b472e7290a97ae2b44a0f30b148bdfb375"
+    },
+    {
+      "path": "ps2-research\\rigid1\\validation-logs\\pytest.log",
+      "lines": 6,
+      "sha256": "1618014940da346ee38036bedf27b0f4d173deafe88cf3a5a55368922544c9d4"
+    },
+    {
+      "path": "ps2-research\\rigid1\\validation-logs\\rigid-focused.log",
+      "lines": 42,
+      "sha256": "6a94dc0748fa8b6e74a5e73da8818868ac36ff0e263a885a7f7cdca67abc90c7"
+    },
+    {
+      "path": "ps2-research\\rigid1\\validation-logs\\unittest-isolated.log",
+      "lines": 332,
+      "sha256": "4934c5a194e35b55a796d35a666f0e589d6c45656ab6c68594d8d5163d46290c"
+    },
+    {
+      "path": "ps2-research\\rigid1\\validation-logs\\unittest-restricted.log",
+      "lines": 634,
+      "sha256": "057cfacffc4c986a4af94fd80075feca05cf80d9dca698be2ed3fb63b553e8f6"
+    },
+    {
+      "path": "ps2-research\\rigid1\\validation-logs\\unittest.log",
+      "lines": 350,
+      "sha256": "dfcd4b001022bf7eb3245c0682b33a02ba1d33fefc7dd05429df4aff47badf0f"
+    }
+  ]
+}

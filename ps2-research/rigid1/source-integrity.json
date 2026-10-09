@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "PS2": {
+    "SLES_509.06": {
+      "size": 3739852,
+      "sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2"
+    },
+    "SYSTEM.CNF": {
+      "size": 56,
+      "sha256": "db08eef06278820a562f9cdacd6a2d5d2bb31870e7cf3a51e83daee3a90c5df2"
+    },
+    "TNG.PAK": {
+      "size": 135556,
+      "sha256": "d98c7cf1049a8a3bc2f90a528a2b6f52cd43c16c2e0564830d5ecb9c592ab28d"
+    },
+    "TNG.000": {
+      "size": 1225915283,
+      "sha256": "004ac1676376275bf40c1fd5c1c4a9dcfaae870bf1a7916434eb73b0b1faff86"
+    }
+  },
+  "PC_selected": [
+    {
+      "path": "D:\\Game\\Master Rallye\\corpora\\retail\\Data.sma_unpacked\\DataGx\\Misc\\Haybale\\haybaletest.dx",
+      "sha256": "3b355f6d59b3e64789a509964b370a2849e5eeeabab174fab98162f33be045be",
+      "expected_sha256": "3b355f6d59b3e64789a509964b370a2849e5eeeabab174fab98162f33be045be"
+    },
+    {
+      "path": "D:\\Game\\Master Rallye\\corpora\\retail\\Data.sma_unpacked\\DataGx\\Course\\Italy_S1\\Italy_S1.dx",
+      "sha256": "5cd86704667cbdc95d4a3b1ff1444c885431fcdd0313cc0f15eca980e3965e8a",
+      "expected_sha256": "5cd86704667cbdc95d4a3b1ff1444c885431fcdd0313cc0f15eca980e3965e8a"
+    },
+    {
+      "path": "D:\\Game\\Master Rallye\\corpora\\retail\\Data.sma_unpacked\\DataGx\\Course\\Italy_S1\\Italy_S1.txt",
+      "sha256": "56a05853ad3f8bbd92ad6283a90c20b215e7c98c9400d92631fe7dc23b65c5d2",
+      "expected_sha256": "56a05853ad3f8bbd92ad6283a90c20b215e7c98c9400d92631fe7dc23b65c5d2"
+    },
+    {
+      "path": "D:\\Game\\Master Rallye\\corpora\\retail\\Data.sma_unpacked\\DataGx\\Course\\Italy2\\Italy2.dx",
+      "sha256": "0614f6c933f751d07be0fb7ea5b97d1099ebf6873120b93c506922efc38f8a31",
+      "expected_sha256": "0614f6c933f751d07be0fb7ea5b97d1099ebf6873120b93c506922efc38f8a31"
+    },
+    {
+      "path": "D:\\Game\\Master Rallye\\corpora\\retail\\Data.sma_unpacked\\DataGx\\Course\\Italy2\\Italy2.txt",
+      "sha256": "0f75d2557650e10eed4d587da0de426a2262f91034391b61f31c1f6d8bc43a9e",
+      "expected_sha256": "0f75d2557650e10eed4d587da0de426a2262f91034391b61f31c1f6d8bc43a9e"
+    }
+  ],
+  "status": "PASS",
+  "scope": "Four full canonical PS2 files and five inspected PC files; reference-worktree status recorded separately"
+}

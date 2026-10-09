@@ -1,0 +1,193 @@
+{
+  "canonical_elf_sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+  "evidence_grade": "CONFIRMED_BY_EXE",
+  "schema": 1,
+  "tables": {
+    "body": {
+      "address": "0x47a508",
+      "entries": [
+        {
+          "function_pointer_offset": "0x4",
+          "offset": "0x0",
+          "target": "0x00000000",
+          "this_adjustment": 0
+        },
+        {
+          "function_pointer_offset": "0xc",
+          "offset": "0x8",
+          "target": "0x002667e0",
+          "this_adjustment": 0
+        },
+        {
+          "function_pointer_offset": "0x14",
+          "offset": "0x10",
+          "target": "0x00266e20",
+          "this_adjustment": 0
+        },
+        {
+          "function_pointer_offset": "0x1c",
+          "offset": "0x18",
+          "target": "0x00266fb8",
+          "this_adjustment": 0
+        },
+        {
+          "function_pointer_offset": "0x24",
+          "offset": "0x20",
+          "target": "0x00267028",
+          "this_adjustment": 0
+        },
+        {
+          "function_pointer_offset": "0x2c",
+          "offset": "0x28",
+          "target": "0x002668b8",
+          "this_adjustment": 0
+        }
+      ],
+      "sha256": "c9e0b96075cb5e9bd63ae068d7632e8e1e16bb2e9b78a5a3a3d70ecbe67af5d0"
+    },
+    "owner": {
+      "address": "0x473820",
+      "entries": [
+        {
+          "function_pointer_offset": "0x4",
+          "offset": "0x0",
+          "target": "0x00000000",
+          "this_adjustment": 0
+        },
+        {
+          "function_pointer_offset": "0xc",
+          "offset": "0x8",
+          "target": "0x001cfe90",
+          "this_adjustment": 0
+        },
+        {
+          "function_pointer_offset": "0x14",
+          "offset": "0x10",
+          "target": "0x001cfec0",
+          "this_adjustment": 0
+        },
+        {
+          "function_pointer_offset": "0x1c",
+          "offset": "0x18",
+          "target": "0x0019fdb0",
+          "this_adjustment": 0
+        },
+        {
+          "function_pointer_offset": "0x24",
+          "offset": "0x20",
+          "target": "0x0019fe98",
+          "this_adjustment": 0
+        },
+        {
+          "function_pointer_offset": "0x2c",
+          "offset": "0x28",
+          "target": "0x001a0258",
+          "this_adjustment": 0
+        },
+        {
+          "function_pointer_offset": "0x34",
+          "offset": "0x30",
+          "target": "0x0019ff18",
+          "this_adjustment": 0
+        }
+      ],
+      "sha256": "72f7c93e8ab7aeb40d1067d629040b7040dff577108b8bad8ff75e220638eedd"
+    },
+    "ps2_collision_backend": {
+      "address": "0x484110",
+      "entries": [
+        {
+          "function_pointer_offset": "0x4",
+          "offset": "0x0",
+          "target": "0x00000000",
+          "this_adjustment": 0
+        },
+        {
+          "function_pointer_offset": "0xc",
+          "offset": "0x8",
+          "target": "0x002e2b98",
+          "this_adjustment": 0
+        },
+        {
+          "function_pointer_offset": "0x14",
+          "offset": "0x10",
+          "target": "0x002e2c60",
+          "this_adjustment": 0
+        },
+        {
+          "function_pointer_offset": "0x1c",
+          "offset": "0x18",
+          "target": "0x002e2d70",
+          "this_adjustment": 0
+        },
+        {
+          "function_pointer_offset": "0x24",
+          "offset": "0x20",
+          "target": "0x002e2f10",
+          "this_adjustment": 0
+        },
+        {
+          "function_pointer_offset": "0x2c",
+          "offset": "0x28",
+          "target": "0x002e31b0",
+          "this_adjustment": 0
+        },
+        {
+          "function_pointer_offset": "0x34",
+          "offset": "0x30",
+          "target": "0x002e3270",
+          "this_adjustment": 0
+        }
+      ],
+      "sha256": "6a21937ba40312c620044df6f53095c3963281c29c2dd51a552dba9d4dded4ca"
+    },
+    "transform_ai": {
+      "address": "0x47a1e8",
+      "entries": [
+        {
+          "function_pointer_offset": "0x4",
+          "offset": "0x0",
+          "target": "0x00000000",
+          "this_adjustment": 0
+        },
+        {
+          "function_pointer_offset": "0xc",
+          "offset": "0x8",
+          "target": "0x00265b28",
+          "this_adjustment": 0
+        },
+        {
+          "function_pointer_offset": "0x14",
+          "offset": "0x10",
+          "target": "0x0027d9b0",
+          "this_adjustment": 0
+        },
+        {
+          "function_pointer_offset": "0x1c",
+          "offset": "0x18",
+          "target": "0x00159170",
+          "this_adjustment": 0
+        },
+        {
+          "function_pointer_offset": "0x24",
+          "offset": "0x20",
+          "target": "0x00159178",
+          "this_adjustment": 0
+        },
+        {
+          "function_pointer_offset": "0x2c",
+          "offset": "0x28",
+          "target": "0x00265d18",
+          "this_adjustment": 0
+        },
+        {
+          "function_pointer_offset": "0x34",
+          "offset": "0x30",
+          "target": "0x00265b58",
+          "this_adjustment": 0
+        }
+      ],
+      "sha256": "cfe3a13b61e29a2dfa6290f9297f79c520c61137e207515157f1fe4628deacca"
+    }
+  }
+}

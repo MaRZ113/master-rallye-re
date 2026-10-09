@@ -1,0 +1,586 @@
+{
+  "schema": "ps2-rigid-contract-v1",
+  "models": [
+    {
+      "source": "\\TNG\\DATAPSM\\MISC\\HAYBALE\\HAYBALE.PSM",
+      "size": 6636,
+      "sha256": "cd6da2625e707387c8b18e02f42fcf655d5135fa8e9986cb8894bf10734447cb",
+      "visual": {
+        "vertex_records": 74,
+        "start": 3880,
+        "end": 4060,
+        "node_counts": {
+          "1": 1,
+          "2": 1
+        },
+        "mesh_records": 1,
+        "materials": [
+          "Hay Bale $shader(dull)"
+        ],
+        "texture_references": [
+          [
+            {
+              "slot": 0,
+              "name": "commontextures\\hay-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 3910
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\hay_env-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 3942
+            }
+          ]
+        ],
+        "bounds": {
+          "min": [
+            -0.7967167496681213,
+            -0.9220773577690125,
+            -0.9220896363258362
+          ],
+          "max": [
+            0.7967021465301514,
+            0.9220783114433289,
+            0.9220660924911499
+          ]
+        },
+        "strips": 3,
+        "nonsuppressed_nondegenerate_triangles": 60
+      },
+      "collision": {
+        "tag": 101,
+        "offset": 4060,
+        "end_offset": 6632,
+        "sha256": "50422dda4860405a66305a48741bb6c4e179b4b346b8f0b4ff56376ada5f927f",
+        "base_geometry": {
+          "offset": 4064,
+          "end_offset": 4084,
+          "vertices": 1,
+          "triangles": 0,
+          "bounds": {
+            "min": [
+              -7.241964340209961e-06,
+              3.8743019104003906e-07,
+              -1.1742115020751953e-05
+            ],
+            "max": [
+              -7.241964340209961e-06,
+              3.8743019104003906e-07,
+              -1.1742115020751953e-05
+            ]
+          },
+          "xyz_f32_sha256": "e9570f76f07d147e2b5b9cfc605b536f711056d5261d2aba7253a11cd443f220",
+          "index_u32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "base_scalar": 1.540600061416626,
+        "representation_a": {
+          "offset": 4088,
+          "end_offset": 4952,
+          "geometry_a": {
+            "offset": 4088,
+            "end_offset": 4336,
+            "vertices": 8,
+            "triangles": 12,
+            "bounds": {
+              "min": [
+                -0.7977311611175537,
+                -0.9377852082252502,
+                -0.9261020421981812
+              ],
+              "max": [
+                0.7977166771888733,
+                0.9377859830856323,
+                0.9260785579681396
+              ]
+            },
+            "xyz_f32_sha256": "75c69d34fc43ebfdea15ef8d71d4ee409ff48f781bc91df0284df382ff695251",
+            "index_u32_sha256": "76ee9acb8a7ed8958f8852af5675579e3566115c5429459c847e643b486d5bf3"
+          },
+          "geometry_b": {
+            "offset": 4336,
+            "end_offset": 4356,
+            "vertices": 1,
+            "triangles": 0,
+            "bounds": {
+              "min": [
+                -7.241964340209961e-06,
+                3.8743019104003906e-07,
+                -1.1742115020751953e-05
+              ],
+              "max": [
+                -7.241964340209961e-06,
+                3.8743019104003906e-07,
+                -1.1742115020751953e-05
+              ]
+            },
+            "xyz_f32_sha256": "e9570f76f07d147e2b5b9cfc605b536f711056d5261d2aba7253a11cd443f220",
+            "index_u32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "referenced_vertices": 8,
+          "edges": 12,
+          "faces": 6
+        },
+        "representation_b": {
+          "offset": 4952,
+          "end_offset": 6632,
+          "geometry_a": {
+            "offset": 4952,
+            "end_offset": 5488,
+            "vertices": 16,
+            "triangles": 28,
+            "bounds": {
+              "min": [
+                -0.7977311611175537,
+                -0.9377852082252502,
+                -0.9261020421981812
+              ],
+              "max": [
+                0.7977166771888733,
+                0.9377859830856323,
+                0.9260785579681396
+              ]
+            },
+            "xyz_f32_sha256": "ca6a6a1b079ea112333f1e283b580493d7e004b2c9f34c61294fe59cff91083f",
+            "index_u32_sha256": "00fff2cb04aa8ba738f9c16227ce0108324b15147efa285195d107b07a58382f"
+          },
+          "geometry_b": {
+            "offset": 5488,
+            "end_offset": 5508,
+            "vertices": 1,
+            "triangles": 0,
+            "bounds": {
+              "min": [
+                -7.361173629760742e-06,
+                3.6694109439849854e-07,
+                -1.173652708530426e-05
+              ],
+              "max": [
+                -7.361173629760742e-06,
+                3.6694109439849854e-07,
+                -1.173652708530426e-05
+              ]
+            },
+            "xyz_f32_sha256": "573b22a0505209523aa25aec36a479cd9dd978cf1438bc846f6a0f772d696edd",
+            "index_u32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "referenced_vertices": 16,
+          "edges": 24,
+          "faces": 10
+        }
+      },
+      "evidence_grade": "CONFIRMED_BY_BOTH",
+      "live_shape_selection": "UNKNOWN; static shape/body registration proved, frame not captured",
+      "packfs": {
+        "path": "\\TNG\\DATAPSM\\MISC\\HAYBALE\\HAYBALE.PSM",
+        "offset": 1210311250,
+        "stored_size": 3114,
+        "directory_size_0x08": 3114,
+        "unpacked_size": 6636,
+        "compression": "packfs_lzo",
+        "stored_sha256": "de76d07729d77ffa4e8259faafa68ab38a14d33192e1096248e1c94fb98416f0",
+        "payload_sha256": "cd6da2625e707387c8b18e02f42fcf655d5135fa8e9986cb8894bf10734447cb",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATAPSM\\MISC\\OBJECTS\\HAYBALES\\HAYBALE.PSM",
+      "size": 6636,
+      "sha256": "cd6da2625e707387c8b18e02f42fcf655d5135fa8e9986cb8894bf10734447cb",
+      "visual": {
+        "vertex_records": 74,
+        "start": 3880,
+        "end": 4060,
+        "node_counts": {
+          "1": 1,
+          "2": 1
+        },
+        "mesh_records": 1,
+        "materials": [
+          "Hay Bale $shader(dull)"
+        ],
+        "texture_references": [
+          [
+            {
+              "slot": 0,
+              "name": "commontextures\\hay-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 3910
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\hay_env-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 3942
+            }
+          ]
+        ],
+        "bounds": {
+          "min": [
+            -0.7967167496681213,
+            -0.9220773577690125,
+            -0.9220896363258362
+          ],
+          "max": [
+            0.7967021465301514,
+            0.9220783114433289,
+            0.9220660924911499
+          ]
+        },
+        "strips": 3,
+        "nonsuppressed_nondegenerate_triangles": 60
+      },
+      "collision": {
+        "tag": 101,
+        "offset": 4060,
+        "end_offset": 6632,
+        "sha256": "50422dda4860405a66305a48741bb6c4e179b4b346b8f0b4ff56376ada5f927f",
+        "base_geometry": {
+          "offset": 4064,
+          "end_offset": 4084,
+          "vertices": 1,
+          "triangles": 0,
+          "bounds": {
+            "min": [
+              -7.241964340209961e-06,
+              3.8743019104003906e-07,
+              -1.1742115020751953e-05
+            ],
+            "max": [
+              -7.241964340209961e-06,
+              3.8743019104003906e-07,
+              -1.1742115020751953e-05
+            ]
+          },
+          "xyz_f32_sha256": "e9570f76f07d147e2b5b9cfc605b536f711056d5261d2aba7253a11cd443f220",
+          "index_u32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "base_scalar": 1.540600061416626,
+        "representation_a": {
+          "offset": 4088,
+          "end_offset": 4952,
+          "geometry_a": {
+            "offset": 4088,
+            "end_offset": 4336,
+            "vertices": 8,
+            "triangles": 12,
+            "bounds": {
+              "min": [
+                -0.7977311611175537,
+                -0.9377852082252502,
+                -0.9261020421981812
+              ],
+              "max": [
+                0.7977166771888733,
+                0.9377859830856323,
+                0.9260785579681396
+              ]
+            },
+            "xyz_f32_sha256": "75c69d34fc43ebfdea15ef8d71d4ee409ff48f781bc91df0284df382ff695251",
+            "index_u32_sha256": "76ee9acb8a7ed8958f8852af5675579e3566115c5429459c847e643b486d5bf3"
+          },
+          "geometry_b": {
+            "offset": 4336,
+            "end_offset": 4356,
+            "vertices": 1,
+            "triangles": 0,
+            "bounds": {
+              "min": [
+                -7.241964340209961e-06,
+                3.8743019104003906e-07,
+                -1.1742115020751953e-05
+              ],
+              "max": [
+                -7.241964340209961e-06,
+                3.8743019104003906e-07,
+                -1.1742115020751953e-05
+              ]
+            },
+            "xyz_f32_sha256": "e9570f76f07d147e2b5b9cfc605b536f711056d5261d2aba7253a11cd443f220",
+            "index_u32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "referenced_vertices": 8,
+          "edges": 12,
+          "faces": 6
+        },
+        "representation_b": {
+          "offset": 4952,
+          "end_offset": 6632,
+          "geometry_a": {
+            "offset": 4952,
+            "end_offset": 5488,
+            "vertices": 16,
+            "triangles": 28,
+            "bounds": {
+              "min": [
+                -0.7977311611175537,
+                -0.9377852082252502,
+                -0.9261020421981812
+              ],
+              "max": [
+                0.7977166771888733,
+                0.9377859830856323,
+                0.9260785579681396
+              ]
+            },
+            "xyz_f32_sha256": "ca6a6a1b079ea112333f1e283b580493d7e004b2c9f34c61294fe59cff91083f",
+            "index_u32_sha256": "00fff2cb04aa8ba738f9c16227ce0108324b15147efa285195d107b07a58382f"
+          },
+          "geometry_b": {
+            "offset": 5488,
+            "end_offset": 5508,
+            "vertices": 1,
+            "triangles": 0,
+            "bounds": {
+              "min": [
+                -7.361173629760742e-06,
+                3.6694109439849854e-07,
+                -1.173652708530426e-05
+              ],
+              "max": [
+                -7.361173629760742e-06,
+                3.6694109439849854e-07,
+                -1.173652708530426e-05
+              ]
+            },
+            "xyz_f32_sha256": "573b22a0505209523aa25aec36a479cd9dd978cf1438bc846f6a0f772d696edd",
+            "index_u32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "referenced_vertices": 16,
+          "edges": 24,
+          "faces": 10
+        }
+      },
+      "evidence_grade": "CONFIRMED_BY_BOTH",
+      "live_shape_selection": "UNKNOWN; static shape/body registration proved, frame not captured",
+      "packfs": {
+        "path": "\\TNG\\DATAPSM\\MISC\\OBJECTS\\HAYBALES\\HAYBALE.PSM",
+        "offset": 1210319900,
+        "stored_size": 3117,
+        "directory_size_0x08": 3117,
+        "unpacked_size": 6636,
+        "compression": "packfs_lzo",
+        "stored_sha256": "cad6f98768f62225e939e1e93e3143bb0afb852f23e22344ae9f51e80a9c4308",
+        "payload_sha256": "cd6da2625e707387c8b18e02f42fcf655d5135fa8e9986cb8894bf10734447cb",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATAPSM\\MISC\\OBJECTS\\TUMBLEWEED\\TUMBLWEED.PSM",
+      "size": 9819,
+      "sha256": "eb959250d0bdb6fa051fb69f4a852c4789be200613eb8e90678d36a48ab54bf4",
+      "visual": {
+        "vertex_records": 96,
+        "start": 5024,
+        "end": 5203,
+        "node_counts": {
+          "1": 1,
+          "2": 1
+        },
+        "mesh_records": 1,
+        "materials": [
+          "bigshrub $shader(treeblend)"
+        ],
+        "texture_references": [
+          [
+            {
+              "slot": 0,
+              "name": "Misc\\Objects\\Tumbleweed\\shrubtrig2-tga",
+              "flags": [
+                true,
+                true,
+                false
+              ],
+              "offset": 5054
+            }
+          ]
+        ],
+        "bounds": {
+          "min": [
+            -1.0344587564468384,
+            -0.87745600938797,
+            -1.0509971380233765
+          ],
+          "max": [
+            1.0364476442337036,
+            0.8746271133422852,
+            1.0502557754516602
+          ]
+        },
+        "strips": 4,
+        "nonsuppressed_nondegenerate_triangles": 48
+      },
+      "collision": {
+        "tag": 101,
+        "offset": 5203,
+        "end_offset": 9815,
+        "sha256": "27cb1089bf997a0b20d6a4f98fee9827a9089972ff6e891fce5cf34e41e01d48",
+        "base_geometry": {
+          "offset": 5207,
+          "end_offset": 5227,
+          "vertices": 1,
+          "triangles": 0,
+          "bounds": {
+            "min": [
+              0.0,
+              2.9802322387695312e-08,
+              2.9802322387695312e-08
+            ],
+            "max": [
+              0.0,
+              2.9802322387695312e-08,
+              2.9802322387695312e-08
+            ]
+          },
+          "xyz_f32_sha256": "d66d4c2ff0790c5ba073474ffa07aeb824aaa1bd0f1e93bb68277d93ba66cc10",
+          "index_u32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "base_scalar": 1.0692750215530396,
+        "representation_a": {
+          "offset": 5231,
+          "end_offset": 6095,
+          "geometry_a": {
+            "offset": 5231,
+            "end_offset": 5479,
+            "vertices": 8,
+            "triangles": 12,
+            "bounds": {
+              "min": [
+                -0.6750593185424805,
+                -0.4816003143787384,
+                -0.6750593185424805
+              ],
+              "max": [
+                0.6750593185424805,
+                0.4816003739833832,
+                0.6750593781471252
+              ]
+            },
+            "xyz_f32_sha256": "890a7d7755b11e5137662859358552091dc023a3e15e4dbfc9a29d56748c4dd8",
+            "index_u32_sha256": "76ee9acb8a7ed8958f8852af5675579e3566115c5429459c847e643b486d5bf3"
+          },
+          "geometry_b": {
+            "offset": 5479,
+            "end_offset": 5499,
+            "vertices": 1,
+            "triangles": 0,
+            "bounds": {
+              "min": [
+                0.0,
+                2.9802322387695312e-08,
+                2.9802322387695312e-08
+              ],
+              "max": [
+                0.0,
+                2.9802322387695312e-08,
+                2.9802322387695312e-08
+              ]
+            },
+            "xyz_f32_sha256": "d66d4c2ff0790c5ba073474ffa07aeb824aaa1bd0f1e93bb68277d93ba66cc10",
+            "index_u32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "referenced_vertices": 8,
+          "edges": 12,
+          "faces": 6
+        },
+        "representation_b": {
+          "offset": 6095,
+          "end_offset": 9815,
+          "geometry_a": {
+            "offset": 6095,
+            "end_offset": 6991,
+            "vertices": 26,
+            "triangles": 48,
+            "bounds": {
+              "min": [
+                -0.6750593185424805,
+                -0.4816003143787384,
+                -0.6750593185424805
+              ],
+              "max": [
+                0.6750593185424805,
+                0.4816003739833832,
+                0.6750593781471252
+              ]
+            },
+            "xyz_f32_sha256": "7043950e01a612d8747e13277d521809d83d0c2ebdbb4043a0cae894c780286d",
+            "index_u32_sha256": "4bc1b37c587ac776580677cc0e990fd0b9e1325235325c7bb9affc3e8ecd0472"
+          },
+          "geometry_b": {
+            "offset": 6991,
+            "end_offset": 7011,
+            "vertices": 1,
+            "triangles": 0,
+            "bounds": {
+              "min": [
+                5.084985321701652e-09,
+                -1.937283045094773e-08,
+                -3.1221684793081295e-08
+              ],
+              "max": [
+                5.084985321701652e-09,
+                -1.937283045094773e-08,
+                -3.1221684793081295e-08
+              ]
+            },
+            "xyz_f32_sha256": "7de23c36b9dbc609e330ccf37d41b1a5d0027d7b41b45a5ac36a3d5030616e9b",
+            "index_u32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "referenced_vertices": 26,
+          "edges": 56,
+          "faces": 32
+        }
+      },
+      "evidence_grade": "CONFIRMED_BY_BOTH",
+      "live_shape_selection": "UNKNOWN; static shape/body registration proved, frame not captured",
+      "packfs": {
+        "path": "\\TNG\\DATAPSM\\MISC\\OBJECTS\\TUMBLEWEED\\TUMBLWEED.PSM",
+        "offset": 1210350011,
+        "stored_size": 4518,
+        "directory_size_0x08": 4518,
+        "unpacked_size": 9819,
+        "compression": "packfs_lzo",
+        "stored_sha256": "6d323d9dba67a22895146a7b95e2adacc880d386975b76a1b8bdac798e9243f7",
+        "payload_sha256": "eb959250d0bdb6fa051fb69f4a852c4789be200613eb8e90678d36a48ab54bf4",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    }
+  ],
+  "canonical_inputs": {
+    "SLES_509.06": {
+      "size": 3739852,
+      "sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2"
+    },
+    "SYSTEM.CNF": {
+      "size": 56,
+      "sha256": "db08eef06278820a562f9cdacd6a2d5d2bb31870e7cf3a51e83daee3a90c5df2"
+    },
+    "TNG.PAK": {
+      "size": 135556,
+      "sha256": "d98c7cf1049a8a3bc2f90a528a2b6f52cd43c16c2e0564830d5ecb9c592ab28d"
+    },
+    "TNG.000": {
+      "size": 1225915283,
+      "sha256": "004ac1676376275bf40c1fd5c1c4a9dcfaae870bf1a7916434eb73b0b1faff86"
+    }
+  }
+}

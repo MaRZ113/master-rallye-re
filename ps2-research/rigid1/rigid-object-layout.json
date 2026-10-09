@@ -1,0 +1,666 @@
+{
+  "body": {
+    "allocation_size": 476,
+    "fields": [
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "initialization eventually 1",
+        "meaning": "nonzero pauses integration / static partition",
+        "offset": "+0x00",
+        "readers": [
+          "269968",
+          "16ed78",
+          "1a0258"
+        ],
+        "size": 4,
+        "type": "float32",
+        "writers": [
+          "19ff18",
+          "1a0258",
+          "16e498",
+          "174178"
+        ]
+      },
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "27d060 callback registered by integration wrapper",
+        "meaning": "force callback + context",
+        "offset": "+0x04",
+        "readers": [
+          "integrator"
+        ],
+        "size": 8,
+        "type": "32-bit pointer(s); callback/context pair where size8",
+        "writers": [
+          "266838"
+        ]
+      },
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "13",
+        "meaning": "integrator state value count",
+        "offset": "+0x10",
+        "readers": [
+          "269968"
+        ],
+        "size": 4,
+        "type": "int32/uint32 control word",
+        "writers": [
+          "2668b8"
+        ]
+      },
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "allocated 0x88",
+        "meaning": "integration wrapper pointer",
+        "offset": "+0x18",
+        "readers": [
+          "173cc8"
+        ],
+        "size": 4,
+        "type": "32-bit pointer(s); callback/context pair where size8",
+        "writers": [
+          "266838"
+        ]
+      },
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "9.81",
+        "meaning": "gravity strength",
+        "offset": "+0x1c",
+        "readers": [
+          "27d060"
+        ],
+        "size": 4,
+        "type": "float32",
+        "writers": [
+          "19ff18"
+        ]
+      },
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "authored owner+14",
+        "meaning": "mass",
+        "offset": "+0x20",
+        "readers": [
+          "27d060",
+          "2670b0",
+          "23e968"
+        ],
+        "size": 4,
+        "type": "float32",
+        "writers": [
+          "19ff18"
+        ]
+      },
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "1/mass",
+        "meaning": "inverse mass",
+        "offset": "+0x24",
+        "readers": [
+          "25da08"
+        ],
+        "size": 4,
+        "type": "float32",
+        "writers": [
+          "19ff18"
+        ]
+      },
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "diagonal authored MOI; off-diagonal zero",
+        "meaning": "body/local inertia matrix",
+        "offset": "+0x28",
+        "readers": [
+          "267940"
+        ],
+        "size": 36,
+        "type": "float32[9] or grouped floats as described",
+        "writers": [
+          "19ff18"
+        ]
+      },
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "203358 inverse of body inertia",
+        "meaning": "inverse local inertia matrix",
+        "offset": "+0x4c",
+        "readers": [
+          "2670b0"
+        ],
+        "size": 36,
+        "type": "float32[9] or grouped floats as described",
+        "writers": [
+          "19ff18"
+        ]
+      },
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "R * IbodyInv * transpose(R)",
+        "meaning": "world inverse inertia matrix",
+        "offset": "+0x70",
+        "readers": [
+          "2670b0",
+          "25da08"
+        ],
+        "size": 36,
+        "type": "float32[9] or grouped floats as described",
+        "writers": [
+          "2670b0"
+        ]
+      },
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "constructor global zero; later writers not exhaustively proved",
+        "meaning": "local center-of-mass offset",
+        "offset": "+0x94",
+        "readers": [
+          "267f60"
+        ],
+        "size": 12,
+        "type": "float32[3] or grouped floats as described",
+        "writers": [
+          "2662f8"
+        ]
+      },
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "entity en3d world translation",
+        "meaning": "body position",
+        "offset": "+0xa0",
+        "readers": [
+          "266fb8",
+          "267f60",
+          "25da08"
+        ],
+        "size": 12,
+        "type": "float32[3] or grouped floats as described",
+        "writers": [
+          "2668b8",
+          "2670b0",
+          "23e968",
+          "16f2f0"
+        ]
+      },
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "initial rotation -> 205628",
+        "meaning": "quaternion w,x,y,z",
+        "offset": "+0xac",
+        "readers": [
+          "266e20",
+          "266fb8"
+        ],
+        "size": 16,
+        "type": "float32[4] or grouped floats as described",
+        "writers": [
+          "2668b8",
+          "2670b0"
+        ]
+      },
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "transpose(entity top-left 3x3)",
+        "meaning": "row-major body rotation R",
+        "offset": "+0xbc",
+        "readers": [
+          "267940",
+          "267f60"
+        ],
+        "size": 36,
+        "type": "float32[9] or grouped floats as described",
+        "writers": [
+          "2668b8",
+          "2670b0"
+        ]
+      },
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "R*(0,1,0)",
+        "meaning": "world up basis",
+        "offset": "+0xe0",
+        "readers": [
+          "267f60"
+        ],
+        "size": 12,
+        "type": "float32[3] or grouped floats as described",
+        "writers": [
+          "27c7a0",
+          "callers"
+        ]
+      },
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "R*(1,0,0)",
+        "meaning": "world right basis",
+        "offset": "+0xec",
+        "readers": [
+          "267f60"
+        ],
+        "size": 12,
+        "type": "float32[3] or grouped floats as described",
+        "writers": [
+          "27c7a0",
+          "callers"
+        ]
+      },
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "R*(0,0,1)",
+        "meaning": "world forward basis",
+        "offset": "+0xf8",
+        "readers": [
+          "267f60"
+        ],
+        "size": 12,
+        "type": "float32[3] or grouped floats as described",
+        "writers": [
+          "27c7a0",
+          "callers"
+        ]
+      },
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "mass*initial zero velocity",
+        "meaning": "linear momentum P",
+        "offset": "+0x104",
+        "readers": [
+          "266fb8",
+          "25da08"
+        ],
+        "size": 12,
+        "type": "float32[3] or grouped floats as described",
+        "writers": [
+          "19ff18",
+          "2670b0",
+          "23e968",
+          "1a0258"
+        ]
+      },
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "R Ibody transpose(R) * initial zero omega",
+        "meaning": "angular momentum L",
+        "offset": "+0x110",
+        "readers": [
+          "266fb8",
+          "25da08"
+        ],
+        "size": 12,
+        "type": "float32[3] or grouped floats as described",
+        "writers": [
+          "2670b0",
+          "267940",
+          "1a0258"
+        ]
+      },
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "P/mass",
+        "meaning": "linear velocity v",
+        "offset": "+0x11c",
+        "readers": [
+          "266e20"
+        ],
+        "size": 12,
+        "type": "float32[3] or grouped floats as described",
+        "writers": [
+          "2670b0",
+          "23e968",
+          "1a0258"
+        ]
+      },
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "IworldInv * L",
+        "meaning": "world angular velocity omega",
+        "offset": "+0x128",
+        "readers": [
+          "266e20"
+        ],
+        "size": 12,
+        "type": "float32[3] or grouped floats as described",
+        "writers": [
+          "2670b0",
+          "267940"
+        ]
+      },
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "copied state; precise slots described in integration document",
+        "meaning": "backup quaternion/position/rotation region",
+        "offset": "+0x134",
+        "readers": [
+          "267e00"
+        ],
+        "size": 76,
+        "type": "float32[19] or grouped floats as described",
+        "writers": [
+          "173848",
+          "2668b8"
+        ]
+      },
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "gravity callback writes (0,-g*m,0)",
+        "meaning": "base force accumulator F",
+        "offset": "+0x18c",
+        "readers": [
+          "266e20"
+        ],
+        "size": 12,
+        "type": "float32[3] or grouped floats as described",
+        "writers": [
+          "27d060"
+        ]
+      },
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "constructor zeros",
+        "meaning": "base torque accumulator T",
+        "offset": "+0x198",
+        "readers": [
+          "266e20"
+        ],
+        "size": 12,
+        "type": "float32[3] or grouped floats as described",
+        "writers": [
+          "2662f8;",
+          "additional",
+          "writers",
+          "not",
+          "exhausted"
+        ]
+      },
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "reset/accumulation during contact path",
+        "meaning": "extra force then extra torque",
+        "offset": "+0x1a4",
+        "readers": [
+          "266e20"
+        ],
+        "size": 24,
+        "type": "float32[6] or grouped floats as described",
+        "writers": [
+          "173df0",
+          "23e968"
+        ]
+      },
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "surface helper 1e9e18",
+        "meaning": "surface-derived coefficient; meaning UNKNOWN",
+        "offset": "+0x1bc",
+        "readers": [
+          "solver",
+          "(not",
+          "fully",
+          "traced)"
+        ],
+        "size": 4,
+        "type": "float32",
+        "writers": [
+          "19ff18"
+        ]
+      },
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "surface helper 1e94b8",
+        "meaning": "surface-derived coefficient; meaning UNKNOWN",
+        "offset": "+0x1c0",
+        "readers": [
+          "solver",
+          "(not",
+          "fully",
+          "traced)"
+        ],
+        "size": 4,
+        "type": "float32",
+        "writers": [
+          "19ff18"
+        ]
+      },
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "0",
+        "meaning": "rest/clamp invocation counter",
+        "offset": "+0x1c4",
+        "readers": [
+          "174178"
+        ],
+        "size": 4,
+        "type": "int32/uint32 control word",
+        "writers": [
+          "267e00",
+          "16e498"
+        ]
+      },
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "surface helper 1e9468",
+        "meaning": "surface-derived coefficient; meaning UNKNOWN",
+        "offset": "+0x1cc",
+        "readers": [
+          "solver",
+          "(not",
+          "fully",
+          "traced)"
+        ],
+        "size": 4,
+        "type": "float32",
+        "writers": [
+          "19ff18"
+        ]
+      },
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "Physics/{entity name}/Transform",
+        "meaning": "Broker transform key",
+        "offset": "+0x1d8",
+        "readers": [
+          "267f60"
+        ],
+        "size": 4,
+        "type": "32-bit interned Broker key",
+        "writers": [
+          "265e80",
+          "via",
+          "setup"
+        ]
+      }
+    ],
+    "vtable": "0x0047a508",
+    "vtable_at": "+0x14"
+  },
+  "collision_instance": {
+    "allocation_size": 32,
+    "body": "+0x10",
+    "entity_name": "+0x18",
+    "material_category": "+0x14"
+  },
+  "coordinate_system": "GAME_SOURCE",
+  "manager": {
+    "allocation_size": 116,
+    "detector": "+0x34",
+    "prop_vector": "+0x20/+0x24/+0x28",
+    "vehicle_vector": "+0x14/+0x18/+0x1c",
+    "vtable": "0x00474050"
+  },
+  "owner": {
+    "allocation_size": 60,
+    "fields": [
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "constructor",
+        "meaning": "AI vtable 0x00473820",
+        "offset": "+0x08",
+        "readers": [
+          "generic",
+          "virtual",
+          "dispatch"
+        ],
+        "size": 4,
+        "type": "32-bit pointer(s); callback/context pair where size8",
+        "writers": [
+          "19fcd0",
+          "1cfe90"
+        ]
+      },
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "NOT_INITIALIZED_BY_CTOR; initialization assigns",
+        "meaning": "separate physics body pointer",
+        "offset": "+0x0c",
+        "readers": [
+          "1a0258"
+        ],
+        "size": 4,
+        "type": "32-bit pointer(s); callback/context pair where size8",
+        "writers": [
+          "19ff18"
+        ]
+      },
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "0",
+        "meaning": "authored Casts Shadow Bool",
+        "offset": "+0x10",
+        "readers": [
+          "19fdb0",
+          "(schema",
+          "writer);",
+          "consumer",
+          "beyond",
+          "reader",
+          "UNKNOWN"
+        ],
+        "size": 4,
+        "type": "Bool represented as 32-bit field",
+        "writers": [
+          "19fcd0",
+          "19fe98"
+        ]
+      },
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "500",
+        "meaning": "authored mass",
+        "offset": "+0x14",
+        "readers": [
+          "19ff18"
+        ],
+        "size": 4,
+        "type": "float32",
+        "writers": [
+          "19fcd0",
+          "19fe98"
+        ]
+      },
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "5",
+        "meaning": "authored Trigger Distance",
+        "offset": "+0x18",
+        "readers": [
+          "19fdb0;",
+          "NOT_READ_IN_1a0258"
+        ],
+        "size": 4,
+        "type": "float32",
+        "writers": [
+          "19fcd0",
+          "19fe98"
+        ]
+      },
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "100,100,100",
+        "meaning": "authored diagonal MOI XYZ",
+        "offset": "+0x1c",
+        "readers": [
+          "19ff18"
+        ],
+        "size": 12,
+        "type": "float32[3] or grouped floats as described",
+        "writers": [
+          "19fcd0",
+          "19fe98"
+        ]
+      },
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "0",
+        "meaning": "owner acknowledgment flag",
+        "offset": "+0x2c",
+        "readers": [
+          "1a0258"
+        ],
+        "size": 4,
+        "type": "int32/uint32 control word",
+        "writers": [
+          "19fcd0",
+          "1a0258"
+        ]
+      },
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "0",
+        "meaning": "far-decay invocation counter",
+        "offset": "+0x30",
+        "readers": [
+          "1a0258"
+        ],
+        "size": 4,
+        "type": "int32/uint32 control word",
+        "writers": [
+          "19fcd0",
+          "1a0258"
+        ]
+      },
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "init=1",
+        "meaning": "owner settled-state flag",
+        "offset": "+0x34",
+        "readers": [
+          "1a0258"
+        ],
+        "size": 4,
+        "type": "int32/uint32 control word",
+        "writers": [
+          "19ff18",
+          "1a0258"
+        ]
+      },
+      {
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "initialization": "init=0",
+        "meaning": "far pause/decay flag",
+        "offset": "+0x38",
+        "readers": [
+          "1a0258"
+        ],
+        "size": 4,
+        "type": "int32/uint32 control word",
+        "writers": [
+          "19ff18",
+          "1a0258"
+        ]
+      }
+    ],
+    "vtable": "0x00473820"
+  },
+  "schema": 1,
+  "transform_ai": {
+    "allocation_size": 20,
+    "broker_key": "+0x0c",
+    "delay_interpolation": "+0x10",
+    "vtable": "0x0047a1e8"
+  },
+  "unknowns": [
+    "Byte-perfect layout of every manager helper is outside scope.",
+    "Meaning of surface coefficients is not assigned from a plausible friction name."
+  ]
+}

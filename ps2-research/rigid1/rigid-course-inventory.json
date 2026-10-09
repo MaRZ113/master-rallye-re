@@ -1,0 +1,4660 @@
+{
+  "schema": "ps2-rigid-contract-v1",
+  "canonical_inputs": {
+    "SLES_509.06": {
+      "size": 3739852,
+      "sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2"
+    },
+    "SYSTEM.CNF": {
+      "size": 56,
+      "sha256": "db08eef06278820a562f9cdacd6a2d5d2bb31870e7cf3a51e83daee3a90c5df2"
+    },
+    "TNG.PAK": {
+      "size": 135556,
+      "sha256": "d98c7cf1049a8a3bc2f90a528a2b6f52cd43c16c2e0564830d5ecb9c592ab28d"
+    },
+    "TNG.000": {
+      "size": 1225915283,
+      "sha256": "004ac1676376275bf40c1fd5c1c4a9dcfaae870bf1a7916434eb73b0b1faff86"
+    }
+  },
+  "courses": [
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCE1.XML",
+      "decoded_sha256": "fc7c3e5aec9f0aa753be0bbabd158da826b8331f5e6327949c96066352c4c437",
+      "records": [],
+      "counts": {
+        "authored_eggs": 0,
+        "distinct_matrix_hashes": 0,
+        "families": {}
+      },
+      "course": "FRANCE1",
+      "pc_source": "DataScene/RaceTest/France1.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\FRANCE1.XML",
+        "offset": 1224256130,
+        "stored_size": 58229,
+        "directory_size_0x08": 58229,
+        "unpacked_size": 475491,
+        "compression": "packfs_lzo",
+        "stored_sha256": "a38090fca7af3f8c0efb5e2ed9327d86f85ca0a7e0793d51e9af2d3f15a07727",
+        "payload_sha256": "fc7c3e5aec9f0aa753be0bbabd158da826b8331f5e6327949c96066352c4c437",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCE2.XML",
+      "decoded_sha256": "73994778517d708c542cec93fadbc80d9f243986a80e98445f7a401ef61ffc99",
+      "records": [],
+      "counts": {
+        "authored_eggs": 0,
+        "distinct_matrix_hashes": 0,
+        "families": {}
+      },
+      "course": "FRANCE2",
+      "pc_source": "DataScene/RaceTest/France2.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\FRANCE2.XML",
+        "offset": 1224314359,
+        "stored_size": 50928,
+        "directory_size_0x08": 50928,
+        "unpacked_size": 410142,
+        "compression": "packfs_lzo",
+        "stored_sha256": "8035bc78b127a5e0e2b87e95b691d9dda1b589ed426b7ab97b256794a2ca44e3",
+        "payload_sha256": "73994778517d708c542cec93fadbc80d9f243986a80e98445f7a401ef61ffc99",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCEM.XML",
+      "decoded_sha256": "b9d4d752f181b0915b1fa82a4eebc48d25dbb1287a92007bf0a8968aae77c780",
+      "records": [],
+      "counts": {
+        "authored_eggs": 0,
+        "distinct_matrix_hashes": 0,
+        "families": {}
+      },
+      "course": "FRANCEM",
+      "pc_source": "DataScene/RaceTest/FranceM.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\FRANCEM.XML",
+        "offset": 1224365287,
+        "stored_size": 56060,
+        "directory_size_0x08": 56060,
+        "unpacked_size": 457432,
+        "compression": "packfs_lzo",
+        "stored_sha256": "e6b30856c0316db66a7dd9b0aca61ebbe6f177a99f6743bf907da807743b58ca",
+        "payload_sha256": "b9d4d752f181b0915b1fa82a4eebc48d25dbb1287a92007bf0a8968aae77c780",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCES1.XML",
+      "decoded_sha256": "961d479907fd1ae23efa090a86e73f99d08397db6f1f7971a0f792aff7408f0a",
+      "records": [],
+      "counts": {
+        "authored_eggs": 0,
+        "distinct_matrix_hashes": 0,
+        "families": {}
+      },
+      "course": "FRANCES1",
+      "pc_source": "DataScene/RaceTest/FranceS1.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\FRANCES1.XML",
+        "offset": 1224421347,
+        "stored_size": 45642,
+        "directory_size_0x08": 45642,
+        "unpacked_size": 385941,
+        "compression": "packfs_lzo",
+        "stored_sha256": "df701ba807c24894fc7d8ece926ad0ca46a17ce01d9b8a3760a684e022f37fcd",
+        "payload_sha256": "961d479907fd1ae23efa090a86e73f99d08397db6f1f7971a0f792aff7408f0a",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCES2.XML",
+      "decoded_sha256": "61f18daf5146c79f21334708a195fe72f0f79cfc4e8282e3fb95ac9d20c64c1e",
+      "records": [],
+      "counts": {
+        "authored_eggs": 0,
+        "distinct_matrix_hashes": 0,
+        "families": {}
+      },
+      "course": "FRANCES2",
+      "pc_source": "DataScene/RaceTest/FranceS2.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\FRANCES2.XML",
+        "offset": 1224466989,
+        "stored_size": 56696,
+        "directory_size_0x08": 56696,
+        "unpacked_size": 460975,
+        "compression": "packfs_lzo",
+        "stored_sha256": "99bda25bc06d66c51b7248dff065fc70976739137fbcc3407e2566701036cf05",
+        "payload_sha256": "61f18daf5146c79f21334708a195fe72f0f79cfc4e8282e3fb95ac9d20c64c1e",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCEW.XML",
+      "decoded_sha256": "6584be244c0081dff1b11ae41f4a30da1905adcd99d753e5a921c2c1f27e1bef",
+      "records": [],
+      "counts": {
+        "authored_eggs": 0,
+        "distinct_matrix_hashes": 0,
+        "families": {}
+      },
+      "course": "FRANCEW",
+      "pc_source": "DataScene/RaceTest/FranceW.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\FRANCEW.XML",
+        "offset": 1224523685,
+        "stored_size": 54487,
+        "directory_size_0x08": 54487,
+        "unpacked_size": 443571,
+        "compression": "packfs_lzo",
+        "stored_sha256": "f3ae34ffc8aeee1a9f638eb1b4c47f365822fab4daa0652581799815dd630bb3",
+        "payload_sha256": "6584be244c0081dff1b11ae41f4a30da1905adcd99d753e5a921c2c1f27e1bef",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\FRANCEWFLIP.XML",
+      "decoded_sha256": "6615efe8ff52dacb7b0312576e27f1404a7ba37edb90d388c8c833876ec772ee",
+      "records": [],
+      "counts": {
+        "authored_eggs": 0,
+        "distinct_matrix_hashes": 0,
+        "families": {}
+      },
+      "course": "FRANCEWFLIP",
+      "pc_source": "DataScene/RaceTest/FranceWFlip.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\FRANCEWFLIP.XML",
+        "offset": 1224578172,
+        "stored_size": 49311,
+        "directory_size_0x08": 49311,
+        "unpacked_size": 409353,
+        "compression": "packfs_lzo",
+        "stored_sha256": "c2657ad39e7d0c52e4a0219b996b80035d00e6b4c4d71529d43cf6e1d902a036",
+        "payload_sha256": "6615efe8ff52dacb7b0312576e27f1404a7ba37edb90d388c8c833876ec772ee",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALY1.XML",
+      "decoded_sha256": "f089fdb13a2647255212ddb9737f0ca6fd4f70a31791b54afe3c7f8634a82ed7",
+      "records": [],
+      "counts": {
+        "authored_eggs": 0,
+        "distinct_matrix_hashes": 0,
+        "families": {}
+      },
+      "course": "ITALY1",
+      "pc_source": "DataScene/RaceTest/Italy1.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\ITALY1.XML",
+        "offset": 1224627483,
+        "stored_size": 34975,
+        "directory_size_0x08": 34975,
+        "unpacked_size": 283135,
+        "compression": "packfs_lzo",
+        "stored_sha256": "68710f92b543a77f8adddc7222b82ea31fbe4f740aec102331e13154f0eafc78",
+        "payload_sha256": "f089fdb13a2647255212ddb9737f0ca6fd4f70a31791b54afe3c7f8634a82ed7",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML",
+      "decoded_sha256": "56ef29e13f9cc3f64fb1d2d31b0cc293d3ccd08deed8e88e2a78752b90574c69",
+      "records": [
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML:list:12:egg:4:ai:0",
+          "list_name": "IContManager",
+          "list_index": 12,
+          "egg_index": 4,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "False"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "562.00 447.00 562.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              562.0,
+              447.0,
+              562.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": false
+          },
+          "matrix_sha256": "05af65cdf5401a77203962682123bbe32782ec2d71350ec0cf0b274ce6613829",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML:list:12:egg:5:ai:0",
+          "list_name": "IContManager",
+          "list_index": 12,
+          "egg_index": 5,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "False"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "562.00 447.00 562.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              562.0,
+              447.0,
+              562.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": false
+          },
+          "matrix_sha256": "019fe9a38fd0656a625b860caa630e569d263ca7e0df8664815571b2702d268c",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML:list:12:egg:6:ai:0",
+          "list_name": "IContManager",
+          "list_index": 12,
+          "egg_index": 6,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "False"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "562.00 447.00 562.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              562.0,
+              447.0,
+              562.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": false
+          },
+          "matrix_sha256": "fe12a5df052cf3e3aa68753374ed98b37a30bcdd9d10319d18cf01b079128393",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML:list:12:egg:7:ai:0",
+          "list_name": "IContManager",
+          "list_index": 12,
+          "egg_index": 7,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "False"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "562.00 447.00 562.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              562.0,
+              447.0,
+              562.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": false
+          },
+          "matrix_sha256": "06fcac1563a6d753edfe0bf6fe2eefca8aecdbf5049690d667b98cab0e482e07",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML:list:12:egg:8:ai:0",
+          "list_name": "IContManager",
+          "list_index": 12,
+          "egg_index": 8,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "False"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "562.00 447.00 562.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              562.0,
+              447.0,
+              562.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": false
+          },
+          "matrix_sha256": "faee4bcd4f810b7dc8c51bfd370382236b2fcb669dcff7282f342714c57beb0d",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML:list:12:egg:9:ai:0",
+          "list_name": "IContManager",
+          "list_index": 12,
+          "egg_index": 9,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "False"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "562.00 447.00 562.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              562.0,
+              447.0,
+              562.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": false
+          },
+          "matrix_sha256": "e9cf70fa005d46b01482554bb89b02cfd7a3425604d33f81a4efb14453534ffb",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML:list:12:egg:10:ai:0",
+          "list_name": "IContManager",
+          "list_index": 12,
+          "egg_index": 10,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "False"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "562.00 447.00 562.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              562.0,
+              447.0,
+              562.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": false
+          },
+          "matrix_sha256": "df4445dc72498da54248f87fcbc4d2277a772caae3a5043c9e9aa0f411106bff",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML:list:12:egg:11:ai:0",
+          "list_name": "IContManager",
+          "list_index": 12,
+          "egg_index": 11,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "False"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "562.00 447.00 562.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              562.0,
+              447.0,
+              562.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": false
+          },
+          "matrix_sha256": "090b75bea62361c1119aa4e15ba22a7d09328be6b8f9f8042bc9a8c3b17aa732",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML:list:12:egg:12:ai:0",
+          "list_name": "IContManager",
+          "list_index": 12,
+          "egg_index": 12,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "False"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "562.00 447.00 562.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              562.0,
+              447.0,
+              562.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": false
+          },
+          "matrix_sha256": "2e3da6703e5c918f63ed23a0ebb5ec45fb79b622e9a7bfb7b9fa863d1ce603d1",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML:list:12:egg:13:ai:0",
+          "list_name": "IContManager",
+          "list_index": 12,
+          "egg_index": 13,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "False"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "562.00 447.00 562.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              562.0,
+              447.0,
+              562.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": false
+          },
+          "matrix_sha256": "959be5d6708116c5ea89f82548681c4a8f9898521abdeb616561947aaf0e32c5",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML:list:12:egg:14:ai:0",
+          "list_name": "IContManager",
+          "list_index": 12,
+          "egg_index": 14,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "False"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "562.00 447.00 562.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              562.0,
+              447.0,
+              562.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": false
+          },
+          "matrix_sha256": "80b9e85b302e08b151b7b92c1a8ec486f8dd9e73b0429e4b986a0477fa6d9815",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        }
+      ],
+      "counts": {
+        "authored_eggs": 11,
+        "distinct_matrix_hashes": 11,
+        "families": {
+          "haybale": 11
+        }
+      },
+      "course": "ITALY2",
+      "pc_source": "DataScene/RaceTest/Italy2.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML",
+        "offset": 1224662458,
+        "stored_size": 41290,
+        "directory_size_0x08": 41290,
+        "unpacked_size": 330681,
+        "compression": "packfs_lzo",
+        "stored_sha256": "8ef7d74ae3a4b7958ff4a2f70b1ce7959df338630d42b3fb5480a794cb2ee439",
+        "payload_sha256": "56ef29e13f9cc3f64fb1d2d31b0cc293d3ccd08deed8e88e2a78752b90574c69",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALY3.XML",
+      "decoded_sha256": "4906b90b90560a73df3b73ed11b5fd536accbdd1a02d1f599531c694902a5cee",
+      "records": [],
+      "counts": {
+        "authored_eggs": 0,
+        "distinct_matrix_hashes": 0,
+        "families": {}
+      },
+      "course": "ITALY3",
+      "pc_source": "DataScene/RaceTest/Italy3.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\ITALY3.XML",
+        "offset": 1224703748,
+        "stored_size": 37268,
+        "directory_size_0x08": 37268,
+        "unpacked_size": 302669,
+        "compression": "packfs_lzo",
+        "stored_sha256": "d56d2e4090365646aa4bc02ca4895258860a40463a6e1c86f84505425939de0a",
+        "payload_sha256": "4906b90b90560a73df3b73ed11b5fd536accbdd1a02d1f599531c694902a5cee",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYM1.XML",
+      "decoded_sha256": "d6e818e132d2061577c7b43c2bd42d3bc8fac66b28e195de2e71957cdcadb85a",
+      "records": [],
+      "counts": {
+        "authored_eggs": 0,
+        "distinct_matrix_hashes": 0,
+        "families": {}
+      },
+      "course": "ITALYM1",
+      "pc_source": "DataScene/RaceTest/ItalyM1.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\ITALYM1.XML",
+        "offset": 1224741016,
+        "stored_size": 49060,
+        "directory_size_0x08": 49060,
+        "unpacked_size": 408632,
+        "compression": "packfs_lzo",
+        "stored_sha256": "6134d7048cd4d7c37ae33edb6ae99f37feab9e83df6f01f5e4aa59ef5f74a6f3",
+        "payload_sha256": "d6e818e132d2061577c7b43c2bd42d3bc8fac66b28e195de2e71957cdcadb85a",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYM1FLIP.XML",
+      "decoded_sha256": "83402e92b8092edb7c82e6b6dc9b4bd0490d9547a8882a864cfaa127094315ad",
+      "records": [],
+      "counts": {
+        "authored_eggs": 0,
+        "distinct_matrix_hashes": 0,
+        "families": {}
+      },
+      "course": "ITALYM1FLIP",
+      "pc_source": "DataScene/RaceTest/ItalyM1Flip.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\ITALYM1FLIP.XML",
+        "offset": 1224790076,
+        "stored_size": 48924,
+        "directory_size_0x08": 48924,
+        "unpacked_size": 404855,
+        "compression": "packfs_lzo",
+        "stored_sha256": "acf728e4d2c206346803f835673ad6d3522ab66502b24c1821a4f19f41ae1e2e",
+        "payload_sha256": "83402e92b8092edb7c82e6b6dc9b4bd0490d9547a8882a864cfaa127094315ad",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYM2.XML",
+      "decoded_sha256": "133f3872bc08251fdc7d6f1f275421b5ac7f00ee601d739589034a7f46681ec3",
+      "records": [],
+      "counts": {
+        "authored_eggs": 0,
+        "distinct_matrix_hashes": 0,
+        "families": {}
+      },
+      "course": "ITALYM2",
+      "pc_source": "DataScene/RaceTest/ItalyM2.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\ITALYM2.XML",
+        "offset": 1224839000,
+        "stored_size": 42262,
+        "directory_size_0x08": 42262,
+        "unpacked_size": 368488,
+        "compression": "packfs_lzo",
+        "stored_sha256": "449d9a9ac56b7a2c0d0d67f89a4aee4deeb23b40971a56c240f8ce562fc7d02c",
+        "payload_sha256": "133f3872bc08251fdc7d6f1f275421b5ac7f00ee601d739589034a7f46681ec3",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML",
+      "decoded_sha256": "56603a9b51f509032a3f15953f161eeaa25044b2c00b5988a73e0c2cbc9c9a92",
+      "records": [
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML:list:3:egg:2:ai:0",
+          "list_name": "Physics",
+          "list_index": 3,
+          "egg_index": 2,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "565.00 447.00 565.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              565.0,
+              447.0,
+              565.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "0d74a563d15424383cd5aa96bedf1da6eec4aff20ce3b88211ec1202b77688f3",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML:list:3:egg:3:ai:0",
+          "list_name": "Physics",
+          "list_index": 3,
+          "egg_index": 3,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "565.00 447.00 565.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              565.0,
+              447.0,
+              565.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "67f28435f1fbe67d338a8876e985496e69f3d345e6c2be8dbf4f47cdb42215f3",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML:list:3:egg:4:ai:0",
+          "list_name": "Physics",
+          "list_index": 3,
+          "egg_index": 4,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "565.00 447.00 565.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              565.0,
+              447.0,
+              565.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "1cd5a9bf054831c124a7eecb191501d9619cde1973b619b8725854ae0805b2d7",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML:list:3:egg:5:ai:0",
+          "list_name": "Physics",
+          "list_index": 3,
+          "egg_index": 5,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "565.00 447.00 565.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              565.0,
+              447.0,
+              565.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "a9ee5f846e50396ae40bc05760231328fe5fdf1cf4a8a7114dd13770897fbc60",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML:list:3:egg:6:ai:0",
+          "list_name": "Physics",
+          "list_index": 3,
+          "egg_index": 6,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "565.00 447.00 565.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              565.0,
+              447.0,
+              565.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "5bf3dcb11e72de0b4372906ae193745af5bbca951939fde33338e560d6d9c292",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML:list:3:egg:7:ai:0",
+          "list_name": "Physics",
+          "list_index": 3,
+          "egg_index": 7,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "565.00 447.00 565.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              565.0,
+              447.0,
+              565.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "744ea1caee2b075ee53b62f0030e6a3784333441ce1eb51f7a1a48ff274689d8",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML:list:3:egg:8:ai:0",
+          "list_name": "Physics",
+          "list_index": 3,
+          "egg_index": 8,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "565.00 447.00 565.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              565.0,
+              447.0,
+              565.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "7bfe2f1c2cc1929d66fd2d3a41aeb97405c22dadf0a296d4d317cc7b3225a539",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML:list:3:egg:9:ai:0",
+          "list_name": "Physics",
+          "list_index": 3,
+          "egg_index": 9,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "565.00 447.00 565.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              565.0,
+              447.0,
+              565.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "d9fce10ee79adbf823e380dfab359fd2696d3ca4967891f5427d8801c8f21a8b",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML:list:3:egg:10:ai:0",
+          "list_name": "Physics",
+          "list_index": 3,
+          "egg_index": 10,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "565.00 447.00 565.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              565.0,
+              447.0,
+              565.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "0b71802ad05853a73e8bd4a0dcaf56d87ac2525170c30886d935d344c3cb35fc",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML:list:3:egg:11:ai:0",
+          "list_name": "Physics",
+          "list_index": 3,
+          "egg_index": 11,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "565.00 447.00 565.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              565.0,
+              447.0,
+              565.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "94155185dbdb71a083bdd02cf2bd9598e6529b5902a9d9a162c374ccc29c4e5c",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML:list:3:egg:12:ai:0",
+          "list_name": "Physics",
+          "list_index": 3,
+          "egg_index": 12,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "565.00 447.00 565.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              565.0,
+              447.0,
+              565.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "dd0fb345b5083d423aa719953d5c0c23f90647f6549e3a8aa8f5ba5b24abc928",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML:list:3:egg:13:ai:0",
+          "list_name": "Physics",
+          "list_index": 3,
+          "egg_index": 13,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "565.00 447.00 565.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              565.0,
+              447.0,
+              565.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "e7d2e32d873b77134fef405aa222f03d4f435e88dd8dc31f12d0af5fc6160721",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML:list:3:egg:14:ai:0",
+          "list_name": "Physics",
+          "list_index": 3,
+          "egg_index": 14,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "565.00 447.00 565.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              565.0,
+              447.0,
+              565.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "d92809b3a5e56d9709200ef6e5a18581af3973c2cecfb981647667f2ae6893e0",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML:list:3:egg:15:ai:0",
+          "list_name": "Physics",
+          "list_index": 3,
+          "egg_index": 15,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "565.00 447.00 565.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              565.0,
+              447.0,
+              565.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "0d74a563d15424383cd5aa96bedf1da6eec4aff20ce3b88211ec1202b77688f3",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        }
+      ],
+      "counts": {
+        "authored_eggs": 14,
+        "distinct_matrix_hashes": 13,
+        "families": {
+          "haybale": 14
+        }
+      },
+      "course": "ITALYS1",
+      "pc_source": "DataScene/RaceTest/ItalyS1.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML",
+        "offset": 1224881262,
+        "stored_size": 40712,
+        "directory_size_0x08": 40712,
+        "unpacked_size": 353158,
+        "compression": "packfs_lzo",
+        "stored_sha256": "e04042a11cd2658894e33a69de9757685c1614f7f3cdc18abfc02504a6e39f5f",
+        "payload_sha256": "56603a9b51f509032a3f15953f161eeaa25044b2c00b5988a73e0c2cbc9c9a92",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS2.XML",
+      "decoded_sha256": "e43d3a14d063814590a582e5d968b6f04c7b68d75e5e4b3c8240c2c822161957",
+      "records": [],
+      "counts": {
+        "authored_eggs": 0,
+        "distinct_matrix_hashes": 0,
+        "families": {}
+      },
+      "course": "ITALYS2",
+      "pc_source": "DataScene/RaceTest/ItalyS2.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\ITALYS2.XML",
+        "offset": 1224921974,
+        "stored_size": 42099,
+        "directory_size_0x08": 42099,
+        "unpacked_size": 363960,
+        "compression": "packfs_lzo",
+        "stored_sha256": "f54c1d35429f46e97bd8c00084d66378d554ce3754d79a110ce3d98cbe588ed7",
+        "payload_sha256": "e43d3a14d063814590a582e5d968b6f04c7b68d75e5e4b3c8240c2c822161957",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS3.XML",
+      "decoded_sha256": "d5e5d88c50cd641b97058dd74dcb07ab9b349c49bcf7f9bab59cd70a27ad4ff8",
+      "records": [],
+      "counts": {
+        "authored_eggs": 0,
+        "distinct_matrix_hashes": 0,
+        "families": {}
+      },
+      "course": "ITALYS3",
+      "pc_source": "DataScene/RaceTest/ItalyS3.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\ITALYS3.XML",
+        "offset": 1224964073,
+        "stored_size": 42950,
+        "directory_size_0x08": 42950,
+        "unpacked_size": 347629,
+        "compression": "packfs_lzo",
+        "stored_sha256": "805ddc188324b39fe2f5cc3d5f34798b6fd45efc0b106280939a9eae846b626c",
+        "payload_sha256": "d5e5d88c50cd641b97058dd74dcb07ab9b349c49bcf7f9bab59cd70a27ad4ff8",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS3FLIP.XML",
+      "decoded_sha256": "ba5fae57e1b1cb0ed46b4b75ed6609d078ef5632384ce5da4ab06ccb1e3e338d",
+      "records": [],
+      "counts": {
+        "authored_eggs": 0,
+        "distinct_matrix_hashes": 0,
+        "families": {}
+      },
+      "course": "ITALYS3FLIP",
+      "pc_source": "DataScene/RaceTest/ItalyS3Flip.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\ITALYS3FLIP.XML",
+        "offset": 1225007023,
+        "stored_size": 45551,
+        "directory_size_0x08": 45551,
+        "unpacked_size": 369894,
+        "compression": "packfs_lzo",
+        "stored_sha256": "2e419f27e160c19d8c164263e8c65539f40dcca1125665a66916685e7306a1de",
+        "payload_sha256": "ba5fae57e1b1cb0ed46b4b75ed6609d078ef5632384ce5da4ab06ccb1e3e338d",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML",
+      "decoded_sha256": "2d7249f24e6556c13be8f38027b1df22bd1e49d94b81ccfabbb6f61420a13e1a",
+      "records": [
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML:list:3:egg:2:ai:0",
+          "list_name": "Physics",
+          "list_index": 3,
+          "egg_index": 2,
+          "ai_index": 0,
+          "egg": "haybale0",
+          "model": "misc\\objects\\haybales\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "562.00 447.00 562.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              562.0,
+              447.0,
+              562.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "92a9aa18f5cd6a65b5f14557a4e009974cc038154e6e71605dd49305e0341a75",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML:list:3:egg:3:ai:0",
+          "list_name": "Physics",
+          "list_index": 3,
+          "egg_index": 3,
+          "ai_index": 0,
+          "egg": "haybale0",
+          "model": "misc\\objects\\haybales\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "562.00 447.00 562.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              562.0,
+              447.0,
+              562.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "6fa729e8daf1051d11e23f21071523d3a8c4e72d2f9af20a7ee2e5712edd6036",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML:list:3:egg:4:ai:0",
+          "list_name": "Physics",
+          "list_index": 3,
+          "egg_index": 4,
+          "ai_index": 0,
+          "egg": "haybale0",
+          "model": "misc\\objects\\haybales\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "562.00 447.00 562.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              562.0,
+              447.0,
+              562.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "ae4cfcff057dd7d1ee4342531aa1391a0d7d71a348c32f791cfd778ab4eed521",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML:list:3:egg:5:ai:0",
+          "list_name": "Physics",
+          "list_index": 3,
+          "egg_index": 5,
+          "ai_index": 0,
+          "egg": "haybale0",
+          "model": "misc\\objects\\haybales\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "562.00 447.00 562.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              562.0,
+              447.0,
+              562.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "5bc4604e87d405bf0c02c571e214f361e5618fd3b9eb2116720d2210234b68b9",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML:list:3:egg:6:ai:0",
+          "list_name": "Physics",
+          "list_index": 3,
+          "egg_index": 6,
+          "ai_index": 0,
+          "egg": "haybale0",
+          "model": "misc\\objects\\haybales\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "562.00 447.00 562.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              562.0,
+              447.0,
+              562.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "56818046c78c5ef86e58e5db73289bbc512019d030e9f657251c65b444c3ada8",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML:list:3:egg:7:ai:0",
+          "list_name": "Physics",
+          "list_index": 3,
+          "egg_index": 7,
+          "ai_index": 0,
+          "egg": "haybale0",
+          "model": "misc\\objects\\haybales\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "562.00 447.00 562.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              562.0,
+              447.0,
+              562.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "ff64b314d679b653a1c651a8e55f48d5e5e4857cc8725160545371368e7d272f",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML:list:3:egg:8:ai:0",
+          "list_name": "Physics",
+          "list_index": 3,
+          "egg_index": 8,
+          "ai_index": 0,
+          "egg": "haybale0",
+          "model": "misc\\objects\\haybales\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "562.00 447.00 562.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              562.0,
+              447.0,
+              562.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "521cfa6fe7ec9ddbf974c51d12df8d3cbec990c5b99449dc5b7f60aa915569c6",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML:list:3:egg:9:ai:0",
+          "list_name": "Physics",
+          "list_index": 3,
+          "egg_index": 9,
+          "ai_index": 0,
+          "egg": "haybale0",
+          "model": "misc\\objects\\haybales\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "562.00 447.00 562.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              562.0,
+              447.0,
+              562.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "4fcc9078f1280205ef7112311667cc392bd8a98e44faac339d8f436dc6724b66",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML:list:3:egg:10:ai:0",
+          "list_name": "Physics",
+          "list_index": 3,
+          "egg_index": 10,
+          "ai_index": 0,
+          "egg": "haybale0",
+          "model": "misc\\objects\\haybales\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "562.00 447.00 562.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              562.0,
+              447.0,
+              562.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "8e42d86adf4c3b455885b0ffb6f5c9282f203b533aeff68fa1f87017520ab54a",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML:list:3:egg:11:ai:0",
+          "list_name": "Physics",
+          "list_index": 3,
+          "egg_index": 11,
+          "ai_index": 0,
+          "egg": "haybale0",
+          "model": "misc\\objects\\haybales\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "562.00 447.00 562.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              562.0,
+              447.0,
+              562.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "e4003b7aeef66771b82d706e3241187051b13749464e50160773b296f3686436",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        }
+      ],
+      "counts": {
+        "authored_eggs": 10,
+        "distinct_matrix_hashes": 10,
+        "families": {
+          "haybale": 10
+        }
+      },
+      "course": "ITALYS4",
+      "pc_source": "DataScene/RaceTest/ItalyS4.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML",
+        "offset": 1225052574,
+        "stored_size": 46316,
+        "directory_size_0x08": 46316,
+        "unpacked_size": 408846,
+        "compression": "packfs_lzo",
+        "stored_sha256": "c6f9731656c8c2b96f1a8f77c5dcbf3e37cd8311ffc8324353cf9cf06a5701d8",
+        "payload_sha256": "2d7249f24e6556c13be8f38027b1df22bd1e49d94b81ccfabbb6f61420a13e1a",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML",
+      "decoded_sha256": "d9461c464e967d52773aeaf691520d6ef0b130f062d8b9590d17bd9fc0110af0",
+      "records": [
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML:list:12:egg:1:ai:0",
+          "list_name": "IConManager",
+          "list_index": 12,
+          "egg_index": 1,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "565.00 447.00 565.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              565.0,
+              447.0,
+              565.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "d65dc0b01b3b7252b24cb8c4c9ff8d2d3f4724e5467cf5264386f17a3b1a544c",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML:list:12:egg:2:ai:0",
+          "list_name": "IConManager",
+          "list_index": 12,
+          "egg_index": 2,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "565.00 447.00 565.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              565.0,
+              447.0,
+              565.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "f6cda8c8753c235fc011e877489e70325b84c443e47f4077b2ca7b7f60c93966",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML:list:12:egg:3:ai:0",
+          "list_name": "IConManager",
+          "list_index": 12,
+          "egg_index": 3,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "565.00 447.00 565.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              565.0,
+              447.0,
+              565.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "ede37f2927c6476cf82b389c177f095b88f610355c5c6ecb46207366155d5a3a",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML:list:12:egg:4:ai:0",
+          "list_name": "IConManager",
+          "list_index": 12,
+          "egg_index": 4,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "565.00 447.00 565.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              565.0,
+              447.0,
+              565.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "7fbde76da90b29169a8d8ac80b3ec8d2b6058d114458b614758f5194abb9c59e",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML:list:12:egg:5:ai:0",
+          "list_name": "IConManager",
+          "list_index": 12,
+          "egg_index": 5,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "565.00 447.00 565.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              565.0,
+              447.0,
+              565.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "3fda19a476e794b4253985a319a05d456cf685e6435f181471291bc705fe3400",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML:list:12:egg:6:ai:0",
+          "list_name": "IConManager",
+          "list_index": 12,
+          "egg_index": 6,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "565.00 447.00 565.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              565.0,
+              447.0,
+              565.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "543f9ef6a0a53ba78a750f5b6cf7d1cd3fdd1a26870354a54df982c02d271d56",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML:list:12:egg:7:ai:0",
+          "list_name": "IConManager",
+          "list_index": 12,
+          "egg_index": 7,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "565.00 447.00 565.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              565.0,
+              447.0,
+              565.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "6b8abc3eae4a1195746a07e263ba4670fe1cb12610b7bc0328bd49567dca3679",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML:list:12:egg:8:ai:0",
+          "list_name": "IConManager",
+          "list_index": 12,
+          "egg_index": 8,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "565.00 447.00 565.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              565.0,
+              447.0,
+              565.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "939dd34c8eadb82da971840460ef43637fc71fc02b78c356090388d39c5e6bf8",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML:list:12:egg:9:ai:0",
+          "list_name": "IConManager",
+          "list_index": 12,
+          "egg_index": 9,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "565.00 447.00 565.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              565.0,
+              447.0,
+              565.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "d4bae19d09a9fe682491178789e547a9232608485b4ec5a57ce0036de0c032c2",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML:list:12:egg:10:ai:0",
+          "list_name": "IConManager",
+          "list_index": 12,
+          "egg_index": 10,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "565.00 447.00 565.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              565.0,
+              447.0,
+              565.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "48599654ce1f91c25f8214e1e97d394fd4f6d38e91c7fd605ec8263d42474a52",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        }
+      ],
+      "counts": {
+        "authored_eggs": 10,
+        "distinct_matrix_hashes": 10,
+        "families": {
+          "haybale": 10
+        }
+      },
+      "course": "ITALYW1",
+      "pc_source": "DataScene/RaceTest/ItalyW1.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML",
+        "offset": 1225098890,
+        "stored_size": 47812,
+        "directory_size_0x08": 47812,
+        "unpacked_size": 425607,
+        "compression": "packfs_lzo",
+        "stored_sha256": "d984f255b39ae81e6e3d366b8ae62b7a5cb66a80d6ba484dda2a8a552d312829",
+        "payload_sha256": "d9461c464e967d52773aeaf691520d6ef0b130f062d8b9590d17bd9fc0110af0",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML",
+      "decoded_sha256": "e910034391104ec29c6456a4e13cc6c697b614b06b245a53d85be1d2c2011126",
+      "records": [
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML:list:11:egg:2:ai:0",
+          "list_name": "IConManager",
+          "list_index": 11,
+          "egg_index": 2,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "565.00 447.00 565.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              565.0,
+              447.0,
+              565.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "79cbd59b2c3651562288082657497bc371d9574349179a1888755593a8687421",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML:list:11:egg:3:ai:0",
+          "list_name": "IConManager",
+          "list_index": 11,
+          "egg_index": 3,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "565.00 447.00 565.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              565.0,
+              447.0,
+              565.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "29bd51ec0a8d8c2575d029aedfbbf71bd218877b681159fb4d9b5c7c0e11993a",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML:list:11:egg:4:ai:0",
+          "list_name": "IConManager",
+          "list_index": 11,
+          "egg_index": 4,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "565.00 447.00 565.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              565.0,
+              447.0,
+              565.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "b94c94b5369f3598ed922451f756bc52e1351c8818795b1ed3994264547183d7",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML:list:11:egg:5:ai:0",
+          "list_name": "IConManager",
+          "list_index": 11,
+          "egg_index": 5,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "565.00 447.00 565.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              565.0,
+              447.0,
+              565.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "7e9835e894586900ad1bf9b8268a9ae4ba2b1c0457e34bffb20881d08a9081d5",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML:list:11:egg:6:ai:0",
+          "list_name": "IConManager",
+          "list_index": 11,
+          "egg_index": 6,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "565.00 447.00 565.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              565.0,
+              447.0,
+              565.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "3a78d03afce41c89c39bb5a48833417fe8e71264c417b26c0e25683b9b396ddc",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML:list:11:egg:7:ai:0",
+          "list_name": "IConManager",
+          "list_index": 11,
+          "egg_index": 7,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "565.00 447.00 565.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              565.0,
+              447.0,
+              565.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "9d371696d04a5403b148a7f2023bde2521861270be758ec5e085cc130dcf85ae",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML:list:11:egg:8:ai:0",
+          "list_name": "IConManager",
+          "list_index": 11,
+          "egg_index": 8,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "565.00 447.00 565.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              565.0,
+              447.0,
+              565.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "0a0d222c5c6d365868e38825f24def70424b3ebba2df12a8afabb68d2c1b42a4",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML:list:11:egg:9:ai:0",
+          "list_name": "IConManager",
+          "list_index": 11,
+          "egg_index": 9,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "565.00 447.00 565.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              565.0,
+              447.0,
+              565.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "7166e1a48543b9d55d18eac96ce7c6f66befddc5c97cd5d5fb657053fca01525",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML:list:11:egg:10:ai:0",
+          "list_name": "IConManager",
+          "list_index": 11,
+          "egg_index": 10,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "565.00 447.00 565.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              565.0,
+              447.0,
+              565.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "c2956f0ec706886ff1e7a7dd0283e544af2badb48aa917fee004a2ce31df602f",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML:list:11:egg:11:ai:0",
+          "list_name": "IConManager",
+          "list_index": 11,
+          "egg_index": 11,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "565.00 447.00 565.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              565.0,
+              447.0,
+              565.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "2722ba2a6f7db9b1f9d1f98208d94cd12b65a715fc50129787184088616cd687",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML:list:11:egg:12:ai:0",
+          "list_name": "IConManager",
+          "list_index": 11,
+          "egg_index": 12,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "565.00 447.00 565.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              565.0,
+              447.0,
+              565.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "4b5bdcb3ccd06f634d8b5803b8d50b45d6a1f49e9808b1f956f0db39a9b7897e",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML:list:11:egg:13:ai:0",
+          "list_name": "IConManager",
+          "list_index": 11,
+          "egg_index": 13,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "565.00 447.00 565.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              565.0,
+              447.0,
+              565.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "f68538d3e5d07091d13a99c8856d9a13443c697b4895aacb4c022be196ebd59e",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML:list:11:egg:14:ai:0",
+          "list_name": "IConManager",
+          "list_index": 11,
+          "egg_index": 14,
+          "ai_index": 0,
+          "egg": "haybale",
+          "model": "misc\\haybale\\haybale",
+          "family": "haybale",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "500.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "565.00 447.00 565.00"
+            }
+          ],
+          "resolved": {
+            "mass": 500.0,
+            "moi": [
+              565.0,
+              447.0,
+              565.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "17ae5a0b60629bb5dfaaec90ea88d2785a96e329ef01b7ab888835028f7662f8",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        }
+      ],
+      "counts": {
+        "authored_eggs": 13,
+        "distinct_matrix_hashes": 13,
+        "families": {
+          "haybale": 13
+        }
+      },
+      "course": "ITALYW2",
+      "pc_source": "DataScene/RaceTest/ItalyW2.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML",
+        "offset": 1225146702,
+        "stored_size": 49866,
+        "directory_size_0x08": 49866,
+        "unpacked_size": 437358,
+        "compression": "packfs_lzo",
+        "stored_sha256": "2cd29ce46557e7af3096a6a89c8a9f6f2bbb33408f7f8e702362b86fedabfaf1",
+        "payload_sha256": "e910034391104ec29c6456a4e13cc6c697b614b06b245a53d85be1d2c2011126",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAIN1.XML",
+      "decoded_sha256": "08ad416db70206e2e33cc4d45d5bb8193f49c6daec1cdca2f1d5e669e05091ab",
+      "records": [],
+      "counts": {
+        "authored_eggs": 0,
+        "distinct_matrix_hashes": 0,
+        "families": {}
+      },
+      "course": "SPAIN1",
+      "pc_source": "DataScene/RaceTest/Spain1.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\SPAIN1.XML",
+        "offset": 1225196568,
+        "stored_size": 36874,
+        "directory_size_0x08": 36874,
+        "unpacked_size": 315723,
+        "compression": "packfs_lzo",
+        "stored_sha256": "8664760d82ef9d75dfd792db4b34bb24c1399aff1fffdb1508dc817caf9e3673",
+        "payload_sha256": "08ad416db70206e2e33cc4d45d5bb8193f49c6daec1cdca2f1d5e669e05091ab",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAIN2.XML",
+      "decoded_sha256": "6a064bdcf407ab026d5f9640f6ce33cc8c59c6272ba3afabdb6128dec3256016",
+      "records": [],
+      "counts": {
+        "authored_eggs": 0,
+        "distinct_matrix_hashes": 0,
+        "families": {}
+      },
+      "course": "SPAIN2",
+      "pc_source": "DataScene/RaceTest/Spain2.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\SPAIN2.XML",
+        "offset": 1225233442,
+        "stored_size": 41982,
+        "directory_size_0x08": 41982,
+        "unpacked_size": 366565,
+        "compression": "packfs_lzo",
+        "stored_sha256": "64869c0cd43680432ba203c4f194db9bad04a016f60060bf5dbbbe118dc64be5",
+        "payload_sha256": "6a064bdcf407ab026d5f9640f6ce33cc8c59c6272ba3afabdb6128dec3256016",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAINM.XML",
+      "decoded_sha256": "1f6e7e4c90c13e6326e7e20dacc9aafcf2b5aa9cc7837507965b5eddf3f88aa5",
+      "records": [],
+      "counts": {
+        "authored_eggs": 0,
+        "distinct_matrix_hashes": 0,
+        "families": {}
+      },
+      "course": "SPAINM",
+      "pc_source": "DataScene/RaceTest/SpainM.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\SPAINM.XML",
+        "offset": 1225275424,
+        "stored_size": 44742,
+        "directory_size_0x08": 44742,
+        "unpacked_size": 386867,
+        "compression": "packfs_lzo",
+        "stored_sha256": "a1c65270f9f783d104ce56a3a9cabf6c4c0466b33cae7ef4830cfce8a3f54425",
+        "payload_sha256": "1f6e7e4c90c13e6326e7e20dacc9aafcf2b5aa9cc7837507965b5eddf3f88aa5",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAINS1.XML",
+      "decoded_sha256": "949ac964982b8175bc7ab022af3efa4ccae04436bc93c0fe0f4157e231ecfb9d",
+      "records": [],
+      "counts": {
+        "authored_eggs": 0,
+        "distinct_matrix_hashes": 0,
+        "families": {}
+      },
+      "course": "SPAINS1",
+      "pc_source": "DataScene/RaceTest/SpainS1.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\SPAINS1.XML",
+        "offset": 1225320166,
+        "stored_size": 43783,
+        "directory_size_0x08": 43783,
+        "unpacked_size": 360900,
+        "compression": "packfs_lzo",
+        "stored_sha256": "cf79022b321b86bece4e0e4fd11be7c96777dc92d99c6dc095be99ba936e5b88",
+        "payload_sha256": "949ac964982b8175bc7ab022af3efa4ccae04436bc93c0fe0f4157e231ecfb9d",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAINS1FLIP.XML",
+      "decoded_sha256": "dd6322e62c41ffb2b044e4874ac1808bafba2d83527bc15079e4c4ad9d086418",
+      "records": [],
+      "counts": {
+        "authored_eggs": 0,
+        "distinct_matrix_hashes": 0,
+        "families": {}
+      },
+      "course": "SPAINS1FLIP",
+      "pc_source": "DataScene/RaceTest/SpainS1Flip.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\SPAINS1FLIP.XML",
+        "offset": 1225363949,
+        "stored_size": 44206,
+        "directory_size_0x08": 44206,
+        "unpacked_size": 367412,
+        "compression": "packfs_lzo",
+        "stored_sha256": "02b92c23ef4361fd67dba7b0df5474348c69efe64460681ca52927e851bcdc8b",
+        "payload_sha256": "dd6322e62c41ffb2b044e4874ac1808bafba2d83527bc15079e4c4ad9d086418",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAINS2.XML",
+      "decoded_sha256": "a86028f610083c4769a9c0826106eafa17087cd06dcd34bd7c676779db4d2b45",
+      "records": [],
+      "counts": {
+        "authored_eggs": 0,
+        "distinct_matrix_hashes": 0,
+        "families": {}
+      },
+      "course": "SPAINS2",
+      "pc_source": "DataScene/RaceTest/SpainS2.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\SPAINS2.XML",
+        "offset": 1225408155,
+        "stored_size": 39170,
+        "directory_size_0x08": 39170,
+        "unpacked_size": 318838,
+        "compression": "packfs_lzo",
+        "stored_sha256": "dff730d96dc875f55a16f1f520dd9b1a7db42f3e306c7e7c8bf0ee66c7bcdf6f",
+        "payload_sha256": "a86028f610083c4769a9c0826106eafa17087cd06dcd34bd7c676779db4d2b45",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAINW.XML",
+      "decoded_sha256": "fc439bc40aaa64bb257c870220154082fcbd2a4751a72f53380e87cd5ba984ca",
+      "records": [],
+      "counts": {
+        "authored_eggs": 0,
+        "distinct_matrix_hashes": 0,
+        "families": {}
+      },
+      "course": "SPAINW",
+      "pc_source": "DataScene/RaceTest/SpainW.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\SPAINW.XML",
+        "offset": 1225447325,
+        "stored_size": 45117,
+        "directory_size_0x08": 45117,
+        "unpacked_size": 363900,
+        "compression": "packfs_lzo",
+        "stored_sha256": "111d1e9c0c0f0452bd991d26a2288d52555380caa7b3f4b07378f704b4b1e4af",
+        "payload_sha256": "fc439bc40aaa64bb257c870220154082fcbd2a4751a72f53380e87cd5ba984ca",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\SPAINWFLIP.XML",
+      "decoded_sha256": "3f608f088959a055dafae017800fa5fc73d00bbb44f99340848b66338a188203",
+      "records": [],
+      "counts": {
+        "authored_eggs": 0,
+        "distinct_matrix_hashes": 0,
+        "families": {}
+      },
+      "course": "SPAINWFLIP",
+      "pc_source": "DataScene/RaceTest/SpainWFlip.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\SPAINWFLIP.XML",
+        "offset": 1225492442,
+        "stored_size": 42529,
+        "directory_size_0x08": 42529,
+        "unpacked_size": 350782,
+        "compression": "packfs_lzo",
+        "stored_sha256": "d59f9025c6ad2d6143b102ca61bba263860fbbe445f3b595b885af26a295efa7",
+        "payload_sha256": "3f608f088959a055dafae017800fa5fc73d00bbb44f99340848b66338a188203",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEY1.XML",
+      "decoded_sha256": "dca7c2e5887e346312681cb7a3fc2451b9febe03e5361ffef39437604a12ee03",
+      "records": [
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEY1.XML:list:11:egg:4:ai:0",
+          "list_name": "IContManager",
+          "list_index": 11,
+          "egg_index": 4,
+          "ai_index": 0,
+          "egg": "tumbleweed",
+          "model": "misc\\objects\\tumbleweed\\tumblweed",
+          "family": "tumbleweed",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "15.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "2.00 2.00 2.00"
+            }
+          ],
+          "resolved": {
+            "mass": 5.0,
+            "moi": [
+              2.0,
+              2.0,
+              2.0
+            ],
+            "trigger_distance": 15.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "b49960f9840ab6965b5558768f591c20cafc6cb9f964a13d8ce009fd45e8f2a4",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEY1.XML:list:11:egg:5:ai:0",
+          "list_name": "IContManager",
+          "list_index": 11,
+          "egg_index": 5,
+          "ai_index": 0,
+          "egg": "tumbleweed",
+          "model": "misc\\objects\\tumbleweed\\tumblweed",
+          "family": "tumbleweed",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "15.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "2.00 2.00 2.00"
+            }
+          ],
+          "resolved": {
+            "mass": 5.0,
+            "moi": [
+              2.0,
+              2.0,
+              2.0
+            ],
+            "trigger_distance": 15.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "f2c863a7924cc8c1b716775d11d9e0e6b6b260089a6d53a7c4663244250102c6",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEY1.XML:list:11:egg:6:ai:0",
+          "list_name": "IContManager",
+          "list_index": 11,
+          "egg_index": 6,
+          "ai_index": 0,
+          "egg": "tumbleweed",
+          "model": "misc\\objects\\tumbleweed\\tumblweed",
+          "family": "tumbleweed",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "15.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "2.00 2.00 2.00"
+            }
+          ],
+          "resolved": {
+            "mass": 5.0,
+            "moi": [
+              2.0,
+              2.0,
+              2.0
+            ],
+            "trigger_distance": 15.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "c57d5b49c29647a6de370b3c571d818ca27036628999c0bedb8f7f262b3c09a3",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEY1.XML:list:11:egg:7:ai:0",
+          "list_name": "IContManager",
+          "list_index": 11,
+          "egg_index": 7,
+          "ai_index": 0,
+          "egg": "tumbleweed",
+          "model": "misc\\objects\\tumbleweed\\tumblweed",
+          "family": "tumbleweed",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "15.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "2.00 2.00 2.00"
+            }
+          ],
+          "resolved": {
+            "mass": 5.0,
+            "moi": [
+              2.0,
+              2.0,
+              2.0
+            ],
+            "trigger_distance": 15.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "986058c9737149a64b27b1b163ec21aca4b187068de2124eccbb40a8dda4a946",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEY1.XML:list:11:egg:8:ai:0",
+          "list_name": "IContManager",
+          "list_index": 11,
+          "egg_index": 8,
+          "ai_index": 0,
+          "egg": "tumbleweed",
+          "model": "misc\\objects\\tumbleweed\\tumblweed",
+          "family": "tumbleweed",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "15.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "2.00 2.00 2.00"
+            }
+          ],
+          "resolved": {
+            "mass": 5.0,
+            "moi": [
+              2.0,
+              2.0,
+              2.0
+            ],
+            "trigger_distance": 15.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "fd3aa160404a4ec9a105ecc14e189220234dd2e0295ba4d4f53f4605292a68df",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEY1.XML:list:11:egg:9:ai:0",
+          "list_name": "IContManager",
+          "list_index": 11,
+          "egg_index": 9,
+          "ai_index": 0,
+          "egg": "tumbleweed",
+          "model": "misc\\objects\\tumbleweed\\tumblweed",
+          "family": "tumbleweed",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "15.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "2.00 2.00 2.00"
+            }
+          ],
+          "resolved": {
+            "mass": 5.0,
+            "moi": [
+              2.0,
+              2.0,
+              2.0
+            ],
+            "trigger_distance": 15.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "7b69329959586151e1f203d52f6af00c035143cb19a2dc32c339c0132ca4ed22",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEY1.XML:list:11:egg:10:ai:0",
+          "list_name": "IContManager",
+          "list_index": 11,
+          "egg_index": 10,
+          "ai_index": 0,
+          "egg": "tumbleweed",
+          "model": "misc\\objects\\tumbleweed\\tumblweed",
+          "family": "tumbleweed",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "15.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "2.00 2.00 2.00"
+            }
+          ],
+          "resolved": {
+            "mass": 5.0,
+            "moi": [
+              2.0,
+              2.0,
+              2.0
+            ],
+            "trigger_distance": 15.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "9f6b032b9918d892a874f70c2f80e65b8f2f29c984f5686c4299a836b7a32705",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        }
+      ],
+      "counts": {
+        "authored_eggs": 7,
+        "distinct_matrix_hashes": 7,
+        "families": {
+          "tumbleweed": 7
+        }
+      },
+      "course": "TURKEY1",
+      "pc_source": "DataScene/RaceTest/Turkey1.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\TURKEY1.XML",
+        "offset": 1225534971,
+        "stored_size": 46590,
+        "directory_size_0x08": 46590,
+        "unpacked_size": 388270,
+        "compression": "packfs_lzo",
+        "stored_sha256": "0c7023ecace450533b2c8e6941efaaa106f34bc9027b3deebe0c22a40457ee25",
+        "payload_sha256": "dca7c2e5887e346312681cb7a3fc2451b9febe03e5361ffef39437604a12ee03",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEY2.XML",
+      "decoded_sha256": "31f5b0fa50367ebf40fb2c7b333913a3c791085d9965112a633df46b33b3ed81",
+      "records": [],
+      "counts": {
+        "authored_eggs": 0,
+        "distinct_matrix_hashes": 0,
+        "families": {}
+      },
+      "course": "TURKEY2",
+      "pc_source": "DataScene/RaceTest/Turkey2.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\TURKEY2.XML",
+        "offset": 1225581561,
+        "stored_size": 36260,
+        "directory_size_0x08": 36260,
+        "unpacked_size": 311759,
+        "compression": "packfs_lzo",
+        "stored_sha256": "e86a0532e361e793bdddf01c2a0cdd072f15e2ef3314a01b509df35a9fb88f83",
+        "payload_sha256": "31f5b0fa50367ebf40fb2c7b333913a3c791085d9965112a633df46b33b3ed81",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML",
+      "decoded_sha256": "7c1c274cd8403bc7fcc2b5e2e8a13e57dccc44dade53a1be57d631ea073e51ce",
+      "records": [
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML:list:11:egg:13:ai:0",
+          "list_name": "IContManager",
+          "list_index": 11,
+          "egg_index": 13,
+          "ai_index": 0,
+          "egg": "tumbleweed",
+          "model": "misc\\objects\\tumbleweed\\tumblweed",
+          "family": "tumbleweed",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "2.00 2.00 2.00"
+            }
+          ],
+          "resolved": {
+            "mass": 5.0,
+            "moi": [
+              2.0,
+              2.0,
+              2.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "dbb65381027ae9e1c0d3f76271b1a7bd5eca952dfc03e2094ac290686e99f7dc",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML:list:11:egg:14:ai:0",
+          "list_name": "IContManager",
+          "list_index": 11,
+          "egg_index": 14,
+          "ai_index": 0,
+          "egg": "tumbleweed",
+          "model": "misc\\objects\\tumbleweed\\tumblweed",
+          "family": "tumbleweed",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "2.00 2.00 2.00"
+            }
+          ],
+          "resolved": {
+            "mass": 5.0,
+            "moi": [
+              2.0,
+              2.0,
+              2.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "0b41798c45bd3dbc73b69c54e08ca0391ba6b5323dcef6b435868ecdae4b8d5f",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML:list:11:egg:15:ai:0",
+          "list_name": "IContManager",
+          "list_index": 11,
+          "egg_index": 15,
+          "ai_index": 0,
+          "egg": "tumbleweed",
+          "model": "misc\\objects\\tumbleweed\\tumblweed",
+          "family": "tumbleweed",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "2.00 2.00 2.00"
+            }
+          ],
+          "resolved": {
+            "mass": 5.0,
+            "moi": [
+              2.0,
+              2.0,
+              2.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "77bc28679ca93e4fabc6e4876e63e233c486e491b572167d06f41fa073e9f9fc",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML:list:11:egg:16:ai:0",
+          "list_name": "IContManager",
+          "list_index": 11,
+          "egg_index": 16,
+          "ai_index": 0,
+          "egg": "tumbleweed",
+          "model": "misc\\objects\\tumbleweed\\tumblweed",
+          "family": "tumbleweed",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "2.00 2.00 2.00"
+            }
+          ],
+          "resolved": {
+            "mass": 5.0,
+            "moi": [
+              2.0,
+              2.0,
+              2.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "eb99a544f7a612ed5906077db1cf4c02bf2eb13cb0d60a5ef8900a233c494295",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML:list:11:egg:17:ai:0",
+          "list_name": "IContManager",
+          "list_index": 11,
+          "egg_index": 17,
+          "ai_index": 0,
+          "egg": "tumbleweed",
+          "model": "misc\\objects\\tumbleweed\\tumblweed",
+          "family": "tumbleweed",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "2.00 2.00 2.00"
+            }
+          ],
+          "resolved": {
+            "mass": 5.0,
+            "moi": [
+              2.0,
+              2.0,
+              2.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "87ed492b5e3f59a502599648c32f7c81ee36c684c6f6cd05c2f3e0e36697d2cf",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML:list:11:egg:18:ai:0",
+          "list_name": "IContManager",
+          "list_index": 11,
+          "egg_index": 18,
+          "ai_index": 0,
+          "egg": "tumbleweed",
+          "model": "misc\\objects\\tumbleweed\\tumblweed",
+          "family": "tumbleweed",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "2.00 2.00 2.00"
+            }
+          ],
+          "resolved": {
+            "mass": 5.0,
+            "moi": [
+              2.0,
+              2.0,
+              2.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "6e8349e7d0fe082a50a033f5a5f5caff481f91d500f3982f0189b0c3673b3d9f",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        }
+      ],
+      "counts": {
+        "authored_eggs": 6,
+        "distinct_matrix_hashes": 6,
+        "families": {
+          "tumbleweed": 6
+        }
+      },
+      "course": "TURKEY3",
+      "pc_source": "DataScene/RaceTest/Turkey3.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML",
+        "offset": 1225617821,
+        "stored_size": 51412,
+        "directory_size_0x08": 51412,
+        "unpacked_size": 436130,
+        "compression": "packfs_lzo",
+        "stored_sha256": "c9960b18b69a5c14dfdb43b39d5ca5d72dd52ecb6eac707f95f47c1ab9f25d55",
+        "payload_sha256": "7c1c274cd8403bc7fcc2b5e2e8a13e57dccc44dade53a1be57d631ea073e51ce",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYM.XML",
+      "decoded_sha256": "4d66a1bc7b3564e255402372f25decc7a1d38e3321b29549486e38f824f93fd6",
+      "records": [
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEYM.XML:list:11:egg:3:ai:0",
+          "list_name": "IConManager",
+          "list_index": 11,
+          "egg_index": 3,
+          "ai_index": 0,
+          "egg": "tumbleweed",
+          "model": "misc\\objects\\tumbleweed\\tumblweed",
+          "family": "tumbleweed",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "2.00 2.00 2.00"
+            }
+          ],
+          "resolved": {
+            "mass": 5.0,
+            "moi": [
+              2.0,
+              2.0,
+              2.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "18152210dfee266962c54ed8531479796c0c6b1a8f1d7c263b348e67e212db5c",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEYM.XML:list:11:egg:4:ai:0",
+          "list_name": "IConManager",
+          "list_index": 11,
+          "egg_index": 4,
+          "ai_index": 0,
+          "egg": "tumbleweed",
+          "model": "misc\\objects\\tumbleweed\\tumblweed",
+          "family": "tumbleweed",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "2.00 2.00 2.00"
+            }
+          ],
+          "resolved": {
+            "mass": 5.0,
+            "moi": [
+              2.0,
+              2.0,
+              2.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "c91f35957fd0f2e90a0322b5d14d7b82591000a1f41977000b6723515e5e9d64",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEYM.XML:list:11:egg:5:ai:0",
+          "list_name": "IConManager",
+          "list_index": 11,
+          "egg_index": 5,
+          "ai_index": 0,
+          "egg": "tumbleweed",
+          "model": "misc\\objects\\tumbleweed\\tumblweed",
+          "family": "tumbleweed",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "2.00 2.00 2.00"
+            }
+          ],
+          "resolved": {
+            "mass": 5.0,
+            "moi": [
+              2.0,
+              2.0,
+              2.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "67ba96dd46cd6e0780c1e788ba94cd04f7ab8950dd830010fc80b174d22eb507",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEYM.XML:list:11:egg:6:ai:0",
+          "list_name": "IConManager",
+          "list_index": 11,
+          "egg_index": 6,
+          "ai_index": 0,
+          "egg": "tumbleweed",
+          "model": "misc\\objects\\tumbleweed\\tumblweed",
+          "family": "tumbleweed",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "2.00 2.00 2.00"
+            }
+          ],
+          "resolved": {
+            "mass": 5.0,
+            "moi": [
+              2.0,
+              2.0,
+              2.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "334fadeea0511979e6851a7fd1ddea3224a8a8112c11511cd0f6ad36e0f44ad9",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEYM.XML:list:11:egg:7:ai:0",
+          "list_name": "IConManager",
+          "list_index": 11,
+          "egg_index": 7,
+          "ai_index": 0,
+          "egg": "tumbleweed",
+          "model": "misc\\objects\\tumbleweed\\tumblweed",
+          "family": "tumbleweed",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "2.00 2.00 2.00"
+            }
+          ],
+          "resolved": {
+            "mass": 5.0,
+            "moi": [
+              2.0,
+              2.0,
+              2.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "024f9800f982e74f04bf5ad98618b5be582c8722d440673a43b49795e2463840",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEYM.XML:list:11:egg:8:ai:0",
+          "list_name": "IConManager",
+          "list_index": 11,
+          "egg_index": 8,
+          "ai_index": 0,
+          "egg": "tumbleweed",
+          "model": "misc\\objects\\tumbleweed\\tumblweed",
+          "family": "tumbleweed",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "2.00 2.00 2.00"
+            }
+          ],
+          "resolved": {
+            "mass": 5.0,
+            "moi": [
+              2.0,
+              2.0,
+              2.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "6cba1d4bceb01c93d436397727c8c4f44e568d4df2c3e88dd9790d249d1a7798",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEYM.XML:list:11:egg:9:ai:0",
+          "list_name": "IConManager",
+          "list_index": 11,
+          "egg_index": 9,
+          "ai_index": 0,
+          "egg": "tumbleweed",
+          "model": "misc\\objects\\tumbleweed\\tumblweed",
+          "family": "tumbleweed",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "2.00 2.00 2.00"
+            }
+          ],
+          "resolved": {
+            "mass": 5.0,
+            "moi": [
+              2.0,
+              2.0,
+              2.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "59ed965d625a6f4fdb11fc89dcb6117e1939ccbf19c7c8f35d4f06350799e5b6",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEYM.XML:list:11:egg:10:ai:0",
+          "list_name": "IConManager",
+          "list_index": 11,
+          "egg_index": 10,
+          "ai_index": 0,
+          "egg": "tumbleweed",
+          "model": "misc\\objects\\tumbleweed\\tumblweed",
+          "family": "tumbleweed",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "2.00 2.00 2.00"
+            }
+          ],
+          "resolved": {
+            "mass": 5.0,
+            "moi": [
+              2.0,
+              2.0,
+              2.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "fbec6951989ea0c6f5a51ee675f97940ea8ca92209f7f36b92807cd6d8e32007",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEYM.XML:list:11:egg:11:ai:0",
+          "list_name": "IConManager",
+          "list_index": 11,
+          "egg_index": 11,
+          "ai_index": 0,
+          "egg": "tumbleweed",
+          "model": "misc\\objects\\tumbleweed\\tumblweed",
+          "family": "tumbleweed",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "2.00 2.00 2.00"
+            }
+          ],
+          "resolved": {
+            "mass": 5.0,
+            "moi": [
+              2.0,
+              2.0,
+              2.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "4291d2865c34baa4680548e6dc84d71d0505285270c187d9ce0fe54ca07aa80b",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        }
+      ],
+      "counts": {
+        "authored_eggs": 9,
+        "distinct_matrix_hashes": 9,
+        "families": {
+          "tumbleweed": 9
+        }
+      },
+      "course": "TURKEYM",
+      "pc_source": "DataScene/RaceTest/TurkeyM.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\TURKEYM.XML",
+        "offset": 1225669233,
+        "stored_size": 52671,
+        "directory_size_0x08": 52671,
+        "unpacked_size": 445574,
+        "compression": "packfs_lzo",
+        "stored_sha256": "6ee4450a0af50a334011467c58359fbe304a05a9a61640e73d20bc2301d9547a",
+        "payload_sha256": "4d66a1bc7b3564e255402372f25decc7a1d38e3321b29549486e38f824f93fd6",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS1.XML",
+      "decoded_sha256": "194c09b97a02efd9c5b30e3a370e403632adfa879199696612c1ad7728456e64",
+      "records": [],
+      "counts": {
+        "authored_eggs": 0,
+        "distinct_matrix_hashes": 0,
+        "families": {}
+      },
+      "course": "TURKEYS1",
+      "pc_source": "DataScene/RaceTest/TurkeyS1.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS1.XML",
+        "offset": 1225721904,
+        "stored_size": 46586,
+        "directory_size_0x08": 46586,
+        "unpacked_size": 388641,
+        "compression": "packfs_lzo",
+        "stored_sha256": "a4fc941a6d6d73f2fee365513cd4f8dec0475d100a0db038e0701a0c86ab7af1",
+        "payload_sha256": "194c09b97a02efd9c5b30e3a370e403632adfa879199696612c1ad7728456e64",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS2.XML",
+      "decoded_sha256": "a9bd520ddb28d3f4e913eb32dc613fe1424c860773e305b32efcae9ac74277eb",
+      "records": [],
+      "counts": {
+        "authored_eggs": 0,
+        "distinct_matrix_hashes": 0,
+        "families": {}
+      },
+      "course": "TURKEYS2",
+      "pc_source": "DataScene/RaceTest/TurkeyS2.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS2.XML",
+        "offset": 1225768490,
+        "stored_size": 52416,
+        "directory_size_0x08": 52416,
+        "unpacked_size": 434053,
+        "compression": "packfs_lzo",
+        "stored_sha256": "1db8ed320991c9e76e4a1d087149e64623280f1bcea972f28b9d5ee54b32699b",
+        "payload_sha256": "a9bd520ddb28d3f4e913eb32dc613fe1424c860773e305b32efcae9ac74277eb",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS2FLIP.XML",
+      "decoded_sha256": "6861e2da78032e13430ab7fde238f68405882787836edba558bdfe3f2fc78734",
+      "records": [
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS2FLIP.XML:list:12:egg:7:ai:0",
+          "list_name": "IConManager",
+          "list_index": 12,
+          "egg_index": 7,
+          "ai_index": 0,
+          "egg": "tumbleweed",
+          "model": "misc\\objects\\tumbleweed\\tumblweed",
+          "family": "tumbleweed",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "2.00 2.00 2.00"
+            }
+          ],
+          "resolved": {
+            "mass": 5.0,
+            "moi": [
+              2.0,
+              2.0,
+              2.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "998cf2b4ee0c4753b58856eb77cba5030af89131a16c06cac297836eb5cb77dc",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS2FLIP.XML:list:12:egg:8:ai:0",
+          "list_name": "IConManager",
+          "list_index": 12,
+          "egg_index": 8,
+          "ai_index": 0,
+          "egg": "tumbleweed",
+          "model": "misc\\objects\\tumbleweed\\tumblweed",
+          "family": "tumbleweed",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "2.00 2.00 2.00"
+            }
+          ],
+          "resolved": {
+            "mass": 5.0,
+            "moi": [
+              2.0,
+              2.0,
+              2.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "26434727f050fc1a152b6e9c4bdd030c7613d3c4700e0ab38644a007d7327c92",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        },
+        {
+          "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS2FLIP.XML:list:12:egg:9:ai:0",
+          "list_name": "IConManager",
+          "list_index": 12,
+          "egg_index": 9,
+          "ai_index": 0,
+          "egg": "tumbleweed",
+          "model": "misc\\objects\\tumbleweed\\tumblweed",
+          "family": "tumbleweed",
+          "parameters": [
+            {
+              "Name": "Casts Shadow",
+              "Type": "Bool",
+              "Value": "True"
+            },
+            {
+              "Name": "Mass",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "Trigger Distance",
+              "Type": "Float",
+              "Value": "5.00000"
+            },
+            {
+              "Name": "MOI",
+              "Type": "Vector3",
+              "Value": "2.00 2.00 2.00"
+            }
+          ],
+          "resolved": {
+            "mass": 5.0,
+            "moi": [
+              2.0,
+              2.0,
+              2.0
+            ],
+            "trigger_distance": 5.0,
+            "casts_shadow": true
+          },
+          "matrix_sha256": "874627f2a1efde75888f902730646bd5c6382064108793f4a120fc1c561a31d2",
+          "evidence_grade": "CONFIRMED_BY_BYTES",
+          "live_instance": "UNKNOWN"
+        }
+      ],
+      "counts": {
+        "authored_eggs": 3,
+        "distinct_matrix_hashes": 3,
+        "families": {
+          "tumbleweed": 3
+        }
+      },
+      "course": "TURKEYS2FLIP",
+      "pc_source": "DataScene/RaceTest/TurkeyS2Flip.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS2FLIP.XML",
+        "offset": 1225820906,
+        "stored_size": 50524,
+        "directory_size_0x08": 50524,
+        "unpacked_size": 423175,
+        "compression": "packfs_lzo",
+        "stored_sha256": "fec6790d5ea69d0eec547cea1606d042966d744213c5efe4baabd56b55be7d43",
+        "payload_sha256": "6861e2da78032e13430ab7fde238f68405882787836edba558bdfe3f2fc78734",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    },
+    {
+      "source": "\\TNG\\DATASCENE\\RACETEST\\TURKEYW.XML",
+      "decoded_sha256": "d3f6ca2853a3cfe448edd06e86ff0cae4184812bc6259b256fbabe50dd940f90",
+      "records": [],
+      "counts": {
+        "authored_eggs": 0,
+        "distinct_matrix_hashes": 0,
+        "families": {}
+      },
+      "course": "TURKEYW",
+      "pc_source": "DataScene/RaceTest/TurkeyW.xml",
+      "packfs": {
+        "path": "\\TNG\\DATASCENE\\RACETEST\\TURKEYW.XML",
+        "offset": 1225871430,
+        "stored_size": 43853,
+        "directory_size_0x08": 43853,
+        "unpacked_size": 370567,
+        "compression": "packfs_lzo",
+        "stored_sha256": "edd775a8ae25d73f19edfdaf6161d1b0afc0137eb7d7a5e3805d8d8e23db8d39",
+        "payload_sha256": "d3f6ca2853a3cfe448edd06e86ff0cae4184812bc6259b256fbabe50dd940f90",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      }
+    }
+  ],
+  "totals": {
+    "course_pairs": 36,
+    "rigid_courses": 9,
+    "authored_eggs": 83,
+    "families": {
+      "haybale": 58,
+      "tumbleweed": 25
+    }
+  },
+  "evidence_grade": "CONFIRMED_BY_BYTES",
+  "runtime_validation": "NOT_PERFORMED"
+}

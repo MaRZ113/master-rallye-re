@@ -1,0 +1,952 @@
+{
+  "schema": "ps2-rigid-contract-v1",
+  "pc_root": "D:\\Game\\Master Rallye\\corpora\\retail\\Data.sma_unpacked",
+  "scan": {
+    "files": 7595,
+    "xml_files": 122,
+    "xml_txt_files": 270,
+    "ordered_filename_sha256": "c581cbbd000ba9cdc03acdb0906b7f45e9f0857becb0e84b18514040e4f94268",
+    "name_tumble_hits": [],
+    "text_hits": {
+      "tumbleweed": [],
+      "tumblweed": [],
+      "gaairigidbody": [],
+      "haybale": [
+        "DataGx/Course/Italy2/Italy2.txt",
+        "DataGx/Course/Italy_M1/Italy_M1.txt",
+        "DataGx/Course/Italy_M1_flip/Italy_M1_flip.txt",
+        "DataGx/Course/Italy_M2/Italy_M2.txt",
+        "DataGx/Course/Italy_S1/Italy_S1.txt",
+        "DataGx/Course/Italy_S2/Italy_S2.txt",
+        "DataGx/Course/Italy_S3/Italy_S3.txt",
+        "DataGx/Course/Italy_S3_flip/Italy_S3_flip.txt",
+        "DataGx/Course/Italy_S4/Italy_S4.txt",
+        "DataGx/Course/Italy_W1/Italy_W1.txt",
+        "DataGx/Course/Italy_W2/Italy_W2.txt",
+        "DataGx/Misc/Haybale/haybaletest.txt"
+      ]
+    },
+    "absence_grade": "NOT_FOUND_IN_SCANNED_PC_CORPUS"
+  },
+  "hay_standalone": {
+    "path": "DataGx/Misc/Haybale/haybaletest.dx",
+    "sha256": "3b355f6d59b3e64789a509964b370a2849e5eeeabab174fab98162f33be045be",
+    "vertices": 34,
+    "triangles": 28,
+    "collision": {
+      "tag": 101,
+      "offset": 1843,
+      "end_offset": 4415,
+      "sha256": "357f0e95c22cf2fcd106360542d92ef129bf8e7156172fdb928ca1e9b9135c24",
+      "base_geometry": {
+        "offset": 1847,
+        "end_offset": 1867,
+        "vertices": 1,
+        "triangles": 0,
+        "bounds": {
+          "min": [
+            -7.280624231498223e-06,
+            2.986597849030659e-07,
+            -1.1682516742439475e-05
+          ],
+          "max": [
+            -7.280624231498223e-06,
+            2.986597849030659e-07,
+            -1.1682516742439475e-05
+          ]
+        },
+        "xyz_f32_sha256": "0e5912a7e62b6b5218f280c2536a355f58ad81cd5c8b821ed24437e7619575db",
+        "index_u32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "base_scalar": 1.5405999422073364,
+      "representation_a": {
+        "offset": 1871,
+        "end_offset": 2735,
+        "geometry_a": {
+          "offset": 1871,
+          "end_offset": 2119,
+          "vertices": 8,
+          "triangles": 12,
+          "bounds": {
+            "min": [
+              -0.7977312207221985,
+              -0.9377852082252502,
+              -0.9261019229888916
+            ],
+            "max": [
+              0.7977166771888733,
+              0.937785804271698,
+              0.9260785579681396
+            ]
+          },
+          "xyz_f32_sha256": "ca966ac076aef7757d9a759644b6455621a20f8387802feded387aef7eac34bc",
+          "index_u32_sha256": "76ee9acb8a7ed8958f8852af5675579e3566115c5429459c847e643b486d5bf3"
+        },
+        "geometry_b": {
+          "offset": 2119,
+          "end_offset": 2139,
+          "vertices": 1,
+          "triangles": 0,
+          "bounds": {
+            "min": [
+              -7.280624231498223e-06,
+              2.986597849030659e-07,
+              -1.1682516742439475e-05
+            ],
+            "max": [
+              -7.280624231498223e-06,
+              2.986597849030659e-07,
+              -1.1682516742439475e-05
+            ]
+          },
+          "xyz_f32_sha256": "0e5912a7e62b6b5218f280c2536a355f58ad81cd5c8b821ed24437e7619575db",
+          "index_u32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "referenced_vertices": 8,
+        "edges": 12,
+        "faces": 6
+      },
+      "representation_b": {
+        "offset": 2735,
+        "end_offset": 4415,
+        "geometry_a": {
+          "offset": 2735,
+          "end_offset": 3271,
+          "vertices": 16,
+          "triangles": 28,
+          "bounds": {
+            "min": [
+              -0.7977312207221985,
+              -0.9377852082252502,
+              -0.9261019229888916
+            ],
+            "max": [
+              0.7977166771888733,
+              0.937785804271698,
+              0.9260785579681396
+            ]
+          },
+          "xyz_f32_sha256": "093ec2f938badcd26f4b9e52d310ed23fa66ade80f447e9d4c1b1ee3223648c7",
+          "index_u32_sha256": "00fff2cb04aa8ba738f9c16227ce0108324b15147efa285195d107b07a58382f"
+        },
+        "geometry_b": {
+          "offset": 3271,
+          "end_offset": 3291,
+          "vertices": 1,
+          "triangles": 0,
+          "bounds": {
+            "min": [
+              -7.289199402293889e-06,
+              3.0722105748282047e-07,
+              -1.1747618373192381e-05
+            ],
+            "max": [
+              -7.289199402293889e-06,
+              3.0722105748282047e-07,
+              -1.1747618373192381e-05
+            ]
+          },
+          "xyz_f32_sha256": "4d153732b2461b997ded4900cd52406e562f3c527f53a45940807b4fe764ddc0",
+          "index_u32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "referenced_vertices": 16,
+        "edges": 24,
+        "faces": 10
+      }
+    },
+    "ps2_collision_agreement": {
+      "representation_a": {
+        "positions": {
+          "source_unique_numeric_positions": 8,
+          "target_unique_numeric_positions": 8,
+          "source_unique_bitwise_positions": 8,
+          "target_unique_bitwise_positions": 8,
+          "bitwise_float32_matches": 1,
+          "numeric_matches": 1,
+          "tolerance_matches": 8,
+          "signed_zero_note": "Numeric equality coalesces signed zero; bitwise positions retain both encodings"
+        },
+        "identical_triangle_indices": true,
+        "tolerance": 0.0001,
+        "coordinate_system": "MODEL_LOCAL_IDENTITY"
+      },
+      "representation_b": {
+        "positions": {
+          "source_unique_numeric_positions": 16,
+          "target_unique_numeric_positions": 16,
+          "source_unique_bitwise_positions": 16,
+          "target_unique_bitwise_positions": 16,
+          "bitwise_float32_matches": 1,
+          "numeric_matches": 1,
+          "tolerance_matches": 16,
+          "signed_zero_note": "Numeric equality coalesces signed zero; bitwise positions retain both encodings"
+        },
+        "identical_triangle_indices": true,
+        "tolerance": 0.0001,
+        "coordinate_system": "MODEL_LOCAL_IDENTITY"
+      }
+    }
+  },
+  "baked_hay_candidates": [
+    {
+      "course": "Italy_S1",
+      "dx_sha256": "5cd86704667cbdc95d4a3b1ff1444c885431fcdd0313cc0f15eca980e3965e8a",
+      "txt_sha256": "56a05853ad3f8bbd92ad6283a90c20b215e7c98c9400d92631fe7dc23b65c5d2",
+      "compiled_draws": 867,
+      "vertices": 61463,
+      "triangles": 46367,
+      "hay_name_leads": 175,
+      "lead_classes": {
+        "moMesh": 174,
+        "moUnknown": 1
+      },
+      "texture_candidate_draws": [
+        {
+          "draw_index": 15,
+          "textures": [
+            "hay-tga",
+            "Null",
+            "Null"
+          ],
+          "triangles": 84,
+          "bounds": {
+            "min": [
+              -704.8729858398438,
+              -56.877960205078125,
+              158.50819396972656
+            ],
+            "max": [
+              -678.8057861328125,
+              -52.71775817871094,
+              186.4669189453125
+            ]
+          }
+        },
+        {
+          "draw_index": 42,
+          "textures": [
+            "hay-tga",
+            "Null",
+            "Null"
+          ],
+          "triangles": 56,
+          "bounds": {
+            "min": [
+              -671.9800415039062,
+              -51.27102279663086,
+              105.6855239868164
+            ],
+            "max": [
+              -664.02197265625,
+              -45.28394317626953,
+              138.35665893554688
+            ]
+          }
+        },
+        {
+          "draw_index": 49,
+          "textures": [
+            "hay-tga",
+            "Null",
+            "Null"
+          ],
+          "triangles": 1278,
+          "bounds": {
+            "min": [
+              -735.7628173828125,
+              -63.84101104736328,
+              155.98915100097656
+            ],
+            "max": [
+              -577.4691772460938,
+              -51.957096099853516,
+              435.4442443847656
+            ]
+          }
+        },
+        {
+          "draw_index": 71,
+          "textures": [
+            "hay-tga",
+            "Null",
+            "Null"
+          ],
+          "triangles": 186,
+          "bounds": {
+            "min": [
+              -638.029541015625,
+              -63.677894592285156,
+              316.6091613769531
+            ],
+            "max": [
+              -578.7734985351562,
+              -56.91408157348633,
+              422.2133483886719
+            ]
+          }
+        },
+        {
+          "draw_index": 103,
+          "textures": [
+            "hay-tga",
+            "Null",
+            "Null"
+          ],
+          "triangles": 784,
+          "bounds": {
+            "min": [
+              -484.1068115234375,
+              -47.09939193725586,
+              34.87970733642578
+            ],
+            "max": [
+              -382.65142822265625,
+              -34.091732025146484,
+              197.80686950683594
+            ]
+          }
+        },
+        {
+          "draw_index": 118,
+          "textures": [
+            "hay-tga",
+            "Null",
+            "Null"
+          ],
+          "triangles": 112,
+          "bounds": {
+            "min": [
+              -659.3804931640625,
+              -52.70664978027344,
+              120.39735412597656
+            ],
+            "max": [
+              -642.5973510742188,
+              -46.71120071411133,
+              153.1765899658203
+            ]
+          }
+        },
+        {
+          "draw_index": 131,
+          "textures": [
+            "hay-tga",
+            "Null",
+            "Null"
+          ],
+          "triangles": 28,
+          "bounds": {
+            "min": [
+              -362.9555969238281,
+              -36.8610725402832,
+              53.660736083984375
+            ],
+            "max": [
+              -360.83843994140625,
+              -34.95497131347656,
+              55.53386688232422
+            ]
+          }
+        },
+        {
+          "draw_index": 196,
+          "textures": [
+            "hay-tga",
+            "Null",
+            "Null"
+          ],
+          "triangles": 799,
+          "bounds": {
+            "min": [
+              -39.586483001708984,
+              -39.11763000488281,
+              508.1198425292969
+            ],
+            "max": [
+              167.48422241210938,
+              -29.91083526611328,
+              676.2377319335938
+            ]
+          }
+        },
+        {
+          "draw_index": 235,
+          "textures": [
+            "hay-tga",
+            "Null",
+            "Null"
+          ],
+          "triangles": 707,
+          "bounds": {
+            "min": [
+              -108.72282409667969,
+              -33.91249084472656,
+              435.1896667480469
+            ],
+            "max": [
+              10.579697608947754,
+              -28.74674415588379,
+              643.7836303710938
+            ]
+          }
+        },
+        {
+          "draw_index": 251,
+          "textures": [
+            "hay-tga",
+            "Null",
+            "Null"
+          ],
+          "triangles": 322,
+          "bounds": {
+            "min": [
+              -166.18280029296875,
+              -31.36405372619629,
+              521.3658447265625
+            ],
+            "max": [
+              -103.13423919677734,
+              -24.160900115966797,
+              626.0365600585938
+            ]
+          }
+        },
+        {
+          "draw_index": 255,
+          "textures": [
+            "hay-tga",
+            "Null",
+            "Null"
+          ],
+          "triangles": 153,
+          "bounds": {
+            "min": [
+              -166.18280029296875,
+              -30.86223030090332,
+              620.403564453125
+            ],
+            "max": [
+              -58.60582733154297,
+              -24.160900115966797,
+              686.0097045898438
+            ]
+          }
+        },
+        {
+          "draw_index": 260,
+          "textures": [
+            "hay-tga",
+            "Null",
+            "Null"
+          ],
+          "triangles": 171,
+          "bounds": {
+            "min": [
+              -60.248836517333984,
+              -31.816938400268555,
+              658.7574462890625
+            ],
+            "max": [
+              -3.8091702461242676,
+              -27.86761474609375,
+              705.2582397460938
+            ]
+          }
+        },
+        {
+          "draw_index": 294,
+          "textures": [
+            "hay-tga",
+            "Null",
+            "Null"
+          ],
+          "triangles": 84,
+          "bounds": {
+            "min": [
+              -63.69263458251953,
+              -34.223995208740234,
+              426.5392761230469
+            ],
+            "max": [
+              -43.39723205566406,
+              -31.712799072265625,
+              434.2297668457031
+            ]
+          }
+        }
+      ],
+      "lead_samples": [
+        {
+          "node_id": 656,
+          "name": "HayBales",
+          "parent_id": 2,
+          "source_index": null,
+          "source_size": null
+        },
+        {
+          "node_id": 657,
+          "name": "HayBale01",
+          "parent_id": 656,
+          "source_index": 7484,
+          "source_size": 12
+        },
+        {
+          "node_id": 658,
+          "name": "HayBale1",
+          "parent_id": 656,
+          "source_index": 7496,
+          "source_size": 28
+        },
+        {
+          "node_id": 659,
+          "name": "HayBale02",
+          "parent_id": 656,
+          "source_index": 7524,
+          "source_size": 28
+        },
+        {
+          "node_id": 660,
+          "name": "HayBale03",
+          "parent_id": 656,
+          "source_index": 7552,
+          "source_size": 28
+        },
+        {
+          "node_id": 661,
+          "name": "HayBale04",
+          "parent_id": 656,
+          "source_index": 7580,
+          "source_size": 28
+        },
+        {
+          "node_id": 662,
+          "name": "HayBale05",
+          "parent_id": 656,
+          "source_index": 7608,
+          "source_size": 28
+        },
+        {
+          "node_id": 663,
+          "name": "HayBale06",
+          "parent_id": 656,
+          "source_index": 7636,
+          "source_size": 28
+        }
+      ],
+      "instance_correspondence": "UNKNOWN; TXT spans are not compiled DX face indices",
+      "risk": "COURSE_INSTANCE_MAPPING_REQUIRED; no whole-draw deletion approved"
+    },
+    {
+      "course": "Italy2",
+      "dx_sha256": "0614f6c933f751d07be0fb7ea5b97d1099ebf6873120b93c506922efc38f8a31",
+      "txt_sha256": "0f75d2557650e10eed4d587da0de426a2262f91034391b61f31c1f6d8bc43a9e",
+      "compiled_draws": 981,
+      "vertices": 68007,
+      "triangles": 50501,
+      "hay_name_leads": 223,
+      "lead_classes": {
+        "moMesh": 222,
+        "moUnknown": 1
+      },
+      "texture_candidate_draws": [
+        {
+          "draw_index": 12,
+          "textures": [
+            "hay-tga",
+            "Null",
+            "Null"
+          ],
+          "triangles": 84,
+          "bounds": {
+            "min": [
+              -704.8729858398438,
+              -56.877960205078125,
+              158.50819396972656
+            ],
+            "max": [
+              -678.8057861328125,
+              -52.71775817871094,
+              186.4669189453125
+            ]
+          }
+        },
+        {
+          "draw_index": 45,
+          "textures": [
+            "hay-tga",
+            "Null",
+            "Null"
+          ],
+          "triangles": 56,
+          "bounds": {
+            "min": [
+              -671.9800415039062,
+              -51.27102279663086,
+              105.6855239868164
+            ],
+            "max": [
+              -664.02197265625,
+              -45.28394317626953,
+              138.35665893554688
+            ]
+          }
+        },
+        {
+          "draw_index": 62,
+          "textures": [
+            "hay-tga",
+            "Null",
+            "Null"
+          ],
+          "triangles": 1278,
+          "bounds": {
+            "min": [
+              -735.7628173828125,
+              -63.84101104736328,
+              155.98915100097656
+            ],
+            "max": [
+              -577.4691772460938,
+              -51.957096099853516,
+              435.4442443847656
+            ]
+          }
+        },
+        {
+          "draw_index": 81,
+          "textures": [
+            "hay-tga",
+            "Null",
+            "Null"
+          ],
+          "triangles": 186,
+          "bounds": {
+            "min": [
+              -638.029541015625,
+              -63.677894592285156,
+              316.6091613769531
+            ],
+            "max": [
+              -578.7734985351562,
+              -56.91408157348633,
+              422.2133483886719
+            ]
+          }
+        },
+        {
+          "draw_index": 111,
+          "textures": [
+            "hay-tga",
+            "Null",
+            "Null"
+          ],
+          "triangles": 784,
+          "bounds": {
+            "min": [
+              -484.1068115234375,
+              -47.09939193725586,
+              34.87970733642578
+            ],
+            "max": [
+              -382.65142822265625,
+              -34.091732025146484,
+              197.80686950683594
+            ]
+          }
+        },
+        {
+          "draw_index": 124,
+          "textures": [
+            "hay-tga",
+            "Null",
+            "Null"
+          ],
+          "triangles": 112,
+          "bounds": {
+            "min": [
+              -659.3804931640625,
+              -52.70664978027344,
+              120.39735412597656
+            ],
+            "max": [
+              -642.5973510742188,
+              -46.71120071411133,
+              153.1765899658203
+            ]
+          }
+        },
+        {
+          "draw_index": 130,
+          "textures": [
+            "hay-tga",
+            "Null",
+            "Null"
+          ],
+          "triangles": 28,
+          "bounds": {
+            "min": [
+              -362.9555969238281,
+              -36.8610725402832,
+              53.660736083984375
+            ],
+            "max": [
+              -360.83843994140625,
+              -34.95497131347656,
+              55.53386688232422
+            ]
+          }
+        },
+        {
+          "draw_index": 204,
+          "textures": [
+            "hay-tga",
+            "Null",
+            "Null"
+          ],
+          "triangles": 799,
+          "bounds": {
+            "min": [
+              -39.586483001708984,
+              -39.11763000488281,
+              508.1198425292969
+            ],
+            "max": [
+              167.48422241210938,
+              -29.91083526611328,
+              676.2377319335938
+            ]
+          }
+        },
+        {
+          "draw_index": 223,
+          "textures": [
+            "hay-tga",
+            "Null",
+            "Null"
+          ],
+          "triangles": 707,
+          "bounds": {
+            "min": [
+              -108.72282409667969,
+              -33.91249084472656,
+              435.1896667480469
+            ],
+            "max": [
+              10.579697608947754,
+              -28.74674415588379,
+              643.7836303710938
+            ]
+          }
+        },
+        {
+          "draw_index": 230,
+          "textures": [
+            "hay-tga",
+            "Null",
+            "Null"
+          ],
+          "triangles": 322,
+          "bounds": {
+            "min": [
+              -166.18280029296875,
+              -31.36405372619629,
+              521.3658447265625
+            ],
+            "max": [
+              -103.13423919677734,
+              -24.160900115966797,
+              626.0365600585938
+            ]
+          }
+        },
+        {
+          "draw_index": 235,
+          "textures": [
+            "hay-tga",
+            "Null",
+            "Null"
+          ],
+          "triangles": 153,
+          "bounds": {
+            "min": [
+              -166.18280029296875,
+              -30.86223030090332,
+              620.403564453125
+            ],
+            "max": [
+              -58.60582733154297,
+              -24.160900115966797,
+              686.0097045898438
+            ]
+          }
+        },
+        {
+          "draw_index": 244,
+          "textures": [
+            "hay-tga",
+            "Null",
+            "Null"
+          ],
+          "triangles": 171,
+          "bounds": {
+            "min": [
+              -60.248836517333984,
+              -31.816938400268555,
+              658.7574462890625
+            ],
+            "max": [
+              -3.8091702461242676,
+              -27.86761474609375,
+              705.2582397460938
+            ]
+          }
+        },
+        {
+          "draw_index": 283,
+          "textures": [
+            "hay-tga",
+            "Null",
+            "Null"
+          ],
+          "triangles": 84,
+          "bounds": {
+            "min": [
+              -63.69263458251953,
+              -34.223995208740234,
+              426.5392761230469
+            ],
+            "max": [
+              -43.39723205566406,
+              -31.712799072265625,
+              434.2297668457031
+            ]
+          }
+        },
+        {
+          "draw_index": 848,
+          "textures": [
+            "hay-tga",
+            "Null",
+            "Null"
+          ],
+          "triangles": 632,
+          "bounds": {
+            "min": [
+              403.55108642578125,
+              -96.82893371582031,
+              147.55294799804688
+            ],
+            "max": [
+              566.7526245117188,
+              -82.18073272705078,
+              327.11676025390625
+            ]
+          }
+        },
+        {
+          "draw_index": 928,
+          "textures": [
+            "hay-tga",
+            "Null",
+            "Null"
+          ],
+          "triangles": 120,
+          "bounds": {
+            "min": [
+              792.2039184570312,
+              -83.90062713623047,
+              151.8336181640625
+            ],
+            "max": [
+              891.4462280273438,
+              -74.5818099975586,
+              261.8828125
+            ]
+          }
+        },
+        {
+          "draw_index": 942,
+          "textures": [
+            "hay-tga",
+            "Null",
+            "Null"
+          ],
+          "triangles": 592,
+          "bounds": {
+            "min": [
+              565.567626953125,
+              -92.58299255371094,
+              124.36083984375
+            ],
+            "max": [
+              793.6836547851562,
+              -78.75408172607422,
+              279.748046875
+            ]
+          }
+        }
+      ],
+      "lead_samples": [
+        {
+          "node_id": 78,
+          "name": "COLLIDE_haybale01",
+          "parent_id": 14,
+          "source_index": 3056,
+          "source_size": 12
+        },
+        {
+          "node_id": 79,
+          "name": "COLLIDE_haybale02",
+          "parent_id": 14,
+          "source_index": 3068,
+          "source_size": 16
+        },
+        {
+          "node_id": 80,
+          "name": "COLLIDE_haybale03",
+          "parent_id": 14,
+          "source_index": 3084,
+          "source_size": 12
+        },
+        {
+          "node_id": 81,
+          "name": "COLLIDE_haybale04",
+          "parent_id": 14,
+          "source_index": 3096,
+          "source_size": 16
+        },
+        {
+          "node_id": 82,
+          "name": "COLLIDE_haybale05",
+          "parent_id": 14,
+          "source_index": 3112,
+          "source_size": 12
+        },
+        {
+          "node_id": 83,
+          "name": "COLLIDE_haybale06",
+          "parent_id": 14,
+          "source_index": 3124,
+          "source_size": 12
+        },
+        {
+          "node_id": 84,
+          "name": "COLLIDE_haybale07",
+          "parent_id": 14,
+          "source_index": 3136,
+          "source_size": 12
+        },
+        {
+          "node_id": 85,
+          "name": "COLLIDE_haybale08",
+          "parent_id": 14,
+          "source_index": 3148,
+          "source_size": 12
+        }
+      ],
+      "instance_correspondence": "UNKNOWN; TXT spans are not compiled DX face indices",
+      "risk": "COURSE_INSTANCE_MAPPING_REQUIRED; no whole-draw deletion approved"
+    }
+  ],
+  "live_behavior": "UNKNOWN; static model existence is not runtime physics"
+}

@@ -1,0 +1,90 @@
+{
+  "activation": {
+    "near": true,
+    "state": {
+      "acknowledged": false,
+      "far_decay": false,
+      "paused": false,
+      "settled": true,
+      "timer": 0
+    }
+  },
+  "derivative": {
+    "force": [
+      0,
+      -4905,
+      0
+    ],
+    "omega": [
+      1,
+      2,
+      3
+    ],
+    "quaternion": [
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "torque": [
+      0,
+      0,
+      0
+    ],
+    "velocity": [
+      1,
+      2,
+      3
+    ]
+  },
+  "gate": {
+    "position": [
+      0,
+      0,
+      0
+    ],
+    "views": [
+      {
+        "position": [
+          0,
+          100,
+          0
+        ],
+        "predicate_200550": true
+      }
+    ]
+  },
+  "input_provenance": "SYNTHETIC",
+  "linear": {
+    "dt": 0.01666666753590107,
+    "mass": 500,
+    "momentum": [
+      0,
+      0,
+      0
+    ],
+    "position": [
+      0,
+      0,
+      0
+    ]
+  },
+  "quaternion_pose": {
+    "local_com": [
+      1,
+      0,
+      0
+    ],
+    "position": [
+      10,
+      20,
+      30
+    ],
+    "quaternion": [
+      1,
+      0,
+      0,
+      0
+    ]
+  }
+}

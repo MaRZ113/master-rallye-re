@@ -1,0 +1,38 @@
+{
+  "course_sdk": {
+    "head": "4244fa0c4d878523c9947f54816bf377cdfb2589",
+    "path": "D:/Game/Master Rallye/master-rallye-re-course",
+    "status": "CLEAN"
+  },
+  "executable_analysis": {
+    "adapter": "Existing elf_ui_query.py + ghidra_ai_bridge/PyGhidra; rollback-only project transaction",
+    "install": "D:/Game/Master Rallye/_reverse-tools/ghidra-bridge-main/ghidra_12.1.4_PUBLIC",
+    "normalized_surrogates": "EE LQ/SQ and optional SQRT for analysis only; original ELF remains immutable",
+    "version": "12.1.4"
+  },
+  "large_original_data": "Ignored ps2-research/data/rigid1 only",
+  "pc_root": "D:/Game/Master Rallye/corpora/retail/Data.sma_unpacked",
+  "phase": "PS2-RIGID1",
+  "ps2_inputs": {
+    "SLES_509.06": {
+      "sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+      "size": 3739852
+    },
+    "SYSTEM.CNF": {
+      "sha256": "db08eef06278820a562f9cdacd6a2d5d2bb31870e7cf3a51e83daee3a90c5df2",
+      "size": 56
+    },
+    "TNG.000": {
+      "sha256": "004ac1676376275bf40c1fd5c1c4a9dcfaae870bf1a7916434eb73b0b1faff86",
+      "size": 1225915283
+    },
+    "TNG.PAK": {
+      "sha256": "d98c7cf1049a8a3bc2f90a528a2b6f52cd43c16c2e0564830d5ecb9c592ab28d",
+      "size": 135556
+    }
+  },
+  "ps2_root": "D:/Game/Master Rallye PS2",
+  "runtime_validation": "NOT_PERFORMED",
+  "schema": 1,
+  "starting_head": "d34a95de2033d6b6cfc94d3b2f55bd0100198d9b"
+}

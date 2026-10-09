@@ -150,3 +150,12 @@ GS/VIF path. [bird_runtime.py](tools/bird_runtime.py) provides explicit-state
 diagnostics; the [handoff](ambient2/HANDOFF.md) retains small regression fixtures.
 Live population/list registry, scheduler, ground activation and VU/frame evidence
 remain separately qualified. No PC bird implementation is included.
+
+The [RIGID1 prop reverse](rigid1/final-report.md) connects authored haybale and
+tumbleweed owners to model convex shapes, view-qualified activation/contact wake,
+momentum/quaternion integration and actual Broker-to-entity world-matrix writes.
+[rigid_runtime.py](tools/rigid_runtime.py) provides bounded read-only diagnostics;
+the [handoff](rigid1/HANDOFF.md) retains compact source/instruction evidence and
+historical test fixtures. Contact magnitude, shadow/trigger consumers outside the
+traced path and live collision validation remain explicit. No PC physics,
+renderer, course assets or SDK are changed.
