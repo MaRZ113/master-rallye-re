@@ -77,3 +77,11 @@ Enabled=1
 ; 0 = Off
 ; 1 = On
 FrameSummaries=1
+
+[PS2FoliagePilot]
+; 0 = Stock; 1 = requested France1Bush01Blend (BLOCKED until live identity proof).
+; This diagnostic checkpoint always renders Stock, including Mode=1.
+Mode=0
+; Opt-in bounded read-only geometry/state probe during an existing F10 capture.
+; No rendering override; restart after changing this setting. Trace.Enabled=1 required.
+Diagnostics=0

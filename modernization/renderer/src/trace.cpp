@@ -88,6 +88,9 @@ DrawClassification Trace::before(uint32_t slot,const Args& a,uintptr_t pc) noexc
  }catch(...){enabled=false;tracker_.reset();if(semantics_)semantics_->clear();classification={};}
  return classification;
 }
+void Trace::foliage_result(const FoliageEvidence& e) noexcept {
+ try{if(e.attempted&&enabled&&control.active&&capture_&&pending_draw_!=UINT32_MAX&&pending_draw_<capture_->draw_count&&foliage_records_.size()<FOLIAGE_PROBE_LIMIT)foliage_records_[pending_draw_]=foliage_json(e);}catch(...){}
+}
 void Trace::reflection_result(const ReflectionOutcome& outcome,uint32_t triangles) noexcept {
  if(outcome.applied){learned_reflection_draws_+=pending_semantic_source_==VehicleSemanticSource::Learned;live_reflection_draws_+=pending_semantic_source_==VehicleSemanticSource::Live;}
  reflection_candidates_+=outcome.candidate;reflection_draws_+=outcome.applied;reflection_triangles_+=outcome.applied?triangles:0;reflection_writes_+=outcome.native_writes;
@@ -143,6 +146,7 @@ void Trace::after(uint32_t slot,const Args& args,uint32_t result,uintptr_t pc,co
  }catch(...){enabled=false;tracker_.reset();if(semantics_)semantics_->clear();control.abort();OutputDebugStringA("R-GFX3 trace disabled after instrumentation failure\n");}
 }
 void Trace::start_capture() noexcept {
+ foliage_records_.clear();foliage_budget.frame=frame_;foliage_budget.draws=0;foliage_budget.bytes=0;
  if(!capture_)capture_.reset(new(std::nothrow)FrameBuffer);
  if(!capture_){control.abort();return;}capture_->initial_effective_viewport=effective_shadow.bindings.viewport;capture_->event_count=0;capture_->draw_count=0;capture_->truncated=false;capture_->dropped=0;
 }
@@ -209,8 +213,10 @@ void Trace::finish(uint32_t result,bool complete,const char* reason) noexcept {
      <<",\"requested_stage1_tci\":";scalar(o,refl.requested_tci);o<<",\"effective_stage1_tci_for_draw\":";scalar(o,refl.effective_tci);
     o<<",\"reflection_mode\":"<<quote(refl.mode)<<",\"reflection_candidate\":"<<(refl.candidate?"true":"false")<<",\"native_override_applied\":"<<(refl.applied?"true":"false")
      <<",\"native_restore_attempted\":"<<(refl.restore_attempted?"true":"false")<<",\"native_restore_success\":"<<(refl.restore_success?"true":"false")<<",\"reflection_reason\":"<<quote(refl.reason);
+    auto probe=foliage_records_.find(e.draw);if(probe!=foliage_records_.end())o<<",\"ps2_foliage_probe\":"<<probe->second;
     o<<",\"draw_index\":"<<e.draw<<",\"primitive_type\":"<<e.args.a[0]<<",\"primitive_count\":"<<e.args.a[e.slot==70?2:e.slot==71?4:e.slot==72?1:3]<<",\"state\":";state(o,capture_->draws[e.draw]);const auto& eff=capture_->draws[e.draw].effective;o<<",\"state_semantics\":\"logical\",\"effective_state\":{\"inherits_logical\":true,\"stage0\":{";for(int j=0;j<4;++j){if(j)o<<',';o<<'"'<<(j==3?21:16+j)<<"\":";scalar(o,eff.filtering[j]);}o<<"},\"viewport\":";viewport(o,native_viewport);o<<",\"projection\":";matrix(o,eff.projection);o<<",\"world_translation_x\":";if(eff.world_x.known)o<<eff.world_x.value;else o<<"null";o<<",\"stage1\":{\"11\":";scalar(o,refl.effective_tci);o<<"}}";}o<<'}';line(o.str());
   }
+  if(!foliage_records_.empty())line("{\"type\":\"foliage_probe_budget\",\"draws\":"+std::to_string(foliage_budget.draws)+",\"bytes\":"+std::to_string(foliage_budget.bytes)+",\"limit\":"+std::to_string(FOLIAGE_PROBE_LIMIT)+",\"disabled\":"+(foliage_budget.disabled?"true":"false")+"}");
   line(summary.str());line("{\"type\":\"frame_end\",\"frame\":"+std::to_string(frame_)+",\"complete\":"+(complete?"true":"false")+",\"reason\":"+quote(reason)+",\"truncated\":"+(capture_->truncated?"true":"false")+",\"dropped_records\":"+std::to_string(capture_->dropped)+",\"draw_records\":"+std::to_string(capture_->draw_count)+"}");
   if(!FlushFileBuffers(f))okay=false;CloseHandle(f);file.value=INVALID_HANDLE_VALUE;
   if(okay&&!MoveFileExW(tmp.c_str(),final.c_str(),MOVEFILE_REPLACE_EXISTING|MOVEFILE_WRITE_THROUGH))okay=false;

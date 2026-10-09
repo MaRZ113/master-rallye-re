@@ -88,6 +88,8 @@ HRESULT Device8::draw_indexed_at(D3DPRIMITIVETYPE type,UINT min_index,UINT verti
  auto guard=trace.guard();auto args=pack(type,min_index,vertices,start,count);
  auto classification=trace.before(71,args,pc);HRESULT repair=repair_reflection();
  if(FAILED(repair)){trace.after(71,args,static_cast<uint32_t>(repair),pc,nullptr,8,true);return repair;}
+ if(visuals.effective.foliage_diagnostics&&trace.enabled&&trace.control.active)
+  trace.foliage_result(probe_foliage(*real_,trace.resources,args,trace.frame_number(),trace.foliage_budget));
  HRESULT hr;
  {ReflectionScope reflection(*real_,trace,visuals,classification,pc,count);
   hr=real_->DrawIndexedPrimitive(type,min_index,vertices,start,count); // Exactly once; original HRESULT survives restoration.

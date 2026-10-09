@@ -14,3 +14,5 @@ python -X pycache_prefix=modernization/renderer/.analysis/pycache -m compileall 
 ```
 
 Run Python capture checks after the native build completes. Generated binaries/logs are ignored; no game deployment occurred. Await P1–P4, D1–D6 and Combined acceptance before R-GFX5 closeout. R-CAM1, photography and HD UI have not begun.
+
+PC-VISUAL-PILOT1: [read-only France1 bush01 diagnostic checkpoint](research/pc-visual-pilot1/final-report.md), **BLOCKED_ON_DRAW_IDENTITY**. `PS2FoliagePilot.Mode=0` and `Diagnostics=0` by default; requested Mode1 remains Stock. F10 content/native-state capture is opt-in and does not authorize an override. [Runtime capture instructions](research/pc-visual-pilot1/runtime-test-plan.md).

@@ -1,0 +1,22 @@
+{
+  "candidate_fvf": {
+    "322": 77,
+    "578": 4
+  },
+  "draws": 10077,
+  "files": 60,
+  "identity": "TARGET_IDENTITY_AMBIGUOUS",
+  "reason": "No course identity or geometry-content signature in historical frames",
+  "same_count_candidates": 81,
+  "versions": {
+    "R-GFX3-1": 28,
+    "R-GFX4-1": 4,
+    "R-GFX4-4": 3,
+    "R-GFX4-5": 4,
+    "R-GFX5-1": 5,
+    "R-GFX5-2": 3,
+    "R-GFX5-3": 3,
+    "R-GFX5-4": 3,
+    "R-GFX5-5": 7
+  }
+}

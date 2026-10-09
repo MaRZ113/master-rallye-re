@@ -1,0 +1,544 @@
+{
+  "course": "FRANCE1",
+  "evidence_grade": "CONFIRMED_BY_BYTES",
+  "geometry_multiset_sha256": "2b60b1f044601052bb5eaeca074615abe3947fdc1b0769c17d300a0b3b3e6f7d",
+  "hash_contract": "Sort XYZ float32 LE uint32 words; normalize -0; sort three points; SHA256 of36bytes. Multiset SHA256 of sorted lowercase face hashes ASCII. Preserve multiplicity; ignore winding.",
+  "other_course_control": {
+    "course": "TURKEY3",
+    "draws": 939,
+    "source_sha256": "724a69da708a124f7dbfd666b7ad8d391bcaf22ff94bd2c91143e305749cf7f8",
+    "target_face_matches": 0
+  },
+  "ps2_check": {
+    "bitwise_float32_unique_faces_matched": 0,
+    "exclusions": {
+      "diagnostic_degenerate_triples": 0,
+      "suppressed_triples": 8
+    },
+    "material": "bush $alphatest() $clamp(uv) $shader(treeblend)",
+    "node_offset": 3509209,
+    "provenance": {
+      "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred",
+      "compression": "packfs_lzo",
+      "directory_size_0x08": 2423641,
+      "evidence": "CONFIRMED_BY_BOTH",
+      "offset": 1040499712,
+      "path": "\\TNG\\DATAPSM\\COURSE\\FRANCE1\\FRANCE1.PSM",
+      "payload_sha256": "d0b9845218ddd1ff4f12b3b16e77eff43aa182ac73992b5cbea8d81be04f935d",
+      "stored_sha256": "bf32946b1e8f322b925028ecb90413c2634bb30cc39904acda1d3f6f4fd9b48c",
+      "stored_size": 2423641,
+      "unpacked_size": 4216655
+    },
+    "resource": "\\TNG\\DATAPSM\\COURSE\\FRANCE1\\FRANCE1.PSM",
+    "runtime_visibility": "UNKNOWN",
+    "source_inputs": "Fresh full canonical SHA256 checks",
+    "strict_correspondence": {
+      "all_source_coordinate_positions": 0,
+      "all_source_coordinate_positions_matching_pc": 0,
+      "centroid_height": {
+        "above_pc": 0,
+        "below_pc": 0,
+        "coplanar_with_any_pc_triangle": 0,
+        "hits": 0,
+        "max_abs_nearest": null,
+        "max_signed_nearest": null,
+        "min_abs_nearest": null,
+        "min_signed_nearest": null,
+        "missing": 0,
+        "performed": false
+      },
+      "coordinate_transform": "IDENTITY; independently checked through ordinary course vertices",
+      "evidence_grade": "CONFIRMED_BY_BYTES",
+      "matched_pc_draws": {
+        "54": 24
+      },
+      "maximum_corner_error": 2.288818359375e-05,
+      "runtime_visibility": "UNKNOWN",
+      "tolerance": 0.001,
+      "triangle_matches": 24,
+      "triangles": 24,
+      "water_vertices": 28,
+      "water_vertices_matching_pc": 28
+    },
+    "triangles": 24
+  },
+  "runtime_identity": "NOT_ESTABLISHED",
+  "runtime_override_allowed": false,
+  "same_texture_controls": [
+    {
+      "draw_index": 16,
+      "geometry_multiset_sha256": "a92ad14c7e7904a2029a620a02d15558af69ce984a04c38ecefc2a7f43a23d68",
+      "is_target": false,
+      "record_path": "course.root.0.16",
+      "triangles": 168,
+      "unique_unsigned_triangles": 84
+    },
+    {
+      "draw_index": 54,
+      "geometry_multiset_sha256": "2b60b1f044601052bb5eaeca074615abe3947fdc1b0769c17d300a0b3b3e6f7d",
+      "is_target": true,
+      "record_path": "course.batch.1.21",
+      "triangles": 48,
+      "unique_unsigned_triangles": 24
+    },
+    {
+      "draw_index": 77,
+      "geometry_multiset_sha256": "201ae1cd068fef56e9525ff681ba6d92c8b58bb81526a12e945e5bba1caf202d",
+      "is_target": false,
+      "record_path": "course.batch.2.16",
+      "triangles": 48,
+      "unique_unsigned_triangles": 24
+    },
+    {
+      "draw_index": 107,
+      "geometry_multiset_sha256": "3411e242b89e8cf581213793befd29723eb2cc357ac7f619641f64d0b7ffe936",
+      "is_target": false,
+      "record_path": "course.batch.3.23",
+      "triangles": 144,
+      "unique_unsigned_triangles": 72
+    },
+    {
+      "draw_index": 154,
+      "geometry_multiset_sha256": "c065714f6a3edf3e8a9cb960385c8fc69fb110407b4d824599da5ca118cf549c",
+      "is_target": false,
+      "record_path": "course.batch.5.15",
+      "triangles": 72,
+      "unique_unsigned_triangles": 36
+    },
+    {
+      "draw_index": 213,
+      "geometry_multiset_sha256": "0ae270303b02bcfb76f902399e2e5f37c7c02f94f698fb25a7285fb1863535db",
+      "is_target": false,
+      "record_path": "course.batch.6.16",
+      "triangles": 144,
+      "unique_unsigned_triangles": 72
+    },
+    {
+      "draw_index": 238,
+      "geometry_multiset_sha256": "88121de4432aab166f7d136cda7f851e3e9bde59e4e0e332fc9d56e895360dd7",
+      "is_target": false,
+      "record_path": "course.batch.7.19",
+      "triangles": 72,
+      "unique_unsigned_triangles": 36
+    },
+    {
+      "draw_index": 282,
+      "geometry_multiset_sha256": "df19c44f801de5f7394db446b8360bc796ba4edae050f044e9fe3c77fd3bdf9c",
+      "is_target": false,
+      "record_path": "course.batch.9.12",
+      "triangles": 96,
+      "unique_unsigned_triangles": 48
+    },
+    {
+      "draw_index": 354,
+      "geometry_multiset_sha256": "6dc37a52e7828b72a71cd881c8f15f09489e061ae29a86467c33b27d782fac76",
+      "is_target": false,
+      "record_path": "course.batch.13.26",
+      "triangles": 144,
+      "unique_unsigned_triangles": 72
+    },
+    {
+      "draw_index": 376,
+      "geometry_multiset_sha256": "54138a02c46303c7518357afb82ae58a9333a489500416d8360a83ed6e5783ef",
+      "is_target": false,
+      "record_path": "course.batch.14.17",
+      "triangles": 72,
+      "unique_unsigned_triangles": 36
+    },
+    {
+      "draw_index": 392,
+      "geometry_multiset_sha256": "e616f4ac46dc4d4073ce3e568b6b05d8ccfba6ce86493ebddd9568aef1367146",
+      "is_target": false,
+      "record_path": "course.batch.15.9",
+      "triangles": 120,
+      "unique_unsigned_triangles": 60
+    },
+    {
+      "draw_index": 445,
+      "geometry_multiset_sha256": "157c7f8949e75d14fd3ccddb2358ead4b4e37dbe89fc6082c438c3a29c27b502",
+      "is_target": false,
+      "record_path": "course.batch.19.10",
+      "triangles": 192,
+      "unique_unsigned_triangles": 96
+    },
+    {
+      "draw_index": 471,
+      "geometry_multiset_sha256": "cfc7e3bf688d6b66ae34514e79a255adbf34f296a1527d71c9f5f0e2f34e001b",
+      "is_target": false,
+      "record_path": "course.batch.20.20",
+      "triangles": 240,
+      "unique_unsigned_triangles": 120
+    },
+    {
+      "draw_index": 493,
+      "geometry_multiset_sha256": "7c0137e281a71febf1a6c149f58db17637407d11e27a74f7e3e88ccf4a634fe7",
+      "is_target": false,
+      "record_path": "course.batch.21.18",
+      "triangles": 72,
+      "unique_unsigned_triangles": 36
+    },
+    {
+      "draw_index": 509,
+      "geometry_multiset_sha256": "0b0d40548423df9e0bc5a4cd2080cf30a97c731ee34ffa82584146d66c80e304",
+      "is_target": false,
+      "record_path": "course.batch.22.11",
+      "triangles": 216,
+      "unique_unsigned_triangles": 108
+    },
+    {
+      "draw_index": 543,
+      "geometry_multiset_sha256": "0c301ab53662854d4cae9e0ae0ca63c8aa85f02525c0acb0d130708c01831c87",
+      "is_target": false,
+      "record_path": "course.batch.23.25",
+      "triangles": 120,
+      "unique_unsigned_triangles": 60
+    },
+    {
+      "draw_index": 614,
+      "geometry_multiset_sha256": "a9b5e361f0400d1e1b2dedc4a3d1cf613eb40646b498e327fac28002894f306b",
+      "is_target": false,
+      "record_path": "course.batch.26.44",
+      "triangles": 72,
+      "unique_unsigned_triangles": 36
+    },
+    {
+      "draw_index": 633,
+      "geometry_multiset_sha256": "7df33d45c799d0b239cac4f2664b378e672ba072b3ab735aa49552973310dc04",
+      "is_target": false,
+      "record_path": "course.batch.27.13",
+      "triangles": 144,
+      "unique_unsigned_triangles": 72
+    },
+    {
+      "draw_index": 729,
+      "geometry_multiset_sha256": "dc754495ff150b8534a8b5f1853ffe2544cb88358b51d793db9e5c5e340bfb32",
+      "is_target": false,
+      "record_path": "course.batch.35.13",
+      "triangles": 72,
+      "unique_unsigned_triangles": 36
+    },
+    {
+      "draw_index": 773,
+      "geometry_multiset_sha256": "47b87db6a4ccdf2210326e35ee18685c5a43908a76145371d80f7660e43769bd",
+      "is_target": false,
+      "record_path": "course.batch.38.18",
+      "triangles": 120,
+      "unique_unsigned_triangles": 60
+    },
+    {
+      "draw_index": 795,
+      "geometry_multiset_sha256": "39979752cfa16b6e544dabb65b29316065f2342e2d166097405b7cb86b4544ae",
+      "is_target": false,
+      "record_path": "course.batch.40.9",
+      "triangles": 18,
+      "unique_unsigned_triangles": 9
+    },
+    {
+      "draw_index": 804,
+      "geometry_multiset_sha256": "076ca574145f76a6e8f7341424e8f8fcd53ba55b78fa2212dc6d6d1d7a51c882",
+      "is_target": false,
+      "record_path": "course.batch.41.6",
+      "triangles": 30,
+      "unique_unsigned_triangles": 15
+    },
+    {
+      "draw_index": 854,
+      "geometry_multiset_sha256": "2da50e86ca7afa14efc21af0c721b66712b11f1d61ce6617c11e7359dbb8a6ea",
+      "is_target": false,
+      "record_path": "course.batch.44.17",
+      "triangles": 96,
+      "unique_unsigned_triangles": 48
+    },
+    {
+      "draw_index": 903,
+      "geometry_multiset_sha256": "6a2b32ba2d820906f00531ab3db775990d4b779fbcc9692d34b67f20f10b3e99",
+      "is_target": false,
+      "record_path": "course.batch.45.19",
+      "triangles": 168,
+      "unique_unsigned_triangles": 84
+    },
+    {
+      "draw_index": 960,
+      "geometry_multiset_sha256": "424bf81951a63d2dbac55fc7b8bd92dd105d85342027f31a9b5e5f0ffa0ee355",
+      "is_target": false,
+      "record_path": "course.batch.47.26",
+      "triangles": 48,
+      "unique_unsigned_triangles": 24
+    }
+  ],
+  "schema": "france1-bush01-source-v1",
+  "source": {
+    "coordinates": "GAME_SOURCE",
+    "coverage": "VALIDATED_COMPLETE_DISJOINT",
+    "draws": 995,
+    "path": "DataGx\\Course\\France1\\france1.dx",
+    "position_array_offset": 16,
+    "retail_identity": "Fresh SHA matches independent frozen WATER1 source identities",
+    "sha256": "a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5",
+    "size": 13489510,
+    "triangles": 64577,
+    "txt_dinghy_leads": [
+      {
+        "name": "DINGHYS",
+        "node_id": 799,
+        "parent_id": 751,
+        "source_index": null,
+        "source_size": null
+      },
+      {
+        "name": "dinghy01",
+        "node_id": 800,
+        "parent_id": 799,
+        "source_index": 47180,
+        "source_size": 12
+      },
+      {
+        "name": "dinghy02",
+        "node_id": 801,
+        "parent_id": 799,
+        "source_index": 47192,
+        "source_size": 12
+      },
+      {
+        "name": "dinghy03",
+        "node_id": 802,
+        "parent_id": 799,
+        "source_index": 47204,
+        "source_size": 12
+      },
+      {
+        "name": "dinghy04",
+        "node_id": 803,
+        "parent_id": 799,
+        "source_index": 47216,
+        "source_size": 12
+      },
+      {
+        "name": "dinghy05",
+        "node_id": 804,
+        "parent_id": 799,
+        "source_index": 47228,
+        "source_size": 12
+      },
+      {
+        "name": "dinghy06",
+        "node_id": 805,
+        "parent_id": 799,
+        "source_index": 47240,
+        "source_size": 12
+      },
+      {
+        "name": "dinghy07",
+        "node_id": 806,
+        "parent_id": 799,
+        "source_index": 47252,
+        "source_size": 12
+      },
+      {
+        "name": "dinghy08",
+        "node_id": 807,
+        "parent_id": 799,
+        "source_index": 47264,
+        "source_size": 12
+      },
+      {
+        "name": "dinghy09",
+        "node_id": 808,
+        "parent_id": 799,
+        "source_index": 47276,
+        "source_size": 12
+      },
+      {
+        "name": "dinghy10",
+        "node_id": 809,
+        "parent_id": 799,
+        "source_index": 47288,
+        "source_size": 12
+      },
+      {
+        "name": "dinghy11",
+        "node_id": 810,
+        "parent_id": 799,
+        "source_index": 47300,
+        "source_size": 12
+      },
+      {
+        "name": "DINGHYS_Masts",
+        "node_id": 811,
+        "parent_id": 751,
+        "source_index": null,
+        "source_size": null
+      },
+      {
+        "name": "dinghymast01",
+        "node_id": 812,
+        "parent_id": 811,
+        "source_index": 47312,
+        "source_size": 3
+      },
+      {
+        "name": "dinghymast02",
+        "node_id": 813,
+        "parent_id": 811,
+        "source_index": 47315,
+        "source_size": 3
+      },
+      {
+        "name": "dinghymast03",
+        "node_id": 814,
+        "parent_id": 811,
+        "source_index": 47318,
+        "source_size": 3
+      },
+      {
+        "name": "dinghymast04",
+        "node_id": 815,
+        "parent_id": 811,
+        "source_index": 47321,
+        "source_size": 3
+      },
+      {
+        "name": "dinghymast05",
+        "node_id": 816,
+        "parent_id": 811,
+        "source_index": 47324,
+        "source_size": 3
+      },
+      {
+        "name": "dinghymast06",
+        "node_id": 817,
+        "parent_id": 811,
+        "source_index": 47327,
+        "source_size": 3
+      },
+      {
+        "name": "dinghymast07",
+        "node_id": 818,
+        "parent_id": 811,
+        "source_index": 47330,
+        "source_size": 3
+      },
+      {
+        "name": "dinghymast08",
+        "node_id": 819,
+        "parent_id": 811,
+        "source_index": 47333,
+        "source_size": 3
+      },
+      {
+        "name": "dinghymast09",
+        "node_id": 820,
+        "parent_id": 811,
+        "source_index": 47336,
+        "source_size": 3
+      },
+      {
+        "name": "dinghymast10",
+        "node_id": 821,
+        "parent_id": 811,
+        "source_index": 47339,
+        "source_size": 3
+      },
+      {
+        "name": "dinghymast11",
+        "node_id": 822,
+        "parent_id": 811,
+        "source_index": 47342,
+        "source_size": 3
+      },
+      {
+        "name": "DINGHYS_Trailers",
+        "node_id": 1186,
+        "parent_id": 867,
+        "source_index": null,
+        "source_size": null
+      }
+    ],
+    "txt_mesh_records": 2527,
+    "txt_named_nodes": 2568,
+    "txt_path": "DataGx\\Course\\France1\\France1.txt",
+    "txt_sha256": "fbb4153afa20acab9230d33f258384bea1ade94231e4267239b10682f4df0958",
+    "txt_to_compiled_face_mapping": "UNKNOWN: source spans are not DX face IDs",
+    "vertices": 65206
+  },
+  "source_frame": "GAME_SOURCE",
+  "source_groups_checked": 995,
+  "target": {
+    "control_words": [],
+    "draw_index": 54,
+    "group_label": null,
+    "hierarchy": "Compiled record path; live subset UNKNOWN",
+    "index_count": 144,
+    "index_start": 9792,
+    "material_mapping": "ORDERED_TEXTURE_TUPLE_CANDIDATES; uniqueness retained",
+    "material_numbers": [
+      105
+    ],
+    "materials": [
+      "bush $alphatest() $clamp(uv) $shader(tree)"
+    ],
+    "record_offset": 3261170,
+    "record_path": "course.batch.1.21",
+    "representation": "PC_COMPILED_RENDER_DRAW",
+    "tag": 2,
+    "textures": [
+      "bush01-tga",
+      "Null",
+      "Null"
+    ],
+    "vertex_base": 4299
+  },
+  "target_face_hashes": [
+    "03d316556d77ca506c46d0d7ead6b4cd116578826e4ebc5f930595a7b21ceea6",
+    "03d316556d77ca506c46d0d7ead6b4cd116578826e4ebc5f930595a7b21ceea6",
+    "105176da360d527c92a27c6225708362f9a6ddef05b6755695ffc15e611f49ae",
+    "105176da360d527c92a27c6225708362f9a6ddef05b6755695ffc15e611f49ae",
+    "1308a4c5e0ba341d3f09a286ad0702c77114e54a0f4e04f0d583222a0fe6902e",
+    "1308a4c5e0ba341d3f09a286ad0702c77114e54a0f4e04f0d583222a0fe6902e",
+    "176c6e010dd9a260e11d9c7801756decbca2c9b9efed9016bdadd9bbea3647f7",
+    "176c6e010dd9a260e11d9c7801756decbca2c9b9efed9016bdadd9bbea3647f7",
+    "2a19c56d8880b4cc6e2ab13ab0c819216174adece196747e4a153cbbc04cb62a",
+    "2a19c56d8880b4cc6e2ab13ab0c819216174adece196747e4a153cbbc04cb62a",
+    "31eae6fdcc4b46a6ce536cd17ec8079a4d4b3b19d7ab739ba2d5677377b5f130",
+    "31eae6fdcc4b46a6ce536cd17ec8079a4d4b3b19d7ab739ba2d5677377b5f130",
+    "32fde4f6680a7b5de130f48d4413ddc88235c00bb50b0b798933b83a4cfcb6f7",
+    "32fde4f6680a7b5de130f48d4413ddc88235c00bb50b0b798933b83a4cfcb6f7",
+    "3993821a6183b1328d388f9c4deb478122f8b5b462eb85ed440587b3fc9aa670",
+    "3993821a6183b1328d388f9c4deb478122f8b5b462eb85ed440587b3fc9aa670",
+    "4730a059bc3533d2047c2d80a0a6eafe557ec7deb8ab7c6398ffa6900e4e73f1",
+    "4730a059bc3533d2047c2d80a0a6eafe557ec7deb8ab7c6398ffa6900e4e73f1",
+    "4b159419e362a9fac09a0f02648a01e7f88a276232d503f1f45414aaee8eb1e6",
+    "4b159419e362a9fac09a0f02648a01e7f88a276232d503f1f45414aaee8eb1e6",
+    "4bf8a29fba7f1193360ffc08406cb2def41a5ffce838346fcc75ab88e55ea978",
+    "4bf8a29fba7f1193360ffc08406cb2def41a5ffce838346fcc75ab88e55ea978",
+    "8ade064c51c3eaec5dad430917fa2443273c21b4eb0777631fc58aee83f42578",
+    "8ade064c51c3eaec5dad430917fa2443273c21b4eb0777631fc58aee83f42578",
+    "8ae7555b3c6b4ad62de82a73fd4a342da62a1958ccda1bf271fafb31060c0891",
+    "8ae7555b3c6b4ad62de82a73fd4a342da62a1958ccda1bf271fafb31060c0891",
+    "8e2aed5866cc040dba821eca62d7b670c3a0455983e3eb9ac0eaeea90fdbfa7f",
+    "8e2aed5866cc040dba821eca62d7b670c3a0455983e3eb9ac0eaeea90fdbfa7f",
+    "99115874680f3491ae689816340b0ee49acee977cffba6624a9ccf126f2d4abb",
+    "99115874680f3491ae689816340b0ee49acee977cffba6624a9ccf126f2d4abb",
+    "9b9932bfb6906824d89656075e4bccee9b4b11c334a3bbda5127ce23d85bf5ac",
+    "9b9932bfb6906824d89656075e4bccee9b4b11c334a3bbda5127ce23d85bf5ac",
+    "a7bf3dca146395ab1a96c4af90b64a74a85aa561c6f3bf40936a31addfbf26ae",
+    "a7bf3dca146395ab1a96c4af90b64a74a85aa561c6f3bf40936a31addfbf26ae",
+    "ab97c7631310e4109ca1023e624af1a204dc86cfefe1b7eb2ffdb2957122332d",
+    "ab97c7631310e4109ca1023e624af1a204dc86cfefe1b7eb2ffdb2957122332d",
+    "b504db061f8bd397e2da37a45b16e3bc7ca9ea235a665e4ba613bb5e957a3aa3",
+    "b504db061f8bd397e2da37a45b16e3bc7ca9ea235a665e4ba613bb5e957a3aa3",
+    "d77655ca4b21ab54d210c10db2accec2440a78d8bb591def49e169d6db9f760f",
+    "d77655ca4b21ab54d210c10db2accec2440a78d8bb591def49e169d6db9f760f",
+    "d8e696c514b49aa06a44e92043c7d3a385febf51125b4ce2036a640afd7f0ef1",
+    "d8e696c514b49aa06a44e92043c7d3a385febf51125b4ce2036a640afd7f0ef1",
+    "e90cdc6f4d4d3723eb367b761c7486d610ed827f58a5c0bc1661e306df8af987",
+    "e90cdc6f4d4d3723eb367b761c7486d610ed827f58a5c0bc1661e306df8af987",
+    "ea2442184382065afd2eb6aaee973047a146eb5616f90bbdcae6ebe59ac13c99",
+    "ea2442184382065afd2eb6aaee973047a146eb5616f90bbdcae6ebe59ac13c99",
+    "f3919a2dc761d09e9089358656c5fc403218aff3944f572eb7970f1d4a3f0420",
+    "f3919a2dc761d09e9089358656c5fc403218aff3944f572eb7970f1d4a3f0420"
+  ],
+  "target_faces_in_other_france_groups": 0,
+  "unique_face_count": 24,
+  "whole_geometry_collisions": []
+}

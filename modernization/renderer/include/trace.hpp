@@ -4,6 +4,7 @@
 #include "vehicle_classifier.hpp"
 #include "vehicle_semantics.hpp"
 #include "game_fov.hpp"
+#include "foliage_probe.hpp"
 #include <mutex>
 #include <memory>
 #include <atomic>
@@ -33,6 +34,8 @@ public:
  };
  Guard guard() noexcept {return Guard(*this);}
  DrawClassification before(uint32_t slot,const Args& args,uintptr_t pc) noexcept;
+ void foliage_result(const FoliageEvidence& e) noexcept;
+ FoliageBudget foliage_budget;
  void reflection_result(const ReflectionOutcome& outcome,uint32_t triangles) noexcept;
  void configure_classifier(bool known,uintptr_t base) noexcept {classifier_known_=known;exe_base_=base;tracker_.reset();if(semantics_)semantics_->clear();race_context_=race_seen_this_frame_=race_history_=false;}
  uint64_t frame_number() const noexcept {return frame_;}
@@ -49,6 +52,7 @@ public:
  CaptureControl control;
  ResourceRegistry resources;
 private:
+ std::map<uint32_t,std::string> foliage_records_;
  TransformTracker tracker_;std::unique_ptr<VehicleSemantics> semantics_;uint32_t pending_semantic_=UINT32_MAX;
  VehicleSemanticSource pending_semantic_source_=VehicleSemanticSource::None;
  uint64_t live_body_draws_=0,learned_reflection_draws_=0,live_reflection_draws_=0;bool classifier_known_=false,race_context_=false,race_seen_this_frame_=false,race_history_=false;uintptr_t exe_base_=0;

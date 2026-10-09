@@ -1,0 +1,157 @@
+{
+  "baseline": {
+    "explanation": "WinError5 synthetic temp cleanup; reviewed rerun passed",
+    "native_suites": 8,
+    "restricted_unittest_errors": 5,
+    "reviewed_unittest_errors": 0,
+    "unittest": 100
+  },
+  "build": {
+    "failure_count": 0,
+    "native_suites": 9,
+    "result": "PASS",
+    "seconds": 4.25,
+    "skip_count": 0
+  },
+  "compileall": "PASS",
+  "course_sdk": {
+    "head": "4244fa0c4d878523c9947f54816bf377cdfb2589",
+    "status": "CLEAN"
+  },
+  "diff_check": "PASS",
+  "feature_effective_mode": 0,
+  "handoff": {
+    "archive_crc": "PASS",
+    "external_game_data_used": false,
+    "final_archive_receipt": "Ignored .analysis/PC-VISUAL-PILOT1-handoff.receipt.json; generated after commit",
+    "initial_unbuilt_check": "FAIL: native executable prerequisites absent; missing general Python package and scratch directory repaired in packaging only",
+    "isolated_native_seconds": 3.88,
+    "isolated_native_suites": 9,
+    "isolated_proxy_verification": "PASS",
+    "isolated_unittest_errors": 0,
+    "isolated_unittest_failures": 0,
+    "isolated_unittest_seconds": 5.235,
+    "isolated_unittest_skips": 0,
+    "isolated_unittest_tests": 114,
+    "payload_sha256": "PASS",
+    "result": "PASS"
+  },
+  "legacy_d3d8_proxy_unittest": {
+    "errors": 0,
+    "failures": 0,
+    "result": "PASS_WITH_SKIP",
+    "skip_reason": "Historical native capture unavailable; no competing proxy built",
+    "skips": 1,
+    "tests": 28
+  },
+  "material_override_implemented": false,
+  "original_inputs": "Fresh canonicalPS2/DX/TXT identities; no asset writers",
+  "pc_runtime": "NOT_PERFORMED",
+  "pcsx2_reference": "NOT_PERFORMED",
+  "phase": "PC-VISUAL-PILOT1",
+  "proxy_verification": {
+    "dll": true,
+    "entry_rva": 792427,
+    "errors": [],
+    "evidence_grade": "BUILD_VERIFIED_NOT_RUNTIME",
+    "exports": {
+      "Direct3DCreate8": {
+        "forwarder": null,
+        "ordinal": 5,
+        "rva": 16256
+      },
+      "ValidatePixelShader": {
+        "forwarder": null,
+        "ordinal": 2,
+        "rva": 17632
+      },
+      "ValidateVertexShader": {
+        "forwarder": null,
+        "ordinal": 3,
+        "rva": 17664
+      }
+    },
+    "image_base": 268435456,
+    "imported_dlls": [
+      "bcrypt.dll",
+      "USER32.dll",
+      "KERNEL32.dll"
+    ],
+    "machine": 332,
+    "pe_type": "PE32",
+    "sections": [
+      {
+        "name": ".text",
+        "raw_offset": 1024,
+        "raw_size": 1222656,
+        "rva": 4096,
+        "virtual_size": 1222517
+      },
+      {
+        "name": ".rdata",
+        "raw_offset": 1223680,
+        "raw_size": 173568,
+        "rva": 1228800,
+        "virtual_size": 173392
+      },
+      {
+        "name": ".data",
+        "raw_offset": 1397248,
+        "raw_size": 7680,
+        "rva": 1404928,
+        "virtual_size": 11972
+      },
+      {
+        "name": ".fptable",
+        "raw_offset": 1404928,
+        "raw_size": 512,
+        "rva": 1417216,
+        "virtual_size": 128
+      },
+      {
+        "name": ".rsrc",
+        "raw_offset": 1405440,
+        "raw_size": 512,
+        "rva": 1421312,
+        "virtual_size": 480
+      },
+      {
+        "name": ".reloc",
+        "raw_offset": 1405952,
+        "raw_size": 35840,
+        "rva": 1425408,
+        "virtual_size": 35732
+      }
+    ],
+    "sha256": "3c5b77dcdb07b1e5a7fd5304c11944df90ce28409217f5554dda01b188790269",
+    "size": 1441792,
+    "timestamp": 2002350922,
+    "valid": true
+  },
+  "pytest": {
+    "failures": 0,
+    "result": "PASS",
+    "seconds": 52.16,
+    "skips": 0,
+    "subtests": 15,
+    "tests": 114
+  },
+  "renderer_recon_unittest": {
+    "result": "PASS",
+    "tests": 11
+  },
+  "runtime_identity": "TARGET_IDENTITY_AMBIGUOUS",
+  "source_json_sha256": "643d3bee1c15319611b90acf1adec01d84d228bb3e3f89aa66eb53e4f23bcf08",
+  "source_reproducibility": "IDENTICAL_REPEAT",
+  "status": "BLOCKED_ON_DRAW_IDENTITY",
+  "stock_texture": true,
+  "unittest": {
+    "errors": 0,
+    "failures": 0,
+    "result": "PASS",
+    "seconds": 53.626,
+    "skips": 0,
+    "tests": 114
+  },
+  "visual_parity": "NOT_ESTABLISHED"
+}

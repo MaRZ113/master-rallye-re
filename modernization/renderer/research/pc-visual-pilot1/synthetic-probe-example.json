@@ -1,0 +1,98 @@
+{
+  "arguments": [
+    4,
+    0,
+    3,
+    0,
+    1
+  ],
+  "evidence": "SYNTHETIC_NATIVE_MOCK; NOT_GAME_RUNTIME",
+  "method": "DrawIndexedPrimitive",
+  "original_draw_hresult": 2289436780,
+  "probe": {
+    "attempted": true,
+    "base_vertex": 1,
+    "face_hashes": [
+      "b2afe5ee233688b94630b58778b6b4e92c6af902cc9f61ae448b4bca1090420a"
+    ],
+    "fvf": 322,
+    "geometry_multiset_sha256": "ff59d1fc7f4c8da34cff385a10f3ecc7ac5cb9a3039903e2cde0e43e99733059",
+    "identity": "UNPROVEN",
+    "index_buffer": "MOCK_RESOURCE_POINTER_OMITTED",
+    "index_format": 101,
+    "index_generation": 2,
+    "index_lock_hresult": 0,
+    "index_pool": 1,
+    "index_unlock_hresult": 0,
+    "index_usage": 0,
+    "native_material_diffuse_alpha": 0.75,
+    "native_rs": {
+      "14": 114,
+      "141": 241,
+      "145": 245,
+      "15": 115,
+      "19": 119,
+      "20": 120,
+      "22": 122,
+      "23": 123,
+      "24": 124,
+      "25": 125,
+      "27": 127,
+      "7": 107
+    },
+    "native_tss": [
+      {
+        "1": 1,
+        "11": 11,
+        "2": 2,
+        "24": 24,
+        "3": 3,
+        "4": 4,
+        "5": 5,
+        "6": 6
+      },
+      {
+        "1": 101,
+        "11": 111,
+        "2": 102,
+        "24": 124,
+        "3": 103,
+        "4": 104,
+        "5": 105,
+        "6": 106
+      }
+    ],
+    "native_world_bits": [
+      1065353216,
+      0,
+      0,
+      0,
+      0,
+      1065353216,
+      0,
+      0,
+      0,
+      0,
+      1065353216,
+      0,
+      0,
+      0,
+      0,
+      1065353216
+    ],
+    "override_applied": false,
+    "reason": "content_captured_identity_pending",
+    "schema": "foliage-probe-v1",
+    "stride": 24,
+    "texture0": "MOCK_RESOURCE_POINTER_OMITTED",
+    "texture_generation": 0,
+    "vertex_buffer": "MOCK_RESOURCE_POINTER_OMITTED",
+    "vertex_diffuse_alpha_max": 192,
+    "vertex_diffuse_alpha_min": 64,
+    "vertex_generation": 1,
+    "vertex_lock_hresult": 0,
+    "vertex_pool": 1,
+    "vertex_unlock_hresult": 0,
+    "vertex_usage": 0
+  }
+}
