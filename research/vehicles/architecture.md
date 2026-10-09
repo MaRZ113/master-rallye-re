@@ -90,18 +90,23 @@ content. Capture hashes and evidence limits are in
 The architecture demonstrates formula-based registry layout through IDs26
 and 27 and sparse placement in T1 and T2. The identity/presentation layer is
 runtime-qualified only for those two additions; it does not prove arbitrary-N
-runtime support. Vehicle Select re-entry still has an unresolved
-scene-selection restoration divergence, and the captured ID27 race-marker
-color remains white; the J0 example requests magenta independently of body
-art. Both gates are documented before public runtime-release qualification.
+runtime support. J.2 captures verify the live ID27 marker Broker value is
+magenta `[1,0,1,1]`, though visual HUD appearance remains a human gate. The
+2026-10-09 Vehicle Select snapshots show stored ID27 and displayed CarModel27
+agree at capture time, but the complete post-race scene-restoration sequence
+remains unqualified.
 
 ## Generic addon SDK J0
 
 The new manifest-driven SDK planning architecture is separate from the
-existing donor-authoring SDK v1. It provides strict JSON validation, explicit
+existing donor-authoring SDK v1. J.0 provides strict JSON validation, explicit
 capability-profile ID allocation, sparse forward/reverse class maps,
 formula-derived registry layout, AI/audio/unlock/Results and color planning,
 optional external DX/DXT payload validation, deterministic multi-addon output,
 and hash verification. It emits semantic frontend plans rather than native
-XML or executable patches. The public unchanged-EXE runtime loader is not yet
-implemented. See [SDK architecture](sdk/architecture.md).
+XML or executable patches and remains `runtime_installable=false`. J.1's
+separate fail-closed runtime bundle and launcher are **CLOSED /
+CONFIRMED_BY_RUNTIME**. J.2 has partial live qualification of the combined
+Mercedes+R5VQualifier package; SplitScreen, complete re-entry, Cup stage reuse,
+and Master Rallye fresh-process persistence remain open. See
+[SDK architecture](sdk/architecture.md) and [J.2 evidence](sdk/j2/).

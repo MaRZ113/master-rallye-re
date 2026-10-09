@@ -49,20 +49,22 @@ has no distinct AI-roster owner in the bounded audit. See
 R5V-I.0 is **FULL PASS / CLOSED**: four verified captures confirm physical
 ID27/T2 local7 in Vehicle Select and a single-player race, and distinct
 ID27/T2 plus ID26/T1 actors coexisting in SplitScreen. R5V-I.1's
-`R5VQualifier` family routing and player materialization are now
-**CONFIRMED_BY_RUNTIME**. A separate natural Quick Race capture confirms
-ID27/T2/AI materializes with `CarType` and `WheelType` `R5VQualifier`; this
-does not claim a completed AI race lifecycle or final position. The body and
-physics payload remain Navara-derived, and no historical authenticity or
-unique collision topology is claimed. See
-`research/vehicles/multislot/i1-runtime-evidence.json` for six rehashed
-capture pairs. Two bounded release gates remain: scene-local Vehicle Select
-re-entry restoration and changing the race marker from captured white to the
-requested independent magenta RGBA. R5V-J.0 provides the deterministic
-offline manifest/compiler foundation. R5V-J.1 now has a compiled exact-build
-suspended-process launcher candidate and external runtime bundle; human
-bootstrap, resource-root and addon runtime tests remain pending, so no
-unchanged-EXE gameplay pass or public release is claimed. See
+`R5VQualifier` family routing and player materialization are
+**CONFIRMED_BY_RUNTIME**. The 2026-10-09 Observatory batch also confirms a
+natural ID27/T2 AI actor and live magenta marker RGBA `[1,0,1,1]`; Broker state
+does not alone prove the marker's visual appearance or a completed AI race
+lifecycle. The body and physics payload remain Navara-derived, with no claim of
+historical authenticity or unique collision topology. See
+`research/vehicles/multislot/i1-runtime-evidence.json` and
+`research/vehicles/sdk/j2/runtime-evidence.md`.
+
+R5V-J.0 is **ACCEPTED / OFFLINE COMPILER FOUNDATION** and continues to report
+`runtime_installable=false`. R5V-J.1 is **CLOSED / CONFIRMED_BY_RUNTIME** for
+the external launcher and combined two-addon bundle using the byte-unchanged
+retail EXE. R5V-J.2 is **PARTIAL_RUNTIME_CONFIRMED**: the same package has
+separate live ID26 and ID27 Player/AI/Results scenarios and an initial T2 Cup
+race/Results pair. SplitScreen, post-race selector restoration, Cup next-stage
+reuse, and Master Rallye fresh-process persistence remain human gates. See
 `research/vehicles/sdk/`.
 
 Phase R4G hardens the runtime-confirmed R4F topology writer into a vehicle project workflow. Earlier R4C work established: the validated vehicle DX/DXT library drives a native

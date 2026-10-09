@@ -343,10 +343,11 @@ arbitrary-N runtime support. See `research/vehicles/multislot/`.
 ### Current R5V-J — generic vehicle SDK and external runtime
 
 J.0 is **ACCEPTED / OFFLINE COMPILER FOUNDATION**; its semantic output remains
-`runtime_installable=false`. J.1 is **READY FOR HUMAN RUNTIME**: a compiled
-exact-build Windows x64 launcher, in-memory retail-relative operation table,
-and verified external resource bundle are prepared. No human bootstrap,
-canary, external resource-root or addon gameplay pass has yet been recorded.
-See `research/vehicles/sdk/loader-decision.md`,
-`research/vehicles/sdk/runtime-deployment.md`, and
-`research/vehicles/sdk/j1-runtime-handoff.md`.
+`runtime_installable=false`. J.1 is **CLOSED / CONFIRMED_BY_RUNTIME** for the
+fail-closed external launcher and combined two-addon package on the unchanged
+retail EXE. J.2 is **PARTIAL_RUNTIME_CONFIRMED**: live Broker captures confirm
+ID26/ID27 Player and natural AI paths, Results identities, and an initial ID27
+T2 Cup race/Results pair. SplitScreen, post-race selector re-entry, Cup
+next-stage reuse, and Master Rallye fresh-process persistence remain human
+gates. See `research/vehicles/sdk/runtime-deployment.md` and
+`research/vehicles/sdk/j2/`.

@@ -1,5 +1,9 @@
 # J.1 loader decision
 
+> Historical design decision: J.1 has since been human-runtime-qualified and
+> closed. Current J.1/J.2 status and the remaining two-addon gates are in
+> [runtime deployment](runtime-deployment.md) and [J.2 evidence](j2/).
+
 ## Decision
 
 Use a dedicated external x64 launcher that starts the exact x86 retail process

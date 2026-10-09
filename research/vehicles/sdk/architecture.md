@@ -1,11 +1,13 @@
 # R5V-J — Generic Addon Vehicle SDK architecture
 
-J.0 introduces a versioned addon definition and deterministic offline compiler
-foundation. J.1 now adds a separate, exact-build Windows launcher candidate and
-an external resource bundle. The launcher can install an audited operation set
-into a suspended retail process, but no human startup or addon runtime test has
-been recorded; J.1 is not runtime-qualified and J.0 output semantics remain
-offline-only.
+J.0 provides versioned addon definitions and a deterministic offline compiler
+foundation. J.1 adds a separate exact-build Windows launcher and external
+resource bundle. J.1 is now **CLOSED / CONFIRMED_BY_RUNTIME**: human runtime
+captures from Observatory 0.2.3-beta show the original retail executable
+identity on disk and the approved hardened walker in memory while ID26 and
+ID27 materialize through the shared addon integration. The full two-addon
+campaign is tracked separately in `j2/`; it still has SplitScreen, repeated
+Vehicle Select re-entry, Cup next-stage, and Master Rallye fresh-process gates.
 
 The components are separated deliberately:
 
@@ -15,13 +17,13 @@ The components are separated deliberately:
    capability profile.
 3. **Compiler** — resolves IDs and class ordinals, computes the audited
    registry layout, and emits deterministic semantic integration plans.
-4. **Runtime integration** — a research-only J.1 launcher candidate verifies
+4. **Runtime integration** — the research J.1 launcher verifies
    and starts the byte-exact retail EXE without replacing it. Its separate
    `addon runtime-*` artifacts verify an external resource root and translate
    the audited H.2/I.1 byte layers into file-offset/RVA operations for install
-   before the suspended process first resumes. This does not set the J.0
-   offline plan's `runtime_installable` flag and does not establish a public
-   loader release.
+   before the suspended process first resumes. Runtime qualification does not
+   set the J.0 offline plan's `runtime_installable` flag and does not establish
+   a public loader release.
 
 This generic addon SDK is separate from the frozen
 [vehicle authoring SDK v1](../../../docs/vehicle-sdk.md). R4G edits/validates existing donor-based DX,

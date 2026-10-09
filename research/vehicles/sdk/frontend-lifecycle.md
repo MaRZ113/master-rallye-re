@@ -19,7 +19,7 @@ class/local-to-absolute mappings. For the verified mappings:
 
 ## Runtime re-entry divergence
 
-Four new captures with executable SHA
+Four earlier captures with executable SHA
 `90abfbf9825f1cc7acebb3a1a2811a179e6474f2406433854e1ffdbc60bdd955` were
 verified from their actual JSON/raw pairs. `r5vq_navara-reset` retains
 `Frontend/QuickRace/Car0=27` while the Vehicle Select scene reports CarModel 7,
@@ -36,6 +36,14 @@ initializer/writer and the single-player versus SplitScreen ownership
 differences remain unknown. J0 does not patch this state. It is a required
 runtime-release gate, and synthetic mapping tests prevent a future integration
 from conflating physical IDs and local ordinals.
+
+The 2026-10-09 J.2 archive adds `R5VQ-quickrace-menu` and
+`R5VQ-carselect-menu` captures where the stored Quick Race physical ID and
+visible Vehicle Select `CarModel` are both 27. This is a consistent selection
+snapshot, but it does not show the sequence after race completion and a second
+Vehicle Select scene construction. The required repeatable post-race re-entry
+test therefore remains open; the J.1 runtime bundle still does not claim to
+fix or globally rewrite scene-local selection initialization.
 
 The checker reports stored Quick Race CarID, displayed CarModel, selectedCar,
 class, and `UI/XYButton/XValue` separately. A divergence is reported without

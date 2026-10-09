@@ -52,13 +52,15 @@ manifest lists the natural T2 pool `[7,8,9,10,11,12,13,27]` and
 `id27_forced_participant=false`. This confirms natural AI participant
 materialization, not a completed AI race lifecycle or final position.
 
-Two public runtime-release gates remain bounded: the Vehicle Select scene
-re-entry mismatch and the new race marker color. The re-entry captures retain
-`Frontend/QuickRace/Car0=27` in both states, while one displays Navara at
-T2/local0 and the control displays R5VQualifier at T2/local7. The exact native
-writer is unknown; the later Navara capture does not prove automatic commit.
-The captured ID27 marker is white `[1,1,1,1]`; the SDK request for magenta
-`[1,0,1,1]` has not been runtime-tested.
+The I.1-era public runtime-release gates were Vehicle Select scene re-entry
+and marker color. The re-entry captures retain `Frontend/QuickRace/Car0=27`
+in both states, while one displays Navara at T2/local0 and the control displays
+R5VQualifier at T2/local7. The exact native writer is unknown; the later
+Navara capture does not prove automatic commit. The captured ID27 marker is
+white `[1,1,1,1]` in the I.1 candidate. Later J.2 captures supersede the color
+value with live Broker `[1,0,1,1]`, though HUD appearance remains unverified.
+J.2 menu captures show physical ID27 and CarModel27 aligned at capture time,
+but do not prove post-race scene reconstruction.
 
 * Profile: `i1-id27-r5v-qualifier-independent-t2-family`
 * Source retail SHA256: `bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4`

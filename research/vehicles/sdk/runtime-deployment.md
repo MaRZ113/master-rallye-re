@@ -2,14 +2,20 @@
 
 ## Current result
 
-J.1 has a statically verified Windows x64 launcher candidate for the exact
-32-bit retail image. It starts the original `MRallye.exe` suspended, checks
-the mapped image and base, validates every native-operation preimage before
-the first write, installs the full operation set before the primary thread is
-resumed, and terminates the suspended child if installation is incomplete.
-The launcher never writes a replacement executable. No game process was
-launched by this build, so bootstrap, the no-op canary, resource lookup, and
-addon behavior remain **READY FOR HUMAN RUNTIME**, not runtime-confirmed.
+**R5V-J.1 is CLOSED / CONFIRMED_BY_RUNTIME.** Its Windows x64 launcher starts
+the original `MRallye.exe` suspended, validates the mapped image and all
+native-operation preimages before writing, installs the complete operation set
+before resuming the primary thread, and terminates the child if installation
+is incomplete. The original EXE remains byte-unchanged on disk. Human runtime
+evidence in the 2026-10-09 Observatory archive confirms the exact pristine
+retail identity and the approved in-memory hardened Dump walker while the
+same runtime integration materializes Mercedes ID26 and R5VQualifier ID27.
+That archive is independently indexed and sidecar-verified in `j2/`.
+
+The current J.2 status is **PARTIAL_RUNTIME_CONFIRMED**. One verified
+two-addon runtime bundle and both addon identities are exercised, but
+SplitScreen, post-race Vehicle Select re-entry, Cup next-stage reuse, and
+Master Rallye fresh-process resume remain human gates. See the J.2 handoff.
 
 J.0 remains an offline semantic planner and continues to report
 `runtime_installable: false`. J.1 uses a distinct runtime bundle and native
@@ -97,21 +103,15 @@ original executable is opened read-only with write/delete sharing denied,
 hashed before startup, and hashed again after the game exits. The launcher
 does not mutate or replace the original retail path.
 
-## Runtime levels and remaining gates
+## Runtime evidence boundary
 
-* **Static plan:** H.2/I.1 source layers and all RVP1 bytes reproduce the
-  pinned reference image; exact resource inventory verified.
-* **Native build:** MSVC x64 launcher builds and `--verify` validates all
-  246 operations plus all 243 staged resources.
-* **Bootstrap:** not human-confirmed.
-* **No-op process-memory canary:** implemented but not human-confirmed; it
-  exercises suspended-process targeting and temporary page protection with
-  identical bytes.
-* **Resource-root lookup:** unresolved until the integrated human run reports
-  the Broker root and successfully materializes an addon.
-* **Original-EXE unchanged after runtime:** not yet runtime-confirmed; no game
-  startup has been performed by this task.
-* **Addon runtime:** not tested.
-
-See [loader decision](loader-decision.md), [J.1 validation](j1-runtime-validation.md),
-and [human handoff](j1-runtime-handoff.md).
+The human J.1 runtime closeout supersedes the original static-only statements
+in `j1-runtime-validation.md`; that file preserves the evidence status at the
+time it was written. J.2 ingested 11 JSON/raw pairs from one PID. Every raw
+sidecar SHA256 and length matches its JSON metadata. The records show a retail
+EXE on disk, a verified live hardened walker with both approved trampolines,
+and live ID26/ID27 identities in Quick Race plus ID27 in an initial Rallye
+Cup stage and Results. The capture set does not prove SplitScreen, next-stage
+Cup persistence, fresh-process Master Rallye persistence, or post-race menu
+re-entry. See [J.2 runtime evidence](j2/runtime-evidence.md) and the
+[remaining gates](remaining-gates.md).

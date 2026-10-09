@@ -31,5 +31,6 @@ Unknown or unqualified IDs fail validation under the current profile.
 
 Examples: [Mercedes ML-320](examples/mercedes-ml320.json) and
 [R5VQualifier T2](examples/r5v-qualifier-t2.json). The latter explicitly uses
-race-marker color `[1,0,1,1]`; the human capture still showed white, so this is
-a planned config value, not a runtime result.
+race-marker color `[1,0,1,1]`, which the 2026-10-09 live Broker capture
+confirms for ID27. Visual HUD/progress-marker appearance remains a separate
+human evidence gate; see [J.2 runtime evidence](j2/runtime-evidence.md).

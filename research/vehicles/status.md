@@ -96,12 +96,14 @@ or finishing position. Six exact candidate capture pairs and rehashed raw
 sidecars are summarized in
 [I.1 runtime evidence](multislot/i1-runtime-evidence.json).
 
-Two public runtime-release gates remain open: the scene-local Vehicle Select
-re-entry mismatch (stored Quick Race ID27, but one capture displays Navara at
-T2/local0; exact native writer unresolved) and the desired marker RGBA change
-from runtime-captured white to planned magenta. Neither blocks the J0 offline
-compiler foundation. The re-entry comparison does not prove loss of physical
-ID27 or automatic Navara commit. See the
+The I.1 candidate captured a scene-local Vehicle Select re-entry mismatch
+(stored Quick Race ID27, but one capture displays Navara at T2/local0; exact
+native writer unresolved) and a white race marker. The later J.2 capture
+confirms ID27's live Broker marker value is magenta `[1,0,1,1]`; visual HUD
+appearance remains unverified. J.2's menu snapshots show ID27 consistently in
+the stored Quick Race ID and displayed CarModel at capture time, but the full
+post-race return/reopen lifecycle remains unproven. Neither observation
+proves loss of physical ID27 or automatic Navara commit. See the
 [I.1 lifecycle and handoff](multislot/i1-qualification.md) and
 [SDK frontend lifecycle](sdk/frontend-lifecycle.md).
 
@@ -109,7 +111,7 @@ Future non-bonus T3 addons must qualify Invitation's ordinary T3 pool
 explicitly; class membership alone does not imply eligibility in every mode.
 Bonus/special T3 vehicles must not be added to that pool automatically.
 
-## Current phase — R5V-J.1 External Runtime Integration
+## Current phase — R5V-J.2 Two-addon external runtime qualification
 
 **J.0: ACCEPTED / OFFLINE COMPILER FOUNDATION.** Versioned JSON manifests,
 strict validation, deterministic physical-ID resolution, bidirectional sparse
@@ -119,15 +121,22 @@ still reproduces with SHA256
 `357d3cf10f32b63af27d28c23a858197d7eedbd0d7ef79e4deb2a63a6b170989` and
 continues to report `runtime_installable=false`.
 
-**J.1: READY FOR HUMAN RUNTIME.** A Windows x64 suspended-process launcher,
-exact-build native patch table, and independently verified 243-file external
-resource bundle are implemented and compiled. Static native bundle verification
-passes. No retail game process has been launched through this candidate yet.
-The external CWD/resource-root lookup, bootstrap/canary startup, and real
-Mercedes materialization remain human gates. No unchanged-EXE runtime pass is
-claimed. See [loader decision](sdk/loader-decision.md),
-[runtime deployment](sdk/runtime-deployment.md),
-[human handoff](sdk/j1-runtime-handoff.md), and
+**J.1: CLOSED / CONFIRMED_BY_RUNTIME.** The external launcher and combined
+ID26+ID27 runtime bundle are human-qualified with the exact byte-unchanged
+retail EXE identity. The 2026-10-09 Observatory batch verifies the live
+NULL-safe native Dump walker, ID26 in Player and natural-AI roles, and ID27 in
+a natural-AI role. J.0 output remains `runtime_installable=false`; the
+runtime bundle is a separately verified fail-closed artifact.
+
+**J.2: PARTIAL_RUNTIME_CONFIRMED / READY FOR REMAINING HUMAN GATES.** The
+combined package has runtime evidence for Mercedes ID26 player and AI,
+R5VQualifier ID27 AI, both Results identities, and the initial ID27 T2 Rallye
+Cup race/Results pair. All 11 JSON/raw pairs were rehashed. SplitScreen dual
+addon operation, post-race Vehicle Select re-entry, Cup next-stage reuse, and
+Master Rallye fresh-process save/resume still need human proof; J.2 is not
+closed. See [J.2 runtime evidence](sdk/j2/runtime-evidence.md),
+[candidate audit](sdk/j2/bundle-audit.md),
+[human handoff](sdk/j2/human-qualification-handoff.md), and
 [remaining gates](sdk/remaining-gates.md).
 
 **R5V-I core qualification:** ID26/T1 and ID27/T2 remain the only two
