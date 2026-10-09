@@ -54,6 +54,8 @@ Samples=4
 ; 1 = On
 GameplayFOV=0
 VerticalFOVDegrees=75.0
+; R-CAM1-A owner observation is read-only, exact-retail only, and emitted during F10 capture when Trace.Enabled=1.
+; Freecam remains experimental and unavailable until in-game camera-owner/lifecycle gates pass; no Freecam hotkey is assigned.
 
 [Shadows]
 ; 0 = Stock

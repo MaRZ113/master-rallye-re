@@ -1,5 +1,6 @@
 #include "wrappers.hpp"
 #include "reflection_scope.hpp"
+#include "camera_probe.hpp"
 #include <intrin.h>
 #include <cstring>
 namespace gfx2 {
@@ -57,7 +58,24 @@ HRESULT Device8::set_transform_at(D3DTRANSFORMSTATETYPE type,const D3DMATRIX* in
  }
  trace.culling=game_fov.status();
  const D3DMATRIX* forwarded=(rewritten||ui_rewritten||preview_rewritten)?&changed:input;auto native=pack(type,forwarded);
- HRESULT hr=real_->SetTransform(type,forwarded);if(FAILED(hr)&&(rewritten||ui_rewritten||preview_rewritten)){trace.after(37,native,static_cast<uint32_t>(hr),pc,&native,rewritten?2:preview_rewritten?64:32,false,true);if(rewritten){game_fov.disable("native_projection_rejected");visuals.effective.fov=false;}if(preview_rewritten){quality->preview_capability.status="UNSUPPORTED";quality->preview_capability.reason="native_preview_projection_rejected";}if(ui_rewritten){quality->config.interface_mode="Stock";ui_margins.disable("native_ui_projection_rejected");}native=args;hr=real_->SetTransform(type,input);rewritten=ui_rewritten=preview_rewritten=false;}if(SUCCEEDED(hr)&&quality&&type==D3DTS_PROJECTION)quality->ui_projection_live=ui_rewritten;trace.after(37,args,static_cast<uint32_t>(hr),pc,&native,rewritten?2:ui_rewritten?32:preview_rewritten?64:0);return hr;
+HRESULT hr=real_->SetTransform(type,forwarded);if(FAILED(hr)&&(rewritten||ui_rewritten||preview_rewritten)){trace.after(37,native,static_cast<uint32_t>(hr),pc,&native,rewritten?2:preview_rewritten?64:32,false,true);if(rewritten){game_fov.disable("native_projection_rejected");visuals.effective.fov=false;}if(preview_rewritten){quality->preview_capability.status="UNSUPPORTED";quality->preview_capability.reason="native_preview_projection_rejected";}if(ui_rewritten){quality->config.interface_mode="Stock";ui_margins.disable("native_ui_projection_rejected");}native=args;hr=real_->SetTransform(type,input);rewritten=ui_rewritten=preview_rewritten=false;}if(SUCCEEDED(hr)&&quality&&type==D3DTS_PROJECTION)quality->ui_projection_live=ui_rewritten;trace.after(37,args,static_cast<uint32_t>(hr),pc,&native,rewritten?2:ui_rewritten?32:preview_rewritten?64:0);
+ if(SUCCEEDED(hr)&&type==D3DTS_VIEW&&exe&&rva==GAMEPLAY_PROJECTION_RETURN_RVA&&trace.enabled&&trace.control.active){
+  const auto& requested_projection=trace.shadow.matrices[D3DTS_PROJECTION];
+  const auto& effective_projection=trace.effective_shadow.matrices[D3DTS_PROJECTION];
+  if(requested_projection.known&&symmetric_lh(requested_projection.value)&&effective_projection.known&&
+     symmetric_lh(effective_projection.value)&&trace.claim_camera_observation_frame()){
+   auto& runtime=session();
+   if(runtime.target&&runtime.compatibility.fov.supported()){
+    CameraOwnerObservation owner{};D3DMATRIX observed_view{};
+    const uintptr_t base=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));
+    if(base==0x00400000&&safe_copy(&observed_view,input,sizeof(observed_view))){
+     read_camera_owner_observation(base,owner);
+     try{runtime.write(camera_owner_observation_json(owner,trace.device_id(),trace.frame_number(),rva,requested_projection.value,effective_projection.value,observed_view));}catch(...){}
+    }
+   }
+  }
+ }
+ return hr;
 }
 HRESULT STDMETHODCALLTYPE Device8::GetTransform(D3DTRANSFORMSTATETYPE type,D3DMATRIX* out){
  auto guard=trace.guard();auto args=pack(type,out);auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(38,args,pc);
