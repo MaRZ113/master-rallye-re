@@ -4,7 +4,7 @@
 ConfigVersion=1
 
 [Display]
-; Width/Height set the normal CLIENT target; 0/0 adopts the first accepted game/client size.
+; Width/Height set the INITIAL normal CLIENT target; 0/0 adopts the first accepted game/client size.
 ; A normal drag-resize updates that target only when HWND client and game Reset agree.
 ; Maximized uses the actual OS CLIENT size; Restore returns to the latest normal target.
 ; Minimize/zero-size Reset requests never replace the normal target.

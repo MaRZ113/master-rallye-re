@@ -5,6 +5,33 @@ import json
 from pathlib import Path
 import struct
 
+def display_lifecycle(rows):
+    """Pair readiness with completed native attempts; never infer a visual fix."""
+    pending={};lost=[];admissions=[];messages=[]
+    for r in rows:
+        kind=r.get('type');device=r.get('device_lifetime_id')
+        if kind=='windowed_resize_admission':
+            admissions.append({k:r.get(k) for k in ('event_sequence','device_lifetime_id','requested','normalized_logical',
+                'actual_client_width','actual_client_height','decision','initial_window_commit_complete','accepted_target_source',
+                'effective_backbuffer_width','effective_backbuffer_height')})
+        elif kind=='display_window_message':
+            messages.append({k:r.get(k) for k in ('event_sequence','device_lifetime_id','phase','message','style_old','style_new','window_context')})
+        elif kind=='display_reset_readiness' and device is not None:pending[device]=r
+        elif kind=='display_native_attempt' and r.get('operation')=='Reset' and device is not None:
+            ready=pending.pop(device,None)
+            if ready and ready.get('cooperative_hresult')==0x88760868:
+                lost.append(dict(device_lifetime_id=device,readiness_sequence=ready.get('event_sequence'),
+                    reset_sequence=r.get('event_sequence'),native_hresult=r.get('hresult'),
+                    requested=r.get('requested'),sent=r.get('sent'),window_context=ready.get('window_context'),
+                    evidence_grade='CONFIRMED_BY_TRACE'))
+        elif kind=='display_native_begin' and r.get('operation')=='Reset':
+            # A new attempt with no subsequent readiness cannot inherit an old probe.
+            pending.pop(device,None)
+    sequences=[r['event_sequence'] for r in rows if isinstance(r.get('event_sequence'),int)]
+    return dict(windowed_resize_decisions=admissions,window_message_count=len(messages),window_message_tail=messages[-24:],
+                observed_reset_while_device_lost=lost,event_sequence_order_valid=all(a<b for a,b in zip(sequences,sequences[1:])) if sequences else None,
+                runtime_fix_verdict='UNKNOWN_HUMAN_REQUIRED')
+
 def audit(path):
     data=path.read_bytes()
     if len(data)>64*1024*1024:raise ValueError('Capture exceeds bounded audit size')
@@ -33,6 +60,7 @@ def audit(path):
                                 widescreen_applied=r.get('widescreen_applied',False)))
     report['ui_projection_observations']=projections
     report['last_breadcrumb']=next((r.get('step') for r in reversed(rows) if r.get('type')=='display_breadcrumb'),None)
+    report['display_lifecycle']=display_lifecycle(rows)
     return report
 
 def main():

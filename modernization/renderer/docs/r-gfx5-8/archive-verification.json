@@ -1,0 +1,10 @@
+{
+  "archive": "R-GFX5-8-handoff.zip",
+  "size": 998871,
+  "sha256": "32ce8dd0011d6fd080f7a8afa51e2e4b8aa656be13aa78473f6d320395b2d9d1",
+  "manifest_source_files": 276,
+  "crc": "PASS",
+  "every_payload_sha256": "PASS",
+  "contains_binaries": false,
+  "contains_game_assets": false
+}

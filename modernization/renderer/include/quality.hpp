@@ -11,6 +11,13 @@ public: virtual ~WindowApi()=default;
  virtual bool restore(const WindowState&) noexcept=0;
 };
 WindowApi& native_window_api() noexcept;
+// Read-only, exact-retail window-owner observation; never calls or edits game state.
+struct GameWindowOwner {
+ bool known=false;uintptr_t address=0;unsigned windowed=0,pp_windowed=0,initialized=0,device_created=0,active=0,device_ready=0,in_size_move=0;
+ uint32_t saved_style=0;std::string reason="unsupported_build";
+ std::string json() const;
+};
+GameWindowOwner inspect_game_window_owner(uintptr_t image,bool exact_retail,HWND expected) noexcept;
 struct CursorIdle {
  bool hidden=false,observed=false;POINT previous{};uint64_t last_move=0;
  // -1 hides, +1 restores, 0 leaves Win32 ownership alone. Never touches ShowCursor.
@@ -41,27 +48,35 @@ public:
  void cursor_tick() noexcept;
  void cooperative_result(HRESULT) noexcept;
  void cursor_watch() noexcept;
+ void display_watch() noexcept;
+ void window_message(HWND,UINT,WPARAM,LPARAM,bool before) noexcept;
  void cursor_focus_lost() noexcept;
  bool cursor_watch_installed() const noexcept {return cursor_hook_!=nullptr;}
  bool window_commit_active() const noexcept {return committing_;}
  uint64_t native_reset_calls=0,window_reset_echoes=0,window_reset_echoes_suppressed=0,deferred_resets=0;
  uint64_t windowed_resize_admissions=0;
 private:
- CursorIdle cursor_;HCURSOR saved_cursor_=nullptr;HHOOK cursor_hook_=nullptr;
+ CursorIdle cursor_;HCURSOR saved_cursor_=nullptr;HHOOK cursor_hook_=nullptr,message_hook_=nullptr;HWND watched_window_=nullptr;
  WindowApi* windows_;bool window_owned_=false,committing_=false,shutting_down_=false;D3DPRESENT_PARAMETERS fallback_{};
  WindowState committed_{};
+ bool initial_window_commit_complete_=false;
  UINT normal_target_width_=0,normal_target_height_=0;bool normal_target_valid_=false;
  UINT planned_normal_target_width_=0,planned_normal_target_height_=0;
  bool planned_normal_target_valid_=false,planned_normal_target_update_=false,planned_live_resize_=false;
  UINT exclusive_width_=0,exclusive_height_=0;bool exclusive_rejected_=false;
  uint64_t attempt_sequence_=0,device_lifetime_id_=0,successful_reset_epoch_=0;unsigned attempt_records_=0,cooperative_records_=0;Known<HRESULT> cooperative_;
+ unsigned admission_records_=0,message_records_=0;DWORD creating_thread_id_=0;
+ Known<HRESULT> reset_readiness_;bool display_watch_attempted_=false;std::string display_watch_reason_="not_installed";
+ void reset_readiness(IDirect3DDevice8&,const D3DPRESENT_PARAMETERS&) noexcept;
  void native_attempt(const char*,const D3DPRESENT_PARAMETERS&,const D3DPRESENT_PARAMETERS&,HRESULT) noexcept;
+ void native_begin(const char*,const D3DPRESENT_PARAMETERS&) noexcept;
  std::string window_commit_status_="not_required";
  std::string window_state_="unknown";
  std::string windowed_target_reason_="uninitialized";
  std::string window_transition_key_;
  std::string window_context_json(HWND) const;
- bool corroborated_windowed_resize(const D3DPRESENT_PARAMETERS&,const WindowState&) const noexcept;
+ const char* windowed_resize_decision(const D3DPRESENT_PARAMETERS&,const WindowState&) const noexcept;
+ void windowed_admission(const D3DPRESENT_PARAMETERS&,const char*) noexcept;
  void accept_planned_windowed_target() noexcept;
  void window_transition(const WindowState&) noexcept;
  bool select_display(IDirect3D8&,D3DPRESENT_PARAMETERS&);

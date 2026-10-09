@@ -1,6 +1,7 @@
 .build*/
 .analysis/
 scratch-r-gfx5-7/
+scratch-r-gfx5-8/
 __pycache__/
 *.py[cod]
 MRRGFX2/

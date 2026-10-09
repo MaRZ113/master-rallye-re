@@ -56,7 +56,7 @@ class QualityCompatibilityTests(unittest.TestCase):
         sha=hashlib.sha256(exe.read_bytes()).hexdigest();events=[]
         for p in (exe.parent/'MRRRenderer/logs').glob('frame*.jsonl'):
             with p.open(encoding='utf-8') as f:h=json.loads(f.readline())
-            if h.get('exe_sha256')==sha and h.get('proxy_version')=='R-GFX5-7':
+            if h.get('exe_sha256')==sha and h.get('proxy_version')=='R-GFX5-8':
                 rows=read_jsonl(p);events.extend(r for r in rows if r.get('widescreen_applied'))
         self.assertTrue(events,'Run the native production UI setter test first')
         r=next(r for r in events if r.get('widescreen_source')=='validated_ui_projection_owner')

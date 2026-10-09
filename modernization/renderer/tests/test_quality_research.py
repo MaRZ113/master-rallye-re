@@ -14,6 +14,7 @@ from quality_research import (ROOT as TOOL_ROOT, TARGET, read_locked, output_gua
     instructions, evaluate, signed_bits, capture_audit, FREEZE_CONTEXT, UI_CONTEXT)
 from reference_ghidra import PATCHER_SHA
 from trace_common import read_jsonl
+from audit_quality_runtime import display_lifecycle
 
 class QualityResearchTests(unittest.TestCase):
     def current_native_session(self):
@@ -23,13 +24,78 @@ class QualityResearchTests(unittest.TestCase):
         for path in (release/'MRRRenderer/logs').glob('session*.jsonl'):
             with path.open(encoding='utf-8-sig') as f:
                 head=json.loads(f.readline())
-            if head.get('exe_sha256')==sha and head.get('proxy_version')=='R-GFX5-7':
+            if head.get('exe_sha256')==sha and head.get('proxy_version')=='R-GFX5-8':
                 matching.append(path)
         self.assertTrue(matching,'Run current native suites before Python')
         # Anchor IDs are session-local. Repeated identical native builds must
         # not merge separate lifetimes just because the executable hash matches.
         latest=max(matching,key=lambda p:(p.stat().st_mtime_ns,p.name))
         return read_jsonl(latest)
+
+    def test_windowed_startup_axis_admission_trace(self):
+        rows=self.current_native_session()
+        candidates=[r for r in rows if r.get('type')=='windowed_resize_admission' and
+                    (r.get('configured_initial_width'),r.get('configured_initial_height'))==(1280,720) and
+                    (r.get('requested',{}).get('width'),r.get('requested',{}).get('height'))==(1447,720)]
+        self.assertTrue(candidates)
+        for r in candidates:
+            self.assertEqual(r['decision'],'accepted_hwnd_client_change')
+            self.assertTrue(r['initial_window_commit_complete'])
+            self.assertTrue(r['resize_corroborated_by_hwnd'])
+            self.assertEqual((r['normalized_logical']['width'],r['normalized_logical']['height']),(1447,720))
+            self.assertEqual((r['effective_backbuffer_width'],r['effective_backbuffer_height']),(1447,720))
+
+    def test_hidden_hwnd_nested_reset_event_order(self):
+        rows=self.current_native_session()
+        start=next(i for i,r in enumerate(rows) if r.get('type')=='display_contract_begin')
+        end=next(i for i,r in enumerate(rows) if i>start and r.get('type')=='display_contract_end')
+        nested=rows[start+1:end]
+        size=[r for r in nested if r.get('type')=='display_window_message' and r.get('message')=='WM_SIZE']
+        self.assertEqual([r['phase'] for r in size],['before_game_wndproc','after_game_wndproc'])
+        ready=next(r for r in nested if r.get('type')=='display_reset_readiness')
+        result=next(r for r in nested if r.get('type')=='display_native_attempt' and r.get('operation')=='Reset')
+        self.assertLess(size[0]['event_sequence'],ready['event_sequence'])
+        self.assertLess(ready['event_sequence'],result['event_sequence'])
+        self.assertLess(result['event_sequence'],size[1]['event_sequence'])
+        self.assertEqual(ready['cooperative_hresult'],0x88760868)
+        self.assertEqual(result['hresult'],0x88760868)
+        self.assertEqual((result['sent']['width'],result['sent']['height'],result['sent']['windowed']),(640,480,0))
+        self.assertEqual(result['successful_reset_epoch'],0)
+        self.assertEqual(ready['window_context']['game_window_owner']['reason'],'unsupported_build')
+        self.assertFalse(ready['window_context']['window_commit_in_progress'])
+        self.assertEqual(ready['policy'],'diagnostic_only_no_retry_no_hresult_translation')
+
+    def test_exclusive_diagnostic_cycles_and_budget(self):
+        rows=self.current_native_session()
+        diagnostic=display_lifecycle(rows)
+        self.assertTrue(diagnostic['event_sequence_order_valid'])
+        self.assertEqual(diagnostic['runtime_fix_verdict'],'UNKNOWN_HUMAN_REQUIRED')
+        self.assertGreaterEqual(len(diagnostic['observed_reset_while_device_lost']),4)
+        self.assertTrue(any(r.get('type')=='display_message_budget_exhausted' and r['limit']==512 for r in rows))
+        loss=[r for r in rows if r.get('type')=='display_native_attempt' and r.get('operation')=='Reset' and
+              r.get('hresult')==0x88760868 and r.get('requested',{}).get('width')==624]
+        self.assertEqual(len(loss),3)
+        device=loss[0]['device_lifetime_id']
+        calls=[r for r in rows if r.get('type')=='display_native_attempt' and r.get('operation')=='Reset' and r.get('device_lifetime_id')==device]
+        self.assertEqual([r['successful_reset_epoch'] for r in calls],[1,1,2,2,3,3,4,4,4])
+        self.assertEqual([r['hresult'] for r in calls][-2:],[0x8876086c,0x80004005])
+        self.assertTrue(all((r['sent']['width'],r['sent']['height'],r['sent']['windowed'])==(640,480,0) for r in calls))
+
+    def test_audit_does_not_pair_stale_or_other_device_readiness(self):
+        missing=[dict(type='display_reset_readiness',cooperative_hresult=0x88760868),
+                 dict(type='display_native_attempt',operation='Reset',hresult=0)]
+        self.assertEqual(display_lifecycle(missing)['observed_reset_while_device_lost'],[])
+        self.assertIsNone(display_lifecycle(missing)['event_sequence_order_valid'])
+        rows=[dict(type='display_reset_readiness',device_lifetime_id=1,cooperative_hresult=0x88760868,event_sequence=1),
+              dict(type='display_native_attempt',operation='Reset',device_lifetime_id=2,hresult=0,event_sequence=2),
+              dict(type='display_native_begin',operation='Reset',device_lifetime_id=1,event_sequence=3),
+              dict(type='display_native_attempt',operation='Reset',device_lifetime_id=1,hresult=0,event_sequence=4)]
+        self.assertEqual(display_lifecycle(rows)['observed_reset_while_device_lost'],[])
+        rows[-1]['event_sequence']=5
+        rows.insert(3,dict(type='display_reset_readiness',device_lifetime_id=1,cooperative_hresult=0x88760868,event_sequence=4))
+        paired=display_lifecycle(rows)['observed_reset_while_device_lost']
+        self.assertEqual(len(paired),1)
+        self.assertEqual(paired[0]['native_hresult'],0) # The native result is data, never rewritten by the auditor.
 
     def test_native_windowed_maximize_restore_telemetry(self):
         events=[r for r in self.current_native_session() if r.get('type')=='window_state_transition']
@@ -126,7 +192,7 @@ class QualityResearchTests(unittest.TestCase):
         matches=[]
         for path in (release/'MRRRenderer/logs').glob('frame*.jsonl'):
             with path.open(encoding='utf-8-sig') as f: head=json.loads(f.readline())
-            if head.get('exe_sha256')==sha and head.get('proxy_version')=='R-GFX5-7':
+            if head.get('exe_sha256')==sha and head.get('proxy_version')=='R-GFX5-8':
                 rows=read_jsonl(path)
                 if any(r.get('type')=='draw' and r.get('feature_mask',0)&128 for r in rows):matches.append((path.stat().st_mtime_ns,rows))
         self.assertTrue(matches)
@@ -236,7 +302,7 @@ class QualityResearchTests(unittest.TestCase):
         for path in (release/'MRRRenderer/logs').glob('frame*.jsonl'):
             with path.open() as f:
                 head=json.loads(f.readline())
-            if head.get('exe_sha256')==sha and head.get('proxy_version')=='R-GFX5-7':frames.append(read_jsonl(path))
+            if head.get('exe_sha256')==sha and head.get('proxy_version')=='R-GFX5-8':frames.append(read_jsonl(path))
         self.assertTrue(frames,'Native production wrapper must emit its positive capture')
         frame=next(f for f in reversed(frames) if (f[0]['quality'].get('effective') or {}).get('multisample')==4);self.assertTrue(frame[-1]['complete']);self.assertFalse(frame[-1]['truncated'])
         pp=frame[0]['quality']['effective'];self.assertEqual((pp['width'],pp['height'],pp['multisample'],pp['swap_effect']),(1920,1080,4,1))

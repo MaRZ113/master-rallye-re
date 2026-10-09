@@ -37,7 +37,8 @@ struct Surface:IDirect3DSurface8 {
 };
 struct Device:MockDeviceBase {
  Windows* order=nullptr;
- std::vector<D3DPRESENT_PARAMETERS> resets;HRESULT result=S_OK;bool reject_msaa=false,reject_ui=false;
+ std::vector<D3DPRESENT_PARAMETERS> resets;HRESULT result=S_OK,cooperative=S_OK;unsigned cooperative_calls=0;bool reject_msaa=false,reject_ui=false;
+ HRESULT STDMETHODCALLTYPE TestCooperativeLevel() override{++cooperative_calls;return cooperative;}
  D3DVIEWPORT8 viewport{};D3DMATRIX projection{};Surface color,depth;
  HRESULT STDMETHODCALLTYPE Reset(D3DPRESENT_PARAMETERS* p) override{resets.push_back(*p);if(order)order->native_completed=true;return reject_msaa&&p->MultiSampleType!=D3DMULTISAMPLE_NONE?D3DERR_INVALIDCALL:result;}
  HRESULT STDMETHODCALLTYPE GetBackBuffer(UINT,D3DBACKBUFFER_TYPE,IDirect3DSurface8** p) override{color.AddRef();*p=&color;return S_OK;}
@@ -182,6 +183,46 @@ void windowed_live_resize(){
  auto_window.state.client={0,0,1024,768};p=stock();p.BackBufferWidth=1024;p.BackBufferHeight=768;
  CHECK(automatic.reset(auto_root,auto_root.dev,&p)==S_OK&&p.BackBufferWidth==1024&&p.BackBufferHeight==768&&automatic.windowed_resize_admissions==1);
  std::cout<<"Windowed live resize admission is corroborated and success-gated: PASS\n";
+}
+void windowed_startup_order(){
+ Root root;Windows window;QualityPipeline q(window);VisualConfig c;c.display_mode="Windowed";c.width=1280;c.height=720;
+ auto p=stock();IDirect3DDevice8* out=nullptr;q.configure(c,true,2,D3DDEVTYPE_HAL,p.hDeviceWindow);
+ CHECK(q.create(root,0,&p,&out)==S_OK&&p.BackBufferWidth==1280&&p.BackBufferHeight==720);
+ const auto applies=window.applies;
+ // Both logical dimensions still originate at 640x480. A horizontal drag
+ // changes only width: the original 720 height must not be unmixed to 480
+ // before comparing this real Reset request with the actual HWND client.
+ for(const auto size:std::vector<std::pair<LONG,LONG>>{{1447,720},{1447,811},{1600,900},{1734,480},{480,860}}){
+  window.state.client={0,0,size.first,size.second};window.state.outer={2000,20,2000+size.first+20,20+size.second+39};auto outer=window.state.outer;
+  p=stock();p.BackBufferWidth=size.first;p.BackBufferHeight=size.second;auto resets=root.dev.resets.size();
+  CHECK(q.reset(root,root.dev,&p)==S_OK&&root.dev.resets.size()==resets+1);
+  CHECK(p.BackBufferWidth==static_cast<UINT>(size.first)&&p.BackBufferHeight==static_cast<UINT>(size.second)&&window.applies==applies);
+  CHECK(!std::memcmp(&outer,&window.state.outer,sizeof(outer)));
+  // A newly accepted user size becomes the game/native viewport domain.
+  D3DVIEWPORT8 view{0,0,p.BackBufferWidth,p.BackBufferHeight,0,1},mapped{};CHECK(!q.viewport(view,mapped));
+ }
+ CHECK(q.windowed_resize_admissions==5);
+ // A bogus request cannot turn into a resize by echo normalization.
+ p=stock();p.BackBufferWidth=7000;p.BackBufferHeight=7000;CHECK(q.reset(root,root.dev,&p)==S_OK&&p.BackBufferWidth==480&&p.BackBufferHeight==860&&window.applies==applies);
+ // Restore follows the last accepted normal size, including a partial-axis
+ // request equal to one previous effective dimension.
+ window.state.maximized=true;window.state.client={0,0,1900,1030};p=stock();p.BackBufferWidth=1900;p.BackBufferHeight=1030;CHECK(q.reset(root,root.dev,&p)==S_OK);
+ window.state.maximized=false;window.state.client={0,0,480,860};p=stock();p.BackBufferWidth=480;p.BackBufferHeight=860;CHECK(q.reset(root,root.dev,&p)==S_OK&&p.BackBufferWidth==480&&p.BackBufferHeight==860&&window.applies==applies);
+ window.state.minimized=true;window.state.client={};p=stock();p.BackBufferWidth=p.BackBufferHeight=0;CHECK(q.reset(root,root.dev,&p)==S_OK&&p.BackBufferWidth==480&&p.BackBufferHeight==860);
+ window.state.minimized=false;window.state.client={0,0,480,860};p=stock();p.BackBufferWidth=480;p.BackBufferHeight=860;CHECK(q.reset(root,root.dev,&p)==S_OK);
+ window.state.client={0,0,600,860};p=stock();p.BackBufferWidth=600;p.BackBufferHeight=860;CHECK(q.reset(root,root.dev,&p)==S_OK&&p.BackBufferWidth==600&&p.BackBufferHeight==860&&window.applies==applies);
+ CHECK(q.windowed_resize_admissions==6&&root.dev.cooperative_calls==0);
+ // Equivalent self-induced startup echo stays distinct from a real first drag.
+ Root echo_root;Windows echo_window;QualityPipeline echo_q(echo_window);echo_q.configure(c,true,2,D3DDEVTYPE_HAL,p.hDeviceWindow);
+ echo_window.on_apply=[&](){auto echo=stock();CHECK(echo_q.reset(echo_root,echo_root.dev,&echo)==S_OK&&echo.BackBufferWidth==1280&&echo.BackBufferHeight==720);};
+ p=stock();CHECK(echo_q.create(echo_root,0,&p,&out)==S_OK&&echo_root.dev.resets.empty()&&echo_q.window_reset_echoes_suppressed==1);
+ echo_window.on_apply={};echo_window.state.client={0,0,1447,720};p.BackBufferWidth=1447;
+ CHECK(echo_q.reset(echo_root,echo_root.dev,&p)==S_OK&&p.BackBufferWidth==1447&&p.BackBufferHeight==720&&echo_root.dev.resets.size()==1&&echo_q.json().find("\"successful_reset_epoch\":1")!=std::string::npos);
+ // Automatic startup retains its old one-axis control behavior.
+ Root auto_root;Windows auto_window;QualityPipeline auto_q(auto_window);c.width=c.height=0;p=stock();auto_q.configure(c,true,2,D3DDEVTYPE_HAL,p.hDeviceWindow);
+ CHECK(auto_q.create(auto_root,0,&p,&out)==S_OK);auto_window.state.client={0,0,944,480};p.BackBufferWidth=944;
+ CHECK(auto_q.reset(auto_root,auto_root.dev,&p)==S_OK&&p.BackBufferWidth==944&&p.BackBufferHeight==480);
+ std::cout<<"Windowed explicit startup then immediate horizontal/vertical/corner/extreme/narrow drags: PASS\n";
 }
 void windowed_maximize_restore(){
  Root root;Windows window;QualityPipeline q(window);VisualConfig c;c.display_mode="Windowed";c.width=1280;c.height=720;
@@ -406,6 +447,50 @@ void exclusive_lifecycle(){
  root.result=D3DERR_INVALIDCALL;input=stock();CHECK(q.create(root,0,&input,&out)==D3DERR_INVALIDCALL&&q.attempts==2&&q.display=="ExclusiveFullscreen");root.result=S_OK;
  std::cout<<"Exclusive native ownership / immutable selected mode / full-screen AA / reject-no-alias / bounded loss: PASS\n";
 }
+void exclusive_restore_order(){
+ Root root;root.mode={640,480,60,D3DFMT_X8R8G8B8};root.windowed_expected=false;Windows windows;QualityPipeline q(windows);VisualConfig c;c.display_mode="ExclusiveFullscreen";c.width=640;c.height=480;c.auto_hide_cursor=false;
+ auto p=stock();IDirect3DDevice8* out=nullptr;q.configure(c,true,2,D3DDEVTYPE_HAL,p.hDeviceWindow);CHECK(q.create(root,0,&p,&out)==S_OK);
+ p=stock();CHECK(q.reset(root,root.dev,&p)==S_OK&&root.dev.resets.size()==1&&root.dev.cooperative_calls==1);
+ for(unsigned cycle=0;cycle<3;++cycle){
+  windows.state.style=0x16000000;windows.state.minimized=true;windows.state.client={};root.dev.cooperative=D3DERR_DEVICELOST;root.dev.result=D3DERR_DEVICELOST;
+  q.window_message(p.hDeviceWindow,WM_SIZE,SIZE_MINIMIZED,0,true);q.window_message(p.hDeviceWindow,WM_SIZE,SIZE_MINIMIZED,0,false);
+  // Lost focus is genuine. The first restored size can arrive before focus
+  // and native readiness: log it and forward the actual failure unchanged.
+  windows.state.minimized=false;windows.state.outer={0,0,640,480};windows.state.client={0,0,624,441};STYLESTRUCT styles{0x16000000,0x16cf0000};
+  q.window_message(p.hDeviceWindow,WM_STYLECHANGING,GWL_STYLE,reinterpret_cast<LPARAM>(&styles),true);windows.state.style=0x16cf0000;windows.state.exstyle=0x108;
+  q.window_message(p.hDeviceWindow,WM_STYLECHANGED,GWL_STYLE,reinterpret_cast<LPARAM>(&styles),false);
+  auto input=stock();input.BackBufferWidth=624;input.BackBufferHeight=441;auto calls=root.dev.resets.size();auto coop=root.dev.cooperative_calls;
+  q.window_message(p.hDeviceWindow,WM_SIZE,SIZE_RESTORED,MAKELPARAM(624,441),true);
+  CHECK(q.reset(root,root.dev,&input)==D3DERR_DEVICELOST&&root.dev.resets.size()==calls+1&&root.dev.cooperative_calls==coop+1&&q.attempts==1);
+  q.window_message(p.hDeviceWindow,WM_SIZE,SIZE_RESTORED,MAKELPARAM(624,441),false);
+  CHECK(root.dev.resets.back().BackBufferWidth==640&&root.dev.resets.back().BackBufferHeight==480&&!root.dev.resets.back().Windowed);
+  CHECK(q.json().find("\"successful_reset_epoch\":"+std::to_string(cycle+1))!=std::string::npos&&q.json().find("\"last_reset_readiness\":2289436776")!=std::string::npos);
+  // Later real native readiness permits the one Reset already owned by the
+  // game. The proxy adds neither waits/retries nor HWND style mutations.
+  root.dev.cooperative=D3DERR_DEVICENOTRESET;root.dev.result=S_OK;q.window_message(p.hDeviceWindow,WM_SETFOCUS,0,0,true);
+  CHECK(q.reset(root,root.dev,&input)==S_OK&&root.dev.resets.size()==calls+2&&root.dev.cooperative_calls==coop+2);
+  CHECK(q.json().find("\"successful_reset_epoch\":"+std::to_string(cycle+2))!=std::string::npos&&!input.Windowed&&input.BackBufferWidth==640&&input.BackBufferHeight==480);
+ }
+ for(HRESULT hr:{D3DERR_INVALIDCALL,E_FAIL}){root.dev.result=hr;p=stock();auto calls=root.dev.resets.size();CHECK(q.reset(root,root.dev,&p)==hr&&root.dev.resets.size()==calls+1&&q.attempts==1);}
+ CHECK(windows.applies==0&&windows.restores==0&&root.dev.color.refs==0&&root.dev.depth.refs==0);
+ // The observer is bounded even when a game produces many resize messages.
+ for(unsigned i=0;i<600;++i)q.window_message(p.hDeviceWindow,WM_SIZE,SIZE_RESTORED,MAKELPARAM(624,441),true);
+ CHECK(q.json().find("\"display_window_message_records\":512")!=std::string::npos);
+ std::cout<<"Exclusive startup/lost/partial restore/decorated geometry/readiness/failure/cycles/epoch/bounded observation: PASS\n";
+}
+void game_window_owner_read(){
+ std::vector<unsigned char> image(0x300000),singleton(0x44),owner(0x1b4);auto base=reinterpret_cast<uintptr_t>(image.data());auto self=reinterpret_cast<uintptr_t>(owner.data());auto root=reinterpret_cast<uintptr_t>(singleton.data());
+ auto put=[](unsigned char* target,auto value){std::memcpy(target,&value,sizeof(value));};HWND hwnd=reinterpret_cast<HWND>(0x1234);
+ put(image.data()+0x2f9cf0,root);put(image.data()+0x2f9d80,self);put(singleton.data()+0x20,self);put(owner.data(),base+0x29228c);put(owner.data()+0x5c,hwnd);
+ owner[5]=owner[6]=owner[0x1c]=owner[0x24]=owner[0x25]=1;put(owner.data()+0x44,uint32_t(1));put(owner.data()+0x164,uint32_t(0x16cf0000));auto saved=owner;
+ auto state=inspect_game_window_owner(base,true,hwnd);CHECK(state.known&&state.address==self&&state.windowed==1&&state.pp_windowed==1&&state.saved_style==0x16cf0000&&owner==saved);
+ CHECK(!inspect_game_window_owner(base,false,hwnd).known&&!inspect_game_window_owner(base,true,reinterpret_cast<HWND>(0x5678)).known);
+ put(singleton.data()+0x20,uintptr_t(0));CHECK(!inspect_game_window_owner(base,true,hwnd).known);put(singleton.data()+0x20,self);
+ owner[0x1c]=2;CHECK(!inspect_game_window_owner(base,true,hwnd).known);owner[0x1c]=0;put(owner.data()+0x44,uint32_t(0));CHECK(inspect_game_window_owner(base,true,hwnd).known&&inspect_game_window_owner(base,true,hwnd).windowed==0);
+ put(owner.data(),uintptr_t(0));CHECK(!inspect_game_window_owner(base,true,hwnd).known);
+ CHECK(!inspect_game_window_owner(0,true,hwnd).known&&!inspect_game_window_owner(UINTPTR_MAX,true,hwnd).known&&!inspect_game_window_owner(0x10000,true,hwnd).known);
+ std::cout<<"Exact retail window-owner observation: validated chain/vtable/HWND/flags, unknown/reuse/unreadable fail closed, no writes: PASS\n";
+}
 void viewports_ui(){
  D3DVIEWPORT8 v{0,0,640,480,0,1},out{};CHECK(map_viewport(v,640,480,1920,1080,out)&&out.Width==1920&&out.Height==1080);
  v={320,0,320,480,.1f,.9f};CHECK(map_viewport(v,640,480,1920,1080,out)&&out.X==960&&out.Width==960&&out.Height==1080&&out.MinZ==.1f);
@@ -453,6 +538,35 @@ void native_window(){
  auto style=GetWindowLongW(w,GWL_STYLE);SetWindowLongW(w,GWL_STYLE,style|WS_MAXIMIZE);WindowState zoomed{};CHECK(api.snapshot(w,zoomed)&&zoomed.maximized&&IsZoomed(w)&&!IsWindowVisible(w));SetWindowLongW(w,GWL_STYLE,style);CHECK(api.snapshot(w,zoomed)&&!zoomed.maximized);
  CHECK(api.apply(saved,saved.monitor,false,true));CHECK(GetClientRect(w,&client)&&client.right==saved.monitor.right-saved.monitor.left&&client.bottom==saved.monitor.bottom-saved.monitor.top);
  CHECK(!(GetWindowLongW(w,GWL_STYLE)&WS_CAPTION)&&!IsWindowVisible(w));CHECK(api.restore(saved));WindowState after{};CHECK(api.snapshot(w,after)&&after.style==saved.style&&after.exstyle==saved.exstyle&&std::memcmp(&after.outer,&saved.outer,sizeof(RECT))==0);{QualityPipeline q;q.valid=true;q.effective=stock();q.effective.hDeviceWindow=w;q.display="Borderless";q.cursor_watch();CHECK(q.cursor_watch_installed());SendMessageW(w,WM_KILLFOCUS,0,0);q.begin_shutdown();CHECK(!q.cursor_watch_installed());}CHECK(DestroyWindow(w));
+}
+QualityPipeline* ordering_policy=nullptr;Root* ordering_root=nullptr;HRESULT ordering_result=E_FAIL;
+LRESULT CALLBACK ordering_wndproc(HWND hwnd,UINT message,WPARAM w,LPARAM l){
+ if(message==WM_SIZE&&ordering_policy&&ordering_root){RECT client{};GetClientRect(hwnd,&client);auto p=stock();p.hDeviceWindow=hwnd;p.BackBufferWidth=client.right;p.BackBufferHeight=client.bottom;ordering_result=ordering_policy->reset(*ordering_root,ordering_root->dev,&p);}
+ return DefWindowProcW(hwnd,message,w,l);
+}
+void native_display_ordering(){
+ WNDCLASSW cls{};cls.lpfnWndProc=&ordering_wndproc;cls.hInstance=GetModuleHandleW(nullptr);cls.lpszClassName=L"MRR display ordering contract";CHECK(RegisterClassW(&cls));
+ HWND hwnd=CreateWindowW(cls.lpszClassName,L"Hidden display ordering",WS_OVERLAPPEDWINDOW,10,10,640,480,nullptr,nullptr,cls.hInstance,nullptr);CHECK(hwnd&&!IsWindowVisible(hwnd));
+ {
+  Root root;QualityPipeline q;VisualConfig c;c.display_mode="Windowed";c.width=1280;c.height=720;c.auto_hide_cursor=false;
+  auto p=stock();p.hDeviceWindow=hwnd;IDirect3DDevice8* out=nullptr;q.configure(c,true,2,D3DDEVTYPE_HAL,hwnd);CHECK(q.create(root,0,&p,&out)==S_OK&&q.cursor_watch_installed());
+  ordering_policy=&q;ordering_root=&root;RECT outer{},size{0,0,1447,720};CHECK(GetWindowRect(hwnd,&outer));CHECK(AdjustWindowRectEx(&size,GetWindowLongW(hwnd,GWL_STYLE),GetMenu(hwnd)!=nullptr,GetWindowLongW(hwnd,GWL_EXSTYLE)));
+  CHECK(SetWindowPos(hwnd,nullptr,outer.left+10,outer.top+10,size.right-size.left,size.bottom-size.top,SWP_NOACTIVATE|SWP_NOZORDER));
+  CHECK(ordering_result==S_OK&&q.effective.BackBufferWidth==1447&&q.effective.BackBufferHeight==720&&root.dev.resets.size()==1&&!IsWindowVisible(hwnd));
+  ordering_policy=nullptr;ordering_root=nullptr;q.begin_shutdown();CHECK(!q.cursor_watch_installed());
+ }
+ {
+  Root root;root.mode={640,480,60,D3DFMT_X8R8G8B8};QualityPipeline q;VisualConfig c;c.display_mode="ExclusiveFullscreen";c.width=640;c.height=480;c.auto_hide_cursor=false;
+  auto p=stock();p.hDeviceWindow=hwnd;IDirect3DDevice8* out=nullptr;q.configure(c,true,2,D3DDEVTYPE_HAL,hwnd);CHECK(q.create(root,0,&p,&out)==S_OK&&q.cursor_watch_installed());
+  root.dev.cooperative=root.dev.result=D3DERR_DEVICELOST;ordering_policy=&q;ordering_root=&root;
+  session().write("{\"type\":\"display_contract_begin\",\"name\":\"hidden_hwnd_nested_reset\"}");
+  SendMessageW(hwnd,WM_SIZE,SIZE_RESTORED,MAKELPARAM(1447,720));
+  session().write("{\"type\":\"display_contract_end\",\"name\":\"hidden_hwnd_nested_reset\"}");
+  CHECK(ordering_result==D3DERR_DEVICELOST&&root.dev.resets.size()==1&&root.dev.cooperative_calls==1&&!root.dev.resets.back().Windowed&&root.dev.resets.back().BackBufferWidth==640);
+  ordering_policy=nullptr;ordering_root=nullptr;q.begin_shutdown();CHECK(!q.cursor_watch_installed());
+ }
+ CHECK(DestroyWindow(hwnd));CHECK(UnregisterClassW(cls.lpszClassName,cls.hInstance));
+ std::cout<<"Hidden native HWND: immediate configured drag, paired pre/post WndProc with nested Reset and cursor-disabled observer teardown: PASS\n";
 }
 void wrapper_trace(){
  Root raw;Windows windows;auto policy=std::make_unique<QualityPipeline>(windows);VisualConfig config;config.display_mode="Borderless";config.aa_mode="MSAA";
@@ -565,4 +679,4 @@ void quality_fpu(){
  flags=fetestexcept(FE_ALL_EXCEPT);ui_projection_dimensions(matrix,1920,1080,out);CHECK(fegetround()==FE_DOWNWARD&&fetestexcept(FE_ALL_EXCEPT)==flags);fesetenv(&saved);
  fegetenv(&saved);fesetround(FE_DOWNWARD);D3DMATRIX source{};source._22=float(1/std::tan((45./(16./9))*3.14159265358979323846/360.));source._11=source._22/float(16./9);source._33=1.01f;source._34=1;source._43=-.2f;flags=fetestexcept(FE_ALL_EXCEPT);CHECK(camera_scene_family(source)==0&&fegetround()==FE_DOWNWARD&&fetestexcept(FE_ALL_EXCEPT)==flags);fesetenv(&saved);
 }
-int main(){try{configs();numeric_configs();trace_numeric_configs();reset_echo_shutdown();preview_cursor_packets();displays();display_transactions();windowed_live_resize();windowed_maximize_restore();stable_margin_anchors();margin_short_grace();margin_consumer_retention();margin_candidate_diagnostics();render_local_ui_contracts();render_local_wrapper_contract();antialiasing();exclusive_lifecycle();viewports_ui();freeze_and_patch();native_window();wrapper_trace();validated_ui_wrapper();ui_native_abi();packet_consumer_abi();quality_fpu();std::cout<<"R-GFX5 config/display/viewport/UI/MSAA/Reset/freeze/hidden HWND/native bridge contracts: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}
+int main(){try{configs();numeric_configs();trace_numeric_configs();reset_echo_shutdown();preview_cursor_packets();displays();display_transactions();windowed_live_resize();windowed_startup_order();windowed_maximize_restore();stable_margin_anchors();margin_short_grace();margin_consumer_retention();margin_candidate_diagnostics();render_local_ui_contracts();render_local_wrapper_contract();antialiasing();exclusive_lifecycle();exclusive_restore_order();game_window_owner_read();viewports_ui();freeze_and_patch();native_window();native_display_ordering();wrapper_trace();validated_ui_wrapper();ui_native_abi();packet_consumer_abi();quality_fpu();std::cout<<"R-GFX5 config/display/viewport/UI/MSAA/Reset/freeze/hidden HWND/native bridge contracts: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}

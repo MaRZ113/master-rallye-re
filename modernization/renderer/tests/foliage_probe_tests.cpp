@@ -1,6 +1,7 @@
 #include "wrappers.hpp"
 #include "foliage_probe.hpp"
 #include "buffer_provenance.hpp"
+#include "quality.hpp"
 #include <iostream>
 #include <stdexcept>
 #include <vector>
@@ -8,6 +9,7 @@
 #include <limits>
 #include <cfenv>
 #include <algorithm>
+#include <functional>
 #define CHECK(x) do{if(!(x))throw std::runtime_error(#x);}while(0)
 #include "mock_interfaces.hpp"
 using namespace gfx2;
@@ -163,4 +165,37 @@ void cpu_write_provenance(){
   static_cast<IUnknown*>(escaped_device)->Release();}
  std::cout<<"CPU upload mirrors: partial/discard coverage, failure/escape invalidation, binding retention, Reset and generation reuse: PASS\n";
 }
-int main(){try{contracts();cpu_write_provenance();return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}
+void display_reset_provenance(){
+ struct DisplayRaw:Raw {unsigned resets=0;HRESULT STDMETHODCALLTYPE Reset(D3DPRESENT_PARAMETERS*)override{++resets;return hr;}} native;
+ struct DisplayRoot:MockRootBase {
+  IDirect3DDevice8* device=nullptr;
+  HRESULT STDMETHODCALLTYPE GetAdapterDisplayMode(UINT,D3DDISPLAYMODE* p)override{*p={1920,1080,60,D3DFMT_X8R8G8B8};return S_OK;}
+  HRESULT STDMETHODCALLTYPE CheckDeviceType(UINT,D3DDEVTYPE,D3DFORMAT,D3DFORMAT,BOOL)override{return S_OK;}
+  HRESULT STDMETHODCALLTYPE CreateDevice(UINT,D3DDEVTYPE,HWND,DWORD,D3DPRESENT_PARAMETERS*,IDirect3DDevice8** p)override{*p=device;return S_OK;}
+ } raw_root;raw_root.device=&native;Root8 root(&raw_root);
+ struct DisplayWindows:WindowApi {
+  WindowState s{};std::function<void()> echo;
+  DisplayWindows(){s.valid=true;s.hwnd=reinterpret_cast<HWND>(0x1234);s.style=WS_OVERLAPPEDWINDOW;s.client={0,0,640,480};s.monitor=s.work={0,0,1920,1080};}
+  bool snapshot(HWND,WindowState& out)noexcept override{out=s;return true;}
+  bool apply(const WindowState&,const RECT& r,bool,bool)noexcept override{s.client={0,0,r.right-r.left,r.bottom-r.top};s.outer=r;if(echo)echo();return true;}
+  bool restore(const WindowState& in)noexcept override{s=in;return true;}
+ } windows;
+ auto policy=std::make_unique<QualityPipeline>(windows);VisualConfig config;D3DPRESENT_PARAMETERS pp{};pp.hDeviceWindow=windows.s.hwnd;pp.BackBufferWidth=640;pp.BackBufferHeight=480;pp.BackBufferFormat=D3DFMT_X8R8G8B8;pp.BackBufferCount=1;pp.Windowed=TRUE;pp.SwapEffect=D3DSWAPEFFECT_COPY;
+ IDirect3DDevice8* out_device=nullptr;policy->configure(config,true,0,D3DDEVTYPE_HAL,pp.hDeviceWindow);CHECK(policy->create(raw_root,0,&pp,&out_device)==S_OK);
+ Device8 device(&native,&root,std::move(policy));device.visuals.effective.foliage_diagnostics=true;
+ Buffer<IDirect3DVertexBuffer8> vb;vb.desc.Size=16;vb.desc.Usage=D3DUSAGE_WRITEONLY;vb.desc.Pool=D3DPOOL_MANAGED;vb.bytes.resize(16);
+ auto ptr=reinterpret_cast<uintptr_t>(&vb);auto gen=device.trace.resources.add(ptr,23,pack(16,D3DUSAGE_WRITEONLY,0x142,D3DPOOL_MANAGED)).serial;
+ auto default_ptr=uintptr_t(0x7654);auto default_gen=device.trace.resources.add(default_ptr,24,pack(12,0,D3DFMT_INDEX16,D3DPOOL_DEFAULT)).serial;
+ auto* proxy=new VertexBufferProxy(&device,&vb,gen);BYTE* data=nullptr;CHECK(proxy->Lock(0,16,&data,0)==S_OK);std::memset(data,9,16);CHECK(proxy->Unlock()==S_OK);
+ std::vector<BYTE> captured;uint64_t revision=0;CHECK(device.copy_buffer_shadow(&vb,BufferKind::Vertex,gen,0,16,captured,revision));
+ config.display_mode="Windowed";config.width=1280;config.height=720;device.quality->configure(config,true,0,D3DDEVTYPE_HAL,pp.hDeviceWindow);
+ native.hr=D3DERR_DEVICELOST;CHECK(device.Reset(&pp)==D3DERR_DEVICELOST&&native.resets==1);
+ CHECK(device.copy_buffer_shadow(&vb,BufferKind::Vertex,gen,0,16,captured,revision)&&device.trace.resources.generation(default_ptr)==default_gen);
+ native.hr=S_OK;windows.echo=[&](){auto same=pp;CHECK(device.Reset(&same)==S_OK&&native.resets==2);
+  CHECK(device.copy_buffer_shadow(&vb,BufferKind::Vertex,gen,0,16,captured,revision)&&device.trace.resources.generation(ptr)==gen&&device.trace.resources.generation(default_ptr)==default_gen);};
+ CHECK(device.Reset(&pp)==S_OK&&native.resets==2&&device.quality->window_reset_echoes_suppressed==1);
+ CHECK(!device.copy_buffer_shadow(&vb,BufferKind::Vertex,gen,0,16,captured,revision)&&device.trace.resources.generation(ptr)==gen&&device.trace.resources.generation(default_ptr)==0);
+ CHECK(device.quality->json().find("\"successful_reset_epoch\":1")!=std::string::npos);proxy->Release();CHECK(vb.refs==0);
+ std::cout<<"Display wrapper Reset: failure/commit echo preserve upload mirror and generations; real success poisons MANAGED mirror and invalidates DEFAULT metadata: PASS\n";
+}
+int main(){try{contracts();cpu_write_provenance();display_reset_provenance();return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}
