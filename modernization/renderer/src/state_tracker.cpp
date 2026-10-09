@@ -46,8 +46,8 @@ void Shadow::update(uint32_t slot,const Args& args,uint32_t result) noexcept {
  case 73:bindings.streams[0].set({0,0});bindings.indices.set({0,0});break;
  }
 }
-Resource ResourceRegistry::add(uintptr_t p,uint32_t method,const Args& args){
- Resource r{};r.serial=++next_serial;r.method=method;r.args=args;
+Resource ResourceRegistry::add(uintptr_t p,uint32_t method,const Args& args,uintptr_t creation_caller){
+ Resource r{};r.serial=++next_serial;r.method=method;r.creation_caller=creation_caller;r.args=args;
  int index=method==20?5:method==21?6:method==22?4:(method==23||method==24)?3:-1;
  if(index>=0)r.pool.set(static_cast<uint32_t>(args.a[index]));
  else if(method==27)r.pool.set(D3DPOOL_SYSTEMMEM); // CreateImageSurface is system memory.

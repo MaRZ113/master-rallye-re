@@ -67,6 +67,6 @@ private:
  Known<D3DPRESENT_PARAMETERS> reset_before_;
  void finish(uint32_t result,bool complete,const char* reason) noexcept;
  void start_capture() noexcept;
- void resource(uint32_t slot,const Args& args,uint32_t result);
+ void resource(uint32_t slot,const Args& args,uint32_t result,uintptr_t caller_pc);
 };
 }

@@ -1,5 +1,7 @@
 // Generated complete forwarders; COM plumbing is in wrappers.cpp.
 #include "wrappers.hpp"
+#include "provenance.hpp"
+#include "buffer_provenance.hpp"
 #include <intrin.h>
 namespace gfx2 {
 HRESULT STDMETHODCALLTYPE Root8::RegisterSoftwareDevice(void * pInitializeFunction) {
@@ -191,20 +193,22 @@ HRESULT STDMETHODCALLTYPE Device8::CreateCubeTexture(UINT EdgeLength,UINT Levels
 }
 HRESULT STDMETHODCALLTYPE Device8::CreateVertexBuffer(UINT Length,DWORD Usage,DWORD FVF,D3DPOOL Pool,IDirect3DVertexBuffer8 ** ppVertexBuffer) {
  auto guard = trace.guard();
- const auto args = pack(Length, Usage, FVF, Pool, ppVertexBuffer);
  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
+ const auto args = pack(Length, Usage, FVF, Pool, ppVertexBuffer);
  trace.before(23, args, pc);
  HRESULT result = real_->CreateVertexBuffer(Length, Usage, FVF, Pool, ppVertexBuffer);
  trace.after(23, args, static_cast<uint32_t>(result), pc);
+ if(SUCCEEDED(result)&&visuals.effective.foliage_diagnostics&&ppVertexBuffer){IDirect3DVertexBuffer8* raw=nullptr;if(safe_copy(&raw,ppVertexBuffer,sizeof(raw))&&raw){auto* wrapped=wrap_vertex_buffer(raw);if(wrapped!=raw&&!safe_copy(ppVertexBuffer,&wrapped,sizeof(wrapped)))wrapped->Release();}}
  return result;
 }
 HRESULT STDMETHODCALLTYPE Device8::CreateIndexBuffer(UINT Length,DWORD Usage,D3DFORMAT Format,D3DPOOL Pool,IDirect3DIndexBuffer8 ** ppIndexBuffer) {
  auto guard = trace.guard();
- const auto args = pack(Length, Usage, Format, Pool, ppIndexBuffer);
  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
+ const auto args = pack(Length, Usage, Format, Pool, ppIndexBuffer);
  trace.before(24, args, pc);
  HRESULT result = real_->CreateIndexBuffer(Length, Usage, Format, Pool, ppIndexBuffer);
  trace.after(24, args, static_cast<uint32_t>(result), pc);
+ if(SUCCEEDED(result)&&visuals.effective.foliage_diagnostics&&ppIndexBuffer){IDirect3DIndexBuffer8* raw=nullptr;if(safe_copy(&raw,ppIndexBuffer,sizeof(raw))&&raw){auto* wrapped=wrap_index_buffer(raw);if(wrapped!=raw&&!safe_copy(ppIndexBuffer,&wrapped,sizeof(wrapped)))wrapped->Release();}}
  return result;
 }
 HRESULT STDMETHODCALLTYPE Device8::CreateRenderTarget(UINT Width,UINT Height,D3DFORMAT Format,D3DMULTISAMPLE_TYPE MultiSample,WINBOOL Lockable,IDirect3DSurface8 ** ppSurface) {
@@ -591,11 +595,13 @@ HRESULT STDMETHODCALLTYPE Device8::DrawIndexedPrimitiveUP(D3DPRIMITIVETYPE primi
 }
 HRESULT STDMETHODCALLTYPE Device8::ProcessVertices(UINT SrcStartIndex,UINT DestIndex,UINT VertexCount,IDirect3DVertexBuffer8 * pDestBuffer,DWORD Flags) {
  auto guard = trace.guard();
- const auto args = pack(SrcStartIndex, DestIndex, VertexCount, pDestBuffer, Flags);
  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
- trace.before(74, args, pc);
- HRESULT result = real_->ProcessVertices(SrcStartIndex, DestIndex, VertexCount, pDestBuffer, Flags);
- trace.after(74, args, static_cast<uint32_t>(result), pc);
+ auto* native_buffer=unwrap_vertex_buffer(pDestBuffer);
+ const auto native_args=pack(SrcStartIndex,DestIndex,VertexCount,native_buffer,Flags);
+ trace.before(74,native_args,pc);
+ HRESULT result=real_->ProcessVertices(SrcStartIndex,DestIndex,VertexCount,native_buffer,Flags);
+ if(SUCCEEDED(result)&&pDestBuffer)invalidate_buffer_shadow(native_buffer,"device_process_vertices_write");
+ trace.after(74,native_args,static_cast<uint32_t>(result),pc);
  return result;
 }
 HRESULT STDMETHODCALLTYPE Device8::CreateVertexShader(const DWORD *declaration, const DWORD *byte_code, DWORD *shader, DWORD usage) {
@@ -672,38 +678,44 @@ HRESULT STDMETHODCALLTYPE Device8::GetVertexShaderFunction(DWORD Handle,void * p
 }
 HRESULT STDMETHODCALLTYPE Device8::SetStreamSource(UINT StreamNumber,IDirect3DVertexBuffer8 * pStreamData,UINT Stride) {
  auto guard = trace.guard();
- const auto args = pack(StreamNumber, pStreamData, Stride);
  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
- trace.before(83, args, pc);
- HRESULT result = real_->SetStreamSource(StreamNumber, pStreamData, Stride);
- trace.after(83, args, static_cast<uint32_t>(result), pc);
+ auto* native_buffer=unwrap_vertex_buffer(pStreamData);
+ const auto native_args = pack(StreamNumber, native_buffer, Stride);
+ trace.before(83, native_args, pc);
+ HRESULT result = real_->SetStreamSource(StreamNumber, native_buffer, Stride);
+ note_stream_buffer_binding(StreamNumber,native_buffer,result);
+ trace.after(83, native_args, static_cast<uint32_t>(result), pc);
  return result;
 }
 HRESULT STDMETHODCALLTYPE Device8::GetStreamSource(UINT StreamNumber,IDirect3DVertexBuffer8 ** ppStreamData,UINT * pStride) {
  auto guard = trace.guard();
- const auto args = pack(StreamNumber, ppStreamData, pStride);
  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
+ const auto args = pack(StreamNumber, ppStreamData, pStride);
  trace.before(84, args, pc);
  HRESULT result = real_->GetStreamSource(StreamNumber, ppStreamData, pStride);
  trace.after(84, args, static_cast<uint32_t>(result), pc);
+ if(SUCCEEDED(result)&&visuals.effective.foliage_diagnostics&&ppStreamData){IDirect3DVertexBuffer8* raw=nullptr;if(safe_copy(&raw,ppStreamData,sizeof(raw))&&raw){auto* wrapped=wrap_vertex_buffer(raw);if(wrapped!=raw&&!safe_copy(ppStreamData,&wrapped,sizeof(wrapped)))wrapped->Release();}}
  return result;
 }
 HRESULT STDMETHODCALLTYPE Device8::SetIndices(IDirect3DIndexBuffer8 * pIndexData,UINT BaseVertexIndex) {
  auto guard = trace.guard();
- const auto args = pack(pIndexData, BaseVertexIndex);
  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
- trace.before(85, args, pc);
- HRESULT result = real_->SetIndices(pIndexData, BaseVertexIndex);
- trace.after(85, args, static_cast<uint32_t>(result), pc);
+ auto* native_buffer=unwrap_index_buffer(pIndexData);
+ const auto native_args = pack(native_buffer, BaseVertexIndex);
+ trace.before(85, native_args, pc);
+ HRESULT result = real_->SetIndices(native_buffer, BaseVertexIndex);
+ note_index_buffer_binding(native_buffer,result);
+ trace.after(85, native_args, static_cast<uint32_t>(result), pc);
  return result;
 }
 HRESULT STDMETHODCALLTYPE Device8::GetIndices(IDirect3DIndexBuffer8 ** ppIndexData,UINT * pBaseVertexIndex) {
  auto guard = trace.guard();
- const auto args = pack(ppIndexData, pBaseVertexIndex);
  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
+ const auto args = pack(ppIndexData, pBaseVertexIndex);
  trace.before(86, args, pc);
  HRESULT result = real_->GetIndices(ppIndexData, pBaseVertexIndex);
  trace.after(86, args, static_cast<uint32_t>(result), pc);
+ if(SUCCEEDED(result)&&visuals.effective.foliage_diagnostics&&ppIndexData){IDirect3DIndexBuffer8* raw=nullptr;if(safe_copy(&raw,ppIndexData,sizeof(raw))&&raw){auto* wrapped=wrap_index_buffer(raw);if(wrapped!=raw&&!safe_copy(ppIndexData,&wrapped,sizeof(wrapped)))wrapped->Release();}}
  return result;
 }
 HRESULT STDMETHODCALLTYPE Device8::CreatePixelShader(const DWORD *byte_code, DWORD *shader) {

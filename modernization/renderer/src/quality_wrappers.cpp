@@ -1,4 +1,5 @@
 #include "wrappers.hpp"
+#include "buffer_provenance.hpp"
 #include <intrin.h>
 #include <cstring>
 namespace gfx2 {
@@ -20,6 +21,7 @@ HRESULT STDMETHODCALLTYPE Device8::Reset(D3DPRESENT_PARAMETERS* pp){
  D3DPRESENT_PARAMETERS requested{};bool requested_known=pp&&safe_copy(&requested,pp,sizeof(requested));uint64_t native_before=quality?quality->native_reset_calls:0;
  game_fov.finish_frame();if(!ui_margins.finish_frame())stock_ui("ui_native_world_restore_failed");
  HRESULT hr=quality?quality->reset(*parent_->real(),*real_,pp):real_->Reset(pp);
+ if(SUCCEEDED(hr))invalidate_all_buffer_shadows("device_reset");
  trace.after(14,args,static_cast<uint32_t>(hr),pc);
  try{session().write("{\"type\":\"reset_policy\",\"reset_request_source\":\"normal\",\"requested\":"+(requested_known?pp_json(requested):"null")+",\"effective\":"+(quality&&quality->valid?pp_json(quality->effective):"null")+",\"echo_equivalent\":false,\"native_reset_called\":"+(!quality||quality->native_reset_calls>native_before?"true":"false")+",\"native_reset_attempts\":"+std::to_string(quality?quality->native_reset_calls-native_before:1)+",\"result\":"+std::to_string(static_cast<uint32_t>(hr))+"}");}catch(...){}
 

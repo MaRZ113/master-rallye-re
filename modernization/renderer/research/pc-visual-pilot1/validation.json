@@ -49,6 +49,47 @@
   "pc_runtime": "NOT_PERFORMED",
   "pcsx2_reference": "NOT_PERFORMED",
   "phase": "PC-VISUAL-PILOT1",
+  "cpu_upload_provenance_followup": {
+    "date": "2026-10-09",
+    "source_audits": [
+      {
+        "capture_trace_sha256": "949e5f748db1c283acb4c5a0367a6ff1d22ea86a96a5fb72dcd5544a239458f4",
+        "complete_frame": true,
+        "probes_attempted": 128,
+        "probes_read": 0,
+        "blocked_reason": "buffer_not_safe_for_readonly_probe",
+        "runtime_override_allowed": false
+      },
+      {
+        "capture_trace_sha256": "97ac9e3d8682179fb77b40545a014b362aab39ffecf56c7e5587fcbfadb68d85",
+        "complete_frame": true,
+        "probes_attempted": 128,
+        "probes_read": 0,
+        "blocked_reason": "buffer_not_safe_for_readonly_probe",
+        "runtime_override_allowed": false
+      }
+    ],
+    "implementation": "bounded intercepted CPU Lock/Unlock mirror with resource caller, generation and revision provenance; no GPU reads or material override",
+    "mirror_limits": {
+      "bytes_per_buffer": 8388608,
+      "bytes_per_device": 33554432,
+      "copied_bytes_per_frame": 16777216,
+      "initialized_ranges_per_buffer": 4096,
+      "tracked_proxy_entries": 8192
+    },
+    "native_ctest": {"result": "PASS", "tests": 9, "failures": 0, "skips": 0},
+    "unittest": {"result": "PASS", "tests": 114, "failures": 0, "errors": 0, "skips": 0},
+    "pytest": {"result": "NOT_AVAILABLE", "reason": "No module named pytest"},
+    "compileall": "PASS",
+    "proxy_verification": {
+      "result": "PASS",
+      "sha256": "2726e51fd5dc3d1caa82a17ce6ecb021ea985a6c1b0bcf2f8786597a3c81a3db",
+      "evidence_grade": "BUILD_VERIFIED_NOT_RUNTIME"
+    },
+    "pc_runtime": "NOT_PERFORMED",
+    "target_identity": "BLOCKED_ON_DRAW_IDENTITY",
+    "override_applied": false
+  },
   "proxy_verification": {
     "dll": true,
     "entry_rva": 792427,

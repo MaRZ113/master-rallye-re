@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 namespace gfx2 {
+class Device8;
 // F10-only evidence producer. Never authorizes or applies a material override.
 inline constexpr unsigned FOLIAGE_PROBE_LIMIT=128, FOLIAGE_FACE_LIMIT=256;
 inline constexpr uint64_t FOLIAGE_BYTE_LIMIT=1024*1024;
@@ -12,8 +13,10 @@ struct FoliageBudget {
 };
 struct FoliageEvidence {
  bool attempted=false;std::string reason="not_requested",geometry_sha;
+ std::string content_source="none";uint64_t vertex_mirror_revision=0,index_mirror_revision=0;
  std::vector<std::string> face_hashes;
  uint64_t vertex_generation=0,index_generation=0,texture_generation=0;
+ uintptr_t vertex_creation_caller=0,index_creation_caller=0;uint32_t vertex_creation_method=0,index_creation_method=0;
  uintptr_t vertex_buffer=0,index_buffer=0,texture=0;
  DWORD fvf=0,vertex_usage=0,index_usage=0;UINT stride=0,base=0;
  D3DPOOL vertex_pool=D3DPOOL_DEFAULT,index_pool=D3DPOOL_DEFAULT;
@@ -31,6 +34,6 @@ inline constexpr D3DTEXTURESTAGESTATETYPE FOLIAGE_TSS[]={D3DTSS_COLOROP,D3DTSS_C
 std::string foliage_face_hash(const float* xyz9);
 bool foliage_layout(DWORD fvf,UINT stride,UINT& diffuse_offset) noexcept;
 FoliageEvidence probe_foliage(IDirect3DDevice8& native,const ResourceRegistry& resources,
- const Args& draw,uint64_t frame,FoliageBudget& budget) noexcept;
+ const Args& draw,uint64_t frame,FoliageBudget& budget,Device8* owner=nullptr) noexcept;
 std::string foliage_json(const FoliageEvidence& e);
 }

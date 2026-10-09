@@ -4,10 +4,17 @@
 #include "game_fov.hpp"
 #include "quality.hpp"
 #include "ui_margins.hpp"
+#include <array>
 #include <atomic>
+#include <memory>
+#include <mutex>
 #include <unordered_map>
+#include <vector>
 namespace gfx2 {
 class Device8;
+class BufferProxyCore;
+struct BufferMirror;
+enum class BufferKind;
 class Root8 final : public IDirect3D8 {
 public:
  explicit Root8(IDirect3D8* p) : real_(p) {}
@@ -38,6 +45,20 @@ public:
  Device8(IDirect3DDevice8* p, Root8* parent, std::unique_ptr<QualityPipeline> quality = {}) noexcept;
  ~Device8();
  void adopt() noexcept { ++refs_; }
+ IDirect3DDevice8* native() const noexcept { return real_; }
+ IDirect3DVertexBuffer8* wrap_vertex_buffer(IDirect3DVertexBuffer8* raw) noexcept;
+ IDirect3DIndexBuffer8* wrap_index_buffer(IDirect3DIndexBuffer8* raw) noexcept;
+ IDirect3DVertexBuffer8* unwrap_vertex_buffer(IDirect3DVertexBuffer8* buffer) noexcept;
+ IDirect3DIndexBuffer8* unwrap_index_buffer(IDirect3DIndexBuffer8* buffer) noexcept;
+ bool register_buffer_proxy(void* raw,BufferProxyCore* proxy) noexcept;
+ void forget_buffer_proxy(void* raw,BufferProxyCore* proxy) noexcept;
+ std::shared_ptr<BufferMirror> open_buffer_mirror(void* raw,BufferKind kind,uint64_t generation,UINT bytes,DWORD usage,D3DPOOL pool) noexcept;
+ bool copy_buffer_shadow(void* raw,BufferKind kind,uint64_t generation,uint64_t offset,size_t size,std::vector<BYTE>& out,uint64_t& revision) noexcept;
+ void invalidate_buffer_shadow(void* raw,const char* reason) noexcept;
+ void invalidate_all_buffer_shadows(const char* reason) noexcept;
+ void note_stream_buffer_binding(UINT stream,void* raw,HRESULT result) noexcept;
+ void note_index_buffer_binding(void* raw,HRESULT result) noexcept;
+ bool reserve_buffer_copy_bytes(size_t bytes) noexcept;
  Trace trace;
  std::unique_ptr<QualityPipeline> quality;
  HRESULT set_transform_at(D3DTRANSFORMSTATETYPE type,const D3DMATRIX* input,uintptr_t pc);
@@ -147,6 +168,15 @@ public:
  __declspec(noinline) HRESULT STDMETHODCALLTYPE DrawRectPatch(UINT handle, const float *segment_count, const D3DRECTPATCH_INFO *patch_info) override;
  __declspec(noinline) HRESULT STDMETHODCALLTYPE DrawTriPatch(UINT handle, const float *segment_count, const D3DTRIPATCH_INFO *patch_info) override;
  __declspec(noinline) HRESULT STDMETHODCALLTYPE DeletePatch(UINT Handle) override;
-private: IDirect3DDevice8* real_; Root8* parent_; std::atomic<ULONG> refs_{1};
+private:
+ IDirect3DDevice8* real_; Root8* parent_; std::atomic<ULONG> refs_{1};
+ std::recursive_mutex buffer_mutex_;
+ std::unordered_map<void*,BufferProxyCore*> buffer_proxies_;
+ std::unordered_map<void*,BufferProxyCore*> buffer_proxy_interfaces_;
+ std::unordered_map<void*,std::shared_ptr<BufferMirror>> buffer_mirrors_;
+ std::array<void*,16> stream_buffers_{};
+ void* index_buffer_=nullptr;
+ uint64_t buffer_shadow_bytes_=0,buffer_copy_frame_=0,buffer_copy_bytes_=0;
+ void discard_unbound_buffer_mirror_locked(void* raw) noexcept;
 };
 }

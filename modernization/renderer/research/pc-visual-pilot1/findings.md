@@ -11,3 +11,9 @@ All995 France1 compiled draw groups were checked: no target face occurs in anoth
 The new probe calls native getters and, only for readable managed/system-memory nondynamic non-WRITEONLY buffers, bounded READONLY locks. It records hashes, generation observations, WORLD bits, stage0/1 states, native alpha/depth/cull states and diffuse-alpha summaries. No geometry arrays or texture pixels are written.
 
 No game was launched, DLL deployed, original asset edited, Course SDK modified, or state override tested in live PC. PS2 visual parity remains unestablished.
+
+## Code-only continuation: CPU upload provenance
+
+The supplied `capture-1-audit.json` and `capture-2-audit.json` were independently reread on 2026-10-09. Both are complete and all 128 probes in each were blocked by WRITEONLY managed buffers; neither has content hashes or a target-absence result. The follow-up adds bounded CPU Lock/Unlock mirrors and creation-callsite provenance so a future approved capture can inspect CPU-uploaded bytes without unsafe GPU reads. Details and invalidation conditions are in [cpu-upload-provenance.md](cpu-upload-provenance.md).
+
+This is implementation readiness, not new runtime evidence. Live course/resource ownership, stable draw partitioning, negative-control captures, and the selected draw's original state remain unproved. The pilot remains `BLOCKED_ON_DRAW_IDENTITY`; Mode 1 is still fail-closed and no material override exists.

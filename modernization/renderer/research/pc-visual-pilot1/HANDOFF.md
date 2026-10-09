@@ -1,8 +1,8 @@
 # PC-VISUAL-PILOT1 source/test handoff
 
-**BLOCKED_ON_DRAW_IDENTITY.** A read-only diagnostic checkpoint;Mode1 remains Stock. No activated foliage override or shipped game texture. Actual commit is in MANIFEST.json;SHA256SUMS covers payload+manifest. ZIP has no DLL,originalEXE,DX,PSM,GXI,DXT,RAM/VRAM dump or game screenshot.
+**BLOCKED_ON_DRAW_IDENTITY.** A read-only diagnostic checkpoint;Mode1 remains Stock. The 2026-10-09 code-only continuation adds bounded CPU Lock/Unlock upload provenance for WRITEONLY buffers. It does not add a foliage override or texture. Actual commit is in MANIFEST.json;SHA256SUMS covers payload+manifest. ZIP has no DLL,originalEXE,DX,PSM,GXI,DXT,RAM/VRAM dump or game screenshot.
 
-Included: current renderer source, vendor headers, tools, tests and compact research fixtures; new probe and identity auditor; selected renderer-recon JSON dependencies; shared PS2 parser tools; frozen WATER1 course-source identities; and the unchanged small Python package from the general checkout's src/master_rallye. The separate Course SDK checkout is not embedded or modified. Historical metadata is reference material, not new runtime proof. Complete original meshes and textures remain external.
+Included: current renderer source, vendor headers, tools, tests and compact research fixtures; F10 probe, CPU-write mirror and identity auditor; selected renderer-recon JSON dependencies; shared PS2 parser tools; frozen WATER1 course-source identities; and the unchanged small Python package from the general checkout's src/master_rallye. The separate Course SDK checkout is not embedded or modified. Historical metadata is reference material, not new runtime proof. Complete original meshes and textures remain external.
 
 Without game data:Python3.11+ can run the identity algorithm/config-independent synthetic tests,inspect source-signatures.json and audit a supplied JSONL. Example:
 
@@ -10,7 +10,7 @@ Without game data:Python3.11+ can run the identity algorithm/config-independent 
 python -m unittest discover -s modernization/renderer/tests -p test_foliage_identity.py -v
 ```
 
-The production-native capture test explicitly skips until a local native build exists. To run all renderer native and Python coverage:on Windows use MSVCx86/VisualStudio18 2026,CMake3.21+,and:
+The production-native capture test explicitly skips until a local native build exists. The CPU upload mirror is tested synthetically; a new game capture is still required to show it observes the real France1 uploads. To run all renderer native and Python coverage:on Windows use MSVCx86/VisualStudio18 2026,CMake3.21+,and:
 
 ```powershell
 python modernization/renderer/tools/build.py

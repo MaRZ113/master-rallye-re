@@ -18,3 +18,9 @@ PS2 node3509209 -> 24 source faces [CONFIRMED_BY_BYTES]
   -> UNKNOWN LINK: persistent safe draw predicate
   -> material override [BLOCKED]
 ```
+
+## CPU upload provenance continuation
+
+The diagnostic build now observes successful vertex/index buffer CPU writes through wrapped `Lock`/`Unlock` calls. Resource-create events include the wrapper caller provenance, and the F10 draw probe carries buffer creation method/caller, generation and mirror revision. This closes the code-path gap for CPU bytes on fully covered intercepted buffers, but does not prove that a particular uploaded buffer belongs to France1 or to the selected source mesh. The prior two captures predate this instrumentation and remain content-empty.
+
+For an existing mirror, any resource-generation mismatch makes the returned interface fail closed to the raw resource and invalidates the older mirror. Unknown raw-interface escapes, GPU-side `ProcessVertices` writes, reset, failed/unknown writes and bounded-copy failures also revoke content evidence. See [CPU upload provenance](cpu-upload-provenance.md). No current live call is promoted to source draw 54.

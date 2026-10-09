@@ -1,5 +1,7 @@
 #include "foliage_probe.hpp"
 #include "provenance.hpp"
+#include "wrappers.hpp"
+#include "buffer_provenance.hpp"
 #include <algorithm>
 #include <bcrypt.h>
 #include <cfenv>
@@ -44,7 +46,7 @@ std::string foliage_face_hash(const float* xyz9){
  std::sort(points.begin(),points.end());return digest(points.data(),36);
 }
 FoliageEvidence probe_foliage(IDirect3DDevice8& native,const ResourceRegistry& resources,
- const Args& draw,uint64_t frame,FoliageBudget& budget) noexcept {
+ const Args& draw,uint64_t frame,FoliageBudget& budget,Device8* owner) noexcept {
  FP fp;FoliageEvidence e;
  try {
   const auto& a=draw.a;
@@ -63,28 +65,39 @@ FoliageEvidence probe_foliage(IDirect3DDevice8& native,const ResourceRegistry& r
   e.vertex_buffer=reinterpret_cast<uintptr_t>(vb.p);e.index_buffer=reinterpret_cast<uintptr_t>(ib.p);
   e.vertex_generation=resources.generation(e.vertex_buffer);e.index_generation=resources.generation(e.index_buffer);
   if(!e.vertex_generation||!e.index_generation){e.reason="missing_creation_identity";return e;}
+  if(auto i=resources.items.find(e.vertex_buffer);i!=resources.items.end()){e.vertex_creation_caller=i->second.creation_caller;e.vertex_creation_method=i->second.method;}
+  if(auto i=resources.items.find(e.index_buffer);i!=resources.items.end()){e.index_creation_caller=i->second.creation_caller;e.index_creation_method=i->second.method;}
   if(!foliage_layout(e.fvf,e.stride,diffuse)){e.reason="unsupported_layout";return e;}
   D3DVERTEXBUFFER_DESC vd{};D3DINDEXBUFFER_DESC id{};
   if(FAILED(vb.p->GetDesc(&vd))||FAILED(ib.p->GetDesc(&id))){e.reason="buffer_descriptor_unknown";return e;}
   e.vertex_usage=vd.Usage;e.index_usage=id.Usage;e.vertex_pool=vd.Pool;e.index_pool=id.Pool;e.index_format=id.Format;
-  // Never read GPU-only, WRITEONLY or mutable dynamic allocations. No fallback locks.
-  if((vd.Usage|id.Usage)&(D3DUSAGE_WRITEONLY|D3DUSAGE_DYNAMIC)||
-     (vd.Pool!=D3DPOOL_MANAGED&&vd.Pool!=D3DPOOL_SYSTEMMEM)||
-     (id.Pool!=D3DPOOL_MANAGED&&id.Pool!=D3DPOOL_SYSTEMMEM)){e.reason="buffer_not_safe_for_readonly_probe";return e;}
+  // WRITEONLY/DYNAMIC/default-pool data is obtained only from successful
+  // intercepted CPU writes. Never ask D3D to READONLY-lock those buffers.
+  bool readonly_safe=!((vd.Usage|id.Usage)&(D3DUSAGE_WRITEONLY|D3DUSAGE_DYNAMIC))&&
+     (vd.Pool==D3DPOOL_MANAGED||vd.Pool==D3DPOOL_SYSTEMMEM)&&
+     (id.Pool==D3DPOOL_MANAGED||id.Pool==D3DPOOL_SYSTEMMEM);
   unsigned index_size=id.Format==D3DFMT_INDEX16?2:id.Format==D3DFMT_INDEX32?4:0;
   if(!index_size){e.reason="unsupported_index_format";return e;}
   uint64_t vo=(uint64_t(e.base)+a[1])*e.stride,vs=a[2]*e.stride,io=uint64_t(a[3])*index_size,is=a[4]*3*index_size;
   if(vo>vd.Size||vs>vd.Size-vo||io>id.Size||is>id.Size-io){e.reason="draw_outside_buffer";return e;}
   if(vs+is>FOLIAGE_BYTE_LIMIT-budget.bytes){e.reason="capture_byte_budget";return e;}budget.bytes+=vs+is;
   auto read_content=[&](){
-  BYTE* vp=nullptr;BYTE* ip=nullptr;ReadLock<IDirect3DVertexBuffer8> vl{vb.p,false,e.vertex_unlock,budget};ReadLock<IDirect3DIndexBuffer8> il{ib.p,false,e.index_unlock,budget};
-  e.vertex_lock.set(static_cast<uint32_t>(vb.p->Lock(static_cast<UINT>(vo),static_cast<UINT>(vs),&vp,D3DLOCK_READONLY)));
-  if(FAILED(static_cast<HRESULT>(e.vertex_lock.value))){e.reason="vertex_readonly_lock_failed";return;}vl.locked=true;
-  e.index_lock.set(static_cast<uint32_t>(ib.p->Lock(static_cast<UINT>(io),static_cast<UINT>(is),&ip,D3DLOCK_READONLY)));
-  if(FAILED(static_cast<HRESULT>(e.index_lock.value))){e.reason="index_readonly_lock_failed";return;}il.locked=true;
-  std::vector<unsigned char> vertices(static_cast<size_t>(vs)),indices(static_cast<size_t>(is));
-  if(!vp||!ip||!safe_copy(vertices.data(),vp,vertices.size())||!safe_copy(indices.data(),ip,indices.size())){e.reason="buffer_read_failed";return;}
-  il.close();vl.close();if(FAILED(e.index_unlock)||FAILED(e.vertex_unlock))return;
+  std::vector<unsigned char> vertices,indices;
+  if(!readonly_safe){
+   if(!owner||!owner->copy_buffer_shadow(vb.p,BufferKind::Vertex,e.vertex_generation,vo,static_cast<size_t>(vs),vertices,e.vertex_mirror_revision)||
+      !owner->copy_buffer_shadow(ib.p,BufferKind::Index,e.index_generation,io,static_cast<size_t>(is),indices,e.index_mirror_revision)){e.reason="cpu_upload_mirror_missing_or_incomplete";return;}
+   e.content_source="intercepted_cpu_lock_unlock";
+  }else{
+   BYTE* vp=nullptr;BYTE* ip=nullptr;ReadLock<IDirect3DVertexBuffer8> vl{vb.p,false,e.vertex_unlock,budget};ReadLock<IDirect3DIndexBuffer8> il{ib.p,false,e.index_unlock,budget};
+   e.vertex_lock.set(static_cast<uint32_t>(vb.p->Lock(static_cast<UINT>(vo),static_cast<UINT>(vs),&vp,D3DLOCK_READONLY)));
+   if(FAILED(static_cast<HRESULT>(e.vertex_lock.value))){e.reason="vertex_readonly_lock_failed";return;}vl.locked=true;
+   e.index_lock.set(static_cast<uint32_t>(ib.p->Lock(static_cast<UINT>(io),static_cast<UINT>(is),&ip,D3DLOCK_READONLY)));
+   if(FAILED(static_cast<HRESULT>(e.index_lock.value))){e.reason="index_readonly_lock_failed";return;}il.locked=true;
+   vertices.resize(static_cast<size_t>(vs));indices.resize(static_cast<size_t>(is));
+   if(!vp||!ip||!safe_copy(vertices.data(),vp,vertices.size())||!safe_copy(indices.data(),ip,indices.size())){e.reason="buffer_read_failed";return;}
+   il.close();vl.close();if(FAILED(e.index_unlock)||FAILED(e.vertex_unlock))return;
+   e.content_source="readonly_native_lock";
+  }
   std::string all;DWORD amin=255,amax=0;
   for(size_t face=0;face<a[4];++face){float xyz[9]{};
    for(unsigned k=0;k<3;++k){uint32_t ix=0;std::memcpy(&ix,indices.data()+(face*3+k)*index_size,index_size);
@@ -105,7 +118,7 @@ FoliageEvidence probe_foliage(IDirect3DDevice8& native,const ResourceRegistry& r
 std::string foliage_json(const FoliageEvidence& e){
  std::ostringstream o;o<<"{\"schema\":\"foliage-probe-v1\",\"identity\":\"UNPROVEN\",\"override_applied\":false,\"attempted\":"<<(e.attempted?"true":"false")<<",\"reason\":"<<quote(e.reason)<<",\"geometry_multiset_sha256\":"<<quote(e.geometry_sha)<<",\"face_hashes\":[";
  for(size_t i=0;i<e.face_hashes.size();++i){if(i)o<<',';o<<quote(e.face_hashes[i]);}
- o<<"],\"vertex_buffer\":"<<e.vertex_buffer<<",\"vertex_generation\":"<<e.vertex_generation<<",\"index_buffer\":"<<e.index_buffer<<",\"index_generation\":"<<e.index_generation<<",\"texture0\":"<<e.texture<<",\"texture_generation\":"<<e.texture_generation<<",\"fvf\":"<<e.fvf<<",\"stride\":"<<e.stride<<",\"base_vertex\":"<<e.base<<",\"vertex_usage\":"<<e.vertex_usage<<",\"index_usage\":"<<e.index_usage<<",\"vertex_pool\":"<<e.vertex_pool<<",\"index_pool\":"<<e.index_pool<<",\"index_format\":"<<e.index_format<<",\"native_rs\":{";
+ o<<"],\"content_source\":"<<quote(e.content_source)<<",\"vertex_mirror_revision\":"<<e.vertex_mirror_revision<<",\"index_mirror_revision\":"<<e.index_mirror_revision<<",\"vertex_buffer\":"<<e.vertex_buffer<<",\"vertex_generation\":"<<e.vertex_generation<<",\"vertex_creation_method\":"<<e.vertex_creation_method<<",\"vertex_creation_caller\":"<<e.vertex_creation_caller<<",\"index_buffer\":"<<e.index_buffer<<",\"index_generation\":"<<e.index_generation<<",\"index_creation_method\":"<<e.index_creation_method<<",\"index_creation_caller\":"<<e.index_creation_caller<<",\"texture0\":"<<e.texture<<",\"texture_generation\":"<<e.texture_generation<<",\"fvf\":"<<e.fvf<<",\"stride\":"<<e.stride<<",\"base_vertex\":"<<e.base<<",\"vertex_usage\":"<<e.vertex_usage<<",\"index_usage\":"<<e.index_usage<<",\"vertex_pool\":"<<e.vertex_pool<<",\"index_pool\":"<<e.index_pool<<",\"index_format\":"<<e.index_format<<",\"native_rs\":{";
  for(size_t i=0;i<12;++i){if(i)o<<',';o<<quote(std::to_string(FOLIAGE_RS[i]))<<':';value(o,e.native_rs[i]);}
  o<<"},\"native_tss\":[";for(size_t s=0;s<2;++s){if(s)o<<',';o<<'{';for(size_t i=0;i<8;++i){if(i)o<<',';o<<quote(std::to_string(FOLIAGE_TSS[i]))<<':';value(o,e.native_tss[s][i]);}o<<'}';}
  o<<"],\"native_world_bits\": [";

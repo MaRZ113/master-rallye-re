@@ -96,11 +96,11 @@ void Trace::reflection_result(const ReflectionOutcome& outcome,uint32_t triangle
  reflection_candidates_+=outcome.candidate;reflection_draws_+=outcome.applied;reflection_triangles_+=outcome.applied?triangles:0;reflection_writes_+=outcome.native_writes;
  if(enabled&&capture_&&pending_draw_!=UINT32_MAX&&pending_draw_<capture_->draw_count)capture_->draws[pending_draw_].reflection=outcome;
 }
-void Trace::resource(uint32_t slot,const Args& a,uint32_t result){
+void Trace::resource(uint32_t slot,const Args& a,uint32_t result,uintptr_t pc){
  if(static_cast<int32_t>(result)<0||slot<20||slot>27)return;
  const uint32_t output[]={6,7,5,4,4,5,4,3};uintptr_t p=0;
  if(!safe_copy(&p,reinterpret_cast<const void*>(a.a[output[slot-20]]),4)||!p)return;
- if(resources.items.find(p)!=resources.items.end()||resources.items.size()>=8192)tracker_.reset();auto r=resources.add(p,slot,a);if(semantics_)semantics_->prune(resources);if(!enabled)return;std::ostringstream o;o<<"{\"type\":\"resource_create\",\"device\":"<<device_<<",\"frame\":"<<frame_<<",\"method\":"<<quote(METHOD_NAMES[slot])<<",\"pointer\":"<<p<<",\"serial\":"<<r.serial<<",\"arguments\":[";
+ if(resources.items.find(p)!=resources.items.end()||resources.items.size()>=8192)tracker_.reset();auto r=resources.add(p,slot,a,pc);if(semantics_)semantics_->prune(resources);if(!enabled)return;std::ostringstream o;o<<"{\"type\":\"resource_create\",\"device\":"<<device_<<",\"frame\":"<<frame_<<",\"method\":"<<quote(METHOD_NAMES[slot])<<",\"pointer\":"<<p<<",\"creation_caller\":";caller(o,pc);o<<",\"serial\":"<<r.serial<<",\"arguments\":[";
  for(int i=0;i<8;++i){if(i)o<<',';o<<a.a[i];}o<<"],\"pool\":";scalar(o,r.pool);o<<",\"survives_reset\":"<<(r.reset_survivor?"true":"false")<<",\"lifetime_observed\":false}";session().write(o.str());
 }
 void Trace::after(uint32_t slot,const Args& args,uint32_t result,uintptr_t pc,const Args* effective,uint32_t feature,bool suppressed,bool native_only) noexcept {
@@ -109,7 +109,7 @@ void Trace::after(uint32_t slot,const Args& args,uint32_t result,uintptr_t pc,co
  FloatEnvironment fp;
  try {
   // Classification/lifetime state is independent of capture and logger availability.
-  resource(slot,args,result);
+  resource(slot,args,result,pc);
   if(slot==71&&semantics_)semantics_->submitted(pending_semantic_,static_cast<int32_t>(result)>=0);
   if(slot==63&&args.a[0]==1&&args.a[1]==11&&static_cast<int32_t>(result)>=0&&reflection_restore_pending.known&&native.a[2]==reflection_restore_pending.value)reflection_restore_pending.known=false;
   if(slot==37&&!native_only&&args.a[0]==D3DTS_PROJECTION&&static_cast<int32_t>(result)>=0){

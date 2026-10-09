@@ -81,3 +81,7 @@ First obtain a diagnostic France1 F10 capture. This build cannot perform a visua
 # H. Limits and one follow-up
 
 See [known limits](known-limitations.md) for unsupported buffers/API paths, budgets, transformed or split geometry, mutable identity and ordering. Recommend exactly one follow-up: **PC-VISUAL-PILOT1-DRAW-CAPTURE**, described in [next.md](next.md). No other course, material or PS2 feature is started.
+
+## Code-only follow-up recorded 2026-10-09
+
+The new [CPU upload provenance report](cpu-upload-provenance.md) documents bounded vertex/index-buffer Lock/Unlock mirrors and resource-generation/callsite tracking. The supplied two F10 audits remain unchanged and still contain no content evidence. The follow-up is statically tested, but its use in the game is pending; the overall draw identity remains blocked and Mode 1 remains effectively Stock.
