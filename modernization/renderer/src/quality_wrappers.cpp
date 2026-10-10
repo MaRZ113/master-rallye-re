@@ -19,7 +19,7 @@ HRESULT STDMETHODCALLTYPE Device8::Reset(D3DPRESENT_PARAMETERS* pp){
  if(quality&&quality->window_commit_active())return quality->reset(*parent_->real(),*real_,pp); // An echo is not a resource/scene reset.
  auto guard=trace.guard();const auto args=pack(pp);auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(14,args,pc);
  D3DPRESENT_PARAMETERS requested{};bool requested_known=pp&&safe_copy(&requested,pp,sizeof(requested));uint64_t native_before=quality?quality->native_reset_calls:0;
- game_fov.finish_frame();if(!ui_margins.finish_frame())stock_ui("ui_native_world_restore_failed");
+ if(race_observer_attached)reset_race_observer();game_fov.finish_frame();if(!ui_margins.finish_frame())stock_ui("ui_native_world_restore_failed");
  HRESULT hr=quality?quality->reset(*parent_->real(),*real_,pp):real_->Reset(pp);
  if(SUCCEEDED(hr))invalidate_all_buffer_shadows("device_reset");
  trace.after(14,args,static_cast<uint32_t>(hr),pc);

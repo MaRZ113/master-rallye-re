@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "phase": "R-CAM1-A3b",
+  "phase": "R-CAM1-A3c",
   "read_only": true,
   "build": {
     "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
@@ -619,9 +619,218 @@
       "call_target": null,
       "evidence_grade": "CONFIRMED_BY_EXE",
       "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x005223BD",
+      "rva": "0x001223BD",
+      "role": "RequestStoredBeforeObservedCall",
+      "expected_bytes": "8b07686c7c6e008d4c2414c744240c00000000894604e8f8edfaff",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x00522446",
+      "rva": "0x00122446",
+      "role": "QueueCallerThreeArguments",
+      "expected_bytes": "8b4424188b542414508d44240c5250e8f6b00000",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0052D698",
+      "rva": "0x0012D698",
+      "role": "CommitCallerBooleanAndManager",
+      "expected_bytes": "8b4c240c51e89e50ffff8bc8e8d74fffff",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0048E70F",
+      "rva": "0x0008E70F",
+      "role": "RaceLimitsAttachSlotAndAI",
+      "expected_bytes": "50538bce896c2428e834720600",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004F61F3",
+      "rva": "0x000F61F3",
+      "role": "PendingActorTransferredToLiveList",
+      "expected_bytes": "0fbe466c8d4e608d1440518b4c952ce8d9000000",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004F5846",
+      "rva": "0x000F5846",
+      "role": "RetirementBitBeforeObservedCall",
+      "expected_bytes": "0c025688018d7118e8bd0a0000",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004F5780",
+      "rva": "0x000F5780",
+      "role": "DestructorBeforeUnregisterAndArrayFree",
+      "expected_bytes": "53568bf15756e8850b0000",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x005223D3",
+      "rva": "0x001223D3",
+      "role": "RequestObservedCall",
+      "expected_bytes": "e8f8edfaff",
+      "call_target": "0x004D11D0",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x00522455",
+      "rva": "0x00122455",
+      "role": "RequestQueueObservedCall",
+      "expected_bytes": "e8f6b00000",
+      "call_target": "0x0052D550",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004F6202",
+      "rva": "0x000F6202",
+      "role": "LiveAdmissionObservedCall",
+      "expected_bytes": "e8d9000000",
+      "call_target": "0x004F62E0",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004F584E",
+      "rva": "0x000F584E",
+      "role": "RetirementObservedCall",
+      "expected_bytes": "e8bd0a0000",
+      "call_target": "0x004F6310",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004F5786",
+      "rva": "0x000F5786",
+      "role": "DestructionObservedCall",
+      "expected_bytes": "e8850b0000",
+      "call_target": "0x004F6310",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004D45C2",
+      "rva": "0x000D45C2",
+      "role": "PoolRecordInlineTextAddress",
+      "expected_bytes": "8d5508",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004D45CB",
+      "rva": "0x000D45CB",
+      "role": "PoolVectorReceivesTextPointer",
+      "expected_bytes": "52",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004D45D8",
+      "rva": "0x000D45D8",
+      "role": "PoolAppendTextPointerCall",
+      "expected_bytes": "8b4b04e820070000",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004D4D00",
+      "rva": "0x000D4D00",
+      "role": "PoolAppendKeepsCallerPointer",
+      "expected_bytes": "568bf18d4424088b4e08506a01518bcee82baff9ff",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004F6304",
+      "rva": "0x000F6304",
+      "role": "LiveTransferRET4",
+      "expected_bytes": "c20400",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0052D6CA",
+      "rva": "0x0012D6CA",
+      "role": "SceneExecuteRET0",
+      "expected_bytes": "c3",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
     }
   ],
-  "status": "BLOCKED_ON_LIVE_RACE_OWNERSHIP",
+  "status": "BLOCKED_ON_RACE_EPOCH_CORRELATION",
+  "race_epoch_observer": {
+    "implemented": true,
+    "observation_only": true,
+    "camera_writes_authorized": false,
+    "status": "BLOCKED_ON_RACE_EPOCH_CORRELATION",
+    "native_sites": 10,
+    "fixed_job_capacity": 64,
+    "transition_ring_capacity": 128,
+    "counters": "uint64; overflow quarantines the observer",
+    "request": {
+      "va": "0x005223D3",
+      "rva": "0x001223D3",
+      "reason": "immediately after actual manager+4 store, before queue"
+    },
+    "completion": {
+      "target_va": "0x0052D620",
+      "slot_va": "0x00691B1C",
+      "result": "successful commit AND callback return; callback entry is insufficient"
+    },
+    "owner": {
+      "attach_va": "0x0048E717",
+      "live_transfer_va": "0x004F6202",
+      "correlation": "inside current callback is captured; post-callback creation remains unproven"
+    },
+    "string_pool": {
+      "global_va": "0x006F93D4",
+      "manager_vector_offset": "0x04",
+      "vector_item": "direct NUL text pointer, already header+8",
+      "proof_va": [
+        "0x004D45C2",
+        "0x004D45CB",
+        "0x004D4D00",
+        "0x004D4CD0"
+      ]
+    },
+    "job_reuse_policy": "new lifetime serial, never inherits proof; reused pointer remains unqualified",
+    "owner_reuse_policy": "new attachment serial and request generation; pending/old/retired owner rejects",
+    "reset_policy": "revoke, require a new observed lifecycle; history is retained",
+    "unknowns": [
+      "native order of RaceLimits creation relative to job return in France1 restart",
+      "link from post-callback actor creation to the completed request if that ordering occurs",
+      "audited current France1 resource identity; no numeric TrackID assumption"
+    ],
+    "native_hook_test_status": "see docs/r-cam1-a3c/validation.md for executed build evidence",
+    "runtime_status": "NOT_RUN",
+    "evidence_grade": "CONFIRMED_BY_SOURCE"
+  },
   "traversal": {
     "owner_va": "0x00509680",
     "owner_rva": "0x00109680",

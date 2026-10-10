@@ -4,7 +4,7 @@ import sys
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
-from inspect_camera_scope import ROOT, SITES, inspect, output_path, verify_sites, scope_evidence, race_evidence
+from inspect_camera_scope import ROOT, SITES, inspect, output_path, verify_sites, scope_evidence, race_evidence, epoch_observer_evidence
 
 
 class SyntheticPE:
@@ -128,6 +128,10 @@ class CameraScopeTests(unittest.TestCase):
         self.assertEqual(data['sites'], verify_sites(SyntheticPE().blob, SyntheticPE()))
         self.assertEqual(data['scope'], scope_evidence())
         self.assertEqual(data['race_gate'], race_evidence())
-        self.assertEqual(data['status'], 'BLOCKED_ON_LIVE_RACE_OWNERSHIP')
+        self.assertEqual(data['status'], 'BLOCKED_ON_RACE_EPOCH_CORRELATION')
+        self.assertEqual(data['race_epoch_observer'], epoch_observer_evidence())
+        self.assertTrue(data['race_epoch_observer']['implemented'])
+        self.assertTrue(data['race_epoch_observer']['observation_only'])
+        self.assertFalse(data['race_epoch_observer']['camera_writes_authorized'])
         self.assertFalse(data['freecam']['implemented'])
         self.assertFalse(data['freecam']['camera_pose_writes'])

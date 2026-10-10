@@ -1,4 +1,5 @@
 #include "trace.hpp"
+#include "race_epoch.hpp"
 #include "method_names.hpp"
 #include "quality.hpp"
 #include <sstream>
@@ -169,6 +170,7 @@ void Trace::finish(uint32_t result,bool complete,const char* reason) noexcept {
     okay=false;LARGE_INTEGER at;at.QuadPart=written;SetFilePointerEx(f,at,nullptr,FILE_BEGIN);SetEndOfFile(f);return;
    }written+=n;};
   line("{\"type\":\"frame_begin\",\"schema_version\":1,\"proxy_version\":\"R-GFX5-8\",\"exe_sha256\":"+quote(s.exe_sha)+",\"exe_path\":"+quote(s.exe_path)+",\"proxy_sha256\":"+quote(s.proxy_sha)+",\"real_d3d8_path\":"+quote(s.real_path)+",\"build\":"+quote(s.target?"PRISTINE_RETAIL":"UNKNOWN_BUILD")+",\"vehicle_semantics_capability\":"+(classifier_known_?"true":"false")+",\"device\":"+std::to_string(device_)+",\"frame\":"+std::to_string(frame_)+",\"capture_id\":"+(control.active?quote(trace_capture_id(device_,frame_)):"null")+",\"quality\":"+quality_metadata+",\"ui_margins\":"+ui_metadata+"}");
+  line(race_epoch_capture_json(device_,frame_));
   if(semantics_)for(size_t i=0;i<semantics_->size();++i){const auto& e=semantics_->entry(i);std::ostringstream o;
    o<<"{\"type\":\"vehicle_semantic_signature\",\"semantic_signature_id\":"<<e.id<<",\"semantic_signature_state\":\"PROVEN_VEHICLE_BODY_ENV\",\"geometry_signature\":"<<e.key.hash<<",\"learned_frame\":"<<e.learned_frame<<",\"learned_epoch\":"<<e.epoch<<",\"origin_constellation_id\":"<<e.origin.constellation<<",\"origin_reason_mask\":"<<e.origin.vehicle_reasons<<",\"origin_grace_frames\":"<<e.origin.grace<<",\"origin_identity_source\":"<<quote(identity_source(e.origin.source))<<",\"origin_wheel_track_ids\":[";
    for(int j=0;j<4;++j){if(j)o<<',';o<<e.origin.wheels[j];}o<<"],\"resource_generations\":[";for(int j=0;j<4;++j){if(j)o<<',';o<<e.key.generations[j];}

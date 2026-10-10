@@ -665,6 +665,56 @@
       "query_group": "r-cam1-a3b-debug-world",
       "evidence_grade": "CONFIRMED_BY_EXE",
       "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x004D1010",
+      "rva": "0x000D1010",
+      "instructions": 112,
+      "assembly_sha256": "58d168d92f3c25946e8cec960c2fea495b8b86d40a606a1a9f374c6dd932d1d2",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3c-events",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x004D11D0",
+      "rva": "0x000D11D0",
+      "instructions": 45,
+      "assembly_sha256": "23faa38e4171a2ed1c06beecaf2b24e4bb83983be58f5bf1b84788907b76acd8",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3c-events",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x004F62E0",
+      "rva": "0x000F62E0",
+      "instructions": 14,
+      "assembly_sha256": "867121729e534e2d1f8b2d74dc3aecdb7fc6c812e01f5f03dad14ef0bc58374f",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3c-events",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x00522460",
+      "rva": "0x00122460",
+      "instructions": 1,
+      "assembly_sha256": "9bac004b33cd8b8a3fb88b5de5a1a5e6c3ad6b4436d2e101c3bc15c11caddaa4",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3c-events",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x004D4D00",
+      "rva": "0x000D4D00",
+      "instructions": 22,
+      "assembly_sha256": "414495b14a13989d0ea78f29b99de4915f7d4aa5509d59a08cb0305bd6506c6d",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3c-pool",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
     }
   ],
   "excluded_export": {

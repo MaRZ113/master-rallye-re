@@ -97,6 +97,28 @@ SITES += (
     (0x006B0F70, 'ParticipantRaceStatePathText', '526163652f43617225642f526163655374617465', None),
 )
 
+# A3c: bounded lifecycle call consumers and the corrected string vector layout.
+SITES += (
+    (0x005223BD, 'RequestStoredBeforeObservedCall', '8b07686c7c6e008d4c2414c744240c00000000894604e8f8edfaff', None),
+    (0x00522446, 'QueueCallerThreeArguments', '8b4424188b542414508d44240c5250e8f6b00000', None),
+    (0x0052D698, 'CommitCallerBooleanAndManager', '8b4c240c51e89e50ffff8bc8e8d74fffff', None),
+    (0x0048E70F, 'RaceLimitsAttachSlotAndAI', '50538bce896c2428e834720600', None),
+    (0x004F61F3, 'PendingActorTransferredToLiveList', '0fbe466c8d4e608d1440518b4c952ce8d9000000', None),
+    (0x004F5846, 'RetirementBitBeforeObservedCall', '0c025688018d7118e8bd0a0000', None),
+    (0x004F5780, 'DestructorBeforeUnregisterAndArrayFree', '53568bf15756e8850b0000', None),
+    (0x005223D3, 'RequestObservedCall', 'e8f8edfaff', 0x004D11D0),
+    (0x00522455, 'RequestQueueObservedCall', 'e8f6b00000', 0x0052D550),
+    (0x004F6202, 'LiveAdmissionObservedCall', 'e8d9000000', 0x004F62E0),
+    (0x004F584E, 'RetirementObservedCall', 'e8bd0a0000', 0x004F6310),
+    (0x004F5786, 'DestructionObservedCall', 'e8850b0000', 0x004F6310),
+    (0x004D45C2, 'PoolRecordInlineTextAddress', '8d5508', None),
+    (0x004D45CB, 'PoolVectorReceivesTextPointer', '52', None),
+    (0x004D45D8, 'PoolAppendTextPointerCall', '8b4b04e820070000', None),
+    (0x004D4D00, 'PoolAppendKeepsCallerPointer', '568bf18d4424088b4e08506a01518bcee82baff9ff', None),
+    (0x004F6304, 'LiveTransferRET4', 'c20400', None),
+    (0x0052D6CA, 'SceneExecuteRET0', 'c3', None),
+)
+
 
 def verify_sites(blob, pe, sites=SITES):
     # Follow the existing scanner's byte/RVA/relative-CALL discipline.
@@ -214,6 +236,31 @@ def race_evidence():
         read_policy='bounded guarded storage reads; resolve existing interned text IDs; never call growing Broker getters')
 
 
+def epoch_observer_evidence():
+    return dict(
+        implemented=True, observation_only=True, camera_writes_authorized=False,
+        status='BLOCKED_ON_RACE_EPOCH_CORRELATION',
+        native_sites=10, fixed_job_capacity=64, transition_ring_capacity=128,
+        counters='uint64; overflow quarantines the observer',
+        request=dict(va='0x005223D3', rva='0x001223D3',
+                     reason='immediately after actual manager+4 store, before queue'),
+        completion=dict(target_va='0x0052D620', slot_va='0x00691B1C',
+                        result='successful commit AND callback return; callback entry is insufficient'),
+        owner=dict(attach_va='0x0048E717', live_transfer_va='0x004F6202',
+                   correlation='inside current callback is captured; post-callback creation remains unproven'),
+        string_pool=dict(global_va='0x006F93D4', manager_vector_offset='0x04',
+                         vector_item='direct NUL text pointer, already header+8',
+                         proof_va=['0x004D45C2', '0x004D45CB', '0x004D4D00', '0x004D4CD0']),
+        job_reuse_policy='new lifetime serial, never inherits proof; reused pointer remains unqualified',
+        owner_reuse_policy='new attachment serial and request generation; pending/old/retired owner rejects',
+        reset_policy='revoke, require a new observed lifecycle; history is retained',
+        unknowns=['native order of RaceLimits creation relative to job return in France1 restart',
+                  'link from post-callback actor creation to the completed request if that ordering occurs',
+                  'audited current France1 resource identity; no numeric TrackID assumption'],
+        native_hook_test_status='see docs/r-cam1-a3c/validation.md for executed build evidence',
+        runtime_status='NOT_RUN', evidence_grade='CONFIRMED_BY_SOURCE')
+
+
 def inspect(blob):
     digest = hashlib.sha256(blob).hexdigest()
     if digest != TARGET_SHA:
@@ -221,10 +268,11 @@ def inspect(blob):
     pe = PE(blob)
     scope = scope_evidence()
     race = race_evidence()
-    return dict(schema_version=2, phase='R-CAM1-A3b', read_only=True,
+    return dict(schema_version=2, phase='R-CAM1-A3c', read_only=True,
                 build=dict(sha256=digest, size=len(blob), image_base=hx(pe.image_base)),
                 sites=verify_sites(blob, pe),
-                status='BLOCKED_ON_LIVE_RACE_OWNERSHIP',
+                status='BLOCKED_ON_RACE_EPOCH_CORRELATION',
+                race_epoch_observer=epoch_observer_evidence(),
                 traversal=dict(owner_va='0x00509680', owner_rva='0x00109680',
                                ecx='per-camera entity-list owner', stack_arguments=2,
                                callee_cleanup_bytes=8, opaque_return_preservation_required=True,
