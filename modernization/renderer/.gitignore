@@ -2,6 +2,7 @@
 .analysis/
 scratch-r-gfx5-7/
 scratch-r-gfx5-8/
+scratch-camera/
 __pycache__/
 *.py[cod]
 MRRGFX2/

@@ -1,0 +1,194 @@
+{
+  "schema_version": 1,
+  "read_only": true,
+  "build": {
+    "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "size": 3121214,
+    "image_base": "0x00400000"
+  },
+  "sites": [
+    {
+      "va": "0x00509680",
+      "rva": "0x00109680",
+      "role": "TraversalFullBody_RET8",
+      "expected_bytes": "5356578bd9e896a2fcff8b38e83fa7fdff8b7424108b178bcf8b04b050ff52248d04768b7483048d1c833bf3741d558b6c24188b06f6000275098b1755508bcfff52108b76043bf375e95d5f5e5bc20800",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x006532D1",
+      "rva": "0x002532D1",
+      "role": "TraversalThenFinalizeCamera",
+      "expected_bytes": "8b40203bfb0f94c151578bc8e89e63ebff8b168bceff5220473bfd",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x006922E8",
+      "rva": "0x002922E8",
+      "role": "RendererVtableFinalizeCamera",
+      "expected_bytes": "50e25600",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0056E405",
+      "rva": "0x0016E405",
+      "role": "FinalizeCameraBuildViewThenParticles",
+      "expected_bytes": "8b48386a00e89130ffff8b430c8b4d3050e89558ffff",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0056E40A",
+      "rva": "0x0016E40A",
+      "role": "PostTraversalCameraBuilderCall",
+      "expected_bytes": "e89130ffff",
+      "call_target": "0x005614A0",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x00564061",
+      "rva": "0x00164061",
+      "role": "ParticlesReadSelectedCamera",
+      "expected_bytes": "8b40388b4e248d54245c8b5804",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0056410E",
+      "rva": "0x0016410E",
+      "role": "ParticlesUseCurrentPose",
+      "expected_bytes": "81c388000000",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x00564185",
+      "rva": "0x00164185",
+      "role": "ParticlesPassCurrentPoseToBillboardBuilder",
+      "expected_bytes": "5355568bcfe831000000",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x005614B5",
+      "rva": "0x001614B5",
+      "role": "CameraBuilderConditionalCacheExit",
+      "expected_bytes": "8a470884c0740c3b1d749a6e000f846c050000",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x006E9A74",
+      "rva": "0x002E9A74",
+      "role": "CameraBuilderComparisonInitialValue",
+      "expected_bytes": "ffffffff",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x005224EA",
+      "rva": "0x001224EA",
+      "role": "SceneUnloadClearsEntities",
+      "expected_bytes": "e8213efdff8bc8e8fa3bfdff",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x00522680",
+      "rva": "0x00122680",
+      "role": "CommitRequestedSceneOnSuccess",
+      "expected_bytes": "8a4424045684c08bf174098b460489065ec20400",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x00522694",
+      "rva": "0x00122694",
+      "role": "CommitDefaultSceneOnFailure",
+      "expected_bytes": "6864446e008d4c240ce8dedefaff8b4c2408890e5e",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x005B008E",
+      "rva": "0x001B008E",
+      "role": "SceneCounterDecrementInUpdate",
+      "expected_bytes": "e8ad26f7ff8b780c85ff740b8d5fffe89e26f7ff89580c",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0048E939",
+      "rva": "0x0008E939",
+      "role": "RaceStarterRetiresActorAt23Updates",
+      "expected_bytes": "837f0c1775098b4c2458e8f86e0600",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004CD8C0",
+      "rva": "0x000CD8C0",
+      "role": "LimitsAIConstructorVtable",
+      "expected_bytes": "c7062c156900",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x00449353",
+      "rva": "0x00049353",
+      "role": "FrontendDestructorWritesRunningFalse",
+      "expected_bytes": "6a00c744241400000000e89e5306008bc8e837480600",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    }
+  ],
+  "status": "BLOCKED_ON_POST_TRAVERSAL_RESTORE",
+  "traversal": {
+    "owner_va": "0x00509680",
+    "owner_rva": "0x00109680",
+    "ecx": "per-camera entity-list owner",
+    "stack_arguments": 2,
+    "callee_cleanup_bytes": 8,
+    "opaque_return_preservation_required": true,
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "scope_complete": false,
+    "native_bridge_tested": false
+  },
+  "missing_fact": "An immediate native-pose restore must preserve the effective camera for FinalizeCamera: particles read selected CameraFrame.pose directly after the traversal has returned, independently of the D3D VIEW cache.",
+  "race_gate": {
+    "validated": false,
+    "rejected_oracles": [
+      "camera address",
+      "Source90",
+      "Frontend/Running=false",
+      "scene request ID",
+      "scene countdown == 0",
+      "RaceStarterAI presence"
+    ],
+    "candidate": "registered RaceLimits actor / gaLimitsAI with validated live phase ownership"
+  },
+  "freecam": {
+    "implemented": false,
+    "camera_pose_writes": false,
+    "runtime_status": "NOT_READY_FOR_FIRST_FLIGHT"
+  }
+}
