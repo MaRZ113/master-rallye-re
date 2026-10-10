@@ -1,8 +1,10 @@
 # R-OBS1 — Broker opening versus non-Stock display
 
-Status: **BLOCKED_ON_BROKER_OPEN_INTEROPERABILITY** for the complete reported
-stall. Two targeted corrections and an actual no-hook isolation DLL are provided.
-There is no live Broker/Dump verdict for this candidate yet.
+Current status: **hook-free Broker open and native Dump CONFIRMED_BY_RUNTIME**,
+reported by the user in the R-OBS1b closeout request. Windowed/Borderless usability,
+cursor auto-hide/Alt+Tab, minimize/restore/Reset and accepted visuals also passed
+the user's no-hooks test. The new combined standard build remains **PENDING
+HUMAN VALIDATION**. See [R-OBS1b closeout](../r-obs1b/closeout.md).
 
 `CONFIRMED_BY_SOURCE`: Borderless removes the main HWND's menu in
 `NativeWindows::apply`. Observatory previously required the Game → Reset/Exit
@@ -31,9 +33,10 @@ logs from those callbacks. Those operations are now deferred. Their presence
 was a credible reentrancy/latency suspect, but neither a specific deadlock cycle
 nor the precise native blocking instruction has been established.
 
-The exact unresolved question: with the same window/presentation planner and
-updated verified opener, does the Windowed/Borderless stall persist when only
-the two message hooks are omitted? Compare the separately identified DLLs in
-[runtime-handoff.md](runtime-handoff.md). Until that comparison, hooks remain
-**UNKNOWN** as the runtime cause. No timeout increase or native Dump patch was
-used to claim a fix. The historical NULL StringList Dump defect is independent.
+The controlled comparison is now completed by the user: suppressing only the
+two renderer thread-message hook installations while retaining the same
+window/presentation path restores Broker open and native Dump. This supports
+retiring the hooks as the compatibility policy. The exact original blocking
+instruction or Win32 deadlock cycle remains **UNKNOWN**, with further root-cause
+research deferred. No timeout extension or native Dump patch is the fix.
+The historical NULL StringList Dump defect remains independent.

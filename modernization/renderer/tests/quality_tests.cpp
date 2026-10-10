@@ -798,30 +798,23 @@ void exclusive_restore_order(){
  p=stock();CHECK(q.reset(root,root.dev,&p)==S_OK&&root.dev.resets.size()==1&&root.dev.cooperative_calls==1);
  for(unsigned cycle=0;cycle<3;++cycle){
   windows.state.style=0x16000000;windows.state.minimized=true;windows.state.client={};root.dev.cooperative=D3DERR_DEVICELOST;root.dev.result=D3DERR_DEVICELOST;
-  q.window_message(p.hDeviceWindow,WM_SIZE,SIZE_MINIMIZED,0,true);q.window_message(p.hDeviceWindow,WM_SIZE,SIZE_MINIMIZED,0,false);
   // Lost focus is genuine. The first restored size can arrive before focus
   // and native readiness: log it and forward the actual failure unchanged.
   windows.state.minimized=false;windows.state.outer={0,0,640,480};windows.state.client={0,0,624,441};STYLESTRUCT styles{0x16000000,0x16cf0000};
-  q.window_message(p.hDeviceWindow,WM_STYLECHANGING,GWL_STYLE,reinterpret_cast<LPARAM>(&styles),true);windows.state.style=0x16cf0000;windows.state.exstyle=0x108;
-  q.window_message(p.hDeviceWindow,WM_STYLECHANGED,GWL_STYLE,reinterpret_cast<LPARAM>(&styles),false);
+  windows.state.style=0x16cf0000;windows.state.exstyle=0x108;
   auto input=stock();input.BackBufferWidth=624;input.BackBufferHeight=441;auto calls=root.dev.resets.size();auto coop=root.dev.cooperative_calls;
-  q.window_message(p.hDeviceWindow,WM_SIZE,SIZE_RESTORED,MAKELPARAM(624,441),true);
   CHECK(q.reset(root,root.dev,&input)==D3DERR_DEVICELOST&&root.dev.resets.size()==calls+1&&root.dev.cooperative_calls==coop+1&&q.attempts==1);
-  q.window_message(p.hDeviceWindow,WM_SIZE,SIZE_RESTORED,MAKELPARAM(624,441),false);
   CHECK(root.dev.resets.back().BackBufferWidth==640&&root.dev.resets.back().BackBufferHeight==480&&!root.dev.resets.back().Windowed);
   CHECK(q.json().find("\"successful_reset_epoch\":"+std::to_string(cycle+1))!=std::string::npos&&q.json().find("\"last_reset_readiness\":2289436776")!=std::string::npos);
   // Later real native readiness permits the one Reset already owned by the
   // game. The proxy adds neither waits/retries nor HWND style mutations.
-  root.dev.cooperative=D3DERR_DEVICENOTRESET;root.dev.result=S_OK;q.window_message(p.hDeviceWindow,WM_SETFOCUS,0,0,true);
+  root.dev.cooperative=D3DERR_DEVICENOTRESET;root.dev.result=S_OK;
   CHECK(q.reset(root,root.dev,&input)==S_OK&&root.dev.resets.size()==calls+2&&root.dev.cooperative_calls==coop+2);
   CHECK(q.json().find("\"successful_reset_epoch\":"+std::to_string(cycle+2))!=std::string::npos&&!input.Windowed&&input.BackBufferWidth==640&&input.BackBufferHeight==480);
  }
  for(HRESULT hr:{D3DERR_INVALIDCALL,E_FAIL}){root.dev.result=hr;p=stock();auto calls=root.dev.resets.size();CHECK(q.reset(root,root.dev,&p)==hr&&root.dev.resets.size()==calls+1&&q.attempts==1);}
  CHECK(windows.applies==0&&windows.restores==0&&root.dev.color.refs==0&&root.dev.depth.refs==0);
- // The observer is bounded even when a game produces many resize messages.
- for(unsigned i=0;i<600;++i)q.window_message(p.hDeviceWindow,WM_SIZE,SIZE_RESTORED,MAKELPARAM(624,441),true);
- q.flush_window_messages(); // Production flush occurs at Present, outside the callback.
- CHECK(q.json().find("\"display_window_message_records\":512")!=std::string::npos);
+ // Thread-message telemetry is retired; native Reset evidence remains.
  std::cout<<"Exclusive startup/lost/partial restore/decorated geometry/readiness/failure/cycles/epoch/bounded observation: PASS\n";
 }
 void game_window_owner_read(){
@@ -883,7 +876,7 @@ void native_window(){
  // IsZoomed state detection on a hidden synthetic HWND; no visible maximize.
  auto style=GetWindowLongW(w,GWL_STYLE);SetWindowLongW(w,GWL_STYLE,style|WS_MAXIMIZE);WindowState zoomed{};CHECK(api.snapshot(w,zoomed)&&zoomed.maximized&&IsZoomed(w)&&!IsWindowVisible(w));SetWindowLongW(w,GWL_STYLE,style);CHECK(api.snapshot(w,zoomed)&&!zoomed.maximized);
  CHECK(api.apply(saved,saved.monitor,false,true));CHECK(GetClientRect(w,&client)&&client.right==saved.monitor.right-saved.monitor.left&&client.bottom==saved.monitor.bottom-saved.monitor.top);
- CHECK(!(GetWindowLongW(w,GWL_STYLE)&WS_CAPTION)&&!IsWindowVisible(w));CHECK(api.restore(saved));WindowState after{};CHECK(api.snapshot(w,after)&&after.style==saved.style&&after.exstyle==saved.exstyle&&std::memcmp(&after.outer,&saved.outer,sizeof(RECT))==0);{QualityPipeline q;q.valid=true;q.effective=stock();q.effective.hDeviceWindow=w;q.display="Borderless";q.cursor_watch();CHECK(q.cursor_watch_installed()==quality_message_hooks_enabled());SendMessageW(w,WM_KILLFOCUS,0,0);q.begin_shutdown();CHECK(!q.cursor_watch_installed());}CHECK(DestroyWindow(w));
+ CHECK(!(GetWindowLongW(w,GWL_STYLE)&WS_CAPTION)&&!IsWindowVisible(w));CHECK(api.restore(saved));WindowState after{};CHECK(api.snapshot(w,after)&&after.style==saved.style&&after.exstyle==saved.exstyle&&std::memcmp(&after.outer,&saved.outer,sizeof(RECT))==0);{QualityPipeline q;q.valid=true;q.effective=stock();q.effective.hDeviceWindow=w;q.display="Borderless";q.cursor_tick();CHECK(!q.cursor_watch_installed());SendMessageW(w,WM_KILLFOCUS,0,0);q.begin_shutdown();CHECK(!q.cursor_watch_installed());}CHECK(DestroyWindow(w));
 }
 QualityPipeline* ordering_policy=nullptr;Root* ordering_root=nullptr;HRESULT ordering_result=E_FAIL;
 LRESULT CALLBACK ordering_wndproc(HWND hwnd,UINT message,WPARAM w,LPARAM l){
@@ -895,7 +888,7 @@ void native_display_ordering(){
  HWND hwnd=CreateWindowW(cls.lpszClassName,L"Hidden display ordering",WS_OVERLAPPEDWINDOW,10,10,640,480,nullptr,nullptr,cls.hInstance,nullptr);CHECK(hwnd&&!IsWindowVisible(hwnd));
  {
   Root root;QualityPipeline q;VisualConfig c;c.display_mode="Windowed";c.width=1280;c.height=720;c.auto_hide_cursor=false;
-  auto p=stock();p.hDeviceWindow=hwnd;IDirect3DDevice8* out=nullptr;q.configure(c,true,2,D3DDEVTYPE_HAL,hwnd);CHECK(q.create(root,0,&p,&out)==S_OK&&q.cursor_watch_installed()==quality_message_hooks_enabled());
+  auto p=stock();p.hDeviceWindow=hwnd;IDirect3DDevice8* out=nullptr;q.configure(c,true,2,D3DDEVTYPE_HAL,hwnd);CHECK(q.create(root,0,&p,&out)==S_OK&&!q.cursor_watch_installed());
   ordering_policy=&q;ordering_root=&root;RECT outer{},size{0,0,1447,720};CHECK(GetWindowRect(hwnd,&outer));CHECK(AdjustWindowRectEx(&size,GetWindowLongW(hwnd,GWL_STYLE),GetMenu(hwnd)!=nullptr,GetWindowLongW(hwnd,GWL_EXSTYLE)));
   CHECK(SetWindowPos(hwnd,nullptr,outer.left+10,outer.top+10,size.right-size.left,size.bottom-size.top,SWP_NOACTIVATE|SWP_NOZORDER));
   CHECK(ordering_result==S_OK&&q.effective.BackBufferWidth==1447&&q.effective.BackBufferHeight==720&&root.dev.resets.size()==1&&!IsWindowVisible(hwnd));
@@ -903,57 +896,33 @@ void native_display_ordering(){
  }
  {
   Root root;root.mode={640,480,60,D3DFMT_X8R8G8B8};QualityPipeline q;VisualConfig c;c.display_mode="ExclusiveFullscreen";c.width=640;c.height=480;c.auto_hide_cursor=false;
-  auto p=stock();p.hDeviceWindow=hwnd;IDirect3DDevice8* out=nullptr;q.configure(c,true,2,D3DDEVTYPE_HAL,hwnd);CHECK(q.create(root,0,&p,&out)==S_OK&&q.cursor_watch_installed()==quality_message_hooks_enabled());
+  auto p=stock();p.hDeviceWindow=hwnd;IDirect3DDevice8* out=nullptr;q.configure(c,true,2,D3DDEVTYPE_HAL,hwnd);CHECK(q.create(root,0,&p,&out)==S_OK&&!q.cursor_watch_installed());
   root.dev.cooperative=root.dev.result=D3DERR_DEVICELOST;ordering_policy=&q;ordering_root=&root;
-  q.flush_window_messages();
   session().write("{\"type\":\"display_contract_begin\",\"name\":\"hidden_hwnd_nested_reset\"}");
   SendMessageW(hwnd,WM_SIZE,SIZE_RESTORED,MAKELPARAM(1447,720));
-  q.flush_window_messages(); // Keep the fixture boundary around captured messages.
   session().write("{\"type\":\"display_contract_end\",\"name\":\"hidden_hwnd_nested_reset\"}");
   CHECK(ordering_result==D3DERR_DEVICELOST&&root.dev.resets.size()==1&&root.dev.cooperative_calls==1&&!root.dev.resets.back().Windowed&&root.dev.resets.back().BackBufferWidth==640);
   ordering_policy=nullptr;ordering_root=nullptr;q.begin_shutdown();CHECK(!q.cursor_watch_installed());
  }
  CHECK(DestroyWindow(hwnd));CHECK(UnregisterClassW(cls.lpszClassName,cls.hInstance));
- std::cout<<"Hidden native HWND: immediate configured drag, paired pre/post WndProc with nested Reset and cursor-disabled observer teardown: PASS\n";
+ std::cout<<"Hidden native HWND: immediate configured drag, native WndProc nested Reset and hook-free cursor lifecycle: PASS\n";
 }
-void deferred_message_contract(){
- struct ReentrantWindows:Windows {
-  QualityPipeline* owner=nullptr;unsigned snapshots=0;bool nested=false;
-  bool snapshot(HWND hwnd,WindowState& out) noexcept override {
-   ++snapshots;if(owner&&!nested){nested=true;owner->window_message(hwnd,WM_SETFOCUS,0,0,true);owner->flush_window_messages();}
-   return Windows::snapshot(hwnd,out);
-  }
- } windows;
- QualityPipeline q(windows);q.display="Windowed";q.focus=windows.state.hwnd;
- q.window_message(reinterpret_cast<HWND>(0x9999),WM_COMMAND,0x27,0,true);
- q.window_message(q.focus,WM_COMMAND,2,0,true);CHECK(q.pending_window_messages()==0&&windows.snapshots==0);
- q.window_message(q.focus,WM_COMMAND,0x27,0,true);q.window_message(q.focus,WM_COMMAND,0x27,0,false);
- CHECK(q.pending_window_messages()==2&&windows.snapshots==0);
- windows.owner=&q;q.flush_window_messages();CHECK(windows.snapshots==2&&q.pending_window_messages()==1);
- q.flush_window_messages();CHECK(windows.snapshots==3&&q.pending_window_messages()==0);
- STYLESTRUCT styles{WS_POPUP,WS_OVERLAPPEDWINDOW};q.window_message(q.focus,WM_STYLECHANGED,GWL_STYLE,reinterpret_cast<LPARAM>(&styles),false);
- styles={};q.flush_window_messages();CHECK(q.pending_window_messages()==0);
- for(unsigned i=0;i<600;++i)q.window_message(q.focus,WM_SIZE,SIZE_RESTORED,0,true);
- CHECK(q.pending_window_messages()<=64&&q.json().find("\"display_message_dropped\":0")==std::string::npos);
- q.flush_window_messages();q.begin_shutdown();q.window_message(q.focus,WM_COMMAND,0x27,0,true);CHECK(q.pending_window_messages()==0);
- QualityPipeline stock(windows);stock.focus=windows.state.hwnd;stock.window_message(stock.focus,WM_COMMAND,0x27,0,true);CHECK(stock.pending_window_messages()==0);
-}
-void message_hook_transaction_contract(){
- struct Hooks:MessageHookApi {
-  int failed=-1;unsigned installs=0,removes=0;std::vector<int> types;
-  HHOOK install(int id,HOOKPROC,HMODULE,DWORD thread) noexcept override {CHECK(thread==GetCurrentThreadId());types.push_back(id);auto n=installs++;return static_cast<int>(n)==failed?nullptr:reinterpret_cast<HHOOK>(n+1);}
-  bool remove(HHOOK hook) noexcept override {CHECK(hook);++removes;return true;}
- };
- HWND w=CreateWindowW(L"STATIC",L"Message hook ownership fixture",WS_OVERLAPPEDWINDOW,0,0,640,480,nullptr,nullptr,GetModuleHandleW(nullptr),nullptr);CHECK(w);
- for(int failed:{-1,0,1}){Hooks hooks;hooks.failed=failed;QualityPipeline q(native_window_api(),hooks);q.focus=w;q.display="Windowed";q.display_watch();q.display_watch();
-  if(quality_message_hooks_enabled()){
-   CHECK(hooks.installs==2&&hooks.types[0]==WH_CALLWNDPROCRET&&hooks.types[1]==WH_CALLWNDPROC);
-   CHECK(q.cursor_watch_installed()==(failed==-1));CHECK(hooks.removes==(failed==-1?0u:1u));
-  }else CHECK(hooks.installs==0);
-  q.begin_shutdown();q.begin_shutdown();CHECK(!q.cursor_watch_installed());
-  CHECK(hooks.removes==(quality_message_hooks_enabled()?(failed==-1?2u:1u):0u));
+void standard_hook_free_contract(){
+ HWND w=CreateWindowExW(0,L"STATIC",L"MRR hook-free policy contract",WS_OVERLAPPEDWINDOW,10,10,640,480,nullptr,nullptr,GetModuleHandleW(nullptr),nullptr);
+ CHECK(w&&!IsWindowVisible(w));
+ for(const char* mode:{"Stock","Windowed","Borderless"}){
+  QualityPipeline q;VisualConfig c;c.display_mode=mode;c.auto_hide_cursor=true;q.configure(c,true,0,D3DDEVTYPE_HAL,w);
+  q.valid=true;q.effective=stock();q.effective.hDeviceWindow=w;
+  auto cursor=GetCursor();for(unsigned i=0;i<20;++i){q.cursor_tick();CHECK(!q.cursor_watch_installed());}
+  CHECK(GetCursor()==cursor&&q.config.auto_hide_cursor); // Hidden/non-foreground HWND cannot hide another window's cursor.
+  q.cursor_focus_lost();auto descriptor=q.json();
+  CHECK(descriptor.find("\"thread_message_hooks_enabled\":false")!=std::string::npos);
+  CHECK(descriptor.find("\"display_watch\":\"disabled_by_standard_policy\"")!=std::string::npos);
+  CHECK(descriptor.find("\"cursor_handling\":\"present_polling_and_shutdown\"")!=std::string::npos);
+  CHECK(descriptor.find("\"display_window_message_records\":0")!=std::string::npos);
+  session().write("{\"type\":\"standard_hook_free_contract\",\"descriptor\":"+descriptor+"}");
+  q.begin_shutdown();q.begin_shutdown();q.cursor_tick();CHECK(!q.cursor_watch_installed()&&GetCursor()==cursor);
  }
- {Hooks hooks;QualityPipeline q(native_window_api(),hooks);q.focus=w;q.display_watch();CHECK(!hooks.installs);}
  CHECK(DestroyWindow(w));
 }
 void wrapper_trace(){
@@ -1067,4 +1036,4 @@ void quality_fpu(){
  flags=fetestexcept(FE_ALL_EXCEPT);ui_projection_dimensions(matrix,1920,1080,out);CHECK(fegetround()==FE_DOWNWARD&&fetestexcept(FE_ALL_EXCEPT)==flags);fesetenv(&saved);
  fegetenv(&saved);fesetround(FE_DOWNWARD);D3DMATRIX source{};source._22=float(1/std::tan((45./(16./9))*3.14159265358979323846/360.));source._11=source._22/float(16./9);source._33=1.01f;source._34=1;source._43=-.2f;flags=fetestexcept(FE_ALL_EXCEPT);CHECK(camera_scene_family(source)==0&&fegetround()==FE_DOWNWARD&&fetestexcept(FE_ALL_EXCEPT)==flags);fesetenv(&saved);
 }
-int main(){try{configs();carousel_ini_config();numeric_configs();trace_numeric_configs();reset_echo_shutdown();preview_cursor_packets();displays();display_transactions();windowed_live_resize();windowed_startup_order();windowed_maximize_restore();stable_margin_anchors();margin_short_grace();margin_consumer_retention();margin_candidate_diagnostics();render_local_ui_contracts();render_local_wrapper_contract();ui_carousel_draw_diagnostics();ui_carousel_alignment_automatic();ui_carousel_motion_diagnostics_only();ui_carousel_row_geometry();ui_carousel_frontend_scene_phase();ui_diagnostic_selection_is_order_independent();antialiasing();exclusive_lifecycle();exclusive_restore_order();game_window_owner_read();viewports_ui();freeze_and_patch();native_window();native_display_ordering();deferred_message_contract();message_hook_transaction_contract();wrapper_trace();validated_ui_wrapper();ui_native_abi();packet_consumer_abi();quality_fpu();std::cout<<"R-GFX5 config/display/viewport/UI/MSAA/Reset/freeze/hidden HWND/native bridge contracts: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}
+int main(){try{configs();carousel_ini_config();numeric_configs();trace_numeric_configs();reset_echo_shutdown();preview_cursor_packets();displays();display_transactions();windowed_live_resize();windowed_startup_order();windowed_maximize_restore();stable_margin_anchors();margin_short_grace();margin_consumer_retention();margin_candidate_diagnostics();render_local_ui_contracts();render_local_wrapper_contract();ui_carousel_draw_diagnostics();ui_carousel_alignment_automatic();ui_carousel_motion_diagnostics_only();ui_carousel_row_geometry();ui_carousel_frontend_scene_phase();ui_diagnostic_selection_is_order_independent();antialiasing();exclusive_lifecycle();exclusive_restore_order();game_window_owner_read();viewports_ui();freeze_and_patch();native_window();native_display_ordering();standard_hook_free_contract();wrapper_trace();validated_ui_wrapper();ui_native_abi();packet_consumer_abi();quality_fpu();std::cout<<"R-GFX5 config/display/viewport/UI/MSAA/Reset/freeze/hidden HWND/native bridge contracts: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}

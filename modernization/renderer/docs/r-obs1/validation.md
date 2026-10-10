@@ -1,7 +1,13 @@
 # R-OBS1 validation
 
-Overall: **BLOCKED_ON_BROKER_OPEN_INTEROPERABILITY**, in-game result PENDING.
-The menu-less identity correction is source/EXE-confirmed; the Windowed stall's
+Current result: **CONFIRMED_BY_RUNTIME for the separately tested hook-free
+configuration**, as reported by the user in R-OBS1b. Broker open/native Dump,
+Windowed/Borderless usability, cursor/Alt+Tab/minimize/Reset and accepted visual
+features passed. The final combined R-OBS1b + R-ATTR1 binary remains PENDING
+HUMAN VALIDATION. Exact original hook stall mechanism remains UNKNOWN.
+
+The following is the historical pre-runtime R-OBS1 validation record:
+At that checkpoint the menu-less identity correction was source/EXE-confirmed; the Windowed stall's
 precise native mechanism is UNKNOWN. See the controlled hook-isolation handoff.
 
 Executed before the independent R-ATTR1 change:

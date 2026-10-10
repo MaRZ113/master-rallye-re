@@ -1,4 +1,9 @@
-# Independent R-ATTR1 and combined smoke test
+# Current combined candidate
+
+The user independently confirmed ordinary Restart and legitimate idle Attract
+with R-ATTR1. The new standard hook-free + guard DLL still needs the short
+[R-OBS1b integration smoke test](../r-obs1b/runtime-handoff.md). The procedure
+below is the original independent test contract; it is preserved as reference.
 
 Use the combined candidate, pristine retail EXE and normal user INI. Preserve
 the accepted DLL separately and replace it only with the game closed. Do not

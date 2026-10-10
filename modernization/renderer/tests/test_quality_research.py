@@ -32,6 +32,26 @@ class QualityResearchTests(unittest.TestCase):
         latest=max(matching,key=lambda p:(p.stat().st_mtime_ns,p.name))
         return read_jsonl(latest)
 
+    def test_standard_hook_free_source_and_binary(self):
+        source='\n'.join(p.read_text() for p in (ROOT/'src').glob('*.cpp'))
+        for api in ('SetWindowsHookEx','UnhookWindowsHookEx','CallNextHookEx'):
+            self.assertNotIn(api,source)
+        self.assertNotIn('MRR_DIAGNOSTIC_NO_MESSAGE_HOOKS',(ROOT/'CMakeLists.txt').read_text())
+        self.assertNotIn('--diagnostic-no-message-hooks',(ROOT/'tools/build.py').read_text())
+        binary=(ROOT/'.build-msvc/Release/d3d8.dll').read_bytes()
+        for name in (b'SetWindowsHookExW',b'SetWindowsHookExA',b'UnhookWindowsHookEx',b'CallNextHookEx'):
+            self.assertNotIn(name+b'\x00',binary)
+        self.assertIn(b'legacy_loading_attract_guard',binary)
+        rows=[r['descriptor'] for r in self.current_native_session() if r.get('type')=='standard_hook_free_contract']
+        self.assertEqual({r['display_effective'] for r in rows},{'Stock','Windowed','Borderless'})
+        for r in rows:
+            self.assertFalse(r['thread_message_hooks_enabled'])
+            self.assertFalse(r['cursor_watch_installed'])
+            self.assertEqual(r['display_watch'],'disabled_by_standard_policy')
+            self.assertEqual(r['cursor_handling'],'present_polling_and_shutdown')
+            self.assertEqual(r['window_message_telemetry'],'unavailable_hooks_retired')
+            self.assertEqual(r['display_window_message_records'],0)
+
     def test_windowed_startup_axis_admission_trace(self):
         rows=self.current_native_session()
         candidates=[r for r in rows if r.get('type')=='windowed_resize_admission' and
@@ -45,18 +65,16 @@ class QualityResearchTests(unittest.TestCase):
             self.assertEqual((r['normalized_logical']['width'],r['normalized_logical']['height']),(1447,720))
             self.assertEqual((r['effective_backbuffer_width'],r['effective_backbuffer_height']),(1447,720))
 
-    def test_hidden_hwnd_nested_reset_event_order(self):
+    def test_hidden_hwnd_nested_reset_without_message_hooks(self):
         rows=self.current_native_session()
         start=next(i for i,r in enumerate(rows) if r.get('type')=='display_contract_begin')
         end=next(i for i,r in enumerate(rows) if i>start and r.get('type')=='display_contract_end')
         nested=rows[start+1:end]
         size=[r for r in nested if r.get('type')=='display_window_message' and r.get('message')=='WM_SIZE']
-        self.assertEqual([r['phase'] for r in size],['before_game_wndproc','after_game_wndproc'])
+        self.assertEqual(size,[]) # Retired hooks produce no fabricated pre/post records.
         ready=next(r for r in nested if r.get('type')=='display_reset_readiness')
         result=next(r for r in nested if r.get('type')=='display_native_attempt' and r.get('operation')=='Reset')
-        self.assertLess(size[0]['event_sequence'],ready['event_sequence'])
         self.assertLess(ready['event_sequence'],result['event_sequence'])
-        self.assertLess(result['event_sequence'],size[1]['event_sequence'])
         self.assertEqual(ready['cooperative_hresult'],0x88760868)
         self.assertEqual(result['hresult'],0x88760868)
         self.assertEqual((result['sent']['width'],result['sent']['height'],result['sent']['windowed']),(640,480,0))
@@ -71,7 +89,7 @@ class QualityResearchTests(unittest.TestCase):
         self.assertTrue(diagnostic['event_sequence_order_valid'])
         self.assertEqual(diagnostic['runtime_fix_verdict'],'UNKNOWN_HUMAN_REQUIRED')
         self.assertGreaterEqual(len(diagnostic['observed_reset_while_device_lost']),4)
-        self.assertTrue(any(r.get('type')=='display_message_budget_exhausted' and r['limit']==512 for r in rows))
+        self.assertFalse(any(r.get('type') in ('display_window_message','display_message_budget_exhausted') for r in rows))
         loss=[r for r in rows if r.get('type')=='display_native_attempt' and r.get('operation')=='Reset' and
               r.get('hresult')==0x88760868 and r.get('requested',{}).get('width')==624]
         self.assertEqual(len(loss),3)

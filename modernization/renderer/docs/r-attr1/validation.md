@@ -1,8 +1,12 @@
 # R-ATTR1 validation — runtime pending
 
-**READY_FOR_IN_GAME_VALIDATION**. No game was launched, DLL deployed, or
-Broker variables captured by the agent. Repeated in-game Restart and legitimate
-idle Attract require separate human results.
+**CONFIRMED_BY_RUNTIME for the tested Restart correction and legitimate idle
+Attract**, reported by the user in the R-OBS1b request. These results used a
+separately identified R-ATTR1 candidate. The new combined hook-free DLL is
+**PENDING HUMAN VALIDATION**. The agent did not launch or deploy the game.
+
+Historical static/synthetic results follow; current combined regression and
+binary identity are in [R-OBS1b validation](../r-obs1b/validation.md).
 
 Executed on the pristine SHA-locked retail image:
 
@@ -36,11 +40,8 @@ The first combined Python run found two deferred-window-telemetry regressions;
 see the R-OBS1 validation follow-up. Both were repaired and the complete suite
 rerun. No old assertions were weakened to hide lost events.
 
-**R-OBS1 remains BLOCKED_ON_BROKER_OPEN_INTEROPERABILITY** until the reported
-Windowed stall is isolated and regular Windowed/Borderless both open Broker and
-create fresh valid Dumps. Passing R-ATTR1 static tests cannot change that status.
-
-Human PASS requires `legacy_loading_attract_guard.applied=true`, two ordinary
-Restarts, another Quick Race, and a separately exercised idle Attract path.
-If idle was not tested, record NOT_TESTED; source/emulation preservation is
-insufficient to claim its live verdict. R-CAM1-A3d stays paused until acceptance.
+R-OBS1's separately tested no-hooks Broker/Dump path also now has user runtime
+confirmation. Integration does not transfer either old candidate's runtime
+verdict to the newly generated DLL. The standard combined session must show
+`legacy_loading_attract_guard.applied=true`, two ordinary Restarts and Broker
+open/fresh Dump. R-CAM1-A3d is the next phase; no epoch/camera changes belong here.

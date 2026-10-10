@@ -4,10 +4,6 @@
 #include <memory>
 #include <array>
 namespace gfx2 {
-#ifndef MRR_DIAGNOSTIC_NO_MESSAGE_HOOKS
-#define MRR_DIAGNOSTIC_NO_MESSAGE_HOOKS 0
-#endif
-inline constexpr bool quality_message_hooks_enabled() noexcept {return !MRR_DIAGNOSTIC_NO_MESSAGE_HOOKS;}
 struct WindowState {HWND hwnd=nullptr;LONG style=0,exstyle=0;HMENU menu=nullptr;RECT outer{},client{},monitor{},work{};bool valid=false,maximized=false,minimized=false;};
 class WindowApi {
 public: virtual ~WindowApi()=default;
@@ -16,12 +12,6 @@ public: virtual ~WindowApi()=default;
  virtual bool restore(const WindowState&) noexcept=0;
 };
 WindowApi& native_window_api() noexcept;
-class MessageHookApi {
-public: virtual ~MessageHookApi()=default;
- virtual HHOOK install(int,HOOKPROC,HMODULE,DWORD) noexcept=0;
- virtual bool remove(HHOOK) noexcept=0;
-};
-MessageHookApi& native_message_hook_api() noexcept;
 // Read-only, exact-retail window-owner observation; never calls or edits game state.
 struct GameWindowOwner {
  bool known=false;uintptr_t address=0;unsigned windowed=0,pp_windowed=0,initialized=0,device_created=0,active=0,device_ready=0,in_size_move=0;
@@ -44,7 +34,7 @@ public:
  unsigned attempts=0;bool aa_hazard=false;
  FeatureCapability ui_capability,preview_capability;bool ui_projection_live=false;
  mutable bool viewport_domain_known=false,viewport_logical=false;
- explicit QualityPipeline(WindowApi& api=native_window_api(),MessageHookApi& hooks=native_message_hook_api()):windows_(&api),hooks_(&hooks){}
+ explicit QualityPipeline(WindowApi& api=native_window_api()):windows_(&api){}
  ~QualityPipeline();
  void configure(const VisualConfig&,bool ui_supported,UINT,D3DDEVTYPE,HWND);
  bool active() const noexcept {return config.display_mode!="Stock"||config.aa_mode!="Stock";}
@@ -58,19 +48,14 @@ public:
  void begin_shutdown() noexcept;
  void cursor_tick() noexcept;
  void cooperative_result(HRESULT) noexcept;
- void cursor_watch() noexcept;
- void display_watch() noexcept;
- void window_message(HWND,UINT,WPARAM,LPARAM,bool before) noexcept;
- void flush_window_messages() noexcept;
- size_t pending_window_messages() const noexcept {return message_count_;}
  void cursor_focus_lost() noexcept;
- bool cursor_watch_installed() const noexcept {return cursor_hook_!=nullptr;}
+ bool cursor_watch_installed() const noexcept {return false;}
  bool window_commit_active() const noexcept {return committing_;}
  uint64_t native_reset_calls=0,window_reset_echoes=0,window_reset_echoes_suppressed=0,deferred_resets=0;
  uint64_t windowed_resize_admissions=0;
 private:
- CursorIdle cursor_;HCURSOR saved_cursor_=nullptr;HHOOK cursor_hook_=nullptr,message_hook_=nullptr;HWND watched_window_=nullptr;
- WindowApi* windows_;MessageHookApi* hooks_;bool window_owned_=false,committing_=false,shutting_down_=false;D3DPRESENT_PARAMETERS fallback_{};
+ CursorIdle cursor_;HCURSOR saved_cursor_=nullptr;
+ WindowApi* windows_;bool window_owned_=false,committing_=false,shutting_down_=false;D3DPRESENT_PARAMETERS fallback_{};
  WindowState committed_{};
  bool initial_window_commit_complete_=false;
  UINT normal_target_width_=0,normal_target_height_=0;bool normal_target_valid_=false;
@@ -78,10 +63,8 @@ private:
  bool planned_normal_target_valid_=false,planned_normal_target_update_=false,planned_live_resize_=false;
  UINT exclusive_width_=0,exclusive_height_=0;bool exclusive_rejected_=false;
  uint64_t attempt_sequence_=0,device_lifetime_id_=0,successful_reset_epoch_=0;unsigned attempt_records_=0,cooperative_records_=0;Known<HRESULT> cooperative_;
- unsigned admission_records_=0,message_records_=0;DWORD creating_thread_id_=0;
- Known<HRESULT> reset_readiness_;bool display_watch_attempted_=false;std::string display_watch_reason_="not_installed";
- struct MessageRecord {HWND hwnd=nullptr;UINT message=0;WPARAM w=0;LPARAM l=0;bool before=false,committing=false,styles_known=false;STYLESTRUCT styles{};uint64_t sequence=0,tick=0,epoch=0;};
- std::array<MessageRecord,64> messages_{};size_t message_count_=0;uint64_t message_dropped_=0;bool flushing_messages_=false,message_budget_reported_=false;
+ unsigned admission_records_=0;DWORD creating_thread_id_=0;
+ Known<HRESULT> reset_readiness_;
  void reset_readiness(IDirect3DDevice8&,const D3DPRESENT_PARAMETERS&) noexcept;
  void native_attempt(const char*,const D3DPRESENT_PARAMETERS&,const D3DPRESENT_PARAMETERS&,HRESULT) noexcept;
  void native_begin(const char*,const D3DPRESENT_PARAMETERS&) noexcept;

@@ -14,9 +14,9 @@ Race Select and Vehicle Select passed the human test with R-UI1-FINAL. Exact-ret
 
 ## R-CAM1-A camera owner probe
 
-Broker/display interoperability is tracked separately in [R-OBS1](docs/r-obs1/findings.md): menu-less exact-retail HWND validation and bounded opener outcomes are corrected, while the reported Windowed stall awaits the controlled hook-isolation runtime comparison. This is not a Broker/Dump runtime acceptance or camera unlock.
+[R-OBS1b closeout](docs/r-obs1b/closeout.md) makes hook-free display handling standard. The user independently confirmed Broker open/native Dump and supported Windowed/Borderless/cursor/lifecycle behavior with the no-hooks candidate, and confirmed R-ATTR1 ordinary Restart plus legitimate idle Attract. The new combined DLL remains **PENDING HUMAN VALIDATION**. No diagnostic flag or message-hook INI toggle is required. See the [combined smoke test](docs/r-obs1b/runtime-handoff.md).
 
-R-ATTR1 adds a separate exact-retail, process-memory-only guard against the obsolete Loading media-check Attract transition. The [validation](docs/r-attr1/validation.md) and [Restart/idle handoff](docs/r-attr1/runtime-handoff.md) keep ordinary Restart and legitimate idle Attract verdicts separate; neither has live acceptance yet. No disk EXE patch or global Attract override is used.
+R-ATTR1's exact-retail process-memory guard remains unchanged; no disk EXE patch or global Attract override is used. The exact internal mechanism of the old hook-enabled Broker stall is UNKNOWN and deferred. R-CAM1-A3d is the next phase, with no camera implementation in this closeout.
 
 R-CAM1-A adds a read-only exact-retail camera-owner observation during an existing F10 frame capture. It records manager/current-camera identity, camera pose and CPU planes, and the effective D3D projection/VIEW. It installs no new game hook and performs no camera or rendering writes. The observation helps qualify race, preview, replay, and camera-cycle ownership before any independent camera control is considered.
 

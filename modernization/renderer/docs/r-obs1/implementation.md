@@ -19,29 +19,14 @@ file-permission error. `OPEN_COMPLETED`, `OPENED_LATE`,
 `OPEN_TIMEOUT_COMPLETION_UNKNOWN`, `OPEN_FAILED`, `TARGET_INVALIDATED` are
 distinct. Existing already-open Broker reuse and native Dump dispatch remain.
 
-Message callbacks now copy only audited scalar events and STYLESTRUCT payloads
-to a 64-record fixed buffer with a 512-event lifetime budget. They perform no
-JSON allocation, disk write, window snapshot, native owner read or stack capture.
-Unrelated HWNDs and commands immediately return. The original hook chain and
-lightweight cursor ownership handling remain. FP environment is preserved.
-Present flushes telemetry outside the message callback. Records carry original
-sequence/tick/reset epoch; window snapshots explicitly describe **flush time**,
-not historical message-time geometry. Queue overflow is counted, not unbounded.
-Nested flush is suppressed and new events wait for the next flush.
-
-The two hooks install once. Partial install attempts roll back available hooks;
-successful shutdown unhooks ownership before native release. Production Win32
-calls use a MessageHookApi seam for install/failure/rollback/shutdown tests.
-`MRR_DIAGNOSTIC_NO_MESSAGE_HOOKS` is an OFF-by-default build control, never an INI
-option. Its separate candidate keeps the same styles, HWND, menu, window-size
-and D3D presentation planner. Callback cursor reactions are absent by design,
-so the no-hook DLL is an isolation tool, not an accepted shipping replacement.
+R-OBS1 originally provided a bounded deferred message buffer and an internal
+no-hooks diagnostic build for a controlled comparison. The user's successful
+no-hooks runtime result supersedes that temporary implementation in R-OBS1b:
+the two callbacks, installer/uninstaller, hook owner, buffer and build switch
+are removed from production. Present-time cursor polling and shutdown restore
+remain. Native Reset/window/resize diagnostics remain; historical pre/post
+message records are no longer generated or fabricated from snapshots.
 
 R-CAM1-A3c state/patching logic, GameFov, UI/carousels, MenuFreezeFix, AF/MSAA,
 reflections, foliage and native Dump implementation are unchanged. Exclusive
 stays deferred. No Freecam work belongs to this phase.
-
-Deferred records retain observation sequence, so their physical JSONL write
-order may differ from immediate Reset events. The auditor reports both orders;
-only explicit deferred window-message records receive this treatment. The
-512-event budget notification is emitted once at flush, never in a callback.
