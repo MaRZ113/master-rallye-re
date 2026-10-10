@@ -11,6 +11,7 @@ extern HMODULE proxy_module;
 std::wstring module_path(HMODULE module);
 std::string utf8(const std::wstring& value);
 std::string sha256_file(const std::wstring& path,uint64_t* size=nullptr) noexcept;
+inline std::string trace_capture_id(uint64_t device_id,uint64_t frame_id){return "d"+std::to_string(device_id)+"-f"+std::to_string(frame_id);}
 struct Caller {uintptr_t address=0,base=0;std::string module;bool known=false;};
 Caller caller_info(uintptr_t address);
 std::string quote(const std::string& text);

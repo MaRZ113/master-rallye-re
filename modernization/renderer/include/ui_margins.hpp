@@ -53,9 +53,15 @@ class Trace;
 struct MarginDrawDecision {MarginIdentity key{};MarginAnchorDecision anchor{};float native_x=0,native_y=0,margin=0;bool valid=false;};
 inline constexpr uint32_t UI_DRAW_RETURN_RVA=0x0016d7c4;
 inline constexpr unsigned UI_PACKET_DRAW_OBSERVATION_LIMIT=8;
+inline constexpr unsigned UI_CAPTURE_PACKET_CANDIDATE_LIMIT=64;
+inline constexpr unsigned UI_CAPTURE_ADJUSTED_CANDIDATE_QUOTA=32;
+inline constexpr unsigned UI_CAPTURE_UNADJUSTED_CANDIDATE_QUOTA=32;
+inline constexpr unsigned UI_CAPTURE_PACKET_RECORD_LIMIT=256;
+inline constexpr unsigned UI_CAPTURE_RENDER_LOCAL_RECORD_LIMIT=64;
+inline constexpr unsigned UI_CAPTURE_TOTAL_DRAW_OBSERVATION_LIMIT=UI_CAPTURE_PACKET_CANDIDATE_LIMIT*UI_PACKET_DRAW_OBSERVATION_LIMIT;
 struct UiDrawObservation {
  uintptr_t caller_va=0;uint32_t caller_rva=0,primitive=0,start_vertex=0,primitive_count=0;
- bool caller_in_game_image=false,adjustment_gate_allowed=false,suppressed=false,forwarded=false;
+ bool caller_in_game_image=false,adjustment_gate_allowed=false,suppressed=false,forwarded=false,diagnostic_relevant=false;
  bool vertex_shader_token_known=false;uint32_t vertex_shader_token=0;float margin_requested=0,margin_applied=0;
  bool get_transform_attempted=false,world_known=false,effective_world_known=false,packet_point_known=false;uint32_t get_transform_hresult=0;
  float packet_x=0,packet_y=0;
@@ -69,22 +75,45 @@ class UiMargins {
  friend struct detail::UiMarginsContract;
  UiPacketPatch patch_;MarginAnchors anchors_;
  struct Scope {
-  MarginIdentity key{};MarginAnchorDecision anchor{};bool valid=false,capture_record=false;
+  MarginIdentity key{};MarginAnchorDecision anchor{};bool valid=false,capture_active=false;
   uint64_t packet_id=0,first_frame=0,previous_frame=0,restored_frame=0,consume_count=0;
   float engine_x=0,engine_y=0,effective_x=0;bool engine_rewrite=false;
-  unsigned draw_count=0,draw_dropped=0;std::array<UiDrawObservation,UI_PACKET_DRAW_OBSERVATION_LIMIT> draws{};
+  const char* promotion_status="pending_draw";
+   bool candidate_class_adjusted=false;
+   unsigned draw_count=0,draw_dropped=0,non_ui_draws=0;std::array<UiDrawObservation,UI_PACKET_DRAW_OBSERVATION_LIMIT> draws{};
  };
  std::array<Scope,16> scopes_{};unsigned scope_depth_=0;
  D3DMATRIX pending_world_{};bool restore_pending_=false;
- struct Observation {uintptr_t entity=0,point=0,packet=0,storage=0;uint64_t id=0,first=0,last=0,restored=0;float logical=0,effective=0;unsigned visits=0;int rule=0;};
- std::array<Observation,64> observations_{};uint64_t frame_id_=1,next_id_=0,scene_family_frame_=0;unsigned records_=0,diagnostic_frames_=0;bool capturing_=false;DWORD thread_=0;float half_=0;bool enabled_=false;int scene_family_=-1;
+ struct Observation {
+  MarginIdentity key{};uint64_t id=0,epoch=0,first=0,last=0,restored=0;
+   uint64_t priority=0;float logical=0,effective=0;unsigned visits=0;int rule=0;uint8_t rule_mask=0;bool adjusted=false;
+ };
+ std::array<Observation,UI_CAPTURE_PACKET_CANDIDATE_LIMIT> observations_{};
+ uint64_t frame_id_=1,next_id_=0,scene_family_frame_=0,device_id_=0,capture_start_frame_=0,capture_trace_frame_=0;
+ uint64_t records_=0,render_local_records_=0;
+ uint64_t capture_count_=0,capture_records_=0,capture_render_local_records_=0,capture_packet_consumers_=0,capture_draw_observations_captured_=0;
+ uint64_t capture_packets_with_draws_=0;
+ uint64_t capture_consumers_without_draw_=0,capture_non_ui_draws_=0,capture_relevant_draws_=0;
+ uint64_t capture_adjusted_draws_=0,capture_unadjusted_draws_=0,capture_adjusted_packets_=0,capture_unadjusted_packets_=0;
+ uint64_t capture_candidate_rejections_=0,capture_candidate_evictions_=0,capture_packet_record_drops_=0;
+ uint64_t capture_render_local_drops_=0,capture_draw_drops_=0,capture_identity_invalidations_=0,capture_log_failures_=0;
+ uint64_t capture_draw_observation_attempts_=0;
+ bool capturing_=false,capture_completed_=false,capture_close_pending_=false;DWORD thread_=0;float half_=0;bool enabled_=false;int scene_family_=-1;const char* capture_end_reason_="none",*capture_close_reason_="none";
  std::string packet_observation_json(const Scope&) const;
+ int find_observation(const MarginIdentity&,uint64_t epoch) const noexcept;
+ int promote_observation(Scope&) noexcept;
+ static uint64_t observation_priority(const MarginIdentity&,uint64_t epoch) noexcept;
+ void reset_capture_local() noexcept;
+ bool emit_capture_record(const std::string&,bool packet_record,bool render_local_record) noexcept;
+ void finish_capture(uint64_t frame,uint64_t device_id,const char* reason) noexcept;
+ void emit_group_candidates() noexcept;
 public:
  const char* reason="disabled";
+ uint64_t draw_observations_captured=0,draw_observations_dropped=0;
  ~UiMargins();
  bool install(bool exact,bool requested) noexcept;
  void dimensions(UINT width,UINT height) noexcept;
- void capture_window(bool active,uint64_t frame) noexcept;
+ void capture_window(bool active,uint64_t frame,uint64_t device_id=0,const char* end_reason="present") noexcept;
  void reset_diagnostics() noexcept;
  void reset_anchors(const char* reason) noexcept;
  void scene_context(bool race) noexcept;
@@ -94,7 +123,7 @@ public:
  UiDrawObservation* begin_draw(uintptr_t caller_va,uint32_t caller_rva,bool caller_in_game_image,
   D3DPRIMITIVETYPE primitive,UINT start_vertex,UINT primitive_count,bool adjustment_gate_allowed,
   bool suppressed,bool forwarded,bool vertex_shader_token_known,uint32_t vertex_shader_token) noexcept;
- void observe_draw(const MarginDrawDecision&,float native_world_x,float effective_world_x,HRESULT restore) noexcept;
+ void observe_draw(const MarginDrawDecision&,UiDrawObservation&) noexcept;
  HRESULT repair_world(IDirect3DDevice8&,Trace&,uintptr_t) noexcept;
  void native_reset_succeeded() noexcept {restore_pending_=false;}
  void failed_restore(const D3DMATRIX&) noexcept;
@@ -102,7 +131,7 @@ public:
  bool finish_frame() noexcept;
  void disable(const char*) noexcept;
  std::string json() const;
- uint64_t draw_observations_captured=0,draw_observations_dropped=0;
+ uint64_t packet_consumers_seen=0,packet_consumers_without_relevant_draw=0,non_ui_draws_seen=0;
 };
 }
 

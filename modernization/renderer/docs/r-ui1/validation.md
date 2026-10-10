@@ -26,3 +26,18 @@ The verified build output is `modernization/renderer/.build-msvc/Release/d3d8.dl
 No game session was run as part of this validation. The synthetic test establishes that the existing retained-anchor policy can produce the supplied paired-transform displacement shape; it does not prove carousel ownership or visual correction. Race Select and Vehicle Select testing remains pending. The required short test sequence and capture fields are in [runtime-handoff.md](runtime-handoff.md).
 
 The current R-CAM1-A2 camera submission diagnostic, GameFov behavior, foliage upload provenance, and broader D3D8 frame capture passed their existing tests and were not redirected or removed. Exclusive Fullscreen behavior and the unrelated staged Observatory changes remain outside R-UI1.
+
+## R-UI1-D2 validation
+
+- Repository: `D:\Game\Master Rallye\master-rallye-re-general`; branch `master`; starting HEAD `fadc5f24190f9062e2ad268ce8045ffb1d36703e`.
+- `python modernization/renderer/tools/build.py`: passed; Win32 Release proxy and all native targets built.
+- Native CTest: 10/10 passed, including repeated same-device F10 capture re-arming, capture-local budgets, draw-driven promotion, adjusted/unadjusted candidate strata, deterministic bounded selection, retained anchor continuity, and exact WORLD restoration controls.
+- Python suite: 120/120 passed, including the session/frame capture-ID join and the existing R-GFX/R-CAM/foliage regressions.
+- `python -m compileall -q modernization/renderer`: passed.
+- `python modernization/renderer/tools/verify_proxy.py modernization/renderer/.build-msvc/Release/d3d8.dll`: passed; PE32/I386, required D3D8 exports present, no recursive `d3d8.dll` import. Evidence grade remains `BUILD_VERIFIED_NOT_RUNTIME`.
+- Current ignored candidate: `modernization/renderer/.build-msvc/Release/d3d8.dll`, 1,576,960 bytes, SHA256 `aa0495d92ccf0440aa138c19dd5531dda82567a8617f52dfed81b34273747ea2`.
+- `git diff --check`: passed.
+
+The new synthetic native session demonstrates two successful F10 captures on device 8 (`d8-f2`, `d8-f4`) with independent budgets, both adjusted and unadjusted promoted evidence, and matching Trace `frame_summary` IDs. A separate dense synthetic capture observed 343 packet consumers, including 340 without relevant draws, while promoting only drawn packets. The 80-candidate order test retained the same bounded 32/32 selection under reversed traversal. These are automated contract results, not game-session evidence.
+
+No current production Race Select / Vehicle Select capture files were present in this checkout. No game was launched for this pass, and no carousel alignment transform was introduced. Carousel ownership and visual behavior remain pending the three captures in [runtime-handoff.md](runtime-handoff.md).

@@ -4,6 +4,7 @@
 #include "margin_rules.hpp"
 #include <iostream>
 #include <stdexcept>
+#include <algorithm>
 #include <vector>
 #include <cmath>
 #include <cstring>
@@ -18,6 +19,9 @@ namespace gfx2::detail {struct UiMarginsContract {
  static unsigned active_draw_count(const UiMargins& ui){return ui.scope_depth_?ui.scopes_[ui.scope_depth_-1].draw_count:0;}
  static unsigned active_draw_dropped(const UiMargins& ui){return ui.scope_depth_?ui.scopes_[ui.scope_depth_-1].draw_dropped:0;}
  static unsigned records(const UiMargins& ui){return ui.records_;}
+ static std::vector<uintptr_t> selected_entities(const UiMargins& ui,bool adjusted){std::vector<uintptr_t> out;for(const auto& o:ui.observations_)if(o.id&&o.adjusted==adjusted)out.push_back(o.key.entity);return out;}
+ static unsigned candidate_evictions(const UiMargins& ui){return static_cast<unsigned>(ui.capture_candidate_evictions_);}
+ static unsigned candidate_rejections(const UiMargins& ui){return static_cast<unsigned>(ui.capture_candidate_rejections_);}
 };}
 struct Windows:WindowApi {
  std::function<void()> on_apply;
@@ -102,7 +106,8 @@ void preview_cursor_packets(){
   if(aspect==4./3)CHECK(std::abs(out._22-p._22)<.00001);
   auto bad=p;bad._22=1;CHECK(!frontend_preview_projection(bad,out));
  }
- UiMargins diagnostics;diagnostics.capture_window(true,20);CHECK(diagnostics.json().find("\"diagnostic_frames_remaining\":3")!=std::string::npos);for(int i=0;i<3;++i)CHECK(diagnostics.finish_frame());CHECK(diagnostics.json().find("\"diagnostic_frames_remaining\":0")!=std::string::npos);diagnostics.reset_diagnostics();
+ UiMargins diagnostics;diagnostics.capture_window(true,20,7);CHECK(diagnostics.json().find("\"capture_active\":true")!=std::string::npos&&diagnostics.json().find("d7-f20")!=std::string::npos);CHECK(diagnostics.finish_frame());diagnostics.capture_window(false,21,7,"present");CHECK(diagnostics.json().find("\"capture_active\":false")!=std::string::npos);
+ diagnostics.capture_window(true,22,7);CHECK(diagnostics.json().find("d7-f22")!=std::string::npos&&diagnostics.json().find("\"capture_count\":2")!=std::string::npos);diagnostics.capture_window(false,23,7,"present");diagnostics.reset_diagnostics();
  CursorIdle cursor;POINT p{10,10};CHECK(cursor.update(true,p,0,1500)==0);CHECK(cursor.update(true,p,1499,1500)==0);CHECK(cursor.update(true,p,1500,1500)==-1&&cursor.hidden);
  for(int i=0;i<100;++i)CHECK(cursor.update(true,p,1501+i,1500)==0);p.x=11;CHECK(cursor.update(true,p,2000,1500)==1&&!cursor.hidden);CHECK(cursor.update(true,p,3500,1500)==-1);CHECK(cursor.update(false,p,3501,1500)==1);CHECK(cursor.update(false,p,9000,1500)==0);CHECK(cursor.update(true,p,9001,1500)==0);
 
@@ -346,10 +351,14 @@ struct UiFixture {
  float* point=reinterpret_cast<float*>(packet.data()+0x54);
  UiFixture(){auto cache=reinterpret_cast<uintptr_t>(cached_transform.data());std::memcpy(packet.data()+0x84,&cache,4);cached_transform[0]=cached_transform[5]=cached_transform[10]=cached_transform[15]=1;std::memcpy(entity.data()+0x4c,&pp,4);std::memcpy(packet.data()+8,&storage,4);std::memcpy(packet.data()+0x68,&mode,4);point[0]=565;point[1]=75;}
 };
+HRESULT observed_ui_draw(UiMargins& ui,UiNative& native,Trace& trace,float world_x,float world_y=250.f){
+ native.world._41=world_x;native.world._42=world_y;UiWorldScope scope(native,trace,ui,UI_DRAW_RETURN_RVA,true,D3DPT_TRIANGLELIST,0,1,UI_DRAW_RETURN_RVA,true,false,true,true,0x142);
+ HRESULT hr=native.DrawPrimitive(D3DPT_TRIANGLELIST,0,1);scope.draw_result(hr);return hr;
+}
 void margin_consumer_retention(){
  UiFixture f;UiMargins ui;detail::UiMarginsContract::enable(ui);ui.dimensions(1920,1080);ui.scene_context(false);ui.capture_window(true,30);UiNative native;Trace trace;
- auto consume=[&](float x,float y){f.point[0]=x;f.point[1]=y;auto bytes=f.packet;auto cache=f.cached_transform;CHECK(ui.enter_consume(f.owner));auto d=ui.draw_decision();float offset=d.margin;if(x==565){CHECK(ui.enter_consume(f.owner)&&ui.draw_decision().anchor.id==d.anchor.id);ui.leave_consume();}
-  for(int draw=0;draw<2;++draw){native.world._41=x;auto original=native.world;{UiWorldScope scope(native,trace,ui,0,true);CHECK(scope.changed()==(offset!=0));CHECK(native.DrawPrimitive(D3DPT_TRIANGLELIST,0,1)==S_OK&&native.observed==x+offset);CHECK(f.packet==bytes);}CHECK(!std::memcmp(&native.world,&original,sizeof(original))&&f.packet==bytes&&f.cached_transform==cache);}
+ auto consume=[&](float x,float y){f.point[0]=x;f.point[1]=y;auto bytes=f.packet;auto cache=f.cached_transform;CHECK(ui.enter_consume(f.owner));auto d=ui.draw_decision();float offset=d.margin;if(x==565){CHECK(ui.enter_consume(f.owner)&&ui.draw_decision().anchor.id==d.anchor.id);CHECK(observed_ui_draw(ui,native,trace,x,y)==S_OK&&native.observed==x+offset);ui.leave_consume();}
+  for(int draw=0;draw<2;++draw){native.world._41=x;native.world._42=y;auto original=native.world;CHECK(observed_ui_draw(ui,native,trace,x,y)==S_OK&&native.observed==x+offset);CHECK(!std::memcmp(&native.world,&original,sizeof(original))&&f.packet==bytes&&f.cached_transform==cache);}
   ui.leave_consume();CHECK(ui.finish_frame()&&f.packet==bytes);return offset;};
  CHECK(std::abs(consume(565,75)-106.6667f)<.0001f);
  CHECK(std::abs(consume(562,75.125f)-106.6667f)<.0001f&&ui.json().find("\"retained_anchor_without_current_rule_match\":1")!=std::string::npos);
@@ -360,13 +369,13 @@ void margin_consumer_retention(){
  std::cout<<"Production packet read-only context / repeated native WORLD copy / immediate exact restore: PASS\n";
 }
 void render_local_ui_contracts(){
- for(int direction:{-1,1}){UiFixture f;UiMargins ui;detail::UiMarginsContract::enable(ui);ui.dimensions(1734,480);UiNative native;Trace trace;uint64_t id=0;
+  for(int direction:{-1,1}){UiFixture f;UiMargins ui;detail::UiMarginsContract::enable(ui);ui.dimensions(1734,480);ui.capture_window(true,1);UiNative native;Trace trace;uint64_t id=0;
   for(int frame=0;frame<30;++frame){int animation_step=frame<10?frame:frame<20?9:frame-10;f.point[0]=(direction>0?565.f:23.f)-animation_step*3.f;f.point[1]=(direction>0?75.f:370.f)+animation_step*.1f;f.cached_transform[12]=f.point[0];f.cached_transform[13]=f.point[1];auto bytes=f.packet;auto cache=f.cached_transform;
    CHECK(ui.enter_consume(f.owner));auto decision=ui.draw_decision();CHECK(decision.anchor.direction==direction&&decision.margin==direction*547);if(!frame)id=decision.anchor.id;CHECK(id==decision.anchor.id);
    native.world._41=f.point[0];native.world._42=f.point[1];native.world._11=2;auto original=native.world;
-   trace.shadow.matrices[D3DTS_WORLD].set(original);for(int draw=0;draw<3;++draw){{UiWorldScope scope(native,trace,ui,0,true);CHECK(scope.changed()&&native.world._41==f.point[0]+direction*547&&native.world._42==f.point[1]);CHECK(native.DrawPrimitive(D3DPT_TRIANGLELIST,0,1)==S_OK);}CHECK(!std::memcmp(&native.world,&original,sizeof(original))&&f.packet==bytes&&f.cached_transform==cache&&!std::memcmp(&trace.shadow.matrices[D3DTS_WORLD].value,&original,sizeof(original)));}
+    trace.shadow.matrices[D3DTS_WORLD].set(original);for(int draw=0;draw<3;++draw){{UiWorldScope scope(native,trace,ui,UI_DRAW_RETURN_RVA,true,D3DPT_TRIANGLELIST,0,1,UI_DRAW_RETURN_RVA,true,false,true,true,0x142);CHECK(scope.changed()&&native.world._41==f.point[0]+direction*547&&native.world._42==f.point[1]);HRESULT hr=native.DrawPrimitive(D3DPT_TRIANGLELIST,0,1);scope.draw_result(hr);CHECK(hr==S_OK);}CHECK(!std::memcmp(&native.world,&original,sizeof(original))&&f.packet==bytes&&f.cached_transform==cache&&!std::memcmp(&trace.shadow.matrices[D3DTS_WORLD].value,&original,sizeof(original)));}
    ui.leave_consume();CHECK(!ui.draw_decision().valid&&ui.finish_frame()&&f.packet==bytes);
-  }CHECK(ui.render_draws==90&&ui.restore_exact==90&&ui.restore_failures==0);
+   }ui.capture_window(false,31,0,"present");CHECK(ui.render_draws==90&&ui.restore_exact==90&&ui.restore_failures==0);
  }
  UiFixture f,other;other.point[0]=other.point[1]=300;UiMargins ui;detail::UiMarginsContract::enable(ui);ui.dimensions(1734,480);UiNative native;Trace trace;
  CHECK(ui.enter_consume(f.owner));CHECK(ui.draw_decision().margin==547);CHECK(ui.enter_consume(other.owner)&&ui.draw_decision().margin==0);ui.leave_consume();CHECK(ui.draw_decision().margin==547);
@@ -396,11 +405,11 @@ void render_local_wrapper_contract(){
  device->quality->ui_projection_live=false;stock(pc,D3DPT_TRIANGLELIST);device->quality->ui_projection_live=true;
  device->trace.effective_shadow.matrices[D3DTS_VIEW].value._41=1;stock(pc,D3DPT_TRIANGLELIST);device->trace.effective_shadow.matrices[D3DTS_VIEW].set(identity);
  device->quality->config.interface_mode="Centered4x3";stock(pc,D3DPT_TRIANGLELIST);device->quality->config.interface_mode="PreserveMargins";
- device->ui_margins.leave_consume();stock(pc,D3DPT_TRIANGLELIST);CHECK(device->Present(nullptr,nullptr,nullptr,nullptr)==S_OK);
+  device->ui_margins.leave_consume();stock(pc,D3DPT_TRIANGLELIST);CHECK(device->Present(nullptr,nullptr,nullptr,nullptr)==S_OK);
  CHECK(!std::memcmp(&device->trace.shadow.matrices[D3DTS_WORLD].value,&original,sizeof(original))&&device->ui_margins.restore_exact==1);
  // Native draw HRESULT survives a successful immediate restore, and a failed
 // restore is repaired before the next unrelated draw.
- CHECK(device->ui_margins.enter_consume(f.owner));native.draw_hr=E_FAIL;CHECK(device->draw_primitive_at(D3DPT_TRIANGLELIST,0,1,pc)==E_FAIL&&native.world._41==565);native.draw_hr=S_OK;
+  device->trace.control.pending=true;CHECK(device->Present(nullptr,nullptr,nullptr,nullptr)==S_OK);CHECK(device->ui_margins.enter_consume(f.owner));native.draw_hr=E_FAIL;CHECK(device->draw_primitive_at(D3DPT_TRIANGLELIST,0,1,pc)==E_FAIL&&native.world._41==565);native.draw_hr=S_OK;
  native.fail_set=native.sets+2;CHECK(device->draw_primitive_at(D3DPT_TRIANGLELIST,0,1,pc)==S_OK&&device->ui_margins.restore_failures==1);native.fail_set=native.sets+1;auto draws=native.draws;CHECK(device->draw_primitive_at(D3DPT_TRIANGLELIST,0,1,pc+1)==D3DERR_DEVICELOST&&native.draws==draws);
  native.fail_set=0;CHECK(device->draw_primitive_at(D3DPT_TRIANGLELIST,0,1,pc+1)==S_OK&&native.world._41==565&&native.observed==565);device->ui_margins.leave_consume();device->Release();root->Release();
  std::cout<<"Production DrawPrimitive UI gate, exact native restoration, failure blocks unrelated draws: PASS\n";
@@ -408,10 +417,12 @@ void render_local_wrapper_contract(){
 void ui_carousel_draw_diagnostics(){
  synthetic_caller_image_extent[0]=1;UiNative native;Root raw;auto* root=new Root8(&raw);auto policy=std::make_unique<QualityPipeline>();auto* device=new Device8(&native,root,std::move(policy));
  device->quality->config.interface_mode="PreserveMargins";device->quality->ui_projection_live=true;detail::UiMarginsContract::enable(device->ui_margins);
- device->ui_margins.capture_window(true,device->trace.frame_number());device->ui_margins.dimensions(1920,1080);device->ui_margins.scene_context(false);
+  device->trace.control.pending=true;CHECK(device->Present(nullptr,nullptr,nullptr,nullptr)==S_OK);device->ui_margins.dimensions(1920,1080);device->ui_margins.scene_context(false);
  D3DMATRIX identity{};identity._11=identity._22=identity._33=identity._44=1;device->trace.shadow.bindings.vertex_shader.set(0x142);device->trace.effective_shadow.matrices[D3DTS_VIEW].set(identity);
  const uintptr_t pc=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+UI_DRAW_RETURN_RVA;const float half=106.6666667f;
- UiFixture card;card.point[0]=23;card.point[1]=370;auto card_bytes=card.packet;CHECK(device->ui_margins.enter_consume(card.owner));auto first=device->ui_margins.draw_decision();CHECK(first.anchor.direction==-1&&first.anchor.admitted&&first.margin==-half);
+  UiFixture card;card.point[0]=23;card.point[1]=370;for(unsigned i=0;i<80;++i){CHECK(device->ui_margins.enter_consume(card.owner));device->ui_margins.leave_consume();}
+  CHECK(device->ui_margins.json().find("\"capture_candidates_adjusted\":0")!=std::string::npos&&device->ui_margins.json().find("\"capture_candidates_unadjusted\":0")!=std::string::npos);
+  auto card_bytes=card.packet;CHECK(device->ui_margins.enter_consume(card.owner));auto first=device->ui_margins.draw_decision();CHECK(first.anchor.direction==-1&&first.anchor.retained&&first.margin==-half);
  native.world._41=23;native.world._42=370;auto initial_world=native.world;CHECK(device->draw_primitive_at(D3DPT_TRIANGLELIST,0,1,pc)==S_OK&&native.observed==23-half);CHECK(!std::memcmp(&native.world,&initial_world,sizeof(initial_world))&&card.packet==card_bytes);device->ui_margins.leave_consume();CHECK(device->ui_margins.finish_frame());
 
  card.point[0]=375;card.point[1]=250;card_bytes=card.packet;device->ui_margins.scene_context(false);CHECK(device->ui_margins.enter_consume(card.owner));auto retained=device->ui_margins.draw_decision();CHECK(retained.anchor.retained&&retained.anchor.direction==-1&&retained.anchor.current_rule==0&&retained.margin==-half);
@@ -431,25 +442,46 @@ void ui_carousel_draw_diagnostics(){
  auto border_record=detail::UiMarginsContract::active_record(device->ui_margins);CHECK(border_record.find("\"anchor_direction\":\"none\"")!=std::string::npos&&border_record.find("\"world_status\":\"native\"")!=std::string::npos);
  CHECK(border_record.find("\"draw_observations_dropped\":2")!=std::string::npos&&device->ui_margins.draw_observations_dropped==2);
  CHECK(std::abs((card_effective-371.f)-4.f+half)<.001f); // The evidence-shaped retained-anchor mismatch is visible in paired transforms.
- device->ui_margins.leave_consume();for(unsigned i=0;i<260;++i){CHECK(device->ui_margins.enter_consume(highlight.owner));device->ui_margins.leave_consume();}
- CHECK(detail::UiMarginsContract::records(device->ui_margins)==256&&device->ui_margins.json().find("\"max_draw_observations_per_packet\":8")!=std::string::npos);
+  device->ui_margins.leave_consume();for(unsigned i=0;i<260;++i){CHECK(device->ui_margins.enter_consume(highlight.owner));device->ui_margins.leave_consume();}
+  auto coverage=device->ui_margins.json();CHECK(coverage.find("\"capture_candidates_adjusted\":1")!=std::string::npos&&coverage.find("\"capture_candidates_unadjusted\":1")!=std::string::npos);
+  CHECK(coverage.find("\"capture_records_emitted\":3")!=std::string::npos&&coverage.find("\"max_draw_observations_per_packet\":8")!=std::string::npos);
+  CHECK(device->Present(nullptr,nullptr,nullptr,nullptr)==S_OK&&device->ui_margins.json().find("\"capture_active\":false")!=std::string::npos);
+  device->trace.control.pending=true;CHECK(device->Present(nullptr,nullptr,nullptr,nullptr)==S_OK);auto rearmed=device->ui_margins.json();
+  CHECK(rearmed.find("\"capture_count\":2")!=std::string::npos&&rearmed.find("\"capture_records_emitted\":0")!=std::string::npos);
+  card.point[0]=375;card.point[1]=250;native.world._41=375;native.world._42=250;CHECK(device->ui_margins.enter_consume(card.owner));auto second_decision=device->ui_margins.draw_decision();
+  CHECK(second_decision.anchor.retained&&second_decision.anchor.id==first.anchor.id&&second_decision.margin==-half);
+  CHECK(device->draw_primitive_at(D3DPT_TRIANGLELIST,0,1,pc)==S_OK&&std::abs(native.observed-(375-half))<.001f);device->ui_margins.leave_consume();
+  CHECK(device->ui_margins.json().find("\"capture_records_emitted\":1")!=std::string::npos&&device->quality->native_reset_calls==0);
+  CHECK(device->Present(nullptr,nullptr,nullptr,nullptr)==S_OK);
  device->Release();root->Release();
  std::cout<<"R-UI1 bounded packet-to-draw F10 diagnostics, carousel mismatch reproduction, center control, source immutability and WORLD restore: PASS\n";
 }
 void margin_candidate_diagnostics(){
  alignas(float) std::array<std::array<unsigned char,0x90>,3> packets{};
  std::array<std::array<unsigned char,0x60>,3> entities{};
- UiMargins ui;detail::UiMarginsContract::enable(ui);ui.dimensions(1920,1080);ui.scene_context(false);ui.capture_window(true,60);
+ UiMargins ui;detail::UiMarginsContract::enable(ui);ui.dimensions(1920,1080);ui.scene_context(false);ui.capture_window(true,60);UiNative native;Trace trace;
  uintptr_t storage=0xabc0;uint32_t mode=1;
  for(size_t i=0;i<3;++i){
   auto pp=reinterpret_cast<uintptr_t>(packets[i].data());std::memcpy(entities[i].data()+0x4c,&pp,4);std::memcpy(packets[i].data()+8,&storage,4);std::memcpy(packets[i].data()+0x68,&mode,4);
   auto* point=reinterpret_cast<float*>(packets[i].data()+0x54);point[0]=i==0?565.f:i==1?23.f:300.f;point[1]=i==0?75.f:i==1?370.f:300.f;
-  CHECK(ui.enter_consume(reinterpret_cast<uintptr_t>(entities[i].data())));ui.leave_consume();CHECK(i!=2||point[0]==300);
+  for(unsigned skip=0;skip<40;++skip){CHECK(ui.enter_consume(reinterpret_cast<uintptr_t>(entities[i].data())));ui.leave_consume();}
+  CHECK(i!=2||point[0]==300);
  }
+ CHECK(ui.json().find("\"capture_candidates_adjusted\":0")!=std::string::npos&&ui.json().find("\"capture_candidates_unadjusted\":0")!=std::string::npos);
+ for(size_t i=0;i<3;++i){auto* point=reinterpret_cast<float*>(packets[i].data()+0x54);CHECK(ui.enter_consume(reinterpret_cast<uintptr_t>(entities[i].data())));auto d=ui.draw_decision();CHECK(d.valid);CHECK(observed_ui_draw(ui,native,trace,point[0],point[1])==S_OK&&native.observed==point[0]+d.margin);ui.leave_consume();}
  CHECK(ui.finish_frame());CHECK(ui.finish_frame()); // One completed absent frame.
- auto* point=reinterpret_cast<float*>(packets[0].data()+0x54);point[0]=550;point[1]=76;CHECK(ui.enter_consume(reinterpret_cast<uintptr_t>(entities[0].data())));CHECK(ui.draw_decision().margin>106);ui.leave_consume();
+ auto* point=reinterpret_cast<float*>(packets[0].data()+0x54);point[0]=550;point[1]=76;CHECK(ui.enter_consume(reinterpret_cast<uintptr_t>(entities[0].data())));CHECK(ui.draw_decision().margin>106);CHECK(observed_ui_draw(ui,native,trace,550,76)==S_OK&&native.observed>656);ui.leave_consume();
  CHECK(point[0]==550&&ui.json().find("\"anchor_grace_retained\":1")!=std::string::npos);
- CHECK(ui.finish_frame()&&point[0]==550&&ui.json().find("\"group_grace_retained\":0")!=std::string::npos);
+ CHECK(ui.finish_frame()&&point[0]==550&&ui.json().find("\"group_grace_retained\":0")!=std::string::npos);ui.capture_window(false,64,0,"present");
+}
+void ui_diagnostic_selection_is_order_independent(){
+ std::array<UiFixture,80> fixtures{};std::vector<size_t> forward(80),reverse;for(size_t i=0;i<80;++i){forward[i]=i;auto* point=fixtures[i].point;point[0]=i<40?20.f:300.f;point[1]=i<40?135.f:300.f;}reverse=forward;std::reverse(reverse.begin(),reverse.end());
+ auto sample=[&](const std::vector<size_t>& order){UiMargins ui;detail::UiMarginsContract::enable(ui);ui.dimensions(1920,1080);ui.capture_window(true,90);UiNative native;Trace trace;
+  for(size_t i:order){auto& f=fixtures[i];CHECK(ui.enter_consume(f.owner));CHECK(observed_ui_draw(ui,native,trace,f.point[0],f.point[1])==S_OK);ui.leave_consume();}
+  auto json=ui.json();CHECK(json.find("\"capture_candidates_adjusted\":32")!=std::string::npos&&json.find("\"capture_candidates_unadjusted\":32")!=std::string::npos);
+  CHECK(detail::UiMarginsContract::candidate_evictions(ui)+detail::UiMarginsContract::candidate_rejections(ui)==16);ui.capture_window(false,91,0,"present");
+  auto selected=detail::UiMarginsContract::selected_entities(ui,true);auto plain=detail::UiMarginsContract::selected_entities(ui,false);selected.insert(selected.end(),plain.begin(),plain.end());std::sort(selected.begin(),selected.end());return selected;};
+ CHECK(sample(forward)==sample(reverse));
 }
 void antialiasing(){
  Root root;Windows windows;QualityPipeline q(windows);VisualConfig c;c.display_mode="Borderless";c.aa_mode="MSAA";c.samples=8;auto p=stock();q.configure(c,true,2,D3DDEVTYPE_HAL,p.hDeviceWindow);IDirect3DDevice8* out=nullptr;
@@ -716,4 +748,4 @@ void quality_fpu(){
  flags=fetestexcept(FE_ALL_EXCEPT);ui_projection_dimensions(matrix,1920,1080,out);CHECK(fegetround()==FE_DOWNWARD&&fetestexcept(FE_ALL_EXCEPT)==flags);fesetenv(&saved);
  fegetenv(&saved);fesetround(FE_DOWNWARD);D3DMATRIX source{};source._22=float(1/std::tan((45./(16./9))*3.14159265358979323846/360.));source._11=source._22/float(16./9);source._33=1.01f;source._34=1;source._43=-.2f;flags=fetestexcept(FE_ALL_EXCEPT);CHECK(camera_scene_family(source)==0&&fegetround()==FE_DOWNWARD&&fetestexcept(FE_ALL_EXCEPT)==flags);fesetenv(&saved);
 }
-int main(){try{configs();numeric_configs();trace_numeric_configs();reset_echo_shutdown();preview_cursor_packets();displays();display_transactions();windowed_live_resize();windowed_startup_order();windowed_maximize_restore();stable_margin_anchors();margin_short_grace();margin_consumer_retention();margin_candidate_diagnostics();render_local_ui_contracts();render_local_wrapper_contract();ui_carousel_draw_diagnostics();antialiasing();exclusive_lifecycle();exclusive_restore_order();game_window_owner_read();viewports_ui();freeze_and_patch();native_window();native_display_ordering();wrapper_trace();validated_ui_wrapper();ui_native_abi();packet_consumer_abi();quality_fpu();std::cout<<"R-GFX5 config/display/viewport/UI/MSAA/Reset/freeze/hidden HWND/native bridge contracts: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}
+int main(){try{configs();numeric_configs();trace_numeric_configs();reset_echo_shutdown();preview_cursor_packets();displays();display_transactions();windowed_live_resize();windowed_startup_order();windowed_maximize_restore();stable_margin_anchors();margin_short_grace();margin_consumer_retention();margin_candidate_diagnostics();render_local_ui_contracts();render_local_wrapper_contract();ui_carousel_draw_diagnostics();ui_diagnostic_selection_is_order_independent();antialiasing();exclusive_lifecycle();exclusive_restore_order();game_window_owner_read();viewports_ui();freeze_and_patch();native_window();native_display_ordering();wrapper_trace();validated_ui_wrapper();ui_native_abi();packet_consumer_abi();quality_fpu();std::cout<<"R-GFX5 config/display/viewport/UI/MSAA/Reset/freeze/hidden HWND/native bridge contracts: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}

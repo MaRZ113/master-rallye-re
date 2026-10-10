@@ -141,7 +141,7 @@ ULONG STDMETHODCALLTYPE Device8::Release(){
   {std::lock_guard<std::recursive_mutex> guard(parent_->registry_mutex);last=(--refs_==0);if(last&&quality)quality->begin_shutdown();n=real_->Release();if(last)parent_->devices.erase(real_);}
   trace.after(2,args,n,pc);
  }
- if(last){trace.shutdown(n);delete this;}return n;
+ if(last){trace.shutdown(n);ui_margins.capture_window(false,trace.frame_number(),trace.device_id(),"device_release");delete this;}return n;
 }
 HRESULT STDMETHODCALLTYPE Device8::GetDirect3D(IDirect3D8** out){
  auto guard=trace.guard();auto args=pack(out);auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(6,args,pc);

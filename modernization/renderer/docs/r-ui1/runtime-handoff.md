@@ -1,21 +1,39 @@
-# R-UI1 Runtime Validation
+# R-UI1-D2 Runtime Validation
 
-Use the current test build and the existing display settings. Set `[Widescreen] InterfaceMode=2` (`PreserveMargins`) and keep the accepted Windowed or Borderless mode unchanged. Use 1920×1080 for the primary comparison.
+Use the current Win32 Release proxy build and verify its SHA256 against the validation record before copying it beside the game. Set `[Widescreen] InterfaceMode=2` (`PreserveMargins`), keep the accepted Windowed or Borderless mode unchanged, and use 1920×1080. Keep `[Trace] Enabled=1` and `FrameSummaries=1`. Do not enable a carousel-specific override; none is implemented.
 
-## Vehicle Select
+The purpose of this short run is to validate repeated F10 capture re-arming and obtain comparable Race Select / Vehicle Select draw evidence. Do not restart Master Rallye or recreate the D3D device between captures unless the game becomes unusable. F10 uses the existing Trace capture. The UI session events and matching Trace frame records share `capture_id` in the form `d<device>-f<Trace frame>`; each F10 capture has its own fresh UI budgets and closes at its matching Present. Use each row's `trace_frame` for frame joins. The legacy packet `first_frame` and `frame` fields describe UI anchor lifetime bookkeeping.
 
-Open a long vehicle list. Capture a stable selection, then move one item at a time through the beginning, middle, and end. Repeat with faster forward movement, reverse movement, and any list wraparound. Compare the yellow selection frame with the selected small thumbnail and the large 3D preview. Confirm that the list continues to scroll and no thumbnail disappears.
+## Capture A — Vehicle Select with visible misalignment
 
-## Race Select
+Open Vehicle Select, scroll until the yellow frame appears over an empty or visibly misaligned slot, then stop moving and press F10 once. Let the capture close at Present. Record the capture ID and label it `A-vehicle-bug`.
 
-Repeat on a long course/leg list. Check the frame, selected course image, description, and any neighboring cards while moving forward and backward. Confirm that the visible selected card and the game's displayed course data remain in agreement.
+Expect relevant `ui_packet_lifetime` rows with nested `draw_observations`, `ui_render_local` rows when WORLD evidence is readable, and a `ui_diagnostic_capture_end` summary with fresh budget counts. Adjusted and unadjusted candidate rows are both useful; either class may be absent if that screen did not submit it during the capture.
 
-## Other screens and gameplay
+## Capture B — Vehicle Select in a visually correct position
 
-Check Main Menu, game-mode selection, options, vehicle-class selection, and animated menu decorations. Start a Quick Race, inspect the HUD, pause and resume, and change cameras. PreserveMargins should retain its previously accepted HUD/menu behavior. Then check Centered4x3 and Stock for regressions.
+Without restarting or resetting the device, move to a position where the carousel appears correct, stop, and press F10 once more. Label it `B-vehicle-correct`. Confirm that the capture ID differs from A and the new end summary reports records from its own budget. This is the direct repeated-F10 regression check.
 
-If a carousel still misaligns, trigger the existing F10 capture while the selected frame and adjacent cards are visible. Capture the three-frame window on each affected screen and attach the resulting current-build session JSONL plus a screenshot. For movement provenance, capture once while stationary and again immediately after one forward and one reverse step. Keep Race Select and Vehicle Select captures separate.
+## Capture C — Race Select with visible misalignment
 
-The `ui_packet_lifetime` record associates `entity`, `packet`, point storage, content storage, mode, anchor ID/source/direction, current historical rule, UI epoch, and engine XY with up to eight enclosed `draw_observations`. Compare `packet_x/y`, caller RVA, FVF, requested/applied margin, `native_world_x/y`, and `effective_world_x/y` between the card and frame candidates. `carousel_owner_status=not_proven` is expected until source or capture evidence establishes membership. The diagnostic does not read selection indices.
+Navigate to Race Select, stop on a visibly misaligned highlight, and press F10 once. Label it `C-race-bug`. Do not restart between B and C. This provides a cross-carousel comparison under the same renderer session.
 
-PASS for visual behavior requires both carousel families to align while scrolling, with no list/input/preview regression. If the visual defect remains, the capture should show whether the mismatch tracks a retained anchor, a different draw path, or unchanged paired transforms. Do not infer selection-index corruption from an empty highlighted slot alone.
+## Files and interpretation
+
+Keep the matching session JSONL and the three Trace frame JSONL files, with the labels above. Optional screenshots help tie the capture to the visible state. Do not add proprietary runtime captures to the repository.
+
+For each `ui_diagnostic_capture_end`, check:
+
+- `capture_id`, `device_id`, start/end boundary, and `reason`;
+- `capture_records_emitted` and `capture_record_budget_limit`;
+- `packet_consumers_seen`, `packet_consumers_without_relevant_draw`, and `packets_with_draws`;
+- adjusted and unadjusted promoted candidates;
+- `candidate_capacity_rejections`, `candidate_evictions`, draw drops, record drops, and `coverage_status`.
+
+Join packet rows to their nested draw observations within the same capture ID. Compare entity/packet/point/content-storage/mode, UI epoch, anchor provenance, packet XY, caller RVA/FVF, and native/effective WORLD XY. Compare packet addresses across captures only when the validated UI epoch and lifetime context show they represent the same object; raw address equality by itself does not establish identity. Shared content storage is investigative evidence, not proof of widget membership.
+
+If a capture has no eligible draws, use its end summary to distinguish a missing valid consumer, consumers without a relevant draw, and bounded/log loss. A frame with no packet rows is not proof that the game did not draw a card. `current_screen_status`, `carousel_owner_status`, and selection-state evidence should remain `not_proven` until the captures or source establish the card/highlight relationship.
+
+Capture A/B is a diagnostic lifecycle pass when B has a new ID and fresh budget with relevant evidence. Capture C adds the race-select comparison. Visual acceptance still requires both carousel families to remain aligned while moving in both directions, with the selection frame, thumbnail, preview, list, and game selection in agreement. Do not infer selection-index corruption from an empty highlighted slot alone.
+
+Afterward, briefly check PreserveMargins HUD/menu stability, then Centered4x3 and Stock if time permits. These are regression observations, not required to infer carousel ownership. Preserve camera/FOV, foliage, borderless/windowed, AF/MSAA, and other existing renderer behavior.

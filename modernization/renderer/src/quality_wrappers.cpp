@@ -25,7 +25,7 @@ HRESULT STDMETHODCALLTYPE Device8::Reset(D3DPRESENT_PARAMETERS* pp){
  trace.after(14,args,static_cast<uint32_t>(hr),pc);
  try{session().write("{\"type\":\"reset_policy\",\"reset_request_source\":\"normal\",\"requested\":"+(requested_known?pp_json(requested):"null")+",\"effective\":"+(quality&&quality->valid?pp_json(quality->effective):"null")+",\"echo_equivalent\":false,\"native_reset_called\":"+(!quality||quality->native_reset_calls>native_before?"true":"false")+",\"native_reset_attempts\":"+std::to_string(quality?quality->native_reset_calls-native_before:1)+",\"result\":"+std::to_string(static_cast<uint32_t>(hr))+"}");}catch(...){}
 
- ui_margins.reset_anchors("Reset");ui_margins.reset_diagnostics();ui_margins.capture_window(false,trace.frame_number());
+ ui_margins.capture_window(false,trace.frame_number(),trace.device_id(),"device_reset");ui_margins.reset_anchors("Reset");ui_margins.reset_diagnostics();
  if(SUCCEEDED(hr)){ui_margins.native_reset_succeeded();if(quality){quality->ui_projection_live=false;ui_margins.dimensions(quality->effective.BackBufferWidth,quality->effective.BackBufferHeight);quality_trace();}}
  return hr;
 }
@@ -37,7 +37,7 @@ HRESULT STDMETHODCALLTYPE Device8::Present(const RECT* source,const RECT* destin
   quality->aa_hazard=true;try{session().write("{\"type\":\"msaa_present_hazard\",\"reason\":\"non_null_present_arguments_native_hresult_preserved\"}");}catch(...){}
  }
  if(quality)quality->cursor_tick();
- HRESULT hr=real_->Present(source,destination,window,dirty);trace.after(15,args,static_cast<uint32_t>(hr),pc);ui_margins.capture_window(trace.control.active,trace.frame_number());return hr;
+ HRESULT hr=real_->Present(source,destination,window,dirty);trace.after(15,args,static_cast<uint32_t>(hr),pc);ui_margins.capture_window(trace.control.active,trace.frame_number(),trace.device_id(),trace.control.active?"active":"present");return hr;
 }
 HRESULT STDMETHODCALLTYPE Device8::SetViewport(const D3DVIEWPORT8* input){
  auto guard=trace.guard();auto args=pack(input);auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(40,args,pc);

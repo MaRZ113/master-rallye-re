@@ -184,6 +184,35 @@ class QualityResearchTests(unittest.TestCase):
         self.assertTrue(draw['restore_succeeded'])
         self.assertFalse(draw['restore_readback_performed'])
 
+    def test_r_ui1_d2_f10_rearms_and_promotes_only_drawn_packets(self):
+        rows=self.current_native_session()
+        starts=[r for r in rows if r.get('type')=='ui_diagnostic_capture_start' and r.get('capture_id')]
+        ends=[r for r in rows if r.get('type')=='ui_diagnostic_capture_end' and r.get('capture_id')]
+        by_device={}
+        for r in starts:by_device.setdefault(r['device_id'],set()).add(r['capture_id'])
+        device=next((d for d,ids in by_device.items() if len(ids)>=2 and
+                     sum(r.get('device_id')==d and r.get('reason')=='present' and r.get('promoted_packet_records',0)>0 for r in ends)>=2),None)
+        self.assertIsNotNone(device,'same-device repeated F10 captures must each emit packet evidence')
+        device_ends=[r for r in ends if r['device_id']==device and r.get('reason')=='present' and r.get('promoted_packet_records',0)>0]
+        self.assertGreaterEqual(len(device_ends),2)
+        self.assertEqual(len({r['capture_id'] for r in device_ends}),len(device_ends))
+        self.assertTrue(all(r['capture_record_budget_limit']==256 and r['capture_records_emitted']>0 for r in device_ends))
+        frame_summaries={r['capture_id']:r for r in rows if r.get('type')=='frame_summary' and r.get('capture_id')}
+        self.assertTrue(all(r['capture_id'] in frame_summaries for r in device_ends))
+        self.assertTrue(all(frame_summaries[r['capture_id']]['ui_margins']['capture_id']==r['capture_id'] for r in device_ends))
+        self.assertTrue(all(frame_summaries[r['capture_id']]['frame']==r['trace_frame'] for r in device_ends))
+        # The same-device pair proves re-arming; the independent native
+        # carousel stress capture proves non-drawing admission and both strata.
+        self.assertTrue(any(r.get('packet_consumers_without_relevant_draw',0)>0 for r in ends))
+        self.assertTrue(any(r.get('promoted_adjusted_packets',0)>0 and r.get('promoted_unadjusted_packets',0)>0 for r in ends))
+        for end in device_ends:
+            packets=[r for r in rows if r.get('type')=='ui_packet_lifetime' and r.get('capture_id')==end['capture_id']]
+            self.assertEqual(len(packets),end['capture_records_emitted'])
+            self.assertTrue(all(r.get('trace_frame')==end['trace_frame'] and r.get('capture_frame_index')==end['trace_frame']-end['start_frame'] for r in packets))
+            self.assertTrue(all(r.get('draw_observations') for r in packets))
+            self.assertTrue(all(d.get('diagnostic_relevant') for r in packets for d in r['draw_observations']))
+            self.assertLessEqual(end['draw_observations_captured'],64*8)
+
     def test_native_exclusive_mode_ownership_and_bounded_rejection(self):
         rows=self.current_native_session()
         calls=[r for r in rows if r.get('type')=='display_native_attempt' and r.get('display_requested')=='ExclusiveFullscreen']
@@ -217,7 +246,11 @@ class QualityResearchTests(unittest.TestCase):
                 rows=read_jsonl(path)
                 if any(r.get('type')=='draw' and r.get('feature_mask',0)&128 for r in rows):matches.append((path.stat().st_mtime_ns,rows))
         self.assertTrue(matches)
-        rows=max(matches,key=lambda r:r[0])[1]
+        # Select the focused production-wrapper capture; later F10 captures
+        # intentionally exercise additional UI/failure paths on that device.
+        focused=[m for m in matches if len([r for r in m[1] if r.get('type')=='draw'])==8]
+        self.assertTrue(focused)
+        rows=max(focused,key=lambda r:r[0])[1]
         self.assertTrue(rows[-1]['complete']);self.assertFalse(rows[-1]['truncated'])
         draws=[r for r in rows if r.get('type')=='draw']
         self.assertEqual(len(draws),8)

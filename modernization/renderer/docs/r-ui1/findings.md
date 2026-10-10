@@ -1,6 +1,6 @@
 # R-UI1 — Carousel Selection Alignment
 
-**Status: READY_FOR_UI_DIAGNOSTIC_VALIDATION.** The current build adds bounded F10 evidence linking each verified UI packet consumer to its enclosed `DrawPrimitive` calls. No carousel-specific transform change is enabled because Race Select and Vehicle Select ownership is not proven by the currently available source/captures.
+**Status: READY_FOR_UI_DIAGNOSTIC_VALIDATION.** R-UI1-D2 fixes the repeated-F10 diagnostic starvation and pre-draw table admission. No carousel-specific transform change is enabled because Race Select and Vehicle Select ownership is not proven by the currently available source/captures.
 
 ## Evidence and calculation
 
@@ -18,13 +18,25 @@ Existing R-GFX5 ownership research records no proven cross-packet widget or sibl
 
 Therefore this change does not alter selection state, item order, packet anchors, transform policy, draw count, or draw order. Existing left/right/HUD/menu retention remains unchanged. The observed retained-anchor mechanism remains a strong hypothesis until the new capture connects packet identities and draw transforms to the actual card and highlight.
 
-## Bounded diagnostics
+## R-UI1-D2 diagnostic lifecycle and sampling
 
-During the existing three-frame F10 UI diagnostic window, a `ui_packet_lifetime` record now includes up to eight enclosed draw observations. The existing 64 observed-identity table and 256 UI-record cap remain. Overflow is explicit per packet and cumulative. Existing `ui_render_local` events are retained.
+The initial R-UI1 implementation used a device-lifetime record budget and admitted packet identities at consumer entry. R-UI1-D2 replaces those two diagnostic policies; the earlier description of a three-frame UI window and consumer-entry admission is historical and no longer describes current code.
+
+UI diagnostics now follow the existing Trace F10 lifecycle. A capture opens after Trace activates its pending capture at Present and closes at the matching Present; Reset, device release, or a renderer diagnostic failure closes it as incomplete. The shared `capture_id` is `d<device>-f<Trace frame>` and appears on UI session events plus Trace frame begin/summary/end. UI records also carry the authoritative `trace_frame` and a capture-frame index derived from Trace's frame number. Legacy packet-lifetime `first_frame`/`frame` fields remain UI anchor-lifetime bookkeeping and are not used to join Trace captures. Each F10 capture resets only UI capture-local candidates and budgets. Anchor identities, anchor epoch, active packet state, WORLD restoration state, camera snapshots, and foliage provenance are not reset. Device-lifetime telemetry stays separate from capture-local counts.
+
+Only a forwarded, non-suppressed `DrawPrimitive` from the verified in-image caller RVA `0x0016D7C4`, with `TRIANGLELIST` and known FVF `0x142`, is considered a relevant UI draw. A packet is promoted only when its validated consumer scope contains such a draw. Consumer scopes that do not produce a relevant draw increment `packet_consumers_without_relevant_draw` and use no candidate slot. Packet records retain the validated entity/packet/point/content-storage/mode identity, UI epoch, anchor provenance, trace frame, and up to eight associated draw observations. Current packet bytes and the engine's WORLD cache remain untouched.
+
+The per-capture candidate table remains fixed at 64 identities: 32 whose captured draw actually received a nonzero margin and 32 without an applied margin. Within each stratum, the table keeps the lowest deterministic FNV-1a priority over the validated identity and UI epoch, with the identity tuple as a deterministic tie-breaker. A later lower-ranked candidate may replace the current worst, so selection is not traversal-order admission. The whole capture stores at most 512 draw observations, at most 256 packet records, and at most 64 `ui_render_local` rows. Candidate replacement/rejection, per-packet overflow, capture record drops, render-local drops, and log failures are counted separately and mark coverage incomplete when relevant.
+
+Each capture writes `ui_diagnostic_capture_start` and `ui_diagnostic_capture_end`. The end event reports the capture ID and frame boundary, consumer counts, consumers without relevant draws, packets with draws, promoted packet records, adjusted/unadjusted draws and promoted candidates, draw observations, overflow, and `coverage_status`. A no-draw capture is reported as `no_relevant_ui_draw` or `no_valid_packet_consumer`; the code does not manufacture records to satisfy a budget. Repeated captures on the same device receive independent local budgets without Reset or restart.
+
+`ui_packet_lifetime` keeps up to eight nested draw observations per promoted packet, including caller VA/RVA, in-image status, primitive, token/FVF status, the adjustment gate, packet XY, anchor direction/source/current rule, requested/applied margin, native/effective WORLD XY, Get/temporary Set/draw/restore HRESULTs, and `restore_readback_performed=false`. `ui_render_local` remains separately bounded and now also captures relevant unchanged draws so the unadjusted selection frame can be compared with adjusted card draws. `current_screen_status` and `carousel_owner_status` remain `not_proven`; `selection_state_read` is false.
+
+These diagnostic gates are inactive outside Trace F10. No new hotkey, draw, Reset, or rendering transform was introduced by D2. R-CAM1-A2 camera-owner snapshots, pre-submission state, and foliage capture provenance continue through the existing shared Trace capture independently of the UI budgets.
 
 Each nested draw records caller VA/RVA and in-image status, primitive arguments, the known vertex-shader token and FVF 0x142 gate result when applicable, adjustment-gate result, suppression/forwarding, the current packet point, requested/applied margin, `GetTransform` HRESULT, native and effective WORLD X/Y, temporary `SetTransform` HRESULT, draw HRESULT, and restoration request/result. Restoration telemetry states that the original 16-float matrix was requested and whether `SetTransform` succeeded; no post-restore readback is performed. `current_screen_status` and `carousel_owner_status` remain `not_proven`; `selection_state_read` is false.
 
-The added WORLD reads are read-only and occur only while F10 UI capture is active, inside a validated packet-consumer scope, and while an existing bounded record is available. Outside that diagnostic window, draw behavior follows the pre-R-UI1 path. R-CAM1-A2 camera-owner snapshots and other renderer diagnostics are unchanged.
+The diagnostic adds read-only WORLD observation only while the shared Trace F10 capture is active and a validated packet-consumer scope contains a relevant UI draw. Unchanged/unadjusted relevant draws are observed as controls. Outside that diagnostic window, draw behavior follows the established PreserveMargins path. R-CAM1-A2 camera-owner snapshots, pre-submission state, and foliage capture provenance continue through the existing shared Trace capture.
 
 ## Conclusion
 
