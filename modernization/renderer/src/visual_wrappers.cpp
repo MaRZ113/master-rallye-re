@@ -116,8 +116,8 @@ HRESULT Device8::draw_primitive_at(D3DPRIMITIVETYPE type,UINT start,UINT count,u
  HRESULT repair=repair_reflection();if(FAILED(repair)){trace.before(70,args,pc);trace.after(70,args,static_cast<uint32_t>(repair),pc,nullptr,8,true);return repair;}
  const auto& view=trace.effective_shadow.matrices[D3DTS_VIEW];D3DMATRIX identity{};identity._11=identity._22=identity._33=identity._44=1;
  bool allowed=!skip&&quality&&quality->config.interface_mode=="PreserveMargins"&&quality->ui_projection_live&&exe&&rva==UI_DRAW_RETURN_RVA&&type==D3DPT_TRIANGLELIST&&trace.shadow.bindings.vertex_shader.known&&trace.shadow.bindings.vertex_shader.value==0x142&&view.known&&!std::memcmp(&view.value,&identity,sizeof(identity));
- UiWorldScope ui(*real_,trace,ui_margins,pc,allowed);trace.before(70,args,pc);HRESULT hr=skip?S_OK:real_->DrawPrimitive(type,start,count);
- trace.after(70,args,static_cast<uint32_t>(hr),pc,nullptr,skip?4:ui.changed()?128:0,skip);return hr;
+ UiWorldScope ui(*real_,trace,ui_margins,pc,allowed,type,start,count,rva,exe,skip,!skip,trace.shadow.bindings.vertex_shader.known,trace.shadow.bindings.vertex_shader.value);trace.before(70,args,pc);HRESULT hr=skip?S_OK:real_->DrawPrimitive(type,start,count);
+ trace.after(70,args,static_cast<uint32_t>(hr),pc,nullptr,skip?4:ui.changed()?128:0,skip);ui.draw_result(hr);return hr;
 }
 HRESULT STDMETHODCALLTYPE Device8::DrawIndexedPrimitive(D3DPRIMITIVETYPE type,UINT min_index,UINT vertices,UINT start,UINT count){
  return draw_indexed_at(type,min_index,vertices,start,count,reinterpret_cast<uintptr_t>(_ReturnAddress()));

@@ -163,6 +163,27 @@ class QualityResearchTests(unittest.TestCase):
             self.assertAlmostEqual(r['effective_render_x']-r['native_world_x'],r['margin'],places=2)
         self.assertTrue(any(r['half_extra']==547 and r['effective_render_x']==1112 for r in records))
 
+    def test_r_ui1_packet_to_draw_capture_is_bounded_and_fail_closed(self):
+        rows=[r for r in self.current_native_session() if r.get('type')=='ui_packet_lifetime' and r.get('event')=='consume']
+        self.assertTrue(rows)
+        self.assertTrue(all(len(r.get('draw_observations',[]))<=8 for r in rows))
+        capped=next(r for r in rows if r.get('draw_observations_dropped')==2)
+        self.assertEqual(len(capped['draw_observations']),8)
+        card=next(r for r in rows if r.get('engine_x')==375 and r.get('anchor_direction')=='left' and
+                  r.get('current_rule_match')==0 and r.get('anchor_source')=='retained_identity')
+        draw=next(d for d in card['draw_observations'] if d.get('caller_rva')==0x0016d7c4)
+        self.assertEqual(card['screen_owner_status'],'not_proven')
+        self.assertEqual(card['carousel_owner_status'],'not_proven')
+        self.assertFalse(card['selection_state_read'])
+        self.assertEqual(draw['fvf_value'],0x142)
+        self.assertAlmostEqual(draw['margin_requested'],-106.6667,places=3)
+        self.assertAlmostEqual(draw['margin_applied'],-106.6667,places=3)
+        self.assertAlmostEqual(draw['native_world_x'],375,places=3)
+        self.assertAlmostEqual(draw['effective_world_x'],268.3333,places=3)
+        self.assertTrue(draw['restore_requested_original_exact'])
+        self.assertTrue(draw['restore_succeeded'])
+        self.assertFalse(draw['restore_readback_performed'])
+
     def test_native_exclusive_mode_ownership_and_bounded_rejection(self):
         rows=self.current_native_session()
         calls=[r for r in rows if r.get('type')=='display_native_attempt' and r.get('display_requested')=='ExclusiveFullscreen']

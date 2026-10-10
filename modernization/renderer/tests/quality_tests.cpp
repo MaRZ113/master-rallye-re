@@ -12,7 +12,13 @@
 #define CHECK(x) do {if(!(x))throw std::runtime_error(#x);}while(0)
 #include "mock_interfaces.hpp"
 using namespace gfx2;
-namespace gfx2::detail {struct UiMarginsContract {static void enable(UiMargins& ui){ui.enabled_=true;ui.thread_=GetCurrentThreadId();}};}
+namespace gfx2::detail {struct UiMarginsContract {
+ static void enable(UiMargins& ui){ui.enabled_=true;ui.thread_=GetCurrentThreadId();}
+ static std::string active_record(const UiMargins& ui){return ui.scope_depth_?ui.packet_observation_json(ui.scopes_[ui.scope_depth_-1]):std::string{};}
+ static unsigned active_draw_count(const UiMargins& ui){return ui.scope_depth_?ui.scopes_[ui.scope_depth_-1].draw_count:0;}
+ static unsigned active_draw_dropped(const UiMargins& ui){return ui.scope_depth_?ui.scopes_[ui.scope_depth_-1].draw_dropped:0;}
+ static unsigned records(const UiMargins& ui){return ui.records_;}
+};}
 struct Windows:WindowApi {
  std::function<void()> on_apply;
  WindowState state{};RECT last{};bool client=false,popup=false,fail=false;bool native_completed=true;unsigned applies=0,restores=0;
@@ -399,6 +405,37 @@ void render_local_wrapper_contract(){
  native.fail_set=0;CHECK(device->draw_primitive_at(D3DPT_TRIANGLELIST,0,1,pc+1)==S_OK&&native.world._41==565&&native.observed==565);device->ui_margins.leave_consume();device->Release();root->Release();
  std::cout<<"Production DrawPrimitive UI gate, exact native restoration, failure blocks unrelated draws: PASS\n";
 }
+void ui_carousel_draw_diagnostics(){
+ synthetic_caller_image_extent[0]=1;UiNative native;Root raw;auto* root=new Root8(&raw);auto policy=std::make_unique<QualityPipeline>();auto* device=new Device8(&native,root,std::move(policy));
+ device->quality->config.interface_mode="PreserveMargins";device->quality->ui_projection_live=true;detail::UiMarginsContract::enable(device->ui_margins);
+ device->ui_margins.capture_window(true,device->trace.frame_number());device->ui_margins.dimensions(1920,1080);device->ui_margins.scene_context(false);
+ D3DMATRIX identity{};identity._11=identity._22=identity._33=identity._44=1;device->trace.shadow.bindings.vertex_shader.set(0x142);device->trace.effective_shadow.matrices[D3DTS_VIEW].set(identity);
+ const uintptr_t pc=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+UI_DRAW_RETURN_RVA;const float half=106.6666667f;
+ UiFixture card;card.point[0]=23;card.point[1]=370;auto card_bytes=card.packet;CHECK(device->ui_margins.enter_consume(card.owner));auto first=device->ui_margins.draw_decision();CHECK(first.anchor.direction==-1&&first.anchor.admitted&&first.margin==-half);
+ native.world._41=23;native.world._42=370;auto initial_world=native.world;CHECK(device->draw_primitive_at(D3DPT_TRIANGLELIST,0,1,pc)==S_OK&&native.observed==23-half);CHECK(!std::memcmp(&native.world,&initial_world,sizeof(initial_world))&&card.packet==card_bytes);device->ui_margins.leave_consume();CHECK(device->ui_margins.finish_frame());
+
+ card.point[0]=375;card.point[1]=250;card_bytes=card.packet;device->ui_margins.scene_context(false);CHECK(device->ui_margins.enter_consume(card.owner));auto retained=device->ui_margins.draw_decision();CHECK(retained.anchor.retained&&retained.anchor.direction==-1&&retained.anchor.current_rule==0&&retained.margin==-half);
+ native.world._41=375;native.world._42=250;auto card_world=native.world;CHECK(device->draw_primitive_at(D3DPT_TRIANGLELIST,4,2,pc)==S_OK&&std::abs(native.observed-(375-half))<.001f);CHECK(!std::memcmp(&native.world,&card_world,sizeof(card_world))&&card.packet==card_bytes);
+ auto card_record=detail::UiMarginsContract::active_record(device->ui_margins);CHECK(card_record.find("\"anchor_source\":\"retained_identity\"")!=std::string::npos&&card_record.find("\"current_rule_match\":0")!=std::string::npos);
+ CHECK(card_record.find("\"carousel_owner_status\":\"not_proven\"")!=std::string::npos&&card_record.find("\"selection_state_read\":false")!=std::string::npos);
+ CHECK(card_record.find("\"caller_rva\":"+std::to_string(UI_DRAW_RETURN_RVA))!=std::string::npos&&card_record.find("\"world_status\":\"adjusted\"")!=std::string::npos);
+ CHECK(card_record.find("\"native_world_x\":375")!=std::string::npos&&card_record.find("\"effective_world_x\":268.333")!=std::string::npos&&card_record.find("\"restore_requested_original_exact\":true")!=std::string::npos);
+ CHECK(card_record.find("\"fvf_value\":322")!=std::string::npos&&card_record.find("\"margin_requested\":-106.667")!=std::string::npos&&card_record.find("\"margin_applied\":-106.667")!=std::string::npos);
+ const float card_effective=native.observed;device->ui_margins.leave_consume();CHECK(device->ui_margins.finish_frame());
+
+ UiFixture highlight;highlight.point[0]=371;highlight.point[1]=250;auto highlight_bytes=highlight.packet;CHECK(device->ui_margins.enter_consume(highlight.owner));auto border=device->ui_margins.draw_decision();CHECK(border.anchor.direction==0&&border.margin==0);
+ native.world._41=371;native.world._42=250;auto highlight_world=native.world;auto sets=native.sets;
+ for(unsigned i=0;i<10;++i)CHECK(device->draw_primitive_at(D3DPT_TRIANGLELIST,i,1,pc)==S_OK&&native.observed==371);
+ CHECK(native.sets==sets&&!std::memcmp(&native.world,&highlight_world,sizeof(highlight_world))&&highlight.packet==highlight_bytes);
+ CHECK(detail::UiMarginsContract::active_draw_count(device->ui_margins)==UI_PACKET_DRAW_OBSERVATION_LIMIT&&detail::UiMarginsContract::active_draw_dropped(device->ui_margins)==2);
+ auto border_record=detail::UiMarginsContract::active_record(device->ui_margins);CHECK(border_record.find("\"anchor_direction\":\"none\"")!=std::string::npos&&border_record.find("\"world_status\":\"native\"")!=std::string::npos);
+ CHECK(border_record.find("\"draw_observations_dropped\":2")!=std::string::npos&&device->ui_margins.draw_observations_dropped==2);
+ CHECK(std::abs((card_effective-371.f)-4.f+half)<.001f); // The evidence-shaped retained-anchor mismatch is visible in paired transforms.
+ device->ui_margins.leave_consume();for(unsigned i=0;i<260;++i){CHECK(device->ui_margins.enter_consume(highlight.owner));device->ui_margins.leave_consume();}
+ CHECK(detail::UiMarginsContract::records(device->ui_margins)==256&&device->ui_margins.json().find("\"max_draw_observations_per_packet\":8")!=std::string::npos);
+ device->Release();root->Release();
+ std::cout<<"R-UI1 bounded packet-to-draw F10 diagnostics, carousel mismatch reproduction, center control, source immutability and WORLD restore: PASS\n";
+}
 void margin_candidate_diagnostics(){
  alignas(float) std::array<std::array<unsigned char,0x90>,3> packets{};
  std::array<std::array<unsigned char,0x60>,3> entities{};
@@ -679,4 +716,4 @@ void quality_fpu(){
  flags=fetestexcept(FE_ALL_EXCEPT);ui_projection_dimensions(matrix,1920,1080,out);CHECK(fegetround()==FE_DOWNWARD&&fetestexcept(FE_ALL_EXCEPT)==flags);fesetenv(&saved);
  fegetenv(&saved);fesetround(FE_DOWNWARD);D3DMATRIX source{};source._22=float(1/std::tan((45./(16./9))*3.14159265358979323846/360.));source._11=source._22/float(16./9);source._33=1.01f;source._34=1;source._43=-.2f;flags=fetestexcept(FE_ALL_EXCEPT);CHECK(camera_scene_family(source)==0&&fegetround()==FE_DOWNWARD&&fetestexcept(FE_ALL_EXCEPT)==flags);fesetenv(&saved);
 }
-int main(){try{configs();numeric_configs();trace_numeric_configs();reset_echo_shutdown();preview_cursor_packets();displays();display_transactions();windowed_live_resize();windowed_startup_order();windowed_maximize_restore();stable_margin_anchors();margin_short_grace();margin_consumer_retention();margin_candidate_diagnostics();render_local_ui_contracts();render_local_wrapper_contract();antialiasing();exclusive_lifecycle();exclusive_restore_order();game_window_owner_read();viewports_ui();freeze_and_patch();native_window();native_display_ordering();wrapper_trace();validated_ui_wrapper();ui_native_abi();packet_consumer_abi();quality_fpu();std::cout<<"R-GFX5 config/display/viewport/UI/MSAA/Reset/freeze/hidden HWND/native bridge contracts: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}
+int main(){try{configs();numeric_configs();trace_numeric_configs();reset_echo_shutdown();preview_cursor_packets();displays();display_transactions();windowed_live_resize();windowed_startup_order();windowed_maximize_restore();stable_margin_anchors();margin_short_grace();margin_consumer_retention();margin_candidate_diagnostics();render_local_ui_contracts();render_local_wrapper_contract();ui_carousel_draw_diagnostics();antialiasing();exclusive_lifecycle();exclusive_restore_order();game_window_owner_read();viewports_ui();freeze_and_patch();native_window();native_display_ordering();wrapper_trace();validated_ui_wrapper();ui_native_abi();packet_consumer_abi();quality_fpu();std::cout<<"R-GFX5 config/display/viewport/UI/MSAA/Reset/freeze/hidden HWND/native bridge contracts: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}

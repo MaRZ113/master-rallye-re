@@ -52,14 +52,33 @@ public:
 class Trace;
 struct MarginDrawDecision {MarginIdentity key{};MarginAnchorDecision anchor{};float native_x=0,native_y=0,margin=0;bool valid=false;};
 inline constexpr uint32_t UI_DRAW_RETURN_RVA=0x0016d7c4;
+inline constexpr unsigned UI_PACKET_DRAW_OBSERVATION_LIMIT=8;
+struct UiDrawObservation {
+ uintptr_t caller_va=0;uint32_t caller_rva=0,primitive=0,start_vertex=0,primitive_count=0;
+ bool caller_in_game_image=false,adjustment_gate_allowed=false,suppressed=false,forwarded=false;
+ bool vertex_shader_token_known=false;uint32_t vertex_shader_token=0;float margin_requested=0,margin_applied=0;
+ bool get_transform_attempted=false,world_known=false,effective_world_known=false,packet_point_known=false;uint32_t get_transform_hresult=0;
+ float packet_x=0,packet_y=0;
+ float native_world_x=0,native_world_y=0,effective_world_x=0,effective_world_y=0;
+ const char* world_status="not_read";
+ bool temporary_set_attempted=false;uint32_t temporary_set_hresult=0;float requested_world_x=0,requested_world_y=0;
+ uint32_t draw_hresult=0;bool draw_result_known=false;
+ bool restore_attempted=false,restore_requested_original_exact=false,restore_succeeded=false;uint32_t restore_hresult=0;
+};
 class UiMargins {
  friend struct detail::UiMarginsContract;
  UiPacketPatch patch_;MarginAnchors anchors_;
- struct Scope {MarginIdentity key{};MarginAnchorDecision anchor{};bool valid=false;};
+ struct Scope {
+  MarginIdentity key{};MarginAnchorDecision anchor{};bool valid=false,capture_record=false;
+  uint64_t packet_id=0,first_frame=0,previous_frame=0,restored_frame=0,consume_count=0;
+  float engine_x=0,engine_y=0,effective_x=0;bool engine_rewrite=false;
+  unsigned draw_count=0,draw_dropped=0;std::array<UiDrawObservation,UI_PACKET_DRAW_OBSERVATION_LIMIT> draws{};
+ };
  std::array<Scope,16> scopes_{};unsigned scope_depth_=0;
  D3DMATRIX pending_world_{};bool restore_pending_=false;
  struct Observation {uintptr_t entity=0,point=0,packet=0,storage=0;uint64_t id=0,first=0,last=0,restored=0;float logical=0,effective=0;unsigned visits=0;int rule=0;};
- std::array<Observation,64> observations_{};uint64_t frame_id_=1,next_id_=0;unsigned records_=0,diagnostic_frames_=0;bool capturing_=false;DWORD thread_=0;float half_=0;bool enabled_=false;
+ std::array<Observation,64> observations_{};uint64_t frame_id_=1,next_id_=0,scene_family_frame_=0;unsigned records_=0,diagnostic_frames_=0;bool capturing_=false;DWORD thread_=0;float half_=0;bool enabled_=false;int scene_family_=-1;
+ std::string packet_observation_json(const Scope&) const;
 public:
  const char* reason="disabled";
  ~UiMargins();
@@ -72,6 +91,9 @@ public:
  bool enter_consume(uintptr_t entity) noexcept;
  void leave_consume() noexcept;
  MarginDrawDecision draw_decision() noexcept;
+ UiDrawObservation* begin_draw(uintptr_t caller_va,uint32_t caller_rva,bool caller_in_game_image,
+  D3DPRIMITIVETYPE primitive,UINT start_vertex,UINT primitive_count,bool adjustment_gate_allowed,
+  bool suppressed,bool forwarded,bool vertex_shader_token_known,uint32_t vertex_shader_token) noexcept;
  void observe_draw(const MarginDrawDecision&,float native_world_x,float effective_world_x,HRESULT restore) noexcept;
  HRESULT repair_world(IDirect3DDevice8&,Trace&,uintptr_t) noexcept;
  void native_reset_succeeded() noexcept {restore_pending_=false;}
@@ -80,16 +102,21 @@ public:
  bool finish_frame() noexcept;
  void disable(const char*) noexcept;
  std::string json() const;
+ uint64_t draw_observations_captured=0,draw_observations_dropped=0;
 };
 }
 
 namespace gfx2 {
 class UiWorldScope {
  IDirect3DDevice8& native_;Trace& trace_;UiMargins& ui_;uintptr_t pc_;
- MarginDrawDecision decision_{};D3DMATRIX original_{},effective_{};bool changed_=false;
+ MarginDrawDecision decision_{};UiDrawObservation* observation_=nullptr;D3DMATRIX original_{},effective_{};bool changed_=false;
 public:
- UiWorldScope(IDirect3DDevice8&,Trace&,UiMargins&,uintptr_t,bool allowed) noexcept;
+ UiWorldScope(IDirect3DDevice8&,Trace&,UiMargins&,uintptr_t,bool allowed,
+  D3DPRIMITIVETYPE primitive=D3DPT_TRIANGLELIST,UINT start_vertex=0,UINT primitive_count=0,
+  uint32_t caller_rva=0,bool caller_in_game_image=false,bool suppressed=false,bool forwarded=true,
+  bool vertex_shader_token_known=false,uint32_t vertex_shader_token=0) noexcept;
  ~UiWorldScope() noexcept;
+ void draw_result(HRESULT result) noexcept {if(observation_){observation_->draw_hresult=static_cast<uint32_t>(result);observation_->draw_result_known=true;}}
  bool changed() const noexcept{return changed_;}
  UiWorldScope(const UiWorldScope&)=delete;
 };
