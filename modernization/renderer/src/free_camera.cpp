@@ -145,7 +145,10 @@ bool FlightWindowInput::attach(HWND w) noexcept {
  if(window_||current_||!w||GetWindowThreadProcessId(w,nullptr)!=GetCurrentThreadId())return false;
  window_=w;thread_=GetCurrentThreadId();original_=reinterpret_cast<WNDPROC>(GetWindowLongPtrW(w,GWLP_WNDPROC));if(!original_){window_=nullptr;return false;}
  current_=this;SetLastError(0);auto old=SetWindowLongPtrW(w,GWLP_WNDPROC,reinterpret_cast<LONG_PTR>(&procedure));
- if(!old&&GetLastError()){current_=nullptr;window_=nullptr;original_=nullptr;return false;}return intact();
+ if(!old&&GetLastError()){current_=nullptr;window_=nullptr;original_=nullptr;return false;}
+ LARGE_INTEGER frequency{};BOOL frequency_ok=QueryPerformanceFrequency(&frequency);
+ clock_.initialize_qpc(frequency_ok!=FALSE,frequency.QuadPart);
+ return intact();
 }
 bool FlightWindowInput::intact() const noexcept {return window_&&GetCurrentThreadId()==thread_&&IsWindow(window_)&&reinterpret_cast<WNDPROC>(GetWindowLongPtrW(window_,GWLP_WNDPROC))==&procedure;}
 void FlightWindowInput::release() noexcept {
@@ -155,7 +158,7 @@ void FlightWindowInput::release() noexcept {
  focus_lost();
 }
 void FlightWindowInput::key_event(unsigned scan,bool extended,bool down) noexcept {if(!extended&&scan<keypad_.size())keypad_[scan]=down;}
-void FlightWindowInput::focus_lost() noexcept {keypad_.fill(false);mouse_ready_=false;tick_=0;pending_wheel_delta_.store(0,std::memory_order_release);cursor_capture_active_.store(false,std::memory_order_release);}
+void FlightWindowInput::focus_lost() noexcept {keypad_.fill(false);mouse_ready_=false;clock_.reset_baseline();pending_wheel_delta_.store(0,std::memory_order_release);cursor_capture_active_.store(false,std::memory_order_release);}
 void FlightWindowInput::set_cursor_capture(bool active) noexcept {
  bool allowed=active&&intact()&&!IsIconic(window_); // Caller admits only a focused controller sample; focus-loss messages clear synchronously.
  cursor_capture_active_.store(allowed,std::memory_order_release);
@@ -175,7 +178,10 @@ LRESULT CALLBACK FlightWindowInput::procedure(HWND w,UINT msg,WPARAM wp,LPARAM l
 FlightInput FlightWindowInput::sample(const FreeCameraConfig& c,bool mouse) noexcept {
  FlightInput in;in.focused=intact()&&GetForegroundWindow()==window_&&!IsIconic(window_);if(!in.focused){focus_lost();return in;}
  auto key=[&](unsigned k){return k>=0x100?k<0x180&&keypad_[k-0x100]:(GetAsyncKeyState(static_cast<int>(k))&0x8000)!=0;};
- in.toggle=key(c.toggle);in.speed_increase=key(c.speed_increase);in.speed_decrease=key(c.speed_decrease);for(size_t i=0;i<in.keys.size();++i)in.keys[i]=key(c.keys[i]);if(mouse)in.wheel_delta=take_wheel_delta();auto now=GetTickCount64();in.seconds=tick_?double(now-tick_)/1000:0;tick_=now;
+ in.toggle=key(c.toggle);in.speed_increase=key(c.speed_increase);in.speed_decrease=key(c.speed_decrease);for(size_t i=0;i<in.keys.size();++i)in.keys[i]=key(c.keys[i]);if(mouse)in.wheel_delta=take_wheel_delta();
+ if(clock_.source()==FlightClockSource::qpc){LARGE_INTEGER counter{};BOOL ok=QueryPerformanceCounter(&counter);in.seconds=clock_.sample_qpc(ok!=FALSE,counter.QuadPart);if(!ok)clock_.establish_tick_count64_baseline(GetTickCount64());}
+ else if(clock_.source()==FlightClockSource::tick_count64)in.seconds=clock_.sample_tick_count64(GetTickCount64());
+ else in.seconds=0; // Missing attach-time clock setup stays fail-closed.
  if(mouse){RECT client{};POINT pos{},center{};if(GetClientRect(window_,&client)&&client.right>0&&client.bottom>0&&GetCursorPos(&pos)){
    center={client.right/2,client.bottom/2};if(ClientToScreen(window_,&center)){
     if(mouse_ready_&&center.x==center_.x&&center.y==center_.y){in.mouse_x=static_cast<float>(pos.x-center.x);in.mouse_y=static_cast<float>(pos.y-center.y);}

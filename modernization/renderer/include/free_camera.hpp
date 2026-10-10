@@ -1,5 +1,6 @@
 #pragma once
 #include "game_fov.hpp"
+#include "flight_clock.hpp"
 #include <atomic>
 namespace gfx2 {
 struct FreeCameraConfig {
@@ -41,7 +42,7 @@ public:
 // Optional game-HWND subclass only; never a global/thread message hook.
 class FlightWindowInput {
  HWND window_=nullptr;WNDPROC original_=nullptr;DWORD thread_=0;
- std::array<bool,128> keypad_{};uint64_t tick_=0;POINT center_{};bool mouse_ready_=false;
+ std::array<bool,128> keypad_{};FlightClock clock_{};POINT center_{};bool mouse_ready_=false;
  std::atomic<int> pending_wheel_delta_{0};std::atomic<bool> cursor_capture_active_{false};
  static FlightWindowInput* current_;
  static LRESULT CALLBACK procedure(HWND,UINT,WPARAM,LPARAM);
@@ -53,6 +54,7 @@ public:
  int take_wheel_delta() noexcept {return pending_wheel_delta_.exchange(0,std::memory_order_acq_rel);}
  bool wheel_input_available() const noexcept {return window_!=nullptr;}
  bool cursor_capture_active() const noexcept {return cursor_capture_active_.load(std::memory_order_relaxed);}
+ const FlightClock& clock() const noexcept {return clock_;}
  bool physical_down(unsigned scan) const noexcept {return scan<keypad_.size()&&keypad_[scan];}
  FlightInput sample(const FreeCameraConfig&,bool capture_mouse) noexcept;
  bool intact() const noexcept;

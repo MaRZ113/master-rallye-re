@@ -1,4 +1,5 @@
 #include "free_camera.hpp"
+#include "flight_clock.hpp"
 #include "race_epoch.hpp"
 #include <iostream>
 #include <stdexcept>
@@ -57,6 +58,38 @@ void controls(){
  in.toggle=false;f.update(c,in,true,&visible);in.toggle=true;CHECK(f.update(c,in,true,&visible));CHECK(!f.update(c,in,false,&visible));
  // Frontend/unknown certificate and malformed visible view never activate.
  f.cancel();in.toggle=false;f.update(c,in,true,&visible);in.toggle=true;CHECK(!f.update(c,in,false,&visible));visible[0]=2;f.cancel();in.toggle=false;f.update(c,in,true,&visible);in.toggle=true;CHECK(!f.update(c,in,true,&visible));
+}
+void clock_timing(){
+ constexpr int64_t hz=10000000;
+ FlightClock qpc;qpc.initialize_qpc(true,hz);CHECK(qpc.source()==FlightClockSource::qpc&&qpc.frequency()==hz);
+ CHECK(qpc.sample_qpc(true,100000000)==0); // First sample establishes a baseline.
+ CHECK(std::abs(qpc.sample_qpc(true,100083330)-.008333)<1e-9);
+ double pair_sum=qpc.sample_qpc(true,100250000);CHECK(std::abs(pair_sum-.016667)<1e-9&&std::abs(.008333+pair_sum-.025)<1e-12);
+ CHECK(std::abs(qpc.sample_qpc(true,100251234)-.0001234)<1e-9); // Sub-millisecond precision.
+ CHECK(qpc.sample_qpc(true,100251234)==0); // A genuine zero interval is harmless and counted.
+ CHECK(std::abs(qpc.sample_qpc(true,100751234)-.05)<1e-9);
+ CHECK(std::abs(qpc.sample_qpc(true,110751234)-1.)<1e-9); // Raw diagnostic sees the gap; controller still caps at 50 ms.
+ const auto& s=qpc.stats();CHECK(s.samples==6&&s.zero_samples==1&&s.clamped_samples==1&&s.invalid_samples==0);
+ CHECK(s.min_seconds==0&&std::abs(s.max_seconds-1.)<1e-9);
+ CHECK(s.mean_seconds>0&&s.mean_seconds<1.);
+ qpc.reset_baseline();CHECK(qpc.sample_qpc(true,900000000)==0); // Focus return starts a fresh QPC interval.
+ CHECK(std::abs(qpc.sample_qpc(true,900100000)-.01)<1e-12);
+
+ FlightClock invalid_frequency;invalid_frequency.initialize_qpc(true,0);CHECK(invalid_frequency.source()==FlightClockSource::tick_count64&&invalid_frequency.frequency()==1000&&invalid_frequency.stats().invalid_samples==1);
+ CHECK(invalid_frequency.sample_tick_count64(5000)==0);CHECK(std::abs(invalid_frequency.sample_tick_count64(5016)-.016)<1e-12);
+ CHECK(invalid_frequency.sample_tick_count64(5015)==0&&invalid_frequency.stats().invalid_samples==2); // Backward time rejected and rebaselined.
+ CHECK(std::abs(invalid_frequency.sample_tick_count64(5025)-.01)<1e-12);
+
+ FlightClock failed_query;failed_query.initialize_qpc(true,hz);CHECK(failed_query.sample_qpc(true,500000000)==0);
+ CHECK(failed_query.sample_qpc(false,0)==0&&failed_query.source()==FlightClockSource::tick_count64&&failed_query.frequency()==1000&&failed_query.stats().invalid_samples==1);
+ failed_query.establish_tick_count64_baseline(100000);CHECK(std::abs(failed_query.sample_tick_count64(100017)-.017)<1e-12); // No subtraction across QPC/tick domains.
+ CHECK(failed_query.sample_tick_count64(100017)==0&&failed_query.stats().zero_samples==1);
+ failed_query.reset_baseline();CHECK(failed_query.sample_tick_count64(9000000000ull)==0);CHECK(failed_query.sample_tick_count64(9000000008ull)==.008);
+
+ FlightClock failed_frequency_call;failed_frequency_call.initialize_qpc(false,0);CHECK(failed_frequency_call.source()==FlightClockSource::tick_count64&&failed_frequency_call.stats().invalid_samples==1);
+ CHECK(failed_frequency_call.sample_tick_count64(0)==0);CHECK(std::abs(failed_frequency_call.sample_tick_count64(1)-.001)<1e-12);
+ FlightClock negative;negative.initialize_qpc(true,hz);CHECK(negative.sample_qpc(true,10)==0);CHECK(negative.sample_qpc(true,-1)==0&&negative.stats().invalid_samples==1);CHECK(negative.sample_qpc(true,20)==0);CHECK(std::abs(negative.sample_qpc(true,30)-1e-6)<1e-12);
+ FlightClock extreme;extreme.initialize_qpc(true,1);CHECK(extreme.sample_qpc(true,0)==0);double enormous=extreme.sample_qpc(true,INT64_MAX);CHECK(std::isfinite(enormous)&&enormous>9e18&&extreme.stats().clamped_samples==1); // Wide counter deltas stay finite and are left to the controller's 50 ms cap.
 }
 void movement_and_speed(){
  auto c=parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.MovementSmoothSeconds","0.12"}});auto p=identity();
@@ -209,4 +242,4 @@ void bridges(){
 }
 
 }
-int main(){try{controls();movement_and_speed();window_input();horizon();scopes();bridges();std::cout<<"Flight movement/speed / cursor and wheel HWND policy / horizon stabilization / displayed VIEW inversion / owned 176-byte scope / seven real scheduler RET4 ABI cases: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<"\n";return 1;}}
+int main(){try{controls();clock_timing();movement_and_speed();window_input();horizon();scopes();bridges();std::cout<<"High precision flight clock / movement and speed / cursor and wheel HWND policy / horizon stabilization / displayed VIEW inversion / owned 176-byte scope / seven real scheduler RET4 ABI cases: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<"\n";return 1;}}
