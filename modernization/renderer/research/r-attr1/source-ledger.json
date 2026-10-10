@@ -1,0 +1,45 @@
+{
+  "build_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "ghidra": "12.1.4",
+  "exporter": "ghidra_ai_bridge.exporters.runner.export_single_function",
+  "project_writable": false,
+  "program_saved": false,
+  "transaction": "ROLLED_BACK",
+  "functions": [
+    {
+      "va": "0x00464e40",
+      "rva": "0x64e40",
+      "instructions": 109,
+      "assembly_sha256": "8c1a19bef1e8ba74eea2f311345fec67682545b5e3f3c4f640b8db5328eb3f4c",
+      "evidence_grade": "CONFIRMED_BY_EXE"
+    },
+    {
+      "va": "0x004655e0",
+      "rva": "0x655e0",
+      "instructions": 83,
+      "assembly_sha256": "a9cff7d21ae1e99786ae955f7b0c37a9c2fa2dc822eb473b83654b6b7b8f129e",
+      "evidence_grade": "CONFIRMED_BY_EXE"
+    },
+    {
+      "va": "0x00558d50",
+      "rva": "0x158d50",
+      "instructions": 33,
+      "assembly_sha256": "c8721a00396b3021d8610856d6f1f6621a5dc4e828798c38771e7727356173e6",
+      "evidence_grade": "CONFIRMED_BY_EXE"
+    },
+    {
+      "va": "0x00558ee0",
+      "rva": "0x158ee0",
+      "instructions": 157,
+      "assembly_sha256": "5a76d04d2a15e5294ba0469a5395a12245f646077f04f4a23bdc5915e3d82a06",
+      "evidence_grade": "CONFIRMED_BY_EXE"
+    },
+    {
+      "va": "0x0053eed0",
+      "rva": "0x13eed0",
+      "instructions": 57,
+      "assembly_sha256": "de9f55a708f08489d41cdd14c05780fa4a53882ceb7b134e6aca97ffac45e01a",
+      "evidence_grade": "CONFIRMED_BY_EXE"
+    }
+  ]
+}

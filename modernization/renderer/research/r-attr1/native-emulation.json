@@ -1,0 +1,873 @@
+{
+  "phase": "R-ATTR1",
+  "status": "CONFIRMED_BY_SYNTHETIC_TEST",
+  "runtime_game_test": false,
+  "loading_cases": 60,
+  "idle_branch_cases": 6,
+  "project_saved": false,
+  "only_in_memory_patch_va": "0x00464F69",
+  "boundaries": [
+    "stat",
+    "allocation",
+    "Broker setters",
+    "native menu transition",
+    "idle branch stop at 004656C6"
+  ],
+  "existing_attract_false_writes": 0,
+  "cases": [
+    {
+      "guarded": false,
+      "counter": 0,
+      "stat": 1,
+      "size": 0,
+      "writes": [],
+      "checks": [],
+      "steps": 39
+    },
+    {
+      "guarded": false,
+      "counter": 0,
+      "stat": 0,
+      "size": 0,
+      "writes": [],
+      "checks": [],
+      "steps": 39
+    },
+    {
+      "guarded": false,
+      "counter": 0,
+      "stat": 0,
+      "size": 536875572,
+      "writes": [],
+      "checks": [],
+      "steps": 39
+    },
+    {
+      "guarded": false,
+      "counter": 0,
+      "stat": 0,
+      "size": 536875573,
+      "writes": [],
+      "checks": [],
+      "steps": 39
+    },
+    {
+      "guarded": false,
+      "counter": 0,
+      "stat": 0,
+      "size": 4294967295,
+      "writes": [],
+      "checks": [],
+      "steps": 39
+    },
+    {
+      "guarded": false,
+      "counter": 1,
+      "stat": 1,
+      "size": 0,
+      "writes": [
+        [
+          "Race/AttractMode",
+          1
+        ],
+        [
+          "Race/Type",
+          1
+        ]
+      ],
+      "checks": [
+        "d:\\SETUP.DLL"
+      ],
+      "steps": 258
+    },
+    {
+      "guarded": false,
+      "counter": 1,
+      "stat": 0,
+      "size": 0,
+      "writes": [
+        [
+          "Race/AttractMode",
+          1
+        ],
+        [
+          "Race/Type",
+          1
+        ]
+      ],
+      "checks": [
+        "d:\\SETUP.DLL"
+      ],
+      "steps": 260
+    },
+    {
+      "guarded": false,
+      "counter": 1,
+      "stat": 0,
+      "size": 536875572,
+      "writes": [
+        [
+          "Race/AttractMode",
+          1
+        ],
+        [
+          "Race/Type",
+          1
+        ]
+      ],
+      "checks": [
+        "d:\\SETUP.DLL"
+      ],
+      "steps": 260
+    },
+    {
+      "guarded": false,
+      "counter": 1,
+      "stat": 0,
+      "size": 536875573,
+      "writes": [
+        [
+          "Race/Starter",
+          1
+        ]
+      ],
+      "checks": [
+        "d:\\SETUP.DLL"
+      ],
+      "steps": 255
+    },
+    {
+      "guarded": false,
+      "counter": 1,
+      "stat": 0,
+      "size": 4294967295,
+      "writes": [
+        [
+          "Race/AttractMode",
+          1
+        ],
+        [
+          "Race/Type",
+          1
+        ]
+      ],
+      "checks": [
+        "d:\\SETUP.DLL"
+      ],
+      "steps": 260
+    },
+    {
+      "guarded": false,
+      "counter": 2,
+      "stat": 1,
+      "size": 0,
+      "writes": [],
+      "checks": [],
+      "steps": 39
+    },
+    {
+      "guarded": false,
+      "counter": 2,
+      "stat": 0,
+      "size": 0,
+      "writes": [],
+      "checks": [],
+      "steps": 39
+    },
+    {
+      "guarded": false,
+      "counter": 2,
+      "stat": 0,
+      "size": 536875572,
+      "writes": [],
+      "checks": [],
+      "steps": 39
+    },
+    {
+      "guarded": false,
+      "counter": 2,
+      "stat": 0,
+      "size": 536875573,
+      "writes": [],
+      "checks": [],
+      "steps": 39
+    },
+    {
+      "guarded": false,
+      "counter": 2,
+      "stat": 0,
+      "size": 4294967295,
+      "writes": [],
+      "checks": [],
+      "steps": 39
+    },
+    {
+      "guarded": false,
+      "counter": 3,
+      "stat": 1,
+      "size": 0,
+      "writes": [
+        [
+          "Race/AttractMode",
+          1
+        ],
+        [
+          "Race/Type",
+          1
+        ]
+      ],
+      "checks": [
+        "d:\\SETUP.DLL"
+      ],
+      "steps": 258
+    },
+    {
+      "guarded": false,
+      "counter": 3,
+      "stat": 0,
+      "size": 0,
+      "writes": [
+        [
+          "Race/AttractMode",
+          1
+        ],
+        [
+          "Race/Type",
+          1
+        ]
+      ],
+      "checks": [
+        "d:\\SETUP.DLL"
+      ],
+      "steps": 260
+    },
+    {
+      "guarded": false,
+      "counter": 3,
+      "stat": 0,
+      "size": 536875572,
+      "writes": [
+        [
+          "Race/AttractMode",
+          1
+        ],
+        [
+          "Race/Type",
+          1
+        ]
+      ],
+      "checks": [
+        "d:\\SETUP.DLL"
+      ],
+      "steps": 260
+    },
+    {
+      "guarded": false,
+      "counter": 3,
+      "stat": 0,
+      "size": 536875573,
+      "writes": [
+        [
+          "Race/Starter",
+          1
+        ]
+      ],
+      "checks": [
+        "d:\\SETUP.DLL"
+      ],
+      "steps": 255
+    },
+    {
+      "guarded": false,
+      "counter": 3,
+      "stat": 0,
+      "size": 4294967295,
+      "writes": [
+        [
+          "Race/AttractMode",
+          1
+        ],
+        [
+          "Race/Type",
+          1
+        ]
+      ],
+      "checks": [
+        "d:\\SETUP.DLL"
+      ],
+      "steps": 260
+    },
+    {
+      "guarded": false,
+      "counter": 4,
+      "stat": 1,
+      "size": 0,
+      "writes": [],
+      "checks": [],
+      "steps": 39
+    },
+    {
+      "guarded": false,
+      "counter": 4,
+      "stat": 0,
+      "size": 0,
+      "writes": [],
+      "checks": [],
+      "steps": 39
+    },
+    {
+      "guarded": false,
+      "counter": 4,
+      "stat": 0,
+      "size": 536875572,
+      "writes": [],
+      "checks": [],
+      "steps": 39
+    },
+    {
+      "guarded": false,
+      "counter": 4,
+      "stat": 0,
+      "size": 536875573,
+      "writes": [],
+      "checks": [],
+      "steps": 39
+    },
+    {
+      "guarded": false,
+      "counter": 4,
+      "stat": 0,
+      "size": 4294967295,
+      "writes": [],
+      "checks": [],
+      "steps": 39
+    },
+    {
+      "guarded": false,
+      "counter": 5,
+      "stat": 1,
+      "size": 0,
+      "writes": [
+        [
+          "Race/AttractMode",
+          1
+        ],
+        [
+          "Race/Type",
+          1
+        ]
+      ],
+      "checks": [
+        "d:\\SETUP.DLL"
+      ],
+      "steps": 258
+    },
+    {
+      "guarded": false,
+      "counter": 5,
+      "stat": 0,
+      "size": 0,
+      "writes": [
+        [
+          "Race/AttractMode",
+          1
+        ],
+        [
+          "Race/Type",
+          1
+        ]
+      ],
+      "checks": [
+        "d:\\SETUP.DLL"
+      ],
+      "steps": 260
+    },
+    {
+      "guarded": false,
+      "counter": 5,
+      "stat": 0,
+      "size": 536875572,
+      "writes": [
+        [
+          "Race/AttractMode",
+          1
+        ],
+        [
+          "Race/Type",
+          1
+        ]
+      ],
+      "checks": [
+        "d:\\SETUP.DLL"
+      ],
+      "steps": 260
+    },
+    {
+      "guarded": false,
+      "counter": 5,
+      "stat": 0,
+      "size": 536875573,
+      "writes": [
+        [
+          "Race/Starter",
+          1
+        ]
+      ],
+      "checks": [
+        "d:\\SETUP.DLL"
+      ],
+      "steps": 255
+    },
+    {
+      "guarded": false,
+      "counter": 5,
+      "stat": 0,
+      "size": 4294967295,
+      "writes": [
+        [
+          "Race/AttractMode",
+          1
+        ],
+        [
+          "Race/Type",
+          1
+        ]
+      ],
+      "checks": [
+        "d:\\SETUP.DLL"
+      ],
+      "steps": 260
+    },
+    {
+      "guarded": false,
+      "idle_timer": -1,
+      "writes": [
+        [
+          "Race/AttractMode",
+          1
+        ]
+      ],
+      "mode_transitions": [
+        10
+      ],
+      "steps": 20
+    },
+    {
+      "guarded": false,
+      "idle_timer": 0,
+      "writes": [],
+      "mode_transitions": [],
+      "steps": 4
+    },
+    {
+      "guarded": false,
+      "idle_timer": 1,
+      "writes": [],
+      "mode_transitions": [],
+      "steps": 4
+    },
+    {
+      "guarded": true,
+      "counter": 0,
+      "stat": 1,
+      "size": 0,
+      "writes": [],
+      "checks": [],
+      "steps": 39
+    },
+    {
+      "guarded": true,
+      "counter": 0,
+      "stat": 0,
+      "size": 0,
+      "writes": [],
+      "checks": [],
+      "steps": 39
+    },
+    {
+      "guarded": true,
+      "counter": 0,
+      "stat": 0,
+      "size": 536875572,
+      "writes": [],
+      "checks": [],
+      "steps": 39
+    },
+    {
+      "guarded": true,
+      "counter": 0,
+      "stat": 0,
+      "size": 536875573,
+      "writes": [],
+      "checks": [],
+      "steps": 39
+    },
+    {
+      "guarded": true,
+      "counter": 0,
+      "stat": 0,
+      "size": 4294967295,
+      "writes": [],
+      "checks": [],
+      "steps": 39
+    },
+    {
+      "guarded": true,
+      "counter": 1,
+      "stat": 1,
+      "size": 0,
+      "writes": [
+        [
+          "Race/Starter",
+          1
+        ]
+      ],
+      "checks": [
+        "d:\\SETUP.DLL"
+      ],
+      "steps": 254
+    },
+    {
+      "guarded": true,
+      "counter": 1,
+      "stat": 0,
+      "size": 0,
+      "writes": [
+        [
+          "Race/Starter",
+          1
+        ]
+      ],
+      "checks": [
+        "d:\\SETUP.DLL"
+      ],
+      "steps": 256
+    },
+    {
+      "guarded": true,
+      "counter": 1,
+      "stat": 0,
+      "size": 536875572,
+      "writes": [
+        [
+          "Race/Starter",
+          1
+        ]
+      ],
+      "checks": [
+        "d:\\SETUP.DLL"
+      ],
+      "steps": 256
+    },
+    {
+      "guarded": true,
+      "counter": 1,
+      "stat": 0,
+      "size": 536875573,
+      "writes": [
+        [
+          "Race/Starter",
+          1
+        ]
+      ],
+      "checks": [
+        "d:\\SETUP.DLL"
+      ],
+      "steps": 255
+    },
+    {
+      "guarded": true,
+      "counter": 1,
+      "stat": 0,
+      "size": 4294967295,
+      "writes": [
+        [
+          "Race/Starter",
+          1
+        ]
+      ],
+      "checks": [
+        "d:\\SETUP.DLL"
+      ],
+      "steps": 256
+    },
+    {
+      "guarded": true,
+      "counter": 2,
+      "stat": 1,
+      "size": 0,
+      "writes": [],
+      "checks": [],
+      "steps": 39
+    },
+    {
+      "guarded": true,
+      "counter": 2,
+      "stat": 0,
+      "size": 0,
+      "writes": [],
+      "checks": [],
+      "steps": 39
+    },
+    {
+      "guarded": true,
+      "counter": 2,
+      "stat": 0,
+      "size": 536875572,
+      "writes": [],
+      "checks": [],
+      "steps": 39
+    },
+    {
+      "guarded": true,
+      "counter": 2,
+      "stat": 0,
+      "size": 536875573,
+      "writes": [],
+      "checks": [],
+      "steps": 39
+    },
+    {
+      "guarded": true,
+      "counter": 2,
+      "stat": 0,
+      "size": 4294967295,
+      "writes": [],
+      "checks": [],
+      "steps": 39
+    },
+    {
+      "guarded": true,
+      "counter": 3,
+      "stat": 1,
+      "size": 0,
+      "writes": [
+        [
+          "Race/Starter",
+          1
+        ]
+      ],
+      "checks": [
+        "d:\\SETUP.DLL"
+      ],
+      "steps": 254
+    },
+    {
+      "guarded": true,
+      "counter": 3,
+      "stat": 0,
+      "size": 0,
+      "writes": [
+        [
+          "Race/Starter",
+          1
+        ]
+      ],
+      "checks": [
+        "d:\\SETUP.DLL"
+      ],
+      "steps": 256
+    },
+    {
+      "guarded": true,
+      "counter": 3,
+      "stat": 0,
+      "size": 536875572,
+      "writes": [
+        [
+          "Race/Starter",
+          1
+        ]
+      ],
+      "checks": [
+        "d:\\SETUP.DLL"
+      ],
+      "steps": 256
+    },
+    {
+      "guarded": true,
+      "counter": 3,
+      "stat": 0,
+      "size": 536875573,
+      "writes": [
+        [
+          "Race/Starter",
+          1
+        ]
+      ],
+      "checks": [
+        "d:\\SETUP.DLL"
+      ],
+      "steps": 255
+    },
+    {
+      "guarded": true,
+      "counter": 3,
+      "stat": 0,
+      "size": 4294967295,
+      "writes": [
+        [
+          "Race/Starter",
+          1
+        ]
+      ],
+      "checks": [
+        "d:\\SETUP.DLL"
+      ],
+      "steps": 256
+    },
+    {
+      "guarded": true,
+      "counter": 4,
+      "stat": 1,
+      "size": 0,
+      "writes": [],
+      "checks": [],
+      "steps": 39
+    },
+    {
+      "guarded": true,
+      "counter": 4,
+      "stat": 0,
+      "size": 0,
+      "writes": [],
+      "checks": [],
+      "steps": 39
+    },
+    {
+      "guarded": true,
+      "counter": 4,
+      "stat": 0,
+      "size": 536875572,
+      "writes": [],
+      "checks": [],
+      "steps": 39
+    },
+    {
+      "guarded": true,
+      "counter": 4,
+      "stat": 0,
+      "size": 536875573,
+      "writes": [],
+      "checks": [],
+      "steps": 39
+    },
+    {
+      "guarded": true,
+      "counter": 4,
+      "stat": 0,
+      "size": 4294967295,
+      "writes": [],
+      "checks": [],
+      "steps": 39
+    },
+    {
+      "guarded": true,
+      "counter": 5,
+      "stat": 1,
+      "size": 0,
+      "writes": [
+        [
+          "Race/Starter",
+          1
+        ]
+      ],
+      "checks": [
+        "d:\\SETUP.DLL"
+      ],
+      "steps": 254
+    },
+    {
+      "guarded": true,
+      "counter": 5,
+      "stat": 0,
+      "size": 0,
+      "writes": [
+        [
+          "Race/Starter",
+          1
+        ]
+      ],
+      "checks": [
+        "d:\\SETUP.DLL"
+      ],
+      "steps": 256
+    },
+    {
+      "guarded": true,
+      "counter": 5,
+      "stat": 0,
+      "size": 536875572,
+      "writes": [
+        [
+          "Race/Starter",
+          1
+        ]
+      ],
+      "checks": [
+        "d:\\SETUP.DLL"
+      ],
+      "steps": 256
+    },
+    {
+      "guarded": true,
+      "counter": 5,
+      "stat": 0,
+      "size": 536875573,
+      "writes": [
+        [
+          "Race/Starter",
+          1
+        ]
+      ],
+      "checks": [
+        "d:\\SETUP.DLL"
+      ],
+      "steps": 255
+    },
+    {
+      "guarded": true,
+      "counter": 5,
+      "stat": 0,
+      "size": 4294967295,
+      "writes": [
+        [
+          "Race/Starter",
+          1
+        ]
+      ],
+      "checks": [
+        "d:\\SETUP.DLL"
+      ],
+      "steps": 256
+    },
+    {
+      "guarded": true,
+      "idle_timer": -1,
+      "writes": [
+        [
+          "Race/AttractMode",
+          1
+        ]
+      ],
+      "mode_transitions": [
+        10
+      ],
+      "steps": 20
+    },
+    {
+      "guarded": true,
+      "idle_timer": 0,
+      "writes": [],
+      "mode_transitions": [],
+      "steps": 4
+    },
+    {
+      "guarded": true,
+      "idle_timer": 1,
+      "writes": [],
+      "mode_transitions": [],
+      "steps": 4
+    }
+  ]
+}

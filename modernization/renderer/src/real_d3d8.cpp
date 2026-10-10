@@ -1,5 +1,7 @@
 #include "wrappers.hpp"
 #include <new>
+#include <intrin.h>
+#include "legacy_attract_guard.hpp"
 namespace {
 using Factory=IDirect3D8*(WINAPI*)(UINT);
 using VertexValidator=HRESULT(WINAPI*)(const DWORD*,const DWORD*,const D3DCAPS8*,BOOL,char**);
@@ -21,6 +23,7 @@ BOOL CALLBACK initialize(PINIT_ONCE,void*,void**){
 void ensure() noexcept {try{InitOnceExecuteOnce(&once,initialize,nullptr,nullptr);}catch(...){OutputDebugStringA("R-GFX3 system runtime initialization failed\n");}}
 }
 extern "C" IDirect3D8* WINAPI ProxyDirect3DCreate8(UINT sdk){
+ if(!gfx2::install_legacy_attract_guard(reinterpret_cast<uintptr_t>(_ReturnAddress())))return nullptr;
  ensure();if(!factory)return nullptr;
  IDirect3D8* raw=factory(sdk);
  try{gfx2::session().write("{\"type\":\"Direct3DCreate8\",\"sdk_version\":"+std::to_string(sdk)+",\"native_pointer\":"+std::to_string(reinterpret_cast<uintptr_t>(raw))+"}");}catch(...){}
