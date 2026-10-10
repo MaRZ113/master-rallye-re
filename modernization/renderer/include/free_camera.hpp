@@ -8,7 +8,11 @@ struct FreeCameraConfig {
  float speed=40,fast=6,slow=.2f,sensitivity=.12f;
  float min_speed=.25f,max_speed=300.f,wheel_speed_factor=1.25f,movement_smooth_seconds=.12f;
  unsigned speed_increase=VK_PRIOR,speed_decrease=VK_NEXT;
+ bool cinematic_fov_enabled=true;float cinematic_vfov=0,min_vfov=35,max_vfov=100,fov_step=5,fov_smooth_seconds=.25f;
+ unsigned fov_decrease='Z',fov_increase='X';
  bool auto_level_horizon=true;float horizon_level_seconds=.30f;
+ bool manual_roll_enabled=true;float roll_speed=45.f,roll_smooth_seconds=.10f,max_roll_degrees=90.f;
+ unsigned roll_left='C',roll_right='V',roll_reset='B';
  std::array<unsigned,8> keys{'W','S','A','D','E','Q',VK_LSHIFT,VK_LMENU};
  const char* reason="disabled";
 };
@@ -16,28 +20,35 @@ struct FreeCameraConfig {
 unsigned free_camera_key(const std::string&) noexcept;
 FreeCameraConfig parse_free_camera_config(const std::map<std::string,std::string>&);
 bool pose_from_native_view(const D3DMATRIX&,std::array<float,16>&) noexcept;
-struct FlightInput {bool focused=false,toggle=false,speed_increase=false,speed_decrease=false;std::array<bool,8> keys{};float mouse_x=0,mouse_y=0;double seconds=0;int wheel_delta=0;};
+struct FlightInput {bool focused=false,toggle=false,speed_increase=false,speed_decrease=false,fov_decrease=false,fov_increase=false,roll_left=false,roll_right=false,roll_reset=false;std::array<bool,8> keys{};float mouse_x=0,mouse_y=0;double seconds=0,inherited_vfov=0;int wheel_delta=0;};
 class FlightController {
  bool toggle_down_=false,focused_=false;
  double horizon_elapsed_=0,previous_horizon_progress_=0;
  std::array<float,3> horizon_right_{};
  std::array<double,3> velocity_{};
  bool speed_up_down_=false,speed_down_down_=false,speed_initialized_=false;
+ bool fov_down_down_=false,fov_up_down_=false,fov_initialized_=false,fov_transition_active_=false,roll_initialized_=false;
  double runtime_speed_=40;
+ double current_vfov_=0,target_vfov_=0;
+ std::array<float,16> orientation_{};double manual_roll_=0,manual_roll_target_=0;
  int wheel_remainder_=0;
  uint64_t speed_adjustment_count_=0;
  const char* speed_input_source_="configured_initial";
 public:
  bool active=false,last_toggle_edge=false;std::array<float,16> pose{};
- bool orientation_valid=true,horizon_leveling_active=false;
+ bool orientation_valid=true,horizon_leveling_active=false,manual_roll_transition_active=false;
  float current_roll_degrees=0,target_roll_degrees=0,horizon_level_progress=0;
+ float manual_roll_degrees=0,manual_roll_target_degrees=0;
  bool update(const FreeCameraConfig&,const FlightInput&,bool certified,const std::array<float,16>* visible) noexcept;
- void cancel() noexcept {active=false;toggle_down_=false;focused_=false;horizon_elapsed_=previous_horizon_progress_=0;horizon_level_progress=0;current_roll_degrees=target_roll_degrees=0;horizon_leveling_active=false;orientation_valid=true;velocity_={};speed_up_down_=speed_down_down_=false;wheel_remainder_=0;}
+ void cancel() noexcept {active=false;toggle_down_=false;focused_=false;horizon_elapsed_=previous_horizon_progress_=0;horizon_level_progress=0;current_roll_degrees=target_roll_degrees=0;manual_roll_degrees=manual_roll_target_degrees=0;manual_roll_transition_active=false;manual_roll_=manual_roll_target_=0;roll_initialized_=false;orientation_={};horizon_leveling_active=false;orientation_valid=true;velocity_={};speed_up_down_=speed_down_down_=false;fov_down_down_=fov_up_down_=fov_initialized_=fov_transition_active_=false;current_vfov_=target_vfov_=0;wheel_remainder_=0;}
  void reset_for_race(const FreeCameraConfig&) noexcept;
  double current_speed() const noexcept {return runtime_speed_;}
  double velocity_magnitude() const noexcept;
  uint64_t speed_adjustment_count() const noexcept {return speed_adjustment_count_;}
  const char* speed_input_source() const noexcept {return speed_input_source_;}
+ double current_vertical_fov() const noexcept {return current_vfov_;}
+ double target_vertical_fov() const noexcept {return target_vfov_;}
+ bool fov_transition_active() const noexcept {return fov_transition_active_;}
 };
 // Optional game-HWND subclass only; never a global/thread message hook.
 class FlightWindowInput {

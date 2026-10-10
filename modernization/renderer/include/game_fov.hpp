@@ -67,6 +67,8 @@ public:
  void before_submit(unsigned index) noexcept;
  void submission_snapshot(uintptr_t expected_camera,CameraSubmissionSnapshot& out) const noexcept;
  bool allows(const D3DMATRIX&) const noexcept;
+ bool cinematic_projection_vfov(const D3DMATRIX&,bool exe_caller,uint32_t caller_rva,float& vfov) const noexcept;
+ void projection_applied(float vfov,bool success) noexcept;
  void finish_frame() noexcept;
  void cancel_frame() noexcept;
  void cancel_lifecycle(const char* reason) noexcept;

@@ -26,6 +26,14 @@ void frustum(){
   CHECK(frame.restore()&&!frame.status.synchronized&&frame.status.restored&&std::memcmp(&c,&stock,sizeof(c))==0);
   CHECK(!frame.matches(&c,original));
  }
+ // Freecam may replace only the lens value while retaining the exact same CPU-frustum scope.
+ auto freecam_only=parse_visual_config({{"Renderer.ConfigVersion","1"}},true);VisualPolicy cinematic;cinematic.configure(freecam_only,true,nullptr,E_FAIL);
+ auto cam=camera(1920,1080);FrustumFrame synchronized;CHECK(synchronized.begin(&cam,65));auto native_projection=projection(cam);D3DMATRIX cinematic_projection{};
+ CHECK(!cinematic.projection(D3DTS_PROJECTION,&native_projection,cinematic_projection,true,GAMEPLAY_PROJECTION_RETURN_RVA));
+ CHECK(cinematic.projection(D3DTS_PROJECTION,&native_projection,cinematic_projection,true,GAMEPLAY_PROJECTION_RETURN_RVA,65));CHECK(std::abs(vertical_fov(cinematic_projection)-65)<.0001&&std::abs(synchronized.status.vfov-vertical_fov(cinematic_projection))<.0001);
+ CHECK(synchronized.matches(&cam,native_projection));CHECK(!cinematic.projection(D3DTS_PROJECTION,&native_projection,cinematic_projection,true,GAMEPLAY_PROJECTION_RETURN_RVA,111));CHECK(synchronized.restore());
+ auto combined=parse_visual_config({{"Renderer.ConfigVersion","1"},{"Camera.GameplayFOV","true"},{"Camera.VerticalFOVDegrees","80"}},true);VisualPolicy coexist;coexist.configure(combined,true,nullptr,E_FAIL);
+ CHECK(coexist.projection(D3DTS_PROJECTION,&native_projection,cinematic_projection,true,GAMEPLAY_PROJECTION_RETURN_RVA,65)&&std::abs(vertical_fov(cinematic_projection)-65)<.0001);
  // No unsafe source angle (110*1920/1027 >180) is passed to stock trig: actual HFOV stays below180.
  auto c=camera(1920,1027);std::array<float,12> planes{};float hfov=0;CHECK(effective_side_planes(c,110,planes,hfov)&&hfov>110&&hfov<180);
  for(float invalid:{NAN,29.f,111.f})CHECK(!effective_side_planes(c,invalid,planes,hfov));

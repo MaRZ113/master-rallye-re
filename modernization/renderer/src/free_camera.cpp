@@ -27,9 +27,28 @@ FreeCameraConfig parse_free_camera_config(const std::map<std::string,std::string
  valid&=c.speed_increase!=0&&c.speed_decrease!=0&&c.speed_increase!=c.speed_decrease&&c.speed_increase!=c.toggle&&c.speed_decrease!=c.toggle;
  valid&=parse_config_boolean(get("FreeCamera.AutoLevelHorizon","1"),c.auto_level_horizon);
  valid&=number("FreeCamera.HorizonLevelSeconds",c.horizon_level_seconds,0.f,5.f);
+ valid&=parse_config_boolean(get("FreeCamera.ManualRollEnabled","1"),c.manual_roll_enabled);
+ valid&=number("FreeCamera.RollSpeedDegreesPerSecond",c.roll_speed,.1f,360.f);
+ valid&=number("FreeCamera.RollSmoothSeconds",c.roll_smooth_seconds,0.f,2.f);
+ valid&=number("FreeCamera.MaxRollDegrees",c.max_roll_degrees,1.f,180.f);
+ c.roll_left=free_camera_key(get("FreeCameraKeys.RollLeft","C"));c.roll_right=free_camera_key(get("FreeCameraKeys.RollRight","V"));c.roll_reset=free_camera_key(get("FreeCameraKeys.RollReset","B"));
+ valid&=parse_config_boolean(get("FreeCamera.CinematicFOVEnabled","1"),c.cinematic_fov_enabled);
+ valid&=number("FreeCamera.CinematicVerticalFOVDegrees",c.cinematic_vfov,0.f,110.f);
+ valid&=number("FreeCamera.MinVerticalFOVDegrees",c.min_vfov,30.f,110.f);
+ valid&=number("FreeCamera.MaxVerticalFOVDegrees",c.max_vfov,30.f,110.f);
+ valid&=number("FreeCamera.FOVStepDegrees",c.fov_step,.1f,30.f);
+ valid&=number("FreeCamera.FOVSmoothSeconds",c.fov_smooth_seconds,0.f,5.f);
+ c.fov_decrease=free_camera_key(get("FreeCameraKeys.FOVDecrease","Z"));c.fov_increase=free_camera_key(get("FreeCameraKeys.FOVIncrease","X"));
+ valid&=c.min_vfov<=c.max_vfov&&(c.cinematic_vfov==0||(c.cinematic_vfov>=c.min_vfov&&c.cinematic_vfov<=c.max_vfov));
+ valid&=c.fov_decrease&&c.fov_increase&&c.fov_decrease!=c.fov_increase&&c.fov_decrease!=c.toggle&&c.fov_increase!=c.toggle&&
+        c.fov_decrease!=c.speed_increase&&c.fov_decrease!=c.speed_decrease&&c.fov_increase!=c.speed_increase&&c.fov_increase!=c.speed_decrease;
  if(c.preset==1)c.keys={0x148,0x150,0x14b,0x14d,0x149,0x151,VK_LSHIFT,VK_LMENU};
  if(c.preset==2){const char* names[]={"Forward","Backward","Left","Right","Up","Down","Fast","Slow"};for(size_t i=0;i<8;++i){auto key=f.find(std::string("FreeCameraKeys.")+names[i]);if(key==f.end()){valid=false;continue;}c.keys[i]=free_camera_key(key->second);valid&=c.keys[i]!=0;}}
  for(size_t i=0;i<8;++i){valid&=c.keys[i]!=c.toggle&&c.keys[i]!=c.speed_increase&&c.keys[i]!=c.speed_decrease;for(size_t j=0;j<i;++j)valid&=c.keys[i]!=c.keys[j];}
+ for(unsigned k:c.keys)valid&=k!=c.fov_decrease&&k!=c.fov_increase;
+ const unsigned roll_keys[]={c.roll_left,c.roll_right,c.roll_reset};
+ for(unsigned k:roll_keys){valid&=k!=0&&k!=c.toggle&&k!=c.speed_increase&&k!=c.speed_decrease&&k!=c.fov_decrease&&k!=c.fov_increase;for(unsigned movement:c.keys)valid&=k!=movement;}
+ valid&=c.roll_left!=c.roll_right&&c.roll_left!=c.roll_reset&&c.roll_right!=c.roll_reset;
  if(!valid){c.enabled=false;c.reason="invalid_free_camera_configuration";}else c.reason=c.enabled?"configured_exact_retail_only":"disabled";return c;
 }
 namespace {
@@ -78,30 +97,45 @@ bool FlightController::update(const FreeCameraConfig& c,const FlightInput& in,bo
  if(!c.enabled||!certified||!in.focused){cancel();toggle_down_=in.toggle;return false;}
  if(!speed_initialized_){runtime_speed_=clamp_speed(c.speed,c);speed_initialized_=true;}
  if(!std::isfinite(runtime_speed_)){reset_for_race(c);}
- if(!focused_){focused_=true;toggle_down_=in.toggle;return false;}
+ if(!focused_){focused_=true;toggle_down_=in.toggle;fov_down_down_=in.fov_decrease;fov_up_down_=in.fov_increase;return false;}
  bool edge=in.toggle&&!toggle_down_;toggle_down_=in.toggle;
  bool activated=false;
- if(edge){last_toggle_edge=true;if(active){active=false;velocity_={};speed_up_down_=speed_down_down_=false;wheel_remainder_=0;horizon_elapsed_=previous_horizon_progress_=0;horizon_level_progress=0;current_roll_degrees=target_roll_degrees=0;horizon_leveling_active=false;}
-  else if(visible&&rigid(*visible)){pose=*visible;active=true;activated=true;velocity_={};speed_up_down_=speed_down_down_=false;wheel_remainder_=0;orientation_valid=true;horizon_elapsed_=previous_horizon_progress_=0;horizon_level_progress=0;horizon_leveling_active=false;std::copy_n(pose.data(),3,horizon_right_.data());}}
+ if(edge){last_toggle_edge=true;if(active){active=false;velocity_={};speed_up_down_=speed_down_down_=false;wheel_remainder_=0;horizon_elapsed_=previous_horizon_progress_=0;horizon_level_progress=0;current_roll_degrees=target_roll_degrees=0;manual_roll_=manual_roll_target_=0;manual_roll_degrees=manual_roll_target_degrees=0;manual_roll_transition_active=roll_initialized_=false;orientation_={};horizon_leveling_active=false;fov_initialized_=fov_transition_active_=false;current_vfov_=target_vfov_=0;fov_down_down_=in.fov_decrease;fov_up_down_=in.fov_increase;}
+  else if(visible&&rigid(*visible)){pose=*visible;orientation_=pose;manual_roll_=manual_roll_target_=0;manual_roll_degrees=manual_roll_target_degrees=0;manual_roll_transition_active=false;roll_initialized_=true;active=true;activated=true;velocity_={};speed_up_down_=speed_down_down_=false;wheel_remainder_=0;orientation_valid=true;horizon_elapsed_=previous_horizon_progress_=0;horizon_level_progress=0;horizon_leveling_active=false;std::copy_n(pose.data(),3,horizon_right_.data());
+   if(c.cinematic_fov_enabled){double inherited=in.inherited_vfov;if(!std::isfinite(inherited)||inherited<30||inherited>110)inherited=90;
+    current_vfov_=inherited;target_vfov_=c.cinematic_vfov>0?c.cinematic_vfov:inherited;fov_initialized_=true;fov_transition_active_=current_vfov_!=target_vfov_;}
+   else{current_vfov_=target_vfov_=0;fov_initialized_=fov_transition_active_=false;}fov_down_down_=in.fov_decrease;fov_up_down_=in.fov_increase;}}
  if(!active)return false;
- auto before=pose;
+ bool fov_down_edge=in.fov_decrease&&!fov_down_down_,fov_up_edge=in.fov_increase&&!fov_up_down_;
+ fov_down_down_=in.fov_decrease;fov_up_down_=in.fov_increase;
+ double fov_dt=std::isfinite(in.seconds)?std::clamp(in.seconds,0.,.05):0.;
+ if(c.cinematic_fov_enabled&&fov_initialized_){
+  if(fov_down_edge!=fov_up_edge){
+   if(fov_down_edge){if(target_vfov_>c.min_vfov)target_vfov_=std::max(double(c.min_vfov),target_vfov_-c.fov_step);}
+   else if(target_vfov_<c.max_vfov)target_vfov_=std::min(double(c.max_vfov),target_vfov_+c.fov_step);
+  }
+  if(!activated){if(c.fov_smooth_seconds<=0)current_vfov_=target_vfov_;else {double alpha=-std::expm1(-fov_dt/c.fov_smooth_seconds);current_vfov_+=(target_vfov_-current_vfov_)*alpha;}if(std::abs(target_vfov_-current_vfov_)<.001)current_vfov_=target_vfov_;}
+  fov_transition_active_=std::abs(target_vfov_-current_vfov_)>=.001;
+ }else fov_transition_active_=false;
+ if(!activated)pose=orientation_;
+ auto before=pose;auto orientation_before=orientation_;
  // Activation is an exact visible-pose handoff. Begin look and horizon work
  // on the next sample so even an unusual first mouse packet cannot snap it.
  if(!activated&&std::isfinite(in.mouse_x)&&std::isfinite(in.mouse_y)){
   const float y[3]={0,1,0};double yaw=-std::clamp(double(in.mouse_x),-1000.,1000.)*c.sensitivity*PI/180;
-  for(unsigned i=0;i<3;++i)rotate(pose.data()+i*4,y,yaw);
-  double pitch=std::asin(std::clamp(-double(pose[9]),-1.,1.)),delta=-std::clamp(double(in.mouse_y),-1000.,1000.)*c.sensitivity*PI/180;
+  for(unsigned i=0;i<3;++i)rotate(orientation_.data()+i*4,y,yaw);
+  double pitch=std::asin(std::clamp(-double(orientation_[9]),-1.,1.)),delta=-std::clamp(double(in.mouse_y),-1000.,1000.)*c.sensitivity*PI/180;
   delta=std::clamp(pitch+delta,-89*PI/180,89*PI/180)-pitch;
-  float right[3]={pose[0],pose[1],pose[2]};rotate(pose.data()+4,right,delta);rotate(pose.data()+8,right,delta);
-  if(yaw||delta)orthogonalize(pose);
+  float right[3]={orientation_[0],orientation_[1],orientation_[2]};rotate(orientation_.data()+4,right,delta);rotate(orientation_.data()+8,right,delta);
+  if(yaw||delta)orthogonalize(orientation_);
  }
  orientation_valid=true;current_roll_degrees=target_roll_degrees=0;
- if(!c.auto_level_horizon){float target[3]{},back[3]={pose[8],pose[9],pose[10]};if(horizon_target(pose,horizon_right_,target))current_roll_degrees=static_cast<float>(signed_roll(pose.data(),target,back)*180/PI);}
+ if(!c.auto_level_horizon){float target[3]{},back[3]={orientation_[8],orientation_[9],orientation_[10]};if(horizon_target(orientation_,horizon_right_,target))current_roll_degrees=static_cast<float>(signed_roll(orientation_.data(),target,back)*180/PI);}
  if(c.auto_level_horizon){
   float target[3]{};
-  if(!horizon_target(pose,horizon_right_,target)){orientation_valid=false;pose=before;velocity_={};return active;}
-  float back[3]={pose[8],pose[9],pose[10]};double roll=signed_roll(pose.data(),target,back);
-  if(!std::isfinite(roll)){orientation_valid=false;pose=before;velocity_={};return active;}
+  if(!horizon_target(orientation_,horizon_right_,target)){orientation_valid=false;pose=before;orientation_=orientation_before;velocity_={};return active;}
+  float back[3]={orientation_[8],orientation_[9],orientation_[10]};double roll=signed_roll(orientation_.data(),target,back);
+  if(!std::isfinite(roll)){orientation_valid=false;pose=before;orientation_=orientation_before;velocity_={};return active;}
   current_roll_degrees=static_cast<float>(roll*180/PI);target_roll_degrees=0;
   double dt=std::isfinite(in.seconds)?std::clamp(in.seconds,0.,.05):0.;
   if(!activated){horizon_elapsed_+=dt;}
@@ -111,15 +145,27 @@ bool FlightController::update(const FreeCameraConfig& c,const FlightInput& in,bo
   // correction remains frame-rate independent and follows a moving target.
   double smooth=progress*progress*(3-2*progress);
   double fraction=smooth>=1?1:(smooth>previous_horizon_progress_?(smooth-previous_horizon_progress_)/(1-previous_horizon_progress_):0);
-  if(!activated&&fraction>0){rotate(pose.data(),back,roll*fraction);rotate(pose.data()+4,back,roll*fraction);orthogonalize(pose);}
+  if(!activated&&fraction>0){rotate(orientation_.data(),back,roll*fraction);rotate(orientation_.data()+4,back,roll*fraction);orthogonalize(orientation_);}
   previous_horizon_progress_=smooth;horizon_level_progress=static_cast<float>(smooth);
-  back[0]=pose[8];back[1]=pose[9];back[2]=pose[10];current_roll_degrees=static_cast<float>(signed_roll(pose.data(),target,back)*180/PI);
+  back[0]=orientation_[8];back[1]=orientation_[9];back[2]=orientation_[10];current_roll_degrees=static_cast<float>(signed_roll(orientation_.data(),target,back)*180/PI);
   horizon_leveling_active=std::abs(current_roll_degrees)>.05f&&smooth<1;
   // Record the target heading only when world-up yields a well-conditioned
   // horizontal direction; near vertical, keep the last usable heading.
-  float world_up[3]={0,1,0},fresh[3];cross3(world_up,pose.data()+8,fresh);
+  float world_up[3]={0,1,0},fresh[3];cross3(world_up,orientation_.data()+8,fresh);
   if(dot3(fresh,fresh)>=.0025&&normalize3(fresh))std::copy_n(fresh,3,horizon_right_.data());
  }else{horizon_leveling_active=false;horizon_level_progress=0;horizon_elapsed_=previous_horizon_progress_=0;}
+ double roll_dt=std::isfinite(in.seconds)?std::clamp(in.seconds,0.,.05):0.;
+ if(c.manual_roll_enabled&&roll_initialized_){
+  bool target_ramping=false;double prior_target=manual_roll_target_;
+  if(!activated){if(in.roll_reset)manual_roll_target_=0;else if(in.roll_left!=in.roll_right){manual_roll_target_+=in.roll_left?double(c.roll_speed)*roll_dt:-double(c.roll_speed)*roll_dt;target_ramping=roll_dt>0;}}
+  manual_roll_target_=std::clamp(manual_roll_target_,-double(c.max_roll_degrees),double(c.max_roll_degrees));
+  if(!activated){if(c.roll_smooth_seconds<=0)manual_roll_=manual_roll_target_;else if(roll_dt>0){double decay=std::exp(-roll_dt/c.roll_smooth_seconds);if(target_ramping){double rate=(manual_roll_target_-prior_target)/roll_dt;manual_roll_=manual_roll_target_-rate*c.roll_smooth_seconds+(manual_roll_-prior_target+rate*c.roll_smooth_seconds)*decay;}else manual_roll_=manual_roll_target_+(manual_roll_-manual_roll_target_)*decay;}}
+  if(std::abs(manual_roll_target_-manual_roll_)<.001)manual_roll_=manual_roll_target_;
+ }else{manual_roll_=manual_roll_target_=0;}
+ manual_roll_degrees=static_cast<float>(manual_roll_);manual_roll_target_degrees=static_cast<float>(manual_roll_target_);manual_roll_transition_active=std::abs(manual_roll_target_-manual_roll_)>=.001;
+ pose=orientation_;float roll_back[3]={pose[8],pose[9],pose[10]};double roll_angle=manual_roll_*PI/180.;
+ if(std::abs(roll_angle)>1e-12){rotate(pose.data(),roll_back,roll_angle);rotate(pose.data()+4,roll_back,roll_angle);orthogonalize(pose);}
+ {float level[3]{};float back[3]={pose[8],pose[9],pose[10]};if(horizon_target(pose,horizon_right_,level))current_roll_degrees=static_cast<float>(signed_roll(pose.data(),level,back)*180/PI);}
  bool speed_up=in.speed_increase,speed_down=in.speed_decrease;
  bool speed_up_edge=speed_up&&!speed_up_down_,speed_down_edge=speed_down&&!speed_down_down_;
  speed_up_down_=speed_up;speed_down_down_=speed_down;
@@ -138,7 +184,7 @@ bool FlightController::update(const FreeCameraConfig& c,const FlightInput& in,bo
  double velocity_sq=velocity_[0]*velocity_[0]+velocity_[1]*velocity_[1]+velocity_[2]*velocity_[2];
  if(length==0&&velocity_sq<.0001){velocity_={};velocity_sq=0;}
  for(unsigned j=0;j<3;++j)pose[12+j]+=static_cast<float>(displacement[j]);
- if(!rigid(pose)){pose=before;active=false;velocity_={};}return active;
+ if(!rigid(pose)){pose=before;orientation_=orientation_before;active=false;velocity_={};return active;}for(unsigned j=0;j<3;++j)orientation_[12+j]=pose[12+j];return active;
 }
 FlightWindowInput* FlightWindowInput::current_=nullptr;
 bool FlightWindowInput::attach(HWND w) noexcept {
@@ -178,7 +224,7 @@ LRESULT CALLBACK FlightWindowInput::procedure(HWND w,UINT msg,WPARAM wp,LPARAM l
 FlightInput FlightWindowInput::sample(const FreeCameraConfig& c,bool mouse) noexcept {
  FlightInput in;in.focused=intact()&&GetForegroundWindow()==window_&&!IsIconic(window_);if(!in.focused){focus_lost();return in;}
  auto key=[&](unsigned k){return k>=0x100?k<0x180&&keypad_[k-0x100]:(GetAsyncKeyState(static_cast<int>(k))&0x8000)!=0;};
- in.toggle=key(c.toggle);in.speed_increase=key(c.speed_increase);in.speed_decrease=key(c.speed_decrease);for(size_t i=0;i<in.keys.size();++i)in.keys[i]=key(c.keys[i]);if(mouse)in.wheel_delta=take_wheel_delta();
+ in.toggle=key(c.toggle);in.speed_increase=key(c.speed_increase);in.speed_decrease=key(c.speed_decrease);in.fov_decrease=key(c.fov_decrease);in.fov_increase=key(c.fov_increase);in.roll_left=key(c.roll_left);in.roll_right=key(c.roll_right);in.roll_reset=key(c.roll_reset);for(size_t i=0;i<in.keys.size();++i)in.keys[i]=key(c.keys[i]);if(mouse)in.wheel_delta=take_wheel_delta();
  if(clock_.source()==FlightClockSource::qpc){LARGE_INTEGER counter{};BOOL ok=QueryPerformanceCounter(&counter);in.seconds=clock_.sample_qpc(ok!=FALSE,counter.QuadPart);if(!ok)clock_.establish_tick_count64_baseline(GetTickCount64());}
  else if(clock_.source()==FlightClockSource::tick_count64)in.seconds=clock_.sample_tick_count64(GetTickCount64());
  else in.seconds=0; // Missing attach-time clock setup stays fail-closed.

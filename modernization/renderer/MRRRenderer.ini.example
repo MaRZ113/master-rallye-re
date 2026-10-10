@@ -80,6 +80,18 @@ MouseSensitivity=0.12
 AutoLevelHorizon=1
 ; 0 levels on the first post-activation sample; max accepted value is 5.
 HorizonLevelSeconds=0.30
+; Freecam-only vertical lens. 0 inherits the current gameplay vertical FOV.
+CinematicFOVEnabled=1
+CinematicVerticalFOVDegrees=0
+MinVerticalFOVDegrees=35
+MaxVerticalFOVDegrees=100
+FOVStepDegrees=5
+FOVSmoothSeconds=0.25
+; Manual camera banking is independent from AutoLevelHorizon and FOV.
+ManualRollEnabled=1
+RollSpeedDegreesPerSecond=45.0
+RollSmoothSeconds=0.10
+MaxRollDegrees=90.0
 
 [FreeCameraKeys]
 Forward=W
@@ -92,6 +104,11 @@ Fast=LeftShift
 Slow=LeftAlt
 SpeedIncrease=PageUp
 SpeedDecrease=PageDown
+FOVDecrease=Z
+FOVIncrease=X
+RollLeft=C
+RollRight=V
+RollReset=B
 
 [Shadows]
 ; 0 = Stock
