@@ -12,6 +12,16 @@ public:
  bool read(uint32_t p,void* d,size_t n) noexcept override {
   return p>=0x10000&&n<=4096&&n<=UINT32_MAX-p&&safe_copy(d,reinterpret_cast<void*>(p),n);
  }
+ struct Key {std::array<char,64> name{};uint32_t id=0;};std::array<Key,32> keys{};size_t keys_used=0;
+ bool resolve_id(uint32_t base,const char* key,uint32_t& id) noexcept override {
+  if(!key||std::strlen(key)>63)return false;
+  for(size_t i=0;i<keys_used;++i)if(!std::strcmp(keys[i].name.data(),key)){
+   char text[192]{};if(race_pool_text(*this,base,keys[i].id,text,sizeof(text))&&!std::strcmp(text,key)){id=keys[i].id;return true;}
+   if(!race_pool_id(*this,base,key,id))return false;keys[i].id=id;return true;
+  }
+  if(!race_pool_id(*this,base,key,id))return false;
+  if(keys_used<keys.size()){auto& k=keys[keys_used++];std::memcpy(k.name.data(),key,std::strlen(key)+1);k.id=id;}return true;
+ }
  bool write(void* d,const void* s,size_t n) noexcept override{return safe_copy(d,s,n);}
  bool protect(void* p,size_t n,DWORD v,DWORD& old) noexcept override{return VirtualProtect(p,n,v,&old)!=FALSE;}
  bool flush(void* p,size_t n) noexcept override{return FlushInstructionCache(GetCurrentProcess(),p,n)!=FALSE;}
@@ -46,7 +56,8 @@ void __stdcall observe(uint32_t kind,const race_bridge::Saved* input) noexcept {
  case 0:{ // Call immediately after SceneManager+4 store; ESI manager, EDI ID address.
   uint32_t stored=0,target=0;char text[192]{};
   if(manager(s.esi)&&word(s.esi+4,stored)&&word(s.edi,target)&&stored==target){
-   bool text_read=race_pool_text(memory,observer.base,target,text,sizeof(text));e.request(target,text);if(!text_read)e.reject("request_name_unreadable");}
+   uint32_t origin=0;bool origin_read=race_bridge::request_origin(memory,s,origin);
+   bool text_read=race_pool_text(memory,observer.base,target,text,sizeof(text));e.request(target,text,origin);if(!origin_read)e.reject("request_origin_unreadable");if(!text_read)e.reject("request_name_unreadable");}
   else e.reject("request_manager_or_target_mismatch",true);break;}
  case 1:{uint32_t target=0,source=0,mgr=0;char text[192]{};
   if(word(observer.base+0x2f9aa0,mgr)&&word(mgr+4,target)&&word(s.args[0],source)&&race_pool_text(memory,observer.base,source,text,sizeof(text)))e.queue(s.ecx,target,source,job_type(s.ecx),static_cast<uint8_t>(s.args[2]),static_cast<uint8_t>(s.args[1]),text);
@@ -57,7 +68,7 @@ void __stdcall observe(uint32_t kind,const race_bridge::Saved* input) noexcept {
  case 5:{uint32_t ai=0,vtable=0;uint8_t flags=2;
   bool valid=word(s.ecx+4,ai)&&ai==s.args[1]&&word(ai,vtable)&&vtable==observer.base+0x29152c&&memory.read(s.ecx,&flags,1)&&!(flags&2);
   e.initialized(s.ecx,s.args[1],valid);break;}
- case 6:if(s.esi==e.owner.actor){auto r=read_race_owner(memory,observer.base,e.owner,e.generation);e.admitted(s.esi,r.valid);}break;
+ case 6:if(s.esi==e.owner.actor){auto r=read_race_owner(memory,observer.base,e.owner,e.race_generation);e.admitted(s.esi,r.valid);}break;
  case 7:break; // Native live-list transfer hasn't completed yet.
  case 8:if(s.esi>=0x18)e.retire(s.esi-0x18,false);break;
  case 9:e.retire(s.esi,true);break;
@@ -111,7 +122,7 @@ uint32_t event_va(RaceEvent e) noexcept {
  case RaceEvent::OwnerAttach:case RaceEvent::OwnerInitialized:return 0x48e717;case RaceEvent::OwnerLive:return 0x4f6202;case RaceEvent::Retire:return 0x4f584e;case RaceEvent::Destroy:return 0x4f5786;default:return 0;}
 }
 void installation_record() noexcept {
- try{session().write("{\"type\":\"race_epoch_observer\",\"phase\":\"R-CAM1-A3c\",\"read_only\":true,\"installed\":"+std::string(observer.installed?"true":"false")+",\"camera_writes_authorized\":false,\"reason\":"+quote(observer.install_reason.load())+",\"rollback_verified\":"+(observer.batch.rollback_verified?"true":"false")+"}");}catch(...){}
+ try{session().write("{\"type\":\"race_epoch_observer\",\"phase\":\"R-CAM1-A3d\",\"read_only\":true,\"installed\":"+std::string(observer.installed?"true":"false")+",\"camera_writes_authorized\":false,\"reason\":"+quote(observer.install_reason.load())+",\"rollback_verified\":"+(observer.batch.rollback_verified?"true":"false")+"}");}catch(...){}
 }
 }
 bool install_race_observer(bool exact,bool enabled) noexcept {
@@ -139,7 +150,7 @@ bool install_race_observer(bool exact,bool enabled) noexcept {
  HMODULE pin=nullptr;
  if(!GetModuleHandleExW(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS|GET_MODULE_HANDLE_EX_FLAG_PIN,reinterpret_cast<LPCWSTR>(&install_race_observer),&pin)){observer.install_reason="module_pin_failed";installation_record();return false;}
  {SuspendedThreads threads;
-  if(threads.freeze(observer.batch)&&race_observer_context_valid(memory,observer.base)&&observer.batch.install(memory)){observer.installed.store(true);observer.enabled.store(true);observer.install_reason="read_only_native_lifecycle_installed";}
+  if(threads.freeze(observer.batch)&&race_observer_context_valid(memory,observer.base)&&observer.batch.install(memory)){observer.installed.store(true);observer.enabled.store(true);observer.install_reason="hierarchical_native_lifecycle_installed";}
   else observer.install_reason=observer.batch.rollback_verified?"install_rejected_rollback_verified":"install_failed_rollback_unverified_restart_required";
  }
  installation_record();return observer.installed;
@@ -156,6 +167,23 @@ void release_race_observer() noexcept {
  if(removable){SuspendedThreads threads;if(threads.freeze(observer.batch)&&observer.batch.remove(memory)){observer.installed=false;observer.install_reason="removed_owned_sites";}else observer.install_reason="remove_failed_pinned_passthrough";}
  else observer.install_reason="remove_unsafe_thread_or_active_execution_pinned_passthrough";
  installation_record(); // Static forwarding originals and pinned code remain valid on failed removal.
+}
+RaceCertificate live_race_certificate(uintptr_t expected_camera) noexcept {
+ RaceCertificate c;AcquireSRWLockExclusive(&observer.lock);
+ auto& e=observer.epoch;c.race_generation=e.race_generation;c.owner_lifetime=e.owner.lifetime;c.actor=e.owner.actor;c.ai=e.owner.ai;
+ if(!observer.enabled||!observer.installed)c.reason="observer_unavailable";
+ else if(!e.validate_thread(observer.thread,GetCurrentThreadId()))c.reason="wrong_thread";
+ else if(!owned_sites_intact()){e.reject("observer_hook_ownership_lost",true);c.reason="hook_ownership_lost";}
+ else {
+  auto owner=read_race_owner(memory,observer.base,e.owner,e.race_generation);
+  std::array<RaceScalar,9> fields{};
+  for(size_t i=0;i<fields.size();++i){uint32_t id=0;if(memory.resolve_id(observer.base,RACE_CONTEXT_KEYS[i],id))fields[i]=race_broker_scalar(memory,observer.base,id,RACE_CONTEXT_TAGS[i]);}
+  uint32_t cam_manager=0,count=0,selected=0,holder=0,current=0;
+  bool camera_valid=word(observer.base+CAMERA_MANAGER_RVA,cam_manager)&&word(cam_manager+16,count)&&count==1&&word(cam_manager,selected)&&selected&&selected==expected_camera&&
+   word(observer.base+RENDERER_HOLDER_RVA,holder)&&word(holder+0x38,holder)&&word(holder+4,current)&&current==selected;
+  c=check_live_race_certificate(e,owner,fields,camera_valid,current);
+ }
+ ReleaseSRWLockExclusive(&observer.lock);return c;
 }
 std::string race_epoch_capture_json(uint64_t device,uint64_t frame) {
  RaceEpoch e;bool installed=false,observing=false,intact=false;const char* install_reason=nullptr;uint32_t base=0;bool same_thread=false;
@@ -174,18 +202,19 @@ std::string race_epoch_capture_json(uint64_t device,uint64_t frame) {
   race_pool_text(memory,base,native_requested,requested,sizeof(requested));race_pool_text(memory,base,native_committed,committed,sizeof(committed));
   if(auto* job=e.find(e.executing_job))race_pool_text(memory,base,job->source,source,sizeof(source));
   else for(size_t i=0;i<e.jobs_used;++i)if(e.jobs[i].generation==e.generation)race_pool_text(memory,base,e.jobs[i].source,source,sizeof(source));
-  owner=read_race_owner(memory,base,e.owner,e.generation);
-  for(size_t i=0;i<context.size();++i){uint32_t id=0;if(race_pool_id(memory,base,RACE_CONTEXT_KEYS[i],id))context[i]=race_broker_scalar(memory,base,id,RACE_CONTEXT_TAGS[i]);}
+  owner=read_race_owner(memory,base,e.owner,e.race_generation);
+  for(size_t i=0;i<context.size();++i){uint32_t id=0;if(memory.resolve_id(base,RACE_CONTEXT_KEYS[i],id))context[i]=race_broker_scalar(memory,base,id,RACE_CONTEXT_TAGS[i]);}
   camera_read=word(base+0x2f94dc,cam_mgr)&&word(cam_mgr+16,cameras)&&word(base+0x2f9cf0,cam_mgr)&&word(cam_mgr+0x38,cam_mgr)&&word(cam_mgr+4,camera);
  }
  const auto context_check=check_race_context(context,owner);
- std::ostringstream o;o<<"{\"type\":\"race_epoch_snapshot\",\"phase\":\"R-CAM1-A3c\",\"device\":"<<device<<",\"frame\":"<<frame<<",\"capture_id\":"<<quote(trace_capture_id(device,frame))<<",\"read_only\":true,\"installed\":"<<(installed?"true":"false")<<",\"install_reason\":"<<quote(install_reason)<<",\"observing\":"<<(observing?"true":"false")<<",\"hook_ownership_intact\":"<<(intact?"true":"false")<<",\"camera_writes_authorized\":false,\"status\":\"BLOCKED_ON_RACE_EPOCH_CORRELATION\",\"reason\":"<<quote(e.reason)<<",\"offline_context_supported\":"<<(context_check.supported?"true":"false")<<",\"offline_context_reason\":"<<quote(context_check.reason)<<",\"course_identity_verified\":false,\"state\":"<<quote(phase_name(e.phase))<<",\"poisoned\":"<<(e.poisoned?"true":"false")<<",\"request_generation\":"<<e.generation<<",\"successful_generation\":"<<e.successful_generation<<",\"correlated_owner_candidate\":"<<(e.correlated_owner_candidate()?"true":"false")<<",\"scene\":{\"read_complete\":"<<(scene_read?"true":"false")<<",\"requested_id\":"<<native_requested<<",\"committed_id\":"<<native_committed<<",\"requested_name\":"<<quote(requested)<<",\"committed_name\":"<<quote(committed)<<",\"job_source\":"<<quote(source)<<",\"countdown\":"<<countdown<<"},\"owner\":{\"actor\":"<<e.owner.actor<<",\"ai\":"<<e.owner.ai<<",\"generation\":"<<e.owner.generation<<",\"lifetime\":"<<e.owner.lifetime<<",\"execution_job_lifetime\":"<<e.owner.execution_job_lifetime<<",\"initialized\":"<<(e.owner.initialized?"true":"false")<<",\"valid_native_owner\":"<<(owner.valid?"true":"false")<<",\"reason\":"<<quote(owner.reason)<<",\"registrations\":"<<owner.registrations<<",\"live_memberships\":"<<owner.live_memberships<<",\"pending_memberships\":"<<owner.pending_memberships<<",\"retired\":"<<(owner.retired?"true":"false")<<",\"participant_count\":"<<owner.count<<",\"arrays_ready\":"<<(owner.arrays_ready?"true":"false")<<",\"participant_states_ready\":"<<(owner.participant_states_ready?"true":"false")<<",\"participant_states\":[";
+ const auto certificate=camera_read?live_race_certificate(camera):RaceCertificate{};
+ std::ostringstream o;o<<"{\"type\":\"race_epoch_snapshot\",\"phase\":\"R-CAM1-A3d\",\"device\":"<<device<<",\"frame\":"<<frame<<",\"capture_id\":"<<quote(trace_capture_id(device,frame))<<",\"read_only\":true,\"installed\":"<<(installed?"true":"false")<<",\"install_reason\":"<<quote(install_reason)<<",\"observing\":"<<(observing?"true":"false")<<",\"hook_ownership_intact\":"<<(intact?"true":"false")<<",\"camera_writes_authorized\":false,\"status\":"<<quote(certificate.valid?"LIVE_RACE_CERTIFIED":"AWAITING_LIVE_RACE_CERTIFICATE")<<",\"live_certificate_valid\":"<<(certificate.valid?"true":"false")<<",\"live_certificate_reason\":"<<quote(certificate.reason)<<",\"reason\":"<<quote(e.reason)<<",\"offline_context_supported\":"<<(context_check.supported?"true":"false")<<",\"offline_context_reason\":"<<quote(context_check.reason)<<",\"course_identity_verified\":"<<(e.course_identity_verified()?"true":"false")<<",\"state\":"<<quote(phase_name(e.phase))<<",\"poisoned\":"<<(e.poisoned?"true":"false")<<",\"request_generation\":"<<e.generation<<",\"race_lifecycle_generation\":"<<e.race_generation<<",\"successful_race_generation\":"<<e.successful_race_generation<<",\"execution_depth\":"<<e.execution_depth<<",\"successful_generation\":"<<e.successful_generation<<",\"correlated_owner_candidate\":"<<(e.correlated_owner_candidate()?"true":"false")<<",\"scene\":{\"read_complete\":"<<(scene_read?"true":"false")<<",\"requested_id\":"<<native_requested<<",\"committed_id\":"<<native_committed<<",\"requested_name\":"<<quote(requested)<<",\"committed_name\":"<<quote(committed)<<",\"job_source\":"<<quote(source)<<",\"countdown\":"<<countdown<<"},\"owner\":{\"actor\":"<<e.owner.actor<<",\"ai\":"<<e.owner.ai<<",\"generation\":"<<e.owner.generation<<",\"race_lifecycle_generation\":"<<e.owner.race_generation<<",\"storage_readable\":"<<(owner.storage_readable?"true":"false")<<",\"native_live_unique\":"<<(owner.native_live_unique?"true":"false")<<",\"temporal_match\":"<<(owner.temporal_match?"true":"false")<<",\"lifetime\":"<<e.owner.lifetime<<",\"execution_job_lifetime\":"<<e.owner.execution_job_lifetime<<",\"initialized\":"<<(e.owner.initialized?"true":"false")<<",\"valid_native_owner\":"<<(owner.valid?"true":"false")<<",\"reason\":"<<quote(owner.reason)<<",\"registrations\":"<<owner.registrations<<",\"live_memberships\":"<<owner.live_memberships<<",\"pending_memberships\":"<<owner.pending_memberships<<",\"retired\":"<<(owner.retired?"true":"false")<<",\"participant_count\":"<<owner.count<<",\"arrays_ready\":"<<(owner.arrays_ready?"true":"false")<<",\"participant_states_ready\":"<<(owner.participant_states_ready?"true":"false")<<",\"participant_states\":[";
  for(uint32_t i=0;i<owner.count&&i<8;++i){if(i)o<<',';o<<owner.participant_states[i];}
  o<<"]},\"camera\":{\"read_complete\":"<<(camera_read?"true":"false")<<",\"count\":"<<cameras<<",\"pointer\":"<<camera<<"},\"context\":{";
  for(size_t i=0;i<context.size();++i){if(i)o<<',';const auto& v=context[i];o<<quote(RACE_CONTEXT_KEYS[i])<<":{\"present\":"<<(v.present?"true":"false")<<",\"tag\":"<<v.tag<<",\"value\":";if(v.present)o<<v.value;else o<<"null";o<<'}';}
- o<<"},\"jobs\":[";for(size_t i=0;i<e.jobs_used;++i){if(i)o<<',';auto& j=e.jobs[i];o<<"{\"pointer\":"<<j.pointer<<",\"generation\":"<<j.generation<<",\"lifetime\":"<<j.lifetime<<",\"scene\":"<<j.scene<<",\"source_id\":"<<j.source<<",\"scene_name_at_queue\":"<<quote(j.scene_text.data())<<",\"source_name_at_queue\":"<<quote(j.source_text.data())<<",\"flag21\":"<<static_cast<unsigned>(j.flag21)<<",\"flag22\":"<<static_cast<unsigned>(j.flag22)<<",\"commit_seen\":"<<(j.commit_seen?"true":"false")<<",\"commit_success\":"<<(j.commit_success?"true":"false")<<",\"terminal\":"<<(j.terminal?"true":"false")<<",\"pointer_reused\":"<<(j.reused?"true":"false")<<"}";}
+ o<<"},\"jobs\":[";for(size_t i=0;i<e.jobs_used;++i){if(i)o<<',';auto& j=e.jobs[i];o<<"{\"pointer\":"<<j.pointer<<",\"generation\":"<<j.generation<<",\"lifetime\":"<<j.lifetime<<",\"parent_job_lifetime\":"<<j.parent_lifetime<<",\"race_lifecycle_generation\":"<<j.race_generation<<",\"supported_hud_child\":"<<(j.supported_hud?"true":"false")<<",\"failed\":"<<(j.failed?"true":"false")<<",\"native_committed_scene\":"<<j.native_committed_scene<<",\"scene\":"<<j.scene<<",\"source_id\":"<<j.source<<",\"scene_name_at_queue\":"<<quote(j.scene_text.data())<<",\"source_name_at_queue\":"<<quote(j.source_text.data())<<",\"flag21\":"<<static_cast<unsigned>(j.flag21)<<",\"flag22\":"<<static_cast<unsigned>(j.flag22)<<",\"commit_seen\":"<<(j.commit_seen?"true":"false")<<",\"commit_success\":"<<(j.commit_success?"true":"false")<<",\"terminal\":"<<(j.terminal?"true":"false")<<",\"pointer_reused\":"<<(j.reused?"true":"false")<<"}";}
  o<<"],\"ring_overwritten\":"<<(e.event_serial>RaceEpoch::MAX_EVENTS?e.event_serial-RaceEpoch::MAX_EVENTS:0)<<",\"events\":[";
- for(size_t i=0;i<e.events_used;++i){if(i)o<<',';const auto& t=e.chronological(i);o<<"{\"serial\":"<<t.serial<<",\"event\":"<<quote(event_name(t.event))<<",\"generation\":"<<t.generation<<",\"job\":"<<t.job<<",\"job_lifetime\":"<<t.job_lifetime<<",\"actor\":"<<t.actor<<",\"ai\":"<<t.ai<<",\"owner_lifetime\":"<<t.owner_lifetime<<",\"scene\":"<<t.scene<<",\"thread\":"<<t.thread<<",\"native_va\":"<<event_va(t.event)<<",\"native_rva\":"<<(event_va(t.event)?event_va(t.event)-0x400000:0)<<",\"reason\":"<<quote(t.reason)<<"}";}
- o<<"]}";return o.str();
+ for(size_t i=0;i<e.events_used;++i){if(i)o<<',';const auto& t=e.chronological(i);o<<"{\"serial\":"<<t.serial<<",\"event\":"<<quote(event_name(t.event))<<",\"generation\":"<<t.generation<<",\"race_lifecycle_generation\":"<<t.race_generation<<",\"parent_job_lifetime\":"<<t.parent_job_lifetime<<",\"job\":"<<t.job<<",\"job_lifetime\":"<<t.job_lifetime<<",\"actor\":"<<t.actor<<",\"ai\":"<<t.ai<<",\"owner_lifetime\":"<<t.owner_lifetime<<",\"scene\":"<<t.scene<<",\"thread\":"<<t.thread<<",\"native_va\":"<<event_va(t.event)<<",\"native_rva\":"<<(event_va(t.event)?event_va(t.event)-0x400000:0)<<",\"reason\":"<<quote(t.reason)<<"}";}
+ o<<"],\"free_camera\":"<<free_camera_snapshot_json()<<"}";return o.str();
 }
 }

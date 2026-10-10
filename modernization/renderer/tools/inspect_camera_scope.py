@@ -119,6 +119,13 @@ SITES += (
     (0x0052D6CA, 'SceneExecuteRET0', 'c3', None),
 )
 
+# A3d installer guards are separate: historical A3c maps stay reproducible.
+A3D_SITES = (
+    (0x00522330, 'RequestOuterReturnStackPrefix', '5156578b7c24108b', None),
+    (0x004AA0AC, 'SinglePlayerHUDRequestFlagsAndOrigin', '6a018d4424086a0050e8868607008bc8e86f820700', None),
+    (0x0047B8F0, 'QuickRaceMode1Branch', '83f801747ee8062e03008bc8', None),
+)
+
 
 def verify_sites(blob, pe, sites=SITES):
     # Follow the existing scanner's byte/RVA/relative-CALL discipline.
@@ -291,12 +298,34 @@ def output_path(value):
     return path
 
 
+def inspect_a3d(blob):
+    historical = inspect(blob)  # Includes exact hash, placement and all byte checks.
+    return dict(schema_version=1, phase='R-CAM1-A3d', read_only=True,
+                build=historical['build'], sites=historical['sites'] + verify_sites(blob, PE(blob), A3D_SITES),
+                evidence_grade='CONFIRMED_BY_EXE',
+                scope=dict(pre_call_va='0x006532DD', pre_call_rva='0x002532DD',
+                           completion_call_va='0x005B0166', completion_call_rva='0x001B0166',
+                           original_scheduler_va='0x00653080', cleanup_bytes=4,
+                           owned_ranges=['0x08..0x37', '0x38..0x77', '0x88..0xC7'],
+                           owned_bytes=176, restore='after scheduler returns, not Present'),
+                admission=dict(scene_generation_is_not_race_generation=True,
+                               hud_request_origin_va='0x004AA0C1',
+                               course_names=['RaceTest/France1', 'DataScene/RaceTest/France1.xml'],
+                               owner_checks=['storage_readable', 'native_live_unique', 'temporal_match'],
+                               race_types=[1, 2], type1_max_cars=1, type2_max_cars=8),
+                freecam=dict(implemented=True, default_enabled=False, exact_retail_only=True,
+                             tracing_required=False, native_abi_validation='see A3d validation.md',
+                             in_game_validation='PENDING'),
+                warning='Static byte checks do not grant a live certificate or prove in-game flight.')
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('binary', type=Path)
     ap.add_argument('--output', type=output_path)
+    ap.add_argument('--a3d', action='store_true', help='Current A3d map; default retains historical A3c evidence')
     args = ap.parse_args()
-    result = json.dumps(inspect(args.binary.read_bytes()), indent=2) + '\n'
+    result = json.dumps((inspect_a3d if args.a3d else inspect)(args.binary.read_bytes()), indent=2) + '\n'
     if args.output:
         args.output.parent.mkdir(parents=True, exist_ok=True)
         args.output.write_text(result, encoding='utf-8', newline='\n')

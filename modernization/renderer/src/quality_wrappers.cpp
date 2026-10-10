@@ -19,7 +19,7 @@ HRESULT STDMETHODCALLTYPE Device8::Reset(D3DPRESENT_PARAMETERS* pp){
  if(quality&&quality->window_commit_active())return quality->reset(*parent_->real(),*real_,pp); // An echo is not a resource/scene reset.
  auto guard=trace.guard();const auto args=pack(pp);auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(14,args,pc);
  D3DPRESENT_PARAMETERS requested{};bool requested_known=pp&&safe_copy(&requested,pp,sizeof(requested));uint64_t native_before=quality?quality->native_reset_calls:0;
- if(race_observer_attached)reset_race_observer();game_fov.finish_frame();if(!ui_margins.finish_frame())stock_ui("ui_native_world_restore_failed");
+ game_fov.cancel_lifecycle("reset_requires_new_lifecycle");if(race_observer_attached)reset_race_observer();if(!ui_margins.finish_frame())stock_ui("ui_native_world_restore_failed");
  HRESULT hr=quality?quality->reset(*parent_->real(),*real_,pp):real_->Reset(pp);
  if(SUCCEEDED(hr))invalidate_all_buffer_shadows("device_reset");
  trace.after(14,args,static_cast<uint32_t>(hr),pc);
@@ -36,7 +36,7 @@ HRESULT STDMETHODCALLTYPE Device8::Present(const RECT* source,const RECT* destin
  if(quality&&quality->valid&&quality->effective.MultiSampleType!=D3DMULTISAMPLE_NONE&&(source||destination||window||dirty)&&!quality->aa_hazard){
   quality->aa_hazard=true;try{session().write("{\"type\":\"msaa_present_hazard\",\"reason\":\"non_null_present_arguments_native_hresult_preserved\"}");}catch(...){}
  }
- if(quality)quality->cursor_tick();
+ if(quality){quality->free_camera_cursor=game_fov.free_camera_active();quality->cursor_tick();}
  HRESULT hr=real_->Present(source,destination,window,dirty);ui_margins.present_completed(SUCCEEDED(hr));trace.after(15,args,static_cast<uint32_t>(hr),pc);ui_margins.capture_window(trace.control.active,trace.frame_number(),trace.device_id(),trace.control.active?"active":"present");return hr;
 }
 HRESULT STDMETHODCALLTYPE Device8::SetViewport(const D3DVIEWPORT8* input){

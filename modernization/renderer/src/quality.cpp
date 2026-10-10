@@ -108,6 +108,7 @@ void QualityPipeline::cursor_focus_lost() noexcept {
 }
 void QualityPipeline::cursor_tick() noexcept {
  if(shutting_down_)return;POINT p{};RECT r{};HWND w=effective.hDeviceWindow?effective.hDeviceWindow:focus;
+ if(free_camera_cursor&&GetForegroundWindow()==w&&!IsIconic(w)){if(!cursor_.hidden){saved_cursor_=GetCursor();cursor_.hidden=true;}SetCursor(nullptr);return;}
  bool inside=config.auto_hide_cursor&&(display=="Borderless"||display=="ExclusiveFullscreen")&&GetForegroundWindow()==w&&GetCursorPos(&p)&&GetWindowRect(w,&r)&&PtInRect(&r,p);
  int action=cursor_.update(inside,p,GetTickCount64(),config.cursor_delay_ms);
  if(action<0){saved_cursor_=GetCursor();SetCursor(nullptr);}

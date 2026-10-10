@@ -47,6 +47,7 @@ public:
  void restore_window() noexcept;
  void begin_shutdown() noexcept;
  void cursor_tick() noexcept;
+ bool free_camera_cursor=false;
  void cooperative_result(HRESULT) noexcept;
  void cursor_focus_lost() noexcept;
  bool cursor_watch_installed() const noexcept {return false;}

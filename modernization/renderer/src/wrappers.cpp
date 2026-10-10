@@ -3,6 +3,7 @@
 #include <new>
 #include <intrin.h>
 #include "menu_freeze.hpp"
+#include "free_camera.hpp"
 namespace gfx2 {
 HRESULT STDMETHODCALLTYPE Root8::QueryInterface(REFIID iid,void** out){
  HRESULT hr=real_->QueryInterface(iid,out);
@@ -50,8 +51,8 @@ Device8::Device8(IDirect3DDevice8* p,Root8* parent,std::unique_ptr<QualityPipeli
  if(!s.foliage_provenance_available.load(std::memory_order_relaxed))visuals.effective.foliage_diagnostics=false;
  if(quality->valid){visuals.effective.display_mode=quality->display;visuals.effective.display_reason=quality->display_reason;visuals.effective.aa_mode=quality->effective.MultiSampleType==D3DMULTISAMPLE_NONE?"Stock":"MSAA";visuals.effective.aa_reason=quality->aa_reason;}
  if(quality->valid)ui_margins.dimensions(quality->effective.BackBufferWidth,quality->effective.BackBufferHeight);
- quality_trace();if(s.target&&s.enabled){install_race_observer(true,true);race_observer_attached=true;}if(visuals.effective.fov&&!game_fov.install(s.compatibility.fov.supported(),visuals.effective)){visuals.effective.fov=false;visuals.effective.fov_reason=game_fov.status().reason;}s.write("{\"type\":\"visual_device_config\",\"requested\":"+config_json(visuals.requested)+",\"effective\":"+config_json(visuals.effective)+",\"caps_result\":"+std::to_string(static_cast<uint32_t>(hr))+",\"caps_max_anisotropy\":"+std::to_string(visuals.caps_max)+",\"min_anisotropy\":"+(visuals.min_supported?"true":"false")+",\"mag_anisotropy\":"+(visuals.mag_supported?"true":"false")+"}");}catch(...){game_fov.disable("device_config_exception");visuals.effective.anisotropy=visuals.effective.fov=visuals.effective.shadow_off=false;}}
-Device8::~Device8(){if(race_observer_attached)release_race_observer();game_fov.disable("device_release");parent_->Release();}
+ quality_trace();bool flight=parse_free_camera_config(s.visual_config.raw_fields).enabled&&s.target&&s.visual_config.version_ok;if(s.target&&(s.enabled||flight)){install_race_observer(true,true);race_observer_attached=true;}if((visuals.effective.fov||flight)&&!game_fov.install(s.compatibility.fov.supported()||s.target,visuals.effective,quality->effective.hDeviceWindow?quality->effective.hDeviceWindow:quality->focus,s.target)){visuals.effective.fov=false;visuals.effective.fov_reason=game_fov.status().reason;}s.write("{\"type\":\"visual_device_config\",\"requested\":"+config_json(visuals.requested)+",\"effective\":"+config_json(visuals.effective)+",\"caps_result\":"+std::to_string(static_cast<uint32_t>(hr))+",\"caps_max_anisotropy\":"+std::to_string(visuals.caps_max)+",\"min_anisotropy\":"+(visuals.min_supported?"true":"false")+",\"mag_anisotropy\":"+(visuals.mag_supported?"true":"false")+"}");}catch(...){game_fov.disable("device_config_exception");visuals.effective.anisotropy=visuals.effective.fov=visuals.effective.shadow_off=false;}}
+Device8::~Device8(){game_fov.disable("device_release");if(race_observer_attached)release_race_observer();parent_->Release();}
 IDirect3DVertexBuffer8* Device8::wrap_vertex_buffer(IDirect3DVertexBuffer8* raw) noexcept {
  if(!raw||!visuals.effective.foliage_diagnostics)return raw;
  std::lock_guard<std::recursive_mutex> l(buffer_mutex_);auto i=buffer_proxies_.find(raw);if(i!=buffer_proxies_.end()&&i->second&&i->second->kind()==BufferKind::Vertex){auto* p=static_cast<VertexBufferProxy*>(i->second->proxy_pointer());if(p->core().generation()!=trace.resources.generation(reinterpret_cast<uintptr_t>(raw))){invalidate_buffer_shadow(raw,"buffer_generation_changed_raw_escape");return raw;}p->AddRef();raw->Release();return p;}

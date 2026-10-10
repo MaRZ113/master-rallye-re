@@ -1,0 +1,123 @@
+{
+  "phase": "R-CAM1-A3d",
+  "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "ghidra_version": "12.1.4",
+  "project_writable": false,
+  "program_saved": false,
+  "excerpts": [
+    {
+      "function_va": "0x0047B780",
+      "function_rva": "0x0007B780",
+      "source": "ignored read-only Ghidra query r-cam1-a3d-hud",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "assembly": [
+        "0047b851  CALL 0x004ae700",
+        "0047b856  MOV ECX,EAX",
+        "0047b858  CALL 0x004ae090",
+        "0047b85d  PUSH EAX",
+        "0047b85e  CALL 0x004ada50",
+        "0047b863  MOV ECX,EAX",
+        "0047b865  CALL 0x004ac1c0",
+        "0047b86a  CALL 0x004ae700",
+        "0047b883  CALL 0x004ae700",
+        "0047b888  MOV ECX,EAX",
+        "0047b88a  CALL 0x004ae150",
+        "0047b88f  INC EAX",
+        "0047b890  PUSH EAX",
+        "0047b891  CALL 0x004ada50",
+        "0047b896  MOV ECX,EAX",
+        "0047b898  CALL 0x004ac3d0",
+        "0047b89d  CALL 0x004ae700",
+        "0047b8f0  CMP EAX,0x1",
+        "0047b8f3  JZ 0x0047b973",
+        "0047b8f5  CALL 0x004ae700",
+        "0047b8fa  MOV ECX,EAX",
+        "0047b8fc  CALL 0x004ae2d0"
+      ]
+    },
+    {
+      "function_va": "0x004AA020",
+      "function_rva": "0x000AA020",
+      "source": "ignored read-only Ghidra query r-cam1-a3d-hud",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "assembly": [
+        "004aa09e  PUSH 0x6e53f0",
+        "004aa0a3  LEA ECX,[ESP + 0x8]",
+        "004aa0a7  CALL 0x004d0580",
+        "004aa0ac  PUSH 0x1",
+        "004aa0ae  LEA EAX,[ESP + 0x8]",
+        "004aa0b2  PUSH 0x0",
+        "004aa0b4  PUSH EAX",
+        "004aa0b5  CALL 0x00522740",
+        "004aa0ba  MOV ECX,EAX",
+        "004aa0bc  CALL 0x00522330",
+        "004aa0c1  MOV ECX,dword ptr [ESP + 0xc]",
+        "004aa0c5  CALL 0x004f5840",
+        "004aa0ca  ADD ESP,0x8",
+        "004aa0cd  RET 0x4"
+      ]
+    },
+    {
+      "function_va": "0x00522680",
+      "function_rva": "0x00122680",
+      "source": "ignored read-only Ghidra query r-cam1-a3d-hud",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "assembly": [
+        "00522680  MOV AL,byte ptr [ESP + 0x4]",
+        "00522684  PUSH ESI",
+        "00522685  TEST AL,AL",
+        "00522687  MOV ESI,ECX",
+        "00522689  JZ 0x00522694",
+        "0052268b  MOV EAX,dword ptr [ESI + 0x4]",
+        "0052268e  MOV dword ptr [ESI],EAX",
+        "00522690  POP ESI",
+        "00522691  RET 0x4",
+        "00522694  PUSH 0x6e4464"
+      ]
+    },
+    {
+      "function_va": "0x005614A0",
+      "function_rva": "0x001614A0",
+      "source": "ignored read-only Ghidra query r-cam1-a3b-frame",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "assembly": [
+        "005614b5  MOV AL,byte ptr [EDI + 0x8]",
+        "005614b8  TEST AL,AL",
+        "005614ba  JZ 0x005614c8",
+        "005614bc  CMP EBX,dword ptr [0x006e9a74]",
+        "005614c2  JZ 0x00561a34",
+        "005614c8  MOV EAX,[0x006f9cf0]"
+      ]
+    },
+    {
+      "function_va": "0x00653080",
+      "function_rva": "0x00253080",
+      "source": "ignored read-only Ghidra query r-cam1-a3b-frame",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "assembly": [
+        "006532d1  MOV EAX,dword ptr [EAX + 0x20]",
+        "006532d4  CMP EDI,EBX",
+        "006532d6  SETZ CL",
+        "006532d9  PUSH ECX",
+        "006532da  PUSH EDI",
+        "006532db  MOV ECX,EAX",
+        "006532dd  CALL 0x00509680",
+        "006532e2  MOV EDX,dword ptr [ESI]",
+        "006532e4  MOV ECX,ESI",
+        "006532e6  CALL dword ptr [EDX + 0x20]",
+        "006532e9  INC EDI",
+        "006532ea  CMP EDI,EBP",
+        "006532ec  JL 0x00653288",
+        "00653325  MOV EDX,dword ptr [ESI]",
+        "00653327  MOV ECX,ESI",
+        "00653329  CALL dword ptr [EDX + 0x18]",
+        "0065332c  POP EDI",
+        "0065332d  POP ESI",
+        "0065332e  POP EBP",
+        "0065332f  POP EBX",
+        "00653330  ADD ESP,0x50",
+        "00653333  RET 0x4"
+      ]
+    }
+  ]
+}

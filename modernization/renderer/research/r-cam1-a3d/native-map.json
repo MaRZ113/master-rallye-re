@@ -1,0 +1,857 @@
+{
+  "schema_version": 1,
+  "phase": "R-CAM1-A3d",
+  "read_only": true,
+  "build": {
+    "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "size": 3121214,
+    "image_base": "0x00400000"
+  },
+  "sites": [
+    {
+      "va": "0x00509680",
+      "rva": "0x00109680",
+      "role": "TraversalFullBody_RET8",
+      "expected_bytes": "5356578bd9e896a2fcff8b38e83fa7fdff8b7424108b178bcf8b04b050ff52248d04768b7483048d1c833bf3741d558b6c24188b06f6000275098b1755508bcfff52108b76043bf375e95d5f5e5bc20800",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x006532D1",
+      "rva": "0x002532D1",
+      "role": "TraversalThenFinalizeCamera",
+      "expected_bytes": "8b40203bfb0f94c151578bc8e89e63ebff8b168bceff5220473bfd",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x006922E8",
+      "rva": "0x002922E8",
+      "role": "RendererVtableFinalizeCamera",
+      "expected_bytes": "50e25600",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0056E405",
+      "rva": "0x0016E405",
+      "role": "FinalizeCameraBuildViewThenParticles",
+      "expected_bytes": "8b48386a00e89130ffff8b430c8b4d3050e89558ffff",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0056E40A",
+      "rva": "0x0016E40A",
+      "role": "PostTraversalCameraBuilderCall",
+      "expected_bytes": "e89130ffff",
+      "call_target": "0x005614A0",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x00564061",
+      "rva": "0x00164061",
+      "role": "ParticlesReadSelectedCamera",
+      "expected_bytes": "8b40388b4e248d54245c8b5804",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0056410E",
+      "rva": "0x0016410E",
+      "role": "ParticlesUseCurrentPose",
+      "expected_bytes": "81c388000000",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x00564185",
+      "rva": "0x00164185",
+      "role": "ParticlesPassCurrentPoseToBillboardBuilder",
+      "expected_bytes": "5355568bcfe831000000",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x005614B5",
+      "rva": "0x001614B5",
+      "role": "CameraBuilderConditionalCacheExit",
+      "expected_bytes": "8a470884c0740c3b1d749a6e000f846c050000",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x006E9A74",
+      "rva": "0x002E9A74",
+      "role": "CameraBuilderComparisonInitialValue",
+      "expected_bytes": "ffffffff",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x005224EA",
+      "rva": "0x001224EA",
+      "role": "SceneUnloadClearsEntities",
+      "expected_bytes": "e8213efdff8bc8e8fa3bfdff",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x00522680",
+      "rva": "0x00122680",
+      "role": "CommitRequestedSceneOnSuccess",
+      "expected_bytes": "8a4424045684c08bf174098b460489065ec20400",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x00522694",
+      "rva": "0x00122694",
+      "role": "CommitDefaultSceneOnFailure",
+      "expected_bytes": "6864446e008d4c240ce8dedefaff8b4c2408890e5e",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x005B008E",
+      "rva": "0x001B008E",
+      "role": "SceneCounterDecrementInUpdate",
+      "expected_bytes": "e8ad26f7ff8b780c85ff740b8d5fffe89e26f7ff89580c",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0048E939",
+      "rva": "0x0008E939",
+      "role": "RaceStarterRetiresActorAt23Updates",
+      "expected_bytes": "837f0c1775098b4c2458e8f86e0600",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004CD8C0",
+      "rva": "0x000CD8C0",
+      "role": "LimitsAIConstructorVtable",
+      "expected_bytes": "c7062c156900",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x00449353",
+      "rva": "0x00049353",
+      "role": "FrontendDestructorWritesRunningFalse",
+      "expected_bytes": "6a00c744241400000000e89e5306008bc8e837480600",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x00653288",
+      "rva": "0x00253288",
+      "role": "PerCameraPreparation",
+      "expected_bytes": "8b168bceff520ce83c0be9ff8b04b88b16508bceff5224",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x006532A4",
+      "rva": "0x002532A4",
+      "role": "PerCameraNativeViewportWrites",
+      "expected_bytes": "8b04b88b4cbc208b54bc3083c07889088b4cbc408950048b54bc5089480889500c",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x006532EE",
+      "rva": "0x002532EE",
+      "role": "RebindCameraZero",
+      "expected_bytes": "e8dd0ae9ff8b008b4c24148b542418",
+      "call_target": "0x004E3DD0",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x006532FD",
+      "rva": "0x002532FD",
+      "role": "FullFrameNativeViewportWrites",
+      "expected_bytes": "89587889587c899080000000898884000000",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x00653329",
+      "rva": "0x00253329",
+      "role": "EndFrameVirtualCall",
+      "expected_bytes": "ff5218",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0065332C",
+      "rva": "0x0025332C",
+      "role": "SchedulerEpilogue_RET4",
+      "expected_bytes": "5f5e5d5b83c450c20400",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x006922E0",
+      "rva": "0x002922E0",
+      "role": "RendererVtableEndFrame",
+      "expected_bytes": "80cd5600",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0056CD89",
+      "rva": "0x0016CD89",
+      "role": "EndFrameDisabledPath",
+      "expected_bytes": "8a86b000000084c00f84b6010000",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0056CE23",
+      "rva": "0x0016CE23",
+      "role": "ConditionalLateDebugCamera",
+      "expected_bytes": "e8b88ef7ff8b480833db3bcb741c8b7c2410",
+      "call_target": "0x004E5CE0",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0056CE38",
+      "rva": "0x0016CE38",
+      "role": "EndFrameLateCameraBuilderCall",
+      "expected_bytes": "e86346ffff",
+      "call_target": "0x005614A0",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0056CE3D",
+      "rva": "0x0016CE3D",
+      "role": "EndFramePassSelectedCameraToDebug",
+      "expected_bytes": "8b4f048b560c51528d4e10e833ca0100",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x00589952",
+      "rva": "0x00189952",
+      "role": "DebugWorldCameraConsumer",
+      "expected_bytes": "e819020000",
+      "call_target": "0x00589B70",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0056CE60",
+      "rva": "0x0016CE60",
+      "role": "EndFrameNativeEndScene",
+      "expected_bytes": "ff918c000000",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0056CE90",
+      "rva": "0x0016CE90",
+      "role": "EndFramePresentCall",
+      "expected_bytes": "e83be2feff",
+      "call_target": "0x0055B0D0",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0056CE95",
+      "rva": "0x0016CE95",
+      "role": "PostPresentTimerCalls",
+      "expected_bytes": "e886ec01008bc8e8cfe90100",
+      "call_target": "0x0058BB20",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0056CF43",
+      "rva": "0x0016CF43",
+      "role": "EndFrameNormalEpilogue_RET0",
+      "expected_bytes": "5f5e5d5b83c410c3",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0056CF4B",
+      "rva": "0x0016CF4B",
+      "role": "EndFrameAlternateEpilogue_RET0",
+      "expected_bytes": "ddd85f5e5d5b83c410c3",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x005B015A",
+      "rva": "0x001B015A",
+      "role": "CountdownSkipsScheduler",
+      "expected_bytes": "85ff75118b442410",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x005B0166",
+      "rva": "0x001B0166",
+      "role": "MainLoopSchedulerCall",
+      "expected_bytes": "e8152f0a00",
+      "call_target": "0x00653080",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x005B016B",
+      "rva": "0x001B016B",
+      "role": "ImmediateCallerContinuation",
+      "expected_bytes": "ff44241484db0f84b7fdffff6a00ff1520f2680050ff1544f16800e9a3fdffff",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x005AFF55",
+      "rva": "0x001AFF55",
+      "role": "MainLoopMessagePumpCall",
+      "expected_bytes": "e8e6f209008bc8e85ff2090084c0",
+      "call_target": "0x0064F240",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x005AFF5C",
+      "rva": "0x001AFF5C",
+      "role": "MainLoopDispatchMessages",
+      "expected_bytes": "e85ff20900",
+      "call_target": "0x0064F1C0",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004F2A02",
+      "rva": "0x000F2A02",
+      "role": "CameraProducerSnapAndHistoryWrites",
+      "expected_bytes": "385e04740c558d4e38e85024f1ff885e04399ec8000000740f558d4e38e83c24f1ffff8ec8000000",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0048E6E5",
+      "rva": "0x0008E6E5",
+      "role": "RaceLimitsRenameCall",
+      "expected_bytes": "e806730600",
+      "call_target": "0x004F59F0",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0048E706",
+      "rva": "0x0008E706",
+      "role": "RaceLimitsAIConstructorCall",
+      "expected_bytes": "e865f10300",
+      "call_target": "0x004CD870",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0048E717",
+      "rva": "0x0008E717",
+      "role": "RaceLimitsAIInitialAttachCall",
+      "expected_bytes": "e834720600",
+      "call_target": "0x004F5950",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004F59FC",
+      "rva": "0x000F59FC",
+      "role": "ActorRenameUnregisters",
+      "expected_bytes": "e84f8c0100",
+      "call_target": "0x0050E650",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004F5A13",
+      "rva": "0x000F5A13",
+      "role": "ActorRenameRegisters",
+      "expected_bytes": "e8388a0100",
+      "call_target": "0x0050E450",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0050E45B",
+      "rva": "0x0010E45B",
+      "role": "RegistryIndexesActorNameID",
+      "expected_bytes": "8b685c33c93be9896c240c",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004F5975",
+      "rva": "0x000F5975",
+      "role": "AttachStoresAIThenInitializes",
+      "expected_bytes": "894cbe0474198b1156ff5214",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004F5840",
+      "rva": "0x000F5840",
+      "role": "ActorRetirementFlagAndQueue",
+      "expected_bytes": "8a01a80275320c025688018d7118",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004CD926",
+      "rva": "0x000CD926",
+      "role": "LimitsDestructorRewritesDerivedVtable",
+      "expected_bytes": "c7062c156900",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004CD931",
+      "rva": "0x000CD931",
+      "role": "LimitsDestructorFreesParticipantArray",
+      "expected_bytes": "e8ca720e00",
+      "call_target": "0x005B4C00",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004CD999",
+      "rva": "0x000CD999",
+      "role": "LimitsDestructorWritesBaseVtable",
+      "expected_bytes": "c70690f468005ec3",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0048E855",
+      "rva": "0x0008E855",
+      "role": "RaceStarterChoosesPhaseOneOrTwo",
+      "expected_bytes": "83f80a0f9dc141408be9",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0048E953",
+      "rva": "0x0008E953",
+      "role": "RaceStarterUsesParticipantPhasePath",
+      "expected_bytes": "68700f6b00",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0048E991",
+      "rva": "0x0008E991",
+      "role": "RaceStarterWritesParticipantPhase",
+      "expected_bytes": "5552e828a504008bc8e861960400",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x005223D0",
+      "rva": "0x001223D0",
+      "role": "SceneRequestStoresRequestedID",
+      "expected_bytes": "894604",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0052241E",
+      "rva": "0x0012241E",
+      "role": "SceneRequestStartsCountdown",
+      "expected_bytes": "c7460c03000000",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0052243A",
+      "rva": "0x0012243A",
+      "role": "SceneLoadJobVtable",
+      "expected_bytes": "c706101b6900",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0052D633",
+      "rva": "0x0012D633",
+      "role": "SceneJobUnloadCall",
+      "expected_bytes": "e8484effff",
+      "call_target": "0x00522480",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0052D6A4",
+      "rva": "0x0012D6A4",
+      "role": "SceneJobCommitCall",
+      "expected_bytes": "e8d74fffff",
+      "call_target": "0x00522680",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x005B0083",
+      "rva": "0x001B0083",
+      "role": "MainUpdateDispatchesLoadJobs",
+      "expected_bytes": "e8d8a5f9ff8b108bc8ff12",
+      "call_target": "0x0054A660",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x005FC967",
+      "rva": "0x001FC967",
+      "role": "JobRequestQueuesWithoutImmediateDispatch",
+      "expected_bytes": "894e1c751083c610e8ecdcf4ff83c01c8b4008eb0b83c610e8dcdcf4ff83c01c",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0054A3FE",
+      "rva": "0x0014A3FE",
+      "role": "JobFileOpenFailureBranch",
+      "expected_bytes": "84c0745d",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0054A45F",
+      "rva": "0x0014A45F",
+      "role": "JobFileOpenFailureCallback",
+      "expected_bytes": "8bcee8ea250b00",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x005FCA82",
+      "rva": "0x001FCA82",
+      "role": "JobFileOpenFailureVirtualCallback",
+      "expected_bytes": "8b07ff50045f5ec3",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x005FCB19",
+      "rva": "0x001FCB19",
+      "role": "JobSuccessVirtualExecute",
+      "expected_bytes": "8b07ff500c5f5ec20c00",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x00691B10",
+      "rva": "0x00291B10",
+      "role": "SceneJobVtableCallbacks",
+      "expected_bytes": "60245200e0d5520000d6520020d65200",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x006E42A0",
+      "rva": "0x002E42A0",
+      "role": "RaceLimitsInternedNameText",
+      "expected_bytes": "526163654c696d69747300",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x006B0F70",
+      "rva": "0x002B0F70",
+      "role": "ParticipantRaceStatePathText",
+      "expected_bytes": "526163652f43617225642f526163655374617465",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x005223BD",
+      "rva": "0x001223BD",
+      "role": "RequestStoredBeforeObservedCall",
+      "expected_bytes": "8b07686c7c6e008d4c2414c744240c00000000894604e8f8edfaff",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x00522446",
+      "rva": "0x00122446",
+      "role": "QueueCallerThreeArguments",
+      "expected_bytes": "8b4424188b542414508d44240c5250e8f6b00000",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0052D698",
+      "rva": "0x0012D698",
+      "role": "CommitCallerBooleanAndManager",
+      "expected_bytes": "8b4c240c51e89e50ffff8bc8e8d74fffff",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0048E70F",
+      "rva": "0x0008E70F",
+      "role": "RaceLimitsAttachSlotAndAI",
+      "expected_bytes": "50538bce896c2428e834720600",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004F61F3",
+      "rva": "0x000F61F3",
+      "role": "PendingActorTransferredToLiveList",
+      "expected_bytes": "0fbe466c8d4e608d1440518b4c952ce8d9000000",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004F5846",
+      "rva": "0x000F5846",
+      "role": "RetirementBitBeforeObservedCall",
+      "expected_bytes": "0c025688018d7118e8bd0a0000",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004F5780",
+      "rva": "0x000F5780",
+      "role": "DestructorBeforeUnregisterAndArrayFree",
+      "expected_bytes": "53568bf15756e8850b0000",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x005223D3",
+      "rva": "0x001223D3",
+      "role": "RequestObservedCall",
+      "expected_bytes": "e8f8edfaff",
+      "call_target": "0x004D11D0",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x00522455",
+      "rva": "0x00122455",
+      "role": "RequestQueueObservedCall",
+      "expected_bytes": "e8f6b00000",
+      "call_target": "0x0052D550",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004F6202",
+      "rva": "0x000F6202",
+      "role": "LiveAdmissionObservedCall",
+      "expected_bytes": "e8d9000000",
+      "call_target": "0x004F62E0",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004F584E",
+      "rva": "0x000F584E",
+      "role": "RetirementObservedCall",
+      "expected_bytes": "e8bd0a0000",
+      "call_target": "0x004F6310",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004F5786",
+      "rva": "0x000F5786",
+      "role": "DestructionObservedCall",
+      "expected_bytes": "e8850b0000",
+      "call_target": "0x004F6310",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004D45C2",
+      "rva": "0x000D45C2",
+      "role": "PoolRecordInlineTextAddress",
+      "expected_bytes": "8d5508",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004D45CB",
+      "rva": "0x000D45CB",
+      "role": "PoolVectorReceivesTextPointer",
+      "expected_bytes": "52",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004D45D8",
+      "rva": "0x000D45D8",
+      "role": "PoolAppendTextPointerCall",
+      "expected_bytes": "8b4b04e820070000",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004D4D00",
+      "rva": "0x000D4D00",
+      "role": "PoolAppendKeepsCallerPointer",
+      "expected_bytes": "568bf18d4424088b4e08506a01518bcee82baff9ff",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004F6304",
+      "rva": "0x000F6304",
+      "role": "LiveTransferRET4",
+      "expected_bytes": "c20400",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0052D6CA",
+      "rva": "0x0012D6CA",
+      "role": "SceneExecuteRET0",
+      "expected_bytes": "c3",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x00522330",
+      "rva": "0x00122330",
+      "role": "RequestOuterReturnStackPrefix",
+      "expected_bytes": "5156578b7c24108b",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004AA0AC",
+      "rva": "0x000AA0AC",
+      "role": "SinglePlayerHUDRequestFlagsAndOrigin",
+      "expected_bytes": "6a018d4424086a0050e8868607008bc8e86f820700",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0047B8F0",
+      "rva": "0x0007B8F0",
+      "role": "QuickRaceMode1Branch",
+      "expected_bytes": "83f801747ee8062e03008bc8",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    }
+  ],
+  "evidence_grade": "CONFIRMED_BY_EXE",
+  "scope": {
+    "pre_call_va": "0x006532DD",
+    "pre_call_rva": "0x002532DD",
+    "completion_call_va": "0x005B0166",
+    "completion_call_rva": "0x001B0166",
+    "original_scheduler_va": "0x00653080",
+    "cleanup_bytes": 4,
+    "owned_ranges": [
+      "0x08..0x37",
+      "0x38..0x77",
+      "0x88..0xC7"
+    ],
+    "owned_bytes": 176,
+    "restore": "after scheduler returns, not Present"
+  },
+  "admission": {
+    "scene_generation_is_not_race_generation": true,
+    "hud_request_origin_va": "0x004AA0C1",
+    "course_names": [
+      "RaceTest/France1",
+      "DataScene/RaceTest/France1.xml"
+    ],
+    "owner_checks": [
+      "storage_readable",
+      "native_live_unique",
+      "temporal_match"
+    ],
+    "race_types": [
+      1,
+      2
+    ],
+    "type1_max_cars": 1,
+    "type2_max_cars": 8
+  },
+  "freecam": {
+    "implemented": true,
+    "default_enabled": false,
+    "exact_retail_only": true,
+    "tracing_required": false,
+    "native_abi_validation": "see A3d validation.md",
+    "in_game_validation": "PENDING"
+  },
+  "warning": "Static byte checks do not grant a live certificate or prove in-game flight."
+}

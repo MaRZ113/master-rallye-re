@@ -6,7 +6,7 @@ import tempfile
 import unittest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
 from analyze_race_epoch import summarize, read_snapshots, MAX_LINE
-from inspect_camera_scope import ROOT, SITES, epoch_observer_evidence
+from inspect_camera_scope import ROOT, SITES, A3D_SITES, epoch_observer_evidence
 
 
 def record():
@@ -26,10 +26,10 @@ class RaceEpochEvidenceTests(unittest.TestCase):
 
     def test_cpp_contexts_match_exact_image_inspector(self):
         # Independent verifier and production installer must pin identical caller context.
-        rows = {va: signature for va, _, signature, _ in SITES}
+        rows = {va: signature for va, _, signature, _ in SITES + A3D_SITES}
         header = (ROOT / 'include/race_epoch.hpp').read_text()
         contexts = re.findall(r'\{(0x[0-9a-f]+),"[^"]+","([0-9a-f]+)"\}', header)
-        self.assertEqual(len(contexts), 8)
+        self.assertEqual(len(contexts), 11)
         for va, signature in contexts:
             self.assertEqual(rows[int(va, 16)], signature)
 

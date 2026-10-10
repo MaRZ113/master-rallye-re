@@ -1,4 +1,4 @@
-"""Summarize bounded A3c F10 lifecycle records, without granting a race certificate."""
+"""Summarize bounded A3c/A3d F10 lifecycle records, without granting a race certificate."""
 import argparse
 import json
 from pathlib import Path
@@ -7,9 +7,31 @@ MAX_FILE = 64 * 1024 * 1024
 MAX_LINE = 2 * 1024 * 1024
 
 
+def reconcile_a3c(record):
+    """Reconcile the actual poisoned observations; never synthesize missing jobs."""
+    if record.get('phase') != 'R-CAM1-A3c':
+        raise ValueError('Reconciliation requires a historical A3c snapshot')
+    events = record.get('events', [])
+    owner = record.get('owner', {})
+    first = next((e for e in events if e.get('reason') == 'request_during_execute'), None)
+    initializers = [e for e in events if e.get('event') == 'owner_initializer_return' and
+                    e.get('owner_lifetime') == owner.get('lifetime')]
+    later = [e for e in events if e.get('event') == 'request' and initializers and
+             e['serial'] > initializers[-1]['serial']]
+    return dict(camera_writes_authorized=False, first_false_poison_serial=first.get('serial') if first else None,
+                request_inside_execution_observed=bool(first and first.get('job_lifetime')),
+                owner_generation=owner.get('generation'), latest_scene_generation=record.get('request_generation'),
+                owner_lifetime=owner.get('lifetime'),
+                scene_request_after_owner_initialization=bool(later),
+                successful_job_history_complete=False,
+                observed_retirements=[e['serial'] for e in events if e.get('event') in ('owner_retire', 'owner_destroy')],
+                native_owner_checks='NOT_REACHED' if owner.get('reason') == 'no_current_owner_lifetime' else 'UNKNOWN',
+                relationship='Ancestry needs native caller/active-job proof; scene counter difference does not prove retirement.')
+
+
 def summarize(record):
-    if record.get('type') != 'race_epoch_snapshot' or record.get('phase') != 'R-CAM1-A3c':
-        raise ValueError('Not an A3c race-epoch snapshot')
+    if record.get('type') != 'race_epoch_snapshot' or record.get('phase') not in ('R-CAM1-A3c','R-CAM1-A3d'):
+        raise ValueError('Not an A3c/A3d race-epoch snapshot')
     if record.get('camera_writes_authorized') is not False:
         raise ValueError('Observation pilot must not authorize camera writes')
     events, jobs = record.get('events', []), record.get('jobs', [])
@@ -37,7 +59,9 @@ def summarize(record):
                            event_serial=event['serial']))
     return dict(
         diagnostic_only=True, camera_writes_authorized=False,
-        status='BLOCKED_ON_RACE_EPOCH_CORRELATION',
+        status='BLOCKED_ON_RACE_EPOCH_CORRELATION' if record['phase']=='R-CAM1-A3c' else 'OFFLINE_DIAGNOSTIC_NOT_LIVE_CERTIFICATE',
+        race_lifecycle_generation=record.get('race_lifecycle_generation'),free_camera=record.get('free_camera'),
+        reconciliation=reconcile_a3c(record) if record['phase']=='R-CAM1-A3c' else None,
         request_generation=record.get('request_generation'),
         successful_generation=record.get('successful_generation'),
         native_observer_installed=record.get('installed'),

@@ -8,47 +8,53 @@
 using namespace gfx2;
 void complete(RaceEpoch& e,uint32_t job=100,uint32_t actor=200){
  e.request(8);e.queue(job,8,11,true);e.begin(job,true);e.attach(actor,actor+8,true);
- e.initialized(actor,actor+8,true);e.commit(8,true);CHECK(e.successful_generation==0);
- e.end(job);e.admitted(actor,true);CHECK(e.correlated_owner_candidate()==(!e.poisoned&&!e.find(job)->reused));CHECK(!e.authorizes_camera_writes());
+ e.initialized(actor,actor+8,true);e.commit(8,true);e.end(job);e.admitted(actor,true);CHECK(e.correlated_owner_candidate()==!e.poisoned&&!e.authorizes_camera_writes());
 }
 void epochs(){
- RaceEpoch e;CHECK(!e.correlated_owner_candidate()&&!e.authorizes_camera_writes());e.begin(100,true);CHECK(e.generation==0&&e.successful_generation==0);
- e=RaceEpoch{};complete(e);auto old_lifetime=e.owner.lifetime;auto old_generation=e.generation;
- e.request(8);CHECK(e.generation==old_generation+1&&e.successful_generation==0&&!e.correlated_owner_candidate());
- e.queue(101,8,11,true);e.error(101,false);CHECK(e.phase==RacePhase::Failed&&e.committed_scene==8&&!e.correlated_owner_candidate());
- // Relocation/countdown/old participant flags have no event capable of making success.
- e.admitted(200,true);CHECK(!e.correlated_owner_candidate());
- e.request(8);e.queue(102,8,11,true);e.begin(102,true);e.retire(200,true);CHECK(e.phase==RacePhase::Executing);
- e.attach(200,208,true);CHECK(e.owner.lifetime>old_lifetime&&e.owner.generation==e.generation);
- e.initialized(200,208,true);e.commit(8,true);e.end(102);e.admitted(200,true);CHECK(e.correlated_owner_candidate());
+ RaceEpoch e;CHECK(!e.correlated_owner_candidate());e.begin(100,true);CHECK(!e.poisoned);
+ complete(e);auto old=e.owner.lifetime;auto gen=e.race_generation;e.request(8);
+ CHECK(e.race_generation==gen+1&&!e.correlated_owner_candidate());e.queue(101,8,11,true);e.error(101,false);CHECK(!e.poisoned&&e.phase==RacePhase::Failed);
+ e.retire(200,true);complete(e,100,200);CHECK(e.owner.lifetime>old&&e.find(100)->reused&&e.correlated_owner_candidate());
  e.retire(200,false);CHECK(!e.correlated_owner_candidate());
- // Completed fallback is not completed supported success.
- e=RaceEpoch{};e.request(8);e.queue(100,8,11,true);e.begin(100,true);e.commit(9,false);e.end(100);CHECK(e.phase==RacePhase::Failed&&e.successful_generation==0);
- e=RaceEpoch{};e.request(8);e.queue(100,8,11,true);e.begin(100,true);e.commit(8,true);e.error(100,true);e.end(100);CHECK(e.phase==RacePhase::Failed&&!e.successful_generation);
- e=RaceEpoch{};e.request(8);e.queue(100,8,11,true);e.begin(100,true);e.begin(100,true);CHECK(e.poisoned&&!e.successful_generation);
- // An old completion after a newer request rejects; a fresh fully observed request recovers.
- e=RaceEpoch{};e.request(8);e.queue(100,8,11,true);e.request(8);e.queue(101,8,11,true);e.begin(100,true);e.commit(8,true);e.end(100);CHECK(!e.successful_generation);
- complete(e,102,200);CHECK(e.correlated_owner_candidate());e.end(102);CHECK(!e.successful_generation); // Duplicate completion.
- e=RaceEpoch{};e.request(8);e.queue(100,8,11,false);CHECK(!e.find(100));
- e=RaceEpoch{};e.request(8);e.queue(100,8,11,true);e.queue(100,8,11,true);CHECK(!e.successful_generation);
- // Reused job address gets a new serial but cannot inherit the old proof.
- e=RaceEpoch{};complete(e);auto serial=e.job_serial;e.retire(200,true);complete(e,100,201);
- CHECK(e.job_serial>serial&&e.find(100)->reused&&!e.correlated_owner_candidate());
+ e=RaceEpoch{};e.request(8);e.queue(100,8,11,true);e.begin(100,true);e.commit(9,false);e.end(100);CHECK(e.phase==RacePhase::Failed);
+ e=RaceEpoch{};e.request(8);e.queue(100,8,11,true);e.begin(100,true);e.commit(8,true);e.error(100,true);e.end(100);CHECK(!e.successful_generation);
+ e=RaceEpoch{};e.request(8);e.queue(100,8,11,true);e.begin(100,true);e.begin(100,true);CHECK(e.poisoned);
+ e=RaceEpoch{};e.request(8);e.queue(100,8,11,true);e.request(9);e.queue(101,9,12,true);e.begin(100,true);e.commit(9,true);e.end(100);CHECK(!e.successful_race_generation);complete(e,102,200);
+ e.end(102);CHECK(e.poisoned&&!e.correlated_owner_candidate());
+ e=RaceEpoch{};e.request(8);e.queue(100,8,11,false);CHECK(!e.find(100));e.queue(100,8,11,true);e.queue(100,8,11,true);CHECK(!e.successful_generation);
 }
 void ordering(){
- RaceEpoch e;e.request(8);e.queue(100,8,11,true);e.begin(100,true);e.commit(8,true);e.end(100);
- e.attach(200,208,true);e.initialized(200,208,true);e.admitted(200,true);
- CHECK(!e.correlated_owner_candidate()&&!e.owner.execution_job_lifetime); // Later update is NOT guessed current owner.
- e=RaceEpoch{};e.request(8);e.queue(100,8,11,true);e.begin(100,true);e.attach(200,208,true);e.commit(8,true);e.end(100);e.admitted(200,true);CHECK(!e.correlated_owner_candidate());
- e.initialized(200,208,true);CHECK(e.correlated_owner_candidate());
- e.cancel(RaceEvent::Reset,"reset");CHECK(!e.correlated_owner_candidate());e.admitted(200,true);CHECK(!e.correlated_owner_candidate());
- e.cancel(RaceEvent::Release,"release");CHECK(!e.authorizes_camera_writes());
- e=RaceEpoch{};complete(e);e.request(9);e.queue(101,9,12,true);e.begin(101,true);e.request(8);CHECK(e.poisoned&&!e.correlated_owner_candidate());
- e=RaceEpoch{};e.generation=UINT64_MAX;e.request(8);CHECK(e.poisoned&&e.generation==UINT64_MAX);
- e=RaceEpoch{};e.job_serial=UINT64_MAX;e.request(8);e.queue(100,8,11,true);CHECK(e.poisoned);
- e=RaceEpoch{};for(unsigned i=0;i<200;++i)e.request(i);CHECK(e.events_used==128&&e.chronological(0).serial==73&&e.chronological(127).serial==200);
- e=RaceEpoch{};for(unsigned i=0;i<65;++i){e.request(8);e.queue(i+1,8,11,true);e.error(i+1,false);}CHECK(e.poisoned&&e.jobs_used==64);
- e=RaceEpoch{};CHECK(e.validate_thread(7,7));CHECK(!e.validate_thread(7,8)&&e.poisoned);e.request(8);e.queue(100,8,11,true);CHECK(!e.correlated_owner_candidate());
+ // Unmodified golden prefix: these are the actual first four event inputs.
+ // A3c lost subsequent success callbacks; do not invent them in this replay.
+ RaceEpoch golden;golden.request(1966,"frontend");golden.queue(54744440,1966,8126,true,1,1,"DataScene/frontend.xml");golden.begin(54744440,true);
+ golden.request(8171);CHECK(!golden.poisoned&&golden.execution_depth==1&&golden.request_parent_lifetime==1&&!golden.correlated_owner_candidate());
+ RaceEpoch e;e.request(8);e.queue(100,8,11,true);e.begin(100,true);
+ // Actual A3c event4: a request during execution is valid ancestry, not process poisoning.
+ e.request(9);e.queue(101,9,12,true);CHECK(!e.poisoned&&e.find(101)->parent_lifetime==e.find(100)->lifetime);
+ e.commit(9,true);e.end(100);CHECK(!e.poisoned&&e.find(100)->terminal);e.begin(101,true);e.commit(9,true);e.end(101);
+ CHECK(!e.correlated_owner_candidate());
+ // Independently exercise synchronous nesting and return to parent.
+ e=RaceEpoch{};e.request(8);e.queue(100,8,11,true);e.begin(100,true);e.request(9);e.queue(101,9,12,true);e.begin(101,true);
+ CHECK(e.execution_depth==2);e.commit(9,true);e.end(101);CHECK(e.executing_job==100);e.commit(9,true);e.end(100);CHECK(!e.execution_depth&&!e.poisoned);
+ // Owner constructed and HUD requested within the same native execution, then deferred HUD job.
+ for(unsigned first:{7u,19u}){e=RaceEpoch{};e.generation=first-1;
+  e.request(9269,"RaceTest/France1");e.queue(100,9269,12,true,1,0,"DataScene/RaceTest/France1.xml");e.begin(100,true);e.attach(200,208,true);e.initialized(200,208,true);
+  auto race=e.race_generation;auto lifetime=e.owner.lifetime;
+  e.request(9801,"Hud/Hud0",0x4aa0c1);e.queue(101,9801,13,true,1,0,"DataScene/Hud/Hud0.xml");
+  CHECK(e.generation==first+1&&e.race_generation==race&&e.owner.generation==first&&e.owner.lifetime==lifetime);
+  e.commit(9801,true);e.end(100);e.admitted(200,true);CHECK(!e.correlated_owner_candidate());
+  e.begin(101,true);e.commit(9801,true);e.end(101);CHECK(e.correlated_owner_candidate()&&e.course_identity_verified());
+  e.request(9269,"RaceTest/France1");CHECK(!e.correlated_owner_candidate()&&e.race_generation!=race);
+ }
+ // HUD name with unknown origin and child failures never inherit proof.
+ for(bool bad_origin:{false,true}){e=RaceEpoch{};e.request(8);e.queue(100,8,11,true);e.begin(100,true);e.attach(200,208,true);e.initialized(200,208,true);
+  e.request(9,"Hud/Hud0",bad_origin?0:0x4aa0c1);e.queue(101,9,12,true,1,0);e.commit(9,true);e.end(100);e.admitted(200,true);
+  if(!bad_origin)e.error(101,false);else {e.begin(101,true);e.commit(9,true);e.end(101);}CHECK(!e.correlated_owner_candidate());}
+ e=RaceEpoch{};complete(e);e.cancel(RaceEvent::Reset,"reset");CHECK(!e.correlated_owner_candidate());e.admitted(200,true);CHECK(!e.correlated_owner_candidate());
+ e=RaceEpoch{};e.generation=UINT64_MAX;e.request(8);CHECK(e.poisoned);e=RaceEpoch{};e.job_serial=UINT64_MAX;e.request(8);e.queue(100,8,11,true);CHECK(e.poisoned);
+ e=RaceEpoch{};for(unsigned i=0;i<200;++i)e.request(i);CHECK(e.events_used==128&&e.chronological(0).serial==73);
+ e=RaceEpoch{};for(unsigned i=0;i<200;++i){e.request(8);e.queue(i+1,8,11,true);e.error(i+1,false);}CHECK(!e.poisoned&&e.jobs_used==64);
+ e=RaceEpoch{};CHECK(e.validate_thread(7,7));CHECK(!e.validate_thread(7,8)&&e.poisoned);complete(e);CHECK(!e.correlated_owner_candidate());
 }
 void context(){
  std::array<RaceScalar,9> f{};for(size_t i=0;i<f.size();++i)f[i]={true,RACE_CONTEXT_TAGS[i],0};
@@ -56,8 +62,27 @@ void context(){
  CHECK(check_race_context(f,owner).supported);
  for(size_t i=0;i<f.size();++i){auto bad=f;bad[i].present=false;CHECK(!check_race_context(bad,owner).supported);bad=f;bad[i].tag=99;CHECK(!check_race_context(bad,owner).supported);}
  for(size_t i=3;i<=6;++i){auto bad=f;bad[i].value=1;CHECK(!check_race_context(bad,owner).supported);}
- for(auto pair:{std::pair<size_t,int>{0,1},{1,2},{2,1},{7,1},{8,9},{8,3}}){auto bad=f;bad[pair.first].value=pair.second;CHECK(!check_race_context(bad,owner).supported);}
+ for(auto pair:{std::pair<size_t,int>{0,7},{1,2},{2,1},{7,1},{8,9},{8,3}}){auto bad=f;bad[pair.first].value=pair.second;CHECK(!check_race_context(bad,owner).supported);}
  owner.participant_states_ready=false;CHECK(!check_race_context(f,owner).supported);owner.participant_states_ready=true;owner.valid=false;CHECK(!check_race_context(f,owner).supported);
+}
+void certificate(){
+ RaceEpoch e;e.request(9269,"RaceTest/France1");e.queue(100,9269,10,true,1,0,"DataScene/RaceTest/France1.xml");e.begin(100,true);e.attach(200,208,true);e.initialized(200,208,true);
+ e.request(9801,"Hud/Hud0",0x4aa0c1);e.queue(101,9801,11,true,1,0,"DataScene/Hud/Hud0.xml");e.commit(9801,true);e.end(100);e.begin(101,true);e.commit(9801,true);e.end(101);e.admitted(200,true);
+ std::array<RaceScalar,9> f{};for(size_t i=0;i<f.size();++i)f[i]={true,RACE_CONTEXT_TAGS[i],0};f[0].value=1;f[1].value=f[8].value=1;
+ RaceOwnerRead o;o.valid=o.storage_readable=o.native_live_unique=o.temporal_match=o.arrays_ready=o.participant_states_ready=true;o.count=1;
+ CHECK(check_live_race_certificate(e,o,f,true,300).valid);
+ CHECK(!check_live_race_certificate(e,o,f,false,300).valid);
+ for(size_t i=0;i<9;++i){auto v=f;v[i].present=false;CHECK(!check_live_race_certificate(e,o,v,true,300).valid);v=f;v[i].tag=99;CHECK(!check_live_race_certificate(e,o,v,true,300).valid);}
+ for(size_t i=3;i<=6;++i){auto v=f;v[i].value=1;CHECK(!check_live_race_certificate(e,o,v,true,300).valid);}
+ auto saved=o;o.temporal_match=false;CHECK(!check_live_race_certificate(e,o,f,true,300).valid);o=saved;o.native_live_unique=false;CHECK(!check_live_race_certificate(e,o,f,true,300).valid);o=saved;
+ // Type1 is the native QuickRace mode1 branch without AI chooser. Type2 supports bounded actual arrays.
+ for(unsigned n=1;n<=8;++n){f[0].value=2;f[8].value=n;o.count=n;CHECK(check_live_race_certificate(e,o,f,true,300).valid);}f[8].value=9;CHECK(!check_live_race_certificate(e,o,f,true,300).valid);
+ f[0].value=1;f[8].value=1;o.count=1;auto stale=e;stale.cancel(RaceEvent::Reset,"Reset");CHECK(!check_live_race_certificate(stale,o,f,true,300).valid);
+ stale=e;stale.retire(200,true);CHECK(!check_live_race_certificate(stale,o,f,true,300).valid);stale=e;stale.request(9269,"RaceTest/France1");CHECK(!check_live_race_certificate(stale,o,f,true,300).valid);
+ stale=e;stale.poisoned=true;CHECK(!check_live_race_certificate(stale,o,f,true,300).valid);stale=e;stale.jobs[0].source_text[0]='?';CHECK(!check_live_race_certificate(stale,o,f,true,300).valid);
+ stale=e;stale.jobs[1].failed=true;CHECK(!check_live_race_certificate(stale,o,f,true,300).valid);
+ // A canceled parent completion cannot revive an old certificate.
+ stale=RaceEpoch{};stale.request(1);stale.queue(100,1,1,true);stale.begin(100,true);stale.attach(200,208,true);stale.initialized(200,208,true);stale.cancel(RaceEvent::Reset,"Reset");stale.commit(1,true);stale.end(100);stale.admitted(200,true);CHECK(!stale.correlated_owner_candidate());
 }
 struct ReadFixture:RaceReadMemory {
  std::map<uint32_t,uint8_t> bytes;uint32_t cursor=0x10000000;size_t array_reads=0;
@@ -93,7 +118,7 @@ void reads(){
  OwnerFixture m;char text[64]{};CHECK(race_pool_text(m,0x400000,1,text,64)&&!std::strcmp(text,"RaceLimits"));uint32_t id=0;CHECK(race_pool_id(m,0x400000,"RaceLimits",id)&&id==1);
  auto v=race_broker_scalar(m,0x400000,2,2);CHECK(v.present&&v.value==2);CHECK(!race_broker_scalar(m,0x400000,2,0).present);CHECK(!race_broker_scalar(m,0x400000,99,2).present);
  auto r=read_race_owner(m,0x400000,m.identity,1);CHECK(r.valid&&r.arrays_ready&&r.participant_states_ready&&r.count==1&&r.live_memberships==1);
- m.array_reads=0;CHECK(!read_race_owner(m,0x400000,m.identity,2).valid&&!m.array_reads);m.bytes[m.actor]=2;r=read_race_owner(m,0x400000,m.identity,1);CHECK(!r.valid&&m.array_reads==0);
+ m.array_reads=0;CHECK(read_race_owner(m,0x400000,m.identity,2).valid&&m.array_reads);m.array_reads=0;m.bytes[m.actor]=2;r=read_race_owner(m,0x400000,m.identity,1);CHECK(!r.valid&&m.array_reads==0);
  m.bytes[m.actor]=0;m.put(m.bucket+8,0); // malformed registry fails before arrays.
  m.array_reads=0;r=read_race_owner(m,0x400000,m.identity,1);CHECK(!r.valid&&!m.array_reads);
  OwnerFixture pending;pending.sentinel(pending.live_head);pending.member(pending.manager+0x10,pending.actor);r=read_race_owner(pending,0x400000,pending.identity,1);CHECK(!r.valid&&r.pending_memberships==1&&pending.array_reads==0);
@@ -126,7 +151,7 @@ void patches(){
 }
 struct AnchorFixture:PatchMemory {
  std::map<uintptr_t,std::vector<unsigned char>> bytes;
- AnchorFixture(){for(auto& a:RACE_OBSERVER_CONTEXTS){std::vector<unsigned char> b;for(size_t i=0;i<std::strlen(a.bytes);i+=2){char h[3]={a.bytes[i],a.bytes[i+1],0};b.push_back(static_cast<unsigned char>(std::stoul(h,nullptr,16)));}bytes[a.va]=b;}}
+ AnchorFixture(){auto add=[&](const RaceNativeAnchor& a){std::vector<unsigned char> b;for(size_t i=0;i<std::strlen(a.bytes);i+=2){char h[3]={a.bytes[i],a.bytes[i+1],0};b.push_back(static_cast<unsigned char>(std::stoul(h,nullptr,16)));}bytes[a.va]=b;};for(auto& a:RACE_OBSERVER_CONTEXTS)add(a);for(auto& a:RACE_A3D_CONTEXTS)add(a);}
  bool read(void* d,const void* s,size_t n) noexcept override {auto i=bytes.find(reinterpret_cast<uintptr_t>(s));if(i==bytes.end()||n!=i->second.size())return false;std::memcpy(d,i->second.data(),n);return true;}
  bool write(void*,const void*,size_t) noexcept override{return false;}
  bool protect(void*,size_t,DWORD,DWORD&) noexcept override{return false;}
@@ -135,6 +160,7 @@ struct AnchorFixture:PatchMemory {
 void anchors(){
  AnchorFixture m;CHECK(race_observer_context_valid(m,0x400000));CHECK(!race_observer_context_valid(m,0x500000));
  for(auto& a:RACE_OBSERVER_CONTEXTS){m.bytes[a.va][0]^=1;CHECK(!race_observer_context_valid(m,0x400000));m.bytes[a.va][0]^=1;}
+ for(auto& a:RACE_A3D_CONTEXTS){m.bytes[a.va][0]^=1;CHECK(!race_observer_context_valid(m,0x400000));m.bytes[a.va][0]^=1;}
 }
 namespace {
 uint32_t native_calls=0,callbacks=0,callback_alignment=0,last_kind=0,native_ecx=0,native_edx=0,native_flags=0,output_flags=0;
@@ -142,8 +168,9 @@ uint32_t native_ebx=0,native_esi=0,native_edi=0,native_ebp=0,args[3]{},after_eax
 alignas(16) unsigned char host_fp[512],input_fp[512],native_fp[512],output_fp[512],after_fp[512];
 alignas(16) unsigned int mxcsr_input=0x3f80,mxcsr_output=0x5f80;
 uintptr_t selected_bridge=0;bool callback_enabled=true,want_reentry=false,in_reentry=false;
-race_bridge::Saved callback_input{};
-void __stdcall callback_body(uint32_t kind,const race_bridge::Saved* input){++callbacks;last_kind=kind;if(callback_enabled)callback_input=*input;
+race_bridge::Saved callback_input{};bool verify_origin=false,origin_ok=false;uint32_t expected_origin=0;
+struct ProcessReader:RaceReadMemory {bool read(uint32_t p,void* d,size_t n) noexcept override{return safe_copy(d,reinterpret_cast<const void*>(p),n);}} process_reader;
+void __stdcall callback_body(uint32_t kind,const race_bridge::Saved* input){++callbacks;last_kind=kind;if(verify_origin){uint32_t origin=0;origin_ok=race_bridge::request_origin(process_reader,*input,origin)&&origin==expected_origin;}if(callback_enabled)callback_input=*input;
  if(kind==12&&want_reentry&&!in_reentry){in_reentry=true;race_bridge::execute();in_reentry=false;}
  __asm {fninit} __asm {fldz} __asm {pxor xmm0,xmm0} __asm {pxor xmm7,xmm7} __asm {clc}
 }
@@ -173,6 +200,22 @@ __declspec(naked) void run0(){START __asm {call selected_bridge} FINISH}
 __declspec(naked) void run1(){START __asm {push 03f123456h} __asm {call selected_bridge} FINISH}
 __declspec(naked) void run2(){START __asm {push 055aa55aah} __asm {push 03f123456h} __asm {call selected_bridge} FINISH}
 __declspec(naked) void run3(){START __asm {push 022332233h} __asm {push 055aa55aah} __asm {push 03f123456h} __asm {call selected_bridge} FINISH}
+__declspec(naked) void request_prefix(){__asm {
+ push ecx
+ push esi
+ push edi
+ push 06e7c6ch
+ call selected_bridge
+ pop edi
+ pop esi
+ pop ecx
+ ret 12
+}}
+__declspec(naked) void run_origin(){START
+ __asm {mov eax,offset origin_return} __asm {mov expected_origin,eax}
+ __asm {push 1} __asm {push 0} __asm {push 3} __asm {call request_prefix}
+ __asm {origin_return:} FINISH
+}
 bool fp_equal(const unsigned char* a,const unsigned char* b){
  if(std::memcmp(a,b,5)||std::memcmp(a+6,b+6,8)||std::memcmp(a+16,b+16,6)||std::memcmp(a+24,b+24,8))return false;
  for(unsigned i=0;i<8;++i)if(std::memcmp(a+32+i*16,b+32+i*16,10))return false;
@@ -204,6 +247,8 @@ void bridges(){
    bridge_case(reinterpret_cast<uintptr_t>(&read_error),read_error_original,reinterpret_cast<uintptr_t>(&original0),&run0,11,1,0);
   }
  }
+ callback_enabled=true;verify_origin=true;origin_ok=false;
+ selected_bridge=reinterpret_cast<uintptr_t>(&request);request_original=reinterpret_cast<uintptr_t>(&original1);run_origin();CHECK(origin_ok&&stack_before==stack_after);verify_origin=false;
  callback_enabled=true;want_reentry=true;
  bridge_case(reinterpret_cast<uintptr_t>(&execute),execute_original,reinterpret_cast<uintptr_t>(&original0),&run0,13,4,0);
  want_reentry=false;
@@ -211,5 +256,5 @@ void bridges(){
 }
 int main(int argc,char** argv){try{
  if(argc==2&&!std::strcmp(argv[1],"--snapshot-json")){std::cout<<race_epoch_capture_json(17,42)<<'\n';return 0;}
- epochs();ordering();reads();context();patches();anchors();bridges();std::cout<<"Race epochs / stale success and failure / owner lifetime and pending/live lists / readonly Broker / patch rollback / 61 real x86 ABI cases: PASS\n";return 0;
+ epochs();ordering();reads();context();certificate();patches();anchors();bridges();std::cout<<"Race epochs / stale success and failure / owner lifetime and pending/live lists / readonly Broker / patch rollback / 62 real x86 ABI cases: PASS\n";return 0;
 }catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}

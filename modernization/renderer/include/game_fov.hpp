@@ -21,6 +21,7 @@ public:
  bool install(PatchMemory&,void* site,uintptr_t destination,const std::array<unsigned char,5>& expected) noexcept;
  bool remove(PatchMemory&) noexcept;
  bool installed() const noexcept{return installed_;}
+ bool intact(PatchMemory& m) const noexcept {std::array<unsigned char,5> seen{};return installed_&&m.read(seen.data(),site_,5)&&seen==after_;}
 };
 struct CameraFrame {
  float source_angle=0;uint32_t flags=0;std::array<float,12> planes{};
@@ -45,24 +46,42 @@ struct FovCullStatus {
 bool effective_side_planes(const CameraFrame&,float vfov,std::array<float,12>& out,float& hfov) noexcept;
 class FrustumFrame {
  CameraFrame* camera_=nullptr;CameraFrame snapshot_{};std::array<float,12> effective_{};
+ std::array<float,16> effective_pose_{};bool owns_pose_=false;
 public:
  FovCullStatus status;
- bool begin(CameraFrame*,float vfov) noexcept;
+ bool begin(CameraFrame*,float vfov,const std::array<float,16>* pose=nullptr) noexcept;
  bool matches(const CameraFrame*,const D3DMATRIX&) const noexcept;
  bool restore() noexcept;
+ void abandon() noexcept {camera_=nullptr;status.synchronized=false;status.restored=false;++status.failures;status.reason="camera_identity_lost_no_stale_dereference";}
 };
+struct FlightState;
 class GameFov {
  uintptr_t base_=0;DWORD thread_=0;float vfov_=0;bool enabled_=false;
  CallPatch patch_;FrustumFrame frame_;
+ CallPatch completion_;FlightState* flight_=nullptr;unsigned scheduler_depth_=0;bool fov_enabled_=false;
  CameraSubmissionSnapshot submission_{};
 public:
  GameFov()=default;~GameFov();GameFov(const GameFov&)=delete;GameFov& operator=(const GameFov&)=delete;
- bool install(bool exact,const VisualConfig&) noexcept;
+ bool install(bool exact,const VisualConfig&,HWND window=nullptr,bool exact_retail=false) noexcept;
  void disable(const char* reason) noexcept;
  void before_submit(unsigned index) noexcept;
  void submission_snapshot(uintptr_t expected_camera,CameraSubmissionSnapshot& out) const noexcept;
  bool allows(const D3DMATRIX&) const noexcept;
  void finish_frame() noexcept;
+ void cancel_frame() noexcept;
+ void cancel_lifecycle(const char* reason) noexcept;
+ void scheduler_begin() noexcept;
+ void scheduler_end() noexcept;
+ void stock_view(const D3DMATRIX&) noexcept;
+ bool free_camera_configured() const noexcept;
+ bool free_camera_active() const noexcept;
+ std::string camera_json() const;
  FovCullStatus status() const noexcept{return frame_.status;}
 };
+namespace camera_bridge {
+ struct Saved {uint32_t edi,esi,ebp,esp,ebx,edx,ecx,eax,flags,return_pc,args[1];};
+ using Callback=void(__stdcall*)(uint32_t,const Saved*);
+ extern Callback callback;extern uintptr_t scheduler_original;void scheduler();
+}
+std::string free_camera_snapshot_json();
 }

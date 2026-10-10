@@ -1,0 +1,92 @@
+{
+  "phase": "R-CAM1-A3d",
+  "status": "READY_FOR_IN_GAME_VALIDATION",
+  "in_game_validation": "PENDING",
+  "repository": "D:/Game/Master Rallye/master-rallye-re-general",
+  "branch": "master",
+  "starting_head": "4de97f086cdae687360df335878235932d0bafa3",
+  "primary_build": {
+    "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "size": 3121214,
+    "image_base": "0x00400000"
+  },
+  "candidate": {
+    "path": "modernization/renderer/.build-msvc/Release/d3d8.dll",
+    "sha256": "6cd7c3e48de1548c9bfbbb58d25c17ae200aba2b46ea54706edcee77ccea9610",
+    "size": 1718784,
+    "machine": "I386",
+    "pe_type": "PE32",
+    "exports": {
+      "Direct3DCreate8": {
+        "ordinal": 5,
+        "rva": 16288,
+        "forwarder": null
+      },
+      "ValidatePixelShader": {
+        "ordinal": 2,
+        "rva": 17504,
+        "forwarder": null
+      },
+      "ValidateVertexShader": {
+        "ordinal": 3,
+        "rva": 17536,
+        "forwarder": null
+      }
+    },
+    "imported_dlls": [
+      "bcrypt.dll",
+      "USER32.dll",
+      "KERNEL32.dll"
+    ],
+    "recursive_d3d8_import": false,
+    "evidence_grade": "BUILD_VERIFIED_NOT_RUNTIME"
+  },
+  "tests": {
+    "renderer_python": {
+      "passed": 153,
+      "seconds": 108.006
+    },
+    "root_synthetic": {
+      "passed": 630,
+      "seconds": 11.455
+    },
+    "native_ctest": {
+      "passed": 13,
+      "seconds": 6.87
+    },
+    "observer_abi_cases": 62,
+    "scheduler_abi_cases": 7,
+    "compileall": "PASS",
+    "pe_verifier": "PASS",
+    "diff_check": "PASS"
+  },
+  "freecam": {
+    "implemented": true,
+    "default_enabled": false,
+    "exact_retail_only": true,
+    "tracing_required": false,
+    "initial_target": "France1 offline one human / one camera",
+    "profiles": [
+      "WASD",
+      "physical Numpad",
+      "Custom"
+    ],
+    "initial_pose": "inverse of actual displayed stock VIEW",
+    "owned_bytes": 176,
+    "restoration": "scheduler return / safe lifecycle cancellation",
+    "evidence_grade": "CONFIRMED_BY_SOURCE"
+  },
+  "baseline": {
+    "human_accepted": "R-OBS1b combined Broker/Dump/F10, R-ATTR1 behavior, supported display/UI/visual baseline",
+    "new_candidate_runtime": "PENDING",
+    "legacy_guard_prior_unapplied_telemetry": "separate unresolved installation discrepancy; unchanged"
+  },
+  "writes": {
+    "game_exe_file": false,
+    "game_assets": false,
+    "retired_worktrees": false,
+    "ghidra_project_saved": false,
+    "new_branch_or_worktree": false,
+    "push": false
+  }
+}
