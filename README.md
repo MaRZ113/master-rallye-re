@@ -11,7 +11,7 @@ Stable and beta packages are published on [GitHub Releases](https://github.com/M
 
 ### Master Rallye Observatory
 
-Read-only inspection of the game's live Broker state. [Download v0.1.0-beta](https://github.com/MaRZ113/master-rallye-re/releases/tag/v0.1.0-beta) (pristine retail executable only). The standalone v0.2.2-beta candidate is being prepared and is not published.
+Read-only inspection of the game's live Broker state. [Download v0.1.0-beta](https://github.com/MaRZ113/master-rallye-re/releases/tag/v0.1.0-beta) (pristine retail executable only). The standalone v0.2.3-beta candidate is being prepared and is not published.
 
 **Quick Start:** extract the release ZIP, enable `Menues/Enabled=True` in your own `DataGame/dev.xml`, start the game, then run `MRallye-Observatory.cmd`. See the [Observatory guide](docs/releases/observatory-quickstart.md).
 

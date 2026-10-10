@@ -925,9 +925,16 @@ def _verify_remote_anchors(kernel32: Any, process: Any, module_base: int, ctypes
                        if item.get("name") == "native_dump_walker"), None)
         profile_walker = next((item for item in anchors
                                if item.get("name") == "native_dump_walker"), None)
+        image_base = pe.get("image_base") if isinstance(pe, dict) else None
+        walker_va = walker.get("va") if isinstance(walker, dict) else None
+        if (type(image_base) is not int or type(walker_va) is not int
+                or walker_va < image_base):
+            raise ObservatoryError("Native Dump walker reference has an invalid VA/image base")
+        expected_rva = walker_va - image_base
         if (walker is None or profile_walker is None
+                or profile_walker.get("rva") != expected_rva
                 or any(profile_walker.get(key) != walker.get(key)
-                       for key in ("rva", "length", "sha256", "section"))):
+                       for key in ("length", "sha256", "section"))):
             raise ObservatoryError("Native Dump walker reference differs from the audited retail family")
 
         def read_va(va: int, size: int) -> bytes:

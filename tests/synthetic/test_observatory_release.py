@@ -70,7 +70,7 @@ class ObservatoryReleaseTests(unittest.TestCase):
         self.assertEqual(first, second)
         self.assertEqual(manifest, same_manifest)
         self.assertEqual(manifest["archive_sha256"], hashlib.sha256(first).hexdigest())
-        self.assertEqual(manifest["version"], "0.2.2-beta")
+        self.assertEqual(manifest["version"], "0.2.3-beta")
         self.assertEqual(manifest["game_executables"], 0)
         self.assertEqual(manifest["game_assets"], 0)
         self.assertEqual(manifest["absolute_repo_dependencies"], 0)
