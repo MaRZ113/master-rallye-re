@@ -1,0 +1,71 @@
+{
+  "phase": "R-CAM1-A3e",
+  "evidence_grade": "CONFIRMED_BY_RUNTIME_CAPTURE",
+  "target_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "tested_prior_dll_sha256": "6cd7c3e48de1548c9bfbbb58d25c17ae200aba2b46ea54706edcee77ccea9610",
+  "source_files": [
+    "D:\\Game\\Master Rallye Pristine\\MRRRenderer\\logs\\session-20261010-121109-41024.jsonl",
+    "D:\\Game\\Master Rallye Pristine\\MRRRenderer\\logs\\session-20261010-121332-16956.jsonl",
+    "D:\\Game\\Master Rallye Pristine\\MRRRenderer\\logs\\frame-16956-d1-00020128.jsonl"
+  ],
+  "observed_certificate": {
+    "race_lifecycle_generation": 7,
+    "successful_race_generation": 7,
+    "correlated_owner_candidate": true,
+    "poisoned": false,
+    "owner_native_live_unique": true,
+    "owner_temporal_match": true,
+    "owner_initialized": true,
+    "owner_registrations": 1,
+    "owner_live_memberships": 1,
+    "owner_pending_memberships": 0,
+    "owner_arrays_ready": true,
+    "camera_count": 1,
+    "live_certificate_valid": false,
+    "live_certificate_reason": "supported_course_job_not_verified"
+  },
+  "root_job": {
+    "lifetime": 7,
+    "parent_job_lifetime": 0,
+    "scene": "RaceTest/France1",
+    "source": "DataScene/RaceTest/France1.xml",
+    "flag21": 1,
+    "flag22": 1,
+    "commit_seen": true,
+    "commit_success": true,
+    "terminal": true,
+    "failed": false,
+    "manager_scene_after_commit": 9793
+  },
+  "hud_child_job": {
+    "lifetime": 8,
+    "parent_job_lifetime": 7,
+    "scene": "Hud/Hud0",
+    "source": "DataScene/Hud/Hud0.xml",
+    "flag21": 1,
+    "flag22": 0,
+    "commit_seen": true,
+    "commit_success": true,
+    "terminal": true,
+    "failed": false,
+    "manager_scene_after_commit": 9793
+  },
+  "typed_race_context": {
+    "Race/Type": 1,
+    "Race/NumPlayers": 1,
+    "Race/NumNetworkPlayers": 0,
+    "Race/NetworkSyncActive": 0,
+    "Race/AttractMode": 0,
+    "Race/GhostPlayback": 0,
+    "Race/PlaybackReplay": 0,
+    "Race/FinishingType": 0,
+    "Race/NumCars": 1,
+    "Race/Car0/RaceState": 0
+  },
+  "interpretation": {
+    "scene_manager_commit_id_is_job_identity": false,
+    "root_flags_are_hud_flags": false,
+    "race_state_2_is_the_only_active_state": false,
+    "flight_confirmed": false
+  }
+}

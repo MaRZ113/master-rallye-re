@@ -4,6 +4,7 @@ namespace gfx2 {
 struct FreeCameraConfig {
  bool enabled=false;unsigned preset=0;unsigned toggle=VK_F8;
  float speed=40,fast=6,slow=.2f,sensitivity=.12f;
+ bool auto_level_horizon=true;float horizon_level_seconds=.30f;
  std::array<unsigned,8> keys{'W','S','A','D',VK_SPACE,VK_LCONTROL,VK_LSHIFT,VK_LMENU};
  const char* reason="disabled";
 };
@@ -14,10 +15,14 @@ bool pose_from_native_view(const D3DMATRIX&,std::array<float,16>&) noexcept;
 struct FlightInput {bool focused=false,toggle=false;std::array<bool,8> keys{};float mouse_x=0,mouse_y=0;double seconds=0;};
 class FlightController {
  bool toggle_down_=false,focused_=false;
+ double horizon_elapsed_=0,previous_horizon_progress_=0;
+ std::array<float,3> horizon_right_{};
 public:
- bool active=false;std::array<float,16> pose{};
+ bool active=false,last_toggle_edge=false;std::array<float,16> pose{};
+ bool orientation_valid=true,horizon_leveling_active=false;
+ float current_roll_degrees=0,target_roll_degrees=0,horizon_level_progress=0;
  bool update(const FreeCameraConfig&,const FlightInput&,bool certified,const std::array<float,16>* visible) noexcept;
- void cancel() noexcept {active=false;toggle_down_=false;focused_=false;}
+ void cancel() noexcept {active=false;toggle_down_=false;focused_=false;horizon_elapsed_=previous_horizon_progress_=0;horizon_level_progress=0;current_roll_degrees=target_roll_degrees=0;horizon_leveling_active=false;orientation_valid=true;}
 };
 // Optional game-HWND subclass only; never a global/thread message hook.
 class FlightWindowInput {

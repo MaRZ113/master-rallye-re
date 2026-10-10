@@ -25,7 +25,9 @@ struct RaceJob {
  uint8_t flag21=0,flag22=0;
  std::array<char,192> scene_text{},source_text{};
  uint64_t parent_lifetime=0,race_generation=0;
- uint32_t native_committed_scene=0;
+ // SceneManager's global committed ID observed after the native commit call.
+ // Nested HUD requests can change it while an outer job is still executing.
+ uint32_t manager_scene_after_commit=0;
  bool failed=false,supported_hud=false;
 };
 struct RaceOwner {
@@ -38,7 +40,7 @@ class RaceEpoch {
 public:
  static constexpr size_t MAX_JOBS=64,MAX_EVENTS=128;
  uint64_t generation=0,successful_generation=0,job_serial=0,owner_serial=0,event_serial=0;
- uint32_t requested_scene=0,committed_scene=0,executing_job=0;
+ uint32_t requested_scene=0,manager_scene_after_commit=0,executing_job=0;
  uint32_t observed_thread=0;
  std::array<char,192> request_text{};
  RacePhase phase=RacePhase::Unknown;
@@ -90,6 +92,7 @@ struct RaceScalar {bool present=false;uint32_t tag=UINT32_MAX;int32_t value=0;};
 struct RaceOwnerRead {
  uint32_t actor=0,ai=0,registrations=0,live_memberships=0,pending_memberships=0;
  uint32_t count=0;bool retired=false,type_ok=false,arrays_ready=false,participant_states_ready=false;
+ const char* participant_states_reason="not_observed";
  bool valid=false;const char* reason="owner_unobserved";
  bool storage_readable=false,native_live_unique=false;
  bool temporal_match=false;
@@ -151,7 +154,9 @@ RaceCertificate check_live_race_certificate(const RaceEpoch&,const RaceOwnerRead
  const std::array<RaceScalar,9>&,bool camera_identity_valid,uint32_t camera) noexcept;
 RaceCertificate live_race_certificate(uintptr_t camera) noexcept;
 // Called only by the existing F10 writer, not a second hotkey controller.
-std::string race_epoch_capture_json(uint64_t device,uint64_t frame);
+std::string race_epoch_capture_json(uint64_t device,uint64_t frame,
+ bool input_observed=false,bool toggle_focused=false,bool toggle_pressed=false,
+ bool toggle_edge=false,unsigned toggle_key=0);
 namespace race_bridge {
  struct Saved {uint32_t edi,esi,ebp,esp,ebx,edx,ecx,eax,flags,return_pc,args[3];};
  bool request_origin(RaceReadMemory&,const Saved&,uint32_t& origin) noexcept;

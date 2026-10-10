@@ -70,6 +70,11 @@ MoveSpeed=40.0
 FastMultiplier=6.0
 SlowMultiplier=0.20
 MouseSensitivity=0.12
+; Preserve the visible activation pose, then smoothly remove inherited roll.
+; 0 disables auto-level while retaining native camera roll.
+AutoLevelHorizon=1
+; 0 levels on the first post-activation sample; max accepted value is 5.
+HorizonLevelSeconds=0.30
 
 [FreeCameraKeys]
 Forward=W

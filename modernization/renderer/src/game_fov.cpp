@@ -12,7 +12,9 @@ struct FlightState {
  FreeCameraConfig config;FlightWindowInput input;FlightController controller;RaceCertificate certificate,visible_certificate,scope_certificate;
  std::array<float,16> visible_pose{};bool visible=false,pose_scope=false;
  const char* reason="disabled";uint64_t scopes=0,restores=0,failures=0;
- bool reported_valid=false,reported_active=false;uint64_t reported_race=0,reported_owner=0;const char* reported_reason="disabled";
+ bool reported_valid=false,reported_active=false,reported_horizon_leveling=false;uint64_t reported_race=0,reported_owner=0;const char* reported_reason="disabled";
+ bool input_focused=false,toggle_pressed_focused=false,toggle_edge=false;
+ bool reported_input_focused=false,reported_toggle_pressed=false,reported_toggle_edge=false;
 };
 namespace {FlightState flight_state;}
 
@@ -210,6 +212,7 @@ void GameFov::before_submit(unsigned index) noexcept {
   if(!f.certificate.valid)f.visible=false;
   auto input=f.input.sample(f.config,f.controller.active);bool visible=f.visible&&f.visible_certificate.camera==camera&&f.visible_certificate.owner_lifetime==f.certificate.owner_lifetime&&f.visible_certificate.race_generation==f.certificate.race_generation;
   bool flying=f.controller.update(f.config,input,f.certificate.valid,visible?&f.visible_pose:nullptr);
+  f.input_focused=input.focused;f.toggle_pressed_focused=input.focused&&input.toggle;f.toggle_edge=f.controller.last_toggle_edge;
   f.reason=flying?"freecam_active":!input.focused?"focus_lost":!f.certificate.valid?f.certificate.reason:visible?"ready_toggle_off":"awaiting_displayed_stock_view";
   if(flying){effective_pose=&f.controller.pose;f.scope_certificate=f.certificate;f.pose_scope=true;}
  }
@@ -217,9 +220,15 @@ void GameFov::before_submit(unsigned index) noexcept {
   if(!frame_.begin(reinterpret_cast<CameraFrame*>(camera),fov,effective_pose)){if(flight_){flight_->controller.cancel();flight_->pose_scope=false;++flight_->failures;flight_->reason="effective_camera_ineligible_or_write_failed";}if(!frame_.status.restored)disable("camera_restore_failed");}
   else if(effective_pose&&flight_){++flight_->scopes;if(flight_->scopes==1)try{session().write("{\"type\":\"free_camera_scope\",\"phase\":\"R-CAM1-A3d\",\"event\":\"first_effective_scope\",\"owned_bytes\":176,\"pre_call_va\":6632157}");}catch(...){}}
  }
- if(flight_){auto& f=*flight_;if(f.reported_valid!=f.certificate.valid||f.reported_active!=f.controller.active||f.reported_race!=f.certificate.race_generation||f.reported_owner!=f.certificate.owner_lifetime||std::strcmp(f.reported_reason,f.reason)){
-  f.reported_valid=f.certificate.valid;f.reported_active=f.controller.active;f.reported_race=f.certificate.race_generation;f.reported_owner=f.certificate.owner_lifetime;f.reported_reason=f.reason;
-  try{session().write("{\"type\":\"free_camera_state\",\"phase\":\"R-CAM1-A3d\",\"state\":"+camera_json()+"}");}catch(...){}
+ if(flight_){auto& f=*flight_;if(f.reported_valid!=f.certificate.valid||f.reported_active!=f.controller.active||f.reported_horizon_leveling!=f.controller.horizon_leveling_active||f.reported_race!=f.certificate.race_generation||f.reported_owner!=f.certificate.owner_lifetime||f.reported_input_focused!=f.input_focused||f.reported_toggle_pressed!=f.toggle_pressed_focused||f.reported_toggle_edge!=f.toggle_edge||std::strcmp(f.reported_reason,f.reason)){
+  f.reported_valid=f.certificate.valid;f.reported_active=f.controller.active;f.reported_horizon_leveling=f.controller.horizon_leveling_active;f.reported_race=f.certificate.race_generation;f.reported_owner=f.certificate.owner_lifetime;f.reported_input_focused=f.input_focused;f.reported_toggle_pressed=f.toggle_pressed_focused;f.reported_toggle_edge=f.toggle_edge;f.reported_reason=f.reason;
+  try{session().write("{\"type\":\"free_camera_state\",\"phase\":\"R-CAM1-A3e\",\"state\":"+camera_json()+"}");
+   // Emit the full, bounded lifecycle certificate alongside each meaningful
+   // freecam state/input transition. This keeps F10 reserved and records the
+   // root/HUD jobs, their copied flags and commit results, RaceState admission,
+   // final certificate reason, and whether the configured toggle produced an edge.
+   session().write(race_epoch_capture_json(0,0,true,f.input_focused,f.toggle_pressed_focused,f.toggle_edge,f.config.toggle));
+  }catch(...){}
  }}
 }
 void GameFov::submission_snapshot(uintptr_t expected_camera,CameraSubmissionSnapshot& out) const noexcept {
@@ -253,7 +262,7 @@ bool GameFov::free_camera_configured() const noexcept {return flight_&&flight_->
 bool GameFov::free_camera_active() const noexcept {return flight_&&flight_->controller.active;}
 std::string GameFov::camera_json() const {
  std::ostringstream o;o<<"{\"configured\":"<<(free_camera_configured()?"true":"false")<<",\"active\":"<<(free_camera_active()?"true":"false")<<",\"scheduler_depth\":"<<scheduler_depth_<<",\"scope_restored\":"<<(frame_.status.restored?"true":"false");
- if(flight_){auto& f=*flight_;o<<",\"reason\":"<<quote(f.reason)<<",\"certificate_valid\":"<<(f.certificate.valid?"true":"false")<<",\"certificate_reason\":"<<quote(f.certificate.reason)<<",\"race_generation\":"<<f.certificate.race_generation<<",\"owner_lifetime\":"<<f.certificate.owner_lifetime<<",\"camera\":"<<f.certificate.camera<<",\"scopes\":"<<f.scopes<<",\"restores\":"<<f.restores<<",\"failures\":"<<f.failures;}
+ if(flight_){auto& f=*flight_;auto& c=f.controller;o<<",\"reason\":"<<quote(f.reason)<<",\"certificate_valid\":"<<(f.certificate.valid?"true":"false")<<",\"certificate_reason\":"<<quote(f.certificate.reason)<<",\"race_generation\":"<<f.certificate.race_generation<<",\"owner_lifetime\":"<<f.certificate.owner_lifetime<<",\"camera\":"<<f.certificate.camera<<",\"toggle_key_vk\":"<<f.config.toggle<<",\"toggle_pressed_while_focused\":"<<((f.input_focused&&f.toggle_pressed_focused)?"true":"false")<<",\"controller_toggle_edge\":"<<(f.toggle_edge?"true":"false")<<",\"horizon_mode\":"<<quote(f.config.auto_level_horizon?"auto_level":"native_roll")<<",\"horizon_leveling_active\":"<<(c.horizon_leveling_active?"true":"false")<<",\"current_roll_degrees\":"<<c.current_roll_degrees<<",\"target_roll_degrees\":"<<c.target_roll_degrees<<",\"horizon_level_progress\":"<<c.horizon_level_progress<<",\"orientation_valid\":"<<(c.orientation_valid?"true":"false")<<",\"scopes\":"<<f.scopes<<",\"restores\":"<<f.restores<<",\"failures\":"<<f.failures;}
  o<<'}';return o.str();
 }
 std::string free_camera_snapshot_json(){return active?active->camera_json():"{\"configured\":false,\"active\":false,\"reason\":\"shared_camera_hook_inactive\"}";}

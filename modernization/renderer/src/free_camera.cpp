@@ -20,6 +20,8 @@ FreeCameraConfig parse_free_camera_config(const std::map<std::string,std::string
  auto preset=get("FreeCamera.ControlPreset","0");if(preset=="0")c.preset=0;else if(preset=="1")c.preset=1;else if(preset=="2")c.preset=2;else valid=false;
  c.toggle=free_camera_key(get("FreeCamera.ToggleKey","F8"));valid&=c.toggle!=0;
  valid&=number("FreeCamera.MoveSpeed",c.speed,.01f,1000)&&number("FreeCamera.FastMultiplier",c.fast,1,20)&&number("FreeCamera.SlowMultiplier",c.slow,.01f,1)&&number("FreeCamera.MouseSensitivity",c.sensitivity,.001f,5);
+ valid&=parse_config_boolean(get("FreeCamera.AutoLevelHorizon","1"),c.auto_level_horizon);
+ valid&=number("FreeCamera.HorizonLevelSeconds",c.horizon_level_seconds,0.f,5.f);
  if(c.preset==1)c.keys={0x148,0x150,0x14b,0x14d,0x149,0x151,VK_LSHIFT,VK_LMENU};
  if(c.preset==2){const char* names[]={"Forward","Backward","Left","Right","Up","Down","Fast","Slow"};for(size_t i=0;i<8;++i){auto key=f.find(std::string("FreeCameraKeys.")+names[i]);if(key==f.end()){valid=false;continue;}c.keys[i]=free_camera_key(key->second);valid&=c.keys[i]!=0;}}
  for(size_t i=0;i<8;++i){valid&=c.keys[i]!=c.toggle;for(size_t j=0;j<i;++j)valid&=c.keys[i]!=c.keys[j];}
@@ -34,6 +36,20 @@ bool rigid(const std::array<float,16>& p){for(float f:p)if(!std::isfinite(f))ret
 }
 void rotate(float* v,const float* axis,double angle){double c=std::cos(angle),s=std::sin(angle),dot=0;float old[3]={v[0],v[1],v[2]};for(unsigned j=0;j<3;++j)dot+=old[j]*axis[j];
  for(unsigned j=0;j<3;++j)v[j]=static_cast<float>(old[j]*c+(axis[(j+1)%3]*old[(j+2)%3]-axis[(j+2)%3]*old[(j+1)%3])*s+axis[j]*dot*(1-c));}
+bool normalize3(float* v){double n=std::sqrt(double(v[0])*v[0]+double(v[1])*v[1]+double(v[2])*v[2]);if(!std::isfinite(n)||n<1e-8)return false;for(unsigned j=0;j<3;++j)v[j]=static_cast<float>(v[j]/n);return true;}
+void cross3(const float* a,const float* b,float* out){out[0]=a[1]*b[2]-a[2]*b[1];out[1]=a[2]*b[0]-a[0]*b[2];out[2]=a[0]*b[1]-a[1]*b[0];}
+double dot3(const float* a,const float* b){return double(a[0])*b[0]+double(a[1])*b[1]+double(a[2])*b[2];}
+bool projected_heading(const float* candidate,const float* back,float* out){double along=dot3(candidate,back);for(unsigned j=0;j<3;++j)out[j]=static_cast<float>(candidate[j]-along*back[j]);return normalize3(out);}
+bool horizon_target(const std::array<float,16>& p,const std::array<float,3>& previous,float* target){
+ const float world_up[3]={0,1,0};cross3(world_up,p.data()+8,target);
+ // Near vertical, retain heading by projecting the last valid horizontal right
+ // into the plane perpendicular to Back. Fall back to this pose's Right.
+ double horizontal=dot3(target,target);
+ if((!std::isfinite(horizontal)||horizontal<.0025||!normalize3(target))&&!projected_heading(previous.data(),p.data()+8,target)&&
+    !projected_heading(p.data(),p.data()+8,target))return false;
+ return true;
+}
+double signed_roll(const float* right,const float* target,const float* back){float cross[3];cross3(right,target,cross);return std::atan2(dot3(cross,back),dot3(right,target));}
 void orthogonalize(std::array<float,16>& p){auto norm=[](float* v){double n=std::sqrt(double(v[0])*v[0]+double(v[1])*v[1]+double(v[2])*v[2]);for(unsigned j=0;j<3;++j)v[j]=static_cast<float>(v[j]/n);};norm(p.data()+8);
  double dot=0;for(unsigned j=0;j<3;++j)dot+=p[j]*p[8+j];for(unsigned j=0;j<3;++j)p[j]-=static_cast<float>(dot*p[8+j]);norm(p.data());
  for(unsigned j=0;j<3;++j)p[4+j]=p[8+(j+1)%3]*p[(j+2)%3]-p[8+(j+2)%3]*p[(j+1)%3];norm(p.data()+4);}
@@ -44,13 +60,18 @@ bool pose_from_native_view(const D3DMATRIX& v,std::array<float,16>& p) noexcept 
  for(unsigned j=0;j<3;++j)p[12+j]=-v._41*p[j]-v._42*p[4+j]+v._43*p[8+j];return rigid(p);
 }
 bool FlightController::update(const FreeCameraConfig& c,const FlightInput& in,bool certified,const std::array<float,16>* visible) noexcept {
- if(!c.enabled||!certified||!in.focused){active=false;toggle_down_=in.toggle;focused_=false;return false;}
+ last_toggle_edge=false;
+ if(!c.enabled||!certified||!in.focused){cancel();toggle_down_=in.toggle;return false;}
  if(!focused_){focused_=true;toggle_down_=in.toggle;return false;}
  bool edge=in.toggle&&!toggle_down_;toggle_down_=in.toggle;
- if(edge){if(active)active=false;else if(visible&&rigid(*visible)){pose=*visible;active=true;}}
+ bool activated=false;
+ if(edge){last_toggle_edge=true;if(active){active=false;horizon_elapsed_=previous_horizon_progress_=0;horizon_level_progress=0;current_roll_degrees=target_roll_degrees=0;horizon_leveling_active=false;}
+  else if(visible&&rigid(*visible)){pose=*visible;active=true;activated=true;orientation_valid=true;horizon_elapsed_=previous_horizon_progress_=0;horizon_level_progress=0;horizon_leveling_active=false;std::copy_n(pose.data(),3,horizon_right_.data());}}
  if(!active)return false;
  auto before=pose;
- if(std::isfinite(in.mouse_x)&&std::isfinite(in.mouse_y)){
+ // Activation is an exact visible-pose handoff. Begin look and horizon work
+ // on the next sample so even an unusual first mouse packet cannot snap it.
+ if(!activated&&std::isfinite(in.mouse_x)&&std::isfinite(in.mouse_y)){
   const float y[3]={0,1,0};double yaw=-std::clamp(double(in.mouse_x),-1000.,1000.)*c.sensitivity*PI/180;
   for(unsigned i=0;i<3;++i)rotate(pose.data()+i*4,y,yaw);
   double pitch=std::asin(std::clamp(-double(pose[9]),-1.,1.)),delta=-std::clamp(double(in.mouse_y),-1000.,1000.)*c.sensitivity*PI/180;
@@ -58,6 +79,31 @@ bool FlightController::update(const FreeCameraConfig& c,const FlightInput& in,bo
   float right[3]={pose[0],pose[1],pose[2]};rotate(pose.data()+4,right,delta);rotate(pose.data()+8,right,delta);
   if(yaw||delta)orthogonalize(pose);
  }
+ orientation_valid=true;current_roll_degrees=target_roll_degrees=0;
+ if(!c.auto_level_horizon){float target[3]{},back[3]={pose[8],pose[9],pose[10]};if(horizon_target(pose,horizon_right_,target))current_roll_degrees=static_cast<float>(signed_roll(pose.data(),target,back)*180/PI);}
+ if(c.auto_level_horizon){
+  float target[3]{};
+  if(!horizon_target(pose,horizon_right_,target)){orientation_valid=false;pose=before;return active;}
+  float back[3]={pose[8],pose[9],pose[10]};double roll=signed_roll(pose.data(),target,back);
+  if(!std::isfinite(roll)){orientation_valid=false;pose=before;return active;}
+  current_roll_degrees=static_cast<float>(roll*180/PI);target_roll_degrees=0;
+  double dt=std::isfinite(in.seconds)?std::clamp(in.seconds,0.,.05):0.;
+  if(!activated){horizon_elapsed_+=dt;}
+  double progress=c.horizon_level_seconds<=0?(horizon_elapsed_>0?1.:0.):std::clamp(horizon_elapsed_/c.horizon_level_seconds,0.,1.);
+  // Smoothstep gives a gentle start and exact completion at the configured
+  // duration. Convert its cumulative progress to a per-frame fraction so the
+  // correction remains frame-rate independent and follows a moving target.
+  double smooth=progress*progress*(3-2*progress);
+  double fraction=smooth>=1?1:(smooth>previous_horizon_progress_?(smooth-previous_horizon_progress_)/(1-previous_horizon_progress_):0);
+  if(!activated&&fraction>0){rotate(pose.data(),back,roll*fraction);rotate(pose.data()+4,back,roll*fraction);orthogonalize(pose);}
+  previous_horizon_progress_=smooth;horizon_level_progress=static_cast<float>(smooth);
+  back[0]=pose[8];back[1]=pose[9];back[2]=pose[10];current_roll_degrees=static_cast<float>(signed_roll(pose.data(),target,back)*180/PI);
+  horizon_leveling_active=std::abs(current_roll_degrees)>.05f&&smooth<1;
+  // Record the target heading only when world-up yields a well-conditioned
+  // horizontal direction; near vertical, keep the last usable heading.
+  float world_up[3]={0,1,0},fresh[3];cross3(world_up,pose.data()+8,fresh);
+  if(dot3(fresh,fresh)>=.0025&&normalize3(fresh))std::copy_n(fresh,3,horizon_right_.data());
+ }else{horizon_leveling_active=false;horizon_level_progress=0;horizon_elapsed_=previous_horizon_progress_=0;}
  double right=int(in.keys[3])-int(in.keys[2]),forward=int(in.keys[0])-int(in.keys[1]),up=int(in.keys[4])-int(in.keys[5]);double movement[3];double length=0;
  for(unsigned j=0;j<3;++j){movement[j]=right*pose[j]-forward*pose[8+j]+(j==1?up:0);length+=movement[j]*movement[j];}
  double dt=std::isfinite(in.seconds)?std::clamp(in.seconds,0.,.05):0.;double speed=c.speed*(in.keys[6]?c.fast:1)*(in.keys[7]?c.slow:1);

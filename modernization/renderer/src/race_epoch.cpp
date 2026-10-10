@@ -68,9 +68,11 @@ void RaceEpoch::begin(uint32_t p,bool type_ok) noexcept {
 void RaceEpoch::commit(uint32_t scene,bool success) noexcept {
  auto* j=find_mutable(executing_job);
  if(poisoned||!execution_depth||!j||!j->executing||j->lifetime!=execution_stack[execution_depth-1]||j->commit_seen){reject("commit_without_matching_execution");return;}
- j->commit_seen=true;j->native_committed_scene=scene;committed_scene=scene;
- // Native 522680 copies manager+4, not the executing job's scene ID.
- j->commit_success=success&&scene==requested_scene&&!j->failed;
+ j->commit_seen=true;j->manager_scene_after_commit=scene;manager_scene_after_commit=scene;
+ // Native 522680's boolean is this executing parser job's result. The scene
+ // argument we can observe is SceneManager+4, which a nested HUD request may
+ // already have changed; it is diagnostic only and cannot qualify the job.
+ j->commit_success=success&&!j->failed;
  reason=j->commit_success?"native_parse_success_await_callback_return":"default_or_failed_commit";note(RaceEvent::Commit,reason);
 }
 void RaceEpoch::end(uint32_t p) noexcept {
@@ -124,8 +126,9 @@ bool RaceEpoch::correlated_owner_candidate() const noexcept {
 }
 bool RaceEpoch::course_identity_verified() const noexcept {
  auto* j=lifetime(owner.execution_job_lifetime);if(!j)return false;
- return !std::strcmp(j->scene_text.data(),"RaceTest/France1")&&
-  !std::strcmp(j->source_text.data(),"DataScene/RaceTest/France1.xml")&&j->flag21==1&&j->flag22==0;
+ return j->parent_lifetime==0&&
+  !std::strcmp(j->scene_text.data(),"RaceTest/France1")&&
+  !std::strcmp(j->source_text.data(),"DataScene/RaceTest/France1.xml")&&j->flag21==1&&j->flag22==1;
 }
 bool RaceEpoch::validate_thread(uint32_t expected,uint32_t actual) noexcept {
  observed_thread=actual;
@@ -193,10 +196,17 @@ RaceOwnerRead read_race_owner(RaceReadMemory& m,uint32_t base,const RaceOwner& i
  for(uint32_t offset:{0x20u,0x24u,0x30u,0x34u,0x38u,0x3cu,0x40u}){uint32_t data=0;std::array<uint32_t,8> values{};
   if(!word(m,ai+offset,data)||!data||!m.read(data,values.data(),r.count*4)){r.reason="participant_array_unreadable";return r;}}
  for(uint32_t offset:{0x10u,0x14u,0x18u,0x1cu}){uint32_t resource=0;if(!word(m,ai+offset,resource)||!resource){r.reason="boundary_resource_missing";return r;}}
- r.arrays_ready=true;r.participant_states_ready=true;
+ r.arrays_ready=true;r.participant_states_ready=true;r.participant_states_reason="native_phase_0_or_2";
  for(uint32_t i=0;i<r.count;++i){char key[64];std::snprintf(key,sizeof(key),"Race/Car%u/RaceState",i);uint32_t key_id=0;
-  if(!m.resolve_id(base,key,key_id)){r.participant_states_ready=false;break;}auto state=race_broker_scalar(m,base,key_id,2);
-  if(!state.present){r.participant_states_ready=false;break;}r.participant_states[i]=state.value;if(state.value!=2)r.participant_states_ready=false;
+  if(!m.resolve_id(base,key,key_id)){r.participant_states_ready=false;r.participant_states_reason="race_state_key_missing";break;}auto state=race_broker_scalar(m,base,key_id,2);
+  if(!state.present){r.participant_states_ready=false;r.participant_states_reason="race_state_value_unreadable_or_wrong_type";break;}
+  r.participant_states[i]=state.value;
+  // RaceStarter 0x0048E820 has a native zero-writing branch as well as the
+  // staged 1/2 path. Zero is accepted only under the independent completed
+  // France1 job, current live RaceLimits owner, typed offline context and
+  // single-camera checks below. 1 is startup and 3 is finished; fail closed.
+  if(state.value!=0&&state.value!=2){r.participant_states_ready=false;
+   r.participant_states_reason=state.value==1?"race_state_1_startup_transition":state.value==3?"race_state_3_finished":"race_state_unsupported_value";}
  }
  r.valid=true;r.reason="unique_live_owner_arrays_readable_not_race_certificate";return r;
 }
@@ -205,7 +215,8 @@ RaceContextCheck check_race_context(const std::array<RaceScalar,9>& f,const Race
  if((f[0].value!=1&&f[0].value!=2)||f[1].value!=1||f[2].value!=0||f[7].value!=0)return {false,"unsupported_race_or_player_configuration"};
  for(size_t i=3;i<=6;++i)if(f[i].value!=0)return {false,"network_attract_ghost_or_replay"};
  if(f[0].value==1&&f[8].value!=1)return {false,"mode1_without_verified_single_car"};
- if(!owner.valid||!owner.arrays_ready||!owner.participant_states_ready||f[8].value<1||f[8].value>8||static_cast<uint32_t>(f[8].value)!=owner.count)return {false,"participants_not_currently_ready"};
+ if(!owner.valid||!owner.arrays_ready||f[8].value<1||f[8].value>8||static_cast<uint32_t>(f[8].value)!=owner.count)return {false,"participants_not_currently_ready"};
+ if(!owner.participant_states_ready)return {false,"participant_race_state_not_active_or_starting"};
  return {true,"offline_one_player_supporting_context_not_certificate"};
 }
 RaceCertificate check_live_race_certificate(const RaceEpoch& e,const RaceOwnerRead& owner,const std::array<RaceScalar,9>& fields,bool camera_valid,uint32_t camera) noexcept {

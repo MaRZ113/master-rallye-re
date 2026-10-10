@@ -1,4 +1,4 @@
-"""Summarize bounded A3c/A3d F10 lifecycle records, without granting a race certificate."""
+"""Summarize bounded A3c/A3d/A3e lifecycle records without authorizing writes."""
 import argparse
 import json
 from pathlib import Path
@@ -30,8 +30,8 @@ def reconcile_a3c(record):
 
 
 def summarize(record):
-    if record.get('type') != 'race_epoch_snapshot' or record.get('phase') not in ('R-CAM1-A3c','R-CAM1-A3d'):
-        raise ValueError('Not an A3c/A3d race-epoch snapshot')
+    if record.get('type') != 'race_epoch_snapshot' or record.get('phase') not in ('R-CAM1-A3c','R-CAM1-A3d','R-CAM1-A3e'):
+        raise ValueError('Not an A3c/A3d/A3e race-epoch snapshot')
     if record.get('camera_writes_authorized') is not False:
         raise ValueError('Observation pilot must not authorize camera writes')
     events, jobs = record.get('events', []), record.get('jobs', [])
@@ -59,7 +59,10 @@ def summarize(record):
                            event_serial=event['serial']))
     return dict(
         diagnostic_only=True, camera_writes_authorized=False,
-        status='BLOCKED_ON_RACE_EPOCH_CORRELATION' if record['phase']=='R-CAM1-A3c' else 'OFFLINE_DIAGNOSTIC_NOT_LIVE_CERTIFICATE',
+        status=('BLOCKED_ON_RACE_EPOCH_CORRELATION' if record['phase']=='R-CAM1-A3c' else
+                'LIVE_RACE_CERTIFIED_AWAITING_HUMAN_FLIGHT' if record['phase']=='R-CAM1-A3e' and record.get('live_certificate_valid') is True else
+                'LIVE_RACE_CERTIFICATE_PENDING' if record['phase']=='R-CAM1-A3e' else
+                'OFFLINE_DIAGNOSTIC_NOT_LIVE_CERTIFICATE'),
         race_lifecycle_generation=record.get('race_lifecycle_generation'),free_camera=record.get('free_camera'),
         reconciliation=reconcile_a3c(record) if record['phase']=='R-CAM1-A3c' else None,
         request_generation=record.get('request_generation'),
@@ -68,6 +71,10 @@ def summarize(record):
         ownership_intact=record.get('hook_ownership_intact'),
         poisoned=record.get('poisoned'), reason=record.get('reason'),
         course_identity_verified=record.get('course_identity_verified'),
+        live_certificate_valid=record.get('live_certificate_valid'),
+        live_certificate_reason=record.get('live_certificate_reason'),
+        root_job_success=record.get('root_job_success'),hud_job_success=record.get('hud_job_success'),
+        input_observation=record.get('input_observation'),
         current_owner=record.get('owner'), supporting_context=record.get('offline_context_supported'),
         requests=[dict(serial=e['serial'], generation=e.get('generation'), scene=e.get('scene'))
                   for e in events if e.get('event') == 'request'],

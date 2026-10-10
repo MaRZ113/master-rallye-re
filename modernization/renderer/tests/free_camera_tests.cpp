@@ -8,6 +8,17 @@
 #define CHECK(x) do{if(!(x))throw std::runtime_error(#x);}while(0)
 using namespace gfx2;
 std::array<float,16> identity(){return {1,0,0,0,0,1,0,0,0,0,1,0,10,20,30,1};}
+std::array<float,16> rolled_pose(double yaw,double pitch,double roll){
+ // Build a right-handed level basis for the requested look direction, then
+ // apply a known roll around Back. Yaw/pitch make the horizon test nontrivial.
+ double cy=std::cos(yaw),sy=std::sin(yaw),cp=std::cos(pitch),sp=std::sin(pitch);
+ std::array<float,16> p=identity();float back[3]={static_cast<float>(sy*cp),static_cast<float>(sp),static_cast<float>(cy*cp)};
+ float right[3]={static_cast<float>(cy),0,static_cast<float>(-sy)};
+ float up[3]={back[1]*right[2]-back[2]*right[1],back[2]*right[0]-back[0]*right[2],back[0]*right[1]-back[1]*right[0]};
+ for(unsigned j=0;j<3;++j){p[j]=static_cast<float>(right[j]*std::cos(roll)+up[j]*std::sin(roll));p[4+j]=static_cast<float>(up[j]*std::cos(roll)-right[j]*std::sin(roll));p[8+j]=back[j];}
+ return p;
+}
+void activate(FlightController& f,const FreeCameraConfig& c,const std::array<float,16>& p){FlightInput in;in.focused=true;CHECK(!f.update(c,in,true,&p));in.toggle=true;CHECK(f.update(c,in,true,&p)&&f.pose==p);}
 void controls(){
  wchar_t directory[MAX_PATH]{},name[MAX_PATH]{};CHECK(GetTempPathW(MAX_PATH,directory)&&GetTempFileNameW(directory,L"mcf",0,name));
  struct TempIni {const wchar_t* path;~TempIni(){DeleteFileW(path);}} cleanup{name};
@@ -17,6 +28,10 @@ void controls(){
  auto invalid=parse_visual_config({{"Renderer.ConfigVersion","2"},{"FreeCamera.Enabled","1"}},true);GameFov rejected;CHECK(!rejected.install(true,invalid,nullptr,true)&&!rejected.free_camera_configured());
  CHECK(!parse_free_camera_config({}).enabled);
  auto c=parse_free_camera_config({{"FreeCamera.Enabled","1"}});CHECK(c.enabled&&c.preset==0&&c.toggle==VK_F8);
+ CHECK(c.auto_level_horizon&&std::abs(c.horizon_level_seconds-.30f)<.0001f);
+ auto level_off=parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.AutoLevelHorizon","false"},{"FreeCamera.HorizonLevelSeconds","0"}});CHECK(level_off.enabled&&!level_off.auto_level_horizon&&level_off.horizon_level_seconds==0);
+ CHECK(!parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.AutoLevelHorizon","maybe"}}).enabled);
+ CHECK(!parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.HorizonLevelSeconds","5.01"}}).enabled);
  CHECK(!parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.ToggleKey","F10"}}).enabled);
  CHECK(!parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.MoveSpeed","NaN"}}).enabled);
  CHECK(!parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.MoveSpeed","40junk"}}).enabled);
@@ -26,16 +41,43 @@ void controls(){
  for(size_t i=0;i<8;++i)custom[std::string("FreeCameraKeys.")+names[i]]=keys[i];CHECK(parse_free_camera_config(custom).enabled);custom["FreeCameraKeys.Forward"]="Q";CHECK(!parse_free_camera_config(custom).enabled);
  FlightWindowInput input;input.key_event(0x48,true,true);CHECK(!input.physical_down(0x48));input.key_event(0x48,false,true);CHECK(input.physical_down(0x48));input.key_event(0x48,false,false);CHECK(!input.physical_down(0x48));
  input.key_event(0x48,false,true);input.focus_lost();CHECK(!input.physical_down(0x48));CHECK(!input.sample(pad,true).focused);
- FlightController f;FlightInput in;auto visible=identity();in.focused=true;CHECK(!f.update(c,in,true,&visible));in.toggle=true;CHECK(f.update(c,in,true,&visible)&&f.pose==visible);
+ FlightController f;FlightInput in;auto visible=identity();in.focused=true;CHECK(!f.update(c,in,true,&visible)&&!f.last_toggle_edge);in.toggle=true;CHECK(f.update(c,in,true,&visible)&&f.pose==visible&&f.last_toggle_edge);
  // Held toggle does not oscillate; exact initial pose, no activation snap/flip.
- CHECK(f.update(c,in,true,&visible));in.toggle=false;CHECK(f.update(c,in,true,&visible));
+ CHECK(f.update(c,in,true,&visible)&&!f.last_toggle_edge);in.toggle=false;CHECK(f.update(c,in,true,&visible)&&!f.last_toggle_edge);
  in.keys[0]=in.keys[3]=true;in.seconds=1;auto before=f.pose;CHECK(f.update(c,in,true,&visible));double length=0;for(unsigned j=0;j<3;++j)length+=std::pow(f.pose[12+j]-before[12+j],2);CHECK(std::abs(std::sqrt(length)-2)<.00001); // 40m/s, bounded .05sec diagonal.
  in.keys={};in.keys[4]=true;in.seconds=.01;before=f.pose;f.update(c,in,true,&visible);CHECK(f.pose[12]==before[12]&&f.pose[14]==before[14]&&f.pose[13]>before[13]);
  in.keys={};in.mouse_x=1000;in.mouse_y=-1000;for(unsigned n=0;n<100;++n)CHECK(f.update(c,in,true,&visible));CHECK(std::isfinite(f.pose[0])&&std::abs(f.pose[9])<1);
- in={};in.focused=false;CHECK(!f.update(c,in,true,&visible)&&!f.active);in.focused=true;in.toggle=true;CHECK(!f.update(c,in,true,&visible)); // Held toggle through Alt+Tab requires release.
+ in={};in.focused=false;CHECK(!f.update(c,in,true,&visible)&&!f.active&&!f.last_toggle_edge);in.focused=true;in.toggle=true;CHECK(!f.update(c,in,true,&visible)&&!f.last_toggle_edge); // Held toggle through Alt+Tab requires release.
  in.toggle=false;f.update(c,in,true,&visible);in.toggle=true;CHECK(f.update(c,in,true,&visible));CHECK(!f.update(c,in,false,&visible));
  // Frontend/unknown certificate and malformed visible view never activate.
  f.cancel();in.toggle=false;f.update(c,in,true,&visible);in.toggle=true;CHECK(!f.update(c,in,false,&visible));visible[0]=2;f.cancel();in.toggle=false;f.update(c,in,true,&visible);in.toggle=true;CHECK(!f.update(c,in,true,&visible));
+}
+void horizon(){
+ auto c=parse_free_camera_config({{"FreeCamera.Enabled","1"}});auto identity_pose=identity();FlightController zero;FlightInput in;in.focused=true;CHECK(!zero.update(c,in,true,&identity_pose));in.toggle=true;in.mouse_x=500;in.mouse_y=-400;in.seconds=.05;CHECK(zero.update(c,in,true,&identity_pose));CHECK(zero.pose==identity_pose); // Activation is exact even with unusual first packet.
+ in.toggle=false;in.mouse_x=in.mouse_y=0;in.seconds=.05;for(unsigned i=0;i<6;++i)CHECK(zero.update(c,in,true,&identity_pose));CHECK(std::abs(zero.current_roll_degrees)<.01f&&zero.horizon_level_progress==1&&zero.orientation_valid);
+ for(double roll:{9*3.141592653589793/180.,-9*3.141592653589793/180.}){
+  auto p=rolled_pose(.73,.31,roll);auto original=p;FlightController f;activate(f,c,p);
+  in={};in.focused=true;in.seconds=.05;for(unsigned i=0;i<6;++i)CHECK(f.update(c,in,true,&p));
+  CHECK(std::abs(f.current_roll_degrees)<.01f&&f.orientation_valid&&f.horizon_level_progress==1);
+  for(unsigned j=0;j<3;++j)CHECK(std::abs(f.pose[12+j]-original[12+j])<1e-6f);
+  for(unsigned j=0;j<3;++j)CHECK(std::abs(f.pose[8+j]-original[8+j])<.0002f); // Pure roll correction preserves look direction.
+  for(unsigned row=0;row<3;++row){double len=0;for(unsigned j=0;j<3;++j)len+=double(f.pose[row*4+j])*f.pose[row*4+j];CHECK(std::abs(len-1)<.0001);for(unsigned other=0;other<row;++other){double d=0;for(unsigned j=0;j<3;++j)d+=double(f.pose[row*4+j])*f.pose[other*4+j];CHECK(std::abs(d)<.0001);}}
+  double det=f.pose[0]*(f.pose[5]*f.pose[10]-f.pose[6]*f.pose[9])-f.pose[1]*(f.pose[4]*f.pose[10]-f.pose[6]*f.pose[8])+f.pose[2]*(f.pose[4]*f.pose[9]-f.pose[5]*f.pose[8]);CHECK(det>.999&&det<1.001);
+ }
+ // Different frame subdivisions produce the same configured correction time.
+ auto tilted=rolled_pose(-.4,.2,9*3.141592653589793/180.);FlightController a,b;activate(a,c,tilted);activate(b,c,tilted);in={};in.focused=true;in.seconds=.025;for(unsigned i=0;i<12;++i)CHECK(a.update(c,in,true,&tilted));in.seconds=.05;for(unsigned i=0;i<6;++i)CHECK(b.update(c,in,true,&tilted));CHECK(a.horizon_level_progress==b.horizon_level_progress&&std::abs(a.current_roll_degrees-b.current_roll_degrees)<.01f);
+ // Zero duration is immediate on the first post-activation sample, never on activation.
+ auto instant=parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.HorizonLevelSeconds","0"}});FlightController immediate;activate(immediate,instant,tilted);CHECK(std::abs(immediate.current_roll_degrees)>8);in.seconds=.001;CHECK(immediate.update(instant,in,true,&tilted));CHECK(immediate.horizon_level_progress==1&&std::abs(immediate.current_roll_degrees)<.01f);
+ // Disabled auto-level retains cinematic native roll and mouse yaw/pitch stays rigid.
+ auto cinematic=parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.AutoLevelHorizon","0"}});FlightController native;activate(native,cinematic,tilted);in={};in.focused=true;in.seconds=.05;CHECK(native.update(cinematic,in,true,&tilted));CHECK(std::abs(std::abs(native.current_roll_degrees)-9)<.05f&&native.pose==tilted);
+ for(double pitch:{89*3.141592653589793/180.,3.141592653589793/2.,-3.141592653589793/2.}){auto vertical=rolled_pose(.2,pitch,.4);FlightController near_vertical;activate(near_vertical,c,vertical);in={};in.focused=true;in.seconds=.05;for(unsigned i=0;i<6;++i)CHECK(near_vertical.update(c,in,true,&vertical));for(float v:near_vertical.pose)CHECK(std::isfinite(v));CHECK(near_vertical.orientation_valid);}
+ // Once leveled, repeated yaw/pitch input cannot accumulate roll or invert at pitch bounds.
+ auto level_start=identity();FlightController look;activate(look,c,level_start);in={};in.focused=true;in.seconds=.05;for(unsigned i=0;i<6;++i)CHECK(look.update(c,in,true,&level_start));in.mouse_x=20;in.mouse_y=-20;for(unsigned i=0;i<200;++i)CHECK(look.update(c,in,true,&level_start));CHECK(look.orientation_valid&&std::abs(look.current_roll_degrees)<.05f);for(float v:look.pose)CHECK(std::isfinite(v));
+ in.mouse_x=-20;in.mouse_y=20;for(unsigned i=0;i<200;++i)CHECK(look.update(c,in,true,&level_start));CHECK(look.orientation_valid&&std::abs(look.current_roll_degrees)<.05f);
+ FlightController reversible;activate(reversible,c,level_start);in={};in.focused=true;in.mouse_x=20;CHECK(reversible.update(c,in,true,&level_start));in.mouse_x=-20;CHECK(reversible.update(c,in,true,&level_start));for(unsigned j=0;j<12;++j)CHECK(std::abs(reversible.pose[j]-level_start[j])<.001f);
+ // A nearly half-turn initial roll follows a bounded shortest correction over
+ // the configured interval rather than flipping the basis on one sample.
+ auto half_turn=rolled_pose(0,0,179*3.141592653589793/180.);FlightController shortest;activate(shortest,c,half_turn);in={};in.focused=true;in.seconds=.05;CHECK(shortest.update(c,in,true,&half_turn));CHECK(std::abs(shortest.current_roll_degrees)<179&&std::abs(shortest.current_roll_degrees)>150);
 }
 D3DMATRIX view_of(const std::array<float,16>& p){D3DMATRIX v{};for(unsigned j=0;j<3;++j){v.m[j][0]=p[j];v.m[j][1]=p[4+j];v.m[j][2]=-p[8+j];v.m[3][0]-=p[12+j]*p[j];v.m[3][1]-=p[12+j]*p[4+j];v.m[3][2]+=p[12+j]*p[8+j];}v._44=1;return v;}
 void scopes(){
@@ -118,4 +160,4 @@ void bridges(){
 }
 
 }
-int main(){try{controls();scopes();bridges();std::cout<<"Flight controls / displayed VIEW inversion / owned 176-byte scope / seven real scheduler RET4 ABI cases: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<"\n";return 1;}}
+int main(){try{controls();horizon();scopes();bridges();std::cout<<"Flight orientation / horizon stabilization / displayed VIEW inversion / owned 176-byte scope / seven real scheduler RET4 ABI cases: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<"\n";return 1;}}

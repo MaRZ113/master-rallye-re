@@ -52,6 +52,35 @@ class FreeCameraEvidenceTests(unittest.TestCase):
         self.assertFalse(result['camera_writes_authorized'])
         self.assertTrue(result['free_camera']['active'])
 
+    def test_a3e_summary_reports_live_certificate_without_claiming_flight(self):
+        r = dict(type='race_epoch_snapshot', phase='R-CAM1-A3e', camera_writes_authorized=False,
+                 live_certificate_valid=True, free_camera=dict(active=False), events=[], jobs=[],
+                 root_job_success=dict(scene='RaceTest/France1', source='DataScene/RaceTest/France1.xml',
+                                       flag21=1, flag22=1, commit_success=True, terminal=True),
+                 hud_job_success=dict(scene='Hud/Hud0', flag21=1, flag22=0,
+                                      commit_success=True, terminal=True),
+                 input_observation=dict(toggle_key_vk=0x77, focused=True,
+                                        toggle_pressed_while_focused=True, controller_toggle_edge=True))
+        result = summarize(r)
+        self.assertEqual(result['status'], 'LIVE_RACE_CERTIFIED_AWAITING_HUMAN_FLIGHT')
+        self.assertFalse(result['camera_writes_authorized'])
+        self.assertEqual(result['root_job_success']['flag22'], 1)
+        self.assertEqual(result['hud_job_success']['flag22'], 0)
+        self.assertTrue(result['input_observation']['controller_toggle_edge'])
+
+    def test_first_flight_runtime_golden_keeps_root_hud_and_state_distinct(self):
+        evidence = json.loads((ROOT / 'research/r-cam1-a3e/first-flight-capture-summary.json').read_text())
+        self.assertEqual(evidence['target_exe_sha256'], 'bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4')
+        root, hud = evidence['root_job'], evidence['hud_child_job']
+        self.assertEqual((root['scene'], root['source'], root['flag21'], root['flag22']),
+                         ('RaceTest/France1', 'DataScene/RaceTest/France1.xml', 1, 1))
+        self.assertEqual((hud['scene'], hud['source'], hud['flag21'], hud['flag22'], hud['parent_job_lifetime']),
+                         ('Hud/Hud0', 'DataScene/Hud/Hud0.xml', 1, 0, root['lifetime']))
+        self.assertEqual(root['manager_scene_after_commit'], hud['manager_scene_after_commit'])
+        self.assertEqual(evidence['typed_race_context']['Race/Car0/RaceState'], 0)
+        self.assertEqual(evidence['observed_certificate']['live_certificate_reason'], 'supported_course_job_not_verified')
+        self.assertFalse(evidence['interpretation']['flight_confirmed'])
+
     def test_current_inspector_still_rejects_unknown_binary(self):
         with self.assertRaisesRegex(ValueError, 'Not pristine retail'):
             inspect_a3d(b'unknown build')
@@ -79,6 +108,8 @@ class FreeCameraEvidenceTests(unittest.TestCase):
         ini.read(ROOT / 'MRRRenderer.ini.example')
         self.assertEqual(ini['FreeCamera']['Enabled'], '0')
         self.assertNotEqual(ini['FreeCamera']['ToggleKey'], 'F10')
+        self.assertEqual(ini['FreeCamera']['AutoLevelHorizon'], '1')
+        self.assertEqual(ini['FreeCamera']['HorizonLevelSeconds'], '0.30')
         first = configparser.ConfigParser()
         first.read(ROOT / 'docs/r-cam1-a3d/first-flight.ini')
         self.assertEqual(first['FreeCamera']['Enabled'], '1')

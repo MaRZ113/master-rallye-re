@@ -38,7 +38,7 @@ void ordering(){
  CHECK(e.execution_depth==2);e.commit(9,true);e.end(101);CHECK(e.executing_job==100);e.commit(9,true);e.end(100);CHECK(!e.execution_depth&&!e.poisoned);
  // Owner constructed and HUD requested within the same native execution, then deferred HUD job.
  for(unsigned first:{7u,19u}){e=RaceEpoch{};e.generation=first-1;
-  e.request(9269,"RaceTest/France1");e.queue(100,9269,12,true,1,0,"DataScene/RaceTest/France1.xml");e.begin(100,true);e.attach(200,208,true);e.initialized(200,208,true);
+  e.request(9269,"RaceTest/France1");e.queue(100,9269,12,true,1,1,"DataScene/RaceTest/France1.xml");e.begin(100,true);e.attach(200,208,true);e.initialized(200,208,true);
   auto race=e.race_generation;auto lifetime=e.owner.lifetime;
   e.request(9801,"Hud/Hud0",0x4aa0c1);e.queue(101,9801,13,true,1,0,"DataScene/Hud/Hud0.xml");
   CHECK(e.generation==first+1&&e.race_generation==race&&e.owner.generation==first&&e.owner.lifetime==lifetime);
@@ -66,8 +66,11 @@ void context(){
  owner.participant_states_ready=false;CHECK(!check_race_context(f,owner).supported);owner.participant_states_ready=true;owner.valid=false;CHECK(!check_race_context(f,owner).supported);
 }
 void certificate(){
- RaceEpoch e;e.request(9269,"RaceTest/France1");e.queue(100,9269,10,true,1,0,"DataScene/RaceTest/France1.xml");e.begin(100,true);e.attach(200,208,true);e.initialized(200,208,true);
- e.request(9801,"Hud/Hud0",0x4aa0c1);e.queue(101,9801,11,true,1,0,"DataScene/Hud/Hud0.xml");e.commit(9801,true);e.end(100);e.begin(101,true);e.commit(9801,true);e.end(101);e.admitted(200,true);
+ // Golden first-flight evidence: root France1 is (1,1); its native HUD child
+ // is (1,0). The global manager scene is already Hud/Hud0 at root commit.
+ RaceEpoch e;e.request(9261,"RaceTest/France1");e.queue(100,9261,10,true,1,1,"DataScene/RaceTest/France1.xml");e.begin(100,true);e.attach(200,208,true);e.initialized(200,208,true);
+ e.request(9793,"Hud/Hud0",0x4aa0c1);e.queue(101,9793,11,true,1,0,"DataScene/Hud/Hud0.xml");e.commit(9793,true);e.end(100);e.begin(101,true);e.commit(9793,true);e.end(101);e.admitted(200,true);
+ CHECK(e.course_identity_verified()&&e.find(100)->scene==9261&&e.find(100)->manager_scene_after_commit==9793);
  std::array<RaceScalar,9> f{};for(size_t i=0;i<f.size();++i)f[i]={true,RACE_CONTEXT_TAGS[i],0};f[0].value=1;f[1].value=f[8].value=1;
  RaceOwnerRead o;o.valid=o.storage_readable=o.native_live_unique=o.temporal_match=o.arrays_ready=o.participant_states_ready=true;o.count=1;
  CHECK(check_live_race_certificate(e,o,f,true,300).valid);
@@ -81,6 +84,12 @@ void certificate(){
  stale=e;stale.retire(200,true);CHECK(!check_live_race_certificate(stale,o,f,true,300).valid);stale=e;stale.request(9269,"RaceTest/France1");CHECK(!check_live_race_certificate(stale,o,f,true,300).valid);
  stale=e;stale.poisoned=true;CHECK(!check_live_race_certificate(stale,o,f,true,300).valid);stale=e;stale.jobs[0].source_text[0]='?';CHECK(!check_live_race_certificate(stale,o,f,true,300).valid);
  stale=e;stale.jobs[1].failed=true;CHECK(!check_live_race_certificate(stale,o,f,true,300).valid);
+ // HUD success cannot bless a failed root parser job.
+ stale=RaceEpoch{};stale.request(9261,"RaceTest/France1");stale.queue(100,9261,10,true,1,1,"DataScene/RaceTest/France1.xml");stale.begin(100,true);stale.attach(200,208,true);stale.initialized(200,208,true);
+ stale.request(9801,"Hud/Hud0",0x4aa0c1);stale.queue(101,9801,11,true,1,0,"DataScene/Hud/Hud0.xml");stale.commit(9801,false);stale.end(100);stale.begin(101,true);stale.commit(9801,true);stale.end(101);stale.admitted(200,true);
+ CHECK(!stale.find(100)->commit_success&&!check_live_race_certificate(stale,o,f,true,300).valid);
+ // Same path/name with the HUD flag pair is not the proven root contract.
+ stale=e;stale.jobs[0].flag22=0;CHECK(!stale.course_identity_verified()&&!check_live_race_certificate(stale,o,f,true,300).valid);
  // A canceled parent completion cannot revive an old certificate.
  stale=RaceEpoch{};stale.request(1);stale.queue(100,1,1,true);stale.begin(100,true);stale.attach(200,208,true);stale.initialized(200,208,true);stale.cancel(RaceEvent::Reset,"Reset");stale.commit(1,true);stale.end(100);stale.admitted(200,true);CHECK(!stale.correlated_owner_candidate());
 }
@@ -100,12 +109,12 @@ struct ReadFixture:RaceReadMemory {
  void member(uint32_t head,uint32_t actor){auto node=actor+0x60;put(head+4,node);put(head+8,node);put(node,actor);put(node+4,head);put(node+8,head);}
 };
 struct OwnerFixture:ReadFixture {
- uint32_t manager,actor,ai,registry,bucket,broker,broker_data,pool_data,live_head;
+ uint32_t manager,actor,ai,registry,bucket,broker,broker_data,pool_data,live_head,state_payload;
  RaceOwner identity{};
  OwnerFixture(){
   auto pool=alloc(12),ids=alloc(16);pool_data=alloc(4*3);put(0x6f93d4,pool);put(pool+4,ids);vector(ids,pool_data,12);
   put(pool_data,text("unused"));put(pool_data+4,text("RaceLimits"));put(pool_data+8,text("Race/Car0/RaceState"));
-  broker=alloc(16);broker_data=alloc(0x1c*3);put(0x6f9410,broker);vector(broker,broker_data,0x1c*3);auto payload=alloc(4);put(payload,2);put(broker_data+0x38,2);put(broker_data+0x3c,payload);put(broker_data+0x40,2);
+  broker=alloc(16);broker_data=alloc(0x1c*3);put(0x6f9410,broker);vector(broker,broker_data,0x1c*3);state_payload=alloc(4);put(state_payload,0);put(broker_data+0x38,2);put(broker_data+0x3c,state_payload);put(broker_data+0x40,2);
   manager=alloc(0x7c);put(0x6f96fc,manager);registry=alloc(16);put(manager+0x1c,registry);auto data=alloc(8);vector(registry,data,8);bucket=alloc(16);put(data+4,bucket);
   actor=alloc(0x78);ai=alloc(0x48);identity={actor,ai,1,1,1,true,true,false};put(actor+0x5c,1);auto registered=alloc(4);put(registered,actor);vector(bucket,registered,4);
   sentinel(manager+0x10);for(unsigned i=0;i<7;++i)sentinel(manager+0x24+i*12);live_head=manager+0x24;member(live_head,actor);
@@ -116,8 +125,12 @@ struct OwnerFixture:ReadFixture {
 };
 void reads(){
  OwnerFixture m;char text[64]{};CHECK(race_pool_text(m,0x400000,1,text,64)&&!std::strcmp(text,"RaceLimits"));uint32_t id=0;CHECK(race_pool_id(m,0x400000,"RaceLimits",id)&&id==1);
- auto v=race_broker_scalar(m,0x400000,2,2);CHECK(v.present&&v.value==2);CHECK(!race_broker_scalar(m,0x400000,2,0).present);CHECK(!race_broker_scalar(m,0x400000,99,2).present);
+ auto v=race_broker_scalar(m,0x400000,2,2);CHECK(v.present&&v.value==0);CHECK(!race_broker_scalar(m,0x400000,2,0).present);CHECK(!race_broker_scalar(m,0x400000,99,2).present);
  auto r=read_race_owner(m,0x400000,m.identity,1);CHECK(r.valid&&r.arrays_ready&&r.participant_states_ready&&r.count==1&&r.live_memberships==1);
+ CHECK(r.participant_states[0]==0&&!std::strcmp(r.participant_states_reason,"native_phase_0_or_2"));
+ m.put(m.state_payload,1);r=read_race_owner(m,0x400000,m.identity,1);CHECK(r.valid&&!r.participant_states_ready&&!std::strcmp(r.participant_states_reason,"race_state_1_startup_transition"));
+ m.put(m.state_payload,2);r=read_race_owner(m,0x400000,m.identity,1);CHECK(r.valid&&r.participant_states_ready&&r.participant_states[0]==2);
+ m.put(m.state_payload,3);r=read_race_owner(m,0x400000,m.identity,1);CHECK(r.valid&&!r.participant_states_ready&&!std::strcmp(r.participant_states_reason,"race_state_3_finished"));
  m.array_reads=0;CHECK(read_race_owner(m,0x400000,m.identity,2).valid&&m.array_reads);m.array_reads=0;m.bytes[m.actor]=2;r=read_race_owner(m,0x400000,m.identity,1);CHECK(!r.valid&&m.array_reads==0);
  m.bytes[m.actor]=0;m.put(m.bucket+8,0); // malformed registry fails before arrays.
  m.array_reads=0;r=read_race_owner(m,0x400000,m.identity,1);CHECK(!r.valid&&!m.array_reads);
