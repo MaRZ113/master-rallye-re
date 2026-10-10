@@ -195,11 +195,493 @@
       "query_group": "r-cam1-a3-particles",
       "evidence_grade": "CONFIRMED_BY_EXE",
       "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x0056CD80",
+      "rva": "0x0016CD80",
+      "instructions": 162,
+      "assembly_sha256": "1cb831ce1cd3ccdb9be0a2382de86b24b4396b20b318831c087af9dd9e49baab",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-frame",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x005AFE30",
+      "rva": "0x001AFE30",
+      "instructions": 247,
+      "assembly_sha256": "34067fc1dade86323ce845a1f97b5d3f0c3f1b14f6f2c21a588105a7c6c26c9c",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-frame",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x00653080",
+      "rva": "0x00253080",
+      "instructions": 234,
+      "assembly_sha256": "65172836c867dd5a94e79d6ada2e7fb7664d401b736dfa04a41b24b264afab41",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-frame",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x0056BAF0",
+      "rva": "0x0016BAF0",
+      "instructions": 25,
+      "assembly_sha256": "a409f85617856ba08c9e7e17ba19a61157699a5100569af0ea2232b15cd9104b",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-frame",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x005614A0",
+      "rva": "0x001614A0",
+      "instructions": 428,
+      "assembly_sha256": "cdae4a15adaf709553e08b8d7ee939fa07ba31779b61ff07ebd558c4f80b1ffd",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-frame",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x0050E450",
+      "rva": "0x0010E450",
+      "instructions": 194,
+      "assembly_sha256": "a534d003cb6b9c99efbfad178f389f9f01996419bf2e0be48f4a156cd81d324c",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-frame",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x0050E650",
+      "rva": "0x0010E650",
+      "instructions": 45,
+      "assembly_sha256": "9aa533c0c024a9ca1922f1c0c185f67d769ce9eb8d50f98f87d2fb354b328341",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-frame",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x004F5840",
+      "rva": "0x000F5840",
+      "instructions": 22,
+      "assembly_sha256": "808b1b0c28f69e1256ca416144265943592845a17d1aceb2d039c0ac777fd2f3",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-frame",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x004CD9B0",
+      "rva": "0x000CD9B0",
+      "instructions": 429,
+      "assembly_sha256": "3cccd2355fdd428868b8d4ac8e4e0c37c78db832bddbb6d129a7ac10db9dd967",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-frame",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x004CDF00",
+      "rva": "0x000CDF00",
+      "instructions": 179,
+      "assembly_sha256": "04d9de22fa1404dbc23757fff996335a8ab4d241eccca69eb9c25f7d77875b92",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-frame",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x00589880",
+      "rva": "0x00189880",
+      "instructions": 225,
+      "assembly_sha256": "cf0add04f99bea030688af1e6bfb8a0500907a0552b7479b3041e3c25fb17dbc",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-late",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x0058BB20",
+      "rva": "0x0018BB20",
+      "instructions": 126,
+      "assembly_sha256": "c0204adf29f050145e7eeffbd89f7814f2fd947eee8a2b913b2c44c4cc8d3ddb",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-late",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x0058B870",
+      "rva": "0x0018B870",
+      "instructions": 185,
+      "assembly_sha256": "55c0a1ca8057dfa18765f4b00283531ac5cee3485ea2096bd524ccb529b0b621",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-late",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x0055B0D0",
+      "rva": "0x0015B0D0",
+      "instructions": 9,
+      "assembly_sha256": "7375ba27659520b81175122aea1eab26c29d649c29956e01c6b382eaf2d1dd97",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-late",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x0064F1C0",
+      "rva": "0x0024F1C0",
+      "instructions": 55,
+      "assembly_sha256": "3c3e4f1d3fab9733dbe4a252e0d39948201caa11cf6b59fc106127dfa6b3eb37",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-late",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x004F59F0",
+      "rva": "0x000F59F0",
+      "instructions": 15,
+      "assembly_sha256": "92a5cf2b06e13756e0124f259dff6e40ab4387fd640eb1258c6f2f159d84a8ba",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-late",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x0053F050",
+      "rva": "0x0013F050",
+      "instructions": 7,
+      "assembly_sha256": "a8b97fe88637197a9d62d341eff5d8bb89ec9b2c0a9d5ee4330bdc2bc427f0f0",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-late",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x0048E820",
+      "rva": "0x0008E820",
+      "instructions": 127,
+      "assembly_sha256": "84e0813ca736d12c8cf59cc6ec39ffff86f6878750b0dba8a5b2dc3967afa62f",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-phase",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x00489EC0",
+      "rva": "0x00089EC0",
+      "instructions": 183,
+      "assembly_sha256": "3d265bbd9a91fb9b203e8f93d2ae942f08d922d0e20e111f5041025102520099",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-phase",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x0048A880",
+      "rva": "0x0008A880",
+      "instructions": 25,
+      "assembly_sha256": "d05cd0500398ff31353c8791cca7f0ac0032dfe34fe0fc0938aa0daba9111885",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-phase",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x004F5950",
+      "rva": "0x000F5950",
+      "instructions": 33,
+      "assembly_sha256": "39e5dda072fbd9948729a1732faa75cb887d07aa2720d5bc7ac94cd184387fe7",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-phase",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x004D4CD0",
+      "rva": "0x000D4CD0",
+      "instructions": 15,
+      "assembly_sha256": "e2581aa4f16f65702728b06efeb171c81ec67fa1e79f2fe0c4a25ee5f878e964",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-phase",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x004F61A0",
+      "rva": "0x000F61A0",
+      "instructions": 121,
+      "assembly_sha256": "8f1687fbbebaa250af9ea5548702d9545d16ddb37052a4d6529fa2faacc18665",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-owner",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x004F5EB0",
+      "rva": "0x000F5EB0",
+      "instructions": 17,
+      "assembly_sha256": "ea68e788f863f102655dad2729517f22b47ae8d023703df83b54fcc366e6403d",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-owner",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x004F2620",
+      "rva": "0x000F2620",
+      "instructions": 282,
+      "assembly_sha256": "e88f61788987401e081387e7ac93b7b90188373f501a1a1ad222403f6f271719",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-owner",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x004F2380",
+      "rva": "0x000F2380",
+      "instructions": 90,
+      "assembly_sha256": "01294f26b9f2b6ff0d6d1a654ef69f302f043f82f934fbc3ea5da43f881cdaec",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-owner",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x0048E2D0",
+      "rva": "0x0008E2D0",
+      "instructions": 398,
+      "assembly_sha256": "d0f3578a72c466ca313d829aeed6c5ce36aab0fab3a5e78a2f87a52dea002a40",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-owner",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x004D44F0",
+      "rva": "0x000D44F0",
+      "instructions": 104,
+      "assembly_sha256": "3d433245ddf68e93f0e85963c67d1990af3b818cae8eb32bfe8f26215480041f",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-owner",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x004D6A20",
+      "rva": "0x000D6A20",
+      "instructions": 33,
+      "assembly_sha256": "312898a3d2c7a787c0efad14ebf6758bc31599eec5285dd24a8ce73ba9420fef",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-owner",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x005097F0",
+      "rva": "0x001097F0",
+      "instructions": 12,
+      "assembly_sha256": "e7273fc31c1d2d44a6029fb61cd669f8a77697a12506ce977c7bfe7a06dbc1d1",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-visibility",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x00509970",
+      "rva": "0x00109970",
+      "instructions": 109,
+      "assembly_sha256": "797205c1d1412fcdf32bbd12e3507505ac787e482c12be4b556294a0c4e1cf72",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-derived",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x00509F80",
+      "rva": "0x00109F80",
+      "instructions": 74,
+      "assembly_sha256": "1dea0f596d4c48af0c084f3a9e35678643ff7892b30d4c616f741a1f94c2e6ec",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-derived",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x004F69B0",
+      "rva": "0x000F69B0",
+      "instructions": 30,
+      "assembly_sha256": "23f932773583efeca7edfb9d2707fc3b812eae3e91cde2e747a78e90c8f1fb5c",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-derived",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x005FC950",
+      "rva": "0x001FC950",
+      "instructions": 37,
+      "assembly_sha256": "5c179cd38443e3861d11a55bed276860dcc8f4c514cd1e762898164ea8aa2ced",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-queue",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x0054A660",
+      "rva": "0x0014A660",
+      "instructions": 30,
+      "assembly_sha256": "7dc5882e0fd202303859a96ad9272fdc12303c4ac0b450cddee8e07bd8e3d0a2",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-queue",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x0052D620",
+      "rva": "0x0012D620",
+      "instructions": 61,
+      "assembly_sha256": "9753f80e99b4fe5202405c88cbea6507c4080fb4e9f886dbd3f4c5f8e11e59eb",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-queue",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x00522330",
+      "rva": "0x00122330",
+      "instructions": 91,
+      "assembly_sha256": "b22f8432e7fbd20878a0b7bd1a38a058556ada897f38eca2265a178951558bcb",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-queue",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x00522480",
+      "rva": "0x00122480",
+      "instructions": 65,
+      "assembly_sha256": "336950b56e74715798bf81ea479fd46a77198889fe67d355372f27413d094823",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-queue",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x004D6760",
+      "rva": "0x000D6760",
+      "instructions": 102,
+      "assembly_sha256": "b8d22446efbe7643108982bfb6ef45277e7732a8f933459c9c3cc9a5c8f71cc0",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-queue",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x004F5780",
+      "rva": "0x000F5780",
+      "instructions": 71,
+      "assembly_sha256": "39958c609f6faa416ad797599a21719c4ea9465f237c062233a2f8528cda809c",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-queue",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x0054A340",
+      "rva": "0x0014A340",
+      "instructions": 7,
+      "assembly_sha256": "b864b65770e1393ee01f8c98a15c21f866da56d30f9eb5c98db3b97521c913b7",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-dispatch",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x0052D5E0",
+      "rva": "0x0012D5E0",
+      "instructions": 7,
+      "assembly_sha256": "b15c27450fabf97f648bd6907a29af2d1dc6ce235efa74831b5454c04bbda271",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-dispatch",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x0052D600",
+      "rva": "0x0012D600",
+      "instructions": 7,
+      "assembly_sha256": "7772334945d94711941151ea072ecbded1d582bff2e77e6a0250b6becc855ef0",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-dispatch",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x0054A360",
+      "rva": "0x0014A360",
+      "instructions": 111,
+      "assembly_sha256": "de8b12c5937ef674ffa69e7bccc96844bcf899daa82363c3b297bb9389742d1a",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-queue-lifetime",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x0054A4B0",
+      "rva": "0x0014A4B0",
+      "instructions": 132,
+      "assembly_sha256": "000f9a01c7f9ea2e403bfaabb6c19b3bd736e6b399b52a415e9ac4da1a687bf1",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-queue-lifetime",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x004F65B0",
+      "rva": "0x000F65B0",
+      "instructions": 78,
+      "assembly_sha256": "f7d0938910f9a9114fc9f9942a87947543a5c72bc90fffa98aa486caa48b85b3",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-owner",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
+    },
+    {
+      "va": "0x00589B70",
+      "rva": "0x00189B70",
+      "instructions": 611,
+      "assembly_sha256": "152cf2c5d572776cf7838b1f75166d696aa2731cd387fa9c3837e74a34ad8425",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "query_group": "r-cam1-a3b-debug-world",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "decompiler_types_authoritative": false
     }
   ],
   "excluded_export": {
     "requested": "0x00562420",
     "returned_entry": "0x00562810",
     "reason": "overlapping function export does not verify requested entry; excluded"
+  },
+  "a3b_audit": {
+    "new_curated_exports": 47,
+    "excluded_selected_queries": [
+      {
+        "requested": "0056bb90",
+        "batch": "r-cam1-a3b-late",
+        "reason": "entry mismatch; not curated"
+      }
+    ],
+    "method": "reviewed instruction operands; hash-locked byte anchors independently checked; no negative proof from empty Ghidra xrefs",
+    "scope": "renderer lifetime and RaceLimits registration/scene-job phase only"
   }
 }

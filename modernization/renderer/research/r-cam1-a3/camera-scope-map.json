@@ -1,5 +1,6 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
+  "phase": "R-CAM1-A3b",
   "read_only": true,
   "build": {
     "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
@@ -159,9 +160,468 @@
       "call_target": null,
       "evidence_grade": "CONFIRMED_BY_EXE",
       "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x00653288",
+      "rva": "0x00253288",
+      "role": "PerCameraPreparation",
+      "expected_bytes": "8b168bceff520ce83c0be9ff8b04b88b16508bceff5224",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x006532A4",
+      "rva": "0x002532A4",
+      "role": "PerCameraNativeViewportWrites",
+      "expected_bytes": "8b04b88b4cbc208b54bc3083c07889088b4cbc408950048b54bc5089480889500c",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x006532EE",
+      "rva": "0x002532EE",
+      "role": "RebindCameraZero",
+      "expected_bytes": "e8dd0ae9ff8b008b4c24148b542418",
+      "call_target": "0x004E3DD0",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x006532FD",
+      "rva": "0x002532FD",
+      "role": "FullFrameNativeViewportWrites",
+      "expected_bytes": "89587889587c899080000000898884000000",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x00653329",
+      "rva": "0x00253329",
+      "role": "EndFrameVirtualCall",
+      "expected_bytes": "ff5218",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0065332C",
+      "rva": "0x0025332C",
+      "role": "SchedulerEpilogue_RET4",
+      "expected_bytes": "5f5e5d5b83c450c20400",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x006922E0",
+      "rva": "0x002922E0",
+      "role": "RendererVtableEndFrame",
+      "expected_bytes": "80cd5600",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0056CD89",
+      "rva": "0x0016CD89",
+      "role": "EndFrameDisabledPath",
+      "expected_bytes": "8a86b000000084c00f84b6010000",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0056CE23",
+      "rva": "0x0016CE23",
+      "role": "ConditionalLateDebugCamera",
+      "expected_bytes": "e8b88ef7ff8b480833db3bcb741c8b7c2410",
+      "call_target": "0x004E5CE0",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0056CE38",
+      "rva": "0x0016CE38",
+      "role": "EndFrameLateCameraBuilderCall",
+      "expected_bytes": "e86346ffff",
+      "call_target": "0x005614A0",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0056CE3D",
+      "rva": "0x0016CE3D",
+      "role": "EndFramePassSelectedCameraToDebug",
+      "expected_bytes": "8b4f048b560c51528d4e10e833ca0100",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x00589952",
+      "rva": "0x00189952",
+      "role": "DebugWorldCameraConsumer",
+      "expected_bytes": "e819020000",
+      "call_target": "0x00589B70",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0056CE60",
+      "rva": "0x0016CE60",
+      "role": "EndFrameNativeEndScene",
+      "expected_bytes": "ff918c000000",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0056CE90",
+      "rva": "0x0016CE90",
+      "role": "EndFramePresentCall",
+      "expected_bytes": "e83be2feff",
+      "call_target": "0x0055B0D0",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0056CE95",
+      "rva": "0x0016CE95",
+      "role": "PostPresentTimerCalls",
+      "expected_bytes": "e886ec01008bc8e8cfe90100",
+      "call_target": "0x0058BB20",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0056CF43",
+      "rva": "0x0016CF43",
+      "role": "EndFrameNormalEpilogue_RET0",
+      "expected_bytes": "5f5e5d5b83c410c3",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0056CF4B",
+      "rva": "0x0016CF4B",
+      "role": "EndFrameAlternateEpilogue_RET0",
+      "expected_bytes": "ddd85f5e5d5b83c410c3",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x005B015A",
+      "rva": "0x001B015A",
+      "role": "CountdownSkipsScheduler",
+      "expected_bytes": "85ff75118b442410",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x005B0166",
+      "rva": "0x001B0166",
+      "role": "MainLoopSchedulerCall",
+      "expected_bytes": "e8152f0a00",
+      "call_target": "0x00653080",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x005B016B",
+      "rva": "0x001B016B",
+      "role": "ImmediateCallerContinuation",
+      "expected_bytes": "ff44241484db0f84b7fdffff6a00ff1520f2680050ff1544f16800e9a3fdffff",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x005AFF55",
+      "rva": "0x001AFF55",
+      "role": "MainLoopMessagePumpCall",
+      "expected_bytes": "e8e6f209008bc8e85ff2090084c0",
+      "call_target": "0x0064F240",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x005AFF5C",
+      "rva": "0x001AFF5C",
+      "role": "MainLoopDispatchMessages",
+      "expected_bytes": "e85ff20900",
+      "call_target": "0x0064F1C0",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004F2A02",
+      "rva": "0x000F2A02",
+      "role": "CameraProducerSnapAndHistoryWrites",
+      "expected_bytes": "385e04740c558d4e38e85024f1ff885e04399ec8000000740f558d4e38e83c24f1ffff8ec8000000",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0048E6E5",
+      "rva": "0x0008E6E5",
+      "role": "RaceLimitsRenameCall",
+      "expected_bytes": "e806730600",
+      "call_target": "0x004F59F0",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0048E706",
+      "rva": "0x0008E706",
+      "role": "RaceLimitsAIConstructorCall",
+      "expected_bytes": "e865f10300",
+      "call_target": "0x004CD870",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0048E717",
+      "rva": "0x0008E717",
+      "role": "RaceLimitsAIInitialAttachCall",
+      "expected_bytes": "e834720600",
+      "call_target": "0x004F5950",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004F59FC",
+      "rva": "0x000F59FC",
+      "role": "ActorRenameUnregisters",
+      "expected_bytes": "e84f8c0100",
+      "call_target": "0x0050E650",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004F5A13",
+      "rva": "0x000F5A13",
+      "role": "ActorRenameRegisters",
+      "expected_bytes": "e8388a0100",
+      "call_target": "0x0050E450",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0050E45B",
+      "rva": "0x0010E45B",
+      "role": "RegistryIndexesActorNameID",
+      "expected_bytes": "8b685c33c93be9896c240c",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004F5975",
+      "rva": "0x000F5975",
+      "role": "AttachStoresAIThenInitializes",
+      "expected_bytes": "894cbe0474198b1156ff5214",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004F5840",
+      "rva": "0x000F5840",
+      "role": "ActorRetirementFlagAndQueue",
+      "expected_bytes": "8a01a80275320c025688018d7118",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004CD926",
+      "rva": "0x000CD926",
+      "role": "LimitsDestructorRewritesDerivedVtable",
+      "expected_bytes": "c7062c156900",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004CD931",
+      "rva": "0x000CD931",
+      "role": "LimitsDestructorFreesParticipantArray",
+      "expected_bytes": "e8ca720e00",
+      "call_target": "0x005B4C00",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x004CD999",
+      "rva": "0x000CD999",
+      "role": "LimitsDestructorWritesBaseVtable",
+      "expected_bytes": "c70690f468005ec3",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0048E855",
+      "rva": "0x0008E855",
+      "role": "RaceStarterChoosesPhaseOneOrTwo",
+      "expected_bytes": "83f80a0f9dc141408be9",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0048E953",
+      "rva": "0x0008E953",
+      "role": "RaceStarterUsesParticipantPhasePath",
+      "expected_bytes": "68700f6b00",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0048E991",
+      "rva": "0x0008E991",
+      "role": "RaceStarterWritesParticipantPhase",
+      "expected_bytes": "5552e828a504008bc8e861960400",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x005223D0",
+      "rva": "0x001223D0",
+      "role": "SceneRequestStoresRequestedID",
+      "expected_bytes": "894604",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0052241E",
+      "rva": "0x0012241E",
+      "role": "SceneRequestStartsCountdown",
+      "expected_bytes": "c7460c03000000",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0052243A",
+      "rva": "0x0012243A",
+      "role": "SceneLoadJobVtable",
+      "expected_bytes": "c706101b6900",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0052D633",
+      "rva": "0x0012D633",
+      "role": "SceneJobUnloadCall",
+      "expected_bytes": "e8484effff",
+      "call_target": "0x00522480",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0052D6A4",
+      "rva": "0x0012D6A4",
+      "role": "SceneJobCommitCall",
+      "expected_bytes": "e8d74fffff",
+      "call_target": "0x00522680",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x005B0083",
+      "rva": "0x001B0083",
+      "role": "MainUpdateDispatchesLoadJobs",
+      "expected_bytes": "e8d8a5f9ff8b108bc8ff12",
+      "call_target": "0x0054A660",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x005FC967",
+      "rva": "0x001FC967",
+      "role": "JobRequestQueuesWithoutImmediateDispatch",
+      "expected_bytes": "894e1c751083c610e8ecdcf4ff83c01c8b4008eb0b83c610e8dcdcf4ff83c01c",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0054A3FE",
+      "rva": "0x0014A3FE",
+      "role": "JobFileOpenFailureBranch",
+      "expected_bytes": "84c0745d",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x0054A45F",
+      "rva": "0x0014A45F",
+      "role": "JobFileOpenFailureCallback",
+      "expected_bytes": "8bcee8ea250b00",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x005FCA82",
+      "rva": "0x001FCA82",
+      "role": "JobFileOpenFailureVirtualCallback",
+      "expected_bytes": "8b07ff50045f5ec3",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x005FCB19",
+      "rva": "0x001FCB19",
+      "role": "JobSuccessVirtualExecute",
+      "expected_bytes": "8b07ff500c5f5ec20c00",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x00691B10",
+      "rva": "0x00291B10",
+      "role": "SceneJobVtableCallbacks",
+      "expected_bytes": "60245200e0d5520000d6520020d65200",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x006E42A0",
+      "rva": "0x002E42A0",
+      "role": "RaceLimitsInternedNameText",
+      "expected_bytes": "526163654c696d69747300",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
+    },
+    {
+      "va": "0x006B0F70",
+      "rva": "0x002B0F70",
+      "role": "ParticipantRaceStatePathText",
+      "expected_bytes": "526163652f43617225642f526163655374617465",
+      "call_target": null,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "hash-locked pristine bytes"
     }
   ],
-  "status": "BLOCKED_ON_POST_TRAVERSAL_RESTORE",
+  "status": "BLOCKED_ON_LIVE_RACE_OWNERSHIP",
   "traversal": {
     "owner_va": "0x00509680",
     "owner_rva": "0x00109680",
@@ -173,19 +633,278 @@
     "scope_complete": false,
     "native_bridge_tested": false
   },
-  "missing_fact": "An immediate native-pose restore must preserve the effective camera for FinalizeCamera: particles read selected CameraFrame.pose directly after the traversal has returned, independently of the D3D VIEW cache.",
+  "scope": {
+    "native_reader_extent": "CLOSED_FOR_REVIEWED_SINGLE_CAMERA_SCHEDULER_PATH",
+    "executable_mutation_approved": false,
+    "native_bridge_tested": false,
+    "begin": {
+      "va": "0x006532DD",
+      "rva": "0x002532DD",
+      "role": "before original traversal; existing GameFov owner",
+      "evidence_grade": "CONFIRMED_BY_EXE"
+    },
+    "end": {
+      "va": "0x0065332C",
+      "rva": "0x0025332C",
+      "role": "after EndFrame, before scheduler epilogue",
+      "evidence_grade": "CONFIRMED_BY_EXE"
+    },
+    "completion_interception": {
+      "va": "0x005B0166",
+      "rva": "0x001B0166",
+      "role": "five-byte CALL to scheduler",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "target_va": "0x00653080",
+      "return_va": "0x005B016B",
+      "installed": false
+    },
+    "candidates": [
+      {
+        "va": "0x006532E2",
+        "rva": "0x002532E2",
+        "role": "post-traversal",
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "decision": "REJECTED",
+        "reason": "FinalizeCamera, particles and EndFrame still consume the camera"
+      },
+      {
+        "va": "0x006532E9",
+        "rva": "0x002532E9",
+        "role": "post-FinalizeCamera",
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "decision": "REJECTED",
+        "reason": "EndFrame still builds VIEW and passes CameraFrame to debug rendering"
+      },
+      {
+        "va": "0x0065332C",
+        "rva": "0x0025332C",
+        "role": "post-EndFrame",
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "decision": "STATIC_NATIVE_ENDPOINT",
+        "reason": "remaining scheduler epilogue and immediate caller have no CameraFrame consumption"
+      }
+    ],
+    "readers": [
+      {
+        "va": "0x00509680",
+        "rva": "0x00109680",
+        "role": "entity traversal and CPU visibility",
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      },
+      {
+        "va": "0x0056E40A",
+        "rva": "0x0016E40A",
+        "role": "FinalizeCamera VIEW builder",
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      },
+      {
+        "va": "0x0056410E",
+        "rva": "0x0016410E",
+        "role": "particles use Current Pose",
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      },
+      {
+        "va": "0x0056CE38",
+        "rva": "0x0016CE38",
+        "role": "conditional EndFrame VIEW builder",
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      },
+      {
+        "va": "0x0056CE48",
+        "rva": "0x0016CE48",
+        "role": "EndFrame passes selected CameraFrame to debug renderer",
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      },
+      {
+        "va": "0x00589952",
+        "rva": "0x00189952",
+        "role": "world debug renderer passes CameraFrame onward",
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      }
+    ],
+    "order": [
+      "begin",
+      "traversal",
+      "finalize",
+      "particles_if_enabled",
+      "camera_zero_rebind",
+      "late_builder_if_debug",
+      "debug_if_enabled",
+      "EndScene",
+      "Present",
+      "timer_accounting",
+      "end",
+      "scheduler_return",
+      "caller_counters",
+      "message_pump",
+      "next_update"
+    ],
+    "owned_field_candidates": [
+      {
+        "offset": "0x08",
+        "size": 48,
+        "role": "CPU side planes"
+      },
+      {
+        "offset": "0x38",
+        "size": 64,
+        "role": "Previous Pose"
+      },
+      {
+        "offset": "0x88",
+        "size": 64,
+        "role": "Current Pose"
+      }
+    ],
+    "excluded_fields": [
+      "source +0x00",
+      "flags +0x04",
+      "viewport +0x78..0x87",
+      "snap +0xC8"
+    ],
+    "native_writers": [
+      {
+        "va": "0x006532A4",
+        "rva": "0x002532A4",
+        "role": "per-camera viewport",
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      },
+      {
+        "va": "0x006532FD",
+        "rva": "0x002532FD",
+        "role": "camera-zero full-frame viewport",
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      },
+      {
+        "va": "0x004F2A02",
+        "rva": "0x000F2A02",
+        "role": "producer history/snap outside render scope",
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      }
+    ],
+    "pre_render_dependencies": [
+      {
+        "va": "0x004F62CE",
+        "rva": "0x000F62CE",
+        "role": "per-camera entity sort",
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "conclusion": "position-based ordering; not proven visibility rejection"
+      },
+      {
+        "va": "0x004F65B0",
+        "rva": "0x000F65B0",
+        "role": "camera-position cache update",
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "conclusion": "cache consumer role unresolved; no LOD claim"
+      }
+    ],
+    "implementation_obligations": [
+      "exact retail, one camera, live race owner, thread and device validation",
+      "atomic nonoverlapping pre-submit/completion ownership and actual x86 ABI fixture",
+      "retain effective fields through late consumers; preserve viewport writes",
+      "coordinate existing Present/Reset GameFov.finish_frame with pose owner",
+      "guard cancellation/restoration on driver reentry, focus, Reset and owner changes",
+      "validate cache invalidation and ordering when camera moves independently"
+    ]
+  },
   "race_gate": {
     "validated": false,
+    "production_predicate_implemented": false,
+    "registry": {
+      "manager_global_va": "0x006F96FC",
+      "manager_global_rva": "0x002F96FC",
+      "name": "RaceLimits",
+      "name_va": "0x006E42A0",
+      "name_rva": "0x002E42A0",
+      "owner_name_offset": "0x5C",
+      "registry_offset": "0x1C",
+      "register_va": "0x0050E450",
+      "unregister_va": "0x0050E650",
+      "rename_va": "0x004F59F0",
+      "ai_slot_offset": "0x04",
+      "evidence_grade": "CONFIRMED_BY_EXE"
+    },
+    "limits_ai": {
+      "vtable_va": "0x0069152C",
+      "vtable_rva": "0x0029152C",
+      "initialize_va": "0x004CDF00",
+      "update_va": "0x004CD9B0",
+      "destructor_va": "0x004CD920",
+      "count_offset": "0x2C",
+      "participant_arrays": [
+        "0x20",
+        "0x24",
+        "0x30",
+        "0x34",
+        "0x38",
+        "0x3C",
+        "0x40"
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE"
+    },
+    "retirement": {
+      "owner_flag_offset": "0x00",
+      "mask": 2,
+      "queue_node_offset": "0x18",
+      "retire_va": "0x004F5840",
+      "destroy_va": "0x004F5780",
+      "warning": "queued retirement precedes unregister; destructor frees arrays without zeroing pointers",
+      "evidence_grade": "CONFIRMED_BY_EXE"
+    },
+    "phase": {
+      "path": "Race/Car%d/RaceState",
+      "path_va": "0x006B0F70",
+      "producer_va": "0x0048E820",
+      "observed_native_writes": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "phase_two_rule": "RaceStarter previous counter >= 10 and +0x10 false",
+      "active_race_certificate": false,
+      "evidence_grade": "CONFIRMED_BY_EXE"
+    },
+    "scene_jobs": {
+      "manager_global_va": "0x006F9D28",
+      "manager_global_rva": "0x002F9D28",
+      "manager_vtable_va": "0x006921A4",
+      "job_vtable_va": "0x00691B10",
+      "request_va": "0x00522330",
+      "execute_va": "0x0052D620",
+      "dispatch_va": "0x005B008C",
+      "file_open_failure_va": "0x0054A45F",
+      "missing_fact": "Read-only active-race admission must distinguish the current successful scene/owner epoch from a pending or failed same-scene request retaining the old registered RaceLimits and RaceState.",
+      "evidence_grade": "CONFIRMED_BY_EXE"
+    },
     "rejected_oracles": [
       "camera address",
       "Source90",
       "Frontend/Running=false",
       "scene request ID",
       "scene countdown == 0",
-      "RaceStarterAI presence"
+      "RaceStarterAI presence",
+      "gaLimitsAI vtable alone",
+      "participant array pointer readability",
+      "RaceState == 2 alone",
+      "BeenInRace",
+      "empty pending-job list alone"
     ],
-    "candidate": "registered RaceLimits actor / gaLimitsAI with validated live phase ownership"
+    "required_context_inputs": [
+      "committed France1 ownership",
+      "Race/Type",
+      "Race/NumPlayers",
+      "Race/NumNetworkPlayers",
+      "Race/FinishingType",
+      "AttractMode",
+      "NetworkSyncActive",
+      "GhostPlayback",
+      "PlaybackReplay"
+    ],
+    "context_input_status": "Existing research/captures supply context; no validated combined live predicate",
+    "read_policy": "bounded guarded storage reads; resolve existing interned text IDs; never call growing Broker getters"
   },
+  "missing_fact": "Read-only active-race admission must distinguish the current successful scene/owner epoch from a pending or failed same-scene request retaining the old registered RaceLimits and RaceState.",
   "freecam": {
     "implemented": false,
     "camera_pose_writes": false,
