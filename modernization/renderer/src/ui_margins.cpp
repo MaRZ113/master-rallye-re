@@ -2,6 +2,7 @@
 #include "margin_rules.hpp"
 #include "provenance.hpp"
 #include "trace.hpp"
+#include <algorithm>
 #include <cmath>
 #include <cstring>
 #include <sstream>
@@ -41,16 +42,20 @@ bool read_margin_identity(uintptr_t entity,uintptr_t coordinates,MarginIdentity&
 }
 size_t MarginAnchors::size() const noexcept {size_t n=0;for(const auto& a:entries_)if(a.id)++n;return n;}
 void MarginAnchors::begin_epoch(const char* reason) noexcept {
- invalidations+=size();entries_={};++epoch_;epoch_reason_=reason;context_=-1;
+ invalidations+=size();entries_={};clear_carousels();++epoch_;epoch_reason_=reason;context_=-1;
 }
 void MarginAnchors::scene_context(bool race) noexcept {
  int next=race?1:0;if(context_>=0&&context_!=next)begin_epoch("scene_family_changed");context_=next;
 }
-void MarginAnchors::reject(uintptr_t entity) noexcept {for(auto& a:entries_)if(a.id&&a.key.entity==entity){a={};++invalidations;}}
+void MarginAnchors::reject(uintptr_t entity) noexcept {
+ for(auto& a:entries_)if(a.id&&a.key.entity==entity){a={};++invalidations;}
+ for(auto& track:carousel_)if(track.id&&track.key.entity==entity){track={};++carousel_invalidations;}
+}
 void MarginAnchors::next_frame() noexcept {
  // Grace covers short submission gaps, never packet/storage/epoch replacement.
  // Expire at the completion of the third absent frame, not during animation.
  for(auto& a:entries_)if(a.id&&frame_-a.last>MARGIN_ANCHOR_GRACE_FRAMES){a={};++invalidations;++grace_expired;}
+ for(auto& track:carousel_)if(track.id&&frame_-track.last>MARGIN_ANCHOR_GRACE_FRAMES){track={};++carousel_invalidations;}
  ++frame_;
 }
 MarginAnchorDecision MarginAnchors::resolve(const MarginIdentity& key,float x,float y,float z) noexcept {
@@ -71,6 +76,53 @@ MarginAnchorDecision MarginAnchors::resolve(const MarginIdentity& key,float x,fl
  if(!free){++overflow;d.invalidated="anchor_capacity";return d;}
  *free={key,++next_id_,frame_,d.current_rule};++admissions;d.id=free->id;d.direction=free->direction;d.admitted=true;d.source=margin_source(x,y,z);return d;
 }
+CarouselSemanticDecision MarginAnchors::observe_carousel(const MarginIdentity& key,float x,float y,uint64_t frame,
+ bool frontend_context,bool verified_ui_draw,bool left_anchor_evidence) noexcept {
+ CarouselSemanticDecision result;
+ if(!frontend_context){result.status="context_not_frontend";return result;}
+ if(!verified_ui_draw){result.status="draw_not_verified";return result;}
+ if(!key.entity||!key.packet||!key.point||!key.storage||(key.mode!=1&&key.mode!=2)||
+    !std::isfinite(x)||!std::isfinite(y)||y<CAROUSEL_LANE_MIN_Y||y>CAROUSEL_LANE_MAX_Y){result.status="outside_carousel_lane";return result;}
+ CarouselTrack* found=nullptr;CarouselTrack* free=nullptr;CarouselTrack* oldest=nullptr;
+ for(auto& track:carousel_){
+  if(!track.id){if(!free)free=&track;continue;}
+  if(track.epoch!=epoch_){track={};++carousel_invalidations;if(!free)free=&track;continue;}
+  if(track.key.entity==key.entity){
+   if(track.key.packet==key.packet&&track.key.point==key.point&&track.key.storage==key.storage&&track.key.mode==key.mode)found=&track;
+   else {track={};++carousel_invalidations;if(!free)free=&track;}
+  }
+  if(!oldest||track.last<oldest->last)oldest=&track;
+ }
+ if(!found){
+  if(!free){if(!oldest){++carousel_overflow;result.status="capacity_unavailable";return result;}free=oldest;*free={};++carousel_overflow;++carousel_invalidations;}
+  found=free;*found={};found->key=key;found->id=++next_carousel_id_;found->epoch=epoch_;found->first=frame;found->last=frame;
+  found->min_x=found->max_x=x;found->samples=1;found->saw_center=x>=CAROUSEL_CENTER_MIN_X&&x<=CAROUSEL_CENTER_MAX_X;
+  found->saw_outer_left=x<=CAROUSEL_OUTER_LEFT_MAX_X;found->saw_outer_right=x>=CAROUSEL_OUTER_RIGHT_MIN_X;
+ }else if(frame!=found->last){
+  if(frame<found->last||frame-found->last>MARGIN_ANCHOR_GRACE_FRAMES){
+   *found={};++carousel_invalidations;found->key=key;found->id=++next_carousel_id_;found->epoch=epoch_;found->first=frame;found->last=frame;
+   found->min_x=found->max_x=x;found->samples=1;found->saw_center=x>=CAROUSEL_CENTER_MIN_X&&x<=CAROUSEL_CENTER_MAX_X;
+   found->saw_outer_left=x<=CAROUSEL_OUTER_LEFT_MAX_X;found->saw_outer_right=x>=CAROUSEL_OUTER_RIGHT_MIN_X;
+  }else{
+   found->last=frame;++found->samples;found->min_x=std::min(found->min_x,x);found->max_x=std::max(found->max_x,x);
+   found->saw_center|=x>=CAROUSEL_CENTER_MIN_X&&x<=CAROUSEL_CENTER_MAX_X;
+   found->saw_outer_left|=x<=CAROUSEL_OUTER_LEFT_MAX_X;found->saw_outer_right|=x>=CAROUSEL_OUTER_RIGHT_MIN_X;
+  }
+ }
+ found->saw_left_anchor|=left_anchor_evidence;
+ result.id=found->id;result.candidate=true;result.proven=found->proven;
+ if(!found->proven&&found->saw_left_anchor&&found->samples>=2&&found->saw_center&&
+    (found->saw_outer_left||found->saw_outer_right)&&found->max_x-found->min_x>=CAROUSEL_MIN_TRAVEL_X){
+  found->proven=true;result.proven=true;result.promoted=true;++carousel_promotions;
+ }
+ result.status=result.promoted?"promoted_motion_path":result.proven?"proven_motion_path":"candidate_motion_path";return result;
+}
+bool MarginAnchors::discard_for_carousel(const MarginIdentity& key) noexcept {
+ for(auto& anchor:entries_)if(anchor.id&&anchor.key.entity==key.entity&&anchor.key.packet==key.packet&&
+    anchor.key.point==key.point&&anchor.key.storage==key.storage&&anchor.key.mode==key.mode){anchor={};++carousel_anchor_discards;return true;}
+ return false;
+}
+void MarginAnchors::clear_carousels() noexcept {for(auto& track:carousel_)if(track.id)++carousel_invalidations;carousel_={};}
 bool UiJumpPatch::exchange(PatchMemory& m,const std::array<unsigned char,5>& from,const std::array<unsigned char,5>& to) noexcept {
  std::array<unsigned char,5> seen{};DWORD old=0,ignored=0;
  if(!m.read(seen.data(),site_,5)||seen!=from||!m.protect(site_,5,PAGE_EXECUTE_READWRITE,old))return false;
@@ -192,7 +244,8 @@ __declspec(naked) void packet_end_bridge(){__asm {
 }}
 
 }
-bool UiMargins::install(bool exact,bool requested) noexcept {
+bool UiMargins::install(bool exact,bool requested,bool carousel_alignment) noexcept {
+ configure_carousel_alignment(carousel_alignment,exact);
  if(!requested||!exact){reason=exact?"disabled":"unsupported_build";return false;}
  if(active||multiple){multiple=true;if(active)active->disable("multiple_devices");reason="multiple_devices";return false;}
  uintptr_t base=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));
@@ -201,7 +254,12 @@ bool UiMargins::install(bool exact,bool requested) noexcept {
  HMODULE pin=nullptr;if(!GetModuleHandleExW(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS|GET_MODULE_HANDLE_EX_FLAG_PIN,reinterpret_cast<LPCWSTR>(&sort_bridge),&pin)){reason="module_pin_failed";return false;}
  contract_probe=false;packet_return=base+UI_PACKET_RVA+6;thread_=GetCurrentThreadId();active=this;
  enabled_=patch_.install(memory,reinterpret_cast<void*>(base+UI_PACKET_RVA),reinterpret_cast<uintptr_t>(&packet_bridge));
+ configure_carousel_alignment(carousel_alignment,exact);
  reason=enabled_?"ui_packet_consumer_installed":"ui_jump_patch_failed";if(!enabled_){active=nullptr;patch_.remove(memory);}return enabled_;
+}
+void UiMargins::configure_carousel_alignment(bool requested,bool exact_profile) noexcept {
+ carousel_alignment_requested_=requested;carousel_alignment_enabled_=enabled_&&exact_profile&&requested;
+ if(!carousel_alignment_enabled_)anchors_.clear_carousels();
 }
 void UiMargins::dimensions(UINT w,UINT h) noexcept {MarginFP fp;half_=0;if(w&&h&&double(w)/h>=1.&&double(w)/h<=4.)half_=static_cast<float>((480.*double(w)/h-640.)*.5);}
 void UiMargins::reset_capture_local() noexcept {
@@ -302,6 +360,7 @@ std::string UiMargins::packet_observation_json(const Scope& s) const {
    <<",\"vertex_shader_token_known\":"<<(d.vertex_shader_token_known?"true":"false")<<",\"vertex_shader_token\":";if(d.vertex_shader_token_known)out<<d.vertex_shader_token;else out<<"null";
   out<<",\"fvf_value\":";if(d.vertex_shader_token_known&&d.vertex_shader_token==0x142)out<<d.vertex_shader_token;else out<<"null";
    out<<",\"fvf_status\":"<<quote(d.vertex_shader_token_known&&d.vertex_shader_token==0x142?"gate_confirmed_0x142":"not_identified")<<",\"margin_requested\":";json_float(out,d.margin_requested);out<<",\"margin_applied\":";json_float(out,d.margin_applied);
+   out<<",\"margin_effective_request\":";json_float(out,d.margin_effective_request);out<<",\"carousel_status\":"<<quote(d.carousel_status)<<",\"carousel_id\":";if(d.carousel_id)out<<d.carousel_id;else out<<"null";out<<",\"carousel_override\":"<<(d.carousel_override?"true":"false");
    out<<",\"packet_point_known\":"<<(d.packet_point_known?"true":"false")<<",\"packet_x\":";if(d.packet_point_known)json_float(out,d.packet_x);else out<<"null";
    out<<",\"packet_y\":";if(d.packet_point_known)json_float(out,d.packet_y);else out<<"null";
   out<<",\"get_transform_attempted\":"<<(d.get_transform_attempted?"true":"false")<<",\"get_transform_hresult\":";if(d.get_transform_attempted)out<<d.get_transform_hresult;else out<<"null";
@@ -327,12 +386,19 @@ void UiMargins::leave_consume() noexcept {
  }
  s={};--scope_depth_;if(!scope_depth_&&capturing_&&capture_close_pending_)finish_capture(capture_trace_frame_,device_id_,capture_close_reason_);
 }
-MarginDrawDecision UiMargins::draw_decision() noexcept {
+MarginDrawDecision UiMargins::draw_decision(bool verified_ui_draw) noexcept {
  MarginFP fp;MarginDrawDecision d;if(!enabled_||GetCurrentThreadId()!=thread_||!scope_depth_)return d;
  auto& s=scopes_[scope_depth_-1];if(!s.valid||s.anchor.epoch!=anchors_.epoch())return d;
  MarginIdentity current{};float point[3]{};
  if(!read_margin_identity(s.key.entity,s.key.packet+0x24,current)||current.packet!=s.key.packet||current.point!=s.key.point||current.storage!=s.key.storage||current.mode!=s.key.mode||!safe_copy(point,reinterpret_cast<void*>(current.point),sizeof(point))||point[2]!=0||!std::isfinite(point[0])||!std::isfinite(point[1])){anchors_.reject(s.key.entity);s.valid=false;return d;}
- d={s.key,s.anchor,point[0],point[1],half_*s.anchor.direction,true};return d;
+ d.key=s.key;d.anchor=s.anchor;d.native_x=point[0];d.native_y=point[1];d.standard_margin=half_*s.anchor.direction;d.margin=d.standard_margin;d.carousel_status=carousel_alignment_enabled_?"not_classified":"disabled";d.valid=true;
+ if(carousel_alignment_enabled_){
+  const bool frontend=scene_family_==0&&scene_family_frame_==frame_id_;
+  auto semantic=anchors_.observe_carousel(s.key,point[0],point[1],frame_id_,frontend,verified_ui_draw,s.anchor.direction<0);
+  d.carousel_id=semantic.id;d.carousel_status=semantic.status;
+  if(semantic.proven){d.carousel_override=true;d.margin=0;++carousel_override_draws_;anchors_.discard_for_carousel(s.key);}
+ }
+ return d;
 }
 UiDrawObservation* UiMargins::begin_draw(uintptr_t caller_va,uint32_t caller_rva,bool caller_in_game_image,
  D3DPRIMITIVETYPE primitive,UINT start_vertex,UINT primitive_count,bool adjustment_gate_allowed,bool suppressed,bool forwarded,
@@ -344,7 +410,7 @@ UiDrawObservation* UiMargins::begin_draw(uintptr_t caller_va,uint32_t caller_rva
  if(capture_draw_observation_attempts_>UI_CAPTURE_TOTAL_DRAW_OBSERVATION_LIMIT||s.draw_count>=s.draws.size()){
   ++s.draw_dropped;++draw_observations_dropped;++capture_draw_drops_;return nullptr;
  }
- auto decision=draw_decision();if(!decision.valid){++capture_identity_invalidations_;++s.draw_dropped;++draw_observations_dropped;++capture_draw_drops_;return nullptr;}
+  auto decision=draw_decision();if(!decision.valid){++capture_identity_invalidations_;++s.draw_dropped;++draw_observations_dropped;++capture_draw_drops_;return nullptr;}
  auto& d=s.draws[s.draw_count++];d={};d.caller_va=caller_va;d.caller_rva=caller_rva;d.caller_in_game_image=caller_in_game_image;d.primitive=static_cast<uint32_t>(primitive);d.start_vertex=start_vertex;d.primitive_count=primitive_count;d.adjustment_gate_allowed=adjustment_gate_allowed;d.suppressed=suppressed;d.forwarded=forwarded;d.diagnostic_relevant=true;d.vertex_shader_token_known=vertex_shader_token_known;d.vertex_shader_token=vertex_shader_token;
  ++draw_observations_captured;++capture_draw_observations_captured_;return &d;
 }
@@ -355,15 +421,33 @@ HRESULT UiMargins::repair_world(IDirect3DDevice8& native,Trace& trace,uintptr_t 
 void UiMargins::observe_draw(const MarginDrawDecision& d,UiDrawObservation& draw) noexcept {
  MarginFP fp;if(!capturing_||!draw.diagnostic_relevant||!draw.world_known||!draw.effective_world_known||!scope_depth_)return;
  if(draw.margin_applied!=0)++capture_adjusted_draws_;else ++capture_unadjusted_draws_;
- try{std::ostringstream o;o<<"{\"type\":\"ui_render_local\",\"capture_id\":"<<(device_id_?quote(trace_capture_id(device_id_,capture_start_frame_)):"null")<<",\"device_id\":"<<device_id_<<",\"capture_start_frame\":"<<capture_start_frame_<<",\"trace_frame\":"<<capture_trace_frame_<<",\"capture_frame_index\":"<<(capture_trace_frame_>=capture_start_frame_?capture_trace_frame_-capture_start_frame_:0)<<",\"packet\":"<<d.key.packet<<",\"entity\":"<<d.key.entity<<",\"ui_epoch\":"<<d.anchor.epoch<<",\"anchor_id\":"<<d.anchor.id<<",\"anchor_direction\":"<<quote(d.anchor.direction<0?"left":d.anchor.direction>0?"right":"none")<<",\"caller_rva\":"<<draw.caller_rva<<",\"diagnostic_relevant\":true,\"draw_class\":"<<quote(draw.margin_applied!=0?"adjusted":"unadjusted")<<",\"native_x\":";json_float(o,d.native_x);o<<",\"native_y\":";json_float(o,d.native_y);o<<",\"native_world_x\":";json_float(o,draw.native_world_x);o<<",\"native_world_y\":";json_float(o,draw.native_world_y);o<<",\"half_extra\":";json_float(o,half_);o<<",\"margin\":";json_float(o,draw.margin_applied);o<<",\"effective_render_x\":";json_float(o,draw.effective_world_x);o<<",\"effective_render_y\":";json_float(o,draw.effective_world_y);o<<",\"persistent_packet_writes\":0,\"override_path\":\"draw_local_native_world_copy\",\"draw_hresult\":";if(draw.draw_result_known)o<<draw.draw_hresult;else o<<"null";o<<",\"restore_attempted\":"<<(draw.restore_attempted?"true":"false")<<",\"restore_succeeded\":"<<(draw.restore_succeeded?"true":"false")<<",\"restore_hresult\":";if(draw.restore_attempted)o<<draw.restore_hresult;else o<<"null";o<<",\"restore_readback_performed\":false,\"ui_frame\":"<<frame_id_<<"}";emit_capture_record(o.str(),false,true);}catch(...){++capture_log_failures_;}
+ try{
+  std::ostringstream o;o<<"{\"type\":\"ui_render_local\",\"capture_id\":"<<(device_id_?quote(trace_capture_id(device_id_,capture_start_frame_)):"null")
+   <<",\"device_id\":"<<device_id_<<",\"capture_start_frame\":"<<capture_start_frame_<<",\"trace_frame\":"<<capture_trace_frame_
+   <<",\"capture_frame_index\":"<<(capture_trace_frame_>=capture_start_frame_?capture_trace_frame_-capture_start_frame_:0)
+   <<",\"packet\":"<<d.key.packet<<",\"entity\":"<<d.key.entity<<",\"ui_epoch\":"<<d.anchor.epoch<<",\"anchor_id\":"<<d.anchor.id
+   <<",\"anchor_direction\":"<<quote(d.anchor.direction<0?"left":d.anchor.direction>0?"right":"none")<<",\"caller_rva\":"<<draw.caller_rva
+   <<",\"diagnostic_relevant\":true,\"draw_class\":"<<quote(draw.margin_applied!=0?"adjusted":"unadjusted")
+   <<",\"carousel_status\":"<<quote(draw.carousel_status)<<",\"carousel_id\":";if(draw.carousel_id)o<<draw.carousel_id;else o<<"null";
+  o<<",\"carousel_override\":"<<(draw.carousel_override?"true":"false")<<",\"margin_standard\":";json_float(o,d.standard_margin);
+  o<<",\"margin_effective_request\":";json_float(o,d.margin);o<<",\"native_x\":";json_float(o,d.native_x);o<<",\"native_y\":";json_float(o,d.native_y);
+  o<<",\"native_world_x\":";json_float(o,draw.native_world_x);o<<",\"native_world_y\":";json_float(o,draw.native_world_y);
+  o<<",\"half_extra\":";json_float(o,half_);o<<",\"margin\":";json_float(o,draw.margin_applied);
+  o<<",\"effective_render_x\":";json_float(o,draw.effective_world_x);o<<",\"effective_render_y\":";json_float(o,draw.effective_world_y);
+  o<<",\"persistent_packet_writes\":0,\"override_path\":\"draw_local_native_world_copy\",\"draw_hresult\":";
+  if(draw.draw_result_known)o<<draw.draw_hresult;else o<<"null";
+  o<<",\"restore_attempted\":"<<(draw.restore_attempted?"true":"false")<<",\"restore_succeeded\":"<<(draw.restore_succeeded?"true":"false")<<",\"restore_hresult\":";
+  if(draw.restore_attempted)o<<draw.restore_hresult;else o<<"null";
+  o<<",\"restore_readback_performed\":false,\"ui_frame\":"<<frame_id_<<'}';emit_capture_record(o.str(),false,true);
+ }catch(...){++capture_log_failures_;}
 }
 UiWorldScope::UiWorldScope(IDirect3DDevice8& native,Trace& trace,UiMargins& ui,uintptr_t pc,bool allowed,
  D3DPRIMITIVETYPE primitive,UINT start_vertex,UINT primitive_count,uint32_t caller_rva,bool caller_in_game_image,bool suppressed,bool forwarded,
  bool vertex_shader_token_known,uint32_t vertex_shader_token) noexcept
  :native_(native),trace_(trace),ui_(ui),pc_(pc){
- MarginFP fp;observation_=ui_.begin_draw(pc,caller_rva,caller_in_game_image,primitive,start_vertex,primitive_count,allowed,suppressed,forwarded,vertex_shader_token_known,vertex_shader_token);
-  decision_=ui_.draw_decision();const bool apply=allowed&&decision_.valid&&decision_.margin!=0;
-  if(observation_){observation_->margin_requested=decision_.valid?decision_.margin:0;observation_->packet_point_known=decision_.valid;observation_->packet_x=decision_.native_x;observation_->packet_y=decision_.native_y;}
+  MarginFP fp;observation_=ui_.begin_draw(pc,caller_rva,caller_in_game_image,primitive,start_vertex,primitive_count,allowed,suppressed,forwarded,vertex_shader_token_known,vertex_shader_token);
+  decision_=ui_.draw_decision(allowed);const bool apply=allowed&&decision_.valid&&decision_.margin!=0;
+  if(observation_){observation_->margin_requested=decision_.valid?decision_.standard_margin:0;observation_->margin_effective_request=decision_.valid?decision_.margin:0;observation_->carousel_status=decision_.carousel_status;observation_->carousel_id=decision_.carousel_id;observation_->carousel_override=decision_.carousel_override;observation_->packet_point_known=decision_.valid;observation_->packet_x=decision_.native_x;observation_->packet_y=decision_.native_y;}
  if(!apply&&!observation_)return;
  HRESULT hr=native_.GetTransform(D3DTS_WORLD,&original_);auto get=pack(D3DTS_WORLD,&original_);if(apply)trace_.after(38,get,static_cast<uint32_t>(hr),pc_,&get,128,false,true);
  if(observation_){observation_->get_transform_attempted=true;observation_->get_transform_hresult=static_cast<uint32_t>(hr);}
@@ -405,9 +489,37 @@ void UiMargins::emit_group_candidates() noexcept {
  }catch(...){++capture_log_failures_;}
 }
 bool UiMargins::finish_frame() noexcept {bool okay=!restore_pending_;anchors_.next_frame();++frame_id_;return okay;}
-void UiMargins::disable(const char* why) noexcept {if(capturing_){if(scope_depth_){capture_close_pending_=true;capture_close_reason_=why?why:"feature_disabled";}else finish_capture(capture_trace_frame_,device_id_,why?why:"feature_disabled");}enabled_=false;half_=0;scene_family_=-1;scene_family_frame_=0;anchors_.begin_epoch(why);for(auto& s:scopes_)s.valid=false;if(active==this)active=nullptr;patch_.remove(memory);reason=why;}
+void UiMargins::disable(const char* why) noexcept {if(capturing_){if(scope_depth_){capture_close_pending_=true;capture_close_reason_=why?why:"feature_disabled";}else finish_capture(capture_trace_frame_,device_id_,why?why:"feature_disabled");}enabled_=false;carousel_alignment_enabled_=false;half_=0;scene_family_=-1;scene_family_frame_=0;anchors_.begin_epoch(why);for(auto& s:scopes_)s.valid=false;if(active==this)active=nullptr;patch_.remove(memory);reason=why;}
 UiMargins::~UiMargins(){for(auto& r:returns)if(r.owner==this)r.owner=nullptr;disable("device_release");}
- std::string UiMargins::json() const {MarginFP fp;std::ostringstream o;o<<"{\"architecture\":\"render_local_world_v2\",\"persistent_packet_writes\":0,\"anchor_count\":"<<anchors_.size()<<",\"ui_epoch\":"<<anchors_.epoch()<<",\"anchor_admissions\":"<<anchors_.admissions<<",\"anchor_invalidations\":"<<anchors_.invalidations<<",\"retained_anchor_without_current_rule_match\":"<<anchors_.retained_anchor_without_current_rule_match<<",\"anchor_grace_frames\":"<<MARGIN_ANCHOR_GRACE_FRAMES<<",\"anchor_grace_retained\":"<<anchors_.anchor_grace_retained<<",\"group_grace_retained\":0,\"group_owner_status\":\"not_proven\",\"anchor_overflow\":"<<anchors_.overflow<<",\"installed\":"<<(patch_.installed()?"true":"false")<<",\"enabled\":"<<(enabled_?"true":"false")<<",\"reason\":"<<quote(reason)<<",\"half_extra\":"<<half_<<",\"restore_boundary\":\"immediate_native_draw_return\",\"capture_active\":"<<(capturing_?"true":"false")<<",\"capture_id\":"<<(capturing_&&device_id_?quote(trace_capture_id(device_id_,capture_start_frame_)):"null")<<",\"capture_start_frame\":"<<capture_start_frame_<<",\"trace_frame\":"<<capture_trace_frame_<<",\"capture_frame_index\":"<<(capture_trace_frame_>=capture_start_frame_?capture_trace_frame_-capture_start_frame_:0)<<",\"capture_count\":"<<capture_count_<<",\"capture_record_budget_limit\":"<<UI_CAPTURE_PACKET_RECORD_LIMIT<<",\"capture_records_emitted\":"<<capture_records_<<",\"capture_records_dropped\":"<<capture_packet_record_drops_<<",\"capture_candidate_capacity\":"<<UI_CAPTURE_PACKET_CANDIDATE_LIMIT<<",\"capture_candidates_adjusted\":"<<capture_adjusted_packets_<<",\"capture_candidates_unadjusted\":"<<capture_unadjusted_packets_<<",\"capture_candidate_rejections\":"<<capture_candidate_rejections_<<",\"capture_candidate_evictions\":"<<capture_candidate_evictions_<<",\"capture_relevant_draws\":"<<capture_relevant_draws_<<",\"capture_non_ui_draws\":"<<capture_non_ui_draws_<<",\"capture_draw_observations_captured\":"<<capture_draw_observations_captured_<<",\"capture_draw_observations_dropped\":"<<capture_draw_drops_<<",\"bounded_lifetime_records\":"<<records_<<",\"bounded_lifetime_render_local_records\":"<<render_local_records_<<",\"draw_observations_captured\":"<<draw_observations_captured<<",\"draw_observations_dropped\":"<<draw_observations_dropped<<",\"max_draw_observations_per_packet\":"<<UI_PACKET_DRAW_OBSERVATION_LIMIT<<",\"render_draws\":"<<render_draws<<",\"native_writes\":"<<native_writes<<",\"restore_exact\":"<<restore_exact<<",\"restore_failures\":"<<restore_failures<<",\"restore_pending\":"<<(restore_pending_?"true":"false")<<",\"world_read_failed\":"<<world_read_failed<<",\"temporary_set_failed\":"<<temporary_set_failed<<",\"scope_failures\":"<<scope_failures<<'}';return o.str();}
+std::string UiMargins::json() const {
+ MarginFP fp;std::ostringstream o;
+ o<<"{\"architecture\":\"render_local_world_v2\",\"persistent_packet_writes\":0,\"anchor_count\":"<<anchors_.size()
+  <<",\"ui_epoch\":"<<anchors_.epoch()<<",\"anchor_admissions\":"<<anchors_.admissions<<",\"anchor_invalidations\":"<<anchors_.invalidations
+  <<",\"retained_anchor_without_current_rule_match\":"<<anchors_.retained_anchor_without_current_rule_match<<",\"anchor_grace_frames\":"<<MARGIN_ANCHOR_GRACE_FRAMES
+  <<",\"anchor_grace_retained\":"<<anchors_.anchor_grace_retained<<",\"group_grace_retained\":0,\"group_owner_status\":\"not_proven\",\"anchor_overflow\":"<<anchors_.overflow
+  <<",\"carousel_alignment_requested\":"<<(carousel_alignment_requested_?"true":"false")<<",\"carousel_alignment_enabled\":"<<(carousel_alignment_enabled_?"true":"false")
+  <<",\"carousel_classifier\":"<<quote(carousel_alignment_enabled_?"frontend_verified_draw_motion_lane_opt_in":"disabled")
+  <<",\"carousel_promotions\":"<<anchors_.carousel_promotions<<",\"carousel_invalidations\":"<<anchors_.carousel_invalidations
+  <<",\"carousel_capacity_evictions\":"<<anchors_.carousel_overflow<<",\"carousel_anchor_discards\":"<<anchors_.carousel_anchor_discards
+  <<",\"carousel_override_draws\":"<<carousel_override_draws_
+  <<",\"installed\":"<<(patch_.installed()?"true":"false")<<",\"enabled\":"<<(enabled_?"true":"false")<<",\"reason\":"<<quote(reason)
+  <<",\"half_extra\":"<<half_<<",\"restore_boundary\":\"immediate_native_draw_return\",\"capture_active\":"<<(capturing_?"true":"false")
+  <<",\"capture_id\":"<<(capturing_&&device_id_?quote(trace_capture_id(device_id_,capture_start_frame_)):"null")<<",\"capture_start_frame\":"<<capture_start_frame_
+  <<",\"trace_frame\":"<<capture_trace_frame_<<",\"capture_frame_index\":"<<(capture_trace_frame_>=capture_start_frame_?capture_trace_frame_-capture_start_frame_:0)
+  <<",\"capture_count\":"<<capture_count_<<",\"capture_record_budget_limit\":"<<UI_CAPTURE_PACKET_RECORD_LIMIT<<",\"capture_records_emitted\":"<<capture_records_
+  <<",\"capture_records_dropped\":"<<capture_packet_record_drops_<<",\"capture_candidate_capacity\":"<<UI_CAPTURE_PACKET_CANDIDATE_LIMIT
+  <<",\"capture_candidates_adjusted\":"<<capture_adjusted_packets_<<",\"capture_candidates_unadjusted\":"<<capture_unadjusted_packets_
+  <<",\"capture_candidate_rejections\":"<<capture_candidate_rejections_<<",\"capture_candidate_evictions\":"<<capture_candidate_evictions_
+  <<",\"capture_relevant_draws\":"<<capture_relevant_draws_<<",\"capture_non_ui_draws\":"<<capture_non_ui_draws_
+  <<",\"capture_draw_observations_captured\":"<<capture_draw_observations_captured_<<",\"capture_draw_observations_dropped\":"<<capture_draw_drops_
+  <<",\"bounded_lifetime_records\":"<<records_<<",\"bounded_lifetime_render_local_records\":"<<render_local_records_
+  <<",\"draw_observations_captured\":"<<draw_observations_captured<<",\"draw_observations_dropped\":"<<draw_observations_dropped
+  <<",\"max_draw_observations_per_packet\":"<<UI_PACKET_DRAW_OBSERVATION_LIMIT<<",\"render_draws\":"<<render_draws
+  <<",\"native_writes\":"<<native_writes<<",\"restore_exact\":"<<restore_exact<<",\"restore_failures\":"<<restore_failures
+  <<",\"restore_pending\":"<<(restore_pending_?"true":"false")<<",\"world_read_failed\":"<<world_read_failed
+  <<",\"temporary_set_failed\":"<<temporary_set_failed<<",\"scope_failures\":"<<scope_failures<<'}';
+ return o.str();
+}
 uintptr_t detail::ui_packet_entity_for_contract() noexcept {return contract_entity;}
 uintptr_t detail::ui_packet_bridge_for_contract(uintptr_t address) noexcept {if(active)return 0;contract_probe=true;contract_entity=0;packet_return=address;return reinterpret_cast<uintptr_t>(&packet_bridge);}
 uintptr_t detail::ui_bridge_for_contract(uintptr_t address) noexcept {if(active)return 0;sort_return=address;return reinterpret_cast<uintptr_t>(&sort_bridge);}

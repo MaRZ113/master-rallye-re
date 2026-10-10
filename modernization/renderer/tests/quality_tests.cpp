@@ -72,10 +72,21 @@ struct Root:MockRootBase {
 };
 D3DPRESENT_PARAMETERS stock(){D3DPRESENT_PARAMETERS p{};p.BackBufferWidth=640;p.BackBufferHeight=480;p.BackBufferFormat=D3DFMT_X8R8G8B8;p.BackBufferCount=1;p.SwapEffect=D3DSWAPEFFECT_COPY;p.hDeviceWindow=reinterpret_cast<HWND>(0x1234);p.Windowed=TRUE;p.EnableAutoDepthStencil=TRUE;p.AutoDepthStencilFormat=D3DFMT_D16;return p;}
 void configs(){
- auto c=parse_visual_config({},false);CHECK(c.display_mode=="Stock"&&c.aa_mode=="Stock"&&c.interface_mode=="Stock"&&!c.menu_freeze);
+ auto c=parse_visual_config({},false);CHECK(c.display_mode=="Stock"&&c.aa_mode=="Stock"&&c.interface_mode=="Stock"&&!c.menu_freeze&&!c.carousel_alignment);
  c=parse_visual_config({{"Renderer.ConfigVersion","1"},{"Display.Mode","Borderless"},{"Display.Width","nan"},{"AntiAliasing.Mode","MSAA"},{"AntiAliasing.Samples","8"}},true);CHECK(c.display_mode=="Stock"&&c.aa_mode=="MSAA"&&c.samples==8);
- c=parse_visual_config({{"Renderer.ConfigVersion","1"},{"Display.Mode","Windowed"},{"Display.Width","1280"},{"Display.Height","720"},{"Widescreen.InterfaceMode","PreserveMargins"},{"Compatibility.MenuFreezeFix","true"}},true);CHECK(c.width==1280&&c.height==720&&c.interface_mode=="PreserveMargins"&&c.menu_freeze);
+ c=parse_visual_config({{"Renderer.ConfigVersion","1"},{"Display.Mode","Windowed"},{"Display.Width","1280"},{"Display.Height","720"},{"Widescreen.InterfaceMode","PreserveMargins"},{"Compatibility.MenuFreezeFix","true"}},true);CHECK(c.width==1280&&c.height==720&&c.interface_mode=="PreserveMargins"&&c.menu_freeze&&!c.carousel_alignment);
+ c=parse_visual_config({{"Renderer.ConfigVersion","1"},{"Widescreen.InterfaceMode","PreserveMargins"},{"Widescreen.CarouselAlignment","1"}},true);CHECK(c.interface_mode=="PreserveMargins"&&c.carousel_alignment&&c.carousel_alignment_reason=="experimental_opt_in");
+ for(auto bad:{"2","-1","true-ish"}){c=parse_visual_config({{"Renderer.ConfigVersion","1"},{"Widescreen.InterfaceMode","PreserveMargins"},{"Widescreen.CarouselAlignment",bad}},true);CHECK(!c.carousel_alignment&&c.carousel_alignment_reason=="invalid_boolean_disabled");}
  for(auto key:{"Display.Mode","Widescreen.InterfaceMode","AntiAliasing.Mode","Compatibility.MenuFreezeFix"}){auto v=parse_visual_config({{"Renderer.ConfigVersion","1"},{key,"invalid"}},true);CHECK(v.display_mode=="Stock"&&v.interface_mode=="Stock"&&v.aa_mode=="Stock"&&!v.menu_freeze);}
+}
+void carousel_ini_config(){
+ wchar_t directory[MAX_PATH]{},path[MAX_PATH]{};CHECK(GetTempPathW(MAX_PATH,directory)>0&&GetTempFileNameW(directory,L"mrr",0,path));
+ CHECK(WritePrivateProfileStringW(L"Renderer",L"ConfigVersion",L"1",path));
+ CHECK(WritePrivateProfileStringW(L"Widescreen",L"InterfaceMode",L"2",path));
+ CHECK(WritePrivateProfileStringW(L"Widescreen",L"CarouselAlignment",L"1",path));
+ auto config=read_visual_config(path);CHECK(config.interface_mode=="PreserveMargins"&&config.carousel_alignment&&config.carousel_alignment_reason=="experimental_opt_in");
+ CHECK(WritePrivateProfileStringW(L"Widescreen",L"CarouselAlignment",L"invalid",path));config=read_visual_config(path);
+ CHECK(!config.carousel_alignment&&config.carousel_alignment_reason=="invalid_boolean_disabled");CHECK(DeleteFileW(path));
 }
 void numeric_configs(){
  for(auto entry:std::vector<std::pair<std::string,std::vector<std::string>>>{{"Display.Mode",{"Stock","Windowed","Borderless","ExclusiveFullscreen"}},{"Widescreen.InterfaceMode",{"Stock","Centered4x3","PreserveMargins"}},{"AntiAliasing.Mode",{"Stock","MSAA"}},{"Shadows.Mode",{"Stock","Off"}},{"VehicleReflections.Mode",{"Stock","ViewDependent2D"}}}){
@@ -456,6 +467,53 @@ void ui_carousel_draw_diagnostics(){
  device->Release();root->Release();
  std::cout<<"R-UI1 bounded packet-to-draw F10 diagnostics, carousel mismatch reproduction, center control, source immutability and WORLD restore: PASS\n";
 }
+void ui_carousel_alignment_experimental(){
+ synthetic_caller_image_extent[0]=1;
+ for(const auto dimensions:std::vector<std::pair<UINT,UINT>>{{1024,768},{1920,1080},{2560,1080},{1734,480}}){
+  UiNative native;Root raw;auto* root=new Root8(&raw);auto policy=std::make_unique<QualityPipeline>();auto* device=new Device8(&native,root,std::move(policy));
+  device->quality->config.interface_mode="PreserveMargins";device->quality->ui_projection_live=true;detail::UiMarginsContract::enable(device->ui_margins);
+  device->ui_margins.configure_carousel_alignment(true,true);device->ui_margins.dimensions(dimensions.first,dimensions.second);
+  const uint64_t synthetic_device_id=100+dimensions.first;device->ui_margins.capture_window(true,1,synthetic_device_id);
+  D3DMATRIX identity{};identity._11=identity._22=identity._33=identity._44=1;device->trace.shadow.bindings.vertex_shader.set(0x142);device->trace.effective_shadow.matrices[D3DTS_VIEW].set(identity);
+  const uintptr_t pc=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+UI_DRAW_RETURN_RVA;UiFixture card;
+  auto draw=[&](UiFixture& packet,float x,float y,HRESULT expected=S_OK,bool inspect=false){
+   packet.point[0]=x;packet.point[1]=y;device->ui_margins.scene_context(false);auto bytes=packet.packet;native.world._41=x;native.world._42=y;const D3DMATRIX original=native.world;const unsigned before=native.draws;
+   CHECK(device->ui_margins.enter_consume(packet.owner));native.draw_hr=expected;CHECK(device->draw_primitive_at(D3DPT_TRIANGLELIST,0,1,pc)==expected);native.draw_hr=S_OK;CHECK(native.draws==before+1);
+   CHECK(!std::memcmp(&native.world,&original,sizeof(original))&&packet.packet==bytes);const float rendered=native.observed;
+   if(inspect){auto record=detail::UiMarginsContract::active_record(device->ui_margins);CHECK(record.find("\"carousel_status\":\"promoted_motion_path\"")!=std::string::npos&&record.find("\"carousel_override\":true")!=std::string::npos&&record.find("\"margin_effective_request\":0")!=std::string::npos);}
+   device->ui_margins.leave_consume();CHECK(device->ui_margins.finish_frame());return rendered;
+  };
+  const float half=(480.f*static_cast<float>(dimensions.first)/dimensions.second-640.f)*.5f;
+  CHECK(std::abs(draw(card,50,309)-(50-half))<.01f); // first admission uses the original policy
+  CHECK(std::abs(draw(card,375,309,E_FAIL,true)-375)<.01f); // promotion preserves the native draw HRESULT
+  CHECK(device->ui_margins.json().find("\"carousel_alignment_enabled\":true")!=std::string::npos);
+  CHECK(device->ui_margins.json().find("\"carousel_promotions\":1")!=std::string::npos&&device->ui_margins.json().find("\"carousel_override_draws\":1")!=std::string::npos);
+  CHECK(device->ui_margins.json().find("\"carousel_anchor_discards\":1")!=std::string::npos);
+  CHECK(std::abs(draw(card,275,310)-275)<.01f&&std::abs(draw(card,375,312)-375)<.01f); // reverse motion and small lane drift
+
+  UiFixture frame;CHECK(std::abs(draw(frame,371,309)-371)<.01f&&std::abs(draw(frame,371,309)-371)<.01f);
+  UiFixture correct;CHECK(std::abs(draw(correct,475,309)-475)<.01f&&std::abs(draw(correct,375,309)-375)<.01f);
+  UiFixture sidebar;CHECK(std::abs(draw(sidebar,50,309)-(50-half))<.01f);CHECK(std::abs(draw(sidebar,70,309)-(70-half))<.01f);CHECK(std::abs(draw(sidebar,95,309)-(95-half))<.01f);
+  UiFixture unrelated;CHECK(std::abs(draw(unrelated,50,330)-(50-half))<.01f);CHECK(std::abs(draw(unrelated,375,330)-(375-half))<.01f);
+
+  // A frontend-to-race context change invalidates candidate semantics; changing
+  // content storage under the same entity also requires independent proof.
+  device->ui_margins.scene_context(true);device->ui_margins.scene_context(false);
+  CHECK(device->ui_margins.json().find("\"carousel_invalidations\":")!=std::string::npos);
+  card.storage=0x5678;std::memcpy(card.packet.data()+8,&card.storage,4);CHECK(std::abs(draw(card,375,309)-375)<.01f);
+  CHECK(device->ui_margins.json().find("\"carousel_promotions\":1")!=std::string::npos);
+  device->ui_margins.reset_anchors("Reset");CHECK(std::abs(draw(card,375,309)-375)<.01f);
+  for(unsigned absent=0;absent<3;++absent)CHECK(device->ui_margins.finish_frame());
+  CHECK(std::abs(draw(card,375,309)-375)<.01f);
+  CHECK(device->ui_margins.json().find("\"carousel_override_draws\":3")!=std::string::npos);
+  device->ui_margins.capture_window(false,1,synthetic_device_id,"present");device->Release();root->Release();
+ }
+
+ // Unknown local renderer ownership cannot enable the experimental classifier.
+ UiMargins unknown;detail::UiMarginsContract::enable(unknown);unknown.configure_carousel_alignment(true,false);
+ CHECK(unknown.json().find("\"carousel_alignment_requested\":true")!=std::string::npos&&unknown.json().find("\"carousel_alignment_enabled\":false")!=std::string::npos);
+ std::cout<<"R-UI1 opt-in trajectory classifier: retained-left fix, reverse scroll, lane/frame/sidebar negatives, identity/epoch, multi-aspect and exact-profile gate: PASS\n";
+}
 void margin_candidate_diagnostics(){
  alignas(float) std::array<std::array<unsigned char,0x90>,3> packets{};
  std::array<std::array<unsigned char,0x60>,3> entities{};
@@ -748,4 +806,4 @@ void quality_fpu(){
  flags=fetestexcept(FE_ALL_EXCEPT);ui_projection_dimensions(matrix,1920,1080,out);CHECK(fegetround()==FE_DOWNWARD&&fetestexcept(FE_ALL_EXCEPT)==flags);fesetenv(&saved);
  fegetenv(&saved);fesetround(FE_DOWNWARD);D3DMATRIX source{};source._22=float(1/std::tan((45./(16./9))*3.14159265358979323846/360.));source._11=source._22/float(16./9);source._33=1.01f;source._34=1;source._43=-.2f;flags=fetestexcept(FE_ALL_EXCEPT);CHECK(camera_scene_family(source)==0&&fegetround()==FE_DOWNWARD&&fetestexcept(FE_ALL_EXCEPT)==flags);fesetenv(&saved);
 }
-int main(){try{configs();numeric_configs();trace_numeric_configs();reset_echo_shutdown();preview_cursor_packets();displays();display_transactions();windowed_live_resize();windowed_startup_order();windowed_maximize_restore();stable_margin_anchors();margin_short_grace();margin_consumer_retention();margin_candidate_diagnostics();render_local_ui_contracts();render_local_wrapper_contract();ui_carousel_draw_diagnostics();ui_diagnostic_selection_is_order_independent();antialiasing();exclusive_lifecycle();exclusive_restore_order();game_window_owner_read();viewports_ui();freeze_and_patch();native_window();native_display_ordering();wrapper_trace();validated_ui_wrapper();ui_native_abi();packet_consumer_abi();quality_fpu();std::cout<<"R-GFX5 config/display/viewport/UI/MSAA/Reset/freeze/hidden HWND/native bridge contracts: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}
+int main(){try{configs();carousel_ini_config();numeric_configs();trace_numeric_configs();reset_echo_shutdown();preview_cursor_packets();displays();display_transactions();windowed_live_resize();windowed_startup_order();windowed_maximize_restore();stable_margin_anchors();margin_short_grace();margin_consumer_retention();margin_candidate_diagnostics();render_local_ui_contracts();render_local_wrapper_contract();ui_carousel_draw_diagnostics();ui_carousel_alignment_experimental();ui_diagnostic_selection_is_order_independent();antialiasing();exclusive_lifecycle();exclusive_restore_order();game_window_owner_read();viewports_ui();freeze_and_patch();native_window();native_display_ordering();wrapper_trace();validated_ui_wrapper();ui_native_abi();packet_consumer_abi();quality_fpu();std::cout<<"R-GFX5 config/display/viewport/UI/MSAA/Reset/freeze/hidden HWND/native bridge contracts: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}

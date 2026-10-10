@@ -1,39 +1,65 @@
-# R-UI1-D2 Runtime Validation
+# R-UI1-D3 Runtime Validation
 
-Use the current Win32 Release proxy build and verify its SHA256 against the validation record before copying it beside the game. Set `[Widescreen] InterfaceMode=2` (`PreserveMargins`), keep the accepted Windowed or Borderless mode unchanged, and use 1920×1080. Keep `[Trace] Enabled=1` and `FrameSummaries=1`. Do not enable a carousel-specific override; none is implemented.
+This build is an opt-in visual-fix candidate. It is not runtime-accepted. Verify the DLL SHA256 in `validation.md` before using it; keep the game executable and assets unchanged. No Exclusive Fullscreen mode is required.
 
-The purpose of this short run is to validate repeated F10 capture re-arming and obtain comparable Race Select / Vehicle Select draw evidence. Do not restart Master Rallye or recreate the D3D device between captures unless the game becomes unusable. F10 uses the existing Trace capture. The UI session events and matching Trace frame records share `capture_id` in the form `d<device>-f<Trace frame>`; each F10 capture has its own fresh UI budgets and closes at its matching Present. Use each row's `trace_frame` for frame joins. The legacy packet `first_frame` and `frame` fields describe UI anchor lifetime bookkeeping.
+## Configuration
 
-## Capture A — Vehicle Select with visible misalignment
+Use the currently accepted Windowed or Borderless mode at 1920×1080. Keep other display, AF, MSAA, camera, and gameplay settings unchanged during A/B comparison.
 
-Open Vehicle Select, scroll until the yellow frame appears over an empty or visibly misaligned slot, then stop moving and press F10 once. Let the capture close at Present. Record the capture ID and label it `A-vehicle-bug`.
+```ini
+[Display]
+Mode=2
+Width=1920
+Height=1080
 
-Expect relevant `ui_packet_lifetime` rows with nested `draw_observations`, `ui_render_local` rows when WORLD evidence is readable, and a `ui_diagnostic_capture_end` summary with fresh budget counts. Adjusted and unadjusted candidate rows are both useful; either class may be absent if that screen did not submit it during the capture.
+[Widescreen]
+InterfaceMode=2
+CarouselAlignment=1
 
-## Capture B — Vehicle Select in a visually correct position
+[Trace]
+Enabled=1
+FrameSummaries=1
+```
 
-Without restarting or resetting the device, move to a position where the carousel appears correct, stop, and press F10 once more. Label it `B-vehicle-correct`. Confirm that the capture ID differs from A and the new end summary reports records from its own budget. This is the direct repeated-F10 regression check.
+The feature is experimental and defaults off. To compare the original behavior, set `CarouselAlignment=0` and restart the game; do not change the setting during a running process.
 
-## Capture C — Race Select with visible misalignment
+## Vehicle Select
 
-Navigate to Race Select, stop on a visibly misaligned highlight, and press F10 once. Label it `C-race-bug`. Do not restart between B and C. This provides a cross-carousel comparison under the same renderer session.
+First run with `CarouselAlignment=0` and record whether the previously observed empty or displaced highlighted slot appears. Restart with `CarouselAlignment=1`, open Vehicle Select, and scroll forward and backward through the beginning, middle, and end of a long list.
 
-## Files and interpretation
+Pass when the central card remains under the yellow selection frame throughout scrolling, no card or decoration snaps between margin and center positions, list movement remains responsive, and the large 3D preview still matches the game's selected vehicle. Record any preview mismatch separately; the renderer does not change selection state.
 
-Keep the matching session JSONL and the three Trace frame JSONL files, with the labels above. Optional screenshots help tie the capture to the visible state. Do not add proprietary runtime captures to the repository.
+## Race Select
 
-For each `ui_diagnostic_capture_end`, check:
+Repeat the enabled test in Race Select, scrolling in both directions through a long list. Pass when the highlighted course/leg card remains aligned, no gap or overlap appears at the left edge, and descriptions stay associated with the game's selected item.
 
-- `capture_id`, `device_id`, start/end boundary, and `reason`;
-- `capture_records_emitted` and `capture_record_budget_limit`;
-- `packet_consumers_seen`, `packet_consumers_without_relevant_draw`, and `packets_with_draws`;
-- adjusted and unadjusted promoted candidates;
-- `candidate_capacity_rejections`, `candidate_evictions`, draw drops, record drops, and `coverage_status`.
+## Negative controls and regressions
 
-Join packet rows to their nested draw observations within the same capture ID. Compare entity/packet/point/content-storage/mode, UI epoch, anchor provenance, packet XY, caller RVA/FVF, and native/effective WORLD XY. Compare packet addresses across captures only when the validated UI epoch and lifetime context show they represent the same object; raw address equality by itself does not establish identity. Shared content storage is investigative evidence, not proof of widget membership.
+With the feature enabled, briefly check the main menu and animated decorations, frontend preview, race HUD, pause/unpause, and return from Quick Race. The classifier should affect only packets that exhibit the bounded moving-card signature. Stock and Centered4x3 should retain their original behavior. Keep the currently accepted Windowed or Borderless mode; do not test Exclusive as part of R-UI1-D3.
 
-If a capture has no eligible draws, use its end summary to distinguish a missing valid consumer, consumers without a relevant draw, and bounded/log loss. A frame with no packet rows is not proof that the game did not draw a card. `current_screen_status`, `carousel_owner_status`, and selection-state evidence should remain `not_proven` until the captures or source establish the card/highlight relationship.
+Fail the test if any unrelated HUD/menu element shifts, a card visibly snaps when its semantic state is learned, the yellow frame and card separate, the list freezes, selection/preview association changes, or Reset/return-to-frontend leaves stale behavior.
 
-Capture A/B is a diagnostic lifecycle pass when B has a new ID and fresh budget with relevant evidence. Capture C adds the race-select comparison. Visual acceptance still requires both carousel families to remain aligned while moving in both directions, with the selection frame, thumbnail, preview, list, and game selection in agreement. Do not infer selection-index corruption from an empty highlighted slot alone.
+## Capture only if the visual test fails or is ambiguous
 
-Afterward, briefly check PreserveMargins HUD/menu stability, then Centered4x3 and Stock if time permits. These are regression observations, not required to infer carousel ownership. Preserve camera/FOV, foliage, borderless/windowed, AF/MSAA, and other existing renderer behavior.
+Press F10 once while the affected element is visible. Keep the matching session JSONL and Trace frame JSONL outside the repository. Do not start another broad capture campaign. Join records using `capture_id` and `trace_frame`; inspect:
+
+- `carousel_status`, `carousel_id`, and `carousel_override`;
+- original `anchor_direction` / `margin_requested`, effective `margin_effective_request`, and actual `margin_applied`;
+- packet/entity identity, content storage, mode, UI epoch, and current packet X/Y;
+- native/effective WORLD transforms, draw HRESULT, and exact restore result.
+
+On a failed or ambiguous run, report the selected screen, enabled/disabled setting, direction of scroll, element type, whether the draw remained present, and the relevant capture IDs. Do not add raw captures to Git.
+
+Human result checklist:
+
+```text
+Vehicle Select forward/backward alignment: PASS / FAIL
+Race Select forward/backward alignment: PASS / FAIL
+One-time snap during classifier learning: YES / NO
+HUD/menu decorations unchanged: YES / NO
+Large preview still matches selection: YES / NO
+Reset and frontend return stable: YES / NO
+F10 capture IDs (only on failure/ambiguity): ...
+```
+
+After visual acceptance, close R-UI1 and return to R-CAM1-A3. Do not begin camera implementation before this handoff is resolved.

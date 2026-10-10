@@ -14,17 +14,37 @@ struct MarginAnchorDecision {
  uint64_t id=0,epoch=0;int direction=0,current_rule=0;bool admitted=false,retained=false,grace_retained=false;
  const char* source="none";const char* invalidated="none";
 };
+struct CarouselSemanticDecision {
+ uint64_t id=0;bool candidate=false,proven=false,promoted=false;
+ const char* status="disabled";
+};
 // Semantic direction only. This registry never owns coordinates or writes memory.
 // At most two completed absent frames; observable identity/epoch changes win immediately.
 inline constexpr uint64_t MARGIN_ANCHOR_GRACE_FRAMES=2;
+inline constexpr unsigned CAROUSEL_TRACK_CAPACITY=128;
+inline constexpr float CAROUSEL_LANE_MIN_Y=299.f,CAROUSEL_LANE_MAX_Y=319.f;
+inline constexpr float CAROUSEL_CENTER_MIN_X=350.f,CAROUSEL_CENTER_MAX_X=400.f;
+inline constexpr float CAROUSEL_OUTER_LEFT_MAX_X=295.f,CAROUSEL_OUTER_RIGHT_MIN_X=455.f;
+inline constexpr float CAROUSEL_MIN_TRAVEL_X=80.f;
 class MarginAnchors {
  struct Anchor {MarginIdentity key{};uint64_t id=0,last=0;int direction=0;};
+ struct CarouselTrack {
+  MarginIdentity key{};uint64_t id=0,epoch=0,first=0,last=0;
+  float min_x=0,max_x=0;unsigned samples=0;
+  bool saw_left_anchor=false,saw_center=false,saw_outer_left=false,saw_outer_right=false,proven=false;
+ };
  std::array<Anchor,512> entries_{};uint64_t frame_=1,epoch_=1,next_id_=0;
+ std::array<CarouselTrack,CAROUSEL_TRACK_CAPACITY> carousel_{};uint64_t next_carousel_id_=0;
  int context_=-1;const char* epoch_reason_="initial";
 public:
  uint64_t admissions=0,invalidations=0,retained_anchor_without_current_rule_match=0,overflow=0;
  uint64_t anchor_grace_retained=0,grace_expired=0;
+ uint64_t carousel_promotions=0,carousel_invalidations=0,carousel_overflow=0,carousel_anchor_discards=0;
  MarginAnchorDecision resolve(const MarginIdentity&,float x,float y,float z) noexcept;
+ CarouselSemanticDecision observe_carousel(const MarginIdentity&,float x,float y,uint64_t frame,
+  bool frontend_context,bool verified_ui_draw,bool left_anchor_evidence) noexcept;
+ bool discard_for_carousel(const MarginIdentity&) noexcept;
+ void clear_carousels() noexcept;
  void next_frame() noexcept;
  void begin_epoch(const char* reason) noexcept;
  void scene_context(bool race) noexcept;
@@ -50,7 +70,10 @@ public:
  bool installed() const noexcept {return installed_;}
 };
 class Trace;
-struct MarginDrawDecision {MarginIdentity key{};MarginAnchorDecision anchor{};float native_x=0,native_y=0,margin=0;bool valid=false;};
+struct MarginDrawDecision {
+ MarginIdentity key{};MarginAnchorDecision anchor{};float native_x=0,native_y=0,margin=0,standard_margin=0;
+ uint64_t carousel_id=0;bool carousel_override=false,valid=false;const char* carousel_status="disabled";
+};
 inline constexpr uint32_t UI_DRAW_RETURN_RVA=0x0016d7c4;
 inline constexpr unsigned UI_PACKET_DRAW_OBSERVATION_LIMIT=8;
 inline constexpr unsigned UI_CAPTURE_PACKET_CANDIDATE_LIMIT=64;
@@ -70,6 +93,8 @@ struct UiDrawObservation {
  bool temporary_set_attempted=false;uint32_t temporary_set_hresult=0;float requested_world_x=0,requested_world_y=0;
  uint32_t draw_hresult=0;bool draw_result_known=false;
  bool restore_attempted=false,restore_requested_original_exact=false,restore_succeeded=false;uint32_t restore_hresult=0;
+ const char* carousel_status="disabled";uint64_t carousel_id=0;bool carousel_override=false;
+ float margin_effective_request=0;
 };
 class UiMargins {
  friend struct detail::UiMarginsContract;
@@ -98,7 +123,8 @@ class UiMargins {
  uint64_t capture_candidate_rejections_=0,capture_candidate_evictions_=0,capture_packet_record_drops_=0;
  uint64_t capture_render_local_drops_=0,capture_draw_drops_=0,capture_identity_invalidations_=0,capture_log_failures_=0;
  uint64_t capture_draw_observation_attempts_=0;
- bool capturing_=false,capture_completed_=false,capture_close_pending_=false;DWORD thread_=0;float half_=0;bool enabled_=false;int scene_family_=-1;const char* capture_end_reason_="none",*capture_close_reason_="none";
+ uint64_t carousel_override_draws_=0;
+ bool capturing_=false,capture_completed_=false,capture_close_pending_=false;DWORD thread_=0;float half_=0;bool enabled_=false,carousel_alignment_requested_=false,carousel_alignment_enabled_=false;int scene_family_=-1;const char* capture_end_reason_="none",*capture_close_reason_="none";
  std::string packet_observation_json(const Scope&) const;
  int find_observation(const MarginIdentity&,uint64_t epoch) const noexcept;
  int promote_observation(Scope&) noexcept;
@@ -111,7 +137,8 @@ public:
  const char* reason="disabled";
  uint64_t draw_observations_captured=0,draw_observations_dropped=0;
  ~UiMargins();
- bool install(bool exact,bool requested) noexcept;
+ bool install(bool exact,bool requested,bool carousel_alignment=false) noexcept;
+ void configure_carousel_alignment(bool requested,bool exact_profile) noexcept;
  void dimensions(UINT width,UINT height) noexcept;
  void capture_window(bool active,uint64_t frame,uint64_t device_id=0,const char* end_reason="present") noexcept;
  void reset_diagnostics() noexcept;
@@ -119,7 +146,7 @@ public:
  void scene_context(bool race) noexcept;
  bool enter_consume(uintptr_t entity) noexcept;
  void leave_consume() noexcept;
- MarginDrawDecision draw_decision() noexcept;
+ MarginDrawDecision draw_decision(bool verified_ui_draw=false) noexcept;
  UiDrawObservation* begin_draw(uintptr_t caller_va,uint32_t caller_rva,bool caller_in_game_image,
   D3DPRIMITIVETYPE primitive,UINT start_vertex,UINT primitive_count,bool adjustment_gate_allowed,
   bool suppressed,bool forwarded,bool vertex_shader_token_known,uint32_t vertex_shader_token) noexcept;

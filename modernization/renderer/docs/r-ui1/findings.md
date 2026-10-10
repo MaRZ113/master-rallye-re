@@ -1,6 +1,6 @@
 # R-UI1 — Carousel Selection Alignment
 
-**Status: READY_FOR_UI_DIAGNOSTIC_VALIDATION.** R-UI1-D2 fixes the repeated-F10 diagnostic starvation and pre-draw table admission. No carousel-specific transform change is enabled because Race Select and Vehicle Select ownership is not proven by the currently available source/captures.
+**Status: READY_FOR_EXPERIMENTAL_IN_GAME_VALIDATION.** R-UI1-D2 fixed repeated-F10 diagnostic starvation and draw-driven packet promotion. R-UI1-D3 adds an opt-in, bounded carousel-motion classifier and margin override. Native widget ownership and selected-index ownership remain unproven; the setting therefore remains disabled by default.
 
 ## Evidence and calculation
 
@@ -14,9 +14,9 @@ The native synthetic regression exercises this real policy and the production wr
 
 ## Ownership boundary
 
-Existing R-GFX5 ownership research records no proven cross-packet widget or sibling root at the final consumer. The current captures were unavailable, and the current checkout does not expose a safely validated Race Select / Vehicle Select owner, selected item index, or highlight-to-card relationship. The camera projection classifier provides only a last-classified `frontend`/`race` family; it does not identify a frontend screen. No unknown widget memory is read, and no semantic carousel ID is fabricated.
+Existing R-GFX5 ownership research still has no proven cross-packet widget root at the final consumer. The four D3 capture comparisons supplied for this phase identify the same retained-left transform shape in Vehicle Select and Race Select, but raw JSONL files are not present in this checkout and no selected item index or native screen owner is exposed. The camera projection classifier identifies only a fresh `frontend`/`race` family; it does not distinguish individual frontend screens. The feature therefore does not read unknown widget memory, change selection state, reorder items, add draws, or alter draw order.
 
-Therefore this change does not alter selection state, item order, packet anchors, transform policy, draw count, or draw order. Existing left/right/HUD/menu retention remains unchanged. The observed retained-anchor mechanism remains a strong hypothesis until the new capture connects packet identities and draw transforms to the actual card and highlight.
+The D3 correction is explicitly experimental. It operates only on the existing validated packet identity and verified UI draw seam, with a bounded motion test. HUD, sidebar, and decoration packets that do not satisfy the entire predicate continue through the standard retained-anchor policy. A same-family frontend transition with immediate reuse of the full same packet identity and no missing-frame gap remains a residual lifecycle limitation; this is one reason the feature is opt-in and requires visual testing.
 
 ## R-UI1-D2 diagnostic lifecycle and sampling
 
@@ -38,6 +38,35 @@ Each nested draw records caller VA/RVA and in-image status, primitive arguments,
 
 The diagnostic adds read-only WORLD observation only while the shared Trace F10 capture is active and a validated packet-consumer scope contains a relevant UI draw. Unchanged/unadjusted relevant draws are observed as controls. Outside that diagnostic window, draw behavior follows the established PreserveMargins path. R-CAM1-A2 camera-owner snapshots, pre-submission state, and foliage capture provenance continue through the existing shared Trace capture.
 
+## R-UI1-D3 carousel anchor isolation
+
+The supplied comparison identifies four independent captures in the same renderer session:
+
+| Screen/state | Capture | Packet at X=375, Y=309 | Anchor | Effective X |
+|---|---|---|---|---:|
+| Vehicle Select, incorrect | `d1-f6108` | `55020104` | retained LEFT | 268.333 |
+| Vehicle Select, correct | `d1-f21974` | `55017672` | none | 375 |
+| Race Select, incorrect | `d1-f28757` | `54351552` | retained LEFT | 268.333 |
+| Race Select, correct | `d1-f34175` | `54352160` | none | 375 |
+
+The two incorrect states have the same 106.667-unit left shift; the two controls retain the authored central position. The same packet identities are reported at different horizontal positions within the observed UI lifetime, including `375 → 275`, `475 → 375`, `708 → 375`, and `375 → 42`. These values are supplied trace evidence; the raw captures were not checked into or found in the current checkout. The card/highlight association is still not a native widget-owner proof.
+
+The source defect is the interaction between the existing broad left-text admission band (`X=25…106`, `Y=259…340`) and sticky anchor identity. A card traveling at `Y≈309` can acquire LEFT at its earlier X and retain it after entering the central selection position. The correction changes only the final margin decision for a proven moving packet; it does not modify packet coordinates or the native WORLD transform outside the existing draw-local copy/restore scope.
+
+`Widescreen.CarouselAlignment=1` is required. Missing, zero, malformed, or unsupported-profile settings leave original behavior in place. It is effective only when PreserveMargins is active and its existing local compatibility capability has validated the exact consumer path. A candidate is considered proven only when all of these observations occur together:
+
+- A fresh frontend scene-family classification and the existing validated entity/packet/point/content-storage/mode/UI-epoch identity.
+- The verified final UI draw gate: in-image caller RVA `0x0016D7C4`, forwarded non-suppressed `TRIANGLELIST`, FVF token `0x142`, live PreserveMargins projection, and identity view.
+- The same packet identity is drawn in at least two distinct render frames in the captured carousel lane `Y=299…319`; it must have a left-anchor observation, cross the central-card interval `X=350…400`, and reach an outer interval (`X≤295` or `X≥455`) with at least 80 units of observed travel.
+
+The coordinate intervals bound the temporal classifier around the supplied moving-card evidence; X=375, a raw address, or a texture by itself cannot promote a packet. The classifier is not a discovered native widget identity and is not enabled by default. It uses a fixed 128-entry table, full packet identity plus UI epoch, and the existing two-absent-frame expiry. Packet/storage/mode changes, UI epoch changes, Reset, device release, and observed frontend/race context changes clear applicable proof. Current material, coordinates, D3D state, and normal native identity validation remain live checks. On promotion, the current and subsequent qualifying draws use zero margin; the matching retained anchor is discarded so it cannot reappear after the candidate expires.
+
+The selection frame is a negative control: the observed frame remains stationary in the center, has no left-anchor evidence, and cannot satisfy the trajectory predicate. Static sidebar/HUD/menu content that lacks the lane-crossing signature retains the original policy. A genuinely similar unrelated frontend object could still satisfy a temporal heuristic; therefore this is an opt-in candidate pending in-game negative controls, not a production-safe widget classifier.
+
+The trace adds only the classifier provenance required for A/B verification: `carousel_status`, `carousel_id`, `carousel_override`, standard `margin_requested`, `margin_effective_request`, and the actual `margin_applied`, alongside the existing capture ID, UI epoch, draw, WORLD, HRESULT, and restore fields. Summary counters expose promotions, invalidations, bounded-capacity eviction, anchor discards, and override draws.
+
+Automated native coverage drives the actual production classifier and `UiWorldScope` through the retained-left reproducer, correct/unanchored card, forward/reverse movement, static selection frame, stationary sidebar, unrelated packet outside the lane, packet content-storage replacement, scene-context transition, Reset, absence expiry, unsupported-profile gating, and 4:3 / 16:9 / 21:9 / extreme viewport dimensions. The test verifies one forwarded native draw, original HRESULT, packet immutability, and exact WORLD restoration. This is build/test evidence only; visual confirmation remains pending.
+
 ## Conclusion
 
-The retained-left path is a viable explanation for the reported relative offset, but membership and expected stock carousel geometry are not established. The candidate is ready for a short Race Select / Vehicle Select capture. Do not label either carousel fixed based on this synthetic result.
+R-UI1-D3 is ready for an opt-in Vehicle Select / Race Select visual test. It is not yet visually accepted. Keep `CarouselAlignment=0` for the original behavior; use `1` only for the documented PreserveMargins A/B test. The detailed steps and current build identity are in [runtime-handoff.md](runtime-handoff.md).

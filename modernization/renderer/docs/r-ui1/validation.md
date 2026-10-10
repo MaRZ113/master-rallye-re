@@ -41,3 +41,18 @@ The current R-CAM1-A2 camera submission diagnostic, GameFov behavior, foliage up
 The new synthetic native session demonstrates two successful F10 captures on device 8 (`d8-f2`, `d8-f4`) with independent budgets, both adjusted and unadjusted promoted evidence, and matching Trace `frame_summary` IDs. A separate dense synthetic capture observed 343 packet consumers, including 340 without relevant draws, while promoting only drawn packets. The 80-candidate order test retained the same bounded 32/32 selection under reversed traversal. These are automated contract results, not game-session evidence.
 
 No current production Race Select / Vehicle Select capture files were present in this checkout. No game was launched for this pass, and no carousel alignment transform was introduced. Carousel ownership and visual behavior remain pending the three captures in [runtime-handoff.md](runtime-handoff.md).
+
+## R-UI1-D3 experimental alignment candidate
+
+- Repository: `D:\Game\Master Rallye\master-rallye-re-general`; branch `master`.
+- Starting HEAD: `92001d277b8cdc3587c220d835409d5d3e309064`; the worktree was clean. R-UI1-D2 and R-CAM1-A2 were present in history. No unrelated modifications were present at preflight.
+- `python modernization/renderer/tools/build.py`: passed with the existing Visual Studio 18 2026 Win32 generator, Release configuration, and parallel build setting; all targets built and CTest ran.
+- Native CTest: 10/10 passed. `quality_tests.exe` passed the new production classifier integration, including PreserveMargins default-off parsing, explicit opt-in, invalid setting fallback, exact-profile gating, bug/control capture shapes, movement/reverse movement, negative UI controls, Reset/content-storage/scene epoch/absence handling, multiple viewport ratios, native draw count/HRESULT, packet immutability, and exact WORLD restoration.
+- `python -m unittest discover -s modernization/renderer/tests -v`: 120/120 passed.
+- `python -m compileall -q modernization/renderer`: passed.
+- Proxy verification: valid PE32/I386 Win32 Release DLL, required D3D8 exports present, no recursive `d3d8.dll` import; evidence grade `BUILD_VERIFIED_NOT_RUNTIME`.
+- DLL: `modernization/renderer/.build-msvc/Release/d3d8.dll`, 1,584,640 bytes, SHA256 `cfa3a03c915c262ea962915f1df3679adf118c687832caf3014d7a09fd5adbe3`.
+- No game session was run. In-game A/B confirmation is pending; the classifier remains off by default and the supplied D2 JSONL files were not available for independent re-parsing in this checkout.
+- `git diff --check`: passed.
+
+R-UI1-D3 is ready only for the documented **experimental** PreserveMargins test. It is not visually accepted, and no runtime claim is implied by the native suite or PE verification.
