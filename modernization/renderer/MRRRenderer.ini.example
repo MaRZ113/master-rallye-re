@@ -62,7 +62,7 @@ VerticalFOVDegrees=75.0
 [FreeCamera]
 ; Defaults OFF. Runtime certification works independently of Trace.Enabled.
 Enabled=0
-; 0 = WASD; 1 = physical Numpad; 2 = Custom FreeCameraKeys below.
+; 0 = WASD + E/Q vertical; 1 = physical Numpad; 2 = Custom FreeCameraKeys below.
 ControlPreset=0
 ; F10 is reserved. F8 is the first-flight key; rebind if a native control conflicts.
 ToggleKey=F8
@@ -86,8 +86,8 @@ Forward=W
 Backward=S
 Left=A
 Right=D
-Up=Space
-Down=LeftCtrl
+Up=E
+Down=Q
 Fast=LeftShift
 Slow=LeftAlt
 SpeedIncrease=PageUp

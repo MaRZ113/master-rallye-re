@@ -29,6 +29,7 @@ void controls(){
  auto invalid=parse_visual_config({{"Renderer.ConfigVersion","2"},{"FreeCamera.Enabled","1"}},true);GameFov rejected;CHECK(!rejected.install(true,invalid,nullptr,true)&&!rejected.free_camera_configured());
  CHECK(!parse_free_camera_config({}).enabled);
  auto c=parse_free_camera_config({{"FreeCamera.Enabled","1"}});CHECK(c.enabled&&c.preset==0&&c.toggle==VK_F8);
+ CHECK(c.keys[0]=='W'&&c.keys[1]=='S'&&c.keys[2]=='A'&&c.keys[3]=='D'&&c.keys[4]=='E'&&c.keys[5]=='Q'&&c.keys[4]!=VK_SPACE);
  CHECK(c.speed_increase==VK_PRIOR&&c.speed_decrease==VK_NEXT&&c.min_speed==.25f&&c.max_speed==300.f&&c.movement_smooth_seconds==.12f);
  CHECK(c.auto_level_horizon&&std::abs(c.horizon_level_seconds-.30f)<.0001f);
  auto level_off=parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.AutoLevelHorizon","false"},{"FreeCamera.HorizonLevelSeconds","0"}});CHECK(level_off.enabled&&!level_off.auto_level_horizon&&level_off.horizon_level_seconds==0);
@@ -46,6 +47,7 @@ void controls(){
  std::map<std::string,std::string> custom{{"FreeCamera.Enabled","1"},{"FreeCamera.ControlPreset","2"},{"FreeCamera.ToggleKey","Q"}};
  const char* names[]={"Forward","Backward","Left","Right","Up","Down","Fast","Slow"};const char* keys[]={"Numpad8","Numpad2","Numpad4","Numpad6","Numpad9","Numpad3","LeftShift","LeftAlt"};
  for(size_t i=0;i<8;++i)custom[std::string("FreeCameraKeys.")+names[i]]=keys[i];CHECK(parse_free_camera_config(custom).enabled);custom["FreeCameraKeys.Forward"]="Q";CHECK(!parse_free_camera_config(custom).enabled);
+ custom["FreeCameraKeys.Forward"]="W";custom["FreeCameraKeys.Up"]="Space";CHECK(parse_free_camera_config(custom).enabled); // Space remains available to deliberate custom layouts.
  FlightWindowInput input;input.key_event(0x48,true,true);CHECK(!input.physical_down(0x48));input.key_event(0x48,false,true);CHECK(input.physical_down(0x48));input.key_event(0x48,false,false);CHECK(!input.physical_down(0x48));
  input.key_event(0x48,false,true);input.focus_lost();CHECK(!input.physical_down(0x48));CHECK(!input.sample(pad,true).focused);
  FlightController f;FlightInput in;auto visible=identity();in.focused=true;CHECK(!f.update(c,in,true,&visible)&&!f.last_toggle_edge);in.toggle=true;CHECK(f.update(c,in,true,&visible)&&f.pose==visible&&f.last_toggle_edge);

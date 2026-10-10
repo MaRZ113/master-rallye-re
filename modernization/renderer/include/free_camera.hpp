@@ -9,7 +9,7 @@ struct FreeCameraConfig {
  float min_speed=.25f,max_speed=300.f,wheel_speed_factor=1.25f,movement_smooth_seconds=.12f;
  unsigned speed_increase=VK_PRIOR,speed_decrease=VK_NEXT;
  bool auto_level_horizon=true;float horizon_level_seconds=.30f;
- std::array<unsigned,8> keys{'W','S','A','D',VK_SPACE,VK_LCONTROL,VK_LSHIFT,VK_LMENU};
+ std::array<unsigned,8> keys{'W','S','A','D','E','Q',VK_LSHIFT,VK_LMENU};
  const char* reason="disabled";
 };
 // 0x100+scan denotes a physical, non-extended keypad key, independent of NumLock.
