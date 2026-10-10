@@ -125,11 +125,6 @@ CarouselSemanticDecision MarginAnchors::observe_carousel(const MarginIdentity& k
  }
  result.status=result.promoted?"promoted_motion_path":result.proven?"proven_motion_path":"candidate_motion_path";return result;
 }
-bool MarginAnchors::discard_for_carousel(const MarginIdentity& key) noexcept {
- for(auto& anchor:entries_)if(anchor.id&&anchor.key.entity==key.entity&&anchor.key.packet==key.packet&&
-    anchor.key.point==key.point&&anchor.key.storage==key.storage&&anchor.key.mode==key.mode){anchor={};++carousel_anchor_discards;return true;}
- return false;
-}
 void MarginAnchors::clear_carousels() noexcept {for(auto& track:carousel_)if(track.id)++carousel_invalidations;carousel_={};}
 bool UiJumpPatch::exchange(PatchMemory& m,const std::array<unsigned char,5>& from,const std::array<unsigned char,5>& to) noexcept {
  std::array<unsigned char,5> seen{};DWORD old=0,ignored=0;
@@ -420,7 +415,11 @@ std::string UiMargins::packet_observation_json(const Scope& s) const {
    <<",\"vertex_shader_token_known\":"<<(d.vertex_shader_token_known?"true":"false")<<",\"vertex_shader_token\":";if(d.vertex_shader_token_known)out<<d.vertex_shader_token;else out<<"null";
   out<<",\"fvf_value\":";if(d.vertex_shader_token_known&&d.vertex_shader_token==0x142)out<<d.vertex_shader_token;else out<<"null";
    out<<",\"fvf_status\":"<<quote(d.vertex_shader_token_known&&d.vertex_shader_token==0x142?"gate_confirmed_0x142":"not_identified")<<",\"margin_requested\":";json_float(out,d.margin_requested);out<<",\"margin_applied\":";json_float(out,d.margin_applied);
-   out<<",\"margin_effective_request\":";json_float(out,d.margin_effective_request);out<<",\"carousel_status\":"<<quote(d.carousel_status)<<",\"carousel_id\":";if(d.carousel_id)out<<d.carousel_id;else out<<"null";out<<",\"carousel_override\":"<<(d.carousel_override?"true":"false");json_scene_context(out,d.scene_context);
+   out<<",\"margin_effective_request\":";json_float(out,d.margin_effective_request);out<<",\"carousel_status\":"<<quote(d.carousel_status)<<",\"carousel_id\":";if(d.carousel_id)out<<d.carousel_id;else out<<"null";out<<",\"carousel_override\":"<<(d.carousel_override?"true":"false")
+     <<",\"carousel_group_id\":null,\"carousel_group_status\":"<<quote(d.carousel_group_status)<<",\"carousel_group_membership_status\":"<<quote(d.carousel_group_membership_status)
+     <<",\"carousel_group_member_status\":"<<quote(d.carousel_status)<<",\"carousel_group_policy\":"<<quote(d.carousel_group_policy)
+     <<",\"carousel_group_commit_frame\":null,\"carousel_group_member_count\":null,\"carousel_group_override\":"<<(d.carousel_group_override?"true":"false")
+     <<",\"carousel_group_fallback_reason\":"<<quote(d.carousel_group_fallback_reason);json_scene_context(out,d.scene_context);
    out<<",\"packet_point_known\":"<<(d.packet_point_known?"true":"false")<<",\"packet_x\":";if(d.packet_point_known)json_float(out,d.packet_x);else out<<"null";
    out<<",\"packet_y\":";if(d.packet_point_known)json_float(out,d.packet_y);else out<<"null";
   out<<",\"get_transform_attempted\":"<<(d.get_transform_attempted?"true":"false")<<",\"get_transform_hresult\":";if(d.get_transform_attempted)out<<d.get_transform_hresult;else out<<"null";
@@ -453,6 +452,9 @@ MarginDrawDecision UiMargins::draw_decision(bool verified_ui_draw) noexcept {
  if(!read_margin_identity(s.key.entity,s.key.packet+0x24,current)||current.packet!=s.key.packet||current.point!=s.key.point||current.storage!=s.key.storage||current.mode!=s.key.mode||!safe_copy(point,reinterpret_cast<void*>(current.point),sizeof(point))||point[2]!=0||!std::isfinite(point[0])||!std::isfinite(point[1])){anchors_.reject(s.key.entity);s.valid=false;return d;}
  d.key=s.key;d.anchor=s.anchor;d.native_x=point[0];d.native_y=point[1];d.standard_margin=half_*s.anchor.direction;d.margin=d.standard_margin;d.carousel_status=carousel_alignment_enabled_?"not_classified":"disabled";d.valid=true;
   if(carousel_alignment_enabled_){
+   d.carousel_group_status="GROUP_UNKNOWN";d.carousel_group_policy="PRESERVE_MARGINS_FALLBACK";
+   d.carousel_group_membership_status="not_proven_no_pre_draw_roster";
+   d.carousel_group_fallback_reason="no_verified_pre_draw_owner_or_complete_roster";
    d.scene_context=scene_context_for_draw();
    if(verified_ui_draw){
     if(d.scene_context.frontend_allowed){
@@ -461,9 +463,14 @@ MarginDrawDecision UiMargins::draw_decision(bool verified_ui_draw) noexcept {
     }else ++scene_context_rejections_;
    }
    auto semantic=anchors_.observe_carousel(s.key,point[0],point[1],frame_id_,d.scene_context.frontend_allowed,verified_ui_draw,s.anchor.direction<0);
-   if(!d.scene_context.frontend_allowed)semantic.status=d.scene_context.rejection_reason;
-  d.carousel_id=semantic.id;d.carousel_status=semantic.status;
-  if(semantic.proven){d.carousel_override=true;d.margin=0;++carousel_override_draws_;anchors_.discard_for_carousel(s.key);}
+   if(!d.scene_context.frontend_allowed){semantic.status=d.scene_context.rejection_reason;d.carousel_group_fallback_reason="frontend_scene_evidence_unavailable";}
+   d.carousel_id=semantic.id;d.carousel_status=semantic.status;
+   // Per-packet motion is discovery evidence only. The renderer has no
+   // verified pre-draw owner or complete roster, so no member may change the
+   // group's effective margin independently. Preserve both the original
+   // anchor and the established PreserveMargins decision until atomic
+   // membership can be established.
+   if(semantic.candidate&&d.scene_context.frontend_allowed)++carousel_group_blocked_draws_;
  }
  return d;
 }
@@ -496,7 +503,11 @@ void UiMargins::observe_draw(const MarginDrawDecision& d,UiDrawObservation& draw
    <<",\"anchor_direction\":"<<quote(d.anchor.direction<0?"left":d.anchor.direction>0?"right":"none")<<",\"caller_rva\":"<<draw.caller_rva
    <<",\"diagnostic_relevant\":true,\"draw_class\":"<<quote(draw.margin_applied!=0?"adjusted":"unadjusted")
    <<",\"carousel_status\":"<<quote(draw.carousel_status)<<",\"carousel_id\":";if(draw.carousel_id)o<<draw.carousel_id;else o<<"null";
-   o<<",\"carousel_override\":"<<(draw.carousel_override?"true":"false");json_scene_context(o,draw.scene_context);o<<",\"margin_standard\":";json_float(o,d.standard_margin);
+   o<<",\"carousel_override\":"<<(draw.carousel_override?"true":"false")
+    <<",\"carousel_group_id\":null,\"carousel_group_status\":"<<quote(draw.carousel_group_status)<<",\"carousel_group_membership_status\":"<<quote(draw.carousel_group_membership_status)
+    <<",\"carousel_group_member_status\":"<<quote(draw.carousel_status)<<",\"carousel_group_policy\":"<<quote(draw.carousel_group_policy)
+    <<",\"carousel_group_commit_frame\":null,\"carousel_group_member_count\":null,\"carousel_group_override\":"<<(draw.carousel_group_override?"true":"false")
+    <<",\"carousel_group_fallback_reason\":"<<quote(draw.carousel_group_fallback_reason);json_scene_context(o,draw.scene_context);o<<",\"margin_standard\":";json_float(o,d.standard_margin);
   o<<",\"margin_effective_request\":";json_float(o,d.margin);o<<",\"native_x\":";json_float(o,d.native_x);o<<",\"native_y\":";json_float(o,d.native_y);
   o<<",\"native_world_x\":";json_float(o,draw.native_world_x);o<<",\"native_world_y\":";json_float(o,draw.native_world_y);
   o<<",\"half_extra\":";json_float(o,half_);o<<",\"margin\":";json_float(o,draw.margin_applied);
@@ -515,7 +526,7 @@ UiWorldScope::UiWorldScope(IDirect3DDevice8& native,Trace& trace,UiMargins& ui,u
   MarginFP fp;observation_=ui_.begin_draw(pc,caller_rva,caller_in_game_image,primitive,start_vertex,primitive_count,allowed,suppressed,forwarded,vertex_shader_token_known,vertex_shader_token);
   const bool verified_carousel_draw=allowed&&primitive==D3DPT_TRIANGLELIST&&primitive_count>0&&!suppressed&&forwarded;
   decision_=ui_.draw_decision(verified_carousel_draw);const bool apply=allowed&&decision_.valid&&decision_.margin!=0;
-  if(observation_){observation_->margin_requested=decision_.valid?decision_.standard_margin:0;observation_->margin_effective_request=decision_.valid?decision_.margin:0;observation_->carousel_status=decision_.carousel_status;observation_->carousel_id=decision_.carousel_id;observation_->carousel_override=decision_.carousel_override;observation_->scene_context=decision_.scene_context;observation_->packet_point_known=decision_.valid;observation_->packet_x=decision_.native_x;observation_->packet_y=decision_.native_y;}
+  if(observation_){observation_->margin_requested=decision_.valid?decision_.standard_margin:0;observation_->margin_effective_request=decision_.valid?decision_.margin:0;observation_->carousel_status=decision_.carousel_status;observation_->carousel_id=decision_.carousel_id;observation_->carousel_override=decision_.carousel_override;observation_->carousel_group_status=decision_.carousel_group_status;observation_->carousel_group_policy=decision_.carousel_group_policy;observation_->carousel_group_membership_status=decision_.carousel_group_membership_status;observation_->carousel_group_fallback_reason=decision_.carousel_group_fallback_reason;observation_->carousel_group_override=decision_.carousel_group_override;observation_->scene_context=decision_.scene_context;observation_->packet_point_known=decision_.valid;observation_->packet_x=decision_.native_x;observation_->packet_y=decision_.native_y;}
  if(!apply&&!observation_)return;
  HRESULT hr=native_.GetTransform(D3DTS_WORLD,&original_);auto get=pack(D3DTS_WORLD,&original_);if(apply)trace_.after(38,get,static_cast<uint32_t>(hr),pc_,&get,128,false,true);
  if(observation_){observation_->get_transform_attempted=true;observation_->get_transform_hresult=static_cast<uint32_t>(hr);}
@@ -571,7 +582,12 @@ std::string UiMargins::json() const {
   <<",\"retained_anchor_without_current_rule_match\":"<<anchors_.retained_anchor_without_current_rule_match<<",\"anchor_grace_frames\":"<<MARGIN_ANCHOR_GRACE_FRAMES
   <<",\"anchor_grace_retained\":"<<anchors_.anchor_grace_retained<<",\"group_grace_retained\":0,\"group_owner_status\":\"not_proven\",\"anchor_overflow\":"<<anchors_.overflow
   <<",\"carousel_alignment_requested\":"<<(carousel_alignment_requested_?"true":"false")<<",\"carousel_alignment_enabled\":"<<(carousel_alignment_enabled_?"true":"false")
-  <<",\"carousel_classifier\":"<<quote(carousel_alignment_enabled_?"frontend_verified_draw_motion_lane_opt_in":"disabled")
+  <<",\"carousel_classifier\":"<<quote(carousel_alignment_enabled_?"frontend_verified_draw_motion_membership_evidence_only":"disabled")
+  <<",\"carousel_group_status\":"<<quote(carousel_alignment_enabled_?"GROUP_UNKNOWN":"DISABLED")
+  <<",\"carousel_group_policy\":"<<quote(carousel_alignment_enabled_?"PRESERVE_MARGINS_FALLBACK":"unchanged")
+  <<",\"carousel_group_membership_status\":"<<quote(carousel_alignment_enabled_?"not_proven_no_pre_draw_roster":"not_evaluated")
+  <<",\"carousel_group_fallback_reason\":"<<quote(carousel_alignment_enabled_?"no_verified_pre_draw_owner_or_complete_roster":"none")
+  <<",\"carousel_group_blocked_draws\":"<<carousel_group_blocked_draws_
   <<",\"carousel_promotions\":"<<anchors_.carousel_promotions<<",\"carousel_invalidations\":"<<anchors_.carousel_invalidations
   <<",\"carousel_capacity_evictions\":"<<anchors_.carousel_overflow<<",\"carousel_anchor_discards\":"<<anchors_.carousel_anchor_discards
   <<",\"carousel_override_draws\":"<<carousel_override_draws_

@@ -48,7 +48,6 @@ public:
  MarginAnchorDecision resolve(const MarginIdentity&,float x,float y,float z) noexcept;
  CarouselSemanticDecision observe_carousel(const MarginIdentity&,float x,float y,uint64_t frame,
   bool frontend_context,bool verified_ui_draw,bool left_anchor_evidence) noexcept;
- bool discard_for_carousel(const MarginIdentity&) noexcept;
  void clear_carousels() noexcept;
  void next_frame() noexcept;
  void begin_epoch(const char* reason) noexcept;
@@ -78,6 +77,9 @@ class Trace;
 struct MarginDrawDecision {
  MarginIdentity key{};MarginAnchorDecision anchor{};float native_x=0,native_y=0,margin=0,standard_margin=0;
  uint64_t carousel_id=0;bool carousel_override=false,valid=false;const char* carousel_status="disabled";
+ const char* carousel_group_status="disabled";const char* carousel_group_policy="unchanged";
+ const char* carousel_group_membership_status="not_evaluated";
+ const char* carousel_group_fallback_reason="none";bool carousel_group_override=false;
  SceneContextDecision scene_context{};
 };
 inline constexpr uint32_t UI_DRAW_RETURN_RVA=0x0016d7c4;
@@ -100,6 +102,9 @@ struct UiDrawObservation {
  uint32_t draw_hresult=0;bool draw_result_known=false;
  bool restore_attempted=false,restore_requested_original_exact=false,restore_succeeded=false;uint32_t restore_hresult=0;
  const char* carousel_status="disabled";uint64_t carousel_id=0;bool carousel_override=false;
+ const char* carousel_group_status="disabled";const char* carousel_group_policy="unchanged";
+ const char* carousel_group_membership_status="not_evaluated";
+ const char* carousel_group_fallback_reason="none";bool carousel_group_override=false;
  float margin_effective_request=0;
  SceneContextDecision scene_context{};
 };
@@ -135,7 +140,7 @@ class UiMargins {
  uint64_t capture_candidate_rejections_=0,capture_candidate_evictions_=0,capture_packet_record_drops_=0;
  uint64_t capture_render_local_drops_=0,capture_draw_drops_=0,capture_identity_invalidations_=0,capture_log_failures_=0;
  uint64_t capture_draw_observation_attempts_=0;
- uint64_t carousel_override_draws_=0;
+ uint64_t carousel_override_draws_=0,carousel_group_blocked_draws_=0;
  bool capturing_=false,capture_completed_=false,capture_close_pending_=false;DWORD thread_=0;float half_=0;bool enabled_=false,carousel_alignment_requested_=false,carousel_alignment_enabled_=false;int scene_family_=-1;const char* scene_invalidation_reason_="unknown_scene";const char* capture_end_reason_="none",*capture_close_reason_="none";
  SceneContextDecision scene_context_for_draw() const noexcept;
  void clear_scene_context(const char* reason) noexcept;

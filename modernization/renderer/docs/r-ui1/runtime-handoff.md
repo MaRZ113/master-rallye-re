@@ -1,4 +1,6 @@
-# R-UI1-D3a Runtime Validation Handoff
+# R-UI1-D3a Runtime Validation Handoff (Historical)
+
+**Superseded for carousel visuals by [R-UI1-D3b](d3b-atomic-group.md).** D3a's group-less per-packet override is no longer active. Do not use the D3a handoff below to claim or validate a coherent carousel fix; D3b currently falls back to the established PreserveMargins policy and is blocked on a complete pre-draw group owner. Keep `CarouselAlignment` opt-in. The single required ownership verification is described in the D3b report.
 
 This is the D3a candidate handoff. Verify the DLL SHA256 recorded in [validation.md](validation.md) before use; leave the game executable and assets unchanged. The automated result is `READY_FOR_IN_GAME_VALIDATION`, not visual acceptance. D3a repairs the frontend scene timing gate; it does not change carousel thresholds or prove the visual correction. No Exclusive Fullscreen mode is required.
 

@@ -483,16 +483,16 @@ void ui_carousel_alignment_experimental(){
    packet.point[0]=x;packet.point[1]=y;device->ui_margins.scene_context(false);auto bytes=packet.packet;native.world._41=x;native.world._42=y;const D3DMATRIX original=native.world;const unsigned before=native.draws;
    CHECK(device->ui_margins.enter_consume(packet.owner));native.draw_hr=expected;CHECK(device->draw_primitive_at(D3DPT_TRIANGLELIST,0,1,pc)==expected);native.draw_hr=S_OK;CHECK(native.draws==before+1);
    CHECK(!std::memcmp(&native.world,&original,sizeof(original))&&packet.packet==bytes);const float rendered=native.observed;
-   if(inspect){auto record=detail::UiMarginsContract::active_record(device->ui_margins);CHECK(record.find("\"carousel_status\":\"promoted_motion_path\"")!=std::string::npos&&record.find("\"carousel_override\":true")!=std::string::npos&&record.find("\"margin_effective_request\":0")!=std::string::npos);}
+   if(inspect){auto record=detail::UiMarginsContract::active_record(device->ui_margins);CHECK(record.find("\"carousel_status\":\"promoted_motion_path\"")!=std::string::npos&&record.find("\"carousel_override\":false")!=std::string::npos&&record.find("\"carousel_group_status\":\"GROUP_UNKNOWN\"")!=std::string::npos&&record.find("\"carousel_group_policy\":\"PRESERVE_MARGINS_FALLBACK\"")!=std::string::npos&&record.find("\"carousel_group_fallback_reason\":\"no_verified_pre_draw_owner_or_complete_roster\"")!=std::string::npos);}
    device->ui_margins.leave_consume();CHECK(device->ui_margins.finish_frame());return rendered;
   };
   const float half=(480.f*static_cast<float>(dimensions.first)/dimensions.second-640.f)*.5f;
   CHECK(std::abs(draw(card,50,309)-(50-half))<.01f); // first admission uses the original policy
-  CHECK(std::abs(draw(card,375,309,E_FAIL,true)-375)<.01f); // promotion preserves the native draw HRESULT
+  CHECK(std::abs(draw(card,375,309,E_FAIL,true)-(375-half))<.01f); // member promotion remains diagnostic; anchor policy is preserved
   CHECK(device->ui_margins.json().find("\"carousel_alignment_enabled\":true")!=std::string::npos);
-  CHECK(device->ui_margins.json().find("\"carousel_promotions\":1")!=std::string::npos&&device->ui_margins.json().find("\"carousel_override_draws\":1")!=std::string::npos);
-  CHECK(device->ui_margins.json().find("\"carousel_anchor_discards\":1")!=std::string::npos);
-  CHECK(std::abs(draw(card,275,310)-275)<.01f&&std::abs(draw(card,375,312)-375)<.01f); // reverse motion and small lane drift
+  CHECK(device->ui_margins.json().find("\"carousel_promotions\":1")!=std::string::npos&&device->ui_margins.json().find("\"carousel_override_draws\":0")!=std::string::npos);
+  CHECK(device->ui_margins.json().find("\"carousel_anchor_discards\":0")!=std::string::npos);
+  CHECK(std::abs(draw(card,275,310)-(275-half))<.01f&&std::abs(draw(card,375,312)-(375-half))<.01f); // reverse motion and small lane drift retain the original anchor
 
   UiFixture frame;CHECK(std::abs(draw(frame,371,309)-371)<.01f&&std::abs(draw(frame,371,309)-371)<.01f);
   UiFixture correct;CHECK(std::abs(draw(correct,475,309)-475)<.01f&&std::abs(draw(correct,375,309)-375)<.01f);
@@ -508,7 +508,7 @@ void ui_carousel_alignment_experimental(){
   device->ui_margins.reset_anchors("Reset");CHECK(std::abs(draw(card,375,309)-375)<.01f);
   for(unsigned absent=0;absent<3;++absent)CHECK(device->ui_margins.finish_frame());
   CHECK(std::abs(draw(card,375,309)-375)<.01f);
-  CHECK(device->ui_margins.json().find("\"carousel_override_draws\":3")!=std::string::npos);
+  CHECK(device->ui_margins.json().find("\"carousel_override_draws\":0")!=std::string::npos);
   device->ui_margins.capture_window(false,1,synthetic_device_id,"present");device->Release();root->Release();
  }
 
@@ -516,6 +516,41 @@ void ui_carousel_alignment_experimental(){
  UiMargins unknown;detail::UiMarginsContract::enable(unknown);unknown.configure_carousel_alignment(true,false);
  CHECK(unknown.json().find("\"carousel_alignment_requested\":true")!=std::string::npos&&unknown.json().find("\"carousel_alignment_enabled\":false")!=std::string::npos);
  std::cout<<"R-UI1 opt-in trajectory classifier: retained-left fix, reverse scroll, lane/frame/sidebar negatives, identity/epoch, multi-aspect and exact-profile gate: PASS\n";
+}
+void ui_carousel_atomic_group_fail_closed(){
+ synthetic_caller_image_extent[0]=1;
+ for(const float spacing:{111.f,100.f}){
+  UiMargins ui;detail::UiMarginsContract::enable(ui);ui.configure_carousel_alignment(true,true);ui.dimensions(1920,1080);
+  std::array<UiFixture,4> cards{};std::array<uint64_t,4> anchor_ids{};unsigned frame_number=0;const float half=(480.f*1920.f/1080.f-640.f)*.5f;
+  auto submit=[&](unsigned i,float x,const char* expected_status){
+   auto& card=cards[i];card.point[0]=x;card.point[1]=309;CHECK(ui.enter_consume(card.owner));
+   const auto d=ui.draw_decision(true);CHECK(d.valid&&d.anchor.direction==-1&&d.carousel_status==std::string(expected_status));
+   CHECK(!d.carousel_override&&!d.carousel_group_override&&std::abs(d.margin+half)<.02f);
+   CHECK(d.carousel_group_status==std::string("GROUP_UNKNOWN")&&d.carousel_group_policy==std::string("PRESERVE_MARGINS_FALLBACK"));
+   CHECK(d.carousel_group_membership_status==std::string("not_proven_no_pre_draw_roster"));
+   CHECK(d.carousel_group_fallback_reason==std::string("no_verified_pre_draw_owner_or_complete_roster"));
+   if(!frame_number)anchor_ids[i]=d.anchor.id;else CHECK(d.anchor.id==anchor_ids[i]);
+   const float effective_x=x+d.margin;ui.leave_consume();return effective_x;
+  };
+  ui.scene_context(false);
+  for(unsigned i=0;i<4;++i)CHECK(std::abs(submit(i,50,"candidate_motion_path")-(50-half))<.02f);
+  CHECK(ui.finish_frame());++frame_number;
+
+  // A has enough individual trajectory evidence to promote; B-D remain
+  // candidates. Neither state can alter the four-member row policy.
+  ui.scene_context(false);std::array<float,4> effective{};
+  for(unsigned i=0;i<4;++i){const float x=375.f+spacing*i;effective[i]=submit(i,x,i==0?"promoted_motion_path":"candidate_motion_path");}
+  CHECK(std::abs(effective[0]-(375.f-half))<.02f);
+  for(unsigned i=1;i<4;++i)CHECK(std::abs((effective[i]-effective[i-1])-spacing)<.02f);
+  // The supplied D3a partial result (375, 379.333, 490.333, 708) is not
+  // produced: no promoted member can discard its retained LEFT anchor.
+  CHECK(std::abs(effective[0]-375.f)>.1f);
+  CHECK(ui.finish_frame());
+  const auto summary=ui.json();CHECK(summary.find("\"carousel_promotions\":1")!=std::string::npos);
+  CHECK(summary.find("\"carousel_override_draws\":0")!=std::string::npos&&summary.find("\"carousel_anchor_discards\":0")!=std::string::npos);
+  CHECK(summary.find("\"carousel_group_blocked_draws\":8")!=std::string::npos);
+ }
+ std::cout<<"R-UI1-D3b fail-closed policy: mixed candidate/promoted members preserve source spacing at 111/100 units; no unproven group override: PASS\n";
 }
 void ui_carousel_frontend_scene_phase(){
  synthetic_caller_image_extent[0]=1;
@@ -561,28 +596,28 @@ void ui_carousel_frontend_scene_phase(){
  // Frame 3 crosses the existing two-frame movement contract and preserves the
  // card's alignment with its unchanged selection-frame coordinate.
  begin_ui_phase();auto center=draw(card,375,309,1,E_FAIL);CHECK(center.context.frontend_allowed&&center.context.phase==std::string("previous_completed_frame")&&center.context.source_frame==2);
- CHECK(std::abs(center.x-375.f)<.01f&&center.record.find("\"carousel_status\":\"promoted_motion_path\"")!=std::string::npos&&center.record.find("\"carousel_override\":true")!=std::string::npos);
- classify_scene(false);present();CHECK(detail::UiMarginsContract::carousel_promotions(device->ui_margins)==1&&detail::UiMarginsContract::carousel_overrides(device->ui_margins)==1);
+ CHECK(std::abs(center.x-(375-half))<.01f&&center.record.find("\"carousel_status\":\"promoted_motion_path\"")!=std::string::npos&&center.record.find("\"carousel_override\":false")!=std::string::npos&&center.record.find("\"carousel_group_status\":\"GROUP_UNKNOWN\"")!=std::string::npos);
+ classify_scene(false);present();CHECK(detail::UiMarginsContract::carousel_promotions(device->ui_margins)==1&&detail::UiMarginsContract::carousel_overrides(device->ui_margins)==0);
 
  // Previous evidence is usable for one frame only. Omitting a fresh scene
  // classification makes it stale at age two.
- begin_ui_phase();auto reverse=draw(card,275,310);CHECK(std::abs(reverse.x-275.f)<.01f&&reverse.context.frontend_allowed);present();
+ begin_ui_phase();auto reverse=draw(card,275,310);CHECK(std::abs(reverse.x-(275-half))<.01f&&reverse.context.frontend_allowed);present();
  begin_ui_phase();auto stale=draw(card,375,309);CHECK(stale.context.phase==std::string("stale_scene_evidence")&&!stale.context.frontend_allowed&&stale.record.find("\"scene_context_rejection_reason\":\"stale_scene_evidence\"")!=std::string::npos);
- CHECK(detail::UiMarginsContract::carousel_overrides(device->ui_margins)==2);
+ CHECK(detail::UiMarginsContract::carousel_overrides(device->ui_margins)==0);
  classify_scene(true);present();
 
  // A completed race classification suppresses stale frontend authorization;
  // a new frontend Source45 must complete before the following frame is allowed.
  begin_ui_phase();auto race=draw(card,375,309);CHECK(race.context.valid&&race.context.family==1&&!race.context.frontend_allowed&&race.context.rejection_reason==std::string("race_scene"));
- classify_scene(false);present();begin_ui_phase();auto returned=draw(card,375,309);CHECK(returned.context.frontend_allowed&&returned.context.phase==std::string("previous_completed_frame"));classify_scene(false);present();
+ classify_scene(false);present();begin_ui_phase();auto returned=draw(card,375,309);CHECK(returned.context.frontend_allowed&&returned.context.phase==std::string("previous_completed_frame")&&std::abs(returned.x-375.f)<.01f);classify_scene(false);present();
 
  // Zero-primitive submissions cannot seed or promote carousel semantics.
  UiFixture no_draw;auto zero_outer=draw(no_draw,50,309,0);CHECK(zero_outer.context.frontend_allowed&&detail::UiMarginsContract::carousel_promotions(device->ui_margins)==1);
  classify_scene(false);present();begin_ui_phase();auto zero_center=draw(no_draw,375,309,0);CHECK(zero_center.context.frontend_allowed&&detail::UiMarginsContract::carousel_promotions(device->ui_margins)==1);
  classify_scene(false);present();
  begin_ui_phase();auto actual_outer=draw(no_draw,50,309);CHECK(actual_outer.context.frontend_allowed&&detail::UiMarginsContract::carousel_promotions(device->ui_margins)==1);
- classify_scene(false);present();begin_ui_phase();auto actual_center=draw(no_draw,375,309);CHECK(actual_center.context.frontend_allowed&&std::abs(actual_center.x-375.f)<.01f&&detail::UiMarginsContract::carousel_promotions(device->ui_margins)==2);
- UiFixture highlight;auto frame=draw(highlight,371,309);CHECK(std::abs(frame.x-371.f)<.01f&&detail::UiMarginsContract::carousel_overrides(device->ui_margins)==3);
+ classify_scene(false);present();begin_ui_phase();auto actual_center=draw(no_draw,375,309);CHECK(actual_center.context.frontend_allowed&&std::abs(actual_center.x-(375-half))<.01f&&detail::UiMarginsContract::carousel_promotions(device->ui_margins)==2);
+ UiFixture highlight;auto frame=draw(highlight,371,309);CHECK(std::abs(frame.x-371.f)<.01f&&detail::UiMarginsContract::carousel_overrides(device->ui_margins)==0);
 
  // Contradictory family observations in one frame cannot be committed as
  // fresh frontend evidence. The next early draw is rejected until a new
@@ -907,4 +942,4 @@ void quality_fpu(){
  flags=fetestexcept(FE_ALL_EXCEPT);ui_projection_dimensions(matrix,1920,1080,out);CHECK(fegetround()==FE_DOWNWARD&&fetestexcept(FE_ALL_EXCEPT)==flags);fesetenv(&saved);
  fegetenv(&saved);fesetround(FE_DOWNWARD);D3DMATRIX source{};source._22=float(1/std::tan((45./(16./9))*3.14159265358979323846/360.));source._11=source._22/float(16./9);source._33=1.01f;source._34=1;source._43=-.2f;flags=fetestexcept(FE_ALL_EXCEPT);CHECK(camera_scene_family(source)==0&&fegetround()==FE_DOWNWARD&&fetestexcept(FE_ALL_EXCEPT)==flags);fesetenv(&saved);
 }
-int main(){try{configs();carousel_ini_config();numeric_configs();trace_numeric_configs();reset_echo_shutdown();preview_cursor_packets();displays();display_transactions();windowed_live_resize();windowed_startup_order();windowed_maximize_restore();stable_margin_anchors();margin_short_grace();margin_consumer_retention();margin_candidate_diagnostics();render_local_ui_contracts();render_local_wrapper_contract();ui_carousel_draw_diagnostics();ui_carousel_alignment_experimental();ui_carousel_frontend_scene_phase();ui_diagnostic_selection_is_order_independent();antialiasing();exclusive_lifecycle();exclusive_restore_order();game_window_owner_read();viewports_ui();freeze_and_patch();native_window();native_display_ordering();wrapper_trace();validated_ui_wrapper();ui_native_abi();packet_consumer_abi();quality_fpu();std::cout<<"R-GFX5 config/display/viewport/UI/MSAA/Reset/freeze/hidden HWND/native bridge contracts: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}
+int main(){try{configs();carousel_ini_config();numeric_configs();trace_numeric_configs();reset_echo_shutdown();preview_cursor_packets();displays();display_transactions();windowed_live_resize();windowed_startup_order();windowed_maximize_restore();stable_margin_anchors();margin_short_grace();margin_consumer_retention();margin_candidate_diagnostics();render_local_ui_contracts();render_local_wrapper_contract();ui_carousel_draw_diagnostics();ui_carousel_alignment_experimental();ui_carousel_atomic_group_fail_closed();ui_carousel_frontend_scene_phase();ui_diagnostic_selection_is_order_independent();antialiasing();exclusive_lifecycle();exclusive_restore_order();game_window_owner_read();viewports_ui();freeze_and_patch();native_window();native_display_ordering();wrapper_trace();validated_ui_wrapper();ui_native_abi();packet_consumer_abi();quality_fpu();std::cout<<"R-GFX5 config/display/viewport/UI/MSAA/Reset/freeze/hidden HWND/native bridge contracts: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}

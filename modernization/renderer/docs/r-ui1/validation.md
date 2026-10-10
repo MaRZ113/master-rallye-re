@@ -70,3 +70,19 @@ R-UI1-D3 is ready only for the documented **experimental** PreserveMargins test.
 - `git diff --check`: passed before the final docs/archive/commit checks.
 
 The automated phase contract is `CONFIRMED_BY_SYNTHETIC_TEST`; the source lifecycle is `CONFIRMED_BY_SOURCE`. The D3 runtime report is `CONFIRMED_BY_TRACE` as provided by the user, but its JSONL artifacts were not available in this checkout for independent re-parsing. No game was launched for D3a. The result is `READY_FOR_IN_GAME_VALIDATION` only; it is not evidence that Vehicle Select or Race Select is visibly corrected. Keep `CarouselAlignment` as an opt-in A/B setting until the runtime handoff passes.
+
+## R-UI1-D3b atomic group fail-closed checkpoint
+
+- Repository: `D:\Game\Master Rallye\master-rallye-re-general`; branch `master`; starting HEAD `bbe41aaffbd09354e4a51be378a4bee8be2703c7`; working tree was clean at preflight.
+- Source change: a proven per-packet motion track no longer sets zero margin or discards its retained anchor. Individual statuses are still recorded as evidence, while unknown group ownership selects the explicit PreserveMargins fallback. D3a scene-phase synchronization is unchanged.
+- Synthetic D3b test: four production packet identities with mixed promoted/candidate states preserve all source-relative intervals at 111-unit Race Select and 100-unit Vehicle Select spacings. Group remains `GROUP_UNKNOWN`; no test-only verified group state is manufactured.
+- Win32 x86 Release build: passed using `python modernization/renderer/tools/build.py` and the existing Visual Studio 18 2026 generator.
+- Native CTest: 10/10 passed, including UI classifier, D3a frame timing, draw/world restoration and the new D3b atomic fail-closed regression.
+- Python: `python -m unittest discover -s modernization/renderer/tests -v` passed 120/120 in 100.823s.
+- Compile check: `python -X pycache_prefix=modernization/renderer/.analysis/pycache -m compileall -q modernization` passed.
+- Proxy verification: passed; PE32/I386 DLL, required exports present, no recursive `d3d8.dll` import; evidence grade `BUILD_VERIFIED_NOT_RUNTIME`.
+- Candidate DLL: `modernization/renderer/.build-msvc/Release/d3d8.dll`, 1,595,904 bytes, SHA256 `9239753836649802f375624e3176b3f3981526ed3f1811b9c5806126e07d7fa5`.
+- Runtime validation: not performed. The supplied D3b logs/JSONLs were not available for independent parsing. No in-game visual test is requested for the fallback-only candidate.
+- `git diff --check`: passed after final source, test and documentation edits.
+
+The phase result is `BLOCKED_ON_ATOMIC_GROUP_OWNERSHIP`, not `READY_FOR_EXPERIMENTAL_IN_GAME_VALIDATION`. The tests confirm the conservative fallback and retained source spacing; they do not verify a positive group policy or the visual fix. The sole unblock is verified complete pre-draw carousel membership and selection-frame relationship for both Race Select and Vehicle Select.
