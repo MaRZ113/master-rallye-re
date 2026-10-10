@@ -101,3 +101,12 @@ The phase result is `BLOCKED_ON_ATOMIC_GROUP_OWNERSHIP`, not `READY_FOR_EXPERIME
 - New ignored DLL: `modernization/renderer/.build-msvc/Release/d3d8.dll`, **1,597,952 bytes**, SHA256 **e3fa2d1d224ea667179e36da94ddf2e134470d13d1f640c813b9a4307b6c58bb**.
 - No game session was launched for the new candidate. Status **READY_FOR_EXPERIMENTAL_IN_GAME_VALIDATION**, visual acceptance **PENDING**; option remains default-off. Required short Vehicle/Race run and F10 fields are in [runtime-handoff.md](runtime-handoff.md).
 - `git diff --check`: PASS. All task changes are renderer source/tests/docs under modernization; raw logs, proprietary binaries and generated DLL/PDB/OBJ/LIB are excluded. Clean changed-source archive is ignored under `.analysis/archives/r-ui1-final-20261010.zip`; final commit and ending HEAD are reported in the task closeout.
+
+
+## Accepted automatic closeout (2026-10-10)
+
+Human report: Race Select and Vehicle Select passed on the R-UI1-FINAL candidate; selected cards, neighbors and scrolling were correct without missing/overlapping thumbnails. Grade `CONFIRMED_BY_RUNTIME` for these tested pristine retail scenarios only.
+
+Starting HEAD `23941fe108f8bd4c21338736145783a5fbc15e70`, clean `master`. The public CarouselAlignment field, parser/read-table/JSON plumbing and INI switch were removed. Old keys are ignored and cannot disable the accepted policy. Device initialization automatically requests the unchanged row predicate only for PreserveMargins, separately exact-retail gated through Session::target. Stock/Centered4x3 and existing sticky anchors are preserved.
+
+Closeout validation before camera work: canonical Win32 Release build PASS; all 10/10 native CTest suites PASS (4.80s); focused Python quality research suite 24/24 PASS (2.861s). The existing captured-row, negative, source immutability, WORLD restoration and frame-phase regressions remain active. Parser tests now check ignored old zero/malformed keys. `git diff --check` PASS. Full Python suite will also be repeated after the camera stage. No game EXE/assets, camera hook, PS2 research or unrelated files were modified in this closeout.

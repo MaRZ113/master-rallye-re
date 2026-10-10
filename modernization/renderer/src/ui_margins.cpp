@@ -264,8 +264,8 @@ __declspec(naked) void packet_end_bridge(){__asm {
 }}
 
 }
-bool UiMargins::install(bool exact,bool requested,bool carousel_alignment) noexcept {
- configure_carousel_alignment(carousel_alignment,exact);
+bool UiMargins::install(bool exact,bool requested) noexcept {
+ configure_carousel_alignment(false,exact);
  if(!requested||!exact){reason=exact?"disabled":"unsupported_build";return false;}
  if(active||multiple){multiple=true;if(active)active->disable("multiple_devices");reason="multiple_devices";return false;}
  uintptr_t base=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));
@@ -274,7 +274,7 @@ bool UiMargins::install(bool exact,bool requested,bool carousel_alignment) noexc
  HMODULE pin=nullptr;if(!GetModuleHandleExW(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS|GET_MODULE_HANDLE_EX_FLAG_PIN,reinterpret_cast<LPCWSTR>(&sort_bridge),&pin)){reason="module_pin_failed";return false;}
  contract_probe=false;packet_return=base+UI_PACKET_RVA+6;thread_=GetCurrentThreadId();active=this;
  enabled_=patch_.install(memory,reinterpret_cast<void*>(base+UI_PACKET_RVA),reinterpret_cast<uintptr_t>(&packet_bridge));
- configure_carousel_alignment(carousel_alignment,exact);
+ configure_carousel_alignment(false,exact);
  reason=enabled_?"ui_packet_consumer_installed":"ui_jump_patch_failed";if(!enabled_){active=nullptr;patch_.remove(memory);}return enabled_;
 }
 void UiMargins::configure_carousel_alignment(bool requested,bool exact_profile) noexcept {

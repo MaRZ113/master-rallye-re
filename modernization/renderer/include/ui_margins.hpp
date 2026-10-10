@@ -168,7 +168,7 @@ public:
  const char* reason="disabled";
  uint64_t draw_observations_captured=0,draw_observations_dropped=0;
  ~UiMargins();
- bool install(bool exact,bool requested,bool carousel_alignment=false) noexcept;
+ bool install(bool exact,bool requested) noexcept;
  void configure_carousel_alignment(bool requested,bool exact_profile) noexcept;
  void dimensions(UINT width,UINT height) noexcept;
  void capture_window(bool active,uint64_t frame,uint64_t device_id=0,const char* end_reason="present") noexcept;

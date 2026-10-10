@@ -1,6 +1,6 @@
 # R-UI1 — Carousel Selection Alignment
 
-**Current status: READY_FOR_EXPERIMENTAL_IN_GAME_VALIDATION — R-UI1-FINAL.** The deterministic exact-retail card-row policy replaces D3b's roster dependency. Every eligible current draw keeps source coordinates immediately; motion remains diagnostic and anchors are retained. D2 bounded F10 diagnostics, D3a completed-Present scene synchronization and PreserveMargins v2 restoration are preserved. See [final deterministic row policy](final-row-policy.md) and [current handoff](runtime-handoff.md). Earlier D3/D3a readiness and D3b blocking statements below are historical.
+**Current status: CLOSED — CONFIRMED_BY_RUNTIME for the tested retail Race Select and Vehicle Select scenarios.** The human accepted both lists, scrolling, neighbor order and absence of missing/overlapping thumbnails on the R-UI1-FINAL DLL. Accepted deterministic alignment is now automatic in supported PreserveMargins; the obsolete public `CarouselAlignment` key is ignored. Exact profile/scene/draw safety and unrelated sticky anchors are unchanged. This does not claim all frontend screens or executable variants were tested. Earlier stage records below remain historical.
 
 ## Evidence and calculation
 

@@ -16,7 +16,6 @@ struct VisualConfig {
  std::string reflection_mode="Stock",reflection_reason;
  unsigned foliage_mode=0;bool foliage_diagnostics=false;std::string foliage_reason="stock_default";
  std::string display_mode="Stock",display_reason,interface_mode="Stock",interface_reason;
- bool carousel_alignment=false;std::string carousel_alignment_reason="default_disabled";
  unsigned width=0,height=0,refresh=0,samples=4;
  std::string aa_mode="Stock",aa_reason,freeze_reason;
  bool menu_freeze=false,auto_hide_cursor=true;unsigned cursor_delay_ms=1500;std::string cursor_reason;

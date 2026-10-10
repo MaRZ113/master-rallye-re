@@ -33,11 +33,9 @@ CursorHideDelayMs=1500
 ; 0 = Stock
 ; 1 = Centered4x3
 ; 2 = PreserveMargins
+; Accepted carousel alignment is automatic in supported retail PreserveMargins.
+; Old CarouselAlignment keys are ignored.
 InterfaceMode=0
-; Opt-in only; exact local PreserveMargins ownership and verified moving UI draws are required.
-; 0 = Original PreserveMargins anchor behavior (default)
-; 1 = Experimental carousel alignment isolation for Vehicle/Race Select cards
-CarouselAlignment=0
 
 [Filtering]
 ; 0 = Off

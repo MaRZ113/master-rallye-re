@@ -1,3 +1,5 @@
+> Closeout: the human accepted the tested Race Select and Vehicle Select scenarios on 2026-10-10. The correction is now automatic under supported PreserveMargins. The opt-in/acceptance-pending descriptions below record the historical candidate; the public toggle has been retired.
+
 # R-UI1-FINAL — Deterministic Carousel Row Alignment
 
 Status: `READY_FOR_EXPERIMENTAL_IN_GAME_VALIDATION`. Visual acceptance of this new DLL is **PENDING**. Starting repository/branch: `D:/Game/Master Rallye/master-rallye-re-general`, `master`; starting HEAD `33835ae`. Worktree was clean; no branch/worktree created.

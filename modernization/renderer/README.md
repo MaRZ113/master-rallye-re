@@ -8,6 +8,10 @@ Renderer implementation remains here. R-GFX5-8's [implementation](docs/r-gfx5-8/
 
 The PC-VISUAL-PILOT1 [diagnostic checkpoint](research/pc-visual-pilot1/final-report.md) remains **BLOCKED_ON_DRAW_IDENTITY**. CPU-upload provenance, Lock/Unlock observation, resource generations, bounded memory mirrors and F10 diagnostics are preserved. `PS2FoliagePilot.Mode=0` and `Diagnostics=0` remain the safe defaults; requested Mode 1 still renders Stock.
 
+## R-UI1 accepted carousel correction
+
+Race Select and Vehicle Select passed the human test with R-UI1-FINAL. Exact-retail card-row alignment is now automatic under PreserveMargins, without a public option. Old `CarouselAlignment` keys are ignored; Stock/Centered4x3 and unrelated HUD/decorative anchors are unchanged. See [closeout](docs/r-ui1/findings.md).
+
 ## R-CAM1-A camera owner probe
 
 R-CAM1-A adds a read-only exact-retail camera-owner observation during an existing F10 frame capture. It records manager/current-camera identity, camera pose and CPU planes, and the effective D3D projection/VIEW. It installs no new game hook and performs no camera or rendering writes. The observation helps qualify race, preview, replay, and camera-cycle ownership before any independent camera control is considered.
