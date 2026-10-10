@@ -97,6 +97,21 @@ class QualityResearchTests(unittest.TestCase):
         self.assertEqual(len(paired),1)
         self.assertEqual(paired[0]['native_hresult'],0) # The native result is data, never rewritten by the auditor.
 
+    def test_deferred_messages_preserve_observation_order(self):
+        rows=[dict(type='display_native_begin',event_sequence=2),
+              dict(type='display_native_attempt',event_sequence=3),
+              dict(type='display_window_message',event_sequence=1,device_lifetime_id=1,telemetry_deferred=True),
+              dict(type='display_window_message',event_sequence=4,device_lifetime_id=1,telemetry_deferred=True)]
+        report=display_lifecycle(rows)
+        self.assertTrue(report['event_sequence_order_valid'])
+        self.assertFalse(report['physical_write_order_valid'])
+        rows[-1]['event_sequence']=1
+        self.assertFalse(display_lifecycle(rows)['event_sequence_order_valid'])
+        rows[-1]['event_sequence']=0
+        self.assertFalse(display_lifecycle(rows)['event_sequence_order_valid'])
+        rows[-1]['event_sequence']=4;rows[0]['event_sequence']=5
+        self.assertFalse(display_lifecycle(rows)['event_sequence_order_valid'])
+
     def test_native_windowed_maximize_restore_telemetry(self):
         events=[r for r in self.current_native_session() if r.get('type')=='window_state_transition']
         maximized=[r for r in events if r.get('window_state')=='maximized']

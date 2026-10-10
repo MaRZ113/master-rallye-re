@@ -10,11 +10,16 @@ namespace gfx2 {
 namespace {
 struct SavedFP {fenv_t env;SavedFP(){fegetenv(&env);}~SavedFP(){fesetenv(&env);}};
 QualityPipeline* cursor_owner=nullptr;
+class NativeMessageHooks final:public MessageHookApi {public:
+ HHOOK install(int id,HOOKPROC callback,HMODULE module,DWORD thread) noexcept override{return SetWindowsHookExW(id,callback,module,thread);}
+ bool remove(HHOOK hook) noexcept override{return UnhookWindowsHookEx(hook)!=FALSE;}
+} native_hooks;
 std::atomic<uint64_t> next_display_device_id{1};
 std::atomic<uint64_t> next_display_event_id{1};
 uint64_t display_event_id() noexcept {return next_display_event_id.fetch_add(1,std::memory_order_relaxed);}
 uint64_t allocate_display_device_id() noexcept {auto id=next_display_device_id.fetch_add(1,std::memory_order_relaxed);return id?id:next_display_device_id.fetch_add(1,std::memory_order_relaxed);}
 LRESULT CALLBACK cursor_messages(int code,WPARAM w,LPARAM l){
+ SavedFP fp;
  if(code>=0&&cursor_owner){auto* message=reinterpret_cast<CWPRETSTRUCT*>(l);auto* owner=cursor_owner;HWND target=owner->effective.hDeviceWindow?owner->effective.hDeviceWindow:owner->focus;
   owner->window_message(message->hwnd,message->message,message->wParam,message->lParam,false);
   if(message->hwnd==target){if(message->message==WM_KILLFOCUS||message->message==WM_DESTROY||(message->message==WM_ACTIVATEAPP&&!message->wParam))owner->cursor_focus_lost();
@@ -22,6 +27,7 @@ LRESULT CALLBACK cursor_messages(int code,WPARAM w,LPARAM l){
  }return CallNextHookEx(nullptr,code,w,l);
 }
 LRESULT CALLBACK display_messages(int code,WPARAM w,LPARAM l){
+ SavedFP fp;
  if(code>=0&&cursor_owner){auto* message=reinterpret_cast<CWPSTRUCT*>(l);cursor_owner->window_message(message->hwnd,message->message,message->wParam,message->lParam,true);}
  return CallNextHookEx(nullptr,code,w,l);
 }
@@ -29,7 +35,7 @@ const char* display_message_name(UINT message) noexcept {
  switch(message){case WM_SIZE:return "WM_SIZE";case WM_ACTIVATE:return "WM_ACTIVATE";case WM_ACTIVATEAPP:return "WM_ACTIVATEAPP";
  case WM_SETFOCUS:return "WM_SETFOCUS";case WM_KILLFOCUS:return "WM_KILLFOCUS";case WM_STYLECHANGING:return "WM_STYLECHANGING";
  case WM_STYLECHANGED:return "WM_STYLECHANGED";case WM_ENTERSIZEMOVE:return "WM_ENTERSIZEMOVE";case WM_EXITSIZEMOVE:return "WM_EXITSIZEMOVE";
- case WM_SYSCOMMAND:return "WM_SYSCOMMAND";default:return nullptr;}
+ case WM_SYSCOMMAND:return "WM_SYSCOMMAND";case WM_COMMAND:return "WM_COMMAND";default:return nullptr;}
 }
 std::string transition_stack_json() {
  void* addresses[16]{};USHORT count=CaptureStackBackTrace(1,16,addresses,nullptr);std::ostringstream o;o<<'[';
@@ -70,6 +76,7 @@ bool lost(HRESULT hr){return hr==D3DERR_DEVICELOST||hr==D3DERR_DEVICENOTRESET;}
 }
 void display_breadcrumb(const char* step,HRESULT result) noexcept {try{session().write("{\"type\":\"display_breadcrumb\",\"event_sequence\":"+std::to_string(display_event_id())+",\"step\":"+quote(step)+",\"hresult\":"+std::to_string(static_cast<uint32_t>(result))+"}");}catch(...){}}
 WindowApi& native_window_api() noexcept{return native_windows;}
+MessageHookApi& native_message_hook_api() noexcept{return native_hooks;}
 GameWindowOwner inspect_game_window_owner(uintptr_t image,bool exact,HWND expected) noexcept {
  GameWindowOwner result;if(!exact)return result;
  result.reason="owner_chain_not_readable";
@@ -101,7 +108,7 @@ int camera_scene_family(const D3DMATRIX& source) noexcept {
  return -1;
 }
 QualityPipeline::~QualityPipeline(){begin_shutdown();}
-void QualityPipeline::begin_shutdown() noexcept {if(shutting_down_)return;shutting_down_=true;window_owned_=false;if(cursor_owner==this)cursor_owner=nullptr;if(message_hook_){UnhookWindowsHookEx(message_hook_);message_hook_=nullptr;}if(cursor_hook_){UnhookWindowsHookEx(cursor_hook_);cursor_hook_=nullptr;}watched_window_=nullptr;if(cursor_.hidden){SetCursor(saved_cursor_?saved_cursor_:LoadCursorW(nullptr,MAKEINTRESOURCEW(32512)));cursor_.hidden=false;}display_breadcrumb("shutdown_skip_window_restore");}
+void QualityPipeline::begin_shutdown() noexcept {if(shutting_down_)return;shutting_down_=true;window_owned_=false;if(cursor_owner==this)cursor_owner=nullptr;if(message_hook_){hooks_->remove(message_hook_);message_hook_=nullptr;}if(cursor_hook_){hooks_->remove(cursor_hook_);cursor_hook_=nullptr;}watched_window_=nullptr;if(cursor_.hidden){SetCursor(saved_cursor_?saved_cursor_:LoadCursorW(nullptr,MAKEINTRESOURCEW(32512)));cursor_.hidden=false;}display_breadcrumb("shutdown_skip_window_restore");}
 void QualityPipeline::configure(const VisualConfig& c,bool ui_supported,UINT a,D3DDEVTYPE t,HWND w){
  config=c;adapter=a;type=t;focus=w;display=c.display_mode;display_reason=c.display_reason;aa_reason=c.aa_reason;
  normal_target_width_=normal_target_height_=exclusive_width_=exclusive_height_=0;normal_target_valid_=false;
@@ -128,12 +135,14 @@ void QualityPipeline::display_watch() noexcept {
  if(cursor_owner&&cursor_owner!=this){config.auto_hide_cursor=false;config.cursor_reason="cursor_multiple_devices_unmanaged";return;}
  if(display_watch_attempted_||cursor_hook_||message_hook_)return; // A failed/partial install is diagnostic; never retry hooks every frame.
  if(display=="Stock")return;
+ if(!quality_message_hooks_enabled()){display_watch_attempted_=true;display_watch_reason_="diagnostic_message_hooks_disabled_only";return;}
  HWND w=valid&&effective.hDeviceWindow?effective.hDeviceWindow:current.valid?current.hwnd:focus;DWORD process=0;
  if(!IsWindow(w)||GetWindowThreadProcessId(w,&process)!=GetCurrentThreadId()||process!=GetCurrentProcessId()){display_watch_reason_="window_thread_unavailable";if(config.auto_hide_cursor&&(display=="Borderless"||display=="ExclusiveFullscreen")){config.auto_hide_cursor=false;config.cursor_reason="cursor_window_thread_unavailable";}return;}
  HMODULE module=nullptr;GetModuleHandleExW(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS|GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,reinterpret_cast<LPCWSTR>(&cursor_messages),&module);
  display_watch_attempted_=true;
- if(!cursor_hook_)cursor_hook_=SetWindowsHookExW(WH_CALLWNDPROCRET,&cursor_messages,module,GetCurrentThreadId());
- if(!message_hook_)message_hook_=SetWindowsHookExW(WH_CALLWNDPROC,&display_messages,module,GetCurrentThreadId());
+ if(!cursor_hook_)cursor_hook_=hooks_->install(WH_CALLWNDPROCRET,&cursor_messages,module,GetCurrentThreadId());
+ if(!message_hook_)message_hook_=hooks_->install(WH_CALLWNDPROC,&display_messages,module,GetCurrentThreadId());
+ if(bool(cursor_hook_)!=bool(message_hook_)){if(cursor_hook_&&hooks_->remove(cursor_hook_))cursor_hook_=nullptr;if(message_hook_&&hooks_->remove(message_hook_))message_hook_=nullptr;}
  if(cursor_hook_||message_hook_){cursor_owner=this;watched_window_=w;}
  display_watch_reason_=cursor_hook_&&message_hook_?"pre_and_post_observer_installed":"message_watch_partial_or_unavailable";
  if(!cursor_hook_&&config.auto_hide_cursor&&(display=="Borderless"||display=="ExclusiveFullscreen")){config.auto_hide_cursor=false;config.cursor_reason="cursor_message_watch_unavailable";}
@@ -371,18 +380,35 @@ void QualityPipeline::window_message(HWND hwnd,UINT message,WPARAM w,LPARAM l,bo
  HWND target=watched_window_?watched_window_:valid&&effective.hDeviceWindow?effective.hDeviceWindow:focus;
  if(shutting_down_||display=="Stock"||hwnd!=target)return;
  const char* name=display_message_name(message);if(!name)return;
+ if(message==WM_COMMAND&&(w!=0x27||l!=0))return; // Only the audited Broker opener, never arbitrary developer commands.
  if(message==WM_SYSCOMMAND&&(w&0xfff0)!=SC_MINIMIZE&&(w&0xfff0)!=SC_RESTORE&&(w&0xfff0)!=SC_MAXIMIZE)return;
- if(message_records_>=512){if(message_records_==512){++message_records_;try{session().write("{\"type\":\"display_message_budget_exhausted\",\"event_sequence\":"+std::to_string(display_event_id())+",\"device_lifetime_id\":"+std::to_string(device_lifetime_id_)+",\"limit\":512}");}catch(...){}}return;}
+ if(message_records_>=512){++message_dropped_;return;}
  ++message_records_;
+ if(message_count_==messages_.size()){++message_dropped_;return;}
+ auto& record=messages_[message_count_++];record={};record.hwnd=hwnd;record.message=message;record.w=w;record.l=l;record.before=before;record.committing=committing_;
+ record.sequence=display_event_id();record.tick=GetTickCount64();record.epoch=successful_reset_epoch_;
+ if(message==WM_STYLECHANGING||message==WM_STYLECHANGED)record.styles_known=l&&safe_copy(&record.styles,reinterpret_cast<const void*>(l),sizeof(record.styles));
+ // No allocation, window inspection, renderer transition, native getter, or logging in the callback.
+}
+void QualityPipeline::flush_window_messages() noexcept {
+ if(shutting_down_||flushing_messages_)return;
+ flushing_messages_=true;
+ auto pending=messages_;size_t count=message_count_;message_count_=0;
+ for(size_t i=0;i<count;++i){const auto& r=pending[i];const char* name=display_message_name(r.message);
  try{
-  std::ostringstream o;o<<"{\"type\":\"display_window_message\",\"event_sequence\":"<<display_event_id()<<",\"device_lifetime_id\":"<<device_lifetime_id_<<",\"successful_reset_epoch\":"<<successful_reset_epoch_
+  std::ostringstream o;o<<"{\"type\":\"display_window_message\",\"event_sequence\":"<<r.sequence<<",\"device_lifetime_id\":"<<device_lifetime_id_<<",\"successful_reset_epoch\":"<<r.epoch
    <<",\"requested_display_mode\":"<<quote(config.display_mode)<<",\"effective_display_mode\":"<<quote(display)<<",\"native_windowed_flag\":"<<(valid?std::to_string(effective.Windowed):"null")
-   <<",\"phase\":"<<quote(before?"before_game_wndproc":"after_game_wndproc")<<",\"message\":"<<quote(name)<<",\"message_id\":"<<message<<",\"wparam\":"<<static_cast<uint64_t>(w)
-   <<",\"lparam\":"<<static_cast<int64_t>(l)<<",\"window_context\":"<<window_context_json(hwnd)<<",\"transition_owner\":"<<quote(committing_?"renderer_window_commit":"game_or_os_unresolved");
-  if(message==WM_STYLECHANGING||message==WM_STYLECHANGED){STYLESTRUCT styles{};if(l&&safe_copy(&styles,reinterpret_cast<const void*>(l),sizeof(styles)))o<<",\"style_index\":"<<static_cast<LONG>(w)<<",\"style_old\":"<<styles.styleOld<<",\"style_new\":"<<styles.styleNew;
-   if(before)o<<",\"transition_stack\":"<<transition_stack_json();}
+   <<",\"phase\":"<<quote(r.before?"before_game_wndproc":"after_game_wndproc")<<",\"message\":"<<quote(name)<<",\"message_id\":"<<r.message<<",\"wparam\":"<<static_cast<uint64_t>(r.w)
+   <<",\"lparam\":"<<static_cast<int64_t>(r.l)<<",\"observed_tick_ms\":"<<r.tick<<",\"telemetry_deferred\":true,\"window_context_time\":\"flush_not_message\",\"window_context\":"<<window_context_json(r.hwnd)<<",\"transition_owner\":"<<quote(r.committing?"renderer_window_commit":"game_or_os_unresolved");
+  if(r.styles_known)o<<",\"style_index\":"<<static_cast<LONG>(r.w)<<",\"style_old\":"<<r.styles.styleOld<<",\"style_new\":"<<r.styles.styleNew;
   o<<'}';session().write(o.str());
  }catch(...){}
+ }
+ if(message_records_>=512&&!message_budget_reported_){
+  message_budget_reported_=true;
+  try{session().write("{\"type\":\"display_message_budget_exhausted\",\"limit\":512,\"device_lifetime_id\":"+std::to_string(device_lifetime_id_)+",\"dropped\":"+std::to_string(message_dropped_)+",\"telemetry_deferred\":true}");}catch(...){}
+ }
+ flushing_messages_=false;
 }
 void QualityPipeline::reset_readiness(IDirect3DDevice8& device,const D3DPRESENT_PARAMETERS& sent) noexcept {
  if(display!="ExclusiveFullscreen")return;
@@ -481,6 +507,6 @@ std::string QualityPipeline::json() const {
  if(backbuffer_known)o<<"{\"width\":"<<backbuffer.Width<<",\"height\":"<<backbuffer.Height<<",\"format\":"<<backbuffer.Format<<",\"multisample\":"<<backbuffer.MultiSampleType<<'}';else o<<"null";
  o<<",\"physical_depth\":";if(depth_known)o<<"{\"width\":"<<depth.Width<<",\"height\":"<<depth.Height<<",\"format\":"<<depth.Format<<",\"multisample\":"<<depth.MultiSampleType<<'}';else o<<"null";
  double aspect=valid&&effective.BackBufferHeight?double(effective.BackBufferWidth)/effective.BackBufferHeight:0;
- o<<",\"effective_aspect\":"<<aspect<<",\"ui\":{\"mode\":"<<quote(config.interface_mode)<<",\"reason\":"<<quote(config.interface_reason)<<",\"logical_width\":640,\"logical_height\":480,\"virtual_width\":"<<480.*aspect<<",\"extra_width\":"<<480.*aspect-640.<<",\"center_offset\":"<<(480.*aspect-640.)*.5<<"},\"dpi_policy\":\"game_awareness_unchanged\",\"initial_window_commit_complete\":"<<(initial_window_commit_complete_?"true":"false")<<",\"normal_target_initialized\":"<<(normal_target_valid_?"true":"false")<<",\"display_watch\":"<<quote(display_watch_reason_)<<",\"display_window_message_records\":"<<std::min(message_records_,512u)<<",\"last_reset_readiness\":"<<(reset_readiness_.known?std::to_string(static_cast<uint32_t>(reset_readiness_.value)):"null")<<'}';return o.str();
+ o<<",\"effective_aspect\":"<<aspect<<",\"ui\":{\"mode\":"<<quote(config.interface_mode)<<",\"reason\":"<<quote(config.interface_reason)<<",\"logical_width\":640,\"logical_height\":480,\"virtual_width\":"<<480.*aspect<<",\"extra_width\":"<<480.*aspect-640.<<",\"center_offset\":"<<(480.*aspect-640.)*.5<<"},\"dpi_policy\":\"game_awareness_unchanged\",\"initial_window_commit_complete\":"<<(initial_window_commit_complete_?"true":"false")<<",\"normal_target_initialized\":"<<(normal_target_valid_?"true":"false")<<",\"display_watch\":"<<quote(display_watch_reason_)<<",\"display_window_message_records\":"<<std::min(message_records_,512u)<<",\"display_message_pending\":"<<message_count_<<",\"display_message_dropped\":"<<message_dropped_<<",\"diagnostic_no_message_hooks\":"<<(!quality_message_hooks_enabled()?"true":"false")<<",\"last_reset_readiness\":"<<(reset_readiness_.known?std::to_string(static_cast<uint32_t>(reset_readiness_.value)):"null")<<'}';return o.str();
 }
 }

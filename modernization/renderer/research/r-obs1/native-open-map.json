@@ -1,0 +1,50 @@
+{
+  "build_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "ghidra": "12.1.4",
+  "queries": [
+    {
+      "va": "0x005b0990",
+      "rva": "0x1b0990",
+      "assembly_sha256": "e8f1d6eeb254b961623b17628cc5674bec17bc6fe724c7d68af826367a8e0463",
+      "instruction_count": 38,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "project_writable": false,
+      "program_saved": false
+    },
+    {
+      "va": "0x0065e990",
+      "rva": "0x25e990",
+      "assembly_sha256": "c81c5a0c6dff8421a241e3a44ec9c8a54aac0dbe198d47de59a059250ec9c3f2",
+      "instruction_count": 82,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "project_writable": false,
+      "program_saved": false
+    },
+    {
+      "va": "0x0064ef10",
+      "rva": "0x24ef10",
+      "assembly_sha256": "0ce1c957a34e7b76c5920621537748a16b8f2a73e5a789c9ab73e7de0295dcfa",
+      "instruction_count": 58,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "project_writable": false,
+      "program_saved": false
+    },
+    {
+      "va": "0x00558e90",
+      "rva": "0x158e90",
+      "assembly_sha256": "2c2b4abfa56bc6f30c6923249a535e196d90563cd6585d434bebd70ecde4b7f5",
+      "instruction_count": 24,
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "ghidra_ai_bridge.exporters.runner.export_single_function",
+      "project_writable": false,
+      "program_saved": false
+    }
+  ],
+  "windowed_stall_cause": "UNKNOWN",
+  "runtime_status": "PENDING",
+  "command": 39,
+  "dump_command_separate": 2
+}

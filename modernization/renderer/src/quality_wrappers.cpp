@@ -36,7 +36,7 @@ HRESULT STDMETHODCALLTYPE Device8::Present(const RECT* source,const RECT* destin
  if(quality&&quality->valid&&quality->effective.MultiSampleType!=D3DMULTISAMPLE_NONE&&(source||destination||window||dirty)&&!quality->aa_hazard){
   quality->aa_hazard=true;try{session().write("{\"type\":\"msaa_present_hazard\",\"reason\":\"non_null_present_arguments_native_hresult_preserved\"}");}catch(...){}
  }
- if(quality)quality->cursor_tick();
+ if(quality){quality->flush_window_messages();quality->cursor_tick();}
  HRESULT hr=real_->Present(source,destination,window,dirty);ui_margins.present_completed(SUCCEEDED(hr));trace.after(15,args,static_cast<uint32_t>(hr),pc);ui_margins.capture_window(trace.control.active,trace.frame_number(),trace.device_id(),trace.control.active?"active":"present");return hr;
 }
 HRESULT STDMETHODCALLTYPE Device8::SetViewport(const D3DVIEWPORT8* input){

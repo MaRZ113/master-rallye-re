@@ -12,6 +12,9 @@ import argparse
 import hashlib
 import os
 import sys
+import time
+import json
+import math
 from dataclasses import dataclass
 from enum import Enum
 from pathlib import Path
@@ -54,6 +57,164 @@ class TargetWindow:
 class DumpDispatchOutcome(str, Enum):
     COMPLETED_SYNCHRONOUSLY = "completed_synchronously"
     TIMEOUT_COMPLETION_UNCERTAIN = "send_timeout_completion_uncertain"
+
+
+class OpenOutcome(str, Enum):
+    COMPLETED = "OPEN_COMPLETED"
+    UNCERTAIN = "OPEN_TIMEOUT_COMPLETION_UNKNOWN"
+    FAILED = "OPEN_FAILED"
+    LATE = "OPENED_LATE"
+    INVALIDATED = "TARGET_INVALIDATED"
+
+
+@dataclass(frozen=True)
+class OpenDispatch:
+    completed: bool
+    win32_error: int
+    elapsed_ms: float
+
+
+@dataclass(frozen=True)
+class OpenReport:
+    outcome: OpenOutcome
+    command: int
+    pid: int
+    hwnd: int
+    win32_error: int
+    elapsed_ms: float
+    process_alive: bool | None
+    broker_hwnd: int | None
+    reason: str
+    command_count: int = 1
+    dump_sent: bool = False
+
+    def json(self) -> str:
+        from dataclasses import asdict
+        return json.dumps(asdict(self), sort_keys=True)
+
+
+class ToolOpenError(RuntimeError):
+    def __init__(self, report: OpenReport):
+        self.report = report
+        if report.outcome == OpenOutcome.UNCERTAIN:
+            detail = "Broker Editor open timed out; native command completion is uncertain; no retry was sent."
+        else:
+            detail = f"Tool open: {report.outcome.value}; {report.reason}; no retry was sent."
+        super().__init__(f"{detail} PID={report.pid}, HWND=0x{report.hwnd:X}, "
+                         f"WM_COMMAND=0x{report.command:X}, Win32={report.win32_error}, "
+                         f"elapsed={report.elapsed_ms:.0f}ms, alive={report.process_alive}, "
+                         f"Broker HWND={report.broker_hwnd}. Dump was not sent.")
+
+
+def target_status(target: TargetWindow) -> tuple[bool | None, bool]:
+    """Bounded kernel/user queries only; never sends a message to the target."""
+    import ctypes
+    from ctypes import wintypes
+    user = ctypes.WinDLL("user32", use_last_error=True)
+    kernel = ctypes.WinDLL("kernel32", use_last_error=True)
+    _configure_user32(user, ctypes)
+    _configure_kernel32(kernel, ctypes)
+    kernel.GetExitCodeProcess.argtypes = [wintypes.HANDLE, ctypes.POINTER(wintypes.DWORD)]
+    kernel.GetExitCodeProcess.restype = wintypes.BOOL
+    handle = kernel.OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, False, target.pid)
+    alive = None
+    if handle:
+        try:
+            code = wintypes.DWORD()
+            if kernel.GetExitCodeProcess(handle, ctypes.byref(code)):
+                alive = code.value == 259
+        finally:
+            kernel.CloseHandle(handle)
+    pid = wintypes.DWORD()
+    title = ctypes.create_unicode_buffer(512)
+    valid = bool(user.IsWindow(target.hwnd))
+    if valid:
+        user.GetWindowThreadProcessId(target.hwnd, ctypes.byref(pid))
+        user.GetWindowTextW(target.hwnd, title, len(title))
+        valid = pid.value == target.pid and title.value == target.title == "Master Rallye"
+    return alive, valid
+
+
+def open_tool_once(target: TargetWindow, tool: str, *, grace: float = 3.0,
+                   dispatch=None, discover=None, status=None, clock=None, sleep=None):
+    """One allowlisted dispatch, then bounded discovery; never sends Dump or retries."""
+    if tool not in TOOL_COMMANDS or not math.isfinite(grace) or not 0 <= grace <= 5:
+        raise ValueError("Invalid opener or discovery grace")
+    dispatch = dispatch or send_tool_command
+    discover = discover or find_tool_windows
+    status = status or target_status
+    clock = clock or time.monotonic
+    sleep = sleep or time.sleep
+    started = clock()
+    sent = dispatch(target, tool)
+    alive, valid = status(target)
+    def report(outcome, window=None, reason=""):
+        return OpenReport(outcome, TOOL_COMMANDS[tool], target.pid, target.hwnd,
+                          sent.win32_error, max(sent.elapsed_ms, (clock()-started)*1000), alive,
+                          window.hwnd if window else None, reason)
+    if not valid or alive is False:
+        return report(OpenOutcome.INVALIDATED, reason="process_exited_or_main_identity_changed"), None
+    if not sent.completed and sent.win32_error not in (0, ERROR_TIMEOUT):
+        return report(OpenOutcome.FAILED, reason="dispatch_failed"), None
+    deadline = clock()+grace
+    for _ in range(52):
+        alive, valid = status(target)
+        if not valid or alive is False:
+            return report(OpenOutcome.INVALIDATED, reason="process_exited_or_main_identity_changed"), None
+        try:
+            windows = discover(target.pid, tool, target.profile)
+        except (OSError, RuntimeError) as exc:
+            alive, valid = status(target)
+            return report(OpenOutcome.INVALIDATED if alive is False or not valid else OpenOutcome.FAILED,
+                          reason=f"tool_discovery_failed: {exc}"), None
+        if len(windows) > 1:
+            return report(OpenOutcome.FAILED, reason="ambiguous_tool_windows"), None
+        if windows:
+            window = windows[0]
+            if window.pid != target.pid or window.sha256 != target.sha256:
+                return report(OpenOutcome.INVALIDATED, reason="tool_owner_changed"), None
+            return report(OpenOutcome.COMPLETED if sent.completed else OpenOutcome.LATE,
+                          window, "verified_tool_window_found"), window
+        if clock() >= deadline:
+            break
+        sleep(min(.1, max(0, deadline-clock())))
+    return report(OpenOutcome.FAILED if sent.completed else OpenOutcome.UNCERTAIN,
+                  reason="no_verified_tool_window_after_bounded_discovery"), None
+
+
+def validate_retail_main_owner(read, base: int, hwnd: int) -> bool:
+    """Exact retail singleton ownership, independent of renderer menu removal."""
+    import struct
+    def word(address):
+        if not 0x10000 <= address <= 0x7ffffffb:
+            raise ValueError("Invalid owner address")
+        return struct.unpack('<I', read(address, 4))[0]
+    try:
+        if base != 0x400000 or not hwnd:
+            return False
+        renderer, owner = word(base+0x2f9cf0), word(base+0x2f9d80)
+        return (word(renderer+0x20) == owner and word(owner) == base+0x29228c
+                and word(owner+0x5c) == hwnd)
+    except (ValueError, OSError, RuntimeError, struct.error):
+        return False
+
+
+def _verified_menu_less_main(pid: int, hwnd: int, profile) -> bool:
+    if profile.sha256 != RETAIL_SHA256 or not profile.supports("open_broker_editor"):
+        return False
+    import ctypes
+    import broker_observatory as core
+    kernel = ctypes.WinDLL("kernel32", use_last_error=True)
+    core._configure_win32(kernel, ctypes)
+    process, image = core._process_image_path(kernel, pid, ctypes)
+    try:
+        evidence = core._verify_live_capability_open(kernel, process, pid, image,
+                                                    profile, "open_broker_editor", ctypes)
+        return validate_retail_main_owner(
+            lambda address, count: core._read_remote(kernel, process, address, count, ctypes),
+            evidence['module_base'], hwnd)
+    finally:
+        kernel.CloseHandle(process)
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -211,9 +372,7 @@ def find_retail_main_windows(profile_by_pid: dict[int, object] | None = None) ->
     @enum_proc_type
     def callback(hwnd: int, _lparam: int) -> bool:
         hwnd_value = int(hwnd)
-        if not user32.IsWindowVisible(hwnd_value) or not _has_expected_main_menu(
-            user32, hwnd_value
-        ):
+        if not user32.IsWindowVisible(hwnd_value):
             return True
         pid = wintypes.DWORD()
         user32.GetWindowThreadProcessId(hwnd_value, ctypes.byref(pid))
@@ -229,6 +388,12 @@ def find_retail_main_windows(profile_by_pid: dict[int, object] | None = None) ->
         user32.GetWindowTextW(hwnd_value, title_buffer, len(title_buffer))
         if title_buffer.value != "Master Rallye":
             return True
+        if not _has_expected_main_menu(user32, hwnd_value):
+            try:
+                if not _verified_menu_less_main(int(pid.value), hwnd_value, profile):
+                    return True
+            except (OSError, ValueError, RuntimeError):
+                return True
         candidates.append(
             TargetWindow(
                 pid=int(pid.value),
@@ -245,7 +410,7 @@ def find_retail_main_windows(profile_by_pid: dict[int, object] | None = None) ->
     return candidates
 
 
-def send_tool_command(target: TargetWindow, tool: str) -> None:
+def send_tool_command(target: TargetWindow, tool: str) -> OpenDispatch:
     """Revalidate the target and send one CLI-allowlisted tool command."""
     if os.name != "nt":
         raise RuntimeError("This helper is Windows-only.")
@@ -277,12 +442,15 @@ def send_tool_command(target: TargetWindow, tool: str) -> None:
     if profile.runtime_anchors:
         from broker_observatory import verify_live_capability
         verify_live_capability(target.pid, profile, capability)
-    if not user32.IsWindowVisible(target.hwnd) or not _has_expected_main_menu(
-        user32, target.hwnd
+    if not user32.IsWindowVisible(target.hwnd) or not (
+        _has_expected_main_menu(user32, target.hwnd)
+        or _verified_menu_less_main(target.pid, target.hwnd, profile)
     ):
         raise RuntimeError("Target no longer has the verified Game → Reset / Exit menu.")
 
     result = ctypes.c_size_t()
+    started = time.monotonic()
+    ctypes.set_last_error(0)
     sent = user32.SendMessageTimeoutW(
         target.hwnd,
         WM_COMMAND,
@@ -292,8 +460,8 @@ def send_tool_command(target: TargetWindow, tool: str) -> None:
         3000,
         ctypes.byref(result),
     )
-    if not sent:
-        raise ctypes.WinError(ctypes.get_last_error())
+    error = 0 if sent else ctypes.get_last_error()
+    return OpenDispatch(bool(sent), error, (time.monotonic()-started)*1000)
 
 
 def find_tool_windows(pid: int, tool: str, resolved_profile: object | None = None) -> list[TargetWindow]:
@@ -423,7 +591,15 @@ def main(
         print("Confirmation did not match; no command was sent.", file=sys.stderr)
         return 3
 
-    send_command(target, args.tool)
+    outcome = send_command(target, args.tool)
+    if isinstance(outcome, OpenDispatch) and not outcome.completed:
+        alive, valid = target_status(target)
+        report = OpenReport(OpenOutcome.UNCERTAIN if outcome.win32_error in (0, ERROR_TIMEOUT)
+                            else OpenOutcome.FAILED, command_id, target.pid, target.hwnd,
+                            outcome.win32_error, outcome.elapsed_ms, alive, None,
+                            "command_return_uncertain" if valid else "target_changed")
+        print(str(ToolOpenError(report)), file=sys.stderr)
+        return 4
     print(f"Sent WM_COMMAND 0x{command_id:02X} to the verified retail main window.")
     return 0
 

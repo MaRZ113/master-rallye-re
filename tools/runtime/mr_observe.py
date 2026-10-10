@@ -65,7 +65,9 @@ def short_path(path: Path) -> str:
 def report_error(exc: Exception) -> None:
     message = str(exc)
     lowered = message.casefold()
-    if not isinstance(exc, UserError):
+    if isinstance(exc, commands.ToolOpenError):
+        message = str(exc)
+    elif not isinstance(exc, UserError):
         if isinstance(exc, PermissionError):
             message = "Access denied. Use a writable Observatory folder and run the game/tool at the same privilege level."
         elif "logger sink" in lowered or ("debug" in lowered and ("sink" in lowered or "window" in lowered)):
@@ -341,16 +343,11 @@ def ensure_tool(process: ProcessCandidate, tool: str, timeout: float = 5.0) -> c
     if len(mains) != 1:
         raise core.ObservatoryError("Broker Editor cannot be opened. Enable Menues/Enabled=True in DataGame/dev.xml, restart the game, and close extra game windows.")
     print("Opening " + ("Broker Editor" if tool == "broker-editor" else "Flow Builder") + "...")
-    commands.send_tool_command(mains[0], tool)
-    deadline = time.monotonic() + timeout
-    while time.monotonic() < deadline:
-        existing = commands.find_tool_windows(process.pid, tool, process.profile)
-        if len(existing) == 1:
-            return existing[0]
-        if len(existing) > 1:
-            raise core.ObservatoryError(f"Ambiguous {tool} windows after open.")
-        time.sleep(0.1)
-    raise UserError(f"{tool} did not appear. Check the developer window setting, let the game respond, then check Status. No repeated open command was sent.")
+    report, window = commands.open_tool_once(mains[0], tool, grace=min(timeout, 5.0))
+    print("Tool opener: " + report.json())
+    if window is None:
+        raise commands.ToolOpenError(report)
+    return window
 
 
 def capture_fresh(process: ProcessCandidate, *, manual: bool = False,

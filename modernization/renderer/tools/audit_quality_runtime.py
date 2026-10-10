@@ -28,8 +28,20 @@ def display_lifecycle(rows):
             # A new attempt with no subsequent readiness cannot inherit an old probe.
             pending.pop(device,None)
     sequences=[r['event_sequence'] for r in rows if isinstance(r.get('event_sequence'),int)]
+    # R-OBS1 records callback sequence at observation, then writes at Present.
+    # Only those explicit message records may arrive after a later native event.
+    immediate=[];deferred={}
+    for r in rows:
+        seq=r.get('event_sequence')
+        if not isinstance(seq,int):continue
+        if r.get('type')=='display_window_message' and r.get('telemetry_deferred') is True:
+            deferred.setdefault(r.get('device_lifetime_id'),[]).append(seq)
+        else:immediate.append(seq)
+    increasing=lambda values:all(a<b for a,b in zip(values,values[1:]))
+    valid=len(set(sequences))==len(sequences) and increasing(immediate) and all(increasing(v) for v in deferred.values())
     return dict(windowed_resize_decisions=admissions,window_message_count=len(messages),window_message_tail=messages[-24:],
-                observed_reset_while_device_lost=lost,event_sequence_order_valid=all(a<b for a,b in zip(sequences,sequences[1:])) if sequences else None,
+                observed_reset_while_device_lost=lost,event_sequence_order_valid=valid if sequences else None,
+                physical_write_order_valid=increasing(sequences) if sequences else None,
                 runtime_fix_verdict='UNKNOWN_HUMAN_REQUIRED')
 
 def audit(path):
