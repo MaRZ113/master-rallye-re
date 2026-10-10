@@ -18,10 +18,13 @@ namespace gfx2::detail {struct UiMarginsContract {
  static std::string active_record(const UiMargins& ui){return ui.scope_depth_?ui.packet_observation_json(ui.scopes_[ui.scope_depth_-1]):std::string{};}
  static unsigned active_draw_count(const UiMargins& ui){return ui.scope_depth_?ui.scopes_[ui.scope_depth_-1].draw_count:0;}
  static unsigned active_draw_dropped(const UiMargins& ui){return ui.scope_depth_?ui.scopes_[ui.scope_depth_-1].draw_dropped:0;}
- static unsigned records(const UiMargins& ui){return ui.records_;}
+ static uint64_t records(const UiMargins& ui){return ui.records_;}
  static std::vector<uintptr_t> selected_entities(const UiMargins& ui,bool adjusted){std::vector<uintptr_t> out;for(const auto& o:ui.observations_)if(o.id&&o.adjusted==adjusted)out.push_back(o.key.entity);return out;}
- static unsigned candidate_evictions(const UiMargins& ui){return static_cast<unsigned>(ui.capture_candidate_evictions_);}
- static unsigned candidate_rejections(const UiMargins& ui){return static_cast<unsigned>(ui.capture_candidate_rejections_);}
+ static uint64_t candidate_evictions(const UiMargins& ui){return ui.capture_candidate_evictions_;}
+ static uint64_t candidate_rejections(const UiMargins& ui){return ui.capture_candidate_rejections_;}
+ static SceneContextDecision scene_context(const UiMargins& ui){return ui.scene_context_for_draw();}
+ static uint64_t carousel_promotions(const UiMargins& ui){return ui.anchors_.carousel_promotions;}
+ static uint64_t carousel_overrides(const UiMargins& ui){return ui.carousel_override_draws_;}
 };}
 struct Windows:WindowApi {
  std::function<void()> on_apply;
@@ -349,10 +352,10 @@ void trace_numeric_configs(){
  }
 }
 struct UiNative:MockDeviceBase {
- D3DMATRIX world{};unsigned sets=0,draws=0;unsigned fail_set=0;HRESULT get_hr=S_OK,draw_hr=S_OK;float observed=0;
+ D3DMATRIX world{},projection{},view{};unsigned sets=0,draws=0;unsigned fail_set=0;HRESULT get_hr=S_OK,draw_hr=S_OK,projection_hr=S_OK;float observed=0;
  UiNative(){world._11=world._22=world._33=world._44=1;}
  HRESULT STDMETHODCALLTYPE GetTransform(D3DTRANSFORMSTATETYPE type,D3DMATRIX* p) override {CHECK(type==D3DTS_WORLD);if(SUCCEEDED(get_hr))*p=world;return get_hr;}
- HRESULT STDMETHODCALLTYPE SetTransform(D3DTRANSFORMSTATETYPE type,const D3DMATRIX* p) override {CHECK(type==D3DTS_WORLD);if(++sets==fail_set)return D3DERR_DEVICELOST;world=*p;return S_OK;}
+ HRESULT STDMETHODCALLTYPE SetTransform(D3DTRANSFORMSTATETYPE type,const D3DMATRIX* p) override {if(type==D3DTS_WORLD){if(++sets==fail_set)return D3DERR_DEVICELOST;world=*p;}else if(type==D3DTS_PROJECTION){if(FAILED(projection_hr))return projection_hr;projection=*p;}else if(type==D3DTS_VIEW)view=*p;else return D3DERR_INVALIDCALL;return S_OK;}
  HRESULT STDMETHODCALLTYPE Present(const RECT*,const RECT*,HWND,const RGNDATA*) override {return S_OK;}
  HRESULT STDMETHODCALLTYPE DrawPrimitive(D3DPRIMITIVETYPE,UINT,UINT) override {++draws;observed=world._41;return draw_hr;}
 };
@@ -513,6 +516,104 @@ void ui_carousel_alignment_experimental(){
  UiMargins unknown;detail::UiMarginsContract::enable(unknown);unknown.configure_carousel_alignment(true,false);
  CHECK(unknown.json().find("\"carousel_alignment_requested\":true")!=std::string::npos&&unknown.json().find("\"carousel_alignment_enabled\":false")!=std::string::npos);
  std::cout<<"R-UI1 opt-in trajectory classifier: retained-left fix, reverse scroll, lane/frame/sidebar negatives, identity/epoch, multi-aspect and exact-profile gate: PASS\n";
+}
+void ui_carousel_frontend_scene_phase(){
+ synthetic_caller_image_extent[0]=1;
+ constexpr uint32_t ui_projection_rva=0x1000;
+ const uintptr_t base=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));
+ const uintptr_t ui_projection_pc=base+ui_projection_rva;
+ const uintptr_t scene_projection_pc=base+GAMEPLAY_PROJECTION_RETURN_RVA;
+ auto ui_projection=[](){D3DMATRIX p{};p._11=2.f/640.f;p._22=2.f/480.f;p._33=-.0005f;p._41=p._42=-1.f;p._43=.5f;p._44=1.f;return p;};
+ auto scene_projection=[](bool race){D3DMATRIX p{};const double aspect=16./9.;const double angle=race?90.:45.;p._22=static_cast<float>(1./std::tan((angle/aspect)*3.14159265358979323846/360.));p._11=static_cast<float>(p._22/aspect);p._33=1.01f;p._34=1.f;p._43=-.2f;return p;};
+ UiNative native;Root raw;auto* root=new Root8(&raw);auto policy=std::make_unique<QualityPipeline>();auto* device=new Device8(&native,root,std::move(policy));
+ device->quality->config.interface_mode="PreserveMargins";device->quality->valid=true;device->quality->effective.BackBufferWidth=1920;device->quality->effective.BackBufferHeight=1080;
+ device->quality->ui_capability.status="SUPPORTED";device->quality->ui_capability.candidate_rva=ui_projection_rva;
+ device->quality->preview_capability.status="SUPPORTED";device->quality->preview_capability.candidate_rva=GAMEPLAY_PROJECTION_RETURN_RVA;
+ detail::UiMarginsContract::enable(device->ui_margins);device->ui_margins.configure_carousel_alignment(true,true);device->ui_margins.dimensions(1920,1080);
+ constexpr uint64_t synthetic_device_id=9301;device->ui_margins.capture_window(true,device->trace.frame_number(),synthetic_device_id);
+ D3DMATRIX identity{};identity._11=identity._22=identity._33=identity._44=1;device->trace.shadow.bindings.vertex_shader.set(0x142);device->trace.effective_shadow.matrices[D3DTS_VIEW].set(identity);
+ auto begin_ui_phase=[&](){auto p=ui_projection();CHECK(device->set_transform_at(D3DTS_PROJECTION,&p,ui_projection_pc)==S_OK&&device->quality->ui_projection_live);};
+ auto classify_scene=[&](bool race,HRESULT expected=S_OK){auto p=scene_projection(race);CHECK(device->set_transform_at(D3DTS_PROJECTION,&p,scene_projection_pc)==expected);};
+ struct Rendered {float x=0;SceneContextDecision context{};std::string record;};
+ const uintptr_t draw_pc=base+UI_DRAW_RETURN_RVA;
+ auto draw=[&](UiFixture& packet,float x,float y,UINT primitives=1,HRESULT expected=S_OK){
+  packet.point[0]=x;packet.point[1]=y;auto bytes=packet.packet;native.world._41=x;native.world._42=y;const D3DMATRIX original=native.world;const unsigned before=native.draws;
+  CHECK(device->ui_margins.enter_consume(packet.owner));native.draw_hr=expected;const HRESULT actual=device->draw_primitive_at(D3DPT_TRIANGLELIST,0,primitives,draw_pc);native.draw_hr=S_OK;
+  CHECK(actual==expected&&native.draws==before+1);CHECK(!std::memcmp(&native.world,&original,sizeof(original))&&packet.packet==bytes);
+  Rendered result;result.x=native.observed;result.context=detail::UiMarginsContract::scene_context(device->ui_margins);result.record=detail::UiMarginsContract::active_record(device->ui_margins);
+  device->ui_margins.leave_consume();return result;
+ };
+ auto present=[&](){CHECK(device->Present(nullptr,nullptr,nullptr,nullptr)==S_OK);device->ui_margins.capture_window(true,device->trace.frame_number(),synthetic_device_id);};
+ const float half=(480.f*1920.f/1080.f-640.f)*.5f;UiFixture card;
+
+ // Frame 1 reproduces the game order: orthographic UI and draws precede the
+ // late Source45 camera-family observation. Unknown startup state fails closed.
+ begin_ui_phase();auto first=draw(card,50,309);CHECK(first.context.phase==std::string("unknown_scene")&&!first.context.frontend_allowed&&std::abs(first.x-(50-half))<.01f);
+ classify_scene(false);classify_scene(false);auto late=detail::UiMarginsContract::scene_context(device->ui_margins);CHECK(late.valid&&late.frontend_allowed&&late.phase==std::string("same_frame_before_draw"));present();
+
+ // Frame 2's early card draw is authorized by exactly the just-completed
+ // Source45 frame, without a synthetic same-frame scene_context call.
+ begin_ui_phase();auto outer=draw(card,50,309);CHECK(outer.context.valid&&outer.context.frontend_allowed&&outer.context.phase==std::string("previous_completed_frame")&&outer.context.source_frame==1&&outer.context.consumer_frame==2&&outer.context.age==1);
+ CHECK(std::abs(outer.x-(50-half))<.01f&&outer.record.find("\"carousel_status\":\"candidate_motion_path\"")!=std::string::npos);
+ CHECK(outer.record.find("\"scene_context_source_frame\":1")!=std::string::npos&&outer.record.find("\"scene_context_consumer_frame\":2")!=std::string::npos&&outer.record.find("\"scene_context_phase\":\"previous_completed_frame\"")!=std::string::npos);
+ classify_scene(false);present();
+
+ // Frame 3 crosses the existing two-frame movement contract and preserves the
+ // card's alignment with its unchanged selection-frame coordinate.
+ begin_ui_phase();auto center=draw(card,375,309,1,E_FAIL);CHECK(center.context.frontend_allowed&&center.context.phase==std::string("previous_completed_frame")&&center.context.source_frame==2);
+ CHECK(std::abs(center.x-375.f)<.01f&&center.record.find("\"carousel_status\":\"promoted_motion_path\"")!=std::string::npos&&center.record.find("\"carousel_override\":true")!=std::string::npos);
+ classify_scene(false);present();CHECK(detail::UiMarginsContract::carousel_promotions(device->ui_margins)==1&&detail::UiMarginsContract::carousel_overrides(device->ui_margins)==1);
+
+ // Previous evidence is usable for one frame only. Omitting a fresh scene
+ // classification makes it stale at age two.
+ begin_ui_phase();auto reverse=draw(card,275,310);CHECK(std::abs(reverse.x-275.f)<.01f&&reverse.context.frontend_allowed);present();
+ begin_ui_phase();auto stale=draw(card,375,309);CHECK(stale.context.phase==std::string("stale_scene_evidence")&&!stale.context.frontend_allowed&&stale.record.find("\"scene_context_rejection_reason\":\"stale_scene_evidence\"")!=std::string::npos);
+ CHECK(detail::UiMarginsContract::carousel_overrides(device->ui_margins)==2);
+ classify_scene(true);present();
+
+ // A completed race classification suppresses stale frontend authorization;
+ // a new frontend Source45 must complete before the following frame is allowed.
+ begin_ui_phase();auto race=draw(card,375,309);CHECK(race.context.valid&&race.context.family==1&&!race.context.frontend_allowed&&race.context.rejection_reason==std::string("race_scene"));
+ classify_scene(false);present();begin_ui_phase();auto returned=draw(card,375,309);CHECK(returned.context.frontend_allowed&&returned.context.phase==std::string("previous_completed_frame"));classify_scene(false);present();
+
+ // Zero-primitive submissions cannot seed or promote carousel semantics.
+ UiFixture no_draw;auto zero_outer=draw(no_draw,50,309,0);CHECK(zero_outer.context.frontend_allowed&&detail::UiMarginsContract::carousel_promotions(device->ui_margins)==1);
+ classify_scene(false);present();begin_ui_phase();auto zero_center=draw(no_draw,375,309,0);CHECK(zero_center.context.frontend_allowed&&detail::UiMarginsContract::carousel_promotions(device->ui_margins)==1);
+ classify_scene(false);present();
+ begin_ui_phase();auto actual_outer=draw(no_draw,50,309);CHECK(actual_outer.context.frontend_allowed&&detail::UiMarginsContract::carousel_promotions(device->ui_margins)==1);
+ classify_scene(false);present();begin_ui_phase();auto actual_center=draw(no_draw,375,309);CHECK(actual_center.context.frontend_allowed&&std::abs(actual_center.x-375.f)<.01f&&detail::UiMarginsContract::carousel_promotions(device->ui_margins)==2);
+ UiFixture highlight;auto frame=draw(highlight,371,309);CHECK(std::abs(frame.x-371.f)<.01f&&detail::UiMarginsContract::carousel_overrides(device->ui_margins)==3);
+
+ // Contradictory family observations in one frame cannot be committed as
+ // fresh frontend evidence. The next early draw is rejected until a new
+ // unambiguous frontend observation completes.
+ classify_scene(false);classify_scene(true);auto conflict=detail::UiMarginsContract::scene_context(device->ui_margins);
+ CHECK(!conflict.frontend_allowed&&conflict.phase==std::string("contradictory_scene_same_frame"));present();
+ begin_ui_phase();auto incomplete=draw(card,375,309);CHECK(!incomplete.context.frontend_allowed&&incomplete.context.phase==std::string("incomplete_previous_frame"));
+ classify_scene(false);present();begin_ui_phase();auto refreshed=draw(card,375,309);CHECK(refreshed.context.frontend_allowed&&refreshed.context.phase==std::string("previous_completed_frame"));
+
+ device->ui_margins.reset_anchors("Reset");auto reset=detail::UiMarginsContract::scene_context(device->ui_margins);CHECK(!reset.frontend_allowed&&reset.rejection_reason==std::string("invalidated_ui_epoch"));
+ CHECK(device->Present(nullptr,nullptr,nullptr,nullptr)==S_OK);device->Release();root->Release();
+
+ // The phase contract distinguishes staged-but-unpresented evidence from a
+ // completed native Present and rejects failed, stale, reset and discontinuous state.
+ UiMargins staged;detail::UiMarginsContract::enable(staged);staged.configure_carousel_alignment(true,true);staged.scene_context(false);CHECK(staged.finish_frame());
+ auto not_yet_completed=detail::UiMarginsContract::scene_context(staged);CHECK(!not_yet_completed.frontend_allowed&&not_yet_completed.phase==std::string("incomplete_previous_frame"));
+ staged.present_completed(true);auto completed=detail::UiMarginsContract::scene_context(staged);CHECK(completed.frontend_allowed&&completed.phase==std::string("previous_completed_frame")&&completed.age==1);
+ UiMargins failed_present;detail::UiMarginsContract::enable(failed_present);failed_present.configure_carousel_alignment(true,true);failed_present.scene_context(false);CHECK(failed_present.finish_frame());failed_present.present_completed(false);
+ CHECK(detail::UiMarginsContract::scene_context(failed_present).phase==std::string("incomplete_previous_frame"));
+ failed_present.reset_anchors("Reset");CHECK(detail::UiMarginsContract::scene_context(failed_present).rejection_reason==std::string("invalidated_ui_epoch"));
+ UiMargins discontinuity;detail::UiMarginsContract::enable(discontinuity);discontinuity.configure_carousel_alignment(true,true);discontinuity.capture_window(true,90,1);
+ CHECK(detail::UiMarginsContract::scene_context(discontinuity).rejection_reason==std::string("frame_counter_discontinuity"));
+
+ // A failed native projection setter does not publish frontend scene evidence.
+ UiNative failed_native;Root failed_raw;auto* failed_root=new Root8(&failed_raw);auto failed_policy=std::make_unique<QualityPipeline>();auto* failed_device=new Device8(&failed_native,failed_root,std::move(failed_policy));
+ failed_device->quality->config.interface_mode="PreserveMargins";failed_device->quality->valid=true;failed_device->quality->effective.BackBufferWidth=1920;failed_device->quality->effective.BackBufferHeight=1080;
+ failed_device->quality->preview_capability.status="SUPPORTED";failed_device->quality->preview_capability.candidate_rva=GAMEPLAY_PROJECTION_RETURN_RVA;
+ detail::UiMarginsContract::enable(failed_device->ui_margins);failed_device->ui_margins.configure_carousel_alignment(true,true);failed_native.projection_hr=E_FAIL;
+ auto failed_source=scene_projection(false);CHECK(FAILED(failed_device->set_transform_at(D3DTS_PROJECTION,&failed_source,scene_projection_pc)));
+ CHECK(detail::UiMarginsContract::scene_context(failed_device->ui_margins).phase==std::string("unknown_scene"));failed_device->Release();failed_root->Release();
+ std::cout<<"R-UI1-D3a real-order frontend scene phase, completed-Present freshness, transition/reset fail-closed, non-draw and provenance contracts: PASS\n";
 }
 void margin_candidate_diagnostics(){
  alignas(float) std::array<std::array<unsigned char,0x90>,3> packets{};
@@ -806,4 +907,4 @@ void quality_fpu(){
  flags=fetestexcept(FE_ALL_EXCEPT);ui_projection_dimensions(matrix,1920,1080,out);CHECK(fegetround()==FE_DOWNWARD&&fetestexcept(FE_ALL_EXCEPT)==flags);fesetenv(&saved);
  fegetenv(&saved);fesetround(FE_DOWNWARD);D3DMATRIX source{};source._22=float(1/std::tan((45./(16./9))*3.14159265358979323846/360.));source._11=source._22/float(16./9);source._33=1.01f;source._34=1;source._43=-.2f;flags=fetestexcept(FE_ALL_EXCEPT);CHECK(camera_scene_family(source)==0&&fegetround()==FE_DOWNWARD&&fetestexcept(FE_ALL_EXCEPT)==flags);fesetenv(&saved);
 }
-int main(){try{configs();carousel_ini_config();numeric_configs();trace_numeric_configs();reset_echo_shutdown();preview_cursor_packets();displays();display_transactions();windowed_live_resize();windowed_startup_order();windowed_maximize_restore();stable_margin_anchors();margin_short_grace();margin_consumer_retention();margin_candidate_diagnostics();render_local_ui_contracts();render_local_wrapper_contract();ui_carousel_draw_diagnostics();ui_carousel_alignment_experimental();ui_diagnostic_selection_is_order_independent();antialiasing();exclusive_lifecycle();exclusive_restore_order();game_window_owner_read();viewports_ui();freeze_and_patch();native_window();native_display_ordering();wrapper_trace();validated_ui_wrapper();ui_native_abi();packet_consumer_abi();quality_fpu();std::cout<<"R-GFX5 config/display/viewport/UI/MSAA/Reset/freeze/hidden HWND/native bridge contracts: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}
+int main(){try{configs();carousel_ini_config();numeric_configs();trace_numeric_configs();reset_echo_shutdown();preview_cursor_packets();displays();display_transactions();windowed_live_resize();windowed_startup_order();windowed_maximize_restore();stable_margin_anchors();margin_short_grace();margin_consumer_retention();margin_candidate_diagnostics();render_local_ui_contracts();render_local_wrapper_contract();ui_carousel_draw_diagnostics();ui_carousel_alignment_experimental();ui_carousel_frontend_scene_phase();ui_diagnostic_selection_is_order_independent();antialiasing();exclusive_lifecycle();exclusive_restore_order();game_window_owner_read();viewports_ui();freeze_and_patch();native_window();native_display_ordering();wrapper_trace();validated_ui_wrapper();ui_native_abi();packet_consumer_abi();quality_fpu();std::cout<<"R-GFX5 config/display/viewport/UI/MSAA/Reset/freeze/hidden HWND/native bridge contracts: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}

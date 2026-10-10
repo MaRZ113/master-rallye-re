@@ -56,3 +56,17 @@ No current production Race Select / Vehicle Select capture files were present in
 - `git diff --check`: passed.
 
 R-UI1-D3 is ready only for the documented **experimental** PreserveMargins test. It is not visually accepted, and no runtime claim is implied by the native suite or PE verification.
+
+## R-UI1-D3a frontend scene-phase synchronization
+
+- Repository: `D:\Game\Master Rallye\master-rallye-re-general`; branch `master`; starting HEAD `030a6ce268bb2a388b7689a6e0c925257dfca081`; the worktree was clean at preflight.
+- Source change: scene-family evidence is published only after a successful native Source45 projection setter, staged by `UiMargins::finish_frame()`, and considered completed only after successful native Present. Early verified UI draws may use an unambiguous same-frame observation or the immediately preceding successfully presented frontend frame (age 1); no older state is accepted.
+- Transition behavior: current-frame contradictory family observations, failed/incomplete Present, race, epoch mismatch, reset, frame discontinuity, future evidence, and stale age fail closed. The existing scene-family transition continues to invalidate `MarginAnchors` epoch and carousel history.
+- Native CTest: 10/10 passed, including the new real-order test that exercises UI projection/draw before late Source45 classification, Present completion, and next-frame early draw through the production wrappers. Existing D2 capture, R-CAM1-A2 camera and foliage diagnostics, renderer lifecycle, and quality contracts also passed.
+- `python -m unittest discover -s modernization/renderer/tests -v`: 120/120 passed.
+- `python -m compileall -q modernization/renderer`: passed.
+- Proxy verification: passed; PE32/I386, required D3D8 exports present, no recursive `d3d8.dll` import; evidence grade `BUILD_VERIFIED_NOT_RUNTIME`.
+- DLL output: `modernization/renderer/.build-msvc/Release/d3d8.dll`, 1,591,296 bytes, SHA256 `2abe16fb7be4aa2238c89f79d2c7d5be24f6f501db66bca0fe012d31e901238a`.
+- `git diff --check`: passed before the final docs/archive/commit checks.
+
+The automated phase contract is `CONFIRMED_BY_SYNTHETIC_TEST`; the source lifecycle is `CONFIRMED_BY_SOURCE`. The D3 runtime report is `CONFIRMED_BY_TRACE` as provided by the user, but its JSONL artifacts were not available in this checkout for independent re-parsing. No game was launched for D3a. The result is `READY_FOR_IN_GAME_VALIDATION` only; it is not evidence that Vehicle Select or Race Select is visibly corrected. Keep `CarouselAlignment` as an opt-in A/B setting until the runtime handoff passes.

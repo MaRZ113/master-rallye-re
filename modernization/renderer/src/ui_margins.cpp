@@ -13,6 +13,14 @@ namespace {struct MarginFP {fenv_t saved;MarginFP(){fegetenv(&saved);}~MarginFP(
 namespace {
 void json_float(std::ostringstream& out,float value) {if(std::isfinite(value))out<<value;else out<<"null";}
 const char* scene_family_name(int value) noexcept {return value==0?"frontend":value==1?"race":"unknown";}
+void json_scene_context(std::ostringstream& out,const SceneContextDecision& context) {
+ out<<",\"scene_context_family\":"<<quote(scene_family_name(context.family))<<",\"scene_context_source_frame\":";
+ if(context.source_frame_known)out<<context.source_frame;else out<<"null";
+ out<<",\"scene_context_consumer_frame\":"<<context.consumer_frame<<",\"scene_context_age\":";
+ if(context.source_frame_known)out<<context.age;else out<<"null";
+ out<<",\"scene_context_phase\":"<<quote(context.phase)<<",\"scene_context_valid\":"<<(context.valid?"true":"false")
+  <<",\"scene_context_rejection_reason\":"<<quote(context.rejection_reason)<<",\"scene_context_frontend_allowed\":"<<(context.frontend_allowed?"true":"false");
+}
 std::array<uint64_t,6> observation_identity_order(const MarginIdentity& key,uint64_t epoch) noexcept {
  return {static_cast<uint64_t>(key.entity),static_cast<uint64_t>(key.packet),static_cast<uint64_t>(key.point),static_cast<uint64_t>(key.storage),key.mode,epoch};
 }
@@ -276,7 +284,14 @@ bool UiMargins::emit_capture_record(const std::string& record,bool packet_record
  ++records_;if(render_local_record)++render_local_records_;if(packet_record)++capture_records_;if(render_local_record)++capture_render_local_records_;return true;
 }
 void UiMargins::capture_window(bool capture_active,uint64_t frame,uint64_t device_id,const char* end_reason) noexcept {
- MarginFP fp;frame_id_=frame;
+ MarginFP fp;
+ if(frame!=frame_id_){
+  const bool lifecycle_end=end_reason&&(!std::strcmp(end_reason,"device_reset")||!std::strcmp(end_reason,"device_release"));
+  if(!lifecycle_end)anchors_.clear_carousels();
+  clear_scene_context(lifecycle_end?"invalidated_ui_epoch":"frame_counter_discontinuity");
+  for(auto& s:scopes_)s.valid=false;
+ }
+ frame_id_=frame;
  if(capture_active){
   if(capturing_&&device_id&&device_id_&&device_id!=device_id_)finish_capture(frame,device_id_,"device_identity_changed");
   if(!capturing_){reset_capture_local();device_id_=device_id;capture_start_frame_=capture_trace_frame_=frame;capture_completed_=false;capture_end_reason_="active";++capture_count_;capturing_=true;
@@ -304,8 +319,53 @@ void UiMargins::finish_capture(uint64_t frame,uint64_t device_id,const char* end
 void UiMargins::reset_diagnostics() noexcept {
  if(capturing_)finish_capture(capture_trace_frame_,device_id_,"device_reset");reset_capture_local();device_id_=capture_start_frame_=capture_trace_frame_=0;capture_completed_=false;capture_end_reason_="reset";
 }
-void UiMargins::reset_anchors(const char* why) noexcept {anchors_.begin_epoch(why);scene_family_=-1;scene_family_frame_=0;for(auto& s:scopes_)s.valid=false;}
-void UiMargins::scene_context(bool race) noexcept {scene_family_=race?1:0;scene_family_frame_=frame_id_;auto epoch=anchors_.epoch();anchors_.scene_context(race);if(anchors_.epoch()!=epoch)for(auto& s:scopes_)s.valid=false;}
+void UiMargins::clear_scene_context(const char* why) noexcept {
+ scene_family_=-1;scene_family_frame_=scene_family_epoch_=0;scene_family_conflicted_=false;scene_evidence_valid_=false;
+ completed_scene_frame_=completed_scene_epoch_=0;completed_scene_family_=-1;
+ pending_present_frame_=pending_present_epoch_=0;pending_present_family_=-1;pending_present_=pending_scene_valid_=false;
+ scene_invalidation_reason_=why?why:"invalidated_ui_epoch";
+}
+void UiMargins::reset_anchors(const char* why) noexcept {anchors_.begin_epoch(why);clear_scene_context("invalidated_ui_epoch");for(auto& s:scopes_)s.valid=false;}
+void UiMargins::scene_context(bool race) noexcept {
+ const int next=race?1:0;
+ if(scene_family_frame_!=frame_id_){scene_family_conflicted_=false;scene_family_frame_=frame_id_;}
+ else if(scene_evidence_valid_&&scene_family_!=next)scene_family_conflicted_=true;
+ scene_family_=next;scene_evidence_valid_=true;scene_invalidation_reason_="none";
+ const auto epoch=anchors_.epoch();anchors_.scene_context(race);if(anchors_.epoch()!=epoch)for(auto& s:scopes_)s.valid=false;
+ scene_family_epoch_=anchors_.epoch();
+}
+SceneContextDecision UiMargins::scene_context_for_draw() const noexcept {
+ SceneContextDecision result;result.consumer_frame=frame_id_;result.family=scene_family_;
+ if(!scene_evidence_valid_||!scene_family_frame_){result.phase=scene_invalidation_reason_;result.rejection_reason=scene_invalidation_reason_;return result;}
+ result.source_frame_known=true;result.source_frame=scene_family_frame_;
+ if(scene_family_frame_>frame_id_){result.phase="future_scene_evidence";result.rejection_reason="future_scene_evidence";return result;}
+ result.age=frame_id_-scene_family_frame_;
+ if(scene_family_epoch_!=anchors_.epoch()){
+  result.phase="invalidated_ui_epoch";result.rejection_reason="invalidated_ui_epoch";return result;
+ }
+ if(scene_family_frame_==frame_id_&&scene_family_conflicted_){
+  result.phase="contradictory_scene_same_frame";result.rejection_reason="contradictory_scene_same_frame";return result;
+ }
+ if(result.age==0)result.phase="same_frame_before_draw";
+ else if(result.age==1){
+  if(completed_scene_frame_!=scene_family_frame_||completed_scene_family_!=scene_family_||completed_scene_epoch_!=scene_family_epoch_){
+   result.phase="incomplete_previous_frame";result.rejection_reason="incomplete_previous_frame";return result;
+  }
+  result.phase="previous_completed_frame";
+ }else{result.phase="stale_scene_evidence";result.rejection_reason="stale_scene_evidence";return result;}
+ result.valid=true;
+ if(scene_family_==0){result.frontend_allowed=true;result.rejection_reason="none";}
+ else if(scene_family_==1)result.rejection_reason="race_scene";
+ else {result.valid=false;result.phase="unknown_scene";result.rejection_reason="unknown_scene";}
+ return result;
+}
+void UiMargins::present_completed(bool succeeded) noexcept {
+ if(!pending_present_)return;
+ if(succeeded&&pending_scene_valid_&&pending_present_epoch_==anchors_.epoch()){
+  completed_scene_frame_=pending_present_frame_;completed_scene_family_=pending_present_family_;completed_scene_epoch_=pending_present_epoch_;
+ }
+ pending_present_=pending_scene_valid_=false;pending_present_frame_=pending_present_epoch_=0;pending_present_family_=-1;
+}
 int UiMargins::find_observation(const MarginIdentity& key,uint64_t epoch) const noexcept {
  for(size_t i=0;i<observations_.size();++i){const auto& o=observations_[i];if(o.id&&o.epoch==epoch&&o.key.entity==key.entity&&o.key.packet==key.packet&&o.key.point==key.point&&o.key.storage==key.storage&&o.key.mode==key.mode)return static_cast<int>(i);}return -1;
 }
@@ -360,7 +420,7 @@ std::string UiMargins::packet_observation_json(const Scope& s) const {
    <<",\"vertex_shader_token_known\":"<<(d.vertex_shader_token_known?"true":"false")<<",\"vertex_shader_token\":";if(d.vertex_shader_token_known)out<<d.vertex_shader_token;else out<<"null";
   out<<",\"fvf_value\":";if(d.vertex_shader_token_known&&d.vertex_shader_token==0x142)out<<d.vertex_shader_token;else out<<"null";
    out<<",\"fvf_status\":"<<quote(d.vertex_shader_token_known&&d.vertex_shader_token==0x142?"gate_confirmed_0x142":"not_identified")<<",\"margin_requested\":";json_float(out,d.margin_requested);out<<",\"margin_applied\":";json_float(out,d.margin_applied);
-   out<<",\"margin_effective_request\":";json_float(out,d.margin_effective_request);out<<",\"carousel_status\":"<<quote(d.carousel_status)<<",\"carousel_id\":";if(d.carousel_id)out<<d.carousel_id;else out<<"null";out<<",\"carousel_override\":"<<(d.carousel_override?"true":"false");
+   out<<",\"margin_effective_request\":";json_float(out,d.margin_effective_request);out<<",\"carousel_status\":"<<quote(d.carousel_status)<<",\"carousel_id\":";if(d.carousel_id)out<<d.carousel_id;else out<<"null";out<<",\"carousel_override\":"<<(d.carousel_override?"true":"false");json_scene_context(out,d.scene_context);
    out<<",\"packet_point_known\":"<<(d.packet_point_known?"true":"false")<<",\"packet_x\":";if(d.packet_point_known)json_float(out,d.packet_x);else out<<"null";
    out<<",\"packet_y\":";if(d.packet_point_known)json_float(out,d.packet_y);else out<<"null";
   out<<",\"get_transform_attempted\":"<<(d.get_transform_attempted?"true":"false")<<",\"get_transform_hresult\":";if(d.get_transform_attempted)out<<d.get_transform_hresult;else out<<"null";
@@ -392,9 +452,16 @@ MarginDrawDecision UiMargins::draw_decision(bool verified_ui_draw) noexcept {
  MarginIdentity current{};float point[3]{};
  if(!read_margin_identity(s.key.entity,s.key.packet+0x24,current)||current.packet!=s.key.packet||current.point!=s.key.point||current.storage!=s.key.storage||current.mode!=s.key.mode||!safe_copy(point,reinterpret_cast<void*>(current.point),sizeof(point))||point[2]!=0||!std::isfinite(point[0])||!std::isfinite(point[1])){anchors_.reject(s.key.entity);s.valid=false;return d;}
  d.key=s.key;d.anchor=s.anchor;d.native_x=point[0];d.native_y=point[1];d.standard_margin=half_*s.anchor.direction;d.margin=d.standard_margin;d.carousel_status=carousel_alignment_enabled_?"not_classified":"disabled";d.valid=true;
- if(carousel_alignment_enabled_){
-  const bool frontend=scene_family_==0&&scene_family_frame_==frame_id_;
-  auto semantic=anchors_.observe_carousel(s.key,point[0],point[1],frame_id_,frontend,verified_ui_draw,s.anchor.direction<0);
+  if(carousel_alignment_enabled_){
+   d.scene_context=scene_context_for_draw();
+   if(verified_ui_draw){
+    if(d.scene_context.frontend_allowed){
+     if(!std::strcmp(d.scene_context.phase,"same_frame_before_draw"))++scene_context_same_frame_uses_;
+     else if(!std::strcmp(d.scene_context.phase,"previous_completed_frame"))++scene_context_previous_frame_uses_;
+    }else ++scene_context_rejections_;
+   }
+   auto semantic=anchors_.observe_carousel(s.key,point[0],point[1],frame_id_,d.scene_context.frontend_allowed,verified_ui_draw,s.anchor.direction<0);
+   if(!d.scene_context.frontend_allowed)semantic.status=d.scene_context.rejection_reason;
   d.carousel_id=semantic.id;d.carousel_status=semantic.status;
   if(semantic.proven){d.carousel_override=true;d.margin=0;++carousel_override_draws_;anchors_.discard_for_carousel(s.key);}
  }
@@ -404,7 +471,7 @@ UiDrawObservation* UiMargins::begin_draw(uintptr_t caller_va,uint32_t caller_rva
  D3DPRIMITIVETYPE primitive,UINT start_vertex,UINT primitive_count,bool adjustment_gate_allowed,bool suppressed,bool forwarded,
  bool vertex_shader_token_known,uint32_t vertex_shader_token) noexcept {
  MarginFP fp;if(!capturing_||GetCurrentThreadId()!=thread_||!scope_depth_)return nullptr;auto& s=scopes_[scope_depth_-1];if(!s.capture_active)return nullptr;
- const bool relevant=caller_in_game_image&&caller_rva==UI_DRAW_RETURN_RVA&&primitive==D3DPT_TRIANGLELIST&&!suppressed&&forwarded&&vertex_shader_token_known&&vertex_shader_token==0x142;
+  const bool relevant=caller_in_game_image&&caller_rva==UI_DRAW_RETURN_RVA&&primitive==D3DPT_TRIANGLELIST&&primitive_count>0&&!suppressed&&forwarded&&vertex_shader_token_known&&vertex_shader_token==0x142;
  if(!relevant){++s.non_ui_draws;++capture_non_ui_draws_;++non_ui_draws_seen;return nullptr;}
  ++capture_relevant_draws_;++capture_draw_observation_attempts_;
  if(capture_draw_observation_attempts_>UI_CAPTURE_TOTAL_DRAW_OBSERVATION_LIMIT||s.draw_count>=s.draws.size()){
@@ -429,7 +496,7 @@ void UiMargins::observe_draw(const MarginDrawDecision& d,UiDrawObservation& draw
    <<",\"anchor_direction\":"<<quote(d.anchor.direction<0?"left":d.anchor.direction>0?"right":"none")<<",\"caller_rva\":"<<draw.caller_rva
    <<",\"diagnostic_relevant\":true,\"draw_class\":"<<quote(draw.margin_applied!=0?"adjusted":"unadjusted")
    <<",\"carousel_status\":"<<quote(draw.carousel_status)<<",\"carousel_id\":";if(draw.carousel_id)o<<draw.carousel_id;else o<<"null";
-  o<<",\"carousel_override\":"<<(draw.carousel_override?"true":"false")<<",\"margin_standard\":";json_float(o,d.standard_margin);
+   o<<",\"carousel_override\":"<<(draw.carousel_override?"true":"false");json_scene_context(o,draw.scene_context);o<<",\"margin_standard\":";json_float(o,d.standard_margin);
   o<<",\"margin_effective_request\":";json_float(o,d.margin);o<<",\"native_x\":";json_float(o,d.native_x);o<<",\"native_y\":";json_float(o,d.native_y);
   o<<",\"native_world_x\":";json_float(o,draw.native_world_x);o<<",\"native_world_y\":";json_float(o,draw.native_world_y);
   o<<",\"half_extra\":";json_float(o,half_);o<<",\"margin\":";json_float(o,draw.margin_applied);
@@ -446,8 +513,9 @@ UiWorldScope::UiWorldScope(IDirect3DDevice8& native,Trace& trace,UiMargins& ui,u
  bool vertex_shader_token_known,uint32_t vertex_shader_token) noexcept
  :native_(native),trace_(trace),ui_(ui),pc_(pc){
   MarginFP fp;observation_=ui_.begin_draw(pc,caller_rva,caller_in_game_image,primitive,start_vertex,primitive_count,allowed,suppressed,forwarded,vertex_shader_token_known,vertex_shader_token);
-  decision_=ui_.draw_decision(allowed);const bool apply=allowed&&decision_.valid&&decision_.margin!=0;
-  if(observation_){observation_->margin_requested=decision_.valid?decision_.standard_margin:0;observation_->margin_effective_request=decision_.valid?decision_.margin:0;observation_->carousel_status=decision_.carousel_status;observation_->carousel_id=decision_.carousel_id;observation_->carousel_override=decision_.carousel_override;observation_->packet_point_known=decision_.valid;observation_->packet_x=decision_.native_x;observation_->packet_y=decision_.native_y;}
+  const bool verified_carousel_draw=allowed&&primitive==D3DPT_TRIANGLELIST&&primitive_count>0&&!suppressed&&forwarded;
+  decision_=ui_.draw_decision(verified_carousel_draw);const bool apply=allowed&&decision_.valid&&decision_.margin!=0;
+  if(observation_){observation_->margin_requested=decision_.valid?decision_.standard_margin:0;observation_->margin_effective_request=decision_.valid?decision_.margin:0;observation_->carousel_status=decision_.carousel_status;observation_->carousel_id=decision_.carousel_id;observation_->carousel_override=decision_.carousel_override;observation_->scene_context=decision_.scene_context;observation_->packet_point_known=decision_.valid;observation_->packet_x=decision_.native_x;observation_->packet_y=decision_.native_y;}
  if(!apply&&!observation_)return;
  HRESULT hr=native_.GetTransform(D3DTS_WORLD,&original_);auto get=pack(D3DTS_WORLD,&original_);if(apply)trace_.after(38,get,static_cast<uint32_t>(hr),pc_,&get,128,false,true);
  if(observation_){observation_->get_transform_attempted=true;observation_->get_transform_hresult=static_cast<uint32_t>(hr);}
@@ -488,8 +556,13 @@ void UiMargins::emit_group_candidates() noexcept {
   }out<<"]}";if(session().write(out.str()))++records_;else ++capture_log_failures_;
  }catch(...){++capture_log_failures_;}
 }
-bool UiMargins::finish_frame() noexcept {bool okay=!restore_pending_;anchors_.next_frame();++frame_id_;return okay;}
-void UiMargins::disable(const char* why) noexcept {if(capturing_){if(scope_depth_){capture_close_pending_=true;capture_close_reason_=why?why:"feature_disabled";}else finish_capture(capture_trace_frame_,device_id_,why?why:"feature_disabled");}enabled_=false;carousel_alignment_enabled_=false;half_=0;scene_family_=-1;scene_family_frame_=0;anchors_.begin_epoch(why);for(auto& s:scopes_)s.valid=false;if(active==this)active=nullptr;patch_.remove(memory);reason=why;}
+bool UiMargins::finish_frame() noexcept {
+ bool okay=!restore_pending_;
+ pending_present_=true;pending_present_frame_=frame_id_;pending_scene_valid_=scene_evidence_valid_&&scene_family_frame_==frame_id_&&!scene_family_conflicted_&&scene_family_epoch_==anchors_.epoch();
+ pending_present_family_=pending_scene_valid_?scene_family_:-1;pending_present_epoch_=pending_scene_valid_?scene_family_epoch_:0;
+ anchors_.next_frame();++frame_id_;return okay;
+}
+void UiMargins::disable(const char* why) noexcept {if(capturing_){if(scope_depth_){capture_close_pending_=true;capture_close_reason_=why?why:"feature_disabled";}else finish_capture(capture_trace_frame_,device_id_,why?why:"feature_disabled");}enabled_=false;carousel_alignment_enabled_=false;half_=0;anchors_.begin_epoch(why);clear_scene_context("invalidated_ui_epoch");for(auto& s:scopes_)s.valid=false;if(active==this)active=nullptr;patch_.remove(memory);reason=why;}
 UiMargins::~UiMargins(){for(auto& r:returns)if(r.owner==this)r.owner=nullptr;disable("device_release");}
 std::string UiMargins::json() const {
  MarginFP fp;std::ostringstream o;
@@ -502,6 +575,7 @@ std::string UiMargins::json() const {
   <<",\"carousel_promotions\":"<<anchors_.carousel_promotions<<",\"carousel_invalidations\":"<<anchors_.carousel_invalidations
   <<",\"carousel_capacity_evictions\":"<<anchors_.carousel_overflow<<",\"carousel_anchor_discards\":"<<anchors_.carousel_anchor_discards
   <<",\"carousel_override_draws\":"<<carousel_override_draws_
+  <<",\"scene_context_same_frame_uses\":"<<scene_context_same_frame_uses_<<",\"scene_context_previous_frame_uses\":"<<scene_context_previous_frame_uses_<<",\"scene_context_rejections\":"<<scene_context_rejections_
   <<",\"installed\":"<<(patch_.installed()?"true":"false")<<",\"enabled\":"<<(enabled_?"true":"false")<<",\"reason\":"<<quote(reason)
   <<",\"half_extra\":"<<half_<<",\"restore_boundary\":\"immediate_native_draw_return\",\"capture_active\":"<<(capturing_?"true":"false")
   <<",\"capture_id\":"<<(capturing_&&device_id_?quote(trace_capture_id(device_id_,capture_start_frame_)):"null")<<",\"capture_start_frame\":"<<capture_start_frame_

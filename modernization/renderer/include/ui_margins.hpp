@@ -18,6 +18,11 @@ struct CarouselSemanticDecision {
  uint64_t id=0;bool candidate=false,proven=false,promoted=false;
  const char* status="disabled";
 };
+struct SceneContextDecision {
+ int family=-1;uint64_t source_frame=0,consumer_frame=0,age=0;
+ bool source_frame_known=false,valid=false,frontend_allowed=false;
+ const char* phase="unknown_scene";const char* rejection_reason="unknown_scene";
+};
 // Semantic direction only. This registry never owns coordinates or writes memory.
 // At most two completed absent frames; observable identity/epoch changes win immediately.
 inline constexpr uint64_t MARGIN_ANCHOR_GRACE_FRAMES=2;
@@ -73,6 +78,7 @@ class Trace;
 struct MarginDrawDecision {
  MarginIdentity key{};MarginAnchorDecision anchor{};float native_x=0,native_y=0,margin=0,standard_margin=0;
  uint64_t carousel_id=0;bool carousel_override=false,valid=false;const char* carousel_status="disabled";
+ SceneContextDecision scene_context{};
 };
 inline constexpr uint32_t UI_DRAW_RETURN_RVA=0x0016d7c4;
 inline constexpr unsigned UI_PACKET_DRAW_OBSERVATION_LIMIT=8;
@@ -95,6 +101,7 @@ struct UiDrawObservation {
  bool restore_attempted=false,restore_requested_original_exact=false,restore_succeeded=false;uint32_t restore_hresult=0;
  const char* carousel_status="disabled";uint64_t carousel_id=0;bool carousel_override=false;
  float margin_effective_request=0;
+ SceneContextDecision scene_context{};
 };
 class UiMargins {
  friend struct detail::UiMarginsContract;
@@ -114,7 +121,12 @@ class UiMargins {
    uint64_t priority=0;float logical=0,effective=0;unsigned visits=0;int rule=0;uint8_t rule_mask=0;bool adjusted=false;
  };
  std::array<Observation,UI_CAPTURE_PACKET_CANDIDATE_LIMIT> observations_{};
- uint64_t frame_id_=1,next_id_=0,scene_family_frame_=0,device_id_=0,capture_start_frame_=0,capture_trace_frame_=0;
+ uint64_t frame_id_=1,next_id_=0,scene_family_frame_=0,scene_family_epoch_=0;
+ uint64_t completed_scene_frame_=0,completed_scene_epoch_=0,pending_present_frame_=0,pending_present_epoch_=0;
+ int completed_scene_family_=-1,pending_present_family_=-1;
+ bool scene_family_conflicted_=false,scene_evidence_valid_=false,pending_present_=false,pending_scene_valid_=false;
+ uint64_t scene_context_same_frame_uses_=0,scene_context_previous_frame_uses_=0,scene_context_rejections_=0;
+ uint64_t device_id_=0,capture_start_frame_=0,capture_trace_frame_=0;
  uint64_t records_=0,render_local_records_=0;
  uint64_t capture_count_=0,capture_records_=0,capture_render_local_records_=0,capture_packet_consumers_=0,capture_draw_observations_captured_=0;
  uint64_t capture_packets_with_draws_=0;
@@ -124,7 +136,9 @@ class UiMargins {
  uint64_t capture_render_local_drops_=0,capture_draw_drops_=0,capture_identity_invalidations_=0,capture_log_failures_=0;
  uint64_t capture_draw_observation_attempts_=0;
  uint64_t carousel_override_draws_=0;
- bool capturing_=false,capture_completed_=false,capture_close_pending_=false;DWORD thread_=0;float half_=0;bool enabled_=false,carousel_alignment_requested_=false,carousel_alignment_enabled_=false;int scene_family_=-1;const char* capture_end_reason_="none",*capture_close_reason_="none";
+ bool capturing_=false,capture_completed_=false,capture_close_pending_=false;DWORD thread_=0;float half_=0;bool enabled_=false,carousel_alignment_requested_=false,carousel_alignment_enabled_=false;int scene_family_=-1;const char* scene_invalidation_reason_="unknown_scene";const char* capture_end_reason_="none",*capture_close_reason_="none";
+ SceneContextDecision scene_context_for_draw() const noexcept;
+ void clear_scene_context(const char* reason) noexcept;
  std::string packet_observation_json(const Scope&) const;
  int find_observation(const MarginIdentity&,uint64_t epoch) const noexcept;
  int promote_observation(Scope&) noexcept;
@@ -144,6 +158,7 @@ public:
  void reset_diagnostics() noexcept;
  void reset_anchors(const char* reason) noexcept;
  void scene_context(bool race) noexcept;
+ void present_completed(bool succeeded) noexcept;
  bool enter_consume(uintptr_t entity) noexcept;
  void leave_consume() noexcept;
  MarginDrawDecision draw_decision(bool verified_ui_draw=false) noexcept;

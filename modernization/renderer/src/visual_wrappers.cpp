@@ -42,9 +42,9 @@ HRESULT STDMETHODCALLTYPE Device8::SetTransform(D3DTRANSFORMSTATETYPE type,const
 }
 HRESULT Device8::set_transform_at(D3DTRANSFORMSTATETYPE type,const D3DMATRIX* input,uintptr_t pc){
  auto guard=trace.guard();HRESULT repair=ui_margins.repair_world(*real_,trace,pc);if(FAILED(repair))return repair;auto args=pack(type,input);trace.before(37,args,pc);
- D3DMATRIX changed{};uint32_t rva=0;bool exe=site(pc,rva);bool rewritten=visuals.effective.fov&&visuals.projection(type,input,changed,exe,rva);
+ D3DMATRIX changed{};uint32_t rva=0;bool exe=site(pc,rva);int observed_scene_family=-1;bool rewritten=visuals.effective.fov&&visuals.projection(type,input,changed,exe,rva);
  if(quality&&quality->preview_capability.supported()&&type==D3DTS_PROJECTION&&exe&&rva==quality->preview_capability.candidate_rva){
-  D3DMATRIX source{};if(safe_copy(&source,input,sizeof(source))){int family=camera_scene_family(source);if(family>=0)ui_margins.scene_context(family==1);}
+  D3DMATRIX source{};if(safe_copy(&source,input,sizeof(source)))observed_scene_family=camera_scene_family(source);
  }
  if(rewritten){D3DMATRIX original{};rewritten=safe_copy(&original,input,sizeof(original))&&game_fov.allows(original);} // No D3D-only widening fallback.
  bool preview_rewritten=false;
@@ -59,6 +59,7 @@ HRESULT Device8::set_transform_at(D3DTRANSFORMSTATETYPE type,const D3DMATRIX* in
  trace.culling=game_fov.status();
  const D3DMATRIX* forwarded=(rewritten||ui_rewritten||preview_rewritten)?&changed:input;auto native=pack(type,forwarded);
 HRESULT hr=real_->SetTransform(type,forwarded);if(FAILED(hr)&&(rewritten||ui_rewritten||preview_rewritten)){trace.after(37,native,static_cast<uint32_t>(hr),pc,&native,rewritten?2:preview_rewritten?64:32,false,true);if(rewritten){game_fov.disable("native_projection_rejected");visuals.effective.fov=false;}if(preview_rewritten){quality->preview_capability.status="UNSUPPORTED";quality->preview_capability.reason="native_preview_projection_rejected";}if(ui_rewritten){quality->config.interface_mode="Stock";ui_margins.disable("native_ui_projection_rejected");}native=args;hr=real_->SetTransform(type,input);rewritten=ui_rewritten=preview_rewritten=false;}if(SUCCEEDED(hr)&&quality&&type==D3DTS_PROJECTION)quality->ui_projection_live=ui_rewritten;trace.after(37,args,static_cast<uint32_t>(hr),pc,&native,rewritten?2:ui_rewritten?32:preview_rewritten?64:0);
+ if(SUCCEEDED(hr)&&observed_scene_family>=0)ui_margins.scene_context(observed_scene_family==1);
  if(type==D3DTS_VIEW&&exe){
  CameraProbeGateInput probe_input{};probe_input.transform_type=type;probe_input.exe_caller=exe;probe_input.caller_rva=rva;
  probe_input.native_result=hr;probe_input.trace_enabled=trace.enabled;probe_input.capture_active=trace.control.active;
