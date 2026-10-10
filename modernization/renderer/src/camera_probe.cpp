@@ -159,6 +159,20 @@ std::string camera_owner_observation_json(const CameraOwnerObservation& owner,ui
   out<<",\"previous_pose\":";matrix(out,owner.camera.previous_pose.data());
   out<<",\"current_pose\":";matrix(out,owner.camera.pose.data());out<<",\"snap_frames\":"<<owner.camera.snap_frames<<'}';
  }else out<<"null";
+ out<<",\"pre_submission_camera\":{";
+ out<<"\"available\":"<<(owner.pre_submission.available?"true":"false")
+    <<",\"status\":"<<quote(owner.pre_submission.status?owner.pre_submission.status:"unknown");
+ if(owner.pre_submission.available){
+  const auto& c=owner.pre_submission.camera;
+  out<<",\"camera_pointer\":"<<owner.pre_submission.camera_pointer
+     <<",\"camera_index\":"<<owner.pre_submission.index<<",\"source_angle\":";
+  if(std::isfinite(c.source_angle))out<<std::setprecision(9)<<c.source_angle;else out<<"null";
+  out<<",\"viewport\":["<<c.x<<','<<c.y<<','<<c.width<<','<<c.height<<']'
+     <<",\"planes\":";float_array(out,c.planes);
+  out<<",\"previous_pose\":";matrix(out,c.previous_pose.data());
+  out<<",\"current_pose\":";matrix(out,c.pose.data());
+ }
+ out<<'}';
  out<<",\"d3d_requested_projection\":";matrix(out,requested_projection);
  out<<",\"d3d_projection\":";matrix(out,effective_projection);out<<",\"d3d_view\":";matrix(out,view);
  out<<",\"projection_is_effective_native_state\":true,\"camera_memory_written\":false,\"new_game_hook_installed\":false}";

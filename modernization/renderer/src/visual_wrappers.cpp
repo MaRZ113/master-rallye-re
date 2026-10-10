@@ -81,6 +81,7 @@ HRESULT hr=real_->SetTransform(type,forwarded);if(FAILED(hr)&&(rewritten||ui_rew
    }else{
     CameraOwnerObservation owner{};const uintptr_t base=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));
     if(base==0x00400000)read_camera_owner_observation(base,owner);
+    game_fov.submission_snapshot(owner.current_camera,owner.pre_submission);
     const bool reads_complete=camera_owner_reads_complete(owner);
     try{
      auto& runtime=session();

@@ -132,6 +132,7 @@ bool FrustumFrame::restore() noexcept {
  if(!okay){++status.failures;status.reason="camera_restore_failed";}return okay;
 }
 bool GameFov::install(bool exact,const VisualConfig& c) noexcept {
+ submission_=CameraSubmissionSnapshot{};
  if(!exact||!c.fov){frame_.status.reason=exact?"disabled":"unsupported_build";return false;}
  if(active||ambiguous_devices){ambiguous_devices=true;if(active)active->disable("multiple_devices");frame_.status.reason="multiple_devices";report(frame_.status);return false;}
  base_=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));thread_=GetCurrentThreadId();vfov_=c.vfov;
@@ -149,8 +150,9 @@ bool GameFov::install(bool exact,const VisualConfig& c) noexcept {
  report(frame_.status);return enabled_;
 }
 void GameFov::before_submit(unsigned index) noexcept {
- if(!enabled_){frame_.status.reason="inactive";return;}
- if(GetCurrentThreadId()!=thread_){enabled_=false;frame_.status.synchronized=false;frame_.status.reason="wrong_render_thread";++frame_.status.failures;return;}
+ submission_=CameraSubmissionSnapshot{};submission_.index=index;submission_.status="unmapped_camera_schedule";
+ if(!enabled_){frame_.status.reason="inactive";submission_.status="hook_inactive";return;}
+ if(GetCurrentThreadId()!=thread_){enabled_=false;frame_.status.synchronized=false;frame_.status.reason="wrong_render_thread";submission_.status="wrong_render_thread";++frame_.status.failures;return;}
  uintptr_t manager=0,camera=0;int count=0;
  if(!safe_copy(&manager,reinterpret_cast<void*>(base_+CAMERA_MANAGER_RVA),4)||!manager||
     !safe_copy(&count,reinterpret_cast<void*>(manager+0x10),4)||count!=1||index!=0||
@@ -158,14 +160,29 @@ void GameFov::before_submit(unsigned index) noexcept {
     current_camera(base_)!=reinterpret_cast<CameraFrame*>(camera)){
   frame_.restore();frame_.status.reason="unmapped_camera_schedule";return;
  }
+ if(!frame_.restore()){
+  submission_.status="previous_camera_restore_failed";disable("camera_restore_failed");return;
+ }
+ submission_.camera_pointer=camera;
+ if(!safe_copy(&submission_.camera,reinterpret_cast<const void*>(camera),sizeof(submission_.camera))){
+  submission_.status="camera_snapshot_read_failed";return;
+ }
+ submission_.available=true;submission_.status="captured_before_fov_plane_write";
  if(!frame_.begin(reinterpret_cast<CameraFrame*>(camera),vfov_)&&!frame_.status.restored)disable("camera_restore_failed");
+}
+void GameFov::submission_snapshot(uintptr_t expected_camera,CameraSubmissionSnapshot& out) const noexcept {
+ out=submission_;
+ if(out.available&&!camera_submission_matches(out,expected_camera)){out.available=false;out.status="camera_owner_changed";}
 }
 bool GameFov::allows(const D3DMATRIX& p) const noexcept {
  return enabled_&&GetCurrentThreadId()==thread_&&frame_.matches(current_camera(base_),p);
 }
-void GameFov::finish_frame() noexcept {if(!frame_.restore())disable("camera_restore_failed");}
+void GameFov::finish_frame() noexcept {
+ if(!frame_.restore())disable("camera_restore_failed");
+ submission_=CameraSubmissionSnapshot{};
+}
 void GameFov::disable(const char* reason) noexcept {
- enabled_=false;frame_.restore();if(active==this)active=nullptr;
+ enabled_=false;frame_.restore();submission_=CameraSubmissionSnapshot{};if(active==this)active=nullptr;
  // Startup/teardown are on the renderer thread; never hot-patch from an unreviewed thread.
  if(GetCurrentThreadId()==thread_)patch_.remove(memory);
  frame_.status.installed=patch_.installed();frame_.status.reason=reason;report(frame_.status);

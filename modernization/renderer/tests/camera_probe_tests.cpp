@@ -64,6 +64,12 @@ int main(int argc,char** argv){
  owner.camera_index=0;owner.camera_read=true;owner.camera.source_angle=90.f;owner.camera.flags=1;
  owner.camera.x=0;owner.camera.y=0;owner.camera.width=1920;owner.camera.height=1080;identity(owner.camera.pose);identity(owner.camera.previous_pose);
  std::array<float,12> planes{};planes={0,1,0,0,-1,0,1,0,0,-1,0,0};owner.camera.planes=planes;
+ owner.pre_submission.available=true;owner.pre_submission.status="captured_before_fov_plane_write";
+ owner.pre_submission.camera_pointer=owner.current_camera;owner.pre_submission.index=0;
+ owner.pre_submission.camera=owner.camera;owner.pre_submission.camera.pose[12]=123.f;
+ CHECK(camera_submission_matches(owner.pre_submission,owner.current_camera));
+ CHECK(!camera_submission_matches(owner.pre_submission,owner.current_camera+4));
+ CHECK(!camera_submission_matches(owner.pre_submission,0));
  D3DMATRIX view{};view._11=view._22=view._33=view._44=1.f;
  const auto effective_fov=perspective(75.,16./9.);
  const auto json=camera_owner_observation_json(owner,7,42,GAMEPLAY_VIEW_RETURN_RVA,race,effective_fov,view);
@@ -76,6 +82,9 @@ int main(int argc,char** argv){
  CHECK(json.find("\"count_valid\":true")!=std::string::npos);
  CHECK(json.find("\"singleton_read\":true")!=std::string::npos);
  CHECK(json.find("\"camera_index\":0")!=std::string::npos);
+ CHECK(json.find("\"pre_submission_camera\":{\"available\":true,\"status\":\"captured_before_fov_plane_write\"")!=std::string::npos);
+ CHECK(json.find("\"camera_pointer\":305419896")!=std::string::npos);
+ CHECK(json.find("\"current_pose\":{\"values\":[1,0,0,0,0,1,0,0,0,0,1,0,123")!=std::string::npos);
  CHECK(json.find("\"camera_memory_written\":false")!=std::string::npos);
  CHECK(json.find("\"new_game_hook_installed\":false")!=std::string::npos);
  CHECK(json.find("\"projection_is_effective_native_state\":true")!=std::string::npos);

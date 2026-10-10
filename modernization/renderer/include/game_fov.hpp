@@ -1,6 +1,7 @@
 #pragma once
 #include "visual_policy.hpp"
 #include <array>
+#include <cstdint>
 namespace gfx2 {
 inline constexpr uint32_t SUBMIT_CALL_RVA=0x002532DD, SUBMIT_OWNER_RVA=0x00109680;
 inline constexpr uint32_t CAMERA_MANAGER_RVA=0x002F94DC, RENDERER_HOLDER_RVA=0x002F9CF0;
@@ -28,6 +29,13 @@ struct CameraFrame {
  std::array<float,16> pose{};uint32_t snap_frames=0;
 };
 static_assert(sizeof(CameraFrame)==0xcc&&offsetof(CameraFrame,planes)==8&&offsetof(CameraFrame,pose)==0x88,"pristine camera layout");
+struct CameraSubmissionSnapshot {
+ uintptr_t camera_pointer=0;uint32_t index=UINT32_MAX;CameraFrame camera{};
+ bool available=false;const char* status="not_captured";
+};
+inline bool camera_submission_matches(const CameraSubmissionSnapshot& snapshot,uintptr_t camera) noexcept {
+ return snapshot.available&&camera!=0&&snapshot.camera_pointer==camera;
+}
 struct FovCullStatus {
  bool installed=false,synchronized=false,restored=true;
  uint32_t width=0,height=0;float source=0,vfov=0,hfov=0;
@@ -46,11 +54,13 @@ public:
 class GameFov {
  uintptr_t base_=0;DWORD thread_=0;float vfov_=0;bool enabled_=false;
  CallPatch patch_;FrustumFrame frame_;
+ CameraSubmissionSnapshot submission_{};
 public:
  GameFov()=default;~GameFov();GameFov(const GameFov&)=delete;GameFov& operator=(const GameFov&)=delete;
  bool install(bool exact,const VisualConfig&) noexcept;
  void disable(const char* reason) noexcept;
  void before_submit(unsigned index) noexcept;
+ void submission_snapshot(uintptr_t expected_camera,CameraSubmissionSnapshot& out) const noexcept;
  bool allows(const D3DMATRIX&) const noexcept;
  void finish_frame() noexcept;
  FovCullStatus status() const noexcept{return frame_.status;}

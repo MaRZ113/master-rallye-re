@@ -15,6 +15,7 @@ struct CameraOwnerObservation {
  bool manager_pointer_read=false,manager_count_read=false,renderer_pointer_read=false;
  bool manager_count_valid=false,renderer_holder_read=false,current_camera_read=false,camera_read=false;
  CameraFrame camera{};
+ CameraSubmissionSnapshot pre_submission{};
 };
 
 enum class CameraProbeStatus {
