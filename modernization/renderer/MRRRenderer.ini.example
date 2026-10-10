@@ -67,6 +67,11 @@ ControlPreset=0
 ; F10 is reserved. F8 is the first-flight key; rebind if a native control conflicts.
 ToggleKey=F8
 MoveSpeed=40.0
+MinMoveSpeed=0.25
+MaxMoveSpeed=300.0
+WheelSpeedFactor=1.25
+; World-space velocity response; 0 restores instantaneous translation.
+MovementSmoothSeconds=0.12
 FastMultiplier=6.0
 SlowMultiplier=0.20
 MouseSensitivity=0.12
@@ -85,6 +90,8 @@ Up=Space
 Down=LeftCtrl
 Fast=LeftShift
 Slow=LeftAlt
+SpeedIncrease=PageUp
+SpeedDecrease=PageDown
 
 [Shadows]
 ; 0 = Stock

@@ -11,10 +11,12 @@ namespace gfx2 {
 struct FlightState {
  FreeCameraConfig config;FlightWindowInput input;FlightController controller;RaceCertificate certificate,visible_certificate,scope_certificate;
  std::array<float,16> visible_pose{};bool visible=false,pose_scope=false;
+ bool speed_identity_valid=false;uint64_t speed_race_generation=0,speed_owner_lifetime=0;
  const char* reason="disabled";uint64_t scopes=0,restores=0,failures=0;
  bool reported_valid=false,reported_active=false,reported_horizon_leveling=false;uint64_t reported_race=0,reported_owner=0;const char* reported_reason="disabled";
  bool input_focused=false,toggle_pressed_focused=false,toggle_edge=false;
  bool reported_input_focused=false,reported_toggle_pressed=false,reported_toggle_edge=false;
+ bool reported_cursor_capture=false;uint64_t reported_speed_adjustments=0;
 };
 namespace {FlightState flight_state;}
 
@@ -177,7 +179,7 @@ bool GameFov::install(bool exact,const VisualConfig& c,HWND window,bool exact_re
  enabled_=patch_.install(memory,reinterpret_cast<void*>(base_+SUBMIT_CALL_RVA),reinterpret_cast<uintptr_t>(&detail::submit_bridge),SUBMIT_CALL_BYTES);
  frame_.status.installed=patch_.installed();frame_.status.reason=enabled_?"installed_before_device_return":"call_patch_failed";
  if(!enabled_){active=nullptr;patch_.remove(memory);completion_.remove(memory);frame_.status.installed=patch_.installed()||completion_.installed();}
- if(enabled_&&flight_config.enabled){flight_=&flight_state;flight_->config=flight_config;flight_->controller.cancel();flight_->visible=false;flight_->reason=flight_->input.attach(window)?"awaiting_live_race_certificate":"game_window_input_unavailable";if(!flight_->input.intact())flight_->config.enabled=false;}
+ if(enabled_&&flight_config.enabled){flight_=&flight_state;flight_->config=flight_config;flight_->controller.cancel();flight_->speed_identity_valid=false;flight_->visible=false;flight_->reason=flight_->input.attach(window)?"awaiting_live_race_certificate":"game_window_input_unavailable";if(!flight_->input.intact())flight_->config.enabled=false;}
  report(frame_.status);return enabled_;
 }
 void GameFov::before_submit(unsigned index) noexcept {
@@ -191,7 +193,7 @@ void GameFov::before_submit(unsigned index) noexcept {
     !safe_copy(&count,reinterpret_cast<void*>(manager+0x10),4)||count!=1||index!=0||
     !safe_copy(&camera,reinterpret_cast<void*>(manager+index*4),4)||!camera||
     current_camera(base_)!=reinterpret_cast<CameraFrame*>(camera)){
-  cancel_frame();if(flight_){flight_->controller.cancel();flight_->visible=false;}frame_.status.reason="unmapped_camera_schedule";return;
+  cancel_frame();if(flight_){flight_->controller.cancel();flight_->input.set_cursor_capture(false);flight_->visible=false;}frame_.status.reason="unmapped_camera_schedule";return;
  }
  if(!frame_.restore()){
   submission_.status="previous_camera_restore_failed";disable("camera_restore_failed");return;
@@ -209,20 +211,24 @@ void GameFov::before_submit(unsigned index) noexcept {
   // Reviewed gameplay/finalize/debug calls pass zero. Never force its cache flag.
   uint32_t sentinel=0;
   if(!safe_copy(&sentinel,reinterpret_cast<void*>(base_+0x2e9a74),4)||sentinel!=UINT32_MAX){f.certificate.valid=false;f.certificate.reason="camera_builder_cache_sentinel_changed";}
+  if(f.certificate.valid&&(!f.speed_identity_valid||f.speed_race_generation!=f.certificate.race_generation||f.speed_owner_lifetime!=f.certificate.owner_lifetime)){
+   f.controller.reset_for_race(f.config);f.speed_identity_valid=true;f.speed_race_generation=f.certificate.race_generation;f.speed_owner_lifetime=f.certificate.owner_lifetime;
+  }
   if(!f.certificate.valid)f.visible=false;
   auto input=f.input.sample(f.config,f.controller.active);bool visible=f.visible&&f.visible_certificate.camera==camera&&f.visible_certificate.owner_lifetime==f.certificate.owner_lifetime&&f.visible_certificate.race_generation==f.certificate.race_generation;
   bool flying=f.controller.update(f.config,input,f.certificate.valid,visible?&f.visible_pose:nullptr);
+  f.input.set_cursor_capture(flying&&input.focused);
   f.input_focused=input.focused;f.toggle_pressed_focused=input.focused&&input.toggle;f.toggle_edge=f.controller.last_toggle_edge;
   f.reason=flying?"freecam_active":!input.focused?"focus_lost":!f.certificate.valid?f.certificate.reason:visible?"ready_toggle_off":"awaiting_displayed_stock_view";
   if(flying){effective_pose=&f.controller.pose;f.scope_certificate=f.certificate;f.pose_scope=true;}
  }
  if(fov_enabled_||effective_pose){float fov=fov_enabled_?vfov_:submission_.camera.source_angle/std::max(1.f,float(submission_.camera.width)/submission_.camera.height);
-  if(!frame_.begin(reinterpret_cast<CameraFrame*>(camera),fov,effective_pose)){if(flight_){flight_->controller.cancel();flight_->pose_scope=false;++flight_->failures;flight_->reason="effective_camera_ineligible_or_write_failed";}if(!frame_.status.restored)disable("camera_restore_failed");}
+  if(!frame_.begin(reinterpret_cast<CameraFrame*>(camera),fov,effective_pose)){if(flight_){flight_->controller.cancel();flight_->input.set_cursor_capture(false);flight_->pose_scope=false;++flight_->failures;flight_->reason="effective_camera_ineligible_or_write_failed";}if(!frame_.status.restored)disable("camera_restore_failed");}
   else if(effective_pose&&flight_){++flight_->scopes;if(flight_->scopes==1)try{session().write("{\"type\":\"free_camera_scope\",\"phase\":\"R-CAM1-A3d\",\"event\":\"first_effective_scope\",\"owned_bytes\":176,\"pre_call_va\":6632157}");}catch(...){}}
  }
- if(flight_){auto& f=*flight_;if(f.reported_valid!=f.certificate.valid||f.reported_active!=f.controller.active||f.reported_horizon_leveling!=f.controller.horizon_leveling_active||f.reported_race!=f.certificate.race_generation||f.reported_owner!=f.certificate.owner_lifetime||f.reported_input_focused!=f.input_focused||f.reported_toggle_pressed!=f.toggle_pressed_focused||f.reported_toggle_edge!=f.toggle_edge||std::strcmp(f.reported_reason,f.reason)){
-  f.reported_valid=f.certificate.valid;f.reported_active=f.controller.active;f.reported_horizon_leveling=f.controller.horizon_leveling_active;f.reported_race=f.certificate.race_generation;f.reported_owner=f.certificate.owner_lifetime;f.reported_input_focused=f.input_focused;f.reported_toggle_pressed=f.toggle_pressed_focused;f.reported_toggle_edge=f.toggle_edge;f.reported_reason=f.reason;
-  try{session().write("{\"type\":\"free_camera_state\",\"phase\":\"R-CAM1-A3e\",\"state\":"+camera_json()+"}");
+ if(flight_){auto& f=*flight_;if(f.reported_valid!=f.certificate.valid||f.reported_active!=f.controller.active||f.reported_horizon_leveling!=f.controller.horizon_leveling_active||f.reported_race!=f.certificate.race_generation||f.reported_owner!=f.certificate.owner_lifetime||f.reported_input_focused!=f.input_focused||f.reported_toggle_pressed!=f.toggle_pressed_focused||f.reported_toggle_edge!=f.toggle_edge||f.reported_cursor_capture!=f.input.cursor_capture_active()||f.reported_speed_adjustments!=f.controller.speed_adjustment_count()||std::strcmp(f.reported_reason,f.reason)){
+  f.reported_valid=f.certificate.valid;f.reported_active=f.controller.active;f.reported_horizon_leveling=f.controller.horizon_leveling_active;f.reported_race=f.certificate.race_generation;f.reported_owner=f.certificate.owner_lifetime;f.reported_input_focused=f.input_focused;f.reported_toggle_pressed=f.toggle_pressed_focused;f.reported_toggle_edge=f.toggle_edge;f.reported_cursor_capture=f.input.cursor_capture_active();f.reported_speed_adjustments=f.controller.speed_adjustment_count();f.reported_reason=f.reason;
+  try{session().write("{\"type\":\"free_camera_state\",\"phase\":\"R-CAM1-A3f.1\",\"state\":"+camera_json()+"}");
    // Emit the full, bounded lifecycle certificate alongside each meaningful
    // freecam state/input transition. This keeps F10 reserved and records the
    // root/HUD jobs, their copied flags and commit results, RaceState admission,
@@ -243,16 +249,16 @@ void GameFov::finish_frame() noexcept {
  if(scheduler_depth_)return;cancel_frame();
 }
 void GameFov::cancel_frame() noexcept {
- if(thread_&&GetCurrentThreadId()!=thread_){frame_.abandon();if(flight_){flight_->pose_scope=false;flight_->controller.cancel();flight_->visible=false;flight_->reason="wrong_thread_no_stale_restore";++flight_->failures;}submission_=CameraSubmissionSnapshot{};return;}
+ if(thread_&&GetCurrentThreadId()!=thread_){frame_.abandon();if(flight_){flight_->pose_scope=false;flight_->controller.cancel();flight_->input.set_cursor_capture(false);flight_->visible=false;flight_->reason="wrong_thread_no_stale_restore";++flight_->failures;}submission_=CameraSubmissionSnapshot{};return;}
  if(flight_&&flight_->pose_scope){auto& f=*flight_;auto c=live_race_certificate(f.scope_certificate.camera);
-  if(current_camera(base_)!=reinterpret_cast<CameraFrame*>(f.scope_certificate.camera)||!c.valid||c.owner_lifetime!=f.scope_certificate.owner_lifetime||c.race_generation!=f.scope_certificate.race_generation){frame_.abandon();f.controller.cancel();++f.failures;f.reason="scope_identity_changed_no_stale_restore";}
-  else if(frame_.restore()){++f.restores;if(f.restores==1)try{session().write("{\"type\":\"free_camera_scope\",\"phase\":\"R-CAM1-A3d\",\"event\":\"first_verified_restore_after_scheduler\",\"owned_bytes\":176}");}catch(...){}}else {f.controller.cancel();++f.failures;f.reason="camera_restore_failed";}
+  if(current_camera(base_)!=reinterpret_cast<CameraFrame*>(f.scope_certificate.camera)||!c.valid||c.owner_lifetime!=f.scope_certificate.owner_lifetime||c.race_generation!=f.scope_certificate.race_generation){frame_.abandon();f.controller.cancel();f.input.set_cursor_capture(false);++f.failures;f.reason="scope_identity_changed_no_stale_restore";}
+  else if(frame_.restore()){++f.restores;if(f.restores==1)try{session().write("{\"type\":\"free_camera_scope\",\"phase\":\"R-CAM1-A3d\",\"event\":\"first_verified_restore_after_scheduler\",\"owned_bytes\":176}");}catch(...){}}else {f.controller.cancel();f.input.set_cursor_capture(false);++f.failures;f.reason="camera_restore_failed";}
   f.pose_scope=false;
  }else if(!frame_.restore()){enabled_=false;frame_.status.reason="camera_restore_failed";}
  submission_=CameraSubmissionSnapshot{};
 }
-void GameFov::cancel_lifecycle(const char* reason) noexcept {cancel_frame();if(flight_){flight_->controller.cancel();flight_->visible=false;flight_->certificate.valid=false;flight_->certificate.reason=reason;flight_->input.focus_lost();flight_->reason=reason;}}
-void GameFov::scheduler_begin() noexcept {if(thread_&&GetCurrentThreadId()!=thread_){disable("wrong_scheduler_thread");return;}if(++scheduler_depth_!=1){cancel_frame();if(flight_)flight_->controller.cancel();frame_.status.reason="scheduler_reentry";}}
+void GameFov::cancel_lifecycle(const char* reason) noexcept {cancel_frame();if(flight_){flight_->controller.cancel();flight_->input.focus_lost();flight_->visible=false;flight_->certificate.valid=false;flight_->certificate.reason=reason;flight_->reason=reason;}}
+void GameFov::scheduler_begin() noexcept {if(thread_&&GetCurrentThreadId()!=thread_){disable("wrong_scheduler_thread");return;}if(++scheduler_depth_!=1){cancel_frame();if(flight_){flight_->controller.cancel();flight_->input.set_cursor_capture(false);}frame_.status.reason="scheduler_reentry";}}
 void GameFov::scheduler_end() noexcept {if(thread_&&GetCurrentThreadId()!=thread_){disable("wrong_scheduler_thread");return;}if(!scheduler_depth_){disable("scheduler_depth_underflow");return;}--scheduler_depth_;if(!scheduler_depth_)cancel_frame();}
 void GameFov::stock_view(const D3DMATRIX& v) noexcept {
  if(!flight_||!flight_->config.enabled||flight_->controller.active||!submission_.available)return;
@@ -262,7 +268,7 @@ bool GameFov::free_camera_configured() const noexcept {return flight_&&flight_->
 bool GameFov::free_camera_active() const noexcept {return flight_&&flight_->controller.active;}
 std::string GameFov::camera_json() const {
  std::ostringstream o;o<<"{\"configured\":"<<(free_camera_configured()?"true":"false")<<",\"active\":"<<(free_camera_active()?"true":"false")<<",\"scheduler_depth\":"<<scheduler_depth_<<",\"scope_restored\":"<<(frame_.status.restored?"true":"false");
- if(flight_){auto& f=*flight_;auto& c=f.controller;o<<",\"reason\":"<<quote(f.reason)<<",\"certificate_valid\":"<<(f.certificate.valid?"true":"false")<<",\"certificate_reason\":"<<quote(f.certificate.reason)<<",\"race_generation\":"<<f.certificate.race_generation<<",\"owner_lifetime\":"<<f.certificate.owner_lifetime<<",\"camera\":"<<f.certificate.camera<<",\"toggle_key_vk\":"<<f.config.toggle<<",\"toggle_pressed_while_focused\":"<<((f.input_focused&&f.toggle_pressed_focused)?"true":"false")<<",\"controller_toggle_edge\":"<<(f.toggle_edge?"true":"false")<<",\"horizon_mode\":"<<quote(f.config.auto_level_horizon?"auto_level":"native_roll")<<",\"horizon_leveling_active\":"<<(c.horizon_leveling_active?"true":"false")<<",\"current_roll_degrees\":"<<c.current_roll_degrees<<",\"target_roll_degrees\":"<<c.target_roll_degrees<<",\"horizon_level_progress\":"<<c.horizon_level_progress<<",\"orientation_valid\":"<<(c.orientation_valid?"true":"false")<<",\"scopes\":"<<f.scopes<<",\"restores\":"<<f.restores<<",\"failures\":"<<f.failures;}
+ if(flight_){auto& f=*flight_;auto& c=f.controller;o<<",\"reason\":"<<quote(f.reason)<<",\"certificate_valid\":"<<(f.certificate.valid?"true":"false")<<",\"certificate_reason\":"<<quote(f.certificate.reason)<<",\"race_generation\":"<<f.certificate.race_generation<<",\"owner_lifetime\":"<<f.certificate.owner_lifetime<<",\"camera\":"<<f.certificate.camera<<",\"toggle_key_vk\":"<<f.config.toggle<<",\"toggle_pressed_while_focused\":"<<((f.input_focused&&f.toggle_pressed_focused)?"true":"false")<<",\"controller_toggle_edge\":"<<(f.toggle_edge?"true":"false")<<",\"configured_base_speed\":"<<f.config.speed<<",\"current_base_speed\":"<<c.current_speed()<<",\"minimum_base_speed\":"<<f.config.min_speed<<",\"maximum_base_speed\":"<<f.config.max_speed<<",\"wheel_speed_factor\":"<<f.config.wheel_speed_factor<<",\"movement_smoothing_seconds\":"<<f.config.movement_smooth_seconds<<",\"current_velocity_magnitude\":"<<c.velocity_magnitude()<<",\"speed_input_source\":"<<quote(c.speed_input_source())<<",\"speed_adjustment_count\":"<<c.speed_adjustment_count()<<",\"wheel_input_available\":"<<(f.input.wheel_input_available()?"true":"false")<<",\"wheel_input_status\":"<<quote(f.input.wheel_input_available()?"game_hwnd_subclass_delta_forwarded":"unavailable_without_game_hwnd")<<",\"cursor_capture_active\":"<<(f.input.cursor_capture_active()?"true":"false")<<",\"cursor_policy\":"<<quote(f.input.cursor_capture_active()?"focused_freecam_suppress_client_setcursor":"native_window_policy")<<",\"look_smoothing_seconds\":0,\"look_smoothing_status\":\"deferred_to_preserve_mouse_precision\",\"horizon_mode\":"<<quote(f.config.auto_level_horizon?"auto_level":"native_roll")<<",\"horizon_leveling_active\":"<<(c.horizon_leveling_active?"true":"false")<<",\"current_roll_degrees\":"<<c.current_roll_degrees<<",\"target_roll_degrees\":"<<c.target_roll_degrees<<",\"horizon_level_progress\":"<<c.horizon_level_progress<<",\"orientation_valid\":"<<(c.orientation_valid?"true":"false")<<",\"scopes\":"<<f.scopes<<",\"restores\":"<<f.restores<<",\"failures\":"<<f.failures;}
  o<<'}';return o.str();
 }
 std::string free_camera_snapshot_json(){return active?active->camera_json():"{\"configured\":false,\"active\":false,\"reason\":\"shared_camera_hook_inactive\"}";}

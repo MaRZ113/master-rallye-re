@@ -22,12 +22,13 @@ void activate(FlightController& f,const FreeCameraConfig& c,const std::array<flo
 void controls(){
  wchar_t directory[MAX_PATH]{},name[MAX_PATH]{};CHECK(GetTempPathW(MAX_PATH,directory)&&GetTempFileNameW(directory,L"mcf",0,name));
  struct TempIni {const wchar_t* path;~TempIni(){DeleteFileW(path);}} cleanup{name};
- const char text[]="[Renderer]\r\nConfigVersion=1\r\n[FreeCamera]\r\nEnabled=1\r\nControlPreset=1\r\nToggleKey=F8\r\n[Trace]\r\nEnabled=0\r\n";
+ const char text[]="[Renderer]\r\nConfigVersion=1\r\n[FreeCamera]\r\nEnabled=1\r\nControlPreset=1\r\nToggleKey=F8\r\nMovementSmoothSeconds=0.12\r\n[FreeCameraKeys]\r\nSpeedIncrease=PageUp\r\nSpeedDecrease=PageDown\r\n[Trace]\r\nEnabled=0\r\n";
  HANDLE file=CreateFileW(name,GENERIC_WRITE,0,nullptr,TRUNCATE_EXISTING,FILE_ATTRIBUTE_NORMAL,nullptr);CHECK(file!=INVALID_HANDLE_VALUE);DWORD written=0;bool stored=WriteFile(file,text,sizeof(text)-1,&written,nullptr)&&written==sizeof(text)-1;CloseHandle(file);CHECK(stored);
- auto loaded=read_visual_config(name);auto parsed=parse_free_camera_config(loaded.raw_fields);CHECK(loaded.version_ok&&parsed.enabled&&parsed.preset==1); // Actual INI reader, no tracing prerequisite.
+ auto loaded=read_visual_config(name);auto parsed=parse_free_camera_config(loaded.raw_fields);CHECK(loaded.version_ok&&parsed.enabled&&parsed.preset==1&&parsed.speed_increase==VK_PRIOR&&parsed.movement_smooth_seconds==.12f); // Actual INI reader, no tracing prerequisite.
  auto invalid=parse_visual_config({{"Renderer.ConfigVersion","2"},{"FreeCamera.Enabled","1"}},true);GameFov rejected;CHECK(!rejected.install(true,invalid,nullptr,true)&&!rejected.free_camera_configured());
  CHECK(!parse_free_camera_config({}).enabled);
  auto c=parse_free_camera_config({{"FreeCamera.Enabled","1"}});CHECK(c.enabled&&c.preset==0&&c.toggle==VK_F8);
+ CHECK(c.speed_increase==VK_PRIOR&&c.speed_decrease==VK_NEXT&&c.min_speed==.25f&&c.max_speed==300.f&&c.movement_smooth_seconds==.12f);
  CHECK(c.auto_level_horizon&&std::abs(c.horizon_level_seconds-.30f)<.0001f);
  auto level_off=parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.AutoLevelHorizon","false"},{"FreeCamera.HorizonLevelSeconds","0"}});CHECK(level_off.enabled&&!level_off.auto_level_horizon&&level_off.horizon_level_seconds==0);
  CHECK(!parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.AutoLevelHorizon","maybe"}}).enabled);
@@ -35,6 +36,11 @@ void controls(){
  CHECK(!parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.ToggleKey","F10"}}).enabled);
  CHECK(!parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.MoveSpeed","NaN"}}).enabled);
  CHECK(!parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.MoveSpeed","40junk"}}).enabled);
+ CHECK(!parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.WheelSpeedFactor","1"}}).enabled);
+ CHECK(!parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.MinMoveSpeed","3"},{"FreeCamera.MaxMoveSpeed","2"}}).enabled);
+ CHECK(!parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCameraKeys.SpeedIncrease","PageDown"}}).enabled);
+ CHECK(!parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCameraKeys.SpeedIncrease","W"}}).enabled);
+ auto no_smoothing=parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.MovementSmoothSeconds","0"}});CHECK(no_smoothing.enabled&&no_smoothing.movement_smooth_seconds==0);
  auto pad=parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.ControlPreset","1"}});CHECK(pad.enabled&&pad.keys[0]==0x148&&pad.keys[0]!=VK_UP&&pad.keys[0]!='8');
  std::map<std::string,std::string> custom{{"FreeCamera.Enabled","1"},{"FreeCamera.ControlPreset","2"},{"FreeCamera.ToggleKey","Q"}};
  const char* names[]={"Forward","Backward","Left","Right","Up","Down","Fast","Slow"};const char* keys[]={"Numpad8","Numpad2","Numpad4","Numpad6","Numpad9","Numpad3","LeftShift","LeftAlt"};
@@ -44,13 +50,56 @@ void controls(){
  FlightController f;FlightInput in;auto visible=identity();in.focused=true;CHECK(!f.update(c,in,true,&visible)&&!f.last_toggle_edge);in.toggle=true;CHECK(f.update(c,in,true,&visible)&&f.pose==visible&&f.last_toggle_edge);
  // Held toggle does not oscillate; exact initial pose, no activation snap/flip.
  CHECK(f.update(c,in,true,&visible)&&!f.last_toggle_edge);in.toggle=false;CHECK(f.update(c,in,true,&visible)&&!f.last_toggle_edge);
- in.keys[0]=in.keys[3]=true;in.seconds=1;auto before=f.pose;CHECK(f.update(c,in,true,&visible));double length=0;for(unsigned j=0;j<3;++j)length+=std::pow(f.pose[12+j]-before[12+j],2);CHECK(std::abs(std::sqrt(length)-2)<.00001); // 40m/s, bounded .05sec diagonal.
- in.keys={};in.keys[4]=true;in.seconds=.01;before=f.pose;f.update(c,in,true,&visible);CHECK(f.pose[12]==before[12]&&f.pose[14]==before[14]&&f.pose[13]>before[13]);
+ in.keys[0]=in.keys[3]=true;in.seconds=1;auto before=f.pose;CHECK(f.update(no_smoothing,in,true,&visible));double length=0;for(unsigned j=0;j<3;++j)length+=std::pow(f.pose[12+j]-before[12+j],2);CHECK(std::abs(std::sqrt(length)-2)<.00001); // 40m/s, bounded .05sec diagonal.
+ in.keys={};in.keys[4]=true;in.seconds=.01;before=f.pose;f.update(no_smoothing,in,true,&visible);CHECK(f.pose[12]==before[12]&&f.pose[14]==before[14]&&f.pose[13]>before[13]);
  in.keys={};in.mouse_x=1000;in.mouse_y=-1000;for(unsigned n=0;n<100;++n)CHECK(f.update(c,in,true,&visible));CHECK(std::isfinite(f.pose[0])&&std::abs(f.pose[9])<1);
  in={};in.focused=false;CHECK(!f.update(c,in,true,&visible)&&!f.active&&!f.last_toggle_edge);in.focused=true;in.toggle=true;CHECK(!f.update(c,in,true,&visible)&&!f.last_toggle_edge); // Held toggle through Alt+Tab requires release.
  in.toggle=false;f.update(c,in,true,&visible);in.toggle=true;CHECK(f.update(c,in,true,&visible));CHECK(!f.update(c,in,false,&visible));
  // Frontend/unknown certificate and malformed visible view never activate.
  f.cancel();in.toggle=false;f.update(c,in,true,&visible);in.toggle=true;CHECK(!f.update(c,in,false,&visible));visible[0]=2;f.cancel();in.toggle=false;f.update(c,in,true,&visible);in.toggle=true;CHECK(!f.update(c,in,true,&visible));
+}
+void movement_and_speed(){
+ auto c=parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.MovementSmoothSeconds","0.12"}});auto p=identity();
+ FlightController f;activate(f,c,p);FlightInput in;in.focused=true;in.seconds=.05;CHECK(f.update(c,in,true,&p)); // release F8
+ in.keys[0]=true;double z=f.pose[14];CHECK(f.update(c,in,true,&p));double first=f.pose[14]-z;CHECK(first<0&&std::abs(first)<2&&f.velocity_magnitude()>0);
+ for(unsigned n=0;n<8;++n)CHECK(f.update(c,in,true,&p));CHECK(f.velocity_magnitude()>39);
+ in.keys={};double prior=f.velocity_magnitude();z=f.pose[14];CHECK(f.update(c,in,true,&p));CHECK(f.velocity_magnitude()<prior&&f.velocity_magnitude()>0&&f.pose[14]<z); // Smooth stop coasts briefly.
+ for(unsigned n=0;n<200;++n)CHECK(f.update(c,in,true,&p));CHECK(f.velocity_magnitude()==0);
+ // A held speed key emits one multiplicative adjustment; a release is required before the next.
+ double initial=f.current_speed();in.speed_increase=true;CHECK(f.update(c,in,true,&p));CHECK(std::abs(f.current_speed()-initial*1.25)<.0001);for(unsigned n=0;n<20;++n)CHECK(f.update(c,in,true,&p));CHECK(std::abs(f.current_speed()-initial*1.25)<.0001);
+ in.speed_increase=false;CHECK(f.update(c,in,true,&p));in.speed_decrease=true;CHECK(f.update(c,in,true,&p));CHECK(std::abs(f.current_speed()-initial)<.0001);CHECK(f.speed_adjustment_count()==2);
+ in.speed_decrease=false;in.wheel_delta=60;CHECK(f.update(c,in,true,&p));CHECK(f.current_speed()==initial);in.wheel_delta=60;CHECK(f.update(c,in,true,&p));CHECK(std::abs(f.current_speed()-initial*1.25)<.0001);
+ in.wheel_delta=-240;CHECK(f.update(c,in,true,&p));CHECK(std::abs(f.current_speed()-initial/1.25)<.0001); // Two negative notches.
+ in.wheel_delta=0;f.reset_for_race(c);CHECK(f.current_speed()==c.speed&&f.speed_adjustment_count()==0&&!f.active); // Race identity resets configured starting speed and disarms flight.
+ activate(f,c,p);in={};in.focused=true;
+ in.speed_increase=true;for(unsigned n=0;n<1600;++n){CHECK(f.update(c,in,true,&p));in.speed_increase=false;CHECK(f.update(c,in,true,&p));in.speed_increase=true;}CHECK(f.current_speed()==c.max_speed&&std::isfinite(f.current_speed()));
+ in.speed_increase=false;in.speed_decrease=true;for(unsigned n=0;n<2200;++n){CHECK(f.update(c,in,true,&p));in.speed_decrease=false;CHECK(f.update(c,in,true,&p));in.speed_decrease=true;}CHECK(f.current_speed()==c.min_speed&&std::isfinite(f.current_speed()));
+ // Focus/certificate loss clears momentum; a new activation starts at rest.
+ in={};in.focused=true;in.toggle=true;CHECK(!f.update(c,in,false,&p)&&!f.active&&f.velocity_magnitude()==0);in.toggle=false;CHECK(!f.update(c,in,true,&p));in.toggle=true;CHECK(f.update(c,in,true,&p));in={};in.focused=true;in.seconds=.05;CHECK(f.update(c,in,true,&p));in.keys[0]=true;CHECK(f.update(c,in,true,&p));CHECK(f.velocity_magnitude()>0);in.focused=false;CHECK(!f.update(c,in,true,&p)&&f.velocity_magnitude()==0&&!f.active);
+ // Instant mode retains the former displacement, normalized diagonals and bounded dt.
+ auto instant=parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.MovementSmoothSeconds","0"}});FlightController i;activate(i,instant,p);in={};in.focused=true;in.seconds=.05;CHECK(i.update(instant,in,true,&p));in.keys[0]=true;double z0=i.pose[14];CHECK(i.update(instant,in,true,&p));CHECK(std::abs((i.pose[14]-z0)+2)<.00001);in.keys={};in.keys[0]=in.keys[3]=true;z0=i.pose[14];double x0=i.pose[12];CHECK(i.update(instant,in,true,&p));CHECK(std::abs(std::hypot(i.pose[12]-x0,i.pose[14]-z0)-2)<.00001);
+ in.keys={};in.keys[4]=true;double y0=i.pose[13];CHECK(i.update(instant,in,true,&p));CHECK(i.pose[13]-y0==2);in.keys={};in.keys[0]=true;in.seconds=100;z0=i.pose[14];CHECK(i.update(instant,in,true,&p));CHECK(std::abs((i.pose[14]-z0)+2)<.00001);
+ // Fast and Slow remain multiplicative and base speed remains unchanged.
+ in.seconds=.05;in.keys={};in.keys[0]=true;in.keys[6]=in.keys[7]=true;z0=i.pose[14];CHECK(i.update(instant,in,true,&p));CHECK(std::abs((i.pose[14]-z0)+2.4)<.0001&&i.current_speed()==instant.speed);
+ auto travel=[&](double step,unsigned count){FlightController x;activate(x,c,p);FlightInput q;q.focused=true;CHECK(x.update(c,q,true,&p));q.keys[0]=true;q.seconds=step;for(unsigned n=0;n<count;++n)CHECK(x.update(c,q,true,&p));return x.pose[14];};
+ CHECK(std::abs(travel(.01,20)-travel(.025,8))<.0002); // Exact exponential integration is independent of frame subdivision.
+ FlightController coasting;activate(coasting,c,p);in={};in.focused=true;in.seconds=.05;CHECK(coasting.update(c,in,true,&p));in.keys[0]=true;CHECK(coasting.update(c,in,true,&p));in.keys={};in.mouse_x=150;double x_before=coasting.pose[12],z_before=coasting.pose[14];CHECK(coasting.update(c,in,true,&p));CHECK(std::abs(coasting.pose[12]-x_before)<.00001&&coasting.pose[14]<z_before); // Camera yaw does not rotate existing world-space momentum.
+}
+namespace {unsigned input_window_calls=0;LRESULT CALLBACK input_window_proc(HWND,UINT,WPARAM,LPARAM){++input_window_calls;return 0x1234;}}
+void window_input(){
+ HINSTANCE instance=GetModuleHandleW(nullptr);WNDCLASSW cls{};cls.lpfnWndProc=input_window_proc;cls.hInstance=instance;cls.lpszClassName=L"MRRFreeCameraInputFixture";CHECK(RegisterClassW(&cls));
+ HWND game=CreateWindowExW(0,cls.lpszClassName,L"game fixture",WS_OVERLAPPEDWINDOW,20,20,320,240,nullptr,nullptr,instance,nullptr);HWND other=CreateWindowExW(0,cls.lpszClassName,L"other fixture",WS_OVERLAPPEDWINDOW,20,20,320,240,nullptr,nullptr,instance,nullptr);CHECK(game&&other);
+ {FlightWindowInput input;CHECK(input.attach(game)&&input.intact()&&input.wheel_input_available());input.set_cursor_capture(true);CHECK(input.cursor_capture_active());
+  input_window_calls=0;CHECK(SendMessageW(game,WM_SETCURSOR,0,MAKELPARAM(HTCLIENT,WM_MOUSEMOVE))==TRUE&&input_window_calls==0); // Narrow active client suppression.
+  CHECK(SendMessageW(game,WM_SETCURSOR,0,MAKELPARAM(HTCAPTION,WM_NCMOUSEMOVE))==0x1234&&input_window_calls==1);
+  CHECK(SendMessageW(game,WM_MOUSEWHEEL,MAKEWPARAM(0,120),0)==0x1234&&input_window_calls==2&&input.take_wheel_delta()==120);
+  SendMessageW(game,WM_MOUSEWHEEL,MAKEWPARAM(0,60),0);SendMessageW(game,WM_MOUSEWHEEL,MAKEWPARAM(0,60),0);CHECK(input.take_wheel_delta()==120);
+  SendMessageW(game,WM_MOUSEWHEEL,MAKEWPARAM(0,static_cast<WORD>(-120)),0);CHECK(input.take_wheel_delta()==-120);
+  for(unsigned n=0;n<40;++n)SendMessageW(game,WM_MOUSEWHEEL,MAKEWPARAM(0,120),0);CHECK(input.take_wheel_delta()==1440);
+  SendMessageW(game,WM_MOUSEWHEEL,MAKEWPARAM(0,120),0);input.focus_lost();CHECK(!input.cursor_capture_active()&&input.take_wheel_delta()==0);
+  SendMessageW(game,WM_SETCURSOR,0,MAKELPARAM(HTCLIENT,WM_MOUSEMOVE));CHECK(input_window_calls>0); // Native behavior resumes outside capture.
+  input.set_cursor_capture(false);SendMessageW(other,WM_SETCURSOR,0,MAKELPARAM(HTCLIENT,WM_MOUSEMOVE));CHECK(input_window_calls>0);input.release();CHECK(!input.intact());}
+ CHECK(DestroyWindow(other)&&DestroyWindow(game));CHECK(UnregisterClassW(cls.lpszClassName,instance));
 }
 void horizon(){
  auto c=parse_free_camera_config({{"FreeCamera.Enabled","1"}});auto identity_pose=identity();FlightController zero;FlightInput in;in.focused=true;CHECK(!zero.update(c,in,true,&identity_pose));in.toggle=true;in.mouse_x=500;in.mouse_y=-400;in.seconds=.05;CHECK(zero.update(c,in,true,&identity_pose));CHECK(zero.pose==identity_pose); // Activation is exact even with unusual first packet.
@@ -160,4 +209,4 @@ void bridges(){
 }
 
 }
-int main(){try{controls();horizon();scopes();bridges();std::cout<<"Flight orientation / horizon stabilization / displayed VIEW inversion / owned 176-byte scope / seven real scheduler RET4 ABI cases: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<"\n";return 1;}}
+int main(){try{controls();movement_and_speed();window_input();horizon();scopes();bridges();std::cout<<"Flight movement/speed / cursor and wheel HWND policy / horizon stabilization / displayed VIEW inversion / owned 176-byte scope / seven real scheduler RET4 ABI cases: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<"\n";return 1;}}

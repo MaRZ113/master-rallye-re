@@ -55,7 +55,7 @@ public:
  uint64_t native_reset_calls=0,window_reset_echoes=0,window_reset_echoes_suppressed=0,deferred_resets=0;
  uint64_t windowed_resize_admissions=0;
 private:
- CursorIdle cursor_;HCURSOR saved_cursor_=nullptr;
+ CursorIdle cursor_;HCURSOR saved_cursor_=nullptr;bool free_camera_cursor_hidden_=false;
  WindowApi* windows_;bool window_owned_=false,committing_=false,shutting_down_=false;D3DPRESENT_PARAMETERS fallback_{};
  WindowState committed_{};
  bool initial_window_commit_complete_=false;

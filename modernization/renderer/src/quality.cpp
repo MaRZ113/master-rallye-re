@@ -83,7 +83,7 @@ int camera_scene_family(const D3DMATRIX& source) noexcept {
  return -1;
 }
 QualityPipeline::~QualityPipeline(){begin_shutdown();}
-void QualityPipeline::begin_shutdown() noexcept {if(shutting_down_)return;shutting_down_=true;window_owned_=false;if(cursor_.hidden){SetCursor(saved_cursor_?saved_cursor_:LoadCursorW(nullptr,MAKEINTRESOURCEW(32512)));cursor_.hidden=false;}display_breadcrumb("shutdown_skip_window_restore");}
+void QualityPipeline::begin_shutdown() noexcept {if(shutting_down_)return;shutting_down_=true;window_owned_=false;if(cursor_.hidden||free_camera_cursor_hidden_){if(!GetCursor())SetCursor(saved_cursor_?saved_cursor_:LoadCursorW(nullptr,MAKEINTRESOURCEW(32512)));cursor_.hidden=false;free_camera_cursor_hidden_=false;saved_cursor_=nullptr;}display_breadcrumb("shutdown_skip_window_restore");}
 void QualityPipeline::configure(const VisualConfig& c,bool ui_supported,UINT a,D3DDEVTYPE t,HWND w){
  config=c;adapter=a;type=t;focus=w;display=c.display_mode;display_reason=c.display_reason;aa_reason=c.aa_reason;
  normal_target_width_=normal_target_height_=exclusive_width_=exclusive_height_=0;normal_target_valid_=false;
@@ -103,12 +103,14 @@ int CursorIdle::update(bool inside,POINT p,uint64_t now,unsigned delay) noexcept
  if(now-last_move>=delay&&!hidden){hidden=true;return -1;}return 0;
 }
 void QualityPipeline::cursor_focus_lost() noexcept {
- bool hidden=cursor_.hidden;cursor_.update(false,POINT{},GetTickCount64(),config.cursor_delay_ms);
+ bool hidden=cursor_.hidden||free_camera_cursor_hidden_;cursor_.update(false,POINT{},GetTickCount64(),config.cursor_delay_ms);free_camera_cursor_hidden_=false;
  if(hidden&&!GetCursor())SetCursor(saved_cursor_?saved_cursor_:LoadCursorW(nullptr,MAKEINTRESOURCEW(32512)));saved_cursor_=nullptr;
 }
 void QualityPipeline::cursor_tick() noexcept {
  if(shutting_down_)return;POINT p{};RECT r{};HWND w=effective.hDeviceWindow?effective.hDeviceWindow:focus;
- if(free_camera_cursor&&GetForegroundWindow()==w&&!IsIconic(w)){if(!cursor_.hidden){saved_cursor_=GetCursor();cursor_.hidden=true;}SetCursor(nullptr);return;}
+ bool freecam=free_camera_cursor&&w&&GetForegroundWindow()==w&&!IsIconic(w);
+ if(freecam){if(!free_camera_cursor_hidden_&&!cursor_.hidden)saved_cursor_=GetCursor();free_camera_cursor_hidden_=true;SetCursor(nullptr);return;}
+ if(free_camera_cursor_hidden_){free_camera_cursor_hidden_=false;if(!cursor_.hidden){if(!GetCursor())SetCursor(saved_cursor_?saved_cursor_:LoadCursorW(nullptr,MAKEINTRESOURCEW(32512)));saved_cursor_=nullptr;}}
  bool inside=config.auto_hide_cursor&&(display=="Borderless"||display=="ExclusiveFullscreen")&&GetForegroundWindow()==w&&GetCursorPos(&p)&&GetWindowRect(w,&r)&&PtInRect(&r,p);
  int action=cursor_.update(inside,p,GetTickCount64(),config.cursor_delay_ms);
  if(action<0){saved_cursor_=GetCursor();SetCursor(nullptr);}

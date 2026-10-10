@@ -1,0 +1,9 @@
+# R-CAM1-A3f.1 runtime handoff
+
+Build the candidate with `python modernization/renderer/tools/build.py`. Copy the resulting `modernization/renderer/.build-msvc/Release/d3d8.dll` using the same safe test procedure used for the accepted A3f candidate. Keep the existing supported retail executable and avoid changing other quality settings during this short control check.
+
+Use `[FreeCamera] Enabled=1`, `ControlPreset=1`, `ToggleKey=F8`, `MoveSpeed=40.0`, `MinMoveSpeed=0.25`, `MaxMoveSpeed=300.0`, `WheelSpeedFactor=1.25`, `MovementSmoothSeconds=0.12`, `FastMultiplier=6.0`, `SlowMultiplier=0.20`, `MouseSensitivity=0.12`, `AutoLevelHorizon=1`, and `HorizonLevelSeconds=0.30`. `[FreeCameraKeys]` retains Numpad8/2/4/6/9/3, LeftShift/LeftAlt, with `SpeedIncrease=PageUp` and `SpeedDecrease=PageDown`. `LookSmoothSeconds` is not supported in this candidate; mouse look remains direct.
+
+On France1 in a one-player race, activate Freecam with F8. Check a short movement press and release, reverse direction, make a precise move at minimum speed with repeated PageDown, then restore speed with PageUp. Verify Shift and Alt modifiers, mouse wheel if the game routes wheel messages to its main window, and the center cursor while looking around. Alt+Tab and return, pause and fly briefly, then turn Freecam off and confirm normal camera recovery. Horizon should remain as accepted in A3f.
+
+Pass when the controls feel predictable, speed remains within configured limits, wheel events do not disrupt native window input, the cursor remains hidden only during focused active Freecam, focus return works, paused flight remains possible, and camera scopes continue restoring without failures. If a defect occurs, capture one F10 snapshot and the matching session JSONL. A successful build or synthetic message test is not an in-game pass.
