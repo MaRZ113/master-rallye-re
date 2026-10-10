@@ -1,6 +1,6 @@
 # R-UI1 — Carousel Selection Alignment
 
-**Current status: BLOCKED_ON_ATOMIC_GROUP_OWNERSHIP.** R-UI1-D2 bounded F10 diagnostics and R-UI1-D3a frontend scene-phase synchronization remain valid. D3b removes the individually promoted render override because a complete carousel roster cannot be proven before the first card draw. The opt-in classifier now records member motion evidence only and preserves the underlying PreserveMargins decision. See [D3b group ownership findings](d3b-atomic-group.md). Earlier D3/D3a readiness statements below are historical and superseded for visual alignment.
+**Current status: READY_FOR_EXPERIMENTAL_IN_GAME_VALIDATION — R-UI1-FINAL.** The deterministic exact-retail card-row policy replaces D3b's roster dependency. Every eligible current draw keeps source coordinates immediately; motion remains diagnostic and anchors are retained. D2 bounded F10 diagnostics, D3a completed-Present scene synchronization and PreserveMargins v2 restoration are preserved. See [final deterministic row policy](final-row-policy.md) and [current handoff](runtime-handoff.md). Earlier D3/D3a readiness and D3b blocking statements below are historical.
 
 ## Evidence and calculation
 

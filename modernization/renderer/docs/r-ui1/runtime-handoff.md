@@ -1,19 +1,10 @@
-# R-UI1-D3a Runtime Validation Handoff (Historical)
+# R-UI1-FINAL — Experimental In-Game Acceptance
 
-**Superseded for carousel visuals by [R-UI1-D3b](d3b-atomic-group.md).** D3a's group-less per-packet override is no longer active. Do not use the D3a handoff below to claim or validate a coherent carousel fix; D3b currently falls back to the established PreserveMargins policy and is blocked on a complete pre-draw group owner. Keep `CarouselAlignment` opt-in. The single required ownership verification is described in the D3b report.
+Status: `READY_FOR_EXPERIMENTAL_IN_GAME_VALIDATION`; visual result **PENDING**. Use the new DLL/hash in [validation.md](validation.md), not D3b. The deterministic [card-row policy](final-row-policy.md) is positive from the first eligible draw and no longer waits for a roster or motion promotion. D3a scene timing remains required.
 
-This is the D3a candidate handoff. Verify the DLL SHA256 recorded in [validation.md](validation.md) before use; leave the game executable and assets unchanged. The automated result is `READY_FOR_IN_GAME_VALIDATION`, not visual acceptance. D3a repairs the frontend scene timing gate; it does not change carousel thresholds or prove the visual correction. No Exclusive Fullscreen mode is required.
-
-## Configuration
-
-Use the currently accepted Windowed or Borderless mode at 1920×1080. Keep other display, AF, MSAA, camera, and gameplay settings unchanged during A/B comparison.
+Use accepted Windowed/Borderless at 1920x1080. Leave other display/AF/MSAA/camera settings unchanged; do not reopen Exclusive. Keep EXE/assets unchanged.
 
 ```ini
-[Display]
-Mode=2
-Width=1920
-Height=1080
-
 [Widescreen]
 InterfaceMode=2
 CarouselAlignment=1
@@ -23,52 +14,42 @@ Enabled=1
 FrameSummaries=1
 ```
 
-The feature is experimental and defaults off. To compare the original behavior, set `CarouselAlignment=0` and restart the game; do not change the setting during a running process.
+The option still defaults off. Optional A/B: restart with `CarouselAlignment=0` and identical other settings.
 
-## Vehicle Select
+1. Vehicle Select: long list, beginning/middle/end, forward and reverse, stop at old broken positions. Central card should retain its stock relationship to yellow frame; no overlap, artificial doubled gaps, missing selected slot or learning-period snap. Large 3D preview must still match selection.
+2. Race Select: long Challenge/Race list both directions, especially entries 5/6/7. Neighbor order and selected description must remain correct. Renderer does not change logical indices.
+3. Brief negatives: selection frame, class/race-mode arrows, sidebars, moving decorations, static menu, loading, 3D preview and race HUD. No new shifting. Check return from race/Reset using the accepted display mode.
+4. If visuals appear correct, take one Vehicle Select and one Race Select F10 capture. Keep session and matching frame JSONLs outside Git. Detailed sampling is bounded and cannot prove a complete roster.
 
-First run with `CarouselAlignment=0` and record whether the previously observed empty or displaced highlighted slot appears. Restart with `CarouselAlignment=1`, open Vehicle Select, and scroll forward and backward through the beginning, middle, and end of a long list. Keep resolution, display mode, AF, MSAA, camera, and other quality options identical between runs.
-
-Pass when the central card remains under the yellow selection frame throughout scrolling, no card or decoration snaps between margin and center positions, list movement remains responsive, and the large 3D preview still matches the game's selected vehicle. Record any preview mismatch separately; the renderer does not change selection state.
-
-## Race Select
-
-Repeat the enabled test in Race Select, scrolling in both directions through a long list. Pass when the highlighted course/leg card remains aligned, no gap or overlap appears at the left edge, and descriptions stay associated with the game's selected item.
-
-For a representative F10 capture, inspect the bounded UI records for `scene_context_family`, `scene_context_source_frame`, `scene_context_consumer_frame`, `scene_context_age`, `scene_context_phase`, `scene_context_valid`, `scene_context_frontend_allowed`, and `scene_context_rejection_reason`. In the normal UI-before-Source45 order, an early frontend draw should usually show `previous_completed_frame`, source frame N, consumer frame N+1, age 1, valid and frontend allowed. A scene classified earlier in the same frame may show `same_frame_before_draw`. Startup may show `unknown_scene`; a known race should show `race_scene`. Incomplete, stale, or invalidated evidence must not be accepted as frontend.
-
-`carousel_status=context_not_frontend` should no longer be the universal result for eligible frontend draws. `candidate_motion_path` is a valid intermediate state. Promotion requires the existing verified draw and identity checks plus multi-frame travel, retained LEFT evidence, the existing Y lane, center and outer positions, and at least 80 units of observed X travel. A stationary item should not be promoted. `carousel_override=true` is expected only after supported promotion; the selected frame/highlight and unrelated HUD should remain unchanged. The new phase fields distinguish a missing motion proof from an invalid or stale scene context.
-
-## Negative controls and regressions
-
-With the feature enabled, briefly check the main menu and animated decorations, frontend preview, race HUD, pause/unpause, and return from Quick Race. The classifier should affect only packets that exhibit the bounded moving-card signature. Stock and Centered4x3 should retain their original behavior. Keep the currently accepted Windowed or Borderless mode; do not test Exclusive as part of R-UI1-D3.
-
-Fail the test if any unrelated HUD/menu element shifts, a card visibly snaps when its semantic state is learned, the yellow frame and card separate, the list freezes, selection/preview association changes, or Reset/return-to-frontend leaves stale behavior.
-
-## Capture only if the visual test fails or is ambiguous
-
-Press F10 once while the affected element is visible. Keep the matching session JSONL and Trace frame JSONL outside the repository. Do not start another broad capture campaign. Join records using `capture_id` and `trace_frame`; inspect:
-
-- `carousel_status`, `carousel_id`, and `carousel_override`;
-- original `anchor_direction` / `margin_requested`, effective `margin_effective_request`, and actual `margin_applied`;
-- packet/entity identity, content storage, mode, UI epoch, and current packet X/Y;
-- native/effective WORLD transforms, draw HRESULT, and exact restore result.
-- scene-context family, producer/consumer frame, freshness phase, frontend authorization, and rejection reason.
-
-On a failed or ambiguous run, report the selected screen, enabled/disabled setting, direction of scroll, element type, whether the draw remained present, and the relevant capture IDs. Do not add raw captures to Git.
-
-Human result checklist:
+Expected positive records:
 
 ```text
-Vehicle Select forward/backward alignment: PASS / FAIL
-Race Select forward/backward alignment: PASS / FAIL
-Context no longer universally rejected: YES / NO
-Observed candidate/promotion states: ...
-One-time snap during classifier learning: YES / NO
-HUD/menu decorations unchanged: YES / NO
-Large preview still matches selection: YES / NO
-Reset and frontend return stable: YES / NO
-F10 capture IDs (only on failure/ambiguity): ...
+row_card_match=true
+carousel_row_reason=verified_card_row
+carousel_render_policy=source_coordinates
+anchor_direction=left, margin_requested approximately -106.667
+  -> margin_effective_request=0, margin_applied=0
+anchor_direction=none, margin_requested=0
+  -> margin_effective_request=0, margin_applied=0
 ```
 
-If the classifier becomes reachable but the visual result still fails, keep the option opt-in and report `READY_FOR_CLASSIFIER_VALIDATION`; do not loosen thresholds or enable the correction by default. After both carousels and HUD safety pass in-game, a separate R-UI1 closeout may make the correction automatic under PreserveMargins and retire the public `CarouselAlignment` toggle. Until then, keep the A/B control.
+Caller `0x16D7C4`, FVF `0x142`, mode 1, TRIANGLELIST/count 1, current source Y=309. Both relevant subdraws should follow this policy without waiting for motion. `carousel_status` is motion evidence only. GROUP_UNKNOWN does not veto a row match; group policy reports `diagnostic_only_not_render_authority`.
+
+Scene should report valid `same_frame_before_draw` or `previous_completed_frame`, age 1 for early next-frame draws. Startup may reject unknown scene until first validated camera evidence; there is no per-card learning delay after frontend authorization. Inspect source/native/effective WORLD and actual draw HRESULT. `persistent_packet_writes=0`; no WORLD restore errors. A zero-margin draw has no WORLD set/restore, so `restore_attempted=false` is expected.
+
+Summary counters `carousel_row_draws_matched` and `carousel_row_left_margins_suppressed` must increase; `carousel_row_nonleft_draws_matched` verifies unchanged neighbors also matched. On a specific failure, capture that item and inspect its emitted reason/context rather than starting a new broad investigation. An unseen non-card element with the entire matching signature is a remaining opt-in collision risk, since individual native screen ownership is not established.
+
+Report:
+
+```text
+Vehicle forward/reverse, first frame and stopped positions: PASS / FAIL
+Race forward/reverse, entries 5/6/7 and description: PASS / FAIL
+Yellow frame and neighboring spacing stable: PASS / FAIL
+Large preview still correct: PASS / FAIL
+HUD/arrows/sidebar/decorations unchanged: PASS / FAIL
+Return from race / Reset: PASS / FAIL
+F10 positive LEFT/NONE zero-margin policy: PASS / FAIL
+Capture IDs and any predicate rejection: ...
+```
+
+After both carousels pass: R-UI1 closeout makes the accepted fix automatic in PreserveMargins and removes the public toggle, followed by final regressions. Only then return to R-CAM1-A3. No Freecam or further camera-owner research in this pass.

@@ -41,6 +41,9 @@ Device8::Device8(IDirect3DDevice8* p,Root8* parent,std::unique_ptr<QualityPipeli
  visuals.effective.reflection_mode=s.compatibility.vehicle.supported()?s.visual_config.reflection_mode:"Stock";visuals.effective.reflection_reason=s.compatibility.vehicle.reason;
  if(!quality){quality=std::make_unique<QualityPipeline>();quality->configure(s.visual_config,s.compatibility.ui.supported(),0,D3DDEVTYPE_HAL,nullptr);}
  if(quality->config.interface_mode=="PreserveMargins"&&!ui_margins.install(s.compatibility.margins.supported(),true,quality->config.carousel_alignment)){quality->config.interface_mode="Stock";quality->config.interface_reason=ui_margins.reason;}
+ // The experimental row signature is exact-retail only; ordinary margins
+ // keep their existing feature-local compatibility on modified executables.
+ ui_margins.configure_carousel_alignment(quality->config.carousel_alignment,s.target);
  quality->ui_capability=s.compatibility.ui;quality->preview_capability=s.compatibility.preview;quality->preview_capability.candidate_rva=GAMEPLAY_PROJECTION_RETURN_RVA;
  visuals.effective.interface_mode=quality->config.interface_mode;visuals.effective.interface_reason=quality->config.interface_reason;
  visuals.effective.menu_freeze=s.visual_config.menu_freeze&&s.compatibility.freeze.supported();visuals.effective.freeze_reason=s.compatibility.freeze.reason;

@@ -184,6 +184,38 @@ class QualityResearchTests(unittest.TestCase):
         self.assertTrue(draw['restore_succeeded'])
         self.assertFalse(draw['restore_readback_performed'])
 
+    def test_r_ui1_final_row_policy_emits_actual_source_coordinate_decision(self):
+        rows=self.current_native_session()
+        packets=[r for r in rows if r.get('type')=='ui_packet_lifetime']
+        matches=[(r,d) for r in packets for d in r.get('draw_observations',[]) if d.get('row_card_match')]
+        self.assertTrue(matches,'Current native wrapper must emit real positive row decisions')
+        self.assertTrue(any(r['anchor_direction']=='left' and d['margin_requested']<0 for r,d in matches))
+        self.assertTrue(any(r['anchor_direction']=='none' and d['margin_requested']==0 for r,d in matches))
+        for packet,draw in matches:
+            self.assertEqual(packet['packet_mode'],1)
+            self.assertAlmostEqual(draw['packet_y'],309,places=3)
+            self.assertEqual((draw['caller_rva'],draw['fvf_value'],draw['primitive_type'],draw['primitive_count']),
+                             (0x0016d7c4,0x142,4,1))
+            self.assertTrue(draw['scene_context_frontend_allowed'])
+            self.assertEqual(draw['carousel_row_reason'],'verified_card_row')
+            self.assertEqual(draw['carousel_render_policy'],'source_coordinates')
+            self.assertEqual(draw['margin_effective_request'],0)
+            self.assertEqual(draw['margin_applied'],0)
+            self.assertFalse(draw['temporary_set_attempted'])
+            self.assertFalse(draw['restore_attempted'])
+            self.assertEqual(packet['persistent_packet_writes'],0)
+        local=[r for r in rows if r.get('type')=='ui_render_local' and r.get('device_id')==9901]
+        pair=[r for r in local if r.get('row_card_match')]
+        self.assertEqual(len(pair),2) # Both subdraws share the zero-margin rule.
+        self.assertEqual([r['draw_hresult'] for r in pair],[0x80004005,0])
+        for r in pair:
+            self.assertEqual(r['effective_render_x'],r['native_world_x'])
+            self.assertEqual(r['margin_effective_request'],0)
+        border=next(r for r in local if r['native_y']==304)
+        self.assertFalse(border['row_card_match'])
+        self.assertEqual(border['carousel_row_reason'],'outside_card_row')
+        self.assertEqual(border['effective_render_x'],371)
+
     def test_r_ui1_d2_f10_rearms_and_promotes_only_drawn_packets(self):
         rows=self.current_native_session()
         starts=[r for r in rows if r.get('type')=='ui_diagnostic_capture_start' and r.get('capture_id')]

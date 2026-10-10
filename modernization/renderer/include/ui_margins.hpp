@@ -23,6 +23,14 @@ struct SceneContextDecision {
  bool source_frame_known=false,valid=false,frontend_allowed=false;
  const char* phase="unknown_scene";const char* rejection_reason="unknown_scene";
 };
+// Current draw facts, not packet motion or a reconstructed sibling roster.
+struct CarouselRowDraw {
+ bool allowed=false,caller_in_game_image=false,vertex_shader_token_known=false,suppressed=false,forwarded=false;
+ uint32_t caller_rva=0,vertex_shader_token=0;D3DPRIMITIVETYPE primitive=D3DPT_TRIANGLELIST;UINT primitive_count=0;
+};
+inline constexpr float CAROUSEL_ROW_Y=309.f,CAROUSEL_ROW_Y_TOLERANCE=1.f/4096.f; // 8 float ULP at 309
+const char* carousel_row_reason(bool feature_enabled,bool exact_profile,const SceneContextDecision&,
+ const MarginIdentity&,float x,float y,const CarouselRowDraw&) noexcept;
 // Semantic direction only. This registry never owns coordinates or writes memory.
 // At most two completed absent frames; observable identity/epoch changes win immediately.
 inline constexpr uint64_t MARGIN_ANCHOR_GRACE_FRAMES=2;
@@ -81,6 +89,7 @@ struct MarginDrawDecision {
  const char* carousel_group_membership_status="not_evaluated";
  const char* carousel_group_fallback_reason="none";bool carousel_group_override=false;
  SceneContextDecision scene_context{};
+ bool row_card_match=false;const char* carousel_row_reason="feature_disabled";
 };
 inline constexpr uint32_t UI_DRAW_RETURN_RVA=0x0016d7c4;
 inline constexpr unsigned UI_PACKET_DRAW_OBSERVATION_LIMIT=8;
@@ -107,6 +116,7 @@ struct UiDrawObservation {
  const char* carousel_group_fallback_reason="none";bool carousel_group_override=false;
  float margin_effective_request=0;
  SceneContextDecision scene_context{};
+ bool row_card_match=false;const char* carousel_row_reason="feature_disabled";
 };
 class UiMargins {
  friend struct detail::UiMarginsContract;
@@ -141,6 +151,8 @@ class UiMargins {
  uint64_t capture_render_local_drops_=0,capture_draw_drops_=0,capture_identity_invalidations_=0,capture_log_failures_=0;
  uint64_t capture_draw_observation_attempts_=0;
  uint64_t carousel_override_draws_=0,carousel_group_blocked_draws_=0;
+ uint64_t carousel_row_draws_matched_=0,carousel_row_left_margins_suppressed_=0,carousel_row_nonleft_draws_matched_=0;
+ bool carousel_exact_profile_=false;
  bool capturing_=false,capture_completed_=false,capture_close_pending_=false;DWORD thread_=0;float half_=0;bool enabled_=false,carousel_alignment_requested_=false,carousel_alignment_enabled_=false;int scene_family_=-1;const char* scene_invalidation_reason_="unknown_scene";const char* capture_end_reason_="none",*capture_close_reason_="none";
  SceneContextDecision scene_context_for_draw() const noexcept;
  void clear_scene_context(const char* reason) noexcept;
@@ -166,7 +178,7 @@ public:
  void present_completed(bool succeeded) noexcept;
  bool enter_consume(uintptr_t entity) noexcept;
  void leave_consume() noexcept;
- MarginDrawDecision draw_decision(bool verified_ui_draw=false) noexcept;
+ MarginDrawDecision draw_decision(bool verified_ui_draw=false,const CarouselRowDraw& draw={}) noexcept;
  UiDrawObservation* begin_draw(uintptr_t caller_va,uint32_t caller_rva,bool caller_in_game_image,
   D3DPRIMITIVETYPE primitive,UINT start_vertex,UINT primitive_count,bool adjustment_gate_allowed,
   bool suppressed,bool forwarded,bool vertex_shader_token_known,uint32_t vertex_shader_token) noexcept;
