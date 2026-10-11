@@ -1,0 +1,64 @@
+{
+  "phase": "R-CAM1-A3h.2",
+  "status": "BLOCKED_ON_NATIVE_UI_OWNER_MAPPING",
+  "build": {
+    "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "evidence_scope": "pristine retail exact build"
+  },
+  "runtime": {
+    "source_phase": "R-CAM1-A3h.1",
+    "normal_draws": 268,
+    "paused_draws": 474,
+    "normal_identities": 32,
+    "paused_identities": 35,
+    "shared_identities": 32,
+    "normal_only_identities": 0,
+    "paused_only_identities": 3,
+    "additional_paused_draws": 206,
+    "draw_records_with_semantic_owner": 0,
+    "pause_enabled_normal": false,
+    "pause_enabled_paused": true,
+    "semantic_pause_ownership_proven": false
+  },
+  "source_scene": {
+    "path": "DataScene/Hud/Hud0.xml",
+    "sha256": "91616caa529fb4762e8e263f58bfe0f35ee5aebf127e8ba2fc3014a677ea4dbf",
+    "known_pause_eggs": [
+      "PauseMenuTiles",
+      "PauseMenuChooser"
+    ],
+    "known_hud_eggs": [
+      "SpeedDial",
+      "SpeedNeedle",
+      "GPSNeedle",
+      "GameRank",
+      "GameTimer",
+      "GameRecordTimeName",
+      "GameRecordTimeNumber",
+      "GameSplitTimeName",
+      "GameSplitTimeNumber",
+      "GameWrongWay",
+      "ProgressBar",
+      "ProgressFinish"
+    ],
+    "source_to_runtime_owner_mapping": "unproven"
+  },
+  "static": {
+    "ui_consumer_va": "0x0056D110",
+    "final_draw_primitive_va": "0x0056D7C4",
+    "entity_packet_offset": "0x4C",
+    "entity_render_object_offset": "0x50",
+    "entity_render_object_interpretation": "renderer/model resource path; not proven generic parent",
+    "secondary_manager_ui_route_va": "0x0056CD80",
+    "sort_per_camera_va": "0x00509970",
+    "egg_registration_to_render_entity_edge": "unresolved"
+  },
+  "decision": {
+    "production_classifier_added": false,
+    "hud_hide_added": false,
+    "pause_overlay_hide_added": false,
+    "unknown_draw_policy": "forward",
+    "next_observation": "bounded read-only trace at the exact Egg Name/AI parse-to-owner-registration handoff, correlating lifetime-qualified owner instance to submitted entity/packet and later the known UI consumer"
+  },
+  "evidence_grade": "STATIC_INFERENCE + CONFIRMED_BY_RUNTIME, native semantic owner remains UNKNOWN"
+}
