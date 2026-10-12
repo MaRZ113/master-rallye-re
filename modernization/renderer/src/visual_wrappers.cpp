@@ -127,20 +127,32 @@ HRESULT Device8::draw_primitive_at(D3DPRIMITIVETYPE type,UINT start,UINT count,u
  bool suppress_global_hud=false;
  if(ui_callsite){
   const bool hook_owned=ui_margins.consumer_hook_intact();
-  const bool identity_current=ui_margins.clean_view_scope_identity(clean_scope_id,clean_identity_id,clean_ui_epoch,clean_scope_reason);
+  MarginIdentity hud_identity{};
+  const bool identity_current=ui_margins.clean_view_scope_identity(clean_scope_id,clean_identity_id,clean_ui_epoch,clean_scope_reason,&hud_identity);
   HudDrawFacts hud_draw{};hud_draw.exact_build=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))==0x400000;
   hud_draw.render_thread=GetCurrentThreadId()==trace.render_thread_id();hud_draw.device_valid=trace.device_id()!=0;
   hud_draw.scene_active=trace.scene_active;
   RaceHudContext draw_context{};
-  if(requested_clean_view&&hud_draw.scene_active){
+  const bool observe_hud_context=hud_visibility.toggle_enabled()||requested_clean_view;
+  const uint64_t hud_frame=trace.frame_number();
+  const bool refresh_hud_context=requested_clean_view||!hud_visibility.context_sampled_this_frame(hud_frame);
+  if(observe_hud_context&&refresh_hud_context&&hud_draw.scene_active){
    // Verify the committed native scene and typed pause state at the exact draw
-   // boundary; an older BeginScene snapshot must never suppress a new UI owner.
+   // boundary while suppression is requested. With the preference visible,
+   // sample once per render frame to learn replay packet identities without
+   // repeating Broker reads for every UI primitive.
    draw_context=live_race_hud_context();
-  }else draw_context.reason=hud_draw.scene_active?"hud_preference_visible":"outside_d3d_scene";
-  if(requested_clean_view)hud_visibility.observe_context(draw_context,hud_draw.exact_build,hud_draw.device_valid,hook_owned,hud_draw.scene_active);
+   if(observe_hud_context)hud_visibility.observe_context(draw_context,hud_draw.exact_build,hud_draw.device_valid,hook_owned,hud_draw.scene_active,hud_frame);
+  }else if(observe_hud_context&&hud_visibility.context_sampled_this_frame(hud_frame))draw_context=hud_visibility.context_snapshot();
+  else {draw_context.reason=hud_draw.scene_active?"hud_preference_visible":"outside_d3d_scene";
+   if(observe_hud_context)hud_visibility.observe_context(draw_context,hud_draw.exact_build,hud_draw.device_valid,hook_owned,hud_draw.scene_active,hud_frame);}
   hud_draw.context_current=draw_context.valid;
   hud_draw.race_context_valid=draw_context.valid;hud_draw.pause_known=draw_context.pause_known;hud_draw.paused=draw_context.paused;
+  hud_draw.attract_context=draw_context.attract;hud_draw.startup_countdown=draw_context.startup_countdown;hud_draw.replay_context=draw_context.replay;
   hud_draw.race_generation=draw_context.race_generation;hud_draw.owner_lifetime=draw_context.owner_lifetime;
+  hud_draw.ui_epoch=clean_ui_epoch;hud_draw.device_id=trace.device_id();
+  hud_draw.ui_entity=hud_identity.entity;hud_draw.ui_packet=hud_identity.packet;hud_draw.ui_point=hud_identity.point;
+  hud_draw.ui_storage=hud_identity.storage;hud_draw.ui_packet_mode=hud_identity.mode;hud_draw.ui_identity_complete=identity_current;
   hud_draw.hook_owned=hook_owned;hud_draw.consumer_scope=clean_scope_id!=0;hud_draw.identity_current=identity_current;
   hud_draw.callsite_exact=ui_callsite;hud_draw.fvf_known=trace.shadow.bindings.vertex_shader.known;
   hud_draw.fvf=trace.shadow.bindings.vertex_shader.value;hud_draw.primitive=type;hud_draw.primitive_count=count;

@@ -235,7 +235,7 @@ public:
  bool enter_consume(uintptr_t entity) noexcept;
  void leave_consume() noexcept;
  bool consumer_hook_intact() const noexcept;
- bool clean_view_scope_identity(uint64_t& scope_id,uint64_t& identity_id,uint64_t& epoch,const char*& reason) noexcept;
+ bool clean_view_scope_identity(uint64_t& scope_id,uint64_t& identity_id,uint64_t& epoch,const char*& reason,MarginIdentity* stable_identity=nullptr) noexcept;
  void note_clean_view_draw(bool eligible,bool suppressed,bool requested,bool draw_requested,bool ui_callsite,bool scope_invalidated,
   const char* admission_reason,const char* scope_reason,bool context_valid,const char* context_reason,
   bool toggle_edge,bool initial_armed,uint64_t disarm_count,const char* disarm_reason,bool consumer_scope_seen,

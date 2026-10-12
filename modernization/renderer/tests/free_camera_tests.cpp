@@ -24,12 +24,14 @@ void activate(FlightController& f,const FreeCameraConfig& c,const std::array<flo
 void controls(){
  wchar_t directory[MAX_PATH]{},name[MAX_PATH]{};CHECK(GetTempPathW(MAX_PATH,directory)&&GetTempFileNameW(directory,L"mcf",0,name));
  struct TempIni {const wchar_t* path;~TempIni(){DeleteFileW(path);}} cleanup{name};
- const char text[]="[Renderer]\r\nConfigVersion=1\r\n[HUD]\r\nToggleEnabled=1\r\nToggleKey=H\r\nHiddenAtStartup=0\r\nPreserveMenus=0\r\n[FreeCamera]\r\nEnabled=1\r\nControlPreset=1\r\nToggleKey=F8\r\nMovementSmoothSeconds=0.12\r\nCinematicFOVEnabled=1\r\nCinematicVerticalFOVDegrees=65\r\nFOVStepDegrees=5\r\nCameraBookmarksEnabled=1\r\nCameraBookmarkDefaultSlot=2\r\nCleanViewPilot=1\r\nCleanViewEnabled=0\r\n[FreeCameraKeys]\r\nToggleCleanView=H\r\nSaveCameraBookmark=J\r\nLoadCameraBookmark=K\r\nNextCameraBookmarkSlot=L\r\nSpeedIncrease=PageUp\r\nSpeedDecrease=PageDown\r\nFOVDecrease=Z\r\nFOVIncrease=X\r\n[Trace]\r\nEnabled=0\r\n";
+ const char text[]="[Renderer]\r\nConfigVersion=1\r\n[HUD]\r\nToggleEnabled=1\r\nToggleKey=H\r\nHiddenAtStartup=0\r\nPreserveMenus=0\r\n[FreeCamera]\r\nEnabled=1\r\nAllowUnpaused=1\r\nControlPreset=1\r\nToggleKey=F8\r\nMovementSmoothSeconds=0.12\r\nCinematicFOVEnabled=1\r\nCinematicVerticalFOVDegrees=65\r\nFOVStepDegrees=5\r\nCameraBookmarksEnabled=1\r\nCameraBookmarkDefaultSlot=2\r\nCleanViewPilot=1\r\nCleanViewEnabled=0\r\n[FreeCameraKeys]\r\nToggleCleanView=H\r\nSaveCameraBookmark=J\r\nLoadCameraBookmark=K\r\nNextCameraBookmarkSlot=L\r\nSpeedIncrease=PageUp\r\nSpeedDecrease=PageDown\r\nFOVDecrease=Z\r\nFOVIncrease=X\r\n[Trace]\r\nEnabled=0\r\n";
  HANDLE file=CreateFileW(name,GENERIC_WRITE,0,nullptr,TRUNCATE_EXISTING,FILE_ATTRIBUTE_NORMAL,nullptr);CHECK(file!=INVALID_HANDLE_VALUE);DWORD written=0;bool stored=WriteFile(file,text,sizeof(text)-1,&written,nullptr)&&written==sizeof(text)-1;CloseHandle(file);CHECK(stored);
- auto loaded=read_visual_config(name);auto parsed=parse_free_camera_config(loaded.raw_fields);HudVisibility hud;hud.configure(loaded,true,true);CHECK(loaded.version_ok&&loaded.hud_toggle_enabled&&loaded.hud_toggle_key=='H'&&!loaded.hud_hidden_at_startup&&loaded.hud_preserve_menus&&loaded.raw_fields.at("HUD.ToggleEnabled")=="1"&&loaded.raw_fields.at("HUD.ToggleKey")=="H"&&loaded.raw_fields.at("HUD.PreserveMenus")=="0"&&hud.toggle_enabled()&&hud.toggle_key()=='H'&&!hud.requested_hidden()&&parsed.enabled&&parsed.preset==1&&parsed.speed_increase==VK_PRIOR&&parsed.movement_smooth_seconds==.12f&&parsed.cinematic_fov_enabled&&parsed.cinematic_vfov==65&&parsed.fov_decrease=='Z'&&parsed.fov_increase=='X'&&parsed.camera_bookmarks_enabled&&parsed.camera_bookmark_default_slot==2&&parsed.save_camera_bookmark=='J'&&parsed.load_camera_bookmark=='K'&&parsed.next_camera_bookmark_slot=='L'&&parsed.clean_view_pilot&&!parsed.clean_view_enabled&&parsed.clean_view_toggle=='H'); // Production Win32 INI reader -> normalized config -> HUD runtime settings.
+ auto loaded=read_visual_config(name);auto parsed=parse_free_camera_config(loaded.raw_fields);HudVisibility hud;hud.configure(loaded,true,true);CHECK(loaded.version_ok&&loaded.hud_toggle_enabled&&loaded.hud_toggle_key=='H'&&!loaded.hud_hidden_at_startup&&loaded.hud_preserve_menus&&loaded.raw_fields.at("HUD.ToggleEnabled")=="1"&&loaded.raw_fields.at("HUD.ToggleKey")=="H"&&loaded.raw_fields.at("HUD.PreserveMenus")=="0"&&loaded.raw_fields.at("FreeCamera.AllowUnpaused")=="1"&&hud.toggle_enabled()&&hud.toggle_key()=='H'&&!hud.requested_hidden()&&parsed.enabled&&parsed.allow_unpaused&&parsed.preset==1&&parsed.speed_increase==VK_PRIOR&&parsed.movement_smooth_seconds==.12f&&parsed.cinematic_fov_enabled&&parsed.cinematic_vfov==65&&parsed.fov_decrease=='Z'&&parsed.fov_increase=='X'&&parsed.camera_bookmarks_enabled&&parsed.camera_bookmark_default_slot==2&&parsed.save_camera_bookmark=='J'&&parsed.load_camera_bookmark=='K'&&parsed.next_camera_bookmark_slot=='L'&&parsed.clean_view_pilot&&!parsed.clean_view_enabled&&parsed.clean_view_toggle=='H'); // Production Win32 INI reader -> normalized config -> HUD and Live Freecam settings.
  auto invalid=parse_visual_config({{"Renderer.ConfigVersion","2"},{"FreeCamera.Enabled","1"}},true);GameFov rejected;CHECK(!rejected.install(true,invalid,nullptr,true)&&!rejected.free_camera_configured());
  CHECK(!parse_free_camera_config({}).enabled);
- auto c=parse_free_camera_config({{"FreeCamera.Enabled","1"}});CHECK(c.enabled&&c.preset==0&&c.toggle==VK_F8);
+ auto c=parse_free_camera_config({{"FreeCamera.Enabled","1"}});CHECK(c.enabled&&!c.allow_unpaused&&c.preset==0&&c.toggle==VK_F8);
+ auto live_config=parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.AllowUnpaused","1"}});CHECK(live_config.enabled&&live_config.allow_unpaused);
+ CHECK(!parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.AllowUnpaused","maybe"}}).enabled);
  CHECK(c.keys[0]=='W'&&c.keys[1]=='S'&&c.keys[2]=='A'&&c.keys[3]=='D'&&c.keys[4]=='E'&&c.keys[5]=='Q'&&c.keys[4]!=VK_SPACE);
  CHECK(c.speed_increase==VK_PRIOR&&c.speed_decrease==VK_NEXT&&c.min_speed==.25f&&c.max_speed==300.f&&c.movement_smooth_seconds==.12f);
  CHECK(c.auto_level_horizon&&std::abs(c.horizon_level_seconds-.30f)<.0001f);
@@ -49,8 +51,17 @@ void controls(){
  auto clean=parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.CleanViewPilot","1"},{"FreeCamera.CleanViewEnabled","1"}});CHECK(clean.enabled&&clean.clean_view_pilot&&clean.clean_view_enabled&&clean.clean_view_toggle=='H');
  auto clean_bad_key=parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.CleanViewPilot","1"},{"FreeCameraKeys.ToggleCleanView","F8"}});CHECK(clean_bad_key.enabled&&!clean_bad_key.clean_view_pilot&&std::strcmp(clean_bad_key.clean_view_config_reason,"invalid_or_conflicting_toggle")==0);
  auto clean_bad_bool=parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.CleanViewPilot","perhaps"}});CHECK(clean_bad_bool.enabled&&!clean_bad_bool.clean_view_pilot&&std::strcmp(clean_bad_bool.clean_view_config_reason,"invalid_pilot_boolean")==0);
- CHECK(!parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.CinematicVerticalFOVDegrees","101"}}).enabled);
- CHECK(!parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.MinVerticalFOVDegrees","80"},{"FreeCamera.MaxVerticalFOVDegrees","70"}}).enabled);
+ auto unsupported_lens=parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.CinematicFOVEnabled","1"},{"FreeCamera.CinematicVerticalFOVDegrees","10"},{"FreeCamera.MinVerticalFOVDegrees","10"},{"FreeCamera.MaxVerticalFOVDegrees","120"}});
+ CHECK(unsupported_lens.enabled&&!unsupported_lens.cinematic_fov_enabled&&unsupported_lens.min_vfov==35&&unsupported_lens.max_vfov==100&&
+  std::strcmp(unsupported_lens.cinematic_fov_reason,"invalid_optional_fov_config_native_lens")==0);
+ auto out_of_range_lens=parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.CinematicVerticalFOVDegrees","101"}});
+ CHECK(out_of_range_lens.enabled&&out_of_range_lens.cinematic_fov_enabled&&out_of_range_lens.cinematic_vfov==100&&
+  std::strcmp(out_of_range_lens.cinematic_fov_reason,"initial_target_clamped_to_configured_range")==0);
+ auto clamped_low_lens=parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.CinematicFOVEnabled","1"},{"FreeCamera.CinematicVerticalFOVDegrees","10"},{"FreeCamera.MinVerticalFOVDegrees","30"},{"FreeCamera.MaxVerticalFOVDegrees","110"}});
+ CHECK(clamped_low_lens.enabled&&clamped_low_lens.cinematic_fov_enabled&&clamped_low_lens.cinematic_vfov==30&&
+  std::strcmp(clamped_low_lens.cinematic_fov_reason,"initial_target_clamped_to_configured_range")==0);
+ auto inverted_lens=parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.MinVerticalFOVDegrees","80"},{"FreeCamera.MaxVerticalFOVDegrees","70"}});
+ CHECK(inverted_lens.enabled&&!inverted_lens.cinematic_fov_enabled);
  CHECK(!parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCameraKeys.FOVDecrease","W"}}).enabled);
  CHECK(!parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCameraKeys.RollLeft","W"}}).enabled);
  CHECK(!parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCameraKeys.RollLeft","C"},{"FreeCameraKeys.RollRight","C"}}).enabled);
@@ -85,17 +96,38 @@ void controls(){
  f.cancel();in.toggle=false;f.update(c,in,true,&visible);in.toggle=true;CHECK(!f.update(c,in,false,&visible));visible[0]=2;f.cancel();in.toggle=false;f.update(c,in,true,&visible);in.toggle=true;CHECK(!f.update(c,in,true,&visible));
 }
 void admission(){
- CHECK(!free_camera_admitted(false,true,true));
- CHECK(!free_camera_admitted(true,false,true));
- CHECK(!free_camera_admitted(true,true,false));
- CHECK(free_camera_admitted(true,true,true));
- auto config=parse_free_camera_config({{"FreeCamera.Enabled","1"}});auto visible=identity();FlightController controller;FlightInput in;in.focused=true;
- CHECK(!controller.update(config,in,free_camera_admitted(true,true,false),&visible));in.toggle=true;
- CHECK(!controller.update(config,in,free_camera_admitted(true,true,false),&visible)&&!controller.active);
- in.toggle=false;CHECK(!controller.update(config,in,free_camera_admitted(true,true,true),&visible));in.toggle=true;
- CHECK(controller.update(config,in,free_camera_admitted(true,true,true),&visible)&&controller.active);
- in.toggle=false;CHECK(controller.update(config,in,free_camera_admitted(true,true,true),&visible));
- CHECK(!controller.update(config,in,free_camera_admitted(true,false,false),&visible)&&!controller.active); // Lost pause proof disarms an active camera.
+ const auto legacy=parse_free_camera_config({{"FreeCamera.Enabled","1"}});
+ const auto live=parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.AllowUnpaused","1"}});
+ auto decision=evaluate_free_camera_admission(true,false,true,true,true,true,true);CHECK(decision.admitted&&!std::strcmp(decision.mode,"paused_only"));
+ decision=evaluate_free_camera_admission(true,false,true,true,true,false,true);CHECK(!decision.admitted&&!std::strcmp(decision.reason,"paused_only_required"));
+ decision=evaluate_free_camera_admission(true,true,true,true,true,true,true);CHECK(decision.admitted&&!std::strcmp(decision.mode,"live_allowed"));
+ decision=evaluate_free_camera_admission(true,true,true,true,true,false,true);CHECK(decision.admitted&&!std::strcmp(decision.reason,"admitted_running"));
+ decision=evaluate_free_camera_admission(true,true,false,true,true,false,true);CHECK(!decision.admitted&&!std::strcmp(decision.reason,"missing_race_certificate"));
+ decision=evaluate_free_camera_admission(true,true,true,false,true,false,true);CHECK(!decision.admitted&&!std::strcmp(decision.reason,"camera_owner_invalid"));
+ decision=evaluate_free_camera_admission(true,true,true,true,false,false,true);CHECK(!decision.admitted&&!std::strcmp(decision.reason,"native_pause_unknown"));
+ decision=evaluate_free_camera_admission(true,true,true,true,true,false,false);CHECK(!decision.admitted&&!std::strcmp(decision.reason,"window_focus_lost"));
+ decision=evaluate_free_camera_admission(false,true,true,true,true,false,true);CHECK(!decision.admitted&&!std::strcmp(decision.reason,"disabled"));
+
+ auto visible=identity();FlightController controller;FlightInput in;in.focused=true;
+ auto legacy_running=evaluate_free_camera_admission(legacy.enabled,legacy.allow_unpaused,true,true,true,false,true);
+ CHECK(!legacy_running.admitted&&!controller.update(legacy,in,legacy_running.admitted,&visible));
+ in.toggle=true;CHECK(!controller.update(legacy,in,legacy_running.admitted,&visible)&&!controller.active);
+
+ in.toggle=false;auto running=evaluate_free_camera_admission(live.enabled,live.allow_unpaused,true,true,true,false,true);
+ CHECK(!controller.update(live,in,running.admitted,&visible));in.toggle=true;
+ CHECK(controller.update(live,in,running.admitted,&visible)&&controller.active);
+ in.toggle=false;in.seconds=.016;in.fov_increase=true;in.roll_left=true;CHECK(controller.update(live,in,running.admitted,&visible));
+ in.fov_increase=false;in.roll_left=false;CHECK(controller.update(live,in,running.admitted,&visible));
+ const double retained_fov=controller.target_vertical_fov();const float retained_roll=controller.manual_roll_target_degrees;
+ const double retained_speed=controller.current_speed();in.seconds=0;auto independent_pose=controller.pose;auto native_moves=visible;native_moves[12]+=500;
+ auto paused=evaluate_free_camera_admission(live.enabled,live.allow_unpaused,true,true,true,true,true);
+ CHECK(paused.admitted&&controller.update(live,in,paused.admitted,&native_moves)&&controller.active&&controller.pose==independent_pose&&controller.target_vertical_fov()==retained_fov&&controller.manual_roll_target_degrees==retained_roll&&controller.current_speed()==retained_speed);
+ auto resumed=evaluate_free_camera_admission(live.enabled,live.allow_unpaused,true,true,true,false,true);
+ CHECK(resumed.admitted&&controller.update(live,in,resumed.admitted,&native_moves)&&controller.active&&controller.pose==independent_pose&&controller.target_vertical_fov()==retained_fov&&controller.manual_roll_target_degrees==retained_roll&&controller.current_speed()==retained_speed);
+ in.toggle=true;CHECK(!controller.update(live,in,resumed.admitted,&native_moves)&&!controller.active); // F8 deactivates while live.
+ in.toggle=false;controller.update(live,in,resumed.admitted,&native_moves);in.toggle=true;
+ CHECK(controller.update(live,in,resumed.admitted,&native_moves)&&controller.active);
+ in.toggle=false;CHECK(!controller.update(live,in,false,&native_moves)&&!controller.active); // Lost race/camera proof still cancels regardless of Live policy.
 }
 void clock_timing(){
  constexpr int64_t hz=10000000;
@@ -186,6 +218,12 @@ void cinematic_fov(){
  auto instant=parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.CinematicVerticalFOVDegrees","60"},{"FreeCamera.FOVSmoothSeconds","0"}});FlightController instant_lens;inherit_input={};inherit_input.focused=true;inherit_input.inherited_vfov=72;CHECK(!instant_lens.update(instant,inherit_input,true,&p));inherit_input.toggle=true;CHECK(instant_lens.update(instant,inherit_input,true,&p)&&instant_lens.current_vertical_fov()==72);inherit_input.toggle=false;inherit_input.seconds=.01;CHECK(instant_lens.update(instant,inherit_input,true,&p)&&instant_lens.current_vertical_fov()==60);
  auto no_lens=parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.CinematicFOVEnabled","0"}});FlightController native;activate(native,no_lens,p);in={};in.focused=true;in.inherited_vfov=72;in.seconds=.05;in.fov_decrease=true;CHECK(native.update(no_lens,in,true,&p)&&!native.fov_transition_active()&&native.current_vertical_fov()==0);
  in.focused=false;CHECK(!f.update(c,in,true,&p)&&!f.active&&f.current_vertical_fov()==0);
+ auto corrected=parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.CinematicVerticalFOVDegrees","10"},{"FreeCamera.MinVerticalFOVDegrees","30"},{"FreeCamera.MaxVerticalFOVDegrees","110"}});
+ FlightController bounded;FlightInput bounded_input;bounded_input.focused=true;bounded_input.inherited_vfov=75;
+ CHECK(!bounded.update(corrected,bounded_input,true,&p));bounded_input.toggle=true;CHECK(bounded.update(corrected,bounded_input,true,&p));
+ CHECK(corrected.cinematic_fov_enabled&&corrected.cinematic_vfov==30&&bounded.target_vertical_fov()==30);
+ bounded_input.toggle=false;bounded_input.seconds=.05;bounded_input.fov_increase=true;
+ CHECK(bounded.update(corrected,bounded_input,true,&p)&&bounded.target_vertical_fov()==35);
 }
 void manual_roll(){
  constexpr double pi=3.14159265358979323846;auto c=parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.AutoLevelHorizon","0"},{"FreeCamera.RollSmoothSeconds","0"},{"FreeCamera.RollSpeedDegreesPerSecond","45"},{"FreeCamera.MaxRollDegrees","30"}});auto p=rolled_pose(.4,.2,0);FlightController left;activate(left,c,p);FlightInput in;in.focused=true;in.seconds=.05;in.roll_left=true;CHECK(left.update(c,in,true,&p));CHECK(std::abs(left.manual_roll_degrees-2.25)<.001&&left.manual_roll_target_degrees==2.25f&&left.pose[1]>0);in.roll_left=false;for(unsigned i=0;i<20;++i)CHECK(left.update(c,in,true,&p));CHECK(std::abs(left.manual_roll_degrees-2.25)<.001); // Key release retains the offset.

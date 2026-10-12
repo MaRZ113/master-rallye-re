@@ -4,11 +4,12 @@
 #include <atomic>
 namespace gfx2 {
 struct FreeCameraConfig {
- bool enabled=false;unsigned preset=0;unsigned toggle=VK_F8;
+ bool enabled=false,allow_unpaused=false;unsigned preset=0;unsigned toggle=VK_F8;
  float speed=40,fast=6,slow=.2f,sensitivity=.12f;
  float min_speed=.25f,max_speed=300.f,wheel_speed_factor=1.25f,movement_smooth_seconds=.12f;
  unsigned speed_increase=VK_PRIOR,speed_decrease=VK_NEXT;
  bool cinematic_fov_enabled=true;float cinematic_vfov=0,min_vfov=35,max_vfov=100,fov_step=5,fov_smooth_seconds=.25f;
+ const char* cinematic_fov_reason="configured";
  unsigned fov_decrease='Z',fov_increase='X';
  bool auto_level_horizon=true;float horizon_level_seconds=.30f;
  bool manual_roll_enabled=true;float roll_speed=45.f,roll_smooth_seconds=.10f,max_roll_degrees=90.f;
@@ -37,8 +38,16 @@ struct FlightBookmarkPose {
  bool auto_level_horizon=true,cinematic_fov_enabled=true;
 };
 struct FlightInput {bool focused=false,toggle=false,speed_increase=false,speed_decrease=false,fov_decrease=false,fov_increase=false,roll_left=false,roll_right=false,roll_reset=false,clean_view_toggle=false,arm_road_teleport=false;bool save_camera_bookmark=false,load_camera_bookmark=false,next_camera_bookmark_slot=false;std::array<bool,8> keys{};float mouse_x=0,mouse_y=0;double seconds=0,inherited_vfov=0;int wheel_delta=0;};
-inline bool free_camera_admitted(bool live_race_certificate,bool pause_known,bool paused) noexcept {
- return live_race_certificate&&pause_known&&paused;
+struct FreeCameraAdmission {bool admitted=false;const char* mode="none";const char* reason="disabled";};
+inline FreeCameraAdmission evaluate_free_camera_admission(bool configured,bool allow_unpaused,
+ bool live_race_certificate,bool camera_owner_valid,bool pause_known,bool paused,bool input_focus) noexcept {
+ if(!configured)return {false,"none","disabled"};
+ if(!input_focus)return {false,"none","window_focus_lost"};
+ if(!camera_owner_valid)return {false,"none","camera_owner_invalid"};
+ if(!live_race_certificate)return {false,"none","missing_race_certificate"};
+ if(!pause_known)return {false,"none","native_pause_unknown"};
+ if(!paused&&!allow_unpaused)return {false,"paused_only","paused_only_required"};
+ return {true,allow_unpaused?"live_allowed":"paused_only",paused?"admitted_paused":"admitted_running"};
 }
 struct FlightWindowSnapshot {
  uintptr_t attached_hwnd=0,foreground_hwnd=0,keyboard_focus_hwnd=0;

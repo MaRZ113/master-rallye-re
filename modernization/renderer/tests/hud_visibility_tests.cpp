@@ -1,4 +1,5 @@
 #include "hud_visibility.hpp"
+#include "clean_view.hpp"
 #include <iostream>
 #include <stdexcept>
 #include <cstring>
@@ -9,6 +10,7 @@ HudDrawFacts eligible(){
  HudDrawFacts f{};f.exact_build=f.render_thread=f.device_valid=f.scene_active=true;
  f.race_context_valid=f.pause_known=f.hook_owned=f.consumer_scope=f.identity_current=f.callsite_exact=f.fvf_known=true;
  f.context_current=true;f.race_generation=4;f.owner_lifetime=9;
+ f.ui_identity_complete=true;f.ui_epoch=7;f.device_id=2;f.ui_entity=0x1000;f.ui_packet=0x2000;f.ui_point=0x3000;f.ui_storage=0x4000;f.ui_packet_mode=2;
  f.fvf=0x142;f.primitive=D3DPT_TRIANGLELIST;f.primitive_count=1;return f;
 }
 RaceHudContext race(bool paused=false,bool replay=false){RaceHudContext c;c.valid=c.pause_known=true;c.paused=paused;c.replay=replay;c.race_generation=4;c.owner_lifetime=9;c.reason=replay?(paused?"certified_paused_replay":"certified_active_replay"):(paused?"certified_paused_race":"certified_active_race");return c;}
@@ -25,6 +27,8 @@ void strict_draw_contracts(){
  reject([](auto& v){v.paused=true;});reject([](auto& v){v.hook_owned=false;});reject([](auto& v){v.consumer_scope=false;});
  reject([](auto& v){v.identity_current=false;});reject([](auto& v){v.callsite_exact=false;});reject([](auto& v){v.fvf_known=false;});
  reject([](auto& v){v.fvf=0x112;});reject([](auto& v){v.primitive=D3DPT_TRIANGLESTRIP;});reject([](auto& v){v.primitive_count=0;});
+ auto attract=eligible();attract.pause_known=false;attract.attract_context=true;CHECK(global_hud_draw_should_suppress(true,attract));
+ attract.attract_context=false;CHECK(!global_hud_draw_should_suppress(true,attract));
 }
 void visibility_lifetime(){
  auto c=parse_visual_config({{"Renderer.ConfigVersion","1"},{"HUD.ToggleEnabled","1"},{"HUD.ToggleKey","H"},
@@ -34,12 +38,30 @@ void visibility_lifetime(){
  CHECK(h.sample_key(true,true)&&h.requested_hidden());CHECK(!h.sample_key(true,true)&&h.requested_hidden());
  HudVisibility replay_h;replay_h.configure(c,true,true);CHECK(replay_h.sample_key(true,true));
  auto replay_context=race(false,true);replay_h.observe_context(replay_context,true,true,true,true);
- CHECK(replay_h.should_suppress(eligible())&&replay_h.policy_ready());
+ auto replay_draw=eligible();replay_draw.replay_context=true;
+ CHECK(replay_h.should_suppress(replay_draw)&&replay_h.policy_ready());
  CHECK(replay_h.json().find("\"current_ui_context\":\"replay_running\"")!=std::string::npos);
  CHECK(replay_h.json().find("\"replay_mode\":true")!=std::string::npos);
  CHECK(replay_h.json().find("\"policy_reason\":\"certified_replay_ui\"")!=std::string::npos);
  replay_context.paused=true;replay_context.reason="certified_paused_replay";replay_h.observe_context(replay_context,true,true,true,true);
- CHECK(!replay_h.should_suppress(eligible())&&!replay_h.policy_ready()&&replay_h.requested_hidden());
+ replay_draw.paused=true;
+ CHECK(replay_h.should_suppress(replay_draw)&&replay_h.policy_ready()&&replay_h.requested_hidden());
+ CHECK(replay_h.json().find("\"policy_reason\":\"paused_replay_ui_suppressed\"")!=std::string::npos);
+ auto replay_pause_control=replay_draw;++replay_pause_control.ui_packet;++replay_pause_control.ui_entity;
+ CHECK(replay_h.should_suppress(replay_pause_control));
+ CHECK(replay_h.json().find("\"replay_pause_overlay_suppressed_draws\":1")!=std::string::npos);
+ HudVisibility attract_h;attract_h.configure(c,true,true);CHECK(attract_h.sample_key(true,true));
+ RaceHudContext attract_context{};attract_context.valid=true;attract_context.attract=true;attract_context.race_generation=4;attract_context.owner_lifetime=9;attract_context.reason="certified_attract_demo_hud";
+ attract_h.observe_context(attract_context,true,true,true,true);auto attract_draw=eligible();attract_draw.pause_known=false;attract_draw.attract_context=true;
+ CHECK(attract_h.should_suppress(attract_draw)&&attract_h.policy_ready());
+ auto mismatched_attract_draw=attract_draw;mismatched_attract_draw.attract_context=false;CHECK(!attract_h.should_suppress(mismatched_attract_draw));
+ CHECK(attract_h.json().find("\"current_ui_context\":\"attract_demo\"")!=std::string::npos);
+ CHECK(attract_h.json().find("\"policy_reason\":\"certified_attract_demo_hud\"")!=std::string::npos);
+ auto start_context=race();start_context.startup_countdown=true;start_context.reason="certified_start_countdown";
+ HudVisibility countdown_h;countdown_h.configure(c,true,true);CHECK(countdown_h.sample_key(true,true));countdown_h.observe_context(start_context,true,true,true,true);
+ auto countdown_draw=eligible();countdown_draw.startup_countdown=true;CHECK(countdown_h.should_suppress(countdown_draw)&&countdown_h.policy_ready());
+ auto mismatched_countdown_draw=countdown_draw;mismatched_countdown_draw.startup_countdown=false;CHECK(!countdown_h.should_suppress(mismatched_countdown_draw));
+ CHECK(countdown_h.json().find("\"current_ui_context\":\"gameplay_start_countdown\"")!=std::string::npos);
  h.observe_context(race(),true,true,true,true);CHECK(h.should_suppress(eligible()));CHECK(h.effective_hidden());CHECK(h.policy_ready());
  auto ambiguous=eligible();ambiguous.identity_current=false;CHECK(!h.should_suppress(ambiguous));
  auto stale=eligible();stale.context_current=false;CHECK(!h.should_suppress(stale));
@@ -68,6 +90,73 @@ void config_conflicts(){
  auto legacy_start=parse_visual_config({{"Renderer.ConfigVersion","1"},{"FreeCamera.CleanViewEnabled","1"}},true);
  CHECK(legacy_start.hud_hidden_at_startup);
 }
-int main(){try{edge_contracts();strict_draw_contracts();visibility_lifetime();config_conflicts();
+void paused_clean_view_contract(){
+ auto c=parse_visual_config({{"Renderer.ConfigVersion","1"},{"HUD.ToggleEnabled","1"},{"HUD.ToggleKey","H"}},true);
+ HudVisibility h;h.configure(c,true,true);CHECK(h.sample_key(true,true)&&h.requested_hidden());
+ h.observe_context(race(true),true,true,true,true);auto paused_draw=eligible();paused_draw.paused=true;
+ CHECK(!h.should_suppress(paused_draw)&&!h.effective_hidden());
+ CHECK(h.json().find("\"policy_reason\":\"interactive_pause_preserved\"")!=std::string::npos);
+ CleanViewDrawFacts clean{};clean.exact_build=clean.hook_owned=clean.render_thread=clean.consumer_scope=clean.identity_complete=clean.identity_current=clean.callsite_exact=clean.fvf_known=true;
+ clean.fvf=0x142;clean.primitive=D3DPT_TRIANGLELIST;clean.primitive_count=3;
+ CHECK(clean_view_draw_eligible(clean)&&clean_view_should_suppress(true,h.requested_hidden(),true));
+ h.note_clean_view_suppressed();CHECK(h.effective_hidden());
+ CHECK(h.json().find("\"policy_reason\":\"paused_freecam_clean_view\"")!=std::string::npos);
+}
+void replay_pause_learned_identity_contract(){
+ auto c=parse_visual_config({{"Renderer.ConfigVersion","1"},{"HUD.ToggleEnabled","1"},{"HUD.ToggleKey","H"}},true);
+ HudVisibility h;h.configure(c,true,true);auto active=race(false,true);h.observe_context(active,true,true,true,true);
+ auto draw=eligible();draw.replay_context=true;
+ CHECK(!h.requested_hidden()&&!h.should_suppress(draw));
+ CHECK(h.json().find("\"learned_replay_signatures\":1")!=std::string::npos);
+ CHECK(h.sample_key(true,true)&&h.requested_hidden());
+ auto paused=race(true,true);h.observe_context(paused,true,true,true,true);draw.paused=true;
+ CHECK(h.should_suppress(draw)&&h.policy_ready());
+ auto pause_window=draw;pause_window.ui_storage+=4;pause_window.ui_packet+=0x100;pause_window.ui_entity+=0x100;
+ CHECK(h.should_suppress(pause_window));
+ auto new_epoch_identity=draw;new_epoch_identity.ui_epoch++;CHECK(h.should_suppress(new_epoch_identity));
+ auto unknown=draw;unknown.ui_identity_complete=false;CHECK(!h.should_suppress(unknown));
+ unknown=draw;unknown.owner_lifetime++;CHECK(!h.should_suppress(unknown));
+ unknown=draw;unknown.identity_current=false;CHECK(!h.should_suppress(unknown));
+ CHECK(h.json().find("\"replay_pause_suppressed_draws\":3")!=std::string::npos);
+ CHECK(h.json().find("\"replay_pause_overlay_suppressed_draws\":2")!=std::string::npos);
+ CHECK(h.json().find("\"replay_pause_preserved_unknown_draws\":1")!=std::string::npos);
+ h.reset_context();CHECK(h.json().find("\"learned_replay_signatures\":0")!=std::string::npos);
+ h.observe_context(paused,true,true,true,true);CHECK(h.should_suppress(draw));
+ CHECK(h.json().find("\"replay_pause_overlay_suppressed_draws\":3")!=std::string::npos);
+}
+void replay_signature_capacity_and_lifecycle(){
+ auto c=parse_visual_config({{"Renderer.ConfigVersion","1"},{"HUD.ToggleEnabled","1"},{"HUD.ToggleKey","H"}},true);
+ HudVisibility h;h.configure(c,true,true);auto running=race(false,true);h.observe_context(running,true,true,true,true);
+ auto draw=eligible();draw.replay_context=true;
+ for(uintptr_t i=0;i<512;++i){draw.ui_entity=0x10000+i;CHECK(!h.should_suppress(draw));}
+ CHECK(h.json().find("\"learned_replay_signatures\":512")!=std::string::npos);
+ draw.ui_entity=0x20000;CHECK(!h.should_suppress(draw));
+ CHECK(h.json().find("\"replay_signature_overflow\":1")!=std::string::npos);
+ CHECK(h.sample_key(true,true));auto paused=race(true,true);h.observe_context(paused,true,true,true,true);draw.paused=true;
+ draw.ui_entity=0x10000+511;CHECK(h.should_suppress(draw));draw.ui_entity=0x20000;CHECK(h.should_suppress(draw));
+ CHECK(h.json().find("\"replay_pause_overlay_suppressed_draws\":1")!=std::string::npos);
+ auto new_owner=paused;new_owner.owner_lifetime++;new_owner.reason="new_replay_owner";h.observe_context(new_owner,true,true,true,true);
+ draw.owner_lifetime=new_owner.owner_lifetime;CHECK(h.should_suppress(draw));
+ CHECK(h.json().find("\"learned_replay_signatures\":0")!=std::string::npos);
+}
+void replay_pause_overlay_admission_contract(){
+ auto c=parse_visual_config({{"Renderer.ConfigVersion","1"},{"HUD.ToggleEnabled","1"},{"HUD.ToggleKey","H"}},true);
+ HudVisibility h;h.configure(c,true,true);CHECK(h.sample_key(true,true));
+ auto paused=race(true,true);h.observe_context(paused,true,true,true,true);
+ auto first=eligible();first.paused=true;first.replay_context=true;
+ CHECK(h.policy_ready());CHECK(h.should_suppress(first));
+ CHECK(h.json().find("\"learned_replay_signatures\":0")!=std::string::npos);
+ auto incomplete=first;incomplete.ui_identity_complete=false;CHECK(!h.should_suppress(incomplete));
+ auto wrong_site=first;wrong_site.callsite_exact=false;CHECK(!h.should_suppress(wrong_site));
+ auto non_replay_pause=race(true,false);h.observe_context(non_replay_pause,true,true,true,true);
+ auto pause_menu=eligible();pause_menu.paused=true;CHECK(!h.should_suppress(pause_menu));
+ CHECK(h.json().find("\"policy_reason\":\"interactive_pause_preserved\"")!=std::string::npos);
+ RaceHudContext frontend{};frontend.reason="committed_scene_not_race_hud";
+ h.observe_context(frontend,true,true,true,true);auto menu=eligible();menu.context_current=false;
+ CHECK(!h.should_suppress(menu));
+}
+int main(){try{edge_contracts();strict_draw_contracts();visibility_lifetime();config_conflicts();paused_clean_view_contract();
+ replay_pause_learned_identity_contract();replay_signature_capacity_and_lifecycle();
+ replay_pause_overlay_admission_contract();
  std::cout<<"HUD edge input / strict native draw policy / live scene identity / persistent request / fail-open reset / key compatibility: PASS\n";return 0;
 }catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}

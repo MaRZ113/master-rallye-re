@@ -72,6 +72,20 @@ void context(){
  for(auto pair:{std::pair<size_t,int>{0,7},{1,2},{2,1},{7,1},{8,9},{8,3}}){auto bad=replay;bad[pair.first].value=pair.second;CHECK(!check_race_hud_context(bad,owner).supported);}
  owner.participant_states_ready=false;CHECK(!check_race_hud_context(replay,owner).supported);owner.participant_states_ready=true;
  owner.valid=false;CHECK(!check_race_hud_context(replay,owner).supported);owner.valid=true;
+ auto countdown_owner=owner;countdown_owner.count=1;countdown_owner.participant_states_ready=false;
+ countdown_owner.participant_states_reason="race_state_1_startup_transition";countdown_owner.participant_states[0]=1;
+ auto countdown_fields=f;countdown_fields[0].value=1;countdown_fields[1].value=countdown_fields[8].value=1;
+ CHECK(race_hud_startup_phase(countdown_owner));CHECK(race_hud_player_drawable(countdown_owner,0));
+ CHECK(!check_race_hud_context(countdown_fields,countdown_owner).supported);
+ CHECK(check_race_hud_context(countdown_fields,countdown_owner,true).supported);
+ countdown_owner.participant_states_reason="participant_array_unreadable";CHECK(!race_hud_startup_phase(countdown_owner));
+ countdown_owner.participant_states_reason="race_state_1_startup_transition";countdown_owner.participant_states[0]=3;
+ CHECK(!race_hud_startup_phase(countdown_owner)&&!check_race_hud_context(countdown_fields,countdown_owner,true).supported);
+ auto attract_fields=f;attract_fields[0].value=14;attract_fields[1].value=0;attract_fields[4].value=1;attract_fields[8].value=4;
+ auto attract_owner=owner;attract_owner.count=4;attract_owner.participant_states_ready=true;
+ CHECK(check_race_attract_hud_context(attract_fields,attract_owner));
+ for(auto pair:{std::pair<size_t,int>{0,1},{1,1},{2,1},{3,1},{4,0},{5,1},{6,1},{7,1},{8,9}}){auto bad=attract_fields;bad[pair.first].value=pair.second;CHECK(!check_race_attract_hud_context(bad,attract_owner));}
+ attract_owner.count=3;CHECK(!check_race_attract_hud_context(attract_fields,attract_owner));
  for(size_t i=0;i<f.size();++i){auto bad=f;bad[i].present=false;CHECK(!check_race_context(bad,owner).supported);bad=f;bad[i].tag=99;CHECK(!check_race_context(bad,owner).supported);}
  for(size_t i=3;i<=6;++i){auto bad=f;bad[i].value=1;CHECK(!check_race_context(bad,owner).supported);}
  for(auto pair:{std::pair<size_t,int>{0,7},{1,2},{2,1},{7,1},{8,9},{8,3}}){auto bad=f;bad[pair.first].value=pair.second;CHECK(!check_race_context(bad,owner).supported);}
@@ -88,6 +102,18 @@ void certificate(){
  CHECK(check_live_race_certificate(e,o,f,true,300).valid);
  auto reset_survivor=e;CHECK(reset_survivor.device_reset());CHECK(check_live_race_certificate(reset_survivor,o,f,true,300).valid); // Proof survives graphics Reset only; live owner/course/context/camera checks still run.
  CHECK(race_hud_scene_proven(e));
+ // Attract Demo is a separate native HUD child, but the exact selector and
+ // lifetime ancestry keep its completed owner proof in the same race epoch.
+ RaceEpoch attract;attract.request(9766,"Racetest/france2");attract.queue(500,9766,8118,true,1,1,"DataScene/Racetest/france2.xml");
+ attract.begin(500,true);attract.attach(600,608,true);attract.initialized(600,608,true);const auto attract_generation=attract.race_generation;
+ attract.request(11910,"Hud/AttractMode",0x004aa0c1);CHECK(attract.request_supported_hud&&attract.race_generation==attract_generation);
+ attract.queue(501,11910,11911,true,1,0,"DataScene/Hud/AttractMode.xml");attract.commit(11910,true);attract.end(500);attract.admitted(600,true);
+ attract.begin(501,true);attract.commit(11910,true);attract.end(501);
+ CHECK(attract.correlated_owner_candidate()&&race_attract_hud_scene_proven(attract)&&!race_hud_scene_proven(attract));
+ auto bad_attract=attract;bad_attract.jobs[1].source_text[14]='X';CHECK(!race_attract_hud_scene_proven(bad_attract));
+ RaceEpoch wrong_attract_parent;wrong_attract_parent.request(9766,"Racetest/france2");wrong_attract_parent.queue(700,9766,8118,true,1,1,"DataScene/Racetest/france2.xml");
+ wrong_attract_parent.begin(700,true);wrong_attract_parent.request(11910,"Hud/AttractMode",0x004aa0c1);
+ CHECK(!wrong_attract_parent.request_supported_hud&&wrong_attract_parent.race_generation==2);
  RaceOwnerRead player_state{};player_state.valid=player_state.arrays_ready=player_state.participant_states_ready=true;player_state.count=2;player_state.participant_states[0]=0;player_state.participant_states[1]=2;
  CHECK(race_hud_player_running(player_state,0)&&!race_hud_player_running(player_state,1)&&!race_hud_player_running(player_state,2));
  auto unrelated=e;unrelated.jobs[0].scene_text[9]='X';CHECK(!race_hud_scene_proven(unrelated));

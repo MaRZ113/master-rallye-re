@@ -2,6 +2,34 @@
 #include <cstring>
 #include <cstdio>
 namespace gfx2 {
+namespace {
+bool ascii_equal(const char* a,const char* b,bool fold_case=false) noexcept {
+ if(!a||!b)return false;
+ while(*a&&*b){char x=*a++,y=*b++;if(fold_case){if(x>='A'&&x<='Z')x=static_cast<char>(x-'A'+'a');if(y>='A'&&y<='Z')y=static_cast<char>(y-'A'+'a');}if(x!=y)return false;}
+ return *a==*b;
+}
+bool valid_race_root(const RaceJob& root,bool fold_case) noexcept {
+ if(root.parent_lifetime||!root.terminal||!root.commit_seen||!root.commit_success||root.failed||root.flag21!=1||root.flag22!=1)return false;
+ constexpr char prefix[]="RaceTest/";const char* scene=root.scene_text.data();
+ for(size_t i=0;i<sizeof(prefix)-1;++i){char a=scene[i],b=prefix[i];if(fold_case&&a>='A'&&a<='Z')a=static_cast<char>(a-'A'+'a');if(fold_case&&b>='A'&&b<='Z')b=static_cast<char>(b-'A'+'a');if(a!=b)return false;}
+ const char* course=scene+sizeof(prefix)-1;const size_t n=std::strlen(course);if(!n||n>96)return false;
+ for(size_t i=0;i<n;++i){const char c=course[i];if(!((c>='A'&&c<='Z')||(c>='a'&&c<='z')||(c>='0'&&c<='9')||c=='_'||c=='-'))return false;}
+ char source[128]{};const int written=std::snprintf(source,sizeof(source),"DataScene/RaceTest/%s.xml",course);
+ return written>0&&static_cast<size_t>(written)<sizeof(source)&&ascii_equal(root.source_text.data(),source,fold_case);
+}
+bool race_hud_scene_proven_as(const RaceEpoch& e,bool attract) noexcept {
+ if(!e.correlated_owner_candidate())return false;
+ const auto* root=e.lifetime(e.owner.execution_job_lifetime);if(!root||!valid_race_root(*root,attract))return false;
+ const char* scene=attract?"Hud/AttractMode":"Hud/Hud0";const char* source=attract?"DataScene/Hud/AttractMode.xml":"DataScene/Hud/Hud0.xml";
+ unsigned matching=0;
+ for(size_t i=0;i<e.jobs_used;++i){const auto& job=e.jobs[i];if(job.race_generation!=e.race_generation||job.lifetime==root->lifetime)continue;
+  if(!job.supported_hud||job.parent_lifetime!=root->lifetime||job.failed||!job.terminal||!job.commit_seen||!job.commit_success||job.flag21!=1||job.flag22!=0||
+     !ascii_equal(job.scene_text.data(),scene)||!ascii_equal(job.source_text.data(),source))return false;
+  ++matching;
+ }
+ return matching==1;
+}
+}
 bool race_bridge::request_origin(RaceReadMemory& m,const Saved& s,uint32_t& origin) noexcept {
  // 522330 pushes ECX/ESI/EDI, then the message argument before CALL5223D3.
  // Saved PUSHAD.ESP points below PUSHFD: outer RET is at savedESP+24.
@@ -14,6 +42,7 @@ void RaceEpoch::note(RaceEvent e,const char* why,uint32_t job) noexcept {
  auto* j=find_mutable(job?job:executing_job);
  events[event_head]={event_serial,generation,j?j->lifetime:0,owner.lifetime,e,job?job:executing_job,owner.actor,owner.ai,requested_scene,why};
  auto& t=events[event_head];t.thread=observed_thread;t.race_generation=j?j->race_generation:race_generation;t.parent_job_lifetime=e==RaceEvent::Request?request_parent_lifetime:j?j->parent_lifetime:0;
+ t.request_origin=e==RaceEvent::Request?request_origin:j?j->request_origin:0;
  event_head=(event_head+1)%MAX_EVENTS;if(events_used<MAX_EVENTS)++events_used;
 }
 const RaceTransition& RaceEpoch::chronological(size_t i) const noexcept {return events[(event_head+MAX_EVENTS-events_used+i)%MAX_EVENTS];}
@@ -28,8 +57,12 @@ void RaceEpoch::request(uint32_t scene,const char* text,uint32_t origin) noexcep
  requested_scene=scene;request_origin=origin;request_queued=false;
  request_text.fill(0);if(text&&std::strlen(text)<request_text.size())std::memcpy(request_text.data(),text,std::strlen(text)+1);
  auto* parent=find(executing_job);request_parent_lifetime=parent&&parent->executing?parent->lifetime:0;
- // 4AA020 is the native HUD selector. A name or numeric adjacency is insufficient.
- request_supported_hud=parent&&parent->executing&&origin==0x004aa0c1&&text&&!std::strcmp(text,"Hud/Hud0")&&
+ // Hud0 remains tied to the exact native selector caller. AttractMode is a
+ // distinct scene request; its separate runtime certificate requires the
+ // committed Attract scene, typed AttractMode context, and this same owner ancestry.
+ const bool supported_hud_name=text&&
+  ((!std::strcmp(text,"Hud/Hud0")&&origin==0x004aa0c1)||!std::strcmp(text,"Hud/AttractMode"));
+ request_supported_hud=parent&&parent->executing&&supported_hud_name&&
   owner.initialized&&!owner.retired&&owner.execution_job_lifetime==parent->lifetime&&owner.race_generation==race_generation;
  if(!request_supported_hud){if(!next(race_generation))return;successful_generation=successful_race_generation=0;}
  request_race_generation=race_generation;
@@ -52,7 +85,7 @@ void RaceEpoch::queue(uint32_t p,uint32_t scene,uint32_t source,bool type_ok,uin
  }
  if(!next(job_serial))return;
  auto& j=jobs[jobs_used++];j={};j.pointer=p;j.scene=scene;j.source=source;j.generation=generation;j.lifetime=job_serial;j.reused=reused;
- j.parent_lifetime=request_parent_lifetime;j.race_generation=request_race_generation;j.supported_hud=request_supported_hud;
+ j.parent_lifetime=request_parent_lifetime;j.race_generation=request_race_generation;j.supported_hud=request_supported_hud;j.request_origin=request_origin;
  j.flag21=flag21;j.flag22=flag22;j.scene_text=request_text;
  if(source_text&&std::strlen(source_text)<j.source_text.size())std::memcpy(j.source_text.data(),source_text,std::strlen(source_text)+1);
  request_queued=true;reason="native_request_queued_with_lifetime";note(RaceEvent::Queue,reason,p);
@@ -140,33 +173,25 @@ bool RaceEpoch::course_identity_verified() const noexcept {
   !std::strcmp(j->source_text.data(),"DataScene/RaceTest/France1.xml")&&j->flag21==1&&j->flag22==1;
 }
 bool race_hud_scene_proven(const RaceEpoch& e) noexcept {
- if(!e.correlated_owner_candidate())return false;
- const auto* root=e.lifetime(e.owner.execution_job_lifetime);
- if(!root||root->parent_lifetime||!root->terminal||!root->commit_seen||!root->commit_success||root->failed||
-    root->flag21!=1||root->flag22!=1)return false;
- constexpr char prefix[]="RaceTest/";
- if(std::strncmp(root->scene_text.data(),prefix,sizeof(prefix)-1))return false;
- const char* course=root->scene_text.data()+sizeof(prefix)-1;
- const size_t course_length=std::strlen(course);
- if(!course_length||course_length>96)return false;
- for(size_t i=0;i<course_length;++i){const char c=course[i];
-  if(!((c>='A'&&c<='Z')||(c>='a'&&c<='z')||(c>='0'&&c<='9')||c=='_'||c=='-'))return false;
- }
- char expected_source[128]{};
- const int source_length=std::snprintf(expected_source,sizeof(expected_source),"DataScene/RaceTest/%s.xml",course);
- if(source_length<0||static_cast<size_t>(source_length)>=sizeof(expected_source)||std::strcmp(root->source_text.data(),expected_source))return false;
- unsigned matching_hud_jobs=0;
- for(size_t i=0;i<e.jobs_used;++i){const auto& job=e.jobs[i];if(job.race_generation!=e.race_generation||job.lifetime==root->lifetime)continue;
-  const bool exact_hud=job.supported_hud&&job.parent_lifetime==root->lifetime&&!job.failed&&job.terminal&&job.commit_seen&&job.commit_success&&
-   job.flag21==1&&job.flag22==0&&!std::strcmp(job.scene_text.data(),"Hud/Hud0")&&
-   !std::strcmp(job.source_text.data(),"DataScene/Hud/Hud0.xml");
-  if(!exact_hud)return false;++matching_hud_jobs;
- }
- return matching_hud_jobs==1;
+ return race_hud_scene_proven_as(e,false);
+}
+bool race_attract_hud_scene_proven(const RaceEpoch& e) noexcept {
+ return race_hud_scene_proven_as(e,true);
 }
 bool race_hud_player_running(const RaceOwnerRead& owner,uint32_t participant) noexcept {
  return owner.valid&&owner.arrays_ready&&owner.participant_states_ready&&participant<owner.count&&participant<owner.participant_states.size()&&
   owner.participant_states[participant]==0;
+}
+bool race_hud_startup_phase(const RaceOwnerRead& owner) noexcept {
+ if(!owner.valid||!owner.arrays_ready||!owner.count||owner.count>owner.participant_states.size())return false;
+ bool startup=false;
+ for(uint32_t i=0;i<owner.count;++i){const auto state=owner.participant_states[i];if(state==1)startup=true;else if(state!=0&&state!=2)return false;}
+ return startup&&(!owner.participant_states_ready&&owner.participant_states_reason&&
+  !std::strcmp(owner.participant_states_reason,"race_state_1_startup_transition"));
+}
+bool race_hud_player_drawable(const RaceOwnerRead& owner,uint32_t participant) noexcept {
+ if(!owner.valid||!owner.arrays_ready||participant>=owner.count||participant>=owner.participant_states.size())return false;
+ const auto state=owner.participant_states[participant];return state==0||state==1||state==2;
 }
 bool RaceEpoch::validate_thread(uint32_t expected,uint32_t actual) noexcept {
  observed_thread=actual;
@@ -245,7 +270,8 @@ RaceOwnerRead read_race_owner(RaceReadMemory& m,uint32_t base,const RaceOwner& i
   // RaceStarter 0x0048E820 has a native zero-writing branch as well as the
   // staged 1/2 path. Zero is accepted only under the independent completed
   // France1 job, current live RaceLimits owner, typed offline context and
-  // single-camera checks below. 1 is startup and 3 is finished; fail closed.
+  // single-camera checks below. Phase 1 stays rejected by race/camera proof;
+  // the HUD-only path can admit it only alongside a live SceneManager countdown.
   if(state.value!=0&&state.value!=2){r.participant_states_ready=false;
    r.participant_states_reason=state.value==1?"race_state_1_startup_transition":state.value==3?"race_state_3_finished":"race_state_unsupported_value";}
  }
@@ -260,17 +286,32 @@ RaceContextCheck check_race_context(const std::array<RaceScalar,9>& f,const Race
  if(!owner.participant_states_ready)return {false,"participant_race_state_not_active_or_starting"};
  return {true,"offline_one_player_supporting_context_not_certificate"};
 }
-RaceHudContextCheck check_race_hud_context(const std::array<RaceScalar,9>& f,const RaceOwnerRead& owner) noexcept {
+RaceHudContextCheck check_race_hud_context(const std::array<RaceScalar,9>& f,const RaceOwnerRead& owner,bool countdown_active) noexcept {
  if(!f[6].present||f[6].tag!=RACE_CONTEXT_TAGS[6])return {false,false,"missing_or_wrong_type_broker_entry"};
  if(f[6].value!=0&&f[6].value!=1)return {false,false,"unsupported_replay_flag_value"};
  const bool replay=f[6].value==1;
- if(!replay){const auto ordinary=check_race_context(f,owner);return {ordinary.supported,false,ordinary.reason};}
- // Reuse the exact offline, one-player, owner, participant and non-replay
- // checks. Only the verified PlaybackReplay boolean is relaxed for HUD use.
- auto replay_fields=f;replay_fields[6].value=0;
- const auto ordinary=check_race_context(replay_fields,owner);
+ // HUD suppression may cover native phases 0, 1 (the verified startup
+ // transition), and 2. Camera/physics certification continues to require the
+ // stricter participant_states_ready check in check_race_context().
+ const bool startup=race_hud_startup_phase(owner);
+ if((startup&&!countdown_active)||(!owner.participant_states_ready&&!startup))return {false,false,"participant_race_state_not_active_or_starting"};
+ for(uint32_t i=0;i<owner.count&&i<owner.participant_states.size();++i){const auto state=owner.participant_states[i];
+  if(state!=0&&state!=2&&!(state==1&&startup&&countdown_active))return {false,false,"participant_race_state_not_active_or_starting"};}
+ auto hud_owner=owner;hud_owner.participant_states_ready=true;
+ auto checked_fields=f;if(replay)checked_fields[6].value=0;
+ const auto ordinary=check_race_context(checked_fields,hud_owner);
  if(!ordinary.supported)return {false,false,ordinary.reason};
- return {true,true,"certified_single_player_replay_hud_context"};
+ return replay?RaceHudContextCheck{true,true,"certified_single_player_replay_hud_context"}:
+  RaceHudContextCheck{true,false,startup&&countdown_active?"certified_start_countdown_hud_context":"offline_one_player_hud_context"};
+}
+bool check_race_attract_hud_context(const std::array<RaceScalar,9>& f,const RaceOwnerRead& owner) noexcept {
+ for(size_t i=0;i<f.size();++i)if(!f[i].present||f[i].tag!=RACE_CONTEXT_TAGS[i])return false;
+ if(f[0].value!=14||f[1].value!=0||f[2].value!=0||f[3].value!=0||f[4].value!=1||
+    f[5].value!=0||f[6].value!=0||f[7].value!=0||f[8].value<1||f[8].value>8)return false;
+ if(!owner.valid||!owner.arrays_ready||!owner.participant_states_ready||static_cast<uint32_t>(f[8].value)!=owner.count)return false;
+ for(uint32_t i=0;i<owner.count&&i<owner.participant_states.size();++i)
+  if(owner.participant_states[i]!=0&&owner.participant_states[i]!=2)return false;
+ return true;
 }
 RaceCertificate check_live_race_certificate(const RaceEpoch& e,const RaceOwnerRead& owner,const std::array<RaceScalar,9>& fields,bool camera_valid,uint32_t camera) noexcept {
  RaceCertificate c;c.race_generation=e.race_generation;c.owner_lifetime=e.owner.lifetime;c.actor=e.owner.actor;c.ai=e.owner.ai;

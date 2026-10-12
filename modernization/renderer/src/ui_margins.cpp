@@ -613,8 +613,8 @@ void UiMargins::leave_consume() noexcept {
 bool UiMargins::consumer_hook_intact() const noexcept {
  return enabled_&&active==this&&GetCurrentThreadId()==thread_&&patch_.intact(memory);
 }
-bool UiMargins::clean_view_scope_identity(uint64_t& scope_id,uint64_t& identity_id,uint64_t& epoch,const char*& why) noexcept {
- scope_id=identity_id=epoch=0;why="no_native_consumer_scope";
+bool UiMargins::clean_view_scope_identity(uint64_t& scope_id,uint64_t& identity_id,uint64_t& epoch,const char*& why,MarginIdentity* stable_identity) noexcept {
+ scope_id=identity_id=epoch=0;if(stable_identity)*stable_identity={};why="no_native_consumer_scope";
  if(!consumer_hook_intact()){why="native_consumer_hook_unowned";return false;}
  if(!scope_depth_)return false;
  const auto& scope=scopes_[scope_depth_-1];epoch=scope.ownership_epoch;scope_id=scope.ownership_scope_id;
@@ -629,6 +629,7 @@ bool UiMargins::clean_view_scope_identity(uint64_t& scope_id,uint64_t& identity_
  }
  bool overflow=false;identity_id=ownership_identity_id(scope,overflow);
  if(!identity_id){why=overflow?"consumer_identity_registry_overflow":"consumer_identity_unregistered";return false;}
+ if(stable_identity)*stable_identity=scope.key;
  why="current_verified_native_consumer";return true;
 }
 void UiMargins::note_clean_view_draw(bool eligible,bool suppressed,bool requested,bool draw_requested,bool ui_callsite,bool scope_invalidated,

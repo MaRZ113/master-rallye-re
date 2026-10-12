@@ -17,9 +17,10 @@ struct RaceTransition {
  const char* reason="unknown";
  uint32_t thread=0;
  uint64_t race_generation=0,parent_job_lifetime=0;
+ uint32_t request_origin=0;
 };
 struct RaceJob {
- uint32_t pointer=0,scene=0,source=0;
+ uint32_t pointer=0,scene=0,source=0,request_origin=0;
  uint64_t generation=0,lifetime=0;
  bool executing=false,commit_seen=false,commit_success=false,terminal=false,reused=false;
  uint8_t flag21=0,flag22=0;
@@ -114,7 +115,7 @@ struct RaceContextCheck {bool supported=false;const char* reason="context_incomp
 RaceContextCheck check_race_context(const std::array<RaceScalar,9>& fields,const RaceOwnerRead& owner) noexcept;
 struct RaceHudContextCheck {bool supported=false,replay=false;const char* reason="context_incomplete";};
 // HUD-only replay allowance. The camera/race-write certificate remains strict.
-RaceHudContextCheck check_race_hud_context(const std::array<RaceScalar,9>& fields,const RaceOwnerRead& owner) noexcept;
+RaceHudContextCheck check_race_hud_context(const std::array<RaceScalar,9>& fields,const RaceOwnerRead& owner,bool countdown_active=false) noexcept;
 
 struct RacePatchUnit {
  void* address=nullptr;size_t size=0;
@@ -161,14 +162,18 @@ struct RaceCertificate {
  int32_t human_participant_player_type=-1;bool human_participant_identity_verified=false;
 };
 struct RaceHudContext {
- bool valid=false,pause_known=false,paused=false,replay=false;
+ bool valid=false,pause_known=false,paused=false,replay=false,attract=false,startup_countdown=false;
  uint64_t race_generation=0,owner_lifetime=0;
  const char* reason="observer_unavailable";
 };
 // Read-only, camera-independent certificate for the native race UI stream.
 // This is deliberately separate from the France1 camera-write certificate.
 bool race_hud_scene_proven(const RaceEpoch&) noexcept;
+bool race_attract_hud_scene_proven(const RaceEpoch&) noexcept;
 bool race_hud_player_running(const RaceOwnerRead&,uint32_t participant_index) noexcept;
+bool race_hud_player_drawable(const RaceOwnerRead&,uint32_t participant_index) noexcept;
+bool race_hud_startup_phase(const RaceOwnerRead&) noexcept;
+bool check_race_attract_hud_context(const std::array<RaceScalar,9>&,const RaceOwnerRead&) noexcept;
 RaceHudContext live_race_hud_context() noexcept;
 RaceCertificate check_live_race_certificate(const RaceEpoch&,const RaceOwnerRead&,
  const std::array<RaceScalar,9>&,bool camera_identity_valid,uint32_t camera) noexcept;

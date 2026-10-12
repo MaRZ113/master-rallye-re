@@ -70,6 +70,8 @@ VerticalFOVDegrees=75.0
 [FreeCamera]
 ; Defaults OFF. Runtime certification works independently of Trace.Enabled.
 Enabled=0
+; Live simulation flight requires the verified race/camera owner. Missing keeps the legacy paused-only policy.
+AllowUnpaused=0
 ; 0 = WASD + E/Q vertical; 1 = physical Numpad; 2 = Custom FreeCameraKeys below.
 ControlPreset=0
 ; F10 is reserved. F8 is the first-flight key; rebind if a native control conflicts.
@@ -88,7 +90,9 @@ MouseSensitivity=0.12
 AutoLevelHorizon=1
 ; 0 levels on the first post-activation sample; max accepted value is 5.
 HorizonLevelSeconds=0.30
-; Freecam-only vertical lens. 0 inherits the current gameplay vertical FOV.
+; Freecam-only vertical lens; values are degrees. Supported lens range is 30..110.
+; A nonzero initial target outside Min/Max is clamped to that range; 0 inherits gameplay FOV.
+; FOVDecrease/FOVIncrease (Z/X by default) adjust within Min/Max while Freecam is active.
 CinematicFOVEnabled=1
 CinematicVerticalFOVDegrees=0
 MinVerticalFOVDegrees=35

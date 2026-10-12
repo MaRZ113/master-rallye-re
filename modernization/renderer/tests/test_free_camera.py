@@ -107,6 +107,7 @@ class FreeCameraEvidenceTests(unittest.TestCase):
         ini = configparser.ConfigParser()
         ini.read(ROOT / 'MRRRenderer.ini.example')
         self.assertEqual(ini['FreeCamera']['Enabled'], '0')
+        self.assertEqual(ini['FreeCamera']['AllowUnpaused'], '0')
         self.assertNotEqual(ini['FreeCamera']['ToggleKey'], 'F10')
         self.assertEqual(ini['FreeCamera']['AutoLevelHorizon'], '1')
         self.assertEqual(ini['FreeCamera']['HorizonLevelSeconds'], '0.30')
@@ -148,6 +149,8 @@ class FreeCameraEvidenceTests(unittest.TestCase):
         self.assertEqual(first['FreeCamera']['Enabled'], '1')
         self.assertEqual(first['FreeCamera']['ControlPreset'], '1')
         self.assertEqual(first['Trace']['Enabled'], '1')
+        loader = (ROOT / 'src/visual_policy.cpp').read_text()
+        self.assertIn('L"AllowUnpaused","FreeCamera.AllowUnpaused"', loader)
 
 
 if __name__ == '__main__':

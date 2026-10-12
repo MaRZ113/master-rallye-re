@@ -3,3 +3,6 @@ vendor/d3d8/* -text whitespace=-blank-at-eol
 vendor/licenses/* -text whitespace=-blank-at-eol,-space-before-tab
 # Preserve this source handoff under the repository's default text policy.
 docs/r-gfx5-8/*.zip binary -eol
+
+# Compressed source handoffs must retain their exact archive bytes.
+*.zip binary -eol

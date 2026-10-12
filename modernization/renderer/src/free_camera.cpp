@@ -18,6 +18,7 @@ FreeCameraConfig parse_free_camera_config(const std::map<std::string,std::string
  FreeCameraConfig c;auto get=[&](const char* k,const char* d){auto i=f.find(k);return i==f.end()?std::string(d):i->second;};
  auto number=[&](const char* k,float& out,float lo,float hi){auto v=get(k,"");if(v.empty())return true;char* end=nullptr;double n=std::strtod(v.c_str(),&end);if(end!=v.c_str()+v.size()||!std::isfinite(n)||n<lo||n>hi)return false;out=static_cast<float>(n);return true;};
  bool valid=parse_config_boolean(get("FreeCamera.Enabled","0"),c.enabled);
+ valid&=parse_config_boolean(get("FreeCamera.AllowUnpaused","0"),c.allow_unpaused);
  auto preset=get("FreeCamera.ControlPreset","0");if(preset=="0")c.preset=0;else if(preset=="1")c.preset=1;else if(preset=="2")c.preset=2;else valid=false;
  c.toggle=free_camera_key(get("FreeCamera.ToggleKey","F8"));valid&=c.toggle!=0;
  valid&=number("FreeCamera.MoveSpeed",c.speed,.01f,1000)&&number("FreeCamera.FastMultiplier",c.fast,1,20)&&number("FreeCamera.SlowMultiplier",c.slow,.01f,1)&&number("FreeCamera.MouseSensitivity",c.sensitivity,.001f,5);
@@ -32,14 +33,19 @@ FreeCameraConfig parse_free_camera_config(const std::map<std::string,std::string
  valid&=number("FreeCamera.RollSmoothSeconds",c.roll_smooth_seconds,0.f,2.f);
  valid&=number("FreeCamera.MaxRollDegrees",c.max_roll_degrees,1.f,180.f);
  c.roll_left=free_camera_key(get("FreeCameraKeys.RollLeft","C"));c.roll_right=free_camera_key(get("FreeCameraKeys.RollRight","V"));c.roll_reset=free_camera_key(get("FreeCameraKeys.RollReset","B"));
- valid&=parse_config_boolean(get("FreeCamera.CinematicFOVEnabled","1"),c.cinematic_fov_enabled);
- valid&=number("FreeCamera.CinematicVerticalFOVDegrees",c.cinematic_vfov,0.f,110.f);
- valid&=number("FreeCamera.MinVerticalFOVDegrees",c.min_vfov,30.f,110.f);
- valid&=number("FreeCamera.MaxVerticalFOVDegrees",c.max_vfov,30.f,110.f);
- valid&=number("FreeCamera.FOVStepDegrees",c.fov_step,.1f,30.f);
- valid&=number("FreeCamera.FOVSmoothSeconds",c.fov_smooth_seconds,0.f,5.f);
+ bool fov_valid=parse_config_boolean(get("FreeCamera.CinematicFOVEnabled","1"),c.cinematic_fov_enabled);
+ fov_valid&=number("FreeCamera.CinematicVerticalFOVDegrees",c.cinematic_vfov,0.f,110.f);
+ fov_valid&=number("FreeCamera.MinVerticalFOVDegrees",c.min_vfov,30.f,110.f);
+ fov_valid&=number("FreeCamera.MaxVerticalFOVDegrees",c.max_vfov,30.f,110.f);
+ fov_valid&=number("FreeCamera.FOVStepDegrees",c.fov_step,.1f,30.f);
+ fov_valid&=number("FreeCamera.FOVSmoothSeconds",c.fov_smooth_seconds,0.f,5.f);
+ fov_valid&=c.min_vfov<=c.max_vfov;
+ if(!fov_valid){c.cinematic_fov_enabled=false;c.cinematic_vfov=0;c.min_vfov=35;c.max_vfov=100;c.fov_step=5;c.fov_smooth_seconds=.25f;c.cinematic_fov_reason="invalid_optional_fov_config_native_lens";}
+ else if(c.cinematic_fov_enabled&&c.cinematic_vfov>0){
+  const float requested=c.cinematic_vfov;c.cinematic_vfov=std::clamp(c.cinematic_vfov,c.min_vfov,c.max_vfov);
+  c.cinematic_fov_reason=requested==c.cinematic_vfov?"configured":"initial_target_clamped_to_configured_range";
+ }else c.cinematic_fov_reason=c.cinematic_fov_enabled?"configured_inherit_gameplay_fov":"disabled_by_config";
  c.fov_decrease=free_camera_key(get("FreeCameraKeys.FOVDecrease","Z"));c.fov_increase=free_camera_key(get("FreeCameraKeys.FOVIncrease","X"));
- valid&=c.min_vfov<=c.max_vfov&&(c.cinematic_vfov==0||(c.cinematic_vfov>=c.min_vfov&&c.cinematic_vfov<=c.max_vfov));
  valid&=c.fov_decrease&&c.fov_increase&&c.fov_decrease!=c.fov_increase&&c.fov_decrease!=c.toggle&&c.fov_increase!=c.toggle&&
         c.fov_decrease!=c.speed_increase&&c.fov_decrease!=c.speed_decrease&&c.fov_increase!=c.speed_increase&&c.fov_increase!=c.speed_decrease;
  if(c.preset==1)c.keys={0x148,0x150,0x14b,0x14d,0x149,0x151,VK_LSHIFT,VK_LMENU};
