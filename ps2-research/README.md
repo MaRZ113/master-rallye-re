@@ -159,3 +159,8 @@ the [handoff](rigid1/HANDOFF.md) retains compact source/instruction evidence and
 historical test fixtures. Contact magnitude, shadow/trigger consumers outside the
 traced path and live collision validation remain explicit. No PC physics,
 renderer, course assets or SDK are changed.
+
+The new [PC PS2 graphics port](pc-port/README.md) is an isolated implementation
+area for future restoration work. The initial [architecture decision](pc-port/docs/architecture.md)
+confirms that the frozen renderer currently has no safe extension seam; it records
+the smallest proposed interface and the approval boundary before any baseline edit.

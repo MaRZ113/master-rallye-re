@@ -1,0 +1,8 @@
+.analysis/
+.build*/
+dist/
+*.dll
+*.exe
+*.obj
+*.pdb
+*.zip
