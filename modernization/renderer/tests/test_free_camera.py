@@ -106,6 +106,8 @@ class FreeCameraEvidenceTests(unittest.TestCase):
         import configparser
         ini = configparser.ConfigParser()
         ini.read(ROOT / 'MRRRenderer.ini.example')
+        self.assertEqual(ini['HUD']['PreservePause'], '1')
+        self.assertEqual(ini['HUD']['PreserveMenus'], '1')
         self.assertEqual(ini['FreeCamera']['Enabled'], '0')
         self.assertEqual(ini['FreeCamera']['AllowUnpaused'], '0')
         self.assertNotEqual(ini['FreeCamera']['ToggleKey'], 'F10')
@@ -113,6 +115,7 @@ class FreeCameraEvidenceTests(unittest.TestCase):
         self.assertEqual(ini['FreeCamera']['HorizonLevelSeconds'], '0.30')
         self.assertEqual(ini['FreeCamera']['MovementSmoothSeconds'], '0.12')
         self.assertEqual(ini['FreeCamera']['CinematicFOVEnabled'], '1')
+        self.assertEqual(ini['FreeCamera']['InheritStockFOVOnToggle'], '1')
         self.assertEqual(ini['FreeCamera']['CinematicVerticalFOVDegrees'], '0')
         self.assertEqual(ini['FreeCamera']['FOVSmoothSeconds'], '0.25')
         self.assertEqual(ini['FreeCamera']['ManualRollEnabled'], '1')
@@ -151,6 +154,7 @@ class FreeCameraEvidenceTests(unittest.TestCase):
         self.assertEqual(first['Trace']['Enabled'], '1')
         loader = (ROOT / 'src/visual_policy.cpp').read_text()
         self.assertIn('L"AllowUnpaused","FreeCamera.AllowUnpaused"', loader)
+        self.assertIn('L"InheritStockFOVOnToggle","FreeCamera.InheritStockFOVOnToggle"', loader)
 
 
 if __name__ == '__main__':

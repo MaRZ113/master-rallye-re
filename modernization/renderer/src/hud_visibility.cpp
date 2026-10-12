@@ -24,57 +24,61 @@ bool hud_toggle_edge(bool focused,bool down,bool& previous) noexcept {
  const bool edge=down&&!previous;previous=down;return edge;
 }
 
-void HudVisibility::clear_replay_signatures() noexcept {
- if(replay_signatures_)for(size_t i=0;i<replay_signature_count_;++i)replay_signatures_[i]={};
- replay_signature_count_=0;replay_signature_device_id_=0;
+void HudVisibility::clear_race_hud_signatures() noexcept {
+ if(race_hud_signatures_)for(size_t i=0;i<race_hud_signature_count_;++i)race_hud_signatures_[i]={};
+ race_hud_signature_count_=0;race_hud_signature_device_id_=0;
 }
 
-bool HudVisibility::learn_replay_signature(const HudDrawFacts& f) noexcept {
+bool HudVisibility::learn_race_hud_signature(const HudDrawFacts& f) noexcept {
  if(!supported_ui_identity(f))return false;
- if(replay_signature_device_id_&&replay_signature_device_id_!=f.device_id)clear_replay_signatures();
- replay_signature_device_id_=f.device_id;
- for(size_t i=0;i<replay_signature_count_;++i){const auto& s=replay_signatures_[i];
+ if(race_hud_signature_device_id_&&race_hud_signature_device_id_!=f.device_id)clear_race_hud_signatures();
+ race_hud_signature_device_id_=f.device_id;
+ for(size_t i=0;i<race_hud_signature_count_;++i){const auto& s=race_hud_signatures_[i];
   if(s.race_generation==f.race_generation&&s.owner_lifetime==f.owner_lifetime&&s.ui_epoch==f.ui_epoch&&s.device_id==f.device_id&&
      s.entity==f.ui_entity&&s.packet==f.ui_packet&&s.point==f.ui_point&&s.storage==f.ui_storage&&s.mode==f.ui_packet_mode)return true;
  }
- if(!replay_signatures_||replay_signature_count_>=REPLAY_SIGNATURE_CAPACITY){++replay_signature_overflow_;return false;}
- auto& s=replay_signatures_[replay_signature_count_++];
+ if(!race_hud_signatures_||race_hud_signature_count_>=RACE_HUD_SIGNATURE_CAPACITY){++race_hud_signature_overflow_;return false;}
+ auto& s=race_hud_signatures_[race_hud_signature_count_++];
  s={f.race_generation,f.owner_lifetime,f.ui_epoch,f.device_id,f.ui_entity,f.ui_packet,f.ui_point,f.ui_storage,f.ui_packet_mode};
  return true;
 }
 
-bool HudVisibility::has_replay_signature(const HudDrawFacts& f) const noexcept {
- if(!replay_signatures_||!supported_ui_identity(f)||f.device_id!=replay_signature_device_id_)return false;
- for(size_t i=0;i<replay_signature_count_;++i){const auto& s=replay_signatures_[i];
+bool HudVisibility::has_race_hud_signature(const HudDrawFacts& f) const noexcept {
+ if(!race_hud_signatures_||!supported_ui_identity(f)||f.device_id!=race_hud_signature_device_id_)return false;
+ for(size_t i=0;i<race_hud_signature_count_;++i){const auto& s=race_hud_signatures_[i];
   if(s.race_generation==f.race_generation&&s.owner_lifetime==f.owner_lifetime&&s.ui_epoch==f.ui_epoch&&s.device_id==f.device_id&&
      s.entity==f.ui_entity&&s.packet==f.ui_packet&&s.point==f.ui_point&&s.storage==f.ui_storage&&s.mode==f.ui_packet_mode)return true;
  }
  return false;
 }
 
-size_t HudVisibility::replay_signatures_for_current_context() const noexcept {
- if(!replay_signatures_||!context_.valid||!context_.replay||!context_.race_generation||!context_.owner_lifetime||!replay_signature_device_id_)return 0;
+size_t HudVisibility::signatures_for_current_context() const noexcept {
+ if(!race_hud_signatures_||!context_.valid||!context_.race_generation||!context_.owner_lifetime||!race_hud_signature_device_id_)return 0;
  size_t count=0;
- for(size_t i=0;i<replay_signature_count_;++i){const auto& s=replay_signatures_[i];
-  if(s.race_generation==context_.race_generation&&s.owner_lifetime==context_.owner_lifetime&&s.device_id==replay_signature_device_id_)++count;
+ for(size_t i=0;i<race_hud_signature_count_;++i){const auto& s=race_hud_signatures_[i];
+  if(s.race_generation==context_.race_generation&&s.owner_lifetime==context_.owner_lifetime&&s.device_id==race_hud_signature_device_id_)++count;
  }
  return count;
 }
+size_t HudVisibility::race_hud_signatures_for_current_context() const noexcept {
+ return context_.replay?signatures_for_current_context():0;
+}
 
 void HudVisibility::configure(const VisualConfig& c,bool exact,bool hook_expected) noexcept {
- exact_build_=exact;hook_expected_=hook_expected;config_valid_=c.version_ok&&c.hud_toggle_valid;
+ exact_build_=exact;hook_expected_=hook_expected;config_valid_=c.version_ok&&c.hud_toggle_valid;preserve_pause_=c.hud_preserve_pause;
  toggle_enabled_=config_valid_&&exact_build_&&hook_expected_&&c.hud_toggle_enabled;key_=c.hud_toggle_key?c.hud_toggle_key:'H';
  requested_hidden_=config_valid_&&c.hud_hidden_at_startup;previous_key_down_=false;
  context_=RaceHudContext{};context_sample_frame_=UINT64_MAX;scene_active_=device_valid_=hook_owned_=false;
  known_hud_draws_=suppressed_hud_draws_=rejected_ambiguous_draws_=0;
  replay_pause_suppressed_draws_=replay_pause_overlay_suppressed_draws_=0;
- replay_pause_preserved_draws_=replay_signature_overflow_=0;
- clear_replay_signatures();replay_signatures_.reset();clean_view_suppressed_=false;
- if(toggle_enabled_)replay_signatures_.reset(new(std::nothrow) ReplayHudSignature[REPLAY_SIGNATURE_CAPACITY]{});
+ replay_pause_preserved_draws_=race_hud_signature_overflow_=0;
+ paused_race_suppressed_draws_=paused_race_preserved_unknown_draws_=paused_race_overlay_suppressed_draws_=paused_freecam_suppressed_draws_=0;
+ clear_race_hud_signatures();race_hud_signatures_.reset();clean_view_suppressed_=false;paused_freecam_context_seen_=false;
+ if(toggle_enabled_)race_hud_signatures_.reset(new(std::nothrow) RaceHudSignature[RACE_HUD_SIGNATURE_CAPACITY]{});
  const std::string reason=!c.version_ok?"config_version_unavailable":!c.hud_toggle_valid?c.hud_reason:!exact?"unsupported_build":!hook_expected?"consumer_hook_not_requested":c.hud_reason;
  try{session().write("{\"type\":\"hud_hide_config\",\"toggle_enabled\":"+std::string(toggle_enabled_?"true":"false")+
   ",\"toggle_key\":"+std::to_string(key_)+",\"initially_hidden\":"+(requested_hidden_?"true":"false")+
-  ",\"preserve_menus\":true,\"exact_build\":"+(exact_build_?"true":"false")+
+  ",\"preserve_menus\":true,\"preserve_pause\":"+(preserve_pause_?"true":"false")+",\"pause_policy_scope\":\"ordinary_gameplay_stock_camera_only\",\"freecam_pause_always_hidden\":true,\"exact_build\":"+(exact_build_?"true":"false")+
   ",\"consumer_hook_expected\":"+(hook_expected_?"true":"false")+
   ",\"valid\":"+(config_valid_?"true":"false")+",\"reason\":"+quote(reason)+"}");}catch(...){}
  log_state("startup");
@@ -95,7 +99,7 @@ void HudVisibility::observe_context(const RaceHudContext& context,bool exact,boo
  const bool new_semantic_owner=context.valid&&context_.valid&&
   (context.race_generation!=context_.race_generation||context.owner_lifetime!=context_.owner_lifetime||
    context.replay!=context_.replay||context.attract!=context_.attract);
- if(new_semantic_owner)clear_replay_signatures();
+ if(new_semantic_owner)clear_race_hud_signatures();
  context_=context;context_sample_frame_=frame;exact_build_=exact;device_valid_=device;hook_owned_=hook;scene_active_=scene_active;
  if(changed)log_state("ui_context_transition");
 }
@@ -103,14 +107,14 @@ void HudVisibility::observe_context(const RaceHudContext& context,bool exact,boo
 void HudVisibility::reset_context() noexcept {
  context_=RaceHudContext{};context_.reason="device_reset";scene_active_=false;device_valid_=false;hook_owned_=false;
  context_sample_frame_=UINT64_MAX;
- clear_replay_signatures();log_state("device_reset");
+ clear_race_hud_signatures();log_state("device_reset");
 }
 
 bool HudVisibility::should_suppress(const HudDrawFacts& facts) noexcept {
  if(!facts.callsite_exact)return false;
  if(facts.device_id){
-  if(replay_signature_device_id_&&replay_signature_device_id_!=facts.device_id)clear_replay_signatures();
-  if(!replay_signature_device_id_)replay_signature_device_id_=facts.device_id;
+  if(race_hud_signature_device_id_&&race_hud_signature_device_id_!=facts.device_id)clear_race_hud_signatures();
+  if(!race_hud_signature_device_id_)race_hud_signature_device_id_=facts.device_id;
  }
  const bool same_scene=context_.valid&&facts.context_current&&facts.race_context_valid&&
   facts.paused==context_.paused&&facts.replay_context==context_.replay&&facts.attract_context==context_.attract&&
@@ -121,12 +125,13 @@ bool HudVisibility::should_suppress(const HudDrawFacts& facts) noexcept {
   facts.consumer_scope&&facts.identity_current&&facts.callsite_exact&&facts.fvf_known&&facts.fvf==0x142&&
   facts.primitive==D3DPT_TRIANGLELIST&&facts.primitive_count>0;
  const bool running_context=owned_base&&!facts.paused&&(facts.pause_known||facts.attract_context);
- const bool running_replay=running_context&&context_.replay&&facts.replay_context&&facts.pause_known&&
+ const bool running_race_ui=running_context&&!facts.attract_context&&!facts.startup_countdown&&facts.pause_known&&
   global_hud_draw_should_suppress(true,facts);
 
- // Discover UI identities while replay is running, even with the HUD visible.
- // Paused replay can then hide only packets proven to belong to its live HUD.
- if(running_replay&&supported_ui_identity(facts))learn_replay_signature(facts);
+ // Learn exact UI packet identities during live race rendering, even while
+ // the preference is visible. On ordinary pause, these known race packets
+ // can be hidden while newly created pause-menu packets remain untouched.
+ if(running_race_ui&&supported_ui_identity(facts))learn_race_hud_signature(facts);
  if(!requested_hidden_)return false;
 
  if(running_context&&global_hud_draw_should_suppress(true,facts)){
@@ -142,11 +147,28 @@ bool HudVisibility::should_suppress(const HudDrawFacts& facts) noexcept {
    // every verified draw at the native UI packet consumer belongs to the
    // interface the user asked to hide. Keep the learned set as provenance,
    // but do not let its absence leave the pause window visible.
-   if(has_replay_signature(facts))++known_hud_draws_;
+   if(has_race_hud_signature(facts))++known_hud_draws_;
    else ++replay_pause_overlay_suppressed_draws_;
    ++suppressed_hud_draws_;++replay_pause_suppressed_draws_;return true;
   }
   ++replay_pause_preserved_draws_;++rejected_ambiguous_draws_;return false;
+ }
+
+ const bool paused_normal_race=owned_base&&!context_.replay&&!facts.replay_context&&context_.paused&&facts.paused&&
+  facts.pause_known&&!facts.attract_context&&!facts.startup_countdown;
+ if(paused_normal_race){
+  if(facts.paused_freecam_context&&supported_ui_identity(facts)){
+   paused_freecam_context_seen_=true;++suppressed_hud_draws_;++paused_freecam_suppressed_draws_;return true;
+  }
+  if(!preserve_pause_&&supported_ui_identity(facts)){
+   if(has_race_hud_signature(facts))++known_hud_draws_;else ++paused_race_overlay_suppressed_draws_;
+   ++suppressed_hud_draws_;++paused_race_suppressed_draws_;return true;
+  }
+  if(supported_ui_identity(facts)&&has_race_hud_signature(facts)){
+   ++known_hud_draws_;++suppressed_hud_draws_;++paused_race_suppressed_draws_;return true;
+  }
+  if(facts.paused_freecam_context)paused_freecam_context_seen_=true;
+  ++paused_race_preserved_unknown_draws_;++rejected_ambiguous_draws_;return false;
  }
 
  ++rejected_ambiguous_draws_;return false;
@@ -160,7 +182,8 @@ void HudVisibility::log_state(const char* reason) noexcept {
   ",\"attract_mode\":"+(context_.attract?"true":"false")+
   ",\"startup_countdown\":"+(context_.startup_countdown?"true":"false")+
   ",\"race_generation\":"+std::to_string(context_.race_generation)+",\"owner_lifetime\":"+std::to_string(context_.owner_lifetime)+
-  ",\"learned_replay_signatures\":"+std::to_string(replay_signatures_for_current_context())+
+  ",\"learned_race_hud_signatures\":"+std::to_string(signatures_for_current_context())+
+  ",\"learned_replay_signatures\":"+std::to_string(race_hud_signatures_for_current_context())+
   ",\"reason\":"+quote(reason?reason:"unknown")+",\"context_reason\":"+quote(context_.reason?context_.reason:"unknown")+"}");}catch(...){}
  last_state_reason_=reason?reason:"unknown";
 }
@@ -168,7 +191,7 @@ void HudVisibility::log_state(const char* reason) noexcept {
 void HudVisibility::finish_frame() noexcept {
  known_hud_draws_=suppressed_hud_draws_=rejected_ambiguous_draws_=0;
  replay_pause_suppressed_draws_=replay_pause_overlay_suppressed_draws_=0;
- replay_pause_preserved_draws_=0;clean_view_suppressed_=false;
+ replay_pause_preserved_draws_=paused_race_suppressed_draws_=paused_race_preserved_unknown_draws_=paused_race_overlay_suppressed_draws_=paused_freecam_suppressed_draws_=0;clean_view_suppressed_=false;paused_freecam_context_seen_=false;
 }
 
 std::string HudVisibility::json() const {
@@ -185,14 +208,20 @@ std::string HudVisibility::json() const {
   <<",\"scene_active\":"<<(scene_active_?"true":"false")<<",\"exact_build\":"<<(exact_build_?"true":"false")
   <<",\"device_valid\":"<<(device_valid_?"true":"false")<<",\"consumer_hook_owned\":"<<(hook_owned_?"true":"false")
   <<",\"known_hud_draws\":"<<known_hud_draws_<<",\"suppressed_hud_draws\":"<<suppressed_hud_draws_
+  <<",\"preserve_pause\":"<<(preserve_pause_?"true":"false")<<",\"pause_policy_scope\":\"ordinary_gameplay_stock_camera_only\",\"freecam_pause_always_hidden\":true"
   <<",\"preserved_menu_draws\":null,\"rejected_ambiguous_draws\":"<<rejected_ambiguous_draws_
-  <<",\"learned_replay_signatures\":"<<replay_signatures_for_current_context()
+  <<",\"learned_replay_signatures\":"<<race_hud_signatures_for_current_context()
+  <<",\"learned_race_hud_signatures\":"<<signatures_for_current_context()
+  <<",\"paused_race_suppressed_draws\":"<<paused_race_suppressed_draws_
+  <<",\"paused_race_overlay_suppressed_draws\":"<<paused_race_overlay_suppressed_draws_
+  <<",\"paused_race_preserved_unknown_draws\":"<<paused_race_preserved_unknown_draws_
+  <<",\"paused_freecam_suppressed_draws\":"<<paused_freecam_suppressed_draws_
   <<",\"replay_pause_suppressed_draws\":"<<replay_pause_suppressed_draws_
   <<",\"replay_pause_overlay_suppressed_draws\":"<<replay_pause_overlay_suppressed_draws_
   <<",\"replay_pause_preserved_unknown_draws\":"<<replay_pause_preserved_draws_
-  <<",\"replay_signature_overflow\":"<<replay_signature_overflow_
+  <<",\"replay_signature_overflow\":"<<race_hud_signature_overflow_
   <<",\"clean_view_suppressed_draws\":"<<(clean_view_suppressed_?1:0)
-  <<",\"policy_reason\":"<<quote(!requested_hidden_?"user_visible":!config_valid_?"invalid_config":!exact_build_?"unsupported_build":!scene_active_?"outside_scene":!context_.valid?context_.reason:clean_view_suppressed_&&context_.paused?"paused_freecam_clean_view":clean_view_suppressed_?"verified_clean_view_draw_suppressed":context_.paused&&context_.replay&&replay_pause_suppressed_draws_?"paused_replay_ui_suppressed":context_.paused&&context_.replay&&replay_pause_preserved_draws_?"replay_pause_unverified_ui_preserved":context_.paused&&context_.replay?"replay_pause_no_ui_draw_seen":context_.paused?"interactive_pause_preserved":!context_.pause_known&&!context_.attract?"pause_state_unknown":!hook_owned_?"consumer_hook_unowned":policy_ready()?(context_.attract?"certified_attract_demo_hud":context_.startup_countdown?"certified_start_countdown_hud":context_.replay?"certified_replay_ui":"certified_gameplay_ui"):"draw_scope_unavailable")<<"}";
+  <<",\"policy_reason\":"<<quote(!requested_hidden_?"user_visible":!config_valid_?"invalid_config":!exact_build_?"unsupported_build":!scene_active_?"outside_scene":!context_.valid?context_.reason:paused_freecam_suppressed_draws_?"paused_freecam_global_hud_suppressed":clean_view_suppressed_&&context_.paused?"paused_freecam_clean_view":clean_view_suppressed_?"verified_clean_view_draw_suppressed":context_.paused&&context_.replay&&replay_pause_suppressed_draws_?"paused_replay_ui_suppressed":context_.paused&&context_.replay&&replay_pause_preserved_draws_?"replay_pause_unverified_ui_preserved":context_.paused&&context_.replay?"replay_pause_no_ui_draw_seen":context_.paused&&!context_.replay&&paused_race_overlay_suppressed_draws_?"paused_race_full_ui_suppressed_by_config":context_.paused&&!context_.replay&&paused_race_suppressed_draws_?"paused_race_known_hud_suppressed":context_.paused&&!context_.replay&&paused_race_preserved_unknown_draws_?"paused_race_unknown_ui_preserved":context_.paused?"interactive_pause_preserved":!context_.pause_known&&!context_.attract?"pause_state_unknown":!hook_owned_?"consumer_hook_unowned":policy_ready()?(context_.attract?"certified_attract_demo_hud":context_.startup_countdown?"certified_start_countdown_hud":context_.replay?"certified_replay_ui":"certified_gameplay_ui"):"draw_scope_unavailable")<<"}";
  return o.str();
 }
 }

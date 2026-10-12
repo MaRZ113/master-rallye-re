@@ -34,6 +34,7 @@ FreeCameraConfig parse_free_camera_config(const std::map<std::string,std::string
  valid&=number("FreeCamera.MaxRollDegrees",c.max_roll_degrees,1.f,180.f);
  c.roll_left=free_camera_key(get("FreeCameraKeys.RollLeft","C"));c.roll_right=free_camera_key(get("FreeCameraKeys.RollRight","V"));c.roll_reset=free_camera_key(get("FreeCameraKeys.RollReset","B"));
  bool fov_valid=parse_config_boolean(get("FreeCamera.CinematicFOVEnabled","1"),c.cinematic_fov_enabled);
+ fov_valid&=parse_config_boolean(get("FreeCamera.InheritStockFOVOnToggle","1"),c.inherit_stock_fov_on_toggle);
  fov_valid&=number("FreeCamera.CinematicVerticalFOVDegrees",c.cinematic_vfov,0.f,110.f);
  fov_valid&=number("FreeCamera.MinVerticalFOVDegrees",c.min_vfov,30.f,110.f);
  fov_valid&=number("FreeCamera.MaxVerticalFOVDegrees",c.max_vfov,30.f,110.f);
@@ -193,7 +194,7 @@ bool FlightController::update(const FreeCameraConfig& c,const FlightInput& raw_i
  if(edge){last_toggle_edge=true;if(active){active=false;velocity_={};speed_up_down_=speed_down_down_=false;wheel_remainder_=0;horizon_elapsed_=previous_horizon_progress_=0;horizon_level_progress=0;current_roll_degrees=target_roll_degrees=0;manual_roll_=manual_roll_target_=0;manual_roll_degrees=manual_roll_target_degrees=0;manual_roll_transition_active=roll_initialized_=false;orientation_={};horizon_leveling_active=false;bookmark_horizon_settled_=false;fov_initialized_=fov_transition_active_=false;current_vfov_=target_vfov_=0;fov_down_down_=in.fov_decrease;fov_up_down_=in.fov_increase;}
   else if(visible&&rigid(*visible)){pose=*visible;orientation_=pose;manual_roll_=manual_roll_target_=0;manual_roll_degrees=manual_roll_target_degrees=0;manual_roll_transition_active=false;roll_initialized_=true;active=true;activated=true;velocity_={};speed_up_down_=speed_down_down_=false;wheel_remainder_=0;orientation_valid=true;horizon_elapsed_=previous_horizon_progress_=0;horizon_level_progress=0;horizon_leveling_active=false;bookmark_horizon_settled_=false;std::copy_n(pose.data(),3,horizon_right_.data());
    if(c.cinematic_fov_enabled){double inherited=in.inherited_vfov;if(!std::isfinite(inherited)||inherited<30||inherited>110)inherited=90;
-    current_vfov_=inherited;target_vfov_=c.cinematic_vfov>0?c.cinematic_vfov:inherited;fov_initialized_=true;fov_transition_active_=current_vfov_!=target_vfov_;}
+    current_vfov_=inherited;target_vfov_=c.inherit_stock_fov_on_toggle||c.cinematic_vfov<=0?inherited:c.cinematic_vfov;fov_initialized_=true;fov_transition_active_=current_vfov_!=target_vfov_;}
    else{current_vfov_=target_vfov_=0;fov_initialized_=fov_transition_active_=false;}fov_down_down_=in.fov_decrease;fov_up_down_=in.fov_increase;}}
  if(!active)return false;
  bool fov_down_edge=in.fov_decrease&&!fov_down_down_,fov_up_edge=in.fov_increase&&!fov_up_down_;

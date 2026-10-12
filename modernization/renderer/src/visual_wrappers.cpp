@@ -156,8 +156,13 @@ HRESULT Device8::draw_primitive_at(D3DPRIMITIVETYPE type,UINT start,UINT count,u
   hud_draw.hook_owned=hook_owned;hud_draw.consumer_scope=clean_scope_id!=0;hud_draw.identity_current=identity_current;
   hud_draw.callsite_exact=ui_callsite;hud_draw.fvf_known=trace.shadow.bindings.vertex_shader.known;
   hud_draw.fvf=trace.shadow.bindings.vertex_shader.value;hud_draw.primitive=type;hud_draw.primitive_count=count;
-  suppress_global_hud=hud_visibility.should_suppress(hud_draw);
   clean_admission=game_fov.clean_view_admission(trace.scene_active,hook_owned,clean_scope_id!=0,trace.device_id());
+  // The strict Clean View context verifier remains the authority for whether
+  // an active Freecam truly owns this paused race/device/UI frame. The global
+  // HUD policy reuses that verified context even when optional CleanViewPilot
+  // is disabled, so PreservePause can never expose the Freecam pause overlay.
+  hud_draw.paused_freecam_context=draw_context.valid&&draw_context.paused&&clean_admission.context_valid;
+  suppress_global_hud=hud_visibility.should_suppress(hud_draw);
   CleanViewDrawFacts draw{};draw.exact_build=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))==0x400000;
   draw.hook_owned=hook_owned;draw.render_thread=game_fov.clean_view_render_thread_current();draw.consumer_scope=clean_scope_id!=0;
   draw.identity_complete=clean_identity_id!=0;draw.identity_current=identity_current;draw.callsite_exact=ui_callsite;

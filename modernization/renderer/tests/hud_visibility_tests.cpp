@@ -67,11 +67,11 @@ void visibility_lifetime(){
  auto stale=eligible();stale.context_current=false;CHECK(!h.should_suppress(stale));
  stale=eligible();stale.race_generation++;CHECK(!h.should_suppress(stale));
  stale=eligible();stale.owner_lifetime++;CHECK(!h.should_suppress(stale));
- auto paused=race(true);h.observe_context(paused,true,true,true,true);CHECK(!h.should_suppress(eligible()));CHECK(!h.policy_ready());
+ auto paused=race(true);h.observe_context(paused,true,true,true,true);auto paused_draw=eligible();paused_draw.paused=true;CHECK(h.should_suppress(paused_draw));CHECK(h.policy_ready());
  h.end_scene();CHECK(h.requested_hidden());CHECK(!h.should_suppress(eligible()));
  h.reset_context();CHECK(h.requested_hidden());
  auto active=race();h.observe_context(active,true,true,true,true);CHECK(h.should_suppress(eligible()));
- CHECK(h.json().find("\"suppressed_hud_draws\":2")!=std::string::npos);
+ CHECK(h.json().find("\"suppressed_hud_draws\":3")!=std::string::npos);
  h.end_scene();h.finish_frame();CHECK(!h.effective_hidden()&&h.requested_hidden());
  auto hidden=parse_visual_config({{"Renderer.ConfigVersion","1"},{"HUD.HiddenAtStartup","1"},{"HUD.ToggleEnabled","0"}},true);
  HudVisibility startup;startup.configure(hidden,true,true);CHECK(startup.requested_hidden()&&!startup.toggle_enabled());
@@ -89,18 +89,63 @@ void config_conflicts(){
  CHECK(!conflict.hud_toggle_enabled&&!conflict.hud_toggle_valid&&conflict.hud_reason=="toggle_conflicts_with_free_camera_binding");
  auto legacy_start=parse_visual_config({{"Renderer.ConfigVersion","1"},{"FreeCamera.CleanViewEnabled","1"}},true);
  CHECK(legacy_start.hud_hidden_at_startup);
+ auto preserve_default=parse_visual_config({{"Renderer.ConfigVersion","1"}},true);CHECK(preserve_default.hud_preserve_pause);
+ auto preserve_off=parse_visual_config({{"Renderer.ConfigVersion","1"},{"HUD.PreservePause","0"}},true);CHECK(!preserve_off.hud_preserve_pause&&config_json(preserve_off).find("\"hud_preserve_pause\":false")!=std::string::npos);
+ auto preserve_invalid=parse_visual_config({{"Renderer.ConfigVersion","1"},{"HUD.PreservePause","maybe"}},true);CHECK(preserve_invalid.hud_preserve_pause);
 }
 void paused_clean_view_contract(){
  auto c=parse_visual_config({{"Renderer.ConfigVersion","1"},{"HUD.ToggleEnabled","1"},{"HUD.ToggleKey","H"}},true);
  HudVisibility h;h.configure(c,true,true);CHECK(h.sample_key(true,true)&&h.requested_hidden());
  h.observe_context(race(true),true,true,true,true);auto paused_draw=eligible();paused_draw.paused=true;
  CHECK(!h.should_suppress(paused_draw)&&!h.effective_hidden());
- CHECK(h.json().find("\"policy_reason\":\"interactive_pause_preserved\"")!=std::string::npos);
+ CHECK(h.json().find("\"policy_reason\":\"paused_race_unknown_ui_preserved\"")!=std::string::npos);
  CleanViewDrawFacts clean{};clean.exact_build=clean.hook_owned=clean.render_thread=clean.consumer_scope=clean.identity_complete=clean.identity_current=clean.callsite_exact=clean.fvf_known=true;
  clean.fvf=0x142;clean.primitive=D3DPT_TRIANGLELIST;clean.primitive_count=3;
  CHECK(clean_view_draw_eligible(clean)&&clean_view_should_suppress(true,h.requested_hidden(),true));
  h.note_clean_view_suppressed();CHECK(h.effective_hidden());
  CHECK(h.json().find("\"policy_reason\":\"paused_freecam_clean_view\"")!=std::string::npos);
+}
+void normal_pause_learned_hud_contract(){
+ auto c=parse_visual_config({{"Renderer.ConfigVersion","1"},{"HUD.ToggleEnabled","1"},{"HUD.ToggleKey","H"}},true);
+ HudVisibility h;h.configure(c,true,true);
+ auto running=race();h.observe_context(running,true,true,true,true);
+ auto hud=eligible();CHECK(!h.should_suppress(hud)); // Learning is independent of the user's current visibility preference.
+ CHECK(h.json().find("\"learned_race_hud_signatures\":1")!=std::string::npos);
+ CHECK(h.json().find("\"learned_replay_signatures\":0")!=std::string::npos);
+ CHECK(h.sample_key(true,true)&&h.requested_hidden());
+ auto paused=race(true);h.observe_context(paused,true,true,true,true);hud.paused=true;
+ CHECK(h.policy_ready()&&h.should_suppress(hud)&&h.effective_hidden());
+ CHECK(h.json().find("\"paused_race_suppressed_draws\":1")!=std::string::npos);
+ auto pause_menu=hud;++pause_menu.ui_entity;++pause_menu.ui_packet;++pause_menu.ui_point;++pause_menu.ui_storage;
+ CHECK(!h.should_suppress(pause_menu)); // New pause-menu identity fails open.
+ CHECK(h.json().find("\"paused_race_preserved_unknown_draws\":1")!=std::string::npos);
+ CHECK(h.json().find("\"policy_reason\":\"paused_race_known_hud_suppressed\"")!=std::string::npos);
+
+ HudVisibility no_history;no_history.configure(c,true,true);CHECK(no_history.sample_key(true,true));
+ no_history.observe_context(paused,true,true,true,true);CHECK(!no_history.policy_ready());
+ CHECK(!no_history.should_suppress(hud)); // Joining directly into pause has no learned HUD ownership: preserve all UI.
+}
+void normal_pause_config_contract(){
+ auto base=parse_visual_config({{"Renderer.ConfigVersion","1"},{"HUD.ToggleEnabled","1"},{"HUD.ToggleKey","H"}},true);
+ auto full_ui=parse_visual_config({{"Renderer.ConfigVersion","1"},{"HUD.ToggleEnabled","1"},{"HUD.ToggleKey","H"},{"HUD.PreservePause","0"}},true);
+ HudVisibility preserve;preserve.configure(base,true,true);CHECK(preserve.sample_key(true,true));preserve.observe_context(race(true),true,true,true,true);
+ auto pause_ui=eligible();pause_ui.paused=true;CHECK(!preserve.should_suppress(pause_ui));
+ CHECK(preserve.json().find("\"policy_reason\":\"paused_race_unknown_ui_preserved\"")!=std::string::npos);
+ HudVisibility hide;hide.configure(full_ui,true,true);CHECK(hide.sample_key(true,true));hide.observe_context(race(true),true,true,true,true);
+ CHECK(hide.policy_ready()&&hide.should_suppress(pause_ui));
+ CHECK(hide.json().find("\"paused_race_overlay_suppressed_draws\":1")!=std::string::npos);
+ auto ambiguous=pause_ui;ambiguous.identity_current=false;CHECK(!hide.should_suppress(ambiguous));
+
+ // A fully verified paused-Freecam context always hides complete pause UI,
+ // regardless of PreservePause. The production wrapper supplies this only
+ // after the shared fresh-snapshot/device/race/camera admission succeeds.
+ HudVisibility freecam;freecam.configure(base,true,true);CHECK(freecam.sample_key(true,true));freecam.observe_context(race(true),true,true,true,true);
+ auto freecam_pause=pause_ui;freecam_pause.paused_freecam_context=true;
+ CHECK(freecam.should_suppress(freecam_pause)&&freecam.policy_ready());
+ CHECK(freecam.json().find("\"paused_freecam_suppressed_draws\":1")!=std::string::npos);
+ auto stale_freecam=pause_ui;stale_freecam.paused_freecam_context=false;CHECK(!freecam.should_suppress(stale_freecam));
+ HudVisibility freecam_config_off;freecam_config_off.configure(full_ui,true,true);CHECK(freecam_config_off.sample_key(true,true));freecam_config_off.observe_context(race(true),true,true,true,true);
+ CHECK(freecam_config_off.should_suppress(freecam_pause)&&freecam_config_off.json().find("\"paused_freecam_suppressed_draws\":1")!=std::string::npos);
 }
 void replay_pause_learned_identity_contract(){
  auto c=parse_visual_config({{"Renderer.ConfigVersion","1"},{"HUD.ToggleEnabled","1"},{"HUD.ToggleKey","H"}},true);
@@ -150,13 +195,13 @@ void replay_pause_overlay_admission_contract(){
  auto wrong_site=first;wrong_site.callsite_exact=false;CHECK(!h.should_suppress(wrong_site));
  auto non_replay_pause=race(true,false);h.observe_context(non_replay_pause,true,true,true,true);
  auto pause_menu=eligible();pause_menu.paused=true;CHECK(!h.should_suppress(pause_menu));
- CHECK(h.json().find("\"policy_reason\":\"interactive_pause_preserved\"")!=std::string::npos);
+ CHECK(h.json().find("\"policy_reason\":\"paused_race_unknown_ui_preserved\"")!=std::string::npos);
  RaceHudContext frontend{};frontend.reason="committed_scene_not_race_hud";
  h.observe_context(frontend,true,true,true,true);auto menu=eligible();menu.context_current=false;
  CHECK(!h.should_suppress(menu));
 }
 int main(){try{edge_contracts();strict_draw_contracts();visibility_lifetime();config_conflicts();paused_clean_view_contract();
- replay_pause_learned_identity_contract();replay_signature_capacity_and_lifecycle();
+ normal_pause_learned_hud_contract();normal_pause_config_contract();replay_pause_learned_identity_contract();replay_signature_capacity_and_lifecycle();
  replay_pause_overlay_admission_contract();
  std::cout<<"HUD edge input / strict native draw policy / live scene identity / persistent request / fail-open reset / key compatibility: PASS\n";return 0;
 }catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}

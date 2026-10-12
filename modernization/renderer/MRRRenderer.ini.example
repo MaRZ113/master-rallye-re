@@ -8,8 +8,13 @@ ConfigVersion=1
 ToggleEnabled=1
 ToggleKey=H
 HiddenAtStartup=0
-; Frontend, loading, results and interactive pause UI are always preserved.
+; Frontend, loading and results UI are always preserved.
 PreserveMenus=1
+; Applies only to a paused race using the stock camera:
+; 1 = hide learned race HUD while preserving the interactive pause window.
+; 0 = hide all verified UI draws in that ordinary gameplay pause.
+; Paused Freecam always hides verified pause UI whenever the global HUD is hidden.
+PreservePause=1
 
 [Display]
 ; Width/Height set the INITIAL normal CLIENT target; 0/0 adopts the first accepted game/client size.
@@ -94,6 +99,9 @@ HorizonLevelSeconds=0.30
 ; A nonzero initial target outside Min/Max is clamped to that range; 0 inherits gameplay FOV.
 ; FOVDecrease/FOVIncrease (Z/X by default) adjust within Min/Max while Freecam is active.
 CinematicFOVEnabled=1
+; Preserve the stock camera lens at each Freecam toggle. Set 0 to apply a positive
+; CinematicVerticalFOVDegrees as the initial Freecam target instead.
+InheritStockFOVOnToggle=1
 CinematicVerticalFOVDegrees=0
 MinVerticalFOVDegrees=35
 MaxVerticalFOVDegrees=100

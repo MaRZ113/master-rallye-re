@@ -8,7 +8,7 @@ struct FreeCameraConfig {
  float speed=40,fast=6,slow=.2f,sensitivity=.12f;
  float min_speed=.25f,max_speed=300.f,wheel_speed_factor=1.25f,movement_smooth_seconds=.12f;
  unsigned speed_increase=VK_PRIOR,speed_decrease=VK_NEXT;
- bool cinematic_fov_enabled=true;float cinematic_vfov=0,min_vfov=35,max_vfov=100,fov_step=5,fov_smooth_seconds=.25f;
+ bool cinematic_fov_enabled=true,inherit_stock_fov_on_toggle=true;float cinematic_vfov=0,min_vfov=35,max_vfov=100,fov_step=5,fov_smooth_seconds=.25f;
  const char* cinematic_fov_reason="configured";
  unsigned fov_decrease='Z',fov_increase='X';
  bool auto_level_horizon=true;float horizon_level_seconds=.30f;

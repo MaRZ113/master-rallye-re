@@ -5,6 +5,8 @@
 #define CHECK(x) do{if(!(x))throw std::runtime_error(#x);}while(0)
 using namespace gfx2;
 int main(){try{
+ CleanViewAdmissionFacts no_pilot{};no_pilot.requested=true;no_pilot.exact_build=no_pilot.render_thread=no_pilot.race_certificate=no_pilot.freecam_active=no_pilot.pause_known=no_pilot.paused=no_pilot.window_valid=no_pilot.device_scope_valid=no_pilot.ui_hook_owned=no_pilot.frame_context_current=true;
+ const auto no_pilot_result=evaluate_clean_view_admission(no_pilot);CHECK(!no_pilot_result.admitted&&no_pilot_result.context_valid&&!std::strcmp(no_pilot_result.reason,"pilot_disabled"));
  CleanViewAdmissionFacts admission{true,true,true,true,true,true,true,true,true,true,true,true};
  CHECK(evaluate_clean_view_admission(admission).admitted);
  auto user_off=admission;user_off.requested=false;const auto context_only=evaluate_clean_view_admission(user_off);
