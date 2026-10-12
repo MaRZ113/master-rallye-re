@@ -379,6 +379,18 @@ uint64_t UiMargins::ownership_identity_id(const Scope& scope,bool& overflow) noe
  if(ownership_identity_count_>=UI_OWNERSHIP_IDENTITY_LIMIT){++ownership_identity_overflow_;overflow=true;return 0;}
  auto& entry=ownership_identities_[ownership_identity_count_++];entry={scope.ownership_entity,scope.ownership_packet,scope.ownership_point,scope.ownership_storage,scope.ownership_mode,scope.ownership_field_mask,scope.ownership_epoch,++ownership_next_identity_id_};return entry.id;
 }
+bool UiMargins::scope_identity_current(const Scope& scope,uint64_t expected_epoch,MarginIdentity* stable_identity) const noexcept {
+ if(!scope.valid||!scope.ownership_scope_id||scope.ownership_field_mask!=UI_OWNERSHIP_IDENTITY_COMPLETE||
+    !scope.ownership_mode_known||(scope.ownership_mode!=1&&scope.ownership_mode!=2)||
+    !expected_epoch||scope.ownership_epoch!=expected_epoch)return false;
+ OwnershipIdentityRead current{};
+ if(!read_ownership_identity(scope.ownership_entity,current)||!current.complete||
+    current.field_mask!=scope.ownership_field_mask||current.entity!=scope.ownership_entity||
+    current.packet!=scope.ownership_packet||current.point!=scope.ownership_point||
+    current.storage!=scope.ownership_storage||current.mode!=scope.ownership_mode)return false;
+ if(stable_identity)*stable_identity=scope.key;
+ return true;
+}
 void UiMargins::observe_ownership_draw(uint64_t frame,bool race_generation_known,uint64_t race_generation,
  uint32_t caller_rva,D3DPRIMITIVETYPE primitive,UINT primitive_count,const UiOwnershipDrawState& state,
  bool forwarded,bool suppressed,HRESULT result) noexcept {
@@ -613,23 +625,20 @@ void UiMargins::leave_consume() noexcept {
 bool UiMargins::consumer_hook_intact() const noexcept {
  return enabled_&&active==this&&GetCurrentThreadId()==thread_&&patch_.intact(memory);
 }
-bool UiMargins::clean_view_scope_identity(uint64_t& scope_id,uint64_t& identity_id,uint64_t& epoch,const char*& why,MarginIdentity* stable_identity) noexcept {
- scope_id=identity_id=epoch=0;if(stable_identity)*stable_identity={};why="no_native_consumer_scope";
+bool UiMargins::clean_view_scope_identity(uint64_t& scope_id,uint64_t& epoch,const char*& why,MarginIdentity* stable_identity) noexcept {
+ scope_id=epoch=0;if(stable_identity)*stable_identity={};why="no_native_consumer_scope";
  if(!consumer_hook_intact()){why="native_consumer_hook_unowned";return false;}
  if(!scope_depth_)return false;
  const auto& scope=scopes_[scope_depth_-1];epoch=scope.ownership_epoch;scope_id=scope.ownership_scope_id;
- if(!scope.valid||!scope_id||scope.ownership_field_mask!=UI_OWNERSHIP_IDENTITY_COMPLETE||
-    (scope.ownership_mode!=1&&scope.ownership_mode!=2)||epoch!=anchors_.epoch()){
+ if(!scope.valid||!scope_id||epoch!=anchors_.epoch()){
   why="consumer_identity_incomplete_or_stale";return false;
  }
- OwnershipIdentityRead current{};
- if(!read_ownership_identity(scope.ownership_entity,current)||!current.complete||current.field_mask!=scope.ownership_field_mask||
-    current.packet!=scope.ownership_packet||current.point!=scope.ownership_point||current.storage!=scope.ownership_storage||current.mode!=scope.ownership_mode){
+ // The bounded identity table belongs only to F10 capture diagnostics. Do not
+ // make live draw authorization depend on that table: it is reset at capture
+ // start and may fill during ordinary UI churn.
+ if(!scope_identity_current(scope,anchors_.epoch(),stable_identity)){
   why="consumer_identity_changed";return false;
  }
- bool overflow=false;identity_id=ownership_identity_id(scope,overflow);
- if(!identity_id){why=overflow?"consumer_identity_registry_overflow":"consumer_identity_unregistered";return false;}
- if(stable_identity)*stable_identity=scope.key;
  why="current_verified_native_consumer";return true;
 }
 void UiMargins::note_clean_view_draw(bool eligible,bool suppressed,bool requested,bool draw_requested,bool ui_callsite,bool scope_invalidated,

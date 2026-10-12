@@ -216,6 +216,7 @@ class UiMargins {
  void ownership_capture_json(std::ostringstream&,bool include_draws) const;
  void finish_ownership_capture(uint64_t frame,const char* end_reason) noexcept;
  uint64_t ownership_identity_id(const Scope&,bool& overflow) noexcept;
+ bool scope_identity_current(const Scope&,uint64_t expected_epoch,MarginIdentity* stable_identity=nullptr) const noexcept;
  bool emit_capture_record(const std::string&,bool packet_record,bool render_local_record) noexcept;
  void finish_capture(uint64_t frame,uint64_t device_id,const char* reason) noexcept;
  void emit_group_candidates() noexcept;
@@ -235,7 +236,7 @@ public:
  bool enter_consume(uintptr_t entity) noexcept;
  void leave_consume() noexcept;
  bool consumer_hook_intact() const noexcept;
- bool clean_view_scope_identity(uint64_t& scope_id,uint64_t& identity_id,uint64_t& epoch,const char*& reason,MarginIdentity* stable_identity=nullptr) noexcept;
+ bool clean_view_scope_identity(uint64_t& scope_id,uint64_t& epoch,const char*& reason,MarginIdentity* stable_identity=nullptr) noexcept;
  void note_clean_view_draw(bool eligible,bool suppressed,bool requested,bool draw_requested,bool ui_callsite,bool scope_invalidated,
   const char* admission_reason,const char* scope_reason,bool context_valid,const char* context_reason,
   bool toggle_edge,bool initial_armed,uint64_t disarm_count,const char* disarm_reason,bool consumer_scope_seen,

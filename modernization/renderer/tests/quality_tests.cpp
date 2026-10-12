@@ -32,6 +32,9 @@ namespace gfx2::detail {struct UiMarginsContract {
  static uint64_t ownership_unmapped_draws(const UiMargins& ui){return ui.ownership_unmapped_draws_;}
  static uint64_t ownership_scope_id(const UiMargins& ui,unsigned i){return ui.ownership_draws_[i].consumer_scope_id;}
  static uint64_t ownership_identity_id(const UiMargins& ui,unsigned i){return ui.ownership_draws_[i].identity_id;}
+ static void fill_ownership_identity_registry(UiMargins& ui){ui.ownership_identity_count_=UI_OWNERSHIP_IDENTITY_LIMIT;}
+ static bool capture_identity_overflows(UiMargins& ui){if(!ui.scope_depth_)return false;bool overflow=false;return !ui.ownership_identity_id(ui.scopes_[ui.scope_depth_-1],overflow)&&overflow;}
+ static bool active_scope_identity_current(const UiMargins& ui){return ui.scope_depth_&&ui.scope_identity_current(ui.scopes_[ui.scope_depth_-1],ui.anchors_.epoch());}
  static uint32_t ownership_packet_mode(const UiMargins& ui,unsigned i){return ui.ownership_draws_[i].packet_mode;}
  static const char* ownership_status(const UiMargins& ui,unsigned i){return ui.ownership_draws_[i].identity_status;}
  static uint64_t ownership_epoch(const UiMargins& ui,unsigned i){return ui.ownership_draws_[i].ui_epoch;}
@@ -458,6 +461,16 @@ void ui_ownership_probe_contracts(){
  CHECK(detail::UiMarginsContract::ownership_draw_count(ui)==UI_OWNERSHIP_DRAW_LIMIT&&detail::UiMarginsContract::ownership_draw_drops(ui)==1);
  auto json=ui.json();CHECK(json.find("\"coverage_status\":\"overflow\"")!=std::string::npos&&json.find("\"owner_mapping_status\":\"unmapped\"")!=std::string::npos);
  ui.capture_window(false,55,7,"present");
+ // The capture-only identity table can be full before another native packet
+ // is encountered. Live draw identity must still be certified from the
+ // current consumer scope and field readback, independently of F10 capture.
+ UiFixture capped_fixture;UiMargins capped;detail::UiMarginsContract::enable(capped);capped.configure_ownership_probe(true,true);
+ CHECK(capped.enter_consume(capped_fixture.owner));detail::UiMarginsContract::fill_ownership_identity_registry(capped);
+ CHECK(detail::UiMarginsContract::capture_identity_overflows(capped));
+ CHECK(detail::UiMarginsContract::active_scope_identity_current(capped));
+ UiFixture replacement;uintptr_t old_packet=capped_fixture.pp;std::memcpy(capped_fixture.entity.data()+0x4c,&replacement.pp,4);
+ CHECK(!detail::UiMarginsContract::active_scope_identity_current(capped));std::memcpy(capped_fixture.entity.data()+0x4c,&old_packet,4);
+ CHECK(detail::UiMarginsContract::active_scope_identity_current(capped));capped.leave_consume();
  std::cout<<"F10 UI ownership scope nesting/correlation, unknown modes, stale/missing identities, epoch reuse, capture-local IDs and bounded overflow: PASS\n";
 }
 void render_local_ui_contracts(){

@@ -4,6 +4,8 @@ Candidate DLL: `modernization/renderer/.build-msvc/Release/d3d8.dll`, SHA256 `bd
 
 The default is `[HUD] ToggleEnabled=1`, `ToggleKey=H`, `HiddenAtStartup=0`, `PreserveMenus=1`. If `[HUD]` is absent, the existing `[FreeCameraKeys] ToggleCleanView=H` remains an alias. F10 stays reserved. Enable `[Trace] Enabled=1` only if captures are needed, then restart the game after editing the INI.
 
+Live HUD/clean-view admission validates the current packet fields against the active native consumer scope. The bounded 512-entry UI identity registry is used only for F10 ownership-capture labels; exhausting that capture registry must not disable live HUD suppression. F10 capture start resets its diagnostic registry and is not a prerequisite for HUD hiding.
+
 1. Start offline France1. During the visible start countdown, press H once; the countdown/race HUD should disappear. Continue driving with the stock camera; the world, physics, and native input must continue. Switch stock cameras; the HUD should stay hidden.
 2. Press H again. All suppressed race HUD packets should return. Compare the position, timer, lap, tachometer/speed, progress, GPS, and status indicators.
 3. Hide the HUD, enter and leave Freecam, and confirm the preference remains hidden until H is pressed again. Pause without Freecam and confirm the interactive pause menu remains visible. In paused Freecam, verify the existing Clean View result still works from the same H preference.

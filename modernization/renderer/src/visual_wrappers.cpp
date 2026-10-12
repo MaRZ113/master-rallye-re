@@ -122,13 +122,13 @@ HRESULT Device8::draw_primitive_at(D3DPRIMITIVETYPE type,UINT start,UINT count,u
  uint32_t rva=0;bool exe=site(pc,rva);bool skip=visuals.suppress(70,exe,rva,trace.shadow,type);
  HRESULT repair=repair_reflection();if(FAILED(repair)){trace.before(70,args,pc);trace.after(70,args,static_cast<uint32_t>(repair),pc,nullptr,8,true);return repair;}
  const bool requested_clean_view=game_fov.clean_view_requested();const bool ui_callsite=exe&&rva==UI_DRAW_RETURN_RVA;
- bool eligible_clean_view=false,clean_scope_invalidated=false;uint64_t clean_scope_id=0,clean_identity_id=0,clean_ui_epoch=0;const char* clean_scope_reason="not_checked";
+ bool eligible_clean_view=false,clean_scope_invalidated=false;uint64_t clean_scope_id=0,clean_ui_epoch=0;const char* clean_scope_reason="not_checked";
  CleanViewAdmission clean_admission{};
  bool suppress_global_hud=false;
  if(ui_callsite){
   const bool hook_owned=ui_margins.consumer_hook_intact();
   MarginIdentity hud_identity{};
-  const bool identity_current=ui_margins.clean_view_scope_identity(clean_scope_id,clean_identity_id,clean_ui_epoch,clean_scope_reason,&hud_identity);
+  const bool identity_current=ui_margins.clean_view_scope_identity(clean_scope_id,clean_ui_epoch,clean_scope_reason,&hud_identity);
   HudDrawFacts hud_draw{};hud_draw.exact_build=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))==0x400000;
   hud_draw.render_thread=GetCurrentThreadId()==trace.render_thread_id();hud_draw.device_valid=trace.device_id()!=0;
   hud_draw.scene_active=trace.scene_active;
@@ -165,7 +165,7 @@ HRESULT Device8::draw_primitive_at(D3DPRIMITIVETYPE type,UINT start,UINT count,u
   suppress_global_hud=hud_visibility.should_suppress(hud_draw);
   CleanViewDrawFacts draw{};draw.exact_build=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))==0x400000;
   draw.hook_owned=hook_owned;draw.render_thread=game_fov.clean_view_render_thread_current();draw.consumer_scope=clean_scope_id!=0;
-  draw.identity_complete=clean_identity_id!=0;draw.identity_current=identity_current;draw.callsite_exact=ui_callsite;
+  draw.identity_complete=identity_current;draw.identity_current=identity_current;draw.callsite_exact=ui_callsite;
   draw.fvf_known=trace.shadow.bindings.vertex_shader.known;draw.fvf=trace.shadow.bindings.vertex_shader.value;
   draw.primitive=type;draw.primitive_count=count;
   eligible_clean_view=requested_clean_view&&clean_admission.admitted&&clean_view_draw_eligible(draw);
