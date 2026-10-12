@@ -5,6 +5,7 @@
 #include "race_epoch.hpp"
 #include "quality.hpp"
 #include "ui_margins.hpp"
+#include "hud_visibility.hpp"
 #include <array>
 #include <atomic>
 #include <memory>
@@ -64,11 +65,13 @@ public:
  std::unique_ptr<QualityPipeline> quality;
  HRESULT set_transform_at(D3DTRANSFORMSTATETYPE type,const D3DMATRIX* input,uintptr_t pc);
  UiMargins ui_margins;
+ HudVisibility hud_visibility;
  void quality_trace() noexcept;
  HRESULT stock_ui(const char* reason) noexcept;
  VisualPolicy visuals;
  GameFov game_fov;
  bool race_observer_attached=false;
+ bool physics_probe_attached=false;
  HRESULT stock_for_unmapped(const char* reason) noexcept;
  HRESULT repair_reflection() noexcept;
  HRESULT draw_primitive_at(D3DPRIMITIVETYPE type,UINT start,UINT count,uintptr_t pc);

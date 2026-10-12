@@ -1,0 +1,111 @@
+{
+  "phase": "R-CAM1-A3j.4",
+  "status": "BLOCKED_ON_SPECIFIC_ROAD_TELEPORT_INVARIANT",
+  "decision": "No write-enabled road teleport candidate is safe to deliver yet.",
+  "primary_blocker": "No verified Freecam-to-live-RaceLine selection.",
+  "independent_commit_gates": [
+    "No proven safe one-shot request/apply-flag protocol.",
+    "No sufficient full wheel, suspension, contact, and broadphase relocation guarantee for arbitrary selected route samples.",
+    "No pause/resume and cross-job scheduling proof for a queued physics commit."
+  ],
+  "build": {
+    "path": "D:\\Game\\Master Rallye\\MRallye.exe",
+    "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "architecture": "PE32/I386",
+    "image_base": "0x00400000",
+    "evidence_grade": "CONFIRMED_BY_EXE"
+  },
+  "course_source": {
+    "path": "D:\\Game\\Master Rallye Pristine\\Data.sma_unpacked\\DataScene\\RaceTest\\France1.xml",
+    "data_sma_size": 274620035,
+    "data_sma_sha256": "948121b1a0207c4b4a2127fd7f42fb187327eb5b41123f70803eaed0c05da806",
+    "xml_sha256": "beaa2180912ffd54f313a149962e295f9894239014481d2c7ba2db84fb1e08e1",
+    "raceline_count": 448,
+    "ordinal_range": [0, 447],
+    "record_stride": "0x48",
+    "position_offset": "0x38",
+    "segment_distance_units": {
+      "min": 12.307566778206176,
+      "median": 20.01940558558121,
+      "max": 31.456487407210624
+    },
+    "evidence_grade": "CONFIRMED_BY_SOURCE_DATA_AND_EXE_LAYOUT",
+    "limitations": [
+      "The current renderer request path has no generation-bound pointer to the active RaceLine list.",
+      "RaceLine membership does not prove every sample is within a clear paved-road footprint.",
+      "60.0 world units remains a proposed, unvalidated proximity cap."
+    ]
+  },
+  "runtime_correlation": {
+    "session": "A3j.3a exact-retail France1 read-only physics observer",
+    "observed_body_after": [-1629.48999, 51.494225, 153.210007],
+    "nearest_source_sample": {
+      "ordinal": 2,
+      "position": [-1629.49, 50.49, 153.21],
+      "distance": 1.0042250000741848
+    },
+    "evidence_grade": "STATIC_INFERENCE_STRONG_POSITIONAL_MATCH",
+    "limitation": "The runtime log did not record the selected RaceLine ordinal."
+  },
+  "functions": [
+    {
+      "name": "ResetManager_Recovery_004CCC90",
+      "va": "0x004CCC90",
+      "rva": "0x000CCC90",
+      "role": "Selects a sample from current per-car Progress/LastMarker, constructs a stock transform, and publishes Controller/CarN transform plus apply flag.",
+      "evidence_grade": "CONFIRMED_BY_EXE"
+    },
+    {
+      "name": "ResetRecovery_AdjustForNearbyCars_004CD200",
+      "va": "0x004CD200",
+      "rva": "0x000CD200",
+      "role": "Adjusts an already-selected sample ordinal using other-participant proximity; does not nearest-search against a Freecam point or test static obstacles.",
+      "evidence_grade": "CONFIRMED_BY_EXE"
+    },
+    {
+      "name": "RaceStartPlacement_0048EB40",
+      "va": "0x0048EB40",
+      "rva": "0x0008EB40",
+      "role": "Publishes StartArea-derived Race/CarN/Transform during race setup; not a validated live physical relocation service.",
+      "evidence_grade": "CONFIRMED_BY_EXE"
+    },
+    {
+      "name": "PerCarControllerUpdate_00444AE0",
+      "va": "0x00444AE0",
+      "rva": "0x00044AE0",
+      "role": "Consumes Controller/CarN apply flag and transform; consumer does not clear the shared backing flag.",
+      "evidence_grade": "CONFIRMED_BY_EXE_AND_EXISTING_RUNTIME_OBSERVER"
+    }
+  ],
+  "apply_flag": {
+    "field": "Controller/CarN backing P+0x33",
+    "semantics": "Level-triggered; native ResetManager clear paths own its clear lifecycle.",
+    "clear_sites_va": ["0x004CD1DE", "0x004CCC70", "0x004CD1A1"],
+    "one_shot_protocol_proven": false,
+    "evidence_grade": "CONFIRMED_BY_EXE"
+  },
+  "player_owner": {
+    "one_session_human_candidate": "PlayerType=1 with stable controller/pointer chain in A3j.3a France1 capture",
+    "general_current_lifetime_gate": false,
+    "evidence_grade": "CONFIRMED_BY_RUNTIME_FOR_ONE_SESSION"
+  },
+  "implementation": {
+    "teleport_code_added": false,
+    "ini_keys_added": false,
+    "physics_writes": false,
+    "dll_candidate_built": false,
+    "undo": "not implemented; no verified inverse transaction exists"
+  },
+  "shortest_next_proof": [
+    "Read-only capture of live RaceLine begin/end/count and bounded position fingerprint at the stock recovery callsite; record selected ordinal and matrix translation.",
+    "Read-only diagnostic nearest-sample result from the Freecam point against that live collection.",
+    "Observe controller update behavior during pause and attribute the stock apply-flag clear to its exact native writer branch."
+  ],
+  "repository": {
+    "path": "D:\\Game\\Master Rallye\\master-rallye-re-general",
+    "branch": "master",
+    "starting_head": "676ed24b2d32543c3b9356ed359e280f2b36a309",
+    "commit_created": false,
+    "pushed": false
+  }
+}

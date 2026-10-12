@@ -50,7 +50,10 @@ void ordering(){
  for(bool bad_origin:{false,true}){e=RaceEpoch{};e.request(8);e.queue(100,8,11,true);e.begin(100,true);e.attach(200,208,true);e.initialized(200,208,true);
   e.request(9,"Hud/Hud0",bad_origin?0:0x4aa0c1);e.queue(101,9,12,true,1,0);e.commit(9,true);e.end(100);e.admitted(200,true);
   if(!bad_origin)e.error(101,false);else {e.begin(101,true);e.commit(9,true);e.end(101);}CHECK(!e.correlated_owner_candidate());}
- e=RaceEpoch{};complete(e);e.cancel(RaceEvent::Reset,"reset");CHECK(!e.correlated_owner_candidate());e.admitted(200,true);CHECK(!e.correlated_owner_candidate());
+ e=RaceEpoch{};complete(e);CHECK(e.device_reset()&&e.correlated_owner_candidate()&&e.chronological(e.events_used-1).event==RaceEvent::DeviceReset);e.admitted(200,true);CHECK(e.correlated_owner_candidate());
+ e=RaceEpoch{};e.request(9269,"RaceTest/France1");e.queue(100,9269,12,true,1,1,"DataScene/RaceTest/France1.xml");e.begin(100,true);CHECK(!e.device_reset()&&!e.correlated_owner_candidate()&&e.phase==RacePhase::Revoked&&e.chronological(e.events_used-1).event==RaceEvent::DeviceReset);
+ e=RaceEpoch{};e.request(9269,"RaceTest/France1");e.queue(100,9269,12,true,1,1,"DataScene/RaceTest/France1.xml");CHECK(!e.device_reset()&&!e.correlated_owner_candidate());
+ e=RaceEpoch{};complete(e);e.cancel(RaceEvent::Reset,"reset");CHECK(!e.correlated_owner_candidate());e.admitted(200,true);CHECK(!e.correlated_owner_candidate()); // Explicit native lifecycle cancellation still revokes proof.
  e=RaceEpoch{};e.generation=UINT64_MAX;e.request(8);CHECK(e.poisoned);e=RaceEpoch{};e.job_serial=UINT64_MAX;e.request(8);e.queue(100,8,11,true);CHECK(e.poisoned);
  e=RaceEpoch{};for(unsigned i=0;i<200;++i)e.request(i);CHECK(e.events_used==128&&e.chronological(0).serial==73);
  e=RaceEpoch{};for(unsigned i=0;i<200;++i){e.request(8);e.queue(i+1,8,11,true);e.error(i+1,false);}CHECK(!e.poisoned&&e.jobs_used==64);
@@ -60,6 +63,15 @@ void context(){
  std::array<RaceScalar,9> f{};for(size_t i=0;i<f.size();++i)f[i]={true,RACE_CONTEXT_TAGS[i],0};
  f[0].value=2;f[1].value=1;f[8].value=4;RaceOwnerRead owner{};owner.valid=owner.arrays_ready=owner.participant_states_ready=true;owner.count=4;
  CHECK(check_race_context(f,owner).supported);
+ auto replay=f;replay[6].value=1;auto replay_hud=check_race_hud_context(replay,owner);
+ CHECK(replay_hud.supported&&replay_hud.replay&&!check_race_context(replay,owner).supported);
+ CHECK(!check_race_hud_context(f,owner).replay);
+ for(size_t i=0;i<f.size();++i){auto bad=replay;bad[i].present=false;CHECK(!check_race_hud_context(bad,owner).supported);bad=replay;bad[i].tag=99;CHECK(!check_race_hud_context(bad,owner).supported);}
+ for(size_t i=3;i<=5;++i){auto bad=replay;bad[i].value=1;CHECK(!check_race_hud_context(bad,owner).supported);}
+ replay[6].value=2;CHECK(!check_race_hud_context(replay,owner).supported);replay[6].value=1;
+ for(auto pair:{std::pair<size_t,int>{0,7},{1,2},{2,1},{7,1},{8,9},{8,3}}){auto bad=replay;bad[pair.first].value=pair.second;CHECK(!check_race_hud_context(bad,owner).supported);}
+ owner.participant_states_ready=false;CHECK(!check_race_hud_context(replay,owner).supported);owner.participant_states_ready=true;
+ owner.valid=false;CHECK(!check_race_hud_context(replay,owner).supported);owner.valid=true;
  for(size_t i=0;i<f.size();++i){auto bad=f;bad[i].present=false;CHECK(!check_race_context(bad,owner).supported);bad=f;bad[i].tag=99;CHECK(!check_race_context(bad,owner).supported);}
  for(size_t i=3;i<=6;++i){auto bad=f;bad[i].value=1;CHECK(!check_race_context(bad,owner).supported);}
  for(auto pair:{std::pair<size_t,int>{0,7},{1,2},{2,1},{7,1},{8,9},{8,3}}){auto bad=f;bad[pair.first].value=pair.second;CHECK(!check_race_context(bad,owner).supported);}
@@ -74,6 +86,13 @@ void certificate(){
  std::array<RaceScalar,9> f{};for(size_t i=0;i<f.size();++i)f[i]={true,RACE_CONTEXT_TAGS[i],0};f[0].value=1;f[1].value=f[8].value=1;
  RaceOwnerRead o;o.valid=o.storage_readable=o.native_live_unique=o.temporal_match=o.arrays_ready=o.participant_states_ready=true;o.count=1;
  CHECK(check_live_race_certificate(e,o,f,true,300).valid);
+ auto reset_survivor=e;CHECK(reset_survivor.device_reset());CHECK(check_live_race_certificate(reset_survivor,o,f,true,300).valid); // Proof survives graphics Reset only; live owner/course/context/camera checks still run.
+ CHECK(race_hud_scene_proven(e));
+ RaceOwnerRead player_state{};player_state.valid=player_state.arrays_ready=player_state.participant_states_ready=true;player_state.count=2;player_state.participant_states[0]=0;player_state.participant_states[1]=2;
+ CHECK(race_hud_player_running(player_state,0)&&!race_hud_player_running(player_state,1)&&!race_hud_player_running(player_state,2));
+ auto unrelated=e;unrelated.jobs[0].scene_text[9]='X';CHECK(!race_hud_scene_proven(unrelated));
+ unrelated=e;unrelated.jobs[1].source_text[11]='X';CHECK(!race_hud_scene_proven(unrelated));
+ unrelated=e;unrelated.jobs[1].supported_hud=false;CHECK(!race_hud_scene_proven(unrelated));
  CHECK(!check_live_race_certificate(e,o,f,false,300).valid);
  for(size_t i=0;i<9;++i){auto v=f;v[i].present=false;CHECK(!check_live_race_certificate(e,o,v,true,300).valid);v=f;v[i].tag=99;CHECK(!check_live_race_certificate(e,o,v,true,300).valid);}
  for(size_t i=3;i<=6;++i){auto v=f;v[i].value=1;CHECK(!check_live_race_certificate(e,o,v,true,300).valid);}
@@ -109,12 +128,13 @@ struct ReadFixture:RaceReadMemory {
  void member(uint32_t head,uint32_t actor){auto node=actor+0x60;put(head+4,node);put(head+8,node);put(node,actor);put(node+4,head);put(node+8,head);}
 };
 struct OwnerFixture:ReadFixture {
- uint32_t manager,actor,ai,registry,bucket,broker,broker_data,pool_data,live_head,state_payload;
+ uint32_t manager,actor,ai,registry,bucket,broker,broker_data,pool_data,live_head,state_payload,pause_payload;
  RaceOwner identity{};
  OwnerFixture(){
-  auto pool=alloc(12),ids=alloc(16);pool_data=alloc(4*3);put(0x6f93d4,pool);put(pool+4,ids);vector(ids,pool_data,12);
-  put(pool_data,text("unused"));put(pool_data+4,text("RaceLimits"));put(pool_data+8,text("Race/Car0/RaceState"));
-  broker=alloc(16);broker_data=alloc(0x1c*3);put(0x6f9410,broker);vector(broker,broker_data,0x1c*3);state_payload=alloc(4);put(state_payload,0);put(broker_data+0x38,2);put(broker_data+0x3c,state_payload);put(broker_data+0x40,2);
+  auto pool=alloc(12),ids=alloc(16);pool_data=alloc(4*4);put(0x6f93d4,pool);put(pool+4,ids);vector(ids,pool_data,16);
+  put(pool_data,text("unused"));put(pool_data+4,text("RaceLimits"));put(pool_data+8,text("Race/Car0/RaceState"));put(pool_data+12,text("Race/PauseMenu/Enabled"));
+  broker=alloc(16);broker_data=alloc(0x1c*4);put(0x6f9410,broker);vector(broker,broker_data,0x1c*4);state_payload=alloc(4);put(state_payload,0);put(broker_data+0x38,2);put(broker_data+0x3c,state_payload);put(broker_data+0x40,2);
+  pause_payload=alloc(1);bytes[pause_payload]=1;put(broker_data+0x54,3);put(broker_data+0x58,pause_payload);put(broker_data+0x5c,0);
   manager=alloc(0x7c);put(0x6f96fc,manager);registry=alloc(16);put(manager+0x1c,registry);auto data=alloc(8);vector(registry,data,8);bucket=alloc(16);put(data+4,bucket);
   actor=alloc(0x78);ai=alloc(0x48);identity={actor,ai,1,1,1,true,true,false};put(actor+0x5c,1);auto registered=alloc(4);put(registered,actor);vector(bucket,registered,4);
   sentinel(manager+0x10);for(unsigned i=0;i<7;++i)sentinel(manager+0x24+i*12);live_head=manager+0x24;member(live_head,actor);
@@ -126,6 +146,7 @@ struct OwnerFixture:ReadFixture {
 void reads(){
  OwnerFixture m;char text[64]{};CHECK(race_pool_text(m,0x400000,1,text,64)&&!std::strcmp(text,"RaceLimits"));uint32_t id=0;CHECK(race_pool_id(m,0x400000,"RaceLimits",id)&&id==1);
  auto v=race_broker_scalar(m,0x400000,2,2);CHECK(v.present&&v.value==0);CHECK(!race_broker_scalar(m,0x400000,2,0).present);CHECK(!race_broker_scalar(m,0x400000,99,2).present);
+ auto pause=race_broker_bool(m,0x400000,"Race/PauseMenu/Enabled");CHECK(pause.present&&pause.tag==0&&pause.value==1);m.bytes[m.pause_payload]=0;pause=race_broker_bool(m,0x400000,"Race/PauseMenu/Enabled");CHECK(pause.present&&pause.value==0);m.put(m.broker_data+0x5c,2);CHECK(!race_broker_bool(m,0x400000,"Race/PauseMenu/Enabled").present);m.put(m.broker_data+0x5c,0);CHECK(!race_broker_bool(m,0x400000,"Missing/ReadOnlyProbeKey").present);
  auto r=read_race_owner(m,0x400000,m.identity,1);CHECK(r.valid&&r.arrays_ready&&r.participant_states_ready&&r.count==1&&r.live_memberships==1);
  CHECK(r.participant_states[0]==0&&!std::strcmp(r.participant_states_reason,"native_phase_0_or_2"));
  m.put(m.state_payload,1);r=read_race_owner(m,0x400000,m.identity,1);CHECK(r.valid&&!r.participant_states_ready&&!std::strcmp(r.participant_states_reason,"race_state_1_startup_transition"));

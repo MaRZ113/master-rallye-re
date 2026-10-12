@@ -121,9 +121,62 @@ HRESULT Device8::draw_primitive_at(D3DPRIMITIVETYPE type,UINT start,UINT count,u
  auto guard=trace.guard();auto args=pack(type,start,count);
  uint32_t rva=0;bool exe=site(pc,rva);bool skip=visuals.suppress(70,exe,rva,trace.shadow,type);
  HRESULT repair=repair_reflection();if(FAILED(repair)){trace.before(70,args,pc);trace.after(70,args,static_cast<uint32_t>(repair),pc,nullptr,8,true);return repair;}
+ const bool requested_clean_view=game_fov.clean_view_requested();const bool ui_callsite=exe&&rva==UI_DRAW_RETURN_RVA;
+ bool eligible_clean_view=false,clean_scope_invalidated=false;uint64_t clean_scope_id=0,clean_identity_id=0,clean_ui_epoch=0;const char* clean_scope_reason="not_checked";
+ CleanViewAdmission clean_admission{};
+ bool suppress_global_hud=false;
+ if(ui_callsite){
+  const bool hook_owned=ui_margins.consumer_hook_intact();
+  const bool identity_current=ui_margins.clean_view_scope_identity(clean_scope_id,clean_identity_id,clean_ui_epoch,clean_scope_reason);
+  HudDrawFacts hud_draw{};hud_draw.exact_build=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))==0x400000;
+  hud_draw.render_thread=GetCurrentThreadId()==trace.render_thread_id();hud_draw.device_valid=trace.device_id()!=0;
+  hud_draw.scene_active=trace.scene_active;
+  RaceHudContext draw_context{};
+  if(requested_clean_view&&hud_draw.scene_active){
+   // Verify the committed native scene and typed pause state at the exact draw
+   // boundary; an older BeginScene snapshot must never suppress a new UI owner.
+   draw_context=live_race_hud_context();
+  }else draw_context.reason=hud_draw.scene_active?"hud_preference_visible":"outside_d3d_scene";
+  if(requested_clean_view)hud_visibility.observe_context(draw_context,hud_draw.exact_build,hud_draw.device_valid,hook_owned,hud_draw.scene_active);
+  hud_draw.context_current=draw_context.valid;
+  hud_draw.race_context_valid=draw_context.valid;hud_draw.pause_known=draw_context.pause_known;hud_draw.paused=draw_context.paused;
+  hud_draw.race_generation=draw_context.race_generation;hud_draw.owner_lifetime=draw_context.owner_lifetime;
+  hud_draw.hook_owned=hook_owned;hud_draw.consumer_scope=clean_scope_id!=0;hud_draw.identity_current=identity_current;
+  hud_draw.callsite_exact=ui_callsite;hud_draw.fvf_known=trace.shadow.bindings.vertex_shader.known;
+  hud_draw.fvf=trace.shadow.bindings.vertex_shader.value;hud_draw.primitive=type;hud_draw.primitive_count=count;
+  suppress_global_hud=hud_visibility.should_suppress(hud_draw);
+  clean_admission=game_fov.clean_view_admission(trace.scene_active,hook_owned,clean_scope_id!=0,trace.device_id());
+  CleanViewDrawFacts draw{};draw.exact_build=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))==0x400000;
+  draw.hook_owned=hook_owned;draw.render_thread=game_fov.clean_view_render_thread_current();draw.consumer_scope=clean_scope_id!=0;
+  draw.identity_complete=clean_identity_id!=0;draw.identity_current=identity_current;draw.callsite_exact=ui_callsite;
+  draw.fvf_known=trace.shadow.bindings.vertex_shader.known;draw.fvf=trace.shadow.bindings.vertex_shader.value;
+  draw.primitive=type;draw.primitive_count=count;
+  eligible_clean_view=requested_clean_view&&clean_admission.admitted&&clean_view_draw_eligible(draw);
+  clean_scope_invalidated=ui_callsite&&!identity_current;
+ }
+ const bool requested_after_admission=game_fov.clean_view_requested();
+ const bool suppress_clean_view=clean_view_should_suppress(clean_admission.admitted,requested_after_admission,eligible_clean_view);
+ if(suppress_clean_view)hud_visibility.note_clean_view_suppressed();
+ const char* clean_context_reason=!ui_callsite?"not_ui_draw_boundary":clean_admission.context_valid?"paused_freecam_context_valid":clean_admission.reason;
+ ui_margins.note_clean_view_draw(eligible_clean_view,suppress_clean_view,requested_after_admission,requested_clean_view,ui_callsite,clean_scope_invalidated,
+  eligible_clean_view?"verified_ui_draw":!ui_callsite?"not_ui_draw_boundary":!clean_admission.admitted?clean_admission.reason:"draw_signature_or_identity_unverified",
+  clean_scope_reason,clean_admission.context_valid,clean_context_reason,game_fov.clean_view_toggle_edge_seen(),game_fov.clean_view_initial_armed(),
+  game_fov.clean_view_disarm_count(),game_fov.clean_view_last_disarm_reason(),clean_scope_id!=0,
+  game_fov.clean_view_context_trace_frame(),game_fov.clean_view_context_scheduler_generation(),clean_admission.frame);
+ skip=skip||suppress_clean_view||suppress_global_hud;
  const auto& view=trace.effective_shadow.matrices[D3DTS_VIEW];D3DMATRIX identity{};identity._11=identity._22=identity._33=identity._44=1;
  bool allowed=!skip&&quality&&quality->config.interface_mode=="PreserveMargins"&&quality->ui_projection_live&&exe&&rva==UI_DRAW_RETURN_RVA&&type==D3DPT_TRIANGLELIST&&trace.shadow.bindings.vertex_shader.known&&trace.shadow.bindings.vertex_shader.value==0x142&&view.known&&!std::memcmp(&view.value,&identity,sizeof(identity));
  UiWorldScope ui(*real_,trace,ui_margins,pc,allowed,type,start,count,rva,exe,skip,!skip,trace.shadow.bindings.vertex_shader.known,trace.shadow.bindings.vertex_shader.value);trace.before(70,args,pc);HRESULT hr=skip?S_OK:real_->DrawPrimitive(type,start,count);
+ UiOwnershipDrawState ownership_state{};
+ const auto& fvf=trace.shadow.bindings.vertex_shader;ownership_state.fvf_known=fvf.known;ownership_state.fvf=fvf.value;
+ const auto& texture0=trace.shadow.bindings.textures[0];ownership_state.texture0_known=texture0.known;ownership_state.texture0=texture0.value;
+ const auto& texture1=trace.shadow.bindings.textures[1];ownership_state.texture1_known=texture1.known;ownership_state.texture1=texture1.value;
+ ownership_state.texture0_generation=texture0.known&&texture0.value?trace.resources.generation(texture0.value):0;
+ ownership_state.texture1_generation=texture1.known&&texture1.value?trace.resources.generation(texture1.value):0;
+ const uint32_t stage_keys[UI_OWNERSHIP_STAGE_FIELD_COUNT]={D3DTSS_COLOROP,D3DTSS_ALPHAOP,D3DTSS_TEXCOORDINDEX,D3DTSS_COLOROP,D3DTSS_ALPHAOP,D3DTSS_TEXCOORDINDEX};
+ for(unsigned i=0;i<UI_OWNERSHIP_STAGE_FIELD_COUNT;++i){unsigned stage=i<3?0u:1u;const auto& state=trace.shadow.tss[stage][stage_keys[i]];ownership_state.stage_known[i]=state.known?1u:0u;ownership_state.stage_values[i]=state.value;}
+ uint64_t race_generation=0;const bool race_generation_known=game_fov.race_lifecycle_generation(race_generation);
+ ui_margins.observe_ownership_draw(trace.frame_number(),race_generation_known,race_generation,rva,type,count,ownership_state,!skip,skip,hr);
  trace.after(70,args,static_cast<uint32_t>(hr),pc,nullptr,skip?4:ui.changed()?128:0,skip);ui.draw_result(hr);return hr;
 }
 HRESULT STDMETHODCALLTYPE Device8::DrawIndexedPrimitive(D3DPRIMITIVETYPE type,UINT min_index,UINT vertices,UINT start,UINT count){

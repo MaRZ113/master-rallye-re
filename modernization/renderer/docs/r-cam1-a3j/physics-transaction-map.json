@@ -1,0 +1,133 @@
+{
+  "phase": "R-CAM1-A3j.3",
+  "status": "READ_ONLY_PHYSICS_PROBE_READY",
+  "build": {
+    "filename": "MRallye.exe",
+    "size_bytes": 3121214,
+    "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "pe": "PE32/I386",
+    "timestamp": "0x3C02695D",
+    "image_base": "0x00400000",
+    "entry_va": "0x005C4602",
+    "entry_rva": "0x001C4602",
+    "evidence_grade": "CONFIRMED_BY_EXE"
+  },
+  "evidence_boundary": {
+    "static_analysis": "Exact-build instruction and dataflow analysis; Ghidra 12.1.4 isolated scratch outside repository.",
+    "runtime": "Not run. No claim is CONFIRMED_BY_RUNTIME.",
+    "memory_writes": "No game data writes, recovery invocation, executable disk patch, or teleport prototype. The observer installs temporary in-memory call wrappers only when explicitly enabled."
+  },
+  "ownership": {
+    "participant_identity": {
+      "mechanism": "Race/CarN/PlayerType is assigned from human participant count; AttractMode forces the count to zero. The supported one-human offline race classifies PlayerType 1 as human candidate and 2 as AI candidate.",
+      "addresses": [
+        {"va": "0x0044A320", "rva": "0x0004A320", "role": "participant PlayerType assignment", "evidence_grade": "CONFIRMED_BY_EXE"},
+        {"va": "0x0043F020", "rva": "0x0003F020", "role": "read PlayerType and construct participant physics links", "evidence_grade": "CONFIRMED_BY_EXE"}
+      ],
+      "runtime_owner": "PlayerType is logged per current physics handle; do not hardcode Car0.",
+      "lifetime_limit": "Observer identity is the validated pointer tuple and local change generation; same-address allocator reuse with an identical tuple remains indistinguishable."
+    },
+    "pointer_roles": {
+      "physics_handle": "handle; +0x14 controller, +0x0C four wheel records, +0x08 actor link",
+      "actor_body": "actor +0x04 -> chassis body",
+      "controller_backing": "controller +0x74 -> shared recovery backing P",
+      "camera": "Separate camera ownership path; not the physics handle or body",
+      "wheel_stride": "0x188",
+      "evidence_grade": "CONFIRMED_BY_EXE"
+    },
+    "addresses": [
+      {"va": "0x0043E4C0", "rva": "0x0003E4C0", "role": "physics handle creation/insertion and collision registration", "evidence_grade": "CONFIRMED_BY_EXE"},
+      {"va": "0x0043A800", "rva": "0x0003A800", "role": "collision manager registration path", "evidence_grade": "CONFIRMED_BY_EXE"},
+      {"va": "0x0043ED00", "rva": "0x0003ED00", "role": "four-wheel record association", "evidence_grade": "CONFIRMED_BY_EXE"}
+    ]
+  },
+  "reset_transaction": {
+    "manager_constructor": {"va": "0x004CC5F0", "rva": "0x000CC5F0", "role": "binds per-participant Car, Controller/Car, Progress, LastMarker, LimitState, ResetNo and other reset paths", "evidence_grade": "CONFIRMED_BY_EXE"},
+    "update": {"va": "0x004CCAF0", "rva": "0x000CCAF0", "role": "reset manager update callback; vtable 0x00691508 slot +0x10", "evidence_grade": "CONFIRMED_BY_EXE"},
+    "state_helpers": [
+      {"va": "0x004CD4A0", "rva": "0x000CD4A0", "role": "state 1 eligibility/duration helper; numeric meanings left unnamed", "evidence_grade": "CONFIRMED_BY_EXE"},
+      {"va": "0x004CD550", "rva": "0x000CD550", "role": "state 2 speed threshold and bounded accumulation helper", "evidence_grade": "CONFIRMED_BY_EXE"},
+      {"va": "0x004CD1B0", "rva": "0x000CD1B0", "role": "clears shared apply flag and restores selected backing values when timer active", "evidence_grade": "CONFIRMED_BY_EXE"}
+    ],
+    "update_flow": {
+      "participant_count_field": "+0x14",
+      "gates": ["+0x34 gate array", "+0x28 Broker-backed per-participant state"],
+      "gate_reject_effects": ["zero manager entries +0x4C/+0x44/+0x50", "clear Controller/CarN backing P+0x33"],
+      "state_values": {"1": "call 0x004CD4A0", "2": "call 0x004CD550"},
+      "timer_field": "+0x50 per participant",
+      "positive_timer": "decrement timer, zero +0x44 entry, call 0x004CD1B0 which clears P+0x33; if decremented timer reaches zero, call 0x004CCC90(participant, mode=1)",
+      "zero_timer_on_entry": "clear reset state and call 0x004CCC90(participant, mode=0)",
+      "additional_comparisons": ["manager +0x0C", "manager +0x10"],
+      "semantic_limit": "Numeric states, gates, additional flags, and backing constants are not relabeled as control semantics without consumer proof.",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "address": {"va": "0x004CCAF0", "rva": "0x000CCAF0"}
+    },
+    "recovery": {"va": "0x004CCC90", "rva": "0x000CCC90", "mode_zero": "clear P+0x33", "mode_one": "choose RaceLine sample and publish transform", "evidence_grade": "CONFIRMED_BY_EXE"},
+    "route_selector": {"va": "0x004CD200", "rva": "0x000CD200", "role": "uses participant position comparisons in route-sample selection", "evidence_grade": "CONFIRMED_BY_EXE"},
+    "backing": {
+      "broker_key": "Controller/CarN",
+      "adapter": "Q+0x08 -> P",
+      "controller_owner": "physics controller O+0x74 -> same P",
+      "flag": "P+0x33 = 1 during mode-one publication; consumer does not clear it",
+      "transform": "16 dwords copied to P+0x34..P+0x73",
+      "separate_race_output": ["CarN payload +0xBC", "CarN payload +0xCC", "CarN payload +0xDC", "CarN payload +0xEC"],
+      "reset_no": "increments on recovery; identified consumer resets camera tracking",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "broker-transform-routing.md and broker-transform-routing-evidence.json"
+    },
+    "consumer_chain": [
+      {"va": "0x00444AE0", "rva": "0x00044AE0", "role": "read flag and conditionally invoke transform application", "evidence_grade": "CONFIRMED_BY_EXE"},
+      {"va": "0x00444D50", "rva": "0x00044D50", "role": "copy published matrix and call reset helper", "evidence_grade": "CONFIRMED_BY_EXE"},
+      {"va": "0x00443740", "rva": "0x00043740", "role": "set chassis pose and perform bounded reset work", "evidence_grade": "CONFIRMED_BY_EXE"},
+      {"va": "0x0043A020", "rva": "0x0003A020", "role": "set body pose and previous position", "evidence_grade": "CONFIRMED_BY_EXE"}
+    ]
+  },
+  "physics_schedule": {
+    "per_car_iteration": {"va": "0x0043F5D0", "rva": "0x0003F5D0", "role": "iterate registered handles and call 0x00443820", "evidence_grade": "CONFIRMED_BY_EXE"},
+    "per_car_update": {"va": "0x00443820", "rva": "0x00043820", "role": "controller transform consumer before five wheel record routines and later control/surface helper", "evidence_grade": "CONFIRMED_BY_EXE"},
+    "substep_wrapper": {"va": "0x0043F890", "rva": "0x0003F890", "iterations": 2, "evidence_grade": "CONFIRMED_BY_EXE"},
+    "substep_start": {"va": "0x0043F650", "rva": "0x0003F650", "role": "copies selected current body data into previous-step fields", "evidence_grade": "CONFIRMED_BY_EXE"},
+    "substep_tail": {"va": "0x0043FE00", "rva": "0x0003FE00", "role": "final stage before decrement and second iteration", "evidence_grade": "CONFIRMED_BY_EXE"},
+    "wrapper_order": {"va": "0x0043F2E0", "rva": "0x0003F2E0", "role": "calls 0x0043F310 manager update then 0x0043F890 substeps", "evidence_grade": "CONFIRMED_BY_EXE"},
+    "unproven": ["reset-manager versus physics-manager scheduler/job order", "worker thread ownership", "pause behavior", "supported queued one-shot boundary", "camera scheduler as physics phase"]
+  },
+  "physical_state": {
+    "body_current_position": {"offsets": ["+0xA0", "+0xA4", "+0xA8"], "evidence_grade": "CONFIRMED_BY_EXE"},
+    "body_previous_position": {"offsets": ["+0x144", "+0x148", "+0x14C"], "evidence_grade": "CONFIRMED_BY_EXE"},
+    "wheel_cleanup": {"va": "0x00443740", "rva": "0x00043740", "details": "zeroes wheel +0x120 dword in each four records; semantics unknown", "evidence_grade": "CONFIRMED_BY_EXE"},
+    "controller_cleanup": {"va": "0x004437B0", "rva": "0x000437B0", "details": "mode 0 clears selected chassis/wheel/controller bytes; nonzero branch changes additional fields", "evidence_grade": "CONFIRMED_BY_EXE"},
+    "surface_state": {"va": "0x0043C310", "rva": "0x0003C310", "details": "writes controller +0x78/+0x24/+0x28; meanings are not assigned", "evidence_grade": "CONFIRMED_BY_EXE"},
+    "conditional_collision_path": {"va": "0x0043B800", "rva": "0x0003B800", "details": "may adjust chassis current position using a service; not a complete broadphase/contact reset proof", "evidence_grade": "CONFIRMED_BY_EXE"},
+    "velocity_policy": "UNPROVEN",
+    "wheel_pose_and_suspension": "UNPROVEN",
+    "contact_manifold_and_warm_start": "UNPROVEN",
+    "broadphase_refresh_after_relocation": "UNPROVEN"
+  },
+  "destination_and_recovery": {
+    "arbitrary_ground_height_normal": "UNPROVEN",
+    "arbitrary_vehicle_clearance_overlap": "UNPROVEN",
+    "reset_line_query": "selected service boolean method returns false in this exact recovery path; does not validate arbitrary destination",
+    "startup_path": {"va": "0x0048EB40", "rva": "0x0008EB40", "role": "StartArea placement; optional Physics/Car0/Transform read is initialization evidence only", "evidence_grade": "CONFIRMED_BY_EXE", "safe_fallback": false},
+    "race_state": "separate output vectors and ResetNo are written; full arbitrary relocation synchronization is UNPROVEN",
+    "undo": "UNPROVEN"
+  },
+  "observer": {
+    "default_enabled": false,
+    "exact_build_only": true,
+    "game_data_writes": false,
+    "bounded": {"tracks": 8, "events": 64, "substep_events_per_window": 24, "flagged_samples_per_track": 4, "settling_samples": 3},
+    "sites": [
+      {"va": "0x00443827", "rva": "0x00043827", "native_target_va": "0x00444AE0", "event": "controller before/after and flag lifecycle"},
+      {"va": "0x0043F8AD", "rva": "0x0003F8AD", "native_target_va": "0x0043F650", "event": "substep before/after previous sync"},
+      {"va": "0x0043F8ED", "rva": "0x0003F8ED", "native_target_va": "0x0043FE00", "event": "substep before/after final stage"}
+    ],
+    "records": ["QPC and thread ID", "validated pointer links and PlayerType", "apply flag and raw 64-byte transform", "current/previous body position raw words", "opaque body +0x11C..+0x130 raw words", "four wheel +0x04 bytes and +0x120 raw dwords"],
+    "limits": ["no unknown field semantic guesses", "no ResetManager writer hook", "no full contact/broadphase state", "same-address tuple reuse indistinguishable", "runtime behavior not yet tested"]
+  },
+  "decision": {
+    "outcome": "READ_ONLY_PHYSICS_PROBE_READY",
+    "teleport_prototype": false,
+    "startup_fallback_ready": false,
+    "critical_blockers": ["velocity policy", "wheel/suspension/contact consistency", "broadphase coherence", "cross-job safe phase and pause", "arbitrary physical ground and clearance", "race-state coherence", "Undo/rollback"]
+  }
+}

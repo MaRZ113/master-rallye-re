@@ -3,6 +3,14 @@
 [Renderer]
 ConfigVersion=1
 
+[HUD]
+; Session preference; the exact-retail D3D8 proxy observes H without consuming it.
+ToggleEnabled=1
+ToggleKey=H
+HiddenAtStartup=0
+; Frontend, loading, results and interactive pause UI are always preserved.
+PreserveMenus=1
+
 [Display]
 ; Width/Height set the INITIAL normal CLIENT target; 0/0 adopts the first accepted game/client size.
 ; A normal drag-resize updates that target only when HWND client and game Reset agree.
@@ -92,6 +100,23 @@ ManualRollEnabled=1
 RollSpeedDegreesPerSecond=45.0
 RollSmoothSeconds=0.10
 MaxRollDegrees=90.0
+; Persistent three-slot camera bookmarks. Save/Load only act while Freecam is
+; active on the exact supported live France1 race; data is stored per-user.
+CameraBookmarksEnabled=1
+CameraBookmarkDefaultSlot=1
+; Experimental clean race view: only the proven native pause-menu UI draw is suppressed.
+; Pilot must be enabled to arm the optional H toggle; visual behavior defaults off.
+CleanViewPilot=0
+CleanViewEnabled=0
+; Road-only recovery prototype. Requires FreeCamera.Enabled=1 and the three
+; PhysicsObserver options below. While paused in active Freecam, press T once;
+; resume and invoke native vehicle recovery manually. Only the stock route ordinal
+; is redirected. The stock manager still builds/applies/clears its transform.
+; Road membership does not prove obstacle or chassis clearance.
+VehicleTeleportEnabled=0
+VehicleTeleportRoadOnly=1
+VehicleTeleportArmTimeoutSeconds=60
+VehicleTeleportMaxRoadDistance=20.0
 
 [FreeCameraKeys]
 Forward=W
@@ -109,6 +134,12 @@ FOVIncrease=X
 RollLeft=C
 RollRight=V
 RollReset=B
+; Legacy alias of [HUD].ToggleKey; there is only one H edge handler.
+ToggleCleanView=H
+SaveCameraBookmark=J
+LoadCameraBookmark=K
+NextCameraBookmarkSlot=L
+ArmRoadTeleport=T
 
 [Shadows]
 ; 0 = Stock
@@ -143,3 +174,20 @@ Mode=0
 ; Opt-in bounded read-only geometry/state probe during an existing F10 capture.
 ; No rendering override; restart after changing this setting. Trace.Enabled=1 required.
 Diagnostics=0
+
+[PhysicsObserver]
+; Exact-pristine, opt-in observer for the native recovery transaction.
+; It wraps three physics callsites and three verified flag-clear stores, then
+; restores them on device release. It reads game data but never changes physics/Broker state.
+; 0 = Off (default)
+; 1 = On
+Enabled=0
+; Read-only copy of live France1 RaceLine at the stock recovery getter.
+; Required for Road Teleport, along with Enabled=1. A valid current race
+; certificate is also required; no XML fallback is used.
+RoadTargetPreviewEnabled=0
+; Horizontal XZ search radius in world units. This is diagnostic proximity only,
+; not a physical clearance or safe-teleport distance.
+RoadTargetPreviewRadius=60.0
+; For the experimental road-only request set FreeCamera.VehicleTeleportEnabled=1,
+; FreeCamera.VehicleTeleportRoadOnly=1, Enabled=1, RoadTargetPreviewEnabled=1.

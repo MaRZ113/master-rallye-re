@@ -4,6 +4,8 @@
 #include <intrin.h>
 #include "menu_freeze.hpp"
 #include "free_camera.hpp"
+#include "physics_probe.hpp"
+#include "broker_null_guard.hpp"
 namespace gfx2 {
 HRESULT STDMETHODCALLTYPE Root8::QueryInterface(REFIID iid,void** out){
  HRESULT hr=real_->QueryInterface(iid,out);
@@ -17,7 +19,7 @@ HRESULT STDMETHODCALLTYPE Root8::QueryInterface(REFIID iid,void** out){
  }return hr;
 }
 ULONG STDMETHODCALLTYPE Root8::AddRef(){++refs_;return real_->AddRef();}
-ULONG STDMETHODCALLTYPE Root8::Release(){ULONG n=real_->Release();if(--refs_==0){try{session().write("{\"type\":\"root_release\"}");}catch(...){}delete this;}return n;}
+ULONG STDMETHODCALLTYPE Root8::Release(){const ULONG remaining=--refs_;if(!remaining)restore_broker_null_guards();ULONG n=real_->Release();if(!remaining){try{session().write("{\"type\":\"root_release\"}");}catch(...){}delete this;}return n;}
 HRESULT STDMETHODCALLTYPE Root8::CreateDevice(UINT a,D3DDEVTYPE t,HWND w,DWORD f,D3DPRESENT_PARAMETERS* pp,IDirect3DDevice8** out){
  D3DPRESENT_PARAMETERS before{},after{};bool b=pp&&safe_copy(&before,pp,sizeof(before));
  std::lock_guard<std::recursive_mutex> guard(registry_mutex);
@@ -41,18 +43,35 @@ Device8::Device8(IDirect3DDevice8* p,Root8* parent,std::unique_ptr<QualityPipeli
  visuals.effective.fov=s.visual_config.fov&&s.compatibility.fov.supported();visuals.effective.fov_reason=s.compatibility.fov.reason;
  visuals.effective.reflection_mode=s.compatibility.vehicle.supported()?s.visual_config.reflection_mode:"Stock";visuals.effective.reflection_reason=s.compatibility.vehicle.reason;
  if(!quality){quality=std::make_unique<QualityPipeline>();quality->configure(s.visual_config,s.compatibility.ui.supported(),0,D3DDEVTYPE_HAL,nullptr);}
- if(quality->config.interface_mode=="PreserveMargins"&&!ui_margins.install(s.compatibility.margins.supported(),true)){quality->config.interface_mode="Stock";quality->config.interface_reason=ui_margins.reason;}
+ const bool preserve_margins_requested=quality->config.interface_mode=="PreserveMargins";
+ const auto flight_config=parse_free_camera_config(s.visual_config.raw_fields);
+ const bool hud_feature_requested=s.target&&s.visual_config.version_ok&&s.visual_config.hud_toggle_valid&&
+  (s.visual_config.hud_toggle_enabled||s.visual_config.hud_hidden_at_startup);
+ auto physics_settings=forward_free_camera_teleport_settings(
+  read_physics_probe_settings(s.config_path),flight_config);
+ physics_probe_attached=attach_physics_probe(s.target,physics_settings);
+ const bool clean_view_pilot_requested=s.target&&s.visual_config.version_ok&&flight_config.enabled&&flight_config.clean_view_pilot;
+ const bool ui_ownership_probe_requested=(s.target&&s.enabled)||clean_view_pilot_requested||hud_feature_requested;
+ // Reuse the already verified DrawTextPacket consumer hook for exact-retail
+ // F10 ownership observation. It is pass-through unless PreserveMargins is
+ // independently selected; no additional game patch site is introduced.
+ if((preserve_margins_requested||ui_ownership_probe_requested)&&
+    !ui_margins.install(s.compatibility.margins.supported()||s.target,true)&&preserve_margins_requested){
+  quality->config.interface_mode="Stock";quality->config.interface_reason=ui_margins.reason;
+ }
  // The accepted row signature is exact-retail only; ordinary margins
  // keep their existing feature-local compatibility on modified executables.
  ui_margins.configure_carousel_alignment(quality->config.interface_mode=="PreserveMargins",s.target);
+ ui_margins.configure_ownership_probe(ui_ownership_probe_requested,s.target);
+ hud_visibility.configure(s.visual_config,s.target,hud_feature_requested&&ui_margins.consumer_hook_intact());
  quality->ui_capability=s.compatibility.ui;quality->preview_capability=s.compatibility.preview;quality->preview_capability.candidate_rva=GAMEPLAY_PROJECTION_RETURN_RVA;
  visuals.effective.interface_mode=quality->config.interface_mode;visuals.effective.interface_reason=quality->config.interface_reason;
  visuals.effective.menu_freeze=s.visual_config.menu_freeze&&s.compatibility.freeze.supported();visuals.effective.freeze_reason=s.compatibility.freeze.reason;
  if(!s.foliage_provenance_available.load(std::memory_order_relaxed))visuals.effective.foliage_diagnostics=false;
  if(quality->valid){visuals.effective.display_mode=quality->display;visuals.effective.display_reason=quality->display_reason;visuals.effective.aa_mode=quality->effective.MultiSampleType==D3DMULTISAMPLE_NONE?"Stock":"MSAA";visuals.effective.aa_reason=quality->aa_reason;}
  if(quality->valid)ui_margins.dimensions(quality->effective.BackBufferWidth,quality->effective.BackBufferHeight);
- quality_trace();bool flight=parse_free_camera_config(s.visual_config.raw_fields).enabled&&s.target&&s.visual_config.version_ok;if(s.target&&(s.enabled||flight)){install_race_observer(true,true);race_observer_attached=true;}if((visuals.effective.fov||flight)&&!game_fov.install(s.compatibility.fov.supported()||s.target,visuals.effective,quality->effective.hDeviceWindow?quality->effective.hDeviceWindow:quality->focus,s.target)){visuals.effective.fov=false;visuals.effective.fov_reason=game_fov.status().reason;}s.write("{\"type\":\"visual_device_config\",\"requested\":"+config_json(visuals.requested)+",\"effective\":"+config_json(visuals.effective)+",\"caps_result\":"+std::to_string(static_cast<uint32_t>(hr))+",\"caps_max_anisotropy\":"+std::to_string(visuals.caps_max)+",\"min_anisotropy\":"+(visuals.min_supported?"true":"false")+",\"mag_anisotropy\":"+(visuals.mag_supported?"true":"false")+"}");}catch(...){game_fov.disable("device_config_exception");visuals.effective.anisotropy=visuals.effective.fov=visuals.effective.shadow_off=false;}}
-Device8::~Device8(){game_fov.disable("device_release");if(race_observer_attached)release_race_observer();parent_->Release();}
+  quality_trace();bool flight=parse_free_camera_config(s.visual_config.raw_fields).enabled&&s.target&&s.visual_config.version_ok;if(s.target&&(s.enabled||flight||hud_feature_requested)){install_race_observer(true,true);race_observer_attached=true;}if((visuals.effective.fov||flight)&&!game_fov.install(s.compatibility.fov.supported()||s.target,visuals.effective,quality->effective.hDeviceWindow?quality->effective.hDeviceWindow:quality->focus,s.target,trace.device_id(),&trace,quality->display.c_str(),quality->focus)){visuals.effective.fov=false;visuals.effective.fov_reason=game_fov.status().reason;}game_fov.set_global_hud_request(hud_visibility.requested_hidden());s.write("{\"type\":\"visual_device_config\",\"requested\":"+config_json(visuals.requested)+",\"effective\":"+config_json(visuals.effective)+",\"caps_result\":"+std::to_string(static_cast<uint32_t>(hr))+",\"caps_max_anisotropy\":"+std::to_string(visuals.caps_max)+",\"min_anisotropy\":"+(visuals.min_supported?"true":"false")+",\"mag_anisotropy\":"+(visuals.mag_supported?"true":"false")+"}");}catch(...){game_fov.disable("device_config_exception");visuals.effective.anisotropy=visuals.effective.fov=visuals.effective.shadow_off=false;}}
+Device8::~Device8(){game_fov.disable("device_release");if(race_observer_attached)release_race_observer();if(physics_probe_attached)release_physics_probe();parent_->Release();}
 IDirect3DVertexBuffer8* Device8::wrap_vertex_buffer(IDirect3DVertexBuffer8* raw) noexcept {
  if(!raw||!visuals.effective.foliage_diagnostics)return raw;
  std::lock_guard<std::recursive_mutex> l(buffer_mutex_);auto i=buffer_proxies_.find(raw);if(i!=buffer_proxies_.end()&&i->second&&i->second->kind()==BufferKind::Vertex){auto* p=static_cast<VertexBufferProxy*>(i->second->proxy_pointer());if(p->core().generation()!=trace.resources.generation(reinterpret_cast<uintptr_t>(raw))){invalidate_buffer_shadow(raw,"buffer_generation_changed_raw_escape");return raw;}p->AddRef();raw->Release();return p;}

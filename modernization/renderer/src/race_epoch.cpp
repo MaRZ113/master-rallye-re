@@ -112,6 +112,15 @@ void RaceEpoch::retire(uint32_t actor,bool destroyed) noexcept {
  if(owner.race_generation==race_generation){successful_generation=successful_race_generation=0;revoked_race_generation=race_generation;phase=RacePhase::Revoked;}
  reason=destroyed?"owner_destroyed":"owner_retired";note(destroyed?RaceEvent::Destroy:RaceEvent::Retire,reason);
 }
+bool RaceEpoch::device_reset() noexcept {
+ if(execution_depth==0&&correlated_owner_candidate()){
+  reason="completed_race_proof_retained_across_device_reset";
+  note(RaceEvent::DeviceReset,reason);
+  return correlated_owner_candidate();
+ }
+ cancel(RaceEvent::DeviceReset,execution_depth?"device_reset_during_native_lifecycle":"device_reset_without_completed_race_proof");
+ return false;
+}
 void RaceEpoch::cancel(RaceEvent e,const char* why) noexcept {revoked_race_generation=race_generation;successful_generation=successful_race_generation=0;phase=RacePhase::Revoked;reason=why;note(e,why);}
 bool RaceEpoch::correlated_owner_candidate() const noexcept {
  if(poisoned||!race_generation||revoked_race_generation==race_generation||successful_race_generation!=race_generation||owner.race_generation!=race_generation||!owner.initialized||!owner.live||owner.retired)return false;
@@ -129,6 +138,35 @@ bool RaceEpoch::course_identity_verified() const noexcept {
  return j->parent_lifetime==0&&
   !std::strcmp(j->scene_text.data(),"RaceTest/France1")&&
   !std::strcmp(j->source_text.data(),"DataScene/RaceTest/France1.xml")&&j->flag21==1&&j->flag22==1;
+}
+bool race_hud_scene_proven(const RaceEpoch& e) noexcept {
+ if(!e.correlated_owner_candidate())return false;
+ const auto* root=e.lifetime(e.owner.execution_job_lifetime);
+ if(!root||root->parent_lifetime||!root->terminal||!root->commit_seen||!root->commit_success||root->failed||
+    root->flag21!=1||root->flag22!=1)return false;
+ constexpr char prefix[]="RaceTest/";
+ if(std::strncmp(root->scene_text.data(),prefix,sizeof(prefix)-1))return false;
+ const char* course=root->scene_text.data()+sizeof(prefix)-1;
+ const size_t course_length=std::strlen(course);
+ if(!course_length||course_length>96)return false;
+ for(size_t i=0;i<course_length;++i){const char c=course[i];
+  if(!((c>='A'&&c<='Z')||(c>='a'&&c<='z')||(c>='0'&&c<='9')||c=='_'||c=='-'))return false;
+ }
+ char expected_source[128]{};
+ const int source_length=std::snprintf(expected_source,sizeof(expected_source),"DataScene/RaceTest/%s.xml",course);
+ if(source_length<0||static_cast<size_t>(source_length)>=sizeof(expected_source)||std::strcmp(root->source_text.data(),expected_source))return false;
+ unsigned matching_hud_jobs=0;
+ for(size_t i=0;i<e.jobs_used;++i){const auto& job=e.jobs[i];if(job.race_generation!=e.race_generation||job.lifetime==root->lifetime)continue;
+  const bool exact_hud=job.supported_hud&&job.parent_lifetime==root->lifetime&&!job.failed&&job.terminal&&job.commit_seen&&job.commit_success&&
+   job.flag21==1&&job.flag22==0&&!std::strcmp(job.scene_text.data(),"Hud/Hud0")&&
+   !std::strcmp(job.source_text.data(),"DataScene/Hud/Hud0.xml");
+  if(!exact_hud)return false;++matching_hud_jobs;
+ }
+ return matching_hud_jobs==1;
+}
+bool race_hud_player_running(const RaceOwnerRead& owner,uint32_t participant) noexcept {
+ return owner.valid&&owner.arrays_ready&&owner.participant_states_ready&&participant<owner.count&&participant<owner.participant_states.size()&&
+  owner.participant_states[participant]==0;
 }
 bool RaceEpoch::validate_thread(uint32_t expected,uint32_t actual) noexcept {
  observed_thread=actual;
@@ -177,6 +215,9 @@ RaceScalar race_broker_scalar(RaceReadMemory& m,uint32_t base,uint32_t id,uint32
  else if(tag==2){if(!m.read(payload,&r.value,4))return r;}else return r;
  r.present=true;return r;
 }
+RaceScalar race_broker_bool(RaceReadMemory& m,uint32_t base,const char* key) noexcept {
+ uint32_t id=0;if(!key||!m.resolve_id(base,key,id))return {};return race_broker_scalar(m,base,id,0);
+}
 RaceOwnerRead read_race_owner(RaceReadMemory& m,uint32_t base,const RaceOwner& identity,uint64_t current_generation) noexcept {
  RaceOwnerRead r;r.actor=identity.actor;r.ai=identity.ai;
  if(!r.actor||!r.ai||identity.retired||!identity.lifetime||!current_generation){r.reason="no_current_owner_lifetime";return r;}
@@ -219,8 +260,26 @@ RaceContextCheck check_race_context(const std::array<RaceScalar,9>& f,const Race
  if(!owner.participant_states_ready)return {false,"participant_race_state_not_active_or_starting"};
  return {true,"offline_one_player_supporting_context_not_certificate"};
 }
+RaceHudContextCheck check_race_hud_context(const std::array<RaceScalar,9>& f,const RaceOwnerRead& owner) noexcept {
+ if(!f[6].present||f[6].tag!=RACE_CONTEXT_TAGS[6])return {false,false,"missing_or_wrong_type_broker_entry"};
+ if(f[6].value!=0&&f[6].value!=1)return {false,false,"unsupported_replay_flag_value"};
+ const bool replay=f[6].value==1;
+ if(!replay){const auto ordinary=check_race_context(f,owner);return {ordinary.supported,false,ordinary.reason};}
+ // Reuse the exact offline, one-player, owner, participant and non-replay
+ // checks. Only the verified PlaybackReplay boolean is relaxed for HUD use.
+ auto replay_fields=f;replay_fields[6].value=0;
+ const auto ordinary=check_race_context(replay_fields,owner);
+ if(!ordinary.supported)return {false,false,ordinary.reason};
+ return {true,true,"certified_single_player_replay_hud_context"};
+}
 RaceCertificate check_live_race_certificate(const RaceEpoch& e,const RaceOwnerRead& owner,const std::array<RaceScalar,9>& fields,bool camera_valid,uint32_t camera) noexcept {
  RaceCertificate c;c.race_generation=e.race_generation;c.owner_lifetime=e.owner.lifetime;c.actor=e.owner.actor;c.ai=e.owner.ai;
+ c.single_human_car_race=fields[0].present&&fields[0].tag==RACE_CONTEXT_TAGS[0]&&fields[0].value==1&&
+  fields[1].present&&fields[1].tag==RACE_CONTEXT_TAGS[1]&&fields[1].value==1&&
+  fields[8].present&&fields[8].tag==RACE_CONTEXT_TAGS[8]&&fields[8].value==1;
+ if(fields[8].present&&fields[8].tag==RACE_CONTEXT_TAGS[8]&&fields[8].value>0)
+  c.participant_count=static_cast<uint32_t>(fields[8].value);
+ if(c.single_human_car_race)c.human_participant_index=0;
  if(!owner.valid||!owner.storage_readable||!owner.native_live_unique)c.reason=owner.reason;
  else if(!owner.temporal_match||!e.correlated_owner_candidate())c.reason="lifecycle_ancestry_or_completion_unproven";
  else if(!e.course_identity_verified())c.reason="supported_course_job_not_verified";

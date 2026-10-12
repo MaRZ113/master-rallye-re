@@ -2,6 +2,7 @@
 #include "provenance.hpp"
 #include <tlhelp32.h>
 #include <cstring>
+#include <cstdio>
 #include <sstream>
 #include <atomic>
 namespace gfx2 {
@@ -113,7 +114,7 @@ void virtual_site(size_t i,uint32_t va,uint32_t target,uintptr_t bridge) noexcep
 }
 const char* event_name(RaceEvent e) noexcept {
  switch(e){case RaceEvent::Request:return "request";case RaceEvent::Queue:return "queue";case RaceEvent::ExecuteBegin:return "execute_begin";case RaceEvent::Commit:return "commit_return";case RaceEvent::ExecuteEnd:return "execute_return";
- case RaceEvent::OpenError:return "open_error";case RaceEvent::ReadError:return "read_or_decode_error";case RaceEvent::OwnerAttach:return "owner_attach";case RaceEvent::OwnerInitialized:return "owner_initializer_return";case RaceEvent::OwnerLive:return "owner_live_admission";case RaceEvent::Retire:return "owner_retire";case RaceEvent::Destroy:return "owner_destroy";case RaceEvent::Reset:return "reset";case RaceEvent::Release:return "device_release";default:return "rejected";}
+ case RaceEvent::OpenError:return "open_error";case RaceEvent::ReadError:return "read_or_decode_error";case RaceEvent::OwnerAttach:return "owner_attach";case RaceEvent::OwnerInitialized:return "owner_initializer_return";case RaceEvent::OwnerLive:return "owner_live_admission";case RaceEvent::Retire:return "owner_retire";case RaceEvent::Destroy:return "owner_destroy";case RaceEvent::DeviceReset:return "device_reset";case RaceEvent::Reset:return "reset";case RaceEvent::Release:return "device_release";default:return "rejected";}
 }
 const char* phase_name(RacePhase p) noexcept {switch(p){case RacePhase::Requested:return "REQUESTED";case RacePhase::Executing:return "EXECUTING";case RacePhase::AwaitingOwner:return "AWAITING_RACE_OWNER";case RacePhase::Failed:return "FAILED";case RacePhase::Revoked:return "REVOKED";default:return "UNKNOWN";}}
 uint32_t event_va(RaceEvent e) noexcept {
@@ -155,8 +156,17 @@ bool install_race_observer(bool exact,bool enabled) noexcept {
  }
  installation_record();return observer.installed;
 }
-void reset_race_observer() noexcept {
- AcquireSRWLockExclusive(&observer.lock);if(observer.enabled){observer.epoch.cancel(RaceEvent::Reset,"reset_requires_new_lifecycle");if(GetCurrentThreadId()!=observer.thread)observer.epoch.reject("reset_wrong_thread",true);}ReleaseSRWLockExclusive(&observer.lock);
+bool device_reset_race_observer() noexcept {
+ bool retained=false;const char* reason="observer_unavailable";uint64_t generation=0,owner_lifetime=0;
+ AcquireSRWLockExclusive(&observer.lock);
+ if(observer.enabled){
+  if(GetCurrentThreadId()!=observer.thread){observer.epoch.reject("device_reset_wrong_thread",true);reason="device_reset_wrong_thread";}
+  else {retained=observer.epoch.device_reset();reason=observer.epoch.reason;}
+  generation=observer.epoch.race_generation;owner_lifetime=observer.epoch.owner.lifetime;
+ }
+ ReleaseSRWLockExclusive(&observer.lock);
+ try{session().write(std::string("{\"type\":\"race_epoch_device_reset\",\"proof_preserved\":")+(retained?"true":"false")+",\"race_generation\":"+std::to_string(generation)+",\"owner_lifetime\":"+std::to_string(owner_lifetime)+",\"reason\":"+quote(reason)+"}");}catch(...){}
+ return retained;
 }
 void release_race_observer() noexcept {
  if(!observer.devices)return;if(--observer.devices)return;
@@ -182,8 +192,66 @@ RaceCertificate live_race_certificate(uintptr_t expected_camera) noexcept {
   bool camera_valid=word(observer.base+CAMERA_MANAGER_RVA,cam_manager)&&word(cam_manager+16,count)&&count==1&&word(cam_manager,selected)&&selected&&selected==expected_camera&&
    word(observer.base+RENDERER_HOLDER_RVA,holder)&&word(holder+0x38,holder)&&word(holder+4,current)&&current==selected;
   c=check_live_race_certificate(e,owner,fields,camera_valid,current);
+  if(c.valid&&c.single_human_car_race&&c.participant_count==1&&c.human_participant_index==0){
+   uint32_t player_type_id=0;
+   if(memory.resolve_id(observer.base,"Race/Car0/PlayerType",player_type_id)){
+    const auto player_type=race_broker_scalar(memory,observer.base,player_type_id,2);
+    if(player_type.present){c.human_participant_player_type=player_type.value;
+     c.human_participant_identity_verified=player_type.value==1;}
+   }
+  }
  }
  ReleaseSRWLockExclusive(&observer.lock);return c;
+}
+RaceHudContext live_race_hud_context() noexcept {
+ RaceHudContext result;
+ if(!observer.enabled||!observer.installed){result.reason="observer_unavailable";return result;}
+ if(observer.base!=0x400000){result.reason="unsupported_image_base";return result;}
+ if(GetCurrentThreadId()!=observer.thread){result.reason="wrong_render_thread";return result;}
+ if(!TryAcquireSRWLockExclusive(&observer.lock)){result.reason="observer_busy";return result;}
+ auto& e=observer.epoch;result.race_generation=e.race_generation;result.owner_lifetime=e.owner.lifetime;
+ if(!observer.enabled||!observer.installed)result.reason="observer_unavailable";
+ else if(observer.base!=0x400000)result.reason="unsupported_image_base";
+ else if(GetCurrentThreadId()!=observer.thread)result.reason="wrong_render_thread";
+ else if(!owned_sites_intact())result.reason="observer_hook_ownership_lost";
+ else if(!e.correlated_owner_candidate()||!race_hud_scene_proven(e))result.reason="race_hud_lifecycle_not_proven";
+ else {
+  uint32_t scene_manager=0,committed_scene=0;char committed_name[192]{};
+  if(!word(observer.base+0x2f9aa0,scene_manager)||!scene_manager||!word(scene_manager,committed_scene)||
+     !race_pool_text(memory,observer.base,committed_scene,committed_name,sizeof(committed_name))||std::strcmp(committed_name,"Hud/Hud0")){
+   result.reason="committed_scene_not_race_hud";ReleaseSRWLockExclusive(&observer.lock);return result;
+  }
+  auto owner=read_race_owner(memory,observer.base,e.owner,e.race_generation);
+  std::array<RaceScalar,9> fields{};
+  for(size_t i=0;i<fields.size();++i){uint32_t id=0;if(memory.resolve_id(observer.base,RACE_CONTEXT_KEYS[i],id))fields[i]=race_broker_scalar(memory,observer.base,id,RACE_CONTEXT_TAGS[i]);}
+  const auto context=check_race_hud_context(fields,owner);
+  if(!context.supported)result.reason=context.reason;
+  else {
+   unsigned local_players=0,local_player_index=UINT32_MAX;bool player_types_valid=true;
+   for(uint32_t i=0;i<owner.count;++i){char key[64]{};std::snprintf(key,sizeof(key),"Race/Car%u/PlayerType",i);uint32_t id=0;
+    if(!memory.resolve_id(observer.base,key,id)){player_types_valid=false;break;}
+    const auto value=race_broker_scalar(memory,observer.base,id,2);
+    if(!value.present){player_types_valid=false;break;}if(value.value==1){++local_players;local_player_index=i;}
+   }
+   if(!player_types_valid||local_players!=1)result.reason="single_local_player_identity_unproven";
+   else if(!race_hud_player_running(owner,local_player_index))result.reason="local_player_not_in_running_race_state";
+   else {
+    const auto pause=race_broker_bool(memory,observer.base,"Race/PauseMenu/Enabled");
+    if(!pause.present||pause.tag!=0)result.reason="pause_state_unknown";
+    else {result.valid=true;result.pause_known=true;result.paused=pause.value!=0;result.replay=context.replay;
+     result.reason=result.replay?(result.paused?"certified_paused_replay":"certified_active_replay"):(result.paused?"certified_paused_race":"certified_active_race");}
+   }
+  }
+ }
+ ReleaseSRWLockExclusive(&observer.lock);return result;
+}
+RaceScalar read_pause_menu_state_readonly() noexcept {
+ if(GetCurrentThreadId()!=observer.thread||observer.base!=0x400000||!observer.installed||!observer.enabled||!owned_sites_intact())return {};
+ if(!TryAcquireSRWLockExclusive(&observer.lock))return {};
+ RaceScalar value{};
+ if(observer.thread==GetCurrentThreadId()&&observer.base==0x400000&&observer.installed&&observer.enabled&&owned_sites_intact())
+  value=race_broker_bool(memory,observer.base,"Race/PauseMenu/Enabled");
+ ReleaseSRWLockExclusive(&observer.lock);return value;
 }
 std::string race_epoch_capture_json(uint64_t device,uint64_t frame,bool input_observed,
  bool toggle_focused,bool toggle_pressed,bool toggle_edge,unsigned toggle_key) {
@@ -207,6 +275,8 @@ std::string race_epoch_capture_json(uint64_t device,uint64_t frame,bool input_ob
   for(size_t i=0;i<context.size();++i){uint32_t id=0;if(memory.resolve_id(base,RACE_CONTEXT_KEYS[i],id))context[i]=race_broker_scalar(memory,base,id,RACE_CONTEXT_TAGS[i]);}
   camera_read=word(base+0x2f94dc,cam_mgr)&&word(cam_mgr+16,cameras)&&word(base+0x2f9cf0,cam_mgr)&&word(cam_mgr+0x38,cam_mgr)&&word(cam_mgr+4,camera);
  }
+ RaceScalar pause_menu_enabled{};const char* pause_menu_status=!installed?"race_observer_not_installed":!same_thread?"wrong_thread":base!=0x400000?"unsupported_build":"key_not_read";
+ if(installed&&same_thread&&base==0x400000){pause_menu_enabled=race_broker_bool(memory,base,"Race/PauseMenu/Enabled");pause_menu_status=pause_menu_enabled.present?"typed_bool_read_only":"missing_wrong_type_or_unreadable";}
  const auto context_check=check_race_context(context,owner);
  const auto certificate=camera_read?live_race_certificate(camera):RaceCertificate{};
  const RaceJob* root=e.lifetime(e.owner.execution_job_lifetime);const RaceJob* hud=nullptr;
@@ -216,7 +286,7 @@ std::string race_epoch_capture_json(uint64_t device,uint64_t frame,bool input_ob
  for(uint32_t i=0;i<owner.count&&i<8;++i){if(i)o<<',';o<<owner.participant_states[i];}
  o<<"]},\"camera\":{\"read_complete\":"<<(camera_read?"true":"false")<<",\"count\":"<<cameras<<",\"pointer\":"<<camera<<"},\"context\":{";
  for(size_t i=0;i<context.size();++i){if(i)o<<',';const auto& v=context[i];o<<quote(RACE_CONTEXT_KEYS[i])<<":{\"present\":"<<(v.present?"true":"false")<<",\"tag\":"<<v.tag<<",\"value\":";if(v.present)o<<v.value;else o<<"null";o<<'}';}
- o<<"},\"jobs\":[";for(size_t i=0;i<e.jobs_used;++i){if(i)o<<',';auto& j=e.jobs[i];o<<"{\"pointer\":"<<j.pointer<<",\"generation\":"<<j.generation<<",\"lifetime\":"<<j.lifetime<<",\"parent_job_lifetime\":"<<j.parent_lifetime<<",\"race_lifecycle_generation\":"<<j.race_generation<<",\"supported_hud_child\":"<<(j.supported_hud?"true":"false")<<",\"failed\":"<<(j.failed?"true":"false")<<",\"manager_scene_after_commit\":"<<j.manager_scene_after_commit<<",\"scene\":"<<j.scene<<",\"source_id\":"<<j.source<<",\"scene_name_at_queue\":"<<quote(j.scene_text.data())<<",\"source_name_at_queue\":"<<quote(j.source_text.data())<<",\"flag21\":"<<static_cast<unsigned>(j.flag21)<<",\"flag22\":"<<static_cast<unsigned>(j.flag22)<<",\"commit_seen\":"<<(j.commit_seen?"true":"false")<<",\"commit_success\":"<<(j.commit_success?"true":"false")<<",\"terminal\":"<<(j.terminal?"true":"false")<<",\"pointer_reused\":"<<(j.reused?"true":"false")<<"}";}
+ o<<"},\"pause_menu\":{\"key\":\"Race/PauseMenu/Enabled\",\"available\":"<<(pause_menu_enabled.present?"true":"false")<<",\"enabled\":";if(pause_menu_enabled.present)o<<(pause_menu_enabled.value?"true":"false");else o<<"null";o<<",\"tag\":";if(pause_menu_enabled.present)o<<pause_menu_enabled.tag;else o<<"null";o<<",\"read_only\":true,\"source\":\"existing_typed_race_broker_reader\",\"status\":"<<quote(pause_menu_status)<<"},\"jobs\":[";for(size_t i=0;i<e.jobs_used;++i){if(i)o<<',';auto& j=e.jobs[i];o<<"{\"pointer\":"<<j.pointer<<",\"generation\":"<<j.generation<<",\"lifetime\":"<<j.lifetime<<",\"parent_job_lifetime\":"<<j.parent_lifetime<<",\"race_lifecycle_generation\":"<<j.race_generation<<",\"supported_hud_child\":"<<(j.supported_hud?"true":"false")<<",\"failed\":"<<(j.failed?"true":"false")<<",\"manager_scene_after_commit\":"<<j.manager_scene_after_commit<<",\"scene\":"<<j.scene<<",\"source_id\":"<<j.source<<",\"scene_name_at_queue\":"<<quote(j.scene_text.data())<<",\"source_name_at_queue\":"<<quote(j.source_text.data())<<",\"flag21\":"<<static_cast<unsigned>(j.flag21)<<",\"flag22\":"<<static_cast<unsigned>(j.flag22)<<",\"commit_seen\":"<<(j.commit_seen?"true":"false")<<",\"commit_success\":"<<(j.commit_success?"true":"false")<<",\"terminal\":"<<(j.terminal?"true":"false")<<",\"pointer_reused\":"<<(j.reused?"true":"false")<<"}";}
  o<<"],\"ring_overwritten\":"<<(e.event_serial>RaceEpoch::MAX_EVENTS?e.event_serial-RaceEpoch::MAX_EVENTS:0)<<",\"events\":[";
  for(size_t i=0;i<e.events_used;++i){if(i)o<<',';const auto& t=e.chronological(i);o<<"{\"serial\":"<<t.serial<<",\"event\":"<<quote(event_name(t.event))<<",\"generation\":"<<t.generation<<",\"race_lifecycle_generation\":"<<t.race_generation<<",\"parent_job_lifetime\":"<<t.parent_job_lifetime<<",\"job\":"<<t.job<<",\"job_lifetime\":"<<t.job_lifetime<<",\"actor\":"<<t.actor<<",\"ai\":"<<t.ai<<",\"owner_lifetime\":"<<t.owner_lifetime<<",\"scene\":"<<t.scene<<",\"thread\":"<<t.thread<<",\"native_va\":"<<event_va(t.event)<<",\"native_rva\":"<<(event_va(t.event)?event_va(t.event)-0x400000:0)<<",\"reason\":"<<quote(t.reason)<<"}";}
  o<<"],\"input_observation\":";if(input_observed)o<<"{\"toggle_key_vk\":"<<toggle_key<<",\"focused\":"<<(toggle_focused?"true":"false")<<",\"toggle_pressed_while_focused\":"<<((toggle_focused&&toggle_pressed)?"true":"false")<<",\"controller_toggle_edge\":"<<(toggle_edge?"true":"false")<<"}";else o<<"null";

@@ -1,0 +1,100 @@
+{
+  "status": "READY_FOR_HUMAN_RUNTIME",
+  "branch": "master",
+  "starting_head": "676ed24b2d32543c3b9356ed359e280f2b36a309",
+  "working_tree_was_dirty": true,
+  "binary": {
+    "valid": true,
+    "errors": [],
+    "sha256": "0be98274aebdda6965a111599c68d3b70c13d7473980ddbafaf72e462d86bc47",
+    "size": 2232320,
+    "machine": 332,
+    "pe_type": "PE32",
+    "dll": true,
+    "image_base": 268435456,
+    "timestamp": 2466237171,
+    "entry_rva": 1193467,
+    "exports": {
+      "Direct3DCreate8": {
+        "ordinal": 5,
+        "rva": 16320,
+        "forwarder": null
+      },
+      "ValidatePixelShader": {
+        "ordinal": 2,
+        "rva": 17536,
+        "forwarder": null
+      },
+      "ValidateVertexShader": {
+        "ordinal": 3,
+        "rva": 17568,
+        "forwarder": null
+      }
+    },
+    "imported_dlls": [
+      "bcrypt.dll",
+      "USER32.dll",
+      "KERNEL32.dll"
+    ],
+    "sections": [
+      {
+        "name": ".text",
+        "rva": 4096,
+        "virtual_size": 1647733,
+        "raw_size": 1648128,
+        "raw_offset": 1024
+      },
+      {
+        "name": ".rdata",
+        "rva": 1654784,
+        "virtual_size": 252134,
+        "raw_size": 252416,
+        "raw_offset": 1649152
+      },
+      {
+        "name": ".data",
+        "rva": 1908736,
+        "virtual_size": 284756,
+        "raw_size": 278016,
+        "raw_offset": 1901568
+      },
+      {
+        "name": ".fptable",
+        "rva": 2195456,
+        "virtual_size": 128,
+        "raw_size": 512,
+        "raw_offset": 2179584
+      },
+      {
+        "name": ".rsrc",
+        "rva": 2199552,
+        "virtual_size": 480,
+        "raw_size": 512,
+        "raw_offset": 2180096
+      },
+      {
+        "name": ".reloc",
+        "rva": 2203648,
+        "virtual_size": 51692,
+        "raw_size": 51712,
+        "raw_offset": 2180608
+      }
+    ],
+    "evidence_grade": "BUILD_VERIFIED_NOT_RUNTIME"
+  },
+  "tests": {
+    "native_ctest": "22/22 PASS",
+    "renderer_python": "190/190 PASS",
+    "root_synthetic": "630/630 PASS",
+    "compileall": "PASS",
+    "exact_retail_text_verification": "PASS",
+    "human_runtime": "PENDING"
+  },
+  "default_enabled": false,
+  "direct_physics_or_broker_writes": false,
+  "native_return_override": false,
+  "native_helper_sha256": "0d81df8f1a1af9de4d10bd3baa2ea8adf703fbe52ad9f8abb503b54c274f2688",
+  "countdown_state": "manager[+0x50] pointer; array[participant] signed countdown",
+  "retail_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "evidence_grade": "BUILD_AND_SYNTHETIC_VERIFIED_NOT_RUNTIME"
+}

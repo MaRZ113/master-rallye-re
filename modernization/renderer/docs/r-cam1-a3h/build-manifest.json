@@ -1,0 +1,24 @@
+{
+  "phase": "R-CAM1-A3h.1",
+  "status": "READ_ONLY_PROBE_READY_FOR_RUNTIME",
+  "artifact": "modernization/renderer/.build-msvc/Release/d3d8.dll",
+  "sha256": "09178fd974602614c294bd01a9c79d31c452112a75e18c54762ab1db90b1b272",
+  "size": 1773568,
+  "machine": "I386",
+  "pe_type": "PE32",
+  "dll": true,
+  "image_base": "0x10000000",
+  "entry_rva": "0x000F620B",
+  "exports": [
+    "Direct3DCreate8",
+    "ValidatePixelShader",
+    "ValidateVertexShader"
+  ],
+  "imported_dlls": [
+    "bcrypt.dll",
+    "USER32.dll",
+    "KERNEL32.dll"
+  ],
+  "verification": "BUILD_VERIFIED_NOT_RUNTIME",
+  "runtime_capture_pending": true
+}

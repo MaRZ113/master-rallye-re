@@ -298,6 +298,7 @@ HRESULT STDMETHODCALLTYPE Device8::BeginScene() {
  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
  trace.before(34, args, pc);
  HRESULT result = real_->BeginScene();
+ if(SUCCEEDED(result))trace.scene_active=true;
  trace.after(34, args, static_cast<uint32_t>(result), pc);
  return result;
 }
@@ -307,6 +308,7 @@ HRESULT STDMETHODCALLTYPE Device8::EndScene() {
  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
  trace.before(35, args, pc);
  HRESULT result = real_->EndScene();
+ trace.scene_active=false;
  trace.after(35, args, static_cast<uint32_t>(result), pc);
  return result;
 }

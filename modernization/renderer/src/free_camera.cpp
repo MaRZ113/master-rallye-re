@@ -49,6 +49,44 @@ FreeCameraConfig parse_free_camera_config(const std::map<std::string,std::string
  const unsigned roll_keys[]={c.roll_left,c.roll_right,c.roll_reset};
  for(unsigned k:roll_keys){valid&=k!=0&&k!=c.toggle&&k!=c.speed_increase&&k!=c.speed_decrease&&k!=c.fov_decrease&&k!=c.fov_increase;for(unsigned movement:c.keys)valid&=k!=movement;}
  valid&=c.roll_left!=c.roll_right&&c.roll_left!=c.roll_reset&&c.roll_right!=c.roll_reset;
+ valid&=parse_config_boolean(get("FreeCamera.CameraBookmarksEnabled","1"),c.camera_bookmarks_enabled);
+ auto slot=get("FreeCamera.CameraBookmarkDefaultSlot","1");if(slot=="1")c.camera_bookmark_default_slot=1;else if(slot=="2")c.camera_bookmark_default_slot=2;else if(slot=="3")c.camera_bookmark_default_slot=3;else valid=false;
+ c.save_camera_bookmark=free_camera_key(get("FreeCameraKeys.SaveCameraBookmark","J"));
+ c.load_camera_bookmark=free_camera_key(get("FreeCameraKeys.LoadCameraBookmark","K"));
+ c.next_camera_bookmark_slot=free_camera_key(get("FreeCameraKeys.NextCameraBookmarkSlot","L"));
+ const unsigned bookmark_keys[]={c.save_camera_bookmark,c.load_camera_bookmark,c.next_camera_bookmark_slot};
+ for(size_t i=0;i<3;++i){unsigned k=bookmark_keys[i];valid&=k!=0&&k!=VK_F10&&k!=c.toggle&&k!=c.speed_increase&&k!=c.speed_decrease&&k!=c.fov_decrease&&k!=c.fov_increase&&k!=c.roll_left&&k!=c.roll_right&&k!=c.roll_reset;
+  for(unsigned movement:c.keys)valid&=k!=movement;for(size_t j=0;j<i;++j)valid&=k!=bookmark_keys[j];}
+ valid&=parse_config_boolean(get("FreeCamera.VehicleTeleportEnabled","0"),c.vehicle_teleport_enabled);
+ valid&=parse_config_boolean(get("FreeCamera.VehicleTeleportRoadOnly","1"),c.vehicle_teleport_road_only);
+ float teleport_timeout=60.f;
+ valid&=number("FreeCamera.VehicleTeleportArmTimeoutSeconds",teleport_timeout,1.f,300.f)&&std::floor(teleport_timeout)==teleport_timeout;
+ c.vehicle_teleport_arm_timeout_seconds=static_cast<uint32_t>(teleport_timeout);
+ valid&=number("FreeCamera.VehicleTeleportMaxRoadDistance",c.vehicle_teleport_max_road_distance,1.f,20.f);
+ c.arm_road_teleport=free_camera_key(get("FreeCameraKeys.ArmRoadTeleport","T"));
+ valid&=c.arm_road_teleport!=0&&c.vehicle_teleport_road_only&&
+        c.arm_road_teleport!=VK_F10&&c.arm_road_teleport!=c.toggle&&
+        c.arm_road_teleport!=c.speed_increase&&c.arm_road_teleport!=c.speed_decrease&&
+        c.arm_road_teleport!=c.fov_decrease&&c.arm_road_teleport!=c.fov_increase&&
+        c.arm_road_teleport!=c.roll_left&&c.arm_road_teleport!=c.roll_right&&
+        c.arm_road_teleport!=c.roll_reset&&c.arm_road_teleport!=c.save_camera_bookmark&&
+        c.arm_road_teleport!=c.load_camera_bookmark&&c.arm_road_teleport!=c.next_camera_bookmark_slot&&
+        c.arm_road_teleport!=c.clean_view_toggle;
+ for(unsigned movement:c.keys)valid&=c.arm_road_teleport!=movement;
+ bool clean_pilot=false,clean_enabled=false;
+ const bool pilot_parse=parse_config_boolean(get("FreeCamera.CleanViewPilot","0"),clean_pilot);
+ const bool enabled_parse=parse_config_boolean(get("FreeCamera.CleanViewEnabled","0"),clean_enabled);
+ auto hud_toggle=f.find("HUD.ToggleKey");
+ c.clean_view_toggle=free_camera_key(hud_toggle!=f.end()?hud_toggle->second:get("FreeCameraKeys.ToggleCleanView","H"));
+ valid&=c.arm_road_teleport!=c.clean_view_toggle;
+ for(unsigned bookmark_key:bookmark_keys)valid&=c.clean_view_toggle!=bookmark_key;
+ bool clean_binding=c.clean_view_toggle!=0&&c.clean_view_toggle!=c.toggle&&c.clean_view_toggle!=c.speed_increase&&c.clean_view_toggle!=c.speed_decrease&&
+  c.clean_view_toggle!=c.fov_decrease&&c.clean_view_toggle!=c.fov_increase&&c.clean_view_toggle!=c.roll_left&&c.clean_view_toggle!=c.roll_right&&c.clean_view_toggle!=c.roll_reset&&
+  c.clean_view_toggle!=c.save_camera_bookmark&&c.clean_view_toggle!=c.load_camera_bookmark&&c.clean_view_toggle!=c.next_camera_bookmark_slot&&c.clean_view_toggle!=c.arm_road_teleport;
+ for(unsigned movement:c.keys)clean_binding=clean_binding&&c.clean_view_toggle!=movement;
+ if(!pilot_parse||!enabled_parse)c.clean_view_config_reason="invalid_pilot_boolean";
+ else if(!clean_binding)c.clean_view_config_reason="invalid_or_conflicting_toggle";
+ else {c.clean_view_pilot=clean_pilot;c.clean_view_enabled=clean_enabled&&clean_pilot;c.clean_view_config_reason=clean_pilot?"pilot_ready":"pilot_disabled";}
  if(!valid){c.enabled=false;c.reason="invalid_free_camera_configuration";}else c.reason=c.enabled?"configured_exact_retail_only":"disabled";return c;
 }
 namespace {
@@ -92,16 +130,62 @@ void FlightController::reset_for_race(const FreeCameraConfig& c) noexcept {
  velocity_={};speed_up_down_=speed_down_down_=false;wheel_remainder_=0;
 }
 double FlightController::velocity_magnitude() const noexcept {return std::sqrt(velocity_[0]*velocity_[0]+velocity_[1]*velocity_[1]+velocity_[2]*velocity_[2]);}
-bool FlightController::update(const FreeCameraConfig& c,const FlightInput& in,bool certified,const std::array<float,16>* visible) noexcept {
+bool FlightController::capture_bookmark(FlightBookmarkPose& out,const FreeCameraConfig& c) const noexcept {
+ if(!active||!orientation_valid||!rigid(pose)||!rigid(orientation_))return false;
+ for(unsigned j=0;j<3;++j)if(std::abs(double(pose[12+j])-orientation_[12+j])>.001)return false;
+ if(!std::isfinite(horizon_elapsed_)||!std::isfinite(previous_horizon_progress_)||!std::isfinite(manual_roll_)||!std::isfinite(manual_roll_target_)||
+    !std::isfinite(current_vfov_)||!std::isfinite(target_vfov_)||!std::isfinite(current_roll_degrees)||!std::isfinite(target_roll_degrees)||
+    !std::isfinite(horizon_level_progress))return false;
+ FlightBookmarkPose value;value.visible_pose=pose;value.orientation=orientation_;value.horizon_right=horizon_right_;
+ value.horizon_elapsed=horizon_elapsed_;value.previous_horizon_progress=previous_horizon_progress_;value.manual_roll=manual_roll_;value.manual_roll_target=manual_roll_target_;
+ value.current_vfov=current_vfov_;value.target_vfov=target_vfov_;value.current_roll_degrees=current_roll_degrees;value.target_roll_degrees=target_roll_degrees;
+ value.horizon_level_progress=horizon_level_progress;value.horizon_leveling_active=horizon_leveling_active;
+ value.auto_level_horizon=c.auto_level_horizon;value.cinematic_fov_enabled=c.cinematic_fov_enabled;
+ // A bookmark is a stable diagnostic viewpoint, not a snapshot of obsolete
+ // input tweens. Preserve the exact visible values while settling their
+ // targets so loading cannot drift on the first idle samples.
+ value.manual_roll_target=value.manual_roll;
+ if(value.cinematic_fov_enabled)value.target_vfov=value.current_vfov;
+ if(value.auto_level_horizon){value.horizon_elapsed=5.1;value.previous_horizon_progress=1.;value.horizon_level_progress=1.f;value.horizon_leveling_active=false;}
+ out=value;return true;
+}
+bool FlightController::restore_bookmark(const FlightBookmarkPose& value,const FreeCameraConfig& c) noexcept {
+ if(!active||!rigid(value.visible_pose)||!rigid(value.orientation)||!std::isfinite(value.horizon_elapsed)||value.horizon_elapsed<0||value.horizon_elapsed>5.1||
+    !std::isfinite(value.previous_horizon_progress)||value.previous_horizon_progress<0||value.previous_horizon_progress>1||
+    !std::isfinite(value.manual_roll)||!std::isfinite(value.manual_roll_target)||std::abs(value.manual_roll)>c.max_roll_degrees+.001||std::abs(value.manual_roll_target)>c.max_roll_degrees+.001||
+    !std::isfinite(value.current_vfov)||!std::isfinite(value.target_vfov)||!std::isfinite(value.current_roll_degrees)||!std::isfinite(value.target_roll_degrees)||
+    !std::isfinite(value.horizon_level_progress)||value.horizon_level_progress<0||value.horizon_level_progress>1)return false;
+ if((value.cinematic_fov_enabled&&!c.cinematic_fov_enabled)||(!c.manual_roll_enabled&&(std::abs(value.manual_roll)>.001||std::abs(value.manual_roll_target)>.001)))return false;
+ double right_length=0;for(float v:value.horizon_right){if(!std::isfinite(v))return false;right_length+=double(v)*v;}
+ if(right_length<.90||right_length>1.10)return false;
+ if(value.cinematic_fov_enabled){if(value.current_vfov<30||value.current_vfov>110||value.target_vfov<30||value.target_vfov>110)return false;}
+ else if(value.current_vfov!=0||value.target_vfov!=0)return false;
+ for(unsigned j=0;j<3;++j)if(std::abs(double(value.visible_pose[12+j])-value.orientation[12+j])>.001)return false;
+ auto expected=value.orientation;float back[3]={expected[8],expected[9],expected[10]};double angle=value.manual_roll*PI/180.;
+ if(std::abs(angle)>1e-12){rotate(expected.data(),back,angle);rotate(expected.data()+4,back,angle);orthogonalize(expected);}
+ for(unsigned i=0;i<16;++i)if(std::abs(double(expected[i])-value.visible_pose[i])>.002)return false;
+ pose=value.visible_pose;orientation_=value.orientation;horizon_right_=value.horizon_right;horizon_elapsed_=value.horizon_elapsed;previous_horizon_progress_=value.previous_horizon_progress;
+ manual_roll_=value.manual_roll;manual_roll_target_=value.manual_roll_target;manual_roll_degrees=static_cast<float>(manual_roll_);manual_roll_target_degrees=static_cast<float>(manual_roll_target_);
+ current_vfov_=value.current_vfov;target_vfov_=value.target_vfov;fov_initialized_=value.cinematic_fov_enabled&&c.cinematic_fov_enabled;
+ fov_transition_active_=fov_initialized_&&std::abs(target_vfov_-current_vfov_)>=.001;manual_roll_transition_active=std::abs(manual_roll_target_-manual_roll_)>=.001;
+ current_roll_degrees=value.current_roll_degrees;target_roll_degrees=value.target_roll_degrees;horizon_level_progress=value.horizon_level_progress;
+ horizon_leveling_active=value.horizon_leveling_active&&c.auto_level_horizon;bookmark_horizon_settled_=c.auto_level_horizon;roll_initialized_=true;orientation_valid=true;velocity_={};wheel_remainder_=0;suppress_next_motion_sample_=true;
+ return true;
+}
+bool FlightController::update(const FreeCameraConfig& c,const FlightInput& raw_input,bool certified,const std::array<float,16>* visible) noexcept {
  last_toggle_edge=false;
- if(!c.enabled||!certified||!in.focused){cancel();toggle_down_=in.toggle;return false;}
+ if(!c.enabled||!certified||!raw_input.focused){cancel();toggle_down_=raw_input.toggle;return false;}
+ FlightInput filtered=raw_input;
+ if(suppress_next_motion_sample_){suppress_next_motion_sample_=false;filtered.seconds=0;filtered.mouse_x=filtered.mouse_y=0;filtered.wheel_delta=0;
+  filtered.speed_increase=filtered.speed_decrease=filtered.fov_decrease=filtered.fov_increase=false;filtered.roll_left=filtered.roll_right=filtered.roll_reset=false;filtered.keys.fill(false);}
+ const FlightInput& in=filtered;
  if(!speed_initialized_){runtime_speed_=clamp_speed(c.speed,c);speed_initialized_=true;}
  if(!std::isfinite(runtime_speed_)){reset_for_race(c);}
  if(!focused_){focused_=true;toggle_down_=in.toggle;fov_down_down_=in.fov_decrease;fov_up_down_=in.fov_increase;return false;}
  bool edge=in.toggle&&!toggle_down_;toggle_down_=in.toggle;
  bool activated=false;
- if(edge){last_toggle_edge=true;if(active){active=false;velocity_={};speed_up_down_=speed_down_down_=false;wheel_remainder_=0;horizon_elapsed_=previous_horizon_progress_=0;horizon_level_progress=0;current_roll_degrees=target_roll_degrees=0;manual_roll_=manual_roll_target_=0;manual_roll_degrees=manual_roll_target_degrees=0;manual_roll_transition_active=roll_initialized_=false;orientation_={};horizon_leveling_active=false;fov_initialized_=fov_transition_active_=false;current_vfov_=target_vfov_=0;fov_down_down_=in.fov_decrease;fov_up_down_=in.fov_increase;}
-  else if(visible&&rigid(*visible)){pose=*visible;orientation_=pose;manual_roll_=manual_roll_target_=0;manual_roll_degrees=manual_roll_target_degrees=0;manual_roll_transition_active=false;roll_initialized_=true;active=true;activated=true;velocity_={};speed_up_down_=speed_down_down_=false;wheel_remainder_=0;orientation_valid=true;horizon_elapsed_=previous_horizon_progress_=0;horizon_level_progress=0;horizon_leveling_active=false;std::copy_n(pose.data(),3,horizon_right_.data());
+ if(edge){last_toggle_edge=true;if(active){active=false;velocity_={};speed_up_down_=speed_down_down_=false;wheel_remainder_=0;horizon_elapsed_=previous_horizon_progress_=0;horizon_level_progress=0;current_roll_degrees=target_roll_degrees=0;manual_roll_=manual_roll_target_=0;manual_roll_degrees=manual_roll_target_degrees=0;manual_roll_transition_active=roll_initialized_=false;orientation_={};horizon_leveling_active=false;bookmark_horizon_settled_=false;fov_initialized_=fov_transition_active_=false;current_vfov_=target_vfov_=0;fov_down_down_=in.fov_decrease;fov_up_down_=in.fov_increase;}
+  else if(visible&&rigid(*visible)){pose=*visible;orientation_=pose;manual_roll_=manual_roll_target_=0;manual_roll_degrees=manual_roll_target_degrees=0;manual_roll_transition_active=false;roll_initialized_=true;active=true;activated=true;velocity_={};speed_up_down_=speed_down_down_=false;wheel_remainder_=0;orientation_valid=true;horizon_elapsed_=previous_horizon_progress_=0;horizon_level_progress=0;horizon_leveling_active=false;bookmark_horizon_settled_=false;std::copy_n(pose.data(),3,horizon_right_.data());
    if(c.cinematic_fov_enabled){double inherited=in.inherited_vfov;if(!std::isfinite(inherited)||inherited<30||inherited>110)inherited=90;
     current_vfov_=inherited;target_vfov_=c.cinematic_vfov>0?c.cinematic_vfov:inherited;fov_initialized_=true;fov_transition_active_=current_vfov_!=target_vfov_;}
    else{current_vfov_=target_vfov_=0;fov_initialized_=fov_transition_active_=false;}fov_down_down_=in.fov_decrease;fov_up_down_=in.fov_increase;}}
@@ -127,11 +211,14 @@ bool FlightController::update(const FreeCameraConfig& c,const FlightInput& in,bo
   double pitch=std::asin(std::clamp(-double(orientation_[9]),-1.,1.)),delta=-std::clamp(double(in.mouse_y),-1000.,1000.)*c.sensitivity*PI/180;
   delta=std::clamp(pitch+delta,-89*PI/180,89*PI/180)-pitch;
   float right[3]={orientation_[0],orientation_[1],orientation_[2]};rotate(orientation_.data()+4,right,delta);rotate(orientation_.data()+8,right,delta);
-  if(yaw||delta)orthogonalize(orientation_);
+  if(yaw||delta){orthogonalize(orientation_);bookmark_horizon_settled_=false;}
  }
  orientation_valid=true;current_roll_degrees=target_roll_degrees=0;
  if(!c.auto_level_horizon){float target[3]{},back[3]={orientation_[8],orientation_[9],orientation_[10]};if(horizon_target(orientation_,horizon_right_,target))current_roll_degrees=static_cast<float>(signed_roll(orientation_.data(),target,back)*180/PI);}
- if(c.auto_level_horizon){
+ if(c.auto_level_horizon&&bookmark_horizon_settled_){
+  float target[3]{};if(horizon_target(orientation_,horizon_right_,target)){float back[3]={orientation_[8],orientation_[9],orientation_[10]};current_roll_degrees=static_cast<float>(signed_roll(orientation_.data(),target,back)*180/PI);}
+  target_roll_degrees=0;horizon_leveling_active=false;horizon_level_progress=1.f;previous_horizon_progress_=1.;
+ }else if(c.auto_level_horizon){
   float target[3]{};
   if(!horizon_target(orientation_,horizon_right_,target)){orientation_valid=false;pose=before;orientation_=orientation_before;velocity_={};return active;}
   float back[3]={orientation_[8],orientation_[9],orientation_[10]};double roll=signed_roll(orientation_.data(),target,back);
@@ -153,7 +240,7 @@ bool FlightController::update(const FreeCameraConfig& c,const FlightInput& in,bo
   // horizontal direction; near vertical, keep the last usable heading.
   float world_up[3]={0,1,0},fresh[3];cross3(world_up,orientation_.data()+8,fresh);
   if(dot3(fresh,fresh)>=.0025&&normalize3(fresh))std::copy_n(fresh,3,horizon_right_.data());
- }else{horizon_leveling_active=false;horizon_level_progress=0;horizon_elapsed_=previous_horizon_progress_=0;}
+ }else{bookmark_horizon_settled_=false;horizon_leveling_active=false;horizon_level_progress=0;horizon_elapsed_=previous_horizon_progress_=0;}
  double roll_dt=std::isfinite(in.seconds)?std::clamp(in.seconds,0.,.05):0.;
  if(c.manual_roll_enabled&&roll_initialized_){
   bool target_ramping=false;double prior_target=manual_roll_target_;
@@ -197,6 +284,16 @@ bool FlightWindowInput::attach(HWND w) noexcept {
  return intact();
 }
 bool FlightWindowInput::intact() const noexcept {return window_&&GetCurrentThreadId()==thread_&&IsWindow(window_)&&reinterpret_cast<WNDPROC>(GetWindowLongPtrW(window_,GWLP_WNDPROC))==&procedure;}
+FlightWindowSnapshot FlightWindowInput::snapshot() const noexcept {
+ FlightWindowSnapshot state;state.attached_hwnd=reinterpret_cast<uintptr_t>(window_);state.current_thread=GetCurrentThreadId();
+ state.foreground_hwnd=reinterpret_cast<uintptr_t>(GetForegroundWindow());state.keyboard_focus_hwnd=reinterpret_cast<uintptr_t>(GetFocus());
+ if(window_){state.window_valid=IsWindow(window_)!=FALSE;state.minimized=IsIconic(window_)!=FALSE;
+  state.hwnd_thread=GetWindowThreadProcessId(window_,&state.process_id);
+  state.wndproc_owned=state.window_valid&&reinterpret_cast<WNDPROC>(GetWindowLongPtrW(window_,GWLP_WNDPROC))==&procedure;
+  RECT client{};if(state.window_valid&&GetClientRect(window_,&client)){state.client_width=client.right-client.left;state.client_height=client.bottom-client.top;state.client_size_valid=state.client_width>0&&state.client_height>0;}
+ }
+ state.input_focus_accepted=focused_now();return state;
+}
 void FlightWindowInput::release() noexcept {
  if(window_&&intact())SetWindowLongPtrW(window_,GWLP_WNDPROC,reinterpret_cast<LONG_PTR>(original_));
  // A newer subclass may retain our callback: module is pinned, and passthrough remains valid.
@@ -222,9 +319,11 @@ LRESULT CALLBACK FlightWindowInput::procedure(HWND w,UINT msg,WPARAM wp,LPARAM l
  auto original=p->original_;return CallWindowProcW(original,w,msg,wp,lp); // All native vehicle/menu input is preserved.
 }
 FlightInput FlightWindowInput::sample(const FreeCameraConfig& c,bool mouse) noexcept {
- FlightInput in;in.focused=intact()&&GetForegroundWindow()==window_&&!IsIconic(window_);if(!in.focused){focus_lost();return in;}
+ FlightInput in;in.focused=focused_now();if(!in.focused){focus_lost();return in;}
  auto key=[&](unsigned k){return k>=0x100?k<0x180&&keypad_[k-0x100]:(GetAsyncKeyState(static_cast<int>(k))&0x8000)!=0;};
- in.toggle=key(c.toggle);in.speed_increase=key(c.speed_increase);in.speed_decrease=key(c.speed_decrease);in.fov_decrease=key(c.fov_decrease);in.fov_increase=key(c.fov_increase);in.roll_left=key(c.roll_left);in.roll_right=key(c.roll_right);in.roll_reset=key(c.roll_reset);for(size_t i=0;i<in.keys.size();++i)in.keys[i]=key(c.keys[i]);if(mouse)in.wheel_delta=take_wheel_delta();
+ in.toggle=key(c.toggle);in.speed_increase=key(c.speed_increase);in.speed_decrease=key(c.speed_decrease);in.fov_decrease=key(c.fov_decrease);in.fov_increase=key(c.fov_increase);in.roll_left=key(c.roll_left);in.roll_right=key(c.roll_right);in.roll_reset=key(c.roll_reset);in.clean_view_toggle=key(c.clean_view_toggle);in.arm_road_teleport=key(c.arm_road_teleport);
+ in.save_camera_bookmark=key(c.save_camera_bookmark);in.load_camera_bookmark=key(c.load_camera_bookmark);in.next_camera_bookmark_slot=key(c.next_camera_bookmark_slot);
+ for(size_t i=0;i<in.keys.size();++i)in.keys[i]=key(c.keys[i]);if(mouse)in.wheel_delta=take_wheel_delta();
  if(clock_.source()==FlightClockSource::qpc){LARGE_INTEGER counter{};BOOL ok=QueryPerformanceCounter(&counter);in.seconds=clock_.sample_qpc(ok!=FALSE,counter.QuadPart);if(!ok)clock_.establish_tick_count64_baseline(GetTickCount64());}
  else if(clock_.source()==FlightClockSource::tick_count64)in.seconds=clock_.sample_tick_count64(GetTickCount64());
  else in.seconds=0; // Missing attach-time clock setup stays fail-closed.

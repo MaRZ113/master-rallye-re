@@ -6,6 +6,7 @@
 #include <vector>
 #include <cstdio>
 #include <cwchar>
+#include <climits>
 namespace gfx2 {
 HMODULE proxy_module=nullptr;
 std::wstring module_path(HMODULE m) {
@@ -36,6 +37,18 @@ std::string sha256_file(const std::wstring& path,uint64_t* size) noexcept {
   char b[3];for(unsigned char c:digest){sprintf_s(b,"%02x",c);output+=b;}
  }catch(...){output.clear();}
  if(h)BCryptDestroyHash(h);if(a)BCryptCloseAlgorithmProvider(a,0);if(f!=INVALID_HANDLE_VALUE)CloseHandle(f);return output;
+}
+std::string sha256_bytes(const void* data,size_t size) noexcept {
+ BCRYPT_ALG_HANDLE a=nullptr;BCRYPT_HASH_HANDLE h=nullptr;std::string output;
+ try {
+  if((!data&&size)||size>ULONG_MAX)throw 1;
+  if(BCryptOpenAlgorithmProvider(&a,BCRYPT_SHA256_ALGORITHM,nullptr,0)<0)throw 1;
+  if(BCryptCreateHash(a,&h,nullptr,0,nullptr,0,0)<0)throw 1;
+  if(size&&BCryptHashData(h,reinterpret_cast<PUCHAR>(const_cast<void*>(data)),static_cast<ULONG>(size),0)<0)throw 1;
+  unsigned char digest[32];if(BCryptFinishHash(h,digest,32,0)<0)throw 1;
+  char b[3];for(unsigned char c:digest){sprintf_s(b,"%02x",c);output+=b;}
+ }catch(...){output.clear();}
+ if(h)BCryptDestroyHash(h);if(a)BCryptCloseAlgorithmProvider(a,0);return output;
 }
 Caller caller_info(uintptr_t pc){
  Caller c;c.address=pc;HMODULE m=nullptr;

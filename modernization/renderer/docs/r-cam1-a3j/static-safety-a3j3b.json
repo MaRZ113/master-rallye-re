@@ -1,0 +1,271 @@
+{
+  "phase": "R-CAM1-A3j.3b",
+  "status": "STATIC_SAFETY_MAP_EXTENDED_TELEPORT_NOT_READY",
+  "build": {
+    "filename": "MRallye.exe",
+    "path": "D:\\Game\\Master Rallye\\MRallye.exe",
+    "size_bytes": 3121214,
+    "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "pe": "PE32/I386",
+    "timestamp": "0x3C02695D",
+    "image_base": "0x00400000",
+    "evidence_grade": "CONFIRMED_BY_EXE"
+  },
+  "runtime_capture": {
+    "filename": "session-20261011-070934-30052.jsonl",
+    "path": "D:\\Game\\Master Rallye Pristine\\MRRRenderer\\logs\\session-20261011-070934-30052.jsonl",
+    "size_bytes": 4190340,
+    "sha256": "ecfc80436cd36bf40ad3d98783f53aa4aaf82e23d13e69986c5d0376d5b8b2f9",
+    "records": 1327,
+    "malformed_records": 0,
+    "proxy_sha256": "67b82fe57e22a74c0d687b858f359f1e9a9d4b0788b382907011848eda7fa050",
+    "probe_setup": {
+      "installed": true,
+      "reason": "exact_callsites_installed_read_only",
+      "read_only_game_data": true,
+      "evidence_grade": "CONFIRMED_BY_RUNTIME"
+    },
+    "probe_summary": {
+      "controller_updates": 1082,
+      "tracked_controllers": 1,
+      "player_type": 1,
+      "owner_candidate": "human_candidate",
+      "flag_rises": 1,
+      "flag_clears": 1,
+      "substep_boundary_events": 24,
+      "events": 29,
+      "dropped_events": 0,
+      "invalid_snapshots": 0,
+      "invalid_physics_managers": 0,
+      "identity_changes": 0,
+      "patch_restored": true,
+      "module_pinned": true,
+      "evidence_grade": "CONFIRMED_BY_RUNTIME"
+    },
+    "first_controller_event": {
+      "sequence": 1,
+      "thread_id": 18628,
+      "qpc_before": 11541595852526,
+      "qpc_after": 11541595852657,
+      "apply_flag": 1,
+      "body_position_before": [
+        -1632.39685,
+        51.28407,
+        154.0741
+      ],
+      "body_position_after": [
+        -1629.48999,
+        51.494225,
+        153.210007
+      ],
+      "opaque_words_before_float": [
+        0.061169,
+        -0.002864,
+        -0.053029,
+        0.002342,
+        -0.002156,
+        -0.001505
+      ],
+      "opaque_words_after_float": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "evidence_grade": "CONFIRMED_BY_RUNTIME"
+    },
+    "following_substeps": {
+      "thread_id": 18628,
+      "first_vector_after_substep_1": [
+        0,
+        -0.16351,
+        1e-06
+      ],
+      "first_vector_after_substep_2": [
+        0,
+        -0.32704,
+        2e-06
+      ],
+      "second_vector_remained_zero": true,
+      "evidence_grade": "CONFIRMED_BY_RUNTIME"
+    },
+    "flag_clear_observation": {
+      "sequence": 10,
+      "thread_id": 18628,
+      "qpc_before": 11541596172173,
+      "qpc_after": 11541596172193,
+      "qpc_frequency": 10000000,
+      "set_to_clear_before_sample_ms": 31.9647,
+      "exact_writer_branch": "UNIDENTIFIED_BY_CAPTURE",
+      "evidence_grade": "CONFIRMED_BY_RUNTIME"
+    }
+  },
+  "body_dynamic_vectors": {
+    "probe_range": {
+      "start": "+0x11C",
+      "end": "+0x130",
+      "dword_count": 6
+    },
+    "translational_velocity": {
+      "components": {
+        "x": "+0x11C",
+        "y": "+0x120",
+        "z": "+0x124"
+      },
+      "derivation": "body+0x104..0x10C divided componentwise by scalar body+0x20 in FUN_004FF4E0",
+      "prior_step_copy": {
+        "source": "+0x11C..+0x124",
+        "destination": "+0x174..+0x17C",
+        "owner_va": "0x0043F650",
+        "owner_rva": "0x0003F650"
+      },
+      "semantic_evidence": [
+        {
+          "va": "0x00444AE0",
+          "rva": "0x00044AE0",
+          "use": "projects vector onto body forward basis for longitudinal speed"
+        },
+        {
+          "va": "0x004446A0",
+          "rva": "0x000446A0",
+          "use": "computes vector magnitude and directional tests"
+        },
+        {
+          "va": "0x00443B60",
+          "rva": "0x00043B60",
+          "use": "uses previous-step vector in motion damping/update path"
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE"
+    },
+    "secondary_oriented_vector": {
+      "components": {
+        "x": "+0x128",
+        "y": "+0x12C",
+        "z": "+0x130"
+      },
+      "derivation": "orientation transform of source body+0x110..0x118 in FUN_004FF4E0",
+      "prior_step_copy": {
+        "source": "+0x128..+0x130",
+        "destination": "+0x180..+0x188",
+        "owner_va": "0x0043F650",
+        "owner_rva": "0x0003F650"
+      },
+      "candidate_label": "angular_velocity_or_rotational_state",
+      "candidate_label_grade": "HYPOTHESIS",
+      "exact_semantic_label": "UNPROVEN",
+      "source_transform_grade": "CONFIRMED_BY_EXE"
+    },
+    "stock_pose_reset": {
+      "pose_owner": {
+        "va": "0x0043A020",
+        "rva": "0x0003A020"
+      },
+      "derived_vector_helper": {
+        "va": "0x004FF4E0",
+        "rva": "0x000FF4E0",
+        "callsite_va": "0x0043A22A",
+        "callsite_rva": "0x0003A22A"
+      },
+      "source_ranges_cleared": [
+        "+0x104..+0x10C",
+        "+0x110..+0x118"
+      ],
+      "zero_globals": [
+        "0x006F9580",
+        "0x006F9584",
+        "0x006F9588"
+      ],
+      "zero_global_basis": "PE .data virtual range includes RVA 0x2F9580..0x2F958B beyond SizeOfRawData and within VirtualSize; loader zero-fill",
+      "derived_outputs": "+0x11C..+0x130 recomputed as zero",
+      "evidence_grade": "CONFIRMED_BY_EXE"
+    }
+  },
+  "apply_flag": {
+    "backing_offset": "+0x33",
+    "consumer": {
+      "va": "0x00444AE0",
+      "rva": "0x00044AE0",
+      "clears_flag": false
+    },
+    "set": {
+      "va": "0x004CCFF1",
+      "rva": "0x000CCFF1",
+      "owner": "ResetManager_Recovery_004CCC90",
+      "mode": 1
+    },
+    "clear_paths": [
+      {
+        "va": "0x004CD1DE",
+        "rva": "0x000CD1DE",
+        "owner": "ResetManager_TimerClear_004CD1B0",
+        "called_at_va": "0x004CCBD2",
+        "grade": "CONFIRMED_BY_EXE"
+      },
+      {
+        "va": "0x004CCC70",
+        "rva": "0x000CCC70",
+        "owner": "ResetManager_Update_004CCAF0",
+        "condition": "gate rejection",
+        "grade": "CONFIRMED_BY_EXE"
+      },
+      {
+        "va": "0x004CD1A1",
+        "rva": "0x000CD1A1",
+        "owner": "ResetManager_Recovery_004CCC90",
+        "condition": "mode 0",
+        "grade": "CONFIRMED_BY_EXE"
+      }
+    ],
+    "runtime_clear_branch": "UNPROVEN"
+  },
+  "wheel_contact_destination": {
+    "wheel_records": 4,
+    "wheel_stride": "0x188",
+    "stock_reset_writes": [
+      "each wheel +0x120 dword=0",
+      "selected wheel/chassis/controller bytes via FUN_004437B0(0)"
+    ],
+    "direct_wheel_pose_write_by_reset_helper": false,
+    "suspension_contact_manifold_broadphase": "UNPROVEN",
+    "destination": "RaceLine-derived stock recovery point; not a general camera XYZ ground/clearance query",
+    "ground_normal_arbitrary_xyz": "UNPROVEN",
+    "vehicle_footprint_obstacle_clearance": "UNPROVEN",
+    "undo_rollback": "UNPROVEN"
+  },
+  "scheduler": {
+    "wrapper": {
+      "va": "0x0043F2E0",
+      "rva": "0x0003F2E0",
+      "local_order": [
+        "0x0043F310 manager update",
+        "0x0043F890 two-iteration substeps"
+      ]
+    },
+    "per_car_controller_before_wheels": {
+      "va": "0x00443820",
+      "rva": "0x00043820"
+    },
+    "reset_manager_global_job_order": "UNPROVEN",
+    "pause_behavior": "UNPROVEN",
+    "supported_one_shot_write_boundary": "UNPROVEN",
+    "single_session_sampled_thread_id": 18628
+  },
+  "decision": {
+    "stock_recovery_observed": true,
+    "arbitrary_teleport_ready": false,
+    "teleport_candidate_created": false,
+    "critical_open_items": [
+      "secondary vector physical semantics",
+      "wheel/suspension/contact/manifold/broadphase coherence",
+      "arbitrary destination ground/clearance",
+      "cross-job scheduler and pause boundary",
+      "race-state synchronization",
+      "safe Undo/rollback",
+      "runtime attribution of exact flag-clear branch"
+    ],
+    "evidence_grade": "CONFIRMED_BY_RUNTIME_WITH_STATIC_LIMITS"
+  }
+}

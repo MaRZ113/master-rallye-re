@@ -18,12 +18,13 @@ HRESULT Device8::stock_ui(const char* reason) noexcept {
 HRESULT STDMETHODCALLTYPE Device8::Reset(D3DPRESENT_PARAMETERS* pp){
  if(quality&&quality->window_commit_active())return quality->reset(*parent_->real(),*real_,pp); // An echo is not a resource/scene reset.
  auto guard=trace.guard();const auto args=pack(pp);auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(14,args,pc);
+ trace.scene_active=false;hud_visibility.reset_context();
  D3DPRESENT_PARAMETERS requested{};bool requested_known=pp&&safe_copy(&requested,pp,sizeof(requested));uint64_t native_before=quality?quality->native_reset_calls:0;
- game_fov.cancel_lifecycle("reset_requires_new_lifecycle");if(race_observer_attached)reset_race_observer();if(!ui_margins.finish_frame())stock_ui("ui_native_world_restore_failed");
+ game_fov.cancel_lifecycle("device_reset_camera_scope_cancelled");const bool race_proof_preserved=race_observer_attached&&device_reset_race_observer();if(!ui_margins.finish_frame())stock_ui("ui_native_world_restore_failed");
  HRESULT hr=quality?quality->reset(*parent_->real(),*real_,pp):real_->Reset(pp);
  if(SUCCEEDED(hr))invalidate_all_buffer_shadows("device_reset");
  trace.after(14,args,static_cast<uint32_t>(hr),pc);
- try{session().write("{\"type\":\"reset_policy\",\"reset_request_source\":\"normal\",\"requested\":"+(requested_known?pp_json(requested):"null")+",\"effective\":"+(quality&&quality->valid?pp_json(quality->effective):"null")+",\"echo_equivalent\":false,\"native_reset_called\":"+(!quality||quality->native_reset_calls>native_before?"true":"false")+",\"native_reset_attempts\":"+std::to_string(quality?quality->native_reset_calls-native_before:1)+",\"result\":"+std::to_string(static_cast<uint32_t>(hr))+"}");}catch(...){}
+ try{session().write("{\"type\":\"reset_policy\",\"reset_request_source\":\"normal\",\"requested\":"+(requested_known?pp_json(requested):"null")+",\"effective\":"+(quality&&quality->valid?pp_json(quality->effective):"null")+",\"echo_equivalent\":false,\"completed_race_proof_preserved\":"+(race_proof_preserved?"true":"false")+",\"camera_scope_cancelled\":true,\"native_reset_called\":"+(!quality||quality->native_reset_calls>native_before?"true":"false")+",\"native_reset_attempts\":"+std::to_string(quality?quality->native_reset_calls-native_before:1)+",\"result\":"+std::to_string(static_cast<uint32_t>(hr))+"}");}catch(...){}
 
  ui_margins.capture_window(false,trace.frame_number(),trace.device_id(),"device_reset");ui_margins.reset_anchors("Reset");ui_margins.reset_diagnostics();
  if(SUCCEEDED(hr)){ui_margins.native_reset_succeeded();if(quality){quality->ui_projection_live=false;ui_margins.dimensions(quality->effective.BackBufferWidth,quality->effective.BackBufferHeight);quality_trace();}}
@@ -31,13 +32,19 @@ HRESULT STDMETHODCALLTYPE Device8::Reset(D3DPRESENT_PARAMETERS* pp){
 }
 HRESULT STDMETHODCALLTYPE Device8::Present(const RECT* source,const RECT* destination,HWND window,const RGNDATA* dirty){
  auto guard=trace.guard();const auto args=pack(source,destination,window,dirty);auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(15,args,pc);
+ HWND hud_window=window;
+ if(!hud_window&&quality)hud_window=quality->effective.hDeviceWindow?quality->effective.hDeviceWindow:quality->focus;
+ const bool hud_focused=hud_window&&IsWindow(hud_window)&&!IsIconic(hud_window)&&GetForegroundWindow()==hud_window;
+ const bool hud_key_down=hud_visibility.toggle_key()!=0&&(GetAsyncKeyState(static_cast<int>(hud_visibility.toggle_key()))&0x8000)!=0;
+ hud_visibility.sample_key(hud_focused,hud_key_down);game_fov.set_global_hud_request(hud_visibility.requested_hidden());
+ trace.hud_metadata=hud_visibility.json();
  trace.culling=game_fov.status();game_fov.finish_frame();trace.culling.restored=game_fov.status().restored;
  if(!ui_margins.finish_frame())stock_ui("ui_native_world_restore_failed");try{trace.ui_metadata=ui_margins.json();}catch(...){}
  if(quality&&quality->valid&&quality->effective.MultiSampleType!=D3DMULTISAMPLE_NONE&&(source||destination||window||dirty)&&!quality->aa_hazard){
   quality->aa_hazard=true;try{session().write("{\"type\":\"msaa_present_hazard\",\"reason\":\"non_null_present_arguments_native_hresult_preserved\"}");}catch(...){}
  }
  if(quality){quality->free_camera_cursor=game_fov.free_camera_active();quality->cursor_tick();}
- HRESULT hr=real_->Present(source,destination,window,dirty);ui_margins.present_completed(SUCCEEDED(hr));trace.after(15,args,static_cast<uint32_t>(hr),pc);ui_margins.capture_window(trace.control.active,trace.frame_number(),trace.device_id(),trace.control.active?"active":"present");return hr;
+ HRESULT hr=real_->Present(source,destination,window,dirty);ui_margins.present_completed(SUCCEEDED(hr));trace.after(15,args,static_cast<uint32_t>(hr),pc);hud_visibility.end_scene();hud_visibility.finish_frame();ui_margins.capture_window(trace.control.active,trace.frame_number(),trace.device_id(),trace.control.active?"active":"present");return hr;
 }
 HRESULT STDMETHODCALLTYPE Device8::SetViewport(const D3DVIEWPORT8* input){
  auto guard=trace.guard();auto args=pack(input);auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(40,args,pc);

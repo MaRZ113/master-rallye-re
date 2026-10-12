@@ -1,0 +1,120 @@
+{
+  "status": "PHYSICS_COMMIT_PROBE_READY",
+  "branch": "master",
+  "starting_head": "676ed24b2d32543c3b9356ed359e280f2b36a309",
+  "teleport_implemented": false,
+  "physics_writes_enabled": false,
+  "new_native_hooks": 0,
+  "build": {
+    "sha256": "479a82b8a0c59ed7cf4f93b2fde011fd5f9b36781ae4f3b63ae0118155300cc9",
+    "size": 2133504,
+    "format": "PE32",
+    "machine": "I386",
+    "evidence_grade": "BUILD_VERIFIED_NOT_RUNTIME"
+  },
+  "capture": {
+    "policy": "transition_priority_v1",
+    "total_capacity": 32,
+    "transition_capacity": 24,
+    "diagnostic_capacity": 8,
+    "routine_zero": "per_writer_counters_only",
+    "overflow": "separate_transition_and_diagnostic_counts",
+    "scope": "probe_attachment",
+    "observation": "before_original_store",
+    "post_store_confirmation": false
+  },
+  "native_reset": {
+    "flag_set": {
+      "va": "0x004CCFF1",
+      "rva": "0x000CCFF1",
+      "evidence_grade": "CONFIRMED_BY_EXE"
+    },
+    "matrix_copy_call": {
+      "va": "0x004CD12C",
+      "rva": "0x000CD12C",
+      "evidence_grade": "CONFIRMED_BY_EXE"
+    },
+    "publication_order": "flag_then_matrix_copy",
+    "consumer": {
+      "va": "0x00443827",
+      "target_va": "0x00444AE0"
+    },
+    "clear_candidates": [
+      "0x004CCC70",
+      "0x004CD1A1",
+      "0x004CD1DE"
+    ],
+    "actual_clear_writer": "UNATTRIBUTED_IN_ACCEPTED_CAPTURE",
+    "new_request_one_shot": "UNPROVEN",
+    "scheduler_global_serialization": "UNPROVEN",
+    "pause_semantics": "UNPROVEN"
+  },
+  "road_target": {
+    "source": "native_live_raceline",
+    "supported_course": "RaceTest/France1",
+    "count": 448,
+    "stride": 72,
+    "position_offset": 56,
+    "selected_marker": 1,
+    "position": [
+      -1643.27002,
+      51.1399994,
+      162.669998
+    ],
+    "horizontal_distance": 6.89915562,
+    "evidence_grade": "CONFIRMED_BY_RUNTIME",
+    "external_marker_native_placement_contract": "UNPROVEN",
+    "physical_clearance": "UNPROVEN"
+  },
+  "baseline": {
+    "session": "session-20261011-113911-34600.jsonl",
+    "flag_rises": 1,
+    "flag_clears": 1,
+    "flagged_consumers": 1,
+    "retained_zero_events": 32,
+    "gate_zero_events": 31,
+    "mode0_zero_events": 1,
+    "dropped_writer_events": 465,
+    "session_sha256": "8962cbc50879a46d6e08d4fb6a6058ac8f793a90f22d58b58325d3376955848e",
+    "frame_sha256": "c3b41ddd325fed2988444b8d41269d29795b9c552072113abc071affd4f2d5fe"
+  },
+  "files_changed_this_pass": [
+    "include/physics_probe_model.hpp",
+    "src/physics_probe_model.cpp",
+    "src/physics_probe.cpp",
+    "tests/physics_probe_tests.cpp",
+    "tests/test_physics_probe_retail.py",
+    "tests/test_route_getter_bridge_disassembly.py",
+    "tests/test_physics_commit_analysis.py",
+    "tools/analyze_physics_commit.py",
+    "docs/r-cam1-a3j/reset-flag-lifecycle.md",
+    "docs/r-cam1-a3j/live-road-preview.md",
+    "docs/r-cam1-a3j/physics-commit-probe.md",
+    "docs/r-cam1-a3j/physics-commit-probe.json",
+    "docs/r-cam1-a3j/physics-commit-validation.md",
+    "docs/r-cam1-a3j/research-handoff-physics-commit.zip"
+  ],
+  "commits": [],
+  "pushed": false,
+  "validation": {
+    "native_ctest": {
+      "passed": 18,
+      "total": 18
+    },
+    "renderer_python": {
+      "passed": 173,
+      "total": 173
+    },
+    "root_synthetic": {
+      "passed": 630,
+      "total": 630
+    },
+    "retail_context_tests": 5,
+    "production_bridge_tests": 3,
+    "compileall": "PASS",
+    "proxy": "PASS",
+    "diff_check": "PASS",
+    "runtime_new_candidate": "NOT_RUN"
+  },
+  "ending_head": "676ed24b2d32543c3b9356ed359e280f2b36a309"
+}

@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "phase": "R-CAM1-A3h.1",
+  "status": "READ_ONLY_PROBE_READY_FOR_RUNTIME",
+  "build": {
+    "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "gate": "exact_pristine_retail_only"
+  },
+  "draw_boundary": {
+    "consumer_va": "0x0056D110",
+    "consumer_rva": "0x0016D110",
+    "draw_va": "0x0056D7C4",
+    "draw_rva": "0x0016D7C4",
+    "expected_fvf": "0x142",
+    "extra_exe_patch_sites": 0,
+    "draw_suppression": false
+  },
+  "probe": {
+    "read_only": true,
+    "bounded_draw_records": 1024,
+    "bounded_identity_registry": 512,
+    "capture_local_ids": true,
+    "tracks_nested_native_consumer_scope": true,
+    "records_overflow_and_unmapped": true,
+    "records_unknown_packet_modes": true,
+    "records_race_lifecycle_generation_when_available": true,
+    "resource_generations": ["texture_stage0", "texture_stage1"],
+    "pause_state": {
+      "key": "Race/PauseMenu/Enabled",
+      "reader": "existing typed race Broker memory reader",
+      "type_tag": 0,
+      "read_only": true,
+      "creates_missing_key": false,
+      "used_for_draw_classification": false,
+      "unavailable_policy": "unknown; use manual normal/paused capture labels"
+    }
+  },
+  "semantic_ownership": {
+    "status": "UNMAPPED",
+    "proven_owner_names": [],
+    "entity_to_packet_to_draw": "observable in paired F10 capture",
+    "entity_to_scene_egg_parent": "unproven",
+    "paused_only_means_pause_menu": false,
+    "next_static_candidate": {
+      "field": "entity+0x50",
+      "status": "excluded_unverified_candidate",
+      "next_action": "read-only exact-build Ghidra cross-reference with Submit/SortPerCamera ownership flow",
+      "probe_reads_field": false
+    }
+  },
+  "runtime": {
+    "normal_f10": "pending",
+    "paused_f10_same_session": "pending",
+    "semantic_owner_proof": "pending"
+  },
+  "next_phase_gate": "Do not implement independent HUD or pause suppression until native Egg/owner-to-draw linkage and negative controls are validated."
+}

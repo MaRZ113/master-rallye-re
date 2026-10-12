@@ -1,0 +1,67 @@
+{
+  "task": "R-CAM1-A3j.1",
+  "status": "PARTIAL / EXACT_CONSUMER_GAP_IDENTIFIED",
+  "build": {
+    "filename": "MRallye.exe",
+    "size_bytes": 3121214,
+    "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "pe_machine": "I386",
+    "pe_timestamp": "0x3C02695D",
+    "image_base": "0x00400000",
+    "entry_point_rva": "0x001C4602",
+    "entry_point_va": "0x005C4602",
+    "evidence_grade": "CONFIRMED_BY_EXE"
+  },
+  "reset_output": {
+    "function": {"name": "ResetManager_Recovery_004CCC90", "va": "0x004CCC90", "rva": "0x000CCC90", "evidence_grade": "CONFIRMED_BY_EXE"},
+    "broker_path": "Car%d",
+    "writes": [
+      {"field": "+0x33", "value": 1, "meaning": "candidate transform-apply flag", "evidence_grade": "CONFIRMED_BY_EXE", "semantic_grade": "STATIC_INFERENCE"},
+      {"field": "+0x34 (16 dwords; end-exclusive +0x74)", "size_bytes": 64, "representation": "matrix-shaped transform", "copy_site_va": "0x004CD12C", "copy_helper_va": "0x00404E60", "evidence_grade": "CONFIRMED_BY_EXE"},
+      {"field": "RaceState +0xBC,+0xCC,+0xDC,+0xEC", "size_per_vector": 16, "meaning": "separate reset output vectors", "evidence_grade": "CONFIRMED_BY_EXE"},
+      {"field": "ResetNo", "operation": "read integer, increment by one, write", "evidence_grade": "CONFIRMED_BY_EXE"}
+    ],
+    "clear_mode": {"condition": "param3 == 0", "effect": "CarData+0x33 = 0; no matrix publish", "evidence_grade": "CONFIRMED_BY_EXE"}
+  },
+  "candidate_physics_consumer": {
+    "controller_update": {"name": "PerCarControllerUpdate_00444AE0", "va": "0x00444AE0", "rva": "0x00044AE0", "trigger_read": "Controller/CarN data +0x33 copied to controller +0x18", "matrix_read": "Controller/CarN data +0x34..+0x70", "evidence_grade": "CONFIRMED_BY_EXE"},
+    "controller_data_constructor": {"name": "ControllerCarData_005089E0", "va": "0x005089E0", "rva": "0x001089E0", "broker_path": "Controller/Car%d", "adapter": "ControllerCarBrokerAccess", "evidence_grade": "CONFIRMED_BY_EXE"},
+    "matrix_apply": {"name": "ApplyControllerTransform_00444D50", "va": "0x00444D50", "rva": "0x00044D50", "calls": "0x00443740", "evidence_grade": "CONFIRMED_BY_EXE"},
+    "chassis_reset_helper": {"name": "ResetChassisAndWheelState_00443740", "va": "0x00443740", "rva": "0x00043740", "calls": ["0x0043A020", "0x0043C310", "0x004437B0"], "optional_call": "0x0043B800", "evidence_grade": "CONFIRMED_BY_EXE"},
+    "chassis_pose_setter": {"name": "SetPhysicsBodyPose_0043A020", "va": "0x0043A020", "rva": "0x0003A020", "writes": ["body+0xA0..+0xA8 position", "body+0x144..+0x14C previous position", "orientation-related fields"], "evidence_grade": "CONFIRMED_BY_EXE"},
+    "wheel_effects": {"records": 4, "stride": "0x188", "writes": ["dword at record+0x120 = 0", "byte at record+0x4 = 0 via 0x004437B0(0)"], "semantic_names": "UNPROVEN", "wheel_pose_direct_write": false, "evidence_grade": "CONFIRMED_BY_EXE"}
+  },
+  "missing_edge": {
+    "from": "CarN Broker data written by ResetManager_Recovery_004CCC90",
+    "to": "Controller/CarN data read by PerCarControllerUpdate_00444AE0",
+    "issue": "Distinct Broker paths; pointer identity or copy/callback propagation not established",
+    "evidence_grade": "UNPROVEN"
+  },
+  "reset_no": {
+    "identified_consumer": {"va": "0x004B7DE0", "rva": "0x000B7DE0", "effect": "compares cached count and resets camera state through 0x004B82A0", "evidence_grade": "CONFIRMED_BY_EXE"},
+    "physics_trigger_proven": false
+  },
+  "ownership_and_phase": {
+    "participant_filter": {"va": "0x0043F020", "key": "Race/CarN/PlayerType", "evidence_grade": "CONFIRMED_BY_EXE"},
+    "handle_creation": {"va": "0x0043E4C0", "evidence_grade": "CONFIRMED_BY_EXE"},
+    "per_car_controller_tick": {"va": "0x00443820", "order": ["controller update 0x00444AE0", "wheel routines", "solver/update helper"], "evidence_grade": "CONFIRMED_BY_EXE"},
+    "physics_manager": {"va": "0x0043F5D0", "role": "iterates handles and invokes per-car update", "evidence_grade": "CONFIRMED_BY_EXISTING_RESEARCH"},
+    "reset_manager_vs_physics_order": "UNPROVEN",
+    "human_participant_and_live_pointer_exact_retail": "UNPROVEN"
+  },
+  "startup_placement": {
+    "race_entry_writer": {"va": "0x0048EB40", "rva": "0x0008EB40", "writes": "Race/CarN/Transform", "evidence_grade": "CONFIRMED_BY_EXE"},
+    "debug_read": "Physics/Car0/Transform",
+    "constructor_pose_helper": {"va": "0x00442D40", "calls": "0x00443740 before physics-handle insertion/registration completes", "evidence_grade": "CONFIRMED_BY_EXE"},
+    "same_broker_value_and_order": "UNPROVEN",
+    "viable_separate_path": "candidate only; not validated"
+  },
+  "unproven_invariants": ["CarN to Controller/CarN propagation", "human participant identity on exact retail runtime", "linear and angular velocity policy", "wheel pose and suspension state", "solver contact/manifold reconciliation", "collision broadphase refresh completeness", "safe phase relative to reset manager and two physics substeps", "rollback", "startup placement key alias/order"],
+  "decision": {
+    "outcome": "B_PARTIAL_NATIVE_RELOCATION_HELPER",
+    "teleport_ready": false,
+    "read_only_runtime_probe_needed_now": false,
+    "next_action": "Trace ControllerCarBrokerAccess vtable and Broker key alias/callback implementation; if static pointer/copy semantics remain opaque, use one bounded observer during a user-initiated stock reset.",
+    "evidence_grade": "STATIC_INFERENCE"
+  }
+}

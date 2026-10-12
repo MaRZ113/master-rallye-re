@@ -1,0 +1,177 @@
+{
+  "status": "TRANSACTION_CORRELATION_PROBE_READY",
+  "build_identifier": "ROAD-TRANSACTION-CORRELATION-1",
+  "starting_head": "676ed24b2d32543c3b9356ed359e280f2b36a309",
+  "ending_head": "676ed24b2d32543c3b9356ed359e280f2b36a309",
+  "branch": "master",
+  "primary_build": {
+    "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "size": 3121214,
+    "image_base": "0x00400000"
+  },
+  "dll": {
+    "sha256": "33303bb4a9bab7b1654f81db3fdacac6aeee54e338e3412dd3ecb5fe40af3a55",
+    "size": 2193408,
+    "pe_type": "PE32",
+    "machine": 332,
+    "imported_dlls": [
+      "bcrypt.dll",
+      "USER32.dll",
+      "KERNEL32.dll"
+    ],
+    "exports": {
+      "Direct3DCreate8": {
+        "ordinal": 5,
+        "rva": 16320,
+        "forwarder": null
+      },
+      "ValidatePixelShader": {
+        "ordinal": 2,
+        "rva": 17536,
+        "forwarder": null
+      },
+      "ValidateVertexShader": {
+        "ordinal": 3,
+        "rva": 17568,
+        "forwarder": null
+      }
+    }
+  },
+  "prior_runtime": {
+    "input_sha256": "775a611adc8d377c47b22d0fb9747f80ee2a790447ed8207c42cabccf35b18e6",
+    "clear_qpc": 11718304563268,
+    "consumer_qpc": 11718339230647,
+    "zero_qpc": 11718339576883,
+    "qpc_frequency": 10000000,
+    "clear_minus_consumer_ms": -3466.7379,
+    "zero_minus_consumer_ms": 34.6236,
+    "counts": {
+      "tracked_controllers": 1,
+      "controller_updates": 524,
+      "flag_set_consumer_calls": 1,
+      "flag_rises_observed": 1,
+      "flag_clears_observed": 1,
+      "same_controller_overlap_calls": 0,
+      "identity_changes": 0,
+      "invalid_native_snapshots": 0,
+      "invalid_physics_managers": 0,
+      "dropped_tracks": 0,
+      "dropped_events": 0,
+      "substep_events": 24,
+      "substep_windows_opened": 1,
+      "controller_calls_while_paused": 0,
+      "substep_phase_records_while_paused": 0,
+      "clear_writes_while_paused": 0,
+      "clear_writer_events": 1,
+      "clear_writer_events_dropped": 0,
+      "events_written": 29
+    }
+  },
+  "writer_sites": [
+    {
+      "store_va": "0x004CCC70",
+      "store_rva": "0x000CCC70",
+      "patch_va": "0x004CCC6D",
+      "owner": "ResetManager_Update_004CCAF0",
+      "role": "reset_gate_rejected",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "runtime_same_backing_use_confirmed": false
+    },
+    {
+      "store_va": "0x004CD1A1",
+      "store_rva": "0x000CD1A1",
+      "patch_va": "0x004CD19E",
+      "owner": "ResetManager_Recovery_004CCC90",
+      "role": "recovery_mode0",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "runtime_same_backing_use_confirmed": false
+    },
+    {
+      "store_va": "0x004CD1DE",
+      "store_rva": "0x000CD1DE",
+      "patch_va": "0x004CD1DB",
+      "owner": "ResetManager_Timer_004CD1B0",
+      "role": "reset_timer_path_not_consumer_ack",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "runtime_same_backing_use_confirmed": true
+    },
+    {
+      "store_va": "0x004CCFF1",
+      "store_rva": "0x000CCFF1",
+      "patch_va": "0x004CCFF1",
+      "owner": "ResetManager_Recovery_004CCC90",
+      "role": "recovery_mode1_flag_publish_before_matrix",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "runtime_same_backing_use_confirmed": false
+    },
+    {
+      "store_va": "0x00591345",
+      "store_rva": "0x00191345",
+      "patch_va": "0x00591345",
+      "owner": "ForwardInputFields_005912D0",
+      "role": "input_field_0x78_to_backing_flag",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "runtime_same_backing_use_confirmed": false
+    },
+    {
+      "store_va": "0x004CB62A",
+      "store_rva": "0x000CB62A",
+      "patch_va": "0x004CB62A",
+      "owner": "BackingStateRestore_004CB410",
+      "role": "packed_state_low_bit_restore",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "runtime_same_backing_use_confirmed": false
+    }
+  ],
+  "matrix_complete": {
+    "va": "0x004CD131",
+    "rva": "0x000CD131",
+    "copy_call_va": "0x004CD12C",
+    "copy_target_va": "0x00404E60",
+    "destination": "P+0x34..P+0x73",
+    "length": 64,
+    "evidence_grade": "CONFIRMED_BY_EXE"
+  },
+  "unhooked_writer_candidates": [
+    {
+      "va": "0x00508A1A",
+      "role": "backing_initialization",
+      "evidence_grade": "STATIC_INFERENCE"
+    }
+  ],
+  "writer_coverage_exhaustive": false,
+  "physical_teleport_implemented": false,
+  "one_shot_guaranteed": false,
+  "teleport_authorized": false,
+  "decisive_unresolved_invariant": "exclusive single-use publication/consumption/completion ownership of P+0x33 across recovery and input/restore paths",
+  "validation": {
+    "native_suites": 19,
+    "renderer_python": 188,
+    "root_synthetic": 630,
+    "retail_pe_checks": 6,
+    "production_bridge_disassembly": 3,
+    "compileall": "PASS",
+    "proxy": "PASS",
+    "diff_check": "PASS",
+    "new_human_runtime": "NOT_RUN"
+  },
+  "phase_changed_files": [
+    "CMakeLists.txt",
+    "include/physics_probe_model.hpp",
+    "include/physics_transaction_model.hpp",
+    "include/physics_inline_patch.hpp",
+    "src/physics_probe.cpp",
+    "src/physics_transaction_capture.inc",
+    "src/physics_transaction_bridges.inc",
+    "tests/physics_transaction_abi_tests.cpp",
+    "tests/test_physics_probe_retail.py",
+    "tests/test_route_getter_bridge_disassembly.py",
+    "tests/test_physics_transactions.py",
+    "tools/analyze_physics_transactions.py",
+    "docs/r-cam1-a3j/transaction-correlation.md",
+    "docs/r-cam1-a3j/transaction-correlation-validation.md",
+    "docs/r-cam1-a3j/transaction-correlation.json"
+  ],
+  "commit": null,
+  "pushed": false
+}

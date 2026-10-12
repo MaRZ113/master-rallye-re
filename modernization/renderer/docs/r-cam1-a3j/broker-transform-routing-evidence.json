@@ -1,0 +1,130 @@
+{
+  "task": "R-CAM1-A3j.2",
+  "status": "BROKER_ROUTING_PROVEN",
+  "evidence_scope": "Static exact-build executable analysis; no runtime probe or game-state write",
+  "build": {
+    "filename": "MRallye.exe",
+    "path": "D:/Game/Master Rallye/MRallye.exe",
+    "size_bytes": 3121214,
+    "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "pe_machine": "I386",
+    "pe_timestamp": "0x3C02695D",
+    "image_base": "0x00400000",
+    "entry_point_va": "0x005C4602",
+    "entry_point_rva": "0x001C4602",
+    "evidence_grade": "CONFIRMED_BY_EXE"
+  },
+  "claims": [
+    {
+      "id": "reset_path_array_selection",
+      "claim": "The reset manager uses Controller/Car%d for the apply flag and matrix, and uses Car%d for a separate four-vector output.",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "MRallye.exe; ResetManager_Constructor_004CC5F0 and ResetManager_Recovery_004CCC90",
+      "addresses": [
+        {"va": "0x004CC5F0", "rva": "0x000CC5F0"},
+        {"va": "0x004CCFCC", "rva": "0x000CCFCC"},
+        {"va": "0x004CCFD6", "rva": "0x000CCFD6"},
+        {"va": "0x004CCFDD", "rva": "0x000CCFDD"},
+        {"va": "0x004CCFEA", "rva": "0x000CCFEA"},
+        {"va": "0x004CCFF1", "rva": "0x000CCFF1"},
+        {"va": "0x004CD12C", "rva": "0x000CD12C"},
+        {"va": "0x004CD1A1", "rva": "0x000CD1A1"}
+      ],
+      "details": {
+        "controller_path_array_field": "+0x20",
+        "controller_expected_type_field": "+0x60",
+        "controller_expected_type": "ControllerCarBrokerAccess",
+        "car_path_array_field": "+0x1C",
+        "car_expected_type_field": "+0x5C",
+        "car_expected_type": "gaVehicleOutputData",
+        "controller_payload_writes": ["P+0x33 = 1", "16 dwords copied to P+0x34..P+0x73"],
+        "car_payload_writes": ["four 16-byte vectors at +0xBC,+0xCC,+0xDC,+0xEC"]
+      },
+      "corrects_prior_claim": "A3j.1 transform-consumer-trace.md and transform-consumer-evidence.json attributed the reset transform to Car%d. That path-array attribution is corrected here; source files remain unchanged."
+    },
+    {
+      "id": "broker_adapter_backing_pointer",
+      "claim": "The ControllerCarBrokerAccess payload is an adapter Q whose +0x08 field points directly to backing controller data P.",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "MRallye.exe; ControllerCarBrokerAccess_Constructor_005089E0 and adapter copy method 00508B90",
+      "addresses": [
+        {"va": "0x005089E0", "rva": "0x001089E0"},
+        {"va": "0x00508AEE", "rva": "0x00108AEE"},
+        {"va": "0x00508B03", "rva": "0x00108B03"},
+        {"va": "0x00508B0A", "rva": "0x00108B0A"},
+        {"va": "0x00508B18", "rva": "0x00108B18"},
+        {"va": "0x00508B32", "rva": "0x00108B32"},
+        {"va": "0x00508B90", "rva": "0x00108B90"},
+        {"va": "0x00508BC8", "rva": "0x00108BC8"}
+      ],
+      "details": {
+        "adapter_size_bytes": 12,
+        "adapter_object": "Q",
+        "backing_object": "P",
+        "q_vtable": "0x00691A54",
+        "q_type_id": "ControllerCarBrokerAccess",
+        "q_plus_8": "P",
+        "registration_key": "Controller/Car%d"
+      }
+    },
+    {
+      "id": "physics_owner_same_backing_pointer",
+      "claim": "The physics controller stores the exact backing pointer P returned by the controller Broker constructor at O+0x74.",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "MRallye.exe; PhysicsController_004442A0",
+      "addresses": [
+        {"va": "0x004442A0", "rva": "0x000442A0"},
+        {"va": "0x004443FD", "rva": "0x000443FD"}
+      ],
+      "details": {"outer_controller": "O", "owner_field": "O+0x74", "stored_value": "P returned by ControllerCarBrokerAccess_Constructor_005089E0"}
+    },
+    {
+      "id": "physics_consumer_chain",
+      "claim": "The per-car controller reads P+0x33, conditionally reads the 64-byte transform at P+0x34..P+0x70, and reaches the chassis pose setter.",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "MRallye.exe; PerCarControllerUpdate_00444AE0, ApplyControllerTransform_00444D50, ResetChassisAndWheelState_00443740, SetPhysicsBodyPose_0043A020",
+      "addresses": [
+        {"va": "0x00444AE0", "rva": "0x00044AE0"},
+        {"va": "0x00444AE4", "rva": "0x00044AE4"},
+        {"va": "0x00444BB8", "rva": "0x00044BB8"},
+        {"va": "0x00444D50", "rva": "0x00044D50"},
+        {"va": "0x00443740", "rva": "0x00043740"},
+        {"va": "0x0043A020", "rva": "0x0003A020"}
+      ],
+      "details": {
+        "owner_pointer_load": "O+0x74 -> P",
+        "trigger": "P+0x33",
+        "matrix_read": "P+0x34 through P+0x70 inclusive, 16 dwords",
+        "call_chain": ["0x00444AE0", "0x00444D50", "0x00443740", "0x0043A020"]
+      }
+    },
+    {
+      "id": "flag_lifecycle_and_scheduler_boundary",
+      "claim": "The constructor initializes P+0x33 to zero, recovery sets it, and reset clear path clears it; exact reset-manager/physics scheduling order is not established.",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "source": "MRallye.exe; ControllerCarBrokerAccess_Constructor_005089E0, ResetManager_Recovery_004CCC90, PerCarControllerUpdate_00444AE0",
+      "addresses": [
+        {"va": "0x00508A1A", "rva": "0x00108A1A"},
+        {"va": "0x004CCFF1", "rva": "0x000CCFF1"},
+        {"va": "0x004CD17C", "rva": "0x000CD17C"},
+        {"va": "0x00444AE0", "rva": "0x00044AE0"},
+        {"va": "0x004CB410", "rva": "0x000CB410"}
+      ],
+      "remaining_uncertainty": "Whether a physics update observes the set flag on a particular frame, and the first/last consuming tick, remain unproven. A separate packed-state writer also exists at 0x004CB410."
+    },
+    {
+      "id": "teleport_safety_boundary",
+      "claim": "The Broker route to the chassis pose helper is proven, but arbitrary relocation safety is not.",
+      "evidence_grade": "STATIC_INFERENCE",
+      "source": "Combined exact-build route analysis and A3j.1 relocation-feasibility.md",
+      "addresses": [
+        {"va": "0x00443740", "rva": "0x00043740"},
+        {"va": "0x0043A020", "rva": "0x0003A020"}
+      ],
+      "remaining_unknowns": ["linear/angular velocity policy", "full wheel and suspension reconciliation", "contact/manifold state", "broadphase refresh", "safe solver phase", "destination clearance", "rollback", "runtime behavior"]
+    }
+  ],
+  "runtime_validation": "NOT_RUN; static pointer identity closes the routing question without a runtime probe",
+  "teleport_ready": false,
+  "next_action": "Continue only with relocation safety invariants if the next task authorizes it; do not invoke the stock reset or transform helper from Freecam."
+}

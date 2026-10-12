@@ -1,0 +1,379 @@
+{
+  "task": "R-CAM1-A3j",
+  "status": "A3j — READ_ONLY_REPOSITION_RESEARCH / PARTIAL",
+  "build": {
+    "filename": "MRallye.exe",
+    "size_bytes": 3121214,
+    "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "pe_machine": "I386",
+    "pe_timestamp": "0x3C02695D",
+    "image_base": "0x00400000",
+    "entry_point_rva": "0x001C4602",
+    "entry_point_va": "0x005C4602",
+    "evidence_grade": "CONFIRMED_BY_EXE"
+  },
+  "conclusion": {
+    "teleport_enabled": false,
+    "undo_enabled": false,
+    "blocking_prerequisite": "A verified exact-build native relocation transaction for the human vehicle physics owner, including chassis transform, linear/angular velocity, four wheel/suspension state, collision broadphase/contact reconciliation, a successful destination surface/overlap check, safe update phase, and rollback has not been established.",
+    "evidence_grade": "STATIC_INFERENCE",
+    "runtime_validation": "NOT_RUN"
+  },
+  "facts": [
+    {
+      "claim": "The ordinary participant pipeline uses CarN indices and selects named vehicle physics configuration per participant; prior hardened-derivative runtime evidence identified Car0 as human, but the exact pristine live physics owner is not proven by that evidence.",
+      "evidence_grade": "CONFIRMED_BY_EXISTING_RESEARCH",
+      "sources": [
+        "research/r-ai2/participant-pipeline.md",
+        "research/r5v_b_2/physics-dataflow.md"
+      ]
+    },
+    {
+      "claim": "Physics setup reads Race/CarN/PlayerType and creates/links a per-car 0x2C physics handle with four wheel records.",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "addresses": [
+        {
+          "va": "0x0043EF80",
+          "rva": "0x0003EF80"
+        },
+        {
+          "va": "0x0043F020",
+          "rva": "0x0003F020"
+        },
+        {
+          "va": "0x0043E4C0",
+          "rva": "0x0003E4C0"
+        },
+        {
+          "va": "0x0043ED00",
+          "rva": "0x0003ED00"
+        }
+      ],
+      "source": "Exact-build Ghidra 12.1.4 decompilation of pristine retail image."
+    },
+    {
+      "claim": "The per-car handle joins a dynamic physics vector and collision registration; update code iterates the car and four wheel-sized records, while the physics frame path performs two substeps.",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "addresses": [
+        {
+          "va": "0x0043BB70",
+          "rva": "0x0003BB70"
+        },
+        {
+          "va": "0x0043A800",
+          "rva": "0x0003A800"
+        },
+        {
+          "va": "0x0043AC80",
+          "rva": "0x0003AC80"
+        },
+        {
+          "va": "0x0043F650",
+          "rva": "0x0003F650"
+        },
+        {
+          "va": "0x0043F890",
+          "rva": "0x0003F890"
+        }
+      ],
+      "source": "Exact-build Ghidra 12.1.4 decompilation; topology cross-checked against research/r-ai2/native-storage.md."
+    },
+    {
+      "claim": "gaVehicleResetManager binds per-car reset state, derives recovery position from RaceLine/Progress/LastMarker, calls a service whose query methods at this vtable are no-op/false, and updates race-car output/state data and ResetNo.",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "addresses": [
+        {
+          "va": "0x004CC2D0",
+          "rva": "0x000CC2D0"
+        },
+        {
+          "va": "0x004CC5F0",
+          "rva": "0x000CC5F0"
+        },
+        {
+          "va": "0x004CCAF0",
+          "rva": "0x000CCAF0"
+        },
+        {
+          "va": "0x004CCC90",
+          "rva": "0x000CCC90"
+        },
+        {
+          "va": "0x004E8CD0",
+          "rva": "0x000E8CD0"
+        },
+        {
+          "va": "0x004F4D90",
+          "rva": "0x000F4D90"
+        },
+        {
+          "va": "0x00691824",
+          "rva": "0x00291824"
+        },
+        {
+          "va": "0x004F4E00",
+          "rva": "0x000F4E00"
+        },
+        {
+          "va": "0x004F4E10",
+          "rva": "0x000F4E10"
+        },
+        {
+          "va": "0x004F4E20",
+          "rva": "0x000F4E20"
+        },
+        {
+          "va": "0x004CD200",
+          "rva": "0x000CD200"
+        },
+        {
+          "va": "0x004CD4A0",
+          "rva": "0x000CD4A0"
+        },
+        {
+          "va": "0x004CD550",
+          "rva": "0x000CD550"
+        },
+        {
+          "va": "0x004CD1B0",
+          "rva": "0x000CD1B0"
+        }
+      ],
+      "source": "Exact-build Ghidra 12.1.4 decompilation and vtable/reference inspection."
+    },
+    {
+      "claim": "The stock reset manager path does not accept a Freecam destination; its destination query returns false in this vtable, and no complete chassis-plus-wheels-plus-contact transaction or rollback was proven in the examined path.",
+      "evidence_grade": "STATIC_INFERENCE",
+      "addresses": [
+        {
+          "va": "0x004CCAF0",
+          "rva": "0x000CCAF0"
+        },
+        {
+          "va": "0x004CCC90",
+          "rva": "0x000CCC90"
+        },
+        {
+          "va": "0x004F4D90",
+          "rva": "0x000F4D90"
+        },
+        {
+          "va": "0x0043AC80",
+          "rva": "0x0003AC80"
+        }
+      ],
+      "source": "Call/dataflow review; absence is scoped to the recovered path and is not a whole-program proof that no private setter exists."
+    },
+    {
+      "claim": "Physics/Car0/Transform is consumed in the race-start placement function alongside Race/Car0/Transform, not established as a live body setter.",
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "addresses": [
+        {
+          "va": "0x0048EB40",
+          "rva": "0x0008EB40"
+        },
+        {
+          "va": "0x006E43D8",
+          "rva": "0x002E43D8"
+        },
+        {
+          "va": "0x006E43C4",
+          "rva": "0x002E43C4"
+        }
+      ],
+      "source": "Exact-build string xrefs and decompilation."
+    },
+    {
+      "claim": "The France1 Freecam certificate is a scene/lifecycle gate and does not prove native physics pointer ownership or write safety.",
+      "evidence_grade": "CONFIRMED_BY_EXISTING_RESEARCH",
+      "sources": [
+        "modernization/renderer/docs/r-cam1-a3i/implementation.md",
+        "R-CAM1-A3j task constraints"
+      ]
+    }
+  ],
+  "prior_research_interpretation": {
+    "source": "research/g1/limits-executable.md",
+    "prior_claim": "The exact reset/recovery downstream behavior and reset policy were unknown.",
+    "new_interpretation": "The reset manager recovery decision path is now statically visible; whether its output transform is synchronized into the live physical body and all collision/wheel state remains unknown.",
+    "original_file_modified": false
+  },
+  "a3j1_follow_up": {
+    "status": "PARTIAL / EXACT_CONSUMER_GAP_IDENTIFIED",
+    "source": "transform-consumer-trace.md and transform-consumer-evidence.json",
+    "new_interpretation": "ResetManager_Recovery_004CCC90 writes a matrix-shaped block to CarN data +0x34 and sets +0x33. A separate physics-controller path consumes the same offsets from Controller/CarN and reaches a chassis pose setter plus bounded wheel-record cleanup. Broker path alias/copy semantics between CarN and Controller/CarN are not proven, so the exact reset-to-physics edge remains open.",
+    "original_findings_preserved": true,
+    "facts": [
+      {
+        "claim": "Recovery mode sets the CarN data apply byte at +0x33 and copies 16 consecutive 32-bit words to +0x34..+0x70 at 0x004CD12C; helper 0x00404E60 is a 16-word copy.",
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "addresses": [
+          {
+            "va": "0x004CCC90",
+            "rva": "0x000CCC90"
+          },
+          {
+            "va": "0x004CD12C",
+            "rva": "0x000CD12C"
+          },
+          {
+            "va": "0x00404E60",
+            "rva": "0x00004E60"
+          }
+        ],
+        "remaining_uncertainty": "Whether CarN Broker data aliases or propagates to Controller/CarN."
+      },
+      {
+        "claim": "The per-car controller reads its Controller/CarN data +0x33/+0x34 and can call the native chassis pose/reset helper.",
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "addresses": [
+          {
+            "va": "0x005089E0",
+            "rva": "0x001089E0"
+          },
+          {
+            "va": "0x00444AE0",
+            "rva": "0x00044AE0"
+          },
+          {
+            "va": "0x00444D50",
+            "rva": "0x00044D50"
+          },
+          {
+            "va": "0x00443740",
+            "rva": "0x00043740"
+          },
+          {
+            "va": "0x0043A020",
+            "rva": "0x0003A020"
+          }
+        ],
+        "remaining_uncertainty": "This is a separate Broker path; it is not proven to be the reset output object."
+      },
+      {
+        "claim": "The native helper sets chassis current and previous positions, updates orientation-related fields, and clears selected fields on four wheel records.",
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "addresses": [
+          {
+            "va": "0x00443740",
+            "rva": "0x00043740"
+          },
+          {
+            "va": "0x0043A020",
+            "rva": "0x0003A020"
+          },
+          {
+            "va": "0x004437B0",
+            "rva": "0x000437B0"
+          }
+        ],
+        "remaining_uncertainty": "Wheel fields are unnamed; no complete wheel pose, velocity, suspension, or contact-cache transaction is established."
+      },
+      {
+        "claim": "ResetNo increments in recovery and the identified reader uses it to reset camera tracking.",
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "addresses": [
+          {
+            "va": "0x004CCC90",
+            "rva": "0x000CCC90"
+          },
+          {
+            "va": "0x004B7DE0",
+            "rva": "0x000B7DE0"
+          },
+          {
+            "va": "0x004B82A0",
+            "rva": "0x000B82A0"
+          }
+        ],
+        "remaining_uncertainty": "No ResetNo-to-physics trigger was established in the examined references."
+      },
+      {
+        "claim": "Race-start placement and physics construction both reach transform-related behavior, but exact Broker key linkage and order are not proven.",
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "addresses": [
+          {
+            "va": "0x0048EB40",
+            "rva": "0x0008EB40"
+          },
+          {
+            "va": "0x00442D40",
+            "rva": "0x00042D40"
+          },
+          {
+            "va": "0x00443740",
+            "rva": "0x00043740"
+          }
+        ],
+        "remaining_uncertainty": "Startup placement is a candidate, not a verified relocation solution."
+      }
+    ],
+    "decision": {
+      "outcome": "B_PARTIAL_NATIVE_RELOCATION_HELPER",
+      "teleport_ready": false,
+      "next_action": "Trace ControllerCarBrokerAccess vtable and Broker key alias/callback implementation.",
+      "read_only_runtime_probe_needed_now": false
+    }
+  },
+  "a3j2_follow_up": {
+    "task": "R-CAM1-A3j.2",
+    "status": "BROKER_ROUTING_PROVEN",
+    "evidence_grade": "CONFIRMED_BY_EXE",
+    "runtime_validation": "NOT_RUN; static pointer identity establishes the Broker-to-physics route",
+    "correction_to_a3j1": {
+      "prior_attribution": "The A3j.1 trace attributed the 64-byte transform and apply flag to the Car%d Broker object.",
+      "correct_attribution": "ResetManager_Recovery_004CCC90 uses manager field +0x20 (Controller/Car%d, expected ControllerCarBrokerAccess) for P+0x33 and the transform at P+0x34. Manager field +0x1C (Car%d, expected gaVehicleOutputData) is used for four separate vectors at payload offsets +0xBC,+0xCC,+0xDC,+0xEC.",
+      "historical_source_files_modified": false
+    },
+    "pointer_route": {
+      "reset_writer": {"name": "ResetManager_Recovery_004CCC90", "va": "0x004CCC90", "rva": "0x000CCC90"},
+      "broker_key": "Controller/CarN",
+      "adapter_type": "ControllerCarBrokerAccess",
+      "adapter_payload": "Q",
+      "backing_pointer": "P = Q+0x08",
+      "physics_owner": {"name": "PhysicsController_004442A0", "field": "O+0x74", "store_va": "0x004443FD", "store_rva": "0x000443FD", "value": "P"},
+      "consumer_chain": [
+        {"name": "PerCarControllerUpdate_00444AE0", "va": "0x00444AE0", "rva": "0x00044AE0", "reads": "P+0x33"},
+        {"name": "ApplyControllerTransform_00444D50", "va": "0x00444D50", "rva": "0x00044D50", "reads": "P+0x34..P+0x70 (16 dwords)"},
+        {"name": "ResetChassisAndWheelState_00443740", "va": "0x00443740", "rva": "0x00043740"},
+        {"name": "SetPhysicsBodyPose_0043A020", "va": "0x0043A020", "rva": "0x0003A020"}
+      ],
+      "key_evidence_addresses": [
+        {"va": "0x004CCFCC", "rva": "0x000CCFCC"},
+        {"va": "0x004CCFDD", "rva": "0x000CCFDD"},
+        {"va": "0x004CCFEA", "rva": "0x000CCFEA"},
+        {"va": "0x004CCFF1", "rva": "0x000CCFF1"},
+        {"va": "0x004CD12C", "rva": "0x000CD12C"},
+        {"va": "0x005089E0", "rva": "0x001089E0"},
+        {"va": "0x00508B18", "rva": "0x00108B18"},
+        {"va": "0x004443FD", "rva": "0x000443FD"},
+        {"va": "0x00444BB8", "rva": "0x00044BB8"},
+        {"va": "0x00444D50", "rva": "0x00044D50"}
+      ]
+    },
+    "flag_lifecycle": {
+      "constructor_initializes_zero": true,
+      "reset_recovery_sets_one": true,
+      "reset_clear_sets_zero": true,
+      "other_packed_state_writer": {"va": "0x004CB410", "rva": "0x000CB410"},
+      "exact_consuming_tick_and_scheduler_order": "UNPROVEN"
+    },
+    "remaining_unknowns": [
+      "reset-manager versus physics-manager scheduling and paused behavior",
+      "linear and angular velocity policy",
+      "full wheel and suspension reconciliation",
+      "contact/manifold and broadphase refresh",
+      "safe solver phase for arbitrary relocation",
+      "destination clearance and rollback",
+      "runtime confirmation"
+    ],
+    "decision": {
+      "teleport_ready": false,
+      "runtime_probe_needed_for_routing": false,
+      "next_action": "If authorized in a later phase, investigate relocation safety invariants; do not implement or invoke teleport in A3j.2."
+    },
+    "document": "broker-transform-routing.md",
+    "evidence_file": "broker-transform-routing-evidence.json",
+    "validation_file": "broker-transform-routing-validation.md"
+  }
+}

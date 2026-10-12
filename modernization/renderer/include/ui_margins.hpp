@@ -1,5 +1,7 @@
 #pragma once
 #include "game_fov.hpp"
+#include <memory>
+#include <sstream>
 namespace gfx2 {
 inline constexpr uint32_t UI_SORT_RVA=0x00109a21;
 inline constexpr std::array<unsigned char,5> UI_SORT_BYTES={0xd8,0x60,0x30,0xd9,0xc0};
@@ -80,6 +82,7 @@ public:
  bool install(PatchMemory&,void*,uintptr_t) noexcept;
  bool remove(PatchMemory&) noexcept;
  bool installed() const noexcept {return installed_;}
+ bool intact(PatchMemory& m) const noexcept {std::array<unsigned char,6> seen{};return installed_&&m.read(seen.data(),site_,6)&&seen==after_;}
 };
 class Trace;
 struct MarginDrawDecision {
@@ -92,6 +95,18 @@ struct MarginDrawDecision {
  bool row_card_match=false;const char* carousel_row_reason="feature_disabled";
 };
 inline constexpr uint32_t UI_DRAW_RETURN_RVA=0x0016d7c4;
+inline constexpr unsigned UI_OWNERSHIP_DRAW_LIMIT=1024;
+inline constexpr unsigned UI_OWNERSHIP_IDENTITY_LIMIT=512;
+inline constexpr unsigned UI_OWNERSHIP_STAGE_FIELD_COUNT=6;
+inline constexpr uint32_t UI_OWNERSHIP_ENTITY_KNOWN=1u,UI_OWNERSHIP_PACKET_KNOWN=2u,
+ UI_OWNERSHIP_POINT_KNOWN=4u,UI_OWNERSHIP_STORAGE_KNOWN=8u,UI_OWNERSHIP_MODE_KNOWN=16u,
+ UI_OWNERSHIP_IDENTITY_COMPLETE=31u;
+struct UiOwnershipDrawState {
+ bool fvf_known=false,texture0_known=false,texture1_known=false;
+ uint32_t fvf=0;uintptr_t texture0=0,texture1=0;uint64_t texture0_generation=0,texture1_generation=0;
+ std::array<uint8_t,UI_OWNERSHIP_STAGE_FIELD_COUNT> stage_known{};
+ std::array<uint32_t,UI_OWNERSHIP_STAGE_FIELD_COUNT> stage_values{};
+};
 inline constexpr unsigned UI_PACKET_DRAW_OBSERVATION_LIMIT=8;
 inline constexpr unsigned UI_CAPTURE_PACKET_CANDIDATE_LIMIT=64;
 inline constexpr unsigned UI_CAPTURE_ADJUSTED_CANDIDATE_QUOTA=32;
@@ -123,6 +138,9 @@ class UiMargins {
  UiPacketPatch patch_;MarginAnchors anchors_;
  struct Scope {
   MarginIdentity key{};MarginAnchorDecision anchor{};bool valid=false,capture_active=false;
+  uintptr_t ownership_entity=0,ownership_packet=0,ownership_point=0,ownership_storage=0;
+  uint32_t ownership_mode=0,ownership_field_mask=0;uint64_t ownership_scope_id=0,ownership_epoch=0;
+  bool ownership_mode_known=false;const char* ownership_identity_status="not_captured";
   uint64_t packet_id=0,first_frame=0,previous_frame=0,restored_frame=0,consume_count=0;
   float engine_x=0,engine_y=0,effective_x=0;bool engine_rewrite=false;
   const char* promotion_status="pending_draw";
@@ -135,6 +153,39 @@ class UiMargins {
   MarginIdentity key{};uint64_t id=0,epoch=0,first=0,last=0,restored=0;
    uint64_t priority=0;float logical=0,effective=0;unsigned visits=0;int rule=0;uint8_t rule_mask=0;bool adjusted=false;
  };
+ struct OwnershipIdentity {
+  uintptr_t entity=0,packet=0,point=0,storage=0;uint32_t mode=0,field_mask=0;uint64_t epoch=0,id=0;
+ };
+ struct OwnershipDraw {
+  uint64_t frame=0,draw_sequence=0,consumer_scope_id=0,identity_id=0,ui_epoch=0,race_generation=0;
+  uintptr_t entity=0,packet=0,observed_packet=0,point=0,storage=0,texture0=0,texture1=0;
+  uint64_t texture0_generation=0,texture1_generation=0;
+  uint32_t field_mask=0,packet_mode=0,caller_rva=0,primitive=0,primitive_count=0,fvf=0;
+  std::array<uint8_t,UI_OWNERSHIP_STAGE_FIELD_COUNT> stage_known{};
+  std::array<uint32_t,UI_OWNERSHIP_STAGE_FIELD_COUNT> stage_values{};
+  bool mode_known=false,race_generation_known=false,fvf_known=false,texture0_known=false,texture1_known=false;
+  bool forwarded=false,suppressed=false;
+  int32_t draw_hresult=0;
+  const char* identity_status="not_read";const char* owner_mapping_status="unmapped";
+ };
+ std::unique_ptr<OwnershipIdentity[]> ownership_identities_;
+ std::unique_ptr<OwnershipDraw[]> ownership_draws_;
+ uint64_t ownership_next_scope_id_=0,ownership_next_identity_id_=0,ownership_draw_sequence_=0;
+ uint64_t ownership_draw_attempts_=0,ownership_draw_drops_=0,ownership_unmapped_draws_=0,ownership_identity_overflow_=0;
+ unsigned ownership_identity_count_=0,ownership_draw_count_=0;
+ bool ownership_probe_requested_=false,ownership_probe_enabled_=false,ownership_capture_active_=false;
+ uint64_t clean_view_eligible_draws_=0,clean_view_suppressed_draws_=0,clean_view_forwarded_unverified_draws_=0,
+  clean_view_non_ui_draws_untouched_=0,clean_view_scope_invalidations_=0,clean_view_ui_scope_seen_=0,
+  clean_view_ui_draw_candidates_=0,clean_view_draw_admission_rejections_=0,
+  clean_view_rejected_inflight_=0,clean_view_rejected_stale_=0,
+  clean_view_reject_snapshot_invalid_=0,clean_view_reject_scheduler_generation_=0,
+  clean_view_reject_trace_frame_=0,clean_view_reject_render_thread_=0,clean_view_reject_device_=0,
+  clean_view_reject_timestamp_=0,clean_view_reject_ui_scope_=0,clean_view_reject_scheduler_phase_=0;
+ bool clean_view_user_requested_=false,clean_view_context_valid_=false,clean_view_toggle_edge_=false,clean_view_initial_armed_=false;
+ uint64_t clean_view_request_disarm_count_=0,clean_view_context_trace_frame_=0,clean_view_context_scheduler_generation_=0;
+ CleanViewFrameCheck clean_view_frame_check_{};
+ const char* clean_view_last_admission_reason_="not_requested",*clean_view_last_scope_reason_="not_checked";
+ const char* clean_view_context_reason_="not_requested",*clean_view_last_draw_rejection_reason_="none",*clean_view_first_draw_rejection_reason_="none",*clean_view_last_disarm_reason_="none";
  std::array<Observation,UI_CAPTURE_PACKET_CANDIDATE_LIMIT> observations_{};
  uint64_t frame_id_=1,next_id_=0,scene_family_frame_=0,scene_family_epoch_=0;
  uint64_t completed_scene_frame_=0,completed_scene_epoch_=0,pending_present_frame_=0,pending_present_epoch_=0;
@@ -161,6 +212,10 @@ class UiMargins {
  int promote_observation(Scope&) noexcept;
  static uint64_t observation_priority(const MarginIdentity&,uint64_t epoch) noexcept;
  void reset_capture_local() noexcept;
+ void reset_ownership_capture() noexcept;
+ void ownership_capture_json(std::ostringstream&,bool include_draws) const;
+ void finish_ownership_capture(uint64_t frame,const char* end_reason) noexcept;
+ uint64_t ownership_identity_id(const Scope&,bool& overflow) noexcept;
  bool emit_capture_record(const std::string&,bool packet_record,bool render_local_record) noexcept;
  void finish_capture(uint64_t frame,uint64_t device_id,const char* reason) noexcept;
  void emit_group_candidates() noexcept;
@@ -170,6 +225,7 @@ public:
  ~UiMargins();
  bool install(bool exact,bool requested) noexcept;
  void configure_carousel_alignment(bool requested,bool exact_profile) noexcept;
+ void configure_ownership_probe(bool requested,bool exact_build) noexcept;
  void dimensions(UINT width,UINT height) noexcept;
  void capture_window(bool active,uint64_t frame,uint64_t device_id=0,const char* end_reason="present") noexcept;
  void reset_diagnostics() noexcept;
@@ -178,6 +234,15 @@ public:
  void present_completed(bool succeeded) noexcept;
  bool enter_consume(uintptr_t entity) noexcept;
  void leave_consume() noexcept;
+ bool consumer_hook_intact() const noexcept;
+ bool clean_view_scope_identity(uint64_t& scope_id,uint64_t& identity_id,uint64_t& epoch,const char*& reason) noexcept;
+ void note_clean_view_draw(bool eligible,bool suppressed,bool requested,bool draw_requested,bool ui_callsite,bool scope_invalidated,
+  const char* admission_reason,const char* scope_reason,bool context_valid,const char* context_reason,
+  bool toggle_edge,bool initial_armed,uint64_t disarm_count,const char* disarm_reason,bool consumer_scope_seen,
+  uint64_t context_trace_frame,uint64_t context_scheduler_generation,const CleanViewFrameCheck&) noexcept;
+ void observe_ownership_draw(uint64_t frame,bool race_generation_known,uint64_t race_generation,
+  uint32_t caller_rva,D3DPRIMITIVETYPE primitive,UINT primitive_count,const UiOwnershipDrawState&,
+  bool forwarded,bool suppressed,HRESULT result) noexcept;
  MarginDrawDecision draw_decision(bool verified_ui_draw=false,const CarouselRowDraw& draw={}) noexcept;
  UiDrawObservation* begin_draw(uintptr_t caller_va,uint32_t caller_rva,bool caller_in_game_image,
   D3DPRIMITIVETYPE primitive,UINT start_vertex,UINT primitive_count,bool adjustment_gate_allowed,

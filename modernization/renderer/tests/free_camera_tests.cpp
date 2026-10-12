@@ -1,6 +1,7 @@
 #include "free_camera.hpp"
 #include "flight_clock.hpp"
 #include "race_epoch.hpp"
+#include "hud_visibility.hpp"
 #include <iostream>
 #include <stdexcept>
 #include <cmath>
@@ -23,9 +24,9 @@ void activate(FlightController& f,const FreeCameraConfig& c,const std::array<flo
 void controls(){
  wchar_t directory[MAX_PATH]{},name[MAX_PATH]{};CHECK(GetTempPathW(MAX_PATH,directory)&&GetTempFileNameW(directory,L"mcf",0,name));
  struct TempIni {const wchar_t* path;~TempIni(){DeleteFileW(path);}} cleanup{name};
- const char text[]="[Renderer]\r\nConfigVersion=1\r\n[FreeCamera]\r\nEnabled=1\r\nControlPreset=1\r\nToggleKey=F8\r\nMovementSmoothSeconds=0.12\r\nCinematicFOVEnabled=1\r\nCinematicVerticalFOVDegrees=65\r\nFOVStepDegrees=5\r\n[FreeCameraKeys]\r\nSpeedIncrease=PageUp\r\nSpeedDecrease=PageDown\r\nFOVDecrease=Z\r\nFOVIncrease=X\r\n[Trace]\r\nEnabled=0\r\n";
+ const char text[]="[Renderer]\r\nConfigVersion=1\r\n[HUD]\r\nToggleEnabled=1\r\nToggleKey=H\r\nHiddenAtStartup=0\r\nPreserveMenus=0\r\n[FreeCamera]\r\nEnabled=1\r\nControlPreset=1\r\nToggleKey=F8\r\nMovementSmoothSeconds=0.12\r\nCinematicFOVEnabled=1\r\nCinematicVerticalFOVDegrees=65\r\nFOVStepDegrees=5\r\nCameraBookmarksEnabled=1\r\nCameraBookmarkDefaultSlot=2\r\nCleanViewPilot=1\r\nCleanViewEnabled=0\r\n[FreeCameraKeys]\r\nToggleCleanView=H\r\nSaveCameraBookmark=J\r\nLoadCameraBookmark=K\r\nNextCameraBookmarkSlot=L\r\nSpeedIncrease=PageUp\r\nSpeedDecrease=PageDown\r\nFOVDecrease=Z\r\nFOVIncrease=X\r\n[Trace]\r\nEnabled=0\r\n";
  HANDLE file=CreateFileW(name,GENERIC_WRITE,0,nullptr,TRUNCATE_EXISTING,FILE_ATTRIBUTE_NORMAL,nullptr);CHECK(file!=INVALID_HANDLE_VALUE);DWORD written=0;bool stored=WriteFile(file,text,sizeof(text)-1,&written,nullptr)&&written==sizeof(text)-1;CloseHandle(file);CHECK(stored);
- auto loaded=read_visual_config(name);auto parsed=parse_free_camera_config(loaded.raw_fields);CHECK(loaded.version_ok&&parsed.enabled&&parsed.preset==1&&parsed.speed_increase==VK_PRIOR&&parsed.movement_smooth_seconds==.12f&&parsed.cinematic_fov_enabled&&parsed.cinematic_vfov==65&&parsed.fov_decrease=='Z'&&parsed.fov_increase=='X'); // Actual INI reader, no tracing prerequisite.
+ auto loaded=read_visual_config(name);auto parsed=parse_free_camera_config(loaded.raw_fields);HudVisibility hud;hud.configure(loaded,true,true);CHECK(loaded.version_ok&&loaded.hud_toggle_enabled&&loaded.hud_toggle_key=='H'&&!loaded.hud_hidden_at_startup&&loaded.hud_preserve_menus&&loaded.raw_fields.at("HUD.ToggleEnabled")=="1"&&loaded.raw_fields.at("HUD.ToggleKey")=="H"&&loaded.raw_fields.at("HUD.PreserveMenus")=="0"&&hud.toggle_enabled()&&hud.toggle_key()=='H'&&!hud.requested_hidden()&&parsed.enabled&&parsed.preset==1&&parsed.speed_increase==VK_PRIOR&&parsed.movement_smooth_seconds==.12f&&parsed.cinematic_fov_enabled&&parsed.cinematic_vfov==65&&parsed.fov_decrease=='Z'&&parsed.fov_increase=='X'&&parsed.camera_bookmarks_enabled&&parsed.camera_bookmark_default_slot==2&&parsed.save_camera_bookmark=='J'&&parsed.load_camera_bookmark=='K'&&parsed.next_camera_bookmark_slot=='L'&&parsed.clean_view_pilot&&!parsed.clean_view_enabled&&parsed.clean_view_toggle=='H'); // Production Win32 INI reader -> normalized config -> HUD runtime settings.
  auto invalid=parse_visual_config({{"Renderer.ConfigVersion","2"},{"FreeCamera.Enabled","1"}},true);GameFov rejected;CHECK(!rejected.install(true,invalid,nullptr,true)&&!rejected.free_camera_configured());
  CHECK(!parse_free_camera_config({}).enabled);
  auto c=parse_free_camera_config({{"FreeCamera.Enabled","1"}});CHECK(c.enabled&&c.preset==0&&c.toggle==VK_F8);
@@ -34,6 +35,20 @@ void controls(){
  CHECK(c.auto_level_horizon&&std::abs(c.horizon_level_seconds-.30f)<.0001f);
  CHECK(c.cinematic_fov_enabled&&c.cinematic_vfov==0&&c.min_vfov==35&&c.max_vfov==100&&c.fov_step==5&&c.fov_smooth_seconds==.25f&&c.fov_decrease=='Z'&&c.fov_increase=='X');
  CHECK(c.manual_roll_enabled&&c.roll_speed==45&&c.roll_smooth_seconds==.10f&&c.max_roll_degrees==90&&c.roll_left=='C'&&c.roll_right=='V'&&c.roll_reset=='B');
+ CHECK(c.camera_bookmarks_enabled&&c.camera_bookmark_default_slot==1&&c.save_camera_bookmark=='J'&&c.load_camera_bookmark=='K'&&c.next_camera_bookmark_slot=='L');
+ CHECK(!c.vehicle_teleport_enabled&&c.vehicle_teleport_road_only&&c.vehicle_teleport_arm_timeout_seconds==60&&c.vehicle_teleport_max_road_distance==20.f&&c.arm_road_teleport=='T');
+ auto teleport=parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.VehicleTeleportEnabled","1"},{"FreeCamera.VehicleTeleportRoadOnly","1"},{"FreeCamera.VehicleTeleportArmTimeoutSeconds","30"},{"FreeCamera.VehicleTeleportMaxRoadDistance","15"}});
+ CHECK(teleport.enabled&&teleport.vehicle_teleport_enabled&&teleport.vehicle_teleport_road_only&&teleport.vehicle_teleport_arm_timeout_seconds==30&&teleport.vehicle_teleport_max_road_distance==15.f&&teleport.arm_road_teleport=='T');
+ CHECK(!parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.VehicleTeleportEnabled","1"},{"FreeCamera.VehicleTeleportRoadOnly","0"}}).enabled);
+ CHECK(!parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.VehicleTeleportEnabled","1"},{"FreeCameraKeys.ArmRoadTeleport","X"}}).enabled);
+ CHECK(!parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.VehicleTeleportArmTimeoutSeconds","30.5"}}).enabled);
+ CHECK(!parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCameraKeys.SaveCameraBookmark","F10"}}).enabled);
+ CHECK(!parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCameraKeys.SaveCameraBookmark","J"},{"FreeCameraKeys.LoadCameraBookmark","J"}}).enabled);
+ CHECK(!parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCameraKeys.NextCameraBookmarkSlot","W"}}).enabled);
+ CHECK(!parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.CameraBookmarkDefaultSlot","4"}}).enabled);
+ auto clean=parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.CleanViewPilot","1"},{"FreeCamera.CleanViewEnabled","1"}});CHECK(clean.enabled&&clean.clean_view_pilot&&clean.clean_view_enabled&&clean.clean_view_toggle=='H');
+ auto clean_bad_key=parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.CleanViewPilot","1"},{"FreeCameraKeys.ToggleCleanView","F8"}});CHECK(clean_bad_key.enabled&&!clean_bad_key.clean_view_pilot&&std::strcmp(clean_bad_key.clean_view_config_reason,"invalid_or_conflicting_toggle")==0);
+ auto clean_bad_bool=parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.CleanViewPilot","perhaps"}});CHECK(clean_bad_bool.enabled&&!clean_bad_bool.clean_view_pilot&&std::strcmp(clean_bad_bool.clean_view_config_reason,"invalid_pilot_boolean")==0);
  CHECK(!parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.CinematicVerticalFOVDegrees","101"}}).enabled);
  CHECK(!parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.MinVerticalFOVDegrees","80"},{"FreeCamera.MaxVerticalFOVDegrees","70"}}).enabled);
  CHECK(!parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCameraKeys.FOVDecrease","W"}}).enabled);
@@ -68,6 +83,19 @@ void controls(){
  in.toggle=false;f.update(c,in,true,&visible);in.toggle=true;CHECK(f.update(c,in,true,&visible));CHECK(!f.update(c,in,false,&visible));
  // Frontend/unknown certificate and malformed visible view never activate.
  f.cancel();in.toggle=false;f.update(c,in,true,&visible);in.toggle=true;CHECK(!f.update(c,in,false,&visible));visible[0]=2;f.cancel();in.toggle=false;f.update(c,in,true,&visible);in.toggle=true;CHECK(!f.update(c,in,true,&visible));
+}
+void admission(){
+ CHECK(!free_camera_admitted(false,true,true));
+ CHECK(!free_camera_admitted(true,false,true));
+ CHECK(!free_camera_admitted(true,true,false));
+ CHECK(free_camera_admitted(true,true,true));
+ auto config=parse_free_camera_config({{"FreeCamera.Enabled","1"}});auto visible=identity();FlightController controller;FlightInput in;in.focused=true;
+ CHECK(!controller.update(config,in,free_camera_admitted(true,true,false),&visible));in.toggle=true;
+ CHECK(!controller.update(config,in,free_camera_admitted(true,true,false),&visible)&&!controller.active);
+ in.toggle=false;CHECK(!controller.update(config,in,free_camera_admitted(true,true,true),&visible));in.toggle=true;
+ CHECK(controller.update(config,in,free_camera_admitted(true,true,true),&visible)&&controller.active);
+ in.toggle=false;CHECK(controller.update(config,in,free_camera_admitted(true,true,true),&visible));
+ CHECK(!controller.update(config,in,free_camera_admitted(true,false,false),&visible)&&!controller.active); // Lost pause proof disarms an active camera.
 }
 void clock_timing(){
  constexpr int64_t hz=10000000;
@@ -132,14 +160,16 @@ namespace {unsigned input_window_calls=0;LRESULT CALLBACK input_window_proc(HWND
 void window_input(){
  HINSTANCE instance=GetModuleHandleW(nullptr);WNDCLASSW cls{};cls.lpfnWndProc=input_window_proc;cls.hInstance=instance;cls.lpszClassName=L"MRRFreeCameraInputFixture";CHECK(RegisterClassW(&cls));
  HWND game=CreateWindowExW(0,cls.lpszClassName,L"game fixture",WS_OVERLAPPEDWINDOW,20,20,320,240,nullptr,nullptr,instance,nullptr);HWND other=CreateWindowExW(0,cls.lpszClassName,L"other fixture",WS_OVERLAPPEDWINDOW,20,20,320,240,nullptr,nullptr,instance,nullptr);CHECK(game&&other);
- {FlightWindowInput input;CHECK(input.attach(game)&&input.intact()&&input.wheel_input_available());input.set_cursor_capture(true);CHECK(input.cursor_capture_active());
+ {FlightWindowInput input;CHECK(input.attach(game)&&input.intact()&&input.wheel_input_available());
+  FreeCameraConfig focus_config;focus_config.enabled=true;auto sampled_focus=input.sample(focus_config,false);auto focus_state=input.snapshot();CHECK(sampled_focus.focused==focus_state.input_focus_accepted&&focus_state.attached_hwnd==reinterpret_cast<uintptr_t>(game)&&focus_state.window_valid&&focus_state.wndproc_owned&&focus_state.hwnd_thread==focus_state.current_thread);if(GetForegroundWindow()!=game)CHECK(!sampled_focus.focused); // Exercise the production foreground-HWND predicate against the actual hidden fixture window.
+  input.set_cursor_capture(true);CHECK(input.cursor_capture_active());
   input_window_calls=0;CHECK(SendMessageW(game,WM_SETCURSOR,0,MAKELPARAM(HTCLIENT,WM_MOUSEMOVE))==TRUE&&input_window_calls==0); // Narrow active client suppression.
   CHECK(SendMessageW(game,WM_SETCURSOR,0,MAKELPARAM(HTCAPTION,WM_NCMOUSEMOVE))==0x1234&&input_window_calls==1);
   CHECK(SendMessageW(game,WM_MOUSEWHEEL,MAKEWPARAM(0,120),0)==0x1234&&input_window_calls==2&&input.take_wheel_delta()==120);
   SendMessageW(game,WM_MOUSEWHEEL,MAKEWPARAM(0,60),0);SendMessageW(game,WM_MOUSEWHEEL,MAKEWPARAM(0,60),0);CHECK(input.take_wheel_delta()==120);
   SendMessageW(game,WM_MOUSEWHEEL,MAKEWPARAM(0,static_cast<WORD>(-120)),0);CHECK(input.take_wheel_delta()==-120);
   for(unsigned n=0;n<40;++n)SendMessageW(game,WM_MOUSEWHEEL,MAKEWPARAM(0,120),0);CHECK(input.take_wheel_delta()==1440);
-  SendMessageW(game,WM_MOUSEWHEEL,MAKEWPARAM(0,120),0);input.focus_lost();CHECK(!input.cursor_capture_active()&&input.take_wheel_delta()==0);
+  SendMessageW(game,WM_MOUSEWHEEL,MAKEWPARAM(0,120),0);input.key_event(0x21,false,true);CHECK(input.physical_down(0x21));SendMessageW(game,WM_KILLFOCUS,reinterpret_cast<WPARAM>(other),0);CHECK(!input.physical_down(0x21)&&!input.cursor_capture_active()&&input.take_wheel_delta()==0);
   SendMessageW(game,WM_SETCURSOR,0,MAKELPARAM(HTCLIENT,WM_MOUSEMOVE));CHECK(input_window_calls>0); // Native behavior resumes outside capture.
   input.set_cursor_capture(false);SendMessageW(other,WM_SETCURSOR,0,MAKELPARAM(HTCLIENT,WM_MOUSEMOVE));CHECK(input_window_calls>0);input.release();CHECK(!input.intact());}
  CHECK(DestroyWindow(other)&&DestroyWindow(game));CHECK(UnregisterClassW(cls.lpszClassName,instance));
@@ -284,4 +314,4 @@ void bridges(){
 }
 
 }
-int main(){try{controls();clock_timing();movement_and_speed();window_input();cinematic_fov();manual_roll();horizon();scopes();bridges();std::cout<<"High precision flight clock / movement and speed / cinematic FOV / manual roll / cursor and wheel HWND policy / horizon stabilization / displayed VIEW inversion / owned 176-byte scope / seven real scheduler RET4 ABI cases: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<"\n";return 1;}}
+int main(){try{controls();admission();clock_timing();movement_and_speed();window_input();cinematic_fov();manual_roll();horizon();scopes();bridges();std::cout<<"High precision flight clock / live-race+pause admission / movement and speed / cinematic FOV / manual roll / cursor and wheel HWND policy / horizon stabilization / displayed VIEW inversion / owned 176-byte scope / seven real scheduler RET4 ABI cases: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<"\n";return 1;}}

@@ -1,0 +1,183 @@
+{
+  "schema": 1,
+  "stage": "R-CAM1-A3j.5",
+  "scope": "renderer integration source, direct regression tests, and handoff documentation",
+  "archive": {
+    "path": "modernization/renderer/docs/r-cam1-a3j5/source-handoff.zip",
+    "size": 97676,
+    "sha256": "55fed7ce32cc694f230ac8fecf5748e0138eb77c6cf8feb1f5136c968c4ee230"
+  },
+  "excluded": [
+    "generated DLL and build objects",
+    "proprietary game executable or assets",
+    "runtime logs",
+    "reverse-engineering databases"
+  ],
+  "files": [
+    {
+      "path": "modernization/renderer/CMakeLists.txt",
+      "size": 7334,
+      "sha256": "c35cc4630e8e2e28a882d6d3099780a72c57228aee38664a6f0e029e6da69520"
+    },
+    {
+      "path": "modernization/renderer/MRRRenderer.ini.example",
+      "size": 6199,
+      "sha256": "0948d8a1a88217056c8654e6a8c87d7c19c3e9dd65c277a80a65d49877f6f070"
+    },
+    {
+      "path": "modernization/renderer/include/free_camera.hpp",
+      "size": 6657,
+      "sha256": "c89c10dd3b1b705cd63f25de1b13dac7c9e664e2f9217a5e8d893effdae341db"
+    },
+    {
+      "path": "modernization/renderer/include/physics_probe.hpp",
+      "size": 2033,
+      "sha256": "e330a294ec18466bc60614ba60f3b5a4ed2f8dc7dd94dc8108dc900dd7447cae"
+    },
+    {
+      "path": "modernization/renderer/include/physics_probe_model.hpp",
+      "size": 9587,
+      "sha256": "386d235df445301269af85dd7632990d73b7b39d9a4d72cc78b40cd56d8ea244"
+    },
+    {
+      "path": "modernization/renderer/include/physics_transaction_model.hpp",
+      "size": 4512,
+      "sha256": "fa0d9f16d5a7cbd4f46c455f46177219b35e2a9b2914221d104213a619d34532"
+    },
+    {
+      "path": "modernization/renderer/include/road_target_model.hpp",
+      "size": 2539,
+      "sha256": "20ab8dcfa9e2d7960d615c2afe7db9624a6c7b092e6aa3eb71b8f9072a330920"
+    },
+    {
+      "path": "modernization/renderer/include/road_teleport_model.hpp",
+      "size": 5338,
+      "sha256": "8d04105aae9274220c279e6cdae655d192f56b2fe58c46d24f31d38c7a3a17ed"
+    },
+    {
+      "path": "modernization/renderer/include/road_teleport_bridge.hpp",
+      "size": 732,
+      "sha256": "e24b40dca7078281b40788e865afd565a99a14f4f3ad69cd393197f34980e4a3"
+    },
+    {
+      "path": "modernization/renderer/include/wrappers.hpp",
+      "size": 17294,
+      "sha256": "82c11b7b3fad4d02eecfbc5dbe0d9b54890fef9d6652b54a3ab8d3753197a2c8"
+    },
+    {
+      "path": "modernization/renderer/src/free_camera.cpp",
+      "size": 34505,
+      "sha256": "5ed629e31c6fcaee98c56ab077995335f66e3074eed61a527619472314c357a9"
+    },
+    {
+      "path": "modernization/renderer/src/physics_probe.cpp",
+      "size": 115636,
+      "sha256": "ad0695e36c82a736e2b97b1095c21d51035517ed5aeb32e31c0f53ec3489725a"
+    },
+    {
+      "path": "modernization/renderer/src/physics_probe_model.cpp",
+      "size": 8212,
+      "sha256": "a59a0a48427a53095b9149fc219976129049878331f8222975df24042b5381e8"
+    },
+    {
+      "path": "modernization/renderer/src/physics_transaction_bridges.inc",
+      "size": 5140,
+      "sha256": "4b7d3f1a579e9606efb60503f64e1e9e7c393bd0176bd7841565b85531a28633"
+    },
+    {
+      "path": "modernization/renderer/src/physics_transaction_capture.inc",
+      "size": 5719,
+      "sha256": "6476f064fadca8a5f9679b5b5c0759c21ea0e543acef45bed1272ed25a8c3986"
+    },
+    {
+      "path": "modernization/renderer/src/road_target_model.cpp",
+      "size": 6141,
+      "sha256": "ef26b6f858235dbba0e1b9407882219785ededc4a2bf6c85539f6697b0c509be"
+    },
+    {
+      "path": "modernization/renderer/src/road_teleport_model.cpp",
+      "size": 16570,
+      "sha256": "c931efd903baf23cc93f3f3fad20ccf43e3af15ca54c369f15cd68b7fa0d931b"
+    },
+    {
+      "path": "modernization/renderer/src/road_teleport_bridge.inc",
+      "size": 962,
+      "sha256": "17c48cfc67128d281b9c9461c5fac47f632e816df3f0342430415ca3d38ec6db"
+    },
+    {
+      "path": "modernization/renderer/src/wrappers.cpp",
+      "size": 18509,
+      "sha256": "c3ec55e945f308807a396055c64d5b7abd0f8acba6cb622c4b555021db824b4b"
+    },
+    {
+      "path": "modernization/renderer/tests/physics_probe_tests.cpp",
+      "size": 13892,
+      "sha256": "517246e61d0851d3165875361b7d37eb6f2f83de305c2c6638f79568fd15ebfd"
+    },
+    {
+      "path": "modernization/renderer/tests/physics_transaction_abi_tests.cpp",
+      "size": 10003,
+      "sha256": "3a16139bae7debedab0fc2768d7c04f0f6f33bbd7423fbed1f7aae9b37dccf76"
+    },
+    {
+      "path": "modernization/renderer/tests/road_target_tests.cpp",
+      "size": 6407,
+      "sha256": "94e32df5f2cef7740f467a1c8bcb2d1f64d415c36dbf8a0ec41a55c5659ba65d"
+    },
+    {
+      "path": "modernization/renderer/tests/road_teleport_tests.cpp",
+      "size": 11284,
+      "sha256": "2b17f7722b9640c1b93ff1490f20b55fe71e60d10ba2c419ce58672b48c91f2a"
+    },
+    {
+      "path": "modernization/renderer/tests/road_teleport_abi_tests.cpp",
+      "size": 3771,
+      "sha256": "f419a19f0f1a093a7968c9c0810670f35a6bb39af4bf10b764e80afa9bce2df2"
+    },
+    {
+      "path": "modernization/renderer/tests/route_getter_abi_tests.cpp",
+      "size": 6065,
+      "sha256": "3dc9269bccdd664ca22362ec74b8edee2fd5b6a3f290731b1e0787badcd87eda"
+    },
+    {
+      "path": "modernization/renderer/tests/test_physics_probe_retail.py",
+      "size": 8345,
+      "sha256": "783e4ae90c6d162c26caa10cfed241d54ff9b387d268e5148c2a849d1b3d1ce8"
+    },
+    {
+      "path": "modernization/renderer/tests/test_physics_transactions.py",
+      "size": 5514,
+      "sha256": "a3c096ad5d666017e181db16b4cd2e248129985a70ed5a98e809833b7bf900e9"
+    },
+    {
+      "path": "modernization/renderer/tests/test_route_getter_bridge_disassembly.py",
+      "size": 7206,
+      "sha256": "8ed30447e9e49f1977fa126a851a0cf6853026bb813955db470c29b609a93d81"
+    },
+    {
+      "path": "modernization/renderer/tools/analyze_physics_transactions.py",
+      "size": 7739,
+      "sha256": "4eb9d7d4070ed2a849ac92b8028341fdd6794a657f2582d02edfff2faca29d39"
+    },
+    {
+      "path": "modernization/renderer/docs/r-cam1-a3j5/native-recovery-integration.md",
+      "size": 6073,
+      "sha256": "0b77fd80b62976b631f0d33cdd1807f30ff34ef09d0a06ba4f6658214a85e0fd"
+    },
+    {
+      "path": "modernization/renderer/docs/r-cam1-a3j5/native-recovery-integration.json",
+      "size": 2842,
+      "sha256": "2bcd3dbe2fb5d39163683ea369dcf55e44c69274bf6ff4e0c1093be099099dc2"
+    },
+    {
+      "path": "modernization/renderer/docs/r-cam1-a3j5/runtime-handoff.md",
+      "size": 3260,
+      "sha256": "79d362d40201e6fb464ce55bd826db80c06aa1f50a425148d842d3909d29013b"
+    },
+    {
+      "path": "modernization/renderer/docs/r-cam1-a3j5/validation.md",
+      "size": 2461,
+      "sha256": "6cf68d2162c0d8d478859933882e268cc969db7311e8632cb248ed75ba40e52d"
+    }
+  ]
+}

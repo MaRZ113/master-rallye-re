@@ -1,4 +1,5 @@
 #include "ui_margins.hpp"
+#include "clean_view.hpp"
 #include "margin_rules.hpp"
 #include "provenance.hpp"
 #include "trace.hpp"
@@ -24,6 +25,26 @@ void json_scene_context(std::ostringstream& out,const SceneContextDecision& cont
 void json_carousel_row(std::ostringstream& out,bool matched,const char* reason) {
  out<<",\"row_card_match\":"<<(matched?"true":"false")<<",\"carousel_row_reason\":"<<quote(reason)
   <<",\"carousel_render_policy\":"<<quote(matched?"source_coordinates":"original_margin");
+}
+struct OwnershipIdentityRead {
+ uintptr_t entity=0,packet=0,point=0,storage=0;uint32_t mode=0,field_mask=0;bool complete=false;const char* status="not_read";
+};
+bool read_ownership_identity(uintptr_t entity,OwnershipIdentityRead& result) noexcept {
+ result={};result.entity=entity;
+ if(!entity){result.status="null_entity";return false;}
+ result.field_mask|=UI_OWNERSHIP_ENTITY_KNOWN;
+ if(entity>UINTPTR_MAX-0x4c){result.status="entity_pointer_overflow";return false;}
+ if(!safe_copy(&result.packet,reinterpret_cast<void*>(entity+0x4c),sizeof(uint32_t))){result.status="entity_packet_unreadable";return false;}
+ result.field_mask|=UI_OWNERSHIP_PACKET_KNOWN;
+ if(!result.packet){result.status="null_packet_pointer";return false;}
+ if(result.packet>UINTPTR_MAX-0x68){result.status="packet_pointer_overflow";return false;}
+ result.point=result.packet+0x54;result.field_mask|=UI_OWNERSHIP_POINT_KNOWN;
+ if(!safe_copy(&result.storage,reinterpret_cast<void*>(result.packet+8),sizeof(uint32_t))){result.status="content_storage_unreadable";return false;}
+ result.field_mask|=UI_OWNERSHIP_STORAGE_KNOWN;
+ if(!safe_copy(&result.mode,reinterpret_cast<void*>(result.packet+0x68),sizeof(uint32_t))){result.status="packet_mode_unreadable";return false;}
+ result.field_mask|=UI_OWNERSHIP_MODE_KNOWN;
+ if(!result.storage){result.status="null_content_storage";return false;}
+ result.complete=true;result.status=(result.mode==1||result.mode==2)?"validated_current":"validated_current_unrecognized_mode";return true;
 }
 std::array<uint64_t,6> observation_identity_order(const MarginIdentity& key,uint64_t epoch) noexcept {
  return {static_cast<uint64_t>(key.entity),static_cast<uint64_t>(key.packet),static_cast<uint64_t>(key.point),static_cast<uint64_t>(key.storage),key.mode,epoch};
@@ -282,13 +303,30 @@ void UiMargins::configure_carousel_alignment(bool requested,bool exact_profile) 
  carousel_alignment_requested_=requested;carousel_alignment_enabled_=enabled_&&exact_profile&&requested;
  if(!carousel_alignment_enabled_)anchors_.clear_carousels();
 }
+void UiMargins::configure_ownership_probe(bool requested,bool exact_build) noexcept {
+ ownership_probe_requested_=requested;ownership_probe_enabled_=false;
+ if(requested&&exact_build&&enabled_){
+  if(!ownership_identities_)ownership_identities_.reset(new(std::nothrow)OwnershipIdentity[UI_OWNERSHIP_IDENTITY_LIMIT]{});
+  if(!ownership_draws_)ownership_draws_.reset(new(std::nothrow)OwnershipDraw[UI_OWNERSHIP_DRAW_LIMIT]{});
+  ownership_probe_enabled_=ownership_identities_&&ownership_draws_;
+ }
+ const char* probe_reason=!requested?"not_requested":!exact_build?"exact_build_required":!enabled_?"verified_consumer_hook_unavailable":ownership_probe_enabled_?"ready":"bounded_allocation_failed";
+ try{session().write("{\"type\":\"ui_ownership_probe_install\",\"read_only\":true,\"visual_changes\":false,\"requested\":"+std::string(requested?"true":"false")+",\"exact_build\":"+(exact_build?"true":"false")+",\"consumer_hook_installed\":"+(patch_.installed()?"true":"false")+",\"enabled\":"+(ownership_probe_enabled_?"true":"false")+",\"consumer_rva\":"+std::to_string(UI_PACKET_RVA)+",\"draw_rva\":"+std::to_string(UI_DRAW_RETURN_RVA)+",\"reason\":"+quote(probe_reason)+"}");}catch(...){}
+}
 void UiMargins::dimensions(UINT w,UINT h) noexcept {MarginFP fp;half_=0;if(w&&h&&double(w)/h>=1.&&double(w)/h<=4.)half_=static_cast<float>((480.*double(w)/h-640.)*.5);}
+void UiMargins::reset_ownership_capture() noexcept {
+ if(ownership_identities_)for(unsigned i=0;i<ownership_identity_count_;++i)ownership_identities_[i]={};
+ ownership_next_scope_id_=ownership_next_identity_id_=ownership_draw_sequence_=0;
+ ownership_draw_attempts_=ownership_draw_drops_=ownership_unmapped_draws_=ownership_identity_overflow_=0;
+ ownership_identity_count_=ownership_draw_count_=0;ownership_capture_active_=false;
+}
 void UiMargins::reset_capture_local() noexcept {
  observations_={};capture_records_=capture_render_local_records_=0;capture_packet_consumers_=capture_draw_observations_captured_=capture_packets_with_draws_=0;capture_consumers_without_draw_=0;
  capture_non_ui_draws_=capture_relevant_draws_=0;capture_adjusted_draws_=capture_unadjusted_draws_=0;
  capture_adjusted_packets_=capture_unadjusted_packets_=0;capture_candidate_rejections_=capture_candidate_evictions_=0;
  capture_packet_record_drops_=capture_render_local_drops_=capture_draw_drops_=capture_identity_invalidations_=capture_log_failures_=0;
  capture_draw_observation_attempts_=0;
+ reset_ownership_capture();
 }
 bool UiMargins::emit_capture_record(const std::string& record,bool packet_record,bool render_local_record) noexcept {
  if(packet_record&&capture_records_>=UI_CAPTURE_PACKET_RECORD_LIMIT){++capture_packet_record_drops_;return false;}
@@ -307,8 +345,9 @@ void UiMargins::capture_window(bool capture_active,uint64_t frame,uint64_t devic
  frame_id_=frame;
  if(capture_active){
   if(capturing_&&device_id&&device_id_&&device_id!=device_id_)finish_capture(frame,device_id_,"device_identity_changed");
-  if(!capturing_){reset_capture_local();device_id_=device_id;capture_start_frame_=capture_trace_frame_=frame;capture_completed_=false;capture_end_reason_="active";++capture_count_;capturing_=true;
+   if(!capturing_){reset_capture_local();device_id_=device_id;capture_start_frame_=capture_trace_frame_=frame;capture_completed_=false;capture_end_reason_="active";++capture_count_;capturing_=true;ownership_capture_active_=ownership_probe_enabled_;
    try{std::ostringstream out;out<<"{\"type\":\"ui_diagnostic_capture_start\",\"device_id\":"<<device_id_<<",\"capture_id\":"<<(device_id_?quote(trace_capture_id(device_id_,capture_start_frame_)):"null")<<",\"start_frame\":"<<capture_start_frame_<<",\"trace_frame\":"<<capture_trace_frame_<<",\"capture_frame_index\":0,\"record_budget\":"<<UI_CAPTURE_PACKET_RECORD_LIMIT<<",\"candidate_capacity\":"<<UI_CAPTURE_PACKET_CANDIDATE_LIMIT<<",\"adjusted_candidate_quota\":"<<UI_CAPTURE_ADJUSTED_CANDIDATE_QUOTA<<",\"unadjusted_candidate_quota\":"<<UI_CAPTURE_UNADJUSTED_CANDIDATE_QUOTA<<",\"draw_observations_per_packet\":"<<UI_PACKET_DRAW_OBSERVATION_LIMIT<<",\"draw_observations_per_capture\":"<<UI_CAPTURE_TOTAL_DRAW_OBSERVATION_LIMIT<<",\"window_policy\":\"one_trace_capture\",\"sample_policy\":\"verified_ui_draws_deterministic_hash_priority_adjustment_strata\"}";if(session().write(out.str()))++records_;else ++capture_log_failures_;}catch(...){++capture_log_failures_;}
+    if(ownership_capture_active_){try{std::ostringstream out;out<<"{\"type\":\"ui_ownership_capture_start\",\"schema_version\":1,\"device_id\":"<<device_id_<<",\"capture_id\":"<<(device_id_?quote(trace_capture_id(device_id_,capture_start_frame_)):"null")<<",\"frame\":"<<capture_start_frame_<<",\"draw_budget\":"<<UI_OWNERSHIP_DRAW_LIMIT<<",\"identity_budget\":"<<UI_OWNERSHIP_IDENTITY_LIMIT<<",\"owner_mapping_status\":\"unmapped\",\"pause_state_source\":\"manual_capture_label\",\"sampling\":\"exact_ui_draw_callsite_and_active_native_consumer_scope\"}";if(session().write(out.str()))++records_;else ++capture_log_failures_;}catch(...){++capture_log_failures_;}}
   }
   capture_trace_frame_=frame;
   return;
@@ -317,20 +356,122 @@ void UiMargins::capture_window(bool capture_active,uint64_t frame,uint64_t devic
 }
 void UiMargins::finish_capture(uint64_t frame,uint64_t device_id,const char* end_reason) noexcept {
  if(!capturing_)return;if(device_id&&device_id!=device_id_)++capture_identity_invalidations_;capture_end_reason_=end_reason?end_reason:"capture_ended";capture_completed_=std::strcmp(capture_end_reason_,"present")==0;capture_close_pending_=false;capture_close_reason_="none";
+ finish_ownership_capture(frame,capture_end_reason_);
  emit_group_candidates();
- const bool incomplete=capture_packet_record_drops_||capture_render_local_drops_||capture_draw_drops_||capture_candidate_rejections_||capture_candidate_evictions_||capture_identity_invalidations_||capture_log_failures_;
+  const bool ownership_overflow=ownership_draw_drops_||ownership_identity_overflow_;
+  const bool incomplete=capture_packet_record_drops_||capture_render_local_drops_||capture_draw_drops_||capture_candidate_rejections_||capture_candidate_evictions_||capture_identity_invalidations_||capture_log_failures_||ownership_overflow;
  try{std::ostringstream out;out<<"{\"type\":\"ui_diagnostic_capture_end\",\"device_id\":"<<device_id_<<",\"capture_id\":"<<(device_id_?quote(trace_capture_id(device_id_,capture_start_frame_)):"null")<<",\"start_frame\":"<<capture_start_frame_<<",\"trace_frame\":"<<capture_trace_frame_<<",\"end_frame_boundary\":"<<frame<<",\"trace_frames_observed\":"<<(capture_trace_frame_>=capture_start_frame_?capture_trace_frame_-capture_start_frame_+1:0)<<",\"complete\":"<<(capture_completed_?"true":"false")<<",\"reason\":"<<quote(capture_end_reason_)<<",\"coverage_status\":"<<quote(incomplete?"incomplete_bounded_or_write_loss":capture_relevant_draws_?"observed":capture_packet_consumers_?"no_relevant_ui_draw":"no_valid_packet_consumer")
   <<",\"packet_consumers_seen\":"<<capture_packet_consumers_<<",\"packet_consumers_without_relevant_draw\":"<<capture_consumers_without_draw_<<",\"packets_with_draws\":"<<capture_packets_with_draws_<<",\"promoted_packet_records\":"<<capture_records_<<",\"relevant_draws_seen\":"<<capture_relevant_draws_<<",\"not_ui_draws\":"<<capture_non_ui_draws_
   <<",\"adjusted_draw_candidates\":"<<capture_adjusted_draws_<<",\"unadjusted_draw_candidates\":"<<capture_unadjusted_draws_<<",\"promoted_adjusted_packets\":"<<capture_adjusted_packets_<<",\"promoted_unadjusted_packets\":"<<capture_unadjusted_packets_
   <<",\"draw_observations_captured\":"<<capture_draw_observations_captured_<<",\"draw_observations_dropped\":"<<capture_draw_drops_<<",\"candidate_capacity_rejections\":"<<capture_candidate_rejections_<<",\"candidate_evictions\":"<<capture_candidate_evictions_
   <<",\"capture_record_budget_limit\":"<<UI_CAPTURE_PACKET_RECORD_LIMIT<<",\"capture_records_emitted\":"<<capture_records_<<",\"capture_record_budget_dropped\":"<<capture_packet_record_drops_<<",\"render_local_record_limit\":"<<UI_CAPTURE_RENDER_LOCAL_RECORD_LIMIT<<",\"render_local_records_emitted\":"<<capture_render_local_records_<<",\"render_local_records_dropped\":"<<capture_render_local_drops_
-  <<",\"identity_invalidations\":"<<capture_identity_invalidations_<<",\"log_write_failures\":"<<capture_log_failures_<<",\"budget_exhausted\":"<<(capture_packet_record_drops_||capture_render_local_drops_||capture_draw_drops_?"true":"false")<<",\"anchor_state_reset\":false}";
+   <<",\"identity_invalidations\":"<<capture_identity_invalidations_<<",\"log_write_failures\":"<<capture_log_failures_<<",\"budget_exhausted\":"<<(capture_packet_record_drops_||capture_render_local_drops_||capture_draw_drops_||ownership_overflow?"true":"false")
+   <<",\"ownership_draw_records\":"<<ownership_draw_count_<<",\"ownership_draw_drops\":"<<ownership_draw_drops_<<",\"ownership_identity_registry_overflow\":"<<ownership_identity_overflow_
+   <<",\"ownership_unmapped_draws\":"<<ownership_unmapped_draws_<<",\"ownership_mapping_status\":\"unmapped\",\"anchor_state_reset\":false}";
   if(session().write(out.str()))++records_;else ++capture_log_failures_;
  }catch(...){++capture_log_failures_;}
  capturing_=false;
 }
+uint64_t UiMargins::ownership_identity_id(const Scope& scope,bool& overflow) noexcept {
+ overflow=false;if(scope.ownership_field_mask!=UI_OWNERSHIP_IDENTITY_COMPLETE||!scope.ownership_entity||!scope.ownership_packet||!scope.ownership_point||!scope.ownership_storage||!scope.ownership_mode_known)return 0;
+ if(!ownership_identities_){++ownership_identity_overflow_;overflow=true;return 0;}
+ for(unsigned i=0;i<ownership_identity_count_;++i){const auto& entry=ownership_identities_[i];if(entry.id&&entry.epoch==scope.ownership_epoch&&entry.entity==scope.ownership_entity&&entry.packet==scope.ownership_packet&&entry.point==scope.ownership_point&&entry.storage==scope.ownership_storage&&entry.mode==scope.ownership_mode&&entry.field_mask==scope.ownership_field_mask)return entry.id;}
+ if(ownership_identity_count_>=UI_OWNERSHIP_IDENTITY_LIMIT){++ownership_identity_overflow_;overflow=true;return 0;}
+ auto& entry=ownership_identities_[ownership_identity_count_++];entry={scope.ownership_entity,scope.ownership_packet,scope.ownership_point,scope.ownership_storage,scope.ownership_mode,scope.ownership_field_mask,scope.ownership_epoch,++ownership_next_identity_id_};return entry.id;
+}
+void UiMargins::observe_ownership_draw(uint64_t frame,bool race_generation_known,uint64_t race_generation,
+ uint32_t caller_rva,D3DPRIMITIVETYPE primitive,UINT primitive_count,const UiOwnershipDrawState& state,
+ bool forwarded,bool suppressed,HRESULT result) noexcept {
+ MarginFP fp;if(!ownership_capture_active_||!capturing_||!ownership_probe_enabled_||caller_rva!=UI_DRAW_RETURN_RVA)return;
+ ++ownership_draw_attempts_;++ownership_draw_sequence_;
+ if(!ownership_draws_||ownership_draw_count_>=UI_OWNERSHIP_DRAW_LIMIT){++ownership_draw_drops_;return;}
+ auto& record=ownership_draws_[ownership_draw_count_++];record={};record.frame=frame;record.draw_sequence=ownership_draw_sequence_;
+ record.race_generation_known=race_generation_known;record.race_generation=race_generation;record.caller_rva=caller_rva;
+ record.primitive=static_cast<uint32_t>(primitive);record.primitive_count=primitive_count;record.fvf_known=state.fvf_known;record.fvf=state.fvf;
+ record.texture0_known=state.texture0_known;record.texture1_known=state.texture1_known;record.texture0=state.texture0;record.texture1=state.texture1;
+ record.texture0_generation=state.texture0_generation;record.texture1_generation=state.texture1_generation;
+ record.stage_known=state.stage_known;record.stage_values=state.stage_values;record.forwarded=forwarded;record.suppressed=suppressed;record.draw_hresult=static_cast<int32_t>(result);
+ record.ui_epoch=anchors_.epoch();record.identity_status="no_active_native_consumer_scope";
+ if(scope_depth_){
+  const auto& scope=scopes_[scope_depth_-1];record.consumer_scope_id=scope.ownership_scope_id;record.ui_epoch=scope.ownership_epoch;
+  record.entity=scope.ownership_entity;record.packet=scope.ownership_packet;record.point=scope.ownership_point;record.storage=scope.ownership_storage;
+  record.packet_mode=scope.ownership_mode;record.mode_known=scope.ownership_mode_known;record.field_mask=scope.ownership_field_mask;record.identity_status=scope.ownership_identity_status;
+  OwnershipIdentityRead current{};
+  if(!read_ownership_identity(scope.ownership_entity,current))record.identity_status=current.status;
+  else if(current.field_mask!=scope.ownership_field_mask||current.packet!=scope.ownership_packet||current.point!=scope.ownership_point||current.storage!=scope.ownership_storage||current.mode!=scope.ownership_mode)
+   record.identity_status="identity_changed_within_native_scope";
+  else record.identity_status=current.status;
+  record.observed_packet=current.packet;
+  if(current.complete&&current.field_mask==scope.ownership_field_mask&&current.packet==scope.ownership_packet&&current.point==scope.ownership_point&&current.storage==scope.ownership_storage&&current.mode==scope.ownership_mode){
+   bool id_overflow=false;record.identity_id=ownership_identity_id(scope,id_overflow);if(id_overflow)record.identity_status="capture_identity_registry_overflow";
+  }
+ }
+ if(!record.identity_id)++ownership_unmapped_draws_;
+}
+void UiMargins::ownership_capture_json(std::ostringstream& out,bool include_draws) const {
+ const bool overflow=ownership_draw_drops_||ownership_identity_overflow_;
+ out<<"{\"enabled\":"<<(ownership_probe_enabled_?"true":"false")<<",\"requested\":"<<(ownership_probe_requested_?"true":"false")
+  <<",\"capture_active\":"<<(ownership_capture_active_?"true":"false")<<",\"capture_id\":"<<(capturing_&&device_id_?quote(trace_capture_id(device_id_,capture_start_frame_)):"null")
+  <<",\"sampling\":\"exact_ui_draw_callsite_and_active_native_consumer_scope\",\"draw_callsite_rva\":"<<UI_DRAW_RETURN_RVA
+  <<",\"expected_fvf\":322,\"expected_fvf_hex\":\"0x142\",\"draw_budget\":"<<UI_OWNERSHIP_DRAW_LIMIT<<",\"identity_budget\":"<<UI_OWNERSHIP_IDENTITY_LIMIT
+  <<",\"draw_attempts\":"<<ownership_draw_attempts_<<",\"records\":"<<ownership_draw_count_<<",\"record_drops\":"<<ownership_draw_drops_
+  <<",\"identity_count\":"<<ownership_identity_count_<<",\"identity_registry_overflow\":"<<ownership_identity_overflow_
+  <<",\"unmapped_draws\":"<<ownership_unmapped_draws_<<",\"complete\":"<<(ownership_capture_active_&&capturing_&&!overflow?"true":"false")<<",\"overflow\":"<<(overflow?"true":"false")
+  <<",\"unmapped\":"<<(ownership_unmapped_draws_?"true":"false")<<",\"coverage_status\":"<<quote(!ownership_capture_active_?"inactive":overflow?"overflow":capturing_?"complete":"inactive")
+  <<",\"owner_mapping_status\":\"unmapped\",\"pause_state_source\":\"manual_capture_label\",\"owner_name_mapping_enabled\":false";
+ if(include_draws){
+  out<<",\"draw_records\":[";
+  for(unsigned i=0;i<ownership_draw_count_;++i){const auto& r=ownership_draws_[i];if(i)out<<',';
+   const char* signature=r.fvf_known&&r.fvf==0x142&&r.primitive==D3DPT_TRIANGLELIST&&r.primitive_count>0?"verified_ui_draw_signature":"callsite_signature_mismatch";
+   out<<"{\"frame\":"<<r.frame<<",\"draw_sequence\":"<<r.draw_sequence<<",\"native_consumer_scope_id\":";if(r.consumer_scope_id)out<<r.consumer_scope_id;else out<<"null";
+   out<<",\"capture_local_identity_id\":";if(r.identity_id)out<<r.identity_id;else out<<"null";
+   out<<",\"native_entity_pointer\":";if(r.field_mask&UI_OWNERSHIP_ENTITY_KNOWN)out<<r.entity;else out<<"null";
+   out<<",\"native_packet_pointer\":";if(r.field_mask&UI_OWNERSHIP_PACKET_KNOWN)out<<r.packet;else out<<"null";
+   out<<",\"observed_packet_pointer\":";if(r.observed_packet)out<<r.observed_packet;else out<<"null";
+   out<<",\"point_storage\":";if(r.field_mask&UI_OWNERSHIP_POINT_KNOWN)out<<r.point;else out<<"null";
+   out<<",\"content_storage\":";if(r.field_mask&UI_OWNERSHIP_STORAGE_KNOWN)out<<r.storage;else out<<"null";
+   out<<",\"packet_mode\":";if(r.mode_known)out<<r.packet_mode;else out<<"null";
+   out<<",\"identity_field_mask\":"<<r.field_mask<<",\"identity_status\":"<<quote(r.identity_status)<<",\"ui_epoch\":"<<r.ui_epoch
+    <<",\"race_lifecycle_generation\":";if(r.race_generation_known)out<<r.race_generation;else out<<"null";
+   out<<",\"draw_callsite_rva\":"<<r.caller_rva<<",\"primitive_type\":"<<r.primitive<<",\"primitive_count\":"<<r.primitive_count
+    <<",\"fvf\":";if(r.fvf_known)out<<r.fvf;else out<<"null";
+   out<<",\"draw_signature_status\":"<<quote(signature)<<",\"textures\":{\"stage0\":{\"pointer\":";if(r.texture0_known)out<<r.texture0;else out<<"null";
+   out<<",\"generation\":";if(r.texture0_generation)out<<r.texture0_generation;else out<<"null";out<<"},\"stage1\":{\"pointer\":";if(r.texture1_known)out<<r.texture1;else out<<"null";
+   out<<",\"generation\":";if(r.texture1_generation)out<<r.texture1_generation;else out<<"null";out<<"}},\"texture_stages\":[";
+   const char* names[]={"stage0_color_op","stage0_alpha_op","stage0_texcoord_index","stage1_color_op","stage1_alpha_op","stage1_texcoord_index"};
+   for(unsigned s=0;s<UI_OWNERSHIP_STAGE_FIELD_COUNT;++s){if(s)out<<',';out<<"{\"name\":"<<quote(names[s])<<",\"value\":";if(r.stage_known[s])out<<r.stage_values[s];else out<<"null";out<<'}';}
+   out<<"],\"forwarded\":"<<(r.forwarded?"true":"false")<<",\"suppressed\":"<<(r.suppressed?"true":"false")<<",\"draw_hresult\":"<<static_cast<uint32_t>(r.draw_hresult)
+    <<",\"owner_mapping_status\":\"unmapped\",\"owner_name\":null}";
+  }
+  out<<']';
+ }
+ out<<'}';
+}
+void UiMargins::finish_ownership_capture(uint64_t frame,const char* end_reason) noexcept {
+ if(!ownership_capture_active_)return;const bool overflow=ownership_draw_drops_||ownership_identity_overflow_;
+ try{std::ostringstream out;out<<"{\"type\":\"ui_ownership_capture_end\",\"schema_version\":1,\"device_id\":"<<device_id_<<",\"capture_id\":"<<(device_id_?quote(trace_capture_id(device_id_,capture_start_frame_)):"null")
+  <<",\"start_frame\":"<<capture_start_frame_<<",\"trace_frame\":"<<capture_trace_frame_<<",\"end_frame_boundary\":"<<frame<<",\"reason\":"<<quote(end_reason?end_reason:"capture_ended")
+  <<",\"complete\":"<<(!overflow&&capture_completed_?"true":"false")<<",\"overflow\":"<<(overflow?"true":"false")<<",\"unmapped\":"<<(ownership_unmapped_draws_?"true":"false")
+  <<",\"coverage_status\":"<<quote(overflow?"overflow":capture_completed_?"complete":"incomplete")<<",\"owner_mapping_status\":\"unmapped\",\"draw_budget\":"<<UI_OWNERSHIP_DRAW_LIMIT
+  <<",\"draw_attempts\":"<<ownership_draw_attempts_<<",\"draw_records\":"<<ownership_draw_count_<<",\"record_drops\":"<<ownership_draw_drops_
+  <<",\"identity_count\":"<<ownership_identity_count_<<",\"identity_registry_overflow\":"<<ownership_identity_overflow_<<",\"unmapped_draws\":"<<ownership_unmapped_draws_<<",\"pause_state_source\":\"manual_capture_label\"}";
+  if(session().write(out.str()))++records_;else ++capture_log_failures_;
+ }catch(...){++capture_log_failures_;}
+ ownership_capture_active_=false;
+}
 void UiMargins::reset_diagnostics() noexcept {
  if(capturing_)finish_capture(capture_trace_frame_,device_id_,"device_reset");reset_capture_local();device_id_=capture_start_frame_=capture_trace_frame_=0;capture_completed_=false;capture_end_reason_="reset";
+ clean_view_eligible_draws_=clean_view_suppressed_draws_=clean_view_forwarded_unverified_draws_=0;
+ clean_view_non_ui_draws_untouched_=clean_view_scope_invalidations_=clean_view_ui_scope_seen_=0;
+ clean_view_ui_draw_candidates_=clean_view_draw_admission_rejections_=0;clean_view_user_requested_=clean_view_context_valid_=false;
+ clean_view_rejected_inflight_=clean_view_rejected_stale_=0;
+ clean_view_reject_snapshot_invalid_=clean_view_reject_scheduler_generation_=clean_view_reject_trace_frame_=0;
+ clean_view_reject_render_thread_=clean_view_reject_device_=clean_view_reject_timestamp_=0;
+ clean_view_reject_ui_scope_=clean_view_reject_scheduler_phase_=0;clean_view_frame_check_=CleanViewFrameCheck{};
+ clean_view_toggle_edge_=clean_view_initial_armed_=false;clean_view_request_disarm_count_=0;
+ clean_view_context_trace_frame_=clean_view_context_scheduler_generation_=0;
+ clean_view_last_admission_reason_="not_requested";clean_view_last_scope_reason_="not_checked";clean_view_context_reason_="not_requested";
+ clean_view_last_draw_rejection_reason_=clean_view_first_draw_rejection_reason_=clean_view_last_disarm_reason_="none";
 }
 void UiMargins::clear_scene_context(const char* why) noexcept {
  scene_family_=-1;scene_family_frame_=scene_family_epoch_=0;scene_family_conflicted_=false;scene_evidence_valid_=false;
@@ -409,8 +550,14 @@ bool UiMargins::enter_consume(uintptr_t entity) noexcept {
  MarginFP fp;
  if(!enabled_||GetCurrentThreadId()!=thread_)return false;
  if(scope_depth_==scopes_.size()){++scope_failures;disable("consumer_scope_overflow");return false;}
- auto& scope=scopes_[scope_depth_++];scope={};scope.capture_active=capturing_;if(capturing_){++capture_packet_consumers_;++packet_consumers_seen;}uintptr_t packet=0;MarginIdentity identity{};float engine[3]{};
- if(!safe_copy(&packet,reinterpret_cast<void*>(entity+0x4c),4)||!read_margin_identity(entity,packet+0x24,identity)||!safe_copy(engine,reinterpret_cast<void*>(identity.point),sizeof(engine))){anchors_.reject(entity);if(capturing_)++capture_identity_invalidations_;return true;}
+ auto& scope=scopes_[scope_depth_++];scope={};scope.capture_active=capturing_;if(capturing_){++capture_packet_consumers_;++packet_consumers_seen;}
+ scope.ownership_entity=entity;scope.ownership_epoch=anchors_.epoch();
+ if(ownership_probe_enabled_)scope.ownership_scope_id=++ownership_next_scope_id_;
+ OwnershipIdentityRead raw{};read_ownership_identity(entity,raw);
+ scope.ownership_packet=raw.packet;scope.ownership_point=raw.point;scope.ownership_storage=raw.storage;scope.ownership_mode=raw.mode;
+ scope.ownership_field_mask=raw.field_mask;scope.ownership_mode_known=(raw.field_mask&UI_OWNERSHIP_MODE_KNOWN)!=0;scope.ownership_identity_status=raw.status;
+ MarginIdentity identity{};float engine[3]{};
+ if(!raw.packet||!read_margin_identity(entity,raw.packet+0x24,identity)||!safe_copy(engine,reinterpret_cast<void*>(identity.point),sizeof(engine))){anchors_.reject(entity);if(capturing_)++capture_identity_invalidations_;return true;}
  auto anchor=anchors_.resolve(identity,engine[0],engine[1],engine[2]);scope.key=identity;scope.anchor=anchor;scope.valid=true;
  scope.first_frame=frame_id_;scope.engine_x=engine[0];scope.engine_y=engine[1];scope.effective_x=engine[0]+half_*anchor.direction;
  int existing=find_observation(identity,anchor.epoch);if(existing>=0){const auto& o=observations_[static_cast<size_t>(existing)];scope.packet_id=o.id;scope.first_frame=o.first;scope.previous_frame=o.last;scope.restored_frame=o.restored;scope.consume_count=o.visits+1;scope.engine_rewrite=o.last&&engine[0]!=o.logical;scope.promotion_status="existing";}
@@ -462,6 +609,56 @@ void UiMargins::leave_consume() noexcept {
   else ++capture_consumers_without_draw_;
  }
  s={};--scope_depth_;if(!scope_depth_&&capturing_&&capture_close_pending_)finish_capture(capture_trace_frame_,device_id_,capture_close_reason_);
+}
+bool UiMargins::consumer_hook_intact() const noexcept {
+ return enabled_&&active==this&&GetCurrentThreadId()==thread_&&patch_.intact(memory);
+}
+bool UiMargins::clean_view_scope_identity(uint64_t& scope_id,uint64_t& identity_id,uint64_t& epoch,const char*& why) noexcept {
+ scope_id=identity_id=epoch=0;why="no_native_consumer_scope";
+ if(!consumer_hook_intact()){why="native_consumer_hook_unowned";return false;}
+ if(!scope_depth_)return false;
+ const auto& scope=scopes_[scope_depth_-1];epoch=scope.ownership_epoch;scope_id=scope.ownership_scope_id;
+ if(!scope.valid||!scope_id||scope.ownership_field_mask!=UI_OWNERSHIP_IDENTITY_COMPLETE||
+    (scope.ownership_mode!=1&&scope.ownership_mode!=2)||epoch!=anchors_.epoch()){
+  why="consumer_identity_incomplete_or_stale";return false;
+ }
+ OwnershipIdentityRead current{};
+ if(!read_ownership_identity(scope.ownership_entity,current)||!current.complete||current.field_mask!=scope.ownership_field_mask||
+    current.packet!=scope.ownership_packet||current.point!=scope.ownership_point||current.storage!=scope.ownership_storage||current.mode!=scope.ownership_mode){
+  why="consumer_identity_changed";return false;
+ }
+ bool overflow=false;identity_id=ownership_identity_id(scope,overflow);
+ if(!identity_id){why=overflow?"consumer_identity_registry_overflow":"consumer_identity_unregistered";return false;}
+ why="current_verified_native_consumer";return true;
+}
+void UiMargins::note_clean_view_draw(bool eligible,bool suppressed,bool requested,bool draw_requested,bool ui_callsite,bool scope_invalidated,
+ const char* admission_reason,const char* scope_reason,bool context_valid,const char* context_reason,
+ bool toggle_edge,bool initial_armed,uint64_t disarm_count,const char* disarm_reason,bool consumer_scope_seen,
+ uint64_t context_trace_frame,uint64_t context_scheduler_generation,const CleanViewFrameCheck& frame_check) noexcept {
+ clean_view_user_requested_=requested;clean_view_toggle_edge_=toggle_edge;clean_view_initial_armed_=initial_armed;
+ clean_view_request_disarm_count_=disarm_count;clean_view_last_disarm_reason_=disarm_reason?disarm_reason:"none";
+ if(eligible)++clean_view_eligible_draws_;
+ if(suppressed)++clean_view_suppressed_draws_;
+ if(clean_view_draw_rejected(draw_requested,ui_callsite,eligible))++clean_view_forwarded_unverified_draws_;
+ if(draw_requested&&!ui_callsite)++clean_view_non_ui_draws_untouched_;
+ if(ui_callsite){clean_view_context_valid_=context_valid;clean_view_context_reason_=context_reason?context_reason:"unknown";
+  clean_view_context_trace_frame_=context_trace_frame;clean_view_context_scheduler_generation_=context_scheduler_generation;
+  clean_view_frame_check_=frame_check;
+  if(draw_requested&&!context_valid&&!frame_check.valid){if(frame_check.scheduler_depth)++clean_view_rejected_inflight_;else ++clean_view_rejected_stale_;
+   const char* why=frame_check.reason;
+   if(!std::strcmp(why,"snapshot_invalid")||!std::strcmp(why,"snapshot_identity_incomplete"))++clean_view_reject_snapshot_invalid_;
+   else if(!std::strcmp(why,"scheduler_generation_mismatch"))++clean_view_reject_scheduler_generation_;
+   else if(!std::strcmp(why,"trace_frame_mismatch"))++clean_view_reject_trace_frame_;
+   else if(!std::strcmp(why,"render_thread_mismatch"))++clean_view_reject_render_thread_;
+   else if(!std::strcmp(why,"device_mismatch"))++clean_view_reject_device_;
+   else if(!std::strcmp(why,"snapshot_timestamp_stale"))++clean_view_reject_timestamp_;
+   else if(!std::strcmp(why,"native_ui_scope_missing"))++clean_view_reject_ui_scope_;
+   else ++clean_view_reject_scheduler_phase_;}
+  ++clean_view_ui_draw_candidates_;if(consumer_scope_seen)++clean_view_ui_scope_seen_;}
+ if(clean_view_draw_rejected(draw_requested,ui_callsite,eligible)){++clean_view_draw_admission_rejections_;clean_view_last_draw_rejection_reason_=admission_reason?admission_reason:"unknown";
+  if(!std::strcmp(clean_view_first_draw_rejection_reason_,"none"))clean_view_first_draw_rejection_reason_=admission_reason?admission_reason:"unknown";}
+ if(scope_invalidated)++clean_view_scope_invalidations_;
+ if(ui_callsite){clean_view_last_admission_reason_=admission_reason?admission_reason:"unknown";clean_view_last_scope_reason_=scope_reason?scope_reason:"unknown";}
 }
 MarginDrawDecision UiMargins::draw_decision(bool verified_ui_draw,const CarouselRowDraw& draw) noexcept {
  MarginFP fp;MarginDrawDecision d;d.carousel_row_reason=carousel_alignment_requested_&&!carousel_exact_profile_?"exact_profile_unsupported":"feature_disabled";
@@ -620,6 +817,44 @@ std::string UiMargins::json() const {
   <<",\"carousel_row_nonleft_draws_matched\":"<<carousel_row_nonleft_draws_matched_
   <<",\"scene_context_same_frame_uses\":"<<scene_context_same_frame_uses_<<",\"scene_context_previous_frame_uses\":"<<scene_context_previous_frame_uses_<<",\"scene_context_rejections\":"<<scene_context_rejections_
   <<",\"installed\":"<<(patch_.installed()?"true":"false")<<",\"enabled\":"<<(enabled_?"true":"false")<<",\"reason\":"<<quote(reason)
+  <<",\"clean_view_eligible_draws\":"<<clean_view_eligible_draws_<<",\"clean_view_suppressed_draws\":"<<clean_view_suppressed_draws_
+  <<",\"clean_view_forwarded_unverified_draws\":"<<clean_view_forwarded_unverified_draws_<<",\"clean_view_non_ui_draws_untouched\":"<<clean_view_non_ui_draws_untouched_
+  <<",\"clean_view_user_requested\":"<<(clean_view_user_requested_?"true":"false")<<",\"clean_view_context_valid\":"<<(clean_view_context_valid_?"true":"false")
+  <<",\"clean_view_context_reason\":"<<quote(clean_view_context_reason_)<<",\"clean_view_toggle_edge_detected\":"<<(clean_view_toggle_edge_?"true":"false")
+  <<",\"clean_view_initial_armed\":"<<(clean_view_initial_armed_?"true":"false")<<",\"clean_view_ui_scope_seen\":"<<clean_view_ui_scope_seen_
+  <<",\"clean_view_context_trace_frame\":"<<clean_view_context_trace_frame_<<",\"clean_view_context_scheduler_generation\":"<<clean_view_context_scheduler_generation_
+  <<",\"clean_view_current_trace_frame_at_draw\":"<<clean_view_frame_check_.current_trace_frame
+  <<",\"clean_view_snapshot_trace_frame_at_draw\":"<<clean_view_frame_check_.snapshot_trace_frame
+  <<",\"clean_view_current_scheduler_generation_at_draw\":"<<clean_view_frame_check_.current_scheduler_generation
+  <<",\"clean_view_snapshot_scheduler_generation_at_draw\":"<<clean_view_frame_check_.snapshot_scheduler_generation
+  <<",\"clean_view_scheduler_phase\":"<<quote(clean_view_frame_check_.phase)
+  <<",\"clean_view_scheduler_depth\":"<<clean_view_frame_check_.scheduler_depth
+  <<",\"clean_view_snapshot_valid\":"<<(clean_view_frame_check_.snapshot_valid?"true":"false")
+  <<",\"clean_view_snapshot_completed\":"<<(clean_view_frame_check_.snapshot_completed?"true":"false")
+  <<",\"clean_view_scheduler_generation_match\":"<<(clean_view_frame_check_.scheduler_generation_match?"true":"false")
+  <<",\"clean_view_trace_frame_match\":"<<(clean_view_frame_check_.trace_frame_match?"true":"false")
+  <<",\"clean_view_render_thread_match\":"<<(clean_view_frame_check_.render_thread_match?"true":"false")
+  <<",\"clean_view_device_match\":"<<(clean_view_frame_check_.device_match?"true":"false")
+  <<",\"clean_view_snapshot_age_ms\":"<<clean_view_frame_check_.snapshot_age_ms
+  <<",\"clean_view_ui_scope_valid\":"<<(clean_view_frame_check_.ui_scope_valid?"true":"false")
+  <<",\"clean_view_context_reason_detail\":"<<quote(clean_view_frame_check_.reason)
+  <<",\"clean_view_rejected_inflight\":"<<clean_view_rejected_inflight_
+  <<",\"clean_view_rejected_stale\":"<<clean_view_rejected_stale_
+  <<",\"clean_view_reject_snapshot_invalid\":"<<clean_view_reject_snapshot_invalid_
+  <<",\"clean_view_reject_scheduler_generation\":"<<clean_view_reject_scheduler_generation_
+  <<",\"clean_view_reject_trace_frame\":"<<clean_view_reject_trace_frame_
+  <<",\"clean_view_reject_render_thread\":"<<clean_view_reject_render_thread_
+  <<",\"clean_view_reject_device\":"<<clean_view_reject_device_
+  <<",\"clean_view_reject_timestamp\":"<<clean_view_reject_timestamp_
+  <<",\"clean_view_reject_ui_scope\":"<<clean_view_reject_ui_scope_
+  <<",\"clean_view_reject_scheduler_phase\":"<<clean_view_reject_scheduler_phase_
+  <<",\"clean_view_counter_scope\":\"cumulative_since_diagnostics_reset\""
+  <<",\"clean_view_ui_draw_candidates\":"<<clean_view_ui_draw_candidates_<<",\"clean_view_draw_admission_rejections\":"<<clean_view_draw_admission_rejections_
+  <<",\"clean_view_first_draw_rejection_reason\":"<<quote(clean_view_first_draw_rejection_reason_)
+  <<",\"clean_view_last_draw_rejection_reason\":"<<quote(clean_view_last_draw_rejection_reason_)
+  <<",\"clean_view_request_disarm_count\":"<<clean_view_request_disarm_count_<<",\"clean_view_last_disarm_reason\":"<<quote(clean_view_last_disarm_reason_)
+  <<",\"clean_view_scope_invalidations\":"<<clean_view_scope_invalidations_<<",\"clean_view_last_admission_reason\":"<<quote(clean_view_last_admission_reason_)
+  <<",\"clean_view_last_scope_reason\":"<<quote(clean_view_last_scope_reason_)
   <<",\"half_extra\":"<<half_<<",\"restore_boundary\":\"immediate_native_draw_return\",\"capture_active\":"<<(capturing_?"true":"false")
   <<",\"capture_id\":"<<(capturing_&&device_id_?quote(trace_capture_id(device_id_,capture_start_frame_)):"null")<<",\"capture_start_frame\":"<<capture_start_frame_
   <<",\"trace_frame\":"<<capture_trace_frame_<<",\"capture_frame_index\":"<<(capture_trace_frame_>=capture_start_frame_?capture_trace_frame_-capture_start_frame_:0)
@@ -634,7 +869,8 @@ std::string UiMargins::json() const {
   <<",\"max_draw_observations_per_packet\":"<<UI_PACKET_DRAW_OBSERVATION_LIMIT<<",\"render_draws\":"<<render_draws
   <<",\"native_writes\":"<<native_writes<<",\"restore_exact\":"<<restore_exact<<",\"restore_failures\":"<<restore_failures
   <<",\"restore_pending\":"<<(restore_pending_?"true":"false")<<",\"world_read_failed\":"<<world_read_failed
-  <<",\"temporary_set_failed\":"<<temporary_set_failed<<",\"scope_failures\":"<<scope_failures<<'}';
+  <<",\"temporary_set_failed\":"<<temporary_set_failed<<",\"scope_failures\":"<<scope_failures<<",\"ui_ownership_probe\":";
+ ownership_capture_json(o,capturing_&&ownership_capture_active_);o<<'}';
  return o.str();
 }
 uintptr_t detail::ui_packet_entity_for_contract() noexcept {return contract_entity;}

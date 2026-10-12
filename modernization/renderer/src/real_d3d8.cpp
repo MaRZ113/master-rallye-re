@@ -2,6 +2,7 @@
 #include <new>
 #include <intrin.h>
 #include "legacy_attract_guard.hpp"
+#include "broker_null_guard.hpp"
 namespace {
 using Factory=IDirect3D8*(WINAPI*)(UINT);
 using VertexValidator=HRESULT(WINAPI*)(const DWORD*,const DWORD*,const D3DCAPS8*,BOOL,char**);
@@ -27,9 +28,11 @@ extern "C" IDirect3D8* WINAPI ProxyDirect3DCreate8(UINT sdk){
  ensure();if(!factory)return nullptr;
  IDirect3D8* raw=factory(sdk);
  try{gfx2::session().write("{\"type\":\"Direct3DCreate8\",\"sdk_version\":"+std::to_string(sdk)+",\"native_pointer\":"+std::to_string(reinterpret_cast<uintptr_t>(raw))+"}");}catch(...){}
- if(!raw)return nullptr;gfx2::Root8* wrapped=nullptr;
+ if(!raw)return nullptr;
+ if(!gfx2::install_broker_null_guards(reinterpret_cast<uintptr_t>(_ReturnAddress()))){raw->Release();return nullptr;}
+ gfx2::Root8* wrapped=nullptr;
  try{wrapped=new(std::nothrow)gfx2::Root8(raw);}catch(...){}
- if(!wrapped)raw->Release();return wrapped;
+ if(!wrapped){gfx2::restore_broker_null_guards();raw->Release();}return wrapped;
 }
 extern "C" HRESULT WINAPI ProxyValidateVertexShader(const DWORD* code,const DWORD* declaration,const D3DCAPS8* caps,BOOL errors,char** output){ensure();return vertex?vertex(code,declaration,caps,errors,output):D3DERR_NOTAVAILABLE;}
 extern "C" HRESULT WINAPI ProxyValidatePixelShader(const DWORD* code,const D3DCAPS8* caps,BOOL errors,char** output){ensure();return pixel?pixel(code,caps,errors,output):D3DERR_NOTAVAILABLE;}

@@ -8,7 +8,7 @@ namespace gfx2 {
 // Native discovery and structural reads remain separate from camera permission.
 enum class RaceEvent : uint32_t {Request, Queue, ExecuteBegin, Commit, ExecuteEnd,
  OpenError, ReadError, OwnerAttach, OwnerInitialized, OwnerLive, Retire, Destroy,
- Reset, Release, Rejected};
+ DeviceReset, Reset, Release, Rejected};
 enum class RacePhase {Unknown, Requested, Executing, AwaitingOwner, Failed, Revoked};
 struct RaceTransition {
  uint64_t serial=0, generation=0, job_lifetime=0, owner_lifetime=0;
@@ -67,6 +67,9 @@ public:
  void initialized(uint32_t actor,uint32_t ai,bool valid) noexcept;
  void admitted(uint32_t actor,bool valid) noexcept;
  void retire(uint32_t actor,bool destroyed) noexcept;
+ // Graphics Reset invalidates camera/device scope, but a completed native
+ // race proof may survive. In-progress or incomplete lifecycles are revoked.
+ bool device_reset() noexcept;
  void cancel(RaceEvent event,const char* why) noexcept;
  void reject(const char* why,bool permanent=false,uint32_t observed_job=0) noexcept;
  const RaceJob* find(uint32_t pointer) const noexcept;
@@ -105,9 +108,13 @@ inline constexpr std::array<uint32_t,9> RACE_CONTEXT_TAGS={2,2,2,0,0,0,0,2,2};
 bool race_pool_text(RaceReadMemory& m,uint32_t base,uint32_t id,char* text,size_t capacity) noexcept;
 bool race_pool_id(RaceReadMemory& m,uint32_t base,const char* text,uint32_t& id) noexcept;
 RaceScalar race_broker_scalar(RaceReadMemory& m,uint32_t base,uint32_t id,uint32_t tag) noexcept;
+RaceScalar race_broker_bool(RaceReadMemory& m,uint32_t base,const char* key) noexcept;
 RaceOwnerRead read_race_owner(RaceReadMemory& m,uint32_t base,const RaceOwner& identity,uint64_t current_generation) noexcept;
 struct RaceContextCheck {bool supported=false;const char* reason="context_incomplete";};
 RaceContextCheck check_race_context(const std::array<RaceScalar,9>& fields,const RaceOwnerRead& owner) noexcept;
+struct RaceHudContextCheck {bool supported=false,replay=false;const char* reason="context_incomplete";};
+// HUD-only replay allowance. The camera/race-write certificate remains strict.
+RaceHudContextCheck check_race_hud_context(const std::array<RaceScalar,9>& fields,const RaceOwnerRead& owner) noexcept;
 
 struct RacePatchUnit {
  void* address=nullptr;size_t size=0;
@@ -145,14 +152,28 @@ private:
 };
 bool install_race_observer(bool exact_retail,bool trace_enabled) noexcept;
 void release_race_observer() noexcept;
-void reset_race_observer() noexcept;
+bool device_reset_race_observer() noexcept;
 struct RaceCertificate {
  bool valid=false;const char* reason="observer_unavailable";
+ bool single_human_car_race=false;
  uint64_t race_generation=0,owner_lifetime=0;uint32_t actor=0,ai=0,camera=0;
+ uint32_t participant_count=0,human_participant_index=UINT32_MAX;
+ int32_t human_participant_player_type=-1;bool human_participant_identity_verified=false;
 };
+struct RaceHudContext {
+ bool valid=false,pause_known=false,paused=false,replay=false;
+ uint64_t race_generation=0,owner_lifetime=0;
+ const char* reason="observer_unavailable";
+};
+// Read-only, camera-independent certificate for the native race UI stream.
+// This is deliberately separate from the France1 camera-write certificate.
+bool race_hud_scene_proven(const RaceEpoch&) noexcept;
+bool race_hud_player_running(const RaceOwnerRead&,uint32_t participant_index) noexcept;
+RaceHudContext live_race_hud_context() noexcept;
 RaceCertificate check_live_race_certificate(const RaceEpoch&,const RaceOwnerRead&,
  const std::array<RaceScalar,9>&,bool camera_identity_valid,uint32_t camera) noexcept;
 RaceCertificate live_race_certificate(uintptr_t camera) noexcept;
+RaceScalar read_pause_menu_state_readonly() noexcept;
 // Called only by the existing F10 writer, not a second hotkey controller.
 std::string race_epoch_capture_json(uint64_t device,uint64_t frame,
  bool input_observed=false,bool toggle_focused=false,bool toggle_pressed=false,

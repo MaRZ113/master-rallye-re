@@ -1,4 +1,6 @@
 #include "quality.hpp"
+#include "free_camera.hpp"
+#include "physics_probe.hpp"
 #include "menu_freeze.hpp"
 #include "ui_margins.hpp"
 #include "margin_rules.hpp"
@@ -25,6 +27,14 @@ namespace gfx2::detail {struct UiMarginsContract {
  static SceneContextDecision scene_context(const UiMargins& ui){return ui.scene_context_for_draw();}
  static uint64_t carousel_promotions(const UiMargins& ui){return ui.anchors_.carousel_promotions;}
  static uint64_t carousel_overrides(const UiMargins& ui){return ui.carousel_override_draws_;}
+ static unsigned ownership_draw_count(const UiMargins& ui){return ui.ownership_draw_count_;}
+ static uint64_t ownership_draw_drops(const UiMargins& ui){return ui.ownership_draw_drops_;}
+ static uint64_t ownership_unmapped_draws(const UiMargins& ui){return ui.ownership_unmapped_draws_;}
+ static uint64_t ownership_scope_id(const UiMargins& ui,unsigned i){return ui.ownership_draws_[i].consumer_scope_id;}
+ static uint64_t ownership_identity_id(const UiMargins& ui,unsigned i){return ui.ownership_draws_[i].identity_id;}
+ static uint32_t ownership_packet_mode(const UiMargins& ui,unsigned i){return ui.ownership_draws_[i].packet_mode;}
+ static const char* ownership_status(const UiMargins& ui,unsigned i){return ui.ownership_draws_[i].identity_status;}
+ static uint64_t ownership_epoch(const UiMargins& ui,unsigned i){return ui.ownership_draws_[i].ui_epoch;}
 };}
 struct Windows:WindowApi {
  std::function<void()> on_apply;
@@ -90,6 +100,46 @@ void carousel_ini_config(){
  auto config=read_visual_config(path);CHECK(config.interface_mode=="PreserveMargins");
  for(auto old:{L"0",L"invalid"}){CHECK(WritePrivateProfileStringW(L"Widescreen",L"CarouselAlignment",old,path));config=read_visual_config(path);
   CHECK(config.interface_mode=="PreserveMargins"&&config.raw_fields.count("Widescreen.CarouselAlignment")==0);}
+ CHECK(DeleteFileW(path));
+}
+void road_teleport_ini_config(){
+ wchar_t directory[MAX_PATH]{},path[MAX_PATH]{};CHECK(GetTempPathW(MAX_PATH,directory)>0&&GetTempFileNameW(directory,L"mrr",0,path));
+ const auto put=[&](const wchar_t* section,const wchar_t* key,const wchar_t* value){CHECK(WritePrivateProfileStringW(section,key,value,path));};
+ put(L"Renderer",L"ConfigVersion",L"1");
+ put(L"FreeCamera",L"Enabled",L"1");
+ put(L"FreeCamera",L"VehicleTeleportEnabled",L"1");
+ put(L"FreeCamera",L"VehicleTeleportRoadOnly",L"1");
+ put(L"FreeCamera",L"VehicleTeleportArmTimeoutSeconds",L"75");
+ put(L"FreeCamera",L"VehicleTeleportMaxRoadDistance",L"18.5");
+ put(L"FreeCameraKeys",L"ArmRoadTeleport",L"T");
+ put(L"PhysicsObserver",L"Enabled",L"1");
+ put(L"PhysicsObserver",L"RoadTargetPreviewEnabled",L"1");
+ put(L"PhysicsObserver",L"RoadTargetPreviewRadius",L"55.0");
+ auto visual=read_visual_config(path);auto flight=parse_free_camera_config(visual.raw_fields);
+ auto forwarded=forward_free_camera_teleport_settings(read_physics_probe_settings(path),flight);
+ CHECK(flight.enabled&&flight.vehicle_teleport_enabled&&flight.vehicle_teleport_road_only);
+ CHECK(flight.vehicle_teleport_arm_timeout_seconds==75&&std::abs(flight.vehicle_teleport_max_road_distance-18.5f)<.001f&&flight.arm_road_teleport=='T');
+ CHECK(forwarded.valid&&forwarded.enabled&&forwarded.road_target_preview_enabled&&std::abs(forwarded.road_target_preview_radius-55.0)<.001);
+ CHECK(forwarded.road_teleport_requested&&forwarded.road_teleport_road_only&&forwarded.road_teleport_enabled);
+ CHECK(forwarded.road_teleport_arm_timeout_seconds==75&&std::abs(forwarded.road_teleport_max_distance-18.5)<.001);
+
+ // The dedicated PhysicsObserver settings remain loaded from their own INI section.
+ CHECK(visual.raw_fields.count("FreeCamera.VehicleTeleportEnabled")!=0);
+ CHECK(visual.raw_fields.count("FreeCamera.VehicleTeleportRoadOnly")!=0);
+ CHECK(visual.raw_fields.count("FreeCamera.VehicleTeleportArmTimeoutSeconds")!=0);
+ CHECK(visual.raw_fields.count("FreeCamera.VehicleTeleportMaxRoadDistance")!=0);
+ CHECK(visual.raw_fields.count("FreeCameraKeys.ArmRoadTeleport")!=0);
+
+ // A missing request retains the parser's safe-off default; a requested
+ // non-road mode remains requested but is never forwarded as effective.
+ CHECK(WritePrivateProfileStringW(L"FreeCamera",L"VehicleTeleportEnabled",nullptr,path));
+ visual=read_visual_config(path);flight=parse_free_camera_config(visual.raw_fields);
+ forwarded=forward_free_camera_teleport_settings(read_physics_probe_settings(path),flight);
+ CHECK(!flight.vehicle_teleport_enabled&&!forwarded.road_teleport_requested&&!forwarded.road_teleport_enabled);
+ put(L"FreeCamera",L"VehicleTeleportEnabled",L"1");put(L"FreeCamera",L"VehicleTeleportRoadOnly",L"0");
+ visual=read_visual_config(path);flight=parse_free_camera_config(visual.raw_fields);
+ forwarded=forward_free_camera_teleport_settings(read_physics_probe_settings(path),flight);
+ CHECK(forwarded.road_teleport_requested&&!forwarded.road_teleport_road_only&&!forwarded.road_teleport_enabled);
  CHECK(DeleteFileW(path));
 }
 void numeric_configs(){
@@ -383,6 +433,33 @@ void margin_consumer_retention(){
  CHECK(consume(565,75)>100);ui.scene_context(false);ui.scene_context(true);CHECK(consume(300,300)==0);
  std::cout<<"Production packet read-only context / repeated native WORLD copy / immediate exact restore: PASS\n";
 }
+void ui_ownership_probe_contracts(){
+ UiFixture f,other;UiMargins ui;detail::UiMarginsContract::enable(ui);ui.configure_ownership_probe(true,true);
+ UiOwnershipDrawState state{};state.fvf_known=true;state.fvf=0x142;state.texture0_known=true;state.texture0=0x1111;
+ state.stage_known[0]=1;state.stage_values[0]=D3DTOP_MODULATE;
+ auto draw=[&](uint64_t frame){ui.observe_ownership_draw(frame,true,9,UI_DRAW_RETURN_RVA,D3DPT_TRIANGLELIST,1,state,true,false,S_OK);};
+ ui.capture_window(true,50,7);CHECK(ui.enter_consume(f.owner));draw(50);uint64_t outer_id=detail::UiMarginsContract::ownership_identity_id(ui,0),outer_scope=detail::UiMarginsContract::ownership_scope_id(ui,0);
+ CHECK(outer_id==1&&outer_scope==1);
+ CHECK(ui.enter_consume(other.owner));draw(50);CHECK(detail::UiMarginsContract::ownership_identity_id(ui,1)==2&&detail::UiMarginsContract::ownership_scope_id(ui,1)==2);
+ ui.leave_consume();draw(50);CHECK(detail::UiMarginsContract::ownership_identity_id(ui,2)==outer_id&&detail::UiMarginsContract::ownership_scope_id(ui,2)==outer_scope);ui.leave_consume();
+ f.mode=7;std::memcpy(f.packet.data()+0x68,&f.mode,4);CHECK(ui.enter_consume(f.owner));draw(50);CHECK(detail::UiMarginsContract::ownership_packet_mode(ui,3)==7&&detail::UiMarginsContract::ownership_identity_id(ui,3)!=0);
+ CHECK(!std::strcmp(detail::UiMarginsContract::ownership_status(ui,3),"validated_current_unrecognized_mode"));ui.leave_consume();
+ // Replacing the entity's packet after consumer entry is recorded as a mismatch, never reassociated.
+ f.mode=1;std::memcpy(f.packet.data()+0x68,&f.mode,4);CHECK(ui.enter_consume(f.owner));uintptr_t other_packet=other.pp;std::memcpy(f.entity.data()+0x4c,&other_packet,4);draw(50);
+ CHECK(!detail::UiMarginsContract::ownership_identity_id(ui,4)&&!std::strcmp(detail::UiMarginsContract::ownership_status(ui,4),"identity_changed_within_native_scope"));ui.leave_consume();
+ uintptr_t null_packet=0;std::memcpy(f.entity.data()+0x4c,&null_packet,4);CHECK(ui.enter_consume(f.owner));draw(50);CHECK(!detail::UiMarginsContract::ownership_identity_id(ui,5)&&!std::strcmp(detail::UiMarginsContract::ownership_status(ui,5),"null_packet_pointer"));ui.leave_consume();
+ std::memcpy(f.entity.data()+0x4c,&f.pp,4);ui.reset_anchors("synthetic_ui_epoch");CHECK(ui.enter_consume(f.owner));draw(50);uint64_t new_epoch_id=detail::UiMarginsContract::ownership_identity_id(ui,6);
+ CHECK(new_epoch_id&&new_epoch_id!=outer_id&&detail::UiMarginsContract::ownership_epoch(ui,6)!=detail::UiMarginsContract::ownership_epoch(ui,0));ui.leave_consume();
+ CHECK(detail::UiMarginsContract::ownership_draw_count(ui)==7&&detail::UiMarginsContract::ownership_unmapped_draws(ui)>=2);
+ ui.capture_window(false,51,7,"present");ui.capture_window(true,52,7);CHECK(ui.enter_consume(f.owner));draw(52);
+ CHECK(detail::UiMarginsContract::ownership_scope_id(ui,0)==1&&detail::UiMarginsContract::ownership_identity_id(ui,0)==1);ui.leave_consume();ui.capture_window(false,53,7,"present");
+ // Exact fixed budgets reject excess rows and report overflow without changing native draws.
+ ui.capture_window(true,54,7);for(unsigned i=0;i<UI_OWNERSHIP_DRAW_LIMIT+1;++i){CHECK(ui.enter_consume(f.owner));draw(54);ui.leave_consume();}
+ CHECK(detail::UiMarginsContract::ownership_draw_count(ui)==UI_OWNERSHIP_DRAW_LIMIT&&detail::UiMarginsContract::ownership_draw_drops(ui)==1);
+ auto json=ui.json();CHECK(json.find("\"coverage_status\":\"overflow\"")!=std::string::npos&&json.find("\"owner_mapping_status\":\"unmapped\"")!=std::string::npos);
+ ui.capture_window(false,55,7,"present");
+ std::cout<<"F10 UI ownership scope nesting/correlation, unknown modes, stale/missing identities, epoch reuse, capture-local IDs and bounded overflow: PASS\n";
+}
 void render_local_ui_contracts(){
   for(int direction:{-1,1}){UiFixture f;UiMargins ui;detail::UiMarginsContract::enable(ui);ui.dimensions(1734,480);ui.capture_window(true,1);UiNative native;Trace trace;uint64_t id=0;
   for(int frame=0;frame<30;++frame){int animation_step=frame<10?frame:frame<20?9:frame-10;f.point[0]=(direction>0?565.f:23.f)-animation_step*3.f;f.point[1]=(direction>0?75.f:370.f)+animation_step*.1f;f.cached_transform[12]=f.point[0];f.cached_transform[13]=f.point[1];auto bytes=f.packet;auto cache=f.cached_transform;
@@ -408,14 +485,16 @@ void render_local_ui_contracts(){
 static volatile unsigned char synthetic_caller_image_extent[0x180000];
 void render_local_wrapper_contract(){
  synthetic_caller_image_extent[0]=1;UiNative native;Root raw;auto* root=new Root8(&raw);auto policy=std::make_unique<QualityPipeline>();auto* device=new Device8(&native,root,std::move(policy));
- device->quality->config.interface_mode="PreserveMargins";device->quality->ui_projection_live=true;detail::UiMarginsContract::enable(device->ui_margins);
- device->trace.control.pending=true;CHECK(device->Present(nullptr,nullptr,nullptr,nullptr)==S_OK);device->ui_margins.dimensions(1734,480);
+ device->quality->config.interface_mode="PreserveMargins";device->quality->ui_projection_live=true;detail::UiMarginsContract::enable(device->ui_margins);device->ui_margins.configure_ownership_probe(true,true);
+  device->trace.control.pending=true;CHECK(device->Present(nullptr,nullptr,nullptr,nullptr)==S_OK);device->ui_margins.capture_window(true,device->trace.frame_number(),device->trace.device_id());device->ui_margins.dimensions(1734,480);
  UiFixture f;auto bytes=f.packet;CHECK(device->ui_margins.enter_consume(f.owner));D3DMATRIX identity{};identity._11=identity._22=identity._33=identity._44=1;
  device->trace.shadow.bindings.vertex_shader.set(0x142);device->trace.effective_shadow.matrices[D3DTS_VIEW].set(identity);native.world._41=565;auto original=native.world;
  device->trace.shadow.matrices[D3DTS_WORLD].set(original);device->trace.effective_shadow.matrices[D3DTS_WORLD].set(original);
  uintptr_t pc=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+UI_DRAW_RETURN_RVA;
  CHECK(device->draw_primitive_at(D3DPT_TRIANGLELIST,0,1,pc)==S_OK&&native.observed==1112&&native.sets==2&&native.draws==1&&f.packet==bytes&&native.world._41==565);
- auto stock=[&](uintptr_t caller,D3DPRIMITIVETYPE type){auto sets=native.sets,draws=native.draws;CHECK(device->draw_primitive_at(type,0,1,caller)==S_OK&&native.sets==sets&&native.draws==draws+1&&native.observed==565&&f.packet==bytes);};
+  CHECK(detail::UiMarginsContract::ownership_draw_count(device->ui_margins)==1&&detail::UiMarginsContract::ownership_identity_id(device->ui_margins,0)!=0);
+  auto ownership_json=device->ui_margins.json();CHECK(ownership_json.find("\"draw_sequence\":1")!=std::string::npos&&ownership_json.find("\"owner_mapping_status\":\"unmapped\"")!=std::string::npos);
+  auto stock=[&](uintptr_t caller,D3DPRIMITIVETYPE type){auto sets=native.sets,draws=native.draws;CHECK(device->draw_primitive_at(type,0,1,caller)==S_OK&&native.sets==sets&&native.draws==draws+1&&native.observed==565&&f.packet==bytes);};
  stock(pc+1,D3DPT_TRIANGLELIST);stock(pc,D3DPT_LINELIST);device->trace.shadow.bindings.vertex_shader.set(0x152);stock(pc,D3DPT_TRIANGLELIST);device->trace.shadow.bindings.vertex_shader.set(0x142);
  device->quality->ui_projection_live=false;stock(pc,D3DPT_TRIANGLELIST);device->quality->ui_projection_live=true;
  device->trace.effective_shadow.matrices[D3DTS_VIEW].value._41=1;stock(pc,D3DPT_TRIANGLELIST);device->trace.effective_shadow.matrices[D3DTS_VIEW].set(identity);
@@ -475,7 +554,7 @@ void ui_carousel_alignment_automatic(){
  synthetic_caller_image_extent[0]=1;
  for(const auto dimensions:std::vector<std::pair<UINT,UINT>>{{1024,768},{1920,1080},{2560,1080},{1734,480}}){
   UiNative native;Root raw;auto* root=new Root8(&raw);auto policy=std::make_unique<QualityPipeline>();auto* device=new Device8(&native,root,std::move(policy));
-  device->quality->config.interface_mode="PreserveMargins";device->quality->ui_projection_live=true;detail::UiMarginsContract::enable(device->ui_margins);
+  device->quality->config.interface_mode="PreserveMargins";device->quality->ui_projection_live=true;detail::UiMarginsContract::enable(device->ui_margins);device->ui_margins.configure_ownership_probe(true,true);
   device->ui_margins.configure_carousel_alignment(true,true);device->ui_margins.dimensions(dimensions.first,dimensions.second);
   const uint64_t synthetic_device_id=100+dimensions.first;device->ui_margins.capture_window(true,1,synthetic_device_id);
   D3DMATRIX identity{};identity._11=identity._22=identity._33=identity._44=1;device->trace.shadow.bindings.vertex_shader.set(0x142);device->trace.effective_shadow.matrices[D3DTS_VIEW].set(identity);
@@ -1036,4 +1115,4 @@ void quality_fpu(){
  flags=fetestexcept(FE_ALL_EXCEPT);ui_projection_dimensions(matrix,1920,1080,out);CHECK(fegetround()==FE_DOWNWARD&&fetestexcept(FE_ALL_EXCEPT)==flags);fesetenv(&saved);
  fegetenv(&saved);fesetround(FE_DOWNWARD);D3DMATRIX source{};source._22=float(1/std::tan((45./(16./9))*3.14159265358979323846/360.));source._11=source._22/float(16./9);source._33=1.01f;source._34=1;source._43=-.2f;flags=fetestexcept(FE_ALL_EXCEPT);CHECK(camera_scene_family(source)==0&&fegetround()==FE_DOWNWARD&&fetestexcept(FE_ALL_EXCEPT)==flags);fesetenv(&saved);
 }
-int main(){try{configs();carousel_ini_config();numeric_configs();trace_numeric_configs();reset_echo_shutdown();preview_cursor_packets();displays();display_transactions();windowed_live_resize();windowed_startup_order();windowed_maximize_restore();stable_margin_anchors();margin_short_grace();margin_consumer_retention();margin_candidate_diagnostics();render_local_ui_contracts();render_local_wrapper_contract();ui_carousel_draw_diagnostics();ui_carousel_alignment_automatic();ui_carousel_motion_diagnostics_only();ui_carousel_row_geometry();ui_carousel_frontend_scene_phase();ui_diagnostic_selection_is_order_independent();antialiasing();exclusive_lifecycle();exclusive_restore_order();game_window_owner_read();viewports_ui();freeze_and_patch();native_window();native_display_ordering();standard_hook_free_contract();wrapper_trace();validated_ui_wrapper();ui_native_abi();packet_consumer_abi();quality_fpu();std::cout<<"R-GFX5 config/display/viewport/UI/MSAA/Reset/freeze/hidden HWND/native bridge contracts: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}
+int main(){try{configs();carousel_ini_config();road_teleport_ini_config();numeric_configs();trace_numeric_configs();reset_echo_shutdown();preview_cursor_packets();displays();display_transactions();windowed_live_resize();windowed_startup_order();windowed_maximize_restore();stable_margin_anchors();margin_short_grace();margin_consumer_retention();ui_ownership_probe_contracts();margin_candidate_diagnostics();render_local_ui_contracts();render_local_wrapper_contract();ui_carousel_draw_diagnostics();ui_carousel_alignment_automatic();ui_carousel_motion_diagnostics_only();ui_carousel_row_geometry();ui_carousel_frontend_scene_phase();ui_diagnostic_selection_is_order_independent();antialiasing();exclusive_lifecycle();exclusive_restore_order();game_window_owner_read();viewports_ui();freeze_and_patch();native_window();native_display_ordering();standard_hook_free_contract();wrapper_trace();validated_ui_wrapper();ui_native_abi();packet_consumer_abi();quality_fpu();std::cout<<"R-GFX5 config/display/viewport/UI/MSAA/Reset/freeze/hidden HWND/native bridge contracts: PASS\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}

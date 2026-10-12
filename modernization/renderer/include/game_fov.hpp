@@ -1,8 +1,10 @@
 #pragma once
 #include "visual_policy.hpp"
+#include "clean_view.hpp"
 #include <array>
 #include <cstdint>
 namespace gfx2 {
+class Trace;
 inline constexpr uint32_t SUBMIT_CALL_RVA=0x002532DD, SUBMIT_OWNER_RVA=0x00109680;
 inline constexpr uint32_t CAMERA_MANAGER_RVA=0x002F94DC, RENDERER_HOLDER_RVA=0x002F9CF0;
 inline constexpr std::array<unsigned char,5> SUBMIT_CALL_BYTES={0xe8,0x9e,0x63,0xeb,0xff};
@@ -56,13 +58,13 @@ public:
 };
 struct FlightState;
 class GameFov {
- uintptr_t base_=0;DWORD thread_=0;float vfov_=0;bool enabled_=false;
+ uintptr_t base_=0;DWORD thread_=0;float vfov_=0;bool enabled_=false,global_hud_request_=false;uint64_t device_id_=0,scheduler_generation_=0;
  CallPatch patch_;FrustumFrame frame_;
- CallPatch completion_;FlightState* flight_=nullptr;unsigned scheduler_depth_=0;bool fov_enabled_=false;
+  CallPatch completion_;FlightState* flight_=nullptr;const Trace* trace_=nullptr;unsigned scheduler_depth_=0;bool fov_enabled_=false;
  CameraSubmissionSnapshot submission_{};
 public:
  GameFov()=default;~GameFov();GameFov(const GameFov&)=delete;GameFov& operator=(const GameFov&)=delete;
- bool install(bool exact,const VisualConfig&,HWND window=nullptr,bool exact_retail=false) noexcept;
+ bool install(bool exact,const VisualConfig&,HWND window=nullptr,bool exact_retail=false,uint64_t device_id=0,const Trace* trace=nullptr,const char* display_mode="unknown",HWND d3d_focus_window=nullptr) noexcept;
  void disable(const char* reason) noexcept;
  void before_submit(unsigned index) noexcept;
  void submission_snapshot(uintptr_t expected_camera,CameraSubmissionSnapshot& out) const noexcept;
@@ -77,6 +79,18 @@ public:
  void stock_view(const D3DMATRIX&) noexcept;
  bool free_camera_configured() const noexcept;
  bool free_camera_active() const noexcept;
+ bool clean_view_render_thread_current() const noexcept{return thread_&&GetCurrentThreadId()==thread_;}
+ bool race_lifecycle_generation(uint64_t& generation) const noexcept;
+ bool clean_view_requested() const noexcept;
+ void set_global_hud_request(bool requested) noexcept;
+ bool clean_view_toggle_edge_seen() const noexcept;
+ bool clean_view_initial_armed() const noexcept;
+ uint64_t clean_view_disarm_count() const noexcept;
+ const char* clean_view_last_disarm_reason() const noexcept;
+ uint64_t clean_view_context_trace_frame() const noexcept;
+ uint64_t clean_view_context_scheduler_generation() const noexcept;
+ CleanViewAdmission clean_view_admission(bool device_scope_valid,bool ui_hook_owned,bool native_ui_scope_valid,uint64_t device_id) noexcept;
+ void disarm_clean_view(const char* reason) noexcept;
  std::string camera_json() const;
  FovCullStatus status() const noexcept{return frame_.status;}
 };
