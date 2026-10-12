@@ -70,6 +70,16 @@ bool boolean(const JsonValue* v,bool& out){if(!v||v->type!=JsonType::boolean)ret
 bool string_value(const JsonValue* v,std::string& out){if(!v||v->type!=JsonType::string)return false;out=v->scalar;return true;}
 bool number_array(const JsonValue* v,float* out,size_t count){if(!v||v->type!=JsonType::array||v->array.size()!=count)return false;for(size_t i=0;i<count;++i){double n=0;if(!numeric(&v->array[i],n)||std::abs(n)>1.0e9)return false;float f=static_cast<float>(n);if(!std::isfinite(f))return false;out[i]=f;}return true;}
 void quote(std::ostream& o,const std::string& s){o<<'"';for(unsigned char c:s){switch(c){case '"':o<<"\\\"";break;case '\\':o<<"\\\\";break;case '\b':o<<"\\b";break;case '\f':o<<"\\f";break;case '\n':o<<"\\n";break;case '\r':o<<"\\r";break;case '\t':o<<"\\t";break;default:if(c<0x20)o<<"\\u00"<<std::hex<<std::setw(2)<<std::setfill('0')<<unsigned(c)<<std::dec<<std::setfill(' ');else o<<static_cast<char>(c);}}o<<'"';}
+bool course_id_valid(std::string_view course) noexcept {
+ constexpr std::string_view prefix="RaceTest/";
+ if(course.size()<=prefix.size()||course.size()>prefix.size()+96)return false;
+ for(size_t i=0;i<prefix.size();++i){char c=course[i];if(c>='a'&&c<='z')c=static_cast<char>(c-'a'+'A');char p=prefix[i];if(p>='a'&&p<='z')p=static_cast<char>(p-'a'+'A');if(c!=p)return false;}
+ for(size_t i=prefix.size();i<course.size();++i){const char c=course[i];if(!((c>='A'&&c<='Z')||(c>='a'&&c<='z')||(c>='0'&&c<='9')||c=='_'||c=='-'))return false;}
+ return true;
+}
+bool course_id_equal(std::string_view a,std::string_view b) noexcept {
+ if(a.size()!=b.size())return false;for(size_t i=0;i<a.size();++i){char x=a[i],y=b[i];if(x>='A'&&x<='Z')x=static_cast<char>(x-'A'+'a');if(y>='A'&&y<='Z')y=static_cast<char>(y-'A'+'a');if(x!=y)return false;}return true;
+}
 template<class T,size_t N>void floats(std::ostream& o,const std::array<T,N>& values){o<<'[';for(size_t i=0;i<N;++i){if(i)o<<',';o<<std::setprecision(std::numeric_limits<T>::max_digits10)<<values[i];}o<<']';}
 void rotate(float* v,const float* axis,double angle){double c=std::cos(angle),s=std::sin(angle),dot=0;float old[3]={v[0],v[1],v[2]};for(unsigned j=0;j<3;++j)dot+=old[j]*axis[j];for(unsigned j=0;j<3;++j)v[j]=static_cast<float>(old[j]*c+(axis[(j+1)%3]*old[(j+2)%3]-axis[(j+2)%3]*old[(j+1)%3])*s+axis[j]*dot*(1-c));}
 void orthogonalize(std::array<float,16>& p){auto norm=[](float* v){double n=std::sqrt(double(v[0])*v[0]+double(v[1])*v[1]+double(v[2])*v[2]);for(unsigned j=0;j<3;++j)v[j]=static_cast<float>(v[j]/n);};norm(p.data()+8);double dot=0;for(unsigned j=0;j<3;++j)dot+=p[j]*p[8+j];for(unsigned j=0;j<3;++j)p[j]-=static_cast<float>(dot*p[8+j]);norm(p.data());for(unsigned j=0;j<3;++j)p[4+j]=p[8+(j+1)%3]*p[(j+2)%3]-p[8+(j+2)%3]*p[(j+1)%3];norm(p.data()+4);}
@@ -93,10 +103,11 @@ bool parse_bookmark(const JsonValue& v,unsigned index,CameraBookmark& out){
   boolean(member(v,"cinematic_fov_enabled"),b.camera.cinematic_fov_enabled)&&valid_camera_bookmark(b,index+1)?(out=std::move(b),true):false;
 }
 enum class ParseResult {ok,invalid,identity_mismatch};
-ParseResult parse_data(std::string_view text,CameraBookmarkSet& out){
+ParseResult parse_data(std::string_view text,std::string_view expected_course,CameraBookmarkSet& out){
+ if(!course_id_valid(expected_course))return ParseResult::identity_mismatch;
  if(text.empty()||text.size()>MAX_BOOKMARK_FILE)return ParseResult::invalid;JsonValue root;if(!JsonReader(text).parse(root)||!exact_keys(root,{"format","schema_version","retail_exe_sha256","course_id","slots"}))return ParseResult::invalid;
  std::string format,build,course;if(!string_value(member(root,"format"),format)||format!="MRR-Freecam-Bookmarks"||!string_value(member(root,"retail_exe_sha256"),build)||!string_value(member(root,"course_id"),course))return ParseResult::invalid;
- unsigned version=0;if(!integer(member(root,"schema_version"),version))return ParseResult::invalid;if(version!=CAMERA_BOOKMARK_SCHEMA_VERSION||build!=CAMERA_BOOKMARK_BUILD_SHA256||course!=CAMERA_BOOKMARK_COURSE_ID)return ParseResult::identity_mismatch;
+ unsigned version=0;if(!integer(member(root,"schema_version"),version))return ParseResult::invalid;if(version!=CAMERA_BOOKMARK_SCHEMA_VERSION||build!=CAMERA_BOOKMARK_BUILD_SHA256||!course_id_valid(course)||!course_id_equal(course,expected_course))return ParseResult::identity_mismatch;
  const auto* slots=member(root,"slots");if(!slots||slots->type!=JsonType::array||slots->array.size()!=CAMERA_BOOKMARK_SLOT_COUNT)return ParseResult::invalid;
  CameraBookmarkSet parsed;for(size_t i=0;i<CAMERA_BOOKMARK_SLOT_COUNT;++i)if(!parse_bookmark(slots->array[i],static_cast<unsigned>(i),parsed.slots[i]))return ParseResult::invalid;
  out=std::move(parsed);return ParseResult::ok;
@@ -135,8 +146,8 @@ bool valid_camera_bookmark(const CameraBookmark& b,unsigned expected_slot) noexc
  if(!c.auto_level_horizon&&c.horizon_leveling_active)return false;
  return true;
 }
-bool serialize_camera_bookmarks(const CameraBookmarkSet& set,std::string& output) noexcept {
- try{std::ostringstream o;o.imbue(std::locale::classic());o<<"{\n  \"format\":\"MRR-Freecam-Bookmarks\",\n  \"schema_version\":"<<CAMERA_BOOKMARK_SCHEMA_VERSION<<",\n  \"retail_exe_sha256\":\""<<CAMERA_BOOKMARK_BUILD_SHA256<<"\",\n  \"course_id\":\""<<CAMERA_BOOKMARK_COURSE_ID<<"\",\n  \"slots\":[\n";
+bool serialize_camera_bookmarks(const CameraBookmarkSet& set,std::string_view course_id,std::string& output) noexcept {
+ try{if(!course_id_valid(course_id))return false;std::ostringstream o;o.imbue(std::locale::classic());o<<"{\n  \"format\":\"MRR-Freecam-Bookmarks\",\n  \"schema_version\":"<<CAMERA_BOOKMARK_SCHEMA_VERSION<<",\n  \"retail_exe_sha256\":\""<<CAMERA_BOOKMARK_BUILD_SHA256<<"\",\n  \"course_id\":";quote(o,std::string(course_id));o<<",\n  \"slots\":[\n";
   for(size_t i=0;i<CAMERA_BOOKMARK_SLOT_COUNT;++i){if(i)o<<",\n";const auto& b=set.slots[i];if(!b.present){o<<"    null";continue;}if(!valid_camera_bookmark(b,static_cast<unsigned>(i+1)))return false;const auto& c=b.camera;
    o<<"    {\"slot\":"<<b.slot<<",\"label\":";quote(o,b.label);o<<",\"saved_at_utc\":";quote(o,b.saved_at_utc);o<<",\"visible_pose\":";floats(o,c.visible_pose);o<<",\"orientation\":";floats(o,c.orientation);o<<",\"horizon_right\":";floats(o,c.horizon_right);
    o<<",\"horizon_elapsed\":"<<std::setprecision(17)<<c.horizon_elapsed<<",\"previous_horizon_progress\":"<<c.previous_horizon_progress<<",\"manual_roll_degrees\":"<<c.manual_roll<<",\"manual_roll_target_degrees\":"<<c.manual_roll_target<<",\"current_vfov\":"<<c.current_vfov<<",\"target_vfov\":"<<c.target_vfov
@@ -145,19 +156,24 @@ bool serialize_camera_bookmarks(const CameraBookmarkSet& set,std::string& output
   o<<"\n  ]\n}\n";auto text=o.str();if(text.size()>MAX_BOOKMARK_FILE)return false;output=std::move(text);return true;
  }catch(...){return false;}
 }
-bool parse_camera_bookmarks(std::string_view text,CameraBookmarkSet& out) noexcept {try{return parse_data(text,out)==ParseResult::ok;}catch(...){return false;}}
-CameraBookmarkIo read_camera_bookmarks(const std::wstring& path,CameraBookmarkSet& out) noexcept {
- try{std::string bytes;CameraBookmarkIo error;if(!read_file(path,bytes,error)){if(error==CameraBookmarkIo::missing)out=CameraBookmarkSet{};return error;}CameraBookmarkSet parsed;auto result=parse_data(bytes,parsed);if(result==ParseResult::ok){out=std::move(parsed);return CameraBookmarkIo::ok;}return result==ParseResult::identity_mismatch?CameraBookmarkIo::identity_mismatch:CameraBookmarkIo::invalid;}catch(...){return CameraBookmarkIo::io_error;}
+bool parse_camera_bookmarks(std::string_view text,std::string_view expected_course,CameraBookmarkSet& out) noexcept {try{return parse_data(text,expected_course,out)==ParseResult::ok;}catch(...){return false;}}
+CameraBookmarkIo read_camera_bookmarks(const std::wstring& path,std::string_view expected_course,CameraBookmarkSet& out) noexcept {
+ try{if(!course_id_valid(expected_course))return CameraBookmarkIo::identity_mismatch;std::string bytes;CameraBookmarkIo error;if(!read_file(path,bytes,error)){if(error==CameraBookmarkIo::missing)out=CameraBookmarkSet{};return error;}CameraBookmarkSet parsed;auto result=parse_data(bytes,expected_course,parsed);if(result==ParseResult::ok){out=std::move(parsed);return CameraBookmarkIo::ok;}return result==ParseResult::identity_mismatch?CameraBookmarkIo::identity_mismatch:CameraBookmarkIo::invalid;}catch(...){return CameraBookmarkIo::io_error;}
 }
-CameraBookmarkIo save_camera_bookmark(const std::wstring& path,unsigned slot,const CameraBookmark& bookmark,CameraBookmarkSet& out) noexcept {
- try{if(path.empty()||slot<1||slot>CAMERA_BOOKMARK_SLOT_COUNT||!valid_camera_bookmark(bookmark,slot))return CameraBookmarkIo::invalid;
-  CameraBookmarkSet merged;auto existing=read_camera_bookmarks(path,merged);if(existing!=CameraBookmarkIo::ok&&existing!=CameraBookmarkIo::missing)return existing;merged.slots[slot-1]=bookmark;
-  std::string bytes;if(!serialize_camera_bookmarks(merged,bytes))return CameraBookmarkIo::invalid;auto slash=path.find_last_of(L"\\/");if(slash==std::wstring::npos||!create_directory(path.substr(0,slash)))return CameraBookmarkIo::path_unavailable;
+CameraBookmarkIo save_camera_bookmark(const std::wstring& path,std::string_view course_id,unsigned slot,const CameraBookmark& bookmark,CameraBookmarkSet& out) noexcept {
+ try{if(path.empty()||!course_id_valid(course_id)||slot<1||slot>CAMERA_BOOKMARK_SLOT_COUNT||!valid_camera_bookmark(bookmark,slot))return CameraBookmarkIo::invalid;
+  CameraBookmarkSet merged;auto existing=read_camera_bookmarks(path,course_id,merged);if(existing!=CameraBookmarkIo::ok&&existing!=CameraBookmarkIo::missing)return existing;merged.slots[slot-1]=bookmark;
+  std::string bytes;if(!serialize_camera_bookmarks(merged,course_id,bytes))return CameraBookmarkIo::invalid;auto slash=path.find_last_of(L"\\/");if(slash==std::wstring::npos||!create_directory(path.substr(0,slash)))return CameraBookmarkIo::path_unavailable;
   if(!atomic_write(path,bytes))return CameraBookmarkIo::io_error;out=std::move(merged);return CameraBookmarkIo::ok;
  }catch(...){return CameraBookmarkIo::io_error;}
 }
-std::wstring default_camera_bookmark_path() noexcept {
- try{wchar_t local[MAX_PATH]{};DWORD n=GetEnvironmentVariableW(L"LOCALAPPDATA",local,MAX_PATH);if(!n||n>=MAX_PATH)return {};std::wstring root(local,n);return root+L"\\Master Rallye\\MRRRenderer\\camera-bookmarks.json";}catch(...){return {};}
+std::wstring default_camera_bookmark_path(std::string_view course_id) noexcept {
+ try{if(!course_id_valid(course_id))return {};wchar_t local[MAX_PATH]{};DWORD n=GetEnvironmentVariableW(L"LOCALAPPDATA",local,MAX_PATH);if(!n||n>=MAX_PATH)return {};std::wstring root(local,n);
+  std::wstring path=root+L"\\Master Rallye\\MRRRenderer\\camera-bookmarks";
+  if(course_id_equal(course_id,"RaceTest/France1"))path+=L".json";
+  else {path+=L"-";for(char c:course_id.substr(std::string_view("RaceTest/").size())){if(c>='A'&&c<='Z')c=static_cast<char>(c-'A'+'a');path.push_back(static_cast<wchar_t>(static_cast<unsigned char>(c)));}path+=L".json";}
+  return path.size()<MAX_PATH?path:std::wstring{};
+ }catch(...){return {};}
 }
 bool ensure_camera_bookmark_directory() noexcept {
  try{wchar_t local[MAX_PATH]{};DWORD n=GetEnvironmentVariableW(L"LOCALAPPDATA",local,MAX_PATH);if(!n||n>=MAX_PATH)return false;std::wstring root(local,n);return create_directory(root+L"\\Master Rallye")&&create_directory(root+L"\\Master Rallye\\MRRRenderer");}catch(...){return false;}

@@ -3,6 +3,7 @@
 #include <array>
 #include <cstdint>
 #include <string>
+#include <string_view>
 
 namespace gfx2 {
 // Native discovery and structural reads remain separate from camera permission.
@@ -85,6 +86,7 @@ private:
  void note(RaceEvent event,const char* why,uint32_t job=0) noexcept;
  bool next(uint64_t& counter) noexcept;
 };
+bool race_course_is_france1(std::string_view course_id) noexcept;
 
 // All native pointers are PE32 integers. The reader never calls native getters.
 class RaceReadMemory {
@@ -158,6 +160,7 @@ struct RaceCertificate {
  bool valid=false;const char* reason="observer_unavailable";
  bool single_human_car_race=false;
  uint64_t race_generation=0,owner_lifetime=0;uint32_t actor=0,ai=0,camera=0;
+ std::array<char,128> course_id{};
  uint32_t participant_count=0,human_participant_index=UINT32_MAX;
  int32_t human_participant_player_type=-1;bool human_participant_identity_verified=false;
 };
@@ -167,7 +170,7 @@ struct RaceHudContext {
  const char* reason="observer_unavailable";
 };
 // Read-only, camera-independent certificate for the native race UI stream.
-// This is deliberately separate from the France1 camera-write certificate.
+// This is deliberately separate from the supported-course camera certificate.
 bool race_hud_scene_proven(const RaceEpoch&) noexcept;
 bool race_attract_hud_scene_proven(const RaceEpoch&) noexcept;
 bool race_hud_player_running(const RaceOwnerRead&,uint32_t participant_index) noexcept;

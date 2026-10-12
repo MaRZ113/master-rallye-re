@@ -2,6 +2,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <cstring>
+#include <cstdio>
 #include <map>
 #include <vector>
 #define CHECK(x) do{if(!(x))throw std::runtime_error(#x);}while(0)
@@ -92,6 +93,8 @@ void context(){
  owner.participant_states_ready=false;CHECK(!check_race_context(f,owner).supported);owner.participant_states_ready=true;owner.valid=false;CHECK(!check_race_context(f,owner).supported);
 }
 void certificate(){
+ CHECK(race_course_is_france1("RaceTest/France1")&&race_course_is_france1("racetest/france1"));
+ CHECK(!race_course_is_france1("RaceTest/Italy3")&&!race_course_is_france1("RaceTest/France10"));
  // Golden first-flight evidence: root France1 is (1,1); its native HUD child
  // is (1,0). The global manager scene is already Hud/Hud0 at root commit.
  RaceEpoch e;e.request(9261,"RaceTest/France1");e.queue(100,9261,10,true,1,1,"DataScene/RaceTest/France1.xml");e.begin(100,true);e.attach(200,208,true);e.initialized(200,208,true);
@@ -100,6 +103,21 @@ void certificate(){
  std::array<RaceScalar,9> f{};for(size_t i=0;i<f.size();++i)f[i]={true,RACE_CONTEXT_TAGS[i],0};f[0].value=1;f[1].value=f[8].value=1;
  RaceOwnerRead o;o.valid=o.storage_readable=o.native_live_unique=o.temporal_match=o.arrays_ready=o.participant_states_ready=true;o.count=1;
  CHECK(check_live_race_certificate(e,o,f,true,300).valid);
+ // The native root job contract is shared across RaceTest courses. Preserve
+ // the same source pairing and all live-owner/context/camera checks.
+ auto italy=e;std::snprintf(italy.jobs[0].scene_text.data(),italy.jobs[0].scene_text.size(),"%s","RaceTest/Italy3");
+ std::snprintf(italy.jobs[0].source_text.data(),italy.jobs[0].source_text.size(),"%s","DataScene/RaceTest/Italy3.xml");
+ auto italy_certificate=check_live_race_certificate(italy,o,f,true,300);
+ CHECK(italy.course_identity_verified()&&italy_certificate.valid&&std::strcmp(italy_certificate.course_id.data(),"RaceTest/Italy3")==0);
+ auto mixed_case=italy;std::snprintf(mixed_case.jobs[0].scene_text.data(),mixed_case.jobs[0].scene_text.size(),"%s","Racetest/france2");
+ std::snprintf(mixed_case.jobs[0].source_text.data(),mixed_case.jobs[0].source_text.size(),"%s","DataScene/Racetest/france2.xml");
+ auto mixed_certificate=check_live_race_certificate(mixed_case,o,f,true,300);
+ CHECK(mixed_case.course_identity_verified()&&mixed_certificate.valid&&std::strcmp(mixed_certificate.course_id.data(),"Racetest/france2")==0);
+ auto path_traversal=italy;std::snprintf(path_traversal.jobs[0].scene_text.data(),path_traversal.jobs[0].scene_text.size(),"%s","RaceTest/../France1");
+ std::snprintf(path_traversal.jobs[0].source_text.data(),path_traversal.jobs[0].source_text.size(),"%s","DataScene/RaceTest/../France1.xml");
+ CHECK(!path_traversal.course_identity_verified()&&!check_live_race_certificate(path_traversal,o,f,true,300).valid);
+ auto mismatched_source=italy;std::snprintf(mismatched_source.jobs[0].source_text.data(),mismatched_source.jobs[0].source_text.size(),"%s","DataScene/RaceTest/France1.xml");
+ CHECK(!mismatched_source.course_identity_verified()&&!check_live_race_certificate(mismatched_source,o,f,true,300).valid);
  auto reset_survivor=e;CHECK(reset_survivor.device_reset());CHECK(check_live_race_certificate(reset_survivor,o,f,true,300).valid); // Proof survives graphics Reset only; live owner/course/context/camera checks still run.
  CHECK(race_hud_scene_proven(e));
  // Attract Demo is a separate native HUD child, but the exact selector and

@@ -9,6 +9,8 @@
 using namespace gfx2;
 
 namespace {
+constexpr std::string_view FRANCE1="RaceTest/France1";
+constexpr std::string_view ITALY3="RaceTest/Italy3";
 std::array<float,16> pose_at(float x,float y,float z){return {1,0,0,0,0,1,0,0,0,0,1,0,x,y,z,1};}
 std::array<float,16> banked_pose(float x,float y,float z,double degrees){double a=degrees*3.14159265358979323846/180.;float c=static_cast<float>(std::cos(a)),s=static_cast<float>(std::sin(a));return {c,s,0,0,-s,c,0,0,0,0,1,0,x,y,z,1};}
 FreeCameraConfig config(){return parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.InheritStockFOVOnToggle","0"},{"FreeCamera.CinematicVerticalFOVDegrees","60"},{"FreeCamera.FOVSmoothSeconds","0"},{"FreeCamera.RollSmoothSeconds","0"},{"FreeCamera.MovementSmoothSeconds","0"}});}
@@ -63,34 +65,43 @@ void settle_transitions(){
 void serialization(){
  FlightBookmarkPose pose{};controller_roundtrip(pose);
  CameraBookmarkSet input;input.slots[0]=record(1,pose);auto second=record(2,pose);second.camera.visible_pose[12]+=3;second.camera.orientation[12]+=3;input.slots[1]=second;
- std::string text;CHECK(serialize_camera_bookmarks(input,text));CHECK(text.size()<16*1024);CHECK(text.find(CAMERA_BOOKMARK_BUILD_SHA256)!=std::string::npos&&text.find(CAMERA_BOOKMARK_COURSE_ID)!=std::string::npos);
+ std::string text;CHECK(serialize_camera_bookmarks(input,FRANCE1,text));CHECK(text.size()<16*1024);CHECK(text.find(CAMERA_BOOKMARK_BUILD_SHA256)!=std::string::npos&&text.find(FRANCE1)!=std::string::npos);
  CHECK(text.find("CameraFrame")==std::string::npos&&text.find("scheduler_generation")==std::string::npos&&text.find("owner_lifetime")==std::string::npos&&text.find("process_id")==std::string::npos);
- CameraBookmarkSet parsed;CHECK(parse_camera_bookmarks(text,parsed));CHECK(parsed.slots[0].present&&parsed.slots[1].present&&!parsed.slots[2].present);
+ CameraBookmarkSet parsed;CHECK(parse_camera_bookmarks(text,FRANCE1,parsed));CHECK(parsed.slots[0].present&&parsed.slots[1].present&&!parsed.slots[2].present);
  CHECK(parsed.slots[0].camera.visible_pose==pose.visible_pose&&parsed.slots[0].camera.orientation==pose.orientation);
  CHECK(parsed.slots[0].camera.horizon_right==pose.horizon_right&&parsed.slots[0].camera.manual_roll==pose.manual_roll&&parsed.slots[0].camera.target_vfov==pose.target_vfov);
  CHECK(parsed.slots[1].camera.visible_pose[12]==pose.visible_pose[12]+3);
- std::string bad=text;auto schema=bad.find("\"schema_version\":1");CHECK(schema!=std::string::npos);bad.replace(schema,std::strlen("\"schema_version\":1"),"\"schema_version\":2");CHECK(!parse_camera_bookmarks(bad,parsed));
- bad=text;auto course=bad.find(CAMERA_BOOKMARK_COURSE_ID);CHECK(course!=std::string::npos);bad.replace(course,std::strlen(CAMERA_BOOKMARK_COURSE_ID),"RaceTest/Other");CHECK(!parse_camera_bookmarks(bad,parsed));
- bad=text;bad.insert(bad.find("\"format\""),"\"unexpected\":true,");CHECK(!parse_camera_bookmarks(bad,parsed));
- bad=text;auto matrix=bad.find("\"visible_pose\":[");CHECK(matrix!=std::string::npos);auto first_value=matrix+std::strlen("\"visible_pose\":[");auto value_end=bad.find(',',first_value);CHECK(value_end!=std::string::npos);bad.replace(first_value,value_end-first_value,"NaN");CHECK(!parse_camera_bookmarks(bad,parsed));
- auto invalid=input;invalid.slots[0].camera.visible_pose[0]=std::numeric_limits<float>::quiet_NaN();CHECK(!serialize_camera_bookmarks(invalid,bad));
+ std::string bad=text;auto schema=bad.find("\"schema_version\":1");CHECK(schema!=std::string::npos);bad.replace(schema,std::strlen("\"schema_version\":1"),"\"schema_version\":2");CHECK(!parse_camera_bookmarks(bad,FRANCE1,parsed));
+ bad=text;auto course=bad.find(FRANCE1);CHECK(course!=std::string::npos);bad.replace(course,FRANCE1.size(),"RaceTest/Other");CHECK(!parse_camera_bookmarks(bad,FRANCE1,parsed));
+ CHECK(!parse_camera_bookmarks(text,ITALY3,parsed));
+ CHECK(!serialize_camera_bookmarks(input,"RaceTest/../France1",bad));
+ bad=text;bad.insert(bad.find("\"format\""),"\"unexpected\":true,");CHECK(!parse_camera_bookmarks(bad,FRANCE1,parsed));
+ bad=text;auto matrix=bad.find("\"visible_pose\":[");CHECK(matrix!=std::string::npos);auto first_value=matrix+std::strlen("\"visible_pose\":[");auto value_end=bad.find(',',first_value);CHECK(value_end!=std::string::npos);bad.replace(first_value,value_end-first_value,"NaN");CHECK(!parse_camera_bookmarks(bad,FRANCE1,parsed));
+ auto invalid=input;invalid.slots[0].camera.visible_pose[0]=std::numeric_limits<float>::quiet_NaN();CHECK(!serialize_camera_bookmarks(invalid,FRANCE1,bad));
 }
 void persistent_store(){
  wchar_t dir[MAX_PATH]{},name[MAX_PATH]{};CHECK(GetTempPathW(MAX_PATH,dir)&&GetTempFileNameW(dir,L"mrb",0,name));CHECK(DeleteFileW(name));std::wstring path=name;
  struct Cleanup{std::wstring path;~Cleanup(){DeleteFileW(path.c_str());}} cleanup{path};
  FlightBookmarkPose pose{};controller_roundtrip(pose);CameraBookmarkSet in_memory;
- CameraBookmarkSet absent;absent.slots[0].present=true;CHECK(read_camera_bookmarks(path,absent)==CameraBookmarkIo::missing&&!absent.slots[0].present);
- auto one=record(1,pose);CHECK(save_camera_bookmark(path,1,one,in_memory)==CameraBookmarkIo::ok);
- CameraBookmarkSet fresh_process;CHECK(read_camera_bookmarks(path,fresh_process)==CameraBookmarkIo::ok&&fresh_process.slots[0].present&&!fresh_process.slots[1].present);
- auto two=record(2,pose);two.camera.visible_pose[12]+=5;two.camera.orientation[12]+=5;CHECK(save_camera_bookmark(path,2,two,in_memory)==CameraBookmarkIo::ok);
- auto three=record(3,pose);three.camera.visible_pose[14]-=8;three.camera.orientation[14]-=8;CHECK(save_camera_bookmark(path,3,three,in_memory)==CameraBookmarkIo::ok);
- CameraBookmarkSet cross_restart;CHECK(read_camera_bookmarks(path,cross_restart)==CameraBookmarkIo::ok&&cross_restart.slots[0].present&&cross_restart.slots[1].present&&cross_restart.slots[2].present);
- auto update=record(2,pose);update.camera.visible_pose[12]+=11;update.camera.orientation[12]+=11;CHECK(save_camera_bookmark(path,2,update,in_memory)==CameraBookmarkIo::ok);
- CameraBookmarkSet merged;CHECK(read_camera_bookmarks(path,merged)==CameraBookmarkIo::ok&&merged.slots[0].present&&merged.slots[2].present&&merged.slots[1].camera.visible_pose[12]==pose.visible_pose[12]+11);
- const auto original=read_bytes(path);write_bytes(path,"{malformed");const auto malformed=read_bytes(path);CHECK(save_camera_bookmark(path,1,one,in_memory)==CameraBookmarkIo::invalid);CHECK(read_bytes(path)==malformed);CHECK(original!=malformed);
- write_bytes(path,std::string(16*1024+1,'x'));const auto oversized=read_bytes(path);CameraBookmarkSet rejected;CHECK(read_camera_bookmarks(path,rejected)==CameraBookmarkIo::invalid);CHECK(save_camera_bookmark(path,1,one,in_memory)==CameraBookmarkIo::invalid);CHECK(read_bytes(path)==oversized);
+ CameraBookmarkSet absent;absent.slots[0].present=true;CHECK(read_camera_bookmarks(path,FRANCE1,absent)==CameraBookmarkIo::missing&&!absent.slots[0].present);
+ auto one=record(1,pose);CHECK(save_camera_bookmark(path,FRANCE1,1,one,in_memory)==CameraBookmarkIo::ok);
+ CameraBookmarkSet fresh_process;CHECK(read_camera_bookmarks(path,FRANCE1,fresh_process)==CameraBookmarkIo::ok&&fresh_process.slots[0].present&&!fresh_process.slots[1].present);
+ auto two=record(2,pose);two.camera.visible_pose[12]+=5;two.camera.orientation[12]+=5;CHECK(save_camera_bookmark(path,FRANCE1,2,two,in_memory)==CameraBookmarkIo::ok);
+ auto three=record(3,pose);three.camera.visible_pose[14]-=8;three.camera.orientation[14]-=8;CHECK(save_camera_bookmark(path,FRANCE1,3,three,in_memory)==CameraBookmarkIo::ok);
+ CameraBookmarkSet cross_restart;CHECK(read_camera_bookmarks(path,FRANCE1,cross_restart)==CameraBookmarkIo::ok&&cross_restart.slots[0].present&&cross_restart.slots[1].present&&cross_restart.slots[2].present);
+ auto update=record(2,pose);update.camera.visible_pose[12]+=11;update.camera.orientation[12]+=11;CHECK(save_camera_bookmark(path,FRANCE1,2,update,in_memory)==CameraBookmarkIo::ok);
+ CameraBookmarkSet merged;CHECK(read_camera_bookmarks(path,FRANCE1,merged)==CameraBookmarkIo::ok&&merged.slots[0].present&&merged.slots[2].present&&merged.slots[1].camera.visible_pose[12]==pose.visible_pose[12]+11);
+ CHECK(read_camera_bookmarks(path,ITALY3,merged)==CameraBookmarkIo::identity_mismatch);
+ const auto original=read_bytes(path);write_bytes(path,"{malformed");const auto malformed=read_bytes(path);CHECK(save_camera_bookmark(path,FRANCE1,1,one,in_memory)==CameraBookmarkIo::invalid);CHECK(read_bytes(path)==malformed);CHECK(original!=malformed);
+ write_bytes(path,std::string(16*1024+1,'x'));const auto oversized=read_bytes(path);CameraBookmarkSet rejected;CHECK(read_camera_bookmarks(path,FRANCE1,rejected)==CameraBookmarkIo::invalid);CHECK(save_camera_bookmark(path,FRANCE1,1,one,in_memory)==CameraBookmarkIo::invalid);CHECK(read_bytes(path)==oversized);
  std::wstring blocked=path+L".blocked";write_bytes(blocked,"parent-file");struct CleanupBlocked{std::wstring path;~CleanupBlocked(){DeleteFileW(path.c_str());}} cleanup_blocked{blocked};
- CHECK(save_camera_bookmark(blocked+L"\\child.json",1,one,in_memory)==CameraBookmarkIo::path_unavailable);CHECK(read_bytes(blocked)=="parent-file");
+ CHECK(save_camera_bookmark(blocked+L"\\child.json",FRANCE1,1,one,in_memory)==CameraBookmarkIo::path_unavailable);CHECK(read_bytes(blocked)=="parent-file");
+}
+void per_course_paths(){
+ const auto france=default_camera_bookmark_path(FRANCE1),italy=default_camera_bookmark_path(ITALY3);
+ CHECK(!france.empty()&&!italy.empty()&&france!=italy);
+ CHECK(france.size()>=std::wstring(L"camera-bookmarks.json").size()&&france.substr(france.size()-std::wstring(L"camera-bookmarks.json").size())==L"camera-bookmarks.json");
+ CHECK(italy.size()>=std::wstring(L"camera-bookmarks-italy3.json").size()&&italy.substr(italy.size()-std::wstring(L"camera-bookmarks-italy3.json").size())==L"camera-bookmarks-italy3.json");
 }
 }
-int main(){try{serialization();settle_transitions();roll_signs_and_vertical();persistent_store();std::cout<<"camera bookmark controller, roll signs, vertical pose, stable transitions, schema, identity, and persistence contracts passed\n";return 0;}catch(const std::exception& e){std::cerr<<"camera bookmark contract failure: "<<e.what()<<'\n';return 1;}}
+int main(){try{serialization();settle_transitions();roll_signs_and_vertical();persistent_store();per_course_paths();std::cout<<"camera bookmark controller, roll signs, vertical pose, stable transitions, schema, per-course identity, and persistence contracts passed\n";return 0;}catch(const std::exception& e){std::cerr<<"camera bookmark contract failure: "<<e.what()<<'\n';return 1;}}

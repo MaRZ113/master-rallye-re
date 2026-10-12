@@ -19,7 +19,7 @@ bool valid_race_root(const RaceJob& root,bool fold_case) noexcept {
 }
 bool race_hud_scene_proven_as(const RaceEpoch& e,bool attract) noexcept {
  if(!e.correlated_owner_candidate())return false;
- const auto* root=e.lifetime(e.owner.execution_job_lifetime);if(!root||!valid_race_root(*root,attract))return false;
+ const auto* root=e.lifetime(e.owner.execution_job_lifetime);if(!root||!valid_race_root(*root,true))return false;
  const char* scene=attract?"Hud/AttractMode":"Hud/Hud0";const char* source=attract?"DataScene/Hud/AttractMode.xml":"DataScene/Hud/Hud0.xml";
  unsigned matching=0;
  for(size_t i=0;i<e.jobs_used;++i){const auto& job=e.jobs[i];if(job.race_generation!=e.race_generation||job.lifetime==root->lifetime)continue;
@@ -168,9 +168,14 @@ bool RaceEpoch::correlated_owner_candidate() const noexcept {
 }
 bool RaceEpoch::course_identity_verified() const noexcept {
  auto* j=lifetime(owner.execution_job_lifetime);if(!j)return false;
- return j->parent_lifetime==0&&
-  !std::strcmp(j->scene_text.data(),"RaceTest/France1")&&
-  !std::strcmp(j->source_text.data(),"DataScene/RaceTest/France1.xml")&&j->flag21==1&&j->flag22==1;
+ return valid_race_root(*j,true);
+}
+bool race_course_is_france1(std::string_view course_id) noexcept {
+ constexpr std::string_view france="RaceTest/France1";if(course_id.size()!=france.size())return false;
+ for(size_t i=0;i<france.size();++i){char a=course_id[i],b=france[i];
+  if(a>='A'&&a<='Z')a=static_cast<char>(a-'A'+'a');if(b>='A'&&b<='Z')b=static_cast<char>(b-'A'+'a');
+  if(a!=b)return false;}
+ return true;
 }
 bool race_hud_scene_proven(const RaceEpoch& e) noexcept {
  return race_hud_scene_proven_as(e,false);
@@ -269,7 +274,7 @@ RaceOwnerRead read_race_owner(RaceReadMemory& m,uint32_t base,const RaceOwner& i
   r.participant_states[i]=state.value;
   // RaceStarter 0x0048E820 has a native zero-writing branch as well as the
   // staged 1/2 path. Zero is accepted only under the independent completed
-  // France1 job, current live RaceLimits owner, typed offline context and
+  // supported RaceTest job, current live RaceLimits owner, typed offline context and
   // single-camera checks below. Phase 1 stays rejected by race/camera proof;
   // the HUD-only path can admit it only alongside a live SceneManager countdown.
   if(state.value!=0&&state.value!=2){r.participant_states_ready=false;
@@ -326,7 +331,10 @@ RaceCertificate check_live_race_certificate(const RaceEpoch& e,const RaceOwnerRe
  else if(!e.course_identity_verified())c.reason="supported_course_job_not_verified";
  else {auto context=check_race_context(fields,owner);if(!context.supported)c.reason=context.reason;
   else if(!camera_valid)c.reason="single_camera_identity_not_verified";
-  else {c.valid=true;c.camera=camera;c.reason="live_france1_offline_race_certificate";}}
+  else {const auto* root=e.lifetime(e.owner.execution_job_lifetime);
+   const int copied=root?std::snprintf(c.course_id.data(),c.course_id.size(),"%s",root->scene_text.data()):-1;
+   if(!root||copied<0||static_cast<size_t>(copied)>=c.course_id.size())c.reason="course_identity_copy_failed";
+   else {c.valid=true;c.camera=camera;c.reason="live_supported_course_offline_race_certificate";}}}
  return c;
 }
 bool RacePatchBatch::owned() const noexcept {for(size_t i=0;i<count;++i)if(sites[i].owned)return true;return false;}
