@@ -1,0 +1,4181 @@
+{
+  "canonical_elf_sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+  "decoder": "Rabbitizer 1.16.2 InstrCategory.R5900",
+  "instruction_count": 576,
+  "schema": "ps2-r5900-revalidation2-instruction-probes-v1",
+  "scope_note": "Compact byte-backed CPU instruction probes only; no VU microinstruction semantics or runtime execution implied.",
+  "windows": [
+    {
+      "end_va_exclusive": "0x003134bc",
+      "instructions": [
+        {
+          "file_offset": "0x214270",
+          "ghidra_listing": "lui s6,0x43",
+          "rabbitizer_r5900": "lui         $s6, 0x43",
+          "va": "0x00313270",
+          "word": "0x3c160043"
+        },
+        {
+          "file_offset": "0x214274",
+          "ghidra_listing": "ori t0,zero,0xfff7",
+          "rabbitizer_r5900": "ori         $t0, $zero, 0xFFF7",
+          "va": "0x00313274",
+          "word": "0x3408fff7"
+        },
+        {
+          "file_offset": "0x214278",
+          "ghidra_listing": "dsll t0,t0,0x10",
+          "rabbitizer_r5900": "dsll        $t0, $t0, 16",
+          "va": "0x00313278",
+          "word": "0x00084438"
+        },
+        {
+          "file_offset": "0x21427c",
+          "ghidra_listing": "ori t0,t0,0xffff",
+          "rabbitizer_r5900": "ori         $t0, $t0, 0xFFFF",
+          "va": "0x0031327c",
+          "word": "0x3508ffff"
+        },
+        {
+          "file_offset": "0x214280",
+          "ghidra_listing": "dsll t0,t0,0x10",
+          "rabbitizer_r5900": "dsll        $t0, $t0, 16",
+          "va": "0x00313280",
+          "word": "0x00084438"
+        },
+        {
+          "file_offset": "0x214284",
+          "ghidra_listing": "ori t0,t0,0xffff",
+          "rabbitizer_r5900": "ori         $t0, $t0, 0xFFFF",
+          "va": "0x00313284",
+          "word": "0x3508ffff"
+        },
+        {
+          "file_offset": "0x214288",
+          "ghidra_listing": "dsll t0,t0,0x10",
+          "rabbitizer_r5900": "dsll        $t0, $t0, 16",
+          "va": "0x00313288",
+          "word": "0x00084438"
+        },
+        {
+          "file_offset": "0x21428c",
+          "ghidra_listing": "ori t0,t0,0xffff",
+          "rabbitizer_r5900": "ori         $t0, $t0, 0xFFFF",
+          "va": "0x0031328c",
+          "word": "0x3508ffff"
+        },
+        {
+          "file_offset": "0x214290",
+          "ghidra_listing": "addiu t8,s6,-0x2138",
+          "rabbitizer_r5900": "addiu       $t8, $s6, -0x2138",
+          "va": "0x00313290",
+          "word": "0x26d8dec8"
+        },
+        {
+          "file_offset": "0x214294",
+          "ghidra_listing": "ori v0,zero,0x8000",
+          "rabbitizer_r5900": "ori         $v0, $zero, 0x8000",
+          "va": "0x00313294",
+          "word": "0x34028000"
+        },
+        {
+          "file_offset": "0x214298",
+          "ghidra_listing": "dsll32 v0,v0,0x4",
+          "rabbitizer_r5900": "dsll32      $v0, $v0, 4",
+          "va": "0x00313298",
+          "word": "0x0002113c"
+        },
+        {
+          "file_offset": "0x21429c",
+          "ghidra_listing": "addiu a0,t8,-0x68",
+          "rabbitizer_r5900": "addiu       $a0, $t8, -0x68",
+          "va": "0x0031329c",
+          "word": "0x2704ff98"
+        },
+        {
+          "file_offset": "0x2142a0",
+          "ghidra_listing": "li a3,-0x21",
+          "rabbitizer_r5900": "addiu       $a3, $zero, -0x21",
+          "va": "0x003132a0",
+          "word": "0x2407ffdf"
+        },
+        {
+          "file_offset": "0x2142a4",
+          "ghidra_listing": "ld v1,0x60(a0)",
+          "rabbitizer_r5900": "ld          $v1, 0x60($a0)",
+          "va": "0x003132a4",
+          "word": "0xdc830060"
+        },
+        {
+          "file_offset": "0x2142a8",
+          "ghidra_listing": "li s4,-0x2",
+          "rabbitizer_r5900": "addiu       $s4, $zero, -0x2",
+          "va": "0x003132a8",
+          "word": "0x2414fffe"
+        },
+        {
+          "file_offset": "0x2142ac",
+          "ghidra_listing": "sb zero,0xa4(a0)",
+          "rabbitizer_r5900": "sb          $zero, 0xA4($a0)",
+          "va": "0x003132ac",
+          "word": "0xa08000a4"
+        },
+        {
+          "file_offset": "0x2142b0",
+          "ghidra_listing": "li t2,0x20",
+          "rabbitizer_r5900": "addiu       $t2, $zero, 0x20",
+          "va": "0x003132b0",
+          "word": "0x240a0020"
+        },
+        {
+          "file_offset": "0x2142b4",
+          "ghidra_listing": "ld a1,0xd0(a0)",
+          "rabbitizer_r5900": "ld          $a1, 0xD0($a0)",
+          "va": "0x003132b4",
+          "word": "0xdc8500d0"
+        },
+        {
+          "file_offset": "0x2142b8",
+          "ghidra_listing": "and v1,v1,t0",
+          "rabbitizer_r5900": "and         $v1, $v1, $t0",
+          "va": "0x003132b8",
+          "word": "0x00681824"
+        },
+        {
+          "file_offset": "0x2142bc",
+          "ghidra_listing": "or v1,v1,v0",
+          "rabbitizer_r5900": "or          $v1, $v1, $v0",
+          "va": "0x003132bc",
+          "word": "0x00621825"
+        },
+        {
+          "file_offset": "0x2142c0",
+          "ghidra_listing": "ld a2,0x80(a0)",
+          "rabbitizer_r5900": "ld          $a2, 0x80($a0)",
+          "va": "0x003132c0",
+          "word": "0xdc860080"
+        },
+        {
+          "file_offset": "0x2142c4",
+          "ghidra_listing": "ld t1,0xa0(a0)",
+          "rabbitizer_r5900": "ld          $t1, 0xA0($a0)",
+          "va": "0x003132c4",
+          "word": "0xdc8900a0"
+        },
+        {
+          "file_offset": "0x2142c8",
+          "ghidra_listing": "and a1,a1,a3",
+          "rabbitizer_r5900": "and         $a1, $a1, $a3",
+          "va": "0x003132c8",
+          "word": "0x00a72824"
+        },
+        {
+          "file_offset": "0x2142cc",
+          "ghidra_listing": "ori v0,zero,0xfffb",
+          "rabbitizer_r5900": "ori         $v0, $zero, 0xFFFB",
+          "va": "0x003132cc",
+          "word": "0x3402fffb"
+        },
+        {
+          "file_offset": "0x2142d0",
+          "ghidra_listing": "dsll v0,v0,0x10",
+          "rabbitizer_r5900": "dsll        $v0, $v0, 16",
+          "va": "0x003132d0",
+          "word": "0x00021438"
+        },
+        {
+          "file_offset": "0x2142d4",
+          "ghidra_listing": "ori v0,v0,0xffff",
+          "rabbitizer_r5900": "ori         $v0, $v0, 0xFFFF",
+          "va": "0x003132d4",
+          "word": "0x3442ffff"
+        },
+        {
+          "file_offset": "0x2142d8",
+          "ghidra_listing": "dsll v0,v0,0x10",
+          "rabbitizer_r5900": "dsll        $v0, $v0, 16",
+          "va": "0x003132d8",
+          "word": "0x00021438"
+        },
+        {
+          "file_offset": "0x2142dc",
+          "ghidra_listing": "ori v0,v0,0xffff",
+          "rabbitizer_r5900": "ori         $v0, $v0, 0xFFFF",
+          "va": "0x003132dc",
+          "word": "0x3442ffff"
+        },
+        {
+          "file_offset": "0x2142e0",
+          "ghidra_listing": "dsll v0,v0,0x10",
+          "rabbitizer_r5900": "dsll        $v0, $v0, 16",
+          "va": "0x003132e0",
+          "word": "0x00021438"
+        },
+        {
+          "file_offset": "0x2142e4",
+          "ghidra_listing": "ori v0,v0,0xffff",
+          "rabbitizer_r5900": "ori         $v0, $v0, 0xFFFF",
+          "va": "0x003132e4",
+          "word": "0x3442ffff"
+        },
+        {
+          "file_offset": "0x2142e8",
+          "ghidra_listing": "li a3,-0x4",
+          "rabbitizer_r5900": "addiu       $a3, $zero, -0x4",
+          "va": "0x003132e8",
+          "word": "0x2407fffc"
+        },
+        {
+          "file_offset": "0x2142ec",
+          "ghidra_listing": "and v1,v1,v0",
+          "rabbitizer_r5900": "and         $v1, $v1, $v0",
+          "va": "0x003132ec",
+          "word": "0x00621824"
+        },
+        {
+          "file_offset": "0x2142f0",
+          "ghidra_listing": "li t0,-0xf",
+          "rabbitizer_r5900": "addiu       $t0, $zero, -0xF",
+          "va": "0x003132f0",
+          "word": "0x2408fff1"
+        },
+        {
+          "file_offset": "0x2142f4",
+          "ghidra_listing": "and t1,t1,a3",
+          "rabbitizer_r5900": "and         $t1, $t1, $a3",
+          "va": "0x003132f4",
+          "word": "0x01274824"
+        },
+        {
+          "file_offset": "0x2142f8",
+          "ghidra_listing": "or a1,a1,t2",
+          "rabbitizer_r5900": "or          $a1, $a1, $t2",
+          "va": "0x003132f8",
+          "word": "0x00aa2825"
+        },
+        {
+          "file_offset": "0x2142fc",
+          "ghidra_listing": "li v0,-0x1c1",
+          "rabbitizer_r5900": "addiu       $v0, $zero, -0x1C1",
+          "va": "0x003132fc",
+          "word": "0x2402fe3f"
+        },
+        {
+          "file_offset": "0x214300",
+          "ghidra_listing": "and a2,a2,s4",
+          "rabbitizer_r5900": "and         $a2, $a2, $s4",
+          "va": "0x00313300",
+          "word": "0x00d43024"
+        },
+        {
+          "file_offset": "0x214304",
+          "ghidra_listing": "and a2,a2,t0",
+          "rabbitizer_r5900": "and         $a2, $a2, $t0",
+          "va": "0x00313304",
+          "word": "0x00c83024"
+        },
+        {
+          "file_offset": "0x214308",
+          "ghidra_listing": "ori a3,zero,0x8000",
+          "rabbitizer_r5900": "ori         $a3, $zero, 0x8000",
+          "va": "0x00313308",
+          "word": "0x34078000"
+        },
+        {
+          "file_offset": "0x21430c",
+          "ghidra_listing": "dsll32 a3,a3,0x3",
+          "rabbitizer_r5900": "dsll32      $a3, $a3, 3",
+          "va": "0x0031330c",
+          "word": "0x000738fc"
+        },
+        {
+          "file_offset": "0x214310",
+          "ghidra_listing": "li t2,-0xff1",
+          "rabbitizer_r5900": "addiu       $t2, $zero, -0xFF1",
+          "va": "0x00313310",
+          "word": "0x240af00f"
+        },
+        {
+          "file_offset": "0x214314",
+          "ghidra_listing": "and a1,a1,v0",
+          "rabbitizer_r5900": "and         $a1, $a1, $v0",
+          "va": "0x00313314",
+          "word": "0x00a22824"
+        },
+        {
+          "file_offset": "0x214318",
+          "ghidra_listing": "or v1,v1,a3",
+          "rabbitizer_r5900": "or          $v1, $v1, $a3",
+          "va": "0x00313318",
+          "word": "0x00671825"
+        },
+        {
+          "file_offset": "0x21431c",
+          "ghidra_listing": "and a2,a2,t2",
+          "rabbitizer_r5900": "and         $a2, $a2, $t2",
+          "va": "0x0031331c",
+          "word": "0x00ca3024"
+        },
+        {
+          "file_offset": "0x214320",
+          "ghidra_listing": "li v0,-0x3001",
+          "rabbitizer_r5900": "addiu       $v0, $zero, -0x3001",
+          "va": "0x00313320",
+          "word": "0x2402cfff"
+        },
+        {
+          "file_offset": "0x214324",
+          "ghidra_listing": "ld t3,0xc0(a0)",
+          "rabbitizer_r5900": "ld          $t3, 0xC0($a0)",
+          "va": "0x00313324",
+          "word": "0xdc8b00c0"
+        },
+        {
+          "file_offset": "0x214328",
+          "ghidra_listing": "ori a3,zero,0xffdf",
+          "rabbitizer_r5900": "ori         $a3, $zero, 0xFFDF",
+          "va": "0x00313328",
+          "word": "0x3407ffdf"
+        },
+        {
+          "file_offset": "0x21432c",
+          "ghidra_listing": "dsll a3,a3,0x10",
+          "rabbitizer_r5900": "dsll        $a3, $a3, 16",
+          "va": "0x0031332c",
+          "word": "0x00073c38"
+        },
+        {
+          "file_offset": "0x214330",
+          "ghidra_listing": "ori a3,a3,0xffff",
+          "rabbitizer_r5900": "ori         $a3, $a3, 0xFFFF",
+          "va": "0x00313330",
+          "word": "0x34e7ffff"
+        },
+        {
+          "file_offset": "0x214334",
+          "ghidra_listing": "dsll a3,a3,0x10",
+          "rabbitizer_r5900": "dsll        $a3, $a3, 16",
+          "va": "0x00313334",
+          "word": "0x00073c38"
+        },
+        {
+          "file_offset": "0x214338",
+          "ghidra_listing": "ori a3,a3,0xffff",
+          "rabbitizer_r5900": "ori         $a3, $a3, 0xFFFF",
+          "va": "0x00313338",
+          "word": "0x34e7ffff"
+        },
+        {
+          "file_offset": "0x21433c",
+          "ghidra_listing": "dsll a3,a3,0x10",
+          "rabbitizer_r5900": "dsll        $a3, $a3, 16",
+          "va": "0x0031333c",
+          "word": "0x00073c38"
+        },
+        {
+          "file_offset": "0x214340",
+          "ghidra_listing": "ori a3,a3,0xffff",
+          "rabbitizer_r5900": "ori         $a3, $a3, 0xFFFF",
+          "va": "0x00313340",
+          "word": "0x34e7ffff"
+        },
+        {
+          "file_offset": "0x214344",
+          "ghidra_listing": "and a2,a2,v0",
+          "rabbitizer_r5900": "and         $a2, $a2, $v0",
+          "va": "0x00313344",
+          "word": "0x00c23024"
+        },
+        {
+          "file_offset": "0x214348",
+          "ghidra_listing": "and v1,v1,a3",
+          "rabbitizer_r5900": "and         $v1, $v1, $a3",
+          "va": "0x00313348",
+          "word": "0x00671824"
+        },
+        {
+          "file_offset": "0x21434c",
+          "ghidra_listing": "lui v0,0x9fff",
+          "rabbitizer_r5900": "lui         $v0, 0x9FFF",
+          "va": "0x0031334c",
+          "word": "0x3c029fff"
+        },
+        {
+          "file_offset": "0x214350",
+          "ghidra_listing": "ori v0,v0,0xffff",
+          "rabbitizer_r5900": "ori         $v0, $v0, 0xFFFF",
+          "va": "0x00313350",
+          "word": "0x3442ffff"
+        },
+        {
+          "file_offset": "0x214354",
+          "ghidra_listing": "dsll v0,v0,0x6",
+          "rabbitizer_r5900": "dsll        $v0, $v0, 6",
+          "va": "0x00313354",
+          "word": "0x000211b8"
+        },
+        {
+          "file_offset": "0x214358",
+          "ghidra_listing": "ori v0,v0,0x3f",
+          "rabbitizer_r5900": "ori         $v0, $v0, 0x3F",
+          "va": "0x00313358",
+          "word": "0x3442003f"
+        },
+        {
+          "file_offset": "0x21435c",
+          "ghidra_listing": "ld s1,0x100(a0)",
+          "rabbitizer_r5900": "ld          $s1, 0x100($a0)",
+          "va": "0x0031335c",
+          "word": "0xdc910100"
+        },
+        {
+          "file_offset": "0x214360",
+          "ghidra_listing": "li t0,-0xd",
+          "rabbitizer_r5900": "addiu       $t0, $zero, -0xD",
+          "va": "0x00313360",
+          "word": "0x2408fff3"
+        },
+        {
+          "file_offset": "0x214364",
+          "ghidra_listing": "ori a3,zero,0x8000",
+          "rabbitizer_r5900": "ori         $a3, $zero, 0x8000",
+          "va": "0x00313364",
+          "word": "0x34078000"
+        },
+        {
+          "file_offset": "0x214368",
+          "ghidra_listing": "dsll32 a3,a3,0x6",
+          "rabbitizer_r5900": "dsll32      $a3, $a3, 6",
+          "va": "0x00313368",
+          "word": "0x000739bc"
+        },
+        {
+          "file_offset": "0x21436c",
+          "ghidra_listing": "and t3,t3,v0",
+          "rabbitizer_r5900": "and         $t3, $t3, $v0",
+          "va": "0x0031336c",
+          "word": "0x01625824"
+        },
+        {
+          "file_offset": "0x214370",
+          "ghidra_listing": "and t1,t1,t0",
+          "rabbitizer_r5900": "and         $t1, $t1, $t0",
+          "va": "0x00313370",
+          "word": "0x01284824"
+        },
+        {
+          "file_offset": "0x214374",
+          "ghidra_listing": "or v1,v1,a3",
+          "rabbitizer_r5900": "or          $v1, $v1, $a3",
+          "va": "0x00313374",
+          "word": "0x00671825"
+        },
+        {
+          "file_offset": "0x214378",
+          "ghidra_listing": "lui v0,0xbfff",
+          "rabbitizer_r5900": "lui         $v0, 0xBFFF",
+          "va": "0x00313378",
+          "word": "0x3c02bfff"
+        },
+        {
+          "file_offset": "0x21437c",
+          "ghidra_listing": "ori v0,v0,0xffff",
+          "rabbitizer_r5900": "ori         $v0, $v0, 0xFFFF",
+          "va": "0x0031337c",
+          "word": "0x3442ffff"
+        },
+        {
+          "file_offset": "0x214380",
+          "ghidra_listing": "dsll v0,v0,0x2",
+          "rabbitizer_r5900": "dsll        $v0, $v0, 2",
+          "va": "0x00313380",
+          "word": "0x000210b8"
+        },
+        {
+          "file_offset": "0x214384",
+          "ghidra_listing": "ori v0,v0,0x3",
+          "rabbitizer_r5900": "ori         $v0, $v0, 0x3",
+          "va": "0x00313384",
+          "word": "0x34420003"
+        },
+        {
+          "file_offset": "0x214388",
+          "ghidra_listing": "li t2,0x140",
+          "rabbitizer_r5900": "addiu       $t2, $zero, 0x140",
+          "va": "0x00313388",
+          "word": "0x240a0140"
+        },
+        {
+          "file_offset": "0x21438c",
+          "ghidra_listing": "li t0,0x4",
+          "rabbitizer_r5900": "addiu       $t0, $zero, 0x4",
+          "va": "0x0031338c",
+          "word": "0x24080004"
+        },
+        {
+          "file_offset": "0x214390",
+          "ghidra_listing": "lui s5,0x43",
+          "rabbitizer_r5900": "lui         $s5, 0x43",
+          "va": "0x00313390",
+          "word": "0x3c150043"
+        },
+        {
+          "file_offset": "0x214394",
+          "ghidra_listing": "lui s7,0x43",
+          "rabbitizer_r5900": "lui         $s7, 0x43",
+          "va": "0x00313394",
+          "word": "0x3c170043"
+        },
+        {
+          "file_offset": "0x214398",
+          "ghidra_listing": "ori a3,zero,0xffef",
+          "rabbitizer_r5900": "ori         $a3, $zero, 0xFFEF",
+          "va": "0x00313398",
+          "word": "0x3407ffef"
+        },
+        {
+          "file_offset": "0x21439c",
+          "ghidra_listing": "dsll a3,a3,0x10",
+          "rabbitizer_r5900": "dsll        $a3, $a3, 16",
+          "va": "0x0031339c",
+          "word": "0x00073c38"
+        },
+        {
+          "file_offset": "0x2143a0",
+          "ghidra_listing": "ori a3,a3,0xffff",
+          "rabbitizer_r5900": "ori         $a3, $a3, 0xFFFF",
+          "va": "0x003133a0",
+          "word": "0x34e7ffff"
+        },
+        {
+          "file_offset": "0x2143a4",
+          "ghidra_listing": "dsll a3,a3,0x10",
+          "rabbitizer_r5900": "dsll        $a3, $a3, 16",
+          "va": "0x003133a4",
+          "word": "0x00073c38"
+        },
+        {
+          "file_offset": "0x2143a8",
+          "ghidra_listing": "ori a3,a3,0xffff",
+          "rabbitizer_r5900": "ori         $a3, $a3, 0xFFFF",
+          "va": "0x003133a8",
+          "word": "0x34e7ffff"
+        },
+        {
+          "file_offset": "0x2143ac",
+          "ghidra_listing": "dsll a3,a3,0x10",
+          "rabbitizer_r5900": "dsll        $a3, $a3, 16",
+          "va": "0x003133ac",
+          "word": "0x00073c38"
+        },
+        {
+          "file_offset": "0x2143b0",
+          "ghidra_listing": "ori a3,a3,0xffff",
+          "rabbitizer_r5900": "ori         $a3, $a3, 0xFFFF",
+          "va": "0x003133b0",
+          "word": "0x34e7ffff"
+        },
+        {
+          "file_offset": "0x2143b4",
+          "ghidra_listing": "and s1,s1,v0",
+          "rabbitizer_r5900": "and         $s1, $s1, $v0",
+          "va": "0x003133b4",
+          "word": "0x02228824"
+        },
+        {
+          "file_offset": "0x2143b8",
+          "ghidra_listing": "lw t5,-0x21ec(s5)",
+          "rabbitizer_r5900": "lw          $t5, -0x21EC($s5)",
+          "va": "0x003133b8",
+          "word": "0x8eadde14"
+        },
+        {
+          "file_offset": "0x2143bc",
+          "ghidra_listing": "lw t4,-0x21f4(s7)",
+          "rabbitizer_r5900": "lw          $t4, -0x21F4($s7)",
+          "va": "0x003133bc",
+          "word": "0x8eecde0c"
+        },
+        {
+          "file_offset": "0x2143c0",
+          "ghidra_listing": "or a1,a1,t2",
+          "rabbitizer_r5900": "or          $a1, $a1, $t2",
+          "va": "0x003133c0",
+          "word": "0x00aa2825"
+        },
+        {
+          "file_offset": "0x2143c4",
+          "ghidra_listing": "or t1,t1,t0",
+          "rabbitizer_r5900": "or          $t1, $t1, $t0",
+          "va": "0x003133c4",
+          "word": "0x01284825"
+        },
+        {
+          "file_offset": "0x2143c8",
+          "ghidra_listing": "and v1,v1,a3",
+          "rabbitizer_r5900": "and         $v1, $v1, $a3",
+          "va": "0x003133c8",
+          "word": "0x00671824"
+        },
+        {
+          "file_offset": "0x2143cc",
+          "ghidra_listing": "ori v0,zero,0x8000",
+          "rabbitizer_r5900": "ori         $v0, $zero, 0x8000",
+          "va": "0x003133cc",
+          "word": "0x34028000"
+        },
+        {
+          "file_offset": "0x2143d0",
+          "ghidra_listing": "dsll32 v0,v0,0x5",
+          "rabbitizer_r5900": "dsll32      $v0, $v0, 5",
+          "va": "0x003133d0",
+          "word": "0x0002117c"
+        },
+        {
+          "file_offset": "0x2143d4",
+          "ghidra_listing": "li t0,-0x31",
+          "rabbitizer_r5900": "addiu       $t0, $zero, -0x31",
+          "va": "0x003133d4",
+          "word": "0x2408ffcf"
+        },
+        {
+          "file_offset": "0x2143d8",
+          "ghidra_listing": "li t2,0x1000",
+          "rabbitizer_r5900": "addiu       $t2, $zero, 0x1000",
+          "va": "0x003133d8",
+          "word": "0x240a1000"
+        },
+        {
+          "file_offset": "0x2143dc",
+          "ghidra_listing": "or v1,v1,v0",
+          "rabbitizer_r5900": "or          $v1, $v1, $v0",
+          "va": "0x003133dc",
+          "word": "0x00621825"
+        },
+        {
+          "file_offset": "0x2143e0",
+          "ghidra_listing": "lw s2,-0x21f0(s8)",
+          "rabbitizer_r5900": "lw          $s2, -0x21F0($fp)",
+          "va": "0x003133e0",
+          "word": "0x8fd2de10"
+        },
+        {
+          "file_offset": "0x2143e4",
+          "ghidra_listing": "and t1,t1,t0",
+          "rabbitizer_r5900": "and         $t1, $t1, $t0",
+          "va": "0x003133e4",
+          "word": "0x01284824"
+        },
+        {
+          "file_offset": "0x2143e8",
+          "ghidra_listing": "ld s0,0x50(a0)",
+          "rabbitizer_r5900": "ld          $s0, 0x50($a0)",
+          "va": "0x003133e8",
+          "word": "0xdc900050"
+        },
+        {
+          "file_offset": "0x2143ec",
+          "ghidra_listing": "or a2,a2,t2",
+          "rabbitizer_r5900": "or          $a2, $a2, $t2",
+          "va": "0x003133ec",
+          "word": "0x00ca3025"
+        },
+        {
+          "file_offset": "0x2143f0",
+          "ghidra_listing": "ld t7,0xb0(a0)",
+          "rabbitizer_r5900": "ld          $t7, 0xB0($a0)",
+          "va": "0x003133f0",
+          "word": "0xdc8f00b0"
+        },
+        {
+          "file_offset": "0x2143f4",
+          "ghidra_listing": "lui t6,0xffe7",
+          "rabbitizer_r5900": "lui         $t6, 0xFFE7",
+          "va": "0x003133f4",
+          "word": "0x3c0effe7"
+        },
+        {
+          "file_offset": "0x2143f8",
+          "ghidra_listing": "ori t6,t6,0xffff",
+          "rabbitizer_r5900": "ori         $t6, $t6, 0xFFFF",
+          "va": "0x003133f8",
+          "word": "0x35ceffff"
+        },
+        {
+          "file_offset": "0x2143fc",
+          "ghidra_listing": "and a1,a1,s4",
+          "rabbitizer_r5900": "and         $a1, $a1, $s4",
+          "va": "0x003133fc",
+          "word": "0x00b42824"
+        },
+        {
+          "file_offset": "0x214400",
+          "ghidra_listing": "addiu t5,t5,0x1",
+          "rabbitizer_r5900": "addiu       $t5, $t5, 0x1",
+          "va": "0x00313400",
+          "word": "0x25ad0001"
+        },
+        {
+          "file_offset": "0x214404",
+          "ghidra_listing": "addiu t4,t4,0x1",
+          "rabbitizer_r5900": "addiu       $t4, $t4, 0x1",
+          "va": "0x00313404",
+          "word": "0x258c0001"
+        },
+        {
+          "file_offset": "0x214408",
+          "ghidra_listing": "li v0,0x412",
+          "rabbitizer_r5900": "addiu       $v0, $zero, 0x412",
+          "va": "0x00313408",
+          "word": "0x24020412"
+        },
+        {
+          "file_offset": "0x21440c",
+          "ghidra_listing": "sd v0,-0x2138(s6)",
+          "rabbitizer_r5900": "sd          $v0, -0x2138($s6)",
+          "va": "0x0031340c",
+          "word": "0xfec2dec8"
+        },
+        {
+          "file_offset": "0x214410",
+          "ghidra_listing": "lui s3,0xbfff",
+          "rabbitizer_r5900": "lui         $s3, 0xBFFF",
+          "va": "0x00313410",
+          "word": "0x3c13bfff"
+        },
+        {
+          "file_offset": "0x214414",
+          "ghidra_listing": "ori s3,s3,0xffff",
+          "rabbitizer_r5900": "ori         $s3, $s3, 0xFFFF",
+          "va": "0x00313414",
+          "word": "0x3673ffff"
+        },
+        {
+          "file_offset": "0x214418",
+          "ghidra_listing": "dsll s3,s3,0x4",
+          "rabbitizer_r5900": "dsll        $s3, $s3, 4",
+          "va": "0x00313418",
+          "word": "0x00139938"
+        },
+        {
+          "file_offset": "0x21441c",
+          "ghidra_listing": "ori s3,s3,0xf",
+          "rabbitizer_r5900": "ori         $s3, $s3, 0xF",
+          "va": "0x0031341c",
+          "word": "0x3673000f"
+        },
+        {
+          "file_offset": "0x214420",
+          "ghidra_listing": "sw t5,-0x21ec(s5)",
+          "rabbitizer_r5900": "sw          $t5, -0x21EC($s5)",
+          "va": "0x00313420",
+          "word": "0xaeadde14"
+        },
+        {
+          "file_offset": "0x214424",
+          "ghidra_listing": "li t2,-0xc1",
+          "rabbitizer_r5900": "addiu       $t2, $zero, -0xC1",
+          "va": "0x00313424",
+          "word": "0x240aff3f"
+        },
+        {
+          "file_offset": "0x214428",
+          "ghidra_listing": "sw t4,-0x21f4(s7)",
+          "rabbitizer_r5900": "sw          $t4, -0x21F4($s7)",
+          "va": "0x00313428",
+          "word": "0xaeecde0c"
+        },
+        {
+          "file_offset": "0x21442c",
+          "ghidra_listing": "lui t0,0xfff9",
+          "rabbitizer_r5900": "lui         $t0, 0xFFF9",
+          "va": "0x0031342c",
+          "word": "0x3c08fff9"
+        },
+        {
+          "file_offset": "0x214430",
+          "ghidra_listing": "ori t0,t0,0xffff",
+          "rabbitizer_r5900": "ori         $t0, $t0, 0xFFFF",
+          "va": "0x00313430",
+          "word": "0x3508ffff"
+        },
+        {
+          "file_offset": "0x214434",
+          "ghidra_listing": "and a1,a1,t6",
+          "rabbitizer_r5900": "and         $a1, $a1, $t6",
+          "va": "0x00313434",
+          "word": "0x00ae2824"
+        },
+        {
+          "file_offset": "0x214438",
+          "ghidra_listing": "lui a3,0x8007",
+          "rabbitizer_r5900": "lui         $a3, 0x8007",
+          "va": "0x00313438",
+          "word": "0x3c078007"
+        },
+        {
+          "file_offset": "0x21443c",
+          "ghidra_listing": "ori a3,a3,0xffff",
+          "rabbitizer_r5900": "ori         $a3, $a3, 0xFFFF",
+          "va": "0x0031343c",
+          "word": "0x34e7ffff"
+        },
+        {
+          "file_offset": "0x214440",
+          "ghidra_listing": "dsll a3,a3,0xd",
+          "rabbitizer_r5900": "dsll        $a3, $a3, 13",
+          "va": "0x00313440",
+          "word": "0x00073b78"
+        },
+        {
+          "file_offset": "0x214444",
+          "ghidra_listing": "ori a3,a3,0x1fff",
+          "rabbitizer_r5900": "ori         $a3, $a3, 0x1FFF",
+          "va": "0x00313444",
+          "word": "0x34e71fff"
+        },
+        {
+          "file_offset": "0x214448",
+          "ghidra_listing": "and t3,t3,s3",
+          "rabbitizer_r5900": "and         $t3, $t3, $s3",
+          "va": "0x00313448",
+          "word": "0x01735824"
+        },
+        {
+          "file_offset": "0x21444c",
+          "ghidra_listing": "and t1,t1,t2",
+          "rabbitizer_r5900": "and         $t1, $t1, $t2",
+          "va": "0x0031344c",
+          "word": "0x012a4824"
+        },
+        {
+          "file_offset": "0x214450",
+          "ghidra_listing": "and a2,a2,t0",
+          "rabbitizer_r5900": "and         $a2, $a2, $t0",
+          "va": "0x00313450",
+          "word": "0x00c83024"
+        },
+        {
+          "file_offset": "0x214454",
+          "ghidra_listing": "and a1,a1,a3",
+          "rabbitizer_r5900": "and         $a1, $a1, $a3",
+          "va": "0x00313454",
+          "word": "0x00a72824"
+        },
+        {
+          "file_offset": "0x214458",
+          "ghidra_listing": "sd v1,0x60(a0)",
+          "rabbitizer_r5900": "sd          $v1, 0x60($a0)",
+          "va": "0x00313458",
+          "word": "0xfc830060"
+        },
+        {
+          "file_offset": "0x21445c",
+          "ghidra_listing": "addiu s2,s2,0xb",
+          "rabbitizer_r5900": "addiu       $s2, $s2, 0xB",
+          "va": "0x0031345c",
+          "word": "0x2652000b"
+        },
+        {
+          "file_offset": "0x214460",
+          "ghidra_listing": "sw s2,-0x21f0(s8)",
+          "rabbitizer_r5900": "sw          $s2, -0x21F0($fp)",
+          "va": "0x00313460",
+          "word": "0xafd2de10"
+        },
+        {
+          "file_offset": "0x214464",
+          "ghidra_listing": "ori s3,zero,0x8000",
+          "rabbitizer_r5900": "ori         $s3, $zero, 0x8000",
+          "va": "0x00313464",
+          "word": "0x34138000"
+        },
+        {
+          "file_offset": "0x214468",
+          "ghidra_listing": "dsll s3,s3,0x11",
+          "rabbitizer_r5900": "dsll        $s3, $s3, 17",
+          "va": "0x00313468",
+          "word": "0x00139c78"
+        },
+        {
+          "file_offset": "0x21446c",
+          "ghidra_listing": "ori t0,zero,0x8000",
+          "rabbitizer_r5900": "ori         $t0, $zero, 0x8000",
+          "va": "0x0031346c",
+          "word": "0x34088000"
+        },
+        {
+          "file_offset": "0x214470",
+          "ghidra_listing": "dsll t0,t0,0x13",
+          "rabbitizer_r5900": "dsll        $t0, $t0, 19",
+          "va": "0x00313470",
+          "word": "0x000844f8"
+        },
+        {
+          "file_offset": "0x214474",
+          "ghidra_listing": "li t2,0x40",
+          "rabbitizer_r5900": "addiu       $t2, $zero, 0x40",
+          "va": "0x00313474",
+          "word": "0x240a0040"
+        },
+        {
+          "file_offset": "0x214478",
+          "ghidra_listing": "lui t6,0x4",
+          "rabbitizer_r5900": "lui         $t6, 0x4",
+          "va": "0x00313478",
+          "word": "0x3c0e0004"
+        },
+        {
+          "file_offset": "0x21447c",
+          "ghidra_listing": "li a3,0xfff",
+          "rabbitizer_r5900": "addiu       $a3, $zero, 0xFFF",
+          "va": "0x0031347c",
+          "word": "0x24070fff"
+        },
+        {
+          "file_offset": "0x214480",
+          "ghidra_listing": "sd a3,0xb0(t8)",
+          "rabbitizer_r5900": "sd          $a3, 0xB0($t8)",
+          "va": "0x00313480",
+          "word": "0xff0700b0"
+        },
+        {
+          "file_offset": "0x214484",
+          "ghidra_listing": "and s0,s0,s4",
+          "rabbitizer_r5900": "and         $s0, $s0, $s4",
+          "va": "0x00313484",
+          "word": "0x02148024"
+        },
+        {
+          "file_offset": "0x214488",
+          "ghidra_listing": "or t3,t3,t0",
+          "rabbitizer_r5900": "or          $t3, $t3, $t0",
+          "va": "0x00313488",
+          "word": "0x01685825"
+        },
+        {
+          "file_offset": "0x21448c",
+          "ghidra_listing": "and t7,t7,s4",
+          "rabbitizer_r5900": "and         $t7, $t7, $s4",
+          "va": "0x0031348c",
+          "word": "0x01f47824"
+        },
+        {
+          "file_offset": "0x214490",
+          "ghidra_listing": "or t1,t1,t2",
+          "rabbitizer_r5900": "or          $t1, $t1, $t2",
+          "va": "0x00313490",
+          "word": "0x012a4825"
+        },
+        {
+          "file_offset": "0x214494",
+          "ghidra_listing": "or a2,a2,t6",
+          "rabbitizer_r5900": "or          $a2, $a2, $t6",
+          "va": "0x00313494",
+          "word": "0x00ce3025"
+        },
+        {
+          "file_offset": "0x214498",
+          "ghidra_listing": "or s1,s1,s3",
+          "rabbitizer_r5900": "or          $s1, $s1, $s3",
+          "va": "0x00313498",
+          "word": "0x02338825"
+        },
+        {
+          "file_offset": "0x21449c",
+          "ghidra_listing": "sd s0,0x50(a0)",
+          "rabbitizer_r5900": "sd          $s0, 0x50($a0)",
+          "va": "0x0031349c",
+          "word": "0xfc900050"
+        },
+        {
+          "file_offset": "0x2144a0",
+          "ghidra_listing": "sd t3,0xc0(a0)",
+          "rabbitizer_r5900": "sd          $t3, 0xC0($a0)",
+          "va": "0x003134a0",
+          "word": "0xfc8b00c0"
+        },
+        {
+          "file_offset": "0x2144a4",
+          "ghidra_listing": "sd a1,0xd0(a0)",
+          "rabbitizer_r5900": "sd          $a1, 0xD0($a0)",
+          "va": "0x003134a4",
+          "word": "0xfc8500d0"
+        },
+        {
+          "file_offset": "0x2144a8",
+          "ghidra_listing": "sd t7,0xb0(a0)",
+          "rabbitizer_r5900": "sd          $t7, 0xB0($a0)",
+          "va": "0x003134a8",
+          "word": "0xfc8f00b0"
+        },
+        {
+          "file_offset": "0x2144ac",
+          "ghidra_listing": "sd t1,0xa0(a0)",
+          "rabbitizer_r5900": "sd          $t1, 0xA0($a0)",
+          "va": "0x003134ac",
+          "word": "0xfc8900a0"
+        },
+        {
+          "file_offset": "0x2144b0",
+          "ghidra_listing": "sd a2,0x80(a0)",
+          "rabbitizer_r5900": "sd          $a2, 0x80($a0)",
+          "va": "0x003134b0",
+          "word": "0xfc860080"
+        },
+        {
+          "file_offset": "0x2144b4",
+          "ghidra_listing": "b 0x003167d4",
+          "rabbitizer_r5900": "b           . + 4 + (0xCC7 << 2)",
+          "va": "0x003134b4",
+          "word": "0x10000cc7"
+        },
+        {
+          "file_offset": "0x2144b8",
+          "ghidra_listing": "_sd s1,0x100(a0)",
+          "rabbitizer_r5900": "sd          $s1, 0x100($a0)",
+          "va": "0x003134b8",
+          "word": "0xfc910100"
+        }
+      ],
+      "name": "treeblend_gs_template",
+      "start_va": "0x00313270"
+    },
+    {
+      "end_va_exclusive": "0x00313a4c",
+      "instructions": [
+        {
+          "file_offset": "0x2149bc",
+          "ghidra_listing": "or a0,a0,a2",
+          "rabbitizer_r5900": "or          $a0, $a0, $a2",
+          "va": "0x003139bc",
+          "word": "0x00862025"
+        },
+        {
+          "file_offset": "0x2149c0",
+          "ghidra_listing": "or v1,v1,t1",
+          "rabbitizer_r5900": "or          $v1, $v1, $t1",
+          "va": "0x003139c0",
+          "word": "0x00691825"
+        },
+        {
+          "file_offset": "0x2149c4",
+          "ghidra_listing": "or a1,a1,t2",
+          "rabbitizer_r5900": "or          $a1, $a1, $t2",
+          "va": "0x003139c4",
+          "word": "0x00aa2825"
+        },
+        {
+          "file_offset": "0x2149c8",
+          "ghidra_listing": "or t0,t0,a3",
+          "rabbitizer_r5900": "or          $t0, $t0, $a3",
+          "va": "0x003139c8",
+          "word": "0x01074025"
+        },
+        {
+          "file_offset": "0x2149cc",
+          "ghidra_listing": "lui a2,0x9fff",
+          "rabbitizer_r5900": "lui         $a2, 0x9FFF",
+          "va": "0x003139cc",
+          "word": "0x3c069fff"
+        },
+        {
+          "file_offset": "0x2149d0",
+          "ghidra_listing": "ori a2,a2,0xffff",
+          "rabbitizer_r5900": "ori         $a2, $a2, 0xFFFF",
+          "va": "0x003139d0",
+          "word": "0x34c6ffff"
+        },
+        {
+          "file_offset": "0x2149d4",
+          "ghidra_listing": "dsll a2,a2,0x6",
+          "rabbitizer_r5900": "dsll        $a2, $a2, 6",
+          "va": "0x003139d4",
+          "word": "0x000631b8"
+        },
+        {
+          "file_offset": "0x2149d8",
+          "ghidra_listing": "ori a2,a2,0x3f",
+          "rabbitizer_r5900": "ori         $a2, $a2, 0x3F",
+          "va": "0x003139d8",
+          "word": "0x34c6003f"
+        },
+        {
+          "file_offset": "0x2149dc",
+          "ghidra_listing": "li t1,-0x31",
+          "rabbitizer_r5900": "addiu       $t1, $zero, -0x31",
+          "va": "0x003139dc",
+          "word": "0x2409ffcf"
+        },
+        {
+          "file_offset": "0x2149e0",
+          "ghidra_listing": "ori a3,zero,0xffdf",
+          "rabbitizer_r5900": "ori         $a3, $zero, 0xFFDF",
+          "va": "0x003139e0",
+          "word": "0x3407ffdf"
+        },
+        {
+          "file_offset": "0x2149e4",
+          "ghidra_listing": "dsll a3,a3,0x10",
+          "rabbitizer_r5900": "dsll        $a3, $a3, 16",
+          "va": "0x003139e4",
+          "word": "0x00073c38"
+        },
+        {
+          "file_offset": "0x2149e8",
+          "ghidra_listing": "ori a3,a3,0xffff",
+          "rabbitizer_r5900": "ori         $a3, $a3, 0xFFFF",
+          "va": "0x003139e8",
+          "word": "0x34e7ffff"
+        },
+        {
+          "file_offset": "0x2149ec",
+          "ghidra_listing": "dsll a3,a3,0x10",
+          "rabbitizer_r5900": "dsll        $a3, $a3, 16",
+          "va": "0x003139ec",
+          "word": "0x00073c38"
+        },
+        {
+          "file_offset": "0x2149f0",
+          "ghidra_listing": "ori a3,a3,0xffff",
+          "rabbitizer_r5900": "ori         $a3, $a3, 0xFFFF",
+          "va": "0x003139f0",
+          "word": "0x34e7ffff"
+        },
+        {
+          "file_offset": "0x2149f4",
+          "ghidra_listing": "dsll a3,a3,0x10",
+          "rabbitizer_r5900": "dsll        $a3, $a3, 16",
+          "va": "0x003139f4",
+          "word": "0x00073c38"
+        },
+        {
+          "file_offset": "0x2149f8",
+          "ghidra_listing": "ori a3,a3,0xffff",
+          "rabbitizer_r5900": "ori         $a3, $a3, 0xFFFF",
+          "va": "0x003139f8",
+          "word": "0x34e7ffff"
+        },
+        {
+          "file_offset": "0x2149fc",
+          "ghidra_listing": "li t2,-0x3001",
+          "rabbitizer_r5900": "addiu       $t2, $zero, -0x3001",
+          "va": "0x003139fc",
+          "word": "0x240acfff"
+        },
+        {
+          "file_offset": "0x214a00",
+          "ghidra_listing": "and t3,t3,a2",
+          "rabbitizer_r5900": "and         $t3, $t3, $a2",
+          "va": "0x00313a00",
+          "word": "0x01665824"
+        },
+        {
+          "file_offset": "0x214a04",
+          "ghidra_listing": "and t0,t0,t1",
+          "rabbitizer_r5900": "and         $t0, $t0, $t1",
+          "va": "0x00313a04",
+          "word": "0x01094024"
+        },
+        {
+          "file_offset": "0x214a08",
+          "ghidra_listing": "lui t7,0xbfff",
+          "rabbitizer_r5900": "lui         $t7, 0xBFFF",
+          "va": "0x00313a08",
+          "word": "0x3c0fbfff"
+        },
+        {
+          "file_offset": "0x214a0c",
+          "ghidra_listing": "ori t7,t7,0xffff",
+          "rabbitizer_r5900": "ori         $t7, $t7, 0xFFFF",
+          "va": "0x00313a0c",
+          "word": "0x35efffff"
+        },
+        {
+          "file_offset": "0x214a10",
+          "ghidra_listing": "dsll t7,t7,0x4",
+          "rabbitizer_r5900": "dsll        $t7, $t7, 4",
+          "va": "0x00313a10",
+          "word": "0x000f7938"
+        },
+        {
+          "file_offset": "0x214a14",
+          "ghidra_listing": "ori t7,t7,0xf",
+          "rabbitizer_r5900": "ori         $t7, $t7, 0xF",
+          "va": "0x00313a14",
+          "word": "0x35ef000f"
+        },
+        {
+          "file_offset": "0x214a18",
+          "ghidra_listing": "lui s4,0x43",
+          "rabbitizer_r5900": "lui         $s4, 0x43",
+          "va": "0x00313a18",
+          "word": "0x3c140043"
+        },
+        {
+          "file_offset": "0x214a1c",
+          "ghidra_listing": "and a0,a0,a3",
+          "rabbitizer_r5900": "and         $a0, $a0, $a3",
+          "va": "0x00313a1c",
+          "word": "0x00872024"
+        },
+        {
+          "file_offset": "0x214a20",
+          "ghidra_listing": "and v1,v1,t2",
+          "rabbitizer_r5900": "and         $v1, $v1, $t2",
+          "va": "0x00313a20",
+          "word": "0x006a1824"
+        },
+        {
+          "file_offset": "0x214a24",
+          "ghidra_listing": "lui t4,0x43",
+          "rabbitizer_r5900": "lui         $t4, 0x43",
+          "va": "0x00313a24",
+          "word": "0x3c0c0043"
+        },
+        {
+          "file_offset": "0x214a28",
+          "ghidra_listing": "li t1,-0xc1",
+          "rabbitizer_r5900": "addiu       $t1, $zero, -0xC1",
+          "va": "0x00313a28",
+          "word": "0x2409ff3f"
+        },
+        {
+          "file_offset": "0x214a2c",
+          "ghidra_listing": "and t3,t3,t7",
+          "rabbitizer_r5900": "and         $t3, $t3, $t7",
+          "va": "0x00313a2c",
+          "word": "0x016f5824"
+        },
+        {
+          "file_offset": "0x214a30",
+          "ghidra_listing": "lw t5,-0x21f4(t4)",
+          "rabbitizer_r5900": "lw          $t5, -0x21F4($t4)",
+          "va": "0x00313a30",
+          "word": "0x8d8dde0c"
+        },
+        {
+          "file_offset": "0x214a34",
+          "ghidra_listing": "lw t2,-0x21ec(s4)",
+          "rabbitizer_r5900": "lw          $t2, -0x21EC($s4)",
+          "va": "0x00313a34",
+          "word": "0x8e8ade14"
+        },
+        {
+          "file_offset": "0x214a38",
+          "ghidra_listing": "lui a3,0xfff9",
+          "rabbitizer_r5900": "lui         $a3, 0xFFF9",
+          "va": "0x00313a38",
+          "word": "0x3c07fff9"
+        },
+        {
+          "file_offset": "0x214a3c",
+          "ghidra_listing": "ori a3,a3,0xffff",
+          "rabbitizer_r5900": "ori         $a3, $a3, 0xFFFF",
+          "va": "0x00313a3c",
+          "word": "0x34e7ffff"
+        },
+        {
+          "file_offset": "0x214a40",
+          "ghidra_listing": "and t0,t0,t1",
+          "rabbitizer_r5900": "and         $t0, $t0, $t1",
+          "va": "0x00313a40",
+          "word": "0x01094024"
+        },
+        {
+          "file_offset": "0x214a44",
+          "ghidra_listing": "li t7,0x40",
+          "rabbitizer_r5900": "addiu       $t7, $zero, 0x40",
+          "va": "0x00313a44",
+          "word": "0x240f0040"
+        },
+        {
+          "file_offset": "0x214a48",
+          "ghidra_listing": "ori a2,zero,0xffef",
+          "rabbitizer_r5900": "ori         $a2, $zero, 0xFFEF",
+          "va": "0x00313a48",
+          "word": "0x3406ffef"
+        }
+      ],
+      "name": "tree_initial_test_and_shared_tail",
+      "start_va": "0x003139bc"
+    },
+    {
+      "end_va_exclusive": "0x003167d4",
+      "instructions": [
+        {
+          "file_offset": "0x21779c",
+          "ghidra_listing": "or v1,v1,s2",
+          "rabbitizer_r5900": "or          $v1, $v1, $s2",
+          "va": "0x0031679c",
+          "word": "0x00721825"
+        },
+        {
+          "file_offset": "0x2177a0",
+          "ghidra_listing": "li a2,0x80",
+          "rabbitizer_r5900": "addiu       $a2, $zero, 0x80",
+          "va": "0x003167a0",
+          "word": "0x24060080"
+        },
+        {
+          "file_offset": "0x2177a4",
+          "ghidra_listing": "li a3,0x412",
+          "rabbitizer_r5900": "addiu       $a3, $zero, 0x412",
+          "va": "0x003167a4",
+          "word": "0x24070412"
+        },
+        {
+          "file_offset": "0x2177a8",
+          "ghidra_listing": "li t1,0xfff",
+          "rabbitizer_r5900": "addiu       $t1, $zero, 0xFFF",
+          "va": "0x003167a8",
+          "word": "0x24090fff"
+        },
+        {
+          "file_offset": "0x2177ac",
+          "ghidra_listing": "sb a2,0x44(v0)",
+          "rabbitizer_r5900": "sb          $a2, 0x44($v0)",
+          "va": "0x003167ac",
+          "word": "0xa0460044"
+        },
+        {
+          "file_offset": "0x2177b0",
+          "ghidra_listing": "sd a3,0x68(v0)",
+          "rabbitizer_r5900": "sd          $a3, 0x68($v0)",
+          "va": "0x003167b0",
+          "word": "0xfc470068"
+        },
+        {
+          "file_offset": "0x2177b4",
+          "ghidra_listing": "sd t1,0x118(v0)",
+          "rabbitizer_r5900": "sd          $t1, 0x118($v0)",
+          "va": "0x003167b4",
+          "word": "0xfc490118"
+        },
+        {
+          "file_offset": "0x2177b8",
+          "ghidra_listing": "sd t3,0xc0(v0)",
+          "rabbitizer_r5900": "sd          $t3, 0xC0($v0)",
+          "va": "0x003167b8",
+          "word": "0xfc4b00c0"
+        },
+        {
+          "file_offset": "0x2177bc",
+          "ghidra_listing": "sd a1,0xd0(v0)",
+          "rabbitizer_r5900": "sd          $a1, 0xD0($v0)",
+          "va": "0x003167bc",
+          "word": "0xfc4500d0"
+        },
+        {
+          "file_offset": "0x2177c0",
+          "ghidra_listing": "sd s0,0xb0(v0)",
+          "rabbitizer_r5900": "sd          $s0, 0xB0($v0)",
+          "va": "0x003167c0",
+          "word": "0xfc5000b0"
+        },
+        {
+          "file_offset": "0x2177c4",
+          "ghidra_listing": "sd t0,0xa0(v0)",
+          "rabbitizer_r5900": "sd          $t0, 0xA0($v0)",
+          "va": "0x003167c4",
+          "word": "0xfc4800a0"
+        },
+        {
+          "file_offset": "0x2177c8",
+          "ghidra_listing": "sd v1,0x80(v0)",
+          "rabbitizer_r5900": "sd          $v1, 0x80($v0)",
+          "va": "0x003167c8",
+          "word": "0xfc430080"
+        },
+        {
+          "file_offset": "0x2177cc",
+          "ghidra_listing": "sd s1,0x100(v0)",
+          "rabbitizer_r5900": "sd          $s1, 0x100($v0)",
+          "va": "0x003167cc",
+          "word": "0xfc510100"
+        },
+        {
+          "file_offset": "0x2177d0",
+          "ghidra_listing": "sb zero,0x40(v0)",
+          "rabbitizer_r5900": "sb          $zero, 0x40($v0)",
+          "va": "0x003167d0",
+          "word": "0xa0400040"
+        }
+      ],
+      "name": "tree_shared_test_zbuf_tail",
+      "start_va": "0x0031679c"
+    },
+    {
+      "end_va_exclusive": "0x0031ceb0",
+      "instructions": [
+        {
+          "file_offset": "0x21de68",
+          "ghidra_listing": "lw v0,0x16c(s4)",
+          "rabbitizer_r5900": "lw          $v0, 0x16C($s4)",
+          "va": "0x0031ce68",
+          "word": "0x8e82016c"
+        },
+        {
+          "file_offset": "0x21de6c",
+          "ghidra_listing": "mult a3,a2,v1",
+          "rabbitizer_r5900": "mult        $a3, $a2, $v1",
+          "va": "0x0031ce6c",
+          "word": "0x00c33818"
+        },
+        {
+          "file_offset": "0x21de70",
+          "ghidra_listing": "addiu a2,a2,0x1",
+          "rabbitizer_r5900": "addiu       $a2, $a2, 0x1",
+          "va": "0x0031ce70",
+          "word": "0x24c60001"
+        },
+        {
+          "file_offset": "0x21de74",
+          "ghidra_listing": "move a1,v0",
+          "rabbitizer_r5900": "daddu       $a1, $v0, $zero",
+          "va": "0x0031ce74",
+          "word": "0x0040282d"
+        },
+        {
+          "file_offset": "0x21de78",
+          "ghidra_listing": "sw a2,0x54(sp)",
+          "rabbitizer_r5900": "sw          $a2, 0x54($sp)",
+          "va": "0x0031ce78",
+          "word": "0xafa60054"
+        },
+        {
+          "file_offset": "0x21de7c",
+          "ghidra_listing": "lw v1,0x0(v0)",
+          "rabbitizer_r5900": "lw          $v1, 0x0($v0)",
+          "va": "0x0031ce7c",
+          "word": "0x8c430000"
+        },
+        {
+          "file_offset": "0x21de80",
+          "ghidra_listing": "addu v1,v1,a3",
+          "rabbitizer_r5900": "addu        $v1, $v1, $a3",
+          "va": "0x0031ce80",
+          "word": "0x00671821"
+        },
+        {
+          "file_offset": "0x21de84",
+          "ghidra_listing": "lw a0,0x0(v1)",
+          "rabbitizer_r5900": "lw          $a0, 0x0($v1)",
+          "va": "0x0031ce84",
+          "word": "0x8c640000"
+        },
+        {
+          "file_offset": "0x21de88",
+          "ghidra_listing": "lw v0,0x4(v1)",
+          "rabbitizer_r5900": "lw          $v0, 0x4($v1)",
+          "va": "0x0031ce88",
+          "word": "0x8c620004"
+        },
+        {
+          "file_offset": "0x21de8c",
+          "ghidra_listing": "subu v0,v0,a0",
+          "rabbitizer_r5900": "subu        $v0, $v0, $a0",
+          "va": "0x0031ce8c",
+          "word": "0x00441023"
+        },
+        {
+          "file_offset": "0x21de90",
+          "ghidra_listing": "sra s8,v0,0x2",
+          "rabbitizer_r5900": "sra         $fp, $v0, 2",
+          "va": "0x0031ce90",
+          "word": "0x0002f083"
+        },
+        {
+          "file_offset": "0x21de94",
+          "ghidra_listing": "blezl s8,0x0031d0e8",
+          "rabbitizer_r5900": "blezl       $fp, . + 4 + (0x94 << 2)",
+          "va": "0x0031ce94",
+          "word": "0x5bc00094"
+        },
+        {
+          "file_offset": "0x21de98",
+          "ghidra_listing": "_lw a2,0x54(sp)",
+          "rabbitizer_r5900": "lw          $a2, 0x54($sp)",
+          "va": "0x0031ce98",
+          "word": "0x8fa60054"
+        },
+        {
+          "file_offset": "0x21de9c",
+          "ghidra_listing": "blez s8,0x0031d0e4",
+          "rabbitizer_r5900": "blez        $fp, . + 4 + (0x91 << 2)",
+          "va": "0x0031ce9c",
+          "word": "0x1bc00091"
+        },
+        {
+          "file_offset": "0x21dea0",
+          "ghidra_listing": "_move s0,zero",
+          "rabbitizer_r5900": "daddu       $s0, $zero, $zero",
+          "va": "0x0031cea0",
+          "word": "0x0000802d"
+        },
+        {
+          "file_offset": "0x21dea4",
+          "ghidra_listing": "sw a3,0x50(sp)",
+          "rabbitizer_r5900": "sw          $a3, 0x50($sp)",
+          "va": "0x0031cea4",
+          "word": "0xafa70050"
+        },
+        {
+          "file_offset": "0x21dea8",
+          "ghidra_listing": "lw v1,0x0(a1)",
+          "rabbitizer_r5900": "lw          $v1, 0x0($a1)",
+          "va": "0x0031cea8",
+          "word": "0x8ca30000"
+        },
+        {
+          "file_offset": "0x21deac",
+          "ghidra_listing": "sll a0,s0,0x2",
+          "rabbitizer_r5900": "sll         $a0, $s0, 2",
+          "va": "0x0031ceac",
+          "word": "0x00102080"
+        }
+      ],
+      "name": "queue_bucket_outer_setup",
+      "start_va": "0x0031ce68"
+    },
+    {
+      "end_va_exclusive": "0x0031d0e0",
+      "instructions": [
+        {
+          "file_offset": "0x21e074",
+          "ghidra_listing": "addiu s5,s0,0x1",
+          "rabbitizer_r5900": "addiu       $s5, $s0, 0x1",
+          "va": "0x0031d074",
+          "word": "0x26150001"
+        },
+        {
+          "file_offset": "0x21e078",
+          "ghidra_listing": "blez s6,0x0031d0d4",
+          "rabbitizer_r5900": "blez        $s6, . + 4 + (0x16 << 2)",
+          "va": "0x0031d078",
+          "word": "0x1ac00016"
+        },
+        {
+          "file_offset": "0x21e07c",
+          "ghidra_listing": "_move s1,zero",
+          "rabbitizer_r5900": "daddu       $s1, $zero, $zero",
+          "va": "0x0031d07c",
+          "word": "0x0000882d"
+        },
+        {
+          "file_offset": "0x21e080",
+          "ghidra_listing": "lui s3,0x43",
+          "rabbitizer_r5900": "lui         $s3, 0x43",
+          "va": "0x0031d080",
+          "word": "0x3c130043"
+        },
+        {
+          "file_offset": "0x21e084",
+          "ghidra_listing": "nop",
+          "rabbitizer_r5900": "nop",
+          "va": "0x0031d084",
+          "word": "0x00000000"
+        },
+        {
+          "file_offset": "0x21e088",
+          "ghidra_listing": "lw v0,0x0(s2)",
+          "rabbitizer_r5900": "lw          $v0, 0x0($s2)",
+          "va": "0x0031d088",
+          "word": "0x8e420000"
+        },
+        {
+          "file_offset": "0x21e08c",
+          "ghidra_listing": "sll v1,s1,0x2",
+          "rabbitizer_r5900": "sll         $v1, $s1, 2",
+          "va": "0x0031d08c",
+          "word": "0x00111880"
+        },
+        {
+          "file_offset": "0x21e090",
+          "ghidra_listing": "move a0,s7",
+          "rabbitizer_r5900": "daddu       $a0, $s7, $zero",
+          "va": "0x0031d090",
+          "word": "0x02e0202d"
+        },
+        {
+          "file_offset": "0x21e094",
+          "ghidra_listing": "addiu s1,s1,0x1",
+          "rabbitizer_r5900": "addiu       $s1, $s1, 0x1",
+          "va": "0x0031d094",
+          "word": "0x26310001"
+        },
+        {
+          "file_offset": "0x21e098",
+          "ghidra_listing": "addu v0,v0,v1",
+          "rabbitizer_r5900": "addu        $v0, $v0, $v1",
+          "va": "0x0031d098",
+          "word": "0x00431021"
+        },
+        {
+          "file_offset": "0x21e09c",
+          "ghidra_listing": "lw s0,0x0(v0)",
+          "rabbitizer_r5900": "lw          $s0, 0x0($v0)",
+          "va": "0x0031d09c",
+          "word": "0x8c500000"
+        },
+        {
+          "file_offset": "0x21e0a0",
+          "ghidra_listing": "jal 0x0031b1f0",
+          "rabbitizer_r5900": "jal         func_31B1F0",
+          "va": "0x0031d0a0",
+          "word": "0x0c0c6c7c"
+        },
+        {
+          "file_offset": "0x21e0a4",
+          "ghidra_listing": "_addiu a1,s0,0x20",
+          "rabbitizer_r5900": "addiu       $a1, $s0, 0x20",
+          "va": "0x0031d0a4",
+          "word": "0x26050020"
+        },
+        {
+          "file_offset": "0x21e0a8",
+          "ghidra_listing": "lw v0,0x14(s0)",
+          "rabbitizer_r5900": "lw          $v0, 0x14($s0)",
+          "va": "0x0031d0a8",
+          "word": "0x8e020014"
+        },
+        {
+          "file_offset": "0x21e0ac",
+          "ghidra_listing": "move a0,s7",
+          "rabbitizer_r5900": "daddu       $a0, $s7, $zero",
+          "va": "0x0031d0ac",
+          "word": "0x02e0202d"
+        },
+        {
+          "file_offset": "0x21e0b0",
+          "ghidra_listing": "jal 0x0031e010",
+          "rabbitizer_r5900": "jal         func_31E010",
+          "va": "0x0031d0b0",
+          "word": "0x0c0c7804"
+        },
+        {
+          "file_offset": "0x21e0b4",
+          "ghidra_listing": "_lw a1,0x0(v0)",
+          "rabbitizer_r5900": "lw          $a1, 0x0($v0)",
+          "va": "0x0031d0b4",
+          "word": "0x8c450000"
+        },
+        {
+          "file_offset": "0x21e0b8",
+          "ghidra_listing": "lw a0,0x10(s0)",
+          "rabbitizer_r5900": "lw          $a0, 0x10($s0)",
+          "va": "0x0031d0b8",
+          "word": "0x8e040010"
+        },
+        {
+          "file_offset": "0x21e0bc",
+          "ghidra_listing": "slt a1,s1,s6",
+          "rabbitizer_r5900": "slt         $a1, $s1, $s6",
+          "va": "0x0031d0bc",
+          "word": "0x0236282a"
+        },
+        {
+          "file_offset": "0x21e0c0",
+          "ghidra_listing": "lw v1,-0x234c(s3)",
+          "rabbitizer_r5900": "lw          $v1, -0x234C($s3)",
+          "va": "0x0031d0c0",
+          "word": "0x8e63dcb4"
+        },
+        {
+          "file_offset": "0x21e0c4",
+          "ghidra_listing": "lw v0,0xc(a0)",
+          "rabbitizer_r5900": "lw          $v0, 0xC($a0)",
+          "va": "0x0031d0c4",
+          "word": "0x8c82000c"
+        },
+        {
+          "file_offset": "0x21e0c8",
+          "ghidra_listing": "addu v1,v1,v0",
+          "rabbitizer_r5900": "addu        $v1, $v1, $v0",
+          "va": "0x0031d0c8",
+          "word": "0x00621821"
+        },
+        {
+          "file_offset": "0x21e0cc",
+          "ghidra_listing": "bne a1,zero,0x0031d088",
+          "rabbitizer_r5900": "bnez        $a1, . + 4 + (-0x12 << 2)",
+          "va": "0x0031d0cc",
+          "word": "0x14a0ffee"
+        },
+        {
+          "file_offset": "0x21e0d0",
+          "ghidra_listing": "_sw v1,-0x234c(s3)",
+          "rabbitizer_r5900": "sw          $v1, -0x234C($s3)",
+          "va": "0x0031d0d0",
+          "word": "0xae63dcb4"
+        },
+        {
+          "file_offset": "0x21e0d4",
+          "ghidra_listing": "move s0,s5",
+          "rabbitizer_r5900": "daddu       $s0, $s5, $zero",
+          "va": "0x0031d0d4",
+          "word": "0x02a0802d"
+        },
+        {
+          "file_offset": "0x21e0d8",
+          "ghidra_listing": "slt v0,s0,s8",
+          "rabbitizer_r5900": "slt         $v0, $s0, $fp",
+          "va": "0x0031d0d8",
+          "word": "0x021e102a"
+        },
+        {
+          "file_offset": "0x21e0dc",
+          "ghidra_listing": "bne v0,zero,0x0031cea8",
+          "rabbitizer_r5900": "bnez        $v0, . + 4 + (-0x8E << 2)",
+          "va": "0x0031d0dc",
+          "word": "0x1440ff72"
+        }
+      ],
+      "name": "queue_bucket_increment_and_branch",
+      "start_va": "0x0031d074"
+    },
+    {
+      "end_va_exclusive": "0x0031d2c4",
+      "instructions": [
+        {
+          "file_offset": "0x21e250",
+          "ghidra_listing": "addiu sp,sp,-0x150",
+          "rabbitizer_r5900": "addiu       $sp, $sp, -0x150",
+          "va": "0x0031d250",
+          "word": "0x27bdfeb0"
+        },
+        {
+          "file_offset": "0x21e254",
+          "ghidra_listing": "lui v1,0x43",
+          "rabbitizer_r5900": "lui         $v1, 0x43",
+          "va": "0x0031d254",
+          "word": "0x3c030043"
+        },
+        {
+          "file_offset": "0x21e258",
+          "ghidra_listing": "sq s5,0x100(sp)",
+          "rabbitizer_r5900": "sq          $s5, 0x100($sp)",
+          "va": "0x0031d258",
+          "word": "0x7fb50100"
+        },
+        {
+          "file_offset": "0x21e25c",
+          "ghidra_listing": "move a3,a1",
+          "rabbitizer_r5900": "daddu       $a3, $a1, $zero",
+          "va": "0x0031d25c",
+          "word": "0x00a0382d"
+        },
+        {
+          "file_offset": "0x21e260",
+          "ghidra_listing": "sq ra,0x140(sp)",
+          "rabbitizer_r5900": "sq          $ra, 0x140($sp)",
+          "va": "0x0031d260",
+          "word": "0x7fbf0140"
+        },
+        {
+          "file_offset": "0x21e264",
+          "ghidra_listing": "li a2,0xe0",
+          "rabbitizer_r5900": "addiu       $a2, $zero, 0xE0",
+          "va": "0x0031d264",
+          "word": "0x240600e0"
+        },
+        {
+          "file_offset": "0x21e268",
+          "ghidra_listing": "sq s8,0x130(sp)",
+          "rabbitizer_r5900": "sq          $fp, 0x130($sp)",
+          "va": "0x0031d268",
+          "word": "0x7fbe0130"
+        },
+        {
+          "file_offset": "0x21e26c",
+          "ghidra_listing": "move s5,a0",
+          "rabbitizer_r5900": "daddu       $s5, $a0, $zero",
+          "va": "0x0031d26c",
+          "word": "0x0080a82d"
+        },
+        {
+          "file_offset": "0x21e270",
+          "ghidra_listing": "sq s7,0x120(sp)",
+          "rabbitizer_r5900": "sq          $s7, 0x120($sp)",
+          "va": "0x0031d270",
+          "word": "0x7fb70120"
+        },
+        {
+          "file_offset": "0x21e274",
+          "ghidra_listing": "sq s6,0x110(sp)",
+          "rabbitizer_r5900": "sq          $s6, 0x110($sp)",
+          "va": "0x0031d274",
+          "word": "0x7fb60110"
+        },
+        {
+          "file_offset": "0x21e278",
+          "ghidra_listing": "sq s4,0xf0(sp)",
+          "rabbitizer_r5900": "sq          $s4, 0xF0($sp)",
+          "va": "0x0031d278",
+          "word": "0x7fb400f0"
+        },
+        {
+          "file_offset": "0x21e27c",
+          "ghidra_listing": "sq s3,0xe0(sp)",
+          "rabbitizer_r5900": "sq          $s3, 0xE0($sp)",
+          "va": "0x0031d27c",
+          "word": "0x7fb300e0"
+        },
+        {
+          "file_offset": "0x21e280",
+          "ghidra_listing": "sq s2,0xd0(sp)",
+          "rabbitizer_r5900": "sq          $s2, 0xD0($sp)",
+          "va": "0x0031d280",
+          "word": "0x7fb200d0"
+        },
+        {
+          "file_offset": "0x21e284",
+          "ghidra_listing": "sq s1,0xc0(sp)",
+          "rabbitizer_r5900": "sq          $s1, 0xC0($sp)",
+          "va": "0x0031d284",
+          "word": "0x7fb100c0"
+        },
+        {
+          "file_offset": "0x21e288",
+          "ghidra_listing": "sq s0,0xb0(sp)",
+          "rabbitizer_r5900": "sq          $s0, 0xB0($sp)",
+          "va": "0x0031d288",
+          "word": "0x7fb000b0"
+        },
+        {
+          "file_offset": "0x21e28c",
+          "ghidra_listing": "lhu v0,-0x25f0(v1)",
+          "rabbitizer_r5900": "lhu         $v0, -0x25F0($v1)",
+          "va": "0x0031d28c",
+          "word": "0x9462da10"
+        },
+        {
+          "file_offset": "0x21e290",
+          "ghidra_listing": "lw v1,0x0(a3)",
+          "rabbitizer_r5900": "lw          $v1, 0x0($a3)",
+          "va": "0x0031d290",
+          "word": "0x8ce30000"
+        },
+        {
+          "file_offset": "0x21e294",
+          "ghidra_listing": "sll v0,v0,0x10",
+          "rabbitizer_r5900": "sll         $v0, $v0, 16",
+          "va": "0x0031d294",
+          "word": "0x00021400"
+        },
+        {
+          "file_offset": "0x21e298",
+          "ghidra_listing": "sw v1,0x98(sp)",
+          "rabbitizer_r5900": "sw          $v1, 0x98($sp)",
+          "va": "0x0031d298",
+          "word": "0xafa30098"
+        },
+        {
+          "file_offset": "0x21e29c",
+          "ghidra_listing": "sra v0,v0,0x10",
+          "rabbitizer_r5900": "sra         $v0, $v0, 16",
+          "va": "0x0031d29c",
+          "word": "0x00021403"
+        },
+        {
+          "file_offset": "0x21e2a0",
+          "ghidra_listing": "mult v0,v0,a2",
+          "rabbitizer_r5900": "mult        $v0, $v0, $a2",
+          "va": "0x0031d2a0",
+          "word": "0x00461018"
+        },
+        {
+          "file_offset": "0x21e2a4",
+          "ghidra_listing": "lui v1,0x43",
+          "rabbitizer_r5900": "lui         $v1, 0x43",
+          "va": "0x0031d2a4",
+          "word": "0x3c030043"
+        },
+        {
+          "file_offset": "0x21e2a8",
+          "ghidra_listing": "lw a2,0x98(sp)",
+          "rabbitizer_r5900": "lw          $a2, 0x98($sp)",
+          "va": "0x0031d2a8",
+          "word": "0x8fa60098"
+        },
+        {
+          "file_offset": "0x21e2ac",
+          "ghidra_listing": "addiu v1,v1,-0x2970",
+          "rabbitizer_r5900": "addiu       $v1, $v1, -0x2970",
+          "va": "0x0031d2ac",
+          "word": "0x2463d690"
+        },
+        {
+          "file_offset": "0x21e2b0",
+          "ghidra_listing": "lw a1,0x140(s5)",
+          "rabbitizer_r5900": "lw          $a1, 0x140($s5)",
+          "va": "0x0031d2b0",
+          "word": "0x8ea50140"
+        },
+        {
+          "file_offset": "0x21e2b4",
+          "ghidra_listing": "lw a0,0x18(a2)",
+          "rabbitizer_r5900": "lw          $a0, 0x18($a2)",
+          "va": "0x0031d2b4",
+          "word": "0x8cc40018"
+        },
+        {
+          "file_offset": "0x21e2b8",
+          "ghidra_listing": "beq a0,a1,0x0031d310",
+          "rabbitizer_r5900": "beq         $a0, $a1, . + 4 + (0x15 << 2)",
+          "va": "0x0031d2b8",
+          "word": "0x10850015"
+        },
+        {
+          "file_offset": "0x21e2bc",
+          "ghidra_listing": "_addu v0,v0,v1",
+          "rabbitizer_r5900": "addu        $v0, $v0, $v1",
+          "va": "0x0031d2bc",
+          "word": "0x00431021"
+        },
+        {
+          "file_offset": "0x21e2c0",
+          "ghidra_listing": "sw a1,0x18(a2)",
+          "rabbitizer_r5900": "sw          $a1, 0x18($a2)",
+          "va": "0x0031d2c0",
+          "word": "0xacc50018"
+        }
+      ],
+      "name": "queue_insert_setup",
+      "start_va": "0x0031d250"
+    },
+    {
+      "end_va_exclusive": "0x0031d718",
+      "instructions": [
+        {
+          "file_offset": "0x21e700",
+          "ghidra_listing": "sw a0,-0x4(v0)",
+          "rabbitizer_r5900": "sw          $a0, -0x4($v0)",
+          "va": "0x0031d700",
+          "word": "0xac44fffc"
+        },
+        {
+          "file_offset": "0x21e704",
+          "ghidra_listing": "li v0,0xc",
+          "rabbitizer_r5900": "addiu       $v0, $zero, 0xC",
+          "va": "0x0031d704",
+          "word": "0x2402000c"
+        },
+        {
+          "file_offset": "0x21e708",
+          "ghidra_listing": "lw v1,0x0(s3)",
+          "rabbitizer_r5900": "lw          $v1, 0x0($s3)",
+          "va": "0x0031d708",
+          "word": "0x8e630000"
+        },
+        {
+          "file_offset": "0x21e70c",
+          "ghidra_listing": "mult v0,s8,v0",
+          "rabbitizer_r5900": "mult        $v0, $fp, $v0",
+          "va": "0x0031d70c",
+          "word": "0x03c21018"
+        },
+        {
+          "file_offset": "0x21e710",
+          "ghidra_listing": "addu a0,v1,v0",
+          "rabbitizer_r5900": "addu        $a0, $v1, $v0",
+          "va": "0x0031d710",
+          "word": "0x00622021"
+        },
+        {
+          "file_offset": "0x21e714",
+          "ghidra_listing": "lw a1,0x4(a0)",
+          "rabbitizer_r5900": "lw          $a1, 0x4($a0)",
+          "va": "0x0031d714",
+          "word": "0x8c850004"
+        }
+      ],
+      "name": "r5900_mult_stride",
+      "start_va": "0x0031d700"
+    },
+    {
+      "end_va_exclusive": "0x0031f9a8",
+      "instructions": [
+        {
+          "file_offset": "0x220844",
+          "ghidra_listing": "lui at,0x3f00",
+          "rabbitizer_r5900": "lui         $at, 0x3F00",
+          "va": "0x0031f844",
+          "word": "0x3c013f00"
+        },
+        {
+          "file_offset": "0x220848",
+          "ghidra_listing": "mtc1 at,f20",
+          "rabbitizer_r5900": "mtc1        $at, $f20",
+          "va": "0x0031f848",
+          "word": "0x4481a000"
+        },
+        {
+          "file_offset": "0x22084c",
+          "ghidra_listing": "addiu s3,sp,0x30",
+          "rabbitizer_r5900": "addiu       $s3, $sp, 0x30",
+          "va": "0x0031f84c",
+          "word": "0x27b30030"
+        },
+        {
+          "file_offset": "0x220850",
+          "ghidra_listing": "lui at,0x3f80",
+          "rabbitizer_r5900": "lui         $at, 0x3F80",
+          "va": "0x0031f850",
+          "word": "0x3c013f80"
+        },
+        {
+          "file_offset": "0x220854",
+          "ghidra_listing": "mtc1 at,f21",
+          "rabbitizer_r5900": "mtc1        $at, $f21",
+          "va": "0x0031f854",
+          "word": "0x4481a800"
+        },
+        {
+          "file_offset": "0x220858",
+          "ghidra_listing": "lw a0,0x44(sp)",
+          "rabbitizer_r5900": "lw          $a0, 0x44($sp)",
+          "va": "0x0031f858",
+          "word": "0x8fa40044"
+        },
+        {
+          "file_offset": "0x22085c",
+          "ghidra_listing": "nop",
+          "rabbitizer_r5900": "nop",
+          "va": "0x0031f85c",
+          "word": "0x00000000"
+        },
+        {
+          "file_offset": "0x220860",
+          "ghidra_listing": "addu v1,s8,s0",
+          "rabbitizer_r5900": "addu        $v1, $fp, $s0",
+          "va": "0x0031f860",
+          "word": "0x03d01821"
+        },
+        {
+          "file_offset": "0x220864",
+          "ghidra_listing": "li v0,0x30",
+          "rabbitizer_r5900": "addiu       $v0, $zero, 0x30",
+          "va": "0x0031f864",
+          "word": "0x24020030"
+        },
+        {
+          "file_offset": "0x220868",
+          "ghidra_listing": "mtlo a0",
+          "rabbitizer_r5900": "mtlo        $a0",
+          "va": "0x0031f868",
+          "word": "0x00800013"
+        },
+        {
+          "file_offset": "0x22086c",
+          "ghidra_listing": "madd a2,v1,v0",
+          "rabbitizer_r5900": "madd        $a2, $v1, $v0",
+          "va": "0x0031f86c",
+          "word": "0x70623000"
+        },
+        {
+          "file_offset": "0x220870",
+          "ghidra_listing": "lwc1 f0,0x0(a2)",
+          "rabbitizer_r5900": "lwc1        $f0, 0x0($a2)",
+          "va": "0x0031f870",
+          "word": "0xc4c00000"
+        },
+        {
+          "file_offset": "0x220874",
+          "ghidra_listing": "addiu a0,a2,0x2c",
+          "rabbitizer_r5900": "addiu       $a0, $a2, 0x2C",
+          "va": "0x0031f874",
+          "word": "0x24c4002c"
+        },
+        {
+          "file_offset": "0x220878",
+          "ghidra_listing": "swc1 f0,0x0(sp)",
+          "rabbitizer_r5900": "swc1        $f0, 0x0($sp)",
+          "va": "0x0031f878",
+          "word": "0xe7a00000"
+        },
+        {
+          "file_offset": "0x22087c",
+          "ghidra_listing": "lwc1 f1,0x4(a2)",
+          "rabbitizer_r5900": "lwc1        $f1, 0x4($a2)",
+          "va": "0x0031f87c",
+          "word": "0xc4c10004"
+        },
+        {
+          "file_offset": "0x220880",
+          "ghidra_listing": "swc1 f1,0x4(sp)",
+          "rabbitizer_r5900": "swc1        $f1, 0x4($sp)",
+          "va": "0x0031f880",
+          "word": "0xe7a10004"
+        },
+        {
+          "file_offset": "0x220884",
+          "ghidra_listing": "lwc1 f0,0x8(a2)",
+          "rabbitizer_r5900": "lwc1        $f0, 0x8($a2)",
+          "va": "0x0031f884",
+          "word": "0xc4c00008"
+        },
+        {
+          "file_offset": "0x220888",
+          "ghidra_listing": "swc1 f0,0x8(sp)",
+          "rabbitizer_r5900": "swc1        $f0, 0x8($sp)",
+          "va": "0x0031f888",
+          "word": "0xe7a00008"
+        },
+        {
+          "file_offset": "0x22088c",
+          "ghidra_listing": "lwc1 f1,0xc(a2)",
+          "rabbitizer_r5900": "lwc1        $f1, 0xC($a2)",
+          "va": "0x0031f88c",
+          "word": "0xc4c1000c"
+        },
+        {
+          "file_offset": "0x220890",
+          "ghidra_listing": "bne s0,zero,0x0031f8a0",
+          "rabbitizer_r5900": "bnez        $s0, . + 4 + (0x3 << 2)",
+          "va": "0x0031f890",
+          "word": "0x16000003"
+        },
+        {
+          "file_offset": "0x220894",
+          "ghidra_listing": "_swc1 f1,0xc(sp)",
+          "rabbitizer_r5900": "swc1        $f1, 0xC($sp)",
+          "va": "0x0031f894",
+          "word": "0xe7a1000c"
+        },
+        {
+          "file_offset": "0x220898",
+          "ghidra_listing": "b 0x0031f8ac",
+          "rabbitizer_r5900": "b           . + 4 + (0x4 << 2)",
+          "va": "0x0031f898",
+          "word": "0x10000004"
+        },
+        {
+          "file_offset": "0x22089c",
+          "ghidra_listing": "_sw s2,0xc(sp)",
+          "rabbitizer_r5900": "sw          $s2, 0xC($sp)",
+          "va": "0x0031f89c",
+          "word": "0xafb2000c"
+        },
+        {
+          "file_offset": "0x2208a0",
+          "ghidra_listing": "lw v0,0xc(a2)",
+          "rabbitizer_r5900": "lw          $v0, 0xC($a2)",
+          "va": "0x0031f8a0",
+          "word": "0x8cc2000c"
+        },
+        {
+          "file_offset": "0x2208a4",
+          "ghidra_listing": "andi v0,v0,0x1",
+          "rabbitizer_r5900": "andi        $v0, $v0, 0x1",
+          "va": "0x0031f8a4",
+          "word": "0x30420001"
+        },
+        {
+          "file_offset": "0x2208a8",
+          "ghidra_listing": "sw v0,0xc(sp)",
+          "rabbitizer_r5900": "sw          $v0, 0xC($sp)",
+          "va": "0x0031f8a8",
+          "word": "0xafa2000c"
+        },
+        {
+          "file_offset": "0x2208ac",
+          "ghidra_listing": "lbu v0,0x0(a0)",
+          "rabbitizer_r5900": "lbu         $v0, 0x0($a0)",
+          "va": "0x0031f8ac",
+          "word": "0x90820000"
+        },
+        {
+          "file_offset": "0x2208b0",
+          "ghidra_listing": "bltz v0,0x0031f8cc",
+          "rabbitizer_r5900": "bltz        $v0, . + 4 + (0x6 << 2)",
+          "va": "0x0031f8b0",
+          "word": "0x04400006"
+        },
+        {
+          "file_offset": "0x2208b4",
+          "ghidra_listing": "_srl v1,v0,0x1",
+          "rabbitizer_r5900": "srl         $v1, $v0, 1",
+          "va": "0x0031f8b4",
+          "word": "0x00021842"
+        },
+        {
+          "file_offset": "0x2208b8",
+          "ghidra_listing": "mtc1 v0,f0",
+          "rabbitizer_r5900": "mtc1        $v0, $f0",
+          "va": "0x0031f8b8",
+          "word": "0x44820000"
+        },
+        {
+          "file_offset": "0x2208bc",
+          "ghidra_listing": "nop",
+          "rabbitizer_r5900": "nop",
+          "va": "0x0031f8bc",
+          "word": "0x00000000"
+        },
+        {
+          "file_offset": "0x2208c0",
+          "ghidra_listing": "cvt.s.W f0,f0",
+          "rabbitizer_r5900": "cvt.s.w     $f0, $f0",
+          "va": "0x0031f8c0",
+          "word": "0x46800020"
+        },
+        {
+          "file_offset": "0x2208c4",
+          "ghidra_listing": "b 0x0031f8e8",
+          "rabbitizer_r5900": "b           . + 4 + (0x8 << 2)",
+          "va": "0x0031f8c4",
+          "word": "0x10000008"
+        },
+        {
+          "file_offset": "0x2208c8",
+          "ghidra_listing": "_mul.S f0,f0,f20",
+          "rabbitizer_r5900": "mul.s       $f0, $f0, $f20",
+          "va": "0x0031f8c8",
+          "word": "0x46140002"
+        },
+        {
+          "file_offset": "0x2208cc",
+          "ghidra_listing": "andi v0,v0,0x1",
+          "rabbitizer_r5900": "andi        $v0, $v0, 0x1",
+          "va": "0x0031f8cc",
+          "word": "0x30420001"
+        },
+        {
+          "file_offset": "0x2208d0",
+          "ghidra_listing": "or v0,v0,v1",
+          "rabbitizer_r5900": "or          $v0, $v0, $v1",
+          "va": "0x0031f8d0",
+          "word": "0x00431025"
+        },
+        {
+          "file_offset": "0x2208d4",
+          "ghidra_listing": "mtc1 v0,f0",
+          "rabbitizer_r5900": "mtc1        $v0, $f0",
+          "va": "0x0031f8d4",
+          "word": "0x44820000"
+        },
+        {
+          "file_offset": "0x2208d8",
+          "ghidra_listing": "nop",
+          "rabbitizer_r5900": "nop",
+          "va": "0x0031f8d8",
+          "word": "0x00000000"
+        },
+        {
+          "file_offset": "0x2208dc",
+          "ghidra_listing": "cvt.s.W f0,f0",
+          "rabbitizer_r5900": "cvt.s.w     $f0, $f0",
+          "va": "0x0031f8dc",
+          "word": "0x46800020"
+        },
+        {
+          "file_offset": "0x2208e0",
+          "ghidra_listing": "add.S f0,f0,f0",
+          "rabbitizer_r5900": "add.s       $f0, $f0, $f0",
+          "va": "0x0031f8e0",
+          "word": "0x46000000"
+        },
+        {
+          "file_offset": "0x2208e4",
+          "ghidra_listing": "mul.S f0,f0,f20",
+          "rabbitizer_r5900": "mul.s       $f0, $f0, $f20",
+          "va": "0x0031f8e4",
+          "word": "0x46140002"
+        },
+        {
+          "file_offset": "0x2208e8",
+          "ghidra_listing": "swc1 f0,0x10(sp)",
+          "rabbitizer_r5900": "swc1        $f0, 0x10($sp)",
+          "va": "0x0031f8e8",
+          "word": "0xe7a00010"
+        },
+        {
+          "file_offset": "0x2208ec",
+          "ghidra_listing": "lbu v0,0x1(a0)",
+          "rabbitizer_r5900": "lbu         $v0, 0x1($a0)",
+          "va": "0x0031f8ec",
+          "word": "0x90820001"
+        },
+        {
+          "file_offset": "0x2208f0",
+          "ghidra_listing": "bltz v0,0x0031f90c",
+          "rabbitizer_r5900": "bltz        $v0, . + 4 + (0x6 << 2)",
+          "va": "0x0031f8f0",
+          "word": "0x04400006"
+        },
+        {
+          "file_offset": "0x2208f4",
+          "ghidra_listing": "_srl v1,v0,0x1",
+          "rabbitizer_r5900": "srl         $v1, $v0, 1",
+          "va": "0x0031f8f4",
+          "word": "0x00021842"
+        },
+        {
+          "file_offset": "0x2208f8",
+          "ghidra_listing": "mtc1 v0,f0",
+          "rabbitizer_r5900": "mtc1        $v0, $f0",
+          "va": "0x0031f8f8",
+          "word": "0x44820000"
+        },
+        {
+          "file_offset": "0x2208fc",
+          "ghidra_listing": "nop",
+          "rabbitizer_r5900": "nop",
+          "va": "0x0031f8fc",
+          "word": "0x00000000"
+        },
+        {
+          "file_offset": "0x220900",
+          "ghidra_listing": "cvt.s.W f0,f0",
+          "rabbitizer_r5900": "cvt.s.w     $f0, $f0",
+          "va": "0x0031f900",
+          "word": "0x46800020"
+        },
+        {
+          "file_offset": "0x220904",
+          "ghidra_listing": "b 0x0031f928",
+          "rabbitizer_r5900": "b           . + 4 + (0x8 << 2)",
+          "va": "0x0031f904",
+          "word": "0x10000008"
+        },
+        {
+          "file_offset": "0x220908",
+          "ghidra_listing": "_mul.S f0,f0,f20",
+          "rabbitizer_r5900": "mul.s       $f0, $f0, $f20",
+          "va": "0x0031f908",
+          "word": "0x46140002"
+        },
+        {
+          "file_offset": "0x22090c",
+          "ghidra_listing": "andi v0,v0,0x1",
+          "rabbitizer_r5900": "andi        $v0, $v0, 0x1",
+          "va": "0x0031f90c",
+          "word": "0x30420001"
+        },
+        {
+          "file_offset": "0x220910",
+          "ghidra_listing": "or v0,v0,v1",
+          "rabbitizer_r5900": "or          $v0, $v0, $v1",
+          "va": "0x0031f910",
+          "word": "0x00431025"
+        },
+        {
+          "file_offset": "0x220914",
+          "ghidra_listing": "mtc1 v0,f0",
+          "rabbitizer_r5900": "mtc1        $v0, $f0",
+          "va": "0x0031f914",
+          "word": "0x44820000"
+        },
+        {
+          "file_offset": "0x220918",
+          "ghidra_listing": "nop",
+          "rabbitizer_r5900": "nop",
+          "va": "0x0031f918",
+          "word": "0x00000000"
+        },
+        {
+          "file_offset": "0x22091c",
+          "ghidra_listing": "cvt.s.W f0,f0",
+          "rabbitizer_r5900": "cvt.s.w     $f0, $f0",
+          "va": "0x0031f91c",
+          "word": "0x46800020"
+        },
+        {
+          "file_offset": "0x220920",
+          "ghidra_listing": "add.S f0,f0,f0",
+          "rabbitizer_r5900": "add.s       $f0, $f0, $f0",
+          "va": "0x0031f920",
+          "word": "0x46000000"
+        },
+        {
+          "file_offset": "0x220924",
+          "ghidra_listing": "mul.S f0,f0,f20",
+          "rabbitizer_r5900": "mul.s       $f0, $f0, $f20",
+          "va": "0x0031f924",
+          "word": "0x46140002"
+        },
+        {
+          "file_offset": "0x220928",
+          "ghidra_listing": "swc1 f0,0x14(sp)",
+          "rabbitizer_r5900": "swc1        $f0, 0x14($sp)",
+          "va": "0x0031f928",
+          "word": "0xe7a00014"
+        },
+        {
+          "file_offset": "0x22092c",
+          "ghidra_listing": "lbu v0,0x2(a0)",
+          "rabbitizer_r5900": "lbu         $v0, 0x2($a0)",
+          "va": "0x0031f92c",
+          "word": "0x90820002"
+        },
+        {
+          "file_offset": "0x220930",
+          "ghidra_listing": "bltz v0,0x0031f94c",
+          "rabbitizer_r5900": "bltz        $v0, . + 4 + (0x6 << 2)",
+          "va": "0x0031f930",
+          "word": "0x04400006"
+        },
+        {
+          "file_offset": "0x220934",
+          "ghidra_listing": "_srl v1,v0,0x1",
+          "rabbitizer_r5900": "srl         $v1, $v0, 1",
+          "va": "0x0031f934",
+          "word": "0x00021842"
+        },
+        {
+          "file_offset": "0x220938",
+          "ghidra_listing": "mtc1 v0,f0",
+          "rabbitizer_r5900": "mtc1        $v0, $f0",
+          "va": "0x0031f938",
+          "word": "0x44820000"
+        },
+        {
+          "file_offset": "0x22093c",
+          "ghidra_listing": "nop",
+          "rabbitizer_r5900": "nop",
+          "va": "0x0031f93c",
+          "word": "0x00000000"
+        },
+        {
+          "file_offset": "0x220940",
+          "ghidra_listing": "cvt.s.W f0,f0",
+          "rabbitizer_r5900": "cvt.s.w     $f0, $f0",
+          "va": "0x0031f940",
+          "word": "0x46800020"
+        },
+        {
+          "file_offset": "0x220944",
+          "ghidra_listing": "b 0x0031f968",
+          "rabbitizer_r5900": "b           . + 4 + (0x8 << 2)",
+          "va": "0x0031f944",
+          "word": "0x10000008"
+        },
+        {
+          "file_offset": "0x220948",
+          "ghidra_listing": "_mul.S f0,f0,f20",
+          "rabbitizer_r5900": "mul.s       $f0, $f0, $f20",
+          "va": "0x0031f948",
+          "word": "0x46140002"
+        },
+        {
+          "file_offset": "0x22094c",
+          "ghidra_listing": "andi v0,v0,0x1",
+          "rabbitizer_r5900": "andi        $v0, $v0, 0x1",
+          "va": "0x0031f94c",
+          "word": "0x30420001"
+        },
+        {
+          "file_offset": "0x220950",
+          "ghidra_listing": "or v0,v0,v1",
+          "rabbitizer_r5900": "or          $v0, $v0, $v1",
+          "va": "0x0031f950",
+          "word": "0x00431025"
+        },
+        {
+          "file_offset": "0x220954",
+          "ghidra_listing": "mtc1 v0,f0",
+          "rabbitizer_r5900": "mtc1        $v0, $f0",
+          "va": "0x0031f954",
+          "word": "0x44820000"
+        },
+        {
+          "file_offset": "0x220958",
+          "ghidra_listing": "nop",
+          "rabbitizer_r5900": "nop",
+          "va": "0x0031f958",
+          "word": "0x00000000"
+        },
+        {
+          "file_offset": "0x22095c",
+          "ghidra_listing": "cvt.s.W f0,f0",
+          "rabbitizer_r5900": "cvt.s.w     $f0, $f0",
+          "va": "0x0031f95c",
+          "word": "0x46800020"
+        },
+        {
+          "file_offset": "0x220960",
+          "ghidra_listing": "add.S f0,f0,f0",
+          "rabbitizer_r5900": "add.s       $f0, $f0, $f0",
+          "va": "0x0031f960",
+          "word": "0x46000000"
+        },
+        {
+          "file_offset": "0x220964",
+          "ghidra_listing": "mul.S f0,f0,f20",
+          "rabbitizer_r5900": "mul.s       $f0, $f0, $f20",
+          "va": "0x0031f964",
+          "word": "0x46140002"
+        },
+        {
+          "file_offset": "0x220968",
+          "ghidra_listing": "swc1 f0,0x18(sp)",
+          "rabbitizer_r5900": "swc1        $f0, 0x18($sp)",
+          "va": "0x0031f968",
+          "word": "0xe7a00018"
+        },
+        {
+          "file_offset": "0x22096c",
+          "ghidra_listing": "lbu v0,0x3(a0)",
+          "rabbitizer_r5900": "lbu         $v0, 0x3($a0)",
+          "va": "0x0031f96c",
+          "word": "0x90820003"
+        },
+        {
+          "file_offset": "0x220970",
+          "ghidra_listing": "bltz v0,0x0031f98c",
+          "rabbitizer_r5900": "bltz        $v0, . + 4 + (0x6 << 2)",
+          "va": "0x0031f970",
+          "word": "0x04400006"
+        },
+        {
+          "file_offset": "0x220974",
+          "ghidra_listing": "_srl v1,v0,0x1",
+          "rabbitizer_r5900": "srl         $v1, $v0, 1",
+          "va": "0x0031f974",
+          "word": "0x00021842"
+        },
+        {
+          "file_offset": "0x220978",
+          "ghidra_listing": "mtc1 v0,f0",
+          "rabbitizer_r5900": "mtc1        $v0, $f0",
+          "va": "0x0031f978",
+          "word": "0x44820000"
+        },
+        {
+          "file_offset": "0x22097c",
+          "ghidra_listing": "nop",
+          "rabbitizer_r5900": "nop",
+          "va": "0x0031f97c",
+          "word": "0x00000000"
+        },
+        {
+          "file_offset": "0x220980",
+          "ghidra_listing": "cvt.s.W f0,f0",
+          "rabbitizer_r5900": "cvt.s.w     $f0, $f0",
+          "va": "0x0031f980",
+          "word": "0x46800020"
+        },
+        {
+          "file_offset": "0x220984",
+          "ghidra_listing": "b 0x0031f9a8",
+          "rabbitizer_r5900": "b           . + 4 + (0x8 << 2)",
+          "va": "0x0031f984",
+          "word": "0x10000008"
+        },
+        {
+          "file_offset": "0x220988",
+          "ghidra_listing": "_mul.S f0,f0,f20",
+          "rabbitizer_r5900": "mul.s       $f0, $f0, $f20",
+          "va": "0x0031f988",
+          "word": "0x46140002"
+        },
+        {
+          "file_offset": "0x22098c",
+          "ghidra_listing": "andi v0,v0,0x1",
+          "rabbitizer_r5900": "andi        $v0, $v0, 0x1",
+          "va": "0x0031f98c",
+          "word": "0x30420001"
+        },
+        {
+          "file_offset": "0x220990",
+          "ghidra_listing": "or v0,v0,v1",
+          "rabbitizer_r5900": "or          $v0, $v0, $v1",
+          "va": "0x0031f990",
+          "word": "0x00431025"
+        },
+        {
+          "file_offset": "0x220994",
+          "ghidra_listing": "mtc1 v0,f0",
+          "rabbitizer_r5900": "mtc1        $v0, $f0",
+          "va": "0x0031f994",
+          "word": "0x44820000"
+        },
+        {
+          "file_offset": "0x220998",
+          "ghidra_listing": "nop",
+          "rabbitizer_r5900": "nop",
+          "va": "0x0031f998",
+          "word": "0x00000000"
+        },
+        {
+          "file_offset": "0x22099c",
+          "ghidra_listing": "cvt.s.W f0,f0",
+          "rabbitizer_r5900": "cvt.s.w     $f0, $f0",
+          "va": "0x0031f99c",
+          "word": "0x46800020"
+        },
+        {
+          "file_offset": "0x2209a0",
+          "ghidra_listing": "add.S f0,f0,f0",
+          "rabbitizer_r5900": "add.s       $f0, $f0, $f0",
+          "va": "0x0031f9a0",
+          "word": "0x46000000"
+        },
+        {
+          "file_offset": "0x2209a4",
+          "ghidra_listing": "mul.S f0,f0,f20",
+          "rabbitizer_r5900": "mul.s       $f0, $f0, $f20",
+          "va": "0x0031f9a4",
+          "word": "0x46140002"
+        }
+      ],
+      "name": "cached_rgba_half_scale",
+      "start_va": "0x0031f844"
+    },
+    {
+      "end_va_exclusive": "0x0032ff60",
+      "instructions": [
+        {
+          "file_offset": "0x230f28",
+          "ghidra_listing": "addiu sp,sp,-0x20",
+          "rabbitizer_r5900": "addiu       $sp, $sp, -0x20",
+          "va": "0x0032ff28",
+          "word": "0x27bdffe0"
+        },
+        {
+          "file_offset": "0x230f2c",
+          "ghidra_listing": "sq s0,0x0(sp)",
+          "rabbitizer_r5900": "sq          $s0, 0x0($sp)",
+          "va": "0x0032ff2c",
+          "word": "0x7fb00000"
+        },
+        {
+          "file_offset": "0x230f30",
+          "ghidra_listing": "sq ra,0x10(sp)",
+          "rabbitizer_r5900": "sq          $ra, 0x10($sp)",
+          "va": "0x0032ff30",
+          "word": "0x7fbf0010"
+        },
+        {
+          "file_offset": "0x230f34",
+          "ghidra_listing": "jal 0x003302b8",
+          "rabbitizer_r5900": "jal         func_3302B8",
+          "va": "0x0032ff34",
+          "word": "0x0c0cc0ae"
+        },
+        {
+          "file_offset": "0x230f38",
+          "ghidra_listing": "_move s0,a0",
+          "rabbitizer_r5900": "daddu       $s0, $a0, $zero",
+          "va": "0x0032ff38",
+          "word": "0x0080802d"
+        },
+        {
+          "file_offset": "0x230f3c",
+          "ghidra_listing": "lui v0,0x43",
+          "rabbitizer_r5900": "lui         $v0, 0x43",
+          "va": "0x0032ff3c",
+          "word": "0x3c020043"
+        },
+        {
+          "file_offset": "0x230f40",
+          "ghidra_listing": "lw a0,-0x22d4(v0)",
+          "rabbitizer_r5900": "lw          $a0, -0x22D4($v0)",
+          "va": "0x0032ff40",
+          "word": "0x8c44dd2c"
+        },
+        {
+          "file_offset": "0x230f44",
+          "ghidra_listing": "beql a0,zero,0x0032ff58",
+          "rabbitizer_r5900": "beql        $a0, $zero, . + 4 + (0x4 << 2)",
+          "va": "0x0032ff44",
+          "word": "0x50800004"
+        },
+        {
+          "file_offset": "0x230f48",
+          "ghidra_listing": "_lw a1,0x404(s0)",
+          "rabbitizer_r5900": "lw          $a1, 0x404($s0)",
+          "va": "0x0032ff48",
+          "word": "0x8e050404"
+        },
+        {
+          "file_offset": "0x230f4c",
+          "ghidra_listing": "jal 0x00359610",
+          "rabbitizer_r5900": "jal         func_359610",
+          "va": "0x0032ff4c",
+          "word": "0x0c0d6584"
+        },
+        {
+          "file_offset": "0x230f50",
+          "ghidra_listing": "_nop",
+          "rabbitizer_r5900": "nop",
+          "va": "0x0032ff50",
+          "word": "0x00000000"
+        },
+        {
+          "file_offset": "0x230f54",
+          "ghidra_listing": "lw a1,0x404(s0)",
+          "rabbitizer_r5900": "lw          $a1, 0x404($s0)",
+          "va": "0x0032ff54",
+          "word": "0x8e050404"
+        },
+        {
+          "file_offset": "0x230f58",
+          "ghidra_listing": "jal 0x00345b50",
+          "rabbitizer_r5900": "jal         func_345B50",
+          "va": "0x0032ff58",
+          "word": "0x0c0d16d4"
+        },
+        {
+          "file_offset": "0x230f5c",
+          "ghidra_listing": "_lw a0,0x464(s0)",
+          "rabbitizer_r5900": "lw          $a0, 0x464($s0)",
+          "va": "0x0032ff5c",
+          "word": "0x8e040464"
+        }
+      ],
+      "name": "route_a_to_dispatcher",
+      "start_va": "0x0032ff28"
+    },
+    {
+      "end_va_exclusive": "0x00330200",
+      "instructions": [
+        {
+          "file_offset": "0x2311c8",
+          "ghidra_listing": "addiu sp,sp,-0x30",
+          "rabbitizer_r5900": "addiu       $sp, $sp, -0x30",
+          "va": "0x003301c8",
+          "word": "0x27bdffd0"
+        },
+        {
+          "file_offset": "0x2311cc",
+          "ghidra_listing": "sq s0,0x10(sp)",
+          "rabbitizer_r5900": "sq          $s0, 0x10($sp)",
+          "va": "0x003301cc",
+          "word": "0x7fb00010"
+        },
+        {
+          "file_offset": "0x2311d0",
+          "ghidra_listing": "sq ra,0x20(sp)",
+          "rabbitizer_r5900": "sq          $ra, 0x20($sp)",
+          "va": "0x003301d0",
+          "word": "0x7fbf0020"
+        },
+        {
+          "file_offset": "0x2311d4",
+          "ghidra_listing": "move s0,a0",
+          "rabbitizer_r5900": "daddu       $s0, $a0, $zero",
+          "va": "0x003301d4",
+          "word": "0x0080802d"
+        },
+        {
+          "file_offset": "0x2311d8",
+          "ghidra_listing": "sw a1,0x0(sp)",
+          "rabbitizer_r5900": "sw          $a1, 0x0($sp)",
+          "va": "0x003301d8",
+          "word": "0xafa50000"
+        },
+        {
+          "file_offset": "0x2311dc",
+          "ghidra_listing": "lw v0,0x2c(s0)",
+          "rabbitizer_r5900": "lw          $v0, 0x2C($s0)",
+          "va": "0x003301dc",
+          "word": "0x8e02002c"
+        },
+        {
+          "file_offset": "0x2311e0",
+          "ghidra_listing": "lb v1,0x48(a1)",
+          "rabbitizer_r5900": "lb          $v1, 0x48($a1)",
+          "va": "0x003301e0",
+          "word": "0x80a30048"
+        },
+        {
+          "file_offset": "0x2311e4",
+          "ghidra_listing": "beql v1,v0,0x003301f8",
+          "rabbitizer_r5900": "beql        $v1, $v0, . + 4 + (0x4 << 2)",
+          "va": "0x003301e4",
+          "word": "0x50620004"
+        },
+        {
+          "file_offset": "0x2311e8",
+          "ghidra_listing": "_lw v1,0x0(sp)",
+          "rabbitizer_r5900": "lw          $v1, 0x0($sp)",
+          "va": "0x003301e8",
+          "word": "0x8fa30000"
+        },
+        {
+          "file_offset": "0x2311ec",
+          "ghidra_listing": "jal 0x003302b8",
+          "rabbitizer_r5900": "jal         func_3302B8",
+          "va": "0x003301ec",
+          "word": "0x0c0cc0ae"
+        },
+        {
+          "file_offset": "0x2311f0",
+          "ghidra_listing": "_sw v1,0x2c(s0)",
+          "rabbitizer_r5900": "sw          $v1, 0x2C($s0)",
+          "va": "0x003301f0",
+          "word": "0xae03002c"
+        },
+        {
+          "file_offset": "0x2311f4",
+          "ghidra_listing": "lw v1,0x0(sp)",
+          "rabbitizer_r5900": "lw          $v1, 0x0($sp)",
+          "va": "0x003301f4",
+          "word": "0x8fa30000"
+        },
+        {
+          "file_offset": "0x2311f8",
+          "ghidra_listing": "lw v0,0x50(v1)",
+          "rabbitizer_r5900": "lw          $v0, 0x50($v1)",
+          "va": "0x003301f8",
+          "word": "0x8c620050"
+        },
+        {
+          "file_offset": "0x2311fc",
+          "ghidra_listing": "beq v0,zero,0x00330234",
+          "rabbitizer_r5900": "beqz        $v0, . + 4 + (0xD << 2)",
+          "va": "0x003301fc",
+          "word": "0x1040000d"
+        }
+      ],
+      "name": "route_b_to_dispatcher",
+      "start_va": "0x003301c8"
+    },
+    {
+      "end_va_exclusive": "0x00330310",
+      "instructions": [
+        {
+          "file_offset": "0x2312b8",
+          "ghidra_listing": null,
+          "rabbitizer_r5900": "addiu       $sp, $sp, -0x60",
+          "va": "0x003302b8",
+          "word": "0x27bdffa0"
+        },
+        {
+          "file_offset": "0x2312bc",
+          "ghidra_listing": null,
+          "rabbitizer_r5900": "sq          $s2, 0x20($sp)",
+          "va": "0x003302bc",
+          "word": "0x7fb20020"
+        },
+        {
+          "file_offset": "0x2312c0",
+          "ghidra_listing": null,
+          "rabbitizer_r5900": "sq          $ra, 0x50($sp)",
+          "va": "0x003302c0",
+          "word": "0x7fbf0050"
+        },
+        {
+          "file_offset": "0x2312c4",
+          "ghidra_listing": null,
+          "rabbitizer_r5900": "daddu       $s2, $a0, $zero",
+          "va": "0x003302c4",
+          "word": "0x0080902d"
+        },
+        {
+          "file_offset": "0x2312c8",
+          "ghidra_listing": null,
+          "rabbitizer_r5900": "sq          $s4, 0x40($sp)",
+          "va": "0x003302c8",
+          "word": "0x7fb40040"
+        },
+        {
+          "file_offset": "0x2312cc",
+          "ghidra_listing": null,
+          "rabbitizer_r5900": "addiu       $v1, $s2, 0x8",
+          "va": "0x003302cc",
+          "word": "0x26430008"
+        },
+        {
+          "file_offset": "0x2312d0",
+          "ghidra_listing": null,
+          "rabbitizer_r5900": "sq          $s3, 0x30($sp)",
+          "va": "0x003302d0",
+          "word": "0x7fb30030"
+        },
+        {
+          "file_offset": "0x2312d4",
+          "ghidra_listing": null,
+          "rabbitizer_r5900": "sq          $s1, 0x10($sp)",
+          "va": "0x003302d4",
+          "word": "0x7fb10010"
+        },
+        {
+          "file_offset": "0x2312d8",
+          "ghidra_listing": null,
+          "rabbitizer_r5900": "sq          $s0, 0x0($sp)",
+          "va": "0x003302d8",
+          "word": "0x7fb00000"
+        },
+        {
+          "file_offset": "0x2312dc",
+          "ghidra_listing": null,
+          "rabbitizer_r5900": "lw          $s0, 0x8($s2)",
+          "va": "0x003302dc",
+          "word": "0x8e500008"
+        },
+        {
+          "file_offset": "0x2312e0",
+          "ghidra_listing": "lw v0,0x4(v1)",
+          "rabbitizer_r5900": "lw          $v0, 0x4($v1)",
+          "va": "0x003302e0",
+          "word": "0x8c620004"
+        },
+        {
+          "file_offset": "0x2312e4",
+          "ghidra_listing": "beq s0,v0,0x00330318",
+          "rabbitizer_r5900": "beq         $s0, $v0, . + 4 + (0xC << 2)",
+          "va": "0x003302e4",
+          "word": "0x1202000c"
+        },
+        {
+          "file_offset": "0x2312e8",
+          "ghidra_listing": "_addiu v0,s2,0x14",
+          "rabbitizer_r5900": "addiu       $v0, $s2, 0x14",
+          "va": "0x003302e8",
+          "word": "0x26420014"
+        },
+        {
+          "file_offset": "0x2312ec",
+          "ghidra_listing": "move s1,v1",
+          "rabbitizer_r5900": "daddu       $s1, $v1, $zero",
+          "va": "0x003302ec",
+          "word": "0x0060882d"
+        },
+        {
+          "file_offset": "0x2312f0",
+          "ghidra_listing": "lw a1,0x0(s0)",
+          "rabbitizer_r5900": "lw          $a1, 0x0($s0)",
+          "va": "0x003302f0",
+          "word": "0x8e050000"
+        },
+        {
+          "file_offset": "0x2312f4",
+          "ghidra_listing": "nop",
+          "rabbitizer_r5900": "nop",
+          "va": "0x003302f4",
+          "word": "0x00000000"
+        },
+        {
+          "file_offset": "0x2312f8",
+          "ghidra_listing": "move a0,s2",
+          "rabbitizer_r5900": "daddu       $a0, $s2, $zero",
+          "va": "0x003302f8",
+          "word": "0x0240202d"
+        },
+        {
+          "file_offset": "0x2312fc",
+          "ghidra_listing": "jal 0x00330780",
+          "rabbitizer_r5900": "jal         func_330780",
+          "va": "0x003302fc",
+          "word": "0x0c0cc1e0"
+        },
+        {
+          "file_offset": "0x231300",
+          "ghidra_listing": "_addiu s0,s0,0x4",
+          "rabbitizer_r5900": "addiu       $s0, $s0, 0x4",
+          "va": "0x00330300",
+          "word": "0x26100004"
+        },
+        {
+          "file_offset": "0x231304",
+          "ghidra_listing": "lw v0,0x4(s1)",
+          "rabbitizer_r5900": "lw          $v0, 0x4($s1)",
+          "va": "0x00330304",
+          "word": "0x8e220004"
+        },
+        {
+          "file_offset": "0x231308",
+          "ghidra_listing": "nop",
+          "rabbitizer_r5900": "nop",
+          "va": "0x00330308",
+          "word": "0x00000000"
+        },
+        {
+          "file_offset": "0x23130c",
+          "ghidra_listing": "bnel s0,v0,0x003302f8",
+          "rabbitizer_r5900": "bnel        $s0, $v0, . + 4 + (-0x6 << 2)",
+          "va": "0x0033030c",
+          "word": "0x5602fffa"
+        }
+      ],
+      "name": "dispatcher_to_visitor",
+      "start_va": "0x003302b8"
+    },
+    {
+      "end_va_exclusive": "0x00330d0c",
+      "instructions": [
+        {
+          "file_offset": "0x231cf4",
+          "ghidra_listing": "lw a1,0x30(s7)",
+          "rabbitizer_r5900": "lw          $a1, 0x30($s7)",
+          "va": "0x00330cf4",
+          "word": "0x8ee50030"
+        },
+        {
+          "file_offset": "0x231cf8",
+          "ghidra_listing": "lw v0,0x148(a1)",
+          "rabbitizer_r5900": "lw          $v0, 0x148($a1)",
+          "va": "0x00330cf8",
+          "word": "0x8ca20148"
+        },
+        {
+          "file_offset": "0x231cfc",
+          "ghidra_listing": "lh a0,0xb0(v0)",
+          "rabbitizer_r5900": "lh          $a0, 0xB0($v0)",
+          "va": "0x00330cfc",
+          "word": "0x844400b0"
+        },
+        {
+          "file_offset": "0x231d00",
+          "ghidra_listing": "lw v1,0xb4(v0)",
+          "rabbitizer_r5900": "lw          $v1, 0xB4($v0)",
+          "va": "0x00330d00",
+          "word": "0x8c4300b4"
+        },
+        {
+          "file_offset": "0x231d04",
+          "ghidra_listing": "jalr v1",
+          "rabbitizer_r5900": "jalr        $v1",
+          "va": "0x00330d04",
+          "word": "0x0060f809"
+        },
+        {
+          "file_offset": "0x231d08",
+          "ghidra_listing": "_addu a0,a1,a0",
+          "rabbitizer_r5900": "addu        $a0, $a1, $a0",
+          "va": "0x00330d08",
+          "word": "0x00a42021"
+        }
+      ],
+      "name": "visitor_indirect_drain_call",
+      "start_va": "0x00330cf4"
+    },
+    {
+      "end_va_exclusive": "0x0034022c",
+      "instructions": [
+        {
+          "file_offset": "0x2411f0",
+          "ghidra_listing": "lui at,0x437f",
+          "rabbitizer_r5900": "lui         $at, 0x437F",
+          "va": "0x003401f0",
+          "word": "0x3c01437f"
+        },
+        {
+          "file_offset": "0x2411f4",
+          "ghidra_listing": "mtc1 at,f0",
+          "rabbitizer_r5900": "mtc1        $at, $f0",
+          "va": "0x003401f4",
+          "word": "0x44810000"
+        },
+        {
+          "file_offset": "0x2411f8",
+          "ghidra_listing": "nop",
+          "rabbitizer_r5900": "nop",
+          "va": "0x003401f8",
+          "word": "0x00000000"
+        },
+        {
+          "file_offset": "0x2411fc",
+          "ghidra_listing": "mul.S f12,f12,f0",
+          "rabbitizer_r5900": "mul.s       $f12, $f12, $f0",
+          "va": "0x003401fc",
+          "word": "0x46006302"
+        },
+        {
+          "file_offset": "0x241200",
+          "ghidra_listing": "cvt.w.S f0,f12",
+          "rabbitizer_r5900": ".word       0x46006024                   # cvt.w.s     $f0, $f12 # 00000000 <InstrIdType: CPU_COP1_FPUS>",
+          "va": "0x00340200",
+          "word": "0x46006024"
+        },
+        {
+          "file_offset": "0x241204",
+          "ghidra_listing": "mfc1 v1,f0",
+          "rabbitizer_r5900": "mfc1        $v1, $f0",
+          "va": "0x00340204",
+          "word": "0x44030000"
+        },
+        {
+          "file_offset": "0x241208",
+          "ghidra_listing": "slti v0,v1,0x2",
+          "rabbitizer_r5900": "slti        $v0, $v1, 0x2",
+          "va": "0x00340208",
+          "word": "0x28620002"
+        },
+        {
+          "file_offset": "0x24120c",
+          "ghidra_listing": "beq v0,zero,0x0034021c",
+          "rabbitizer_r5900": "beqz        $v0, . + 4 + (0x3 << 2)",
+          "va": "0x0034020c",
+          "word": "0x10400003"
+        },
+        {
+          "file_offset": "0x241210",
+          "ghidra_listing": "_li a1,0xfe",
+          "rabbitizer_r5900": "addiu       $a1, $zero, 0xFE",
+          "va": "0x00340210",
+          "word": "0x240500fe"
+        },
+        {
+          "file_offset": "0x241214",
+          "ghidra_listing": "b 0x00340224",
+          "rabbitizer_r5900": "b           . + 4 + (0x3 << 2)",
+          "va": "0x00340214",
+          "word": "0x10000003"
+        },
+        {
+          "file_offset": "0x241218",
+          "ghidra_listing": "_li v1,0x2",
+          "rabbitizer_r5900": "addiu       $v1, $zero, 0x2",
+          "va": "0x00340218",
+          "word": "0x24030002"
+        },
+        {
+          "file_offset": "0x24121c",
+          "ghidra_listing": "slt v0,a1,v1",
+          "rabbitizer_r5900": "slt         $v0, $a1, $v1",
+          "va": "0x0034021c",
+          "word": "0x00a3102a"
+        },
+        {
+          "file_offset": "0x241220",
+          "ghidra_listing": "movn v1,a1,v0",
+          "rabbitizer_r5900": "movn        $v1, $a1, $v0",
+          "va": "0x00340220",
+          "word": "0x00a2180b"
+        },
+        {
+          "file_offset": "0x241224",
+          "ghidra_listing": "jr ra",
+          "rabbitizer_r5900": "jr          $ra",
+          "va": "0x00340224",
+          "word": "0x03e00008"
+        },
+        {
+          "file_offset": "0x241228",
+          "ghidra_listing": "_sb v1,0x0(a0)",
+          "rabbitizer_r5900": "sb          $v1, 0x0($a0)",
+          "va": "0x00340228",
+          "word": "0xa0830000"
+        }
+      ],
+      "name": "source_channel_clamp",
+      "start_va": "0x003401f0"
+    },
+    {
+      "end_va_exclusive": "0x0034119c",
+      "instructions": [
+        {
+          "file_offset": "0x241ce0",
+          "ghidra_listing": null,
+          "rabbitizer_r5900": "addiu       $sp, $sp, -0x90",
+          "va": "0x00340ce0",
+          "word": "0x27bdff70"
+        },
+        {
+          "file_offset": "0x242198",
+          "ghidra_listing": null,
+          "rabbitizer_r5900": "addiu       $sp, $sp, -0x10",
+          "va": "0x00341198",
+          "word": "0x27bdfff0"
+        }
+      ],
+      "name": "gs_template_initializer_entries",
+      "start_va": "0x00340ce0"
+    },
+    {
+      "end_va_exclusive": "0x00341260",
+      "instructions": [
+        {
+          "file_offset": "0x2421e0",
+          "ghidra_listing": "addiu v0,a3,-0x2140",
+          "rabbitizer_r5900": "addiu       $v0, $a3, -0x2140",
+          "va": "0x003411e0",
+          "word": "0x24e2dec0"
+        },
+        {
+          "file_offset": "0x2421e4",
+          "ghidra_listing": "sd a2,-0x2140(a3)",
+          "rabbitizer_r5900": "sd          $a2, -0x2140($a3)",
+          "va": "0x003411e4",
+          "word": "0xfce6dec0"
+        },
+        {
+          "file_offset": "0x2421e8",
+          "ghidra_listing": "ori a1,zero,0xc439",
+          "rabbitizer_r5900": "ori         $a1, $zero, 0xC439",
+          "va": "0x003411e8",
+          "word": "0x3405c439"
+        },
+        {
+          "file_offset": "0x2421ec",
+          "ghidra_listing": "dsll32 a1,a1,0xe",
+          "rabbitizer_r5900": "dsll32      $a1, $a1, 14",
+          "va": "0x003411ec",
+          "word": "0x00052bbc"
+        },
+        {
+          "file_offset": "0x2421f0",
+          "ghidra_listing": "sq s8,0x80(sp)",
+          "rabbitizer_r5900": "sq          $fp, 0x80($sp)",
+          "va": "0x003411f0",
+          "word": "0x7fbe0080"
+        },
+        {
+          "file_offset": "0x2421f4",
+          "ghidra_listing": "addiu v1,v0,0xb0",
+          "rabbitizer_r5900": "addiu       $v1, $v0, 0xB0",
+          "va": "0x003411f4",
+          "word": "0x244300b0"
+        },
+        {
+          "file_offset": "0x2421f8",
+          "ghidra_listing": "sd a1,0xb0(v0)",
+          "rabbitizer_r5900": "sd          $a1, 0xB0($v0)",
+          "va": "0x003411f8",
+          "word": "0xfc4500b0"
+        },
+        {
+          "file_offset": "0x2421fc",
+          "ghidra_listing": "li s8,0x412",
+          "rabbitizer_r5900": "addiu       $fp, $zero, 0x412",
+          "va": "0x003411fc",
+          "word": "0x241e0412"
+        },
+        {
+          "file_offset": "0x242200",
+          "ghidra_listing": "sq s7,0x70(sp)",
+          "rabbitizer_r5900": "sq          $s7, 0x70($sp)",
+          "va": "0x00341200",
+          "word": "0x7fb70070"
+        },
+        {
+          "file_offset": "0x242204",
+          "ghidra_listing": "li t9,0x47",
+          "rabbitizer_r5900": "addiu       $t9, $zero, 0x47",
+          "va": "0x00341204",
+          "word": "0x24190047"
+        },
+        {
+          "file_offset": "0x242208",
+          "ghidra_listing": "sq s6,0x60(sp)",
+          "rabbitizer_r5900": "sq          $s6, 0x60($sp)",
+          "va": "0x00341208",
+          "word": "0x7fb60060"
+        },
+        {
+          "file_offset": "0x24220c",
+          "ghidra_listing": "li s7,0x36",
+          "rabbitizer_r5900": "addiu       $s7, $zero, 0x36",
+          "va": "0x0034120c",
+          "word": "0x24170036"
+        },
+        {
+          "file_offset": "0x242210",
+          "ghidra_listing": "sq s5,0x50(sp)",
+          "rabbitizer_r5900": "sq          $s5, 0x50($sp)",
+          "va": "0x00341210",
+          "word": "0x7fb50050"
+        },
+        {
+          "file_offset": "0x242214",
+          "ghidra_listing": "li s6,0x34",
+          "rabbitizer_r5900": "addiu       $s6, $zero, 0x34",
+          "va": "0x00341214",
+          "word": "0x24160034"
+        },
+        {
+          "file_offset": "0x242218",
+          "ghidra_listing": "sq s4,0x40(sp)",
+          "rabbitizer_r5900": "sq          $s4, 0x40($sp)",
+          "va": "0x00341218",
+          "word": "0x7fb40040"
+        },
+        {
+          "file_offset": "0x24221c",
+          "ghidra_listing": "li s5,0x14",
+          "rabbitizer_r5900": "addiu       $s5, $zero, 0x14",
+          "va": "0x0034121c",
+          "word": "0x24150014"
+        },
+        {
+          "file_offset": "0x242220",
+          "ghidra_listing": "sq s3,0x30(sp)",
+          "rabbitizer_r5900": "sq          $s3, 0x30($sp)",
+          "va": "0x00341220",
+          "word": "0x7fb30030"
+        },
+        {
+          "file_offset": "0x242224",
+          "ghidra_listing": "li s4,0x6",
+          "rabbitizer_r5900": "addiu       $s4, $zero, 0x6",
+          "va": "0x00341224",
+          "word": "0x24140006"
+        },
+        {
+          "file_offset": "0x242228",
+          "ghidra_listing": "sq s2,0x20(sp)",
+          "rabbitizer_r5900": "sq          $s2, 0x20($sp)",
+          "va": "0x00341228",
+          "word": "0x7fb20020"
+        },
+        {
+          "file_offset": "0x24222c",
+          "ghidra_listing": "li s3,0x4a",
+          "rabbitizer_r5900": "addiu       $s3, $zero, 0x4A",
+          "va": "0x0034122c",
+          "word": "0x2413004a"
+        },
+        {
+          "file_offset": "0x242230",
+          "ghidra_listing": "sq s1,0x10(sp)",
+          "rabbitizer_r5900": "sq          $s1, 0x10($sp)",
+          "va": "0x00341230",
+          "word": "0x7fb10010"
+        },
+        {
+          "file_offset": "0x242234",
+          "ghidra_listing": "li s2,0x42",
+          "rabbitizer_r5900": "addiu       $s2, $zero, 0x42",
+          "va": "0x00341234",
+          "word": "0x24120042"
+        },
+        {
+          "file_offset": "0x242238",
+          "ghidra_listing": "sd s8,0x8(v1)",
+          "rabbitizer_r5900": "sd          $fp, 0x8($v1)",
+          "va": "0x00341238",
+          "word": "0xfc7e0008"
+        },
+        {
+          "file_offset": "0x24223c",
+          "ghidra_listing": "li s1,0x8",
+          "rabbitizer_r5900": "addiu       $s1, $zero, 0x8",
+          "va": "0x0034123c",
+          "word": "0x24110008"
+        },
+        {
+          "file_offset": "0x242240",
+          "ghidra_listing": "sq s0,0x0(sp)",
+          "rabbitizer_r5900": "sq          $s0, 0x0($sp)",
+          "va": "0x00341240",
+          "word": "0x7fb00000"
+        },
+        {
+          "file_offset": "0x242244",
+          "ghidra_listing": "li t8,0x4e",
+          "rabbitizer_r5900": "addiu       $t8, $zero, 0x4E",
+          "va": "0x00341244",
+          "word": "0x2418004e"
+        },
+        {
+          "file_offset": "0x242248",
+          "ghidra_listing": "sd s1,0x38(v0)",
+          "rabbitizer_r5900": "sd          $s1, 0x38($v0)",
+          "va": "0x00341248",
+          "word": "0xfc510038"
+        },
+        {
+          "file_offset": "0x24224c",
+          "ghidra_listing": "li t0,0x48",
+          "rabbitizer_r5900": "addiu       $t0, $zero, 0x48",
+          "va": "0x0034124c",
+          "word": "0x24080048"
+        },
+        {
+          "file_offset": "0x242250",
+          "ghidra_listing": "sd s2,0x48(v0)",
+          "rabbitizer_r5900": "sd          $s2, 0x48($v0)",
+          "va": "0x00341250",
+          "word": "0xfc520048"
+        },
+        {
+          "file_offset": "0x242254",
+          "ghidra_listing": "li t1,0x9",
+          "rabbitizer_r5900": "addiu       $t1, $zero, 0x9",
+          "va": "0x00341254",
+          "word": "0x24090009"
+        },
+        {
+          "file_offset": "0x242258",
+          "ghidra_listing": "sd s3,0x58(v0)",
+          "rabbitizer_r5900": "sd          $s3, 0x58($v0)",
+          "va": "0x00341258",
+          "word": "0xfc530058"
+        },
+        {
+          "file_offset": "0x24225c",
+          "ghidra_listing": "li t2,0x43",
+          "rabbitizer_r5900": "addiu       $t2, $zero, 0x43",
+          "va": "0x0034125c",
+          "word": "0x240a0043"
+        }
+      ],
+      "name": "gs_context_register_identity",
+      "start_va": "0x003411e0"
+    },
+    {
+      "end_va_exclusive": "0x003a74d0",
+      "instructions": [
+        {
+          "file_offset": "0x2a8468",
+          "ghidra_listing": "addiu sp,sp,-0x40",
+          "rabbitizer_r5900": "addiu       $sp, $sp, -0x40",
+          "va": "0x003a7468",
+          "word": "0x27bdffc0"
+        },
+        {
+          "file_offset": "0x2a846c",
+          "ghidra_listing": "sq ra,0x30(sp)",
+          "rabbitizer_r5900": "sq          $ra, 0x30($sp)",
+          "va": "0x003a746c",
+          "word": "0x7fbf0030"
+        },
+        {
+          "file_offset": "0x2a8470",
+          "ghidra_listing": "sq s8,0x20(sp)",
+          "rabbitizer_r5900": "sq          $fp, 0x20($sp)",
+          "va": "0x003a7470",
+          "word": "0x7fbe0020"
+        },
+        {
+          "file_offset": "0x2a8474",
+          "ghidra_listing": "sq s0,0x10(sp)",
+          "rabbitizer_r5900": "sq          $s0, 0x10($sp)",
+          "va": "0x003a7474",
+          "word": "0x7fb00010"
+        },
+        {
+          "file_offset": "0x2a8478",
+          "ghidra_listing": "move s8,sp",
+          "rabbitizer_r5900": "daddu       $fp, $sp, $zero",
+          "va": "0x003a7478",
+          "word": "0x03a0f02d"
+        },
+        {
+          "file_offset": "0x2a847c",
+          "ghidra_listing": "move s0,a0",
+          "rabbitizer_r5900": "daddu       $s0, $a0, $zero",
+          "va": "0x003a747c",
+          "word": "0x0080802d"
+        },
+        {
+          "file_offset": "0x2a8480",
+          "ghidra_listing": "move a0,s8",
+          "rabbitizer_r5900": "daddu       $a0, $fp, $zero",
+          "va": "0x003a7480",
+          "word": "0x03c0202d"
+        },
+        {
+          "file_offset": "0x2a8484",
+          "ghidra_listing": "lui a1,0x48",
+          "rabbitizer_r5900": "lui         $a1, 0x48",
+          "va": "0x003a7484",
+          "word": "0x3c050048"
+        },
+        {
+          "file_offset": "0x2a8488",
+          "ghidra_listing": "addiu a1,a1,0x75e0",
+          "rabbitizer_r5900": "addiu       $a1, $a1, 0x75E0",
+          "va": "0x003a7488",
+          "word": "0x24a575e0"
+        },
+        {
+          "file_offset": "0x2a848c",
+          "ghidra_listing": "jal 0x003a45e8",
+          "rabbitizer_r5900": "jal         func_3A45E8",
+          "va": "0x003a748c",
+          "word": "0x0c0e917a"
+        },
+        {
+          "file_offset": "0x2a8490",
+          "ghidra_listing": "_nop",
+          "rabbitizer_r5900": "nop",
+          "va": "0x003a7490",
+          "word": "0x00000000"
+        },
+        {
+          "file_offset": "0x2a8494",
+          "ghidra_listing": "move a0,s0",
+          "rabbitizer_r5900": "daddu       $a0, $s0, $zero",
+          "va": "0x003a7494",
+          "word": "0x0200202d"
+        },
+        {
+          "file_offset": "0x2a8498",
+          "ghidra_listing": "move a1,s8",
+          "rabbitizer_r5900": "daddu       $a1, $fp, $zero",
+          "va": "0x003a7498",
+          "word": "0x03c0282d"
+        },
+        {
+          "file_offset": "0x2a849c",
+          "ghidra_listing": "jal 0x003ada88",
+          "rabbitizer_r5900": "jal         func_3ADA88",
+          "va": "0x003a749c",
+          "word": "0x0c0eb6a2"
+        },
+        {
+          "file_offset": "0x2a84a0",
+          "ghidra_listing": "_nop",
+          "rabbitizer_r5900": "nop",
+          "va": "0x003a74a0",
+          "word": "0x00000000"
+        },
+        {
+          "file_offset": "0x2a84a4",
+          "ghidra_listing": "lui v0,0x48",
+          "rabbitizer_r5900": "lui         $v0, 0x48",
+          "va": "0x003a74a4",
+          "word": "0x3c020048"
+        },
+        {
+          "file_offset": "0x2a84a8",
+          "ghidra_listing": "addiu v0,v0,0x7d68",
+          "rabbitizer_r5900": "addiu       $v0, $v0, 0x7D68",
+          "va": "0x003a74a8",
+          "word": "0x24427d68"
+        },
+        {
+          "file_offset": "0x2a84ac",
+          "ghidra_listing": "sw v0,0x8(s0)",
+          "rabbitizer_r5900": "sw          $v0, 0x8($s0)",
+          "va": "0x003a74ac",
+          "word": "0xae020008"
+        },
+        {
+          "file_offset": "0x2a84b0",
+          "ghidra_listing": "move v0,s0",
+          "rabbitizer_r5900": "daddu       $v0, $s0, $zero",
+          "va": "0x003a74b0",
+          "word": "0x0200102d"
+        },
+        {
+          "file_offset": "0x2a84b4",
+          "ghidra_listing": "b 0x003a74bc",
+          "rabbitizer_r5900": "b           . + 4 + (0x1 << 2)",
+          "va": "0x003a74b4",
+          "word": "0x10000001"
+        },
+        {
+          "file_offset": "0x2a84b8",
+          "ghidra_listing": "_nop",
+          "rabbitizer_r5900": "nop",
+          "va": "0x003a74b8",
+          "word": "0x00000000"
+        },
+        {
+          "file_offset": "0x2a84bc",
+          "ghidra_listing": "move sp,s8",
+          "rabbitizer_r5900": "daddu       $sp, $fp, $zero",
+          "va": "0x003a74bc",
+          "word": "0x03c0e82d"
+        },
+        {
+          "file_offset": "0x2a84c0",
+          "ghidra_listing": "lq ra,0x30(sp)",
+          "rabbitizer_r5900": "lq          $ra, 0x30($sp)",
+          "va": "0x003a74c0",
+          "word": "0x7bbf0030"
+        },
+        {
+          "file_offset": "0x2a84c4",
+          "ghidra_listing": "lq s8,0x20(sp)",
+          "rabbitizer_r5900": "lq          $fp, 0x20($sp)",
+          "va": "0x003a74c4",
+          "word": "0x7bbe0020"
+        },
+        {
+          "file_offset": "0x2a84c8",
+          "ghidra_listing": "lq s0,0x10(sp)",
+          "rabbitizer_r5900": "lq          $s0, 0x10($sp)",
+          "va": "0x003a74c8",
+          "word": "0x7bb00010"
+        },
+        {
+          "file_offset": "0x2a84cc",
+          "ghidra_listing": "addiu sp,sp,0x40",
+          "rabbitizer_r5900": "addiu       $sp, $sp, 0x40",
+          "va": "0x003a74cc",
+          "word": "0x27bd0040"
+        }
+      ],
+      "name": "treeblend_registration",
+      "start_va": "0x003a7468"
+    },
+    {
+      "end_va_exclusive": "0x003a7624",
+      "instructions": [
+        {
+          "file_offset": "0x2a85b8",
+          "ghidra_listing": "addiu sp,sp,-0x40",
+          "rabbitizer_r5900": "addiu       $sp, $sp, -0x40",
+          "va": "0x003a75b8",
+          "word": "0x27bdffc0"
+        },
+        {
+          "file_offset": "0x2a85bc",
+          "ghidra_listing": "sq ra,0x30(sp)",
+          "rabbitizer_r5900": "sq          $ra, 0x30($sp)",
+          "va": "0x003a75bc",
+          "word": "0x7fbf0030"
+        },
+        {
+          "file_offset": "0x2a85c0",
+          "ghidra_listing": "sq s8,0x20(sp)",
+          "rabbitizer_r5900": "sq          $fp, 0x20($sp)",
+          "va": "0x003a75c0",
+          "word": "0x7fbe0020"
+        },
+        {
+          "file_offset": "0x2a85c4",
+          "ghidra_listing": "sq s0,0x10(sp)",
+          "rabbitizer_r5900": "sq          $s0, 0x10($sp)",
+          "va": "0x003a75c4",
+          "word": "0x7fb00010"
+        },
+        {
+          "file_offset": "0x2a85c8",
+          "ghidra_listing": "move s8,sp",
+          "rabbitizer_r5900": "daddu       $fp, $sp, $zero",
+          "va": "0x003a75c8",
+          "word": "0x03a0f02d"
+        },
+        {
+          "file_offset": "0x2a85cc",
+          "ghidra_listing": "move s0,a0",
+          "rabbitizer_r5900": "daddu       $s0, $a0, $zero",
+          "va": "0x003a75cc",
+          "word": "0x0080802d"
+        },
+        {
+          "file_offset": "0x2a85d0",
+          "ghidra_listing": "move a0,s8",
+          "rabbitizer_r5900": "daddu       $a0, $fp, $zero",
+          "va": "0x003a75d0",
+          "word": "0x03c0202d"
+        },
+        {
+          "file_offset": "0x2a85d4",
+          "ghidra_listing": "lui a1,0x48",
+          "rabbitizer_r5900": "lui         $a1, 0x48",
+          "va": "0x003a75d4",
+          "word": "0x3c050048"
+        },
+        {
+          "file_offset": "0x2a85d8",
+          "ghidra_listing": "addiu a1,a1,0x7610",
+          "rabbitizer_r5900": "addiu       $a1, $a1, 0x7610",
+          "va": "0x003a75d8",
+          "word": "0x24a57610"
+        },
+        {
+          "file_offset": "0x2a85dc",
+          "ghidra_listing": "jal 0x003a45e8",
+          "rabbitizer_r5900": "jal         func_3A45E8",
+          "va": "0x003a75dc",
+          "word": "0x0c0e917a"
+        },
+        {
+          "file_offset": "0x2a85e0",
+          "ghidra_listing": "_nop",
+          "rabbitizer_r5900": "nop",
+          "va": "0x003a75e0",
+          "word": "0x00000000"
+        },
+        {
+          "file_offset": "0x2a85e4",
+          "ghidra_listing": "move a0,s0",
+          "rabbitizer_r5900": "daddu       $a0, $s0, $zero",
+          "va": "0x003a75e4",
+          "word": "0x0200202d"
+        },
+        {
+          "file_offset": "0x2a85e8",
+          "ghidra_listing": "move a1,s8",
+          "rabbitizer_r5900": "daddu       $a1, $fp, $zero",
+          "va": "0x003a75e8",
+          "word": "0x03c0282d"
+        },
+        {
+          "file_offset": "0x2a85ec",
+          "ghidra_listing": "jal 0x003ada88",
+          "rabbitizer_r5900": "jal         func_3ADA88",
+          "va": "0x003a75ec",
+          "word": "0x0c0eb6a2"
+        },
+        {
+          "file_offset": "0x2a85f0",
+          "ghidra_listing": "_nop",
+          "rabbitizer_r5900": "nop",
+          "va": "0x003a75f0",
+          "word": "0x00000000"
+        },
+        {
+          "file_offset": "0x2a85f4",
+          "ghidra_listing": "lui v0,0x48",
+          "rabbitizer_r5900": "lui         $v0, 0x48",
+          "va": "0x003a75f4",
+          "word": "0x3c020048"
+        },
+        {
+          "file_offset": "0x2a85f8",
+          "ghidra_listing": "addiu v0,v0,0x7d08",
+          "rabbitizer_r5900": "addiu       $v0, $v0, 0x7D08",
+          "va": "0x003a75f8",
+          "word": "0x24427d08"
+        },
+        {
+          "file_offset": "0x2a85fc",
+          "ghidra_listing": "sw v0,0x8(s0)",
+          "rabbitizer_r5900": "sw          $v0, 0x8($s0)",
+          "va": "0x003a75fc",
+          "word": "0xae020008"
+        },
+        {
+          "file_offset": "0x2a8600",
+          "ghidra_listing": "move v0,s0",
+          "rabbitizer_r5900": "daddu       $v0, $s0, $zero",
+          "va": "0x003a7600",
+          "word": "0x0200102d"
+        },
+        {
+          "file_offset": "0x2a8604",
+          "ghidra_listing": "b 0x003a760c",
+          "rabbitizer_r5900": "b           . + 4 + (0x1 << 2)",
+          "va": "0x003a7604",
+          "word": "0x10000001"
+        },
+        {
+          "file_offset": "0x2a8608",
+          "ghidra_listing": "_nop",
+          "rabbitizer_r5900": "nop",
+          "va": "0x003a7608",
+          "word": "0x00000000"
+        },
+        {
+          "file_offset": "0x2a860c",
+          "ghidra_listing": "move sp,s8",
+          "rabbitizer_r5900": "daddu       $sp, $fp, $zero",
+          "va": "0x003a760c",
+          "word": "0x03c0e82d"
+        },
+        {
+          "file_offset": "0x2a8610",
+          "ghidra_listing": "lq ra,0x30(sp)",
+          "rabbitizer_r5900": "lq          $ra, 0x30($sp)",
+          "va": "0x003a7610",
+          "word": "0x7bbf0030"
+        },
+        {
+          "file_offset": "0x2a8614",
+          "ghidra_listing": "lq s8,0x20(sp)",
+          "rabbitizer_r5900": "lq          $fp, 0x20($sp)",
+          "va": "0x003a7614",
+          "word": "0x7bbe0020"
+        },
+        {
+          "file_offset": "0x2a8618",
+          "ghidra_listing": "lq s0,0x10(sp)",
+          "rabbitizer_r5900": "lq          $s0, 0x10($sp)",
+          "va": "0x003a7618",
+          "word": "0x7bb00010"
+        },
+        {
+          "file_offset": "0x2a861c",
+          "ghidra_listing": "addiu sp,sp,0x40",
+          "rabbitizer_r5900": "addiu       $sp, $sp, 0x40",
+          "va": "0x003a761c",
+          "word": "0x27bd0040"
+        },
+        {
+          "file_offset": "0x2a8620",
+          "ghidra_listing": "jr ra",
+          "rabbitizer_r5900": "jr          $ra",
+          "va": "0x003a7620",
+          "word": "0x03e00008"
+        }
+      ],
+      "name": "tree_registration",
+      "start_va": "0x003a75b8"
+    },
+    {
+      "end_va_exclusive": "0x003a7f88",
+      "instructions": [
+        {
+          "file_offset": "0x2a8f60",
+          "ghidra_listing": "lw v1,0x0(s8)",
+          "rabbitizer_r5900": "lw          $v1, 0x0($fp)",
+          "va": "0x003a7f60",
+          "word": "0x8fc30000"
+        },
+        {
+          "file_offset": "0x2a8f64",
+          "ghidra_listing": "sra v0,v1,0x18",
+          "rabbitizer_r5900": "sra         $v0, $v1, 24",
+          "va": "0x003a7f64",
+          "word": "0x00031603"
+        },
+        {
+          "file_offset": "0x2a8f68",
+          "ghidra_listing": "andi v1,v0,0xff",
+          "rabbitizer_r5900": "andi        $v1, $v0, 0xFF",
+          "va": "0x003a7f68",
+          "word": "0x304300ff"
+        },
+        {
+          "file_offset": "0x2a8f6c",
+          "ghidra_listing": "mtc1 v1,f0",
+          "rabbitizer_r5900": "mtc1        $v1, $f0",
+          "va": "0x003a7f6c",
+          "word": "0x44830000"
+        },
+        {
+          "file_offset": "0x2a8f70",
+          "ghidra_listing": "nop",
+          "rabbitizer_r5900": "nop",
+          "va": "0x003a7f70",
+          "word": "0x00000000"
+        },
+        {
+          "file_offset": "0x2a8f74",
+          "ghidra_listing": "cvt.s.W f0,f0",
+          "rabbitizer_r5900": "cvt.s.w     $f0, $f0",
+          "va": "0x003a7f74",
+          "word": "0x46800020"
+        },
+        {
+          "file_offset": "0x2a8f78",
+          "ghidra_listing": "lui at,0x437f",
+          "rabbitizer_r5900": "lui         $at, 0x437F",
+          "va": "0x003a7f78",
+          "word": "0x3c01437f"
+        },
+        {
+          "file_offset": "0x2a8f7c",
+          "ghidra_listing": "mtc1 at,f1",
+          "rabbitizer_r5900": "mtc1        $at, $f1",
+          "va": "0x003a7f7c",
+          "word": "0x44810800"
+        },
+        {
+          "file_offset": "0x2a8f80",
+          "ghidra_listing": "nop",
+          "rabbitizer_r5900": "nop",
+          "va": "0x003a7f80",
+          "word": "0x00000000"
+        },
+        {
+          "file_offset": "0x2a8f84",
+          "ghidra_listing": "div.S f0,f0,f1",
+          "rabbitizer_r5900": "div.s       $f0, $f0, $f1",
+          "va": "0x003a7f84",
+          "word": "0x46010003"
+        }
+      ],
+      "name": "source_rgba_unpack",
+      "start_va": "0x003a7f60"
+    },
+    {
+      "end_va_exclusive": "0x003ae670",
+      "instructions": [
+        {
+          "file_offset": "0x2af618",
+          "ghidra_listing": "addiu sp,sp,-0x10",
+          "rabbitizer_r5900": "addiu       $sp, $sp, -0x10",
+          "va": "0x003ae618",
+          "word": "0x27bdfff0"
+        },
+        {
+          "file_offset": "0x2af61c",
+          "ghidra_listing": "sq s8,0x0(sp)",
+          "rabbitizer_r5900": "sq          $fp, 0x0($sp)",
+          "va": "0x003ae61c",
+          "word": "0x7fbe0000"
+        },
+        {
+          "file_offset": "0x2af620",
+          "ghidra_listing": "move s8,sp",
+          "rabbitizer_r5900": "daddu       $fp, $sp, $zero",
+          "va": "0x003ae620",
+          "word": "0x03a0f02d"
+        },
+        {
+          "file_offset": "0x2af624",
+          "ghidra_listing": "move v0,a0",
+          "rabbitizer_r5900": "daddu       $v0, $a0, $zero",
+          "va": "0x003ae624",
+          "word": "0x0080102d"
+        },
+        {
+          "file_offset": "0x2af628",
+          "ghidra_listing": "move v1,a1",
+          "rabbitizer_r5900": "daddu       $v1, $a1, $zero",
+          "va": "0x003ae628",
+          "word": "0x00a0182d"
+        },
+        {
+          "file_offset": "0x2af62c",
+          "ghidra_listing": "li a0,0x2",
+          "rabbitizer_r5900": "addiu       $a0, $zero, 0x2",
+          "va": "0x003ae62c",
+          "word": "0x24040002"
+        },
+        {
+          "file_offset": "0x2af630",
+          "ghidra_listing": "sw a0,0x28(v1)",
+          "rabbitizer_r5900": "sw          $a0, 0x28($v1)",
+          "va": "0x003ae630",
+          "word": "0xac640028"
+        },
+        {
+          "file_offset": "0x2af634",
+          "ghidra_listing": "li a0,0x1",
+          "rabbitizer_r5900": "addiu       $a0, $zero, 0x1",
+          "va": "0x003ae634",
+          "word": "0x24040001"
+        },
+        {
+          "file_offset": "0x2af638",
+          "ghidra_listing": "sw a0,0x2c(v1)",
+          "rabbitizer_r5900": "sw          $a0, 0x2C($v1)",
+          "va": "0x003ae638",
+          "word": "0xac64002c"
+        },
+        {
+          "file_offset": "0x2af63c",
+          "ghidra_listing": "li a0,0x1",
+          "rabbitizer_r5900": "addiu       $a0, $zero, 0x1",
+          "va": "0x003ae63c",
+          "word": "0x24040001"
+        },
+        {
+          "file_offset": "0x2af640",
+          "ghidra_listing": "sw a0,0x3c(v1)",
+          "rabbitizer_r5900": "sw          $a0, 0x3C($v1)",
+          "va": "0x003ae640",
+          "word": "0xac64003c"
+        },
+        {
+          "file_offset": "0x2af644",
+          "ghidra_listing": "sw zero,0x40(v1)",
+          "rabbitizer_r5900": "sw          $zero, 0x40($v1)",
+          "va": "0x003ae644",
+          "word": "0xac600040"
+        },
+        {
+          "file_offset": "0x2af648",
+          "ghidra_listing": "lui at,0x3e19",
+          "rabbitizer_r5900": "lui         $at, 0x3E19",
+          "va": "0x003ae648",
+          "word": "0x3c013e19"
+        },
+        {
+          "file_offset": "0x2af64c",
+          "ghidra_listing": "ori at,at,0x999a",
+          "rabbitizer_r5900": "ori         $at, $at, 0x999A",
+          "va": "0x003ae64c",
+          "word": "0x3421999a"
+        },
+        {
+          "file_offset": "0x2af650",
+          "ghidra_listing": "mtc1 at,f0",
+          "rabbitizer_r5900": "mtc1        $at, $f0",
+          "va": "0x003ae650",
+          "word": "0x44810000"
+        },
+        {
+          "file_offset": "0x2af654",
+          "ghidra_listing": "nop",
+          "rabbitizer_r5900": "nop",
+          "va": "0x003ae654",
+          "word": "0x00000000"
+        },
+        {
+          "file_offset": "0x2af658",
+          "ghidra_listing": "swc1 f0,0x44(v1)",
+          "rabbitizer_r5900": "swc1        $f0, 0x44($v1)",
+          "va": "0x003ae658",
+          "word": "0xe4600044"
+        },
+        {
+          "file_offset": "0x2af65c",
+          "ghidra_listing": "move sp,s8",
+          "rabbitizer_r5900": "daddu       $sp, $fp, $zero",
+          "va": "0x003ae65c",
+          "word": "0x03c0e82d"
+        },
+        {
+          "file_offset": "0x2af660",
+          "ghidra_listing": "lq s8,0x0(sp)",
+          "rabbitizer_r5900": "lq          $fp, 0x0($sp)",
+          "va": "0x003ae660",
+          "word": "0x7bbe0000"
+        },
+        {
+          "file_offset": "0x2af664",
+          "ghidra_listing": "addiu sp,sp,0x10",
+          "rabbitizer_r5900": "addiu       $sp, $sp, 0x10",
+          "va": "0x003ae664",
+          "word": "0x27bd0010"
+        },
+        {
+          "file_offset": "0x2af668",
+          "ghidra_listing": "jr ra",
+          "rabbitizer_r5900": "jr          $ra",
+          "va": "0x003ae668",
+          "word": "0x03e00008"
+        },
+        {
+          "file_offset": "0x2af66c",
+          "ghidra_listing": "_nop",
+          "rabbitizer_r5900": "nop",
+          "va": "0x003ae66c",
+          "word": "0x00000000"
+        }
+      ],
+      "name": "treeblend_handler",
+      "start_va": "0x003ae618"
+    },
+    {
+      "end_va_exclusive": "0x003ae760",
+      "instructions": [
+        {
+          "file_offset": "0x2af710",
+          "ghidra_listing": "addiu sp,sp,-0x10",
+          "rabbitizer_r5900": "addiu       $sp, $sp, -0x10",
+          "va": "0x003ae710",
+          "word": "0x27bdfff0"
+        },
+        {
+          "file_offset": "0x2af714",
+          "ghidra_listing": "sq s8,0x0(sp)",
+          "rabbitizer_r5900": "sq          $fp, 0x0($sp)",
+          "va": "0x003ae714",
+          "word": "0x7fbe0000"
+        },
+        {
+          "file_offset": "0x2af718",
+          "ghidra_listing": "move s8,sp",
+          "rabbitizer_r5900": "daddu       $fp, $sp, $zero",
+          "va": "0x003ae718",
+          "word": "0x03a0f02d"
+        },
+        {
+          "file_offset": "0x2af71c",
+          "ghidra_listing": "move v0,a0",
+          "rabbitizer_r5900": "daddu       $v0, $a0, $zero",
+          "va": "0x003ae71c",
+          "word": "0x0080102d"
+        },
+        {
+          "file_offset": "0x2af720",
+          "ghidra_listing": "move v1,a1",
+          "rabbitizer_r5900": "daddu       $v1, $a1, $zero",
+          "va": "0x003ae720",
+          "word": "0x00a0182d"
+        },
+        {
+          "file_offset": "0x2af724",
+          "ghidra_listing": "li a0,0x6",
+          "rabbitizer_r5900": "addiu       $a0, $zero, 0x6",
+          "va": "0x003ae724",
+          "word": "0x24040006"
+        },
+        {
+          "file_offset": "0x2af728",
+          "ghidra_listing": "sw a0,0x28(v1)",
+          "rabbitizer_r5900": "sw          $a0, 0x28($v1)",
+          "va": "0x003ae728",
+          "word": "0xac640028"
+        },
+        {
+          "file_offset": "0x2af72c",
+          "ghidra_listing": "sw zero,0x2c(v1)",
+          "rabbitizer_r5900": "sw          $zero, 0x2C($v1)",
+          "va": "0x003ae72c",
+          "word": "0xac60002c"
+        },
+        {
+          "file_offset": "0x2af730",
+          "ghidra_listing": "sw zero,0x3c(v1)",
+          "rabbitizer_r5900": "sw          $zero, 0x3C($v1)",
+          "va": "0x003ae730",
+          "word": "0xac60003c"
+        },
+        {
+          "file_offset": "0x2af734",
+          "ghidra_listing": "sw zero,0x40(v1)",
+          "rabbitizer_r5900": "sw          $zero, 0x40($v1)",
+          "va": "0x003ae734",
+          "word": "0xac600040"
+        },
+        {
+          "file_offset": "0x2af738",
+          "ghidra_listing": "lui at,0x3e4c",
+          "rabbitizer_r5900": "lui         $at, 0x3E4C",
+          "va": "0x003ae738",
+          "word": "0x3c013e4c"
+        },
+        {
+          "file_offset": "0x2af73c",
+          "ghidra_listing": "ori at,at,0xcccd",
+          "rabbitizer_r5900": "ori         $at, $at, 0xCCCD",
+          "va": "0x003ae73c",
+          "word": "0x3421cccd"
+        },
+        {
+          "file_offset": "0x2af740",
+          "ghidra_listing": "mtc1 at,f0",
+          "rabbitizer_r5900": "mtc1        $at, $f0",
+          "va": "0x003ae740",
+          "word": "0x44810000"
+        },
+        {
+          "file_offset": "0x2af744",
+          "ghidra_listing": "nop",
+          "rabbitizer_r5900": "nop",
+          "va": "0x003ae744",
+          "word": "0x00000000"
+        },
+        {
+          "file_offset": "0x2af748",
+          "ghidra_listing": "swc1 f0,0x44(v1)",
+          "rabbitizer_r5900": "swc1        $f0, 0x44($v1)",
+          "va": "0x003ae748",
+          "word": "0xe4600044"
+        },
+        {
+          "file_offset": "0x2af74c",
+          "ghidra_listing": "move sp,s8",
+          "rabbitizer_r5900": "daddu       $sp, $fp, $zero",
+          "va": "0x003ae74c",
+          "word": "0x03c0e82d"
+        },
+        {
+          "file_offset": "0x2af750",
+          "ghidra_listing": "lq s8,0x0(sp)",
+          "rabbitizer_r5900": "lq          $fp, 0x0($sp)",
+          "va": "0x003ae750",
+          "word": "0x7bbe0000"
+        },
+        {
+          "file_offset": "0x2af754",
+          "ghidra_listing": "addiu sp,sp,0x10",
+          "rabbitizer_r5900": "addiu       $sp, $sp, 0x10",
+          "va": "0x003ae754",
+          "word": "0x27bd0010"
+        },
+        {
+          "file_offset": "0x2af758",
+          "ghidra_listing": "jr ra",
+          "rabbitizer_r5900": "jr          $ra",
+          "va": "0x003ae758",
+          "word": "0x03e00008"
+        },
+        {
+          "file_offset": "0x2af75c",
+          "ghidra_listing": "_nop",
+          "rabbitizer_r5900": "nop",
+          "va": "0x003ae75c",
+          "word": "0x00000000"
+        }
+      ],
+      "name": "tree_handler",
+      "start_va": "0x003ae710"
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "schema": "ps2-r5900-revalidation2-render-contract-v1",
+  "canonical_elf_sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+  "ps2_static_modes": {
+    "treeblend": {
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "mode": 2,
+      "queue_bucket": 1,
+      "texture_option": 1,
+      "coefficient_float32": 0.15,
+      "coefficient_word": "0x3e19999a",
+      "primitive": "textured triangle strip",
+      "alpha_test": "disabled",
+      "alpha_blend": true,
+      "alpha_equation": "(Cs-Cd)*As/128+Cd",
+      "z_test_selector": "GEQUAL in controlled ZTST field; ZTE inherited",
+      "depth_write": "masked (ZMSK=1)",
+      "texture_combine": "TEX0 TCC=1, TFX=MODULATE",
+      "queue_order_scope": "bucket 1 follows bucket 0 within one 0x0031cd98 drain only",
+      "unknown_inherited_state": ["ZTE", "DATE/DATM", "FRAME", "PABE", "TEXA", "dynamic TEX0 base/format", "upper PRIM/context fields"]
+    },
+    "tree": {
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "mode": 6,
+      "queue_bucket": 0,
+      "texture_option": 0,
+      "coefficient_float32": 0.2,
+      "coefficient_word": "0x3e4ccccd",
+      "alpha_test": "GREATER 64; AFAIL=KEEP",
+      "alpha_blend": false,
+      "depth_write": "allowed (ZMSK=0)",
+      "texture_combine": "TEX0 TCC=1, TFX=MODULATE"
+    }
+  },
+  "pc_pilot13_runtime": {
+    "course": "FRANCE1",
+    "target_draw": "DrawIndexedPrimitive(4,11940,28,22944,48,...)",
+    "target_draw_index_zero_based": 45,
+    "geometry_sha256": "2b60b1f044601052bb5eaeca074615abe3947fdc1b0769c17d300a0b3b3e6f7d",
+    "vertex_buffer": {"generation": 624, "revision": 248},
+    "index_buffer": {"generation": 625, "revision": 337},
+    "native_draw_result": "D3D_OK (0), one call per supplied frame",
+    "modes": [
+      {"mode": 0, "name": "stock", "requested_mask": "0x00", "applied_mask": "0x00", "policy": "no native override"},
+      {"mode": 1, "name": "treeblend_all_states", "requested_mask": "0x1f", "applied_mask": "0x1f", "policy": "ALPHATESTENABLE=0; ALPHABLENDENABLE=1; SRCBLEND=5; DESTBLEND=6; ZWRITEENABLE=0"},
+      {"mode": 2, "name": "alpha_blend_only", "requested_mask": "0x0f", "applied_mask": "0x0f", "policy": "ALPHATESTENABLE=0; ALPHABLENDENABLE=1; SRCBLEND=5; DESTBLEND=6; no ZWRITE write"},
+      {"mode": 3, "name": "depth_write_only", "requested_mask": "0x10", "applied_mask": "0x10", "policy": "ZWRITEENABLE=0; no alpha-state write"}
+    ],
+    "stock_states": {
+      "ALPHATESTENABLE": 1,
+      "ALPHAFUNC": "GREATER (5)",
+      "ALPHAREF": 128,
+      "ALPHABLENDENABLE": 0,
+      "SRCBLEND": "SRCALPHA (5)",
+      "DESTBLEND": "INVSRCALPHA (6)",
+      "ZENABLE": 1,
+      "ZWRITEENABLE": 1,
+      "ZFUNC": "LESSEQUAL (4)"
+    },
+    "restoration": "all state writes succeeded and each changed state was restored to the captured pre-draw value",
+    "visual_observations": {
+      "mode0": "foreground bush visible with stock cutout appearance",
+      "mode1": "foreground bush largely disappears",
+      "mode2": "bright/white rectangular foliage cards; texture visible on portions",
+      "mode3": "foreground bush largely disappears",
+      "evidence_grade": "USER_RUNTIME_OBSERVATION + SCREENSHOT_CORRELATION",
+      "screenshot_mode_pairing": "ordinal capture order supported by file timestamps; mode is not embedded in JPEG"
+    }
+  },
+  "interpretation": {
+    "confirmed": ["Mode 3's ZWRITE-only override is sufficient for the observed disappearance in this view", "Mode 2's alpha/blend-only override produces a separate white-card artifact", "all four calls target the same geometry hash and buffer generations"],
+    "not_proven": ["which later PC draw covers any particular bush pixel", "why PS2's ZMSK=1 path remains visually correct", "exact runtime texture format and texel sample", "PS2 live VU residency and GS packet for this France1 bush", "visual parity with PS2"]
+  }
+}

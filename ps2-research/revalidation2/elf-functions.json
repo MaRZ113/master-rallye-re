@@ -1,0 +1,1698 @@
+{
+  "address_model": {
+    "decoder": "Ghidra 12.1.4 EER r5900:LE:32:default; Rabbitizer 1.16.2 InstrCategory.R5900",
+    "elf": "ELF32 LE ET_EXEC, EM_MIPS",
+    "file_backed_offset": "VA - 0x000ff000",
+    "load_va": "0x00100000"
+  },
+  "canonical_elf_sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+  "functions": [
+    {
+      "address": "0x00312610",
+      "bounds": {
+        "end_inclusive": "0x00316800",
+        "inspected_last_va": "0x00316800",
+        "start": "0x00312610",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "callees": [],
+      "callers": [],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fresh_probe_addresses": [
+        "0x00313270",
+        "0x00313274",
+        "0x00313278",
+        "0x0031327c",
+        "0x00313280",
+        "0x00313284",
+        "0x00313288",
+        "0x0031328c",
+        "0x00313290",
+        "0x00313294",
+        "0x00313298",
+        "0x0031329c",
+        "0x003132a0",
+        "0x003132a4",
+        "0x003132a8",
+        "0x003132ac",
+        "0x003132b0",
+        "0x003132b4",
+        "0x003132b8",
+        "0x003132bc",
+        "0x003132c0",
+        "0x003132c4",
+        "0x003132c8",
+        "0x003132cc",
+        "0x003132d0",
+        "0x003132d4",
+        "0x003132d8",
+        "0x003132dc",
+        "0x003132e0",
+        "0x003132e4",
+        "0x003132e8",
+        "0x003132ec",
+        "0x003132f0",
+        "0x003132f4",
+        "0x003132f8",
+        "0x003132fc",
+        "0x00313300",
+        "0x00313304",
+        "0x00313308",
+        "0x0031330c",
+        "0x00313310",
+        "0x00313314",
+        "0x00313318",
+        "0x0031331c",
+        "0x00313320",
+        "0x00313324",
+        "0x00313328",
+        "0x0031332c",
+        "0x00313330",
+        "0x00313334",
+        "0x00313338",
+        "0x0031333c",
+        "0x00313340",
+        "0x00313344",
+        "0x00313348",
+        "0x0031334c",
+        "0x00313350",
+        "0x00313354",
+        "0x00313358",
+        "0x0031335c",
+        "0x00313360",
+        "0x00313364",
+        "0x00313368",
+        "0x0031336c",
+        "0x00313370",
+        "0x00313374",
+        "0x00313378",
+        "0x0031337c",
+        "0x00313380",
+        "0x00313384",
+        "0x00313388",
+        "0x0031338c",
+        "0x00313390",
+        "0x00313394",
+        "0x00313398",
+        "0x0031339c",
+        "0x003133a0",
+        "0x003133a4",
+        "0x003133a8",
+        "0x003133ac",
+        "0x003133b0",
+        "0x003133b4",
+        "0x003133b8",
+        "0x003133bc",
+        "0x003133c0",
+        "0x003133c4",
+        "0x003133c8",
+        "0x003133cc",
+        "0x003133d0",
+        "0x003133d4",
+        "0x003133d8",
+        "0x003133dc",
+        "0x003133e0",
+        "0x003133e4",
+        "0x003133e8",
+        "0x003133ec",
+        "0x003133f0",
+        "0x003133f4",
+        "0x003133f8",
+        "0x003133fc",
+        "0x00313400",
+        "0x00313404",
+        "0x00313408",
+        "0x0031340c",
+        "0x00313410",
+        "0x00313414",
+        "0x00313418",
+        "0x0031341c",
+        "0x00313420",
+        "0x00313424",
+        "0x00313428",
+        "0x0031342c",
+        "0x00313430",
+        "0x00313434",
+        "0x00313438",
+        "0x0031343c",
+        "0x00313440",
+        "0x00313444",
+        "0x00313448",
+        "0x0031344c",
+        "0x00313450",
+        "0x00313454",
+        "0x00313458",
+        "0x0031345c",
+        "0x00313460",
+        "0x00313464",
+        "0x00313468",
+        "0x0031346c",
+        "0x00313470",
+        "0x00313474",
+        "0x00313478",
+        "0x0031347c",
+        "0x00313480",
+        "0x00313484",
+        "0x00313488",
+        "0x0031348c",
+        "0x00313490",
+        "0x00313494",
+        "0x00313498",
+        "0x0031349c",
+        "0x003134a0",
+        "0x003134a4",
+        "0x003134a8",
+        "0x003134ac",
+        "0x003134b0",
+        "0x003134b4",
+        "0x003134b8",
+        "0x003139bc",
+        "0x003139c0",
+        "0x003139c4",
+        "0x003139c8",
+        "0x003139cc",
+        "0x003139d0",
+        "0x003139d4",
+        "0x003139d8",
+        "0x003139dc",
+        "0x003139e0",
+        "0x003139e4",
+        "0x003139e8",
+        "0x003139ec",
+        "0x003139f0",
+        "0x003139f4",
+        "0x003139f8",
+        "0x003139fc",
+        "0x00313a00",
+        "0x00313a04",
+        "0x00313a08",
+        "0x00313a0c",
+        "0x00313a10",
+        "0x00313a14",
+        "0x00313a18",
+        "0x00313a1c",
+        "0x00313a20",
+        "0x00313a24",
+        "0x00313a28",
+        "0x00313a2c",
+        "0x00313a30",
+        "0x00313a34",
+        "0x00313a38",
+        "0x00313a3c",
+        "0x00313a40",
+        "0x00313a44",
+        "0x00313a48",
+        "0x0031679c",
+        "0x003167a0",
+        "0x003167a4",
+        "0x003167a8",
+        "0x003167ac",
+        "0x003167b0",
+        "0x003167b4",
+        "0x003167b8",
+        "0x003167bc",
+        "0x003167c0",
+        "0x003167c4",
+        "0x003167c8",
+        "0x003167cc",
+        "0x003167d0"
+      ],
+      "fresh_probe_word_count_within_bounds": 197,
+      "important_constants": "mode9:secondary68 FIX56 TCC0;10:44 TCC1;19:ZMSK0 both",
+      "input_arguments": "mode param2",
+      "input_fields": "mode and renderer state",
+      "instruction_evidence": [
+        {
+          "address": "0x312610",
+          "ghidra_asm": "addiu sp,sp,-0xb0",
+          "original_word": "0x27bdff50"
+        },
+        {
+          "address": "0x312614",
+          "ghidra_asm": "lui t2,0x43",
+          "original_word": "0x3c0a0043"
+        },
+        {
+          "address": "0x312618",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s8,0x90(sp)",
+          "original_word": "0x7fbe0090"
+        },
+        {
+          "address": "0x31261c",
+          "ghidra_asm": "addiu t6,t2,-0x2140",
+          "original_word": "0x254edec0"
+        },
+        {
+          "address": "0x312620",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd ra,0xa0(sp)",
+          "original_word": "0x7fbf00a0"
+        },
+        {
+          "address": "0x312624",
+          "ghidra_asm": "addiu t5,t6,-0x60",
+          "original_word": "0x25cdffa0"
+        }
+      ],
+      "object_fields_read": "mode and renderer state",
+      "object_fields_written": "PRIM,TEX0/1,ALPHA,TEST,ZBUF,FBA and VU selector",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": "PRIM,TEX0/1,ALPHA,TEST,ZBUF,FBA and VU selector",
+      "role": "Renderer mode GS template switch",
+      "runtime_invocation": "NOT_PROVED_BY_STATIC_ELF",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof"
+    },
+    {
+      "address": "0x0031af50",
+      "bounds": {
+        "end_inclusive": "0x0031b1ec",
+        "inspected_last_va": "0x0031b1ec",
+        "start": "0x0031af50",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "callees": [
+        {
+          "address": "0x002ad5a8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f931c",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002ad530",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callers": [
+        {
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS",
+          "callsite": "0x0031c520",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS",
+          "callsite": "0x0031c9c0",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fresh_probe_addresses": [],
+      "fresh_probe_word_count_within_bounds": 0,
+      "important_constants": "317.w selector storage,1400036a",
+      "input_arguments": "chain,selector",
+      "input_fields": "selector0/3 for water/puddle",
+      "instruction_evidence": [
+        {
+          "original_word": "0x27bdff80",
+          "va": "0x0031af50"
+        },
+        {
+          "original_word": "0x03e00008",
+          "va": "0x0031b1e8"
+        }
+      ],
+      "object_fields_read": "selector0/3 for water/puddle",
+      "object_fields_written": "VIF UNPACK and MSCAL36a",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": "VIF UNPACK and MSCAL36a",
+      "role": "Upload VU material selector",
+      "runtime_invocation": "NOT_PROVED_BY_STATIC_ELF",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof"
+    },
+    {
+      "address": "0x0031cd98",
+      "bounds": {
+        "end_inclusive": "0x0031d1b0",
+        "inspected_last_va": "0x0031d1b0",
+        "start": "0x0031cd98",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "callees": [
+        {
+          "address": "0x00340cd0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003179c8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0031b1f0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x0031e010",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002b2028",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callers": [],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fresh_probe_addresses": [
+        "0x0031ce68",
+        "0x0031ce6c",
+        "0x0031ce70",
+        "0x0031ce74",
+        "0x0031ce78",
+        "0x0031ce7c",
+        "0x0031ce80",
+        "0x0031ce84",
+        "0x0031ce88",
+        "0x0031ce8c",
+        "0x0031ce90",
+        "0x0031ce94",
+        "0x0031ce98",
+        "0x0031ce9c",
+        "0x0031cea0",
+        "0x0031cea4",
+        "0x0031cea8",
+        "0x0031ceac",
+        "0x0031d074",
+        "0x0031d078",
+        "0x0031d07c",
+        "0x0031d080",
+        "0x0031d084",
+        "0x0031d088",
+        "0x0031d08c",
+        "0x0031d090",
+        "0x0031d094",
+        "0x0031d098",
+        "0x0031d09c",
+        "0x0031d0a0",
+        "0x0031d0a4",
+        "0x0031d0a8",
+        "0x0031d0ac",
+        "0x0031d0b0",
+        "0x0031d0b4",
+        "0x0031d0b8",
+        "0x0031d0bc",
+        "0x0031d0c0",
+        "0x0031d0c4",
+        "0x0031d0c8",
+        "0x0031d0cc",
+        "0x0031d0d0",
+        "0x0031d0d4",
+        "0x0031d0d8",
+        "0x0031d0dc"
+      ],
+      "fresh_probe_word_count_within_bounds": 45,
+      "important_constants": "virtualbc=mode,c4/cc=textures,dc=state,31e010 packet CALL",
+      "input_arguments": "renderer",
+      "input_fields": "queued group flags,mode,handles,packets",
+      "instruction_evidence": [
+        {
+          "original_word": "0x27bdff00",
+          "va": "0x0031cd98"
+        },
+        {
+          "original_word": "0x03e00008",
+          "va": "0x0031d1ac"
+        }
+      ],
+      "object_fields_read": "queued group flags,mode,handles,packets",
+      "object_fields_written": "frame DMA chain; empties group vectors",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": "frame DMA chain; empties group vectors",
+      "role": "Drain ascending buckets/material lists",
+      "runtime_invocation": "NOT_PROVED_BY_STATIC_ELF",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof"
+    },
+    {
+      "address": "0x0031d250",
+      "bounds": {
+        "end_inclusive": null,
+        "inspected_last_va": "0x0031d794",
+        "start": "0x0031d250",
+        "status": "END_UNRESOLVED"
+      },
+      "callees": [
+        {
+          "address": "0x00326cb8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002dfa58",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002dfca8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002b2028",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002dfec8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f93cc",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00275db8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00152720",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x002df898",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callers": [],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fresh_probe_addresses": [
+        "0x0031d250",
+        "0x0031d254",
+        "0x0031d258",
+        "0x0031d25c",
+        "0x0031d260",
+        "0x0031d264",
+        "0x0031d268",
+        "0x0031d26c",
+        "0x0031d270",
+        "0x0031d274",
+        "0x0031d278",
+        "0x0031d27c",
+        "0x0031d280",
+        "0x0031d284",
+        "0x0031d288",
+        "0x0031d28c",
+        "0x0031d290",
+        "0x0031d294",
+        "0x0031d298",
+        "0x0031d29c",
+        "0x0031d2a0",
+        "0x0031d2a4",
+        "0x0031d2a8",
+        "0x0031d2ac",
+        "0x0031d2b0",
+        "0x0031d2b4",
+        "0x0031d2b8",
+        "0x0031d2bc",
+        "0x0031d2c0"
+      ],
+      "fresh_probe_word_count_within_bounds": 29,
+      "important_constants": "compact mode/handle key",
+      "input_arguments": "renderer,cache wrapper",
+      "input_fields": "renderer+150/+154/+158,cache wrapper",
+      "instruction_evidence": [
+        {
+          "original_word": "0x27bdfeb0",
+          "va": "0x0031d250"
+        },
+        {
+          "original_word": "0xafa90024",
+          "va": "0x0031d400"
+        },
+        {
+          "original_word": "0xafa00038",
+          "va": "0x0031d610"
+        },
+        {
+          "original_word": "0x02e0302d",
+          "va": "0x0031d794"
+        }
+      ],
+      "object_fields_read": "renderer+150/+154/+158,cache wrapper",
+      "object_fields_written": "renderer+16c queued groups",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": "renderer+16c queued groups",
+      "role": "Enqueue cached draw by material key/bucket",
+      "runtime_invocation": "NOT_PROVED_BY_STATIC_ELF",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof"
+    },
+    {
+      "address": "0x0031f4e0",
+      "bounds": {
+        "end_inclusive": "0x0031fb78",
+        "inspected_last_va": "0x0031fb78",
+        "start": "0x0031f4e0",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "callees": [
+        {
+          "addr": "003f93cc",
+          "name": "FUN_003f93cc"
+        },
+        {
+          "addr": "002ad5a8",
+          "name": "FUN_002ad5a8"
+        },
+        {
+          "addr": "003f931c",
+          "name": "FUN_003f931c"
+        },
+        {
+          "addr": "002ad530",
+          "name": "FUN_002ad530"
+        },
+        {
+          "addr": "0031f478",
+          "name": "FUN_0031f478"
+        },
+        {
+          "addr": "0031b9c0",
+          "name": "FUN_0031b9c0"
+        },
+        {
+          "addr": "0031de48",
+          "name": "FUN_0031de48"
+        },
+        {
+          "addr": "0031dce8",
+          "name": "FUN_0031dce8"
+        }
+      ],
+      "callers": [],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fresh_probe_addresses": [
+        "0x0031f844",
+        "0x0031f848",
+        "0x0031f84c",
+        "0x0031f850",
+        "0x0031f854",
+        "0x0031f858",
+        "0x0031f85c",
+        "0x0031f860",
+        "0x0031f864",
+        "0x0031f868",
+        "0x0031f86c",
+        "0x0031f870",
+        "0x0031f874",
+        "0x0031f878",
+        "0x0031f87c",
+        "0x0031f880",
+        "0x0031f884",
+        "0x0031f888",
+        "0x0031f88c",
+        "0x0031f890",
+        "0x0031f894",
+        "0x0031f898",
+        "0x0031f89c",
+        "0x0031f8a0",
+        "0x0031f8a4",
+        "0x0031f8a8",
+        "0x0031f8ac",
+        "0x0031f8b0",
+        "0x0031f8b4",
+        "0x0031f8b8",
+        "0x0031f8bc",
+        "0x0031f8c0",
+        "0x0031f8c4",
+        "0x0031f8c8",
+        "0x0031f8cc",
+        "0x0031f8d0",
+        "0x0031f8d4",
+        "0x0031f8d8",
+        "0x0031f8dc",
+        "0x0031f8e0",
+        "0x0031f8e4",
+        "0x0031f8e8",
+        "0x0031f8ec",
+        "0x0031f8f0",
+        "0x0031f8f4",
+        "0x0031f8f8",
+        "0x0031f8fc",
+        "0x0031f900",
+        "0x0031f904",
+        "0x0031f908",
+        "0x0031f90c",
+        "0x0031f910",
+        "0x0031f914",
+        "0x0031f918",
+        "0x0031f91c",
+        "0x0031f920",
+        "0x0031f924",
+        "0x0031f928",
+        "0x0031f92c",
+        "0x0031f930",
+        "0x0031f934",
+        "0x0031f938",
+        "0x0031f93c",
+        "0x0031f940",
+        "0x0031f944",
+        "0x0031f948",
+        "0x0031f94c",
+        "0x0031f950",
+        "0x0031f954",
+        "0x0031f958",
+        "0x0031f95c",
+        "0x0031f960",
+        "0x0031f964",
+        "0x0031f968",
+        "0x0031f96c",
+        "0x0031f970",
+        "0x0031f974",
+        "0x0031f978",
+        "0x0031f97c",
+        "0x0031f980",
+        "0x0031f984",
+        "0x0031f988",
+        "0x0031f98c",
+        "0x0031f990",
+        "0x0031f994",
+        "0x0031f998",
+        "0x0031f99c",
+        "0x0031f9a0",
+        "0x0031f9a4"
+      ],
+      "fresh_probe_word_count_within_bounds": 89,
+      "important_constants": "4qwords/vertex,128qword guard,color*.5,scale ratio1.5",
+      "input_arguments": "a0 context,a1 wrapper,a2 source-base,a3 mesh",
+      "input_fields": "48-byte runtime vertices, packed strip records, material+44",
+      "instruction_evidence": [
+        {
+          "address": "0x31f4e0",
+          "ghidra_asm": "addiu sp,sp,-0x110",
+          "original_word": "0x27bdfef0"
+        },
+        {
+          "address": "0x31f4e4",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s7,0xc0(sp)",
+          "original_word": "0x7fb700c0"
+        },
+        {
+          "address": "0x31f4e8",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s5,0xa0(sp)",
+          "original_word": "0x7fb500a0"
+        },
+        {
+          "address": "0x31f4ec",
+          "ghidra_asm": "daddu s7,a2,zero",
+          "original_word": "0xc0b82d"
+        },
+        {
+          "address": "0x31f4f0",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s3,0x80(sp)",
+          "original_word": "0x7fb30080"
+        },
+        {
+          "address": "0x31f4f4",
+          "ghidra_asm": "daddu s5,a3,zero",
+          "original_word": "0xe0a82d"
+        }
+      ],
+      "object_fields_read": "48-byte runtime vertices, packed strip records, material+44",
+      "object_fields_written": "64-byte record streams, DMA packet refs",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": "64-byte record streams, DMA packet refs",
+      "role": "Generic authored strip cache producer",
+      "runtime_invocation": "NOT_PROVED_BY_STATIC_ELF",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof"
+    },
+    {
+      "address": "0x0032ff28",
+      "bounds": {
+        "end_inclusive": null,
+        "start": "0x0032ff28",
+        "status": "ENTRY_ANCHORED_BY_PROLOGUE_AND_DIRECT_CALL; FUNCTION_END_UNRESOLVED_IN_THIS_AUDIT"
+      },
+      "callees": [
+        {
+          "address": "0x003302b8",
+          "callsite": "0x0032ff34"
+        }
+      ],
+      "callers": [],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "important_constants": "direct JAL at 0x0032ff34",
+      "input_fields": "route object/context",
+      "instruction_evidence": [
+        {
+          "va": "0x0032ff28",
+          "word": "0x27bdffe0"
+        },
+        {
+          "va": "0x0032ff34",
+          "word": "0x0c0cc0ae"
+        }
+      ],
+      "object_fields_read": "route state",
+      "object_fields_written": "dispatch effects",
+      "open_questions": [
+        "The preceding Ghidra function boundary overlaps this prologue; do not treat a precise extent as proved"
+      ],
+      "role": "Unconditional route to dispatcher",
+      "runtime_invocation": "NOT_PROVED_BY_STATIC_ELF"
+    },
+    {
+      "address": "0x003301c8",
+      "bounds": {
+        "end_inclusive": "0x003302b4",
+        "start": "0x003301c8",
+        "status": "FRESH_GHIDRA_FUNCTION_BOUNDARY"
+      },
+      "callees": [
+        {
+          "address": "0x003302b8",
+          "callsite": "0x003301ec"
+        }
+      ],
+      "callers": [],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "important_constants": "conditional branch then direct JAL at 0x003301ec",
+      "input_fields": "route comparison state",
+      "instruction_evidence": [
+        {
+          "va": "0x003301ec",
+          "word": "0x0c0cc0ae"
+        }
+      ],
+      "object_fields_read": "comparison field",
+      "object_fields_written": "dispatch effects when changed",
+      "open_questions": [
+        "Live route selection not captured"
+      ],
+      "role": "Conditional route to dispatcher",
+      "runtime_invocation": "NOT_PROVED_BY_STATIC_ELF"
+    },
+    {
+      "address": "0x003302b8",
+      "bounds": {
+        "end_inclusive": "0x003303b8",
+        "start": "0x003302b8",
+        "status": "FRESH_GHIDRA_TARGET_AND_RETURN_DELAY_SLOT"
+      },
+      "callees": [
+        {
+          "address": "0x00330780",
+          "callsite": "0x003302fc"
+        }
+      ],
+      "callers": [
+        {
+          "address": "0x0032ff28",
+          "callsite": "0x0032ff34",
+          "status": "entry boundary partly uncertain"
+        },
+        {
+          "address": "0x003301c8",
+          "callsite": "0x003301ec"
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "important_constants": "visitor target 0x00330780",
+      "input_fields": "two object arrays and dispatcher context",
+      "instruction_evidence": [
+        {
+          "va": "0x003302fc",
+          "word": "0x0c0cc1e0"
+        }
+      ],
+      "object_fields_read": "array entries and dispatch state",
+      "object_fields_written": "not completely inventoried in this bounded pass",
+      "open_questions": [
+        "Which route and object schedule the France1 bush during a live frame?"
+      ],
+      "role": "Shared object-array dispatcher",
+      "runtime_invocation": "NOT_PROVED_BY_STATIC_ELF"
+    },
+    {
+      "address": "0x00330780",
+      "bounds": {
+        "end_inclusive": "0x00332620",
+        "start": "0x00330780",
+        "status": "FRESH_GHIDRA_FUNCTION_BOUNDARY"
+      },
+      "callees": [
+        {
+          "address": "indirect",
+          "callsite": "0x00330d04",
+          "mechanism": "JALR via object vtable +0x148, slot +0xb4"
+        }
+      ],
+      "callers": [
+        {
+          "address": "0x003302b8",
+          "callsite": "0x003302fc"
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "important_constants": "renderer drain virtual slot target is recorded at vtable 0x004854a4 as 0x0031cd98",
+      "input_fields": "object vtable at +0x148",
+      "instruction_evidence": [
+        {
+          "va": "0x00330d04",
+          "word": "0x0060f809"
+        }
+      ],
+      "object_fields_read": "vtable slot +0xb4",
+      "object_fields_written": "depends on indirect target",
+      "open_questions": [
+        "Indirect targets vary by object; France1 call identity not live-captured"
+      ],
+      "role": "Object visitor / indirect renderer callback",
+      "runtime_invocation": "NOT_PROVED_BY_STATIC_ELF"
+    },
+    {
+      "address": "0x00340ce0",
+      "bounds": {
+        "end_inclusive": "0x00341190",
+        "start": "0x00340ce0",
+        "status": "FRESH_GHIDRA_FUNCTION_BOUNDARY"
+      },
+      "callees": [],
+      "callers": [
+        {
+          "address": "0x00341198",
+          "callsite": "0x003411bc"
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fresh_probe_addresses": [
+        "0x00340ce0"
+      ],
+      "fresh_probe_word_count_within_bounds": 1,
+      "important_constants": "function extent is larger than the selected state-window; see state-template probes",
+      "input_fields": "initialization state/context",
+      "instruction_evidence": [
+        {
+          "ghidra_listing": "see fresh headless probe",
+          "rabbitizer_r5900": "addiu       $sp, $sp, -0x90",
+          "va": "0x00340ce0",
+          "word": "0x27bdff70"
+        }
+      ],
+      "object_fields_read": "GS template storage",
+      "object_fields_written": "common GS register templates; complete field ownership is not inferred here",
+      "open_questions": [
+        "Which template values are active for the live France1 draw?"
+      ],
+      "role": "Shared GS state-template initialization",
+      "runtime_invocation": "NOT_PROVED_BY_STATIC_ELF"
+    },
+    {
+      "address": "0x00341198",
+      "bounds": {
+        "end_inclusive": "0x003411cc",
+        "start": "0x00341198",
+        "status": "FRESH_GHIDRA_FUNCTION_BOUNDARY"
+      },
+      "callees": [],
+      "callers": [
+        {
+          "address": "0x00340ce0",
+          "callsite": "0x003411bc"
+        },
+        {
+          "address": "0x003412xx",
+          "callsite": "0x003412b8"
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fresh_probe_addresses": [
+        "0x00341198"
+      ],
+      "fresh_probe_word_count_within_bounds": 1,
+      "important_constants": "GS register identity 0x4a; global storage 0x0042df10",
+      "input_fields": "state descriptor and shared GS register address",
+      "instruction_evidence": [
+        {
+          "ghidra_listing": "see fresh headless probe",
+          "rabbitizer_r5900": "addiu       $sp, $sp, -0x10",
+          "va": "0x00341198",
+          "word": "0x27bdfff0"
+        }
+      ],
+      "object_fields_read": "descriptor fields",
+      "object_fields_written": "global 0x0042df10; maps to GS FBA_1",
+      "open_questions": [
+        "Live inherited GS state remains unknown"
+      ],
+      "role": "Map/commit helper for GS FBA state",
+      "runtime_invocation": "NOT_PROVED_BY_STATIC_ELF"
+    },
+    {
+      "address": "0x00390d98",
+      "bounds": {
+        "end_inclusive": "0x00390f50",
+        "inspected_last_va": "0x00390f50",
+        "start": "0x00390d98",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "callees": [
+        {
+          "address": "0x001d2488",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4c98",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001ce2f8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d24b8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4e40",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4de8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4bf0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4ea0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callers": [
+        {
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS",
+          "callsite": "0x00391918",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        },
+        {
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS",
+          "callsite": "0x00391b0c",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fresh_probe_addresses": [],
+      "fresh_probe_word_count_within_bounds": 0,
+      "important_constants": "case-sensitive $shader; first opening/closing parenthesis",
+      "input_arguments": "material string",
+      "input_fields": "a1 string,a2 property",
+      "instruction_evidence": [
+        {
+          "original_word": "0x27bdff70",
+          "va": "0x00390d98"
+        },
+        {
+          "original_word": "0xafd10024",
+          "va": "0x00390e14"
+        },
+        {
+          "original_word": "0xafd20028",
+          "va": "0x00390e3c"
+        },
+        {
+          "original_word": "0x03e00008",
+          "va": "0x00390f4c"
+        }
+      ],
+      "object_fields_read": "a1 string,a2 property",
+      "object_fields_written": "a0 resulting substring",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": "a0 resulting substring",
+      "role": "Shader token extraction",
+      "runtime_invocation": "NOT_PROVED_BY_STATIC_ELF",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof"
+    },
+    {
+      "address": "0x00391690",
+      "bounds": {
+        "end_inclusive": "0x00391d34",
+        "inspected_last_va": "0x00391d34",
+        "start": "0x00391690",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "callees": [
+        {
+          "address": "0x00390f98",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4790",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4c60",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00390d98",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001ce2f8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d2458",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4f78",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4bf0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d2488",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x001d2d48",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a45e8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4488",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a6c58",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4418",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4718",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a3460",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a6f18",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a33e8",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callers": [
+        {
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS",
+          "callsite": "0x003921e8",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fresh_probe_addresses": [],
+      "fresh_probe_word_count_within_bounds": 0,
+      "important_constants": "$clamp; $shader; default .1",
+      "input_arguments": "PSM material/string ->mesh",
+      "input_fields": "material input+80",
+      "instruction_evidence": [
+        {
+          "original_word": "0x27bdfed0",
+          "va": "0x00391690"
+        },
+        {
+          "original_word": "0xac400028",
+          "va": "0x003916dc"
+        },
+        {
+          "original_word": "0xac430028",
+          "va": "0x0039178c"
+        },
+        {
+          "original_word": "0xac430028",
+          "va": "0x003917e4"
+        }
+      ],
+      "object_fields_read": "material input+80",
+      "object_fields_written": "mesh+28,+2c,+34/+38,+3c/+40,+44,+48,+24",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": "mesh+28,+2c,+34/+38,+3c/+40,+44,+48,+24",
+      "role": "Intern and resolve material",
+      "runtime_invocation": "NOT_PROVED_BY_STATIC_ELF",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof"
+    },
+    {
+      "address": "0x003a6c58",
+      "bounds": {
+        "end_inclusive": "0x003a6ea4",
+        "inspected_last_va": "0x003a6ea4",
+        "start": "0x003a6c58",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "callees": [
+        {
+          "address": "0x003adcf0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003ad930",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003ad968",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003add50",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003add98",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003adde0",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003adc90",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003ac680",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4418",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003ade18",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003a4718",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x003f9698",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callers": [
+        {
+          "caller_function": "UNRESOLVED_UNLESS_MAPPED_IN_DOCUMENTS",
+          "callsite": "0x00391bb8",
+          "kind": "ORIGINAL_DIRECT_JAL"
+        }
+      ],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fresh_probe_addresses": [],
+      "fresh_probe_word_count_within_bounds": 0,
+      "important_constants": "unidentified shader log",
+      "input_arguments": "interned shader +mesh",
+      "input_fields": "name ID, registry49b890",
+      "instruction_evidence": [
+        {
+          "original_word": "0x27bdff40",
+          "va": "0x003a6c58"
+        },
+        {
+          "original_word": "0x03e00008",
+          "va": "0x003a6ea0"
+        }
+      ],
+      "object_fields_read": "name ID, registry49b890",
+      "object_fields_written": "handler virtual+14 effects",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": "handler virtual+14 effects",
+      "role": "Registry lookup and virtual handler dispatch",
+      "runtime_invocation": "NOT_PROVED_BY_STATIC_ELF",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof"
+    },
+    {
+      "address": "0x003a7468",
+      "bounds": {
+        "end_exclusive": "0x3a74d8",
+        "start": "0x3a7468",
+        "status": "RETURN_DELAY_SLOT_IN_BOUNDED_EXPORT"
+      },
+      "callees": [
+        {
+          "addr": "003a45e8",
+          "name": "FUN_003a45e8"
+        },
+        {
+          "addr": "003ada88",
+          "name": "ui_003ada88"
+        }
+      ],
+      "callers": [],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fresh_probe_addresses": [
+        "0x003a7468",
+        "0x003a746c",
+        "0x003a7470",
+        "0x003a7474",
+        "0x003a7478",
+        "0x003a747c",
+        "0x003a7480",
+        "0x003a7484",
+        "0x003a7488",
+        "0x003a748c",
+        "0x003a7490",
+        "0x003a7494",
+        "0x003a7498",
+        "0x003a749c",
+        "0x003a74a0",
+        "0x003a74a4",
+        "0x003a74a8",
+        "0x003a74ac",
+        "0x003a74b0",
+        "0x003a74b4",
+        "0x003a74b8",
+        "0x003a74bc",
+        "0x003a74c0",
+        "0x003a74c4",
+        "0x003a74c8",
+        "0x003a74cc",
+        "0x003a75b8",
+        "0x003a75bc",
+        "0x003a75c0",
+        "0x003a75c4",
+        "0x003a75c8",
+        "0x003a75cc",
+        "0x003a75d0",
+        "0x003a75d4",
+        "0x003a75d8",
+        "0x003a75dc",
+        "0x003a75e0",
+        "0x003a75e4",
+        "0x003a75e8",
+        "0x003a75ec",
+        "0x003a75f0",
+        "0x003a75f4",
+        "0x003a75f8",
+        "0x003a75fc",
+        "0x003a7600",
+        "0x003a7604",
+        "0x003a7608",
+        "0x003a760c",
+        "0x003a7610",
+        "0x003a7614",
+        "0x003a7618",
+        "0x003a761c",
+        "0x003a7620"
+      ],
+      "fresh_probe_word_count_within_bounds": 53,
+      "important_constants": "name4875e0;vtable487d68",
+      "input_arguments": "registry/handler",
+      "input_fields": null,
+      "instruction_evidence": [
+        {
+          "address": "0x3a7468",
+          "ghidra_asm": "addiu sp,sp,-0x40",
+          "original_word": "0x27bdffc0"
+        },
+        {
+          "address": "0x3a746c",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd ra,0x30(sp)",
+          "original_word": "0x7fbf0030"
+        },
+        {
+          "address": "0x3a7470",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s8,0x20(sp)",
+          "original_word": "0x7fbe0020"
+        },
+        {
+          "address": "0x3a7474",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s0,0x10(sp)",
+          "original_word": "0x7fb00010"
+        },
+        {
+          "address": "0x3a7478",
+          "ghidra_asm": "daddu s8,sp,zero",
+          "original_word": "0x3a0f02d"
+        },
+        {
+          "address": "0x3a747c",
+          "ghidra_asm": "daddu s0,a0,zero",
+          "original_word": "0x80802d"
+        }
+      ],
+      "object_fields_read": "registry/handler",
+      "object_fields_written": "name4875e0;vtable487d68",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": null,
+      "role": "Register treeblend handler",
+      "runtime_invocation": "NOT_PROVED_BY_STATIC_ELF",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof"
+    },
+    {
+      "address": "0x003a75b8",
+      "bounds": {
+        "end_exclusive": "0x3a7628",
+        "start": "0x3a75b8",
+        "status": "RETURN_DELAY_SLOT_IN_BOUNDED_EXPORT"
+      },
+      "callees": [
+        {
+          "addr": "003a45e8",
+          "name": "FUN_003a45e8"
+        },
+        {
+          "addr": "003ada88",
+          "name": "ui_003ada88"
+        }
+      ],
+      "callers": [],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fresh_probe_addresses": [
+        "0x003a75b8",
+        "0x003a75bc",
+        "0x003a75c0",
+        "0x003a75c4",
+        "0x003a75c8",
+        "0x003a75cc",
+        "0x003a75d0",
+        "0x003a75d4",
+        "0x003a75d8",
+        "0x003a75dc",
+        "0x003a75e0",
+        "0x003a75e4",
+        "0x003a75e8",
+        "0x003a75ec",
+        "0x003a75f0",
+        "0x003a75f4",
+        "0x003a75f8",
+        "0x003a75fc",
+        "0x003a7600",
+        "0x003a7604",
+        "0x003a7608",
+        "0x003a760c",
+        "0x003a7610",
+        "0x003a7614",
+        "0x003a7618",
+        "0x003a761c",
+        "0x003a7620"
+      ],
+      "fresh_probe_word_count_within_bounds": 27,
+      "important_constants": "name487610;vtable487d08",
+      "input_arguments": "registry/handler",
+      "input_fields": null,
+      "instruction_evidence": [
+        {
+          "address": "0x3a75b8",
+          "ghidra_asm": "addiu sp,sp,-0x40",
+          "original_word": "0x27bdffc0"
+        },
+        {
+          "address": "0x3a75bc",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd ra,0x30(sp)",
+          "original_word": "0x7fbf0030"
+        },
+        {
+          "address": "0x3a75c0",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s8,0x20(sp)",
+          "original_word": "0x7fbe0020"
+        },
+        {
+          "address": "0x3a75c4",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s0,0x10(sp)",
+          "original_word": "0x7fb00010"
+        },
+        {
+          "address": "0x3a75c8",
+          "ghidra_asm": "daddu s8,sp,zero",
+          "original_word": "0x3a0f02d"
+        },
+        {
+          "address": "0x3a75cc",
+          "ghidra_asm": "daddu s0,a0,zero",
+          "original_word": "0x80802d"
+        }
+      ],
+      "object_fields_read": "registry/handler",
+      "object_fields_written": "name487610;vtable487d08",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": null,
+      "role": "Register tree handler",
+      "runtime_invocation": "NOT_PROVED_BY_STATIC_ELF",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof"
+    },
+    {
+      "address": "0x003ae618",
+      "bounds": {
+        "end_exclusive": "0x3ae670",
+        "start": "0x3ae618",
+        "status": "RETURN_DELAY_SLOT_IN_BOUNDED_EXPORT"
+      },
+      "callees": [],
+      "callers": [],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fresh_probe_addresses": [
+        "0x003ae618",
+        "0x003ae61c",
+        "0x003ae620",
+        "0x003ae624",
+        "0x003ae628",
+        "0x003ae62c",
+        "0x003ae630",
+        "0x003ae634",
+        "0x003ae638",
+        "0x003ae63c",
+        "0x003ae640",
+        "0x003ae644",
+        "0x003ae648",
+        "0x003ae64c",
+        "0x003ae650",
+        "0x003ae654",
+        "0x003ae658",
+        "0x003ae65c",
+        "0x003ae660",
+        "0x003ae664",
+        "0x003ae668",
+        "0x003ae66c",
+        "0x003ae710",
+        "0x003ae714",
+        "0x003ae718",
+        "0x003ae71c",
+        "0x003ae720",
+        "0x003ae724",
+        "0x003ae728",
+        "0x003ae72c",
+        "0x003ae730",
+        "0x003ae734",
+        "0x003ae738",
+        "0x003ae73c",
+        "0x003ae740",
+        "0x003ae744",
+        "0x003ae748",
+        "0x003ae74c",
+        "0x003ae750",
+        "0x003ae754",
+        "0x003ae758",
+        "0x003ae75c"
+      ],
+      "fresh_probe_word_count_within_bounds": 42,
+      "important_constants": "+28=2,+2c=1,+3c=1,+40=0,+44=3e19999a",
+      "input_arguments": "a0 shader registration object; a1 material-owning mesh; returns original a0",
+      "input_fields": null,
+      "instruction_evidence": [
+        {
+          "address": "0x3ae618",
+          "ghidra_asm": "addiu sp,sp,-0x10",
+          "original_word": "0x27bdfff0"
+        },
+        {
+          "address": "0x3ae61c",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s8,0x0(sp)",
+          "original_word": "0x7fbe0000"
+        },
+        {
+          "address": "0x3ae620",
+          "ghidra_asm": "daddu s8,sp,zero",
+          "original_word": "0x3a0f02d"
+        },
+        {
+          "address": "0x3ae624",
+          "ghidra_asm": "daddu v0,a0,zero",
+          "original_word": "0x80102d"
+        },
+        {
+          "address": "0x3ae628",
+          "ghidra_asm": "daddu v1,a1,zero",
+          "original_word": "0xa0182d"
+        },
+        {
+          "address": "0x3ae62c",
+          "ghidra_asm": "li a0,0x2",
+          "original_word": "0x24040002"
+        }
+      ],
+      "object_fields_read": [],
+      "object_fields_written": "+28=2,+2c=1,+3c=1,+40=0,+44=3e19999a",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": null,
+      "role": "treeblend mesh initialization",
+      "runtime_invocation": "NOT_PROVED_BY_STATIC_ELF",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof"
+    },
+    {
+      "address": "0x003ae710",
+      "bounds": {
+        "end_exclusive": "0x3ae760",
+        "start": "0x3ae710",
+        "status": "RETURN_DELAY_SLOT_IN_BOUNDED_EXPORT"
+      },
+      "callees": [],
+      "callers": [],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fresh_probe_addresses": [
+        "0x003ae710",
+        "0x003ae714",
+        "0x003ae718",
+        "0x003ae71c",
+        "0x003ae720",
+        "0x003ae724",
+        "0x003ae728",
+        "0x003ae72c",
+        "0x003ae730",
+        "0x003ae734",
+        "0x003ae738",
+        "0x003ae73c",
+        "0x003ae740",
+        "0x003ae744",
+        "0x003ae748",
+        "0x003ae74c",
+        "0x003ae750",
+        "0x003ae754",
+        "0x003ae758",
+        "0x003ae75c"
+      ],
+      "fresh_probe_word_count_within_bounds": 20,
+      "important_constants": "+28=6,+2c=0,+3c=0,+40=0,+44=3e4ccccd",
+      "input_arguments": "a0 shader registration object; a1 material-owning mesh; returns original a0",
+      "input_fields": null,
+      "instruction_evidence": [
+        {
+          "address": "0x3ae710",
+          "ghidra_asm": "addiu sp,sp,-0x10",
+          "original_word": "0x27bdfff0"
+        },
+        {
+          "address": "0x3ae714",
+          "analysis_note": "LQ/SQ may be shown as temporary LD/SD low64 surrogate; original word is the oracle",
+          "ghidra_asm": "sd s8,0x0(sp)",
+          "original_word": "0x7fbe0000"
+        },
+        {
+          "address": "0x3ae718",
+          "ghidra_asm": "daddu s8,sp,zero",
+          "original_word": "0x3a0f02d"
+        },
+        {
+          "address": "0x3ae71c",
+          "ghidra_asm": "daddu v0,a0,zero",
+          "original_word": "0x80102d"
+        },
+        {
+          "address": "0x3ae720",
+          "ghidra_asm": "daddu v1,a1,zero",
+          "original_word": "0xa0182d"
+        },
+        {
+          "address": "0x3ae724",
+          "ghidra_asm": "li a0,0x6",
+          "original_word": "0x24040006"
+        }
+      ],
+      "object_fields_read": [],
+      "object_fields_written": "+28=6,+2c=0,+3c=0,+40=0,+44=3e4ccccd",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": null,
+      "role": "tree mesh initialization",
+      "runtime_invocation": "NOT_PROVED_BY_STATIC_ELF",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof"
+    },
+    {
+      "address": "0x003bca80",
+      "bounds": {
+        "end_inclusive": "0x003bcbb4",
+        "inspected_last_va": "0x003bcbb4",
+        "start": "0x003bca80",
+        "status": "KNOWN_RETURN_DELAY_SLOT"
+      },
+      "callees": [
+        {
+          "address": "0x002dda20",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        },
+        {
+          "address": "0x00361a58",
+          "kind": "GHIDRA_EXPORT_DIRECT_TARGET"
+        }
+      ],
+      "callers": [],
+      "evidence_grade": "CONFIRMED_BY_EXE",
+      "fresh_probe_addresses": [],
+      "fresh_probe_word_count_within_bounds": 0,
+      "important_constants": "vtable4853f0 slots8c/94/9c/a4/ac",
+      "input_arguments": "mesh and draw context",
+      "input_fields": "mesh strips, flags, mode, handles+dc/+e4, instance cache",
+      "instruction_evidence": [
+        {
+          "original_word": "0x27bdffa0",
+          "va": "0x003bca80"
+        },
+        {
+          "original_word": "0x03e00008",
+          "va": "0x003bcbb0"
+        }
+      ],
+      "object_fields_read": "mesh strips, flags, mode, handles+dc/+e4, instance cache",
+      "object_fields_written": "renderer virtual setters and queued cache packet",
+      "open_questions": [
+        "Live invocation/residency/selected handles not captured; bounded original operation proof"
+      ],
+      "output_fields": "renderer virtual setters and queued cache packet",
+      "role": "Material mesh draw callback",
+      "runtime_invocation": "NOT_PROVED_BY_STATIC_ELF",
+      "uncertainty": "Live invocation/residency/selected handles not captured; bounded original operation proof"
+    }
+  ],
+  "schema": "ps2-r5900-revalidation2-function-map-v1",
+  "scope_note": "Curated material/queue/state path, not a complete program call graph. Direct bounds come from saved TREEBLEND1 metadata or fresh Ghidra target export; route 0x0032ff28 is explicitly boundary-uncertain. Instruction bytes are checked by verify_r5900_revalidation2.py."
+}

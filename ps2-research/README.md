@@ -5,6 +5,9 @@ HUD runtime reverse in `ui2/`, PC/PS2 course-content survey in `cdelta1/`, tools
 `tools/`, tests in `tests/`. Spline ambient ownership and motion reverse is in
 `ambient1/`.
 Terrain detail source/placement/texture/VIF research is in `grass1/`.
+The independent direct-R5900 and France1 treeblend/runtime audit is in
+[`revalidation2/`](revalidation2/README.md); it byte-checks Ghidra EER against
+Rabbitizer and correlates the four PC pilot states without claiming PS2 parity.
 Canonical development branch: `master`. Historical `research/general-re` and
 `research/r-*` are reference evidence; this track does not edit them.
 

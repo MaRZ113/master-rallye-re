@@ -1,0 +1,892 @@
+{
+  "limitations": [
+    "Malformed/truncated JSONL lines are counted but their contents are not retained.",
+    "Screenshots do not embed the selected mode; pairing relies on ordinal sequence and filesystem times.",
+    "No claim is made that frame snapshots show temporary override states."
+  ],
+  "ordinal_correlations": [
+    {
+      "association": "ordinal capture sequence supplied by user; supported by file times, not embedded screenshot metadata",
+      "mode_name": "stock",
+      "screenshot": "0.jpg",
+      "selected_mode": 0,
+      "sequence_index": 0,
+      "session": "session-1.jsonl"
+    },
+    {
+      "association": "ordinal capture sequence supplied by user; supported by file times, not embedded screenshot metadata",
+      "mode_name": "treeblend_all_states",
+      "screenshot": "1.jpg",
+      "selected_mode": 1,
+      "sequence_index": 1,
+      "session": "session-2.jsonl"
+    },
+    {
+      "association": "ordinal capture sequence supplied by user; supported by file times, not embedded screenshot metadata",
+      "mode_name": "alpha_blend_only",
+      "screenshot": "2.jpg",
+      "selected_mode": 2,
+      "sequence_index": 2,
+      "session": "session-3.jsonl"
+    },
+    {
+      "association": "ordinal capture sequence supplied by user; supported by file times, not embedded screenshot metadata",
+      "mode_name": "depth_write_only",
+      "screenshot": "3.jpg",
+      "selected_mode": 3,
+      "sequence_index": 3,
+      "session": "session-4.jsonl"
+    }
+  ],
+  "reference_frames": [
+    {
+      "capture_id": "d1-f5291",
+      "evidence_note": "Frame-record state is the state snapshot stored by this trace schema; it is not assumed to be the temporary native state during an override.",
+      "file": "frame-1.jsonl",
+      "frame": 5291,
+      "frame_complete": true,
+      "frame_draw_count": 499,
+      "frame_dropped_records": 0,
+      "frame_primitive_total": 17716,
+      "frame_summary_count": 1,
+      "frame_truncated": false,
+      "malformed_lines": 0,
+      "sha256": "8260f612d2f98b63dd569dd0d8e5b6a21d19d3380c8394f01ed7a4e9e40804f2",
+      "size_bytes": 4022074,
+      "target_draw": {
+        "arguments": [
+          4,
+          11940,
+          28,
+          22944,
+          48,
+          0,
+          0,
+          0
+        ],
+        "draw_index_zero_based": 45,
+        "frame": 5291,
+        "native_override_applied_field": false,
+        "native_state_events_after": [],
+        "native_state_events_before": [],
+        "restoration_matches_pre_draw_snapshot": false,
+        "result": 0,
+        "sequence": 147,
+        "state_snapshot": {
+          "ALPHABLENDENABLE": 0,
+          "ALPHAFUNC": 5,
+          "ALPHAREF": 128,
+          "ALPHATESTENABLE": 1,
+          "DESTBLEND": 6,
+          "SRCBLEND": 5,
+          "ZENABLE": 1,
+          "ZFUNC": 4,
+          "ZWRITEENABLE": 1
+        }
+      },
+      "target_draw_matches": 1
+    },
+    {
+      "capture_id": "d1-f2909",
+      "evidence_note": "Frame-record state is the state snapshot stored by this trace schema; it is not assumed to be the temporary native state during an override.",
+      "file": "frame-2.jsonl",
+      "frame": 2909,
+      "frame_complete": true,
+      "frame_draw_count": 499,
+      "frame_dropped_records": 0,
+      "frame_primitive_total": 17716,
+      "frame_summary_count": 1,
+      "frame_truncated": false,
+      "malformed_lines": 0,
+      "sha256": "085ab1a3f2d2d90d8b7a33709cfbc1a4063ca5eb3b2642b73e6f2e6e0570ba36",
+      "size_bytes": 4024851,
+      "target_draw": {
+        "arguments": [
+          4,
+          11940,
+          28,
+          22944,
+          48,
+          0,
+          0,
+          0
+        ],
+        "draw_index_zero_based": 45,
+        "frame": 2909,
+        "native_override_applied_field": false,
+        "native_state_events_after": [
+          {
+            "forwarded": true,
+            "hresult": 0,
+            "native_only": true,
+            "sequence": 151,
+            "state_id": 14,
+            "state_name": "ZWRITEENABLE",
+            "value": 1
+          },
+          {
+            "forwarded": true,
+            "hresult": 0,
+            "native_only": true,
+            "sequence": 152,
+            "state_id": 27,
+            "state_name": "ALPHABLENDENABLE",
+            "value": 0
+          },
+          {
+            "forwarded": true,
+            "hresult": 0,
+            "native_only": true,
+            "sequence": 153,
+            "state_id": 15,
+            "state_name": "ALPHATESTENABLE",
+            "value": 1
+          }
+        ],
+        "native_state_events_before": [
+          {
+            "forwarded": true,
+            "hresult": 0,
+            "native_only": true,
+            "sequence": 147,
+            "state_id": 15,
+            "state_name": "ALPHATESTENABLE",
+            "value": 0
+          },
+          {
+            "forwarded": true,
+            "hresult": 0,
+            "native_only": true,
+            "sequence": 148,
+            "state_id": 27,
+            "state_name": "ALPHABLENDENABLE",
+            "value": 1
+          },
+          {
+            "forwarded": true,
+            "hresult": 0,
+            "native_only": true,
+            "sequence": 149,
+            "state_id": 14,
+            "state_name": "ZWRITEENABLE",
+            "value": 0
+          }
+        ],
+        "restoration_matches_pre_draw_snapshot": true,
+        "result": 0,
+        "sequence": 150,
+        "state_snapshot": {
+          "ALPHABLENDENABLE": 0,
+          "ALPHAFUNC": 5,
+          "ALPHAREF": 128,
+          "ALPHATESTENABLE": 1,
+          "DESTBLEND": 6,
+          "SRCBLEND": 5,
+          "ZENABLE": 1,
+          "ZFUNC": 4,
+          "ZWRITEENABLE": 1
+        }
+      },
+      "target_draw_matches": 1
+    },
+    {
+      "capture_id": "d1-f1876",
+      "evidence_note": "Frame-record state is the state snapshot stored by this trace schema; it is not assumed to be the temporary native state during an override.",
+      "file": "frame-3.jsonl",
+      "frame": 1876,
+      "frame_complete": true,
+      "frame_draw_count": 498,
+      "frame_dropped_records": 0,
+      "frame_primitive_total": 17600,
+      "frame_summary_count": 1,
+      "frame_truncated": false,
+      "malformed_lines": 0,
+      "sha256": "392b4a0b96b0a8c4f1a0cd7bc3f937fba2ca41f2bae15bf2e0cb98be5d3e8917",
+      "size_bytes": 4015570,
+      "target_draw": {
+        "arguments": [
+          4,
+          11940,
+          28,
+          22944,
+          48,
+          0,
+          0,
+          0
+        ],
+        "draw_index_zero_based": 45,
+        "frame": 1876,
+        "native_override_applied_field": false,
+        "native_state_events_after": [
+          {
+            "forwarded": true,
+            "hresult": 0,
+            "native_only": true,
+            "sequence": 150,
+            "state_id": 27,
+            "state_name": "ALPHABLENDENABLE",
+            "value": 0
+          },
+          {
+            "forwarded": true,
+            "hresult": 0,
+            "native_only": true,
+            "sequence": 151,
+            "state_id": 15,
+            "state_name": "ALPHATESTENABLE",
+            "value": 1
+          }
+        ],
+        "native_state_events_before": [
+          {
+            "forwarded": true,
+            "hresult": 0,
+            "native_only": true,
+            "sequence": 147,
+            "state_id": 15,
+            "state_name": "ALPHATESTENABLE",
+            "value": 0
+          },
+          {
+            "forwarded": true,
+            "hresult": 0,
+            "native_only": true,
+            "sequence": 148,
+            "state_id": 27,
+            "state_name": "ALPHABLENDENABLE",
+            "value": 1
+          }
+        ],
+        "restoration_matches_pre_draw_snapshot": true,
+        "result": 0,
+        "sequence": 149,
+        "state_snapshot": {
+          "ALPHABLENDENABLE": 0,
+          "ALPHAFUNC": 5,
+          "ALPHAREF": 128,
+          "ALPHATESTENABLE": 1,
+          "DESTBLEND": 6,
+          "SRCBLEND": 5,
+          "ZENABLE": 1,
+          "ZFUNC": 4,
+          "ZWRITEENABLE": 1
+        }
+      },
+      "target_draw_matches": 1
+    },
+    {
+      "capture_id": "d1-f1580",
+      "evidence_note": "Frame-record state is the state snapshot stored by this trace schema; it is not assumed to be the temporary native state during an override.",
+      "file": "frame-4.jsonl",
+      "frame": 1580,
+      "frame_complete": true,
+      "frame_draw_count": 498,
+      "frame_dropped_records": 0,
+      "frame_primitive_total": 17600,
+      "frame_summary_count": 1,
+      "frame_truncated": false,
+      "malformed_lines": 0,
+      "sha256": "646be8043ac8afe83f6947a59db75b35af62baf4bf853bfc65dc98bce6bfb223",
+      "size_bytes": 4014242,
+      "target_draw": {
+        "arguments": [
+          4,
+          11940,
+          28,
+          22944,
+          48,
+          0,
+          0,
+          0
+        ],
+        "draw_index_zero_based": 45,
+        "frame": 1580,
+        "native_override_applied_field": false,
+        "native_state_events_after": [
+          {
+            "forwarded": true,
+            "hresult": 0,
+            "native_only": true,
+            "sequence": 149,
+            "state_id": 14,
+            "state_name": "ZWRITEENABLE",
+            "value": 1
+          }
+        ],
+        "native_state_events_before": [
+          {
+            "forwarded": true,
+            "hresult": 0,
+            "native_only": true,
+            "sequence": 147,
+            "state_id": 14,
+            "state_name": "ZWRITEENABLE",
+            "value": 0
+          }
+        ],
+        "restoration_matches_pre_draw_snapshot": true,
+        "result": 0,
+        "sequence": 148,
+        "state_snapshot": {
+          "ALPHABLENDENABLE": 0,
+          "ALPHAFUNC": 5,
+          "ALPHAREF": 128,
+          "ALPHATESTENABLE": 1,
+          "DESTBLEND": 6,
+          "SRCBLEND": 5,
+          "ZENABLE": 1,
+          "ZFUNC": 4,
+          "ZWRITEENABLE": 1
+        }
+      },
+      "target_draw_matches": 1
+    },
+    {
+      "capture_id": "d1-f7608",
+      "evidence_note": "Frame-record state is the state snapshot stored by this trace schema; it is not assumed to be the temporary native state during an override.",
+      "file": "frame-14704-d1-00007608.jsonl",
+      "frame": 7608,
+      "frame_complete": true,
+      "frame_draw_count": 704,
+      "frame_dropped_records": 0,
+      "frame_primitive_total": 17807,
+      "frame_summary_count": 1,
+      "frame_truncated": false,
+      "malformed_lines": 0,
+      "sha256": "a345650075cd0a04caa94841b4d92ddfaa7ddad66b4a0f0367d03f2816eec475",
+      "size_bytes": 5677956,
+      "target_draw": {
+        "arguments": [
+          4,
+          11940,
+          28,
+          22944,
+          48,
+          0,
+          0,
+          0
+        ],
+        "draw_index_zero_based": 45,
+        "frame": 7608,
+        "native_override_applied_field": false,
+        "native_state_events_after": [
+          {
+            "forwarded": true,
+            "hresult": 0,
+            "native_only": true,
+            "sequence": 151,
+            "state_id": 14,
+            "state_name": "ZWRITEENABLE",
+            "value": 1
+          },
+          {
+            "forwarded": true,
+            "hresult": 0,
+            "native_only": true,
+            "sequence": 152,
+            "state_id": 27,
+            "state_name": "ALPHABLENDENABLE",
+            "value": 0
+          },
+          {
+            "forwarded": true,
+            "hresult": 0,
+            "native_only": true,
+            "sequence": 153,
+            "state_id": 15,
+            "state_name": "ALPHATESTENABLE",
+            "value": 1
+          }
+        ],
+        "native_state_events_before": [
+          {
+            "forwarded": true,
+            "hresult": 0,
+            "native_only": true,
+            "sequence": 147,
+            "state_id": 15,
+            "state_name": "ALPHATESTENABLE",
+            "value": 0
+          },
+          {
+            "forwarded": true,
+            "hresult": 0,
+            "native_only": true,
+            "sequence": 148,
+            "state_id": 27,
+            "state_name": "ALPHABLENDENABLE",
+            "value": 1
+          },
+          {
+            "forwarded": true,
+            "hresult": 0,
+            "native_only": true,
+            "sequence": 149,
+            "state_id": 14,
+            "state_name": "ZWRITEENABLE",
+            "value": 0
+          }
+        ],
+        "restoration_matches_pre_draw_snapshot": true,
+        "result": 0,
+        "sequence": 150,
+        "state_snapshot": {
+          "ALPHABLENDENABLE": 0,
+          "ALPHAFUNC": 5,
+          "ALPHAREF": 128,
+          "ALPHATESTENABLE": 1,
+          "DESTBLEND": 6,
+          "SRCBLEND": 5,
+          "ZENABLE": 1,
+          "ZFUNC": 4,
+          "ZWRITEENABLE": 1
+        }
+      },
+      "target_draw_matches": 1
+    },
+    {
+      "capture_id": "d1-f4311",
+      "evidence_note": "Frame-record state is the state snapshot stored by this trace schema; it is not assumed to be the temporary native state during an override.",
+      "file": "frame-29960-d1-00004311.jsonl",
+      "frame": 4311,
+      "frame_complete": true,
+      "frame_draw_count": 499,
+      "frame_dropped_records": 0,
+      "frame_primitive_total": 17727,
+      "frame_summary_count": 1,
+      "frame_truncated": false,
+      "malformed_lines": 0,
+      "sha256": "9319d10ccdeb804b82a7d4ed31638a2fcbfff28d477c69451ba8f4d18a4fe67b",
+      "size_bytes": 4019651,
+      "target_draw": {
+        "arguments": [
+          4,
+          11940,
+          28,
+          22944,
+          48,
+          0,
+          0,
+          0
+        ],
+        "draw_index_zero_based": 45,
+        "frame": 4311,
+        "native_override_applied_field": false,
+        "native_state_events_after": [],
+        "native_state_events_before": [],
+        "restoration_matches_pre_draw_snapshot": false,
+        "result": 0,
+        "sequence": 147,
+        "state_snapshot": {
+          "ALPHABLENDENABLE": 0,
+          "ALPHAFUNC": 5,
+          "ALPHAREF": 128,
+          "ALPHATESTENABLE": 1,
+          "DESTBLEND": 6,
+          "SRCBLEND": 5,
+          "ZENABLE": 1,
+          "ZFUNC": 4,
+          "ZWRITEENABLE": 1
+        }
+      },
+      "target_draw_matches": 1
+    }
+  ],
+  "schema": "ps2-pilot13-runtime-audit-v1",
+  "screenshot_reports": [
+    {
+      "file": "0.jpg",
+      "filesystem_mtime_local": "2026-10-12T22:14:01.291+10:00",
+      "height": 1080,
+      "sha256": "ab1274a12a0c4813e020fb9cc999386514fddd39ae5a08a67d5a5a376a6894de",
+      "size_bytes": 1241292,
+      "width": 1920
+    },
+    {
+      "file": "1.jpg",
+      "filesystem_mtime_local": "2026-10-12T22:14:54.805+10:00",
+      "height": 1080,
+      "sha256": "04c710f84c4140f1e2a63df4d59d65ce29d5bb80f8af9476148a4a21f562bdee",
+      "size_bytes": 1216225,
+      "width": 1920
+    },
+    {
+      "file": "2.jpg",
+      "filesystem_mtime_local": "2026-10-12T22:15:21.323+10:00",
+      "height": 1080,
+      "sha256": "133042e03475f8702c0f119694e6ab60145caeb3a4ed6632b36a8cc05fd23bbd",
+      "size_bytes": 1206731,
+      "width": 1920
+    },
+    {
+      "file": "3.jpg",
+      "filesystem_mtime_local": "2026-10-12T22:15:43.136+10:00",
+      "height": 1080,
+      "sha256": "838682757c60836726d1e40676bb1c78da22abfb512a3cc383b091bbf1e9bea9",
+      "size_bytes": 1217426,
+      "width": 1920
+    }
+  ],
+  "session_reports": [
+    {
+      "capture_references": [
+        {
+          "basename": "frame-39960-d1-00005291.jsonl",
+          "capture_frame_number": 5291,
+          "exists_in_supplied_logs_dir": false,
+          "matched_supplied_capture": {
+            "capture_id": "d1-f5291",
+            "file": "frame-1.jsonl"
+          },
+          "reported_complete_file": true
+        }
+      ],
+      "event_type_counts": {
+        "Direct3DCreate8": 1,
+        "broker_null_guard": 2,
+        "camera_bookmark_event": 3,
+        "camera_owner_observation": 1,
+        "capture_written": 1,
+        "compatibility_capabilities": 1,
+        "cooperative_level": 1,
+        "create_device": 1,
+        "device_release": 1,
+        "display_breadcrumb": 16,
+        "display_cooperative_transition": 1,
+        "display_native_attempt": 1,
+        "display_native_begin": 1,
+        "fov_culling_hook": 2,
+        "frame_summary": 107,
+        "free_camera_config": 1,
+        "free_camera_scope": 2,
+        "free_camera_state": 27,
+        "freecam_transition": 4,
+        "hud_hide_config": 1,
+        "hud_hide_state": 10,
+        "legacy_loading_attract_guard": 1,
+        "menu_freeze_fix": 1,
+        "physics_probe_config": 1,
+        "physics_probe_setup": 1,
+        "physics_probe_summary": 1,
+        "physics_probe_transaction_summary": 1,
+        "ps2_port_mode_selected": 1,
+        "quality_pipeline": 1,
+        "race_epoch_observer": 2,
+        "race_epoch_snapshot": 27,
+        "real_runtime": 1,
+        "renderer_config": 1,
+        "resource_create": 880,
+        "root_release": 1,
+        "session": 1,
+        "trace_config": 1,
+        "ui_diagnostic_capture_end": 1,
+        "ui_diagnostic_capture_start": 1,
+        "ui_group_candidates": 1,
+        "ui_ownership_capture_end": 1,
+        "ui_ownership_capture_start": 1,
+        "ui_ownership_probe_install": 1,
+        "visual_device_config": 1
+      },
+      "executable_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "file": "session-1.jsonl",
+      "identity_event_count": 0,
+      "malformed_lines": 27,
+      "mode_event_count": 1,
+      "proxy_sha256": "a0035c53b749bcbdb2135174ebc73fdac366b8545ab255b370b6bb1823af11f9",
+      "selected_mode": {
+        "applied_mask_at_selection": 0,
+        "mode": 0,
+        "mode_name": "stock",
+        "override_applied_at_selection": false,
+        "requested_mask": 0
+      },
+      "sha256": "94e7c41305cca2d0660ba09a270d5c2f359080079f5fc9a6715e61d6d213dd9e",
+      "size_bytes": 2666203,
+      "target_identity": null
+    },
+    {
+      "capture_references": [
+        {
+          "basename": "frame-48768-d1-00002909.jsonl",
+          "capture_frame_number": 2909,
+          "exists_in_supplied_logs_dir": false,
+          "matched_supplied_capture": {
+            "capture_id": "d1-f2909",
+            "file": "frame-2.jsonl"
+          },
+          "reported_complete_file": true
+        }
+      ],
+      "event_type_counts": {
+        "Direct3DCreate8": 1,
+        "broker_null_guard": 2,
+        "camera_bookmark_event": 8,
+        "camera_owner_observation": 1,
+        "capture_written": 1,
+        "compatibility_capabilities": 1,
+        "cooperative_level": 1,
+        "create_device": 1,
+        "device_release": 1,
+        "display_breadcrumb": 16,
+        "display_cooperative_transition": 1,
+        "display_native_attempt": 1,
+        "display_native_begin": 1,
+        "fov_culling_hook": 2,
+        "frame_summary": 52,
+        "free_camera_config": 1,
+        "free_camera_scope": 2,
+        "free_camera_state": 27,
+        "freecam_transition": 3,
+        "hud_hide_config": 1,
+        "hud_hide_state": 9,
+        "legacy_loading_attract_guard": 1,
+        "menu_freeze_fix": 1,
+        "physics_probe_config": 1,
+        "physics_probe_setup": 1,
+        "physics_probe_summary": 1,
+        "physics_probe_transaction_summary": 1,
+        "ps2_port_draw_identity": 1,
+        "ps2_port_mode_selected": 1,
+        "quality_pipeline": 1,
+        "race_epoch_observer": 2,
+        "race_epoch_snapshot": 27,
+        "real_runtime": 1,
+        "renderer_config": 1,
+        "resource_create": 880,
+        "root_release": 1,
+        "session": 1,
+        "trace_config": 1,
+        "ui_diagnostic_capture_end": 1,
+        "ui_diagnostic_capture_start": 1,
+        "ui_group_candidates": 1,
+        "ui_ownership_capture_end": 1,
+        "ui_ownership_capture_start": 1,
+        "ui_ownership_probe_install": 1,
+        "visual_device_config": 1
+      },
+      "executable_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "file": "session-2.jsonl",
+      "identity_event_count": 1,
+      "malformed_lines": 27,
+      "mode_event_count": 1,
+      "proxy_sha256": "a0035c53b749bcbdb2135174ebc73fdac366b8545ab255b370b6bb1823af11f9",
+      "selected_mode": {
+        "applied_mask_at_selection": 0,
+        "mode": 1,
+        "mode_name": "treeblend_all_states",
+        "override_applied_at_selection": false,
+        "requested_mask": 31
+      },
+      "sha256": "65933de012324e612db866d6ccc08fd22522e0665fb437b56f5d9a2e53911913",
+      "size_bytes": 2055971,
+      "target_identity": {
+        "applied_mask": 31,
+        "frame": 291,
+        "geometry_sha256": "2b60b1f044601052bb5eaeca074615abe3947fdc1b0769c17d300a0b3b3e6f7d",
+        "identity": "TARGET_IDENTITY_CONFIRMED",
+        "index_generation": 625,
+        "index_revision": 337,
+        "mode": 1,
+        "mode_name": "treeblend_all_states",
+        "override_applied": true,
+        "pre_draw_restore_ok": true,
+        "requested_mask": 31,
+        "vertex_generation": 624,
+        "vertex_revision": 248
+      }
+    },
+    {
+      "capture_references": [
+        {
+          "basename": "frame-32784-d1-00001876.jsonl",
+          "capture_frame_number": 1876,
+          "exists_in_supplied_logs_dir": false,
+          "matched_supplied_capture": {
+            "capture_id": "d1-f1876",
+            "file": "frame-3.jsonl"
+          },
+          "reported_complete_file": true
+        }
+      ],
+      "event_type_counts": {
+        "Direct3DCreate8": 1,
+        "broker_null_guard": 2,
+        "camera_bookmark_event": 2,
+        "camera_owner_observation": 1,
+        "capture_written": 1,
+        "compatibility_capabilities": 1,
+        "cooperative_level": 1,
+        "create_device": 1,
+        "device_release": 1,
+        "display_breadcrumb": 16,
+        "display_cooperative_transition": 1,
+        "display_native_attempt": 1,
+        "display_native_begin": 1,
+        "fov_culling_hook": 2,
+        "frame_summary": 36,
+        "free_camera_config": 1,
+        "free_camera_scope": 2,
+        "free_camera_state": 15,
+        "freecam_transition": 2,
+        "hud_hide_config": 1,
+        "hud_hide_state": 10,
+        "legacy_loading_attract_guard": 1,
+        "menu_freeze_fix": 1,
+        "physics_probe_config": 1,
+        "physics_probe_setup": 1,
+        "physics_probe_summary": 1,
+        "physics_probe_transaction_summary": 1,
+        "ps2_port_draw_identity": 1,
+        "ps2_port_mode_selected": 1,
+        "quality_pipeline": 1,
+        "race_epoch_observer": 2,
+        "race_epoch_snapshot": 15,
+        "real_runtime": 1,
+        "renderer_config": 1,
+        "resource_create": 880,
+        "root_release": 1,
+        "session": 1,
+        "trace_config": 1,
+        "ui_diagnostic_capture_end": 1,
+        "ui_diagnostic_capture_start": 1,
+        "ui_group_candidates": 1,
+        "ui_ownership_capture_end": 1,
+        "ui_ownership_capture_start": 1,
+        "ui_ownership_probe_install": 1,
+        "visual_device_config": 1
+      },
+      "executable_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "file": "session-3.jsonl",
+      "identity_event_count": 1,
+      "malformed_lines": 15,
+      "mode_event_count": 1,
+      "proxy_sha256": "a0035c53b749bcbdb2135174ebc73fdac366b8545ab255b370b6bb1823af11f9",
+      "selected_mode": {
+        "applied_mask_at_selection": 0,
+        "mode": 2,
+        "mode_name": "alpha_blend_only",
+        "override_applied_at_selection": false,
+        "requested_mask": 15
+      },
+      "sha256": "ca30d65e3d416ac16be8930d44cd4b442cf93dbbadd9a3b8ef6ace1302a96652",
+      "size_bytes": 1462169,
+      "target_identity": {
+        "applied_mask": 15,
+        "frame": 391,
+        "geometry_sha256": "2b60b1f044601052bb5eaeca074615abe3947fdc1b0769c17d300a0b3b3e6f7d",
+        "identity": "TARGET_IDENTITY_CONFIRMED",
+        "index_generation": 625,
+        "index_revision": 337,
+        "mode": 2,
+        "mode_name": "alpha_blend_only",
+        "override_applied": true,
+        "pre_draw_restore_ok": true,
+        "requested_mask": 15,
+        "vertex_generation": 624,
+        "vertex_revision": 248
+      }
+    },
+    {
+      "capture_references": [
+        {
+          "basename": "frame-28808-d1-00001580.jsonl",
+          "capture_frame_number": 1580,
+          "exists_in_supplied_logs_dir": false,
+          "matched_supplied_capture": {
+            "capture_id": "d1-f1580",
+            "file": "frame-4.jsonl"
+          },
+          "reported_complete_file": true
+        }
+      ],
+      "event_type_counts": {
+        "Direct3DCreate8": 1,
+        "broker_null_guard": 2,
+        "camera_bookmark_event": 9,
+        "camera_owner_observation": 1,
+        "capture_written": 1,
+        "compatibility_capabilities": 1,
+        "cooperative_level": 1,
+        "create_device": 1,
+        "device_release": 1,
+        "display_breadcrumb": 16,
+        "display_cooperative_transition": 1,
+        "display_native_attempt": 1,
+        "display_native_begin": 1,
+        "fov_culling_hook": 2,
+        "frame_summary": 30,
+        "free_camera_config": 1,
+        "free_camera_scope": 2,
+        "free_camera_state": 22,
+        "freecam_transition": 2,
+        "hud_hide_config": 1,
+        "hud_hide_state": 10,
+        "legacy_loading_attract_guard": 1,
+        "menu_freeze_fix": 1,
+        "physics_probe_config": 1,
+        "physics_probe_setup": 1,
+        "physics_probe_summary": 1,
+        "physics_probe_transaction_summary": 1,
+        "ps2_port_draw_identity": 1,
+        "ps2_port_mode_selected": 1,
+        "quality_pipeline": 1,
+        "race_epoch_observer": 2,
+        "race_epoch_snapshot": 22,
+        "real_runtime": 1,
+        "renderer_config": 1,
+        "resource_create": 880,
+        "root_release": 1,
+        "session": 1,
+        "trace_config": 1,
+        "ui_diagnostic_capture_end": 1,
+        "ui_diagnostic_capture_start": 1,
+        "ui_group_candidates": 1,
+        "ui_ownership_capture_end": 1,
+        "ui_ownership_capture_start": 1,
+        "ui_ownership_probe_install": 1,
+        "visual_device_config": 1
+      },
+      "executable_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "file": "session-4.jsonl",
+      "identity_event_count": 1,
+      "malformed_lines": 22,
+      "mode_event_count": 1,
+      "proxy_sha256": "a0035c53b749bcbdb2135174ebc73fdac366b8545ab255b370b6bb1823af11f9",
+      "selected_mode": {
+        "applied_mask_at_selection": 0,
+        "mode": 3,
+        "mode_name": "depth_write_only",
+        "override_applied_at_selection": false,
+        "requested_mask": 16
+      },
+      "sha256": "ab0e4a4f806da84c957a03c74eac13e20cfd61ea71093736e33ec771fa229416",
+      "size_bytes": 1636079,
+      "target_identity": {
+        "applied_mask": 16,
+        "frame": 296,
+        "geometry_sha256": "2b60b1f044601052bb5eaeca074615abe3947fdc1b0769c17d300a0b3b3e6f7d",
+        "identity": "TARGET_IDENTITY_CONFIRMED",
+        "index_generation": 625,
+        "index_revision": 337,
+        "mode": 3,
+        "mode_name": "depth_write_only",
+        "override_applied": true,
+        "pre_draw_restore_ok": true,
+        "requested_mask": 16,
+        "vertex_generation": 624,
+        "vertex_revision": 248
+      }
+    }
+  ],
+  "source_roots": {
+    "logs_directory_name": "logs",
+    "screenshots_directory_name": "2026-10"
+  },
+  "target_draw_arguments_prefix": [
+    4,
+    11940,
+    28,
+    22944,
+    48
+  ]
+}
