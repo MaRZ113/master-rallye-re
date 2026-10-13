@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "baseline_head": "3f837f4ddcb27ee1034a4b0753634c92009360ec",
+  "branch": "master",
+  "patch_sha256": {
+    "0001-renderer-integration.patch": "2a28d07ca6aea84878a6995d44c8d34a4a495fd555d9d7d5d96fc082fa2497d8",
+    "0002-interface-generator.patch": "fa71139557231f9c8ac5b8ead921117f551b91c430cd8d660003589b7ba4cfae"
+  },
+  "ps2_source_sha256": {
+    "renderer/ps2_port_extension.cpp": "448673a20c1ce23a805c280fad20f81dfa15a4b4408e63c309c89bbaaa023867",
+    "renderer/ps2_port_extension.hpp": "a90fc0f1ae63d6446e06842473d2f7f58b4f3b3b4775e64af1d9279c7e9bcbd8",
+    "tests/ps2_port_extension_tests.cpp": "9928cba1afb23ac0fdfa660bd5ab0e1fd66d91c754d860dbf4172069dc114035",
+    "tests/test_integration_contract.py": "e685cdccf430b344c882b7c7ff67a74769722ad6a586e86b741ae7e67986d205"
+  },
+  "generator": {
+    "baseline": {
+      "deterministic": true,
+      "outputs": {
+        "data/interface-map.json": "1e966cceaabfaf8a2897359180e7319dbfe6afeef16510f3058a2456e4991369",
+        "include/wrappers.hpp": "8698cfd78bed05daa1b66ea32ecf0d1fe81577046524240ede3eac7a8b79b13c",
+        "include/method_names.hpp": "c1a9e331bffb14365807b1f94f700a7acf839de91af27038b64b4374d1e6ab84",
+        "src/forwarders.cpp": "a84c3ef792b24783cad1cc119e8feb9886f5ef511bfebf316382e8781cec0539",
+        "tests/mock_interfaces.hpp": "9062667d68b59dc580e102505bcd4c2da8e66b93e11d6ff210b046c0952062f9"
+      },
+      "initial_files_rewritten": []
+    },
+    "ps2-enabled": {
+      "deterministic": true,
+      "outputs": {
+        "data/interface-map.json": "1e966cceaabfaf8a2897359180e7319dbfe6afeef16510f3058a2456e4991369",
+        "include/wrappers.hpp": "85ef4dc9413ec9590253f9dc65c30582dccb95e8a9405846b8ae17e32404c7e5",
+        "include/method_names.hpp": "c1a9e331bffb14365807b1f94f700a7acf839de91af27038b64b4374d1e6ab84",
+        "src/forwarders.cpp": "ab55a4fc5058ca5f2a94ef06ff797785e9cf003f03cf304ed875a16e93b1a59f",
+        "tests/mock_interfaces.hpp": "9062667d68b59dc580e102505bcd4c2da8e66b93e11d6ff210b046c0952062f9"
+      },
+      "initial_files_rewritten": []
+    }
+  },
+  "builds": {
+    "baseline": {
+      "dll": "ps2-research/pc-port/.build-overlay-pilot14-final4/baseline/build/Release/d3d8.dll",
+      "dll_sha256": "b4ca8ecf159c8f2c964bd611aca24977247e10ac0c64f17de7e34311d1aea75d",
+      "ctest": "PASS",
+      "proxy_verification": "PASS",
+      "build": "PASS"
+    },
+    "ps2-enabled": {
+      "dll": "ps2-research/pc-port/.build-overlay-pilot14-final4/ps2-enabled/build/Release/d3d8.dll",
+      "dll_sha256": "715314c58edc621b3c0405394b94ca008dc9874febbea684563841506f1da7f8",
+      "ctest": "PASS",
+      "proxy_verification": "PASS",
+      "build": "PASS"
+    }
+  },
+  "staging": {
+    "baseline_source": "ps2-research/pc-port/.build-overlay-pilot14-final4/baseline/modernization/renderer",
+    "ps2_source": "ps2-research/pc-port/.build-overlay-pilot14-final4/ps2-enabled/modernization/renderer",
+    "ps2_port_root": "ps2-research/pc-port/.build-overlay-pilot14-final4/ps2-enabled/ps2-research/pc-port",
+    "patches_applied_in_order": [
+      "0001-renderer-integration.patch",
+      "0002-interface-generator.patch"
+    ]
+  },
+  "ps2_port_tests": "PASS",
+  "dll_distinct": true
+}

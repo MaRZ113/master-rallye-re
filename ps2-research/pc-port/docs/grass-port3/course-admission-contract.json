@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "course_identity_contract": "Exact source-verified job ID, ASCII case folding permitted by existing race certificate contract; no underscore removal or path stem guessing",
+  "approved_candidates": [
+    {
+      "landscape_id": "FRANCE1",
+      "native_certificate_id": "RaceTest/France1",
+      "pc_scene": "DataScene/RaceTest/France1.xml",
+      "pc_scene_sha256": "beaa2180912ffd54f313a149962e295f9894239014481d2c7ba2db84fb1e08e1",
+      "ps2_scene": "\\TNG\\DATASCENE\\RACETEST\\FRANCE1.XML",
+      "pc_landscape": "course\\france1\\france1",
+      "pair_confidence": "STRONG",
+      "certificate_owner": "Frozen race_epoch.cpp valid_race_root validates job source against scene suffix; certificate copies current committed root scene_text",
+      "runtime_admission": "ROOT_IMPLEMENTATION_REQUIRED; metadata is not a live certificate"
+    },
+    {
+      "landscape_id": "ITALY_S1",
+      "native_certificate_id": "RaceTest/ItalyS1",
+      "pc_scene": "DataScene/RaceTest/ItalyS1.xml",
+      "pc_scene_sha256": "009cec2b253e012fbd4c948b79dc6d8837943736e1ba6747b00a215611115e66",
+      "ps2_scene": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML",
+      "pc_landscape": "course\\italy_s1\\italy_s1",
+      "pair_confidence": "STRONG",
+      "certificate_owner": "Frozen race_epoch.cpp valid_race_root validates job source against scene suffix; certificate copies current committed root scene_text",
+      "runtime_admission": "ROOT_IMPLEMENTATION_REQUIRED; metadata is not a live certificate"
+    },
+    {
+      "landscape_id": "TURKEY3",
+      "native_certificate_id": "RaceTest/Turkey3",
+      "pc_scene": "DataScene/RaceTest/Turkey3.xml",
+      "pc_scene_sha256": "9f00ef08e428f14f2e7aabb1c564b831d283dc3ea23b2fe68350a6bbd5384822",
+      "ps2_scene": "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML",
+      "pc_landscape": "course\\turkey3\\turkey3",
+      "pair_confidence": "STRONG",
+      "certificate_owner": "Frozen race_epoch.cpp valid_race_root validates job source against scene suffix; certificate copies current committed root scene_text",
+      "runtime_admission": "ROOT_IMPLEMENTATION_REQUIRED; metadata is not a live certificate"
+    }
+  ],
+  "negative_controls": [
+    "RaceTest/Italy_S1",
+    "RaceTest/ItalyS2",
+    "RaceTest/France2",
+    "frontend/menu",
+    "missing certificate",
+    "stale race/device/reset/camera generation"
+  ],
+  "evidence_grade": "CONFIRMED_BY_BYTES",
+  "preserve_water_turkey3_gate": true
+}

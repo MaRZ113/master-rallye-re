@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "previous_baseline_head": "3f837f4ddcb27ee1034a4b0753634c92009360ec",
+  "previous_renderer_tree": "7f9f5a7d9464b7b86ff09a9bf6c34b7ce341682d",
+  "adopted_baseline_head": "0bddf7c7bc5e95831f98714ff6231da05ab073ea",
+  "adopted_renderer_tree": "e33386bcf682db6983380c499e4928726c758fe0",
+  "approved_paths": [
+    "modernization/renderer/docs/global-hud-hide/implementation.md",
+    "modernization/renderer/include/hud_visibility.hpp",
+    "modernization/renderer/src/visual_wrappers.cpp",
+    "modernization/renderer/tests/hud_visibility_tests.cpp"
+  ],
+  "approved_git_blob_sha256": {
+    "modernization/renderer/docs/global-hud-hide/implementation.md": "f704b1ee0a3c80b3540907390935b490daa8d9a4ef79c5499f14425e860ddcbb",
+    "modernization/renderer/include/hud_visibility.hpp": "bc6396516ec88a838346490f52d4cdb507dbd1798870628f242faf35fae44f3c",
+    "modernization/renderer/src/visual_wrappers.cpp": "0cfc9fecf5e6cdba8fe4924dbbd3ab8a831fa85d4649c9937c19661acfc0de50",
+    "modernization/renderer/tests/hud_visibility_tests.cpp": "1a45d2a04baa29711b23ff77b174d7f4565eef3c5ab621f37ec2cd6ad637f401"
+  },
+  "worktree_hashes": {
+    "modernization/renderer/docs/global-hud-hide/implementation.md": "6d6fcea98804a5c791f5992e7a669ee666dd6cc03a43321407274a3c8ca4c2de",
+    "modernization/renderer/include/hud_visibility.hpp": "bc6396516ec88a838346490f52d4cdb507dbd1798870628f242faf35fae44f3c",
+    "modernization/renderer/src/visual_wrappers.cpp": "0cfc9fecf5e6cdba8fe4924dbbd3ab8a831fa85d4649c9937c19661acfc0de50",
+    "modernization/renderer/tests/hud_visibility_tests.cpp": "1a45d2a04baa29711b23ff77b174d7f4565eef3c5ab621f37ec2cd6ad637f401"
+  },
+  "original_renderer_worktree_modified": false,
+  "approved_hud_patch_exact_git_byte_match": true,
+  "rebased_ps2_renderer_equal_previous_hud_enabled_stage": true,
+  "generator_repeated_twice": true,
+  "generated_outputs": {
+    "baseline": {
+      "data/interface-map.json": "1e966cceaabfaf8a2897359180e7319dbfe6afeef16510f3058a2456e4991369",
+      "include/wrappers.hpp": "8698cfd78bed05daa1b66ea32ecf0d1fe81577046524240ede3eac7a8b79b13c",
+      "include/method_names.hpp": "c1a9e331bffb14365807b1f94f700a7acf839de91af27038b64b4374d1e6ab84",
+      "src/forwarders.cpp": "a84c3ef792b24783cad1cc119e8feb9886f5ef511bfebf316382e8781cec0539",
+      "tests/mock_interfaces.hpp": "9062667d68b59dc580e102505bcd4c2da8e66b93e11d6ff210b046c0952062f9"
+    },
+    "ps2-enabled": {
+      "data/interface-map.json": "1e966cceaabfaf8a2897359180e7319dbfe6afeef16510f3058a2456e4991369",
+      "include/wrappers.hpp": "85ef4dc9413ec9590253f9dc65c30582dccb95e8a9405846b8ae17e32404c7e5",
+      "include/method_names.hpp": "c1a9e331bffb14365807b1f94f700a7acf839de91af27038b64b4374d1e6ab84",
+      "src/forwarders.cpp": "5e825c91c8f11472006e68fa0a3582b5d2fb31e54bc9cb12f5a757f32a76d6ae",
+      "tests/mock_interfaces.hpp": "9062667d68b59dc580e102505bcd4c2da8e66b93e11d6ff210b046c0952062f9"
+    }
+  },
+  "archived_files_sha256": {
+    "baseline-lock.before.json": "bdb9bf2fba86b3b9246ba1bc79a63e1080f5bc2204309a3af464932799182e89",
+    "0001-renderer-integration.before.patch": "6523ec8fe802a0de6187a8c0221e29bc6fdea5ef0aab1b649be59e4ad74dd7cf",
+    "0003-hud-context-cache.retired.patch": "3caf1bf02765d98924d5888ba5c13a9e607389a122dadb58d93680508e7e66af"
+  },
+  "new_0001_sha256": "6393e5eb33507b25be9a844e6659286589ce05e45b030a64aaefe8d03da42886",
+  "retired_active_patch": "0003-hud-context-cache.patch",
+  "build_status": "NOT_PERFORMED_IN_SOURCE_MIGRATION"
+}

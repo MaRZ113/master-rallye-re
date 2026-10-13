@@ -1,0 +1,661 @@
+{
+  "policy": "READ_ONLY_NO_DELETIONS",
+  "total_legacy_bytes": 4450702605,
+  "directories": [
+    {
+      "directory": ".build-overlay",
+      "bytes": 329305526,
+      "mib": 314.05,
+      "files": 2101,
+      "process_command_matches": [],
+      "process_status": "COMMAND_LINES_INSPECTED_NOT_OPEN_HANDLE_PROOF",
+      "dlls": [
+        {
+          "path": "baseline/build/Release/d3d8.dll",
+          "sha256": "ab356bf70b0309e8db1e1ef8e9744e728bfde92e9a894f639e8971e44bfad593",
+          "covered_by_handoff": false
+        },
+        {
+          "path": "ps2-enabled/build/Release/d3d8.dll",
+          "sha256": "a0035c53b749bcbdb2135174ebc73fdac366b8545ab255b370b6bb1823af11f9",
+          "covered_by_handoff": true
+        }
+      ],
+      "ps2_source_files_inspected": 4,
+      "saved_reports": [],
+      "unique_or_unarchived": [
+        {
+          "path": "baseline/build/Release/d3d8.dll",
+          "sha256": "ab356bf70b0309e8db1e1ef8e9744e728bfde92e9a894f639e8971e44bfad593",
+          "kind": "DLL"
+        }
+      ],
+      "cleanup_status": "PRESERVE_UNIQUE_OR_UNARCHIVED"
+    },
+    {
+      "directory": ".build-overlay-course-objects-check",
+      "bytes": 21062512,
+      "mib": 20.09,
+      "files": 928,
+      "process_command_matches": [],
+      "process_status": "COMMAND_LINES_INSPECTED_NOT_OPEN_HANDLE_PROOF",
+      "dlls": [],
+      "ps2_source_files_inspected": 18,
+      "saved_reports": [],
+      "unique_or_unarchived": [],
+      "cleanup_status": "CANDIDATE_AFTER_EXPLICIT_APPROVAL"
+    },
+    {
+      "directory": ".build-overlay-course-objects-dev",
+      "bytes": 21050571,
+      "mib": 20.08,
+      "files": 922,
+      "process_command_matches": [],
+      "process_status": "COMMAND_LINES_INSPECTED_NOT_OPEN_HANDLE_PROOF",
+      "dlls": [],
+      "ps2_source_files_inspected": 16,
+      "saved_reports": [],
+      "unique_or_unarchived": [
+        {
+          "path": "ps2-enabled/ps2-research/pc-port/renderer/course_objects.cpp",
+          "sha256": "02e585f5e1460ddabacda3ed1cfb3e6575598ae1d0f66a148e41d149475fbdf5",
+          "kind": "SOURCE"
+        },
+        {
+          "path": "ps2-enabled/ps2-research/pc-port/renderer/course_objects.hpp",
+          "sha256": "9bf97da8f11c41381d19e2ecdfd526a452d3213ce42acce2138ece7425c42ece",
+          "kind": "SOURCE"
+        },
+        {
+          "path": "ps2-enabled/ps2-research/pc-port/renderer/course_objects_native_integration.hpp",
+          "sha256": "79d9c07b7e31d4b4a4283787c356152f04a845b4269c999845ac57c5d4b172d3",
+          "kind": "SOURCE"
+        }
+      ],
+      "cleanup_status": "PRESERVE_UNIQUE_OR_UNARCHIVED"
+    },
+    {
+      "directory": ".build-overlay-course-objects-final",
+      "bytes": 395058633,
+      "mib": 376.76,
+      "files": 2197,
+      "process_command_matches": [],
+      "process_status": "COMMAND_LINES_INSPECTED_NOT_OPEN_HANDLE_PROOF",
+      "dlls": [
+        {
+          "path": "baseline/build/Release/d3d8.dll",
+          "sha256": "047e3bc357ac6137712465563f4d339d14e25ad2943f18d64b6b851e66875bf4",
+          "covered_by_handoff": true
+        },
+        {
+          "path": "ps2-enabled/build/Release/d3d8.dll",
+          "sha256": "a69643d96c6c722ae2f2e678ab9738099083544df34f4a9b4c5003565510994c",
+          "covered_by_handoff": true
+        }
+      ],
+      "ps2_source_files_inspected": 18,
+      "saved_reports": [
+        "build-report.json"
+      ],
+      "unique_or_unarchived": [],
+      "cleanup_status": "CANDIDATE_AFTER_EXPLICIT_APPROVAL"
+    },
+    {
+      "directory": ".build-overlay-grass1-dev",
+      "bytes": 21179520,
+      "mib": 20.2,
+      "files": 934,
+      "process_command_matches": [],
+      "process_status": "COMMAND_LINES_INSPECTED_NOT_OPEN_HANDLE_PROOF",
+      "dlls": [],
+      "ps2_source_files_inspected": 28,
+      "saved_reports": [],
+      "unique_or_unarchived": [
+        {
+          "path": "ps2-enabled/ps2-research/pc-port/renderer/grass_native_integration.hpp",
+          "sha256": "ea3b3c41f202a4d3327b29f9c7b0068c9fb6e4cd3e04232622b871d180ab16a5",
+          "kind": "SOURCE"
+        }
+      ],
+      "cleanup_status": "PRESERVE_UNIQUE_OR_UNARCHIVED"
+    },
+    {
+      "directory": ".build-overlay-grass1-final",
+      "bytes": 400630167,
+      "mib": 382.07,
+      "files": 2243,
+      "process_command_matches": [],
+      "process_status": "COMMAND_LINES_INSPECTED_NOT_OPEN_HANDLE_PROOF",
+      "dlls": [
+        {
+          "path": "baseline/build/Release/d3d8.dll",
+          "sha256": "1a9034453258f9f706c907f270466165f459af87b4daa722e3712074198c1f2f",
+          "covered_by_handoff": true
+        },
+        {
+          "path": "ps2-enabled/build/Release/d3d8.dll",
+          "sha256": "0bd68583e87378931c57a530c5673201bcf8017f593075bd1fe7029e5628c72f",
+          "covered_by_handoff": true
+        }
+      ],
+      "ps2_source_files_inspected": 28,
+      "saved_reports": [
+        "build-report.json"
+      ],
+      "unique_or_unarchived": [
+        {
+          "path": "build-report.json",
+          "sha256": "06ccec219e5bf91e703e015f48b790843987ddd2b7392342cff7f78962078f1b",
+          "kind": "REPORT"
+        }
+      ],
+      "cleanup_status": "PRESERVE_UNIQUE_OR_UNARCHIVED"
+    },
+    {
+      "directory": ".build-overlay-pilot14",
+      "bytes": 10561660,
+      "mib": 10.07,
+      "files": 455,
+      "process_command_matches": [],
+      "process_status": "COMMAND_LINES_INSPECTED_NOT_OPEN_HANDLE_PROOF",
+      "dlls": [],
+      "ps2_source_files_inspected": 0,
+      "saved_reports": [],
+      "unique_or_unarchived": [],
+      "cleanup_status": "CANDIDATE_AFTER_EXPLICIT_APPROVAL"
+    },
+    {
+      "directory": ".build-overlay-pilot14-build",
+      "bytes": 204683031,
+      "mib": 195.2,
+      "files": 1705,
+      "process_command_matches": [],
+      "process_status": "COMMAND_LINES_INSPECTED_NOT_OPEN_HANDLE_PROOF",
+      "dlls": [
+        {
+          "path": "baseline/build/Release/d3d8.dll",
+          "sha256": "9b784d167f6a19b9805cd9649b92928e54df527a81ac2bc2959360d8d4d150ad",
+          "covered_by_handoff": false
+        }
+      ],
+      "ps2_source_files_inspected": 4,
+      "saved_reports": [],
+      "unique_or_unarchived": [
+        {
+          "path": "baseline/build/Release/d3d8.dll",
+          "sha256": "9b784d167f6a19b9805cd9649b92928e54df527a81ac2bc2959360d8d4d150ad",
+          "kind": "DLL"
+        },
+        {
+          "path": "ps2-enabled/ps2-research/pc-port/renderer/ps2_port_extension.cpp",
+          "sha256": "b5b3598e76c3bb4fdab7002d4b4b95bc8a745e49d28fd956daa573ffd608e598",
+          "kind": "SOURCE"
+        },
+        {
+          "path": "ps2-enabled/ps2-research/pc-port/renderer/ps2_port_extension.hpp",
+          "sha256": "76b4091c5116b856bf6590d4151df177ab6be991771404736dd0e21e735176b8",
+          "kind": "SOURCE"
+        },
+        {
+          "path": "ps2-enabled/ps2-research/pc-port/tests/ps2_port_extension_tests.cpp",
+          "sha256": "c8713f8c551b137a6e7ee619bd1ad9c5d165d45ba3a1d7f72cfe9f54ff2a7918",
+          "kind": "SOURCE"
+        },
+        {
+          "path": "ps2-enabled/ps2-research/pc-port/tests/test_integration_contract.py",
+          "sha256": "fab6b8ef61f305f63531217843e2a833615fe9bc567e873bd3380cb9c506ce65",
+          "kind": "SOURCE"
+        }
+      ],
+      "cleanup_status": "PRESERVE_UNIQUE_OR_UNARCHIVED"
+    },
+    {
+      "directory": ".build-overlay-pilot14-final",
+      "bytes": 334654779,
+      "mib": 319.15,
+      "files": 2098,
+      "process_command_matches": [],
+      "process_status": "COMMAND_LINES_INSPECTED_NOT_OPEN_HANDLE_PROOF",
+      "dlls": [
+        {
+          "path": "baseline/build/Release/d3d8.dll",
+          "sha256": "140ae530253fe4f9f21c552ce6b4979bd1e92d1933fe3569423277aebd318c36",
+          "covered_by_handoff": false
+        },
+        {
+          "path": "ps2-enabled/build/Release/d3d8.dll",
+          "sha256": "9d105f5f56529f073aea876824482c9bac2c4884645de3bee7db158a36cebb79",
+          "covered_by_handoff": false
+        }
+      ],
+      "ps2_source_files_inspected": 4,
+      "saved_reports": [],
+      "unique_or_unarchived": [
+        {
+          "path": "baseline/build/Release/d3d8.dll",
+          "sha256": "140ae530253fe4f9f21c552ce6b4979bd1e92d1933fe3569423277aebd318c36",
+          "kind": "DLL"
+        },
+        {
+          "path": "ps2-enabled/build/Release/d3d8.dll",
+          "sha256": "9d105f5f56529f073aea876824482c9bac2c4884645de3bee7db158a36cebb79",
+          "kind": "DLL"
+        },
+        {
+          "path": "ps2-enabled/ps2-research/pc-port/renderer/ps2_port_extension.cpp",
+          "sha256": "b5b3598e76c3bb4fdab7002d4b4b95bc8a745e49d28fd956daa573ffd608e598",
+          "kind": "SOURCE"
+        },
+        {
+          "path": "ps2-enabled/ps2-research/pc-port/renderer/ps2_port_extension.hpp",
+          "sha256": "76b4091c5116b856bf6590d4151df177ab6be991771404736dd0e21e735176b8",
+          "kind": "SOURCE"
+        },
+        {
+          "path": "ps2-enabled/ps2-research/pc-port/tests/ps2_port_extension_tests.cpp",
+          "sha256": "c8713f8c551b137a6e7ee619bd1ad9c5d165d45ba3a1d7f72cfe9f54ff2a7918",
+          "kind": "SOURCE"
+        },
+        {
+          "path": "ps2-enabled/ps2-research/pc-port/tests/test_integration_contract.py",
+          "sha256": "fab6b8ef61f305f63531217843e2a833615fe9bc567e873bd3380cb9c506ce65",
+          "kind": "SOURCE"
+        }
+      ],
+      "cleanup_status": "PRESERVE_UNIQUE_OR_UNARCHIVED"
+    },
+    {
+      "directory": ".build-overlay-pilot14-final2",
+      "bytes": 179055170,
+      "mib": 170.76,
+      "files": 1622,
+      "process_command_matches": [],
+      "process_status": "COMMAND_LINES_INSPECTED_NOT_OPEN_HANDLE_PROOF",
+      "dlls": [
+        {
+          "path": "baseline/build/Release/d3d8.dll",
+          "sha256": "12e2abb1d44acef9af2f97f2df67557e5b4e63daa5ffb15246e24a6e53cb3f6f",
+          "covered_by_handoff": false
+        }
+      ],
+      "ps2_source_files_inspected": 4,
+      "saved_reports": [],
+      "unique_or_unarchived": [
+        {
+          "path": "baseline/build/Release/d3d8.dll",
+          "sha256": "12e2abb1d44acef9af2f97f2df67557e5b4e63daa5ffb15246e24a6e53cb3f6f",
+          "kind": "DLL"
+        },
+        {
+          "path": "ps2-enabled/ps2-research/pc-port/renderer/ps2_port_extension.cpp",
+          "sha256": "b5b3598e76c3bb4fdab7002d4b4b95bc8a745e49d28fd956daa573ffd608e598",
+          "kind": "SOURCE"
+        },
+        {
+          "path": "ps2-enabled/ps2-research/pc-port/renderer/ps2_port_extension.hpp",
+          "sha256": "76b4091c5116b856bf6590d4151df177ab6be991771404736dd0e21e735176b8",
+          "kind": "SOURCE"
+        },
+        {
+          "path": "ps2-enabled/ps2-research/pc-port/tests/ps2_port_extension_tests.cpp",
+          "sha256": "5f3c039be5aa871d9d92768c4d7a167415fb4d0be4d8095ad7c8dd90661fd7e7",
+          "kind": "SOURCE"
+        },
+        {
+          "path": "ps2-enabled/ps2-research/pc-port/tests/test_integration_contract.py",
+          "sha256": "fab6b8ef61f305f63531217843e2a833615fe9bc567e873bd3380cb9c506ce65",
+          "kind": "SOURCE"
+        }
+      ],
+      "cleanup_status": "PRESERVE_UNIQUE_OR_UNARCHIVED"
+    },
+    {
+      "directory": ".build-overlay-pilot14-final3",
+      "bytes": 334937726,
+      "mib": 319.42,
+      "files": 2099,
+      "process_command_matches": [],
+      "process_status": "COMMAND_LINES_INSPECTED_NOT_OPEN_HANDLE_PROOF",
+      "dlls": [
+        {
+          "path": "baseline/build/Release/d3d8.dll",
+          "sha256": "f3e817ebcacfeb812feb6166b4889a517c840cfc8629b6c2918fc09e244e81ce",
+          "covered_by_handoff": false
+        },
+        {
+          "path": "ps2-enabled/build/Release/d3d8.dll",
+          "sha256": "7aadb61a8108901a5f0cbe4e6ec73b46f13bdd0de8394e9c92dc867031795edd",
+          "covered_by_handoff": false
+        }
+      ],
+      "ps2_source_files_inspected": 4,
+      "saved_reports": [],
+      "unique_or_unarchived": [
+        {
+          "path": "baseline/build/Release/d3d8.dll",
+          "sha256": "f3e817ebcacfeb812feb6166b4889a517c840cfc8629b6c2918fc09e244e81ce",
+          "kind": "DLL"
+        },
+        {
+          "path": "ps2-enabled/build/Release/d3d8.dll",
+          "sha256": "7aadb61a8108901a5f0cbe4e6ec73b46f13bdd0de8394e9c92dc867031795edd",
+          "kind": "DLL"
+        },
+        {
+          "path": "ps2-enabled/ps2-research/pc-port/tests/test_integration_contract.py",
+          "sha256": "fde40fd933c89bc60d32b597c8c3f4ee966f7cf65b86718559ef88ea205d271d",
+          "kind": "SOURCE"
+        }
+      ],
+      "cleanup_status": "PRESERVE_UNIQUE_OR_UNARCHIVED"
+    },
+    {
+      "directory": ".build-overlay-pilot14-final4",
+      "bytes": 334891643,
+      "mib": 319.38,
+      "files": 2100,
+      "process_command_matches": [],
+      "process_status": "COMMAND_LINES_INSPECTED_NOT_OPEN_HANDLE_PROOF",
+      "dlls": [
+        {
+          "path": "baseline/build/Release/d3d8.dll",
+          "sha256": "b4ca8ecf159c8f2c964bd611aca24977247e10ac0c64f17de7e34311d1aea75d",
+          "covered_by_handoff": false
+        },
+        {
+          "path": "ps2-enabled/build/Release/d3d8.dll",
+          "sha256": "715314c58edc621b3c0405394b94ca008dc9874febbea684563841506f1da7f8",
+          "covered_by_handoff": true
+        }
+      ],
+      "ps2_source_files_inspected": 4,
+      "saved_reports": [],
+      "unique_or_unarchived": [
+        {
+          "path": "baseline/build/Release/d3d8.dll",
+          "sha256": "b4ca8ecf159c8f2c964bd611aca24977247e10ac0c64f17de7e34311d1aea75d",
+          "kind": "DLL"
+        }
+      ],
+      "cleanup_status": "PRESERVE_UNIQUE_OR_UNARCHIVED"
+    },
+    {
+      "directory": ".build-overlay-reflection1",
+      "bytes": 289929344,
+      "mib": 276.5,
+      "files": 2077,
+      "process_command_matches": [],
+      "process_status": "COMMAND_LINES_INSPECTED_NOT_OPEN_HANDLE_PROOF",
+      "dlls": [
+        {
+          "path": "baseline/build/Release/d3d8.dll",
+          "sha256": "445cfca77c37ab40971f1c0f609602e4dc696dd53f9fc012dd6f2d21b76453ef",
+          "covered_by_handoff": false
+        },
+        {
+          "path": "ps2-enabled/build/Release/d3d8.dll",
+          "sha256": "0b6912b3263ccb62ea269a7f3c9cc16a8f28d9419b95d559b3a5b1c99feaa964",
+          "covered_by_handoff": false
+        }
+      ],
+      "ps2_source_files_inspected": 10,
+      "saved_reports": [],
+      "unique_or_unarchived": [
+        {
+          "path": "baseline/build/Release/d3d8.dll",
+          "sha256": "445cfca77c37ab40971f1c0f609602e4dc696dd53f9fc012dd6f2d21b76453ef",
+          "kind": "DLL"
+        },
+        {
+          "path": "ps2-enabled/build/Release/d3d8.dll",
+          "sha256": "0b6912b3263ccb62ea269a7f3c9cc16a8f28d9419b95d559b3a5b1c99feaa964",
+          "kind": "DLL"
+        },
+        {
+          "path": "ps2-enabled/ps2-research/pc-port/renderer/ps2_port_extension.cpp",
+          "sha256": "e4ee160038a4dc22000ba9b9e5eda6ac203e4bebdd7eefb5a3773eecad5629fe",
+          "kind": "SOURCE"
+        },
+        {
+          "path": "ps2-enabled/ps2-research/pc-port/renderer/reflection_native_integration.hpp",
+          "sha256": "c0d002d9e7004fb0c10067c8c9cf4a3a42acaf34c91c3dcc5440c9cee9ff23dc",
+          "kind": "SOURCE"
+        },
+        {
+          "path": "ps2-enabled/ps2-research/pc-port/renderer/reflection_pilot.cpp",
+          "sha256": "311d20510752da7cb6488deb2090920d4bef8fecff939a2d0987e86c87f53450",
+          "kind": "SOURCE"
+        },
+        {
+          "path": "ps2-enabled/ps2-research/pc-port/renderer/reflection_pilot.hpp",
+          "sha256": "5ac037ccc8e517893e7c2b16a3a14ad427ac5727fd2e8d4fcd19af7b5fbc9403",
+          "kind": "SOURCE"
+        },
+        {
+          "path": "ps2-enabled/ps2-research/pc-port/tests/reflection_pilot_tests.cpp",
+          "sha256": "d4a714a4d5d213d465b6e9fbedd344119dfbb3612a7fe1a7ab36540a3be41c2e",
+          "kind": "SOURCE"
+        },
+        {
+          "path": "ps2-enabled/ps2-research/pc-port/tests/test_reflection_contract.py",
+          "sha256": "0dcb00c3f3dffab5dad019cf838317cea19d1f56b2fd98968057aedcba43f816",
+          "kind": "SOURCE"
+        }
+      ],
+      "cleanup_status": "PRESERVE_UNIQUE_OR_UNARCHIVED"
+    },
+    {
+      "directory": ".build-overlay-reflection1-dev",
+      "bytes": 20955683,
+      "mib": 19.98,
+      "files": 913,
+      "process_command_matches": [],
+      "process_status": "COMMAND_LINES_INSPECTED_NOT_OPEN_HANDLE_PROOF",
+      "dlls": [],
+      "ps2_source_files_inspected": 7,
+      "saved_reports": [],
+      "unique_or_unarchived": [
+        {
+          "path": "ps2-enabled/ps2-research/pc-port/renderer/ps2_port_extension.cpp",
+          "sha256": "638013c1566961d1827e13a5349c6a34c091ef1ec534936b7ec8aad860821f88",
+          "kind": "SOURCE"
+        },
+        {
+          "path": "ps2-enabled/ps2-research/pc-port/renderer/reflection_pilot.cpp",
+          "sha256": "1f757f9f8068df05df2897837a09f11206b01dec342202c0288e06dc6cb93854",
+          "kind": "SOURCE"
+        },
+        {
+          "path": "ps2-enabled/ps2-research/pc-port/renderer/reflection_pilot.hpp",
+          "sha256": "b33ca9eb7dad11a51638cc283723553e92b85ba877ac7f684e26b9f3ac038a10",
+          "kind": "SOURCE"
+        }
+      ],
+      "cleanup_status": "PRESERVE_UNIQUE_OR_UNARCHIVED"
+    },
+    {
+      "directory": ".build-overlay-reflection1-final",
+      "bytes": 489487667,
+      "mib": 466.81,
+      "files": 2212,
+      "process_command_matches": [],
+      "process_status": "COMMAND_LINES_INSPECTED_NOT_OPEN_HANDLE_PROOF",
+      "dlls": [
+        {
+          "path": "baseline/build/Release/d3d8.dll",
+          "sha256": "09cdb22eb3a7cf2035fa5fc9332ba173c1a3962edb751fb2b5d70cbf8e3ae646",
+          "covered_by_handoff": true
+        },
+        {
+          "path": "ps2-enabled/build/Release/d3d8.dll",
+          "sha256": "4ea89fa69d7fcb3f498a15f5707ed70a69c0d97b748a55a00a765a28f0658675",
+          "covered_by_handoff": true
+        }
+      ],
+      "ps2_source_files_inspected": 10,
+      "saved_reports": [
+        "build-report.json"
+      ],
+      "unique_or_unarchived": [],
+      "cleanup_status": "CANDIDATE_AFTER_EXPLICIT_APPROVAL"
+    },
+    {
+      "directory": ".build-overlay-reflection11-dev",
+      "bytes": 21066680,
+      "mib": 20.09,
+      "files": 924,
+      "process_command_matches": [],
+      "process_status": "COMMAND_LINES_INSPECTED_NOT_OPEN_HANDLE_PROOF",
+      "dlls": [],
+      "ps2_source_files_inspected": 18,
+      "saved_reports": [],
+      "unique_or_unarchived": [
+        {
+          "path": "ps2-enabled/ps2-research/pc-port/renderer/reflection_pilot.cpp",
+          "sha256": "09faf9c8ed84096b8dd5969b1b526b9c64edfdc3d1e99b8f5b85ab2bf520f207",
+          "kind": "SOURCE"
+        },
+        {
+          "path": "ps2-enabled/ps2-research/pc-port/renderer/reflection_pilot.hpp",
+          "sha256": "6cb2f20ef868ec8066f1e943babdc88892f95e7513787880e1d7c4dc9da32094",
+          "kind": "SOURCE"
+        }
+      ],
+      "cleanup_status": "PRESERVE_UNIQUE_OR_UNARCHIVED"
+    },
+    {
+      "directory": ".build-overlay-reflection11-final",
+      "bytes": 298161326,
+      "mib": 284.35,
+      "files": 2142,
+      "process_command_matches": [],
+      "process_status": "COMMAND_LINES_INSPECTED_NOT_OPEN_HANDLE_PROOF",
+      "dlls": [
+        {
+          "path": "baseline/build/Release/d3d8.dll",
+          "sha256": "6e1e43696d0573c7014eb174148a00f9b9e97c5c16fe5d6d6998458ae302f485",
+          "covered_by_handoff": false
+        },
+        {
+          "path": "ps2-enabled/build/Release/d3d8.dll",
+          "sha256": "b80fce7cd15ee8234320c9928b2abcfdc8f321104434affb9faa0cfe92b46423",
+          "covered_by_handoff": false
+        }
+      ],
+      "ps2_source_files_inspected": 22,
+      "saved_reports": [],
+      "unique_or_unarchived": [
+        {
+          "path": "baseline/build/Release/d3d8.dll",
+          "sha256": "6e1e43696d0573c7014eb174148a00f9b9e97c5c16fe5d6d6998458ae302f485",
+          "kind": "DLL"
+        },
+        {
+          "path": "ps2-enabled/build/Release/d3d8.dll",
+          "sha256": "b80fce7cd15ee8234320c9928b2abcfdc8f321104434affb9faa0cfe92b46423",
+          "kind": "DLL"
+        },
+        {
+          "path": "ps2-enabled/ps2-research/pc-port/renderer/reflection_capture.cpp",
+          "sha256": "2ebc553abc4feab7773e83c1eb1fe7d35e65ad37a20a370e02f16ea070bbadc0",
+          "kind": "SOURCE"
+        },
+        {
+          "path": "ps2-enabled/ps2-research/pc-port/renderer/reflection_native_integration.hpp",
+          "sha256": "3381a57ab3696b67b63f0224145e992bdf6a0922dd74a350b4d4fc1006f04b7d",
+          "kind": "SOURCE"
+        },
+        {
+          "path": "ps2-enabled/ps2-research/pc-port/tests/reflection_capture_tests.cpp",
+          "sha256": "05ff866bacd5a0274da586ef0e9d4b93ef2a99df76f41eb63a96fd14e4af3202",
+          "kind": "SOURCE"
+        },
+        {
+          "path": "ps2-enabled/ps2-research/pc-port/tests/test_reflection11_integration.py",
+          "sha256": "c527169f5245c301ccc74984aa3736fbf2824219bc6b493d1d8fa9bbad600d86",
+          "kind": "SOURCE"
+        }
+      ],
+      "cleanup_status": "PRESERVE_UNIQUE_OR_UNARCHIVED"
+    },
+    {
+      "directory": ".build-overlay-reflection11-final2",
+      "bytes": 347483172,
+      "mib": 331.39,
+      "files": 2183,
+      "process_command_matches": [],
+      "process_status": "COMMAND_LINES_INSPECTED_NOT_OPEN_HANDLE_PROOF",
+      "dlls": [
+        {
+          "path": "baseline/build/Release/d3d8.dll",
+          "sha256": "a3cb5db6bf155509650f326f75866d51e04ce29a94a27a82b661ba5112544ea4",
+          "covered_by_handoff": false
+        },
+        {
+          "path": "ps2-enabled/build/Release/d3d8.dll",
+          "sha256": "2ef212c82b17bb64ec70c155d37862988475d17ee86e7efdf99c777927519638",
+          "covered_by_handoff": false
+        }
+      ],
+      "ps2_source_files_inspected": 22,
+      "saved_reports": [],
+      "unique_or_unarchived": [
+        {
+          "path": "baseline/build/Release/d3d8.dll",
+          "sha256": "a3cb5db6bf155509650f326f75866d51e04ce29a94a27a82b661ba5112544ea4",
+          "kind": "DLL"
+        },
+        {
+          "path": "ps2-enabled/build/Release/d3d8.dll",
+          "sha256": "2ef212c82b17bb64ec70c155d37862988475d17ee86e7efdf99c777927519638",
+          "kind": "DLL"
+        },
+        {
+          "path": "ps2-enabled/ps2-research/pc-port/renderer/reflection_capture.cpp",
+          "sha256": "2ebc553abc4feab7773e83c1eb1fe7d35e65ad37a20a370e02f16ea070bbadc0",
+          "kind": "SOURCE"
+        },
+        {
+          "path": "ps2-enabled/ps2-research/pc-port/tests/reflection_capture_tests.cpp",
+          "sha256": "35a5744b10cf6c80ac5978e0b2469c11af8a6c4ed626543b61997f1f231e1c8e",
+          "kind": "SOURCE"
+        }
+      ],
+      "cleanup_status": "PRESERVE_UNIQUE_OR_UNARCHIVED"
+    },
+    {
+      "directory": ".build-overlay-reflection11-final3",
+      "bytes": 396547795,
+      "mib": 378.18,
+      "files": 2219,
+      "process_command_matches": [],
+      "process_status": "COMMAND_LINES_INSPECTED_NOT_OPEN_HANDLE_PROOF",
+      "dlls": [
+        {
+          "path": "baseline/build/Release/d3d8.dll",
+          "sha256": "f2fe1625fc1b5db56712cb41bb905e456a104ba6b534505afe8a01740cbb10c8",
+          "covered_by_handoff": true
+        },
+        {
+          "path": "ps2-enabled/build/Release/d3d8.dll",
+          "sha256": "645a1104e1f73ba1478125d25766291ce1951b84be21e90baf12a3dcf9c960f2",
+          "covered_by_handoff": true
+        }
+      ],
+      "ps2_source_files_inspected": 22,
+      "saved_reports": [
+        "build-report.json"
+      ],
+      "unique_or_unarchived": [
+        {
+          "path": "build-report.json",
+          "sha256": "4c6b7bebaa7389323e9b7ab7b3c919ba4313cfac4de12c1b1a6510748a988abc",
+          "kind": "REPORT"
+        }
+      ],
+      "cleanup_status": "PRESERVE_UNIQUE_OR_UNARCHIVED"
+    }
+  ],
+  "uniqueness_scope": "Compared final DLLs, PS2 source snapshots and reports to current sources and all existing handoff members; compiler/PDB/cache intermediates not preservation-oracle checked",
+  "limitations": "No open-handle guarantee. Recheck activity and preserve unique evidence before any approved deletion."
+}

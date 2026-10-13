@@ -1,0 +1,92 @@
+{
+  "schema_version": 2,
+  "baseline_head": "3f837f4ddcb27ee1034a4b0753634c92009360ec",
+  "current_head": "3f837f4ddcb27ee1034a4b0753634c92009360ec",
+  "renderer_tree": "7f9f5a7d9464b7b86ff09a9bf6c34b7ce341682d",
+  "branch": "master",
+  "patch_sha256": {
+    "0001-renderer-integration.patch": "326f5eab7b75704d6288da56a842f249a0e6b71a9cc50e2d7414947d6c65a485",
+    "0002-interface-generator.patch": "fa71139557231f9c8ac5b8ead921117f551b91c430cd8d660003589b7ba4cfae"
+  },
+  "ps2_source_sha256": {
+    "renderer/ps2_port_extension.cpp": "9382db32a0e5837791d1d9db9126658971501e4e6930ae97fe9294883438994a",
+    "renderer/ps2_port_extension.hpp": "c7d75d83bceac573a859ced965e1329f74bc2eadaae24d1e8ddc5882177e5df0",
+    "renderer/reflection_native_integration.hpp": "c69f023ec2c5dd3623ce3d61929939c1a21e101292911a8d00a5893a6ae72453",
+    "renderer/reflection_pilot.cpp": "d6c7296c41464cc3ffc9815fd2be3ffc7ded328bcfa631c743799184bde10229",
+    "renderer/reflection_pilot.hpp": "32fd6565efd1eb57c90c5ddcdb535b6f4bdc6aa071de8111a0882967c2956edf",
+    "tests/ps2_port_extension_tests.cpp": "9928cba1afb23ac0fdfa660bd5ab0e1fd66d91c754d860dbf4172069dc114035",
+    "tests/reflection_pilot_tests.cpp": "3f02bd7d9de68fc23d9ef0000d5f7f18af9d238e495c6815421549b6a96f4ad8",
+    "tests/test_integration_contract.py": "e685cdccf430b344c882b7c7ff67a74769722ad6a586e86b741ae7e67986d205",
+    "tests/test_reflection_contract.py": "87da581948319dd9ebb2896916d1d5d52f235fafc4a2f2990dc493fdbd9fee21",
+    "tests/test_renderer_tree_lock.py": "5247979323e91ea6dda3fde2e4e14c21f9c2a0d120d69281e40c3ab55cdc0d00"
+  },
+  "generator": {
+    "baseline": {
+      "deterministic": true,
+      "outputs": {
+        "data/interface-map.json": "1e966cceaabfaf8a2897359180e7319dbfe6afeef16510f3058a2456e4991369",
+        "include/wrappers.hpp": "8698cfd78bed05daa1b66ea32ecf0d1fe81577046524240ede3eac7a8b79b13c",
+        "include/method_names.hpp": "c1a9e331bffb14365807b1f94f700a7acf839de91af27038b64b4374d1e6ab84",
+        "src/forwarders.cpp": "a84c3ef792b24783cad1cc119e8feb9886f5ef511bfebf316382e8781cec0539",
+        "tests/mock_interfaces.hpp": "9062667d68b59dc580e102505bcd4c2da8e66b93e11d6ff210b046c0952062f9"
+      },
+      "initial_files_rewritten": []
+    },
+    "ps2-enabled": {
+      "deterministic": true,
+      "outputs": {
+        "data/interface-map.json": "1e966cceaabfaf8a2897359180e7319dbfe6afeef16510f3058a2456e4991369",
+        "include/wrappers.hpp": "85ef4dc9413ec9590253f9dc65c30582dccb95e8a9405846b8ae17e32404c7e5",
+        "include/method_names.hpp": "c1a9e331bffb14365807b1f94f700a7acf839de91af27038b64b4374d1e6ab84",
+        "src/forwarders.cpp": "ab55a4fc5058ca5f2a94ef06ff797785e9cf003f03cf304ed875a16e93b1a59f",
+        "tests/mock_interfaces.hpp": "9062667d68b59dc580e102505bcd4c2da8e66b93e11d6ff210b046c0952062f9"
+      },
+      "initial_files_rewritten": []
+    }
+  },
+  "builds": {
+    "baseline": {
+      "dll": "ps2-research/pc-port/.build-overlay-reflection1-final/baseline/build/Release/d3d8.dll",
+      "dll_sha256": "09cdb22eb3a7cf2035fa5fc9332ba173c1a3962edb751fb2b5d70cbf8e3ae646",
+      "ctest": "PASS",
+      "proxy_verification": "PASS",
+      "build": "PASS"
+    },
+    "ps2-enabled": {
+      "dll": "ps2-research/pc-port/.build-overlay-reflection1-final/ps2-enabled/build/Release/d3d8.dll",
+      "dll_sha256": "4ea89fa69d7fcb3f498a15f5707ed70a69c0d97b748a55a00a765a28f0658675",
+      "ctest": "PASS",
+      "proxy_verification": "PASS",
+      "build": "PASS"
+    }
+  },
+  "staging": {
+    "baseline_source": "ps2-research/pc-port/.build-overlay-reflection1-final/baseline/modernization/renderer",
+    "ps2_source": "ps2-research/pc-port/.build-overlay-reflection1-final/ps2-enabled/modernization/renderer",
+    "ps2_port_root": "ps2-research/pc-port/.build-overlay-reflection1-final/ps2-enabled/ps2-research/pc-port",
+    "patches_applied_in_order": [
+      "0001-renderer-integration.patch",
+      "0002-interface-generator.patch"
+    ]
+  },
+  "ps2_port_tests": "PASS",
+  "dll_distinct": true,
+  "validation_counts": {
+    "baseline_ctest": 24,
+    "ps2_ctest": 26,
+    "focused_python": 25,
+    "fail": 0,
+    "skip": 0
+  },
+  "strict_reflection_config_rebuild": "PASS; serial incremental Win32 Release; full PS2 CTest and Python repeated after strict parser update",
+  "final_reset_mirroring_rebuild": "PASS; final serial PS2 Win32 Release build, 26/26 CTest, 25/25 Python",
+  "verified_local_gxi_reset_integration": "PASS; enabled reset failure/suspension/echo/resume/mirroring/shutdown; original GXI excluded",
+  "runtime_validation": "NOT_PERFORMED",
+  "preservation": {
+    "pilot14_archive_sha256": "1812f3caff1a6931e07ddedea89f228b66138154d3dba476baa511874145139a",
+    "pilot14_dll_sha256": "715314c58edc621b3c0405394b94ca008dc9874febbea684563841506f1da7f8",
+    "original_overlay_report_sha256": "7c5c3b7bc08bded6c4be146cfef2458c503b7d9f38566f79a9f9177ff6278e74",
+    "renderer_worktree": "UNCHANGED",
+    "course_sdk_worktree": "UNCHANGED"
+  }
+}

@@ -1,0 +1,375 @@
+{
+  "schema_version": 1,
+  "ELF_sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+  "ELF_mapping": {
+    "class": 32,
+    "endianness": "little",
+    "type": 2,
+    "machine": 8,
+    "version": 1,
+    "entry": 1048584,
+    "flags": 546455553,
+    "program_header_count": 1,
+    "load_segments": [
+      {
+        "index": 0,
+        "file_offset": 4096,
+        "virtual_address": 1048576,
+        "physical_address": 1048576,
+        "file_size": 3724432,
+        "memory_size": 4036984,
+        "flags": 7,
+        "alignment": 4096
+      }
+    ]
+  },
+  "decoder": {
+    "name": "Rabbitizer",
+    "version": "1.16.2",
+    "category": "InstrCategory.R5900"
+  },
+  "windows": [
+    {
+      "role": "pitch_float32",
+      "instructions": [
+        {
+          "address": "0x0034e69c",
+          "file_offset": 2422428,
+          "original_word": "0x3c013faa",
+          "R5900": "lui         $at, 0x3FAA"
+        },
+        {
+          "address": "0x0034e6a0",
+          "file_offset": 2422432,
+          "original_word": "0x34213d71",
+          "R5900": "ori         $at, $at, 0x3D71"
+        },
+        {
+          "address": "0x0034e6a4",
+          "file_offset": 2422436,
+          "original_word": "0x44810000",
+          "R5900": "mtc1        $at, $f0"
+        }
+      ]
+    },
+    {
+      "role": "shrub_lift_float32",
+      "instructions": [
+        {
+          "address": "0x00353304",
+          "file_offset": 2441988,
+          "original_word": "0x3c013ecc",
+          "R5900": "lui         $at, 0x3ECC"
+        },
+        {
+          "address": "0x00353308",
+          "file_offset": 2441992,
+          "original_word": "0x3421cccd",
+          "R5900": "ori         $at, $at, 0xCCCD"
+        },
+        {
+          "address": "0x0035330c",
+          "file_offset": 2441996,
+          "original_word": "0x44810000",
+          "R5900": "mtc1        $at, $f0"
+        }
+      ]
+    },
+    {
+      "role": "grass_lift_float32",
+      "instructions": [
+        {
+          "address": "0x003545a8",
+          "file_offset": 2446760,
+          "original_word": "0x3c013ea8",
+          "R5900": "lui         $at, 0x3EA8"
+        },
+        {
+          "address": "0x003545ac",
+          "file_offset": 2446764,
+          "original_word": "0x3421f5c3",
+          "R5900": "ori         $at, $at, 0xF5C3"
+        },
+        {
+          "address": "0x003545b0",
+          "file_offset": 2446768,
+          "original_word": "0x44810000",
+          "R5900": "mtc1        $at, $f0"
+        },
+        {
+          "address": "0x003545b4",
+          "file_offset": 2446772,
+          "original_word": "0xaca00004",
+          "R5900": "sw          $zero, 0x4($a1)"
+        },
+        {
+          "address": "0x003545b8",
+          "file_offset": 2446776,
+          "original_word": "0xaca00008",
+          "R5900": "sw          $zero, 0x8($a1)"
+        }
+      ]
+    },
+    {
+      "role": "category_pool_selection",
+      "instructions": [
+        {
+          "address": "0x0035793c",
+          "file_offset": 2459964,
+          "original_word": "0x8ea31030",
+          "R5900": "lw          $v1, 0x1030($s5)"
+        },
+        {
+          "address": "0x00357940",
+          "file_offset": 2459968,
+          "original_word": "0x2402ffff",
+          "R5900": "addiu       $v0, $zero, -0x1"
+        },
+        {
+          "address": "0x00357944",
+          "file_offset": 2459972,
+          "original_word": "0x24630001",
+          "R5900": "addiu       $v1, $v1, 0x1"
+        },
+        {
+          "address": "0x00357948",
+          "file_offset": 2459976,
+          "original_word": "0x16830003",
+          "R5900": "bne         $s4, $v1, . + 4 + (0x3 << 2)"
+        },
+        {
+          "address": "0x0035794c",
+          "file_offset": 2459980,
+          "original_word": "0xaea21024",
+          "R5900": "sw          $v0, 0x1024($s5)"
+        },
+        {
+          "address": "0x00357950",
+          "file_offset": 2459984,
+          "original_word": "0x10000007",
+          "R5900": "b           . + 4 + (0x7 << 2)"
+        },
+        {
+          "address": "0x00357954",
+          "file_offset": 2459988,
+          "original_word": "0xaea01024",
+          "R5900": "sw          $zero, 0x1024($s5)"
+        },
+        {
+          "address": "0x00357958",
+          "file_offset": 2459992,
+          "original_word": "0x8ea2102c",
+          "R5900": "lw          $v0, 0x102C($s5)"
+        },
+        {
+          "address": "0x0035795c",
+          "file_offset": 2459996,
+          "original_word": "0x24420001",
+          "R5900": "addiu       $v0, $v0, 0x1"
+        },
+        {
+          "address": "0x00357960",
+          "file_offset": 2460000,
+          "original_word": "0x56820004",
+          "R5900": "bnel        $s4, $v0, . + 4 + (0x4 << 2)"
+        },
+        {
+          "address": "0x00357964",
+          "file_offset": 2460004,
+          "original_word": "0x8ea21024",
+          "R5900": "lw          $v0, 0x1024($s5)"
+        },
+        {
+          "address": "0x00357968",
+          "file_offset": 2460008,
+          "original_word": "0x24020001",
+          "R5900": "addiu       $v0, $zero, 0x1"
+        },
+        {
+          "address": "0x0035796c",
+          "file_offset": 2460012,
+          "original_word": "0xaea21024",
+          "R5900": "sw          $v0, 0x1024($s5)"
+        },
+        {
+          "address": "0x00357970",
+          "file_offset": 2460016,
+          "original_word": "0x8ea21024",
+          "R5900": "lw          $v0, 0x1024($s5)"
+        },
+        {
+          "address": "0x00357974",
+          "file_offset": 2460020,
+          "original_word": "0x0440009d",
+          "R5900": "bltz        $v0, . + 4 + (0x9D << 2)"
+        }
+      ]
+    },
+    {
+      "role": "shared_category_scale",
+      "instructions": [
+        {
+          "address": "0x00359898",
+          "file_offset": 2467992,
+          "original_word": "0x8e03000c",
+          "R5900": "lw          $v1, 0xC($s0)"
+        },
+        {
+          "address": "0x0035989c",
+          "file_offset": 2467996,
+          "original_word": "0x46001082",
+          "R5900": "mul.s       $f2, $f2, $f0"
+        },
+        {
+          "address": "0x003598a0",
+          "file_offset": 2468000,
+          "original_word": "0x8e020008",
+          "R5900": "lw          $v0, 0x8($s0)"
+        },
+        {
+          "address": "0x003598a4",
+          "file_offset": 2468004,
+          "original_word": "0x46030583",
+          "R5900": "div.s       $f22, $f0, $f3"
+        },
+        {
+          "address": "0x003598a8",
+          "file_offset": 2468008,
+          "original_word": "0xc6e1003c",
+          "R5900": "lwc1        $f1, 0x3C($s7)"
+        },
+        {
+          "address": "0x003598ac",
+          "file_offset": 2468012,
+          "original_word": "0x3c014040",
+          "R5900": "lui         $at, 0x4040"
+        },
+        {
+          "address": "0x003598b0",
+          "file_offset": 2468016,
+          "original_word": "0x44810000",
+          "R5900": "mtc1        $at, $f0"
+        },
+        {
+          "address": "0x003598b4",
+          "file_offset": 2468020,
+          "original_word": "0x00431023",
+          "R5900": "subu        $v0, $v0, $v1"
+        },
+        {
+          "address": "0x003598b8",
+          "file_offset": 2468024,
+          "original_word": "0x0052102a",
+          "R5900": "slt         $v0, $v0, $s2"
+        },
+        {
+          "address": "0x003598bc",
+          "file_offset": 2468028,
+          "original_word": "0x46031543",
+          "R5900": "div.s       $f21, $f2, $f3"
+        },
+        {
+          "address": "0x003598c0",
+          "file_offset": 2468032,
+          "original_word": "0x1040001f",
+          "R5900": "beqz        $v0, . + 4 + (0x1F << 2)"
+        },
+        {
+          "address": "0x003598c4",
+          "file_offset": 2468036,
+          "original_word": "0x46000d02",
+          "R5900": "mul.s       $f20, $f1, $f0"
+        }
+      ]
+    },
+    {
+      "role": "sprite_input_size_fields",
+      "instructions": [
+        {
+          "address": "0x00359a70",
+          "file_offset": 2468464,
+          "original_word": "0x4614a802",
+          "R5900": "mul.s       $f0, $f21, $f20"
+        },
+        {
+          "address": "0x00359a74",
+          "file_offset": 2468468,
+          "original_word": "0x02621021",
+          "R5900": "addu        $v0, $s3, $v0"
+        },
+        {
+          "address": "0x00359a78",
+          "file_offset": 2468472,
+          "original_word": "0x4614b082",
+          "R5900": "mul.s       $f2, $f22, $f20"
+        },
+        {
+          "address": "0x00359a7c",
+          "file_offset": 2468476,
+          "original_word": "0xc4410000",
+          "R5900": "lwc1        $f1, 0x0($v0)"
+        },
+        {
+          "address": "0x00359a80",
+          "file_offset": 2468480,
+          "original_word": "0x26310001",
+          "R5900": "addiu       $s1, $s1, 0x1"
+        },
+        {
+          "address": "0x00359a84",
+          "file_offset": 2468484,
+          "original_word": "0xe7a00004",
+          "R5900": "swc1        $f0, 0x4($sp)"
+        },
+        {
+          "address": "0x00359a88",
+          "file_offset": 2468488,
+          "original_word": "0xe7a20000",
+          "R5900": "swc1        $f2, 0x0($sp)"
+        },
+        {
+          "address": "0x00359a8c",
+          "file_offset": 2468492,
+          "original_word": "0xe7a1001c",
+          "R5900": "swc1        $f1, 0x1C($sp)"
+        }
+      ]
+    }
+  ],
+  "string_anchors": [
+    {
+      "address": "0x00486140",
+      "file_offset": 3699008,
+      "text": "$detail(grass)"
+    },
+    {
+      "address": "0x00486150",
+      "file_offset": 3699024,
+      "text": "$detail(shrubs)"
+    },
+    {
+      "address": "0x00486160",
+      "file_offset": 3699040,
+      "text": "$detail(stones)"
+    },
+    {
+      "address": "0x00486170",
+      "file_offset": 3699056,
+      "text": "$detail(none)"
+    },
+    {
+      "address": "0x00486180",
+      "file_offset": 3699072,
+      "text": "particles/bush1"
+    },
+    {
+      "address": "0x00486190",
+      "file_offset": 3699088,
+      "text": "particles/grass1"
+    }
+  ],
+  "instructions_checked": 46,
+  "evidence_grade": "CONFIRMED_BY_EXE",
+  "Ghidra_status": "Reused frozen GRASS1 function contracts; no new pseudocode export required",
+  "live_PS2_residency": "UNKNOWN"
+}

@@ -1,0 +1,466 @@
+{
+  "schema_version": 1,
+  "phase": "PS2-GRASS2 source recheck",
+  "canonical_identity_verified": true,
+  "source_psm": {
+    "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY3\\TURKEY3.PSM",
+    "offset": 1176335774,
+    "stored_size": 2327913,
+    "directory_size_0x08": 2327913,
+    "unpacked_size": 4086061,
+    "compression": "packfs_lzo",
+    "stored_sha256": "2a074ce9562a59914b0c11a2ed2f06dffbc6f9440de4347e6f9452fa4a1646b6",
+    "payload_sha256": "dd274ac1cb56c16d35410fbe2e8e3771a750b47710b747fddc70604fdb3d59fc",
+    "evidence": "CONFIRMED_BY_BOTH",
+    "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+  },
+  "PS2_materials": [
+    {
+      "id": 0,
+      "offset": 3811247,
+      "name": "$surfacetype(grass) ",
+      "authored_detail": null,
+      "interned_token": "$detail(none)",
+      "detail_category": "none",
+      "point_pool_index": -1,
+      "default_applied": true,
+      "grass_off_present": false,
+      "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+      "bound_triangles": 2231,
+      "slope_category_eligible": 0
+    },
+    {
+      "id": 1,
+      "offset": 3811273,
+      "name": "$surfacetype(gravel) ",
+      "authored_detail": null,
+      "interned_token": "$detail(none)",
+      "detail_category": "none",
+      "point_pool_index": -1,
+      "default_applied": true,
+      "grass_off_present": false,
+      "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+      "bound_triangles": 4926,
+      "slope_category_eligible": 0
+    },
+    {
+      "id": 2,
+      "offset": 3811300,
+      "name": "$surfacetype(gravel) $detail(grass) ",
+      "authored_detail": "$detail(grass)",
+      "interned_token": "$detail(grass)",
+      "detail_category": "grass",
+      "point_pool_index": 1,
+      "default_applied": false,
+      "grass_off_present": false,
+      "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+      "bound_triangles": 2195,
+      "slope_category_eligible": 812
+    },
+    {
+      "id": 3,
+      "offset": 3811342,
+      "name": "$surfacetype(grass) $detail(shrubs) ",
+      "authored_detail": "$detail(shrubs)",
+      "interned_token": "$detail(shrubs)",
+      "detail_category": "shrubs",
+      "point_pool_index": 0,
+      "default_applied": false,
+      "grass_off_present": false,
+      "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+      "bound_triangles": 2204,
+      "slope_category_eligible": 1003
+    },
+    {
+      "id": 4,
+      "offset": 3811384,
+      "name": "$surfacetype(harddirt) $detail(shrubs) ",
+      "authored_detail": "$detail(shrubs)",
+      "interned_token": "$detail(shrubs)",
+      "detail_category": "shrubs",
+      "point_pool_index": 0,
+      "default_applied": false,
+      "grass_off_present": false,
+      "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+      "bound_triangles": 4548,
+      "slope_category_eligible": 2832
+    },
+    {
+      "id": 5,
+      "offset": 3811429,
+      "name": "$surfacetype(harddirt) $detail(grass) ",
+      "authored_detail": "$detail(grass)",
+      "interned_token": "$detail(grass)",
+      "detail_category": "grass",
+      "point_pool_index": 1,
+      "default_applied": false,
+      "grass_off_present": false,
+      "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+      "bound_triangles": 2840,
+      "slope_category_eligible": 2100
+    },
+    {
+      "id": 6,
+      "offset": 3811473,
+      "name": "$surfacetype(harddirt) $detail(none) ",
+      "authored_detail": "$detail(none)",
+      "interned_token": "$detail(none)",
+      "detail_category": "none",
+      "point_pool_index": -1,
+      "default_applied": false,
+      "grass_off_present": false,
+      "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+      "bound_triangles": 638,
+      "slope_category_eligible": 0
+    },
+    {
+      "id": 7,
+      "offset": 3811516,
+      "name": "$surfacetype(harddirt) ",
+      "authored_detail": null,
+      "interned_token": "$detail(none)",
+      "detail_category": "none",
+      "point_pool_index": -1,
+      "default_applied": true,
+      "grass_off_present": false,
+      "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+      "bound_triangles": 1115,
+      "slope_category_eligible": 0
+    },
+    {
+      "id": 8,
+      "offset": 3811545,
+      "name": "$surfacetype(gravel) $detail(none) ",
+      "authored_detail": "$detail(none)",
+      "interned_token": "$detail(none)",
+      "detail_category": "none",
+      "point_pool_index": -1,
+      "default_applied": false,
+      "grass_off_present": false,
+      "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+      "bound_triangles": 539,
+      "slope_category_eligible": 0
+    },
+    {
+      "id": 9,
+      "offset": 3811586,
+      "name": "$surfacetype(tarmac) ",
+      "authored_detail": null,
+      "interned_token": "$detail(none)",
+      "detail_category": "none",
+      "point_pool_index": -1,
+      "default_applied": true,
+      "grass_off_present": false,
+      "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+      "bound_triangles": 35,
+      "slope_category_eligible": 0
+    },
+    {
+      "id": 10,
+      "offset": 3811613,
+      "name": "$surfacetype(water) ",
+      "authored_detail": null,
+      "interned_token": "$detail(none)",
+      "detail_category": "none",
+      "point_pool_index": -1,
+      "default_applied": true,
+      "grass_off_present": false,
+      "grass_off_override": "NO_BRANCH_IN_TRACED_DETAIL_CONSUMER",
+      "bound_triangles": 745,
+      "slope_category_eligible": 0
+    }
+  ],
+  "category_bound_triangles": {
+    "grass": 5035,
+    "none": 10229,
+    "shrubs": 6752
+  },
+  "textures": {
+    "shrubs": {
+      "path": "\\TNG\\DATAPSM\\PARTICLES\\BUSH1.GXI",
+      "provenance": {
+        "path": "\\TNG\\DATAPSM\\PARTICLES\\BUSH1.GXI",
+        "offset": 1210621196,
+        "stored_size": 4104,
+        "directory_size_0x08": 4104,
+        "unpacked_size": 4104,
+        "compression": "raw",
+        "stored_sha256": "2e4178614fbcbb3dbc3eaf5931001d2a566e76d59ef6adf7e66cd372556d40e9",
+        "payload_sha256": "2e4178614fbcbb3dbc3eaf5931001d2a566e76d59ef6adf7e66cd372556d40e9",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "gxi": {
+          "width": 32,
+          "height": 32,
+          "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+          "channel_order": "UNKNOWN",
+          "size_equation_match": true
+        }
+      },
+      "format": {
+        "format": "PS2_SIMPLE_GXI_13039",
+        "magic": 77881,
+        "width": 32,
+        "height": 32,
+        "size": 4104,
+        "sha256": "2e4178614fbcbb3dbc3eaf5931001d2a566e76d59ef6adf7e66cd372556d40e9",
+        "bytes_per_pixel": 4,
+        "channel_order": "RGBA",
+        "channel_order_evidence": "CONFIRMED_BY_VISUAL_RECONSTRUCTION",
+        "alpha_min": 0,
+        "alpha_max": 255,
+        "alpha_unique_count": 213,
+        "alpha_nonzero_pixels": 674,
+        "average_rgba": [
+          86.975586,
+          99.547852,
+          72.408203,
+          61.422852
+        ]
+      },
+      "RGBA_sha256": "78c44de84f317b013a75deb9e7cf179494e8400a2b5e04329fa9b88ab531135b"
+    },
+    "grass": {
+      "path": "\\TNG\\DATAPSM\\PARTICLES\\GRASS1.GXI",
+      "provenance": {
+        "path": "\\TNG\\DATAPSM\\PARTICLES\\GRASS1.GXI",
+        "offset": 1210642564,
+        "stored_size": 4104,
+        "directory_size_0x08": 4104,
+        "unpacked_size": 4104,
+        "compression": "raw",
+        "stored_sha256": "519908ac79ca57591a8a38d3629286e25ffc51539705342864a5056785427eb6",
+        "payload_sha256": "519908ac79ca57591a8a38d3629286e25ffc51539705342864a5056785427eb6",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "gxi": {
+          "width": 32,
+          "height": 32,
+          "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+          "channel_order": "UNKNOWN",
+          "size_equation_match": true
+        }
+      },
+      "format": {
+        "format": "PS2_SIMPLE_GXI_13039",
+        "magic": 77881,
+        "width": 32,
+        "height": 32,
+        "size": 4104,
+        "sha256": "519908ac79ca57591a8a38d3629286e25ffc51539705342864a5056785427eb6",
+        "bytes_per_pixel": 4,
+        "channel_order": "RGBA",
+        "channel_order_evidence": "CONFIRMED_BY_VISUAL_RECONSTRUCTION",
+        "alpha_min": 0,
+        "alpha_max": 255,
+        "alpha_unique_count": 223,
+        "alpha_nonzero_pixels": 738,
+        "average_rgba": [
+          69.880859,
+          75.876953,
+          33.194336,
+          65.43457
+        ]
+      },
+      "RGBA_sha256": "073b8da07f04214462441634ee2392f829cd20b688ecdb3de760090b966e93a9"
+    }
+  },
+  "PC_source": {
+    "path": "DataGx\\Course\\Turkey3\\turkey3.dx",
+    "sha256": "724a69da708a124f7dbfd666b7ad8d391bcaf22ff94bd2c91143e305749cf7f8",
+    "size": 10055607,
+    "txt_path": "DataGx\\Course\\Turkey3\\turkey3.txt",
+    "txt_sha256": "b962685b6a70ca141fbbb62508626e5d99ec6816efe8308adef16d88f4a8a8b1",
+    "position_array_offset": 16,
+    "retail_identity": "Fresh SHA matches independent frozen WATER1 source identities",
+    "draws": 939,
+    "vertices": 54589,
+    "triangles": 42237,
+    "coverage": "VALIDATED_COMPLETE_DISJOINT",
+    "txt_mesh_records": 2574,
+    "txt_named_nodes": 2881,
+    "txt_to_compiled_face_mapping": "UNKNOWN: source spans are not DX face IDs",
+    "txt_dinghy_leads": [],
+    "coordinates": "GAME_SOURCE"
+  },
+  "alignment": {
+    "transform": "IDENTITY_IN_SOURCE_FRAME; NO_FIT",
+    "independent_anchor": "ORDERED_RACELINE",
+    "route_residual": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 420,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "ps2_route_sha256": "7c1c274cd8403bc7fcc2b5e2e8a13e57dccc44dade53a1be57d631ea073e51ce",
+    "pc_route_sha256": "9f00ef08e428f14f2e7aabb1c564b831d283dc3ea23b2fe68350a6bbd5384822",
+    "authored_landscape_matrices": [
+      [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    ],
+    "runtime_transform": "UNKNOWN",
+    "evidence_grade": "CONFIRMED_BY_BYTES"
+  },
+  "categories": {
+    "grass": {
+      "eligible_triangles": 2912,
+      "exact_PC_matched_triangles": 2797,
+      "excluded_nonexact_triangles": 115,
+      "maximum_corner_error": 0.00067138671875,
+      "matched_PC_draw_count": 154,
+      "full_triangle_activation_points": 64900,
+      "points_per_material": {
+        "2": 20200,
+        "5": 44700
+      },
+      "geometry_area_host_double": 115516.66876885472,
+      "source_bounds": {
+        "min": [
+          1933.927001953125,
+          14.421902656555176,
+          -1093.181640625
+        ],
+        "max": [
+          3501.323974609375,
+          59.72749328613281,
+          626.2568969726562
+        ]
+      },
+      "point_bounds": {
+        "min": [
+          1933.5,
+          14.679052352905273,
+          -1093.7271728515625
+        ],
+        "max": [
+          3499.720458984375,
+          60.104434967041016,
+          624.218017578125
+        ]
+      },
+      "matching": {
+        "exact_candidate_pairs": 2827,
+        "surface_aabb_candidate_pairs": 2141,
+        "projected_overlap_pairs": 11,
+        "spatial_cell": 32.0,
+        "index_cells": 4866
+      },
+      "elapsed_seconds": 1.3038451001048088
+    },
+    "shrubs": {
+      "eligible_triangles": 3835,
+      "exact_PC_matched_triangles": 3702,
+      "excluded_nonexact_triangles": 133,
+      "maximum_corner_error": 0.0008544921875,
+      "matched_PC_draw_count": 199,
+      "full_triangle_activation_points": 146498,
+      "points_per_material": {
+        "3": 61937,
+        "4": 84561
+      },
+      "geometry_area_host_double": 261014.80504118872,
+      "source_bounds": {
+        "min": [
+          1918.882568359375,
+          13.708597183227539,
+          -1146.4327392578125
+        ],
+        "max": [
+          3582.85107421875,
+          92.602294921875,
+          617.0808715820312
+        ]
+      },
+      "point_bounds": {
+        "min": [
+          1918.2088623046875,
+          14.133390426635742,
+          -1145.59716796875
+        ],
+        "max": [
+          3580.53466796875,
+          93.1405029296875,
+          614.583740234375
+        ]
+      },
+      "matching": {
+        "exact_candidate_pairs": 3720,
+        "surface_aabb_candidate_pairs": 2175,
+        "projected_overlap_pairs": 0,
+        "spatial_cell": 32.0,
+        "index_cells": 4866
+      },
+      "elapsed_seconds": 1.8766298999544233
+    }
+  },
+  "algorithm": {
+    "pitch": 1.3300000429153442,
+    "lift": {
+      "shrubs": 0.4000000059604645,
+      "grass": 0.33000001311302185
+    },
+    "jitter": {
+      "seed": 12543,
+      "seed_provenance": "ELF 3b78c8 delay slot 3b78cc",
+      "rng_calls_through_jitter": 6970,
+      "state_after_jitter": 1125623325,
+      "not_included": "Later normalized direction table 432e88; unused by traced placement"
+    },
+    "precision": "FLOAT32_RECONSTRUCTION",
+    "activation": "SYNTHETIC_FULL_TRIANGLE_ACTIVATION",
+    "rounding": "nearest_even NOT_LIVE_FCSR"
+  },
+  "elapsed_seconds": 5.989077600184828,
+  "evidence": "CONFIRMED_BY_BOTH",
+  "runtime_shader_texture_correspondence": "NOT_CAPTURED"
+}

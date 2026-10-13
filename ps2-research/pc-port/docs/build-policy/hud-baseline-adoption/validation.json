@@ -1,0 +1,29 @@
+{
+  "source_adoption": "PASS",
+  "exact_old_patch_to_current_git_blob_check": "PASS",
+  "strict_patch_application": "PASS",
+  "canonical_stage_ownership_manifest": "PASS",
+  "baseline_generator_twice": "PASS",
+  "ps2_generator_twice": "PASS",
+  "focused_unittest": {
+    "test_build_roots": 6,
+    "test_renderer_tree_lock": 8,
+    "passed": 14,
+    "failed": 0
+  },
+  "compileall": "PASS",
+  "renderer_worktree_status": "CLEAN",
+  "dll_build": "NOT_PERFORMED_IN_THIS_SUBTASK",
+  "commands_executed": [
+    "python -m unittest discover -s ps2-research/pc-port/tests -p test_build_roots.py -v",
+    "python -m unittest discover -s ps2-research/pc-port/tests -p test_renderer_tree_lock.py -v",
+    "python -m compileall -q ps2-research/pc-port/overlay/build_overlay.py ps2-research/pc-port/tests/test_build_roots.py"
+  ],
+  "notes": [
+    "Source-only candidate under canonical .staging validated before synchronization",
+    "No new CMake roots",
+    "No original renderer edits",
+    "No auto-baseline rebinding",
+    "No legacy directory deletion in this subtask"
+  ]
+}

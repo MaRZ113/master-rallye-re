@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "phase": "PS2-REFLECTION-PORT1",
+  "ps2_input_identity": {
+    "SLES_509.06": {
+      "size": 3739852,
+      "sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2"
+    },
+    "SYSTEM.CNF": {
+      "size": 56,
+      "sha256": "db08eef06278820a562f9cdacd6a2d5d2bb31870e7cf3a51e83daee3a90c5df2"
+    },
+    "TNG.PAK": {
+      "size": 135556,
+      "sha256": "d98c7cf1049a8a3bc2f90a528a2b6f52cd43c16c2e0564830d5ecb9c592ab28d"
+    },
+    "TNG.000": {
+      "size": 1225915283,
+      "sha256": "004ac1676376275bf40c1fd5c1c4a9dcfaae870bf1a7916434eb73b0b1faff86"
+    }
+  },
+  "ps2_material": {
+    "resource": "\\TNG\\DATAPSM\\VEHICLES\\TATA\\CAR.PSM",
+    "provenance": {
+      "path": "\\TNG\\DATAPSM\\VEHICLES\\TATA\\CAR.PSM",
+      "offset": 1217242555,
+      "stored_size": 103131,
+      "directory_size_0x08": 103131,
+      "unpacked_size": 180332,
+      "compression": "packfs_lzo",
+      "stored_sha256": "755f913c3914eae4909ef8295f4e335bba7bef3a60aaca6171260c926ad04511",
+      "payload_sha256": "9397b4b9b60567a3ac3f5e0ac752a6794b3fea9ace8c2bb524db53bb565e6c84",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+    },
+    "mesh_path": "root.3",
+    "node_offset": 170755,
+    "material": "$shader(carshiny)",
+    "material_offset": 170849,
+    "textures": [
+      {
+        "slot": 0,
+        "name": "commontextures\\tatabon-tga",
+        "flags": [
+          false,
+          false,
+          false
+        ],
+        "offset": 170777
+      },
+      {
+        "slot": 1,
+        "name": "commontextures\\whitepaint-tga",
+        "flags": [
+          false,
+          false,
+          false
+        ],
+        "offset": 170813
+      }
+    ],
+    "source_triangles": 57,
+    "contract": {
+      "authored_shader": "carshiny",
+      "interned_shader": "carshiny",
+      "mode": 3,
+      "authored_secondary": "commontextures\\whitepaint-tga",
+      "effective_secondary": "CommonTextures\\rendertarget64x64",
+      "rubber_substring_preserved": false,
+      "reflection_contract_known": true,
+      "environment_selector": 1,
+      "handler": "0x3ade58",
+      "fallback": null,
+      "evidence_grade": "CONFIRMED_BY_EXE"
+    },
+    "strip_control": {
+      "suppressed_triples": 4,
+      "diagnostic_degenerate_triples": 0
+    }
+  },
+  "pc_material": {
+    "source": "DataGx/Vehicles/Tata/car.dx",
+    "sha256": "45b7bfba6938e259c0ac6d79a42a878a8c66b1e53547a53a6d23343092fb34cb",
+    "record_index": 19,
+    "record_path": "19",
+    "record_offset": 95648,
+    "vertex_base": 1524,
+    "vertex_count": 48,
+    "index_start": 4089,
+    "index_count": 165,
+    "source_triangles": 55,
+    "texture_slots": [
+      "tatabon-tga",
+      "whitepaint-tga",
+      "Null"
+    ],
+    "flags_hex": "00000101",
+    "diffuse_alpha_values": [
+      255
+    ],
+    "geometry_sha256": "f80ae53d8c8691ebb8387680b0555343e10100459949c56e3338c484b680e669",
+    "signature_unique_in_car_dx": [
+      19
+    ]
+  },
+  "geometry_comparison": {
+    "coordinates": "MODEL_LOCAL_SOURCE",
+    "tolerance": 0.001,
+    "ps2_faces_matching_pc": 55,
+    "pc_faces_matching_ps2": 55,
+    "same_geometry_not_required": true,
+    "runtime_submission": "NOT_YET_CAPTURED_FOR_THIS_PILOT"
+  },
+  "env_source": {
+    "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\ENVSOURCE64X64.GXI",
+    "provenance": {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\ENVSOURCE64X64.GXI",
+      "offset": 1036874990,
+      "stored_size": 10660,
+      "directory_size_0x08": 10660,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "e5c53cf4f958c19d00d13eb971d2964e5031956456e02ea9a97fa40e7d4e38dd",
+      "payload_sha256": "aa15159a5f3f668244dd3b1c5c7b8322d8f41ac626c3a1741222b797252ad1e4",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      }
+    },
+    "width": 64,
+    "height": 64,
+    "channel_order": "RGBA",
+    "row_order": "original row order retained",
+    "conversion": "BGRA; RGB=floor(original RGB*80/128); alpha=255",
+    "precision": "APPROXIMATE_D3D8_IMAGE_CONVERSION",
+    "dynamic_framebuffer_component": "NOT_IMPLEMENTED"
+  },
+  "evidence_grade": "CONFIRMED_BY_BOTH",
+  "runtime_validation": "NOT_PERFORMED"
+}

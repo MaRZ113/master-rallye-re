@@ -1,0 +1,16 @@
+{
+  "same_build_directories": true,
+  "elapsed_seconds": 33.744,
+  "object_files": 143,
+  "changed_object_timestamps": [],
+  "changed_source_timestamps": [],
+  "dll_hashes_before": {
+    "baseline": "85244faa5c9fcc75d1351977cf8dfefd9ff35791274efaeaed740a342bc50a32",
+    "ps2-enabled": "aca86773b3417f8abc2a9e7e3370d3cae63d83e1a25112d3c755131787a8164f"
+  },
+  "dll_hashes_after": {
+    "baseline": "85244faa5c9fcc75d1351977cf8dfefd9ff35791274efaeaed740a342bc50a32",
+    "ps2-enabled": "aca86773b3417f8abc2a9e7e3370d3cae63d83e1a25112d3c755131787a8164f"
+  },
+  "dll_hashes_unchanged": true
+}

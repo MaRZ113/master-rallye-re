@@ -1,0 +1,854 @@
+--- a/modernization/renderer/CMakeLists.txt
++++ b/modernization/renderer/CMakeLists.txt
+@@ -1,5 +1,6 @@
+ cmake_minimum_required(VERSION 3.21)
+ project(MRRRenderer LANGUAGES CXX)
++option(MRR_ENABLE_PS2_PORT "Build the existing proxy with the opt-in PS2 port extension" OFF)
+ if(NOT WIN32 OR NOT CMAKE_SIZEOF_VOID_P EQUAL 4)
+  message(FATAL_ERROR "Configure a Windows x86/Win32 build")
+ endif()
+@@ -11,6 +12,15 @@
+ set(CORE src/forwarders.cpp src/wrappers.cpp src/state_tracker.cpp src/trace.cpp src/provenance.cpp src/guids.cpp src/visual_policy.cpp src/visual_wrappers.cpp src/vehicle_classifier.cpp src/vehicle_semantics.cpp src/reflection_scope.cpp src/game_fov.cpp src/free_camera.cpp src/camera_bookmarks.cpp src/clean_view.cpp src/hud_visibility.cpp src/camera_bridge.cpp src/camera_probe.cpp src/race_epoch.cpp src/race_bridges.cpp src/race_observer.cpp src/physics_probe_model.cpp src/physics_probe.cpp src/road_target_model.cpp src/road_teleport_model.cpp src/road_teleport_events.cpp src/quality.cpp src/quality_wrappers.cpp src/compatibility.cpp src/menu_freeze.cpp src/legacy_attract_guard.cpp src/broker_null_guard.cpp src/ui_margins.cpp src/foliage_probe.cpp src/buffer_provenance.cpp)
+ add_library(proxy_core STATIC ${CORE})
+ target_include_directories(proxy_core PUBLIC include vendor/d3d8)
++if(MRR_ENABLE_PS2_PORT)
++ if(NOT MRR_PS2_PORT_ROOT)
++  message(FATAL_ERROR "MRR_ENABLE_PS2_PORT requires -DMRR_PS2_PORT_ROOT=<staged pc-port root>")
++ endif()
++ target_sources(proxy_core PRIVATE "${MRR_PS2_PORT_ROOT}/renderer/ps2_port_extension.cpp" "${MRR_PS2_PORT_ROOT}/renderer/reflection_pilot.cpp" "${MRR_PS2_PORT_ROOT}/renderer/reflection_capture.cpp"
++    "${MRR_PS2_PORT_ROOT}/renderer/course_objects.cpp" "${MRR_PS2_PORT_ROOT}/renderer/grass_pilot.cpp")
++ target_include_directories(proxy_core PRIVATE "${MRR_PS2_PORT_ROOT}/renderer")
++ target_compile_definitions(proxy_core PUBLIC MRR_ENABLE_PS2_PORT=1)
++endif()
+ target_compile_options(proxy_core PRIVATE /W4 /permissive- /fp:strict /EHsc /Zi)
+ target_link_libraries(proxy_core PUBLIC bcrypt user32)
+ add_library(d3d8 SHARED src/dllmain.cpp src/real_d3d8.cpp exports.def)
+@@ -115,4 +125,35 @@
+  target_include_directories(physics_transaction_abi_tests PRIVATE include vendor/d3d8)
+  target_compile_options(physics_transaction_abi_tests PRIVATE /W4 /fp:strict /EHsc)
+  add_test(NAME physics_transaction_abi_contracts COMMAND physics_transaction_abi_tests)
++ if(MRR_ENABLE_PS2_PORT)
++  add_executable(ps2_port_extension_tests "${MRR_PS2_PORT_ROOT}/tests/ps2_port_extension_tests.cpp")
++  target_include_directories(ps2_port_extension_tests PRIVATE include vendor/d3d8 "${MRR_PS2_PORT_ROOT}/renderer")
++  target_link_libraries(ps2_port_extension_tests PRIVATE proxy_core)
++  target_compile_options(ps2_port_extension_tests PRIVATE /W4 /fp:strict /EHsc)
++  add_test(NAME ps2_port_extension_contracts COMMAND ps2_port_extension_tests)
++  add_executable(ps2_reflection_pilot_tests "${MRR_PS2_PORT_ROOT}/tests/reflection_pilot_tests.cpp")
++  target_include_directories(ps2_reflection_pilot_tests PRIVATE include tests vendor/d3d8 "${MRR_PS2_PORT_ROOT}/renderer")
++  target_link_libraries(ps2_reflection_pilot_tests PRIVATE proxy_core)
++  target_compile_options(ps2_reflection_pilot_tests PRIVATE /W4 /fp:strict /EHsc)
++  add_test(NAME ps2_reflection_pilot_contracts COMMAND ps2_reflection_pilot_tests)
++  add_executable(ps2_reflection_capture_tests "${MRR_PS2_PORT_ROOT}/tests/reflection_capture_tests.cpp")
++  target_include_directories(ps2_reflection_capture_tests PRIVATE include tests vendor/d3d8 "${MRR_PS2_PORT_ROOT}/renderer")
++  target_link_libraries(ps2_reflection_capture_tests PRIVATE proxy_core)
++  target_compile_options(ps2_reflection_capture_tests PRIVATE /W4 /fp:strict /EHsc)
++  add_test(NAME ps2_reflection_capture_contracts COMMAND ps2_reflection_capture_tests)
++  add_executable(ps2_course_object_transaction_tests "${MRR_PS2_PORT_ROOT}/tests/course_object_transaction_tests.cpp")
++  target_include_directories(ps2_course_object_transaction_tests PRIVATE tests include vendor "${MRR_PS2_PORT_ROOT}/renderer")
++  target_link_libraries(ps2_course_object_transaction_tests PRIVATE proxy_core)
++  add_test(NAME ps2_course_object_transaction_contracts COMMAND ps2_course_object_transaction_tests)
++  add_executable(ps2_course_objects_tests "${MRR_PS2_PORT_ROOT}/tests/course_objects_tests.cpp")
++  target_include_directories(ps2_course_objects_tests PRIVATE tests include vendor "${MRR_PS2_PORT_ROOT}/renderer")
++  target_link_libraries(ps2_course_objects_tests PRIVATE proxy_core)
++  add_test(NAME ps2_course_objects_contracts COMMAND ps2_course_objects_tests)
++  add_executable(ps2_grass_pilot_tests "${MRR_PS2_PORT_ROOT}/tests/grass_pilot_tests.cpp")
++  target_include_directories(ps2_grass_pilot_tests PRIVATE tests include vendor/d3d8 "${MRR_PS2_PORT_ROOT}/renderer")
++  target_link_libraries(ps2_grass_pilot_tests PRIVATE proxy_core)
++  target_compile_options(ps2_grass_pilot_tests PRIVATE /W4 /fp:strict /EHsc)
++  add_test(NAME ps2_grass_pilot_contracts COMMAND ps2_grass_pilot_tests)
++
++ endif()
+ endif()
+--- a/modernization/renderer/include/wrappers.hpp
++++ b/modernization/renderer/include/wrappers.hpp
+@@ -15,6 +15,7 @@
+ namespace gfx2 {
+ class Device8;
+ class BufferProxyCore;
++namespace ps2port { class PS2PortExtension; }
+ struct BufferMirror;
+ enum class BufferKind;
+ class Root8 final : public IDirect3D8 {
+@@ -61,6 +62,12 @@
+  void note_stream_buffer_binding(UINT stream,void* raw,HRESULT result) noexcept;
+  void note_index_buffer_binding(void* raw,HRESULT result) noexcept;
+  bool reserve_buffer_copy_bytes(size_t bytes) noexcept;
++ bool buffer_mirroring_enabled() const noexcept;
++ void ps2_port_reset_begin() noexcept;
++ void ps2_port_reset(bool native_reset_called,bool successful) noexcept;
++#ifdef MRR_ENABLE_PS2_PORT
++ ps2port::PS2PortExtension* ps2_port() noexcept { return ps2_port_.get(); }
++#endif
+  Trace trace;
+  std::unique_ptr<QualityPipeline> quality;
+  HRESULT set_transform_at(D3DTRANSFORMSTATETYPE type,const D3DMATRIX* input,uintptr_t pc);
+@@ -175,6 +182,9 @@
+  __declspec(noinline) HRESULT STDMETHODCALLTYPE DeletePatch(UINT Handle) override;
+ private:
+  IDirect3DDevice8* real_; Root8* parent_; std::atomic<ULONG> refs_{1};
++#ifdef MRR_ENABLE_PS2_PORT
++ std::unique_ptr<ps2port::PS2PortExtension> ps2_port_;
++#endif
+  std::recursive_mutex buffer_mutex_;
+  std::unordered_map<void*,BufferProxyCore*> buffer_proxies_;
+  std::unordered_map<void*,BufferProxyCore*> buffer_proxy_interfaces_;
+--- a/modernization/renderer/src/buffer_provenance.cpp
++++ b/modernization/renderer/src/buffer_provenance.cpp
+@@ -36,7 +36,7 @@
+     registered_ = owner_->register_buffer_proxy(raw_pointer_, this);
+     if (!registered_) return;
+     if (!generation_ || !description.valid || !bytes_ ||
+-        bytes_ > MAX_BUFFER_SHADOW || !owner_->visuals.effective.foliage_diagnostics) {
++        bytes_ > MAX_BUFFER_SHADOW || !owner_->buffer_mirroring_enabled()) {
+         return;
+     }
+     mirror_ = owner_->open_buffer_mirror(raw_pointer_, kind_, generation_, bytes_, usage_, pool_);
+--- a/modernization/renderer/src/forwarders.cpp
++++ b/modernization/renderer/src/forwarders.cpp
+@@ -3,6 +3,11 @@
+ #include "provenance.hpp"
+ #include "buffer_provenance.hpp"
+ #include <intrin.h>
++#ifdef MRR_ENABLE_PS2_PORT
++#include "ps2_port_extension.hpp"
++#include "course_objects.hpp"
++#include "grass_pilot.hpp"
++#endif
+ namespace gfx2 {
+ HRESULT STDMETHODCALLTYPE Root8::RegisterSoftwareDevice(void * pInitializeFunction) {
+  return real_->RegisterSoftwareDevice(pInitializeFunction);
+@@ -198,7 +203,7 @@
+  trace.before(23, args, pc);
+  HRESULT result = real_->CreateVertexBuffer(Length, Usage, FVF, Pool, ppVertexBuffer);
+  trace.after(23, args, static_cast<uint32_t>(result), pc);
+- if(SUCCEEDED(result)&&visuals.effective.foliage_diagnostics&&ppVertexBuffer){IDirect3DVertexBuffer8* raw=nullptr;if(safe_copy(&raw,ppVertexBuffer,sizeof(raw))&&raw){auto* wrapped=wrap_vertex_buffer(raw);if(wrapped!=raw&&!safe_copy(ppVertexBuffer,&wrapped,sizeof(wrapped)))wrapped->Release();}}
++ if(SUCCEEDED(result)&&buffer_mirroring_enabled()&&ppVertexBuffer){IDirect3DVertexBuffer8* raw=nullptr;if(safe_copy(&raw,ppVertexBuffer,sizeof(raw))&&raw){auto* wrapped=wrap_vertex_buffer(raw);if(wrapped!=raw&&!safe_copy(ppVertexBuffer,&wrapped,sizeof(wrapped)))wrapped->Release();}}
+  return result;
+ }
+ HRESULT STDMETHODCALLTYPE Device8::CreateIndexBuffer(UINT Length,DWORD Usage,D3DFORMAT Format,D3DPOOL Pool,IDirect3DIndexBuffer8 ** ppIndexBuffer) {
+@@ -208,7 +213,7 @@
+  trace.before(24, args, pc);
+  HRESULT result = real_->CreateIndexBuffer(Length, Usage, Format, Pool, ppIndexBuffer);
+  trace.after(24, args, static_cast<uint32_t>(result), pc);
+- if(SUCCEEDED(result)&&visuals.effective.foliage_diagnostics&&ppIndexBuffer){IDirect3DIndexBuffer8* raw=nullptr;if(safe_copy(&raw,ppIndexBuffer,sizeof(raw))&&raw){auto* wrapped=wrap_index_buffer(raw);if(wrapped!=raw&&!safe_copy(ppIndexBuffer,&wrapped,sizeof(wrapped)))wrapped->Release();}}
++ if(SUCCEEDED(result)&&buffer_mirroring_enabled()&&ppIndexBuffer){IDirect3DIndexBuffer8* raw=nullptr;if(safe_copy(&raw,ppIndexBuffer,sizeof(raw))&&raw){auto* wrapped=wrap_index_buffer(raw);if(wrapped!=raw&&!safe_copy(ppIndexBuffer,&wrapped,sizeof(wrapped)))wrapped->Release();}}
+  return result;
+ }
+ HRESULT STDMETHODCALLTYPE Device8::CreateRenderTarget(UINT Width,UINT Height,D3DFORMAT Format,D3DMULTISAMPLE_TYPE MultiSample,WINBOOL Lockable,IDirect3DSurface8 ** ppSurface) {
+@@ -269,6 +274,14 @@
+  auto guard = trace.guard();
+  const auto args = pack(pRenderTarget, pNewZStencil);
+  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
++#ifdef MRR_ENABLE_PS2_PORT
++ HRESULT ps2_safe=repair_reflection();
++ if(FAILED(ps2_safe))return ps2_safe;
++#endif
++#ifdef MRR_ENABLE_PS2_PORT
++ if(ps2_port_&&ps2_port_->course_objects())ps2_port_->course_objects()->proof.invalidate_depth();
++ if(ps2_port_)for(auto* detail:ps2_port_->ground_details())if(detail)detail->proof.invalidate_depth();
++#endif
+  trace.before(31, args, pc);
+  HRESULT result = real_->SetRenderTarget(pRenderTarget, pNewZStencil);
+  trace.after(31, args, static_cast<uint32_t>(result), pc);
+@@ -278,6 +291,9 @@
+  auto guard = trace.guard();
+  const auto args = pack(ppRenderTarget);
+  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
++#ifdef MRR_ENABLE_PS2_PORT
++ if(ps2_port_&&ps2_port_->native_states_pending()){HRESULT ps2_safe=repair_reflection();if(FAILED(ps2_safe))return ps2_safe;}
++#endif
+  trace.before(32, args, pc);
+  HRESULT result = real_->GetRenderTarget(ppRenderTarget);
+  trace.after(32, args, static_cast<uint32_t>(result), pc);
+@@ -287,6 +303,9 @@
+  auto guard = trace.guard();
+  const auto args = pack(ppZStencilSurface);
+  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
++#ifdef MRR_ENABLE_PS2_PORT
++ if(ps2_port_&&ps2_port_->native_states_pending()){HRESULT ps2_safe=repair_reflection();if(FAILED(ps2_safe))return ps2_safe;}
++#endif
+  trace.before(33, args, pc);
+  HRESULT result = real_->GetDepthStencilSurface(ppZStencilSurface);
+  trace.after(33, args, static_cast<uint32_t>(result), pc);
+@@ -296,6 +315,14 @@
+  auto guard = trace.guard();
+  const auto args = pack();
+  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
++#ifdef MRR_ENABLE_PS2_PORT
++ HRESULT ps2_safe=repair_reflection();
++ if(FAILED(ps2_safe))return ps2_safe;
++#endif
++#ifdef MRR_ENABLE_PS2_PORT
++ if(ps2_port_&&ps2_port_->course_objects())ps2_port_->course_objects()->proof.clear();
++ if(ps2_port_)for(auto* detail:ps2_port_->ground_details())if(detail)detail->proof.clear();
++#endif
+  trace.before(34, args, pc);
+  HRESULT result = real_->BeginScene();
+  if(SUCCEEDED(result))trace.scene_active=true;
+@@ -306,6 +333,14 @@
+  auto guard = trace.guard();
+  const auto args = pack();
+  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
++#ifdef MRR_ENABLE_PS2_PORT
++ HRESULT ps2_safe=repair_reflection();
++ if(FAILED(ps2_safe))return ps2_safe;
++#endif
++#ifdef MRR_ENABLE_PS2_PORT
++ if(ps2_port_&&ps2_port_->course_objects())ps2_port_->course_objects()->proof.clear();
++ if(ps2_port_)for(auto* detail:ps2_port_->ground_details())if(detail)detail->proof.clear();
++#endif
+  trace.before(35, args, pc);
+  HRESULT result = real_->EndScene();
+  trace.scene_active=false;
+@@ -316,6 +351,14 @@
+  auto guard = trace.guard();
+  const auto args = pack(rect_count, rects, flags, color, z, stencil);
+  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
++#ifdef MRR_ENABLE_PS2_PORT
++ HRESULT ps2_safe=repair_reflection();
++ if(FAILED(ps2_safe))return ps2_safe;
++#endif
++#ifdef MRR_ENABLE_PS2_PORT
++ if((flags&D3DCLEAR_ZBUFFER)&&ps2_port_&&ps2_port_->course_objects())ps2_port_->course_objects()->proof.invalidate_depth();
++ if((flags&D3DCLEAR_ZBUFFER)&&ps2_port_)for(auto* detail:ps2_port_->ground_details())if(detail)detail->proof.invalidate_depth();
++#endif
+  trace.before(36, args, pc);
+  HRESULT result = real_->Clear(rect_count, rects, flags, color, z, stencil);
+  trace.after(36, args, static_cast<uint32_t>(result), pc);
+@@ -325,6 +368,10 @@
+  auto guard = trace.guard();
+  const auto args = pack(state, matrix);
+  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
++#ifdef MRR_ENABLE_PS2_PORT
++ HRESULT ps2_safe=repair_reflection();
++ if(FAILED(ps2_safe))return ps2_safe;
++#endif
+  trace.before(39, args, pc);
+  if(state==D3DTS_PROJECTION){HRESULT safe=stock_for_unmapped("MultiplyTransform_PROJECTION");if(FAILED(safe)){trace.after(39,args,static_cast<uint32_t>(safe),pc);return safe;}}
+  HRESULT result = real_->MultiplyTransform(state, matrix);
+@@ -407,6 +454,10 @@
+  auto guard = trace.guard();
+  const auto args = pack(State, Value);
+  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
++#ifdef MRR_ENABLE_PS2_PORT
++ HRESULT ps2_safe=repair_reflection();
++ if(FAILED(ps2_safe))return ps2_safe;
++#endif
+  trace.before(50, args, pc);
+  HRESULT result = real_->SetRenderState(State, Value);
+  trace.after(50, args, static_cast<uint32_t>(result), pc);
+@@ -416,6 +467,10 @@
+  auto guard = trace.guard();
+  const auto args = pack(State, pValue);
+  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
++#ifdef MRR_ENABLE_PS2_PORT
++ HRESULT ps2_safe=repair_reflection();
++ if(FAILED(ps2_safe))return ps2_safe;
++#endif
+  trace.before(51, args, pc);
+  HRESULT result = real_->GetRenderState(State, pValue);
+  trace.after(51, args, static_cast<uint32_t>(result), pc);
+@@ -505,6 +560,10 @@
+  auto guard = trace.guard();
+  const auto args = pack(Stage, ppTexture);
+  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
++#ifdef MRR_ENABLE_PS2_PORT
++ HRESULT ps2_safe=repair_reflection();
++ if(FAILED(ps2_safe))return ps2_safe;
++#endif
+  trace.before(60, args, pc);
+  HRESULT result = real_->GetTexture(Stage, ppTexture);
+  trace.after(60, args, static_cast<uint32_t>(result), pc);
+@@ -514,6 +573,10 @@
+  auto guard = trace.guard();
+  const auto args = pack(Stage, pTexture);
+  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
++#ifdef MRR_ENABLE_PS2_PORT
++ HRESULT ps2_safe=repair_reflection();
++ if(FAILED(ps2_safe))return ps2_safe;
++#endif
+  trace.before(61, args, pc);
+  HRESULT result = real_->SetTexture(Stage, pTexture);
+  trace.after(61, args, static_cast<uint32_t>(result), pc);
+@@ -523,6 +586,9 @@
+  auto guard = trace.guard();
+  const auto args = pack(pNumPasses);
+  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
++#ifdef MRR_ENABLE_PS2_PORT
++ if(ps2_port_&&ps2_port_->native_states_pending()){HRESULT ps2_safe=repair_reflection();if(FAILED(ps2_safe))return ps2_safe;}
++#endif
+  trace.before(64, args, pc);
+  HRESULT result = real_->ValidateDevice(pNumPasses);
+  trace.after(64, args, static_cast<uint32_t>(result), pc);
+@@ -619,6 +685,10 @@
+  auto guard = trace.guard();
+  const auto args = pack(Handle);
+  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
++#ifdef MRR_ENABLE_PS2_PORT
++ HRESULT ps2_safe=repair_reflection();
++ if(FAILED(ps2_safe))return ps2_safe;
++#endif
+  trace.before(76, args, pc);
+  HRESULT result = real_->SetVertexShader(Handle);
+  trace.after(76, args, static_cast<uint32_t>(result), pc);
+@@ -628,6 +698,10 @@
+  auto guard = trace.guard();
+  const auto args = pack(pHandle);
+  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
++#ifdef MRR_ENABLE_PS2_PORT
++ HRESULT ps2_safe=repair_reflection();
++ if(FAILED(ps2_safe))return ps2_safe;
++#endif
+  trace.before(77, args, pc);
+  HRESULT result = real_->GetVertexShader(pHandle);
+  trace.after(77, args, static_cast<uint32_t>(result), pc);
+@@ -637,6 +711,10 @@
+  auto guard = trace.guard();
+  const auto args = pack(Handle);
+  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
++#ifdef MRR_ENABLE_PS2_PORT
++ HRESULT ps2_safe=repair_reflection();
++ if(FAILED(ps2_safe))return ps2_safe;
++#endif
+  trace.before(78, args, pc);
+  HRESULT result = real_->DeleteVertexShader(Handle);
+  trace.after(78, args, static_cast<uint32_t>(result), pc);
+@@ -681,6 +759,10 @@
+ HRESULT STDMETHODCALLTYPE Device8::SetStreamSource(UINT StreamNumber,IDirect3DVertexBuffer8 * pStreamData,UINT Stride) {
+  auto guard = trace.guard();
+  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
++#ifdef MRR_ENABLE_PS2_PORT
++ HRESULT ps2_safe=repair_reflection();
++ if(FAILED(ps2_safe))return ps2_safe;
++#endif
+  auto* native_buffer=unwrap_vertex_buffer(pStreamData);
+  const auto native_args = pack(StreamNumber, native_buffer, Stride);
+  trace.before(83, native_args, pc);
+@@ -692,11 +774,15 @@
+ HRESULT STDMETHODCALLTYPE Device8::GetStreamSource(UINT StreamNumber,IDirect3DVertexBuffer8 ** ppStreamData,UINT * pStride) {
+  auto guard = trace.guard();
+  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
++#ifdef MRR_ENABLE_PS2_PORT
++ HRESULT ps2_safe=repair_reflection();
++ if(FAILED(ps2_safe))return ps2_safe;
++#endif
+  const auto args = pack(StreamNumber, ppStreamData, pStride);
+  trace.before(84, args, pc);
+  HRESULT result = real_->GetStreamSource(StreamNumber, ppStreamData, pStride);
+  trace.after(84, args, static_cast<uint32_t>(result), pc);
+- if(SUCCEEDED(result)&&visuals.effective.foliage_diagnostics&&ppStreamData){IDirect3DVertexBuffer8* raw=nullptr;if(safe_copy(&raw,ppStreamData,sizeof(raw))&&raw){auto* wrapped=wrap_vertex_buffer(raw);if(wrapped!=raw&&!safe_copy(ppStreamData,&wrapped,sizeof(wrapped)))wrapped->Release();}}
++ if(SUCCEEDED(result)&&buffer_mirroring_enabled()&&ppStreamData){IDirect3DVertexBuffer8* raw=nullptr;if(safe_copy(&raw,ppStreamData,sizeof(raw))&&raw){auto* wrapped=wrap_vertex_buffer(raw);if(wrapped!=raw&&!safe_copy(ppStreamData,&wrapped,sizeof(wrapped)))wrapped->Release();}}
+  return result;
+ }
+ HRESULT STDMETHODCALLTYPE Device8::SetIndices(IDirect3DIndexBuffer8 * pIndexData,UINT BaseVertexIndex) {
+@@ -717,7 +803,7 @@
+  trace.before(86, args, pc);
+  HRESULT result = real_->GetIndices(ppIndexData, pBaseVertexIndex);
+  trace.after(86, args, static_cast<uint32_t>(result), pc);
+- if(SUCCEEDED(result)&&visuals.effective.foliage_diagnostics&&ppIndexData){IDirect3DIndexBuffer8* raw=nullptr;if(safe_copy(&raw,ppIndexData,sizeof(raw))&&raw){auto* wrapped=wrap_index_buffer(raw);if(wrapped!=raw&&!safe_copy(ppIndexData,&wrapped,sizeof(wrapped)))wrapped->Release();}}
++ if(SUCCEEDED(result)&&buffer_mirroring_enabled()&&ppIndexData){IDirect3DIndexBuffer8* raw=nullptr;if(safe_copy(&raw,ppIndexData,sizeof(raw))&&raw){auto* wrapped=wrap_index_buffer(raw);if(wrapped!=raw&&!safe_copy(ppIndexData,&wrapped,sizeof(wrapped)))wrapped->Release();}}
+  return result;
+ }
+ HRESULT STDMETHODCALLTYPE Device8::CreatePixelShader(const DWORD *byte_code, DWORD *shader) {
+@@ -733,6 +819,10 @@
+  auto guard = trace.guard();
+  const auto args = pack(Handle);
+  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
++#ifdef MRR_ENABLE_PS2_PORT
++ HRESULT ps2_safe=repair_reflection();
++ if(FAILED(ps2_safe))return ps2_safe;
++#endif
+  trace.before(88, args, pc);
+  HRESULT result = real_->SetPixelShader(Handle);
+  trace.after(88, args, static_cast<uint32_t>(result), pc);
+@@ -742,6 +832,10 @@
+  auto guard = trace.guard();
+  const auto args = pack(pHandle);
+  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
++#ifdef MRR_ENABLE_PS2_PORT
++ HRESULT ps2_safe=repair_reflection();
++ if(FAILED(ps2_safe))return ps2_safe;
++#endif
+  trace.before(89, args, pc);
+  HRESULT result = real_->GetPixelShader(pHandle);
+  trace.after(89, args, static_cast<uint32_t>(result), pc);
+@@ -751,6 +845,10 @@
+  auto guard = trace.guard();
+  const auto args = pack(Handle);
+  const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
++#ifdef MRR_ENABLE_PS2_PORT
++ HRESULT ps2_safe=repair_reflection();
++ if(FAILED(ps2_safe))return ps2_safe;
++#endif
+  trace.before(90, args, pc);
+  HRESULT result = real_->DeletePixelShader(Handle);
+  trace.after(90, args, static_cast<uint32_t>(result), pc);
+--- a/modernization/renderer/src/quality_wrappers.cpp
++++ b/modernization/renderer/src/quality_wrappers.cpp
+@@ -1,7 +1,13 @@
+ #include "wrappers.hpp"
+ #include "buffer_provenance.hpp"
++#ifdef MRR_ENABLE_PS2_PORT
++#include "ps2_port_extension.hpp"
++#endif
+ #include <intrin.h>
+ #include <cstring>
++#ifdef MRR_ENABLE_PS2_PORT
++#include "course_objects_native_integration.hpp"
++#endif
+ namespace gfx2 {
+ void Device8::quality_trace() noexcept {
+  try{if(quality){trace.quality_metadata=quality->json();trace.ui_metadata=ui_margins.json();session().write("{\"type\":\"quality_pipeline\",\"descriptor\":"+trace.quality_metadata+",\"ui_margins\":"+trace.ui_metadata+"}");}}catch(...){}
+@@ -21,8 +27,11 @@
+  trace.scene_active=false;hud_visibility.reset_context();
+  D3DPRESENT_PARAMETERS requested{};bool requested_known=pp&&safe_copy(&requested,pp,sizeof(requested));uint64_t native_before=quality?quality->native_reset_calls:0;
+  game_fov.cancel_lifecycle("device_reset_camera_scope_cancelled");const bool race_proof_preserved=race_observer_attached&&device_reset_race_observer();if(!ui_margins.finish_frame())stock_ui("ui_native_world_restore_failed");
++ ps2_port_reset_begin();
+  HRESULT hr=quality?quality->reset(*parent_->real(),*real_,pp):real_->Reset(pp);
++ const bool native_reset_called=!quality||quality->native_reset_calls>native_before;
+  if(SUCCEEDED(hr))invalidate_all_buffer_shadows("device_reset");
++ ps2_port_reset(native_reset_called,SUCCEEDED(hr));
+  trace.after(14,args,static_cast<uint32_t>(hr),pc);
+  try{session().write("{\"type\":\"reset_policy\",\"reset_request_source\":\"normal\",\"requested\":"+(requested_known?pp_json(requested):"null")+",\"effective\":"+(quality&&quality->valid?pp_json(quality->effective):"null")+",\"echo_equivalent\":false,\"completed_race_proof_preserved\":"+(race_proof_preserved?"true":"false")+",\"camera_scope_cancelled\":true,\"native_reset_called\":"+(!quality||quality->native_reset_calls>native_before?"true":"false")+",\"native_reset_attempts\":"+std::to_string(quality?quality->native_reset_calls-native_before:1)+",\"result\":"+std::to_string(static_cast<uint32_t>(hr))+"}");}catch(...){}
+ 
+@@ -32,6 +41,9 @@
+ }
+ HRESULT STDMETHODCALLTYPE Device8::Present(const RECT* source,const RECT* destination,HWND window,const RGNDATA* dirty){
+  auto guard=trace.guard();const auto args=pack(source,destination,window,dirty);auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(15,args,pc);
++#ifdef MRR_ENABLE_PS2_PORT
++ if(ps2_port()&&ps2_port()->native_states_pending()){HRESULT safe=repair_reflection();if(FAILED(safe))return safe;}
++#endif
+  HWND hud_window=window;
+  if(!hud_window&&quality)hud_window=quality->effective.hDeviceWindow?quality->effective.hDeviceWindow:quality->focus;
+  const bool hud_focused=hud_window&&IsWindow(hud_window)&&!IsIconic(hud_window)&&GetForegroundWindow()==hud_window;
+@@ -44,10 +56,23 @@
+   quality->aa_hazard=true;try{session().write("{\"type\":\"msaa_present_hazard\",\"reason\":\"non_null_present_arguments_native_hresult_preserved\"}");}catch(...){}
+  }
+  if(quality){quality->free_camera_cursor=game_fov.free_camera_active();quality->cursor_tick();}
++#ifdef MRR_ENABLE_PS2_PORT
++ if(auto* extension=ps2_port();extension&&extension->pixel_probe_frame_active(trace.frame_number())){
++  const uint64_t pixel_frame=trace.frame_number();
++  const uint32_t draw_count=extension->indexed_draw_count(pixel_frame);
++  extension->capture_pixel_checkpoint(*real_,"before_present",pixel_frame,UINT32_MAX,UINT32_MAX,0,0,0,0,E_PENDING,false,trace.scene_active,draw_count);
++  extension->finish_pixel_probe_frame(*real_,pixel_frame,trace.scene_active);
++  try{session().write(extension->pixel_probe_json());}catch(...){}
++ }
++#endif
+  HRESULT hr=real_->Present(source,destination,window,dirty);ui_margins.present_completed(SUCCEEDED(hr));trace.after(15,args,static_cast<uint32_t>(hr),pc);hud_visibility.end_scene();hud_visibility.finish_frame();ui_margins.capture_window(trace.control.active,trace.frame_number(),trace.device_id(),trace.control.active?"active":"present");return hr;
+ }
+ HRESULT STDMETHODCALLTYPE Device8::SetViewport(const D3DVIEWPORT8* input){
+- auto guard=trace.guard();auto args=pack(input);auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(40,args,pc);
++ auto guard=trace.guard();
++#ifdef MRR_ENABLE_PS2_PORT
++ if(ps2_port()&&ps2_port()->native_states_pending()){HRESULT safe=repair_reflection();if(FAILED(safe))return safe;}
++#endif
++ auto args=pack(input);auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(40,args,pc);
+  D3DVIEWPORT8 original{},changed{};bool rewrite=quality&&safe_copy(&original,input,sizeof(original))&&quality->viewport(original,changed)&&std::memcmp(&original,&changed,sizeof(original));
+  const auto* forwarded=rewrite?&changed:input;auto native=pack(forwarded);HRESULT hr=real_->SetViewport(forwarded);
+  if(FAILED(hr)&&rewrite){trace.after(40,native,static_cast<uint32_t>(hr),pc,&native,16,false,true);native=args;rewrite=false;hr=real_->SetViewport(input);}
+@@ -63,7 +88,11 @@
+  return hr;
+ }
+ HRESULT STDMETHODCALLTYPE Device8::GetViewport(D3DVIEWPORT8* out){
+- auto guard=trace.guard();auto args=pack(out);auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(41,args,pc);
++ auto guard=trace.guard();
++#ifdef MRR_ENABLE_PS2_PORT
++ if(ps2_port()&&ps2_port()->native_states_pending()){HRESULT safe=repair_reflection();if(FAILED(safe))return safe;}
++#endif
++ auto args=pack(out);auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(41,args,pc);
+  HRESULT hr=real_->GetViewport(out);D3DVIEWPORT8 native{};bool virtualized=false;
+  if(SUCCEEDED(hr)&&safe_copy(&native,out,sizeof(native))&&trace.shadow.bindings.viewport.known&&trace.effective_shadow.bindings.viewport.known&&std::memcmp(&trace.shadow.bindings.viewport.value,&trace.effective_shadow.bindings.viewport.value,sizeof(native)))virtualized=safe_copy(out,&trace.shadow.bindings.viewport.value,sizeof(native));
+  auto effective=virtualized?pack(&native):args;trace.after(41,args,static_cast<uint32_t>(hr),pc,&effective,virtualized?16:0);return hr;
+--- a/modernization/renderer/src/visual_wrappers.cpp
++++ b/modernization/renderer/src/visual_wrappers.cpp
+@@ -3,6 +3,15 @@
+ #include "camera_probe.hpp"
+ #include <intrin.h>
+ #include <cstring>
++#ifdef MRR_ENABLE_PS2_PORT
++#include "ps2_port_extension.hpp"
++#include "reflection_native_integration.hpp"
++#include "grass_native_integration.hpp"
++#include "course_objects_native_integration.hpp"
++#include "course_objects_native_integration.hpp"
++#include "buffer_provenance.hpp"
++#include "provenance.hpp"
++#endif
+ namespace gfx2 {
+ namespace {
+ bool site(uintptr_t pc,uint32_t& rva) noexcept {
+@@ -11,8 +20,76 @@
+  auto base=reinterpret_cast<uintptr_t>(module);if(pc<base||pc-base>UINT32_MAX)return false;rva=static_cast<uint32_t>(pc-base);return true;
+ }
+ }
++#ifdef MRR_ENABLE_PS2_PORT
++namespace {
++template<class T> struct PilotNativeRef { T* value=nullptr; ~PilotNativeRef(){if(value)value->Release();} };
++constexpr D3DRENDERSTATETYPE PILOT_STATES[]={D3DRS_ALPHATESTENABLE,D3DRS_ALPHABLENDENABLE,D3DRS_SRCBLEND,D3DRS_DESTBLEND,D3DRS_ZWRITEENABLE};
++
++bool snapshot_ps2_draw(Device8& device,D3DPRIMITIVETYPE type,UINT min_index,UINT vertices,
++                       UINT start,UINT count,ps2port::DrawSnapshot& out) noexcept {
++ if(type!=D3DPT_TRIANGLELIST||count!=48||!vertices||vertices>2048)return false;
++ out={};out.supported_build=session().target;out.device_id=device.trace.device_id();
++ if(auto* extension=device.ps2_port())out.reset_generation=extension->reset_generation();
++ const uintptr_t image=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));uintptr_t camera_manager=0,camera=0;uint32_t cameras=0;
++ if(image==0x00400000&&safe_copy(&camera_manager,reinterpret_cast<const void*>(image+CAMERA_MANAGER_RVA),4)&&camera_manager&&
++    safe_copy(&cameras,reinterpret_cast<const void*>(camera_manager+16),4)&&cameras==1&&
++    safe_copy(&camera,reinterpret_cast<const void*>(camera_manager),4)&&camera){
++  const auto certificate=live_race_certificate(camera);
++  out.france1_course_verified=certificate.valid&&race_course_is_france1(certificate.course_id.data());
++  if(out.france1_course_verified){out.race_generation=certificate.race_generation;out.owner_lifetime=certificate.owner_lifetime;}
++ }
++ if(!out.france1_course_verified)return true;
++ auto& native=*device.native();DWORD fvf=0;UINT stride=0;PilotNativeRef<IDirect3DVertexBuffer8> vb;PilotNativeRef<IDirect3DIndexBuffer8> ib;UINT base=0;
++ if(FAILED(native.GetVertexShader(&fvf))||FAILED(native.GetStreamSource(0,&vb.value,&stride))||!vb.value||
++    FAILED(native.GetIndices(&ib.value,&base))||!ib.value)return false;
++ D3DVERTEXBUFFER_DESC vd{};D3DINDEXBUFFER_DESC id{};
++ if(FAILED(vb.value->GetDesc(&vd))||FAILED(ib.value->GetDesc(&id)))return false;
++ const unsigned index_size=id.Format==D3DFMT_INDEX16?2u:id.Format==D3DFMT_INDEX32?4u:0u;
++ if(!index_size||!stride)return false;
++ const uint64_t vertex_offset=(uint64_t(base)+min_index)*stride,vertex_size=uint64_t(vertices)*stride;
++ const uint64_t index_offset=uint64_t(start)*index_size,index_size_bytes=uint64_t(count)*3u*index_size;
++ if(vertex_offset>vd.Size||vertex_size>vd.Size-vertex_offset||index_offset>id.Size||index_size_bytes>id.Size-index_offset||
++    vertex_size>1024*1024||index_size_bytes>1024*1024-vertex_size)return false;
++ out.primitive_type=type;out.min_index=min_index;out.vertex_count=vertices;out.start_index=start;out.primitive_count=count;
++ out.fvf=fvf;out.stride=stride;out.base_vertex=base;out.index_format=id.Format;
++ out.vertex_resource=reinterpret_cast<uintptr_t>(vb.value);out.index_resource=reinterpret_cast<uintptr_t>(ib.value);out.vertex_byte_offset=vertex_offset;
++ out.vertex_generation=device.trace.resources.generation(out.vertex_resource);out.index_generation=device.trace.resources.generation(out.index_resource);
++ if(!out.vertex_generation||!out.index_generation||
++    !device.copy_buffer_shadow(vb.value,BufferKind::Vertex,out.vertex_generation,vertex_offset,static_cast<size_t>(vertex_size),out.vertex_bytes,out.vertex_revision)||
++    !device.copy_buffer_shadow(ib.value,BufferKind::Index,out.index_generation,index_offset,static_cast<size_t>(index_size_bytes),out.index_bytes,out.index_revision))return false;
++ out.complete_mirror_coverage=true;return true;
++}
++
++bool apply_pilot_states(IDirect3DDevice8& native,Trace& trace,const ps2port::StateRequest& request,
++                        uintptr_t pc,ps2port::StateTransaction& transaction,uint32_t& applied_mask) noexcept {
++ auto read=[&](size_t i,DWORD& value) noexcept {
++  if(i>=5)return false;const auto key=PILOT_STATES[i];auto& effective=trace.effective_shadow.rs[key];
++  return effective.known&&SUCCEEDED(native.GetRenderState(key,&value))&&value==effective.value;
++ };
++ auto write=[&](size_t i,DWORD value) noexcept {
++  if(i>=5)return false;const auto key=PILOT_STATES[i];const Args args=pack(key,value);
++  const HRESULT hr=native.SetRenderState(key,value);trace.after(50,args,static_cast<uint32_t>(hr),pc,&args,128,false,true);
++  return SUCCEEDED(hr);
++ };
++ return ps2port::apply_state_transaction(request,transaction,read,write,applied_mask);
++}
++
++bool restore_pilot_states(IDirect3DDevice8& native,Trace& trace,ps2port::StateTransaction& transaction,
++                          uintptr_t pc) noexcept {
++ auto write=[&](size_t i,DWORD value) noexcept {
++  if(i>=5)return false;const auto key=PILOT_STATES[i];const Args args=pack(key,value);
++  const HRESULT hr=native.SetRenderState(key,value);trace.after(50,args,static_cast<uint32_t>(hr),pc,&args,128,false,true);
++  return SUCCEEDED(hr);
++ };
++ return ps2port::restore_state_transaction(transaction,write);
++}
++}
++#endif
+ HRESULT STDMETHODCALLTYPE Device8::SetTextureStageState(DWORD stage,D3DTEXTURESTAGESTATETYPE type,DWORD value){
+  auto guard=trace.guard();auto args=pack(stage,type,value);auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(63,args,pc);
++#ifdef MRR_ENABLE_PS2_PORT
++ if(ps2_port()&&ps2_port()->native_states_pending()){HRESULT safe=repair_reflection();if(FAILED(safe))return safe;}
++#endif
+  DWORD effective=visuals.filter(stage,type,value);
+  if(effective!=value&&type==D3DTSS_MINFILTER){
+   auto& max=trace.effective_shadow.tss[0][D3DTSS_MAXANISOTROPY];
+@@ -29,6 +106,9 @@
+ }
+ HRESULT STDMETHODCALLTYPE Device8::GetTextureStageState(DWORD stage,D3DTEXTURESTAGESTATETYPE type,DWORD* value){
+  auto guard=trace.guard();auto args=pack(stage,type,value);auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(62,args,pc);
++#ifdef MRR_ENABLE_PS2_PORT
++ if(ps2_port()&&ps2_port()->native_states_pending()){HRESULT safe=repair_reflection();if(FAILED(safe))return safe;}
++#endif
+  HRESULT hr=real_->GetTextureStageState(stage,type,value);DWORD native_value=0;bool virtualized=false;
+  if(SUCCEEDED(hr)&&stage<8&&type<64&&safe_copy(&native_value,value,4)){
+   const auto& logical=trace.shadow.tss[stage][type];const auto& native=trace.effective_shadow.tss[stage][type];
+@@ -41,7 +121,7 @@
+  return set_transform_at(type,input,reinterpret_cast<uintptr_t>(_ReturnAddress()));
+ }
+ HRESULT Device8::set_transform_at(D3DTRANSFORMSTATETYPE type,const D3DMATRIX* input,uintptr_t pc){
+- auto guard=trace.guard();HRESULT repair=ui_margins.repair_world(*real_,trace,pc);if(FAILED(repair))return repair;auto args=pack(type,input);trace.before(37,args,pc);
++ auto guard=trace.guard();HRESULT repair=repair_reflection();if(FAILED(repair))return repair;auto args=pack(type,input);trace.before(37,args,pc);
+  D3DMATRIX changed{};uint32_t rva=0;bool exe=site(pc,rva);int observed_scene_family=-1;float cinematic_vfov=0;D3DMATRIX source_projection{};
+  bool cinematic_projection=type==D3DTS_PROJECTION&&safe_copy(&source_projection,input,sizeof(source_projection))&&game_fov.cinematic_projection_vfov(source_projection,exe,rva,cinematic_vfov);
+  float applied_vfov=cinematic_projection?cinematic_vfov:visuals.effective.vfov;
+@@ -64,6 +144,10 @@
+  trace.culling=game_fov.status();
+  const D3DMATRIX* forwarded=(rewritten||ui_rewritten||preview_rewritten)?&changed:input;auto native=pack(type,forwarded);
+ HRESULT hr=real_->SetTransform(type,forwarded);if(rewritten&&type==D3DTS_PROJECTION)game_fov.projection_applied(applied_vfov,SUCCEEDED(hr));if(FAILED(hr)&&(rewritten||ui_rewritten||preview_rewritten)){trace.after(37,native,static_cast<uint32_t>(hr),pc,&native,rewritten?2:preview_rewritten?64:32,false,true);if(rewritten){game_fov.disable("native_projection_rejected");visuals.effective.fov=false;}if(preview_rewritten){quality->preview_capability.status="UNSUPPORTED";quality->preview_capability.reason="native_preview_projection_rejected";}if(ui_rewritten){quality->config.interface_mode="Stock";ui_margins.disable("native_ui_projection_rejected");}native=args;hr=real_->SetTransform(type,input);rewritten=ui_rewritten=preview_rewritten=false;}if(SUCCEEDED(hr)&&quality&&type==D3DTS_PROJECTION)quality->ui_projection_live=ui_rewritten;trace.after(37,args,static_cast<uint32_t>(hr),pc,&native,rewritten?2:ui_rewritten?32:preview_rewritten?64:0);
++#ifdef MRR_ENABLE_PS2_PORT
++ courseintegration::observe_transform(*this,type,exe,rva,hr);
++ grassintegration::observe_transform(*this,type,exe,rva,hr);
++#endif
+  if(SUCCEEDED(hr)&&observed_scene_family>=0)ui_margins.scene_context(observed_scene_family==1);
+  if(SUCCEEDED(hr)&&type==D3DTS_VIEW&&exe&&rva==GAMEPLAY_VIEW_RETURN_RVA){D3DMATRIX stock{};if(safe_copy(&stock,input,sizeof(stock)))game_fov.stock_view(stock);}
+  if(type==D3DTS_VIEW&&exe){
+@@ -106,6 +190,9 @@
+ }
+ HRESULT STDMETHODCALLTYPE Device8::GetTransform(D3DTRANSFORMSTATETYPE type,D3DMATRIX* out){
+  auto guard=trace.guard();auto args=pack(type,out);auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(38,args,pc);
++#ifdef MRR_ENABLE_PS2_PORT
++ if(ps2_port()&&ps2_port()->native_states_pending()){HRESULT safe=repair_reflection();if(FAILED(safe))return safe;}
++#endif
+  HRESULT hr=real_->GetTransform(type,out);D3DMATRIX native_value{};bool virtualized=false;
+  if(SUCCEEDED(hr)&&type<512&&safe_copy(&native_value,out,sizeof(native_value))){
+   const auto& logical=trace.shadow.matrices[type];const auto& native=trace.effective_shadow.matrices[type];
+@@ -185,6 +272,10 @@
+   game_fov.clean_view_disarm_count(),game_fov.clean_view_last_disarm_reason(),clean_scope_id!=0,
+   game_fov.clean_view_context_trace_frame(),game_fov.clean_view_context_scheduler_generation(),clean_admission.frame);
+  skip=skip||suppress_clean_view||suppress_global_hud;
++#ifdef MRR_ENABLE_PS2_PORT
++ {HRESULT extra=courseintegration::before_ui(*this,ui_callsite,!clean_scope_invalidated&&clean_scope_id&&ui_margins.consumer_hook_intact());if(FAILED(extra))return extra;}
++ {HRESULT extra=grassintegration::before_ui(*this,ui_callsite,!clean_scope_invalidated&&clean_scope_id&&ui_margins.consumer_hook_intact());if(FAILED(extra))return extra;}
++#endif
+  const auto& view=trace.effective_shadow.matrices[D3DTS_VIEW];D3DMATRIX identity{};identity._11=identity._22=identity._33=identity._44=1;
+  bool allowed=!skip&&quality&&quality->config.interface_mode=="PreserveMargins"&&quality->ui_projection_live&&exe&&rva==UI_DRAW_RETURN_RVA&&type==D3DPT_TRIANGLELIST&&trace.shadow.bindings.vertex_shader.known&&trace.shadow.bindings.vertex_shader.value==0x142&&view.known&&!std::memcmp(&view.value,&identity,sizeof(identity));
+  UiWorldScope ui(*real_,trace,ui_margins,pc,allowed,type,start,count,rva,exe,skip,!skip,trace.shadow.bindings.vertex_shader.known,trace.shadow.bindings.vertex_shader.value);trace.before(70,args,pc);HRESULT hr=skip?S_OK:real_->DrawPrimitive(type,start,count);
+@@ -210,13 +301,72 @@
+  if(visuals.effective.foliage_diagnostics&&trace.enabled&&trace.control.active)
+   trace.foliage_result(probe_foliage(*real_,trace.resources,args,trace.frame_number(),trace.foliage_budget,this));
+  HRESULT hr;
++#ifdef MRR_ENABLE_PS2_PORT
++ auto* pilot_extension=ps2_port();
++ const uint64_t pilot_frame=trace.frame_number();
++ uint32_t pilot_ordinal=UINT32_MAX;
++ bool pixel_probe_target_started=false;
++ if(pilot_extension&&pilot_extension->pixel_probe_enabled())pilot_ordinal=pilot_extension->note_indexed_draw(pilot_frame);
++ ps2port::DrawSnapshot reflection_geometry;
++ ps2port::ReflectionSnapshot reflection_snapshot;
++ ps2port::ReflectionIdentity reflection_identity;
++ if(pilot_extension&&pilot_extension->reflection()&&pilot_extension->reflection()->active()&&
++    ps2integration::snapshot(*this,classification,type,min_index,vertices,start,count,reflection_geometry,reflection_snapshot))
++  reflection_identity=pilot_extension->reflection()->classify(reflection_snapshot,pilot_extension->reset_generation());
++ ps2port::StateRequest pilot_request{};ps2port::StateTransaction pilot_states{};bool pilot_applied=false;uint32_t pilot_applied_mask=0;bool pilot_restore_ok=true;
++ if(pilot_extension&&pilot_extension->foliage_analysis_enabled()){
++  ps2port::DrawSnapshot snapshot;
++  if(snapshot_ps2_draw(*this,type,min_index,vertices,start,count,snapshot)){
++   auto match=pilot_extension->classify(snapshot);pilot_request=match.state;
++   const bool exact_target=std::strcmp(match.identity,"exact_france1_bush01_source_geometry_current_generations")==0;
++   if(exact_target){
++    if(pilot_request.requested){
++     pilot_applied=apply_pilot_states(*real_,trace,pilot_request,pc,pilot_states,pilot_applied_mask);
++     if(!pilot_applied){pilot_restore_ok=restore_pilot_states(*real_,trace,pilot_states,pc);if(!pilot_restore_ok)pilot_extension->disable("partial_state_apply_restore_failed");}
++     if(pilot_extension->claim_draw_diagnostic())try{session().write("{\"type\":\"ps2_port_draw_identity\",\"device\":"+std::to_string(trace.device_id())+",\"frame\":"+std::to_string(pilot_frame)+",\"identity\":\"TARGET_IDENTITY_CONFIRMED\",\"geometry_sha256\":"+quote(match.geometry_sha256)+",\"vertex_generation\":"+std::to_string(snapshot.vertex_generation)+",\"index_generation\":"+std::to_string(snapshot.index_generation)+",\"vertex_revision\":"+std::to_string(snapshot.vertex_revision)+",\"index_revision\":"+std::to_string(snapshot.index_revision)+",\"mode\":"+std::to_string(pilot_extension->mode_value())+",\"mode_name\":"+quote(pilot_extension->mode_name())+",\"requested_mask\":"+std::to_string(pilot_request.override_mask)+",\"applied_mask\":"+std::to_string(pilot_applied_mask)+",\"override_applied\":"+(pilot_applied?"true":"false")+",\"pre_draw_restore_ok\":"+(pilot_restore_ok?"true":"false")+"}");}catch(...){}
++    }
++    if(pilot_extension->pixel_probe_enabled())
++     pixel_probe_target_started=pilot_extension->begin_pixel_probe_target(pilot_frame,pilot_ordinal,snapshot,match.geometry_sha256.c_str(),type,min_index,vertices,start,count,pilot_request.override_mask,pilot_applied_mask,pilot_applied);
++   }
++  }
++ }
++#endif
+  {ReflectionScope reflection(*real_,trace,visuals,classification,pc,count);
++#ifdef MRR_ENABLE_PS2_PORT
++  ps2integration::Scope ps2_reflection(*this,reflection_snapshot,std::move(reflection_identity),pc);
++  const HRESULT ps2_status=ps2_reflection.pre_draw_status();
++  if(FAILED(ps2_status)){trace.after(71,args,static_cast<uint32_t>(ps2_status),pc,nullptr,8,true);return ps2_status;}
++  if(pixel_probe_target_started)
++   pilot_extension->capture_pixel_checkpoint(*real_,"before_target_draw",pilot_frame,pilot_ordinal,type,min_index,vertices,start,count,E_PENDING,false,trace.scene_active,pilot_ordinal);
++#endif
+   hr=real_->DrawIndexedPrimitive(type,min_index,vertices,start,count); // Exactly once; original HRESULT survives restoration.
++#ifdef MRR_ENABLE_PS2_PORT
++  ps2_reflection.draw_result(hr);
++  if(pixel_probe_target_started){
++   pilot_extension->pixel_probe_target_result(hr);
++   pilot_extension->capture_pixel_checkpoint(*real_,"after_target_draw",pilot_frame,pilot_ordinal,type,min_index,vertices,start,count,hr,true,trace.scene_active,pilot_ordinal+1);
++  }else if(pilot_extension&&pilot_extension->pixel_probe_should_capture_later(pilot_frame,pilot_ordinal))
++   pilot_extension->capture_pixel_checkpoint(*real_,"after_later_indexed_draw",pilot_frame,pilot_ordinal,type,min_index,vertices,start,count,hr,true,trace.scene_active,pilot_ordinal+1);
++#endif
+   trace.after(71,args,static_cast<uint32_t>(hr),pc);
+  }
++#ifdef MRR_ENABLE_PS2_PORT
++ if(pilot_applied){const bool restored=restore_pilot_states(*real_,trace,pilot_states,pc);
++  if(!restored){pilot_extension->disable("native_state_restore_failed");try{session().write("{\"type\":\"ps2_port_state_restore_failed\",\"device\":"+std::to_string(trace.device_id())+",\"frame\":"+std::to_string(trace.frame_number())+",\"draw_hresult\":"+std::to_string(static_cast<uint32_t>(hr))+"}");}catch(...){}}
++ }
++#endif
++#ifdef MRR_ENABLE_PS2_PORT
++ if(count)courseintegration::observe_world_draw(*this,hr);
++ if(count)grassintegration::observe_world_draw(*this,hr);
++#endif
+  return hr;
+ }
+ HRESULT Device8::repair_reflection() noexcept {
++#ifdef MRR_ENABLE_PS2_PORT
++ HRESULT ps2_repair=ps2integration::repair(*this);if(FAILED(ps2_repair))return ps2_repair;
++ HRESULT objects=courseintegration::repair(*this);if(FAILED(objects))return objects;
++ HRESULT grass=grassintegration::repair(*this);if(FAILED(grass))return grass;
++#endif
+  HRESULT world=ui_margins.repair_world(*real_,trace,0);if(FAILED(world))return world;
+  if(!trace.reflection_restore_pending.known)return S_OK;
+  auto args=pack(1,D3DTSS_TEXCOORDINDEX,trace.reflection_restore_pending.value);
+--- a/modernization/renderer/src/wrappers.cpp
++++ b/modernization/renderer/src/wrappers.cpp
+@@ -6,14 +6,29 @@
+ #include "free_camera.hpp"
+ #include "physics_probe.hpp"
+ #include "broker_null_guard.hpp"
++#ifdef MRR_ENABLE_PS2_PORT
++#include "ps2_port_extension.hpp"
++#include "reflection_native_integration.hpp"
++#include "grass_native_integration.hpp"
++#include "course_objects_native_integration.hpp"
++#endif
+ namespace gfx2 {
+ HRESULT STDMETHODCALLTYPE Root8::QueryInterface(REFIID iid,void** out){
++#ifdef MRR_ENABLE_PS2_PORT
++ {std::lock_guard<std::recursive_mutex> lock(registry_mutex);for(auto& item:devices)if(item.second&&item.second->ps2_port()&&item.second->ps2_port()->native_states_pending()){
++  HRESULT safe=item.second->repair_reflection();if(FAILED(safe)){if(out)*out=nullptr;return safe;}
++ }}
++#endif
+  HRESULT hr=real_->QueryInterface(iid,out);
+  if(SUCCEEDED(hr)&&out&&*out){
+   if(iid==IID_IUnknown||iid==IID_IDirect3D8){adopt();*out=static_cast<IDirect3D8*>(this);}
+   else {
+    auto& s=session();s.foliage_provenance_available.store(false,std::memory_order_relaxed);
+-   {std::lock_guard<std::recursive_mutex> guard(registry_mutex);for(auto& item:devices)if(item.second)item.second->visuals.effective.foliage_diagnostics=false;}
++   {std::lock_guard<std::recursive_mutex> guard(registry_mutex);for(auto& item:devices)if(item.second){item.second->visuals.effective.foliage_diagnostics=false;
++#ifdef MRR_ENABLE_PS2_PORT
++    if(item.second->ps2_port()&&(item.second->ps2_port()->analysis_enabled())){item.second->ps2_port()->disable("root_unknown_query_interface_raw_escape");item.second->invalidate_all_buffer_shadows("root_unknown_query_interface_raw_escape");}
++#endif
++   }}
+    try{s.write("{\"type\":\"unknown_query_interface\",\"interface\":\"root\",\"raw_escape_possible\":true,\"foliage_provenance_disabled\":true}");}catch(...){}
+   }
+  }return hr;
+@@ -40,6 +55,31 @@
+  return hr;
+ }
+ Device8::Device8(IDirect3DDevice8* p,Root8* parent,std::unique_ptr<QualityPipeline> policy) noexcept:quality(std::move(policy)),real_(p),parent_(parent){parent_->AddRef();try{auto& s=session();D3DCAPS8 caps{};HRESULT hr=D3DERR_NOTAVAILABLE;if(s.visual_config.anisotropy)hr=real_->GetDeviceCaps(&caps);visuals.configure(s.visual_config,s.target,SUCCEEDED(hr)?&caps:nullptr,hr);
++#ifdef MRR_ENABLE_PS2_PORT
++ ps2_port_=std::make_unique<ps2port::PS2PortExtension>(s.target,s.exe_sha,s.config_path);
++ if(ps2_port_&&ps2_port_->reflection()&&ps2_port_->reflection()->requested()){
++  auto& reflection=*ps2_port_->reflection();reflection.initialize(*real_);
++  try{s.write("{\"type\":\"ps2_reflection_config\",\"device\":"+std::to_string(trace.device_id())+
++    ",\"requested_mode\":"+std::to_string(reflection.mode_value())+",\"effective_mode\":"+
++    std::to_string(reflection.active()?reflection.mode_value():0)+",\"source\":"+quote(reflection.mode_value()==3?"NATIVE_PC_ENVIRONMENT_IMAGE":reflection.needs_mixed_source()?"PS2_STATIC_PLUS_PC_FRAMEBUFFER_APPROXIMATION":"PS2_STATIC_TERM_80_OVER_128")+
++    ",\"framebuffer_term\":"+quote(reflection.needs_mixed_source()?"BOUNDED_GPU_CAPTURE_PENDING_FIRST_TARGET":"NOT_SELECTED")+",\"asset_sha256\":"+(reflection.mode_value()==3?"null":quote(ps2port::kPS2EnvSourceSha))+
++    ",\"status\":"+quote(reflection.reason())+",\"upload_hresult\":"+
++    std::to_string(static_cast<uint32_t>(reflection.upload_hresult()))+"}");}catch(...){}
++ }
++ if(ps2_port_)for(auto* detail:ps2_port_->ground_details())if(detail&&detail->requested()){
++  auto& grass=*detail;grass.initialize(*real_);
++  try{s.write("{\"type\":\"ps2_grass_config\",\"requested_mode\":1,\"effective_mode\":"+std::string(grass.active()?"1":"0")+",\"source_points\":"+std::to_string(grass.asset().points.size())+",\"status\":"+quote(grass.reason())+",\"artifact_sha256\":"+quote(grass.artifact_sha())+",\"detail_category\":"+quote(grass.category())+"}");}catch(...){}
++ }
++ if(ps2_port_&&ps2_port_->course_objects()&&ps2_port_->course_objects()->requested()){
++  auto& objects=*ps2_port_->course_objects();objects.initialize(*real_);
++  try{s.write("{\"type\":\"ps2_course_objects_config\",\"requested_mode\":1,\"effective_mode\":"+std::string(objects.active()?"1":"0")+",\"status\":"+quote(objects.reason())+",\"asset_sha256\":"+quote(ps2port::kTurkey3ObjectArtifactSha)+"}");}catch(...){}
++ }
++ if(ps2_port_&&ps2_port_->diagnostics()){const auto selected=ps2port::state_request_for_mode(static_cast<ps2port::PilotMode>(ps2_port_->mode_value()));try{s.write("{\"type\":\"ps2_port_mode_selected\",\"device\":"+std::to_string(trace.device_id())+",\"stage\":\"device_config\",\"mode\":"+std::to_string(ps2_port_->mode_value())+",\"mode_name\":"+quote(ps2_port_->mode_name())+",\"requested_mask\":"+std::to_string(selected.override_mask)+",\"applied_mask\":0,\"override_applied\":false}");}catch(...){}}
++ if(ps2_port_&&ps2_port_->pixel_probe_requested()){
++  ps2_port_->initialize_pixel_probe(*real_);
++  try{s.write("{\"type\":\"ps2_pixel_probe_config\",\"device\":"+std::to_string(trace.device_id())+",\"config\":"+ps2_port_->pixel_probe_config_json()+"}");}catch(...){}
++ }
++#endif
+  visuals.effective.fov=s.visual_config.fov&&s.compatibility.fov.supported();visuals.effective.fov_reason=s.compatibility.fov.reason;
+  visuals.effective.reflection_mode=s.compatibility.vehicle.supported()?s.visual_config.reflection_mode:"Stock";visuals.effective.reflection_reason=s.compatibility.vehicle.reason;
+  if(!quality){quality=std::make_unique<QualityPipeline>();quality->configure(s.visual_config,s.compatibility.ui.supported(),0,D3DDEVTYPE_HAL,nullptr);}
+@@ -47,6 +87,10 @@
+  const auto flight_config=parse_free_camera_config(s.visual_config.raw_fields);
+  const bool hud_feature_requested=s.target&&s.visual_config.version_ok&&s.visual_config.hud_toggle_valid&&
+   (s.visual_config.hud_toggle_enabled||s.visual_config.hud_hidden_at_startup);
++ bool ps2_identity_requested=false;
++#ifdef MRR_ENABLE_PS2_PORT
++ ps2_identity_requested=ps2_port_&&ps2_port_->analysis_enabled();
++#endif
+  auto physics_settings=forward_free_camera_teleport_settings(
+   read_physics_probe_settings(s.config_path),flight_config);
+  physics_probe_attached=attach_physics_probe(s.target,physics_settings);
+@@ -55,7 +99,7 @@
+  // Reuse the already verified DrawTextPacket consumer hook for exact-retail
+  // F10 ownership observation. It is pass-through unless PreserveMargins is
+  // independently selected; no additional game patch site is introduced.
+- if((preserve_margins_requested||ui_ownership_probe_requested)&&
++ if((preserve_margins_requested||ui_ownership_probe_requested||ps2_identity_requested)&&
+     !ui_margins.install(s.compatibility.margins.supported()||s.target,true)&&preserve_margins_requested){
+   quality->config.interface_mode="Stock";quality->config.interface_reason=ui_margins.reason;
+  }
+@@ -70,10 +114,40 @@
+  if(!s.foliage_provenance_available.load(std::memory_order_relaxed))visuals.effective.foliage_diagnostics=false;
+  if(quality->valid){visuals.effective.display_mode=quality->display;visuals.effective.display_reason=quality->display_reason;visuals.effective.aa_mode=quality->effective.MultiSampleType==D3DMULTISAMPLE_NONE?"Stock":"MSAA";visuals.effective.aa_reason=quality->aa_reason;}
+  if(quality->valid)ui_margins.dimensions(quality->effective.BackBufferWidth,quality->effective.BackBufferHeight);
+-  quality_trace();bool flight=parse_free_camera_config(s.visual_config.raw_fields).enabled&&s.target&&s.visual_config.version_ok;if(s.target&&(s.enabled||flight||hud_feature_requested)){install_race_observer(true,true);race_observer_attached=true;}if((visuals.effective.fov||flight)&&!game_fov.install(s.compatibility.fov.supported()||s.target,visuals.effective,quality->effective.hDeviceWindow?quality->effective.hDeviceWindow:quality->focus,s.target,trace.device_id(),&trace,quality->display.c_str(),quality->focus)){visuals.effective.fov=false;visuals.effective.fov_reason=game_fov.status().reason;}game_fov.set_global_hud_request(hud_visibility.requested_hidden());s.write("{\"type\":\"visual_device_config\",\"requested\":"+config_json(visuals.requested)+",\"effective\":"+config_json(visuals.effective)+",\"caps_result\":"+std::to_string(static_cast<uint32_t>(hr))+",\"caps_max_anisotropy\":"+std::to_string(visuals.caps_max)+",\"min_anisotropy\":"+(visuals.min_supported?"true":"false")+",\"mag_anisotropy\":"+(visuals.mag_supported?"true":"false")+"}");}catch(...){game_fov.disable("device_config_exception");visuals.effective.anisotropy=visuals.effective.fov=visuals.effective.shadow_off=false;}}
++  quality_trace();bool flight=parse_free_camera_config(s.visual_config.raw_fields).enabled&&s.target&&s.visual_config.version_ok;if(s.target&&(s.enabled||flight||hud_feature_requested||ps2_identity_requested)){install_race_observer(true,true);race_observer_attached=true;}if((visuals.effective.fov||flight)&&!game_fov.install(s.compatibility.fov.supported()||s.target,visuals.effective,quality->effective.hDeviceWindow?quality->effective.hDeviceWindow:quality->focus,s.target,trace.device_id(),&trace,quality->display.c_str(),quality->focus)){visuals.effective.fov=false;visuals.effective.fov_reason=game_fov.status().reason;}game_fov.set_global_hud_request(hud_visibility.requested_hidden());s.write("{\"type\":\"visual_device_config\",\"requested\":"+config_json(visuals.requested)+",\"effective\":"+config_json(visuals.effective)+",\"caps_result\":"+std::to_string(static_cast<uint32_t>(hr))+",\"caps_max_anisotropy\":"+std::to_string(visuals.caps_max)+",\"min_anisotropy\":"+(visuals.min_supported?"true":"false")+",\"mag_anisotropy\":"+(visuals.mag_supported?"true":"false")+"}");}catch(...){game_fov.disable("device_config_exception");visuals.effective.anisotropy=visuals.effective.fov=visuals.effective.shadow_off=false;}}
+ Device8::~Device8(){game_fov.disable("device_release");if(race_observer_attached)release_race_observer();if(physics_probe_attached)release_physics_probe();parent_->Release();}
++bool Device8::buffer_mirroring_enabled() const noexcept {
++#ifdef MRR_ENABLE_PS2_PORT
++ return visuals.effective.foliage_diagnostics||(ps2_port_&&ps2_port_->buffer_mirroring_required());
++#else
++ return visuals.effective.foliage_diagnostics;
++#endif
++}
++void Device8::ps2_port_reset_begin() noexcept {
++#ifdef MRR_ENABLE_PS2_PORT
++ if(ps2_port_){
++  if(ps2_port_->reflection()){ps2integration::repair(*this);ps2_port_->reflection()->before_reset();}
++  if(ps2_port_->course_objects()){courseintegration::repair(*this);ps2_port_->course_objects()->before_reset();}
++  grassintegration::repair(*this);for(auto* detail:ps2_port_->ground_details())if(detail)detail->before_reset();
++  ps2_port_->pixel_probe_before_reset();
++ }
++#endif
++}
++void Device8::ps2_port_reset(bool native_reset_called,bool successful) noexcept {
++#ifdef MRR_ENABLE_PS2_PORT
++ if(ps2_port_){
++  if(native_reset_called&&successful)ps2_port_->device_reset(true);
++  if(ps2_port_->reflection())ps2_port_->reflection()->after_reset(*real_,native_reset_called,successful);
++  if(ps2_port_->course_objects())ps2_port_->course_objects()->after_reset(*real_,native_reset_called,successful);
++  for(auto* detail:ps2_port_->ground_details())if(detail)detail->after_reset(*real_,native_reset_called,successful);
++  ps2_port_->pixel_probe_after_reset(*real_,native_reset_called,successful);
++ }
++#else
++ (void)native_reset_called;(void)successful;
++#endif
++}
+ IDirect3DVertexBuffer8* Device8::wrap_vertex_buffer(IDirect3DVertexBuffer8* raw) noexcept {
+- if(!raw||!visuals.effective.foliage_diagnostics)return raw;
++ if(!raw||!buffer_mirroring_enabled())return raw;
+  std::lock_guard<std::recursive_mutex> l(buffer_mutex_);auto i=buffer_proxies_.find(raw);if(i!=buffer_proxies_.end()&&i->second&&i->second->kind()==BufferKind::Vertex){auto* p=static_cast<VertexBufferProxy*>(i->second->proxy_pointer());if(p->core().generation()!=trace.resources.generation(reinterpret_cast<uintptr_t>(raw))){invalidate_buffer_shadow(raw,"buffer_generation_changed_raw_escape");return raw;}p->AddRef();raw->Release();return p;}
+  if(buffer_proxies_.size()>=8192){invalidate_buffer_shadow(raw,"buffer_proxy_count_limit_raw_escape");return raw;}
+  auto* p=new(std::nothrow)VertexBufferProxy(this,raw,trace.resources.generation(reinterpret_cast<uintptr_t>(raw)));
+@@ -82,7 +156,7 @@
+  return static_cast<IDirect3DVertexBuffer8*>(p);
+ }
+ IDirect3DIndexBuffer8* Device8::wrap_index_buffer(IDirect3DIndexBuffer8* raw) noexcept {
+- if(!raw||!visuals.effective.foliage_diagnostics)return raw;
++ if(!raw||!buffer_mirroring_enabled())return raw;
+  std::lock_guard<std::recursive_mutex> l(buffer_mutex_);auto i=buffer_proxies_.find(raw);if(i!=buffer_proxies_.end()&&i->second&&i->second->kind()==BufferKind::Index){auto* p=static_cast<IndexBufferProxy*>(i->second->proxy_pointer());if(p->core().generation()!=trace.resources.generation(reinterpret_cast<uintptr_t>(raw))){invalidate_buffer_shadow(raw,"buffer_generation_changed_raw_escape");return raw;}p->AddRef();raw->Release();return p;}
+  if(buffer_proxies_.size()>=8192){invalidate_buffer_shadow(raw,"buffer_proxy_count_limit_raw_escape");return raw;}
+  auto* p=new(std::nothrow)IndexBufferProxy(this,raw,trace.resources.generation(reinterpret_cast<uintptr_t>(raw)));
+@@ -145,11 +219,20 @@
+ void Device8::note_index_buffer_binding(void* raw,HRESULT result) noexcept {if(FAILED(result))return;std::lock_guard<std::recursive_mutex> l(buffer_mutex_);void* old=index_buffer_;index_buffer_=raw;if(old!=raw)discard_unbound_buffer_mirror_locked(old);}
+ bool Device8::reserve_buffer_copy_bytes(size_t n) noexcept {std::lock_guard<std::recursive_mutex> l(buffer_mutex_);uint64_t frame=trace.frame_number();if(buffer_copy_frame_!=frame){buffer_copy_frame_=frame;buffer_copy_bytes_=0;}if(n>16ull*1024*1024||buffer_copy_bytes_>16ull*1024*1024-n)return false;buffer_copy_bytes_+=n;return true;}
+ HRESULT STDMETHODCALLTYPE Device8::QueryInterface(REFIID iid,void** out){
++#ifdef MRR_ENABLE_PS2_PORT
++ if(ps2_port_&&ps2_port_->native_states_pending()){
++  HRESULT safe=repair_reflection();if(FAILED(safe)){if(out)*out=nullptr;return safe;}
++ }
++#endif
+  auto guard=trace.guard();auto args=pack(&iid,out);auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(0,args,pc);
+  HRESULT hr=real_->QueryInterface(iid,out);
+  if(SUCCEEDED(hr)&&out&&*out){
+   if(iid==IID_IUnknown||iid==IID_IDirect3DDevice8){adopt();*out=static_cast<IDirect3DDevice8*>(this);}
+-  else {if(visuals.effective.foliage_diagnostics){visuals.effective.foliage_diagnostics=false;session().foliage_provenance_available.store(false,std::memory_order_relaxed);invalidate_all_buffer_shadows("device_unknown_query_interface_raw_escape");}try{session().write("{\"type\":\"unknown_query_interface\",\"interface\":\"device\",\"raw_escape_possible\":true,\"foliage_provenance_disabled\":true}");}catch(...){}}
++  else {bool provenance_active=visuals.effective.foliage_diagnostics;
++#ifdef MRR_ENABLE_PS2_PORT
++   if(ps2_port_&&(ps2_port_->analysis_enabled())){ps2_port_->disable("device_unknown_query_interface_raw_escape");provenance_active=true;}
++#endif
++   if(provenance_active){visuals.effective.foliage_diagnostics=false;session().foliage_provenance_available.store(false,std::memory_order_relaxed);invalidate_all_buffer_shadows("device_unknown_query_interface_raw_escape");}try{session().write("{\"type\":\"unknown_query_interface\",\"interface\":\"device\",\"raw_escape_possible\":true,\"foliage_provenance_disabled\":true}");}catch(...){}}
+  }trace.after(0,args,static_cast<uint32_t>(hr),pc);return hr;
+ }
+ ULONG STDMETHODCALLTYPE Device8::AddRef(){
+@@ -160,7 +243,13 @@
+  ULONG n;bool last;
+  {
+   auto observer=trace.guard();auto args=pack();auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(2,args,pc);
+-  {std::lock_guard<std::recursive_mutex> guard(parent_->registry_mutex);last=(--refs_==0);if(last&&quality)quality->begin_shutdown();n=real_->Release();if(last)parent_->devices.erase(real_);}
++  {std::lock_guard<std::recursive_mutex> guard(parent_->registry_mutex);last=(--refs_==0);if(last&&quality)quality->begin_shutdown();
++#ifdef MRR_ENABLE_PS2_PORT
++   if(last&&ps2_port_&&ps2_port_->reflection())ps2_port_->reflection()->shutdown();
++   if(last&&ps2_port_&&ps2_port_->course_objects())ps2_port_->course_objects()->shutdown();
++   if(last&&ps2_port_)for(auto* detail:ps2_port_->ground_details())if(detail)detail->shutdown();
++#endif
++   n=real_->Release();if(last)parent_->devices.erase(real_);}
+   trace.after(2,args,n,pc);
+  }
+  if(last){trace.shutdown(n);ui_margins.capture_window(false,trace.frame_number(),trace.device_id(),"device_release");delete this;}return n;

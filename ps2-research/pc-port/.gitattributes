@@ -1,0 +1,2 @@
+# Preserve exact overlay/historical patch bytes, including blank context lines.
+*.patch -text whitespace=-blank-at-eol

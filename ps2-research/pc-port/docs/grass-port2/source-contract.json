@@ -1,0 +1,273 @@
+{
+  "schema_version": 1,
+  "phase": "PS2-GRASS2",
+  "course": "TURKEY3",
+  "source_identity": {
+    "SLES_509.06": {
+      "size": 3739852,
+      "sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2"
+    },
+    "SYSTEM.CNF": {
+      "size": 56,
+      "sha256": "db08eef06278820a562f9cdacd6a2d5d2bb31870e7cf3a51e83daee3a90c5df2"
+    },
+    "TNG.PAK": {
+      "size": 135556,
+      "sha256": "d98c7cf1049a8a3bc2f90a528a2b6f52cd43c16c2e0564830d5ecb9c592ab28d"
+    },
+    "TNG.000": {
+      "size": 1225915283,
+      "sha256": "004ac1676376275bf40c1fd5c1c4a9dcfaae870bf1a7916434eb73b0b1faff86"
+    }
+  },
+  "source_psm": {
+    "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY3\\TURKEY3.PSM",
+    "provenance": {
+      "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY3\\TURKEY3.PSM",
+      "offset": 1176335774,
+      "stored_size": 2327913,
+      "directory_size_0x08": 2327913,
+      "unpacked_size": 4086061,
+      "compression": "packfs_lzo",
+      "stored_sha256": "2a074ce9562a59914b0c11a2ed2f06dffbc6f9440de4347e6f9452fa4a1646b6",
+      "payload_sha256": "dd274ac1cb56c16d35410fbe2e8e3771a750b47710b747fddc70604fdb3d59fc",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+    },
+    "representation": "PS2_SPATIAL_TRIANGLE",
+    "vertex_count": 65446,
+    "spatial_offset": 3631905,
+    "triangle_table_offset": 3811633
+  },
+  "source_texture": {
+    "path": "\\TNG\\DATAPSM\\PARTICLES\\BUSH1.GXI",
+    "provenance": {
+      "path": "\\TNG\\DATAPSM\\PARTICLES\\BUSH1.GXI",
+      "offset": 1210621196,
+      "stored_size": 4104,
+      "directory_size_0x08": 4104,
+      "unpacked_size": 4104,
+      "compression": "raw",
+      "stored_sha256": "2e4178614fbcbb3dbc3eaf5931001d2a566e76d59ef6adf7e66cd372556d40e9",
+      "payload_sha256": "2e4178614fbcbb3dbc3eaf5931001d2a566e76d59ef6adf7e66cd372556d40e9",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 32,
+        "height": 32,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      }
+    },
+    "format": {
+      "format": "PS2_SIMPLE_GXI_13039",
+      "magic": 77881,
+      "width": 32,
+      "height": 32,
+      "size": 4104,
+      "sha256": "2e4178614fbcbb3dbc3eaf5931001d2a566e76d59ef6adf7e66cd372556d40e9",
+      "bytes_per_pixel": 4,
+      "channel_order": "RGBA",
+      "channel_order_evidence": "CONFIRMED_BY_VISUAL_RECONSTRUCTION",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_unique_count": 213,
+      "alpha_nonzero_pixels": 674,
+      "average_rgba": [
+        86.975586,
+        99.547852,
+        72.408203,
+        61.422852
+      ]
+    },
+    "stored_row_order": "PRESERVED",
+    "artifact_channel_order": "RGBA"
+  },
+  "pc_source": {
+    "path": "DataGx\\Course\\Turkey3\\turkey3.dx",
+    "sha256": "724a69da708a124f7dbfd666b7ad8d391bcaf22ff94bd2c91143e305749cf7f8",
+    "size": 10055607,
+    "txt_path": "DataGx\\Course\\Turkey3\\turkey3.txt",
+    "txt_sha256": "b962685b6a70ca141fbbb62508626e5d99ec6816efe8308adef16d88f4a8a8b1",
+    "position_array_offset": 16,
+    "retail_identity": "Fresh SHA matches independent frozen WATER1 source identities",
+    "draws": 939,
+    "vertices": 54589,
+    "triangles": 42237,
+    "coverage": "VALIDATED_COMPLETE_DISJOINT",
+    "txt_mesh_records": 2574,
+    "txt_named_nodes": 2881,
+    "txt_to_compiled_face_mapping": "UNKNOWN: source spans are not DX face IDs",
+    "txt_dinghy_leads": [],
+    "coordinates": "GAME_SOURCE"
+  },
+  "alignment": {
+    "transform": "IDENTITY_IN_SOURCE_FRAME; NO_FIT",
+    "independent_anchor": "ORDERED_RACELINE",
+    "route_residual": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 420,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "ps2_route_sha256": "7c1c274cd8403bc7fcc2b5e2e8a13e57dccc44dade53a1be57d631ea073e51ce",
+    "pc_route_sha256": "9f00ef08e428f14f2e7aabb1c564b831d283dc3ea23b2fe68350a6bbd5384822",
+    "authored_landscape_matrices": [
+      [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    ],
+    "runtime_transform": "UNKNOWN",
+    "evidence_grade": "CONFIRMED_BY_BYTES"
+  },
+  "selection": {
+    "detail_category": "shrubs",
+    "original_point_pool": 0,
+    "eligible_source_triangles": 3835,
+    "exact_pc_matched_source_triangles": 3702,
+    "excluded_nonexact_source_triangles": 133,
+    "match_tolerance_source_units": 0.001,
+    "maximum_corner_error": 0.0008544921875,
+    "matched_pc_draw_count": 199,
+    "generation_counts_by_material_id": {
+      "3": 61937,
+      "4": 84561
+    },
+    "materials": [
+      {
+        "id": 3,
+        "offset": 3811342,
+        "name": "$surfacetype(grass) $detail(shrubs) "
+      },
+      {
+        "id": 4,
+        "offset": 3811384,
+        "name": "$surfacetype(harddirt) $detail(shrubs) "
+      }
+    ],
+    "matcher": {
+      "exact_candidate_pairs": 3720,
+      "surface_aabb_candidate_pairs": 2175,
+      "projected_overlap_pairs": 0,
+      "spatial_cell": 32.0,
+      "index_cells": 4866
+    }
+  },
+  "artifact": {
+    "size": 1871784,
+    "sha256": "688947a32776ffab67c553b4adc95e4597c399f2d70ece37534fd682044752b4",
+    "point_count": 146498,
+    "bin_count": 6849,
+    "bin_world_size": 8.0,
+    "texture_width": 32,
+    "texture_height": 32,
+    "texture_bytes": 4096,
+    "psm_sha256": "dd274ac1cb56c16d35410fbe2e8e3771a750b47710b747fddc70604fdb3d59fc",
+    "gxi_sha256": "2e4178614fbcbb3dbc3eaf5931001d2a566e76d59ef6adf7e66cd372556d40e9",
+    "pc_dx_sha256": "724a69da708a124f7dbfd666b7ad8d391bcaf22ff94bd2c91143e305749cf7f8",
+    "bounds": {
+      "min": [
+        1918.2088623046875,
+        14.133390426635742,
+        -1145.59716796875
+      ],
+      "max": [
+        3580.53466796875,
+        93.1405029296875,
+        614.583740234375
+      ]
+    },
+    "layout": {
+      "header_size": 128,
+      "bin_record_size": 16,
+      "point_record_size": 12,
+      "bin_table_offset": 128,
+      "point_offset": 109712,
+      "texture_offset": 1867688
+    },
+    "local_relative_path": ".assets/grass/Turkey3Shrubs.ps2grass"
+  },
+  "generation": {
+    "activation": "SYNTHETIC_FULL_TRIANGLE_ACTIVATION",
+    "precision": "FLOAT32_RECONSTRUCTION",
+    "rng": {
+      "seed": 12543,
+      "seed_provenance": "ELF 3b78c8 delay slot 3b78cc",
+      "rng_calls_through_jitter": 6970,
+      "state_after_jitter": 1125623325,
+      "not_included": "Later normalized direction table 432e88; unused by traced placement"
+    },
+    "hash_rounding": "nearest_even",
+    "hash_rounding_provenance": "EXPLICIT_PILOT_INPUT_NOT_LIVE_FCSR",
+    "maximum_abs_hash_before_conversion": 579970880.0,
+    "pitch_float32": 1.3300000429153442,
+    "shrub_lift_float32": 0.4000000059604645,
+    "shrub_to_grass_sprite_scale_ratio": 1.2121211290359497,
+    "duplicate_points": "RETAINED",
+    "point_order": "Z_THEN_X_BIN_THEN_ORIGINAL_TRIANGLE_SCANLINE_ORDER",
+    "bin_world_size": 8.0,
+    "no_extra_height_adjustment": true
+  },
+  "evidence_grade": "CONFIRMED_BY_BOTH",
+  "runtime_validation": "NOT_PERFORMED",
+  "first_grass_preservation": "SEPARATE_OUTPUT_AND_SOURCE_IDENTITY",
+  "limitations": [
+    "No original incremental clipping, retained-pool history or exact initial population",
+    "Unmatched/nonexact source surfaces are excluded",
+    "Live PS2 FCSR, VU residency and projection scale ownership remain unknown",
+    "BUSH1 versus screenshot correspondence is not a controlled runtime draw capture",
+    "GXI stored alpha and D3D8 blend normalization differ from GS /128",
+    "No collision, wind, playable-course edit or full coordinates in report"
+  ]
+}

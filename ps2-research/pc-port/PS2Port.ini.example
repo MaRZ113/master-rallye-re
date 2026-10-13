@@ -1,0 +1,59 @@
+; Place beside MRRRenderer.ini. This file is read only by the PS2-enabled build.
+[PS2Port]
+; 0 = Stock (default)
+; 1 = Treeblend approximation: alpha test off, alpha blend on, ZWRITE off
+; 2 = Alpha/blend only: same four alpha/blend states; preserve original ZWRITE
+; 3 = Depth-write only: preserve alpha/blend states; ZWRITE off
+FoliageMode=0
+; One-frame pixel readback: supported only in Mode 0 or Mode 3. Disabled by default.
+PixelProbe=0
+; Top-left pixel inside the target bush silhouette in the backbuffer.
+PixelX=-1
+PixelY=-1
+; Optional zero-based indexed-draw ordinal for one intermediate checkpoint; -1 skips it.
+PixelLaterDrawOrdinal=-1
+; Optional one-shot target identity/mode/mask record per device
+Diagnostics=0
+; PS2-REFLECTION-PORT1.1: one verified Tata material, hood AND roof regions.
+; 0 = Stock (default)
+; 1 = Original pilot: weighted PS2 ENV texture + stage1 ADD
+; 2 = Texture control: weighted PS2 ENV only, preserve native COLOROP
+; 3 = COLOROP control: stage1 ADD only, preserve original texture (no GXI needed)
+; 4 = Mixed source: weighted PS2 ENV + flipped current PC framebuffer, stage1 ADD
+; Mode4 requires non-MSAA 32-bit main backbuffer and successful native CopyRects.
+; Capture timing/PSMCT16/vehicle grayscale differences remain approximations.
+ReflectionMode=0
+ReflectionConfigVersion=1
+; PORT2: 0 keeps the original Tata-only pilot; 1 also admits verified Kia bonnet.
+ReflectionCoverage=0
+; 0 keeps working Mode4 A8R8G8B8. 1 requests a private A1R5G5B5 target.
+; Unsupported 16-bit allocation falls back to Mode4; not exact GS PSMCT16.
+ReflectionTargetPrecision=0
+; Canonical extracted GXI supplied locally. Missing/wrong hash means Stock.
+ReflectionSourceGXI=PS2EnvSource64x64.gxi
+ReflectionDiagnostics=0
+; 0 = Stock; 1 = Turkey3 original-source puddle geometry/static-texture preview.
+; Original source heights, UV/color; no PS2 mode9 animation/secondary pass.
+CourseObjectsMode=0
+CourseObjectsVersion=1
+CourseObjectsAsset=Turkey3Puddles.ps2obj
+CourseObjectsDiagnostics=0
+; Turkey3 source-derived grass preview: original image and matched terrain sources.
+; 0 = Stock; 1 = Turkey3 only; 2 = verified Turkey3/France1/ItalyS1 coverage.
+GrassMode=0
+GrassConfigVersion=1
+GrassAsset=Turkey3Grass.ps2grass
+; Mode2 preloads verified France1/ItalyS1 files once; no per-frame disk reads.
+GrassAssetDirectory=.
+; PC billboard half-size (world units), preview mapping; original source lift unchanged.
+GrassSpriteHalfSize=0.33
+GrassDiagnostics=0
+; Independent second category: original Turkey3 $detail(shrubs), BUSH1 image.
+; Same source-grid pitch; different material surfaces and original 0.4 lift.
+; 0 = Stock; 1 = Turkey3 only; 2 = the same verified three-course coverage.
+ShrubsMode=0
+ShrubsConfigVersion=1
+ShrubsAsset=Turkey3Shrubs.ps2grass
+; PC half-size approximation keeps source shrub/grass scale ratio at defaults.
+ShrubsSpriteHalfSize=0.4
+ShrubsDiagnostics=0

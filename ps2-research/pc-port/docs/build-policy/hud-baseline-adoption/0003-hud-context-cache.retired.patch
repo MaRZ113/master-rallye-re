@@ -1,0 +1,82 @@
+diff --git a/modernization/renderer/docs/global-hud-hide/implementation.md b/modernization/renderer/docs/global-hud-hide/implementation.md
+index 8e660db..013de84 100644
+--- a/modernization/renderer/docs/global-hud-hide/implementation.md
++++ b/modernization/renderer/docs/global-hud-hide/implementation.md
+@@ -26,6 +26,10 @@ The production Win32 INI reader reads `ToggleEnabled`, `ToggleKey`, `HiddenAtSta
+ 
+ F10 frame metadata contains `hud_hide` with requested/effective state, policy readiness/reason, current context (`gameplay_running`, `gameplay_start_countdown`, `attract_demo`, `replay_running`, or a preserved paused/unknown context), replay/Attract/countdown flags, exact-build/device/hook status, verified and suppressed draw counts, and ambiguous rejections. Race lifecycle records also include the captured native request origin for each job. `effective_hidden` means at least one draw was actually suppressed in the captured frame; it does not merely mean H was accepted. Menu draw count remains `null` because the shared consumer does not expose an independently proven menu category.
+ 
++## HUD suppression cost
++
++Review of the 13 October captures found that `global_hud_request_` mirrors the H preference into `GameFov::clean_view_requested()`. The UI draw wrapper treated that request as a reason to bypass its per-frame context cache, calling `live_race_hud_context()` for every UI primitive while HUD hiding was active. That routine takes the race-observer lock and performs multiple native/Broker reads, so the repeated synchronous work was on the render thread and scaled with UI draw count. The wrapper now refreshes this context at most once per D3D frame; subsequent UI draws reuse the snapshot. Clean View's independent strict camera/device/UI admission remains evaluated at each draw. Unit tests cover the frame-scoped sampling contract. A post-fix gameplay capture is still needed to measure the visible improvement on the user's machine.
++
+ ## Analysis tool availability
+ 
+ The REA CLI reported version 6.4.0, Node 24.19.0, and Ghidra 12.1.4 when `GHIDRA_INSTALL_DIR` was supplied for the analysis process. The Codex Ghidra-bridge MCP tools were not exposed in this task's active tool catalog, so no claim is made that a bridge call was run in this turn. Existing A3h Ghidra findings were read and preserved; the new REA/Ghidra analysis used only the pristine image and a temporary provider session. No Ghidra database or game binary was modified.
+diff --git a/modernization/renderer/include/hud_visibility.hpp b/modernization/renderer/include/hud_visibility.hpp
+index 4794be2..302f1a6 100644
+--- a/modernization/renderer/include/hud_visibility.hpp
++++ b/modernization/renderer/include/hud_visibility.hpp
+@@ -55,7 +55,7 @@ public:
+  void configure(const VisualConfig&,bool exact_build,bool hook_expected) noexcept;
+  bool sample_key(bool focused,bool key_down) noexcept;
+  void observe_context(const RaceHudContext&,bool exact_build,bool device_valid,bool hook_owned,bool scene_active,uint64_t frame=0) noexcept;
+- bool context_sampled_this_frame(uint64_t frame) const noexcept{return context_sample_frame_==frame;}
++ bool context_refresh_required(uint64_t frame) const noexcept{return context_sample_frame_!=frame;}
+  RaceHudContext context_snapshot() const noexcept{return context_;}
+  void end_scene() noexcept {scene_active_=false;}
+  void reset_context() noexcept;
+diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/renderer/src/visual_wrappers.cpp
+index 5f0abc7..1639252 100644
+--- a/modernization/renderer/src/visual_wrappers.cpp
++++ b/modernization/renderer/src/visual_wrappers.cpp
+@@ -135,7 +135,11 @@ HRESULT Device8::draw_primitive_at(D3DPRIMITIVETYPE type,UINT start,UINT count,u
+   RaceHudContext draw_context{};
+   const bool observe_hud_context=hud_visibility.toggle_enabled()||requested_clean_view;
+   const uint64_t hud_frame=trace.frame_number();
+-  const bool refresh_hud_context=requested_clean_view||!hud_visibility.context_sampled_this_frame(hud_frame);
++  // H mirrors into GameFov's Clean View request. That request must not bypass
++  // the per-frame HUD-context cache: live_race_hud_context performs multiple
++  // Broker/native reads and this draw path can run hundreds of times per frame.
++  // Clean View still gets its strict live admission below.
++  const bool refresh_hud_context=hud_visibility.context_refresh_required(hud_frame);
+   if(observe_hud_context&&refresh_hud_context&&hud_draw.scene_active){
+    // Verify the committed native scene and typed pause state at the exact draw
+    // boundary while suppression is requested. With the preference visible,
+@@ -143,7 +147,7 @@ HRESULT Device8::draw_primitive_at(D3DPRIMITIVETYPE type,UINT start,UINT count,u
+    // repeating Broker reads for every UI primitive.
+    draw_context=live_race_hud_context();
+    if(observe_hud_context)hud_visibility.observe_context(draw_context,hud_draw.exact_build,hud_draw.device_valid,hook_owned,hud_draw.scene_active,hud_frame);
+-  }else if(observe_hud_context&&hud_visibility.context_sampled_this_frame(hud_frame))draw_context=hud_visibility.context_snapshot();
++  }else if(observe_hud_context&&!refresh_hud_context)draw_context=hud_visibility.context_snapshot();
+   else {draw_context.reason=hud_draw.scene_active?"hud_preference_visible":"outside_d3d_scene";
+    if(observe_hud_context)hud_visibility.observe_context(draw_context,hud_draw.exact_build,hud_draw.device_valid,hook_owned,hud_draw.scene_active,hud_frame);}
+   hud_draw.context_current=draw_context.valid;
+diff --git a/modernization/renderer/tests/hud_visibility_tests.cpp b/modernization/renderer/tests/hud_visibility_tests.cpp
+index d400d8b..f12cbbe 100644
+--- a/modernization/renderer/tests/hud_visibility_tests.cpp
++++ b/modernization/renderer/tests/hud_visibility_tests.cpp
+@@ -78,6 +78,14 @@ void visibility_lifetime(){
+  CHECK(!startup.sample_key(true,true)&&startup.requested_hidden());
+  auto reset=hidden;reset.hud_hidden_at_startup=false;startup.configure(reset,false,false);CHECK(!startup.requested_hidden());startup.observe_context(race(),false,true,false,true);CHECK(!startup.should_suppress(eligible()));
+ }
++void hud_context_sample_is_frame_scoped(){
++ auto c=parse_visual_config({{"Renderer.ConfigVersion","1"},{"HUD.ToggleEnabled","1"},{"HUD.ToggleKey","H"}},true);
++ HudVisibility h;h.configure(c,true,true);CHECK(h.sample_key(true,true)&&h.requested_hidden());
++ constexpr uint64_t frame=41;CHECK(h.context_refresh_required(frame));
++ h.observe_context(race(),true,true,true,true,frame);
++ for(unsigned draw=0;draw<2048;++draw)CHECK(!h.context_refresh_required(frame));
++ CHECK(h.context_refresh_required(frame+1));
++}
+ void config_conflicts(){
+  auto legacy=parse_visual_config({{"Renderer.ConfigVersion","1"},{"FreeCameraKeys.ToggleCleanView","G"}},true);
+  CHECK(legacy.hud_toggle_key=='G'&&legacy.hud_toggle_valid&&legacy.hud_toggle_enabled);
+@@ -200,7 +208,7 @@ void replay_pause_overlay_admission_contract(){
+  h.observe_context(frontend,true,true,true,true);auto menu=eligible();menu.context_current=false;
+  CHECK(!h.should_suppress(menu));
+ }
+-int main(){try{edge_contracts();strict_draw_contracts();visibility_lifetime();config_conflicts();paused_clean_view_contract();
++int main(){try{edge_contracts();strict_draw_contracts();visibility_lifetime();hud_context_sample_is_frame_scoped();config_conflicts();paused_clean_view_contract();
+  normal_pause_learned_hud_contract();normal_pause_config_contract();replay_pause_learned_identity_contract();replay_signature_capacity_and_lifecycle();
+  replay_pause_overlay_admission_contract();
+  std::cout<<"HUD edge input / strict native draw policy / live scene identity / persistent request / fail-open reset / key compatibility: PASS\n";return 0;

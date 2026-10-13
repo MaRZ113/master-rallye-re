@@ -1,0 +1,769 @@
+{
+  "schema_version": 1,
+  "phase": "PS2-COURSE-OBJECTS1",
+  "course": "TURKEY3",
+  "geometry_kind": "SOURCE_GEOMETRY_STATIC_MATERIAL_PREVIEW",
+  "coordinate_frame": "GAME_SOURCE_IDENTITY",
+  "source_identity": {
+    "SLES_509.06": {
+      "size": 3739852,
+      "sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2"
+    },
+    "SYSTEM.CNF": {
+      "size": 56,
+      "sha256": "db08eef06278820a562f9cdacd6a2d5d2bb31870e7cf3a51e83daee3a90c5df2"
+    },
+    "TNG.PAK": {
+      "size": 135556,
+      "sha256": "d98c7cf1049a8a3bc2f90a528a2b6f52cd43c16c2e0564830d5ecb9c592ab28d"
+    },
+    "TNG.000": {
+      "size": 1225915283,
+      "sha256": "004ac1676376275bf40c1fd5c1c4a9dcfaae870bf1a7916434eb73b0b1faff86"
+    }
+  },
+  "source_psm": {
+    "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY3\\TURKEY3.PSM",
+    "provenance": {
+      "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY3\\TURKEY3.PSM",
+      "offset": 1176335774,
+      "stored_size": 2327913,
+      "directory_size_0x08": 2327913,
+      "unpacked_size": 4086061,
+      "compression": "packfs_lzo",
+      "stored_sha256": "2a074ce9562a59914b0c11a2ed2f06dffbc6f9440de4347e6f9452fa4a1646b6",
+      "payload_sha256": "dd274ac1cb56c16d35410fbe2e8e3771a750b47710b747fddc70604fdb3d59fc",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+    },
+    "visual_vertex_count": 65446,
+    "visual_tree_end": 3631901
+  },
+  "source_texture": {
+    "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY3\\WATER-TGA.GXI",
+    "provenance": {
+      "path": "\\TNG\\DATAPSM\\COURSE\\TURKEY3\\WATER-TGA.GXI",
+      "offset": 1178663687,
+      "stored_size": 11017,
+      "directory_size_0x08": 11017,
+      "unpacked_size": 16392,
+      "compression": "packfs_lzo",
+      "stored_sha256": "ec8ec1cef5be1e49b4b6235a962d45d420f9a25c6e409ff18cfbdcaf86a677f2",
+      "payload_sha256": "65a8318d8c432764c91d56b53b843f8096b4629d3f53894d4d6d5caf46945d34",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "width": 64,
+        "height": 64,
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "channel_order": "UNKNOWN",
+        "size_equation_match": true
+      }
+    },
+    "format": {
+      "format": "PS2_SIMPLE_GXI_13039",
+      "magic": 77881,
+      "width": 64,
+      "height": 64,
+      "size": 16392,
+      "sha256": "65a8318d8c432764c91d56b53b843f8096b4629d3f53894d4d6d5caf46945d34",
+      "bytes_per_pixel": 4,
+      "channel_order": "RGBA",
+      "channel_order_evidence": "CONFIRMED_BY_VISUAL_RECONSTRUCTION",
+      "alpha_min": 255,
+      "alpha_max": 255,
+      "alpha_unique_count": 1,
+      "alpha_nonzero_pixels": 4096,
+      "average_rgba": [
+        58.371338,
+        68.92749,
+        80.209473,
+        255.0
+      ]
+    },
+    "stored_row_order": "PRESERVED",
+    "artifact_channel_order": "RGBA"
+  },
+  "artifact": {
+    "size": 70384,
+    "sha256": "2e3d6f8c90b3ed602d121f96fe7246a6fe3b70ab7c3c5d547c4bb8bf03a02b95",
+    "mesh_count": 17,
+    "vertex_count": 2235,
+    "triangle_count": 745,
+    "texture_bytes": 16384,
+    "psm_sha256": "dd274ac1cb56c16d35410fbe2e8e3771a750b47710b747fddc70604fdb3d59fc",
+    "gxi_sha256": "65a8318d8c432764c91d56b53b843f8096b4629d3f53894d4d6d5caf46945d34",
+    "bounds": {
+      "min": [
+        1957.5634765625,
+        19.006181716918945,
+        -818.287353515625
+      ],
+      "max": [
+        3436.294921875,
+        37.956626892089844,
+        534.1873168945312
+      ]
+    },
+    "meshes": [
+      {
+        "node_offset": 3429418,
+        "material_offset": 3429472,
+        "first_vertex": 0,
+        "vertex_count": 231
+      },
+      {
+        "node_offset": 3454793,
+        "material_offset": 3454847,
+        "first_vertex": 231,
+        "vertex_count": 189
+      },
+      {
+        "node_offset": 3464996,
+        "material_offset": 3465050,
+        "first_vertex": 420,
+        "vertex_count": 114
+      },
+      {
+        "node_offset": 3469260,
+        "material_offset": 3469314,
+        "first_vertex": 534,
+        "vertex_count": 312
+      },
+      {
+        "node_offset": 3479433,
+        "material_offset": 3479487,
+        "first_vertex": 846,
+        "vertex_count": 189
+      },
+      {
+        "node_offset": 3488650,
+        "material_offset": 3488704,
+        "first_vertex": 1035,
+        "vertex_count": 9
+      },
+      {
+        "node_offset": 3505409,
+        "material_offset": 3505463,
+        "first_vertex": 1044,
+        "vertex_count": 90
+      },
+      {
+        "node_offset": 3505554,
+        "material_offset": 3505608,
+        "first_vertex": 1134,
+        "vertex_count": 231
+      },
+      {
+        "node_offset": 3514344,
+        "material_offset": 3514398,
+        "first_vertex": 1365,
+        "vertex_count": 159
+      },
+      {
+        "node_offset": 3517138,
+        "material_offset": 3517192,
+        "first_vertex": 1524,
+        "vertex_count": 24
+      },
+      {
+        "node_offset": 3522569,
+        "material_offset": 3522623,
+        "first_vertex": 1548,
+        "vertex_count": 51
+      },
+      {
+        "node_offset": 3530853,
+        "material_offset": 3530907,
+        "first_vertex": 1599,
+        "vertex_count": 81
+      },
+      {
+        "node_offset": 3530998,
+        "material_offset": 3531052,
+        "first_vertex": 1680,
+        "vertex_count": 18
+      },
+      {
+        "node_offset": 3531143,
+        "material_offset": 3531197,
+        "first_vertex": 1698,
+        "vertex_count": 54
+      },
+      {
+        "node_offset": 3539369,
+        "material_offset": 3539423,
+        "first_vertex": 1752,
+        "vertex_count": 105
+      },
+      {
+        "node_offset": 3576123,
+        "material_offset": 3576177,
+        "first_vertex": 1857,
+        "vertex_count": 78
+      },
+      {
+        "node_offset": 3630563,
+        "material_offset": 3630617,
+        "first_vertex": 1935,
+        "vertex_count": 300
+      }
+    ],
+    "layout": {
+      "header_size": 88,
+      "mesh_record_size": 16,
+      "vertex_record_size": 24,
+      "mesh_table_offset": 88,
+      "vertices_offset": 360,
+      "texture_offset": 54000
+    },
+    "local_relative_path": ".assets/course-objects/Turkey3Puddles.ps2obj",
+    "source_meshes": [
+      {
+        "node_offset": 3429418,
+        "material_offset": 3429472,
+        "first_vertex": 0,
+        "vertex_count": 231,
+        "path": "root.0.8.42",
+        "material": "water $surfacetype(water) $shader(puddle)",
+        "texture_slots": [
+          {
+            "slot": 0,
+            "name": "Course\\turkey3\\water-tga",
+            "flags": [
+              false,
+              false,
+              false
+            ],
+            "offset": 3429440
+          }
+        ],
+        "strip_count": 4,
+        "source_strip_offsets": [
+          3429533,
+          3429546,
+          3429559,
+          3429572
+        ],
+        "excluded": {
+          "adc_suppressed": 26,
+          "diagnostic_degenerate": 0
+        },
+        "triangle_count": 77
+      },
+      {
+        "node_offset": 3454793,
+        "material_offset": 3454847,
+        "first_vertex": 231,
+        "vertex_count": 189,
+        "path": "root.0.15.26",
+        "material": "water $surfacetype(water) $shader(puddle)",
+        "texture_slots": [
+          {
+            "slot": 0,
+            "name": "Course\\turkey3\\water-tga",
+            "flags": [
+              false,
+              false,
+              false
+            ],
+            "offset": 3454815
+          }
+        ],
+        "strip_count": 4,
+        "source_strip_offsets": [
+          3454908,
+          3454921,
+          3454934,
+          3454947
+        ],
+        "excluded": {
+          "adc_suppressed": 28,
+          "diagnostic_degenerate": 0
+        },
+        "triangle_count": 63
+      },
+      {
+        "node_offset": 3464996,
+        "material_offset": 3465050,
+        "first_vertex": 420,
+        "vertex_count": 114,
+        "path": "root.0.16.44",
+        "material": "water $surfacetype(water) $shader(puddle)",
+        "texture_slots": [
+          {
+            "slot": 0,
+            "name": "Course\\turkey3\\water-tga",
+            "flags": [
+              false,
+              false,
+              false
+            ],
+            "offset": 3465018
+          }
+        ],
+        "strip_count": 3,
+        "source_strip_offsets": [
+          3465111,
+          3465124,
+          3465137
+        ],
+        "excluded": {
+          "adc_suppressed": 14,
+          "diagnostic_degenerate": 0
+        },
+        "triangle_count": 38
+      },
+      {
+        "node_offset": 3469260,
+        "material_offset": 3469314,
+        "first_vertex": 534,
+        "vertex_count": 312,
+        "path": "root.0.17.16",
+        "material": "water $surfacetype(water) $shader(puddle)",
+        "texture_slots": [
+          {
+            "slot": 0,
+            "name": "Course\\turkey3\\water-tga",
+            "flags": [
+              false,
+              false,
+              false
+            ],
+            "offset": 3469282
+          }
+        ],
+        "strip_count": 6,
+        "source_strip_offsets": [
+          3469375,
+          3469388,
+          3469401,
+          3469414,
+          3469427,
+          3469440
+        ],
+        "excluded": {
+          "adc_suppressed": 40,
+          "diagnostic_degenerate": 0
+        },
+        "triangle_count": 104
+      },
+      {
+        "node_offset": 3479433,
+        "material_offset": 3479487,
+        "first_vertex": 846,
+        "vertex_count": 189,
+        "path": "root.0.21.8",
+        "material": "water $surfacetype(water) $shader(puddle)",
+        "texture_slots": [
+          {
+            "slot": 0,
+            "name": "Course\\turkey3\\water-tga",
+            "flags": [
+              false,
+              false,
+              false
+            ],
+            "offset": 3479455
+          }
+        ],
+        "strip_count": 4,
+        "source_strip_offsets": [
+          3479548,
+          3479561,
+          3479574,
+          3479587
+        ],
+        "excluded": {
+          "adc_suppressed": 30,
+          "diagnostic_degenerate": 0
+        },
+        "triangle_count": 63
+      },
+      {
+        "node_offset": 3488650,
+        "material_offset": 3488704,
+        "first_vertex": 1035,
+        "vertex_count": 9,
+        "path": "root.0.24.16",
+        "material": "water $surfacetype(water) $shader(puddle)",
+        "texture_slots": [
+          {
+            "slot": 0,
+            "name": "Course\\turkey3\\water-tga",
+            "flags": [
+              false,
+              false,
+              false
+            ],
+            "offset": 3488672
+          }
+        ],
+        "strip_count": 1,
+        "source_strip_offsets": [
+          3488765
+        ],
+        "excluded": {
+          "adc_suppressed": 0,
+          "diagnostic_degenerate": 0
+        },
+        "triangle_count": 3
+      },
+      {
+        "node_offset": 3505409,
+        "material_offset": 3505463,
+        "first_vertex": 1044,
+        "vertex_count": 90,
+        "path": "root.0.28.17",
+        "material": "water $surfacetype(water) $shader(puddle)",
+        "texture_slots": [
+          {
+            "slot": 0,
+            "name": "Course\\turkey3\\water-tga",
+            "flags": [
+              false,
+              false,
+              false
+            ],
+            "offset": 3505431
+          }
+        ],
+        "strip_count": 2,
+        "source_strip_offsets": [
+          3505524,
+          3505537
+        ],
+        "excluded": {
+          "adc_suppressed": 8,
+          "diagnostic_degenerate": 0
+        },
+        "triangle_count": 30
+      },
+      {
+        "node_offset": 3505554,
+        "material_offset": 3505608,
+        "first_vertex": 1134,
+        "vertex_count": 231,
+        "path": "root.0.28.18",
+        "material": "water $surfacetype(water) $shader(puddle)",
+        "texture_slots": [
+          {
+            "slot": 0,
+            "name": "Course\\turkey3\\water-tga",
+            "flags": [
+              false,
+              false,
+              false
+            ],
+            "offset": 3505576
+          }
+        ],
+        "strip_count": 4,
+        "source_strip_offsets": [
+          3505669,
+          3505682,
+          3505695,
+          3505708
+        ],
+        "excluded": {
+          "adc_suppressed": 30,
+          "diagnostic_degenerate": 0
+        },
+        "triangle_count": 77
+      },
+      {
+        "node_offset": 3514344,
+        "material_offset": 3514398,
+        "first_vertex": 1365,
+        "vertex_count": 159,
+        "path": "root.0.32.11",
+        "material": "water $surfacetype(water) $shader(puddle)",
+        "texture_slots": [
+          {
+            "slot": 0,
+            "name": "Course\\turkey3\\water-tga",
+            "flags": [
+              false,
+              false,
+              false
+            ],
+            "offset": 3514366
+          }
+        ],
+        "strip_count": 3,
+        "source_strip_offsets": [
+          3514459,
+          3514472,
+          3514485
+        ],
+        "excluded": {
+          "adc_suppressed": 20,
+          "diagnostic_degenerate": 0
+        },
+        "triangle_count": 53
+      },
+      {
+        "node_offset": 3517138,
+        "material_offset": 3517192,
+        "first_vertex": 1524,
+        "vertex_count": 24,
+        "path": "root.0.33.11",
+        "material": "water $surfacetype(water) $shader(puddle)",
+        "texture_slots": [
+          {
+            "slot": 0,
+            "name": "Course\\turkey3\\water-tga",
+            "flags": [
+              false,
+              false,
+              false
+            ],
+            "offset": 3517160
+          }
+        ],
+        "strip_count": 1,
+        "source_strip_offsets": [
+          3517253
+        ],
+        "excluded": {
+          "adc_suppressed": 2,
+          "diagnostic_degenerate": 0
+        },
+        "triangle_count": 8
+      },
+      {
+        "node_offset": 3522569,
+        "material_offset": 3522623,
+        "first_vertex": 1548,
+        "vertex_count": 51,
+        "path": "root.0.35.13",
+        "material": "water $surfacetype(water) $shader(puddle)",
+        "texture_slots": [
+          {
+            "slot": 0,
+            "name": "Course\\turkey3\\water-tga",
+            "flags": [
+              false,
+              false,
+              false
+            ],
+            "offset": 3522591
+          }
+        ],
+        "strip_count": 2,
+        "source_strip_offsets": [
+          3522684,
+          3522697
+        ],
+        "excluded": {
+          "adc_suppressed": 4,
+          "diagnostic_degenerate": 0
+        },
+        "triangle_count": 17
+      },
+      {
+        "node_offset": 3530853,
+        "material_offset": 3530907,
+        "first_vertex": 1599,
+        "vertex_count": 81,
+        "path": "root.0.36.34",
+        "material": "water $surfacetype(water) $shader(puddle)",
+        "texture_slots": [
+          {
+            "slot": 0,
+            "name": "Course\\turkey3\\water-tga",
+            "flags": [
+              false,
+              false,
+              false
+            ],
+            "offset": 3530875
+          }
+        ],
+        "strip_count": 2,
+        "source_strip_offsets": [
+          3530968,
+          3530981
+        ],
+        "excluded": {
+          "adc_suppressed": 10,
+          "diagnostic_degenerate": 0
+        },
+        "triangle_count": 27
+      },
+      {
+        "node_offset": 3530998,
+        "material_offset": 3531052,
+        "first_vertex": 1680,
+        "vertex_count": 18,
+        "path": "root.0.36.35",
+        "material": "water $surfacetype(water) $shader(puddle)",
+        "texture_slots": [
+          {
+            "slot": 0,
+            "name": "Course\\turkey3\\water-tga",
+            "flags": [
+              false,
+              false,
+              false
+            ],
+            "offset": 3531020
+          }
+        ],
+        "strip_count": 2,
+        "source_strip_offsets": [
+          3531113,
+          3531126
+        ],
+        "excluded": {
+          "adc_suppressed": 0,
+          "diagnostic_degenerate": 0
+        },
+        "triangle_count": 6
+      },
+      {
+        "node_offset": 3531143,
+        "material_offset": 3531197,
+        "first_vertex": 1698,
+        "vertex_count": 54,
+        "path": "root.0.36.36",
+        "material": "water $surfacetype(water) $shader(puddle)",
+        "texture_slots": [
+          {
+            "slot": 0,
+            "name": "Course\\turkey3\\water-tga",
+            "flags": [
+              false,
+              false,
+              false
+            ],
+            "offset": 3531165
+          }
+        ],
+        "strip_count": 3,
+        "source_strip_offsets": [
+          3531258,
+          3531271,
+          3531284
+        ],
+        "excluded": {
+          "adc_suppressed": 2,
+          "diagnostic_degenerate": 0
+        },
+        "triangle_count": 18
+      },
+      {
+        "node_offset": 3539369,
+        "material_offset": 3539423,
+        "first_vertex": 1752,
+        "vertex_count": 105,
+        "path": "root.0.39.18",
+        "material": "water $surfacetype(water) $shader(puddle)",
+        "texture_slots": [
+          {
+            "slot": 0,
+            "name": "Course\\turkey3\\water-tga",
+            "flags": [
+              false,
+              false,
+              false
+            ],
+            "offset": 3539391
+          }
+        ],
+        "strip_count": 2,
+        "source_strip_offsets": [
+          3539484,
+          3539497
+        ],
+        "excluded": {
+          "adc_suppressed": 14,
+          "diagnostic_degenerate": 0
+        },
+        "triangle_count": 35
+      },
+      {
+        "node_offset": 3576123,
+        "material_offset": 3576177,
+        "first_vertex": 1857,
+        "vertex_count": 78,
+        "path": "root.0.50.29",
+        "material": "water $surfacetype(water) $shader(puddle)",
+        "texture_slots": [
+          {
+            "slot": 0,
+            "name": "Course\\turkey3\\water-tga",
+            "flags": [
+              false,
+              false,
+              false
+            ],
+            "offset": 3576145
+          }
+        ],
+        "strip_count": 2,
+        "source_strip_offsets": [
+          3576238,
+          3576251
+        ],
+        "excluded": {
+          "adc_suppressed": 10,
+          "diagnostic_degenerate": 0
+        },
+        "triangle_count": 26
+      },
+      {
+        "node_offset": 3630563,
+        "material_offset": 3630617,
+        "first_vertex": 1935,
+        "vertex_count": 300,
+        "path": "root.0.65.31",
+        "material": "water $surfacetype(water) $shader(puddle)",
+        "texture_slots": [
+          {
+            "slot": 0,
+            "name": "Course\\turkey3\\water-tga",
+            "flags": [
+              false,
+              false,
+              false
+            ],
+            "offset": 3630585
+          }
+        ],
+        "strip_count": 6,
+        "source_strip_offsets": [
+          3630678,
+          3630691,
+          3630704,
+          3630717,
+          3630730,
+          3630743
+        ],
+        "excluded": {
+          "adc_suppressed": 38,
+          "diagnostic_degenerate": 0
+        },
+        "triangle_count": 100
+      }
+    ]
+  },
+  "source_vertex_policy": {
+    "xyz": "ORIGINAL_FLOAT32_UNCHANGED",
+    "uv": "ORIGINAL_FIRST_TWO_FLOAT32",
+    "color": "SOURCE_0xRRGGBBAA_TO_D3DCOLOR_ARGB_NO_REMAP",
+    "winding": "CONSECUTIVE_SOURCE_TRIPLES; runtime parity UNKNOWN",
+    "adc": "NEWEST_CONTROL_BIT0_SUPPRESSES",
+    "area_cutoff": 1e-07
+  },
+  "material_policy": "STATIC_PRIMARY_SOURCE_TEXTURE_PREVIEW; NOT_PS2_MODE9_PARITY",
+  "evidence_grade": "CONFIRMED_BY_BOTH",
+  "runtime_validation": "NOT_PERFORMED",
+  "limitations": [
+    "Source UV/color are rewritten by PS2 mode9 at runtime; not reproduced here",
+    "Secondary WATERSURFACE2 pass and global basis are not implemented",
+    "405 source centroids above and340 below nearest covering PC surface in frozen WATER1 comparison",
+    "Original XYZ is never lifted; parts may remain occluded by different PC terrain",
+    "Authored source meshes are not proved simultaneously visible PS2 draws",
+    "No collision data or playable course asset is generated"
+  ]
+}

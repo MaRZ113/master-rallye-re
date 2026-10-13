@@ -1,5 +1,9 @@
 .analysis/
+.assets/
+.build/
+.staging/
 .build*/
+.build-overlay/
 dist/
 *.dll
 *.exe

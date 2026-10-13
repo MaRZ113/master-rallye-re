@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "phase": "PS2-REFLECTION-PORT1",
+  "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "provider": {
+    "id": "ghidra",
+    "name": "Ghidra",
+    "version": "12.1.4"
+  },
+  "matrix_constructor": {
+    "address": "0x5860a0",
+    "evidence_id": "ev_6423450afca76d2f95c2d59b7be3c0c0770ce49160993f8f8bac78d92d84f875",
+    "body": {
+      "available": true,
+      "provenance": "ghidra-function-body-address-set",
+      "ranges": [
+        {
+          "start": "0x5860a0",
+          "end": "0x586110"
+        }
+      ],
+      "total_bytes": 113,
+      "span_bytes": 113,
+      "non_contiguous": false,
+      "contains_entry": true
+    },
+    "assembly": [
+      "0x5860b0: MOV ECX, 0x3f000000",
+      "0x5860e0: MOV dword ptr [ESI + 0x24], ECX",
+      "0x5860e3: MOV dword ptr [ESI + 0x38], ECX",
+      "0x5860e6: MOV dword ptr [ESI + 0x54], ECX",
+      "0x5860e9: MOV dword ptr [ESI + 0x58], ECX"
+    ]
+  },
+  "instruction_byte_probe": {
+    "evidence_id": "ev_7457630d7b8a33662ecab6634c5efc488848c6c16f43ac42f509315c2591d78b",
+    "address": "0x5860a0",
+    "requested_bytes": 113,
+    "returned_bytes": 113,
+    "bytes_hex": "566a036a018bf16a02e842c9010033c0b90000003f88461088461188461889462889462c89463089463489463c89464089464489464889465089465c8a442408894e24894e38894e54894e588a4c240cba0000803f884664c7060c276900c646190189564c895660884e658bc65ec20800",
+    "complete": true
+  },
+  "source_name_search": {
+    "evidence_id": "ev_7764d1f13221b2c74d7225598f8d24ce5e329d658554edc411a633dac382401b",
+    "defined_string_matches": 0,
+    "scope": "Only Ghidra-defined strings; not a whole-byte absence proof"
+  },
+  "limitations": [
+    "Current REA provider does not define function 0x586150; prior PC stage research retained independently.",
+    "Native PC environment image writer/update cadence not established.",
+    "PS2 port deliberately implements only the separately named static 80/128 term.",
+    "Decompiler pseudocode is not original source; no new runtime observation."
+  ]
+}

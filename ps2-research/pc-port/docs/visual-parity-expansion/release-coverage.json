@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "reflection": {
+    "vehicles": [
+      "Tata:record19",
+      "KiaSportage:record14"
+    ],
+    "coverage_default": 0,
+    "precision_default": 0,
+    "new_runtime": "PENDING_USER",
+    "existing_mode4": "CONFIRMED_PRIOR_RUNTIME_TRACE"
+  },
+  "vegetation": {
+    "inventoried_courses": 36,
+    "admitted_courses": [
+      "RaceTest/Turkey3",
+      "RaceTest/France1",
+      "RaceTest/ItalyS1"
+    ],
+    "categories": [
+      "grass",
+      "shrubs"
+    ],
+    "new_runtime": "PENDING_USER",
+    "assets": [
+      {
+        "name": "France1Grass.ps2grass",
+        "bytes": 2526320,
+        "sha256": "354cb84c7238e8a1a4959c95fc7e265587f32a3f26dcb29b98aa818c1096f961"
+      },
+      {
+        "name": "France1Shrubs.ps2grass",
+        "bytes": 2157584,
+        "sha256": "69e64191810c4f3ce5b9b06862e9afe8d4ea2a69940ee7d4449cb71430fc2802"
+      },
+      {
+        "name": "ItalyS1Grass.ps2grass",
+        "bytes": 1605072,
+        "sha256": "e764d52060bc87c797e43459d743ec3dc6a4cd1aff67f239a62c59e82863c1ae"
+      },
+      {
+        "name": "ItalyS1Shrubs.ps2grass",
+        "bytes": 961964,
+        "sha256": "e2d08cfc56f7f3ea8e91b5225ba1b4a228ec40062b361c697426694c0f88234d"
+      },
+      {
+        "name": "Turkey3Grass.ps2grass",
+        "bytes": 838320,
+        "sha256": "6af6393c444a485b2c648c2a6973a91bd5783db3c0f90269a0d653b2f089cfad"
+      },
+      {
+        "name": "Turkey3Shrubs.ps2grass",
+        "bytes": 1871784,
+        "sha256": "688947a32776ffab67c553b4adc95e4597c399f2d70ece37534fd682044752b4"
+      }
+    ]
+  },
+  "dlls": {
+    "baseline": {
+      "dll": "ps2-research/pc-port/dist/current/baseline/d3d8.dll",
+      "dll_sha256": "011dd9a94155d216d0c0dde28e0af97f5b72226aae5be97016f2d767ebdf7138",
+      "ctest": "PASS",
+      "proxy_verification": "PASS",
+      "build": "PASS",
+      "build_dll": "ps2-research/pc-port/.build/baseline/Release/d3d8.dll"
+    },
+    "ps2-enabled": {
+      "dll": "ps2-research/pc-port/dist/current/ps2-enabled/d3d8.dll",
+      "dll_sha256": "882555499e7e6854a583dee4b54e289594f350f0ee37324301b704510519bff6",
+      "ctest": "PASS",
+      "proxy_verification": "PASS",
+      "build": "PASS",
+      "build_dll": "ps2-research/pc-port/.build/ps2-enabled/Release/d3d8.dll"
+    }
+  },
+  "physics": "PAUSED_BY_USER",
+  "hud": "ROADMAP_ONLY",
+  "frozen_renderer_tree": "e33386bcf682db6983380c499e4928726c758fe0"
+}

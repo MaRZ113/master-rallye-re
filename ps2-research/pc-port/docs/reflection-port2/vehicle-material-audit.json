@@ -1,0 +1,246 @@
+{
+  "schema_version": 1,
+  "representation": "VISUAL_SOURCE_COMPILED_DRAW_NOT_LIVE_DRAW",
+  "pc_source": {
+    "path": "DataGx/Vehicles/KiaSportage/car.dx",
+    "sha256": "2d490121ee38e84ef7e0d47624f68efd2c1e5790c1138c6fe08db56c7b238451"
+  },
+  "ps2_source": {
+    "path": "\\TNG\\DATAPSM\\VEHICLES\\KIASPORTAGE\\CAR.PSM",
+    "offset": 1213713197,
+    "stored_size": 107814,
+    "directory_size_0x08": 107814,
+    "unpacked_size": 194660,
+    "compression": "packfs_lzo",
+    "stored_sha256": "3bae8818936a95b1407341da79e9bb602ebcb599312e75e25a6fa6d35bea77c6",
+    "payload_sha256": "b4afabfab7437eae01ee72ca424beb90967c7b849cebdb9cf94e104560be33ce",
+    "evidence": "CONFIRMED_BY_BOTH",
+    "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+  },
+  "candidates": [
+    {
+      "model": "KiaSportage",
+      "ps2_mesh": {
+        "path": "root.5",
+        "node_offset": 186540,
+        "material_offset": 186634,
+        "material": "$shader(carshiny)",
+        "textures": [
+          {
+            "slot": 0,
+            "name": "commontextures\\kiabon2-tga",
+            "flags": [
+              false,
+              false,
+              false
+            ],
+            "offset": 186562
+          },
+          {
+            "slot": 1,
+            "name": "commontextures\\whitepaint-tga",
+            "flags": [
+              false,
+              false,
+              false
+            ],
+            "offset": 186598
+          }
+        ],
+        "triangles": 206,
+        "contract": {
+          "authored_shader": "carshiny",
+          "interned_shader": "carshiny",
+          "mode": 3,
+          "authored_secondary": "commontextures\\whitepaint-tga",
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "rubber_substring_preserved": false,
+          "reflection_contract_known": true,
+          "environment_selector": 1,
+          "handler": "0x3ade58",
+          "fallback": null,
+          "evidence_grade": "CONFIRMED_BY_EXE"
+        }
+      },
+      "pc_draw": {
+        "record": 14,
+        "path": "14",
+        "offset": 108516,
+        "vertex_base": 1861,
+        "vertex_count": 234,
+        "index_start": 4947,
+        "index_count": 618,
+        "triangles": 206,
+        "texture_slots": [
+          "kiabon2-tga",
+          "whitepaint-tga",
+          "Null"
+        ],
+        "flags_hex": "00000101",
+        "diffuse_alpha_values": [
+          255
+        ],
+        "geometry_sha256": "03f88e7a81ae783819b1ad64ac54284b0b330a4c488c851411aee0378706d729",
+        "bounds": {
+          "min": [
+            -1.0443990230560303,
+            0.058984480798244476,
+            -2.3285343647003174
+          ],
+          "max": [
+            1.045551061630249,
+            1.633331060409546,
+            2.1591217517852783
+          ]
+        }
+      },
+      "correspondence": {
+        "tolerance": 0.001,
+        "pc_faces_matching_ps2": 206,
+        "ps2_faces_matching_pc": 206,
+        "method": "unsigned corner-permutation max-distance, preserves duplicate faces"
+      },
+      "evidence_grade": "CONFIRMED_BY_BYTES",
+      "runtime_identity": "NOT_YET_OBSERVED",
+      "activation_constraints": [
+        "Current race/body semantic owner",
+        "Current resource generations and revisions",
+        "Exact FVF0x152/stride36 and triangle layout",
+        "Exact bitwise geometry digest",
+        "Opaque native render states and original environment stage",
+        "2D current texture generations",
+        "Known native/effective texture matrix",
+        "Stock original PC coordinate policy"
+      ]
+    },
+    {
+      "model": "KiaSportage",
+      "ps2_mesh": {
+        "path": "root.4",
+        "node_offset": 186053,
+        "material_offset": 186148,
+        "material": "$shader(carshiny)",
+        "textures": [
+          {
+            "slot": 0,
+            "name": "commontextures\\kiaside2-tga",
+            "flags": [
+              false,
+              false,
+              false
+            ],
+            "offset": 186075
+          },
+          {
+            "slot": 1,
+            "name": "commontextures\\whitepaint-tga",
+            "flags": [
+              false,
+              false,
+              false
+            ],
+            "offset": 186112
+          }
+        ],
+        "triangles": 522,
+        "contract": {
+          "authored_shader": "carshiny",
+          "interned_shader": "carshiny",
+          "mode": 3,
+          "authored_secondary": "commontextures\\whitepaint-tga",
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "rubber_substring_preserved": false,
+          "reflection_contract_known": true,
+          "environment_selector": 1,
+          "handler": "0x3ade58",
+          "fallback": null,
+          "evidence_grade": "CONFIRMED_BY_EXE"
+        }
+      },
+      "pc_draw": {
+        "record": 13,
+        "path": "13",
+        "offset": 108426,
+        "vertex_base": 1449,
+        "vertex_count": 412,
+        "index_start": 3621,
+        "index_count": 1326,
+        "triangles": 442,
+        "texture_slots": [
+          "kiaside2-tga",
+          "whitepaint-tga",
+          "Null"
+        ],
+        "flags_hex": "00000101",
+        "diffuse_alpha_values": [
+          255
+        ],
+        "geometry_sha256": "bdeca6ef2c9f43ce792d8b07d9fef40e5ee25aa5aea41a1cec7254fdbcdacd3b",
+        "bounds": {
+          "min": [
+            -1.1127009391784668,
+            0.031714778393507004,
+            -2.1403515338897705
+          ],
+          "max": [
+            1.113851547241211,
+            1.6352051496505737,
+            1.909367322921753
+          ]
+        }
+      },
+      "correspondence": {
+        "tolerance": 0.001,
+        "pc_faces_matching_ps2": 442,
+        "ps2_faces_matching_pc": 442,
+        "method": "unsigned corner-permutation max-distance, preserves duplicate faces"
+      },
+      "evidence_grade": "CONFIRMED_BY_BYTES",
+      "runtime_identity": "NOT_YET_OBSERVED",
+      "activation_constraints": [
+        "Current race/body semantic owner",
+        "Current resource generations and revisions",
+        "Exact FVF0x152/stride36 and triangle layout",
+        "Exact bitwise geometry digest",
+        "Opaque native render states and original environment stage",
+        "2D current texture generations",
+        "Known native/effective texture matrix",
+        "Stock original PC coordinate policy"
+      ]
+    }
+  ],
+  "negative_controls": {
+    "model_files_scanned": 78,
+    "matching_index_count_records_checked": 6,
+    "signature_matches": {
+      "03f88e7a81ae783819b1ad64ac54284b0b330a4c488c851411aee0378706d729": [
+        {
+          "source": "KiaSportage/car.dx",
+          "source_sha256": "2d490121ee38e84ef7e0d47624f68efd2c1e5790c1138c6fe08db56c7b238451",
+          "record": 14,
+          "vertex_count": 234,
+          "texture_slots": [
+            "kiabon2-tga",
+            "whitepaint-tga",
+            "Null"
+          ]
+        }
+      ],
+      "bdeca6ef2c9f43ce792d8b07d9fef40e5ee25aa5aea41a1cec7254fdbcdacd3b": [
+        {
+          "source": "KiaSportage/car.dx",
+          "source_sha256": "2d490121ee38e84ef7e0d47624f68efd2c1e5790c1138c6fe08db56c7b238451",
+          "record": 13,
+          "vertex_count": 412,
+          "texture_slots": [
+            "kiaside2-tga",
+            "whitepaint-tga",
+            "Null"
+          ]
+        }
+      ]
+    },
+    "unsupported": [],
+    "limitation": "Corpus uniqueness proves source shape specificity; it cannot prove current player/opponent ownership or live state"
+  }
+}

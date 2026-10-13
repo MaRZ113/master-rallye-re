@@ -1,0 +1,77 @@
+{
+  "schema_version": 2,
+  "baseline_branch": "master",
+  "baseline_head": "0bddf7c7bc5e95831f98714ff6231da05ab073ea",
+  "files": {
+    "modernization/renderer/CMakeLists.txt": {
+      "sha256": "6d4a8791086556a7052f1bbcfbe6a1924589d571421ba54427898e8e1f8ecd8b"
+    },
+    "modernization/renderer/include/wrappers.hpp": {
+      "sha256": "8698cfd78bed05daa1b66ea32ecf0d1fe81577046524240ede3eac7a8b79b13c"
+    },
+    "modernization/renderer/src/buffer_provenance.cpp": {
+      "sha256": "ac893da7b77f3bb42b49eda5b5eca8477c381278888d1ca91da8c40ddb17c722"
+    },
+    "modernization/renderer/src/forwarders.cpp": {
+      "sha256": "a84c3ef792b24783cad1cc119e8feb9886f5ef511bfebf316382e8781cec0539"
+    },
+    "modernization/renderer/src/quality_wrappers.cpp": {
+      "sha256": "d63910b87da06b8c6346a4c8ca9e45c349d01f861535537dd393753234be1a4a"
+    },
+    "modernization/renderer/src/visual_wrappers.cpp": {
+      "sha256": "0cfc9fecf5e6cdba8fe4924dbbd3ab8a831fa85d4649c9937c19661acfc0de50"
+    },
+    "modernization/renderer/src/wrappers.cpp": {
+      "sha256": "5ac5dff34d91add9fa258361947f35eb1e27725ced657fdbea296802afadc4e4"
+    },
+    "modernization/renderer/tools/generate_interfaces.py": {
+      "sha256": "29562e7c510349ee7a93c78cb6b83db1a3519b6640dc7fad9e743b167f4f649a"
+    }
+  },
+  "patches": {
+    "0001-renderer-integration.patch": {
+      "sha256": "faeafdc2c78611adbc65438a97aae7d6e753007008dd62be57274ecfac0a996a"
+    },
+    "0002-interface-generator.patch": {
+      "sha256": "ef102121a0b6418ce8fbb0c4477f37194bb30c69ef0f6905a37c75093502fb3f"
+    }
+  },
+  "generated_outputs": {
+    "baseline": {
+      "data/interface-map.json": "1e966cceaabfaf8a2897359180e7319dbfe6afeef16510f3058a2456e4991369",
+      "include/wrappers.hpp": "8698cfd78bed05daa1b66ea32ecf0d1fe81577046524240ede3eac7a8b79b13c",
+      "include/method_names.hpp": "c1a9e331bffb14365807b1f94f700a7acf839de91af27038b64b4374d1e6ab84",
+      "src/forwarders.cpp": "a84c3ef792b24783cad1cc119e8feb9886f5ef511bfebf316382e8781cec0539",
+      "tests/mock_interfaces.hpp": "9062667d68b59dc580e102505bcd4c2da8e66b93e11d6ff210b046c0952062f9"
+    },
+    "ps2-enabled": {
+      "data/interface-map.json": "1e966cceaabfaf8a2897359180e7319dbfe6afeef16510f3058a2456e4991369",
+      "include/wrappers.hpp": "85ef4dc9413ec9590253f9dc65c30582dccb95e8a9405846b8ae17e32404c7e5",
+      "include/method_names.hpp": "c1a9e331bffb14365807b1f94f700a7acf839de91af27038b64b4374d1e6ab84",
+      "src/forwarders.cpp": "bad041adc77a28ae6948b1f74bcde5b9271280f5a830756c3d86d4b331bcd631",
+      "tests/mock_interfaces.hpp": "9062667d68b59dc580e102505bcd4c2da8e66b93e11d6ff210b046c0952062f9"
+    }
+  },
+  "renderer_tree": "e33386bcf682db6983380c499e4928726c758fe0",
+  "hud_cache_patch_provenance": {
+    "authorization": "Previously authorized four-file staged HUD fix; independently committed by user as 0bddf7c and adopted after exact Git-blob comparison",
+    "source_worktree_sha256": {
+      "modernization/renderer/docs/global-hud-hide/implementation.md": "6d6fcea98804a5c791f5992e7a669ee666dd6cc03a43321407274a3c8ca4c2de",
+      "modernization/renderer/include/hud_visibility.hpp": "bc6396516ec88a838346490f52d4cdb507dbd1798870628f242faf35fae44f3c",
+      "modernization/renderer/src/visual_wrappers.cpp": "0cfc9fecf5e6cdba8fe4924dbbd3ab8a831fa85d4649c9937c19661acfc0de50",
+      "modernization/renderer/tests/hud_visibility_tests.cpp": "1a45d2a04baa29711b23ff77b174d7f4565eef3c5ab621f37ec2cd6ad637f401"
+    },
+    "baseline_variant": "APPROVED_HUD_FIX_COMMITTED_IN_IMMUTABLE_BASELINE"
+  },
+  "hud_baseline_adoption": {
+    "previous_baseline_head": "3f837f4ddcb27ee1034a4b0753634c92009360ec",
+    "previous_renderer_tree": "7f9f5a7d9464b7b86ff09a9bf6c34b7ce341682d",
+    "exact_approved_git_blob_sha256": {
+      "modernization/renderer/docs/global-hud-hide/implementation.md": "f704b1ee0a3c80b3540907390935b490daa8d9a4ef79c5499f14425e860ddcbb",
+      "modernization/renderer/include/hud_visibility.hpp": "bc6396516ec88a838346490f52d4cdb507dbd1798870628f242faf35fae44f3c",
+      "modernization/renderer/src/visual_wrappers.cpp": "0cfc9fecf5e6cdba8fe4924dbbd3ab8a831fa85d4649c9937c19661acfc0de50",
+      "modernization/renderer/tests/hud_visibility_tests.cpp": "1a45d2a04baa29711b23ff77b174d7f4565eef3c5ab621f37ec2cd6ad637f401"
+    },
+    "audit": "ps2-research/pc-port/docs/build-policy/hud-baseline-adoption/audit.json"
+  }
+}

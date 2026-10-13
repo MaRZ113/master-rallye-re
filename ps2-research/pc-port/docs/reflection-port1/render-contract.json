@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "phase": "PS2-REFLECTION-PORT1",
+  "status": "IMPLEMENTED_STATIC_COMPONENT_PENDING_USER_RUNTIME",
+  "mode": {"default": 0, "opt_in": 1, "name": "TataBonnetPS2StaticContribution"},
+  "source_material": {"ps2_shader": "carshiny", "ps2_mode": 3, "pc_draw_record": 19},
+  "ps2_source": {
+    "static": "80/128 * ENVSOURCE64X64",
+    "framebuffer": "48/128 * vertically flipped current framebuffer",
+    "body_secondary": "Cd + Cs",
+    "alpha_word": "0x0000008000000029",
+    "evidence_grade": "CONFIRMED_BY_EXE"
+  },
+  "pilot": {
+    "image": "original ENVSOURCE RGB scaled by floor(channel*80/128), A=255",
+    "coordinates": "native PC camera-space normals and texture matrix",
+    "writes": ["stage1 COLOROP=ADD (7)", "stage1 texture=private verified image"],
+    "restoration": "exact native texture then COLOROP, held original COM reference",
+    "native_target_draws": 1,
+    "hresult": "original submitted native draw result",
+    "texture": {"width": 64, "height": 64, "format": "A8R8G8B8", "levels": 1, "pool": "MANAGED"},
+    "render_target_writes": 0,
+    "framebuffer_component": "NOT_IMPLEMENTED",
+    "precision": "APPROXIMATE_D3D8_IMAGE_CONVERSION",
+    "runtime_validation": "NOT_PERFORMED"
+  },
+  "deferred": ["PS2 framebuffer target producer", "PS2 body grayscale preparation", "GS rounding/PSMCT16", "two-pass ordering", "exact VU coordinate output", "visual parity"]
+}

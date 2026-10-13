@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "native_builds": {
+    "baseline": "PASS",
+    "ps2_enabled": "PASS",
+    "baseline_ctest": 24,
+    "ps2_ctest": 30,
+    "private_input_ctest": 7,
+    "exports": "PASS",
+    "generator_determinism": "PASS"
+  },
+  "python": {
+    "port_unittest": 107,
+    "port_pytest": 107,
+    "port_pytest_subtests": 48,
+    "research_unittest": 345,
+    "research_pytest": 345,
+    "research_pytest_subtests": 290,
+    "grass3_inventory": 8,
+    "frozen_renderer_pass": 188,
+    "frozen_renderer_import_errors": 1,
+    "blocked_dependency": "pefile"
+  },
+  "archive_isolated_synthetic_tests": 30,
+  "placement_regeneration": {
+    "FRANCE1": {
+      "grass": {
+        "sha256": "354cb84c7238e8a1a4959c95fc7e265587f32a3f26dcb29b98aa818c1096f961",
+        "maximum_abs_hash_before_conversion": 710069952.0
+      },
+      "shrubs": {
+        "sha256": "69e64191810c4f3ce5b9b06862e9afe8d4ea2a69940ee7d4449cb71430fc2802",
+        "maximum_abs_hash_before_conversion": 707865088.0
+      }
+    },
+    "ITALY_S1": {
+      "grass": {
+        "sha256": "e764d52060bc87c797e43459d743ec3dc6a4cd1aff67f239a62c59e82863c1ae",
+        "maximum_abs_hash_before_conversion": 402295424.0
+      },
+      "shrubs": {
+        "sha256": "e2d08cfc56f7f3ea8e91b5225ba1b4a228ec40062b361c697426694c0f88234d",
+        "maximum_abs_hash_before_conversion": 381029760.0
+      }
+    }
+  },
+  "no_native_runtime_performed": true,
+  "physics_paused": true
+}

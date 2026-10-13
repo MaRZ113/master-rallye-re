@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "previous_built_source": "ps2-research/pc-port/.build-overlay-course-objects-final/ps2-enabled/ps2-research/pc-port/renderer/reflection_pilot.cpp",
+  "previous_source_sha256": "d6c7296c41464cc3ffc9815fd2be3ffc7ded328bcfa631c743799184bde10229",
+  "classifier_functions_sha256": "f0fda7664f63b6680450d2423a7a6ceb4fac63219a3408caec9b813ca6b245c1",
+  "target_geometry_sha256": "f80ae53d8c8691ebb8387680b0555343e10100459949c56e3338c484b680e669",
+  "classifier_unchanged": true,
+  "compiled_record": 19,
+  "native_triangles": 55,
+  "vertex_count": 48,
+  "representation": "PC_COMPILED_RENDER_DRAW",
+  "semantic_scope": "hood_and_roof_regions",
+  "independent_runtime_observation": "original supplied Mode0/1 F10 and audit, not new Mode4 runtime"
+}

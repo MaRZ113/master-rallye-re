@@ -1,0 +1,23 @@
+{
+  "authorization": "User authorized four previously proposed roots only",
+  "approved_names": [
+    ".build-overlay-course-objects-check",
+    ".build-overlay-course-objects-final",
+    ".build-overlay-pilot14",
+    ".build-overlay-reflection1-final"
+  ],
+  "preservation_archive": "dist/cleanup/first-conservative-build-cleanup.zip",
+  "archive_bytes": 180136497,
+  "archive_sha256": "6d12f9611f8599da7749b1483fe3e12421d2b4920139f33e266cd4145a12dece",
+  "preserved_files": 5792,
+  "original_bytes": 916170472,
+  "net_bytes_reclaimable": 736033975,
+  "all_source_artifact_report_bytes_preserved": true,
+  "deletion_status": "COMPLETE_FOUR_APPROVED_ROOTS_ONLY",
+  "removed_names": [
+    ".build-overlay-course-objects-check",
+    ".build-overlay-course-objects-final",
+    ".build-overlay-pilot14",
+    ".build-overlay-reflection1-final"
+  ]
+}

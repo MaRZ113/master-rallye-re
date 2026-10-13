@@ -1,0 +1,107 @@
+{
+  "schema_version": 3,
+  "baseline_head": "3f837f4ddcb27ee1034a4b0753634c92009360ec",
+  "current_head": "3f837f4ddcb27ee1034a4b0753634c92009360ec",
+  "renderer_tree": "7f9f5a7d9464b7b86ff09a9bf6c34b7ce341682d",
+  "branch": "master",
+  "patch_sha256": {
+    "0001-renderer-integration.patch": "6523ec8fe802a0de6187a8c0221e29bc6fdea5ef0aab1b649be59e4ad74dd7cf",
+    "0002-interface-generator.patch": "04d76dc52868ce48d81cdb58f67d6bdf99191635186423d5c2838b5ed52f7d46"
+  },
+  "ps2_source_sha256": {
+    "renderer/course_object_transaction.hpp": "82162dd917bb6a77d19bcb0142b4a75599fb7572ae321102eda62ad06d578ad1",
+    "renderer/course_objects.cpp": "dcdaf7ba14df7a74c3bba7ef5058b9568062134bc44ec90402e1387e7b3cff2a",
+    "renderer/course_objects.hpp": "e866464d06c2225e2412eb4b14107b78d1d471f679e7846c46e137cd95d9b915",
+    "renderer/course_objects_native_integration.hpp": "300febafa5080b2fc028069628c1ed00850628052f83cc6f1e9ad0a5663bf8cc",
+    "renderer/grass_native_integration.hpp": "1eb0dc255b3db43f5d4fb5153d410c487280d62baec015dc6a1dd3558f1060a8",
+    "renderer/grass_pilot.cpp": "19ba8d698bc7a7e2ccb9be86abc45557f3b8dba20b6522b8b42ecb17587fec05",
+    "renderer/grass_pilot.hpp": "1a1a1eab2d06a845a55923e861251800f1585fd4716c454838669c2780959e68",
+    "renderer/ps2_port_extension.cpp": "92823adb943905b9bfa2cd2ac1859d5253475a20887875e869d19ada7b3e67f6",
+    "renderer/ps2_port_extension.hpp": "1c7e620b4181a1780df3bedbb6b481a5140eae456ec510c509ab34cd94186cab",
+    "renderer/reflection_capture.cpp": "124d88c9fe837e9fd0274a5e77eed94eef363a43423fdd8461223be8be3d5f56",
+    "renderer/reflection_capture.hpp": "e6097187f153181b7dd581d5157375ce9fca6d494334a4eb3fda87c346972ce1",
+    "renderer/reflection_native_integration.hpp": "91c65ad93d7c133070c1a3d0c74605e8a65d086213689a527958f6a2e9138732",
+    "renderer/reflection_pilot.cpp": "c192ac9ec9529fc5f1108071c82596aa51cbed5c6063a71c7f027db8571f8ff0",
+    "renderer/reflection_pilot.hpp": "60ca229b8d5420ea3c6181995e4c6ca6dcf0417658947ccab90516c9087da4ac",
+    "tests/course_object_transaction_tests.cpp": "a94d154601c47b4e8387cda0becb7666c923534df1c7a905b77a731a92bedd0e",
+    "tests/course_objects_tests.cpp": "4ac9d8c1804c116a992998f507fc253910d8e715b58784d6cdea1f0ce6e01c55",
+    "tests/grass_pilot_tests.cpp": "63cff2f438d9319209b98ff1e26afefa6951094ccb6f0dccb4e9a4d4943b5642",
+    "tests/ps2_port_extension_tests.cpp": "9928cba1afb23ac0fdfa660bd5ab0e1fd66d91c754d860dbf4172069dc114035",
+    "tests/reflection_capture_tests.cpp": "41520886b7fef339b94dcb24d8c6c8f8cf47db3222c7139b9c1e462f6194c66b",
+    "tests/reflection_pilot_tests.cpp": "5702a9f9965a30d3c5bd9563c3007fe767f6fc6313b22a6084d8caa75f4276d2",
+    "tests/test_build_roots.py": "b09fc460bbc7d7900087f6acc37eb6c50c300e48e87da9ee1b7361e5c5069f90",
+    "tests/test_course_objects_asset.py": "94f25a2f91a0b0a46da49ce179a6b7eade615a0fc866930f84091b9a283f0ee5",
+    "tests/test_course_objects_integration.py": "3667503a89f17cce53bfa5092678635e7bd539b7e6025c986bf066ff9377bfdb",
+    "tests/test_grass_asset.py": "17ef83dcdf7f756ff4f07f02e895633be4e4675c52fd35d3fa6181357a46e7b8",
+    "tests/test_grass_integration.py": "eb917d96fb8c70ee5936fc4110b770e6a467138072f884aaf88c676363e47cbe",
+    "tests/test_integration_contract.py": "be29841058af8f53c99d31d7dbea790a6fe193be53e2df8ca6e8495f235a6dc0",
+    "tests/test_menu_grass_fix.py": "e9c4c9e2b22903442c68d90d874041b12129af246d6ad0b810de2c36c6019cf5",
+    "tests/test_reflection11_integration.py": "a0b7dcade5dcce436811ac72ab5f16b5b4c68a7553e313e4c14f9f0f995d7291",
+    "tests/test_reflection_contract.py": "bd68869cfce5b3f20d38fe26513785ca26305c9ee8d4861074b8433ebcb70158",
+    "tests/test_renderer_tree_lock.py": "5247979323e91ea6dda3fde2e4e14c21f9c2a0d120d69281e40c3ab55cdc0d00"
+  },
+  "generator": {
+    "baseline": {
+      "deterministic": true,
+      "outputs": {
+        "data/interface-map.json": "1e966cceaabfaf8a2897359180e7319dbfe6afeef16510f3058a2456e4991369",
+        "include/wrappers.hpp": "8698cfd78bed05daa1b66ea32ecf0d1fe81577046524240ede3eac7a8b79b13c",
+        "include/method_names.hpp": "c1a9e331bffb14365807b1f94f700a7acf839de91af27038b64b4374d1e6ab84",
+        "src/forwarders.cpp": "a84c3ef792b24783cad1cc119e8feb9886f5ef511bfebf316382e8781cec0539",
+        "tests/mock_interfaces.hpp": "9062667d68b59dc580e102505bcd4c2da8e66b93e11d6ff210b046c0952062f9"
+      },
+      "initial_files_rewritten": []
+    },
+    "ps2-enabled": {
+      "deterministic": true,
+      "outputs": {
+        "data/interface-map.json": "1e966cceaabfaf8a2897359180e7319dbfe6afeef16510f3058a2456e4991369",
+        "include/wrappers.hpp": "85ef4dc9413ec9590253f9dc65c30582dccb95e8a9405846b8ae17e32404c7e5",
+        "include/method_names.hpp": "c1a9e331bffb14365807b1f94f700a7acf839de91af27038b64b4374d1e6ab84",
+        "src/forwarders.cpp": "5e825c91c8f11472006e68fa0a3582b5d2fb31e54bc9cb12f5a757f32a76d6ae",
+        "tests/mock_interfaces.hpp": "9062667d68b59dc580e102505bcd4c2da8e66b93e11d6ff210b046c0952062f9"
+      },
+      "initial_files_rewritten": []
+    }
+  },
+  "builds": {
+    "baseline": {
+      "dll": "ps2-research/pc-port/dist/current/baseline/d3d8.dll",
+      "dll_sha256": "85244faa5c9fcc75d1351977cf8dfefd9ff35791274efaeaed740a342bc50a32",
+      "ctest": "PASS",
+      "proxy_verification": "PASS",
+      "build": "PASS",
+      "build_dll": "ps2-research/pc-port/.build/baseline/Release/d3d8.dll"
+    },
+    "ps2-enabled": {
+      "dll": "ps2-research/pc-port/dist/current/ps2-enabled/d3d8.dll",
+      "dll_sha256": "5aeb9f3499ce207bcebfb0a0973c0f16ca82693c30932597e74d3cb41cbec91c",
+      "ctest": "PASS",
+      "proxy_verification": "PASS",
+      "build": "PASS",
+      "build_dll": "ps2-research/pc-port/.build/ps2-enabled/Release/d3d8.dll"
+    }
+  },
+  "staging": {
+    "baseline_source": "ps2-research/pc-port/.staging/baseline/modernization/renderer",
+    "ps2_source": "ps2-research/pc-port/.staging/ps2-enabled/modernization/renderer",
+    "ps2_port_root": "ps2-research/pc-port/.staging/ps2-enabled/ps2-research/pc-port",
+    "patches_applied_in_order": [
+      "0001-renderer-integration.patch",
+      "0002-interface-generator.patch"
+    ]
+  },
+  "ps2_port_tests": "PASS",
+  "dll_distinct": true,
+  "one_off_worktree_exception": {
+    "authorization": "User approved old immutable Git objects only; exclude four unrelated HUD edits",
+    "excluded_worktree_sha256": {
+      "modernization/renderer/include/hud_visibility.hpp": "bc6396516ec88a838346490f52d4cdb507dbd1798870628f242faf35fae44f3c",
+      "modernization/renderer/tests/hud_visibility_tests.cpp": "1a45d2a04baa29711b23ff77b174d7f4565eef3c5ab621f37ec2cd6ad637f401",
+      "modernization/renderer/src/visual_wrappers.cpp": "0cfc9fecf5e6cdba8fe4924dbbd3ab8a831fa85d4649c9937c19661acfc0de50",
+      "modernization/renderer/docs/global-hud-hide/implementation.md": "6d6fcea98804a5c791f5992e7a669ee666dd6cc03a43321407274a3c8ca4c2de"
+    },
+    "public_builder_clean_worktree_gate": "UNCHANGED",
+    "working_sources_used": false
+  }
+}

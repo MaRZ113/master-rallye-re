@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "source": "DataGx/Vehicles/Tata/car.dx",
+  "source_sha256": "45b7bfba6938e259c0ac6d79a42a878a8c66b1e53547a53a6d23343092fb34cb",
+  "compiled_record_index": 19,
+  "source_triangle_count": 55,
+  "source_vertex_count": 48,
+  "distinct_xyz_count": 44,
+  "component_method": "Shared full edges after exact numeric XYZ canonicalization; winding independent; original indices retained separately",
+  "coordinates": "MODEL_LOCAL_SOURCE",
+  "source_evidence_grade": "CONFIRMED_BY_BYTES",
+  "projection_evidence_grade": "STATIC_INFERENCE",
+  "projection_method": "Captured row-major WORLD then VIEW then effective Free Camera PROJECTION; perspective divide; 1920x1080 viewport; no pixel mask; host float64 diagnostic",
+  "captured_matrix_bits_equal": true,
+  "components": [
+    {
+      "face_count": 28,
+      "first_face": 0,
+      "last_face": 27,
+      "bounds_local": {
+        "min": [
+          -0.804463267326355,
+          0.7894322276115417,
+          0.9454293251037598
+        ],
+        "max": [
+          0.8626372218132019,
+          1.0045397281646729,
+          1.9955955743789673
+        ]
+      },
+      "projected_pixel_bounds": {
+        "min": [
+          595.3253601283864,
+          484.0380128319268
+        ],
+        "max": [
+          1315.8385781515115,
+          792.4903882279375
+        ]
+      }
+    },
+    {
+      "face_count": 27,
+      "first_face": 28,
+      "last_face": 54,
+      "bounds_local": {
+        "min": [
+          -0.6043567657470703,
+          1.5290610790252686,
+          -0.7042402625083923
+        ],
+        "max": [
+          0.6625309586524963,
+          1.6099218130111694,
+          0.30289924144744873
+        ]
+      },
+      "projected_pixel_bounds": {
+        "min": [
+          769.6041714568431,
+          165.93386860783758
+        ],
+        "max": [
+          1132.4525535292728,
+          253.7146938735258
+        ]
+      }
+    }
+  ]
+}

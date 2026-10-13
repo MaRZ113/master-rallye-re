@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "method": "Bitwise whole-draw position digest for 165-index candidate records only",
+  "source_layer": "PC_COMPILED_MODEL_DRAW",
+  "model_files_scanned": 78,
+  "candidate_draws_checked": 1,
+  "matches": [
+    {
+      "source": "Tata/car.dx",
+      "source_sha256": "45b7bfba6938e259c0ac6d79a42a878a8c66b1e53547a53a6d23343092fb34cb",
+      "record_index": 19,
+      "record_offset": 95648,
+      "texture_slots": [
+        "tatabon-tga",
+        "whitepaint-tga",
+        "Null"
+      ]
+    }
+  ],
+  "unsupported": [],
+  "evidence_grade": "CONFIRMED_BY_BYTES",
+  "runtime_scope": "Each matched CAR/COMPLETE source still needs live race/body proof; no menu/instance equivalence claim."
+}
