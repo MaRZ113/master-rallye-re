@@ -18,10 +18,12 @@ Mode4 is retained with its original source and state policy when the new keys
 are0. Its independently checked session13620/frame310 has successful copy,
 composition, override/native draw and restoration HRESULTs. New options:
 
-* `ReflectionCoverage=1`: additionally allows only verified Kia Sportage bonnet,
+* `ReflectionCoverage=1`: additionally allows only verified Kia Sportage painted group,
   PC record14,234 vertices/206 faces. All206 faces correspond to PS2 root.5
   `carshiny` mode3 at0.001; its full geometry digest is unique across78 protected
   retail vehicle DX files. Tata remains record19,48 vertices/55 faces.
+  Kia's `kiabon2`/bonnet diagnostic names are not proof of an isolated hood;
+  the complete record spans multiple body regions and is the actual target.
 * `ReflectionTargetPrecision=1`: requests private A1R5G5B5 destination storage.
   Unsupported allocation releases any partial pointer and explicitly falls
   back to the existing A8R8G8B8 target. Current generation/native material,

@@ -9,6 +9,11 @@ resolution. First use Tata, then Kia Sportage. Restart the game after config
 changes; keep vehicle reflections policy in the baseline renderer at Stock.
 Use non-MSAA for the first test; an MSAA capture is explicitly unsupported and
 must leave that body draw Stock, with a bounded diagnostic reason.
+Kia's target is the complete opaque painted **record14**, not an isolated hood:
+its local bounds span X[-1.0444,1.0456], Y[0.0590,1.6333], Z[-2.3285,2.1591].
+The `kiabon2`/`KIA_RECORD_14_BONNET` names are source/diagnostic identifiers;
+they do not narrow the verified206-face group. Inspect it from above and a
+quarter-side view, rather than judging only a small front-hood patch.
 
 ```ini
 [PS2Port]
