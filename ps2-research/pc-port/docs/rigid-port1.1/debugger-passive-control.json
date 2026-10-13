@@ -1,0 +1,274 @@
+{
+  "course_certificate": "UNKNOWN",
+  "duration_seconds": 59.919969599926844,
+  "function_order": "UNKNOWN",
+  "identity": {
+    "bytes": 3121214,
+    "format": "PE32",
+    "image_base": 4194304,
+    "machine": "i386",
+    "pid": 12760,
+    "process_creation_filetime": 134363560813303197,
+    "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4"
+  },
+  "injected_objects": false,
+  "native_destruction": "UNKNOWN",
+  "observed_pointer_pairs": [
+    {
+      "body": 44916640,
+      "body_cache_zero_samples": 0,
+      "body_vtable": 6887940,
+      "category": 5,
+      "first_seconds": 30.956894299946725,
+      "instance": 300192848,
+      "instance_cache_zero_samples": 7,
+      "last_seconds": 39.10454159998335,
+      "name_id": 9837,
+      "pointer_generation": "NOT_ESTABLISHED",
+      "positions_observed": 82,
+      "runtime_role": "UNKNOWN",
+      "samples": 82,
+      "xyz_max": [
+        3211.7197265625,
+        37.33000183105469,
+        82.03536987304688
+      ],
+      "xyz_min": [
+        3204.505615234375,
+        36.99418258666992,
+        58.819976806640625
+      ]
+    },
+    {
+      "body": 300648584,
+      "body_cache_zero_samples": 0,
+      "body_vtable": 6887940,
+      "category": 5,
+      "first_seconds": 23.212121299933642,
+      "instance": 300650576,
+      "instance_cache_zero_samples": 16,
+      "last_seconds": 27.23982620006427,
+      "name_id": 9837,
+      "pointer_generation": "NOT_ESTABLISHED",
+      "positions_observed": 41,
+      "runtime_role": "UNKNOWN",
+      "samples": 41,
+      "xyz_max": [
+        -121.37274169921875,
+        46.09990310668945,
+        80.00334167480469
+      ],
+      "xyz_min": [
+        -121.61351776123047,
+        44.61000061035156,
+        76.10366821289062
+      ]
+    },
+    {
+      "body": 324046200,
+      "body_cache_zero_samples": 0,
+      "body_vtable": 6887940,
+      "category": 5,
+      "first_seconds": 24.92316689994186,
+      "instance": 323944712,
+      "instance_cache_zero_samples": 0,
+      "last_seconds": 27.23982620006427,
+      "name_id": 9851,
+      "pointer_generation": "NOT_ESTABLISHED",
+      "positions_observed": 24,
+      "runtime_role": "UNKNOWN",
+      "samples": 24,
+      "xyz_max": [
+        -117.9891357421875,
+        46.05538558959961,
+        72.35128021240234
+      ],
+      "xyz_min": [
+        -119.2003173828125,
+        45.62030029296875,
+        61.55229568481445
+      ]
+    },
+    {
+      "body": 323903144,
+      "body_cache_zero_samples": 0,
+      "body_vtable": 6887940,
+      "category": 5,
+      "first_seconds": 24.92316689994186,
+      "instance": 323949568,
+      "instance_cache_zero_samples": 0,
+      "last_seconds": 27.23982620006427,
+      "name_id": 9849,
+      "pointer_generation": "NOT_ESTABLISHED",
+      "positions_observed": 24,
+      "runtime_role": "UNKNOWN",
+      "samples": 24,
+      "xyz_max": [
+        -123.51264190673828,
+        45.59871292114258,
+        78.27957153320312
+      ],
+      "xyz_min": [
+        -127.17066955566406,
+        44.926048278808594,
+        66.30878448486328
+      ]
+    },
+    {
+      "body": 324056968,
+      "body_cache_zero_samples": 0,
+      "body_vtable": 6887940,
+      "category": 5,
+      "first_seconds": 24.92316689994186,
+      "instance": 324120904,
+      "instance_cache_zero_samples": 0,
+      "last_seconds": 27.23982620006427,
+      "name_id": 9852,
+      "pointer_generation": "NOT_ESTABLISHED",
+      "positions_observed": 24,
+      "runtime_role": "UNKNOWN",
+      "samples": 24,
+      "xyz_max": [
+        -121.35169219970703,
+        45.896366119384766,
+        70.65068054199219
+      ],
+      "xyz_min": [
+        -124.85340881347656,
+        45.22529602050781,
+        60.86156463623047
+      ]
+    },
+    {
+      "body": 470499776,
+      "body_cache_zero_samples": 0,
+      "body_vtable": 6887940,
+      "category": 5,
+      "first_seconds": 41.3161756999325,
+      "instance": 470500616,
+      "instance_cache_zero_samples": 0,
+      "last_seconds": 49.564738400047645,
+      "name_id": 9837,
+      "pointer_generation": "NOT_ESTABLISHED",
+      "positions_observed": 83,
+      "runtime_role": "UNKNOWN",
+      "samples": 83,
+      "xyz_max": [
+        3211.7197265625,
+        37.392478942871094,
+        94.00281524658203
+      ],
+      "xyz_min": [
+        3196.47607421875,
+        36.99208450317383,
+        58.819976806640625
+      ]
+    }
+  ],
+  "physics_thread": "UNKNOWN",
+  "private_resource_ownership": "UNKNOWN",
+  "samples": 597,
+  "schema": "rigid-lifecycle-review-v1",
+  "source_sha256": "48e5a54dd8f23e0ff360aa500cee6fb816e256d0c5903dad8c559d3f35585a8d",
+  "status_counts": {
+    "READ_SNAPSHOT_NOT_ATOMIC": 597
+  },
+  "vector_membership_changes": [
+    {
+      "native_count": 0,
+      "seconds": 0.0001425999216735363,
+      "selected_pointer_membership": [],
+      "selection_truncated": false,
+      "sequence": 0
+    },
+    {
+      "native_count": 1,
+      "seconds": 23.212121299933642,
+      "selected_pointer_membership": [
+        [
+          300650576,
+          300648584,
+          9837
+        ]
+      ],
+      "selection_truncated": false,
+      "sequence": 231
+    },
+    {
+      "native_count": 4,
+      "seconds": 24.92316689994186,
+      "selected_pointer_membership": [
+        [
+          300650576,
+          300648584,
+          9837
+        ],
+        [
+          323949568,
+          323903144,
+          9849
+        ],
+        [
+          323944712,
+          324046200,
+          9851
+        ],
+        [
+          324120904,
+          324056968,
+          9852
+        ]
+      ],
+      "selection_truncated": false,
+      "sequence": 248
+    },
+    {
+      "native_count": 0,
+      "seconds": 27.34021669998765,
+      "selected_pointer_membership": [],
+      "selection_truncated": false,
+      "sequence": 272
+    },
+    {
+      "native_count": 1,
+      "seconds": 30.956894299946725,
+      "selected_pointer_membership": [
+        [
+          300192848,
+          44916640,
+          9837
+        ]
+      ],
+      "selection_truncated": false,
+      "sequence": 308
+    },
+    {
+      "native_count": 0,
+      "seconds": 39.20533280004747,
+      "selected_pointer_membership": [],
+      "selection_truncated": false,
+      "sequence": 390
+    },
+    {
+      "native_count": 1,
+      "seconds": 41.3161756999325,
+      "selected_pointer_membership": [
+        [
+          470500616,
+          470499776,
+          9837
+        ]
+      ],
+      "selection_truncated": false,
+      "sequence": 411
+    },
+    {
+      "native_count": 0,
+      "seconds": 49.66548409988172,
+      "selected_pointer_membership": [],
+      "selection_truncated": false,
+      "sequence": 494
+    }
+  ],
+  "vehicle_contact": "NOT_PROVED"
+}

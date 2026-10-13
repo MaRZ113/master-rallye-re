@@ -1,0 +1,947 @@
+{
+  "canonical_inputs": {
+    "SLES_509.06": {
+      "sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+      "size": 3739852
+    },
+    "SYSTEM.CNF": {
+      "sha256": "db08eef06278820a562f9cdacd6a2d5d2bb31870e7cf3a51e83daee3a90c5df2",
+      "size": 56
+    },
+    "TNG.000": {
+      "sha256": "004ac1676376275bf40c1fd5c1c4a9dcfaae870bf1a7916434eb73b0b1faff86",
+      "size": 1225915283
+    },
+    "TNG.PAK": {
+      "sha256": "d98c7cf1049a8a3bc2f90a528a2b6f52cd43c16c2e0564830d5ecb9c592ab28d",
+      "size": 135556
+    }
+  },
+  "course_sdk": {
+    "file_sha256": {
+      "collision.py": "a4f0d087da30b324cc6721573e5943433e1974fa27dbda2f369ba3f8eb4936d2",
+      "collision_writer.py": "cdc1b74d70591f37c307331e106671b7f9b2aacaa1509fb964dea653900dbfce"
+    },
+    "head": "4244fa0c4d878523c9947f54816bf377cdfb2589",
+    "read_only": true,
+    "status": "CLEAN"
+  },
+  "evidence_grade": "CONFIRMED_BY_BOTH",
+  "model": {
+    "attributes": {
+      "color_conversion": "Original raw u32 retained; any private PC diffuse conversion requires an explicit render contract",
+      "color_word_u32_counts": {
+        "0x949494ff": 56,
+        "0xe0e0e0ff": 40
+      },
+      "control_bit0_set_source_vertex_count": 48,
+      "control_u32_sha256": "1fb9a28473b059fe15a41dd4db86751899e7b5336dab6e8d37960067cce85578",
+      "control_u32_unique_count": 92,
+      "normal_length_host_diagnostic_range": [
+        0.9999999858747795,
+        1.000000121101886
+      ],
+      "normal_xyz_f32_sha256": "3ffa57ac789328da8acf223c27de76c0c830e5e78b997442058ab8b9532ba683",
+      "suppression": "Newest source strip vertex control bit0; winding/live culling remain separate",
+      "uv_4f32_sha256": "5b3d28254f5cdab199b65db06dd68b7700800ea28dc251e55b968a11d2775788"
+    },
+    "bytes": 9819,
+    "control_offset": 12,
+    "coordinate_frame": "MODEL_LOCAL",
+    "mesh": {
+      "classification": {
+        "authored_shader": "treeblend",
+        "evidence_grade": "CONFIRMED_BY_EXE",
+        "fallback": "GENERIC_MAP_DEFAULTS_RETAINED_OR_OTHER_SHADER",
+        "interned_shader": "treeblend",
+        "scroll_token_consumer": "NOT_FOUND_IN_TRACED_WATER_PATH",
+        "scroll_v_plus1_present": false,
+        "water_mode": null
+      },
+      "field_unknown": 0,
+      "flags": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "material": "bigshrub $shader(treeblend)",
+      "material_offset": 5100,
+      "node_offset": 5032,
+      "path": "root.0",
+      "strips": [
+        {
+          "count": 30,
+          "flag": true,
+          "offset": 5147,
+          "scale": 0.6420245170593262,
+          "start": 0
+        },
+        {
+          "count": 30,
+          "flag": false,
+          "offset": 5160,
+          "scale": 0.6422780752182007,
+          "start": 30
+        },
+        {
+          "count": 30,
+          "flag": false,
+          "offset": 5173,
+          "scale": 0.689431369304657,
+          "start": 60
+        },
+        {
+          "count": 6,
+          "flag": false,
+          "offset": 5186,
+          "scale": 0.7038462162017822,
+          "start": 90
+        }
+      ],
+      "textures": [
+        {
+          "flags": [
+            true,
+            true,
+            false
+          ],
+          "name": "Misc\\Objects\\Tumbleweed\\shrubtrig2-tga",
+          "offset": 5054,
+          "slot": 0
+        }
+      ],
+      "word70_unknown": "0x3f291f4c",
+      "words_unknown": [
+        0,
+        0
+      ]
+    },
+    "normal_offset": 0,
+    "packfs": {
+      "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred",
+      "compression": "packfs_lzo",
+      "directory_size_0x08": 4518,
+      "evidence": "CONFIRMED_BY_BOTH",
+      "offset": 1210350011,
+      "path": "\\TNG\\DATAPSM\\MISC\\OBJECTS\\TUMBLEWEED\\TUMBLWEED.PSM",
+      "payload_sha256": "eb959250d0bdb6fa051fb69f4a852c4789be200613eb8e90678d36a48ab54bf4",
+      "stored_sha256": "6d323d9dba67a22895146a7b95e2adacc880d386975b76a1b8bdac798e9243f7",
+      "stored_size": 4518,
+      "unpacked_size": 9819
+    },
+    "position_offset": 36,
+    "resource": "\\TNG\\DATAPSM\\MISC\\OBJECTS\\TUMBLEWEED\\TUMBLWEED.PSM",
+    "rgba_offset": 16,
+    "sha256": "eb959250d0bdb6fa051fb69f4a852c4789be200613eb8e90678d36a48ab54bf4",
+    "source_vertex_stride": 52,
+    "unknown_fields": "All opaque mesh words/flags remain literal; no runtime reinterpretation",
+    "uv_offset": 20,
+    "visual": {
+      "bounds": {
+        "max": [
+          1.0364476442337036,
+          0.8746271133422852,
+          1.0502557754516602
+        ],
+        "min": [
+          -1.0344587564468384,
+          -0.87745600938797,
+          -1.0509971380233765
+        ]
+      },
+      "end": 5203,
+      "materials": [
+        "bigshrub $shader(treeblend)"
+      ],
+      "mesh_records": 1,
+      "node_counts": {
+        "1": 1,
+        "2": 1
+      },
+      "nonsuppressed_nondegenerate_triangles": 48,
+      "start": 5024,
+      "strips": 4,
+      "texture_references": [
+        [
+          {
+            "flags": [
+              true,
+              true,
+              false
+            ],
+            "name": "Misc\\Objects\\Tumbleweed\\shrubtrig2-tga",
+            "offset": 5054,
+            "slot": 0
+          }
+        ]
+      ],
+      "vertex_records": 96
+    }
+  },
+  "native_collision_wire": {
+    "bytes_reader_payload": 4608,
+    "bytes_with_tag": 4612,
+    "canonical_sdk_serializer_byte_identity": "PASS",
+    "collision": {
+      "base_geometry": {
+        "bounds": {
+          "max": [
+            0.0,
+            2.9802322387695312e-08,
+            2.9802322387695312e-08
+          ],
+          "min": [
+            0.0,
+            2.9802322387695312e-08,
+            2.9802322387695312e-08
+          ]
+        },
+        "end_offset": 24,
+        "index_u32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "offset": 4,
+        "triangles": 0,
+        "vertices": 1,
+        "xyz_f32_sha256": "d66d4c2ff0790c5ba073474ffa07aeb824aaa1bd0f1e93bb68277d93ba66cc10"
+      },
+      "base_scalar": 1.0692750215530396,
+      "end_offset": 4612,
+      "offset": 0,
+      "representation_a": {
+        "edges": 12,
+        "end_offset": 892,
+        "faces": 6,
+        "geometry_a": {
+          "bounds": {
+            "max": [
+              0.6750593185424805,
+              0.4816003739833832,
+              0.6750593781471252
+            ],
+            "min": [
+              -0.6750593185424805,
+              -0.4816003143787384,
+              -0.6750593185424805
+            ]
+          },
+          "end_offset": 276,
+          "index_u32_sha256": "76ee9acb8a7ed8958f8852af5675579e3566115c5429459c847e643b486d5bf3",
+          "offset": 28,
+          "triangles": 12,
+          "vertices": 8,
+          "xyz_f32_sha256": "890a7d7755b11e5137662859358552091dc023a3e15e4dbfc9a29d56748c4dd8"
+        },
+        "geometry_b": {
+          "bounds": {
+            "max": [
+              0.0,
+              2.9802322387695312e-08,
+              2.9802322387695312e-08
+            ],
+            "min": [
+              0.0,
+              2.9802322387695312e-08,
+              2.9802322387695312e-08
+            ]
+          },
+          "end_offset": 296,
+          "index_u32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "offset": 276,
+          "triangles": 0,
+          "vertices": 1,
+          "xyz_f32_sha256": "d66d4c2ff0790c5ba073474ffa07aeb824aaa1bd0f1e93bb68277d93ba66cc10"
+        },
+        "offset": 28,
+        "referenced_vertices": 8
+      },
+      "representation_b": {
+        "edges": 56,
+        "end_offset": 4612,
+        "faces": 32,
+        "geometry_a": {
+          "bounds": {
+            "max": [
+              0.6750593185424805,
+              0.4816003739833832,
+              0.6750593781471252
+            ],
+            "min": [
+              -0.6750593185424805,
+              -0.4816003143787384,
+              -0.6750593185424805
+            ]
+          },
+          "end_offset": 1788,
+          "index_u32_sha256": "4bc1b37c587ac776580677cc0e990fd0b9e1325235325c7bb9affc3e8ecd0472",
+          "offset": 892,
+          "triangles": 48,
+          "vertices": 26,
+          "xyz_f32_sha256": "7043950e01a612d8747e13277d521809d83d0c2ebdbb4043a0cae894c780286d"
+        },
+        "geometry_b": {
+          "bounds": {
+            "max": [
+              5.084985321701652e-09,
+              -1.937283045094773e-08,
+              -3.1221684793081295e-08
+            ],
+            "min": [
+              5.084985321701652e-09,
+              -1.937283045094773e-08,
+              -3.1221684793081295e-08
+            ]
+          },
+          "end_offset": 1808,
+          "index_u32_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "offset": 1788,
+          "triangles": 0,
+          "vertices": 1,
+          "xyz_f32_sha256": "7de23c36b9dbc609e330ccf37d41b1a5d0027d7b41b45a5ac36a3d5030616e9b"
+        },
+        "offset": 892,
+        "referenced_vertices": 26
+      },
+      "sha256": "27cb1089bf997a0b20d6a4f98fee9827a9089972ff6e891fce5cf34e41e01d48",
+      "tag": 101
+    },
+    "geometry_reader": "original PC 0x0057D640",
+    "native_reader_input": "wire[4:] after tag101 dispatch; do not feed the u32 tag twice",
+    "normal_policy": "Tag101 stores topology/areas, not the visual normal array; preserve all lists",
+    "reader": "original PC 0x0057CE60",
+    "registration": "UNKNOWN; round-trip is not live native prototype admission",
+    "replacement_hay_hull": false,
+    "representation_reader": "original PC 0x0057D140",
+    "sha256_reader_payload": "83d6bd02133d7e8b262243c9b716c73e4ada3a0a717d612dbb2c25b5cab43e41",
+    "sha256_with_tag": "27cb1089bf997a0b20d6a4f98fee9827a9089972ff6e891fce5cf34e41e01d48",
+    "source_a_b_label_contract": "SDK serialization order only: A8/12 precedes B26/48; native prototype/clone pointer slot order and live narrowphase selection require separate PC instruction evidence",
+    "source_psm_end_exclusive": 9815,
+    "source_psm_tag_offset": 5203,
+    "strict_sdk_parse": "PASS",
+    "transform_policy": "Keep all hull coordinates MODEL_LOCAL; apply original Egg/body pose once",
+    "wire_accounting": [
+      {
+        "bytes": 4,
+        "section": "dispatch_tag",
+        "wire_offset": 0
+      },
+      {
+        "bytes": 8,
+        "section": "base_geometry.counts",
+        "wire_offset": 4
+      },
+      {
+        "bytes": 12,
+        "section": "base_geometry.xyz_f32",
+        "wire_offset": 12
+      },
+      {
+        "bytes": 0,
+        "section": "base_geometry.triangles_i32",
+        "wire_offset": 24
+      },
+      {
+        "bytes": 4,
+        "section": "base_scalar_f32",
+        "wire_offset": 24
+      },
+      {
+        "bytes": 8,
+        "section": "representation_a.geometry_a.counts",
+        "wire_offset": 28
+      },
+      {
+        "bytes": 96,
+        "section": "representation_a.geometry_a.xyz_f32",
+        "wire_offset": 36
+      },
+      {
+        "bytes": 144,
+        "section": "representation_a.geometry_a.triangles_i32",
+        "wire_offset": 132
+      },
+      {
+        "bytes": 8,
+        "section": "representation_a.geometry_b.counts",
+        "wire_offset": 276
+      },
+      {
+        "bytes": 12,
+        "section": "representation_a.geometry_b.xyz_f32",
+        "wire_offset": 284
+      },
+      {
+        "bytes": 0,
+        "section": "representation_a.geometry_b.triangles_i32",
+        "wire_offset": 296
+      },
+      {
+        "bytes": 36,
+        "section": "representation_a.referenced_count_and_indices",
+        "wire_offset": 296
+      },
+      {
+        "bytes": 100,
+        "section": "representation_a.edge_count_and_pairs",
+        "wire_offset": 332
+      },
+      {
+        "bytes": 220,
+        "section": "representation_a.face_count_and_descriptors",
+        "wire_offset": 432
+      },
+      {
+        "bytes": 96,
+        "section": "representation_a.edge_face_adjacency",
+        "wire_offset": 652
+      },
+      {
+        "bytes": 120,
+        "section": "representation_a.counted_face_edge_loops",
+        "wire_offset": 748
+      },
+      {
+        "bytes": 24,
+        "section": "representation_a.face_area_scalars_f32",
+        "wire_offset": 868
+      },
+      {
+        "bytes": 8,
+        "section": "representation_b.geometry_a.counts",
+        "wire_offset": 892
+      },
+      {
+        "bytes": 312,
+        "section": "representation_b.geometry_a.xyz_f32",
+        "wire_offset": 900
+      },
+      {
+        "bytes": 576,
+        "section": "representation_b.geometry_a.triangles_i32",
+        "wire_offset": 1212
+      },
+      {
+        "bytes": 8,
+        "section": "representation_b.geometry_b.counts",
+        "wire_offset": 1788
+      },
+      {
+        "bytes": 12,
+        "section": "representation_b.geometry_b.xyz_f32",
+        "wire_offset": 1796
+      },
+      {
+        "bytes": 0,
+        "section": "representation_b.geometry_b.triangles_i32",
+        "wire_offset": 1808
+      },
+      {
+        "bytes": 108,
+        "section": "representation_b.referenced_count_and_indices",
+        "wire_offset": 1808
+      },
+      {
+        "bytes": 452,
+        "section": "representation_b.edge_count_and_pairs",
+        "wire_offset": 1916
+      },
+      {
+        "bytes": 1092,
+        "section": "representation_b.face_count_and_descriptors",
+        "wire_offset": 2368
+      },
+      {
+        "bytes": 448,
+        "section": "representation_b.edge_face_adjacency",
+        "wire_offset": 3460
+      },
+      {
+        "bytes": 576,
+        "section": "representation_b.counted_face_edge_loops",
+        "wire_offset": 3908
+      },
+      {
+        "bytes": 128,
+        "section": "representation_b.face_area_scalars_f32",
+        "wire_offset": 4484
+      }
+    ]
+  },
+  "physics_parameters": {
+    "casts_shadow_authored": true,
+    "initial_pose": "Authored row-major en3d matrix; height may change at native initial placement",
+    "integrator_ported": false,
+    "local_moi_diagonal": [
+      2.0,
+      2.0,
+      2.0
+    ],
+    "mass": 5.0,
+    "trigger_distance_authored": 5.0,
+    "wind_claim": "NOT_FOUND_IN_TRACED_OWNER_OR_GRAVITY_CALLBACK"
+  },
+  "r5900_revalidation": {
+    "byte_mismatches": 0,
+    "canonical_elf_sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+    "checked_original_words": 141,
+    "compiler": "default",
+    "elf": {
+      "class": 32,
+      "endianness": "little",
+      "entry": 1048584,
+      "flags": 546455553,
+      "load_segments": [
+        {
+          "alignment": 4096,
+          "file_offset": 4096,
+          "file_size": 3724432,
+          "flags": 7,
+          "index": 0,
+          "memory_size": 4036984,
+          "physical_address": 1048576,
+          "virtual_address": 1048576
+        }
+      ],
+      "machine": 8,
+      "program_header_count": 1,
+      "type": 2,
+      "version": 1
+    },
+    "ghidra": "12.1.4",
+    "ghidra_processing": "Existing EER project read-only; -noanalysis; no edits or surrogate bytes",
+    "invalid_r5900_words": 0,
+    "language": "r5900:LE:32:default",
+    "original_probe_sha256": "97c1013bf48a867543be851932b1f4e9657032c22b4d2d664c9971c3eb53b67b",
+    "rabbitizer": "1.16.2",
+    "rabbitizer_category": "InstrCategory.R5900",
+    "runtime_validation": "NOT_PERFORMED",
+    "short_original_instruction_windows": [
+      {
+        "ghidra_r5900": "lwc1 f1,0x14(s2)",
+        "original_word": "0xc6410014",
+        "rabbitizer_r5900": "lwc1        $f1, 0x14($s2)",
+        "va": "0x001a0058"
+      },
+      {
+        "ghidra_r5900": "addiu a0,sp,0x40",
+        "original_word": "0x27a40040",
+        "rabbitizer_r5900": "addiu       $a0, $sp, 0x40",
+        "va": "0x001a005c"
+      },
+      {
+        "ghidra_r5900": "lui at,0x3f80",
+        "original_word": "0x3c013f80",
+        "rabbitizer_r5900": "lui         $at, 0x3F80",
+        "va": "0x001a0060"
+      },
+      {
+        "ghidra_r5900": "mtc1 at,f0",
+        "original_word": "0x44810000",
+        "rabbitizer_r5900": "mtc1        $at, $f0",
+        "va": "0x001a0064"
+      },
+      {
+        "ghidra_r5900": "sw v0,0xc(s2)",
+        "original_word": "0xae42000c",
+        "rabbitizer_r5900": "sw          $v0, 0xC($s2)",
+        "va": "0x001a0068"
+      },
+      {
+        "ghidra_r5900": "div.S f0,f0,f1",
+        "original_word": "0x46010003",
+        "rabbitizer_r5900": "div.s       $f0, $f0, $f1",
+        "va": "0x001a006c"
+      },
+      {
+        "ghidra_r5900": "swc1 f1,0x20(v0)",
+        "original_word": "0xe4410020",
+        "rabbitizer_r5900": "swc1        $f1, 0x20($v0)",
+        "va": "0x001a0070"
+      },
+      {
+        "ghidra_r5900": "swc1 f0,0x24(v0)",
+        "original_word": "0xe4400024",
+        "rabbitizer_r5900": "swc1        $f0, 0x24($v0)",
+        "va": "0x001a0074"
+      },
+      {
+        "ghidra_r5900": "lwc1 f1,0x1c(s2)",
+        "original_word": "0xc641001c",
+        "rabbitizer_r5900": "lwc1        $f1, 0x1C($s2)",
+        "va": "0x001a0078"
+      },
+      {
+        "ghidra_r5900": "lwc1 f0,0x20(s2)",
+        "original_word": "0xc6400020",
+        "rabbitizer_r5900": "lwc1        $f0, 0x20($s2)",
+        "va": "0x001a007c"
+      },
+      {
+        "ghidra_r5900": "lwc1 f2,0x24(s2)",
+        "original_word": "0xc6420024",
+        "rabbitizer_r5900": "lwc1        $f2, 0x24($s2)",
+        "va": "0x001a0080"
+      },
+      {
+        "ghidra_r5900": "lw s0,0xc(s2)",
+        "original_word": "0x8e50000c",
+        "rabbitizer_r5900": "lw          $s0, 0xC($s2)",
+        "va": "0x001a0084"
+      },
+      {
+        "ghidra_r5900": "swc1 f1,0x30(sp)",
+        "original_word": "0xe7a10030",
+        "rabbitizer_r5900": "swc1        $f1, 0x30($sp)",
+        "va": "0x001a0088"
+      },
+      {
+        "ghidra_r5900": "swc1 f0,0x34(sp)",
+        "original_word": "0xe7a00034",
+        "rabbitizer_r5900": "swc1        $f0, 0x34($sp)",
+        "va": "0x001a008c"
+      },
+      {
+        "ghidra_r5900": "addiu v0,s0,0x28",
+        "original_word": "0x26020028",
+        "rabbitizer_r5900": "addiu       $v0, $s0, 0x28",
+        "va": "0x001a0090"
+      },
+      {
+        "ghidra_r5900": "swc1 f2,0x38(sp)",
+        "original_word": "0xe7a20038",
+        "rabbitizer_r5900": "swc1        $f2, 0x38($sp)",
+        "va": "0x001a0094"
+      },
+      {
+        "ghidra_r5900": "move a1,v0",
+        "original_word": "0x0040282d",
+        "rabbitizer_r5900": "daddu       $a1, $v0, $zero",
+        "va": "0x001a0098"
+      },
+      {
+        "ghidra_r5900": "swc1 f1,0x28(s0)",
+        "original_word": "0xe6010028",
+        "rabbitizer_r5900": "swc1        $f1, 0x28($s0)",
+        "va": "0x001a009c"
+      },
+      {
+        "ghidra_r5900": "swc1 f0,0x10(v0)",
+        "original_word": "0xe4400010",
+        "rabbitizer_r5900": "swc1        $f0, 0x10($v0)",
+        "va": "0x001a00a0"
+      },
+      {
+        "ghidra_r5900": "swc1 f2,0x20(v0)",
+        "original_word": "0xe4420020",
+        "rabbitizer_r5900": "swc1        $f2, 0x20($v0)",
+        "va": "0x001a00a4"
+      },
+      {
+        "ghidra_r5900": "sw zero,0x4(v0)",
+        "original_word": "0xac400004",
+        "rabbitizer_r5900": "sw          $zero, 0x4($v0)",
+        "va": "0x001a00a8"
+      },
+      {
+        "ghidra_r5900": "sw zero,0x8(v0)",
+        "original_word": "0xac400008",
+        "rabbitizer_r5900": "sw          $zero, 0x8($v0)",
+        "va": "0x001a00ac"
+      },
+      {
+        "ghidra_r5900": "sw zero,0xc(v0)",
+        "original_word": "0xac40000c",
+        "rabbitizer_r5900": "sw          $zero, 0xC($v0)",
+        "va": "0x001a00b0"
+      },
+      {
+        "ghidra_r5900": "sw zero,0x14(v0)",
+        "original_word": "0xac400014",
+        "rabbitizer_r5900": "sw          $zero, 0x14($v0)",
+        "va": "0x001a00b4"
+      },
+      {
+        "ghidra_r5900": "sw zero,0x18(v0)",
+        "original_word": "0xac400018",
+        "rabbitizer_r5900": "sw          $zero, 0x18($v0)",
+        "va": "0x001a00b8"
+      },
+      {
+        "ghidra_r5900": "jal 0x00203358",
+        "original_word": "0x0c080cd6",
+        "rabbitizer_r5900": "jal         func_203358",
+        "va": "0x001a00bc"
+      },
+      {
+        "ghidra_r5900": "_sw zero,0x1c(v0)",
+        "original_word": "0xac40001c",
+        "rabbitizer_r5900": "sw          $zero, 0x1C($v0)",
+        "va": "0x001a00c0"
+      },
+      {
+        "ghidra_r5900": "lw v0,0x0(a0)",
+        "original_word": "0x8c820000",
+        "rabbitizer_r5900": "lw          $v0, 0x0($a0)",
+        "va": "0x00244230"
+      },
+      {
+        "ghidra_r5900": "sw a1,0x2c(v0)",
+        "original_word": "0xac45002c",
+        "rabbitizer_r5900": "sw          $a1, 0x2C($v0)",
+        "va": "0x00244234"
+      },
+      {
+        "ghidra_r5900": "lw v1,0x4(a0)",
+        "original_word": "0x8c830004",
+        "rabbitizer_r5900": "lw          $v1, 0x4($a0)",
+        "va": "0x00244238"
+      },
+      {
+        "ghidra_r5900": "sw a1,0x2c(v1)",
+        "original_word": "0xac65002c",
+        "rabbitizer_r5900": "sw          $a1, 0x2C($v1)",
+        "va": "0x0024423c"
+      },
+      {
+        "ghidra_r5900": "lw v0,0x8(a0)",
+        "original_word": "0x8c820008",
+        "rabbitizer_r5900": "lw          $v0, 0x8($a0)",
+        "va": "0x00244240"
+      },
+      {
+        "ghidra_r5900": "sw a1,0x8(v0)",
+        "original_word": "0xac450008",
+        "rabbitizer_r5900": "sw          $a1, 0x8($v0)",
+        "va": "0x00244244"
+      },
+      {
+        "ghidra_r5900": "jr ra",
+        "original_word": "0x03e00008",
+        "rabbitizer_r5900": "jr          $ra",
+        "va": "0x00244248"
+      },
+      {
+        "ghidra_r5900": "_sw a1,0x10(a0)",
+        "original_word": "0xac850010",
+        "rabbitizer_r5900": "sw          $a1, 0x10($a0)",
+        "va": "0x0024424c"
+      },
+      {
+        "ghidra_r5900": "lwc1 f1,0x1c(a0)",
+        "original_word": "0xc481001c",
+        "rabbitizer_r5900": "lwc1        $f1, 0x1C($a0)",
+        "va": "0x0027d06c"
+      },
+      {
+        "ghidra_r5900": "lwc1 f2,0x20(a0)",
+        "original_word": "0xc4820020",
+        "rabbitizer_r5900": "lwc1        $f2, 0x20($a0)",
+        "va": "0x0027d070"
+      },
+      {
+        "ghidra_r5900": "neg.S f1,f1",
+        "original_word": "0x46000847",
+        "rabbitizer_r5900": "neg.s       $f1, $f1",
+        "va": "0x0027d074"
+      },
+      {
+        "ghidra_r5900": "lwc1 f0,0x0(sp)",
+        "original_word": "0xc7a00000",
+        "rabbitizer_r5900": "lwc1        $f0, 0x0($sp)",
+        "va": "0x0027d078"
+      },
+      {
+        "ghidra_r5900": "sw zero,0x8(sp)",
+        "original_word": "0xafa00008",
+        "rabbitizer_r5900": "sw          $zero, 0x8($sp)",
+        "va": "0x0027d07c"
+      },
+      {
+        "ghidra_r5900": "swc1 f0,0x18c(a0)",
+        "original_word": "0xe480018c",
+        "rabbitizer_r5900": "swc1        $f0, 0x18C($a0)",
+        "va": "0x0027d080"
+      },
+      {
+        "ghidra_r5900": "mul.S f1,f1,f2",
+        "original_word": "0x46020842",
+        "rabbitizer_r5900": "mul.s       $f1, $f1, $f2",
+        "va": "0x0027d084"
+      },
+      {
+        "ghidra_r5900": "swc1 f1,0x4(sp)",
+        "original_word": "0xe7a10004",
+        "rabbitizer_r5900": "swc1        $f1, 0x4($sp)",
+        "va": "0x0027d088"
+      },
+      {
+        "ghidra_r5900": "swc1 f1,0x4(v0)",
+        "original_word": "0xe4410004",
+        "rabbitizer_r5900": "swc1        $f1, 0x4($v0)",
+        "va": "0x0027d08c"
+      },
+      {
+        "ghidra_r5900": "lwc1 f0,0x8(sp)",
+        "original_word": "0xc7a00008",
+        "rabbitizer_r5900": "lwc1        $f0, 0x8($sp)",
+        "va": "0x0027d090"
+      },
+      {
+        "ghidra_r5900": "swc1 f0,0x8(v0)",
+        "original_word": "0xe4400008",
+        "rabbitizer_r5900": "swc1        $f0, 0x8($v0)",
+        "va": "0x0027d094"
+      }
+    ]
+  },
+  "remaining_authored_source_ids": [
+    "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML:list:11:egg:14:ai:0",
+    "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML:list:11:egg:15:ai:0",
+    "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML:list:11:egg:16:ai:0",
+    "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML:list:11:egg:17:ai:0",
+    "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML:list:11:egg:18:ai:0"
+  ],
+  "remaining_gates": [
+    "Owned bounded native stream ABI",
+    "Private prototype/resource registration",
+    "Safe installed-backend attachment",
+    "Physics-thread admission",
+    "Cache invalidation and teardown",
+    "Observed PC vehicle contact",
+    "Live visual pose synchronization",
+    "Source strip winding/texture-state runtime validation"
+  ],
+  "runtime_validation": "NOT_PERFORMED",
+  "scene": {
+    "authored_record_count": 6,
+    "live_instance_count": "UNKNOWN",
+    "packfs": {
+      "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred",
+      "compression": "packfs_lzo",
+      "directory_size_0x08": 51412,
+      "evidence": "CONFIRMED_BY_BOTH",
+      "offset": 1225617821,
+      "path": "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML",
+      "payload_sha256": "7c1c274cd8403bc7fcc2b5e2e8a13e57dccc44dade53a1be57d631ea073e51ce",
+      "stored_sha256": "c9960b18b69a5c14dfdb43b39d5ca5d72dd52ecb6eac707f95f47c1ab9f25d55",
+      "stored_size": 51412,
+      "unpacked_size": 436130
+    },
+    "resource": "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML",
+    "sha256": "7c1c274cd8403bc7fcc2b5e2e8a13e57dccc44dade53a1be57d631ea073e51ce"
+  },
+  "schema": "ps2-turkey3-tumbleweed-source-contract-v1",
+  "selected_source": {
+    "ai_index": 0,
+    "egg": "tumbleweed",
+    "egg_index": 13,
+    "evidence_grade": "CONFIRMED_BY_BYTES",
+    "family": "tumbleweed",
+    "list_index": 11,
+    "list_name": "IContManager",
+    "live_instance": "UNKNOWN",
+    "matrix": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        3213.659912109375,
+        43.099998474121094,
+        -155.13999938964844,
+        1.0
+      ]
+    ],
+    "matrix_sha256": "dbb65381027ae9e1c0d3f76271b1a7bd5eca952dfc03e2094ac290686e99f7dc",
+    "model": "misc\\objects\\tumbleweed\\tumblweed",
+    "parameters": [
+      {
+        "Name": "Casts Shadow",
+        "Type": "Bool",
+        "Value": "True"
+      },
+      {
+        "Name": "Mass",
+        "Type": "Float",
+        "Value": "5.00000"
+      },
+      {
+        "Name": "Trigger Distance",
+        "Type": "Float",
+        "Value": "5.00000"
+      },
+      {
+        "Name": "MOI",
+        "Type": "Vector3",
+        "Value": "2.00 2.00 2.00"
+      }
+    ],
+    "resolved": {
+      "casts_shadow": true,
+      "mass": 5.0,
+      "moi": [
+        2.0,
+        2.0,
+        2.0
+      ],
+      "trigger_distance": 5.0
+    },
+    "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML:list:11:egg:13:ai:0"
+  },
+  "texture": {
+    "active_draw_binding": "UNKNOWN; original material reference is confirmed",
+    "gxi": {
+      "alpha_max": 255,
+      "alpha_min": 0,
+      "alpha_nonzero_pixels": 2430,
+      "alpha_unique_count": 255,
+      "average_rgba": [
+        126.723633,
+        112.539551,
+        87.684082,
+        60.906982
+      ],
+      "bytes_per_pixel": 4,
+      "channel_order": "RGBA",
+      "channel_order_evidence": "CONFIRMED_BY_VISUAL_RECONSTRUCTION",
+      "format": "PS2_SIMPLE_GXI_13039",
+      "height": 64,
+      "magic": 77881,
+      "sha256": "e34ca0193956eca2d03217fb18929b6ec0a78cfe2d9d6e6a081b8b10c934fc4f",
+      "size": 16392,
+      "width": 64
+    },
+    "packfs": {
+      "compression": "raw",
+      "directory_size_0x08": 16392,
+      "evidence": "CONFIRMED_BY_BOTH",
+      "gxi": {
+        "channel_order": "UNKNOWN",
+        "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+        "height": 64,
+        "size_equation_match": true,
+        "width": 64
+      },
+      "offset": 1210333619,
+      "path": "\\TNG\\DATAPSM\\MISC\\OBJECTS\\TUMBLEWEED\\SHRUBTRIG2-TGA.GXI",
+      "payload_sha256": "e34ca0193956eca2d03217fb18929b6ec0a78cfe2d9d6e6a081b8b10c934fc4f",
+      "stored_sha256": "e34ca0193956eca2d03217fb18929b6ec0a78cfe2d9d6e6a081b8b10c934fc4f",
+      "stored_size": 16392,
+      "unpacked_size": 16392
+    },
+    "resource": "\\TNG\\DATAPSM\\MISC\\OBJECTS\\TUMBLEWEED\\SHRUBTRIG2-TGA.GXI"
+  }
+}

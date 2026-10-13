@@ -1,0 +1,17 @@
+{
+  "schema": "rigid-port1.3-focused-validation-v1",
+  "with_original_executable": {"tests": 6, "pass": 6, "fail": 0, "skip": 0},
+  "without_original_executable": {"tests": 6, "pass": 5, "fail": 0, "skip": 1},
+  "commands": [
+    "$env:MRR_ORIGINAL_EXE='D:\\Game\\Master Rallye\\MRallye.exe'; python -m unittest discover -s ps2-research/pc-port/docs/rigid-port1.3 -p test_*.py -v",
+    "python -m unittest discover -s ps2-research/pc-port/docs/rigid-port1.3 -p test_*.py -v",
+    "python -m compileall -q ps2-research/pc-port/docs/rigid-port1.3",
+    "git diff --check -- ps2-research/pc-port/docs/rigid-port1.3"
+  ],
+  "native_build": "NOT_REQUIRED_NO_NATIVE_SOURCE_CHANGE",
+  "runtime_spawn": "NOT_PERFORMED",
+  "isolated_course_copy": "NOT_CREATED",
+  "original_inputs_modified": false,
+  "renderer_or_overlay_modified": false,
+  "scope": "Compact original-byte evidence and bounded NO-GO decision; not native physics safety tests"
+}

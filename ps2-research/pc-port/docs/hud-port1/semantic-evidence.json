@@ -1,0 +1,147 @@
+{
+  "schema": "hud-semantic-evidence/v1",
+  "status": "PARTIAL",
+  "binary_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "image_base": "0x00400000",
+  "architecture": "PE32/i386",
+  "provider": {
+    "name": "REA Ghidra",
+    "version": "12.1.4",
+    "profile": "ephemeral-source-immutable"
+  },
+  "independent_decoder": "GNU objdump -d -M intel",
+  "source_widget": "SpeedDial",
+  "original_class": "gaHudAiSpeedDial",
+  "class_string_va": "0x006E5234",
+  "class_vtable_va": "0x00690F38",
+  "confirmed_owner_ai_slots": {
+    "offsets": [
+      4,
+      8,
+      12,
+      16
+    ],
+    "count": 4,
+    "pointer_width": 4
+  },
+  "source_image_bank_index": 0,
+  "source_needle_bank_index": 2,
+  "live_class_join": "NOT_PERFORMED",
+  "plate_texture_geometry_join": "UNKNOWN",
+  "replacement": "NOT_IMPLEMENTED",
+  "instruction_windows": [
+    {
+      "va": "0x004A8124",
+      "file_offset": 688420,
+      "byte_count": 5,
+      "bytes_hex": "6834526e00",
+      "sha256": "7840ada9721fba6af7ab1a7a5b7ac765ecfb81609ca6958be67a5ce08387cceb",
+      "role": "exact class string push"
+    },
+    {
+      "va": "0x004A8147",
+      "file_offset": 688455,
+      "byte_count": 6,
+      "bytes_hex": "c706380f6900",
+      "sha256": "72c0676cd59ef711c187e2bcc505dec1b7c17a33d88a09f96118b1c422702922",
+      "role": "SpeedDial vtable install"
+    },
+    {
+      "va": "0x004A81B6",
+      "file_offset": 688566,
+      "byte_count": 12,
+      "bytes_hex": "6a44e8f79a110083c4048944",
+      "sha256": "ca70ce0a07e2c0ed97db331cc3d09577054bdaaa327e2796f204eb33e66dfe3a",
+      "role": "factory alloc44"
+    },
+    {
+      "va": "0x004A81D0",
+      "file_offset": 688592,
+      "byte_count": 7,
+      "bytes_hex": "8bc8e849ffffff",
+      "sha256": "543dd4f059152330f9580856b8519e3b459f48ea04d16a152aa927a446deaf19",
+      "role": "factory constructor call"
+    },
+    {
+      "va": "0x004A8423",
+      "file_offset": 689187,
+      "byte_count": 12,
+      "bytes_hex": "8b4c2408518bcee811000000",
+      "sha256": "72fcbec3cd0b8e8568890f271cc7e85baf8a0968e0befa22949e68916f37a262",
+      "role": "deserialize owner argument to init"
+    },
+    {
+      "va": "0x004A8466",
+      "file_offset": 689254,
+      "byte_count": 26,
+      "bytes_hex": "8b474c85c00f84340100008b4854894e108b574c8b4258894614",
+      "sha256": "db914d4b87e9c612e6cd919600257bfcc52ee905ef951e826cc25cbb09ca1bbc",
+      "role": "owner packet point reads"
+    },
+    {
+      "va": "0x004F5961",
+      "file_offset": 1005921,
+      "byte_count": 28,
+      "bytes_hex": "8b4cbe0485c974068b016a01ff108b4c241085c9894cbe0474198b11",
+      "sha256": "4608fe6686a8c83cdc5bf0b14c865e27da86027e556a8232db062821009a8705",
+      "role": "four AI slot access/store"
+    },
+    {
+      "va": "0x0056BAD0",
+      "file_offset": 1489616,
+      "byte_count": 22,
+      "bytes_hex": "8b474c85c0740f8b4424106a0050578bcee82a160000",
+      "sha256": "76664d32c915f1b1598221589f9ba379992c0be63c49223348cbd51478ee2555",
+      "role": "same entity into existing UI consumer"
+    },
+    {
+      "va": "0x00690F38",
+      "file_offset": 2690872,
+      "byte_count": 24,
+      "bytes_hex": "00824a00a0814a0030824a0070834a00b0854a0030364000",
+      "sha256": "314f462fbec9d4aed1a5f5ad9f0ff5b94c2eccb6d66b784aa61f8a00371b6013",
+      "role": "six examined SpeedDial vtable entries"
+    }
+  ],
+  "limitations": [
+    "Native constructor pseudocode misrepresents +08 assignment; preserve original instruction semantics.",
+    "AI+0C is not established as image bank/key.",
+    "Pointer equality without current generation is insufficient.",
+    "Existing F10 owners remain unmapped; historical pointers cannot authorize replacement."
+  ],
+  "function_inventory": [
+    {
+      "entry": "0x004A8120",
+      "inclusive_bounds": [
+        "0x004A8120",
+        "0x004A8194"
+      ],
+      "rea_evidence_id": "ev_b0662c0b857dea514ce4543d5877e4d4713916f74184937173767e44c5ad044e"
+    },
+    {
+      "entry": "0x004A8440",
+      "inclusive_bounds": [
+        "0x004A8440",
+        "0x004A85AC"
+      ],
+      "rea_evidence_id": "ev_11463cab9542f91e938dbd7ed0230a8dfce8bbbb92bd7116eb3eeec697e48c4f"
+    },
+    {
+      "entry": "0x004F5950",
+      "inclusive_bounds": [
+        "0x004F5950",
+        "0x004F5998"
+      ],
+      "rea_evidence_id": "ev_4aca67f45910f481aa71758a86682a43436cb4bfdf7c599782dc3ea1438ab26f"
+    },
+    {
+      "entry": "0x0056BA70",
+      "inclusive_bounds": [
+        "0x0056BA70",
+        "0x0056BAEA"
+      ],
+      "rea_evidence_id": "ev_c89c2ae47267e5c405031ef886a454577de9fc9527f3e03eeac94f57d28946b4"
+    }
+  ],
+  "native_image_bank_key_offset": "UNKNOWN"
+}

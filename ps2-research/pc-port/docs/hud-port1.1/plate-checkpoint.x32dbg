@@ -1,0 +1,10 @@
+// Manual user-assisted one matching pause; no game data writes or engine calls.
+// Exact MRallye.exe bf8a...b4, fixed original imagebase00400000.
+bp 0056D65D, "hud_plate_source_checkpoint"
+SetBreakpointCondition 0056D65D, "dword(dword(dword(esp+11C)+4))==690F38 && dword(dword(esp+11C)+4C)==dword(esp+14) && $breakpointcounter < .100000"
+SetBreakpointFastResume 0056D65D, 0
+SetBreakpointSilent 0056D65D, 1
+SetBreakpointLog 0056D65D, "HUD_PLATE checkpoint={p:eip} esp={p:esp} triangle={p:esi} wrapper={p:eax} tid={x:tid()}"
+SetBreakpointLogCondition 0056D65D, "dword(dword(dword(esp+11C)+4))==690F38 && dword(dword(esp+11C)+4C)==dword(esp+14) && $breakpointcounter < .100000"
+SetBreakpointCommand 0056D65D, "bpd 0056D65D"
+SetBreakpointCommandCondition 0056D65D, "(dword(dword(dword(esp+11C)+4))==690F38 && dword(dword(esp+11C)+4C)==dword(esp+14)) || $breakpointcounter >= .100000"

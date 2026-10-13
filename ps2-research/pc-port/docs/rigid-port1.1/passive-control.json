@@ -1,0 +1,126 @@
+{
+  "course_certificate": "UNKNOWN",
+  "duration_seconds": 59.93758130003698,
+  "function_order": "UNKNOWN",
+  "identity": {
+    "bytes": 3121214,
+    "format": "PE32",
+    "image_base": 4194304,
+    "machine": "i386",
+    "pid": 36572,
+    "process_creation_filetime": 134363558636434687,
+    "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4"
+  },
+  "injected_objects": false,
+  "native_destruction": "UNKNOWN",
+  "observed_pointer_pairs": [
+    {
+      "body": 45029504,
+      "body_cache_zero_samples": 0,
+      "body_vtable": 6887940,
+      "category": 5,
+      "first_seconds": 24.225520099978894,
+      "instance": 302015128,
+      "instance_cache_zero_samples": 2,
+      "last_seconds": 35.80068049998954,
+      "name_id": 9500,
+      "pointer_generation": "NOT_ESTABLISHED",
+      "positions_observed": 116,
+      "runtime_role": "UNKNOWN",
+      "samples": 116,
+      "xyz_max": [
+        3211.7197265625,
+        38.21577072143555,
+        114.79519653320312
+      ],
+      "xyz_min": [
+        3180.95458984375,
+        36.99493408203125,
+        58.819976806640625
+      ]
+    },
+    {
+      "body": 44702880,
+      "body_cache_zero_samples": 0,
+      "body_vtable": 6887940,
+      "category": 5,
+      "first_seconds": 36.805519700050354,
+      "instance": 327855168,
+      "instance_cache_zero_samples": 0,
+      "last_seconds": 46.158281499985605,
+      "name_id": 9500,
+      "pointer_generation": "NOT_ESTABLISHED",
+      "positions_observed": 94,
+      "runtime_role": "UNKNOWN",
+      "samples": 94,
+      "xyz_max": [
+        3211.7197265625,
+        37.71004867553711,
+        100.13072204589844
+      ],
+      "xyz_min": [
+        3190.284912109375,
+        36.99576950073242,
+        58.82013702392578
+      ]
+    }
+  ],
+  "physics_thread": "UNKNOWN",
+  "private_resource_ownership": "UNKNOWN",
+  "samples": 597,
+  "schema": "rigid-lifecycle-review-v1",
+  "source_sha256": "d3fe97501e123afc09e76633566f0208aeb71d0c2b14258a0a1a21606c57d397",
+  "status_counts": {
+    "READ_SNAPSHOT_NOT_ATOMIC": 597
+  },
+  "vector_membership_changes": [
+    {
+      "native_count": 0,
+      "seconds": 0.00014370004646480083,
+      "selected_pointer_membership": [],
+      "selection_truncated": false,
+      "sequence": 0
+    },
+    {
+      "native_count": 1,
+      "seconds": 24.225520099978894,
+      "selected_pointer_membership": [
+        [
+          302015128,
+          45029504,
+          9500
+        ]
+      ],
+      "selection_truncated": false,
+      "sequence": 241
+    },
+    {
+      "native_count": 0,
+      "seconds": 35.90099210012704,
+      "selected_pointer_membership": [],
+      "selection_truncated": false,
+      "sequence": 357
+    },
+    {
+      "native_count": 1,
+      "seconds": 36.805519700050354,
+      "selected_pointer_membership": [
+        [
+          327855168,
+          44702880,
+          9500
+        ]
+      ],
+      "selection_truncated": false,
+      "sequence": 366
+    },
+    {
+      "native_count": 0,
+      "seconds": 46.25884180003777,
+      "selected_pointer_membership": [],
+      "selection_truncated": false,
+      "sequence": 460
+    }
+  ],
+  "vehicle_contact": "NOT_PROVED"
+}

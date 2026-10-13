@@ -1,0 +1,30 @@
+{
+  "phase": "PS2-RIGID-PORT1.2 + HUD-PORT1 live mapping",
+  "head": "0bddf7c7bc5e95831f98714ff6231da05ab073ea",
+  "renderer_tree": "e33386bcf682db6983380c499e4928726c758fe0",
+  "physics_policy_tests": "6/6 PASS, synthetic only",
+  "hud_tests": "13/13 PASS, synthetic only",
+  "hud_actual_process_reads": 5996,
+  "hud_live_frame": 35007,
+  "physics_original_prop_runtime": "NOT_PERFORMED; original control owner not identified",
+  "private_native_stream_registration": "BLOCKED",
+  "native_rollback": "PARTIAL static dependency, NOT_PROVED complete transaction",
+  "physics_spawn": "NOT_IMPLEMENTED",
+  "hud_replacement": "NOT_IMPLEMENTED",
+  "compileall": "PASS",
+  "diff_check": "PASS",
+  "native_build": "NOT_RUN; no native source/patch changes",
+  "accepted_dlls": {
+    "baseline": {
+      "sha256": "011dd9a94155d216d0c0dde28e0af97f5b72226aae5be97016f2d767ebdf7138",
+      "same_as_accepted": true
+    },
+    "ps2-enabled": {
+      "sha256": "6edc2426e2602545121f16959cdbb2055fb205a907b36173cb85a447b7051deb",
+      "same_as_accepted": true
+    }
+  },
+  "frozen_renderer_changed_paths": [],
+  "deployment": false,
+  "push": false
+}

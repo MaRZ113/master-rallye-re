@@ -1,0 +1,169 @@
+{
+  "schema": "grass2-independent-runtime-adoption-v1",
+  "source_audit": {
+    "file": "PS2-GRASS2-independent-runtime-review.md",
+    "sha256": "1c80fd66f8204b0d053d55a46958dc0677c69a21d3e5a2b7e160dd92d8278ad3"
+  },
+  "raw_sessions_rechecked": [
+    {
+      "file": "session-20261013-074238-42216.jsonl",
+      "sha256": "a3a02df0c5f6ce7999a64c6e190b97abf9d91426cc5a2f7dfc7a913049116b30",
+      "lines": 2724,
+      "malformed_other_lines": 32,
+      "relevant_records": [
+        {
+          "type": "session",
+          "proxy_sha256": "6edc2426e2602545121f16959cdbb2055fb205a907b36173cb85a447b7051deb",
+          "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+          "build": "PRISTINE_RETAIL"
+        },
+        {
+          "type": "ps2_grass_config",
+          "requested_mode": 1,
+          "effective_mode": 1,
+          "source_points": 64900,
+          "status": "source_point_preview_pc_billboard_mapping_ready",
+          "artifact_sha256": "6af6393c444a485b2c648c2a6973a91bd5783db3c0f90269a0d653b2f089cfad",
+          "detail_category": "grass"
+        },
+        {
+          "type": "ps2_grass_config",
+          "requested_mode": 1,
+          "effective_mode": 1,
+          "source_points": 146498,
+          "status": "source_point_preview_pc_billboard_mapping_ready",
+          "artifact_sha256": "688947a32776ffab67c553b4adc95e4597c399f2d70ece37534fd682044752b4",
+          "detail_category": "shrubs"
+        },
+        {
+          "type": "ps2_grass_build",
+          "frame": 3571,
+          "course": "RaceTest/Turkey3",
+          "success": true,
+          "sprite_candidates": 164,
+          "reason": "source_point_preview_pc_billboard_mapping",
+          "detail_category": "grass"
+        },
+        {
+          "type": "ps2_grass_draw",
+          "mode": 1,
+          "course": "RaceTest/Turkey3",
+          "frame": 3571,
+          "device": 1,
+          "race_generation": 13,
+          "owner_lifetime": 1,
+          "camera": 42892816,
+          "source_points": 64900,
+          "sprite_candidates": 164,
+          "source_kind": "PS2_SPATIAL_DETAIL_SOURCE",
+          "generation_policy": "SYNTHETIC_FULL_TRIANGLE_ACTIVATION",
+          "original_incremental_clip": "UNKNOWN",
+          "pc_sprite_half_size": 0.33,
+          "additional_native_draws": 1,
+          "capture_hresult": 0,
+          "apply_hresult": 0,
+          "draw_hresult": 0,
+          "restore_hresult": 0,
+          "artifact_sha256": "6af6393c444a485b2c648c2a6973a91bd5783db3c0f90269a0d653b2f089cfad",
+          "detail_category": "grass",
+          "runtime_visibility": "PENDING_USER"
+        },
+        {
+          "type": "ps2_grass_build",
+          "frame": 3571,
+          "course": "RaceTest/Turkey3",
+          "success": true,
+          "sprite_candidates": 325,
+          "reason": "source_point_preview_pc_billboard_mapping",
+          "detail_category": "shrubs"
+        },
+        {
+          "type": "ps2_grass_draw",
+          "mode": 1,
+          "course": "RaceTest/Turkey3",
+          "frame": 3571,
+          "device": 1,
+          "race_generation": 13,
+          "owner_lifetime": 1,
+          "camera": 42892816,
+          "source_points": 146498,
+          "sprite_candidates": 325,
+          "source_kind": "PS2_SPATIAL_DETAIL_SOURCE",
+          "generation_policy": "SYNTHETIC_FULL_TRIANGLE_ACTIVATION",
+          "original_incremental_clip": "UNKNOWN",
+          "pc_sprite_half_size": 0.4,
+          "additional_native_draws": 1,
+          "capture_hresult": 0,
+          "apply_hresult": 0,
+          "draw_hresult": 0,
+          "restore_hresult": 0,
+          "artifact_sha256": "688947a32776ffab67c553b4adc95e4597c399f2d70ece37534fd682044752b4",
+          "detail_category": "shrubs",
+          "runtime_visibility": "PENDING_USER"
+        }
+      ]
+    },
+    {
+      "file": "session-20261013-074428-38172.jsonl",
+      "sha256": "1ccc934a0681005858ed89d66e5b346152048f293c8be8315db210832e673a1c",
+      "lines": 1093,
+      "malformed_other_lines": 19,
+      "relevant_records": [
+        {
+          "type": "session",
+          "proxy_sha256": "6edc2426e2602545121f16959cdbb2055fb205a907b36173cb85a447b7051deb",
+          "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+          "build": "PRISTINE_RETAIL"
+        },
+        {
+          "type": "ps2_grass_config",
+          "requested_mode": 1,
+          "effective_mode": 1,
+          "source_points": 64900,
+          "status": "source_point_preview_pc_billboard_mapping_ready",
+          "artifact_sha256": "6af6393c444a485b2c648c2a6973a91bd5783db3c0f90269a0d653b2f089cfad",
+          "detail_category": "grass"
+        },
+        {
+          "type": "ps2_grass_build",
+          "frame": 323,
+          "course": "RaceTest/Turkey3",
+          "success": true,
+          "sprite_candidates": 164,
+          "reason": "source_point_preview_pc_billboard_mapping",
+          "detail_category": "grass"
+        },
+        {
+          "type": "ps2_grass_draw",
+          "mode": 1,
+          "course": "RaceTest/Turkey3",
+          "frame": 323,
+          "device": 1,
+          "race_generation": 7,
+          "owner_lifetime": 1,
+          "camera": 43875856,
+          "source_points": 64900,
+          "sprite_candidates": 164,
+          "source_kind": "PS2_SPATIAL_DETAIL_SOURCE",
+          "generation_policy": "SYNTHETIC_FULL_TRIANGLE_ACTIVATION",
+          "original_incremental_clip": "UNKNOWN",
+          "pc_sprite_half_size": 0.33,
+          "additional_native_draws": 1,
+          "capture_hresult": 0,
+          "apply_hresult": 0,
+          "draw_hresult": 0,
+          "restore_hresult": 0,
+          "artifact_sha256": "6af6393c444a485b2c648c2a6973a91bd5783db3c0f90269a0d653b2f089cfad",
+          "detail_category": "grass",
+          "runtime_visibility": "PENDING_USER"
+        }
+      ]
+    }
+  ],
+  "status": "RUNTIME_DRAW_CONFIRMED",
+  "user_runtime_observation": "Both short tufts and new branching details are visible; cleanup noticeable; menu and hidden HUD freezes resolved",
+  "ps2_pixel_parity": "NOT_ESTABLISHED",
+  "physical_tumbleweed": "NOT_IMPLEMENTED",
+  "further_cleanup": "NOT_AUTHORIZED",
+  "grass_code_changed": false
+}

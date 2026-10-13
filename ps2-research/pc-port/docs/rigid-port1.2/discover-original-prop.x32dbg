@@ -1,0 +1,12 @@
+// Exact retail EXE bf8a...; one original owner discovery only.
+// Debugger variables only, no run/call/register/native data edits.
+// User cold-load control <=60s; no match does not authorize spawning.
+mov $rp12_hay_owner_matches, 0
+bp 004C9CF0, "rp12_hay_owner"
+SetBreakpointCondition 004C9CF0, 0
+SetBreakpointFastResume 004C9CF0, 0
+SetBreakpointSilent 004C9CF0, 1
+SetBreakpointLogCondition 004C9CF0, "([ecx] == 00691470) && ($rp12_hay_owner_matches < .1)"
+SetBreakpointLog 004C9CF0, "PROP12 event=hay_owner tid={x:tid()} ecx={p:ecx} egg={p:[esp+4]} caller={p:[esp]} matched={u:$rp12_hay_owner_matches+1}"
+SetBreakpointCommandCondition 004C9CF0, "([ecx] == 00691470) && ($rp12_hay_owner_matches < .1)"
+SetBreakpointCommand 004C9CF0, "mov $rp12_hay_owner_matches, $rp12_hay_owner_matches+1"

@@ -1,0 +1,572 @@
+{
+  "schema": "rigid-port1-static-followup-v1",
+  "status": "BLOCKED_ON_NATIVE_COLLISION_RESOURCE_AND_OWNERSHIP",
+  "target_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "functions": [
+    {
+      "address": "0x56eb40",
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x56eb40",
+            "end": "0x56ebef"
+          }
+        ],
+        "total_bytes": 176,
+        "span_bytes": 176,
+        "non_contiguous": false,
+        "contains_entry": true
+      },
+      "evidence_id": "ev_6e38420c5ceb26c9bdbece69201a71844c9364f5c6f8c42b19d4a2fbdb22e458",
+      "grade": "CONFIRMED_BY_EXE",
+      "direct_callees": [
+        "0x4f4e90",
+        "0x5c1cb4",
+        "0x632200",
+        "0x633a00",
+        "0x6375d0"
+      ],
+      "runtime_validation": "NOT_PERFORMED"
+    },
+    {
+      "address": "0x53f060",
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x53f060",
+            "end": "0x53f28e"
+          }
+        ],
+        "total_bytes": 559,
+        "span_bytes": 559,
+        "non_contiguous": false,
+        "contains_entry": true
+      },
+      "evidence_id": "ev_b814f4dd4c3ec2525a57841b3a55c1f9bb2855108e1e07be6d4842ff7cc432f1",
+      "grade": "CONFIRMED_BY_EXE",
+      "direct_callees": [
+        "0x4d3920",
+        "0x4e8cd0",
+        "0x4f4ef0",
+        "0x53f3d0",
+        "0x53f590",
+        "0x5590c0",
+        "0x55ab00",
+        "0x5613b0",
+        "0x562310",
+        "0x5639d0",
+        "0x565da0",
+        "0x5660d0",
+        "0x5660e0",
+        "0x5678e0",
+        "0x56b410",
+        "0x56b470",
+        "0x56b680",
+        "0x56e990",
+        "0x56eb40",
+        "0x5700b0",
+        "0x5c1cb4"
+      ],
+      "runtime_validation": "NOT_PERFORMED"
+    },
+    {
+      "address": "0x4f5670",
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x4f5670",
+            "end": "0x4f5730"
+          }
+        ],
+        "total_bytes": 193,
+        "span_bytes": 193,
+        "non_contiguous": false,
+        "contains_entry": true
+      },
+      "evidence_id": "ev_18603c7410dd2add646ad68817795ee53cfd7dcc6f5e263a34140e17a56b0499",
+      "grade": "CONFIRMED_BY_EXE",
+      "direct_callees": [
+        "0x4f5a80",
+        "0x4f6310",
+        "0x5c1cb4"
+      ],
+      "runtime_validation": "NOT_PERFORMED"
+    },
+    {
+      "address": "0x4f5780",
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x4f5780",
+            "end": "0x4f5837"
+          }
+        ],
+        "total_bytes": 184,
+        "span_bytes": 184,
+        "non_contiguous": false,
+        "contains_entry": true
+      },
+      "evidence_id": "ev_3b1880857f9590ae0f237b1f471968fb36f61d99ab9ef07de5c7dca324730ee4",
+      "grade": "CONFIRMED_BY_EXE",
+      "direct_callees": [
+        "0x4e1f80",
+        "0x4f5af0",
+        "0x4f6310",
+        "0x50e170",
+        "0x50e650",
+        "0x5b4c00"
+      ],
+      "runtime_validation": "NOT_PERFORMED"
+    },
+    {
+      "address": "0x4f61a0",
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x4f61a0",
+            "end": "0x4f62da"
+          }
+        ],
+        "total_bytes": 315,
+        "span_bytes": 315,
+        "non_contiguous": false,
+        "contains_entry": true
+      },
+      "evidence_id": "ev_50ba5bed68ab9ef91e4cb9772587dae7991247b2c7c5398c379c7bb2f430f7ce",
+      "grade": "CONFIRMED_BY_EXE",
+      "direct_callees": [
+        "0x4e3e70",
+        "0x4f5780",
+        "0x4f62e0",
+        "0x509750",
+        "0x5097f0",
+        "0x5b4c00"
+      ],
+      "runtime_validation": "NOT_PERFORMED"
+    },
+    {
+      "address": "0x621220",
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x621220",
+            "end": "0x6212b2"
+          }
+        ],
+        "total_bytes": 147,
+        "span_bytes": 147,
+        "non_contiguous": false,
+        "contains_entry": true
+      },
+      "evidence_id": "ev_a192a52a2ca0493f8850b8caabea11d6a05d44c77c66650be7fb016c72673403",
+      "grade": "CONFIRMED_BY_EXE",
+      "direct_callees": [
+        "0x5110a0",
+        "0x5c1cb4",
+        "0x639bc0"
+      ],
+      "runtime_validation": "NOT_PERFORMED"
+    },
+    {
+      "address": "0x621310",
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x621310",
+            "end": "0x62132a"
+          }
+        ],
+        "total_bytes": 27,
+        "span_bytes": 27,
+        "non_contiguous": false,
+        "contains_entry": true
+      },
+      "evidence_id": "ev_75b140d85c4075e816b7a7ad8ac1268b226f045ceaf88b0cd0cb422c388d8539",
+      "grade": "CONFIRMED_BY_EXE",
+      "direct_callees": [],
+      "runtime_validation": "NOT_PERFORMED"
+    },
+    {
+      "address": "0x621330",
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x621330",
+            "end": "0x62134a"
+          }
+        ],
+        "total_bytes": 27,
+        "span_bytes": 27,
+        "non_contiguous": false,
+        "contains_entry": true
+      },
+      "evidence_id": "ev_38fef271c61c58fbd1b74e3dcf88a120baf7465202ba22cf653efaeabe5c411a",
+      "grade": "CONFIRMED_BY_EXE",
+      "direct_callees": [],
+      "runtime_validation": "NOT_PERFORMED"
+    },
+    {
+      "address": "0x6212c0",
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x6212c0",
+            "end": "0x62130a"
+          }
+        ],
+        "total_bytes": 75,
+        "span_bytes": 75,
+        "non_contiguous": false,
+        "contains_entry": true
+      },
+      "evidence_id": "ev_9a0bc2b1806fe35e7d2dc5c6229caf5cd54f3013abb084f4054095aebadfbcb8",
+      "grade": "CONFIRMED_BY_EXE",
+      "direct_callees": [
+        "0x511530",
+        "0x5b4c00",
+        "0x639c40"
+      ],
+      "runtime_validation": "NOT_PERFORMED"
+    },
+    {
+      "address": "0x43f450",
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x43f450",
+            "end": "0x43f5c4"
+          }
+        ],
+        "total_bytes": 373,
+        "span_bytes": 373,
+        "non_contiguous": false,
+        "contains_entry": true
+      },
+      "evidence_id": "ev_28957ca567ba0fc23ee8c8b1ca003e9328a7d6e59a06f70ffa426fe4afde3f7c",
+      "grade": "CONFIRMED_BY_EXE",
+      "direct_callees": [
+        "0x43ab70",
+        "0x4436c0",
+        "0x444f90",
+        "0x444fa0",
+        "0x445020",
+        "0x4b5540",
+        "0x4f5eb0",
+        "0x4f6310",
+        "0x5b4c00"
+      ],
+      "runtime_validation": "NOT_PERFORMED"
+    },
+    {
+      "address": "0x43ab70",
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x43ab70",
+            "end": "0x43ac70"
+          }
+        ],
+        "total_bytes": 257,
+        "span_bytes": 257,
+        "non_contiguous": false,
+        "contains_entry": true
+      },
+      "evidence_id": "ev_d40691a3618750e5ef45aad12621efb8fe67a2065c290443fe21b7789872280e",
+      "grade": "CONFIRMED_BY_EXE",
+      "direct_callees": [
+        "0x4e8cd0",
+        "0x4f5eb0",
+        "0x4f6310"
+      ],
+      "runtime_validation": "NOT_PERFORMED"
+    },
+    {
+      "address": "0x57ce60",
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x57ce60",
+            "end": "0x57ceb7"
+          }
+        ],
+        "total_bytes": 88,
+        "span_bytes": 88,
+        "non_contiguous": false,
+        "contains_entry": true
+      },
+      "evidence_id": "ev_080c7e059167e2e2090026df3a38765f072109ce7619454ad58a10a1f90ab742",
+      "grade": "CONFIRMED_BY_EXE",
+      "direct_callees": [
+        "0x57d140",
+        "0x57d640",
+        "0x5c1cb4",
+        "0x621200"
+      ],
+      "runtime_validation": "NOT_PERFORMED"
+    },
+    {
+      "address": "0x57d140",
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x57d140",
+            "end": "0x57d50d"
+          }
+        ],
+        "total_bytes": 974,
+        "span_bytes": 974,
+        "non_contiguous": false,
+        "contains_entry": true
+      },
+      "evidence_id": "ev_c441245f5b23a1f22434cddea10083a1717d41d3e2f18e68624f73a486a828a7",
+      "grade": "CONFIRMED_BY_EXE",
+      "direct_callees": [
+        "0x511020",
+        "0x511510",
+        "0x513150",
+        "0x513650",
+        "0x513850",
+        "0x516ec0",
+        "0x51abf0",
+        "0x51df90",
+        "0x51ff10",
+        "0x5201f0",
+        "0x520310",
+        "0x5203a0",
+        "0x57d510",
+        "0x57d560",
+        "0x57d860",
+        "0x57dc80",
+        "0x57df20",
+        "0x57df40",
+        "0x57df60",
+        "0x57df70",
+        "0x5c1cb4"
+      ],
+      "runtime_validation": "NOT_PERFORMED"
+    },
+    {
+      "address": "0x57d640",
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x57d640",
+            "end": "0x57d738"
+          }
+        ],
+        "total_bytes": 249,
+        "span_bytes": 249,
+        "non_contiguous": false,
+        "contains_entry": true
+      },
+      "evidence_id": "ev_ee128c484224b539fa4d40a5d0ec7546120585e3d0c45b6d3060ac31cd5f506d",
+      "grade": "CONFIRMED_BY_EXE",
+      "direct_callees": [
+        "0x51ff10",
+        "0x5201f0",
+        "0x57d740",
+        "0x57d860",
+        "0x57df60",
+        "0x5c1cb4",
+        "0x639ba0"
+      ],
+      "runtime_validation": "NOT_PERFORMED"
+    },
+    {
+      "address": "0x54c4e0",
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x54c4e0",
+            "end": "0x54c4f2"
+          }
+        ],
+        "total_bytes": 19,
+        "span_bytes": 19,
+        "non_contiguous": false,
+        "contains_entry": true
+      },
+      "evidence_id": "ev_deba7fb73c367df611d95144ed5371f7a01373e37f10353af96dd84cf13e65db",
+      "grade": "CONFIRMED_BY_EXE",
+      "direct_callees": [],
+      "runtime_validation": "NOT_PERFORMED"
+    },
+    {
+      "address": "0x54b320",
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x54b320",
+            "end": "0x54b396"
+          }
+        ],
+        "total_bytes": 119,
+        "span_bytes": 119,
+        "non_contiguous": false,
+        "contains_entry": true
+      },
+      "evidence_id": "ev_9b7b9bc18cd8830175791a6fb2b7199ba7a7697ee68014e783975eebfe7a2e6f",
+      "grade": "CONFIRMED_BY_EXE",
+      "direct_callees": [
+        "0x53bca0",
+        "0x53be70",
+        "0x54b620",
+        "0x54b940"
+      ],
+      "runtime_validation": "NOT_PERFORMED"
+    },
+    {
+      "address": "0x4f60f0",
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x4f60f0",
+            "end": "0x4f6194"
+          }
+        ],
+        "total_bytes": 165,
+        "span_bytes": 165,
+        "non_contiguous": false,
+        "contains_entry": true
+      },
+      "evidence_id": "ev_eb5a39b6b45e0c56f3517f1ca6a32977842b4fbb375bd92392b93de9661ea86d",
+      "grade": "CONFIRMED_BY_EXE",
+      "direct_callees": [
+        "0x4f5780",
+        "0x50e6c0",
+        "0x5b4c00"
+      ],
+      "runtime_validation": "NOT_PERFORMED"
+    },
+    {
+      "address": "0x56fe10",
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x56fe10",
+            "end": "0x570018"
+          }
+        ],
+        "total_bytes": 521,
+        "span_bytes": 521,
+        "non_contiguous": false,
+        "contains_entry": true
+      },
+      "evidence_id": "ev_0d21b2b24c60bcd1de75bf3003456a9c7a216b746eabdfa82fe4ec3d503906fb",
+      "grade": "CONFIRMED_BY_EXE",
+      "direct_callees": [
+        "0x5b4c00",
+        "0x5c1cb4"
+      ],
+      "runtime_validation": "NOT_PERFORMED"
+    }
+  ],
+  "installed_backend": {
+    "constructor": "0x0056EB40",
+    "vtable": "0x00692318",
+    "initialization_function": "0x0053F060",
+    "installation_store": "0x0053F12B -> collision singleton +0x08",
+    "attach": {
+      "entry": "0x0056EEF0",
+      "vtable_slot": "0x0C",
+      "reference": "ev_87bd768df7b0617f190bac305221a0493e104e2d6c1134e21eff443847380ee6",
+      "ghidra_function_boundary": "NOT_DEFINED_IN_DEFAULT_DATABASE",
+      "decoding": "GNU objdump 2.46 exact original PE",
+      "resource_chain": [
+        "Egg +0x50 -> en3d",
+        "en3d +0x0C -> interned model resource ID",
+        "0x0054B320 -> resource wrapper",
+        "wrapper +0x04 -> model",
+        "model +0x0C -> convex prototype",
+        "0x00621220 -> owned convex instance",
+        "0x00621310 -> body binding",
+        "0x00621330 -> category binding",
+        "backend +0x14/+0x18/+0x1C -> native instance vector"
+      ]
+    }
+  },
+  "native_Egg": {
+    "allocation_size": 120,
+    "constructor": "0x004F5670",
+    "original_control_callsite": "0x0048E6C1",
+    "rename_and_register": "0x004F59F0 ->0x0050E650/0x0050E450",
+    "pending_admission": "0x004F61A0 ->0x00509750",
+    "retire": "0x004F5840",
+    "destructor": "0x004F5780",
+    "manager_full_clear": "0x004F60F0",
+    "en3d_allocation_size": 120,
+    "en3d_constructor": "0x004F5A80",
+    "runtime_validation": "NOT_PERFORMED"
+  },
+  "prototype_reader": {
+    "reader": "0x0057CE60",
+    "allocation_size": 28,
+    "calls": [
+      "0x0057D640 base",
+      "0x0057D140 representation A",
+      "0x0057D140 representation B"
+    ],
+    "loader_store": "0x0055170C -> model +0x0C",
+    "limitation": "Native input-stream ABI, parser allocation failure handling and owned private resource-cache registration are not established as safe calling interfaces"
+  },
+  "instance": {
+    "allocation_size": 28,
+    "constructor": "0x00621220",
+    "body_binding": "0x00621310: instance+0x0C; both representation+0x38; base+0x08",
+    "category_binding": "0x00621330: instance+0x10; both representation+0x3C; base+0x0C",
+    "entity_name": "instance +0x14",
+    "entity_cache": "instance +0x18",
+    "destructor": "0x006212C0",
+    "backend_gc": "0x0056EDE0",
+    "limit": "GC re-resolves only when cached entity is zero"
+  },
+  "physical_body": {
+    "allocation_size": 476,
+    "entity_name": "+0x1D0",
+    "entity_cache": "+0x1D4",
+    "manager_gc": "0x0043F450",
+    "collision_manager_gc": "0x0043AB70",
+    "full_destruction": "0x0043E020",
+    "limit": "Both GC routines resolve only zero cache slots. Native Egg retirement alone does not prove cached body/collider invalidation"
+  },
+  "one_next_experiment": "One read-only cold Turkey3 native convex lifecycle capture: record loader/clone/body binding, actual backend, thread/load boundary and teardown for one original vehicle as the shared interface control; do not spawn a private prop in that capture",
+  "source_modification": "NONE",
+  "port_implementation": "NONE",
+  "runtime_validation": "NOT_PERFORMED"
+}

@@ -1,0 +1,482 @@
+{
+  "schema_version": 1,
+  "physics_status": "PAUSED_BY_USER",
+  "raw_artifacts": "RETAINED_LOCALLY_IGNORED_NOT_COMMITTED",
+  "files": [
+    {
+      "path": "ps2-research/data/hud-port1.1/handoff-review/HANDOFF.md",
+      "bytes": 681,
+      "sha256": "ca61dacf66c5c97e0da95af279db4d7b40e9ae4a67ca1f701f965b7d7956de4b"
+    },
+    {
+      "path": "ps2-research/data/hud-port1.1/handoff-review/ps2-research/pc-port/docs/hud-port0/source-evidence.json",
+      "bytes": 48693,
+      "sha256": "7e5b0d19625bd36455ee1a4e3e868b38df69fbe223cd2ad69800f75b0aeb4c73"
+    },
+    {
+      "path": "ps2-research/data/hud-port1.1/handoff-review/ps2-research/pc-port/docs/hud-port1/live-semantic-probe.py",
+      "bytes": 6970,
+      "sha256": "cd5bc63eb5b28493a7addaaf2f1660a8eba769ea05b64d7451b8c72d543fdb4f"
+    },
+    {
+      "path": "ps2-research/data/hud-port1.1/handoff-review/ps2-research/pc-port/docs/hud-port1/live-semantic-tests.py",
+      "bytes": 4557,
+      "sha256": "1e3d382b8575c1585d90f7474c67b4602e6d31243fe6e856aa673ba430177606"
+    },
+    {
+      "path": "ps2-research/data/hud-port1.1/handoff-review/ps2-research/pc-port/docs/hud-port1/semantic-evidence.json",
+      "bytes": 4780,
+      "sha256": "7ab7b42877930d56d621801a377c6927b4227f71d02f6d49959bd8d1be1fb456"
+    },
+    {
+      "path": "ps2-research/data/hud-port1.1/handoff-review/ps2-research/pc-port/docs/hud-port1.1/final-report.md",
+      "bytes": 4335,
+      "sha256": "62dbd4dfefd7636f12d0a4f2e74931b30627b746e58911a673a7934d4ec25e98"
+    },
+    {
+      "path": "ps2-research/data/hud-port1.1/handoff-review/ps2-research/pc-port/docs/hud-port1.1/paused-plate-probe.py",
+      "bytes": 5452,
+      "sha256": "8d91431dfc750d5761ba54a2f9d695820a14a00c5d0cb42611c14dd7dc278ffc"
+    },
+    {
+      "path": "ps2-research/data/hud-port1.1/handoff-review/ps2-research/pc-port/docs/hud-port1.1/plate-checkpoint.x32dbg",
+      "bytes": 882,
+      "sha256": "206b582157cba6c6ac7ccd4d48e37354305852280237c38097cdbff336b113c4"
+    },
+    {
+      "path": "ps2-research/data/hud-port1.1/handoff-review/ps2-research/pc-port/docs/hud-port1.1/plate-contract-tests.py",
+      "bytes": 4657,
+      "sha256": "61c762f8e335620425a43778dc934dfaa79b657d523c42dcbf94997e73fe056f"
+    },
+    {
+      "path": "ps2-research/data/hud-port1.1/handoff-review/ps2-research/pc-port/docs/hud-port1.1/plate-contract.py",
+      "bytes": 2363,
+      "sha256": "0014fbaf45e13c066d8040e32a65e69d3f0b859135401dccb329a5fe338c86fd"
+    },
+    {
+      "path": "ps2-research/data/hud-port1.1/handoff-review/ps2-research/pc-port/docs/hud-port1.1/plate-source-evidence.json",
+      "bytes": 3600,
+      "sha256": "a8317e035e4e34e344ca3ef9ffbf200b91eb8bb1b80a33be207d42fae201c7aa"
+    },
+    {
+      "path": "ps2-research/data/hud-port1.1/handoff-review/ps2-research/pc-port/docs/hud-port1.1/runtime-recipe.md",
+      "bytes": 2598,
+      "sha256": "13ae3831f966279224f54be5017d04f5a07bc1775cd5f37717c338332e3a8565"
+    },
+    {
+      "path": "ps2-research/data/hud-port1.1/handoff-review/ps2-research/pc-port/docs/rigid-port1.3/admission-evidence.json",
+      "bytes": 7853,
+      "sha256": "5d2574da5bba39feda27a38b08091191027b7c574f2bcb25cb9c30b58999994b"
+    },
+    {
+      "path": "ps2-research/data/hud-port1.1/handoff-review/ps2-research/pc-port/docs/rigid-port1.3/final-report.md",
+      "bytes": 4983,
+      "sha256": "cd1ac83834cdf84898508098444fdc911f7433057bdd9f714e1e2884d24ee7ae"
+    },
+    {
+      "path": "ps2-research/data/hud-port1.1/handoff-review/ps2-research/pc-port/docs/rigid-port1.3/test_admission_evidence.py",
+      "bytes": 3122,
+      "sha256": "cd01e3ee416c4771bef0eb852507a0486064269b1b8d0efe2f5401ee8c0ba705"
+    },
+    {
+      "path": "ps2-research/data/hud-port1.1/handoff-review/ps2-research/pc-port/docs/rigid-port1.3/validation.json",
+      "bytes": 937,
+      "sha256": "ce6356a7c476621e0cfb8a3009c33eae366915cddb1e6d37b86105ca070335dd"
+    },
+    {
+      "path": "ps2-research/data/hud-port1.1/handoff-review/ps2-research/pc-port/HUD11-RIGID13-HANDOFF.md",
+      "bytes": 3913,
+      "sha256": "86da01959535f79a302d549fdc9f2a7976cf1a6357b4c50255eaae7569b1c4ca"
+    },
+    {
+      "path": "ps2-research/data/hud-port1.1/handoff-review/ps2-research/pc-port/overlay/package_hud11_rigid13_handoff.py",
+      "bytes": 3071,
+      "sha256": "29aeb7e7cdad528cc156b4d9270f1f50d6e6be0e3acb1cca327382a7408eaf68"
+    },
+    {
+      "path": "ps2-research/data/hud-port1.1/handoff-review/ps2-research/pc-port/overlay/package_reflection_handoff.py",
+      "bytes": 17264,
+      "sha256": "51592928a6b97c0df63b1c9f51b012d4c332ec02534609b7775674c0f69b4935"
+    },
+    {
+      "path": "ps2-research/data/hud-port1.1/handoff-review/ps2-research/pc-port/tools/rigid_lifecycle_probe.py",
+      "bytes": 14868,
+      "sha256": "0f1b105d2c8cd15b2c69a6b8a418e722aaa67e841ba6154a86b22af4bcde5ace"
+    },
+    {
+      "path": "ps2-research/data/hud-port1.1/handoff-review/SHA256SUMS.txt",
+      "bytes": 2442,
+      "sha256": "77e4e4af728c8f49e910f599595ec23ae4c35586070763579c25384644bd0089"
+    },
+    {
+      "path": "ps2-research/data/rigid-port1/ghidra-script/RigidSourceProbe.java",
+      "bytes": 1284,
+      "sha256": "f8eb3c343a01a2d652328e376f4257ccacb78e614cc398769046946d6fc5fedb"
+    },
+    {
+      "path": "ps2-research/data/rigid-port1/hud-live-48104.json",
+      "bytes": 4952,
+      "sha256": "3555976983779b0d88b1f9b7fbf9065610f37d063547ebb5f336741b7fd0a83e"
+    },
+    {
+      "path": "ps2-research/data/rigid-port1/lifecycle-control-12760-b.jsonl",
+      "bytes": 420115,
+      "sha256": "48e5a54dd8f23e0ff360aa500cee6fb816e256d0c5903dad8c559d3f35585a8d"
+    },
+    {
+      "path": "ps2-research/data/rigid-port1/lifecycle-control-36572-a.jsonl",
+      "bytes": 376233,
+      "sha256": "d3fe97501e123afc09e76633566f0208aeb71d0c2b14258a0a1a21606c57d397"
+    },
+    {
+      "path": "ps2-research/data/rigid-port1/r5900-source-check.json",
+      "bytes": 9168,
+      "sha256": "8591acaeec0255db89a8fb88a97177ed6ac5cb3f68eab5284644611c2bd32079"
+    },
+    {
+      "path": "ps2-research/data/rigid-port1/r5900-source-probe.txt",
+      "bytes": 5188,
+      "sha256": "97c1013bf48a867543be851932b1f4e9657032c22b4d2d664c9971c3eb53b67b"
+    },
+    {
+      "path": "ps2-research/data/rigid-port1/Turkey3Tumbleweed.tag101",
+      "bytes": 4612,
+      "sha256": "27cb1089bf997a0b20d6a4f98fee9827a9089972ff6e891fce5cf34e41e01d48"
+    },
+    {
+      "path": "ps2-research/data/rigid-port1/x32dbg-lifecycle-control.txt",
+      "bytes": 35374,
+      "sha256": "226859dc55b01831c637a331726d3a38670a8e71435bb75388a21c0e7583eccd"
+    },
+    {
+      "path": "ps2-research/pc-port/dist/PS2-HUD-PORT1.1-RIGID-PORT1.3-handoff.zip",
+      "bytes": 48252,
+      "sha256": "96ce42480785a10cccf56ab2751f8252efcfc1619151a3ab6bd9edbb1c291d28"
+    },
+    {
+      "path": "ps2-research/pc-port/dist/PS2-RIGID-PORT1-HUD-PORT0-handoff.zip",
+      "bytes": 2320949,
+      "sha256": "37ada2f2bd42baec466a9734cccf385290532658dbbcfd3114971e8e543cd66f"
+    },
+    {
+      "path": "ps2-research/pc-port/dist/PS2-RIGID-PORT1.1-HUD-PORT1-handoff.zip",
+      "bytes": 58087,
+      "sha256": "333f8893e5d232b023d46a1b27bffd0bcb5e0d257df579e291d9b850134387cd"
+    },
+    {
+      "path": "ps2-research/pc-port/dist/PS2-RIGID-PORT1.2-HUD-LIVE-handoff.zip",
+      "bytes": 58412,
+      "sha256": "67a560db9646918aed861ca9f6b8ff6d54cc61084d1595b7a5a92909405d09b9"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/hud-port0/feature-matrix.md",
+      "bytes": 5690,
+      "sha256": "0f9684344760536f8c6498eac7733d1f3f36e0ef21ce555a7831b286e660e9ff"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/hud-port0/final-report.md",
+      "bytes": 4485,
+      "sha256": "3ac64f1a0003377113b786661469ab7cec0a9a09c45796aeaa527b87dc3b2525"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/hud-port0/pause-menu.md",
+      "bytes": 1644,
+      "sha256": "ba0f8405fcd1a356c5a9b8541fae05bfb1f6b07b453d0b343c9c14d39fe565e9"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/hud-port0/pc-integration.md",
+      "bytes": 5747,
+      "sha256": "e552d92ca5438ae5578469b7bbf3c159b9ab0c4a1f9f8206bff56d32999989ed"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/hud-port0/pilot-proposal.md",
+      "bytes": 5046,
+      "sha256": "5fe49f519f01e7a9b5c8bde7e0628da40ae2a573ffa35c43722bbfd6f0483135"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/hud-port0/ps2-contract.md",
+      "bytes": 6729,
+      "sha256": "0f781257b5ec7ca0be41366fb738ab261b5491f7ad0403a7286c15c12b1835e8"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/hud-port0/README.md",
+      "bytes": 2323,
+      "sha256": "39a2afa918a46a0ef82094b913ece3b25700661c403f1f23a9a22fd0b31ee682"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/hud-port0/review_evidence.py",
+      "bytes": 12622,
+      "sha256": "79c10a16b8039e779962fdfe42c035b741ab7c76ac3db706a1510d41617f7413"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/hud-port0/SHA256SUMS",
+      "bytes": 834,
+      "sha256": "315108e686d6ab3ae31a29513826383801b9280d10033a101f1ccbd27f114f8c"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/hud-port0/source-evidence.json",
+      "bytes": 48693,
+      "sha256": "7e5b0d19625bd36455ee1a4e3e868b38df69fbe223cd2ad69800f75b0aeb4c73"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/hud-port0/validation.md",
+      "bytes": 4750,
+      "sha256": "1c6d023a0e3883dcf644cc271d39f791d8687121284d3dd602035b753d1b86e7"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/hud-port1/live-evidence.json",
+      "bytes": 2996,
+      "sha256": "a49fa48d42b6e17c3ea9edcfae9b0439a67608e0c0d6d5adcb77377338d913b8"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/hud-port1/live-readiness.md",
+      "bytes": 7518,
+      "sha256": "d8833902163a86195475422615e37ad9a9d2605edec7bdb561c50ee6e4ecb570"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/hud-port1/live-semantic-probe.py",
+      "bytes": 6970,
+      "sha256": "cd5bc63eb5b28493a7addaaf2f1660a8eba769ea05b64d7451b8c72d543fdb4f"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/hud-port1/live-semantic-tests.py",
+      "bytes": 4557,
+      "sha256": "1e3d382b8575c1585d90f7474c67b4602e6d31243fe6e856aa673ba430177606"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/hud-port1/semantic-evidence.json",
+      "bytes": 4780,
+      "sha256": "7ab7b42877930d56d621801a377c6927b4227f71d02f6d49959bd8d1be1fb456"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/hud-port1/semantic-mapping.md",
+      "bytes": 6353,
+      "sha256": "a56d756ad2f1e117921302f71d6fbba5dd171f3fd86ae552b141ac4ae3dddf14"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/hud-port1.1/final-report.md",
+      "bytes": 4335,
+      "sha256": "62dbd4dfefd7636f12d0a4f2e74931b30627b746e58911a673a7934d4ec25e98"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/hud-port1.1/paused-plate-probe.py",
+      "bytes": 5452,
+      "sha256": "8d91431dfc750d5761ba54a2f9d695820a14a00c5d0cb42611c14dd7dc278ffc"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/hud-port1.1/plate-checkpoint.x32dbg",
+      "bytes": 882,
+      "sha256": "206b582157cba6c6ac7ccd4d48e37354305852280237c38097cdbff336b113c4"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/hud-port1.1/plate-contract-tests.py",
+      "bytes": 4657,
+      "sha256": "61c762f8e335620425a43778dc934dfaa79b657d523c42dcbf94997e73fe056f"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/hud-port1.1/plate-contract.py",
+      "bytes": 2363,
+      "sha256": "0014fbaf45e13c066d8040e32a65e69d3f0b859135401dccb329a5fe338c86fd"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/hud-port1.1/plate-source-evidence.json",
+      "bytes": 3600,
+      "sha256": "a8317e035e4e34e344ca3ef9ffbf200b91eb8bb1b80a33be207d42fae201c7aa"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/hud-port1.1/runtime-recipe.md",
+      "bytes": 2598,
+      "sha256": "13ae3831f966279224f54be5017d04f5a07bc1775cd5f37717c338332e3a8565"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/rigid-port1/checkpoint-boundary.md",
+      "bytes": 2101,
+      "sha256": "7c6666117ba56d2a0ebdf46a22b7cc370f1836014871735bd259e5b1f3b04a16"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/rigid-port1/command-log.md",
+      "bytes": 2264,
+      "sha256": "222d9378a3d3be78865e692354671a3e0a9713639fc0c1802e20be34f1377d08"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/rigid-port1/final-report.md",
+      "bytes": 8349,
+      "sha256": "27e3c9566a36dd92e5fb4dfcdbb028c2b1bf531e19a7468019b2252d9ceb8b01"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/rigid-port1/grass2-runtime-review.json",
+      "bytes": 6395,
+      "sha256": "b9e233d5a26134f28dfdc0f9447c4f37391ad3f101bf2978c09cace5ae8cd20b"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/rigid-port1/native-logpoints.x32dbg",
+      "bytes": 7123,
+      "sha256": "e60d22959712c6263335dd9919a7bad73e2f7dd50752a671a5c2339f6be0d817"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/rigid-port1/native-pc-lifecycle-20261013.json",
+      "bytes": 23277,
+      "sha256": "2c857df37984e9825f6f3b1a07d1d63facf81c096d8b21579db3e60812da9063"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/rigid-port1/native-pc-lifecycle-20261013.md",
+      "bytes": 10160,
+      "sha256": "c7123fb0bab1f386a660760bf72b68df453329cd17264f1c5ee499d4cd5f3dc7"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/rigid-port1/pc-native-probes.json",
+      "bytes": 14990,
+      "sha256": "3c48f26f4fe8fdc591b0875c6c0dd7d6a5fd4b9d29a4a516c7ef64a7fa5f97cc"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/rigid-port1/ps2-source-contract.json",
+      "bytes": 29126,
+      "sha256": "59e71be0666e6b348aaa2698e78bd39522dc1f4d8eece2ad5f5a986bfd0964ba"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/rigid-port1/ps2-source-contract.md",
+      "bytes": 11780,
+      "sha256": "7660420a9f47ef7065bb670eb456b1737fe871f2896445caa80a6af198ea8ed2"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/rigid-port1/README.md",
+      "bytes": 7076,
+      "sha256": "d9b0eca554e43a898281eb32b554e5c32ab72a88a52b31158f086d2bbd8dd361"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/rigid-port1/runtime-control.md",
+      "bytes": 4827,
+      "sha256": "b0a390a8f22a181b04f0503348dc4c36f6df850226aa8772b667b924f6518c5b"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/rigid-port1/static-followup.json",
+      "bytes": 15901,
+      "sha256": "db0e4e72e3c7ec78c2e1d913861b177721305209c79269609d55521238d6298e"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/rigid-port1/static-followup.md",
+      "bytes": 6600,
+      "sha256": "c7eca18570ee6f779dd8b8498ad94cc7e6d71af6ae6d989e64959dcc30576b7a"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/rigid-port1/targeted-capture.md",
+      "bytes": 2778,
+      "sha256": "aa8f72c1fe0c5547e13f47ada459d1b2693c23e419eb8d312bb14cea2c6bb595"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/rigid-port1/validation.json",
+      "bytes": 4148,
+      "sha256": "7e135fea9a4560ea05ae87c32a17d7293456ac9e74fbb31cf10c8809fbb410cb"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/rigid-port1.1/correlated-control.json",
+      "bytes": 11948,
+      "sha256": "26cae90d16c3fe724c48816f7450273cbf8fd64117e1659c20c8ab4e76c7b519"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/rigid-port1.1/debugger-passive-control.json",
+      "bytes": 6964,
+      "sha256": "142e6e4e00a374dee984ecafeaf9f50ff560e1df0bb8117504bc1750b56de16b"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/rigid-port1.1/final-report.md",
+      "bytes": 6418,
+      "sha256": "dfd5310a435ec4dc3cc64084404997ec35b2606ea80e2b34213b67141793d0c6"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/rigid-port1.1/implementation-decision.md",
+      "bytes": 3160,
+      "sha256": "c93776d8993f1c233b90ab08a522dac193bd0750c6ff9af756d5d087da5f07b3"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/rigid-port1.1/live-entry-check.json",
+      "bytes": 699,
+      "sha256": "ad1e714352fa5e37782b8874cd5b53e61b63fad59c9e1e806108b9cc640a6844"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/rigid-port1.1/passive-control.json",
+      "bytes": 3288,
+      "sha256": "bc123a2f5192255a84ee9ca2a8dc9438dd4710f3b1c21b6bb1e0f22d3b61aba6"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/rigid-port1.1/runtime-recipe.md",
+      "bytes": 2872,
+      "sha256": "d159ad328f85a3e49e2a6726f652feaefa54f034cf5aa2c2ddbed043a8ad08ef"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/rigid-port1.1/test_lifecycle_review.py",
+      "bytes": 5244,
+      "sha256": "db177383787fa0596d00253b5de47fa1210c8e0504dcff9bcab743605b78f679"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/rigid-port1.1/validation.json",
+      "bytes": 1695,
+      "sha256": "f2c1ee4f2493b547f40be7ddbfb7b4249bc339c6e09ef3026dde6bef92f1072a"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/rigid-port1.2/authored-native-prop-control.json",
+      "bytes": 597,
+      "sha256": "5604d04206ca5899311c260edc062e91bb50fb545fd00669bf01f1971aae0f23"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/rigid-port1.2/discover-original-prop.x32dbg",
+      "bytes": 804,
+      "sha256": "0746380b8042df5463d7e09c1162d22a103f0afd5d394f7c673d10f355760368"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/rigid-port1.2/final-report.md",
+      "bytes": 7371,
+      "sha256": "90fc91ea9932d073baf6a3bed50147b58207f4962408bc73290bb0ee018a2488"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/rigid-port1.2/native-ownership-functions.json",
+      "bytes": 6278,
+      "sha256": "99fcd8338a94d23cdce40c8efce677275abe5edcf22a88346419609d3229e616"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/rigid-port1.2/native-ownership-probes.json",
+      "bytes": 2811,
+      "sha256": "26daedee1ca0dadd2e8e287d94709e114c57e856f2f0c4634a20bb72b034625a"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/rigid-port1.2/prop-logpoint-policy.py",
+      "bytes": 4699,
+      "sha256": "6ffdd7d14c4da0804ed978a5b3579c6e52346baa1c7b8b1ad3645255a988d523"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/rigid-port1.2/targeted-runtime-recipe.md",
+      "bytes": 3633,
+      "sha256": "266f7bee302453880642760033e86cd74c34c85164f545ab741fb2bf2d755454"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/rigid-port1.2/test_prop_policy.py",
+      "bytes": 2626,
+      "sha256": "0fc2ce588d73487d8ba0f0306b243c5d0c4ce081fc95e256fab88fc36f24510d"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/rigid-port1.2/validation.json",
+      "bytes": 1168,
+      "sha256": "8f25c8daee33e280cfd9ace56cd03569c0e0478dea7aef33bf75ddf0ba5d3739"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/rigid-port1.3/admission-evidence.json",
+      "bytes": 7853,
+      "sha256": "5d2574da5bba39feda27a38b08091191027b7c574f2bcb25cb9c30b58999994b"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/rigid-port1.3/final-report.md",
+      "bytes": 4983,
+      "sha256": "cd1ac83834cdf84898508098444fdc911f7433057bdd9f714e1e2884d24ee7ae"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/rigid-port1.3/test_admission_evidence.py",
+      "bytes": 3122,
+      "sha256": "cd01e3ee416c4771bef0eb852507a0486064269b1b8d0efe2f5401ee8c0ba705"
+    },
+    {
+      "path": "ps2-research/pc-port/docs/rigid-port1.3/validation.json",
+      "bytes": 937,
+      "sha256": "ce6356a7c476621e0cfb8a3009c33eae366915cddb1e6d37b86105ca070335dd"
+    }
+  ]
+}

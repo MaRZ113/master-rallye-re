@@ -1,0 +1,1585 @@
+{
+  "schema_version": 1,
+  "phase": "HUD-PORT0",
+  "implementation": "NOT_PERFORMED",
+  "canonical_inputs": {
+    "SLES_509.06": {
+      "path": "D:\\Game\\Master Rallye PS2\\SLES_509.06",
+      "size": 3739852,
+      "sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2"
+    },
+    "SYSTEM.CNF": {
+      "path": "D:\\Game\\Master Rallye PS2\\SYSTEM.CNF",
+      "size": 56,
+      "sha256": "db08eef06278820a562f9cdacd6a2d5d2bb31870e7cf3a51e83daee3a90c5df2"
+    },
+    "TNG.PAK": {
+      "path": "D:\\Game\\Master Rallye PS2\\TNG.PAK",
+      "size": 135556,
+      "sha256": "d98c7cf1049a8a3bc2f90a528a2b6f52cd43c16c2e0564830d5ecb9c592ab28d"
+    },
+    "TNG.000": {
+      "path": "D:\\Game\\Master Rallye PS2\\TNG.000",
+      "size": 1225915283,
+      "sha256": "004ac1676376275bf40c1fd5c1c4a9dcfaae870bf1a7916434eb73b0b1faff86"
+    }
+  },
+  "renderer_head": "0bddf7c7bc5e95831f98714ff6231da05ab073ea",
+  "renderer_tree": "e33386bcf682db6983380c499e4928726c758fe0",
+  "ps2_banks": [
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE.PSB",
+      "size": 3004,
+      "sha256": "c36f89c2978a98a4e3e3e4ce64204ff9cd52c3f9a81c5891cb9268859e172f9b",
+      "image_count": 11,
+      "triangle_count": 34,
+      "evidence_grade": "CONFIRMED_BY_BYTES"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD.PSB",
+      "size": 11768,
+      "sha256": "131a5be359ea620182c244b99fe97e47279ef33d425f9a9791c86663dd0d648d",
+      "image_count": 38,
+      "triangle_count": 148,
+      "evidence_grade": "CONFIRMED_BY_BYTES"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-DAMAGE.PSB",
+      "size": 1072,
+      "sha256": "84adc1ad91f5970a83b9a0367ed7ee2bc5a2022c2af4446efd929d0211c72d68",
+      "image_count": 6,
+      "triangle_count": 12,
+      "evidence_grade": "CONFIRMED_BY_BYTES"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES.PSB",
+      "size": 4192,
+      "sha256": "35fb0d8121634775be768366dfb61f9f453479fe86181684eba77a076d1807e7",
+      "image_count": 24,
+      "triangle_count": 48,
+      "evidence_grade": "CONFIRMED_BY_BYTES"
+    }
+  ],
+  "selected_ps2_textures": [
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-DAMAGE_000.GXI",
+      "size": 16392,
+      "sha256": "1b11baddf6e0d414cad52f485ac79a9be1841ea012d964267381d6228c2820c6",
+      "width": 64,
+      "height": 64,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_unique_count": 148,
+      "rgba_interpretation": "UI1 visually corroborated; not GS upload parity",
+      "evidence_grade": "CONFIRMED_BY_BYTES"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-DAMAGE_001.GXI",
+      "size": 16392,
+      "sha256": "cb58cda5f89fdeb98958b6b6e5375489ebc81a32048dd586a13cf930e965ca45",
+      "width": 64,
+      "height": 64,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_unique_count": 124,
+      "rgba_interpretation": "UI1 visually corroborated; not GS upload parity",
+      "evidence_grade": "CONFIRMED_BY_BYTES"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE_000.GXI",
+      "size": 16392,
+      "sha256": "79895bdb8b7f5a286fc83e281a8f0d947b3edd3a7aaa4eafc70a48bf44269849",
+      "width": 64,
+      "height": 64,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_unique_count": 205,
+      "rgba_interpretation": "UI1 visually corroborated; not GS upload parity",
+      "evidence_grade": "CONFIRMED_BY_BYTES"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE_001.GXI",
+      "size": 16392,
+      "sha256": "7c13b266f093d34e120ed8f968089991fdf8bcfa1ed20219baa115c7c2866174",
+      "width": 64,
+      "height": 64,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_unique_count": 202,
+      "rgba_interpretation": "UI1 visually corroborated; not GS upload parity",
+      "evidence_grade": "CONFIRMED_BY_BYTES"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE_002.GXI",
+      "size": 16392,
+      "sha256": "4e4098e5b0c61aa0438138c1fa0592d302dc61485f203d89805690ed4b0e0f6b",
+      "width": 64,
+      "height": 64,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_unique_count": 228,
+      "rgba_interpretation": "UI1 visually corroborated; not GS upload parity",
+      "evidence_grade": "CONFIRMED_BY_BYTES"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE_003.GXI",
+      "size": 16392,
+      "sha256": "be80406032fd64bfa0ee57ad6afd2b9126a0cb850c2e6ec99c8fa37454b82831",
+      "width": 64,
+      "height": 64,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_unique_count": 231,
+      "rgba_interpretation": "UI1 visually corroborated; not GS upload parity",
+      "evidence_grade": "CONFIRMED_BY_BYTES"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE_004.GXI",
+      "size": 16392,
+      "sha256": "44234b829d1850f9a440d04632d10eff3ef7eabf4cdb01012c41935236d2923b",
+      "width": 64,
+      "height": 64,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_unique_count": 227,
+      "rgba_interpretation": "UI1 visually corroborated; not GS upload parity",
+      "evidence_grade": "CONFIRMED_BY_BYTES"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE_005.GXI",
+      "size": 16392,
+      "sha256": "e6007b179fce229a0750302d086654d5f3138c1eb4590d2edf9a8632e20bc20f",
+      "width": 64,
+      "height": 64,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_unique_count": 237,
+      "rgba_interpretation": "UI1 visually corroborated; not GS upload parity",
+      "evidence_grade": "CONFIRMED_BY_BYTES"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE_006.GXI",
+      "size": 16392,
+      "sha256": "8c85f21a048d724e8a6d406e86b0537f66cffb9803e33ca70dfad3c15701d9bd",
+      "width": 64,
+      "height": 64,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_unique_count": 248,
+      "rgba_interpretation": "UI1 visually corroborated; not GS upload parity",
+      "evidence_grade": "CONFIRMED_BY_BYTES"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\HUD-TEMPLATE_007.GXI",
+      "size": 16392,
+      "sha256": "3e810c40f9ce7ba937c908b3e642a27398367448e9f737b8af87543f8a3385ab",
+      "width": 64,
+      "height": 64,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_unique_count": 145,
+      "rgba_interpretation": "UI1 visually corroborated; not GS upload parity",
+      "evidence_grade": "CONFIRMED_BY_BYTES"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_000.GXI",
+      "size": 16392,
+      "sha256": "427860e0df9c2431d279dd115ff15d0f2f0d15aad3f1a6d074aebff445fa655a",
+      "width": 64,
+      "height": 64,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_unique_count": 198,
+      "rgba_interpretation": "UI1 visually corroborated; not GS upload parity",
+      "evidence_grade": "CONFIRMED_BY_BYTES"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_001.GXI",
+      "size": 16392,
+      "sha256": "67e9728a5292ad13ea4a9c70de550a488a42e7df60023d9f3318f01f6fee8e55",
+      "width": 64,
+      "height": 64,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_unique_count": 202,
+      "rgba_interpretation": "UI1 visually corroborated; not GS upload parity",
+      "evidence_grade": "CONFIRMED_BY_BYTES"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_002.GXI",
+      "size": 16392,
+      "sha256": "4e35d11240fa6b9ea405ed922ae8d86c9546ad48c90fcdc1722386ee4bd002f2",
+      "width": 64,
+      "height": 64,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_unique_count": 228,
+      "rgba_interpretation": "UI1 visually corroborated; not GS upload parity",
+      "evidence_grade": "CONFIRMED_BY_BYTES"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_003.GXI",
+      "size": 16392,
+      "sha256": "67d436918ea6224a6ffee82df49f1ceb13a5d7be4a680d2c340bd791a8c9ff13",
+      "width": 64,
+      "height": 64,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_unique_count": 231,
+      "rgba_interpretation": "UI1 visually corroborated; not GS upload parity",
+      "evidence_grade": "CONFIRMED_BY_BYTES"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_004.GXI",
+      "size": 16392,
+      "sha256": "900048d031f3782d3f3ae83560b67a3c762dc90c66348fcc7e0d0f537b8093f4",
+      "width": 64,
+      "height": 64,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_unique_count": 228,
+      "rgba_interpretation": "UI1 visually corroborated; not GS upload parity",
+      "evidence_grade": "CONFIRMED_BY_BYTES"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_005.GXI",
+      "size": 16392,
+      "sha256": "2eb3343a890dbd8c61a34bac429f36db71ed0ed3baa2b5dc11351bb0504f1824",
+      "width": 64,
+      "height": 64,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_unique_count": 201,
+      "rgba_interpretation": "UI1 visually corroborated; not GS upload parity",
+      "evidence_grade": "CONFIRMED_BY_BYTES"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_006.GXI",
+      "size": 16392,
+      "sha256": "140b44911a88ad797bccc34f76666677b464e2e9eec1927bf198ef58510f9221",
+      "width": 64,
+      "height": 64,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_unique_count": 195,
+      "rgba_interpretation": "UI1 visually corroborated; not GS upload parity",
+      "evidence_grade": "CONFIRMED_BY_BYTES"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_010.GXI",
+      "size": 16392,
+      "sha256": "642f39b8efa57b5dc0e5400909c7d0f965c1be8055192a68b94e663a0b45ec98",
+      "width": 64,
+      "height": 64,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_unique_count": 234,
+      "rgba_interpretation": "UI1 visually corroborated; not GS upload parity",
+      "evidence_grade": "CONFIRMED_BY_BYTES"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\NEWHUD_011.GXI",
+      "size": 16392,
+      "sha256": "2cd49af7fe558d9384c8e8146ee193c9d5c176a5fa5d4e08795db906eb3a8bfc",
+      "width": 64,
+      "height": 64,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_unique_count": 222,
+      "rgba_interpretation": "UI1 visually corroborated; not GS upload parity",
+      "evidence_grade": "CONFIRMED_BY_BYTES"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_019.GXI",
+      "size": 16392,
+      "sha256": "066bc39167dd97ebea14b8552e3afae7ad6b779f19394a12605984494ff23671",
+      "width": 64,
+      "height": 64,
+      "alpha_min": 255,
+      "alpha_max": 255,
+      "alpha_unique_count": 1,
+      "rgba_interpretation": "UI1 visually corroborated; not GS upload parity",
+      "evidence_grade": "CONFIRMED_BY_BYTES"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_020.GXI",
+      "size": 16392,
+      "sha256": "f719dff4d251c53cd60e2b3ef4c6cba5885dbf6b220d91f355a184e401a86554",
+      "width": 64,
+      "height": 64,
+      "alpha_min": 255,
+      "alpha_max": 255,
+      "alpha_unique_count": 1,
+      "rgba_interpretation": "UI1 visually corroborated; not GS upload parity",
+      "evidence_grade": "CONFIRMED_BY_BYTES"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_021.GXI",
+      "size": 16392,
+      "sha256": "806e21a764c8c8a6a832beb4e25b26bf6d87055dc68f7d13cbf12a8cb4538d70",
+      "width": 64,
+      "height": 64,
+      "alpha_min": 255,
+      "alpha_max": 255,
+      "alpha_unique_count": 1,
+      "rgba_interpretation": "UI1 visually corroborated; not GS upload parity",
+      "evidence_grade": "CONFIRMED_BY_BYTES"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_022.GXI",
+      "size": 16392,
+      "sha256": "052becdfcc54910754b692eb317e4c065f06b5e71cb32c70baba741b0caa0cdf",
+      "width": 64,
+      "height": 64,
+      "alpha_min": 255,
+      "alpha_max": 255,
+      "alpha_unique_count": 1,
+      "rgba_interpretation": "UI1 visually corroborated; not GS upload parity",
+      "evidence_grade": "CONFIRMED_BY_BYTES"
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\HUD\\PACENOTES_023.GXI",
+      "size": 16392,
+      "sha256": "729873fd3d62fe7ca0258d7dee1905e53b61e603a87b60a281381bdf63623bf4",
+      "width": 64,
+      "height": 64,
+      "alpha_min": 255,
+      "alpha_max": 255,
+      "alpha_unique_count": 1,
+      "rgba_interpretation": "UI1 visually corroborated; not GS upload parity",
+      "evidence_grade": "CONFIRMED_BY_BYTES"
+    }
+  ],
+  "ps2_hud0": {
+    "path": "\\TNG\\DATASCENE\\HUD\\HUD0.XML",
+    "sha256": "faa90792c53b9fd29d122a94ff6212deb8bbe5c13b9555b4c6659589dd720ae9",
+    "size": 133513,
+    "elements": [
+      {
+        "name": "PauseMenuTiles",
+        "properties": {
+          "en2d Model Name": "Null",
+          "en2d Matrix": "170.00 290.00 0.00 1.00",
+          "en2d Image Bank Index": "0",
+          "en2d Visible": "False"
+        },
+        "owners": [
+          {
+            "AI Name": "enUITileBox",
+            "UiNo": "100",
+            "ImageBank": "Frontend/new/Tiles/textboxalpha",
+            "ImageBankActive": "Frontend/new/Tiles/textboxalpha",
+            "Width": "18",
+            "Height": "5",
+            "Num Source Horizontal Tiles": "3",
+            "Num Source Vertical Tiles": "3"
+          }
+        ],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "ConfirmMenuTiles",
+        "properties": {
+          "en2d Model Name": "Null",
+          "en2d Matrix": "170.00 190.00 0.00 1.00",
+          "en2d Image Bank Index": "0",
+          "en2d Visible": "False"
+        },
+        "owners": [
+          {
+            "AI Name": "enUITileBox",
+            "UiNo": "100",
+            "ImageBank": "Frontend/new/Tiles/textboxalpha",
+            "ImageBankActive": "Frontend/new/Tiles/textboxalpha",
+            "Width": "18",
+            "Height": "5",
+            "Num Source Horizontal Tiles": "3",
+            "Num Source Vertical Tiles": "3"
+          }
+        ],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "PauseMenuChooser",
+        "properties": {
+          "en2d Model Name": "Null",
+          "en2d Matrix": "320.00 337.00 0.00 1.00",
+          "en2d Image Bank Index": "0",
+          "en2d Visible": "True"
+        },
+        "owners": [
+          {
+            "AI Name": "gaFrontendPauseMenuAI",
+            "Button ID": "0",
+            "Enabled*": "Race/PauseMenu/Enabled",
+            "StringList*": "Race/PauseMenu/List",
+            "Value*": "Race/PauseMenu/Index",
+            "CurrentText*": "Race/PauseMenu/Text",
+            "Tiles": "PauseMenuTiles",
+            "Font": "1",
+            "Height": "3"
+          }
+        ],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "SpeedDial",
+        "properties": {
+          "en2d Model Name": "hud\\hud-template",
+          "en2d Matrix": "557.00 98.00 0.00 1.00",
+          "en2d Image Bank Index": "0",
+          "en2d Visible": "True"
+        },
+        "owners": [
+          {
+            "AI Name": "gaHudAiSpeedDial",
+            "Hud No": "0",
+            "Gear Display Position Offset": "35.00 -24.00",
+            "Speed Display Position Offset": "5.00 -53.00",
+            "Speed Display in KPH": "False",
+            "Needle Position Offset": "0.00 0.00",
+            "Needle Min Angle Offset": "-110.00000",
+            "Needle Max Angle Offset": "70.00000",
+            "Needle Max Revs on counter": "8000.00000",
+            "Needle Travel ClockWise": "False"
+          },
+          {
+            "AI Name": "gaHudAiHide",
+            "Hud No": "0",
+            "Invert Hide": "False"
+          }
+        ],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "SpeedNeedle",
+        "properties": {
+          "en2d Model Name": "hud\\hud-template",
+          "en2d Matrix": "0.00 0.00 0.00 1.00",
+          "en2d Image Bank Index": "2",
+          "en2d Visible": "True"
+        },
+        "owners": [
+          {
+            "AI Name": "gaHudAiSpeedNeedle",
+            "Hud No": "0"
+          },
+          {
+            "AI Name": "gaHudAiHide",
+            "Hud No": "0",
+            "Invert Hide": "False"
+          }
+        ],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "SpeedVelocity",
+        "properties": {
+          "en2d Model Name": "Null",
+          "en2d Matrix": "0.00 0.00 0.00 1.00",
+          "en2d Image Bank Index": "0",
+          "en2d Visible": "True"
+        },
+        "owners": [
+          {
+            "AI Name": "enUIText",
+            "FontNo": "103",
+            "Text": "000",
+            "TextNo": "0",
+            "Text*": "Null",
+            "Colour": "1.00 1.00 1.00",
+            "JustifyX": "0.00000",
+            "JustifyY": "0.00000",
+            "Scale": "1.00000",
+            "Eol at space?": "False",
+            "Eol Space No": "0",
+            "Display Hotkey": "Null"
+          },
+          {
+            "AI Name": "gaHudAiSpeedCounter",
+            "Hud No": "0"
+          },
+          {
+            "AI Name": "gaHudAiHide",
+            "Hud No": "0",
+            "Invert Hide": "False"
+          }
+        ],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "SpeedGear",
+        "properties": {
+          "en2d Model Name": "Null",
+          "en2d Matrix": "0.00 0.00 0.00 1.00",
+          "en2d Image Bank Index": "0",
+          "en2d Visible": "True"
+        },
+        "owners": [
+          {
+            "AI Name": "enUIText",
+            "FontNo": "102",
+            "Text": "Null",
+            "TextNo": "0",
+            "Text*": "Null",
+            "Colour": "1.00 1.00 1.00",
+            "JustifyX": "0.50000",
+            "JustifyY": "0.00000",
+            "Scale": "1.00000",
+            "Eol at space?": "False",
+            "Eol Space No": "0",
+            "Display Hotkey": "Null"
+          },
+          {
+            "AI Name": "gaHudAiGearCounter",
+            "Hud No": "0"
+          },
+          {
+            "AI Name": "gaHudAiHide",
+            "Hud No": "0",
+            "Invert Hide": "False"
+          }
+        ],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "Map",
+        "properties": {
+          "en2d Model Name": "Null",
+          "en2d Matrix": "-65.00 -87.00 0.00 1.00",
+          "en2d Image Bank Index": "0",
+          "en2d Visible": "False"
+        },
+        "owners": [
+          {
+            "AI Name": "gaHudAiMap",
+            "Hud No": "0",
+            "Clip Width": "90.000",
+            "Clip Height": "86.000",
+            "X Center Point": "74.000",
+            "Y Center Point": "392.000"
+          },
+          {
+            "AI Name": "gaHudAiHide",
+            "Hud No": "0",
+            "Invert Hide": "False"
+          }
+        ],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "GameRank",
+        "properties": {
+          "en2d Model Name": "Null",
+          "en2d Matrix": "22.00 401.00 0.00 1.00",
+          "en2d Image Bank Index": "0",
+          "en2d Visible": "True"
+        },
+        "owners": [
+          {
+            "AI Name": "gaHudRankAi",
+            "Hud No": "0",
+            "Rank ImageBank": "HUD/Hud-nums",
+            "Font no": "103"
+          },
+          {
+            "AI Name": "gaHudAiHide",
+            "Hud No": "0",
+            "Invert Hide": "False"
+          }
+        ],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "GameTimer",
+        "properties": {
+          "en2d Model Name": "Null",
+          "en2d Matrix": "494.00 430.00 0.00 1.00",
+          "en2d Image Bank Index": "0",
+          "en2d Visible": "True"
+        },
+        "owners": [
+          {
+            "AI Name": "enUIText",
+            "FontNo": "103",
+            "Text": "00:00:00",
+            "TextNo": "0",
+            "Text*": "Null",
+            "Colour": "1.00 1.00 1.00",
+            "JustifyX": "0.00000",
+            "JustifyY": "0.00000",
+            "Scale": "1.00000",
+            "Eol at space?": "False",
+            "Eol Space No": "0",
+            "Display Hotkey": "Null"
+          },
+          {
+            "AI Name": "gaHudAiGameTimer",
+            "Hud No": "0"
+          },
+          {
+            "AI Name": "gaHudAiHide",
+            "Hud No": "0",
+            "Invert Hide": "False"
+          }
+        ],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "ProgressBar",
+        "properties": {
+          "en2d Model Name": "hud\\hud-template",
+          "en2d Matrix": "320.00 55.00 0.00 1.00",
+          "en2d Image Bank Index": "8",
+          "en2d Visible": "True"
+        },
+        "owners": [
+          {
+            "AI Name": "gaHudAiRaceProgressBar",
+            "Hud No": "0",
+            "No of Center Pieces inBar": "40",
+            "Rotate Vertical": "False"
+          },
+          {
+            "AI Name": "gaHudAiHide",
+            "Hud No": "0",
+            "Invert Hide": "False"
+          }
+        ],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "Car0_Damage_Steering",
+        "properties": {
+          "en2d Model Name": "hud\\hud-damage",
+          "en2d Matrix": "440.00 380.00 0.00 1.00",
+          "en2d Image Bank Index": "0",
+          "en2d Visible": "True"
+        },
+        "owners": [
+          {
+            "AI Name": "gaHudAiHide",
+            "Hud No": "0",
+            "Invert Hide": "False"
+          }
+        ],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "Car0_Damage_Engine",
+        "properties": {
+          "en2d Model Name": "hud\\hud-damage",
+          "en2d Matrix": "475.00 380.00 0.00 1.00",
+          "en2d Image Bank Index": "1",
+          "en2d Visible": "True"
+        },
+        "owners": [
+          {
+            "AI Name": "gaHudAiHide",
+            "Hud No": "0",
+            "Invert Hide": "False"
+          }
+        ],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "Car0_Damage_Suspension",
+        "properties": {
+          "en2d Model Name": "hud\\hud-damage",
+          "en2d Matrix": "510.00 380.00 0.00 1.00",
+          "en2d Image Bank Index": "2",
+          "en2d Visible": "True"
+        },
+        "owners": [
+          {
+            "AI Name": "gaHudAiHide",
+            "Hud No": "0",
+            "Invert Hide": "False"
+          }
+        ],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "Car0_Damage_Gear",
+        "properties": {
+          "en2d Model Name": "hud\\hud-damage",
+          "en2d Matrix": "545.00 380.00 0.00 1.00",
+          "en2d Image Bank Index": "3",
+          "en2d Visible": "True"
+        },
+        "owners": [
+          {
+            "AI Name": "gaHudAiHide",
+            "Hud No": "0",
+            "Invert Hide": "False"
+          }
+        ],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "Car0_Damage_Tyres",
+        "properties": {
+          "en2d Model Name": "hud\\hud-damage",
+          "en2d Matrix": "580.00 380.00 0.00 1.00",
+          "en2d Image Bank Index": "4",
+          "en2d Visible": "True"
+        },
+        "owners": [
+          {
+            "AI Name": "gaHudAiHide",
+            "Hud No": "0",
+            "Invert Hide": "False"
+          }
+        ],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "Car0_Damage_Steering_Overlay",
+        "properties": {
+          "en2d Model Name": "hud\\hud-damage",
+          "en2d Matrix": "440.00 380.00 0.00 1.00",
+          "en2d Image Bank Index": "5",
+          "en2d Visible": "True"
+        },
+        "owners": [
+          {
+            "AI Name": "gaHudAiHide",
+            "Hud No": "0",
+            "Invert Hide": "False"
+          }
+        ],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "Car0_Damage_Engine_Overlay",
+        "properties": {
+          "en2d Model Name": "hud\\hud-damage",
+          "en2d Matrix": "475.00 380.00 0.00 1.00",
+          "en2d Image Bank Index": "5",
+          "en2d Visible": "True"
+        },
+        "owners": [
+          {
+            "AI Name": "gaHudAiHide",
+            "Hud No": "0",
+            "Invert Hide": "False"
+          }
+        ],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "Car0_Damage_Suspension_Overlay",
+        "properties": {
+          "en2d Model Name": "hud\\hud-damage",
+          "en2d Matrix": "510.00 380.00 0.00 1.00",
+          "en2d Image Bank Index": "5",
+          "en2d Visible": "True"
+        },
+        "owners": [
+          {
+            "AI Name": "gaHudAiHide",
+            "Hud No": "0",
+            "Invert Hide": "False"
+          }
+        ],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "Car0_Damage_Gear_Overlay",
+        "properties": {
+          "en2d Model Name": "hud\\hud-damage",
+          "en2d Matrix": "545.00 380.00 0.00 1.00",
+          "en2d Image Bank Index": "5",
+          "en2d Visible": "True"
+        },
+        "owners": [
+          {
+            "AI Name": "gaHudAiHide",
+            "Hud No": "0",
+            "Invert Hide": "False"
+          }
+        ],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "Car0_Damage_Tyres_Overlay",
+        "properties": {
+          "en2d Model Name": "hud\\hud-damage",
+          "en2d Matrix": "580.00 380.00 0.00 1.00",
+          "en2d Image Bank Index": "5",
+          "en2d Visible": "True"
+        },
+        "owners": [
+          {
+            "AI Name": "gaHudAiHide",
+            "Hud No": "0",
+            "Invert Hide": "False"
+          }
+        ],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      }
+    ]
+  },
+  "ps2_pause_panel": {
+    "path": "\\TNG\\DATAPSM\\FRONTEND\\NEW\\TILES\\TEXTBOXALPHA.PSB",
+    "sha256": "4b420b0baba1633a1539617a388d6666d5a3db412d2159abf6dbbbaba8f35b21",
+    "images": 9,
+    "texture": {
+      "path": "\\TNG\\DATAPSM\\FRONTEND\\NEW\\TILES\\TEXTBOXALPHA_000.GXI",
+      "sha256": "553269317213490279d58018ce95ef8a8463c98daabf1a886140ed249b0d6694",
+      "width": 64,
+      "height": 64,
+      "alpha_min": 0,
+      "alpha_max": 255
+    },
+    "runtime_selection": "UNKNOWN",
+    "evidence_grade": "CONFIRMED_BY_BYTES"
+  },
+  "pc_hud0": {
+    "path": "D:\\Game\\Master Rallye\\corpora\\retail\\Data.sma_unpacked\\DataScene\\Hud\\Hud0.xml",
+    "size": 124360,
+    "sha256": "91616caa529fb4762e8e263f58bfe0f35ee5aebf127e8ba2fc3014a677ea4dbf",
+    "elements": [
+      {
+        "name": "PauseMenuTiles",
+        "properties": {
+          "en2d Model Name": "Null",
+          "en2d Matrix": "170.00 290.00 0.00 1.00",
+          "en2d Image Bank Index": "0",
+          "en2d Visible": "False"
+        },
+        "owners": [
+          {
+            "AI Name": "enUITileBox",
+            "UiNo": "100",
+            "ImageBank": "Frontend/Tiles/textbox",
+            "ImageBankActive": "Frontend/Tiles/textbox",
+            "Width": "18",
+            "Height": "5",
+            "Num Source Horizontal Tiles": "3",
+            "Num Source Vertical Tiles": "3"
+          }
+        ],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "PauseMenuChooser",
+        "properties": {
+          "en2d Model Name": "Null",
+          "en2d Matrix": "320.00 337.00 0.00 1.00",
+          "en2d Image Bank Index": "0",
+          "en2d Visible": "True"
+        },
+        "owners": [
+          {
+            "AI Name": "gaFrontendPauseMenuAI",
+            "Button ID": "0",
+            "Enabled*": "Race/PauseMenu/Enabled",
+            "StringList*": "Race/PauseMenu/List",
+            "Value*": "Race/PauseMenu/Index",
+            "CurrentText*": "Race/PauseMenu/Text",
+            "Tiles": "PauseMenuTiles",
+            "Font": "1",
+            "Height": "3"
+          }
+        ],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "SpeedDial",
+        "properties": {
+          "en2d Model Name": "hud\\hud-template",
+          "en2d Matrix": "565.00 75.00 0.00 1.00",
+          "en2d Image Bank Index": "0",
+          "en2d Visible": "True"
+        },
+        "owners": [
+          {
+            "AI Name": "gaHudAiSpeedDial",
+            "Hud No": "0",
+            "Gear Display Position Offset": "36.00 -23.00",
+            "Speed Display Position Offset": "5.00 -53.00",
+            "Speed Display in KPH": "False",
+            "Needle Position Offset": "0.00 0.00",
+            "Needle Min Angle Offset": "-110.00000",
+            "Needle Max Angle Offset": "70.00000",
+            "Needle Max Revs on counter": "8000.00000",
+            "Needle Travel ClockWise": "False"
+          }
+        ],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "SpeedNeedle",
+        "properties": {
+          "en2d Model Name": "hud\\hud-template",
+          "en2d Matrix": "0.00 0.00 0.00 1.00",
+          "en2d Image Bank Index": "2",
+          "en2d Visible": "True"
+        },
+        "owners": [
+          {
+            "AI Name": "gaHudAiSpeedNeedle",
+            "Hud No": "0"
+          }
+        ],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "SpeedVelocity",
+        "properties": {
+          "en2d Model Name": "Null",
+          "en2d Matrix": "0.00 0.00 0.00 1.00",
+          "en2d Image Bank Index": "0",
+          "en2d Visible": "True"
+        },
+        "owners": [
+          {
+            "AI Name": "enUIText",
+            "FontNo": "502",
+            "Text": "000",
+            "TextNo": "0",
+            "Text*": "Null",
+            "Colour": "1.00 1.00 1.00",
+            "JustifyX": "0.00000",
+            "JustifyY": "0.00000",
+            "Scale": "1.00000",
+            "Eol at space?": "False",
+            "Eol Space No": "0",
+            "Display Hotkey": "Null"
+          },
+          {
+            "AI Name": "gaHudAiSpeedCounter",
+            "Hud No": "0"
+          }
+        ],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "SpeedGear",
+        "properties": {
+          "en2d Model Name": "Null",
+          "en2d Matrix": "0.00 0.00 0.00 1.00",
+          "en2d Image Bank Index": "0",
+          "en2d Visible": "True"
+        },
+        "owners": [
+          {
+            "AI Name": "enUIText",
+            "FontNo": "501",
+            "Text": "Null",
+            "TextNo": "0",
+            "Text*": "Null",
+            "Colour": "1.00 1.00 1.00",
+            "JustifyX": "0.50000",
+            "JustifyY": "0.00000",
+            "Scale": "1.00000",
+            "Eol at space?": "False",
+            "Eol Space No": "0",
+            "Display Hotkey": "Null"
+          },
+          {
+            "AI Name": "gaHudAiGearCounter",
+            "Hud No": "0"
+          }
+        ],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "GPSBackground",
+        "properties": {
+          "en2d Model Name": "hud\\hud-template",
+          "en2d Matrix": "65.00 60.00 0.00 1.00",
+          "en2d Image Bank Index": "1",
+          "en2d Visible": "True"
+        },
+        "owners": [],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "GPSNeedle",
+        "properties": {
+          "en2d Model Name": "hud\\hud-template",
+          "en2d Matrix": "65.00 60.00 0.00 1.00",
+          "en2d Image Bank Index": "7",
+          "en2d Visible": "True"
+        },
+        "owners": [
+          {
+            "AI Name": "gaHudAiGPSNeedle",
+            "Hud No": "0",
+            "Flow Name": "DefaultFlow",
+            "MarkerList Name": "RaceLine",
+            "Use FlowSystem": "False"
+          }
+        ],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "GameRank",
+        "properties": {
+          "en2d Model Name": "Null",
+          "en2d Matrix": "20.00 410.00 0.00 1.00",
+          "en2d Image Bank Index": "0",
+          "en2d Visible": "True"
+        },
+        "owners": [
+          {
+            "AI Name": "gaHudRankAi",
+            "Hud No": "0"
+          }
+        ],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "GameTimer",
+        "properties": {
+          "en2d Model Name": "Null",
+          "en2d Matrix": "490.00 440.00 0.00 1.00",
+          "en2d Image Bank Index": "0",
+          "en2d Visible": "True"
+        },
+        "owners": [
+          {
+            "AI Name": "enUIText",
+            "FontNo": "502",
+            "Text": "00:00:00",
+            "TextNo": "0",
+            "Text*": "Null",
+            "Colour": "1.00 1.00 1.00",
+            "JustifyX": "0.00000",
+            "JustifyY": "0.00000",
+            "Scale": "1.00000",
+            "Eol at space?": "False",
+            "Eol Space No": "0",
+            "Display Hotkey": "Null"
+          },
+          {
+            "AI Name": "gaHudAiGameTimer",
+            "Hud No": "0"
+          }
+        ],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "Car0_Damage_Steering",
+        "properties": {
+          "en2d Model Name": "hud\\hud-damage",
+          "en2d Matrix": "440.00 390.00 0.00 1.00",
+          "en2d Image Bank Index": "0",
+          "en2d Visible": "True"
+        },
+        "owners": [],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "Car0_Damage_Engine",
+        "properties": {
+          "en2d Model Name": "hud\\hud-damage",
+          "en2d Matrix": "475.00 390.00 0.00 1.00",
+          "en2d Image Bank Index": "1",
+          "en2d Visible": "True"
+        },
+        "owners": [],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "Car0_Damage_Suspension",
+        "properties": {
+          "en2d Model Name": "hud\\hud-damage",
+          "en2d Matrix": "510.00 390.00 0.00 1.00",
+          "en2d Image Bank Index": "2",
+          "en2d Visible": "True"
+        },
+        "owners": [],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "Car0_Damage_Gear",
+        "properties": {
+          "en2d Model Name": "hud\\hud-damage",
+          "en2d Matrix": "545.00 390.00 0.00 1.00",
+          "en2d Image Bank Index": "3",
+          "en2d Visible": "True"
+        },
+        "owners": [],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "Car0_Damage_Tyres",
+        "properties": {
+          "en2d Model Name": "hud\\hud-damage",
+          "en2d Matrix": "580.00 390.00 0.00 1.00",
+          "en2d Image Bank Index": "4",
+          "en2d Visible": "True"
+        },
+        "owners": [],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "Car0_Damage_Steering_Overlay",
+        "properties": {
+          "en2d Model Name": "hud\\hud-damage",
+          "en2d Matrix": "440.00 390.00 0.00 1.00",
+          "en2d Image Bank Index": "5",
+          "en2d Visible": "True"
+        },
+        "owners": [],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "Car0_Damage_Engine_Overlay",
+        "properties": {
+          "en2d Model Name": "hud\\hud-damage",
+          "en2d Matrix": "475.00 390.00 0.00 1.00",
+          "en2d Image Bank Index": "5",
+          "en2d Visible": "True"
+        },
+        "owners": [],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "Car0_Damage_Suspension_Overlay",
+        "properties": {
+          "en2d Model Name": "hud\\hud-damage",
+          "en2d Matrix": "510.00 390.00 0.00 1.00",
+          "en2d Image Bank Index": "5",
+          "en2d Visible": "True"
+        },
+        "owners": [],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "Car0_Damage_Gear_Overlay",
+        "properties": {
+          "en2d Model Name": "hud\\hud-damage",
+          "en2d Matrix": "545.00 390.00 0.00 1.00",
+          "en2d Image Bank Index": "5",
+          "en2d Visible": "True"
+        },
+        "owners": [],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "Car0_Damage_Tyres_Overlay",
+        "properties": {
+          "en2d Model Name": "hud\\hud-damage",
+          "en2d Matrix": "580.00 390.00 0.00 1.00",
+          "en2d Image Bank Index": "5",
+          "en2d Visible": "True"
+        },
+        "owners": [],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      },
+      {
+        "name": "ProgressBar",
+        "properties": {
+          "en2d Model Name": "hud\\hud-template",
+          "en2d Matrix": "320.00 30.00 0.00 1.00",
+          "en2d Image Bank Index": "8",
+          "en2d Visible": "True"
+        },
+        "owners": [
+          {
+            "AI Name": "gaHudAiRaceProgressBar",
+            "Hud No": "0",
+            "No of Center Pieces inBar": "40"
+          }
+        ],
+        "evidence_grade": "CONFIRMED_BY_BYTES",
+        "runtime_selection": "UNKNOWN"
+      }
+    ]
+  },
+  "pc_dxb": {
+    "path": "D:\\Game\\Master Rallye\\corpora\\retail\\Data.sma_unpacked\\DataGx\\Hud\\hud-template.dxb",
+    "size": 1732,
+    "sha256": "63d0f959a342a6c8b6f5ed5e7327de00ce73e5c7449bc844a9a4329859e865c0",
+    "ps2_parser_admission": "FormatError: Invalid or truncated resource-name length",
+    "header_u32": [
+      61441,
+      125,
+      11
+    ]
+  },
+  "selected_pc_textures": [
+    {
+      "path": "D:\\Game\\Master Rallye\\corpora\\retail\\Data.sma_unpacked\\DataGx\\Hud\\hud-template_000_000.dxt",
+      "size": 65556,
+      "sha256": "73592ae3d27d7f5592d0e7a3d6cadc0f0f23c456904c4b95a86fcf17673820ee",
+      "width": 128,
+      "height": 128,
+      "stored_channels": "BGRA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_unique_count": 255,
+      "row_orientation": "not validated as runtime sampling",
+      "evidence_grade": "CONFIRMED_BY_BYTES"
+    },
+    {
+      "path": "D:\\Game\\Master Rallye\\corpora\\retail\\Data.sma_unpacked\\DataGx\\Hud\\hud-template_002_000.dxt",
+      "size": 4116,
+      "sha256": "9b36d4e2e9b0f4aebbc2fde06c193289bcbdd60ecdaf0172c82ea183df5153c0",
+      "width": 16,
+      "height": 64,
+      "stored_channels": "BGRA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_unique_count": 214,
+      "row_orientation": "not validated as runtime sampling",
+      "evidence_grade": "CONFIRMED_BY_BYTES"
+    },
+    {
+      "path": "D:\\Game\\Master Rallye\\corpora\\retail\\Data.sma_unpacked\\DataGx\\Hud\\hud-damage_001_000.dxt",
+      "size": 4116,
+      "sha256": "7134a039a6a430b06a5d4eb57c3ad6bf4f5d0a535a7f365ddc701a06176e255d",
+      "width": 32,
+      "height": 32,
+      "stored_channels": "BGRA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_unique_count": 104,
+      "row_orientation": "not validated as runtime sampling",
+      "evidence_grade": "CONFIRMED_BY_BYTES"
+    },
+    {
+      "path": "D:\\Game\\Master Rallye\\corpora\\retail\\Data.sma_unpacked\\DataGx\\Hud\\newhud_028_000.dxt",
+      "size": 16404,
+      "sha256": "6613425f72073cfcfa00ddcbcc5ee9bacdc7ab8ec75ec465f0090d8348cae428",
+      "width": 64,
+      "height": 64,
+      "stored_channels": "BGRA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_unique_count": 50,
+      "row_orientation": "not validated as runtime sampling",
+      "evidence_grade": "CONFIRMED_BY_BYTES"
+    }
+  ],
+  "readonly_course_sdk": {
+    "path": "D:\\Game\\Master Rallye\\master-rallye-re-course",
+    "head": "4244fa0c4d878523c9947f54816bf377cdfb2589"
+  },
+  "rabbitizer_version": "1.16.2",
+  "r5900_probes": [
+    {
+      "va": "0x00330334",
+      "word": "0x0c0cdea6",
+      "target": "0x00337a98",
+      "r5900": "jal         func_337A98"
+    },
+    {
+      "va": "0x003303f4",
+      "word": "0x0c0cdea6",
+      "target": "0x00337a98",
+      "r5900": "jal         func_337A98"
+    },
+    {
+      "va": "0x00342ba0",
+      "word": "0x0c0f2cb4",
+      "target": "0x003cb2d0",
+      "r5900": "jal         func_3CB2D0"
+    },
+    {
+      "va": "0x003cbb80",
+      "word": "0x0c0f2cb4",
+      "target": "0x003cb2d0",
+      "r5900": "jal         func_3CB2D0"
+    },
+    {
+      "va": "0x00319308",
+      "word": "0x0c0c62f6",
+      "target": "0x00318bd8",
+      "r5900": "jal         func_318BD8"
+    },
+    {
+      "va": "0x0031a4ac",
+      "word": "0x0c0c62f6",
+      "target": "0x00318bd8",
+      "r5900": "jal         func_318BD8"
+    },
+    {
+      "va": "0x003cb2d0",
+      "word": "0xd8a40000",
+      "r5900": "lqc2        $vf4, 0x0($a1)"
+    },
+    {
+      "va": "0x003cb2d4",
+      "word": "0xd8a50010",
+      "r5900": "lqc2        $vf5, 0x10($a1)"
+    },
+    {
+      "va": "0x003cb2d8",
+      "word": "0xd8a60020",
+      "r5900": "lqc2        $vf6, 0x20($a1)"
+    },
+    {
+      "va": "0x003cb2dc",
+      "word": "0xd8a70030",
+      "r5900": "lqc2        $vf7, 0x30($a1)"
+    },
+    {
+      "va": "0x003cb2e0",
+      "word": "0x24070004",
+      "r5900": "addiu       $a3, $zero, 0x4"
+    },
+    {
+      "va": "0x003cb2e4",
+      "word": "0xd8c80000",
+      "r5900": "lqc2        $vf8, 0x0($a2)"
+    },
+    {
+      "va": "0x003cb2e8",
+      "word": "0x4be821bc",
+      "r5900": "vmulax.xyzw $ACC, $vf4, $vf8x"
+    },
+    {
+      "va": "0x003cb2ec",
+      "word": "0x4be828bd",
+      "r5900": "vmadday.xyzw $ACC, $vf5, $vf8y"
+    },
+    {
+      "va": "0x003cb2f0",
+      "word": "0x4be830be",
+      "r5900": "vmaddaz.xyzw $ACC, $vf6, $vf8z"
+    },
+    {
+      "va": "0x003cb2f4",
+      "word": "0x4be83a4b",
+      "r5900": "vmaddw.xyzw $vf9, $vf7, $vf8w"
+    },
+    {
+      "va": "0x003cb2f8",
+      "word": "0xf8890000",
+      "r5900": "sqc2        $vf9, 0x0($a0)"
+    },
+    {
+      "va": "0x003cb2fc",
+      "word": "0x20e7ffff",
+      "r5900": "addi        $a3, $a3, -0x1"
+    },
+    {
+      "va": "0x003cb300",
+      "word": "0x20c60010",
+      "r5900": "addi        $a2, $a2, 0x10"
+    },
+    {
+      "va": "0x003cb304",
+      "word": "0x1407fff7",
+      "r5900": "bne         $zero, $a3, . + 4 + (-0x9 << 2)"
+    },
+    {
+      "va": "0x003cb308",
+      "word": "0x20840010",
+      "r5900": "addi        $a0, $a0, 0x10"
+    }
+  ],
+  "r5900_scope": "original direct-call edges and bounded matrix words; no full sprite owner/math revalidation",
+  "frames": [
+    {
+      "file": "frame-10916-d1-00002579.jsonl",
+      "sha256": "dc62cead1958071dea17b2661ca25c885881d1c6cfa5741a4e689a26000bce40",
+      "frame": 2579,
+      "proxy_sha256": "0bd68583e87378931c57a530c5673201bcf8017f593075bd1fe7029e5628c72f",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "ui_draws": 268,
+      "native_forwarded_draws": 268,
+      "proxy_result_counts": {
+        "0": 268
+      },
+      "hud_preference_hidden": false,
+      "hud_context": "gameplay_running",
+      "ownership": {
+        "records": 268,
+        "identity_count": 32,
+        "complete": true,
+        "coverage_status": "complete",
+        "owner_mapping_status": "unmapped",
+        "owner_name_mapping_enabled": false
+      },
+      "render_state_key_order": [
+        7,
+        14,
+        15,
+        27,
+        19,
+        20,
+        22
+      ],
+      "tracked_render_state_variants": [
+        {
+          "values": [
+            0,
+            0,
+            0,
+            1,
+            5,
+            6,
+            3
+          ],
+          "draws": 248
+        },
+        {
+          "values": [
+            1,
+            0,
+            0,
+            1,
+            5,
+            6,
+            3
+          ],
+          "draws": 20
+        }
+      ],
+      "texture_stage0_variants": [
+        {
+          "values": [
+            4,
+            0,
+            2,
+            4,
+            0,
+            2,
+            0
+          ],
+          "draws": 268
+        }
+      ],
+      "texture_stage0_key_order": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        11
+      ],
+      "evidence_grade": "CONFIRMED_BY_RUNTIME",
+      "limitation": "proxy native forwarding/state tracking; no per-widget semantic owner or pixel attribution"
+    },
+    {
+      "file": "frame-42216-d1-00026331.jsonl",
+      "sha256": "8d7b219de347cf14e17129472c621e56cbb94613cc7544c761ed9903d20e67f0",
+      "frame": 26331,
+      "proxy_sha256": "6edc2426e2602545121f16959cdbb2055fb205a907b36173cb85a447b7051deb",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "ui_draws": 268,
+      "native_forwarded_draws": 0,
+      "proxy_result_counts": {
+        "0": 268
+      },
+      "hud_preference_hidden": true,
+      "hud_context": "gameplay_running",
+      "ownership": {
+        "records": 268,
+        "identity_count": 32,
+        "complete": true,
+        "coverage_status": "complete",
+        "owner_mapping_status": "unmapped",
+        "owner_name_mapping_enabled": false
+      },
+      "render_state_key_order": [
+        7,
+        14,
+        15,
+        27,
+        19,
+        20,
+        22
+      ],
+      "tracked_render_state_variants": [
+        {
+          "values": [
+            0,
+            0,
+            0,
+            1,
+            5,
+            6,
+            3
+          ],
+          "draws": 248
+        },
+        {
+          "values": [
+            1,
+            0,
+            0,
+            1,
+            5,
+            6,
+            3
+          ],
+          "draws": 20
+        }
+      ],
+      "texture_stage0_variants": [
+        {
+          "values": [
+            4,
+            0,
+            2,
+            4,
+            0,
+            2,
+            0
+          ],
+          "draws": 268
+        }
+      ],
+      "texture_stage0_key_order": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        11
+      ],
+      "evidence_grade": "CONFIRMED_BY_RUNTIME",
+      "limitation": "proxy native forwarding/state tracking; no per-widget semantic owner or pixel attribution"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "schema": "rigid-port1.1-validation-v1",
+  "head": "0bddf7c7bc5e95831f98714ff6231da05ab073ea",
+  "renderer_tree": "e33386bcf682db6983380c499e4928726c758fe0",
+  "renderer_worktree_changes": [],
+  "offline_review_tests": "9/9 PASS",
+  "existing_probe_tests": "10/10 PASS",
+  "compileall": "PASS",
+  "diff_check": "PASS",
+  "native_build": "NOT_RUN; no native source changes",
+  "dlls": {
+    "baseline": {
+      "sha256": "011dd9a94155d216d0c0dde28e0af97f5b72226aae5be97016f2d767ebdf7138",
+      "equals_accepted_build": true
+    },
+    "ps2-enabled": {
+      "sha256": "6edc2426e2602545121f16959cdbb2055fb205a907b36173cb85a447b7051deb",
+      "equals_accepted_build": true
+    }
+  },
+  "raw_capture_sha256": {
+    "lifecycle-control-36572-a.jsonl": "d3fe97501e123afc09e76633566f0208aeb71d0c2b14258a0a1a21606c57d397",
+    "lifecycle-control-12760-b.jsonl": "48e5a54dd8f23e0ff360aa500cee6fb816e256d0c5903dad8c559d3f35585a8d",
+    "x32dbg-lifecycle-control.txt": "226859dc55b01831c637a331726d3a38670a8e71435bb75388a21c0e7583eccd"
+  },
+  "physical_spawn": "NOT_IMPLEMENTED",
+  "native_thread": "7588 (0x1DA4), observed original calls in PID12760 only",
+  "native_contact": "NOT_PERFORMED",
+  "native_target_destructor": "NOT_PROVED",
+  "hud_class_mapping": "CONFIRMED_BY_EXE",
+  "hud_live_packet_mapping": "NOT_PERFORMED",
+  "hud_replacement": "NOT_IMPLEMENTED",
+  "source_files": {
+    "tools\\rigid_lifecycle_review.py": "abd8b3bae1bfdb5a843805cc24786daa8cf0a463f585e42845d4510407d41e91",
+    "docs\\rigid-port1.1\\test_lifecycle_review.py": "db177383787fa0596d00253b5de47fa1210c8e0504dcff9bcab743605b78f679"
+  },
+  "deployment": false,
+  "push": false
+}

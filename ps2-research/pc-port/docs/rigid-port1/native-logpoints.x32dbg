@@ -1,0 +1,115 @@
+// Exact retail MRallye.exe only, image base00400000; manual cold-load control.
+// No run/call/injection commands. INT3 instrumentation changes timing.
+// Each breakpoint disables itself at its decimal hit limit.
+bp 0057CE60, "rigid_probe_convex_reader_enter"
+SetBreakpointCondition 0057CE60, 0
+SetBreakpointFastResume 0057CE60, 0
+SetBreakpointSilent 0057CE60, 1
+SetBreakpointLog 0057CE60, "RIGID_PROBE event=convex_reader_enter tid={x:tid()} ip={p:eip} ecx={p:ecx} caller={p:[esp]} arg0={p:[esp+4]} hit={u:$breakpointcounter}"
+SetBreakpointLogCondition 0057CE60, "$breakpointcounter <= .16"
+SetBreakpointCommand 0057CE60, "bpd 0057CE60"
+SetBreakpointCommandCondition 0057CE60, "$breakpointcounter == .16"
+bp 0057CEB5, "rigid_probe_convex_reader_return"
+SetBreakpointCondition 0057CEB5, 0
+SetBreakpointFastResume 0057CEB5, 0
+SetBreakpointSilent 0057CEB5, 1
+SetBreakpointLog 0057CEB5, "RIGID_PROBE event=convex_reader_return tid={x:tid()} ip={p:eip} ecx={p:ecx} eax={p:eax} hit={u:$breakpointcounter}"
+SetBreakpointLogCondition 0057CEB5, "$breakpointcounter <= .16"
+SetBreakpointCommand 0057CEB5, "bpd 0057CEB5"
+SetBreakpointCommandCondition 0057CEB5, "$breakpointcounter == .16"
+bp 0056EEF0, "rigid_probe_collision_attach_enter"
+SetBreakpointCondition 0056EEF0, 0
+SetBreakpointFastResume 0056EEF0, 0
+SetBreakpointSilent 0056EEF0, 1
+SetBreakpointLog 0056EEF0, "RIGID_PROBE event=collision_attach_enter tid={x:tid()} ip={p:eip} ecx={p:ecx} caller={p:[esp]} egg={p:[esp+4]} body={p:[esp+8]} category={x:[esp+C]} hit={u:$breakpointcounter}"
+SetBreakpointLogCondition 0056EEF0, "$breakpointcounter <= .16"
+SetBreakpointCommand 0056EEF0, "bpd 0056EEF0"
+SetBreakpointCommandCondition 0056EEF0, "$breakpointcounter == .16"
+bp 0056F234, "rigid_probe_collision_attach_return"
+SetBreakpointCondition 0056F234, 0
+SetBreakpointFastResume 0056F234, 0
+SetBreakpointSilent 0056F234, 1
+SetBreakpointLog 0056F234, "RIGID_PROBE event=collision_attach_return tid={x:tid()} ip={p:eip} ecx={p:ecx} eax={p:eax} hit={u:$breakpointcounter}"
+SetBreakpointLogCondition 0056F234, "$breakpointcounter <= .16"
+SetBreakpointCommand 0056F234, "bpd 0056F234"
+SetBreakpointCommandCondition 0056F234, "$breakpointcounter == .16"
+bp 00621220, "rigid_probe_instance_clone_enter"
+SetBreakpointCondition 00621220, 0
+SetBreakpointFastResume 00621220, 0
+SetBreakpointSilent 00621220, 1
+SetBreakpointLog 00621220, "RIGID_PROBE event=instance_clone_enter tid={x:tid()} ip={p:eip} ecx={p:ecx} caller={p:[esp]} arg0={p:[esp+4]} hit={u:$breakpointcounter}"
+SetBreakpointLogCondition 00621220, "$breakpointcounter <= .16"
+SetBreakpointCommand 00621220, "bpd 00621220"
+SetBreakpointCommandCondition 00621220, "$breakpointcounter == .16"
+bp 0062129E, "rigid_probe_instance_clone_return_a"
+SetBreakpointCondition 0062129E, 0
+SetBreakpointFastResume 0062129E, 0
+SetBreakpointSilent 0062129E, 1
+SetBreakpointLog 0062129E, "RIGID_PROBE event=instance_clone_return_a tid={x:tid()} ip={p:eip} ecx={p:ecx} eax={p:eax} hit={u:$breakpointcounter}"
+SetBreakpointLogCondition 0062129E, "$breakpointcounter <= .16"
+SetBreakpointCommand 0062129E, "bpd 0062129E"
+SetBreakpointCommandCondition 0062129E, "$breakpointcounter == .16"
+bp 006212B0, "rigid_probe_instance_clone_return_b"
+SetBreakpointCondition 006212B0, 0
+SetBreakpointFastResume 006212B0, 0
+SetBreakpointSilent 006212B0, 1
+SetBreakpointLog 006212B0, "RIGID_PROBE event=instance_clone_return_b tid={x:tid()} ip={p:eip} ecx={p:ecx} eax={p:eax} hit={u:$breakpointcounter}"
+SetBreakpointLogCondition 006212B0, "$breakpointcounter <= .16"
+SetBreakpointCommand 006212B0, "bpd 006212B0"
+SetBreakpointCommandCondition 006212B0, "$breakpointcounter == .16"
+bp 00621310, "rigid_probe_body_bind_enter"
+SetBreakpointCondition 00621310, 0
+SetBreakpointFastResume 00621310, 0
+SetBreakpointSilent 00621310, 1
+SetBreakpointLog 00621310, "RIGID_PROBE event=body_bind_enter tid={x:tid()} ip={p:eip} ecx={p:ecx} caller={p:[esp]} arg0={p:[esp+4]} hit={u:$breakpointcounter}"
+SetBreakpointLogCondition 00621310, "$breakpointcounter <= .16"
+SetBreakpointCommand 00621310, "bpd 00621310"
+SetBreakpointCommandCondition 00621310, "$breakpointcounter == .16"
+bp 0043E2A0, "rigid_probe_body_register_enter"
+SetBreakpointCondition 0043E2A0, 0
+SetBreakpointFastResume 0043E2A0, 0
+SetBreakpointSilent 0043E2A0, 1
+SetBreakpointLog 0043E2A0, "RIGID_PROBE event=body_register_enter tid={x:tid()} ip={p:eip} ecx={p:ecx} caller={p:[esp]} arg0={p:[esp+4]} hit={u:$breakpointcounter}"
+SetBreakpointLogCondition 0043E2A0, "$breakpointcounter <= .16"
+SetBreakpointCommand 0043E2A0, "bpd 0043E2A0"
+SetBreakpointCommandCondition 0043E2A0, "$breakpointcounter == .16"
+bp 0043E4B7, "rigid_probe_body_register_return"
+SetBreakpointCondition 0043E4B7, 0
+SetBreakpointFastResume 0043E4B7, 0
+SetBreakpointSilent 0043E4B7, 1
+SetBreakpointLog 0043E4B7, "RIGID_PROBE event=body_register_return tid={x:tid()} ip={p:eip} ecx={p:ecx} eax={p:eax} hit={u:$breakpointcounter}"
+SetBreakpointLogCondition 0043E4B7, "$breakpointcounter <= .16"
+SetBreakpointCommand 0043E4B7, "bpd 0043E4B7"
+SetBreakpointCommandCondition 0043E4B7, "$breakpointcounter == .16"
+bp 0043F2C0, "rigid_probe_physics_update_enter"
+SetBreakpointCondition 0043F2C0, 0
+SetBreakpointFastResume 0043F2C0, 0
+SetBreakpointSilent 0043F2C0, 1
+SetBreakpointLog 0043F2C0, "RIGID_PROBE event=physics_update_enter tid={x:tid()} ip={p:eip} ecx={p:ecx} caller={p:[esp]} hit={u:$breakpointcounter}"
+SetBreakpointLogCondition 0043F2C0, "$breakpointcounter <= .16"
+SetBreakpointCommand 0043F2C0, "bpd 0043F2C0"
+SetBreakpointCommandCondition 0043F2C0, "$breakpointcounter == .16"
+bp 0056FCE0, "rigid_probe_instance_cache_clear_enter"
+SetBreakpointCondition 0056FCE0, 0
+SetBreakpointFastResume 0056FCE0, 0
+SetBreakpointSilent 0056FCE0, 1
+SetBreakpointLog 0056FCE0, "RIGID_PROBE event=instance_cache_clear_enter tid={x:tid()} ip={p:eip} ecx={p:ecx} caller={p:[esp]} hit={u:$breakpointcounter}"
+SetBreakpointLogCondition 0056FCE0, "$breakpointcounter <= .16"
+SetBreakpointCommand 0056FCE0, "bpd 0056FCE0"
+SetBreakpointCommandCondition 0056FCE0, "$breakpointcounter == .16"
+bp 004F5840, "rigid_probe_egg_retire_enter"
+SetBreakpointCondition 004F5840, 0
+SetBreakpointFastResume 004F5840, 0
+SetBreakpointSilent 004F5840, 1
+SetBreakpointLog 004F5840, "RIGID_PROBE event=egg_retire_enter tid={x:tid()} ip={p:eip} ecx={p:ecx} caller={p:[esp]} hit={u:$breakpointcounter}"
+SetBreakpointLogCondition 004F5840, "$breakpointcounter <= .16"
+SetBreakpointCommand 004F5840, "bpd 004F5840"
+SetBreakpointCommandCondition 004F5840, "$breakpointcounter == .16"
+bp 004F5780, "rigid_probe_egg_destroy_enter"
+SetBreakpointCondition 004F5780, 0
+SetBreakpointFastResume 004F5780, 0
+SetBreakpointSilent 004F5780, 1
+SetBreakpointLog 004F5780, "RIGID_PROBE event=egg_destroy_enter tid={x:tid()} ip={p:eip} ecx={p:ecx} caller={p:[esp]} hit={u:$breakpointcounter}"
+SetBreakpointLogCondition 004F5780, "$breakpointcounter <= .16"
+SetBreakpointCommand 004F5780, "bpd 004F5780"
+SetBreakpointCommandCondition 004F5780, "$breakpointcounter == .16"

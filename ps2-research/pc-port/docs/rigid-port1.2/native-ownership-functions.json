@@ -1,0 +1,246 @@
+{
+  "schema": "prop-ownership-static-v1",
+  "binary_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "grade": "CONFIRMED_BY_EXE",
+  "functions": [
+    {
+      "address": "0x4fedc0",
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x4fedc0",
+            "end": "0x4feddd"
+          }
+        ],
+        "total_bytes": 30,
+        "span_bytes": 30,
+        "non_contiguous": false,
+        "contains_entry": true
+      },
+      "evidence_id": "ev_ee4baceb2802ff8f3b82877e0f0e13e59329ac000ca92ad0469e1ed56d4e3a36",
+      "callees": [
+        {
+          "address": "0x4fede0",
+          "name": "FUN_004fede0"
+        },
+        {
+          "address": "0x5b4c00",
+          "name": "FUN_005b4c00"
+        }
+      ],
+      "role": "deleting body destructor, original vtable+0"
+    },
+    {
+      "address": "0x621220",
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x621220",
+            "end": "0x6212b2"
+          }
+        ],
+        "total_bytes": 147,
+        "span_bytes": 147,
+        "non_contiguous": false,
+        "contains_entry": true
+      },
+      "evidence_id": "ev_442604f4040c23754b2d372bbd83ddccf4bdc06704917a9bfd91e271bc43c634",
+      "callees": [
+        {
+          "address": "0x5110a0",
+          "name": "FUN_005110a0"
+        },
+        {
+          "address": "0x5c1cb4",
+          "name": "operator_new"
+        },
+        {
+          "address": "0x639bc0",
+          "name": "FUN_00639bc0"
+        }
+      ],
+      "role": "clone destination constructor; internal null children possible"
+    },
+    {
+      "address": "0x5110a0",
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x5110a0",
+            "end": "0x511509"
+          }
+        ],
+        "total_bytes": 1130,
+        "span_bytes": 1130,
+        "non_contiguous": false,
+        "contains_entry": true
+      },
+      "evidence_id": "ev_e516affa0bc5f57671b85db9b0b9c2256d5afb2d15526013c08f06b6a4312bed",
+      "callees": [
+        {
+          "address": "0x511510",
+          "name": "FUN_00511510"
+        },
+        {
+          "address": "0x513650",
+          "name": "FUN_00513650"
+        },
+        {
+          "address": "0x513850",
+          "name": "FUN_00513850"
+        },
+        {
+          "address": "0x513a40",
+          "name": "FUN_00513a40"
+        },
+        {
+          "address": "0x515e30",
+          "name": "FUN_00515e30"
+        },
+        {
+          "address": "0x516830",
+          "name": "FUN_00516830"
+        },
+        {
+          "address": "0x516c50",
+          "name": "FUN_00516c50"
+        },
+        {
+          "address": "0x516ca0",
+          "name": "FUN_00516ca0"
+        },
+        {
+          "address": "0x516ec0",
+          "name": "FUN_00516ec0"
+        },
+        {
+          "address": "0x516f70",
+          "name": "FUN_00516f70"
+        },
+        {
+          "address": "0x51abf0",
+          "name": "FUN_0051abf0"
+        },
+        {
+          "address": "0x51b050",
+          "name": "FUN_0051b050"
+        },
+        {
+          "address": "0x51df90",
+          "name": "FUN_0051df90"
+        },
+        {
+          "address": "0x520030",
+          "name": "FUN_00520030"
+        },
+        {
+          "address": "0x520310",
+          "name": "FUN_00520310"
+        },
+        {
+          "address": "0x5c1cb4",
+          "name": "operator_new"
+        }
+      ],
+      "role": "bounded nested ownership dependency"
+    },
+    {
+      "address": "0x639bc0",
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x639bc0",
+            "end": "0x639c37"
+          }
+        ],
+        "total_bytes": 120,
+        "span_bytes": 120,
+        "non_contiguous": false,
+        "contains_entry": true
+      },
+      "evidence_id": "ev_c710795d4e4d2f3c6047b9f7f6efff894632d9c57c935e274f19d3301ca6d950",
+      "callees": [
+        {
+          "address": "0x520030",
+          "name": "FUN_00520030"
+        },
+        {
+          "address": "0x5c1cb4",
+          "name": "operator_new"
+        }
+      ],
+      "role": "bounded nested ownership dependency"
+    },
+    {
+      "address": "0x4fede0",
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x4fede0",
+            "end": "0x4fee0a"
+          }
+        ],
+        "total_bytes": 43,
+        "span_bytes": 43,
+        "non_contiguous": false,
+        "contains_entry": true
+      },
+      "evidence_id": "ev_76544b88e6c9c93f9ea5eaacaca0c89784acb35b517358ca8b8b2c444ab42067",
+      "callees": [
+        {
+          "address": "0x4fd150",
+          "name": "FUN_004fd150"
+        },
+        {
+          "address": "0x508940",
+          "name": "FUN_00508940"
+        },
+        {
+          "address": "0x5b4c00",
+          "name": "FUN_005b4c00"
+        }
+      ],
+      "role": "bounded nested ownership dependency"
+    },
+    {
+      "address": "0x6212c0",
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x6212c0",
+            "end": "0x62130a"
+          }
+        ],
+        "total_bytes": 75,
+        "span_bytes": 75,
+        "non_contiguous": false,
+        "contains_entry": true
+      },
+      "evidence_id": "ev_ea9825956a2d403c4a88fb72f7905fbd643e661bda97ea13f7b5199a5ca15703",
+      "role": "representation/base destructor then native frees; not vector unregistration"
+    }
+  ],
+  "body_vtable": {
+    "address": "0x00691A04",
+    "bytes": "c0ed4f00",
+    "first_entry": "0x004FEDC0"
+  },
+  "limits": [
+    "No original prop admission or target teardown captured",
+    "Nested refcount stores are not private resource-cache registration",
+    "Nonzero constructor EAX does not imply all child allocations succeeded",
+    "0x004FE970 is not a destructor entry; containing normalization function excluded"
+  ]
+}

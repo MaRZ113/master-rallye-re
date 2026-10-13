@@ -1,0 +1,12 @@
+{
+  "schema": "retail-authored-prop-control-v1",
+  "corpus": "protected PC Retail Data.sma_unpacked/DataScene",
+  "xml_files_scanned": 99,
+  "matching_ai_owner_records": [],
+  "negative_scope": "NOT_FOUND_IN_SCANNED_PC_RETAIL_XML_AI_NAMES; does not prove no code-spawned props",
+  "runtime_control": "original gaAiHayBale owner not yet observed",
+  "parsed_xml_count": 99,
+  "parse_errors": [],
+  "source_manifest_sha256": "0ef305b430cd18af83fd1c0a1baaf8befcd61dbf3bbeaf126f1273ea0c49b5a6",
+  "user_runtime_observation": "User has not observed physical props in original PC edition"
+}

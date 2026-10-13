@@ -1,0 +1,107 @@
+{
+  "capture_draws": [
+    {
+      "draw_hresult": 0,
+      "fvf": 322,
+      "geometry_arrays": "NOT_CAPTURED",
+      "global_trace_sequence": 656,
+      "native_arguments": [
+        4,
+        15220,
+        1
+      ],
+      "native_method": "DrawPrimitive",
+      "stream0": {
+        "last_creation_serial": 603,
+        "pointer": 65410848,
+        "stride": 24
+      },
+      "textures": [
+        {
+          "last_creation_serial": 799,
+          "pointer": 452551504
+        },
+        {
+          "last_creation_serial": 638,
+          "pointer": 282611600
+        }
+      ],
+      "ui_capture_draw_sequence": 95,
+      "world_translation": [
+        565,
+        75,
+        0
+      ]
+    },
+    {
+      "draw_hresult": 0,
+      "fvf": 322,
+      "geometry_arrays": "NOT_CAPTURED",
+      "global_trace_sequence": 657,
+      "native_arguments": [
+        4,
+        15223,
+        1
+      ],
+      "native_method": "DrawPrimitive",
+      "stream0": {
+        "last_creation_serial": 603,
+        "pointer": 65410848,
+        "stride": 24
+      },
+      "textures": [
+        {
+          "last_creation_serial": 799,
+          "pointer": 452551504
+        },
+        {
+          "last_creation_serial": 638,
+          "pointer": 282611600
+        }
+      ],
+      "ui_capture_draw_sequence": 96,
+      "world_translation": [
+        565,
+        75,
+        0
+      ]
+    }
+  ],
+  "capture_race_generation": 6,
+  "capture_ui_epoch": 2,
+  "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "frame": 35007,
+  "frame_sha256": "f49516327bf63d1b8a85cba0140bf60086068dd64ea0e3a724c717e603800d84",
+  "image_bank0_native_mapping": "UNKNOWN",
+  "limitations": [
+    "External reads are not atomic or at original draw time.",
+    "Current native UI/race generation is not independently re-read.",
+    "Double reads do not exclude pointer reuse/ABA.",
+    "Original player ownership and bank0 plate geometry remain unproved."
+  ],
+  "native_class": {
+    "ai": 319042080,
+    "ai_slot": 0,
+    "content_storage": 44916376,
+    "egg": 44269360,
+    "matching_candidates": 1,
+    "packet": 319797152,
+    "vtable": 6885176
+  },
+  "original_player_ownership": "UNKNOWN",
+  "pid": 48104,
+  "process_creation_filetime": 134363577265707707,
+  "proxy_sha256": "6edc2426e2602545121f16959cdbb2055fb205a907b36173cb85a447b7051deb",
+  "read_bytes": 5996,
+  "readonly_snapshot_sha256": "3555976983779b0d88b1f9b7fbf9065610f37d063547ebb5f336741b7fd0a83e",
+  "replacement_enabled": false,
+  "roster": {
+    "complete": true,
+    "distinct_entities": 32,
+    "order_join": "all268 capture UI records checked against original return-RVA filtered trace draws; primitive/forwarded/stage0texture agreement",
+    "ui_draws": 268
+  },
+  "same_lifetime_atomic_draw_join": "NOT_PROVED",
+  "schema_version": 1,
+  "status": "CURRENT_STRUCTURAL_CANDIDATE_WITH_CAPTURED_NATIVE_DRAWS"
+}

@@ -1,0 +1,76 @@
+{
+  "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "probes": [
+    {
+      "va": "0x691a04",
+      "file_offset": 2693636,
+      "bytes": "c0ed4f00",
+      "sha256": "c6e010a0724e3a099bc13f1274f28310d00a790bf8e2e95bfd80a25798c2aefb",
+      "role": "body deleting-dtor vtable"
+    },
+    {
+      "va": "0x621285",
+      "file_offset": 2232965,
+      "bytes": "741a8b0b518bc8e80ffeeeff8906897e",
+      "sha256": "ad119663a35733a89935e60856c087703a72a7fb1bbe9f61d5e9f54ce4d42fc0",
+      "role": "allocation-null final clone branch"
+    },
+    {
+      "va": "0x6212a1",
+      "file_offset": 2232993,
+      "bytes": "33c0897e148906897e188bc65f5e5bc20400",
+      "sha256": "a35cbfedf044e599b2c251b098ab731ef0bae486a447c8337f25a25069e4ed55",
+      "role": "null final representation still returns destination"
+    },
+    {
+      "va": "0x639c2a",
+      "file_offset": 2333738,
+      "bytes": "893e7403ff47048b",
+      "sha256": "f574638f7ad9a57cdc4259d91c8fa2009166704071e812748c37d02afb126f7d",
+      "role": "nested reference increment"
+    },
+    {
+      "va": "0x511142",
+      "file_offset": 1118530,
+      "bytes": "3bf38975307403ff4604",
+      "sha256": "b86e31f97009eb420c6cfdbc90301072ca5777f557bfbce11f370cf54aaf6d59",
+      "role": "representation nested reference increment"
+    },
+    {
+      "va": "0x4fedc0",
+      "file_offset": 1043904,
+      "bytes": "568bf1e818000000f64424080174",
+      "sha256": "e3bd1a96ee862adeb0db4372c8a4af5f869298cf1319632bf74146babf09b715",
+      "role": "body destructor then optional native free"
+    },
+    {
+      "va": "0x4fede4",
+      "file_offset": 1043940,
+      "bytes": "8b7718c707041a690085f674108bcee8",
+      "sha256": "e0df47e603e1b8b2ac3ca23fe800e420d6c65403d562e29a5697e4dc77cdafc5",
+      "role": "body integration-wrapper ownership"
+    },
+    {
+      "va": "0x56ef24",
+      "file_offset": 1503012,
+      "bytes": "8b4c24208b40048b51508bc883c20c52",
+      "sha256": "d42a3b241f58a18308599ca2bce7e724104e3e6336c7c1b8819227d35230b899",
+      "role": "backend owner stack offset20"
+    },
+    {
+      "va": "0x56efa7",
+      "file_offset": 1503143,
+      "bytes": "85c074118b4c24188b510c8bc852e866220b00eb0233c08b4c2424",
+      "sha256": "1ed1f87f873f95d5e640c12a2301b6ce12fa19193e28be1f18059e12c213a1a1",
+      "role": "clone direct-call stack relation"
+    },
+    {
+      "va": "0x4c9d7f",
+      "file_offset": 826751,
+      "bytes": "8bbc24800000008d4c2410518bcfe85ebc0200",
+      "sha256": "c425229c04bb6be89b8242d289ebb1c493f22ff9e593e6e99d22360ed98ec273",
+      "role": "original Hay owner argument after124-byte frame"
+    }
+  ],
+  "evidence": "original file-backed PE bytes; selected objdump/R EA instructions independently reviewed"
+}

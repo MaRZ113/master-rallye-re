@@ -1,0 +1,22 @@
+{
+  "pid": 12760,
+  "original_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "observed_entries": [
+    {
+      "role": "physics_update",
+      "va": "0x0043F2C0",
+      "original_first16": "56576a008bf16a00e854331800680000",
+      "loaded_first16": "56576a008bf16a00e854331800680000",
+      "match": true
+    },
+    {
+      "role": "backend_cache_invalidation",
+      "va": "0x0056FCE0",
+      "original_first16": "8b4114565733ff3bc7750433f6eb088b",
+      "loaded_first16": "8b4114565733ff3bc7750433f6eb088b",
+      "match": true
+    }
+  ],
+  "writes": false,
+  "scope": "two known native entries after capped breakpoints; no live byte patch"
+}

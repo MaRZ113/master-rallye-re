@@ -1,0 +1,101 @@
+{
+  "schema": "rigid-port1-hud-port0-validation-v1",
+  "head": "0bddf7c7bc5e95831f98714ff6231da05ab073ea",
+  "renderer_tree": "e33386bcf682db6983380c499e4928726c758fe0",
+  "build_report_sha256": "bb80421603247818f62935c84ad50c518e3f21f91096e90e457d388cc857f995",
+  "native_builds": {
+    "baseline": {
+      "build": "PASS",
+      "ctest": "24/24 PASS",
+      "dll_sha256": "011dd9a94155d216d0c0dde28e0af97f5b72226aae5be97016f2d767ebdf7138",
+      "proxy_verification": "PASS"
+    },
+    "ps2-enabled": {
+      "build": "PASS",
+      "ctest": "30/30 PASS",
+      "dll_sha256": "6edc2426e2602545121f16959cdbb2055fb205a907b36173cb85a447b7051deb",
+      "proxy_verification": "PASS"
+    }
+  },
+  "python_port_tests": {
+    "run": 107,
+    "passed": 107,
+    "skipped": 0,
+    "failed": 0
+  },
+  "observer_tests": {
+    "run": 10,
+    "passed": 10
+  },
+  "source_wire_tests": {
+    "run": 9,
+    "passed": 9,
+    "requires": "2 canonical source tests plus5 synthetic wire tests require read-only SDK; remaining2 are corpus-independent"
+  },
+  "hud_math_tests": {
+    "run": 29,
+    "passed": 29,
+    "provenance": "agent executed with canonical input"
+  },
+  "hud_psb_tests_final": {
+    "run": 25,
+    "passed": 25,
+    "skipped": 0,
+    "failed": 0,
+    "python": "bundled existing runtime",
+    "pillow": "12.3.0",
+    "previous_attempt": "Rabbitizer venv missing PIL:1dependency error retained in HUD validation"
+  },
+  "tool_sha256": {
+    "tools/rigid_lifecycle_probe.py": "0f1b105d2c8cd15b2c69a6b8a418e722aaa67e841ba6154a86b22af4bcde5ace",
+    "tools/prepare_tumbleweed_contract.py": "8f7a13b507d113e1f67f3ab4444fc85ab693669a24ba42766de47d94c01aacf2",
+    "tests/test_rigid_lifecycle_probe.py": "7f2dc45637f1a27f1897032298128553d6f9acac0e4158e22b72b6206b52ade2",
+    "tests/test_tumbleweed_contract.py": "d94e0af6f9d6e9e5b9de47e421e675d8c16c3f7a080315d819e4e1a15ef5a928"
+  },
+  "generator": {
+    "baseline": {
+      "deterministic": true,
+      "outputs": {
+        "data/interface-map.json": "1e966cceaabfaf8a2897359180e7319dbfe6afeef16510f3058a2456e4991369",
+        "include/wrappers.hpp": "8698cfd78bed05daa1b66ea32ecf0d1fe81577046524240ede3eac7a8b79b13c",
+        "include/method_names.hpp": "c1a9e331bffb14365807b1f94f700a7acf839de91af27038b64b4374d1e6ab84",
+        "src/forwarders.cpp": "a84c3ef792b24783cad1cc119e8feb9886f5ef511bfebf316382e8781cec0539",
+        "tests/mock_interfaces.hpp": "9062667d68b59dc580e102505bcd4c2da8e66b93e11d6ff210b046c0952062f9"
+      },
+      "initial_files_rewritten": []
+    },
+    "ps2-enabled": {
+      "deterministic": true,
+      "outputs": {
+        "data/interface-map.json": "1e966cceaabfaf8a2897359180e7319dbfe6afeef16510f3058a2456e4991369",
+        "include/wrappers.hpp": "85ef4dc9413ec9590253f9dc65c30582dccb95e8a9405846b8ae17e32404c7e5",
+        "include/method_names.hpp": "c1a9e331bffb14365807b1f94f700a7acf839de91af27038b64b4374d1e6ab84",
+        "src/forwarders.cpp": "bad041adc77a28ae6948b1f74bcde5b9271280f5a830756c3d86d4b331bcd631",
+        "tests/mock_interfaces.hpp": "9062667d68b59dc580e102505bcd4c2da8e66b93e11d6ff210b046c0952062f9"
+      },
+      "initial_files_rewritten": []
+    }
+  },
+  "compileall": "PASS",
+  "diff_check": "PASS",
+  "renderer_working_diff": "EMPTY",
+  "read_only_sdk_head": "4244fa0c4d878523c9947f54816bf377cdfb2589",
+  "read_only_sdk_status": "CLEAN",
+  "physics_spawn": "NOT_ENABLED",
+  "native_runtime_capture": "NOT_PERFORMED",
+  "vehicle_contact": "NOT_PERFORMED",
+  "hud_implementation": "NOT_PERFORMED",
+  "grass2_code": "UNCHANGED",
+  "additional_cleanup": "NONE",
+  "public_bundle_data_policy": "no proprietary hulls/textures/meshes/binaries/rawlogs; locally generated proxy DLLs only",
+  "statuses": {
+    "RIGID_NATIVE_INTERFACE": "PARTIAL",
+    "RIGID_COLLISION_RESOURCE": "PARTIAL",
+    "RIGID_ENTITY_LIFETIME": "PARTIAL",
+    "RIGID_VEHICLE_CONTACT": "NOT_PERFORMED",
+    "RIGID_VISUAL_INTEGRATION": "BLOCKED",
+    "RIGID_RUNTIME_READINESS": "BLOCKED",
+    "HUD_PS2_CONTRACT": "PARTIAL",
+    "HUD_PC_INTEGRATION_FEASIBILITY": "PARTIAL"
+  }
+}

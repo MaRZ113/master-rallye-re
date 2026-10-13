@@ -1,0 +1,107 @@
+{
+  "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "independent_decoder": "GNU objdump x86",
+  "instruction_windows": [
+    {
+      "bytes_hex": "8b6f088b470c3be8c74424",
+      "file_offset": 1496136,
+      "role": "packet vector",
+      "sha256": "a46b7b6eab10eb6e55fca68cd36fa92eac058da140b1db0164aa83565f33e275",
+      "size": 11,
+      "va": "0x0056D448"
+    },
+    {
+      "bytes_hex": "8b45f88974245c8b75f4",
+      "file_offset": 1496468,
+      "role": "u16 key vector",
+      "sha256": "32bbb47ea2f16771a3dcee4db8fbe7f28567a5877cfd6a51df7a7998141e0c4c",
+      "size": 10,
+      "va": "0x0056D594"
+    },
+    {
+      "bytes_hex": "8b5704668b700e",
+      "file_offset": 1496530,
+      "role": "bank index",
+      "sha256": "783b91fb6c6bed6949ec08e429f303596973a513286b1fb5c3e38524b45fb49b",
+      "size": 7,
+      "va": "0x0056D5D2"
+    },
+    {
+      "bytes_hex": "8b70048b48083bf1",
+      "file_offset": 1496587,
+      "role": "subimage triangle span",
+      "sha256": "f3aef9e082632abe9ac192d4be4cb670a0bfcd0b5c087cda8ec773848e80b771",
+      "size": 8,
+      "va": "0x0056D60B"
+    },
+    {
+      "bytes_hex": "8b0650e873d6fdff8d4e208d9424dc0000",
+      "file_offset": 1496661,
+      "role": "texture lookup and original source",
+      "sha256": "315bc3e170e312e66eeb5fe2bd38aa97774f33c1a42def2f4ffbd40e50c959aa",
+      "size": 17,
+      "va": "0x0056D655"
+    },
+    {
+      "bytes_hex": "db41fc8d7af483c10883c2184ed8442410d95c2460db41f88b6c2460892fd86c",
+      "file_offset": 1496684,
+      "role": "intXY generation",
+      "sha256": "d245aaf6fb0b61ad0a853e8bdfc7021439fdcfefb98b26780e9335e811205c56",
+      "size": 32,
+      "va": "0x0056D66C"
+    },
+    {
+      "bytes_hex": "d941dc896f048b6c2468896f088b7c245c897ae8d95aecd941e0d95af0",
+      "file_offset": 1496726,
+      "role": "floatUV generation",
+      "sha256": "60773aa4b7bb9b1cd26ce002de706d26dde10829251d098ecee46b48c8a59ff4",
+      "size": 29,
+      "va": "0x0056D696"
+    },
+    {
+      "bytes_hex": "8b28",
+      "file_offset": 1496760,
+      "role": "wrapper native texture pointer",
+      "sha256": "738b25c22e939acc3f408fde29ea61a5bcae7a372aec154ac0fe50e2bd2b056c",
+      "size": 2,
+      "va": "0x0056D6B8"
+    },
+    {
+      "bytes_hex": "83c0348b510889",
+      "file_offset": 1497036,
+      "role": "triangle stride",
+      "sha256": "02d873dbdbe39b47b192238801297b4212e978a103134f4e302afcdcad23431d",
+      "size": 7,
+      "va": "0x0056D7CC"
+    },
+    {
+      "bytes_hex": "83c03883c538",
+      "file_offset": 1497117,
+      "role": "content row stride",
+      "sha256": "ba15a77bf52a908259072217ea1e3afe2cb8fe5ae4314921a84aac40562dbab3",
+      "size": 6,
+      "va": "0x0056D81D"
+    },
+    {
+      "bytes_hex": "518b4904538b5c2410568b41048b3578646f003bc6",
+      "file_offset": 1500608,
+      "role": "bank tree root",
+      "sha256": "7c6036e237970c7c4af29c2224cb21adaf16c6ec482d09f1078e9a97a7c2d4fe",
+      "size": 21,
+      "va": "0x0056E5C0"
+    },
+    {
+      "bytes_hex": "668b3b6639780c7d058b4008eb048bd08b00",
+      "file_offset": 1500634,
+      "role": "bank tree key compare",
+      "sha256": "4e0aaeb9f212c5c2a021bac9976e88905767ff1bb8f93c212e306a9fae29c9e2",
+      "size": 18,
+      "va": "0x0056E5DA"
+    }
+  ],
+  "provider": "Ghidra12.1.4 through REA",
+  "rea_evidence_id": "ev_aa8a5e5bd263e0a58a0ed855d9c26191c9c4ed4aca8862c8abde8266070b78c9",
+  "replacement_authorized": false,
+  "runtime": "NOT_PERFORMED",
+  "schema": "hud-plate-source-contract/v1"
+}
