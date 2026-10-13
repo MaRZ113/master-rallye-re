@@ -20,11 +20,12 @@ Diagnostics=0
 ; 2 = Texture control: weighted PS2 ENV only, preserve native COLOROP
 ; 3 = COLOROP control: stage1 ADD only, preserve original texture (no GXI needed)
 ; 4 = Mixed source: weighted PS2 ENV + flipped current PC framebuffer, stage1 ADD
-; Mode4 requires non-MSAA 32-bit main backbuffer and successful native CopyRects.
+; Mode4 supports NONE/2x/4x on a32-bit main backbuffer when native CopyRects succeeds.
+; MSAA needs exact-size copy textures; unsupported drivers/dimensions stay Stock.
 ; Capture timing/PSMCT16/vehicle grayscale differences remain approximations.
 ReflectionMode=0
 ReflectionConfigVersion=1
-; PORT2: 0 keeps the original Tata-only pilot; 1 also admits verified Kia bonnet.
+; Full coverage: 0 keeps Tata record19 only; 1 admits all174 verified carshiny groups.
 ReflectionCoverage=0
 ; 0 keeps working Mode4 A8R8G8B8. 1 requests a private A1R5G5B5 target.
 ; Unsupported 16-bit allocation falls back to Mode4; not exact GS PSMCT16.
@@ -39,18 +40,18 @@ CourseObjectsVersion=1
 CourseObjectsAsset=Turkey3Puddles.ps2obj
 CourseObjectsDiagnostics=0
 ; Turkey3 source-derived grass preview: original image and matched terrain sources.
-; 0 = Stock; 1 = Turkey3 only; 2 = verified Turkey3/France1/ItalyS1 coverage.
+; 0 = Stock; 1 = Turkey3 only; 2 = all36 verified course pairs.
 GrassMode=0
 GrassConfigVersion=1
 GrassAsset=Turkey3Grass.ps2grass
-; Mode2 preloads verified France1/ItalyS1 files once; no per-frame disk reads.
+; Mode2 preloads all36 verified file pairs once; no per-frame disk reads.
 GrassAssetDirectory=.
 ; PC billboard half-size (world units), preview mapping; original source lift unchanged.
 GrassSpriteHalfSize=0.33
 GrassDiagnostics=0
 ; Independent second category: original Turkey3 $detail(shrubs), BUSH1 image.
 ; Same source-grid pitch; different material surfaces and original 0.4 lift.
-; 0 = Stock; 1 = Turkey3 only; 2 = the same verified three-course coverage.
+; 0 = Stock; 1 = Turkey3 only; 2 = the same verified36-course coverage.
 ShrubsMode=0
 ShrubsConfigVersion=1
 ShrubsAsset=Turkey3Shrubs.ps2grass

@@ -1,0 +1,1108 @@
+{
+  "schema_version": 1,
+  "vehicle_family_source_compatible": 24,
+  "pc_families_audited": 26,
+  "ps2_models_audited": 29,
+  "reflective_groups": 174,
+  "paint_groups": 99,
+  "other_reflective_groups": 75,
+  "vehicle_matrix": [
+    {
+      "ps2": "ASTERO",
+      "pc": "Astero",
+      "verified_groups": 8,
+      "blockers": [],
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "ps2": "BRUNO",
+      "pc": "Bruno",
+      "verified_groups": 3,
+      "blockers": [],
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "ps2": "CHEVYBLAZER",
+      "pc": "ChevyBlazer",
+      "verified_groups": 7,
+      "blockers": [],
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "ps2": "FORESTER",
+      "pc": "Forester",
+      "verified_groups": 0,
+      "blockers": [],
+      "status": "NOT_ADMITTED"
+    },
+    {
+      "ps2": "FORKLIFT",
+      "pc": "forklift",
+      "verified_groups": 0,
+      "blockers": [],
+      "status": "NOT_ADMITTED"
+    },
+    {
+      "ps2": "FRONTERA",
+      "pc": "Frontera",
+      "verified_groups": 8,
+      "blockers": [],
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "ps2": "ICECREAM",
+      "pc": "IceCream",
+      "verified_groups": 8,
+      "blockers": [],
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "ps2": "JUMP",
+      "pc": "Jump",
+      "verified_groups": 3,
+      "blockers": [],
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "ps2": "KAMAZ",
+      "pc": "Kamaz",
+      "verified_groups": 9,
+      "blockers": [],
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "ps2": "KANGOO",
+      "pc": "Kangoo",
+      "verified_groups": 8,
+      "blockers": [],
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "ps2": "KIASPORTAGE",
+      "pc": "KiaSportage",
+      "verified_groups": 7,
+      "blockers": [],
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "ps2": "LANDCRUISER",
+      "pc": "LandCruiser",
+      "verified_groups": 4,
+      "blockers": [],
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "ps2": "MATTSERATI",
+      "pc": "Mattserati",
+      "verified_groups": 7,
+      "blockers": [],
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "ps2": "MEGANE",
+      "pc": "megane",
+      "verified_groups": 10,
+      "blockers": [],
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "ps2": "MOONBUGGY",
+      "pc": null,
+      "verified_groups": 0,
+      "blockers": [
+        "NO_EXACT_PC_FAMILY_NAME"
+      ],
+      "status": "NOT_ADMITTED"
+    },
+    {
+      "ps2": "NAVARA",
+      "pc": "Navara",
+      "verified_groups": 6,
+      "blockers": [],
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "ps2": "NEWRAV",
+      "pc": "NewRav",
+      "verified_groups": 7,
+      "blockers": [],
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "ps2": "PAJERO",
+      "pc": "Pajero",
+      "verified_groups": 7,
+      "blockers": [],
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "ps2": "PATROL",
+      "pc": "Patrol",
+      "verified_groups": 10,
+      "blockers": [],
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "ps2": "RMONSTER",
+      "pc": "RMonster",
+      "verified_groups": 10,
+      "blockers": [],
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "ps2": "SEATBUGGY",
+      "pc": "SeatBuggy",
+      "verified_groups": 7,
+      "blockers": [],
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "ps2": "SIMMBUGGHINI",
+      "pc": "Simmbugghini",
+      "verified_groups": 7,
+      "blockers": [],
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "ps2": "TANK",
+      "pc": null,
+      "verified_groups": 0,
+      "blockers": [
+        "NO_EXACT_PC_FAMILY_NAME"
+      ],
+      "status": "NOT_ADMITTED"
+    },
+    {
+      "ps2": "TATA",
+      "pc": "Tata",
+      "verified_groups": 13,
+      "blockers": [],
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "ps2": "TERRANO",
+      "pc": "Terrano",
+      "verified_groups": 11,
+      "blockers": [],
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "ps2": "UFO",
+      "pc": "Ufo",
+      "verified_groups": 2,
+      "blockers": [],
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "ps2": "WILDCAT",
+      "pc": "WildCat",
+      "verified_groups": 5,
+      "blockers": [],
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "ps2": "WOOLDAND",
+      "pc": null,
+      "verified_groups": 0,
+      "blockers": [
+        "NO_EXACT_PC_FAMILY_NAME"
+      ],
+      "status": "NOT_ADMITTED"
+    },
+    {
+      "ps2": "XTRAIL",
+      "pc": "Xtrail",
+      "verified_groups": 7,
+      "blockers": [],
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    }
+  ],
+  "course_matrix": [
+    {
+      "course": "FRANCE1",
+      "certificate": "RaceTest/France1",
+      "categories": {
+        "grass": {
+          "filename": "France1Grass.ps2grass",
+          "sha256": "354cb84c7238e8a1a4959c95fc7e265587f32a3f26dcb29b98aa818c1096f961",
+          "points": 197680,
+          "exact_terrain_faces": 5192,
+          "nonexact_faces_excluded": 1
+        },
+        "shrubs": {
+          "filename": "France1Shrubs.ps2grass",
+          "sha256": "69e64191810c4f3ce5b9b06862e9afe8d4ea2a69940ee7d4449cb71430fc2802",
+          "points": 169932,
+          "exact_terrain_faces": 1463,
+          "nonexact_faces_excluded": 0
+        }
+      },
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "course": "FRANCE2",
+      "certificate": "RaceTest/France2",
+      "categories": {
+        "grass": {
+          "filename": "France2Grass.ps2grass",
+          "sha256": "99904d27286c4ce24a47904e3e642858d82d4c629dbbcb072e1ad8de5dd8c542",
+          "points": 100931,
+          "exact_terrain_faces": 1735,
+          "nonexact_faces_excluded": 1
+        },
+        "shrubs": {
+          "filename": "France2Shrubs.ps2grass",
+          "sha256": "f1c6b294c5c17b97766e2cceb5e2beff44da771c56f1e3ed1ea6eb0f7cc7a137",
+          "points": 83480,
+          "exact_terrain_faces": 1315,
+          "nonexact_faces_excluded": 0
+        }
+      },
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "course": "FRANCEM",
+      "certificate": "RaceTest/FranceM",
+      "categories": {
+        "grass": {
+          "filename": "FranceMGrass.ps2grass",
+          "sha256": "16f3b727f8cd190abd77c43ef4dc1353099bdfa682ed76797f7ea5af04d37605",
+          "points": 112186,
+          "exact_terrain_faces": 2959,
+          "nonexact_faces_excluded": 2
+        },
+        "shrubs": {
+          "filename": "FranceMShrubs.ps2grass",
+          "sha256": "58a3c341f94a1c11b34f9ddd0c54c18d167e053b242b605788db81300978c629",
+          "points": 150261,
+          "exact_terrain_faces": 2217,
+          "nonexact_faces_excluded": 19
+        }
+      },
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "course": "FRANCES1",
+      "certificate": "RaceTest/FranceS1",
+      "categories": {
+        "grass": {
+          "filename": "FranceS1Grass.ps2grass",
+          "sha256": "57f6891c0367d900b95a5d24cefe5d21ba2d7b98b8ad0e31bdd9c738977b80bc",
+          "points": 142461,
+          "exact_terrain_faces": 2900,
+          "nonexact_faces_excluded": 1
+        },
+        "shrubs": {
+          "filename": "FranceS1Shrubs.ps2grass",
+          "sha256": "9c2e4d9a8ef700e3c32e73cee827d5dcdbff38b7a6c2c15bb1d2848edbc9f357",
+          "points": 95088,
+          "exact_terrain_faces": 1717,
+          "nonexact_faces_excluded": 1
+        }
+      },
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "course": "FRANCES2",
+      "certificate": "RaceTest/FranceS2",
+      "categories": {
+        "grass": {
+          "filename": "FranceS2Grass.ps2grass",
+          "sha256": "5c300c40b817bf864079e155f9dc689a12a2caf0219df06b787900fdd2412f0b",
+          "points": 190435,
+          "exact_terrain_faces": 3256,
+          "nonexact_faces_excluded": 1
+        },
+        "shrubs": {
+          "filename": "FranceS2Shrubs.ps2grass",
+          "sha256": "6aa19d3bced7dcca0110ec9f2d1bd4167dc8060a1ddaaa4f5e4bbc84f8c24798",
+          "points": 175225,
+          "exact_terrain_faces": 2257,
+          "nonexact_faces_excluded": 2
+        }
+      },
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "course": "FRANCEW",
+      "certificate": "RaceTest/FranceW",
+      "categories": {
+        "grass": {
+          "filename": "FranceWGrass.ps2grass",
+          "sha256": "04fac61da8dffc1898c0d152203306513d74436e4913dd43269f6536006b3e7f",
+          "points": 257177,
+          "exact_terrain_faces": 3445,
+          "nonexact_faces_excluded": 9
+        },
+        "shrubs": {
+          "filename": "FranceWShrubs.ps2grass",
+          "sha256": "e368df311564dd802d47951e7568f0c7a6ccfab7dd7e3f0020dde45aa513c4c7",
+          "points": 209758,
+          "exact_terrain_faces": 2448,
+          "nonexact_faces_excluded": 3
+        }
+      },
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "course": "FRANCEW_FLIP",
+      "certificate": "RaceTest/FranceWFlip",
+      "categories": {
+        "grass": {
+          "filename": "FranceWFlipGrass.ps2grass",
+          "sha256": "c4da6585b6a55fb30ca8f11728bcfd0e0dff6e02f3c094af133098dcda6dd7d6",
+          "points": 288863,
+          "exact_terrain_faces": 3470,
+          "nonexact_faces_excluded": 7
+        },
+        "shrubs": {
+          "filename": "FranceWFlipShrubs.ps2grass",
+          "sha256": "9175317f510f898d95ebc1560ff3e0ff1e250f256f84fe7c5bd031f623e5b727",
+          "points": 168699,
+          "exact_terrain_faces": 2365,
+          "nonexact_faces_excluded": 2
+        }
+      },
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "course": "ITALY1",
+      "certificate": "RaceTest/Italy1",
+      "categories": {
+        "grass": {
+          "filename": "Italy1Grass.ps2grass",
+          "sha256": "8e87a7e10197e66f4b8a5ec91e490993d17fd94e95188c268909c777ac07dbc9",
+          "points": 99749,
+          "exact_terrain_faces": 3430,
+          "nonexact_faces_excluded": 0
+        },
+        "shrubs": {
+          "filename": "Italy1Shrubs.ps2grass",
+          "sha256": "ab525d79fda43eef5de25ef3d1376e1c08b948bb188ae9922157cdd1abb42736",
+          "points": 40227,
+          "exact_terrain_faces": 961,
+          "nonexact_faces_excluded": 0
+        }
+      },
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "course": "ITALY2",
+      "certificate": "RaceTest/Italy2",
+      "categories": {
+        "grass": {
+          "filename": "Italy2Grass.ps2grass",
+          "sha256": "f4867edd6c7b8ad84daca8764dc50955945266d407fa6ef4a317fc88ca40a6be",
+          "points": 187555,
+          "exact_terrain_faces": 3664,
+          "nonexact_faces_excluded": 2
+        },
+        "shrubs": {
+          "filename": "Italy2Shrubs.ps2grass",
+          "sha256": "7b68529aa6145493bc568b9d10ce924f07fb215f93c5b53be9ffea4eeeaf4458",
+          "points": 161539,
+          "exact_terrain_faces": 2023,
+          "nonexact_faces_excluded": 25
+        }
+      },
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "course": "ITALY3",
+      "certificate": "RaceTest/Italy3",
+      "categories": {
+        "grass": {
+          "filename": "Italy3Grass.ps2grass",
+          "sha256": "b4ff78abd309d8081869ba15e6597b25cb3f7bee4da18aae51f4ee9654ae5df2",
+          "points": 186468,
+          "exact_terrain_faces": 4499,
+          "nonexact_faces_excluded": 27
+        },
+        "shrubs": {
+          "filename": "Italy3Shrubs.ps2grass",
+          "sha256": "548596823aae07919df0ad1b5c82f34d4f7e8313924e286cad534b4a536e7d74",
+          "points": 124947,
+          "exact_terrain_faces": 1913,
+          "nonexact_faces_excluded": 9
+        }
+      },
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "course": "ITALY_M1",
+      "certificate": "RaceTest/ItalyM1",
+      "categories": {
+        "grass": {
+          "filename": "ItalyM1Grass.ps2grass",
+          "sha256": "b97661a94b05b565e7b42eec190660383e260bc5bfcd2e337275c53a34951a5c",
+          "points": 131242,
+          "exact_terrain_faces": 3785,
+          "nonexact_faces_excluded": 1
+        },
+        "shrubs": {
+          "filename": "ItalyM1Shrubs.ps2grass",
+          "sha256": "7d0a804e29511bb6ab82c89e3a43fb1c5286d5d23ebfe237ef5de6541b39dd2c",
+          "points": 88866,
+          "exact_terrain_faces": 1140,
+          "nonexact_faces_excluded": 3
+        }
+      },
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "course": "ITALY_M1_FLIP",
+      "certificate": "RaceTest/ItalyM1Flip",
+      "categories": {
+        "grass": {
+          "filename": "ItalyM1FlipGrass.ps2grass",
+          "sha256": "0dc6630efc00ddeec8163e4c74b6e777ba6a35bb346e79518746d9023b2f78ae",
+          "points": 130935,
+          "exact_terrain_faces": 3775,
+          "nonexact_faces_excluded": 1
+        },
+        "shrubs": {
+          "filename": "ItalyM1FlipShrubs.ps2grass",
+          "sha256": "6f00d277e1ab8875de9e65e92a7a9e6c0d4912255f203b613d83e646e8ea0247",
+          "points": 88866,
+          "exact_terrain_faces": 1140,
+          "nonexact_faces_excluded": 3
+        }
+      },
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "course": "ITALY_M2",
+      "certificate": "RaceTest/ItalyM2",
+      "categories": {
+        "grass": {
+          "filename": "ItalyM2Grass.ps2grass",
+          "sha256": "4380655de546d6a48759b9c00131272533ae5745382eb92748db88035729859f",
+          "points": 226946,
+          "exact_terrain_faces": 5211,
+          "nonexact_faces_excluded": 11
+        },
+        "shrubs": {
+          "filename": "ItalyM2Shrubs.ps2grass",
+          "sha256": "a3f9e824608df20605f7123f597159ecbf8bf40ede95da6f149fe47ad37a9549",
+          "points": 192383,
+          "exact_terrain_faces": 2614,
+          "nonexact_faces_excluded": 17
+        }
+      },
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "course": "ITALY_S1",
+      "certificate": "RaceTest/ItalyS1",
+      "categories": {
+        "grass": {
+          "filename": "ItalyS1Grass.ps2grass",
+          "sha256": "e764d52060bc87c797e43459d743ec3dc6a4cd1aff67f239a62c59e82863c1ae",
+          "points": 125524,
+          "exact_terrain_faces": 3239,
+          "nonexact_faces_excluded": 0
+        },
+        "shrubs": {
+          "filename": "ItalyS1Shrubs.ps2grass",
+          "sha256": "e2d08cfc56f7f3ea8e91b5225ba1b4a228ec40062b361c697426694c0f88234d",
+          "points": 75253,
+          "exact_terrain_faces": 1137,
+          "nonexact_faces_excluded": 21
+        }
+      },
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "course": "ITALY_S2",
+      "certificate": "RaceTest/ItalyS2",
+      "categories": {
+        "grass": {
+          "filename": "ItalyS2Grass.ps2grass",
+          "sha256": "c2679d4418ce35aacc5a26461ceeee73913a5d544d4e4b92efd4e80816ee9c84",
+          "points": 136922,
+          "exact_terrain_faces": 4052,
+          "nonexact_faces_excluded": 28
+        },
+        "shrubs": {
+          "filename": "ItalyS2Shrubs.ps2grass",
+          "sha256": "60626a7ceaa6545b55e8868e0e6f5d53e59dc1f9cdb275542df3b6f96b214d58",
+          "points": 115838,
+          "exact_terrain_faces": 1634,
+          "nonexact_faces_excluded": 5
+        }
+      },
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "course": "ITALY_S3",
+      "certificate": "RaceTest/ItalyS3",
+      "categories": {
+        "grass": {
+          "filename": "ItalyS3Grass.ps2grass",
+          "sha256": "f0bfbfe0681e0a3b8714cc0b46d4f226b0d9a273ff1b30d8f8d440c2f91f22d4",
+          "points": 204564,
+          "exact_terrain_faces": 4171,
+          "nonexact_faces_excluded": 5
+        },
+        "shrubs": {
+          "filename": "ItalyS3Shrubs.ps2grass",
+          "sha256": "740c0714fc982968a2c7aafeb48731bb1820c227f81cdbc511944dcc2b23e617",
+          "points": 173599,
+          "exact_terrain_faces": 2266,
+          "nonexact_faces_excluded": 10
+        }
+      },
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "course": "ITALY_S3_FLIP",
+      "certificate": "RaceTest/ItalyS3Flip",
+      "categories": {
+        "grass": {
+          "filename": "ItalyS3FlipGrass.ps2grass",
+          "sha256": "96993a8094f3bcbeae84375fbaeb0e958926033262b2117bd002ff41acfc48c2",
+          "points": 204388,
+          "exact_terrain_faces": 4173,
+          "nonexact_faces_excluded": 7
+        },
+        "shrubs": {
+          "filename": "ItalyS3FlipShrubs.ps2grass",
+          "sha256": "9fdfcba7ec085a36b1d4ce1967571c198ee86c463adc348fe6c94e8af7360096",
+          "points": 173599,
+          "exact_terrain_faces": 2266,
+          "nonexact_faces_excluded": 10
+        }
+      },
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "course": "ITALY_S4",
+      "certificate": "RaceTest/ItalyS4",
+      "categories": {
+        "grass": {
+          "filename": "ItalyS4Grass.ps2grass",
+          "sha256": "0bbfa484fe8857adf87c7fe87f25f78c38d87787fa16f257327474072ac85cf4",
+          "points": 202413,
+          "exact_terrain_faces": 5349,
+          "nonexact_faces_excluded": 12
+        },
+        "shrubs": {
+          "filename": "ItalyS4Shrubs.ps2grass",
+          "sha256": "8033a25c9e8827613ca53d3e243a4ce9a185ca2bc5968b71f2d75d67f1176aa5",
+          "points": 191259,
+          "exact_terrain_faces": 2881,
+          "nonexact_faces_excluded": 46
+        }
+      },
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "course": "ITALY_W1",
+      "certificate": "RaceTest/ItalyW1",
+      "categories": {
+        "grass": {
+          "filename": "ItalyW1Grass.ps2grass",
+          "sha256": "58bdc2ac8f5898f6608f21a4366ccaea4cbecacb7f3a3c0e053f86e8b126066a",
+          "points": 134281,
+          "exact_terrain_faces": 3856,
+          "nonexact_faces_excluded": 3
+        },
+        "shrubs": {
+          "filename": "ItalyW1Shrubs.ps2grass",
+          "sha256": "cbb9b36c46029721489282188dabe3495b9f719bbe4f131cf3784817994abab7",
+          "points": 94366,
+          "exact_terrain_faces": 1518,
+          "nonexact_faces_excluded": 32
+        }
+      },
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "course": "ITALY_W2",
+      "certificate": "RaceTest/ItalyW2",
+      "categories": {
+        "grass": {
+          "filename": "ItalyW2Grass.ps2grass",
+          "sha256": "5a2fb55f301ff17c1faff77bc6cab9f7fb027c4f6e5ff61db60bef5809d117f9",
+          "points": 190312,
+          "exact_terrain_faces": 4639,
+          "nonexact_faces_excluded": 4
+        },
+        "shrubs": {
+          "filename": "ItalyW2Shrubs.ps2grass",
+          "sha256": "575cec36c7b307080194e2890181c72b9a3cde6fcf6bd4db94be8b003f315246",
+          "points": 174404,
+          "exact_terrain_faces": 2738,
+          "nonexact_faces_excluded": 38
+        }
+      },
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "course": "SPAIN1",
+      "certificate": "RaceTest/Spain1",
+      "categories": {
+        "grass": {
+          "filename": "Spain1Grass.ps2grass",
+          "sha256": "572a0fd6e942b5bac7b974d9a39e23173ac48f055f9fcaad8bee0bb0f01438e2",
+          "points": 59726,
+          "exact_terrain_faces": 3226,
+          "nonexact_faces_excluded": 22
+        },
+        "shrubs": {
+          "filename": "Spain1Shrubs.ps2grass",
+          "sha256": "2a8b8f7412e913f59eb06a2a34b7a419a39e9b7f5659b3ba5279371e68b28cea",
+          "points": 154887,
+          "exact_terrain_faces": 2176,
+          "nonexact_faces_excluded": 12
+        }
+      },
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "course": "SPAIN2",
+      "certificate": "RaceTest/Spain2",
+      "categories": {
+        "grass": {
+          "filename": "Spain2Grass.ps2grass",
+          "sha256": "054c4b5c0fc88b46d22507b155e1394267557956bf26e3d7de4157f8bf297e8f",
+          "points": 58174,
+          "exact_terrain_faces": 2302,
+          "nonexact_faces_excluded": 60
+        },
+        "shrubs": {
+          "filename": "Spain2Shrubs.ps2grass",
+          "sha256": "71fce2f22b1dd662210a10c3f8978f7470e506f13d89c30052721a9e560e75e5",
+          "points": 26499,
+          "exact_terrain_faces": 477,
+          "nonexact_faces_excluded": 7
+        }
+      },
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "course": "SPAIN_M",
+      "certificate": "RaceTest/SpainM",
+      "categories": {
+        "grass": {
+          "filename": "SpainMGrass.ps2grass",
+          "sha256": "abb04847d10c744f321d12a235e5b1013dda2b2c14f39bc77f151b0f6c207852",
+          "points": 63180,
+          "exact_terrain_faces": 3266,
+          "nonexact_faces_excluded": 33
+        },
+        "shrubs": {
+          "filename": "SpainMShrubs.ps2grass",
+          "sha256": "cb61a11cc0e4d760a1a030d45d0c079ad2f4a8fc90aee45fe5d61c29e8de1210",
+          "points": 111262,
+          "exact_terrain_faces": 1635,
+          "nonexact_faces_excluded": 3
+        }
+      },
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "course": "SPAIN_S1",
+      "certificate": "RaceTest/SpainS1",
+      "categories": {
+        "grass": {
+          "filename": "SpainS1Grass.ps2grass",
+          "sha256": "ff4090ff7b80fc05f86a644975ced3b7d4ad11b0ec8a0dba90073069e48c1b0d",
+          "points": 70819,
+          "exact_terrain_faces": 3192,
+          "nonexact_faces_excluded": 9
+        },
+        "shrubs": {
+          "filename": "SpainS1Shrubs.ps2grass",
+          "sha256": "45b375b689cc6e848a07e95e36b4b13e15afc7a9328fbaf461c0208cf46dbd5d",
+          "points": 85147,
+          "exact_terrain_faces": 1518,
+          "nonexact_faces_excluded": 2
+        }
+      },
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "course": "SPAIN_S1_FLIP",
+      "certificate": "RaceTest/SpainS1Flip",
+      "categories": {
+        "grass": {
+          "filename": "SpainS1FlipGrass.ps2grass",
+          "sha256": "fffc504fea37fcbe0995533732955c1d69b6daa78059d7d129f860bf5c8ef2d2",
+          "points": 70819,
+          "exact_terrain_faces": 3192,
+          "nonexact_faces_excluded": 9
+        },
+        "shrubs": {
+          "filename": "SpainS1FlipShrubs.ps2grass",
+          "sha256": "eaffdf6e506bc520ffac847606d305a3aa5f87a0878e692e06198abde622fc67",
+          "points": 85147,
+          "exact_terrain_faces": 1518,
+          "nonexact_faces_excluded": 2
+        }
+      },
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "course": "SPAIN_S2",
+      "certificate": "RaceTest/SpainS2",
+      "categories": {
+        "grass": {
+          "filename": "SpainS2Grass.ps2grass",
+          "sha256": "a141c2ed1eecaf85f446b57e388902cfabfa2ce8c91bfcb39ba12602b4428337",
+          "points": 58296,
+          "exact_terrain_faces": 3230,
+          "nonexact_faces_excluded": 36
+        },
+        "shrubs": {
+          "filename": "SpainS2Shrubs.ps2grass",
+          "sha256": "f8f450f208b737cb0977a3cb383dcf540789ff17752b762bb4777fa167bb930e",
+          "points": 95600,
+          "exact_terrain_faces": 1386,
+          "nonexact_faces_excluded": 1
+        }
+      },
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "course": "SPAIN_W",
+      "certificate": "RaceTest/SpainW",
+      "categories": {
+        "grass": {
+          "filename": "SpainWGrass.ps2grass",
+          "sha256": "018b17029800efe2e01c750a013d48dc64ccc9733dba3075d581f41f7efb0b26",
+          "points": 70030,
+          "exact_terrain_faces": 3250,
+          "nonexact_faces_excluded": 4
+        },
+        "shrubs": {
+          "filename": "SpainWShrubs.ps2grass",
+          "sha256": "8ccab834b28fa8090dda13866260b1dd2af222319597db95783126b71185169e",
+          "points": 88613,
+          "exact_terrain_faces": 1392,
+          "nonexact_faces_excluded": 1
+        }
+      },
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "course": "SPAIN_W_FLIP",
+      "certificate": "RaceTest/SpainWFlip",
+      "categories": {
+        "grass": {
+          "filename": "SpainWFlipGrass.ps2grass",
+          "sha256": "47724697e39a1905c22669e1c97c0de31e0a59ee6791a410463aabc724dac3c0",
+          "points": 70030,
+          "exact_terrain_faces": 3250,
+          "nonexact_faces_excluded": 4
+        },
+        "shrubs": {
+          "filename": "SpainWFlipShrubs.ps2grass",
+          "sha256": "5e4eab517a757fd136b487d50e3956c5a3075b304259920f2cec8403963abb53",
+          "points": 88613,
+          "exact_terrain_faces": 1392,
+          "nonexact_faces_excluded": 1
+        }
+      },
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "course": "TURKEY1",
+      "certificate": "RaceTest/Turkey1",
+      "categories": {
+        "grass": {
+          "filename": "Turkey1Grass.ps2grass",
+          "sha256": "cf64762d8d386b937254520c9529f54a579dffe6067e1075548e435cda94e55f",
+          "points": 151186,
+          "exact_terrain_faces": 5204,
+          "nonexact_faces_excluded": 0
+        },
+        "shrubs": {
+          "filename": "Turkey1Shrubs.ps2grass",
+          "sha256": "b5df6f28e4b8d63418f3c09dafbec78a9e75e69dea9dc2781c0113a4e24fa6ab",
+          "points": 44464,
+          "exact_terrain_faces": 1277,
+          "nonexact_faces_excluded": 1
+        }
+      },
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "course": "TURKEY2",
+      "certificate": "RaceTest/Turkey2",
+      "categories": {
+        "grass": {
+          "filename": "Turkey2Grass.ps2grass",
+          "sha256": "a96b3e1a4a0bc5a86cbc52bbbdade945070f016c071f47101b81bf047970c08c",
+          "points": 79135,
+          "exact_terrain_faces": 2814,
+          "nonexact_faces_excluded": 80
+        },
+        "shrubs": {
+          "filename": "Turkey2Shrubs.ps2grass",
+          "sha256": "6261249501192bad19132aaaec4a9dd580eb607cf2fa914373812ee9bdef2f24",
+          "points": 72131,
+          "exact_terrain_faces": 1961,
+          "nonexact_faces_excluded": 232
+        }
+      },
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "course": "TURKEY3",
+      "certificate": "RaceTest/Turkey3",
+      "categories": {
+        "grass": {
+          "filename": "Turkey3Grass.ps2grass",
+          "sha256": "6af6393c444a485b2c648c2a6973a91bd5783db3c0f90269a0d653b2f089cfad",
+          "points": 64900,
+          "exact_terrain_faces": 2797,
+          "nonexact_faces_excluded": 115
+        },
+        "shrubs": {
+          "filename": "Turkey3Shrubs.ps2grass",
+          "sha256": "688947a32776ffab67c553b4adc95e4597c399f2d70ece37534fd682044752b4",
+          "points": 146498,
+          "exact_terrain_faces": 3702,
+          "nonexact_faces_excluded": 133
+        }
+      },
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "course": "TURKEY_M",
+      "certificate": "RaceTest/TurkeyM",
+      "categories": {
+        "grass": {
+          "filename": "TurkeyMGrass.ps2grass",
+          "sha256": "c155a9166dbe7fa18ee5913ce63fbebc4d09b2d7ce3924f2199740bb19c77b6f",
+          "points": 83697,
+          "exact_terrain_faces": 3091,
+          "nonexact_faces_excluded": 69
+        },
+        "shrubs": {
+          "filename": "TurkeyMShrubs.ps2grass",
+          "sha256": "f50dace263bbd6cf24bc92c5de77e7e06ab2b475154dc0e2f5cbcd08ed69830b",
+          "points": 53682,
+          "exact_terrain_faces": 1559,
+          "nonexact_faces_excluded": 84
+        }
+      },
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "course": "TURKEY_S1",
+      "certificate": "RaceTest/TurkeyS1",
+      "categories": {
+        "grass": {
+          "filename": "TurkeyS1Grass.ps2grass",
+          "sha256": "782f6f6007ca819b2cd6774d3bc1c02bb817f30f9553a7a613c3775e50faa5a6",
+          "points": 86962,
+          "exact_terrain_faces": 3068,
+          "nonexact_faces_excluded": 280
+        },
+        "shrubs": {
+          "filename": "TurkeyS1Shrubs.ps2grass",
+          "sha256": "c21b3bc265c3f61d6bdf3b9b6368ca39ae79ebe66f9c324b7234bf3ba4720814",
+          "points": 95801,
+          "exact_terrain_faces": 1687,
+          "nonexact_faces_excluded": 95
+        }
+      },
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "course": "TURKEY_S2",
+      "certificate": "RaceTest/TurkeyS2",
+      "categories": {
+        "grass": {
+          "filename": "TurkeyS2Grass.ps2grass",
+          "sha256": "e37fe87e4fc8d2d2081fa14b0db57ceb1c711152641fcbefe817db2a0727f102",
+          "points": 102363,
+          "exact_terrain_faces": 3905,
+          "nonexact_faces_excluded": 176
+        },
+        "shrubs": {
+          "filename": "TurkeyS2Shrubs.ps2grass",
+          "sha256": "14f358613de80a39ec91ab75676fae6f645fae3f2396b2260ecc07e7c4a1b656",
+          "points": 48954,
+          "exact_terrain_faces": 1042,
+          "nonexact_faces_excluded": 69
+        }
+      },
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "course": "TURKEY_S2_FLIP",
+      "certificate": "RaceTest/TurkeyS2Flip",
+      "categories": {
+        "grass": {
+          "filename": "TurkeyS2FlipGrass.ps2grass",
+          "sha256": "7419cb7c810f815147565c3816d5be95ca1b3acf0ef13188d50ac0d0dfc060b4",
+          "points": 115107,
+          "exact_terrain_faces": 4472,
+          "nonexact_faces_excluded": 178
+        },
+        "shrubs": {
+          "filename": "TurkeyS2FlipShrubs.ps2grass",
+          "sha256": "81e230e142394eb544cf6e564373593985c261649767e86edc346b799d02bf1a",
+          "points": 49546,
+          "exact_terrain_faces": 1070,
+          "nonexact_faces_excluded": 67
+        }
+      },
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    },
+    {
+      "course": "TURKEY_W",
+      "certificate": "RaceTest/TurkeyW",
+      "categories": {
+        "grass": {
+          "filename": "TurkeyWGrass.ps2grass",
+          "sha256": "c1d563f58431b59cb09cd0cf326541e28a21c15c743a22a343f51e93ded82ded",
+          "points": 182955,
+          "exact_terrain_faces": 3598,
+          "nonexact_faces_excluded": 45
+        },
+        "shrubs": {
+          "filename": "TurkeyWShrubs.ps2grass",
+          "sha256": "fc959aaa59fef1a5fd9c9e4ff4b0df7519211dda235010951547f7882d202807",
+          "points": 81185,
+          "exact_terrain_faces": 2309,
+          "nonexact_faces_excluded": 118
+        }
+      },
+      "status": "SOURCE_COMPATIBLE_RUNTIME_GATED"
+    }
+  ],
+  "msaa": {
+    "schema_version": 1,
+    "evidence": "CONFIRMED_BY_NATIVE_API_NOT_GAME_RUNTIME",
+    "source_sha256": "647f5b746a34b570dbe2cc12be22eff339dd07be25149f840166be48adad3195",
+    "executable_sha256": "aff46fe178fa643f94540770c89b9885f9ff4bc66a3ecf56cdc3a314ccc7d46e",
+    "returncode": 0,
+    "stderr": "",
+    "cases": [
+      {
+        "samples": 0,
+        "precision16": false,
+        "caps_hr": 0,
+        "create_hr": 0,
+        "upload_hr": 0,
+        "begin_hr": 0,
+        "capture_hr": 0,
+        "copy_hr": 0,
+        "restore_hr": 0,
+        "end_hr": 0,
+        "target_format": 21,
+        "actual_source_samples": 0,
+        "readback_hr": 0,
+        "center_pixel_raw": 4281885804,
+        "reason": "mixed_source_ready",
+        "private_draws": 2
+      },
+      {
+        "samples": 0,
+        "precision16": true,
+        "caps_hr": 0,
+        "create_hr": 0,
+        "upload_hr": 0,
+        "begin_hr": 0,
+        "capture_hr": 0,
+        "copy_hr": 0,
+        "restore_hr": 0,
+        "end_hr": 0,
+        "target_format": 25,
+        "actual_source_samples": 0,
+        "readback_hr": 0,
+        "center_pixel_raw": 40333,
+        "reason": "mixed_source_ready",
+        "private_draws": 2
+      },
+      {
+        "samples": 2,
+        "precision16": false,
+        "caps_hr": 0,
+        "create_hr": 0,
+        "upload_hr": 0,
+        "begin_hr": 0,
+        "capture_hr": 0,
+        "copy_hr": 0,
+        "restore_hr": 0,
+        "end_hr": 0,
+        "target_format": 21,
+        "actual_source_samples": 2,
+        "readback_hr": 0,
+        "center_pixel_raw": 4281885804,
+        "reason": "mixed_source_ready",
+        "private_draws": 2
+      },
+      {
+        "samples": 2,
+        "precision16": true,
+        "caps_hr": 0,
+        "create_hr": 0,
+        "upload_hr": 0,
+        "begin_hr": 0,
+        "capture_hr": 0,
+        "copy_hr": 0,
+        "restore_hr": 0,
+        "end_hr": 0,
+        "target_format": 25,
+        "actual_source_samples": 2,
+        "readback_hr": 0,
+        "center_pixel_raw": 40333,
+        "reason": "mixed_source_ready",
+        "private_draws": 2
+      },
+      {
+        "samples": 4,
+        "precision16": false,
+        "caps_hr": 0,
+        "create_hr": 0,
+        "upload_hr": 0,
+        "begin_hr": 0,
+        "capture_hr": 0,
+        "copy_hr": 0,
+        "restore_hr": 0,
+        "end_hr": 0,
+        "target_format": 21,
+        "actual_source_samples": 4,
+        "readback_hr": 0,
+        "center_pixel_raw": 4281885804,
+        "reason": "mixed_source_ready",
+        "private_draws": 2
+      },
+      {
+        "samples": 4,
+        "precision16": true,
+        "caps_hr": 0,
+        "create_hr": 0,
+        "upload_hr": 0,
+        "begin_hr": 0,
+        "capture_hr": 0,
+        "copy_hr": 0,
+        "restore_hr": 0,
+        "end_hr": 0,
+        "target_format": 25,
+        "actual_source_samples": 4,
+        "readback_hr": 0,
+        "center_pixel_raw": 40333,
+        "reason": "mixed_source_ready",
+        "private_draws": 2
+      }
+    ],
+    "native_d3d8_sha256": "d61d6c890592e992804fb5a1ed5fc2ce3413177c9ee67f9babaf1d4955884bb4",
+    "successful_cases": 6,
+    "output_color_matches_non_msaa_control": true,
+    "synthetic_input": true,
+    "game_access": false,
+    "hidden_own_window": true
+  },
+  "runtime_scope": {
+    "user_confirmed": "Tata/Kia,16bit targets,Turkey3/France1/ItalyS1 vegetation",
+    "new_families_courses_and_game_msaa": "PENDING_USER",
+    "native_driver_api": "6/6 actual production capture +synthetic output readback"
+  },
+  "frozen_renderer_tree": "e33386bcf682db6983380c499e4928726c758fe0"
+}

@@ -216,7 +216,7 @@ void shrub_category_and_independence(){
             CHECK(g.asset().points.size()==197680&&s.asset().points.size()==169932);
             const auto creates=multi.creates;
             CHECK(g.select_course("RaceTest/France1",multi)&&multi.creates==creates);
-            CHECK(!g.select_course("RaceTest/Turkey1",multi)&&!g.select_course("RaceTest/Italy_S1",multi));
+            CHECK(!g.select_course("RaceTest/Unknown",multi)&&!g.select_course("RaceTest/Italy_S1",multi));
             CHECK(g.select_course("RaceTest/ItalyS1",multi)&&s.select_course("RaceTest/ItalyS1",multi));
             CHECK(g.asset().points.size()==125524&&s.asset().points.size()==75253);
             g.proof.frame=1;g.before_reset();CHECK(!g.active()&&g.proof.frame==UINT64_MAX);
@@ -224,7 +224,14 @@ void shrub_category_and_independence(){
             g.after_reset(multi,true,true);CHECK(g.active()&&g.asset().points.size()==125524);
             CHECK(g.select_course("RaceTest/Turkey3",multi)&&g.asset().points.size()==64900);
             CHECK(s.select_course("RaceTest/Turkey3",multi)&&s.asset().points.size()==146498);
-            std::cout<<"Canonical 3-course admission, switch/restart/reset, unchanged legacy counts: PASS\n";
+            for(const auto& contract:kGrassSources){
+                CHECK(g.select_course(contract.course,multi)&&s.select_course(contract.course,multi));
+                CHECK(g.asset().points.size()<=300000&&s.asset().points.size()<=300000);
+                const auto count=multi.creates;CHECK(g.select_course(contract.course,multi)&&multi.creates==count);
+                g.before_reset();g.after_reset(multi,false,true);CHECK(!g.active());
+                g.after_reset(multi,true,true);CHECK(g.active());
+            }
+            std::cout<<"Canonical 36-course admission, switch/restart/reset, unchanged legacy counts: PASS\n";
         }else std::cout<<"Multi-course private asset integration: NOT_PERFORMED (MRR_GRASS_MULTI_DIRECTORY)\n";
     }else std::cout<<"Shrub private asset integration: NOT_PERFORMED (set MRR_SHRUB_TEST_ASSET and MRR_GRASS_TEST_ASSET)\n";
     CHECK(DeleteFileW(ini));

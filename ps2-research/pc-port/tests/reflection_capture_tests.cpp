@@ -121,7 +121,12 @@ struct Native final:MockDeviceBase {
         if(creates==null_create){*p=nullptr;return S_OK;}Texture* value=successful_creates++%2==0?&copied:&mixed;
         value->refs=1;value->surface.desc.Width=w;value->surface.desc.Height=h;value->surface.desc.Format=format;*p=value;return S_OK;}
     HRESULT STDMETHODCALLTYPE CopyRects(IDirect3DSurface8* src,const RECT* rect,UINT n,IDirect3DSurface8* dst,const POINT* point) override{
-        CHECK(src==&back&&dst==&copied.surface&&n==1&&rect&&point);++copies;return copy_hr;}
+        CHECK(src==&back&&dst==&copied.surface);
+        if(back.desc.MultiSampleType==D3DMULTISAMPLE_NONE)CHECK(n==1&&rect&&point);
+        else {CHECK(n==0&&!rect&&!point);CHECK(dst->GetDesc(&copied.surface.desc)==S_OK);
+            CHECK(copied.surface.desc.Width==back.desc.Width&&copied.surface.desc.Height==back.desc.Height);
+            CHECK(copied.surface.desc.Format==back.desc.Format&&copied.surface.desc.MultiSampleType==D3DMULTISAMPLE_NONE);}
+        ++copies;return copy_hr;}
     HRESULT STDMETHODCALLTYPE DrawPrimitiveUP(D3DPRIMITIVETYPE p,UINT n,const void* data,UINT bytes) override{
         CHECK(p==D3DPT_TRIANGLESTRIP&&n==2&&bytes==28&&target==&mixed.surface&&z==nullptr&&data);++draws;
         if(stream)stream->Release();stream=nullptr;stride=0;return draw_hr;}
@@ -183,6 +188,21 @@ void gpu_tests(){
     {Native n;Original original(n);MixedReflectionCapture c;n.fail_set=1;n.fail_set_again=2;
         CHECK(FAILED(c.capture(n,&n.env,10,false)));CHECK(c.pending()&&!c.ready_texture(10));
         n.fail_set=n.fail_set_again=0;CHECK(c.repair(n)==S_OK);CHECK(!c.pending());original.check(n);}
+    for(auto samples:{D3DMULTISAMPLE_2_SAMPLES,D3DMULTISAMPLE_4_SAMPLES})for(bool precision:{false,true}){
+        Native n;n.caps.TextureCaps=0;n.back.desc.MultiSampleType=samples;Original original(n);
+        MixedReflectionCapture c;c.prefer_16bit(precision);
+        CHECK(c.capture(n,&n.env,1,false)==S_OK);CHECK(n.copies==1&&n.draws==2);
+        CHECK(c.last_status().source_multisample==samples);
+        CHECK(c.last_status().target_format==(precision?D3DFMT_A1R5G5B5:D3DFMT_A8R8G8B8));original.check(n);
+        CHECK(c.capture(n,&n.env,1,false)==S_OK&&n.copies==1);
+        c.release();CHECK(c.capture(n,&n.env,2,false)==S_OK);original.check(n);
+    }
+    {Native n;n.caps.TextureCaps=0;n.back.desc.MultiSampleType=D3DMULTISAMPLE_4_SAMPLES;
+        n.copy_hr=D3DERR_INVALIDCALL;Original original(n);MixedReflectionCapture c;
+        CHECK(FAILED(c.capture(n,&n.env,1,false))&&n.copies==1&&n.draws==0&&n.sets==0);
+        CHECK(FAILED(c.capture(n,&n.env,2,false))&&n.copies==1);original.check(n);
+        c.release();n.copy_hr=S_OK;CHECK(c.capture(n,&n.env,3,false)==S_OK);original.check(n);
+    }
     {Native n;MixedReflectionCapture c;n.back.desc.MultiSampleType=D3DMULTISAMPLE_2_SAMPLES;
         CHECK(FAILED(c.capture(n,&n.env,1,false)));CHECK(n.copies==0&&n.draws==0&&n.creates==0);}
     {Native n;MixedReflectionCapture c;n.back.desc.Format=D3DFMT_R5G6B5;

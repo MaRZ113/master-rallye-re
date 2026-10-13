@@ -76,7 +76,7 @@ ReflectionIdentity reflection_identity_for_hash(const ReflectionSnapshot& s, std
         result.reason = "native_material_stage_mismatch";
     else { result.accepted = true; result.vehicle=material->vehicle;
         result.reason = material==&kReflectionMaterials[0]?"exact_tata_bonnet_native_opaque_environment_material":
-            "exact_kia_bonnet_native_opaque_environment_material"; }
+            "exact_verified_body_native_opaque_environment_material"; }
     return result;
 }
 
@@ -206,9 +206,9 @@ ReflectionIdentity ReflectionPilot::classify(const ReflectionSnapshot& s, uint64
     try {
         if (!s.geometry) return classify_reflection(s,generation);
         const auto& g=*s.geometry;
-        const std::array<uint64_t,14> key={g.device_id,g.reset_generation,g.vertex_resource,g.index_resource,
+        const std::array<uint64_t,15> key={g.device_id,g.reset_generation,g.vertex_resource,g.index_resource,
             g.vertex_generation,g.index_generation,g.vertex_revision,g.index_revision,g.start_index,
-            g.base_vertex,g.min_index,g.vertex_count,g.index_format,g.vertex_byte_offset};
+            g.base_vertex,g.min_index,g.vertex_count,g.index_format,g.vertex_byte_offset,g.primitive_count};
         for (const auto& entry:geometry_cache_) if(entry.valid&&entry.key==key)
             return reflection_identity_for_hash(s,entry.digest,generation,expanded_);
         ++geometry_evaluations_;
@@ -220,9 +220,11 @@ ReflectionIdentity ReflectionPilot::classify(const ReflectionSnapshot& s, uint64
 }
 
 bool ReflectionPilot::claim_diagnostic(bool applied, const char* vehicle) noexcept {
-    const uint8_t bit = (applied ? 2u : 1u) << (std::strcmp(vehicle,"KiaSportage")==0?2:0);
-    if (!diagnostics_ || (logged_ & bit)) return false;
-    logged_ |= bit;
+    size_t index=kReflectionMaterials.size();
+    for(size_t i=0;i<kReflectionMaterials.size();++i)if(!std::strcmp(vehicle,kReflectionMaterials[i].vehicle)){index=i;break;}
+    const uint8_t bit=applied?2u:1u;
+    if(!diagnostics_||(logged_[index]&bit))return false;
+    logged_[index]|=bit;
     return true;
 }
 

@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "evidence": "NATIVE_TEST_PERFORMANCE_NOT_GAME_FPS",
+  "elapsed_seconds": 1.103964100126177,
+  "sampled_peak_working_set_bytes": 125501440,
+  "returncode": 0,
+  "stdout": "Canonical private grass asset/upload/reset: PASS\r\nBoth canonical category assets, isolation, hash rejection, reset: PASS\r\nCanonical 36-course admission, switch/restart/reset, unchanged legacy counts: PASS\r\nGrass source format, float32 camera/fade, billboard preview, defaults, lifecycle: PASS\r\n",
+  "stderr": "",
+  "scope": "All72 assets, category isolation,36course switches andReset in native mocks",
+  "runtime_menu_race_fps": "PENDING_USER",
+  "per_frame_disk_reads": 0
+}

@@ -1,0 +1,177 @@
+{
+  "course": "SPAIN_W",
+  "psm_resource": "\\TNG\\DATAPSM\\COURSE\\SPAIN_W\\SPAIN_W.PSM",
+  "psm_sha256": "5e4f5bf41c8443d85ae74275b03c8e6a549611d6875014ff293057238ff15d6d",
+  "categories": {
+    "grass": {
+      "eligible_triangles": 3254,
+      "strict_matched_triangles": 3250,
+      "excluded_nonexact_triangles": 4,
+      "point_count": 70030,
+      "generated_xyz_sha256": "fc32c10f7b91a9856beb28aa80745f61c0bd0bb0a8280533f1a3e04475d66eca",
+      "maximum_abs_hash": 215273120.0,
+      "artifact": {
+        "size": 909768,
+        "sha256": "018b17029800efe2e01c750a013d48dc64ccc9733dba3075d581f41f7efb0b26",
+        "point_count": 70030,
+        "bin_count": 4074,
+        "bin_world_size": 8.0,
+        "texture_width": 32,
+        "texture_height": 32,
+        "texture_bytes": 4096,
+        "psm_sha256": "5e4f5bf41c8443d85ae74275b03c8e6a549611d6875014ff293057238ff15d6d",
+        "gxi_sha256": "519908ac79ca57591a8a38d3629286e25ffc51539705342864a5056785427eb6",
+        "pc_dx_sha256": "109644f89549d35dcdac92d63881815010266e2a2d1dc6e89d112e02cdb63424",
+        "bounds": {
+          "min": [
+            -174.3922576904297,
+            14.891969680786133,
+            -363.1657409667969
+          ],
+          "max": [
+            2814.273681640625,
+            62.48659896850586,
+            814.357421875
+          ]
+        },
+        "layout": {
+          "header_size": 128,
+          "bin_record_size": 16,
+          "point_record_size": 12,
+          "bin_table_offset": 128,
+          "point_offset": 65312,
+          "texture_offset": 905672
+        }
+      },
+      "filename": "SpainWGrass.ps2grass",
+      "status": "VERIFIED_PRIVATE_ASSET",
+      "gxi_sha256": "519908ac79ca57591a8a38d3629286e25ffc51539705342864a5056785427eb6"
+    },
+    "shrubs": {
+      "eligible_triangles": 1393,
+      "strict_matched_triangles": 1392,
+      "excluded_nonexact_triangles": 1,
+      "point_count": 88613,
+      "generated_xyz_sha256": "cfae6a58deafed3be6d03d8686cf3112572f8994ac55f14b5ec4117dea1b752a",
+      "maximum_abs_hash": 206616480.0,
+      "artifact": {
+        "size": 1122476,
+        "sha256": "8ccab834b28fa8090dda13866260b1dd2af222319597db95783126b71185169e",
+        "point_count": 88613,
+        "bin_count": 3431,
+        "bin_world_size": 8.0,
+        "texture_width": 32,
+        "texture_height": 32,
+        "texture_bytes": 4096,
+        "psm_sha256": "5e4f5bf41c8443d85ae74275b03c8e6a549611d6875014ff293057238ff15d6d",
+        "gxi_sha256": "2e4178614fbcbb3dbc3eaf5931001d2a566e76d59ef6adf7e66cd372556d40e9",
+        "pc_dx_sha256": "109644f89549d35dcdac92d63881815010266e2a2d1dc6e89d112e02cdb63424",
+        "bounds": {
+          "min": [
+            -34.64919662475586,
+            13.745458602905273,
+            -368.7120666503906
+          ],
+          "max": [
+            2733.469482421875,
+            70.9886474609375,
+            871.104248046875
+          ]
+        },
+        "layout": {
+          "header_size": 128,
+          "bin_record_size": 16,
+          "point_record_size": 12,
+          "bin_table_offset": 128,
+          "point_offset": 55024,
+          "texture_offset": 1118380
+        }
+      },
+      "filename": "SpainWShrubs.ps2grass",
+      "status": "VERIFIED_PRIVATE_ASSET",
+      "gxi_sha256": "2e4178614fbcbb3dbc3eaf5931001d2a566e76d59ef6adf7e66cd372556d40e9"
+    }
+  },
+  "evidence_grade": "CONFIRMED_BY_BYTES",
+  "runtime_validation": "NOT_PERFORMED",
+  "native_certificate_id": "RaceTest/SpainW",
+  "asset_stem": "SpainW",
+  "pc_scene": "DataScene/RaceTest/SpainW.xml",
+  "pc_scene_sha256": "701ee0818edbf13c1d120d4bda8ff06292fe61bdee0a29321ade34d4a7b2e1ed",
+  "pc_dx_path": "DataGx\\Course\\Spain_W\\spain_w.dx",
+  "pc_dx_sha256": "109644f89549d35dcdac92d63881815010266e2a2d1dc6e89d112e02cdb63424",
+  "pc_txt_sha256": "5fce772e2ecfd16ef771dd647db5bef7b55c34296355cd69e85c60fbfc77f9bf",
+  "alignment": {
+    "transform": "IDENTITY_IN_SOURCE_FRAME; NO_FIT",
+    "independent_anchor": "ORDERED_RACELINE",
+    "route_residual": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 202,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "ps2_route_sha256": "fc439bc40aaa64bb257c870220154082fcbd2a4751a72f53380e87cd5ba984ca",
+    "pc_route_sha256": "701ee0818edbf13c1d120d4bda8ff06292fe61bdee0a29321ade34d4a7b2e1ed",
+    "authored_landscape_matrices": [
+      [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    ],
+    "runtime_transform": "UNKNOWN",
+    "evidence_grade": "CONFIRMED_BY_BYTES"
+  },
+  "pc_triangles": 58738,
+  "pc_draws": 545,
+  "status": "VERIFIED_PAIR"
+}

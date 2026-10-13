@@ -1,0 +1,68 @@
+{
+  "schema": "master-rallye.ps2-port.msaa-feasibility.v1",
+  "audit_kind": "SOURCE_DOCUMENTATION_PLUS_NATIVE_DRIVER_SMOKE",
+  "runtime_validation": "NATIVE_DRIVER_API_CONFIRMED_GAME_RUNTIME_PENDING",
+  "native_d3d8": {
+    "path": "C:/Windows/SysWOW64/d3d8.dll",
+    "version": "10.0.26100.9278",
+    "sha256": "d61d6c890592e992804fb5a1ed5fc2ce3413177c9ee67f9babaf1d4955884bb4"
+  },
+  "configurations": [
+    {
+      "source_samples": 0,
+      "composition_precision": [
+        0,
+        1
+      ],
+      "status": "EXISTING_RUNTIME_PROVEN_BY_USER",
+      "copy": "EXISTING_SINGLE_RECT_COPY"
+    },
+    {
+      "source_samples": 2,
+      "composition_precision": [
+        0,
+        1
+      ],
+      "status": "CURRENT_NATIVE_DRIVER_API_PASS_GAME_AB_PENDING",
+      "copy": "SAME_FORMAT_EXACT_SIZE_WHOLE_SURFACE_COPYRECTS"
+    },
+    {
+      "source_samples": 4,
+      "composition_precision": [
+        0,
+        1
+      ],
+      "status": "CURRENT_NATIVE_DRIVER_API_PASS_GAME_AB_PENDING",
+      "copy": "SAME_FORMAT_EXACT_SIZE_WHOLE_SURFACE_COPYRECTS"
+    },
+    {
+      "source_samples": "OTHER",
+      "status": "UNSUPPORTED_IN_BOUNDED_PROPOSAL"
+    },
+    {
+      "source_samples": [
+        2,
+        4
+      ],
+      "condition": "PADDED_OR_SQUARE_DESTINATION_DIFFERS_FROM_SOURCE",
+      "status": "EXPLICITLY_UNSUPPORTED_IN_MINIMAL_PATH"
+    }
+  ],
+  "required_success_evidence": [
+    "EFFECTIVE_DEVICE_SAMPLE_COUNT",
+    "MATCHING_SOURCE_DESTINATION_FORMAT_AND_DIMENSIONS",
+    "NATIVE_COPYRECTS_SUCCESS",
+    "REFLECTION_SOURCE_READY_FOR_CURRENT_FRAME",
+    "NATIVE_STATE_RESTORED"
+  ],
+  "excluded_alternatives": [
+    "D3D9_STRETCHRECT_ON_D3D8_INTERFACE",
+    "GETFRONTBUFFER_PREVIOUS_PRESENT_SUBSTITUTION",
+    "SILENT_MSAA_DISABLE",
+    "FORCED_SCENE_BREAK",
+    "CPU_FULL_FRAME_READBACK",
+    "DEPTH_BUFFER_READ_OR_FORMAT_CHANGE"
+  ],
+  "proof_boundary": "Production inside-scene capture at640x480 on currentnative driver, NONE/2x/4x with16/32bit output; uniform synthetic pixel readback verified. Full-game A/B,otherdrivers/resolutions remain pending.",
+  "native_test_report": "native-smoke-results.json"
+}

@@ -1,0 +1,177 @@
+{
+  "course": "ITALY_M2",
+  "psm_resource": "\\TNG\\DATAPSM\\COURSE\\ITALY_M2\\ITALY_M2.PSM",
+  "psm_sha256": "779cd74d7704e2383183eb185243baa498e4f607e01551ebc68c27b5512a0cfc",
+  "categories": {
+    "grass": {
+      "eligible_triangles": 5222,
+      "strict_matched_triangles": 5211,
+      "excluded_nonexact_triangles": 11,
+      "point_count": 226946,
+      "generated_xyz_sha256": "2c74d7a6bfdccc4d74c54b0b4f093d58654c327c60e3ba0fab05ee5b7f8dc0e7",
+      "maximum_abs_hash": 334358592.0,
+      "artifact": {
+        "size": 2883368,
+        "sha256": "4380655de546d6a48759b9c00131272533ae5745382eb92748db88035729859f",
+        "point_count": 226946,
+        "bin_count": 9737,
+        "bin_world_size": 8.0,
+        "texture_width": 32,
+        "texture_height": 32,
+        "texture_bytes": 4096,
+        "psm_sha256": "779cd74d7704e2383183eb185243baa498e4f607e01551ebc68c27b5512a0cfc",
+        "gxi_sha256": "519908ac79ca57591a8a38d3629286e25ffc51539705342864a5056785427eb6",
+        "pc_dx_sha256": "f2ce72188a183c3a5a267c5bfbc7eebb3a8992b357d09eca51b9047a60893291",
+        "bounds": {
+          "min": [
+            -1151.85546875,
+            -98.17816162109375,
+            -676.8834228515625
+          ],
+          "max": [
+            3509.910400390625,
+            99.28822326660156,
+            656.0853271484375
+          ]
+        },
+        "layout": {
+          "header_size": 128,
+          "bin_record_size": 16,
+          "point_record_size": 12,
+          "bin_table_offset": 128,
+          "point_offset": 155920,
+          "texture_offset": 2879272
+        }
+      },
+      "filename": "ItalyM2Grass.ps2grass",
+      "status": "VERIFIED_PRIVATE_ASSET",
+      "gxi_sha256": "519908ac79ca57591a8a38d3629286e25ffc51539705342864a5056785427eb6"
+    },
+    "shrubs": {
+      "eligible_triangles": 2631,
+      "strict_matched_triangles": 2614,
+      "excluded_nonexact_triangles": 17,
+      "point_count": 192383,
+      "generated_xyz_sha256": "fa9191f38a91c151720bc19a25c67a62de2c73bd297e2938139925dde7e2f717",
+      "maximum_abs_hash": 299784864.0,
+      "artifact": {
+        "size": 2440436,
+        "sha256": "a3f9e824608df20605f7123f597159ecbf8bf40ede95da6f149fe47ad37a9549",
+        "point_count": 192383,
+        "bin_count": 7976,
+        "bin_world_size": 8.0,
+        "texture_width": 32,
+        "texture_height": 32,
+        "texture_bytes": 4096,
+        "psm_sha256": "779cd74d7704e2383183eb185243baa498e4f607e01551ebc68c27b5512a0cfc",
+        "gxi_sha256": "2e4178614fbcbb3dbc3eaf5931001d2a566e76d59ef6adf7e66cd372556d40e9",
+        "pc_dx_sha256": "f2ce72188a183c3a5a267c5bfbc7eebb3a8992b357d09eca51b9047a60893291",
+        "bounds": {
+          "min": [
+            -1166.5692138671875,
+            -98.10028839111328,
+            -675.7738037109375
+          ],
+          "max": [
+            3492.449951171875,
+            97.82343292236328,
+            648.90478515625
+          ]
+        },
+        "layout": {
+          "header_size": 128,
+          "bin_record_size": 16,
+          "point_record_size": 12,
+          "bin_table_offset": 128,
+          "point_offset": 127744,
+          "texture_offset": 2436340
+        }
+      },
+      "filename": "ItalyM2Shrubs.ps2grass",
+      "status": "VERIFIED_PRIVATE_ASSET",
+      "gxi_sha256": "2e4178614fbcbb3dbc3eaf5931001d2a566e76d59ef6adf7e66cd372556d40e9"
+    }
+  },
+  "evidence_grade": "CONFIRMED_BY_BYTES",
+  "runtime_validation": "NOT_PERFORMED",
+  "native_certificate_id": "RaceTest/ItalyM2",
+  "asset_stem": "ItalyM2",
+  "pc_scene": "DataScene/RaceTest/ItalyM2.xml",
+  "pc_scene_sha256": "bd7cfd5d92e7310d72bafd62883802a7962cc881cefd35b48dad49675f1c2c47",
+  "pc_dx_path": "DataGx\\Course\\Italy_M2\\italy_m2.dx",
+  "pc_dx_sha256": "f2ce72188a183c3a5a267c5bfbc7eebb3a8992b357d09eca51b9047a60893291",
+  "pc_txt_sha256": "832ed251ffc05ee037497bd86e81a46201670d45917243c9818e7b7a465f7ced",
+  "alignment": {
+    "transform": "IDENTITY_IN_SOURCE_FRAME; NO_FIT",
+    "independent_anchor": "ORDERED_RACELINE",
+    "route_residual": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 386,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "ps2_route_sha256": "133f3872bc08251fdc7d6f1f275421b5ac7f00ee601d739589034a7f46681ec3",
+    "pc_route_sha256": "bd7cfd5d92e7310d72bafd62883802a7962cc881cefd35b48dad49675f1c2c47",
+    "authored_landscape_matrices": [
+      [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    ],
+    "runtime_transform": "UNKNOWN",
+    "evidence_grade": "CONFIRMED_BY_BYTES"
+  },
+  "pc_triangles": 56223,
+  "pc_draws": 1126,
+  "status": "VERIFIED_PAIR"
+}

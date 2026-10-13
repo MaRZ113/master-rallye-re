@@ -1,0 +1,177 @@
+{
+  "course": "SPAIN_W_FLIP",
+  "psm_resource": "\\TNG\\DATAPSM\\COURSE\\SPAIN_W_FLIP\\SPAIN_W_FLIP.PSM",
+  "psm_sha256": "dfe5a3dc208c5d5c37f6fa7105e59592f0aa4ca26f80ff66f93a4c7c2ba53c9b",
+  "categories": {
+    "grass": {
+      "eligible_triangles": 3254,
+      "strict_matched_triangles": 3250,
+      "excluded_nonexact_triangles": 4,
+      "point_count": 70030,
+      "generated_xyz_sha256": "ca13a8a4632e96358bdf0080dd73ac7673452fb7f75e943f5b17af194fbc6f13",
+      "maximum_abs_hash": 215273120.0,
+      "artifact": {
+        "size": 909768,
+        "sha256": "47724697e39a1905c22669e1c97c0de31e0a59ee6791a410463aabc724dac3c0",
+        "point_count": 70030,
+        "bin_count": 4074,
+        "bin_world_size": 8.0,
+        "texture_width": 32,
+        "texture_height": 32,
+        "texture_bytes": 4096,
+        "psm_sha256": "dfe5a3dc208c5d5c37f6fa7105e59592f0aa4ca26f80ff66f93a4c7c2ba53c9b",
+        "gxi_sha256": "519908ac79ca57591a8a38d3629286e25ffc51539705342864a5056785427eb6",
+        "pc_dx_sha256": "74132a218e36a09543fee55993a99575155461fb249a9dd4795d5d3764fe1729",
+        "bounds": {
+          "min": [
+            -174.3922576904297,
+            14.891969680786133,
+            -363.1657409667969
+          ],
+          "max": [
+            2814.273681640625,
+            62.48659896850586,
+            814.357421875
+          ]
+        },
+        "layout": {
+          "header_size": 128,
+          "bin_record_size": 16,
+          "point_record_size": 12,
+          "bin_table_offset": 128,
+          "point_offset": 65312,
+          "texture_offset": 905672
+        }
+      },
+      "filename": "SpainWFlipGrass.ps2grass",
+      "status": "VERIFIED_PRIVATE_ASSET",
+      "gxi_sha256": "519908ac79ca57591a8a38d3629286e25ffc51539705342864a5056785427eb6"
+    },
+    "shrubs": {
+      "eligible_triangles": 1393,
+      "strict_matched_triangles": 1392,
+      "excluded_nonexact_triangles": 1,
+      "point_count": 88613,
+      "generated_xyz_sha256": "206041b4d94a187da4accff466e79383b4a0026847bbbc6ab4b091ebc7a70158",
+      "maximum_abs_hash": 206616480.0,
+      "artifact": {
+        "size": 1122476,
+        "sha256": "5e4eab517a757fd136b487d50e3956c5a3075b304259920f2cec8403963abb53",
+        "point_count": 88613,
+        "bin_count": 3431,
+        "bin_world_size": 8.0,
+        "texture_width": 32,
+        "texture_height": 32,
+        "texture_bytes": 4096,
+        "psm_sha256": "dfe5a3dc208c5d5c37f6fa7105e59592f0aa4ca26f80ff66f93a4c7c2ba53c9b",
+        "gxi_sha256": "2e4178614fbcbb3dbc3eaf5931001d2a566e76d59ef6adf7e66cd372556d40e9",
+        "pc_dx_sha256": "74132a218e36a09543fee55993a99575155461fb249a9dd4795d5d3764fe1729",
+        "bounds": {
+          "min": [
+            -34.64919662475586,
+            13.745458602905273,
+            -368.7120666503906
+          ],
+          "max": [
+            2733.469482421875,
+            70.9886474609375,
+            871.104248046875
+          ]
+        },
+        "layout": {
+          "header_size": 128,
+          "bin_record_size": 16,
+          "point_record_size": 12,
+          "bin_table_offset": 128,
+          "point_offset": 55024,
+          "texture_offset": 1118380
+        }
+      },
+      "filename": "SpainWFlipShrubs.ps2grass",
+      "status": "VERIFIED_PRIVATE_ASSET",
+      "gxi_sha256": "2e4178614fbcbb3dbc3eaf5931001d2a566e76d59ef6adf7e66cd372556d40e9"
+    }
+  },
+  "evidence_grade": "CONFIRMED_BY_BYTES",
+  "runtime_validation": "NOT_PERFORMED",
+  "native_certificate_id": "RaceTest/SpainWFlip",
+  "asset_stem": "SpainWFlip",
+  "pc_scene": "DataScene/RaceTest/SpainWFlip.xml",
+  "pc_scene_sha256": "edeeb559631dcb07cfe0251abe06dd08e5a52bb2160c4af2e69acc2865125cdd",
+  "pc_dx_path": "DataGx\\Course\\Spain_W_flip\\Spain_W_flip.dx",
+  "pc_dx_sha256": "74132a218e36a09543fee55993a99575155461fb249a9dd4795d5d3764fe1729",
+  "pc_txt_sha256": "30975e27f450cb00bee69d58f867a5ec62faeb2bec811162e0ea806357b99886",
+  "alignment": {
+    "transform": "IDENTITY_IN_SOURCE_FRAME; NO_FIT",
+    "independent_anchor": "ORDERED_RACELINE",
+    "route_residual": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 202,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "ps2_route_sha256": "3f608f088959a055dafae017800fa5fc73d00bbb44f99340848b66338a188203",
+    "pc_route_sha256": "edeeb559631dcb07cfe0251abe06dd08e5a52bb2160c4af2e69acc2865125cdd",
+    "authored_landscape_matrices": [
+      [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    ],
+    "runtime_transform": "UNKNOWN",
+    "evidence_grade": "CONFIRMED_BY_BYTES"
+  },
+  "pc_triangles": 58738,
+  "pc_draws": 545,
+  "status": "VERIFIED_PAIR"
+}

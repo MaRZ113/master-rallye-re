@@ -1,0 +1,177 @@
+{
+  "course": "TURKEY2",
+  "psm_resource": "\\TNG\\DATAPSM\\COURSE\\TURKEY2\\TURKEY2.PSM",
+  "psm_sha256": "80a2b1d8d1e5df771e57e1fe5753c711b75523d4e89fd14335745645446f28df",
+  "categories": {
+    "grass": {
+      "eligible_triangles": 2894,
+      "strict_matched_triangles": 2814,
+      "excluded_nonexact_triangles": 80,
+      "point_count": 79135,
+      "generated_xyz_sha256": "7118dcee7ed8ef88785060e7ef3cb54cd4b22184d9350f6d412b63f7d0c039fa",
+      "maximum_abs_hash": 135438176.0,
+      "artifact": {
+        "size": 1014292,
+        "sha256": "a96b3e1a4a0bc5a86cbc52bbbdade945070f016c071f47101b81bf047970c08c",
+        "point_count": 79135,
+        "bin_count": 3778,
+        "bin_world_size": 8.0,
+        "texture_width": 32,
+        "texture_height": 32,
+        "texture_bytes": 4096,
+        "psm_sha256": "80a2b1d8d1e5df771e57e1fe5753c711b75523d4e89fd14335745645446f28df",
+        "gxi_sha256": "519908ac79ca57591a8a38d3629286e25ffc51539705342864a5056785427eb6",
+        "pc_dx_sha256": "0c238c152543a37f4b9c2a5f9e4573b70b868d263762679612031216d19e1194",
+        "bounds": {
+          "min": [
+            -127.88265991210938,
+            -25.331567764282227,
+            -486.96728515625
+          ],
+          "max": [
+            1714.65185546875,
+            77.74561309814453,
+            677.4180297851562
+          ]
+        },
+        "layout": {
+          "header_size": 128,
+          "bin_record_size": 16,
+          "point_record_size": 12,
+          "bin_table_offset": 128,
+          "point_offset": 60576,
+          "texture_offset": 1010196
+        }
+      },
+      "filename": "Turkey2Grass.ps2grass",
+      "status": "VERIFIED_PRIVATE_ASSET",
+      "gxi_sha256": "519908ac79ca57591a8a38d3629286e25ffc51539705342864a5056785427eb6"
+    },
+    "shrubs": {
+      "eligible_triangles": 2193,
+      "strict_matched_triangles": 1961,
+      "excluded_nonexact_triangles": 232,
+      "point_count": 72131,
+      "generated_xyz_sha256": "788e2c26bee02b8451abce8fd78465dbf4cb7075fe3c9f7c9af47986b78ab7d5",
+      "maximum_abs_hash": 142510448.0,
+      "artifact": {
+        "size": 927236,
+        "sha256": "6261249501192bad19132aaaec4a9dd580eb607cf2fa914373812ee9bdef2f24",
+        "point_count": 72131,
+        "bin_count": 3590,
+        "bin_world_size": 8.0,
+        "texture_width": 32,
+        "texture_height": 32,
+        "texture_bytes": 4096,
+        "psm_sha256": "80a2b1d8d1e5df771e57e1fe5753c711b75523d4e89fd14335745645446f28df",
+        "gxi_sha256": "2e4178614fbcbb3dbc3eaf5931001d2a566e76d59ef6adf7e66cd372556d40e9",
+        "pc_dx_sha256": "0c238c152543a37f4b9c2a5f9e4573b70b868d263762679612031216d19e1194",
+        "bounds": {
+          "min": [
+            -142.79261779785156,
+            -22.492971420288086,
+            -459.0132751464844
+          ],
+          "max": [
+            1671.7659912109375,
+            105.73950958251953,
+            702.6287841796875
+          ]
+        },
+        "layout": {
+          "header_size": 128,
+          "bin_record_size": 16,
+          "point_record_size": 12,
+          "bin_table_offset": 128,
+          "point_offset": 57568,
+          "texture_offset": 923140
+        }
+      },
+      "filename": "Turkey2Shrubs.ps2grass",
+      "status": "VERIFIED_PRIVATE_ASSET",
+      "gxi_sha256": "2e4178614fbcbb3dbc3eaf5931001d2a566e76d59ef6adf7e66cd372556d40e9"
+    }
+  },
+  "evidence_grade": "CONFIRMED_BY_BYTES",
+  "runtime_validation": "NOT_PERFORMED",
+  "native_certificate_id": "RaceTest/Turkey2",
+  "asset_stem": "Turkey2",
+  "pc_scene": "DataScene/RaceTest/Turkey2.xml",
+  "pc_scene_sha256": "da1c7362d7c7793f12cf69f60c9c7e597083f82a6f853fbeb87d98257464ad05",
+  "pc_dx_path": "DataGx\\Course\\Turkey2\\turkey2.dx",
+  "pc_dx_sha256": "0c238c152543a37f4b9c2a5f9e4573b70b868d263762679612031216d19e1194",
+  "pc_txt_sha256": "c62f6c8867cdafef7d7957057d800e60b0d29affb2c7ff340aee1e9cda44b348",
+  "alignment": {
+    "transform": "IDENTITY_IN_SOURCE_FRAME; NO_FIT",
+    "independent_anchor": "ORDERED_RACELINE",
+    "route_residual": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 349,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "ps2_route_sha256": "31f5b0fa50367ebf40fb2c7b333913a3c791085d9965112a633df46b33b3ed81",
+    "pc_route_sha256": "da1c7362d7c7793f12cf69f60c9c7e597083f82a6f853fbeb87d98257464ad05",
+    "authored_landscape_matrices": [
+      [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    ],
+    "runtime_transform": "UNKNOWN",
+    "evidence_grade": "CONFIRMED_BY_BYTES"
+  },
+  "pc_triangles": 51417,
+  "pc_draws": 1159,
+  "status": "VERIFIED_PAIR"
+}

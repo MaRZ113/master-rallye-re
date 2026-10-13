@@ -1,0 +1,177 @@
+{
+  "course": "ITALY_M1_FLIP",
+  "psm_resource": "\\TNG\\DATAPSM\\COURSE\\ITALY_M1_FLIP\\ITALY_M1_FLIP.PSM",
+  "psm_sha256": "5ae9dd2ec50c3c5e6d33cd8e610ad32a6ead0c5e686781756fb6fd76cd3cf0de",
+  "categories": {
+    "grass": {
+      "eligible_triangles": 3776,
+      "strict_matched_triangles": 3775,
+      "excluded_nonexact_triangles": 1,
+      "point_count": 130935,
+      "generated_xyz_sha256": "c225bb0ef785d1800a48b98ec3a3be61176384353cbfc3a5c24f5e124d65657b",
+      "maximum_abs_hash": 523627520.0,
+      "artifact": {
+        "size": 1684596,
+        "sha256": "0dc6630efc00ddeec8163e4c74b6e777ba6a35bb346e79518746d9023b2f78ae",
+        "point_count": 130935,
+        "bin_count": 6822,
+        "bin_world_size": 8.0,
+        "texture_width": 32,
+        "texture_height": 32,
+        "texture_bytes": 4096,
+        "psm_sha256": "5ae9dd2ec50c3c5e6d33cd8e610ad32a6ead0c5e686781756fb6fd76cd3cf0de",
+        "gxi_sha256": "519908ac79ca57591a8a38d3629286e25ffc51539705342864a5056785427eb6",
+        "pc_dx_sha256": "d1cd24612c31fa39a0de79313257cb4017605ac4b4cc3c484e661c2b65db8935",
+        "bounds": {
+          "min": [
+            -2871.782470703125,
+            -95.79386138916016,
+            -1174.778076171875
+          ],
+          "max": [
+            799.0291137695312,
+            205.0558319091797,
+            292.9373779296875
+          ]
+        },
+        "layout": {
+          "header_size": 128,
+          "bin_record_size": 16,
+          "point_record_size": 12,
+          "bin_table_offset": 128,
+          "point_offset": 109280,
+          "texture_offset": 1680500
+        }
+      },
+      "filename": "ItalyM1FlipGrass.ps2grass",
+      "status": "VERIFIED_PRIVATE_ASSET",
+      "gxi_sha256": "519908ac79ca57591a8a38d3629286e25ffc51539705342864a5056785427eb6"
+    },
+    "shrubs": {
+      "eligible_triangles": 1143,
+      "strict_matched_triangles": 1140,
+      "excluded_nonexact_triangles": 3,
+      "point_count": 88866,
+      "generated_xyz_sha256": "486af802629b489e97e24838b479e8c2be9420fbab5680783eb4cd2597bc3054",
+      "maximum_abs_hash": 395888960.0,
+      "artifact": {
+        "size": 1131208,
+        "sha256": "6f00d277e1ab8875de9e65e92a7a9e6c0d4912255f203b613d83e646e8ea0247",
+        "point_count": 88866,
+        "bin_count": 3787,
+        "bin_world_size": 8.0,
+        "texture_width": 32,
+        "texture_height": 32,
+        "texture_bytes": 4096,
+        "psm_sha256": "5ae9dd2ec50c3c5e6d33cd8e610ad32a6ead0c5e686781756fb6fd76cd3cf0de",
+        "gxi_sha256": "2e4178614fbcbb3dbc3eaf5931001d2a566e76d59ef6adf7e66cd372556d40e9",
+        "pc_dx_sha256": "d1cd24612c31fa39a0de79313257cb4017605ac4b4cc3c484e661c2b65db8935",
+        "bounds": {
+          "min": [
+            -2701.116455078125,
+            -94.02749633789062,
+            -1047.09814453125
+          ],
+          "max": [
+            919.3585205078125,
+            135.6913299560547,
+            180.94708251953125
+          ]
+        },
+        "layout": {
+          "header_size": 128,
+          "bin_record_size": 16,
+          "point_record_size": 12,
+          "bin_table_offset": 128,
+          "point_offset": 60720,
+          "texture_offset": 1127112
+        }
+      },
+      "filename": "ItalyM1FlipShrubs.ps2grass",
+      "status": "VERIFIED_PRIVATE_ASSET",
+      "gxi_sha256": "2e4178614fbcbb3dbc3eaf5931001d2a566e76d59ef6adf7e66cd372556d40e9"
+    }
+  },
+  "evidence_grade": "CONFIRMED_BY_BYTES",
+  "runtime_validation": "NOT_PERFORMED",
+  "native_certificate_id": "RaceTest/ItalyM1Flip",
+  "asset_stem": "ItalyM1Flip",
+  "pc_scene": "DataScene/RaceTest/ItalyM1Flip.xml",
+  "pc_scene_sha256": "da0908ea5dce8d1edb45c21349eb8c34121f71471f40bb4550d0b56daf1325ed",
+  "pc_dx_path": "DataGx\\Course\\Italy_M1_flip\\italy_m1_flip.dx",
+  "pc_dx_sha256": "d1cd24612c31fa39a0de79313257cb4017605ac4b4cc3c484e661c2b65db8935",
+  "pc_txt_sha256": "50ff23866d7295172bb9cd28e6521765fda64a2c11083681b06f21fbfd2f1f99",
+  "alignment": {
+    "transform": "IDENTITY_IN_SOURCE_FRAME; NO_FIT",
+    "independent_anchor": "ORDERED_RACELINE",
+    "route_residual": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 385,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "ps2_route_sha256": "83402e92b8092edb7c82e6b6dc9b4bd0490d9547a8882a864cfaa127094315ad",
+    "pc_route_sha256": "da0908ea5dce8d1edb45c21349eb8c34121f71471f40bb4550d0b56daf1325ed",
+    "authored_landscape_matrices": [
+      [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    ],
+    "runtime_transform": "UNKNOWN",
+    "evidence_grade": "CONFIRMED_BY_BYTES"
+  },
+  "pc_triangles": 51171,
+  "pc_draws": 1124,
+  "status": "VERIFIED_PAIR"
+}

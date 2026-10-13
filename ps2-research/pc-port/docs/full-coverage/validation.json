@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "builds": {
+    "baseline": {
+      "dll": "ps2-research/pc-port/dist/current/baseline/d3d8.dll",
+      "dll_sha256": "011dd9a94155d216d0c0dde28e0af97f5b72226aae5be97016f2d767ebdf7138",
+      "ctest": "PASS",
+      "proxy_verification": "PASS",
+      "build": "PASS",
+      "build_dll": "ps2-research/pc-port/.build/baseline/Release/d3d8.dll"
+    },
+    "ps2-enabled": {
+      "dll": "ps2-research/pc-port/dist/current/ps2-enabled/d3d8.dll",
+      "dll_sha256": "d8ca8584afe7285af7a087419b9af1c578e67aa8c7396345caa50e9db77bbdf4",
+      "ctest": "PASS",
+      "proxy_verification": "PASS",
+      "build": "PASS",
+      "build_dll": "ps2-research/pc-port/.build/ps2-enabled/Release/d3d8.dll"
+    }
+  },
+  "baseline_ctest": "24/24 PASS",
+  "ps2_ctest": "30/30 PASS (all72 privateassets configured)",
+  "port_unittest": "112/112 PASS",
+  "port_pytest": "112PASS,258subtestsPASS",
+  "research_unittest": "345/345 PASS",
+  "research_pytest": "345PASS,290subtestsPASS",
+  "vehicle_audit": "6PASS,174recordsubtests",
+  "course_audit": "8PASS",
+  "private_assets": "72/72 PASS",
+  "native_msaa": "6/6 PASS,uniform pixel readback identical toNONE",
+  "renderer_python": {
+    "passed": 188,
+    "import_errors": 1,
+    "dependency": "pefile unavailable; unchanged external environment blocker"
+  },
+  "compileall": "PASS",
+  "diff_check": "PASS",
+  "native_cache_performance": {
+    "schema_version": 1,
+    "evidence": "NATIVE_TEST_PERFORMANCE_NOT_GAME_FPS",
+    "elapsed_seconds": 1.103964100126177,
+    "sampled_peak_working_set_bytes": 125501440,
+    "returncode": 0,
+    "stdout": "Canonical private grass asset/upload/reset: PASS\r\nBoth canonical category assets, isolation, hash rejection, reset: PASS\r\nCanonical 36-course admission, switch/restart/reset, unchanged legacy counts: PASS\r\nGrass source format, float32 camera/fade, billboard preview, defaults, lifecycle: PASS\r\n",
+    "stderr": "",
+    "scope": "All72 assets, category isolation,36course switches andReset in native mocks",
+    "runtime_menu_race_fps": "PENDING_USER",
+    "per_frame_disk_reads": 0
+  },
+  "game_performance": "PENDING_USER",
+  "source_integrity": {
+    "elf_sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+    "pc_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "course_sdk_head": "4244fa0c4d878523c9947f54816bf377cdfb2589",
+    "course_sdk_dirty": false,
+    "original_renderer_dirty": false,
+    "renderer_tree": "e33386bcf682db6983380c499e4928726c758fe0",
+    "original_assets_written": false
+  }
+}

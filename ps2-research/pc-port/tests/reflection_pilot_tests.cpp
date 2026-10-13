@@ -119,6 +119,15 @@ void identity() {
      CHECK(!reflection_identity_for_hash(k,kKiaBonnetGeometrySha,0,true).accepted);
      k.texture_generations[1]=4;k.stages[1][0]=D3DTOP_SELECTARG1;
      CHECK(!reflection_identity_for_hash(k,kKiaBonnetGeometrySha,0,true).accepted);}
+    // Every verified source registry entry still requires current native ownership/state.
+    for(const auto& m:kReflectionMaterials){
+        DrawSnapshot full;auto state=valid(full);full.primitive_count=m.triangles;full.vertex_count=m.vertices;
+        CHECK(reflection_layout(m.triangles,m.vertices,true));
+        const auto accepted=reflection_identity_for_hash(state,m.geometry_sha,0,true);
+        CHECK(accepted.accepted&&!std::strcmp(accepted.vehicle,m.vehicle));
+        state.vehicle_body_verified=false;CHECK(!reflection_identity_for_hash(state,m.geometry_sha,0,true).accepted);
+        state.vehicle_body_verified=true;full.vertex_revision=0;CHECK(!reflection_identity_for_hash(state,m.geometry_sha,0,true).accepted);
+    }
     CHECK(reflection_identity_for_hash(s,kTataBonnetGeometrySha,0).accepted);
     CHECK(!reflection_identity_for_hash(s,"same texture, different geometry",0).accepted);
     CHECK(!classify_reflection(s,0).accepted); // No actual source geometry supplied by this synthetic fixture.

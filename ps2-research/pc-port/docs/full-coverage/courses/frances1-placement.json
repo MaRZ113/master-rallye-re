@@ -1,0 +1,177 @@
+{
+  "course": "FRANCES1",
+  "psm_resource": "\\TNG\\DATAPSM\\COURSE\\FRANCE_S1\\FRANCES1.PSM",
+  "psm_sha256": "c475ec2e26a1085714acae7d64ef30df0f0e0ec0d564c0e2df0a02c0a6404bac",
+  "categories": {
+    "grass": {
+      "eligible_triangles": 2901,
+      "strict_matched_triangles": 2900,
+      "excluded_nonexact_triangles": 1,
+      "point_count": 142461,
+      "generated_xyz_sha256": "76b6314c3632abbf59f8fc33ec0058f423b4d36778208557469ca93a10276747",
+      "maximum_abs_hash": 246077504.0,
+      "artifact": {
+        "size": 1824700,
+        "sha256": "57f6891c0367d900b95a5d24cefe5d21ba2d7b98b8ad0e31bdd9c738977b80bc",
+        "point_count": 142461,
+        "bin_count": 6934,
+        "bin_world_size": 8.0,
+        "texture_width": 32,
+        "texture_height": 32,
+        "texture_bytes": 4096,
+        "psm_sha256": "c475ec2e26a1085714acae7d64ef30df0f0e0ec0d564c0e2df0a02c0a6404bac",
+        "gxi_sha256": "519908ac79ca57591a8a38d3629286e25ffc51539705342864a5056785427eb6",
+        "pc_dx_sha256": "19d1c7073f610fe050f281c07188f52b263a430332c5a3519013a1ee1568b2d4",
+        "bounds": {
+          "min": [
+            -2918.067138671875,
+            -14.703405380249023,
+            -395.33154296875
+          ],
+          "max": [
+            984.3135986328125,
+            96.75447845458984,
+            1112.268798828125
+          ]
+        },
+        "layout": {
+          "header_size": 128,
+          "bin_record_size": 16,
+          "point_record_size": 12,
+          "bin_table_offset": 128,
+          "point_offset": 111072,
+          "texture_offset": 1820604
+        }
+      },
+      "filename": "FranceS1Grass.ps2grass",
+      "status": "VERIFIED_PRIVATE_ASSET",
+      "gxi_sha256": "519908ac79ca57591a8a38d3629286e25ffc51539705342864a5056785427eb6"
+    },
+    "shrubs": {
+      "eligible_triangles": 1718,
+      "strict_matched_triangles": 1717,
+      "excluded_nonexact_triangles": 1,
+      "point_count": 95088,
+      "generated_xyz_sha256": "f35c349bedfb8743b691cf5af97ddf8d6a7e4fd8fdcf355bb77c16c758cfe486",
+      "maximum_abs_hash": 211746544.0,
+      "artifact": {
+        "size": 1221264,
+        "sha256": "9c2e4d9a8ef700e3c32e73cee827d5dcdbff38b7a6c2c15bb1d2848edbc9f357",
+        "point_count": 95088,
+        "bin_count": 4749,
+        "bin_world_size": 8.0,
+        "texture_width": 32,
+        "texture_height": 32,
+        "texture_bytes": 4096,
+        "psm_sha256": "c475ec2e26a1085714acae7d64ef30df0f0e0ec0d564c0e2df0a02c0a6404bac",
+        "gxi_sha256": "2e4178614fbcbb3dbc3eaf5931001d2a566e76d59ef6adf7e66cd372556d40e9",
+        "pc_dx_sha256": "19d1c7073f610fe050f281c07188f52b263a430332c5a3519013a1ee1568b2d4",
+        "bounds": {
+          "min": [
+            -2911.2822265625,
+            -12.050078392028809,
+            -354.8924560546875
+          ],
+          "max": [
+            973.5743408203125,
+            96.78529357910156,
+            1112.136474609375
+          ]
+        },
+        "layout": {
+          "header_size": 128,
+          "bin_record_size": 16,
+          "point_record_size": 12,
+          "bin_table_offset": 128,
+          "point_offset": 76112,
+          "texture_offset": 1217168
+        }
+      },
+      "filename": "FranceS1Shrubs.ps2grass",
+      "status": "VERIFIED_PRIVATE_ASSET",
+      "gxi_sha256": "2e4178614fbcbb3dbc3eaf5931001d2a566e76d59ef6adf7e66cd372556d40e9"
+    }
+  },
+  "evidence_grade": "CONFIRMED_BY_BYTES",
+  "runtime_validation": "NOT_PERFORMED",
+  "native_certificate_id": "RaceTest/FranceS1",
+  "asset_stem": "FranceS1",
+  "pc_scene": "DataScene/RaceTest/FranceS1.xml",
+  "pc_scene_sha256": "8251fc03fb9e8e98745004b18527be9d7b1df168f36c142ec50ac9b481ac369e",
+  "pc_dx_path": "DataGx\\Course\\France_S1\\frances1.dx",
+  "pc_dx_sha256": "19d1c7073f610fe050f281c07188f52b263a430332c5a3519013a1ee1568b2d4",
+  "pc_txt_sha256": "62847f873b90a1a2a7740ae4057e6aa7eee7c1a293adbc6ea72ba067d269496c",
+  "alignment": {
+    "transform": "IDENTITY_IN_SOURCE_FRAME; NO_FIT",
+    "independent_anchor": "ORDERED_RACELINE",
+    "route_residual": {
+      "ps2_start": 0,
+      "pc_start": 0,
+      "compared_points": 388,
+      "max_distance": 0.0,
+      "mean_distance": 0.0,
+      "within_one_world_unit": 1.0
+    },
+    "authored_landscape_matrices": [
+      [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    ],
+    "ps2_route_sha256": "961d479907fd1ae23efa090a86e73f99d08397db6f1f7971a0f792aff7408f0a",
+    "pc_route_sha256": "8251fc03fb9e8e98745004b18527be9d7b1df168f36c142ec50ac9b481ac369e",
+    "runtime_transform": "UNKNOWN",
+    "evidence_grade": "CONFIRMED_BY_BYTES"
+  },
+  "pc_triangles": 67301,
+  "pc_draws": 1044,
+  "status": "VERIFIED_PAIR"
+}

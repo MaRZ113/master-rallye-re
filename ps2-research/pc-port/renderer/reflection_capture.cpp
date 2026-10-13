@@ -169,7 +169,10 @@ HRESULT MixedReflectionCapture::capture(IDirect3DDevice8& native,IDirect3DTextur
     if(!same_surface(current.value,back.value))return fail("not_main_backbuffer",D3DERR_INVALIDCALL);
     D3DSURFACE_DESC desc{};hr=current.value->GetDesc(&desc);if(FAILED(hr))return fail("surface_description_failed",hr);
     status_.source_format=desc.Format;status_.source_multisample=desc.MultiSampleType;
-    if(desc.MultiSampleType!=D3DMULTISAMPLE_NONE){permanently_unsupported_=true;return fail("multisample_copy_unsupported",D3DERR_NOTAVAILABLE);}
+    const bool multisampled=desc.MultiSampleType!=D3DMULTISAMPLE_NONE;
+    if(multisampled&&desc.MultiSampleType!=D3DMULTISAMPLE_2_SAMPLES&&desc.MultiSampleType!=D3DMULTISAMPLE_4_SAMPLES){
+        permanently_unsupported_=true;return fail("multisample_count_unsupported",D3DERR_NOTAVAILABLE);
+    }
     if(desc.Format!=D3DFMT_X8R8G8B8&&desc.Format!=D3DFMT_A8R8G8B8){permanently_unsupported_=true;return fail("source_format_unsupported",D3DERR_NOTAVAILABLE);}
     D3DCAPS8 caps{};hr=native.GetDeviceCaps(&caps);if(FAILED(hr))return fail("device_caps_failed",hr);
     const DWORD required_ops=D3DTEXOPCAPS_MODULATE|D3DTEXOPCAPS_SELECTARG2;
@@ -177,11 +180,20 @@ HRESULT MixedReflectionCapture::capture(IDirect3DDevice8& native,IDirect3DTextur
     if((caps.TextureOpCaps&required_ops)!=required_ops||!(caps.SrcBlendCaps&D3DPBLENDCAPS_ONE)||!(caps.DestBlendCaps&D3DPBLENDCAPS_ONE)||
        (caps.TextureFilterCaps&required_filters)!=required_filters){permanently_unsupported_=true;return fail("composition_caps_unsupported",D3DERR_NOTAVAILABLE);}
     ReflectionCaptureLayout layout{};if(!reflection_capture_layout(desc.Width,desc.Height,caps,layout)){permanently_unsupported_=true;return fail("copy_texture_budget_or_caps",D3DERR_NOTAVAILABLE);}
+    if(multisampled&&(layout.texture_width!=desc.Width||layout.texture_height!=desc.Height)){
+        permanently_unsupported_=true;return fail("multisample_copy_unsupported_padded_dimensions",D3DERR_NOTAVAILABLE);
+    }
     status_.layout=layout;hr=allocate(native,desc,layout);if(FAILED(hr))return fail("private_target_allocation_failed",hr);
     status_.target_format=target_format_;status_.precision_fallback=prefer_16bit_&&target_format_!=D3DFMT_A1R5G5B5;
     const RECT source{0,0,static_cast<LONG>(desc.Width),static_cast<LONG>(desc.Height)};const POINT destination{0,0};
-    hr=native.CopyRects(current.value,&source,1,copy_surface_,&destination);status_.copy_hr=hr;
-    if(FAILED(hr))return fail("native_copyrects_failed",hr);
+    // D3D8 has no StretchRect. Use a same-format whole-surface CopyRects
+    // resolve only for exact-sized NONE targets; no MSAA setting is changed.
+    hr=native.CopyRects(current.value,multisampled?nullptr:&source,multisampled?0:1,
+        copy_surface_,multisampled?nullptr:&destination);status_.copy_hr=hr;
+    if(FAILED(hr)){
+        if(multisampled&&(hr==D3DERR_INVALIDCALL||hr==D3DERR_NOTAVAILABLE))permanently_unsupported_=true;
+        return fail(multisampled?"native_msaa_resolve_unsupported":"native_copyrects_failed",hr);
+    }
     hr=transaction_.capture(native);if(FAILED(hr))return fail("native_state_capture_failed",hr);
     hr=transaction_.apply(native,mixed_surface_,env);
     if(SUCCEEDED(hr)){

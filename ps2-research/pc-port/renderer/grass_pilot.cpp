@@ -42,7 +42,7 @@ bool decode_grass_asset_layout(const uint8_t* p,size_t n,GrassAsset& out,GroundD
     if(kind!=GroundDetailKind::Grass&&kind!=GroundDetailKind::Shrubs)return false;
     if(!p||n<128||n>kGrassMaximumAssetBytes||std::memcmp(p,"PS2GRS01",8))return false;
     uint32_t f[6]{};std::memcpy(f,p+8,sizeof(f));
-    if(f[0]!=1||!f[1]||f[1]>250000||!f[2]||f[2]>65536||f[3]!=32||f[4]!=32||f[5]!=4096)return false;
+    if(f[0]!=1||!f[1]||f[1]>300000||!f[2]||f[2]>65536||f[3]!=32||f[4]!=32||f[5]!=4096)return false;
     const uint64_t expected=128ull+uint64_t(f[2])*16+uint64_t(f[1])*12+4096;
     if(expected!=n)return false;
     try{
