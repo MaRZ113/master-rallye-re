@@ -2,6 +2,7 @@
 from pathlib import Path
 import importlib.util
 import json
+import subprocess
 
 PORT=Path(__file__).resolve().parents[1]
 ROOT=PORT.parents[1]
@@ -28,6 +29,13 @@ def main():
             if p.stat().st_size<1024*1024:
                 members[h.relative_name(p)]=h.read_required(p)
     members['build-report.json']=(PORT/'dist/current/build-report.json').read_bytes()
+    members['release-provenance.json']=json.dumps({
+        'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
+        'frozen_renderer_tree':report['renderer_tree'],
+        'build_report_source_head':report['current_head'],
+        'source_and_patch_hashes_verified_against_build':True,
+        'original_assets_packaged':False
+    },indent=2).encode()
     for variant in ('baseline','ps2-enabled'):
         members[f'artifacts/{variant}/d3d8.dll']=h.verified_dll(report,variant)
     members['HANDOFF.md']=(PORT/'docs/visual-parity-expansion/handoff.md').read_bytes()
