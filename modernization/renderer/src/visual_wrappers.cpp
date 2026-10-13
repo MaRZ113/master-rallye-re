@@ -135,7 +135,11 @@ HRESULT Device8::draw_primitive_at(D3DPRIMITIVETYPE type,UINT start,UINT count,u
   RaceHudContext draw_context{};
   const bool observe_hud_context=hud_visibility.toggle_enabled()||requested_clean_view;
   const uint64_t hud_frame=trace.frame_number();
-  const bool refresh_hud_context=requested_clean_view||!hud_visibility.context_sampled_this_frame(hud_frame);
+  // H mirrors into GameFov's Clean View request. That request must not bypass
+  // the per-frame HUD-context cache: live_race_hud_context performs multiple
+  // Broker/native reads and this draw path can run hundreds of times per frame.
+  // Clean View still gets its strict live admission below.
+  const bool refresh_hud_context=hud_visibility.context_refresh_required(hud_frame);
   if(observe_hud_context&&refresh_hud_context&&hud_draw.scene_active){
    // Verify the committed native scene and typed pause state at the exact draw
    // boundary while suppression is requested. With the preference visible,
@@ -143,7 +147,7 @@ HRESULT Device8::draw_primitive_at(D3DPRIMITIVETYPE type,UINT start,UINT count,u
    // repeating Broker reads for every UI primitive.
    draw_context=live_race_hud_context();
    if(observe_hud_context)hud_visibility.observe_context(draw_context,hud_draw.exact_build,hud_draw.device_valid,hook_owned,hud_draw.scene_active,hud_frame);
-  }else if(observe_hud_context&&hud_visibility.context_sampled_this_frame(hud_frame))draw_context=hud_visibility.context_snapshot();
+  }else if(observe_hud_context&&!refresh_hud_context)draw_context=hud_visibility.context_snapshot();
   else {draw_context.reason=hud_draw.scene_active?"hud_preference_visible":"outside_d3d_scene";
    if(observe_hud_context)hud_visibility.observe_context(draw_context,hud_draw.exact_build,hud_draw.device_valid,hook_owned,hud_draw.scene_active,hud_frame);}
   hud_draw.context_current=draw_context.valid;

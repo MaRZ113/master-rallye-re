@@ -78,6 +78,14 @@ void visibility_lifetime(){
  CHECK(!startup.sample_key(true,true)&&startup.requested_hidden());
  auto reset=hidden;reset.hud_hidden_at_startup=false;startup.configure(reset,false,false);CHECK(!startup.requested_hidden());startup.observe_context(race(),false,true,false,true);CHECK(!startup.should_suppress(eligible()));
 }
+void hud_context_sample_is_frame_scoped(){
+ auto c=parse_visual_config({{"Renderer.ConfigVersion","1"},{"HUD.ToggleEnabled","1"},{"HUD.ToggleKey","H"}},true);
+ HudVisibility h;h.configure(c,true,true);CHECK(h.sample_key(true,true)&&h.requested_hidden());
+ constexpr uint64_t frame=41;CHECK(h.context_refresh_required(frame));
+ h.observe_context(race(),true,true,true,true,frame);
+ for(unsigned draw=0;draw<2048;++draw)CHECK(!h.context_refresh_required(frame));
+ CHECK(h.context_refresh_required(frame+1));
+}
 void config_conflicts(){
  auto legacy=parse_visual_config({{"Renderer.ConfigVersion","1"},{"FreeCameraKeys.ToggleCleanView","G"}},true);
  CHECK(legacy.hud_toggle_key=='G'&&legacy.hud_toggle_valid&&legacy.hud_toggle_enabled);
@@ -200,7 +208,7 @@ void replay_pause_overlay_admission_contract(){
  h.observe_context(frontend,true,true,true,true);auto menu=eligible();menu.context_current=false;
  CHECK(!h.should_suppress(menu));
 }
-int main(){try{edge_contracts();strict_draw_contracts();visibility_lifetime();config_conflicts();paused_clean_view_contract();
+int main(){try{edge_contracts();strict_draw_contracts();visibility_lifetime();hud_context_sample_is_frame_scoped();config_conflicts();paused_clean_view_contract();
  normal_pause_learned_hud_contract();normal_pause_config_contract();replay_pause_learned_identity_contract();replay_signature_capacity_and_lifecycle();
  replay_pause_overlay_admission_contract();
  std::cout<<"HUD edge input / strict native draw policy / live scene identity / persistent request / fail-open reset / key compatibility: PASS\n";return 0;

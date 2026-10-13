@@ -55,7 +55,7 @@ public:
  void configure(const VisualConfig&,bool exact_build,bool hook_expected) noexcept;
  bool sample_key(bool focused,bool key_down) noexcept;
  void observe_context(const RaceHudContext&,bool exact_build,bool device_valid,bool hook_owned,bool scene_active,uint64_t frame=0) noexcept;
- bool context_sampled_this_frame(uint64_t frame) const noexcept{return context_sample_frame_==frame;}
+ bool context_refresh_required(uint64_t frame) const noexcept{return context_sample_frame_!=frame;}
  RaceHudContext context_snapshot() const noexcept{return context_;}
  void end_scene() noexcept {scene_active_=false;}
  void reset_context() noexcept;

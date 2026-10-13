@@ -26,6 +26,10 @@ The production Win32 INI reader reads `ToggleEnabled`, `ToggleKey`, `HiddenAtSta
 
 F10 frame metadata contains `hud_hide` with requested/effective state, policy readiness/reason, current context (`gameplay_running`, `gameplay_start_countdown`, `attract_demo`, `replay_running`, or a preserved paused/unknown context), replay/Attract/countdown flags, exact-build/device/hook status, verified and suppressed draw counts, and ambiguous rejections. Race lifecycle records also include the captured native request origin for each job. `effective_hidden` means at least one draw was actually suppressed in the captured frame; it does not merely mean H was accepted. Menu draw count remains `null` because the shared consumer does not expose an independently proven menu category.
 
+## HUD suppression cost
+
+Review of the 13 October captures found that `global_hud_request_` mirrors the H preference into `GameFov::clean_view_requested()`. The UI draw wrapper treated that request as a reason to bypass its per-frame context cache, calling `live_race_hud_context()` for every UI primitive while HUD hiding was active. That routine takes the race-observer lock and performs multiple native/Broker reads, so the repeated synchronous work was on the render thread and scaled with UI draw count. The wrapper now refreshes this context at most once per D3D frame; subsequent UI draws reuse the snapshot. Clean View's independent strict camera/device/UI admission remains evaluated at each draw. Unit tests cover the frame-scoped sampling contract. A post-fix gameplay capture is still needed to measure the visible improvement on the user's machine.
+
 ## Analysis tool availability
 
 The REA CLI reported version 6.4.0, Node 24.19.0, and Ghidra 12.1.4 when `GHIDRA_INSTALL_DIR` was supplied for the analysis process. The Codex Ghidra-bridge MCP tools were not exposed in this task's active tool catalog, so no claim is made that a bridge call was run in this turn. Existing A3h Ghidra findings were read and preserved; the new REA/Ghidra analysis used only the pristine image and a temporary provider session. No Ghidra database or game binary was modified.
