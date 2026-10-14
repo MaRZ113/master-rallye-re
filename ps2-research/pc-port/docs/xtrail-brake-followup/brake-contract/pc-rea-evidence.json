@@ -1,0 +1,271 @@
+{
+  "schema_version": 1,
+  "queries": [
+    {
+      "query": "0x4ca040",
+      "evidence_id": "ev_a72be1d8fcfd884141f6b9898058ae8874583a8597dde6972f06fd428aaee06f",
+      "subject_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "procedure": {
+        "address": "0x4ca040",
+        "name": "FUN_004ca040",
+        "classification": {
+          "external": false,
+          "thunk": false,
+          "thunk_target": null,
+          "provenance": "ghidra-function-manager"
+        },
+        "body": {
+          "available": true,
+          "provenance": "ghidra-function-body-address-set",
+          "ranges": [
+            {
+              "start": "0x4ca040",
+              "end": "0x4ca072"
+            }
+          ],
+          "total_bytes": 51,
+          "span_bytes": 51,
+          "non_contiguous": false,
+          "contains_entry": true
+        },
+        "signature": "undefined FUN_004ca040()",
+        "locals": [
+          {
+            "description": "undefined4 local_4 @ Stack[-0x4]:4",
+            "provenance": "ghidra-function-database"
+          }
+        ]
+      },
+      "assembly": [
+        "0x4ca040: PUSH ECX",
+        "0x4ca041: PUSH ESI",
+        "0x4ca042: MOV ESI, ECX",
+        "0x4ca044: PUSH 0x6e7350",
+        "0x4ca049: LEA ECX, [ESP + 0x8]",
+        "0x4ca04d: CALL 0x004d0580",
+        "0x4ca052: MOV EAX, dword ptr [ESP + 0x4]",
+        "0x4ca056: MOV dword ptr [ESI + 0x8], EAX",
+        "0x4ca059: XOR EAX, EAX",
+        "0x4ca05b: MOV dword ptr [ESI + 0x4], 0xffffffff",
+        "0x4ca062: MOV dword ptr [ESI + 0xc], EAX",
+        "0x4ca065: MOV dword ptr [ESI + 0x10], EAX",
+        "0x4ca068: MOV dword ptr [ESI], 0x691488",
+        "0x4ca06e: MOV EAX, ESI",
+        "0x4ca070: POP ESI",
+        "0x4ca071: POP ECX",
+        "0x4ca072: RET"
+      ],
+      "pseudocode_classification": "DECOMPILER_NON_SOURCE",
+      "pseudocode": "\r\nvoid FUN_004ca040(void)\r\n\r\n{\r\n  undefined4 *in_ECX;\r\n  \r\n  FUN_004d0580(s_gaSFXBrakeLights_006e7350);\r\n  in_ECX[2] = in_ECX;\r\n  in_ECX[1] = 0xffffffff;\r\n  in_ECX[3] = 0;\r\n  in_ECX[4] = 0;\r\n  *in_ECX = &PTR_FUN_00691488;\r\n  return;\r\n}\r\n\r\n"
+    },
+    {
+      "query": "0x4ca110",
+      "evidence_id": "ev_aaaf5d20e2aa1bae150675e8b1d46af29d7152b9fafc6ca915e126b68ad1b63f",
+      "subject_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "procedure": {
+        "address": "0x4ca110",
+        "name": "FUN_004ca110",
+        "classification": {
+          "external": false,
+          "thunk": false,
+          "thunk_target": null,
+          "provenance": "ghidra-function-manager"
+        },
+        "body": {
+          "available": true,
+          "provenance": "ghidra-function-body-address-set",
+          "ranges": [
+            {
+              "start": "0x4ca110",
+              "end": "0x4ca1c9"
+            }
+          ],
+          "total_bytes": 186,
+          "span_bytes": 186,
+          "non_contiguous": false,
+          "contains_entry": true
+        },
+        "signature": "undefined FUN_004ca110()",
+        "locals": [
+          {
+            "description": "undefined local_10 @ Stack[-0x10]:1",
+            "provenance": "ghidra-function-database"
+          },
+          {
+            "description": "undefined4 local_4 @ Stack[-0x4]:4",
+            "provenance": "ghidra-function-database"
+          },
+          {
+            "description": "undefined4 local_c @ Stack[-0xc]:4",
+            "provenance": "ghidra-function-database"
+          }
+        ]
+      },
+      "assembly": [
+        "0x4ca110: PUSH -0x1",
+        "0x4ca112: PUSH 0x68cb98",
+        "0x4ca117: MOV EAX, FS:[0x0]",
+        "0x4ca11d: PUSH EAX",
+        "0x4ca11e: MOV dword ptr FS:[0x0], ESP",
+        "0x4ca125: PUSH ECX",
+        "0x4ca126: PUSH ESI",
+        "0x4ca127: PUSH EDI",
+        "0x4ca128: MOV EDI, dword ptr [ESP + 0x1c]",
+        "0x4ca12c: MOV ESI, ECX",
+        "0x4ca12e: TEST EDI, EDI",
+        "0x4ca130: MOV dword ptr [ESI + 0x14], 0xffffffff",
+        "0x4ca137: JZ 0x004ca168",
+        "0x4ca139: MOV EAX, dword ptr [EDI + 0x50]",
+        "0x4ca13c: TEST EAX, EAX",
+        "0x4ca13e: JZ 0x004ca168",
+        "0x4ca140: MOV EAX, dword ptr [EAX + 0x18]",
+        "0x4ca143: TEST EAX, EAX",
+        "0x4ca145: MOV dword ptr [ESI + 0x18], EAX",
+        "0x4ca148: JZ 0x004ca168",
+        "0x4ca14a: PUSH 0x6e7370",
+        "0x4ca14f: LEA ECX, [ESP + 0xc]",
+        "0x4ca153: CALL 0x004d0580",
+        "0x4ca158: MOV ECX, dword ptr [ESI + 0x18]",
+        "0x4ca15b: LEA EAX, [ESP + 0x8]",
+        "0x4ca15f: PUSH EAX",
+        "0x4ca160: CALL 0x004d3be0",
+        "0x4ca165: MOV dword ptr [ESI + 0x14], EAX",
+        "0x4ca168: PUSH 0x6e7364",
+        "0x4ca16d: LEA ECX, [ESP + 0x20]",
+        "0x4ca171: CALL 0x004d11d0",
+        "0x4ca176: LEA ECX, [EDI + 0x5c]",
+        "0x4ca179: MOV dword ptr [ESP + 0x14], 0x0",
+        "0x4ca181: CALL 0x004d0570",
+        "0x4ca186: PUSH EAX",
+        "0x4ca187: LEA ECX, [ESP + 0x20]",
+        "0x4ca18b: CALL 0x004d15c0",
+        "0x4ca190: MOV ECX, dword ptr [ESP + 0x1c]",
+        "0x4ca194: PUSH ECX",
+        "0x4ca195: LEA ECX, [ESI + 0xc]",
+        "0x4ca198: CALL 0x004d0580",
+        "0x4ca19d: PUSH 0x6afd64",
+        "0x4ca1a2: LEA ECX, [ESI + 0x10]",
+        "0x4ca1a5: CALL 0x004d0580",
+        "0x4ca1aa: MOV EDX, dword ptr [ESP + 0x1c]",
+        "0x4ca1ae: PUSH EDX",
+        "0x4ca1af: CALL 0x005b4c00",
+        "0x4ca1b4: MOV ECX, dword ptr [ESP + 0x10]",
+        "0x4ca1b8: ADD ESP, 0x4",
+        "0x4ca1bb: MOV dword ptr FS:[0x0], ECX",
+        "0x4ca1c2: POP EDI",
+        "0x4ca1c3: POP ESI",
+        "0x4ca1c4: ADD ESP, 0x10",
+        "0x4ca1c7: RET 0x4"
+      ],
+      "pseudocode_classification": "DECOMPILER_NON_SOURCE",
+      "pseudocode": "\r\nvoid FUN_004ca110(int param_1)\r\n\r\n{\r\n  int iVar1;\r\n  undefined4 uVar2;\r\n  int in_ECX;\r\n  undefined1 local_10 [4];\r\n  void *local_c;\r\n  undefined1 *puStack_8;\r\n  undefined4 local_4;\r\n  \r\n  local_4 = 0xffffffff;\r\n  puStack_8 = &LAB_0068cb98;\r\n  local_c = ExceptionList;\r\n  ExceptionList = &local_c;\r\n  *(undefined4 *)(in_ECX + 0x14) = 0xffffffff;\r\n  if (((param_1 != 0) && (*(int *)(param_1 + 0x50) != 0)) &&\r\n     (iVar1 = *(int *)(*(int *)(param_1 + 0x50) + 0x18), *(int *)(in_ECX + 0x18) = iVar1, iVar1 != 0\r\n     )) {\r\n    FUN_004d0580(s_blight_006e7370);\r\n    uVar2 = FUN_004d3be0(local_10);\r\n    *(undefined4 *)(in_ECX + 0x14) = uVar2;\r\n  }\r\n  FUN_004d11d0(s_Controller__006e7364);\r\n  local_4 = 0;\r\n  uVar2 = FUN_004d0570();\r\n  FUN_004d15c0(uVar2);\r\n  FUN_004d0580(param_1);\r\n  FUN_004d0580(s_ControllerCarBrokerAccess_006afd64);\r\n  FUN_005b4c00(param_1);\r\n  ExceptionList = local_c;\r\n  return;\r\n}\r\n\r\n"
+    },
+    {
+      "query": "0x4d3be0",
+      "evidence_id": "ev_63b7beab818b439869a3b79638260c1e9d35322ba7df88b132de94d53e2fafe7",
+      "subject_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "procedure": {
+        "address": "0x4d3be0",
+        "name": "FUN_004d3be0",
+        "classification": {
+          "external": false,
+          "thunk": false,
+          "thunk_target": null,
+          "provenance": "ghidra-function-manager"
+        },
+        "body": {
+          "available": true,
+          "provenance": "ghidra-function-body-address-set",
+          "ranges": [
+            {
+              "start": "0x4d3be0",
+              "end": "0x4d3c05"
+            }
+          ],
+          "total_bytes": 38,
+          "span_bytes": 38,
+          "non_contiguous": false,
+          "contains_entry": true
+        },
+        "signature": "undefined FUN_004d3be0()",
+        "locals": []
+      },
+      "assembly": [
+        "0x4d3be0: PUSH ESI",
+        "0x4d3be1: MOV ESI, ECX",
+        "0x4d3be3: CALL 0x004d3920",
+        "0x4d3be8: MOV EAX, dword ptr [EAX + 0x4]",
+        "0x4d3beb: MOV ECX, dword ptr [ESP + 0x8]",
+        "0x4d3bef: ADD ESI, 0x24",
+        "0x4d3bf2: PUSH ECX",
+        "0x4d3bf3: MOV EDX, dword ptr [EAX]",
+        "0x4d3bf5: PUSH ESI",
+        "0x4d3bf6: MOV ECX, EAX",
+        "0x4d3bf8: CALL dword ptr [EDX + 0x8]",
+        "0x4d3bfb: TEST EAX, EAX",
+        "0x4d3bfd: POP ESI",
+        "0x4d3bfe: JGE 0x004d3c03",
+        "0x4d3c00: OR EAX, 0xffffffff",
+        "0x4d3c03: RET 0x4"
+      ],
+      "pseudocode_classification": "DECOMPILER_NON_SOURCE",
+      "pseudocode": "\r\nint FUN_004d3be0(undefined4 param_1)\r\n\r\n{\r\n  int iVar1;\r\n  int in_ECX;\r\n  \r\n  iVar1 = FUN_004d3920();\r\n  iVar1 = (**(code **)(**(int **)(iVar1 + 4) + 8))(in_ECX + 0x24,param_1);\r\n  if (iVar1 < 0) {\r\n    iVar1 = -1;\r\n  }\r\n  return iVar1;\r\n}\r\n\r\n"
+    },
+    {
+      "query": "0x4d3c50",
+      "evidence_id": "ev_1b0f1e4eae877ca35c2c7b096b5cc5aabddd107169f7f261b95f8b4ea1695326",
+      "subject_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "procedure": {
+        "address": "0x4d3c50",
+        "name": "FUN_004d3c50",
+        "classification": {
+          "external": false,
+          "thunk": false,
+          "thunk_target": null,
+          "provenance": "ghidra-function-manager"
+        },
+        "body": {
+          "available": true,
+          "provenance": "ghidra-function-body-address-set",
+          "ranges": [
+            {
+              "start": "0x4d3c50",
+              "end": "0x4d3c7f"
+            }
+          ],
+          "total_bytes": 48,
+          "span_bytes": 48,
+          "non_contiguous": false,
+          "contains_entry": true
+        },
+        "signature": "undefined FUN_004d3c50()",
+        "locals": []
+      },
+      "assembly": [
+        "0x4d3c50: MOV EAX, dword ptr [ESP + 0x4]",
+        "0x4d3c54: MOV EAX, dword ptr [EAX]",
+        "0x4d3c56: TEST EAX, EAX",
+        "0x4d3c58: JL 0x004d3c7d",
+        "0x4d3c5a: CMP EAX, dword ptr [ECX + 0x20]",
+        "0x4d3c5d: JGE 0x004d3c7d",
+        "0x4d3c5f: MOV EDX, dword ptr [ESP + 0x8]",
+        "0x4d3c63: MOV EDX, dword ptr [EDX]",
+        "0x4d3c65: TEST EDX, EDX",
+        "0x4d3c67: JL 0x004d3c7d",
+        "0x4d3c69: PUSH ESI",
+        "0x4d3c6a: MOV ESI, dword ptr [ECX + 0x14]",
+        "0x4d3c6d: PUSH EDI",
+        "0x4d3c6e: MOV EDI, dword ptr [ESI + EAX*0x4]",
+        "0x4d3c71: CMP EDX, EDI",
+        "0x4d3c73: POP EDI",
+        "0x4d3c74: POP ESI",
+        "0x4d3c75: JG 0x004d3c7d",
+        "0x4d3c77: MOV ECX, dword ptr [ECX + 0x4]",
+        "0x4d3c7a: MOV dword ptr [ECX + EAX*0x4], EDX",
+        "0x4d3c7d: RET 0x8"
+      ],
+      "pseudocode_classification": "DECOMPILER_NON_SOURCE",
+      "pseudocode": "\r\nvoid FUN_004d3c50(int *param_1,int *param_2)\r\n\r\n{\r\n  int iVar1;\r\n  int iVar2;\r\n  int in_ECX;\r\n  \r\n  iVar1 = *param_1;\r\n  if (((-1 < iVar1) && (iVar1 < *(int *)(in_ECX + 0x20))) && (iVar2 = *param_2, -1 < iVar2)) {\r\n    if (iVar2 <= *(int *)(*(int *)(in_ECX + 0x14) + iVar1 * 4)) {\r\n      *(int *)(*(int *)(in_ECX + 4) + iVar1 * 4) = iVar2;\r\n    }\r\n  }\r\n  return;\r\n}\r\n\r\n"
+    }
+  ]
+}

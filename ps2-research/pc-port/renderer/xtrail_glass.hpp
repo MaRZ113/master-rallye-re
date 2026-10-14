@@ -43,6 +43,14 @@ public:
         if(highlight){pending_|=1u<<16;hr=n.SetTransform(D3DTS_TEXTURE0,&normal_matrix);notify(37,pack(D3DTS_TEXTURE0,&normal_matrix),hr);}
         return hr;
     }
+    template<class Writer>HRESULT emissive_pass(IDirect3DDevice8& n,Writer&& notify)noexcept{
+        if(!captured_||pending_)return E_INVALIDARG;
+        const std::array<DWORD,15> v={FALSE,TRUE,D3DBLEND_ONE,D3DBLEND_ONE,FALSE,FALSE,D3DTOP_SELECTARG1,D3DTA_TEXTURE,D3DTA_DIFFUSE,D3DTOP_SELECTARG1,D3DTA_TEXTURE,D3DTA_DIFFUSE,0,D3DTTFF_DISABLE,D3DTOP_DISABLE};
+        for(size_t i=0;i<v.size();++i){if(v[i]==scalar_[i])continue;pending_|=1u<<i;const auto& op=kGlassOps[i];HRESULT hr;
+            if(op.render){hr=n.SetRenderState(static_cast<D3DRENDERSTATETYPE>(op.key),v[i]);notify(57,pack(op.key,v[i]),hr);}
+            else{hr=n.SetTextureStageState(op.stage,static_cast<D3DTEXTURESTAGESTATETYPE>(op.key),v[i]);notify(63,pack(op.stage,op.key,v[i]),hr);}if(FAILED(hr))return hr;
+        }return S_OK;
+    }
     void mark_up()noexcept{if(captured_)pending_|=(1u<<17)|(1u<<18);}
     template<class Writer>HRESULT restore(IDirect3DDevice8& n,Writer&& notify)noexcept{
         HRESULT result=S_OK;

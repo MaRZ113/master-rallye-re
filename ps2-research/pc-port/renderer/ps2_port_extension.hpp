@@ -278,9 +278,9 @@ public:
     bool buffer_mirroring_required() const noexcept;
     bool frontend_geometry_diagnostics() const noexcept { return frontend_geometry_diagnostics_ && build_valid_ && !disabled_; }
     bool claim_frontend_probe_attempt() noexcept { return frontend_attempts_<128 && ++frontend_attempts_<=128; }
-    bool claim_frontend_geometry(size_t source_index) noexcept {
-        if(source_index>=frontend_logged_.size() || frontend_logged_[source_index])return false;
-        frontend_logged_[source_index]=true;return true;
+    bool claim_frontend_geometry(size_t source_index,uint64_t frame=0) noexcept {
+        if(source_index>=frontend_logged_.size() || frontend_logged_[source_index]>=2 || (frontend_logged_[source_index]&&frontend_last_frame_[source_index]==frame))return false;
+        ++frontend_logged_[source_index];frontend_last_frame_[source_index]=frame;return true;
     }
     bool analysis_enabled() const noexcept;
     bool foliage_analysis_enabled() const noexcept {
@@ -353,7 +353,8 @@ private:
     bool disabled_ = false;
     bool diagnostics_ = false;
     bool frontend_geometry_diagnostics_ = false;
-    std::array<bool,17> frontend_logged_{};
+    std::array<uint8_t,41> frontend_logged_{};
+    std::array<uint64_t,41> frontend_last_frame_{};
     uint32_t frontend_attempts_=0;
     bool pixel_probe_enabled_ = false;
     bool pixel_probe_requested_ = false;

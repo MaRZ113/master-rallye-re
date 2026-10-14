@@ -1,0 +1,309 @@
+{
+  "schema_version": 1,
+  "evidence_grade": "CONFIRMED_BY_EXE",
+  "canonical_pc_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "image_base": "0x400000",
+  "class_string": {
+    "va": "0x6e7350",
+    "value": "gaSFXBrakeLights",
+    "constructor": "0x4ca040",
+    "vtable": "0x691488",
+    "vtable_words": [
+      {
+        "va": "0x691488",
+        "value": "0x4ca0e0"
+      },
+      {
+        "va": "0x69148c",
+        "value": "0x4ca080"
+      },
+      {
+        "va": "0x691490",
+        "value": "0x403600"
+      },
+      {
+        "va": "0x691494",
+        "value": "0x403610"
+      },
+      {
+        "va": "0x691498",
+        "value": "0x4ca1d0"
+      },
+      {
+        "va": "0x69149c",
+        "value": "0x4ca110"
+      }
+    ]
+  },
+  "init": "0x4ca110 stores Egg+50->+18 model into AI+18; blight lookup ->AI+14;Controller/<EggName> key",
+  "update": {
+    "bounds": "0x4ca1d0..0x4ca23e",
+    "broker_calls": [
+      "0x4d8ec0",
+      "0x4d6fb0"
+    ],
+    "field": "result+8 pointer -> float32+24",
+    "threshold_va": "0x68f974",
+    "threshold_word": "0x3dcccccd",
+    "rule": "ordered source >float32(.1): selector2;otherwise1;unord also1",
+    "writer": "0x4d3c50",
+    "writer_bounds": "index>=0 &&index<model+20 count &&value>=0 &&value<=max array model+14[index]",
+    "writer_destination": "model+4 values[index]",
+    "engine_owned_state": true
+  },
+  "update_original_byte_windows": [
+    {
+      "va": "0x4ca1d0",
+      "file_offset": 827856,
+      "bytes": "51",
+      "ghidra_x86": "PUSH ECX"
+    },
+    {
+      "va": "0x4ca1d1",
+      "file_offset": 827857,
+      "bytes": "56",
+      "ghidra_x86": "PUSH ESI"
+    },
+    {
+      "va": "0x4ca1d2",
+      "file_offset": 827858,
+      "bytes": "8bf1",
+      "ghidra_x86": "MOV ESI,ECX"
+    },
+    {
+      "va": "0x4ca1d4",
+      "file_offset": 827860,
+      "bytes": "57",
+      "ghidra_x86": "PUSH EDI"
+    },
+    {
+      "va": "0x4ca1d5",
+      "file_offset": 827861,
+      "bytes": "8b4614",
+      "ghidra_x86": "MOV EAX,dword ptr [ESI + 0x14]"
+    },
+    {
+      "va": "0x4ca1d8",
+      "file_offset": 827864,
+      "bytes": "8d7e14",
+      "ghidra_x86": "LEA EDI,[ESI + 0x14]"
+    },
+    {
+      "va": "0x4ca1db",
+      "file_offset": 827867,
+      "bytes": "83f8ff",
+      "ghidra_x86": "CMP EAX,-0x1"
+    },
+    {
+      "va": "0x4ca1de",
+      "file_offset": 827870,
+      "bytes": "7459",
+      "ghidra_x86": "JZ 0x004ca239"
+    },
+    {
+      "va": "0x4ca1e0",
+      "file_offset": 827872,
+      "bytes": "8d4610",
+      "ghidra_x86": "LEA EAX,[ESI + 0x10]"
+    },
+    {
+      "va": "0x4ca1e3",
+      "file_offset": 827875,
+      "bytes": "8d4e0c",
+      "ghidra_x86": "LEA ECX,[ESI + 0xc]"
+    },
+    {
+      "va": "0x4ca1e6",
+      "file_offset": 827878,
+      "bytes": "50",
+      "ghidra_x86": "PUSH EAX"
+    },
+    {
+      "va": "0x4ca1e7",
+      "file_offset": 827879,
+      "bytes": "51",
+      "ghidra_x86": "PUSH ECX"
+    },
+    {
+      "va": "0x4ca1e8",
+      "file_offset": 827880,
+      "bytes": "e8d3ec0000",
+      "ghidra_x86": "CALL 0x004d8ec0"
+    },
+    {
+      "va": "0x4ca1ed",
+      "file_offset": 827885,
+      "bytes": "8bc8",
+      "ghidra_x86": "MOV ECX,EAX"
+    },
+    {
+      "va": "0x4ca1ef",
+      "file_offset": 827887,
+      "bytes": "e8bccd0000",
+      "ghidra_x86": "CALL 0x004d6fb0"
+    },
+    {
+      "va": "0x4ca1f4",
+      "file_offset": 827892,
+      "bytes": "8b5008",
+      "ghidra_x86": "MOV EDX,dword ptr [EAX + 0x8]"
+    },
+    {
+      "va": "0x4ca1f7",
+      "file_offset": 827895,
+      "bytes": "d94224",
+      "ghidra_x86": "FLD float ptr [EDX + 0x24]"
+    },
+    {
+      "va": "0x4ca1fa",
+      "file_offset": 827898,
+      "bytes": "d81d74f96800",
+      "ghidra_x86": "FCOMP float ptr [0x0068f974]"
+    },
+    {
+      "va": "0x4ca200",
+      "file_offset": 827904,
+      "bytes": "dfe0",
+      "ghidra_x86": "FNSTSW AX"
+    },
+    {
+      "va": "0x4ca202",
+      "file_offset": 827906,
+      "bytes": "f6c441",
+      "ghidra_x86": "TEST AH,0x41"
+    },
+    {
+      "va": "0x4ca205",
+      "file_offset": 827909,
+      "bytes": "751c",
+      "ghidra_x86": "JNZ 0x004ca223"
+    },
+    {
+      "va": "0x4ca207",
+      "file_offset": 827911,
+      "bytes": "8b4e18",
+      "ghidra_x86": "MOV ECX,dword ptr [ESI + 0x18]"
+    },
+    {
+      "va": "0x4ca20a",
+      "file_offset": 827914,
+      "bytes": "8d442408",
+      "ghidra_x86": "LEA EAX,[ESP + 0x8]"
+    },
+    {
+      "va": "0x4ca20e",
+      "file_offset": 827918,
+      "bytes": "50",
+      "ghidra_x86": "PUSH EAX"
+    },
+    {
+      "va": "0x4ca20f",
+      "file_offset": 827919,
+      "bytes": "57",
+      "ghidra_x86": "PUSH EDI"
+    },
+    {
+      "va": "0x4ca210",
+      "file_offset": 827920,
+      "bytes": "c744241002000000",
+      "ghidra_x86": "MOV dword ptr [ESP + 0x10],0x2"
+    },
+    {
+      "va": "0x4ca218",
+      "file_offset": 827928,
+      "bytes": "e8339a0000",
+      "ghidra_x86": "CALL 0x004d3c50"
+    },
+    {
+      "va": "0x4ca21d",
+      "file_offset": 827933,
+      "bytes": "5f",
+      "ghidra_x86": "POP EDI"
+    },
+    {
+      "va": "0x4ca21e",
+      "file_offset": 827934,
+      "bytes": "5e",
+      "ghidra_x86": "POP ESI"
+    },
+    {
+      "va": "0x4ca21f",
+      "file_offset": 827935,
+      "bytes": "59",
+      "ghidra_x86": "POP ECX"
+    },
+    {
+      "va": "0x4ca220",
+      "file_offset": 827936,
+      "bytes": "c20400",
+      "ghidra_x86": "RET 0x4"
+    },
+    {
+      "va": "0x4ca223",
+      "file_offset": 827939,
+      "bytes": "8d4c2408",
+      "ghidra_x86": "LEA ECX,[ESP + 0x8]"
+    },
+    {
+      "va": "0x4ca227",
+      "file_offset": 827943,
+      "bytes": "c744240801000000",
+      "ghidra_x86": "MOV dword ptr [ESP + 0x8],0x1"
+    },
+    {
+      "va": "0x4ca22f",
+      "file_offset": 827951,
+      "bytes": "51",
+      "ghidra_x86": "PUSH ECX"
+    },
+    {
+      "va": "0x4ca230",
+      "file_offset": 827952,
+      "bytes": "8b4e18",
+      "ghidra_x86": "MOV ECX,dword ptr [ESI + 0x18]"
+    },
+    {
+      "va": "0x4ca233",
+      "file_offset": 827955,
+      "bytes": "57",
+      "ghidra_x86": "PUSH EDI"
+    },
+    {
+      "va": "0x4ca234",
+      "file_offset": 827956,
+      "bytes": "e8179a0000",
+      "ghidra_x86": "CALL 0x004d3c50"
+    },
+    {
+      "va": "0x4ca239",
+      "file_offset": 827961,
+      "bytes": "5f",
+      "ghidra_x86": "POP EDI"
+    },
+    {
+      "va": "0x4ca23a",
+      "file_offset": 827962,
+      "bytes": "5e",
+      "ghidra_x86": "POP ESI"
+    },
+    {
+      "va": "0x4ca23b",
+      "file_offset": 827963,
+      "bytes": "59",
+      "ghidra_x86": "POP ECX"
+    },
+    {
+      "va": "0x4ca23c",
+      "file_offset": 827964,
+      "bytes": "c20400",
+      "ghidra_x86": "RET 0x4"
+    }
+  ],
+  "limitations": [
+    "REA default Ghidra analysis omitted update entry: explicit invalid_request at0x4ca1d0",
+    "Fallback imports original PC x86 inignored scratch and disassembles only exact vtable update target",
+    "Function execution/livecurrentmodel/native lamp draw identity remains NOT_PERFORMED",
+    "No port Broker reads or controller hooking authorized bystaticproof alone"
+  ],
+  "safe_next_route": "Use original PC blight on/glow conditional emission; match original compiledgeometry+UV/currentnative generations; never invent statefrombrake keypress"
+}

@@ -1,0 +1,225 @@
+{
+  "schema_version": 1,
+  "evidence_grade": "CONFIRMED_BY_EXE",
+  "canonical_elf_sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+  "ghidra_language": "r5900:LE:32:default",
+  "rabbitizer_category": "R5900",
+  "original_instruction_words_verified": 4623,
+  "function": "0x312610..0x316803",
+  "dispatch_table": [
+    {
+      "mode": 0,
+      "table_va": "0x4850c0",
+      "file_offset": 3694784,
+      "original_word": "0x3126e4"
+    },
+    {
+      "mode": 1,
+      "table_va": "0x4850c4",
+      "file_offset": 3694788,
+      "original_word": "0x3126e4"
+    },
+    {
+      "mode": 14,
+      "table_va": "0x4850f8",
+      "file_offset": 3694840,
+      "original_word": "0x31300c"
+    }
+  ],
+  "mode14": {
+    "case_entry": "0x31300c",
+    "PRIM_forced": "0x5c = TRIANGLE_STRIP4,IIP1,TME1,ABE1,FGE0;AA1/FST/CTXT/FIX inherited",
+    "ALPHA": "low=0x29,FIX=128; A=Cd,B=0,C=FIX,D=Cs; Cout=Cd+Cs",
+    "ALPHA_mask": "FIX byte at0x42df04=0x80;lowbyte=0x29;unrelated bits preserved",
+    "TEX0": "TCC1 RGBA;TFX1 DECAL; descriptor fields inherited fromtexture setup",
+    "TEX1": "old & 0xfffff000ffe7fe1e | 0x120; LCM0,MMAG1,MMIN4,L0,K0; MXL and MTBA inherited",
+    "TEST": "old & 0xfffffffffff9c000 | 0x41000;ATE0,ZTST2 GEQUAL,ZTE/DATE inherited",
+    "ZBUF": "old & 0xfffffffeffffffff | 0x100000000;ZMSK1,format/base inherited",
+    "passes": "one primary geometry state setup; no mode14 secondary-environment activation inthiscase"
+  },
+  "important_original_instructions": [
+    {
+      "va": "0x3126b8",
+      "file_offset": 2176696,
+      "bytes": "1900a22c",
+      "word": "0x2ca20019",
+      "ghidra": "sltiu v0,a1,0x19",
+      "rabbitizer": "sltiu       $v0, $a1, 0x19"
+    },
+    {
+      "va": "0x3126c8",
+      "file_offset": 2176712,
+      "bytes": "4800023c",
+      "word": "0x3c020048",
+      "ghidra": "lui v0,0x48",
+      "rabbitizer": "lui         $v0, 0x48"
+    },
+    {
+      "va": "0x3126d0",
+      "file_offset": 2176720,
+      "bytes": "c0504224",
+      "word": "0x244250c0",
+      "ghidra": "addiu v0,v0,0x50c0",
+      "rabbitizer": "addiu       $v0, $v0, 0x50C0"
+    },
+    {
+      "va": "0x3126d8",
+      "file_offset": 2176728,
+      "bytes": "0000648c",
+      "word": "0x8c640000",
+      "ghidra": "lw a0,0x0(v1)",
+      "rabbitizer": "lw          $a0, 0x0($v1)"
+    },
+    {
+      "va": "0x3126dc",
+      "file_offset": 2176732,
+      "bytes": "08008000",
+      "word": "0x800008",
+      "ghidra": "jr a0",
+      "rabbitizer": "jr          $a0"
+    },
+    {
+      "va": "0x313010",
+      "file_offset": 2179088,
+      "bytes": "80000224",
+      "word": "0x24020080",
+      "ghidra": "li v0,0x80",
+      "rabbitizer": "addiu       $v0, $zero, 0x80"
+    },
+    {
+      "va": "0x313044",
+      "file_offset": 2179140,
+      "bytes": "a400c2a0",
+      "word": "0xa0c200a4",
+      "ghidra": "sb v0,0xa4(a2)",
+      "rabbitizer": "sb          $v0, 0xA4($a2)"
+    },
+    {
+      "va": "0x3130ec",
+      "file_offset": 2179308,
+      "bytes": "08000a24",
+      "word": "0x240a0008",
+      "ghidra": "li t2,0x8",
+      "rabbitizer": "addiu       $t2, $zero, 0x8"
+    },
+    {
+      "va": "0x313114",
+      "file_offset": 2179348,
+      "bytes": "25400a01",
+      "word": "0x10a4025",
+      "ghidra": "or t0,t0,t2",
+      "rabbitizer": "or          $t0, $t0, $t2"
+    },
+    {
+      "va": "0x313160",
+      "file_offset": 2179424,
+      "bytes": "00010c24",
+      "word": "0x240c0100",
+      "ghidra": "li t4,0x100",
+      "rabbitizer": "addiu       $t4, $zero, 0x100"
+    },
+    {
+      "va": "0x3131a0",
+      "file_offset": 2179488,
+      "bytes": "2538ec00",
+      "word": "0xec3825",
+      "ghidra": "or a3,a3,t4",
+      "rabbitizer": "or          $a3, $a3, $t4"
+    },
+    {
+      "va": "0x313224",
+      "file_offset": 2179620,
+      "bytes": "25401601",
+      "word": "0x1164025",
+      "ghidra": "or t0,t0,s6",
+      "rabbitizer": "or          $t0, $t0, $s6"
+    },
+    {
+      "va": "0x31322c",
+      "file_offset": 2179628,
+      "bytes": "f8640c00",
+      "word": "0xc64f8",
+      "ghidra": "dsll t4,t4,0x13",
+      "rabbitizer": "dsll        $t4, $t4, 19"
+    },
+    {
+      "va": "0x313248",
+      "file_offset": 2179656,
+      "bytes": "25586c01",
+      "word": "0x16c5825",
+      "ghidra": "or t3,t3,t4",
+      "rabbitizer": "or          $t3, $t3, $t4"
+    },
+    {
+      "va": "0x31324c",
+      "file_offset": 2179660,
+      "bytes": "2528aa00",
+      "word": "0xaa2825",
+      "ghidra": "or a1,a1,t2",
+      "rabbitizer": "or          $a1, $a1, $t2"
+    },
+    {
+      "va": "0x313250",
+      "file_offset": 2179664,
+      "bytes": "5000d1fc",
+      "word": "0xfcd10050",
+      "ghidra": "sd s1,0x50(a2)",
+      "rabbitizer": "sd          $s1, 0x50($a2)"
+    },
+    {
+      "va": "0x313254",
+      "file_offset": 2179668,
+      "bytes": "c000cbfc",
+      "word": "0xfccb00c0",
+      "ghidra": "sd t3,0xc0(a2)",
+      "rabbitizer": "sd          $t3, 0xC0($a2)"
+    },
+    {
+      "va": "0x313258",
+      "file_offset": 2179672,
+      "bytes": "d000c7fc",
+      "word": "0xfcc700d0",
+      "ghidra": "sd a3,0xd0(a2)",
+      "rabbitizer": "sd          $a3, 0xD0($a2)"
+    },
+    {
+      "va": "0x313260",
+      "file_offset": 2179680,
+      "bytes": "a000c8fc",
+      "word": "0xfcc800a0",
+      "ghidra": "sd t0,0xa0(a2)",
+      "rabbitizer": "sd          $t0, 0xA0($a2)"
+    },
+    {
+      "va": "0x313264",
+      "file_offset": 2179684,
+      "bytes": "8000c5fc",
+      "word": "0xfcc50080",
+      "ghidra": "sd a1,0x80(a2)",
+      "rabbitizer": "sd          $a1, 0x80($a2)"
+    },
+    {
+      "va": "0x313268",
+      "file_offset": 2179688,
+      "bytes": "5a0d0010",
+      "word": "0x10000d5a",
+      "ghidra": "b 0x003167d4",
+      "rabbitizer": "b           . + 4 + (0xD5A << 2)"
+    },
+    {
+      "va": "0x31326c",
+      "file_offset": 2179692,
+      "bytes": "0001d0fc",
+      "word": "0xfcd00100",
+      "ghidra": "_sd s0,0x100(a2)",
+      "rabbitizer": "sd          $s0, 0x100($a2)"
+    }
+  ],
+  "limitations": [
+    "Static executable contract, notliveGS capture",
+    "Mode14 alpha does notscale colorblend;textureDECALalpha maystillfeed outputalpha",
+    "Exact PC live lamp owner/draw join notproven",
+    "PS2 andPC depth conventions cannotbe equated",
+    "Original authored glow mesh, notsynthetic screen halo"
+  ]
+}

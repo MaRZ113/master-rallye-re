@@ -1,4 +1,5 @@
 #include "vehicle_partition.hpp"
+#include "lamp_partition_registry.hpp"
 #include "vehicle_partition_registry.hpp"
 #include "foliage_probe.hpp"
 #include "provenance.hpp"
@@ -25,7 +26,7 @@ int main() {
     for(unsigned n=0;n<128;++n)CHECK(default_extension.claim_frontend_probe_attempt());
     CHECK(!default_extension.claim_frontend_probe_attempt());
     CHECK(default_extension.claim_frontend_geometry(0));CHECK(!default_extension.claim_frontend_geometry(0));
-    CHECK(!default_extension.claim_frontend_geometry(17));
+    CHECK(!default_extension.claim_frontend_geometry(41));CHECK(default_extension.claim_frontend_geometry(0,2));CHECK(!default_extension.claim_frontend_geometry(0,3));
     for(const auto& m:kVehiclePartitionMaterials) {
         CHECK(vehicle_partition_layout(m.triangles,m.vertices));
         std::vector<std::string> hashes;
@@ -112,6 +113,7 @@ int main() {
     invalid=4;std::memcpy(g.index_bytes.data(),&invalid,2);
     const float nonfinite=std::numeric_limits<float>::infinity();std::memcpy(g.vertex_bytes.data(),&nonfinite,4);
     CHECK(vehicle_face_hashes(g).empty());
+    {const auto& lamp=kLampPartitionMaterials[0];std::vector<std::string> hashes;unsigned native=0;for(unsigned i=0;i<lamp.face_count;++i){for(unsigned j=0;j<lamp.faces[i].multiplicity;++j)hashes.push_back(lamp.faces[i].hash);if(!lamp.faces[i].shiny)native+=lamp.faces[i].multiplicity;}CHECK(native==22&&lamp.triangles==58);auto plan=partition_ordered_faces(hashes,lamp);CHECK(plan.accepted);std::reverse(hashes.begin(),hashes.end());CHECK(partition_ordered_faces(hashes,lamp).accepted);hashes[0]=std::string(64,'f');CHECK(!partition_ordered_faces(hashes,lamp).accepted);CHECK(vehicle_partition_layout(58,70));CHECK(!vehicle_partition_layout(58,71));}
     std::cout<<"vehicle partition contracts: "<<(failures?"FAIL":"PASS")<<"\n";
     return failures?1:0;
 }

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "Terrano/car.dx",
+  "source_sha256": "90120ed0fea4428707cdc9505d53cb685ae85db6d13eeb8715d1e8e39fab927b",
+  "draw": 31,
+  "triangles": 20,
+  "vertices": 20,
+  "geometry_sha256": "3658c62c72e54bbe2fba9ad4b9503bd55ab38d5ec40336e89341dc79ff828517",
+  "attribute_sha256": "7a606095472175a76f1d1cf5640919e7428258b8785dc73294701d27726d5342",
+  "native_layout": "FVF112_STRIDE32_XYZ_NORMAL_UV",
+  "negative_search": {
+    "files": 78,
+    "hits": [
+      {
+        "file": "Terrano\\car.dx",
+        "record": 31
+      }
+    ],
+    "errors": []
+  },
+  "runtime_current_upload": "REQUIRED_BY_IMPLEMENTATION_NOT_IN_F10"
+}

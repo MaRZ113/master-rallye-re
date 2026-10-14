@@ -1,5 +1,6 @@
 #include "vehicle_partition.hpp"
 #include "vehicle_partition_registry.hpp"
+#include "lamp_partition_registry.hpp"
 #include "foliage_probe.hpp"
 #include "provenance.hpp"
 #include <algorithm>
@@ -8,6 +9,7 @@
 namespace gfx2::ps2port {
 bool vehicle_partition_layout(uint32_t t,uint32_t v) noexcept {
     for(const auto& m:kVehiclePartitionMaterials)if(m.triangles==t&&m.vertices==v)return true;
+    for(const auto& m:kLampPartitionMaterials)if(m.triangles==t&&m.vertices==v)return true;
     return false;
 }
 std::vector<std::string> vehicle_face_hashes(const DrawSnapshot& s) {
@@ -91,14 +93,16 @@ PartitionPlan VehiclePartitionPilot::classify(const ReflectionSnapshot& s,uint64
         for(const auto& m:kVehiclePartitionMaterials)if(m.triangles==g.primitive_count&&m.vertices==g.vertex_count) {
             p=partition_ordered_faces(faces,m);if(p.accepted)break;
         }
+        if(!p.accepted)for(const auto& m:kLampPartitionMaterials)if(m.triangles==g.primitive_count&&m.vertices==g.vertex_count){p=partition_ordered_faces(faces,m);if(p.accepted){p.reason="verified_terrano_rear_lamp_native_material_control";break;}}
         auto& e=cache_[next_++%cache_.size()];e={key,p,true};return p;
     }catch(...){PartitionPlan p;p.reason="partition_evaluation_failed_stock";return p;}
 }
 bool VehiclePartitionPilot::claim_diagnostic(const PartitionMaterial* m) noexcept {
     if(!diagnostics_)return false;
-    for(size_t i=0;i<logged_.size();++i)if(m==&kVehiclePartitionMaterials[i]) {
+    for(size_t i=0;i<std::size(kVehiclePartitionMaterials);++i)if(m==&kVehiclePartitionMaterials[i]) {
         if(logged_[i])return false;logged_[i]=true;return true;
     }
+    if(m==&kLampPartitionMaterials[0]){if(logged_[9])return false;logged_[9]=true;return true;}
     return false;
 }
 } // namespace gfx2::ps2port

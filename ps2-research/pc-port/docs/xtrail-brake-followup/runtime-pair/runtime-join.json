@@ -1,0 +1,838 @@
+{
+  "schema_version": 1,
+  "phase": "TERRANO_NATIVE_BRAKE_PAIR",
+  "observation_grade": "CONFIRMED_BY_RUNTIME",
+  "source_join_grade": "STATIC_INFERENCE_LAYOUT_CORRELATION",
+  "control_labels": "USER_RUNTIME_OBSERVATION released/held brake",
+  "source_identity": {
+    "family": "Terrano",
+    "pc_sha256": "90120ed0fea4428707cdc9505d53cb685ae85db6d13eeb8715d1e8e39fab927b",
+    "ps2_sha256": "bb0e2c4e34ba21812cf9fe57077da5e04a02501eae24451767c2ced42b95f1b1"
+  },
+  "source_lamp_records": [
+    {
+      "source_draw": 30,
+      "vertices": 10,
+      "triangles": 6,
+      "geometry_sha256": "2afd75bd071f0cb1bee35be8f99f0209511a5332b0e8880bb3b889fa52aaf847",
+      "slots": [
+        "breaklightson-tga",
+        "perspex-tga",
+        "Null"
+      ],
+      "flags": "00000001",
+      "lamp_joins": [
+        {
+          "mesh": {
+            "path": "root.24.0.0",
+            "offset": 191235,
+            "material": "$shader(carbrakelight)",
+            "slots": [
+              "breaklightson-tga",
+              "perspex-tga"
+            ],
+            "triangles": 6
+          },
+          "face_ordinals": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "mesh": {
+            "path": "root.24.1.0",
+            "offset": 191589,
+            "material": "$shader(carshiny)",
+            "slots": [
+              "terlights-tga",
+              "perspex-tga"
+            ],
+            "triangles": 6
+          },
+          "face_ordinals": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "source_draw": 31,
+      "vertices": 20,
+      "triangles": 20,
+      "geometry_sha256": "3658c62c72e54bbe2fba9ad4b9503bd55ab38d5ec40336e89341dc79ff828517",
+      "slots": [
+        "breaklightsonglow-tga",
+        "perspex-tga",
+        "Null"
+      ],
+      "flags": "01000001",
+      "lamp_joins": [
+        {
+          "mesh": {
+            "path": "root.24.0.1",
+            "offset": 191404,
+            "material": "$shader(carbrakelight)",
+            "slots": [
+              "breaklightsonglow-tga",
+              "perspex-tga"
+            ],
+            "triangles": 20
+          },
+          "face_ordinals": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19
+          ]
+        }
+      ]
+    },
+    {
+      "source_draw": 32,
+      "vertices": 10,
+      "triangles": 6,
+      "geometry_sha256": "2afd75bd071f0cb1bee35be8f99f0209511a5332b0e8880bb3b889fa52aaf847",
+      "slots": [
+        "terlights-tga",
+        "perspex-tga",
+        "Null"
+      ],
+      "flags": "00000101",
+      "lamp_joins": [
+        {
+          "mesh": {
+            "path": "root.24.0.0",
+            "offset": 191235,
+            "material": "$shader(carbrakelight)",
+            "slots": [
+              "breaklightson-tga",
+              "perspex-tga"
+            ],
+            "triangles": 6
+          },
+          "face_ordinals": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "mesh": {
+            "path": "root.24.1.0",
+            "offset": 191589,
+            "material": "$shader(carshiny)",
+            "slots": [
+              "terlights-tga",
+              "perspex-tga"
+            ],
+            "triangles": 6
+          },
+          "face_ordinals": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      ]
+    }
+  ],
+  "frames": {
+    "released": {
+      "file": "frame-2080-d1-00001288.jsonl",
+      "sha256": "12e7e0eaaa134b9eb0de8b5c079eba50ff08f5cd118623783b7887bc052154df",
+      "frame": 1288,
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "d0059a788bb270fa54f2091e00052149b74565452b677cd9a19c84760b37efe6",
+      "course": "RaceTest/Turkey2",
+      "live_race_certificate": true,
+      "race_lifecycle_generation": 6,
+      "owner_lifetime": 1,
+      "candidates": [
+        {
+          "captured_draw_ordinal_not_persistent_identity": 263,
+          "sequence": 912,
+          "method": "DrawIndexedPrimitive",
+          "arguments": [
+            4,
+            5218,
+            10,
+            14262,
+            6,
+            0,
+            0,
+            0
+          ],
+          "hresult": 0,
+          "fvf": 338,
+          "stream0": {
+            "pointer": 11031104,
+            "stride": 36,
+            "last_creation_serial": 624
+          },
+          "indices": {
+            "pointer": 285098272,
+            "base": 0,
+            "last_creation_serial": 625
+          },
+          "textures": [
+            {
+              "pointer": 500565840,
+              "last_creation_serial": 638
+            },
+            {
+              "pointer": 500560304,
+              "last_creation_serial": 631
+            }
+          ],
+          "native_logical_states": {
+            "ZENABLE": 1,
+            "ZWRITEENABLE": 1,
+            "ALPHATESTENABLE": 0,
+            "ALPHABLENDENABLE": 0,
+            "SRCBLEND": 5,
+            "DESTBLEND": 6,
+            "ZFUNC": 4,
+            "CULLMODE": 3,
+            "FOGENABLE": 1
+          },
+          "stage0_stage1": [
+            {
+              "1": 4,
+              "2": 2,
+              "3": 0,
+              "4": 4,
+              "5": 2,
+              "6": 0,
+              "11": 0,
+              "24": 0
+            },
+            {
+              "1": 18,
+              "2": 1,
+              "3": 2,
+              "4": 4,
+              "5": 1,
+              "6": 2,
+              "11": 65536,
+              "24": 2
+            }
+          ],
+          "world_view_projection": {
+            "256": {
+              "values": [
+                0.83792311,
+                -0.0134869888,
+                -0.545621634,
+                0,
+                0.065722838,
+                0.994913518,
+                0.0763391629,
+                0,
+                0.541816711,
+                -0.0998261422,
+                0.8345474,
+                0,
+                217.459839,
+                33.8403244,
+                151.776703,
+                1
+              ],
+              "bits": [
+                1062634017,
+                3160209544,
+                3205213660,
+                0,
+                1032231346,
+                1065267879,
+                1033656245,
+                0,
+                1057666176,
+                3184292262,
+                1062577382,
+                0,
+                1129936312,
+                1107778686,
+                1125631702,
+                1065353216
+              ]
+            },
+            "2": {
+              "values": [
+                -0.838588178,
+                0.0626724958,
+                0.54114902,
+                0,
+                0,
+                0.9933604,
+                -0.115044795,
+                0,
+                0.544766068,
+                0.0964751914,
+                0.83302021,
+                0,
+                99.6763458,
+                -63.4855194,
+                -234.217331,
+                1
+              ],
+              "bits": [
+                3210128823,
+                1031821936,
+                1057654974,
+                0,
+                0,
+                1065241822,
+                3186334875,
+                0,
+                1057715658,
+                1036358857,
+                1062551760,
+                0,
+                1120361034,
+                3263033644,
+                3278518179,
+                1065353216
+              ]
+            },
+            "3": {
+              "values": [
+                1.12245429,
+                0,
+                0,
+                0,
+                0,
+                1.49660575,
+                0,
+                0,
+                0,
+                0,
+                1.00020003,
+                1,
+                0,
+                0,
+                -0.200040013,
+                0
+              ],
+              "bits": [
+                1066380437,
+                0,
+                0,
+                0,
+                0,
+                1069519047,
+                0,
+                0,
+                0,
+                0,
+                1065354894,
+                1065353216,
+                0,
+                0,
+                3192706890,
+                0
+              ]
+            }
+          },
+          "object_classification": "VEHICLE_BODY",
+          "identity_source": "retained",
+          "surrounding_native_overrides": [
+            {
+              "sequence": 909,
+              "method": "SetTexture",
+              "arguments": [
+                1,
+                500560304,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "hresult": 0
+            },
+            {
+              "sequence": 910,
+              "method": "SetTextureStageState",
+              "arguments": [
+                1,
+                1,
+                18,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "hresult": 0
+            },
+            {
+              "sequence": 913,
+              "method": "SetTextureStageState",
+              "arguments": [
+                1,
+                1,
+                7,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "hresult": 0
+            },
+            {
+              "sequence": 914,
+              "method": "SetTexture",
+              "arguments": [
+                1,
+                542568304,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "hresult": 0
+            }
+          ],
+          "uploaded_geometry_byte_identity_verified": false
+        }
+      ],
+      "total_native_draw_records": 570
+    },
+    "held": {
+      "file": "frame-2080-d1-00001569.jsonl",
+      "sha256": "5ed351ff7856f4b6fdcc7e22537498f05dd9cc9ba2bcf9661873bd5451ac36b4",
+      "frame": 1569,
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "proxy_sha256": "d0059a788bb270fa54f2091e00052149b74565452b677cd9a19c84760b37efe6",
+      "course": "RaceTest/Turkey2",
+      "live_race_certificate": true,
+      "race_lifecycle_generation": 6,
+      "owner_lifetime": 1,
+      "candidates": [
+        {
+          "captured_draw_ordinal_not_persistent_identity": 290,
+          "sequence": 1017,
+          "method": "DrawIndexedPrimitive",
+          "arguments": [
+            4,
+            5840,
+            10,
+            14184,
+            6,
+            0,
+            0,
+            0
+          ],
+          "hresult": 0,
+          "fvf": 274,
+          "stream0": {
+            "pointer": 11031104,
+            "stride": 32,
+            "last_creation_serial": 624
+          },
+          "indices": {
+            "pointer": 285098272,
+            "base": 0,
+            "last_creation_serial": 625
+          },
+          "textures": [
+            {
+              "pointer": 499151088,
+              "last_creation_serial": 772
+            },
+            {
+              "pointer": 500560304,
+              "last_creation_serial": 631
+            }
+          ],
+          "native_logical_states": {
+            "ZENABLE": 1,
+            "ZWRITEENABLE": 1,
+            "ALPHATESTENABLE": 0,
+            "ALPHABLENDENABLE": 0,
+            "SRCBLEND": 5,
+            "DESTBLEND": 6,
+            "ZFUNC": 4,
+            "CULLMODE": 3,
+            "FOGENABLE": 1
+          },
+          "stage0_stage1": [
+            {
+              "1": 4,
+              "2": 2,
+              "3": 0,
+              "4": 4,
+              "5": 2,
+              "6": 0,
+              "11": 0,
+              "24": 0
+            },
+            {
+              "1": 18,
+              "2": 1,
+              "3": 2,
+              "4": 4,
+              "5": 1,
+              "6": 2,
+              "11": 65536,
+              "24": 2
+            }
+          ],
+          "world_view_projection": {
+            "256": {
+              "values": [
+                0.836976111,
+                -0.0217475519,
+                -0.54680711,
+                0,
+                0.0763057321,
+                0.994086564,
+                0.0772614703,
+                0,
+                0.541893363,
+                -0.106390521,
+                0.833686173,
+                0,
+                218.197784,
+                33.7148132,
+                152.91272,
+                1
+              ],
+              "bits": [
+                1062618129,
+                3165792236,
+                3205233549,
+                0,
+                1033651758,
+                1065254005,
+                1033780035,
+                0,
+                1057667462,
+                3185173318,
+                1062562933,
+                0,
+                1129984674,
+                1107745784,
+                1125706152,
+                1065353216
+              ]
+            },
+            "2": {
+              "values": [
+                -0.837777138,
+                0.0626145154,
+                0.542410076,
+                0,
+                -7.45057971e-09,
+                0.993402898,
+                -0.114676036,
+                0,
+                0.546012223,
+                0.0960729793,
+                0.832250237,
+                0,
+                99.3088379,
+                -63.4495125,
+                -235.834396,
+                1
+              ],
+              "bits": [
+                3210115216,
+                1031814154,
+                1057676131,
+                0,
+                2986344446,
+                1065242535,
+                3186285381,
+                0,
+                1057736565,
+                1036304873,
+                1062538842,
+                0,
+                1120312864,
+                3263024205,
+                3278624155,
+                1065353216
+              ]
+            },
+            "3": {
+              "values": [
+                1.12245429,
+                0,
+                0,
+                0,
+                0,
+                1.49660575,
+                0,
+                0,
+                0,
+                0,
+                1.00020003,
+                1,
+                0,
+                0,
+                -0.200040013,
+                0
+              ],
+              "bits": [
+                1066380437,
+                0,
+                0,
+                0,
+                0,
+                1069519047,
+                0,
+                0,
+                0,
+                0,
+                1065354894,
+                1065353216,
+                0,
+                0,
+                3192706890,
+                0
+              ]
+            }
+          },
+          "object_classification": "VEHICLE_BODY",
+          "identity_source": "retained",
+          "surrounding_native_overrides": [],
+          "uploaded_geometry_byte_identity_verified": false
+        },
+        {
+          "captured_draw_ordinal_not_persistent_identity": 295,
+          "sequence": 1032,
+          "method": "DrawIndexedPrimitive",
+          "arguments": [
+            4,
+            5850,
+            20,
+            14202,
+            20,
+            0,
+            0,
+            0
+          ],
+          "hresult": 0,
+          "fvf": 274,
+          "stream0": {
+            "pointer": 11031104,
+            "stride": 32,
+            "last_creation_serial": 624
+          },
+          "indices": {
+            "pointer": 285098272,
+            "base": 0,
+            "last_creation_serial": 625
+          },
+          "textures": [
+            {
+              "pointer": 499150320,
+              "last_creation_serial": 773
+            },
+            {
+              "pointer": 500560304,
+              "last_creation_serial": 631
+            }
+          ],
+          "native_logical_states": {
+            "ZENABLE": 1,
+            "ZWRITEENABLE": 1,
+            "ALPHATESTENABLE": 0,
+            "ALPHABLENDENABLE": 1,
+            "SRCBLEND": 5,
+            "DESTBLEND": 6,
+            "ZFUNC": 4,
+            "CULLMODE": 3,
+            "FOGENABLE": 1
+          },
+          "stage0_stage1": [
+            {
+              "1": 4,
+              "2": 2,
+              "3": 0,
+              "4": 4,
+              "5": 2,
+              "6": 0,
+              "11": 0,
+              "24": 0
+            },
+            {
+              "1": 18,
+              "2": 1,
+              "3": 2,
+              "4": 4,
+              "5": 1,
+              "6": 2,
+              "11": 65536,
+              "24": 2
+            }
+          ],
+          "world_view_projection": {
+            "256": {
+              "values": [
+                0.836976111,
+                -0.0217475519,
+                -0.54680711,
+                0,
+                0.0763057321,
+                0.994086564,
+                0.0772614703,
+                0,
+                0.541893363,
+                -0.106390521,
+                0.833686173,
+                0,
+                218.197784,
+                33.7148132,
+                152.91272,
+                1
+              ],
+              "bits": [
+                1062618129,
+                3165792236,
+                3205233549,
+                0,
+                1033651758,
+                1065254005,
+                1033780035,
+                0,
+                1057667462,
+                3185173318,
+                1062562933,
+                0,
+                1129984674,
+                1107745784,
+                1125706152,
+                1065353216
+              ]
+            },
+            "2": {
+              "values": [
+                -0.837777138,
+                0.0626145154,
+                0.542410076,
+                0,
+                -7.45057971e-09,
+                0.993402898,
+                -0.114676036,
+                0,
+                0.546012223,
+                0.0960729793,
+                0.832250237,
+                0,
+                99.3088379,
+                -63.4495125,
+                -235.834396,
+                1
+              ],
+              "bits": [
+                3210115216,
+                1031814154,
+                1057676131,
+                0,
+                2986344446,
+                1065242535,
+                3186285381,
+                0,
+                1057736565,
+                1036304873,
+                1062538842,
+                0,
+                1120312864,
+                3263024205,
+                3278624155,
+                1065353216
+              ]
+            },
+            "3": {
+              "values": [
+                1.12245429,
+                0,
+                0,
+                0,
+                0,
+                1.49660575,
+                0,
+                0,
+                0,
+                0,
+                1.00020003,
+                1,
+                0,
+                0,
+                -0.200040013,
+                0
+              ],
+              "bits": [
+                1066380437,
+                0,
+                0,
+                0,
+                0,
+                1069519047,
+                0,
+                0,
+                0,
+                0,
+                1065354894,
+                1065353216,
+                0,
+                0,
+                3192706890,
+                0
+              ]
+            }
+          },
+          "object_classification": "VEHICLE_BODY",
+          "identity_source": "retained",
+          "surrounding_native_overrides": [],
+          "uploaded_geometry_byte_identity_verified": false
+        }
+      ],
+      "total_native_draw_records": 565
+    }
+  },
+  "limitations": [
+    "Captured ordinals/pointers/ranges are observations only.",
+    "No current CPU upload bytes or immutable face hashes in F10.",
+    "No controller-slot direct read or function call performed.",
+    "World and camera pose changed; no pixel-level visual comparison.",
+    "Original PC glow blend is not proof of original PS2 mode14 GS state."
+  ]
+}

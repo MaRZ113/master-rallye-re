@@ -1,6 +1,7 @@
 #pragma once
 #include "reflection_native_integration.hpp"
 #include "frontend_source_registry.hpp"
+#include "xtrail_frontend_registry.hpp"
 #include <algorithm>
 #include <sstream>
 #include <iomanip>
@@ -10,6 +11,7 @@
 namespace gfx2::frontendintegration {
 inline bool layout(uint32_t count,uint32_t vertices) noexcept {
     for(const auto& s:ps2port::kForesterCompleteSources)if(s.triangles==count&&s.vertices==vertices)return true;
+    for(const auto& s:ps2port::kXtrailCompleteSources)if(s.triangles==count&&s.vertices==vertices)return true;
     return false;
 }
 // Read-only source/resource diagnostic. This explicitly does not establish the
@@ -17,7 +19,7 @@ inline bool layout(uint32_t count,uint32_t vertices) noexcept {
 inline void observe(Device8& d,D3DPRIMITIVETYPE type,UINT min_index,UINT vertices,
                     UINT start,UINT count) noexcept {
     auto* e=d.ps2_port();
-    if(!e || !e->frontend_geometry_diagnostics() || type!=D3DPT_TRIANGLELIST || !layout(count,vertices))return;
+    if(!d.trace.enabled||!d.trace.control.active||!e || !e->frontend_geometry_diagnostics() || type!=D3DPT_TRIANGLELIST || !layout(count,vertices))return;
     if(!e->claim_frontend_probe_attempt())return; // hard lifetime cap, no steady menu rescan
     try {
         ps2port::DrawSnapshot g;
@@ -25,9 +27,9 @@ inline void observe(Device8& d,D3DPRIMITIVETYPE type,UINT min_index,UINT vertice
         g.device_id=d.trace.device_id();g.reset_generation=e->reset_generation();
         ps2integration::Ref<IDirect3DVertexBuffer8> vb;ps2integration::Ref<IDirect3DIndexBuffer8> ib;
         auto& n=*d.native();DWORD fvf=0,shader=0;UINT stride=0,base=0;
-        if(FAILED(n.GetVertexShader(&fvf)) || (fvf!=0x142&&fvf!=0x152) ||
+        if(FAILED(n.GetVertexShader(&fvf)) || (fvf!=0x142&&fvf!=0x152&&fvf!=0x112) ||
            FAILED(n.GetPixelShader(&shader)) || shader ||
-           FAILED(n.GetStreamSource(0,&vb.value,&stride)) || !vb.value || stride!=(fvf==0x152?36u:24u) ||
+           FAILED(n.GetStreamSource(0,&vb.value,&stride)) || !vb.value || stride!=(fvf==0x152?36u:fvf==0x112?32u:24u) ||
            FAILED(n.GetIndices(&ib.value,&base)) || !ib.value)return;
         D3DVERTEXBUFFER_DESC vd{};D3DINDEXBUFFER_DESC id{};
         if(FAILED(vb.value->GetDesc(&vd)) || FAILED(ib.value->GetDesc(&id)))return;
@@ -43,13 +45,17 @@ inline void observe(Device8& d,D3DPRIMITIVETYPE type,UINT min_index,UINT vertice
            !d.copy_buffer_shadow(vb.value,BufferKind::Vertex,g.vertex_generation,vo,static_cast<size_t>(vs),g.vertex_bytes,g.vertex_revision) ||
            !d.copy_buffer_shadow(ib.value,BufferKind::Index,g.index_generation,io,static_cast<size_t>(is),g.index_bytes,g.index_revision))return;
         g.complete_mirror_coverage=true;
-        auto faces=ps2port::vehicle_face_hashes(g);if(faces.empty())return;
+        // Diagnostic-only XYZ adapter; does NOT widen body/render admission.
+        auto geometry=g;
+        if(fvf==0x112){geometry.fvf=0x152;geometry.stride=36;geometry.base_vertex=0;geometry.vertex_byte_offset=uint64_t(min_index)*36;geometry.vertex_bytes.assign(uint64_t(vertices)*36,0);for(unsigned i=0;i<vertices;++i)std::memcpy(geometry.vertex_bytes.data()+i*36,g.vertex_bytes.data()+i*32,12);}
+        auto faces=ps2port::vehicle_face_hashes(geometry);if(faces.empty())return;
         std::sort(faces.begin(),faces.end());std::string joined;for(const auto& f:faces)joined+=f;
         const auto digest=sha256_bytes(joined.data(),joined.size());
-        for(size_t i=0;i<std::size(ps2port::kForesterCompleteSources);++i) {
-            const auto& source=ps2port::kForesterCompleteSources[i];
+        for(size_t i=0;i<std::size(ps2port::kForesterCompleteSources)+std::size(ps2port::kXtrailCompleteSources);++i) {
+            const auto forester_count=std::size(ps2port::kForesterCompleteSources);const bool xtrail=i>=forester_count;
+            const auto& source=xtrail?ps2port::kXtrailCompleteSources[i-forester_count]:ps2port::kForesterCompleteSources[i];
             if(digest!=source.hash || count!=source.triangles || vertices!=source.vertices)continue;
-            if(!e->claim_frontend_geometry(i))return;
+            if(!e->claim_frontend_geometry(i,d.trace.frame_number()))return;
             std::ostringstream matrices;matrices<<std::setprecision(std::numeric_limits<float>::max_digits10)<<'[';
             bool current=true;
             std::string matrix_hr="[";
@@ -69,8 +75,8 @@ inline void observe(Device8& d,D3DPRIMITIVETYPE type,UINT min_index,UINT vertice
             matrices<<']';
             matrix_hr+=']';
             session().write("{\"type\":\"ps2_frontend_upload_identity\",\"frame\":"+
-                std::to_string(d.trace.frame_number())+",\"source\":\"Forester/complete.dx\",\"source_geometry_sha256\":"+
-                quote(digest)+",\"source_record_metadata_index\":"+std::to_string(i)+
+                std::to_string(d.trace.frame_number())+",\"source\":"+quote(xtrail?"Xtrail/complete.dx":"Forester/complete.dx")+",\"source_geometry_sha256\":"+
+                quote(digest)+",\"source_record_metadata_index\":"+std::to_string(xtrail?i-forester_count:i)+
                 ",\"vertex_generation\":"+std::to_string(g.vertex_generation)+",\"index_generation\":"+
                 std::to_string(g.index_generation)+",\"vertex_revision\":"+std::to_string(g.vertex_revision)+
                 ",\"index_revision\":"+std::to_string(g.index_revision)+",\"reset_generation\":"+

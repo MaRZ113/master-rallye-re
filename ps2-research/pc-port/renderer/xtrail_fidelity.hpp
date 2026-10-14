@@ -4,6 +4,7 @@
 #include <array>
 namespace gfx2::ps2port {
 class XtrailGlass;
+class BrakeGlow;
 constexpr bool xtrail_fidelity_opt_in(std::wstring_view mode,std::wstring_view version,bool supported) noexcept {
     return supported&&mode==L"1"&&version==L"1";
 }
@@ -55,6 +56,7 @@ public:
 };
 class XtrailFidelity {
     std::unique_ptr<XtrailGlass> glass_;
+    std::unique_ptr<BrakeGlow> brake_;
     struct Cache {std::array<uint64_t,15> key{};std::vector<XtrailDecalVertex> vertices;bool valid=false;};
     std::array<Cache,16> cache_{};size_t next_=0;
     bool requested_=false,diagnostics_=false,disabled_=false,blocked_=false;
@@ -64,6 +66,7 @@ public:
     XtrailFidelity(bool supported,const std::wstring& ini) noexcept;
     ~XtrailFidelity();
     XtrailGlass* glass()noexcept{return glass_.get();}
+    BrakeGlow* brake()noexcept{return brake_.get();}
     bool glass_pending()const noexcept;
     bool requested() const noexcept{return requested_&&!disabled_;}
     bool blocked() const noexcept{return blocked_;}

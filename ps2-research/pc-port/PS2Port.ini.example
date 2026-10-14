@@ -79,3 +79,9 @@ XtrailGlassMode=0
 XtrailGlassVersion=1
 XtrailGlassAsset=XtrailHeadlight.ps2glass
 XtrailGlassDiagnostics=0
+
+; 0=Stock; 1=Terrano ORIGINAL native-emitted brake glow PS2-mode14 state control.
+; Original PC glow texture retained; requires ReflectionMode4 mirroring/context.
+BrakeGlowMode=0
+BrakeGlowVersion=1
+BrakeGlowDiagnostics=0

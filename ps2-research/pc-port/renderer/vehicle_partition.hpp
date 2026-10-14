@@ -37,7 +37,7 @@ class VehiclePartitionPilot {
     };
     std::array<Cache,64> cache_{};
     size_t next_=0;
-    std::array<bool,9> logged_{};
+    std::array<bool,10> logged_{};
     bool requested_=false, diagnostics_=false;
 public:
     VehiclePartitionPilot(bool supported,const std::wstring& ini) noexcept;

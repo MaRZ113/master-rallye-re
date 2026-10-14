@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "observations": [
+    {
+      "subject": "Xtrail",
+      "file": "MRallye_sii0MLSTVE.jpg",
+      "sha256": "9da24ff0e2a148cd079cfc7744d0651d438bb4afa361b14260aeb09de04980a5",
+      "grade": "USER_RUNTIME_OBSERVATION",
+      "frame_join": "UNKNOWN"
+    },
+    {
+      "subject": "Terrano_PS2",
+      "file": "Master Rallye_SLES-50906_20261014131015.png",
+      "sha256": "69815c2d1a71b88f7a211aaef2e73fce19a2ebc56e18d04313c7e7532c46ca8f",
+      "grade": "USER_RUNTIME_OBSERVATION",
+      "frame_join": "UNKNOWN"
+    },
+    {
+      "subject": "Terrano_PC",
+      "file": "MRallye_dd7aty4Rv4.png",
+      "sha256": "2242d11b17a2f93434788475bd5d689069ba84f90f077e5425572f50ba541084",
+      "grade": "USER_RUNTIME_OBSERVATION",
+      "frame_join": "UNKNOWN"
+    }
+  ],
+  "xtrail_glass": "USER_OBSERVED_CLOSER_VISUAL_ACCEPTANCE_WITHHELD",
+  "decal": "USER_CONFIRMED_CLOSED",
+  "terrano_rear_subject": "USER_CONFIRMED_TERRANO",
+  "root_cause": "NOT_PROVEN_FROM_SCREENSHOTS"
+}
