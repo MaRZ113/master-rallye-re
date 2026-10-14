@@ -44,13 +44,21 @@ def main():
     report=json.loads((PORT/'dist/current/build-report.json').read_text())
     lock=json.loads((PORT/'overlay/baseline-lock.json').read_text())
     sources=h.verify_build_inputs(report,lock)
-    commit=git('rev-parse','HEAD').decode().strip();members={}
+    commit=git('rev-parse','HEAD').decode().strip();members={};metadata_eol_conversions=[]
     prefix='ps2-research/pc-port/'
     allowed={'.py','.cpp','.hpp','.java','.json','.md','.patch','.x32dbg','.ini','.example'}
     for path in git('ls-tree','-r','--name-only',commit,'ps2-research/pc-port').decode().splitlines():
         relative=path.removeprefix(prefix)
         if relative.startswith(('renderer/','tests/','tools/','overlay/','docs/')) and Path(path).suffix in allowed or relative in ('.gitignore','.gitattributes','PS2Port.ini.example'):
-            members[path]=git('show',f'{commit}:{path}')
+            committed=git('show',f'{commit}:{path}')
+            members[path]=committed
+            # Historical metadata sometimes pins the original Windows file
+            # byte hash. Preserve only verified LF/CRLF conversion, never dirty
+            # content; SHA-pinned fixtures must not be weakened to pass tests.
+            if Path(path).suffix=='.json':
+                current=h.read_required(ROOT/path)
+                if current!=committed and current.replace(b'\r\n',b'\n')==committed:
+                    members[path]=current;metadata_eol_conversions.append(path)
     conversions=[]
     for name,path in sources.items():
         key=h.relative_name(path);built=h.read_required(path)
@@ -73,6 +81,7 @@ def main():
         'renderer_tree':report['renderer_tree'],'staging_commit':report['baseline_head'],
         'build_report_source_head':report['current_head'],'source_and_patch_hashes_verified':True,
         'git_lf_build_crlf_files':conversions,'source_archive_policy':'EXACT_BUILD_BYTES_COMMITTED_CONTENT_VERIFIED',
+        'git_lf_metadata_crlf_files':metadata_eol_conversions,
         'unrelated_uncommitted_work_excluded':True,'proprietary_assets_packaged':False,
     },indent=2).encode()
     for variant in ('baseline','ps2-enabled'):members[f'artifacts/{variant}/d3d8.dll']=h.verified_dll(report,variant)

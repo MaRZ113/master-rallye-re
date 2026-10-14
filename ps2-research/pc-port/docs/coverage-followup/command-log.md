@@ -32,6 +32,10 @@ original source writes, automatic deployment or push.
 * Local scoped source commit and package_coverage_followup.py: verified archive,
   committed/build-source hashes and32 isolated fixture tests. Results are in
   archive handoff-validation.json; release-provenance records exact source commit.
+  The first extracted check caught a historical JSON fixture SHA mismatch
+  caused by Git LF versus original Windows CRLF. Packaging now retains its
+  original byte hash only after committed-content equivalence verification;
+  the exact test/hash requirement was not weakened.
 
 The two DLL hashes are in the final build report. No new live game or hidden
 PCSX2 run occurred during this implementation. Resource-copy and Reset A/B
