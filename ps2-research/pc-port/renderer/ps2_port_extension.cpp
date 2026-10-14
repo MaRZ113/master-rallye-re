@@ -3,6 +3,7 @@
 #include "course_objects.hpp"
 #include "grass_pilot.hpp"
 #include "vehicle_partition.hpp"
+#include "xtrail_fidelity.hpp"
 
 #include "foliage_probe.hpp"
 #include "provenance.hpp"
@@ -201,6 +202,7 @@ PS2PortExtension::PS2PortExtension(bool exact_build, const std::string& exe_sha,
         }
         reflection_ = std::make_unique<ReflectionPilot>(build_valid_, ini);
         vehicle_partitions_ = std::make_unique<VehiclePartitionPilot>(build_valid_, ini);
+        xtrail_ = std::make_unique<XtrailFidelity>(build_valid_,ini);
         course_objects_ = std::make_unique<CourseObjectsPilot>(build_valid_, ini);
         grass_ = std::make_unique<GrassPilot>(build_valid_, ini);
         shrubs_ = std::make_unique<GrassPilot>(build_valid_, ini,GroundDetailKind::Shrubs);
@@ -217,7 +219,8 @@ bool PS2PortExtension::analysis_enabled() const noexcept { return active() || pi
                   (grass_ && grass_->identity_requested()) || (shrubs_ && shrubs_->identity_requested()))); }
 
 bool PS2PortExtension::native_states_pending() const noexcept {
-    return (reflection_ && (reflection_->blocked() || reflection_->transaction().changed_mask ||
+    return (xtrail_ && (xtrail_->blocked() || xtrail_->transaction.pending())) ||
+        (reflection_ && (reflection_->blocked() || reflection_->transaction().changed_mask ||
             reflection_->mixed_capture().pending())) ||
         (course_objects_ && (course_objects_->blocked() || course_objects_->transaction.has_pending())) ||
         (grass_ && (grass_->blocked() || grass_->transaction.has_pending())) ||

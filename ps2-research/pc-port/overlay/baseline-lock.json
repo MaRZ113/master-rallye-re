@@ -30,7 +30,7 @@
   },
   "patches": {
     "0001-renderer-integration.patch": {
-      "sha256": "dea67564c480545aef4d97e6e67e44b301d50de2a2ebaf3dea272fc6369e79b9"
+      "sha256": "734c26906123ae269dac991bc7b286ac19eedd9030217cf0232d9a1b45b96b4c"
     },
     "0002-interface-generator.patch": {
       "sha256": "ef102121a0b6418ce8fbb0c4477f37194bb30c69ef0f6905a37c75093502fb3f"

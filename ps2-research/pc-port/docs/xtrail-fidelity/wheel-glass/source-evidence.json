@@ -1,0 +1,4569 @@
+{
+  "schema_version": 1,
+  "tolerance": 0.001,
+  "coordinate_frame": "MODEL_LOCAL_GAME_SOURCE",
+  "evidence_grade": "CONFIRMED_BY_BYTES",
+  "runtime_identity": "CURRENT_GEOMETRY_HASH_NOT_PRESENT_IN_F10",
+  "models": [
+    {
+      "kind": "CAR",
+      "ps2_path": "\\TNG\\DATAPSM\\VEHICLES\\XTRAIL\\CAR.PSM",
+      "ps2_sha256": "af57572e92ce47d810666779fb60c8c178f1979feb203416131a3acc81449326",
+      "ps2_provenance": {
+        "path": "\\TNG\\DATAPSM\\VEHICLES\\XTRAIL\\CAR.PSM",
+        "offset": 1218568392,
+        "stored_size": 99997,
+        "directory_size_0x08": 99997,
+        "unpacked_size": 181257,
+        "compression": "packfs_lzo",
+        "stored_sha256": "53bd6664c19a526f5f6aa3d33d56d7e4190191598bcf7e6bd0183ca19245f358",
+        "payload_sha256": "af57572e92ce47d810666779fb60c8c178f1979feb203416131a3acc81449326",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "pc_path": "Xtrail/car.dx",
+      "pc_sha256": "e334085754f81d20d237a70e653b533344771e6409468e2e09252e380b3d063f",
+      "trailer": {
+        "tag": 101,
+        "offset": 177313,
+        "kind": "CONVEX_AUXILIARY_TRAILER_NOT_DECODED",
+        "unparsed_bytes": 3940
+      },
+      "meshes": [
+        {
+          "path": "root.0",
+          "node_offset": 171224,
+          "material_offset": 171283,
+          "material": "$shader(carflat)",
+          "slots": [
+            "underdash2-tga"
+          ],
+          "mode": 1,
+          "effective_secondary": null,
+          "shader": "carflat",
+          "rubber_preserved": false,
+          "source_faces": 569,
+          "conditional": false,
+          "recommendation": "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT"
+        },
+        {
+          "path": "root.1",
+          "node_offset": 171804,
+          "material_offset": 171900,
+          "material": "$shader(carshiny)",
+          "slots": [
+            "sidered2-tga",
+            "silverpaint-tga"
+          ],
+          "mode": 3,
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "shader": "carshiny",
+          "rubber_preserved": false,
+          "source_faces": 195,
+          "conditional": false,
+          "recommendation": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+        },
+        {
+          "path": "root.2",
+          "node_offset": 172084,
+          "material_offset": 172138,
+          "material": "$shader(carflat)",
+          "slots": [
+            "black-tga"
+          ],
+          "mode": 1,
+          "effective_secondary": null,
+          "shader": "carflat",
+          "rubber_preserved": false,
+          "source_faces": 50,
+          "conditional": false,
+          "recommendation": "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT"
+        },
+        {
+          "path": "root.3",
+          "node_offset": 172269,
+          "material_offset": 172364,
+          "material": "$shader(carshiny)",
+          "slots": [
+            "bon3red-tga",
+            "silverpaint-tga"
+          ],
+          "mode": 3,
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "shader": "carshiny",
+          "rubber_preserved": false,
+          "source_faces": 155,
+          "conditional": false,
+          "recommendation": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+        },
+        {
+          "path": "root.4",
+          "node_offset": 172561,
+          "material_offset": 172656,
+          "material": "$shader(carshiny)",
+          "slots": [
+            "colour3-tga",
+            "silverpaint-tga"
+          ],
+          "mode": 3,
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "shader": "carshiny",
+          "rubber_preserved": false,
+          "source_faces": 77,
+          "conditional": false,
+          "recommendation": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+        },
+        {
+          "path": "root.5",
+          "node_offset": 172788,
+          "material_offset": 172882,
+          "material": "$shader(carshiny)",
+          "slots": [
+            "lights-tga",
+            "silverpaint-tga"
+          ],
+          "mode": 3,
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "shader": "carshiny",
+          "rubber_preserved": false,
+          "source_faces": 28,
+          "conditional": false,
+          "recommendation": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+        },
+        {
+          "path": "root.6",
+          "node_offset": 172962,
+          "material_offset": 173054,
+          "material": "$shader(carshiny)",
+          "slots": [
+            "archgrey-tga",
+            "perspex-tga"
+          ],
+          "mode": 3,
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "shader": "carshiny",
+          "rubber_preserved": false,
+          "source_faces": 144,
+          "conditional": false,
+          "recommendation": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+        },
+        {
+          "path": "root.7",
+          "node_offset": 173212,
+          "material_offset": 173267,
+          "material": "$shader(carflat)",
+          "slots": [
+            "chair2-tga"
+          ],
+          "mode": 1,
+          "effective_secondary": null,
+          "shader": "carflat",
+          "rubber_preserved": false,
+          "source_faces": 54,
+          "conditional": false,
+          "recommendation": "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT"
+        },
+        {
+          "path": "root.8",
+          "node_offset": 173372,
+          "material_offset": 173468,
+          "material": "$shader(carshiny)",
+          "slots": [
+            "mhelmet32-tga",
+            "whitepaint-tga"
+          ],
+          "mode": 3,
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "shader": "carshiny",
+          "rubber_preserved": false,
+          "source_faces": 148,
+          "conditional": false,
+          "recommendation": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+        },
+        {
+          "path": "root.9",
+          "node_offset": 173626,
+          "material_offset": 173682,
+          "material": "$shader(carflat)",
+          "slots": [
+            "grille2-tga"
+          ],
+          "mode": 1,
+          "effective_secondary": null,
+          "shader": "carflat",
+          "rubber_preserved": false,
+          "source_faces": 4,
+          "conditional": false,
+          "recommendation": "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT"
+        },
+        {
+          "path": "root.10",
+          "node_offset": 173735,
+          "material_offset": 173821,
+          "material": "$shader(carshiny)",
+          "slots": [
+            "bl-tga",
+            "perspex-tga"
+          ],
+          "mode": 3,
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "shader": "carshiny",
+          "rubber_preserved": false,
+          "source_faces": 34,
+          "conditional": false,
+          "recommendation": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+        },
+        {
+          "path": "root.11",
+          "node_offset": 173888,
+          "material_offset": 173978,
+          "material": "$shader(carshiny)",
+          "slots": [
+            "lights-tga",
+            "perspex-tga"
+          ],
+          "mode": 3,
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "shader": "carshiny",
+          "rubber_preserved": false,
+          "source_faces": 14,
+          "conditional": false,
+          "recommendation": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+        },
+        {
+          "path": "root.12",
+          "node_offset": 174032,
+          "material_offset": 174132,
+          "material": "$shader(carshiny)",
+          "slots": [
+            "sidebottom32grey-tga",
+            "perspex-tga"
+          ],
+          "mode": 3,
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "shader": "carshiny",
+          "rubber_preserved": false,
+          "source_faces": 50,
+          "conditional": false,
+          "recommendation": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+        },
+        {
+          "path": "root.13",
+          "node_offset": 174238,
+          "material_offset": 174336,
+          "material": "$shader(carshiny)",
+          "slots": [
+            "x-back5red-tga",
+            "silverpaint-tga"
+          ],
+          "mode": 3,
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "shader": "carshiny",
+          "rubber_preserved": false,
+          "source_faces": 166,
+          "conditional": false,
+          "recommendation": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+        },
+        {
+          "path": "root.14",
+          "node_offset": 174533,
+          "material_offset": 174637,
+          "material": "$shader(carshiny)",
+          "slots": [
+            "mastersticker069-tga",
+            "silverpaint-tga"
+          ],
+          "mode": 3,
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "shader": "carshiny",
+          "rubber_preserved": false,
+          "source_faces": 14,
+          "conditional": false,
+          "recommendation": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+        },
+        {
+          "path": "root.15",
+          "node_offset": 174704,
+          "material_offset": 174799,
+          "material": "$shader(carshiny)",
+          "slots": [
+            "blackplastic-tga",
+            "rubber-tga"
+          ],
+          "mode": 3,
+          "effective_secondary": "rubber-tga",
+          "shader": "carshiny",
+          "rubber_preserved": true,
+          "source_faces": 8,
+          "conditional": false,
+          "recommendation": "KEEP_AUTHORED_RUBBER_MAP_NO_BODY_ENV_OVERRIDE"
+        },
+        {
+          "path": "root.16",
+          "node_offset": 174866,
+          "material_offset": 174956,
+          "material": "$shader(carshiny)",
+          "slots": [
+            "fbgrey-tga",
+            "perspex-tga"
+          ],
+          "mode": 3,
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "shader": "carshiny",
+          "rubber_preserved": false,
+          "source_faces": 110,
+          "conditional": false,
+          "recommendation": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+        },
+        {
+          "path": "root.17",
+          "node_offset": 175088,
+          "material_offset": 175144,
+          "material": "$shader(carflat)",
+          "slots": [
+            "bullbar-tga"
+          ],
+          "mode": 1,
+          "effective_secondary": null,
+          "shader": "carflat",
+          "rubber_preserved": false,
+          "source_faces": 140,
+          "conditional": false,
+          "recommendation": "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT"
+        },
+        {
+          "path": "root.18",
+          "node_offset": 175275,
+          "material_offset": 175335,
+          "material": "shit",
+          "slots": [
+            "silverpaint-tga"
+          ],
+          "mode": null,
+          "effective_secondary": null,
+          "shader": null,
+          "rubber_preserved": false,
+          "source_faces": 2,
+          "conditional": false,
+          "recommendation": "UNKNOWN_KEEP_STOCK"
+        },
+        {
+          "path": "root.19",
+          "node_offset": 175376,
+          "material_offset": 175470,
+          "material": "$shader(carglass)",
+          "slots": [
+            "windscreen32-tga",
+            "glass-tga"
+          ],
+          "mode": 20,
+          "effective_secondary": "CommonTextures/windscreen-reflect",
+          "shader": "carglass",
+          "rubber_preserved": false,
+          "source_faces": 18,
+          "conditional": false,
+          "recommendation": "GLASS_DISTINCT_FROM_BODY_ENVIRONMENT"
+        },
+        {
+          "path": "root.20.0.0",
+          "node_offset": 175558,
+          "material_offset": 175644,
+          "material": "$shader(carshiny)",
+          "slots": [
+            "bl-tga",
+            "perspex-tga"
+          ],
+          "mode": 3,
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "shader": "carshiny",
+          "rubber_preserved": false,
+          "source_faces": 6,
+          "conditional": true,
+          "recommendation": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+        },
+        {
+          "path": "root.20.1.0",
+          "node_offset": 175710,
+          "material_offset": 175810,
+          "material": "$shader(carbrakelights)",
+          "slots": [
+            "breaklightson-tga",
+            "lightshine-tga"
+          ],
+          "mode": null,
+          "effective_secondary": "lightshine-tga",
+          "shader": "carbrakelights",
+          "rubber_preserved": false,
+          "source_faces": 6,
+          "conditional": true,
+          "recommendation": "UNKNOWN_KEEP_STOCK"
+        },
+        {
+          "path": "root.20.1.1",
+          "node_offset": 175870,
+          "material_offset": 175936,
+          "material": "$shader(carbrakelights)",
+          "slots": [
+            "breaklightsonglow-tga"
+          ],
+          "mode": null,
+          "effective_secondary": null,
+          "shader": "carbrakelights",
+          "rubber_preserved": false,
+          "source_faces": 22,
+          "conditional": true,
+          "recommendation": "UNKNOWN_KEEP_STOCK"
+        },
+        {
+          "path": "root.21.0.0",
+          "node_offset": 176035,
+          "material_offset": 176094,
+          "material": "$shader(carflat)",
+          "slots": [
+            "underdash2-tga"
+          ],
+          "mode": 1,
+          "effective_secondary": null,
+          "shader": "carflat",
+          "rubber_preserved": false,
+          "source_faces": 1,
+          "conditional": true,
+          "recommendation": "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT"
+        },
+        {
+          "path": "root.21.0.1",
+          "node_offset": 176147,
+          "material_offset": 176241,
+          "material": "$shader(carglass)",
+          "slots": [
+            "windscreen32-tga",
+            "glass-tga"
+          ],
+          "mode": 20,
+          "effective_secondary": "CommonTextures/windscreen-reflect",
+          "shader": "carglass",
+          "rubber_preserved": false,
+          "source_faces": 5,
+          "conditional": true,
+          "recommendation": "GLASS_DISTINCT_FROM_BODY_ENVIRONMENT"
+        },
+        {
+          "path": "root.21.1.0",
+          "node_offset": 176307,
+          "material_offset": 176402,
+          "material": "$shader(carglass)",
+          "slots": [
+            "windscreenc32-tga",
+            "glass-tga"
+          ],
+          "mode": 20,
+          "effective_secondary": "CommonTextures/windscreen-reflect",
+          "shader": "carglass",
+          "rubber_preserved": false,
+          "source_faces": 6,
+          "conditional": true,
+          "recommendation": "GLASS_DISTINCT_FROM_BODY_ENVIRONMENT"
+        },
+        {
+          "path": "root.22.0.0",
+          "node_offset": 176494,
+          "material_offset": 176589,
+          "material": "$shader(carglass)",
+          "slots": [
+            "windscreenc32-tga",
+            "glass-tga"
+          ],
+          "mode": 20,
+          "effective_secondary": "CommonTextures/windscreen-reflect",
+          "shader": "carglass",
+          "rubber_preserved": false,
+          "source_faces": 6,
+          "conditional": true,
+          "recommendation": "GLASS_DISTINCT_FROM_BODY_ENVIRONMENT"
+        },
+        {
+          "path": "root.22.1.0",
+          "node_offset": 176655,
+          "material_offset": 176714,
+          "material": "$shader(carflat)",
+          "slots": [
+            "underdash2-tga"
+          ],
+          "mode": 1,
+          "effective_secondary": null,
+          "shader": "carflat",
+          "rubber_preserved": false,
+          "source_faces": 1,
+          "conditional": true,
+          "recommendation": "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT"
+        },
+        {
+          "path": "root.22.1.1",
+          "node_offset": 176767,
+          "material_offset": 176861,
+          "material": "$shader(carglass)",
+          "slots": [
+            "windscreen32-tga",
+            "glass-tga"
+          ],
+          "mode": 20,
+          "effective_secondary": "CommonTextures/windscreen-reflect",
+          "shader": "carglass",
+          "rubber_preserved": false,
+          "source_faces": 5,
+          "conditional": true,
+          "recommendation": "GLASS_DISTINCT_FROM_BODY_ENVIRONMENT"
+        },
+        {
+          "path": "root.24.0.0",
+          "node_offset": 177004,
+          "material_offset": 177098,
+          "material": "$shader(carglass)",
+          "slots": [
+            "windscreen32-tga",
+            "glass-tga"
+          ],
+          "mode": 20,
+          "effective_secondary": "CommonTextures/windscreen-reflect",
+          "shader": "carglass",
+          "rubber_preserved": false,
+          "source_faces": 14,
+          "conditional": true,
+          "recommendation": "GLASS_DISTINCT_FROM_BODY_ENVIRONMENT"
+        },
+        {
+          "path": "root.24.1.0",
+          "node_offset": 177164,
+          "material_offset": 177259,
+          "material": "$shader(carglass)",
+          "slots": [
+            "windscreenc32-tga",
+            "glass-tga"
+          ],
+          "mode": 20,
+          "effective_secondary": "CommonTextures/windscreen-reflect",
+          "shader": "carglass",
+          "rubber_preserved": false,
+          "source_faces": 14,
+          "conditional": true,
+          "recommendation": "GLASS_DISTINCT_FROM_BODY_ENVIRONMENT"
+        }
+      ],
+      "draws": [
+        {
+          "source_draw": 0,
+          "record_path": "0",
+          "record_offset": 96956,
+          "vertex_base": 0,
+          "vertex_count": 362,
+          "index_start": 0,
+          "index_count": 795,
+          "triangles": 265,
+          "geometry_sha256": "57823f851e6e47457502455cada8d9f3e3da7541cd63ff60be5ff7c301e1f559",
+          "slots": [
+            "underdash-tga",
+            "Null",
+            "Null"
+          ],
+          "flags_hex": "00000101",
+          "bounds": {
+            "min": [
+              -1.1574664115905762,
+              -0.06570656597614288,
+              -2.2657246589660645
+            ],
+            "max": [
+              1.1469513177871704,
+              1.447542667388916,
+              2.129429578781128
+            ]
+          },
+          "source_normal_sha256": "2ae383dfac67fd00f4f93ff6e8b64388d76be4e3d71602a6901bc943028d9664",
+          "source_uv0_sha256": "7e75f4d64da7d90fae0cce1c0bd22817bb03c2eae3f2a33ccace60a8d0b5f95b",
+          "source_alpha_values": [
+            255
+          ],
+          "categories": {
+            "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT": 209,
+            "UNMATCHED": 56
+          },
+          "source_ordered_runs": [
+            {
+              "first_source_face": 0,
+              "source_faces": 130,
+              "category": "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT"
+            },
+            {
+              "first_source_face": 130,
+              "source_faces": 1,
+              "category": "UNMATCHED"
+            },
+            {
+              "first_source_face": 131,
+              "source_faces": 1,
+              "category": "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT"
+            },
+            {
+              "first_source_face": 132,
+              "source_faces": 1,
+              "category": "UNMATCHED"
+            },
+            {
+              "first_source_face": 133,
+              "source_faces": 1,
+              "category": "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT"
+            },
+            {
+              "first_source_face": 134,
+              "source_faces": 1,
+              "category": "UNMATCHED"
+            },
+            {
+              "first_source_face": 135,
+              "source_faces": 1,
+              "category": "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT"
+            },
+            {
+              "first_source_face": 136,
+              "source_faces": 1,
+              "category": "UNMATCHED"
+            },
+            {
+              "first_source_face": 137,
+              "source_faces": 76,
+              "category": "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT"
+            },
+            {
+              "first_source_face": 213,
+              "source_faces": 52,
+              "category": "UNMATCHED"
+            }
+          ],
+          "bindings": [
+            {
+              "mesh": {
+                "path": "root.0",
+                "node_offset": 171224,
+                "material_offset": 171283,
+                "material": "$shader(carflat)",
+                "slots": [
+                  "underdash2-tga"
+                ],
+                "mode": 1,
+                "effective_secondary": null,
+                "shader": "carflat",
+                "rubber_preserved": false,
+                "source_faces": 569,
+                "conditional": false,
+                "recommendation": "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT"
+              },
+              "matched_source_faces": 209,
+              "normal_max_abs": 0.6712064151652157,
+              "uv_max_abs": 2.3775340914726257
+            }
+          ]
+        },
+        {
+          "source_draw": 1,
+          "record_path": "1",
+          "record_offset": 97037,
+          "vertex_base": 362,
+          "vertex_count": 244,
+          "index_start": 795,
+          "index_count": 627,
+          "triangles": 209,
+          "geometry_sha256": "16c3cf75f8d9aa9f4a9d96c36fb0c4f70e1046ea324123b51237158a7c12a19f",
+          "slots": [
+            "sidered2-tga",
+            "silverpaint-tga",
+            "Null"
+          ],
+          "flags_hex": "00000101",
+          "bounds": {
+            "min": [
+              -1.0406239032745361,
+              0.462372750043869,
+              -2.1676347255706787
+            ],
+            "max": [
+              1.0286009311676025,
+              1.5502288341522217,
+              0.9607698321342468
+            ]
+          },
+          "source_normal_sha256": "689b979c3196f6b44fb6b6850d968c9a979201b62bc5d75c986acbc59d81f988",
+          "source_uv0_sha256": "bacdce3efd8f19553e7c06bbc71d05b6aeffc4c7daa56fdc254496aff0b2a226",
+          "source_alpha_values": [
+            255
+          ],
+          "categories": {
+            "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT": 14,
+            "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED": 195
+          },
+          "source_ordered_runs": [
+            {
+              "first_source_face": 0,
+              "source_faces": 195,
+              "category": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+            },
+            {
+              "first_source_face": 195,
+              "source_faces": 14,
+              "category": "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT"
+            }
+          ],
+          "bindings": [
+            {
+              "mesh": {
+                "path": "root.1",
+                "node_offset": 171804,
+                "material_offset": 171900,
+                "material": "$shader(carshiny)",
+                "slots": [
+                  "sidered2-tga",
+                  "silverpaint-tga"
+                ],
+                "mode": 3,
+                "effective_secondary": "CommonTextures\\rendertarget64x64",
+                "shader": "carshiny",
+                "rubber_preserved": false,
+                "source_faces": 195,
+                "conditional": false,
+                "recommendation": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+              },
+              "matched_source_faces": 195,
+              "normal_max_abs": 0.08002572692930698,
+              "uv_max_abs": 0.0
+            },
+            {
+              "mesh": {
+                "path": "root.2",
+                "node_offset": 172084,
+                "material_offset": 172138,
+                "material": "$shader(carflat)",
+                "slots": [
+                  "black-tga"
+                ],
+                "mode": 1,
+                "effective_secondary": null,
+                "shader": "carflat",
+                "rubber_preserved": false,
+                "source_faces": 50,
+                "conditional": false,
+                "recommendation": "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT"
+              },
+              "matched_source_faces": 14,
+              "normal_max_abs": 1.1920928955078125e-07,
+              "uv_max_abs": 0.0
+            }
+          ]
+        },
+        {
+          "source_draw": 2,
+          "record_path": "2",
+          "record_offset": 97128,
+          "vertex_base": 606,
+          "vertex_count": 32,
+          "index_start": 1422,
+          "index_count": 102,
+          "triangles": 34,
+          "geometry_sha256": "7f25050923f02b8e45c1c58e8490fe7d81fd784714ccf7d45df5acd64d03edcf",
+          "slots": [
+            "blackplastic-tga",
+            "rubber-tga",
+            "Null"
+          ],
+          "flags_hex": "00000101",
+          "bounds": {
+            "min": [
+              -1.1557848453521729,
+              0.9349315166473389,
+              -2.240321397781372
+            ],
+            "max": [
+              1.1481536626815796,
+              1.4891445636749268,
+              0.5168020129203796
+            ]
+          },
+          "source_normal_sha256": "fec33defe4760e78a7a28cb613e7c8b8e734eb40eba4a2f8901e7af2a90ccaa3",
+          "source_uv0_sha256": "6d549e4c43d8feac2e295825419496aa8fcd7408e4641a86dbfda291689d4439",
+          "source_alpha_values": [
+            255
+          ],
+          "categories": {
+            "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT": 28,
+            "KEEP_AUTHORED_RUBBER_MAP_NO_BODY_ENV_OVERRIDE": 6
+          },
+          "source_ordered_runs": [
+            {
+              "first_source_face": 0,
+              "source_faces": 28,
+              "category": "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT"
+            },
+            {
+              "first_source_face": 28,
+              "source_faces": 6,
+              "category": "KEEP_AUTHORED_RUBBER_MAP_NO_BODY_ENV_OVERRIDE"
+            }
+          ],
+          "bindings": [
+            {
+              "mesh": {
+                "path": "root.2",
+                "node_offset": 172084,
+                "material_offset": 172138,
+                "material": "$shader(carflat)",
+                "slots": [
+                  "black-tga"
+                ],
+                "mode": 1,
+                "effective_secondary": null,
+                "shader": "carflat",
+                "rubber_preserved": false,
+                "source_faces": 50,
+                "conditional": false,
+                "recommendation": "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT"
+              },
+              "matched_source_faces": 28,
+              "normal_max_abs": 1.0084734857082367,
+              "uv_max_abs": 0.0
+            },
+            {
+              "mesh": {
+                "path": "root.15",
+                "node_offset": 174704,
+                "material_offset": 174799,
+                "material": "$shader(carshiny)",
+                "slots": [
+                  "blackplastic-tga",
+                  "rubber-tga"
+                ],
+                "mode": 3,
+                "effective_secondary": "rubber-tga",
+                "shader": "carshiny",
+                "rubber_preserved": true,
+                "source_faces": 8,
+                "conditional": false,
+                "recommendation": "KEEP_AUTHORED_RUBBER_MAP_NO_BODY_ENV_OVERRIDE"
+              },
+              "matched_source_faces": 6,
+              "normal_max_abs": 1.1920928955078125e-07,
+              "uv_max_abs": 0.0
+            }
+          ]
+        },
+        {
+          "source_draw": 3,
+          "record_path": "3",
+          "record_offset": 97218,
+          "vertex_base": 638,
+          "vertex_count": 12,
+          "index_start": 1524,
+          "index_count": 24,
+          "triangles": 8,
+          "geometry_sha256": "c13f3b8ddd5b45c25ba0373b220b6d03c5216437bdcdf8b31685fb6c2c7d6107",
+          "slots": [
+            "frontwa-tga",
+            "silverpaint-tga",
+            "Null"
+          ],
+          "flags_hex": "00000101",
+          "bounds": {
+            "min": [
+              -1.1557848453521729,
+              0.9349315166473389,
+              0.41741883754730225
+            ],
+            "max": [
+              1.1481536626815796,
+              1.0878506898880005,
+              0.4493790864944458
+            ]
+          },
+          "source_normal_sha256": "56c9c3372041781f8229dc1df31f5c74f8b08e999568062bc4dfa8977cb69075",
+          "source_uv0_sha256": "eab7ca0357e0639f45310f59a87ca1079f41c15ab9b0a2603dfe359fdee97d86",
+          "source_alpha_values": [
+            255
+          ],
+          "categories": {
+            "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT": 8
+          },
+          "source_ordered_runs": [
+            {
+              "first_source_face": 0,
+              "source_faces": 8,
+              "category": "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT"
+            }
+          ],
+          "bindings": [
+            {
+              "mesh": {
+                "path": "root.2",
+                "node_offset": 172084,
+                "material_offset": 172138,
+                "material": "$shader(carflat)",
+                "slots": [
+                  "black-tga"
+                ],
+                "mode": 1,
+                "effective_secondary": null,
+                "shader": "carflat",
+                "rubber_preserved": false,
+                "source_faces": 50,
+                "conditional": false,
+                "recommendation": "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT"
+              },
+              "matched_source_faces": 8,
+              "normal_max_abs": 1.096680000424385,
+              "uv_max_abs": 0.7863759398460388
+            }
+          ]
+        },
+        {
+          "source_draw": 4,
+          "record_path": "4",
+          "record_offset": 97308,
+          "vertex_base": 650,
+          "vertex_count": 158,
+          "index_start": 1548,
+          "index_count": 465,
+          "triangles": 155,
+          "geometry_sha256": "b0a740c73bb78eff350d6aa9e981dc2cd08366e9ed2cf1e866226f93faf0c615",
+          "slots": [
+            "bon3red-tga",
+            "silverpaint-tga",
+            "Null"
+          ],
+          "flags_hex": "00000101",
+          "bounds": {
+            "min": [
+              -1.0143425464630127,
+              0.7180893421173096,
+              -1.960244059562683
+            ],
+            "max": [
+              1.0038272142410278,
+              1.6316120624542236,
+              2.0164616107940674
+            ]
+          },
+          "source_normal_sha256": "4cf8227165e6e64672769d9cfcfa306003d172fb35b1059520140fe9a324a652",
+          "source_uv0_sha256": "1acd65ba833ee08ac22b4ff6630a5e4ea37c8df42454cb3ce0327bef8d2e026d",
+          "source_alpha_values": [
+            255
+          ],
+          "categories": {
+            "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED": 155
+          },
+          "source_ordered_runs": [
+            {
+              "first_source_face": 0,
+              "source_faces": 155,
+              "category": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+            }
+          ],
+          "bindings": [
+            {
+              "mesh": {
+                "path": "root.3",
+                "node_offset": 172269,
+                "material_offset": 172364,
+                "material": "$shader(carshiny)",
+                "slots": [
+                  "bon3red-tga",
+                  "silverpaint-tga"
+                ],
+                "mode": 3,
+                "effective_secondary": "CommonTextures\\rendertarget64x64",
+                "shader": "carshiny",
+                "rubber_preserved": false,
+                "source_faces": 155,
+                "conditional": false,
+                "recommendation": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+              },
+              "matched_source_faces": 155,
+              "normal_max_abs": 1.1920928955078125e-07,
+              "uv_max_abs": 0.0
+            }
+          ]
+        },
+        {
+          "source_draw": 5,
+          "record_path": "5",
+          "record_offset": 97398,
+          "vertex_base": 808,
+          "vertex_count": 117,
+          "index_start": 2013,
+          "index_count": 231,
+          "triangles": 77,
+          "geometry_sha256": "fbfb12b7cc689359bf694747ef777f736e2b8013261f4887a294bfdc35f1bba1",
+          "slots": [
+            "colour3-tga",
+            "silverpaint-tga",
+            "Null"
+          ],
+          "flags_hex": "00000101",
+          "bounds": {
+            "min": [
+              -1.017929196357727,
+              0.47393476963043213,
+              -2.2107489109039307
+            ],
+            "max": [
+              1.0074141025543213,
+              1.5966911315917969,
+              2.2305057048797607
+            ]
+          },
+          "source_normal_sha256": "9596a3a2f8c76bd69d08c0b735f2585baf7e7e9e30cbc73755a2f1c1c4322d5a",
+          "source_uv0_sha256": "9f505709ad43c7c3ffe6a5b5e389a4137b97332ef5c3546a17c594b19d5a8eb2",
+          "source_alpha_values": [
+            255
+          ],
+          "categories": {
+            "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED": 77
+          },
+          "source_ordered_runs": [
+            {
+              "first_source_face": 0,
+              "source_faces": 77,
+              "category": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+            }
+          ],
+          "bindings": [
+            {
+              "mesh": {
+                "path": "root.4",
+                "node_offset": 172561,
+                "material_offset": 172656,
+                "material": "$shader(carshiny)",
+                "slots": [
+                  "colour3-tga",
+                  "silverpaint-tga"
+                ],
+                "mode": 3,
+                "effective_secondary": "CommonTextures\\rendertarget64x64",
+                "shader": "carshiny",
+                "rubber_preserved": false,
+                "source_faces": 77,
+                "conditional": false,
+                "recommendation": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+              },
+              "matched_source_faces": 77,
+              "normal_max_abs": 0.10975702106952667,
+              "uv_max_abs": 0.0
+            }
+          ]
+        },
+        {
+          "source_draw": 6,
+          "record_path": "6",
+          "record_offset": 97488,
+          "vertex_base": 925,
+          "vertex_count": 130,
+          "index_start": 2244,
+          "index_count": 432,
+          "triangles": 144,
+          "geometry_sha256": "1b9207f7417710dac3d85a27a54ebe616037367f1d624c53d5d65018f2ceb84b",
+          "slots": [
+            "archgrey-tga",
+            "perspex-tga",
+            "Null"
+          ],
+          "flags_hex": "00000101",
+          "bounds": {
+            "min": [
+              -1.1574664115905762,
+              0.13664667308330536,
+              -1.9523940086364746
+            ],
+            "max": [
+              1.1469513177871704,
+              0.7735245823860168,
+              1.912441372871399
+            ]
+          },
+          "source_normal_sha256": "0e36ce862bfa0d06d7c1098bb7a7f7f1c364049664012063e15f3a82d1811537",
+          "source_uv0_sha256": "5c7830dd6025b8fa86f3f28b9f53daadb0de393fd988bceb3dd28a0fb145a455",
+          "source_alpha_values": [
+            255
+          ],
+          "categories": {
+            "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED": 144
+          },
+          "source_ordered_runs": [
+            {
+              "first_source_face": 0,
+              "source_faces": 144,
+              "category": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+            }
+          ],
+          "bindings": [
+            {
+              "mesh": {
+                "path": "root.6",
+                "node_offset": 172962,
+                "material_offset": 173054,
+                "material": "$shader(carshiny)",
+                "slots": [
+                  "archgrey-tga",
+                  "perspex-tga"
+                ],
+                "mode": 3,
+                "effective_secondary": "CommonTextures\\rendertarget64x64",
+                "shader": "carshiny",
+                "rubber_preserved": false,
+                "source_faces": 144,
+                "conditional": false,
+                "recommendation": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+              },
+              "matched_source_faces": 144,
+              "normal_max_abs": 1.1920928955078125e-07,
+              "uv_max_abs": 0.0
+            }
+          ]
+        },
+        {
+          "source_draw": 7,
+          "record_path": "7",
+          "record_offset": 97575,
+          "vertex_base": 1055,
+          "vertex_count": 76,
+          "index_start": 2676,
+          "index_count": 186,
+          "triangles": 62,
+          "geometry_sha256": "4fe1e64fe885c9675b9b3ddbe7530d2ccb6d36c341235c2942179e50c26caa09",
+          "slots": [
+            "chair2-tga",
+            "Null",
+            "Null"
+          ],
+          "flags_hex": "00000101",
+          "bounds": {
+            "min": [
+              -0.8869754672050476,
+              0.5272232890129089,
+              -0.46703943610191345
+            ],
+            "max": [
+              0.87577223777771,
+              1.442808747291565,
+              0.37639838457107544
+            ]
+          },
+          "source_normal_sha256": "43be8242e594c0b3e9e4bb04c41a553c96d393929cedc92aa78e1ad2953ad931",
+          "source_uv0_sha256": "44424cf5edc06d8e7ebb9e21d32ee7373eee0a398f5d7cfa794419984aaed08d",
+          "source_alpha_values": [
+            255
+          ],
+          "categories": {
+            "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT": 4,
+            "UNMATCHED": 58
+          },
+          "source_ordered_runs": [
+            {
+              "first_source_face": 0,
+              "source_faces": 1,
+              "category": "UNMATCHED"
+            },
+            {
+              "first_source_face": 1,
+              "source_faces": 2,
+              "category": "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT"
+            },
+            {
+              "first_source_face": 3,
+              "source_faces": 3,
+              "category": "UNMATCHED"
+            },
+            {
+              "first_source_face": 6,
+              "source_faces": 2,
+              "category": "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT"
+            },
+            {
+              "first_source_face": 8,
+              "source_faces": 54,
+              "category": "UNMATCHED"
+            }
+          ],
+          "bindings": [
+            {
+              "mesh": {
+                "path": "root.7",
+                "node_offset": 173212,
+                "material_offset": 173267,
+                "material": "$shader(carflat)",
+                "slots": [
+                  "chair2-tga"
+                ],
+                "mode": 1,
+                "effective_secondary": null,
+                "shader": "carflat",
+                "rubber_preserved": false,
+                "source_faces": 54,
+                "conditional": false,
+                "recommendation": "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT"
+              },
+              "matched_source_faces": 2,
+              "normal_max_abs": 0.6712064151652157,
+              "uv_max_abs": 0.5895788967609406
+            },
+            {
+              "mesh": {
+                "path": "root.0",
+                "node_offset": 171224,
+                "material_offset": 171283,
+                "material": "$shader(carflat)",
+                "slots": [
+                  "underdash2-tga"
+                ],
+                "mode": 1,
+                "effective_secondary": null,
+                "shader": "carflat",
+                "rubber_preserved": false,
+                "source_faces": 569,
+                "conditional": false,
+                "recommendation": "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT"
+              },
+              "matched_source_faces": 2,
+              "normal_max_abs": 0.08785775303840637,
+              "uv_max_abs": 1.3116989731788635
+            }
+          ]
+        },
+        {
+          "source_draw": 8,
+          "record_path": "8",
+          "record_offset": 97653,
+          "vertex_base": 1131,
+          "vertex_count": 6,
+          "index_start": 2862,
+          "index_count": 12,
+          "triangles": 4,
+          "geometry_sha256": "46b55eac513995bb703f7b8ac2dc205b497368a356be95d979c8d45ba7b96425",
+          "slots": [
+            "grille2-tga",
+            "Null",
+            "Null"
+          ],
+          "flags_hex": "00000101",
+          "bounds": {
+            "min": [
+              -0.4208891689777374,
+              0.5256965756416321,
+              2.091034412384033
+            ],
+            "max": [
+              0.40600821375846863,
+              0.7361934781074524,
+              2.214311122894287
+            ]
+          },
+          "source_normal_sha256": "ce64affbbdb2795a95c6eb3ed9b5a305cb7ea096eba10c99d626823445b64c32",
+          "source_uv0_sha256": "498689c01db3392a9f0950066f57a1ff08944e70b77e7df325d52fe298713086",
+          "source_alpha_values": [
+            255
+          ],
+          "categories": {
+            "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT": 4
+          },
+          "source_ordered_runs": [
+            {
+              "first_source_face": 0,
+              "source_faces": 4,
+              "category": "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT"
+            }
+          ],
+          "bindings": [
+            {
+              "mesh": {
+                "path": "root.9",
+                "node_offset": 173626,
+                "material_offset": 173682,
+                "material": "$shader(carflat)",
+                "slots": [
+                  "grille2-tga"
+                ],
+                "mode": 1,
+                "effective_secondary": null,
+                "shader": "carflat",
+                "rubber_preserved": false,
+                "source_faces": 4,
+                "conditional": false,
+                "recommendation": "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT"
+              },
+              "matched_source_faces": 4,
+              "normal_max_abs": 1.1920928955078125e-07,
+              "uv_max_abs": 0.0
+            }
+          ]
+        },
+        {
+          "source_draw": 9,
+          "record_path": "9",
+          "record_offset": 97732,
+          "vertex_base": 1137,
+          "vertex_count": 49,
+          "index_start": 2874,
+          "index_count": 102,
+          "triangles": 34,
+          "geometry_sha256": "708755f5c5e6ec814bf2f1ac93314bf4a51cb467bc2e711cea37a0d2594c4d24",
+          "slots": [
+            "bl-tga",
+            "perspex-tga",
+            "Null"
+          ],
+          "flags_hex": "00000101",
+          "bounds": {
+            "min": [
+              -0.8639651536941528,
+              0.9140945672988892,
+              -2.3049862384796143
+            ],
+            "max": [
+              0.8534500598907471,
+              1.5175834894180298,
+              -1.9736355543136597
+            ]
+          },
+          "source_normal_sha256": "d726c628667e44f84dba7fd4906e92e1db9f86ff5402cec5d6d9f088c7226b1f",
+          "source_uv0_sha256": "850aad5c93f7c8c4a8d88e1d82f3a0673f696eb9cf9bbc853d35066fa020122f",
+          "source_alpha_values": [
+            255
+          ],
+          "categories": {
+            "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED": 34
+          },
+          "source_ordered_runs": [
+            {
+              "first_source_face": 0,
+              "source_faces": 34,
+              "category": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+            }
+          ],
+          "bindings": [
+            {
+              "mesh": {
+                "path": "root.10",
+                "node_offset": 173735,
+                "material_offset": 173821,
+                "material": "$shader(carshiny)",
+                "slots": [
+                  "bl-tga",
+                  "perspex-tga"
+                ],
+                "mode": 3,
+                "effective_secondary": "CommonTextures\\rendertarget64x64",
+                "shader": "carshiny",
+                "rubber_preserved": false,
+                "source_faces": 34,
+                "conditional": false,
+                "recommendation": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+              },
+              "matched_source_faces": 34,
+              "normal_max_abs": 0.09823143482208252,
+              "uv_max_abs": 0.0
+            }
+          ]
+        },
+        {
+          "source_draw": 10,
+          "record_path": "10",
+          "record_offset": 97813,
+          "vertex_base": 1186,
+          "vertex_count": 22,
+          "index_start": 2976,
+          "index_count": 54,
+          "triangles": 18,
+          "geometry_sha256": "fad797c65838c39d359767a9ef06d0d5579d847fa2b23a9ee8febe8c171b361c",
+          "slots": [
+            "lights-tga",
+            "lights-tga",
+            "Null"
+          ],
+          "flags_hex": "00000101",
+          "bounds": {
+            "min": [
+              -0.8658384680747986,
+              0.540499210357666,
+              1.905023455619812
+            ],
+            "max": [
+              0.8538399338722229,
+              0.8681045174598694,
+              2.1672918796539307
+            ]
+          },
+          "source_normal_sha256": "3cd234972636e6ca01c6d8c8e114c2496dd454baf78c8f2d1a36d1921b3b9caa",
+          "source_uv0_sha256": "386abd4d4b7bc87a3ce96c951ec12e6df6274934eec1a5aab5fae70d526667e7",
+          "source_alpha_values": [
+            255
+          ],
+          "categories": {
+            "GLASS_DISTINCT_FROM_BODY_ENVIRONMENT": 18
+          },
+          "source_ordered_runs": [
+            {
+              "first_source_face": 0,
+              "source_faces": 18,
+              "category": "GLASS_DISTINCT_FROM_BODY_ENVIRONMENT"
+            }
+          ],
+          "bindings": [
+            {
+              "mesh": {
+                "path": "root.19",
+                "node_offset": 175376,
+                "material_offset": 175470,
+                "material": "$shader(carglass)",
+                "slots": [
+                  "windscreen32-tga",
+                  "glass-tga"
+                ],
+                "mode": 20,
+                "effective_secondary": "CommonTextures/windscreen-reflect",
+                "shader": "carglass",
+                "rubber_preserved": false,
+                "source_faces": 18,
+                "conditional": false,
+                "recommendation": "GLASS_DISTINCT_FROM_BODY_ENVIRONMENT"
+              },
+              "matched_source_faces": 18,
+              "normal_max_abs": 1.1920928955078125e-07,
+              "uv_max_abs": 1.0033829808235168
+            }
+          ]
+        },
+        {
+          "source_draw": 11,
+          "record_path": "11",
+          "record_offset": 97897,
+          "vertex_base": 1208,
+          "vertex_count": 50,
+          "index_start": 3030,
+          "index_count": 150,
+          "triangles": 50,
+          "geometry_sha256": "6f2174a662b45cf1cfd3c18ed12ba50f0ef2fe6b8ce942133f61eae64545d335",
+          "slots": [
+            "sidebottom32grey-tga",
+            "perspex-tga",
+            "Null"
+          ],
+          "flags_hex": "00000101",
+          "bounds": {
+            "min": [
+              -1.0654882192611694,
+              0.13664667308330536,
+              -0.8435973525047302
+            ],
+            "max": [
+              1.0551154613494873,
+              0.4801739454269409,
+              0.8676926493644714
+            ]
+          },
+          "source_normal_sha256": "62b09b9d73c0417d395bed9f4d49863ec6fbc1c42baadffa5e98a32341304e44",
+          "source_uv0_sha256": "331ec8f21f97bcc43edb426c900e0de17f564fe4675004f5baa0090ce2064a83",
+          "source_alpha_values": [
+            255
+          ],
+          "categories": {
+            "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED": 50
+          },
+          "source_ordered_runs": [
+            {
+              "first_source_face": 0,
+              "source_faces": 50,
+              "category": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+            }
+          ],
+          "bindings": [
+            {
+              "mesh": {
+                "path": "root.12",
+                "node_offset": 174032,
+                "material_offset": 174132,
+                "material": "$shader(carshiny)",
+                "slots": [
+                  "sidebottom32grey-tga",
+                  "perspex-tga"
+                ],
+                "mode": 3,
+                "effective_secondary": "CommonTextures\\rendertarget64x64",
+                "shader": "carshiny",
+                "rubber_preserved": false,
+                "source_faces": 50,
+                "conditional": false,
+                "recommendation": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+              },
+              "matched_source_faces": 50,
+              "normal_max_abs": 1.1920928955078125e-07,
+              "uv_max_abs": 0.0
+            }
+          ]
+        },
+        {
+          "source_draw": 12,
+          "record_path": "12",
+          "record_offset": 97992,
+          "vertex_base": 1258,
+          "vertex_count": 201,
+          "index_start": 3180,
+          "index_count": 498,
+          "triangles": 166,
+          "geometry_sha256": "99ca3a68595600ef18b4a46f8428653493bd8085db4959379ae94cfe5375be78",
+          "slots": [
+            "x-back5red-tga",
+            "silverpaint-tga",
+            "Null"
+          ],
+          "flags_hex": "00000101",
+          "bounds": {
+            "min": [
+              -1.144540786743164,
+              0.023125486448407173,
+              -2.394512414932251
+            ],
+            "max": [
+              1.1340253353118896,
+              1.5495001077651978,
+              -1.8583910465240479
+            ]
+          },
+          "source_normal_sha256": "757f6ff8e1c5a388c076ca480e5c6e160a7972ac30001eea154fe7e268e9ee0d",
+          "source_uv0_sha256": "e579a196e06ad302f6d8a045dcda694571b9609c84e790e9f711da1643584d36",
+          "source_alpha_values": [
+            255
+          ],
+          "categories": {
+            "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED": 166
+          },
+          "source_ordered_runs": [
+            {
+              "first_source_face": 0,
+              "source_faces": 166,
+              "category": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+            }
+          ],
+          "bindings": [
+            {
+              "mesh": {
+                "path": "root.13",
+                "node_offset": 174238,
+                "material_offset": 174336,
+                "material": "$shader(carshiny)",
+                "slots": [
+                  "x-back5red-tga",
+                  "silverpaint-tga"
+                ],
+                "mode": 3,
+                "effective_secondary": "CommonTextures\\rendertarget64x64",
+                "shader": "carshiny",
+                "rubber_preserved": false,
+                "source_faces": 166,
+                "conditional": false,
+                "recommendation": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+              },
+              "matched_source_faces": 166,
+              "normal_max_abs": 0.10422633588314056,
+              "uv_max_abs": 0.0
+            }
+          ]
+        },
+        {
+          "source_draw": 13,
+          "record_path": "13",
+          "record_offset": 98085,
+          "vertex_base": 1459,
+          "vertex_count": 20,
+          "index_start": 3678,
+          "index_count": 42,
+          "triangles": 14,
+          "geometry_sha256": "e580100f2670ba7bd87589727e194026f3f28d9b54b42eda325d51e47aa136b3",
+          "slots": [
+            "mastersticker069-tga",
+            "Null",
+            "Null"
+          ],
+          "flags_hex": "00000101",
+          "bounds": {
+            "min": [
+              -1.0406239032745361,
+              0.47769543528556824,
+              -0.9542246460914612
+            ],
+            "max": [
+              1.0284773111343384,
+              1.5199260711669922,
+              0.348250150680542
+            ]
+          },
+          "source_normal_sha256": "d85f3aba38c3a9c14a912d0c0a82a1d043d6c166788feedf96c3c4ac6d2dcd3b",
+          "source_uv0_sha256": "134dd7db757c1f20b652d95418d8394e86d73b3d91b536c2f48b8e4c53cdf650",
+          "source_alpha_values": [
+            255
+          ],
+          "categories": {
+            "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED": 14
+          },
+          "source_ordered_runs": [
+            {
+              "first_source_face": 0,
+              "source_faces": 14,
+              "category": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+            }
+          ],
+          "bindings": [
+            {
+              "mesh": {
+                "path": "root.14",
+                "node_offset": 174533,
+                "material_offset": 174637,
+                "material": "$shader(carshiny)",
+                "slots": [
+                  "mastersticker069-tga",
+                  "silverpaint-tga"
+                ],
+                "mode": 3,
+                "effective_secondary": "CommonTextures\\rendertarget64x64",
+                "shader": "carshiny",
+                "rubber_preserved": false,
+                "source_faces": 14,
+                "conditional": false,
+                "recommendation": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+              },
+              "matched_source_faces": 14,
+              "normal_max_abs": 1.1920928955078125e-07,
+              "uv_max_abs": 0.0
+            }
+          ]
+        },
+        {
+          "source_draw": 14,
+          "record_path": "14",
+          "record_offset": 98173,
+          "vertex_base": 1479,
+          "vertex_count": 145,
+          "index_start": 3720,
+          "index_count": 330,
+          "triangles": 110,
+          "geometry_sha256": "505314b112e7fd37b0e352938d6145fe5ed55a2395c8f6e844bc62dbb5c7bef0",
+          "slots": [
+            "fbgrey-tga",
+            "perspex-tga",
+            "Null"
+          ],
+          "flags_hex": "00000101",
+          "bounds": {
+            "min": [
+              -1.1574645042419434,
+              0.042388830333948135,
+              1.780051827430725
+            ],
+            "max": [
+              1.1469491720199585,
+              0.6022063493728638,
+              2.2356510162353516
+            ]
+          },
+          "source_normal_sha256": "dfbf5e2154ac9918bbb25d21254ae39681a1c343d81576adc79d737c3be60dcf",
+          "source_uv0_sha256": "79d05b427addf605a8914e4d2d47f04e60724f660f63ae7f0d6fd698aba59fc9",
+          "source_alpha_values": [
+            255
+          ],
+          "categories": {
+            "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED": 110
+          },
+          "source_ordered_runs": [
+            {
+              "first_source_face": 0,
+              "source_faces": 110,
+              "category": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+            }
+          ],
+          "bindings": [
+            {
+              "mesh": {
+                "path": "root.16",
+                "node_offset": 174866,
+                "material_offset": 174956,
+                "material": "$shader(carshiny)",
+                "slots": [
+                  "fbgrey-tga",
+                  "perspex-tga"
+                ],
+                "mode": 3,
+                "effective_secondary": "CommonTextures\\rendertarget64x64",
+                "shader": "carshiny",
+                "rubber_preserved": false,
+                "source_faces": 110,
+                "conditional": false,
+                "recommendation": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+              },
+              "matched_source_faces": 110,
+              "normal_max_abs": 0.06417575478553772,
+              "uv_max_abs": 0.001002669334411621
+            }
+          ]
+        },
+        {
+          "source_draw": 15,
+          "record_path": "15",
+          "record_offset": 98258,
+          "vertex_base": 1624,
+          "vertex_count": 80,
+          "index_start": 4050,
+          "index_count": 420,
+          "triangles": 140,
+          "geometry_sha256": "28f86c4524b283c51c5d5ed7ef322de7cc328a137cc0403f6bf96eab4866a66a",
+          "slots": [
+            "bullbar-tga",
+            "Null",
+            "Null"
+          ],
+          "flags_hex": "00000101",
+          "bounds": {
+            "min": [
+              -0.3742096424102783,
+              -0.025581710040569305,
+              1.848921298980713
+            ],
+            "max": [
+              0.381033718585968,
+              0.5234420299530029,
+              2.362154722213745
+            ]
+          },
+          "source_normal_sha256": "d7568e6040520c243091bd6aee0b2a8da1aa4f20f5c7074cd95105a0e8bca87b",
+          "source_uv0_sha256": "1a1373c4c586bdae085b4d466b9dcc4e99c893502dad9916bda1fe1d7c9d8bb4",
+          "source_alpha_values": [
+            255
+          ],
+          "categories": {
+            "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT": 130,
+            "UNMATCHED": 10
+          },
+          "source_ordered_runs": [
+            {
+              "first_source_face": 0,
+              "source_faces": 60,
+              "category": "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT"
+            },
+            {
+              "first_source_face": 60,
+              "source_faces": 5,
+              "category": "UNMATCHED"
+            },
+            {
+              "first_source_face": 65,
+              "source_faces": 65,
+              "category": "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT"
+            },
+            {
+              "first_source_face": 130,
+              "source_faces": 5,
+              "category": "UNMATCHED"
+            },
+            {
+              "first_source_face": 135,
+              "source_faces": 5,
+              "category": "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT"
+            }
+          ],
+          "bindings": [
+            {
+              "mesh": {
+                "path": "root.17",
+                "node_offset": 175088,
+                "material_offset": 175144,
+                "material": "$shader(carflat)",
+                "slots": [
+                  "bullbar-tga"
+                ],
+                "mode": 1,
+                "effective_secondary": null,
+                "shader": "carflat",
+                "rubber_preserved": false,
+                "source_faces": 140,
+                "conditional": false,
+                "recommendation": "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT"
+              },
+              "matched_source_faces": 130,
+              "normal_max_abs": 0.1266658678650856,
+              "uv_max_abs": 0.0010275542736053467
+            }
+          ]
+        },
+        {
+          "source_draw": 16,
+          "record_path": "16",
+          "record_offset": 98337,
+          "vertex_base": 1704,
+          "vertex_count": 19,
+          "index_start": 4470,
+          "index_count": 87,
+          "triangles": 29,
+          "geometry_sha256": "39eea9f4f9f041dd924f1a62c644a1f55febc785abf0e35236a43052260552a9",
+          "slots": [
+            "dnissanslave7-tga",
+            "Null",
+            "Null"
+          ],
+          "flags_hex": "00000101",
+          "bounds": {
+            "min": [
+              -0.5780239701271057,
+              1.0675544738769531,
+              -0.10660253465175629
+            ],
+            "max": [
+              -0.3937828540802002,
+              1.2126609086990356,
+              -0.03732616826891899
+            ]
+          },
+          "source_normal_sha256": "e9e1d3316d6f64b087bce9879e3adba4d9d78ee0544c9b6c854b538639e6a132",
+          "source_uv0_sha256": "89be481750e82527190fa6c7899d83245b87863efe1f1dd3a4af5b960376ec23",
+          "source_alpha_values": [
+            255
+          ],
+          "categories": {
+            "UNMATCHED": 29
+          },
+          "source_ordered_runs": [
+            {
+              "first_source_face": 0,
+              "source_faces": 29,
+              "category": "UNMATCHED"
+            }
+          ],
+          "bindings": []
+        },
+        {
+          "source_draw": 17,
+          "record_path": "17",
+          "record_offset": 98422,
+          "vertex_base": 1723,
+          "vertex_count": 62,
+          "index_start": 4557,
+          "index_count": 126,
+          "triangles": 42,
+          "geometry_sha256": "c12103f1583f862fdacf699ebb482b14467d1f54bccfa8edaed35f4ab25dd8f3",
+          "slots": [
+            "black-tga",
+            "Null",
+            "Null"
+          ],
+          "flags_hex": "00000101",
+          "bounds": {
+            "min": [
+              -0.8869754672050476,
+              0.9905396103858948,
+              -0.5015642046928406
+            ],
+            "max": [
+              0.87577223777771,
+              1.442808747291565,
+              0.017756612971425056
+            ]
+          },
+          "source_normal_sha256": "a4e1e7e7e5cb69212d06ad0bf235ffe0106e3be1f5ff524f92fef0dd84533cc8",
+          "source_uv0_sha256": "9d351cd81fcbb293d42d295400a496c78ebeed1a51113358187b5d7572564985",
+          "source_alpha_values": [
+            255
+          ],
+          "categories": {
+            "KEEP_AUTHORED_RUBBER_MAP_NO_BODY_ENV_OVERRIDE": 2,
+            "UNKNOWN_KEEP_STOCK": 2,
+            "UNMATCHED": 38
+          },
+          "source_ordered_runs": [
+            {
+              "first_source_face": 0,
+              "source_faces": 38,
+              "category": "UNMATCHED"
+            },
+            {
+              "first_source_face": 38,
+              "source_faces": 2,
+              "category": "KEEP_AUTHORED_RUBBER_MAP_NO_BODY_ENV_OVERRIDE"
+            },
+            {
+              "first_source_face": 40,
+              "source_faces": 2,
+              "category": "UNKNOWN_KEEP_STOCK"
+            }
+          ],
+          "bindings": [
+            {
+              "mesh": {
+                "path": "root.15",
+                "node_offset": 174704,
+                "material_offset": 174799,
+                "material": "$shader(carshiny)",
+                "slots": [
+                  "blackplastic-tga",
+                  "rubber-tga"
+                ],
+                "mode": 3,
+                "effective_secondary": "rubber-tga",
+                "shader": "carshiny",
+                "rubber_preserved": true,
+                "source_faces": 8,
+                "conditional": false,
+                "recommendation": "KEEP_AUTHORED_RUBBER_MAP_NO_BODY_ENV_OVERRIDE"
+              },
+              "matched_source_faces": 2,
+              "normal_max_abs": 1.1920928955078125e-07,
+              "uv_max_abs": 0.0
+            },
+            {
+              "mesh": {
+                "path": "root.18",
+                "node_offset": 175275,
+                "material_offset": 175335,
+                "material": "shit",
+                "slots": [
+                  "silverpaint-tga"
+                ],
+                "mode": null,
+                "effective_secondary": null,
+                "shader": null,
+                "rubber_preserved": false,
+                "source_faces": 2,
+                "conditional": false,
+                "recommendation": "UNKNOWN_KEEP_STOCK"
+              },
+              "matched_source_faces": 2,
+              "normal_max_abs": 1.1920928955078125e-07,
+              "uv_max_abs": 0.0
+            }
+          ]
+        },
+        {
+          "source_draw": 18,
+          "record_path": "18",
+          "record_offset": 98499,
+          "vertex_base": 1785,
+          "vertex_count": 19,
+          "index_start": 4683,
+          "index_count": 87,
+          "triangles": 29,
+          "geometry_sha256": "16bebe6d0e45b306bef7d09f1ab9b1f92a667a50e74ce8cda006fe95f97bc39f",
+          "slots": [
+            "dnissandad-tga",
+            "Null",
+            "Null"
+          ],
+          "flags_hex": "00000101",
+          "bounds": {
+            "min": [
+              0.32388773560523987,
+              1.0924421548843384,
+              -0.10377516597509384
+            ],
+            "max": [
+              0.5081287622451782,
+              1.2424167394638062,
+              -0.04439579322934151
+            ]
+          },
+          "source_normal_sha256": "af572971c96c713decffe5a76405894404d3d5136a08a339a5965afc543ef60b",
+          "source_uv0_sha256": "89be481750e82527190fa6c7899d83245b87863efe1f1dd3a4af5b960376ec23",
+          "source_alpha_values": [
+            255
+          ],
+          "categories": {
+            "UNMATCHED": 29
+          },
+          "source_ordered_runs": [
+            {
+              "first_source_face": 0,
+              "source_faces": 29,
+              "category": "UNMATCHED"
+            }
+          ],
+          "bindings": []
+        },
+        {
+          "source_draw": 19,
+          "record_path": "19",
+          "record_offset": 98581,
+          "vertex_base": 1804,
+          "vertex_count": 96,
+          "index_start": 4770,
+          "index_count": 444,
+          "triangles": 148,
+          "geometry_sha256": "71a3363058862578347d4ad5c07a869e3fa1363a999f70b9c986953bc110c23b",
+          "slots": [
+            "xhelmet32-tga",
+            "whitepaint-tga",
+            "Null"
+          ],
+          "flags_hex": "00000101",
+          "bounds": {
+            "min": [
+              -0.6408985257148743,
+              1.0632357597351074,
+              -0.2870371639728546
+            ],
+            "max": [
+              0.5710029602050781,
+              1.3639534711837769,
+              -0.009180753491818905
+            ]
+          },
+          "source_normal_sha256": "1c9a5f84a1154709d50c9fa0b2c718cf8b51181a084eceabdaedd63478e9ce6f",
+          "source_uv0_sha256": "3edeb1397fedcd10dbc962a2f2a95ed10f1e80baedc160b533b05a91a668d5fe",
+          "source_alpha_values": [
+            255
+          ],
+          "categories": {
+            "UNMATCHED": 148
+          },
+          "source_ordered_runs": [
+            {
+              "first_source_face": 0,
+              "source_faces": 148,
+              "category": "UNMATCHED"
+            }
+          ],
+          "bindings": []
+        },
+        {
+          "source_draw": 20,
+          "record_path": "20",
+          "record_offset": 98672,
+          "vertex_base": 1900,
+          "vertex_count": 290,
+          "index_start": 5214,
+          "index_count": 600,
+          "triangles": 200,
+          "geometry_sha256": "46e06a4fa606e264f9728b20f2da4a2b419531e7b17f9b0d1d8c69dca3997b24",
+          "slots": [
+            "whitesuit32-tga",
+            "Null",
+            "Null"
+          ],
+          "flags_hex": "00000101",
+          "bounds": {
+            "min": [
+              -0.7531799674034119,
+              0.5493413805961609,
+              -0.31868207454681396
+            ],
+            "max": [
+              0.7389335036277771,
+              1.1533989906311035,
+              0.46277961134910583
+            ]
+          },
+          "source_normal_sha256": "db423f0474c5226b4dc659960dcc5ab5daee571902c7251f1ea0e0396cc578bc",
+          "source_uv0_sha256": "2008ec78f6c142a0cab50183b7f958f92343f67e83b34574d3cea50392f9208a",
+          "source_alpha_values": [
+            255
+          ],
+          "categories": {
+            "UNMATCHED": 200
+          },
+          "source_ordered_runs": [
+            {
+              "first_source_face": 0,
+              "source_faces": 200,
+              "category": "UNMATCHED"
+            }
+          ],
+          "bindings": []
+        },
+        {
+          "source_draw": 21,
+          "record_path": "21",
+          "record_offset": 98755,
+          "vertex_base": 2190,
+          "vertex_count": 30,
+          "index_start": 5814,
+          "index_count": 84,
+          "triangles": 28,
+          "geometry_sha256": "cb24d664e8af1db40cc4b161c7875e34a2042e709a5783384179b37f0ce5fe63",
+          "slots": [
+            "lights-tga",
+            "Null",
+            "Null"
+          ],
+          "flags_hex": "01000101",
+          "bounds": {
+            "min": [
+              -0.8658384680747986,
+              0.540499210357666,
+              1.905023455619812
+            ],
+            "max": [
+              0.8538399338722229,
+              0.8681045174598694,
+              2.1672918796539307
+            ]
+          },
+          "source_normal_sha256": "ffd0025bb39aac024fa5bd2c7e373ba4ab3e589d1e27c474878f602675f5be22",
+          "source_uv0_sha256": "aff0856cde75f8b1f37b916262fede151d21b75bd69dbca9d0334016030cfa94",
+          "source_alpha_values": [
+            255
+          ],
+          "categories": {
+            "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED": 28
+          },
+          "source_ordered_runs": [
+            {
+              "first_source_face": 0,
+              "source_faces": 28,
+              "category": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+            }
+          ],
+          "bindings": [
+            {
+              "mesh": {
+                "path": "root.5",
+                "node_offset": 172788,
+                "material_offset": 172882,
+                "material": "$shader(carshiny)",
+                "slots": [
+                  "lights-tga",
+                  "silverpaint-tga"
+                ],
+                "mode": 3,
+                "effective_secondary": "CommonTextures\\rendertarget64x64",
+                "shader": "carshiny",
+                "rubber_preserved": false,
+                "source_faces": 28,
+                "conditional": false,
+                "recommendation": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+              },
+              "matched_source_faces": 28,
+              "normal_max_abs": 1.1920928955078125e-07,
+              "uv_max_abs": 0.0
+            }
+          ]
+        },
+        {
+          "source_draw": 22,
+          "record_path": "22",
+          "record_offset": 98833,
+          "vertex_base": 2220,
+          "vertex_count": 18,
+          "index_start": 5898,
+          "index_count": 42,
+          "triangles": 14,
+          "geometry_sha256": "7e42aed180591ce5a99972f8766f1d999d59da87c8212183e528f7fd7fd5f838",
+          "slots": [
+            "lights-tga",
+            "perspex-tga",
+            "Null"
+          ],
+          "flags_hex": "01000101",
+          "bounds": {
+            "min": [
+              -0.981400191783905,
+              0.5912917256355286,
+              1.905023455619812
+            ],
+            "max": [
+              0.9694015979766846,
+              0.8681045174598694,
+              2.1226773262023926
+            ]
+          },
+          "source_normal_sha256": "9b95bf84418ab4fa6eb358815fd4cf62f012870b9e91a0b9ac6b989f27e374f8",
+          "source_uv0_sha256": "dc269a6540c983c80f3ec9fddceb8de321c60c04ebaf5424638ff474abb1697e",
+          "source_alpha_values": [
+            255
+          ],
+          "categories": {
+            "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED": 14
+          },
+          "source_ordered_runs": [
+            {
+              "first_source_face": 0,
+              "source_faces": 14,
+              "category": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+            }
+          ],
+          "bindings": [
+            {
+              "mesh": {
+                "path": "root.11",
+                "node_offset": 173888,
+                "material_offset": 173978,
+                "material": "$shader(carshiny)",
+                "slots": [
+                  "lights-tga",
+                  "perspex-tga"
+                ],
+                "mode": 3,
+                "effective_secondary": "CommonTextures\\rendertarget64x64",
+                "shader": "carshiny",
+                "rubber_preserved": false,
+                "source_faces": 14,
+                "conditional": false,
+                "recommendation": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+              },
+              "matched_source_faces": 14,
+              "normal_max_abs": 5.960464477539063e-08,
+              "uv_max_abs": 0.0
+            }
+          ]
+        },
+        {
+          "source_draw": 23,
+          "record_path": "23",
+          "record_offset": 98918,
+          "vertex_base": 2238,
+          "vertex_count": 10,
+          "index_start": 5940,
+          "index_count": 18,
+          "triangles": 6,
+          "geometry_sha256": "a6d34ae167a6e81a9a411bd4856c5c5152fbd34ab37163cb76fd2079e1f59393",
+          "slots": [
+            "bl-tga",
+            "perspex-tga",
+            "Null"
+          ],
+          "flags_hex": "00000101",
+          "bounds": {
+            "min": [
+              -0.7806037664413452,
+              1.16974675655365,
+              -2.2025599479675293
+            ],
+            "max": [
+              0.768746554851532,
+              1.4891445636749268,
+              -2.0180695056915283
+            ]
+          },
+          "source_normal_sha256": "9831c93ece2978ba60cc81178e59035e17a2869bc793bef589af4183390fd72d",
+          "source_uv0_sha256": "bbca9ea9b1d51e6e218f00c7f340bcd955df67663e402ef0023ad3aaf1686b78",
+          "source_alpha_values": [
+            255
+          ],
+          "categories": {
+            "AMBIGUOUS": 6
+          },
+          "source_ordered_runs": [
+            {
+              "first_source_face": 0,
+              "source_faces": 6,
+              "category": "AMBIGUOUS"
+            }
+          ],
+          "bindings": [
+            {
+              "mesh": {
+                "path": "root.20.0.0",
+                "node_offset": 175558,
+                "material_offset": 175644,
+                "material": "$shader(carshiny)",
+                "slots": [
+                  "bl-tga",
+                  "perspex-tga"
+                ],
+                "mode": 3,
+                "effective_secondary": "CommonTextures\\rendertarget64x64",
+                "shader": "carshiny",
+                "rubber_preserved": false,
+                "source_faces": 6,
+                "conditional": true,
+                "recommendation": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+              },
+              "matched_source_faces": 6,
+              "normal_max_abs": 1.1920928955078125e-07,
+              "uv_max_abs": 0.0
+            },
+            {
+              "mesh": {
+                "path": "root.20.1.0",
+                "node_offset": 175710,
+                "material_offset": 175810,
+                "material": "$shader(carbrakelights)",
+                "slots": [
+                  "breaklightson-tga",
+                  "lightshine-tga"
+                ],
+                "mode": null,
+                "effective_secondary": "lightshine-tga",
+                "shader": "carbrakelights",
+                "rubber_preserved": false,
+                "source_faces": 6,
+                "conditional": true,
+                "recommendation": "UNKNOWN_KEEP_STOCK"
+              },
+              "matched_source_faces": 6,
+              "normal_max_abs": 1.1463099122047424,
+              "uv_max_abs": 0.7691722512245178
+            }
+          ]
+        },
+        {
+          "source_draw": 24,
+          "record_path": "23.1",
+          "record_offset": 99033,
+          "vertex_base": 2248,
+          "vertex_count": 10,
+          "index_start": 5958,
+          "index_count": 18,
+          "triangles": 6,
+          "geometry_sha256": "a6d34ae167a6e81a9a411bd4856c5c5152fbd34ab37163cb76fd2079e1f59393",
+          "slots": [
+            "breaklightson-tga",
+            "Null",
+            "Null"
+          ],
+          "flags_hex": "00000001",
+          "bounds": {
+            "min": [
+              -0.7806037664413452,
+              1.16974675655365,
+              -2.2025599479675293
+            ],
+            "max": [
+              0.768746554851532,
+              1.4891445636749268,
+              -2.0180695056915283
+            ]
+          },
+          "source_normal_sha256": "19006f3291c08f73b1d67893fa7ffbea649925ceb55453a26a3f93a9c06aa312",
+          "source_uv0_sha256": "8008272ab23422b979aa5aa411742b15ed3b1512e7c0d9f62393bbc0f93813bd",
+          "source_alpha_values": [
+            255
+          ],
+          "categories": {
+            "AMBIGUOUS": 6
+          },
+          "source_ordered_runs": [
+            {
+              "first_source_face": 0,
+              "source_faces": 6,
+              "category": "AMBIGUOUS"
+            }
+          ],
+          "bindings": [
+            {
+              "mesh": {
+                "path": "root.20.0.0",
+                "node_offset": 175558,
+                "material_offset": 175644,
+                "material": "$shader(carshiny)",
+                "slots": [
+                  "bl-tga",
+                  "perspex-tga"
+                ],
+                "mode": 3,
+                "effective_secondary": "CommonTextures\\rendertarget64x64",
+                "shader": "carshiny",
+                "rubber_preserved": false,
+                "source_faces": 6,
+                "conditional": true,
+                "recommendation": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+              },
+              "matched_source_faces": 6,
+              "normal_max_abs": 1.1463099718093872,
+              "uv_max_abs": 0.7691722512245178
+            },
+            {
+              "mesh": {
+                "path": "root.20.1.0",
+                "node_offset": 175710,
+                "material_offset": 175810,
+                "material": "$shader(carbrakelights)",
+                "slots": [
+                  "breaklightson-tga",
+                  "lightshine-tga"
+                ],
+                "mode": null,
+                "effective_secondary": "lightshine-tga",
+                "shader": "carbrakelights",
+                "rubber_preserved": false,
+                "source_faces": 6,
+                "conditional": true,
+                "recommendation": "UNKNOWN_KEEP_STOCK"
+              },
+              "matched_source_faces": 6,
+              "normal_max_abs": 1.1920928955078125e-07,
+              "uv_max_abs": 0.0
+            }
+          ]
+        },
+        {
+          "source_draw": 25,
+          "record_path": "24",
+          "record_offset": 99130,
+          "vertex_base": 2258,
+          "vertex_count": 22,
+          "index_start": 5976,
+          "index_count": 66,
+          "triangles": 22,
+          "geometry_sha256": "d93052345deb98b2470c8d5a18dee1660382dca073f08200f2e910e5cc165b35",
+          "slots": [
+            "breaklightsonglow-tga",
+            "Null",
+            "Null"
+          ],
+          "flags_hex": "01000001",
+          "bounds": {
+            "min": [
+              -0.8435381054878235,
+              1.0935544967651367,
+              -2.35042667388916
+            ],
+            "max": [
+              0.8599082231521606,
+              1.5222828388214111,
+              -2.0180695056915283
+            ]
+          },
+          "source_normal_sha256": "49de516e333aa17c31a6842171062039b348ad5dbf1c69e0fdcff62c7fbc6a73",
+          "source_uv0_sha256": "eaef67d2fdf5fbb1cc3224f997a87973d80978e6b532ba62d6f7cbdc32072ad2",
+          "source_alpha_values": [
+            255
+          ],
+          "categories": {
+            "UNKNOWN_KEEP_STOCK": 22
+          },
+          "source_ordered_runs": [
+            {
+              "first_source_face": 0,
+              "source_faces": 22,
+              "category": "UNKNOWN_KEEP_STOCK"
+            }
+          ],
+          "bindings": [
+            {
+              "mesh": {
+                "path": "root.20.1.1",
+                "node_offset": 175870,
+                "material_offset": 175936,
+                "material": "$shader(carbrakelights)",
+                "slots": [
+                  "breaklightsonglow-tga"
+                ],
+                "mode": null,
+                "effective_secondary": null,
+                "shader": "carbrakelights",
+                "rubber_preserved": false,
+                "source_faces": 22,
+                "conditional": true,
+                "recommendation": "UNKNOWN_KEEP_STOCK"
+              },
+              "matched_source_faces": 22,
+              "normal_max_abs": 1.1920928955078125e-07,
+              "uv_max_abs": 0.0
+            }
+          ]
+        },
+        {
+          "source_draw": 26,
+          "record_path": "25",
+          "record_offset": 99219,
+          "vertex_base": 2280,
+          "vertex_count": 8,
+          "index_start": 6042,
+          "index_count": 18,
+          "triangles": 6,
+          "geometry_sha256": "0f9d67c6f01f2c6b76d3eeae68efad61a771ebb1f55496037f4f6a7db272da38",
+          "slots": [
+            "windscreen32-tga",
+            "glass-tga",
+            "Null"
+          ],
+          "flags_hex": "01000101",
+          "bounds": {
+            "min": [
+              -0.9067119359970093,
+              0.9784157276153564,
+              -0.4613838791847229
+            ],
+            "max": [
+              -0.7388542294502258,
+              1.4428088665008545,
+              0.5772335529327393
+            ]
+          },
+          "source_normal_sha256": "f37d2507de7abeede37f5d4c4881be828a37d40f56aa55fc39681d3befad6dae",
+          "source_uv0_sha256": "3a13d22d7a7d60e518be1f7a7bedbd279c1d8037ab527002cd74f9a500fc0bcb",
+          "source_alpha_values": [
+            255
+          ],
+          "categories": {
+            "AMBIGUOUS": 1,
+            "GLASS_DISTINCT_FROM_BODY_ENVIRONMENT": 5
+          },
+          "source_ordered_runs": [
+            {
+              "first_source_face": 0,
+              "source_faces": 1,
+              "category": "AMBIGUOUS"
+            },
+            {
+              "first_source_face": 1,
+              "source_faces": 5,
+              "category": "GLASS_DISTINCT_FROM_BODY_ENVIRONMENT"
+            }
+          ],
+          "bindings": [
+            {
+              "mesh": {
+                "path": "root.21.0.0",
+                "node_offset": 176035,
+                "material_offset": 176094,
+                "material": "$shader(carflat)",
+                "slots": [
+                  "underdash2-tga"
+                ],
+                "mode": 1,
+                "effective_secondary": null,
+                "shader": "carflat",
+                "rubber_preserved": false,
+                "source_faces": 1,
+                "conditional": true,
+                "recommendation": "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT"
+              },
+              "matched_source_faces": 1,
+              "normal_max_abs": 1.1920928955078125e-07,
+              "uv_max_abs": 0.0
+            },
+            {
+              "mesh": {
+                "path": "root.21.1.0",
+                "node_offset": 176307,
+                "material_offset": 176402,
+                "material": "$shader(carglass)",
+                "slots": [
+                  "windscreenc32-tga",
+                  "glass-tga"
+                ],
+                "mode": 20,
+                "effective_secondary": "CommonTextures/windscreen-reflect",
+                "shader": "carglass",
+                "rubber_preserved": false,
+                "source_faces": 6,
+                "conditional": true,
+                "recommendation": "GLASS_DISTINCT_FROM_BODY_ENVIRONMENT"
+              },
+              "matched_source_faces": 6,
+              "normal_max_abs": 1.3783574104309082e-07,
+              "uv_max_abs": 0.9964208006858826
+            },
+            {
+              "mesh": {
+                "path": "root.21.0.1",
+                "node_offset": 176147,
+                "material_offset": 176241,
+                "material": "$shader(carglass)",
+                "slots": [
+                  "windscreen32-tga",
+                  "glass-tga"
+                ],
+                "mode": 20,
+                "effective_secondary": "CommonTextures/windscreen-reflect",
+                "shader": "carglass",
+                "rubber_preserved": false,
+                "source_faces": 5,
+                "conditional": true,
+                "recommendation": "GLASS_DISTINCT_FROM_BODY_ENVIRONMENT"
+              },
+              "matched_source_faces": 5,
+              "normal_max_abs": 1.1920928955078125e-07,
+              "uv_max_abs": 0.0
+            }
+          ]
+        },
+        {
+          "source_draw": 27,
+          "record_path": "25.1",
+          "record_offset": 99347,
+          "vertex_base": 2288,
+          "vertex_count": 8,
+          "index_start": 6060,
+          "index_count": 18,
+          "triangles": 6,
+          "geometry_sha256": "0f9d67c6f01f2c6b76d3eeae68efad61a771ebb1f55496037f4f6a7db272da38",
+          "slots": [
+            "windscreenc32-tga",
+            "glass-tga",
+            "Null"
+          ],
+          "flags_hex": "01000101",
+          "bounds": {
+            "min": [
+              -0.9067119359970093,
+              0.9784157276153564,
+              -0.4613838791847229
+            ],
+            "max": [
+              -0.7388542294502258,
+              1.4428088665008545,
+              0.5772335529327393
+            ]
+          },
+          "source_normal_sha256": "5dd2ffebda4b62495088c536290b6814c9dd3fb800825b139f5a216d92d1600e",
+          "source_uv0_sha256": "6c9921557fd81e28f55aef716e619bb188f594cfdbd133b9337f1e1d44358b9b",
+          "source_alpha_values": [
+            255
+          ],
+          "categories": {
+            "AMBIGUOUS": 1,
+            "GLASS_DISTINCT_FROM_BODY_ENVIRONMENT": 5
+          },
+          "source_ordered_runs": [
+            {
+              "first_source_face": 0,
+              "source_faces": 1,
+              "category": "AMBIGUOUS"
+            },
+            {
+              "first_source_face": 1,
+              "source_faces": 5,
+              "category": "GLASS_DISTINCT_FROM_BODY_ENVIRONMENT"
+            }
+          ],
+          "bindings": [
+            {
+              "mesh": {
+                "path": "root.21.0.0",
+                "node_offset": 176035,
+                "material_offset": 176094,
+                "material": "$shader(carflat)",
+                "slots": [
+                  "underdash2-tga"
+                ],
+                "mode": 1,
+                "effective_secondary": null,
+                "shader": "carflat",
+                "rubber_preserved": false,
+                "source_faces": 1,
+                "conditional": true,
+                "recommendation": "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT"
+              },
+              "matched_source_faces": 1,
+              "normal_max_abs": 1.1920928955078125e-07,
+              "uv_max_abs": 0.13621318340301514
+            },
+            {
+              "mesh": {
+                "path": "root.21.1.0",
+                "node_offset": 176307,
+                "material_offset": 176402,
+                "material": "$shader(carglass)",
+                "slots": [
+                  "windscreenc32-tga",
+                  "glass-tga"
+                ],
+                "mode": 20,
+                "effective_secondary": "CommonTextures/windscreen-reflect",
+                "shader": "carglass",
+                "rubber_preserved": false,
+                "source_faces": 6,
+                "conditional": true,
+                "recommendation": "GLASS_DISTINCT_FROM_BODY_ENVIRONMENT"
+              },
+              "matched_source_faces": 6,
+              "normal_max_abs": 1.1920928955078125e-07,
+              "uv_max_abs": 0.0
+            },
+            {
+              "mesh": {
+                "path": "root.21.0.1",
+                "node_offset": 176147,
+                "material_offset": 176241,
+                "material": "$shader(carglass)",
+                "slots": [
+                  "windscreen32-tga",
+                  "glass-tga"
+                ],
+                "mode": 20,
+                "effective_secondary": "CommonTextures/windscreen-reflect",
+                "shader": "carglass",
+                "rubber_preserved": false,
+                "source_faces": 5,
+                "conditional": true,
+                "recommendation": "GLASS_DISTINCT_FROM_BODY_ENVIRONMENT"
+              },
+              "matched_source_faces": 5,
+              "normal_max_abs": 1.1920928955078125e-07,
+              "uv_max_abs": 0.9964208006858826
+            }
+          ]
+        },
+        {
+          "source_draw": 28,
+          "record_path": "26",
+          "record_offset": 99449,
+          "vertex_base": 2296,
+          "vertex_count": 8,
+          "index_start": 6078,
+          "index_count": 18,
+          "triangles": 6,
+          "geometry_sha256": "2cf1f44028303bc08d7f31e876d6ee86a45444d417019c3f0246a4d31f9796ac",
+          "slots": [
+            "windscreenc32-tga",
+            "glass-tga",
+            "Null"
+          ],
+          "flags_hex": "01000101",
+          "bounds": {
+            "min": [
+              0.7283391356468201,
+              0.9842806458473206,
+              -0.46703943610191345
+            ],
+            "max": [
+              0.8938829898834229,
+              1.4428085088729858,
+              0.5713652968406677
+            ]
+          },
+          "source_normal_sha256": "6ed00acb5432657a0d661b31cc7e41b2d99ebfe3c951a4d11f5efcbb0b758f1c",
+          "source_uv0_sha256": "a9624baf39aeab4a8b659f61398c0ccc3c06b613282d515f7dcc03a84884925b",
+          "source_alpha_values": [
+            255
+          ],
+          "categories": {
+            "AMBIGUOUS": 1,
+            "GLASS_DISTINCT_FROM_BODY_ENVIRONMENT": 5
+          },
+          "source_ordered_runs": [
+            {
+              "first_source_face": 0,
+              "source_faces": 2,
+              "category": "GLASS_DISTINCT_FROM_BODY_ENVIRONMENT"
+            },
+            {
+              "first_source_face": 2,
+              "source_faces": 1,
+              "category": "AMBIGUOUS"
+            },
+            {
+              "first_source_face": 3,
+              "source_faces": 3,
+              "category": "GLASS_DISTINCT_FROM_BODY_ENVIRONMENT"
+            }
+          ],
+          "bindings": [
+            {
+              "mesh": {
+                "path": "root.22.0.0",
+                "node_offset": 176494,
+                "material_offset": 176589,
+                "material": "$shader(carglass)",
+                "slots": [
+                  "windscreenc32-tga",
+                  "glass-tga"
+                ],
+                "mode": 20,
+                "effective_secondary": "CommonTextures/windscreen-reflect",
+                "shader": "carglass",
+                "rubber_preserved": false,
+                "source_faces": 6,
+                "conditional": true,
+                "recommendation": "GLASS_DISTINCT_FROM_BODY_ENVIRONMENT"
+              },
+              "matched_source_faces": 6,
+              "normal_max_abs": 1.1920928955078125e-07,
+              "uv_max_abs": 0.0
+            },
+            {
+              "mesh": {
+                "path": "root.22.1.1",
+                "node_offset": 176767,
+                "material_offset": 176861,
+                "material": "$shader(carglass)",
+                "slots": [
+                  "windscreen32-tga",
+                  "glass-tga"
+                ],
+                "mode": 20,
+                "effective_secondary": "CommonTextures/windscreen-reflect",
+                "shader": "carglass",
+                "rubber_preserved": false,
+                "source_faces": 5,
+                "conditional": true,
+                "recommendation": "GLASS_DISTINCT_FROM_BODY_ENVIRONMENT"
+              },
+              "matched_source_faces": 5,
+              "normal_max_abs": 0.0024436298990622163,
+              "uv_max_abs": 0.947094738483429
+            },
+            {
+              "mesh": {
+                "path": "root.22.1.0",
+                "node_offset": 176655,
+                "material_offset": 176714,
+                "material": "$shader(carflat)",
+                "slots": [
+                  "underdash2-tga"
+                ],
+                "mode": 1,
+                "effective_secondary": null,
+                "shader": "carflat",
+                "rubber_preserved": false,
+                "source_faces": 1,
+                "conditional": true,
+                "recommendation": "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT"
+              },
+              "matched_source_faces": 1,
+              "normal_max_abs": 0.004874077131148624,
+              "uv_max_abs": 0.947094738483429
+            }
+          ]
+        },
+        {
+          "source_draw": 29,
+          "record_path": "26.1",
+          "record_offset": 99577,
+          "vertex_base": 2304,
+          "vertex_count": 8,
+          "index_start": 6096,
+          "index_count": 18,
+          "triangles": 6,
+          "geometry_sha256": "2cf1f44028303bc08d7f31e876d6ee86a45444d417019c3f0246a4d31f9796ac",
+          "slots": [
+            "windscreen32-tga",
+            "glass-tga",
+            "Null"
+          ],
+          "flags_hex": "01000101",
+          "bounds": {
+            "min": [
+              0.7283391356468201,
+              0.9842806458473206,
+              -0.46703943610191345
+            ],
+            "max": [
+              0.8938829898834229,
+              1.4428085088729858,
+              0.5713652968406677
+            ]
+          },
+          "source_normal_sha256": "a6e090250681acbf95636ae5a866baeae7afdc8aa33287e28a452c0f700d87b7",
+          "source_uv0_sha256": "9a6f5f19c6c807dc260b733cd15e67a4078eb84d826c353bb413f7a8626b7825",
+          "source_alpha_values": [
+            255
+          ],
+          "categories": {
+            "AMBIGUOUS": 1,
+            "GLASS_DISTINCT_FROM_BODY_ENVIRONMENT": 5
+          },
+          "source_ordered_runs": [
+            {
+              "first_source_face": 0,
+              "source_faces": 2,
+              "category": "GLASS_DISTINCT_FROM_BODY_ENVIRONMENT"
+            },
+            {
+              "first_source_face": 2,
+              "source_faces": 1,
+              "category": "AMBIGUOUS"
+            },
+            {
+              "first_source_face": 3,
+              "source_faces": 3,
+              "category": "GLASS_DISTINCT_FROM_BODY_ENVIRONMENT"
+            }
+          ],
+          "bindings": [
+            {
+              "mesh": {
+                "path": "root.22.0.0",
+                "node_offset": 176494,
+                "material_offset": 176589,
+                "material": "$shader(carglass)",
+                "slots": [
+                  "windscreenc32-tga",
+                  "glass-tga"
+                ],
+                "mode": 20,
+                "effective_secondary": "CommonTextures/windscreen-reflect",
+                "shader": "carglass",
+                "rubber_preserved": false,
+                "source_faces": 6,
+                "conditional": true,
+                "recommendation": "GLASS_DISTINCT_FROM_BODY_ENVIRONMENT"
+              },
+              "matched_source_faces": 6,
+              "normal_max_abs": 0.004874047159773909,
+              "uv_max_abs": 0.947094738483429
+            },
+            {
+              "mesh": {
+                "path": "root.22.1.1",
+                "node_offset": 176767,
+                "material_offset": 176861,
+                "material": "$shader(carglass)",
+                "slots": [
+                  "windscreen32-tga",
+                  "glass-tga"
+                ],
+                "mode": 20,
+                "effective_secondary": "CommonTextures/windscreen-reflect",
+                "shader": "carglass",
+                "rubber_preserved": false,
+                "source_faces": 5,
+                "conditional": true,
+                "recommendation": "GLASS_DISTINCT_FROM_BODY_ENVIRONMENT"
+              },
+              "matched_source_faces": 5,
+              "normal_max_abs": 1.6763806343078613e-08,
+              "uv_max_abs": 0.0
+            },
+            {
+              "mesh": {
+                "path": "root.22.1.0",
+                "node_offset": 176655,
+                "material_offset": 176714,
+                "material": "$shader(carflat)",
+                "slots": [
+                  "underdash2-tga"
+                ],
+                "mode": 1,
+                "effective_secondary": null,
+                "shader": "carflat",
+                "rubber_preserved": false,
+                "source_faces": 1,
+                "conditional": true,
+                "recommendation": "FLAT_DISTINCT_FROM_BODY_ENVIRONMENT"
+              },
+              "matched_source_faces": 1,
+              "normal_max_abs": 1.1920928955078125e-07,
+              "uv_max_abs": 0.0
+            }
+          ]
+        },
+        {
+          "source_draw": 30,
+          "record_path": "27",
+          "record_offset": 99678,
+          "vertex_base": 2312,
+          "vertex_count": 18,
+          "index_start": 6114,
+          "index_count": 42,
+          "triangles": 14,
+          "geometry_sha256": "e3f1adc5c0a294e29be66eef22aa73028a614b41992504c50b87ceb0862cce9b",
+          "slots": [
+            "windscreen32-tga",
+            "glass-tga",
+            "Null"
+          ],
+          "flags_hex": "01000101",
+          "bounds": {
+            "min": [
+              -0.8471206426620483,
+              0.9880181550979614,
+              0.2607889473438263
+            ],
+            "max": [
+              0.8366053104400635,
+              1.447542667388916,
+              1.016012191772461
+            ]
+          },
+          "source_normal_sha256": "e300ad27a1eb34a0b356e406fd56d9d1386df919695b7b4c4366e476a30a558c",
+          "source_uv0_sha256": "92e2831cd4f9b7bc3eb35325f2a0cd28744c44e8247ca1121757646f6b40f7f6",
+          "source_alpha_values": [
+            255
+          ],
+          "categories": {
+            "GLASS_DISTINCT_FROM_BODY_ENVIRONMENT": 14
+          },
+          "source_ordered_runs": [
+            {
+              "first_source_face": 0,
+              "source_faces": 14,
+              "category": "GLASS_DISTINCT_FROM_BODY_ENVIRONMENT"
+            }
+          ],
+          "bindings": [
+            {
+              "mesh": {
+                "path": "root.24.0.0",
+                "node_offset": 177004,
+                "material_offset": 177098,
+                "material": "$shader(carglass)",
+                "slots": [
+                  "windscreen32-tga",
+                  "glass-tga"
+                ],
+                "mode": 20,
+                "effective_secondary": "CommonTextures/windscreen-reflect",
+                "shader": "carglass",
+                "rubber_preserved": false,
+                "source_faces": 14,
+                "conditional": true,
+                "recommendation": "GLASS_DISTINCT_FROM_BODY_ENVIRONMENT"
+              },
+              "matched_source_faces": 14,
+              "normal_max_abs": 0.026939362287521362,
+              "uv_max_abs": 0.0
+            },
+            {
+              "mesh": {
+                "path": "root.24.1.0",
+                "node_offset": 177164,
+                "material_offset": 177259,
+                "material": "$shader(carglass)",
+                "slots": [
+                  "windscreenc32-tga",
+                  "glass-tga"
+                ],
+                "mode": 20,
+                "effective_secondary": "CommonTextures/windscreen-reflect",
+                "shader": "carglass",
+                "rubber_preserved": false,
+                "source_faces": 14,
+                "conditional": true,
+                "recommendation": "GLASS_DISTINCT_FROM_BODY_ENVIRONMENT"
+              },
+              "matched_source_faces": 14,
+              "normal_max_abs": 0.026939362287521362,
+              "uv_max_abs": 0.0
+            }
+          ]
+        },
+        {
+          "source_draw": 31,
+          "record_path": "27.1",
+          "record_offset": 99806,
+          "vertex_base": 2330,
+          "vertex_count": 18,
+          "index_start": 6156,
+          "index_count": 42,
+          "triangles": 14,
+          "geometry_sha256": "e3f1adc5c0a294e29be66eef22aa73028a614b41992504c50b87ceb0862cce9b",
+          "slots": [
+            "windscreenc32-tga",
+            "glass-tga",
+            "Null"
+          ],
+          "flags_hex": "01000101",
+          "bounds": {
+            "min": [
+              -0.8471206426620483,
+              0.9880181550979614,
+              0.2607889473438263
+            ],
+            "max": [
+              0.8366053104400635,
+              1.447542667388916,
+              1.016012191772461
+            ]
+          },
+          "source_normal_sha256": "e300ad27a1eb34a0b356e406fd56d9d1386df919695b7b4c4366e476a30a558c",
+          "source_uv0_sha256": "92e2831cd4f9b7bc3eb35325f2a0cd28744c44e8247ca1121757646f6b40f7f6",
+          "source_alpha_values": [
+            255
+          ],
+          "categories": {
+            "GLASS_DISTINCT_FROM_BODY_ENVIRONMENT": 14
+          },
+          "source_ordered_runs": [
+            {
+              "first_source_face": 0,
+              "source_faces": 14,
+              "category": "GLASS_DISTINCT_FROM_BODY_ENVIRONMENT"
+            }
+          ],
+          "bindings": [
+            {
+              "mesh": {
+                "path": "root.24.0.0",
+                "node_offset": 177004,
+                "material_offset": 177098,
+                "material": "$shader(carglass)",
+                "slots": [
+                  "windscreen32-tga",
+                  "glass-tga"
+                ],
+                "mode": 20,
+                "effective_secondary": "CommonTextures/windscreen-reflect",
+                "shader": "carglass",
+                "rubber_preserved": false,
+                "source_faces": 14,
+                "conditional": true,
+                "recommendation": "GLASS_DISTINCT_FROM_BODY_ENVIRONMENT"
+              },
+              "matched_source_faces": 14,
+              "normal_max_abs": 0.026939362287521362,
+              "uv_max_abs": 0.0
+            },
+            {
+              "mesh": {
+                "path": "root.24.1.0",
+                "node_offset": 177164,
+                "material_offset": 177259,
+                "material": "$shader(carglass)",
+                "slots": [
+                  "windscreenc32-tga",
+                  "glass-tga"
+                ],
+                "mode": 20,
+                "effective_secondary": "CommonTextures/windscreen-reflect",
+                "shader": "carglass",
+                "rubber_preserved": false,
+                "source_faces": 14,
+                "conditional": true,
+                "recommendation": "GLASS_DISTINCT_FROM_BODY_ENVIRONMENT"
+              },
+              "matched_source_faces": 14,
+              "normal_max_abs": 0.026939362287521362,
+              "uv_max_abs": 0.0
+            }
+          ]
+        }
+      ],
+      "decal_normal_augmentation": {
+        "source": "Original PC DX normals validated against PS2 root.14",
+        "normal_max_abs_to_ps2": 1.1920928955078125e-07,
+        "entries": [
+          {
+            "pc_xyz_sha256": "173ed77cc7b9d13a27119d09efd1583765dbdde575988de4ffb60996b84f286e",
+            "normal": [
+              -0.8863999247550964,
+              0.46292027831077576,
+              1.577611874381546e-05
+            ]
+          },
+          {
+            "pc_xyz_sha256": "2a887eb85a2af89b4efb2089f6b2a2f05b35cf85038257d7429bb9b70d82d1d1",
+            "normal": [
+              -0.9910069108009338,
+              0.13380958139896393,
+              -0.0005748937837779522
+            ]
+          },
+          {
+            "pc_xyz_sha256": "36732e484edc8f93fc6e535f4ed5894bca0dcdca5ded89af60961a49a0c6e548",
+            "normal": [
+              0.9920899868011475,
+              0.12552836537361145,
+              -0.00026385532692074776
+            ]
+          },
+          {
+            "pc_xyz_sha256": "36fb95f35f5abfd60c19e086103014cc8ca14c3c120ea01ca7299fe9abe411cb",
+            "normal": [
+              -0.9430646896362305,
+              0.3326093256473541,
+              -0.00015411847562063485
+            ]
+          },
+          {
+            "pc_xyz_sha256": "370903c1defec6fa1bbb4523afc8803e71daa6ebef09dc9d8da638fb8bc9db06",
+            "normal": [
+              0.9824695587158203,
+              0.18640929460525513,
+              0.0022590276785194874
+            ]
+          },
+          {
+            "pc_xyz_sha256": "411c1a750e68d2b176602aba570e8ca6c47b74245789b98b21d7597c799e73aa",
+            "normal": [
+              -0.98176109790802,
+              0.19010396301746368,
+              0.002374310279265046
+            ]
+          },
+          {
+            "pc_xyz_sha256": "5a1234028d913584873fb83da29f36492fbb1d0a731110cb744565b44b8b9a3d",
+            "normal": [
+              0.9831553101539612,
+              0.1827705055475235,
+              -0.0007299555581994355
+            ]
+          },
+          {
+            "pc_xyz_sha256": "611ae1173ba6f49d8c9f48819acfabd648979a82fae75fa1f16242373c2df076",
+            "normal": [
+              0.8863993287086487,
+              0.4629213809967041,
+              1.5626044842065312e-05
+            ]
+          },
+          {
+            "pc_xyz_sha256": "65a7dae913a8227d4e6b2678d46e9ee8c3a35f03ed795d99c68facd508cae1a2",
+            "normal": [
+              -0.9821851253509521,
+              0.18791520595550537,
+              -0.0005004452541470528
+            ]
+          },
+          {
+            "pc_xyz_sha256": "6c6434d835f704b4ee45a6b89336b349bfaf4e72c6524d8046b613dbfe8af7e0",
+            "normal": [
+              0.9359800815582275,
+              0.3520500957965851,
+              0.0014087387826293707
+            ]
+          },
+          {
+            "pc_xyz_sha256": "6c6704270b5ac59ee349a3ccb0a975328dba4c355a4138b48808ea6b72a858af",
+            "normal": [
+              0.02567913755774498,
+              0.9996609687805176,
+              0.004304321017116308
+            ]
+          },
+          {
+            "pc_xyz_sha256": "712b53d445584c6722a102254f220b877c4d5be7f293f7e6f1851da06deb9ab6",
+            "normal": [
+              -0.9909090399742126,
+              0.13453306257724762,
+              0.00036706472747027874
+            ]
+          },
+          {
+            "pc_xyz_sha256": "778d876c68ffef12bb1da61b286e32bcb72a546e698968021523a376b50bf0d7",
+            "normal": [
+              0.9925921559333801,
+              0.12148559093475342,
+              -0.0014535959344357252
+            ]
+          },
+          {
+            "pc_xyz_sha256": "77d385a20f6334c1d2e5c8607cdaa818d21aa24d2c1c210e347b8a28f1355f1f",
+            "normal": [
+              -0.8860889077186584,
+              0.4635152518749237,
+              0.00013978862261865288
+            ]
+          },
+          {
+            "pc_xyz_sha256": "8e7b12fa9bf6b7e3113553ae9b2dc96855a3fadd1b7bdb27bb4cc0939ed987c3",
+            "normal": [
+              0.9430739283561707,
+              0.33258309960365295,
+              -0.00015928612265270203
+            ]
+          },
+          {
+            "pc_xyz_sha256": "b1db30562b225c604de5f0a48ae8e9ff3244a32db47242d0a3be2f2b17bb9092",
+            "normal": [
+              0.8860886096954346,
+              0.46351587772369385,
+              0.00013996528286952525
+            ]
+          },
+          {
+            "pc_xyz_sha256": "bd4b703254adb774ed3b877640cd10ddf6d1c76bef83437ed1e4cc98a0ad28c0",
+            "normal": [
+              -0.9359802007675171,
+              0.3520498275756836,
+              0.0014085310976952314
+            ]
+          },
+          {
+            "pc_xyz_sha256": "ed1b4b7cc0f9d55b5c403e6e48a63bab80dbdf7701a6ceca3bd48b9a4297ef4e",
+            "normal": [
+              -0.01941521093249321,
+              0.9998056888580322,
+              0.003408171236515045
+            ]
+          },
+          {
+            "pc_xyz_sha256": "f3ad7088c2b438332bf6e46b764857a19981d1362c239e39a09dcc1514399c3a",
+            "normal": [
+              -0.019848529249429703,
+              0.9997397661209106,
+              0.01124209351837635
+            ]
+          },
+          {
+            "pc_xyz_sha256": "f8652e232c8cbc240c4cf5694cc828e0436c9f93f89e7f3d62ab623c9873b7d3",
+            "normal": [
+              0.018576273694634438,
+              0.9997884035110474,
+              0.008835729211568832
+            ]
+          }
+        ],
+        "ambiguous_positions": 0,
+        "runtime_gate": "Require exact current whole geometry, source-compatible UV0/diffuse, same owned race transform and current resource generations; F10 lacks uploaded UV/diffuse bytes"
+      }
+    },
+    {
+      "kind": "WHEEL",
+      "ps2_path": "\\TNG\\DATAPSM\\VEHICLES\\XTRAIL\\WHEEL.PSM",
+      "ps2_sha256": "d53360eab52761fdadf1a4d5a2c87196be7674fbbb603c41cd4726a4b303773c",
+      "ps2_provenance": {
+        "path": "\\TNG\\DATAPSM\\VEHICLES\\XTRAIL\\WHEEL.PSM",
+        "offset": 1218838073,
+        "stored_size": 7824,
+        "directory_size_0x08": 7824,
+        "unpacked_size": 16242,
+        "compression": "packfs_lzo",
+        "stored_sha256": "4cf7da898e2720d373ef0a6275339b782b15ee6416dfcd7ae879805847cbefbc",
+        "payload_sha256": "d53360eab52761fdadf1a4d5a2c87196be7674fbbb603c41cd4726a4b303773c",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+      },
+      "pc_path": "Xtrail/wheel.dx",
+      "pc_sha256": "f05ac990b6ea2312f2a2d552ec886aded4c68a8d8fac027f99e1fc7b0826779c",
+      "trailer": {
+        "tag": 102,
+        "offset": 16226,
+        "kind": "POST_TREE_WHEEL_CYLINDER_AUXILIARY",
+        "values": [
+          0.4000000059604645,
+          0.20000000298023224
+        ],
+        "value_fields": [
+          "cylinder+0x14",
+          "cylinder+0x18"
+        ],
+        "consumer": "0x003947b0",
+        "visual_owner": "0x003900f0 -> 0x00391d38",
+        "sentinel_offset": 16238,
+        "unparsed_bytes": 0,
+        "runtime_rule": "Model+0x38 assigned only when model name contains wheel; otherwise destroy cylinder",
+        "not_used_for_visual_geometry": true
+      },
+      "meshes": [
+        {
+          "path": "root.0",
+          "node_offset": 15640,
+          "material_offset": 15735,
+          "material": "$shader(carshiny)",
+          "slots": [
+            "mercwheel643-tga",
+            "rubber-tga"
+          ],
+          "mode": 3,
+          "effective_secondary": "rubber-tga",
+          "shader": "carshiny",
+          "rubber_preserved": true,
+          "source_faces": 126,
+          "conditional": false,
+          "recommendation": "KEEP_AUTHORED_RUBBER_MAP_NO_BODY_ENV_OVERRIDE"
+        },
+        {
+          "path": "root.1",
+          "node_offset": 15841,
+          "material_offset": 15933,
+          "material": "$shader(carshiny)",
+          "slots": [
+            "merctread-tga",
+            "rubber-tga"
+          ],
+          "mode": 3,
+          "effective_secondary": "rubber-tga",
+          "shader": "carshiny",
+          "rubber_preserved": true,
+          "source_faces": 36,
+          "conditional": false,
+          "recommendation": "KEEP_AUTHORED_RUBBER_MAP_NO_BODY_ENV_OVERRIDE"
+        },
+        {
+          "path": "root.2",
+          "node_offset": 16000,
+          "material_offset": 16094,
+          "material": "$shader(carshiny)",
+          "slots": [
+            "jumpwheel64-tga",
+            "chrome-tga"
+          ],
+          "mode": 3,
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "shader": "carshiny",
+          "rubber_preserved": false,
+          "source_faces": 90,
+          "conditional": false,
+          "recommendation": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+        }
+      ],
+      "draws": [
+        {
+          "source_draw": 0,
+          "record_path": "0",
+          "record_offset": 9464,
+          "vertex_base": 0,
+          "vertex_count": 54,
+          "index_start": 0,
+          "index_count": 216,
+          "triangles": 72,
+          "geometry_sha256": "2f4938e041122fb29ecc25c7ebcf53a535c33bcacc1e49268e158722677af698",
+          "slots": [
+            "mercwheel64-tga",
+            "rubber-tga",
+            "Null"
+          ],
+          "flags_hex": "00000001",
+          "bounds": {
+            "min": [
+              -0.14525257050991058,
+              -0.3810683488845825,
+              -0.3871101140975952
+            ],
+            "max": [
+              -0.09838422387838364,
+              0.38138970732688904,
+              0.38711005449295044
+            ]
+          },
+          "source_normal_sha256": "98bc3051d8a36669b93ac24daa976bc2586d4b07bfe647d85054ac2e015a7153",
+          "source_uv0_sha256": "853cae80acacfef2ace613559fdb1c86c1fbdaf9643d7b25e366ff6260a0fcdf",
+          "source_alpha_values": [
+            255
+          ],
+          "categories": {
+            "KEEP_AUTHORED_RUBBER_MAP_NO_BODY_ENV_OVERRIDE": 72
+          },
+          "source_ordered_runs": [
+            {
+              "first_source_face": 0,
+              "source_faces": 72,
+              "category": "KEEP_AUTHORED_RUBBER_MAP_NO_BODY_ENV_OVERRIDE"
+            }
+          ],
+          "bindings": [
+            {
+              "mesh": {
+                "path": "root.0",
+                "node_offset": 15640,
+                "material_offset": 15735,
+                "material": "$shader(carshiny)",
+                "slots": [
+                  "mercwheel643-tga",
+                  "rubber-tga"
+                ],
+                "mode": 3,
+                "effective_secondary": "rubber-tga",
+                "shader": "carshiny",
+                "rubber_preserved": true,
+                "source_faces": 126,
+                "conditional": false,
+                "recommendation": "KEEP_AUTHORED_RUBBER_MAP_NO_BODY_ENV_OVERRIDE"
+              },
+              "matched_source_faces": 72,
+              "normal_max_abs": 1.1920928955078125e-07,
+              "uv_max_abs": 0.0
+            }
+          ]
+        },
+        {
+          "source_draw": 1,
+          "record_path": "1",
+          "record_offset": 9553,
+          "vertex_base": 54,
+          "vertex_count": 38,
+          "index_start": 216,
+          "index_count": 108,
+          "triangles": 36,
+          "geometry_sha256": "a57e255404ce0f61f76b3985a44d870f4eddfe03222760c7f36a9380894cd875",
+          "slots": [
+            "merctread-tga",
+            "rubber-tga",
+            "Null"
+          ],
+          "flags_hex": "00000001",
+          "bounds": {
+            "min": [
+              -0.11903047561645508,
+              -0.3810683488845825,
+              -0.3871101140975952
+            ],
+            "max": [
+              0.11903046816587448,
+              0.38138970732688904,
+              0.3871101140975952
+            ]
+          },
+          "source_normal_sha256": "c794a527c5b0c728597922a12dc4c84a3c0c794be1b32a37c5bce23de2a695cc",
+          "source_uv0_sha256": "74679d593eda330ebbf862bb599613defa044fb6b152f3356d3869faf95149b8",
+          "source_alpha_values": [
+            255
+          ],
+          "categories": {
+            "KEEP_AUTHORED_RUBBER_MAP_NO_BODY_ENV_OVERRIDE": 36
+          },
+          "source_ordered_runs": [
+            {
+              "first_source_face": 0,
+              "source_faces": 36,
+              "category": "KEEP_AUTHORED_RUBBER_MAP_NO_BODY_ENV_OVERRIDE"
+            }
+          ],
+          "bindings": [
+            {
+              "mesh": {
+                "path": "root.1",
+                "node_offset": 15841,
+                "material_offset": 15933,
+                "material": "$shader(carshiny)",
+                "slots": [
+                  "merctread-tga",
+                  "rubber-tga"
+                ],
+                "mode": 3,
+                "effective_secondary": "rubber-tga",
+                "shader": "carshiny",
+                "rubber_preserved": true,
+                "source_faces": 36,
+                "conditional": false,
+                "recommendation": "KEEP_AUTHORED_RUBBER_MAP_NO_BODY_ENV_OVERRIDE"
+              },
+              "matched_source_faces": 36,
+              "normal_max_abs": 1.1920928955078125e-07,
+              "uv_max_abs": 3.0000000596046448
+            }
+          ]
+        },
+        {
+          "source_draw": 2,
+          "record_path": "2",
+          "record_offset": 9640,
+          "vertex_base": 92,
+          "vertex_count": 37,
+          "index_start": 324,
+          "index_count": 162,
+          "triangles": 54,
+          "geometry_sha256": "a7066b168c5330f1a2458fc08e671ec06ce634d2936983a09e06238fee35778d",
+          "slots": [
+            "mercwheel643-tga",
+            "rubber-tga",
+            "Null"
+          ],
+          "flags_hex": "00000001",
+          "bounds": {
+            "min": [
+              0.1190301924943924,
+              -0.3810683488845825,
+              -0.38711002469062805
+            ],
+            "max": [
+              0.14525257050991058,
+              0.38138970732688904,
+              0.3871101140975952
+            ]
+          },
+          "source_normal_sha256": "db03629370c90f1d060f2a6e6ee0d2f9a96a915b20923f606e94a971576b4042",
+          "source_uv0_sha256": "480641403d3233d5a2602e732b990377c2143a3e9d3120b0188353d9aaf6061f",
+          "source_alpha_values": [
+            255
+          ],
+          "categories": {
+            "KEEP_AUTHORED_RUBBER_MAP_NO_BODY_ENV_OVERRIDE": 54
+          },
+          "source_ordered_runs": [
+            {
+              "first_source_face": 0,
+              "source_faces": 54,
+              "category": "KEEP_AUTHORED_RUBBER_MAP_NO_BODY_ENV_OVERRIDE"
+            }
+          ],
+          "bindings": [
+            {
+              "mesh": {
+                "path": "root.0",
+                "node_offset": 15640,
+                "material_offset": 15735,
+                "material": "$shader(carshiny)",
+                "slots": [
+                  "mercwheel643-tga",
+                  "rubber-tga"
+                ],
+                "mode": 3,
+                "effective_secondary": "rubber-tga",
+                "shader": "carshiny",
+                "rubber_preserved": true,
+                "source_faces": 126,
+                "conditional": false,
+                "recommendation": "KEEP_AUTHORED_RUBBER_MAP_NO_BODY_ENV_OVERRIDE"
+              },
+              "matched_source_faces": 54,
+              "normal_max_abs": 1.1920928955078125e-07,
+              "uv_max_abs": 1.0
+            }
+          ]
+        },
+        {
+          "source_draw": 3,
+          "record_path": "3",
+          "record_offset": 9730,
+          "vertex_base": 129,
+          "vertex_count": 91,
+          "index_start": 486,
+          "index_count": 270,
+          "triangles": 90,
+          "geometry_sha256": "283ca0c3a366146405df4d3fc18755abbe09376d11a7c326ebd25979c4b06c35",
+          "slots": [
+            "xwheel-tga",
+            "chrome-tga",
+            "Null"
+          ],
+          "flags_hex": "00000001",
+          "bounds": {
+            "min": [
+              -0.10025675594806671,
+              -0.2250712662935257,
+              -0.22870656847953796
+            ],
+            "max": [
+              -0.06215786561369896,
+              0.2253926694393158,
+              0.2287065088748932
+            ]
+          },
+          "source_normal_sha256": "59f1cdadb819c92bdc121385bc8d3cfe60819fc165f8e1ea91985544462f3b20",
+          "source_uv0_sha256": "52c8bb9cfe743a2e0e9f4cef4b9b61290285baa76a80c2f205e92dcc2e525179",
+          "source_alpha_values": [
+            255
+          ],
+          "categories": {
+            "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED": 90
+          },
+          "source_ordered_runs": [
+            {
+              "first_source_face": 0,
+              "source_faces": 90,
+              "category": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+            }
+          ],
+          "bindings": [
+            {
+              "mesh": {
+                "path": "root.2",
+                "node_offset": 16000,
+                "material_offset": 16094,
+                "material": "$shader(carshiny)",
+                "slots": [
+                  "jumpwheel64-tga",
+                  "chrome-tga"
+                ],
+                "mode": 3,
+                "effective_secondary": "CommonTextures\\rendertarget64x64",
+                "shader": "carshiny",
+                "rubber_preserved": false,
+                "source_faces": 90,
+                "conditional": false,
+                "recommendation": "VERIFIED_ENVIRONMENT_MATERIAL_CURRENT_IDENTITY_REQUIRED"
+              },
+              "matched_source_faces": 90,
+              "normal_max_abs": 1.1920928955078125e-07,
+              "uv_max_abs": 0.1708817481994629
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "texture_resources": [
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\MERCWHEEL643-TGA.GXI",
+      "provenance": {
+        "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\MERCWHEEL643-TGA.GXI",
+        "offset": 1037796926,
+        "stored_size": 4530,
+        "directory_size_0x08": 4530,
+        "unpacked_size": 16392,
+        "compression": "packfs_lzo",
+        "stored_sha256": "9b6af0d184ca26ffe4d94424236f457214290042f2ce3f8409b0bb710a2848e1",
+        "payload_sha256": "258c665963d18b8786bd3b56e694a25435ffa18dc767d75088e1cd4d5d1791f0",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "gxi": {
+          "width": 64,
+          "height": 64,
+          "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+          "channel_order": "UNKNOWN",
+          "size_equation_match": true
+        }
+      },
+      "format": "PS2_SIMPLE_GXI_13039",
+      "magic": 77881,
+      "width": 64,
+      "height": 64,
+      "size": 16392,
+      "sha256": "258c665963d18b8786bd3b56e694a25435ffa18dc767d75088e1cd4d5d1791f0",
+      "bytes_per_pixel": 4,
+      "channel_order": "RGBA",
+      "channel_order_evidence": "CONFIRMED_BY_VISUAL_RECONSTRUCTION",
+      "alpha_min": 255,
+      "alpha_max": 255,
+      "alpha_unique_count": 1,
+      "alpha_nonzero_pixels": 4096,
+      "average_rgba": [
+        13.440186,
+        11.945801,
+        10.92334,
+        255.0
+      ]
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\MASTERSTICKER069-TGA.GXI",
+      "provenance": {
+        "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\MASTERSTICKER069-TGA.GXI",
+        "offset": 1037703550,
+        "stored_size": 1884,
+        "directory_size_0x08": 1884,
+        "unpacked_size": 4104,
+        "compression": "packfs_lzo",
+        "stored_sha256": "bae0e9e2078a70b149c3d00cf4dfe326bde5310d7f53b561713e5802b5ffd3ed",
+        "payload_sha256": "d4bb7704cb8acb0eb9d73f4429c53611543a2fa430e4abfbed13266079c46db4",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "gxi": {
+          "width": 32,
+          "height": 32,
+          "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+          "channel_order": "UNKNOWN",
+          "size_equation_match": true
+        }
+      },
+      "format": "PS2_SIMPLE_GXI_13039",
+      "magic": 77881,
+      "width": 32,
+      "height": 32,
+      "size": 4104,
+      "sha256": "d4bb7704cb8acb0eb9d73f4429c53611543a2fa430e4abfbed13266079c46db4",
+      "bytes_per_pixel": 4,
+      "channel_order": "RGBA",
+      "channel_order_evidence": "CONFIRMED_BY_VISUAL_RECONSTRUCTION",
+      "alpha_min": 255,
+      "alpha_max": 255,
+      "alpha_unique_count": 1,
+      "alpha_nonzero_pixels": 1024,
+      "average_rgba": [
+        132.536133,
+        96.426758,
+        115.458008,
+        255.0
+      ]
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\WINDSCREEN32-TGA.GXI",
+      "provenance": {
+        "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\WINDSCREEN32-TGA.GXI",
+        "offset": 1038889776,
+        "stored_size": 779,
+        "directory_size_0x08": 779,
+        "unpacked_size": 1032,
+        "compression": "packfs_lzo",
+        "stored_sha256": "a13db7ddf0c272aa9b5bfd9f16b09108232ee093d34d899c7cd9e5946abd3e88",
+        "payload_sha256": "8e09efb4803e475ca2b8c9d7f48e3b408fc55a798020a53e6598da2ba306d450",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "gxi": {
+          "width": 16,
+          "height": 16,
+          "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+          "channel_order": "UNKNOWN",
+          "size_equation_match": true
+        }
+      },
+      "format": "PS2_SIMPLE_GXI_13039",
+      "magic": 77881,
+      "width": 16,
+      "height": 16,
+      "size": 1032,
+      "sha256": "8e09efb4803e475ca2b8c9d7f48e3b408fc55a798020a53e6598da2ba306d450",
+      "bytes_per_pixel": 4,
+      "channel_order": "RGBA",
+      "channel_order_evidence": "CONFIRMED_BY_VISUAL_RECONSTRUCTION",
+      "alpha_min": 7,
+      "alpha_max": 138,
+      "alpha_unique_count": 56,
+      "alpha_nonzero_pixels": 256,
+      "average_rgba": [
+        75.253906,
+        52.507812,
+        53.484375,
+        106.011719
+      ]
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\LIGHTS-TGA.GXI",
+      "provenance": {
+        "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\LIGHTS-TGA.GXI",
+        "offset": 1037599645,
+        "stored_size": 2682,
+        "directory_size_0x08": 2682,
+        "unpacked_size": 4104,
+        "compression": "packfs_lzo",
+        "stored_sha256": "5bf9f605129a6375395780a592932ec0c8bdc2d0329e83c2014141980e9edc3e",
+        "payload_sha256": "a61a0a23a4902820f3a61acb288d2d549ddfe0e0d11fb60b7b2e0ec73475a899",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "gxi": {
+          "width": 32,
+          "height": 32,
+          "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+          "channel_order": "UNKNOWN",
+          "size_equation_match": true
+        }
+      },
+      "format": "PS2_SIMPLE_GXI_13039",
+      "magic": 77881,
+      "width": 32,
+      "height": 32,
+      "size": 4104,
+      "sha256": "a61a0a23a4902820f3a61acb288d2d549ddfe0e0d11fb60b7b2e0ec73475a899",
+      "bytes_per_pixel": 4,
+      "channel_order": "RGBA",
+      "channel_order_evidence": "CONFIRMED_BY_VISUAL_RECONSTRUCTION",
+      "alpha_min": 255,
+      "alpha_max": 255,
+      "alpha_unique_count": 1,
+      "alpha_nonzero_pixels": 1024,
+      "average_rgba": [
+        108.557617,
+        107.268555,
+        107.125,
+        255.0
+      ]
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\JUMPWHEEL64-TGA.GXI",
+      "provenance": {
+        "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\JUMPWHEEL64-TGA.GXI",
+        "offset": 1037174551,
+        "stored_size": 6178,
+        "directory_size_0x08": 6178,
+        "unpacked_size": 16392,
+        "compression": "packfs_lzo",
+        "stored_sha256": "7b6389458d6dde2d4b527b9232e98a097f44b76a2915ad45e002a34b2e1bf6bd",
+        "payload_sha256": "03671ce44fc80512b23da204cddf63c3936bc51031f6a9980e9818ab60fd897e",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "gxi": {
+          "width": 64,
+          "height": 64,
+          "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+          "channel_order": "UNKNOWN",
+          "size_equation_match": true
+        }
+      },
+      "format": "PS2_SIMPLE_GXI_13039",
+      "magic": 77881,
+      "width": 64,
+      "height": 64,
+      "size": 16392,
+      "sha256": "03671ce44fc80512b23da204cddf63c3936bc51031f6a9980e9818ab60fd897e",
+      "bytes_per_pixel": 4,
+      "channel_order": "RGBA",
+      "channel_order_evidence": "CONFIRMED_BY_VISUAL_RECONSTRUCTION",
+      "alpha_min": 255,
+      "alpha_max": 255,
+      "alpha_unique_count": 1,
+      "alpha_nonzero_pixels": 4096,
+      "average_rgba": [
+        43.824707,
+        42.123291,
+        41.542236,
+        255.0
+      ]
+    }
+  ],
+  "live_layout_observations": [
+    {
+      "name": "frame-27240-d1-00008422.jsonl",
+      "sha256": "793f26455e419f1d0425ecc306bed85e92f216a03ad2c92466a02b231de72969",
+      "size": 6102481,
+      "records": [
+        {
+          "frame": 8422,
+          "capture_draw_ordinal": 227,
+          "arguments": [
+            4,
+            8747,
+            20,
+            52275,
+            14
+          ],
+          "caller_rva": 1536126,
+          "fvf": 322,
+          "stream0": {
+            "pointer": 10489984,
+            "stride": 24,
+            "last_creation_serial": 692
+          },
+          "indices": {
+            "pointer": 528961120,
+            "base": 0,
+            "last_creation_serial": 691
+          },
+          "texture_generations": [
+            1229,
+            1387
+          ],
+          "native_states": {
+            "7": 1,
+            "14": 1,
+            "15": 0,
+            "23": 4,
+            "27": 0,
+            "19": 5,
+            "20": 6,
+            "137": 0
+          },
+          "stages": [
+            {
+              "1": 4,
+              "2": 2,
+              "3": 0,
+              "4": 4,
+              "5": 2,
+              "6": 0,
+              "11": 0,
+              "24": 0
+            },
+            {
+              "1": 1,
+              "2": 2,
+              "3": 1,
+              "4": 1,
+              "5": 0,
+              "6": 1,
+              "11": 1,
+              "24": 0
+            }
+          ],
+          "qualification": "LAYOUT_CORRELATION_ONLY_NOT_RUNTIME_GEOMETRY_HASH"
+        },
+        {
+          "frame": 8422,
+          "capture_draw_ordinal": 241,
+          "arguments": [
+            4,
+            5558,
+            22,
+            51573,
+            18
+          ],
+          "caller_rva": 1536126,
+          "fvf": 338,
+          "stream0": {
+            "pointer": 10489984,
+            "stride": 36,
+            "last_creation_serial": 692
+          },
+          "indices": {
+            "pointer": 528961120,
+            "base": 0,
+            "last_creation_serial": 691
+          },
+          "texture_generations": [
+            1228,
+            1228
+          ],
+          "native_states": {
+            "7": 1,
+            "14": 1,
+            "15": 0,
+            "23": 4,
+            "27": 0,
+            "19": 5,
+            "20": 6,
+            "137": 0
+          },
+          "stages": [
+            {
+              "1": 4,
+              "2": 2,
+              "3": 0,
+              "4": 4,
+              "5": 2,
+              "6": 0,
+              "11": 0,
+              "24": 0
+            },
+            {
+              "1": 18,
+              "2": 1,
+              "3": 2,
+              "4": 4,
+              "5": 1,
+              "6": 2,
+              "11": 65536,
+              "24": 2
+            }
+          ],
+          "qualification": "LAYOUT_CORRELATION_ONLY_NOT_RUNTIME_GEOMETRY_HASH"
+        },
+        {
+          "frame": 8422,
+          "capture_draw_ordinal": 262,
+          "arguments": [
+            4,
+            9599,
+            30,
+            54411,
+            28
+          ],
+          "caller_rva": 1536126,
+          "fvf": 322,
+          "stream0": {
+            "pointer": 10489984,
+            "stride": 24,
+            "last_creation_serial": 692
+          },
+          "indices": {
+            "pointer": 528961120,
+            "base": 0,
+            "last_creation_serial": 691
+          },
+          "texture_generations": [
+            1228,
+            1393
+          ],
+          "native_states": {
+            "7": 1,
+            "14": 1,
+            "15": 0,
+            "23": 4,
+            "27": 1,
+            "19": 5,
+            "20": 6,
+            "137": 0
+          },
+          "stages": [
+            {
+              "1": 4,
+              "2": 2,
+              "3": 0,
+              "4": 4,
+              "5": 2,
+              "6": 0,
+              "11": 0,
+              "24": 0
+            },
+            {
+              "1": 1,
+              "2": 2,
+              "3": 1,
+              "4": 1,
+              "5": 0,
+              "6": 1,
+              "11": 1,
+              "24": 0
+            }
+          ],
+          "qualification": "LAYOUT_CORRELATION_ONLY_NOT_RUNTIME_GEOMETRY_HASH"
+        },
+        {
+          "frame": 8422,
+          "capture_draw_ordinal": 263,
+          "arguments": [
+            4,
+            6420,
+            18,
+            54495,
+            14
+          ],
+          "caller_rva": 1536126,
+          "fvf": 338,
+          "stream0": {
+            "pointer": 10489984,
+            "stride": 36,
+            "last_creation_serial": 692
+          },
+          "indices": {
+            "pointer": 528961120,
+            "base": 0,
+            "last_creation_serial": 691
+          },
+          "texture_generations": [
+            1228,
+            1233
+          ],
+          "native_states": {
+            "7": 1,
+            "14": 1,
+            "15": 0,
+            "23": 4,
+            "27": 1,
+            "19": 5,
+            "20": 6,
+            "137": 0
+          },
+          "stages": [
+            {
+              "1": 4,
+              "2": 2,
+              "3": 0,
+              "4": 4,
+              "5": 2,
+              "6": 0,
+              "11": 0,
+              "24": 0
+            },
+            {
+              "1": 18,
+              "2": 1,
+              "3": 2,
+              "4": 4,
+              "5": 1,
+              "6": 2,
+              "11": 65536,
+              "24": 2
+            }
+          ],
+          "qualification": "LAYOUT_CORRELATION_ONLY_NOT_RUNTIME_GEOMETRY_HASH"
+        },
+        {
+          "frame": 8422,
+          "capture_draw_ordinal": 266,
+          "arguments": [
+            4,
+            6499,
+            18,
+            54711,
+            14
+          ],
+          "caller_rva": 1536126,
+          "fvf": 338,
+          "stream0": {
+            "pointer": 10489984,
+            "stride": 36,
+            "last_creation_serial": 692
+          },
+          "indices": {
+            "pointer": 528961120,
+            "base": 0,
+            "last_creation_serial": 691
+          },
+          "texture_generations": [
+            1239,
+            1226
+          ],
+          "native_states": {
+            "7": 1,
+            "14": 1,
+            "15": 0,
+            "23": 4,
+            "27": 1,
+            "19": 5,
+            "20": 6,
+            "137": 0
+          },
+          "stages": [
+            {
+              "1": 4,
+              "2": 2,
+              "3": 0,
+              "4": 4,
+              "5": 2,
+              "6": 0,
+              "11": 0,
+              "24": 0
+            },
+            {
+              "1": 18,
+              "2": 1,
+              "3": 2,
+              "4": 4,
+              "5": 1,
+              "6": 2,
+              "11": 65536,
+              "24": 2
+            }
+          ],
+          "qualification": "LAYOUT_CORRELATION_ONLY_NOT_RUNTIME_GEOMETRY_HASH"
+        }
+      ]
+    },
+    {
+      "name": "frame-4888-d1-00001274.jsonl",
+      "sha256": "7f925ba4ee63d3b118cdfd27511085fcd10340f7bf47be7863f8fe82183e94ce",
+      "size": 6073184,
+      "records": [
+        {
+          "frame": 1274,
+          "capture_draw_ordinal": 227,
+          "arguments": [
+            4,
+            5582,
+            20,
+            11139,
+            14
+          ],
+          "caller_rva": 1536126,
+          "fvf": 322,
+          "stream0": {
+            "pointer": 498923456,
+            "stride": 24,
+            "last_creation_serial": 624
+          },
+          "indices": {
+            "pointer": 499215744,
+            "base": 0,
+            "last_creation_serial": 625
+          },
+          "texture_generations": [
+            629,
+            768
+          ],
+          "native_states": {
+            "7": 1,
+            "14": 1,
+            "15": 0,
+            "23": 4,
+            "27": 0,
+            "19": 5,
+            "20": 6,
+            "137": 0
+          },
+          "stages": [
+            {
+              "1": 4,
+              "2": 2,
+              "3": 0,
+              "4": 4,
+              "5": 2,
+              "6": 0,
+              "11": 0,
+              "24": 0
+            },
+            {
+              "1": 1,
+              "2": 2,
+              "3": 1,
+              "4": 1,
+              "5": 0,
+              "6": 1,
+              "11": 1,
+              "24": 0
+            }
+          ],
+          "qualification": "LAYOUT_CORRELATION_ONLY_NOT_RUNTIME_GEOMETRY_HASH"
+        },
+        {
+          "frame": 1274,
+          "capture_draw_ordinal": 241,
+          "arguments": [
+            4,
+            3448,
+            22,
+            10437,
+            18
+          ],
+          "caller_rva": 1536126,
+          "fvf": 338,
+          "stream0": {
+            "pointer": 498923456,
+            "stride": 36,
+            "last_creation_serial": 624
+          },
+          "indices": {
+            "pointer": 499215744,
+            "base": 0,
+            "last_creation_serial": 625
+          },
+          "texture_generations": [
+            642,
+            642
+          ],
+          "native_states": {
+            "7": 1,
+            "14": 1,
+            "15": 0,
+            "23": 4,
+            "27": 0,
+            "19": 5,
+            "20": 6,
+            "137": 0
+          },
+          "stages": [
+            {
+              "1": 4,
+              "2": 2,
+              "3": 0,
+              "4": 4,
+              "5": 2,
+              "6": 0,
+              "11": 0,
+              "24": 0
+            },
+            {
+              "1": 18,
+              "2": 1,
+              "3": 2,
+              "4": 4,
+              "5": 1,
+              "6": 2,
+              "11": 65536,
+              "24": 2
+            }
+          ],
+          "qualification": "LAYOUT_CORRELATION_ONLY_NOT_RUNTIME_GEOMETRY_HASH"
+        },
+        {
+          "frame": 1274,
+          "capture_draw_ordinal": 262,
+          "arguments": [
+            4,
+            6434,
+            30,
+            13275,
+            28
+          ],
+          "caller_rva": 1536126,
+          "fvf": 322,
+          "stream0": {
+            "pointer": 498923456,
+            "stride": 24,
+            "last_creation_serial": 624
+          },
+          "indices": {
+            "pointer": 499215744,
+            "base": 0,
+            "last_creation_serial": 625
+          },
+          "texture_generations": [
+            642,
+            774
+          ],
+          "native_states": {
+            "7": 1,
+            "14": 1,
+            "15": 0,
+            "23": 4,
+            "27": 1,
+            "19": 5,
+            "20": 6,
+            "137": 0
+          },
+          "stages": [
+            {
+              "1": 4,
+              "2": 2,
+              "3": 0,
+              "4": 4,
+              "5": 2,
+              "6": 0,
+              "11": 0,
+              "24": 0
+            },
+            {
+              "1": 1,
+              "2": 2,
+              "3": 1,
+              "4": 1,
+              "5": 0,
+              "6": 1,
+              "11": 1,
+              "24": 0
+            }
+          ],
+          "qualification": "LAYOUT_CORRELATION_ONLY_NOT_RUNTIME_GEOMETRY_HASH"
+        },
+        {
+          "frame": 1274,
+          "capture_draw_ordinal": 263,
+          "arguments": [
+            4,
+            4310,
+            18,
+            13359,
+            14
+          ],
+          "caller_rva": 1536126,
+          "fvf": 338,
+          "stream0": {
+            "pointer": 498923456,
+            "stride": 36,
+            "last_creation_serial": 624
+          },
+          "indices": {
+            "pointer": 499215744,
+            "base": 0,
+            "last_creation_serial": 625
+          },
+          "texture_generations": [
+            642,
+            640
+          ],
+          "native_states": {
+            "7": 1,
+            "14": 1,
+            "15": 0,
+            "23": 4,
+            "27": 1,
+            "19": 5,
+            "20": 6,
+            "137": 0
+          },
+          "stages": [
+            {
+              "1": 4,
+              "2": 2,
+              "3": 0,
+              "4": 4,
+              "5": 2,
+              "6": 0,
+              "11": 0,
+              "24": 0
+            },
+            {
+              "1": 18,
+              "2": 1,
+              "3": 2,
+              "4": 4,
+              "5": 1,
+              "6": 2,
+              "11": 65536,
+              "24": 2
+            }
+          ],
+          "qualification": "LAYOUT_CORRELATION_ONLY_NOT_RUNTIME_GEOMETRY_HASH"
+        },
+        {
+          "frame": 1274,
+          "capture_draw_ordinal": 266,
+          "arguments": [
+            4,
+            4389,
+            18,
+            13575,
+            14
+          ],
+          "caller_rva": 1536126,
+          "fvf": 338,
+          "stream0": {
+            "pointer": 498923456,
+            "stride": 36,
+            "last_creation_serial": 624
+          },
+          "indices": {
+            "pointer": 499215744,
+            "base": 0,
+            "last_creation_serial": 625
+          },
+          "texture_generations": [
+            651,
+            652
+          ],
+          "native_states": {
+            "7": 1,
+            "14": 1,
+            "15": 0,
+            "23": 4,
+            "27": 1,
+            "19": 5,
+            "20": 6,
+            "137": 0
+          },
+          "stages": [
+            {
+              "1": 4,
+              "2": 2,
+              "3": 0,
+              "4": 4,
+              "5": 2,
+              "6": 0,
+              "11": 0,
+              "24": 0
+            },
+            {
+              "1": 18,
+              "2": 1,
+              "3": 2,
+              "4": 4,
+              "5": 1,
+              "6": 2,
+              "11": 65536,
+              "24": 2
+            }
+          ],
+          "qualification": "LAYOUT_CORRELATION_ONLY_NOT_RUNTIME_GEOMETRY_HASH"
+        }
+      ]
+    }
+  ],
+  "negative_controls": {
+    "pc_files": 78,
+    "exact_geometry_hits": {
+      "283ca0c3a366146405df4d3fc18755abbe09376d11a7c326ebd25979c4b06c35": [
+        {
+          "path": "Xtrail/wheel.dx",
+          "draw": 3,
+          "slots": [
+            "xwheel-tga",
+            "chrome-tga",
+            "Null"
+          ]
+        }
+      ],
+      "2f4938e041122fb29ecc25c7ebcf53a535c33bcacc1e49268e158722677af698": [
+        {
+          "path": "Xtrail/wheel.dx",
+          "draw": 0,
+          "slots": [
+            "mercwheel64-tga",
+            "rubber-tga",
+            "Null"
+          ]
+        }
+      ],
+      "7e42aed180591ce5a99972f8766f1d999d59da87c8212183e528f7fd7fd5f838": [
+        {
+          "path": "Xtrail/car.dx",
+          "draw": 22,
+          "slots": [
+            "lights-tga",
+            "perspex-tga",
+            "Null"
+          ]
+        }
+      ],
+      "a57e255404ce0f61f76b3985a44d870f4eddfe03222760c7f36a9380894cd875": [
+        {
+          "path": "Xtrail/wheel.dx",
+          "draw": 1,
+          "slots": [
+            "merctread-tga",
+            "rubber-tga",
+            "Null"
+          ]
+        }
+      ],
+      "a7066b168c5330f1a2458fc08e671ec06ce634d2936983a09e06238fee35778d": [
+        {
+          "path": "Xtrail/wheel.dx",
+          "draw": 2,
+          "slots": [
+            "mercwheel643-tga",
+            "rubber-tga",
+            "Null"
+          ]
+        }
+      ],
+      "cb24d664e8af1db40cc4b161c7875e34a2042e709a5783384179b37f0ce5fe63": [
+        {
+          "path": "Xtrail/car.dx",
+          "draw": 21,
+          "slots": [
+            "lights-tga",
+            "Null",
+            "Null"
+          ]
+        }
+      ],
+      "e580100f2670ba7bd87589727e194026f3f28d9b54b42eda325d51e47aa136b3": [
+        {
+          "path": "Xtrail/car.dx",
+          "draw": 13,
+          "slots": [
+            "mastersticker069-tga",
+            "Null",
+            "Null"
+          ]
+        }
+      ],
+      "fad797c65838c39d359767a9ef06d0d5579d847fa2b23a9ee8febe8c171b361c": [
+        {
+          "path": "Xtrail/car.dx",
+          "draw": 10,
+          "slots": [
+            "lights-tga",
+            "lights-tga",
+            "Null"
+          ]
+        }
+      ]
+    },
+    "policy": "Exact keys unique in examined 78-file corpus. This bounded source uniqueness is not a live wheel owner, transform or resource-lifetime capture."
+  }
+}

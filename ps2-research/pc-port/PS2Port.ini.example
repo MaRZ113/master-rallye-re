@@ -42,6 +42,11 @@ VehicleModelDiagnostics=0
 ; Read-only Forester COMPLETE upload signatures, max128 attempts /17 records per device.
 ; Enables CPU upload mirrors before loading resources. No frontend replacement yet.
 FrontendGeometryDiagnostics=0
+; X-Trail-only: 0 preserves accepted behavior; 1 adds source normals/Mode4 to plate decal.
+; Requires ReflectionMode4. No wheel, headlight glass or frontend replacement.
+XtrailFidelityMode=0
+XtrailFidelityVersion=1
+XtrailFidelityDiagnostics=0
 ; 0 = Stock; 1 = Turkey3 original-source puddle geometry/static-texture preview.
 ; Original source heights, UV/color; no PS2 mode9 animation/secondary pass.
 CourseObjectsMode=0

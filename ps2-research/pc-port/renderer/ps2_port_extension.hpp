@@ -15,6 +15,7 @@ class ReflectionPilot;
 class CourseObjectsPilot;
 class GrassPilot;
 class VehiclePartitionPilot;
+class XtrailFidelity;
 
 enum class PilotMode : uint8_t {
     Stock = 0,
@@ -289,6 +290,7 @@ public:
     bool active() const noexcept;
     ReflectionPilot* reflection() noexcept { return reflection_.get(); }
     VehiclePartitionPilot* vehicle_partitions() noexcept { return vehicle_partitions_.get(); }
+    XtrailFidelity* xtrail() noexcept {return xtrail_.get();}
     bool native_states_pending() const noexcept;
     CourseObjectsPilot* course_objects() noexcept { return course_objects_.get(); }
     GrassPilot* grass() noexcept { return grass_.get(); }
@@ -341,6 +343,7 @@ public:
 private:
     std::unique_ptr<ReflectionPilot> reflection_;
     std::unique_ptr<VehiclePartitionPilot> vehicle_partitions_;
+    std::unique_ptr<XtrailFidelity> xtrail_;
     std::unique_ptr<CourseObjectsPilot> course_objects_;
     std::unique_ptr<GrassPilot> grass_;
     std::unique_ptr<GrassPilot> shrubs_;
