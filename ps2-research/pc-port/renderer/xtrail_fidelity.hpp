@@ -3,6 +3,7 @@
 #include "xtrail_decal_registry.hpp"
 #include <array>
 namespace gfx2::ps2port {
+class XtrailGlass;
 constexpr bool xtrail_fidelity_opt_in(std::wstring_view mode,std::wstring_view version,bool supported) noexcept {
     return supported&&mode==L"1"&&version==L"1";
 }
@@ -53,6 +54,7 @@ public:
     }
 };
 class XtrailFidelity {
+    std::unique_ptr<XtrailGlass> glass_;
     struct Cache {std::array<uint64_t,15> key{};std::vector<XtrailDecalVertex> vertices;bool valid=false;};
     std::array<Cache,16> cache_{};size_t next_=0;
     bool requested_=false,diagnostics_=false,disabled_=false,blocked_=false;
@@ -60,12 +62,15 @@ class XtrailFidelity {
 public:
     XtrailTransaction transaction;
     XtrailFidelity(bool supported,const std::wstring& ini) noexcept;
+    ~XtrailFidelity();
+    XtrailGlass* glass()noexcept{return glass_.get();}
+    bool glass_pending()const noexcept;
     bool requested() const noexcept{return requested_&&!disabled_;}
     bool blocked() const noexcept{return blocked_;}
     void disable() noexcept{disabled_=true;}
     bool claim(bool success) noexcept{const uint32_t bit=success?2u:1u;if(!diagnostics_||(logged_&bit))return false;logged_|=bit;return true;}
     const std::vector<XtrailDecalVertex>* prepare(const DrawSnapshot&) noexcept;
-    void before_reset() noexcept {if(transaction.pending())blocked_=true;transaction.release();for(auto& c:cache_)c={};next_=0;}
-    void after_reset(bool called,bool successful) noexcept {if(called&&successful){blocked_=false;logged_=0;}}
+    void before_reset() noexcept;
+    void after_reset(bool called,bool successful) noexcept;
 };
 } // namespace gfx2::ps2port

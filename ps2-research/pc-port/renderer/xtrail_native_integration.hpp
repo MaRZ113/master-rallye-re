@@ -2,6 +2,7 @@
 #include "reflection_native_integration.hpp"
 #include "xtrail_fidelity.hpp"
 #include "xtrail_decal_registry.hpp"
+#include "xtrail_glass.hpp"
 #include "course_objects_native_integration.hpp"
 namespace gfx2::xtrailintegration {
 inline void notify(Device8& d,uint32_t slot,const Args& a,HRESULT hr) noexcept {
@@ -10,6 +11,10 @@ inline void notify(Device8& d,uint32_t slot,const Args& a,HRESULT hr) noexcept {
 inline HRESULT repair(Device8& d) noexcept {
     auto* p=d.ps2_port()?d.ps2_port()->xtrail():nullptr;if(!p)return S_OK;
     if(p->blocked())return D3DERR_DEVICELOST;
+    if(auto* glass=p->glass()){
+        if(glass->blocked())return D3DERR_DEVICELOST;
+        if(glass->transaction.pending()){const auto hr=glass->transaction.restore(*d.native(),[&](uint32_t slot,const Args& a,HRESULT h)noexcept{notify(d,slot,a,h);});if(FAILED(hr))return hr;}
+    }
     if(!p->transaction.pending())return S_OK;
     return p->transaction.restore(*d.native(),[&](uint32_t slot,const Args& a,HRESULT hr) noexcept {notify(d,slot,a,hr);});
 }

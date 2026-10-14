@@ -219,7 +219,7 @@ bool PS2PortExtension::analysis_enabled() const noexcept { return active() || pi
                   (grass_ && grass_->identity_requested()) || (shrubs_ && shrubs_->identity_requested()))); }
 
 bool PS2PortExtension::native_states_pending() const noexcept {
-    return (xtrail_ && (xtrail_->blocked() || xtrail_->transaction.pending())) ||
+    return (xtrail_ && (xtrail_->blocked() || xtrail_->transaction.pending() || xtrail_->glass_pending())) ||
         (reflection_ && (reflection_->blocked() || reflection_->transaction().changed_mask ||
             reflection_->mixed_capture().pending())) ||
         (course_objects_ && (course_objects_->blocked() || course_objects_->transaction.has_pending())) ||

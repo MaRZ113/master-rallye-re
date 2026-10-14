@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "asset_sha256": "4a7dce3c248cfbf621c8565f85c15058d4eddcb3f7daa498a2070aa7f48fe91e",
+  "asset_size": 6920,
+  "geometry_sha256": "fad797c65838c39d359767a9ef06d0d5579d847fa2b23a9ee8febe8c171b361c",
+  "pc_source_sha256": "e334085754f81d20d237a70e653b533344771e6409468e2e09252e380b3d063f",
+  "ps2_source_sha256": "af57572e92ce47d810666779fb60c8c178f1979feb203416131a3acc81449326",
+  "source_owner": "root.19",
+  "source_faces": 18,
+  "source_vertices": 22,
+  "primary": {
+    "format": "PS2_SIMPLE_GXI_13039",
+    "magic": 77881,
+    "width": 16,
+    "height": 16,
+    "size": 1032,
+    "sha256": "8e09efb4803e475ca2b8c9d7f48e3b408fc55a798020a53e6598da2ba306d450",
+    "bytes_per_pixel": 4,
+    "channel_order": "RGBA",
+    "channel_order_evidence": "CONFIRMED_BY_VISUAL_RECONSTRUCTION",
+    "alpha_min": 7,
+    "alpha_max": 138,
+    "alpha_unique_count": 56,
+    "alpha_nonzero_pixels": 256,
+    "average_rgba": [
+      75.253906,
+      52.507812,
+      53.484375,
+      106.011719
+    ]
+  },
+  "primary_provenance": {
+    "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\WINDSCREEN32-TGA.GXI",
+    "offset": 1038889776,
+    "stored_size": 779,
+    "directory_size_0x08": 779,
+    "unpacked_size": 1032,
+    "compression": "packfs_lzo",
+    "stored_sha256": "a13db7ddf0c272aa9b5bfd9f16b09108232ee093d34d899c7cd9e5946abd3e88",
+    "payload_sha256": "8e09efb4803e475ca2b8c9d7f48e3b408fc55a798020a53e6598da2ba306d450",
+    "evidence": "CONFIRMED_BY_BOTH",
+    "gxi": {
+      "width": 16,
+      "height": 16,
+      "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+      "channel_order": "UNKNOWN",
+      "size_equation_match": true
+    }
+  },
+  "highlight": {
+    "format": "PS2_SIMPLE_GXI_13039",
+    "magic": 77881,
+    "width": 32,
+    "height": 32,
+    "size": 4104,
+    "sha256": "ff3317403995248fd5c2dfe46aa3e4ef7bf7ea877070bdc0c92843c8c3e4cd54",
+    "bytes_per_pixel": 4,
+    "channel_order": "RGBA",
+    "channel_order_evidence": "CONFIRMED_BY_VISUAL_RECONSTRUCTION",
+    "alpha_min": 255,
+    "alpha_max": 255,
+    "alpha_unique_count": 1,
+    "alpha_nonzero_pixels": 1024,
+    "average_rgba": [
+      39.496094,
+      36.614258,
+      41.650391,
+      255.0
+    ]
+  },
+  "highlight_provenance": {
+    "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\WINDSCREEN-REFLECT.GXI",
+    "offset": 1038886458,
+    "stored_size": 3318,
+    "directory_size_0x08": 3318,
+    "unpacked_size": 4104,
+    "compression": "packfs_lzo",
+    "stored_sha256": "090ba7c5750aba1b4a4602ec49b510fc473fc153fb81421467d109db1c2d6a2d",
+    "payload_sha256": "ff3317403995248fd5c2dfe46aa3e4ef7bf7ea877070bdc0c92843c8c3e4cd54",
+    "evidence": "CONFIRMED_BY_BOTH",
+    "gxi": {
+      "width": 32,
+      "height": 32,
+      "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+      "channel_order": "UNKNOWN",
+      "size_equation_match": true
+    }
+  },
+  "runtime_validation": "NOT_PERFORMED",
+  "alpha_rule": "Primary stored alpha unchanged; D3D8 /255 vs PS2 /128 sampling is an approximation",
+  "highlight_rule": "RGB *96/128, original alpha not blend weight",
+  "private_output": ".assets/vehicles/XtrailHeadlight.ps2glass"
+}

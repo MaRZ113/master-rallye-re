@@ -72,3 +72,10 @@ ShrubsAsset=Turkey3Shrubs.ps2grass
 ; PC half-size approximation keeps source shrub/grass scale ratio at defaults.
 ShrubsSpriteHalfSize=0.4
 ShrubsDiagnostics=0
+
+; Independent X-Trail headlight cover, requires ReflectionMode=4 current race context.
+; 0=Stock; 1=PS2-source primary UV/image + static mode20 highlight approximation.
+XtrailGlassMode=0
+XtrailGlassVersion=1
+XtrailGlassAsset=XtrailHeadlight.ps2glass
+XtrailGlassDiagnostics=0

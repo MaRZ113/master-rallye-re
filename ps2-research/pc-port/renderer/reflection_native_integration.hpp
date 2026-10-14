@@ -20,10 +20,10 @@ template<class T> struct Ref {
 inline bool snapshot(Device8& device, const DrawClassification& classification,
                      D3DPRIMITIVETYPE type, UINT min_index, UINT vertices,
                      UINT start, UINT count, ps2port::DrawSnapshot& geometry,
-                     ps2port::ReflectionSnapshot& out, bool partition=false) noexcept {
+                     ps2port::ReflectionSnapshot& out, bool partition=false, bool xtrail_glass=false) noexcept {
     auto* extension = device.ps2_port();
     if (!extension || !extension->reflection() || !extension->reflection()->active()) return false;
-    if (type != D3DPT_TRIANGLELIST || !(partition ? ps2port::vehicle_partition_layout(count,vertices) :
+    if (type != D3DPT_TRIANGLELIST || !(xtrail_glass ? (count==18&&vertices==22) : partition ? ps2port::vehicle_partition_layout(count,vertices) :
         ps2port::reflection_layout(count,vertices,extension->reflection()->expanded()))) return false;
     geometry = {}; out = {}; out.geometry = &geometry;
     out.requested_mode=extension->reflection()->mode_value();
