@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "source": "Terrano/car.dx",
+  "source_sha256": "90120ed0fea4428707cdc9505d53cb685ae85db6d13eeb8715d1e8e39fab927b",
+  "record": 10,
+  "vertices": 330,
+  "triangles": 324,
+  "stable_uv_topology_sha256": "0a2b22490eb19dea97565d3f235d52dc61c18bd13c31c5f6d31f4a523757609f",
+  "canonical_geometry_sha256": "963d8a41a8551e5911735e795365d456fdedc7d61930ee72dd902ce75d04605d",
+  "negative_search_78_files": [
+    {
+      "path": "Terrano\\car.dx",
+      "record": 10,
+      "slots": [
+        "terbump32-tga",
+        "perspex-tga",
+        "Null"
+      ]
+    },
+    {
+      "path": "Terrano\\complete.dx",
+      "record": 10,
+      "slots": [
+        "terbump32-tga",
+        "perspex-tga",
+        "Null"
+      ]
+    }
+  ],
+  "positions_and_normals": "May deform; must remain finite; source identity uses exact topology and per-vertex UV under current native BODY proof",
+  "runtime": "PENDING_NEW_UPLOAD_KEY_CONFIRMATION"
+}

@@ -51,6 +51,7 @@ public:
             else{hr=n.SetTextureStageState(op.stage,static_cast<D3DTEXTURESTAGESTATETYPE>(op.key),v[i]);notify(63,pack(op.stage,op.key,v[i]),hr);}if(FAILED(hr))return hr;
         }return S_OK;
     }
+    template<class Writer>HRESULT bind_primary(IDirect3DDevice8& n,IDirect3DTexture8* texture,Writer&& notify)noexcept{if(!captured_||!texture)return E_INVALIDARG;pending_|=1u<<15;const auto hr=n.SetTexture(0,texture);notify(61,pack(0,texture),hr);return hr;}
     void mark_up()noexcept{if(captured_)pending_|=(1u<<17)|(1u<<18);}
     template<class Writer>HRESULT restore(IDirect3DDevice8& n,Writer&& notify)noexcept{
         HRESULT result=S_OK;

@@ -261,6 +261,7 @@ inline constexpr std::array<ReflectionMaterial,212> kReflectionMaterials = {{
     {"Kamaz","a7a0061036bddce3c7eb748fe30aea0bdb9dfd544a6ab8ac02720649dc3c5034",318,264,true},
 }};
 constexpr bool reflection_layout(uint32_t triangles,uint32_t vertices,bool expanded=true) noexcept {
+    if(expanded&&triangles==6&&vertices==10)return true;
     for(size_t i=0;i<(expanded?kReflectionMaterials.size():1);++i)
         if(triangles==kReflectionMaterials[i].triangles&&vertices==kReflectionMaterials[i].vertices)return true;
     return false;
@@ -296,10 +297,11 @@ struct ReflectionIdentity {
     const char* reason = "not_classified";
     const char* vehicle = "UNKNOWN";
     std::string geometry_sha256;
+    std::string current_geometry_sha256, uv_topology_sha256;
 };
 constexpr bool affected_source_material_vehicle(std::string_view vehicle) noexcept {
     for(auto name:{"LandCruiser","Tata","ChevyBlazer","Xtrail","Navara","Forester","Jump",
-                   "Patrol","Bruno","SeatBuggy","Kamaz","IceCream","Ufo"})
+                   "Patrol","Bruno","SeatBuggy","Kamaz","IceCream","Ufo","Terrano"})
         if(vehicle==name)return true;
     return false;
 }
@@ -405,12 +407,13 @@ public:
 class ReflectionPilot {
     struct CachedGeometry {
         std::array<uint64_t,15> key{};
-        std::string digest;
+        std::string digest, stable;
         bool valid=false;
     };
     std::array<CachedGeometry,256> geometry_cache_{};
     size_t next_cache_=0;
     uint64_t geometry_evaluations_=0;
+    bool damage_logged_=false;
     ReflectionMode mode_ = ReflectionMode::Stock;
     bool verified_asset_ = false, disabled_ = false, blocked_ = false, suspended_ = false;
     std::array<uint8_t,kReflectionMaterials.size()+1> logged_{};
@@ -443,6 +446,7 @@ public:
     bool needs_mixed_source() const noexcept { return mode_ == ReflectionMode::TataBodyPS2MixedContribution; }
     ReflectionTransaction& transaction() noexcept { return transaction_; }
     MixedReflectionCapture& mixed_capture() noexcept { return capture_; }
+    bool claim_damage_diagnostic()noexcept{if(!diagnostics_||damage_logged_)return false;damage_logged_=true;return true;}
     bool claim_diagnostic(bool applied, const char* vehicle="Tata") noexcept;
     void disable(const char* reason) noexcept { disabled_ = true; reason_ = reason; }
     void before_reset() noexcept;

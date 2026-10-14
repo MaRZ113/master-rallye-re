@@ -1,0 +1,265 @@
+{
+  "schema_version": 1,
+  "ps2_car_sha256": "bb0e2c4e34ba21812cf9fe57077da5e04a02501eae24451767c2ced42b95f1b1",
+  "pc_car_sha256": "90120ed0fea4428707cdc9505d53cb685ae85db6d13eeb8715d1e8e39fab927b",
+  "ps2_mesh": {
+    "path": "root.24.0.1",
+    "node_offset": 191404,
+    "material": "$shader(carbrakelight)",
+    "textures": [
+      {
+        "slot": 0,
+        "name": "commontextures\\breaklightsonglow-tga",
+        "flags": [
+          true,
+          true,
+          false
+        ],
+        "offset": 191426
+      },
+      {
+        "slot": 1,
+        "name": "commontextures\\perspex-tga",
+        "flags": [
+          false,
+          false,
+          false
+        ],
+        "offset": 191472
+      }
+    ]
+  },
+  "ps2_texture": {
+    "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSONGLOW-TGA.GXI",
+    "format": "PS2_SIMPLE_GXI_13039",
+    "magic": 77881,
+    "width": 16,
+    "height": 16,
+    "size": 1032,
+    "sha256": "b6350f92f674bf2b63200ce4bb39c0c26f03fd99856ac0b89e7fc0797861af09",
+    "bytes_per_pixel": 4,
+    "channel_order": "RGBA",
+    "channel_order_evidence": "CONFIRMED_BY_VISUAL_RECONSTRUCTION",
+    "alpha_min": 0,
+    "alpha_max": 0,
+    "alpha_unique_count": 1,
+    "alpha_nonzero_pixels": 0,
+    "average_rgba": [
+      109.359375,
+      35.496094,
+      8.632812,
+      0.0
+    ],
+    "stats": {
+      "ranges": [
+        [
+          0,
+          255
+        ],
+        [
+          0,
+          222
+        ],
+        [
+          0,
+          78
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "unique": [
+        56,
+        82,
+        44,
+        1
+      ],
+      "alpha_zero": 256,
+      "rgb_nonzero_when_alpha_zero": 188,
+      "mean_RGB_when_alpha_zero": [
+        109.359375,
+        35.49609375,
+        8.6328125
+      ],
+      "first_last_pixels": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    }
+  },
+  "pc_texture": {
+    "path": "D:\\Game\\Master Rallye\\corpora\\retail\\Data.sma_unpacked\\DataGx\\Vehicles\\Terrano\\breaklightsonglow-tga.dxt",
+    "sha256": "2fa12d48010bf763215d5bd02e35244da148dbb8bfa2da98d8da8dd651b654e3",
+    "width": 32,
+    "height": 32,
+    "stats": {
+      "ranges": [
+        [
+          255,
+          255
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          249
+        ]
+      ],
+      "unique": [
+        1,
+        5,
+        5,
+        235
+      ],
+      "alpha_zero": 41,
+      "rgb_nonzero_when_alpha_zero": 41,
+      "mean_RGB_when_alpha_zero": [
+        255.0,
+        0.0,
+        0.0
+      ],
+      "first_last_pixels": [
+        [
+          255,
+          0,
+          0,
+          0
+        ],
+        [
+          255,
+          0,
+          0,
+          0
+        ]
+      ]
+    }
+  },
+  "vertices": 20,
+  "unique_ps2_colors": [
+    "0xffffffff"
+  ],
+  "unique_pc_colors_hex": [
+    "ffffffff"
+  ],
+  "attribute_errors": [
+    {
+      "position_hash": "ebcfcfceb2b199f73e2389e7a6adb2fa2903f90083f9f912d0d6d28bc5d95767",
+      "normal_max_error": 1.1920928955078125e-07,
+      "uv_max_error": 0.0
+    },
+    {
+      "position_hash": "8e2da0d624011b8803d344a2eb1e2fb6ae8db24cf3b4c2f2e791c7fd0eb34181",
+      "normal_max_error": 4.470348358154297e-08,
+      "uv_max_error": 0.0
+    },
+    {
+      "position_hash": "c78422e3eaa8e882bcfdcde39259d31464d05bd2a15610d1b4fd6ebcf032c013",
+      "normal_max_error": 1.1920928955078125e-07,
+      "uv_max_error": 0.0
+    },
+    {
+      "position_hash": "9336aefa65e7e08abcad006c6b25448543abc68006de9caba6a2a577043b2d90",
+      "normal_max_error": 5.960464477539063e-08,
+      "uv_max_error": 0.0
+    },
+    {
+      "position_hash": "fb4ef8e229c6dd1cd734301434c31b324d52983299d9f76a57e13f5255eb4001",
+      "normal_max_error": 2.9802322387695312e-08,
+      "uv_max_error": 0.0
+    },
+    {
+      "position_hash": "4f66a1b9ad15f72a345d1ec4807fc22dfc65177bf702ca20308596d8b428816e",
+      "normal_max_error": 5.21540641784668e-08,
+      "uv_max_error": 0.0
+    },
+    {
+      "position_hash": "d2a9e42a5cbfb43a88805f604052144bfa4e860fc8068ccff4c48ecdc82b61e5",
+      "normal_max_error": 5.960464477539063e-08,
+      "uv_max_error": 0.0
+    },
+    {
+      "position_hash": "86f86f97ade75ca4f51263514aef655738bda1da031b7b9bc91267144e1aa0ab",
+      "normal_max_error": 2.9802322387695312e-08,
+      "uv_max_error": 0.0
+    },
+    {
+      "position_hash": "400e418f0b9055f083355a390d46f655cf4987b957cca5151876026011db6503",
+      "normal_max_error": 2.9802322387695312e-08,
+      "uv_max_error": 0.0
+    },
+    {
+      "position_hash": "81336713ea3af05a4fb5838edfc21e45960a5d62e8ea7cee23c16f6ec75f2981",
+      "normal_max_error": 5.960464477539063e-08,
+      "uv_max_error": 0.0
+    },
+    {
+      "position_hash": "232000411c61315c6b9fdae09ec428f8e2521a97ca9cb9c9ef0f4d7c58389946",
+      "normal_max_error": 2.9802322387695312e-08,
+      "uv_max_error": 0.0
+    },
+    {
+      "position_hash": "9f6bd94c65dd62de796ef8e339133761edc82feebfd1a16970c36214b005d83a",
+      "normal_max_error": 4.470348358154297e-08,
+      "uv_max_error": 0.0
+    },
+    {
+      "position_hash": "a272db815a001185918a882a2ab72af0ba78615d0686ec96f45840be50cb9e93",
+      "normal_max_error": 4.470348358154297e-08,
+      "uv_max_error": 0.0
+    },
+    {
+      "position_hash": "f92827ebf7ee96f99dba672082322a273b14b1432946ca471c41004e02048b17",
+      "normal_max_error": 5.960464477539063e-08,
+      "uv_max_error": 0.0
+    },
+    {
+      "position_hash": "f757fa91f1b37da11474db9cdd38c5f2c56577263f2400f0c7681a2cb84e5f74",
+      "normal_max_error": 2.9802322387695312e-08,
+      "uv_max_error": 0.0
+    },
+    {
+      "position_hash": "c7e5fd2c3c267bc96bdb17dcfab8eac0ee38496dbda3ba7a620f4a7ca9a3b7f3",
+      "normal_max_error": 5.960464477539063e-08,
+      "uv_max_error": 0.0
+    },
+    {
+      "position_hash": "4410fd4c6780398d4db8a8475230b8ad13b585a2078e092ec7a0b1c78531e8e6",
+      "normal_max_error": 1.1920928955078125e-07,
+      "uv_max_error": 0.0
+    },
+    {
+      "position_hash": "102e5703be8bab50dd2a1ff0e3cf21f5027797e82161befbabbe57d8b93a91aa",
+      "normal_max_error": 1.1920928955078125e-07,
+      "uv_max_error": 0.0
+    },
+    {
+      "position_hash": "c5304755c391a3c045029c77a3cdd8eeb58b9f9c670e7ae16558b096d2ecdadc",
+      "normal_max_error": 5.960464477539063e-08,
+      "uv_max_error": 0.0
+    },
+    {
+      "position_hash": "ea4dcc5c81ca9e61e798266848575b7f1c2c7e7dcd21ee0e0605eaf88e846768",
+      "normal_max_error": 2.9802322387695312e-08,
+      "uv_max_error": 0.0
+    }
+  ],
+  "max_normal_error": 1.1920928955078125e-07,
+  "max_uv_error": 0.0
+}

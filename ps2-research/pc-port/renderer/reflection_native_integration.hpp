@@ -228,7 +228,7 @@ public:
             }
         } else if (applied_) restore_hr_=S_OK;
         if (!std::strcmp(identity_.vehicle,"UNKNOWN") ||
-            !geometry_ || !pilot_->claim_diagnostic(applied_,identity_.vehicle)) return;
+            !geometry_ || !(identity_.uv_topology_sha256.empty()?pilot_->claim_diagnostic(applied_,identity_.vehicle):pilot_->claim_damage_diagnostic())) return;
         try {
             session().write("{\"type\":\"ps2_reflection_material\",\"device\":"+std::to_string(device_.trace.device_id())+
                 ",\"frame\":"+std::to_string(device_.trace.frame_number())+",\"mode\":"+std::to_string(pilot_->mode_value())+
@@ -237,6 +237,7 @@ public:
                 ",\"vehicle\":"+quote(identity_.vehicle)+",\"source_group\":"+
                 quote(identity_.geometry_sha256==ps2port::kTataBonnetGeometrySha?"TATA_RECORD_19_HOOD_AND_ROOF":
                     identity_.geometry_sha256==ps2port::kKiaBonnetGeometrySha?"KIA_RECORD_14_PAINTED_GROUP":"VERIFIED_CARSHINY_SOURCE_GROUP")+
+                ",\"current_geometry_sha256\":"+quote(identity_.current_geometry_sha256)+",\"uv_topology_sha256\":"+quote(identity_.uv_topology_sha256)+
                 ",\"requested_mask\":"+std::to_string(requested_mask_)+
                 ",\"applied_mask\":"+std::to_string(applied_mask_)+
                 ",\"capture_hresult\":"+std::to_string(static_cast<uint32_t>(capture_hr_))+

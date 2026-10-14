@@ -135,5 +135,9 @@ int main(){
  {Native n;n.fail_create=true;XtrailGlass loaded(true,ini);CHECK(loaded.requested());CHECK(!loaded.initialize(n)&&!loaded.requested());CHECK(n.creates==1);}
  CHECK(DeleteFileW(ini));bytes.back()^=1;CHECK(!decode_xtrail_glass(bytes,src,a,b));}
  else std::cout<<"External private glass asset NOT PROVIDED; synthetic tests remain active\n";
+ if(const char* path=std::getenv("MRR_PS2_GLOW_GXI")){wchar_t folder[MAX_PATH]{},ini[MAX_PATH]{};CHECK(GetTempPathW(MAX_PATH,folder)>0);CHECK(GetTempFileNameW(folder,L"bgl",0,ini)!=0);auto wide=std::filesystem::path(path).wstring();CHECK(WritePrivateProfileStringW(L"PS2Port",L"BrakeGlowMode",L"1",ini));CHECK(WritePrivateProfileStringW(L"PS2Port",L"BrakeGlowAsset",wide.c_str(),ini));
+  {Native n;BrakeGlow asset(true,ini);CHECK(asset.requested());CHECK(asset.initialize(n));CHECK(n.creates==1);CHECK(n.created_primary.pixels[0]==0);CHECK(std::any_of(n.created_primary.pixels.begin(),n.created_primary.pixels.begin()+256,[](DWORD c){return (c&0xffffff)!=0&&(c>>24)==0;}));CHECK(SUCCEEDED(asset.transaction.capture(n)));CHECK(SUCCEEDED(asset.transaction.emissive_pass(n,notify)));CHECK(SUCCEEDED(asset.transaction.bind_primary(n,asset.texture(),notify)));CHECK(n.texture==asset.texture());CHECK(SUCCEEDED(asset.transaction.restore(n,notify)));CHECK(n.texture==&n.original);asset.before_reset();CHECK(n.created_primary.refs==0);asset.after_reset(true,true);CHECK(asset.initialize(n)&&n.creates==2);}
+  CHECK(WritePrivateProfileStringW(L"PS2Port",L"BrakeGlowAsset",L"missing-invalid-asset.gxi",ini));{BrakeGlow missing(true,ini);CHECK(!missing.requested());}CHECK(DeleteFileW(ini));
+ }
  std::cout<<"Failures: "<<failures<<"\n";return failures?1:0;
 }

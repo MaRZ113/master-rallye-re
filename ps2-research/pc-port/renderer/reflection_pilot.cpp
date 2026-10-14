@@ -1,4 +1,6 @@
 #include "reflection_pilot.hpp"
+#include "damage_identity.hpp"
+#include <cmath>
 #include "ps2_port_extension.hpp"
 #include "foliage_probe.hpp"
 #include "provenance.hpp"
@@ -52,6 +54,8 @@ ReflectionIdentity reflection_identity_for_hash(const ReflectionSnapshot& s, std
         if(hash==candidate.geometry_sha&&g->primitive_count==candidate.triangles&&g->vertex_count==candidate.vertices)
             material=&candidate;
     }
+    static constexpr ReflectionMaterial off_lamp={"Terrano","2afd75bd071f0cb1bee35be8f99f0209511a5332b0e8880bb3b889fa52aaf847",6,10,true};
+    if(g&&expanded&&g->primitive_count==6&&g->vertex_count==10&&hash==off_lamp.geometry_sha&&damage_uv_topology_sha(*g)==kTerranoLampOffUvTopology)material=&off_lamp;
     if(material)result.vehicle=material->vehicle;
     if (!g || !g->supported_build) result.reason = "unsupported_build";
     else if (!g->device_id || g->reset_generation != reset_generation) result.reason = "stale_device_or_reset";
@@ -205,6 +209,19 @@ ReflectionRequest ReflectionPilot::request(const ReflectionIdentity& identity, I
     return result;
 }
 
+std::string damage_uv_topology_sha(const DrawSnapshot& g){
+ if(!g.complete_mirror_coverage||!g.vertex_resource||!g.index_resource||!g.vertex_generation||!g.index_generation||!g.vertex_revision||!g.index_revision||g.primitive_type!=D3DPT_TRIANGLELIST||g.fvf!=0x152||g.stride!=36||!g.vertex_count||g.vertex_count>8192||!g.primitive_count||g.primitive_count>8192)return {};
+ const unsigned size=g.index_format==D3DFMT_INDEX16?2:g.index_format==D3DFMT_INDEX32?4:0;const uint64_t begin=(uint64_t(g.base_vertex)+g.min_index)*36;if(!size||begin<g.vertex_byte_offset||g.index_bytes.size()!=uint64_t(g.primitive_count)*3*size)return {};const auto relative=begin-g.vertex_byte_offset;if(relative>g.vertex_bytes.size()||uint64_t(g.vertex_count)*36>g.vertex_bytes.size()-relative)return {};
+ std::string bytes;bytes.reserve(g.vertex_count*8+g.primitive_count*12);for(unsigned i=0;i<g.vertex_count;++i){const auto* raw=g.vertex_bytes.data()+relative+i*36;float f[6];std::memcpy(f,raw,24);for(float value:f)if(!std::isfinite(value))return {};float uv[2];std::memcpy(uv,raw+28,8);for(float value:uv)if(!std::isfinite(value))return {};bytes.append(reinterpret_cast<const char*>(raw+28),8);}
+ std::vector<std::array<uint32_t,3>> triangles;triangles.reserve(g.primitive_count);for(unsigned i=0;i<g.primitive_count;++i){std::array<uint32_t,3> t{};for(unsigned k=0;k<3;++k){std::memcpy(&t[k],g.index_bytes.data()+(i*3+k)*size,size);if(t[k]<g.min_index||t[k]-g.min_index>=g.vertex_count)return {};t[k]-=g.min_index;}std::sort(t.begin(),t.end());triangles.push_back(t);}std::sort(triangles.begin(),triangles.end());for(auto& t:triangles)bytes.append(reinterpret_cast<const char*>(t.data()),12);return sha256_bytes(bytes.data(),bytes.size());
+}
+ReflectionIdentity damage_compatible_identity(const ReflectionSnapshot& s,std::string_view geometry,std::string_view stable,uint64_t generation,bool expanded){
+ auto result=reflection_identity_for_hash(s,geometry,generation,expanded);
+ if(!result.accepted&&s.geometry&&s.geometry->primitive_count==324&&s.geometry->vertex_count==330&&s.requested_mode==4&&s.vehicle_body_verified&&stable==kTerranoBumperUvTopology){
+  result=reflection_identity_for_hash(s,"963d8a41a8551e5911735e795365d456fdedc7d61930ee72dd902ce75d04605d",generation,expanded);
+  if(result.accepted){result.reason="exact_unique_source_uv_topology_on_deformed_native_body";result.current_geometry_sha256=geometry;result.uv_topology_sha256=stable;}
+ }return result;
+}
 ReflectionIdentity ReflectionPilot::classify(const ReflectionSnapshot& s, uint64_t generation) noexcept {
     try {
         if (!s.geometry) return classify_reflection(s,generation);
@@ -213,12 +230,13 @@ ReflectionIdentity ReflectionPilot::classify(const ReflectionSnapshot& s, uint64
             g.vertex_generation,g.index_generation,g.vertex_revision,g.index_revision,g.start_index,
             g.base_vertex,g.min_index,g.vertex_count,g.index_format,g.vertex_byte_offset,g.primitive_count};
         for (const auto& entry:geometry_cache_) if(entry.valid&&entry.key==key)
-            return reflection_identity_for_hash(s,entry.digest,generation,expanded_);
+            return damage_compatible_identity(s,entry.digest,entry.stable,generation,expanded_);
         ++geometry_evaluations_;
         const auto digest=reflection_geometry_sha(g);
+        const auto stable=g.primitive_count==324&&g.vertex_count==330?damage_uv_topology_sha(g):std::string{};
         auto& entry=geometry_cache_[next_cache_++ % geometry_cache_.size()];
-        entry={key,digest,true};
-        return reflection_identity_for_hash(s,digest,generation,expanded_);
+        entry={key,digest,stable,true};
+        return damage_compatible_identity(s,digest,stable,generation,expanded_);
     } catch (...) { ReflectionIdentity result;result.reason="geometry_evaluation_failed";return result; }
 }
 
@@ -232,6 +250,7 @@ bool ReflectionPilot::claim_diagnostic(bool applied, const char* vehicle) noexce
 }
 
 void ReflectionPilot::before_reset() noexcept {
+    damage_logged_=false;
     // Baseline attempts native repair first. If it could not repair, release held
     // references for Reset and prohibit draws until a real successful reset.
     if (transaction_.changed_mask || capture_.pending()) blocked_ = true;
