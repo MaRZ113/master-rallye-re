@@ -41,4 +41,3 @@ public class BrakeModeProbe extends GhidraScript {
   }
  }
 }
-
