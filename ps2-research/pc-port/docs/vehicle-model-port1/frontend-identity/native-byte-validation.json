@@ -1,0 +1,201 @@
+{
+  "schema_version": 1,
+  "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "instruction_windows_checked": 31,
+  "windows": [
+    {
+      "address": "0x44c4dd",
+      "file_offset": 312541,
+      "size": 3,
+      "bytes_hex": "8d4710"
+    },
+    {
+      "address": "0x44c4e0",
+      "file_offset": 312544,
+      "size": 1,
+      "bytes_hex": "50"
+    },
+    {
+      "address": "0x44c4e1",
+      "file_offset": 312545,
+      "size": 5,
+      "bytes_hex": "e8dac90800"
+    },
+    {
+      "address": "0x44c4e6",
+      "file_offset": 312550,
+      "size": 2,
+      "bytes_hex": "8bc8"
+    },
+    {
+      "address": "0x44c4e8",
+      "file_offset": 312552,
+      "size": 5,
+      "bytes_hex": "e873a20800"
+    },
+    {
+      "address": "0x44c4ed",
+      "file_offset": 312557,
+      "size": 7,
+      "bytes_hex": "8bac2490000000"
+    },
+    {
+      "address": "0x44c4f4",
+      "file_offset": 312564,
+      "size": 2,
+      "bytes_hex": "8bf0"
+    },
+    {
+      "address": "0x44c4f6",
+      "file_offset": 312566,
+      "size": 3,
+      "bytes_hex": "39770c"
+    },
+    {
+      "address": "0x44c4f9",
+      "file_offset": 312569,
+      "size": 6,
+      "bytes_hex": "0f84a8000000"
+    },
+    {
+      "address": "0x44c4ff",
+      "file_offset": 312575,
+      "size": 3,
+      "bytes_hex": "83feff"
+    },
+    {
+      "address": "0x44c502",
+      "file_offset": 312578,
+      "size": 3,
+      "bytes_hex": "89770c"
+    },
+    {
+      "address": "0x44c505",
+      "file_offset": 312581,
+      "size": 2,
+      "bytes_hex": "7525"
+    },
+    {
+      "address": "0x44c545",
+      "file_offset": 312645,
+      "size": 5,
+      "bytes_hex": "e876de0000"
+    },
+    {
+      "address": "0x44c54a",
+      "file_offset": 312650,
+      "size": 3,
+      "bytes_hex": "8d1476"
+    },
+    {
+      "address": "0x44c54d",
+      "file_offset": 312653,
+      "size": 3,
+      "bytes_hex": "8d0c96"
+    },
+    {
+      "address": "0x44c550",
+      "file_offset": 312656,
+      "size": 4,
+      "bytes_hex": "8b448824"
+    },
+    {
+      "address": "0x44c554",
+      "file_offset": 312660,
+      "size": 4,
+      "bytes_hex": "8d4c240c"
+    },
+    {
+      "address": "0x44c558",
+      "file_offset": 312664,
+      "size": 1,
+      "bytes_hex": "50"
+    },
+    {
+      "address": "0x44c559",
+      "file_offset": 312665,
+      "size": 5,
+      "bytes_hex": "e862500800"
+    },
+    {
+      "address": "0x44c55e",
+      "file_offset": 312670,
+      "size": 5,
+      "bytes_hex": "6824226b00"
+    },
+    {
+      "address": "0x44c563",
+      "file_offset": 312675,
+      "size": 4,
+      "bytes_hex": "8d4c2410"
+    },
+    {
+      "address": "0x44c567",
+      "file_offset": 312679,
+      "size": 5,
+      "bytes_hex": "e854500800"
+    },
+    {
+      "address": "0x44c56c",
+      "file_offset": 312684,
+      "size": 4,
+      "bytes_hex": "8b54240c"
+    },
+    {
+      "address": "0x44c570",
+      "file_offset": 312688,
+      "size": 4,
+      "bytes_hex": "8d4c2410"
+    },
+    {
+      "address": "0x44c574",
+      "file_offset": 312692,
+      "size": 1,
+      "bytes_hex": "52"
+    },
+    {
+      "address": "0x44c575",
+      "file_offset": 312693,
+      "size": 8,
+      "bytes_hex": "c744241400000000"
+    },
+    {
+      "address": "0x44c57d",
+      "file_offset": 312701,
+      "size": 5,
+      "bytes_hex": "e88e4a0800"
+    },
+    {
+      "address": "0x44c582",
+      "file_offset": 312706,
+      "size": 3,
+      "bytes_hex": "8b4d50"
+    },
+    {
+      "address": "0x44c585",
+      "file_offset": 312709,
+      "size": 4,
+      "bytes_hex": "8d442410"
+    },
+    {
+      "address": "0x44c589",
+      "file_offset": 312713,
+      "size": 1,
+      "bytes_hex": "50"
+    },
+    {
+      "address": "0x44c58a",
+      "file_offset": 312714,
+      "size": 5,
+      "bytes_hex": "e8e1950a00"
+    }
+  ],
+  "original_vtable_callback": {
+    "table": "0x69020c",
+    "slot_offset": "0x10",
+    "target": "0x44c4c0",
+    "file_offset": 2687516
+  },
+  "result": "PASS",
+  "live_runtime_identity": "NOT_PERFORMED"
+}

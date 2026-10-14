@@ -1,0 +1,251 @@
+{
+  "schema_version": 1,
+  "ps2_source": {
+    "resource": "\\TNG\\DATAPSM\\VEHICLES\\WOOLDAND\\COMPLETE.PSM",
+    "sha256": "5407780253d3c96817a3062f5f863c3dd935e68ed843d882fa2e145794299eec",
+    "provenance": {
+      "path": "\\TNG\\DATAPSM\\VEHICLES\\WOOLDAND\\COMPLETE.PSM",
+      "offset": 1218402887,
+      "stored_size": 157588,
+      "directory_size_0x08": 157588,
+      "unpacked_size": 339348,
+      "compression": "packfs_lzo",
+      "stored_sha256": "4cfb23a99a7f0aff6def5e958b37e7953be33ba7f4b7b61dba62606ab1843e1a",
+      "payload_sha256": "5407780253d3c96817a3062f5f863c3dd935e68ed843d882fa2e145794299eec",
+      "evidence": "CONFIRMED_BY_BOTH",
+      "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+    }
+  },
+  "pc_source": {
+    "path": "Forester/complete.dx",
+    "sha256": "a38566e0d653c586fc53594de2276e8c3f50d882126f26ee5792d74794cd3ca1"
+  },
+  "model_kind": "COMPLETE_ONLY_NOT_CAR",
+  "cases": [
+    {
+      "pc_draw": 5,
+      "pc_record_path": "5",
+      "pc_faces": 400,
+      "pc_geometry_sha256": "afe75c01dfea7f865a54bc68c3c98037c6a498d42f25f279763a5c3c4cb76e02",
+      "pc_slots": [
+        "forestside128-tga",
+        "whitepaint-tga",
+        "Null"
+      ],
+      "ps2_mesh": "root.4",
+      "ps2_node": 330168,
+      "ps2_material": "$shader(carshiny)",
+      "ps2_slots": [
+        "subpelkaside128-tga",
+        "whitepaint-tga"
+      ],
+      "ps2_faces": 484,
+      "source_bounds": {
+        "min": [
+          -1.1082723140716553,
+          0.5965487360954285,
+          -2.11883544921875
+        ],
+        "max": [
+          1.1191335916519165,
+          1.8267474174499512,
+          2.081700086593628
+        ]
+      },
+      "pc_bounds": {
+        "min": [
+          -0.920714795589447,
+          0.5965377688407898,
+          -2.11883544921875
+        ],
+        "max": [
+          0.9207146763801575,
+          1.8267364501953125,
+          2.081700086593628
+        ]
+      },
+      "pc_to_ps2_exact_matches": 357,
+      "pc_to_ps2_modified_matches": 364,
+      "maximum_corner_error_among_matches": 0.0029883980751037598,
+      "maximum_nearest_candidate_error_including_unmatched": 0.008891105651855469,
+      "ps2_to_pc_selected_matches": 364,
+      "other_group_controls": [
+        {
+          "tolerance": 0.001,
+          "exact_other_group_matches": [
+            {
+              "pc_draw": 0,
+              "matching_ps2_faces": 1
+            },
+            {
+              "pc_draw": 2,
+              "matching_ps2_faces": 2
+            }
+          ],
+          "coplanar_other_group_overlap_faces": 6,
+          "coplanar_other_groups": [
+            "0",
+            "2",
+            "4",
+            "9"
+          ],
+          "maximum_other_group_coverage": 1.0,
+          "overlap_statistics": {
+            "exact_candidate_pairs": 2257,
+            "surface_aabb_candidate_pairs": 2547,
+            "projected_overlap_pairs": 3,
+            "spatial_cell": 32.0,
+            "index_cells": 8
+          },
+          "boundary": "No whole-mesh exclusivity is inferred from triangle hashes alone."
+        },
+        {
+          "tolerance": 0.005,
+          "exact_other_group_matches": [
+            {
+              "pc_draw": 0,
+              "matching_ps2_faces": 1
+            },
+            {
+              "pc_draw": 2,
+              "matching_ps2_faces": 2
+            },
+            {
+              "pc_draw": 3,
+              "matching_ps2_faces": 1
+            }
+          ],
+          "coplanar_other_group_overlap_faces": 8,
+          "coplanar_other_groups": [
+            "0",
+            "2",
+            "3",
+            "4",
+            "9"
+          ],
+          "maximum_other_group_coverage": 1.0,
+          "overlap_statistics": {
+            "exact_candidate_pairs": 72269,
+            "surface_aabb_candidate_pairs": 2718,
+            "projected_overlap_pairs": 4,
+            "spatial_cell": 32.0,
+            "index_cells": 8
+          },
+          "boundary": "No whole-mesh exclusivity is inferred from triangle hashes alone."
+        }
+      ],
+      "ps2_extra_faces_relative_to_selected_pc_draw": 120,
+      "extra_faces_coplanar_overlap_other_pc_groups": 1,
+      "extra_face_other_pc_groups": [
+        "9"
+      ],
+      "extra_overlap_statistics": {
+        "exact_candidate_pairs": 15606,
+        "surface_aabb_candidate_pairs": 877,
+        "projected_overlap_pairs": 1,
+        "spatial_cell": 32.0,
+        "index_cells": 8
+      },
+      "evidence_grade": "CONFIRMED_BY_BYTES_FOR_TRIANGLES_STATIC_INFERENCE_FOR_COPLANAR_OVERLAP",
+      "runtime_visibility": "UNKNOWN_NOT_A_LIVE_DRAW_CAPTURE"
+    },
+    {
+      "pc_draw": 1,
+      "pc_record_path": "1",
+      "pc_faces": 4,
+      "pc_geometry_sha256": "fdc9a9a45e583044f791d3c3b7be95b59e3291d27f1ce63757bbda576d22716f",
+      "pc_slots": [
+        "forestgrill64-tga",
+        "Null",
+        "Null"
+      ],
+      "ps2_mesh": "root.2",
+      "ps2_node": 329793,
+      "ps2_material": "$shader(carshiny)",
+      "ps2_slots": [
+        "subpelkagrill64-tga",
+        "whitepaint-tga"
+      ],
+      "ps2_faces": 19,
+      "source_bounds": {
+        "min": [
+          -0.33308646082878113,
+          0.6985989212989807,
+          2.060436248779297
+        ],
+        "max": [
+          0.33299916982650757,
+          1.0208520889282227,
+          2.088325023651123
+        ]
+      },
+      "pc_bounds": {
+        "min": [
+          -0.3563181459903717,
+          0.6991294026374817,
+          2.0816996097564697
+        ],
+        "max": [
+          0.3577813506126404,
+          1.038894534111023,
+          2.094341278076172
+        ]
+      },
+      "pc_to_ps2_exact_matches": 0,
+      "pc_to_ps2_modified_matches": 0,
+      "maximum_corner_error_among_matches": null,
+      "maximum_nearest_candidate_error_including_unmatched": null,
+      "ps2_to_pc_selected_matches": 0,
+      "other_group_controls": [
+        {
+          "tolerance": 0.001,
+          "exact_other_group_matches": [],
+          "coplanar_other_group_overlap_faces": 0,
+          "coplanar_other_groups": [],
+          "maximum_other_group_coverage": 0.0,
+          "overlap_statistics": {
+            "exact_candidate_pairs": 96,
+            "surface_aabb_candidate_pairs": 8,
+            "projected_overlap_pairs": 0,
+            "spatial_cell": 32.0,
+            "index_cells": 8
+          },
+          "boundary": "No whole-mesh exclusivity is inferred from triangle hashes alone."
+        },
+        {
+          "tolerance": 0.005,
+          "exact_other_group_matches": [],
+          "coplanar_other_group_overlap_faces": 0,
+          "coplanar_other_groups": [],
+          "maximum_other_group_coverage": 0.0,
+          "overlap_statistics": {
+            "exact_candidate_pairs": 5548,
+            "surface_aabb_candidate_pairs": 8,
+            "projected_overlap_pairs": 0,
+            "spatial_cell": 32.0,
+            "index_cells": 8
+          },
+          "boundary": "No whole-mesh exclusivity is inferred from triangle hashes alone."
+        }
+      ],
+      "ps2_extra_faces_relative_to_selected_pc_draw": 19,
+      "extra_faces_coplanar_overlap_other_pc_groups": 0,
+      "extra_face_other_pc_groups": [],
+      "extra_overlap_statistics": {
+        "exact_candidate_pairs": 5548,
+        "surface_aabb_candidate_pairs": 8,
+        "projected_overlap_pairs": 0,
+        "spatial_cell": 32.0,
+        "index_cells": 8
+      },
+      "evidence_grade": "CONFIRMED_BY_BYTES_FOR_TRIANGLES_STATIC_INFERENCE_FOR_COPLANAR_OVERLAP",
+      "runtime_visibility": "UNKNOWN_NOT_A_LIVE_DRAW_CAPTURE"
+    }
+  ],
+  "coordinate_frame": "ORIGINAL_MODEL_LOCAL_IDENTITY_NO_FITTED_TRANSFORM",
+  "limitations": [
+    ".005 source units is an explicitly relaxed material/shape join, not exact .001 geometry parity.",
+    "Angularly different intersecting surfaces are not covered by the coplanar duplicate test.",
+    "The unknown crashiny and untyped PS2 materials are not normalized or included in carshiny body transfer."
+  ]
+}

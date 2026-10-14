@@ -2,6 +2,7 @@
 #include "reflection_pilot.hpp"
 #include "course_objects.hpp"
 #include "grass_pilot.hpp"
+#include "vehicle_partition.hpp"
 
 #include "foliage_probe.hpp"
 #include "provenance.hpp"
@@ -179,6 +180,7 @@ PS2PortExtension::PS2PortExtension(bool exact_build, const std::string& exe_sha,
         const auto ini = port_ini_path(renderer_ini);
         const UINT mode = GetPrivateProfileIntW(L"PS2Port", L"FoliageMode", 0, ini.c_str());
         diagnostics_ = GetPrivateProfileIntW(L"PS2Port", L"Diagnostics", 0, ini.c_str()) == 1;
+        frontend_geometry_diagnostics_ = GetPrivateProfileIntW(L"PS2Port", L"FrontendGeometryDiagnostics", 0, ini.c_str()) == 1;
         const UINT probe = GetPrivateProfileIntW(L"PS2Port", L"PixelProbe", 0, ini.c_str());
         pixel_probe_requested_ = probe == 1;
         if (mode == 0) { mode_ = PilotMode::Stock; config_reason_ = "stock_default_or_configured"; }
@@ -198,6 +200,7 @@ PS2PortExtension::PS2PortExtension(bool exact_build, const std::string& exe_sha,
                    pixel_probe_later_ordinal_ = later; pixel_probe_status_ = "configured_waiting_for_device"; }
         }
         reflection_ = std::make_unique<ReflectionPilot>(build_valid_, ini);
+        vehicle_partitions_ = std::make_unique<VehiclePartitionPilot>(build_valid_, ini);
         course_objects_ = std::make_unique<CourseObjectsPilot>(build_valid_, ini);
         grass_ = std::make_unique<GrassPilot>(build_valid_, ini);
         shrubs_ = std::make_unique<GrassPilot>(build_valid_, ini,GroundDetailKind::Shrubs);
@@ -208,7 +211,7 @@ bool PS2PortExtension::requested() const noexcept {
     return mode_ != PilotMode::Stock || (reflection_ && reflection_->mirroring_required());
 }
 bool PS2PortExtension::active() const noexcept { return requested() && build_valid_ && !disabled_; }
-bool PS2PortExtension::buffer_mirroring_required() const noexcept { return active() || pixel_probe_enabled(); }
+bool PS2PortExtension::buffer_mirroring_required() const noexcept { return active() || pixel_probe_enabled() || frontend_geometry_diagnostics(); }
 bool PS2PortExtension::analysis_enabled() const noexcept { return active() || pixel_probe_enabled() ||
     (!disabled_ && ((course_objects_ && course_objects_->identity_requested()) ||
                   (grass_ && grass_->identity_requested()) || (shrubs_ && shrubs_->identity_requested()))); }

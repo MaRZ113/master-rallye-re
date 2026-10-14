@@ -25,7 +25,7 @@ Diagnostics=0
 ; Capture timing/PSMCT16/vehicle grayscale differences remain approximations.
 ReflectionMode=0
 ReflectionConfigVersion=1
-; Full coverage: 0 keeps Tata record19 only; 1 admits all174 verified carshiny groups.
+; Full coverage: 0 keeps Tata record19 only; 1 admits all verified carshiny groups.
 ReflectionCoverage=0
 ; 0 keeps working Mode4 A8R8G8B8. 1 requests a private A1R5G5B5 target.
 ; Unsupported 16-bit allocation falls back to Mode4; not exact GS PSMCT16.
@@ -33,6 +33,15 @@ ReflectionTargetPrecision=0
 ; Canonical extracted GXI supplied locally. Missing/wrong hash means Stock.
 ReflectionSourceGXI=PS2EnvSource64x64.gxi
 ReflectionDiagnostics=0
+; Verified mixed CAR records in LandCruiser/Bruno/SeatBuggy/ChevyBlazer/Xtrail/Forester.
+; 0 = preserve the accepted whole-draw reflection implementation (default).
+; 1 = partition exact current source geometry; Mode4 only, unknown/glass/flat stay Stock.
+RaceModelMode=0
+VehicleModelConfigVersion=1
+VehicleModelDiagnostics=0
+; Read-only Forester COMPLETE upload signatures, max128 attempts /17 records per device.
+; Enables CPU upload mirrors before loading resources. No frontend replacement yet.
+FrontendGeometryDiagnostics=0
 ; 0 = Stock; 1 = Turkey3 original-source puddle geometry/static-texture preview.
 ; Original source heights, UV/color; no PS2 mode9 animation/secondary pass.
 CourseObjectsMode=0

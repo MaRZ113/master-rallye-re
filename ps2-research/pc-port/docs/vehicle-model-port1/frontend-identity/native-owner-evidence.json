@@ -1,0 +1,412 @@
+{
+  "schema_version": 1,
+  "phase": "FRONTEND_COMPLETE_NATIVE_OWNER_STATIC_CONTRACT",
+  "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "provider": "REA/Ghidra12.1.4/x86",
+  "grade": "CONFIRMED_BY_EXE",
+  "functions": [
+    {
+      "evidence_id": "ev_cc80ae5b0f2cadb6342ce55e9e0bea3b48c9737cfa450781151841455f7bf049",
+      "address": "0x480a20",
+      "bounds": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x480a20",
+            "end": "0x480a74"
+          }
+        ],
+        "total_bytes": 85,
+        "span_bytes": 85,
+        "non_contiguous": false,
+        "contains_entry": true
+      },
+      "assembly": [
+        "0x480a20: PUSH ECX",
+        "0x480a21: PUSH ESI",
+        "0x480a22: MOV ESI, ECX",
+        "0x480a24: PUSH 0x6b7498",
+        "0x480a29: LEA ECX, [ESP + 0x8]",
+        "0x480a2d: CALL 0x004d0580",
+        "0x480a32: MOV EAX, dword ptr [ESP + 0x4]",
+        "0x480a36: MOV dword ptr [ESI + 0x8], EAX",
+        "0x480a39: XOR EAX, EAX",
+        "0x480a3b: MOV dword ptr [ESI + 0xc], EAX",
+        "0x480a3e: MOV dword ptr [ESI + 0x10], EAX",
+        "0x480a41: MOV dword ptr [ESI + 0x14], EAX",
+        "0x480a44: MOV dword ptr [ESI + 0x18], EAX",
+        "0x480a47: MOV dword ptr [ESI + 0x1c], EAX",
+        "0x480a4a: MOV EAX, 0x7",
+        "0x480a4f: MOV dword ptr [ESI + 0x20], EAX",
+        "0x480a52: MOV dword ptr [ESI + 0x24], EAX",
+        "0x480a55: MOV dword ptr [ESI + 0x4], 0xffffffff",
+        "0x480a5c: MOV dword ptr [ESI], 0x690b08",
+        "0x480a62: MOV dword ptr [ESI + 0x28], 0xb",
+        "0x480a69: MOV dword ptr [ESI + 0x30], 0x1",
+        "0x480a70: MOV EAX, ESI",
+        "0x480a72: POP ESI",
+        "0x480a73: POP ECX",
+        "0x480a74: RET"
+      ]
+    },
+    {
+      "evidence_id": "ev_11022bbae20e86eca4d8bfc2cbaaafe47037b9787299c09c8084d4a412a0ad31",
+      "address": "0x44c2a0",
+      "bounds": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x44c2a0",
+            "end": "0x44c2dd"
+          }
+        ],
+        "total_bytes": 62,
+        "span_bytes": 62,
+        "non_contiguous": false,
+        "contains_entry": true
+      },
+      "assembly": [
+        "0x44c2a0: PUSH ECX",
+        "0x44c2a1: PUSH ESI",
+        "0x44c2a2: MOV ESI, ECX",
+        "0x44c2a4: PUSH 0x6b21dc",
+        "0x44c2a9: LEA ECX, [ESP + 0x8]",
+        "0x44c2ad: CALL 0x004d0580",
+        "0x44c2b2: MOV EAX, dword ptr [ESP + 0x4]",
+        "0x44c2b6: OR ECX, 0xffffffff",
+        "0x44c2b9: MOV dword ptr [ESI + 0x8], EAX",
+        "0x44c2bc: XOR EAX, EAX",
+        "0x44c2be: MOV dword ptr [ESI + 0x4], ECX",
+        "0x44c2c1: MOV dword ptr [ESI + 0x10], EAX",
+        "0x44c2c4: MOV byte ptr [ESI + 0x14], AL",
+        "0x44c2c7: MOV byte ptr [ESI + 0x15], AL",
+        "0x44c2ca: MOV dword ptr [ESI + 0x18], EAX",
+        "0x44c2cd: MOV dword ptr [ESI + 0x1c], EAX",
+        "0x44c2d0: MOV dword ptr [ESI], 0x69020c",
+        "0x44c2d6: MOV dword ptr [ESI + 0xc], ECX",
+        "0x44c2d9: MOV EAX, ESI",
+        "0x44c2db: POP ESI",
+        "0x44c2dc: POP ECX",
+        "0x44c2dd: RET"
+      ]
+    },
+    {
+      "evidence_id": "ev_6281f64b83bdc214635e55a768647f096ae58f0732d0a4e337b5d916934aa162",
+      "address": "0x4f5b70",
+      "bounds": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x4f5b70",
+            "end": "0x4f5b98"
+          }
+        ],
+        "total_bytes": 41,
+        "span_bytes": 41,
+        "non_contiguous": false,
+        "contains_entry": true
+      },
+      "assembly": [
+        "0x4f5b70: MOV EAX, dword ptr [ESP + 0x4]",
+        "0x4f5b74: PUSH ESI",
+        "0x4f5b75: MOV ESI, ECX",
+        "0x4f5b77: MOV EAX, dword ptr [EAX]",
+        "0x4f5b79: CMP dword ptr [ESI + 0xc], EAX",
+        "0x4f5b7c: JZ 0x004f5b95",
+        "0x4f5b7e: MOV dword ptr [ESI + 0xc], EAX",
+        "0x4f5b81: MOV ECX, dword ptr [ESI + 0x74]",
+        "0x4f5b84: TEST ECX, ECX",
+        "0x4f5b86: JZ 0x004f5b8e",
+        "0x4f5b88: MOV EDX, dword ptr [ECX]",
+        "0x4f5b8a: PUSH 0x1",
+        "0x4f5b8c: CALL dword ptr [EDX]",
+        "0x4f5b8e: MOV dword ptr [ESI + 0x74], 0x0",
+        "0x4f5b95: POP ESI",
+        "0x4f5b96: RET 0x4"
+      ]
+    }
+  ],
+  "callback": {
+    "entry": "0x44c4c0",
+    "entry_proof": "Original vtable gaFrontendCarMoverAI 0x69020c + 0x10",
+    "bounds": "UNKNOWN_PROVIDER_FUNCTION_NOT_DEFINED",
+    "provider_boundary_error": "No procedure exists at the requested address: 0x44c4c0",
+    "instruction_window": [
+      {
+        "address": "0x44c4dd",
+        "bytes": "8d4710",
+        "length": 3,
+        "assembly": "LEA EAX,[EDI + 0x10]",
+        "evidence_id": "ev_29b11fc747100bf45ceb60138544edd564dc9322caa2c9249779c8976331d59a"
+      },
+      {
+        "address": "0x44c4e0",
+        "bytes": "50",
+        "length": 1,
+        "assembly": "PUSH EAX",
+        "evidence_id": "ev_435d0b2d24ce9c64862ded9496e811287d818b94c482efbdaff3c7428a1e5a1e"
+      },
+      {
+        "address": "0x44c4e1",
+        "bytes": "e8dac90800",
+        "length": 5,
+        "assembly": "CALL 0x004d8ec0",
+        "evidence_id": "ev_920b911ab1c842abd8f6fef69bd6e97d8ad1dcf4ae36c440cf6256802ff14a8c"
+      },
+      {
+        "address": "0x44c4e6",
+        "bytes": "8bc8",
+        "length": 2,
+        "assembly": "MOV ECX,EAX",
+        "evidence_id": "ev_f1c9c4f0cc9117f245d8ab381dd4edc4bd194abc51e3b5588a897f40e601581e"
+      },
+      {
+        "address": "0x44c4e8",
+        "bytes": "e873a20800",
+        "length": 5,
+        "assembly": "CALL 0x004d6760",
+        "evidence_id": "ev_8d5836901196ca311fbc5a1afe04107315255f3cec3c42a1649b7ecb4336e5a0"
+      },
+      {
+        "address": "0x44c4ed",
+        "bytes": "8bac2490000000",
+        "length": 7,
+        "assembly": "MOV EBP,dword ptr [ESP + 0x90]",
+        "evidence_id": "ev_78a2c4c8eba405b491c2bf4656817f5e81c6a29eee106d50f588cbd55b558966"
+      },
+      {
+        "address": "0x44c4f4",
+        "bytes": "8bf0",
+        "length": 2,
+        "assembly": "MOV ESI,EAX",
+        "evidence_id": "ev_f86182a05c6eb63547c249ca9d35a9b026c791506ed3a5a6272de9d2aadb79f9"
+      },
+      {
+        "address": "0x44c4f6",
+        "bytes": "39770c",
+        "length": 3,
+        "assembly": "CMP dword ptr [EDI + 0xc],ESI",
+        "evidence_id": "ev_3a14524cb74a76db57f979b1679cb4650e1e5855894d153c5e7dc4936957dfc9"
+      },
+      {
+        "address": "0x44c4f9",
+        "bytes": "0f84a8000000",
+        "length": 6,
+        "assembly": "JZ 0x0044c5a7",
+        "evidence_id": "ev_fe5d2728b93681c8803ef9390132853815ff3f39541b7e34fd4c4af8c8f09d47"
+      },
+      {
+        "address": "0x44c4ff",
+        "bytes": "83feff",
+        "length": 3,
+        "assembly": "CMP ESI,-0x1",
+        "evidence_id": "ev_e2ba8db7ce52c57d45e3bccc7a326ef609bebc7d3dd6c7fffab74645b2ea6c97"
+      },
+      {
+        "address": "0x44c502",
+        "bytes": "89770c",
+        "length": 3,
+        "assembly": "MOV dword ptr [EDI + 0xc],ESI",
+        "evidence_id": "ev_f2eb08be44030dba1c64ebeb692606a50f53b6a90ca7e774f295d3e7d83dfecb"
+      },
+      {
+        "address": "0x44c505",
+        "bytes": "7525",
+        "length": 2,
+        "assembly": "JNZ 0x0044c52c",
+        "evidence_id": "ev_28f4952b20c07304dd77e5a7b86c07b703cffb91d5c02d8b538e0ce074273f6b"
+      },
+      {
+        "address": "0x44c545",
+        "bytes": "e876de0000",
+        "length": 5,
+        "assembly": "CALL 0x0045a3c0",
+        "evidence_id": "ev_3dfb1c8e06a5220d48e932a3cd35e720cedadb6ecb674329d2a8421851fd1e9f"
+      },
+      {
+        "address": "0x44c54a",
+        "bytes": "8d1476",
+        "length": 3,
+        "assembly": "LEA EDX,[ESI + ESI*0x2]",
+        "evidence_id": "ev_ef2ef24391214db5d9c7ea6115f0ba78aa6f35cae0b5a0a70719358f93bb9732"
+      },
+      {
+        "address": "0x44c54d",
+        "bytes": "8d0c96",
+        "length": 3,
+        "assembly": "LEA ECX,[ESI + EDX*0x4]",
+        "evidence_id": "ev_bc8d57b2e17b056ea5daf89ddeabd262b7bc2d18494c17234c0b61c5c9d9014c"
+      },
+      {
+        "address": "0x44c550",
+        "bytes": "8b448824",
+        "length": 4,
+        "assembly": "MOV EAX,dword ptr [EAX + ECX*0x4 + 0x24]",
+        "evidence_id": "ev_60170c1688eaa7b58727a2532f9f3a058ee49e9abf3c75e190d9d0bcaf0a387c"
+      },
+      {
+        "address": "0x44c554",
+        "bytes": "8d4c240c",
+        "length": 4,
+        "assembly": "LEA ECX,[ESP + 0xc]",
+        "evidence_id": "ev_346cbd09c2e34fc81c0f61df1ad3d2d7a9cf2c6b2b417778c61af86acfe0fc15"
+      },
+      {
+        "address": "0x44c558",
+        "bytes": "50",
+        "length": 1,
+        "assembly": "PUSH EAX",
+        "evidence_id": "ev_f6537f9b9f2e1fe599bcdb88630863487f35188c044f03a4047b43767789e27c"
+      },
+      {
+        "address": "0x44c559",
+        "bytes": "e862500800",
+        "length": 5,
+        "assembly": "CALL 0x004d15c0",
+        "evidence_id": "ev_ee10cf62a37c032fe88a1948732d4c77f150d16f357347dd3621fffeed48b00f"
+      },
+      {
+        "address": "0x44c55e",
+        "bytes": "6824226b00",
+        "length": 5,
+        "assembly": "PUSH 0x6b2224",
+        "evidence_id": "ev_4a037b43078f77b66f4e3950fde211d9486f98af90045253f1ade188dcd531de"
+      },
+      {
+        "address": "0x44c563",
+        "bytes": "8d4c2410",
+        "length": 4,
+        "assembly": "LEA ECX,[ESP + 0x10]",
+        "evidence_id": "ev_ad1aa14dfbdd1f9bd0bce0cf08a83c07edc46c05d76d4a33e198e7d13f38faf0"
+      },
+      {
+        "address": "0x44c567",
+        "bytes": "e854500800",
+        "length": 5,
+        "assembly": "CALL 0x004d15c0",
+        "evidence_id": "ev_2962219b213c75465c76ceb5d745bd70dac0731e13a66105dba7fbfaa4bc2dec"
+      },
+      {
+        "address": "0x44c56c",
+        "bytes": "8b54240c",
+        "length": 4,
+        "assembly": "MOV EDX,dword ptr [ESP + 0xc]",
+        "evidence_id": "ev_e63fd915cfceca2bc90aa5ecc52106968f9aac3c5f9efbc0afa51dac38a634ce"
+      },
+      {
+        "address": "0x44c570",
+        "bytes": "8d4c2410",
+        "length": 4,
+        "assembly": "LEA ECX,[ESP + 0x10]",
+        "evidence_id": "ev_7dcb3674451f69307726ec12fe9fdd8f79067d947341e90720c908239ff0b3cf"
+      },
+      {
+        "address": "0x44c574",
+        "bytes": "52",
+        "length": 1,
+        "assembly": "PUSH EDX",
+        "evidence_id": "ev_5dc59795f997e4cb0d1088e68a411acd0d058309ae923738b35b277ccb637645"
+      },
+      {
+        "address": "0x44c575",
+        "bytes": "c744241400000000",
+        "length": 8,
+        "assembly": "MOV dword ptr [ESP + 0x14],0x0",
+        "evidence_id": "ev_709fec996cf74d75c1ba04035c21df0eaebb6aab55d422141c061fcfe66ab36a"
+      },
+      {
+        "address": "0x44c57d",
+        "bytes": "e88e4a0800",
+        "length": 5,
+        "assembly": "CALL 0x004d1010",
+        "evidence_id": "ev_0fb599cd68177361e681c071c7b1286206e541b055c8dde25af529db998db169"
+      },
+      {
+        "address": "0x44c582",
+        "bytes": "8b4d50",
+        "length": 3,
+        "assembly": "MOV ECX,dword ptr [EBP + 0x50]",
+        "evidence_id": "ev_f93af3930d622b6e46168b055323c152f84b5cf8ef61c36041256f111bce7a80"
+      },
+      {
+        "address": "0x44c585",
+        "bytes": "8d442410",
+        "length": 4,
+        "assembly": "LEA EAX,[ESP + 0x10]",
+        "evidence_id": "ev_ef7bf6072fa58d44d40e62f25294d92b0741a0bf0f87f8788f8f4c195ee65d87"
+      },
+      {
+        "address": "0x44c589",
+        "bytes": "50",
+        "length": 1,
+        "assembly": "PUSH EAX",
+        "evidence_id": "ev_6bd0f1e8d4b3bac1e17989464ff9bff3c9eaeec63a6caae9c937274db83a2d8e"
+      },
+      {
+        "address": "0x44c58a",
+        "bytes": "e8e1950a00",
+        "length": 5,
+        "assembly": "CALL 0x004f5b70",
+        "evidence_id": "ev_a77bf661f59cde979544e89d3a4c957bb68c0277071b462524a9a46390eefa5e"
+      }
+    ]
+  },
+  "fields": [
+    {
+      "owner": "gaFrontendCarMoverAI",
+      "offset": "0x10",
+      "role": "Authored Model ID* string ID resolved via Broker"
+    },
+    {
+      "owner": "gaFrontendCarMoverAI",
+      "offset": "0xc",
+      "role": "Last requested selected vehicle int; stored before model setter returns; not loaded-resource proof"
+    },
+    {
+      "owner": "tick argument Egg",
+      "offset": "0x50",
+      "role": "Receiver of original en3d model-name setter 0x4f5b70"
+    },
+    {
+      "owner": "setter receiver en3d state",
+      "offset": "0xc",
+      "role": "Current model-name string ID; changed when selected family changes"
+    },
+    {
+      "owner": "setter receiver en3d state",
+      "offset": "0x74",
+      "role": "Cached owned object destroyed through vtable slot0 and cleared on model-name change; loaded compiled-model cache type/correspondence unproved"
+    }
+  ],
+  "strings": [
+    {
+      "address": "0x6b1968",
+      "value": "Vehicles/",
+      "original_bytes_hex": "56656869636c65732f00",
+      "evidence_id": "ev_a1849659b9dd63fe982fb9c3f7c83cf00d3ff94d427b53ec2c6b8da2e55356de"
+    },
+    {
+      "address": "0x6b5640",
+      "value": "Frontend/VehicleSelect/CarModel"
+    },
+    {
+      "address": "0x6b21dc",
+      "value": "gaFrontendCarMoverAI"
+    },
+    {
+      "address": "0x6b2224",
+      "value": "/complete"
+    }
+  ],
+  "remaining_gate": "Current frontend CarModel Egg -> en3d state -> current model-name/path + cached model lifetime -> actual mirrored draw resources, under stable same-frame scene and vehicle selection",
+  "runtime_owner_validation": "NOT_PERFORMED",
+  "limitations": [
+    "No runtime memory was dereferenced from historical capture pointers.",
+    "REA does not define callback function bounds; original vtable entry and individually decoded instructions are used.",
+    "Model ID* Broker value can change before cached model resource is ready. It is not sole render identity.",
+    "Ghidra initialized bytes must independently correspond to canonical original PE bytes."
+  ]
+}

@@ -14,6 +14,7 @@ namespace gfx2::ps2port {
 class ReflectionPilot;
 class CourseObjectsPilot;
 class GrassPilot;
+class VehiclePartitionPilot;
 
 enum class PilotMode : uint8_t {
     Stock = 0,
@@ -274,6 +275,12 @@ public:
     ~PS2PortExtension();
 
     bool buffer_mirroring_required() const noexcept;
+    bool frontend_geometry_diagnostics() const noexcept { return frontend_geometry_diagnostics_ && build_valid_ && !disabled_; }
+    bool claim_frontend_probe_attempt() noexcept { return frontend_attempts_<128 && ++frontend_attempts_<=128; }
+    bool claim_frontend_geometry(size_t source_index) noexcept {
+        if(source_index>=frontend_logged_.size() || frontend_logged_[source_index])return false;
+        frontend_logged_[source_index]=true;return true;
+    }
     bool analysis_enabled() const noexcept;
     bool foliage_analysis_enabled() const noexcept {
         return !disabled_&&build_valid_&&(mode_!=PilotMode::Stock||pixel_probe_enabled());
@@ -281,6 +288,7 @@ public:
     bool requested() const noexcept;
     bool active() const noexcept;
     ReflectionPilot* reflection() noexcept { return reflection_.get(); }
+    VehiclePartitionPilot* vehicle_partitions() noexcept { return vehicle_partitions_.get(); }
     bool native_states_pending() const noexcept;
     CourseObjectsPilot* course_objects() noexcept { return course_objects_.get(); }
     GrassPilot* grass() noexcept { return grass_.get(); }
@@ -332,6 +340,7 @@ public:
 
 private:
     std::unique_ptr<ReflectionPilot> reflection_;
+    std::unique_ptr<VehiclePartitionPilot> vehicle_partitions_;
     std::unique_ptr<CourseObjectsPilot> course_objects_;
     std::unique_ptr<GrassPilot> grass_;
     std::unique_ptr<GrassPilot> shrubs_;
@@ -340,6 +349,9 @@ private:
     bool build_valid_ = false;
     bool disabled_ = false;
     bool diagnostics_ = false;
+    bool frontend_geometry_diagnostics_ = false;
+    std::array<bool,17> frontend_logged_{};
+    uint32_t frontend_attempts_=0;
     bool pixel_probe_enabled_ = false;
     bool pixel_probe_requested_ = false;
     int pixel_probe_x_ = -1;

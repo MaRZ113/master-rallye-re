@@ -1,0 +1,1498 @@
+{
+  "schema_version": 1,
+  "source_basis": "coverage-followup/body-lights/source-joins.json",
+  "source_representation": "AUTHORED_SOURCE_MESH_NOT_NUMBER_OF_LIGHTS",
+  "mode_record_counts": {
+    "1": 28,
+    "14": 28,
+    "3": 4
+  },
+  "families": [
+    {
+      "family": "ASTERO",
+      "source": "\\TNG\\DATAPSM\\VEHICLES\\ASTERO\\CAR.PSM",
+      "sha256": "7d2e9b3a29762f311838e1e4e050658bcc0d432b59d4f259e5d289b0ea7bdc86",
+      "blight_named_wrapper": [
+        {
+          "tag": 7,
+          "offset": 174711,
+          "path": "root.24",
+          "name": "blight",
+          "name_index": 2,
+          "role": "NAMED_CHILD_WRAPPER_NOT_A_MATRIX"
+        }
+      ],
+      "light_meshes": [
+        {
+          "mesh_path": "root.9",
+          "node_offset": 171824,
+          "material_offset": 171920,
+          "material": "$shader(carshiny)",
+          "source_faces": 14,
+          "texture_slots": [
+            "brakelight32-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 3,
+          "selector": null,
+          "selector_wrapper": null,
+          "on_off_role": "SOURCE_OFF_OR_UNCONDITIONAL_LIGHT_CANDIDATE",
+          "runtime_validation": "NOT_PERFORMED"
+        },
+        {
+          "mesh_path": "root.24.0.0",
+          "node_offset": 174745,
+          "material_offset": 174842,
+          "material": "$shader(carbrakelight)",
+          "source_faces": 12,
+          "texture_slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 1,
+          "selector": 2,
+          "selector_wrapper": "root.24.0",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        },
+        {
+          "mesh_path": "root.24.0.1",
+          "node_offset": 174901,
+          "material_offset": 175002,
+          "material": "$shader(carbrakelight)",
+          "source_faces": 40,
+          "texture_slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 14,
+          "selector": 2,
+          "selector_wrapper": "root.24.0",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        },
+        {
+          "mesh_path": "root.24.1.0",
+          "node_offset": 175086,
+          "material_offset": 175182,
+          "material": "$shader(carshiny)",
+          "source_faces": 12,
+          "texture_slots": [
+            "brakelight32-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 3,
+          "selector": 1,
+          "selector_wrapper": "root.24.1",
+          "on_off_role": "SOURCE_OFF_OR_UNCONDITIONAL_LIGHT_CANDIDATE",
+          "runtime_validation": "NOT_PERFORMED"
+        }
+      ]
+    },
+    {
+      "family": "BRUNO",
+      "source": "\\TNG\\DATAPSM\\VEHICLES\\BRUNO\\CAR.PSM",
+      "sha256": "f53373134712dd8eb8cae26422d9a67e18489668639cdaa479023765692cf260",
+      "blight_named_wrapper": [
+        {
+          "tag": 7,
+          "offset": 170197,
+          "path": "root.20",
+          "name": "blight",
+          "name_index": 2,
+          "role": "NAMED_CHILD_WRAPPER_NOT_A_MATRIX"
+        }
+      ],
+      "light_meshes": [
+        {
+          "mesh_path": "root.20.0.0",
+          "node_offset": 170231,
+          "material_offset": 170328,
+          "material": "$shader(carbrakelight)",
+          "source_faces": 12,
+          "texture_slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 1,
+          "selector": 2,
+          "selector_wrapper": "root.20.0",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        },
+        {
+          "mesh_path": "root.20.0.1",
+          "node_offset": 170400,
+          "material_offset": 170501,
+          "material": "$shader(carbrakelight)",
+          "source_faces": 32,
+          "texture_slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 14,
+          "selector": 2,
+          "selector_wrapper": "root.20.0",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        }
+      ]
+    },
+    {
+      "family": "CHEVYBLAZER",
+      "source": "\\TNG\\DATAPSM\\VEHICLES\\CHEVYBLAZER\\CAR.PSM",
+      "sha256": "52b0dd8a5d46293781ce538519cc5d4da419afd738dd5eeb5d8b08cd2a02ae18",
+      "blight_named_wrapper": [
+        {
+          "tag": 7,
+          "offset": 185265,
+          "path": "root.26",
+          "name": "blight",
+          "name_index": 2,
+          "role": "NAMED_CHILD_WRAPPER_NOT_A_MATRIX"
+        }
+      ],
+      "light_meshes": [
+        {
+          "mesh_path": "root.26.1.0",
+          "node_offset": 185489,
+          "material_offset": 185589,
+          "material": "breaklights",
+          "source_faces": 10,
+          "texture_slots": [
+            "breaklightson-tga",
+            "lightshine-tga"
+          ],
+          "final_mode": 1,
+          "selector": 2,
+          "selector_wrapper": "root.26.1",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        },
+        {
+          "mesh_path": "root.26.1.1",
+          "node_offset": 185637,
+          "material_offset": 185703,
+          "material": "Material #58",
+          "source_faces": 28,
+          "texture_slots": [
+            "breaklightsonglow-tga"
+          ],
+          "final_mode": 14,
+          "selector": 2,
+          "selector_wrapper": "root.26.1",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        }
+      ]
+    },
+    {
+      "family": "FORESTER",
+      "source": "\\TNG\\DATAPSM\\VEHICLES\\FORESTER\\CAR.PSM",
+      "sha256": "c648998af4bcc343c864e762fee075386525bf10d1bc58379721d6639d778bc2",
+      "blight_named_wrapper": [
+        {
+          "tag": 7,
+          "offset": 176209,
+          "path": "root.15",
+          "name": "blight",
+          "name_index": 2,
+          "role": "NAMED_CHILD_WRAPPER_NOT_A_MATRIX"
+        }
+      ],
+      "light_meshes": [
+        {
+          "mesh_path": "root.15.0.0",
+          "node_offset": 176243,
+          "material_offset": 176340,
+          "material": "$shader(carbrakelight)",
+          "source_faces": 12,
+          "texture_slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 1,
+          "selector": 2,
+          "selector_wrapper": "root.15.0",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        },
+        {
+          "mesh_path": "root.15.0.1",
+          "node_offset": 176412,
+          "material_offset": 176513,
+          "material": "$shader(carbrakelight)",
+          "source_faces": 32,
+          "texture_slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 14,
+          "selector": 2,
+          "selector_wrapper": "root.15.0",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        }
+      ]
+    },
+    {
+      "family": "FORKLIFT",
+      "source": "\\TNG\\DATAPSM\\VEHICLES\\FORKLIFT\\CAR.PSM",
+      "sha256": "5ccd7919f7b59687f11e36e809ac3bfc76c39990bdde93bb150ac73dcf6a4404",
+      "blight_named_wrapper": [],
+      "light_meshes": []
+    },
+    {
+      "family": "FRONTERA",
+      "source": "\\TNG\\DATAPSM\\VEHICLES\\FRONTERA\\CAR.PSM",
+      "sha256": "007758a3192218b383c41d520cddf326e6ba23a6ca625acd48d436e0955495bd",
+      "blight_named_wrapper": [
+        {
+          "tag": 7,
+          "offset": 189810,
+          "path": "root.23",
+          "name": "blight",
+          "name_index": 2,
+          "role": "NAMED_CHILD_WRAPPER_NOT_A_MATRIX"
+        }
+      ],
+      "light_meshes": [
+        {
+          "mesh_path": "root.23.0.0",
+          "node_offset": 189844,
+          "material_offset": 189941,
+          "material": "$shader(carbrakelight)",
+          "source_faces": 4,
+          "texture_slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 1,
+          "selector": 2,
+          "selector_wrapper": "root.23.0",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        },
+        {
+          "mesh_path": "root.23.0.1",
+          "node_offset": 190000,
+          "material_offset": 190101,
+          "material": "$shader(carbrakelight)",
+          "source_faces": 16,
+          "texture_slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 14,
+          "selector": 2,
+          "selector_wrapper": "root.23.0",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        }
+      ]
+    },
+    {
+      "family": "ICECREAM",
+      "source": "\\TNG\\DATAPSM\\VEHICLES\\ICECREAM\\CAR.PSM",
+      "sha256": "c6baac227f362471cbc28ecf2fb21e0d25ddb42757accd8546a3ad8799d27463",
+      "blight_named_wrapper": [
+        {
+          "tag": 7,
+          "offset": 246391,
+          "path": "root.22",
+          "name": "blight",
+          "name_index": 2,
+          "role": "NAMED_CHILD_WRAPPER_NOT_A_MATRIX"
+        }
+      ],
+      "light_meshes": [
+        {
+          "mesh_path": "root.22.1.0",
+          "node_offset": 246588,
+          "material_offset": 246688,
+          "material": "$shader(carbrakelights)",
+          "source_faces": 8,
+          "texture_slots": [
+            "breaklightson-tga",
+            "lightshine-tga"
+          ],
+          "final_mode": 1,
+          "selector": 2,
+          "selector_wrapper": "root.22.1",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        },
+        {
+          "mesh_path": "root.22.1.1",
+          "node_offset": 246748,
+          "material_offset": 246814,
+          "material": "$shader(carbrakelights)",
+          "source_faces": 24,
+          "texture_slots": [
+            "breaklightsonglow-tga"
+          ],
+          "final_mode": 14,
+          "selector": 2,
+          "selector_wrapper": "root.22.1",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        }
+      ]
+    },
+    {
+      "family": "JUMP",
+      "source": "\\TNG\\DATAPSM\\VEHICLES\\JUMP\\CAR.PSM",
+      "sha256": "049d2d2517b8feb949a422753570e34fd55d2d5a87f42d4c8221e0c5af45d304",
+      "blight_named_wrapper": [
+        {
+          "tag": 7,
+          "offset": 173975,
+          "path": "root.21",
+          "name": "blight",
+          "name_index": 2,
+          "role": "NAMED_CHILD_WRAPPER_NOT_A_MATRIX"
+        }
+      ],
+      "light_meshes": [
+        {
+          "mesh_path": "root.21.0.0",
+          "node_offset": 174009,
+          "material_offset": 174110,
+          "material": "$shader(carbrakelight)",
+          "source_faces": 16,
+          "texture_slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 14,
+          "selector": 2,
+          "selector_wrapper": "root.21.0",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        },
+        {
+          "mesh_path": "root.21.0.1",
+          "node_offset": 174182,
+          "material_offset": 174279,
+          "material": "$shader(carbrakelight)",
+          "source_faces": 4,
+          "texture_slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 1,
+          "selector": 2,
+          "selector_wrapper": "root.21.0",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        }
+      ]
+    },
+    {
+      "family": "KAMAZ",
+      "source": "\\TNG\\DATAPSM\\VEHICLES\\KAMAZ\\CAR.PSM",
+      "sha256": "9559c040e9574a474e4c2ef8f2ed33e01fceaa457be794aea7ab79e17a2e7f33",
+      "blight_named_wrapper": [
+        {
+          "tag": 7,
+          "offset": 208948,
+          "path": "root.19",
+          "name": "blight",
+          "name_index": 2,
+          "role": "NAMED_CHILD_WRAPPER_NOT_A_MATRIX"
+        }
+      ],
+      "light_meshes": [
+        {
+          "mesh_path": "root.19.1.0",
+          "node_offset": 209146,
+          "material_offset": 209246,
+          "material": "$shader(carbrakelights)",
+          "source_faces": 4,
+          "texture_slots": [
+            "breaklightson-tga",
+            "lightshine-tga"
+          ],
+          "final_mode": 1,
+          "selector": 2,
+          "selector_wrapper": "root.19.1",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        },
+        {
+          "mesh_path": "root.19.1.1",
+          "node_offset": 209306,
+          "material_offset": 209372,
+          "material": "$shader(carbrakelights)",
+          "source_faces": 16,
+          "texture_slots": [
+            "breaklightsonglow-tga"
+          ],
+          "final_mode": 14,
+          "selector": 2,
+          "selector_wrapper": "root.19.1",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        }
+      ]
+    },
+    {
+      "family": "KANGOO",
+      "source": "\\TNG\\DATAPSM\\VEHICLES\\KANGOO\\CAR.PSM",
+      "sha256": "bf157a13a059a8cef0e59f8e4742db40b99713618a803adfd8b8355141fdd955",
+      "blight_named_wrapper": [
+        {
+          "tag": 7,
+          "offset": 195608,
+          "path": "root.22",
+          "name": "blight",
+          "name_index": 2,
+          "role": "NAMED_CHILD_WRAPPER_NOT_A_MATRIX"
+        }
+      ],
+      "light_meshes": [
+        {
+          "mesh_path": "root.22.0.0",
+          "node_offset": 195642,
+          "material_offset": 195739,
+          "material": "$shader(carbrakelight)",
+          "source_faces": 10,
+          "texture_slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 1,
+          "selector": 2,
+          "selector_wrapper": "root.22.0",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        },
+        {
+          "mesh_path": "root.22.0.1",
+          "node_offset": 195824,
+          "material_offset": 195925,
+          "material": "$shader(carbrakelight)",
+          "source_faces": 28,
+          "texture_slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 14,
+          "selector": 2,
+          "selector_wrapper": "root.22.0",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        }
+      ]
+    },
+    {
+      "family": "KIASPORTAGE",
+      "source": "\\TNG\\DATAPSM\\VEHICLES\\KIASPORTAGE\\CAR.PSM",
+      "sha256": "b4afabfab7437eae01ee72ca424beb90967c7b849cebdb9cf94e104560be33ce",
+      "blight_named_wrapper": [
+        {
+          "tag": 7,
+          "offset": 190517,
+          "path": "root.25",
+          "name": "blight",
+          "name_index": 2,
+          "role": "NAMED_CHILD_WRAPPER_NOT_A_MATRIX"
+        }
+      ],
+      "light_meshes": [
+        {
+          "mesh_path": "root.25.1.0",
+          "node_offset": 190717,
+          "material_offset": 190817,
+          "material": "$shader(carbrakelights)",
+          "source_faces": 12,
+          "texture_slots": [
+            "breaklightson-tga",
+            "lightshine-tga"
+          ],
+          "final_mode": 1,
+          "selector": 2,
+          "selector_wrapper": "root.25.1",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        },
+        {
+          "mesh_path": "root.25.1.1",
+          "node_offset": 190877,
+          "material_offset": 190943,
+          "material": "$shader(carbrakelights)",
+          "source_faces": 32,
+          "texture_slots": [
+            "breaklightsonglow-tga"
+          ],
+          "final_mode": 14,
+          "selector": 2,
+          "selector_wrapper": "root.25.1",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        }
+      ]
+    },
+    {
+      "family": "LANDCRUISER",
+      "source": "\\TNG\\DATAPSM\\VEHICLES\\LANDCRUISER\\CAR.PSM",
+      "sha256": "834873c104dbc139cd85ff24e0323ec8fc0a7130725d0a40de177b690946c5e9",
+      "blight_named_wrapper": [
+        {
+          "tag": 7,
+          "offset": 219530,
+          "path": "root.24",
+          "name": "blight",
+          "name_index": 2,
+          "role": "NAMED_CHILD_WRAPPER_NOT_A_MATRIX"
+        }
+      ],
+      "light_meshes": [
+        {
+          "mesh_path": "root.24.0.0",
+          "node_offset": 219564,
+          "material_offset": 219661,
+          "material": "$shader(carbrakelight)",
+          "source_faces": 12,
+          "texture_slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 1,
+          "selector": 2,
+          "selector_wrapper": "root.24.0",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        },
+        {
+          "mesh_path": "root.24.0.1",
+          "node_offset": 219720,
+          "material_offset": 219821,
+          "material": "$shader(carbrakelight)",
+          "source_faces": 32,
+          "texture_slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 14,
+          "selector": 2,
+          "selector_wrapper": "root.24.0",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        }
+      ]
+    },
+    {
+      "family": "MATTSERATI",
+      "source": "\\TNG\\DATAPSM\\VEHICLES\\MATTSERATI\\CAR.PSM",
+      "sha256": "165a9b7c2553e7a55def29f3deee4b83af6e1e4435c33a41ef2107477f25246a",
+      "blight_named_wrapper": [
+        {
+          "tag": 7,
+          "offset": 164594,
+          "path": "root.21",
+          "name": "blight",
+          "name_index": 2,
+          "role": "NAMED_CHILD_WRAPPER_NOT_A_MATRIX"
+        }
+      ],
+      "light_meshes": [
+        {
+          "mesh_path": "root.21.0.0",
+          "node_offset": 164628,
+          "material_offset": 164725,
+          "material": "$shader(carbrakelight)",
+          "source_faces": 36,
+          "texture_slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 1,
+          "selector": 2,
+          "selector_wrapper": "root.21.0",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        },
+        {
+          "mesh_path": "root.21.0.1",
+          "node_offset": 164862,
+          "material_offset": 164963,
+          "material": "$shader(carbrakelight)",
+          "source_faces": 48,
+          "texture_slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 14,
+          "selector": 2,
+          "selector_wrapper": "root.21.0",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        }
+      ]
+    },
+    {
+      "family": "MEGANE",
+      "source": "\\TNG\\DATAPSM\\VEHICLES\\MEGANE\\CAR.PSM",
+      "sha256": "6ee866b563309d1a9205cd99b2706fa3c7471d984daa3b4d954fa60e33bd0248",
+      "blight_named_wrapper": [
+        {
+          "tag": 7,
+          "offset": 193333,
+          "path": "root.20",
+          "name": "blight",
+          "name_index": 2,
+          "role": "NAMED_CHILD_WRAPPER_NOT_A_MATRIX"
+        }
+      ],
+      "light_meshes": [
+        {
+          "mesh_path": "root.20.0.0",
+          "node_offset": 193367,
+          "material_offset": 193464,
+          "material": "$shader(carbrakelight)",
+          "source_faces": 10,
+          "texture_slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 1,
+          "selector": 2,
+          "selector_wrapper": "root.20.0",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        },
+        {
+          "mesh_path": "root.20.0.1",
+          "node_offset": 193523,
+          "material_offset": 193624,
+          "material": "$shader(carbrakelight)",
+          "source_faces": 28,
+          "texture_slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 14,
+          "selector": 2,
+          "selector_wrapper": "root.20.0",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        }
+      ]
+    },
+    {
+      "family": "MOONBUGGY",
+      "source": "\\TNG\\DATAPSM\\VEHICLES\\MOONBUGGY\\CAR.PSM",
+      "sha256": "eb6abaf7dffc2dbee47decc10b58a2282646c1a2967e784c987c7e47fcfe166c",
+      "blight_named_wrapper": [
+        {
+          "tag": 7,
+          "offset": 208509,
+          "path": "root.18",
+          "name": "blight",
+          "name_index": 2,
+          "role": "NAMED_CHILD_WRAPPER_NOT_A_MATRIX"
+        }
+      ],
+      "light_meshes": [
+        {
+          "mesh_path": "root.18.0.0",
+          "node_offset": 208543,
+          "material_offset": 208640,
+          "material": "$shader(carbrakelight)",
+          "source_faces": 36,
+          "texture_slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 1,
+          "selector": 2,
+          "selector_wrapper": "root.18.0",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        },
+        {
+          "mesh_path": "root.18.0.1",
+          "node_offset": 208712,
+          "material_offset": 208813,
+          "material": "$shader(brakelight)",
+          "source_faces": 24,
+          "texture_slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 14,
+          "selector": 2,
+          "selector_wrapper": "root.18.0",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        }
+      ]
+    },
+    {
+      "family": "NAVARA",
+      "source": "\\TNG\\DATAPSM\\VEHICLES\\NAVARA\\CAR.PSM",
+      "sha256": "c5ecc753358a369280b2d5fc27435b1929b676b867a85acd9c458db24dbfffdf",
+      "blight_named_wrapper": [
+        {
+          "tag": 7,
+          "offset": 223154,
+          "path": "root.22",
+          "name": "blight",
+          "name_index": 2,
+          "role": "NAMED_CHILD_WRAPPER_NOT_A_MATRIX"
+        }
+      ],
+      "light_meshes": [
+        {
+          "mesh_path": "root.22.1.0",
+          "node_offset": 223365,
+          "material_offset": 223465,
+          "material": "$shader(carbrakelights)",
+          "source_faces": 10,
+          "texture_slots": [
+            "breaklightson-tga",
+            "lightshine-tga"
+          ],
+          "final_mode": 1,
+          "selector": 2,
+          "selector_wrapper": "root.22.1",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        },
+        {
+          "mesh_path": "root.22.1.1",
+          "node_offset": 223538,
+          "material_offset": 223604,
+          "material": "$shader(carbrakelights)",
+          "source_faces": 28,
+          "texture_slots": [
+            "breaklightsonglow-tga"
+          ],
+          "final_mode": 14,
+          "selector": 2,
+          "selector_wrapper": "root.22.1",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        }
+      ]
+    },
+    {
+      "family": "NEWRAV",
+      "source": "\\TNG\\DATAPSM\\VEHICLES\\NEWRAV\\CAR.PSM",
+      "sha256": "98b59c09cc878b01610165e1f7b498200441c0384e2223af185addc51d4e4cc7",
+      "blight_named_wrapper": [
+        {
+          "tag": 7,
+          "offset": 181942,
+          "path": "root.26",
+          "name": "blight",
+          "name_index": 2,
+          "role": "NAMED_CHILD_WRAPPER_NOT_A_MATRIX"
+        }
+      ],
+      "light_meshes": [
+        {
+          "mesh_path": "root.26.0.0",
+          "node_offset": 181976,
+          "material_offset": 182073,
+          "material": "$shader(carbrakelight)",
+          "source_faces": 10,
+          "texture_slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 1,
+          "selector": 2,
+          "selector_wrapper": "root.26.0",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        },
+        {
+          "mesh_path": "root.26.0.1",
+          "node_offset": 182158,
+          "material_offset": 182259,
+          "material": "$shader(carbrakelight)",
+          "source_faces": 28,
+          "texture_slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 14,
+          "selector": 2,
+          "selector_wrapper": "root.26.0",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        }
+      ]
+    },
+    {
+      "family": "PAJERO",
+      "source": "\\TNG\\DATAPSM\\VEHICLES\\PAJERO\\CAR.PSM",
+      "sha256": "ea810c4087a9c2c7c10098d87e35fb17a91db126176c12f9f535ea2b4e87122f",
+      "blight_named_wrapper": [
+        {
+          "tag": 7,
+          "offset": 192819,
+          "path": "root.20",
+          "name": "blight",
+          "name_index": 2,
+          "role": "NAMED_CHILD_WRAPPER_NOT_A_MATRIX"
+        }
+      ],
+      "light_meshes": [
+        {
+          "mesh_path": "root.20.1.0",
+          "node_offset": 193016,
+          "material_offset": 193116,
+          "material": "$shader(carbrakelights)",
+          "source_faces": 8,
+          "texture_slots": [
+            "breaklightson-tga",
+            "lightshine-tga"
+          ],
+          "final_mode": 1,
+          "selector": 2,
+          "selector_wrapper": "root.20.1",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        },
+        {
+          "mesh_path": "root.20.1.1",
+          "node_offset": 193176,
+          "material_offset": 193242,
+          "material": "$shader(carbrakelights)",
+          "source_faces": 24,
+          "texture_slots": [
+            "breaklightsonglow-tga"
+          ],
+          "final_mode": 14,
+          "selector": 2,
+          "selector_wrapper": "root.20.1",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        }
+      ]
+    },
+    {
+      "family": "PATROL",
+      "source": "\\TNG\\DATAPSM\\VEHICLES\\PATROL\\CAR.PSM",
+      "sha256": "a01f0f74fa76f74506e3dcbf8a72c26b73536d1896ded11069d8135f68c08dff",
+      "blight_named_wrapper": [
+        {
+          "tag": 7,
+          "offset": 175648,
+          "path": "root.24",
+          "name": "blight",
+          "name_index": 2,
+          "role": "NAMED_CHILD_WRAPPER_NOT_A_MATRIX"
+        }
+      ],
+      "light_meshes": [
+        {
+          "mesh_path": "root.24.1.0",
+          "node_offset": 175846,
+          "material_offset": 175943,
+          "material": "$shader(carbrakelight)",
+          "source_faces": 8,
+          "texture_slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 1,
+          "selector": 2,
+          "selector_wrapper": "root.24.1",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        },
+        {
+          "mesh_path": "root.24.1.1",
+          "node_offset": 176002,
+          "material_offset": 176103,
+          "material": "$shader(carbrakelight)",
+          "source_faces": 24,
+          "texture_slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 14,
+          "selector": 2,
+          "selector_wrapper": "root.24.1",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        }
+      ]
+    },
+    {
+      "family": "RMONSTER",
+      "source": "\\TNG\\DATAPSM\\VEHICLES\\RMONSTER\\CAR.PSM",
+      "sha256": "9d5805e16d855e10b25704e88a25ecd55adadb9f89de77e66f4c29c2f9eb6a4a",
+      "blight_named_wrapper": [
+        {
+          "tag": 7,
+          "offset": 169174,
+          "path": "root.18",
+          "name": "blight",
+          "name_index": 2,
+          "role": "NAMED_CHILD_WRAPPER_NOT_A_MATRIX"
+        }
+      ],
+      "light_meshes": [
+        {
+          "mesh_path": "root.18.1.0",
+          "node_offset": 169378,
+          "material_offset": 169475,
+          "material": "$shader(carbrakelight)",
+          "source_faces": 8,
+          "texture_slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 1,
+          "selector": 2,
+          "selector_wrapper": "root.18.1",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        },
+        {
+          "mesh_path": "root.18.1.1",
+          "node_offset": 169547,
+          "material_offset": 169613,
+          "material": "$shader(carbrakelight)",
+          "source_faces": 24,
+          "texture_slots": [
+            "breaklightsonglow-tga"
+          ],
+          "final_mode": 14,
+          "selector": 2,
+          "selector_wrapper": "root.18.1",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        }
+      ]
+    },
+    {
+      "family": "SEATBUGGY",
+      "source": "\\TNG\\DATAPSM\\VEHICLES\\SEATBUGGY\\CAR.PSM",
+      "sha256": "3244c3decf33634d035cae682fa886acd9d86982250cbc64060a65109585c3f7",
+      "blight_named_wrapper": [
+        {
+          "tag": 7,
+          "offset": 166872,
+          "path": "root.19",
+          "name": "blight",
+          "name_index": 2,
+          "role": "NAMED_CHILD_WRAPPER_NOT_A_MATRIX"
+        }
+      ],
+      "light_meshes": [
+        {
+          "mesh_path": "root.19.1.0",
+          "node_offset": 167072,
+          "material_offset": 167172,
+          "material": "$shader(carbrakelights)",
+          "source_faces": 4,
+          "texture_slots": [
+            "breaklightson-tga",
+            "lightshine-tga"
+          ],
+          "final_mode": 1,
+          "selector": 2,
+          "selector_wrapper": "root.19.1",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        },
+        {
+          "mesh_path": "root.19.1.1",
+          "node_offset": 167232,
+          "material_offset": 167298,
+          "material": "$shader(carbrakelights)",
+          "source_faces": 16,
+          "texture_slots": [
+            "breaklightsonglow-tga"
+          ],
+          "final_mode": 14,
+          "selector": 2,
+          "selector_wrapper": "root.19.1",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        }
+      ]
+    },
+    {
+      "family": "SIMMBUGGHINI",
+      "source": "\\TNG\\DATAPSM\\VEHICLES\\SIMMBUGGHINI\\CAR.PSM",
+      "sha256": "d3998e23fa1b26f800601e72959bb28d94278e069ff5f21efb0531c63ed210a1",
+      "blight_named_wrapper": [
+        {
+          "tag": 7,
+          "offset": 178354,
+          "path": "root.21",
+          "name": "blight",
+          "name_index": 2,
+          "role": "NAMED_CHILD_WRAPPER_NOT_A_MATRIX"
+        }
+      ],
+      "light_meshes": [
+        {
+          "mesh_path": "root.21.0.0",
+          "node_offset": 178388,
+          "material_offset": 178485,
+          "material": "$shader(carbrakelight)",
+          "source_faces": 36,
+          "texture_slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 1,
+          "selector": 2,
+          "selector_wrapper": "root.21.0",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        },
+        {
+          "mesh_path": "root.21.0.1",
+          "node_offset": 178596,
+          "material_offset": 178697,
+          "material": "$shader(carbrakelight)",
+          "source_faces": 48,
+          "texture_slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 14,
+          "selector": 2,
+          "selector_wrapper": "root.21.0",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        }
+      ]
+    },
+    {
+      "family": "TANK",
+      "source": "\\TNG\\DATAPSM\\VEHICLES\\TANK\\CAR.PSM",
+      "sha256": "10afa84ada587f5e8058b17ec7ed8406936cba028c6f57133539e7affc9a3ce3",
+      "blight_named_wrapper": [
+        {
+          "tag": 7,
+          "offset": 156371,
+          "path": "root.20",
+          "name": "blight",
+          "name_index": 2,
+          "role": "NAMED_CHILD_WRAPPER_NOT_A_MATRIX"
+        }
+      ],
+      "light_meshes": [
+        {
+          "mesh_path": "root.20.0.0",
+          "node_offset": 156405,
+          "material_offset": 156502,
+          "material": "$shader(carbrakelight)",
+          "source_faces": 36,
+          "texture_slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 1,
+          "selector": 2,
+          "selector_wrapper": "root.20.0",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        },
+        {
+          "mesh_path": "root.20.0.1",
+          "node_offset": 156574,
+          "material_offset": 156675,
+          "material": "$shader(brakelight)",
+          "source_faces": 24,
+          "texture_slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 14,
+          "selector": 2,
+          "selector_wrapper": "root.20.0",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        }
+      ]
+    },
+    {
+      "family": "TATA",
+      "source": "\\TNG\\DATAPSM\\VEHICLES\\TATA\\CAR.PSM",
+      "sha256": "9397b4b9b60567a3ac3f5e0ac752a6794b3fea9ace8c2bb524db53bb565e6c84",
+      "blight_named_wrapper": [
+        {
+          "tag": 7,
+          "offset": 174736,
+          "path": "root.24",
+          "name": "blight",
+          "name_index": 2,
+          "role": "NAMED_CHILD_WRAPPER_NOT_A_MATRIX"
+        }
+      ],
+      "light_meshes": [
+        {
+          "mesh_path": "root.24.1.0",
+          "node_offset": 174943,
+          "material_offset": 175043,
+          "material": "$shader(carbrakelights)",
+          "source_faces": 10,
+          "texture_slots": [
+            "breaklightson-tga",
+            "lightshine-tga"
+          ],
+          "final_mode": 1,
+          "selector": 2,
+          "selector_wrapper": "root.24.1",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        },
+        {
+          "mesh_path": "root.24.1.1",
+          "node_offset": 175129,
+          "material_offset": 175195,
+          "material": "$shader(carbrakelights)",
+          "source_faces": 28,
+          "texture_slots": [
+            "breaklightsonglow-tga"
+          ],
+          "final_mode": 14,
+          "selector": 2,
+          "selector_wrapper": "root.24.1",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        }
+      ]
+    },
+    {
+      "family": "TERRANO",
+      "source": "\\TNG\\DATAPSM\\VEHICLES\\TERRANO\\CAR.PSM",
+      "sha256": "bb0e2c4e34ba21812cf9fe57077da5e04a02501eae24451767c2ced42b95f1b1",
+      "blight_named_wrapper": [
+        {
+          "tag": 7,
+          "offset": 191201,
+          "path": "root.24",
+          "name": "blight",
+          "name_index": 2,
+          "role": "NAMED_CHILD_WRAPPER_NOT_A_MATRIX"
+        }
+      ],
+      "light_meshes": [
+        {
+          "mesh_path": "root.24.0.0",
+          "node_offset": 191235,
+          "material_offset": 191332,
+          "material": "$shader(carbrakelight)",
+          "source_faces": 6,
+          "texture_slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 1,
+          "selector": 2,
+          "selector_wrapper": "root.24.0",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        },
+        {
+          "mesh_path": "root.24.0.1",
+          "node_offset": 191404,
+          "material_offset": 191505,
+          "material": "$shader(carbrakelight)",
+          "source_faces": 20,
+          "texture_slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 14,
+          "selector": 2,
+          "selector_wrapper": "root.24.0",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        }
+      ]
+    },
+    {
+      "family": "UFO",
+      "source": "\\TNG\\DATAPSM\\VEHICLES\\UFO\\CAR.PSM",
+      "sha256": "72e96dea29d35a2462dfac68161276e5bc343b491af7525c486e506e56be55a8",
+      "blight_named_wrapper": [
+        {
+          "tag": 7,
+          "offset": 104293,
+          "path": "root.9",
+          "name": "blight",
+          "name_index": 2,
+          "role": "NAMED_CHILD_WRAPPER_NOT_A_MATRIX"
+        }
+      ],
+      "light_meshes": [
+        {
+          "mesh_path": "root.3",
+          "node_offset": 103125,
+          "material_offset": 103216,
+          "material": "$shader(carbrakelight)",
+          "source_faces": 60,
+          "texture_slots": [
+            "b_light-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 3,
+          "selector": null,
+          "selector_wrapper": null,
+          "on_off_role": "SOURCE_OFF_OR_UNCONDITIONAL_LIGHT_CANDIDATE",
+          "runtime_validation": "NOT_PERFORMED"
+        },
+        {
+          "mesh_path": "root.9.0.0",
+          "node_offset": 104327,
+          "material_offset": 104424,
+          "material": "$shader(carbrakelight)",
+          "source_faces": 90,
+          "texture_slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 1,
+          "selector": 2,
+          "selector_wrapper": "root.9.0",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        },
+        {
+          "mesh_path": "root.9.0.1",
+          "node_offset": 104561,
+          "material_offset": 104662,
+          "material": "$shader(carbrakelight)",
+          "source_faces": 60,
+          "texture_slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 14,
+          "selector": 2,
+          "selector_wrapper": "root.9.0",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        },
+        {
+          "mesh_path": "root.9.1.0",
+          "node_offset": 104759,
+          "material_offset": 104850,
+          "material": "$shader(carbrakelight)",
+          "source_faces": 90,
+          "texture_slots": [
+            "b_light-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 3,
+          "selector": 1,
+          "selector_wrapper": "root.9.1",
+          "on_off_role": "SOURCE_OFF_OR_UNCONDITIONAL_LIGHT_CANDIDATE",
+          "runtime_validation": "NOT_PERFORMED"
+        }
+      ]
+    },
+    {
+      "family": "WILDCAT",
+      "source": "\\TNG\\DATAPSM\\VEHICLES\\WILDCAT\\CAR.PSM",
+      "sha256": "ea85c64312342149b7a18cc9060174a5532e53a1e02ed62c80a21c2c0a62425a",
+      "blight_named_wrapper": [
+        {
+          "tag": 7,
+          "offset": 185457,
+          "path": "root.21",
+          "name": "blight",
+          "name_index": 2,
+          "role": "NAMED_CHILD_WRAPPER_NOT_A_MATRIX"
+        }
+      ],
+      "light_meshes": [
+        {
+          "mesh_path": "root.21.0.0",
+          "node_offset": 185491,
+          "material_offset": 185588,
+          "material": "$shader(carbrakelight)",
+          "source_faces": 4,
+          "texture_slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 1,
+          "selector": 2,
+          "selector_wrapper": "root.21.0",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        },
+        {
+          "mesh_path": "root.21.0.1",
+          "node_offset": 185647,
+          "material_offset": 185748,
+          "material": "$shader(carbrakelight)",
+          "source_faces": 16,
+          "texture_slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 14,
+          "selector": 2,
+          "selector_wrapper": "root.21.0",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        }
+      ]
+    },
+    {
+      "family": "WOOLDAND",
+      "source": "\\TNG\\DATAPSM\\VEHICLES\\WOOLDAND\\CAR.PSM",
+      "sha256": "93a2bd9e9ee884ac32a6d7af4b320212156e853fd85b02bc01bdcc783d0d533d",
+      "blight_named_wrapper": [
+        {
+          "tag": 7,
+          "offset": 173611,
+          "path": "root.20",
+          "name": "blight",
+          "name_index": 2,
+          "role": "NAMED_CHILD_WRAPPER_NOT_A_MATRIX"
+        }
+      ],
+      "light_meshes": [
+        {
+          "mesh_path": "root.20.0.0",
+          "node_offset": 173645,
+          "material_offset": 173742,
+          "material": "$shader(carbrakelight)",
+          "source_faces": 4,
+          "texture_slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 1,
+          "selector": 2,
+          "selector_wrapper": "root.20.0",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        },
+        {
+          "mesh_path": "root.20.0.1",
+          "node_offset": 173801,
+          "material_offset": 173902,
+          "material": "$shader(carbrakelight)",
+          "source_faces": 16,
+          "texture_slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "final_mode": 14,
+          "selector": 2,
+          "selector_wrapper": "root.20.0",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        }
+      ]
+    },
+    {
+      "family": "XTRAIL",
+      "source": "\\TNG\\DATAPSM\\VEHICLES\\XTRAIL\\CAR.PSM",
+      "sha256": "af57572e92ce47d810666779fb60c8c178f1979feb203416131a3acc81449326",
+      "blight_named_wrapper": [
+        {
+          "tag": 7,
+          "offset": 175524,
+          "path": "root.20",
+          "name": "blight",
+          "name_index": 2,
+          "role": "NAMED_CHILD_WRAPPER_NOT_A_MATRIX"
+        }
+      ],
+      "light_meshes": [
+        {
+          "mesh_path": "root.20.1.0",
+          "node_offset": 175710,
+          "material_offset": 175810,
+          "material": "$shader(carbrakelights)",
+          "source_faces": 6,
+          "texture_slots": [
+            "breaklightson-tga",
+            "lightshine-tga"
+          ],
+          "final_mode": 1,
+          "selector": 2,
+          "selector_wrapper": "root.20.1",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        },
+        {
+          "mesh_path": "root.20.1.1",
+          "node_offset": 175870,
+          "material_offset": 175936,
+          "material": "$shader(carbrakelights)",
+          "source_faces": 22,
+          "texture_slots": [
+            "breaklightsonglow-tga"
+          ],
+          "final_mode": 14,
+          "selector": 2,
+          "selector_wrapper": "root.20.1",
+          "on_off_role": "ON_TEXTURE_AND_SELECTOR2",
+          "runtime_validation": "NOT_PERFORMED"
+        }
+      ]
+    }
+  ],
+  "owner_init": {
+    "entry": "0x001a07e0",
+    "model_field": "+0x18",
+    "option_index_field": "+0x14",
+    "lookup_name": "blight",
+    "lookup": "0x001d76d0",
+    "controller_key": "Controller/<source Egg name>"
+  },
+  "owner_update": {
+    "entry": "0x001a08c0",
+    "source": "Broker 0x001e4280 -> 0x001e3820 -> result+8 pointer -> float32+0x24",
+    "threshold_word": "0x3dcccccd",
+    "rule": "source > float32(0.1): selector2; otherwise selector1",
+    "option_writer": "0x001d77a0",
+    "writer_contract": "index>=0 && index<model+0x18 count;0<=value<=model+0x0c max[index];write model+0x00 values[index]",
+    "source_semantics": "STATIC_BRAKE_OWNER_CONTRACT;liveControllerownershipnotcaptured"
+  },
+  "material_classifier": {
+    "entry": "0x00391690",
+    "post_shader_priority": [
+      {
+        "original_primary_substring": "breaklightsonglow-",
+        "mode": 14,
+        "field2c": 1,
+        "field3c": 0,
+        "field44": 0.3,
+        "first_write": "0x00391c54"
+      },
+      {
+        "original_primary_substring": "breaklightson-",
+        "mode": 1,
+        "field2c": 0,
+        "field3c": 0,
+        "field44": 0.3,
+        "first_write": "0x00391cc0"
+      }
+    ],
+    "unknown_shader_names": [
+      "carbrakelight",
+      "carbrakelights",
+      "brakelight"
+    ],
+    "unknown_names_not_silently_aliased": true
+  },
+  "evidence_grade": "CONFIRMED_BY_BOTH",
+  "gs_and_runtime_status": "UNKNOWN",
+  "missing_interfaces": [
+    "Actual brake-source key owner/lifetime/current field24 value",
+    "Selected liveblight1/2 source mesh and runtime GS submission",
+    "Mode14 fulltexture/ALPHA/TEST/ZBUF/inheritedstate/order",
+    "PCnativecurrentbrakeidentity+off/on/glowdraw ownership",
+    "PS2 lamptexturealpha/sampling andpostprocess visualcapture"
+  ]
+}

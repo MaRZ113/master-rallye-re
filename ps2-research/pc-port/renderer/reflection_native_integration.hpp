@@ -3,6 +3,7 @@
 // private texture; this native integration alone applies/restores draw state.
 #include "wrappers.hpp"
 #include "reflection_pilot.hpp"
+#include "vehicle_partition.hpp"
 #include "ps2_port_extension.hpp"
 #include "buffer_provenance.hpp"
 #include "camera_probe.hpp"
@@ -19,10 +20,11 @@ template<class T> struct Ref {
 inline bool snapshot(Device8& device, const DrawClassification& classification,
                      D3DPRIMITIVETYPE type, UINT min_index, UINT vertices,
                      UINT start, UINT count, ps2port::DrawSnapshot& geometry,
-                     ps2port::ReflectionSnapshot& out) noexcept {
+                     ps2port::ReflectionSnapshot& out, bool partition=false) noexcept {
     auto* extension = device.ps2_port();
     if (!extension || !extension->reflection() || !extension->reflection()->active()) return false;
-    if (type != D3DPT_TRIANGLELIST || !ps2port::reflection_layout(count,vertices,extension->reflection()->expanded())) return false;
+    if (type != D3DPT_TRIANGLELIST || !(partition ? ps2port::vehicle_partition_layout(count,vertices) :
+        ps2port::reflection_layout(count,vertices,extension->reflection()->expanded()))) return false;
     geometry = {}; out = {}; out.geometry = &geometry;
     out.requested_mode=extension->reflection()->mode_value();
     geometry.supported_build = session().target;
@@ -213,6 +215,7 @@ public:
         }
     }
     HRESULT pre_draw_status() const noexcept { return FAILED(restore_hr_) && restore_hr_!=E_PENDING ? restore_hr_ : S_OK; }
+    bool applied() const noexcept { return applied_; }
     void draw_result(HRESULT hr) noexcept { draw_hr_=hr; }
     ~Scope() noexcept {
         if (!pilot_) return;

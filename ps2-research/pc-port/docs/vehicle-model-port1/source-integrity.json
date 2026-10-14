@@ -1,0 +1,155 @@
+{
+  "schema_version": 1,
+  "canonical_ps2_inputs": {
+    "SLES_509.06": {
+      "sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+      "size": 3739852
+    },
+    "SYSTEM.CNF": {
+      "sha256": "db08eef06278820a562f9cdacd6a2d5d2bb31870e7cf3a51e83daee3a90c5df2",
+      "size": 56
+    },
+    "TNG.PAK": {
+      "sha256": "d98c7cf1049a8a3bc2f90a528a2b6f52cd43c16c2e0564830d5ecb9c592ab28d",
+      "size": 135556
+    },
+    "TNG.000": {
+      "sha256": "004ac1676376275bf40c1fd5c1c4a9dcfaae870bf1a7916434eb73b0b1faff86",
+      "size": 1225915283
+    }
+  },
+  "checked_pc_sources": [
+    {
+      "path": "Astero/complete.dx",
+      "sha256": "853a1e7e76b00c1b4c0747e19ec6a4c110bda7923a974bc807c7f5907645331f"
+    },
+    {
+      "path": "Bruno/car.dx",
+      "sha256": "c7a456332e31c67647394467d2e0e467df048160ae634ab2b8d024eb9d61204f"
+    },
+    {
+      "path": "Bruno/complete.dx",
+      "sha256": "d6ad922dff2b3fbac98b5df383ee1faca9e929b222e89e883b98bf6be29301ec"
+    },
+    {
+      "path": "ChevyBlazer/car.dx",
+      "sha256": "d847cd8e684d9f6ff75d560e64429098448a665cc423b8d7c509e6146e9e0c7e"
+    },
+    {
+      "path": "ChevyBlazer/complete.dx",
+      "sha256": "b17ad51f7b4c1316c5ccb235570b7b2527aa57245b88a7a34e6f583ef5a185dd"
+    },
+    {
+      "path": "Forester/car.dx",
+      "sha256": "670ef07dc312aefa5628fe24c08aa696ee147043cfecdf2aadaf01e012c8b5fc"
+    },
+    {
+      "path": "Forester/complete.dx",
+      "sha256": "a38566e0d653c586fc53594de2276e8c3f50d882126f26ee5792d74794cd3ca1"
+    },
+    {
+      "path": "Frontera/complete.dx",
+      "sha256": "ca116a97752e097b8d97000feb937f47a9f19c4a1b25618860e95bd2210dc82d"
+    },
+    {
+      "path": "IceCream/complete.dx",
+      "sha256": "1cae2964dc2d99f3e0727a7597c80c4fd4eb524590519c414362514992d12b3e"
+    },
+    {
+      "path": "Jump/complete.dx",
+      "sha256": "bf7dc94e437fd66b90f9ca54fc150651a834b75147c894bf7804c98f1aa9a65a"
+    },
+    {
+      "path": "Kamaz/complete.dx",
+      "sha256": "77a67510ec66ba29f6fb958a301610e504941511912ebb15c456fcd2d0f749bd"
+    },
+    {
+      "path": "Kangoo/complete.dx",
+      "sha256": "58064a3a73ff76133b0412b2c59e74177f186b2db72ce81868ebaeb3775c35c8"
+    },
+    {
+      "path": "KiaSportage/complete.dx",
+      "sha256": "eb6532bde0d488c7d922f9fe5ba132cbff9a608553a9db6b59b69fc1aed891a3"
+    },
+    {
+      "path": "LandCruiser/car.dx",
+      "sha256": "c3a61a935244e9e1dcfcd72ecf993ea301e371794ba33d931dd8cfd205627103"
+    },
+    {
+      "path": "LandCruiser/complete.dx",
+      "sha256": "825ae5fc03e81e780981156f2f168b1445f3596c48455b302bee4d230d3954df"
+    },
+    {
+      "path": "Mattserati/complete.dx",
+      "sha256": "c16ee8d4ae0fe5a6ea35ff5af78993e6687f38a067f5d06866d6aea21c4fce24"
+    },
+    {
+      "path": "Navara/complete.dx",
+      "sha256": "0edab556302273db41736993cdd041e73b1894419a623526c91f458b5fcfdc2e"
+    },
+    {
+      "path": "NewRav/complete.dx",
+      "sha256": "d2feb13f8673d25a284b7f0e00dbfa9c9c66c073bac1120bdd68c0d392d93eaf"
+    },
+    {
+      "path": "Pajero/complete.dx",
+      "sha256": "0a52e1956b7105619b91f9bf7e08eacf443da06e3aed798336a8e04cb6daa3ab"
+    },
+    {
+      "path": "Patrol/complete.dx",
+      "sha256": "0fe36065ad5662f018237cba3e84c2005843256fe0fa67cb7011186ff636d838"
+    },
+    {
+      "path": "RMonster/complete.dx",
+      "sha256": "1a0f9252ae96bd6d44eb4d088c682556f2abec584bb061d8c558cf284c17612c"
+    },
+    {
+      "path": "SeatBuggy/car.dx",
+      "sha256": "468031a187dc968eda6451eb7e5b7dde2ec557c7fbfe5a77d0f09d195046b6e0"
+    },
+    {
+      "path": "SeatBuggy/complete.dx",
+      "sha256": "f25827a54fb51dccfc3ec1dbd2eadbe7d83f8393dc9e124136e3f1f9fe72712e"
+    },
+    {
+      "path": "Simmbugghini/complete.dx",
+      "sha256": "87c8a5bb9a23757cb8c4fad4145051dc6787c65813274089ba6f68c269d1a0d8"
+    },
+    {
+      "path": "Tata/complete.dx",
+      "sha256": "cb8d8e0b5f265c91ce565e7a15c3a8601edd76b6b5ba210296a5d1ec85d5ba6a"
+    },
+    {
+      "path": "Terrano/complete.dx",
+      "sha256": "7833f4e91b0507d988791094eec2e1f5f61c0779340fccbeef8966bb3898d7fe"
+    },
+    {
+      "path": "Ufo/complete.dx",
+      "sha256": "2040ed600ba79d5e4157e758c719d7e7804c34a7007bd57085e3f0a8e57ecd0a"
+    },
+    {
+      "path": "WildCat/complete.dx",
+      "sha256": "296ce5390834c2f2a0c6ffb0e230e12160f70f679542b157187a266450a74328"
+    },
+    {
+      "path": "Xtrail/car.dx",
+      "sha256": "e334085754f81d20d237a70e653b533344771e6409468e2e09252e380b3d063f"
+    },
+    {
+      "path": "Xtrail/complete.dx",
+      "sha256": "ce1694d24a09934cccc3163cfc3561c9308c2cac8d1a65443279c0eb00cda652"
+    },
+    {
+      "path": "forklift/complete.dx",
+      "sha256": "0e73c139a254a4ad529c675d705a4cd02f63a5b32556e865b2d1f96710f0f1b9"
+    },
+    {
+      "path": "megane/complete.dx",
+      "sha256": "ae0af00383e68dc985e150088fc46c3371a7dec130b52d3a9b1b06395a9b80a6"
+    }
+  ],
+  "private_prepared_models_verified": 29,
+  "result": "PASS",
+  "scope": "All26 PC COMPLETE and the6 changed CAR inputs; read-only protected retail originals",
+  "runtime_proof": false
+}
