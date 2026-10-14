@@ -24,11 +24,21 @@ inline bool snapshot(Device8& device, const DrawClassification& classification,
     if (!extension || !extension->reflection() || !extension->reflection()->active()) return false;
     if (type != D3DPT_TRIANGLELIST || !ps2port::reflection_layout(count,vertices,extension->reflection()->expanded())) return false;
     geometry = {}; out = {}; out.geometry = &geometry;
+    out.requested_mode=extension->reflection()->mode_value();
     geometry.supported_build = session().target;
     geometry.device_id = device.trace.device_id();
     geometry.reset_generation = extension->reset_generation();
     out.stock_coordinate_policy = device.visuals.effective.reflection_mode == "Stock";
     out.vehicle_body_verified = std::strcmp(reflection_exclusion(classification),"eligible") == 0;
+    // Like baseline learned-material admission, source authority does not infer
+    // wheel constellations. The extension still requires the complete exact
+    // registered geometry hash, live race certificate and current native state.
+    // Never allow a shared callsite or rigid transform by itself.
+    D3DMATRIX native_world{};
+    const auto& tracked_world=device.trace.effective_shadow.matrices[D3DTS_WORLD];
+    out.source_material_context_verified = extension->reflection()->mode_value()==4 && ps2port::source_material_context(classification,
+        tracked_world.known && SUCCEEDED(device.native()->GetTransform(D3DTS_WORLD,&native_world)) &&
+        !std::memcmp(&native_world,&tracked_world.value,sizeof(native_world)));
     const uintptr_t image = reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));
     uintptr_t manager = 0, camera = 0; uint32_t cameras = 0;
     if (image == 0x00400000 &&
@@ -239,6 +249,8 @@ public:
                 ",\"capture_copy_bytes\":"+std::to_string(pilot_->mixed_capture().last_status().layout.bytes)+
                 ",\"capture_private_draws\":"+std::to_string(pilot_->mixed_capture().last_status().private_draws)+
                 ",\"geometry_sha256\":"+quote(identity_.geometry_sha256)+
+                ",\"identity_authority\":"+quote(identity_.source_material_authority?
+                    "EXACT_SOURCE_MATERIAL_AND_CURRENT_NATIVE_CONTEXT":"LEGACY_VEHICLE_BODY_PROOF")+
                 ",\"identity_reason\":"+quote(identity_.reason)+",\"override_applied\":"+(applied_?"true":"false")+
                 ",\"original_stage1_texture\":"+std::to_string(original_texture_)+
                 ",\"original_texture_generation\":"+std::to_string(texture_generation_)+

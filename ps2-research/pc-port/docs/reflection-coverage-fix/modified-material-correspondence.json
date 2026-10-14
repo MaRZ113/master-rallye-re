@@ -1,0 +1,351 @@
+{
+  "schema_version": 1,
+  "entries": [
+    {
+      "vehicle": "Forester",
+      "draw_index": 2,
+      "triangles": 4,
+      "vertices": 6,
+      "geometry_sha256": "2c66a8bb28f4556c8b73a71abb666a0c250ad90bf51eb292a6bd89dcf3bf8b8b",
+      "pc_source_sha256": "670ef07dc312aefa5628fe24c08aa696ee147043cfecdf2aadaf01e012c8b5fc",
+      "ps2_source_sha256": "93a2bd9e9ee884ac32a6d7af4b320212156e853fd85b02bc01bdcc783d0d533d",
+      "ps2_resource": "/TNG/DATAPSM/VEHICLES/WOOLDAND/CAR.PSM",
+      "binding": {
+        "node": 168879,
+        "path": "root.1",
+        "material": "$shader(carshiny)",
+        "max_error": 1.1920928955078125e-07,
+        "matching_pc_faces": 4,
+        "ps2_faces": 4
+      },
+      "geometry_relation": "GEOMETRY_MODIFIED_SMALL_LOCAL_DISPLACEMENT",
+      "material_relation": "SINGLE_PS2_CARSHINY_MATERIAL_CORRESPONDENCE",
+      "tolerance": 0.005,
+      "independent_uv_check": {
+        "unique_referenced_pc_vertices": 6,
+        "position_and_uv_matches": 6,
+        "max_uv_error": 0.0,
+        "uv_tolerance": 1e-05,
+        "complete": true
+      },
+      "signature_owner_families": [
+        "Forester"
+      ],
+      "unique_vehicle_family": true,
+      "evidence_grade": "CONFIRMED_BY_BYTES",
+      "activation": "MODE4_ONLY_CURRENT_NATIVE_OPAQUE_ENVIRONMENT_GATES"
+    },
+    {
+      "vehicle": "Forester",
+      "draw_index": 7,
+      "triangles": 148,
+      "vertices": 168,
+      "geometry_sha256": "55a5f371aeb61568e5ac869e805e9bbd62a77b6e8a672cbbe3f4effb9d30f0a3",
+      "pc_source_sha256": "670ef07dc312aefa5628fe24c08aa696ee147043cfecdf2aadaf01e012c8b5fc",
+      "ps2_source_sha256": "93a2bd9e9ee884ac32a6d7af4b320212156e853fd85b02bc01bdcc783d0d533d",
+      "ps2_resource": "/TNG/DATAPSM/VEHICLES/WOOLDAND/CAR.PSM",
+      "binding": {
+        "node": 171649,
+        "path": "root.13",
+        "material": "$shader(carshiny)",
+        "max_error": 3.129243850708008e-07,
+        "matching_pc_faces": 148,
+        "ps2_faces": 148
+      },
+      "geometry_relation": "GEOMETRY_MODIFIED_SMALL_LOCAL_DISPLACEMENT",
+      "material_relation": "SINGLE_PS2_CARSHINY_MATERIAL_CORRESPONDENCE",
+      "tolerance": 0.005,
+      "independent_uv_check": {
+        "unique_referenced_pc_vertices": 168,
+        "position_and_uv_matches": 140,
+        "max_uv_error": 0.46236731112003326,
+        "uv_tolerance": 1e-05,
+        "complete": false
+      },
+      "signature_owner_families": [
+        "Forester"
+      ],
+      "unique_vehicle_family": true,
+      "evidence_grade": "CONFIRMED_BY_BYTES",
+      "activation": "MODE4_ONLY_CURRENT_NATIVE_OPAQUE_ENVIRONMENT_GATES"
+    },
+    {
+      "vehicle": "Forester",
+      "draw_index": 10,
+      "triangles": 400,
+      "vertices": 636,
+      "geometry_sha256": "532ec2bbf56b139d03b7c5bb0bf819dcbe02043312ca18d179d35643708f1158",
+      "pc_source_sha256": "670ef07dc312aefa5628fe24c08aa696ee147043cfecdf2aadaf01e012c8b5fc",
+      "ps2_source_sha256": "93a2bd9e9ee884ac32a6d7af4b320212156e853fd85b02bc01bdcc783d0d533d",
+      "ps2_resource": "/TNG/DATAPSM/VEHICLES/WOOLDAND/CAR.PSM",
+      "binding": {
+        "node": 169718,
+        "path": "root.6",
+        "material": "$shader(carshiny)",
+        "max_error": 0.0029883980751037598,
+        "matching_pc_faces": 400,
+        "ps2_faces": 400
+      },
+      "geometry_relation": "GEOMETRY_MODIFIED_SMALL_LOCAL_DISPLACEMENT",
+      "material_relation": "SINGLE_PS2_CARSHINY_MATERIAL_CORRESPONDENCE",
+      "tolerance": 0.005,
+      "independent_uv_check": {
+        "unique_referenced_pc_vertices": 636,
+        "position_and_uv_matches": 620,
+        "max_uv_error": 0.015399634838104248,
+        "uv_tolerance": 1e-05,
+        "complete": false
+      },
+      "signature_owner_families": [
+        "Forester"
+      ],
+      "unique_vehicle_family": true,
+      "evidence_grade": "CONFIRMED_BY_BYTES",
+      "activation": "MODE4_ONLY_CURRENT_NATIVE_OPAQUE_ENVIRONMENT_GATES"
+    },
+    {
+      "vehicle": "Forester",
+      "draw_index": 12,
+      "triangles": 34,
+      "vertices": 44,
+      "geometry_sha256": "873d4a3e05199eb98cad3ac92c1cedf6f492eb1168c1954d03fd974f2195523a",
+      "pc_source_sha256": "670ef07dc312aefa5628fe24c08aa696ee147043cfecdf2aadaf01e012c8b5fc",
+      "ps2_source_sha256": "93a2bd9e9ee884ac32a6d7af4b320212156e853fd85b02bc01bdcc783d0d533d",
+      "ps2_resource": "/TNG/DATAPSM/VEHICLES/WOOLDAND/CAR.PSM",
+      "binding": {
+        "node": 170676,
+        "path": "root.8",
+        "material": "$shader(carshiny)",
+        "max_error": 0.004995524883270264,
+        "matching_pc_faces": 34,
+        "ps2_faces": 34
+      },
+      "geometry_relation": "GEOMETRY_MODIFIED_SMALL_LOCAL_DISPLACEMENT",
+      "material_relation": "SINGLE_PS2_CARSHINY_MATERIAL_CORRESPONDENCE",
+      "tolerance": 0.005,
+      "independent_uv_check": {
+        "unique_referenced_pc_vertices": 44,
+        "position_and_uv_matches": 12,
+        "max_uv_error": 3.0,
+        "uv_tolerance": 1e-05,
+        "complete": false
+      },
+      "signature_owner_families": [
+        "Forester"
+      ],
+      "unique_vehicle_family": true,
+      "evidence_grade": "CONFIRMED_BY_BYTES",
+      "activation": "MODE4_ONLY_CURRENT_NATIVE_OPAQUE_ENVIRONMENT_GATES"
+    },
+    {
+      "vehicle": "Forester",
+      "draw_index": 14,
+      "triangles": 16,
+      "vertices": 22,
+      "geometry_sha256": "f03b809d450de80c9e01b1b2e67eb643a6fcf355377a55089eedd62060fee065",
+      "pc_source_sha256": "670ef07dc312aefa5628fe24c08aa696ee147043cfecdf2aadaf01e012c8b5fc",
+      "ps2_source_sha256": "93a2bd9e9ee884ac32a6d7af4b320212156e853fd85b02bc01bdcc783d0d533d",
+      "ps2_resource": "/TNG/DATAPSM/VEHICLES/WOOLDAND/CAR.PSM",
+      "binding": {
+        "node": 171361,
+        "path": "root.11",
+        "material": "$shader(carshiny)",
+        "max_error": 0.0029883980751037598,
+        "matching_pc_faces": 16,
+        "ps2_faces": 16
+      },
+      "geometry_relation": "GEOMETRY_MODIFIED_SMALL_LOCAL_DISPLACEMENT",
+      "material_relation": "SINGLE_PS2_CARSHINY_MATERIAL_CORRESPONDENCE",
+      "tolerance": 0.005,
+      "independent_uv_check": {
+        "unique_referenced_pc_vertices": 22,
+        "position_and_uv_matches": 22,
+        "max_uv_error": 0.0,
+        "uv_tolerance": 1e-05,
+        "complete": true
+      },
+      "signature_owner_families": [
+        "Forester"
+      ],
+      "unique_vehicle_family": true,
+      "evidence_grade": "CONFIRMED_BY_BYTES",
+      "activation": "MODE4_ONLY_CURRENT_NATIVE_OPAQUE_ENVIRONMENT_GATES"
+    },
+    {
+      "vehicle": "Navara",
+      "draw_index": 3,
+      "triangles": 677,
+      "vertices": 913,
+      "geometry_sha256": "177351f3fc28f71360f8718ab2d14784760ce36588438daa4d2ce0e6aa369f87",
+      "pc_source_sha256": "2d3727f5bcd889ba38891276111c53f9c4d67cee1f5ece13de374a8235690655",
+      "ps2_source_sha256": "c5ecc753358a369280b2d5fc27435b1929b676b867a85acd9c458db24dbfffdf",
+      "ps2_resource": "/TNG/DATAPSM/VEHICLES/NAVARA/CAR.PSM",
+      "binding": {
+        "node": 218613,
+        "path": "root.2",
+        "material": "$shader(carshiny)",
+        "max_error": 0.0018634796142578125,
+        "matching_pc_faces": 674,
+        "ps2_faces": 674
+      },
+      "geometry_relation": "GEOMETRY_MODIFIED_SMALL_LOCAL_DISPLACEMENT",
+      "material_relation": "SINGLE_PS2_CARSHINY_MATERIAL_CORRESPONDENCE",
+      "tolerance": 0.005,
+      "independent_uv_check": {
+        "unique_referenced_pc_vertices": 913,
+        "position_and_uv_matches": 748,
+        "max_uv_error": 7.0,
+        "uv_tolerance": 1e-05,
+        "complete": false
+      },
+      "signature_owner_families": [
+        "Navara"
+      ],
+      "unique_vehicle_family": true,
+      "evidence_grade": "CONFIRMED_BY_BYTES",
+      "activation": "MODE4_ONLY_CURRENT_NATIVE_OPAQUE_ENVIRONMENT_GATES"
+    },
+    {
+      "vehicle": "Navara",
+      "draw_index": 4,
+      "triangles": 104,
+      "vertices": 144,
+      "geometry_sha256": "0bd3d124535e1125357a604a531e0e3d8345801598d3c19547a78cb0da9eb0f0",
+      "pc_source_sha256": "2d3727f5bcd889ba38891276111c53f9c4d67cee1f5ece13de374a8235690655",
+      "ps2_source_sha256": "c5ecc753358a369280b2d5fc27435b1929b676b867a85acd9c458db24dbfffdf",
+      "ps2_resource": "/TNG/DATAPSM/VEHICLES/NAVARA/CAR.PSM",
+      "binding": {
+        "node": 219346,
+        "path": "root.3",
+        "material": "$shader(carshiny)",
+        "max_error": 0.0018634796142578125,
+        "matching_pc_faces": 103,
+        "ps2_faces": 103
+      },
+      "geometry_relation": "GEOMETRY_MODIFIED_SMALL_LOCAL_DISPLACEMENT",
+      "material_relation": "SINGLE_PS2_CARSHINY_MATERIAL_CORRESPONDENCE",
+      "tolerance": 0.005,
+      "independent_uv_check": {
+        "unique_referenced_pc_vertices": 144,
+        "position_and_uv_matches": 144,
+        "max_uv_error": 0.0,
+        "uv_tolerance": 1e-05,
+        "complete": true
+      },
+      "signature_owner_families": [
+        "Navara"
+      ],
+      "unique_vehicle_family": true,
+      "evidence_grade": "CONFIRMED_BY_BYTES",
+      "activation": "MODE4_ONLY_CURRENT_NATIVE_OPAQUE_ENVIRONMENT_GATES"
+    },
+    {
+      "vehicle": "Patrol",
+      "draw_index": 1,
+      "triangles": 153,
+      "vertices": 208,
+      "geometry_sha256": "3db6567e2ab11ab354b8a36da9fd8541b1818c73cef52385f748327d6a45e690",
+      "pc_source_sha256": "d3ca392b8ffc08bf2470fbdeb5099acc6be1675baab74a79b9e59d3596c0fa0c",
+      "ps2_source_sha256": "a01f0f74fa76f74506e3dcbf8a72c26b73536d1896ded11069d8135f68c08dff",
+      "ps2_resource": "/TNG/DATAPSM/VEHICLES/PATROL/CAR.PSM",
+      "binding": {
+        "node": 170660,
+        "path": "root.1",
+        "material": "$shader(carshiny)",
+        "max_error": 0.0027202367782592773,
+        "matching_pc_faces": 153,
+        "ps2_faces": 153
+      },
+      "geometry_relation": "GEOMETRY_MODIFIED_SMALL_LOCAL_DISPLACEMENT",
+      "material_relation": "SINGLE_PS2_CARSHINY_MATERIAL_CORRESPONDENCE",
+      "tolerance": 0.005,
+      "independent_uv_check": {
+        "unique_referenced_pc_vertices": 208,
+        "position_and_uv_matches": 201,
+        "max_uv_error": 6.73532485961914e-05,
+        "uv_tolerance": 1e-05,
+        "complete": false
+      },
+      "signature_owner_families": [
+        "Patrol"
+      ],
+      "unique_vehicle_family": true,
+      "evidence_grade": "CONFIRMED_BY_BYTES",
+      "activation": "MODE4_ONLY_CURRENT_NATIVE_OPAQUE_ENVIRONMENT_GATES"
+    },
+    {
+      "vehicle": "Patrol",
+      "draw_index": 2,
+      "triangles": 250,
+      "vertices": 364,
+      "geometry_sha256": "fcb3dc67a4a37ff3c7c1915befe2ffb03c6d6342d9f79f486f812373c9c12387",
+      "pc_source_sha256": "d3ca392b8ffc08bf2470fbdeb5099acc6be1675baab74a79b9e59d3596c0fa0c",
+      "ps2_source_sha256": "a01f0f74fa76f74506e3dcbf8a72c26b73536d1896ded11069d8135f68c08dff",
+      "ps2_resource": "/TNG/DATAPSM/VEHICLES/PATROL/CAR.PSM",
+      "binding": {
+        "node": 170994,
+        "path": "root.2",
+        "material": "$shader(carshiny)",
+        "max_error": 0.0027202367782592773,
+        "matching_pc_faces": 250,
+        "ps2_faces": 250
+      },
+      "geometry_relation": "GEOMETRY_MODIFIED_SMALL_LOCAL_DISPLACEMENT",
+      "material_relation": "SINGLE_PS2_CARSHINY_MATERIAL_CORRESPONDENCE",
+      "tolerance": 0.005,
+      "independent_uv_check": {
+        "unique_referenced_pc_vertices": 364,
+        "position_and_uv_matches": 330,
+        "max_uv_error": 0.012144804000854492,
+        "uv_tolerance": 1e-05,
+        "complete": false
+      },
+      "signature_owner_families": [
+        "Patrol"
+      ],
+      "unique_vehicle_family": true,
+      "evidence_grade": "CONFIRMED_BY_BYTES",
+      "activation": "MODE4_ONLY_CURRENT_NATIVE_OPAQUE_ENVIRONMENT_GATES"
+    },
+    {
+      "vehicle": "Kamaz",
+      "draw_index": 13,
+      "triangles": 318,
+      "vertices": 264,
+      "geometry_sha256": "a7a0061036bddce3c7eb748fe30aea0bdb9dfd544a6ab8ac02720649dc3c5034",
+      "pc_source_sha256": "6f7cf0aa22ec998a2a98f0e642e156442ccd82b50b94ae8e80ec418459442b4f",
+      "ps2_source_sha256": "9559c040e9574a474e4c2ef8f2ed33e01fceaa457be794aea7ab79e17a2e7f33",
+      "ps2_resource": "/TNG/DATAPSM/VEHICLES/KAMAZ/CAR.PSM",
+      "binding": {
+        "node": 205761,
+        "path": "root.4",
+        "material": "$shader(carshiny)",
+        "max_error": 0.0017566680908203125,
+        "matching_pc_faces": 318,
+        "ps2_faces": 318
+      },
+      "geometry_relation": "GEOMETRY_MODIFIED_SMALL_LOCAL_DISPLACEMENT",
+      "material_relation": "SINGLE_PS2_CARSHINY_MATERIAL_CORRESPONDENCE",
+      "tolerance": 0.005,
+      "independent_uv_check": {
+        "unique_referenced_pc_vertices": 264,
+        "position_and_uv_matches": 259,
+        "max_uv_error": 0.013194262981414795,
+        "uv_tolerance": 1e-05,
+        "complete": false
+      },
+      "signature_owner_families": [
+        "Kamaz"
+      ],
+      "unique_vehicle_family": true,
+      "evidence_grade": "CONFIRMED_BY_BYTES",
+      "activation": "MODE4_ONLY_CURRENT_NATIVE_OPAQUE_ENVIRONMENT_GATES"
+    }
+  ],
+  "activation": "BODY_MATERIAL_CORRESPONDENCE_WITH_EXACT_PC_RUNTIME_HASH",
+  "boundary": "Material correspondence; original PC geometry/UVs preserved, not exact PS2 triangle parity",
+  "excluded_non_body_records": [
+    "Forester:2",
+    "Forester:7"
+  ]
+}

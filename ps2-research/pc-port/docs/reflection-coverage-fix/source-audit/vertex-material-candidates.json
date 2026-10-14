@@ -1,0 +1,1234 @@
+[
+  {
+    "vehicle": "Jump",
+    "draw_index": 1,
+    "record_path": "1",
+    "record_offset": 97577,
+    "vertex_base": 369,
+    "vertices": 187,
+    "index_start": 708,
+    "index_count": 504,
+    "triangles": 168,
+    "nondegenerate_triangles": 168,
+    "diagnostic_degenerate_triangles": 0,
+    "texture_slots": [
+      "jumpfront128-tga",
+      "whitepaint-tga",
+      "Null"
+    ],
+    "flags_hex": "00000101",
+    "geometry_sha256": "00250001dcff864458edf8ec7146ad51f3cfc45d477a6956d0ec6efd6259386a",
+    "diffuse_alpha_values": [
+      255
+    ],
+    "bounds": {
+      "min": [
+        -0.9654351472854614,
+        0.4850865304470062,
+        -1.9006518125534058
+      ],
+      "max": [
+        0.9654351472854614,
+        1.3280104398727417,
+        1.8374994993209839
+      ]
+    },
+    "matches": [
+      {
+        "path": "root.1",
+        "node_offset": 169360,
+        "material_offset": 169459,
+        "material": "$shader(carshiny)",
+        "texture_slots": [
+          "jumpfront128-tga",
+          "whitepaint-tga"
+        ],
+        "contract": {
+          "authored_shader": "carshiny",
+          "interned_shader": "carshiny",
+          "mode": 3,
+          "authored_secondary": "whitepaint-tga",
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "rubber_substring_preserved": false,
+          "reflection_contract_known": true,
+          "environment_selector": 1,
+          "handler": "0x3ade58",
+          "fallback": null,
+          "evidence_grade": "CONFIRMED_BY_EXE"
+        },
+        "triangles": 154,
+        "strip_controls": {
+          "suppressed_triples": 88,
+          "diagnostic_degenerate_triples": 0
+        },
+        "pc_matching_faces": 128
+      },
+      {
+        "path": "root.3",
+        "node_offset": 169977,
+        "material_offset": 170075,
+        "material": "$shader(carshiny)",
+        "texture_slots": [
+          "mlampnoalpha32-tga",
+          "perspex-tga"
+        ],
+        "contract": {
+          "authored_shader": "carshiny",
+          "interned_shader": "carshiny",
+          "mode": 3,
+          "authored_secondary": "perspex-tga",
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "rubber_substring_preserved": false,
+          "reflection_contract_known": true,
+          "environment_selector": 1,
+          "handler": "0x3ade58",
+          "fallback": null,
+          "evidence_grade": "CONFIRMED_BY_EXE"
+        },
+        "triangles": 74,
+        "strip_controls": {
+          "suppressed_triples": 20,
+          "diagnostic_degenerate_triples": 0
+        },
+        "pc_matching_faces": 38
+      }
+    ],
+    "pc_faces_matching_carshiny_union": 166,
+    "pc_faces_matching_root_carshiny_union": 166,
+    "root_surface_equivalent_faces": 0,
+    "root_material_vertex_agreement": {
+      "pc_unique_nondegenerate_positions": 126,
+      "matching_positions": 126,
+      "ps2_material_meshes": [
+        "root.1",
+        "root.2",
+        "root.3"
+      ],
+      "unmatched_position_bounds": null
+    },
+    "exact_unmatched_face_metrics": [
+      {
+        "area": 0.2250704855581345,
+        "coplanar_root_coverage": 0.0,
+        "source_face_ordinal": 5
+      },
+      {
+        "area": 0.21161176867575532,
+        "coplanar_root_coverage": 0.0,
+        "source_face_ordinal": 61
+      }
+    ],
+    "existing_registry": false,
+    "complete_root_matches": 0,
+    "complete_conditional_matches": 0,
+    "ps2_bindings": [
+      {
+        "path": "root.1",
+        "node_offset": 169360,
+        "material_offset": 169459,
+        "material": "$shader(carshiny)",
+        "texture_slots": [
+          "jumpfront128-tga",
+          "whitepaint-tga"
+        ],
+        "contract": {
+          "authored_shader": "carshiny",
+          "interned_shader": "carshiny",
+          "mode": 3,
+          "authored_secondary": "whitepaint-tga",
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "rubber_substring_preserved": false,
+          "reflection_contract_known": true,
+          "environment_selector": 1,
+          "handler": "0x3ade58",
+          "fallback": null,
+          "evidence_grade": "CONFIRMED_BY_EXE"
+        },
+        "triangles": 154,
+        "strip_controls": {
+          "suppressed_triples": 88,
+          "diagnostic_degenerate_triples": 0
+        },
+        "pc_matching_faces": 128
+      },
+      {
+        "path": "root.2",
+        "node_offset": 169669,
+        "material_offset": 169767,
+        "material": "$shader(carshiny)",
+        "texture_slots": [
+          "jumpside128-tga",
+          "whitepaint-tga"
+        ],
+        "contract": {
+          "authored_shader": "carshiny",
+          "interned_shader": "carshiny",
+          "mode": 3,
+          "authored_secondary": "whitepaint-tga",
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "rubber_substring_preserved": false,
+          "reflection_contract_known": true,
+          "environment_selector": 1,
+          "handler": "0x3ade58",
+          "fallback": null,
+          "evidence_grade": "CONFIRMED_BY_EXE"
+        },
+        "triangles": 132,
+        "strip_controls": {
+          "suppressed_triples": 70,
+          "diagnostic_degenerate_triples": 0
+        },
+        "pc_matching_faces": 0
+      },
+      {
+        "path": "root.3",
+        "node_offset": 169977,
+        "material_offset": 170075,
+        "material": "$shader(carshiny)",
+        "texture_slots": [
+          "mlampnoalpha32-tga",
+          "perspex-tga"
+        ],
+        "contract": {
+          "authored_shader": "carshiny",
+          "interned_shader": "carshiny",
+          "mode": 3,
+          "authored_secondary": "perspex-tga",
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "rubber_substring_preserved": false,
+          "reflection_contract_known": true,
+          "environment_selector": 1,
+          "handler": "0x3ade58",
+          "fallback": null,
+          "evidence_grade": "CONFIRMED_BY_EXE"
+        },
+        "triangles": 74,
+        "strip_controls": {
+          "suppressed_triples": 20,
+          "diagnostic_degenerate_triples": 0
+        },
+        "pc_matching_faces": 38
+      }
+    ],
+    "ps2_binding": {
+      "path": "root.1",
+      "node_offset": 169360,
+      "material_offset": 169459,
+      "material": "$shader(carshiny)",
+      "texture_slots": [
+        "jumpfront128-tga",
+        "whitepaint-tga"
+      ],
+      "contract": {
+        "authored_shader": "carshiny",
+        "interned_shader": "carshiny",
+        "mode": 3,
+        "authored_secondary": "whitepaint-tga",
+        "effective_secondary": "CommonTextures\\rendertarget64x64",
+        "rubber_substring_preserved": false,
+        "reflection_contract_known": true,
+        "environment_selector": 1,
+        "handler": "0x3ade58",
+        "fallback": null,
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      },
+      "triangles": 154,
+      "strip_controls": {
+        "suppressed_triples": 88,
+        "diagnostic_degenerate_triples": 0
+      },
+      "pc_matching_faces": 128
+    },
+    "ps2_source_sha256": "049d2d2517b8feb949a422753570e34fd55d2d5a87f42d4c8221e0c5af45d304",
+    "pc_source_sha256": "a6ad8bcb7c71e572f065a5c3710308730c2c4f0cc8b32f25af279adc923a7baa",
+    "evidence_grade": "CONFIRMED_BY_BYTES",
+    "geometric_relation": "SOURCE_VERTEX_MATERIAL_JOIN_TOPOLOGY_DIFFERENT",
+    "runtime_identity": "NOT_PERFORMED",
+    "limitation": "All nondegenerate PC positions are owned by original root carshiny source strips; remaining PC faces are not proved equivalent PS2 visual primitives.",
+    "signature_owner_families": [
+      "Jump"
+    ],
+    "unique_vehicle_family": true
+  },
+  {
+    "vehicle": "Jump",
+    "draw_index": 2,
+    "record_path": "2",
+    "record_offset": 97671,
+    "vertex_base": 556,
+    "vertices": 182,
+    "index_start": 1212,
+    "index_count": 396,
+    "triangles": 132,
+    "nondegenerate_triangles": 132,
+    "diagnostic_degenerate_triangles": 0,
+    "texture_slots": [
+      "jumpside128-tga",
+      "whitepaint-tga",
+      "Null"
+    ],
+    "flags_hex": "00000101",
+    "geometry_sha256": "dddf4abf70d5d640b3097103401377aa5607dbe1e222f63a946fad712596d695",
+    "diffuse_alpha_values": [
+      255
+    ],
+    "bounds": {
+      "min": [
+        -0.9041995406150818,
+        0.10342380404472351,
+        -1.747972011566162
+      ],
+      "max": [
+        0.9041995406150818,
+        1.3476368188858032,
+        1.7324846982955933
+      ]
+    },
+    "matches": [
+      {
+        "path": "root.2",
+        "node_offset": 169669,
+        "material_offset": 169767,
+        "material": "$shader(carshiny)",
+        "texture_slots": [
+          "jumpside128-tga",
+          "whitepaint-tga"
+        ],
+        "contract": {
+          "authored_shader": "carshiny",
+          "interned_shader": "carshiny",
+          "mode": 3,
+          "authored_secondary": "whitepaint-tga",
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "rubber_substring_preserved": false,
+          "reflection_contract_known": true,
+          "environment_selector": 1,
+          "handler": "0x3ade58",
+          "fallback": null,
+          "evidence_grade": "CONFIRMED_BY_EXE"
+        },
+        "triangles": 132,
+        "strip_controls": {
+          "suppressed_triples": 70,
+          "diagnostic_degenerate_triples": 0
+        },
+        "pc_matching_faces": 128
+      }
+    ],
+    "pc_faces_matching_carshiny_union": 128,
+    "pc_faces_matching_root_carshiny_union": 128,
+    "root_surface_equivalent_faces": 0,
+    "root_material_vertex_agreement": {
+      "pc_unique_nondegenerate_positions": 102,
+      "matching_positions": 102,
+      "ps2_material_meshes": [
+        "root.1",
+        "root.2",
+        "root.4",
+        "root.15"
+      ],
+      "unmatched_position_bounds": null
+    },
+    "exact_unmatched_face_metrics": [
+      {
+        "area": 0.12303939943903057,
+        "coplanar_root_coverage": 0.0,
+        "source_face_ordinal": 52
+      },
+      {
+        "area": 0.0647378717804817,
+        "coplanar_root_coverage": 0.0,
+        "source_face_ordinal": 82
+      },
+      {
+        "area": 0.12303942074345861,
+        "coplanar_root_coverage": 0.0,
+        "source_face_ordinal": 92
+      },
+      {
+        "area": 0.06473786470192579,
+        "coplanar_root_coverage": 0.0,
+        "source_face_ordinal": 122
+      }
+    ],
+    "existing_registry": false,
+    "complete_root_matches": 0,
+    "complete_conditional_matches": 0,
+    "ps2_bindings": [
+      {
+        "path": "root.1",
+        "node_offset": 169360,
+        "material_offset": 169459,
+        "material": "$shader(carshiny)",
+        "texture_slots": [
+          "jumpfront128-tga",
+          "whitepaint-tga"
+        ],
+        "contract": {
+          "authored_shader": "carshiny",
+          "interned_shader": "carshiny",
+          "mode": 3,
+          "authored_secondary": "whitepaint-tga",
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "rubber_substring_preserved": false,
+          "reflection_contract_known": true,
+          "environment_selector": 1,
+          "handler": "0x3ade58",
+          "fallback": null,
+          "evidence_grade": "CONFIRMED_BY_EXE"
+        },
+        "triangles": 154,
+        "strip_controls": {
+          "suppressed_triples": 88,
+          "diagnostic_degenerate_triples": 0
+        },
+        "pc_matching_faces": 0
+      },
+      {
+        "path": "root.2",
+        "node_offset": 169669,
+        "material_offset": 169767,
+        "material": "$shader(carshiny)",
+        "texture_slots": [
+          "jumpside128-tga",
+          "whitepaint-tga"
+        ],
+        "contract": {
+          "authored_shader": "carshiny",
+          "interned_shader": "carshiny",
+          "mode": 3,
+          "authored_secondary": "whitepaint-tga",
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "rubber_substring_preserved": false,
+          "reflection_contract_known": true,
+          "environment_selector": 1,
+          "handler": "0x3ade58",
+          "fallback": null,
+          "evidence_grade": "CONFIRMED_BY_EXE"
+        },
+        "triangles": 132,
+        "strip_controls": {
+          "suppressed_triples": 70,
+          "diagnostic_degenerate_triples": 0
+        },
+        "pc_matching_faces": 128
+      },
+      {
+        "path": "root.4",
+        "node_offset": 170298,
+        "material_offset": 170390,
+        "material": "$shader(carshiny)",
+        "texture_slots": [
+          "jchrome16-tga",
+          "chrome-tga"
+        ],
+        "contract": {
+          "authored_shader": "carshiny",
+          "interned_shader": "carshiny",
+          "mode": 3,
+          "authored_secondary": "chrome-tga",
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "rubber_substring_preserved": false,
+          "reflection_contract_known": true,
+          "environment_selector": 1,
+          "handler": "0x3ade58",
+          "fallback": null,
+          "evidence_grade": "CONFIRMED_BY_EXE"
+        },
+        "triangles": 362,
+        "strip_controls": {
+          "suppressed_triples": 230,
+          "diagnostic_degenerate_triples": 0
+        },
+        "pc_matching_faces": 0
+      },
+      {
+        "path": "root.15",
+        "node_offset": 172476,
+        "material_offset": 172576,
+        "material": "$shader(carshiny)",
+        "texture_slots": [
+          "mastersticker202-tga",
+          "perspex-tga"
+        ],
+        "contract": {
+          "authored_shader": "carshiny",
+          "interned_shader": "carshiny",
+          "mode": 3,
+          "authored_secondary": "perspex-tga",
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "rubber_substring_preserved": false,
+          "reflection_contract_known": true,
+          "environment_selector": 1,
+          "handler": "0x3ade58",
+          "fallback": null,
+          "evidence_grade": "CONFIRMED_BY_EXE"
+        },
+        "triangles": 6,
+        "strip_controls": {
+          "suppressed_triples": 4,
+          "diagnostic_degenerate_triples": 0
+        },
+        "pc_matching_faces": 0
+      }
+    ],
+    "ps2_binding": {
+      "path": "root.2",
+      "node_offset": 169669,
+      "material_offset": 169767,
+      "material": "$shader(carshiny)",
+      "texture_slots": [
+        "jumpside128-tga",
+        "whitepaint-tga"
+      ],
+      "contract": {
+        "authored_shader": "carshiny",
+        "interned_shader": "carshiny",
+        "mode": 3,
+        "authored_secondary": "whitepaint-tga",
+        "effective_secondary": "CommonTextures\\rendertarget64x64",
+        "rubber_substring_preserved": false,
+        "reflection_contract_known": true,
+        "environment_selector": 1,
+        "handler": "0x3ade58",
+        "fallback": null,
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      },
+      "triangles": 132,
+      "strip_controls": {
+        "suppressed_triples": 70,
+        "diagnostic_degenerate_triples": 0
+      },
+      "pc_matching_faces": 128
+    },
+    "ps2_source_sha256": "049d2d2517b8feb949a422753570e34fd55d2d5a87f42d4c8221e0c5af45d304",
+    "pc_source_sha256": "a6ad8bcb7c71e572f065a5c3710308730c2c4f0cc8b32f25af279adc923a7baa",
+    "evidence_grade": "CONFIRMED_BY_BYTES",
+    "geometric_relation": "SOURCE_VERTEX_MATERIAL_JOIN_TOPOLOGY_DIFFERENT",
+    "runtime_identity": "NOT_PERFORMED",
+    "limitation": "All nondegenerate PC positions are owned by original root carshiny source strips; remaining PC faces are not proved equivalent PS2 visual primitives.",
+    "signature_owner_families": [
+      "Jump"
+    ],
+    "unique_vehicle_family": true
+  },
+  {
+    "vehicle": "Bruno",
+    "draw_index": 5,
+    "record_path": "5",
+    "record_offset": 100906,
+    "vertex_base": 995,
+    "vertices": 78,
+    "index_start": 2379,
+    "index_count": 174,
+    "triangles": 58,
+    "nondegenerate_triangles": 58,
+    "diagnostic_degenerate_triangles": 0,
+    "texture_slots": [
+      "blight64-tga",
+      "perspex-tga",
+      "Null"
+    ],
+    "flags_hex": "00000101",
+    "geometry_sha256": "ccd5abae1c3bb625af04bd52c2bb3e9a332d8116fe579b2b111703dff0a619d0",
+    "diffuse_alpha_values": [
+      255
+    ],
+    "bounds": {
+      "min": [
+        -1.0951634645462036,
+        0.33503738045692444,
+        -2.643555164337158
+      ],
+      "max": [
+        1.0949273109436035,
+        1.0553016662597656,
+        2.4024646282196045
+      ]
+    },
+    "matches": [
+      {
+        "path": "root.4",
+        "node_offset": 167414,
+        "material_offset": 167506,
+        "material": "$shader(carshiny)",
+        "texture_slots": [
+          "blight64-tga",
+          "perspex-tga"
+        ],
+        "contract": {
+          "authored_shader": "carshiny",
+          "interned_shader": "carshiny",
+          "mode": 3,
+          "authored_secondary": "perspex-tga",
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "rubber_substring_preserved": false,
+          "reflection_contract_known": true,
+          "environment_selector": 1,
+          "handler": "0x3ade58",
+          "fallback": null,
+          "evidence_grade": "CONFIRMED_BY_EXE"
+        },
+        "triangles": 88,
+        "strip_controls": {
+          "suppressed_triples": 20,
+          "diagnostic_degenerate_triples": 0
+        },
+        "pc_matching_faces": 50
+      }
+    ],
+    "pc_faces_matching_carshiny_union": 50,
+    "pc_faces_matching_root_carshiny_union": 50,
+    "root_surface_equivalent_faces": 0,
+    "root_material_vertex_agreement": {
+      "pc_unique_nondegenerate_positions": 54,
+      "matching_positions": 54,
+      "ps2_material_meshes": [
+        "root.4",
+        "root.5",
+        "root.7"
+      ],
+      "unmatched_position_bounds": null
+    },
+    "exact_unmatched_face_metrics": [
+      {
+        "area": 0.016155675820194365,
+        "coplanar_root_coverage": 0.0,
+        "source_face_ordinal": 24
+      },
+      {
+        "area": 0.003918884008926722,
+        "coplanar_root_coverage": 0.0,
+        "source_face_ordinal": 25
+      },
+      {
+        "area": 0.006070784083159395,
+        "coplanar_root_coverage": 0.0,
+        "source_face_ordinal": 26
+      },
+      {
+        "area": 0.003713495462457266,
+        "coplanar_root_coverage": 0.0,
+        "source_face_ordinal": 27
+      },
+      {
+        "area": 0.01615571467860708,
+        "coplanar_root_coverage": 0.0,
+        "source_face_ordinal": 28
+      },
+      {
+        "area": 0.003918890157071142,
+        "coplanar_root_coverage": 0.0,
+        "source_face_ordinal": 29
+      },
+      {
+        "area": 0.006070780891294721,
+        "coplanar_root_coverage": 0.0,
+        "source_face_ordinal": 30
+      },
+      {
+        "area": 0.0037134984593995305,
+        "coplanar_root_coverage": 0.0,
+        "source_face_ordinal": 31
+      }
+    ],
+    "existing_registry": false,
+    "complete_root_matches": 0,
+    "complete_conditional_matches": 0,
+    "ps2_bindings": [
+      {
+        "path": "root.4",
+        "node_offset": 167414,
+        "material_offset": 167506,
+        "material": "$shader(carshiny)",
+        "texture_slots": [
+          "blight64-tga",
+          "perspex-tga"
+        ],
+        "contract": {
+          "authored_shader": "carshiny",
+          "interned_shader": "carshiny",
+          "mode": 3,
+          "authored_secondary": "perspex-tga",
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "rubber_substring_preserved": false,
+          "reflection_contract_known": true,
+          "environment_selector": 1,
+          "handler": "0x3ade58",
+          "fallback": null,
+          "evidence_grade": "CONFIRMED_BY_EXE"
+        },
+        "triangles": 88,
+        "strip_controls": {
+          "suppressed_triples": 20,
+          "diagnostic_degenerate_triples": 0
+        },
+        "pc_matching_faces": 50
+      },
+      {
+        "path": "root.5",
+        "node_offset": 167651,
+        "material_offset": 167749,
+        "material": "$shader(carshiny)",
+        "texture_slots": [
+          "bfgoodrich1-tga",
+          "whitepaint-tga"
+        ],
+        "contract": {
+          "authored_shader": "carshiny",
+          "interned_shader": "carshiny",
+          "mode": 3,
+          "authored_secondary": "whitepaint-tga",
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "rubber_substring_preserved": false,
+          "reflection_contract_known": true,
+          "environment_selector": 1,
+          "handler": "0x3ade58",
+          "fallback": null,
+          "evidence_grade": "CONFIRMED_BY_EXE"
+        },
+        "triangles": 194,
+        "strip_controls": {
+          "suppressed_triples": 116,
+          "diagnostic_degenerate_triples": 0
+        },
+        "pc_matching_faces": 0
+      },
+      {
+        "path": "root.7",
+        "node_offset": 168152,
+        "material_offset": 168253,
+        "material": "$shader(carshiny)",
+        "texture_slots": [
+          "map128striped1-tga",
+          "whitepaint-tga"
+        ],
+        "contract": {
+          "authored_shader": "carshiny",
+          "interned_shader": "carshiny",
+          "mode": 3,
+          "authored_secondary": "whitepaint-tga",
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "rubber_substring_preserved": false,
+          "reflection_contract_known": true,
+          "environment_selector": 1,
+          "handler": "0x3ade58",
+          "fallback": null,
+          "evidence_grade": "CONFIRMED_BY_EXE"
+        },
+        "triangles": 200,
+        "strip_controls": {
+          "suppressed_triples": 98,
+          "diagnostic_degenerate_triples": 0
+        },
+        "pc_matching_faces": 0
+      }
+    ],
+    "ps2_binding": {
+      "path": "root.4",
+      "node_offset": 167414,
+      "material_offset": 167506,
+      "material": "$shader(carshiny)",
+      "texture_slots": [
+        "blight64-tga",
+        "perspex-tga"
+      ],
+      "contract": {
+        "authored_shader": "carshiny",
+        "interned_shader": "carshiny",
+        "mode": 3,
+        "authored_secondary": "perspex-tga",
+        "effective_secondary": "CommonTextures\\rendertarget64x64",
+        "rubber_substring_preserved": false,
+        "reflection_contract_known": true,
+        "environment_selector": 1,
+        "handler": "0x3ade58",
+        "fallback": null,
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      },
+      "triangles": 88,
+      "strip_controls": {
+        "suppressed_triples": 20,
+        "diagnostic_degenerate_triples": 0
+      },
+      "pc_matching_faces": 50
+    },
+    "ps2_source_sha256": "f53373134712dd8eb8cae26422d9a67e18489668639cdaa479023765692cf260",
+    "pc_source_sha256": "c7a456332e31c67647394467d2e0e467df048160ae634ab2b8d024eb9d61204f",
+    "evidence_grade": "CONFIRMED_BY_BYTES",
+    "geometric_relation": "SOURCE_VERTEX_MATERIAL_JOIN_TOPOLOGY_DIFFERENT",
+    "runtime_identity": "NOT_PERFORMED",
+    "limitation": "All nondegenerate PC positions are owned by original root carshiny source strips; remaining PC faces are not proved equivalent PS2 visual primitives.",
+    "signature_owner_families": [
+      "Bruno"
+    ],
+    "unique_vehicle_family": true
+  },
+  {
+    "vehicle": "IceCream",
+    "draw_index": 4,
+    "record_path": "4",
+    "record_offset": 164518,
+    "vertex_base": 438,
+    "vertices": 541,
+    "index_start": 660,
+    "index_count": 1506,
+    "triangles": 502,
+    "nondegenerate_triangles": 502,
+    "diagnostic_degenerate_triangles": 0,
+    "texture_slots": [
+      "iceside-tga",
+      "whitepaint-tga",
+      "Null"
+    ],
+    "flags_hex": "00000101",
+    "geometry_sha256": "d30592f39b6c05db2e2b8f38ad2ccab4abec4d15815f73987a520a01ecbc213e",
+    "diffuse_alpha_values": [
+      255
+    ],
+    "bounds": {
+      "min": [
+        -1.0698593854904175,
+        0.03899943083524704,
+        -2.3910419940948486
+      ],
+      "max": [
+        1.0706069469451904,
+        1.9762461185455322,
+        1.9576218128204346
+      ]
+    },
+    "matches": [
+      {
+        "path": "root.4",
+        "node_offset": 241721,
+        "material_offset": 241815,
+        "material": "$shader(carshiny)",
+        "texture_slots": [
+          "iceside-tga",
+          "whitepaint-tga"
+        ],
+        "contract": {
+          "authored_shader": "carshiny",
+          "interned_shader": "carshiny",
+          "mode": 3,
+          "authored_secondary": "whitepaint-tga",
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "rubber_substring_preserved": false,
+          "reflection_contract_known": true,
+          "environment_selector": 1,
+          "handler": "0x3ade58",
+          "fallback": null,
+          "evidence_grade": "CONFIRMED_BY_EXE"
+        },
+        "triangles": 487,
+        "strip_controls": {
+          "suppressed_triples": 692,
+          "diagnostic_degenerate_triples": 355
+        },
+        "pc_matching_faces": 487
+      }
+    ],
+    "pc_faces_matching_carshiny_union": 487,
+    "pc_faces_matching_root_carshiny_union": 487,
+    "root_surface_equivalent_faces": 0,
+    "root_material_vertex_agreement": {
+      "pc_unique_nondegenerate_positions": 318,
+      "matching_positions": 318,
+      "ps2_material_meshes": [
+        "root.4",
+        "root.6",
+        "root.8",
+        "root.9",
+        "root.10",
+        "root.11",
+        "root.12",
+        "root.13",
+        "root.16"
+      ],
+      "unmatched_position_bounds": null
+    },
+    "exact_unmatched_face_metrics": [
+      {
+        "area": 0.003427980576991069,
+        "coplanar_root_coverage": 0.0,
+        "source_face_ordinal": 272
+      },
+      {
+        "area": 0.004054465301982119,
+        "coplanar_root_coverage": 0.0,
+        "source_face_ordinal": 273
+      },
+      {
+        "area": 0.004181125911407129,
+        "coplanar_root_coverage": 0.0,
+        "source_face_ordinal": 274
+      },
+      {
+        "area": 0.004031952871454183,
+        "coplanar_root_coverage": 0.0,
+        "source_face_ordinal": 275
+      },
+      {
+        "area": 0.003488235263656563,
+        "coplanar_root_coverage": 0.0,
+        "source_face_ordinal": 276
+      },
+      {
+        "area": 0.0030490095330319793,
+        "coplanar_root_coverage": 0.0,
+        "source_face_ordinal": 277
+      },
+      {
+        "area": 0.00520476698246189,
+        "coplanar_root_coverage": 0.0,
+        "source_face_ordinal": 278
+      },
+      {
+        "area": 0.0034279645189943687,
+        "coplanar_root_coverage": 0.0,
+        "source_face_ordinal": 279
+      },
+      {
+        "area": 0.004054466682483474,
+        "coplanar_root_coverage": 0.0,
+        "source_face_ordinal": 280
+      },
+      {
+        "area": 0.004181134655399511,
+        "coplanar_root_coverage": 0.0,
+        "source_face_ordinal": 281
+      },
+      {
+        "area": 0.00403193634282297,
+        "coplanar_root_coverage": 0.0,
+        "source_face_ordinal": 282
+      },
+      {
+        "area": 0.0034882551173387906,
+        "coplanar_root_coverage": 0.0,
+        "source_face_ordinal": 283
+      },
+      {
+        "area": 0.0030489969254915332,
+        "coplanar_root_coverage": 0.0,
+        "source_face_ordinal": 284
+      },
+      {
+        "area": 0.005204759035568728,
+        "coplanar_root_coverage": 0.0,
+        "source_face_ordinal": 285
+      },
+      {
+        "area": 0.0029824075056652023,
+        "coplanar_root_coverage": 0.0,
+        "source_face_ordinal": 286
+      }
+    ],
+    "existing_registry": false,
+    "complete_root_matches": 0,
+    "complete_conditional_matches": 0,
+    "ps2_bindings": [
+      {
+        "path": "root.4",
+        "node_offset": 241721,
+        "material_offset": 241815,
+        "material": "$shader(carshiny)",
+        "texture_slots": [
+          "iceside-tga",
+          "whitepaint-tga"
+        ],
+        "contract": {
+          "authored_shader": "carshiny",
+          "interned_shader": "carshiny",
+          "mode": 3,
+          "authored_secondary": "whitepaint-tga",
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "rubber_substring_preserved": false,
+          "reflection_contract_known": true,
+          "environment_selector": 1,
+          "handler": "0x3ade58",
+          "fallback": null,
+          "evidence_grade": "CONFIRMED_BY_EXE"
+        },
+        "triangles": 487,
+        "strip_controls": {
+          "suppressed_triples": 692,
+          "diagnostic_degenerate_triples": 355
+        },
+        "pc_matching_faces": 487
+      },
+      {
+        "path": "root.6",
+        "node_offset": 242824,
+        "material_offset": 242920,
+        "material": "$shader(carshiny)",
+        "texture_slots": [
+          "wheelice-tga",
+          "silverpaint-tga"
+        ],
+        "contract": {
+          "authored_shader": "carshiny",
+          "interned_shader": "carshiny",
+          "mode": 3,
+          "authored_secondary": "silverpaint-tga",
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "rubber_substring_preserved": false,
+          "reflection_contract_known": true,
+          "environment_selector": 1,
+          "handler": "0x3ade58",
+          "fallback": null,
+          "evidence_grade": "CONFIRMED_BY_EXE"
+        },
+        "triangles": 134,
+        "strip_controls": {
+          "suppressed_triples": 44,
+          "diagnostic_degenerate_triples": 0
+        },
+        "pc_matching_faces": 0
+      },
+      {
+        "path": "root.8",
+        "node_offset": 243368,
+        "material_offset": 243465,
+        "material": "$shader(carshiny)",
+        "texture_slots": [
+          "backlightjeep-tga",
+          "perspex-tga"
+        ],
+        "contract": {
+          "authored_shader": "carshiny",
+          "interned_shader": "carshiny",
+          "mode": 3,
+          "authored_secondary": "perspex-tga",
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "rubber_substring_preserved": false,
+          "reflection_contract_known": true,
+          "environment_selector": 1,
+          "handler": "0x3ade58",
+          "fallback": null,
+          "evidence_grade": "CONFIRMED_BY_EXE"
+        },
+        "triangles": 20,
+        "strip_controls": {
+          "suppressed_triples": 6,
+          "diagnostic_degenerate_triples": 0
+        },
+        "pc_matching_faces": 0
+      },
+      {
+        "path": "root.9",
+        "node_offset": 243532,
+        "material_offset": 243633,
+        "material": "$shader(carshiny)",
+        "texture_slots": [
+          "mastersticker_ice-tga",
+          "perspex-tga"
+        ],
+        "contract": {
+          "authored_shader": "carshiny",
+          "interned_shader": "carshiny",
+          "mode": 3,
+          "authored_secondary": "perspex-tga",
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "rubber_substring_preserved": false,
+          "reflection_contract_known": true,
+          "environment_selector": 1,
+          "handler": "0x3ade58",
+          "fallback": null,
+          "evidence_grade": "CONFIRMED_BY_EXE"
+        },
+        "triangles": 11,
+        "strip_controls": {
+          "suppressed_triples": 10,
+          "diagnostic_degenerate_triples": 0
+        },
+        "pc_matching_faces": 0
+      },
+      {
+        "path": "root.10",
+        "node_offset": 243687,
+        "material_offset": 243781,
+        "material": "$shader(carshiny)",
+        "texture_slots": [
+          "writing-tga",
+          "whitepaint-tga"
+        ],
+        "contract": {
+          "authored_shader": "carshiny",
+          "interned_shader": "carshiny",
+          "mode": 3,
+          "authored_secondary": "whitepaint-tga",
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "rubber_substring_preserved": false,
+          "reflection_contract_known": true,
+          "environment_selector": 1,
+          "handler": "0x3ade58",
+          "fallback": null,
+          "evidence_grade": "CONFIRMED_BY_EXE"
+        },
+        "triangles": 27,
+        "strip_controls": {
+          "suppressed_triples": 8,
+          "diagnostic_degenerate_triples": 0
+        },
+        "pc_matching_faces": 0
+      },
+      {
+        "path": "root.11",
+        "node_offset": 243861,
+        "material_offset": 243958,
+        "material": "$shader(carshiny)",
+        "texture_slots": [
+          "icegrille-tga",
+          "silverpaint-tga"
+        ],
+        "contract": {
+          "authored_shader": "carshiny",
+          "interned_shader": "carshiny",
+          "mode": 3,
+          "authored_secondary": "silverpaint-tga",
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "rubber_substring_preserved": false,
+          "reflection_contract_known": true,
+          "environment_selector": 1,
+          "handler": "0x3ade58",
+          "fallback": null,
+          "evidence_grade": "CONFIRMED_BY_EXE"
+        },
+        "triangles": 4,
+        "strip_controls": {
+          "suppressed_triples": 2,
+          "diagnostic_degenerate_triples": 0
+        },
+        "pc_matching_faces": 0
+      },
+      {
+        "path": "root.12",
+        "node_offset": 244012,
+        "material_offset": 244108,
+        "material": "$shader(carshiny)",
+        "texture_slots": [
+          "conesmall-tga",
+          "whitepaint-tga"
+        ],
+        "contract": {
+          "authored_shader": "carshiny",
+          "interned_shader": "carshiny",
+          "mode": 3,
+          "authored_secondary": "whitepaint-tga",
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "rubber_substring_preserved": false,
+          "reflection_contract_known": true,
+          "environment_selector": 1,
+          "handler": "0x3ade58",
+          "fallback": null,
+          "evidence_grade": "CONFIRMED_BY_EXE"
+        },
+        "triangles": 24,
+        "strip_controls": {
+          "suppressed_triples": 8,
+          "diagnostic_degenerate_triples": 0
+        },
+        "pc_matching_faces": 0
+      },
+      {
+        "path": "root.13",
+        "node_offset": 244201,
+        "material_offset": 244289,
+        "material": "$shader(carshiny)",
+        "texture_slots": [
+          "icewin-tga",
+          "glass-tga"
+        ],
+        "contract": {
+          "authored_shader": "carshiny",
+          "interned_shader": "carshiny",
+          "mode": 3,
+          "authored_secondary": "glass-tga",
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "rubber_substring_preserved": false,
+          "reflection_contract_known": true,
+          "environment_selector": 1,
+          "handler": "0x3ade58",
+          "fallback": null,
+          "evidence_grade": "CONFIRMED_BY_EXE"
+        },
+        "triangles": 2,
+        "strip_controls": {
+          "suppressed_triples": 0,
+          "diagnostic_degenerate_triples": 0
+        },
+        "pc_matching_faces": 0
+      },
+      {
+        "path": "root.16",
+        "node_offset": 244980,
+        "material_offset": 245070,
+        "material": "$shader(carshiny)",
+        "texture_slots": [
+          "mlamp32-tga",
+          "chrome-tga"
+        ],
+        "contract": {
+          "authored_shader": "carshiny",
+          "interned_shader": "carshiny",
+          "mode": 3,
+          "authored_secondary": "chrome-tga",
+          "effective_secondary": "CommonTextures\\rendertarget64x64",
+          "rubber_substring_preserved": false,
+          "reflection_contract_known": true,
+          "environment_selector": 1,
+          "handler": "0x3ade58",
+          "fallback": null,
+          "evidence_grade": "CONFIRMED_BY_EXE"
+        },
+        "triangles": 20,
+        "strip_controls": {
+          "suppressed_triples": 4,
+          "diagnostic_degenerate_triples": 0
+        },
+        "pc_matching_faces": 0
+      }
+    ],
+    "ps2_binding": {
+      "path": "root.4",
+      "node_offset": 241721,
+      "material_offset": 241815,
+      "material": "$shader(carshiny)",
+      "texture_slots": [
+        "iceside-tga",
+        "whitepaint-tga"
+      ],
+      "contract": {
+        "authored_shader": "carshiny",
+        "interned_shader": "carshiny",
+        "mode": 3,
+        "authored_secondary": "whitepaint-tga",
+        "effective_secondary": "CommonTextures\\rendertarget64x64",
+        "rubber_substring_preserved": false,
+        "reflection_contract_known": true,
+        "environment_selector": 1,
+        "handler": "0x3ade58",
+        "fallback": null,
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      },
+      "triangles": 487,
+      "strip_controls": {
+        "suppressed_triples": 692,
+        "diagnostic_degenerate_triples": 355
+      },
+      "pc_matching_faces": 487
+    },
+    "ps2_source_sha256": "c6baac227f362471cbc28ecf2fb21e0d25ddb42757accd8546a3ad8799d27463",
+    "pc_source_sha256": "90a99fd7d7b18e3e33b1bc005df58b6f7222349bb45e5b41a725ec6f230a9d9a",
+    "evidence_grade": "CONFIRMED_BY_BYTES",
+    "geometric_relation": "SOURCE_VERTEX_MATERIAL_JOIN_TOPOLOGY_DIFFERENT",
+    "runtime_identity": "NOT_PERFORMED",
+    "limitation": "All nondegenerate PC positions are owned by original root carshiny source strips; remaining PC faces are not proved equivalent PS2 visual primitives.",
+    "signature_owner_families": [
+      "IceCream"
+    ],
+    "unique_vehicle_family": true
+  }
+]

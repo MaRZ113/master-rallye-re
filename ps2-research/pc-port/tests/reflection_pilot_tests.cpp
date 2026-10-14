@@ -109,6 +109,27 @@ ReflectionSnapshot valid(DrawSnapshot& g) {
 
 void identity() {
     DrawSnapshot g;auto s=valid(g);
+    {
+        DrawClassification c;c.fvf=0x152;
+        c.reasons=VEHICLE_SEMANTICS_CAPABILITY|RACE_PROJECTION|SHARED_OWNER|KNOWN_GEOMETRY|
+            RIGID_WORLD|NORMAL_FVF|ENV_STAGE|CL_OPAQUE;
+        CHECK(c.transform.object==ObjectClass::Unknown);
+        CHECK(std::strcmp(reflection_exclusion(c),"eligible")!=0);
+        CHECK(source_material_context(c,true)); // Original UFO has no four-wheel proof.
+        CHECK(!source_material_context(c,false));
+        for(auto bit:{VEHICLE_SEMANTICS_CAPABILITY,RACE_PROJECTION,SHARED_OWNER,KNOWN_GEOMETRY,RIGID_WORLD,NORMAL_FVF,ENV_STAGE,CL_OPAQUE}){
+            auto bad=c;bad.reasons&=~bit;CHECK(!source_material_context(bad,true));
+        }
+        auto wrong=c;wrong.fvf=0x142;CHECK(!source_material_context(wrong,true));
+        wrong=c;wrong.alpha_blended=true;CHECK(!source_material_context(wrong,true));
+        DrawSnapshot registered;auto independent=valid(registered);independent.vehicle_body_verified=false;
+        independent.source_material_context_verified=true;
+        CHECK(reflection_identity_for_hash(independent,kTataBonnetGeometrySha,0).accepted);
+        CHECK(!reflection_identity_for_hash(independent,"unknown geometry same texture",0).accepted);
+        independent.live_race_verified=false;CHECK(!reflection_identity_for_hash(independent,kTataBonnetGeometrySha,0).accepted);
+        independent.live_race_verified=true;registered.vertex_revision=0;
+        CHECK(!reflection_identity_for_hash(independent,kTataBonnetGeometrySha,0).accepted);
+    }
     {DrawSnapshot kia;auto k=valid(kia);kia.primitive_count=206;kia.vertex_count=234;
      CHECK(!reflection_identity_for_hash(k,kKiaBonnetGeometrySha,0).accepted);
      const auto admitted=reflection_identity_for_hash(k,kKiaBonnetGeometrySha,0,true);
@@ -124,7 +145,13 @@ void identity() {
         DrawSnapshot full;auto state=valid(full);full.primitive_count=m.triangles;full.vertex_count=m.vertices;
         CHECK(reflection_layout(m.triangles,m.vertices,true));
         const auto accepted=reflection_identity_for_hash(state,m.geometry_sha,0,true);
+        state.requested_mode=3;
+        CHECK(reflection_identity_for_hash(state,m.geometry_sha,0,true).accepted==!m.mode4_only);
+        state.requested_mode=4;
         CHECK(accepted.accepted&&!std::strcmp(accepted.vehicle,m.vehicle));
+        state.vehicle_body_verified=false;state.source_material_context_verified=true;
+        CHECK(reflection_identity_for_hash(state,m.geometry_sha,0,true).accepted==affected_source_material_vehicle(m.vehicle));
+        state.source_material_context_verified=false;
         state.vehicle_body_verified=false;CHECK(!reflection_identity_for_hash(state,m.geometry_sha,0,true).accepted);
         state.vehicle_body_verified=true;full.vertex_revision=0;CHECK(!reflection_identity_for_hash(state,m.geometry_sha,0,true).accepted);
     }

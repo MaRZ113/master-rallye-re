@@ -1,8 +1,10 @@
 #pragma once
 #include "sdk.hpp"
 #include "reflection_capture.hpp"
+#include "vehicle_classifier.hpp"
 #include <array>
 #include <cstdint>
+#include <cstring>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -42,8 +44,9 @@ struct ReflectionMaterial {
     const char* vehicle;
     const char* geometry_sha;
     uint32_t triangles, vertices;
+    bool mode4_only = false;
 };
-inline constexpr std::array<ReflectionMaterial,174> kReflectionMaterials = {{
+inline constexpr std::array<ReflectionMaterial,212> kReflectionMaterials = {{
     {"Tata",kTataBonnetGeometrySha,55,48},
     {"KiaSportage",kKiaBonnetGeometrySha,206,234},
     {"Astero","997e58e39b009bd36d815ceba962e1d8c1cb10607b386be66713055cd2924876",452,546},
@@ -218,6 +221,44 @@ inline constexpr std::array<ReflectionMaterial,174> kReflectionMaterials = {{
     {"Xtrail","6f2174a662b45cf1cfd3c18ed12ba50f0ef2fe6b8ce942133f61eae64545d335",50,50},
     {"Xtrail","99ca3a68595600ef18b4a46f8428653493bd8085db4959379ae94cfe5375be78",166,201},
     {"Xtrail","505314b112e7fd37b0e352938d6145fe5ed55a2395c8f6e844bc62dbb5c7bef0",110,145},
+    {"LandCruiser","fbd7a3fb69d5a778c3e3506401ed3ceb2f91f7c0126af99f012efa5332f99aad",197,305,true},
+    {"LandCruiser","e36c4b151978b100ed8494b0013892f114c6651f182b9fbbb2b253c2795a6122",86,118,true},
+    {"LandCruiser","e131a178d430924f9d193e30e9a89f16db988eeeb2e8cc72fa63bab44f364f55",104,136,true},
+    {"LandCruiser","4822fe76235abab799fffc263871e66e53ea499f37e8442ae2afaee379216d2f",72,72,true},
+    {"LandCruiser","4f6da9207adf58905693a984168285dad2314dc21a8a7533d9fa32d13212b0bc",24,26,true},
+    {"Tata","f3233d093545d6a9cbc9636e7dcbe5900f5277727db9028a69004a53c14518db",8,12,true},
+    {"Tata","3aff543febda265789c47673dd2dac4ad0ab691cd109f2159db6db666dedae94",42,48,true},
+    {"Tata","61b6354e0f8ffd477001b95fa87ce06d128b8413362269df4c4835894dc52ae5",262,281,true},
+    {"Tata","244165d9ecdbd6c49b8d299f11175e287aa55cd5ea92e029f50b8843f2428347",112,127,true},
+    {"Tata","fdca91b5e6ee20b5fb4c738416ea83bfb48121e36a260184f7be70bfba87a54f",20,20,true},
+    {"Tata","dfb676b537c04cbddf49836cea6c7184426d63ab8c4b599f1bba951d693abcc1",10,14,true},
+    {"ChevyBlazer","2d65b7c9206d4fd31d41a44bd1f047cc3cc409a78084071252d8c8dad52e9c9e",199,243,true},
+    {"Xtrail","e580100f2670ba7bd87589727e194026f3f28d9b54b42eda325d51e47aa136b3",14,20,true},
+    {"Navara","decf6b9263395df2db727cd1d30f9812892e2cd750ef678047714278d4fbf127",194,342,true},
+    {"Navara","7f6073a090e034cee8d5abf6f9b9dc1a4033ab8c801ead3d5a0a7e4768dd22ac",34,30,true},
+    {"Navara","b595418684619b32cb4289f5cce347d7c46f60589f0e788e67db60ee218fa80d",48,50,true},
+    {"Jump","ef7e117a3dc505ee1319cc429226c54a2674a88d612884c2975f1a2f18afee97",72,72,true},
+    {"Patrol","72a9e0d1170e159a7b30cb7c65622a75049eb407f9eec38829e327a78d747ff0",102,106,true},
+    {"Bruno","6a1ea21a23e6ef57159a822a5fde1bff180bbc478fa9c5bdb91afbf0899df69a",144,144,true},
+    {"SeatBuggy","3b3c62216d984a65653f59ec4b78d90286c4cafa4bd0735ec417e096eb737478",115,152,true},
+    {"SeatBuggy","daeb055704500f5c436ac3286b24d752fbfdcb03850d0a3335c31d603b7faa96",4,8,true},
+    {"Kamaz","c3b494158a375ace347e22345c70dcd7ee15db7a78a6d684310e388277fb39d5",224,239,true},
+    {"Kamaz","fd9d68e789577cb49e4629122ab0f28ee27e82e4dc475fb7b9b604a3e990c487",206,201,true},
+    {"Kamaz","074998424ef76b4eb17863e94a77cb6d60f52a48ae27d438c4d318d55e343599",36,42,true},
+    {"IceCream","fb22a95cc72744c2d6061a916f343f12dbd87c2d3fded85a3814165462dd2f0d",20,16,true},
+    {"IceCream","04c30105f97285e76300c42e97bbcffa47646d813fc1c48d573b76c5bf013308",2,4,true},
+    {"Jump","00250001dcff864458edf8ec7146ad51f3cfc45d477a6956d0ec6efd6259386a",168,187,true},
+    {"Jump","dddf4abf70d5d640b3097103401377aa5607dbe1e222f63a946fad712596d695",132,182,true},
+    {"Bruno","ccd5abae1c3bb625af04bd52c2bb3e9a332d8116fe579b2b111703dff0a619d0",58,78,true},
+    {"IceCream","d30592f39b6c05db2e2b8f38ad2ccab4abec4d15815f73987a520a01ecbc213e",502,541,true},
+    {"Forester","532ec2bbf56b139d03b7c5bb0bf819dcbe02043312ca18d179d35643708f1158",400,636,true},
+    {"Forester","873d4a3e05199eb98cad3ac92c1cedf6f492eb1168c1954d03fd974f2195523a",34,44,true},
+    {"Forester","f03b809d450de80c9e01b1b2e67eb643a6fcf355377a55089eedd62060fee065",16,22,true},
+    {"Navara","177351f3fc28f71360f8718ab2d14784760ce36588438daa4d2ce0e6aa369f87",677,913,true},
+    {"Navara","0bd3d124535e1125357a604a531e0e3d8345801598d3c19547a78cb0da9eb0f0",104,144,true},
+    {"Patrol","3db6567e2ab11ab354b8a36da9fd8541b1818c73cef52385f748327d6a45e690",153,208,true},
+    {"Patrol","fcb3dc67a4a37ff3c7c1915befe2ffb03c6d6342d9f79f486f812373c9c12387",250,364,true},
+    {"Kamaz","a7a0061036bddce3c7eb748fe30aea0bdb9dfd544a6ab8ac02720649dc3c5034",318,264,true},
 }};
 constexpr bool reflection_layout(uint32_t triangles,uint32_t vertices,bool expanded=true) noexcept {
     for(size_t i=0;i<(expanded?kReflectionMaterials.size():1);++i)
@@ -233,8 +274,12 @@ inline constexpr std::array<D3DTEXTURESTAGESTATETYPE, 8> kReflectionStageStates 
     D3DTSS_ALPHAARG1, D3DTSS_ALPHAARG2, D3DTSS_TEXCOORDINDEX, D3DTSS_TEXTURETRANSFORMFLAGS};
 
 struct ReflectionSnapshot {
+    uint32_t requested_mode = 4; // Explicitly set by native snapshot; synthetic fixtures use Mode4.
     const DrawSnapshot* geometry = nullptr; // Immutable; valid through this synchronous classification.
     bool live_race_verified = false, vehicle_body_verified = false;
+    // Independent source-material authority. Requires exact current geometry
+    // digest in the explicit registry; does not assert a private physics owner.
+    bool source_material_context_verified = false;
     bool stock_coordinate_policy = false, native_states_complete = false;
     bool native_matches_effective = false, texture_matrix_known = false;
     uint64_t race_generation = 0, owner_lifetime = 0;
@@ -247,10 +292,22 @@ struct ReflectionSnapshot {
 
 struct ReflectionIdentity {
     bool accepted = false;
+    bool source_material_authority = false;
     const char* reason = "not_classified";
     const char* vehicle = "UNKNOWN";
     std::string geometry_sha256;
 };
+constexpr bool affected_source_material_vehicle(std::string_view vehicle) noexcept {
+    for(auto name:{"LandCruiser","Tata","ChevyBlazer","Xtrail","Navara","Forester","Jump",
+                   "Patrol","Bruno","SeatBuggy","Kamaz","IceCream","Ufo"})
+        if(vehicle==name)return true;
+    return false;
+}
+// This proves submission context only. Exact current source digest and material
+// registry ownership are enforced separately by reflection_identity_for_hash.
+inline bool source_material_context(const DrawClassification& draw,bool world_matches) noexcept {
+    return world_matches && std::strcmp(reflection_material_exclusion(draw),"eligible") == 0;
+}
 std::string reflection_geometry_sha(const DrawSnapshot& geometry);
 ReflectionIdentity reflection_identity_for_hash(const ReflectionSnapshot&, std::string_view, uint64_t reset_generation, bool expanded=false);
 ReflectionIdentity classify_reflection(const ReflectionSnapshot&, uint64_t reset_generation) noexcept;

@@ -61,8 +61,10 @@ ReflectionIdentity reflection_identity_for_hash(const ReflectionSnapshot& s, std
     else if (g->primitive_type != D3DPT_TRIANGLELIST || !reflection_layout(g->primitive_count,g->vertex_count,expanded) ||
              g->fvf != 0x152 || g->stride != 36) result.reason = "wrong_geometry_layout";
     else if (!material) result.reason = "tata_bonnet_geometry_mismatch";
+    else if (material->mode4_only && s.requested_mode!=4) result.reason="coverage_fix_mode4_only";
     else if (!s.live_race_verified || !s.race_generation || !s.owner_lifetime) result.reason = "live_race_owner_unverified";
-    else if (!s.vehicle_body_verified) result.reason = "vehicle_body_unverified";
+    else if (!s.vehicle_body_verified && !(s.source_material_context_verified &&
+        affected_source_material_vehicle(material->vehicle))) result.reason = "vehicle_body_unverified";
     else if (!s.stock_coordinate_policy) result.reason = "conflicting_viewdependent2d_policy";
     else if (!s.native_states_complete || !s.native_matches_effective || !s.texture_matrix_known)
         result.reason = "native_state_unknown_or_diverged";
@@ -75,6 +77,7 @@ ReflectionIdentity reflection_identity_for_hash(const ReflectionSnapshot& s, std
               D3DTOP_MODULATE,D3DTA_CURRENT,D3DTA_TEXTURE,D3DTSS_TCI_CAMERASPACENORMAL,D3DTTFF_COUNT2})
         result.reason = "native_material_stage_mismatch";
     else { result.accepted = true; result.vehicle=material->vehicle;
+        result.source_material_authority=!s.vehicle_body_verified;
         result.reason = material==&kReflectionMaterials[0]?"exact_tata_bonnet_native_opaque_environment_material":
             "exact_verified_body_native_opaque_environment_material"; }
     return result;

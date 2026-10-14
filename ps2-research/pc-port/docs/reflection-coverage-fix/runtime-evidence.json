@@ -1,0 +1,633 @@
+{
+  "schema_version": 1,
+  "user_observation": "13 listed families have missing/partial body reflections",
+  "evidence_boundary": "No post-fix game run performed",
+  "sessions": [
+    {
+      "file": "session-20261014-003933-38672.jsonl",
+      "sha256": "4aeefaf45b51ec1b6f200e23f5e1db75e5cec0c3ba66cc4347f525950c883e5e",
+      "proxy_sha256": "d8ca8584afe7285af7a087419b9af1c578e67aa8c7396345caa50e9db77bbdf4",
+      "reflection_witnesses": [
+        {
+          "vehicle": "Navara",
+          "frame": 328,
+          "geometry_sha256": "b52ce1370d543e68d4da15d3f44ada77a8e95857e16c8fdd4202484ae7363376",
+          "override_applied": false,
+          "identity_reason": "live_race_owner_unverified",
+          "capture_reason": "not_attempted",
+          "native_draw_hresult": 0,
+          "restore_hresult": 2147483658
+        },
+        {
+          "vehicle": "Navara",
+          "frame": 332,
+          "geometry_sha256": "b52ce1370d543e68d4da15d3f44ada77a8e95857e16c8fdd4202484ae7363376",
+          "override_applied": true,
+          "identity_reason": "exact_verified_body_native_opaque_environment_material",
+          "capture_reason": "mixed_source_ready",
+          "native_draw_hresult": 0,
+          "restore_hresult": 0
+        },
+        {
+          "vehicle": "Patrol",
+          "frame": 5321,
+          "geometry_sha256": "85ee3393562608d432ec944ef4ccfdca346e006ca0f90e42e7703583d7008d9a",
+          "override_applied": false,
+          "identity_reason": "live_race_owner_unverified",
+          "capture_reason": "mixed_source_ready",
+          "native_draw_hresult": 0,
+          "restore_hresult": 2147483658
+        },
+        {
+          "vehicle": "NewRav",
+          "frame": 5321,
+          "geometry_sha256": "3dff4f2f95c6be235b64e74e7611e4674cb1a69583e7c38b07bac11070741cd9",
+          "override_applied": false,
+          "identity_reason": "live_race_owner_unverified",
+          "capture_reason": "mixed_source_ready",
+          "native_draw_hresult": 0,
+          "restore_hresult": 2147483658
+        },
+        {
+          "vehicle": "RMonster",
+          "frame": 5321,
+          "geometry_sha256": "e85d1757705c65b6bd257441f3ee8be9ce1606d846d9d1694a6e36a82465778e",
+          "override_applied": false,
+          "identity_reason": "live_race_owner_unverified",
+          "capture_reason": "mixed_source_ready",
+          "native_draw_hresult": 0,
+          "restore_hresult": 2147483658
+        },
+        {
+          "vehicle": "Jump",
+          "frame": 5321,
+          "geometry_sha256": "ff02375fe7ed45eba07da4e876b361970ddb8497ed5bde35d8b19952d954d598",
+          "override_applied": false,
+          "identity_reason": "live_race_owner_unverified",
+          "capture_reason": "mixed_source_ready",
+          "native_draw_hresult": 0,
+          "restore_hresult": 2147483658
+        },
+        {
+          "vehicle": "KiaSportage",
+          "frame": 5321,
+          "geometry_sha256": "84355a30f61c8989d8bdf219daf186ce4bfadc3e45d0c16b7ede0e7c50f6e0a8",
+          "override_applied": false,
+          "identity_reason": "live_race_owner_unverified",
+          "capture_reason": "mixed_source_ready",
+          "native_draw_hresult": 0,
+          "restore_hresult": 2147483658
+        },
+        {
+          "vehicle": "Patrol",
+          "frame": 5327,
+          "geometry_sha256": "85ee3393562608d432ec944ef4ccfdca346e006ca0f90e42e7703583d7008d9a",
+          "override_applied": true,
+          "identity_reason": "exact_verified_body_native_opaque_environment_material",
+          "capture_reason": "mixed_source_ready",
+          "native_draw_hresult": 0,
+          "restore_hresult": 0
+        },
+        {
+          "vehicle": "NewRav",
+          "frame": 5327,
+          "geometry_sha256": "3dff4f2f95c6be235b64e74e7611e4674cb1a69583e7c38b07bac11070741cd9",
+          "override_applied": true,
+          "identity_reason": "exact_verified_body_native_opaque_environment_material",
+          "capture_reason": "mixed_source_ready",
+          "native_draw_hresult": 0,
+          "restore_hresult": 0
+        },
+        {
+          "vehicle": "RMonster",
+          "frame": 5327,
+          "geometry_sha256": "e85d1757705c65b6bd257441f3ee8be9ce1606d846d9d1694a6e36a82465778e",
+          "override_applied": true,
+          "identity_reason": "exact_verified_body_native_opaque_environment_material",
+          "capture_reason": "mixed_source_ready",
+          "native_draw_hresult": 0,
+          "restore_hresult": 0
+        },
+        {
+          "vehicle": "Jump",
+          "frame": 5327,
+          "geometry_sha256": "ff02375fe7ed45eba07da4e876b361970ddb8497ed5bde35d8b19952d954d598",
+          "override_applied": true,
+          "identity_reason": "exact_verified_body_native_opaque_environment_material",
+          "capture_reason": "mixed_source_ready",
+          "native_draw_hresult": 0,
+          "restore_hresult": 0
+        },
+        {
+          "vehicle": "KiaSportage",
+          "frame": 5327,
+          "geometry_sha256": "84355a30f61c8989d8bdf219daf186ce4bfadc3e45d0c16b7ede0e7c50f6e0a8",
+          "override_applied": true,
+          "identity_reason": "exact_verified_body_native_opaque_environment_material",
+          "capture_reason": "mixed_source_ready",
+          "native_draw_hresult": 0,
+          "restore_hresult": 0
+        }
+      ],
+      "unparsed_records": 178,
+      "parse_policy": "Invalid existing JSON records are explicitly counted, never reconstructed"
+    },
+    {
+      "file": "session-20261014-005221-19500.jsonl",
+      "sha256": "63277c0a557f3368be8e91655d41485c3839b519bbc4e1443ebea9bb9b33b1d1",
+      "proxy_sha256": "d8ca8584afe7285af7a087419b9af1c578e67aa8c7396345caa50e9db77bbdf4",
+      "reflection_witnesses": [
+        {
+          "vehicle": "Ufo",
+          "frame": 316,
+          "geometry_sha256": "5c7f6dad2540a62d93e4d0c6bb3861218f52954317ca0626b347340081175e70",
+          "override_applied": false,
+          "identity_reason": "live_race_owner_unverified",
+          "capture_reason": "not_attempted",
+          "native_draw_hresult": 0,
+          "restore_hresult": 2147483658
+        }
+      ],
+      "unparsed_records": 24,
+      "parse_policy": "Invalid existing JSON records are explicitly counted, never reconstructed"
+    }
+  ],
+  "frames": [
+    {
+      "file": "frame-19500-d1-00001379.jsonl",
+      "sha256": "aa7fec101ce6115f98c47425422242485863b06aa9361064156832b71f00be67",
+      "reason_counts": [
+        {
+          "reason": "not_evaluated",
+          "fvf": 322,
+          "count": 479
+        },
+        {
+          "reason": "static_transform_without_vehicle_proof",
+          "fvf": 322,
+          "count": 4
+        },
+        {
+          "reason": "static_transform_without_vehicle_proof",
+          "fvf": 338,
+          "count": 5
+        },
+        {
+          "reason": "unmapped_or_unknown_geometry",
+          "fvf": 258,
+          "count": 2
+        },
+        {
+          "reason": "unproven_object",
+          "fvf": 322,
+          "count": 89
+        },
+        {
+          "reason": "unproven_object",
+          "fvf": 338,
+          "count": 6
+        },
+        {
+          "reason": "unproven_object",
+          "fvf": 578,
+          "count": 120
+        },
+        {
+          "reason": "unproven_object",
+          "fvf": 594,
+          "count": 7
+        }
+      ],
+      "ufo_layout_candidates": [
+        {
+          "draw_index": 228,
+          "arguments": [
+            4,
+            896,
+            283,
+            2376,
+            187,
+            0,
+            0,
+            0
+          ],
+          "object_class": "CANDIDATE",
+          "reflection_reason": "static_transform_without_vehicle_proof",
+          "classification_reasons": [
+            "vehicle_semantics_capability",
+            "race_projection",
+            "shared_world_owner",
+            "known_resource_generations",
+            "rigid_world",
+            "normal_fvf",
+            "stock_env_stage",
+            "opaque"
+          ]
+        },
+        {
+          "draw_index": 229,
+          "arguments": [
+            4,
+            1179,
+            15,
+            2937,
+            13,
+            0,
+            0,
+            0
+          ],
+          "object_class": "CANDIDATE",
+          "reflection_reason": "static_transform_without_vehicle_proof",
+          "classification_reasons": [
+            "vehicle_semantics_capability",
+            "race_projection",
+            "shared_world_owner",
+            "known_resource_generations",
+            "rigid_world",
+            "normal_fvf",
+            "stock_env_stage",
+            "opaque"
+          ]
+        }
+      ],
+      "identity_limit": "F10 draw layout/count alone does not establish exact geometry; extension checks current CPU mirror digest"
+    },
+    {
+      "file": "frame-38672-d1-00010470.jsonl",
+      "sha256": "44e752d309eeba8d56598c90509dd736254ec9492a6e95a5d8718c6606c1ca80",
+      "reason_counts": [
+        {
+          "reason": "alpha_or_no_depth_write",
+          "fvf": 338,
+          "count": 32
+        },
+        {
+          "reason": "excluded_fvf",
+          "fvf": 322,
+          "count": 63
+        },
+        {
+          "reason": "not_evaluated",
+          "fvf": 322,
+          "count": 489
+        },
+        {
+          "reason": "stock_mode",
+          "fvf": 338,
+          "count": 97
+        },
+        {
+          "reason": "unmapped_or_unknown_geometry",
+          "fvf": 258,
+          "count": 2
+        },
+        {
+          "reason": "unproven_object",
+          "fvf": 322,
+          "count": 91
+        },
+        {
+          "reason": "unproven_object",
+          "fvf": 338,
+          "count": 6
+        },
+        {
+          "reason": "unproven_object",
+          "fvf": 578,
+          "count": 136
+        },
+        {
+          "reason": "unproven_object",
+          "fvf": 594,
+          "count": 7
+        },
+        {
+          "reason": "vehicle_wheel_stock",
+          "fvf": 274,
+          "count": 132
+        }
+      ],
+      "ufo_layout_candidates": [],
+      "identity_limit": "F10 draw layout/count alone does not establish exact geometry; extension checks current CPU mirror digest"
+    },
+    {
+      "file": "frame-38672-d1-00040459.jsonl",
+      "sha256": "b2ab99944a203ae9e897b99cf9c512b29cd7c1465a60f091b8edc074ff577842",
+      "reason_counts": [
+        {
+          "reason": "alpha_or_no_depth_write",
+          "fvf": 338,
+          "count": 29
+        },
+        {
+          "reason": "excluded_fvf",
+          "fvf": 322,
+          "count": 56
+        },
+        {
+          "reason": "not_evaluated",
+          "fvf": 322,
+          "count": 491
+        },
+        {
+          "reason": "stock_mode",
+          "fvf": 338,
+          "count": 119
+        },
+        {
+          "reason": "unmapped_or_unknown_geometry",
+          "fvf": 258,
+          "count": 2
+        },
+        {
+          "reason": "unproven_object",
+          "fvf": 322,
+          "count": 91
+        },
+        {
+          "reason": "unproven_object",
+          "fvf": 338,
+          "count": 6
+        },
+        {
+          "reason": "unproven_object",
+          "fvf": 578,
+          "count": 128
+        },
+        {
+          "reason": "unproven_object",
+          "fvf": 594,
+          "count": 7
+        },
+        {
+          "reason": "vehicle_wheel_stock",
+          "fvf": 274,
+          "count": 132
+        }
+      ],
+      "ufo_layout_candidates": [],
+      "identity_limit": "F10 draw layout/count alone does not establish exact geometry; extension checks current CPU mirror digest"
+    },
+    {
+      "file": "frame-38672-d1-00058359.jsonl",
+      "sha256": "27f9f011fc6c07dab940b88053dac73dc099f3b034c1107d77b5f49540d35383",
+      "reason_counts": [
+        {
+          "reason": "alpha_or_no_depth_write",
+          "fvf": 338,
+          "count": 18
+        },
+        {
+          "reason": "excluded_fvf",
+          "fvf": 322,
+          "count": 68
+        },
+        {
+          "reason": "not_evaluated",
+          "fvf": 322,
+          "count": 493
+        },
+        {
+          "reason": "static_transform_without_vehicle_proof",
+          "fvf": 274,
+          "count": 20
+        },
+        {
+          "reason": "static_transform_without_vehicle_proof",
+          "fvf": 322,
+          "count": 6
+        },
+        {
+          "reason": "static_transform_without_vehicle_proof",
+          "fvf": 338,
+          "count": 17
+        },
+        {
+          "reason": "static_transform_without_vehicle_proof",
+          "fvf": 66,
+          "count": 1
+        },
+        {
+          "reason": "stock_mode",
+          "fvf": 338,
+          "count": 82
+        },
+        {
+          "reason": "unmapped_or_unknown_geometry",
+          "fvf": 258,
+          "count": 2
+        },
+        {
+          "reason": "unproven_object",
+          "fvf": 322,
+          "count": 91
+        },
+        {
+          "reason": "unproven_object",
+          "fvf": 338,
+          "count": 6
+        },
+        {
+          "reason": "unproven_object",
+          "fvf": 578,
+          "count": 128
+        },
+        {
+          "reason": "unproven_object",
+          "fvf": 594,
+          "count": 7
+        },
+        {
+          "reason": "vehicle_wheel_stock",
+          "fvf": 274,
+          "count": 140
+        }
+      ],
+      "ufo_layout_candidates": [],
+      "identity_limit": "F10 draw layout/count alone does not establish exact geometry; extension checks current CPU mirror digest"
+    },
+    {
+      "file": "frame-38672-d1-00073634.jsonl",
+      "sha256": "bda192e8d90f4bd83f656ab5188a35f82798e6f4e9f61e84b23560eb010e537a",
+      "reason_counts": [
+        {
+          "reason": "alpha_or_no_depth_write",
+          "fvf": 338,
+          "count": 3
+        },
+        {
+          "reason": "excluded_fvf",
+          "fvf": 322,
+          "count": 13
+        },
+        {
+          "reason": "not_evaluated",
+          "fvf": 322,
+          "count": 1087
+        },
+        {
+          "reason": "stock_mode",
+          "fvf": 338,
+          "count": 12
+        },
+        {
+          "reason": "unmapped_or_unknown_geometry",
+          "fvf": 258,
+          "count": 2
+        },
+        {
+          "reason": "unproven_object",
+          "fvf": 322,
+          "count": 89
+        },
+        {
+          "reason": "unproven_object",
+          "fvf": 338,
+          "count": 6
+        },
+        {
+          "reason": "unproven_object",
+          "fvf": 578,
+          "count": 120
+        },
+        {
+          "reason": "unproven_object",
+          "fvf": 594,
+          "count": 7
+        },
+        {
+          "reason": "vehicle_wheel_stock",
+          "fvf": 274,
+          "count": 20
+        }
+      ],
+      "ufo_layout_candidates": [],
+      "identity_limit": "F10 draw layout/count alone does not establish exact geometry; extension checks current CPU mirror digest"
+    },
+    {
+      "file": "frame-38672-d1-00087261.jsonl",
+      "sha256": "42321ab3eb7be7d8a02e8b3ed20a58b915bc3c9bc67890c395c880650adcc297",
+      "reason_counts": [
+        {
+          "reason": "alpha_or_no_depth_write",
+          "fvf": 338,
+          "count": 12
+        },
+        {
+          "reason": "excluded_fvf",
+          "fvf": 322,
+          "count": 28
+        },
+        {
+          "reason": "not_evaluated",
+          "fvf": 322,
+          "count": 338
+        },
+        {
+          "reason": "static_transform_without_vehicle_proof",
+          "fvf": 322,
+          "count": 26
+        },
+        {
+          "reason": "static_transform_without_vehicle_proof",
+          "fvf": 578,
+          "count": 35
+        },
+        {
+          "reason": "stock_mode",
+          "fvf": 338,
+          "count": 60
+        },
+        {
+          "reason": "unmapped_or_unknown_geometry",
+          "fvf": 258,
+          "count": 2
+        },
+        {
+          "reason": "unproven_object",
+          "fvf": 274,
+          "count": 10
+        },
+        {
+          "reason": "unproven_object",
+          "fvf": 322,
+          "count": 7
+        },
+        {
+          "reason": "unproven_object",
+          "fvf": 338,
+          "count": 4
+        },
+        {
+          "reason": "vehicle_wheel_stock",
+          "fvf": 274,
+          "count": 60
+        }
+      ],
+      "ufo_layout_candidates": [],
+      "identity_limit": "F10 draw layout/count alone does not establish exact geometry; extension checks current CPU mirror digest"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "landcruiser.jpg",
+      "sha256": "2d0089ac32750730a89ebd305f1a62a252eecfb18b66a2d35734c5273dd1ae42",
+      "evidence": "USER_RUNTIME_OBSERVATION_AND_SCREENSHOT_CORRELATION"
+    },
+    {
+      "file": "tata.jpg",
+      "sha256": "a4bf7f1d9687dbf404f5e4b2c77d45ecb90b531c140d69d1744520e1ed3ca8a7",
+      "evidence": "USER_RUNTIME_OBSERVATION_AND_SCREENSHOT_CORRELATION"
+    },
+    {
+      "file": "chevyblazer.jpg",
+      "sha256": "80201bc191eb79ff6cef2302b1f3a31da1b62904483e2268d11b24d9b64fd9e3",
+      "evidence": "USER_RUNTIME_OBSERVATION_AND_SCREENSHOT_CORRELATION"
+    },
+    {
+      "file": "xtrail.jpg",
+      "sha256": "18bfe217959e1abd767cff10bdfdd2a9a9eecf42c83eb76a2ea6009f0c2949d5",
+      "evidence": "USER_RUNTIME_OBSERVATION_AND_SCREENSHOT_CORRELATION"
+    },
+    {
+      "file": "navara.jpg",
+      "sha256": "465195063224a2f9408943caf9a8ceb0123d189a2e19acb2983982a744d753df",
+      "evidence": "USER_RUNTIME_OBSERVATION_AND_SCREENSHOT_CORRELATION"
+    },
+    {
+      "file": "jump.jpg",
+      "sha256": "d6d514ddafbbbd7f87d637776764d4e9589d2b902ecede5c7f4e93a8cc7497d0",
+      "evidence": "USER_RUNTIME_OBSERVATION_AND_SCREENSHOT_CORRELATION"
+    },
+    {
+      "file": "patrol.jpg",
+      "sha256": "2c7886c27d838ad072a706b3f224cba8f8b2cdb9aae75d764502408fa2dba7ca",
+      "evidence": "USER_RUNTIME_OBSERVATION_AND_SCREENSHOT_CORRELATION"
+    },
+    {
+      "file": "bruno.jpg",
+      "sha256": "ec0ebcf906a1f13795ebd7254378ba1b5c11c2d7a91e0e401725fd46548583a5",
+      "evidence": "USER_RUNTIME_OBSERVATION_AND_SCREENSHOT_CORRELATION"
+    },
+    {
+      "file": "seatbuggy.jpg",
+      "sha256": "ba69e7c627bc4a5a0db1ae282d94bf5b5828fa577209445afbb5e4e711a9fb7c",
+      "evidence": "USER_RUNTIME_OBSERVATION_AND_SCREENSHOT_CORRELATION"
+    },
+    {
+      "file": "kamaz.jpg",
+      "sha256": "2331e2b18f992006675549b9b546e5aae5b29bd09e0b33e92089e265b7174cc8",
+      "evidence": "USER_RUNTIME_OBSERVATION_AND_SCREENSHOT_CORRELATION"
+    },
+    {
+      "file": "icecream.jpg",
+      "sha256": "2238e0e8f34974dbf5bba278ad19481bcb41835da91efcdacbefdd595250127e",
+      "evidence": "USER_RUNTIME_OBSERVATION_AND_SCREENSHOT_CORRELATION"
+    },
+    {
+      "file": "ufo.jpg",
+      "sha256": "e494323073e7de92895adb6b2bf2e53655f63ff167939665794a437bb73d191a",
+      "evidence": "USER_RUNTIME_OBSERVATION_AND_SCREENSHOT_CORRELATION"
+    }
+  ]
+}

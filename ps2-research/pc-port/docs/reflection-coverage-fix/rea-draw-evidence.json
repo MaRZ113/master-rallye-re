@@ -1,0 +1,83 @@
+{
+  "evidence_id": "ev_7f90593da74de2160494f635c4cdff74d94dc48776ad0dffc7b976e5599ddac2",
+  "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "provider": {
+    "id": "ghidra",
+    "name": "Ghidra",
+    "version": "12.1.4"
+  },
+  "function": {
+    "address": "0x576970",
+    "name": "FUN_00576970",
+    "classification": {
+      "external": false,
+      "thunk": false,
+      "thunk_target": null,
+      "provenance": "ghidra-function-manager"
+    },
+    "body": {
+      "available": true,
+      "provenance": "ghidra-function-body-address-set",
+      "ranges": [
+        {
+          "start": "0x576970",
+          "end": "0x577087"
+        }
+      ],
+      "total_bytes": 1816,
+      "span_bytes": 1816,
+      "non_contiguous": false,
+      "contains_entry": true
+    },
+    "signature": "undefined FUN_00576970()",
+    "locals": [
+      {
+        "description": "undefined4 local_14 @ Stack[-0x14]:4",
+        "provenance": "ghidra-function-database"
+      }
+    ]
+  },
+  "submission_instructions": [
+    "0x577042: MOV ECX, ESI",
+    "0x577044: CALL 0x00570ae0",
+    "0x577049: MOV EDI, dword ptr [ESP + 0x28]",
+    "0x57704d: MOV EAX, 0x55555556",
+    "0x577052: MOV ESI, dword ptr [ESP + 0x24]",
+    "0x577056: MOV ECX, dword ptr [EDI + 0xc]",
+    "0x577059: IMUL ECX",
+    "0x57705b: MOV ECX, dword ptr [EDI + 0x8]",
+    "0x57705e: MOV EAX, EDX",
+    "0x577060: SHR EAX, 0x1f",
+    "0x577063: MOV EBX, dword ptr [ESI]",
+    "0x577065: ADD EDX, EAX",
+    "0x577067: MOV EAX, dword ptr [ESP + 0x14]",
+    "0x57706b: PUSH EDX",
+    "0x57706c: PUSH ECX",
+    "0x577070: MOV EAX, dword ptr [EAX + 0x8]",
+    "0x577073: PUSH EDX",
+    "0x577075: PUSH 0x4",
+    "0x577077: PUSH ESI",
+    "0x577078: CALL dword ptr [EBX + 0x11c]",
+    "0x57707e: POP EDI",
+    "0x577080: POP EBP",
+    "0x577081: POP EBX",
+    "0x577082: ADD ESP, 0x1c",
+    "0x577085: RET 0x8"
+  ],
+  "limitations": [
+    "Unresolved computed or indirect flows without target addresses are not represented as reference edges.",
+    "Thunk and external classifications are Ghidra FunctionManager observations; they do not resolve targetless calls.",
+    "Pseudocode and assembly are Ghidra-specific representations, not original source or Hopper-equivalent text.",
+    "Synthetic Ghidra entry-point references without actionable memory sources are omitted."
+  ],
+  "original_byte_windows": [
+    {
+      "rva": "0x177049",
+      "va": "0x577049",
+      "file_offset": "0x177049",
+      "size": 53,
+      "original_bytes_hex": "8b7c2428b8565555558b7424248b4f0cf7e98b4f088bc2c1e81f8b1e03d08b44241452518b500c8b400852506a0456ff931c010000",
+      "mapping": "Original PE section file-backed VA mapping"
+    }
+  ]
+}
