@@ -1,6 +1,7 @@
 #include "reflection_pilot.hpp"
 #include "ps2_port_extension.hpp"
 #include "wrappers.hpp"
+#include "buffer_reset_policy.hpp"
 #include <algorithm>
 #include <cmath>
 #include <cstring>
@@ -384,10 +385,12 @@ void enabled_reset() {
     missing.before_reset();missing.after_reset(missing_native,true,false);
     CHECK(!missing.blocked()&&!missing.active());
     CHECK(WritePrivateProfileStringW(L"PS2Port",L"ReflectionMode",L"3",ini));
+    CHECK(WritePrivateProfileStringW(L"PS2Port",L"ReflectionDiagnostics",L"1",ini));
     {
         Native control_native;ReflectionPilot control(true,ini);
         CHECK(control.mode_value()==3&&control.active()&&control.mirroring_required());
         CHECK(control.initialize(control_native)&&control_native.creates==0&&control.static_texture()==nullptr);
+        CHECK(control.claim_diagnostic(true,"Tata"));CHECK(!control.claim_diagnostic(true,"Tata"));
         ReflectionIdentity target;target.accepted=true;
         const auto request=control.request(target);
         CHECK(request.requested&&request.override_mask==1&&request.texture==nullptr);
@@ -395,8 +398,10 @@ void enabled_reset() {
         control.before_reset();control.after_reset(control_native,true,false);
         CHECK(!control.active()&&control.mirroring_required()&&!control.blocked());
         control.after_reset(control_native,false,true);CHECK(!control.active());
+        CHECK(!control.claim_diagnostic(true,"Tata")); // Echo cannot rearm or resume a failed Reset.
         control.after_reset(control_native,true,true);
         CHECK(control.active()&&control_native.creates==0);
+        CHECK(control.claim_diagnostic(true,"Tata"));CHECK(!control.claim_diagnostic(true,"Tata"));
         control.shutdown();CHECK(!control.active()&&!control.mirroring_required());
     }
     {
@@ -442,6 +447,21 @@ void enabled_reset() {
     }
     CHECK(DeleteFileW(ini));
 }
+void managed_reset_retention() {
+    BufferMirror m;m.pool=D3DPOOL_MANAGED;m.available=true;m.generation=8;m.revision=3;
+    m.data={1,2,3,4};m.initialized={{0,4}};
+    CHECK(retain_managed_mirror_on_reset(true,true,m,8,8));
+    CHECK(m.data==std::vector<BYTE>({1,2,3,4})&&m.revision==3&&m.initialized.size()==1);
+    CHECK(!retain_managed_mirror_on_reset(false,true,m,8,8)); // Stock unchanged.
+    CHECK(!retain_managed_mirror_on_reset(true,false,m,8,8)); // Raw-escape is not Reset.
+    CHECK(!retain_managed_mirror_on_reset(true,true,m,9,8));
+    CHECK(!retain_managed_mirror_on_reset(true,true,m,8,9));
+    CHECK(!retain_managed_mirror_on_reset(true,true,m,8,0));
+    m.pool=D3DPOOL_DEFAULT;CHECK(!retain_managed_mirror_on_reset(true,true,m,8,8));
+    m.pool=D3DPOOL_SYSTEMMEM;CHECK(retain_managed_mirror_on_reset(true,true,m,8,8));
+    m.pool=D3DPOOL_MANAGED;m.poisoned=true;CHECK(!retain_managed_mirror_on_reset(true,true,m,8,8));
+    m.poisoned=false;m.available=false;CHECK(!retain_managed_mirror_on_reset(true,true,m,8,8));
+}
 void stock_wrapper_draw() {
     MockRootBase parent_native;Root8 root(&parent_native);Native native;
     Device8 device(&native,&root);
@@ -458,7 +478,7 @@ void stock_wrapper_draw() {
 }
 }
 int main() {
-    identity();transaction();resource_and_reset();config_and_conversion();diagnostic_color_policy();enabled_reset();stock_wrapper_draw();
+    identity();transaction();resource_and_reset();config_and_conversion();diagnostic_color_policy();enabled_reset();managed_reset_retention();stock_wrapper_draw();
     if(failures)return 1;
     std::cout<<"PS2 reflection identity, stock, native transactions, texture lifetime and reset: PASS\n";
     return 0;

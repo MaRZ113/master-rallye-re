@@ -1,0 +1,104 @@
+{
+  "schema_version": 3,
+  "baseline_head": "0bddf7c7bc5e95831f98714ff6231da05ab073ea",
+  "current_head": "22c0ccad5c849f949e7275e9b4afb09da6e75b93",
+  "renderer_tree": "e33386bcf682db6983380c499e4928726c758fe0",
+  "branch": "master",
+  "patch_sha256": {
+    "0001-renderer-integration.patch": "8f8fde41a57f7e6fab20fd108c70fbab176a372f4074d04de3ff982340ab4651",
+    "0002-interface-generator.patch": "ef102121a0b6418ce8fbb0c4477f37194bb30c69ef0f6905a37c75093502fb3f"
+  },
+  "ps2_source_sha256": {
+    "renderer/buffer_reset_policy.hpp": "33ce1252bfbe20e7cc4fadc419f426a6a6dc832ae2bc62ad1e35224f62e578d0",
+    "renderer/course_object_transaction.hpp": "82162dd917bb6a77d19bcb0142b4a75599fb7572ae321102eda62ad06d578ad1",
+    "renderer/course_objects.cpp": "87a021d403d845e56d69c67a7e577c3b4ce59efbfdc4f5b72d815ca984583de8",
+    "renderer/course_objects.hpp": "6592a6ec74b872d69b1bebe9e375b1531fcce14e04f59af65668ef6197221b90",
+    "renderer/course_objects_native_integration.hpp": "300febafa5080b2fc028069628c1ed00850628052f83cc6f1e9ad0a5663bf8cc",
+    "renderer/grass_native_integration.hpp": "0b16864aafa0c1d2ebe3f3f6498dae23619c9aeaf864d010a37fa27a06b4a6b0",
+    "renderer/grass_pilot.cpp": "c072c0b1cabc40f9701acc2677f6819d2c5ab37a94711c1f527056569cbd3347",
+    "renderer/grass_pilot.hpp": "72fa74874a4e87535856b3c9baf999524787897a102ecabe853d3b801e277fb7",
+    "renderer/ps2_port_extension.cpp": "3da89ea957ab4b3fb0c9ae67c7373f3238887f14a79340e03b24a16de57d248a",
+    "renderer/ps2_port_extension.hpp": "6558c22d7a632ccd8cf7d6ebb377ee2510320d64d8b3f4a84bebc2be03228c37",
+    "renderer/reflection_capture.cpp": "fe282e1f958ff8419851a4f688907620870432f566c962faaecb23b4c8f79f9d",
+    "renderer/reflection_capture.hpp": "1029798cae2b192ff2e43bf0fa48d51c492afaded08c21372c4ff8331a76af39",
+    "renderer/reflection_native_integration.hpp": "585694ad2f898b611aa8b2557c103dfa2618418bf498cf4ac70304b8d81f5076",
+    "renderer/reflection_pilot.cpp": "27b96e123e91a5317500300dbeb256481f5f4d80ea51d89fef5879e32414da4b",
+    "renderer/reflection_pilot.hpp": "db80a37f8f613dec833197dd54605ad28d645a04b353c4d16b4025ae015ce98e",
+    "tests/course_object_transaction_tests.cpp": "a94d154601c47b4e8387cda0becb7666c923534df1c7a905b77a731a92bedd0e",
+    "tests/course_objects_tests.cpp": "4ac9d8c1804c116a992998f507fc253910d8e715b58784d6cdea1f0ce6e01c55",
+    "tests/grass_pilot_tests.cpp": "bb57cc038f8bf00b86fd696f2d1fcfa5aa74ab135406b365c64f5c53533e2282",
+    "tests/ps2_port_extension_tests.cpp": "9928cba1afb23ac0fdfa660bd5ab0e1fd66d91c754d860dbf4172069dc114035",
+    "tests/reflection_capture_tests.cpp": "b3cf9d70085ae56cd645f319ac03343e2d4a1783c34db6b9195c24fa8526c02e",
+    "tests/reflection_pilot_tests.cpp": "47d611022d7b36216c32659159824715cefcc2600710e83f2c8b9992da671c43",
+    "tests/test_build_roots.py": "e7945c8497737921231b77f28beee4e5e57381ffd0f8717378c5d9ebb07f23ab",
+    "tests/test_course_objects_asset.py": "94f25a2f91a0b0a46da49ce179a6b7eade615a0fc866930f84091b9a283f0ee5",
+    "tests/test_course_objects_integration.py": "3667503a89f17cce53bfa5092678635e7bd539b7e6025c986bf066ff9377bfdb",
+    "tests/test_coverage_followup.py": "1fd23f5a7005253a19e56f241ee48f6bbaf87d3649e48deffabba41953740838",
+    "tests/test_full_coverage.py": "f02fd1ce02ae9d62183885932fb0105b8c1310bace499509d445d7777db6b774",
+    "tests/test_grass_asset.py": "17ef83dcdf7f756ff4f07f02e895633be4e4675c52fd35d3fa6181357a46e7b8",
+    "tests/test_grass_integration.py": "4c6834757bb9793703d0a0848dc026066720adb1e22391d19fbc9c86cbc28116",
+    "tests/test_integration_contract.py": "be29841058af8f53c99d31d7dbea790a6fe193be53e2df8ca6e8495f235a6dc0",
+    "tests/test_menu_grass_fix.py": "706565173883eef862ee3b6493b22f16c2791991d398a697ca07c5a7d07d7831",
+    "tests/test_reflection11_integration.py": "7402568a80be9c1bfcdb18150873bb4b03e51bd1bad75f9100534e97f374baec",
+    "tests/test_reflection_contract.py": "bd68869cfce5b3f20d38fe26513785ca26305c9ee8d4861074b8433ebcb70158",
+    "tests/test_reflection_coverage_fix.py": "0053f2db999bbaf18d77f6cfec5e264bc47a076f567388a1d1f5e80b15c16b02",
+    "tests/test_renderer_tree_lock.py": "5247979323e91ea6dda3fde2e4e14c21f9c2a0d120d69281e40c3ab55cdc0d00",
+    "tests/test_rigid_lifecycle_probe.py": "7f2dc45637f1a27f1897032298128553d6f9acac0e4158e22b72b6206b52ade2",
+    "tests/test_shrub_asset.py": "c8222094dcc021263981baab78c072cc9c7fd050f651cc345856a1746342c57d",
+    "tests/test_shrub_integration.py": "06c65e29affd3c528b65a45f508a1328b1c0530693ffcde09b605f79258cef8d",
+    "tests/test_tumbleweed_contract.py": "d94e0af6f9d6e9e5b9de47e421e675d8c16c3f7a080315d819e4e1a15ef5a928"
+  },
+  "generator": {
+    "baseline": {
+      "deterministic": true,
+      "outputs": {
+        "data/interface-map.json": "1e966cceaabfaf8a2897359180e7319dbfe6afeef16510f3058a2456e4991369",
+        "include/wrappers.hpp": "8698cfd78bed05daa1b66ea32ecf0d1fe81577046524240ede3eac7a8b79b13c",
+        "include/method_names.hpp": "c1a9e331bffb14365807b1f94f700a7acf839de91af27038b64b4374d1e6ab84",
+        "src/forwarders.cpp": "a84c3ef792b24783cad1cc119e8feb9886f5ef511bfebf316382e8781cec0539",
+        "tests/mock_interfaces.hpp": "9062667d68b59dc580e102505bcd4c2da8e66b93e11d6ff210b046c0952062f9"
+      },
+      "initial_files_rewritten": []
+    },
+    "ps2-enabled": {
+      "deterministic": true,
+      "outputs": {
+        "data/interface-map.json": "1e966cceaabfaf8a2897359180e7319dbfe6afeef16510f3058a2456e4991369",
+        "include/wrappers.hpp": "85ef4dc9413ec9590253f9dc65c30582dccb95e8a9405846b8ae17e32404c7e5",
+        "include/method_names.hpp": "c1a9e331bffb14365807b1f94f700a7acf839de91af27038b64b4374d1e6ab84",
+        "src/forwarders.cpp": "bad041adc77a28ae6948b1f74bcde5b9271280f5a830756c3d86d4b331bcd631",
+        "tests/mock_interfaces.hpp": "9062667d68b59dc580e102505bcd4c2da8e66b93e11d6ff210b046c0952062f9"
+      },
+      "initial_files_rewritten": []
+    }
+  },
+  "builds": {
+    "baseline": {
+      "dll": "ps2-research/pc-port/dist/current/baseline/d3d8.dll",
+      "dll_sha256": "011dd9a94155d216d0c0dde28e0af97f5b72226aae5be97016f2d767ebdf7138",
+      "ctest": "PASS",
+      "proxy_verification": "PASS",
+      "build": "PASS",
+      "build_dll": "ps2-research/pc-port/.build/baseline/Release/d3d8.dll"
+    },
+    "ps2-enabled": {
+      "dll": "ps2-research/pc-port/dist/current/ps2-enabled/d3d8.dll",
+      "dll_sha256": "0013ed2de827c959e6745e73212f4e0e17118dba424287ddfb825a1cf891c848",
+      "ctest": "PASS",
+      "proxy_verification": "PASS",
+      "build": "PASS",
+      "build_dll": "ps2-research/pc-port/.build/ps2-enabled/Release/d3d8.dll"
+    }
+  },
+  "staging": {
+    "baseline_source": "ps2-research/pc-port/.staging/baseline/modernization/renderer",
+    "ps2_source": "ps2-research/pc-port/.staging/ps2-enabled/modernization/renderer",
+    "ps2_port_root": "ps2-research/pc-port/.staging/ps2-enabled/ps2-research/pc-port",
+    "patches_applied_in_order": [
+      "0001-renderer-integration.patch",
+      "0002-interface-generator.patch"
+    ]
+  },
+  "ps2_port_tests": "PASS",
+  "dll_distinct": true
+}

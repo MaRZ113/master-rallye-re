@@ -680,12 +680,13 @@
   auto args=pack(1,D3DTSS_TEXCOORDINDEX,trace.reflection_restore_pending.value);
 --- a/modernization/renderer/src/wrappers.cpp
 +++ b/modernization/renderer/src/wrappers.cpp
-@@ -6,14 +6,29 @@
+@@ -6,14 +6,30 @@
  #include "free_camera.hpp"
  #include "physics_probe.hpp"
  #include "broker_null_guard.hpp"
 +#ifdef MRR_ENABLE_PS2_PORT
 +#include "ps2_port_extension.hpp"
++#include "buffer_reset_policy.hpp"
 +#include "reflection_native_integration.hpp"
 +#include "grass_native_integration.hpp"
 +#include "course_objects_native_integration.hpp"
@@ -711,7 +712,7 @@
     try{s.write("{\"type\":\"unknown_query_interface\",\"interface\":\"root\",\"raw_escape_possible\":true,\"foliage_provenance_disabled\":true}");}catch(...){}
    }
   }return hr;
-@@ -40,6 +55,31 @@
+@@ -40,6 +56,31 @@
   return hr;
  }
  Device8::Device8(IDirect3DDevice8* p,Root8* parent,std::unique_ptr<QualityPipeline> policy) noexcept:quality(std::move(policy)),real_(p),parent_(parent){parent_->AddRef();try{auto& s=session();D3DCAPS8 caps{};HRESULT hr=D3DERR_NOTAVAILABLE;if(s.visual_config.anisotropy)hr=real_->GetDeviceCaps(&caps);visuals.configure(s.visual_config,s.target,SUCCEEDED(hr)?&caps:nullptr,hr);
@@ -743,7 +744,7 @@
   visuals.effective.fov=s.visual_config.fov&&s.compatibility.fov.supported();visuals.effective.fov_reason=s.compatibility.fov.reason;
   visuals.effective.reflection_mode=s.compatibility.vehicle.supported()?s.visual_config.reflection_mode:"Stock";visuals.effective.reflection_reason=s.compatibility.vehicle.reason;
   if(!quality){quality=std::make_unique<QualityPipeline>();quality->configure(s.visual_config,s.compatibility.ui.supported(),0,D3DDEVTYPE_HAL,nullptr);}
-@@ -47,6 +87,10 @@
+@@ -47,6 +88,10 @@
   const auto flight_config=parse_free_camera_config(s.visual_config.raw_fields);
   const bool hud_feature_requested=s.target&&s.visual_config.version_ok&&s.visual_config.hud_toggle_valid&&
    (s.visual_config.hud_toggle_enabled||s.visual_config.hud_hidden_at_startup);
@@ -754,7 +755,7 @@
   auto physics_settings=forward_free_camera_teleport_settings(
    read_physics_probe_settings(s.config_path),flight_config);
   physics_probe_attached=attach_physics_probe(s.target,physics_settings);
-@@ -55,7 +99,7 @@
+@@ -55,7 +100,7 @@
   // Reuse the already verified DrawTextPacket consumer hook for exact-retail
   // F10 ownership observation. It is pass-through unless PreserveMargins is
   // independently selected; no additional game patch site is introduced.
@@ -763,7 +764,7 @@
      !ui_margins.install(s.compatibility.margins.supported()||s.target,true)&&preserve_margins_requested){
    quality->config.interface_mode="Stock";quality->config.interface_reason=ui_margins.reason;
   }
-@@ -70,10 +114,40 @@
+@@ -70,10 +115,40 @@
   if(!s.foliage_provenance_available.load(std::memory_order_relaxed))visuals.effective.foliage_diagnostics=false;
   if(quality->valid){visuals.effective.display_mode=quality->display;visuals.effective.display_reason=quality->display_reason;visuals.effective.aa_mode=quality->effective.MultiSampleType==D3DMULTISAMPLE_NONE?"Stock":"MSAA";visuals.effective.aa_reason=quality->aa_reason;}
   if(quality->valid)ui_margins.dimensions(quality->effective.BackBufferWidth,quality->effective.BackBufferHeight);
@@ -806,7 +807,7 @@
   std::lock_guard<std::recursive_mutex> l(buffer_mutex_);auto i=buffer_proxies_.find(raw);if(i!=buffer_proxies_.end()&&i->second&&i->second->kind()==BufferKind::Vertex){auto* p=static_cast<VertexBufferProxy*>(i->second->proxy_pointer());if(p->core().generation()!=trace.resources.generation(reinterpret_cast<uintptr_t>(raw))){invalidate_buffer_shadow(raw,"buffer_generation_changed_raw_escape");return raw;}p->AddRef();raw->Release();return p;}
   if(buffer_proxies_.size()>=8192){invalidate_buffer_shadow(raw,"buffer_proxy_count_limit_raw_escape");return raw;}
   auto* p=new(std::nothrow)VertexBufferProxy(this,raw,trace.resources.generation(reinterpret_cast<uintptr_t>(raw)));
-@@ -82,7 +156,7 @@
+@@ -82,7 +157,7 @@
   return static_cast<IDirect3DVertexBuffer8*>(p);
  }
  IDirect3DIndexBuffer8* Device8::wrap_index_buffer(IDirect3DIndexBuffer8* raw) noexcept {
@@ -815,7 +816,40 @@
   std::lock_guard<std::recursive_mutex> l(buffer_mutex_);auto i=buffer_proxies_.find(raw);if(i!=buffer_proxies_.end()&&i->second&&i->second->kind()==BufferKind::Index){auto* p=static_cast<IndexBufferProxy*>(i->second->proxy_pointer());if(p->core().generation()!=trace.resources.generation(reinterpret_cast<uintptr_t>(raw))){invalidate_buffer_shadow(raw,"buffer_generation_changed_raw_escape");return raw;}p->AddRef();raw->Release();return p;}
   if(buffer_proxies_.size()>=8192){invalidate_buffer_shadow(raw,"buffer_proxy_count_limit_raw_escape");return raw;}
   auto* p=new(std::nothrow)IndexBufferProxy(this,raw,trace.resources.generation(reinterpret_cast<uintptr_t>(raw)));
-@@ -145,11 +219,20 @@
+@@ -139,17 +214,52 @@
+  try{out.assign(mirror.data.begin()+static_cast<size_t>(offset),mirror.data.begin()+static_cast<size_t>(end));return true;}catch(...){out.clear();return false;}
+ }
+ void Device8::invalidate_buffer_shadow(void* raw,const char* reason) noexcept {std::lock_guard<std::recursive_mutex> l(buffer_mutex_);auto i=buffer_mirrors_.find(raw);if(i==buffer_mirrors_.end()||!i->second)return;auto& mirror=*i->second;std::lock_guard<std::mutex> m(mirror.mutex);mirror.poisoned=true;mirror.initialized.clear();if(mirror.revision!=UINT64_MAX)++mirror.revision;try{mirror.poison_reason=reason?reason:"external_gpu_write";}catch(...){mirror.poison_reason.clear();}}
+-void Device8::invalidate_all_buffer_shadows(const char* reason) noexcept {std::lock_guard<std::recursive_mutex> l(buffer_mutex_);for(auto& entry:buffer_mirrors_){if(!entry.second)continue;auto& mirror=*entry.second;std::lock_guard<std::mutex> m(mirror.mutex);mirror.poisoned=true;mirror.initialized.clear();if(mirror.revision!=UINT64_MAX)++mirror.revision;try{mirror.poison_reason=reason?reason:"device_reset";}catch(...){mirror.poison_reason.clear();}}stream_buffers_.fill(nullptr);index_buffer_=nullptr;for(auto i=buffer_mirrors_.begin();i!=buffer_mirrors_.end();){if(!buffer_proxies_.count(i->first)){auto raw=i->first;++i;discard_unbound_buffer_mirror_locked(raw);}else ++i;}}
++void Device8::invalidate_all_buffer_shadows(const char* reason) noexcept {
++ std::lock_guard<std::recursive_mutex> l(buffer_mutex_);
++ size_t retained=0,revoked=0;
++#ifdef MRR_ENABLE_PS2_PORT
++ const bool preserve=ps2_port_&&ps2_port_->buffer_mirroring_required();
++ const bool reset_reason=reason&&!std::strcmp(reason,"device_reset");
++#endif
++ for(auto& entry:buffer_mirrors_){
++  if(!entry.second)continue;auto& mirror=*entry.second;std::lock_guard<std::mutex> m(mirror.mutex);
++#ifdef MRR_ENABLE_PS2_PORT
++  const auto proxy=buffer_proxies_.find(entry.first);
++  const uint64_t proxy_generation=proxy!=buffer_proxies_.end()&&proxy->second?proxy->second->generation():0;
++  if(ps2port::retain_managed_mirror_on_reset(preserve,reset_reason,mirror,
++      trace.resources.generation(reinterpret_cast<uintptr_t>(entry.first)),proxy_generation)){++retained;continue;}
++#endif
++  ++revoked;mirror.poisoned=true;mirror.initialized.clear();if(mirror.revision!=UINT64_MAX)++mirror.revision;
++  try{mirror.poison_reason=reason?reason:"device_reset";}catch(...){mirror.poison_reason.clear();}
++ }
++ stream_buffers_.fill(nullptr);index_buffer_=nullptr;
++ for(auto it=buffer_mirrors_.begin();it!=buffer_mirrors_.end();){if(!buffer_proxies_.count(it->first)){auto raw=it->first;++it;discard_unbound_buffer_mirror_locked(raw);}else ++it;}
++#ifdef MRR_ENABLE_PS2_PORT
++ if(reset_reason&&ps2_port_&&ps2_port_->reflection()&&ps2_port_->reflection()->diagnostics()){
++  try{session().write("{\"type\":\"ps2_buffer_mirror_reset\",\"retained_managed\":"+std::to_string(retained)+
++    ",\"revoked\":"+std::to_string(revoked)+",\"policy\":\"retain_only_current_owned_cpu_uploads\"}");}catch(...){}
++ }
++#endif
++}
+ void Device8::discard_unbound_buffer_mirror_locked(void* raw) noexcept {if(!raw||buffer_proxies_.count(raw))return;bool bound=index_buffer_==raw;for(auto p:stream_buffers_)bound=bound||p==raw;if(bound)return;auto i=buffer_mirrors_.find(raw);if(i==buffer_mirrors_.end())return;if(i->second&&i->second->available)buffer_shadow_bytes_=i->second->bytes>buffer_shadow_bytes_?0:buffer_shadow_bytes_-i->second->bytes;buffer_mirrors_.erase(i);}
+ void Device8::note_stream_buffer_binding(UINT stream,void* raw,HRESULT result) noexcept {if(FAILED(result)||stream>=stream_buffers_.size())return;std::lock_guard<std::recursive_mutex> l(buffer_mutex_);void* old=stream_buffers_[stream];stream_buffers_[stream]=raw;if(old!=raw)discard_unbound_buffer_mirror_locked(old);}
  void Device8::note_index_buffer_binding(void* raw,HRESULT result) noexcept {if(FAILED(result))return;std::lock_guard<std::recursive_mutex> l(buffer_mutex_);void* old=index_buffer_;index_buffer_=raw;if(old!=raw)discard_unbound_buffer_mirror_locked(old);}
  bool Device8::reserve_buffer_copy_bytes(size_t n) noexcept {std::lock_guard<std::recursive_mutex> l(buffer_mutex_);uint64_t frame=trace.frame_number();if(buffer_copy_frame_!=frame){buffer_copy_frame_=frame;buffer_copy_bytes_=0;}if(n>16ull*1024*1024||buffer_copy_bytes_>16ull*1024*1024-n)return false;buffer_copy_bytes_+=n;return true;}
  HRESULT STDMETHODCALLTYPE Device8::QueryInterface(REFIID iid,void** out){
@@ -837,7 +871,7 @@
   }trace.after(0,args,static_cast<uint32_t>(hr),pc);return hr;
  }
  ULONG STDMETHODCALLTYPE Device8::AddRef(){
-@@ -160,7 +243,13 @@
+@@ -160,7 +270,13 @@
   ULONG n;bool last;
   {
    auto observer=trace.guard();auto args=pack();auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(2,args,pc);

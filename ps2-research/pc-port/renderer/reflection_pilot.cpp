@@ -244,7 +244,7 @@ void ReflectionPilot::before_reset() noexcept {
 
 void ReflectionPilot::after_reset(IDirect3DDevice8& device, bool called, bool successful) noexcept {
     if (!requested() && !blocked_) return; // Stock must not acquire a new failed-Reset draw gate.
-    if (called && successful) { blocked_ = false; suspended_ = false; }
+    if (called && successful) { blocked_ = false; suspended_ = false; logged_.fill(0); }
     if (called && !successful) {
         suspended_ = true; reason_ = "device_reset_failed_reflection_suspended_stock";
         return; // Only an unrepaired native override (blocked_) can prohibit a later draw.

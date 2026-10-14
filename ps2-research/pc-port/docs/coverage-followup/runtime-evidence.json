@@ -1,0 +1,497 @@
+{
+  "schema_version": 1,
+  "session": "session-20261014-024049-10348.jsonl",
+  "session_sha256": "f42b9d4803c409fe95404865feebf01697651c2fa779229bc03cd597f668cc50",
+  "proxy_sha256": "abf005f8ff2f9535a2abb644e2066a224fc389734dc5f36fbdec5694ff37f48a",
+  "records": [
+    {
+      "type": "reset_policy",
+      "native_reset_called": true,
+      "result": 0,
+      "completed_race_proof_preserved": false,
+      "requested": {
+        "width": 1920,
+        "height": 1027,
+        "format": 22,
+        "count": 1,
+        "multisample": 4,
+        "swap_effect": 1,
+        "device_window": 35655084,
+        "windowed": 1,
+        "auto_depth": 1,
+        "depth_format": 77,
+        "flags": 0,
+        "refresh": 0,
+        "interval": 0
+      },
+      "effective": {
+        "width": 1920,
+        "height": 1027,
+        "format": 22,
+        "count": 1,
+        "multisample": 4,
+        "swap_effect": 1,
+        "device_window": 35655084,
+        "windowed": 1,
+        "auto_depth": 1,
+        "depth_format": 77,
+        "flags": 0,
+        "refresh": 0,
+        "interval": 0
+      }
+    },
+    {
+      "type": "ps2_reflection_material",
+      "frame": 558,
+      "vehicle": "IceCream",
+      "identity_reason": "live_race_owner_unverified",
+      "identity_authority": "LEGACY_VEHICLE_BODY_PROOF",
+      "override_applied": false,
+      "geometry_sha256": "ab4f626cb566f24a301ccf5122205f459e75219402adb6cac65e99cdffe12d05",
+      "native_draw_hresult": 0,
+      "restore_hresult": 2147483658
+    },
+    {
+      "type": "ps2_reflection_material",
+      "frame": 561,
+      "vehicle": "IceCream",
+      "identity_reason": "exact_verified_body_native_opaque_environment_material",
+      "identity_authority": "EXACT_SOURCE_MATERIAL_AND_CURRENT_NATIVE_CONTEXT",
+      "override_applied": true,
+      "geometry_sha256": "ab4f626cb566f24a301ccf5122205f459e75219402adb6cac65e99cdffe12d05",
+      "native_draw_hresult": 0,
+      "restore_hresult": 0
+    },
+    {
+      "type": "reset_policy",
+      "native_reset_called": true,
+      "result": 0,
+      "completed_race_proof_preserved": true,
+      "requested": {
+        "width": 640,
+        "height": 480,
+        "format": 22,
+        "count": 1,
+        "multisample": 4,
+        "swap_effect": 1,
+        "device_window": 35655084,
+        "windowed": 1,
+        "auto_depth": 1,
+        "depth_format": 77,
+        "flags": 0,
+        "refresh": 0,
+        "interval": 0
+      },
+      "effective": {
+        "width": 640,
+        "height": 480,
+        "format": 22,
+        "count": 1,
+        "multisample": 4,
+        "swap_effect": 1,
+        "device_window": 35655084,
+        "windowed": 1,
+        "auto_depth": 1,
+        "depth_format": 77,
+        "flags": 0,
+        "refresh": 0,
+        "interval": 0
+      }
+    },
+    {
+      "type": "reset_policy",
+      "native_reset_called": true,
+      "result": 0,
+      "completed_race_proof_preserved": true,
+      "requested": {
+        "width": 1920,
+        "height": 1027,
+        "format": 22,
+        "count": 1,
+        "multisample": 4,
+        "swap_effect": 1,
+        "device_window": 35655084,
+        "windowed": 1,
+        "auto_depth": 1,
+        "depth_format": 77,
+        "flags": 0,
+        "refresh": 0,
+        "interval": 0
+      },
+      "effective": {
+        "width": 1920,
+        "height": 1027,
+        "format": 22,
+        "count": 1,
+        "multisample": 4,
+        "swap_effect": 1,
+        "device_window": 35655084,
+        "windowed": 1,
+        "auto_depth": 1,
+        "depth_format": 77,
+        "flags": 0,
+        "refresh": 0,
+        "interval": 0
+      }
+    },
+    {
+      "type": "ps2_reflection_material",
+      "frame": 4069,
+      "vehicle": "Kamaz",
+      "identity_reason": "live_race_owner_unverified",
+      "identity_authority": "LEGACY_VEHICLE_BODY_PROOF",
+      "override_applied": false,
+      "geometry_sha256": "b3de284939834eaf44f74c688450c723220a2ade500c7335a15e0814ae8e3495",
+      "native_draw_hresult": 0,
+      "restore_hresult": 2147483658
+    },
+    {
+      "type": "ps2_reflection_material",
+      "frame": 4106,
+      "vehicle": "Kamaz",
+      "identity_reason": "exact_verified_body_native_opaque_environment_material",
+      "identity_authority": "LEGACY_VEHICLE_BODY_PROOF",
+      "override_applied": true,
+      "geometry_sha256": "b3de284939834eaf44f74c688450c723220a2ade500c7335a15e0814ae8e3495",
+      "native_draw_hresult": 0,
+      "restore_hresult": 0
+    },
+    {
+      "type": "ps2_reflection_material",
+      "frame": 7001,
+      "vehicle": "SeatBuggy",
+      "identity_reason": "live_race_owner_unverified",
+      "identity_authority": "LEGACY_VEHICLE_BODY_PROOF",
+      "override_applied": false,
+      "geometry_sha256": "4238e99bb44f2ff2c81e75b45551d42486d79030700766f0e04e7d71f53501a2",
+      "native_draw_hresult": 0,
+      "restore_hresult": 2147483658
+    },
+    {
+      "type": "ps2_reflection_material",
+      "frame": 7040,
+      "vehicle": "SeatBuggy",
+      "identity_reason": "exact_verified_body_native_opaque_environment_material",
+      "identity_authority": "LEGACY_VEHICLE_BODY_PROOF",
+      "override_applied": true,
+      "geometry_sha256": "4238e99bb44f2ff2c81e75b45551d42486d79030700766f0e04e7d71f53501a2",
+      "native_draw_hresult": 0,
+      "restore_hresult": 0
+    },
+    {
+      "type": "ps2_reflection_material",
+      "frame": 12401,
+      "vehicle": "Bruno",
+      "identity_reason": "live_race_owner_unverified",
+      "identity_authority": "LEGACY_VEHICLE_BODY_PROOF",
+      "override_applied": false,
+      "geometry_sha256": "ccd5abae1c3bb625af04bd52c2bb3e9a332d8116fe579b2b111703dff0a619d0",
+      "native_draw_hresult": 0,
+      "restore_hresult": 2147483658
+    },
+    {
+      "type": "ps2_reflection_material",
+      "frame": 12439,
+      "vehicle": "Bruno",
+      "identity_reason": "exact_verified_body_native_opaque_environment_material",
+      "identity_authority": "LEGACY_VEHICLE_BODY_PROOF",
+      "override_applied": true,
+      "geometry_sha256": "ccd5abae1c3bb625af04bd52c2bb3e9a332d8116fe579b2b111703dff0a619d0",
+      "native_draw_hresult": 0,
+      "restore_hresult": 0
+    },
+    {
+      "type": "ps2_reflection_material",
+      "frame": 16594,
+      "vehicle": "Navara",
+      "identity_reason": "live_race_owner_unverified",
+      "identity_authority": "LEGACY_VEHICLE_BODY_PROOF",
+      "override_applied": false,
+      "geometry_sha256": "177351f3fc28f71360f8718ab2d14784760ce36588438daa4d2ce0e6aa369f87",
+      "native_draw_hresult": 0,
+      "restore_hresult": 2147483658
+    },
+    {
+      "type": "ps2_reflection_material",
+      "frame": 16630,
+      "vehicle": "Navara",
+      "identity_reason": "exact_verified_body_native_opaque_environment_material",
+      "identity_authority": "LEGACY_VEHICLE_BODY_PROOF",
+      "override_applied": true,
+      "geometry_sha256": "177351f3fc28f71360f8718ab2d14784760ce36588438daa4d2ce0e6aa369f87",
+      "native_draw_hresult": 0,
+      "restore_hresult": 0
+    },
+    {
+      "type": "ps2_reflection_material",
+      "frame": 20065,
+      "vehicle": "Forester",
+      "identity_reason": "live_race_owner_unverified",
+      "identity_authority": "LEGACY_VEHICLE_BODY_PROOF",
+      "override_applied": false,
+      "geometry_sha256": "532ec2bbf56b139d03b7c5bb0bf819dcbe02043312ca18d179d35643708f1158",
+      "native_draw_hresult": 0,
+      "restore_hresult": 2147483658
+    },
+    {
+      "type": "ps2_reflection_material",
+      "frame": 20103,
+      "vehicle": "Forester",
+      "identity_reason": "exact_verified_body_native_opaque_environment_material",
+      "identity_authority": "LEGACY_VEHICLE_BODY_PROOF",
+      "override_applied": true,
+      "geometry_sha256": "532ec2bbf56b139d03b7c5bb0bf819dcbe02043312ca18d179d35643708f1158",
+      "native_draw_hresult": 0,
+      "restore_hresult": 0
+    }
+  ],
+  "buffer_pool_counts": {
+    "0": 3,
+    "1": 34
+  },
+  "buffer_sources": [
+    {
+      "method": "CreateVertexBuffer",
+      "frame": 2,
+      "serial": 603,
+      "pool": 0
+    },
+    {
+      "method": "CreateVertexBuffer",
+      "frame": 314,
+      "serial": 624,
+      "pool": 1
+    },
+    {
+      "method": "CreateIndexBuffer",
+      "frame": 314,
+      "serial": 625,
+      "pool": 1
+    },
+    {
+      "method": "CreateVertexBuffer",
+      "frame": 557,
+      "serial": 658,
+      "pool": 1
+    },
+    {
+      "method": "CreateVertexBuffer",
+      "frame": 557,
+      "serial": 659,
+      "pool": 1
+    },
+    {
+      "method": "CreateVertexBuffer",
+      "frame": 557,
+      "serial": 660,
+      "pool": 1
+    },
+    {
+      "method": "CreateVertexBuffer",
+      "frame": 557,
+      "serial": 661,
+      "pool": 1
+    },
+    {
+      "method": "CreateVertexBuffer",
+      "frame": 557,
+      "serial": 662,
+      "pool": 1
+    },
+    {
+      "method": "CreateVertexBuffer",
+      "frame": 557,
+      "serial": 663,
+      "pool": 1
+    },
+    {
+      "method": "CreateVertexBuffer",
+      "frame": 557,
+      "serial": 664,
+      "pool": 1
+    },
+    {
+      "method": "CreateIndexBuffer",
+      "frame": 557,
+      "serial": 665,
+      "pool": 1
+    },
+    {
+      "method": "CreateVertexBuffer",
+      "frame": 557,
+      "serial": 666,
+      "pool": 1
+    },
+    {
+      "method": "CreateVertexBuffer",
+      "frame": 557,
+      "serial": 667,
+      "pool": 1
+    },
+    {
+      "method": "CreateVertexBuffer",
+      "frame": 557,
+      "serial": 668,
+      "pool": 1
+    },
+    {
+      "method": "CreateVertexBuffer",
+      "frame": 557,
+      "serial": 669,
+      "pool": 1
+    },
+    {
+      "method": "CreateVertexBuffer",
+      "frame": 557,
+      "serial": 670,
+      "pool": 1
+    },
+    {
+      "method": "CreateVertexBuffer",
+      "frame": 557,
+      "serial": 671,
+      "pool": 1
+    },
+    {
+      "method": "CreateVertexBuffer",
+      "frame": 557,
+      "serial": 672,
+      "pool": 1
+    },
+    {
+      "method": "CreateVertexBuffer",
+      "frame": 557,
+      "serial": 673,
+      "pool": 1
+    },
+    {
+      "method": "CreateIndexBuffer",
+      "frame": 557,
+      "serial": 674,
+      "pool": 1
+    },
+    {
+      "method": "CreateVertexBuffer",
+      "frame": 557,
+      "serial": 675,
+      "pool": 1
+    },
+    {
+      "method": "CreateVertexBuffer",
+      "frame": 557,
+      "serial": 676,
+      "pool": 1
+    },
+    {
+      "method": "CreateVertexBuffer",
+      "frame": 557,
+      "serial": 677,
+      "pool": 1
+    },
+    {
+      "method": "CreateVertexBuffer",
+      "frame": 557,
+      "serial": 678,
+      "pool": 1
+    },
+    {
+      "method": "CreateVertexBuffer",
+      "frame": 557,
+      "serial": 679,
+      "pool": 1
+    },
+    {
+      "method": "CreateVertexBuffer",
+      "frame": 557,
+      "serial": 680,
+      "pool": 1
+    },
+    {
+      "method": "CreateVertexBuffer",
+      "frame": 557,
+      "serial": 681,
+      "pool": 1
+    },
+    {
+      "method": "CreateVertexBuffer",
+      "frame": 2164,
+      "serial": 877,
+      "pool": 0
+    },
+    {
+      "method": "CreateVertexBuffer",
+      "frame": 2436,
+      "serial": 878,
+      "pool": 0
+    },
+    {
+      "method": "CreateVertexBuffer",
+      "frame": 3501,
+      "serial": 925,
+      "pool": 1
+    },
+    {
+      "method": "CreateIndexBuffer",
+      "frame": 3501,
+      "serial": 926,
+      "pool": 1
+    },
+    {
+      "method": "CreateVertexBuffer",
+      "frame": 3501,
+      "serial": 927,
+      "pool": 1
+    },
+    {
+      "method": "CreateVertexBuffer",
+      "frame": 3501,
+      "serial": 928,
+      "pool": 1
+    },
+    {
+      "method": "CreateIndexBuffer",
+      "frame": 3501,
+      "serial": 929,
+      "pool": 1
+    },
+    {
+      "method": "CreateVertexBuffer",
+      "frame": 3501,
+      "serial": 930,
+      "pool": 1
+    },
+    {
+      "method": "CreateIndexBuffer",
+      "frame": 3501,
+      "serial": 931,
+      "pool": 1
+    },
+    {
+      "method": "CreateVertexBuffer",
+      "frame": 6997,
+      "serial": 1493,
+      "pool": 1
+    }
+  ],
+  "malformed_records_not_interpreted": 153,
+  "evidence_boundary": "Pre-fix logs plus USER_RUNTIME_OBSERVATION. No post-fix Reset runtime captured.",
+  "user_accepted_coverage_fix": [
+    "Tata",
+    "Navara",
+    "Patrol",
+    "Kamaz",
+    "IceCream",
+    "Ufo",
+    "Jump"
+  ],
+  "user_remaining_visual_failures": [
+    "SeatBuggy",
+    "Bruno",
+    "Forester (PS2 WOOLDAND)",
+    "LandCruiser",
+    "ChevyBlazer",
+    "Xtrail"
+  ],
+  "user_reset_failure": "Reflection disappears after window reset and does not return.",
+  "source_cause": "Successful Reset invalidates every CPU mirror; actual managed buffers survive. Source-provable defect, live first failing gate not independently logged."
+}
