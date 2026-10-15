@@ -1,0 +1,7 @@
+# Frontend non-activation diagnostic
+
+User reports no model replacement. Session 20261015-003232-24472 and F10 frame 992 confirm installed DLL 9d1c7d62f34c0dd0467c4a10afd11a112fd215cf9da78c40855f11ad17d8e887, exact supported EXE, FrontendModelMode=1 and correct private model hash beside active root PS2Port.ini. No warmup/replacement event exists. Therefore installation is valid but admission has not completed; exact rejected gate remains unknown.
+
+This diagnostic adds bounded ps2_frontend_model_gate events only after candidate source shape selection. Gates: 0 current caller/owner/tree; 1 descriptor pointer bridge; 2 native bindings/FVF/ranges; 3 native/effective matrices; 4 private textures; 5 resource/index identity; 6 frame/owner coherence; 7 mirrors/source signatures; 8 complete warmup/environment transform; 9 Mode 4 capture; 10 higher texture stages/material preparation. Each gate emits at most once per resource Reset lifetime. A warmup gate 8 can be normal during initial collection. No identity conditions or material states were relaxed.
+
+Actual active INI is D:/Game/Master Rallye Pristine/PS2Port.ini, not the logs directory. Keep the existing asset and settings. Manually install the diagnostic DLL with the game closed, select rotating X-Trail, wait briefly, press F10 and preserve this session. The first rejected gate determines the next bounded correction. This DLL does not claim to fix the rejection.
