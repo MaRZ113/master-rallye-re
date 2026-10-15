@@ -18,6 +18,8 @@ template<class Read> bool frontend_queue_owner(uintptr_t stack,uintptr_t base,ui
 }
 struct FrontendVertex {float xyz[3],normal[3];DWORD color;float uv[2];};
 static_assert(sizeof(FrontendVertex)==36);
+// X-Trail COMPLETE runtime primary sampling orientation, established by user A/B.
+inline FrontendVertex frontend_primary_sample_vertex(FrontendVertex v)noexcept{v.uv[1]=1.0f-v.uv[1];return v;}
 struct FrontendMesh {uint32_t node,mode,texture[3],first,count;};
 struct FrontendTexture {UINT width,height;std::vector<DWORD> pixels;};
 struct FrontendAsset {std::vector<FrontendVertex> vertices;std::vector<uint32_t> indices;std::vector<FrontendMesh> meshes;std::vector<FrontendTexture> textures;};

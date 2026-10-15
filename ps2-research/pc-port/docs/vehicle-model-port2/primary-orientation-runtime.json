@@ -1,0 +1,75 @@
+{
+  "phase": "XTRAIL_COMPLETE_PRIMARY_ORIENTATION",
+  "evidence_class": "USER_RUNTIME_OBSERVATION_AND_PROXY_TRACE",
+  "session": "session-20261015-005953-52424.jsonl",
+  "session_sha256": "230f9f887273fd187d039a4633341dd414c20dcd4139760b8c62f9a4ee7a1642",
+  "frame": "frame-52424-d1-00006566.jsonl",
+  "frame_sha256": "6d077175ba32c1ba05e70fd7688f692a9b7e5bc4657b635d134072ed048e1552",
+  "events": [
+    {
+      "type": "ps2_frontend_model_warmup",
+      "frame": 134,
+      "source_records_verified": 24,
+      "current_owner_join": true,
+      "geometry_source": "Xtrail/complete.dx"
+    },
+    {
+      "type": "ps2_frontend_model_replacement",
+      "source": "Xtrail/complete.dx",
+      "replacement": "XTRAIL/COMPLETE.PSM",
+      "frame": 135,
+      "verified_source_records": 24,
+      "private_faces": 4636,
+      "current_owner_join": true,
+      "draw_hresult": 0,
+      "restore_hresult": 0,
+      "world_view_projection_preserved": true,
+      "culling": "NONE_DIAGNOSTIC"
+    },
+    {
+      "type": "ps2_frontend_model_suppression",
+      "frame": 135,
+      "source": "Xtrail/complete.dx",
+      "original_records_suppressed": 24
+    },
+    {
+      "type": "ps2_frontend_model_warmup",
+      "frame": 869,
+      "source_records_verified": 24,
+      "current_owner_join": true,
+      "geometry_source": "Xtrail/complete.dx"
+    },
+    {
+      "type": "ps2_frontend_model_replacement",
+      "source": "Xtrail/complete.dx",
+      "replacement": "XTRAIL/COMPLETE.PSM",
+      "frame": 870,
+      "verified_source_records": 24,
+      "private_faces": 4636,
+      "current_owner_join": true,
+      "draw_hresult": 0,
+      "restore_hresult": 0,
+      "world_view_projection_preserved": true,
+      "culling": "NONE_DIAGNOSTIC"
+    },
+    {
+      "type": "ps2_frontend_model_suppression",
+      "frame": 870,
+      "source": "Xtrail/complete.dx",
+      "original_records_suppressed": 24
+    }
+  ],
+  "screenshots": [
+    {
+      "name": "MRallye_h7LWd4hDhS.png",
+      "sha256": "ef614d5197ccee55fec41001861f023661890e8f2f9ca615d2502bb13f82474f"
+    },
+    {
+      "name": "MRallye_lqvZtAdcqW.png",
+      "sha256": "995269b2e12577588085ba2e4f4ca65c0e3b283f59f18c57ce5966b822ebdc0b"
+    }
+  ],
+  "observed": "Replacement visible; decal and rear text vertically inverted",
+  "correction": "Only runtime expanded primary V=1-source_V; original vertices and private asset bytes retained",
+  "corrected_runtime": "PENDING"
+}

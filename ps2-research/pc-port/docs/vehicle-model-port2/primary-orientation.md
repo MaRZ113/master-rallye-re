@@ -1,0 +1,9 @@
+# X-Trail COMPLETE primary orientation
+
+User screenshots MRallye_h7LWd4hDhS.png and MRallye_lqvZtAdcqW.png confirm that the PS2 replacement now appears. Session52424 confirms24 warmup records,4636 private faces and24 suppressed PC records, successful draw/restoration HRESULTs, including reacquisition later in the session. Body/decal/rear texture text is visibly vertically inverted. This proves first model activation, not PS2 visual parity.
+
+The private resource retains original GXI stored rows and original PSM UVs. Stage0 uses explicit primary UV0 and disables inherited texture transforms. The bounded correction converts V to1-V only in the X-Trail COMPLETE runtime expanded vertex copy. U, positions, normals, vertex colors, index selection, asset SHA, texture bytes, material bindings, reflection coordinates and owner classifier are untouched. This is a user-evidence-backed sampling correction for this pilot, not a recovered universal GS/GXI row convention. No additional D3D8 state or integration patch is required.
+
+Native tests assert endpoint/midpoint/non-endpoint and out-of-range mapping, unchanged U/XYZ/normals/color, unchanged original vertices, and all expanded original-asset vertex mappings. Existing transaction, resource/reset and ownership tests remain active.
+
+Manual A/B: close game, install the primary-orientation DLL, keep existing private model and INI. Select X-Trail and capture front/side/rear during rotation. Number169 and Nissan rear lettering should be upright; body stripes, lights and tread should sample the corresponding portions. Check glass/reflections, switch car/back and Reset. If upright lettering reveals an independent mesh-specific issue, capture it rather than interpreting this correction as complete material fidelity. New corrected runtime is pending.
