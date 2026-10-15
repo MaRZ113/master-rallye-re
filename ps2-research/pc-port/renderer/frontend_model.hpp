@@ -23,7 +23,7 @@ inline FrontendVertex frontend_primary_sample_vertex(FrontendVertex v)noexcept{v
 struct FrontendMesh {uint32_t node,mode,texture[3],first,count;};
 struct FrontendTexture {UINT width,height;std::vector<DWORD> pixels;};
 struct FrontendAsset {std::vector<FrontendVertex> vertices;std::vector<uint32_t> indices;std::vector<FrontendMesh> meshes;std::vector<FrontendTexture> textures;};
-bool decode_frontend_asset(const std::vector<uint8_t>&,FrontendAsset&)noexcept;
+bool decode_frontend_asset(const std::vector<uint8_t>&,FrontendAsset&,bool race=false)noexcept;
 // Certificate contains current source identity, never historical draw ordinals.
 struct FrontendOwner {uintptr_t packet=0,instance=0,model=0,root=0;uint32_t name=0;std::array<uintptr_t,24> meshes{};bool operator==(const FrontendOwner& x)const noexcept{return packet==x.packet&&instance==x.instance&&model==x.model&&root==x.root&&name==x.name&&meshes==x.meshes;}};
 struct FrontendRecord {uintptr_t mesh=0;DrawSnapshot geometry;bool valid=false;};
@@ -32,8 +32,8 @@ class FrontendModel {
  FrontendAsset asset_;std::vector<IDirect3DTexture8*> textures_;std::vector<std::vector<FrontendVertex>> expanded_;
 public:
  FrontendTransaction transaction;D3DMATRIX environment{};bool environment_known=false,validated=false;
- FrontendOwner owner{};std::array<FrontendRecord,24> records{};uint32_t seen=0;uint64_t observed_frame=UINT64_MAX,drawn_frame=UINT64_MAX;D3DMATRIX drawn_world{};bool certified=false;
- FrontendModel(bool,const std::wstring&)noexcept;~FrontendModel(){transaction.release();reset();}
+ uint64_t race_generation=0,race_owner_lifetime=0;FrontendOwner owner{};std::array<FrontendRecord,24> records{};uint32_t seen=0;uint64_t observed_frame=UINT64_MAX,drawn_frame=UINT64_MAX;D3DMATRIX drawn_world{};bool certified=false;
+ FrontendModel(bool,const std::wstring&,bool race=false)noexcept;~FrontendModel(){transaction.release();reset();}
  bool requested()const noexcept{return requested_&&!disabled_;}bool diagnostics()const noexcept{return diagnostics_;}
  bool claim(uint32_t bit)noexcept{if(!diagnostics_||(logs_&bit))return false;logs_|=bit;return true;}
  const FrontendAsset& asset()const noexcept{return asset_;}const auto& expanded()const noexcept{return expanded_;}

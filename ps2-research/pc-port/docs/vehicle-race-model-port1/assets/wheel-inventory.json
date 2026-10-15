@@ -1,0 +1,307 @@
+{
+  "source_sha256": "d53360eab52761fdadf1a4d5a2c87196be7674fbbb603c41cd4726a4b303773c",
+  "resource": "\\TNG\\DATAPSM\\VEHICLES\\XTRAIL\\WHEEL.PSM",
+  "provenance": {
+    "path": "\\TNG\\DATAPSM\\VEHICLES\\XTRAIL\\WHEEL.PSM",
+    "offset": 1218838073,
+    "stored_size": 7824,
+    "directory_size_0x08": 7824,
+    "unpacked_size": 16242,
+    "compression": "packfs_lzo",
+    "stored_sha256": "4cf7da898e2720d373ef0a6275339b782b15ee6416dfcd7ae879805847cbefbc",
+    "payload_sha256": "d53360eab52761fdadf1a4d5a2c87196be7674fbbb603c41cd4726a4b303773c",
+    "evidence": "CONFIRMED_BY_BOTH",
+    "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+  },
+  "vertices": 300,
+  "meshes": [
+    {
+      "node_offset": 15640,
+      "path": "root.0",
+      "field_unknown": 0,
+      "textures": [
+        {
+          "slot": 0,
+          "name": "commontextures\\mercwheel643-tga",
+          "flags": [
+            false,
+            false,
+            false
+          ],
+          "offset": 15662
+        },
+        {
+          "slot": 1,
+          "name": "commontextures\\rubber-tga",
+          "flags": [
+            false,
+            false,
+            false
+          ],
+          "offset": 15703
+        }
+      ],
+      "material": "$shader(carshiny)",
+      "material_offset": 15735,
+      "words_unknown": [
+        0,
+        0
+      ],
+      "flags": [
+        false,
+        false,
+        true,
+        true
+      ],
+      "word70_unknown": "0x3fb38df9",
+      "strips": [
+        {
+          "offset": 15772,
+          "start": 0,
+          "count": 31,
+          "flag": false,
+          "scale": 1.341005563735962
+        },
+        {
+          "offset": 15785,
+          "start": 31,
+          "count": 31,
+          "flag": true,
+          "scale": 1.37582528591156
+        },
+        {
+          "offset": 15798,
+          "start": 62,
+          "count": 27,
+          "flag": true,
+          "scale": 1.4392426013946533
+        },
+        {
+          "offset": 15811,
+          "start": 89,
+          "count": 31,
+          "flag": true,
+          "scale": 1.45751953125
+        },
+        {
+          "offset": 15824,
+          "start": 120,
+          "count": 30,
+          "flag": true,
+          "scale": 1.4596059322357178
+        }
+      ],
+      "classification": {
+        "authored_shader": "carshiny",
+        "interned_shader": "carshiny",
+        "water_mode": null,
+        "fallback": "GENERIC_MAP_DEFAULTS_RETAINED_OR_OTHER_SHADER",
+        "scroll_v_plus1_present": false,
+        "scroll_token_consumer": "NOT_FOUND_IN_TRACED_WATER_PATH",
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      },
+      "faces": 126,
+      "counts": {
+        "suppressed_triples": 14,
+        "diagnostic_degenerate_triples": 0
+      }
+    },
+    {
+      "node_offset": 15841,
+      "path": "root.1",
+      "field_unknown": 0,
+      "textures": [
+        {
+          "slot": 0,
+          "name": "commontextures\\merctread-tga",
+          "flags": [
+            false,
+            false,
+            false
+          ],
+          "offset": 15863
+        },
+        {
+          "slot": 1,
+          "name": "commontextures\\rubber-tga",
+          "flags": [
+            false,
+            false,
+            false
+          ],
+          "offset": 15901
+        }
+      ],
+      "material": "$shader(carshiny)",
+      "material_offset": 15933,
+      "words_unknown": [
+        0,
+        0
+      ],
+      "flags": [
+        false,
+        false,
+        true,
+        true
+      ],
+      "word70_unknown": "0x40609818",
+      "strips": [
+        {
+          "offset": 15970,
+          "start": 150,
+          "count": 31,
+          "flag": true,
+          "scale": 3.5076141357421875
+        },
+        {
+          "offset": 15983,
+          "start": 181,
+          "count": 9,
+          "flag": false,
+          "scale": 3.5161991119384766
+        }
+      ],
+      "classification": {
+        "authored_shader": "carshiny",
+        "interned_shader": "carshiny",
+        "water_mode": null,
+        "fallback": "GENERIC_MAP_DEFAULTS_RETAINED_OR_OTHER_SHADER",
+        "scroll_v_plus1_present": false,
+        "scroll_token_consumer": "NOT_FOUND_IN_TRACED_WATER_PATH",
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      },
+      "faces": 36,
+      "counts": {
+        "suppressed_triples": 0,
+        "diagnostic_degenerate_triples": 0
+      }
+    },
+    {
+      "node_offset": 16000,
+      "path": "root.2",
+      "field_unknown": 0,
+      "textures": [
+        {
+          "slot": 0,
+          "name": "commontextures\\jumpwheel64-tga",
+          "flags": [
+            false,
+            false,
+            false
+          ],
+          "offset": 16022
+        },
+        {
+          "slot": 1,
+          "name": "commontextures\\chrome-tga",
+          "flags": [
+            false,
+            false,
+            false
+          ],
+          "offset": 16062
+        }
+      ],
+      "material": "$shader(carshiny)",
+      "material_offset": 16094,
+      "words_unknown": [
+        0,
+        0
+      ],
+      "flags": [
+        false,
+        false,
+        true,
+        true
+      ],
+      "word70_unknown": "0x3fa8c390",
+      "strips": [
+        {
+          "offset": 16131,
+          "start": 190,
+          "count": 31,
+          "flag": true,
+          "scale": 1.1335575580596924
+        },
+        {
+          "offset": 16144,
+          "start": 221,
+          "count": 5,
+          "flag": false,
+          "scale": 1.426862359046936
+        },
+        {
+          "offset": 16157,
+          "start": 226,
+          "count": 5,
+          "flag": false,
+          "scale": 1.426862359046936
+        },
+        {
+          "offset": 16170,
+          "start": 231,
+          "count": 5,
+          "flag": false,
+          "scale": 1.426862359046936
+        },
+        {
+          "offset": 16183,
+          "start": 236,
+          "count": 5,
+          "flag": false,
+          "scale": 1.4307832717895508
+        },
+        {
+          "offset": 16196,
+          "start": 241,
+          "count": 31,
+          "flag": true,
+          "scale": 1.4474071264266968
+        },
+        {
+          "offset": 16209,
+          "start": 272,
+          "count": 28,
+          "flag": false,
+          "scale": 1.4501959085464478
+        }
+      ],
+      "classification": {
+        "authored_shader": "carshiny",
+        "interned_shader": "carshiny",
+        "water_mode": null,
+        "fallback": "GENERIC_MAP_DEFAULTS_RETAINED_OR_OTHER_SHADER",
+        "scroll_v_plus1_present": false,
+        "scroll_token_consumer": "NOT_FOUND_IN_TRACED_WATER_PATH",
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      },
+      "faces": 90,
+      "counts": {
+        "suppressed_triples": 6,
+        "diagnostic_degenerate_triples": 0
+      }
+    }
+  ],
+  "extra_nodes": [],
+  "trailer": {
+    "tag": 102,
+    "offset": 16226,
+    "kind": "POST_TREE_WHEEL_CYLINDER_AUXILIARY",
+    "values": [
+      0.4000000059604645,
+      0.20000000298023224
+    ],
+    "value_fields": [
+      "cylinder+0x14",
+      "cylinder+0x18"
+    ],
+    "consumer": "0x003947b0",
+    "visual_owner": "0x003900f0 -> 0x00391d38",
+    "sentinel_offset": 16238,
+    "unparsed_bytes": 0,
+    "runtime_rule": "Model+0x38 assigned only when model name contains wheel; otherwise destroy cylinder",
+    "not_used_for_visual_geometry": true
+  },
+  "transforms": "RAW_WHEEL_LOCAL_NATIVE_PER_WHEEL_WORLD_REQUIRED",
+  "runtime_replacement": "NOT_ADMITTED_REQUIRES_CURRENT_STEERING_SUSPENSION_ROTATION_OWNER"
+}

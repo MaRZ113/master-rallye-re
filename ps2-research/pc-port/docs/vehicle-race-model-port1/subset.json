@@ -1,0 +1,52 @@
+{
+  "pc_records": [
+    0,
+    1,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "ps2_roots": [
+    0,
+    1,
+    3,
+    4,
+    6,
+    7,
+    9,
+    10,
+    12,
+    13,
+    14,
+    16,
+    17
+  ],
+  "retained_stock": "black trim, native drivers, headlight glass, off/on/glow/conditional windows, all wheels",
+  "private_submission": "opaque modes1 and3 only",
+  "damage": "all-source current-token preflight and exact source geometry required; changed geometry Stock",
+  "race_owner_actor_direct_join": "NOT_CLAIMED; current queue model/source plus current live race certificate",
+  "private_faces": 1712,
+  "private_modes": [
+    1,
+    3,
+    3,
+    3,
+    3,
+    1,
+    1,
+    3,
+    3,
+    3,
+    3,
+    3,
+    1
+  ]
+}

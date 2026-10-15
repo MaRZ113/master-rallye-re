@@ -430,7 +430,7 @@ diff --git a/modernization/renderer/src/quality_wrappers.cpp b/modernization/ren
   D3DPRESENT_PARAMETERS requested{};bool requested_known=pp&&safe_copy(&requested,pp,sizeof(requested));uint64_t native_before=quality?quality->native_reset_calls:0;
   game_fov.cancel_lifecycle("device_reset_camera_scope_cancelled");const bool race_proof_preserved=race_observer_attached&&device_reset_race_observer();if(!ui_margins.finish_frame())stock_ui("ui_native_world_restore_failed");
 +#ifdef MRR_ENABLE_PS2_PORT
-+ if(ps2_port()&&ps2_port()->frontend_model()&&ps2_port()->frontend_model()->transaction.pending()){
++ if(ps2_port()&&((ps2_port()->frontend_model()&&ps2_port()->frontend_model()->transaction.pending())||(ps2_port()->race_model()&&ps2_port()->race_model()->transaction.pending()))){
 +  const HRESULT frontend_safe=repair_reflection();if(FAILED(frontend_safe)){trace.after(14,args,static_cast<uint32_t>(frontend_safe),pc);return frontend_safe;}
 + }
 +#endif
@@ -653,7 +653,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
   return draw_indexed_at(type,min_index,vertices,start,count,reinterpret_cast<uintptr_t>(_ReturnAddress()));
  }
  HRESULT Device8::draw_indexed_at(D3DPRIMITIVETYPE type,UINT min_index,UINT vertices,UINT start,UINT count,uintptr_t pc){
-@@ -210,13 +310,94 @@
+@@ -210,13 +310,96 @@
   if(visuals.effective.foliage_diagnostics&&trace.enabled&&trace.control.active)
    trace.foliage_result(probe_foliage(*real_,trace.resources,args,trace.frame_number(),trace.foliage_budget,this));
   HRESULT hr;
@@ -667,6 +667,8 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
 + if(brake_draw.handled){trace.after(71,args,static_cast<uint32_t>(brake_draw.hr),pc);return brake_draw.hr;}
 + const auto glass_draw=xtrailintegration::glass_draw(*this,classification,type,min_index,vertices,start,count,pc);
 + if(glass_draw.handled){trace.after(71,args,static_cast<uint32_t>(glass_draw.hr),pc);return glass_draw.hr;}
++ const auto race_draw=frontendmodelintegration::draw_race(*this,type,min_index,vertices,start,count,pc);
++ if(race_draw.handled){trace.after(71,args,static_cast<uint32_t>(race_draw.hr),pc,nullptr,256,true);return race_draw.hr;}
 + const auto xtrail_draw=xtrailintegration::draw(*this,type,min_index,vertices,start,count,pc);
 + if(xtrail_draw.handled){
 +  trace.after(71,args,static_cast<uint32_t>(xtrail_draw.hr),pc);
@@ -837,7 +839,7 @@ diff --git a/modernization/renderer/src/wrappers.cpp b/modernization/renderer/sr
      !ui_margins.install(s.compatibility.margins.supported()||s.target,true)&&preserve_margins_requested){
    quality->config.interface_mode="Stock";quality->config.interface_reason=ui_margins.reason;
   }
-@@ -70,10 +117,43 @@
+@@ -70,10 +117,44 @@
   if(!s.foliage_provenance_available.load(std::memory_order_relaxed))visuals.effective.foliage_diagnostics=false;
   if(quality->valid){visuals.effective.display_mode=quality->display;visuals.effective.display_reason=quality->display_reason;visuals.effective.aa_mode=quality->effective.MultiSampleType==D3DMULTISAMPLE_NONE?"Stock":"MSAA";visuals.effective.aa_reason=quality->aa_reason;}
   if(quality->valid)ui_margins.dimensions(quality->effective.BackBufferWidth,quality->effective.BackBufferHeight);
@@ -855,6 +857,7 @@ diff --git a/modernization/renderer/src/wrappers.cpp b/modernization/renderer/sr
 +#ifdef MRR_ENABLE_PS2_PORT
 + if(ps2_port_){
 +  if(ps2_port_->frontend_model()){frontendmodelintegration::repair(*this);ps2_port_->frontend_model()->reset();}
++  if(ps2_port_->race_model()){frontendmodelintegration::repair(*this);ps2_port_->race_model()->reset();}
 +  if(ps2_port_->xtrail()){xtrailintegration::repair(*this);ps2_port_->xtrail()->before_reset();}
 +  if(ps2_port_->reflection()){ps2integration::repair(*this);ps2_port_->reflection()->before_reset();}
 +  if(ps2_port_->course_objects()){courseintegration::repair(*this);ps2_port_->course_objects()->before_reset();}
@@ -883,7 +886,7 @@ diff --git a/modernization/renderer/src/wrappers.cpp b/modernization/renderer/sr
   std::lock_guard<std::recursive_mutex> l(buffer_mutex_);auto i=buffer_proxies_.find(raw);if(i!=buffer_proxies_.end()&&i->second&&i->second->kind()==BufferKind::Vertex){auto* p=static_cast<VertexBufferProxy*>(i->second->proxy_pointer());if(p->core().generation()!=trace.resources.generation(reinterpret_cast<uintptr_t>(raw))){invalidate_buffer_shadow(raw,"buffer_generation_changed_raw_escape");return raw;}p->AddRef();raw->Release();return p;}
   if(buffer_proxies_.size()>=8192){invalidate_buffer_shadow(raw,"buffer_proxy_count_limit_raw_escape");return raw;}
   auto* p=new(std::nothrow)VertexBufferProxy(this,raw,trace.resources.generation(reinterpret_cast<uintptr_t>(raw)));
-@@ -82,7 +162,7 @@
+@@ -82,7 +163,7 @@
   return static_cast<IDirect3DVertexBuffer8*>(p);
  }
  IDirect3DIndexBuffer8* Device8::wrap_index_buffer(IDirect3DIndexBuffer8* raw) noexcept {
@@ -892,7 +895,7 @@ diff --git a/modernization/renderer/src/wrappers.cpp b/modernization/renderer/sr
   std::lock_guard<std::recursive_mutex> l(buffer_mutex_);auto i=buffer_proxies_.find(raw);if(i!=buffer_proxies_.end()&&i->second&&i->second->kind()==BufferKind::Index){auto* p=static_cast<IndexBufferProxy*>(i->second->proxy_pointer());if(p->core().generation()!=trace.resources.generation(reinterpret_cast<uintptr_t>(raw))){invalidate_buffer_shadow(raw,"buffer_generation_changed_raw_escape");return raw;}p->AddRef();raw->Release();return p;}
   if(buffer_proxies_.size()>=8192){invalidate_buffer_shadow(raw,"buffer_proxy_count_limit_raw_escape");return raw;}
   auto* p=new(std::nothrow)IndexBufferProxy(this,raw,trace.resources.generation(reinterpret_cast<uintptr_t>(raw)));
-@@ -139,17 +219,52 @@
+@@ -139,17 +220,52 @@
   try{out.assign(mirror.data.begin()+static_cast<size_t>(offset),mirror.data.begin()+static_cast<size_t>(end));return true;}catch(...){out.clear();return false;}
  }
  void Device8::invalidate_buffer_shadow(void* raw,const char* reason) noexcept {std::lock_guard<std::recursive_mutex> l(buffer_mutex_);auto i=buffer_mirrors_.find(raw);if(i==buffer_mirrors_.end()||!i->second)return;auto& mirror=*i->second;std::lock_guard<std::mutex> m(mirror.mutex);mirror.poisoned=true;mirror.initialized.clear();if(mirror.revision!=UINT64_MAX)++mirror.revision;try{mirror.poison_reason=reason?reason:"external_gpu_write";}catch(...){mirror.poison_reason.clear();}}
@@ -947,7 +950,7 @@ diff --git a/modernization/renderer/src/wrappers.cpp b/modernization/renderer/sr
   }trace.after(0,args,static_cast<uint32_t>(hr),pc);return hr;
  }
  ULONG STDMETHODCALLTYPE Device8::AddRef(){
-@@ -160,7 +275,13 @@
+@@ -160,7 +276,13 @@
   ULONG n;bool last;
   {
    auto observer=trace.guard();auto args=pack();auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(2,args,pc);

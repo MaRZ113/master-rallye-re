@@ -276,6 +276,7 @@ public:
                      const std::wstring& renderer_ini) noexcept;
     ~PS2PortExtension();
 
+    FrontendModel* race_model() noexcept { return race_model_.get(); }
     FrontendModel* frontend_model() noexcept { return frontend_model_.get(); }
     bool buffer_mirroring_required() const noexcept;
     bool frontend_geometry_diagnostics() const noexcept { return frontend_geometry_diagnostics_ && build_valid_ && !disabled_; }
@@ -347,6 +348,7 @@ private:
     std::unique_ptr<VehiclePartitionPilot> vehicle_partitions_;
     std::unique_ptr<XtrailFidelity> xtrail_;
     std::unique_ptr<FrontendModel> frontend_model_;
+    std::unique_ptr<FrontendModel> race_model_;
     std::unique_ptr<CourseObjectsPilot> course_objects_;
     std::unique_ptr<GrassPilot> grass_;
     std::unique_ptr<GrassPilot> shrubs_;

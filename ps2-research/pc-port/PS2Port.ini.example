@@ -94,3 +94,9 @@ FrontendModelMode=0
 FrontendModelVersion=1
 FrontendModelAsset=XTRAIL-COMPLETE.ps2model
 FrontendModelDiagnostics=0
+
+; X-Trail race opaque chassis only; native wheels/driver/conditional lights retained.
+RacePS2ModelMode=0
+RacePS2ModelVersion=1
+RacePS2ModelAsset=XTRAIL-CAR.ps2model
+RacePS2ModelDiagnostics=0
