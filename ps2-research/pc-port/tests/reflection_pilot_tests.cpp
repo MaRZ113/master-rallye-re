@@ -1,5 +1,8 @@
 #include "reflection_pilot.hpp"
 #include "damage_identity.hpp"
+#include "brake_glow.hpp"
+#include <fstream>
+#include <cstdlib>
 #include "ps2_port_extension.hpp"
 #include "wrappers.hpp"
 #include "buffer_reset_policy.hpp"
@@ -483,9 +486,17 @@ void damage_identity_tests(){
  auto accepted=damage_compatible_identity(s,"deformed_unknown_positions",kTerranoBumperUvTopology,0,true);CHECK(accepted.accepted);CHECK(accepted.current_geometry_sha256=="deformed_unknown_positions");
  CHECK(!damage_compatible_identity(s,"unknown","wrong",0,true).accepted);s.vehicle_body_verified=false;s.source_material_context_verified=true;CHECK(!damage_compatible_identity(s,"unknown",kTerranoBumperUvTopology,0,true).accepted);s.vehicle_body_verified=true;g.index_generation=0;CHECK(!damage_compatible_identity(s,"unknown",kTerranoBumperUvTopology,0,true).accepted);g.index_generation=2;CHECK(!damage_compatible_identity(s,"unknown",kTerranoBumperUvTopology,1,true).accepted);
  g.primitive_count=1;g.vertex_count=3;g.index_format=D3DFMT_INDEX16;g.vertex_bytes.resize(108);g.index_bytes.resize(6);for(unsigned i=0;i<3;++i){float xyz[3]={float(i),0,0},uv[2]={float(i)*.1f,.5f};std::memcpy(g.vertex_bytes.data()+i*36,xyz,12);std::memcpy(g.vertex_bytes.data()+i*36+28,uv,8);uint16_t ix=static_cast<uint16_t>(i);std::memcpy(g.index_bytes.data()+i*2,&ix,2);}
- const auto stable=damage_uv_topology_sha(g);CHECK(!stable.empty());float deformed=100.f;std::memcpy(g.vertex_bytes.data(),&deformed,4);CHECK(damage_uv_topology_sha(g)==stable);g.vertex_bytes[28]^=1;CHECK(damage_uv_topology_sha(g)!=stable);g.vertex_bytes[28]^=1;uint16_t bad=3;std::memcpy(g.index_bytes.data(),&bad,2);CHECK(damage_uv_topology_sha(g).empty());
+ const auto corner=position_uv_corner_sha(g);CHECK(!corner.empty());const auto stable=damage_uv_topology_sha(g);CHECK(!stable.empty());float deformed=100.f;std::memcpy(g.vertex_bytes.data(),&deformed,4);CHECK(damage_uv_topology_sha(g)==stable);CHECK(position_uv_corner_sha(g)!=corner);g.vertex_bytes[28]^=1;CHECK(damage_uv_topology_sha(g)!=stable);g.vertex_bytes[28]^=1;uint16_t bad=3;std::memcpy(g.index_bytes.data(),&bad,2);CHECK(damage_uv_topology_sha(g).empty());
+}
+void original_lamp_fixtures(){
+ const auto* path=std::getenv("MRR_NATIVE_LAMP_FIXTURES");if(!path)return;std::ifstream file(path,std::ios::binary);std::vector<uint8_t> data((std::istreambuf_iterator<char>(file)),{});CHECK(sha256_bytes(data.data(),data.size())=="e4444fff10111aac15a34a1c8c50236ee8b95dc10a90069511959cb10dd3c07c");size_t at=8;auto word=[&](){uint32_t v=0;if(at+4>data.size()){CHECK(false);return v;}std::memcpy(&v,data.data()+at,4);at+=4;return v;};CHECK(data.size()>12&&std::memcmp(data.data(),"PS2LMP01",8)==0);const auto cases=word();CHECK(cases==22);unsigned glows=0,off=0,on=0;
+ for(unsigned c=0;c<cases;++c){const auto kind=word(),vertices=word(),triangles=word(),stride=word();DrawSnapshot g;auto s=valid(g);s.requested_mode=4;g.vertex_count=vertices;g.primitive_count=triangles;g.fvf=stride==32?0x112:0x152;g.stride=stride;g.index_format=D3DFMT_INDEX32;const auto end=at+uint64_t(vertices)*stride+uint64_t(triangles)*12;CHECK(end<=data.size());if(end>data.size())return;g.vertex_bytes.assign(data.begin()+at,data.begin()+at+vertices*stride);at+=vertices*stride;g.index_bytes.assign(data.begin()+at,data.begin()+end);at=end;
+ if(kind==2){const auto* p=fleet_glow_identity(g);CHECK(p);++glows;auto bad=g;bad.vertex_bytes[24]^=1;CHECK(!fleet_glow_identity(bad));bad=g;bad.vertex_bytes[0]^=1;CHECK(!fleet_glow_identity(bad));bad=g;bad.index_generation=0;CHECK(!fleet_glow_identity(bad));bad=g;bad.complete_mirror_coverage=false;CHECK(!fleet_glow_identity(bad));}
+ else{const auto hash=reflection_geometry_sha(g);auto identity=reflection_identity_for_hash(s,hash,0,true);if(kind==0){++off;CHECK(identity.accepted&&identity.vehicle=="Xtrail");CHECK(position_uv_corner_sha(g)==kXtrailLampOffPositionUv);auto bad=g;bad.vertex_bytes[28]^=1;s.geometry=&bad;CHECK(!reflection_identity_for_hash(s,hash,0,true).accepted);s.geometry=&g;s.requested_mode=1;CHECK(!reflection_identity_for_hash(s,hash,0,true).accepted);s.requested_mode=4;CHECK(!reflection_identity_for_hash(s,hash,1,true).accepted);}else{++on;CHECK(!identity.accepted);}}
+ }CHECK(at==data.size()&&glows==20&&off==1&&on==1);
 }
 int main() {
+    original_lamp_fixtures();
     damage_identity_tests();
     identity();transaction();resource_and_reset();config_and_conversion();diagnostic_color_policy();enabled_reset();managed_reset_retention();stock_wrapper_draw();
     if(failures)return 1;

@@ -80,7 +80,7 @@ XtrailGlassVersion=1
 XtrailGlassAsset=XtrailHeadlight.ps2glass
 XtrailGlassDiagnostics=0
 
-; 0=Stock; 1=Terrano ORIGINAL native-emitted brake glow PS2-mode14 state control.
+; 0=Stock; 1=20 exact original-PC native glow profiles with PS2-mode14 state control.
 ; Verified original PS2 RGB-fade asset required; missing/invalid asset => Stock.
 BrakeGlowMode=0
 BrakeGlowVersion=1
@@ -90,12 +90,14 @@ BrakeGlowDiagnostics=0
 ; First authentic X-Trail COMPLETE pilot; requires verified local converted asset.
 ; Native current owner + all 24 source records must pass before replacement.
 ; Keep ReflectionMode=4 for the admitted mixed-source frontend material pilot.
+; 0=Stock, 1=runtime-confirmed X-Trail, 2=verified fleet COMPLETE profiles (runtime A/B pending)
 FrontendModelMode=0
+FrontendModelAssetDirectory=.
 FrontendModelVersion=1
 FrontendModelAsset=XTRAIL-COMPLETE.ps2model
 FrontendModelDiagnostics=0
 
-; X-Trail race opaque chassis only; native wheels/driver/conditional lights retained.
+; X-Trail race chassis; crew and wheel replacements are separately opt-in.
 RacePS2ModelMode=0
 RacePS2ModelVersion=1
 RacePS2ModelAsset=XTRAIL-CAR.ps2model
@@ -109,3 +111,6 @@ RacePS2WheelMode=0
 RacePS2WheelVersion=1
 RacePS2WheelAsset=XTRAIL-WHEEL-DRAW.ps2model
 RacePS2WheelDiagnostics=0
+
+; Static original PS2 crew; requires RacePS2ModelMode=1 and Parts=1.
+RacePS2CrewMode=0

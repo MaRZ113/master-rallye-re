@@ -1,0 +1,280 @@
+{
+  "source_capture": "frame-30252-d1-00134895.jsonl",
+  "capture_sha256": "e3fa7cf9ceb22c7c2cf4f8754771afc309a3f25b4db1ff02d60f2b6c920c45fb",
+  "frame": 134895,
+  "proxy_sha256": "9ba0e326cfa2133041ba0797bc710910f773badec831280f830dcb7b9a5b85f0",
+  "records": [
+    {
+      "source_record": 17,
+      "draw_sequence": 803,
+      "draw_index_observation_only": 229,
+      "args": [
+        4,
+        5919,
+        62,
+        12018,
+        38
+      ],
+      "forwarded": true,
+      "native_only": true,
+      "world_bits": [
+        1062633382,
+        3159064728,
+        3205215062,
+        0,
+        1032549281,
+        1065257761,
+        1034404967,
+        0,
+        1057662252,
+        3185093452,
+        1062567588,
+        0,
+        1129907146,
+        1107802558,
+        1125586776,
+        1065353216
+      ],
+      "stream": {
+        "pointer": 264090720,
+        "stride": 24,
+        "last_creation_serial": 625
+      },
+      "indices": {
+        "pointer": 487931712,
+        "base": 0,
+        "last_creation_serial": 626
+      },
+      "fvf": 322,
+      "result": 0,
+      "association": "SOURCE_LAYOUT_AND_INDEX_RELOCATION_OBSERVATION_NOT_STANDALONE_RUNTIME_IDENTITY"
+    },
+    {
+      "source_record": 17,
+      "draw_sequence": 846,
+      "draw_index_observation_only": 229,
+      "args": [
+        4,
+        5919,
+        62,
+        12018,
+        42
+      ],
+      "forwarded": false,
+      "native_only": false,
+      "world_bits": [
+        1062633382,
+        3159064728,
+        3205215062,
+        0,
+        1032549281,
+        1065257761,
+        1034404967,
+        0,
+        1057662252,
+        3185093452,
+        1062567588,
+        0,
+        1129907146,
+        1107802558,
+        1125586776,
+        1065353216
+      ],
+      "stream": {
+        "pointer": 264090720,
+        "stride": 24,
+        "last_creation_serial": 625
+      },
+      "indices": {
+        "pointer": 487931712,
+        "base": 0,
+        "last_creation_serial": 626
+      },
+      "fvf": 322,
+      "result": 0,
+      "association": "SOURCE_LAYOUT_AND_INDEX_RELOCATION_OBSERVATION_NOT_STANDALONE_RUNTIME_IDENTITY"
+    },
+    {
+      "source_record": 16,
+      "draw_sequence": 848,
+      "draw_index_observation_only": 230,
+      "args": [
+        4,
+        5900,
+        19,
+        11931,
+        29
+      ],
+      "forwarded": true,
+      "native_only": false,
+      "world_bits": [
+        1062633382,
+        3159064728,
+        3205215062,
+        0,
+        1032549281,
+        1065257761,
+        1034404967,
+        0,
+        1057662252,
+        3185093452,
+        1062567588,
+        0,
+        1129907146,
+        1107802558,
+        1125586776,
+        1065353216
+      ],
+      "stream": {
+        "pointer": 264090720,
+        "stride": 24,
+        "last_creation_serial": 625
+      },
+      "indices": {
+        "pointer": 487931712,
+        "base": 0,
+        "last_creation_serial": 626
+      },
+      "fvf": 322,
+      "result": 0,
+      "association": "SOURCE_LAYOUT_AND_INDEX_RELOCATION_OBSERVATION_NOT_STANDALONE_RUNTIME_IDENTITY"
+    },
+    {
+      "source_record": 18,
+      "draw_sequence": 850,
+      "draw_index_observation_only": 231,
+      "args": [
+        4,
+        5981,
+        19,
+        12144,
+        29
+      ],
+      "forwarded": true,
+      "native_only": false,
+      "world_bits": [
+        1062633382,
+        3159064728,
+        3205215062,
+        0,
+        1032549281,
+        1065257761,
+        1034404967,
+        0,
+        1057662252,
+        3185093452,
+        1062567588,
+        0,
+        1129907146,
+        1107802558,
+        1125586776,
+        1065353216
+      ],
+      "stream": {
+        "pointer": 264090720,
+        "stride": 24,
+        "last_creation_serial": 625
+      },
+      "indices": {
+        "pointer": 487931712,
+        "base": 0,
+        "last_creation_serial": 626
+      },
+      "fvf": 322,
+      "result": 0,
+      "association": "SOURCE_LAYOUT_AND_INDEX_RELOCATION_OBSERVATION_NOT_STANDALONE_RUNTIME_IDENTITY"
+    },
+    {
+      "source_record": 20,
+      "draw_sequence": 852,
+      "draw_index_observation_only": 232,
+      "args": [
+        4,
+        6144,
+        290,
+        12675,
+        200
+      ],
+      "forwarded": true,
+      "native_only": false,
+      "world_bits": [
+        1062633382,
+        3159064728,
+        3205215062,
+        0,
+        1032549281,
+        1065257761,
+        1034404967,
+        0,
+        1057662252,
+        3185093452,
+        1062567588,
+        0,
+        1129907146,
+        1107802558,
+        1125586776,
+        1065353216
+      ],
+      "stream": {
+        "pointer": 264090720,
+        "stride": 24,
+        "last_creation_serial": 625
+      },
+      "indices": {
+        "pointer": 487931712,
+        "base": 0,
+        "last_creation_serial": 626
+      },
+      "fvf": 322,
+      "result": 0,
+      "association": "SOURCE_LAYOUT_AND_INDEX_RELOCATION_OBSERVATION_NOT_STANDALONE_RUNTIME_IDENTITY"
+    },
+    {
+      "source_record": 19,
+      "draw_sequence": 1605,
+      "draw_index_observation_only": 261,
+      "args": [
+        4,
+        4000,
+        96,
+        12231,
+        148
+      ],
+      "forwarded": true,
+      "native_only": false,
+      "world_bits": [
+        1062633382,
+        3159064728,
+        3205215062,
+        0,
+        1032549281,
+        1065257761,
+        1034404967,
+        0,
+        1057662252,
+        3185093452,
+        1062567588,
+        0,
+        1129907146,
+        1107802558,
+        1125586776,
+        1065353216
+      ],
+      "stream": {
+        "pointer": 264090720,
+        "stride": 36,
+        "last_creation_serial": 625
+      },
+      "indices": {
+        "pointer": 487931712,
+        "base": 0,
+        "last_creation_serial": 626
+      },
+      "fvf": 338,
+      "result": 0,
+      "association": "SOURCE_LAYOUT_AND_INDEX_RELOCATION_OBSERVATION_NOT_STANDALONE_RUNTIME_IDENTITY"
+    }
+  ],
+  "world_exactly_equal": true,
+  "runtime_requirement": "RECHECK_CURRENT_QUEUE_OWNER_MODEL_SIGNATURE_RESOURCE_GENERATION_AND_NATIVE_WORLD; pointers and ordinals never persisted as classifier"
+}

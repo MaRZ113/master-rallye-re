@@ -1,0 +1,164 @@
+{
+  "original_assets_in_handoff": false,
+  "manual_copy_only": true,
+  "assets": [
+    {
+      "path": "ps2-research/pc-port/.assets/vehicles/ASTERO-COMPLETE-FLEET.ps2model",
+      "sha256": "23e274aa87ed9e855c1e64da3a121bc53f1e85e1b3355c0c053d2111f6610214",
+      "bytes": 662014,
+      "role": "COMPLETE_FLEET",
+      "ps2_family": "ASTERO"
+    },
+    {
+      "path": "ps2-research/pc-port/.assets/vehicles/BRUNO-COMPLETE-FLEET.ps2model",
+      "sha256": "423890a58b834aa3cc083461c3b68eb821c782b40801ccd730a0ee6cbc29db77",
+      "bytes": 619603,
+      "role": "COMPLETE_FLEET",
+      "ps2_family": "BRUNO"
+    },
+    {
+      "path": "ps2-research/pc-port/.assets/vehicles/CHEVYBLAZER-COMPLETE-FLEET.ps2model",
+      "sha256": "567fe02dfa617797000659a5644908d9d96e1a097793a6d46b9658d32be3cf2b",
+      "bytes": 570449,
+      "role": "COMPLETE_FLEET",
+      "ps2_family": "CHEVYBLAZER"
+    },
+    {
+      "path": "ps2-research/pc-port/.assets/vehicles/FORKLIFT-COMPLETE-FLEET.ps2model",
+      "sha256": "7cb18a6a53e3b5d7b7295de9d0570a76e2be2be38381d9f4c212df6b1ae3208b",
+      "bytes": 449167,
+      "role": "COMPLETE_FLEET",
+      "ps2_family": "FORKLIFT"
+    },
+    {
+      "path": "ps2-research/pc-port/.assets/vehicles/FRONTERA-COMPLETE-FLEET.ps2model",
+      "sha256": "83f21a0b5c0b43713aebeef457ae538efebeb198dd48284c2cae5969d532ecbf",
+      "bytes": 674387,
+      "role": "COMPLETE_FLEET",
+      "ps2_family": "FRONTERA"
+    },
+    {
+      "path": "ps2-research/pc-port/.assets/vehicles/ICECREAM-COMPLETE-FLEET.ps2model",
+      "sha256": "a7797542b0fabfe513ad1bac8d906fc09f3fc79daaad93db7b6e4d490698b8e2",
+      "bytes": 601706,
+      "role": "COMPLETE_FLEET",
+      "ps2_family": "ICECREAM"
+    },
+    {
+      "path": "ps2-research/pc-port/.assets/vehicles/JUMP-COMPLETE-FLEET.ps2model",
+      "sha256": "491ed6e8b61214fbb3e816c4fdd97142a24ab1413076da676f079a15b0131ca8",
+      "bytes": 654481,
+      "role": "COMPLETE_FLEET",
+      "ps2_family": "JUMP"
+    },
+    {
+      "path": "ps2-research/pc-port/.assets/vehicles/KAMAZ-COMPLETE-FLEET.ps2model",
+      "sha256": "df3d58336f6596cc4915b055820c5d0008b116b33091cca6915abdf971d3826c",
+      "bytes": 827015,
+      "role": "COMPLETE_FLEET",
+      "ps2_family": "KAMAZ"
+    },
+    {
+      "path": "ps2-research/pc-port/.assets/vehicles/KANGOO-COMPLETE-FLEET.ps2model",
+      "sha256": "6ecc4c5dcbe31802e4772b21f97cbe5eada279a78dbe11414edae852eff111c7",
+      "bytes": 694189,
+      "role": "COMPLETE_FLEET",
+      "ps2_family": "KANGOO"
+    },
+    {
+      "path": "ps2-research/pc-port/.assets/vehicles/LANDCRUISER-COMPLETE-FLEET.ps2model",
+      "sha256": "d9eebc0f6831a29552dfab612e0804b35a353259b647935ae255a0cba932d63b",
+      "bytes": 715140,
+      "role": "COMPLETE_FLEET",
+      "ps2_family": "LANDCRUISER"
+    },
+    {
+      "path": "ps2-research/pc-port/.assets/vehicles/MEGANE-COMPLETE-FLEET.ps2model",
+      "sha256": "69966f861ef742a990d6b7511bc455a9a1fc00d439b722a86f33b8234ecdc28e",
+      "bytes": 660987,
+      "role": "COMPLETE_FLEET",
+      "ps2_family": "MEGANE"
+    },
+    {
+      "path": "ps2-research/pc-port/.assets/vehicles/NAVARA-COMPLETE-FLEET.ps2model",
+      "sha256": "7272d6ceb2982b9064c9ec38628fa04188b0eddd779a9edfaa2ff498ddd1b7b4",
+      "bytes": 631209,
+      "role": "COMPLETE_FLEET",
+      "ps2_family": "NAVARA"
+    },
+    {
+      "path": "ps2-research/pc-port/.assets/vehicles/NEWRAV-COMPLETE-FLEET.ps2model",
+      "sha256": "dcff642f00076545705e7565bbba67aa5e18280752d386135fa961a21e75cc7f",
+      "bytes": 681402,
+      "role": "COMPLETE_FLEET",
+      "ps2_family": "NEWRAV"
+    },
+    {
+      "path": "ps2-research/pc-port/.assets/vehicles/PAJERO-COMPLETE-FLEET.ps2model",
+      "sha256": "20bd065ecbd2b339ec97e804a6c320c20b72c15abccd9e9bdf59d9fefec68315",
+      "bytes": 730074,
+      "role": "COMPLETE_FLEET",
+      "ps2_family": "PAJERO"
+    },
+    {
+      "path": "ps2-research/pc-port/.assets/vehicles/PATROL-COMPLETE-FLEET.ps2model",
+      "sha256": "0026bf54d4e88149a32cfcfd51ee606053cd16f0cf03eec09739f146bcfb4624",
+      "bytes": 734589,
+      "role": "COMPLETE_FLEET",
+      "ps2_family": "PATROL"
+    },
+    {
+      "path": "ps2-research/pc-port/.assets/vehicles/RMONSTER-COMPLETE-FLEET.ps2model",
+      "sha256": "e3018aaf0eecc1566471ba575b3e4fd40b2e13a5039ebdf06e91c896df6623cf",
+      "bytes": 580600,
+      "role": "COMPLETE_FLEET",
+      "ps2_family": "RMONSTER"
+    },
+    {
+      "path": "ps2-research/pc-port/.assets/vehicles/SEATBUGGY-COMPLETE-FLEET.ps2model",
+      "sha256": "1f3f6e7fb84aa4d4cde3136ef38576059986706dd30c90e398cd2e4ce42f4fd5",
+      "bytes": 588764,
+      "role": "COMPLETE_FLEET",
+      "ps2_family": "SEATBUGGY"
+    },
+    {
+      "path": "ps2-research/pc-port/.assets/vehicles/TERRANO-COMPLETE-FLEET.ps2model",
+      "sha256": "6401b2e3c16121b6397399725b94c176f19c385d85d302db85fed512e3d5e3dc",
+      "bytes": 699011,
+      "role": "COMPLETE_FLEET",
+      "ps2_family": "TERRANO"
+    },
+    {
+      "path": "ps2-research/pc-port/.assets/vehicles/WILDCAT-COMPLETE-FLEET.ps2model",
+      "sha256": "4192fda7741e5beea01f6222e0ec9b18148ce68cc3a6def4a01672aa578f7b5d",
+      "bytes": 677310,
+      "role": "COMPLETE_FLEET",
+      "ps2_family": "WILDCAT"
+    },
+    {
+      "path": "ps2-research/pc-port/.assets/vehicles/XTRAIL-COMPLETE-FLEET.ps2model",
+      "sha256": "6444198f7ea60e60e174ec6fa587483cec4e10b8a6dfc9b4f35673748eae9cbe",
+      "bytes": 732635,
+      "role": "COMPLETE_FLEET",
+      "ps2_family": "XTRAIL"
+    },
+    {
+      "path": "ps2-research/pc-port/.assets/vehicles/XTRAIL-COMPLETE.ps2model",
+      "sha256": "ba1cee9a21c2a2ae2935158136ae80b587eca7dc9a6701afc573e069818d772b",
+      "bytes": 741114,
+      "role": "COMPLETE_MODE1"
+    },
+    {
+      "path": "ps2-research/pc-port/.assets/vehicles/XTRAIL-CAR.ps2model",
+      "sha256": "a15ee827bc93e7a7fe242d8ba2440afe1991cd06e8aeee15ce78b836e372ccac",
+      "bytes": 495343,
+      "role": "CAR_CREW"
+    },
+    {
+      "path": "ps2-research/pc-port/.assets/vehicles/XTRAIL-WHEEL-DRAW.ps2model",
+      "sha256": "1c548d537acd75480515ff6d43140215638d2cd87c8b254d509dd5e6d004a31f",
+      "bytes": 68258,
+      "role": "WHEEL"
+    }
+  ]
+}

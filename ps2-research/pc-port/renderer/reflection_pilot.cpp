@@ -44,6 +44,12 @@ std::string reflection_geometry_sha(const DrawSnapshot& s) {
     return sha256_bytes(joined.data(), joined.size());
 }
 
+std::string position_uv_corner_sha(const DrawSnapshot& g){
+ if(!g.complete_mirror_coverage||!g.vertex_resource||!g.index_resource||!g.vertex_generation||!g.index_generation||!g.vertex_revision||!g.index_revision||g.primitive_type!=D3DPT_TRIANGLELIST||!g.primitive_count||g.primitive_count>8192||!g.vertex_count)return {};
+ const unsigned stride=g.fvf==0x142?24:g.fvf==0x152?36:g.fvf==0x112?32:0,uv=g.fvf==0x142?16:g.fvf==0x152?28:24,width=g.index_format==D3DFMT_INDEX16?2:g.index_format==D3DFMT_INDEX32?4:0;
+ if(!stride||stride!=g.stride||!width||g.index_bytes.size()!=uint64_t(g.primitive_count)*3*width)return {};const uint64_t begin=(uint64_t(g.base_vertex)+g.min_index)*stride;if(begin<g.vertex_byte_offset)return {};const auto relative=begin-g.vertex_byte_offset;if(relative>g.vertex_bytes.size()||uint64_t(g.vertex_count)*stride>g.vertex_bytes.size()-relative)return {};
+ std::vector<std::array<uint8_t,20>> corners;corners.reserve(g.primitive_count*3);for(unsigned k=0;k<g.primitive_count*3;++k){uint32_t i=0;std::memcpy(&i,g.index_bytes.data()+k*width,width);if(i<g.min_index||i-g.min_index>=g.vertex_count)return {};const auto* v=g.vertex_bytes.data()+relative+uint64_t(i-g.min_index)*stride;std::array<uint8_t,20> c{};std::memcpy(c.data(),v,12);std::memcpy(c.data()+12,v+uv,8);float values[5];std::memcpy(values,c.data(),20);for(float f:values)if(!std::isfinite(f))return {};corners.push_back(c);}std::sort(corners.begin(),corners.end());return sha256_bytes(corners.data(),corners.size()*20);
+}
 ReflectionIdentity reflection_identity_for_hash(const ReflectionSnapshot& s, std::string_view hash, uint64_t reset_generation, bool expanded) {
     ReflectionIdentity result;
     result.geometry_sha256 = hash;
@@ -56,6 +62,8 @@ ReflectionIdentity reflection_identity_for_hash(const ReflectionSnapshot& s, std
     }
     static constexpr ReflectionMaterial off_lamp={"Terrano","2afd75bd071f0cb1bee35be8f99f0209511a5332b0e8880bb3b889fa52aaf847",6,10,true};
     if(g&&expanded&&g->primitive_count==6&&g->vertex_count==10&&hash==off_lamp.geometry_sha&&damage_uv_topology_sha(*g)==kTerranoLampOffUvTopology)material=&off_lamp;
+    static constexpr ReflectionMaterial xtrail_off={"Xtrail","a6d34ae167a6e81a9a411bd4856c5c5152fbd34ab37163cb76fd2079e1f59393",6,10,true};
+    if(g&&expanded&&g->primitive_count==6&&g->vertex_count==10&&hash==xtrail_off.geometry_sha&&position_uv_corner_sha(*g)==kXtrailLampOffPositionUv)material=&xtrail_off;
     if(material)result.vehicle=material->vehicle;
     if (!g || !g->supported_build) result.reason = "unsupported_build";
     else if (!g->device_id || g->reset_generation != reset_generation) result.reason = "stale_device_or_reset";

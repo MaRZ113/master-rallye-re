@@ -1,0 +1,82 @@
+{
+  "phase": "PS2-VEHICLE-CREW-PORT1",
+  "starting_head": "707085fa961237c413cfd0d2e95ec9d628460e55",
+  "baseline_renderer_tree": "e33386bcf682db6983380c499e4928726c758fe0",
+  "baseline_object_commit": "0bddf7c7bc5e95831f98714ff6231da05ab073ea",
+  "integration_patches_changed": false,
+  "builds": {
+    "baseline": {
+      "dll": "ps2-research/pc-port/dist/current/baseline/d3d8.dll",
+      "dll_sha256": "011dd9a94155d216d0c0dde28e0af97f5b72226aae5be97016f2d767ebdf7138",
+      "ctest": "PASS",
+      "proxy_verification": "PASS",
+      "build": "PASS",
+      "build_dll": "ps2-research/pc-port/.build/baseline/Release/d3d8.dll"
+    },
+    "ps2-enabled": {
+      "dll": "ps2-research/pc-port/dist/current/ps2-enabled/d3d8.dll",
+      "dll_sha256": "ac0e0ddd779264ce7cbc990d7534c10e9bba13a75630fa751478374c44afb3fc",
+      "ctest": "PASS",
+      "proxy_verification": "PASS",
+      "build": "PASS",
+      "build_dll": "ps2-research/pc-port/.build/ps2-enabled/Release/d3d8.dll"
+    }
+  },
+  "ctest": {
+    "baseline": "24/24 PASS",
+    "ps2-enabled": "34/34 PASS"
+  },
+  "python_regression": "133/133 PASS",
+  "focused_source_metadata": {
+    "identity": "4/4 PASS",
+    "fleet": "6/6 PASS",
+    "lamps": "5/5 PASS"
+  },
+  "native_original_upload_fixtures": {
+    "cases": 22,
+    "glow_positive_profiles": 20,
+    "xtrail_lamp_off_on_cases": 2,
+    "mutated_uv_position_stale_generation_negative_controls": "PASS",
+    "fixture_sha256": "e4444fff10111aac15a34a1c8c50236ee8b95dc10a90069511959cb10dd3c07c"
+  },
+  "native_asset_decoder_and_texture_lifetime": {
+    "fleet_profiles": 20,
+    "wrong_role_corrupt_bytes_negative_tests": "PASS",
+    "once_only_upload_and_reset_recreation": "PASS"
+  },
+  "independent_reviews": {
+    "crew_identity": "PASS; corrected missing-asset negative-cache reset before build3",
+    "lamp_registry": "20/20 original PC joins independently matched; fixed inherited GlassTransaction notify57\u219250 before final build",
+    "slot50_real_effective_shadow_and_logical_preservation": "PASS, both glass/glow including partial SetRenderState failure"
+  },
+  "generator": {
+    "baseline": {
+      "deterministic": true,
+      "outputs": {
+        "data/interface-map.json": "1e966cceaabfaf8a2897359180e7319dbfe6afeef16510f3058a2456e4991369",
+        "include/wrappers.hpp": "8698cfd78bed05daa1b66ea32ecf0d1fe81577046524240ede3eac7a8b79b13c",
+        "include/method_names.hpp": "c1a9e331bffb14365807b1f94f700a7acf839de91af27038b64b4374d1e6ab84",
+        "src/forwarders.cpp": "a84c3ef792b24783cad1cc119e8feb9886f5ef511bfebf316382e8781cec0539",
+        "tests/mock_interfaces.hpp": "9062667d68b59dc580e102505bcd4c2da8e66b93e11d6ff210b046c0952062f9"
+      },
+      "initial_files_rewritten": []
+    },
+    "ps2-enabled": {
+      "deterministic": true,
+      "outputs": {
+        "data/interface-map.json": "1e966cceaabfaf8a2897359180e7319dbfe6afeef16510f3058a2456e4991369",
+        "include/wrappers.hpp": "85ef4dc9413ec9590253f9dc65c30582dccb95e8a9405846b8ae17e32404c7e5",
+        "include/method_names.hpp": "c1a9e331bffb14365807b1f94f700a7acf839de91af27038b64b4374d1e6ab84",
+        "src/forwarders.cpp": "bad041adc77a28ae6948b1f74bcde5b9271280f5a830756c3d86d4b331bcd631",
+        "tests/mock_interfaces.hpp": "9062667d68b59dc580e102505bcd4c2da8e66b93e11d6ff210b046c0952062f9"
+      },
+      "initial_files_rewritten": []
+    }
+  },
+  "original_pc_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "runtime_new_changes": "PENDING_USER_AB",
+  "full_fleet_car": "NOT_IMPLEMENTED; per-family conditional/crew-interior/native-wheel ownership certificates missing",
+  "private_assets_in_source_archive": false,
+  "automatic_deployment": false,
+  "push": false
+}

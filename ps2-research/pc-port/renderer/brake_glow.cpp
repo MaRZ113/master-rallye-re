@@ -1,5 +1,6 @@
 #include "brake_glow.hpp"
 #include "brake_glow_identity.hpp"
+#include "damage_identity.hpp"
 #include "provenance.hpp"
 #include <algorithm>
 #include <cstring>
@@ -15,6 +16,12 @@ bool BrakeGlow::initialize(IDirect3DDevice8& n)noexcept{
  if(!requested()||blocked_)return false;if(texture_)return true;
  auto hr=n.CreateTexture(16,16,1,0,D3DFMT_A8R8G8B8,D3DPOOL_MANAGED,&texture_);if(FAILED(hr)||!texture_){before_reset();disabled_=true;return false;}D3DLOCKED_RECT lock{};hr=texture_->LockRect(0,&lock,nullptr,0);if(FAILED(hr)){before_reset();disabled_=true;return false;}bool valid=lock.pBits&&lock.Pitch>=64;if(valid)for(unsigned y=0;y<16;++y)std::memcpy(static_cast<uint8_t*>(lock.pBits)+y*lock.Pitch,pixels_.data()+y*16,64);const auto unlocked=texture_->UnlockRect(0);if(!valid||FAILED(unlocked)){before_reset();disabled_=true;return false;}return true;
 }
+const BrakeGlowProfile* fleet_glow_identity(const DrawSnapshot& g)noexcept{try{
+ if(!g.supported_build||!g.device_id||g.fvf!=0x112||g.stride!=32||g.vertex_bytes.size()!=uint64_t(g.vertex_count)*32||g.vertex_byte_offset!=(uint64_t(g.base_vertex)+g.min_index)*32)return nullptr;
+ const auto uv=position_uv_corner_sha(g);if(uv.empty())return nullptr;const BrakeGlowProfile* selected=nullptr;for(const auto& p:kBrakeGlowProfiles)if(p.vertices==g.vertex_count&&p.triangles==g.primitive_count&&uv==p.positionUv){if(selected)return nullptr;selected=&p;}if(!selected)return nullptr;
+ DrawSnapshot normalized=g;normalized.fvf=0x152;normalized.stride=36;normalized.base_vertex=0;normalized.vertex_byte_offset=uint64_t(g.min_index)*36;normalized.vertex_bytes.assign(uint64_t(g.vertex_count)*36,0);for(unsigned i=0;i<g.vertex_count;++i)std::memcpy(normalized.vertex_bytes.data()+i*36,g.vertex_bytes.data()+i*32,12);auto faces=vehicle_face_hashes(normalized);if(faces.size()!=g.primitive_count)return nullptr;std::sort(faces.begin(),faces.end());std::string all;for(const auto& f:faces)all+=f;if(sha256_bytes(all.data(),all.size())!=selected->geometry)return nullptr;
+ if(std::string_view(selected->family)=="Terrano"&&!terrano_glow_identity(g))return nullptr;return selected;
+ }catch(...){return nullptr;}}
 bool terrano_glow_identity(const DrawSnapshot& g,std::string_view geometry,std::string_view expected_attributes)noexcept{try{
  if(!g.supported_build||!g.device_id||g.fvf!=0x112||g.stride!=32||g.vertex_count!=20||g.primitive_count!=20||g.vertex_byte_offset!=(uint64_t(g.base_vertex)+g.min_index)*32||g.vertex_bytes.size()!=640)return false;
  std::vector<std::string> attributes;DrawSnapshot normalized=g;normalized.fvf=0x152;normalized.stride=36;normalized.base_vertex=0;normalized.vertex_byte_offset=uint64_t(g.min_index)*36;normalized.vertex_bytes.resize(720);

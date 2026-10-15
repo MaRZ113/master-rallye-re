@@ -1,0 +1,2474 @@
+{
+  "schema": 1,
+  "runtime": "SOURCE_CANDIDATES_NOT_RUNTIME_ADMISSION",
+  "families": [
+    {
+      "ps2_family": "ASTERO",
+      "ps2_sha256": "7d2e9b3a29762f311838e1e4e050658bcc0d432b59d4f259e5d289b0ea7bdc86",
+      "pc_family": "Astero",
+      "meshes": [
+        {
+          "path": "root.9",
+          "node": 171824,
+          "mode": 3,
+          "faces": 14,
+          "slots": [
+            "brakelight32-tga",
+            "perspex-tga"
+          ],
+          "conditional": false,
+          "pc_candidates": [
+            {
+              "record": 13,
+              "vertex_count": 26,
+              "index_count": 42,
+              "attribute_sha256": "cddc5147c35c6ddadffb71e18e297f66a27067bac23c20ca1c1629c64994e61d",
+              "position_uv_corner_sha256": "73aae33a8758991059f2c099a33e5f0c15642741f13fb371492c3becdb7f4aa6",
+              "max_position_error": 2.980232238769531e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.9168006777763367,
+              0.5221908092498779,
+              -1.9134514331817627
+            ],
+            "max": [
+              0.9168007373809814,
+              1.3201186656951904,
+              1.779301643371582
+            ]
+          }
+        },
+        {
+          "path": "root.24.0.0",
+          "node": 174745,
+          "mode": 1,
+          "faces": 12,
+          "slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 29,
+              "vertex_count": 20,
+              "index_count": 36,
+              "attribute_sha256": "76fe80837a2dd5bac97e59ad35aced53fc324fabb0a91d5b7226208cb6f9adfe",
+              "position_uv_corner_sha256": "f55112c04c4475ed01c3bbcf1b1a114a6062612903d6ebd5baa67f42413039c1",
+              "max_position_error": 1.1920928955078125e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.9168005585670471,
+              0.39788904786109924,
+              -2.0291707515716553
+            ],
+            "max": [
+              0.9168004989624023,
+              0.6555964946746826,
+              -1.877325415611267
+            ]
+          }
+        },
+        {
+          "path": "root.24.0.1",
+          "node": 174901,
+          "mode": 14,
+          "faces": 40,
+          "slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 30,
+              "vertex_count": 40,
+              "index_count": 120,
+              "attribute_sha256": "530ffcb5a8bd7f5e003fafaefd358853e4bbf604cce0a86fe76ca5467fb8f9f4",
+              "position_uv_corner_sha256": "b28f1afa28ae579c718882b798891af08c4561f79abe74eb05249e090b2dd4a9",
+              "max_position_error": 1.1920928955078125e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.9486871957778931,
+              0.36398082971572876,
+              -2.044154167175293
+            ],
+            "max": [
+              0.9486872553825378,
+              0.6854525208473206,
+              -1.8437217473983765
+            ]
+          }
+        },
+        {
+          "path": "root.24.1.0",
+          "node": 175086,
+          "mode": 3,
+          "faces": 12,
+          "slots": [
+            "brakelight32-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 31,
+              "vertex_count": 20,
+              "index_count": 36,
+              "attribute_sha256": "d066aea629700990f80808efc9cfe5c52f47afda4b04b2b200ab600fd936519c",
+              "position_uv_corner_sha256": "c6ea5691dec510958a7f876e28b091a00826a3dd87813ef99e4310cebcedb225",
+              "max_position_error": 1.1920928955078125e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.9168005585670471,
+              0.39788904786109924,
+              -2.0291707515716553
+            ],
+            "max": [
+              0.9168004989624023,
+              0.6555964946746826,
+              -1.877325415611267
+            ]
+          }
+        }
+      ],
+      "pc_sha256": "b97949651ae1c0089a614beaa24f6b07bbea84735c70faf1570760a9aaa16d90"
+    },
+    {
+      "ps2_family": "BRUNO",
+      "ps2_sha256": "f53373134712dd8eb8cae26422d9a67e18489668639cdaa479023765692cf260",
+      "pc_family": "Bruno",
+      "meshes": [
+        {
+          "path": "root.20.0.0",
+          "node": 170231,
+          "mode": 1,
+          "faces": 12,
+          "slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 18,
+              "vertex_count": 20,
+              "index_count": 36,
+              "attribute_sha256": "69992e2441fc7567bb02eb88ce6c5e0f36bc840c5cbc8f8072aa016b11d51711",
+              "position_uv_corner_sha256": "e4dafd50fcf0576fefdf26145c3dcec2bcc08c882ee2b090178c6e5ecf8f489d",
+              "max_position_error": 1.7881393432617188e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -1.0008339881896973,
+              0.5975374579429626,
+              -2.6436800956726074
+            ],
+            "max": [
+              1.0005983114242554,
+              0.7159293293952942,
+              -2.5871403217315674
+            ]
+          }
+        },
+        {
+          "path": "root.20.0.1",
+          "node": 170400,
+          "mode": 14,
+          "faces": 32,
+          "slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 19,
+              "vertex_count": 32,
+              "index_count": 96,
+              "attribute_sha256": "9384d5addd37ef0f7854fcf7847beb168ab6700fcbe0ec6673d05bb2b1135975",
+              "position_uv_corner_sha256": "9f8b7530e2c65a04faf1a2d9ed878e7a8e79ea204667d5e6a95a7c7853b05023",
+              "max_position_error": 1.7881393432617188e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -1.0345351696014404,
+              0.551705002784729,
+              -2.6704649925231934
+            ],
+            "max": [
+              1.0343796014785767,
+              0.7599911093711853,
+              -2.549225091934204
+            ]
+          }
+        }
+      ],
+      "pc_sha256": "c7a456332e31c67647394467d2e0e467df048160ae634ab2b8d024eb9d61204f"
+    },
+    {
+      "ps2_family": "CHEVYBLAZER",
+      "ps2_sha256": "52b0dd8a5d46293781ce538519cc5d4da419afd738dd5eeb5d8b08cd2a02ae18",
+      "pc_family": "ChevyBlazer",
+      "meshes": [
+        {
+          "path": "root.26.1.0",
+          "node": 185489,
+          "mode": 1,
+          "faces": 10,
+          "slots": [
+            "breaklightson-tga",
+            "lightshine-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 34,
+              "vertex_count": 14,
+              "index_count": 30,
+              "attribute_sha256": "05e9f635a54752fccfaad5543be9b3abede6bf20ce1a9481266cfc41c2d2a26d",
+              "position_uv_corner_sha256": "0262dd49ea66080f91266f31ff89763c944d111d7222219726cf7c4db3e11b80",
+              "max_position_error": 1.1920928955078125e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.8679627776145935,
+              0.5078219175338745,
+              -2.310263156890869
+            ],
+            "max": [
+              0.8672909140586853,
+              0.6371164917945862,
+              -2.2107748985290527
+            ]
+          }
+        },
+        {
+          "path": "root.26.1.1",
+          "node": 185637,
+          "mode": 14,
+          "faces": 28,
+          "slots": [
+            "breaklightsonglow-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 35,
+              "vertex_count": 28,
+              "index_count": 84,
+              "attribute_sha256": "83767f6034daa865cd96347ec6c8a71edbd93f291da25749108d62d99714b85d",
+              "position_uv_corner_sha256": "6e2fb1a2e273f9efcaf1085709e118ea8613ab684975030fcf653a04becdc851",
+              "max_position_error": 1.1920928955078125e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.9272076487541199,
+              0.4335586130619049,
+              -2.3800878524780273
+            ],
+            "max": [
+              0.9262588024139404,
+              0.7142825126647949,
+              -2.16860032081604
+            ]
+          }
+        }
+      ],
+      "pc_sha256": "d847cd8e684d9f6ff75d560e64429098448a665cc423b8d7c509e6146e9e0c7e"
+    },
+    {
+      "ps2_family": "FORESTER",
+      "ps2_sha256": "c648998af4bcc343c864e762fee075386525bf10d1bc58379721d6639d778bc2",
+      "pc_family": null,
+      "meshes": [
+        {
+          "path": "root.15.0.0",
+          "node": 176243,
+          "mode": 1,
+          "faces": 12,
+          "slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [],
+          "bounds": {
+            "min": [
+              -0.8769495487213135,
+              0.48726192116737366,
+              -2.306076765060425
+            ],
+            "max": [
+              0.8799375295639038,
+              0.5884597897529602,
+              -2.1444647312164307
+            ]
+          }
+        },
+        {
+          "path": "root.15.0.1",
+          "node": 176412,
+          "mode": 14,
+          "faces": 32,
+          "slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [],
+          "bounds": {
+            "min": [
+              -0.9412311315536499,
+              0.4432094693183899,
+              -2.3751068115234375
+            ],
+            "max": [
+              0.9412312507629395,
+              0.631698727607727,
+              -2.1057627201080322
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "ps2_family": "FORKLIFT",
+      "ps2_sha256": "5ccd7919f7b59687f11e36e809ac3bfc76c39990bdde93bb150ac73dcf6a4404",
+      "pc_family": "forklift",
+      "meshes": [],
+      "pc_sha256": "fe1ba9aa3f6db62d819faa610320808844471e1b65390c291e0763e97d533f3f"
+    },
+    {
+      "ps2_family": "FRONTERA",
+      "ps2_sha256": "007758a3192218b383c41d520cddf326e6ba23a6ca625acd48d436e0955495bd",
+      "pc_family": "Frontera",
+      "meshes": [
+        {
+          "path": "root.23.0.0",
+          "node": 189844,
+          "mode": 1,
+          "faces": 4,
+          "slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 31,
+              "vertex_count": 8,
+              "index_count": 12,
+              "attribute_sha256": "24dab12d3e35a905fffc65ebc963e1853b3fc5e49f97f2a81db4b6273511760a",
+              "position_uv_corner_sha256": "f923f68f97e684d1e43733c82f5f54e119b9cffc0c1fd7d7bd3df281e3f17527",
+              "max_position_error": 1.1920928955078125e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.8660609722137451,
+              0.5385501980781555,
+              -2.1057357788085938
+            ],
+            "max": [
+              0.8660610318183899,
+              0.6238259077072144,
+              -2.034095048904419
+            ]
+          }
+        },
+        {
+          "path": "root.23.0.1",
+          "node": 190000,
+          "mode": 14,
+          "faces": 16,
+          "slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [],
+          "bounds": {
+            "min": [
+              -0.9138205051422119,
+              0.5146668553352356,
+              -2.2058026790618896
+            ],
+            "max": [
+              0.9138205051422119,
+              0.6642795205116272,
+              -2.02699613571167
+            ]
+          }
+        }
+      ],
+      "pc_sha256": "345a143d24945d72f212eea033d6349b51b70d3df36a60dac22e98e2d380940c"
+    },
+    {
+      "ps2_family": "ICECREAM",
+      "ps2_sha256": "c6baac227f362471cbc28ecf2fb21e0d25ddb42757accd8546a3ad8799d27463",
+      "pc_family": "IceCream",
+      "meshes": [
+        {
+          "path": "root.22.1.0",
+          "node": 246588,
+          "mode": 1,
+          "faces": 8,
+          "slots": [
+            "breaklightson-tga",
+            "lightshine-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 27,
+              "vertex_count": 12,
+              "index_count": 24,
+              "attribute_sha256": "7d61f110a43296ef48c852cb0323559f7388b77d86e6b813ab9ab25e8104b7a3",
+              "position_uv_corner_sha256": "14668a45b54e042da69fa34242ddacab050370f24aa7644ae69c832192e00604",
+              "max_position_error": 1.1920928955078125e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.7990652322769165,
+              0.6175363659858704,
+              -2.3931076526641846
+            ],
+            "max": [
+              0.7951470613479614,
+              0.6949748396873474,
+              -2.357470989227295
+            ]
+          }
+        },
+        {
+          "path": "root.22.1.1",
+          "node": 246748,
+          "mode": 14,
+          "faces": 24,
+          "slots": [
+            "breaklightsonglow-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 28,
+              "vertex_count": 24,
+              "index_count": 72,
+              "attribute_sha256": "072c73e5847bae6c6534e39fc434ad0737002ff580a4794b37d1b318dcef7e82",
+              "position_uv_corner_sha256": "729460cc7f4e3b92df3987baae7a448b6b456b283fc5bb72ea01a64e99425392",
+              "max_position_error": 1.1920928955078125e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.8718088269233704,
+              0.579451322555542,
+              -2.4386847019195557
+            ],
+            "max": [
+              0.8767545819282532,
+              0.736258864402771,
+              -2.357470989227295
+            ]
+          }
+        }
+      ],
+      "pc_sha256": "90a99fd7d7b18e3e33b1bc005df58b6f7222349bb45e5b41a725ec6f230a9d9a"
+    },
+    {
+      "ps2_family": "JUMP",
+      "ps2_sha256": "049d2d2517b8feb949a422753570e34fd55d2d5a87f42d4c8221e0c5af45d304",
+      "pc_family": "Jump",
+      "meshes": [
+        {
+          "path": "root.21.0.0",
+          "node": 174009,
+          "mode": 14,
+          "faces": 16,
+          "slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [],
+          "bounds": {
+            "min": [
+              -0.7370980978012085,
+              0.3799445927143097,
+              -1.9738150835037231
+            ],
+            "max": [
+              0.7370976209640503,
+              0.5265364646911621,
+              -1.9511727094650269
+            ]
+          }
+        },
+        {
+          "path": "root.21.0.1",
+          "node": 174182,
+          "mode": 1,
+          "faces": 4,
+          "slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [],
+          "bounds": {
+            "min": [
+              -0.7009716629981995,
+              0.40677541494369507,
+              -1.951172947883606
+            ],
+            "max": [
+              0.7033729553222656,
+              0.4990832805633545,
+              -1.9511727094650269
+            ]
+          }
+        }
+      ],
+      "pc_sha256": "a6ad8bcb7c71e572f065a5c3710308730c2c4f0cc8b32f25af279adc923a7baa"
+    },
+    {
+      "ps2_family": "KAMAZ",
+      "ps2_sha256": "9559c040e9574a474e4c2ef8f2ed33e01fceaa457be794aea7ab79e17a2e7f33",
+      "pc_family": "Kamaz",
+      "meshes": [
+        {
+          "path": "root.19.1.0",
+          "node": 209146,
+          "mode": 1,
+          "faces": 4,
+          "slots": [
+            "breaklightson-tga",
+            "lightshine-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 25,
+              "vertex_count": 8,
+              "index_count": 12,
+              "attribute_sha256": "7a1dfd0ab892ca328481612174bae38c57709427dd52e75d5828a284c118c311",
+              "position_uv_corner_sha256": "060ccc0ead410252127653bf25af4316cfd7cb52e4a5f1f7cef2cc41b6e450c3",
+              "max_position_error": 1.1920928955078125e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.9831583499908447,
+              1.2213095426559448,
+              -3.679959535598755
+            ],
+            "max": [
+              0.9943623542785645,
+              1.3503046035766602,
+              -3.679948091506958
+            ]
+          }
+        },
+        {
+          "path": "root.19.1.1",
+          "node": 209306,
+          "mode": 14,
+          "faces": 16,
+          "slots": [
+            "breaklightsonglow-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 26,
+              "vertex_count": 16,
+              "index_count": 48,
+              "attribute_sha256": "2287b0b51e249d22fba31bad7d0856ff991d0f175cbcfe5d7685268b0308a586",
+              "position_uv_corner_sha256": "f9a48f146fe85228f6869fcdb15c2012c4cdf21d27c94a5e58d5768409f8d2ef",
+              "max_position_error": 1.1920928955078125e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -1.0566291809082031,
+              1.1223996877670288,
+              -3.711207151412964
+            ],
+            "max": [
+              1.062672734260559,
+              1.4491684436798096,
+              -3.679948091506958
+            ]
+          }
+        }
+      ],
+      "pc_sha256": "6f7cf0aa22ec998a2a98f0e642e156442ccd82b50b94ae8e80ec418459442b4f"
+    },
+    {
+      "ps2_family": "KANGOO",
+      "ps2_sha256": "bf157a13a059a8cef0e59f8e4742db40b99713618a803adfd8b8355141fdd955",
+      "pc_family": "Kangoo",
+      "meshes": [
+        {
+          "path": "root.22.0.0",
+          "node": 195642,
+          "mode": 1,
+          "faces": 10,
+          "slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 26,
+              "vertex_count": 14,
+              "index_count": 30,
+              "attribute_sha256": "23f68985bb8d15e2e97115865e569422bb81f5d3155eb1f6db72afbd8cd970f7",
+              "position_uv_corner_sha256": "fdc801fd7344429db69acbf4badb2a0cae988d1d2f03a0b652ba44433d46603b",
+              "max_position_error": 5.960464477539063e-08,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.8172560930252075,
+              0.6784340143203735,
+              -1.9825093746185303
+            ],
+            "max": [
+              0.8172564506530762,
+              0.8700621724128723,
+              -1.9319822788238525
+            ]
+          }
+        },
+        {
+          "path": "root.22.0.1",
+          "node": 195824,
+          "mode": 14,
+          "faces": 28,
+          "slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 27,
+              "vertex_count": 28,
+              "index_count": 84,
+              "attribute_sha256": "657022729ddb09e817e077f1ad0bf8494915a1a2d50ee258db8015181f82d907",
+              "position_uv_corner_sha256": "21572ca59de53a97b7dfc2614d4aed9346e6486a275f37b02a9c5baf12792f42",
+              "max_position_error": 5.960464477539063e-08,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.8502780795097351,
+              0.6010720729827881,
+              -2.019383192062378
+            ],
+            "max": [
+              0.8502780795097351,
+              0.9342703223228455,
+              -1.9319822788238525
+            ]
+          }
+        }
+      ],
+      "pc_sha256": "8935c280c1a4d7dc63e30b3961fbb353445db2162c14bbd09e034cba717fe81d"
+    },
+    {
+      "ps2_family": "KIASPORTAGE",
+      "ps2_sha256": "b4afabfab7437eae01ee72ca424beb90967c7b849cebdb9cf94e104560be33ce",
+      "pc_family": "KiaSportage",
+      "meshes": [
+        {
+          "path": "root.25.1.0",
+          "node": 190717,
+          "mode": 1,
+          "faces": 12,
+          "slots": [
+            "breaklightson-tga",
+            "lightshine-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 31,
+              "vertex_count": 16,
+              "index_count": 36,
+              "attribute_sha256": "20d31d28c3ee1ba472a11a1905f20a0076e4d93611c2fb51e6df5f54e372ceca",
+              "position_uv_corner_sha256": "3bfdba6278a48d057ca7508e9db3b4dc2ed3155b8075d173ee4f61376d1e0687",
+              "max_position_error": 1.1920928955078125e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.9378349781036377,
+              0.6717625260353088,
+              -2.1618399620056152
+            ],
+            "max": [
+              0.9389204978942871,
+              0.8552222847938538,
+              -2.0025012493133545
+            ]
+          }
+        },
+        {
+          "path": "root.25.1.1",
+          "node": 190877,
+          "mode": 14,
+          "faces": 32,
+          "slots": [
+            "breaklightsonglow-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 32,
+              "vertex_count": 32,
+              "index_count": 96,
+              "attribute_sha256": "ecf0d20429bd205d030e51b50ea9dc465797d79d6e1b0f9bfafe190452ef72a9",
+              "position_uv_corner_sha256": "3bd046bd96d6e36d2f86e73ba83a33dc5d5130d787d8789d9377cfdf37788c8a",
+              "max_position_error": 1.1920928955078125e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -1.0543854236602783,
+              0.5830551385879517,
+              -2.3688197135925293
+            ],
+            "max": [
+              1.0535403490066528,
+              0.9505335092544556,
+              -1.9304883480072021
+            ]
+          }
+        }
+      ],
+      "pc_sha256": "2d490121ee38e84ef7e0d47624f68efd2c1e5790c1138c6fe08db56c7b238451"
+    },
+    {
+      "ps2_family": "LANDCRUISER",
+      "ps2_sha256": "834873c104dbc139cd85ff24e0323ec8fc0a7130725d0a40de177b690946c5e9",
+      "pc_family": "LandCruiser",
+      "meshes": [
+        {
+          "path": "root.24.0.0",
+          "node": 219564,
+          "mode": 1,
+          "faces": 12,
+          "slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 30,
+              "vertex_count": 16,
+              "index_count": 36,
+              "attribute_sha256": "9c49186f4f5f98dd544708e04b116a1fee7ad2bd160210ac82e81cc83c3d643b",
+              "position_uv_corner_sha256": "8b6089f77af89efe98db90913fd8b652742675746f84e61e25cc44c7e59020fe",
+              "max_position_error": 5.364418029785156e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.863223135471344,
+              0.41471123695373535,
+              -2.104200839996338
+            ],
+            "max": [
+              0.863222599029541,
+              0.5051421523094177,
+              -1.9701064825057983
+            ]
+          }
+        },
+        {
+          "path": "root.24.0.1",
+          "node": 219720,
+          "mode": 14,
+          "faces": 32,
+          "slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 31,
+              "vertex_count": 32,
+              "index_count": 96,
+              "attribute_sha256": "de5776d643051c2e90603eec2854c08523b63bef7193b3922a424a6e702b09d8",
+              "position_uv_corner_sha256": "509583d86bbc99c5f8df36b69328abd5accb43ce87c9fa034e9b6c1322d2a402",
+              "max_position_error": 5.364418029785156e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.9360257983207703,
+              0.35921740531921387,
+              -2.1999287605285645
+            ],
+            "max": [
+              0.9360255002975464,
+              0.5757258534431458,
+              -1.9108216762542725
+            ]
+          }
+        }
+      ],
+      "pc_sha256": "c3a61a935244e9e1dcfcd72ecf993ea301e371794ba33d931dd8cfd205627103"
+    },
+    {
+      "ps2_family": "MATTSERATI",
+      "ps2_sha256": "165a9b7c2553e7a55def29f3deee4b83af6e1e4435c33a41ef2107477f25246a",
+      "pc_family": "Mattserati",
+      "meshes": [
+        {
+          "path": "root.21.0.0",
+          "node": 164628,
+          "mode": 1,
+          "faces": 36,
+          "slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [],
+          "bounds": {
+            "min": [
+              -0.6870381832122803,
+              0.5298073291778564,
+              -1.6419559717178345
+            ],
+            "max": [
+              0.6870381236076355,
+              0.715342104434967,
+              -1.2742424011230469
+            ]
+          }
+        },
+        {
+          "path": "root.21.0.1",
+          "node": 164862,
+          "mode": 14,
+          "faces": 48,
+          "slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [],
+          "bounds": {
+            "min": [
+              -0.729919970035553,
+              0.5230056643486023,
+              -1.6708389520645142
+            ],
+            "max": [
+              0.7299196720123291,
+              0.750530481338501,
+              -1.2742424011230469
+            ]
+          }
+        }
+      ],
+      "pc_sha256": "e0db7a014f60c71291337e1b3c43909926957132f50017b7ef9e00610fd528e2"
+    },
+    {
+      "ps2_family": "MEGANE",
+      "ps2_sha256": "6ee866b563309d1a9205cd99b2706fa3c7471d984daa3b4d954fa60e33bd0248",
+      "pc_family": "megane",
+      "meshes": [
+        {
+          "path": "root.20.0.0",
+          "node": 193367,
+          "mode": 1,
+          "faces": 10,
+          "slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 24,
+              "vertex_count": 14,
+              "index_count": 30,
+              "attribute_sha256": "b0a56ddf3cae3943c4bb8019300537564de6f03e86d002670813d212d509d58e",
+              "position_uv_corner_sha256": "9022bceb22724061ea97253a0f1bff7f94f186cf68c0042396c997c70b8f4761",
+              "max_position_error": 1.7881393432617188e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.7728771567344666,
+              0.5931351780891418,
+              -2.1635901927948
+            ],
+            "max": [
+              0.7728771567344666,
+              0.7608292102813721,
+              -2.1204962730407715
+            ]
+          }
+        },
+        {
+          "path": "root.20.0.1",
+          "node": 193523,
+          "mode": 14,
+          "faces": 28,
+          "slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 25,
+              "vertex_count": 28,
+              "index_count": 84,
+              "attribute_sha256": "0784480f7331959f618d71dc7b9911f121aa75685732b1bd044b2b467ab6d94e",
+              "position_uv_corner_sha256": "77a3e8aaac556d192834410275cd93f1c17cfff68eeb97abd97cfcc845d672ac",
+              "max_position_error": 1.7881393432617188e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.8029205203056335,
+              0.5369524359703064,
+              -2.2028465270996094
+            ],
+            "max": [
+              0.8029204607009888,
+              0.8265595436096191,
+              -2.1204962730407715
+            ]
+          }
+        }
+      ],
+      "pc_sha256": "d082eb75dc537194f1bf0284e31e5a28a73d91b5a0ba29642bc0d5c7ad93fb7f"
+    },
+    {
+      "ps2_family": "MOONBUGGY",
+      "ps2_sha256": "eb6abaf7dffc2dbee47decc10b58a2282646c1a2967e784c987c7e47fcfe166c",
+      "pc_family": null,
+      "meshes": [
+        {
+          "path": "root.18.0.0",
+          "node": 208543,
+          "mode": 1,
+          "faces": 36,
+          "slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [],
+          "bounds": {
+            "min": [
+              -0.4626466929912567,
+              0.5603987574577332,
+              -1.4548882246017456
+            ],
+            "max": [
+              0.4626467525959015,
+              0.7252474427223206,
+              -1.2658621072769165
+            ]
+          }
+        },
+        {
+          "path": "root.18.0.1",
+          "node": 208712,
+          "mode": 14,
+          "faces": 24,
+          "slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [],
+          "bounds": {
+            "min": [
+              -0.6215581297874451,
+              0.49792712926864624,
+              -1.679222583770752
+            ],
+            "max": [
+              0.6215583086013794,
+              0.8163401484489441,
+              -1.0871734619140625
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "ps2_family": "NAVARA",
+      "ps2_sha256": "c5ecc753358a369280b2d5fc27435b1929b676b867a85acd9c458db24dbfffdf",
+      "pc_family": "Navara",
+      "meshes": [
+        {
+          "path": "root.22.1.0",
+          "node": 223365,
+          "mode": 1,
+          "faces": 10,
+          "slots": [
+            "breaklightson-tga",
+            "lightshine-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 29,
+              "vertex_count": 14,
+              "index_count": 30,
+              "attribute_sha256": "6148a90788e9b73bf0a47d0c1bacd3e179f13edf51e3d5a0033a4729e572e2f7",
+              "position_uv_corner_sha256": "c50a56cbafd3a0d465c244eeae477698fb2d3a7b42b60a7f1916035bb3821381",
+              "max_position_error": 0.0,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.8523091077804565,
+              0.6507471203804016,
+              -2.631093740463257
+            ],
+            "max": [
+              0.8738508820533752,
+              0.7543763518333435,
+              -2.555267810821533
+            ]
+          }
+        },
+        {
+          "path": "root.22.1.1",
+          "node": 223538,
+          "mode": 14,
+          "faces": 28,
+          "slots": [
+            "breaklightsonglow-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 30,
+              "vertex_count": 28,
+              "index_count": 84,
+              "attribute_sha256": "d67c12c4e1852e6b398a1d668cac8758211a02b4a7e220c14a724afd42fb11f2",
+              "position_uv_corner_sha256": "569395c65e70a0bc7729e4b66e7b861de7c1875234874d86a78052105d813945",
+              "max_position_error": 0.0,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.9344693422317505,
+              0.5422148108482361,
+              -2.732307195663452
+            ],
+            "max": [
+              0.9560111165046692,
+              0.8554859161376953,
+              -2.5142953395843506
+            ]
+          }
+        }
+      ],
+      "pc_sha256": "2d3727f5bcd889ba38891276111c53f9c4d67cee1f5ece13de374a8235690655"
+    },
+    {
+      "ps2_family": "NEWRAV",
+      "ps2_sha256": "98b59c09cc878b01610165e1f7b498200441c0384e2223af185addc51d4e4cc7",
+      "pc_family": "NewRav",
+      "meshes": [
+        {
+          "path": "root.26.0.0",
+          "node": 181976,
+          "mode": 1,
+          "faces": 10,
+          "slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 32,
+              "vertex_count": 14,
+              "index_count": 30,
+              "attribute_sha256": "d27932db6b161fdc579d280e803e5464d9bcca657c5f31d1affec52670992d60",
+              "position_uv_corner_sha256": "8c0734703c9335f20c2df907e7ddb8e4403df7cff205c40af4866d2b796a93fb",
+              "max_position_error": 2.980232238769531e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.7250757217407227,
+              0.6088501811027527,
+              -1.8808470964431763
+            ],
+            "max": [
+              0.7250757217407227,
+              0.6674575805664062,
+              -1.8483664989471436
+            ]
+          }
+        },
+        {
+          "path": "root.26.0.1",
+          "node": 182158,
+          "mode": 14,
+          "faces": 28,
+          "slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 33,
+              "vertex_count": 28,
+              "index_count": 84,
+              "attribute_sha256": "1d06b305fef4ff26de72366acc847b10389f87198161cf451c2ae43b1c03c2a1",
+              "position_uv_corner_sha256": "a65a8d19ece479b99b8b4d82c1634595d1324482b0987080828773fa76fe4496",
+              "max_position_error": 2.980232238769531e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.7541555762290955,
+              0.5752089619636536,
+              -1.9230291843414307
+            ],
+            "max": [
+              0.7541553974151611,
+              0.7014933824539185,
+              -1.8483664989471436
+            ]
+          }
+        }
+      ],
+      "pc_sha256": "615f00a1d61ec84170c49c52727fcdd68fc96fcb89f1690324edf445ad3fbee6"
+    },
+    {
+      "ps2_family": "PAJERO",
+      "ps2_sha256": "ea810c4087a9c2c7c10098d87e35fb17a91db126176c12f9f535ea2b4e87122f",
+      "pc_family": "Pajero",
+      "meshes": [
+        {
+          "path": "root.20.1.0",
+          "node": 193016,
+          "mode": 1,
+          "faces": 8,
+          "slots": [
+            "breaklightson-tga",
+            "lightshine-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 25,
+              "vertex_count": 12,
+              "index_count": 24,
+              "attribute_sha256": "a72fb313e5a063a2d174f8986be997eb3d74ee4aede78d85b15418c1ee422c39",
+              "position_uv_corner_sha256": "337f083aa9de0a758a21810047742ddda022a7c544dadfe687e9d20fddc047ff",
+              "max_position_error": 3.5762786865234375e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.8808014392852783,
+              0.44733747839927673,
+              -2.1237893104553223
+            ],
+            "max": [
+              0.8808013200759888,
+              0.5329143404960632,
+              -1.998915433883667
+            ]
+          }
+        },
+        {
+          "path": "root.20.1.1",
+          "node": 193176,
+          "mode": 14,
+          "faces": 24,
+          "slots": [
+            "breaklightsonglow-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 26,
+              "vertex_count": 24,
+              "index_count": 72,
+              "attribute_sha256": "6591761180d862aa97ade8de7c1420468eb38fa0d1ae234487b2aaa83c7f0bdd",
+              "position_uv_corner_sha256": "eb74414f29b1f8ff32d2a68cb1f9132e32702736ffa0615035f406f09727961f",
+              "max_position_error": 3.5762786865234375e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.9401754140853882,
+              0.4123196303844452,
+              -2.2216687202453613
+            ],
+            "max": [
+              0.9454079270362854,
+              0.5680691003799438,
+              -1.998915433883667
+            ]
+          }
+        }
+      ],
+      "pc_sha256": "9d051539ce10ba650840bba6c50b2c8ba9f68b6960661280f69680f0bb7f2c90"
+    },
+    {
+      "ps2_family": "PATROL",
+      "ps2_sha256": "a01f0f74fa76f74506e3dcbf8a72c26b73536d1896ded11069d8135f68c08dff",
+      "pc_family": "Patrol",
+      "meshes": [
+        {
+          "path": "root.24.1.0",
+          "node": 175846,
+          "mode": 1,
+          "faces": 8,
+          "slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 30,
+              "vertex_count": 12,
+              "index_count": 24,
+              "attribute_sha256": "414f746342d33f1001801eaf53419dae10197f8a20d96684d6c67c79706f2f1a",
+              "position_uv_corner_sha256": "1252b2f880589f47471f3e06740f7b7a61e54577ee3bcd6815d41b364b3e4bf6",
+              "max_position_error": 1.7881393432617188e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.8674545884132385,
+              0.33879774808883667,
+              -2.5320231914520264
+            ],
+            "max": [
+              0.8674545884132385,
+              0.41354259848594666,
+              -2.500373363494873
+            ]
+          }
+        },
+        {
+          "path": "root.24.1.1",
+          "node": 176002,
+          "mode": 14,
+          "faces": 24,
+          "slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 31,
+              "vertex_count": 24,
+              "index_count": 72,
+              "attribute_sha256": "58ec9bd10812769926c78e1c393dac47c0ccbef15004f2ef9a9263a820283f40",
+              "position_uv_corner_sha256": "489649282a2ead2fffdb09ca835c7dda1ce3342e33e4a5d0f1fb712ba6529887",
+              "max_position_error": 1.7881393432617188e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.9509952664375305,
+              0.31827038526535034,
+              -2.6005442142486572
+            ],
+            "max": [
+              0.9502606987953186,
+              0.46779853105545044,
+              -2.500373363494873
+            ]
+          }
+        }
+      ],
+      "pc_sha256": "d3ca392b8ffc08bf2470fbdeb5099acc6be1675baab74a79b9e59d3596c0fa0c"
+    },
+    {
+      "ps2_family": "RMONSTER",
+      "ps2_sha256": "9d5805e16d855e10b25704e88a25ecd55adadb9f89de77e66f4c29c2f9eb6a4a",
+      "pc_family": "RMonster",
+      "meshes": [
+        {
+          "path": "root.18.1.0",
+          "node": 169378,
+          "mode": 1,
+          "faces": 8,
+          "slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 23,
+              "vertex_count": 12,
+              "index_count": 24,
+              "attribute_sha256": "47a92c11829f3f55a134fddb6c4217b66b3a20a4624e2633b3c54af88fb44b63",
+              "position_uv_corner_sha256": "305c5e8e7917bcbeb05c627ae021d617bc5c1e947ea3b7b8eda4640d0d6ecb3a",
+              "max_position_error": 1.1920928955078125e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.8999908566474915,
+              0.5053248405456543,
+              -2.300846815109253
+            ],
+            "max": [
+              0.8999612331390381,
+              0.5884371995925903,
+              -2.2324728965759277
+            ]
+          }
+        },
+        {
+          "path": "root.18.1.1",
+          "node": 169547,
+          "mode": 14,
+          "faces": 24,
+          "slots": [
+            "breaklightsonglow-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [],
+          "bounds": {
+            "min": [
+              -0.9626811742782593,
+              0.4386264383792877,
+              -2.407745599746704
+            ],
+            "max": [
+              0.9821262359619141,
+              0.6515830755233765,
+              -2.222538471221924
+            ]
+          }
+        }
+      ],
+      "pc_sha256": "b3c4e3485f7b864829ec594977230dc18a6deb4cdef9382757fecee5fdf42a46"
+    },
+    {
+      "ps2_family": "SEATBUGGY",
+      "ps2_sha256": "3244c3decf33634d035cae682fa886acd9d86982250cbc64060a65109585c3f7",
+      "pc_family": "SeatBuggy",
+      "meshes": [
+        {
+          "path": "root.19.1.0",
+          "node": 167072,
+          "mode": 1,
+          "faces": 4,
+          "slots": [
+            "breaklightson-tga",
+            "lightshine-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 25,
+              "vertex_count": 8,
+              "index_count": 12,
+              "attribute_sha256": "538637850c9ac81fe27ff8e948ae945f1ed05a79365fd8773756a2fc6f0623a6",
+              "position_uv_corner_sha256": "e57eac9c9b0df4fce479cce70ec08655bfc799b44a27442b565f0fd26ab6048c",
+              "max_position_error": 5.960464477539063e-08,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.6495259404182434,
+              0.6606374382972717,
+              -1.9293495416641235
+            ],
+            "max": [
+              0.6448995471000671,
+              0.7346903085708618,
+              -1.8926684856414795
+            ]
+          }
+        },
+        {
+          "path": "root.19.1.1",
+          "node": 167232,
+          "mode": 14,
+          "faces": 16,
+          "slots": [
+            "breaklightsonglow-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 26,
+              "vertex_count": 16,
+              "index_count": 48,
+              "attribute_sha256": "1f052d23382a76789399371433db3d72be76f1e0e1632afafb816960b495ebca",
+              "position_uv_corner_sha256": "c156622c2b9eda0947380c83670b567b180eca47f2b8b3a58bbf3e92d0fa0957",
+              "max_position_error": 5.960464477539063e-08,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.7249323725700378,
+              0.5872824192047119,
+              -1.9766511917114258
+            ],
+            "max": [
+              0.7026627063751221,
+              0.8089667558670044,
+              -1.8926684856414795
+            ]
+          }
+        }
+      ],
+      "pc_sha256": "468031a187dc968eda6451eb7e5b7dde2ec557c7fbfe5a77d0f09d195046b6e0"
+    },
+    {
+      "ps2_family": "SIMMBUGGHINI",
+      "ps2_sha256": "d3998e23fa1b26f800601e72959bb28d94278e069ff5f21efb0531c63ed210a1",
+      "pc_family": "Simmbugghini",
+      "meshes": [
+        {
+          "path": "root.21.0.0",
+          "node": 178388,
+          "mode": 1,
+          "faces": 36,
+          "slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 23,
+              "vertex_count": 34,
+              "index_count": 108,
+              "attribute_sha256": "4235e3e4d736b8111333c180b5e5b94184e18d0f26fd6f19fcd2e411e0c52897",
+              "position_uv_corner_sha256": "9ecf1a6126218847b6ad2f87d3b67ac09e3f8b924bb747588ea49dc6da3d5f0d",
+              "max_position_error": 1.7881393432617188e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.7868822813034058,
+              0.2979804277420044,
+              -1.8208491802215576
+            ],
+            "max": [
+              0.7868822813034058,
+              0.99189692735672,
+              -1.2757866382598877
+            ]
+          }
+        },
+        {
+          "path": "root.21.0.1",
+          "node": 178596,
+          "mode": 14,
+          "faces": 48,
+          "slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 24,
+              "vertex_count": 48,
+              "index_count": 144,
+              "attribute_sha256": "22df53daa49e617e68cec5d83848d3dfc64a56797d8df4869fcd5755342d0ad7",
+              "position_uv_corner_sha256": "ca81d2dfc9f3398bb32430f1aa3884ffb952fec8dd2c90d13caf8a90348713cc",
+              "max_position_error": 1.7881393432617188e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.8553160429000854,
+              0.24314451217651367,
+              -1.8617362976074219
+            ],
+            "max": [
+              0.8553157448768616,
+              1.0397979021072388,
+              -1.2757866382598877
+            ]
+          }
+        }
+      ],
+      "pc_sha256": "b1345dfb75e6074b7592ec8f42c59fe3d1811b25cc2a75f3c2665487256963bb"
+    },
+    {
+      "ps2_family": "TANK",
+      "ps2_sha256": "10afa84ada587f5e8058b17ec7ed8406936cba028c6f57133539e7affc9a3ce3",
+      "pc_family": null,
+      "meshes": [
+        {
+          "path": "root.20.0.0",
+          "node": 156405,
+          "mode": 1,
+          "faces": 36,
+          "slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [],
+          "bounds": {
+            "min": [
+              -1.1485586166381836,
+              0.8468413949012756,
+              -1.6941089630126953
+            ],
+            "max": [
+              1.1679365634918213,
+              0.9985121488571167,
+              -1.434893012046814
+            ]
+          }
+        },
+        {
+          "path": "root.20.0.1",
+          "node": 156574,
+          "mode": 14,
+          "faces": 24,
+          "slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [],
+          "bounds": {
+            "min": [
+              -1.3716669082641602,
+              0.8468413949012756,
+              -1.9430077075958252
+            ],
+            "max": [
+              1.3910448551177979,
+              1.0175830125808716,
+              -1.2244948148727417
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "ps2_family": "TATA",
+      "ps2_sha256": "9397b4b9b60567a3ac3f5e0ac752a6794b3fea9ace8c2bb524db53bb565e6c84",
+      "pc_family": "Tata",
+      "meshes": [
+        {
+          "path": "root.24.1.0",
+          "node": 174943,
+          "mode": 1,
+          "faces": 10,
+          "slots": [
+            "breaklightson-tga",
+            "lightshine-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 31,
+              "vertex_count": 18,
+              "index_count": 30,
+              "attribute_sha256": "6922d147c0437462a118cd13b9ad5b0e9f71ebf5f2facbc3da5f4a8d2abb8808",
+              "position_uv_corner_sha256": "1e556a67536ea956047e2a8be544eec771eae34b4d699d3b98d7d333ea225da6",
+              "max_position_error": 1.1920928955078125e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.8167774677276611,
+              0.9561339020729065,
+              -2.242292642593384
+            ],
+            "max": [
+              0.8716373443603516,
+              1.0477774143218994,
+              -2.1304094791412354
+            ]
+          }
+        },
+        {
+          "path": "root.24.1.1",
+          "node": 175129,
+          "mode": 14,
+          "faces": 28,
+          "slots": [
+            "breaklightsonglow-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [],
+          "bounds": {
+            "min": [
+              -0.8958163261413574,
+              0.8923808336257935,
+              -2.327737808227539
+            ],
+            "max": [
+              0.9656028747558594,
+              1.11464524269104,
+              -2.1053192615509033
+            ]
+          }
+        }
+      ],
+      "pc_sha256": "45b7bfba6938e259c0ac6d79a42a878a8c66b1e53547a53a6d23343092fb34cb"
+    },
+    {
+      "ps2_family": "TERRANO",
+      "ps2_sha256": "bb0e2c4e34ba21812cf9fe57077da5e04a02501eae24451767c2ced42b95f1b1",
+      "pc_family": "Terrano",
+      "meshes": [
+        {
+          "path": "root.24.0.0",
+          "node": 191235,
+          "mode": 1,
+          "faces": 6,
+          "slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 30,
+              "vertex_count": 10,
+              "index_count": 18,
+              "attribute_sha256": "155bd7858644ebc5d102380c2022c5889f050ff845502d4c25be38d3961f61b8",
+              "position_uv_corner_sha256": "8d2692151eb98d55bdc416394254ada22553e03395b44bedd5e21a42499b6107",
+              "max_position_error": 4.172325134277344e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.8155552744865417,
+              0.8643985986709595,
+              -1.977198600769043
+            ],
+            "max": [
+              0.815555214881897,
+              1.031419277191162,
+              -1.8984317779541016
+            ]
+          }
+        },
+        {
+          "path": "root.24.0.1",
+          "node": 191404,
+          "mode": 14,
+          "faces": 20,
+          "slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 31,
+              "vertex_count": 20,
+              "index_count": 60,
+              "attribute_sha256": "99baa619eabdf1b54c31419cd8ea3cacc13e367d708adb1b30685b456723bfa3",
+              "position_uv_corner_sha256": "1744a01e0cf36bf9d47fb88f42cb930117867efa9f687673bb0b93a0286649fe",
+              "max_position_error": 4.172325134277344e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.886576771736145,
+              0.8009658455848694,
+              -2.0274746417999268
+            ],
+            "max": [
+              0.8865769505500793,
+              1.1087154150009155,
+              -1.8823403120040894
+            ]
+          }
+        }
+      ],
+      "pc_sha256": "90120ed0fea4428707cdc9505d53cb685ae85db6d13eeb8715d1e8e39fab927b"
+    },
+    {
+      "ps2_family": "UFO",
+      "ps2_sha256": "72e96dea29d35a2462dfac68161276e5bc343b491af7525c486e506e56be55a8",
+      "pc_family": "Ufo",
+      "meshes": [
+        {
+          "path": "root.3",
+          "node": 103125,
+          "mode": 3,
+          "faces": 60,
+          "slots": [
+            "b_light-tga",
+            "perspex-tga"
+          ],
+          "conditional": false,
+          "pc_candidates": [
+            {
+              "record": 3,
+              "vertex_count": 70,
+              "index_count": 180,
+              "attribute_sha256": "ed7a2af82985ce892c9b727b2d599bdce7fdb7921885e5fce4f4b6c8288857b3",
+              "position_uv_corner_sha256": "ebbf8600d7c774333f45fd51d1fb32c523f61ac041e666a2560fab2d5ffc0b19",
+              "max_position_error": 4.76837158203125e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -1.0786739587783813,
+              0.7410539388656616,
+              -0.9342110753059387
+            ],
+            "max": [
+              1.0768705606460571,
+              0.8287566900253296,
+              1.1175482273101807
+            ]
+          }
+        },
+        {
+          "path": "root.9.0.0",
+          "node": 104327,
+          "mode": 1,
+          "faces": 90,
+          "slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 9,
+              "vertex_count": 65,
+              "index_count": 270,
+              "attribute_sha256": "2a344c7ba2aa169fde0799d83edde249542b517f9d1b8d5604dbf8f3c7494da5",
+              "position_uv_corner_sha256": "668a6015f7df70bd2e4ecced87896d79895adaccb9ae7ff4c4cd62f961b68077",
+              "max_position_error": 4.76837158203125e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -1.0786739587783813,
+              0.7833735346794128,
+              -0.9342110753059387
+            ],
+            "max": [
+              1.0768705606460571,
+              0.9161996841430664,
+              1.1175482273101807
+            ]
+          }
+        },
+        {
+          "path": "root.9.0.1",
+          "node": 104561,
+          "mode": 14,
+          "faces": 60,
+          "slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 10,
+              "vertex_count": 60,
+              "index_count": 180,
+              "attribute_sha256": "945adc6af9748b01d7ead41ad2f417ac580fae012d8cabbf1dd7d28156352e78",
+              "position_uv_corner_sha256": "ebc52ebd10fc45a094139d24e6a9a0a42801a7146e8085a0e26f4a472042a79d",
+              "max_position_error": 4.76837158203125e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -1.2685346603393555,
+              0.7497329711914062,
+              -1.1242084503173828
+            ],
+            "max": [
+              1.265940546989441,
+              0.8788018822669983,
+              1.2874186038970947
+            ]
+          }
+        },
+        {
+          "path": "root.9.1.0",
+          "node": 104759,
+          "mode": 3,
+          "faces": 90,
+          "slots": [
+            "b_light-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 11,
+              "vertex_count": 85,
+              "index_count": 270,
+              "attribute_sha256": "0a3e02a564896a905f3a9c5f9ace7d39ab6090519e20a81ddf192610fb577fe7",
+              "position_uv_corner_sha256": "b3664dffdb379d9226c31825213b1f9048c39536d92d21c290b6ffa396833951",
+              "max_position_error": 4.76837158203125e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -1.0786739587783813,
+              0.7833735346794128,
+              -0.9342110753059387
+            ],
+            "max": [
+              1.0768705606460571,
+              0.9161996841430664,
+              1.1175482273101807
+            ]
+          }
+        }
+      ],
+      "pc_sha256": "f6995450ea0bcaebb51150f1472b5d2b72e82ce57e3d0207f2199376fe5718e2"
+    },
+    {
+      "ps2_family": "WILDCAT",
+      "ps2_sha256": "ea85c64312342149b7a18cc9060174a5532e53a1e02ed62c80a21c2c0a62425a",
+      "pc_family": "WildCat",
+      "meshes": [
+        {
+          "path": "root.21.0.0",
+          "node": 185491,
+          "mode": 1,
+          "faces": 4,
+          "slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 26,
+              "vertex_count": 8,
+              "index_count": 12,
+              "attribute_sha256": "8c970159943485fb8b70f2a1bb791c1a460e6170e31eeb0d46d5ac9c154eba1e",
+              "position_uv_corner_sha256": "f0405c3008bdb01c5100cfaabc9b69e38ee614e821efed3023fa522ce8ec6c24",
+              "max_position_error": 1.1920928955078125e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.7920219898223877,
+              0.7792842388153076,
+              -1.8234432935714722
+            ],
+            "max": [
+              0.7920219898223877,
+              0.9601352214813232,
+              -1.7748503684997559
+            ]
+          }
+        },
+        {
+          "path": "root.21.0.1",
+          "node": 185647,
+          "mode": 14,
+          "faces": 16,
+          "slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 27,
+              "vertex_count": 16,
+              "index_count": 48,
+              "attribute_sha256": "4a3a419133dd430043f4fd9760669861f01e4afbcb9e7e927ae669f84f3bb1b5",
+              "position_uv_corner_sha256": "f2b4a25cd68ab19463768064369b3daece653ec69d81af56af87bf145cda4474",
+              "max_position_error": 1.1920928955078125e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.8702749013900757,
+              0.704032838344574,
+              -1.8829083442687988
+            ],
+            "max": [
+              0.8702749013900757,
+              1.0352939367294312,
+              -1.7748503684997559
+            ]
+          }
+        }
+      ],
+      "pc_sha256": "ccbcb74985d5b21a594b471eb42d242b5eb5809d8646e57ece08b4a1cd6614cd"
+    },
+    {
+      "ps2_family": "WOOLDAND",
+      "ps2_sha256": "93a2bd9e9ee884ac32a6d7af4b320212156e853fd85b02bc01bdcc783d0d533d",
+      "pc_family": "Forester",
+      "meshes": [
+        {
+          "path": "root.20.0.0",
+          "node": 173645,
+          "mode": 1,
+          "faces": 4,
+          "slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 24,
+              "vertex_count": 8,
+              "index_count": 12,
+              "attribute_sha256": "8d5213ca0935c745b3f0ea0e5a8ed8f9831cbe20f34d0a750c7903a176b534c3",
+              "position_uv_corner_sha256": "5d607c0a57663cd138ff7e92488c8e6f6ad4e28405c55778384f8154f4b5f025",
+              "max_position_error": 1.1920928955078125e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.7735334038734436,
+              0.44419562816619873,
+              -2.118835687637329
+            ],
+            "max": [
+              0.7735336422920227,
+              0.5205478668212891,
+              -2.0710206031799316
+            ]
+          }
+        },
+        {
+          "path": "root.20.0.1",
+          "node": 173801,
+          "mode": 14,
+          "faces": 16,
+          "slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 25,
+              "vertex_count": 16,
+              "index_count": 48,
+              "attribute_sha256": "4fcde74594598b13310bd0d9503acb65f524f045d67e127df72afcad0338d531",
+              "position_uv_corner_sha256": "65d37ba0ca192f04a2e2804ea02bbe90069f81306267a3818304c8df57658852",
+              "max_position_error": 1.1920928955078125e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.8570752143859863,
+              0.3729439377784729,
+              -2.18241548538208
+            ],
+            "max": [
+              0.8570754528045654,
+              0.6028094291687012,
+              -2.0710206031799316
+            ]
+          }
+        }
+      ],
+      "pc_sha256": "670ef07dc312aefa5628fe24c08aa696ee147043cfecdf2aadaf01e012c8b5fc"
+    },
+    {
+      "ps2_family": "XTRAIL",
+      "ps2_sha256": "af57572e92ce47d810666779fb60c8c178f1979feb203416131a3acc81449326",
+      "pc_family": "Xtrail",
+      "meshes": [
+        {
+          "path": "root.20.1.0",
+          "node": 175710,
+          "mode": 1,
+          "faces": 6,
+          "slots": [
+            "breaklightson-tga",
+            "lightshine-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 24,
+              "vertex_count": 10,
+              "index_count": 18,
+              "attribute_sha256": "a8e52b67d76f18fde0e99616f58ae90447fb6e58326fcac20ee184055e592e70",
+              "position_uv_corner_sha256": "33d039633b69e082adcff43cf0a024ea90a4ffeb8b273eca398d9cc1d59dcfc5",
+              "max_position_error": 1.1920928955078125e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.7806037664413452,
+              1.1697468757629395,
+              -2.2025599479675293
+            ],
+            "max": [
+              0.768746554851532,
+              1.4891446828842163,
+              -2.0180695056915283
+            ]
+          },
+          "source_indices": [
+            3180,
+            3181,
+            3182,
+            3181,
+            3182,
+            3183,
+            3182,
+            3183,
+            3184,
+            3185,
+            3186,
+            3187,
+            3186,
+            3187,
+            3188,
+            3187,
+            3188,
+            3189
+          ]
+        },
+        {
+          "path": "root.20.1.1",
+          "node": 175870,
+          "mode": 14,
+          "faces": 22,
+          "slots": [
+            "breaklightsonglow-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 25,
+              "vertex_count": 22,
+              "index_count": 66,
+              "attribute_sha256": "7a4f1f6cc234e4c6bf7adeb3eed6921c88e744ae9d8afab47dce76b06bed7225",
+              "position_uv_corner_sha256": "309fb84c83cea05dfcc56aab0968c5b86250bb6c3c5b98f029fd3adee042eedc",
+              "max_position_error": 1.1920928955078125e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.8435381054878235,
+              1.0935546159744263,
+              -2.35042667388916
+            ],
+            "max": [
+              0.8599082231521606,
+              1.5222829580307007,
+              -2.0180695056915283
+            ]
+          },
+          "source_indices": [
+            3190,
+            3191,
+            3192,
+            3191,
+            3192,
+            3193,
+            3192,
+            3193,
+            3194,
+            3193,
+            3194,
+            3195,
+            3194,
+            3195,
+            3196,
+            3195,
+            3196,
+            3197,
+            3196,
+            3197,
+            3198,
+            3197,
+            3198,
+            3199,
+            3198,
+            3199,
+            3200,
+            3199,
+            3200,
+            3201,
+            3200,
+            3201,
+            3202,
+            3203,
+            3204,
+            3205,
+            3204,
+            3205,
+            3206,
+            3205,
+            3206,
+            3207,
+            3206,
+            3207,
+            3208,
+            3207,
+            3208,
+            3209,
+            3208,
+            3209,
+            3210,
+            3209,
+            3210,
+            3211,
+            3210,
+            3211,
+            3212,
+            3211,
+            3212,
+            3213,
+            3212,
+            3213,
+            3214,
+            3213,
+            3214,
+            3215
+          ]
+        },
+        {
+          "path": "root.20.0.0",
+          "node": 175558,
+          "mode": 3,
+          "faces": 6,
+          "slots": [
+            "commontextures\\bl-tga",
+            "commontextures\\perspex-tga"
+          ],
+          "conditional": true,
+          "pc_candidates": [
+            {
+              "record": 23,
+              "vertex_count": 10,
+              "index_count": 18,
+              "attribute_sha256": "fe8e27351aff7a0e84037067b1e4830d679a82d1cf6d325418beee872ca3f6c4",
+              "position_uv_corner_sha256": "49c1ec25031b36c03036b2b796e07fa0d45fc16ac32a59cf9df9cd6934fd9c9f",
+              "max_position_error": 1.1920928955078125e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.7806037664413452,
+              1.1697468757629395,
+              -2.2025599479675293
+            ],
+            "max": [
+              0.768746554851532,
+              1.4891446828842163,
+              -2.0180695056915283
+            ]
+          },
+          "source_indices": [
+            3170,
+            3171,
+            3172,
+            3171,
+            3172,
+            3173,
+            3172,
+            3173,
+            3174,
+            3175,
+            3176,
+            3177,
+            3176,
+            3177,
+            3178,
+            3177,
+            3178,
+            3179
+          ]
+        },
+        {
+          "path": "root.5",
+          "node": 172788,
+          "mode": 3,
+          "faces": 28,
+          "slots": [
+            "commontextures\\lights-tga",
+            "commontextures\\silverpaint-tga"
+          ],
+          "conditional": false,
+          "pc_candidates": [
+            {
+              "record": 21,
+              "vertex_count": 30,
+              "index_count": 84,
+              "attribute_sha256": "52333bfd07f30c2a2b47058f70565acb4833ce0e8943e7392dba0b89ea65e29d",
+              "position_uv_corner_sha256": "475b404797b29366a79331931542e0011d613c9963464d8ef2b65f263b064f2f",
+              "max_position_error": 1.1920928955078125e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.8658384680747986,
+              0.5404990911483765,
+              1.905023455619812
+            ],
+            "max": [
+              0.8538399338722229,
+              0.8681044578552246,
+              2.1672918796539307
+            ]
+          },
+          "source_indices": [
+            1810,
+            1811,
+            1812,
+            1811,
+            1812,
+            1813,
+            1812,
+            1813,
+            1814,
+            1815,
+            1816,
+            1817,
+            1816,
+            1817,
+            1818,
+            1817,
+            1818,
+            1819,
+            1820,
+            1821,
+            1822,
+            1823,
+            1824,
+            1825,
+            1826,
+            1827,
+            1828,
+            1827,
+            1828,
+            1829,
+            1828,
+            1829,
+            1830,
+            1829,
+            1830,
+            1831,
+            1832,
+            1833,
+            1834,
+            1833,
+            1834,
+            1835,
+            1834,
+            1835,
+            1836,
+            1835,
+            1836,
+            1837,
+            1838,
+            1839,
+            1840,
+            1839,
+            1840,
+            1841,
+            1842,
+            1843,
+            1844,
+            1843,
+            1844,
+            1845,
+            1846,
+            1847,
+            1848,
+            1847,
+            1848,
+            1849,
+            1848,
+            1849,
+            1850,
+            1849,
+            1850,
+            1851,
+            1852,
+            1853,
+            1854,
+            1853,
+            1854,
+            1855,
+            1854,
+            1855,
+            1856,
+            1855,
+            1856,
+            1857
+          ]
+        },
+        {
+          "path": "root.11",
+          "node": 173888,
+          "mode": 3,
+          "faces": 14,
+          "slots": [
+            "commontextures\\lights-tga",
+            "commontextures\\perspex-tga"
+          ],
+          "conditional": false,
+          "pc_candidates": [
+            {
+              "record": 22,
+              "vertex_count": 18,
+              "index_count": 42,
+              "attribute_sha256": "1e8805b079ece803cfa1cb9b8b8b92315c4ea8abc4d73c09f814a41f7bb2d054",
+              "position_uv_corner_sha256": "282865c25fe6e43946247b5df8fe8a6f9d4c6f97ae9501543a387d4e7f2560f1",
+              "max_position_error": 1.1920928955078125e-07,
+              "max_uv_error": 0.0
+            }
+          ],
+          "bounds": {
+            "min": [
+              -0.981400191783905,
+              0.591291606426239,
+              1.905023455619812
+            ],
+            "max": [
+              0.9694015979766846,
+              0.8681044578552246,
+              2.1226773262023926
+            ]
+          },
+          "source_indices": [
+            2420,
+            2421,
+            2422,
+            2421,
+            2422,
+            2423,
+            2422,
+            2423,
+            2424,
+            2423,
+            2424,
+            2425,
+            2424,
+            2425,
+            2426,
+            2427,
+            2428,
+            2429,
+            2428,
+            2429,
+            2430,
+            2429,
+            2430,
+            2431,
+            2430,
+            2431,
+            2432,
+            2431,
+            2432,
+            2433,
+            2434,
+            2435,
+            2436,
+            2435,
+            2436,
+            2437,
+            2438,
+            2439,
+            2440,
+            2439,
+            2440,
+            2441
+          ]
+        }
+      ],
+      "pc_sha256": "e334085754f81d20d237a70e653b533344771e6409468e2e09252e380b3d063f"
+    }
+  ]
+}

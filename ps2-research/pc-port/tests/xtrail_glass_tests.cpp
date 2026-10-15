@@ -1,4 +1,5 @@
 #include "xtrail_glass.hpp"
+#include "state_tracker.hpp"
 #include "brake_glow.hpp"
 #include "foliage_probe.hpp"
 #include "provenance.hpp"
@@ -101,7 +102,9 @@ struct Native:MockDeviceBase {
  HRESULT STDMETHODCALLTYPE DrawPrimitiveUP(D3DPRIMITIVETYPE type,UINT count,const void*,UINT s)override{CHECK(type==D3DPT_TRIANGLELIST&&count==18&&s==36);++draws;stream=nullptr;indices=nullptr;return draw_hr;}
 };
 }
+void glass_effective_shadow(){for(bool glow:{false,true})for(unsigned failure=0;failure<20;++failure){Native n;const auto original=n.states;Shadow logical,effective;for(unsigned i=0;i<15;++i){const auto& op=kGlassOps[i];if(op.render)effective.update(50,pack(op.key,n.states[i]),S_OK);else effective.update(63,pack(op.stage,op.key,n.states[i]),S_OK);}logical=effective;GlassTransaction t;CHECK(SUCCEEDED(t.capture(n)));auto writer=[&](uint32_t slot,const Args& a,HRESULT hr)noexcept{CHECK(slot==50||slot==63||slot==61||slot==37||slot==83||slot==85);effective.update(slot,a,static_cast<uint32_t>(hr));};n.fail=failure;D3DMATRIX env{};const auto hr=glow?t.emissive_pass(n,writer):t.pass(n,&n.created_primary,false,env,writer);if(!failure)CHECK(SUCCEEDED(hr));n.fail=0;CHECK(SUCCEEDED(t.restore(n,writer)));CHECK(n.states==original&&!t.pending());for(unsigned i=0;i<15;++i){const auto& op=kGlassOps[i];if(op.render){CHECK(effective.rs[op.key].known&&effective.rs[op.key].value==original[i]);CHECK(logical.rs[op.key].value==original[i]);}else{CHECK(effective.tss[op.stage][op.key].known&&effective.tss[op.stage][op.key].value==original[i]);CHECK(logical.tss[op.stage][op.key].value==original[i]);}}}}
 int main(){
+ glass_effective_shadow();
  auto notify=[](uint32_t,const Args&,HRESULT){};D3DMATRIX basis{};basis._11=1;
  CHECK(!xtrail_fidelity_opt_in(L"0",L"1",true));CHECK(!xtrail_fidelity_opt_in(L"1",L"2",true));CHECK(!xtrail_fidelity_opt_in(L"1",L"1",false));
  XtrailGlass stock(true,L"nonexistent-test-config.ini");CHECK(!stock.requested());stock.after_reset(false,true);CHECK(!stock.requested());

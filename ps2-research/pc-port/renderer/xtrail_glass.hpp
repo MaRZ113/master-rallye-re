@@ -35,7 +35,7 @@ public:
             // pending slots MUST be written even when restoring the original.
             if(!(pending_&(1u<<i))&&v[i]==scalar_[i])continue;
             pending_|=1u<<i;const auto& op=kGlassOps[i];HRESULT hr;
-            if(op.render){auto a=pack(op.key,v[i]);hr=n.SetRenderState(static_cast<D3DRENDERSTATETYPE>(op.key),v[i]);notify(57,a,hr);}
+            if(op.render){auto a=pack(op.key,v[i]);hr=n.SetRenderState(static_cast<D3DRENDERSTATETYPE>(op.key),v[i]);notify(50,a,hr);}
             else{auto a=pack(op.stage,op.key,v[i]);hr=n.SetTextureStageState(op.stage,static_cast<D3DTEXTURESTAGESTATETYPE>(op.key),v[i]);notify(63,a,hr);}
             if(FAILED(hr))return hr;
         }
@@ -47,7 +47,7 @@ public:
         if(!captured_||pending_)return E_INVALIDARG;
         const std::array<DWORD,15> v={FALSE,TRUE,D3DBLEND_ONE,D3DBLEND_ONE,FALSE,FALSE,D3DTOP_SELECTARG1,D3DTA_TEXTURE,D3DTA_DIFFUSE,D3DTOP_SELECTARG1,D3DTA_TEXTURE,D3DTA_DIFFUSE,0,D3DTTFF_DISABLE,D3DTOP_DISABLE};
         for(size_t i=0;i<v.size();++i){if(v[i]==scalar_[i])continue;pending_|=1u<<i;const auto& op=kGlassOps[i];HRESULT hr;
-            if(op.render){hr=n.SetRenderState(static_cast<D3DRENDERSTATETYPE>(op.key),v[i]);notify(57,pack(op.key,v[i]),hr);}
+            if(op.render){hr=n.SetRenderState(static_cast<D3DRENDERSTATETYPE>(op.key),v[i]);notify(50,pack(op.key,v[i]),hr);}
             else{hr=n.SetTextureStageState(op.stage,static_cast<D3DTEXTURESTAGESTATETYPE>(op.key),v[i]);notify(63,pack(op.stage,op.key,v[i]),hr);}if(FAILED(hr))return hr;
         }return S_OK;
     }
@@ -60,7 +60,7 @@ public:
             else if(i==17){hr=n.SetStreamSource(0,stream_,stride_);notify(83,pack(0,stream_,stride_),hr);}
             else if(i==16){hr=n.SetTransform(D3DTS_TEXTURE0,&tex0_);notify(37,pack(D3DTS_TEXTURE0,&tex0_),hr);}
             else if(i==15){hr=n.SetTexture(0,texture_);notify(61,pack(0,texture_),hr);}
-            else{const auto& op=kGlassOps[i];if(op.render){hr=n.SetRenderState(static_cast<D3DRENDERSTATETYPE>(op.key),scalar_[i]);notify(57,pack(op.key,scalar_[i]),hr);}
+            else{const auto& op=kGlassOps[i];if(op.render){hr=n.SetRenderState(static_cast<D3DRENDERSTATETYPE>(op.key),scalar_[i]);notify(50,pack(op.key,scalar_[i]),hr);}
                 else{hr=n.SetTextureStageState(op.stage,static_cast<D3DTEXTURESTAGESTATETYPE>(op.key),scalar_[i]);notify(63,pack(op.stage,op.key,scalar_[i]),hr);}}
             if(SUCCEEDED(hr))pending_&=~(1u<<i);else if(SUCCEEDED(result))result=hr;
         }
