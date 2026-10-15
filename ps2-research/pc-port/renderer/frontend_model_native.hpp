@@ -5,20 +5,21 @@
 #include <intrin.h>
 namespace gfx2::frontendmodelintegration {
 inline thread_local uintptr_t caller_stack=0;
+inline thread_local unsigned context_gate=0;
 struct CallerScope {uintptr_t previous;explicit CallerScope(uintptr_t p)noexcept:previous(caller_stack){caller_stack=p;}~CallerScope(){caller_stack=previous;}};
 inline bool read_leaf(uintptr_t p,void* out,size_t n)noexcept{if(p<0x10000||p>0x7fffffff||n>256||n>0x7fffffff-p)return false;__try{std::memcpy(out,reinterpret_cast<void*>(p),n);return true;}__except(EXCEPTION_EXECUTE_HANDLER){return false;}}
 inline bool word(uintptr_t p,uint32_t& out)noexcept{return !(p&3)&&read_leaf(p,&out,4);}
 inline bool pointer_word(uintptr_t p,uintptr_t& out)noexcept{uint32_t x=0;if(!word(p,x)||x<0x10000||x>0x7ffffffc||(x&3))return false;out=x;return true;}
 struct Context {ps2port::FrontendOwner owner;uintptr_t mesh=0,vertex=0,index=0;std::array<uint32_t,6> vd{};std::array<uint32_t,4> id{};};
 inline bool context(uintptr_t stack,uintptr_t pc,Context& out)noexcept{
- const auto base=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));uint32_t ret=0;if(!stack||pc!=base+0x17707e||!word(stack,ret)||ret!=pc)return false;
- auto& o=out.owner;if(!pointer_word(stack+0x4c,o.instance)||!pointer_word(stack+0x34,out.mesh)||!pointer_word(stack+0x30,out.vertex)||!pointer_word(stack+0x44,out.index)||!pointer_word(o.instance+0xb0,o.packet)||!pointer_word(o.instance+0x8c,o.model))return false;
- uintptr_t check=0;if(!pointer_word(o.packet+0x74,check)||check!=o.instance||!word(o.packet+0xc,o.name)||!o.name)return false;
- uintptr_t list=0,sentinel=0;if(!pointer_word(o.model+0x18,list)||!pointer_word(list,sentinel)||!pointer_word(sentinel+4,o.root))return false;
- std::array<uint32_t,3> root{};if(!read_leaf(o.root,root.data(),12)||root[0]!=base+0x2921b0||root[2])return false;uint32_t callback=0;if(!word(root[0]+0x30,callback)||callback!=base+0x178f30)return false;
- uintptr_t node=root[1];for(size_t i=0;i<o.meshes.size();++i){if(!node||std::find(o.meshes.begin(),o.meshes.begin()+i,node)!=o.meshes.begin()+i)return false;o.meshes[i]=node;std::array<uint32_t,3> row{};if(!read_leaf(node,row.data(),12)||row[0]!=base+0x292364||!word(row[0]+0x30,callback)||callback!=base+0x176910)return false;node=row[2];}if(node||std::find(o.meshes.begin(),o.meshes.end(),out.mesh)==o.meshes.end())return false;
- if(!read_leaf(out.vertex,out.vd.data(),24)||!read_leaf(out.index,out.id.data(),16))return false;
- return pointer_word(o.packet+0x74,check)&&check==o.instance;
+ context_gate=0;const auto base=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));uint32_t ret=0;if(!stack||pc!=base+0x17707e||!word(stack,ret)||ret!=pc)return false;
+ context_gate=1;auto& o=out.owner;if(!pointer_word(stack+0x4c,o.instance)||!pointer_word(stack+0x34,out.mesh)||!pointer_word(stack+0x30,out.vertex)||!pointer_word(stack+0x44,out.index)||!pointer_word(o.instance+0xb0,o.packet)||!pointer_word(o.instance+0x8c,o.model))return false;
+ context_gate=2;uintptr_t check=0;if(!pointer_word(o.packet+0x74,check)||check!=o.instance||!word(o.packet+0xc,o.name)||!o.name)return false;
+ context_gate=3;uintptr_t list=0,sentinel=0;if(!pointer_word(o.model+0x18,list)||!pointer_word(list,sentinel)||!pointer_word(sentinel+4,o.root))return false;
+ context_gate=4;std::array<uint32_t,3> root{};if(!read_leaf(o.root,root.data(),12)||root[0]!=base+0x2921b0||root[2])return false;uint32_t callback=0;if(!word(root[0]+0x30,callback)||callback!=base+0x178f30)return false;
+ context_gate=5;uintptr_t node=root[1];for(size_t i=0;i<o.meshes.size();++i){if(!node||std::find(o.meshes.begin(),o.meshes.begin()+i,node)!=o.meshes.begin()+i)return false;o.meshes[i]=node;std::array<uint32_t,3> row{};if(!read_leaf(node,row.data(),12)||row[0]!=base+0x292364||!word(row[0]+0x30,callback)||callback!=base+0x176910)return false;node=row[2];}if(node||std::find(o.meshes.begin(),o.meshes.end(),out.mesh)==o.meshes.end())return false;
+ context_gate=6;if(!read_leaf(out.vertex,out.vd.data(),24)||!read_leaf(out.index,out.id.data(),16))return false;
+ context_gate=7;return pointer_word(o.packet+0x74,check)&&check==o.instance;
 }
 inline void notify(Device8& d,uint32_t slot,const Args& args,HRESULT hr)noexcept{d.trace.after(slot,args,static_cast<uint32_t>(hr),0,&args,256,false,true);}
 inline HRESULT repair(Device8& d)noexcept{auto* e=d.ps2_port();auto* p=e?e->frontend_model():nullptr;if(!p||!p->transaction.pending())return S_OK;const auto hr=p->transaction.restore(*d.native(),[&](uint32_t s,const Args& a,HRESULT h)noexcept{notify(d,s,a,h);});if(FAILED(hr))p->disable();return hr;}
@@ -28,7 +29,7 @@ inline xtrailintegration::Result draw(Device8& d,D3DPRIMITIVETYPE type,UINT min,
  auto* e=d.ps2_port();auto* p=e?e->frontend_model():nullptr;if(!p)return {};const auto repaired=repair(d);if(FAILED(repaired))return {true,repaired};if(!p->requested())return {};
  bool candidate=false;for(const auto& s:ps2port::kXtrailCompleteSources)candidate=candidate||(s.vertices==vertices&&s.triangles==count);
  if(!candidate||type!=D3DPT_TRIANGLELIST||!d.trace.scene_active||GetCurrentThreadId()!=d.trace.render_thread_id()||d.trace.shadow.recording||d.trace.effective_shadow.recording)return {};
- unsigned gate=0;auto blocked=[&]()noexcept->xtrailintegration::Result{if(p->claim(1u<<(8+gate)))session().write("{\"type\":\"ps2_frontend_model_gate\",\"gate\":"+std::to_string(gate)+",\"frame\":"+std::to_string(d.trace.frame_number())+",\"caller_matches\":"+(pc==reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+0x17707e?"true":"false")+"}");return {};};Context c;if(!context(caller_stack,pc,c))return blocked();gate=1;auto& n=*d.native();bool committed=false;HRESULT submitted=E_FAIL;
+ unsigned gate=0;auto blocked=[&]()noexcept->xtrailintegration::Result{if(p->claim(1u<<(8+gate)))session().write("{\"type\":\"ps2_frontend_model_gate\",\"gate\":"+std::to_string(gate)+",\"context_gate\":"+std::to_string(context_gate)+",\"seen_mask\":"+std::to_string(p->seen)+",\"frame\":"+std::to_string(d.trace.frame_number())+",\"caller_matches\":"+(pc==reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+0x17707e?"true":"false")+"}");return {};};Context c;if(!context(caller_stack,pc,c))return blocked();gate=1;auto& n=*d.native();bool committed=false;HRESULT submitted=E_FAIL;
  try{
   uintptr_t source_vb=0,source_ib=0;if(!pointer_word(c.vd[0],source_vb)||!pointer_word(c.id[0],source_ib))return blocked();auto* raw_vb=d.unwrap_vertex_buffer(reinterpret_cast<IDirect3DVertexBuffer8*>(source_vb));auto* raw_ib=d.unwrap_index_buffer(reinterpret_cast<IDirect3DIndexBuffer8*>(source_ib));
   gate=2;const auto& b=d.trace.effective_shadow.bindings;DWORD fvf=0,pixel=0;UINT stride=0,base=0;ps2integration::Ref<IDirect3DVertexBuffer8> vb;ps2integration::Ref<IDirect3DIndexBuffer8> ib;

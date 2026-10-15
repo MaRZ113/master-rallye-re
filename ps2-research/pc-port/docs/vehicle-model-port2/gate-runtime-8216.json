@@ -1,0 +1,19 @@
+{
+  "session_sha256": "96094f86fbcfebf41993fb7f2abe351100a57c12b6b0db35caae3a16ae19e2ca",
+  "observations": [
+    {
+      "type": "ps2_frontend_model_gate",
+      "gate": 8,
+      "frame": 576,
+      "caller_matches": true
+    },
+    {
+      "type": "ps2_frontend_model_gate",
+      "gate": 0,
+      "frame": 576,
+      "caller_matches": true
+    }
+  ],
+  "conclusion": "warmup_incomplete_context_rejection_exact_subgate_pending",
+  "classifier_relaxed": false
+}
