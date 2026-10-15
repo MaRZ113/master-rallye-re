@@ -23,23 +23,26 @@ inline FrontendVertex frontend_primary_sample_vertex(FrontendVertex v)noexcept{v
 struct FrontendMesh {uint32_t node,mode,texture[3],first,count;};
 struct FrontendTexture {UINT width,height;std::vector<DWORD> pixels;};
 struct FrontendAsset {std::vector<FrontendVertex> vertices;std::vector<uint32_t> indices;std::vector<FrontendMesh> meshes;std::vector<FrontendTexture> textures;};
-bool decode_frontend_asset(const std::vector<uint8_t>&,FrontendAsset&,bool race=false)noexcept;
+bool decode_frontend_asset(const std::vector<uint8_t>&,FrontendAsset&,unsigned role=0)noexcept;
 // Certificate contains current source identity, never historical draw ordinals.
 struct FrontendOwner {uintptr_t packet=0,instance=0,model=0,root=0;uint32_t name=0;std::array<uintptr_t,24> meshes{};bool operator==(const FrontendOwner& x)const noexcept{return packet==x.packet&&instance==x.instance&&model==x.model&&root==x.root&&name==x.name&&meshes==x.meshes;}};
 struct FrontendRecord {uintptr_t mesh=0;DrawSnapshot geometry;bool valid=false;};
+struct WheelOwnerState {FrontendOwner owner{};std::array<FrontendRecord,4> records{};uint64_t frame=UINT64_MAX;uint32_t seen=0;bool certified=false;D3DMATRIX world{};};
 class FrontendModel {
  bool requested_=false,diagnostics_=false,disabled_=false,parts_=false;uint32_t logs_=0;
  FrontendAsset asset_;std::vector<IDirect3DTexture8*> textures_;std::vector<std::vector<FrontendVertex>> expanded_;
+ std::array<std::vector<FrontendVertex>,5> trim_;
 public:
- FrontendTransaction transaction;D3DMATRIX environment{};bool environment_known=false,validated=false;
+ std::vector<std::pair<unsigned,unsigned>> trim17_native_runs;std::array<WheelOwnerState,4> wheel_owners{};FrontendTransaction transaction;D3DMATRIX environment{};bool environment_known=false,validated=false;
  uint32_t parts_validated=0;uint64_t race_generation=0,race_owner_lifetime=0;FrontendOwner owner{};std::array<FrontendRecord,24> records{};uint32_t seen=0;uint64_t observed_frame=UINT64_MAX,drawn_frame=UINT64_MAX;D3DMATRIX drawn_world{};bool certified=false;
- FrontendModel(bool,const std::wstring&,bool race=false)noexcept;~FrontendModel(){transaction.release();reset();}
+ FrontendModel(bool,const std::wstring&,unsigned role=0)noexcept;~FrontendModel(){transaction.release();reset();}
  bool requested()const noexcept{return requested_&&!disabled_;}bool diagnostics()const noexcept{return diagnostics_;}
  bool parts_enabled()const noexcept{return requested()&&parts_;}
  bool claim(uint32_t bit)noexcept{if(!diagnostics_||(logs_&bit))return false;logs_|=bit;return true;}
  const FrontendAsset& asset()const noexcept{return asset_;}const auto& expanded()const noexcept{return expanded_;}
+ const auto& trim(unsigned i)const noexcept{return trim_[i];}
  IDirect3DTexture8* texture(uint32_t i)const noexcept{return i<textures_.size()?textures_[i]:nullptr;}
- bool initialize(IDirect3DDevice8&)noexcept;void reset()noexcept;void invalidate()noexcept{environment_known=false;validated=false;parts_validated=0;certified=false;seen=0;records={};observed_frame=drawn_frame=UINT64_MAX;owner={};}
+ bool initialize(IDirect3DDevice8&)noexcept;void reset()noexcept;void invalidate()noexcept{trim17_native_runs.clear();wheel_owners={};environment_known=false;validated=false;parts_validated=0;certified=false;seen=0;records={};observed_frame=drawn_frame=UINT64_MAX;owner={};}
  void disable()noexcept{disabled_=true;invalidate();}
 };
 }

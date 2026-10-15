@@ -1,0 +1,3360 @@
+{
+  "schema_version": 1,
+  "pc_sha256": "e334085754f81d20d237a70e653b533344771e6409468e2e09252e380b3d063f",
+  "private_asset_sha256": "a15ee827bc93e7a7fe242d8ba2440afe1991cd06e8aeee15ce78b836e372ccac",
+  "ps2_source_sha256": "af57572e92ce47d810666779fb60c8c178f1979feb203416131a3acc81449326",
+  "tolerance": 0.001,
+  "match_rule": "ALL_VERTEX_PERMUTATIONS_MAX_COMPONENT_DISTANCE_LE_TOL_UNIQUE_SOURCE_FACE",
+  "coordinate_transform": "IDENTITY_MODEL_LOCAL",
+  "ps2_masks": {
+    "2": {
+      "1": [
+        33,
+        28,
+        30,
+        37,
+        29,
+        38,
+        36,
+        34,
+        31,
+        32,
+        35,
+        40,
+        39,
+        41
+      ],
+      "2": [
+        23,
+        22,
+        21,
+        20,
+        16,
+        17,
+        14,
+        15,
+        12,
+        13,
+        18,
+        19,
+        10,
+        11,
+        27,
+        26,
+        25,
+        24,
+        6,
+        7,
+        4,
+        5,
+        2,
+        3,
+        8,
+        9,
+        0,
+        1
+      ],
+      "3": [
+        46,
+        49,
+        48,
+        47,
+        42,
+        45,
+        44,
+        43
+      ]
+    },
+    "15": {
+      "2": [
+        0,
+        1,
+        4,
+        5,
+        2,
+        3
+      ],
+      "17": [
+        6,
+        7
+      ]
+    },
+    "18": {
+      "17": [
+        0,
+        1
+      ]
+    }
+  },
+  "records": {
+    "1": {
+      "face_count": 209,
+      "categories": {
+        "KEEP_NATIVE": 195,
+        "PS2_ROOT_2": 14
+      },
+      "faces": [
+        {
+          "pc_face": 0,
+          "hash": "7fa08b14b4f68b1e4c3694aea5a8eea83b4afa4e12270572f11b2fcd17e257de",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 1,
+          "hash": "13f8faa19e42719959980b3980fca3a167a27d737ed6956945002af04949737a",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 2,
+          "hash": "a3e4f61a59ac50517514f7b6e5f2b3ac2250dfa26ff0a85a2a40d2483333e9f0",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 3,
+          "hash": "132a10dd315fb9360c6e8dfec132ba353c47070ff610dc563d67fe18fe2e74aa",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 4,
+          "hash": "fe7eb5366ab6ca4b5538c2ca97db738822ea83f9925717ee883ae468cdc29ff6",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 5,
+          "hash": "772bd1ff0c1af92357002797eb2442af6321dc032aad5e2fe2f11cc6da6c6412",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 6,
+          "hash": "7a39a7b9132a349faf10248d8fc26673866e7c7a5d082d21596cd989c92ffdc9",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 7,
+          "hash": "9321d32d9a5f97dc3fbc751926da70a384ab3f20e99cb5d7101d3346aef4afbd",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 8,
+          "hash": "b6919770e37074ad62e6e5ef820a6c1edafe72d441e48387c0ca64ae4b3ce85e",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 9,
+          "hash": "0008dd138b9de94aef2606eed2dc475fd4d4bb1bb8e654981555aad75728144c",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 10,
+          "hash": "f5e2648ec583ce7521c65ee53289229a28a258acbd2e992ca0166484695a4a61",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 11,
+          "hash": "354ecfaa2812d70c26cf525434a3d12eacbf1de06e5efc458325f56eae4c2afc",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 12,
+          "hash": "256515e173ea6dee3a73f3bfa9de0a8735cb8c9a3787d3b0dd3672e5143b6430",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 13,
+          "hash": "fc1b88f3455f6bba8c80e3033133f411d88923a57cbfed7422ef1e9e28c14b80",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 14,
+          "hash": "6c509670a8d2ae546832c9152183369d3ef1dbff9a4c6916f185facf934cd2e9",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 15,
+          "hash": "4a04eff33e3e56de7f3e080a83050dfe80968b9ca65f9b319f20deb2e79b6d04",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 16,
+          "hash": "9a31fbef9a4f9ff4014bd932f46b87e570a48ecd648d6c63b0872fee92982068",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 17,
+          "hash": "a3f77e8c20ff863515d2a6bf253a76883a6f866fb85ec2b92a96e92f44fb68cb",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 18,
+          "hash": "537a1905e9ae7a62db0b0853db6ce301f89b337eb842e4d5b24e565bb172cf44",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 19,
+          "hash": "50ecf358d95fa9d54c6966c9aac86aa06dd0a0b360a7c6996b9334c0fc69cb44",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 20,
+          "hash": "3f974519cf683a44834b7de656773a176582378e843fb607f5c2fdaef7ce15b4",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 21,
+          "hash": "4f0c984e35e0d2deab80990eac7ae27991ae4395367ea0db23638ee6318d71ac",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 22,
+          "hash": "a48625a9e3dbcb9500a6ded16850af6d57c6435c9c46df16ca0655969f4001f0",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 23,
+          "hash": "6cbbdf08f0646aa2004516753001ea1e16171d0e342f6ea475c974da987ff881",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 24,
+          "hash": "4b4164b9c8c6049d2310abf81cbbdcfbfbdd17971040e80ed311fca1b30704f3",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 25,
+          "hash": "c315f2154c417020872630281f636e6a5fe925ad6edd782468c696287f639708",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 26,
+          "hash": "de9c67a38a213bae41748e010d4efe3d8e7ab1793207867430f95379fbc95ea0",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 27,
+          "hash": "33f545f764f5ae9dee3b39ba02a9b705386c09b2da69ebfef747f40724394915",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 28,
+          "hash": "c23e153d9b88a5231748a55c740bb9bda195c57d7d588a9b2545a147f54b9fdb",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 29,
+          "hash": "843df447aeb89dda230674a8eecc23bd5230f73114b3029a57089363a7bf501c",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 30,
+          "hash": "62d074987effd817a7c60d0932e142b36befcf2eff2a1d2a0df689226ddf5e3f",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 31,
+          "hash": "29a58df544eb443e5dcbd47f434978f350a750485f9d08305e047872ab46fa83",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 32,
+          "hash": "d75de49035d095ad3638bdc5e410f637ca9243656fe0fd4830a3ca77ad687abc",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 33,
+          "hash": "6e3a58469acf39bb2ab79674ba0f3d9f7fe98c4b52e83203260653270e94f807",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 34,
+          "hash": "f44fdcdb47f8c0961c10eb62ee0a538654aa53f9514c7d32e1c86b6f96378bff",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 35,
+          "hash": "e5ec42384094d36e4eea6b383d3cc4a4a99a68b3327481b5ebb01e897a0c0ffc",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 36,
+          "hash": "137cb0808e07bd613e703a3c56451dff2586b610bfb243d8f340dd781d23d524",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 37,
+          "hash": "0082ae7eee8fa6908dbdd4fbe8cad5fd4d8cad3f15ae443506e49a41bf879fcc",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 38,
+          "hash": "da38454ed39f3828097d0dee4f77c55409976f3f62d32487726e714d71eb6869",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 39,
+          "hash": "2d8407f3507f704535a3aea6528306687aae01faf11ded1101953f5377115abd",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 40,
+          "hash": "46af97cdb64bed1784bd78dee3e86fbec54e4e1cf36d70d9f5350397b45c60e7",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 41,
+          "hash": "a40131d00a41a3ce1e58016617757c6caed5831cbbe492f19c23a3efa44b5719",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 42,
+          "hash": "cd040adc45bff420516c1b47c2f070272a8e2dff862a07181d146c0035012baf",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 43,
+          "hash": "aa3df561aae8da44df6a47624fc1ab7ce2fb366fcfb0234481fcbcecd9c5181a",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 44,
+          "hash": "cb28743b1c0a976d6ede8117cda09f5e784de5589ea62bbc2cbbb5a2aed8db08",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 45,
+          "hash": "33d3712f9bb0d6c5829a9ee0ab52d65c20ef535dc0d0b27f1c08cb487f3dc4e7",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 46,
+          "hash": "23492581fe2a9c0eea7550f6aa10fc7f5229352fa3f644f21e0995ccd9b83910",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 47,
+          "hash": "6dfda4a72e1c971698d21338dde59ecf51fffb54c6a50d454c504c661efb7f50",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 48,
+          "hash": "7785c374291d652651706aef67efa4e03265c2da49a33f71e56182524b39d7cb",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 49,
+          "hash": "39dd25e7df0bca898315ec98623f4860fb13e6f96fa7268fe00e931729e2e73b",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 50,
+          "hash": "82cf739924dfce30a4c79c35f0d259046be5fd519406451f3a21ed2ab9990b4b",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 51,
+          "hash": "74a98d76806078ac35d2c81518d5052259f36195b3e96ddbdc5334656415eb36",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 52,
+          "hash": "b935a57e75f49ba5bff338aae9b782def6bd5771351ee0778e67a915e8a52580",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 53,
+          "hash": "69e4e1ef5a80def40c90828677321c8c2d29a563867d800f116b335081518dae",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 54,
+          "hash": "cee341678e397ab56a11f4e51c9338617df1b2a4920900cb9ca23071a14e679d",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 55,
+          "hash": "314a2f1e6d17e183e12966459e4d6d8acfb7d8f3f1b73b146f2d33b2e9ad3d26",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 56,
+          "hash": "1f47032ddb77cd7ecd9641a54ff3fdac6b17f6a3beaf61288a30bb95b6125e83",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 57,
+          "hash": "eb00621de1be8c869af54f9a85e5ee95227586987cb8dc521ff55dc10fdc9be4",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 58,
+          "hash": "449b281cf5dd7b70cf262227deacd1027af148f97eec7cec1d0e15f208b05be5",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 59,
+          "hash": "77f649aecb726de7e24ccf065f897e0b67a08aa2e0c0a3920fe1371c333cc4e1",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 60,
+          "hash": "aa67bc688af86d938d02a908055aac2b636be2b1759ee1c7bae1d5f3ae290974",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 61,
+          "hash": "bd8441400660ef07b4af3d4d6e5f10a1e930e66d465c0371b23aadec1a7545c9",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 62,
+          "hash": "0f327b08fcf6c4a0d90468235695be23534c28e4bf4db0630c1ec1cc916602ab",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 63,
+          "hash": "33e0f50cf6547b9d4398d611d4220b43df748535913350c8d8bae50f2ffcffa8",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 64,
+          "hash": "c97b50f8e41808a162088c0f858dc1a70d80ae6f049d9f09815f536560912adb",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 65,
+          "hash": "edce545c5e8a0d7b74d357f7877798f4237417bea75bf08b2a03c4b9e762f714",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 66,
+          "hash": "1edb88ac775b0c49ebb1f72aac45870542f82fbc1489c4e4fcd1335eb3da76d9",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 67,
+          "hash": "c3577e218fe19fcd23404333ab5f17bcfc616af8ad989ba7c2acad6bafae63cb",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 68,
+          "hash": "944d8f872ae62c1f6e4e9bf6893fc9400699b4c32962f5957f3b0e603556b28e",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 69,
+          "hash": "2f3edc008f296d7ebce9ab9e86b9b497287b26c4090567d5991b2fd0def98aaf",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 70,
+          "hash": "cb18d7564cef006b818571ae543c5196d0b16e60c9fc352850269f4a24b481de",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 71,
+          "hash": "f9394d2275c24df049fcb02827f6967b832c73df0e7a0acd6411df39bfede1c6",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 72,
+          "hash": "7ef091883427cf47682a08a2c1ba3b98bd43f24c2ca6b22e5bf80867f6c28c8b",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 73,
+          "hash": "7b5c4eb81fb8286ad637c35895ace99b789f342e45428e0632de1c92e4579391",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 74,
+          "hash": "eb2d171de9072a9e694c8e18ce0aae5e4e7eaae1b02899e7bc3f02405bcfda3c",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 75,
+          "hash": "f325355f40f5ab87ee4a60111b0bd81ca6cf82c6f38893b74b68a1f59bffcdd9",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 76,
+          "hash": "85c198b32f0e377c26c98df0c134e13a8135f1a59b0abb5903264e379ba7a5b9",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 77,
+          "hash": "a2c24d7af9de4cc49701bcad63ba6f73f92368474bf4dd2f2573557014c5afc0",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 78,
+          "hash": "bbb893d62a4faf669c909af91904d7e1c05a5dc840d2b91e87299d48a3005698",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 79,
+          "hash": "e2517a6a40a3ebdfb821ad5f932b19be744a9f1015cefbbe5ac9dac6803281cc",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 80,
+          "hash": "313b362e7e61177948e81321bc82e851b01f578c4bd300da97afdcea08e0b4a7",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 81,
+          "hash": "cb71e168ed5dd4f65b306c0b202adffe983ba640f3dfc757ff1f91158b36813b",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 82,
+          "hash": "2cd9f6bdc12b610eb3da5bb84cf0ab864e8494665b9278d6d4b89c31279362be",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 83,
+          "hash": "abfaa51e5b056245f279e5cac7462de3745b417a19472b980b4058077a6bb1c8",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 84,
+          "hash": "2f3aa10eb14dbe2705461392ef65be7465638e65fbfc41703594cdc16e3d7700",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 85,
+          "hash": "8c03455b85e52877da020ad070d4c5e7e5bbad54b5f80a972b9f774d0b047049",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 86,
+          "hash": "b0ab19f33c848c0d0e874fe3bbb7a22727bba8f74edee8b3beae73636b29ed18",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 87,
+          "hash": "0c93cfee86a79708c8b6728add5829644451cc290af2756f9b0d94f750f212d3",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 88,
+          "hash": "4da172b424170735c51e78e20630a48b6b6c825255a5015ff50ae2dcb37e5c8d",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 89,
+          "hash": "1b3345c3c0f049246d41c8b4d726b91fd1d7adc7d67eeb3a12c0cf3b2aa7b4c7",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 90,
+          "hash": "43394700e26cff8b693179201e5102163af5fb93c1423db89b09680a5d4ba2bb",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 91,
+          "hash": "b52102b32a893df2b2b8db932679b8f4be75ac8549097102d96c10a0817215e7",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 92,
+          "hash": "fae26c09b384ca5d6248964d01cb57b6241d196d91b849bb42971fad14893fd3",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 93,
+          "hash": "6bf9592fd9e94928291a0bd2200f819f0a86c7fd456345290168ec965770979b",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 94,
+          "hash": "bcb18d13c4c31f404057493eb341a2945081fd950e9317bffd588c098a2e5ba3",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 95,
+          "hash": "baddb38481c5c0bb5266e7a755b41c2594e3d41e5c84da067be86e77e68033e6",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 96,
+          "hash": "a72c9f29e9e43a4bee19ec156be44c6f275ba676b4729ad51053ed865fd55740",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 97,
+          "hash": "08c7309e951b773a1b8c96e114f986173698a65f04b3cfbbdf5874c0f193234e",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 98,
+          "hash": "37ebce1ac4838e6dfbff65c45d1ceddc1bff5c0695d141aa5aadc3d17784afed",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 99,
+          "hash": "45948bacb3cab54948073041659e2ffe1692ac513d93b4bb16b3278868f9eea7",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 100,
+          "hash": "aedfdf0c45e40fa534f67d140849e44af23f50338feafda23c414def9baa9547",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 101,
+          "hash": "c3f22979009e3b6c36a41ac5d4ffc979001a1aaa44ae6be1bf26ed55244f7090",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 102,
+          "hash": "62ee7efb72acf1b6d61d1404616d4be21521fc1487958b7e23b3e484995ea49c",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 103,
+          "hash": "dea22378dd7916460d7401855fb46b0c6cc6c563fc5d063e0d8574cf7d2a1791",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 104,
+          "hash": "8dd1352c46514230920e5d435bf36d7f8255050fa3ba20bce5bdba224d7e3740",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 105,
+          "hash": "2deb3c177aa6b4559ed92fa2748e2c4cb196d31e8f8e08bb706ac0453ee1b52a",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 106,
+          "hash": "3a7cfafcde6552c2e8a4fc8c32ec1b04b506106f2edc7053d66c31216c2f9ea5",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 107,
+          "hash": "50cecee6b648cf79c2b0acba959bc842e1283d9ceb7a47f51b51e6fdda4f648a",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 108,
+          "hash": "a1265d0acad4c02590dcb5e548a924f506ee9e9c1daf778867b6a77a6f9712b5",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 109,
+          "hash": "5fa027167f95b41f9492359e3c5616dba029c535949af8e936832c0fc7ca82ff",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 110,
+          "hash": "d83e1ff84b188ab9e3610beff4e9f55f7d8edcb0374fa0c0663c4bf229d4b9c5",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 111,
+          "hash": "418c4342f60c4ca705f08ba43df92d1ad1651ded969a5991c4b3c3431ad800e1",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 112,
+          "hash": "0b95ef472537f94fe60f8c3622ad9eba6891693e894d3f67b436dd8581a01984",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 113,
+          "hash": "e449059daddd88ff5b744c74ab8f704f005b4d1b905be81f5a210f81fddd54f0",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 114,
+          "hash": "84d53c529c105857fc1085e77446f91160a0d8d38cc33334df85d029809b700a",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 115,
+          "hash": "fe7c3992efb735a0be157e0581af6046e6190ad5eb324a623961ed4d830d34f7",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 116,
+          "hash": "96b724caf50fe88ea1c3bb8149c66246093d64b9fc4855a1245e80601951a4a7",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 117,
+          "hash": "751d8ba2357af7bce049ac78b978fcc36174196b84ff629872ec635bcbcc3597",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 118,
+          "hash": "335e8b00cbbc01541dddb11bbf99f0d7f9726eb5203f9a9b103679b8c2c79b51",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 119,
+          "hash": "e59e2abec2510ab010360dac73d86f180f0d755b20eed5885e552afaa6d66dbd",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 120,
+          "hash": "ffa4cd79691fd469a038320d84e7310f18f0fcb6f1c5395646a1e82102355b20",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 121,
+          "hash": "c2abffedd8ef3ac8a8a403aa17c52c0c76be1003d62c2f5f64d1afbd8f6db755",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 122,
+          "hash": "b81c5d3a81af92b041d3fcd20a093c53324ebb16cd4af49ed0f26a851cb76b9f",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 123,
+          "hash": "4b405cad8bfd6f3f6e670497d6573777984cff44c0d4ba18cbde842a3e411171",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 124,
+          "hash": "8583869a9409ba2d57653d91b16ae73b3cf7d865d73b977af363c976dc7fd9f6",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 125,
+          "hash": "b8247498ca6de25bf59bb5eea8b9d745f0572ccb3adafdaec31ad650d889135c",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 126,
+          "hash": "5df279351d755268fcaa69cce46295e3ffbc7edf8ee1ba39cc01fed9e6deb87a",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 127,
+          "hash": "f31186405d8e6c0c9b08c83a7fa7b8124e1af71ffd93a7415dd06150e5cbd2ee",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 128,
+          "hash": "b77d492b18c973ac88b5133693285984ed190ae2bce947f44ee0785fe2eab5e7",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 129,
+          "hash": "88f9bccd042bf5319b6e9a0c8837a412deab0607471b0b58111fae2dab92002e",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 130,
+          "hash": "98df7f0d226ecccaf58a113a108e1e41d14d2e98d6b9c6a4bd4df0ebc2d1fe8b",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 131,
+          "hash": "7cdd88a4388192c1bbd5d1ad98c0bd63831ed03c126f3825cd23e3d596d271f2",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 132,
+          "hash": "c9a1d13750851af7c531d0a6756e9e1378f75caa72bca3f7ba7a2e064e7fb283",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 133,
+          "hash": "24070529f4fb1e588378f8bdc55d626a2dde8915922c72314ded01acb533974e",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 134,
+          "hash": "22b66a1d3b58f019214eb00d0f92dab8070e7e49c44bd5d2ef44116eb53b09ab",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 135,
+          "hash": "1af53c9781558a0f1f85453537fff523ec8ed3b2e1e20c6e86edecaf7ccb85d5",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 136,
+          "hash": "aabd0d65e183f7dfd82ed7b3b5260e764627b954e28c67c16c0b841028351ac7",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 137,
+          "hash": "99415769c921604bc3ffaab7d6469f0738c43635dcca3a2f3acfc5f33365bdcb",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 138,
+          "hash": "74e182d51ad39ed33ed434f94d4d2251cb064a3feda517e078367b7d28e9f196",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 139,
+          "hash": "305994379c66164d48cb6d3073626cd2b364db44b8b956ee89bfa003f9fc5c07",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 140,
+          "hash": "4c9733480fd136e7b3a8bfb0dfef106bad1c8af44a2b5406bce15583eb4a238d",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 141,
+          "hash": "3ffea01c8f5a68ed9bfbd641281ec6aca75b76edaf7c34b4f405e7d3e668b24f",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 142,
+          "hash": "192b8efa3068d97b07a1afe2603da00209ea0962107557fbf02af3513bfe15b5",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 143,
+          "hash": "57d9a2890484086e14ed7d484ec6078e536b50cf1958986ff517ed80acd23c0c",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 144,
+          "hash": "006cb4e4f6246438841f8b63640ba4fac7dc80d84ccc9d79c0820a5064ff60fe",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 145,
+          "hash": "420899de096bb416c8860238e147f43cfaffd533ec7876184cae9e32846e8108",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 146,
+          "hash": "ff2c64fbe52ef3bb5204a0f9f42061878b00181f562f7dad8aa3f120836ba888",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 147,
+          "hash": "fe03451bb5e98f11a47d9ee57c6c8bf2f2435b6ef7669b0373e8d72b14534f08",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 148,
+          "hash": "34f7f20f32e01fe8e79e1a21e8c73747e48c63cdc24c06573ffeef3a8795b3fa",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 149,
+          "hash": "7be70e5fcbce30ca17a08931e075999d41367ac981f31415d95f8ce1ff3fc815",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 150,
+          "hash": "adc40dc9230675051eda3a5a0273bef396aaa5b46cb125230e1fa8b6deeec411",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 151,
+          "hash": "f9660bb525080ea3ca3cb17ce39a3bfd3f245067a992ce7ef68de0c761f14016",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 152,
+          "hash": "54e767d941fee2addf2b405879faafacfb1dc8f31b3620e8c10543806c3f1283",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 153,
+          "hash": "ef6c15c905a6a565bf74010c9dca9a46668f070115abccc3c1a301d28aaac1f5",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 154,
+          "hash": "7e2515a6a2e28c99ff6a0c6625094de212d6d39fc12dd8b8fc1868d3c4c6c838",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 155,
+          "hash": "4e88d431eb73052a309289e437795da79269a86b09190271c7c8c6624686c050",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 156,
+          "hash": "9493b96d34f808a1e745e5965bb85cee97a4a3a217e7b0e0c1410ba334925a6a",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 157,
+          "hash": "c7ef3e62b1c3d0dc6616c25de12ceaf85dd91946100f8a6ba4aa0477f8b47b20",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 158,
+          "hash": "637d20a64b9f9768d04d3f05df314163944b04021f325b543d1123b49c467887",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 159,
+          "hash": "c8c2c496261665531cdf79d6a7409f43ad027776f2c101877efaaf500a70c459",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 160,
+          "hash": "f682e79e9794c5e2a5b962e1ad505c63a51ac170f136c41d3cbaffda0fe7749a",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 161,
+          "hash": "45af961fa95415cc1ee880bd6a53b95b00aab1a84a7a4d9912b606d563b2615d",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 162,
+          "hash": "6734d95e83b0cd6c09b94f6676aab966093caebe887132d3c81631f1c74fbbc4",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 163,
+          "hash": "0d643c4e116b1dc97980feb6452d0672b3c18ff29815192c291b4a258096e232",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 164,
+          "hash": "b0f9f19862a145af4e27fde3f2d001ae4862d63d563109697fc7833178df4b40",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 165,
+          "hash": "a0dfc44d1837f77cff063a8660f3fa7bba356e4f52e536724f3a0253105ad3f4",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 166,
+          "hash": "3258ab57adb65a4a058622ec9c04230bc71764fcef3d101fe92fea04c8a7a4a2",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 167,
+          "hash": "17f5955720852594ffbf9a9d8c91d8066f7068f64cfc1464ba2d5c4b3e062f0a",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 168,
+          "hash": "877916b43ef317462db93d26890c42683bee370227aae32ad22f25f0e96a7272",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 169,
+          "hash": "6277fddbbb71164ff89f1fe2c4a91a2b3773a41e4cd1e06672fc516a2072ba03",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 170,
+          "hash": "e77602c589ae92d6267bbaa5ced691514660fe23c743132f66a93a2ff14b7d35",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 171,
+          "hash": "4e9667a94123dfc044ba665eae255e1df23954bc26ff4353fa05ee50bc279baf",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 172,
+          "hash": "550841c6838cf0e4f030c830881dcfa1a1ad91c469558752d9ca50989bd11e24",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 173,
+          "hash": "21022fc0f6a7b173ee768660e3f972bff5880db97670eb71f79163288f853830",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 174,
+          "hash": "d0f8705e61f7c1620d581923b2c60e1ea81992631d3a42a4538652835d0b5b7c",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 175,
+          "hash": "9898be8bf34552351f998a1f688540a3e88f0e8f5b71d9069138b1ae897bc269",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 176,
+          "hash": "5d81c66bafca8f1c20fa3b30539802a46afb1da11db57901be9e83c61db890b7",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 177,
+          "hash": "7f9783d5592e65aca58e403a1e25e549382714a577b1c4e759b648493c535b11",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 178,
+          "hash": "1f6a06dfda8fb9a18d2967d58e62ef36d464ae0c2c07f1c4255e21ed8cd216d6",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 179,
+          "hash": "ceae473f3d7e14a0039ca9ffc731ed0e4858075c201386d8b356bd8d6cfdbd5a",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 180,
+          "hash": "2a61dc45c643e2feb44ce94f4ad3f99cc357003dec8e58dcef2a061078cece2e",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 181,
+          "hash": "bad7f493e9ee523688c7efc868dd086f0a8d38205811f5016f32d428c8bb3f6b",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 182,
+          "hash": "b2bf75268b7593933126f2ba3bbdc6b0d2d0fc8a07cebba17d4e4fcb806e1738",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 183,
+          "hash": "42e35a0c381d0e8af688a54997cfa5afcc4d35a5b302ea8b21df93e0c97c8b14",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 184,
+          "hash": "949211697dcdbe7c81ee3905825f26920117a4ddf871c082fa6a10dfdfaa089c",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 185,
+          "hash": "a85f84099576a7c29969140181549c8bbd6e57d56aed1c906bb9dcd7099e2c2d",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 186,
+          "hash": "915af675bc15c456756c576e41178f644619e5762761242de038a095e67a02ab",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 187,
+          "hash": "22d20d070da46ead35ed8d3906e59626616b907d7f6c2e6453fa2062979aa491",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 188,
+          "hash": "04be9cd665eef349fa1a2b8ac947e0c48c113c61ef0f33f735a62ed58837b73f",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 189,
+          "hash": "daea88763545c825df1a5682cd9cca12cab7f87dfed29dd91996985a947be6d7",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 190,
+          "hash": "2fa87e9860647c95b9474ead64b8a10b0a8c8b12f221d841f19a56fc98d657b1",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 191,
+          "hash": "04a8c2ebf1e50f3490f5120061706252ee3fdec51dc7f7eea2381691ed754382",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 192,
+          "hash": "7b649f661512dc2f22905faa35a0c9dcb3768543c07e159e363cba22febeceba",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 193,
+          "hash": "2628655199f2399eaf1e57837cd19ac9219d5cce075cb8dedf6f166b1e41a854",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 194,
+          "hash": "bea35652f443696e0e17afd61c284d421bef3557ed7a602f40891bfb76efdbc1",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 195,
+          "hash": "3dae9b1e926dac24fb04b8be0c68ab2c9aca5b342b3d910179389a23b216573a",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 33
+        },
+        {
+          "pc_face": 196,
+          "hash": "893027d8cb5b0622542c08a9d68f19b1966ee92dd4ab4a14fa7e4d51cb99ab44",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 28
+        },
+        {
+          "pc_face": 197,
+          "hash": "8ffc229af8d007310578aa915f91924db3c1e1d75f056d75cb62601fcef2550f",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 30
+        },
+        {
+          "pc_face": 198,
+          "hash": "d48ced948b206367f4a6bc707122a434273e3517ab26599faa913d09d554f73e",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 37
+        },
+        {
+          "pc_face": 199,
+          "hash": "c2d02280f2f0dfa6d04c48caaf940d345d4263672a5b387c6d4851c5466170a6",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 29
+        },
+        {
+          "pc_face": 200,
+          "hash": "10eaa265ea1830429a82f990d977fcb41f213744c67a65d952b1d30ba5c69aac",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 38
+        },
+        {
+          "pc_face": 201,
+          "hash": "582afd86d0f24b75ac8a56401efe964b84876c91058fc3c96358fe0e210343d6",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 36
+        },
+        {
+          "pc_face": 202,
+          "hash": "6aa093e667813a0f0fbbe5aae9eaab48f513fa4e0430a8f32613c2dbcd543905",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 34
+        },
+        {
+          "pc_face": 203,
+          "hash": "38bd4c6c8157455a098aad79885b68b22cdd9f21c52534c64d066fe4d0a5a696",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 31
+        },
+        {
+          "pc_face": 204,
+          "hash": "26bdf74abed6616edd2b3b42cf0ce4e3883ec44f7fe5d5d775f77e3ae8e9bbec",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 32
+        },
+        {
+          "pc_face": 205,
+          "hash": "fc6e8f5daf28c0a4466562dd154d321f1fd92fc7b1b0638662ae5c8720f14c91",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 35
+        },
+        {
+          "pc_face": 206,
+          "hash": "302d9afb9e1d01ca34f9094bf12500810869026d46d6db3925bb1e3a1c44aaac",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 40
+        },
+        {
+          "pc_face": 207,
+          "hash": "5aeac1eb846942cea6956ad2af096a740424bacc7230783f367247196084ac16",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 39
+        },
+        {
+          "pc_face": 208,
+          "hash": "9d8b3fd3ceca64a30892351ba8071cb0057086aa477ede742fa0d816405cba20",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 41
+        }
+      ],
+      "runtime_hash_categories": [
+        {
+          "hash": "0008dd138b9de94aef2606eed2dc475fd4d4bb1bb8e654981555aad75728144c",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "006cb4e4f6246438841f8b63640ba4fac7dc80d84ccc9d79c0820a5064ff60fe",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "0082ae7eee8fa6908dbdd4fbe8cad5fd4d8cad3f15ae443506e49a41bf879fcc",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "04a8c2ebf1e50f3490f5120061706252ee3fdec51dc7f7eea2381691ed754382",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "04be9cd665eef349fa1a2b8ac947e0c48c113c61ef0f33f735a62ed58837b73f",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "08c7309e951b773a1b8c96e114f986173698a65f04b3cfbbdf5874c0f193234e",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "0b95ef472537f94fe60f8c3622ad9eba6891693e894d3f67b436dd8581a01984",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "0c93cfee86a79708c8b6728add5829644451cc290af2756f9b0d94f750f212d3",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "0d643c4e116b1dc97980feb6452d0672b3c18ff29815192c291b4a258096e232",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "0f327b08fcf6c4a0d90468235695be23534c28e4bf4db0630c1ec1cc916602ab",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "10eaa265ea1830429a82f990d977fcb41f213744c67a65d952b1d30ba5c69aac",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "132a10dd315fb9360c6e8dfec132ba353c47070ff610dc563d67fe18fe2e74aa",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "137cb0808e07bd613e703a3c56451dff2586b610bfb243d8f340dd781d23d524",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "13f8faa19e42719959980b3980fca3a167a27d737ed6956945002af04949737a",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "17f5955720852594ffbf9a9d8c91d8066f7068f64cfc1464ba2d5c4b3e062f0a",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "192b8efa3068d97b07a1afe2603da00209ea0962107557fbf02af3513bfe15b5",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "1af53c9781558a0f1f85453537fff523ec8ed3b2e1e20c6e86edecaf7ccb85d5",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "1b3345c3c0f049246d41c8b4d726b91fd1d7adc7d67eeb3a12c0cf3b2aa7b4c7",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "1edb88ac775b0c49ebb1f72aac45870542f82fbc1489c4e4fcd1335eb3da76d9",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "1f47032ddb77cd7ecd9641a54ff3fdac6b17f6a3beaf61288a30bb95b6125e83",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "1f6a06dfda8fb9a18d2967d58e62ef36d464ae0c2c07f1c4255e21ed8cd216d6",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "21022fc0f6a7b173ee768660e3f972bff5880db97670eb71f79163288f853830",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "22b66a1d3b58f019214eb00d0f92dab8070e7e49c44bd5d2ef44116eb53b09ab",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "22d20d070da46ead35ed8d3906e59626616b907d7f6c2e6453fa2062979aa491",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "23492581fe2a9c0eea7550f6aa10fc7f5229352fa3f644f21e0995ccd9b83910",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "24070529f4fb1e588378f8bdc55d626a2dde8915922c72314ded01acb533974e",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "256515e173ea6dee3a73f3bfa9de0a8735cb8c9a3787d3b0dd3672e5143b6430",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "2628655199f2399eaf1e57837cd19ac9219d5cce075cb8dedf6f166b1e41a854",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "26bdf74abed6616edd2b3b42cf0ce4e3883ec44f7fe5d5d775f77e3ae8e9bbec",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "29a58df544eb443e5dcbd47f434978f350a750485f9d08305e047872ab46fa83",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "2a61dc45c643e2feb44ce94f4ad3f99cc357003dec8e58dcef2a061078cece2e",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "2cd9f6bdc12b610eb3da5bb84cf0ab864e8494665b9278d6d4b89c31279362be",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "2d8407f3507f704535a3aea6528306687aae01faf11ded1101953f5377115abd",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "2deb3c177aa6b4559ed92fa2748e2c4cb196d31e8f8e08bb706ac0453ee1b52a",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "2f3aa10eb14dbe2705461392ef65be7465638e65fbfc41703594cdc16e3d7700",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "2f3edc008f296d7ebce9ab9e86b9b497287b26c4090567d5991b2fd0def98aaf",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "2fa87e9860647c95b9474ead64b8a10b0a8c8b12f221d841f19a56fc98d657b1",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "302d9afb9e1d01ca34f9094bf12500810869026d46d6db3925bb1e3a1c44aaac",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "305994379c66164d48cb6d3073626cd2b364db44b8b956ee89bfa003f9fc5c07",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "313b362e7e61177948e81321bc82e851b01f578c4bd300da97afdcea08e0b4a7",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "314a2f1e6d17e183e12966459e4d6d8acfb7d8f3f1b73b146f2d33b2e9ad3d26",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "3258ab57adb65a4a058622ec9c04230bc71764fcef3d101fe92fea04c8a7a4a2",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "335e8b00cbbc01541dddb11bbf99f0d7f9726eb5203f9a9b103679b8c2c79b51",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "33d3712f9bb0d6c5829a9ee0ab52d65c20ef535dc0d0b27f1c08cb487f3dc4e7",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "33e0f50cf6547b9d4398d611d4220b43df748535913350c8d8bae50f2ffcffa8",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "33f545f764f5ae9dee3b39ba02a9b705386c09b2da69ebfef747f40724394915",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "34f7f20f32e01fe8e79e1a21e8c73747e48c63cdc24c06573ffeef3a8795b3fa",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "354ecfaa2812d70c26cf525434a3d12eacbf1de06e5efc458325f56eae4c2afc",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "37ebce1ac4838e6dfbff65c45d1ceddc1bff5c0695d141aa5aadc3d17784afed",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "38bd4c6c8157455a098aad79885b68b22cdd9f21c52534c64d066fe4d0a5a696",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "39dd25e7df0bca898315ec98623f4860fb13e6f96fa7268fe00e931729e2e73b",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "3a7cfafcde6552c2e8a4fc8c32ec1b04b506106f2edc7053d66c31216c2f9ea5",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "3dae9b1e926dac24fb04b8be0c68ab2c9aca5b342b3d910179389a23b216573a",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "3f974519cf683a44834b7de656773a176582378e843fb607f5c2fdaef7ce15b4",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "3ffea01c8f5a68ed9bfbd641281ec6aca75b76edaf7c34b4f405e7d3e668b24f",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "418c4342f60c4ca705f08ba43df92d1ad1651ded969a5991c4b3c3431ad800e1",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "420899de096bb416c8860238e147f43cfaffd533ec7876184cae9e32846e8108",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "42e35a0c381d0e8af688a54997cfa5afcc4d35a5b302ea8b21df93e0c97c8b14",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "43394700e26cff8b693179201e5102163af5fb93c1423db89b09680a5d4ba2bb",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "449b281cf5dd7b70cf262227deacd1027af148f97eec7cec1d0e15f208b05be5",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "45948bacb3cab54948073041659e2ffe1692ac513d93b4bb16b3278868f9eea7",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "45af961fa95415cc1ee880bd6a53b95b00aab1a84a7a4d9912b606d563b2615d",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "46af97cdb64bed1784bd78dee3e86fbec54e4e1cf36d70d9f5350397b45c60e7",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "4a04eff33e3e56de7f3e080a83050dfe80968b9ca65f9b319f20deb2e79b6d04",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "4b405cad8bfd6f3f6e670497d6573777984cff44c0d4ba18cbde842a3e411171",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "4b4164b9c8c6049d2310abf81cbbdcfbfbdd17971040e80ed311fca1b30704f3",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "4c9733480fd136e7b3a8bfb0dfef106bad1c8af44a2b5406bce15583eb4a238d",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "4da172b424170735c51e78e20630a48b6b6c825255a5015ff50ae2dcb37e5c8d",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "4e88d431eb73052a309289e437795da79269a86b09190271c7c8c6624686c050",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "4e9667a94123dfc044ba665eae255e1df23954bc26ff4353fa05ee50bc279baf",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "4f0c984e35e0d2deab80990eac7ae27991ae4395367ea0db23638ee6318d71ac",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "50cecee6b648cf79c2b0acba959bc842e1283d9ceb7a47f51b51e6fdda4f648a",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "50ecf358d95fa9d54c6966c9aac86aa06dd0a0b360a7c6996b9334c0fc69cb44",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "537a1905e9ae7a62db0b0853db6ce301f89b337eb842e4d5b24e565bb172cf44",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "54e767d941fee2addf2b405879faafacfb1dc8f31b3620e8c10543806c3f1283",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "550841c6838cf0e4f030c830881dcfa1a1ad91c469558752d9ca50989bd11e24",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "57d9a2890484086e14ed7d484ec6078e536b50cf1958986ff517ed80acd23c0c",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "582afd86d0f24b75ac8a56401efe964b84876c91058fc3c96358fe0e210343d6",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "5aeac1eb846942cea6956ad2af096a740424bacc7230783f367247196084ac16",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "5d81c66bafca8f1c20fa3b30539802a46afb1da11db57901be9e83c61db890b7",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "5df279351d755268fcaa69cce46295e3ffbc7edf8ee1ba39cc01fed9e6deb87a",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "5fa027167f95b41f9492359e3c5616dba029c535949af8e936832c0fc7ca82ff",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "6277fddbbb71164ff89f1fe2c4a91a2b3773a41e4cd1e06672fc516a2072ba03",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "62d074987effd817a7c60d0932e142b36befcf2eff2a1d2a0df689226ddf5e3f",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "62ee7efb72acf1b6d61d1404616d4be21521fc1487958b7e23b3e484995ea49c",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "637d20a64b9f9768d04d3f05df314163944b04021f325b543d1123b49c467887",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "6734d95e83b0cd6c09b94f6676aab966093caebe887132d3c81631f1c74fbbc4",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "69e4e1ef5a80def40c90828677321c8c2d29a563867d800f116b335081518dae",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "6aa093e667813a0f0fbbe5aae9eaab48f513fa4e0430a8f32613c2dbcd543905",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "6bf9592fd9e94928291a0bd2200f819f0a86c7fd456345290168ec965770979b",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "6c509670a8d2ae546832c9152183369d3ef1dbff9a4c6916f185facf934cd2e9",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "6cbbdf08f0646aa2004516753001ea1e16171d0e342f6ea475c974da987ff881",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "6dfda4a72e1c971698d21338dde59ecf51fffb54c6a50d454c504c661efb7f50",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "6e3a58469acf39bb2ab79674ba0f3d9f7fe98c4b52e83203260653270e94f807",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "74a98d76806078ac35d2c81518d5052259f36195b3e96ddbdc5334656415eb36",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "74e182d51ad39ed33ed434f94d4d2251cb064a3feda517e078367b7d28e9f196",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "751d8ba2357af7bce049ac78b978fcc36174196b84ff629872ec635bcbcc3597",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "772bd1ff0c1af92357002797eb2442af6321dc032aad5e2fe2f11cc6da6c6412",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "7785c374291d652651706aef67efa4e03265c2da49a33f71e56182524b39d7cb",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "77f649aecb726de7e24ccf065f897e0b67a08aa2e0c0a3920fe1371c333cc4e1",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "7a39a7b9132a349faf10248d8fc26673866e7c7a5d082d21596cd989c92ffdc9",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "7b5c4eb81fb8286ad637c35895ace99b789f342e45428e0632de1c92e4579391",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "7b649f661512dc2f22905faa35a0c9dcb3768543c07e159e363cba22febeceba",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "7be70e5fcbce30ca17a08931e075999d41367ac981f31415d95f8ce1ff3fc815",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "7cdd88a4388192c1bbd5d1ad98c0bd63831ed03c126f3825cd23e3d596d271f2",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "7e2515a6a2e28c99ff6a0c6625094de212d6d39fc12dd8b8fc1868d3c4c6c838",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "7ef091883427cf47682a08a2c1ba3b98bd43f24c2ca6b22e5bf80867f6c28c8b",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "7f9783d5592e65aca58e403a1e25e549382714a577b1c4e759b648493c535b11",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "7fa08b14b4f68b1e4c3694aea5a8eea83b4afa4e12270572f11b2fcd17e257de",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "82cf739924dfce30a4c79c35f0d259046be5fd519406451f3a21ed2ab9990b4b",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "843df447aeb89dda230674a8eecc23bd5230f73114b3029a57089363a7bf501c",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "84d53c529c105857fc1085e77446f91160a0d8d38cc33334df85d029809b700a",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "8583869a9409ba2d57653d91b16ae73b3cf7d865d73b977af363c976dc7fd9f6",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "85c198b32f0e377c26c98df0c134e13a8135f1a59b0abb5903264e379ba7a5b9",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "877916b43ef317462db93d26890c42683bee370227aae32ad22f25f0e96a7272",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "88f9bccd042bf5319b6e9a0c8837a412deab0607471b0b58111fae2dab92002e",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "893027d8cb5b0622542c08a9d68f19b1966ee92dd4ab4a14fa7e4d51cb99ab44",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "8c03455b85e52877da020ad070d4c5e7e5bbad54b5f80a972b9f774d0b047049",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "8dd1352c46514230920e5d435bf36d7f8255050fa3ba20bce5bdba224d7e3740",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "8ffc229af8d007310578aa915f91924db3c1e1d75f056d75cb62601fcef2550f",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "915af675bc15c456756c576e41178f644619e5762761242de038a095e67a02ab",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "9321d32d9a5f97dc3fbc751926da70a384ab3f20e99cb5d7101d3346aef4afbd",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "944d8f872ae62c1f6e4e9bf6893fc9400699b4c32962f5957f3b0e603556b28e",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "949211697dcdbe7c81ee3905825f26920117a4ddf871c082fa6a10dfdfaa089c",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "9493b96d34f808a1e745e5965bb85cee97a4a3a217e7b0e0c1410ba334925a6a",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "96b724caf50fe88ea1c3bb8149c66246093d64b9fc4855a1245e80601951a4a7",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "9898be8bf34552351f998a1f688540a3e88f0e8f5b71d9069138b1ae897bc269",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "98df7f0d226ecccaf58a113a108e1e41d14d2e98d6b9c6a4bd4df0ebc2d1fe8b",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "99415769c921604bc3ffaab7d6469f0738c43635dcca3a2f3acfc5f33365bdcb",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "9a31fbef9a4f9ff4014bd932f46b87e570a48ecd648d6c63b0872fee92982068",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "9d8b3fd3ceca64a30892351ba8071cb0057086aa477ede742fa0d816405cba20",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "a0dfc44d1837f77cff063a8660f3fa7bba356e4f52e536724f3a0253105ad3f4",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "a1265d0acad4c02590dcb5e548a924f506ee9e9c1daf778867b6a77a6f9712b5",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "a2c24d7af9de4cc49701bcad63ba6f73f92368474bf4dd2f2573557014c5afc0",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "a3e4f61a59ac50517514f7b6e5f2b3ac2250dfa26ff0a85a2a40d2483333e9f0",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "a3f77e8c20ff863515d2a6bf253a76883a6f866fb85ec2b92a96e92f44fb68cb",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "a40131d00a41a3ce1e58016617757c6caed5831cbbe492f19c23a3efa44b5719",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "a48625a9e3dbcb9500a6ded16850af6d57c6435c9c46df16ca0655969f4001f0",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "a72c9f29e9e43a4bee19ec156be44c6f275ba676b4729ad51053ed865fd55740",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "a85f84099576a7c29969140181549c8bbd6e57d56aed1c906bb9dcd7099e2c2d",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "aa3df561aae8da44df6a47624fc1ab7ce2fb366fcfb0234481fcbcecd9c5181a",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "aa67bc688af86d938d02a908055aac2b636be2b1759ee1c7bae1d5f3ae290974",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "aabd0d65e183f7dfd82ed7b3b5260e764627b954e28c67c16c0b841028351ac7",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "abfaa51e5b056245f279e5cac7462de3745b417a19472b980b4058077a6bb1c8",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "adc40dc9230675051eda3a5a0273bef396aaa5b46cb125230e1fa8b6deeec411",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "aedfdf0c45e40fa534f67d140849e44af23f50338feafda23c414def9baa9547",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "b0ab19f33c848c0d0e874fe3bbb7a22727bba8f74edee8b3beae73636b29ed18",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "b0f9f19862a145af4e27fde3f2d001ae4862d63d563109697fc7833178df4b40",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "b2bf75268b7593933126f2ba3bbdc6b0d2d0fc8a07cebba17d4e4fcb806e1738",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "b52102b32a893df2b2b8db932679b8f4be75ac8549097102d96c10a0817215e7",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "b6919770e37074ad62e6e5ef820a6c1edafe72d441e48387c0ca64ae4b3ce85e",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "b77d492b18c973ac88b5133693285984ed190ae2bce947f44ee0785fe2eab5e7",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "b81c5d3a81af92b041d3fcd20a093c53324ebb16cd4af49ed0f26a851cb76b9f",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "b8247498ca6de25bf59bb5eea8b9d745f0572ccb3adafdaec31ad650d889135c",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "b935a57e75f49ba5bff338aae9b782def6bd5771351ee0778e67a915e8a52580",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "bad7f493e9ee523688c7efc868dd086f0a8d38205811f5016f32d428c8bb3f6b",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "baddb38481c5c0bb5266e7a755b41c2594e3d41e5c84da067be86e77e68033e6",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "bbb893d62a4faf669c909af91904d7e1c05a5dc840d2b91e87299d48a3005698",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "bcb18d13c4c31f404057493eb341a2945081fd950e9317bffd588c098a2e5ba3",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "bd8441400660ef07b4af3d4d6e5f10a1e930e66d465c0371b23aadec1a7545c9",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "bea35652f443696e0e17afd61c284d421bef3557ed7a602f40891bfb76efdbc1",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "c23e153d9b88a5231748a55c740bb9bda195c57d7d588a9b2545a147f54b9fdb",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "c2abffedd8ef3ac8a8a403aa17c52c0c76be1003d62c2f5f64d1afbd8f6db755",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "c2d02280f2f0dfa6d04c48caaf940d345d4263672a5b387c6d4851c5466170a6",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "c315f2154c417020872630281f636e6a5fe925ad6edd782468c696287f639708",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "c3577e218fe19fcd23404333ab5f17bcfc616af8ad989ba7c2acad6bafae63cb",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "c3f22979009e3b6c36a41ac5d4ffc979001a1aaa44ae6be1bf26ed55244f7090",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "c7ef3e62b1c3d0dc6616c25de12ceaf85dd91946100f8a6ba4aa0477f8b47b20",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "c8c2c496261665531cdf79d6a7409f43ad027776f2c101877efaaf500a70c459",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "c97b50f8e41808a162088c0f858dc1a70d80ae6f049d9f09815f536560912adb",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "c9a1d13750851af7c531d0a6756e9e1378f75caa72bca3f7ba7a2e064e7fb283",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "cb18d7564cef006b818571ae543c5196d0b16e60c9fc352850269f4a24b481de",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "cb28743b1c0a976d6ede8117cda09f5e784de5589ea62bbc2cbbb5a2aed8db08",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "cb71e168ed5dd4f65b306c0b202adffe983ba640f3dfc757ff1f91158b36813b",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "cd040adc45bff420516c1b47c2f070272a8e2dff862a07181d146c0035012baf",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "ceae473f3d7e14a0039ca9ffc731ed0e4858075c201386d8b356bd8d6cfdbd5a",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "cee341678e397ab56a11f4e51c9338617df1b2a4920900cb9ca23071a14e679d",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "d0f8705e61f7c1620d581923b2c60e1ea81992631d3a42a4538652835d0b5b7c",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "d48ced948b206367f4a6bc707122a434273e3517ab26599faa913d09d554f73e",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "d75de49035d095ad3638bdc5e410f637ca9243656fe0fd4830a3ca77ad687abc",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "d83e1ff84b188ab9e3610beff4e9f55f7d8edcb0374fa0c0663c4bf229d4b9c5",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "da38454ed39f3828097d0dee4f77c55409976f3f62d32487726e714d71eb6869",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "daea88763545c825df1a5682cd9cca12cab7f87dfed29dd91996985a947be6d7",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "de9c67a38a213bae41748e010d4efe3d8e7ab1793207867430f95379fbc95ea0",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "dea22378dd7916460d7401855fb46b0c6cc6c563fc5d063e0d8574cf7d2a1791",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "e2517a6a40a3ebdfb821ad5f932b19be744a9f1015cefbbe5ac9dac6803281cc",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "e449059daddd88ff5b744c74ab8f704f005b4d1b905be81f5a210f81fddd54f0",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "e59e2abec2510ab010360dac73d86f180f0d755b20eed5885e552afaa6d66dbd",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "e5ec42384094d36e4eea6b383d3cc4a4a99a68b3327481b5ebb01e897a0c0ffc",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "e77602c589ae92d6267bbaa5ced691514660fe23c743132f66a93a2ff14b7d35",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "eb00621de1be8c869af54f9a85e5ee95227586987cb8dc521ff55dc10fdc9be4",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "eb2d171de9072a9e694c8e18ce0aae5e4e7eaae1b02899e7bc3f02405bcfda3c",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "edce545c5e8a0d7b74d357f7877798f4237417bea75bf08b2a03c4b9e762f714",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "ef6c15c905a6a565bf74010c9dca9a46668f070115abccc3c1a301d28aaac1f5",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "f31186405d8e6c0c9b08c83a7fa7b8124e1af71ffd93a7415dd06150e5cbd2ee",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "f325355f40f5ab87ee4a60111b0bd81ca6cf82c6f38893b74b68a1f59bffcdd9",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "f44fdcdb47f8c0961c10eb62ee0a538654aa53f9514c7d32e1c86b6f96378bff",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "f5e2648ec583ce7521c65ee53289229a28a258acbd2e992ca0166484695a4a61",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "f682e79e9794c5e2a5b962e1ad505c63a51ac170f136c41d3cbaffda0fe7749a",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "f9394d2275c24df049fcb02827f6967b832c73df0e7a0acd6411df39bfede1c6",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "f9660bb525080ea3ca3cb17ce39a3bfd3f245067a992ce7ef68de0c761f14016",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "fae26c09b384ca5d6248964d01cb57b6241d196d91b849bb42971fad14893fd3",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "fc1b88f3455f6bba8c80e3033133f411d88923a57cbfed7422ef1e9e28c14b80",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "fc6e8f5daf28c0a4466562dd154d321f1fd92fc7b1b0638662ae5c8720f14c91",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "fe03451bb5e98f11a47d9ee57c6c8bf2f2435b6ef7669b0373e8d72b14534f08",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "fe7c3992efb735a0be157e0581af6046e6190ad5eb324a623961ed4d830d34f7",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "fe7eb5366ab6ca4b5538c2ca97db738822ea83f9925717ee883ae468cdc29ff6",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "ff2c64fbe52ef3bb5204a0f9f42061878b00181f562f7dad8aa3f120836ba888",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "ffa4cd79691fd469a038320d84e7310f18f0fcb6f1c5395646a1e82102355b20",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        }
+      ]
+    },
+    "2": {
+      "face_count": 34,
+      "categories": {
+        "PS2_ROOT_2": 28,
+        "PS2_ROOT_15": 6
+      },
+      "faces": [
+        {
+          "pc_face": 0,
+          "hash": "8fa33e0d5655174cdacff2f86c48a3d7908f50e7e81fd3ffaf012c9f353d0aff",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 23
+        },
+        {
+          "pc_face": 1,
+          "hash": "629ca72f7f4c88c81ecb21b7a789a152129e48823ce0592cc293210551f64c1b",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 22
+        },
+        {
+          "pc_face": 2,
+          "hash": "eba05b34e70f525c1ddbacf19fc321374b5a7a081fddf4728a33d9bb28308f0c",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 21
+        },
+        {
+          "pc_face": 3,
+          "hash": "2332db65d3de46d5b28bce4b662d4b4f1c8073dd0037fae05ce7f80b13353f13",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 20
+        },
+        {
+          "pc_face": 4,
+          "hash": "833b5328d9c65be1e99adc6a67b2b60c10dabed2e23321adbbd55a6302fa41dd",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 16
+        },
+        {
+          "pc_face": 5,
+          "hash": "4506123b4a029bd41115f7dc69e8c82bf43a955ec13d65a8456a07e9b67e40f8",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 17
+        },
+        {
+          "pc_face": 6,
+          "hash": "d14ab621a56b78fff68e965dc0339f3d8ad5b8a515ec6daf8f7df11b9782d083",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 14
+        },
+        {
+          "pc_face": 7,
+          "hash": "d3dd2ba5050ad5af5ba3749767c4e98b97b65e08d5f7e219d84ee90ec47e8777",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 15
+        },
+        {
+          "pc_face": 8,
+          "hash": "c45828d476709980bd5abf4b0f69c1c50da78297f4994deff123cf13fba82113",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 12
+        },
+        {
+          "pc_face": 9,
+          "hash": "ffbbdb46946196b9668f1a40384495ea19eb43c461cb0a5d970ec30f63454b2f",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 13
+        },
+        {
+          "pc_face": 10,
+          "hash": "080bca69d938461874ba11f2742d8e1b5a97b73909ce1dc2f9a8ce45b0877913",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 18
+        },
+        {
+          "pc_face": 11,
+          "hash": "3cd15cecdd7acae017825fb35372cd700bff9b8b060c8b01cb4396c8ca1d619e",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 19
+        },
+        {
+          "pc_face": 12,
+          "hash": "9c3991e5627a095315b191b720f168f9763e6126c33c99700d5ebdbf6217aee7",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 10
+        },
+        {
+          "pc_face": 13,
+          "hash": "04c771745ad22790a7714955f03d057a5f5de0fb2eb36bf8dc0ada3242966cd4",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 11
+        },
+        {
+          "pc_face": 14,
+          "hash": "cd917fff87113bc2ff1dd723504c5bb5dd3d8814582955e9be82e62e0da51294",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 27
+        },
+        {
+          "pc_face": 15,
+          "hash": "6f4492a2b5597055984b754f29b565676313238c0691694f4313d9dd9a056a61",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 26
+        },
+        {
+          "pc_face": 16,
+          "hash": "99c0d24a3b7f73ae75ec2c2c1a8da0ad11b2d9b9e850368d9176b80d1dcc9406",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 25
+        },
+        {
+          "pc_face": 17,
+          "hash": "1cc5b882f54502fd01f6af7344a06d9df859a74b1e7cfa423c18bfaf32927087",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 24
+        },
+        {
+          "pc_face": 18,
+          "hash": "54b5d931764ca2f1b8dcf4d2ddd86e7a5393315e72c224f458ef1bd560913c2f",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 6
+        },
+        {
+          "pc_face": 19,
+          "hash": "ff2e14ea515ac557c3d46cbce4006cc729d47ebb506565d402920a01c78bfe7e",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 7
+        },
+        {
+          "pc_face": 20,
+          "hash": "c3b7b8af9bb20ec6aaed17f9df7ff1daf3fdf63676389ef9bbcd8b40bf8f50b4",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 4
+        },
+        {
+          "pc_face": 21,
+          "hash": "2ca880427010292e52fffc3964186b7b6a180d0a79462ba35ad937ec5d53fbc2",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 5
+        },
+        {
+          "pc_face": 22,
+          "hash": "f959f40225b3816a45cc6982d4956ddb393e78f5ad4828a4395fcdeff45e067a",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 2
+        },
+        {
+          "pc_face": 23,
+          "hash": "bf7c4ae622e4e87339fc196f73a78fb64e16ba1928fd337d1857ecf39bde569a",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 3
+        },
+        {
+          "pc_face": 24,
+          "hash": "5d9dc2d1bf059749bfbe192c2340d5a820146f8b65994e5b964677f628511088",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 8
+        },
+        {
+          "pc_face": 25,
+          "hash": "63737d435ebe82953fff461f5658bb14464c66e75285c6b0d349b44996d7958b",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 9
+        },
+        {
+          "pc_face": 26,
+          "hash": "a3ee3db0cafa91ae330acdbfab963f6365288e23e1ecb2816d5df23a28df6f54",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 0
+        },
+        {
+          "pc_face": 27,
+          "hash": "727aa387a3cec78f3f9e0010db4f7a3372240e00f99197578592a59d69d65ced",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 1
+        },
+        {
+          "pc_face": 28,
+          "hash": "2201bd1cf9937e45c12d40ec6dcf15cfdbeb639090210e25bb2f4f04afa8115f",
+          "category": "PS2_ROOT_15",
+          "ps2_face": 0
+        },
+        {
+          "pc_face": 29,
+          "hash": "a4608b7584599039759cc1023c8ad30a121694338d4485cddd7ce187ce51d4d1",
+          "category": "PS2_ROOT_15",
+          "ps2_face": 1
+        },
+        {
+          "pc_face": 30,
+          "hash": "dbd096a405bd52cd3d3087f12c8ec499c0487e1a6dc40e6dc2607cc5bf73baf6",
+          "category": "PS2_ROOT_15",
+          "ps2_face": 4
+        },
+        {
+          "pc_face": 31,
+          "hash": "ac150ae6a8ab201f5b74b6a9cbdeb2ac68bc36299ac3f0a6458e89e3833eb01e",
+          "category": "PS2_ROOT_15",
+          "ps2_face": 5
+        },
+        {
+          "pc_face": 32,
+          "hash": "27e97ab92465e8f1c263091017065e174b74cca042386487aed72f296f846c64",
+          "category": "PS2_ROOT_15",
+          "ps2_face": 2
+        },
+        {
+          "pc_face": 33,
+          "hash": "53ac8733eeda0bdd34b6788df01b10c07bcac211601eec4f87d0a4c77fa10aea",
+          "category": "PS2_ROOT_15",
+          "ps2_face": 3
+        }
+      ],
+      "runtime_hash_categories": [
+        {
+          "hash": "04c771745ad22790a7714955f03d057a5f5de0fb2eb36bf8dc0ada3242966cd4",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "080bca69d938461874ba11f2742d8e1b5a97b73909ce1dc2f9a8ce45b0877913",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "1cc5b882f54502fd01f6af7344a06d9df859a74b1e7cfa423c18bfaf32927087",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "2201bd1cf9937e45c12d40ec6dcf15cfdbeb639090210e25bb2f4f04afa8115f",
+          "category": "PS2_ROOT_15",
+          "multiplicity": 1
+        },
+        {
+          "hash": "2332db65d3de46d5b28bce4b662d4b4f1c8073dd0037fae05ce7f80b13353f13",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "27e97ab92465e8f1c263091017065e174b74cca042386487aed72f296f846c64",
+          "category": "PS2_ROOT_15",
+          "multiplicity": 1
+        },
+        {
+          "hash": "2ca880427010292e52fffc3964186b7b6a180d0a79462ba35ad937ec5d53fbc2",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "3cd15cecdd7acae017825fb35372cd700bff9b8b060c8b01cb4396c8ca1d619e",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "4506123b4a029bd41115f7dc69e8c82bf43a955ec13d65a8456a07e9b67e40f8",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "53ac8733eeda0bdd34b6788df01b10c07bcac211601eec4f87d0a4c77fa10aea",
+          "category": "PS2_ROOT_15",
+          "multiplicity": 1
+        },
+        {
+          "hash": "54b5d931764ca2f1b8dcf4d2ddd86e7a5393315e72c224f458ef1bd560913c2f",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "5d9dc2d1bf059749bfbe192c2340d5a820146f8b65994e5b964677f628511088",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "629ca72f7f4c88c81ecb21b7a789a152129e48823ce0592cc293210551f64c1b",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "63737d435ebe82953fff461f5658bb14464c66e75285c6b0d349b44996d7958b",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "6f4492a2b5597055984b754f29b565676313238c0691694f4313d9dd9a056a61",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "727aa387a3cec78f3f9e0010db4f7a3372240e00f99197578592a59d69d65ced",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "833b5328d9c65be1e99adc6a67b2b60c10dabed2e23321adbbd55a6302fa41dd",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "8fa33e0d5655174cdacff2f86c48a3d7908f50e7e81fd3ffaf012c9f353d0aff",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "99c0d24a3b7f73ae75ec2c2c1a8da0ad11b2d9b9e850368d9176b80d1dcc9406",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "9c3991e5627a095315b191b720f168f9763e6126c33c99700d5ebdbf6217aee7",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "a3ee3db0cafa91ae330acdbfab963f6365288e23e1ecb2816d5df23a28df6f54",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "a4608b7584599039759cc1023c8ad30a121694338d4485cddd7ce187ce51d4d1",
+          "category": "PS2_ROOT_15",
+          "multiplicity": 1
+        },
+        {
+          "hash": "ac150ae6a8ab201f5b74b6a9cbdeb2ac68bc36299ac3f0a6458e89e3833eb01e",
+          "category": "PS2_ROOT_15",
+          "multiplicity": 1
+        },
+        {
+          "hash": "bf7c4ae622e4e87339fc196f73a78fb64e16ba1928fd337d1857ecf39bde569a",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "c3b7b8af9bb20ec6aaed17f9df7ff1daf3fdf63676389ef9bbcd8b40bf8f50b4",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "c45828d476709980bd5abf4b0f69c1c50da78297f4994deff123cf13fba82113",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "cd917fff87113bc2ff1dd723504c5bb5dd3d8814582955e9be82e62e0da51294",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "d14ab621a56b78fff68e965dc0339f3d8ad5b8a515ec6daf8f7df11b9782d083",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "d3dd2ba5050ad5af5ba3749767c4e98b97b65e08d5f7e219d84ee90ec47e8777",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "dbd096a405bd52cd3d3087f12c8ec499c0487e1a6dc40e6dc2607cc5bf73baf6",
+          "category": "PS2_ROOT_15",
+          "multiplicity": 1
+        },
+        {
+          "hash": "eba05b34e70f525c1ddbacf19fc321374b5a7a081fddf4728a33d9bb28308f0c",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "f959f40225b3816a45cc6982d4956ddb393e78f5ad4828a4395fcdeff45e067a",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "ff2e14ea515ac557c3d46cbce4006cc729d47ebb506565d402920a01c78bfe7e",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "ffbbdb46946196b9668f1a40384495ea19eb43c461cb0a5d970ec30f63454b2f",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        }
+      ]
+    },
+    "3": {
+      "face_count": 8,
+      "categories": {
+        "PS2_ROOT_2": 8
+      },
+      "faces": [
+        {
+          "pc_face": 0,
+          "hash": "0469f573c9af3c4f2a377fc021996ab07d6ac4f2326625da798700d933a77864",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 46
+        },
+        {
+          "pc_face": 1,
+          "hash": "0e7ac2d2e5dc1fa174990da73a9582e9efc53f967d3f829c1ea7387749e5b751",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 49
+        },
+        {
+          "pc_face": 2,
+          "hash": "b766a54b379121d3e5dc3556193709aa4db60e3c64cca4c6ad9b1a5a448998b9",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 48
+        },
+        {
+          "pc_face": 3,
+          "hash": "ecf9826f3a26580b0ea71b07bcb0cf361eaa3b38cf05b4c7ec984a1884afb41b",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 47
+        },
+        {
+          "pc_face": 4,
+          "hash": "f1bc943b111fc10e1fd3d0d6b1ecf13ad341738fd3b7f6b99676c209098610ed",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 42
+        },
+        {
+          "pc_face": 5,
+          "hash": "28c72e744b8f5f8f7d9d0f0a2a29c3025f82898e09d7a14454bca1a59601e83a",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 45
+        },
+        {
+          "pc_face": 6,
+          "hash": "afee46f1fc6f6d555c1a47b537f34ab7cd050b9ea37b494fc58554a7433ca4df",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 44
+        },
+        {
+          "pc_face": 7,
+          "hash": "358867046ee4e0337be035147d8751140bc30ddce294b14c90be39de3cfbc097",
+          "category": "PS2_ROOT_2",
+          "ps2_face": 43
+        }
+      ],
+      "runtime_hash_categories": [
+        {
+          "hash": "0469f573c9af3c4f2a377fc021996ab07d6ac4f2326625da798700d933a77864",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "0e7ac2d2e5dc1fa174990da73a9582e9efc53f967d3f829c1ea7387749e5b751",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "28c72e744b8f5f8f7d9d0f0a2a29c3025f82898e09d7a14454bca1a59601e83a",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "358867046ee4e0337be035147d8751140bc30ddce294b14c90be39de3cfbc097",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "afee46f1fc6f6d555c1a47b537f34ab7cd050b9ea37b494fc58554a7433ca4df",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "b766a54b379121d3e5dc3556193709aa4db60e3c64cca4c6ad9b1a5a448998b9",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "ecf9826f3a26580b0ea71b07bcb0cf361eaa3b38cf05b4c7ec984a1884afb41b",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        },
+        {
+          "hash": "f1bc943b111fc10e1fd3d0d6b1ecf13ad341738fd3b7f6b99676c209098610ed",
+          "category": "PS2_ROOT_2",
+          "multiplicity": 1
+        }
+      ]
+    },
+    "17": {
+      "face_count": 42,
+      "categories": {
+        "KEEP_NATIVE": 38,
+        "PS2_ROOT_15": 2,
+        "PS2_ROOT_18": 2
+      },
+      "faces": [
+        {
+          "pc_face": 0,
+          "hash": "57ef06fdac607acf70cd42b95d052635230e750533327b68aebb4b0d498c46da",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 1,
+          "hash": "1330f6af4b37b1919a7139781dbf55b0b94fe490c410aa9f324c067ce570c91c",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 2,
+          "hash": "96e9ee909acc98a431343d395092957550385549e20a64f96dd6a41d22dce386",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 3,
+          "hash": "b4dcc6359d894637ef711113ac2a20c157f488db7f0b368a9fad08ed1ef784d2",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 4,
+          "hash": "33f807625d75b6ddcdbd7eadc429c7d7ca386c47d9c91822c3947264d87c17ec",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 5,
+          "hash": "6cfd61ffa03f0d7b4c5a359051eea77009c092b87c12e4c973607f155b99a030",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 6,
+          "hash": "5bc56f4c9b7ccb0da8d84389836c559153b0d0445f38f1ebda1bd1bdbcba6ed3",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 7,
+          "hash": "e59006b13a48e5c6adfc210d4038b30ac151eb19dd4e17fafff08f48ba442ea9",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 8,
+          "hash": "9bc9a7288f852b4001abb621ce164d0882099edeb525075a7512cf84cf169824",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 9,
+          "hash": "c1a3f9e3952dba1525f0ec8b39b8399c2c970e5446f721d4944f5feeb0caf002",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 10,
+          "hash": "67815719a0ee007c5aedda17860dd53ca376ef9aa517d27826c4668d85d211d0",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 11,
+          "hash": "13af82da95424604b7f5f74cade96678427c0ca450b5bd2a72ba47a435a380e2",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 12,
+          "hash": "f04d33d3921664db6daf050aef75683a433e13223febf00bceca81f2b38e4b71",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 13,
+          "hash": "d254dd70a539e952e15e882b2e43233ba8472f0452cfdfd6ac40212b8659e640",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 14,
+          "hash": "a67fff9f8986b36f0d8d36ff105ce6c2f64c64b4b3727b0960378b7da34ab680",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 15,
+          "hash": "6ff6cbfb41ec9f62388eb9ddee5be7ef562c8a1538d81300ace73242a6cbe4cf",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 16,
+          "hash": "c686ad42c7d70c2152d0d42c5882d27d3ebcae688ada258323f344d929c99652",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 17,
+          "hash": "767db6c65d01c45fedb24a33be9da7ea0aa0c2cb03a794337d072e43d4ed09ed",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 18,
+          "hash": "b96823a421de7580c514742d504676bfdd9acc2c4069c88b620ec27d5d1c7bb2",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 19,
+          "hash": "a07a3ead9cddc89939c31db061541ba4362d15c5086c52960361eab0f7c4b7aa",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 20,
+          "hash": "d9184ec736519f81d17e0c02014da8af9927d7d05c07bc3d321f2371b277dd70",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 21,
+          "hash": "1ee97e2d4ab60ab84909812c09bff223a1cdc87400d5e264f3f41ecb38a255c2",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 22,
+          "hash": "058b5a3a2127c1f33f2bb19a9bdc437ccc87e9a776acb363092655ecb350df6b",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 23,
+          "hash": "606310835653a5c477889b16b66ef0d5cbef7ac653cea05fdd0d549eb78faba7",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 24,
+          "hash": "a39d1a7d45cef8cf150fe817c72f13acacc52f133f37e22be0bc096d224cc496",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 25,
+          "hash": "d5246fc9fc46e246c8e250b0e87fb5a0cedde5356b0e1c026f0b4cf898be9dc4",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 26,
+          "hash": "56da68643db70c72953eaab2d4fd86e15b8ce46248eeb64b7a34f564038dfd23",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 27,
+          "hash": "76cd75cb6cd6919415927cdfe673620f0b9e650ed2463889d12722b328bec595",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 28,
+          "hash": "974eb2cf8bf11b7b7d28766a6282cbb2256a37ad6fa9cfcc595b85ad6081838f",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 29,
+          "hash": "780d08b69b647979e46e1c7f222f1cb4dd48b3d18122ccfdf4c2f1a8567bb404",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 30,
+          "hash": "f88db375c63c2c5c3d37a87d824e39901bcc574c53913ad6df96d5e186dd484b",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 31,
+          "hash": "52a80f57768b36c9fddd90a389cb25cca509f1018e74fd2e3463d4291254d43b",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 32,
+          "hash": "ce2ee2b9580b11192975e06242d3da898275a92d8aa238f4b2efa3f2e008a275",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 33,
+          "hash": "bdabf31655e6ecfaaa47c324244e04119ed443a4b05cfb53c5193f5c632607cf",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 34,
+          "hash": "31a3bc6d16df536ea716d783109ead902dec11a6e39a8c3747304e8f0db1be89",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 35,
+          "hash": "72c7f453e194144344a3f59642f7f8fb62fc184bf52d836e984b94a093eeec08",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 36,
+          "hash": "bbb846cc5d779651ea07236347d60952cb3e3d269aed39350c60044caeaa44ed",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 37,
+          "hash": "a21d1387c485d1ad976e0dc3e09709b176d1ba015849829d3929f3b7c3b02f71",
+          "category": "KEEP_NATIVE",
+          "ps2_face": null
+        },
+        {
+          "pc_face": 38,
+          "hash": "beda4bb8f52d5beba393549ea1b18325f4755bda7e1e581549c2698737122870",
+          "category": "PS2_ROOT_15",
+          "ps2_face": 6
+        },
+        {
+          "pc_face": 39,
+          "hash": "e3de9705f20ece3b79c988724954f151ea1b37cccb950bc7c32f02d5388ff002",
+          "category": "PS2_ROOT_15",
+          "ps2_face": 7
+        },
+        {
+          "pc_face": 40,
+          "hash": "773f2b243d058df7764084685e3bb3fe27d4c256a7a795bfedfc985e060db83e",
+          "category": "PS2_ROOT_18",
+          "ps2_face": 0
+        },
+        {
+          "pc_face": 41,
+          "hash": "daa2b87c59110aed9222b2a54fc24bd4c77e588a28309540f499b7305653f9be",
+          "category": "PS2_ROOT_18",
+          "ps2_face": 1
+        }
+      ],
+      "runtime_hash_categories": [
+        {
+          "hash": "058b5a3a2127c1f33f2bb19a9bdc437ccc87e9a776acb363092655ecb350df6b",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "1330f6af4b37b1919a7139781dbf55b0b94fe490c410aa9f324c067ce570c91c",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "13af82da95424604b7f5f74cade96678427c0ca450b5bd2a72ba47a435a380e2",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "1ee97e2d4ab60ab84909812c09bff223a1cdc87400d5e264f3f41ecb38a255c2",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "31a3bc6d16df536ea716d783109ead902dec11a6e39a8c3747304e8f0db1be89",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "33f807625d75b6ddcdbd7eadc429c7d7ca386c47d9c91822c3947264d87c17ec",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "52a80f57768b36c9fddd90a389cb25cca509f1018e74fd2e3463d4291254d43b",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "56da68643db70c72953eaab2d4fd86e15b8ce46248eeb64b7a34f564038dfd23",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "57ef06fdac607acf70cd42b95d052635230e750533327b68aebb4b0d498c46da",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "5bc56f4c9b7ccb0da8d84389836c559153b0d0445f38f1ebda1bd1bdbcba6ed3",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "606310835653a5c477889b16b66ef0d5cbef7ac653cea05fdd0d549eb78faba7",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "67815719a0ee007c5aedda17860dd53ca376ef9aa517d27826c4668d85d211d0",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "6cfd61ffa03f0d7b4c5a359051eea77009c092b87c12e4c973607f155b99a030",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "6ff6cbfb41ec9f62388eb9ddee5be7ef562c8a1538d81300ace73242a6cbe4cf",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "72c7f453e194144344a3f59642f7f8fb62fc184bf52d836e984b94a093eeec08",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "767db6c65d01c45fedb24a33be9da7ea0aa0c2cb03a794337d072e43d4ed09ed",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "76cd75cb6cd6919415927cdfe673620f0b9e650ed2463889d12722b328bec595",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "773f2b243d058df7764084685e3bb3fe27d4c256a7a795bfedfc985e060db83e",
+          "category": "PS2_ROOT_18",
+          "multiplicity": 1
+        },
+        {
+          "hash": "780d08b69b647979e46e1c7f222f1cb4dd48b3d18122ccfdf4c2f1a8567bb404",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "96e9ee909acc98a431343d395092957550385549e20a64f96dd6a41d22dce386",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "974eb2cf8bf11b7b7d28766a6282cbb2256a37ad6fa9cfcc595b85ad6081838f",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "9bc9a7288f852b4001abb621ce164d0882099edeb525075a7512cf84cf169824",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "a07a3ead9cddc89939c31db061541ba4362d15c5086c52960361eab0f7c4b7aa",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "a21d1387c485d1ad976e0dc3e09709b176d1ba015849829d3929f3b7c3b02f71",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "a39d1a7d45cef8cf150fe817c72f13acacc52f133f37e22be0bc096d224cc496",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "a67fff9f8986b36f0d8d36ff105ce6c2f64c64b4b3727b0960378b7da34ab680",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "b4dcc6359d894637ef711113ac2a20c157f488db7f0b368a9fad08ed1ef784d2",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "b96823a421de7580c514742d504676bfdd9acc2c4069c88b620ec27d5d1c7bb2",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "bbb846cc5d779651ea07236347d60952cb3e3d269aed39350c60044caeaa44ed",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "bdabf31655e6ecfaaa47c324244e04119ed443a4b05cfb53c5193f5c632607cf",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "beda4bb8f52d5beba393549ea1b18325f4755bda7e1e581549c2698737122870",
+          "category": "PS2_ROOT_15",
+          "multiplicity": 1
+        },
+        {
+          "hash": "c1a3f9e3952dba1525f0ec8b39b8399c2c970e5446f721d4944f5feeb0caf002",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "c686ad42c7d70c2152d0d42c5882d27d3ebcae688ada258323f344d929c99652",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "ce2ee2b9580b11192975e06242d3da898275a92d8aa238f4b2efa3f2e008a275",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "d254dd70a539e952e15e882b2e43233ba8472f0452cfdfd6ac40212b8659e640",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "d5246fc9fc46e246c8e250b0e87fb5a0cedde5356b0e1c026f0b4cf898be9dc4",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "d9184ec736519f81d17e0c02014da8af9927d7d05c07bc3d321f2371b277dd70",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "daa2b87c59110aed9222b2a54fc24bd4c77e588a28309540f499b7305653f9be",
+          "category": "PS2_ROOT_18",
+          "multiplicity": 1
+        },
+        {
+          "hash": "e3de9705f20ece3b79c988724954f151ea1b37cccb950bc7c32f02d5388ff002",
+          "category": "PS2_ROOT_15",
+          "multiplicity": 1
+        },
+        {
+          "hash": "e59006b13a48e5c6adfc210d4038b30ac151eb19dd4e17fafff08f48ba442ea9",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "f04d33d3921664db6daf050aef75683a433e13223febf00bceca81f2b38e4b71",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        },
+        {
+          "hash": "f88db375c63c2c5c3d37a87d824e39901bcc574c53913ad6df96d5e186dd484b",
+          "category": "KEEP_NATIVE",
+          "multiplicity": 1
+        }
+      ]
+    }
+  },
+  "runtime_admission": "REQUIRES_CURRENT_OWNER_RESOURCE_GENERATION_AND_FULL_RECORD_SIGNATURE",
+  "pc17_native_faces": 38
+}

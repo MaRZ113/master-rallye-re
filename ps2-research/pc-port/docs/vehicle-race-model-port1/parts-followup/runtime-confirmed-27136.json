@@ -1,0 +1,73 @@
+{
+  "evidence": "USER_RUNTIME_OBSERVATION_AND_PROXY_TRACE",
+  "observation": "headlight glass transparent; effects visible",
+  "successful_parts": [
+    {
+      "type": "ps2_race_model_part",
+      "frame": 307,
+      "ps2_root": 19,
+      "source_geometry_verified": true,
+      "mode": 20,
+      "private_faces": 18,
+      "draw_hresult": 0,
+      "restore_hresult": 0,
+      "native_draw_boundary_preserved": true
+    },
+    {
+      "type": "ps2_race_model_part",
+      "frame": 307,
+      "ps2_root": 5,
+      "source_geometry_verified": true,
+      "mode": 3,
+      "private_faces": 28,
+      "draw_hresult": 0,
+      "restore_hresult": 0,
+      "native_draw_boundary_preserved": true
+    },
+    {
+      "type": "ps2_race_model_part",
+      "frame": 307,
+      "ps2_root": 11,
+      "source_geometry_verified": true,
+      "mode": 3,
+      "private_faces": 14,
+      "draw_hresult": 0,
+      "restore_hresult": 0,
+      "native_draw_boundary_preserved": true
+    },
+    {
+      "type": "ps2_race_model_part",
+      "frame": 1014,
+      "ps2_root": 19,
+      "source_geometry_verified": true,
+      "mode": 20,
+      "private_faces": 18,
+      "draw_hresult": 0,
+      "restore_hresult": 0,
+      "native_draw_boundary_preserved": true
+    },
+    {
+      "type": "ps2_race_model_part",
+      "frame": 1014,
+      "ps2_root": 5,
+      "source_geometry_verified": true,
+      "mode": 3,
+      "private_faces": 28,
+      "draw_hresult": 0,
+      "restore_hresult": 0,
+      "native_draw_boundary_preserved": true
+    },
+    {
+      "type": "ps2_race_model_part",
+      "frame": 1014,
+      "ps2_root": 11,
+      "source_geometry_verified": true,
+      "mode": 3,
+      "private_faces": 14,
+      "draw_hresult": 0,
+      "restore_hresult": 0,
+      "native_draw_boundary_preserved": true
+    }
+  ],
+  "new_parts_status": "RUNTIME_CONFIRMED_NOT_PIXEL_PARITY"
+}

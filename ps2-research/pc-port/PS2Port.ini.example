@@ -103,3 +103,9 @@ RacePS2ModelDiagnostics=0
 
 ; Optional exact X-Trail static lamps + glass at their native submission boundaries.
 RacePS2ModelParts=0
+
+; Original X-Trail WHEEL visual; single-participant race and current chassis required.
+RacePS2WheelMode=0
+RacePS2WheelVersion=1
+RacePS2WheelAsset=XTRAIL-WHEEL-DRAW.ps2model
+RacePS2WheelDiagnostics=0

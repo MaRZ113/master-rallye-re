@@ -23,5 +23,15 @@ inline constexpr RacePartSource kRaceParts[]={
 {{"fad797c65838c39d359767a9ef06d0d5579d847fa2b23a9ee8febe8c171b361c",22u,18u},19u},
 {{"cb24d664e8af1db40cc4b161c7875e34a2042e709a5783384179b37f0ce5fe63",30u,28u},5u},
 {{"7e42aed180591ce5a99972f8766f1d999d59da87c8212183e528f7fd7fd5f838",18u,14u},11u},
+{{"7f25050923f02b8e45c1c58e8490fe7d81fd784714ccf7d45df5acd64d03edcf",32u,34u},2u},
+{{"c13f3b8ddd5b45c25ba0373b220b6d03c5216437bdcdf8b31685fb6c2c7d6107",12u,8u},2u},
+{{"c12103f1583f862fdacf699ebb482b14467d1f54bccfa8edaed35f4ab25dd8f3",62u,42u},15u},
 };
+inline constexpr unsigned kTrim2Pc1[]={33,28,30,37,29,38,36,34,31,32,35,40,39,41};
+inline constexpr unsigned kTrim2Pc2[]={23,22,21,20,16,17,14,15,12,13,18,19,10,11,27,26,25,24,6,7,4,5,2,3,8,9,0,1};
+inline constexpr unsigned kTrim2Pc3[]={46,49,48,47,42,45,44,43};
+inline constexpr unsigned kTrim15Pc2[]={0,1,4,5,2,3};
+inline constexpr unsigned kTrim15Pc17[]={6,7};
+inline constexpr unsigned kTrim18Pc17[]={0,1};
+inline constexpr const char* kTrim17Removed[]={"beda4bb8f52d5beba393549ea1b18325f4755bda7e1e581549c2698737122870","e3de9705f20ece3b79c988724954f151ea1b37cccb950bc7c32f02d5388ff002","773f2b243d058df7764084685e3bb3fe27d4c256a7a795bfedfc985e060db83e","daa2b87c59110aed9222b2a54fc24bd4c77e588a28309540f499b7305653f9be"};
 }

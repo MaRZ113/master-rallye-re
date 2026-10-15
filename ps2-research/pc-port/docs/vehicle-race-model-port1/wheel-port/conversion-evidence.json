@@ -1,0 +1,546 @@
+{
+  "schema_version": 2,
+  "role": "RACE_SEPARATE_WHEEL",
+  "source_resource": "\\TNG\\DATAPSM\\VEHICLES\\XTRAIL\\WHEEL.PSM",
+  "source_sha256": "d53360eab52761fdadf1a4d5a2c87196be7674fbbb603c41cd4726a4b303773c",
+  "source_provenance": {
+    "path": "\\TNG\\DATAPSM\\VEHICLES\\XTRAIL\\WHEEL.PSM",
+    "offset": 1218838073,
+    "stored_size": 7824,
+    "directory_size_0x08": 7824,
+    "unpacked_size": 16242,
+    "compression": "packfs_lzo",
+    "stored_sha256": "4cf7da898e2720d373ef0a6275339b782b15ee6416dfcd7ae879805847cbefbc",
+    "payload_sha256": "d53360eab52761fdadf1a4d5a2c87196be7674fbbb603c41cd4726a4b303773c",
+    "evidence": "CONFIRMED_BY_BOTH",
+    "asset_format": "PSB/PSM or UNKNOWN; format reverse deferred"
+  },
+  "meshes": [
+    {
+      "node_offset": 15640,
+      "path": "root.0",
+      "field_unknown": 0,
+      "textures": [
+        {
+          "slot": 0,
+          "name": "commontextures\\mercwheel643-tga",
+          "flags": [
+            false,
+            false,
+            false
+          ],
+          "offset": 15662
+        },
+        {
+          "slot": 1,
+          "name": "commontextures\\rubber-tga",
+          "flags": [
+            false,
+            false,
+            false
+          ],
+          "offset": 15703
+        }
+      ],
+      "material": "$shader(carshiny)",
+      "material_offset": 15735,
+      "words_unknown": [
+        0,
+        0
+      ],
+      "flags": [
+        false,
+        false,
+        true,
+        true
+      ],
+      "word70_unknown": "0x3fb38df9",
+      "strips": [
+        {
+          "offset": 15772,
+          "start": 0,
+          "count": 31,
+          "flag": false,
+          "scale": 1.341005563735962
+        },
+        {
+          "offset": 15785,
+          "start": 31,
+          "count": 31,
+          "flag": true,
+          "scale": 1.37582528591156
+        },
+        {
+          "offset": 15798,
+          "start": 62,
+          "count": 27,
+          "flag": true,
+          "scale": 1.4392426013946533
+        },
+        {
+          "offset": 15811,
+          "start": 89,
+          "count": 31,
+          "flag": true,
+          "scale": 1.45751953125
+        },
+        {
+          "offset": 15824,
+          "start": 120,
+          "count": 30,
+          "flag": true,
+          "scale": 1.4596059322357178
+        }
+      ],
+      "classification": {
+        "authored_shader": "carshiny",
+        "interned_shader": "carshiny",
+        "water_mode": null,
+        "fallback": "GENERIC_MAP_DEFAULTS_RETAINED_OR_OTHER_SHADER",
+        "scroll_v_plus1_present": false,
+        "scroll_token_consumer": "NOT_FOUND_IN_TRACED_WATER_PATH",
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      },
+      "mode": 3,
+      "texture_indices": [
+        0,
+        1,
+        4294967295
+      ],
+      "contract": {
+        "authored_shader": "carshiny",
+        "interned_shader": "carshiny",
+        "mode": 3,
+        "authored_secondary": "commontextures\\rubber-tga",
+        "effective_secondary": "commontextures\\rubber-tga",
+        "rubber_substring_preserved": true,
+        "reflection_contract_known": true,
+        "environment_selector": 1,
+        "handler": "0x3ade58",
+        "fallback": null,
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      },
+      "first_index": 0,
+      "index_count": 378,
+      "faces": 126,
+      "pc_record": null,
+      "signature": "469a8a446e6f427f5fd41fb3c83ee17e7e25f248e18cc6f5a1dd25c6078fe151",
+      "adc_suppressed": 14,
+      "diagnostic_degenerate": 0
+    },
+    {
+      "node_offset": 15841,
+      "path": "root.1",
+      "field_unknown": 0,
+      "textures": [
+        {
+          "slot": 0,
+          "name": "commontextures\\merctread-tga",
+          "flags": [
+            false,
+            false,
+            false
+          ],
+          "offset": 15863
+        },
+        {
+          "slot": 1,
+          "name": "commontextures\\rubber-tga",
+          "flags": [
+            false,
+            false,
+            false
+          ],
+          "offset": 15901
+        }
+      ],
+      "material": "$shader(carshiny)",
+      "material_offset": 15933,
+      "words_unknown": [
+        0,
+        0
+      ],
+      "flags": [
+        false,
+        false,
+        true,
+        true
+      ],
+      "word70_unknown": "0x40609818",
+      "strips": [
+        {
+          "offset": 15970,
+          "start": 150,
+          "count": 31,
+          "flag": true,
+          "scale": 3.5076141357421875
+        },
+        {
+          "offset": 15983,
+          "start": 181,
+          "count": 9,
+          "flag": false,
+          "scale": 3.5161991119384766
+        }
+      ],
+      "classification": {
+        "authored_shader": "carshiny",
+        "interned_shader": "carshiny",
+        "water_mode": null,
+        "fallback": "GENERIC_MAP_DEFAULTS_RETAINED_OR_OTHER_SHADER",
+        "scroll_v_plus1_present": false,
+        "scroll_token_consumer": "NOT_FOUND_IN_TRACED_WATER_PATH",
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      },
+      "mode": 3,
+      "texture_indices": [
+        2,
+        1,
+        4294967295
+      ],
+      "contract": {
+        "authored_shader": "carshiny",
+        "interned_shader": "carshiny",
+        "mode": 3,
+        "authored_secondary": "commontextures\\rubber-tga",
+        "effective_secondary": "commontextures\\rubber-tga",
+        "rubber_substring_preserved": true,
+        "reflection_contract_known": true,
+        "environment_selector": 1,
+        "handler": "0x3ade58",
+        "fallback": null,
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      },
+      "first_index": 378,
+      "index_count": 108,
+      "faces": 36,
+      "pc_record": null,
+      "signature": "a57e255404ce0f61f76b3985a44d870f4eddfe03222760c7f36a9380894cd875",
+      "adc_suppressed": 0,
+      "diagnostic_degenerate": 0
+    },
+    {
+      "node_offset": 16000,
+      "path": "root.2",
+      "field_unknown": 0,
+      "textures": [
+        {
+          "slot": 0,
+          "name": "commontextures\\jumpwheel64-tga",
+          "flags": [
+            false,
+            false,
+            false
+          ],
+          "offset": 16022
+        },
+        {
+          "slot": 1,
+          "name": "commontextures\\chrome-tga",
+          "flags": [
+            false,
+            false,
+            false
+          ],
+          "offset": 16062
+        }
+      ],
+      "material": "$shader(carshiny)",
+      "material_offset": 16094,
+      "words_unknown": [
+        0,
+        0
+      ],
+      "flags": [
+        false,
+        false,
+        true,
+        true
+      ],
+      "word70_unknown": "0x3fa8c390",
+      "strips": [
+        {
+          "offset": 16131,
+          "start": 190,
+          "count": 31,
+          "flag": true,
+          "scale": 1.1335575580596924
+        },
+        {
+          "offset": 16144,
+          "start": 221,
+          "count": 5,
+          "flag": false,
+          "scale": 1.426862359046936
+        },
+        {
+          "offset": 16157,
+          "start": 226,
+          "count": 5,
+          "flag": false,
+          "scale": 1.426862359046936
+        },
+        {
+          "offset": 16170,
+          "start": 231,
+          "count": 5,
+          "flag": false,
+          "scale": 1.426862359046936
+        },
+        {
+          "offset": 16183,
+          "start": 236,
+          "count": 5,
+          "flag": false,
+          "scale": 1.4307832717895508
+        },
+        {
+          "offset": 16196,
+          "start": 241,
+          "count": 31,
+          "flag": true,
+          "scale": 1.4474071264266968
+        },
+        {
+          "offset": 16209,
+          "start": 272,
+          "count": 28,
+          "flag": false,
+          "scale": 1.4501959085464478
+        }
+      ],
+      "classification": {
+        "authored_shader": "carshiny",
+        "interned_shader": "carshiny",
+        "water_mode": null,
+        "fallback": "GENERIC_MAP_DEFAULTS_RETAINED_OR_OTHER_SHADER",
+        "scroll_v_plus1_present": false,
+        "scroll_token_consumer": "NOT_FOUND_IN_TRACED_WATER_PATH",
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      },
+      "mode": 3,
+      "texture_indices": [
+        3,
+        4,
+        4294967295
+      ],
+      "contract": {
+        "authored_shader": "carshiny",
+        "interned_shader": "carshiny",
+        "mode": 3,
+        "authored_secondary": "commontextures\\chrome-tga",
+        "effective_secondary": "CommonTextures\\rendertarget64x64",
+        "rubber_substring_preserved": false,
+        "reflection_contract_known": true,
+        "environment_selector": 1,
+        "handler": "0x3ade58",
+        "fallback": null,
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      },
+      "first_index": 486,
+      "index_count": 270,
+      "faces": 90,
+      "pc_record": null,
+      "signature": "283ca0c3a366146405df4d3fc18755abbe09376d11a7c326ebd25979c4b06c35",
+      "adc_suppressed": 6,
+      "diagnostic_degenerate": 0
+    }
+  ],
+  "texture_upload": [
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\MERCWHEEL643-TGA.GXI",
+      "sha256": "258c665963d18b8786bd3b56e694a25435ffa18dc767d75088e1cd4d5d1791f0",
+      "argb_sha256": "0653a7e6a9689bd00838b525d180c9a37f0aaf358e3e1b08f00447e2a0c38e03",
+      "width": 64,
+      "height": 64,
+      "provenance": {
+        "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\MERCWHEEL643-TGA.GXI",
+        "offset": 1037796926,
+        "stored_size": 4530,
+        "directory_size_0x08": 4530,
+        "unpacked_size": 16392,
+        "compression": "packfs_lzo",
+        "stored_sha256": "9b6af0d184ca26ffe4d94424236f457214290042f2ce3f8409b0bb710a2848e1",
+        "payload_sha256": "258c665963d18b8786bd3b56e694a25435ffa18dc767d75088e1cd4d5d1791f0",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "gxi": {
+          "width": 64,
+          "height": 64,
+          "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+          "channel_order": "UNKNOWN",
+          "size_equation_match": true
+        }
+      }
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\RUBBER-TGA.GXI",
+      "sha256": "afba5c39287f33d6ab32576eddbe80e15717385e524b3380d8f6daabcfe1a899",
+      "argb_sha256": "10a9f697ed2209833685b0f9d678d11f17afcf2533a18a31c3234729d7f339f0",
+      "width": 32,
+      "height": 32,
+      "provenance": {
+        "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\RUBBER-TGA.GXI",
+        "offset": 1038272766,
+        "stored_size": 1982,
+        "directory_size_0x08": 1982,
+        "unpacked_size": 4104,
+        "compression": "packfs_lzo",
+        "stored_sha256": "894c49a54860bfba0be21daa44b9e858c6517f1ff715a01ce1b1ec61bf1686e3",
+        "payload_sha256": "afba5c39287f33d6ab32576eddbe80e15717385e524b3380d8f6daabcfe1a899",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "gxi": {
+          "width": 32,
+          "height": 32,
+          "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+          "channel_order": "UNKNOWN",
+          "size_equation_match": true
+        }
+      }
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\MERCTREAD-TGA.GXI",
+      "sha256": "24788d6abbeffe38cc37c27c564077d8bd976989d9e702b8b191efadf03883b2",
+      "argb_sha256": "3c3b645851dee76a70dca871a888ac987f40be145ceee9bb4c2e62736bfd5c0b",
+      "width": 16,
+      "height": 16,
+      "provenance": {
+        "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\MERCTREAD-TGA.GXI",
+        "offset": 1037796429,
+        "stored_size": 497,
+        "directory_size_0x08": 497,
+        "unpacked_size": 1032,
+        "compression": "packfs_lzo",
+        "stored_sha256": "a7cdddfb9aa3ee40da12b5d9e7dccc08052a52048f5b2a5d8d844fd8efe23ffb",
+        "payload_sha256": "24788d6abbeffe38cc37c27c564077d8bd976989d9e702b8b191efadf03883b2",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "gxi": {
+          "width": 16,
+          "height": 16,
+          "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+          "channel_order": "UNKNOWN",
+          "size_equation_match": true
+        }
+      }
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\JUMPWHEEL64-TGA.GXI",
+      "sha256": "03671ce44fc80512b23da204cddf63c3936bc51031f6a9980e9818ab60fd897e",
+      "argb_sha256": "2e7b3a34f54a82eb90ccacf2be852bb97ac824d3444022355db7b40947fc7ce6",
+      "width": 64,
+      "height": 64,
+      "provenance": {
+        "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\JUMPWHEEL64-TGA.GXI",
+        "offset": 1037174551,
+        "stored_size": 6178,
+        "directory_size_0x08": 6178,
+        "unpacked_size": 16392,
+        "compression": "packfs_lzo",
+        "stored_sha256": "7b6389458d6dde2d4b527b9232e98a097f44b76a2915ad45e002a34b2e1bf6bd",
+        "payload_sha256": "03671ce44fc80512b23da204cddf63c3936bc51031f6a9980e9818ab60fd897e",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "gxi": {
+          "width": 64,
+          "height": 64,
+          "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+          "channel_order": "UNKNOWN",
+          "size_equation_match": true
+        }
+      }
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\CHROME-TGA.GXI",
+      "sha256": "4368ca3f678c11c414eca8f4c16e44e7d3513137dd68362ac5e4759a4cc79d0c",
+      "argb_sha256": "7bc7aab42bff670d0f05aec5ca7c7fdae298fe1cdfea97ed56b0c80395ded745",
+      "width": 32,
+      "height": 32,
+      "provenance": {
+        "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\CHROME-TGA.GXI",
+        "offset": 1036531841,
+        "stored_size": 2740,
+        "directory_size_0x08": 2740,
+        "unpacked_size": 4104,
+        "compression": "packfs_lzo",
+        "stored_sha256": "479265e548a4dd5a63004e81a6e635a011353ac6e21cd36cc9c6be28d181ac72",
+        "payload_sha256": "4368ca3f678c11c414eca8f4c16e44e7d3513137dd68362ac5e4759a4cc79d0c",
+        "evidence": "CONFIRMED_BY_BOTH",
+        "gxi": {
+          "width": 32,
+          "height": 32,
+          "classification": "SIMPLE_4_BYTES_PER_PIXEL",
+          "channel_order": "UNKNOWN",
+          "size_equation_match": true
+        }
+      }
+    }
+  ],
+  "pc_source_sha256": "f05ac990b6ea2312f2a2d552ec886aded4c68a8d8fac027f99e1fc7b0826779c",
+  "pc_records": [
+    {
+      "record": 0,
+      "path": "0",
+      "vertex_base": 0,
+      "vertices": 54,
+      "index_start": 0,
+      "faces": 72,
+      "signature": "2f4938e041122fb29ecc25c7ebcf53a535c33bcacc1e49268e158722677af698",
+      "slots": [
+        "mercwheel64-tga",
+        "rubber-tga",
+        "Null"
+      ]
+    },
+    {
+      "record": 1,
+      "path": "1",
+      "vertex_base": 54,
+      "vertices": 38,
+      "index_start": 216,
+      "faces": 36,
+      "signature": "a57e255404ce0f61f76b3985a44d870f4eddfe03222760c7f36a9380894cd875",
+      "slots": [
+        "merctread-tga",
+        "rubber-tga",
+        "Null"
+      ]
+    },
+    {
+      "record": 2,
+      "path": "2",
+      "vertex_base": 92,
+      "vertices": 37,
+      "index_start": 324,
+      "faces": 54,
+      "signature": "a7066b168c5330f1a2458fc08e671ec06ce634d2936983a09e06238fee35778d",
+      "slots": [
+        "mercwheel643-tga",
+        "rubber-tga",
+        "Null"
+      ]
+    },
+    {
+      "record": 3,
+      "path": "3",
+      "vertex_base": 129,
+      "vertices": 91,
+      "index_start": 486,
+      "faces": 90,
+      "signature": "283ca0c3a366146405df4d3fc18755abbe09376d11a7c326ebd25979c4b06c35",
+      "slots": [
+        "xwheel-tga",
+        "chrome-tga",
+        "Null"
+      ]
+    }
+  ],
+  "coordinates": "RAW_WHEEL_LOCAL_CURRENT_NATIVE_WHEEL_WORLD_REQUIRED",
+  "primary_orientation": "RAW_UV_RUNTIME_V_EQUALS_1_MINUS_V_AS_CONFIRMED_COMPLETE",
+  "alpha": "ORIGINAL_STORED_ALPHA_NO_REMAP",
+  "winding": "ORDERED_SOURCE_TRIPLES_CULL_NONE_REQUIRED",
+  "partition": "ORIGINAL_THREE_MESHES",
+  "asset_sha256": "6bed8f419f7d73572aaf1af5b38a6cfc9d90deaf9d0d6bf3a3b8e0047a7da27c",
+  "bytes": 66559,
+  "vertices": 300,
+  "mesh_count": 3,
+  "faces": 252,
+  "texture_count": 5
+}

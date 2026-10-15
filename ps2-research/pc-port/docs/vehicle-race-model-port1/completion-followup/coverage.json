@@ -1,0 +1,47 @@
+[
+  {
+    "system": "frontend COMPLETE",
+    "coverage": "4636 faces/24 source records",
+    "status": "USER_RUNTIME_CONFIRMED_RESET_MSAA4X"
+  },
+  {
+    "system": "race original accepted chassis",
+    "coverage": "1712faces",
+    "status": "USER_RUNTIME_AND_F10_CONFIRMED"
+  },
+  {
+    "system": "race glass/lamps",
+    "coverage": "60faces",
+    "status": "USER_RUNTIME_AND_F10_CONFIRMED"
+  },
+  {
+    "system": "remaining static trim",
+    "coverage": "60faces incl14 filling accepted mixedside draw; native driver38 preserved",
+    "status": "IMPLEMENTED_PENDING_USER_RUNTIME"
+  },
+  {
+    "system": "total unconditional CAR excludinghelmet",
+    "coverage": "1832of1980faces",
+    "status": "IMPLEMENTED_SUBSET_NOT_ALL_RUNTIME_VALIDATED"
+  },
+  {
+    "system": "original WHEEL",
+    "coverage": "252faces perwheel;300sourcevertices;5textures; allfour source drawparts",
+    "status": "IMPLEMENTED_PENDING_USER_RUNTIME_SINGLE_PARTICIPANT"
+  },
+  {
+    "system": "helmet/driver",
+    "coverage": "native driver animation retained; PS2helmet148 notadmitted",
+    "status": "STOCK_CURRENT_ANIMATED_OWNER_TRANSFORM_REQUIRED"
+  },
+  {
+    "system": "brake/glow branches",
+    "coverage": "native switch intact; source off/on/glow separatelycatalogued",
+    "status": "STOCK_PS2_BRANCH_MATERIAL_GLOW_CONTRACT_REQUIRED"
+  },
+  {
+    "system": "conditional side/front windows",
+    "coverage": "native intact/cracked switch retained",
+    "status": "STOCK_FRONT_TEXTURE_IDENTITY_REQUIRED"
+  }
+]

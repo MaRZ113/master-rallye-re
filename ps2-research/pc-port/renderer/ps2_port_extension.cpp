@@ -184,6 +184,7 @@ PS2PortExtension::PS2PortExtension(bool exact_build, const std::string& exe_sha,
         diagnostics_ = GetPrivateProfileIntW(L"PS2Port", L"Diagnostics", 0, ini.c_str()) == 1;
         frontend_model_=std::make_unique<FrontendModel>(build_valid_,ini);
         race_model_=std::make_unique<FrontendModel>(build_valid_,ini,true);
+        wheel_model_=std::make_unique<FrontendModel>(build_valid_,ini,2);
         frontend_geometry_diagnostics_ = GetPrivateProfileIntW(L"PS2Port", L"FrontendGeometryDiagnostics", 0, ini.c_str()) == 1;
         const UINT probe = GetPrivateProfileIntW(L"PS2Port", L"PixelProbe", 0, ini.c_str());
         pixel_probe_requested_ = probe == 1;
@@ -216,13 +217,13 @@ bool PS2PortExtension::requested() const noexcept {
     return mode_ != PilotMode::Stock || (reflection_ && reflection_->mirroring_required());
 }
 bool PS2PortExtension::active() const noexcept { return requested() && build_valid_ && !disabled_; }
-bool PS2PortExtension::buffer_mirroring_required() const noexcept { return active() || pixel_probe_enabled() || frontend_geometry_diagnostics() || (race_model_ && race_model_->requested()) || (frontend_model_ && frontend_model_->requested()); }
+bool PS2PortExtension::buffer_mirroring_required() const noexcept { return active() || pixel_probe_enabled() || frontend_geometry_diagnostics() || (wheel_model_ && wheel_model_->requested()) || (race_model_ && race_model_->requested()) || (frontend_model_ && frontend_model_->requested()); }
 bool PS2PortExtension::analysis_enabled() const noexcept { return active() || pixel_probe_enabled() ||
     (!disabled_ && ((course_objects_ && course_objects_->identity_requested()) ||
                   (grass_ && grass_->identity_requested()) || (shrubs_ && shrubs_->identity_requested()))); }
 
 bool PS2PortExtension::native_states_pending() const noexcept {
-    return (race_model_ && race_model_->transaction.pending()) || (frontend_model_ && frontend_model_->transaction.pending()) || (xtrail_ && (xtrail_->blocked() || xtrail_->transaction.pending() || xtrail_->glass_pending())) ||
+    return (wheel_model_ && wheel_model_->transaction.pending()) || (race_model_ && race_model_->transaction.pending()) || (frontend_model_ && frontend_model_->transaction.pending()) || (xtrail_ && (xtrail_->blocked() || xtrail_->transaction.pending() || xtrail_->glass_pending())) ||
         (reflection_ && (reflection_->blocked() || reflection_->transaction().changed_mask ||
             reflection_->mixed_capture().pending())) ||
         (course_objects_ && (course_objects_->blocked() || course_objects_->transaction.has_pending())) ||
