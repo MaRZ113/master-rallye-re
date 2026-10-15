@@ -1,0 +1,235 @@
+{
+  "schema": 1,
+  "phase": "PORT2_CURRENT_OWNER_UPLOAD_JOIN",
+  "process": {
+    "machine": "i386",
+    "format": "PE32",
+    "image_base": 4194304,
+    "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "bytes": 3121214,
+    "process_creation_filetime": 134364567733970455,
+    "pid": 53228
+  },
+  "native_owner_chain": "Current CarMover callback -> Egg+50 -> packet+74 -> instance+B0/+8C -> compiled model dispatch list -> actual emitter source mesh",
+  "native_source_draw_join": "CONFIRMED_CURRENT_PAUSED_RUNTIME",
+  "frames": [
+    {
+      "frame": 23922,
+      "capture_sha256": "18d62c2d474e5f61fd78f544859a99b41aab44e7959bcfbaeec68b0b3d1248b5",
+      "source_record": {
+        "type": "ps2_frontend_upload_identity",
+        "frame": 23922,
+        "source": "Xtrail/complete.dx",
+        "source_geometry_sha256": "fbcadf17cfb3d2ebb22d76634560c17d5486a098f13c3f752fa9b20d379cfab8",
+        "source_record_metadata_index": 0,
+        "vertex_generation": 693,
+        "index_generation": 694,
+        "vertex_revision": 144,
+        "index_revision": 132,
+        "reset_generation": 0,
+        "fvf": 322,
+        "stride": 24,
+        "min_index": 20739,
+        "start_index": 33312,
+        "vertices": 286,
+        "triangles": 213,
+        "world_view_projection_current": true,
+        "world_view_projection": [
+          [
+            -0.962749124,
+            0,
+            -0.27039665,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0.27039665,
+            0,
+            -0.962749124,
+            0,
+            8,
+            -2,
+            189,
+            1
+          ],
+          [
+            0.961716354,
+            0.0273839254,
+            -0.272674948,
+            0,
+            1.86264493e-09,
+            0.994994938,
+            0.0999243557,
+            0,
+            -0.27404657,
+            0.0960988924,
+            -0.956902981,
+            0,
+            45.2743645,
+            -18.5274525,
+            194.494339,
+            1
+          ],
+          [
+            2.47241902,
+            0,
+            0,
+            0,
+            0,
+            3.29655862,
+            0,
+            0,
+            0,
+            0,
+            1.00020003,
+            1,
+            0,
+            0,
+            -0.200040013,
+            0
+          ]
+        ],
+        "matrix_hresults": [
+          0,
+          0,
+          0
+        ],
+        "model_owner_join_verified": false,
+        "replacement_enabled": false
+      },
+      "native_draw_arguments": [
+        4,
+        20739,
+        286,
+        33312,
+        213
+      ],
+      "native_draw_hresult": 0,
+      "caller_rva": 1536126,
+      "stream": {
+        "pointer": 531031904,
+        "stride": 24,
+        "last_creation_serial": 693
+      },
+      "indices": {
+        "pointer": 531538240,
+        "base": 0,
+        "last_creation_serial": 694
+      },
+      "source_records": 24,
+      "source_triangles": 2487
+    },
+    {
+      "frame": 24523,
+      "capture_sha256": "f2f0fc2046c179d272a4c3dfc8af9a3c44cf0bd611dc12689dd8584384eb0d24",
+      "source_record": {
+        "type": "ps2_frontend_upload_identity",
+        "frame": 24523,
+        "source": "Xtrail/complete.dx",
+        "source_geometry_sha256": "fbcadf17cfb3d2ebb22d76634560c17d5486a098f13c3f752fa9b20d379cfab8",
+        "source_record_metadata_index": 0,
+        "vertex_generation": 693,
+        "index_generation": 694,
+        "vertex_revision": 144,
+        "index_revision": 132,
+        "reset_generation": 0,
+        "fvf": 322,
+        "stride": 24,
+        "min_index": 20739,
+        "start_index": 33312,
+        "vertices": 286,
+        "triangles": 213,
+        "world_view_projection_current": true,
+        "world_view_projection": [
+          [
+            0.672846317,
+            0,
+            -0.739782333,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0.739782333,
+            0,
+            0.672846317,
+            0,
+            8,
+            -2,
+            189,
+            1
+          ],
+          [
+            0.961716354,
+            0.0273839254,
+            -0.272674948,
+            0,
+            1.86264493e-09,
+            0.994994938,
+            0.0999243557,
+            0,
+            -0.27404657,
+            0.0960988924,
+            -0.956902981,
+            0,
+            45.2743645,
+            -18.5274525,
+            194.494339,
+            1
+          ],
+          [
+            2.47241902,
+            0,
+            0,
+            0,
+            0,
+            3.29655862,
+            0,
+            0,
+            0,
+            0,
+            1.00020003,
+            1,
+            0,
+            0,
+            -0.200040013,
+            0
+          ]
+        ],
+        "matrix_hresults": [
+          0,
+          0,
+          0
+        ],
+        "model_owner_join_verified": false,
+        "replacement_enabled": false
+      },
+      "native_draw_arguments": [
+        4,
+        20739,
+        286,
+        33312,
+        213
+      ],
+      "native_draw_hresult": 0,
+      "caller_rva": 1536126,
+      "stream": {
+        "pointer": 531031904,
+        "stride": 24,
+        "last_creation_serial": 693
+      },
+      "indices": {
+        "pointer": 531538240,
+        "base": 0,
+        "last_creation_serial": 694
+      },
+      "source_records": 24,
+      "source_triangles": 2487
+    }
+  ],
+  "proxy_to_native_pointer_bridge": "Existing Device8.unwrap_vertex_buffer/unwrap_index_buffer required at runtime; source proxy pointers differ from F10 native pointers",
+  "persistent_pointer_authority": false,
+  "string_id_path": "UNKNOWN_RESOLVER",
+  "model_replacement_runtime": "NOT_IMPLEMENTED_BY_THIS_AUDIT"
+}

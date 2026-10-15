@@ -4,6 +4,7 @@
 #include "grass_pilot.hpp"
 #include "vehicle_partition.hpp"
 #include "xtrail_fidelity.hpp"
+#include "frontend_model.hpp"
 
 #include "foliage_probe.hpp"
 #include "provenance.hpp"
@@ -181,6 +182,7 @@ PS2PortExtension::PS2PortExtension(bool exact_build, const std::string& exe_sha,
         const auto ini = port_ini_path(renderer_ini);
         const UINT mode = GetPrivateProfileIntW(L"PS2Port", L"FoliageMode", 0, ini.c_str());
         diagnostics_ = GetPrivateProfileIntW(L"PS2Port", L"Diagnostics", 0, ini.c_str()) == 1;
+        frontend_model_=std::make_unique<FrontendModel>(build_valid_,ini);
         frontend_geometry_diagnostics_ = GetPrivateProfileIntW(L"PS2Port", L"FrontendGeometryDiagnostics", 0, ini.c_str()) == 1;
         const UINT probe = GetPrivateProfileIntW(L"PS2Port", L"PixelProbe", 0, ini.c_str());
         pixel_probe_requested_ = probe == 1;
@@ -213,13 +215,13 @@ bool PS2PortExtension::requested() const noexcept {
     return mode_ != PilotMode::Stock || (reflection_ && reflection_->mirroring_required());
 }
 bool PS2PortExtension::active() const noexcept { return requested() && build_valid_ && !disabled_; }
-bool PS2PortExtension::buffer_mirroring_required() const noexcept { return active() || pixel_probe_enabled() || frontend_geometry_diagnostics(); }
+bool PS2PortExtension::buffer_mirroring_required() const noexcept { return active() || pixel_probe_enabled() || frontend_geometry_diagnostics() || (frontend_model_ && frontend_model_->requested()); }
 bool PS2PortExtension::analysis_enabled() const noexcept { return active() || pixel_probe_enabled() ||
     (!disabled_ && ((course_objects_ && course_objects_->identity_requested()) ||
                   (grass_ && grass_->identity_requested()) || (shrubs_ && shrubs_->identity_requested()))); }
 
 bool PS2PortExtension::native_states_pending() const noexcept {
-    return (xtrail_ && (xtrail_->blocked() || xtrail_->transaction.pending() || xtrail_->glass_pending())) ||
+    return (frontend_model_ && frontend_model_->transaction.pending()) || (xtrail_ && (xtrail_->blocked() || xtrail_->transaction.pending() || xtrail_->glass_pending())) ||
         (reflection_ && (reflection_->blocked() || reflection_->transaction().changed_mask ||
             reflection_->mixed_capture().pending())) ||
         (course_objects_ && (course_objects_->blocked() || course_objects_->transaction.has_pending())) ||

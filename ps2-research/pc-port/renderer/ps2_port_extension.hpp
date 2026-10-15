@@ -16,6 +16,7 @@ class CourseObjectsPilot;
 class GrassPilot;
 class VehiclePartitionPilot;
 class XtrailFidelity;
+class FrontendModel;
 
 enum class PilotMode : uint8_t {
     Stock = 0,
@@ -275,6 +276,7 @@ public:
                      const std::wstring& renderer_ini) noexcept;
     ~PS2PortExtension();
 
+    FrontendModel* frontend_model() noexcept { return frontend_model_.get(); }
     bool buffer_mirroring_required() const noexcept;
     bool frontend_geometry_diagnostics() const noexcept { return frontend_geometry_diagnostics_ && build_valid_ && !disabled_; }
     bool claim_frontend_probe_attempt() noexcept { return frontend_attempts_<128 && ++frontend_attempts_<=128; }
@@ -344,6 +346,7 @@ private:
     std::unique_ptr<ReflectionPilot> reflection_;
     std::unique_ptr<VehiclePartitionPilot> vehicle_partitions_;
     std::unique_ptr<XtrailFidelity> xtrail_;
+    std::unique_ptr<FrontendModel> frontend_model_;
     std::unique_ptr<CourseObjectsPilot> course_objects_;
     std::unique_ptr<GrassPilot> grass_;
     std::unique_ptr<GrassPilot> shrubs_;

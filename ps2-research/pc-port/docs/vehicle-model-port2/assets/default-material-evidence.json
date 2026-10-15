@@ -1,0 +1,2691 @@
+{
+  "canonical_elf_sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+  "processor": "R5900",
+  "elf_mapping": {
+    "class": 32,
+    "endianness": "little",
+    "type": 2,
+    "machine": 8,
+    "version": 1,
+    "entry": 1048584,
+    "flags": 546455553,
+    "program_header_count": 1,
+    "load_segments": [
+      {
+        "index": 0,
+        "file_offset": 4096,
+        "virtual_address": 1048576,
+        "physical_address": 1048576,
+        "file_size": 3724432,
+        "memory_size": 4036984,
+        "flags": 7,
+        "alignment": 4096
+      }
+    ]
+  },
+  "instructions": [
+    {
+      "va": "0x3916d0",
+      "original_word": "0x8fc20004",
+      "r5900": "lw          $v0, 0x4($fp)",
+      "file_offset": 2696912
+    },
+    {
+      "va": "0x3916d4",
+      "original_word": "0xac40002c",
+      "r5900": "sw          $zero, 0x2C($v0)",
+      "file_offset": 2696916
+    },
+    {
+      "va": "0x3916d8",
+      "original_word": "0x8fc20004",
+      "r5900": "lw          $v0, 0x4($fp)",
+      "file_offset": 2696920
+    },
+    {
+      "va": "0x3916dc",
+      "original_word": "0xac400028",
+      "r5900": "sw          $zero, 0x28($v0)",
+      "file_offset": 2696924
+    },
+    {
+      "va": "0x3916e0",
+      "original_word": "0x8fc20004",
+      "r5900": "lw          $v0, 0x4($fp)",
+      "file_offset": 2696928
+    },
+    {
+      "va": "0x3916e4",
+      "original_word": "0xac40003c",
+      "r5900": "sw          $zero, 0x3C($v0)",
+      "file_offset": 2696932
+    },
+    {
+      "va": "0x3916e8",
+      "original_word": "0x8fc20004",
+      "r5900": "lw          $v0, 0x4($fp)",
+      "file_offset": 2696936
+    },
+    {
+      "va": "0x3916ec",
+      "original_word": "0xac400040",
+      "r5900": "sw          $zero, 0x40($v0)",
+      "file_offset": 2696940
+    },
+    {
+      "va": "0x3916f0",
+      "original_word": "0x8fc20004",
+      "r5900": "lw          $v0, 0x4($fp)",
+      "file_offset": 2696944
+    },
+    {
+      "va": "0x3916f4",
+      "original_word": "0x3c013dcc",
+      "r5900": "lui         $at, 0x3DCC",
+      "file_offset": 2696948
+    },
+    {
+      "va": "0x3916f8",
+      "original_word": "0x3421cccd",
+      "r5900": "ori         $at, $at, 0xCCCD",
+      "file_offset": 2696952
+    },
+    {
+      "va": "0x3916fc",
+      "original_word": "0x44810000",
+      "r5900": "mtc1        $at, $f0",
+      "file_offset": 2696956
+    },
+    {
+      "va": "0x391700",
+      "original_word": "0x0",
+      "r5900": "nop",
+      "file_offset": 2696960
+    },
+    {
+      "va": "0x391704",
+      "original_word": "0xe4400044",
+      "r5900": "swc1        $f0, 0x44($v0)",
+      "file_offset": 2696964
+    },
+    {
+      "va": "0x391708",
+      "original_word": "0x8fc20004",
+      "r5900": "lw          $v0, 0x4($fp)",
+      "file_offset": 2696968
+    },
+    {
+      "va": "0x39170c",
+      "original_word": "0xac400048",
+      "r5900": "sw          $zero, 0x48($v0)",
+      "file_offset": 2696972
+    },
+    {
+      "va": "0x391710",
+      "original_word": "0x8fc30004",
+      "r5900": "lw          $v1, 0x4($fp)",
+      "file_offset": 2696976
+    },
+    {
+      "va": "0x391714",
+      "original_word": "0x24620034",
+      "r5900": "addiu       $v0, $v1, 0x34",
+      "file_offset": 2696980
+    },
+    {
+      "va": "0x391718",
+      "original_word": "0x40202d",
+      "r5900": "daddu       $a0, $v0, $zero",
+      "file_offset": 2696984
+    },
+    {
+      "va": "0x39171c",
+      "original_word": "0x3c050048",
+      "r5900": "lui         $a1, 0x48",
+      "file_offset": 2696988
+    },
+    {
+      "va": "0x391720",
+      "original_word": "0x24a57920",
+      "r5900": "addiu       $a1, $a1, 0x7920",
+      "file_offset": 2696992
+    },
+    {
+      "va": "0x391724",
+      "original_word": "0xc0e91e4",
+      "r5900": "jal         func_3A4790",
+      "file_offset": 2696996
+    },
+    {
+      "va": "0x391728",
+      "original_word": "0x0",
+      "r5900": "nop",
+      "file_offset": 2697000
+    },
+    {
+      "va": "0x39172c",
+      "original_word": "0x8fc30004",
+      "r5900": "lw          $v1, 0x4($fp)",
+      "file_offset": 2697004
+    },
+    {
+      "va": "0x391730",
+      "original_word": "0x24620038",
+      "r5900": "addiu       $v0, $v1, 0x38",
+      "file_offset": 2697008
+    },
+    {
+      "va": "0x391734",
+      "original_word": "0x40202d",
+      "r5900": "daddu       $a0, $v0, $zero",
+      "file_offset": 2697012
+    },
+    {
+      "va": "0x391738",
+      "original_word": "0x3c050048",
+      "r5900": "lui         $a1, 0x48",
+      "file_offset": 2697016
+    },
+    {
+      "va": "0x39173c",
+      "original_word": "0x24a57920",
+      "r5900": "addiu       $a1, $a1, 0x7920",
+      "file_offset": 2697020
+    },
+    {
+      "va": "0x391740",
+      "original_word": "0xc0e91e4",
+      "r5900": "jal         func_3A4790",
+      "file_offset": 2697024
+    },
+    {
+      "va": "0x391744",
+      "original_word": "0x0",
+      "r5900": "nop",
+      "file_offset": 2697028
+    },
+    {
+      "va": "0x391748",
+      "original_word": "0x8fc20000",
+      "r5900": "lw          $v0, 0x0($fp)",
+      "file_offset": 2697032
+    },
+    {
+      "va": "0x39174c",
+      "original_word": "0x1040016d",
+      "r5900": "beqz        $v0, . + 4 + (0x16D << 2)",
+      "file_offset": 2697036
+    },
+    {
+      "va": "0x391774",
+      "original_word": "0x8fc20000",
+      "r5900": "lw          $v0, 0x0($fp)",
+      "file_offset": 2697076
+    },
+    {
+      "va": "0x391778",
+      "original_word": "0x8c43003c",
+      "r5900": "lw          $v1, 0x3C($v0)",
+      "file_offset": 2697080
+    },
+    {
+      "va": "0x39177c",
+      "original_word": "0x1060005f",
+      "r5900": "beqz        $v1, . + 4 + (0x5F << 2)",
+      "file_offset": 2697084
+    },
+    {
+      "va": "0x391780",
+      "original_word": "0x0",
+      "r5900": "nop",
+      "file_offset": 2697088
+    },
+    {
+      "va": "0x391784",
+      "original_word": "0x8fc20004",
+      "r5900": "lw          $v0, 0x4($fp)",
+      "file_offset": 2697092
+    },
+    {
+      "va": "0x391788",
+      "original_word": "0x24030001",
+      "r5900": "addiu       $v1, $zero, 0x1",
+      "file_offset": 2697096
+    },
+    {
+      "va": "0x39178c",
+      "original_word": "0xac430028",
+      "r5900": "sw          $v1, 0x28($v0)",
+      "file_offset": 2697100
+    },
+    {
+      "va": "0x3918fc",
+      "original_word": "0x27c20020",
+      "r5900": "addiu       $v0, $fp, 0x20",
+      "file_offset": 2697468
+    },
+    {
+      "va": "0x391900",
+      "original_word": "0x8fc40000",
+      "r5900": "lw          $a0, 0x0($fp)",
+      "file_offset": 2697472
+    },
+    {
+      "va": "0x391904",
+      "original_word": "0x24830054",
+      "r5900": "addiu       $v1, $a0, 0x54",
+      "file_offset": 2697476
+    },
+    {
+      "va": "0x391908",
+      "original_word": "0x40202d",
+      "r5900": "daddu       $a0, $v0, $zero",
+      "file_offset": 2697480
+    },
+    {
+      "va": "0x39190c",
+      "original_word": "0x60282d",
+      "r5900": "daddu       $a1, $v1, $zero",
+      "file_offset": 2697484
+    },
+    {
+      "va": "0x391910",
+      "original_word": "0x3c060048",
+      "r5900": "lui         $a2, 0x48",
+      "file_offset": 2697488
+    },
+    {
+      "va": "0x391914",
+      "original_word": "0x24c67928",
+      "r5900": "addiu       $a2, $a2, 0x7928",
+      "file_offset": 2697492
+    },
+    {
+      "va": "0x391918",
+      "original_word": "0xc0e4366",
+      "r5900": "jal         func_390D98",
+      "file_offset": 2697496
+    },
+    {
+      "va": "0x39191c",
+      "original_word": "0x0",
+      "r5900": "nop",
+      "file_offset": 2697500
+    },
+    {
+      "va": "0x391920",
+      "original_word": "0x27c20020",
+      "r5900": "addiu       $v0, $fp, 0x20",
+      "file_offset": 2697504
+    },
+    {
+      "va": "0x391924",
+      "original_word": "0x40202d",
+      "r5900": "daddu       $a0, $v0, $zero",
+      "file_offset": 2697508
+    },
+    {
+      "va": "0x391928",
+      "original_word": "0xc0738be",
+      "r5900": "jal         func_1CE2F8",
+      "file_offset": 2697512
+    },
+    {
+      "va": "0x39192c",
+      "original_word": "0x0",
+      "r5900": "nop",
+      "file_offset": 2697516
+    },
+    {
+      "va": "0x391930",
+      "original_word": "0x1840006a",
+      "r5900": "blez        $v0, . + 4 + (0x6A << 2)",
+      "file_offset": 2697520
+    },
+    {
+      "va": "0x391934",
+      "original_word": "0x0",
+      "r5900": "nop",
+      "file_offset": 2697524
+    },
+    {
+      "va": "0x391af0",
+      "original_word": "0x27c20020",
+      "r5900": "addiu       $v0, $fp, 0x20",
+      "file_offset": 2697968
+    },
+    {
+      "va": "0x391af4",
+      "original_word": "0x8fc40000",
+      "r5900": "lw          $a0, 0x0($fp)",
+      "file_offset": 2697972
+    },
+    {
+      "va": "0x391af8",
+      "original_word": "0x24830054",
+      "r5900": "addiu       $v1, $a0, 0x54",
+      "file_offset": 2697976
+    },
+    {
+      "va": "0x391afc",
+      "original_word": "0x40202d",
+      "r5900": "daddu       $a0, $v0, $zero",
+      "file_offset": 2697980
+    },
+    {
+      "va": "0x391b00",
+      "original_word": "0x60282d",
+      "r5900": "daddu       $a1, $v1, $zero",
+      "file_offset": 2697984
+    },
+    {
+      "va": "0x391b04",
+      "original_word": "0x3c060048",
+      "r5900": "lui         $a2, 0x48",
+      "file_offset": 2697988
+    },
+    {
+      "va": "0x391b08",
+      "original_word": "0x24c67950",
+      "r5900": "addiu       $a2, $a2, 0x7950",
+      "file_offset": 2697992
+    },
+    {
+      "va": "0x391b0c",
+      "original_word": "0xc0e4366",
+      "r5900": "jal         func_390D98",
+      "file_offset": 2697996
+    },
+    {
+      "va": "0x391b10",
+      "original_word": "0x0",
+      "r5900": "nop",
+      "file_offset": 2698000
+    },
+    {
+      "va": "0x391b14",
+      "original_word": "0x27c20070",
+      "r5900": "addiu       $v0, $fp, 0x70",
+      "file_offset": 2698004
+    },
+    {
+      "va": "0x391b18",
+      "original_word": "0x8fc40000",
+      "r5900": "lw          $a0, 0x0($fp)",
+      "file_offset": 2698008
+    },
+    {
+      "va": "0x391b1c",
+      "original_word": "0x24830054",
+      "r5900": "addiu       $v1, $a0, 0x54",
+      "file_offset": 2698012
+    },
+    {
+      "va": "0x391b20",
+      "original_word": "0x40202d",
+      "r5900": "daddu       $a0, $v0, $zero",
+      "file_offset": 2698016
+    },
+    {
+      "va": "0x391b24",
+      "original_word": "0x60282d",
+      "r5900": "daddu       $a1, $v1, $zero",
+      "file_offset": 2698020
+    },
+    {
+      "va": "0x391b28",
+      "original_word": "0xc074922",
+      "r5900": "jal         func_1D2488",
+      "file_offset": 2698024
+    },
+    {
+      "va": "0x391b2c",
+      "original_word": "0x0",
+      "r5900": "nop",
+      "file_offset": 2698028
+    },
+    {
+      "va": "0x391b30",
+      "original_word": "0x27d40070",
+      "r5900": "addiu       $s4, $fp, 0x70",
+      "file_offset": 2698032
+    },
+    {
+      "va": "0x391b34",
+      "original_word": "0x27c20070",
+      "r5900": "addiu       $v0, $fp, 0x70",
+      "file_offset": 2698036
+    },
+    {
+      "va": "0x391b38",
+      "original_word": "0x40202d",
+      "r5900": "daddu       $a0, $v0, $zero",
+      "file_offset": 2698040
+    },
+    {
+      "va": "0x391b3c",
+      "original_word": "0xc0738be",
+      "r5900": "jal         func_1CE2F8",
+      "file_offset": 2698044
+    },
+    {
+      "va": "0x391b40",
+      "original_word": "0x0",
+      "r5900": "nop",
+      "file_offset": 2698048
+    },
+    {
+      "va": "0x391b44",
+      "original_word": "0x280202d",
+      "r5900": "daddu       $a0, $s4, $zero",
+      "file_offset": 2698052
+    },
+    {
+      "va": "0x391b48",
+      "original_word": "0x282d",
+      "r5900": "daddu       $a1, $zero, $zero",
+      "file_offset": 2698056
+    },
+    {
+      "va": "0x391b4c",
+      "original_word": "0x40302d",
+      "r5900": "daddu       $a2, $v0, $zero",
+      "file_offset": 2698060
+    },
+    {
+      "va": "0x391b50",
+      "original_word": "0xc074b52",
+      "r5900": "jal         func_1D2D48",
+      "file_offset": 2698064
+    },
+    {
+      "va": "0x391b54",
+      "original_word": "0x0",
+      "r5900": "nop",
+      "file_offset": 2698068
+    },
+    {
+      "va": "0x391b58",
+      "original_word": "0x27c20020",
+      "r5900": "addiu       $v0, $fp, 0x20",
+      "file_offset": 2698072
+    },
+    {
+      "va": "0x391b5c",
+      "original_word": "0x40202d",
+      "r5900": "daddu       $a0, $v0, $zero",
+      "file_offset": 2698076
+    },
+    {
+      "va": "0x391b60",
+      "original_word": "0xc0738be",
+      "r5900": "jal         func_1CE2F8",
+      "file_offset": 2698080
+    },
+    {
+      "va": "0x391b64",
+      "original_word": "0x0",
+      "r5900": "nop",
+      "file_offset": 2698084
+    },
+    {
+      "va": "0x391b68",
+      "original_word": "0x1840001a",
+      "r5900": "blez        $v0, . + 4 + (0x1A << 2)",
+      "file_offset": 2698088
+    },
+    {
+      "va": "0x391b6c",
+      "original_word": "0x0",
+      "r5900": "nop",
+      "file_offset": 2698092
+    },
+    {
+      "va": "0x391b70",
+      "original_word": "0x27d40080",
+      "r5900": "addiu       $s4, $fp, 0x80",
+      "file_offset": 2698096
+    },
+    {
+      "va": "0x391b74",
+      "original_word": "0x27c20020",
+      "r5900": "addiu       $v0, $fp, 0x20",
+      "file_offset": 2698100
+    },
+    {
+      "va": "0x391b78",
+      "original_word": "0x40202d",
+      "r5900": "daddu       $a0, $v0, $zero",
+      "file_offset": 2698104
+    },
+    {
+      "va": "0x391b7c",
+      "original_word": "0xc0e9318",
+      "r5900": "jal         func_3A4C60",
+      "file_offset": 2698108
+    },
+    {
+      "va": "0x391b80",
+      "original_word": "0x0",
+      "r5900": "nop",
+      "file_offset": 2698112
+    },
+    {
+      "va": "0x391b84",
+      "original_word": "0x280202d",
+      "r5900": "daddu       $a0, $s4, $zero",
+      "file_offset": 2698116
+    },
+    {
+      "va": "0x391b88",
+      "original_word": "0x40282d",
+      "r5900": "daddu       $a1, $v0, $zero",
+      "file_offset": 2698120
+    },
+    {
+      "va": "0x391b8c",
+      "original_word": "0xc0e917a",
+      "r5900": "jal         func_3A45E8",
+      "file_offset": 2698124
+    },
+    {
+      "va": "0x391b90",
+      "original_word": "0x0",
+      "r5900": "nop",
+      "file_offset": 2698128
+    },
+    {
+      "va": "0x391b94",
+      "original_word": "0x27c20090",
+      "r5900": "addiu       $v0, $fp, 0x90",
+      "file_offset": 2698132
+    },
+    {
+      "va": "0x391b98",
+      "original_word": "0x27c30080",
+      "r5900": "addiu       $v1, $fp, 0x80",
+      "file_offset": 2698136
+    },
+    {
+      "va": "0x391b9c",
+      "original_word": "0x40202d",
+      "r5900": "daddu       $a0, $v0, $zero",
+      "file_offset": 2698140
+    },
+    {
+      "va": "0x391ba0",
+      "original_word": "0x60282d",
+      "r5900": "daddu       $a1, $v1, $zero",
+      "file_offset": 2698144
+    },
+    {
+      "va": "0x391ba4",
+      "original_word": "0xc0e9122",
+      "r5900": "jal         func_3A4488",
+      "file_offset": 2698148
+    },
+    {
+      "va": "0x391ba8",
+      "original_word": "0x0",
+      "r5900": "nop",
+      "file_offset": 2698152
+    },
+    {
+      "va": "0x391bac",
+      "original_word": "0x27c30090",
+      "r5900": "addiu       $v1, $fp, 0x90",
+      "file_offset": 2698156
+    },
+    {
+      "va": "0x391bb0",
+      "original_word": "0x60202d",
+      "r5900": "daddu       $a0, $v1, $zero",
+      "file_offset": 2698160
+    },
+    {
+      "va": "0x391bb4",
+      "original_word": "0x8fc50004",
+      "r5900": "lw          $a1, 0x4($fp)",
+      "file_offset": 2698164
+    },
+    {
+      "va": "0x391bb8",
+      "original_word": "0xc0e9b16",
+      "r5900": "jal         func_3A6C58",
+      "file_offset": 2698168
+    },
+    {
+      "va": "0x391bbc",
+      "original_word": "0x0",
+      "r5900": "nop",
+      "file_offset": 2698172
+    },
+    {
+      "va": "0x391bc0",
+      "original_word": "0x27c20080",
+      "r5900": "addiu       $v0, $fp, 0x80",
+      "file_offset": 2698176
+    },
+    {
+      "va": "0x391bc4",
+      "original_word": "0x40202d",
+      "r5900": "daddu       $a0, $v0, $zero",
+      "file_offset": 2698180
+    },
+    {
+      "va": "0x391bc8",
+      "original_word": "0x24050002",
+      "r5900": "addiu       $a1, $zero, 0x2",
+      "file_offset": 2698184
+    },
+    {
+      "va": "0x391bcc",
+      "original_word": "0xc0e9106",
+      "r5900": "jal         func_3A4418",
+      "file_offset": 2698188
+    },
+    {
+      "va": "0x391bd0",
+      "original_word": "0x0",
+      "r5900": "nop",
+      "file_offset": 2698192
+    },
+    {
+      "va": "0x391bd4",
+      "original_word": "0x27c20070",
+      "r5900": "addiu       $v0, $fp, 0x70",
+      "file_offset": 2698196
+    },
+    {
+      "va": "0x391bd8",
+      "original_word": "0x40202d",
+      "r5900": "daddu       $a0, $v0, $zero",
+      "file_offset": 2698200
+    },
+    {
+      "va": "0x391bdc",
+      "original_word": "0x24050002",
+      "r5900": "addiu       $a1, $zero, 0x2",
+      "file_offset": 2698204
+    },
+    {
+      "va": "0x391be0",
+      "original_word": "0xc0e92fc",
+      "r5900": "jal         func_3A4BF0",
+      "file_offset": 2698208
+    },
+    {
+      "va": "0x391be4",
+      "original_word": "0x0",
+      "r5900": "nop",
+      "file_offset": 2698212
+    },
+    {
+      "va": "0x391be8",
+      "original_word": "0x27c20020",
+      "r5900": "addiu       $v0, $fp, 0x20",
+      "file_offset": 2698216
+    },
+    {
+      "va": "0x391bec",
+      "original_word": "0x40202d",
+      "r5900": "daddu       $a0, $v0, $zero",
+      "file_offset": 2698220
+    },
+    {
+      "va": "0x391bf0",
+      "original_word": "0x24050002",
+      "r5900": "addiu       $a1, $zero, 0x2",
+      "file_offset": 2698224
+    },
+    {
+      "va": "0x391bf4",
+      "original_word": "0xc0e92fc",
+      "r5900": "jal         func_3A4BF0",
+      "file_offset": 2698228
+    },
+    {
+      "va": "0x391bfc",
+      "original_word": "0x27d40020",
+      "r5900": "addiu       $s4, $fp, 0x20",
+      "file_offset": 2698236
+    },
+    {
+      "va": "0x391c00",
+      "original_word": "0x8fc30004",
+      "r5900": "lw          $v1, 0x4($fp)",
+      "file_offset": 2698240
+    },
+    {
+      "va": "0x391c04",
+      "original_word": "0x24620034",
+      "r5900": "addiu       $v0, $v1, 0x34",
+      "file_offset": 2698244
+    },
+    {
+      "va": "0x391c08",
+      "original_word": "0x40202d",
+      "r5900": "daddu       $a0, $v0, $zero",
+      "file_offset": 2698248
+    },
+    {
+      "va": "0x391c0c",
+      "original_word": "0xc0e91c6",
+      "r5900": "jal         func_3A4718",
+      "file_offset": 2698252
+    },
+    {
+      "va": "0x391c10",
+      "original_word": "0x0",
+      "r5900": "nop",
+      "file_offset": 2698256
+    },
+    {
+      "va": "0x391c14",
+      "original_word": "0x280202d",
+      "r5900": "daddu       $a0, $s4, $zero",
+      "file_offset": 2698260
+    },
+    {
+      "va": "0x391c18",
+      "original_word": "0x40282d",
+      "r5900": "daddu       $a1, $v0, $zero",
+      "file_offset": 2698264
+    },
+    {
+      "va": "0x391c1c",
+      "original_word": "0xc0e8d18",
+      "r5900": "jal         func_3A3460",
+      "file_offset": 2698268
+    },
+    {
+      "va": "0x391c20",
+      "original_word": "0x0",
+      "r5900": "nop",
+      "file_offset": 2698272
+    },
+    {
+      "va": "0x391c24",
+      "original_word": "0x27c20020",
+      "r5900": "addiu       $v0, $fp, 0x20",
+      "file_offset": 2698276
+    },
+    {
+      "va": "0x391c28",
+      "original_word": "0x40202d",
+      "r5900": "daddu       $a0, $v0, $zero",
+      "file_offset": 2698280
+    },
+    {
+      "va": "0x391c2c",
+      "original_word": "0x3c050048",
+      "r5900": "lui         $a1, 0x48",
+      "file_offset": 2698284
+    },
+    {
+      "va": "0x391c30",
+      "original_word": "0x24a57958",
+      "r5900": "addiu       $a1, $a1, 0x7958",
+      "file_offset": 2698288
+    },
+    {
+      "va": "0x391c34",
+      "original_word": "0x302d",
+      "r5900": "daddu       $a2, $zero, $zero",
+      "file_offset": 2698292
+    },
+    {
+      "va": "0x391c38",
+      "original_word": "0xc0e9bc6",
+      "r5900": "jal         func_3A6F18",
+      "file_offset": 2698296
+    },
+    {
+      "va": "0x391c3c",
+      "original_word": "0x0",
+      "r5900": "nop",
+      "file_offset": 2698300
+    },
+    {
+      "va": "0x391c40",
+      "original_word": "0x3c03ffff",
+      "r5900": "lui         $v1, 0xFFFF",
+      "file_offset": 2698304
+    },
+    {
+      "va": "0x391c44",
+      "original_word": "0x3463ffff",
+      "r5900": "ori         $v1, $v1, 0xFFFF",
+      "file_offset": 2698308
+    },
+    {
+      "va": "0x391c48",
+      "original_word": "0x10430011",
+      "r5900": "beq         $v0, $v1, . + 4 + (0x11 << 2)",
+      "file_offset": 2698312
+    },
+    {
+      "va": "0x391c4c",
+      "original_word": "0x0",
+      "r5900": "nop",
+      "file_offset": 2698316
+    },
+    {
+      "va": "0x391c50",
+      "original_word": "0x8fc20004",
+      "r5900": "lw          $v0, 0x4($fp)",
+      "file_offset": 2698320
+    },
+    {
+      "va": "0x391c54",
+      "original_word": "0x2403000e",
+      "r5900": "addiu       $v1, $zero, 0xE",
+      "file_offset": 2698324
+    },
+    {
+      "va": "0x391c58",
+      "original_word": "0xac430028",
+      "r5900": "sw          $v1, 0x28($v0)",
+      "file_offset": 2698328
+    },
+    {
+      "va": "0x391c5c",
+      "original_word": "0x8fc20004",
+      "r5900": "lw          $v0, 0x4($fp)",
+      "file_offset": 2698332
+    },
+    {
+      "va": "0x391c60",
+      "original_word": "0x24030001",
+      "r5900": "addiu       $v1, $zero, 0x1",
+      "file_offset": 2698336
+    },
+    {
+      "va": "0x391c64",
+      "original_word": "0xac43002c",
+      "r5900": "sw          $v1, 0x2C($v0)",
+      "file_offset": 2698340
+    },
+    {
+      "va": "0x391c68",
+      "original_word": "0x8fc20004",
+      "r5900": "lw          $v0, 0x4($fp)",
+      "file_offset": 2698344
+    },
+    {
+      "va": "0x391c6c",
+      "original_word": "0xac40003c",
+      "r5900": "sw          $zero, 0x3C($v0)",
+      "file_offset": 2698348
+    },
+    {
+      "va": "0x391c70",
+      "original_word": "0x8fc20004",
+      "r5900": "lw          $v0, 0x4($fp)",
+      "file_offset": 2698352
+    },
+    {
+      "va": "0x391c74",
+      "original_word": "0x3c013e99",
+      "r5900": "lui         $at, 0x3E99",
+      "file_offset": 2698356
+    },
+    {
+      "va": "0x391c78",
+      "original_word": "0x3421999a",
+      "r5900": "ori         $at, $at, 0x999A",
+      "file_offset": 2698360
+    },
+    {
+      "va": "0x391c7c",
+      "original_word": "0x44810000",
+      "r5900": "mtc1        $at, $f0",
+      "file_offset": 2698364
+    },
+    {
+      "va": "0x391c80",
+      "original_word": "0x0",
+      "r5900": "nop",
+      "file_offset": 2698368
+    },
+    {
+      "va": "0x391c84",
+      "original_word": "0xe4400044",
+      "r5900": "swc1        $f0, 0x44($v0)",
+      "file_offset": 2698372
+    },
+    {
+      "va": "0x391c88",
+      "original_word": "0x10000019",
+      "r5900": "b           . + 4 + (0x19 << 2)",
+      "file_offset": 2698376
+    },
+    {
+      "va": "0x391c8c",
+      "original_word": "0x0",
+      "r5900": "nop",
+      "file_offset": 2698380
+    },
+    {
+      "va": "0x391c90",
+      "original_word": "0x27c20020",
+      "r5900": "addiu       $v0, $fp, 0x20",
+      "file_offset": 2698384
+    },
+    {
+      "va": "0x391c94",
+      "original_word": "0x40202d",
+      "r5900": "daddu       $a0, $v0, $zero",
+      "file_offset": 2698388
+    },
+    {
+      "va": "0x391c98",
+      "original_word": "0x3c050048",
+      "r5900": "lui         $a1, 0x48",
+      "file_offset": 2698392
+    },
+    {
+      "va": "0x391c9c",
+      "original_word": "0x24a57970",
+      "r5900": "addiu       $a1, $a1, 0x7970",
+      "file_offset": 2698396
+    },
+    {
+      "va": "0x391ca0",
+      "original_word": "0x302d",
+      "r5900": "daddu       $a2, $zero, $zero",
+      "file_offset": 2698400
+    },
+    {
+      "va": "0x391ca4",
+      "original_word": "0xc0e9bc6",
+      "r5900": "jal         func_3A6F18",
+      "file_offset": 2698404
+    },
+    {
+      "va": "0x391ca8",
+      "original_word": "0x0",
+      "r5900": "nop",
+      "file_offset": 2698408
+    },
+    {
+      "va": "0x391cac",
+      "original_word": "0x3c03ffff",
+      "r5900": "lui         $v1, 0xFFFF",
+      "file_offset": 2698412
+    },
+    {
+      "va": "0x391cb0",
+      "original_word": "0x3463ffff",
+      "r5900": "ori         $v1, $v1, 0xFFFF",
+      "file_offset": 2698416
+    },
+    {
+      "va": "0x391cb4",
+      "original_word": "0x1043000e",
+      "r5900": "beq         $v0, $v1, . + 4 + (0xE << 2)",
+      "file_offset": 2698420
+    },
+    {
+      "va": "0x391cb8",
+      "original_word": "0x0",
+      "r5900": "nop",
+      "file_offset": 2698424
+    },
+    {
+      "va": "0x391cbc",
+      "original_word": "0x8fc20004",
+      "r5900": "lw          $v0, 0x4($fp)",
+      "file_offset": 2698428
+    },
+    {
+      "va": "0x391cc0",
+      "original_word": "0x24030001",
+      "r5900": "addiu       $v1, $zero, 0x1",
+      "file_offset": 2698432
+    },
+    {
+      "va": "0x391cc4",
+      "original_word": "0xac430028",
+      "r5900": "sw          $v1, 0x28($v0)",
+      "file_offset": 2698436
+    },
+    {
+      "va": "0x391cc8",
+      "original_word": "0x8fc20004",
+      "r5900": "lw          $v0, 0x4($fp)",
+      "file_offset": 2698440
+    },
+    {
+      "va": "0x391ccc",
+      "original_word": "0xac40002c",
+      "r5900": "sw          $zero, 0x2C($v0)",
+      "file_offset": 2698444
+    },
+    {
+      "va": "0x391cd0",
+      "original_word": "0x8fc20004",
+      "r5900": "lw          $v0, 0x4($fp)",
+      "file_offset": 2698448
+    },
+    {
+      "va": "0x391cd4",
+      "original_word": "0xac40003c",
+      "r5900": "sw          $zero, 0x3C($v0)",
+      "file_offset": 2698452
+    },
+    {
+      "va": "0x391cd8",
+      "original_word": "0x8fc20004",
+      "r5900": "lw          $v0, 0x4($fp)",
+      "file_offset": 2698456
+    },
+    {
+      "va": "0x391cdc",
+      "original_word": "0x3c013e99",
+      "r5900": "lui         $at, 0x3E99",
+      "file_offset": 2698460
+    },
+    {
+      "va": "0x391ce0",
+      "original_word": "0x3421999a",
+      "r5900": "ori         $at, $at, 0x999A",
+      "file_offset": 2698464
+    },
+    {
+      "va": "0x391ce4",
+      "original_word": "0x44810000",
+      "r5900": "mtc1        $at, $f0",
+      "file_offset": 2698468
+    },
+    {
+      "va": "0x391ce8",
+      "original_word": "0x0",
+      "r5900": "nop",
+      "file_offset": 2698472
+    },
+    {
+      "va": "0x391cec",
+      "original_word": "0xe4400044",
+      "r5900": "swc1        $f0, 0x44($v0)",
+      "file_offset": 2698476
+    },
+    {
+      "va": "0x391cf0",
+      "original_word": "0x27c20020",
+      "r5900": "addiu       $v0, $fp, 0x20",
+      "file_offset": 2698480
+    },
+    {
+      "va": "0x391cf4",
+      "original_word": "0x40202d",
+      "r5900": "daddu       $a0, $v0, $zero",
+      "file_offset": 2698484
+    },
+    {
+      "va": "0x391cf8",
+      "original_word": "0x24050002",
+      "r5900": "addiu       $a1, $zero, 0x2",
+      "file_offset": 2698488
+    },
+    {
+      "va": "0x391cfc",
+      "original_word": "0xc0e8cfa",
+      "r5900": "jal         func_3A33E8",
+      "file_offset": 2698492
+    },
+    {
+      "va": "0x391d00",
+      "original_word": "0x0",
+      "r5900": "nop",
+      "file_offset": 2698496
+    },
+    {
+      "va": "0x3126e4",
+      "original_word": "0x3c150043",
+      "r5900": "lui         $s5, 0x43",
+      "file_offset": 2176740
+    },
+    {
+      "va": "0x3126e8",
+      "original_word": "0x3402fff7",
+      "r5900": "ori         $v0, $zero, 0xFFF7",
+      "file_offset": 2176744
+    },
+    {
+      "va": "0x3126ec",
+      "original_word": "0x21438",
+      "r5900": "dsll        $v0, $v0, 16",
+      "file_offset": 2176748
+    },
+    {
+      "va": "0x3126f0",
+      "original_word": "0x3442ffff",
+      "r5900": "ori         $v0, $v0, 0xFFFF",
+      "file_offset": 2176752
+    },
+    {
+      "va": "0x3126f4",
+      "original_word": "0x21438",
+      "r5900": "dsll        $v0, $v0, 16",
+      "file_offset": 2176756
+    },
+    {
+      "va": "0x3126f8",
+      "original_word": "0x3442ffff",
+      "r5900": "ori         $v0, $v0, 0xFFFF",
+      "file_offset": 2176760
+    },
+    {
+      "va": "0x3126fc",
+      "original_word": "0x21438",
+      "r5900": "dsll        $v0, $v0, 16",
+      "file_offset": 2176764
+    },
+    {
+      "va": "0x312700",
+      "original_word": "0x3442ffff",
+      "r5900": "ori         $v0, $v0, 0xFFFF",
+      "file_offset": 2176768
+    },
+    {
+      "va": "0x312704",
+      "original_word": "0x26b2dec8",
+      "r5900": "addiu       $s2, $s5, -0x2138",
+      "file_offset": 2176772
+    },
+    {
+      "va": "0x312708",
+      "original_word": "0x2406ffdf",
+      "r5900": "addiu       $a2, $zero, -0x21",
+      "file_offset": 2176776
+    },
+    {
+      "va": "0x31270c",
+      "original_word": "0x2648ff98",
+      "r5900": "addiu       $t0, $s2, -0x68",
+      "file_offset": 2176780
+    },
+    {
+      "va": "0x312710",
+      "original_word": "0xde43fff8",
+      "r5900": "ld          $v1, -0x8($s2)",
+      "file_offset": 2176784
+    },
+    {
+      "va": "0x312714",
+      "original_word": "0xa10000a4",
+      "r5900": "sb          $zero, 0xA4($t0)",
+      "file_offset": 2176788
+    },
+    {
+      "va": "0x312718",
+      "original_word": "0x2413fffe",
+      "r5900": "addiu       $s3, $zero, -0x2",
+      "file_offset": 2176792
+    },
+    {
+      "va": "0x31271c",
+      "original_word": "0xdd0400d0",
+      "r5900": "ld          $a0, 0xD0($t0)",
+      "file_offset": 2176796
+    },
+    {
+      "va": "0x312720",
+      "original_word": "0x621824",
+      "r5900": "and         $v1, $v1, $v0",
+      "file_offset": 2176800
+    },
+    {
+      "va": "0x312724",
+      "original_word": "0xdd050080",
+      "r5900": "ld          $a1, 0x80($t0)",
+      "file_offset": 2176804
+    },
+    {
+      "va": "0x312728",
+      "original_word": "0x2402fffc",
+      "r5900": "addiu       $v0, $zero, -0x4",
+      "file_offset": 2176808
+    },
+    {
+      "va": "0x31272c",
+      "original_word": "0xdd0700a0",
+      "r5900": "ld          $a3, 0xA0($t0)",
+      "file_offset": 2176812
+    },
+    {
+      "va": "0x312730",
+      "original_word": "0x862024",
+      "r5900": "and         $a0, $a0, $a2",
+      "file_offset": 2176816
+    },
+    {
+      "va": "0x312734",
+      "original_word": "0x340a8000",
+      "r5900": "ori         $t2, $zero, 0x8000",
+      "file_offset": 2176820
+    },
+    {
+      "va": "0x312738",
+      "original_word": "0xa513c",
+      "r5900": "dsll32      $t2, $t2, 4",
+      "file_offset": 2176824
+    },
+    {
+      "va": "0x31273c",
+      "original_word": "0x24090020",
+      "r5900": "addiu       $t1, $zero, 0x20",
+      "file_offset": 2176828
+    },
+    {
+      "va": "0x312740",
+      "original_word": "0x2406fff1",
+      "r5900": "addiu       $a2, $zero, -0xF",
+      "file_offset": 2176832
+    },
+    {
+      "va": "0x312744",
+      "original_word": "0xe23824",
+      "r5900": "and         $a3, $a3, $v0",
+      "file_offset": 2176836
+    },
+    {
+      "va": "0x312748",
+      "original_word": "0xb32824",
+      "r5900": "and         $a1, $a1, $s3",
+      "file_offset": 2176840
+    },
+    {
+      "va": "0x31274c",
+      "original_word": "0x6a1825",
+      "r5900": "or          $v1, $v1, $t2",
+      "file_offset": 2176844
+    },
+    {
+      "va": "0x312750",
+      "original_word": "0xa62824",
+      "r5900": "and         $a1, $a1, $a2",
+      "file_offset": 2176848
+    },
+    {
+      "va": "0x312754",
+      "original_word": "0x892025",
+      "r5900": "or          $a0, $a0, $t1",
+      "file_offset": 2176852
+    },
+    {
+      "va": "0x312758",
+      "original_word": "0x2402fe3f",
+      "r5900": "addiu       $v0, $zero, -0x1C1",
+      "file_offset": 2176856
+    },
+    {
+      "va": "0x31275c",
+      "original_word": "0x3406fffb",
+      "r5900": "ori         $a2, $zero, 0xFFFB",
+      "file_offset": 2176860
+    },
+    {
+      "va": "0x312760",
+      "original_word": "0x63438",
+      "r5900": "dsll        $a2, $a2, 16",
+      "file_offset": 2176864
+    },
+    {
+      "va": "0x312764",
+      "original_word": "0x34c6ffff",
+      "r5900": "ori         $a2, $a2, 0xFFFF",
+      "file_offset": 2176868
+    },
+    {
+      "va": "0x312768",
+      "original_word": "0x63438",
+      "r5900": "dsll        $a2, $a2, 16",
+      "file_offset": 2176872
+    },
+    {
+      "va": "0x31276c",
+      "original_word": "0x34c6ffff",
+      "r5900": "ori         $a2, $a2, 0xFFFF",
+      "file_offset": 2176876
+    },
+    {
+      "va": "0x312770",
+      "original_word": "0x63438",
+      "r5900": "dsll        $a2, $a2, 16",
+      "file_offset": 2176880
+    },
+    {
+      "va": "0x312774",
+      "original_word": "0x34c6ffff",
+      "r5900": "ori         $a2, $a2, 0xFFFF",
+      "file_offset": 2176884
+    },
+    {
+      "va": "0x312778",
+      "original_word": "0x240af00f",
+      "r5900": "addiu       $t2, $zero, -0xFF1",
+      "file_offset": 2176888
+    },
+    {
+      "va": "0x31277c",
+      "original_word": "0x822024",
+      "r5900": "and         $a0, $a0, $v0",
+      "file_offset": 2176892
+    },
+    {
+      "va": "0x312780",
+      "original_word": "0x2409fff3",
+      "r5900": "addiu       $t1, $zero, -0xD",
+      "file_offset": 2176896
+    },
+    {
+      "va": "0x312784",
+      "original_word": "0x661824",
+      "r5900": "and         $v1, $v1, $a2",
+      "file_offset": 2176900
+    },
+    {
+      "va": "0x312788",
+      "original_word": "0xaa2824",
+      "r5900": "and         $a1, $a1, $t2",
+      "file_offset": 2176904
+    },
+    {
+      "va": "0x31278c",
+      "original_word": "0x2402cfff",
+      "r5900": "addiu       $v0, $zero, -0x3001",
+      "file_offset": 2176908
+    },
+    {
+      "va": "0x312790",
+      "original_word": "0xe93824",
+      "r5900": "and         $a3, $a3, $t1",
+      "file_offset": 2176912
+    },
+    {
+      "va": "0x312794",
+      "original_word": "0x34068000",
+      "r5900": "ori         $a2, $zero, 0x8000",
+      "file_offset": 2176916
+    },
+    {
+      "va": "0x312798",
+      "original_word": "0x630fc",
+      "r5900": "dsll32      $a2, $a2, 3",
+      "file_offset": 2176920
+    },
+    {
+      "va": "0x31279c",
+      "original_word": "0xa22824",
+      "r5900": "and         $a1, $a1, $v0",
+      "file_offset": 2176924
+    },
+    {
+      "va": "0x3127a0",
+      "original_word": "0x24090004",
+      "r5900": "addiu       $t1, $zero, 0x4",
+      "file_offset": 2176928
+    },
+    {
+      "va": "0x3127a4",
+      "original_word": "0x661825",
+      "r5900": "or          $v1, $v1, $a2",
+      "file_offset": 2176932
+    },
+    {
+      "va": "0x3127a8",
+      "original_word": "0x3402ffdf",
+      "r5900": "ori         $v0, $zero, 0xFFDF",
+      "file_offset": 2176936
+    },
+    {
+      "va": "0x3127ac",
+      "original_word": "0x21438",
+      "r5900": "dsll        $v0, $v0, 16",
+      "file_offset": 2176940
+    },
+    {
+      "va": "0x3127b0",
+      "original_word": "0x3442ffff",
+      "r5900": "ori         $v0, $v0, 0xFFFF",
+      "file_offset": 2176944
+    },
+    {
+      "va": "0x3127b4",
+      "original_word": "0x21438",
+      "r5900": "dsll        $v0, $v0, 16",
+      "file_offset": 2176948
+    },
+    {
+      "va": "0x3127b8",
+      "original_word": "0x3442ffff",
+      "r5900": "ori         $v0, $v0, 0xFFFF",
+      "file_offset": 2176952
+    },
+    {
+      "va": "0x3127bc",
+      "original_word": "0x21438",
+      "r5900": "dsll        $v0, $v0, 16",
+      "file_offset": 2176956
+    },
+    {
+      "va": "0x3127c0",
+      "original_word": "0x3442ffff",
+      "r5900": "ori         $v0, $v0, 0xFFFF",
+      "file_offset": 2176960
+    },
+    {
+      "va": "0x3127c4",
+      "original_word": "0xe93825",
+      "r5900": "or          $a3, $a3, $t1",
+      "file_offset": 2176964
+    },
+    {
+      "va": "0x3127c8",
+      "original_word": "0x2406ffcf",
+      "r5900": "addiu       $a2, $zero, -0x31",
+      "file_offset": 2176968
+    },
+    {
+      "va": "0x3127cc",
+      "original_word": "0x621824",
+      "r5900": "and         $v1, $v1, $v0",
+      "file_offset": 2176972
+    },
+    {
+      "va": "0x3127d0",
+      "original_word": "0xe63824",
+      "r5900": "and         $a3, $a3, $a2",
+      "file_offset": 2176976
+    },
+    {
+      "va": "0x3127d4",
+      "original_word": "0x2402ff3f",
+      "r5900": "addiu       $v0, $zero, -0xC1",
+      "file_offset": 2176980
+    },
+    {
+      "va": "0x3127d8",
+      "original_word": "0xdd0c0100",
+      "r5900": "ld          $t4, 0x100($t0)",
+      "file_offset": 2176984
+    },
+    {
+      "va": "0x3127dc",
+      "original_word": "0x3c140043",
+      "r5900": "lui         $s4, 0x43",
+      "file_offset": 2176988
+    },
+    {
+      "va": "0x3127e0",
+      "original_word": "0xe23824",
+      "r5900": "and         $a3, $a3, $v0",
+      "file_offset": 2176992
+    },
+    {
+      "va": "0x3127e4",
+      "original_word": "0x8e8ede14",
+      "r5900": "lw          $t6, -0x21EC($s4)",
+      "file_offset": 2176996
+    },
+    {
+      "va": "0x3127e8",
+      "original_word": "0x24091000",
+      "r5900": "addiu       $t1, $zero, 0x1000",
+      "file_offset": 2177000
+    },
+    {
+      "va": "0x3127ec",
+      "original_word": "0x3c02bfff",
+      "r5900": "lui         $v0, 0xBFFF",
+      "file_offset": 2177004
+    },
+    {
+      "va": "0x3127f0",
+      "original_word": "0x3442ffff",
+      "r5900": "ori         $v0, $v0, 0xFFFF",
+      "file_offset": 2177008
+    },
+    {
+      "va": "0x3127f4",
+      "original_word": "0x210b8",
+      "r5900": "dsll        $v0, $v0, 2",
+      "file_offset": 2177012
+    },
+    {
+      "va": "0x3127f8",
+      "original_word": "0x34420003",
+      "r5900": "ori         $v0, $v0, 0x3",
+      "file_offset": 2177016
+    },
+    {
+      "va": "0x3127fc",
+      "original_word": "0xa92825",
+      "r5900": "or          $a1, $a1, $t1",
+      "file_offset": 2177020
+    },
+    {
+      "va": "0x312800",
+      "original_word": "0x3c06fff9",
+      "r5900": "lui         $a2, 0xFFF9",
+      "file_offset": 2177024
+    },
+    {
+      "va": "0x312804",
+      "original_word": "0x34c6ffff",
+      "r5900": "ori         $a2, $a2, 0xFFFF",
+      "file_offset": 2177028
+    },
+    {
+      "va": "0x312808",
+      "original_word": "0x1826024",
+      "r5900": "and         $t4, $t4, $v0",
+      "file_offset": 2177032
+    },
+    {
+      "va": "0x31280c",
+      "original_word": "0xdd0d00c0",
+      "r5900": "ld          $t5, 0xC0($t0)",
+      "file_offset": 2177036
+    },
+    {
+      "va": "0x312810",
+      "original_word": "0x240b0140",
+      "r5900": "addiu       $t3, $zero, 0x140",
+      "file_offset": 2177040
+    },
+    {
+      "va": "0x312814",
+      "original_word": "0xdd1000b0",
+      "r5900": "ld          $s0, 0xB0($t0)",
+      "file_offset": 2177044
+    },
+    {
+      "va": "0x312818",
+      "original_word": "0x3409ffef",
+      "r5900": "ori         $t1, $zero, 0xFFEF",
+      "file_offset": 2177048
+    },
+    {
+      "va": "0x31281c",
+      "original_word": "0x94c38",
+      "r5900": "dsll        $t1, $t1, 16",
+      "file_offset": 2177052
+    },
+    {
+      "va": "0x312820",
+      "original_word": "0x3529ffff",
+      "r5900": "ori         $t1, $t1, 0xFFFF",
+      "file_offset": 2177056
+    },
+    {
+      "va": "0x312824",
+      "original_word": "0x94c38",
+      "r5900": "dsll        $t1, $t1, 16",
+      "file_offset": 2177060
+    },
+    {
+      "va": "0x312828",
+      "original_word": "0x3529ffff",
+      "r5900": "ori         $t1, $t1, 0xFFFF",
+      "file_offset": 2177064
+    },
+    {
+      "va": "0x31282c",
+      "original_word": "0x94c38",
+      "r5900": "dsll        $t1, $t1, 16",
+      "file_offset": 2177068
+    },
+    {
+      "va": "0x312830",
+      "original_word": "0x3529ffff",
+      "r5900": "ori         $t1, $t1, 0xFFFF",
+      "file_offset": 2177072
+    },
+    {
+      "va": "0x312834",
+      "original_word": "0xa62824",
+      "r5900": "and         $a1, $a1, $a2",
+      "file_offset": 2177076
+    },
+    {
+      "va": "0x312838",
+      "original_word": "0x25ce0001",
+      "r5900": "addiu       $t6, $t6, 0x1",
+      "file_offset": 2177080
+    },
+    {
+      "va": "0x31283c",
+      "original_word": "0x24020412",
+      "r5900": "addiu       $v0, $zero, 0x412",
+      "file_offset": 2177084
+    },
+    {
+      "va": "0x312840",
+      "original_word": "0x8fcfde10",
+      "r5900": "lw          $t7, -0x21F0($fp)",
+      "file_offset": 2177088
+    },
+    {
+      "va": "0x312844",
+      "original_word": "0xfea2dec8",
+      "r5900": "sd          $v0, -0x2138($s5)",
+      "file_offset": 2177092
+    },
+    {
+      "va": "0x312848",
+      "original_word": "0x8b2025",
+      "r5900": "or          $a0, $a0, $t3",
+      "file_offset": 2177096
+    },
+    {
+      "va": "0x31284c",
+      "original_word": "0xae8ede14",
+      "r5900": "sw          $t6, -0x21EC($s4)",
+      "file_offset": 2177100
+    },
+    {
+      "va": "0x312850",
+      "original_word": "0x691824",
+      "r5900": "and         $v1, $v1, $t1",
+      "file_offset": 2177104
+    },
+    {
+      "va": "0x312854",
+      "original_word": "0x34068000",
+      "r5900": "ori         $a2, $zero, 0x8000",
+      "file_offset": 2177108
+    },
+    {
+      "va": "0x312858",
+      "original_word": "0x6317c",
+      "r5900": "dsll32      $a2, $a2, 5",
+      "file_offset": 2177112
+    },
+    {
+      "va": "0x31285c",
+      "original_word": "0xfd0c0100",
+      "r5900": "sd          $t4, 0x100($t0)",
+      "file_offset": 2177116
+    },
+    {
+      "va": "0x312860",
+      "original_word": "0x3c0b9fff",
+      "r5900": "lui         $t3, 0x9FFF",
+      "file_offset": 2177120
+    },
+    {
+      "va": "0x312864",
+      "original_word": "0x356bffff",
+      "r5900": "ori         $t3, $t3, 0xFFFF",
+      "file_offset": 2177124
+    },
+    {
+      "va": "0x312868",
+      "original_word": "0xb59b8",
+      "r5900": "dsll        $t3, $t3, 6",
+      "file_offset": 2177128
+    },
+    {
+      "va": "0x31286c",
+      "original_word": "0x356b003f",
+      "r5900": "ori         $t3, $t3, 0x3F",
+      "file_offset": 2177132
+    },
+    {
+      "va": "0x312870",
+      "original_word": "0x3c0affe7",
+      "r5900": "lui         $t2, 0xFFE7",
+      "file_offset": 2177136
+    },
+    {
+      "va": "0x312874",
+      "original_word": "0x354affff",
+      "r5900": "ori         $t2, $t2, 0xFFFF",
+      "file_offset": 2177140
+    },
+    {
+      "va": "0x312878",
+      "original_word": "0x661825",
+      "r5900": "or          $v1, $v1, $a2",
+      "file_offset": 2177144
+    },
+    {
+      "va": "0x31287c",
+      "original_word": "0x932024",
+      "r5900": "and         $a0, $a0, $s3",
+      "file_offset": 2177148
+    },
+    {
+      "va": "0x312880",
+      "original_word": "0xfe43fff8",
+      "r5900": "sd          $v1, -0x8($s2)",
+      "file_offset": 2177152
+    },
+    {
+      "va": "0x312884",
+      "original_word": "0x1ab6824",
+      "r5900": "and         $t5, $t5, $t3",
+      "file_offset": 2177156
+    },
+    {
+      "va": "0x312888",
+      "original_word": "0x8a2024",
+      "r5900": "and         $a0, $a0, $t2",
+      "file_offset": 2177160
+    },
+    {
+      "va": "0x31288c",
+      "original_word": "0x25ef000b",
+      "r5900": "addiu       $t7, $t7, 0xB",
+      "file_offset": 2177164
+    },
+    {
+      "va": "0x312890",
+      "original_word": "0xafcfde10",
+      "r5900": "sw          $t7, -0x21F0($fp)",
+      "file_offset": 2177168
+    },
+    {
+      "va": "0x312894",
+      "original_word": "0x3c0abfff",
+      "r5900": "lui         $t2, 0xBFFF",
+      "file_offset": 2177172
+    },
+    {
+      "va": "0x312898",
+      "original_word": "0x354affff",
+      "r5900": "ori         $t2, $t2, 0xFFFF",
+      "file_offset": 2177176
+    },
+    {
+      "va": "0x31289c",
+      "original_word": "0xa5138",
+      "r5900": "dsll        $t2, $t2, 4",
+      "file_offset": 2177180
+    },
+    {
+      "va": "0x3128a0",
+      "original_word": "0x354a000f",
+      "r5900": "ori         $t2, $t2, 0xF",
+      "file_offset": 2177184
+    },
+    {
+      "va": "0x3128a4",
+      "original_word": "0x3c098007",
+      "r5900": "lui         $t1, 0x8007",
+      "file_offset": 2177188
+    },
+    {
+      "va": "0x3128a8",
+      "original_word": "0x3529ffff",
+      "r5900": "ori         $t1, $t1, 0xFFFF",
+      "file_offset": 2177192
+    },
+    {
+      "va": "0x3128ac",
+      "original_word": "0x94b78",
+      "r5900": "dsll        $t1, $t1, 13",
+      "file_offset": 2177196
+    },
+    {
+      "va": "0x3128b0",
+      "original_word": "0x35291fff",
+      "r5900": "ori         $t1, $t1, 0x1FFF",
+      "file_offset": 2177200
+    },
+    {
+      "va": "0x3128b4",
+      "original_word": "0x240b0040",
+      "r5900": "addiu       $t3, $zero, 0x40",
+      "file_offset": 2177204
+    },
+    {
+      "va": "0x3128b8",
+      "original_word": "0x3c110004",
+      "r5900": "lui         $s1, 0x4",
+      "file_offset": 2177208
+    },
+    {
+      "va": "0x3128bc",
+      "original_word": "0x24060fff",
+      "r5900": "addiu       $a2, $zero, 0xFFF",
+      "file_offset": 2177212
+    },
+    {
+      "va": "0x3128c0",
+      "original_word": "0xfe4600b0",
+      "r5900": "sd          $a2, 0xB0($s2)",
+      "file_offset": 2177216
+    },
+    {
+      "va": "0x3128c4",
+      "original_word": "0x1aa6824",
+      "r5900": "and         $t5, $t5, $t2",
+      "file_offset": 2177220
+    },
+    {
+      "va": "0x3128c8",
+      "original_word": "0x892024",
+      "r5900": "and         $a0, $a0, $t1",
+      "file_offset": 2177224
+    },
+    {
+      "va": "0x3128cc",
+      "original_word": "0x2138024",
+      "r5900": "and         $s0, $s0, $s3",
+      "file_offset": 2177228
+    },
+    {
+      "va": "0x3128d0",
+      "original_word": "0xeb3825",
+      "r5900": "or          $a3, $a3, $t3",
+      "file_offset": 2177232
+    },
+    {
+      "va": "0x3128d4",
+      "original_word": "0xb12825",
+      "r5900": "or          $a1, $a1, $s1",
+      "file_offset": 2177236
+    },
+    {
+      "va": "0x3128d8",
+      "original_word": "0xfd0d00c0",
+      "r5900": "sd          $t5, 0xC0($t0)",
+      "file_offset": 2177240
+    },
+    {
+      "va": "0x3128dc",
+      "original_word": "0xfd0400d0",
+      "r5900": "sd          $a0, 0xD0($t0)",
+      "file_offset": 2177244
+    },
+    {
+      "va": "0x3128e0",
+      "original_word": "0xfd1000b0",
+      "r5900": "sd          $s0, 0xB0($t0)",
+      "file_offset": 2177248
+    },
+    {
+      "va": "0x3128e4",
+      "original_word": "0xfd0700a0",
+      "r5900": "sd          $a3, 0xA0($t0)",
+      "file_offset": 2177252
+    },
+    {
+      "va": "0x3128e8",
+      "original_word": "0x10000fba",
+      "r5900": "b           . + 4 + (0xFBA << 2)",
+      "file_offset": 2177256
+    },
+    {
+      "va": "0x3128ec",
+      "original_word": "0xfd050080",
+      "r5900": "sd          $a1, 0x80($t0)",
+      "file_offset": 2177260
+    },
+    {
+      "va": "0x3715b0",
+      "original_word": "0x8e050034",
+      "r5900": "lw          $a1, 0x34($s0)",
+      "file_offset": 2565552
+    },
+    {
+      "va": "0x3715b4",
+      "original_word": "0x4a00021",
+      "r5900": "bltz        $a1, . + 4 + (0x21 << 2)",
+      "file_offset": 2565556
+    },
+    {
+      "va": "0x3715b8",
+      "original_word": "0x27a40010",
+      "r5900": "addiu       $a0, $sp, 0x10",
+      "file_offset": 2565560
+    },
+    {
+      "va": "0x3715bc",
+      "original_word": "0x4a0000b",
+      "r5900": "bltz        $a1, . + 4 + (0xB << 2)",
+      "file_offset": 2565564
+    },
+    {
+      "va": "0x3715c0",
+      "original_word": "0xafa50020",
+      "r5900": "sw          $a1, 0x20($sp)",
+      "file_offset": 2565568
+    },
+    {
+      "va": "0x3715c4",
+      "original_word": "0x8e6362d0",
+      "r5900": "lw          $v1, 0x62D0($s3)",
+      "file_offset": 2565572
+    },
+    {
+      "va": "0x3715c8",
+      "original_word": "0x52880",
+      "r5900": "sll         $a1, $a1, 2",
+      "file_offset": 2565576
+    },
+    {
+      "va": "0x3715cc",
+      "original_word": "0x8e840024",
+      "r5900": "lw          $a0, 0x24($s4)",
+      "file_offset": 2565580
+    },
+    {
+      "va": "0x3715d0",
+      "original_word": "0x651821",
+      "r5900": "addu        $v1, $v1, $a1",
+      "file_offset": 2565584
+    },
+    {
+      "va": "0x3715d4",
+      "original_word": "0x8c620000",
+      "r5900": "lw          $v0, 0x0($v1)",
+      "file_offset": 2565588
+    },
+    {
+      "va": "0x3715d8",
+      "original_word": "0x210c0",
+      "r5900": "sll         $v0, $v0, 3",
+      "file_offset": 2565592
+    },
+    {
+      "va": "0x3715dc",
+      "original_word": "0x822021",
+      "r5900": "addu        $a0, $a0, $v0",
+      "file_offset": 2565596
+    },
+    {
+      "va": "0x3715e0",
+      "original_word": "0x8c830004",
+      "r5900": "lw          $v1, 0x4($a0)",
+      "file_offset": 2565600
+    },
+    {
+      "va": "0x3715e4",
+      "original_word": "0x24630001",
+      "r5900": "addiu       $v1, $v1, 0x1",
+      "file_offset": 2565604
+    },
+    {
+      "va": "0x3715e8",
+      "original_word": "0xac830004",
+      "r5900": "sw          $v1, 0x4($a0)",
+      "file_offset": 2565608
+    },
+    {
+      "va": "0x3715ec",
+      "original_word": "0xafa00000",
+      "r5900": "sw          $zero, 0x0($sp)",
+      "file_offset": 2565612
+    },
+    {
+      "va": "0x3715f0",
+      "original_word": "0x27a40010",
+      "r5900": "addiu       $a0, $sp, 0x10",
+      "file_offset": 2565616
+    },
+    {
+      "va": "0x3715f4",
+      "original_word": "0x220282d",
+      "r5900": "daddu       $a1, $s1, $zero",
+      "file_offset": 2565620
+    },
+    {
+      "va": "0x3715f8",
+      "original_word": "0x27a60020",
+      "r5900": "addiu       $a2, $sp, 0x20",
+      "file_offset": 2565624
+    },
+    {
+      "va": "0x3715fc",
+      "original_word": "0x8e07003c",
+      "r5900": "lw          $a3, 0x3C($s0)",
+      "file_offset": 2565628
+    },
+    {
+      "va": "0x371600",
+      "original_word": "0x24080001",
+      "r5900": "addiu       $t0, $zero, 0x1",
+      "file_offset": 2565632
+    },
+    {
+      "va": "0x371604",
+      "original_word": "0x482d",
+      "r5900": "daddu       $t1, $zero, $zero",
+      "file_offset": 2565636
+    },
+    {
+      "va": "0x371608",
+      "original_word": "0x502d",
+      "r5900": "daddu       $t2, $zero, $zero",
+      "file_offset": 2565640
+    },
+    {
+      "va": "0x37160c",
+      "original_word": "0xc0bf5f4",
+      "r5900": "jal         func_2FD7D0",
+      "file_offset": 2565644
+    },
+    {
+      "va": "0x371610",
+      "original_word": "0x582d",
+      "r5900": "daddu       $t3, $zero, $zero",
+      "file_offset": 2565648
+    },
+    {
+      "va": "0x371614",
+      "original_word": "0x8fa20010",
+      "r5900": "lw          $v0, 0x10($sp)",
+      "file_offset": 2565652
+    },
+    {
+      "va": "0x371618",
+      "original_word": "0x220202d",
+      "r5900": "daddu       $a0, $s1, $zero",
+      "file_offset": 2565656
+    },
+    {
+      "va": "0x37161c",
+      "original_word": "0x27a50010",
+      "r5900": "addiu       $a1, $sp, 0x10",
+      "file_offset": 2565660
+    },
+    {
+      "va": "0x371620",
+      "original_word": "0xae0200dc",
+      "r5900": "sw          $v0, 0xDC($s0)",
+      "file_offset": 2565664
+    },
+    {
+      "va": "0x371624",
+      "original_word": "0xc0bf5ec",
+      "r5900": "jal         func_2FD7B0",
+      "file_offset": 2565668
+    },
+    {
+      "va": "0x371628",
+      "original_word": "0xafa20010",
+      "r5900": "sw          $v0, 0x10($sp)",
+      "file_offset": 2565672
+    },
+    {
+      "va": "0x37162c",
+      "original_word": "0x8c430000",
+      "r5900": "lw          $v1, 0x0($v0)",
+      "file_offset": 2565676
+    },
+    {
+      "va": "0x371630",
+      "original_word": "0x8c6201b0",
+      "r5900": "lw          $v0, 0x1B0($v1)",
+      "file_offset": 2565680
+    },
+    {
+      "va": "0x371634",
+      "original_word": "0x10000005",
+      "r5900": "b           . + 4 + (0x5 << 2)",
+      "file_offset": 2565684
+    },
+    {
+      "va": "0x371638",
+      "original_word": "0xae0200e0",
+      "r5900": "sw          $v0, 0xE0($s0)",
+      "file_offset": 2565688
+    },
+    {
+      "va": "0x37163c",
+      "original_word": "0xc0bf5e2",
+      "r5900": "jal         func_2FD788",
+      "file_offset": 2565692
+    },
+    {
+      "va": "0x371640",
+      "original_word": "0x220282d",
+      "r5900": "daddu       $a1, $s1, $zero",
+      "file_offset": 2565696
+    },
+    {
+      "va": "0x371644",
+      "original_word": "0x8fa20010",
+      "r5900": "lw          $v0, 0x10($sp)",
+      "file_offset": 2565700
+    },
+    {
+      "va": "0x371648",
+      "original_word": "0xae0200dc",
+      "r5900": "sw          $v0, 0xDC($s0)",
+      "file_offset": 2565704
+    },
+    {
+      "va": "0x37164c",
+      "original_word": "0x8e050038",
+      "r5900": "lw          $a1, 0x38($s0)",
+      "file_offset": 2565708
+    },
+    {
+      "va": "0x2fd788",
+      "original_word": "0x8ca60024",
+      "r5900": "lw          $a2, 0x24($a1)",
+      "file_offset": 2090888
+    },
+    {
+      "va": "0x2fd78c",
+      "original_word": "0x80102d",
+      "r5900": "daddu       $v0, $a0, $zero",
+      "file_offset": 2090892
+    },
+    {
+      "va": "0x2fd790",
+      "original_word": "0x8cc30144",
+      "r5900": "lw          $v1, 0x144($a2)",
+      "file_offset": 2090896
+    },
+    {
+      "va": "0x2fd794",
+      "original_word": "0x8c650058",
+      "r5900": "lw          $a1, 0x58($v1)",
+      "file_offset": 2090900
+    },
+    {
+      "va": "0x2fd798",
+      "original_word": "0x3e00008",
+      "r5900": "jr          $ra",
+      "file_offset": 2090904
+    },
+    {
+      "va": "0x2fd79c",
+      "original_word": "0xac850000",
+      "r5900": "sw          $a1, 0x0($a0)",
+      "file_offset": 2090908
+    },
+    {
+      "va": "0x2f7b20",
+      "original_word": "0x8e43003c",
+      "r5900": "lw          $v1, 0x3C($s2)",
+      "file_offset": 2067232
+    },
+    {
+      "va": "0x2f7b24",
+      "original_word": "0x10600008",
+      "r5900": "beqz        $v1, . + 4 + (0x8 << 2)",
+      "file_offset": 2067236
+    },
+    {
+      "va": "0x2f7b28",
+      "original_word": "0xafa70010",
+      "r5900": "sw          $a3, 0x10($sp)",
+      "file_offset": 2067240
+    },
+    {
+      "va": "0x2f7b2c",
+      "original_word": "0x3c020001",
+      "r5900": "lui         $v0, 0x1",
+      "file_offset": 2067244
+    },
+    {
+      "va": "0x2f8014",
+      "original_word": "0x8fa60010",
+      "r5900": "lw          $a2, 0x10($sp)",
+      "file_offset": 2068500
+    },
+    {
+      "va": "0x2f8018",
+      "original_word": "0x3a0202d",
+      "r5900": "daddu       $a0, $sp, $zero",
+      "file_offset": 2068504
+    },
+    {
+      "va": "0x2f801c",
+      "original_word": "0x240282d",
+      "r5900": "daddu       $a1, $s2, $zero",
+      "file_offset": 2068508
+    },
+    {
+      "va": "0x2f8020",
+      "original_word": "0x24070001",
+      "r5900": "addiu       $a3, $zero, 0x1",
+      "file_offset": 2068512
+    },
+    {
+      "va": "0x2f8024",
+      "original_word": "0x402d",
+      "r5900": "daddu       $t0, $zero, $zero",
+      "file_offset": 2068516
+    },
+    {
+      "va": "0x2f8028",
+      "original_word": "0x24090001",
+      "r5900": "addiu       $t1, $zero, 0x1",
+      "file_offset": 2068520
+    },
+    {
+      "va": "0x2f802c",
+      "original_word": "0x502d",
+      "r5900": "daddu       $t2, $zero, $zero",
+      "file_offset": 2068524
+    },
+    {
+      "va": "0x2f8030",
+      "original_word": "0xc0be13c",
+      "r5900": "jal         func_2F84F0",
+      "file_offset": 2068528
+    },
+    {
+      "va": "0x2f8034",
+      "original_word": "0x240b0001",
+      "r5900": "addiu       $t3, $zero, 0x1",
+      "file_offset": 2068532
+    },
+    {
+      "va": "0x2f8038",
+      "original_word": "0x8fa20000",
+      "r5900": "lw          $v0, 0x0($sp)",
+      "file_offset": 2068536
+    },
+    {
+      "va": "0x2f803c",
+      "original_word": "0x240202d",
+      "r5900": "daddu       $a0, $s2, $zero",
+      "file_offset": 2068540
+    },
+    {
+      "va": "0x2f8040",
+      "original_word": "0xc0be83c",
+      "r5900": "jal         func_2FA0F0",
+      "file_offset": 2068544
+    },
+    {
+      "va": "0x2f8044",
+      "original_word": "0xae420058",
+      "r5900": "sw          $v0, 0x58($s2)",
+      "file_offset": 2068548
+    },
+    {
+      "va": "0x2dc720",
+      "original_word": "0x16000366",
+      "r5900": "bnez        $s0, . + 4 + (0x366 << 2)",
+      "file_offset": 1955616
+    },
+    {
+      "va": "0x2dc724",
+      "original_word": "0x3c020043",
+      "r5900": "lui         $v0, 0x43",
+      "file_offset": 1955620
+    },
+    {
+      "va": "0x2dc728",
+      "original_word": "0x3c110043",
+      "r5900": "lui         $s1, 0x43",
+      "file_offset": 1955624
+    },
+    {
+      "va": "0x2dc72c",
+      "original_word": "0x8c43da20",
+      "r5900": "lw          $v1, -0x25E0($v0)",
+      "file_offset": 1955628
+    },
+    {
+      "va": "0x2dc730",
+      "original_word": "0x8e24a7b0",
+      "r5900": "lw          $a0, -0x5850($s1)",
+      "file_offset": 1955632
+    },
+    {
+      "va": "0x2dc734",
+      "original_word": "0x31a02",
+      "r5900": "srl         $v1, $v1, 8",
+      "file_offset": 1955636
+    },
+    {
+      "va": "0x2dc738",
+      "original_word": "0x1480000c",
+      "r5900": "bnez        $a0, . + 4 + (0xC << 2)",
+      "file_offset": 1955640
+    },
+    {
+      "va": "0x2dc73c",
+      "original_word": "0xafa3005c",
+      "r5900": "sw          $v1, 0x5C($sp)",
+      "file_offset": 1955644
+    },
+    {
+      "va": "0x2dc740",
+      "original_word": "0x3c020041",
+      "r5900": "lui         $v0, 0x41",
+      "file_offset": 1955648
+    },
+    {
+      "va": "0x2dc744",
+      "original_word": "0x3c10004a",
+      "r5900": "lui         $s0, 0x4A",
+      "file_offset": 1955652
+    },
+    {
+      "va": "0x2dc748",
+      "original_word": "0x2610b0c0",
+      "r5900": "addiu       $s0, $s0, -0x4F40",
+      "file_offset": 1955656
+    },
+    {
+      "va": "0x2dc74c",
+      "original_word": "0x8c45e678",
+      "r5900": "lw          $a1, -0x1988($v0)",
+      "file_offset": 1955660
+    },
+    {
+      "va": "0x2dc750",
+      "original_word": "0x200202d",
+      "r5900": "daddu       $a0, $s0, $zero",
+      "file_offset": 1955664
+    },
+    {
+      "va": "0x2dc754",
+      "original_word": "0xc0fea29",
+      "r5900": "jal         func_3FA8A4",
+      "file_offset": 1955668
+    },
+    {
+      "va": "0x2dc758",
+      "original_word": "0xae30a7b0",
+      "r5900": "sw          $s0, -0x5850($s1)",
+      "file_offset": 1955672
+    },
+    {
+      "va": "0x2dc75c",
+      "original_word": "0x3c050048",
+      "r5900": "lui         $a1, 0x48",
+      "file_offset": 1955676
+    },
+    {
+      "va": "0x2dc760",
+      "original_word": "0x200202d",
+      "r5900": "daddu       $a0, $s0, $zero",
+      "file_offset": 1955680
+    },
+    {
+      "va": "0x2dc764",
+      "original_word": "0xc0fe98d",
+      "r5900": "jal         func_3FA634",
+      "file_offset": 1955684
+    },
+    {
+      "va": "0x2dc768",
+      "original_word": "0x24a53f58",
+      "r5900": "addiu       $a1, $a1, 0x3F58",
+      "file_offset": 1955688
+    },
+    {
+      "va": "0x2dc76c",
+      "original_word": "0x8fa20058",
+      "r5900": "lw          $v0, 0x58($sp)",
+      "file_offset": 1955692
+    },
+    {
+      "va": "0x2dc770",
+      "original_word": "0xc0bf5e8",
+      "r5900": "jal         func_2FD7A0",
+      "file_offset": 1955696
+    },
+    {
+      "va": "0x2dc774",
+      "original_word": "0x8c440000",
+      "r5900": "lw          $a0, 0x0($v0)",
+      "file_offset": 1955700
+    },
+    {
+      "va": "0x2dc778",
+      "original_word": "0xafa20060",
+      "r5900": "sw          $v0, 0x60($sp)",
+      "file_offset": 1955704
+    },
+    {
+      "va": "0x2dc77c",
+      "original_word": "0x27b50010",
+      "r5900": "addiu       $s5, $sp, 0x10",
+      "file_offset": 1955708
+    },
+    {
+      "va": "0x2dc780",
+      "original_word": "0x8fa3005c",
+      "r5900": "lw          $v1, 0x5C($sp)",
+      "file_offset": 1955712
+    },
+    {
+      "va": "0x2dc784",
+      "original_word": "0x24024000",
+      "r5900": "addiu       $v0, $zero, 0x4000",
+      "file_offset": 1955716
+    },
+    {
+      "va": "0x2dc788",
+      "original_word": "0x8e32a7b0",
+      "r5900": "lw          $s2, -0x5850($s1)",
+      "file_offset": 1955720
+    },
+    {
+      "va": "0x2dc78c",
+      "original_word": "0x431023",
+      "r5900": "subu        $v0, $v0, $v1",
+      "file_offset": 1955724
+    },
+    {
+      "va": "0x2dc790",
+      "original_word": "0xafbd0068",
+      "r5900": "sw          $sp, 0x68($sp)",
+      "file_offset": 1955728
+    },
+    {
+      "va": "0x2dc794",
+      "original_word": "0x12400005",
+      "r5900": "beqz        $s2, . + 4 + (0x5 << 2)",
+      "file_offset": 1955732
+    },
+    {
+      "va": "0x2dc798",
+      "original_word": "0xafa20064",
+      "r5900": "sw          $v0, 0x64($sp)",
+      "file_offset": 1955736
+    },
+    {
+      "va": "0x2dc79c",
+      "original_word": "0xc0fea6e",
+      "r5900": "jal         func_3FA9B8",
+      "file_offset": 1955740
+    },
+    {
+      "va": "0x2dc7a0",
+      "original_word": "0x240202d",
+      "r5900": "daddu       $a0, $s2, $zero",
+      "file_offset": 1955744
+    },
+    {
+      "va": "0x2dc7a4",
+      "original_word": "0x144000a3",
+      "r5900": "bnez        $v0, . + 4 + (0xA3 << 2)",
+      "file_offset": 1955748
+    },
+    {
+      "va": "0x2dc7a8",
+      "original_word": "0x3c020041",
+      "r5900": "lui         $v0, 0x41",
+      "file_offset": 1955752
+    },
+    {
+      "va": "0x2dd1d0",
+      "original_word": "0x8fa40000",
+      "r5900": "lw          $a0, 0x0($sp)",
+      "file_offset": 1958352
+    },
+    {
+      "va": "0x2dd1d4",
+      "original_word": "0x4800013",
+      "r5900": "bltz        $a0, . + 4 + (0x13 << 2)",
+      "file_offset": 1958356
+    },
+    {
+      "va": "0x2dd1d8",
+      "original_word": "0x382d",
+      "r5900": "daddu       $a3, $zero, $zero",
+      "file_offset": 1958360
+    },
+    {
+      "va": "0x2dd1dc",
+      "original_word": "0x3c020042",
+      "r5900": "lui         $v0, 0x42",
+      "file_offset": 1958364
+    },
+    {
+      "va": "0x2dd1e0",
+      "original_word": "0x42080",
+      "r5900": "sll         $a0, $a0, 2",
+      "file_offset": 1958368
+    },
+    {
+      "va": "0x2dd1e4",
+      "original_word": "0x8c4362d0",
+      "r5900": "lw          $v1, 0x62D0($v0)",
+      "file_offset": 1958372
+    },
+    {
+      "va": "0x2dd1e8",
+      "original_word": "0x244262d0",
+      "r5900": "addiu       $v0, $v0, 0x62D0",
+      "file_offset": 1958376
+    },
+    {
+      "va": "0x2dd1ec",
+      "original_word": "0x641821",
+      "r5900": "addu        $v1, $v1, $a0",
+      "file_offset": 1958380
+    },
+    {
+      "va": "0x2dd1f0",
+      "original_word": "0x8c450024",
+      "r5900": "lw          $a1, 0x24($v0)",
+      "file_offset": 1958384
+    },
+    {
+      "va": "0x2dd1f4",
+      "original_word": "0x8c620000",
+      "r5900": "lw          $v0, 0x0($v1)",
+      "file_offset": 1958388
+    },
+    {
+      "va": "0x2dd1f8",
+      "original_word": "0x210c0",
+      "r5900": "sll         $v0, $v0, 3",
+      "file_offset": 1958392
+    },
+    {
+      "va": "0x2dd1fc",
+      "original_word": "0xa22021",
+      "r5900": "addu        $a0, $a1, $v0",
+      "file_offset": 1958396
+    },
+    {
+      "va": "0x2dd200",
+      "original_word": "0x8c830000",
+      "r5900": "lw          $v1, 0x0($a0)",
+      "file_offset": 1958400
+    },
+    {
+      "va": "0x2dd204",
+      "original_word": "0x8c62fff0",
+      "r5900": "lw          $v0, -0x10($v1)",
+      "file_offset": 1958404
+    },
+    {
+      "va": "0x2dd208",
+      "original_word": "0x14400004",
+      "r5900": "bnez        $v0, . + 4 + (0x4 << 2)",
+      "file_offset": 1958408
+    },
+    {
+      "va": "0x2dd20c",
+      "original_word": "0x621021",
+      "r5900": "addu        $v0, $v1, $v0",
+      "file_offset": 1958412
+    },
+    {
+      "va": "0x2dd210",
+      "original_word": "0x3c020048",
+      "r5900": "lui         $v0, 0x48",
+      "file_offset": 1958416
+    },
+    {
+      "va": "0x2dd214",
+      "original_word": "0x10000003",
+      "r5900": "b           . + 4 + (0x3 << 2)",
+      "file_offset": 1958420
+    },
+    {
+      "va": "0x2dd218",
+      "original_word": "0x24473da0",
+      "r5900": "addiu       $a3, $v0, 0x3DA0",
+      "file_offset": 1958424
+    },
+    {
+      "va": "0x2dd21c",
+      "original_word": "0xa0400000",
+      "r5900": "sb          $zero, 0x0($v0)",
+      "file_offset": 1958428
+    },
+    {
+      "va": "0x2dd220",
+      "original_word": "0x8c870000",
+      "r5900": "lw          $a3, 0x0($a0)",
+      "file_offset": 1958432
+    },
+    {
+      "va": "0x2dd224",
+      "original_word": "0x8fa5005c",
+      "r5900": "lw          $a1, 0x5C($sp)",
+      "file_offset": 1958436
+    },
+    {
+      "va": "0x2dd228",
+      "original_word": "0x8fa40060",
+      "r5900": "lw          $a0, 0x60($sp)",
+      "file_offset": 1958440
+    },
+    {
+      "va": "0x2dd22c",
+      "original_word": "0xc0bdeba",
+      "r5900": "jal         func_2F7AE8",
+      "file_offset": 1958444
+    },
+    {
+      "va": "0x2dd230",
+      "original_word": "0x8fa60064",
+      "r5900": "lw          $a2, 0x64($sp)",
+      "file_offset": 1958448
+    }
+  ],
+  "instruction_count": 440,
+  "original_strings": {
+    "0x487928": "$clamp",
+    "0x487950": "$shader",
+    "0x487958": "breaklightsonglow-",
+    "0x487970": "breaklightson-",
+    "0x483f58": "default.gxi"
+  },
+  "mode0_dispatch": {
+    "table_va": "0x4850c0",
+    "target": "0x3126e4"
+  },
+  "root17_static_mode": 0,
+  "root17_primary_copy": false,
+  "root17_secondary_copy": false,
+  "missing_shader_branch": "0x391b68 -> 0x391bd4",
+  "missing_primary_branch": "0x39177c -> 0x3918fc",
+  "missing_primary_binding": "2fd788 -> manager texture-owner+0x58 default resident handle",
+  "default_handle_constructor": "0x2f8044 stores 2f84f0-created handle from initializer-supplied default name",
+  "default_texture_original_pixels": "CANONICAL_DEFAULT_GXI_8x8_RGBA_0_0_0_255",
+  "default_texture_sha256": "ad2960c11407794294b6d188db3660478f21ecea1a9b0fef4e69fc0a4ccef6d5",
+  "live_invocation": "NOT_CAPTURED",
+  "strip_flag_culling": "UNKNOWN"
+}

@@ -1,0 +1,31 @@
+{
+  "process": {
+    "machine": "i386",
+    "format": "PE32",
+    "image_base": 4194304,
+    "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "bytes": 3121214,
+    "process_creation_filetime": 134364567733970455,
+    "pid": 53228
+  },
+  "packet": "0x2b45f88",
+  "cache": "0x2ac22d8",
+  "compiled_model": "0x2a9db50",
+  "source_mesh": "0x1f177d20",
+  "list_object": "0x1f3fa7d0",
+  "sentinel": "0x21077af8",
+  "nodes": [
+    {
+      "node": "0x210778c8",
+      "vtable": "0x6921b0",
+      "dispatch": "0x578f30",
+      "next": "0x0",
+      "is_current_emitter_mesh": false
+    }
+  ],
+  "truncated": false,
+  "mesh_source_index_resource_id": 1024,
+  "bytes_read": 4144,
+  "grade": "READ_SNAPSHOT_NOT_ATOMIC",
+  "replacement_authorized": false
+}

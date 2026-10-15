@@ -1,0 +1,57 @@
+{
+  "process": {
+    "machine": "i386",
+    "format": "PE32",
+    "image_base": 4194304,
+    "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "bytes": 3121214,
+    "process_creation_filetime": 134364567733970455,
+    "pid": 53228
+  },
+  "packet": "0x2b45f88",
+  "instance": "0x2ac22d8",
+  "model": "0x2a9db50",
+  "source_mesh": "0x1f177d20",
+  "vertex_descriptor": {
+    "address": "0x21077cd8",
+    "u32": [
+      45389808,
+      44686720,
+      20739,
+      286,
+      322,
+      24,
+      24935,
+      0
+    ]
+  },
+  "index_descriptor": {
+    "address": "0x21077e68",
+    "u32": [
+      44672776,
+      44687560,
+      33312,
+      639,
+      101,
+      1701144695,
+      758396524,
+      6383476
+    ]
+  },
+  "source_vb": "0x426e038",
+  "source_ib": "0x426e0c8",
+  "vb_vtable": "0x673c3c54",
+  "ib_vtable": "0x673c3c90",
+  "current_draw": {
+    "type": 4,
+    "min_vertex": 20739,
+    "vertices": 286,
+    "index_start": 33312,
+    "triangles": 213,
+    "fvf": "0x142",
+    "stride": 24
+  },
+  "replacement_authorized": false,
+  "grade": "CURRENT_PAUSED_NATIVE_SOURCE_BINDING",
+  "bytes_read": 4196
+}

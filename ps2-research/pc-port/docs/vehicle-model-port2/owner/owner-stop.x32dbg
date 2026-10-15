@@ -1,0 +1,9 @@
+// Exact retail SHA bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4.
+// One manual stop, no game data writes/calls/injection. Load while VehicleSelect active.
+// Original instruction at0044C4F6 is CMP [EDI+C],ESI (39770c).
+bp 0044C4F6, "PORT2_frontend_owner_one_stop"
+SetBreakpointCondition 0044C4F6, 1
+SetBreakpointFastResume 0044C4F6, 0
+SetBreakpointLog 0044C4F6, "PORT2_OWNER tid={x:tid()} ai={p:edi} ai_vtable={p:[edi]} egg={p:ebp} packet={p:[ebp+50]} name_id={x:[[ebp+50]+C]} cache={p:[[ebp+50]+74]} selected={x:esi}"
+SetBreakpointCommand 0044C4F6, "bpd 0044C4F6"
+SetBreakpointCommandCondition 0044C4F6, 1

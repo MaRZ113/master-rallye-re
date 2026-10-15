@@ -1,0 +1,35 @@
+{
+  "process": {
+    "machine": "i386",
+    "format": "PE32",
+    "image_base": 4194304,
+    "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "bytes": 3121214,
+    "process_creation_filetime": 134364567733970455,
+    "pid": 53228
+  },
+  "observation": {
+    "status": "READ_SNAPSHOT_NOT_ATOMIC",
+    "ai": "0x1f265888",
+    "egg": "0x2b45ce0",
+    "packet": "0x2b45f88",
+    "name_id": 10029,
+    "cache": "0x2ac22d8",
+    "cache_packet_backref": "0x2b45f88",
+    "cache_packet_backref_matches": true,
+    "compiled_model": "0x2a9db50",
+    "model_header_u32": [
+      0,
+      554138920,
+      44686104,
+      0,
+      0,
+      522635336,
+      524265424
+    ],
+    "model_name_path": "UNKNOWN_STRING_ID_RESOLVER",
+    "draw_resource_join": "UNKNOWN_PENDING_CURRENT_CONSUMER",
+    "replacement_authorized": false
+  },
+  "bytes_read": 4204
+}

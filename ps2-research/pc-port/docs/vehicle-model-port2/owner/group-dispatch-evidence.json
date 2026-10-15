@@ -1,0 +1,876 @@
+{
+  "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "grade": "CONFIRMED_BY_EXE",
+  "entry_proof": "Current loaded node vtable006921B0 slot30 resolves00578F30",
+  "bounds": "Provider has no function; bounded16originalinstructions endingRET4",
+  "instructions": [
+    {
+      "evidence_id": "ev_ce6085fd3467e657bd2182b92402665370d02f78a525813f5cd4860811664ce7",
+      "address": "0x578f30",
+      "status": "decoded",
+      "procedure": null,
+      "architecture": "x86:LE:32:default",
+      "mode": "default",
+      "bytes": "56",
+      "length": 1,
+      "mnemonic": "PUSH",
+      "raw_disassembly": "PUSH ESI",
+      "operands": [
+        {
+          "index": 0,
+          "raw": "ESI",
+          "provider_type": 512,
+          "components": [
+            {
+              "kind": "register",
+              "text": "ESI",
+              "value": "ESI",
+              "bit_width": 32
+            }
+          ],
+          "memory_addressing": "unavailable"
+        }
+      ],
+      "flow": {
+        "kind": "fallthrough",
+        "conditional": false,
+        "computed": false,
+        "direct_destinations": [],
+        "classification_evidence": [
+          {
+            "source": "ghidra-listing-flow-type",
+            "value": "FALL_THROUGH"
+          }
+        ]
+      },
+      "references": [],
+      "limitations": [
+        "Operand components are Ghidra Listing decoder tokens; effective memory base/index/displacement roles and per-instruction context mode are unavailable. The mode field is the program language variant."
+      ]
+    },
+    {
+      "evidence_id": "ev_b86ebb8f8640f8ed1e7b72e21e40e18b7c4a7b803c83a40108c68e32a80d0aad",
+      "address": "0x578f31",
+      "status": "decoded",
+      "procedure": null,
+      "architecture": "x86:LE:32:default",
+      "mode": "default",
+      "bytes": "8b7104",
+      "length": 3,
+      "mnemonic": "MOV",
+      "raw_disassembly": "MOV ESI,dword ptr [ECX + 0x4]",
+      "operands": [
+        {
+          "index": 0,
+          "raw": "ESI",
+          "provider_type": 512,
+          "components": [
+            {
+              "kind": "register",
+              "text": "ESI",
+              "value": "ESI",
+              "bit_width": 32
+            }
+          ],
+          "memory_addressing": "unavailable"
+        },
+        {
+          "index": 1,
+          "raw": "dword ptr [ECX + 0x4]",
+          "provider_type": 4194304,
+          "components": [
+            {
+              "kind": "register",
+              "text": "ECX",
+              "value": "ECX",
+              "bit_width": 32
+            },
+            {
+              "kind": "immediate",
+              "text": "0x4",
+              "value": "0x4",
+              "bit_width": 32
+            }
+          ],
+          "memory_addressing": "unavailable"
+        }
+      ],
+      "flow": {
+        "kind": "fallthrough",
+        "conditional": false,
+        "computed": false,
+        "direct_destinations": [],
+        "classification_evidence": [
+          {
+            "source": "ghidra-listing-flow-type",
+            "value": "FALL_THROUGH"
+          }
+        ]
+      },
+      "references": [],
+      "limitations": [
+        "Operand components are Ghidra Listing decoder tokens; effective memory base/index/displacement roles and per-instruction context mode are unavailable. The mode field is the program language variant."
+      ]
+    },
+    {
+      "evidence_id": "ev_bb5c4574bb90d148145886172fc3ac01e006a786a71184bfd4b127df0732e4cf",
+      "address": "0x578f34",
+      "status": "decoded",
+      "procedure": null,
+      "architecture": "x86:LE:32:default",
+      "mode": "default",
+      "bytes": "85f6",
+      "length": 2,
+      "mnemonic": "TEST",
+      "raw_disassembly": "TEST ESI,ESI",
+      "operands": [
+        {
+          "index": 0,
+          "raw": "ESI",
+          "provider_type": 512,
+          "components": [
+            {
+              "kind": "register",
+              "text": "ESI",
+              "value": "ESI",
+              "bit_width": 32
+            }
+          ],
+          "memory_addressing": "unavailable"
+        },
+        {
+          "index": 1,
+          "raw": "ESI",
+          "provider_type": 512,
+          "components": [
+            {
+              "kind": "register",
+              "text": "ESI",
+              "value": "ESI",
+              "bit_width": 32
+            }
+          ],
+          "memory_addressing": "unavailable"
+        }
+      ],
+      "flow": {
+        "kind": "fallthrough",
+        "conditional": false,
+        "computed": false,
+        "direct_destinations": [],
+        "classification_evidence": [
+          {
+            "source": "ghidra-listing-flow-type",
+            "value": "FALL_THROUGH"
+          }
+        ]
+      },
+      "references": [],
+      "limitations": [
+        "Operand components are Ghidra Listing decoder tokens; effective memory base/index/displacement roles and per-instruction context mode are unavailable. The mode field is the program language variant."
+      ]
+    },
+    {
+      "evidence_id": "ev_1143eba2a3eda2594549951a10a8baeda1aeda4627dced22d5362c2ae9f07e81",
+      "address": "0x578f36",
+      "status": "decoded",
+      "procedure": null,
+      "architecture": "x86:LE:32:default",
+      "mode": "default",
+      "bytes": "7415",
+      "length": 2,
+      "mnemonic": "JZ",
+      "raw_disassembly": "JZ 0x00578f4d",
+      "operands": [
+        {
+          "index": 0,
+          "raw": "0x00578f4d",
+          "provider_type": 8256,
+          "components": [
+            {
+              "kind": "address",
+              "text": "00578f4d",
+              "value": "0x578f4d",
+              "bit_width": null
+            }
+          ],
+          "memory_addressing": "unavailable"
+        }
+      ],
+      "flow": {
+        "kind": "jump",
+        "conditional": true,
+        "computed": false,
+        "direct_destinations": [
+          "0x578f4d"
+        ],
+        "classification_evidence": [
+          {
+            "source": "ghidra-listing-flow-type",
+            "value": "CONDITIONAL_JUMP"
+          }
+        ]
+      },
+      "references": [
+        {
+          "target_address": "0x578f4d",
+          "type": "CONDITIONAL_JUMP",
+          "call": false,
+          "jump": true,
+          "indirect": false,
+          "computed": false,
+          "operand_index": 0,
+          "source_address": "0x578f36",
+          "data": false,
+          "read": false,
+          "write": false,
+          "primary": true,
+          "provenance": "ghidra-reference-manager",
+          "source": "default"
+        }
+      ],
+      "limitations": [
+        "Operand components are Ghidra Listing decoder tokens; effective memory base/index/displacement roles and per-instruction context mode are unavailable. The mode field is the program language variant."
+      ]
+    },
+    {
+      "evidence_id": "ev_6674545c5f404e89b8067d55746ba60901733c1b59f8650b4fcac3b7b2db9b28",
+      "address": "0x578f38",
+      "status": "decoded",
+      "procedure": null,
+      "architecture": "x86:LE:32:default",
+      "mode": "default",
+      "bytes": "57",
+      "length": 1,
+      "mnemonic": "PUSH",
+      "raw_disassembly": "PUSH EDI",
+      "operands": [
+        {
+          "index": 0,
+          "raw": "EDI",
+          "provider_type": 512,
+          "components": [
+            {
+              "kind": "register",
+              "text": "EDI",
+              "value": "EDI",
+              "bit_width": 32
+            }
+          ],
+          "memory_addressing": "unavailable"
+        }
+      ],
+      "flow": {
+        "kind": "fallthrough",
+        "conditional": false,
+        "computed": false,
+        "direct_destinations": [],
+        "classification_evidence": [
+          {
+            "source": "ghidra-listing-flow-type",
+            "value": "FALL_THROUGH"
+          }
+        ]
+      },
+      "references": [],
+      "limitations": [
+        "Operand components are Ghidra Listing decoder tokens; effective memory base/index/displacement roles and per-instruction context mode are unavailable. The mode field is the program language variant."
+      ]
+    },
+    {
+      "evidence_id": "ev_f219eca6ba0c9902d75c28aafaedd0f81a3dcbf488c1d0bc6e605dfb62a0a8ee",
+      "address": "0x578f39",
+      "status": "decoded",
+      "procedure": null,
+      "architecture": "x86:LE:32:default",
+      "mode": "default",
+      "bytes": "8b7c240c",
+      "length": 4,
+      "mnemonic": "MOV",
+      "raw_disassembly": "MOV EDI,dword ptr [ESP + 0xc]",
+      "operands": [
+        {
+          "index": 0,
+          "raw": "EDI",
+          "provider_type": 512,
+          "components": [
+            {
+              "kind": "register",
+              "text": "EDI",
+              "value": "EDI",
+              "bit_width": 32
+            }
+          ],
+          "memory_addressing": "unavailable"
+        },
+        {
+          "index": 1,
+          "raw": "dword ptr [ESP + 0xc]",
+          "provider_type": 4194304,
+          "components": [
+            {
+              "kind": "register",
+              "text": "ESP",
+              "value": "ESP",
+              "bit_width": 32
+            },
+            {
+              "kind": "immediate",
+              "text": "0xc",
+              "value": "0xc",
+              "bit_width": 32
+            }
+          ],
+          "memory_addressing": "unavailable"
+        }
+      ],
+      "flow": {
+        "kind": "fallthrough",
+        "conditional": false,
+        "computed": false,
+        "direct_destinations": [],
+        "classification_evidence": [
+          {
+            "source": "ghidra-listing-flow-type",
+            "value": "FALL_THROUGH"
+          }
+        ]
+      },
+      "references": [],
+      "limitations": [
+        "Operand components are Ghidra Listing decoder tokens; effective memory base/index/displacement roles and per-instruction context mode are unavailable. The mode field is the program language variant."
+      ]
+    },
+    {
+      "evidence_id": "ev_4dd330d98c7f2190acc1959b96646111d079f43e96501c61909df63ecb7861ef",
+      "address": "0x578f3d",
+      "status": "decoded",
+      "procedure": null,
+      "architecture": "x86:LE:32:default",
+      "mode": "default",
+      "bytes": "8b06",
+      "length": 2,
+      "mnemonic": "MOV",
+      "raw_disassembly": "MOV EAX,dword ptr [ESI]",
+      "operands": [
+        {
+          "index": 0,
+          "raw": "EAX",
+          "provider_type": 512,
+          "components": [
+            {
+              "kind": "register",
+              "text": "EAX",
+              "value": "EAX",
+              "bit_width": 32
+            }
+          ],
+          "memory_addressing": "unavailable"
+        },
+        {
+          "index": 1,
+          "raw": "dword ptr [ESI]",
+          "provider_type": 4194304,
+          "components": [
+            {
+              "kind": "register",
+              "text": "ESI",
+              "value": "ESI",
+              "bit_width": 32
+            }
+          ],
+          "memory_addressing": "unavailable"
+        }
+      ],
+      "flow": {
+        "kind": "fallthrough",
+        "conditional": false,
+        "computed": false,
+        "direct_destinations": [],
+        "classification_evidence": [
+          {
+            "source": "ghidra-listing-flow-type",
+            "value": "FALL_THROUGH"
+          }
+        ]
+      },
+      "references": [],
+      "limitations": [
+        "Operand components are Ghidra Listing decoder tokens; effective memory base/index/displacement roles and per-instruction context mode are unavailable. The mode field is the program language variant."
+      ]
+    },
+    {
+      "evidence_id": "ev_1f026a6a7e883f4fc89c14004300d2b5c31ec80f0f44a3392efeaa0979b605fd",
+      "address": "0x578f3f",
+      "status": "decoded",
+      "procedure": null,
+      "architecture": "x86:LE:32:default",
+      "mode": "default",
+      "bytes": "57",
+      "length": 1,
+      "mnemonic": "PUSH",
+      "raw_disassembly": "PUSH EDI",
+      "operands": [
+        {
+          "index": 0,
+          "raw": "EDI",
+          "provider_type": 512,
+          "components": [
+            {
+              "kind": "register",
+              "text": "EDI",
+              "value": "EDI",
+              "bit_width": 32
+            }
+          ],
+          "memory_addressing": "unavailable"
+        }
+      ],
+      "flow": {
+        "kind": "fallthrough",
+        "conditional": false,
+        "computed": false,
+        "direct_destinations": [],
+        "classification_evidence": [
+          {
+            "source": "ghidra-listing-flow-type",
+            "value": "FALL_THROUGH"
+          }
+        ]
+      },
+      "references": [],
+      "limitations": [
+        "Operand components are Ghidra Listing decoder tokens; effective memory base/index/displacement roles and per-instruction context mode are unavailable. The mode field is the program language variant."
+      ]
+    },
+    {
+      "evidence_id": "ev_e0f0849a30fddbbbc752ee90c3f68c1c7c3119490fc6c2bf570efcc1f2e212b7",
+      "address": "0x578f40",
+      "status": "decoded",
+      "procedure": null,
+      "architecture": "x86:LE:32:default",
+      "mode": "default",
+      "bytes": "8bce",
+      "length": 2,
+      "mnemonic": "MOV",
+      "raw_disassembly": "MOV ECX,ESI",
+      "operands": [
+        {
+          "index": 0,
+          "raw": "ECX",
+          "provider_type": 512,
+          "components": [
+            {
+              "kind": "register",
+              "text": "ECX",
+              "value": "ECX",
+              "bit_width": 32
+            }
+          ],
+          "memory_addressing": "unavailable"
+        },
+        {
+          "index": 1,
+          "raw": "ESI",
+          "provider_type": 512,
+          "components": [
+            {
+              "kind": "register",
+              "text": "ESI",
+              "value": "ESI",
+              "bit_width": 32
+            }
+          ],
+          "memory_addressing": "unavailable"
+        }
+      ],
+      "flow": {
+        "kind": "fallthrough",
+        "conditional": false,
+        "computed": false,
+        "direct_destinations": [],
+        "classification_evidence": [
+          {
+            "source": "ghidra-listing-flow-type",
+            "value": "FALL_THROUGH"
+          }
+        ]
+      },
+      "references": [],
+      "limitations": [
+        "Operand components are Ghidra Listing decoder tokens; effective memory base/index/displacement roles and per-instruction context mode are unavailable. The mode field is the program language variant."
+      ]
+    },
+    {
+      "evidence_id": "ev_16e47a76659c05ae6e26dbf63f0bacb07f9c1bfa667cf665168ff8d256fb63fd",
+      "address": "0x578f42",
+      "status": "decoded",
+      "procedure": null,
+      "architecture": "x86:LE:32:default",
+      "mode": "default",
+      "bytes": "ff5030",
+      "length": 3,
+      "mnemonic": "CALL",
+      "raw_disassembly": "CALL dword ptr [EAX + 0x30]",
+      "operands": [
+        {
+          "index": 0,
+          "raw": "dword ptr [EAX + 0x30]",
+          "provider_type": 4194304,
+          "components": [
+            {
+              "kind": "register",
+              "text": "EAX",
+              "value": "EAX",
+              "bit_width": 32
+            },
+            {
+              "kind": "immediate",
+              "text": "0x30",
+              "value": "0x30",
+              "bit_width": 32
+            }
+          ],
+          "memory_addressing": "unavailable"
+        }
+      ],
+      "flow": {
+        "kind": "call",
+        "conditional": false,
+        "computed": true,
+        "direct_destinations": [],
+        "classification_evidence": [
+          {
+            "source": "ghidra-listing-flow-type",
+            "value": "COMPUTED_CALL"
+          }
+        ]
+      },
+      "references": [],
+      "limitations": [
+        "Operand components are Ghidra Listing decoder tokens; effective memory base/index/displacement roles and per-instruction context mode are unavailable. The mode field is the program language variant."
+      ]
+    },
+    {
+      "evidence_id": "ev_837e9847069730b86dc8a7fdd95cbb6deccaf873c3e21e8b156891655ef1f27b",
+      "address": "0x578f45",
+      "status": "decoded",
+      "procedure": null,
+      "architecture": "x86:LE:32:default",
+      "mode": "default",
+      "bytes": "8b7608",
+      "length": 3,
+      "mnemonic": "MOV",
+      "raw_disassembly": "MOV ESI,dword ptr [ESI + 0x8]",
+      "operands": [
+        {
+          "index": 0,
+          "raw": "ESI",
+          "provider_type": 512,
+          "components": [
+            {
+              "kind": "register",
+              "text": "ESI",
+              "value": "ESI",
+              "bit_width": 32
+            }
+          ],
+          "memory_addressing": "unavailable"
+        },
+        {
+          "index": 1,
+          "raw": "dword ptr [ESI + 0x8]",
+          "provider_type": 4194304,
+          "components": [
+            {
+              "kind": "register",
+              "text": "ESI",
+              "value": "ESI",
+              "bit_width": 32
+            },
+            {
+              "kind": "immediate",
+              "text": "0x8",
+              "value": "0x8",
+              "bit_width": 32
+            }
+          ],
+          "memory_addressing": "unavailable"
+        }
+      ],
+      "flow": {
+        "kind": "fallthrough",
+        "conditional": false,
+        "computed": false,
+        "direct_destinations": [],
+        "classification_evidence": [
+          {
+            "source": "ghidra-listing-flow-type",
+            "value": "FALL_THROUGH"
+          }
+        ]
+      },
+      "references": [],
+      "limitations": [
+        "Operand components are Ghidra Listing decoder tokens; effective memory base/index/displacement roles and per-instruction context mode are unavailable. The mode field is the program language variant."
+      ]
+    },
+    {
+      "evidence_id": "ev_cccdb4a82e1ca3855aaae96eb67e3fa9acf6136c5d16bbb5dc11d7e442c92a8a",
+      "address": "0x578f48",
+      "status": "decoded",
+      "procedure": null,
+      "architecture": "x86:LE:32:default",
+      "mode": "default",
+      "bytes": "85f6",
+      "length": 2,
+      "mnemonic": "TEST",
+      "raw_disassembly": "TEST ESI,ESI",
+      "operands": [
+        {
+          "index": 0,
+          "raw": "ESI",
+          "provider_type": 512,
+          "components": [
+            {
+              "kind": "register",
+              "text": "ESI",
+              "value": "ESI",
+              "bit_width": 32
+            }
+          ],
+          "memory_addressing": "unavailable"
+        },
+        {
+          "index": 1,
+          "raw": "ESI",
+          "provider_type": 512,
+          "components": [
+            {
+              "kind": "register",
+              "text": "ESI",
+              "value": "ESI",
+              "bit_width": 32
+            }
+          ],
+          "memory_addressing": "unavailable"
+        }
+      ],
+      "flow": {
+        "kind": "fallthrough",
+        "conditional": false,
+        "computed": false,
+        "direct_destinations": [],
+        "classification_evidence": [
+          {
+            "source": "ghidra-listing-flow-type",
+            "value": "FALL_THROUGH"
+          }
+        ]
+      },
+      "references": [],
+      "limitations": [
+        "Operand components are Ghidra Listing decoder tokens; effective memory base/index/displacement roles and per-instruction context mode are unavailable. The mode field is the program language variant."
+      ]
+    },
+    {
+      "evidence_id": "ev_85d5560d41188aac2fec03142410b7caea35d87c623f116ec1cc79ade8764021",
+      "address": "0x578f4a",
+      "status": "decoded",
+      "procedure": null,
+      "architecture": "x86:LE:32:default",
+      "mode": "default",
+      "bytes": "75f1",
+      "length": 2,
+      "mnemonic": "JNZ",
+      "raw_disassembly": "JNZ 0x00578f3d",
+      "operands": [
+        {
+          "index": 0,
+          "raw": "0x00578f3d",
+          "provider_type": 8256,
+          "components": [
+            {
+              "kind": "address",
+              "text": "00578f3d",
+              "value": "0x578f3d",
+              "bit_width": null
+            }
+          ],
+          "memory_addressing": "unavailable"
+        }
+      ],
+      "flow": {
+        "kind": "jump",
+        "conditional": true,
+        "computed": false,
+        "direct_destinations": [
+          "0x578f3d"
+        ],
+        "classification_evidence": [
+          {
+            "source": "ghidra-listing-flow-type",
+            "value": "CONDITIONAL_JUMP"
+          }
+        ]
+      },
+      "references": [
+        {
+          "target_address": "0x578f3d",
+          "type": "CONDITIONAL_JUMP",
+          "call": false,
+          "jump": true,
+          "indirect": false,
+          "computed": false,
+          "operand_index": 0,
+          "source_address": "0x578f4a",
+          "data": false,
+          "read": false,
+          "write": false,
+          "primary": true,
+          "provenance": "ghidra-reference-manager",
+          "source": "default"
+        }
+      ],
+      "limitations": [
+        "Operand components are Ghidra Listing decoder tokens; effective memory base/index/displacement roles and per-instruction context mode are unavailable. The mode field is the program language variant."
+      ]
+    },
+    {
+      "evidence_id": "ev_29d53eb96ef3915cc6b8ce0dd0b397c8160ea15032e5fdf0f46d541919b13d51",
+      "address": "0x578f4c",
+      "status": "decoded",
+      "procedure": null,
+      "architecture": "x86:LE:32:default",
+      "mode": "default",
+      "bytes": "5f",
+      "length": 1,
+      "mnemonic": "POP",
+      "raw_disassembly": "POP EDI",
+      "operands": [
+        {
+          "index": 0,
+          "raw": "EDI",
+          "provider_type": 512,
+          "components": [
+            {
+              "kind": "register",
+              "text": "EDI",
+              "value": "EDI",
+              "bit_width": 32
+            }
+          ],
+          "memory_addressing": "unavailable"
+        }
+      ],
+      "flow": {
+        "kind": "fallthrough",
+        "conditional": false,
+        "computed": false,
+        "direct_destinations": [],
+        "classification_evidence": [
+          {
+            "source": "ghidra-listing-flow-type",
+            "value": "FALL_THROUGH"
+          }
+        ]
+      },
+      "references": [],
+      "limitations": [
+        "Operand components are Ghidra Listing decoder tokens; effective memory base/index/displacement roles and per-instruction context mode are unavailable. The mode field is the program language variant."
+      ]
+    },
+    {
+      "evidence_id": "ev_89daa2a95e9ea960e569a89fb71b2ce19344c7dbdeffaa2d8c23ebdb6d4b3f76",
+      "address": "0x578f4d",
+      "status": "decoded",
+      "procedure": null,
+      "architecture": "x86:LE:32:default",
+      "mode": "default",
+      "bytes": "5e",
+      "length": 1,
+      "mnemonic": "POP",
+      "raw_disassembly": "POP ESI",
+      "operands": [
+        {
+          "index": 0,
+          "raw": "ESI",
+          "provider_type": 512,
+          "components": [
+            {
+              "kind": "register",
+              "text": "ESI",
+              "value": "ESI",
+              "bit_width": 32
+            }
+          ],
+          "memory_addressing": "unavailable"
+        }
+      ],
+      "flow": {
+        "kind": "fallthrough",
+        "conditional": false,
+        "computed": false,
+        "direct_destinations": [],
+        "classification_evidence": [
+          {
+            "source": "ghidra-listing-flow-type",
+            "value": "FALL_THROUGH"
+          }
+        ]
+      },
+      "references": [],
+      "limitations": [
+        "Operand components are Ghidra Listing decoder tokens; effective memory base/index/displacement roles and per-instruction context mode are unavailable. The mode field is the program language variant."
+      ]
+    },
+    {
+      "evidence_id": "ev_4bbe7cfe2fe06e267e126c0cc150faf2a87ceba7497aa14b2e04b61150bae42a",
+      "address": "0x578f4e",
+      "status": "decoded",
+      "procedure": null,
+      "architecture": "x86:LE:32:default",
+      "mode": "default",
+      "bytes": "c20400",
+      "length": 3,
+      "mnemonic": "RET",
+      "raw_disassembly": "RET 0x4",
+      "operands": [
+        {
+          "index": 0,
+          "raw": "0x4",
+          "provider_type": 16384,
+          "components": [
+            {
+              "kind": "immediate",
+              "text": "0x4",
+              "value": "0x4",
+              "bit_width": 16
+            }
+          ],
+          "memory_addressing": "unavailable"
+        }
+      ],
+      "flow": {
+        "kind": "return",
+        "conditional": false,
+        "computed": false,
+        "direct_destinations": [],
+        "classification_evidence": [
+          {
+            "source": "ghidra-listing-flow-type",
+            "value": "TERMINATOR"
+          },
+          {
+            "source": "ghidra-instruction-pcode",
+            "value": "RETURN"
+          }
+        ]
+      },
+      "references": [],
+      "limitations": [
+        "Operand components are Ghidra Listing decoder tokens; effective memory base/index/displacement roles and per-instruction context mode are unavailable. The mode field is the program language variant."
+      ]
+    }
+  ]
+}

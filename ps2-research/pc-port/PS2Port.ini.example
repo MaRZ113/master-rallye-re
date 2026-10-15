@@ -86,3 +86,11 @@ BrakeGlowMode=0
 BrakeGlowVersion=1
 BrakeGlowAsset=PS2BrakeGlow.gxi
 BrakeGlowDiagnostics=0
+
+; First authentic X-Trail COMPLETE pilot; requires verified local converted asset.
+; Native current owner + all 24 source records must pass before replacement.
+; Keep ReflectionMode=4 for the admitted mixed-source frontend material pilot.
+FrontendModelMode=0
+FrontendModelVersion=1
+FrontendModelAsset=XTRAIL-COMPLETE.ps2model
+FrontendModelDiagnostics=0

@@ -1,0 +1,189 @@
+{
+  "process": {
+    "machine": "i386",
+    "format": "PE32",
+    "image_base": 4194304,
+    "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "bytes": 3121214,
+    "process_creation_filetime": 134364567733970455,
+    "pid": 53228
+  },
+  "packet": "0x2b45f88",
+  "instance": "0x2ac22d8",
+  "model": "0x2a9db50",
+  "root": "0x210778c8",
+  "children": [
+    {
+      "node": "0x1f177d20",
+      "vtable": "0x692364",
+      "dispatch": "0x576910",
+      "next": "0x1f177118",
+      "is_current_emitter_mesh": true
+    },
+    {
+      "node": "0x1f177118",
+      "vtable": "0x692364",
+      "dispatch": "0x576910",
+      "next": "0x1f177068",
+      "is_current_emitter_mesh": false
+    },
+    {
+      "node": "0x1f177068",
+      "vtable": "0x692364",
+      "dispatch": "0x576910",
+      "next": "0x1f177900",
+      "is_current_emitter_mesh": false
+    },
+    {
+      "node": "0x1f177900",
+      "vtable": "0x692364",
+      "dispatch": "0x576910",
+      "next": "0x1f177bc0",
+      "is_current_emitter_mesh": false
+    },
+    {
+      "node": "0x1f177bc0",
+      "vtable": "0x692364",
+      "dispatch": "0x576910",
+      "next": "0x1f177d78",
+      "is_current_emitter_mesh": false
+    },
+    {
+      "node": "0x1f177d78",
+      "vtable": "0x692364",
+      "dispatch": "0x576910",
+      "next": "0x1f177dd0",
+      "is_current_emitter_mesh": false
+    },
+    {
+      "node": "0x1f177dd0",
+      "vtable": "0x692364",
+      "dispatch": "0x576910",
+      "next": "0x1f177cc8",
+      "is_current_emitter_mesh": false
+    },
+    {
+      "node": "0x1f177cc8",
+      "vtable": "0x692364",
+      "dispatch": "0x576910",
+      "next": "0x1f177e80",
+      "is_current_emitter_mesh": false
+    },
+    {
+      "node": "0x1f177e80",
+      "vtable": "0x692364",
+      "dispatch": "0x576910",
+      "next": "0x1f177f88",
+      "is_current_emitter_mesh": false
+    },
+    {
+      "node": "0x1f177f88",
+      "vtable": "0x692364",
+      "dispatch": "0x576910",
+      "next": "0x1f178038",
+      "is_current_emitter_mesh": false
+    },
+    {
+      "node": "0x1f178038",
+      "vtable": "0x692364",
+      "dispatch": "0x576910",
+      "next": "0x1f1777f8",
+      "is_current_emitter_mesh": false
+    },
+    {
+      "node": "0x1f1777f8",
+      "vtable": "0x692364",
+      "dispatch": "0x576910",
+      "next": "0x1f177850",
+      "is_current_emitter_mesh": false
+    },
+    {
+      "node": "0x1f177850",
+      "vtable": "0x692364",
+      "dispatch": "0x576910",
+      "next": "0x1f177f30",
+      "is_current_emitter_mesh": false
+    },
+    {
+      "node": "0x1f177f30",
+      "vtable": "0x692364",
+      "dispatch": "0x576910",
+      "next": "0x1f177958",
+      "is_current_emitter_mesh": false
+    },
+    {
+      "node": "0x1f177958",
+      "vtable": "0x692364",
+      "dispatch": "0x576910",
+      "next": "0x1f177748",
+      "is_current_emitter_mesh": false
+    },
+    {
+      "node": "0x1f177748",
+      "vtable": "0x692364",
+      "dispatch": "0x576910",
+      "next": "0x1f1778a8",
+      "is_current_emitter_mesh": false
+    },
+    {
+      "node": "0x1f1778a8",
+      "vtable": "0x692364",
+      "dispatch": "0x576910",
+      "next": "0x1f177c18",
+      "is_current_emitter_mesh": false
+    },
+    {
+      "node": "0x1f177c18",
+      "vtable": "0x692364",
+      "dispatch": "0x576910",
+      "next": "0x1f1779b0",
+      "is_current_emitter_mesh": false
+    },
+    {
+      "node": "0x1f1779b0",
+      "vtable": "0x692364",
+      "dispatch": "0x576910",
+      "next": "0x1f177a08",
+      "is_current_emitter_mesh": false
+    },
+    {
+      "node": "0x1f177a08",
+      "vtable": "0x692364",
+      "dispatch": "0x576910",
+      "next": "0x1f177640",
+      "is_current_emitter_mesh": false
+    },
+    {
+      "node": "0x1f177640",
+      "vtable": "0x692364",
+      "dispatch": "0x576910",
+      "next": "0x1f1776f0",
+      "is_current_emitter_mesh": false
+    },
+    {
+      "node": "0x1f1776f0",
+      "vtable": "0x692364",
+      "dispatch": "0x576910",
+      "next": "0x1f177a60",
+      "is_current_emitter_mesh": false
+    },
+    {
+      "node": "0x1f177a60",
+      "vtable": "0x692364",
+      "dispatch": "0x576910",
+      "next": "0x1f177b68",
+      "is_current_emitter_mesh": false
+    },
+    {
+      "node": "0x1f177b68",
+      "vtable": "0x692364",
+      "dispatch": "0x576910",
+      "next": "0x0",
+      "is_current_emitter_mesh": false
+    }
+  ],
+  "truncated": false,
+  "bytes_read": 4408,
+  "source_mesh_in_dispatch_list": true,
+  "grade": "CURRENT_PAUSED_DISPATCH_OWNERSHIP"
+}
