@@ -100,3 +100,6 @@ RacePS2ModelMode=0
 RacePS2ModelVersion=1
 RacePS2ModelAsset=XTRAIL-CAR.ps2model
 RacePS2ModelDiagnostics=0
+
+; Optional exact X-Trail static lamps + glass at their native submission boundaries.
+RacePS2ModelParts=0

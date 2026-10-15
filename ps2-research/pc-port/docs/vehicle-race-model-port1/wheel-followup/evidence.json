@@ -1,0 +1,975 @@
+{
+  "frame": 6057,
+  "pid": 44168,
+  "frame_sha256": "5d4f3dd7ca3c2dc218cf3ddc08824e6f5d97e3a22871eb5a7cd76cc662b21610",
+  "pc_source_sha256": "f05ac990b6ea2312f2a2d552ec886aded4c68a8d8fac027f99e1fc7b0826779c",
+  "pc_source_records": [
+    {
+      "record": 0,
+      "path": "0",
+      "vertex_base": 0,
+      "vertices": 54,
+      "index_start": 0,
+      "triangles": 72,
+      "slots": [
+        "mercwheel64-tga",
+        "rubber-tga",
+        "Null"
+      ],
+      "signature": "2f4938e041122fb29ecc25c7ebcf53a535c33bcacc1e49268e158722677af698"
+    },
+    {
+      "record": 1,
+      "path": "1",
+      "vertex_base": 54,
+      "vertices": 38,
+      "index_start": 216,
+      "triangles": 36,
+      "slots": [
+        "merctread-tga",
+        "rubber-tga",
+        "Null"
+      ],
+      "signature": "a57e255404ce0f61f76b3985a44d870f4eddfe03222760c7f36a9380894cd875"
+    },
+    {
+      "record": 2,
+      "path": "2",
+      "vertex_base": 92,
+      "vertices": 37,
+      "index_start": 324,
+      "triangles": 54,
+      "slots": [
+        "mercwheel643-tga",
+        "rubber-tga",
+        "Null"
+      ],
+      "signature": "a7066b168c5330f1a2458fc08e671ec06ce634d2936983a09e06238fee35778d"
+    },
+    {
+      "record": 3,
+      "path": "3",
+      "vertex_base": 129,
+      "vertices": 91,
+      "index_start": 486,
+      "triangles": 90,
+      "slots": [
+        "xwheel-tga",
+        "chrome-tga",
+        "Null"
+      ],
+      "signature": "283ca0c3a366146405df4d3fc18755abbe09376d11a7c326ebd25979c4b06c35"
+    }
+  ],
+  "pc_bounds": [
+    [
+      -0.14525257050991058,
+      -0.3810683488845825,
+      -0.3871101140975952
+    ],
+    [
+      0.14525257050991058,
+      0.38138970732688904,
+      0.3871101140975952
+    ]
+  ],
+  "ps2_source_sha256": "d53360eab52761fdadf1a4d5a2c87196be7674fbbb603c41cd4726a4b303773c",
+  "ps2_bounds": [
+    [
+      -0.14525257050991058,
+      -0.3810683488845825,
+      -0.3871101140975952
+    ],
+    [
+      0.14525257050991058,
+      0.38138970732688904,
+      0.3871101140975952
+    ]
+  ],
+  "ps2_vertices": 300,
+  "ps2_meshes": [
+    {
+      "path": "root.0",
+      "faces": 126,
+      "signature": "469a8a446e6f427f5fd41fb3c83ee17e7e25f248e18cc6f5a1dd25c6078fe151"
+    },
+    {
+      "path": "root.1",
+      "faces": 36,
+      "signature": "a57e255404ce0f61f76b3985a44d870f4eddfe03222760c7f36a9380894cd875"
+    },
+    {
+      "path": "root.2",
+      "faces": 90,
+      "signature": "283ca0c3a366146405df4d3fc18755abbe09376d11a7c326ebd25979c4b06c35"
+    }
+  ],
+  "pc_records_0_plus_2_signature": "469a8a446e6f427f5fd41fb3c83ee17e7e25f248e18cc6f5a1dd25c6078fe151",
+  "observations": [
+    {
+      "draw": 336,
+      "sequence": 996,
+      "source_record": 0,
+      "arguments": [
+        4,
+        11941,
+        54,
+        36840,
+        72,
+        0,
+        0,
+        0
+      ],
+      "vertex_relocation": 11941,
+      "index_relocation": 36840,
+      "world": [
+        -0.950392544,
+        0.124137074,
+        0.285209298,
+        0,
+        0.0313122645,
+        -0.874075532,
+        0.484781086,
+        0,
+        0.309473693,
+        0.469662845,
+        0.826827586,
+        0,
+        238.207764,
+        29.423563,
+        208.457275,
+        1
+      ],
+      "axis_lengths": [
+        1.0000001722488483,
+        1.0000005974460917,
+        1.0000005058014418
+      ],
+      "transform_track": 38,
+      "stream": {
+        "pointer": 491845184,
+        "stride": 32,
+        "last_creation_serial": 675
+      },
+      "indices": {
+        "pointer": 501301024,
+        "base": 0,
+        "last_creation_serial": 674
+      },
+      "fvf": 274,
+      "caller_rva": 1536126,
+      "identity_status": "LAYOUT_AND_TEMPORAL_OBSERVATION_NOT_UPLOAD_HASH_OR_QUEUE_OWNER_PROOF"
+    },
+    {
+      "draw": 337,
+      "sequence": 998,
+      "source_record": 0,
+      "arguments": [
+        4,
+        11941,
+        54,
+        36840,
+        72,
+        0,
+        0,
+        0
+      ],
+      "vertex_relocation": 11941,
+      "index_relocation": 36840,
+      "world": [
+        0.953910828,
+        -0.0897552297,
+        -0.286353976,
+        0,
+        -0.16375491,
+        0.643942654,
+        -0.7473436,
+        0,
+        0.251473486,
+        0.759790838,
+        0.599565864,
+        0,
+        236.302048,
+        29.6268177,
+        209.029297,
+        1
+      ],
+      "axis_lengths": [
+        1.0000002343025496,
+        1.0000001343253069,
+        1.0000001284718922
+      ],
+      "transform_track": 6,
+      "stream": {
+        "pointer": 491845184,
+        "stride": 32,
+        "last_creation_serial": 675
+      },
+      "indices": {
+        "pointer": 501301024,
+        "base": 0,
+        "last_creation_serial": 674
+      },
+      "fvf": 274,
+      "caller_rva": 1536126,
+      "identity_status": "LAYOUT_AND_TEMPORAL_OBSERVATION_NOT_UPLOAD_HASH_OR_QUEUE_OWNER_PROOF"
+    },
+    {
+      "draw": 338,
+      "sequence": 1000,
+      "source_record": 0,
+      "arguments": [
+        4,
+        11941,
+        54,
+        36840,
+        72,
+        0,
+        0,
+        0
+      ],
+      "vertex_relocation": 11941,
+      "index_relocation": 36840,
+      "world": [
+        0.959484816,
+        -0.0811086372,
+        -0.269834042,
+        0,
+        -0.25375247,
+        0.167512655,
+        -0.952653706,
+        0,
+        0.122469008,
+        0.982527852,
+        0.140144378,
+        0,
+        235.510864,
+        29.6207027,
+        206.395569,
+        1
+      ],
+      "axis_lengths": [
+        1.0000000666925242,
+        0.9999999445858907,
+        1.0000000422806214
+      ],
+      "transform_track": 5,
+      "stream": {
+        "pointer": 491845184,
+        "stride": 32,
+        "last_creation_serial": 675
+      },
+      "indices": {
+        "pointer": 501301024,
+        "base": 0,
+        "last_creation_serial": 674
+      },
+      "fvf": 274,
+      "caller_rva": 1536126,
+      "identity_status": "LAYOUT_AND_TEMPORAL_OBSERVATION_NOT_UPLOAD_HASH_OR_QUEUE_OWNER_PROOF"
+    },
+    {
+      "draw": 339,
+      "sequence": 1002,
+      "source_record": 0,
+      "arguments": [
+        4,
+        11941,
+        54,
+        36840,
+        72,
+        0,
+        0,
+        0
+      ],
+      "vertex_relocation": 11941,
+      "index_relocation": 36840,
+      "world": [
+        -0.944486082,
+        0.130233079,
+        0.301638544,
+        0,
+        -0.257839799,
+        0.275205642,
+        -0.926164627,
+        0,
+        -0.203629866,
+        -0.952523828,
+        -0.226348579,
+        0,
+        237.417572,
+        29.4268799,
+        205.823242,
+        1
+      ],
+      "axis_lengths": [
+        1.0000002125919627,
+        1.0000002118214983,
+        1.0000002222251108
+      ],
+      "transform_track": 49,
+      "stream": {
+        "pointer": 491845184,
+        "stride": 32,
+        "last_creation_serial": 675
+      },
+      "indices": {
+        "pointer": 501301024,
+        "base": 0,
+        "last_creation_serial": 674
+      },
+      "fvf": 274,
+      "caller_rva": 1536126,
+      "identity_status": "LAYOUT_AND_TEMPORAL_OBSERVATION_NOT_UPLOAD_HASH_OR_QUEUE_OWNER_PROOF"
+    },
+    {
+      "draw": 340,
+      "sequence": 1005,
+      "source_record": 1,
+      "arguments": [
+        4,
+        11995,
+        38,
+        37056,
+        36,
+        0,
+        0,
+        0
+      ],
+      "vertex_relocation": 11941,
+      "index_relocation": 36840,
+      "world": [
+        0.959484816,
+        -0.0811086372,
+        -0.269834042,
+        0,
+        -0.25375247,
+        0.167512655,
+        -0.952653706,
+        0,
+        0.122469008,
+        0.982527852,
+        0.140144378,
+        0,
+        235.510864,
+        29.6207027,
+        206.395569,
+        1
+      ],
+      "axis_lengths": [
+        1.0000000666925242,
+        0.9999999445858907,
+        1.0000000422806214
+      ],
+      "transform_track": 5,
+      "stream": {
+        "pointer": 491845184,
+        "stride": 32,
+        "last_creation_serial": 675
+      },
+      "indices": {
+        "pointer": 501301024,
+        "base": 0,
+        "last_creation_serial": 674
+      },
+      "fvf": 274,
+      "caller_rva": 1536126,
+      "identity_status": "LAYOUT_AND_TEMPORAL_OBSERVATION_NOT_UPLOAD_HASH_OR_QUEUE_OWNER_PROOF"
+    },
+    {
+      "draw": 341,
+      "sequence": 1007,
+      "source_record": 1,
+      "arguments": [
+        4,
+        11995,
+        38,
+        37056,
+        36,
+        0,
+        0,
+        0
+      ],
+      "vertex_relocation": 11941,
+      "index_relocation": 36840,
+      "world": [
+        -0.944486082,
+        0.130233079,
+        0.301638544,
+        0,
+        -0.257839799,
+        0.275205642,
+        -0.926164627,
+        0,
+        -0.203629866,
+        -0.952523828,
+        -0.226348579,
+        0,
+        237.417572,
+        29.4268799,
+        205.823242,
+        1
+      ],
+      "axis_lengths": [
+        1.0000002125919627,
+        1.0000002118214983,
+        1.0000002222251108
+      ],
+      "transform_track": 49,
+      "stream": {
+        "pointer": 491845184,
+        "stride": 32,
+        "last_creation_serial": 675
+      },
+      "indices": {
+        "pointer": 501301024,
+        "base": 0,
+        "last_creation_serial": 674
+      },
+      "fvf": 274,
+      "caller_rva": 1536126,
+      "identity_status": "LAYOUT_AND_TEMPORAL_OBSERVATION_NOT_UPLOAD_HASH_OR_QUEUE_OWNER_PROOF"
+    },
+    {
+      "draw": 342,
+      "sequence": 1009,
+      "source_record": 1,
+      "arguments": [
+        4,
+        11995,
+        38,
+        37056,
+        36,
+        0,
+        0,
+        0
+      ],
+      "vertex_relocation": 11941,
+      "index_relocation": 36840,
+      "world": [
+        -0.950392544,
+        0.124137074,
+        0.285209298,
+        0,
+        0.0313122645,
+        -0.874075532,
+        0.484781086,
+        0,
+        0.309473693,
+        0.469662845,
+        0.826827586,
+        0,
+        238.207764,
+        29.423563,
+        208.457275,
+        1
+      ],
+      "axis_lengths": [
+        1.0000001722488483,
+        1.0000005974460917,
+        1.0000005058014418
+      ],
+      "transform_track": 38,
+      "stream": {
+        "pointer": 491845184,
+        "stride": 32,
+        "last_creation_serial": 675
+      },
+      "indices": {
+        "pointer": 501301024,
+        "base": 0,
+        "last_creation_serial": 674
+      },
+      "fvf": 274,
+      "caller_rva": 1536126,
+      "identity_status": "LAYOUT_AND_TEMPORAL_OBSERVATION_NOT_UPLOAD_HASH_OR_QUEUE_OWNER_PROOF"
+    },
+    {
+      "draw": 343,
+      "sequence": 1011,
+      "source_record": 1,
+      "arguments": [
+        4,
+        11995,
+        38,
+        37056,
+        36,
+        0,
+        0,
+        0
+      ],
+      "vertex_relocation": 11941,
+      "index_relocation": 36840,
+      "world": [
+        0.953910828,
+        -0.0897552297,
+        -0.286353976,
+        0,
+        -0.16375491,
+        0.643942654,
+        -0.7473436,
+        0,
+        0.251473486,
+        0.759790838,
+        0.599565864,
+        0,
+        236.302048,
+        29.6268177,
+        209.029297,
+        1
+      ],
+      "axis_lengths": [
+        1.0000002343025496,
+        1.0000001343253069,
+        1.0000001284718922
+      ],
+      "transform_track": 6,
+      "stream": {
+        "pointer": 491845184,
+        "stride": 32,
+        "last_creation_serial": 675
+      },
+      "indices": {
+        "pointer": 501301024,
+        "base": 0,
+        "last_creation_serial": 674
+      },
+      "fvf": 274,
+      "caller_rva": 1536126,
+      "identity_status": "LAYOUT_AND_TEMPORAL_OBSERVATION_NOT_UPLOAD_HASH_OR_QUEUE_OWNER_PROOF"
+    },
+    {
+      "draw": 344,
+      "sequence": 1014,
+      "source_record": 2,
+      "arguments": [
+        4,
+        12033,
+        37,
+        37164,
+        54,
+        0,
+        0,
+        0
+      ],
+      "vertex_relocation": 11941,
+      "index_relocation": 36840,
+      "world": [
+        0.959484816,
+        -0.0811086372,
+        -0.269834042,
+        0,
+        -0.25375247,
+        0.167512655,
+        -0.952653706,
+        0,
+        0.122469008,
+        0.982527852,
+        0.140144378,
+        0,
+        235.510864,
+        29.6207027,
+        206.395569,
+        1
+      ],
+      "axis_lengths": [
+        1.0000000666925242,
+        0.9999999445858907,
+        1.0000000422806214
+      ],
+      "transform_track": 5,
+      "stream": {
+        "pointer": 491845184,
+        "stride": 32,
+        "last_creation_serial": 675
+      },
+      "indices": {
+        "pointer": 501301024,
+        "base": 0,
+        "last_creation_serial": 674
+      },
+      "fvf": 274,
+      "caller_rva": 1536126,
+      "identity_status": "LAYOUT_AND_TEMPORAL_OBSERVATION_NOT_UPLOAD_HASH_OR_QUEUE_OWNER_PROOF"
+    },
+    {
+      "draw": 345,
+      "sequence": 1016,
+      "source_record": 2,
+      "arguments": [
+        4,
+        12033,
+        37,
+        37164,
+        54,
+        0,
+        0,
+        0
+      ],
+      "vertex_relocation": 11941,
+      "index_relocation": 36840,
+      "world": [
+        -0.944486082,
+        0.130233079,
+        0.301638544,
+        0,
+        -0.257839799,
+        0.275205642,
+        -0.926164627,
+        0,
+        -0.203629866,
+        -0.952523828,
+        -0.226348579,
+        0,
+        237.417572,
+        29.4268799,
+        205.823242,
+        1
+      ],
+      "axis_lengths": [
+        1.0000002125919627,
+        1.0000002118214983,
+        1.0000002222251108
+      ],
+      "transform_track": 49,
+      "stream": {
+        "pointer": 491845184,
+        "stride": 32,
+        "last_creation_serial": 675
+      },
+      "indices": {
+        "pointer": 501301024,
+        "base": 0,
+        "last_creation_serial": 674
+      },
+      "fvf": 274,
+      "caller_rva": 1536126,
+      "identity_status": "LAYOUT_AND_TEMPORAL_OBSERVATION_NOT_UPLOAD_HASH_OR_QUEUE_OWNER_PROOF"
+    },
+    {
+      "draw": 346,
+      "sequence": 1018,
+      "source_record": 2,
+      "arguments": [
+        4,
+        12033,
+        37,
+        37164,
+        54,
+        0,
+        0,
+        0
+      ],
+      "vertex_relocation": 11941,
+      "index_relocation": 36840,
+      "world": [
+        -0.950392544,
+        0.124137074,
+        0.285209298,
+        0,
+        0.0313122645,
+        -0.874075532,
+        0.484781086,
+        0,
+        0.309473693,
+        0.469662845,
+        0.826827586,
+        0,
+        238.207764,
+        29.423563,
+        208.457275,
+        1
+      ],
+      "axis_lengths": [
+        1.0000001722488483,
+        1.0000005974460917,
+        1.0000005058014418
+      ],
+      "transform_track": 38,
+      "stream": {
+        "pointer": 491845184,
+        "stride": 32,
+        "last_creation_serial": 675
+      },
+      "indices": {
+        "pointer": 501301024,
+        "base": 0,
+        "last_creation_serial": 674
+      },
+      "fvf": 274,
+      "caller_rva": 1536126,
+      "identity_status": "LAYOUT_AND_TEMPORAL_OBSERVATION_NOT_UPLOAD_HASH_OR_QUEUE_OWNER_PROOF"
+    },
+    {
+      "draw": 347,
+      "sequence": 1020,
+      "source_record": 2,
+      "arguments": [
+        4,
+        12033,
+        37,
+        37164,
+        54,
+        0,
+        0,
+        0
+      ],
+      "vertex_relocation": 11941,
+      "index_relocation": 36840,
+      "world": [
+        0.953910828,
+        -0.0897552297,
+        -0.286353976,
+        0,
+        -0.16375491,
+        0.643942654,
+        -0.7473436,
+        0,
+        0.251473486,
+        0.759790838,
+        0.599565864,
+        0,
+        236.302048,
+        29.6268177,
+        209.029297,
+        1
+      ],
+      "axis_lengths": [
+        1.0000002343025496,
+        1.0000001343253069,
+        1.0000001284718922
+      ],
+      "transform_track": 6,
+      "stream": {
+        "pointer": 491845184,
+        "stride": 32,
+        "last_creation_serial": 675
+      },
+      "indices": {
+        "pointer": 501301024,
+        "base": 0,
+        "last_creation_serial": 674
+      },
+      "fvf": 274,
+      "caller_rva": 1536126,
+      "identity_status": "LAYOUT_AND_TEMPORAL_OBSERVATION_NOT_UPLOAD_HASH_OR_QUEUE_OWNER_PROOF"
+    },
+    {
+      "draw": 348,
+      "sequence": 1024,
+      "source_record": 3,
+      "arguments": [
+        4,
+        12070,
+        91,
+        37326,
+        90,
+        0,
+        0,
+        0
+      ],
+      "vertex_relocation": 11941,
+      "index_relocation": 36840,
+      "world": [
+        0.959484816,
+        -0.0811086372,
+        -0.269834042,
+        0,
+        -0.25375247,
+        0.167512655,
+        -0.952653706,
+        0,
+        0.122469008,
+        0.982527852,
+        0.140144378,
+        0,
+        235.510864,
+        29.6207027,
+        206.395569,
+        1
+      ],
+      "axis_lengths": [
+        1.0000000666925242,
+        0.9999999445858907,
+        1.0000000422806214
+      ],
+      "transform_track": 5,
+      "stream": {
+        "pointer": 491845184,
+        "stride": 32,
+        "last_creation_serial": 675
+      },
+      "indices": {
+        "pointer": 501301024,
+        "base": 0,
+        "last_creation_serial": 674
+      },
+      "fvf": 274,
+      "caller_rva": 1536126,
+      "identity_status": "LAYOUT_AND_TEMPORAL_OBSERVATION_NOT_UPLOAD_HASH_OR_QUEUE_OWNER_PROOF"
+    },
+    {
+      "draw": 349,
+      "sequence": 1026,
+      "source_record": 3,
+      "arguments": [
+        4,
+        12070,
+        91,
+        37326,
+        90,
+        0,
+        0,
+        0
+      ],
+      "vertex_relocation": 11941,
+      "index_relocation": 36840,
+      "world": [
+        -0.944486082,
+        0.130233079,
+        0.301638544,
+        0,
+        -0.257839799,
+        0.275205642,
+        -0.926164627,
+        0,
+        -0.203629866,
+        -0.952523828,
+        -0.226348579,
+        0,
+        237.417572,
+        29.4268799,
+        205.823242,
+        1
+      ],
+      "axis_lengths": [
+        1.0000002125919627,
+        1.0000002118214983,
+        1.0000002222251108
+      ],
+      "transform_track": 49,
+      "stream": {
+        "pointer": 491845184,
+        "stride": 32,
+        "last_creation_serial": 675
+      },
+      "indices": {
+        "pointer": 501301024,
+        "base": 0,
+        "last_creation_serial": 674
+      },
+      "fvf": 274,
+      "caller_rva": 1536126,
+      "identity_status": "LAYOUT_AND_TEMPORAL_OBSERVATION_NOT_UPLOAD_HASH_OR_QUEUE_OWNER_PROOF"
+    },
+    {
+      "draw": 350,
+      "sequence": 1028,
+      "source_record": 3,
+      "arguments": [
+        4,
+        12070,
+        91,
+        37326,
+        90,
+        0,
+        0,
+        0
+      ],
+      "vertex_relocation": 11941,
+      "index_relocation": 36840,
+      "world": [
+        -0.950392544,
+        0.124137074,
+        0.285209298,
+        0,
+        0.0313122645,
+        -0.874075532,
+        0.484781086,
+        0,
+        0.309473693,
+        0.469662845,
+        0.826827586,
+        0,
+        238.207764,
+        29.423563,
+        208.457275,
+        1
+      ],
+      "axis_lengths": [
+        1.0000001722488483,
+        1.0000005974460917,
+        1.0000005058014418
+      ],
+      "transform_track": 38,
+      "stream": {
+        "pointer": 491845184,
+        "stride": 32,
+        "last_creation_serial": 675
+      },
+      "indices": {
+        "pointer": 501301024,
+        "base": 0,
+        "last_creation_serial": 674
+      },
+      "fvf": 274,
+      "caller_rva": 1536126,
+      "identity_status": "LAYOUT_AND_TEMPORAL_OBSERVATION_NOT_UPLOAD_HASH_OR_QUEUE_OWNER_PROOF"
+    },
+    {
+      "draw": 351,
+      "sequence": 1030,
+      "source_record": 3,
+      "arguments": [
+        4,
+        12070,
+        91,
+        37326,
+        90,
+        0,
+        0,
+        0
+      ],
+      "vertex_relocation": 11941,
+      "index_relocation": 36840,
+      "world": [
+        0.953910828,
+        -0.0897552297,
+        -0.286353976,
+        0,
+        -0.16375491,
+        0.643942654,
+        -0.7473436,
+        0,
+        0.251473486,
+        0.759790838,
+        0.599565864,
+        0,
+        236.302048,
+        29.6268177,
+        209.029297,
+        1
+      ],
+      "axis_lengths": [
+        1.0000002343025496,
+        1.0000001343253069,
+        1.0000001284718922
+      ],
+      "transform_track": 6,
+      "stream": {
+        "pointer": 491845184,
+        "stride": 32,
+        "last_creation_serial": 675
+      },
+      "indices": {
+        "pointer": 501301024,
+        "base": 0,
+        "last_creation_serial": 674
+      },
+      "fvf": 274,
+      "caller_rva": 1536126,
+      "identity_status": "LAYOUT_AND_TEMPORAL_OBSERVATION_NOT_UPLOAD_HASH_OR_QUEUE_OWNER_PROOF"
+    }
+  ],
+  "unique_worlds": 4
+}

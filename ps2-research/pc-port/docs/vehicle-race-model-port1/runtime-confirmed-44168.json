@@ -1,0 +1,11 @@
+{
+  "evidence": "USER_RUNTIME_OBSERVATION_AND_LIVE_PROXY_FRAME",
+  "frame": "frame-44168-d1-00006057.jsonl",
+  "sha256": "5d4f3dd7ca3c2dc218cf3ddc08824e6f5d97e3a22871eb5a7cd76cc662b21610",
+  "private_draws": 13,
+  "private_triangles": 1712,
+  "suppressed_native_draws": 13,
+  "draw_hresult": 0,
+  "full_car_branches": "NOT_IMPLEMENTED",
+  "visual_parity": "NOT_CLAIMED"
+}

@@ -1,0 +1,183 @@
+{
+  "scope": "All protected retail vehicle */wheel.dx; exact unsigned float32 source position multiset",
+  "rows": [
+    {
+      "vehicle": "Astero",
+      "sha256": "17edbf252c31bf671e19786c25694cc1cfad8599a39d881189e75971eb79aef6",
+      "records": 5,
+      "faces": 252,
+      "compound_signature": "617b82167f4c5570ab89ceaaacae177795149d53ce39c56abd6385be2ceb465d"
+    },
+    {
+      "vehicle": "Bruno",
+      "sha256": "9132ebbd9dae94d34387094ad0943129db9fab0f5d94304a10fd7df0665676c9",
+      "records": 5,
+      "faces": 252,
+      "compound_signature": "cacdafd3c7c6ee8c51b60116043e01676f4ee2ca1d2f4975e2f79138245eb843"
+    },
+    {
+      "vehicle": "ChevyBlazer",
+      "sha256": "acced5c9eb583c7ea969c1ba17ff61ee6cc4442f5b9cd3b01846b9139347a22a",
+      "records": 5,
+      "faces": 252,
+      "compound_signature": "cbd83cfa195859614ad8c8f7c54741ec9a1bc1bfae6a7191c4399fc96da21f4f"
+    },
+    {
+      "vehicle": "Forester",
+      "sha256": "ce2b6557cbd8975ec14d1c20a4d3df902512a3433c713dc3822f09bfd35ca01c",
+      "records": 5,
+      "faces": 252,
+      "compound_signature": "617b82167f4c5570ab89ceaaacae177795149d53ce39c56abd6385be2ceb465d"
+    },
+    {
+      "vehicle": "forklift",
+      "sha256": "b5df2e3a11da0e3295e9597a05e8709f2460f02d81fb06e388c5f5049a6d6278",
+      "records": 5,
+      "faces": 252,
+      "compound_signature": "9aebd19bc0dcfeadbb6c04ae985b71eae86326df06d7ade8983ac4c7a48679ff"
+    },
+    {
+      "vehicle": "Frontera",
+      "sha256": "5742358403aa633c04562347522f316818c069c8d6dfbed47e1288aa19b85899",
+      "records": 5,
+      "faces": 252,
+      "compound_signature": "617b82167f4c5570ab89ceaaacae177795149d53ce39c56abd6385be2ceb465d"
+    },
+    {
+      "vehicle": "IceCream",
+      "sha256": "48ec2e91d6770bcca19ae13e24f32cfa63747c0aeb53713fead1a6d3c13d8178",
+      "records": 5,
+      "faces": 252,
+      "compound_signature": "07b27ec38572cdc760c66465ce6b9f0fdc09a2ac408a7e27b9dcf583a4dbafc5"
+    },
+    {
+      "vehicle": "Jump",
+      "sha256": "81c6a980df7c32ae16702afda6a42dfb6f9b5917c9cd6d7ddb4e3a84c0bf0ab0",
+      "records": 5,
+      "faces": 252,
+      "compound_signature": "617b82167f4c5570ab89ceaaacae177795149d53ce39c56abd6385be2ceb465d"
+    },
+    {
+      "vehicle": "Kamaz",
+      "sha256": "e4b1566b39efc881f88621ccc013baa4b02c290abd3d9d5a0844dd1f4f9e43da",
+      "records": 5,
+      "faces": 252,
+      "compound_signature": "11811f3beccd9e3c1cfcb016cbcafe5d82c6eadcbf45349a579af021db52e1e0"
+    },
+    {
+      "vehicle": "Kangoo",
+      "sha256": "859446d5ee1c83f107f0804b0f13351f1397262092b86c7f4da8c1f6c5ffe3da",
+      "records": 5,
+      "faces": 252,
+      "compound_signature": "617b82167f4c5570ab89ceaaacae177795149d53ce39c56abd6385be2ceb465d"
+    },
+    {
+      "vehicle": "KiaSportage",
+      "sha256": "9f8d512102e0ccaacd2232cfb7f957fd549bf07b571c3db5e161e3a2c4c18017",
+      "records": 4,
+      "faces": 252,
+      "compound_signature": "fbe336f22a3ed53983fc1497ff530de5195d0d121039d60bcce7cb2d286efb2a"
+    },
+    {
+      "vehicle": "LandCruiser",
+      "sha256": "9c82ed7d7c964ea9e7b3245cb7712c5e0a61ede6fe8d1a97d4fc6b81e176b669",
+      "records": 5,
+      "faces": 252,
+      "compound_signature": "617b82167f4c5570ab89ceaaacae177795149d53ce39c56abd6385be2ceb465d"
+    },
+    {
+      "vehicle": "Mattserati",
+      "sha256": "e6e19dd1c30d4f4201aafb11c17173899b92b054fdb72bf51a96f97ca71eb44c",
+      "records": 5,
+      "faces": 252,
+      "compound_signature": "617b82167f4c5570ab89ceaaacae177795149d53ce39c56abd6385be2ceb465d"
+    },
+    {
+      "vehicle": "megane",
+      "sha256": "83b54805dad324f17e4e9eb9db8285c227a9190ac452b7c16d375b227465a124",
+      "records": 5,
+      "faces": 252,
+      "compound_signature": "3be91cef21c214539c5f340c8583cabdd4e78059a6b81bc26d18cae19086689d"
+    },
+    {
+      "vehicle": "Navara",
+      "sha256": "2ae0c70a1912edfa8c628038541305132bf6843a00d33ce8761f351f17b72e08",
+      "records": 4,
+      "faces": 252,
+      "compound_signature": "80335826d78c6af0cd3c458cd78db027e61a35c1a40e1e5b341f6555d8675e12"
+    },
+    {
+      "vehicle": "NewRav",
+      "sha256": "335e5632714974bfc04087391854647c5f37289fe0d6625c56c265a66a049e94",
+      "records": 5,
+      "faces": 252,
+      "compound_signature": "3be91cef21c214539c5f340c8583cabdd4e78059a6b81bc26d18cae19086689d"
+    },
+    {
+      "vehicle": "Pajero",
+      "sha256": "31db2076dcfbdb85714f650712d4e5f2e4efb6cc8b72b695a14588387142f877",
+      "records": 5,
+      "faces": 252,
+      "compound_signature": "617b82167f4c5570ab89ceaaacae177795149d53ce39c56abd6385be2ceb465d"
+    },
+    {
+      "vehicle": "Patrol",
+      "sha256": "b37ce51051d9c828c517213d87933ccb73a3d3fdd9557deb4fef33299347c409",
+      "records": 5,
+      "faces": 252,
+      "compound_signature": "617b82167f4c5570ab89ceaaacae177795149d53ce39c56abd6385be2ceb465d"
+    },
+    {
+      "vehicle": "RMonster",
+      "sha256": "868b70f4fe21804854fdc5ef87235dbf85d6d34610045799bcc83cc7b63ac60d",
+      "records": 5,
+      "faces": 252,
+      "compound_signature": "617b82167f4c5570ab89ceaaacae177795149d53ce39c56abd6385be2ceb465d"
+    },
+    {
+      "vehicle": "SeatBuggy",
+      "sha256": "0d97a6c9df7ac62e2499d9f9e8e700f0f4b0bc1ec798e6de3b3c69b485175cbe",
+      "records": 5,
+      "faces": 252,
+      "compound_signature": "617b82167f4c5570ab89ceaaacae177795149d53ce39c56abd6385be2ceb465d"
+    },
+    {
+      "vehicle": "Simmbugghini",
+      "sha256": "6da9a59930c80ea54ed56371946f66b541758b410de19a11ce8165aa4623910d",
+      "records": 5,
+      "faces": 252,
+      "compound_signature": "617b82167f4c5570ab89ceaaacae177795149d53ce39c56abd6385be2ceb465d"
+    },
+    {
+      "vehicle": "Tata",
+      "sha256": "f106abef3ba6926350cfc2796b54c17bb762d2b057a0232c4f3d8676dcf638ea",
+      "records": 4,
+      "faces": 252,
+      "compound_signature": "9b6968c91821b7410ae512e91df19e58a3b104bfe01a1f402acab5def3b9a545"
+    },
+    {
+      "vehicle": "Terrano",
+      "sha256": "1b132a537509035086a4dad7d23a021cbb5e59041c216f9b444682f2383aa5f5",
+      "records": 5,
+      "faces": 252,
+      "compound_signature": "617b82167f4c5570ab89ceaaacae177795149d53ce39c56abd6385be2ceb465d"
+    },
+    {
+      "vehicle": "WildCat",
+      "sha256": "a627f60b382f7f00ba577c532377ff078b59ab8a488f89daa53c34ca3cdb2af4",
+      "records": 5,
+      "faces": 252,
+      "compound_signature": "617b82167f4c5570ab89ceaaacae177795149d53ce39c56abd6385be2ceb465d"
+    },
+    {
+      "vehicle": "Xtrail",
+      "sha256": "f05ac990b6ea2312f2a2d552ec886aded4c68a8d8fac027f99e1fc7b0826779c",
+      "records": 4,
+      "faces": 252,
+      "compound_signature": "6b132b81768e51788af840f14f96e481bd484aea57db926b1c8cd2b905dc424b"
+    }
+  ],
+  "xtrail_matching_vehicles": [
+    "Xtrail"
+  ]
+}

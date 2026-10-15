@@ -653,7 +653,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
   return draw_indexed_at(type,min_index,vertices,start,count,reinterpret_cast<uintptr_t>(_ReturnAddress()));
  }
  HRESULT Device8::draw_indexed_at(D3DPRIMITIVETYPE type,UINT min_index,UINT vertices,UINT start,UINT count,uintptr_t pc){
-@@ -210,13 +310,96 @@
+@@ -210,13 +310,98 @@
   if(visuals.effective.foliage_diagnostics&&trace.enabled&&trace.control.active)
    trace.foliage_result(probe_foliage(*real_,trace.resources,args,trace.frame_number(),trace.foliage_budget,this));
   HRESULT hr;
@@ -669,6 +669,8 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
 + if(glass_draw.handled){trace.after(71,args,static_cast<uint32_t>(glass_draw.hr),pc);return glass_draw.hr;}
 + const auto race_draw=frontendmodelintegration::draw_race(*this,type,min_index,vertices,start,count,pc);
 + if(race_draw.handled){trace.after(71,args,static_cast<uint32_t>(race_draw.hr),pc,nullptr,256,true);return race_draw.hr;}
++ const auto race_part=frontendmodelintegration::draw_race_part(*this,type,min_index,vertices,start,count,pc);
++ if(race_part.handled){trace.after(71,args,static_cast<uint32_t>(race_part.hr),pc,nullptr,256,true);return race_part.hr;}
 + const auto xtrail_draw=xtrailintegration::draw(*this,type,min_index,vertices,start,count,pc);
 + if(xtrail_draw.handled){
 +  trace.after(71,args,static_cast<uint32_t>(xtrail_draw.hr),pc);

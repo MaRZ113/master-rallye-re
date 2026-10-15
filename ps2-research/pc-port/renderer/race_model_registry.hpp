@@ -18,4 +18,10 @@ inline constexpr FrontendSource kRaceSources[]={
 };
 constexpr bool race_warmup_admitted(uint32_t seen,bool next_frame,bool current_tokens)noexcept{return seen==0x1fffu&&next_frame&&current_tokens;}
 inline constexpr unsigned kRaceRoots[]={0,1,3,4,6,7,9,10,12,13,14,16,17};
+struct RacePartSource {FrontendSource source;unsigned root;};
+inline constexpr RacePartSource kRaceParts[]={
+{{"fad797c65838c39d359767a9ef06d0d5579d847fa2b23a9ee8febe8c171b361c",22u,18u},19u},
+{{"cb24d664e8af1db40cc4b161c7875e34a2042e709a5783384179b37f0ce5fe63",30u,28u},5u},
+{{"7e42aed180591ce5a99972f8766f1d999d59da87c8212183e528f7fd7fd5f838",18u,14u},11u},
+};
 }
