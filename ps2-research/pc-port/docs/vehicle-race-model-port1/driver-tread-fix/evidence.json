@@ -1,0 +1,27 @@
+{
+  "user_observations": [
+    "Original wheels active and steering normally",
+    "Duplicate drivers",
+    "Tread stretching"
+  ],
+  "screenshots": [
+    {
+      "name": "MRallye_DNgGaJ3Goj.png",
+      "sha256": "c609c9bbab7f1f34fb02f08aded141a373bdd2c7b954a39e7be3571a5778f20b"
+    },
+    {
+      "name": "MRallye_OyZcsgik1p.png",
+      "sha256": "bdcc7534ad6612c49eff9ccc68814a89d0d1407210e443a5f11f6a7f695aca7e"
+    }
+  ],
+  "original_asset_unchanged": true,
+  "excluded_static_faces": 396,
+  "retained_root_faces": {
+    "0": 221,
+    "7": 6
+  },
+  "new_private_car_faces": 1436,
+  "tread_primary_u": "WRAP",
+  "other_material_primary_u": "CLAMP",
+  "visual_fix_runtime": "PENDING"
+}

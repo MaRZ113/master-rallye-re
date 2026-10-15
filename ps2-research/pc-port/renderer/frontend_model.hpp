@@ -32,6 +32,7 @@ class FrontendModel {
  bool requested_=false,diagnostics_=false,disabled_=false,parts_=false;uint32_t logs_=0;
  FrontendAsset asset_;std::vector<IDirect3DTexture8*> textures_;std::vector<std::vector<FrontendVertex>> expanded_;
  std::array<std::vector<FrontendVertex>,5> trim_;
+ std::array<std::vector<FrontendVertex>,2> race_body_;
 public:
  std::vector<std::pair<unsigned,unsigned>> trim17_native_runs;std::array<WheelOwnerState,4> wheel_owners{};FrontendTransaction transaction;D3DMATRIX environment{};bool environment_known=false,validated=false;
  uint32_t parts_validated=0;uint64_t race_generation=0,race_owner_lifetime=0;FrontendOwner owner{};std::array<FrontendRecord,24> records{};uint32_t seen=0;uint64_t observed_frame=UINT64_MAX,drawn_frame=UINT64_MAX;D3DMATRIX drawn_world{};bool certified=false;
@@ -41,6 +42,7 @@ public:
  bool claim(uint32_t bit)noexcept{if(!diagnostics_||(logs_&bit))return false;logs_|=bit;return true;}
  const FrontendAsset& asset()const noexcept{return asset_;}const auto& expanded()const noexcept{return expanded_;}
  const auto& trim(unsigned i)const noexcept{return trim_[i];}
+ const auto& race_vertices(unsigned root)const noexcept{return root==0?race_body_[0]:root==7?race_body_[1]:expanded_[root];}
  IDirect3DTexture8* texture(uint32_t i)const noexcept{return i<textures_.size()?textures_[i]:nullptr;}
  bool initialize(IDirect3DDevice8&)noexcept;void reset()noexcept;void invalidate()noexcept{trim17_native_runs.clear();wheel_owners={};environment_known=false;validated=false;parts_validated=0;certified=false;seen=0;records={};observed_frame=drawn_frame=UINT64_MAX;owner={};}
  void disable()noexcept{disabled_=true;invalidate();}
