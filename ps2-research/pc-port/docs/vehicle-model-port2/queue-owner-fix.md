@@ -1,0 +1,9 @@
+# Current queue ownership correction
+
+Session 12204 rejects context subgate1 after collecting source nodes0,7,8,13,15,16. Original instruction bytes independently confirm why: emitter576970 reuses original [P+30] argument as state-key scratch (for example writes22,8c,25). At the public native DIP this is R+4c. The initial pilot wrongly treated it as an immutable instance pointer. The six admitted materials skip that scratch path; geometry/resource upload is not the blocker identified here.
+
+The correction reads the current native queue record from the emitter caller, not a cached pointer or ordinal. Two original direct callers are accepted: return5628c1 uses preserved EBP queue index; return5629ee uses preserved ESI index. Both keep queue manager in preserved EBX. The current manager44/48 array bounds and record instance/mesh are verified, including exact equality to the current source mesh. Existing packet/model/tree/resource/geometry checks remain mandatory. Queue ownership is checked again at the end of context admission.
+
+Original window bytes and executable SHA are in queue-owner-fix.json. REA/Ghidra was used for the queue-building function562560; installed GNU objdump independently decoded the two emitter caller windows. No original executable or frozen renderer edit is needed. Only PS2 extension headers and focused tests changed. Native tests exercise both caller paths, overwritten argument25, wrong mesh, unknown caller and invalid queue index/bounds. In-game replacement and appearance remain pending.
+
+Manual A/B: close game, install the owner-fix DLL, retain current model and FrontendModelMode=1/Version=1/Diagnostics=1 and ReflectionMode=4. Select X-Trail, wait for rotation, capture F10. Expect warmup24, replacement4636 and suppression24 events. Check front/side/rear, switch cars and back, then Reset. Unknown owner or missing resources still retain Stock. No automatic installation.

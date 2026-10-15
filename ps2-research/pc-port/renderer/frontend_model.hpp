@@ -7,6 +7,15 @@
 #include <limits>
 namespace gfx2::ps2port {
 constexpr bool frontend_fixed_pixel_shader(DWORD native,bool known,DWORD shadow)noexcept{return native==0&&(!known||shadow==native);}
+// Read the current queue record through preserved caller registers, never the
+// emitter argument slot reused as render-state scratch by the original engine.
+template<class Read> bool frontend_queue_owner(uintptr_t stack,uintptr_t base,uintptr_t mesh,Read read,uintptr_t& instance)noexcept{
+ uint32_t caller=0,manager=0,index=0,begin=0,end=0,record=0,owner=0,current_mesh=0;
+ if(!read(stack+0x48,caller))return false;
+ const auto index_slot=caller==base+0x1628c1?0x24u:caller==base+0x1629ee?0x20u:0u;
+ if(!index_slot||!read(stack+0x28,manager)||manager<0x10000||(manager&3)||!read(stack+index_slot,index)||!read(manager+0x44,begin)||!read(manager+0x48,end)||begin<0x10000||(begin&3)||(end&3)||end<begin||(end-begin)/4>4096||index>=(end-begin)/4||!read(begin+index*4,record)||record<0x10000||(record&3)||!read(record,owner)||owner<0x10000||(owner&3)||!read(record+4,current_mesh)||current_mesh!=mesh)return false;
+ instance=owner;return true;
+}
 struct FrontendVertex {float xyz[3],normal[3];DWORD color;float uv[2];};
 static_assert(sizeof(FrontendVertex)==36);
 struct FrontendMesh {uint32_t node,mode,texture[3],first,count;};

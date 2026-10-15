@@ -13,13 +13,13 @@ inline bool pointer_word(uintptr_t p,uintptr_t& out)noexcept{uint32_t x=0;if(!wo
 struct Context {ps2port::FrontendOwner owner;uintptr_t mesh=0,vertex=0,index=0;std::array<uint32_t,6> vd{};std::array<uint32_t,4> id{};};
 inline bool context(uintptr_t stack,uintptr_t pc,Context& out)noexcept{
  context_gate=0;const auto base=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));uint32_t ret=0;if(!stack||pc!=base+0x17707e||!word(stack,ret)||ret!=pc)return false;
- context_gate=1;auto& o=out.owner;if(!pointer_word(stack+0x4c,o.instance)||!pointer_word(stack+0x34,out.mesh)||!pointer_word(stack+0x30,out.vertex)||!pointer_word(stack+0x44,out.index)||!pointer_word(o.instance+0xb0,o.packet)||!pointer_word(o.instance+0x8c,o.model))return false;
+ context_gate=1;auto& o=out.owner;if(!pointer_word(stack+0x34,out.mesh)||!ps2port::frontend_queue_owner(stack,base,out.mesh,word,o.instance)||!pointer_word(stack+0x30,out.vertex)||!pointer_word(stack+0x44,out.index)||!pointer_word(o.instance+0xb0,o.packet)||!pointer_word(o.instance+0x8c,o.model))return false;
  context_gate=2;uintptr_t check=0;if(!pointer_word(o.packet+0x74,check)||check!=o.instance||!word(o.packet+0xc,o.name)||!o.name)return false;
  context_gate=3;uintptr_t list=0,sentinel=0;if(!pointer_word(o.model+0x18,list)||!pointer_word(list,sentinel)||!pointer_word(sentinel+4,o.root))return false;
  context_gate=4;std::array<uint32_t,3> root{};if(!read_leaf(o.root,root.data(),12)||root[0]!=base+0x2921b0||root[2])return false;uint32_t callback=0;if(!word(root[0]+0x30,callback)||callback!=base+0x178f30)return false;
  context_gate=5;uintptr_t node=root[1];for(size_t i=0;i<o.meshes.size();++i){if(!node||std::find(o.meshes.begin(),o.meshes.begin()+i,node)!=o.meshes.begin()+i)return false;o.meshes[i]=node;std::array<uint32_t,3> row{};if(!read_leaf(node,row.data(),12)||row[0]!=base+0x292364||!word(row[0]+0x30,callback)||callback!=base+0x176910)return false;node=row[2];}if(node||std::find(o.meshes.begin(),o.meshes.end(),out.mesh)==o.meshes.end())return false;
  context_gate=6;if(!read_leaf(out.vertex,out.vd.data(),24)||!read_leaf(out.index,out.id.data(),16))return false;
- context_gate=7;return pointer_word(o.packet+0x74,check)&&check==o.instance;
+ context_gate=7;uintptr_t current=0;return ps2port::frontend_queue_owner(stack,base,out.mesh,word,current)&&current==o.instance&&pointer_word(o.packet+0x74,check)&&check==o.instance;
 }
 inline void notify(Device8& d,uint32_t slot,const Args& args,HRESULT hr)noexcept{d.trace.after(slot,args,static_cast<uint32_t>(hr),0,&args,256,false,true);}
 inline HRESULT repair(Device8& d)noexcept{auto* e=d.ps2_port();auto* p=e?e->frontend_model():nullptr;if(!p||!p->transaction.pending())return S_OK;const auto hr=p->transaction.restore(*d.native(),[&](uint32_t s,const Args& a,HRESULT h)noexcept{notify(d,s,a,h);});if(FAILED(hr))p->disable();return hr;}

@@ -1,0 +1,55 @@
+{
+  "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "runtime_session": "session-20261015-004614-12204.jsonl",
+  "warmup_seen_mask": 106881,
+  "accepted_sources": [
+    0,
+    7,
+    8,
+    13,
+    15,
+    16
+  ],
+  "rejected_gate": 0,
+  "rejected_context_gate": 1,
+  "original_windows": [
+    {
+      "va": "0x576970",
+      "size": 18,
+      "bytes": "83ec1c538bd955568b4b445785c9895c2418"
+    },
+    {
+      "va": "0x576c00",
+      "size": 8,
+      "bytes": "c744243022000000"
+    },
+    {
+      "va": "0x576c84",
+      "size": 8,
+      "bytes": "c74424308c000000"
+    },
+    {
+      "va": "0x576d74",
+      "size": 8,
+      "bytes": "c744243025000000"
+    },
+    {
+      "va": "0x577067",
+      "size": 23,
+      "bytes": "8b44241452518b500c8b400852506a0456ff931c010000"
+    },
+    {
+      "va": "0x5628ac",
+      "size": 29,
+      "bytes": "8b43448b04a88b48088b10518b480452e8af4001008b442410453be87c"
+    },
+    {
+      "va": "0x5629d9",
+      "size": 21,
+      "bytes": "8b53448b04b28b48088b10518b480452e8823f0100"
+    }
+  ],
+  "original_instance_argument": "R+0x4c == P+0x30 is overwritten by render-state scratch writes",
+  "replacement_owner_proof": "Known emitter caller return R+0x48, preserved EBX at R+0x28, EBP at R+0x24 for 0x5628c1 or ESI at R+0x20 for 0x5629ee; current manager+44/+48 queue bounds; exact queue record mesh; packet backlink and all24 geometry checks retained",
+  "runtime_fix_validation": "PENDING"
+}
