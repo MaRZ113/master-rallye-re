@@ -1,0 +1,78 @@
+{
+  "schema": 1,
+  "capture": "frame-27948-d1-00005147.jsonl",
+  "sha256": "f89046f6afd083c52c9ba3b240b1b5bf8796812ea5f927c3a26cc3ce9a50fb9c",
+  "proxy_sha256": "ac0e0ddd779264ce7cbc990d7534c10e9bba13a75630fa751478374c44afb3fc",
+  "frame": 5147,
+  "diagnostic_draw_index": 492,
+  "sequence": 1442,
+  "arguments": [
+    4,
+    3146,
+    20,
+    44976,
+    20,
+    0,
+    0,
+    0
+  ],
+  "hresult": 0,
+  "fvf": 66,
+  "stream0": {
+    "pointer": 347524224,
+    "stride": 16,
+    "last_creation_serial": 693
+  },
+  "indices": {
+    "pointer": 499916448,
+    "base": 0,
+    "last_creation_serial": 625
+  },
+  "world": {
+    "values": [
+      -0.78420639,
+      0,
+      0.620500088,
+      0,
+      0,
+      1,
+      0,
+      0,
+      -0.620500088,
+      0,
+      -0.78420639,
+      0,
+      8,
+      -2,
+      189,
+      1
+    ],
+    "bits": [
+      3209216448,
+      0,
+      1058986264,
+      0,
+      0,
+      1065353216,
+      0,
+      0,
+      3206469912,
+      0,
+      3209216448,
+      0,
+      1090519040,
+      3221225472,
+      1128071168,
+      1065353216
+    ]
+  },
+  "source_record": 3,
+  "source_texture_slots": [
+    "Null",
+    "Null",
+    "Null"
+  ],
+  "runtime_gate": 2,
+  "earlier_seen_mask": 8388599,
+  "interpretation": "Exact current native textureless XYZ|DIFFUSE layout0x42 stride16 was rejected by layout allowlist. No geometry hashes need weakening."
+}

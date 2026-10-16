@@ -1,0 +1,34 @@
+{
+  "path": "D:\\Game\\Master Rallye\\master-rallye-re-general\\ps2-research\\pc-port\\.assets\\vehicles\\xtrail-damage-fixtures.bin",
+  "sha256": "60b291e46cc043512a76da6496fa4ebe2b478105702ad0f8bfaef136f3d6a6fe",
+  "states": 3,
+  "sources_per_state": 13,
+  "provenance": [
+    {
+      "file": "race-damage-47284-d1-f2684.jsonl",
+      "sha256": "e5752df1194c8c1523d5c686dda188a77a07a3254e686128af3da42eb665afac",
+      "observed_slots": [
+        0,
+        5,
+        6,
+        10,
+        12
+      ],
+      "unobserved_slots": "SYNTHETIC_ORIGINAL_HEALTHY_CONTROL"
+    },
+    {
+      "file": "race-damage-47284-d1-f4497.jsonl",
+      "sha256": "bb949c8627db106aa93439d6efc0484ee6ad90d8fee9368ae2bd5b6aefbb3889",
+      "observed_slots": [
+        0,
+        5,
+        6,
+        10,
+        12,
+        1
+      ],
+      "unobserved_slots": "SYNTHETIC_ORIGINAL_HEALTHY_CONTROL"
+    }
+  ],
+  "runtime_complete_state_claim": false
+}

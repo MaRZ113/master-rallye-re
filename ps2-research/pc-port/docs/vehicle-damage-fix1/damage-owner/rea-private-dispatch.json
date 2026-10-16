@@ -1,0 +1,62 @@
+{
+  "evidence_id": "ev_3d4938d0c6d41b22dacd2b51c689c61fd45e897d681ec221a4bb279ed05b14a5",
+  "subject": {
+    "name": "D:\\Game\\Master Rallye Pristine\\MRallye.exe",
+    "digest": {
+      "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4"
+    },
+    "format": "pe",
+    "architecture": "x86",
+    "local_path": "D:\\Game\\Master Rallye Pristine\\MRallye.exe"
+  },
+  "provider": {
+    "id": "ghidra",
+    "name": "Ghidra",
+    "version": "12.1.4"
+  },
+  "procedure": {
+    "address": "0x54c9d0",
+    "name": "FUN_0054c9d0",
+    "classification": {
+      "external": false,
+      "thunk": false,
+      "thunk_target": null,
+      "provenance": "ghidra-function-manager"
+    },
+    "body": {
+      "available": true,
+      "provenance": "ghidra-function-body-address-set",
+      "ranges": [
+        {
+          "start": "0x54c9d0",
+          "end": "0x54cb48"
+        }
+      ],
+      "total_bytes": 377,
+      "span_bytes": 377,
+      "non_contiguous": false,
+      "contains_entry": true
+    },
+    "signature": "undefined FUN_0054c9d0()",
+    "locals": [
+      {
+        "description": "undefined4 local_4 @ Stack[-0x4]:4",
+        "provenance": "ghidra-function-database"
+      },
+      {
+        "description": "undefined4 local_8 @ Stack[-0x8]:4",
+        "provenance": "ghidra-function-database"
+      },
+      {
+        "description": "undefined4 local_c @ Stack[-0xc]:4",
+        "provenance": "ghidra-function-database"
+      }
+    ]
+  },
+  "pseudocode": "\r\nvoid FUN_0054c9d0(int param_1,int param_2,int param_3,int param_4,float param_5)\r\n\r\n{\r\n  float *pfVar1;\r\n  char cVar2;\r\n  void *pvVar3;\r\n  int in_ECX;\r\n  int *piVar4;\r\n  float local_c;\r\n  float local_8;\r\n  float local_4;\r\n  \r\n  if (*(int *)(in_ECX + 0x14) != 0) {\r\n    pfVar1 = *(float **)(in_ECX + 8);\r\n    if (pfVar1 != (float *)0x0) {\r\n      if (DAT_006f9cf0 == 0) {\r\n        pvVar3 = operator_new(0x44);\r\n        if (pvVar3 == (void *)0x0) {\r\n          DAT_006f9cf0 = 0;\r\n        }\r\n        else {\r\n          DAT_006f9cf0 = FUN_0053eed0();\r\n        }\r\n      }\r\n      FUN_00562430(param_1,pfVar1);\r\n      if ((param_4 == 0) || (param_4 == 2)) {\r\n        local_c = *(float *)(param_2 + 0x30);\r\n        local_4 = *(float *)(param_2 + 0x38);\r\n        if (param_4 == 2) {\r\n          local_4 = *(float *)(param_3 + 0xc0);\r\n          local_c = *(float *)(param_3 + 0xb8);\r\n        }\r\n        local_c = local_c + *pfVar1;\r\n        local_8 = *(float *)(param_2 + 0x34) + pfVar1[1];\r\n        local_4 = local_4 + pfVar1[2];\r\n        FUN_00405800(&local_c);\r\n        cVar2 = FUN_004f2380();\r\n        if (cVar2 == '\\0') {\r\n          return;\r\n        }\r\n        if (param_5 < ((local_c - *(float *)(param_3 + 0xb8)) * *(float *)(param_3 + 0xa8) +\r\n                      (local_8 - *(float *)(param_3 + 0xbc)) * *(float *)(param_3 + 0xac) +\r\n                      (local_4 - *(float *)(param_3 + 0xc0)) * *(float *)(param_3 + 0xb0)) -\r\n                      pfVar1[3]) {\r\n          return;\r\n        }\r\n      }\r\n    }\r\n    *(int *)(param_1 + 0x8c) = in_ECX;\r\n    if (*(int **)(param_1 + 0x90) == (int *)0x0) {\r\n      if (*(int **)(in_ECX + 0x18) != (int *)0x0) {\r\n        for (piVar4 = *(int **)(**(int **)(in_ECX + 0x18) + 4); piVar4 != (int *)0x0;\r\n            piVar4 = (int *)piVar4[2]) {\r\n          (**(code **)(*piVar4 + 0x30))(param_1);\r\n        }\r\n      }\r\n    }\r\n    else {\r\n      piVar4 = *(int **)(**(int **)(param_1 + 0x90) + 4);\r\n      if (piVar4 != (int *)0x0) {\r\n        do {\r\n          (**(code **)(*piVar4 + 0x30))(param_1);\r\n          piVar4 = (int *)piVar4[2];\r\n        } while (piVar4 != (int *)0x0);\r\n        return;\r\n      }\r\n    }\r\n  }\r\n  return;\r\n}\r\n\r\n",
+  "limitations": [
+    "Decompiler representation only; original branch bytes separately preserved.",
+    "param1 is render instance passed to node virtual dispatch; model is this at+8c.",
+    "Fresh same-session private tree membership still pending because PID47284 exited."
+  ]
+}

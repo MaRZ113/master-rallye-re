@@ -1,0 +1,199 @@
+{
+  "schema": 1,
+  "pid": 23360,
+  "classification": "CURRENT_LAYOUT_GATE_CONFIRMED; EXACT_UPLOAD_HASH_NOT_CAPTURED",
+  "frames": [
+    {
+      "frame": 7771,
+      "file": "frame-23360-d1-00007771.jsonl",
+      "sha256": "f696fa19d815e32b20862d27ee9bb2fba686fd1d4e4ce528b132c38e00936db2",
+      "glow_shape_candidates": [],
+      "on_shape_candidates": [],
+      "proxy_sha256": "88dd4e7ad36c6062e1d39ff8396bccd20038f1d29bc7a6f5d72fdcd9b6227301",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4"
+    },
+    {
+      "frame": 8691,
+      "file": "frame-23360-d1-00008691.jsonl",
+      "sha256": "c3af138354491dcc8ec92131d5cd80505719662830bc50cff379c7e1da53cbed",
+      "glow_shape_candidates": [],
+      "on_shape_candidates": [],
+      "proxy_sha256": "88dd4e7ad36c6062e1d39ff8396bccd20038f1d29bc7a6f5d72fdcd9b6227301",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4"
+    },
+    {
+      "frame": 14443,
+      "file": "frame-23360-d1-00014443.jsonl",
+      "sha256": "8500647c9a2e333d5d736cf118c1f1a1b2dca3182b5424cdd67e877e0513b13d",
+      "glow_shape_candidates": [
+        {
+          "sequence_diagnostic_only": 1022,
+          "arguments": [
+            4,
+            24244,
+            32,
+            48342,
+            32
+          ],
+          "native_result": 0,
+          "caller_rva": 1536126,
+          "fvf": 258,
+          "stride": 20,
+          "texture": {
+            "pointer": 555282928,
+            "last_creation_serial": 779
+          },
+          "vb": {
+            "pointer": 549514656,
+            "stride": 20,
+            "last_creation_serial": 676
+          },
+          "ib": {
+            "pointer": 548403072,
+            "base": 0,
+            "last_creation_serial": 675
+          },
+          "world": {
+            "values": [
+              0.0704392046,
+              0.0532895736,
+              -0.996091723,
+              0,
+              0.0953001603,
+              0.993644893,
+              0.0598978773,
+              0,
+              0.99295336,
+              -0.0991468579,
+              0.0649130493,
+              0,
+              231.633026,
+              29.9816647,
+              182.9832,
+              1
+            ],
+            "bits": [
+              1032864366,
+              1029326379,
+              3212771294,
+              0,
+              1036201147,
+              1065246595,
+              1031100282,
+              0,
+              1065234993,
+              3184201090,
+              1032122658,
+              0,
+              1130865166,
+              1106238067,
+              1127676851,
+              1065353216
+            ]
+          },
+          "states": {
+            "ZENABLE": 1,
+            "ZWRITEENABLE": 1,
+            "ALPHATESTENABLE": 0,
+            "ALPHABLENDENABLE": 1,
+            "SRCBLEND": 5,
+            "DESTBLEND": 6
+          },
+          "forwarded": true,
+          "exact_source_hash_verified": false
+        }
+      ],
+      "on_shape_candidates": [
+        {
+          "sequence_diagnostic_only": 764,
+          "arguments": [
+            4,
+            24228,
+            16,
+            48306,
+            12
+          ],
+          "native_result": 0,
+          "caller_rva": 1536126,
+          "fvf": 258,
+          "stride": 20,
+          "texture": {
+            "pointer": 555282416,
+            "last_creation_serial": 778
+          },
+          "vb": {
+            "pointer": 549514656,
+            "stride": 20,
+            "last_creation_serial": 676
+          },
+          "ib": {
+            "pointer": 548403072,
+            "base": 0,
+            "last_creation_serial": 675
+          },
+          "world": {
+            "values": [
+              0.0704392046,
+              0.0532895736,
+              -0.996091723,
+              0,
+              0.0953001603,
+              0.993644893,
+              0.0598978773,
+              0,
+              0.99295336,
+              -0.0991468579,
+              0.0649130493,
+              0,
+              231.633026,
+              29.9816647,
+              182.9832,
+              1
+            ],
+            "bits": [
+              1032864366,
+              1029326379,
+              3212771294,
+              0,
+              1036201147,
+              1065246595,
+              1031100282,
+              0,
+              1065234993,
+              3184201090,
+              1032122658,
+              0,
+              1130865166,
+              1106238067,
+              1127676851,
+              1065353216
+            ]
+          },
+          "states": {
+            "ZENABLE": 1,
+            "ZWRITEENABLE": 1,
+            "ALPHATESTENABLE": 0,
+            "ALPHABLENDENABLE": 0,
+            "SRCBLEND": 5,
+            "DESTBLEND": 6
+          },
+          "forwarded": true,
+          "exact_source_hash_verified": false
+        }
+      ],
+      "proxy_sha256": "88dd4e7ad36c6062e1d39ff8396bccd20038f1d29bc7a6f5d72fdcd9b6227301",
+      "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4"
+    }
+  ],
+  "session": {
+    "file": "session-20261015-233918-23360.jsonl",
+    "bytes": 8049198,
+    "sha256": "441b98dc839607d115c73b2d49a2086bf9745ac32f6b3712f265df09cdc95676",
+    "glow_events": [],
+    "note": "Final file is8MiB, not16MiB. No positive or negative glow event recorded."
+  },
+  "installed_glow_asset": {
+    "path": "D:/Game/Master Rallye Pristine/PS2Grass/PS2BrakeGlow.gxi",
+    "sha256": "b6350f92f674bf2b63200ce4bb39c0c26f03fd99856ac0b89e7fc0797861af09"
+  }
+}

@@ -1,0 +1,14 @@
+#pragma once
+#include "race_fleet_registry.hpp"
+namespace gfx2::ps2port {
+inline constexpr FleetRaceSource kPort3LandCruiserWheelSources[]={
+ {"2cb1c11047458720befddb6edee511a99d2db890fa2d2cc0feba8555eee3a4d6","1429e866794f6514d4a31390bf6e769092809850e24c153e47a57d3706b55310","65ad613c309360e4b9bc9b7a19ca3e7446566092824b73f87bddf41c43989442","cbd585a2718ff47724436f4f492350877d71256ace5c7972dfcc33f7aae25537",54u,72u,false},
+ {"d5ad7afcca8fe0d322e28b4915c144fe7886202c1e44a870cc8fd7358d8dd62e","8943b69df2fd17a26b52cd95f6ddb26a64a7b1552295076704891170bfe4c966","41d0988fbc58dfdd933d3c19252221d9fd68db2e650f2798692219c6781551ad","956c39dcf73bb0efd0725e3ad83f936b9418dbad474d8c41265871e0ea7946b6",38u,36u,false},
+ {"f8a51d57fb6b87ce517c03ada1d6cf734bcc0d334ef31003d3bc16d136556037","aec59edc82fd686d7dc61bff650339c68cd5f9817a0f203313604e3bf433678e","7e655768acf13b8d2c1cb603f106475b6d6d64303dcb549af688c4d7499d777e","b50a88ae374a5daef5916efea9ee5cd85ddecc7441b5f74419749622efc138cb",37u,54u,false},
+ {"8eca9e89cc7445102bc16df1c14aec2dc49f0a0ec904459ff51afaa2033b0ab9","64b29d6f0cd425d18d0f113b83f7a9de99b62247cddce34ebe2239c3bce422a8","592d4aedffb0ecc77022b31d84fc38d01fbace22fc5453b4a8c9573f08345ee5","a2e0e110a4bb75ae127da90e461e169194ed5ca6deef567515fd479f419ed595",19u,18u,false},
+ {"5eee6745b7410f80dc97097203a6b8ac77568f88b2182191411c10bb076de981","f1c7ec3338d7748ecb054c1f5e5de6b4de82502a03a1b6045124e4152c8eac19","1fa8dbfddf3d647319fbe0474b6047244deab6d4fbb5d431d83387185476207f","7b925553433a634bb44188e7507ea169d570a8181f0245e79b787fde5fbd9a37",72u,72u,false},
+};
+inline constexpr bool kPort3LandCruiserWheelMixed[]={false,false,false,true,true};
+inline constexpr bool kPort3LandCruiserWheelWrapU[]={false,true,false,false,false};
+inline constexpr FleetRaceProfile kPort3LandCruiserWheelProfile={"LandCruiser","LANDCRUISER","port3-LANDCRUISER-WHEEL-FLEET.ps2model","33eb549303ff6114aa463e24c452747dda8e3c0e1be42ce643d3756ccd277ee9",63159u,300u,756u,6u,5u,5u,5u,kPort3LandCruiserWheelSources,kPort3LandCruiserWheelMixed,kPort3LandCruiserWheelWrapU};
+}

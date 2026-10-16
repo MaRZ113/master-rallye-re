@@ -1,0 +1,3881 @@
+{
+  "sha256": "bf03e11485f7b09d043b8819d3cc8c181ac1612aaee302b8c7350d5837b33875",
+  "bytes": 3019704,
+  "cases": [
+    {
+      "family": "Astero",
+      "record": 0,
+      "expected_off": false
+    },
+    {
+      "family": "Astero",
+      "record": 1,
+      "expected_off": false
+    },
+    {
+      "family": "Astero",
+      "record": 2,
+      "expected_off": false
+    },
+    {
+      "family": "Astero",
+      "record": 3,
+      "expected_off": false
+    },
+    {
+      "family": "Astero",
+      "record": 4,
+      "expected_off": false
+    },
+    {
+      "family": "Astero",
+      "record": 5,
+      "expected_off": false
+    },
+    {
+      "family": "Astero",
+      "record": 6,
+      "expected_off": false
+    },
+    {
+      "family": "Astero",
+      "record": 7,
+      "expected_off": false
+    },
+    {
+      "family": "Astero",
+      "record": 8,
+      "expected_off": false
+    },
+    {
+      "family": "Astero",
+      "record": 9,
+      "expected_off": false
+    },
+    {
+      "family": "Astero",
+      "record": 10,
+      "expected_off": false
+    },
+    {
+      "family": "Astero",
+      "record": 11,
+      "expected_off": false
+    },
+    {
+      "family": "Astero",
+      "record": 12,
+      "expected_off": false
+    },
+    {
+      "family": "Astero",
+      "record": 13,
+      "expected_off": false
+    },
+    {
+      "family": "Astero",
+      "record": 14,
+      "expected_off": false
+    },
+    {
+      "family": "Astero",
+      "record": 15,
+      "expected_off": false
+    },
+    {
+      "family": "Astero",
+      "record": 16,
+      "expected_off": false
+    },
+    {
+      "family": "Astero",
+      "record": 17,
+      "expected_off": false
+    },
+    {
+      "family": "Astero",
+      "record": 18,
+      "expected_off": false
+    },
+    {
+      "family": "Astero",
+      "record": 19,
+      "expected_off": false
+    },
+    {
+      "family": "Astero",
+      "record": 20,
+      "expected_off": false
+    },
+    {
+      "family": "Astero",
+      "record": 21,
+      "expected_off": false
+    },
+    {
+      "family": "Astero",
+      "record": 22,
+      "expected_off": false
+    },
+    {
+      "family": "Astero",
+      "record": 23,
+      "expected_off": false
+    },
+    {
+      "family": "Astero",
+      "record": 24,
+      "expected_off": false
+    },
+    {
+      "family": "Astero",
+      "record": 25,
+      "expected_off": false
+    },
+    {
+      "family": "Astero",
+      "record": 26,
+      "expected_off": false
+    },
+    {
+      "family": "Astero",
+      "record": 27,
+      "expected_off": false
+    },
+    {
+      "family": "Astero",
+      "record": 28,
+      "expected_off": false
+    },
+    {
+      "family": "Astero",
+      "record": 29,
+      "expected_off": false
+    },
+    {
+      "family": "Astero",
+      "record": 30,
+      "expected_off": false
+    },
+    {
+      "family": "Astero",
+      "record": 31,
+      "expected_off": true
+    },
+    {
+      "family": "Bruno",
+      "record": 0,
+      "expected_off": false
+    },
+    {
+      "family": "Bruno",
+      "record": 1,
+      "expected_off": false
+    },
+    {
+      "family": "Bruno",
+      "record": 2,
+      "expected_off": false
+    },
+    {
+      "family": "Bruno",
+      "record": 3,
+      "expected_off": false
+    },
+    {
+      "family": "Bruno",
+      "record": 4,
+      "expected_off": false
+    },
+    {
+      "family": "Bruno",
+      "record": 5,
+      "expected_off": false
+    },
+    {
+      "family": "Bruno",
+      "record": 6,
+      "expected_off": false
+    },
+    {
+      "family": "Bruno",
+      "record": 7,
+      "expected_off": false
+    },
+    {
+      "family": "Bruno",
+      "record": 8,
+      "expected_off": false
+    },
+    {
+      "family": "Bruno",
+      "record": 9,
+      "expected_off": false
+    },
+    {
+      "family": "Bruno",
+      "record": 10,
+      "expected_off": false
+    },
+    {
+      "family": "Bruno",
+      "record": 11,
+      "expected_off": false
+    },
+    {
+      "family": "Bruno",
+      "record": 12,
+      "expected_off": false
+    },
+    {
+      "family": "Bruno",
+      "record": 13,
+      "expected_off": false
+    },
+    {
+      "family": "Bruno",
+      "record": 14,
+      "expected_off": false
+    },
+    {
+      "family": "Bruno",
+      "record": 15,
+      "expected_off": false
+    },
+    {
+      "family": "Bruno",
+      "record": 16,
+      "expected_off": false
+    },
+    {
+      "family": "Bruno",
+      "record": 17,
+      "expected_off": false
+    },
+    {
+      "family": "Bruno",
+      "record": 18,
+      "expected_off": false
+    },
+    {
+      "family": "Bruno",
+      "record": 19,
+      "expected_off": false
+    },
+    {
+      "family": "Bruno",
+      "record": 20,
+      "expected_off": false
+    },
+    {
+      "family": "ChevyBlazer",
+      "record": 0,
+      "expected_off": false
+    },
+    {
+      "family": "ChevyBlazer",
+      "record": 1,
+      "expected_off": false
+    },
+    {
+      "family": "ChevyBlazer",
+      "record": 2,
+      "expected_off": false
+    },
+    {
+      "family": "ChevyBlazer",
+      "record": 3,
+      "expected_off": false
+    },
+    {
+      "family": "ChevyBlazer",
+      "record": 4,
+      "expected_off": false
+    },
+    {
+      "family": "ChevyBlazer",
+      "record": 5,
+      "expected_off": false
+    },
+    {
+      "family": "ChevyBlazer",
+      "record": 6,
+      "expected_off": false
+    },
+    {
+      "family": "ChevyBlazer",
+      "record": 7,
+      "expected_off": false
+    },
+    {
+      "family": "ChevyBlazer",
+      "record": 8,
+      "expected_off": false
+    },
+    {
+      "family": "ChevyBlazer",
+      "record": 9,
+      "expected_off": false
+    },
+    {
+      "family": "ChevyBlazer",
+      "record": 10,
+      "expected_off": false
+    },
+    {
+      "family": "ChevyBlazer",
+      "record": 11,
+      "expected_off": false
+    },
+    {
+      "family": "ChevyBlazer",
+      "record": 12,
+      "expected_off": false
+    },
+    {
+      "family": "ChevyBlazer",
+      "record": 13,
+      "expected_off": false
+    },
+    {
+      "family": "ChevyBlazer",
+      "record": 14,
+      "expected_off": false
+    },
+    {
+      "family": "ChevyBlazer",
+      "record": 15,
+      "expected_off": false
+    },
+    {
+      "family": "ChevyBlazer",
+      "record": 16,
+      "expected_off": false
+    },
+    {
+      "family": "ChevyBlazer",
+      "record": 17,
+      "expected_off": false
+    },
+    {
+      "family": "ChevyBlazer",
+      "record": 18,
+      "expected_off": false
+    },
+    {
+      "family": "ChevyBlazer",
+      "record": 19,
+      "expected_off": false
+    },
+    {
+      "family": "ChevyBlazer",
+      "record": 20,
+      "expected_off": false
+    },
+    {
+      "family": "ChevyBlazer",
+      "record": 21,
+      "expected_off": false
+    },
+    {
+      "family": "ChevyBlazer",
+      "record": 22,
+      "expected_off": false
+    },
+    {
+      "family": "ChevyBlazer",
+      "record": 23,
+      "expected_off": false
+    },
+    {
+      "family": "ChevyBlazer",
+      "record": 24,
+      "expected_off": false
+    },
+    {
+      "family": "ChevyBlazer",
+      "record": 25,
+      "expected_off": false
+    },
+    {
+      "family": "ChevyBlazer",
+      "record": 26,
+      "expected_off": false
+    },
+    {
+      "family": "ChevyBlazer",
+      "record": 27,
+      "expected_off": false
+    },
+    {
+      "family": "ChevyBlazer",
+      "record": 28,
+      "expected_off": false
+    },
+    {
+      "family": "ChevyBlazer",
+      "record": 29,
+      "expected_off": false
+    },
+    {
+      "family": "ChevyBlazer",
+      "record": 30,
+      "expected_off": false
+    },
+    {
+      "family": "ChevyBlazer",
+      "record": 31,
+      "expected_off": false
+    },
+    {
+      "family": "ChevyBlazer",
+      "record": 32,
+      "expected_off": false
+    },
+    {
+      "family": "ChevyBlazer",
+      "record": 33,
+      "expected_off": true
+    },
+    {
+      "family": "ChevyBlazer",
+      "record": 34,
+      "expected_off": false
+    },
+    {
+      "family": "ChevyBlazer",
+      "record": 35,
+      "expected_off": false
+    },
+    {
+      "family": "Frontera",
+      "record": 0,
+      "expected_off": false
+    },
+    {
+      "family": "Frontera",
+      "record": 1,
+      "expected_off": false
+    },
+    {
+      "family": "Frontera",
+      "record": 2,
+      "expected_off": false
+    },
+    {
+      "family": "Frontera",
+      "record": 3,
+      "expected_off": false
+    },
+    {
+      "family": "Frontera",
+      "record": 4,
+      "expected_off": false
+    },
+    {
+      "family": "Frontera",
+      "record": 5,
+      "expected_off": false
+    },
+    {
+      "family": "Frontera",
+      "record": 6,
+      "expected_off": false
+    },
+    {
+      "family": "Frontera",
+      "record": 7,
+      "expected_off": false
+    },
+    {
+      "family": "Frontera",
+      "record": 8,
+      "expected_off": false
+    },
+    {
+      "family": "Frontera",
+      "record": 9,
+      "expected_off": false
+    },
+    {
+      "family": "Frontera",
+      "record": 10,
+      "expected_off": false
+    },
+    {
+      "family": "Frontera",
+      "record": 11,
+      "expected_off": false
+    },
+    {
+      "family": "Frontera",
+      "record": 12,
+      "expected_off": false
+    },
+    {
+      "family": "Frontera",
+      "record": 13,
+      "expected_off": false
+    },
+    {
+      "family": "Frontera",
+      "record": 14,
+      "expected_off": false
+    },
+    {
+      "family": "Frontera",
+      "record": 15,
+      "expected_off": false
+    },
+    {
+      "family": "Frontera",
+      "record": 16,
+      "expected_off": false
+    },
+    {
+      "family": "Frontera",
+      "record": 17,
+      "expected_off": false
+    },
+    {
+      "family": "Frontera",
+      "record": 18,
+      "expected_off": false
+    },
+    {
+      "family": "Frontera",
+      "record": 19,
+      "expected_off": false
+    },
+    {
+      "family": "Frontera",
+      "record": 20,
+      "expected_off": false
+    },
+    {
+      "family": "Frontera",
+      "record": 21,
+      "expected_off": false
+    },
+    {
+      "family": "Frontera",
+      "record": 22,
+      "expected_off": false
+    },
+    {
+      "family": "Frontera",
+      "record": 23,
+      "expected_off": false
+    },
+    {
+      "family": "Frontera",
+      "record": 24,
+      "expected_off": false
+    },
+    {
+      "family": "Frontera",
+      "record": 25,
+      "expected_off": false
+    },
+    {
+      "family": "Frontera",
+      "record": 26,
+      "expected_off": false
+    },
+    {
+      "family": "Frontera",
+      "record": 27,
+      "expected_off": false
+    },
+    {
+      "family": "Frontera",
+      "record": 28,
+      "expected_off": false
+    },
+    {
+      "family": "Frontera",
+      "record": 29,
+      "expected_off": false
+    },
+    {
+      "family": "Frontera",
+      "record": 30,
+      "expected_off": false
+    },
+    {
+      "family": "Frontera",
+      "record": 31,
+      "expected_off": false
+    },
+    {
+      "family": "Frontera",
+      "record": 32,
+      "expected_off": false
+    },
+    {
+      "family": "Frontera",
+      "record": 33,
+      "expected_off": true
+    },
+    {
+      "family": "IceCream",
+      "record": 0,
+      "expected_off": false
+    },
+    {
+      "family": "IceCream",
+      "record": 1,
+      "expected_off": false
+    },
+    {
+      "family": "IceCream",
+      "record": 2,
+      "expected_off": false
+    },
+    {
+      "family": "IceCream",
+      "record": 3,
+      "expected_off": false
+    },
+    {
+      "family": "IceCream",
+      "record": 4,
+      "expected_off": false
+    },
+    {
+      "family": "IceCream",
+      "record": 5,
+      "expected_off": false
+    },
+    {
+      "family": "IceCream",
+      "record": 6,
+      "expected_off": false
+    },
+    {
+      "family": "IceCream",
+      "record": 7,
+      "expected_off": false
+    },
+    {
+      "family": "IceCream",
+      "record": 8,
+      "expected_off": false
+    },
+    {
+      "family": "IceCream",
+      "record": 9,
+      "expected_off": false
+    },
+    {
+      "family": "IceCream",
+      "record": 10,
+      "expected_off": false
+    },
+    {
+      "family": "IceCream",
+      "record": 11,
+      "expected_off": false
+    },
+    {
+      "family": "IceCream",
+      "record": 12,
+      "expected_off": false
+    },
+    {
+      "family": "IceCream",
+      "record": 13,
+      "expected_off": false
+    },
+    {
+      "family": "IceCream",
+      "record": 14,
+      "expected_off": false
+    },
+    {
+      "family": "IceCream",
+      "record": 15,
+      "expected_off": false
+    },
+    {
+      "family": "IceCream",
+      "record": 16,
+      "expected_off": false
+    },
+    {
+      "family": "IceCream",
+      "record": 17,
+      "expected_off": false
+    },
+    {
+      "family": "IceCream",
+      "record": 18,
+      "expected_off": false
+    },
+    {
+      "family": "IceCream",
+      "record": 19,
+      "expected_off": false
+    },
+    {
+      "family": "IceCream",
+      "record": 20,
+      "expected_off": false
+    },
+    {
+      "family": "IceCream",
+      "record": 21,
+      "expected_off": false
+    },
+    {
+      "family": "IceCream",
+      "record": 22,
+      "expected_off": false
+    },
+    {
+      "family": "IceCream",
+      "record": 23,
+      "expected_off": false
+    },
+    {
+      "family": "IceCream",
+      "record": 24,
+      "expected_off": false
+    },
+    {
+      "family": "IceCream",
+      "record": 25,
+      "expected_off": false
+    },
+    {
+      "family": "IceCream",
+      "record": 26,
+      "expected_off": true
+    },
+    {
+      "family": "IceCream",
+      "record": 27,
+      "expected_off": false
+    },
+    {
+      "family": "IceCream",
+      "record": 28,
+      "expected_off": false
+    },
+    {
+      "family": "Jump",
+      "record": 0,
+      "expected_off": false
+    },
+    {
+      "family": "Jump",
+      "record": 1,
+      "expected_off": false
+    },
+    {
+      "family": "Jump",
+      "record": 2,
+      "expected_off": false
+    },
+    {
+      "family": "Jump",
+      "record": 3,
+      "expected_off": false
+    },
+    {
+      "family": "Jump",
+      "record": 4,
+      "expected_off": false
+    },
+    {
+      "family": "Jump",
+      "record": 5,
+      "expected_off": false
+    },
+    {
+      "family": "Jump",
+      "record": 6,
+      "expected_off": false
+    },
+    {
+      "family": "Jump",
+      "record": 7,
+      "expected_off": false
+    },
+    {
+      "family": "Jump",
+      "record": 8,
+      "expected_off": false
+    },
+    {
+      "family": "Jump",
+      "record": 9,
+      "expected_off": false
+    },
+    {
+      "family": "Jump",
+      "record": 10,
+      "expected_off": false
+    },
+    {
+      "family": "Jump",
+      "record": 11,
+      "expected_off": false
+    },
+    {
+      "family": "Jump",
+      "record": 12,
+      "expected_off": false
+    },
+    {
+      "family": "Jump",
+      "record": 13,
+      "expected_off": false
+    },
+    {
+      "family": "Jump",
+      "record": 14,
+      "expected_off": false
+    },
+    {
+      "family": "Jump",
+      "record": 15,
+      "expected_off": false
+    },
+    {
+      "family": "Jump",
+      "record": 16,
+      "expected_off": false
+    },
+    {
+      "family": "Jump",
+      "record": 17,
+      "expected_off": false
+    },
+    {
+      "family": "Jump",
+      "record": 18,
+      "expected_off": false
+    },
+    {
+      "family": "Jump",
+      "record": 19,
+      "expected_off": false
+    },
+    {
+      "family": "Jump",
+      "record": 20,
+      "expected_off": false
+    },
+    {
+      "family": "Jump",
+      "record": 21,
+      "expected_off": false
+    },
+    {
+      "family": "Jump",
+      "record": 22,
+      "expected_off": false
+    },
+    {
+      "family": "Jump",
+      "record": 23,
+      "expected_off": false
+    },
+    {
+      "family": "Jump",
+      "record": 24,
+      "expected_off": false
+    },
+    {
+      "family": "Jump",
+      "record": 25,
+      "expected_off": false
+    },
+    {
+      "family": "Jump",
+      "record": 26,
+      "expected_off": false
+    },
+    {
+      "family": "Jump",
+      "record": 27,
+      "expected_off": false
+    },
+    {
+      "family": "Jump",
+      "record": 28,
+      "expected_off": false
+    },
+    {
+      "family": "Jump",
+      "record": 29,
+      "expected_off": false
+    },
+    {
+      "family": "Kamaz",
+      "record": 0,
+      "expected_off": false
+    },
+    {
+      "family": "Kamaz",
+      "record": 1,
+      "expected_off": false
+    },
+    {
+      "family": "Kamaz",
+      "record": 2,
+      "expected_off": false
+    },
+    {
+      "family": "Kamaz",
+      "record": 3,
+      "expected_off": false
+    },
+    {
+      "family": "Kamaz",
+      "record": 4,
+      "expected_off": false
+    },
+    {
+      "family": "Kamaz",
+      "record": 5,
+      "expected_off": false
+    },
+    {
+      "family": "Kamaz",
+      "record": 6,
+      "expected_off": false
+    },
+    {
+      "family": "Kamaz",
+      "record": 7,
+      "expected_off": false
+    },
+    {
+      "family": "Kamaz",
+      "record": 8,
+      "expected_off": false
+    },
+    {
+      "family": "Kamaz",
+      "record": 9,
+      "expected_off": false
+    },
+    {
+      "family": "Kamaz",
+      "record": 10,
+      "expected_off": false
+    },
+    {
+      "family": "Kamaz",
+      "record": 11,
+      "expected_off": false
+    },
+    {
+      "family": "Kamaz",
+      "record": 12,
+      "expected_off": false
+    },
+    {
+      "family": "Kamaz",
+      "record": 13,
+      "expected_off": false
+    },
+    {
+      "family": "Kamaz",
+      "record": 14,
+      "expected_off": false
+    },
+    {
+      "family": "Kamaz",
+      "record": 15,
+      "expected_off": false
+    },
+    {
+      "family": "Kamaz",
+      "record": 16,
+      "expected_off": false
+    },
+    {
+      "family": "Kamaz",
+      "record": 17,
+      "expected_off": false
+    },
+    {
+      "family": "Kamaz",
+      "record": 18,
+      "expected_off": false
+    },
+    {
+      "family": "Kamaz",
+      "record": 19,
+      "expected_off": false
+    },
+    {
+      "family": "Kamaz",
+      "record": 20,
+      "expected_off": false
+    },
+    {
+      "family": "Kamaz",
+      "record": 21,
+      "expected_off": false
+    },
+    {
+      "family": "Kamaz",
+      "record": 22,
+      "expected_off": false
+    },
+    {
+      "family": "Kamaz",
+      "record": 23,
+      "expected_off": false
+    },
+    {
+      "family": "Kamaz",
+      "record": 24,
+      "expected_off": true
+    },
+    {
+      "family": "Kamaz",
+      "record": 25,
+      "expected_off": false
+    },
+    {
+      "family": "Kamaz",
+      "record": 26,
+      "expected_off": false
+    },
+    {
+      "family": "Kamaz",
+      "record": 27,
+      "expected_off": false
+    },
+    {
+      "family": "Kamaz",
+      "record": 28,
+      "expected_off": false
+    },
+    {
+      "family": "Kamaz",
+      "record": 29,
+      "expected_off": false
+    },
+    {
+      "family": "Kamaz",
+      "record": 30,
+      "expected_off": false
+    },
+    {
+      "family": "Kamaz",
+      "record": 31,
+      "expected_off": false
+    },
+    {
+      "family": "Kamaz",
+      "record": 32,
+      "expected_off": false
+    },
+    {
+      "family": "Kangoo",
+      "record": 0,
+      "expected_off": false
+    },
+    {
+      "family": "Kangoo",
+      "record": 1,
+      "expected_off": false
+    },
+    {
+      "family": "Kangoo",
+      "record": 2,
+      "expected_off": false
+    },
+    {
+      "family": "Kangoo",
+      "record": 3,
+      "expected_off": false
+    },
+    {
+      "family": "Kangoo",
+      "record": 4,
+      "expected_off": false
+    },
+    {
+      "family": "Kangoo",
+      "record": 5,
+      "expected_off": false
+    },
+    {
+      "family": "Kangoo",
+      "record": 6,
+      "expected_off": false
+    },
+    {
+      "family": "Kangoo",
+      "record": 7,
+      "expected_off": false
+    },
+    {
+      "family": "Kangoo",
+      "record": 8,
+      "expected_off": false
+    },
+    {
+      "family": "Kangoo",
+      "record": 9,
+      "expected_off": false
+    },
+    {
+      "family": "Kangoo",
+      "record": 10,
+      "expected_off": false
+    },
+    {
+      "family": "Kangoo",
+      "record": 11,
+      "expected_off": false
+    },
+    {
+      "family": "Kangoo",
+      "record": 12,
+      "expected_off": false
+    },
+    {
+      "family": "Kangoo",
+      "record": 13,
+      "expected_off": false
+    },
+    {
+      "family": "Kangoo",
+      "record": 14,
+      "expected_off": false
+    },
+    {
+      "family": "Kangoo",
+      "record": 15,
+      "expected_off": false
+    },
+    {
+      "family": "Kangoo",
+      "record": 16,
+      "expected_off": false
+    },
+    {
+      "family": "Kangoo",
+      "record": 17,
+      "expected_off": false
+    },
+    {
+      "family": "Kangoo",
+      "record": 18,
+      "expected_off": false
+    },
+    {
+      "family": "Kangoo",
+      "record": 19,
+      "expected_off": false
+    },
+    {
+      "family": "Kangoo",
+      "record": 20,
+      "expected_off": false
+    },
+    {
+      "family": "Kangoo",
+      "record": 21,
+      "expected_off": false
+    },
+    {
+      "family": "Kangoo",
+      "record": 22,
+      "expected_off": false
+    },
+    {
+      "family": "Kangoo",
+      "record": 23,
+      "expected_off": false
+    },
+    {
+      "family": "Kangoo",
+      "record": 24,
+      "expected_off": false
+    },
+    {
+      "family": "Kangoo",
+      "record": 25,
+      "expected_off": false
+    },
+    {
+      "family": "Kangoo",
+      "record": 26,
+      "expected_off": false
+    },
+    {
+      "family": "Kangoo",
+      "record": 27,
+      "expected_off": false
+    },
+    {
+      "family": "Kangoo",
+      "record": 28,
+      "expected_off": true
+    },
+    {
+      "family": "KiaSportage",
+      "record": 0,
+      "expected_off": false
+    },
+    {
+      "family": "KiaSportage",
+      "record": 1,
+      "expected_off": false
+    },
+    {
+      "family": "KiaSportage",
+      "record": 2,
+      "expected_off": false
+    },
+    {
+      "family": "KiaSportage",
+      "record": 3,
+      "expected_off": false
+    },
+    {
+      "family": "KiaSportage",
+      "record": 4,
+      "expected_off": false
+    },
+    {
+      "family": "KiaSportage",
+      "record": 5,
+      "expected_off": false
+    },
+    {
+      "family": "KiaSportage",
+      "record": 6,
+      "expected_off": false
+    },
+    {
+      "family": "KiaSportage",
+      "record": 7,
+      "expected_off": false
+    },
+    {
+      "family": "KiaSportage",
+      "record": 8,
+      "expected_off": false
+    },
+    {
+      "family": "KiaSportage",
+      "record": 9,
+      "expected_off": false
+    },
+    {
+      "family": "KiaSportage",
+      "record": 10,
+      "expected_off": false
+    },
+    {
+      "family": "KiaSportage",
+      "record": 11,
+      "expected_off": false
+    },
+    {
+      "family": "KiaSportage",
+      "record": 12,
+      "expected_off": false
+    },
+    {
+      "family": "KiaSportage",
+      "record": 13,
+      "expected_off": false
+    },
+    {
+      "family": "KiaSportage",
+      "record": 14,
+      "expected_off": false
+    },
+    {
+      "family": "KiaSportage",
+      "record": 15,
+      "expected_off": false
+    },
+    {
+      "family": "KiaSportage",
+      "record": 16,
+      "expected_off": false
+    },
+    {
+      "family": "KiaSportage",
+      "record": 17,
+      "expected_off": false
+    },
+    {
+      "family": "KiaSportage",
+      "record": 18,
+      "expected_off": false
+    },
+    {
+      "family": "KiaSportage",
+      "record": 19,
+      "expected_off": false
+    },
+    {
+      "family": "KiaSportage",
+      "record": 20,
+      "expected_off": false
+    },
+    {
+      "family": "KiaSportage",
+      "record": 21,
+      "expected_off": false
+    },
+    {
+      "family": "KiaSportage",
+      "record": 22,
+      "expected_off": false
+    },
+    {
+      "family": "KiaSportage",
+      "record": 23,
+      "expected_off": false
+    },
+    {
+      "family": "KiaSportage",
+      "record": 24,
+      "expected_off": false
+    },
+    {
+      "family": "KiaSportage",
+      "record": 25,
+      "expected_off": false
+    },
+    {
+      "family": "KiaSportage",
+      "record": 26,
+      "expected_off": false
+    },
+    {
+      "family": "KiaSportage",
+      "record": 27,
+      "expected_off": false
+    },
+    {
+      "family": "KiaSportage",
+      "record": 28,
+      "expected_off": false
+    },
+    {
+      "family": "KiaSportage",
+      "record": 29,
+      "expected_off": false
+    },
+    {
+      "family": "KiaSportage",
+      "record": 30,
+      "expected_off": true
+    },
+    {
+      "family": "KiaSportage",
+      "record": 31,
+      "expected_off": false
+    },
+    {
+      "family": "KiaSportage",
+      "record": 32,
+      "expected_off": false
+    },
+    {
+      "family": "KiaSportage",
+      "record": 33,
+      "expected_off": false
+    },
+    {
+      "family": "KiaSportage",
+      "record": 34,
+      "expected_off": false
+    },
+    {
+      "family": "LandCruiser",
+      "record": 0,
+      "expected_off": false
+    },
+    {
+      "family": "LandCruiser",
+      "record": 1,
+      "expected_off": false
+    },
+    {
+      "family": "LandCruiser",
+      "record": 2,
+      "expected_off": false
+    },
+    {
+      "family": "LandCruiser",
+      "record": 3,
+      "expected_off": false
+    },
+    {
+      "family": "LandCruiser",
+      "record": 4,
+      "expected_off": false
+    },
+    {
+      "family": "LandCruiser",
+      "record": 5,
+      "expected_off": false
+    },
+    {
+      "family": "LandCruiser",
+      "record": 6,
+      "expected_off": false
+    },
+    {
+      "family": "LandCruiser",
+      "record": 7,
+      "expected_off": false
+    },
+    {
+      "family": "LandCruiser",
+      "record": 8,
+      "expected_off": false
+    },
+    {
+      "family": "LandCruiser",
+      "record": 9,
+      "expected_off": false
+    },
+    {
+      "family": "LandCruiser",
+      "record": 10,
+      "expected_off": false
+    },
+    {
+      "family": "LandCruiser",
+      "record": 11,
+      "expected_off": false
+    },
+    {
+      "family": "LandCruiser",
+      "record": 12,
+      "expected_off": false
+    },
+    {
+      "family": "LandCruiser",
+      "record": 13,
+      "expected_off": false
+    },
+    {
+      "family": "LandCruiser",
+      "record": 14,
+      "expected_off": false
+    },
+    {
+      "family": "LandCruiser",
+      "record": 15,
+      "expected_off": false
+    },
+    {
+      "family": "LandCruiser",
+      "record": 16,
+      "expected_off": false
+    },
+    {
+      "family": "LandCruiser",
+      "record": 17,
+      "expected_off": false
+    },
+    {
+      "family": "LandCruiser",
+      "record": 18,
+      "expected_off": false
+    },
+    {
+      "family": "LandCruiser",
+      "record": 19,
+      "expected_off": false
+    },
+    {
+      "family": "LandCruiser",
+      "record": 20,
+      "expected_off": false
+    },
+    {
+      "family": "LandCruiser",
+      "record": 21,
+      "expected_off": false
+    },
+    {
+      "family": "LandCruiser",
+      "record": 22,
+      "expected_off": false
+    },
+    {
+      "family": "LandCruiser",
+      "record": 23,
+      "expected_off": false
+    },
+    {
+      "family": "LandCruiser",
+      "record": 24,
+      "expected_off": false
+    },
+    {
+      "family": "LandCruiser",
+      "record": 25,
+      "expected_off": false
+    },
+    {
+      "family": "LandCruiser",
+      "record": 26,
+      "expected_off": false
+    },
+    {
+      "family": "LandCruiser",
+      "record": 27,
+      "expected_off": false
+    },
+    {
+      "family": "LandCruiser",
+      "record": 28,
+      "expected_off": false
+    },
+    {
+      "family": "LandCruiser",
+      "record": 29,
+      "expected_off": false
+    },
+    {
+      "family": "LandCruiser",
+      "record": 30,
+      "expected_off": false
+    },
+    {
+      "family": "LandCruiser",
+      "record": 31,
+      "expected_off": false
+    },
+    {
+      "family": "LandCruiser",
+      "record": 32,
+      "expected_off": true
+    },
+    {
+      "family": "Mattserati",
+      "record": 0,
+      "expected_off": false
+    },
+    {
+      "family": "Mattserati",
+      "record": 1,
+      "expected_off": false
+    },
+    {
+      "family": "Mattserati",
+      "record": 2,
+      "expected_off": false
+    },
+    {
+      "family": "Mattserati",
+      "record": 3,
+      "expected_off": false
+    },
+    {
+      "family": "Mattserati",
+      "record": 4,
+      "expected_off": false
+    },
+    {
+      "family": "Mattserati",
+      "record": 5,
+      "expected_off": false
+    },
+    {
+      "family": "Mattserati",
+      "record": 6,
+      "expected_off": false
+    },
+    {
+      "family": "Mattserati",
+      "record": 7,
+      "expected_off": false
+    },
+    {
+      "family": "Mattserati",
+      "record": 8,
+      "expected_off": false
+    },
+    {
+      "family": "Mattserati",
+      "record": 9,
+      "expected_off": false
+    },
+    {
+      "family": "Mattserati",
+      "record": 10,
+      "expected_off": false
+    },
+    {
+      "family": "Mattserati",
+      "record": 11,
+      "expected_off": false
+    },
+    {
+      "family": "Mattserati",
+      "record": 12,
+      "expected_off": false
+    },
+    {
+      "family": "Mattserati",
+      "record": 13,
+      "expected_off": false
+    },
+    {
+      "family": "Mattserati",
+      "record": 14,
+      "expected_off": false
+    },
+    {
+      "family": "Mattserati",
+      "record": 15,
+      "expected_off": false
+    },
+    {
+      "family": "Mattserati",
+      "record": 16,
+      "expected_off": false
+    },
+    {
+      "family": "Mattserati",
+      "record": 17,
+      "expected_off": false
+    },
+    {
+      "family": "Mattserati",
+      "record": 18,
+      "expected_off": false
+    },
+    {
+      "family": "Mattserati",
+      "record": 19,
+      "expected_off": false
+    },
+    {
+      "family": "Mattserati",
+      "record": 20,
+      "expected_off": false
+    },
+    {
+      "family": "Mattserati",
+      "record": 21,
+      "expected_off": false
+    },
+    {
+      "family": "Mattserati",
+      "record": 22,
+      "expected_off": false
+    },
+    {
+      "family": "Mattserati",
+      "record": 23,
+      "expected_off": false
+    },
+    {
+      "family": "Mattserati",
+      "record": 24,
+      "expected_off": false
+    },
+    {
+      "family": "Mattserati",
+      "record": 25,
+      "expected_off": false
+    },
+    {
+      "family": "megane",
+      "record": 0,
+      "expected_off": false
+    },
+    {
+      "family": "megane",
+      "record": 1,
+      "expected_off": false
+    },
+    {
+      "family": "megane",
+      "record": 2,
+      "expected_off": false
+    },
+    {
+      "family": "megane",
+      "record": 3,
+      "expected_off": false
+    },
+    {
+      "family": "megane",
+      "record": 4,
+      "expected_off": false
+    },
+    {
+      "family": "megane",
+      "record": 5,
+      "expected_off": false
+    },
+    {
+      "family": "megane",
+      "record": 6,
+      "expected_off": false
+    },
+    {
+      "family": "megane",
+      "record": 7,
+      "expected_off": false
+    },
+    {
+      "family": "megane",
+      "record": 8,
+      "expected_off": false
+    },
+    {
+      "family": "megane",
+      "record": 9,
+      "expected_off": false
+    },
+    {
+      "family": "megane",
+      "record": 10,
+      "expected_off": false
+    },
+    {
+      "family": "megane",
+      "record": 11,
+      "expected_off": false
+    },
+    {
+      "family": "megane",
+      "record": 12,
+      "expected_off": false
+    },
+    {
+      "family": "megane",
+      "record": 13,
+      "expected_off": false
+    },
+    {
+      "family": "megane",
+      "record": 14,
+      "expected_off": false
+    },
+    {
+      "family": "megane",
+      "record": 15,
+      "expected_off": false
+    },
+    {
+      "family": "megane",
+      "record": 16,
+      "expected_off": false
+    },
+    {
+      "family": "megane",
+      "record": 17,
+      "expected_off": false
+    },
+    {
+      "family": "megane",
+      "record": 18,
+      "expected_off": false
+    },
+    {
+      "family": "megane",
+      "record": 19,
+      "expected_off": false
+    },
+    {
+      "family": "megane",
+      "record": 20,
+      "expected_off": false
+    },
+    {
+      "family": "megane",
+      "record": 21,
+      "expected_off": false
+    },
+    {
+      "family": "megane",
+      "record": 22,
+      "expected_off": false
+    },
+    {
+      "family": "megane",
+      "record": 23,
+      "expected_off": false
+    },
+    {
+      "family": "megane",
+      "record": 24,
+      "expected_off": false
+    },
+    {
+      "family": "megane",
+      "record": 25,
+      "expected_off": false
+    },
+    {
+      "family": "megane",
+      "record": 26,
+      "expected_off": true
+    },
+    {
+      "family": "megane",
+      "record": 27,
+      "expected_off": false
+    },
+    {
+      "family": "megane",
+      "record": 28,
+      "expected_off": false
+    },
+    {
+      "family": "megane",
+      "record": 29,
+      "expected_off": false
+    },
+    {
+      "family": "megane",
+      "record": 30,
+      "expected_off": false
+    },
+    {
+      "family": "megane",
+      "record": 31,
+      "expected_off": false
+    },
+    {
+      "family": "megane",
+      "record": 32,
+      "expected_off": false
+    },
+    {
+      "family": "Navara",
+      "record": 0,
+      "expected_off": false
+    },
+    {
+      "family": "Navara",
+      "record": 1,
+      "expected_off": false
+    },
+    {
+      "family": "Navara",
+      "record": 2,
+      "expected_off": false
+    },
+    {
+      "family": "Navara",
+      "record": 3,
+      "expected_off": false
+    },
+    {
+      "family": "Navara",
+      "record": 4,
+      "expected_off": false
+    },
+    {
+      "family": "Navara",
+      "record": 5,
+      "expected_off": false
+    },
+    {
+      "family": "Navara",
+      "record": 6,
+      "expected_off": false
+    },
+    {
+      "family": "Navara",
+      "record": 7,
+      "expected_off": false
+    },
+    {
+      "family": "Navara",
+      "record": 8,
+      "expected_off": false
+    },
+    {
+      "family": "Navara",
+      "record": 9,
+      "expected_off": false
+    },
+    {
+      "family": "Navara",
+      "record": 10,
+      "expected_off": false
+    },
+    {
+      "family": "Navara",
+      "record": 11,
+      "expected_off": false
+    },
+    {
+      "family": "Navara",
+      "record": 12,
+      "expected_off": false
+    },
+    {
+      "family": "Navara",
+      "record": 13,
+      "expected_off": false
+    },
+    {
+      "family": "Navara",
+      "record": 14,
+      "expected_off": false
+    },
+    {
+      "family": "Navara",
+      "record": 15,
+      "expected_off": false
+    },
+    {
+      "family": "Navara",
+      "record": 16,
+      "expected_off": false
+    },
+    {
+      "family": "Navara",
+      "record": 17,
+      "expected_off": false
+    },
+    {
+      "family": "Navara",
+      "record": 18,
+      "expected_off": false
+    },
+    {
+      "family": "Navara",
+      "record": 19,
+      "expected_off": false
+    },
+    {
+      "family": "Navara",
+      "record": 20,
+      "expected_off": false
+    },
+    {
+      "family": "Navara",
+      "record": 21,
+      "expected_off": false
+    },
+    {
+      "family": "Navara",
+      "record": 22,
+      "expected_off": false
+    },
+    {
+      "family": "Navara",
+      "record": 23,
+      "expected_off": false
+    },
+    {
+      "family": "Navara",
+      "record": 24,
+      "expected_off": false
+    },
+    {
+      "family": "Navara",
+      "record": 25,
+      "expected_off": false
+    },
+    {
+      "family": "Navara",
+      "record": 26,
+      "expected_off": false
+    },
+    {
+      "family": "Navara",
+      "record": 27,
+      "expected_off": false
+    },
+    {
+      "family": "Navara",
+      "record": 28,
+      "expected_off": true
+    },
+    {
+      "family": "Navara",
+      "record": 29,
+      "expected_off": false
+    },
+    {
+      "family": "Navara",
+      "record": 30,
+      "expected_off": false
+    },
+    {
+      "family": "Navara",
+      "record": 31,
+      "expected_off": false
+    },
+    {
+      "family": "Navara",
+      "record": 32,
+      "expected_off": false
+    },
+    {
+      "family": "Navara",
+      "record": 33,
+      "expected_off": false
+    },
+    {
+      "family": "Navara",
+      "record": 34,
+      "expected_off": false
+    },
+    {
+      "family": "Navara",
+      "record": 35,
+      "expected_off": false
+    },
+    {
+      "family": "Navara",
+      "record": 36,
+      "expected_off": false
+    },
+    {
+      "family": "NewRav",
+      "record": 0,
+      "expected_off": false
+    },
+    {
+      "family": "NewRav",
+      "record": 1,
+      "expected_off": false
+    },
+    {
+      "family": "NewRav",
+      "record": 2,
+      "expected_off": false
+    },
+    {
+      "family": "NewRav",
+      "record": 3,
+      "expected_off": false
+    },
+    {
+      "family": "NewRav",
+      "record": 4,
+      "expected_off": false
+    },
+    {
+      "family": "NewRav",
+      "record": 5,
+      "expected_off": false
+    },
+    {
+      "family": "NewRav",
+      "record": 6,
+      "expected_off": false
+    },
+    {
+      "family": "NewRav",
+      "record": 7,
+      "expected_off": false
+    },
+    {
+      "family": "NewRav",
+      "record": 8,
+      "expected_off": false
+    },
+    {
+      "family": "NewRav",
+      "record": 9,
+      "expected_off": false
+    },
+    {
+      "family": "NewRav",
+      "record": 10,
+      "expected_off": false
+    },
+    {
+      "family": "NewRav",
+      "record": 11,
+      "expected_off": false
+    },
+    {
+      "family": "NewRav",
+      "record": 12,
+      "expected_off": false
+    },
+    {
+      "family": "NewRav",
+      "record": 13,
+      "expected_off": false
+    },
+    {
+      "family": "NewRav",
+      "record": 14,
+      "expected_off": false
+    },
+    {
+      "family": "NewRav",
+      "record": 15,
+      "expected_off": false
+    },
+    {
+      "family": "NewRav",
+      "record": 16,
+      "expected_off": false
+    },
+    {
+      "family": "NewRav",
+      "record": 17,
+      "expected_off": false
+    },
+    {
+      "family": "NewRav",
+      "record": 18,
+      "expected_off": false
+    },
+    {
+      "family": "NewRav",
+      "record": 19,
+      "expected_off": false
+    },
+    {
+      "family": "NewRav",
+      "record": 20,
+      "expected_off": false
+    },
+    {
+      "family": "NewRav",
+      "record": 21,
+      "expected_off": false
+    },
+    {
+      "family": "NewRav",
+      "record": 22,
+      "expected_off": false
+    },
+    {
+      "family": "NewRav",
+      "record": 23,
+      "expected_off": false
+    },
+    {
+      "family": "NewRav",
+      "record": 24,
+      "expected_off": false
+    },
+    {
+      "family": "NewRav",
+      "record": 25,
+      "expected_off": false
+    },
+    {
+      "family": "NewRav",
+      "record": 26,
+      "expected_off": false
+    },
+    {
+      "family": "NewRav",
+      "record": 27,
+      "expected_off": false
+    },
+    {
+      "family": "NewRav",
+      "record": 28,
+      "expected_off": false
+    },
+    {
+      "family": "NewRav",
+      "record": 29,
+      "expected_off": false
+    },
+    {
+      "family": "NewRav",
+      "record": 30,
+      "expected_off": false
+    },
+    {
+      "family": "NewRav",
+      "record": 31,
+      "expected_off": false
+    },
+    {
+      "family": "NewRav",
+      "record": 32,
+      "expected_off": false
+    },
+    {
+      "family": "NewRav",
+      "record": 33,
+      "expected_off": false
+    },
+    {
+      "family": "NewRav",
+      "record": 34,
+      "expected_off": true
+    },
+    {
+      "family": "Pajero",
+      "record": 0,
+      "expected_off": false
+    },
+    {
+      "family": "Pajero",
+      "record": 1,
+      "expected_off": false
+    },
+    {
+      "family": "Pajero",
+      "record": 2,
+      "expected_off": false
+    },
+    {
+      "family": "Pajero",
+      "record": 3,
+      "expected_off": false
+    },
+    {
+      "family": "Pajero",
+      "record": 4,
+      "expected_off": false
+    },
+    {
+      "family": "Pajero",
+      "record": 5,
+      "expected_off": false
+    },
+    {
+      "family": "Pajero",
+      "record": 6,
+      "expected_off": false
+    },
+    {
+      "family": "Pajero",
+      "record": 7,
+      "expected_off": false
+    },
+    {
+      "family": "Pajero",
+      "record": 8,
+      "expected_off": false
+    },
+    {
+      "family": "Pajero",
+      "record": 9,
+      "expected_off": false
+    },
+    {
+      "family": "Pajero",
+      "record": 10,
+      "expected_off": false
+    },
+    {
+      "family": "Pajero",
+      "record": 11,
+      "expected_off": false
+    },
+    {
+      "family": "Pajero",
+      "record": 12,
+      "expected_off": false
+    },
+    {
+      "family": "Pajero",
+      "record": 13,
+      "expected_off": false
+    },
+    {
+      "family": "Pajero",
+      "record": 14,
+      "expected_off": false
+    },
+    {
+      "family": "Pajero",
+      "record": 15,
+      "expected_off": false
+    },
+    {
+      "family": "Pajero",
+      "record": 16,
+      "expected_off": false
+    },
+    {
+      "family": "Pajero",
+      "record": 17,
+      "expected_off": false
+    },
+    {
+      "family": "Pajero",
+      "record": 18,
+      "expected_off": false
+    },
+    {
+      "family": "Pajero",
+      "record": 19,
+      "expected_off": false
+    },
+    {
+      "family": "Pajero",
+      "record": 20,
+      "expected_off": false
+    },
+    {
+      "family": "Pajero",
+      "record": 21,
+      "expected_off": false
+    },
+    {
+      "family": "Pajero",
+      "record": 22,
+      "expected_off": false
+    },
+    {
+      "family": "Pajero",
+      "record": 23,
+      "expected_off": false
+    },
+    {
+      "family": "Pajero",
+      "record": 24,
+      "expected_off": true
+    },
+    {
+      "family": "Pajero",
+      "record": 25,
+      "expected_off": false
+    },
+    {
+      "family": "Pajero",
+      "record": 26,
+      "expected_off": false
+    },
+    {
+      "family": "Pajero",
+      "record": 27,
+      "expected_off": false
+    },
+    {
+      "family": "Pajero",
+      "record": 28,
+      "expected_off": false
+    },
+    {
+      "family": "Pajero",
+      "record": 29,
+      "expected_off": false
+    },
+    {
+      "family": "Pajero",
+      "record": 30,
+      "expected_off": false
+    },
+    {
+      "family": "Pajero",
+      "record": 31,
+      "expected_off": false
+    },
+    {
+      "family": "Pajero",
+      "record": 32,
+      "expected_off": false
+    },
+    {
+      "family": "Patrol",
+      "record": 0,
+      "expected_off": false
+    },
+    {
+      "family": "Patrol",
+      "record": 1,
+      "expected_off": false
+    },
+    {
+      "family": "Patrol",
+      "record": 2,
+      "expected_off": false
+    },
+    {
+      "family": "Patrol",
+      "record": 3,
+      "expected_off": false
+    },
+    {
+      "family": "Patrol",
+      "record": 4,
+      "expected_off": false
+    },
+    {
+      "family": "Patrol",
+      "record": 5,
+      "expected_off": false
+    },
+    {
+      "family": "Patrol",
+      "record": 6,
+      "expected_off": false
+    },
+    {
+      "family": "Patrol",
+      "record": 7,
+      "expected_off": false
+    },
+    {
+      "family": "Patrol",
+      "record": 8,
+      "expected_off": false
+    },
+    {
+      "family": "Patrol",
+      "record": 9,
+      "expected_off": false
+    },
+    {
+      "family": "Patrol",
+      "record": 10,
+      "expected_off": false
+    },
+    {
+      "family": "Patrol",
+      "record": 11,
+      "expected_off": false
+    },
+    {
+      "family": "Patrol",
+      "record": 12,
+      "expected_off": false
+    },
+    {
+      "family": "Patrol",
+      "record": 13,
+      "expected_off": false
+    },
+    {
+      "family": "Patrol",
+      "record": 14,
+      "expected_off": false
+    },
+    {
+      "family": "Patrol",
+      "record": 15,
+      "expected_off": false
+    },
+    {
+      "family": "Patrol",
+      "record": 16,
+      "expected_off": false
+    },
+    {
+      "family": "Patrol",
+      "record": 17,
+      "expected_off": false
+    },
+    {
+      "family": "Patrol",
+      "record": 18,
+      "expected_off": false
+    },
+    {
+      "family": "Patrol",
+      "record": 19,
+      "expected_off": false
+    },
+    {
+      "family": "Patrol",
+      "record": 20,
+      "expected_off": false
+    },
+    {
+      "family": "Patrol",
+      "record": 21,
+      "expected_off": false
+    },
+    {
+      "family": "Patrol",
+      "record": 22,
+      "expected_off": false
+    },
+    {
+      "family": "Patrol",
+      "record": 23,
+      "expected_off": false
+    },
+    {
+      "family": "Patrol",
+      "record": 24,
+      "expected_off": false
+    },
+    {
+      "family": "Patrol",
+      "record": 25,
+      "expected_off": false
+    },
+    {
+      "family": "Patrol",
+      "record": 26,
+      "expected_off": false
+    },
+    {
+      "family": "Patrol",
+      "record": 27,
+      "expected_off": false
+    },
+    {
+      "family": "Patrol",
+      "record": 28,
+      "expected_off": false
+    },
+    {
+      "family": "Patrol",
+      "record": 29,
+      "expected_off": true
+    },
+    {
+      "family": "Patrol",
+      "record": 30,
+      "expected_off": false
+    },
+    {
+      "family": "Patrol",
+      "record": 31,
+      "expected_off": false
+    },
+    {
+      "family": "Patrol",
+      "record": 32,
+      "expected_off": false
+    },
+    {
+      "family": "Patrol",
+      "record": 33,
+      "expected_off": false
+    },
+    {
+      "family": "RMonster",
+      "record": 0,
+      "expected_off": false
+    },
+    {
+      "family": "RMonster",
+      "record": 1,
+      "expected_off": false
+    },
+    {
+      "family": "RMonster",
+      "record": 2,
+      "expected_off": false
+    },
+    {
+      "family": "RMonster",
+      "record": 3,
+      "expected_off": false
+    },
+    {
+      "family": "RMonster",
+      "record": 4,
+      "expected_off": false
+    },
+    {
+      "family": "RMonster",
+      "record": 5,
+      "expected_off": false
+    },
+    {
+      "family": "RMonster",
+      "record": 6,
+      "expected_off": false
+    },
+    {
+      "family": "RMonster",
+      "record": 7,
+      "expected_off": false
+    },
+    {
+      "family": "RMonster",
+      "record": 8,
+      "expected_off": false
+    },
+    {
+      "family": "RMonster",
+      "record": 9,
+      "expected_off": false
+    },
+    {
+      "family": "RMonster",
+      "record": 10,
+      "expected_off": false
+    },
+    {
+      "family": "RMonster",
+      "record": 11,
+      "expected_off": false
+    },
+    {
+      "family": "RMonster",
+      "record": 12,
+      "expected_off": false
+    },
+    {
+      "family": "RMonster",
+      "record": 13,
+      "expected_off": false
+    },
+    {
+      "family": "RMonster",
+      "record": 14,
+      "expected_off": false
+    },
+    {
+      "family": "RMonster",
+      "record": 15,
+      "expected_off": false
+    },
+    {
+      "family": "RMonster",
+      "record": 16,
+      "expected_off": false
+    },
+    {
+      "family": "RMonster",
+      "record": 17,
+      "expected_off": false
+    },
+    {
+      "family": "RMonster",
+      "record": 18,
+      "expected_off": false
+    },
+    {
+      "family": "RMonster",
+      "record": 19,
+      "expected_off": false
+    },
+    {
+      "family": "RMonster",
+      "record": 20,
+      "expected_off": false
+    },
+    {
+      "family": "RMonster",
+      "record": 21,
+      "expected_off": false
+    },
+    {
+      "family": "RMonster",
+      "record": 22,
+      "expected_off": true
+    },
+    {
+      "family": "RMonster",
+      "record": 23,
+      "expected_off": false
+    },
+    {
+      "family": "RMonster",
+      "record": 24,
+      "expected_off": false
+    },
+    {
+      "family": "RMonster",
+      "record": 25,
+      "expected_off": false
+    },
+    {
+      "family": "RMonster",
+      "record": 26,
+      "expected_off": false
+    },
+    {
+      "family": "RMonster",
+      "record": 27,
+      "expected_off": false
+    },
+    {
+      "family": "RMonster",
+      "record": 28,
+      "expected_off": false
+    },
+    {
+      "family": "RMonster",
+      "record": 29,
+      "expected_off": false
+    },
+    {
+      "family": "RMonster",
+      "record": 30,
+      "expected_off": false
+    },
+    {
+      "family": "RMonster",
+      "record": 31,
+      "expected_off": false
+    },
+    {
+      "family": "RMonster",
+      "record": 32,
+      "expected_off": false
+    },
+    {
+      "family": "SeatBuggy",
+      "record": 0,
+      "expected_off": false
+    },
+    {
+      "family": "SeatBuggy",
+      "record": 1,
+      "expected_off": false
+    },
+    {
+      "family": "SeatBuggy",
+      "record": 2,
+      "expected_off": false
+    },
+    {
+      "family": "SeatBuggy",
+      "record": 3,
+      "expected_off": false
+    },
+    {
+      "family": "SeatBuggy",
+      "record": 4,
+      "expected_off": false
+    },
+    {
+      "family": "SeatBuggy",
+      "record": 5,
+      "expected_off": false
+    },
+    {
+      "family": "SeatBuggy",
+      "record": 6,
+      "expected_off": false
+    },
+    {
+      "family": "SeatBuggy",
+      "record": 7,
+      "expected_off": false
+    },
+    {
+      "family": "SeatBuggy",
+      "record": 8,
+      "expected_off": false
+    },
+    {
+      "family": "SeatBuggy",
+      "record": 9,
+      "expected_off": false
+    },
+    {
+      "family": "SeatBuggy",
+      "record": 10,
+      "expected_off": false
+    },
+    {
+      "family": "SeatBuggy",
+      "record": 11,
+      "expected_off": false
+    },
+    {
+      "family": "SeatBuggy",
+      "record": 12,
+      "expected_off": false
+    },
+    {
+      "family": "SeatBuggy",
+      "record": 13,
+      "expected_off": false
+    },
+    {
+      "family": "SeatBuggy",
+      "record": 14,
+      "expected_off": false
+    },
+    {
+      "family": "SeatBuggy",
+      "record": 15,
+      "expected_off": false
+    },
+    {
+      "family": "SeatBuggy",
+      "record": 16,
+      "expected_off": false
+    },
+    {
+      "family": "SeatBuggy",
+      "record": 17,
+      "expected_off": false
+    },
+    {
+      "family": "SeatBuggy",
+      "record": 18,
+      "expected_off": false
+    },
+    {
+      "family": "SeatBuggy",
+      "record": 19,
+      "expected_off": false
+    },
+    {
+      "family": "SeatBuggy",
+      "record": 20,
+      "expected_off": false
+    },
+    {
+      "family": "SeatBuggy",
+      "record": 21,
+      "expected_off": false
+    },
+    {
+      "family": "SeatBuggy",
+      "record": 22,
+      "expected_off": false
+    },
+    {
+      "family": "SeatBuggy",
+      "record": 23,
+      "expected_off": false
+    },
+    {
+      "family": "SeatBuggy",
+      "record": 24,
+      "expected_off": true
+    },
+    {
+      "family": "SeatBuggy",
+      "record": 25,
+      "expected_off": false
+    },
+    {
+      "family": "SeatBuggy",
+      "record": 26,
+      "expected_off": false
+    },
+    {
+      "family": "SeatBuggy",
+      "record": 27,
+      "expected_off": false
+    },
+    {
+      "family": "SeatBuggy",
+      "record": 28,
+      "expected_off": false
+    },
+    {
+      "family": "SeatBuggy",
+      "record": 29,
+      "expected_off": false
+    },
+    {
+      "family": "SeatBuggy",
+      "record": 30,
+      "expected_off": false
+    },
+    {
+      "family": "SeatBuggy",
+      "record": 31,
+      "expected_off": false
+    },
+    {
+      "family": "SeatBuggy",
+      "record": 32,
+      "expected_off": false
+    },
+    {
+      "family": "Simmbugghini",
+      "record": 0,
+      "expected_off": false
+    },
+    {
+      "family": "Simmbugghini",
+      "record": 1,
+      "expected_off": false
+    },
+    {
+      "family": "Simmbugghini",
+      "record": 2,
+      "expected_off": false
+    },
+    {
+      "family": "Simmbugghini",
+      "record": 3,
+      "expected_off": false
+    },
+    {
+      "family": "Simmbugghini",
+      "record": 4,
+      "expected_off": false
+    },
+    {
+      "family": "Simmbugghini",
+      "record": 5,
+      "expected_off": false
+    },
+    {
+      "family": "Simmbugghini",
+      "record": 6,
+      "expected_off": false
+    },
+    {
+      "family": "Simmbugghini",
+      "record": 7,
+      "expected_off": false
+    },
+    {
+      "family": "Simmbugghini",
+      "record": 8,
+      "expected_off": false
+    },
+    {
+      "family": "Simmbugghini",
+      "record": 9,
+      "expected_off": false
+    },
+    {
+      "family": "Simmbugghini",
+      "record": 10,
+      "expected_off": false
+    },
+    {
+      "family": "Simmbugghini",
+      "record": 11,
+      "expected_off": false
+    },
+    {
+      "family": "Simmbugghini",
+      "record": 12,
+      "expected_off": false
+    },
+    {
+      "family": "Simmbugghini",
+      "record": 13,
+      "expected_off": false
+    },
+    {
+      "family": "Simmbugghini",
+      "record": 14,
+      "expected_off": false
+    },
+    {
+      "family": "Simmbugghini",
+      "record": 15,
+      "expected_off": false
+    },
+    {
+      "family": "Simmbugghini",
+      "record": 16,
+      "expected_off": false
+    },
+    {
+      "family": "Simmbugghini",
+      "record": 17,
+      "expected_off": false
+    },
+    {
+      "family": "Simmbugghini",
+      "record": 18,
+      "expected_off": false
+    },
+    {
+      "family": "Simmbugghini",
+      "record": 19,
+      "expected_off": false
+    },
+    {
+      "family": "Simmbugghini",
+      "record": 20,
+      "expected_off": false
+    },
+    {
+      "family": "Simmbugghini",
+      "record": 21,
+      "expected_off": false
+    },
+    {
+      "family": "Simmbugghini",
+      "record": 22,
+      "expected_off": false
+    },
+    {
+      "family": "Simmbugghini",
+      "record": 23,
+      "expected_off": false
+    },
+    {
+      "family": "Simmbugghini",
+      "record": 24,
+      "expected_off": false
+    },
+    {
+      "family": "Simmbugghini",
+      "record": 25,
+      "expected_off": true
+    },
+    {
+      "family": "Tata",
+      "record": 0,
+      "expected_off": false
+    },
+    {
+      "family": "Tata",
+      "record": 1,
+      "expected_off": false
+    },
+    {
+      "family": "Tata",
+      "record": 2,
+      "expected_off": false
+    },
+    {
+      "family": "Tata",
+      "record": 3,
+      "expected_off": false
+    },
+    {
+      "family": "Tata",
+      "record": 4,
+      "expected_off": false
+    },
+    {
+      "family": "Tata",
+      "record": 5,
+      "expected_off": false
+    },
+    {
+      "family": "Tata",
+      "record": 6,
+      "expected_off": false
+    },
+    {
+      "family": "Tata",
+      "record": 7,
+      "expected_off": false
+    },
+    {
+      "family": "Tata",
+      "record": 8,
+      "expected_off": false
+    },
+    {
+      "family": "Tata",
+      "record": 9,
+      "expected_off": false
+    },
+    {
+      "family": "Tata",
+      "record": 10,
+      "expected_off": false
+    },
+    {
+      "family": "Tata",
+      "record": 11,
+      "expected_off": false
+    },
+    {
+      "family": "Tata",
+      "record": 12,
+      "expected_off": false
+    },
+    {
+      "family": "Tata",
+      "record": 13,
+      "expected_off": false
+    },
+    {
+      "family": "Tata",
+      "record": 14,
+      "expected_off": false
+    },
+    {
+      "family": "Tata",
+      "record": 15,
+      "expected_off": false
+    },
+    {
+      "family": "Tata",
+      "record": 16,
+      "expected_off": false
+    },
+    {
+      "family": "Tata",
+      "record": 17,
+      "expected_off": false
+    },
+    {
+      "family": "Tata",
+      "record": 18,
+      "expected_off": false
+    },
+    {
+      "family": "Tata",
+      "record": 19,
+      "expected_off": false
+    },
+    {
+      "family": "Tata",
+      "record": 20,
+      "expected_off": false
+    },
+    {
+      "family": "Tata",
+      "record": 21,
+      "expected_off": false
+    },
+    {
+      "family": "Tata",
+      "record": 22,
+      "expected_off": false
+    },
+    {
+      "family": "Tata",
+      "record": 23,
+      "expected_off": false
+    },
+    {
+      "family": "Tata",
+      "record": 24,
+      "expected_off": false
+    },
+    {
+      "family": "Tata",
+      "record": 25,
+      "expected_off": false
+    },
+    {
+      "family": "Tata",
+      "record": 26,
+      "expected_off": false
+    },
+    {
+      "family": "Tata",
+      "record": 27,
+      "expected_off": false
+    },
+    {
+      "family": "Tata",
+      "record": 28,
+      "expected_off": false
+    },
+    {
+      "family": "Tata",
+      "record": 29,
+      "expected_off": false
+    },
+    {
+      "family": "Tata",
+      "record": 30,
+      "expected_off": true
+    },
+    {
+      "family": "Tata",
+      "record": 31,
+      "expected_off": false
+    },
+    {
+      "family": "Tata",
+      "record": 32,
+      "expected_off": false
+    },
+    {
+      "family": "Tata",
+      "record": 33,
+      "expected_off": false
+    },
+    {
+      "family": "Tata",
+      "record": 34,
+      "expected_off": false
+    },
+    {
+      "family": "Tata",
+      "record": 35,
+      "expected_off": false
+    },
+    {
+      "family": "Tata",
+      "record": 36,
+      "expected_off": false
+    },
+    {
+      "family": "Tata",
+      "record": 37,
+      "expected_off": false
+    },
+    {
+      "family": "Tata",
+      "record": 38,
+      "expected_off": false
+    },
+    {
+      "family": "Terrano",
+      "record": 0,
+      "expected_off": false
+    },
+    {
+      "family": "Terrano",
+      "record": 1,
+      "expected_off": false
+    },
+    {
+      "family": "Terrano",
+      "record": 2,
+      "expected_off": false
+    },
+    {
+      "family": "Terrano",
+      "record": 3,
+      "expected_off": false
+    },
+    {
+      "family": "Terrano",
+      "record": 4,
+      "expected_off": false
+    },
+    {
+      "family": "Terrano",
+      "record": 5,
+      "expected_off": false
+    },
+    {
+      "family": "Terrano",
+      "record": 6,
+      "expected_off": false
+    },
+    {
+      "family": "Terrano",
+      "record": 7,
+      "expected_off": false
+    },
+    {
+      "family": "Terrano",
+      "record": 8,
+      "expected_off": false
+    },
+    {
+      "family": "Terrano",
+      "record": 9,
+      "expected_off": false
+    },
+    {
+      "family": "Terrano",
+      "record": 10,
+      "expected_off": false
+    },
+    {
+      "family": "Terrano",
+      "record": 11,
+      "expected_off": false
+    },
+    {
+      "family": "Terrano",
+      "record": 12,
+      "expected_off": false
+    },
+    {
+      "family": "Terrano",
+      "record": 13,
+      "expected_off": false
+    },
+    {
+      "family": "Terrano",
+      "record": 14,
+      "expected_off": false
+    },
+    {
+      "family": "Terrano",
+      "record": 15,
+      "expected_off": false
+    },
+    {
+      "family": "Terrano",
+      "record": 16,
+      "expected_off": false
+    },
+    {
+      "family": "Terrano",
+      "record": 17,
+      "expected_off": false
+    },
+    {
+      "family": "Terrano",
+      "record": 18,
+      "expected_off": false
+    },
+    {
+      "family": "Terrano",
+      "record": 19,
+      "expected_off": false
+    },
+    {
+      "family": "Terrano",
+      "record": 20,
+      "expected_off": false
+    },
+    {
+      "family": "Terrano",
+      "record": 21,
+      "expected_off": false
+    },
+    {
+      "family": "Terrano",
+      "record": 22,
+      "expected_off": false
+    },
+    {
+      "family": "Terrano",
+      "record": 23,
+      "expected_off": false
+    },
+    {
+      "family": "Terrano",
+      "record": 24,
+      "expected_off": false
+    },
+    {
+      "family": "Terrano",
+      "record": 25,
+      "expected_off": false
+    },
+    {
+      "family": "Terrano",
+      "record": 26,
+      "expected_off": false
+    },
+    {
+      "family": "Terrano",
+      "record": 27,
+      "expected_off": false
+    },
+    {
+      "family": "Terrano",
+      "record": 28,
+      "expected_off": false
+    },
+    {
+      "family": "Terrano",
+      "record": 29,
+      "expected_off": false
+    },
+    {
+      "family": "Terrano",
+      "record": 30,
+      "expected_off": false
+    },
+    {
+      "family": "Terrano",
+      "record": 31,
+      "expected_off": false
+    },
+    {
+      "family": "Terrano",
+      "record": 32,
+      "expected_off": true
+    },
+    {
+      "family": "Ufo",
+      "record": 0,
+      "expected_off": false
+    },
+    {
+      "family": "Ufo",
+      "record": 1,
+      "expected_off": false
+    },
+    {
+      "family": "Ufo",
+      "record": 2,
+      "expected_off": false
+    },
+    {
+      "family": "Ufo",
+      "record": 3,
+      "expected_off": false
+    },
+    {
+      "family": "Ufo",
+      "record": 4,
+      "expected_off": false
+    },
+    {
+      "family": "Ufo",
+      "record": 5,
+      "expected_off": false
+    },
+    {
+      "family": "Ufo",
+      "record": 6,
+      "expected_off": false
+    },
+    {
+      "family": "Ufo",
+      "record": 7,
+      "expected_off": false
+    },
+    {
+      "family": "Ufo",
+      "record": 8,
+      "expected_off": false
+    },
+    {
+      "family": "Ufo",
+      "record": 9,
+      "expected_off": false
+    },
+    {
+      "family": "Ufo",
+      "record": 10,
+      "expected_off": false
+    },
+    {
+      "family": "Ufo",
+      "record": 11,
+      "expected_off": false
+    },
+    {
+      "family": "WildCat",
+      "record": 0,
+      "expected_off": false
+    },
+    {
+      "family": "WildCat",
+      "record": 1,
+      "expected_off": false
+    },
+    {
+      "family": "WildCat",
+      "record": 2,
+      "expected_off": false
+    },
+    {
+      "family": "WildCat",
+      "record": 3,
+      "expected_off": false
+    },
+    {
+      "family": "WildCat",
+      "record": 4,
+      "expected_off": false
+    },
+    {
+      "family": "WildCat",
+      "record": 5,
+      "expected_off": false
+    },
+    {
+      "family": "WildCat",
+      "record": 6,
+      "expected_off": false
+    },
+    {
+      "family": "WildCat",
+      "record": 7,
+      "expected_off": false
+    },
+    {
+      "family": "WildCat",
+      "record": 8,
+      "expected_off": false
+    },
+    {
+      "family": "WildCat",
+      "record": 9,
+      "expected_off": false
+    },
+    {
+      "family": "WildCat",
+      "record": 10,
+      "expected_off": false
+    },
+    {
+      "family": "WildCat",
+      "record": 11,
+      "expected_off": false
+    },
+    {
+      "family": "WildCat",
+      "record": 12,
+      "expected_off": false
+    },
+    {
+      "family": "WildCat",
+      "record": 13,
+      "expected_off": false
+    },
+    {
+      "family": "WildCat",
+      "record": 14,
+      "expected_off": false
+    },
+    {
+      "family": "WildCat",
+      "record": 15,
+      "expected_off": false
+    },
+    {
+      "family": "WildCat",
+      "record": 16,
+      "expected_off": false
+    },
+    {
+      "family": "WildCat",
+      "record": 17,
+      "expected_off": false
+    },
+    {
+      "family": "WildCat",
+      "record": 18,
+      "expected_off": false
+    },
+    {
+      "family": "WildCat",
+      "record": 19,
+      "expected_off": false
+    },
+    {
+      "family": "WildCat",
+      "record": 20,
+      "expected_off": false
+    },
+    {
+      "family": "WildCat",
+      "record": 21,
+      "expected_off": false
+    },
+    {
+      "family": "WildCat",
+      "record": 22,
+      "expected_off": false
+    },
+    {
+      "family": "WildCat",
+      "record": 23,
+      "expected_off": false
+    },
+    {
+      "family": "WildCat",
+      "record": 24,
+      "expected_off": false
+    },
+    {
+      "family": "WildCat",
+      "record": 25,
+      "expected_off": false
+    },
+    {
+      "family": "WildCat",
+      "record": 26,
+      "expected_off": false
+    },
+    {
+      "family": "WildCat",
+      "record": 27,
+      "expected_off": false
+    },
+    {
+      "family": "WildCat",
+      "record": 28,
+      "expected_off": true
+    },
+    {
+      "family": "Forester",
+      "record": 0,
+      "expected_off": false
+    },
+    {
+      "family": "Forester",
+      "record": 1,
+      "expected_off": false
+    },
+    {
+      "family": "Forester",
+      "record": 2,
+      "expected_off": false
+    },
+    {
+      "family": "Forester",
+      "record": 3,
+      "expected_off": false
+    },
+    {
+      "family": "Forester",
+      "record": 4,
+      "expected_off": false
+    },
+    {
+      "family": "Forester",
+      "record": 5,
+      "expected_off": false
+    },
+    {
+      "family": "Forester",
+      "record": 6,
+      "expected_off": false
+    },
+    {
+      "family": "Forester",
+      "record": 7,
+      "expected_off": false
+    },
+    {
+      "family": "Forester",
+      "record": 8,
+      "expected_off": false
+    },
+    {
+      "family": "Forester",
+      "record": 9,
+      "expected_off": false
+    },
+    {
+      "family": "Forester",
+      "record": 10,
+      "expected_off": false
+    },
+    {
+      "family": "Forester",
+      "record": 11,
+      "expected_off": false
+    },
+    {
+      "family": "Forester",
+      "record": 12,
+      "expected_off": false
+    },
+    {
+      "family": "Forester",
+      "record": 13,
+      "expected_off": false
+    },
+    {
+      "family": "Forester",
+      "record": 14,
+      "expected_off": false
+    },
+    {
+      "family": "Forester",
+      "record": 15,
+      "expected_off": false
+    },
+    {
+      "family": "Forester",
+      "record": 16,
+      "expected_off": false
+    },
+    {
+      "family": "Forester",
+      "record": 17,
+      "expected_off": false
+    },
+    {
+      "family": "Forester",
+      "record": 18,
+      "expected_off": false
+    },
+    {
+      "family": "Forester",
+      "record": 19,
+      "expected_off": false
+    },
+    {
+      "family": "Forester",
+      "record": 20,
+      "expected_off": false
+    },
+    {
+      "family": "Forester",
+      "record": 21,
+      "expected_off": false
+    },
+    {
+      "family": "Forester",
+      "record": 22,
+      "expected_off": false
+    },
+    {
+      "family": "Forester",
+      "record": 23,
+      "expected_off": false
+    },
+    {
+      "family": "Forester",
+      "record": 24,
+      "expected_off": false
+    },
+    {
+      "family": "Forester",
+      "record": 25,
+      "expected_off": false
+    },
+    {
+      "family": "Forester",
+      "record": 26,
+      "expected_off": true
+    },
+    {
+      "family": "Xtrail",
+      "record": 0,
+      "expected_off": false
+    },
+    {
+      "family": "Xtrail",
+      "record": 1,
+      "expected_off": false
+    },
+    {
+      "family": "Xtrail",
+      "record": 2,
+      "expected_off": false
+    },
+    {
+      "family": "Xtrail",
+      "record": 3,
+      "expected_off": false
+    },
+    {
+      "family": "Xtrail",
+      "record": 4,
+      "expected_off": false
+    },
+    {
+      "family": "Xtrail",
+      "record": 5,
+      "expected_off": false
+    },
+    {
+      "family": "Xtrail",
+      "record": 6,
+      "expected_off": false
+    },
+    {
+      "family": "Xtrail",
+      "record": 7,
+      "expected_off": false
+    },
+    {
+      "family": "Xtrail",
+      "record": 8,
+      "expected_off": false
+    },
+    {
+      "family": "Xtrail",
+      "record": 9,
+      "expected_off": false
+    },
+    {
+      "family": "Xtrail",
+      "record": 10,
+      "expected_off": false
+    },
+    {
+      "family": "Xtrail",
+      "record": 11,
+      "expected_off": false
+    },
+    {
+      "family": "Xtrail",
+      "record": 12,
+      "expected_off": false
+    },
+    {
+      "family": "Xtrail",
+      "record": 13,
+      "expected_off": false
+    },
+    {
+      "family": "Xtrail",
+      "record": 14,
+      "expected_off": false
+    },
+    {
+      "family": "Xtrail",
+      "record": 15,
+      "expected_off": false
+    },
+    {
+      "family": "Xtrail",
+      "record": 16,
+      "expected_off": false
+    },
+    {
+      "family": "Xtrail",
+      "record": 17,
+      "expected_off": false
+    },
+    {
+      "family": "Xtrail",
+      "record": 18,
+      "expected_off": false
+    },
+    {
+      "family": "Xtrail",
+      "record": 19,
+      "expected_off": false
+    },
+    {
+      "family": "Xtrail",
+      "record": 20,
+      "expected_off": false
+    },
+    {
+      "family": "Xtrail",
+      "record": 21,
+      "expected_off": false
+    },
+    {
+      "family": "Xtrail",
+      "record": 22,
+      "expected_off": false
+    },
+    {
+      "family": "Xtrail",
+      "record": 23,
+      "expected_off": true
+    },
+    {
+      "family": "Xtrail",
+      "record": 24,
+      "expected_off": false
+    },
+    {
+      "family": "Xtrail",
+      "record": 25,
+      "expected_off": false
+    },
+    {
+      "family": "Xtrail",
+      "record": 26,
+      "expected_off": false
+    },
+    {
+      "family": "Xtrail",
+      "record": 27,
+      "expected_off": false
+    },
+    {
+      "family": "Xtrail",
+      "record": 28,
+      "expected_off": false
+    },
+    {
+      "family": "Xtrail",
+      "record": 29,
+      "expected_off": false
+    },
+    {
+      "family": "Xtrail",
+      "record": 30,
+      "expected_off": false
+    },
+    {
+      "family": "Xtrail",
+      "record": 31,
+      "expected_off": false
+    }
+  ],
+  "positive": 21,
+  "negative": 753,
+  "path": "D:\\Game\\Master Rallye\\master-rallye-re-general\\ps2-research\\pc-port\\.assets\\vehicles\\fleet-off-lamp-native.bin",
+  "format": "PS2LMP01 kind0=OFFpositive kind3=negative; FVF152/36 IDX32",
+  "live_upload": false
+}

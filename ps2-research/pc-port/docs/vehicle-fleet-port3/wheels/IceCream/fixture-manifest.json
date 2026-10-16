@@ -1,0 +1,8 @@
+{
+  "filename": "port3-ICECREAM-wheel-fixtures.bin",
+  "sha256": "1edd3d1cc9e57b0b38b41091efd46544e9c9c6a6bf204b84a569313ad404117c",
+  "bytes": 8436,
+  "format": "PS2KWH01 + u32 source_count + source_count * (6xu32 layout/counts/sizes; vb; normalized u32 ib)",
+  "provenance": "ORIGINAL_PC_XYZ_UV_WITH_SYNTHETIC_WHITE_DIFFUSE; EXACT_NATIVE_WINDING",
+  "source_pc_sha256": "48ec2e91d6770bcca19ae13e24f32cfa63747c0aeb53713fead1a6d3c13d8178"
+}

@@ -1,0 +1,8 @@
+{
+  "filename": "port3-KANGOO-wheel-fixtures.bin",
+  "sha256": "8ac91eacb747212118f922b79b1b0182d10c3baae0f07f2a0c5d7eec6b68683e",
+  "bytes": 8436,
+  "format": "PS2KWH01 + u32 source_count + source_count * (6xu32 layout/counts/sizes; vb; normalized u32 ib)",
+  "provenance": "ORIGINAL_PC_XYZ_UV_WITH_SYNTHETIC_WHITE_DIFFUSE; EXACT_NATIVE_WINDING",
+  "source_pc_sha256": "859446d5ee1c83f107f0804b0f13351f1397262092b86c7f4da8c1f6c5ffe3da"
+}

@@ -1,0 +1,42 @@
+[
+  {
+    "frame": 2684,
+    "pc_record": 0,
+    "vertices": 362,
+    "moved_vertices": 0,
+    "maximum_displacement_Linf": 0.0,
+    "exact_duplicate_position_groups": 96,
+    "conflicting_duplicate_groups": [],
+    "maximum_healthy_original_position_error": 0.0
+  },
+  {
+    "frame": 4497,
+    "pc_record": 0,
+    "vertices": 362,
+    "moved_vertices": 6,
+    "maximum_displacement_Linf": 0.19869017601013184,
+    "exact_duplicate_position_groups": 96,
+    "conflicting_duplicate_groups": [],
+    "maximum_healthy_original_position_error": 0.0
+  },
+  {
+    "frame": 2684,
+    "pc_record": 15,
+    "vertices": 80,
+    "moved_vertices": 10,
+    "maximum_displacement_Linf": 0.19964325428009033,
+    "exact_duplicate_position_groups": 5,
+    "conflicting_duplicate_groups": [],
+    "maximum_healthy_original_position_error": 0.0
+  },
+  {
+    "frame": 4497,
+    "pc_record": 15,
+    "vertices": 80,
+    "moved_vertices": 10,
+    "maximum_displacement_Linf": 0.19964325428009033,
+    "exact_duplicate_position_groups": 5,
+    "conflicting_duplicate_groups": [],
+    "maximum_healthy_original_position_error": 0.0
+  }
+]

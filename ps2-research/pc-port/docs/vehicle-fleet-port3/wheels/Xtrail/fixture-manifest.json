@@ -1,0 +1,8 @@
+{
+  "filename": "port3-XTRAIL-wheel-fixtures.bin",
+  "sha256": "de3502d1d8dda2b55bff3f9651a7b1ae7bbd1bcb1a748f85b41f9dc4e1f75953",
+  "bytes": 8412,
+  "format": "PS2KWH01 + u32 source_count + source_count * (6xu32 layout/counts/sizes; vb; normalized u32 ib)",
+  "provenance": "ORIGINAL_PC_XYZ_UV_WITH_SYNTHETIC_WHITE_DIFFUSE; EXACT_NATIVE_WINDING",
+  "source_pc_sha256": "f05ac990b6ea2312f2a2d552ec886aded4c68a8d8fac027f99e1fc7b0826779c"
+}

@@ -1,0 +1,13 @@
+#pragma once
+#include "race_fleet_registry.hpp"
+namespace gfx2::ps2port {
+inline constexpr FleetRaceSource kPort3KiaSportageWheelSources[]={
+ {"456a66a8e3f3eda1c4402f2005b2d70b644f87c118a4d294b710da5b5c1889ab","17ae8857b67eb3bac5594e34a16103ce2f54c1481d5543a6a9df6524934ec271","2b9b8660952fe50d437e9eec26ec02fb336966f9e407f6e02d9493bee0f64158","34911f21f48f7533a4b66f04f7210d7a03b499a3e530a17978f79a1d4cf4f54c",54u,72u,false},
+ {"f66ac742a63ab7d69c3dab7f082bbb5316f78b2ffdd8bb74d1e9eea8e7069846","e8757affe1bd1180cebe149a22ec942edde82982ba1bd559944fa48c4a373609","1281f0664795bef099f5e2e6bddbaf4193b31f3c204ba779f4a2947468b9dc36","415ec54fbfcccb6b283f3261134599902311a230a2a7a3ef95532cfd4292ece8",38u,36u,false},
+ {"9a58be94f8285aefa3a0f7005f649f21546a58da93c6ed4b59492e97d98706ec","ae403014fc5a2f468a698aad9fa734a2912d47bd1a38c371c95abe6014c837c5","8d7eb3ab7d5645f0abd76f52f51e1016a12f20d01a45a746aa7de9af7a201219","91050cbb51b1794e0c29ed4ef02951d68a0ca1eabbf7f55e61f21ffa441b3749",37u,54u,false},
+ {"be6dbf5cc1137d7437c47e47216038fb0d6aaba929327c311e876866a5921a2a","a5a2c6f9e56b03efc05bd6fe74be00d7077163dac997875468dd0529b829bc5d","577bf3592fde82cad41505858c9faab58b2c0538364751260632d3a0b43d01bb","4f2be4f7012b2efde6af35e15f7a1618f2168c8c06beb93bf8f9236185536749",91u,90u,false},
+};
+inline constexpr bool kPort3KiaSportageWheelMixed[]={false,false,false,true};
+inline constexpr bool kPort3KiaSportageWheelWrapU[]={false,true,false,false};
+inline constexpr FleetRaceProfile kPort3KiaSportageWheelProfile={"KiaSportage","KIASPORTAGE","port3-KIASPORTAGE-WHEEL-FLEET.ps2model","214f29c8b0b42fd437117ce36d3b7a7d17680541d4acea8737e270ec6f06ee0a",78416u,300u,756u,6u,4u,4u,4u,kPort3KiaSportageWheelSources,kPort3KiaSportageWheelMixed,kPort3KiaSportageWheelWrapU};
+}

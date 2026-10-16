@@ -99,6 +99,12 @@ FrontendModelDiagnostics=0
 
 ; X-Trail race chassis; crew and wheel replacements are separately opt-in.
 RacePS2ModelMode=0
+; Opt-in fleet CARs; requires ModelMode=1, Mode4 reflections and exact current owner.
+; Other fleet wheels stay native; unsupported damage is Stock.
+RacePS2FleetMode=0
+; Read-only three-F10 mirror capture for independently verifying fleet damage.
+RacePS2FleetDamageCapture=0
+RacePS2ModelAssetDirectory=PS2Vehicles
 RacePS2ModelVersion=1
 RacePS2ModelAsset=XTRAIL-CAR.ps2model
 RacePS2ModelDiagnostics=0

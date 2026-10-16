@@ -1,0 +1,213 @@
+{
+  "scope": "STATIC_ORIGINAL_SOURCE_CERTIFICATES_RUNTIME_DAMAGE_STABILITY_UNPROVEN",
+  "source_sha256": "e334085754f81d20d237a70e653b533344771e6409468e2e09252e380b3d063f",
+  "algorithm": "ordered original UV float32 pairs then sorted unordered triangles normalized by draw vertex_base, SHA256; same byte contract as Terrano damage_uv_topology_sha",
+  "rows": [
+    {
+      "source_slot": 0,
+      "pc_record_path": "0",
+      "geometry_sha256": "57823f851e6e47457502455cada8d9f3e3da7541cd63ff60be5ff7c301e1f559",
+      "vertices": 362,
+      "triangles": 265,
+      "ordered_uv_normalized_topology_sha256": "73dfaf74366deced3d59e76e433bc716914543c14f22e8d58f04b5d45e140432",
+      "negative_search_matches": [
+        {
+          "path": "Xtrail/car.dx",
+          "record": "0"
+        }
+      ]
+    },
+    {
+      "source_slot": 1,
+      "pc_record_path": "1",
+      "geometry_sha256": "16c3cf75f8d9aa9f4a9d96c36fb0c4f70e1046ea324123b51237158a7c12a19f",
+      "vertices": 244,
+      "triangles": 209,
+      "ordered_uv_normalized_topology_sha256": "06d011da6aa44c48521b28b26a39e7374cc878ac1aaedfd6533a375ff78579c8",
+      "negative_search_matches": [
+        {
+          "path": "Xtrail/car.dx",
+          "record": "1"
+        }
+      ]
+    },
+    {
+      "source_slot": 2,
+      "pc_record_path": "4",
+      "geometry_sha256": "b0a740c73bb78eff350d6aa9e981dc2cd08366e9ed2cf1e866226f93faf0c615",
+      "vertices": 158,
+      "triangles": 155,
+      "ordered_uv_normalized_topology_sha256": "93b5a56193bd3582cfdc3002a5cb4b2d6ad05e30188fd2d0f9542891cf21a078",
+      "negative_search_matches": [
+        {
+          "path": "Xtrail/car.dx",
+          "record": "4"
+        },
+        {
+          "path": "Xtrail/complete.dx",
+          "record": "4"
+        }
+      ]
+    },
+    {
+      "source_slot": 3,
+      "pc_record_path": "5",
+      "geometry_sha256": "fbfb12b7cc689359bf694747ef777f736e2b8013261f4887a294bfdc35f1bba1",
+      "vertices": 117,
+      "triangles": 77,
+      "ordered_uv_normalized_topology_sha256": "68df8323f430ac9172e3e4449c4fb0f558249aceaedd68e4242a1ca790aa5df8",
+      "negative_search_matches": [
+        {
+          "path": "Xtrail/car.dx",
+          "record": "5"
+        }
+      ]
+    },
+    {
+      "source_slot": 4,
+      "pc_record_path": "6",
+      "geometry_sha256": "1b9207f7417710dac3d85a27a54ebe616037367f1d624c53d5d65018f2ceb84b",
+      "vertices": 130,
+      "triangles": 144,
+      "ordered_uv_normalized_topology_sha256": "a03157f5f507f7f6b7053a35ba55e66effac14591e634fff80066bc4a6465472",
+      "negative_search_matches": [
+        {
+          "path": "Xtrail/car.dx",
+          "record": "6"
+        },
+        {
+          "path": "Xtrail/complete.dx",
+          "record": "6"
+        }
+      ]
+    },
+    {
+      "source_slot": 5,
+      "pc_record_path": "7",
+      "geometry_sha256": "4fe1e64fe885c9675b9b3ddbe7530d2ccb6d36c341235c2942179e50c26caa09",
+      "vertices": 76,
+      "triangles": 62,
+      "ordered_uv_normalized_topology_sha256": "b7d9cf652e4fe64a2c48c72643840064406bfa69464e87204733c3d6edee909f",
+      "negative_search_matches": [
+        {
+          "path": "Xtrail/car.dx",
+          "record": "7"
+        }
+      ]
+    },
+    {
+      "source_slot": 6,
+      "pc_record_path": "8",
+      "geometry_sha256": "46b55eac513995bb703f7b8ac2dc205b497368a356be95d979c8d45ba7b96425",
+      "vertices": 6,
+      "triangles": 4,
+      "ordered_uv_normalized_topology_sha256": "7c5a18c0a61d78f1181edb9f56d77acb6a8586c12b9945fca291bb9da02e1ad4",
+      "negative_search_matches": [
+        {
+          "path": "Xtrail/car.dx",
+          "record": "8"
+        },
+        {
+          "path": "Xtrail/complete.dx",
+          "record": "8"
+        }
+      ]
+    },
+    {
+      "source_slot": 7,
+      "pc_record_path": "9",
+      "geometry_sha256": "708755f5c5e6ec814bf2f1ac93314bf4a51cb467bc2e711cea37a0d2594c4d24",
+      "vertices": 49,
+      "triangles": 34,
+      "ordered_uv_normalized_topology_sha256": "e85880e80984314b4f5e46788f3972001f0f69a631132b477b8e13c9d8409a45",
+      "negative_search_matches": [
+        {
+          "path": "Xtrail/car.dx",
+          "record": "9"
+        }
+      ]
+    },
+    {
+      "source_slot": 8,
+      "pc_record_path": "11",
+      "geometry_sha256": "6f2174a662b45cf1cfd3c18ed12ba50f0ef2fe6b8ce942133f61eae64545d335",
+      "vertices": 50,
+      "triangles": 50,
+      "ordered_uv_normalized_topology_sha256": "accf2c39aa8f441a92f818d5109c8e8864eabee311df2d3c8e8a3def15246909",
+      "negative_search_matches": [
+        {
+          "path": "Xtrail/car.dx",
+          "record": "11"
+        },
+        {
+          "path": "Xtrail/complete.dx",
+          "record": "11"
+        }
+      ]
+    },
+    {
+      "source_slot": 9,
+      "pc_record_path": "12",
+      "geometry_sha256": "99ca3a68595600ef18b4a46f8428653493bd8085db4959379ae94cfe5375be78",
+      "vertices": 201,
+      "triangles": 166,
+      "ordered_uv_normalized_topology_sha256": "753d87fc08fe69de8383a78c2dd2058cdd525348ab3e73979e449953f5e59591",
+      "negative_search_matches": [
+        {
+          "path": "Xtrail/car.dx",
+          "record": "12"
+        }
+      ]
+    },
+    {
+      "source_slot": 10,
+      "pc_record_path": "13",
+      "geometry_sha256": "e580100f2670ba7bd87589727e194026f3f28d9b54b42eda325d51e47aa136b3",
+      "vertices": 20,
+      "triangles": 14,
+      "ordered_uv_normalized_topology_sha256": "610299b22102a6e7a72ce746a2a090803f16b51218b0a820dc91ef9ae35849d6",
+      "negative_search_matches": [
+        {
+          "path": "Xtrail/car.dx",
+          "record": "13"
+        }
+      ]
+    },
+    {
+      "source_slot": 11,
+      "pc_record_path": "14",
+      "geometry_sha256": "505314b112e7fd37b0e352938d6145fe5ed55a2395c8f6e844bc62dbb5c7bef0",
+      "vertices": 145,
+      "triangles": 110,
+      "ordered_uv_normalized_topology_sha256": "1c7564cffd4ed81910a8957bc9b570bd04ff90d6824c0e0996689407d868e6d0",
+      "negative_search_matches": [
+        {
+          "path": "Xtrail/car.dx",
+          "record": "14"
+        },
+        {
+          "path": "Xtrail/complete.dx",
+          "record": "14"
+        }
+      ]
+    },
+    {
+      "source_slot": 12,
+      "pc_record_path": "15",
+      "geometry_sha256": "28f86c4524b283c51c5d5ed7ef322de7cc328a137cc0403f6bf96eab4866a66a",
+      "vertices": 80,
+      "triangles": 140,
+      "ordered_uv_normalized_topology_sha256": "eb54ac02a58c47073c6a68fa7ba93ac1e560fde93c68e98839483f4199d6cca9",
+      "negative_search_matches": [
+        {
+          "path": "Xtrail/car.dx",
+          "record": "15"
+        },
+        {
+          "path": "Xtrail/complete.dx",
+          "record": "15"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,406 @@
+{
+  "pid": 40592,
+  "exe": {
+    "machine": "i386",
+    "format": "PE32",
+    "image_base": 4194304,
+    "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "bytes": 3121214,
+    "process_creation_filetime": 134365372611563999,
+    "pid": 40592
+  },
+  "source_capture": "race-damage-40592-d1-f3876.jsonl",
+  "capture_sha256": "536106b5c29c3a7e4ca62332b70b0d359adde6f5006a46dbc125c4a0ec2de5ff",
+  "instance": 556958296,
+  "packet": 44447376,
+  "model": 522047856,
+  "instance_plus90": 521395280,
+  "model_plus18": 47515696,
+  "lists": [
+    {
+      "kind": "private",
+      "list": 521395280,
+      "sentinel": 521548576,
+      "roots": [
+        {
+          "pointer": 521549336,
+          "vtable": 6889904,
+          "child": 564675344,
+          "next": 0
+        }
+      ],
+      "terminated": true,
+      "children": [
+        {
+          "pointer": 564675344,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 564675872
+        },
+        {
+          "pointer": 564675872,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 564675960
+        },
+        {
+          "pointer": 564675960,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 564676752
+        },
+        {
+          "pointer": 564676752,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 564675520
+        },
+        {
+          "pointer": 564675520,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 564677456
+        },
+        {
+          "pointer": 564677456,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 564677368
+        },
+        {
+          "pointer": 564677368,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 564677720
+        },
+        {
+          "pointer": 564677720,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 564676928
+        },
+        {
+          "pointer": 564676928,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 564675608
+        },
+        {
+          "pointer": 564675608,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 564675256
+        },
+        {
+          "pointer": 564675256,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 564675696
+        },
+        {
+          "pointer": 564675696,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 564675784
+        },
+        {
+          "pointer": 564675784,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 564676312
+        },
+        {
+          "pointer": 564676312,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 564675168
+        },
+        {
+          "pointer": 564675168,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 564677544
+        },
+        {
+          "pointer": 564677544,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 564676400
+        },
+        {
+          "pointer": 564676400,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 564676048
+        },
+        {
+          "pointer": 564676048,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 564677016
+        },
+        {
+          "pointer": 564677016,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 564676136
+        },
+        {
+          "pointer": 564676136,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 564676224
+        },
+        {
+          "pointer": 564676224,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 564676488
+        },
+        {
+          "pointer": 564676488,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 564677104
+        },
+        {
+          "pointer": 564677104,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 521548976
+        },
+        {
+          "pointer": 521548976,
+          "vtable": 6890508,
+          "child": 521549016,
+          "next": 521550296
+        },
+        {
+          "pointer": 521550296,
+          "vtable": 6890508,
+          "child": 521550736,
+          "next": 521550816
+        },
+        {
+          "pointer": 521550816,
+          "vtable": 6890508,
+          "child": 521550456,
+          "next": 521551056
+        },
+        {
+          "pointer": 521551056,
+          "vtable": 6890508,
+          "child": 521550536,
+          "next": 0
+        }
+      ],
+      "children_terminated": true,
+      "captured_mesh_count": 18,
+      "captured_meshes_top_level_present": 18,
+      "captured_meshes_missing": []
+    },
+    {
+      "kind": "model",
+      "list": 47515696,
+      "sentinel": 521989472,
+      "roots": [
+        {
+          "pointer": 521988912,
+          "vtable": 6889904,
+          "child": 519239104,
+          "next": 0
+        }
+      ],
+      "terminated": true,
+      "children": [
+        {
+          "pointer": 519239104,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 519228192
+        },
+        {
+          "pointer": 519228192,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 519237080
+        },
+        {
+          "pointer": 519237080,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 519235320
+        },
+        {
+          "pointer": 519235320,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 519237168
+        },
+        {
+          "pointer": 519237168,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 519237256
+        },
+        {
+          "pointer": 519237256,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 519234880
+        },
+        {
+          "pointer": 519234880,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 519235760
+        },
+        {
+          "pointer": 519235760,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 519237344
+        },
+        {
+          "pointer": 519237344,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 519234616
+        },
+        {
+          "pointer": 519234616,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 519234968
+        },
+        {
+          "pointer": 519234968,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 519238752
+        },
+        {
+          "pointer": 519238752,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 519239456
+        },
+        {
+          "pointer": 519239456,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 519238576
+        },
+        {
+          "pointer": 519238576,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 519239544
+        },
+        {
+          "pointer": 519239544,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 519239632
+        },
+        {
+          "pointer": 519239632,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 519239720
+        },
+        {
+          "pointer": 519239720,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 519239808
+        },
+        {
+          "pointer": 519239808,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 519237960
+        },
+        {
+          "pointer": 519237960,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 519240160
+        },
+        {
+          "pointer": 519240160,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 519237696
+        },
+        {
+          "pointer": 519237696,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 519239280
+        },
+        {
+          "pointer": 519239280,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 519237608
+        },
+        {
+          "pointer": 519237608,
+          "vtable": 6890340,
+          "child": 0,
+          "next": 521996152
+        },
+        {
+          "pointer": 521996152,
+          "vtable": 6890508,
+          "child": 521996992,
+          "next": 521997312
+        },
+        {
+          "pointer": 521997312,
+          "vtable": 6890508,
+          "child": 521997872,
+          "next": 521998392
+        },
+        {
+          "pointer": 521998392,
+          "vtable": 6890508,
+          "child": 521997592,
+          "next": 521997952
+        },
+        {
+          "pointer": 521997952,
+          "vtable": 6890508,
+          "child": 521998432,
+          "next": 0
+        }
+      ],
+      "children_terminated": true,
+      "captured_mesh_count": 18,
+      "captured_meshes_top_level_present": 0,
+      "captured_meshes_missing": [
+        "0x21a842b8",
+        "0x21a84310",
+        "0x21a843c0",
+        "0x21a84418",
+        "0x21a84470",
+        "0x21a84520",
+        "0x21a84578",
+        "0x21a845d0",
+        "0x21a84680",
+        "0x21a846d8",
+        "0x21a84730",
+        "0x21a84890",
+        "0x21a84940",
+        "0x21a84998",
+        "0x21a84af8",
+        "0x21a84b50",
+        "0x21a84ba8",
+        "0x21a84c58"
+      ]
+    }
+  ],
+  "bytes_read": 4156,
+  "extra_read_bytes": 4764
+}

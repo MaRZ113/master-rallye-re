@@ -1,0 +1,8 @@
+{
+  "filename": "kia-wheel-fixtures.bin",
+  "sha256": "c773fc7e9fe578e20d9840eb61b7dc2691c6607ca7fb0f179d0c6a854b962158",
+  "bytes": 8412,
+  "format": "PS2KWH01 + u32 source_count + 4 * (6xu32 fvf,stride,vertices,triangles,vbytes,ibytes; vb; normalized u32 ib)",
+  "provenance": "ORIGINAL_PC_XYZ_UV_WITH_SYNTHETIC_WHITE_DIFFUSE; EXACT_NATIVE_WINDING",
+  "source_pc_sha256": "9f8d512102e0ccaacd2232cfb7f957fd549bf07b571c3db5e161e3a2c4c18017"
+}

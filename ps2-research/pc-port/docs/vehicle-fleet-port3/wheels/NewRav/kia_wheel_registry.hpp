@@ -1,0 +1,14 @@
+#pragma once
+#include "race_fleet_registry.hpp"
+namespace gfx2::ps2port {
+inline constexpr FleetRaceSource kPort3NewRavWheelSources[]={
+ {"3b0a8d0579108fcd7a84f83bf5932aeb3c192597461f6ef6c4b30552fdeccbfb","63eeca62372e4cfbd0b8825eed74fffcb2eb479bf3a19b33c657fb177c38e6f6","65ad613c309360e4b9bc9b7a19ca3e7446566092824b73f87bddf41c43989442","cbd585a2718ff47724436f4f492350877d71256ace5c7972dfcc33f7aae25537",54u,72u,false},
+ {"e9eae60f239b3b6773b317fe70d403e1d292fdc3e0625def499cbf3b04d58830","3b34bb2d43df809ae84e56bd24838b026fafceaef4a844bd308387eed44c74ef","41d0988fbc58dfdd933d3c19252221d9fd68db2e650f2798692219c6781551ad","956c39dcf73bb0efd0725e3ad83f936b9418dbad474d8c41265871e0ea7946b6",38u,36u,false},
+ {"f8d5cedcf3cc1023e391cd604b915f7566dc5c78e677223e7a4dfcb460848316","ffcab7aab15205b1bf23162f510c004f810bb087ff8d5e309350c6c42c373b6e","7e655768acf13b8d2c1cb603f106475b6d6d64303dcb549af688c4d7499d777e","b50a88ae374a5daef5916efea9ee5cd85ddecc7441b5f74419749622efc138cb",37u,54u,false},
+ {"fe8c82e75f136ef150e633f5d93ceacc4c05293bb40af91dca7dde2ddeacea83","033d111c1dba033a41d8d0dc0b1cfdc59399560586ba43487c69c0a208836c92","592d4aedffb0ecc77022b31d84fc38d01fbace22fc5453b4a8c9573f08345ee5","a2e0e110a4bb75ae127da90e461e169194ed5ca6deef567515fd479f419ed595",19u,18u,false},
+ {"da7eae0977256c57c1d76b7f5c60d8e86bbee98f3dee43ab8c27226f79124834","078b8fbca6477b00d9ed0cd5d7566d0d74ae40e723beaab61b9a1a4697ab9550","1fa8dbfddf3d647319fbe0474b6047244deab6d4fbb5d431d83387185476207f","7b925553433a634bb44188e7507ea169d570a8181f0245e79b787fde5fbd9a37",72u,72u,false},
+};
+inline constexpr bool kPort3NewRavWheelMixed[]={false,false,false,true,true};
+inline constexpr bool kPort3NewRavWheelWrapU[]={false,true,false,false,false};
+inline constexpr FleetRaceProfile kPort3NewRavWheelProfile={"NewRav","NEWRAV","port3-NEWRAV-WHEEL-FLEET.ps2model","7cc9ea9c1e787a48d8e666926f41eebde2c5713bf72cdef4ff91425fc1ac03d6",63154u,300u,756u,6u,5u,5u,5u,kPort3NewRavWheelSources,kPort3NewRavWheelMixed,kPort3NewRavWheelWrapU};
+}

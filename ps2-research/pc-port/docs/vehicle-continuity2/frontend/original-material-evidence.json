@@ -1,0 +1,4019 @@
+{
+  "elf_sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+  "ghidra_processor": "r5900:LE:32:default",
+  "ghidra_export_sha256": "e7bbd7e48b4584f14380f7db6bb338e838e5b5f1ebd12a594bcc1fa077b4d67e",
+  "independent_ghidra_words_checked": 598,
+  "registry_constructor_names": [
+    {
+      "base_constructor_call": "0x3a6edc",
+      "literal_va": "0x487470",
+      "name": "carshiny"
+    },
+    {
+      "base_constructor_call": "0x3a6fcc",
+      "literal_va": "0x4874b0",
+      "name": "caralpha"
+    },
+    {
+      "base_constructor_call": "0x3a703c",
+      "literal_va": "0x4874c0",
+      "name": "carglass"
+    },
+    {
+      "base_constructor_call": "0x3a70ac",
+      "literal_va": "0x4874f8",
+      "name": "carsglass"
+    },
+    {
+      "base_constructor_call": "0x3a711c",
+      "literal_va": "0x487508",
+      "name": "carglow"
+    },
+    {
+      "base_constructor_call": "0x3a718c",
+      "literal_va": "0x487510",
+      "name": "carflat"
+    },
+    {
+      "base_constructor_call": "0x3a71fc",
+      "literal_va": "0x487518",
+      "name": "ground"
+    },
+    {
+      "base_constructor_call": "0x3a726c",
+      "literal_va": "0x487538",
+      "name": "sky"
+    },
+    {
+      "base_constructor_call": "0x3a72dc",
+      "literal_va": "0x487540",
+      "name": "clothbase"
+    },
+    {
+      "base_constructor_call": "0x3a734c",
+      "literal_va": "0x487588",
+      "name": "clothlayer"
+    },
+    {
+      "base_constructor_call": "0x3a73bc",
+      "literal_va": "0x4875d0",
+      "name": "wire"
+    },
+    {
+      "base_constructor_call": "0x3a742c",
+      "literal_va": "0x4875d8",
+      "name": "wires"
+    },
+    {
+      "base_constructor_call": "0x3a749c",
+      "literal_va": "0x4875e0",
+      "name": "treeblend"
+    },
+    {
+      "base_constructor_call": "0x3a750c",
+      "literal_va": "0x4875f0",
+      "name": "treetest"
+    },
+    {
+      "base_constructor_call": "0x3a757c",
+      "literal_va": "0x487600",
+      "name": "signtest"
+    },
+    {
+      "base_constructor_call": "0x3a75ec",
+      "literal_va": "0x487610",
+      "name": "tree"
+    },
+    {
+      "base_constructor_call": "0x3a765c",
+      "literal_va": "0x487618",
+      "name": "object"
+    },
+    {
+      "base_constructor_call": "0x3a76cc",
+      "literal_va": "0x487620",
+      "name": "sign"
+    },
+    {
+      "base_constructor_call": "0x3a773c",
+      "literal_va": "0x487628",
+      "name": "waterfall"
+    },
+    {
+      "base_constructor_call": "0x3a77ac",
+      "literal_va": "0x487678",
+      "name": "waterall"
+    },
+    {
+      "base_constructor_call": "0x3a781c",
+      "literal_va": "0x487688",
+      "name": "water"
+    },
+    {
+      "base_constructor_call": "0x3a788c",
+      "literal_va": "0x4876b0",
+      "name": "puddle"
+    },
+    {
+      "base_constructor_call": "0x3a78fc",
+      "literal_va": "0x4876b8",
+      "name": "metal"
+    },
+    {
+      "base_constructor_call": "0x3a796c",
+      "literal_va": "0x4876c0",
+      "name": "dull"
+    },
+    {
+      "base_constructor_call": "0x3a79dc",
+      "literal_va": "0x4876e0",
+      "name": "dulltest"
+    },
+    {
+      "base_constructor_call": "0x3a7a4c",
+      "literal_va": "0x4876f0",
+      "name": "glass"
+    },
+    {
+      "base_constructor_call": "0x3a7abc",
+      "literal_va": "0x4876f8",
+      "name": "showroomfloor"
+    },
+    {
+      "base_constructor_call": "0x3a7b2c",
+      "literal_va": "0x487728",
+      "name": "notexture"
+    },
+    {
+      "base_constructor_call": "0x3a7b9c",
+      "literal_va": "0x487758",
+      "name": "trophyreflect"
+    }
+  ],
+  "mode21_jump": {
+    "table": "0x4850c0",
+    "index": 21,
+    "target": "0x3151d0"
+  },
+  "instructions": [
+    {
+      "va": "0x314b30",
+      "offset": 2186032,
+      "word": "0x3c110043",
+      "r5900": "lui         $s1, 0x43"
+    },
+    {
+      "va": "0x314b34",
+      "offset": 2186036,
+      "word": "0x2413ffdf",
+      "r5900": "addiu       $s3, $zero, -0x21"
+    },
+    {
+      "va": "0x314b38",
+      "offset": 2186040,
+      "word": "0x262fdec8",
+      "r5900": "addiu       $t7, $s1, -0x2138"
+    },
+    {
+      "va": "0x314b3c",
+      "offset": 2186044,
+      "word": "0x24120020",
+      "r5900": "addiu       $s2, $zero, 0x20"
+    },
+    {
+      "va": "0x314b40",
+      "offset": 2186048,
+      "word": "0x25f0ff98",
+      "r5900": "addiu       $s0, $t7, -0x68"
+    },
+    {
+      "va": "0x314b44",
+      "offset": 2186052,
+      "word": "0x2414fe3f",
+      "r5900": "addiu       $s4, $zero, -0x1C1"
+    },
+    {
+      "va": "0x314b48",
+      "offset": 2186056,
+      "word": "0xde0300d0",
+      "r5900": "ld          $v1, 0xD0($s0)"
+    },
+    {
+      "va": "0x314b4c",
+      "offset": 2186060,
+      "word": "0x24020140",
+      "r5900": "addiu       $v0, $zero, 0x140"
+    },
+    {
+      "va": "0x314b50",
+      "offset": 2186064,
+      "word": "0xde0800c0",
+      "r5900": "ld          $t0, 0xC0($s0)"
+    },
+    {
+      "va": "0x314b54",
+      "offset": 2186068,
+      "word": "0x2415fffe",
+      "r5900": "addiu       $s5, $zero, -0x2"
+    },
+    {
+      "va": "0x314b58",
+      "offset": 2186072,
+      "word": "0x731824",
+      "r5900": "and         $v1, $v1, $s3"
+    },
+    {
+      "va": "0x314b5c",
+      "offset": 2186076,
+      "word": "0xde070170",
+      "r5900": "ld          $a3, 0x170($s0)"
+    },
+    {
+      "va": "0x314b60",
+      "offset": 2186080,
+      "word": "0x721825",
+      "r5900": "or          $v1, $v1, $s2"
+    },
+    {
+      "va": "0x314b64",
+      "offset": 2186084,
+      "word": "0xde0a0060",
+      "r5900": "ld          $t2, 0x60($s0)"
+    },
+    {
+      "va": "0x314b68",
+      "offset": 2186088,
+      "word": "0x741824",
+      "r5900": "and         $v1, $v1, $s4"
+    },
+    {
+      "va": "0x314b6c",
+      "offset": 2186092,
+      "word": "0xde0b0110",
+      "r5900": "ld          $t3, 0x110($s0)"
+    },
+    {
+      "va": "0x314b70",
+      "offset": 2186096,
+      "word": "0x621825",
+      "r5900": "or          $v1, $v1, $v0"
+    },
+    {
+      "va": "0x314b74",
+      "offset": 2186100,
+      "word": "0xde0c0050",
+      "r5900": "ld          $t4, 0x50($s0)"
+    },
+    {
+      "va": "0x314b78",
+      "offset": 2186104,
+      "word": "0x3c029fff",
+      "r5900": "lui         $v0, 0x9FFF"
+    },
+    {
+      "va": "0x314b7c",
+      "offset": 2186108,
+      "word": "0x3442ffff",
+      "r5900": "ori         $v0, $v0, 0xFFFF"
+    },
+    {
+      "va": "0x314b80",
+      "offset": 2186112,
+      "word": "0x211b8",
+      "r5900": "dsll        $v0, $v0, 6"
+    },
+    {
+      "va": "0x314b84",
+      "offset": 2186116,
+      "word": "0x3442003f",
+      "r5900": "ori         $v0, $v0, 0x3F"
+    },
+    {
+      "va": "0x314b88",
+      "offset": 2186120,
+      "word": "0x751824",
+      "r5900": "and         $v1, $v1, $s5"
+    },
+    {
+      "va": "0x314b8c",
+      "offset": 2186124,
+      "word": "0xe23824",
+      "r5900": "and         $a3, $a3, $v0"
+    },
+    {
+      "va": "0x314b90",
+      "offset": 2186128,
+      "word": "0x1024024",
+      "r5900": "and         $t0, $t0, $v0"
+    },
+    {
+      "va": "0x314b94",
+      "offset": 2186132,
+      "word": "0x3402fff7",
+      "r5900": "ori         $v0, $zero, 0xFFF7"
+    },
+    {
+      "va": "0x314b98",
+      "offset": 2186136,
+      "word": "0x21438",
+      "r5900": "dsll        $v0, $v0, 16"
+    },
+    {
+      "va": "0x314b9c",
+      "offset": 2186140,
+      "word": "0x3442ffff",
+      "r5900": "ori         $v0, $v0, 0xFFFF"
+    },
+    {
+      "va": "0x314ba0",
+      "offset": 2186144,
+      "word": "0x21438",
+      "r5900": "dsll        $v0, $v0, 16"
+    },
+    {
+      "va": "0x314ba4",
+      "offset": 2186148,
+      "word": "0x3442ffff",
+      "r5900": "ori         $v0, $v0, 0xFFFF"
+    },
+    {
+      "va": "0x314ba8",
+      "offset": 2186152,
+      "word": "0x21438",
+      "r5900": "dsll        $v0, $v0, 16"
+    },
+    {
+      "va": "0x314bac",
+      "offset": 2186156,
+      "word": "0x3442ffff",
+      "r5900": "ori         $v0, $v0, 0xFFFF"
+    },
+    {
+      "va": "0x314bb0",
+      "offset": 2186160,
+      "word": "0x3c090043",
+      "r5900": "lui         $t1, 0x43"
+    },
+    {
+      "va": "0x314bb4",
+      "offset": 2186164,
+      "word": "0x1625824",
+      "r5900": "and         $t3, $t3, $v0"
+    },
+    {
+      "va": "0x314bb8",
+      "offset": 2186168,
+      "word": "0x1425024",
+      "r5900": "and         $t2, $t2, $v0"
+    },
+    {
+      "va": "0x314bbc",
+      "offset": 2186172,
+      "word": "0x3c02ffe7",
+      "r5900": "lui         $v0, 0xFFE7"
+    },
+    {
+      "va": "0x314bc0",
+      "offset": 2186176,
+      "word": "0x3442ffff",
+      "r5900": "ori         $v0, $v0, 0xFFFF"
+    },
+    {
+      "va": "0x314bc4",
+      "offset": 2186180,
+      "word": "0x8d2dde14",
+      "r5900": "lw          $t5, -0x21EC($t1)"
+    },
+    {
+      "va": "0x314bc8",
+      "offset": 2186184,
+      "word": "0x621824",
+      "r5900": "and         $v1, $v1, $v0"
+    },
+    {
+      "va": "0x314bcc",
+      "offset": 2186188,
+      "word": "0x3c170043",
+      "r5900": "lui         $s7, 0x43"
+    },
+    {
+      "va": "0x314bd0",
+      "offset": 2186192,
+      "word": "0x34048000",
+      "r5900": "ori         $a0, $zero, 0x8000"
+    },
+    {
+      "va": "0x314bd4",
+      "offset": 2186196,
+      "word": "0x42538",
+      "r5900": "dsll        $a0, $a0, 20"
+    },
+    {
+      "va": "0x314bd8",
+      "offset": 2186200,
+      "word": "0x1956024",
+      "r5900": "and         $t4, $t4, $s5"
+    },
+    {
+      "va": "0x314bdc",
+      "offset": 2186204,
+      "word": "0x24020001",
+      "r5900": "addiu       $v0, $zero, 0x1"
+    },
+    {
+      "va": "0x314be0",
+      "offset": 2186208,
+      "word": "0x8ee6de0c",
+      "r5900": "lw          $a2, -0x21F4($s7)"
+    },
+    {
+      "va": "0x314be4",
+      "offset": 2186212,
+      "word": "0x1826025",
+      "r5900": "or          $t4, $t4, $v0"
+    },
+    {
+      "va": "0x314be8",
+      "offset": 2186216,
+      "word": "0x3c09bfff",
+      "r5900": "lui         $t1, 0xBFFF"
+    },
+    {
+      "va": "0x314bec",
+      "offset": 2186220,
+      "word": "0x3529ffff",
+      "r5900": "ori         $t1, $t1, 0xFFFF"
+    },
+    {
+      "va": "0x314bf0",
+      "offset": 2186224,
+      "word": "0x94938",
+      "r5900": "dsll        $t1, $t1, 4"
+    },
+    {
+      "va": "0x314bf4",
+      "offset": 2186228,
+      "word": "0x3529000f",
+      "r5900": "ori         $t1, $t1, 0xF"
+    },
+    {
+      "va": "0x314bf8",
+      "offset": 2186232,
+      "word": "0xe43825",
+      "r5900": "or          $a3, $a3, $a0"
+    },
+    {
+      "va": "0x314bfc",
+      "offset": 2186236,
+      "word": "0x8fcede10",
+      "r5900": "lw          $t6, -0x21F0($fp)"
+    },
+    {
+      "va": "0x314c00",
+      "offset": 2186240,
+      "word": "0xe93824",
+      "r5900": "and         $a3, $a3, $t1"
+    },
+    {
+      "va": "0x314c04",
+      "offset": 2186244,
+      "word": "0x1094024",
+      "r5900": "and         $t0, $t0, $t1"
+    },
+    {
+      "va": "0x314c08",
+      "offset": 2186248,
+      "word": "0x24020001",
+      "r5900": "addiu       $v0, $zero, 0x1"
+    },
+    {
+      "va": "0x314c0c",
+      "offset": 2186252,
+      "word": "0x24090412",
+      "r5900": "addiu       $t1, $zero, 0x412"
+    },
+    {
+      "va": "0x314c10",
+      "offset": 2186256,
+      "word": "0xade2ff98",
+      "r5900": "sw          $v0, -0x68($t7)"
+    },
+    {
+      "va": "0x314c14",
+      "offset": 2186260,
+      "word": "0x24c60002",
+      "r5900": "addiu       $a2, $a2, 0x2"
+    },
+    {
+      "va": "0x314c18",
+      "offset": 2186264,
+      "word": "0xaee6de0c",
+      "r5900": "sw          $a2, -0x21F4($s7)"
+    },
+    {
+      "va": "0x314c1c",
+      "offset": 2186268,
+      "word": "0x34048000",
+      "r5900": "ori         $a0, $zero, 0x8000"
+    },
+    {
+      "va": "0x314c20",
+      "offset": 2186272,
+      "word": "0x4213c",
+      "r5900": "dsll32      $a0, $a0, 4"
+    },
+    {
+      "va": "0x314c24",
+      "offset": 2186276,
+      "word": "0xfe29dec8",
+      "r5900": "sd          $t1, -0x2138($s1)"
+    },
+    {
+      "va": "0x314c28",
+      "offset": 2186280,
+      "word": "0x34058000",
+      "r5900": "ori         $a1, $zero, 0x8000"
+    },
+    {
+      "va": "0x314c2c",
+      "offset": 2186284,
+      "word": "0x52cf8",
+      "r5900": "dsll        $a1, $a1, 19"
+    },
+    {
+      "va": "0x314c30",
+      "offset": 2186288,
+      "word": "0xfde900b0",
+      "r5900": "sd          $t1, 0xB0($t7)"
+    },
+    {
+      "va": "0x314c34",
+      "offset": 2186292,
+      "word": "0x1645825",
+      "r5900": "or          $t3, $t3, $a0"
+    },
+    {
+      "va": "0x314c38",
+      "offset": 2186296,
+      "word": "0x1445025",
+      "r5900": "or          $t2, $t2, $a0"
+    },
+    {
+      "va": "0x314c3c",
+      "offset": 2186300,
+      "word": "0x1054025",
+      "r5900": "or          $t0, $t0, $a1"
+    },
+    {
+      "va": "0x314c40",
+      "offset": 2186304,
+      "word": "0xfe070170",
+      "r5900": "sd          $a3, 0x170($s0)"
+    },
+    {
+      "va": "0x314c44",
+      "offset": 2186308,
+      "word": "0x25ad0003",
+      "r5900": "addiu       $t5, $t5, 0x3"
+    },
+    {
+      "va": "0x314c48",
+      "offset": 2186312,
+      "word": "0xfe0c0050",
+      "r5900": "sd          $t4, 0x50($s0)"
+    },
+    {
+      "va": "0x314c4c",
+      "offset": 2186316,
+      "word": "0x3c070043",
+      "r5900": "lui         $a3, 0x43"
+    },
+    {
+      "va": "0x314c50",
+      "offset": 2186320,
+      "word": "0xfe0a0060",
+      "r5900": "sd          $t2, 0x60($s0)"
+    },
+    {
+      "va": "0x314c54",
+      "offset": 2186324,
+      "word": "0x3c048007",
+      "r5900": "lui         $a0, 0x8007"
+    },
+    {
+      "va": "0x314c58",
+      "offset": 2186328,
+      "word": "0x3484ffff",
+      "r5900": "ori         $a0, $a0, 0xFFFF"
+    },
+    {
+      "va": "0x314c5c",
+      "offset": 2186332,
+      "word": "0x42378",
+      "r5900": "dsll        $a0, $a0, 13"
+    },
+    {
+      "va": "0x314c60",
+      "offset": 2186336,
+      "word": "0x34841fff",
+      "r5900": "ori         $a0, $a0, 0x1FFF"
+    },
+    {
+      "va": "0x314c64",
+      "offset": 2186340,
+      "word": "0xfe0b0110",
+      "r5900": "sd          $t3, 0x110($s0)"
+    },
+    {
+      "va": "0x314c68",
+      "offset": 2186344,
+      "word": "0x641824",
+      "r5900": "and         $v1, $v1, $a0"
+    },
+    {
+      "va": "0x314c6c",
+      "offset": 2186348,
+      "word": "0xfe0800c0",
+      "r5900": "sd          $t0, 0xC0($s0)"
+    },
+    {
+      "va": "0x314c70",
+      "offset": 2186352,
+      "word": "0x25ce0004",
+      "r5900": "addiu       $t6, $t6, 0x4"
+    },
+    {
+      "va": "0x314c74",
+      "offset": 2186356,
+      "word": "0xacedde14",
+      "r5900": "sw          $t5, -0x21EC($a3)"
+    },
+    {
+      "va": "0x314c78",
+      "offset": 2186360,
+      "word": "0x320202d",
+      "r5900": "daddu       $a0, $t9, $zero"
+    },
+    {
+      "va": "0x314c7c",
+      "offset": 2186364,
+      "word": "0xfe0300d0",
+      "r5900": "sd          $v1, 0xD0($s0)"
+    },
+    {
+      "va": "0x314c80",
+      "offset": 2186368,
+      "word": "0x282d",
+      "r5900": "daddu       $a1, $zero, $zero"
+    },
+    {
+      "va": "0x314c84",
+      "offset": 2186372,
+      "word": "0x3c013dcc",
+      "r5900": "lui         $at, 0x3DCC"
+    },
+    {
+      "va": "0x314c88",
+      "offset": 2186376,
+      "word": "0x3421cccd",
+      "r5900": "ori         $at, $at, 0xCCCD"
+    },
+    {
+      "va": "0x314c8c",
+      "offset": 2186380,
+      "word": "0x44816000",
+      "r5900": "mtc1        $at, $f12"
+    },
+    {
+      "va": "0x314c90",
+      "offset": 2186384,
+      "word": "0x24060040",
+      "r5900": "addiu       $a2, $zero, 0x40"
+    },
+    {
+      "va": "0x314c94",
+      "offset": 2186388,
+      "word": "0x3c178007",
+      "r5900": "lui         $s7, 0x8007"
+    },
+    {
+      "va": "0x314c98",
+      "offset": 2186392,
+      "word": "0x36f7ffff",
+      "r5900": "ori         $s7, $s7, 0xFFFF"
+    },
+    {
+      "va": "0x314c9c",
+      "offset": 2186396,
+      "word": "0x17bb78",
+      "r5900": "dsll        $s7, $s7, 13"
+    },
+    {
+      "va": "0x314ca0",
+      "offset": 2186400,
+      "word": "0x36f71fff",
+      "r5900": "ori         $s7, $s7, 0x1FFF"
+    },
+    {
+      "va": "0x314ca4",
+      "offset": 2186404,
+      "word": "0xc0c6e32",
+      "r5900": "jal         func_31B8C8"
+    },
+    {
+      "va": "0x314ca8",
+      "offset": 2186408,
+      "word": "0xafcede10",
+      "r5900": "sw          $t6, -0x21F0($fp)"
+    },
+    {
+      "va": "0x314cac",
+      "offset": 2186412,
+      "word": "0xde050130",
+      "r5900": "ld          $a1, 0x130($s0)"
+    },
+    {
+      "va": "0x314cb0",
+      "offset": 2186416,
+      "word": "0x24030060",
+      "r5900": "addiu       $v1, $zero, 0x60"
+    },
+    {
+      "va": "0x314cb4",
+      "offset": 2186420,
+      "word": "0xa2030154",
+      "r5900": "sb          $v1, 0x154($s0)"
+    },
+    {
+      "va": "0x314cb8",
+      "offset": 2186424,
+      "word": "0x240bfff1",
+      "r5900": "addiu       $t3, $zero, -0xF"
+    },
+    {
+      "va": "0x314cbc",
+      "offset": 2186428,
+      "word": "0xa20000a4",
+      "r5900": "sb          $zero, 0xA4($s0)"
+    },
+    {
+      "va": "0x314cc0",
+      "offset": 2186432,
+      "word": "0xb52824",
+      "r5900": "and         $a1, $a1, $s5"
+    },
+    {
+      "va": "0x314cc4",
+      "offset": 2186436,
+      "word": "0xde040180",
+      "r5900": "ld          $a0, 0x180($s0)"
+    },
+    {
+      "va": "0x314cc8",
+      "offset": 2186440,
+      "word": "0xab2824",
+      "r5900": "and         $a1, $a1, $t3"
+    },
+    {
+      "va": "0x314ccc",
+      "offset": 2186444,
+      "word": "0xde060080",
+      "r5900": "ld          $a2, 0x80($s0)"
+    },
+    {
+      "va": "0x314cd0",
+      "offset": 2186448,
+      "word": "0x2403000c",
+      "r5900": "addiu       $v1, $zero, 0xC"
+    },
+    {
+      "va": "0x314cd4",
+      "offset": 2186452,
+      "word": "0xde070150",
+      "r5900": "ld          $a3, 0x150($s0)"
+    },
+    {
+      "va": "0x314cd8",
+      "offset": 2186456,
+      "word": "0x932024",
+      "r5900": "and         $a0, $a0, $s3"
+    },
+    {
+      "va": "0x314cdc",
+      "offset": 2186460,
+      "word": "0xde0800a0",
+      "r5900": "ld          $t0, 0xA0($s0)"
+    },
+    {
+      "va": "0x314ce0",
+      "offset": 2186464,
+      "word": "0xd53024",
+      "r5900": "and         $a2, $a2, $s5"
+    },
+    {
+      "va": "0x314ce4",
+      "offset": 2186468,
+      "word": "0x240cfffc",
+      "r5900": "addiu       $t4, $zero, -0x4"
+    },
+    {
+      "va": "0x314ce8",
+      "offset": 2186472,
+      "word": "0x922025",
+      "r5900": "or          $a0, $a0, $s2"
+    },
+    {
+      "va": "0x314cec",
+      "offset": 2186476,
+      "word": "0xcb3024",
+      "r5900": "and         $a2, $a2, $t3"
+    },
+    {
+      "va": "0x314cf0",
+      "offset": 2186480,
+      "word": "0xa32825",
+      "r5900": "or          $a1, $a1, $v1"
+    },
+    {
+      "va": "0x314cf4",
+      "offset": 2186484,
+      "word": "0x240efff3",
+      "r5900": "addiu       $t6, $zero, -0xD"
+    },
+    {
+      "va": "0x314cf8",
+      "offset": 2186488,
+      "word": "0x240bf00f",
+      "r5900": "addiu       $t3, $zero, -0xFF1"
+    },
+    {
+      "va": "0x314cfc",
+      "offset": 2186492,
+      "word": "0xec3824",
+      "r5900": "and         $a3, $a3, $t4"
+    },
+    {
+      "va": "0x314d00",
+      "offset": 2186496,
+      "word": "0x942024",
+      "r5900": "and         $a0, $a0, $s4"
+    },
+    {
+      "va": "0x314d04",
+      "offset": 2186500,
+      "word": "0x10c4024",
+      "r5900": "and         $t0, $t0, $t4"
+    },
+    {
+      "va": "0x314d08",
+      "offset": 2186504,
+      "word": "0x24030100",
+      "r5900": "addiu       $v1, $zero, 0x100"
+    },
+    {
+      "va": "0x314d0c",
+      "offset": 2186508,
+      "word": "0xde0a0060",
+      "r5900": "ld          $t2, 0x60($s0)"
+    },
+    {
+      "va": "0x314d10",
+      "offset": 2186512,
+      "word": "0xee3824",
+      "r5900": "and         $a3, $a3, $t6"
+    },
+    {
+      "va": "0x314d14",
+      "offset": 2186516,
+      "word": "0xde090110",
+      "r5900": "ld          $t1, 0x110($s0)"
+    },
+    {
+      "va": "0x314d18",
+      "offset": 2186520,
+      "word": "0x240c0008",
+      "r5900": "addiu       $t4, $zero, 0x8"
+    },
+    {
+      "va": "0x314d1c",
+      "offset": 2186524,
+      "word": "0xab2824",
+      "r5900": "and         $a1, $a1, $t3"
+    },
+    {
+      "va": "0x314d20",
+      "offset": 2186528,
+      "word": "0x832025",
+      "r5900": "or          $a0, $a0, $v1"
+    },
+    {
+      "va": "0x314d24",
+      "offset": 2186532,
+      "word": "0xcb3024",
+      "r5900": "and         $a2, $a2, $t3"
+    },
+    {
+      "va": "0x314d28",
+      "offset": 2186536,
+      "word": "0x340ffffb",
+      "r5900": "ori         $t7, $zero, 0xFFFB"
+    },
+    {
+      "va": "0x314d2c",
+      "offset": 2186540,
+      "word": "0xf7c38",
+      "r5900": "dsll        $t7, $t7, 16"
+    },
+    {
+      "va": "0x314d30",
+      "offset": 2186544,
+      "word": "0x35efffff",
+      "r5900": "ori         $t7, $t7, 0xFFFF"
+    },
+    {
+      "va": "0x314d34",
+      "offset": 2186548,
+      "word": "0xf7c38",
+      "r5900": "dsll        $t7, $t7, 16"
+    },
+    {
+      "va": "0x314d38",
+      "offset": 2186552,
+      "word": "0x35efffff",
+      "r5900": "ori         $t7, $t7, 0xFFFF"
+    },
+    {
+      "va": "0x314d3c",
+      "offset": 2186556,
+      "word": "0xf7c38",
+      "r5900": "dsll        $t7, $t7, 16"
+    },
+    {
+      "va": "0x314d40",
+      "offset": 2186560,
+      "word": "0x35efffff",
+      "r5900": "ori         $t7, $t7, 0xFFFF"
+    },
+    {
+      "va": "0x314d44",
+      "offset": 2186564,
+      "word": "0x10e4024",
+      "r5900": "and         $t0, $t0, $t6"
+    },
+    {
+      "va": "0x314d48",
+      "offset": 2186568,
+      "word": "0xec3825",
+      "r5900": "or          $a3, $a3, $t4"
+    },
+    {
+      "va": "0x314d4c",
+      "offset": 2186572,
+      "word": "0x24030004",
+      "r5900": "addiu       $v1, $zero, 0x4"
+    },
+    {
+      "va": "0x314d50",
+      "offset": 2186576,
+      "word": "0x240b0400",
+      "r5900": "addiu       $t3, $zero, 0x400"
+    },
+    {
+      "va": "0x314d54",
+      "offset": 2186580,
+      "word": "0x240ccfff",
+      "r5900": "addiu       $t4, $zero, -0x3001"
+    },
+    {
+      "va": "0x314d58",
+      "offset": 2186584,
+      "word": "0x14f5024",
+      "r5900": "and         $t2, $t2, $t7"
+    },
+    {
+      "va": "0x314d5c",
+      "offset": 2186588,
+      "word": "0x12f4824",
+      "r5900": "and         $t1, $t1, $t7"
+    },
+    {
+      "va": "0x314d60",
+      "offset": 2186592,
+      "word": "0x1034025",
+      "r5900": "or          $t0, $t0, $v1"
+    },
+    {
+      "va": "0x314d64",
+      "offset": 2186596,
+      "word": "0xab2825",
+      "r5900": "or          $a1, $a1, $t3"
+    },
+    {
+      "va": "0x314d68",
+      "offset": 2186600,
+      "word": "0x340d8000",
+      "r5900": "ori         $t5, $zero, 0x8000"
+    },
+    {
+      "va": "0x314d6c",
+      "offset": 2186604,
+      "word": "0xd68fc",
+      "r5900": "dsll32      $t5, $t5, 3"
+    },
+    {
+      "va": "0x314d70",
+      "offset": 2186608,
+      "word": "0x240fffcf",
+      "r5900": "addiu       $t7, $zero, -0x31"
+    },
+    {
+      "va": "0x314d74",
+      "offset": 2186612,
+      "word": "0xcc3024",
+      "r5900": "and         $a2, $a2, $t4"
+    },
+    {
+      "va": "0x314d78",
+      "offset": 2186616,
+      "word": "0x24031000",
+      "r5900": "addiu       $v1, $zero, 0x1000"
+    },
+    {
+      "va": "0x314d7c",
+      "offset": 2186620,
+      "word": "0x3c0bffe7",
+      "r5900": "lui         $t3, 0xFFE7"
+    },
+    {
+      "va": "0x314d80",
+      "offset": 2186624,
+      "word": "0x356bffff",
+      "r5900": "ori         $t3, $t3, 0xFFFF"
+    },
+    {
+      "va": "0x314d84",
+      "offset": 2186628,
+      "word": "0x952024",
+      "r5900": "and         $a0, $a0, $s5"
+    },
+    {
+      "va": "0x314d88",
+      "offset": 2186632,
+      "word": "0xde110100",
+      "r5900": "ld          $s1, 0x100($s0)"
+    },
+    {
+      "va": "0x314d8c",
+      "offset": 2186636,
+      "word": "0xde1301b0",
+      "r5900": "ld          $s3, 0x1B0($s0)"
+    },
+    {
+      "va": "0x314d90",
+      "offset": 2186640,
+      "word": "0x340effdf",
+      "r5900": "ori         $t6, $zero, 0xFFDF"
+    },
+    {
+      "va": "0x314d94",
+      "offset": 2186644,
+      "word": "0xe7438",
+      "r5900": "dsll        $t6, $t6, 16"
+    },
+    {
+      "va": "0x314d98",
+      "offset": 2186648,
+      "word": "0x35ceffff",
+      "r5900": "ori         $t6, $t6, 0xFFFF"
+    },
+    {
+      "va": "0x314d9c",
+      "offset": 2186652,
+      "word": "0xe7438",
+      "r5900": "dsll        $t6, $t6, 16"
+    },
+    {
+      "va": "0x314da0",
+      "offset": 2186656,
+      "word": "0x35ceffff",
+      "r5900": "ori         $t6, $t6, 0xFFFF"
+    },
+    {
+      "va": "0x314da4",
+      "offset": 2186660,
+      "word": "0xe7438",
+      "r5900": "dsll        $t6, $t6, 16"
+    },
+    {
+      "va": "0x314da8",
+      "offset": 2186664,
+      "word": "0x35ceffff",
+      "r5900": "ori         $t6, $t6, 0xFFFF"
+    },
+    {
+      "va": "0x314dac",
+      "offset": 2186668,
+      "word": "0x14d5025",
+      "r5900": "or          $t2, $t2, $t5"
+    },
+    {
+      "va": "0x314db0",
+      "offset": 2186672,
+      "word": "0xef3824",
+      "r5900": "and         $a3, $a3, $t7"
+    },
+    {
+      "va": "0x314db4",
+      "offset": 2186676,
+      "word": "0x8b2024",
+      "r5900": "and         $a0, $a0, $t3"
+    },
+    {
+      "va": "0x314db8",
+      "offset": 2186680,
+      "word": "0xac2824",
+      "r5900": "and         $a1, $a1, $t4"
+    },
+    {
+      "va": "0x314dbc",
+      "offset": 2186684,
+      "word": "0xc33025",
+      "r5900": "or          $a2, $a2, $v1"
+    },
+    {
+      "va": "0x314dc0",
+      "offset": 2186688,
+      "word": "0x8fcbde10",
+      "r5900": "lw          $t3, -0x21F0($fp)"
+    },
+    {
+      "va": "0x314dc4",
+      "offset": 2186692,
+      "word": "0x3c03bfff",
+      "r5900": "lui         $v1, 0xBFFF"
+    },
+    {
+      "va": "0x314dc8",
+      "offset": 2186696,
+      "word": "0x3463ffff",
+      "r5900": "ori         $v1, $v1, 0xFFFF"
+    },
+    {
+      "va": "0x314dcc",
+      "offset": 2186700,
+      "word": "0x318b8",
+      "r5900": "dsll        $v1, $v1, 2"
+    },
+    {
+      "va": "0x314dd0",
+      "offset": 2186704,
+      "word": "0x34630003",
+      "r5900": "ori         $v1, $v1, 0x3"
+    },
+    {
+      "va": "0x314dd4",
+      "offset": 2186708,
+      "word": "0x12d4825",
+      "r5900": "or          $t1, $t1, $t5"
+    },
+    {
+      "va": "0x314dd8",
+      "offset": 2186712,
+      "word": "0x14e5024",
+      "r5900": "and         $t2, $t2, $t6"
+    },
+    {
+      "va": "0x314ddc",
+      "offset": 2186716,
+      "word": "0x34168000",
+      "r5900": "ori         $s6, $zero, 0x8000"
+    },
+    {
+      "va": "0x314de0",
+      "offset": 2186720,
+      "word": "0x16b1bc",
+      "r5900": "dsll32      $s6, $s6, 6"
+    },
+    {
+      "va": "0x314de4",
+      "offset": 2186724,
+      "word": "0xf23825",
+      "r5900": "or          $a3, $a3, $s2"
+    },
+    {
+      "va": "0x314de8",
+      "offset": 2186728,
+      "word": "0x3c0c0043",
+      "r5900": "lui         $t4, 0x43"
+    },
+    {
+      "va": "0x314dec",
+      "offset": 2186732,
+      "word": "0x8d92de14",
+      "r5900": "lw          $s2, -0x21EC($t4)"
+    },
+    {
+      "va": "0x314df0",
+      "offset": 2186736,
+      "word": "0x12e4824",
+      "r5900": "and         $t1, $t1, $t6"
+    },
+    {
+      "va": "0x314df4",
+      "offset": 2186740,
+      "word": "0x10f4024",
+      "r5900": "and         $t0, $t0, $t7"
+    },
+    {
+      "va": "0x314df8",
+      "offset": 2186744,
+      "word": "0x3414ffef",
+      "r5900": "ori         $s4, $zero, 0xFFEF"
+    },
+    {
+      "va": "0x314dfc",
+      "offset": 2186748,
+      "word": "0x14a438",
+      "r5900": "dsll        $s4, $s4, 16"
+    },
+    {
+      "va": "0x314e00",
+      "offset": 2186752,
+      "word": "0x3694ffff",
+      "r5900": "ori         $s4, $s4, 0xFFFF"
+    },
+    {
+      "va": "0x314e04",
+      "offset": 2186756,
+      "word": "0x14a438",
+      "r5900": "dsll        $s4, $s4, 16"
+    },
+    {
+      "va": "0x314e08",
+      "offset": 2186760,
+      "word": "0x3694ffff",
+      "r5900": "ori         $s4, $s4, 0xFFFF"
+    },
+    {
+      "va": "0x314e0c",
+      "offset": 2186764,
+      "word": "0x14a438",
+      "r5900": "dsll        $s4, $s4, 16"
+    },
+    {
+      "va": "0x314e10",
+      "offset": 2186768,
+      "word": "0x3694ffff",
+      "r5900": "ori         $s4, $s4, 0xFFFF"
+    },
+    {
+      "va": "0x314e14",
+      "offset": 2186772,
+      "word": "0x2639824",
+      "r5900": "and         $s3, $s3, $v1"
+    },
+    {
+      "va": "0x314e18",
+      "offset": 2186776,
+      "word": "0x2238824",
+      "r5900": "and         $s1, $s1, $v1"
+    },
+    {
+      "va": "0x314e1c",
+      "offset": 2186780,
+      "word": "0x30420fff",
+      "r5900": "andi        $v0, $v0, 0xFFF"
+    },
+    {
+      "va": "0x314e20",
+      "offset": 2186784,
+      "word": "0x100000bc",
+      "r5900": "b           . + 4 + (0xBC << 2)"
+    },
+    {
+      "va": "0x314e24",
+      "offset": 2186788,
+      "word": "0x1565025",
+      "r5900": "or          $t2, $t2, $s6"
+    },
+    {
+      "va": "0x315114",
+      "offset": 2187540,
+      "word": "0xde0e00b0",
+      "r5900": "ld          $t6, 0xB0($s0)"
+    },
+    {
+      "va": "0x315118",
+      "offset": 2187544,
+      "word": "0x240fff3f",
+      "r5900": "addiu       $t7, $zero, -0xC1"
+    },
+    {
+      "va": "0x31511c",
+      "offset": 2187548,
+      "word": "0xde0d0160",
+      "r5900": "ld          $t5, 0x160($s0)"
+    },
+    {
+      "va": "0x315120",
+      "offset": 2187552,
+      "word": "0x3c0cfff9",
+      "r5900": "lui         $t4, 0xFFF9"
+    },
+    {
+      "va": "0x315124",
+      "offset": 2187556,
+      "word": "0x358cffff",
+      "r5900": "ori         $t4, $t4, 0xFFFF"
+    },
+    {
+      "va": "0x315128",
+      "offset": 2187560,
+      "word": "0x2103c",
+      "r5900": "dsll32      $v0, $v0, 0"
+    },
+    {
+      "va": "0x31512c",
+      "offset": 2187564,
+      "word": "0x34038000",
+      "r5900": "ori         $v1, $zero, 0x8000"
+    },
+    {
+      "va": "0x315130",
+      "offset": 2187568,
+      "word": "0x3197c",
+      "r5900": "dsll32      $v1, $v1, 5"
+    },
+    {
+      "va": "0x315134",
+      "offset": 2187572,
+      "word": "0x972024",
+      "r5900": "and         $a0, $a0, $s7"
+    },
+    {
+      "va": "0x315138",
+      "offset": 2187576,
+      "word": "0x1364825",
+      "r5900": "or          $t1, $t1, $s6"
+    },
+    {
+      "va": "0x31513c",
+      "offset": 2187580,
+      "word": "0x1545024",
+      "r5900": "and         $t2, $t2, $s4"
+    },
+    {
+      "va": "0x315140",
+      "offset": 2187584,
+      "word": "0x256b0007",
+      "r5900": "addiu       $t3, $t3, 0x7"
+    },
+    {
+      "va": "0x315144",
+      "offset": 2187588,
+      "word": "0xafcbde10",
+      "r5900": "sw          $t3, -0x21F0($fp)"
+    },
+    {
+      "va": "0x315148",
+      "offset": 2187592,
+      "word": "0xef3824",
+      "r5900": "and         $a3, $a3, $t7"
+    },
+    {
+      "va": "0x31514c",
+      "offset": 2187596,
+      "word": "0xac2824",
+      "r5900": "and         $a1, $a1, $t4"
+    },
+    {
+      "va": "0x315150",
+      "offset": 2187600,
+      "word": "0x10f4024",
+      "r5900": "and         $t0, $t0, $t7"
+    },
+    {
+      "va": "0x315154",
+      "offset": 2187604,
+      "word": "0xcc3024",
+      "r5900": "and         $a2, $a2, $t4"
+    },
+    {
+      "va": "0x315158",
+      "offset": 2187608,
+      "word": "0x1435025",
+      "r5900": "or          $t2, $t2, $v1"
+    },
+    {
+      "va": "0x31515c",
+      "offset": 2187612,
+      "word": "0x822025",
+      "r5900": "or          $a0, $a0, $v0"
+    },
+    {
+      "va": "0x315160",
+      "offset": 2187616,
+      "word": "0x1344824",
+      "r5900": "and         $t1, $t1, $s4"
+    },
+    {
+      "va": "0x315164",
+      "offset": 2187620,
+      "word": "0x240c0040",
+      "r5900": "addiu       $t4, $zero, 0x40"
+    },
+    {
+      "va": "0x315168",
+      "offset": 2187624,
+      "word": "0x3c0f0004",
+      "r5900": "lui         $t7, 0x4"
+    },
+    {
+      "va": "0x31516c",
+      "offset": 2187628,
+      "word": "0x34028000",
+      "r5900": "ori         $v0, $zero, 0x8000"
+    },
+    {
+      "va": "0x315170",
+      "offset": 2187632,
+      "word": "0x21478",
+      "r5900": "dsll        $v0, $v0, 17"
+    },
+    {
+      "va": "0x315174",
+      "offset": 2187636,
+      "word": "0x26520008",
+      "r5900": "addiu       $s2, $s2, 0x8"
+    },
+    {
+      "va": "0x315178",
+      "offset": 2187640,
+      "word": "0xfe090110",
+      "r5900": "sd          $t1, 0x110($s0)"
+    },
+    {
+      "va": "0x31517c",
+      "offset": 2187644,
+      "word": "0x3c030043",
+      "r5900": "lui         $v1, 0x43"
+    },
+    {
+      "va": "0x315180",
+      "offset": 2187648,
+      "word": "0xac72de14",
+      "r5900": "sw          $s2, -0x21EC($v1)"
+    },
+    {
+      "va": "0x315184",
+      "offset": 2187652,
+      "word": "0x1d57024",
+      "r5900": "and         $t6, $t6, $s5"
+    },
+    {
+      "va": "0x315188",
+      "offset": 2187656,
+      "word": "0x1b56824",
+      "r5900": "and         $t5, $t5, $s5"
+    },
+    {
+      "va": "0x31518c",
+      "offset": 2187660,
+      "word": "0xec3825",
+      "r5900": "or          $a3, $a3, $t4"
+    },
+    {
+      "va": "0x315190",
+      "offset": 2187664,
+      "word": "0xaf2825",
+      "r5900": "or          $a1, $a1, $t7"
+    },
+    {
+      "va": "0x315194",
+      "offset": 2187668,
+      "word": "0x2629825",
+      "r5900": "or          $s3, $s3, $v0"
+    },
+    {
+      "va": "0x315198",
+      "offset": 2187672,
+      "word": "0x10c4025",
+      "r5900": "or          $t0, $t0, $t4"
+    },
+    {
+      "va": "0x31519c",
+      "offset": 2187676,
+      "word": "0xcf3025",
+      "r5900": "or          $a2, $a2, $t7"
+    },
+    {
+      "va": "0x3151a0",
+      "offset": 2187680,
+      "word": "0x2228825",
+      "r5900": "or          $s1, $s1, $v0"
+    },
+    {
+      "va": "0x3151a4",
+      "offset": 2187684,
+      "word": "0xfe040180",
+      "r5900": "sd          $a0, 0x180($s0)"
+    },
+    {
+      "va": "0x3151a8",
+      "offset": 2187688,
+      "word": "0xfe0e00b0",
+      "r5900": "sd          $t6, 0xB0($s0)"
+    },
+    {
+      "va": "0x3151ac",
+      "offset": 2187692,
+      "word": "0xfe0d0160",
+      "r5900": "sd          $t5, 0x160($s0)"
+    },
+    {
+      "va": "0x3151b0",
+      "offset": 2187696,
+      "word": "0xfe0800a0",
+      "r5900": "sd          $t0, 0xA0($s0)"
+    },
+    {
+      "va": "0x3151b4",
+      "offset": 2187700,
+      "word": "0xfe070150",
+      "r5900": "sd          $a3, 0x150($s0)"
+    },
+    {
+      "va": "0x3151b8",
+      "offset": 2187704,
+      "word": "0xfe060080",
+      "r5900": "sd          $a2, 0x80($s0)"
+    },
+    {
+      "va": "0x3151bc",
+      "offset": 2187708,
+      "word": "0xfe110100",
+      "r5900": "sd          $s1, 0x100($s0)"
+    },
+    {
+      "va": "0x3151c0",
+      "offset": 2187712,
+      "word": "0xfe050130",
+      "r5900": "sd          $a1, 0x130($s0)"
+    },
+    {
+      "va": "0x3151c4",
+      "offset": 2187716,
+      "word": "0xfe1301b0",
+      "r5900": "sd          $s3, 0x1B0($s0)"
+    },
+    {
+      "va": "0x3151c8",
+      "offset": 2187720,
+      "word": "0x10000582",
+      "r5900": "b           . + 4 + (0x582 << 2)"
+    },
+    {
+      "va": "0x3151cc",
+      "offset": 2187724,
+      "word": "0xfe0a0060",
+      "r5900": "sd          $t2, 0x60($s0)"
+    },
+    {
+      "va": "0x3151d0",
+      "offset": 2187728,
+      "word": "0x3c120043",
+      "r5900": "lui         $s2, 0x43"
+    },
+    {
+      "va": "0x3151d4",
+      "offset": 2187732,
+      "word": "0x3c039fff",
+      "r5900": "lui         $v1, 0x9FFF"
+    },
+    {
+      "va": "0x3151d8",
+      "offset": 2187736,
+      "word": "0x3463ffff",
+      "r5900": "ori         $v1, $v1, 0xFFFF"
+    },
+    {
+      "va": "0x3151dc",
+      "offset": 2187740,
+      "word": "0x319b8",
+      "r5900": "dsll        $v1, $v1, 6"
+    },
+    {
+      "va": "0x3151e0",
+      "offset": 2187744,
+      "word": "0x3463003f",
+      "r5900": "ori         $v1, $v1, 0x3F"
+    },
+    {
+      "va": "0x3151e4",
+      "offset": 2187748,
+      "word": "0x2651dec8",
+      "r5900": "addiu       $s1, $s2, -0x2138"
+    },
+    {
+      "va": "0x3151e8",
+      "offset": 2187752,
+      "word": "0x2413ffdf",
+      "r5900": "addiu       $s3, $zero, -0x21"
+    },
+    {
+      "va": "0x3151ec",
+      "offset": 2187756,
+      "word": "0x2630ff98",
+      "r5900": "addiu       $s0, $s1, -0x68"
+    },
+    {
+      "va": "0x3151f0",
+      "offset": 2187760,
+      "word": "0x24040020",
+      "r5900": "addiu       $a0, $zero, 0x20"
+    },
+    {
+      "va": "0x3151f4",
+      "offset": 2187764,
+      "word": "0xde0800c0",
+      "r5900": "ld          $t0, 0xC0($s0)"
+    },
+    {
+      "va": "0x3151f8",
+      "offset": 2187768,
+      "word": "0x2414fffe",
+      "r5900": "addiu       $s4, $zero, -0x2"
+    },
+    {
+      "va": "0x3151fc",
+      "offset": 2187772,
+      "word": "0xde070170",
+      "r5900": "ld          $a3, 0x170($s0)"
+    },
+    {
+      "va": "0x315200",
+      "offset": 2187776,
+      "word": "0x3c060043",
+      "r5900": "lui         $a2, 0x43"
+    },
+    {
+      "va": "0x315204",
+      "offset": 2187780,
+      "word": "0xde0200d0",
+      "r5900": "ld          $v0, 0xD0($s0)"
+    },
+    {
+      "va": "0x315208",
+      "offset": 2187784,
+      "word": "0x1034024",
+      "r5900": "and         $t0, $t0, $v1"
+    },
+    {
+      "va": "0x31520c",
+      "offset": 2187788,
+      "word": "0xde0b0060",
+      "r5900": "ld          $t3, 0x60($s0)"
+    },
+    {
+      "va": "0x315210",
+      "offset": 2187792,
+      "word": "0xe33824",
+      "r5900": "and         $a3, $a3, $v1"
+    },
+    {
+      "va": "0x315214",
+      "offset": 2187796,
+      "word": "0xde090110",
+      "r5900": "ld          $t1, 0x110($s0)"
+    },
+    {
+      "va": "0x315218",
+      "offset": 2187800,
+      "word": "0x531024",
+      "r5900": "and         $v0, $v0, $s3"
+    },
+    {
+      "va": "0x31521c",
+      "offset": 2187804,
+      "word": "0xde0a0050",
+      "r5900": "ld          $t2, 0x50($s0)"
+    },
+    {
+      "va": "0x315220",
+      "offset": 2187808,
+      "word": "0x3403fff7",
+      "r5900": "ori         $v1, $zero, 0xFFF7"
+    },
+    {
+      "va": "0x315224",
+      "offset": 2187812,
+      "word": "0x31c38",
+      "r5900": "dsll        $v1, $v1, 16"
+    },
+    {
+      "va": "0x315228",
+      "offset": 2187816,
+      "word": "0x3463ffff",
+      "r5900": "ori         $v1, $v1, 0xFFFF"
+    },
+    {
+      "va": "0x31522c",
+      "offset": 2187820,
+      "word": "0x31c38",
+      "r5900": "dsll        $v1, $v1, 16"
+    },
+    {
+      "va": "0x315230",
+      "offset": 2187824,
+      "word": "0x3463ffff",
+      "r5900": "ori         $v1, $v1, 0xFFFF"
+    },
+    {
+      "va": "0x315234",
+      "offset": 2187828,
+      "word": "0x31c38",
+      "r5900": "dsll        $v1, $v1, 16"
+    },
+    {
+      "va": "0x315238",
+      "offset": 2187832,
+      "word": "0x3463ffff",
+      "r5900": "ori         $v1, $v1, 0xFFFF"
+    },
+    {
+      "va": "0x31523c",
+      "offset": 2187836,
+      "word": "0x441025",
+      "r5900": "or          $v0, $v0, $a0"
+    },
+    {
+      "va": "0x315240",
+      "offset": 2187840,
+      "word": "0x1234824",
+      "r5900": "and         $t1, $t1, $v1"
+    },
+    {
+      "va": "0x315244",
+      "offset": 2187844,
+      "word": "0x1635824",
+      "r5900": "and         $t3, $t3, $v1"
+    },
+    {
+      "va": "0x315248",
+      "offset": 2187848,
+      "word": "0x8ccede14",
+      "r5900": "lw          $t6, -0x21EC($a2)"
+    },
+    {
+      "va": "0x31524c",
+      "offset": 2187852,
+      "word": "0x34048000",
+      "r5900": "ori         $a0, $zero, 0x8000"
+    },
+    {
+      "va": "0x315250",
+      "offset": 2187856,
+      "word": "0x42538",
+      "r5900": "dsll        $a0, $a0, 20"
+    },
+    {
+      "va": "0x315254",
+      "offset": 2187860,
+      "word": "0x1545024",
+      "r5900": "and         $t2, $t2, $s4"
+    },
+    {
+      "va": "0x315258",
+      "offset": 2187864,
+      "word": "0x24030001",
+      "r5900": "addiu       $v1, $zero, 0x1"
+    },
+    {
+      "va": "0x31525c",
+      "offset": 2187868,
+      "word": "0x3c06bfff",
+      "r5900": "lui         $a2, 0xBFFF"
+    },
+    {
+      "va": "0x315260",
+      "offset": 2187872,
+      "word": "0x34c6ffff",
+      "r5900": "ori         $a2, $a2, 0xFFFF"
+    },
+    {
+      "va": "0x315264",
+      "offset": 2187876,
+      "word": "0x63138",
+      "r5900": "dsll        $a2, $a2, 4"
+    },
+    {
+      "va": "0x315268",
+      "offset": 2187880,
+      "word": "0x34c6000f",
+      "r5900": "ori         $a2, $a2, 0xF"
+    },
+    {
+      "va": "0x31526c",
+      "offset": 2187884,
+      "word": "0x1435025",
+      "r5900": "or          $t2, $t2, $v1"
+    },
+    {
+      "va": "0x315270",
+      "offset": 2187888,
+      "word": "0xe43825",
+      "r5900": "or          $a3, $a3, $a0"
+    },
+    {
+      "va": "0x315274",
+      "offset": 2187892,
+      "word": "0x3c0d0043",
+      "r5900": "lui         $t5, 0x43"
+    },
+    {
+      "va": "0x315278",
+      "offset": 2187896,
+      "word": "0xe63824",
+      "r5900": "and         $a3, $a3, $a2"
+    },
+    {
+      "va": "0x31527c",
+      "offset": 2187900,
+      "word": "0x8dacde0c",
+      "r5900": "lw          $t4, -0x21F4($t5)"
+    },
+    {
+      "va": "0x315280",
+      "offset": 2187904,
+      "word": "0x1064024",
+      "r5900": "and         $t0, $t0, $a2"
+    },
+    {
+      "va": "0x315284",
+      "offset": 2187908,
+      "word": "0x24030fff",
+      "r5900": "addiu       $v1, $zero, 0xFFF"
+    },
+    {
+      "va": "0x315288",
+      "offset": 2187912,
+      "word": "0x8fcfde10",
+      "r5900": "lw          $t7, -0x21F0($fp)"
+    },
+    {
+      "va": "0x31528c",
+      "offset": 2187916,
+      "word": "0xfe43dec8",
+      "r5900": "sd          $v1, -0x2138($s2)"
+    },
+    {
+      "va": "0x315290",
+      "offset": 2187920,
+      "word": "0x2415fe3f",
+      "r5900": "addiu       $s5, $zero, -0x1C1"
+    },
+    {
+      "va": "0x315294",
+      "offset": 2187924,
+      "word": "0x24060001",
+      "r5900": "addiu       $a2, $zero, 0x1"
+    },
+    {
+      "va": "0x315298",
+      "offset": 2187928,
+      "word": "0x551024",
+      "r5900": "and         $v0, $v0, $s5"
+    },
+    {
+      "va": "0x31529c",
+      "offset": 2187932,
+      "word": "0xae26ff98",
+      "r5900": "sw          $a2, -0x68($s1)"
+    },
+    {
+      "va": "0x3152a0",
+      "offset": 2187936,
+      "word": "0x258c0002",
+      "r5900": "addiu       $t4, $t4, 0x2"
+    },
+    {
+      "va": "0x3152a4",
+      "offset": 2187940,
+      "word": "0x3c030043",
+      "r5900": "lui         $v1, 0x43"
+    },
+    {
+      "va": "0x3152a8",
+      "offset": 2187944,
+      "word": "0x24050100",
+      "r5900": "addiu       $a1, $zero, 0x100"
+    },
+    {
+      "va": "0x3152ac",
+      "offset": 2187948,
+      "word": "0xac6cde0c",
+      "r5900": "sw          $t4, -0x21F4($v1)"
+    },
+    {
+      "va": "0x3152b0",
+      "offset": 2187952,
+      "word": "0x451025",
+      "r5900": "or          $v0, $v0, $a1"
+    },
+    {
+      "va": "0x3152b4",
+      "offset": 2187956,
+      "word": "0x240d0412",
+      "r5900": "addiu       $t5, $zero, 0x412"
+    },
+    {
+      "va": "0x3152b8",
+      "offset": 2187960,
+      "word": "0x34048000",
+      "r5900": "ori         $a0, $zero, 0x8000"
+    },
+    {
+      "va": "0x3152bc",
+      "offset": 2187964,
+      "word": "0x4213c",
+      "r5900": "dsll32      $a0, $a0, 4"
+    },
+    {
+      "va": "0x3152c0",
+      "offset": 2187968,
+      "word": "0xfe2d00b0",
+      "r5900": "sd          $t5, 0xB0($s1)"
+    },
+    {
+      "va": "0x3152c4",
+      "offset": 2187972,
+      "word": "0x34058000",
+      "r5900": "ori         $a1, $zero, 0x8000"
+    },
+    {
+      "va": "0x3152c8",
+      "offset": 2187976,
+      "word": "0x52cf8",
+      "r5900": "dsll        $a1, $a1, 19"
+    },
+    {
+      "va": "0x3152cc",
+      "offset": 2187980,
+      "word": "0x1244825",
+      "r5900": "or          $t1, $t1, $a0"
+    },
+    {
+      "va": "0x3152d0",
+      "offset": 2187984,
+      "word": "0x1645825",
+      "r5900": "or          $t3, $t3, $a0"
+    },
+    {
+      "va": "0x3152d4",
+      "offset": 2187988,
+      "word": "0x1054025",
+      "r5900": "or          $t0, $t0, $a1"
+    },
+    {
+      "va": "0x3152d8",
+      "offset": 2187992,
+      "word": "0xfe070170",
+      "r5900": "sd          $a3, 0x170($s0)"
+    },
+    {
+      "va": "0x3152dc",
+      "offset": 2187996,
+      "word": "0x3c16ffe7",
+      "r5900": "lui         $s6, 0xFFE7"
+    },
+    {
+      "va": "0x3152e0",
+      "offset": 2188000,
+      "word": "0x36d6ffff",
+      "r5900": "ori         $s6, $s6, 0xFFFF"
+    },
+    {
+      "va": "0x3152e4",
+      "offset": 2188004,
+      "word": "0x541024",
+      "r5900": "and         $v0, $v0, $s4"
+    },
+    {
+      "va": "0x3152e8",
+      "offset": 2188008,
+      "word": "0xfe0a0050",
+      "r5900": "sd          $t2, 0x50($s0)"
+    },
+    {
+      "va": "0x3152ec",
+      "offset": 2188012,
+      "word": "0x561024",
+      "r5900": "and         $v0, $v0, $s6"
+    },
+    {
+      "va": "0x3152f0",
+      "offset": 2188016,
+      "word": "0xfe0b0060",
+      "r5900": "sd          $t3, 0x60($s0)"
+    },
+    {
+      "va": "0x3152f4",
+      "offset": 2188020,
+      "word": "0x25ce0003",
+      "r5900": "addiu       $t6, $t6, 0x3"
+    },
+    {
+      "va": "0x3152f8",
+      "offset": 2188024,
+      "word": "0xfe090110",
+      "r5900": "sd          $t1, 0x110($s0)"
+    },
+    {
+      "va": "0x3152fc",
+      "offset": 2188028,
+      "word": "0x3c070043",
+      "r5900": "lui         $a3, 0x43"
+    },
+    {
+      "va": "0x315300",
+      "offset": 2188032,
+      "word": "0xfe0800c0",
+      "r5900": "sd          $t0, 0xC0($s0)"
+    },
+    {
+      "va": "0x315304",
+      "offset": 2188036,
+      "word": "0x3c178007",
+      "r5900": "lui         $s7, 0x8007"
+    },
+    {
+      "va": "0x315308",
+      "offset": 2188040,
+      "word": "0x36f7ffff",
+      "r5900": "ori         $s7, $s7, 0xFFFF"
+    },
+    {
+      "va": "0x31530c",
+      "offset": 2188044,
+      "word": "0x17bb78",
+      "r5900": "dsll        $s7, $s7, 13"
+    },
+    {
+      "va": "0x315310",
+      "offset": 2188048,
+      "word": "0x36f71fff",
+      "r5900": "ori         $s7, $s7, 0x1FFF"
+    },
+    {
+      "va": "0x315314",
+      "offset": 2188052,
+      "word": "0xaceede14",
+      "r5900": "sw          $t6, -0x21EC($a3)"
+    },
+    {
+      "va": "0x315318",
+      "offset": 2188056,
+      "word": "0x571024",
+      "r5900": "and         $v0, $v0, $s7"
+    },
+    {
+      "va": "0x31531c",
+      "offset": 2188060,
+      "word": "0x25ef0004",
+      "r5900": "addiu       $t7, $t7, 0x4"
+    },
+    {
+      "va": "0x315320",
+      "offset": 2188064,
+      "word": "0xfe0200d0",
+      "r5900": "sd          $v0, 0xD0($s0)"
+    },
+    {
+      "va": "0x315324",
+      "offset": 2188068,
+      "word": "0x3c013dcc",
+      "r5900": "lui         $at, 0x3DCC"
+    },
+    {
+      "va": "0x315328",
+      "offset": 2188072,
+      "word": "0x3421cccd",
+      "r5900": "ori         $at, $at, 0xCCCD"
+    },
+    {
+      "va": "0x31532c",
+      "offset": 2188076,
+      "word": "0x44816000",
+      "r5900": "mtc1        $at, $f12"
+    },
+    {
+      "va": "0x315330",
+      "offset": 2188080,
+      "word": "0x320202d",
+      "r5900": "daddu       $a0, $t9, $zero"
+    },
+    {
+      "va": "0x315334",
+      "offset": 2188084,
+      "word": "0x282d",
+      "r5900": "daddu       $a1, $zero, $zero"
+    },
+    {
+      "va": "0x315338",
+      "offset": 2188088,
+      "word": "0x24060040",
+      "r5900": "addiu       $a2, $zero, 0x40"
+    },
+    {
+      "va": "0x31533c",
+      "offset": 2188092,
+      "word": "0xafcfde10",
+      "r5900": "sw          $t7, -0x21F0($fp)"
+    },
+    {
+      "va": "0x315340",
+      "offset": 2188096,
+      "word": "0xc0c6e32",
+      "r5900": "jal         func_31B8C8"
+    },
+    {
+      "va": "0x315344",
+      "offset": 2188100,
+      "word": "0x24170020",
+      "r5900": "addiu       $s7, $zero, 0x20"
+    },
+    {
+      "va": "0x315348",
+      "offset": 2188104,
+      "word": "0x24040060",
+      "r5900": "addiu       $a0, $zero, 0x60"
+    },
+    {
+      "va": "0x31534c",
+      "offset": 2188108,
+      "word": "0xde050130",
+      "r5900": "ld          $a1, 0x130($s0)"
+    },
+    {
+      "va": "0x315350",
+      "offset": 2188112,
+      "word": "0xa2040154",
+      "r5900": "sb          $a0, 0x154($s0)"
+    },
+    {
+      "va": "0x315354",
+      "offset": 2188116,
+      "word": "0x24030020",
+      "r5900": "addiu       $v1, $zero, 0x20"
+    },
+    {
+      "va": "0x315358",
+      "offset": 2188120,
+      "word": "0xde040080",
+      "r5900": "ld          $a0, 0x80($s0)"
+    },
+    {
+      "va": "0x31535c",
+      "offset": 2188124,
+      "word": "0x2408fff1",
+      "r5900": "addiu       $t0, $zero, -0xF"
+    },
+    {
+      "va": "0x315360",
+      "offset": 2188128,
+      "word": "0xa20300a4",
+      "r5900": "sb          $v1, 0xA4($s0)"
+    },
+    {
+      "va": "0x315364",
+      "offset": 2188132,
+      "word": "0xb42824",
+      "r5900": "and         $a1, $a1, $s4"
+    },
+    {
+      "va": "0x315368",
+      "offset": 2188136,
+      "word": "0xde030180",
+      "r5900": "ld          $v1, 0x180($s0)"
+    },
+    {
+      "va": "0x31536c",
+      "offset": 2188140,
+      "word": "0x942024",
+      "r5900": "and         $a0, $a0, $s4"
+    },
+    {
+      "va": "0x315370",
+      "offset": 2188144,
+      "word": "0xa82824",
+      "r5900": "and         $a1, $a1, $t0"
+    },
+    {
+      "va": "0x315374",
+      "offset": 2188148,
+      "word": "0x882024",
+      "r5900": "and         $a0, $a0, $t0"
+    },
+    {
+      "va": "0x315378",
+      "offset": 2188152,
+      "word": "0xde0700a0",
+      "r5900": "ld          $a3, 0xA0($s0)"
+    },
+    {
+      "va": "0x31537c",
+      "offset": 2188156,
+      "word": "0x731824",
+      "r5900": "and         $v1, $v1, $s3"
+    },
+    {
+      "va": "0x315380",
+      "offset": 2188160,
+      "word": "0xde060150",
+      "r5900": "ld          $a2, 0x150($s0)"
+    },
+    {
+      "va": "0x315384",
+      "offset": 2188164,
+      "word": "0x24080020",
+      "r5900": "addiu       $t0, $zero, 0x20"
+    },
+    {
+      "va": "0x315388",
+      "offset": 2188168,
+      "word": "0x2409fffc",
+      "r5900": "addiu       $t1, $zero, -0x4"
+    },
+    {
+      "va": "0x31538c",
+      "offset": 2188172,
+      "word": "0x681825",
+      "r5900": "or          $v1, $v1, $t0"
+    },
+    {
+      "va": "0x315390",
+      "offset": 2188176,
+      "word": "0xde0b0060",
+      "r5900": "ld          $t3, 0x60($s0)"
+    },
+    {
+      "va": "0x315394",
+      "offset": 2188180,
+      "word": "0xe93824",
+      "r5900": "and         $a3, $a3, $t1"
+    },
+    {
+      "va": "0x315398",
+      "offset": 2188184,
+      "word": "0xde080110",
+      "r5900": "ld          $t0, 0x110($s0)"
+    },
+    {
+      "va": "0x31539c",
+      "offset": 2188188,
+      "word": "0xc93024",
+      "r5900": "and         $a2, $a2, $t1"
+    },
+    {
+      "va": "0x3153a0",
+      "offset": 2188192,
+      "word": "0x240afff3",
+      "r5900": "addiu       $t2, $zero, -0xD"
+    },
+    {
+      "va": "0x3153a4",
+      "offset": 2188196,
+      "word": "0x240c000a",
+      "r5900": "addiu       $t4, $zero, 0xA"
+    },
+    {
+      "va": "0x3153a8",
+      "offset": 2188200,
+      "word": "0x3409fffb",
+      "r5900": "ori         $t1, $zero, 0xFFFB"
+    },
+    {
+      "va": "0x3153ac",
+      "offset": 2188204,
+      "word": "0x94c38",
+      "r5900": "dsll        $t1, $t1, 16"
+    },
+    {
+      "va": "0x3153b0",
+      "offset": 2188208,
+      "word": "0x3529ffff",
+      "r5900": "ori         $t1, $t1, 0xFFFF"
+    },
+    {
+      "va": "0x3153b4",
+      "offset": 2188212,
+      "word": "0x94c38",
+      "r5900": "dsll        $t1, $t1, 16"
+    },
+    {
+      "va": "0x3153b8",
+      "offset": 2188216,
+      "word": "0x3529ffff",
+      "r5900": "ori         $t1, $t1, 0xFFFF"
+    },
+    {
+      "va": "0x3153bc",
+      "offset": 2188220,
+      "word": "0x94c38",
+      "r5900": "dsll        $t1, $t1, 16"
+    },
+    {
+      "va": "0x3153c0",
+      "offset": 2188224,
+      "word": "0x3529ffff",
+      "r5900": "ori         $t1, $t1, 0xFFFF"
+    },
+    {
+      "va": "0x3153c4",
+      "offset": 2188228,
+      "word": "0xca3024",
+      "r5900": "and         $a2, $a2, $t2"
+    },
+    {
+      "va": "0x3153c8",
+      "offset": 2188232,
+      "word": "0xea3824",
+      "r5900": "and         $a3, $a3, $t2"
+    },
+    {
+      "va": "0x3153cc",
+      "offset": 2188236,
+      "word": "0xac2825",
+      "r5900": "or          $a1, $a1, $t4"
+    },
+    {
+      "va": "0x3153d0",
+      "offset": 2188240,
+      "word": "0x8c2025",
+      "r5900": "or          $a0, $a0, $t4"
+    },
+    {
+      "va": "0x3153d4",
+      "offset": 2188244,
+      "word": "0x1094024",
+      "r5900": "and         $t0, $t0, $t1"
+    },
+    {
+      "va": "0x3153d8",
+      "offset": 2188248,
+      "word": "0x1695824",
+      "r5900": "and         $t3, $t3, $t1"
+    },
+    {
+      "va": "0x3153dc",
+      "offset": 2188252,
+      "word": "0x240af00f",
+      "r5900": "addiu       $t2, $zero, -0xFF1"
+    },
+    {
+      "va": "0x3153e0",
+      "offset": 2188256,
+      "word": "0x34098000",
+      "r5900": "ori         $t1, $zero, 0x8000"
+    },
+    {
+      "va": "0x3153e4",
+      "offset": 2188260,
+      "word": "0x948fc",
+      "r5900": "dsll32      $t1, $t1, 3"
+    },
+    {
+      "va": "0x3153e8",
+      "offset": 2188264,
+      "word": "0x751824",
+      "r5900": "and         $v1, $v1, $s5"
+    },
+    {
+      "va": "0x3153ec",
+      "offset": 2188268,
+      "word": "0x240c0100",
+      "r5900": "addiu       $t4, $zero, 0x100"
+    },
+    {
+      "va": "0x3153f0",
+      "offset": 2188272,
+      "word": "0x240d0008",
+      "r5900": "addiu       $t5, $zero, 0x8"
+    },
+    {
+      "va": "0x3153f4",
+      "offset": 2188276,
+      "word": "0xaa2824",
+      "r5900": "and         $a1, $a1, $t2"
+    },
+    {
+      "va": "0x3153f8",
+      "offset": 2188280,
+      "word": "0x6c1825",
+      "r5900": "or          $v1, $v1, $t4"
+    },
+    {
+      "va": "0x3153fc",
+      "offset": 2188284,
+      "word": "0x8a2024",
+      "r5900": "and         $a0, $a0, $t2"
+    },
+    {
+      "va": "0x315400",
+      "offset": 2188288,
+      "word": "0x1094025",
+      "r5900": "or          $t0, $t0, $t1"
+    },
+    {
+      "va": "0x315404",
+      "offset": 2188292,
+      "word": "0x1695825",
+      "r5900": "or          $t3, $t3, $t1"
+    },
+    {
+      "va": "0x315408",
+      "offset": 2188296,
+      "word": "0x240affcf",
+      "r5900": "addiu       $t2, $zero, -0x31"
+    },
+    {
+      "va": "0x31540c",
+      "offset": 2188300,
+      "word": "0x240ccfff",
+      "r5900": "addiu       $t4, $zero, -0x3001"
+    },
+    {
+      "va": "0x315410",
+      "offset": 2188304,
+      "word": "0x3409ffdf",
+      "r5900": "ori         $t1, $zero, 0xFFDF"
+    },
+    {
+      "va": "0x315414",
+      "offset": 2188308,
+      "word": "0x94c38",
+      "r5900": "dsll        $t1, $t1, 16"
+    },
+    {
+      "va": "0x315418",
+      "offset": 2188312,
+      "word": "0x3529ffff",
+      "r5900": "ori         $t1, $t1, 0xFFFF"
+    },
+    {
+      "va": "0x31541c",
+      "offset": 2188316,
+      "word": "0x94c38",
+      "r5900": "dsll        $t1, $t1, 16"
+    },
+    {
+      "va": "0x315420",
+      "offset": 2188320,
+      "word": "0x3529ffff",
+      "r5900": "ori         $t1, $t1, 0xFFFF"
+    },
+    {
+      "va": "0x315424",
+      "offset": 2188324,
+      "word": "0x94c38",
+      "r5900": "dsll        $t1, $t1, 16"
+    },
+    {
+      "va": "0x315428",
+      "offset": 2188328,
+      "word": "0x3529ffff",
+      "r5900": "ori         $t1, $t1, 0xFFFF"
+    },
+    {
+      "va": "0x31542c",
+      "offset": 2188332,
+      "word": "0xcd3025",
+      "r5900": "or          $a2, $a2, $t5"
+    },
+    {
+      "va": "0x315430",
+      "offset": 2188336,
+      "word": "0xed3825",
+      "r5900": "or          $a3, $a3, $t5"
+    },
+    {
+      "va": "0x315434",
+      "offset": 2188340,
+      "word": "0x24151000",
+      "r5900": "addiu       $s5, $zero, 0x1000"
+    },
+    {
+      "va": "0x315438",
+      "offset": 2188344,
+      "word": "0xca3024",
+      "r5900": "and         $a2, $a2, $t2"
+    },
+    {
+      "va": "0x31543c",
+      "offset": 2188348,
+      "word": "0xac2824",
+      "r5900": "and         $a1, $a1, $t4"
+    },
+    {
+      "va": "0x315440",
+      "offset": 2188352,
+      "word": "0xea3824",
+      "r5900": "and         $a3, $a3, $t2"
+    },
+    {
+      "va": "0x315444",
+      "offset": 2188356,
+      "word": "0x8c2024",
+      "r5900": "and         $a0, $a0, $t4"
+    },
+    {
+      "va": "0x315448",
+      "offset": 2188360,
+      "word": "0x1094024",
+      "r5900": "and         $t0, $t0, $t1"
+    },
+    {
+      "va": "0x31544c",
+      "offset": 2188364,
+      "word": "0x1695824",
+      "r5900": "and         $t3, $t3, $t1"
+    },
+    {
+      "va": "0x315450",
+      "offset": 2188368,
+      "word": "0x8fcade10",
+      "r5900": "lw          $t2, -0x21F0($fp)"
+    },
+    {
+      "va": "0x315454",
+      "offset": 2188372,
+      "word": "0x3c09fff9",
+      "r5900": "lui         $t1, 0xFFF9"
+    },
+    {
+      "va": "0x315458",
+      "offset": 2188376,
+      "word": "0x3529ffff",
+      "r5900": "ori         $t1, $t1, 0xFFFF"
+    },
+    {
+      "va": "0x31545c",
+      "offset": 2188380,
+      "word": "0x240d0020",
+      "r5900": "addiu       $t5, $zero, 0x20"
+    },
+    {
+      "va": "0x315460",
+      "offset": 2188384,
+      "word": "0xb52825",
+      "r5900": "or          $a1, $a1, $s5"
+    },
+    {
+      "va": "0x315464",
+      "offset": 2188388,
+      "word": "0x3c0f0043",
+      "r5900": "lui         $t7, 0x43"
+    },
+    {
+      "va": "0x315468",
+      "offset": 2188392,
+      "word": "0x952025",
+      "r5900": "or          $a0, $a0, $s5"
+    },
+    {
+      "va": "0x31546c",
+      "offset": 2188396,
+      "word": "0x741824",
+      "r5900": "and         $v1, $v1, $s4"
+    },
+    {
+      "va": "0x315470",
+      "offset": 2188400,
+      "word": "0x8df2de14",
+      "r5900": "lw          $s2, -0x21EC($t7)"
+    },
+    {
+      "va": "0x315474",
+      "offset": 2188404,
+      "word": "0x34118000",
+      "r5900": "ori         $s1, $zero, 0x8000"
+    },
+    {
+      "va": "0x315478",
+      "offset": 2188408,
+      "word": "0x1189bc",
+      "r5900": "dsll32      $s1, $s1, 6"
+    },
+    {
+      "va": "0x31547c",
+      "offset": 2188412,
+      "word": "0x761824",
+      "r5900": "and         $v1, $v1, $s6"
+    },
+    {
+      "va": "0x315480",
+      "offset": 2188416,
+      "word": "0xcd3025",
+      "r5900": "or          $a2, $a2, $t5"
+    },
+    {
+      "va": "0x315484",
+      "offset": 2188420,
+      "word": "0xa92824",
+      "r5900": "and         $a1, $a1, $t1"
+    },
+    {
+      "va": "0x315488",
+      "offset": 2188424,
+      "word": "0x892024",
+      "r5900": "and         $a0, $a0, $t1"
+    },
+    {
+      "va": "0x31548c",
+      "offset": 2188428,
+      "word": "0x30420fff",
+      "r5900": "andi        $v0, $v0, 0xFFF"
+    },
+    {
+      "va": "0x315490",
+      "offset": 2188432,
+      "word": "0x3c158007",
+      "r5900": "lui         $s5, 0x8007"
+    },
+    {
+      "va": "0x315494",
+      "offset": 2188436,
+      "word": "0x36b5ffff",
+      "r5900": "ori         $s5, $s5, 0xFFFF"
+    },
+    {
+      "va": "0x315498",
+      "offset": 2188440,
+      "word": "0x15ab78",
+      "r5900": "dsll        $s5, $s5, 13"
+    },
+    {
+      "va": "0x31549c",
+      "offset": 2188444,
+      "word": "0x36b51fff",
+      "r5900": "ori         $s5, $s5, 0x1FFF"
+    },
+    {
+      "va": "0x3154a0",
+      "offset": 2188448,
+      "word": "0xde0c01b0",
+      "r5900": "ld          $t4, 0x1B0($s0)"
+    },
+    {
+      "va": "0x3154a4",
+      "offset": 2188452,
+      "word": "0x240fff3f",
+      "r5900": "addiu       $t7, $zero, -0xC1"
+    },
+    {
+      "va": "0x3154a8",
+      "offset": 2188456,
+      "word": "0xde0e00b0",
+      "r5900": "ld          $t6, 0xB0($s0)"
+    },
+    {
+      "va": "0x3154ac",
+      "offset": 2188460,
+      "word": "0xf73825",
+      "r5900": "or          $a3, $a3, $s7"
+    },
+    {
+      "va": "0x3154b0",
+      "offset": 2188464,
+      "word": "0xde0d0160",
+      "r5900": "ld          $t5, 0x160($s0)"
+    },
+    {
+      "va": "0x3154b4",
+      "offset": 2188468,
+      "word": "0x1114025",
+      "r5900": "or          $t0, $t0, $s1"
+    },
+    {
+      "va": "0x3154b8",
+      "offset": 2188472,
+      "word": "0xde130100",
+      "r5900": "ld          $s3, 0x100($s0)"
+    },
+    {
+      "va": "0x3154bc",
+      "offset": 2188476,
+      "word": "0x2103c",
+      "r5900": "dsll32      $v0, $v0, 0"
+    },
+    {
+      "va": "0x3154c0",
+      "offset": 2188480,
+      "word": "0x3409ffef",
+      "r5900": "ori         $t1, $zero, 0xFFEF"
+    },
+    {
+      "va": "0x3154c4",
+      "offset": 2188484,
+      "word": "0x94c38",
+      "r5900": "dsll        $t1, $t1, 16"
+    },
+    {
+      "va": "0x3154c8",
+      "offset": 2188488,
+      "word": "0x3529ffff",
+      "r5900": "ori         $t1, $t1, 0xFFFF"
+    },
+    {
+      "va": "0x3154cc",
+      "offset": 2188492,
+      "word": "0x94c38",
+      "r5900": "dsll        $t1, $t1, 16"
+    },
+    {
+      "va": "0x3154d0",
+      "offset": 2188496,
+      "word": "0x3529ffff",
+      "r5900": "ori         $t1, $t1, 0xFFFF"
+    },
+    {
+      "va": "0x3154d4",
+      "offset": 2188500,
+      "word": "0x94c38",
+      "r5900": "dsll        $t1, $t1, 16"
+    },
+    {
+      "va": "0x3154d8",
+      "offset": 2188504,
+      "word": "0x3529ffff",
+      "r5900": "ori         $t1, $t1, 0xFFFF"
+    },
+    {
+      "va": "0x3154dc",
+      "offset": 2188508,
+      "word": "0x751824",
+      "r5900": "and         $v1, $v1, $s5"
+    },
+    {
+      "va": "0x3154e0",
+      "offset": 2188512,
+      "word": "0x254a0007",
+      "r5900": "addiu       $t2, $t2, 0x7"
+    },
+    {
+      "va": "0x3154e4",
+      "offset": 2188516,
+      "word": "0x3c16bfff",
+      "r5900": "lui         $s6, 0xBFFF"
+    },
+    {
+      "va": "0x3154e8",
+      "offset": 2188520,
+      "word": "0x36d6ffff",
+      "r5900": "ori         $s6, $s6, 0xFFFF"
+    },
+    {
+      "va": "0x3154ec",
+      "offset": 2188524,
+      "word": "0x16b0b8",
+      "r5900": "dsll        $s6, $s6, 2"
+    },
+    {
+      "va": "0x3154f0",
+      "offset": 2188528,
+      "word": "0x36d60003",
+      "r5900": "ori         $s6, $s6, 0x3"
+    },
+    {
+      "va": "0x3154f4",
+      "offset": 2188532,
+      "word": "0xafcade10",
+      "r5900": "sw          $t2, -0x21F0($fp)"
+    },
+    {
+      "va": "0x3154f8",
+      "offset": 2188536,
+      "word": "0xcf3024",
+      "r5900": "and         $a2, $a2, $t7"
+    },
+    {
+      "va": "0x3154fc",
+      "offset": 2188540,
+      "word": "0x1715825",
+      "r5900": "or          $t3, $t3, $s1"
+    },
+    {
+      "va": "0x315500",
+      "offset": 2188544,
+      "word": "0xef3824",
+      "r5900": "and         $a3, $a3, $t7"
+    },
+    {
+      "va": "0x315504",
+      "offset": 2188548,
+      "word": "0x621825",
+      "r5900": "or          $v1, $v1, $v0"
+    },
+    {
+      "va": "0x315508",
+      "offset": 2188552,
+      "word": "0x1094024",
+      "r5900": "and         $t0, $t0, $t1"
+    },
+    {
+      "va": "0x31550c",
+      "offset": 2188556,
+      "word": "0x240f0040",
+      "r5900": "addiu       $t7, $zero, 0x40"
+    },
+    {
+      "va": "0x315510",
+      "offset": 2188560,
+      "word": "0x3c110004",
+      "r5900": "lui         $s1, 0x4"
+    },
+    {
+      "va": "0x315514",
+      "offset": 2188564,
+      "word": "0x1966024",
+      "r5900": "and         $t4, $t4, $s6"
+    },
+    {
+      "va": "0x315518",
+      "offset": 2188568,
+      "word": "0x34178000",
+      "r5900": "ori         $s7, $zero, 0x8000"
+    },
+    {
+      "va": "0x31551c",
+      "offset": 2188572,
+      "word": "0x17bc78",
+      "r5900": "dsll        $s7, $s7, 17"
+    },
+    {
+      "va": "0x315520",
+      "offset": 2188576,
+      "word": "0x26520008",
+      "r5900": "addiu       $s2, $s2, 0x8"
+    },
+    {
+      "va": "0x315524",
+      "offset": 2188580,
+      "word": "0xfe080110",
+      "r5900": "sd          $t0, 0x110($s0)"
+    },
+    {
+      "va": "0x315528",
+      "offset": 2188584,
+      "word": "0x3c020043",
+      "r5900": "lui         $v0, 0x43"
+    },
+    {
+      "va": "0x31552c",
+      "offset": 2188588,
+      "word": "0x1d47024",
+      "r5900": "and         $t6, $t6, $s4"
+    },
+    {
+      "va": "0x315530",
+      "offset": 2188592,
+      "word": "0xac52de14",
+      "r5900": "sw          $s2, -0x21EC($v0)"
+    },
+    {
+      "va": "0x315534",
+      "offset": 2188596,
+      "word": "0x1b46824",
+      "r5900": "and         $t5, $t5, $s4"
+    },
+    {
+      "va": "0x315538",
+      "offset": 2188600,
+      "word": "0xcf3025",
+      "r5900": "or          $a2, $a2, $t7"
+    },
+    {
+      "va": "0x31553c",
+      "offset": 2188604,
+      "word": "0x2769824",
+      "r5900": "and         $s3, $s3, $s6"
+    },
+    {
+      "va": "0x315540",
+      "offset": 2188608,
+      "word": "0xb12825",
+      "r5900": "or          $a1, $a1, $s1"
+    },
+    {
+      "va": "0x315544",
+      "offset": 2188612,
+      "word": "0x1976025",
+      "r5900": "or          $t4, $t4, $s7"
+    },
+    {
+      "va": "0x315548",
+      "offset": 2188616,
+      "word": "0x1695824",
+      "r5900": "and         $t3, $t3, $t1"
+    },
+    {
+      "va": "0x31554c",
+      "offset": 2188620,
+      "word": "0xef3825",
+      "r5900": "or          $a3, $a3, $t7"
+    },
+    {
+      "va": "0x315550",
+      "offset": 2188624,
+      "word": "0x912025",
+      "r5900": "or          $a0, $a0, $s1"
+    },
+    {
+      "va": "0x315554",
+      "offset": 2188628,
+      "word": "0xfe030180",
+      "r5900": "sd          $v1, 0x180($s0)"
+    },
+    {
+      "va": "0x315558",
+      "offset": 2188632,
+      "word": "0xfe0e00b0",
+      "r5900": "sd          $t6, 0xB0($s0)"
+    },
+    {
+      "va": "0x31555c",
+      "offset": 2188636,
+      "word": "0xfe0d0160",
+      "r5900": "sd          $t5, 0x160($s0)"
+    },
+    {
+      "va": "0x315560",
+      "offset": 2188640,
+      "word": "0xfe0700a0",
+      "r5900": "sd          $a3, 0xA0($s0)"
+    },
+    {
+      "va": "0x315564",
+      "offset": 2188644,
+      "word": "0xfe060150",
+      "r5900": "sd          $a2, 0x150($s0)"
+    },
+    {
+      "va": "0x315568",
+      "offset": 2188648,
+      "word": "0xfe040080",
+      "r5900": "sd          $a0, 0x80($s0)"
+    },
+    {
+      "va": "0x31556c",
+      "offset": 2188652,
+      "word": "0xfe130100",
+      "r5900": "sd          $s3, 0x100($s0)"
+    },
+    {
+      "va": "0x315570",
+      "offset": 2188656,
+      "word": "0xfe050130",
+      "r5900": "sd          $a1, 0x130($s0)"
+    },
+    {
+      "va": "0x315574",
+      "offset": 2188660,
+      "word": "0xfe0c01b0",
+      "r5900": "sd          $t4, 0x1B0($s0)"
+    },
+    {
+      "va": "0x315578",
+      "offset": 2188664,
+      "word": "0x10000496",
+      "r5900": "b           . + 4 + (0x496 << 2)"
+    },
+    {
+      "va": "0x31557c",
+      "offset": 2188668,
+      "word": "0xfe0b0060",
+      "r5900": "sd          $t3, 0x60($s0)"
+    },
+    {
+      "va": "0x3ae150",
+      "offset": 2814288,
+      "word": "0x27bdff80",
+      "r5900": "addiu       $sp, $sp, -0x80"
+    },
+    {
+      "va": "0x3ae154",
+      "offset": 2814292,
+      "word": "0x7fbf0070",
+      "r5900": "sq          $ra, 0x70($sp)"
+    },
+    {
+      "va": "0x3ae158",
+      "offset": 2814296,
+      "word": "0x7fbe0060",
+      "r5900": "sq          $fp, 0x60($sp)"
+    },
+    {
+      "va": "0x3ae15c",
+      "offset": 2814300,
+      "word": "0x7fb20050",
+      "r5900": "sq          $s2, 0x50($sp)"
+    },
+    {
+      "va": "0x3ae160",
+      "offset": 2814304,
+      "word": "0x7fb10040",
+      "r5900": "sq          $s1, 0x40($sp)"
+    },
+    {
+      "va": "0x3ae164",
+      "offset": 2814308,
+      "word": "0x7fb00030",
+      "r5900": "sq          $s0, 0x30($sp)"
+    },
+    {
+      "va": "0x3ae168",
+      "offset": 2814312,
+      "word": "0x3a0f02d",
+      "r5900": "daddu       $fp, $sp, $zero"
+    },
+    {
+      "va": "0x3ae16c",
+      "offset": 2814316,
+      "word": "0x80802d",
+      "r5900": "daddu       $s0, $a0, $zero"
+    },
+    {
+      "va": "0x3ae170",
+      "offset": 2814320,
+      "word": "0xa0882d",
+      "r5900": "daddu       $s1, $a1, $zero"
+    },
+    {
+      "va": "0x3ae174",
+      "offset": 2814324,
+      "word": "0x24020015",
+      "r5900": "addiu       $v0, $zero, 0x15"
+    },
+    {
+      "va": "0x3ae178",
+      "offset": 2814328,
+      "word": "0xae220028",
+      "r5900": "sw          $v0, 0x28($s1)"
+    },
+    {
+      "va": "0x3ae17c",
+      "offset": 2814332,
+      "word": "0x24020001",
+      "r5900": "addiu       $v0, $zero, 0x1"
+    },
+    {
+      "va": "0x3ae180",
+      "offset": 2814336,
+      "word": "0xae22002c",
+      "r5900": "sw          $v0, 0x2C($s1)"
+    },
+    {
+      "va": "0x3ae184",
+      "offset": 2814340,
+      "word": "0xae20003c",
+      "r5900": "sw          $zero, 0x3C($s1)"
+    },
+    {
+      "va": "0x3ae188",
+      "offset": 2814344,
+      "word": "0xae200040",
+      "r5900": "sw          $zero, 0x40($s1)"
+    },
+    {
+      "va": "0x3ae18c",
+      "offset": 2814348,
+      "word": "0x3c013e99",
+      "r5900": "lui         $at, 0x3E99"
+    },
+    {
+      "va": "0x3ae190",
+      "offset": 2814352,
+      "word": "0x3421999a",
+      "r5900": "ori         $at, $at, 0x999A"
+    },
+    {
+      "va": "0x3ae194",
+      "offset": 2814356,
+      "word": "0x44810000",
+      "r5900": "mtc1        $at, $f0"
+    },
+    {
+      "va": "0x3ae198",
+      "offset": 2814360,
+      "word": "0x0",
+      "r5900": "nop"
+    },
+    {
+      "va": "0x3ae19c",
+      "offset": 2814364,
+      "word": "0xe6200044",
+      "r5900": "swc1        $f0, 0x44($s1)"
+    },
+    {
+      "va": "0x3ae1a0",
+      "offset": 2814368,
+      "word": "0x27c20020",
+      "r5900": "addiu       $v0, $fp, 0x20"
+    },
+    {
+      "va": "0x3ae1a4",
+      "offset": 2814372,
+      "word": "0x40202d",
+      "r5900": "daddu       $a0, $v0, $zero"
+    },
+    {
+      "va": "0x3ae1a8",
+      "offset": 2814376,
+      "word": "0x3c050048",
+      "r5900": "lui         $a1, 0x48"
+    },
+    {
+      "va": "0x3ae1ac",
+      "offset": 2814380,
+      "word": "0x24a57488",
+      "r5900": "addiu       $a1, $a1, 0x7488"
+    },
+    {
+      "va": "0x3ae1b0",
+      "offset": 2814384,
+      "word": "0xc0e917a",
+      "r5900": "jal         func_3A45E8"
+    },
+    {
+      "va": "0x3ae1b4",
+      "offset": 2814388,
+      "word": "0x0",
+      "r5900": "nop"
+    },
+    {
+      "va": "0x3ae1b8",
+      "offset": 2814392,
+      "word": "0x40902d",
+      "r5900": "daddu       $s2, $v0, $zero"
+    },
+    {
+      "va": "0x3ae1bc",
+      "offset": 2814396,
+      "word": "0xc0b7688",
+      "r5900": "jal         func_2DDA20"
+    },
+    {
+      "va": "0x3ae1c0",
+      "offset": 2814400,
+      "word": "0x0",
+      "r5900": "nop"
+    },
+    {
+      "va": "0x3ae1c4",
+      "offset": 2814404,
+      "word": "0x40202d",
+      "r5900": "daddu       $a0, $v0, $zero"
+    },
+    {
+      "va": "0x3ae1c8",
+      "offset": 2814408,
+      "word": "0xc0ec7b8",
+      "r5900": "jal         func_3B1EE0"
+    },
+    {
+      "va": "0x3ae1cc",
+      "offset": 2814412,
+      "word": "0x0",
+      "r5900": "nop"
+    },
+    {
+      "va": "0x3ae1d0",
+      "offset": 2814416,
+      "word": "0x27c30020",
+      "r5900": "addiu       $v1, $fp, 0x20"
+    },
+    {
+      "va": "0x3ae1d4",
+      "offset": 2814420,
+      "word": "0x24040001",
+      "r5900": "addiu       $a0, $zero, 0x1"
+    },
+    {
+      "va": "0x3ae1d8",
+      "offset": 2814424,
+      "word": "0xafa40000",
+      "r5900": "sw          $a0, 0x0($sp)"
+    },
+    {
+      "va": "0x3ae1dc",
+      "offset": 2814428,
+      "word": "0x27c40010",
+      "r5900": "addiu       $a0, $fp, 0x10"
+    },
+    {
+      "va": "0x3ae1e0",
+      "offset": 2814432,
+      "word": "0x40282d",
+      "r5900": "daddu       $a1, $v0, $zero"
+    },
+    {
+      "va": "0x3ae1e4",
+      "offset": 2814436,
+      "word": "0x60302d",
+      "r5900": "daddu       $a2, $v1, $zero"
+    },
+    {
+      "va": "0x3ae1e8",
+      "offset": 2814440,
+      "word": "0x382d",
+      "r5900": "daddu       $a3, $zero, $zero"
+    },
+    {
+      "va": "0x3ae1ec",
+      "offset": 2814444,
+      "word": "0x402d",
+      "r5900": "daddu       $t0, $zero, $zero"
+    },
+    {
+      "va": "0x3ae1f0",
+      "offset": 2814448,
+      "word": "0x482d",
+      "r5900": "daddu       $t1, $zero, $zero"
+    },
+    {
+      "va": "0x3ae1f4",
+      "offset": 2814452,
+      "word": "0x502d",
+      "r5900": "daddu       $t2, $zero, $zero"
+    },
+    {
+      "va": "0x3ae1f8",
+      "offset": 2814456,
+      "word": "0x240b0001",
+      "r5900": "addiu       $t3, $zero, 0x1"
+    },
+    {
+      "va": "0x3ae1fc",
+      "offset": 2814460,
+      "word": "0xc0bf5f4",
+      "r5900": "jal         func_2FD7D0"
+    },
+    {
+      "va": "0x3ae200",
+      "offset": 2814464,
+      "word": "0x0",
+      "r5900": "nop"
+    },
+    {
+      "va": "0x3ae204",
+      "offset": 2814468,
+      "word": "0x27c40010",
+      "r5900": "addiu       $a0, $fp, 0x10"
+    },
+    {
+      "va": "0x3ae208",
+      "offset": 2814472,
+      "word": "0x24050002",
+      "r5900": "addiu       $a1, $zero, 0x2"
+    },
+    {
+      "va": "0x3ae20c",
+      "offset": 2814476,
+      "word": "0xc0ec864",
+      "r5900": "jal         func_3B2190"
+    },
+    {
+      "va": "0x3ae210",
+      "offset": 2814480,
+      "word": "0x0",
+      "r5900": "nop"
+    },
+    {
+      "va": "0x3ae214",
+      "offset": 2814484,
+      "word": "0x26220038",
+      "r5900": "addiu       $v0, $s1, 0x38"
+    },
+    {
+      "va": "0x3ae218",
+      "offset": 2814488,
+      "word": "0x40202d",
+      "r5900": "daddu       $a0, $v0, $zero"
+    },
+    {
+      "va": "0x3ae21c",
+      "offset": 2814492,
+      "word": "0x3c050048",
+      "r5900": "lui         $a1, 0x48"
+    },
+    {
+      "va": "0x3ae220",
+      "offset": 2814496,
+      "word": "0x24a57488",
+      "r5900": "addiu       $a1, $a1, 0x7488"
+    },
+    {
+      "va": "0x3ae224",
+      "offset": 2814500,
+      "word": "0xc0e91e4",
+      "r5900": "jal         func_3A4790"
+    },
+    {
+      "va": "0x3ae228",
+      "offset": 2814504,
+      "word": "0x0",
+      "r5900": "nop"
+    },
+    {
+      "va": "0x3ae22c",
+      "offset": 2814508,
+      "word": "0x3c0e82d",
+      "r5900": "daddu       $sp, $fp, $zero"
+    },
+    {
+      "va": "0x3ae230",
+      "offset": 2814512,
+      "word": "0x7bbf0070",
+      "r5900": "lq          $ra, 0x70($sp)"
+    },
+    {
+      "va": "0x3ae234",
+      "offset": 2814516,
+      "word": "0x7bbe0060",
+      "r5900": "lq          $fp, 0x60($sp)"
+    },
+    {
+      "va": "0x3ae238",
+      "offset": 2814520,
+      "word": "0x7bb20050",
+      "r5900": "lq          $s2, 0x50($sp)"
+    },
+    {
+      "va": "0x3ae23c",
+      "offset": 2814524,
+      "word": "0x7bb10040",
+      "r5900": "lq          $s1, 0x40($sp)"
+    },
+    {
+      "va": "0x3ae240",
+      "offset": 2814528,
+      "word": "0x7bb00030",
+      "r5900": "lq          $s0, 0x30($sp)"
+    },
+    {
+      "va": "0x3ae244",
+      "offset": 2814532,
+      "word": "0x27bd0080",
+      "r5900": "addiu       $sp, $sp, 0x80"
+    },
+    {
+      "va": "0x3ae248",
+      "offset": 2814536,
+      "word": "0x3e00008",
+      "r5900": "jr          $ra"
+    },
+    {
+      "va": "0x3ae24c",
+      "offset": 2814540,
+      "word": "0x0",
+      "r5900": "nop"
+    },
+    {
+      "va": "0x391774",
+      "offset": 2697076,
+      "word": "0x8fc20000",
+      "r5900": "lw          $v0, 0x0($fp)"
+    },
+    {
+      "va": "0x391778",
+      "offset": 2697080,
+      "word": "0x8c43003c",
+      "r5900": "lw          $v1, 0x3C($v0)"
+    },
+    {
+      "va": "0x39177c",
+      "offset": 2697084,
+      "word": "0x1060005f",
+      "r5900": "beqz        $v1, . + 4 + (0x5F << 2)"
+    },
+    {
+      "va": "0x391780",
+      "offset": 2697088,
+      "word": "0x0",
+      "r5900": "nop"
+    },
+    {
+      "va": "0x391784",
+      "offset": 2697092,
+      "word": "0x8fc20004",
+      "r5900": "lw          $v0, 0x4($fp)"
+    },
+    {
+      "va": "0x391788",
+      "offset": 2697096,
+      "word": "0x24030001",
+      "r5900": "addiu       $v1, $zero, 0x1"
+    },
+    {
+      "va": "0x39178c",
+      "offset": 2697100,
+      "word": "0xac430028",
+      "r5900": "sw          $v1, 0x28($v0)"
+    },
+    {
+      "va": "0x391790",
+      "offset": 2697104,
+      "word": "0x8fc20004",
+      "r5900": "lw          $v0, 0x4($fp)"
+    },
+    {
+      "va": "0x391794",
+      "offset": 2697108,
+      "word": "0x24540034",
+      "r5900": "addiu       $s4, $v0, 0x34"
+    },
+    {
+      "va": "0x391798",
+      "offset": 2697112,
+      "word": "0x8fc30008",
+      "r5900": "lw          $v1, 0x8($fp)"
+    },
+    {
+      "va": "0x39179c",
+      "offset": 2697116,
+      "word": "0x24620010",
+      "r5900": "addiu       $v0, $v1, 0x10"
+    },
+    {
+      "va": "0x3917a0",
+      "offset": 2697120,
+      "word": "0x40202d",
+      "r5900": "daddu       $a0, $v0, $zero"
+    },
+    {
+      "va": "0x3917a4",
+      "offset": 2697124,
+      "word": "0xc0e9318",
+      "r5900": "jal         func_3A4C60"
+    },
+    {
+      "va": "0x3917a8",
+      "offset": 2697128,
+      "word": "0x0",
+      "r5900": "nop"
+    },
+    {
+      "va": "0x3917ac",
+      "offset": 2697132,
+      "word": "0x280202d",
+      "r5900": "daddu       $a0, $s4, $zero"
+    },
+    {
+      "va": "0x3917b0",
+      "offset": 2697136,
+      "word": "0x40282d",
+      "r5900": "daddu       $a1, $v0, $zero"
+    },
+    {
+      "va": "0x3917b4",
+      "offset": 2697140,
+      "word": "0xc0e91e4",
+      "r5900": "jal         func_3A4790"
+    },
+    {
+      "va": "0x3917b8",
+      "offset": 2697144,
+      "word": "0x0",
+      "r5900": "nop"
+    },
+    {
+      "va": "0x3917bc",
+      "offset": 2697148,
+      "word": "0x8fc20008",
+      "r5900": "lw          $v0, 0x8($fp)"
+    },
+    {
+      "va": "0x3917c0",
+      "offset": 2697152,
+      "word": "0x8c430004",
+      "r5900": "lw          $v1, 0x4($v0)"
+    },
+    {
+      "va": "0x3917c4",
+      "offset": 2697156,
+      "word": "0x10600028",
+      "r5900": "beqz        $v1, . + 4 + (0x28 << 2)"
+    },
+    {
+      "va": "0x3917c8",
+      "offset": 2697160,
+      "word": "0x0",
+      "r5900": "nop"
+    },
+    {
+      "va": "0x3917cc",
+      "offset": 2697164,
+      "word": "0x8fc20008",
+      "r5900": "lw          $v0, 0x8($fp)"
+    },
+    {
+      "va": "0x3917d0",
+      "offset": 2697168,
+      "word": "0x8c430000",
+      "r5900": "lw          $v1, 0x0($v0)"
+    },
+    {
+      "va": "0x3917d4",
+      "offset": 2697172,
+      "word": "0x10600024",
+      "r5900": "beqz        $v1, . + 4 + (0x24 << 2)"
+    },
+    {
+      "va": "0x3917d8",
+      "offset": 2697176,
+      "word": "0x0",
+      "r5900": "nop"
+    },
+    {
+      "va": "0x3917dc",
+      "offset": 2697180,
+      "word": "0x8fc20004",
+      "r5900": "lw          $v0, 0x4($fp)"
+    },
+    {
+      "va": "0x3917e0",
+      "offset": 2697184,
+      "word": "0x24030002",
+      "r5900": "addiu       $v1, $zero, 0x2"
+    },
+    {
+      "va": "0x3917e4",
+      "offset": 2697188,
+      "word": "0xac430028",
+      "r5900": "sw          $v1, 0x28($v0)"
+    },
+    {
+      "va": "0x3917e8",
+      "offset": 2697192,
+      "word": "0x8fc20004",
+      "r5900": "lw          $v0, 0x4($fp)"
+    },
+    {
+      "va": "0x3917ec",
+      "offset": 2697196,
+      "word": "0x24030001",
+      "r5900": "addiu       $v1, $zero, 0x1"
+    },
+    {
+      "va": "0x3917f0",
+      "offset": 2697200,
+      "word": "0xac43002c",
+      "r5900": "sw          $v1, 0x2C($v0)"
+    },
+    {
+      "va": "0x3917f4",
+      "offset": 2697204,
+      "word": "0x8fc20004",
+      "r5900": "lw          $v0, 0x4($fp)"
+    },
+    {
+      "va": "0x3917f8",
+      "offset": 2697208,
+      "word": "0x24030001",
+      "r5900": "addiu       $v1, $zero, 0x1"
+    },
+    {
+      "va": "0x3917fc",
+      "offset": 2697212,
+      "word": "0xac43003c",
+      "r5900": "sw          $v1, 0x3C($v0)"
+    },
+    {
+      "va": "0x391800",
+      "offset": 2697216,
+      "word": "0x8fc20000",
+      "r5900": "lw          $v0, 0x0($fp)"
+    },
+    {
+      "va": "0x391804",
+      "offset": 2697220,
+      "word": "0x8c430040",
+      "r5900": "lw          $v1, 0x40($v0)"
+    },
+    {
+      "va": "0x391808",
+      "offset": 2697224,
+      "word": "0x10600015",
+      "r5900": "beqz        $v1, . + 4 + (0x15 << 2)"
+    },
+    {
+      "va": "0x39180c",
+      "offset": 2697228,
+      "word": "0x0",
+      "r5900": "nop"
+    },
+    {
+      "va": "0x391810",
+      "offset": 2697232,
+      "word": "0x8fc20004",
+      "r5900": "lw          $v0, 0x4($fp)"
+    },
+    {
+      "va": "0x391814",
+      "offset": 2697236,
+      "word": "0x24030005",
+      "r5900": "addiu       $v1, $zero, 0x5"
+    },
+    {
+      "va": "0x391818",
+      "offset": 2697240,
+      "word": "0xac430028",
+      "r5900": "sw          $v1, 0x28($v0)"
+    },
+    {
+      "va": "0x39181c",
+      "offset": 2697244,
+      "word": "0x8fc20004",
+      "r5900": "lw          $v0, 0x4($fp)"
+    },
+    {
+      "va": "0x391820",
+      "offset": 2697248,
+      "word": "0x24030001",
+      "r5900": "addiu       $v1, $zero, 0x1"
+    },
+    {
+      "va": "0x391824",
+      "offset": 2697252,
+      "word": "0xac43002c",
+      "r5900": "sw          $v1, 0x2C($v0)"
+    },
+    {
+      "va": "0x391828",
+      "offset": 2697256,
+      "word": "0x8fc20004",
+      "r5900": "lw          $v0, 0x4($fp)"
+    },
+    {
+      "va": "0x39182c",
+      "offset": 2697260,
+      "word": "0x24540038",
+      "r5900": "addiu       $s4, $v0, 0x38"
+    },
+    {
+      "va": "0x391830",
+      "offset": 2697264,
+      "word": "0x8fc3000c",
+      "r5900": "lw          $v1, 0xC($fp)"
+    },
+    {
+      "va": "0x391834",
+      "offset": 2697268,
+      "word": "0x24620010",
+      "r5900": "addiu       $v0, $v1, 0x10"
+    },
+    {
+      "va": "0x391838",
+      "offset": 2697272,
+      "word": "0x40202d",
+      "r5900": "daddu       $a0, $v0, $zero"
+    },
+    {
+      "va": "0x39183c",
+      "offset": 2697276,
+      "word": "0xc0e9318",
+      "r5900": "jal         func_3A4C60"
+    },
+    {
+      "va": "0x391840",
+      "offset": 2697280,
+      "word": "0x0",
+      "r5900": "nop"
+    },
+    {
+      "va": "0x391844",
+      "offset": 2697284,
+      "word": "0x280202d",
+      "r5900": "daddu       $a0, $s4, $zero"
+    },
+    {
+      "va": "0x391848",
+      "offset": 2697288,
+      "word": "0x40282d",
+      "r5900": "daddu       $a1, $v0, $zero"
+    },
+    {
+      "va": "0x39184c",
+      "offset": 2697292,
+      "word": "0xc0e91e4",
+      "r5900": "jal         func_3A4790"
+    },
+    {
+      "va": "0x391850",
+      "offset": 2697296,
+      "word": "0x0",
+      "r5900": "nop"
+    },
+    {
+      "va": "0x391854",
+      "offset": 2697300,
+      "word": "0x8fc20004",
+      "r5900": "lw          $v0, 0x4($fp)"
+    },
+    {
+      "va": "0x391858",
+      "offset": 2697304,
+      "word": "0x24030001",
+      "r5900": "addiu       $v1, $zero, 0x1"
+    },
+    {
+      "va": "0x39185c",
+      "offset": 2697308,
+      "word": "0xac430040",
+      "r5900": "sw          $v1, 0x40($v0)"
+    },
+    {
+      "va": "0x391860",
+      "offset": 2697312,
+      "word": "0x10000026",
+      "r5900": "b           . + 4 + (0x26 << 2)"
+    },
+    {
+      "va": "0x391864",
+      "offset": 2697316,
+      "word": "0x0",
+      "r5900": "nop"
+    },
+    {
+      "va": "0x391868",
+      "offset": 2697320,
+      "word": "0x8fc20000",
+      "r5900": "lw          $v0, 0x0($fp)"
+    },
+    {
+      "va": "0x39186c",
+      "offset": 2697324,
+      "word": "0x8c430040",
+      "r5900": "lw          $v1, 0x40($v0)"
+    },
+    {
+      "va": "0x391870",
+      "offset": 2697328,
+      "word": "0x10600011",
+      "r5900": "beqz        $v1, . + 4 + (0x11 << 2)"
+    },
+    {
+      "va": "0x391874",
+      "offset": 2697332,
+      "word": "0x0",
+      "r5900": "nop"
+    },
+    {
+      "va": "0x391878",
+      "offset": 2697336,
+      "word": "0x8fc20004",
+      "r5900": "lw          $v0, 0x4($fp)"
+    },
+    {
+      "va": "0x39187c",
+      "offset": 2697340,
+      "word": "0x24030003",
+      "r5900": "addiu       $v1, $zero, 0x3"
+    },
+    {
+      "va": "0x391880",
+      "offset": 2697344,
+      "word": "0xac430028",
+      "r5900": "sw          $v1, 0x28($v0)"
+    },
+    {
+      "va": "0x391884",
+      "offset": 2697348,
+      "word": "0x8fc20004",
+      "r5900": "lw          $v0, 0x4($fp)"
+    },
+    {
+      "va": "0x391888",
+      "offset": 2697352,
+      "word": "0x24540038",
+      "r5900": "addiu       $s4, $v0, 0x38"
+    },
+    {
+      "va": "0x39188c",
+      "offset": 2697356,
+      "word": "0x8fc3000c",
+      "r5900": "lw          $v1, 0xC($fp)"
+    },
+    {
+      "va": "0x391890",
+      "offset": 2697360,
+      "word": "0x24620010",
+      "r5900": "addiu       $v0, $v1, 0x10"
+    },
+    {
+      "va": "0x391894",
+      "offset": 2697364,
+      "word": "0x40202d",
+      "r5900": "daddu       $a0, $v0, $zero"
+    },
+    {
+      "va": "0x391898",
+      "offset": 2697368,
+      "word": "0xc0e9318",
+      "r5900": "jal         func_3A4C60"
+    },
+    {
+      "va": "0x39189c",
+      "offset": 2697372,
+      "word": "0x0",
+      "r5900": "nop"
+    },
+    {
+      "va": "0x3918a0",
+      "offset": 2697376,
+      "word": "0x280202d",
+      "r5900": "daddu       $a0, $s4, $zero"
+    },
+    {
+      "va": "0x3918a4",
+      "offset": 2697380,
+      "word": "0x40282d",
+      "r5900": "daddu       $a1, $v0, $zero"
+    },
+    {
+      "va": "0x3918a8",
+      "offset": 2697384,
+      "word": "0xc0e91e4",
+      "r5900": "jal         func_3A4790"
+    },
+    {
+      "va": "0x3918ac",
+      "offset": 2697388,
+      "word": "0x0",
+      "r5900": "nop"
+    },
+    {
+      "va": "0x3918b0",
+      "offset": 2697392,
+      "word": "0x10000012",
+      "r5900": "b           . + 4 + (0x12 << 2)"
+    },
+    {
+      "va": "0x3918b4",
+      "offset": 2697396,
+      "word": "0x0",
+      "r5900": "nop"
+    },
+    {
+      "va": "0x3a6e14",
+      "offset": 2784788,
+      "word": "0x200202d",
+      "r5900": "daddu       $a0, $s0, $zero"
+    },
+    {
+      "va": "0x3a6e18",
+      "offset": 2784792,
+      "word": "0xc0e91c6",
+      "r5900": "jal         func_3A4718"
+    },
+    {
+      "va": "0x3a6e1c",
+      "offset": 2784796,
+      "word": "0x0",
+      "r5900": "nop"
+    },
+    {
+      "va": "0x3a6e20",
+      "offset": 2784800,
+      "word": "0x14400007",
+      "r5900": "bnez        $v0, . + 4 + (0x7 << 2)"
+    },
+    {
+      "va": "0x3a6e24",
+      "offset": 2784804,
+      "word": "0x0",
+      "r5900": "nop"
+    },
+    {
+      "va": "0x3a6e28",
+      "offset": 2784808,
+      "word": "0x3c040048",
+      "r5900": "lui         $a0, 0x48"
+    },
+    {
+      "va": "0x3a6e2c",
+      "offset": 2784812,
+      "word": "0x24847440",
+      "r5900": "addiu       $a0, $a0, 0x7440"
+    },
+    {
+      "va": "0x3a6e30",
+      "offset": 2784816,
+      "word": "0xc0fe5a6",
+      "r5900": "jal         func_3F9698"
+    },
+    {
+      "va": "0x3a6e34",
+      "offset": 2784820,
+      "word": "0x0",
+      "r5900": "nop"
+    },
+    {
+      "va": "0x3a6e38",
+      "offset": 2784824,
+      "word": "0x10000009",
+      "r5900": "b           . + 4 + (0x9 << 2)"
+    },
+    {
+      "va": "0x3a6e3c",
+      "offset": 2784828,
+      "word": "0x0",
+      "r5900": "nop"
+    },
+    {
+      "va": "0x3a6e40",
+      "offset": 2784832,
+      "word": "0x200202d",
+      "r5900": "daddu       $a0, $s0, $zero"
+    },
+    {
+      "va": "0x3a6e44",
+      "offset": 2784836,
+      "word": "0xc0e91c6",
+      "r5900": "jal         func_3A4718"
+    },
+    {
+      "va": "0x3a6e48",
+      "offset": 2784840,
+      "word": "0x0",
+      "r5900": "nop"
+    },
+    {
+      "va": "0x3a6e4c",
+      "offset": 2784844,
+      "word": "0x3c040048",
+      "r5900": "lui         $a0, 0x48"
+    },
+    {
+      "va": "0x3a6e50",
+      "offset": 2784848,
+      "word": "0x24847450",
+      "r5900": "addiu       $a0, $a0, 0x7450"
+    },
+    {
+      "va": "0x3a6e54",
+      "offset": 2784852,
+      "word": "0x40282d",
+      "r5900": "daddu       $a1, $v0, $zero"
+    },
+    {
+      "va": "0x3a6e58",
+      "offset": 2784856,
+      "word": "0xc0fe5a6",
+      "r5900": "jal         func_3F9698"
+    },
+    {
+      "va": "0x3a6e5c",
+      "offset": 2784860,
+      "word": "0x0",
+      "r5900": "nop"
+    },
+    {
+      "va": "0x3a6e60",
+      "offset": 2784864,
+      "word": "0x10000001",
+      "r5900": "b           . + 4 + (0x1 << 2)"
+    },
+    {
+      "va": "0x3a6e64",
+      "offset": 2784868,
+      "word": "0x0",
+      "r5900": "nop"
+    },
+    {
+      "va": "0x3a6e68",
+      "offset": 2784872,
+      "word": "0x200202d",
+      "r5900": "daddu       $a0, $s0, $zero"
+    },
+    {
+      "va": "0x3a6e6c",
+      "offset": 2784876,
+      "word": "0x24050002",
+      "r5900": "addiu       $a1, $zero, 0x2"
+    },
+    {
+      "va": "0x3a6e70",
+      "offset": 2784880,
+      "word": "0xc0e9106",
+      "r5900": "jal         func_3A4418"
+    },
+    {
+      "va": "0x3a6e74",
+      "offset": 2784884,
+      "word": "0x0",
+      "r5900": "nop"
+    }
+  ],
+  "boundary": "Static fixed original registry; no injected modules or live PS2 pixel equivalence asserted."
+}

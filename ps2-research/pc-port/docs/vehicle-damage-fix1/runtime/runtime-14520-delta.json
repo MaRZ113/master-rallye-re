@@ -1,0 +1,638 @@
+{
+  "session": "session-20261015-114253-14520.jsonl",
+  "bytes": 16505924,
+  "sha256": "b7532749b698c8d82d4a9d02c9e505eef63bd2b52e376c11512b31677bc3eac0",
+  "valid_rows": 3305,
+  "invalid_rows": [
+    648,
+    663,
+    678,
+    1314,
+    1602,
+    1661,
+    1664,
+    1704,
+    1721,
+    1951,
+    1958,
+    1971,
+    2138,
+    2142,
+    2145,
+    2149,
+    2152,
+    2155,
+    2158,
+    2161,
+    2164,
+    2173,
+    2176,
+    2179,
+    2616,
+    2622,
+    2698,
+    2701,
+    2705,
+    2708,
+    2711,
+    2715,
+    2719,
+    2722,
+    2725,
+    2728,
+    2734,
+    2737,
+    2742,
+    2749,
+    2755,
+    2799,
+    2951,
+    3334,
+    3338
+  ],
+  "damage_admissions": [
+    {
+      "type": "ps2_race_damage_admission",
+      "frame": 13446,
+      "private_tree": false,
+      "source_records": 13,
+      "healthy_reference_verified": true,
+      "ordered_uv_winding_verified": true,
+      "native_position_state_sha256": "084bae92931b844481e8cddd2a99c391209df510b89067450021d4ab08074d54",
+      "private_faces": 1330,
+      "draw_hresult": 0,
+      "restore_hresult": 0,
+      "evidence_line": 1974
+    },
+    {
+      "type": "ps2_race_damage_admission",
+      "frame": 14554,
+      "private_tree": true,
+      "source_records": 13,
+      "healthy_reference_verified": true,
+      "ordered_uv_winding_verified": true,
+      "native_position_state_sha256": "21a5bd9b630fdc5ef39d5cfce29dcccb49d8069e26a9d82384d83f4a515a0ba1",
+      "private_faces": 1330,
+      "draw_hresult": 0,
+      "restore_hresult": 0,
+      "evidence_line": 2125
+    },
+    {
+      "type": "ps2_race_damage_admission",
+      "frame": 15780,
+      "private_tree": true,
+      "source_records": 13,
+      "healthy_reference_verified": true,
+      "ordered_uv_winding_verified": true,
+      "native_position_state_sha256": "39a1c2d81eecb60e493432cc4fe5135583953efff0e64cb007b028b6685d3263",
+      "private_faces": 1330,
+      "draw_hresult": 0,
+      "restore_hresult": 0,
+      "evidence_line": 2186
+    },
+    {
+      "type": "ps2_race_damage_admission",
+      "frame": 15783,
+      "private_tree": true,
+      "source_records": 13,
+      "healthy_reference_verified": true,
+      "ordered_uv_winding_verified": true,
+      "native_position_state_sha256": "997e76f349bf2cb0336014f698ff1e93ee8a3e0e9bba519f59337831ccfc417d",
+      "private_faces": 1330,
+      "draw_hresult": 0,
+      "restore_hresult": 0,
+      "evidence_line": 2188
+    }
+  ],
+  "model_gates": [
+    {
+      "type": "ps2_race_model_gate",
+      "gate": 0,
+      "context_gate": 7,
+      "seen_mask": 0,
+      "frame": 165,
+      "caller_matches": true,
+      "evidence_line": 689
+    },
+    {
+      "type": "ps2_race_model_gate",
+      "gate": 8,
+      "context_gate": 7,
+      "seen_mask": 1,
+      "frame": 13445,
+      "caller_matches": true,
+      "evidence_line": 1960
+    },
+    {
+      "type": "ps2_race_model_gate",
+      "gate": 0,
+      "context_gate": 5,
+      "seen_mask": 8191,
+      "frame": 13446,
+      "caller_matches": true,
+      "evidence_line": 1973
+    }
+  ],
+  "frontend": {
+    "Xtrail/complete.dx": [
+      {
+        "frame": 166,
+        "draw_hresult": 0,
+        "restore_hresult": 0,
+        "verified_source_records": 24,
+        "private_faces": 4636,
+        "evidence_line": 715
+      },
+      {
+        "frame": 776,
+        "draw_hresult": 0,
+        "restore_hresult": 0,
+        "verified_source_records": 24,
+        "private_faces": 4636,
+        "evidence_line": 1332
+      },
+      {
+        "frame": 12535,
+        "draw_hresult": 0,
+        "restore_hresult": 0,
+        "verified_source_records": 24,
+        "private_faces": 4636,
+        "evidence_line": 1699
+      }
+    ],
+    "Frontera/complete.dx": [
+      {
+        "frame": 721,
+        "draw_hresult": 0,
+        "restore_hresult": 0,
+        "verified_source_records": 24,
+        "private_faces": 5061,
+        "evidence_line": 1327
+      }
+    ],
+    "ChevyBlazer/complete.dx": [
+      {
+        "frame": 826,
+        "draw_hresult": 0,
+        "restore_hresult": 0,
+        "verified_source_records": 24,
+        "private_faces": 2562,
+        "evidence_line": 1337
+      },
+      {
+        "frame": 12479,
+        "draw_hresult": 0,
+        "restore_hresult": 0,
+        "verified_source_records": 24,
+        "private_faces": 2562,
+        "evidence_line": 1694
+      }
+    ],
+    "Terrano/complete.dx": [
+      {
+        "frame": 876,
+        "draw_hresult": 0,
+        "restore_hresult": 0,
+        "verified_source_records": 20,
+        "private_faces": 5132,
+        "evidence_line": 1342
+      },
+      {
+        "frame": 12431,
+        "draw_hresult": 0,
+        "restore_hresult": 0,
+        "verified_source_records": 20,
+        "private_faces": 5132,
+        "evidence_line": 1690
+      }
+    ],
+    "Tata/complete.dx": [
+      {
+        "frame": 945,
+        "draw_hresult": 0,
+        "restore_hresult": 0,
+        "verified_source_records": 31,
+        "private_faces": 4620,
+        "evidence_line": 1347
+      },
+      {
+        "frame": 1050,
+        "draw_hresult": 0,
+        "restore_hresult": 0,
+        "verified_source_records": 31,
+        "private_faces": 4620,
+        "evidence_line": 1381
+      },
+      {
+        "frame": 12384,
+        "draw_hresult": 0,
+        "restore_hresult": 0,
+        "verified_source_records": 31,
+        "private_faces": 4620,
+        "evidence_line": 1685
+      }
+    ],
+    "Pajero/complete.dx": [
+      {
+        "frame": 1006,
+        "draw_hresult": 0,
+        "restore_hresult": 0,
+        "verified_source_records": 25,
+        "private_faces": 5058,
+        "evidence_line": 1376
+      },
+      {
+        "frame": 1447,
+        "draw_hresult": 0,
+        "restore_hresult": 0,
+        "verified_source_records": 25,
+        "private_faces": 5058,
+        "evidence_line": 1392
+      },
+      {
+        "frame": 12335,
+        "draw_hresult": 0,
+        "restore_hresult": 0,
+        "verified_source_records": 25,
+        "private_faces": 5058,
+        "evidence_line": 1680
+      }
+    ],
+    "LandCruiser/complete.dx": [
+      {
+        "frame": 1520,
+        "draw_hresult": 0,
+        "restore_hresult": 0,
+        "verified_source_records": 24,
+        "private_faces": 5436,
+        "evidence_line": 1397
+      },
+      {
+        "frame": 12242,
+        "draw_hresult": 0,
+        "restore_hresult": 0,
+        "verified_source_records": 24,
+        "private_faces": 5436,
+        "evidence_line": 1675
+      }
+    ],
+    "Navara/complete.dx": [
+      {
+        "frame": 1790,
+        "draw_hresult": 0,
+        "restore_hresult": 0,
+        "verified_source_records": 26,
+        "private_faces": 4633,
+        "evidence_line": 1405
+      }
+    ],
+    "Jump/complete.dx": [
+      {
+        "frame": 2287,
+        "draw_hresult": 0,
+        "restore_hresult": 0,
+        "verified_source_records": 19,
+        "private_faces": 5079,
+        "evidence_line": 1419
+      }
+    ],
+    "RMonster/complete.dx": [
+      {
+        "frame": 2351,
+        "draw_hresult": 0,
+        "restore_hresult": 0,
+        "verified_source_records": 24,
+        "private_faces": 4791,
+        "evidence_line": 1424
+      }
+    ],
+    "Patrol/complete.dx": [
+      {
+        "frame": 2412,
+        "draw_hresult": 0,
+        "restore_hresult": 0,
+        "verified_source_records": 26,
+        "private_faces": 5212,
+        "evidence_line": 1429
+      }
+    ],
+    "NewRav/complete.dx": [
+      {
+        "frame": 2472,
+        "draw_hresult": 0,
+        "restore_hresult": 0,
+        "verified_source_records": 20,
+        "private_faces": 5038,
+        "evidence_line": 1434
+      }
+    ],
+    "KiaSportage/complete.dx": [
+      {
+        "frame": 2522,
+        "draw_hresult": 0,
+        "restore_hresult": 0,
+        "verified_source_records": 26,
+        "private_faces": 5052,
+        "evidence_line": 1439
+      },
+      {
+        "frame": 12194,
+        "draw_hresult": 0,
+        "restore_hresult": 0,
+        "verified_source_records": 26,
+        "private_faces": 5052,
+        "evidence_line": 1670
+      }
+    ],
+    "WildCat/complete.dx": [
+      {
+        "frame": 5229,
+        "draw_hresult": 0,
+        "restore_hresult": 0,
+        "verified_source_records": 21,
+        "private_faces": 4983,
+        "evidence_line": 1488
+      }
+    ],
+    "Simmbugghini/complete.dx": [
+      {
+        "frame": 5336,
+        "draw_hresult": 0,
+        "restore_hresult": 0,
+        "verified_source_records": 22,
+        "private_faces": 3785,
+        "evidence_line": 1493
+      },
+      {
+        "frame": 5478,
+        "draw_hresult": 0,
+        "restore_hresult": 0,
+        "verified_source_records": 22,
+        "private_faces": 3785,
+        "evidence_line": 1504
+      }
+    ],
+    "Astero/complete.dx": [
+      {
+        "frame": 5417,
+        "draw_hresult": 0,
+        "restore_hresult": 0,
+        "verified_source_records": 24,
+        "private_faces": 5370,
+        "evidence_line": 1499
+      },
+      {
+        "frame": 6417,
+        "draw_hresult": 0,
+        "restore_hresult": 0,
+        "verified_source_records": 24,
+        "private_faces": 5370,
+        "evidence_line": 1523
+      }
+    ],
+    "Kangoo/complete.dx": [
+      {
+        "frame": 6475,
+        "draw_hresult": 0,
+        "restore_hresult": 0,
+        "verified_source_records": 21,
+        "private_faces": 4997,
+        "evidence_line": 1528
+      }
+    ],
+    "megane/complete.dx": [
+      {
+        "frame": 6550,
+        "draw_hresult": 0,
+        "restore_hresult": 0,
+        "verified_source_records": 26,
+        "private_faces": 3770,
+        "evidence_line": 1535
+      }
+    ],
+    "Mattserati/complete.dx": [
+      {
+        "frame": 6671,
+        "draw_hresult": 0,
+        "restore_hresult": 0,
+        "verified_source_records": 20,
+        "private_faces": 4337,
+        "evidence_line": 1541
+      },
+      {
+        "frame": 6918,
+        "draw_hresult": 0,
+        "restore_hresult": 0,
+        "verified_source_records": 20,
+        "private_faces": 4337,
+        "evidence_line": 1553
+      }
+    ],
+    "Bruno/complete.dx": [
+      {
+        "frame": 6868,
+        "draw_hresult": 0,
+        "restore_hresult": 0,
+        "verified_source_records": 16,
+        "private_faces": 4748,
+        "evidence_line": 1548
+      },
+      {
+        "frame": 7730,
+        "draw_hresult": 0,
+        "restore_hresult": 0,
+        "verified_source_records": 16,
+        "private_faces": 4748,
+        "evidence_line": 1570
+      }
+    ],
+    "SeatBuggy/complete.dx": [
+      {
+        "frame": 7801,
+        "draw_hresult": 0,
+        "restore_hresult": 0,
+        "verified_source_records": 25,
+        "private_faces": 3822,
+        "evidence_line": 1576
+      }
+    ],
+    "Kamaz/complete.dx": [
+      {
+        "frame": 7863,
+        "draw_hresult": 0,
+        "restore_hresult": 0,
+        "verified_source_records": 26,
+        "private_faces": 6496,
+        "evidence_line": 1581
+      }
+    ],
+    "IceCream/complete.dx": [
+      {
+        "frame": 7937,
+        "draw_hresult": 0,
+        "restore_hresult": 0,
+        "verified_source_records": 23,
+        "private_faces": 4033,
+        "evidence_line": 1586
+      }
+    ]
+  },
+  "captures": [
+    {
+      "file": "race-damage-14520-d1-f14178.jsonl",
+      "sha256": "58727ff81d1b8d702fb8a7c435f123cdfdf993dda924eedc0fce71122fcc733d",
+      "frame": 14178,
+      "rows": 24,
+      "certified_all": true,
+      "owner_context_all": false,
+      "owner_matches_last_all": true,
+      "context_gates": [
+        5,
+        7
+      ],
+      "private_tree_all": false,
+      "vb_revisions": [
+        198
+      ],
+      "vb_generations": [
+        701
+      ],
+      "ib_generations": [
+        700
+      ],
+      "geometry_sha256": [
+        "57823f851e6e47457502455cada8d9f3e3da7541cd63ff60be5ff7c301e1f559",
+        "4fe1e64fe885c9675b9b3ddbe7530d2ccb6d36c341235c2942179e50c26caa09",
+        "46b55eac513995bb703f7b8ac2dc205b497368a356be95d979c8d45ba7b96425",
+        "e580100f2670ba7bd87589727e194026f3f28d9b54b42eda325d51e47aa136b3",
+        "28f86c4524b283c51c5d5ed7ef322de7cc328a137cc0403f6bf96eab4866a66a",
+        "c12103f1583f862fdacf699ebb482b14467d1f54bccfa8edaed35f4ab25dd8f3",
+        "39eea9f4f9f041dd924f1a62c644a1f55febc785abf0e35236a43052260552a9",
+        "16bebe6d0e45b306bef7d09f1ab9b1f92a667a50e74ce8cda006fe95f97bc39f",
+        "46e06a4fa606e264f9728b20f2da4a2b419531e7b17f9b0d1d8c69dca3997b24",
+        "16c3cf75f8d9aa9f4a9d96c36fb0c4f70e1046ea324123b51237158a7c12a19f",
+        "7f25050923f02b8e45c1c58e8490fe7d81fd784714ccf7d45df5acd64d03edcf",
+        "c13f3b8ddd5b45c25ba0373b220b6d03c5216437bdcdf8b31685fb6c2c7d6107",
+        "b0a740c73bb78eff350d6aa9e981dc2cd08366e9ed2cf1e866226f93faf0c615",
+        "fbfb12b7cc689359bf694747ef777f736e2b8013261f4887a294bfdc35f1bba1",
+        "1b9207f7417710dac3d85a27a54ebe616037367f1d624c53d5d65018f2ceb84b",
+        "708755f5c5e6ec814bf2f1ac93314bf4a51cb467bc2e711cea37a0d2594c4d24",
+        "fad797c65838c39d359767a9ef06d0d5579d847fa2b23a9ee8febe8c171b361c",
+        "6f2174a662b45cf1cfd3c18ed12ba50f0ef2fe6b8ce942133f61eae64545d335",
+        "99ca3a68595600ef18b4a46f8428653493bd8085db4959379ae94cfe5375be78",
+        "505314b112e7fd37b0e352938d6145fe5ed55a2395c8f6e844bc62dbb5c7bef0",
+        "71a3363058862578347d4ad5c07a869e3fa1363a999f70b9c986953bc110c23b",
+        "cb24d664e8af1db40cc4b161c7875e34a2042e709a5783384179b37f0ce5fe63",
+        "7e42aed180591ce5a99972f8766f1d999d59da87c8212183e528f7fd7fd5f838",
+        "e3f1adc5c0a294e29be66eef22aa73028a614b41992504c50b87ceb0862cce9b"
+      ]
+    },
+    {
+      "file": "race-damage-14520-d1-f16180.jsonl",
+      "sha256": "bf73eadf487dd374f5ccac5eb737ec420e24402afedea0f7f0e80c9051a2bf32",
+      "frame": 16180,
+      "rows": 24,
+      "certified_all": true,
+      "owner_context_all": false,
+      "owner_matches_last_all": true,
+      "context_gates": [
+        5,
+        7
+      ],
+      "private_tree_all": true,
+      "vb_revisions": [
+        45,
+        373
+      ],
+      "vb_generations": [
+        1293,
+        1500
+      ],
+      "ib_generations": [
+        1302
+      ],
+      "geometry_sha256": [
+        "435396f25485324b24bdaf66311bbf8a039d6ceed9b6df7346e37d54c12311cc",
+        "4fe1e64fe885c9675b9b3ddbe7530d2ccb6d36c341235c2942179e50c26caa09",
+        "46b55eac513995bb703f7b8ac2dc205b497368a356be95d979c8d45ba7b96425",
+        "e580100f2670ba7bd87589727e194026f3f28d9b54b42eda325d51e47aa136b3",
+        "28f86c4524b283c51c5d5ed7ef322de7cc328a137cc0403f6bf96eab4866a66a",
+        "c12103f1583f862fdacf699ebb482b14467d1f54bccfa8edaed35f4ab25dd8f3",
+        "39eea9f4f9f041dd924f1a62c644a1f55febc785abf0e35236a43052260552a9",
+        "16bebe6d0e45b306bef7d09f1ab9b1f92a667a50e74ce8cda006fe95f97bc39f",
+        "46e06a4fa606e264f9728b20f2da4a2b419531e7b17f9b0d1d8c69dca3997b24",
+        "16c3cf75f8d9aa9f4a9d96c36fb0c4f70e1046ea324123b51237158a7c12a19f",
+        "7f25050923f02b8e45c1c58e8490fe7d81fd784714ccf7d45df5acd64d03edcf",
+        "c13f3b8ddd5b45c25ba0373b220b6d03c5216437bdcdf8b31685fb6c2c7d6107",
+        "b0a740c73bb78eff350d6aa9e981dc2cd08366e9ed2cf1e866226f93faf0c615",
+        "fbfb12b7cc689359bf694747ef777f736e2b8013261f4887a294bfdc35f1bba1",
+        "1b9207f7417710dac3d85a27a54ebe616037367f1d624c53d5d65018f2ceb84b",
+        "708755f5c5e6ec814bf2f1ac93314bf4a51cb467bc2e711cea37a0d2594c4d24",
+        "fad797c65838c39d359767a9ef06d0d5579d847fa2b23a9ee8febe8c171b361c",
+        "6f2174a662b45cf1cfd3c18ed12ba50f0ef2fe6b8ce942133f61eae64545d335",
+        "9ad9a5fff8acc20ffd8ca2a492bafc79248592917b9b4df1bf9a3e70767c7bc9",
+        "16d94cedaefa8b66bece51321cf64052d84727b872f588f50f2a86aced09b63c",
+        "71a3363058862578347d4ad5c07a869e3fa1363a999f70b9c986953bc110c23b",
+        "cb24d664e8af1db40cc4b161c7875e34a2042e709a5783384179b37f0ce5fe63",
+        "7e42aed180591ce5a99972f8766f1d999d59da87c8212183e528f7fd7fd5f838",
+        "e3f1adc5c0a294e29be66eef22aa73028a614b41992504c50b87ceb0862cce9b"
+      ]
+    },
+    {
+      "file": "race-damage-14520-d1-f18446.jsonl",
+      "sha256": "38246b2263dd860a17ecc8725fe054fdc34e8d3d99324ad35bc993cade4f0eba",
+      "frame": 18446,
+      "rows": 24,
+      "certified_all": true,
+      "owner_context_all": false,
+      "owner_matches_last_all": true,
+      "context_gates": [
+        5,
+        7
+      ],
+      "private_tree_all": true,
+      "vb_revisions": [
+        75,
+        407
+      ],
+      "vb_generations": [
+        1293,
+        1500
+      ],
+      "ib_generations": [
+        1302
+      ],
+      "geometry_sha256": [
+        "234943e2c6d30cf4ac85e04a7ecc818f5810d9f415c3db367251456c19e8e8ce",
+        "4fe1e64fe885c9675b9b3ddbe7530d2ccb6d36c341235c2942179e50c26caa09",
+        "46b55eac513995bb703f7b8ac2dc205b497368a356be95d979c8d45ba7b96425",
+        "e580100f2670ba7bd87589727e194026f3f28d9b54b42eda325d51e47aa136b3",
+        "28f86c4524b283c51c5d5ed7ef322de7cc328a137cc0403f6bf96eab4866a66a",
+        "c12103f1583f862fdacf699ebb482b14467d1f54bccfa8edaed35f4ab25dd8f3",
+        "39eea9f4f9f041dd924f1a62c644a1f55febc785abf0e35236a43052260552a9",
+        "16bebe6d0e45b306bef7d09f1ab9b1f92a667a50e74ce8cda006fe95f97bc39f",
+        "46e06a4fa606e264f9728b20f2da4a2b419531e7b17f9b0d1d8c69dca3997b24",
+        "16c3cf75f8d9aa9f4a9d96c36fb0c4f70e1046ea324123b51237158a7c12a19f",
+        "7f25050923f02b8e45c1c58e8490fe7d81fd784714ccf7d45df5acd64d03edcf",
+        "c13f3b8ddd5b45c25ba0373b220b6d03c5216437bdcdf8b31685fb6c2c7d6107",
+        "b0a740c73bb78eff350d6aa9e981dc2cd08366e9ed2cf1e866226f93faf0c615",
+        "fbfb12b7cc689359bf694747ef777f736e2b8013261f4887a294bfdc35f1bba1",
+        "1b9207f7417710dac3d85a27a54ebe616037367f1d624c53d5d65018f2ceb84b",
+        "708755f5c5e6ec814bf2f1ac93314bf4a51cb467bc2e711cea37a0d2594c4d24",
+        "fad797c65838c39d359767a9ef06d0d5579d847fa2b23a9ee8febe8c171b361c",
+        "6f2174a662b45cf1cfd3c18ed12ba50f0ef2fe6b8ce942133f61eae64545d335",
+        "b2afab7c10ac822d094a61f8dde71d83eeae74367232c14d6c00cf5bdc6e11ea",
+        "2bbc6ba6331e296898e98aa60ef42a21e3c4c288e17039d75989d53158feab6d",
+        "71a3363058862578347d4ad5c07a869e3fa1363a999f70b9c986953bc110c23b",
+        "cb24d664e8af1db40cc4b161c7875e34a2042e709a5783384179b37f0ce5fe63",
+        "7e42aed180591ce5a99972f8766f1d999d59da87c8212183e528f7fd7fd5f838",
+        "e3f1adc5c0a294e29be66eef22aa73028a614b41992504c50b87ceb0862cce9b"
+      ]
+    }
+  ],
+  "limits": [
+    "Session gate diagnostics are once-claim bounded; no exact impact failure is logged.",
+    "Three spaced F10 captures cannot resolve a short blink during impact.",
+    "Native UP submissions do not appear in standard proxy Draw* counters."
+  ]
+}

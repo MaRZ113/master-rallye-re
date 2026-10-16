@@ -1,0 +1,66 @@
+{
+  "schema": 1,
+  "user_runtime_confirmed": [
+    "FPS recovered",
+    "PS2 glow visible"
+  ],
+  "full_car_replacement": "NOT_CONFIRMED; CURRENT_CAPTURE_GATE_QUEUE_MULTIPLICITY",
+  "frames": [
+    {
+      "frame": 666,
+      "frame_sha256": "68aa032138b71a1de8928dc0227aba31a263db99776c4f392833fae1ad8b8d14",
+      "fleet_probe_sha256": "a69412e9bacb7f9027e5cfe8bbdb902e86cd092e6b929dfc91124afa40479fed",
+      "proxy_sha256": "e37e0aec662140ded489e75209c98b377b1155057ced82441967c23fe3df2b22",
+      "private_up_events": 0,
+      "certificates": [
+        {
+          "type": "fleet_car_certificate_failure",
+          "frame": 666,
+          "family": "KiaSportage",
+          "reason": "queue_multiplicity"
+        },
+        {
+          "type": "fleet_glow_identity",
+          "frame": 666,
+          "fvf": 258,
+          "stride": 20,
+          "family": "KiaSportage",
+          "exact_current_identity": true
+        }
+      ],
+      "native_car_rows": 26
+    },
+    {
+      "frame": 1819,
+      "frame_sha256": "969e35deb999dcd2d17e2ad8c8794d10b781441a8fd409c3ea26fe05ea2f6c6a",
+      "fleet_probe_sha256": "7f8d7e04a14a18250e142c387e53339f593542f36263b4320c4c12b1d5a6c411",
+      "proxy_sha256": "e37e0aec662140ded489e75209c98b377b1155057ced82441967c23fe3df2b22",
+      "private_up_events": 0,
+      "certificates": [
+        {
+          "type": "fleet_car_certificate_failure",
+          "frame": 1819,
+          "family": "KiaSportage",
+          "reason": "queue_multiplicity"
+        }
+      ],
+      "native_car_rows": 26
+    },
+    {
+      "frame": 2467,
+      "frame_sha256": "21d73cfe04cffb6c303814356b379a7c23e0a6b0ff2a221ddc7533244165a5ea",
+      "fleet_probe_sha256": "5a9b0eb01d39ccd555fad9fab02049a8b6531ee05989b97773f7c851f36f2099",
+      "proxy_sha256": "e37e0aec662140ded489e75209c98b377b1155057ced82441967c23fe3df2b22",
+      "private_up_events": 0,
+      "certificates": [
+        {
+          "type": "fleet_car_certificate_failure",
+          "frame": 2467,
+          "family": "KiaSportage",
+          "reason": "unsupported_private_tree"
+        }
+      ],
+      "native_car_rows": 24
+    }
+  ]
+}

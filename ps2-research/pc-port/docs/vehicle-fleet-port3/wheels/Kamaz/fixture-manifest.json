@@ -1,0 +1,8 @@
+{
+  "filename": "port3-KAMAZ-wheel-fixtures.bin",
+  "sha256": "d0ac5f4aa2a1c3b05aa79e2b7d8f9fad5cc1913b3d880835ec519bc4ce704dd0",
+  "bytes": 8436,
+  "format": "PS2KWH01 + u32 source_count + source_count * (6xu32 layout/counts/sizes; vb; normalized u32 ib)",
+  "provenance": "ORIGINAL_PC_XYZ_UV_WITH_SYNTHETIC_WHITE_DIFFUSE; EXACT_NATIVE_WINDING",
+  "source_pc_sha256": "e4b1566b39efc881f88621ccc013baa4b02c290abd3d9d5a0844dd1f4f9e43da"
+}

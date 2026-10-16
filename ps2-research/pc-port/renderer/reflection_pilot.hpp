@@ -1,4 +1,5 @@
 #pragma once
+#include "fleet_off_lamp_registry.hpp"
 #include "sdk.hpp"
 #include "reflection_capture.hpp"
 #include "vehicle_classifier.hpp"
@@ -261,7 +262,8 @@ inline constexpr std::array<ReflectionMaterial,212> kReflectionMaterials = {{
     {"Kamaz","a7a0061036bddce3c7eb748fe30aea0bdb9dfd544a6ab8ac02720649dc3c5034",318,264,true},
 }};
 constexpr bool reflection_layout(uint32_t triangles,uint32_t vertices,bool expanded=true) noexcept {
-    if(expanded&&triangles==6&&vertices==10)return true;
+    if(expanded)for(const auto& source:kFleetOffLampProfiles)if(source.triangles==triangles&&source.vertices==vertices)return true;
+    if(expanded&&((triangles==6&&vertices==10)||(triangles==12&&vertices==20)))return true;
     for(size_t i=0;i<(expanded?kReflectionMaterials.size():1);++i)
         if(triangles==kReflectionMaterials[i].triangles&&vertices==kReflectionMaterials[i].vertices)return true;
     return false;
@@ -311,6 +313,7 @@ inline bool source_material_context(const DrawClassification& draw,bool world_ma
     return world_matches && std::strcmp(reflection_material_exclusion(draw),"eligible") == 0;
 }
 std::string reflection_geometry_sha(const DrawSnapshot& geometry);
+const FleetOffLampProfile* fleet_off_lamp_identity_for_hash(const DrawSnapshot&,std::string_view)noexcept;
 ReflectionIdentity reflection_identity_for_hash(const ReflectionSnapshot&, std::string_view, uint64_t reset_generation, bool expanded=false);
 ReflectionIdentity classify_reflection(const ReflectionSnapshot&, uint64_t reset_generation) noexcept;
 

@@ -1,0 +1,6468 @@
+{
+  "schema": 1,
+  "policy": "SOURCE_METADATA_NOT_LIVE_COMPILED_ROOT_COUNTS",
+  "families": [
+    {
+      "pc_family": "Astero",
+      "ps2_family": "ASTERO",
+      "source_sha256": "b97949651ae1c0089a614beaa24f6b07bbea84735c70faf1570760a9aaa16d90",
+      "declared_top_level_count": 27,
+      "reconstructed_source_groups": 27,
+      "physical_draws": 32,
+      "named_groups": 4,
+      "groups": [
+        {
+          "source_root": "0",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            0
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "1",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            1
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "2",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            2
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "3",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            3
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "4",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            4
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "5",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            5
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "6",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            6
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "7",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            7
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "8",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            8
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "9",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            9
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "10",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            10
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "11",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            11
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "12",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            12
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "13",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            13
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "14",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            14
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "15",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            15
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "16",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            16
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "17",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            17
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "18",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            18
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "19",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            19
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "20",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            20
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "21",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            21
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "22",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            22
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "23",
+          "tag": 7,
+          "label": "screenfront",
+          "source_records": [
+            23,
+            24
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "24",
+          "tag": 7,
+          "label": "screenleft",
+          "source_records": [
+            25,
+            26
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "25",
+          "tag": 7,
+          "label": "screenright",
+          "source_records": [
+            27,
+            28
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "26",
+          "tag": 7,
+          "label": "blight",
+          "source_records": [
+            29,
+            30,
+            31
+          ],
+          "declared_children": 2
+        }
+      ]
+    },
+    {
+      "pc_family": "Bruno",
+      "ps2_family": "BRUNO",
+      "source_sha256": "c7a456332e31c67647394467d2e0e467df048160ae634ab2b8d024eb9d61204f",
+      "declared_top_level_count": 19,
+      "reconstructed_source_groups": 19,
+      "physical_draws": 21,
+      "named_groups": 1,
+      "groups": [
+        {
+          "source_root": "0",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            0
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "1",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            1
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "2",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            2
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "3",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            3
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "4",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            4
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "5",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            5
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "6",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            6
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "7",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            7
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "8",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            8
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "9",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            9
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "10",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            10
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "11",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            11
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "12",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            12
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "13",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            13
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "14",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            14
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "15",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            15
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "16",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            16
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "17",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            17
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "18",
+          "tag": 7,
+          "label": "blight",
+          "source_records": [
+            18,
+            19,
+            20
+          ],
+          "declared_children": 2
+        }
+      ]
+    },
+    {
+      "pc_family": "ChevyBlazer",
+      "ps2_family": "CHEVYBLAZER",
+      "source_sha256": "d847cd8e684d9f6ff75d560e64429098448a665cc423b8d7c509e6146e9e0c7e",
+      "declared_top_level_count": 31,
+      "reconstructed_source_groups": 32,
+      "physical_draws": 36,
+      "named_groups": 4,
+      "groups": [
+        {
+          "source_root": "0",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            0
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "1",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            1
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "2",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            2
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "3",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            3
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "4",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            4
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "5",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            5
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "6",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            6
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "7",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            7
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "8",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            8
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "9",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            9
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "10",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            10
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "11",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            11
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "12",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            12
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "13",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            13
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "14",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            14
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "15",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            15
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "16",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            16
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "17",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            17
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "18",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            18
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "19",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            19
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "20",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            20
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "21",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            21
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "22",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            22
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "23",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            23
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "24",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            24
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "25",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            25
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "26",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            26
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "27",
+          "tag": 7,
+          "label": "screenleft",
+          "source_records": [
+            27,
+            28
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "28",
+          "tag": 7,
+          "label": "screenfront",
+          "source_records": [
+            29,
+            30
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "29",
+          "tag": 7,
+          "label": "screenright",
+          "source_records": [
+            31,
+            32
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "30",
+          "tag": 7,
+          "label": "blight",
+          "source_records": [
+            33,
+            34
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "31",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            35
+          ],
+          "declared_children": 0
+        }
+      ]
+    },
+    {
+      "pc_family": "forklift",
+      "ps2_family": "FORKLIFT",
+      "source_sha256": "fe1ba9aa3f6db62d819faa610320808844471e1b65390c291e0763e97d533f3f",
+      "declared_top_level_count": 10,
+      "reconstructed_source_groups": 10,
+      "physical_draws": 10,
+      "named_groups": 0,
+      "groups": [
+        {
+          "source_root": "0",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            0
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "1",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            1
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "2",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            2
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "3",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            3
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "4",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            4
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "5",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            5
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "6",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            6
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "7",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            7
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "8",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            8
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "9",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            9
+          ],
+          "declared_children": 0
+        }
+      ]
+    },
+    {
+      "pc_family": "Frontera",
+      "ps2_family": "FRONTERA",
+      "source_sha256": "345a143d24945d72f212eea033d6349b51b70d3df36a60dac22e98e2d380940c",
+      "declared_top_level_count": 28,
+      "reconstructed_source_groups": 28,
+      "physical_draws": 34,
+      "named_groups": 5,
+      "groups": [
+        {
+          "source_root": "0",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            0
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "1",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            1
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "2",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            2
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "3",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            3
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "4",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            4
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "5",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            5
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "6",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            6
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "7",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            7
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "8",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            8
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "9",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            9
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "10",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            10
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "11",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            11
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "12",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            12
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "13",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            13
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "14",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            14
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "15",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            15
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "16",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            16
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "17",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            17
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "18",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            18
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "19",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            19
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "20",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            20
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "21",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            21
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "22",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            22
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "23",
+          "tag": 7,
+          "label": "screenfront",
+          "source_records": [
+            23,
+            24
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "24",
+          "tag": 7,
+          "label": "screenleft",
+          "source_records": [
+            25,
+            26
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "25",
+          "tag": 7,
+          "label": "screenright",
+          "source_records": [
+            27,
+            28
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "26",
+          "tag": 7,
+          "label": "screenrear",
+          "source_records": [
+            29,
+            30
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "27",
+          "tag": 7,
+          "label": "blight",
+          "source_records": [
+            31,
+            32,
+            33
+          ],
+          "declared_children": 2
+        }
+      ]
+    },
+    {
+      "pc_family": "IceCream",
+      "ps2_family": "ICECREAM",
+      "source_sha256": "90a99fd7d7b18e3e33b1bc005df58b6f7222349bb45e5b41a725ec6f230a9d9a",
+      "declared_top_level_count": 24,
+      "reconstructed_source_groups": 25,
+      "physical_draws": 29,
+      "named_groups": 4,
+      "groups": [
+        {
+          "source_root": "0",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            0
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "1",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            1
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "2",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            2
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "3",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            3
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "4",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            4
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "5",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            5
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "6",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            6
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "7",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            7
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "8",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            8
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "9",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            9
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "10",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            10
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "11",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            11
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "12",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            12
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "13",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            13
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "14",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            14
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "15",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            15
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "16",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            16
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "17",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            17
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "18",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            18
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "19",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            19
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "20",
+          "tag": 7,
+          "label": "screenfront",
+          "source_records": [
+            20,
+            21
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "21",
+          "tag": 7,
+          "label": "screenright",
+          "source_records": [
+            22,
+            23
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "22",
+          "tag": 7,
+          "label": "screenleft",
+          "source_records": [
+            24,
+            25
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "23",
+          "tag": 7,
+          "label": "blight",
+          "source_records": [
+            26,
+            27
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "24",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            28
+          ],
+          "declared_children": 0
+        }
+      ]
+    },
+    {
+      "pc_family": "Jump",
+      "ps2_family": "JUMP",
+      "source_sha256": "a6ad8bcb7c71e572f065a5c3710308730c2c4f0cc8b32f25af279adc923a7baa",
+      "declared_top_level_count": 25,
+      "reconstructed_source_groups": 25,
+      "physical_draws": 30,
+      "named_groups": 4,
+      "groups": [
+        {
+          "source_root": "0",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            0
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "1",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            1
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "2",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            2
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "3",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            3
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "4",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            4
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "5",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            5
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "6",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            6
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "7",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            7
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "8",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            8
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "9",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            9
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "10",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            10
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "11",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            11
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "12",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            12
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "13",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            13
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "14",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            14
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "15",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            15
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "16",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            16
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "17",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            17
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "18",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            18
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "19",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            19
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "20",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            20
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "21",
+          "tag": 7,
+          "label": "screenfront",
+          "source_records": [
+            21,
+            22
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "22",
+          "tag": 7,
+          "label": "screenleft",
+          "source_records": [
+            23,
+            24
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "23",
+          "tag": 7,
+          "label": "screenright",
+          "source_records": [
+            25,
+            26
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "24",
+          "tag": 7,
+          "label": "blight",
+          "source_records": [
+            27,
+            28,
+            29
+          ],
+          "declared_children": 2
+        }
+      ]
+    },
+    {
+      "pc_family": "Kamaz",
+      "ps2_family": "KAMAZ",
+      "source_sha256": "6f7cf0aa22ec998a2a98f0e642e156442ccd82b50b94ae8e80ec418459442b4f",
+      "declared_top_level_count": 28,
+      "reconstructed_source_groups": 29,
+      "physical_draws": 33,
+      "named_groups": 4,
+      "groups": [
+        {
+          "source_root": "0",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            0
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "1",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            1
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "2",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            2
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "3",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            3
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "4",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            4
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "5",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            5
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "6",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            6
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "7",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            7
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "8",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            8
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "9",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            9
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "10",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            10
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "11",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            11
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "12",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            12
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "13",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            13
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "14",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            14
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "15",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            15
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "16",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            16
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "17",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            17
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "18",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            18
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "19",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            19
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "20",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            20
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "21",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            21
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "22",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            22
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "23",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            23
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "24",
+          "tag": 7,
+          "label": "blight",
+          "source_records": [
+            24,
+            25
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "25",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            26
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "26",
+          "tag": 7,
+          "label": "screenright",
+          "source_records": [
+            27,
+            28
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "27",
+          "tag": 7,
+          "label": "screenleft",
+          "source_records": [
+            29,
+            30
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "28",
+          "tag": 7,
+          "label": "screenfront",
+          "source_records": [
+            31,
+            32
+          ],
+          "declared_children": 1
+        }
+      ]
+    },
+    {
+      "pc_family": "Kangoo",
+      "ps2_family": "KANGOO",
+      "source_sha256": "8935c280c1a4d7dc63e30b3961fbb353445db2162c14bbd09e034cba717fe81d",
+      "declared_top_level_count": 24,
+      "reconstructed_source_groups": 24,
+      "physical_draws": 29,
+      "named_groups": 4,
+      "groups": [
+        {
+          "source_root": "0",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            0
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "1",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            1
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "2",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            2
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "3",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            3
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "4",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            4
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "5",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            5
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "6",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            6
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "7",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            7
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "8",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            8
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "9",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            9
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "10",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            10
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "11",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            11
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "12",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            12
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "13",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            13
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "14",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            14
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "15",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            15
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "16",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            16
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "17",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            17
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "18",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            18
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "19",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            19
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "20",
+          "tag": 7,
+          "label": "screenfront",
+          "source_records": [
+            20,
+            21
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "21",
+          "tag": 7,
+          "label": "screenleft",
+          "source_records": [
+            22,
+            23
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "22",
+          "tag": 7,
+          "label": "screenright",
+          "source_records": [
+            24,
+            25
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "23",
+          "tag": 7,
+          "label": "blight",
+          "source_records": [
+            26,
+            27,
+            28
+          ],
+          "declared_children": 2
+        }
+      ]
+    },
+    {
+      "pc_family": "KiaSportage",
+      "ps2_family": "KIASPORTAGE",
+      "source_sha256": "2d490121ee38e84ef7e0d47624f68efd2c1e5790c1138c6fe08db56c7b238451",
+      "declared_top_level_count": 30,
+      "reconstructed_source_groups": 31,
+      "physical_draws": 35,
+      "named_groups": 4,
+      "groups": [
+        {
+          "source_root": "0",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            0
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "1",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            1
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "2",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            2
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "3",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            3
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "4",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            4
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "5",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            5
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "6",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            6
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "7",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            7
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "8",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            8
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "9",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            9
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "10",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            10
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "11",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            11
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "12",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            12
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "13",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            13
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "14",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            14
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "15",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            15
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "16",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            16
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "17",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            17
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "18",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            18
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "19",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            19
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "20",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            20
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "21",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            21
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "22",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            22
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "23",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            23
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "24",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            24
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "25",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            25
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "26",
+          "tag": 7,
+          "label": "screenleft",
+          "source_records": [
+            26,
+            27
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "27",
+          "tag": 7,
+          "label": "screenfront",
+          "source_records": [
+            28,
+            29
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "28",
+          "tag": 7,
+          "label": "blight",
+          "source_records": [
+            30,
+            31
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "29",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            32
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "30",
+          "tag": 7,
+          "label": "screenright",
+          "source_records": [
+            33,
+            34
+          ],
+          "declared_children": 1
+        }
+      ]
+    },
+    {
+      "pc_family": "LandCruiser",
+      "ps2_family": "LANDCRUISER",
+      "source_sha256": "c3a61a935244e9e1dcfcd72ecf993ea301e371794ba33d931dd8cfd205627103",
+      "declared_top_level_count": 28,
+      "reconstructed_source_groups": 28,
+      "physical_draws": 33,
+      "named_groups": 4,
+      "groups": [
+        {
+          "source_root": "0",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            0
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "1",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            1
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "2",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            2
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "3",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            3
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "4",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            4
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "5",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            5
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "6",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            6
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "7",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            7
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "8",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            8
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "9",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            9
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "10",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            10
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "11",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            11
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "12",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            12
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "13",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            13
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "14",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            14
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "15",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            15
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "16",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            16
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "17",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            17
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "18",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            18
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "19",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            19
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "20",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            20
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "21",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            21
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "22",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            22
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "23",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            23
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "24",
+          "tag": 7,
+          "label": "screenfront",
+          "source_records": [
+            24,
+            25
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "25",
+          "tag": 7,
+          "label": "screenleft",
+          "source_records": [
+            26,
+            27
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "26",
+          "tag": 7,
+          "label": "screenright",
+          "source_records": [
+            28,
+            29
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "27",
+          "tag": 7,
+          "label": "blight",
+          "source_records": [
+            30,
+            31,
+            32
+          ],
+          "declared_children": 2
+        }
+      ]
+    },
+    {
+      "pc_family": "Mattserati",
+      "ps2_family": "MATTSERATI",
+      "source_sha256": "e0db7a014f60c71291337e1b3c43909926957132f50017b7ef9e00610fd528e2",
+      "declared_top_level_count": 23,
+      "reconstructed_source_groups": 23,
+      "physical_draws": 26,
+      "named_groups": 2,
+      "groups": [
+        {
+          "source_root": "0",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            0
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "1",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            1
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "2",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            2
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "3",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            3
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "4",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            4
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "5",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            5
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "6",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            6
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "7",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            7
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "8",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            8
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "9",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            9
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "10",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            10
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "11",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            11
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "12",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            12
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "13",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            13
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "14",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            14
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "15",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            15
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "16",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            16
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "17",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            17
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "18",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            18
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "19",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            19
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "20",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            20
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "21",
+          "tag": 7,
+          "label": "screenfront",
+          "source_records": [
+            21,
+            22
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "22",
+          "tag": 7,
+          "label": "blight",
+          "source_records": [
+            23,
+            24,
+            25
+          ],
+          "declared_children": 2
+        }
+      ]
+    },
+    {
+      "pc_family": "megane",
+      "ps2_family": "MEGANE",
+      "source_sha256": "d082eb75dc537194f1bf0284e31e5a28a73d91b5a0ba29642bc0d5c7ad93fb7f",
+      "declared_top_level_count": 28,
+      "reconstructed_source_groups": 28,
+      "physical_draws": 33,
+      "named_groups": 4,
+      "groups": [
+        {
+          "source_root": "0",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            0
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "1",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            1
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "2",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            2
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "3",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            3
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "4",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            4
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "5",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            5
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "6",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            6
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "7",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            7
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "8",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            8
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "9",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            9
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "10",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            10
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "11",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            11
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "12",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            12
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "13",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            13
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "14",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            14
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "15",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            15
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "16",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            16
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "17",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            17
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "18",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            18
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "19",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            19
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "20",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            20
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "21",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            21
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "22",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            22
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "23",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            23
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "24",
+          "tag": 7,
+          "label": "blight",
+          "source_records": [
+            24,
+            25,
+            26
+          ],
+          "declared_children": 2
+        },
+        {
+          "source_root": "25",
+          "tag": 7,
+          "label": "screenfront",
+          "source_records": [
+            27,
+            28
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "26",
+          "tag": 7,
+          "label": "screenleft",
+          "source_records": [
+            29,
+            30
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "27",
+          "tag": 7,
+          "label": "screenright",
+          "source_records": [
+            31,
+            32
+          ],
+          "declared_children": 1
+        }
+      ]
+    },
+    {
+      "pc_family": "Navara",
+      "ps2_family": "NAVARA",
+      "source_sha256": "2d3727f5bcd889ba38891276111c53f9c4d67cee1f5ece13de374a8235690655",
+      "declared_top_level_count": 31,
+      "reconstructed_source_groups": 32,
+      "physical_draws": 37,
+      "named_groups": 5,
+      "groups": [
+        {
+          "source_root": "0",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            0
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "1",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            1
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "2",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            2
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "3",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            3
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "4",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            4
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "5",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            5
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "6",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            6
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "7",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            7
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "8",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            8
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "9",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            9
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "10",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            10
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "11",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            11
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "12",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            12
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "13",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            13
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "14",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            14
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "15",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            15
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "16",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            16
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "17",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            17
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "18",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            18
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "19",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            19
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "20",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            20
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "21",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            21
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "22",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            22
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "23",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            23
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "24",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            24
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "25",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            25
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "26",
+          "tag": 7,
+          "label": "screenright",
+          "source_records": [
+            26,
+            27
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "27",
+          "tag": 7,
+          "label": "blight",
+          "source_records": [
+            28,
+            29
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "28",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            30
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "29",
+          "tag": 7,
+          "label": "screenrear",
+          "source_records": [
+            31,
+            32
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "30",
+          "tag": 7,
+          "label": "screenleft",
+          "source_records": [
+            33,
+            34
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "31",
+          "tag": 7,
+          "label": "screenfront",
+          "source_records": [
+            35,
+            36
+          ],
+          "declared_children": 1
+        }
+      ]
+    },
+    {
+      "pc_family": "NewRav",
+      "ps2_family": "NEWRAV",
+      "source_sha256": "615f00a1d61ec84170c49c52727fcdd68fc96fcb89f1690324edf445ad3fbee6",
+      "declared_top_level_count": 29,
+      "reconstructed_source_groups": 29,
+      "physical_draws": 35,
+      "named_groups": 5,
+      "groups": [
+        {
+          "source_root": "0",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            0
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "1",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            1
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "2",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            2
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "3",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            3
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "4",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            4
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "5",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            5
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "6",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            6
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "7",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            7
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "8",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            8
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "9",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            9
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "10",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            10
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "11",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            11
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "12",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            12
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "13",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            13
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "14",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            14
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "15",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            15
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "16",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            16
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "17",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            17
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "18",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            18
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "19",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            19
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "20",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            20
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "21",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            21
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "22",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            22
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "23",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            23
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "24",
+          "tag": 7,
+          "label": "screenfront",
+          "source_records": [
+            24,
+            25
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "25",
+          "tag": 7,
+          "label": "screenleft",
+          "source_records": [
+            26,
+            27
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "26",
+          "tag": 7,
+          "label": "screenright",
+          "source_records": [
+            28,
+            29
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "27",
+          "tag": 7,
+          "label": "screenrear",
+          "source_records": [
+            30,
+            31
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "28",
+          "tag": 7,
+          "label": "blight",
+          "source_records": [
+            32,
+            33,
+            34
+          ],
+          "declared_children": 2
+        }
+      ]
+    },
+    {
+      "pc_family": "Pajero",
+      "ps2_family": "PAJERO",
+      "source_sha256": "9d051539ce10ba650840bba6c50b2c8ba9f68b6960661280f69680f0bb7f2c90",
+      "declared_top_level_count": 28,
+      "reconstructed_source_groups": 29,
+      "physical_draws": 33,
+      "named_groups": 4,
+      "groups": [
+        {
+          "source_root": "0",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            0
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "1",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            1
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "2",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            2
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "3",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            3
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "4",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            4
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "5",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            5
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "6",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            6
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "7",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            7
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "8",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            8
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "9",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            9
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "10",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            10
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "11",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            11
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "12",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            12
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "13",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            13
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "14",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            14
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "15",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            15
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "16",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            16
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "17",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            17
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "18",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            18
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "19",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            19
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "20",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            20
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "21",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            21
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "22",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            22
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "23",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            23
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "24",
+          "tag": 7,
+          "label": "blight",
+          "source_records": [
+            24,
+            25
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "25",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            26
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "26",
+          "tag": 7,
+          "label": "screenleft",
+          "source_records": [
+            27,
+            28
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "27",
+          "tag": 7,
+          "label": "screenright",
+          "source_records": [
+            29,
+            30
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "28",
+          "tag": 7,
+          "label": "screenfront",
+          "source_records": [
+            31,
+            32
+          ],
+          "declared_children": 1
+        }
+      ]
+    },
+    {
+      "pc_family": "Patrol",
+      "ps2_family": "PATROL",
+      "source_sha256": "d3ca392b8ffc08bf2470fbdeb5099acc6be1675baab74a79b9e59d3596c0fa0c",
+      "declared_top_level_count": 29,
+      "reconstructed_source_groups": 30,
+      "physical_draws": 34,
+      "named_groups": 4,
+      "groups": [
+        {
+          "source_root": "0",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            0
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "1",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            1
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "2",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            2
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "3",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            3
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "4",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            4
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "5",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            5
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "6",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            6
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "7",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            7
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "8",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            8
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "9",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            9
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "10",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            10
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "11",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            11
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "12",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            12
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "13",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            13
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "14",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            14
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "15",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            15
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "16",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            16
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "17",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            17
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "18",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            18
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "19",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            19
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "20",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            20
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "21",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            21
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "22",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            22
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "23",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            23
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "24",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            24
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "25",
+          "tag": 7,
+          "label": "screenleft",
+          "source_records": [
+            25,
+            26
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "26",
+          "tag": 7,
+          "label": "screenright",
+          "source_records": [
+            27,
+            28
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "27",
+          "tag": 7,
+          "label": "blight",
+          "source_records": [
+            29,
+            30
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "28",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            31
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "29",
+          "tag": 7,
+          "label": "screenfront",
+          "source_records": [
+            32,
+            33
+          ],
+          "declared_children": 1
+        }
+      ]
+    },
+    {
+      "pc_family": "RMonster",
+      "ps2_family": "RMONSTER",
+      "source_sha256": "b3c4e3485f7b864829ec594977230dc18a6deb4cdef9382757fecee5fdf42a46",
+      "declared_top_level_count": 27,
+      "reconstructed_source_groups": 28,
+      "physical_draws": 33,
+      "named_groups": 5,
+      "groups": [
+        {
+          "source_root": "0",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            0
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "1",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            1
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "2",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            2
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "3",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            3
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "4",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            4
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "5",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            5
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "6",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            6
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "7",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            7
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "8",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            8
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "9",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            9
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "10",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            10
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "11",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            11
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "12",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            12
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "13",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            13
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "14",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            14
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "15",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            15
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "16",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            16
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "17",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            17
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "18",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            18
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "19",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            19
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "20",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            20
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "21",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            21
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "22",
+          "tag": 7,
+          "label": "blight",
+          "source_records": [
+            22,
+            23
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "23",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            24
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "24",
+          "tag": 7,
+          "label": "screenleft",
+          "source_records": [
+            25,
+            26
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "25",
+          "tag": 7,
+          "label": "screenright",
+          "source_records": [
+            27,
+            28
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "26",
+          "tag": 7,
+          "label": "screenfront",
+          "source_records": [
+            29,
+            30
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "27",
+          "tag": 7,
+          "label": "screenrear",
+          "source_records": [
+            31,
+            32
+          ],
+          "declared_children": 1
+        }
+      ]
+    },
+    {
+      "pc_family": "SeatBuggy",
+      "ps2_family": "SEATBUGGY",
+      "source_sha256": "468031a187dc968eda6451eb7e5b7dde2ec557c7fbfe5a77d0f09d195046b6e0",
+      "declared_top_level_count": 28,
+      "reconstructed_source_groups": 29,
+      "physical_draws": 33,
+      "named_groups": 4,
+      "groups": [
+        {
+          "source_root": "0",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            0
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "1",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            1
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "2",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            2
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "3",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            3
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "4",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            4
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "5",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            5
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "6",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            6
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "7",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            7
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "8",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            8
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "9",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            9
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "10",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            10
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "11",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            11
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "12",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            12
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "13",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            13
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "14",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            14
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "15",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            15
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "16",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            16
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "17",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            17
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "18",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            18
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "19",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            19
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "20",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            20
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "21",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            21
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "22",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            22
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "23",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            23
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "24",
+          "tag": 7,
+          "label": "blight",
+          "source_records": [
+            24,
+            25
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "25",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            26
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "26",
+          "tag": 7,
+          "label": "screenright",
+          "source_records": [
+            27,
+            28
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "27",
+          "tag": 7,
+          "label": "screenleft",
+          "source_records": [
+            29,
+            30
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "28",
+          "tag": 7,
+          "label": "screenfront",
+          "source_records": [
+            31,
+            32
+          ],
+          "declared_children": 1
+        }
+      ]
+    },
+    {
+      "pc_family": "Simmbugghini",
+      "ps2_family": "SIMMBUGGHINI",
+      "source_sha256": "b1345dfb75e6074b7592ec8f42c59fe3d1811b25cc2a75f3c2665487256963bb",
+      "declared_top_level_count": 23,
+      "reconstructed_source_groups": 23,
+      "physical_draws": 26,
+      "named_groups": 2,
+      "groups": [
+        {
+          "source_root": "0",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            0
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "1",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            1
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "2",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            2
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "3",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            3
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "4",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            4
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "5",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            5
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "6",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            6
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "7",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            7
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "8",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            8
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "9",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            9
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "10",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            10
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "11",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            11
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "12",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            12
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "13",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            13
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "14",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            14
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "15",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            15
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "16",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            16
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "17",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            17
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "18",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            18
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "19",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            19
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "20",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            20
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "21",
+          "tag": 7,
+          "label": "screenfront",
+          "source_records": [
+            21,
+            22
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "22",
+          "tag": 7,
+          "label": "blight",
+          "source_records": [
+            23,
+            24,
+            25
+          ],
+          "declared_children": 2
+        }
+      ]
+    },
+    {
+      "pc_family": "Tata",
+      "ps2_family": "TATA",
+      "source_sha256": "45b7bfba6938e259c0ac6d79a42a878a8c66b1e53547a53a6d23343092fb34cb",
+      "declared_top_level_count": 34,
+      "reconstructed_source_groups": 35,
+      "physical_draws": 39,
+      "named_groups": 4,
+      "groups": [
+        {
+          "source_root": "0",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            0
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "1",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            1
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "2",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            2
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "3",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            3
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "4",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            4
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "5",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            5
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "6",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            6
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "7",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            7
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "8",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            8
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "9",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            9
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "10",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            10
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "11",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            11
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "12",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            12
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "13",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            13
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "14",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            14
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "15",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            15
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "16",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            16
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "17",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            17
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "18",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            18
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "19",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            19
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "20",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            20
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "21",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            21
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "22",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            22
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "23",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            23
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "24",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            24
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "25",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            25
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "26",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            26
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "27",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            27
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "28",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            28
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "29",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            29
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "30",
+          "tag": 7,
+          "label": "blight",
+          "source_records": [
+            30,
+            31
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "31",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            32
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "32",
+          "tag": 7,
+          "label": "screenright",
+          "source_records": [
+            33,
+            34
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "33",
+          "tag": 7,
+          "label": "screenleft",
+          "source_records": [
+            35,
+            36
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "34",
+          "tag": 7,
+          "label": "screenfront",
+          "source_records": [
+            37,
+            38
+          ],
+          "declared_children": 1
+        }
+      ]
+    },
+    {
+      "pc_family": "Terrano",
+      "ps2_family": "TERRANO",
+      "source_sha256": "90120ed0fea4428707cdc9505d53cb685ae85db6d13eeb8715d1e8e39fab927b",
+      "declared_top_level_count": 28,
+      "reconstructed_source_groups": 28,
+      "physical_draws": 33,
+      "named_groups": 4,
+      "groups": [
+        {
+          "source_root": "0",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            0
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "1",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            1
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "2",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            2
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "3",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            3
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "4",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            4
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "5",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            5
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "6",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            6
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "7",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            7
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "8",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            8
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "9",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            9
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "10",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            10
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "11",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            11
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "12",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            12
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "13",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            13
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "14",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            14
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "15",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            15
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "16",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            16
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "17",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            17
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "18",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            18
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "19",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            19
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "20",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            20
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "21",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            21
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "22",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            22
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "23",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            23
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "24",
+          "tag": 7,
+          "label": "screenfront",
+          "source_records": [
+            24,
+            25
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "25",
+          "tag": 7,
+          "label": "screenleft",
+          "source_records": [
+            26,
+            27
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "26",
+          "tag": 7,
+          "label": "screenright",
+          "source_records": [
+            28,
+            29
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "27",
+          "tag": 7,
+          "label": "blight",
+          "source_records": [
+            30,
+            31,
+            32
+          ],
+          "declared_children": 2
+        }
+      ]
+    },
+    {
+      "pc_family": "Ufo",
+      "ps2_family": "UFO",
+      "source_sha256": "f6995450ea0bcaebb51150f1472b5d2b72e82ce57e3d0207f2199376fe5718e2",
+      "declared_top_level_count": 9,
+      "reconstructed_source_groups": 9,
+      "physical_draws": 12,
+      "named_groups": 2,
+      "groups": [
+        {
+          "source_root": "0",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            0
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "1",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            1
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "2",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            2
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "3",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            3
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "4",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            4
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "5",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            5
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "6",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            6
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "7",
+          "tag": 7,
+          "label": "screenfront",
+          "source_records": [
+            7,
+            8
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "8",
+          "tag": 7,
+          "label": "blight",
+          "source_records": [
+            9,
+            10,
+            11
+          ],
+          "declared_children": 2
+        }
+      ]
+    },
+    {
+      "pc_family": "WildCat",
+      "ps2_family": "WILDCAT",
+      "source_sha256": "ccbcb74985d5b21a594b471eb42d242b5eb5809d8646e57ece08b4a1cd6614cd",
+      "declared_top_level_count": 24,
+      "reconstructed_source_groups": 24,
+      "physical_draws": 29,
+      "named_groups": 4,
+      "groups": [
+        {
+          "source_root": "0",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            0
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "1",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            1
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "2",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            2
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "3",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            3
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "4",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            4
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "5",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            5
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "6",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            6
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "7",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            7
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "8",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            8
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "9",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            9
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "10",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            10
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "11",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            11
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "12",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            12
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "13",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            13
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "14",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            14
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "15",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            15
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "16",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            16
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "17",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            17
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "18",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            18
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "19",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            19
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "20",
+          "tag": 7,
+          "label": "screenfront",
+          "source_records": [
+            20,
+            21
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "21",
+          "tag": 7,
+          "label": "screenleft",
+          "source_records": [
+            22,
+            23
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "22",
+          "tag": 7,
+          "label": "screenright",
+          "source_records": [
+            24,
+            25
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "23",
+          "tag": 7,
+          "label": "blight",
+          "source_records": [
+            26,
+            27,
+            28
+          ],
+          "declared_children": 2
+        }
+      ]
+    },
+    {
+      "pc_family": "Forester",
+      "ps2_family": "WOOLDAND",
+      "source_sha256": "670ef07dc312aefa5628fe24c08aa696ee147043cfecdf2aadaf01e012c8b5fc",
+      "declared_top_level_count": 21,
+      "reconstructed_source_groups": 21,
+      "physical_draws": 27,
+      "named_groups": 5,
+      "groups": [
+        {
+          "source_root": "0",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            0
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "1",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            1
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "2",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            2
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "3",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            3
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "4",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            4
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "5",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            5
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "6",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            6
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "7",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            7
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "8",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            8
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "9",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            9
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "10",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            10
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "11",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            11
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "12",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            12
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "13",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            13
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "14",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            14
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "15",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            15
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "16",
+          "tag": 7,
+          "label": "screenfront",
+          "source_records": [
+            16,
+            17
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "17",
+          "tag": 7,
+          "label": "screenleft",
+          "source_records": [
+            18,
+            19
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "18",
+          "tag": 7,
+          "label": "screenright",
+          "source_records": [
+            20,
+            21
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "19",
+          "tag": 7,
+          "label": "screenrear",
+          "source_records": [
+            22,
+            23
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "20",
+          "tag": 7,
+          "label": "blight",
+          "source_records": [
+            24,
+            25,
+            26
+          ],
+          "declared_children": 2
+        }
+      ]
+    },
+    {
+      "pc_family": "Xtrail",
+      "ps2_family": "XTRAIL",
+      "source_sha256": "e334085754f81d20d237a70e653b533344771e6409468e2e09252e380b3d063f",
+      "declared_top_level_count": 27,
+      "reconstructed_source_groups": 28,
+      "physical_draws": 32,
+      "named_groups": 4,
+      "groups": [
+        {
+          "source_root": "0",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            0
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "1",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            1
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "2",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            2
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "3",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            3
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "4",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            4
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "5",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            5
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "6",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            6
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "7",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            7
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "8",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            8
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "9",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            9
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "10",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            10
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "11",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            11
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "12",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            12
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "13",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            13
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "14",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            14
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "15",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            15
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "16",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            16
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "17",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            17
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "18",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            18
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "19",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            19
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "20",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            20
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "21",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            21
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "22",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            22
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "23",
+          "tag": 7,
+          "label": "blight",
+          "source_records": [
+            23,
+            24
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "24",
+          "tag": 2,
+          "label": null,
+          "source_records": [
+            25
+          ],
+          "declared_children": 0
+        },
+        {
+          "source_root": "25",
+          "tag": 7,
+          "label": "screenright",
+          "source_records": [
+            26,
+            27
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "26",
+          "tag": 7,
+          "label": "screenleft",
+          "source_records": [
+            28,
+            29
+          ],
+          "declared_children": 1
+        },
+        {
+          "source_root": "27",
+          "tag": 7,
+          "label": "screenfront",
+          "source_records": [
+            30,
+            31
+          ],
+          "declared_children": 1
+        }
+      ]
+    }
+  ]
+}

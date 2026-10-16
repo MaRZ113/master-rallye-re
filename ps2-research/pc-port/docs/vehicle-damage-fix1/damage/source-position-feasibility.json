@@ -1,0 +1,151 @@
+{
+  "scope": "STATIC_NEAREST_POSITION_FEASIBILITY_NOT_RUNTIME_IDENTITY_OR_DEFORMATION_TRANSFER",
+  "rows": [
+    {
+      "ps2_root": 0,
+      "referenced_vertices": 1023,
+      "position_candidate_stats": {
+        "within_005": 346,
+        "multiple_pc_vertex_slots_at_best": 864,
+        "unmapped": 672,
+        "exact": 5
+      },
+      "maximum_nearest_Linf_error": 0.11387217044830322
+    },
+    {
+      "ps2_root": 1,
+      "referenced_vertices": 325,
+      "position_candidate_stats": {
+        "within_005": 325,
+        "multiple_pc_vertex_slots_at_best": 296
+      },
+      "maximum_nearest_Linf_error": 1.1920928955078125e-07
+    },
+    {
+      "ps2_root": 3,
+      "referenced_vertices": 241,
+      "position_candidate_stats": {
+        "within_005": 241,
+        "multiple_pc_vertex_slots_at_best": 177
+      },
+      "maximum_nearest_Linf_error": 1.1920928955078125e-07
+    },
+    {
+      "ps2_root": 4,
+      "referenced_vertices": 143,
+      "position_candidate_stats": {
+        "within_005": 143,
+        "multiple_pc_vertex_slots_at_best": 136
+      },
+      "maximum_nearest_Linf_error": 1.1920928955078125e-07
+    },
+    {
+      "ps2_root": 6,
+      "referenced_vertices": 196,
+      "position_candidate_stats": {
+        "within_005": 193,
+        "multiple_pc_vertex_slots_at_best": 129,
+        "exact": 3
+      },
+      "maximum_nearest_Linf_error": 1.1920928955078125e-07
+    },
+    {
+      "ps2_root": 7,
+      "referenced_vertices": 78,
+      "position_candidate_stats": {
+        "unmapped": 72,
+        "multiple_pc_vertex_slots_at_best": 63,
+        "within_005": 6
+      },
+      "maximum_nearest_Linf_error": 0.08089938759803772
+    },
+    {
+      "ps2_root": 9,
+      "referenced_vertices": 8,
+      "position_candidate_stats": {
+        "within_005": 8,
+        "multiple_pc_vertex_slots_at_best": 8
+      },
+      "maximum_nearest_Linf_error": 1.1920928955078125e-07
+    },
+    {
+      "ps2_root": 10,
+      "referenced_vertices": 60,
+      "position_candidate_stats": {
+        "within_005": 60,
+        "multiple_pc_vertex_slots_at_best": 60
+      },
+      "maximum_nearest_Linf_error": 1.1920928955078125e-07
+    },
+    {
+      "ps2_root": 12,
+      "referenced_vertices": 74,
+      "position_candidate_stats": {
+        "within_005": 70,
+        "multiple_pc_vertex_slots_at_best": 54,
+        "exact": 4
+      },
+      "maximum_nearest_Linf_error": 5.960464477539063e-08
+    },
+    {
+      "ps2_root": 13,
+      "referenced_vertices": 254,
+      "position_candidate_stats": {
+        "within_005": 254,
+        "multiple_pc_vertex_slots_at_best": 218
+      },
+      "maximum_nearest_Linf_error": 1.4901161193847656e-07
+    },
+    {
+      "ps2_root": 14,
+      "referenced_vertices": 20,
+      "position_candidate_stats": {
+        "within_005": 20,
+        "multiple_pc_vertex_slots_at_best": 20
+      },
+      "maximum_nearest_Linf_error": 8.940696716308594e-08
+    },
+    {
+      "ps2_root": 16,
+      "referenced_vertices": 164,
+      "position_candidate_stats": {
+        "within_005": 164,
+        "multiple_pc_vertex_slots_at_best": 156
+      },
+      "maximum_nearest_Linf_error": 1.4901161193847656e-07
+    },
+    {
+      "ps2_root": 17,
+      "referenced_vertices": 172,
+      "position_candidate_stats": {
+        "within_005": 172,
+        "multiple_pc_vertex_slots_at_best": 18
+      },
+      "maximum_nearest_Linf_error": 0.004992155125364661
+    }
+  ],
+  "filtered_body_rows": [
+    {
+      "root": 0,
+      "filtered_faces": 221,
+      "referenced_vertices": 353,
+      "stats": {
+        "matched_within_005": 349,
+        "multiple_slots_at_best": 311,
+        "unmatched": 4
+      },
+      "maximum_nearest_error": 0.049161434173583984
+    },
+    {
+      "root": 7,
+      "filtered_faces": 6,
+      "referenced_vertices": 10,
+      "stats": {
+        "unmatched": 4,
+        "multiple_slots_at_best": 4,
+        "matched_within_005": 6
+      },
+      "maximum_nearest_error": 0.049161434173583984
+    }
+  ]
+}

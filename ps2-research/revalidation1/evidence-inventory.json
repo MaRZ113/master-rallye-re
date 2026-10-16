@@ -1,0 +1,64 @@
+{
+  "schema": "ps2-revalidation1-evidence-inventory-v1",
+  "audit_status": "REVALIDATION_PARTIAL_PROVIDER_LIMITED",
+  "repo": {
+    "path": "D:/Game/Master Rallye/master-rallye-re-general",
+    "branch": "master",
+    "head": "61cb84d5c7f28d3bd88a3f1f9a8ce16d4c178390",
+    "ahead_of_origin_master": 2,
+    "preexisting_changes": "ps2-research/pc-port/ only; preserved"
+  },
+  "ps2_canonical": [
+    {"path": "SLES_509.06", "size": 3739852, "sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2"},
+    {"path": "SYSTEM.CNF", "size": 56, "sha256": "db08eef06278820a562f9cdacd6a2d5d2bb31870e7cf3a51e83daee3a90c5df2"},
+    {"path": "TNG.PAK", "size": 135556, "sha256": "d98c7cf1049a8a3bc2f90a528a2b6f52cd43c16c2e0564830d5ecb9c592ab28d"},
+    {"path": "TNG.000", "size": 1225915283, "sha256": "004ac1676376275bf40c1fd5c1c4a9dcfaae870bf1a7916434eb73b0b1faff86"}
+  ],
+  "ps2_elf_header_recheck": {
+    "format": "ELF32 little-endian ET_EXEC",
+    "machine": 8,
+    "entry": "0x00100008",
+    "e_flags": "0x20924001",
+    "pt_load_count": 1,
+    "pt_load_file_offset": "0x1000",
+    "pt_load_vaddr": "0x00100000",
+    "file_backed_va_mapping": "file_offset = VA - 0x000ff000",
+    "frozen_instruction_words": "checked against the canonical ELF by verify_ps2_evidence.py; see ps2-elf-byte-recheck.json",
+    "semantic_decode": "NOT_PERFORMED"
+  },
+  "pc_pe": {
+    "path": "D:/Game/Master Rallye Pristine/MRallye.exe",
+    "size": 3121214,
+    "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "format": "PE32/I386",
+    "timestamp": "0x3C02695D",
+    "rea": {"status": "SUPPORTED_USEFUL", "ghidra": "12.1.4", "procedures_reported": 13099, "strings_reported": 7467}
+  },
+  "rea": {
+    "status": "CONNECTED",
+    "agents_version": "6.4.0",
+    "mcp_client": "0.162.0-alpha.17.2",
+    "tool_count": 170,
+    "catalog_sha256": "85d80276ecacf937bf3e803b7a31748ae1a8286f556fa5cf734eef768cc7d72a",
+    "ps2_r5900": "CAPABILITY_UNAVAILABLE"
+  },
+  "course_sdk": {
+    "path": "D:/Game/Master Rallye/master-rallye-re-course",
+    "branch": "research/r5t-course-archaeology",
+    "head": "4244fa0c4d878523c9947f54816bf377cdfb2589",
+    "status": "CLEAN"
+  },
+  "foliage_sources": {
+    "ps2_psm": {"path": "\\TNG\\DATAPSM\\COURSE\\FRANCE1\\FRANCE1.PSM", "sha256": "d0b9845218ddd1ff4f12b3b16e77eff43aa182ac73992b5cbea8d81be04f935d", "node_offset": 3509209, "material_offset": 3509264},
+    "pc_dx": {"path": "DataGx/Course/France1/france1.dx", "sha256": "a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5", "draw": 54, "record": "course.batch.1.21", "core_offset": 3261170},
+    "ps2_texture": {"path": "\\TNG\\DATAPSM\\COURSE\\FRANCE1\\BUSH01-TGA.GXI", "sha256": "4c82e76360e2266d0cc4acac2c5d1688e750d454dd1e947e2707e5efa1b1cd29", "dimensions": [64, 64], "stored_alpha_distinct": 89},
+    "pc_texture": {"path": "DataGx/Course/France1/bush01-tga.dxt", "sha256": "24beae6fbd549a62939e56b3c83655fb10f487f04d00441ea7667d3729972396", "dimensions": [128, 128], "stored_alpha_distinct": 15}
+  },
+  "runtime_evidence": {
+    "raw_pilot13_logs_in_checkout": false,
+    "raw_pilot13_screenshots_in_checkout": false,
+    "classification": "USER_RUNTIME_OBSERVATION",
+    "source_report": "ps2-research/pc-port/runtime-ab.md"
+  },
+  "ignored_local_analysis": "ps2-research/data/treeblend1/revalidation1-cases.json; excluded from handoff because it contains detailed original-derived geometry metadata"
+}

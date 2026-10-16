@@ -1,0 +1,8 @@
+{
+  "filename": "port3-NAVARA-wheel-fixtures.bin",
+  "sha256": "252218203fccd90aea9eaf6088688e2a78402fb58b94dbd0c6267f7768291978",
+  "bytes": 8412,
+  "format": "PS2KWH01 + u32 source_count + source_count * (6xu32 layout/counts/sizes; vb; normalized u32 ib)",
+  "provenance": "ORIGINAL_PC_XYZ_UV_WITH_SYNTHETIC_WHITE_DIFFUSE; EXACT_NATIVE_WINDING",
+  "source_pc_sha256": "2ae0c70a1912edfa8c628038541305132bf6843a00d33ce8761f351f17b72e08"
+}

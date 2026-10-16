@@ -1,0 +1,8 @@
+{
+  "filename": "port3-CHEVYBLAZER-wheel-fixtures.bin",
+  "sha256": "ad53db0448005c36c7ef6bfd0659d54c6e5e493e1a0d6936e0508218cd17574a",
+  "bytes": 8436,
+  "format": "PS2KWH01 + u32 source_count + source_count * (6xu32 layout/counts/sizes; vb; normalized u32 ib)",
+  "provenance": "ORIGINAL_PC_XYZ_UV_WITH_SYNTHETIC_WHITE_DIFFUSE; EXACT_NATIVE_WINDING",
+  "source_pc_sha256": "acced5c9eb583c7ea969c1ba17ff61ee6cc4442f5b9cd3b01846b9139347a22a"
+}

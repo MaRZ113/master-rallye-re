@@ -1,0 +1,18 @@
+[
+  {
+    "frame": 1226,
+    "fixture_sha256": "1ad468d652ed1d7a2408a00cc7da5fb5ccd198f54218f1726decabeecb87480b",
+    "source_sidecar_sha256": "cff245814a8ea15e8aa080f5c5d851ef98c1d4ef3a2291a72e2b395514d81b62",
+    "normalized_uv_indices": "4a075be51521d4e13fceefe349870b474996abfb90ea3a3b957b449b755c1c43",
+    "owner_verified": true,
+    "private_tree": false
+  },
+  {
+    "frame": 2800,
+    "fixture_sha256": "8bf1bca8413dc0f5116eb3dd500edf1eb00d63c0d28901ee98863a592dfc42d7",
+    "source_sidecar_sha256": "80e7cbaecb5205a65809c3372db71f8b3f9746d22eae9ec565eea14f61c5b017",
+    "normalized_uv_indices": "4a075be51521d4e13fceefe349870b474996abfb90ea3a3b957b449b755c1c43",
+    "owner_verified": true,
+    "private_tree": true
+  }
+]

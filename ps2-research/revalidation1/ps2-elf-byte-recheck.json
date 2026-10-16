@@ -1,0 +1,252 @@
+{
+  "data_anchors": [
+    {
+      "file_offset": "0x3885e0",
+      "length": 10,
+      "role": "Original registry name",
+      "sha256": "97d1373de25463ecfc66ff61723e9c292dc4b356434ff4d6b6314dbdefe5f4af",
+      "va": "0x004875e0"
+    },
+    {
+      "file_offset": "0x388610",
+      "length": 5,
+      "role": "Original registry name",
+      "sha256": "4c91b08843fdda8593f1552b5a6f10075310e7773fed804c20e24813c963f26f",
+      "va": "0x00487610"
+    },
+    {
+      "file_offset": "0x388618",
+      "length": 7,
+      "role": "Original registry name",
+      "sha256": "f5e7215e683531fd904b0218884ee35de3b384093f28c7eec4c06d8395757ed7",
+      "va": "0x00487618"
+    },
+    {
+      "file_offset": "0x388d7c",
+      "length": 4,
+      "role": "treeblend virtual+14",
+      "sha256": "59168a3cd950ab007934f74afd8b8eb3297457862a560b487fde40c2db7421de",
+      "va": "0x00487d7c"
+    },
+    {
+      "file_offset": "0x388d1c",
+      "length": 4,
+      "role": "tree virtual+14",
+      "sha256": "e0ca593849c3ea684b97a367bc4252a9fb77a048c16f37e7b7d0b763cd93bcf6",
+      "va": "0x00487d1c"
+    },
+    {
+      "file_offset": "0x388cfc",
+      "length": 4,
+      "role": "object virtual+14",
+      "sha256": "1cd51b275f2e88eab04f1753ac8f9ac7a6f7fb8f4b98ab9f80793815db316649",
+      "va": "0x00487cfc"
+    },
+    {
+      "file_offset": "0x389384",
+      "length": 4,
+      "role": "mesh draw virtual+5c",
+      "sha256": "90ae297c6e37e89e5796746f7ec7ce4930aabed061ed6150926fcccb4efc0eff",
+      "va": "0x00488384"
+    },
+    {
+      "file_offset": "0x3860c8",
+      "length": 4,
+      "role": "mode2 jump label",
+      "sha256": "5a6bf5c6f9d0324088a3c384eade8a2da19e7289c5a978c92fd98f4dfb951224",
+      "va": "0x004850c8"
+    },
+    {
+      "file_offset": "0x3860d8",
+      "length": 4,
+      "role": "mode6 jump label",
+      "sha256": "535d3d0806a1254b09ece944eea83f662c6f8ad8910d91302da1b23c30cd488f",
+      "va": "0x004850d8"
+    },
+    {
+      "file_offset": "0x3860fc",
+      "length": 4,
+      "role": "mode15 jump label",
+      "sha256": "23e4b1e791b9544cda1ff3dc7b4b06e7da454f3ad966fae8a1382917ed60474b",
+      "va": "0x004850fc"
+    }
+  ],
+  "data_anchors_verified": 10,
+  "elf_path_basename": "SLES_509.06",
+  "elf_sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+  "elf_size": 3739852,
+  "header": {
+    "class": 1,
+    "data_encoding": 1,
+    "entry": 1048584,
+    "flags": 546455553,
+    "load_segments": [
+      {
+        "alignment": 4096,
+        "file_offset": 4096,
+        "file_size": 3724432,
+        "flags": 7,
+        "index": 0,
+        "memory_size": 4036984,
+        "physical_address": 1048576,
+        "virtual_address": 1048576
+      }
+    ],
+    "machine": 8,
+    "program_header_count": 1,
+    "type": 2,
+    "version": 1
+  },
+  "instruction_words_verified": 620,
+  "mismatches": 0,
+  "rea_ps2_analysis": "CAPABILITY_UNAVAILABLE",
+  "schema": "ps2-elf-byte-recheck-v1",
+  "semantic_decode": "NOT_PERFORMED; this is byte/mapping verification only",
+  "va_to_file_mapping": "PT_LOAD file_offset + VA - virtual_address; uniquely file-backed range required",
+  "windows": [
+    {
+      "byte_span_sha256": "b55352ac3164d8d117a15682e171398ce9aaa1855f65a22b580adbf412f412f9",
+      "file_offset": "0x2af618",
+      "instruction_words_verified": 22,
+      "role": "treeblend handler",
+      "va_end_exclusive": "0x003ae670",
+      "va_start": "0x003ae618"
+    },
+    {
+      "byte_span_sha256": "d071f97145eb6962dac82b156d248312c3400c27bc654adb296e979bb3f30b28",
+      "file_offset": "0x2af710",
+      "instruction_words_verified": 20,
+      "role": "tree handler",
+      "va_end_exclusive": "0x003ae760",
+      "va_start": "0x003ae710"
+    },
+    {
+      "byte_span_sha256": "c166b4c7df2c901a8901d245cb1d5772f091b9bbe17346b7bb088a3e0275d2ca",
+      "file_offset": "0x2af760",
+      "instruction_words_verified": 20,
+      "role": "opaque object handler",
+      "va_end_exclusive": "0x003ae7b0",
+      "va_start": "0x003ae760"
+    },
+    {
+      "byte_span_sha256": "560f5c55854a8abbe85803080d0ff159b53755c0c0d1ce990a39c72293562e1b",
+      "file_offset": "0x2a847c",
+      "instruction_words_verified": 16,
+      "role": "treeblend registration",
+      "va_end_exclusive": "0x003a74bc",
+      "va_start": "0x003a747c"
+    },
+    {
+      "byte_span_sha256": "5ee3a097c84efdee8dbb0f1cb79111696716f6f12894af05db9f6e8ab517b45b",
+      "file_offset": "0x2a85cc",
+      "instruction_words_verified": 16,
+      "role": "tree registration",
+      "va_end_exclusive": "0x003a760c",
+      "va_start": "0x003a75cc"
+    },
+    {
+      "byte_span_sha256": "620d134df7f862d85faccdb1ea0bb83b3dff221ffb3859a6bf046d9bc0e5fcd2",
+      "file_offset": "0x2a863c",
+      "instruction_words_verified": 16,
+      "role": "object registration",
+      "va_end_exclusive": "0x003a767c",
+      "va_start": "0x003a763c"
+    },
+    {
+      "byte_span_sha256": "33b27e711169b2890512e1cd7184dbed9034793755afdb579955c104dde27d0f",
+      "file_offset": "0x213678",
+      "instruction_words_verified": 27,
+      "role": "common mode prefix/dispatch",
+      "va_end_exclusive": "0x003126e4",
+      "va_start": "0x00312678"
+    },
+    {
+      "byte_span_sha256": "392ddcfbb27c269b15aaa1803fc2bd32f7985d3179bcece2d01b4e92bb845aa3",
+      "file_offset": "0x214270",
+      "instruction_words_verified": 147,
+      "role": "treeblend GS template stores",
+      "va_end_exclusive": "0x003134bc",
+      "va_start": "0x00313270"
+    },
+    {
+      "byte_span_sha256": "dfe43c3f627f3a2213dfec25f192619892bcbaa487b6a8381a7858f00d2047a7",
+      "file_offset": "0x2149bc",
+      "instruction_words_verified": 36,
+      "role": "tree GS initial TEST and shared-tail branch",
+      "va_end_exclusive": "0x00313a4c",
+      "va_start": "0x003139bc"
+    },
+    {
+      "byte_span_sha256": "11f846e5674179fa9609af9bce2e23b73e8a30c2c3d0b8e4c2ad638de28ea50e",
+      "file_offset": "0x21779c",
+      "instruction_words_verified": 14,
+      "role": "tree shared TEST/ZBUF writes",
+      "va_end_exclusive": "0x003167d4",
+      "va_start": "0x0031679c"
+    },
+    {
+      "byte_span_sha256": "078add18b45644b8cf582bd579c8acb3d6f6368b06521f6c363d7ec9e469a6a2",
+      "file_offset": "0x214e64",
+      "instruction_words_verified": 136,
+      "role": "opaque object GS template stores",
+      "va_end_exclusive": "0x00314084",
+      "va_start": "0x00313e64"
+    },
+    {
+      "byte_span_sha256": "61240ae76d17ea7a6f87d1a8061fa11ddca20270ff61063256915e6457aefdcb",
+      "file_offset": "0x2a8f40",
+      "instruction_words_verified": 27,
+      "role": "RGBA unpack original source color",
+      "va_end_exclusive": "0x003a7fac",
+      "va_start": "0x003a7f40"
+    },
+    {
+      "byte_span_sha256": "dec050b2d11512c96427cf9be94ac4dedcd94bd95ce360e5e6e7d32a54aeb26d",
+      "file_offset": "0x2411f0",
+      "instruction_words_verified": 16,
+      "role": "RGBA channel clamp",
+      "va_end_exclusive": "0x00340230",
+      "va_start": "0x003401f0"
+    },
+    {
+      "byte_span_sha256": "5c6ad1d724e0119cf6f69a642d717fb9f9e2bdb81901ea5ee42dfbb12dd25175",
+      "file_offset": "0x220858",
+      "instruction_words_verified": 21,
+      "role": "cache source address MADD + normal/ADC",
+      "va_end_exclusive": "0x0031f8ac",
+      "va_start": "0x0031f858"
+    },
+    {
+      "byte_span_sha256": "96a7001fbe4e58ca419392a1a4debdf1bdfb33438055fc79e05345121de1d443",
+      "file_offset": "0x2208ac",
+      "instruction_words_verified": 17,
+      "role": "cache color *.5",
+      "va_end_exclusive": "0x0031f8f0",
+      "va_start": "0x0031f8ac"
+    },
+    {
+      "byte_span_sha256": "e548abf0563ebf09d69baad369d8054a8faf63ee96880da6f5cc3eb250e8ee3a",
+      "file_offset": "0x21e700",
+      "instruction_words_verified": 17,
+      "role": "queue bucket and12byte indexing",
+      "va_end_exclusive": "0x0031d744",
+      "va_start": "0x0031d700"
+    },
+    {
+      "byte_span_sha256": "0caae1e97a8a01d05333938b41b4ff4ba1239d67729dde5f8b2f43715826c9a4",
+      "file_offset": "0x2421e0",
+      "instruction_words_verified": 32,
+      "role": "GS context register identities",
+      "va_end_exclusive": "0x00341260",
+      "va_start": "0x003411e0"
+    },
+    {
+      "byte_span_sha256": "1c83ca1db03a6aadf65453c9baf53a58b2a01e1463b6c237cb7253de996341c8",
+      "file_offset": "0x21c3b0",
+      "instruction_words_verified": 20,
+      "role": "bound packet MSCAL332",
+      "va_end_exclusive": "0x0031b400",
+      "va_start": "0x0031b3b0"
+    }
+  ]
+}

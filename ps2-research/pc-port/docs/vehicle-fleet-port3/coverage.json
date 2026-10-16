@@ -1,0 +1,1613 @@
+{
+  "schema": 1,
+  "phase": "PS2-VEHICLE-FLEET-PORT3",
+  "ufo_has_wheels": false,
+  "ps2_FORESTER_is_NOT_pc_Forester": true,
+  "preserved_controls": [
+    "Xtrail",
+    "KiaSportage"
+  ],
+  "new_fleet_runtime_status": "PENDING_USER_BATCH",
+  "vehicles": [
+    {
+      "family": "Astero",
+      "ps2_family": "ASTERO",
+      "COMPLETE": {
+        "source_ready": true,
+        "implemented": true,
+        "asset": {
+          "ps2_family": "ASTERO",
+          "file": "ASTERO-COMPLETE-FLEET.ps2model",
+          "sha256": "23e274aa87ed9e855c1e64da3a121bc53f1e85e1b3355c0c053d2111f6610214"
+        },
+        "runtime_status": "PREVIOUS_FLEET_USER_TESTS_PARTIAL_PER_FAMILY_LEDGER"
+      },
+      "CAR": {
+        "source_ready": true,
+        "asset": "ASTERO-CAR-FLEET.ps2model",
+        "sha256": "651fea7a13f5c6e7ddfa62501550f2b7432bbfd82f59e1077b1b4a0d39181089",
+        "implemented": true,
+        "native_owner": "CURRENT_FRAME_WHOLE_OPAQUE_ALPHA_SOURCE_COHORT_REQUIRED",
+        "healthy_runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damaged_implemented": false,
+        "damaged_runtime": "EXACT_WHOLE_BODY_STOCK_FALLBACK",
+        "damage_unresolved_vertices": 881,
+        "source_records": 23
+      },
+      "wheels": {
+        "source_ready": true,
+        "implemented": true,
+        "policy": "COMPLETE_PER_CURRENT_OWNER_COHORT; NO_ASSUMED_OWNER_COUNT",
+        "source_records": 5,
+        "native_owner_count": null,
+        "runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damage_policy": "UNCHANGED_NATIVE_WHEEL_SOURCES_ONLY; PRIVATE_WHEEL_TREES_STOCK"
+      },
+      "reflection_mode4": {
+        "implemented": true,
+        "runtime": "PRIVATE_CAR_MATERIAL_TRANSACTIONS_RUNTIME_PENDING",
+        "pixel_parity": false
+      },
+      "lamps": {
+        "OFF": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING"
+        },
+        "ON_CORE": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING",
+          "original_gxi": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+          "secondary_gs_parity": "NOT_CLAIMED"
+        },
+        "ADDITIVE_GLOW": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "NEW_OWNER_BOUND_PATH_RUNTIME_PENDING"
+        },
+        "damaged": "IMPLEMENTED_HEALTHY_REFERENCE_AND_CURRENT_NATIVE_CLONE_REQUIRED"
+      },
+      "Reset_MSAA_performance": {
+        "runtime": "AUTOMATED_CONTRACTS_PASS_LIVE_PENDING",
+        "measurements_fps": null
+      }
+    },
+    {
+      "family": "Bruno",
+      "ps2_family": "BRUNO",
+      "COMPLETE": {
+        "source_ready": true,
+        "implemented": true,
+        "asset": {
+          "ps2_family": "BRUNO",
+          "file": "BRUNO-COMPLETE-FLEET.ps2model",
+          "sha256": "423890a58b834aa3cc083461c3b68eb821c782b40801ccd730a0ee6cbc29db77"
+        },
+        "runtime_status": "PREVIOUS_FLEET_USER_TESTS_PARTIAL_PER_FAMILY_LEDGER"
+      },
+      "CAR": {
+        "source_ready": true,
+        "asset": "BRUNO-CAR-FLEET.ps2model",
+        "sha256": "c3a9775059ff6bbea13311c1e7d91841ff3314efae0948cb825c9ba5fbab6ddd",
+        "implemented": true,
+        "native_owner": "CURRENT_FRAME_WHOLE_OPAQUE_ALPHA_SOURCE_COHORT_REQUIRED",
+        "healthy_runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damaged_implemented": false,
+        "damaged_runtime": "EXACT_WHOLE_BODY_STOCK_FALLBACK",
+        "damage_unresolved_vertices": 886,
+        "source_records": 18
+      },
+      "wheels": {
+        "source_ready": true,
+        "implemented": true,
+        "policy": "COMPLETE_PER_CURRENT_OWNER_COHORT; NO_ASSUMED_OWNER_COUNT",
+        "source_records": 5,
+        "native_owner_count": null,
+        "runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damage_policy": "UNCHANGED_NATIVE_WHEEL_SOURCES_ONLY; PRIVATE_WHEEL_TREES_STOCK"
+      },
+      "reflection_mode4": {
+        "implemented": true,
+        "runtime": "PRIVATE_CAR_MATERIAL_TRANSACTIONS_RUNTIME_PENDING",
+        "pixel_parity": false
+      },
+      "lamps": {
+        "OFF": {
+          "source_ready": false,
+          "implemented": false,
+          "runtime": "STOCK_EXACT_SOURCE_BLOCKER"
+        },
+        "ON_CORE": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING",
+          "original_gxi": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+          "secondary_gs_parity": "NOT_CLAIMED"
+        },
+        "ADDITIVE_GLOW": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "NEW_OWNER_BOUND_PATH_RUNTIME_PENDING"
+        },
+        "damaged": "IMPLEMENTED_HEALTHY_REFERENCE_AND_CURRENT_NATIVE_CLONE_REQUIRED"
+      },
+      "Reset_MSAA_performance": {
+        "runtime": "AUTOMATED_CONTRACTS_PASS_LIVE_PENDING",
+        "measurements_fps": null
+      }
+    },
+    {
+      "family": "ChevyBlazer",
+      "ps2_family": "CHEVYBLAZER",
+      "COMPLETE": {
+        "source_ready": true,
+        "implemented": true,
+        "asset": {
+          "ps2_family": "CHEVYBLAZER",
+          "file": "CHEVYBLAZER-COMPLETE-FLEET.ps2model",
+          "sha256": "567fe02dfa617797000659a5644908d9d96e1a097793a6d46b9658d32be3cf2b"
+        },
+        "runtime_status": "PREVIOUS_FLEET_USER_TESTS_PARTIAL_PER_FAMILY_LEDGER"
+      },
+      "CAR": {
+        "source_ready": true,
+        "asset": "CHEVYBLAZER-CAR-FLEET.ps2model",
+        "sha256": "acc4cfde391664d27e6b0c4b53e16b7dfb4b8c6af6e28805f09375dfa84a6407",
+        "implemented": true,
+        "native_owner": "CURRENT_FRAME_WHOLE_OPAQUE_ALPHA_SOURCE_COHORT_REQUIRED",
+        "healthy_runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damaged_implemented": false,
+        "damaged_runtime": "EXACT_WHOLE_BODY_STOCK_FALLBACK",
+        "damage_unresolved_vertices": 784,
+        "source_records": 27
+      },
+      "wheels": {
+        "source_ready": true,
+        "implemented": true,
+        "policy": "COMPLETE_PER_CURRENT_OWNER_COHORT; NO_ASSUMED_OWNER_COUNT",
+        "source_records": 5,
+        "native_owner_count": null,
+        "runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damage_policy": "UNCHANGED_NATIVE_WHEEL_SOURCES_ONLY; PRIVATE_WHEEL_TREES_STOCK"
+      },
+      "reflection_mode4": {
+        "implemented": true,
+        "runtime": "PRIVATE_CAR_MATERIAL_TRANSACTIONS_RUNTIME_PENDING",
+        "pixel_parity": false
+      },
+      "lamps": {
+        "OFF": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING"
+        },
+        "ON_CORE": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING",
+          "original_gxi": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+          "secondary_gs_parity": "NOT_CLAIMED"
+        },
+        "ADDITIVE_GLOW": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "NEW_OWNER_BOUND_PATH_RUNTIME_PENDING"
+        },
+        "damaged": "IMPLEMENTED_HEALTHY_REFERENCE_AND_CURRENT_NATIVE_CLONE_REQUIRED"
+      },
+      "Reset_MSAA_performance": {
+        "runtime": "AUTOMATED_CONTRACTS_PASS_LIVE_PENDING",
+        "measurements_fps": null
+      }
+    },
+    {
+      "family": "Frontera",
+      "ps2_family": "FRONTERA",
+      "COMPLETE": {
+        "source_ready": true,
+        "implemented": true,
+        "asset": {
+          "ps2_family": "FRONTERA",
+          "file": "FRONTERA-COMPLETE-FLEET.ps2model",
+          "sha256": "83f21a0b5c0b43713aebeef457ae538efebeb198dd48284c2cae5969d532ecbf"
+        },
+        "runtime_status": "PREVIOUS_FLEET_USER_TESTS_PARTIAL_PER_FAMILY_LEDGER"
+      },
+      "CAR": {
+        "source_ready": true,
+        "asset": "FRONTERA-CAR-FLEET.ps2model",
+        "sha256": "0c19c3acc84ae6e990e0a2f4e780860f87e1e7e4ad499098f10fbf2e97a3d364",
+        "implemented": true,
+        "native_owner": "CURRENT_FRAME_WHOLE_OPAQUE_ALPHA_SOURCE_COHORT_REQUIRED",
+        "healthy_runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damaged_implemented": false,
+        "damaged_runtime": "EXACT_WHOLE_BODY_STOCK_FALLBACK",
+        "damage_unresolved_vertices": 876,
+        "source_records": 23
+      },
+      "wheels": {
+        "source_ready": true,
+        "implemented": true,
+        "policy": "COMPLETE_PER_CURRENT_OWNER_COHORT; NO_ASSUMED_OWNER_COUNT",
+        "source_records": 5,
+        "native_owner_count": null,
+        "runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damage_policy": "UNCHANGED_NATIVE_WHEEL_SOURCES_ONLY; PRIVATE_WHEEL_TREES_STOCK"
+      },
+      "reflection_mode4": {
+        "implemented": true,
+        "runtime": "PRIVATE_CAR_MATERIAL_TRANSACTIONS_RUNTIME_PENDING",
+        "pixel_parity": false
+      },
+      "lamps": {
+        "OFF": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING"
+        },
+        "ON_CORE": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING",
+          "original_gxi": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+          "secondary_gs_parity": "NOT_CLAIMED"
+        },
+        "ADDITIVE_GLOW": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "NEW_OWNER_BOUND_PATH_RUNTIME_PENDING"
+        },
+        "damaged": "IMPLEMENTED_HEALTHY_REFERENCE_AND_CURRENT_NATIVE_CLONE_REQUIRED"
+      },
+      "Reset_MSAA_performance": {
+        "runtime": "AUTOMATED_CONTRACTS_PASS_LIVE_PENDING",
+        "measurements_fps": null
+      }
+    },
+    {
+      "family": "IceCream",
+      "ps2_family": "ICECREAM",
+      "COMPLETE": {
+        "source_ready": true,
+        "implemented": true,
+        "asset": {
+          "ps2_family": "ICECREAM",
+          "file": "ICECREAM-COMPLETE-FLEET.ps2model",
+          "sha256": "a7797542b0fabfe513ad1bac8d906fc09f3fc79daaad93db7b6e4d490698b8e2"
+        },
+        "runtime_status": "PREVIOUS_FLEET_USER_TESTS_PARTIAL_PER_FAMILY_LEDGER"
+      },
+      "CAR": {
+        "source_ready": true,
+        "asset": "ICECREAM-CAR-FLEET.ps2model",
+        "sha256": "ff0df6af86a976f473132b8805091432fc0b6a4f3e0764b60a0032493eaa86a6",
+        "implemented": true,
+        "native_owner": "CURRENT_FRAME_WHOLE_OPAQUE_ALPHA_SOURCE_COHORT_REQUIRED",
+        "healthy_runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damaged_implemented": false,
+        "damaged_runtime": "EXACT_WHOLE_BODY_STOCK_FALLBACK",
+        "damage_unresolved_vertices": 1420,
+        "source_records": 20
+      },
+      "wheels": {
+        "source_ready": true,
+        "implemented": true,
+        "policy": "COMPLETE_PER_CURRENT_OWNER_COHORT; NO_ASSUMED_OWNER_COUNT",
+        "source_records": 5,
+        "native_owner_count": null,
+        "runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damage_policy": "UNCHANGED_NATIVE_WHEEL_SOURCES_ONLY; PRIVATE_WHEEL_TREES_STOCK"
+      },
+      "reflection_mode4": {
+        "implemented": true,
+        "runtime": "PRIVATE_CAR_MATERIAL_TRANSACTIONS_RUNTIME_PENDING",
+        "pixel_parity": false
+      },
+      "lamps": {
+        "OFF": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING"
+        },
+        "ON_CORE": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING",
+          "original_gxi": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+          "secondary_gs_parity": "NOT_CLAIMED"
+        },
+        "ADDITIVE_GLOW": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "NEW_OWNER_BOUND_PATH_RUNTIME_PENDING"
+        },
+        "damaged": "IMPLEMENTED_HEALTHY_REFERENCE_AND_CURRENT_NATIVE_CLONE_REQUIRED"
+      },
+      "Reset_MSAA_performance": {
+        "runtime": "AUTOMATED_CONTRACTS_PASS_LIVE_PENDING",
+        "measurements_fps": null
+      }
+    },
+    {
+      "family": "Jump",
+      "ps2_family": "JUMP",
+      "COMPLETE": {
+        "source_ready": true,
+        "implemented": true,
+        "asset": {
+          "ps2_family": "JUMP",
+          "file": "JUMP-COMPLETE-FLEET.ps2model",
+          "sha256": "491ed6e8b61214fbb3e816c4fdd97142a24ab1413076da676f079a15b0131ca8"
+        },
+        "runtime_status": "PREVIOUS_FLEET_USER_TESTS_PARTIAL_PER_FAMILY_LEDGER"
+      },
+      "CAR": {
+        "source_ready": true,
+        "asset": "JUMP-CAR-FLEET.ps2model",
+        "sha256": "9d9188f4d206fca0aaf67401e2d6d3def5570be089f125ed18c7fd45969367e0",
+        "implemented": true,
+        "native_owner": "CURRENT_FRAME_WHOLE_OPAQUE_ALPHA_SOURCE_COHORT_REQUIRED",
+        "healthy_runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damaged_implemented": false,
+        "damaged_runtime": "EXACT_WHOLE_BODY_STOCK_FALLBACK",
+        "damage_unresolved_vertices": 1059,
+        "source_records": 21
+      },
+      "wheels": {
+        "source_ready": true,
+        "implemented": true,
+        "policy": "COMPLETE_PER_CURRENT_OWNER_COHORT; NO_ASSUMED_OWNER_COUNT",
+        "source_records": 5,
+        "native_owner_count": null,
+        "runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damage_policy": "UNCHANGED_NATIVE_WHEEL_SOURCES_ONLY; PRIVATE_WHEEL_TREES_STOCK"
+      },
+      "reflection_mode4": {
+        "implemented": true,
+        "runtime": "PRIVATE_CAR_MATERIAL_TRANSACTIONS_RUNTIME_PENDING",
+        "pixel_parity": false
+      },
+      "lamps": {
+        "OFF": {
+          "source_ready": false,
+          "implemented": false,
+          "runtime": "STOCK_EXACT_SOURCE_BLOCKER"
+        },
+        "ON_CORE": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING",
+          "original_gxi": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+          "secondary_gs_parity": "NOT_CLAIMED"
+        },
+        "ADDITIVE_GLOW": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "NEW_OWNER_BOUND_PATH_RUNTIME_PENDING"
+        },
+        "damaged": "IMPLEMENTED_HEALTHY_REFERENCE_AND_CURRENT_NATIVE_CLONE_REQUIRED"
+      },
+      "Reset_MSAA_performance": {
+        "runtime": "AUTOMATED_CONTRACTS_PASS_LIVE_PENDING",
+        "measurements_fps": null
+      }
+    },
+    {
+      "family": "Kamaz",
+      "ps2_family": "KAMAZ",
+      "COMPLETE": {
+        "source_ready": true,
+        "implemented": true,
+        "asset": {
+          "ps2_family": "KAMAZ",
+          "file": "KAMAZ-COMPLETE-FLEET.ps2model",
+          "sha256": "df3d58336f6596cc4915b055820c5d0008b116b33091cca6915abdf971d3826c"
+        },
+        "runtime_status": "PREVIOUS_FLEET_USER_TESTS_PARTIAL_PER_FAMILY_LEDGER"
+      },
+      "CAR": {
+        "source_ready": true,
+        "asset": "KAMAZ-CAR-FLEET.ps2model",
+        "sha256": "1807d3e68bf080ad6c793ee548cad86d0846706bac8418b38495705196d401fa",
+        "implemented": true,
+        "native_owner": "CURRENT_FRAME_WHOLE_OPAQUE_ALPHA_SOURCE_COHORT_REQUIRED",
+        "healthy_runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damaged_implemented": false,
+        "damaged_runtime": "EXACT_WHOLE_BODY_STOCK_FALLBACK",
+        "damage_unresolved_vertices": 661,
+        "source_records": 24
+      },
+      "wheels": {
+        "source_ready": true,
+        "implemented": true,
+        "policy": "COMPLETE_PER_CURRENT_OWNER_COHORT; NO_ASSUMED_OWNER_COUNT",
+        "source_records": 5,
+        "native_owner_count": null,
+        "runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damage_policy": "UNCHANGED_NATIVE_WHEEL_SOURCES_ONLY; PRIVATE_WHEEL_TREES_STOCK"
+      },
+      "reflection_mode4": {
+        "implemented": true,
+        "runtime": "PRIVATE_CAR_MATERIAL_TRANSACTIONS_RUNTIME_PENDING",
+        "pixel_parity": false
+      },
+      "lamps": {
+        "OFF": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING"
+        },
+        "ON_CORE": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING",
+          "original_gxi": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+          "secondary_gs_parity": "NOT_CLAIMED"
+        },
+        "ADDITIVE_GLOW": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "NEW_OWNER_BOUND_PATH_RUNTIME_PENDING"
+        },
+        "damaged": "IMPLEMENTED_HEALTHY_REFERENCE_AND_CURRENT_NATIVE_CLONE_REQUIRED"
+      },
+      "Reset_MSAA_performance": {
+        "runtime": "AUTOMATED_CONTRACTS_PASS_LIVE_PENDING",
+        "measurements_fps": null
+      }
+    },
+    {
+      "family": "Kangoo",
+      "ps2_family": "KANGOO",
+      "COMPLETE": {
+        "source_ready": true,
+        "implemented": true,
+        "asset": {
+          "ps2_family": "KANGOO",
+          "file": "KANGOO-COMPLETE-FLEET.ps2model",
+          "sha256": "6ecc4c5dcbe31802e4772b21f97cbe5eada279a78dbe11414edae852eff111c7"
+        },
+        "runtime_status": "PREVIOUS_FLEET_USER_TESTS_PARTIAL_PER_FAMILY_LEDGER"
+      },
+      "CAR": {
+        "source_ready": true,
+        "asset": "KANGOO-CAR-FLEET.ps2model",
+        "sha256": "d00e751e9b6120aacdaa588541c74ea430f0f0e93cf9f9f633e01e971c8c5a1a",
+        "implemented": true,
+        "native_owner": "CURRENT_FRAME_WHOLE_OPAQUE_ALPHA_SOURCE_COHORT_REQUIRED",
+        "healthy_runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damaged_implemented": false,
+        "damaged_runtime": "EXACT_WHOLE_BODY_STOCK_FALLBACK",
+        "damage_unresolved_vertices": 611,
+        "source_records": 20
+      },
+      "wheels": {
+        "source_ready": true,
+        "implemented": true,
+        "policy": "COMPLETE_PER_CURRENT_OWNER_COHORT; NO_ASSUMED_OWNER_COUNT",
+        "source_records": 5,
+        "native_owner_count": null,
+        "runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damage_policy": "UNCHANGED_NATIVE_WHEEL_SOURCES_ONLY; PRIVATE_WHEEL_TREES_STOCK"
+      },
+      "reflection_mode4": {
+        "implemented": true,
+        "runtime": "PRIVATE_CAR_MATERIAL_TRANSACTIONS_RUNTIME_PENDING",
+        "pixel_parity": false
+      },
+      "lamps": {
+        "OFF": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING"
+        },
+        "ON_CORE": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING",
+          "original_gxi": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+          "secondary_gs_parity": "NOT_CLAIMED"
+        },
+        "ADDITIVE_GLOW": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "NEW_OWNER_BOUND_PATH_RUNTIME_PENDING"
+        },
+        "damaged": "IMPLEMENTED_HEALTHY_REFERENCE_AND_CURRENT_NATIVE_CLONE_REQUIRED"
+      },
+      "Reset_MSAA_performance": {
+        "runtime": "AUTOMATED_CONTRACTS_PASS_LIVE_PENDING",
+        "measurements_fps": null
+      }
+    },
+    {
+      "family": "KiaSportage",
+      "ps2_family": "KIASPORTAGE",
+      "COMPLETE": {
+        "source_ready": true,
+        "implemented": true,
+        "asset": {
+          "ps2_family": "KIASPORTAGE",
+          "file": "KIASPORTAGE-COMPLETE-FLEET-FIX1.ps2model",
+          "sha256": "e2cb00f367bf91ee68eb7443792f0f029be13db4593e9179596275130af2efb7"
+        },
+        "runtime_status": "PREVIOUS_FLEET_USER_TESTS_PARTIAL_PER_FAMILY_LEDGER"
+      },
+      "CAR": {
+        "source_ready": true,
+        "asset": "KIASPORTAGE-CAR-FLEET.ps2model",
+        "sha256": "1e2e7dce794f8843cb181771db7f4145cb8fdb903ae96a58476028475d381b46",
+        "implemented": true,
+        "native_owner": "CURRENT_FRAME_WHOLE_OPAQUE_ALPHA_SOURCE_COHORT_REQUIRED",
+        "healthy_runtime": "USER_RUNTIME_CONFIRMED",
+        "damaged_implemented": true,
+        "damaged_runtime": "USER_RUNTIME_CONFIRMED",
+        "damage_unresolved_vertices": 0,
+        "source_records": 26
+      },
+      "wheels": {
+        "source_ready": true,
+        "implemented": true,
+        "policy": "ACCEPTED_SPECIALIZED_NATIVE_OWNERS",
+        "source_records": 4,
+        "native_owner_count": 4,
+        "runtime": "USER_RUNTIME_CONFIRMED",
+        "damage_policy": "UNCHANGED_NATIVE_WHEEL_SOURCES_ONLY; PRIVATE_WHEEL_TREES_STOCK"
+      },
+      "reflection_mode4": {
+        "implemented": true,
+        "runtime": "USER_RUNTIME_CONFIRMED",
+        "pixel_parity": false
+      },
+      "lamps": {
+        "OFF": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "PREVIOUS_ACCEPTED_PATH"
+        },
+        "ON_CORE": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "USER_RUNTIME_CONFIRMED",
+          "original_gxi": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+          "secondary_gs_parity": "NOT_CLAIMED"
+        },
+        "ADDITIVE_GLOW": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "USER_RUNTIME_CONFIRMED"
+        },
+        "damaged": "USER_RUNTIME_CONFIRMED"
+      },
+      "Reset_MSAA_performance": {
+        "runtime": "USER_RUNTIME_CONFIRMED_MSAA4_RESET",
+        "measurements_fps": null
+      }
+    },
+    {
+      "family": "LandCruiser",
+      "ps2_family": "LANDCRUISER",
+      "COMPLETE": {
+        "source_ready": true,
+        "implemented": true,
+        "asset": {
+          "ps2_family": "LANDCRUISER",
+          "file": "LANDCRUISER-COMPLETE-FLEET.ps2model",
+          "sha256": "d9eebc0f6831a29552dfab612e0804b35a353259b647935ae255a0cba932d63b"
+        },
+        "runtime_status": "PREVIOUS_FLEET_USER_TESTS_PARTIAL_PER_FAMILY_LEDGER"
+      },
+      "CAR": {
+        "source_ready": true,
+        "asset": "LANDCRUISER-CAR-FLEET.ps2model",
+        "sha256": "f40bff35f4f7b3e999ff145603d0b9b7167685f4961d20b614bf590fb957079d",
+        "implemented": true,
+        "native_owner": "CURRENT_FRAME_WHOLE_OPAQUE_ALPHA_SOURCE_COHORT_REQUIRED",
+        "healthy_runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damaged_implemented": false,
+        "damaged_runtime": "EXACT_WHOLE_BODY_STOCK_FALLBACK",
+        "damage_unresolved_vertices": 1186,
+        "source_records": 24
+      },
+      "wheels": {
+        "source_ready": true,
+        "implemented": true,
+        "policy": "COMPLETE_PER_CURRENT_OWNER_COHORT; NO_ASSUMED_OWNER_COUNT",
+        "source_records": 5,
+        "native_owner_count": null,
+        "runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damage_policy": "UNCHANGED_NATIVE_WHEEL_SOURCES_ONLY; PRIVATE_WHEEL_TREES_STOCK"
+      },
+      "reflection_mode4": {
+        "implemented": true,
+        "runtime": "PRIVATE_CAR_MATERIAL_TRANSACTIONS_RUNTIME_PENDING",
+        "pixel_parity": false
+      },
+      "lamps": {
+        "OFF": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING"
+        },
+        "ON_CORE": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING",
+          "original_gxi": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+          "secondary_gs_parity": "NOT_CLAIMED"
+        },
+        "ADDITIVE_GLOW": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "NEW_OWNER_BOUND_PATH_RUNTIME_PENDING"
+        },
+        "damaged": "IMPLEMENTED_HEALTHY_REFERENCE_AND_CURRENT_NATIVE_CLONE_REQUIRED"
+      },
+      "Reset_MSAA_performance": {
+        "runtime": "AUTOMATED_CONTRACTS_PASS_LIVE_PENDING",
+        "measurements_fps": null
+      }
+    },
+    {
+      "family": "Mattserati",
+      "ps2_family": "MATTSERATI",
+      "COMPLETE": {
+        "source_ready": true,
+        "implemented": true,
+        "asset": {
+          "ps2_family": "MATTSERATI",
+          "file": "MATTSERATI-COMPLETE-FLEET-FIX1.ps2model",
+          "sha256": "3d083ac40dce84877b842757b99471670ac7b8dd5d20a623b8160fd73ff0bd7e"
+        },
+        "runtime_status": "PREVIOUS_FLEET_USER_TESTS_PARTIAL_PER_FAMILY_LEDGER"
+      },
+      "CAR": {
+        "source_ready": true,
+        "asset": "MATTSERATI-CAR-FLEET.ps2model",
+        "sha256": "ad2ace35690d4722cbe36a3d2f1e0cf23b0b0b21dc46cfb35e384ee44ccd9cf2",
+        "implemented": true,
+        "native_owner": "CURRENT_FRAME_WHOLE_OPAQUE_ALPHA_SOURCE_COHORT_REQUIRED",
+        "healthy_runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damaged_implemented": false,
+        "damaged_runtime": "EXACT_WHOLE_BODY_STOCK_FALLBACK",
+        "damage_unresolved_vertices": 1048,
+        "source_records": 20
+      },
+      "wheels": {
+        "source_ready": true,
+        "implemented": true,
+        "policy": "COMPLETE_PER_CURRENT_OWNER_COHORT; NO_ASSUMED_OWNER_COUNT",
+        "source_records": 5,
+        "native_owner_count": null,
+        "runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damage_policy": "UNCHANGED_NATIVE_WHEEL_SOURCES_ONLY; PRIVATE_WHEEL_TREES_STOCK"
+      },
+      "reflection_mode4": {
+        "implemented": true,
+        "runtime": "PRIVATE_CAR_MATERIAL_TRANSACTIONS_RUNTIME_PENDING",
+        "pixel_parity": false
+      },
+      "lamps": {
+        "OFF": {
+          "source_ready": false,
+          "implemented": false,
+          "runtime": "STOCK_EXACT_SOURCE_BLOCKER"
+        },
+        "ON_CORE": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING",
+          "original_gxi": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+          "secondary_gs_parity": "NOT_CLAIMED"
+        },
+        "ADDITIVE_GLOW": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "NEW_OWNER_BOUND_PATH_RUNTIME_PENDING"
+        },
+        "damaged": "IMPLEMENTED_HEALTHY_REFERENCE_AND_CURRENT_NATIVE_CLONE_REQUIRED"
+      },
+      "Reset_MSAA_performance": {
+        "runtime": "AUTOMATED_CONTRACTS_PASS_LIVE_PENDING",
+        "measurements_fps": null
+      }
+    },
+    {
+      "family": "megane",
+      "ps2_family": "MEGANE",
+      "COMPLETE": {
+        "source_ready": true,
+        "implemented": true,
+        "asset": {
+          "ps2_family": "MEGANE",
+          "file": "MEGANE-COMPLETE-FLEET.ps2model",
+          "sha256": "69966f861ef742a990d6b7511bc455a9a1fc00d439b722a86f33b8234ecdc28e"
+        },
+        "runtime_status": "PREVIOUS_FLEET_USER_TESTS_PARTIAL_PER_FAMILY_LEDGER"
+      },
+      "CAR": {
+        "source_ready": true,
+        "asset": "MEGANE-CAR-FLEET.ps2model",
+        "sha256": "959d06892b3fed15218fd5adf5b846f0369d04990f88d14cec5563b8677b113b",
+        "implemented": true,
+        "native_owner": "CURRENT_FRAME_WHOLE_OPAQUE_ALPHA_SOURCE_COHORT_REQUIRED",
+        "healthy_runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damaged_implemented": false,
+        "damaged_runtime": "EXACT_WHOLE_BODY_STOCK_FALLBACK",
+        "damage_unresolved_vertices": 1005,
+        "source_records": 24
+      },
+      "wheels": {
+        "source_ready": true,
+        "implemented": true,
+        "policy": "COMPLETE_PER_CURRENT_OWNER_COHORT; NO_ASSUMED_OWNER_COUNT",
+        "source_records": 5,
+        "native_owner_count": null,
+        "runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damage_policy": "UNCHANGED_NATIVE_WHEEL_SOURCES_ONLY; PRIVATE_WHEEL_TREES_STOCK"
+      },
+      "reflection_mode4": {
+        "implemented": true,
+        "runtime": "PRIVATE_CAR_MATERIAL_TRANSACTIONS_RUNTIME_PENDING",
+        "pixel_parity": false
+      },
+      "lamps": {
+        "OFF": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING"
+        },
+        "ON_CORE": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING",
+          "original_gxi": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+          "secondary_gs_parity": "NOT_CLAIMED"
+        },
+        "ADDITIVE_GLOW": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "NEW_OWNER_BOUND_PATH_RUNTIME_PENDING"
+        },
+        "damaged": "IMPLEMENTED_HEALTHY_REFERENCE_AND_CURRENT_NATIVE_CLONE_REQUIRED"
+      },
+      "Reset_MSAA_performance": {
+        "runtime": "AUTOMATED_CONTRACTS_PASS_LIVE_PENDING",
+        "measurements_fps": null
+      }
+    },
+    {
+      "family": "Navara",
+      "ps2_family": "NAVARA",
+      "COMPLETE": {
+        "source_ready": true,
+        "implemented": true,
+        "asset": {
+          "ps2_family": "NAVARA",
+          "file": "NAVARA-COMPLETE-FLEET.ps2model",
+          "sha256": "7272d6ceb2982b9064c9ec38628fa04188b0eddd779a9edfaa2ff498ddd1b7b4"
+        },
+        "runtime_status": "PREVIOUS_FLEET_USER_TESTS_PARTIAL_PER_FAMILY_LEDGER"
+      },
+      "CAR": {
+        "source_ready": true,
+        "asset": "NAVARA-CAR-FLEET.ps2model",
+        "sha256": "336318a5cc30f0cd7bf3c6f9addcf7e10848a1d762f5e7e88abee7f2f8caee0e",
+        "implemented": true,
+        "native_owner": "CURRENT_FRAME_WHOLE_OPAQUE_ALPHA_SOURCE_COHORT_REQUIRED",
+        "healthy_runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damaged_implemented": false,
+        "damaged_runtime": "EXACT_WHOLE_BODY_STOCK_FALLBACK",
+        "damage_unresolved_vertices": 766,
+        "source_records": 26
+      },
+      "wheels": {
+        "source_ready": true,
+        "implemented": true,
+        "policy": "COMPLETE_PER_CURRENT_OWNER_COHORT; NO_ASSUMED_OWNER_COUNT",
+        "source_records": 4,
+        "native_owner_count": null,
+        "runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damage_policy": "UNCHANGED_NATIVE_WHEEL_SOURCES_ONLY; PRIVATE_WHEEL_TREES_STOCK"
+      },
+      "reflection_mode4": {
+        "implemented": true,
+        "runtime": "PRIVATE_CAR_MATERIAL_TRANSACTIONS_RUNTIME_PENDING",
+        "pixel_parity": false
+      },
+      "lamps": {
+        "OFF": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING"
+        },
+        "ON_CORE": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING",
+          "original_gxi": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+          "secondary_gs_parity": "NOT_CLAIMED"
+        },
+        "ADDITIVE_GLOW": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "NEW_OWNER_BOUND_PATH_RUNTIME_PENDING"
+        },
+        "damaged": "IMPLEMENTED_HEALTHY_REFERENCE_AND_CURRENT_NATIVE_CLONE_REQUIRED"
+      },
+      "Reset_MSAA_performance": {
+        "runtime": "AUTOMATED_CONTRACTS_PASS_LIVE_PENDING",
+        "measurements_fps": null
+      }
+    },
+    {
+      "family": "NewRav",
+      "ps2_family": "NEWRAV",
+      "COMPLETE": {
+        "source_ready": true,
+        "implemented": true,
+        "asset": {
+          "ps2_family": "NEWRAV",
+          "file": "NEWRAV-COMPLETE-FLEET.ps2model",
+          "sha256": "dcff642f00076545705e7565bbba67aa5e18280752d386135fa961a21e75cc7f"
+        },
+        "runtime_status": "PREVIOUS_FLEET_USER_TESTS_PARTIAL_PER_FAMILY_LEDGER"
+      },
+      "CAR": {
+        "source_ready": true,
+        "asset": "NEWRAV-CAR-FLEET.ps2model",
+        "sha256": "fbf0c6f2e56ff312ea31cc6fe0b7e3ffe4080ad64ceeb6036d89a05badc557e9",
+        "implemented": true,
+        "native_owner": "CURRENT_FRAME_WHOLE_OPAQUE_ALPHA_SOURCE_COHORT_REQUIRED",
+        "healthy_runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damaged_implemented": false,
+        "damaged_runtime": "EXACT_WHOLE_BODY_STOCK_FALLBACK",
+        "damage_unresolved_vertices": 810,
+        "source_records": 24
+      },
+      "wheels": {
+        "source_ready": true,
+        "implemented": true,
+        "policy": "COMPLETE_PER_CURRENT_OWNER_COHORT; NO_ASSUMED_OWNER_COUNT",
+        "source_records": 5,
+        "native_owner_count": null,
+        "runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damage_policy": "UNCHANGED_NATIVE_WHEEL_SOURCES_ONLY; PRIVATE_WHEEL_TREES_STOCK"
+      },
+      "reflection_mode4": {
+        "implemented": true,
+        "runtime": "PRIVATE_CAR_MATERIAL_TRANSACTIONS_RUNTIME_PENDING",
+        "pixel_parity": false
+      },
+      "lamps": {
+        "OFF": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING"
+        },
+        "ON_CORE": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING",
+          "original_gxi": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+          "secondary_gs_parity": "NOT_CLAIMED"
+        },
+        "ADDITIVE_GLOW": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "NEW_OWNER_BOUND_PATH_RUNTIME_PENDING"
+        },
+        "damaged": "IMPLEMENTED_HEALTHY_REFERENCE_AND_CURRENT_NATIVE_CLONE_REQUIRED"
+      },
+      "Reset_MSAA_performance": {
+        "runtime": "AUTOMATED_CONTRACTS_PASS_LIVE_PENDING",
+        "measurements_fps": null
+      }
+    },
+    {
+      "family": "Pajero",
+      "ps2_family": "PAJERO",
+      "COMPLETE": {
+        "source_ready": true,
+        "implemented": true,
+        "asset": {
+          "ps2_family": "PAJERO",
+          "file": "PAJERO-COMPLETE-FLEET.ps2model",
+          "sha256": "20bd065ecbd2b339ec97e804a6c320c20b72c15abccd9e9bdf59d9fefec68315"
+        },
+        "runtime_status": "PREVIOUS_FLEET_USER_TESTS_PARTIAL_PER_FAMILY_LEDGER"
+      },
+      "CAR": {
+        "source_ready": true,
+        "asset": "PAJERO-CAR-FLEET.ps2model",
+        "sha256": "a0ac3fac85263e3e634be05fac6dda5bd7459c0edb2182e46cb3e3fede22b0b2",
+        "implemented": true,
+        "native_owner": "CURRENT_FRAME_WHOLE_OPAQUE_ALPHA_SOURCE_COHORT_REQUIRED",
+        "healthy_runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damaged_implemented": false,
+        "damaged_runtime": "EXACT_WHOLE_BODY_STOCK_FALLBACK",
+        "damage_unresolved_vertices": 906,
+        "source_records": 24
+      },
+      "wheels": {
+        "source_ready": true,
+        "implemented": true,
+        "policy": "COMPLETE_PER_CURRENT_OWNER_COHORT; NO_ASSUMED_OWNER_COUNT",
+        "source_records": 5,
+        "native_owner_count": null,
+        "runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damage_policy": "UNCHANGED_NATIVE_WHEEL_SOURCES_ONLY; PRIVATE_WHEEL_TREES_STOCK"
+      },
+      "reflection_mode4": {
+        "implemented": true,
+        "runtime": "PRIVATE_CAR_MATERIAL_TRANSACTIONS_RUNTIME_PENDING",
+        "pixel_parity": false
+      },
+      "lamps": {
+        "OFF": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING"
+        },
+        "ON_CORE": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING",
+          "original_gxi": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+          "secondary_gs_parity": "NOT_CLAIMED"
+        },
+        "ADDITIVE_GLOW": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "NEW_OWNER_BOUND_PATH_RUNTIME_PENDING"
+        },
+        "damaged": "IMPLEMENTED_HEALTHY_REFERENCE_AND_CURRENT_NATIVE_CLONE_REQUIRED"
+      },
+      "Reset_MSAA_performance": {
+        "runtime": "AUTOMATED_CONTRACTS_PASS_LIVE_PENDING",
+        "measurements_fps": null
+      }
+    },
+    {
+      "family": "Patrol",
+      "ps2_family": "PATROL",
+      "COMPLETE": {
+        "source_ready": true,
+        "implemented": true,
+        "asset": {
+          "ps2_family": "PATROL",
+          "file": "PATROL-COMPLETE-FLEET.ps2model",
+          "sha256": "0026bf54d4e88149a32cfcfd51ee606053cd16f0cf03eec09739f146bcfb4624"
+        },
+        "runtime_status": "PREVIOUS_FLEET_USER_TESTS_PARTIAL_PER_FAMILY_LEDGER"
+      },
+      "CAR": {
+        "source_ready": true,
+        "asset": "PATROL-CAR-FLEET.ps2model",
+        "sha256": "2fe8b30e9bac7ee0f441cc4899fcff48a60a744b650c5635800c164b9e4e8d90",
+        "implemented": true,
+        "native_owner": "CURRENT_FRAME_WHOLE_OPAQUE_ALPHA_SOURCE_COHORT_REQUIRED",
+        "healthy_runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damaged_implemented": false,
+        "damaged_runtime": "EXACT_WHOLE_BODY_STOCK_FALLBACK",
+        "damage_unresolved_vertices": 856,
+        "source_records": 25
+      },
+      "wheels": {
+        "source_ready": true,
+        "implemented": true,
+        "policy": "COMPLETE_PER_CURRENT_OWNER_COHORT; NO_ASSUMED_OWNER_COUNT",
+        "source_records": 5,
+        "native_owner_count": null,
+        "runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damage_policy": "UNCHANGED_NATIVE_WHEEL_SOURCES_ONLY; PRIVATE_WHEEL_TREES_STOCK"
+      },
+      "reflection_mode4": {
+        "implemented": true,
+        "runtime": "PRIVATE_CAR_MATERIAL_TRANSACTIONS_RUNTIME_PENDING",
+        "pixel_parity": false
+      },
+      "lamps": {
+        "OFF": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING"
+        },
+        "ON_CORE": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING",
+          "original_gxi": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+          "secondary_gs_parity": "NOT_CLAIMED"
+        },
+        "ADDITIVE_GLOW": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "NEW_OWNER_BOUND_PATH_RUNTIME_PENDING"
+        },
+        "damaged": "IMPLEMENTED_HEALTHY_REFERENCE_AND_CURRENT_NATIVE_CLONE_REQUIRED"
+      },
+      "Reset_MSAA_performance": {
+        "runtime": "AUTOMATED_CONTRACTS_PASS_LIVE_PENDING",
+        "measurements_fps": null
+      }
+    },
+    {
+      "family": "RMonster",
+      "ps2_family": "RMONSTER",
+      "COMPLETE": {
+        "source_ready": true,
+        "implemented": true,
+        "asset": {
+          "ps2_family": "RMONSTER",
+          "file": "RMONSTER-COMPLETE-FLEET.ps2model",
+          "sha256": "e3018aaf0eecc1566471ba575b3e4fd40b2e13a5039ebdf06e91c896df6623cf"
+        },
+        "runtime_status": "PREVIOUS_FLEET_USER_TESTS_PARTIAL_PER_FAMILY_LEDGER"
+      },
+      "CAR": {
+        "source_ready": true,
+        "asset": "RMONSTER-CAR-FLEET.ps2model",
+        "sha256": "2b4be227af370d50e4ea4b8e56ccd99e6b426d0bab130a3e5e2ae9a28ad735cf",
+        "implemented": true,
+        "native_owner": "CURRENT_FRAME_WHOLE_OPAQUE_ALPHA_SOURCE_COHORT_REQUIRED",
+        "healthy_runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damaged_implemented": false,
+        "damaged_runtime": "EXACT_WHOLE_BODY_STOCK_FALLBACK",
+        "damage_unresolved_vertices": 883,
+        "source_records": 22
+      },
+      "wheels": {
+        "source_ready": true,
+        "implemented": true,
+        "policy": "COMPLETE_PER_CURRENT_OWNER_COHORT; NO_ASSUMED_OWNER_COUNT",
+        "source_records": 5,
+        "native_owner_count": null,
+        "runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damage_policy": "UNCHANGED_NATIVE_WHEEL_SOURCES_ONLY; PRIVATE_WHEEL_TREES_STOCK"
+      },
+      "reflection_mode4": {
+        "implemented": true,
+        "runtime": "PRIVATE_CAR_MATERIAL_TRANSACTIONS_RUNTIME_PENDING",
+        "pixel_parity": false
+      },
+      "lamps": {
+        "OFF": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING"
+        },
+        "ON_CORE": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING",
+          "original_gxi": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+          "secondary_gs_parity": "NOT_CLAIMED"
+        },
+        "ADDITIVE_GLOW": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "NEW_OWNER_BOUND_PATH_RUNTIME_PENDING"
+        },
+        "damaged": "IMPLEMENTED_HEALTHY_REFERENCE_AND_CURRENT_NATIVE_CLONE_REQUIRED"
+      },
+      "Reset_MSAA_performance": {
+        "runtime": "AUTOMATED_CONTRACTS_PASS_LIVE_PENDING",
+        "measurements_fps": null
+      }
+    },
+    {
+      "family": "SeatBuggy",
+      "ps2_family": "SEATBUGGY",
+      "COMPLETE": {
+        "source_ready": true,
+        "implemented": true,
+        "asset": {
+          "ps2_family": "SEATBUGGY",
+          "file": "SEATBUGGY-COMPLETE-FLEET.ps2model",
+          "sha256": "1f3f6e7fb84aa4d4cde3136ef38576059986706dd30c90e398cd2e4ce42f4fd5"
+        },
+        "runtime_status": "PREVIOUS_FLEET_USER_TESTS_PARTIAL_PER_FAMILY_LEDGER"
+      },
+      "CAR": {
+        "source_ready": true,
+        "asset": "SEATBUGGY-CAR-FLEET.ps2model",
+        "sha256": "63fdd21c0dfdee697edac6dd406e338e12c786321a228620e43d4de04a061b4b",
+        "implemented": true,
+        "native_owner": "CURRENT_FRAME_WHOLE_OPAQUE_ALPHA_SOURCE_COHORT_REQUIRED",
+        "healthy_runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damaged_implemented": false,
+        "damaged_runtime": "EXACT_WHOLE_BODY_STOCK_FALLBACK",
+        "damage_unresolved_vertices": 703,
+        "source_records": 24
+      },
+      "wheels": {
+        "source_ready": true,
+        "implemented": true,
+        "policy": "COMPLETE_PER_CURRENT_OWNER_COHORT; NO_ASSUMED_OWNER_COUNT",
+        "source_records": 5,
+        "native_owner_count": null,
+        "runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damage_policy": "UNCHANGED_NATIVE_WHEEL_SOURCES_ONLY; PRIVATE_WHEEL_TREES_STOCK"
+      },
+      "reflection_mode4": {
+        "implemented": true,
+        "runtime": "PRIVATE_CAR_MATERIAL_TRANSACTIONS_RUNTIME_PENDING",
+        "pixel_parity": false
+      },
+      "lamps": {
+        "OFF": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING"
+        },
+        "ON_CORE": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING",
+          "original_gxi": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+          "secondary_gs_parity": "NOT_CLAIMED"
+        },
+        "ADDITIVE_GLOW": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "NEW_OWNER_BOUND_PATH_RUNTIME_PENDING"
+        },
+        "damaged": "IMPLEMENTED_HEALTHY_REFERENCE_AND_CURRENT_NATIVE_CLONE_REQUIRED"
+      },
+      "Reset_MSAA_performance": {
+        "runtime": "AUTOMATED_CONTRACTS_PASS_LIVE_PENDING",
+        "measurements_fps": null
+      }
+    },
+    {
+      "family": "Simmbugghini",
+      "ps2_family": "SIMMBUGGHINI",
+      "COMPLETE": {
+        "source_ready": true,
+        "implemented": true,
+        "asset": {
+          "ps2_family": "SIMMBUGGHINI",
+          "file": "SIMMBUGGHINI-COMPLETE-FLEET-FIX1.ps2model",
+          "sha256": "5add1b293c2881cc5ab8c754b9ed1f90a56e4a52d6895ad58ed3901d377331f9"
+        },
+        "runtime_status": "PREVIOUS_FLEET_USER_TESTS_PARTIAL_PER_FAMILY_LEDGER"
+      },
+      "CAR": {
+        "source_ready": true,
+        "asset": "SIMMBUGGHINI-CAR-FLEET.ps2model",
+        "sha256": "fc9dc2da0df2917058e3b50b1ac02fb8bc7ed4e9cb891a2711cd38d2564f9304",
+        "implemented": true,
+        "native_owner": "CURRENT_FRAME_WHOLE_OPAQUE_ALPHA_SOURCE_COHORT_REQUIRED",
+        "healthy_runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damaged_implemented": false,
+        "damaged_runtime": "EXACT_WHOLE_BODY_STOCK_FALLBACK",
+        "damage_unresolved_vertices": 1030,
+        "source_records": 21
+      },
+      "wheels": {
+        "source_ready": true,
+        "implemented": true,
+        "policy": "COMPLETE_PER_CURRENT_OWNER_COHORT; NO_ASSUMED_OWNER_COUNT",
+        "source_records": 5,
+        "native_owner_count": null,
+        "runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damage_policy": "UNCHANGED_NATIVE_WHEEL_SOURCES_ONLY; PRIVATE_WHEEL_TREES_STOCK"
+      },
+      "reflection_mode4": {
+        "implemented": true,
+        "runtime": "PRIVATE_CAR_MATERIAL_TRANSACTIONS_RUNTIME_PENDING",
+        "pixel_parity": false
+      },
+      "lamps": {
+        "OFF": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING"
+        },
+        "ON_CORE": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING",
+          "original_gxi": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+          "secondary_gs_parity": "NOT_CLAIMED"
+        },
+        "ADDITIVE_GLOW": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "NEW_OWNER_BOUND_PATH_RUNTIME_PENDING"
+        },
+        "damaged": "IMPLEMENTED_HEALTHY_REFERENCE_AND_CURRENT_NATIVE_CLONE_REQUIRED"
+      },
+      "Reset_MSAA_performance": {
+        "runtime": "AUTOMATED_CONTRACTS_PASS_LIVE_PENDING",
+        "measurements_fps": null
+      }
+    },
+    {
+      "family": "Tata",
+      "ps2_family": "TATA",
+      "COMPLETE": {
+        "source_ready": true,
+        "implemented": true,
+        "asset": {
+          "ps2_family": "TATA",
+          "file": "TATA-COMPLETE-FLEET-FIX1.ps2model",
+          "sha256": "553189dd2b55fd39b3210bb7c6936523a815cf8a8b75df71954f59438d634d4f"
+        },
+        "runtime_status": "PREVIOUS_FLEET_USER_TESTS_PARTIAL_PER_FAMILY_LEDGER"
+      },
+      "CAR": {
+        "source_ready": true,
+        "asset": "TATA-CAR-FLEET.ps2model",
+        "sha256": "20262ea17be8ef15e0faea7b70dc1ae2cff47df9aec2410fe3538587a5d18660",
+        "implemented": true,
+        "native_owner": "CURRENT_FRAME_WHOLE_OPAQUE_ALPHA_SOURCE_COHORT_REQUIRED",
+        "healthy_runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damaged_implemented": false,
+        "damaged_runtime": "EXACT_WHOLE_BODY_STOCK_FALLBACK",
+        "damage_unresolved_vertices": 631,
+        "source_records": 30
+      },
+      "wheels": {
+        "source_ready": true,
+        "implemented": true,
+        "policy": "COMPLETE_PER_CURRENT_OWNER_COHORT; NO_ASSUMED_OWNER_COUNT",
+        "source_records": 4,
+        "native_owner_count": null,
+        "runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damage_policy": "UNCHANGED_NATIVE_WHEEL_SOURCES_ONLY; PRIVATE_WHEEL_TREES_STOCK"
+      },
+      "reflection_mode4": {
+        "implemented": true,
+        "runtime": "PRIVATE_CAR_MATERIAL_TRANSACTIONS_RUNTIME_PENDING",
+        "pixel_parity": false
+      },
+      "lamps": {
+        "OFF": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING"
+        },
+        "ON_CORE": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING",
+          "original_gxi": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+          "secondary_gs_parity": "NOT_CLAIMED"
+        },
+        "ADDITIVE_GLOW": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "NEW_OWNER_BOUND_PATH_RUNTIME_PENDING"
+        },
+        "damaged": "IMPLEMENTED_HEALTHY_REFERENCE_AND_CURRENT_NATIVE_CLONE_REQUIRED"
+      },
+      "Reset_MSAA_performance": {
+        "runtime": "AUTOMATED_CONTRACTS_PASS_LIVE_PENDING",
+        "measurements_fps": null
+      }
+    },
+    {
+      "family": "Terrano",
+      "ps2_family": "TERRANO",
+      "COMPLETE": {
+        "source_ready": true,
+        "implemented": true,
+        "asset": {
+          "ps2_family": "TERRANO",
+          "file": "TERRANO-COMPLETE-FLEET.ps2model",
+          "sha256": "6401b2e3c16121b6397399725b94c176f19c385d85d302db85fed512e3d5e3dc"
+        },
+        "runtime_status": "PREVIOUS_FLEET_USER_TESTS_PARTIAL_PER_FAMILY_LEDGER"
+      },
+      "CAR": {
+        "source_ready": true,
+        "asset": "TERRANO-CAR-FLEET.ps2model",
+        "sha256": "66458742c02d23fa5d309377fdc622050135c9e2c9ddc758ba4bfacb88a949b8",
+        "implemented": true,
+        "native_owner": "CURRENT_FRAME_WHOLE_OPAQUE_ALPHA_SOURCE_COHORT_REQUIRED",
+        "healthy_runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damaged_implemented": false,
+        "damaged_runtime": "EXACT_WHOLE_BODY_STOCK_FALLBACK",
+        "damage_unresolved_vertices": 848,
+        "source_records": 24
+      },
+      "wheels": {
+        "source_ready": true,
+        "implemented": true,
+        "policy": "COMPLETE_PER_CURRENT_OWNER_COHORT; NO_ASSUMED_OWNER_COUNT",
+        "source_records": 5,
+        "native_owner_count": null,
+        "runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damage_policy": "UNCHANGED_NATIVE_WHEEL_SOURCES_ONLY; PRIVATE_WHEEL_TREES_STOCK"
+      },
+      "reflection_mode4": {
+        "implemented": true,
+        "runtime": "PRIVATE_CAR_MATERIAL_TRANSACTIONS_RUNTIME_PENDING",
+        "pixel_parity": false
+      },
+      "lamps": {
+        "OFF": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING"
+        },
+        "ON_CORE": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING",
+          "original_gxi": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+          "secondary_gs_parity": "NOT_CLAIMED"
+        },
+        "ADDITIVE_GLOW": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "NEW_OWNER_BOUND_PATH_RUNTIME_PENDING"
+        },
+        "damaged": "IMPLEMENTED_HEALTHY_REFERENCE_AND_CURRENT_NATIVE_CLONE_REQUIRED"
+      },
+      "Reset_MSAA_performance": {
+        "runtime": "AUTOMATED_CONTRACTS_PASS_LIVE_PENDING",
+        "measurements_fps": null
+      }
+    },
+    {
+      "family": "Ufo",
+      "ps2_family": "UFO",
+      "COMPLETE": {
+        "source_ready": true,
+        "implemented": true,
+        "asset": {
+          "ps2_family": "UFO",
+          "file": "UFO-COMPLETE-CONTINUITY2-V1.ps2model",
+          "sha256": "310c10ee1030188a7741973bef45c568096f549055c3d6c5b721cbd5540b10cf"
+        },
+        "runtime_status": "PREVIOUS_FLEET_USER_TESTS_PARTIAL_PER_FAMILY_LEDGER"
+      },
+      "CAR": {
+        "source_ready": true,
+        "asset": "UFO-CAR-FLEET.ps2model",
+        "sha256": "62597fd67d85aad9c3b919c0ecfcf0d0684ab5f42d78930edb1ff8b16c1fec95",
+        "implemented": true,
+        "native_owner": "CURRENT_FRAME_WHOLE_OPAQUE_ALPHA_SOURCE_COHORT_REQUIRED",
+        "healthy_runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damaged_implemented": true,
+        "damaged_runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damage_unresolved_vertices": 0,
+        "source_records": 7
+      },
+      "wheels": {
+        "source_ready": false,
+        "implemented": false,
+        "policy": "NO_WHEELS_BY_DESIGN",
+        "source_records": 0,
+        "native_owner_count": null,
+        "runtime": "NOT_APPLICABLE",
+        "damage_policy": "UNCHANGED_NATIVE_WHEEL_SOURCES_ONLY; PRIVATE_WHEEL_TREES_STOCK"
+      },
+      "reflection_mode4": {
+        "implemented": true,
+        "runtime": "PRIVATE_CAR_MATERIAL_TRANSACTIONS_RUNTIME_PENDING",
+        "pixel_parity": false
+      },
+      "lamps": {
+        "OFF": {
+          "source_ready": false,
+          "implemented": false,
+          "runtime": "STOCK_EXACT_SOURCE_BLOCKER"
+        },
+        "ON_CORE": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING",
+          "original_gxi": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+          "secondary_gs_parity": "NOT_CLAIMED"
+        },
+        "ADDITIVE_GLOW": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "NEW_OWNER_BOUND_PATH_RUNTIME_PENDING"
+        },
+        "damaged": "IMPLEMENTED_HEALTHY_REFERENCE_AND_CURRENT_NATIVE_CLONE_REQUIRED"
+      },
+      "Reset_MSAA_performance": {
+        "runtime": "AUTOMATED_CONTRACTS_PASS_LIVE_PENDING",
+        "measurements_fps": null
+      }
+    },
+    {
+      "family": "WildCat",
+      "ps2_family": "WILDCAT",
+      "COMPLETE": {
+        "source_ready": true,
+        "implemented": true,
+        "asset": {
+          "ps2_family": "WILDCAT",
+          "file": "WILDCAT-COMPLETE-FLEET.ps2model",
+          "sha256": "4192fda7741e5beea01f6222e0ec9b18148ce68cc3a6def4a01672aa578f7b5d"
+        },
+        "runtime_status": "PREVIOUS_FLEET_USER_TESTS_PARTIAL_PER_FAMILY_LEDGER"
+      },
+      "CAR": {
+        "source_ready": true,
+        "asset": "WILDCAT-CAR-FLEET.ps2model",
+        "sha256": "473b3b9ef1860cad8097bc445462e2b7e0de9f05d8d08ba57e3dfa86ad693963",
+        "implemented": true,
+        "native_owner": "CURRENT_FRAME_WHOLE_OPAQUE_ALPHA_SOURCE_COHORT_REQUIRED",
+        "healthy_runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damaged_implemented": false,
+        "damaged_runtime": "EXACT_WHOLE_BODY_STOCK_FALLBACK",
+        "damage_unresolved_vertices": 923,
+        "source_records": 20
+      },
+      "wheels": {
+        "source_ready": true,
+        "implemented": true,
+        "policy": "COMPLETE_PER_CURRENT_OWNER_COHORT; NO_ASSUMED_OWNER_COUNT",
+        "source_records": 5,
+        "native_owner_count": null,
+        "runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damage_policy": "UNCHANGED_NATIVE_WHEEL_SOURCES_ONLY; PRIVATE_WHEEL_TREES_STOCK"
+      },
+      "reflection_mode4": {
+        "implemented": true,
+        "runtime": "PRIVATE_CAR_MATERIAL_TRANSACTIONS_RUNTIME_PENDING",
+        "pixel_parity": false
+      },
+      "lamps": {
+        "OFF": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING"
+        },
+        "ON_CORE": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING",
+          "original_gxi": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+          "secondary_gs_parity": "NOT_CLAIMED"
+        },
+        "ADDITIVE_GLOW": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "NEW_OWNER_BOUND_PATH_RUNTIME_PENDING"
+        },
+        "damaged": "IMPLEMENTED_HEALTHY_REFERENCE_AND_CURRENT_NATIVE_CLONE_REQUIRED"
+      },
+      "Reset_MSAA_performance": {
+        "runtime": "AUTOMATED_CONTRACTS_PASS_LIVE_PENDING",
+        "measurements_fps": null
+      }
+    },
+    {
+      "family": "Forester",
+      "ps2_family": "WOOLDAND",
+      "COMPLETE": {
+        "source_ready": true,
+        "implemented": true,
+        "asset": {
+          "ps2_family": "WOOLDAND",
+          "file": "WOOLDAND-COMPLETE-CONTINUITY2-V1.ps2model",
+          "sha256": "9cc3fc4d7c4690ab7dd3876b809a20cc80c97d97198fd9dbed069c06acdd84f5"
+        },
+        "runtime_status": "PREVIOUS_FLEET_USER_TESTS_PARTIAL_PER_FAMILY_LEDGER"
+      },
+      "CAR": {
+        "source_ready": true,
+        "asset": "WOOLDAND-CAR-FLEET.ps2model",
+        "sha256": "3fc949daf8df678be73e6c9110470fc1a8b926f1cd681a864946ac1c53e721c4",
+        "implemented": true,
+        "native_owner": "CURRENT_FRAME_WHOLE_OPAQUE_ALPHA_SOURCE_COHORT_REQUIRED",
+        "healthy_runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damaged_implemented": false,
+        "damaged_runtime": "EXACT_WHOLE_BODY_STOCK_FALLBACK",
+        "damage_unresolved_vertices": 4,
+        "source_records": 16
+      },
+      "wheels": {
+        "source_ready": true,
+        "implemented": true,
+        "policy": "COMPLETE_PER_CURRENT_OWNER_COHORT; NO_ASSUMED_OWNER_COUNT",
+        "source_records": 5,
+        "native_owner_count": null,
+        "runtime": "IMPLEMENTED_RUNTIME_PENDING",
+        "damage_policy": "UNCHANGED_NATIVE_WHEEL_SOURCES_ONLY; PRIVATE_WHEEL_TREES_STOCK"
+      },
+      "reflection_mode4": {
+        "implemented": true,
+        "runtime": "PRIVATE_CAR_MATERIAL_TRANSACTIONS_RUNTIME_PENDING",
+        "pixel_parity": false
+      },
+      "lamps": {
+        "OFF": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING"
+        },
+        "ON_CORE": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING",
+          "original_gxi": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+          "secondary_gs_parity": "NOT_CLAIMED"
+        },
+        "ADDITIVE_GLOW": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "NEW_OWNER_BOUND_PATH_RUNTIME_PENDING"
+        },
+        "damaged": "IMPLEMENTED_HEALTHY_REFERENCE_AND_CURRENT_NATIVE_CLONE_REQUIRED"
+      },
+      "Reset_MSAA_performance": {
+        "runtime": "AUTOMATED_CONTRACTS_PASS_LIVE_PENDING",
+        "measurements_fps": null
+      }
+    },
+    {
+      "family": "Xtrail",
+      "ps2_family": "XTRAIL",
+      "COMPLETE": {
+        "source_ready": true,
+        "implemented": true,
+        "asset": {
+          "ps2_family": "XTRAIL",
+          "file": "XTRAIL-COMPLETE-FLEET.ps2model",
+          "sha256": "6444198f7ea60e60e174ec6fa587483cec4e10b8a6dfc9b4f35673748eae9cbe"
+        },
+        "runtime_status": "USER_RUNTIME_CONFIRMED"
+      },
+      "CAR": {
+        "source_ready": true,
+        "asset": "XTRAIL-CAR-FLEET.ps2model",
+        "sha256": "16932a447a459e4fd198ef34232118def5491070714e48e4b4691a2e9fc8bd67",
+        "implemented": true,
+        "native_owner": "CURRENT_FRAME_WHOLE_OPAQUE_ALPHA_SOURCE_COHORT_REQUIRED",
+        "healthy_runtime": "USER_RUNTIME_CONFIRMED",
+        "damaged_implemented": true,
+        "damaged_runtime": "USER_RUNTIME_CONFIRMED",
+        "damage_unresolved_vertices": 968,
+        "source_records": 23
+      },
+      "wheels": {
+        "source_ready": true,
+        "implemented": true,
+        "policy": "ACCEPTED_SPECIALIZED_NATIVE_OWNERS",
+        "source_records": 4,
+        "native_owner_count": 4,
+        "runtime": "USER_RUNTIME_CONFIRMED",
+        "damage_policy": "UNCHANGED_NATIVE_WHEEL_SOURCES_ONLY; PRIVATE_WHEEL_TREES_STOCK"
+      },
+      "reflection_mode4": {
+        "implemented": true,
+        "runtime": "USER_RUNTIME_CONFIRMED",
+        "pixel_parity": false
+      },
+      "lamps": {
+        "OFF": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "PREVIOUS_ACCEPTED_PATH"
+        },
+        "ON_CORE": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "OWNER_BOUND_RUNTIME_PENDING",
+          "original_gxi": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+          "secondary_gs_parity": "NOT_CLAIMED"
+        },
+        "ADDITIVE_GLOW": {
+          "source_ready": true,
+          "implemented": true,
+          "runtime": "NEW_OWNER_BOUND_PATH_RUNTIME_PENDING"
+        },
+        "damaged": "IMPLEMENTED_HEALTHY_REFERENCE_AND_CURRENT_NATIVE_CLONE_REQUIRED"
+      },
+      "Reset_MSAA_performance": {
+        "runtime": "USER_RUNTIME_CONFIRMED_MSAA4_RESET",
+        "measurements_fps": null
+      }
+    }
+  ]
+}

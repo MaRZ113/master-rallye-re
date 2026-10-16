@@ -1,0 +1,475 @@
+{
+  "schema": 1,
+  "source_pc_sha256": "e334085754f81d20d237a70e653b533344771e6409468e2e09252e380b3d063f",
+  "source_ps2_sha256": "a15ee827bc93e7a7fe242d8ba2440afe1991cd06e8aeee15ce78b836e372ccac",
+  "profiles": [
+    {
+      "ps2_root": 5,
+      "pc_record": 21,
+      "mode": 3,
+      "vertices": 30,
+      "triangles": 28,
+      "original_geometry_sha256": "cb24d664e8af1db40cc4b161c7875e34a2042e709a5783384179b37f0ce5fe63",
+      "ordered_xyz_sha256": "05f7181fb2681943ec560646240a1310bcb4ee46cc39e2a256b0643d60acd492",
+      "ordered_uv_winding_sha256": "a777b05873183d164d519a6bd0b147176586e019f23111efca10a1faecbd1dc3",
+      "referenced_private_vertices": 48,
+      "tolerance": 1e-05,
+      "unmapped": [],
+      "maximum_candidate_multiplicity": 3,
+      "mappings": [
+        {
+          "vertex": 1810,
+          "candidates": [
+            3
+          ]
+        },
+        {
+          "vertex": 1811,
+          "candidates": [
+            10,
+            11,
+            12
+          ]
+        },
+        {
+          "vertex": 1812,
+          "candidates": [
+            1
+          ]
+        },
+        {
+          "vertex": 1813,
+          "candidates": [
+            9
+          ]
+        },
+        {
+          "vertex": 1814,
+          "candidates": [
+            8
+          ]
+        },
+        {
+          "vertex": 1815,
+          "candidates": [
+            18
+          ]
+        },
+        {
+          "vertex": 1816,
+          "candidates": [
+            25,
+            26,
+            28
+          ]
+        },
+        {
+          "vertex": 1817,
+          "candidates": [
+            16
+          ]
+        },
+        {
+          "vertex": 1818,
+          "candidates": [
+            24
+          ]
+        },
+        {
+          "vertex": 1819,
+          "candidates": [
+            23
+          ]
+        },
+        {
+          "vertex": 1820,
+          "candidates": [
+            2
+          ]
+        },
+        {
+          "vertex": 1821,
+          "candidates": [
+            10,
+            11,
+            12
+          ]
+        },
+        {
+          "vertex": 1822,
+          "candidates": [
+            13,
+            14
+          ]
+        },
+        {
+          "vertex": 1823,
+          "candidates": [
+            27,
+            29
+          ]
+        },
+        {
+          "vertex": 1824,
+          "candidates": [
+            25,
+            26,
+            28
+          ]
+        },
+        {
+          "vertex": 1825,
+          "candidates": [
+            15
+          ]
+        },
+        {
+          "vertex": 1826,
+          "candidates": [
+            25,
+            26,
+            28
+          ]
+        },
+        {
+          "vertex": 1827,
+          "candidates": [
+            18
+          ]
+        },
+        {
+          "vertex": 1828,
+          "candidates": [
+            15
+          ]
+        },
+        {
+          "vertex": 1829,
+          "candidates": [
+            16
+          ]
+        },
+        {
+          "vertex": 1830,
+          "candidates": [
+            17
+          ]
+        },
+        {
+          "vertex": 1831,
+          "candidates": [
+            21
+          ]
+        },
+        {
+          "vertex": 1832,
+          "candidates": [
+            21
+          ]
+        },
+        {
+          "vertex": 1833,
+          "candidates": [
+            19
+          ]
+        },
+        {
+          "vertex": 1834,
+          "candidates": [
+            17
+          ]
+        },
+        {
+          "vertex": 1835,
+          "candidates": [
+            20
+          ]
+        },
+        {
+          "vertex": 1836,
+          "candidates": [
+            15
+          ]
+        },
+        {
+          "vertex": 1837,
+          "candidates": [
+            27,
+            29
+          ]
+        },
+        {
+          "vertex": 1838,
+          "candidates": [
+            6
+          ]
+        },
+        {
+          "vertex": 1839,
+          "candidates": [
+            7
+          ]
+        },
+        {
+          "vertex": 1840,
+          "candidates": [
+            1
+          ]
+        },
+        {
+          "vertex": 1841,
+          "candidates": [
+            8
+          ]
+        },
+        {
+          "vertex": 1842,
+          "candidates": [
+            21
+          ]
+        },
+        {
+          "vertex": 1843,
+          "candidates": [
+            16
+          ]
+        },
+        {
+          "vertex": 1844,
+          "candidates": [
+            22
+          ]
+        },
+        {
+          "vertex": 1845,
+          "candidates": [
+            23
+          ]
+        },
+        {
+          "vertex": 1846,
+          "candidates": [
+            10,
+            11,
+            12
+          ]
+        },
+        {
+          "vertex": 1847,
+          "candidates": [
+            3
+          ]
+        },
+        {
+          "vertex": 1848,
+          "candidates": [
+            2
+          ]
+        },
+        {
+          "vertex": 1849,
+          "candidates": [
+            1
+          ]
+        },
+        {
+          "vertex": 1850,
+          "candidates": [
+            0
+          ]
+        },
+        {
+          "vertex": 1851,
+          "candidates": [
+            6
+          ]
+        },
+        {
+          "vertex": 1852,
+          "candidates": [
+            13,
+            14
+          ]
+        },
+        {
+          "vertex": 1853,
+          "candidates": [
+            2
+          ]
+        },
+        {
+          "vertex": 1854,
+          "candidates": [
+            4
+          ]
+        },
+        {
+          "vertex": 1855,
+          "candidates": [
+            0
+          ]
+        },
+        {
+          "vertex": 1856,
+          "candidates": [
+            5
+          ]
+        },
+        {
+          "vertex": 1857,
+          "candidates": [
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "ps2_root": 11,
+      "pc_record": 22,
+      "mode": 3,
+      "vertices": 18,
+      "triangles": 14,
+      "original_geometry_sha256": "7e42aed180591ce5a99972f8766f1d999d59da87c8212183e528f7fd7fd5f838",
+      "ordered_xyz_sha256": "26f67dcc6388837e8b706f8270592364f7fa351e8812335ec45f09800e14b4bd",
+      "ordered_uv_winding_sha256": "e2f30092b892cdc42461afbc8691012f39821fd22fbb9b03bea6a52fe90fc71d",
+      "referenced_private_vertices": 22,
+      "tolerance": 1e-05,
+      "unmapped": [],
+      "maximum_candidate_multiplicity": 1,
+      "mappings": [
+        {
+          "vertex": 2420,
+          "candidates": [
+            1
+          ]
+        },
+        {
+          "vertex": 2421,
+          "candidates": [
+            2
+          ]
+        },
+        {
+          "vertex": 2422,
+          "candidates": [
+            0
+          ]
+        },
+        {
+          "vertex": 2423,
+          "candidates": [
+            6
+          ]
+        },
+        {
+          "vertex": 2424,
+          "candidates": [
+            7
+          ]
+        },
+        {
+          "vertex": 2425,
+          "candidates": [
+            8
+          ]
+        },
+        {
+          "vertex": 2426,
+          "candidates": [
+            3
+          ]
+        },
+        {
+          "vertex": 2427,
+          "candidates": [
+            10
+          ]
+        },
+        {
+          "vertex": 2428,
+          "candidates": [
+            9
+          ]
+        },
+        {
+          "vertex": 2429,
+          "candidates": [
+            11
+          ]
+        },
+        {
+          "vertex": 2430,
+          "candidates": [
+            15
+          ]
+        },
+        {
+          "vertex": 2431,
+          "candidates": [
+            16
+          ]
+        },
+        {
+          "vertex": 2432,
+          "candidates": [
+            17
+          ]
+        },
+        {
+          "vertex": 2433,
+          "candidates": [
+            14
+          ]
+        },
+        {
+          "vertex": 2434,
+          "candidates": [
+            7
+          ]
+        },
+        {
+          "vertex": 2435,
+          "candidates": [
+            3
+          ]
+        },
+        {
+          "vertex": 2436,
+          "candidates": [
+            5
+          ]
+        },
+        {
+          "vertex": 2437,
+          "candidates": [
+            4
+          ]
+        },
+        {
+          "vertex": 2438,
+          "candidates": [
+            16
+          ]
+        },
+        {
+          "vertex": 2439,
+          "candidates": [
+            12
+          ]
+        },
+        {
+          "vertex": 2440,
+          "candidates": [
+            14
+          ]
+        },
+        {
+          "vertex": 2441,
+          "candidates": [
+            13
+          ]
+        }
+      ]
+    }
+  ]
+}

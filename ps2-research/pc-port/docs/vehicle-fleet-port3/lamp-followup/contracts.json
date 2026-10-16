@@ -1,0 +1,620 @@
+{
+  "schema": 1,
+  "runtime": "SOURCE_ONLY_OWNER_REQUIRED",
+  "families": [
+    {
+      "family": "NewRav",
+      "ps2_family": "NEWRAV",
+      "source_pc_sha256": "615f00a1d61ec84170c49c52727fcdd68fc96fcb89f1690324edf445ad3fbee6",
+      "source_ps2_sha256": "98b59c09cc878b01610165e1f7b498200441c0384e2223af185addc51d4e4cc7",
+      "source_path": "root.26.1.0",
+      "node": 182343,
+      "native_source_record": 34,
+      "native_vertices": 18,
+      "native_triangles": 10,
+      "native_geometry": "267c20819afd7c28d0a02fe503106f86000f5edf96678b3008627c12a6ed8029",
+      "native_position_uv": "bde667f4f095d7a8ebcf613c50aaa527d0292330559effd081c7d205adea60c9",
+      "native_ordered_xyz": "ddef2a7c10cd544b5a501b045687bdd9d9b8fbc6144468ae066e54246d2ed53d",
+      "native_ordered_uv_indices": "b501db59321f979b1c0354c631792da63d6a19c4bf6d629ed372fa3df217d9cd",
+      "native_first_source_vertex": 2575,
+      "vertices": 18,
+      "indices": 30,
+      "textures": [
+        {
+          "slot": 0,
+          "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\CUINDICATE64-TGA.GXI",
+          "sha256": "2b4b9a514e50045d003f919351cfb0fae2eea3bba03000f231c6630635bd32c8"
+        },
+        {
+          "slot": 1,
+          "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\PERSPEX-TGA.GXI",
+          "sha256": "817275fa22c4c097837c737acedd84eccf938ed7868675315e1765d58bd856ba"
+        }
+      ],
+      "material": "$shader(carshiny)",
+      "mode": 3,
+      "max_xyz_revision": 2.980232238769531e-07,
+      "max_uv_revision": 0.0,
+      "mapping": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          7,
+          1
+        ],
+        [
+          8,
+          1
+        ],
+        [
+          9,
+          1
+        ],
+        [
+          10,
+          1
+        ],
+        [
+          11,
+          1
+        ],
+        [
+          12,
+          1
+        ],
+        [
+          13,
+          1
+        ],
+        [
+          14,
+          1
+        ],
+        [
+          15,
+          1
+        ],
+        [
+          16,
+          1
+        ],
+        [
+          17,
+          1
+        ]
+      ],
+      "candidates": [
+        7,
+        5,
+        6,
+        8,
+        15,
+        16,
+        14,
+        17,
+        0,
+        2,
+        1,
+        3,
+        4,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "source_vertex_ids": [
+        3360,
+        3361,
+        3362,
+        3363,
+        3364,
+        3365,
+        3366,
+        3367,
+        3368,
+        3369,
+        3370,
+        3371,
+        3372,
+        3373,
+        3374,
+        3375,
+        3376,
+        3377
+      ],
+      "runtime_damage": "Requires retained exact healthy native reference, unchanged owner/material/texture and native UV/index clone topology; all mapped candidate deltas must agree <=1e-6. No captured damage proof yet.",
+      "diagnostics": {
+        "adc_suppressed": 4,
+        "diagnostic_degenerate": 0
+      },
+      "asset": "port3-NEWRAV-OFF.ps2model",
+      "size": 10810,
+      "sha256": "35245ca4139cbb1d20d5cc80971d74f8c4396972929fa68ef78e6d88a5abafbc"
+    },
+    {
+      "family": "Bruno",
+      "ps2_family": "BRUNO",
+      "source_pc_sha256": "c7a456332e31c67647394467d2e0e467df048160ae634ab2b8d024eb9d61204f",
+      "source_ps2_sha256": "f53373134712dd8eb8cae26422d9a67e18489668639cdaa479023765692cf260",
+      "source_path": "root.20.1.0",
+      "node": 170585,
+      "native_source_record": 20,
+      "native_vertices": 22,
+      "native_triangles": 12,
+      "native_geometry": "934f66cfc21795ab284eec8af86c74fecd468bc62a539eb3b713a086c77798c1",
+      "native_position_uv": "651739a00b77755ca182a90b42c03fdcf76e3c94dd7770a2c88a04d65fb76d0e",
+      "native_ordered_xyz": "f3d7bfaabaa0ea05749f74e4f5cb19e8c5e07d7e750e55980574fd7aa9d0f7cd",
+      "native_ordered_uv_indices": "f6d99e8b8d03bf3cb066bc00f8ea3a3b63f469a5f578f87b79eee78fee8c0224",
+      "native_first_source_vertex": 2433,
+      "vertices": 20,
+      "indices": 36,
+      "textures": [
+        {
+          "slot": 0,
+          "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BLIGHT64-TGA.GXI",
+          "sha256": "e651b0748e3b4b5f4e52b29739cb3c8df2cccc6fe32feab911964e42f3445ae6"
+        },
+        {
+          "slot": 1,
+          "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\PERSPEX-TGA.GXI",
+          "sha256": "817275fa22c4c097837c737acedd84eccf938ed7868675315e1765d58bd856ba"
+        }
+      ],
+      "material": "$shader(carshiny)",
+      "mode": 3,
+      "max_xyz_revision": 1.7881393432617188e-07,
+      "max_uv_revision": 0.00018972158432006836,
+      "mapping": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          7,
+          1
+        ],
+        [
+          8,
+          1
+        ],
+        [
+          9,
+          2
+        ],
+        [
+          11,
+          1
+        ],
+        [
+          12,
+          1
+        ],
+        [
+          13,
+          1
+        ],
+        [
+          14,
+          1
+        ],
+        [
+          15,
+          1
+        ],
+        [
+          16,
+          1
+        ],
+        [
+          17,
+          1
+        ],
+        [
+          18,
+          1
+        ],
+        [
+          19,
+          1
+        ],
+        [
+          20,
+          1
+        ],
+        [
+          21,
+          1
+        ]
+      ],
+      "candidates": [
+        0,
+        2,
+        1,
+        6,
+        4,
+        5,
+        3,
+        12,
+        13,
+        11,
+        17,
+        14,
+        16,
+        15,
+        9,
+        7,
+        8,
+        10,
+        20,
+        18,
+        19,
+        21
+      ],
+      "source_vertex_ids": [
+        3176,
+        3177,
+        3178,
+        3179,
+        3180,
+        3181,
+        3182,
+        3183,
+        3184,
+        3185,
+        3186,
+        3187,
+        3188,
+        3189,
+        3190,
+        3191,
+        3192,
+        3193,
+        3194,
+        3195
+      ],
+      "runtime_damage": "Requires retained exact healthy native reference, unchanged owner/material/texture and native UV/index clone topology; all mapped candidate deltas must agree <=1e-6. No captured damage proof yet.",
+      "diagnostics": {
+        "adc_suppressed": 4,
+        "diagnostic_degenerate": 0
+      },
+      "asset": "port3-BRUNO-OFF.ps2model",
+      "size": 10957,
+      "sha256": "919cd6636c968e232e6876a0c5afa192e8cb447eed5db02977fee4636b762ac4"
+    },
+    {
+      "family": "Mattserati",
+      "ps2_family": "MATTSERATI",
+      "source_pc_sha256": "e0db7a014f60c71291337e1b3c43909926957132f50017b7ef9e00610fd528e2",
+      "source_ps2_sha256": "165a9b7c2553e7a55def29f3deee4b83af6e1e4435c33a41ef2107477f25246a",
+      "source_path": "root.21.1.0",
+      "node": 165073,
+      "native_source_record": 25,
+      "native_vertices": 40,
+      "native_triangles": 20,
+      "native_geometry": "f5de1db8bf54e75cdb06379864647bfa2bf7769c83af6c2a30dd8bceecf488e2",
+      "native_position_uv": "2d27cd48cbd98d66d87617e07f313c357f205d7da900dd7338ed98de4329e57c",
+      "native_ordered_xyz": "76b06bc7c32c46943db3488450a3c060a4290f4a658af1f3e6e257dae8006004",
+      "native_ordered_uv_indices": "eadef27a2dbdfb716fbe604b0f5a2e4c44b3bc85da89822a53e44a0cba467d2b",
+      "native_first_source_vertex": 2274,
+      "vertices": 40,
+      "indices": 60,
+      "textures": [
+        {
+          "slot": 0,
+          "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\MATTL128-TGA.GXI",
+          "sha256": "ee8ab7b5fe31c236f239883ea0c867a6197b10305b93614116be084b26e0b913"
+        },
+        {
+          "slot": 1,
+          "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\PERSPEX-TGA.GXI",
+          "sha256": "817275fa22c4c097837c737acedd84eccf938ed7868675315e1765d58bd856ba"
+        }
+      ],
+      "material": "$shader(carshiny)",
+      "mode": 3,
+      "max_xyz_revision": 0.008023202419281006,
+      "max_uv_revision": 0.0,
+      "mapping": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          7,
+          1
+        ],
+        [
+          8,
+          1
+        ],
+        [
+          9,
+          1
+        ],
+        [
+          10,
+          1
+        ],
+        [
+          11,
+          1
+        ],
+        [
+          12,
+          1
+        ],
+        [
+          13,
+          1
+        ],
+        [
+          14,
+          1
+        ],
+        [
+          15,
+          1
+        ],
+        [
+          16,
+          1
+        ],
+        [
+          17,
+          1
+        ],
+        [
+          18,
+          1
+        ],
+        [
+          19,
+          1
+        ],
+        [
+          20,
+          1
+        ],
+        [
+          21,
+          1
+        ],
+        [
+          22,
+          1
+        ],
+        [
+          23,
+          1
+        ],
+        [
+          24,
+          1
+        ],
+        [
+          25,
+          1
+        ],
+        [
+          26,
+          1
+        ],
+        [
+          27,
+          1
+        ],
+        [
+          28,
+          1
+        ],
+        [
+          29,
+          1
+        ],
+        [
+          30,
+          1
+        ],
+        [
+          31,
+          1
+        ],
+        [
+          32,
+          1
+        ],
+        [
+          33,
+          1
+        ],
+        [
+          34,
+          1
+        ],
+        [
+          35,
+          1
+        ],
+        [
+          36,
+          1
+        ],
+        [
+          37,
+          1
+        ],
+        [
+          38,
+          1
+        ],
+        [
+          39,
+          1
+        ]
+      ],
+      "candidates": [
+        1,
+        2,
+        0,
+        3,
+        5,
+        6,
+        4,
+        7,
+        9,
+        10,
+        8,
+        11,
+        13,
+        14,
+        12,
+        15,
+        17,
+        18,
+        16,
+        19,
+        22,
+        20,
+        21,
+        23,
+        26,
+        24,
+        25,
+        27,
+        30,
+        28,
+        29,
+        31,
+        34,
+        32,
+        33,
+        35,
+        38,
+        36,
+        37,
+        39
+      ],
+      "source_vertex_ids": [
+        3040,
+        3041,
+        3042,
+        3043,
+        3044,
+        3045,
+        3046,
+        3047,
+        3048,
+        3049,
+        3050,
+        3051,
+        3052,
+        3053,
+        3054,
+        3055,
+        3056,
+        3057,
+        3058,
+        3059,
+        3060,
+        3061,
+        3062,
+        3063,
+        3064,
+        3065,
+        3066,
+        3067,
+        3068,
+        3069,
+        3070,
+        3071,
+        3072,
+        3073,
+        3074,
+        3075,
+        3076,
+        3077,
+        3078,
+        3079
+      ],
+      "runtime_damage": "Requires retained exact healthy native reference, unchanged owner/material/texture and native UV/index clone topology; all mapped candidate deltas must agree <=1e-6. No captured damage proof yet.",
+      "diagnostics": {
+        "adc_suppressed": 16,
+        "diagnostic_degenerate": 0
+      },
+      "asset": "port3-MATTSERATI-OFF.ps2model",
+      "size": 73496,
+      "sha256": "e7ae8b3806c8ea6571b508c24af4b8aa7aed4d31c423840ebc55e772b847c194"
+    }
+  ]
+}

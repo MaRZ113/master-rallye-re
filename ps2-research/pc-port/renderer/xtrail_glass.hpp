@@ -51,6 +51,12 @@ public:
             else{hr=n.SetTextureStageState(op.stage,static_cast<D3DTEXTURESTAGESTATETYPE>(op.key),v[i]);notify(63,pack(op.stage,op.key,v[i]),hr);}if(FAILED(hr))return hr;
         }return S_OK;
     }
+    // Kia PS2 mode1 ON core: opaque source RGB; no glow blending or environment stage.
+    template<class Writer>HRESULT kia_lamp_on_pass(IDirect3DDevice8& n,Writer&& notify)noexcept{
+        if(!captured_||pending_)return E_INVALIDARG;
+        auto v=scalar_;v[1]=FALSE;v[6]=D3DTOP_SELECTARG1;v[7]=D3DTA_TEXTURE;v[9]=D3DTOP_SELECTARG1;v[10]=D3DTA_TEXTURE;v[12]=0;v[13]=D3DTTFF_DISABLE;v[14]=D3DTOP_DISABLE;
+        for(size_t i=0;i<v.size();++i){if(v[i]==scalar_[i])continue;pending_|=1u<<i;const auto& op=kGlassOps[i];HRESULT hr;if(op.render){hr=n.SetRenderState(static_cast<D3DRENDERSTATETYPE>(op.key),v[i]);notify(50,pack(op.key,v[i]),hr);}else{hr=n.SetTextureStageState(op.stage,static_cast<D3DTEXTURESTAGESTATETYPE>(op.key),v[i]);notify(63,pack(op.stage,op.key,v[i]),hr);}if(FAILED(hr))return hr;}return S_OK;
+    }
     template<class Writer>HRESULT bind_primary(IDirect3DDevice8& n,IDirect3DTexture8* texture,Writer&& notify)noexcept{if(!captured_||!texture)return E_INVALIDARG;pending_|=1u<<15;const auto hr=n.SetTexture(0,texture);notify(61,pack(0,texture),hr);return hr;}
     void mark_up()noexcept{if(captured_)pending_|=(1u<<17)|(1u<<18);}
     template<class Writer>HRESULT restore(IDirect3DDevice8& n,Writer&& notify)noexcept{

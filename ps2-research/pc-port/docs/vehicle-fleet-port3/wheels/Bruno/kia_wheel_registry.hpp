@@ -1,0 +1,14 @@
+#pragma once
+#include "race_fleet_registry.hpp"
+namespace gfx2::ps2port {
+inline constexpr FleetRaceSource kPort3BrunoWheelSources[]={
+ {"c706c28e54ac1ef0f3ffec25d2f21bdb71821a0d18213a4485e2aa76c792f3ec","76e5d9f224b9c2ca2603f2314e5f61dbed63a7b6534171d389e723e9028d2edd","65ad613c309360e4b9bc9b7a19ca3e7446566092824b73f87bddf41c43989442","cbd585a2718ff47724436f4f492350877d71256ace5c7972dfcc33f7aae25537",54u,72u,false},
+ {"27859c6f6915c98aa85916ff55bb3a60bb70c51136bb44352e11002ddd253f1d","ab3f787c9bb64b9fcf5a2581e6d8b0be3f70d2744df528e6da126c7ab5621f54","41d0988fbc58dfdd933d3c19252221d9fd68db2e650f2798692219c6781551ad","956c39dcf73bb0efd0725e3ad83f936b9418dbad474d8c41265871e0ea7946b6",38u,36u,false},
+ {"abd880b14e63184b3742e8e9e9c67331b9c044cde3c433bbd137f5e8d4732f5b","bd8832b79ff06c40da8e79ab79426a7e6b2d2c6e8c08944a1e62a32f9e75f726","7e655768acf13b8d2c1cb603f106475b6d6d64303dcb549af688c4d7499d777e","b50a88ae374a5daef5916efea9ee5cd85ddecc7441b5f74419749622efc138cb",37u,54u,false},
+ {"b1cd92efcf9d69b5225d8c56624add25e3ef89b719edc676bac7edde612e3149","eb4480566b54d86ba4e46fa125e58f7a19fd32474a7cd232dfaf1a2fb216cf97","592d4aedffb0ecc77022b31d84fc38d01fbace22fc5453b4a8c9573f08345ee5","a2e0e110a4bb75ae127da90e461e169194ed5ca6deef567515fd479f419ed595",19u,18u,false},
+ {"649e69d89a4c2e51186ba7f3c429ca44b6b8a4e1e63b41877e84500a17033039","5a5583b963ef20147483dd4276b9b3b17fdad0b2e85c44ffa33129cde6b7ba18","1fa8dbfddf3d647319fbe0474b6047244deab6d4fbb5d431d83387185476207f","7b925553433a634bb44188e7507ea169d570a8181f0245e79b787fde5fbd9a37",72u,72u,false},
+};
+inline constexpr bool kPort3BrunoWheelMixed[]={false,false,false,true,true};
+inline constexpr bool kPort3BrunoWheelWrapU[]={false,true,false,false,false};
+inline constexpr FleetRaceProfile kPort3BrunoWheelProfile={"Bruno","BRUNO","port3-BRUNO-WHEEL-FLEET.ps2model","dcf08055f98c5afbd160ad88bce0aab2b23e93e70a93b23a9bbe537a2dbb9a38",63156u,300u,756u,6u,5u,5u,5u,kPort3BrunoWheelSources,kPort3BrunoWheelMixed,kPort3BrunoWheelWrapU};
+}

@@ -1,0 +1,521 @@
+{
+  "schema_version": 2,
+  "role": "FLEET_WHOLE_SEPARATE_WHEEL",
+  "family": "RMonster",
+  "source_sha256": "88d9f1109815cd7597c8c666f3070aff1a866043126467c71ca2d511f0628627",
+  "pc_source_sha256": "868b70f4fe21804854fdc5ef87235dbf85d6d34610045799bcc83cc7b63ac60d",
+  "meshes": [
+    {
+      "path": "root.0",
+      "node_offset": 15640,
+      "mode": 3,
+      "texture_indices": [
+        0,
+        1,
+        4294967295
+      ],
+      "first_index": 0,
+      "index_count": 216,
+      "faces": 72,
+      "contract": {
+        "authored_shader": "carshiny",
+        "interned_shader": "carshiny",
+        "mode": 3,
+        "authored_secondary": "commontextures\\rubber-tga",
+        "effective_secondary": "commontextures\\rubber-tga",
+        "rubber_substring_preserved": true,
+        "reflection_contract_known": true,
+        "environment_selector": 1,
+        "handler": "0x3ade58",
+        "fallback": null,
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      },
+      "mixed_reflection": false,
+      "u_range": [
+        -0.07942056655883789,
+        1.079420566558838
+      ],
+      "v_range": [
+        -0.07942050695419312,
+        1.079420566558838
+      ],
+      "primary_u_wrap": false,
+      "source_texture_slots": [
+        {
+          "slot": 0,
+          "name": "commontextures\\rmw64-tga",
+          "flags": [
+            false,
+            false,
+            false
+          ],
+          "offset": 15662
+        },
+        {
+          "slot": 1,
+          "name": "commontextures\\rubber-tga",
+          "flags": [
+            false,
+            false,
+            false
+          ],
+          "offset": 15696
+        }
+      ],
+      "adc_suppressed": 0,
+      "diagnostic_degenerate": 0
+    },
+    {
+      "path": "root.1",
+      "node_offset": 15821,
+      "mode": 3,
+      "texture_indices": [
+        2,
+        1,
+        4294967295
+      ],
+      "first_index": 216,
+      "index_count": 108,
+      "faces": 36,
+      "contract": {
+        "authored_shader": "carshiny",
+        "interned_shader": "carshiny",
+        "mode": 3,
+        "authored_secondary": "commontextures\\rubber-tga",
+        "effective_secondary": "commontextures\\rubber-tga",
+        "rubber_substring_preserved": true,
+        "reflection_contract_known": true,
+        "environment_selector": 1,
+        "handler": "0x3ade58",
+        "fallback": null,
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      },
+      "mixed_reflection": false,
+      "u_range": [
+        -2.159478187561035,
+        2.830815315246582
+      ],
+      "v_range": [
+        0.0004994571208953857,
+        0.9995005130767822
+      ],
+      "primary_u_wrap": true,
+      "source_texture_slots": [
+        {
+          "slot": 0,
+          "name": "commontextures\\tread-tga",
+          "flags": [
+            false,
+            false,
+            false
+          ],
+          "offset": 15843
+        },
+        {
+          "slot": 1,
+          "name": "commontextures\\rubber-tga",
+          "flags": [
+            false,
+            false,
+            false
+          ],
+          "offset": 15877
+        }
+      ],
+      "adc_suppressed": 0,
+      "diagnostic_degenerate": 0
+    },
+    {
+      "path": "root.2",
+      "node_offset": 15976,
+      "mode": 3,
+      "texture_indices": [
+        3,
+        1,
+        4294967295
+      ],
+      "first_index": 324,
+      "index_count": 162,
+      "faces": 54,
+      "contract": {
+        "authored_shader": "carshiny",
+        "interned_shader": "carshiny",
+        "mode": 3,
+        "authored_secondary": "commontextures\\rubber-tga",
+        "effective_secondary": "commontextures\\rubber-tga",
+        "rubber_substring_preserved": true,
+        "reflection_contract_known": true,
+        "environment_selector": 1,
+        "handler": "0x3ade58",
+        "fallback": null,
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      },
+      "mixed_reflection": false,
+      "u_range": [
+        -0.06443554162979126,
+        1.0644354820251465
+      ],
+      "v_range": [
+        -0.06443554162979126,
+        1.0644354820251465
+      ],
+      "primary_u_wrap": false,
+      "source_texture_slots": [
+        {
+          "slot": 0,
+          "name": "commontextures\\wheel643-tga",
+          "flags": [
+            false,
+            false,
+            false
+          ],
+          "offset": 15998
+        },
+        {
+          "slot": 1,
+          "name": "commontextures\\rubber-tga",
+          "flags": [
+            false,
+            false,
+            false
+          ],
+          "offset": 16035
+        }
+      ],
+      "adc_suppressed": 10,
+      "diagnostic_degenerate": 0
+    },
+    {
+      "path": "root.3",
+      "node_offset": 16147,
+      "mode": 3,
+      "texture_indices": [
+        0,
+        4,
+        4294967295
+      ],
+      "first_index": 486,
+      "index_count": 54,
+      "faces": 18,
+      "contract": {
+        "authored_shader": "carshiny",
+        "interned_shader": "carshiny",
+        "mode": 3,
+        "authored_secondary": "commontextures\\chrome-tga",
+        "effective_secondary": "CommonTextures\\rendertarget64x64",
+        "rubber_substring_preserved": false,
+        "reflection_contract_known": true,
+        "environment_selector": 1,
+        "handler": "0x3ade58",
+        "fallback": null,
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      },
+      "mixed_reflection": true,
+      "u_range": [
+        0.2554289996623993,
+        0.7564123272895813
+      ],
+      "v_range": [
+        0.24709287285804749,
+        0.748076319694519
+      ],
+      "primary_u_wrap": false,
+      "source_texture_slots": [
+        {
+          "slot": 0,
+          "name": "commontextures\\rmw64-tga",
+          "flags": [
+            false,
+            false,
+            false
+          ],
+          "offset": 16169
+        },
+        {
+          "slot": 1,
+          "name": "commontextures\\chrome-tga",
+          "flags": [
+            false,
+            false,
+            false
+          ],
+          "offset": 16203
+        }
+      ],
+      "adc_suppressed": 8,
+      "diagnostic_degenerate": 0
+    },
+    {
+      "path": "root.4",
+      "node_offset": 16302,
+      "mode": 3,
+      "texture_indices": [
+        5,
+        4,
+        4294967295
+      ],
+      "first_index": 540,
+      "index_count": 216,
+      "faces": 72,
+      "contract": {
+        "authored_shader": "carshiny",
+        "interned_shader": "carshiny",
+        "mode": 3,
+        "authored_secondary": "commontextures\\chrome-tga",
+        "effective_secondary": "CommonTextures\\rendertarget64x64",
+        "rubber_substring_preserved": false,
+        "reflection_contract_known": true,
+        "environment_selector": 1,
+        "handler": "0x3ade58",
+        "fallback": null,
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      },
+      "mixed_reflection": true,
+      "u_range": [
+        0.0,
+        1.0
+      ],
+      "v_range": [
+        0.0004995465278625488,
+        0.9995005130767822
+      ],
+      "primary_u_wrap": false,
+      "source_texture_slots": [
+        {
+          "slot": 0,
+          "name": "commontextures\\rmrim-tga",
+          "flags": [
+            false,
+            false,
+            false
+          ],
+          "offset": 16324
+        },
+        {
+          "slot": 1,
+          "name": "commontextures\\chrome-tga",
+          "flags": [
+            false,
+            false,
+            false
+          ],
+          "offset": 16358
+        }
+      ],
+      "adc_suppressed": 0,
+      "diagnostic_degenerate": 0
+    }
+  ],
+  "texture_upload": [
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\RMW64-TGA.GXI",
+      "sha256": "e3b8e9556e5c10627d4db1b3bdb837e113fe16afcbfd6fbbf0593d63cf4b5130",
+      "argb_sha256": "311a42337da453075a88b3f205289ae58b2ad1c359020ad05d4dd99538ed5fb0",
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\RUBBER-TGA.GXI",
+      "sha256": "afba5c39287f33d6ab32576eddbe80e15717385e524b3380d8f6daabcfe1a899",
+      "argb_sha256": "10a9f697ed2209833685b0f9d678d11f17afcf2533a18a31c3234729d7f339f0",
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\TREAD-TGA.GXI",
+      "sha256": "24788d6abbeffe38cc37c27c564077d8bd976989d9e702b8b191efadf03883b2",
+      "argb_sha256": "3c3b645851dee76a70dca871a888ac987f40be145ceee9bb4c2e62736bfd5c0b",
+      "width": 16,
+      "height": 16
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\WHEEL643-TGA.GXI",
+      "sha256": "258c665963d18b8786bd3b56e694a25435ffa18dc767d75088e1cd4d5d1791f0",
+      "argb_sha256": "0653a7e6a9689bd00838b525d180c9a37f0aaf358e3e1b08f00447e2a0c38e03",
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\CHROME-TGA.GXI",
+      "sha256": "4368ca3f678c11c414eca8f4c16e44e7d3513137dd68362ac5e4759a4cc79d0c",
+      "argb_sha256": "7bc7aab42bff670d0f05aec5ca7c7fdae298fe1cdfea97ed56b0c80395ded745",
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\RMRIM-TGA.GXI",
+      "sha256": "af46243eee5b690e6ac034563c3fe085fd98302b4e9fa34d366f52c54e23fc6f",
+      "argb_sha256": "d1d610d7143525400c34fc2386ca3fc0ac28ee3683b164a9296eed0218ba7f60",
+      "width": 16,
+      "height": 16
+    }
+  ],
+  "coordinates": "ORIGINAL_WHEEL_LOCAL_NO_RESCALE_NO_PIVOT_TRANSLATION; CURRENT_INDEPENDENT_NATIVE_WHEEL_WORLD",
+  "primary_orientation": "RAW_SOURCE_UV_RUNTIME_V_EQUALS_1_MINUS_V",
+  "suppression": "ALL_ACTUAL_SOURCE_RECORDS_PER_CURRENT_NATIVE_WHEEL_OWNER_ATOMICALLY; NO_ASSUMED_OWNER_COUNT",
+  "original_post_tree_auxiliary": {
+    "tag": 102,
+    "offset": 16483,
+    "kind": "POST_TREE_WHEEL_CYLINDER_AUXILIARY",
+    "values": [
+      0.4000000059604645,
+      0.20000000298023224
+    ],
+    "value_fields": [
+      "cylinder+0x14",
+      "cylinder+0x18"
+    ],
+    "consumer": "0x003947b0",
+    "visual_owner": "0x003900f0 -> 0x00391d38",
+    "sentinel_offset": 16495,
+    "unparsed_bytes": 0,
+    "runtime_rule": "Model+0x38 assigned only when model name contains wheel; otherwise destroy cylinder",
+    "not_used_for_visual_geometry": true
+  },
+  "filename": "port3-RMONSTER-WHEEL-FLEET.ps2model",
+  "sha256": "8463f123cb416cb949281e31ba57f8c682290e352bba5400e6db02662dbfa536",
+  "bytes": 63894,
+  "vertices": 300,
+  "indices": 756,
+  "textures": 6,
+  "native_sources": [
+    {
+      "record_path": "0",
+      "record_offset": 9464,
+      "top_level_index": 0,
+      "tag": 2,
+      "group_label": null,
+      "vertices": 54,
+      "faces": 72,
+      "vertex_base_source_only": 0,
+      "ordered_texture_slots": [
+        "rmw64-tga",
+        "rubber-tga",
+        "Null"
+      ],
+      "geometry_sha256": "2cb1c11047458720befddb6edee511a99d2db890fa2d2cc0feba8555eee3a4d6",
+      "ordered_position_sha256": "1429e866794f6514d4a31390bf6e769092809850e24c153e47a57d3706b55310",
+      "uv_topology_sha256": "65ad613c309360e4b9bc9b7a19ca3e7446566092824b73f87bddf41c43989442",
+      "native_uv_winding_sha256": "cbd585a2718ff47724436f4f492350877d71256ace5c7972dfcc33f7aae25537",
+      "whole_chassis_suppress_candidate": true,
+      "admission": "CURRENT_NATIVE_OWNER_AND_EXACT_SOURCE_CERTIFICATE_REQUIRED"
+    },
+    {
+      "record_path": "1",
+      "record_offset": 9547,
+      "top_level_index": 1,
+      "tag": 2,
+      "group_label": null,
+      "vertices": 38,
+      "faces": 36,
+      "vertex_base_source_only": 54,
+      "ordered_texture_slots": [
+        "rmtread-tga",
+        "rubber-tga",
+        "Null"
+      ],
+      "geometry_sha256": "d5ad7afcca8fe0d322e28b4915c144fe7886202c1e44a870cc8fd7358d8dd62e",
+      "ordered_position_sha256": "8943b69df2fd17a26b52cd95f6ddb26a64a7b1552295076704891170bfe4c966",
+      "uv_topology_sha256": "41d0988fbc58dfdd933d3c19252221d9fd68db2e650f2798692219c6781551ad",
+      "native_uv_winding_sha256": "956c39dcf73bb0efd0725e3ad83f936b9418dbad474d8c41265871e0ea7946b6",
+      "whole_chassis_suppress_candidate": true,
+      "admission": "CURRENT_NATIVE_OWNER_AND_EXACT_SOURCE_CERTIFICATE_REQUIRED"
+    },
+    {
+      "record_path": "2",
+      "record_offset": 9632,
+      "top_level_index": 2,
+      "tag": 2,
+      "group_label": null,
+      "vertices": 37,
+      "faces": 54,
+      "vertex_base_source_only": 92,
+      "ordered_texture_slots": [
+        "rmw643-tga",
+        "rubber-tga",
+        "Null"
+      ],
+      "geometry_sha256": "f8a51d57fb6b87ce517c03ada1d6cf734bcc0d334ef31003d3bc16d136556037",
+      "ordered_position_sha256": "aec59edc82fd686d7dc61bff650339c68cd5f9817a0f203313604e3bf433678e",
+      "uv_topology_sha256": "7e655768acf13b8d2c1cb603f106475b6d6d64303dcb549af688c4d7499d777e",
+      "native_uv_winding_sha256": "b50a88ae374a5daef5916efea9ee5cd85ddecc7441b5f74419749622efc138cb",
+      "whole_chassis_suppress_candidate": true,
+      "admission": "CURRENT_NATIVE_OWNER_AND_EXACT_SOURCE_CERTIFICATE_REQUIRED"
+    },
+    {
+      "record_path": "3",
+      "record_offset": 9716,
+      "top_level_index": 3,
+      "tag": 2,
+      "group_label": null,
+      "vertices": 19,
+      "faces": 18,
+      "vertex_base_source_only": 129,
+      "ordered_texture_slots": [
+        "rmw64-tga",
+        "chrome-tga",
+        "Null"
+      ],
+      "geometry_sha256": "8eca9e89cc7445102bc16df1c14aec2dc49f0a0ec904459ff51afaa2033b0ab9",
+      "ordered_position_sha256": "64b29d6f0cd425d18d0f113b83f7a9de99b62247cddce34ebe2239c3bce422a8",
+      "uv_topology_sha256": "592d4aedffb0ecc77022b31d84fc38d01fbace22fc5453b4a8c9573f08345ee5",
+      "native_uv_winding_sha256": "a2e0e110a4bb75ae127da90e461e169194ed5ca6deef567515fd479f419ed595",
+      "whole_chassis_suppress_candidate": true,
+      "admission": "CURRENT_NATIVE_OWNER_AND_EXACT_SOURCE_CERTIFICATE_REQUIRED"
+    },
+    {
+      "record_path": "4",
+      "record_offset": 9799,
+      "top_level_index": 4,
+      "tag": 2,
+      "group_label": null,
+      "vertices": 72,
+      "faces": 72,
+      "vertex_base_source_only": 148,
+      "ordered_texture_slots": [
+        "rmrim-tga",
+        "chrome-tga",
+        "Null"
+      ],
+      "geometry_sha256": "5eee6745b7410f80dc97097203a6b8ac77568f88b2182191411c10bb076de981",
+      "ordered_position_sha256": "f1c7ec3338d7748ecb054c1f5e5de6b4de82502a03a1b6045124e4152c8eac19",
+      "uv_topology_sha256": "1fa8dbfddf3d647319fbe0474b6047244deab6d4fbb5d431d83387185476207f",
+      "native_uv_winding_sha256": "7b925553433a634bb44188e7507ea169d570a8181f0245e79b787fde5fbd9a37",
+      "whole_chassis_suppress_candidate": true,
+      "admission": "CURRENT_NATIVE_OWNER_AND_EXACT_SOURCE_CERTIFICATE_REQUIRED"
+    }
+  ],
+  "ps2_bounds": [
+    [
+      -0.14652660489082336,
+      0.14652661979198456
+    ],
+    [
+      -0.3845731019973755,
+      0.3845731019973755
+    ],
+    [
+      -0.39050576090812683,
+      0.39050576090812683
+    ]
+  ],
+  "pc_bounds": [
+    [
+      -0.14652660489082336,
+      0.14652661979198456
+    ],
+    [
+      -0.3845731019973755,
+      0.3845731019973755
+    ],
+    [
+      -0.39050576090812683,
+      0.39050576090812683
+    ]
+  ],
+  "runtime_grant": "CURRENT_OWNER_TRANSFORM_AND_SOURCE_PREFLIGHT_STILL_REQUIRED",
+  "status": "SOURCE_READY_NATIVE_OWNER_QUALIFICATION_REQUIRED",
+  "native_source_count": 5,
+  "native_wheel_owner_count": null,
+  "pivot_bounds_equal": true
+}

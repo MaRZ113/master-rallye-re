@@ -1,0 +1,373 @@
+{
+  "schema_version": 2,
+  "role": "FLEET_WHOLE_SEPARATE_WHEEL",
+  "family": "Tata",
+  "source_sha256": "e34f928937d0430e032ad4f65918eba8052c84a46be4dd1ed78d601cea9446bd",
+  "pc_source_sha256": "f106abef3ba6926350cfc2796b54c17bb762d2b057a0232c4f3d8676dcf638ea",
+  "meshes": [
+    {
+      "path": "root.0",
+      "node_offset": 15640,
+      "mode": 3,
+      "texture_indices": [
+        0,
+        1,
+        4294967295
+      ],
+      "first_index": 0,
+      "index_count": 378,
+      "faces": 126,
+      "contract": {
+        "authored_shader": "carshiny",
+        "interned_shader": "carshiny",
+        "mode": 3,
+        "authored_secondary": "commontextures\\rubber-tga",
+        "effective_secondary": "commontextures\\rubber-tga",
+        "rubber_substring_preserved": true,
+        "reflection_contract_known": true,
+        "environment_selector": 1,
+        "handler": "0x3ade58",
+        "fallback": null,
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      },
+      "mixed_reflection": false,
+      "u_range": [
+        -0.07942056655883789,
+        1.079420566558838
+      ],
+      "v_range": [
+        -0.07942050695419312,
+        1.079420566558838
+      ],
+      "primary_u_wrap": false,
+      "source_texture_slots": [
+        {
+          "slot": 0,
+          "name": "commontextures\\mercwheel643-tga",
+          "flags": [
+            false,
+            false,
+            false
+          ],
+          "offset": 15662
+        },
+        {
+          "slot": 1,
+          "name": "commontextures\\rubber-tga",
+          "flags": [
+            false,
+            false,
+            false
+          ],
+          "offset": 15703
+        }
+      ],
+      "adc_suppressed": 14,
+      "diagnostic_degenerate": 0
+    },
+    {
+      "path": "root.1",
+      "node_offset": 15841,
+      "mode": 3,
+      "texture_indices": [
+        2,
+        1,
+        4294967295
+      ],
+      "first_index": 378,
+      "index_count": 108,
+      "faces": 36,
+      "contract": {
+        "authored_shader": "carshiny",
+        "interned_shader": "carshiny",
+        "mode": 3,
+        "authored_secondary": "commontextures\\rubber-tga",
+        "effective_secondary": "commontextures\\rubber-tga",
+        "rubber_substring_preserved": true,
+        "reflection_contract_known": true,
+        "environment_selector": 1,
+        "handler": "0x3ade58",
+        "fallback": null,
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      },
+      "mixed_reflection": false,
+      "u_range": [
+        -2.159478187561035,
+        2.830815315246582
+      ],
+      "v_range": [
+        0.0004994571208953857,
+        0.9995005130767822
+      ],
+      "primary_u_wrap": true,
+      "source_texture_slots": [
+        {
+          "slot": 0,
+          "name": "commontextures\\merctread-tga",
+          "flags": [
+            false,
+            false,
+            false
+          ],
+          "offset": 15863
+        },
+        {
+          "slot": 1,
+          "name": "commontextures\\rubber-tga",
+          "flags": [
+            false,
+            false,
+            false
+          ],
+          "offset": 15901
+        }
+      ],
+      "adc_suppressed": 0,
+      "diagnostic_degenerate": 0
+    },
+    {
+      "path": "root.2",
+      "node_offset": 16000,
+      "mode": 3,
+      "texture_indices": [
+        3,
+        4,
+        4294967295
+      ],
+      "first_index": 486,
+      "index_count": 270,
+      "faces": 90,
+      "contract": {
+        "authored_shader": "carshiny",
+        "interned_shader": "carshiny",
+        "mode": 3,
+        "authored_secondary": "commontextures\\chrome-tga",
+        "effective_secondary": "CommonTextures\\rendertarget64x64",
+        "rubber_substring_preserved": false,
+        "reflection_contract_known": true,
+        "environment_selector": 1,
+        "handler": "0x3ade58",
+        "fallback": null,
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      },
+      "mixed_reflection": true,
+      "u_range": [
+        0.18386048078536987,
+        0.8161395788192749
+      ],
+      "v_range": [
+        0.18386045098304749,
+        0.8161395788192749
+      ],
+      "primary_u_wrap": false,
+      "source_texture_slots": [
+        {
+          "slot": 0,
+          "name": "commontextures\\landwheel64-tga",
+          "flags": [
+            false,
+            false,
+            false
+          ],
+          "offset": 16022
+        },
+        {
+          "slot": 1,
+          "name": "commontextures\\chrome-tga",
+          "flags": [
+            false,
+            false,
+            false
+          ],
+          "offset": 16062
+        }
+      ],
+      "adc_suppressed": 6,
+      "diagnostic_degenerate": 0
+    }
+  ],
+  "texture_upload": [
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\MERCWHEEL643-TGA.GXI",
+      "sha256": "258c665963d18b8786bd3b56e694a25435ffa18dc767d75088e1cd4d5d1791f0",
+      "argb_sha256": "0653a7e6a9689bd00838b525d180c9a37f0aaf358e3e1b08f00447e2a0c38e03",
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\RUBBER-TGA.GXI",
+      "sha256": "afba5c39287f33d6ab32576eddbe80e15717385e524b3380d8f6daabcfe1a899",
+      "argb_sha256": "10a9f697ed2209833685b0f9d678d11f17afcf2533a18a31c3234729d7f339f0",
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\MERCTREAD-TGA.GXI",
+      "sha256": "24788d6abbeffe38cc37c27c564077d8bd976989d9e702b8b191efadf03883b2",
+      "argb_sha256": "3c3b645851dee76a70dca871a888ac987f40be145ceee9bb4c2e62736bfd5c0b",
+      "width": 16,
+      "height": 16
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\LANDWHEEL64-TGA.GXI",
+      "sha256": "277a27a3908e5a8cfaee9a4620da043a970498cdfa81aeae5eddfc1049c8d28e",
+      "argb_sha256": "723bd806e8c67bb62956ae41db794cd5169b0bf34e90f781ed429c49dbd46417",
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\CHROME-TGA.GXI",
+      "sha256": "4368ca3f678c11c414eca8f4c16e44e7d3513137dd68362ac5e4759a4cc79d0c",
+      "argb_sha256": "7bc7aab42bff670d0f05aec5ca7c7fdae298fe1cdfea97ed56b0c80395ded745",
+      "width": 32,
+      "height": 32
+    }
+  ],
+  "coordinates": "ORIGINAL_WHEEL_LOCAL_NO_RESCALE_NO_PIVOT_TRANSLATION; CURRENT_INDEPENDENT_NATIVE_WHEEL_WORLD",
+  "primary_orientation": "RAW_SOURCE_UV_RUNTIME_V_EQUALS_1_MINUS_V",
+  "suppression": "ALL_ACTUAL_SOURCE_RECORDS_PER_CURRENT_NATIVE_WHEEL_OWNER_ATOMICALLY; NO_ASSUMED_OWNER_COUNT",
+  "original_post_tree_auxiliary": {
+    "tag": 102,
+    "offset": 16226,
+    "kind": "POST_TREE_WHEEL_CYLINDER_AUXILIARY",
+    "values": [
+      0.4000000059604645,
+      0.20000000298023224
+    ],
+    "value_fields": [
+      "cylinder+0x14",
+      "cylinder+0x18"
+    ],
+    "consumer": "0x003947b0",
+    "visual_owner": "0x003900f0 -> 0x00391d38",
+    "sentinel_offset": 16238,
+    "unparsed_bytes": 0,
+    "runtime_rule": "Model+0x38 assigned only when model name contains wheel; otherwise destroy cylinder",
+    "not_used_for_visual_geometry": true
+  },
+  "filename": "port3-TATA-WHEEL-FLEET.ps2model",
+  "sha256": "3ac622ae2d9f66c55862916526df9b5ea929a173e661d211546ba0b6f3aba65e",
+  "bytes": 60865,
+  "vertices": 300,
+  "indices": 756,
+  "textures": 5,
+  "native_sources": [
+    {
+      "record_path": "0",
+      "record_offset": 9464,
+      "top_level_index": 0,
+      "tag": 2,
+      "group_label": null,
+      "vertices": 54,
+      "faces": 72,
+      "vertex_base_source_only": 0,
+      "ordered_texture_slots": [
+        "mercwheel64-tga",
+        "rubber-tga",
+        "Null"
+      ],
+      "geometry_sha256": "e9d6a2949b9b1b8e4c881b16a2f9af8a5bed34db3058490ee4f072253f86c8dd",
+      "ordered_position_sha256": "8b5d7513dc501923bbcd4a9f28e8884942ba19acb96205ee0b5fe035600c9d8c",
+      "uv_topology_sha256": "65ad613c309360e4b9bc9b7a19ca3e7446566092824b73f87bddf41c43989442",
+      "native_uv_winding_sha256": "cbd585a2718ff47724436f4f492350877d71256ace5c7972dfcc33f7aae25537",
+      "whole_chassis_suppress_candidate": true,
+      "admission": "CURRENT_NATIVE_OWNER_AND_EXACT_SOURCE_CERTIFICATE_REQUIRED"
+    },
+    {
+      "record_path": "1",
+      "record_offset": 9553,
+      "top_level_index": 1,
+      "tag": 2,
+      "group_label": null,
+      "vertices": 38,
+      "faces": 36,
+      "vertex_base_source_only": 54,
+      "ordered_texture_slots": [
+        "merctread-tga",
+        "rubber-tga",
+        "Null"
+      ],
+      "geometry_sha256": "5895889f696a7042c83e1e6b5806b2af6d9199c201459f99f1938693f723d5a6",
+      "ordered_position_sha256": "ef9431198f41963e43150c2e87e69540b8a17ef0045580997e37826e2afbb1b0",
+      "uv_topology_sha256": "41d0988fbc58dfdd933d3c19252221d9fd68db2e650f2798692219c6781551ad",
+      "native_uv_winding_sha256": "956c39dcf73bb0efd0725e3ad83f936b9418dbad474d8c41265871e0ea7946b6",
+      "whole_chassis_suppress_candidate": true,
+      "admission": "CURRENT_NATIVE_OWNER_AND_EXACT_SOURCE_CERTIFICATE_REQUIRED"
+    },
+    {
+      "record_path": "2",
+      "record_offset": 9640,
+      "top_level_index": 2,
+      "tag": 2,
+      "group_label": null,
+      "vertices": 37,
+      "faces": 54,
+      "vertex_base_source_only": 92,
+      "ordered_texture_slots": [
+        "mercwheel643-tga",
+        "rubber-tga",
+        "Null"
+      ],
+      "geometry_sha256": "fb39b92fcc8597c8c3d9b140037197dab02b55afa41f16affe1e35ed1b12673f",
+      "ordered_position_sha256": "e2ca4e2b42a8fe1a97784b60a10e04ddb8efa629feb8730780be29e99b395f00",
+      "uv_topology_sha256": "7e655768acf13b8d2c1cb603f106475b6d6d64303dcb549af688c4d7499d777e",
+      "native_uv_winding_sha256": "b50a88ae374a5daef5916efea9ee5cd85ddecc7441b5f74419749622efc138cb",
+      "whole_chassis_suppress_candidate": true,
+      "admission": "CURRENT_NATIVE_OWNER_AND_EXACT_SOURCE_CERTIFICATE_REQUIRED"
+    },
+    {
+      "record_path": "3",
+      "record_offset": 9730,
+      "top_level_index": 3,
+      "tag": 2,
+      "group_label": null,
+      "vertices": 91,
+      "faces": 90,
+      "vertex_base_source_only": 129,
+      "ordered_texture_slots": [
+        "tatawheel-tga",
+        "chrome-tga",
+        "Null"
+      ],
+      "geometry_sha256": "5bbe6a52ed62fe4cca6860c3e601379fcf6ef403ecafcd5b8e3d9db5fa909b1c",
+      "ordered_position_sha256": "9b3e1f3398d0d63805a9fc0edf927df8e37d08475598e1753a8f312bb1457628",
+      "uv_topology_sha256": "6f3d81770e96cdeece57ab6a94ddf8bcd74e542bfbb0d1a36e2cfe611ab9193e",
+      "native_uv_winding_sha256": "cd832582d70a6d9718874c08426168fa984c7034b947c4d954ace2a794bd000b",
+      "whole_chassis_suppress_candidate": true,
+      "admission": "CURRENT_NATIVE_OWNER_AND_EXACT_SOURCE_CERTIFICATE_REQUIRED"
+    }
+  ],
+  "ps2_bounds": [
+    [
+      -0.14562499523162842,
+      0.14562499523162842
+    ],
+    [
+      -0.3822064697742462,
+      0.3822064697742462
+    ],
+    [
+      -0.388102650642395,
+      0.388102650642395
+    ]
+  ],
+  "pc_bounds": [
+    [
+      -0.14562499523162842,
+      0.14562499523162842
+    ],
+    [
+      -0.3822064697742462,
+      0.3822064697742462
+    ],
+    [
+      -0.388102650642395,
+      0.388102650642395
+    ]
+  ],
+  "runtime_grant": "CURRENT_OWNER_TRANSFORM_AND_SOURCE_PREFLIGHT_STILL_REQUIRED",
+  "status": "SOURCE_READY_NATIVE_OWNER_QUALIFICATION_REQUIRED",
+  "native_source_count": 4,
+  "native_wheel_owner_count": null,
+  "pivot_bounds_equal": true
+}

@@ -1,0 +1,601 @@
+{
+  "schema": 1,
+  "evidence": "ORIGINAL_SOURCE_ONLY_NOT_RUNTIME",
+  "families": [
+    {
+      "family": "FRONTERA",
+      "ps2_sha256": "007758a3192218b383c41d520cddf326e6ba23a6ca625acd48d436e0955495bd",
+      "pc_sha256": "345a143d24945d72f212eea033d6349b51b70d3df36a60dac22e98e2d380940c",
+      "meshes": [
+        {
+          "path": "root.23.0.0",
+          "mode": 1,
+          "slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "faces": 4,
+          "vertex_count": 8,
+          "pc_candidates": [
+            {
+              "record": 31,
+              "vertices": 8,
+              "max_position_error": 1.1920928955078125e-07,
+              "max_uv_error": 0.0,
+              "geometry_sha256": "6385e8acff1f6d4f0de0fd50c270be72301df78cae26448c3a40484bad619026",
+              "position_uv_corner_sha256": "f923f68f97e684d1e43733c82f5f54e119b9cffc0c1fd7d7bd3df281e3f17527",
+              "uv_triangle_sha256": "c554e0508e3fa454ea87399c42f0c8c21dfe4d4faf19c21ec2dc75eb8e74f826",
+              "exact_uv_triangle_multiset": true,
+              "record_path": "27",
+              "ordered_texture_slots": [
+                "breaklightson-tga",
+                "perspex-tga",
+                "Null"
+              ]
+            },
+            {
+              "record": 33,
+              "vertices": 8,
+              "max_position_error": 1.1920928955078125e-07,
+              "max_uv_error": 0.7565858662128448,
+              "geometry_sha256": "6385e8acff1f6d4f0de0fd50c270be72301df78cae26448c3a40484bad619026",
+              "position_uv_corner_sha256": "fdea261af8aa8b1a8c746a5aea1c43a2e455f4521aa2f4bf5eafb9a91dfb3d5b",
+              "uv_triangle_sha256": "a97f70be43196dae4c05c89d52f476ba943712870e8f431925171221ee9fee9c",
+              "exact_uv_triangle_multiset": false,
+              "record_path": "27.2",
+              "ordered_texture_slots": [
+                "fhlight1-tga",
+                "perspex-tga",
+                "Null"
+              ]
+            },
+            {
+              "record": 6,
+              "vertices": 8,
+              "max_position_error": 1.6877385079860687,
+              "max_uv_error": 1.0,
+              "geometry_sha256": "800529ac2c3ad94c0f58cd754a8732cd49ec2fba94f6cf27bd6adcde53ca49cc",
+              "position_uv_corner_sha256": "7c7dcbafd1fa8d88b630bf310fa651607b505d51bb688d5132a414229acb6e85",
+              "uv_triangle_sha256": "74a32adf7dfcefdc11c488be6d7406db5320bb7df9eea9313a26e1187ceeffcd",
+              "exact_uv_triangle_multiset": false,
+              "record_path": "6",
+              "ordered_texture_slots": [
+                "doorbit16-tga",
+                "whitepaint-tga",
+                "Null"
+              ]
+            }
+          ],
+          "ps2_uv_triangle_sha256": "c554e0508e3fa454ea87399c42f0c8c21dfe4d4faf19c21ec2dc75eb8e74f826"
+        },
+        {
+          "path": "root.23.0.1",
+          "mode": 14,
+          "slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "faces": 16,
+          "vertex_count": 20,
+          "pc_candidates": [
+            {
+              "record": 32,
+              "vertices": 16,
+              "max_position_error": 0.039209842681884766,
+              "max_uv_error": 0.0,
+              "geometry_sha256": "926295a55026239ee0ddaee77a6170994823650c58946479c812c2ab202e760c",
+              "position_uv_corner_sha256": "b579e1f9c196a0215f50bc3927e89c620d1483a41f0a1028994a8f8d93446e67",
+              "uv_triangle_sha256": "a21018e2f6885cb20a9e09188c06addfb9f6e731584ec6a1eee5ae2d36b86677",
+              "exact_uv_triangle_multiset": true,
+              "record_path": "27.1",
+              "ordered_texture_slots": [
+                "breaklightsonglow-tga",
+                "perspex-tga",
+                "Null"
+              ]
+            }
+          ],
+          "ps2_uv_triangle_sha256": "a21018e2f6885cb20a9e09188c06addfb9f6e731584ec6a1eee5ae2d36b86677"
+        }
+      ]
+    },
+    {
+      "family": "JUMP",
+      "ps2_sha256": "049d2d2517b8feb949a422753570e34fd55d2d5a87f42d4c8221e0c5af45d304",
+      "pc_sha256": "a6ad8bcb7c71e572f065a5c3710308730c2c4f0cc8b32f25af279adc923a7baa",
+      "meshes": [
+        {
+          "path": "root.21.0.0",
+          "mode": 14,
+          "slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "faces": 16,
+          "vertex_count": 20,
+          "pc_candidates": [
+            {
+              "record": 28,
+              "vertices": 16,
+              "max_position_error": 0.0024013519287109375,
+              "max_uv_error": 0.0,
+              "geometry_sha256": "e596c5d2b8f03677cc7dbf610db3bc7ad4e3adc3098c6f1475084f175b372bff",
+              "position_uv_corner_sha256": "13b3054affd20f7fa0f934248c5b8c8657a949d335b444fa39a5bc0f841d8256",
+              "uv_triangle_sha256": "6f5d86fefbb1646645e6a85f258dd139859e4285835a9db2cd0ee7b8802befd9",
+              "exact_uv_triangle_multiset": true,
+              "record_path": "24.1",
+              "ordered_texture_slots": [
+                "breaklightsonglow-tga",
+                "perspex-tga",
+                "Null"
+              ]
+            },
+            {
+              "record": 10,
+              "vertices": 36,
+              "max_position_error": 0.7772555351257324,
+              "max_uv_error": 0.9995003342628479,
+              "geometry_sha256": "5011e4c039c02b7662a9f7b228b1a9425ac682ccd28274555cfaa9cec0a513c7",
+              "position_uv_corner_sha256": "709cfd7c7f6e9fb787b48722081e78cb6a84f9eeda6ddca499ed833e2cb176f9",
+              "uv_triangle_sha256": "4007a4ab1e18d213925564562b75e1e3c1470755827b37ea00c75018c08f44ee",
+              "exact_uv_triangle_multiset": false,
+              "record_path": "10",
+              "ordered_texture_slots": [
+                "sus32b-tga",
+                "Null",
+                "Null"
+              ]
+            }
+          ],
+          "ps2_uv_triangle_sha256": "6f5d86fefbb1646645e6a85f258dd139859e4285835a9db2cd0ee7b8802befd9"
+        },
+        {
+          "path": "root.21.0.1",
+          "mode": 1,
+          "slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "faces": 4,
+          "vertex_count": 8,
+          "pc_candidates": [
+            {
+              "record": 27,
+              "vertices": 8,
+              "max_position_error": 0.0024013519287109375,
+              "max_uv_error": 0.0,
+              "geometry_sha256": "249e3b01ffc3902b114f281006038c46aa50448f975bc450db0eac7bb92ac1de",
+              "position_uv_corner_sha256": "72f9a53ba36d59883fb770806bcdf76dc2bdcec3228d35dbd50c0f245e0c869a",
+              "uv_triangle_sha256": "c554e0508e3fa454ea87399c42f0c8c21dfe4d4faf19c21ec2dc75eb8e74f826",
+              "exact_uv_triangle_multiset": true,
+              "record_path": "24",
+              "ordered_texture_slots": [
+                "breaklightson-tga",
+                "perspex-tga",
+                "Null"
+              ]
+            },
+            {
+              "record": 29,
+              "vertices": 8,
+              "max_position_error": 0.0024013519287109375,
+              "max_uv_error": 0.45540547370910645,
+              "geometry_sha256": "249e3b01ffc3902b114f281006038c46aa50448f975bc450db0eac7bb92ac1de",
+              "position_uv_corner_sha256": "655e285e638b3750ede562ab1b14ca68b3dd19d27dd5ff370915566e4d34bb39",
+              "uv_triangle_sha256": "14d29661e9a6015c06e1ba138cff66eab82aad96f5b486d3b7987a770da0c669",
+              "exact_uv_triangle_multiset": false,
+              "record_path": "24.2",
+              "ordered_texture_slots": [
+                "jumplights32-tga",
+                "perspex-tga",
+                "Null"
+              ]
+            },
+            {
+              "record": 23,
+              "vertices": 6,
+              "max_position_error": 2.3600342869758606,
+              "max_uv_error": 0.9506465196609497,
+              "geometry_sha256": "74a34edca97866b459810c9fc1ebe65f0c9b5c6b7baa5e1832cdabd5b7d06ad2",
+              "position_uv_corner_sha256": "0991736866dc19492e07d1438c03711da8a2aa089c975efc1af71be5f72895f5",
+              "uv_triangle_sha256": "fcdc6a58e4b9bb7819833a966c38a46f7d79821abbac3917ea00a0ff2a8bcad8",
+              "exact_uv_triangle_multiset": false,
+              "record_path": "22",
+              "ordered_texture_slots": [
+                "windscreen32-tga",
+                "glass-tga",
+                "Null"
+              ]
+            },
+            {
+              "record": 24,
+              "vertices": 6,
+              "max_position_error": 2.3600342869758606,
+              "max_uv_error": 0.9506465196609497,
+              "geometry_sha256": "74a34edca97866b459810c9fc1ebe65f0c9b5c6b7baa5e1832cdabd5b7d06ad2",
+              "position_uv_corner_sha256": "0991736866dc19492e07d1438c03711da8a2aa089c975efc1af71be5f72895f5",
+              "uv_triangle_sha256": "fcdc6a58e4b9bb7819833a966c38a46f7d79821abbac3917ea00a0ff2a8bcad8",
+              "exact_uv_triangle_multiset": false,
+              "record_path": "22.1",
+              "ordered_texture_slots": [
+                "windscreenc32-tga",
+                "glass-tga",
+                "Null"
+              ]
+            },
+            {
+              "record": 25,
+              "vertices": 6,
+              "max_position_error": 2.3600343465805054,
+              "max_uv_error": 0.950646698474884,
+              "geometry_sha256": "3abc4a347a53a9012ac58d9a2c60dda983b5423f7c025ecfccc80ab4b0acc750",
+              "position_uv_corner_sha256": "250d416c0f58293a55bc792072a844e8c36b4dfb704a3a3178e3362d58b4d3e0",
+              "uv_triangle_sha256": "a0423b2767e0806f90c0207f6b95bf59db1d7c56786a1234e7bf76106e14cfaa",
+              "exact_uv_triangle_multiset": false,
+              "record_path": "23",
+              "ordered_texture_slots": [
+                "windscreen32-tga",
+                "glass-tga",
+                "Null"
+              ]
+            },
+            {
+              "record": 26,
+              "vertices": 6,
+              "max_position_error": 2.3600343465805054,
+              "max_uv_error": 0.950646698474884,
+              "geometry_sha256": "3abc4a347a53a9012ac58d9a2c60dda983b5423f7c025ecfccc80ab4b0acc750",
+              "position_uv_corner_sha256": "250d416c0f58293a55bc792072a844e8c36b4dfb704a3a3178e3362d58b4d3e0",
+              "uv_triangle_sha256": "a0423b2767e0806f90c0207f6b95bf59db1d7c56786a1234e7bf76106e14cfaa",
+              "exact_uv_triangle_multiset": false,
+              "record_path": "23.1",
+              "ordered_texture_slots": [
+                "windscreenc32-tga",
+                "glass-tga",
+                "Null"
+              ]
+            }
+          ],
+          "ps2_uv_triangle_sha256": "c554e0508e3fa454ea87399c42f0c8c21dfe4d4faf19c21ec2dc75eb8e74f826"
+        }
+      ]
+    },
+    {
+      "family": "MATTSERATI",
+      "ps2_sha256": "165a9b7c2553e7a55def29f3deee4b83af6e1e4435c33a41ef2107477f25246a",
+      "pc_sha256": "e0db7a014f60c71291337e1b3c43909926957132f50017b7ef9e00610fd528e2",
+      "meshes": [
+        {
+          "path": "root.21.0.0",
+          "mode": 1,
+          "slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "faces": 36,
+          "vertex_count": 56,
+          "pc_candidates": [
+            {
+              "record": 23,
+              "vertices": 34,
+              "max_position_error": 0.008023202419281006,
+              "max_uv_error": 0.0,
+              "geometry_sha256": "e76f4eb487e8b8f5b516bd2e9d9a7979e4fb5500f1a4dfd8017538c47d4765d4",
+              "position_uv_corner_sha256": "2aff968e28e0f19a460578782f0f693397cf3a2e55f1615f9f8d534364b9433b",
+              "uv_triangle_sha256": "dd88d61cf53911d79e521a1a2a0b1a1a84a68ec9295c34e96080fbb4cf3ab981",
+              "exact_uv_triangle_multiset": true,
+              "record_path": "22",
+              "ordered_texture_slots": [
+                "breaklightson-tga",
+                "perspex-tga",
+                "Null"
+              ]
+            },
+            {
+              "record": 14,
+              "vertices": 38,
+              "max_position_error": 0.8795891404151917,
+              "max_uv_error": 5.63376148045063,
+              "geometry_sha256": "56f7116d3511b2ac6d4b78c802169936fe01942a59e1c3590f091280ae87c555",
+              "position_uv_corner_sha256": "632dfd740db29e8d87ec295dbfaaeb05c830e23c32b71c9fb1b4d0034a3a741b",
+              "uv_triangle_sha256": "e1b3ac3b059da24bfffd011bb6c76de07876fd2c20d7545294662bd4b1bc2d90",
+              "exact_uv_triangle_multiset": false,
+              "record_path": "14",
+              "ordered_texture_slots": [
+                "tread-tga",
+                "rubber-tga",
+                "Null"
+              ]
+            }
+          ],
+          "ps2_uv_triangle_sha256": "dd88d61cf53911d79e521a1a2a0b1a1a84a68ec9295c34e96080fbb4cf3ab981"
+        },
+        {
+          "path": "root.21.0.1",
+          "mode": 14,
+          "slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga"
+          ],
+          "faces": 48,
+          "vertex_count": 56,
+          "pc_candidates": [
+            {
+              "record": 24,
+              "vertices": 48,
+              "max_position_error": 0.00802314281463623,
+              "max_uv_error": 0.0,
+              "geometry_sha256": "6166db4797ca28731baea23873a55368f1aee812524f70ae72cc85fd0103f159",
+              "position_uv_corner_sha256": "b389f600990b9df612d9a623c1c71c51d52870c2e8acd7a2543cc08156cfe97d",
+              "uv_triangle_sha256": "11e94609cd8976487145f4c55ff641bb00b11dd3d28c802a1173c5a920c8dd2a",
+              "exact_uv_triangle_multiset": true,
+              "record_path": "22.1",
+              "ordered_texture_slots": [
+                "breaklightsonglow-tga",
+                "perspex-tga",
+                "Null"
+              ]
+            }
+          ],
+          "ps2_uv_triangle_sha256": "11e94609cd8976487145f4c55ff641bb00b11dd3d28c802a1173c5a920c8dd2a"
+        }
+      ]
+    },
+    {
+      "family": "RMONSTER",
+      "ps2_sha256": "9d5805e16d855e10b25704e88a25ecd55adadb9f89de77e66f4c29c2f9eb6a4a",
+      "pc_sha256": "b3c4e3485f7b864829ec594977230dc18a6deb4cdef9382757fecee5fdf42a46",
+      "meshes": [
+        {
+          "path": "root.18.1.0",
+          "mode": 1,
+          "slots": [
+            "breaklightson-tga",
+            "perspex-tga"
+          ],
+          "faces": 8,
+          "vertex_count": 12,
+          "pc_candidates": [
+            {
+              "record": 23,
+              "vertices": 12,
+              "max_position_error": 1.1920928955078125e-07,
+              "max_uv_error": 0.0,
+              "geometry_sha256": "2ba9b5cdfa25c47b72b590b1672bb88c3008ebee5143ce6921e9bdd9cb4a444b",
+              "position_uv_corner_sha256": "305c5e8e7917bcbeb05c627ae021d617bc5c1e947ea3b7b8eda4640d0d6ecb3a",
+              "uv_triangle_sha256": "5c8bd24ddcfbf21cbf56759b999a7052cbc54d82a38a25cd2e21b4617d9c4e97",
+              "exact_uv_triangle_multiset": true,
+              "record_path": "22.1",
+              "ordered_texture_slots": [
+                "breaklightson-tga",
+                "Null",
+                "Null"
+              ]
+            },
+            {
+              "record": 22,
+              "vertices": 12,
+              "max_position_error": 1.1920928955078125e-07,
+              "max_uv_error": 0.9986690954538062,
+              "geometry_sha256": "2ba9b5cdfa25c47b72b590b1672bb88c3008ebee5143ce6921e9bdd9cb4a444b",
+              "position_uv_corner_sha256": "e4412ec47ba6f640be33e55f1f7f68b5a6dc01d1c6042d8754e0476015af445c",
+              "uv_triangle_sha256": "9058d826114f3b565ca2031d33a871dd52ff3566880aa11e110389ccd3d51078",
+              "exact_uv_triangle_multiset": false,
+              "record_path": "22",
+              "ordered_texture_slots": [
+                "rlights-tga",
+                "perspex-tga",
+                "Null"
+              ]
+            },
+            {
+              "record": 12,
+              "vertices": 12,
+              "max_position_error": 1.5707379579544067,
+              "max_uv_error": 1.0425501801073551,
+              "geometry_sha256": "a1fdeddfc502b3e25f2555ba5b193792fa45025f35beebff1a41eaab451428ed",
+              "position_uv_corner_sha256": "8a35debd6090b8d4bf3fb81ab49029f8b59952b0c0526ced17ad39ad9fee7cf0",
+              "uv_triangle_sha256": "bb0c4a725c38b2021558be2260a54c7aec1bd3e08a59b44e9d3e775b07b7edf3",
+              "exact_uv_triangle_multiset": false,
+              "record_path": "12",
+              "ordered_texture_slots": [
+                "4x464-tga",
+                "whitepaint-tga",
+                "Null"
+              ]
+            },
+            {
+              "record": 31,
+              "vertices": 12,
+              "max_position_error": 2.178313784301281,
+              "max_uv_error": 1.3779633045196533,
+              "geometry_sha256": "4911810d1e37151621977e11d01868753ef0029622f4da628424ac811b05a671",
+              "position_uv_corner_sha256": "bae085a3f7115696d52181e8c172aa032bfb462e07d0453edab483c90c516622",
+              "uv_triangle_sha256": "5d2ad0599606f9147939a6d7fba4191f1978655f95fa345969fd8ebca059f080",
+              "exact_uv_triangle_multiset": false,
+              "record_path": "27",
+              "ordered_texture_slots": [
+                "windscreenc32-tga",
+                "glass-tga",
+                "Null"
+              ]
+            },
+            {
+              "record": 32,
+              "vertices": 12,
+              "max_position_error": 2.178313784301281,
+              "max_uv_error": 1.3779633045196533,
+              "geometry_sha256": "4911810d1e37151621977e11d01868753ef0029622f4da628424ac811b05a671",
+              "position_uv_corner_sha256": "bae085a3f7115696d52181e8c172aa032bfb462e07d0453edab483c90c516622",
+              "uv_triangle_sha256": "5d2ad0599606f9147939a6d7fba4191f1978655f95fa345969fd8ebca059f080",
+              "exact_uv_triangle_multiset": false,
+              "record_path": "27.1",
+              "ordered_texture_slots": [
+                "windscreen32-tga",
+                "glass-tga",
+                "Null"
+              ]
+            },
+            {
+              "record": 17,
+              "vertices": 12,
+              "max_position_error": 4.26564621925354,
+              "max_uv_error": 0.9995005428791046,
+              "geometry_sha256": "706e95744f274e085e48fc14c7b93e672c18b7c0cd17d4df9f195cf3512ca72c",
+              "position_uv_corner_sha256": "1f3fda6bdb80556cd74cebc95c2041d20971b3861428e04e63dc81e4366c1ec3",
+              "uv_triangle_sha256": "ab5d33a8cca6014844fca96ca1e4f43c3ad1ce477a4b875252612fee071ed6ea",
+              "exact_uv_triangle_multiset": false,
+              "record_path": "17",
+              "ordered_texture_slots": [
+                "rlights-tga",
+                "glass-tga",
+                "Null"
+              ]
+            }
+          ],
+          "ps2_uv_triangle_sha256": "5c8bd24ddcfbf21cbf56759b999a7052cbc54d82a38a25cd2e21b4617d9c4e97"
+        },
+        {
+          "path": "root.18.1.1",
+          "mode": 14,
+          "slots": [
+            "breaklightsonglow-tga"
+          ],
+          "faces": 24,
+          "vertex_count": 28,
+          "pc_candidates": [
+            {
+              "record": 24,
+              "vertices": 24,
+              "max_position_error": 0.020730972290039062,
+              "max_uv_error": 0.0,
+              "geometry_sha256": "8615ce9d474c41928d86f78b57427408b744d55895bb94145247db35e959618d",
+              "position_uv_corner_sha256": "a5bf4720247fc87250f311e489bc17dbe32f207f7f099aa4420fe02d6be530d0",
+              "uv_triangle_sha256": "fdfa938078bc5d1bb203db1a8b75f935e363798bb7d3d04699bedb55d04b0bdb",
+              "exact_uv_triangle_multiset": true,
+              "record_path": "23",
+              "ordered_texture_slots": [
+                "breaklightsonglow-tga",
+                "Null",
+                "Null"
+              ]
+            }
+          ],
+          "ps2_uv_triangle_sha256": "fdfa938078bc5d1bb203db1a8b75f935e363798bb7d3d04699bedb55d04b0bdb"
+        }
+      ]
+    },
+    {
+      "family": "TATA",
+      "ps2_sha256": "9397b4b9b60567a3ac3f5e0ac752a6794b3fea9ace8c2bb524db53bb565e6c84",
+      "pc_sha256": "45b7bfba6938e259c0ac6d79a42a878a8c66b1e53547a53a6d23343092fb34cb",
+      "meshes": [
+        {
+          "path": "root.24.1.0",
+          "mode": 1,
+          "slots": [
+            "breaklightson-tga",
+            "lightshine-tga"
+          ],
+          "faces": 10,
+          "vertex_count": 18,
+          "pc_candidates": [
+            {
+              "record": 31,
+              "vertices": 18,
+              "max_position_error": 1.1920928955078125e-07,
+              "max_uv_error": 0.0,
+              "geometry_sha256": "91bbf4861afa2d3dcd37b9478eb773dfa3c380f13302901025cd6d8a78d50363",
+              "position_uv_corner_sha256": "1e556a67536ea956047e2a8be544eec771eae34b4d699d3b98d7d333ea225da6",
+              "uv_triangle_sha256": "1eee2fd30d40b5d5d9b11f58eb23e7a4091bef6ffcc7514a368b688578307575",
+              "exact_uv_triangle_multiset": true,
+              "record_path": "30.1",
+              "ordered_texture_slots": [
+                "breaklightson-tga",
+                "Null",
+                "Null"
+              ]
+            },
+            {
+              "record": 30,
+              "vertices": 18,
+              "max_position_error": 1.1920928955078125e-07,
+              "max_uv_error": 0.9451667368412018,
+              "geometry_sha256": "91bbf4861afa2d3dcd37b9478eb773dfa3c380f13302901025cd6d8a78d50363",
+              "position_uv_corner_sha256": "d57ae56f6b768bd109e09bd472a2e5b8fcf6de7fdfc2a099bb146078855d19c0",
+              "uv_triangle_sha256": "32e9c8faf60fecfa3d809dba0baec7991de974271107a41d490f237f13f94aac",
+              "exact_uv_triangle_multiset": false,
+              "record_path": "30",
+              "ordered_texture_slots": [
+                "ttbacklights-tga",
+                "glass-tga",
+                "Null"
+              ]
+            },
+            {
+              "record": 28,
+              "vertices": 14,
+              "max_position_error": 4.160966277122498,
+              "max_uv_error": 0.9467576742172241,
+              "geometry_sha256": "dfb676b537c04cbddf49836cea6c7184426d63ab8c4b599f1bba951d693abcc1",
+              "position_uv_corner_sha256": "a2ee440ea8f8896395df5a59f164063cae920404d3daa524c078677bc912f56b",
+              "uv_triangle_sha256": "b25f4bbdfb40968b28820e9f02b293763e84c023a6fea95f1ef7e4b002696a53",
+              "exact_uv_triangle_multiset": false,
+              "record_path": "28",
+              "ordered_texture_slots": [
+                "tatalights-tga",
+                "glass-tga",
+                "Null"
+              ]
+            }
+          ],
+          "ps2_uv_triangle_sha256": "1eee2fd30d40b5d5d9b11f58eb23e7a4091bef6ffcc7514a368b688578307575"
+        },
+        {
+          "path": "root.24.1.1",
+          "mode": 14,
+          "slots": [
+            "breaklightsonglow-tga"
+          ],
+          "faces": 28,
+          "vertex_count": 32,
+          "pc_candidates": [
+            {
+              "record": 32,
+              "vertices": 36,
+              "max_position_error": 0.04579043388366699,
+              "max_uv_error": 0.0,
+              "geometry_sha256": "a2880efe7045219bb310c943cfc4bec8036017f437269aa92cad3011f57196ae",
+              "position_uv_corner_sha256": "a9790a77073faac9fb7016f68153969f9a97ebb98539f1583681d3a56d3a351c",
+              "uv_triangle_sha256": "330bc2704b825b0c814dc38aeae8233cfe958d1a44ba8ddcf618d6069f1628e3",
+              "exact_uv_triangle_multiset": true,
+              "record_path": "31",
+              "ordered_texture_slots": [
+                "breaklightsonglow-tga",
+                "Null",
+                "Null"
+              ]
+            },
+            {
+              "record": 2,
+              "vertices": 24,
+              "max_position_error": 2.978424370288849,
+              "max_uv_error": 0.7321320474147797,
+              "geometry_sha256": "9e7e42838e36f1d26030f48375996f1d3397b7000e40a87935e15be7c55286ce",
+              "position_uv_corner_sha256": "cdfcd483c368435828a7a760aa70f8b71e7b6e47c0fafddd0266da3697d81d20",
+              "uv_triangle_sha256": "9be644391a16dd4420a5bd35c4fb972aa88ade4c32a947f9e75c1ec688d72241",
+              "exact_uv_triangle_multiset": false,
+              "record_path": "2",
+              "ordered_texture_slots": [
+                "blackplastic-tga",
+                "rubber-tga",
+                "Null"
+              ]
+            }
+          ],
+          "ps2_uv_triangle_sha256": "330bc2704b825b0c814dc38aeae8233cfe958d1a44ba8ddcf618d6069f1628e3"
+        }
+      ]
+    }
+  ]
+}

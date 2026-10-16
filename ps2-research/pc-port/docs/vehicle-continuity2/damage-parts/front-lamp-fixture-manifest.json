@@ -1,0 +1,13 @@
+{
+  "captures": [
+    {
+      "file": "race-damage-13624-d1-f3221.jsonl",
+      "sha256": "60723427bf85e396a14b347771a1cd6d97f97c3a268b2ce6c623994ba3f4d64e"
+    },
+    {
+      "file": "race-damage-13624-d1-f10314.jsonl",
+      "sha256": "b78decae71271fb03eedba7a837bd8af8545ad147db3b939e0b7fa88be53b90d"
+    }
+  ],
+  "fixture_sha256": "ea0b38f7616f1158fdadd2773eac489b4a7f27927d01baad8ca73bf1b48cca92"
+}

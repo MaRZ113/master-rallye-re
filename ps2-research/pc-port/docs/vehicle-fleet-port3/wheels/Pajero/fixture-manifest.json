@@ -1,0 +1,8 @@
+{
+  "filename": "port3-PAJERO-wheel-fixtures.bin",
+  "sha256": "28e5aaf3245dbea7a27dad8a5e2be08eb0aface74a347845e9414b688eade083",
+  "bytes": 8436,
+  "format": "PS2KWH01 + u32 source_count + source_count * (6xu32 layout/counts/sizes; vb; normalized u32 ib)",
+  "provenance": "ORIGINAL_PC_XYZ_UV_WITH_SYNTHETIC_WHITE_DIFFUSE; EXACT_NATIVE_WINDING",
+  "source_pc_sha256": "31db2076dcfbdb85714f650712d4e5f2e4efb6cc8b72b695a14588387142f877"
+}

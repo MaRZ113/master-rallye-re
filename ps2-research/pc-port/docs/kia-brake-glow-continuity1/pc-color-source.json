@@ -1,0 +1,60 @@
+[
+  {
+    "name": "breaklightson",
+    "sha256": "2834811f44891251575ed28d7ddd4c21c5e21a76802fada85c49fc8c90bee92f",
+    "wh": [
+      16,
+      16
+    ],
+    "rgba_ranges": [
+      [
+        189,
+        254
+      ],
+      [
+        1,
+        255
+      ],
+      [
+        1,
+        255
+      ],
+      [
+        255,
+        255
+      ]
+    ],
+    "mean_blue": 105.09375,
+    "mean_green": 102.359375,
+    "mean_red": 251.91015625
+  },
+  {
+    "name": "breaklightsonglow",
+    "sha256": "2fa12d48010bf763215d5bd02e35244da148dbb8bfa2da98d8da8dd651b654e3",
+    "wh": [
+      32,
+      32
+    ],
+    "rgba_ranges": [
+      [
+        255,
+        255
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        0,
+        249
+      ]
+    ],
+    "mean_blue": 0.025390625,
+    "mean_green": 0.0244140625,
+    "mean_red": 255.0
+  }
+]

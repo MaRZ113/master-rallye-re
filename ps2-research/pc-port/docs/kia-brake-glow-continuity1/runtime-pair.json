@@ -1,0 +1,82 @@
+[
+  {
+    "type": "kia_glow_source_capture",
+    "frame": 1226,
+    "owner_verified": true,
+    "private_tree": false,
+    "instance": 556927648,
+    "packet": 45806648,
+    "mesh": 517317952,
+    "material_vector": 44583848,
+    "material_token": 44460488,
+    "texture": 534199824,
+    "texture_generation": 779,
+    "fvf": 258,
+    "stride": 20,
+    "min": 8260,
+    "format": 101,
+    "vb_generation": 624,
+    "ib_generation": 625,
+    "vb_revision": 246,
+    "ib_revision": 423,
+    "file": "race-fleet-9516-d1-f1226.jsonl",
+    "sha256": "cff245814a8ea15e8aa080f5c5d851ef98c1d4ef3a2291a72e2b395514d81b62",
+    "position_sha": "f9b44c53f79dda5b92f954109873f23d573db628e6a07cc32bb790e8c4b02982",
+    "uv_sha": "52b57c8932f50ea6397b18c5abddc218fd8b5c92f4a92536a6b3e15e7f703319",
+    "indices_sha": "21e025afe7ea4e65f6197aa5696003865a4ee271dbca8c6815572609e7cf547d",
+    "bounds": [
+      [
+        -1.0543854236602783,
+        1.0535403490066528
+      ],
+      [
+        0.5830550193786621,
+        0.9505334496498108
+      ],
+      [
+        -2.3688197135925293,
+        -1.9304883480072021
+      ]
+    ]
+  },
+  {
+    "type": "kia_glow_source_capture",
+    "frame": 2800,
+    "owner_verified": true,
+    "private_tree": true,
+    "instance": 556927648,
+    "packet": 45806648,
+    "mesh": 564575080,
+    "material_vector": 44583848,
+    "material_token": 44460488,
+    "texture": 534199824,
+    "texture_generation": 779,
+    "fvf": 258,
+    "stride": 20,
+    "min": 23996,
+    "format": 101,
+    "vb_generation": 676,
+    "ib_generation": 675,
+    "vb_revision": 327,
+    "ib_revision": 375,
+    "file": "race-fleet-9516-d1-f2800.jsonl",
+    "sha256": "80e7cbaecb5205a65809c3372db71f8b3f9746d22eae9ec565eea14f61c5b017",
+    "position_sha": "5d713e61b358e9cf577067fd08248ce87ada5c9bfc205fddc07fab87e4407cb6",
+    "uv_sha": "52b57c8932f50ea6397b18c5abddc218fd8b5c92f4a92536a6b3e15e7f703319",
+    "indices_sha": "e4587c82870706a32dde28d1d1eba5b3e935eeb136d385306330f1733ca40566",
+    "bounds": [
+      [
+        -1.0543854236602783,
+        1.0535403490066528
+      ],
+      [
+        0.5892800092697144,
+        0.9505334496498108
+      ],
+      [
+        -2.3688197135925293,
+        -1.9304883480072021
+      ]
+    ]
+  }
+]

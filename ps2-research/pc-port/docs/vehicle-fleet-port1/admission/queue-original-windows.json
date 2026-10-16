@@ -1,0 +1,41 @@
+{
+  "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "image_base": "0x400000",
+  "windows": [
+    {
+      "va": "0x562831",
+      "end_exclusive": "0x562890",
+      "file_offset": "0x162831",
+      "bytes_hex": "8b43248d7b203bc5750833c089442410eb1c8b4f082bc8b8abaaaa2af7e9c1fa028bc2c1e81f03d0895424108bc23bc57e2d894424188b53248b46088bcd03ca8d542414894c241452508bcee8fe0100008b44241883c518488944241875d7",
+      "sha256": "939ff4ddc7a6ad5e4090e62fd86fbce8185c1cbb47fe2d8f288bb0541fb32a45"
+    },
+    {
+      "va": "0x5628ac",
+      "end_exclusive": "0x5628ca",
+      "file_offset": "0x1628ac",
+      "bytes_hex": "8b43448b04a88b48088b10518b480452e8af4001008b442410453be87ce2",
+      "sha256": "40fbfc38233bf5e32f53d61f03152e647f99db19df0f6f329d4842dd35971135"
+    },
+    {
+      "va": "0x5628db",
+      "end_exclusive": "0x56290e",
+      "file_offset": "0x1628db",
+      "bytes_hex": "8be88b47088bcf5055e887010000896f088b4e048b4608515050e8b60900008b4e0883c40c8bf851578bcee855030000897e08",
+      "sha256": "eb8531c96df267c42742ee37a28b851b210ccd557a2302b4b4550fa7e1627f6a"
+    },
+    {
+      "va": "0x56290e",
+      "end_exclusive": "0x562962",
+      "file_offset": "0x16290e",
+      "bytes_hex": "8b433485c0750833ed896c2410eb1c8b4b382bc8b8abaaaa2af7e9c1fa028bc2c1e81f03d0895424108bea85ed7e2533ff8b53348b46088bcf03ca8d54241452894c24186a01508bcee81406000083c7184d75dd",
+      "sha256": "cf53734ac536c015af25b1f6590c04224b8b9849f378f814d79b7269a14bdcca"
+    },
+    {
+      "va": "0x5629d9",
+      "end_exclusive": "0x5629f3",
+      "file_offset": "0x1629d9",
+      "bytes_hex": "8b53448b04b28b48088b10518b480452e8823f0100463bf77ce6",
+      "sha256": "a4e73e221f8ecbbc8133b3c60f93384b88172fae5cccd11449fd753ff9c27a6a"
+    }
+  ]
+}

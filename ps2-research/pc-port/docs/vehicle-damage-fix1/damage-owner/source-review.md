@@ -1,0 +1,9 @@
+# Bounded independent source review
+
+Reviewed current uncommitted race_context/native selected-list helper, FrontendOwner, RaceDamageState observe/snapshot/delta and FrontendModel prepare_damage, plus integration admission and current snapshot probe. Read-only review; no source edits/builds performed by reviewer.
+
+No concrete unsafe admission defect found in the reviewed path. Native-selected list follows byte-backed instance+90 override/model+18 fallback; private/native_list participate in owner equality and final pre-commit context check. Healthy references require original full geometry signature plus ordered XYZ and exact UV/winding certificate. Damaged private geometry requires current selected owned tree, exact UV/winding and retained healthy reference; no healthy hash weakening. Current positions are invalidated on resource/owner lifecycle, references retain only pinned CPU originals. All candidate native deltas for a source PS2 vertex must agree within1e-6; unmapped whitelist vertices remain static. Unknowns fail Stock.
+
+Explicit limits for handoff: deformation adaptation affects the13 admitted chassis source profiles. Separately replaced trim/crew/glass/lamp pieces still require their own existing source signatures; if their native damage branch deforms them, those exact pieces can fallbackStock. Do not claim proof of their damaged-state continuity from chassis tests. PS2 source normals are retained while XYZ follows mapped native damage deltas; recomputed damaged normals are not implemented or proved.
+
+Potential fail-closed behavior rather than unsafe match: duplicated original position candidates can diverge under native damage; delta disagreement rejects private adaptation. This must appear as a bounded gate with Stock fallback, not be hidden by increasing tolerance without evidence. Current profile/candidate metadata and synthetic tests alone do not establish runtime visual acceptance.

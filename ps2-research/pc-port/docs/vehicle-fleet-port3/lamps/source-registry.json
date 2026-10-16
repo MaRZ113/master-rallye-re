@@ -1,0 +1,3646 @@
+{
+  "schema": 1,
+  "runtime": "SOURCE_ONLY_NOT_RUNTIME_AUTHORIZATION",
+  "families": [
+    {
+      "family": "Astero",
+      "ps2_family": "ASTERO",
+      "pc_sha256": "b97949651ae1c0089a614beaa24f6b07bbea84735c70faf1570760a9aaa16d90",
+      "ps2_sha256": "7d2e9b3a29762f311838e1e4e050658bcc0d432b59d4f259e5d289b0ea7bdc86",
+      "off_status": "SOURCE_ADMITTED",
+      "on": [
+        {
+          "path": "root.24.0.0",
+          "mode": 1,
+          "material": "$shader(carbrakelight)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightson-tga",
+              "flags": [
+                true,
+                false,
+                false
+              ],
+              "offset": 174767
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\perspex-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 174809
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelight",
+            "interned_shader": "carbrakelight",
+            "mode": null,
+            "authored_secondary": "perspex-tga",
+            "effective_secondary": "perspex-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSON-TGA.GXI",
+              "sha256": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\PERSPEX-TGA.GXI",
+              "sha256": "817275fa22c4c097837c737acedd84eccf938ed7868675315e1765d58bd856ba",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 29,
+          "vertices": 20,
+          "triangles": 12,
+          "geometry": "3d31c82529344dc7971176418c74bc96e286a3397c55be844e453de31fd82c8d",
+          "positionUv": "f55112c04c4475ed01c3bbcf1b1a114a6062612903d6ebd5baa67f42413039c1",
+          "max_source_xyz_difference": 1.1920928955078125e-07,
+          "native_ordered_slots": [
+            "breaklightson-tga",
+            "perspex-tga",
+            "Null"
+          ],
+          "source_uv_index_topology": "101ff6ea037d88473c029dab112522c65b24427fbd9dfc480196fadb90e69485"
+        }
+      ],
+      "glow": [
+        {
+          "path": "root.24.0.1",
+          "mode": 14,
+          "material": "$shader(carbrakelight)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightsonglow-tga",
+              "flags": [
+                true,
+                true,
+                false
+              ],
+              "offset": 174923
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\perspex-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 174969
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelight",
+            "interned_shader": "carbrakelight",
+            "mode": null,
+            "authored_secondary": "perspex-tga",
+            "effective_secondary": "perspex-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSONGLOW-TGA.GXI",
+              "sha256": "b6350f92f674bf2b63200ce4bb39c0c26f03fd99856ac0b89e7fc0797861af09",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\PERSPEX-TGA.GXI",
+              "sha256": "817275fa22c4c097837c737acedd84eccf938ed7868675315e1765d58bd856ba",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 30,
+          "vertices": 40,
+          "triangles": 40,
+          "geometry": "6b4de9e29ede4d5ae0f8b8f1ad5e686b71473e244857e6128aceb64636bb0679",
+          "positionUv": "b28f1afa28ae579c718882b798891af08c4561f79abe74eb05249e090b2dd4a9",
+          "max_source_xyz_difference": 1.1920928955078125e-07,
+          "native_ordered_slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga",
+            "Null"
+          ],
+          "source_uv_index_topology": "1c492558830d63b436f3d22669b6e03dcaa39e1203ccf7edf77cb2b69a2ca018"
+        }
+      ],
+      "damaged_runtime": "Kia USER_CONFIRMED; other families REQUIRE_CURRENT_OWNER_HEALTHY_REFERENCE_AND_CLONE_PROOF"
+    },
+    {
+      "family": "Bruno",
+      "ps2_family": "BRUNO",
+      "pc_sha256": "c7a456332e31c67647394467d2e0e467df048160ae634ab2b8d024eb9d61204f",
+      "ps2_sha256": "f53373134712dd8eb8cae26422d9a67e18489668639cdaa479023765692cf260",
+      "off_status": "BLOCKED_NO_EXACT_OFF_PAIR",
+      "on": [
+        {
+          "path": "root.20.0.0",
+          "mode": 1,
+          "material": "$shader(carbrakelight)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightson-tga",
+              "flags": [
+                true,
+                false,
+                false
+              ],
+              "offset": 170253
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\perspex-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 170295
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelight",
+            "interned_shader": "carbrakelight",
+            "mode": null,
+            "authored_secondary": "perspex-tga",
+            "effective_secondary": "perspex-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSON-TGA.GXI",
+              "sha256": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\PERSPEX-TGA.GXI",
+              "sha256": "817275fa22c4c097837c737acedd84eccf938ed7868675315e1765d58bd856ba",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 18,
+          "vertices": 20,
+          "triangles": 12,
+          "geometry": "934f66cfc21795ab284eec8af86c74fecd468bc62a539eb3b713a086c77798c1",
+          "positionUv": "e4dafd50fcf0576fefdf26145c3dcec2bcc08c882ee2b090178c6e5ecf8f489d",
+          "max_source_xyz_difference": 1.7881393432617188e-07,
+          "native_ordered_slots": [
+            "breaklightson-tga",
+            "perspex-tga",
+            "Null"
+          ],
+          "source_uv_index_topology": "62fa79d62ab8ae2e06990160976d1dee3fe41b90fb5ed5080339effaa6bf4db4"
+        }
+      ],
+      "glow": [
+        {
+          "path": "root.20.0.1",
+          "mode": 14,
+          "material": "$shader(carbrakelight)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightsonglow-tga",
+              "flags": [
+                true,
+                true,
+                false
+              ],
+              "offset": 170422
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\perspex-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 170468
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelight",
+            "interned_shader": "carbrakelight",
+            "mode": null,
+            "authored_secondary": "perspex-tga",
+            "effective_secondary": "perspex-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSONGLOW-TGA.GXI",
+              "sha256": "b6350f92f674bf2b63200ce4bb39c0c26f03fd99856ac0b89e7fc0797861af09",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\PERSPEX-TGA.GXI",
+              "sha256": "817275fa22c4c097837c737acedd84eccf938ed7868675315e1765d58bd856ba",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 19,
+          "vertices": 32,
+          "triangles": 32,
+          "geometry": "2e3d899a9443987a804238eb8159668d83869ba8c82e8ca1eb7d576f13426fa2",
+          "positionUv": "9f8b7530e2c65a04faf1a2d9ed878e7a8e79ea204667d5e6a95a7c7853b05023",
+          "max_source_xyz_difference": 1.7881393432617188e-07,
+          "native_ordered_slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga",
+            "Null"
+          ],
+          "source_uv_index_topology": "606a68162567bf26248fbfec852794c3715c135c8288df4afcff5a37bec4a76e"
+        }
+      ],
+      "damaged_runtime": "Kia USER_CONFIRMED; other families REQUIRE_CURRENT_OWNER_HEALTHY_REFERENCE_AND_CLONE_PROOF"
+    },
+    {
+      "family": "ChevyBlazer",
+      "ps2_family": "CHEVYBLAZER",
+      "pc_sha256": "d847cd8e684d9f6ff75d560e64429098448a665cc423b8d7c509e6146e9e0c7e",
+      "ps2_sha256": "52b0dd8a5d46293781ce538519cc5d4da419afd738dd5eeb5d8b08cd2a02ae18",
+      "off_status": "SOURCE_ADMITTED",
+      "on": [
+        {
+          "path": "root.26.1.0",
+          "mode": 1,
+          "material": "breaklights",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightson-tga",
+              "flags": [
+                true,
+                false,
+                false
+              ],
+              "offset": 185511
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\lightshine-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 185553
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": null,
+            "interned_shader": null,
+            "mode": null,
+            "authored_secondary": "lightshine-tga",
+            "effective_secondary": "lightshine-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSON-TGA.GXI",
+              "sha256": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\LIGHTSHINE-TGA.GXI",
+              "sha256": "40789a1924fa953b5b1c9d7cfb899e4b36cdbc88533e89c4314ab133b1cb7b9d",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 34,
+          "vertices": 14,
+          "triangles": 10,
+          "geometry": "335831c600040fd15759a169c8ddcf9ff910118bfe701964d7c4d2aa8001c1ca",
+          "positionUv": "0262dd49ea66080f91266f31ff89763c944d111d7222219726cf7c4db3e11b80",
+          "max_source_xyz_difference": 1.1920928955078125e-07,
+          "native_ordered_slots": [
+            "breaklightson-tga",
+            "Null",
+            "Null"
+          ],
+          "source_uv_index_topology": "45d841d6f7e7351d9b2e26d1fdf1b7fa200ddc4a1d0a0556390b9b87d348abf2"
+        }
+      ],
+      "glow": [
+        {
+          "path": "root.26.1.1",
+          "mode": 14,
+          "material": "Material #58",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightsonglow-tga",
+              "flags": [
+                true,
+                true,
+                false
+              ],
+              "offset": 185659
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": null,
+            "interned_shader": null,
+            "mode": null,
+            "authored_secondary": null,
+            "effective_secondary": null,
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSONGLOW-TGA.GXI",
+              "sha256": "b6350f92f674bf2b63200ce4bb39c0c26f03fd99856ac0b89e7fc0797861af09",
+              "bytes": 1032
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 35,
+          "vertices": 28,
+          "triangles": 28,
+          "geometry": "1ec4b821d3d7b5fbea439513944069672faba89eacf3de3fda54f6fbba66e7d5",
+          "positionUv": "6e2fb1a2e273f9efcaf1085709e118ea8613ab684975030fcf653a04becdc851",
+          "max_source_xyz_difference": 1.1920928955078125e-07,
+          "native_ordered_slots": [
+            "breaklightsonglow-tga",
+            "Null",
+            "Null"
+          ],
+          "source_uv_index_topology": "478a5144fd3108ece231c85ec508681c2d7aa96efc6f849adea6c029eb0bf547"
+        }
+      ],
+      "damaged_runtime": "Kia USER_CONFIRMED; other families REQUIRE_CURRENT_OWNER_HEALTHY_REFERENCE_AND_CLONE_PROOF"
+    },
+    {
+      "family": "Frontera",
+      "ps2_family": "FRONTERA",
+      "pc_sha256": "345a143d24945d72f212eea033d6349b51b70d3df36a60dac22e98e2d380940c",
+      "ps2_sha256": "007758a3192218b383c41d520cddf326e6ba23a6ca625acd48d436e0955495bd",
+      "off_status": "SOURCE_ADMITTED",
+      "on": [
+        {
+          "path": "root.23.0.0",
+          "mode": 1,
+          "material": "$shader(carbrakelight)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightson-tga",
+              "flags": [
+                true,
+                false,
+                false
+              ],
+              "offset": 189866
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\perspex-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 189908
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelight",
+            "interned_shader": "carbrakelight",
+            "mode": null,
+            "authored_secondary": "perspex-tga",
+            "effective_secondary": "perspex-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSON-TGA.GXI",
+              "sha256": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\PERSPEX-TGA.GXI",
+              "sha256": "817275fa22c4c097837c737acedd84eccf938ed7868675315e1765d58bd856ba",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 31,
+          "vertices": 8,
+          "triangles": 4,
+          "geometry": "6385e8acff1f6d4f0de0fd50c270be72301df78cae26448c3a40484bad619026",
+          "positionUv": "f923f68f97e684d1e43733c82f5f54e119b9cffc0c1fd7d7bd3df281e3f17527",
+          "max_source_xyz_difference": 1.1920928955078125e-07,
+          "native_ordered_slots": [
+            "breaklightson-tga",
+            "perspex-tga",
+            "Null"
+          ],
+          "source_uv_index_topology": "f4ec11617bc6250c521f16a71ce1a4847145a760c0afa0e2b32c2a9ff1b235c7"
+        }
+      ],
+      "glow": [
+        {
+          "path": "root.23.0.1",
+          "mode": 14,
+          "material": "$shader(carbrakelight)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightsonglow-tga",
+              "flags": [
+                true,
+                true,
+                false
+              ],
+              "offset": 190022
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\perspex-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 190068
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelight",
+            "interned_shader": "carbrakelight",
+            "mode": null,
+            "authored_secondary": "perspex-tga",
+            "effective_secondary": "perspex-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSONGLOW-TGA.GXI",
+              "sha256": "b6350f92f674bf2b63200ce4bb39c0c26f03fd99856ac0b89e7fc0797861af09",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\PERSPEX-TGA.GXI",
+              "sha256": "817275fa22c4c097837c737acedd84eccf938ed7868675315e1765d58bd856ba",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 32,
+          "vertices": 16,
+          "triangles": 16,
+          "geometry": "926295a55026239ee0ddaee77a6170994823650c58946479c812c2ab202e760c",
+          "positionUv": "b579e1f9c196a0215f50bc3927e89c620d1483a41f0a1028994a8f8d93446e67",
+          "max_source_xyz_difference": 0.039209842681884766,
+          "native_ordered_slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga",
+            "Null"
+          ],
+          "source_uv_index_topology": "1101a8d2a39f72aecc5c1625e15a834f68cbacb199d7b55b571e256eee6e294f"
+        }
+      ],
+      "damaged_runtime": "Kia USER_CONFIRMED; other families REQUIRE_CURRENT_OWNER_HEALTHY_REFERENCE_AND_CLONE_PROOF"
+    },
+    {
+      "family": "IceCream",
+      "ps2_family": "ICECREAM",
+      "pc_sha256": "90a99fd7d7b18e3e33b1bc005df58b6f7222349bb45e5b41a725ec6f230a9d9a",
+      "ps2_sha256": "c6baac227f362471cbc28ecf2fb21e0d25ddb42757accd8546a3ad8799d27463",
+      "off_status": "SOURCE_ADMITTED",
+      "on": [
+        {
+          "path": "root.22.1.0",
+          "mode": 1,
+          "material": "$shader(carbrakelights)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightson-tga",
+              "flags": [
+                true,
+                false,
+                false
+              ],
+              "offset": 246610
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\lightshine-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 246652
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelights",
+            "interned_shader": "carbrakelights",
+            "mode": null,
+            "authored_secondary": "lightshine-tga",
+            "effective_secondary": "lightshine-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSON-TGA.GXI",
+              "sha256": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\LIGHTSHINE-TGA.GXI",
+              "sha256": "40789a1924fa953b5b1c9d7cfb899e4b36cdbc88533e89c4314ab133b1cb7b9d",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 27,
+          "vertices": 12,
+          "triangles": 8,
+          "geometry": "a3a60c75dd62d90719f8ec0ca6f2c87e846685c959c07c730e0b943b78835785",
+          "positionUv": "14668a45b54e042da69fa34242ddacab050370f24aa7644ae69c832192e00604",
+          "max_source_xyz_difference": 1.1920928955078125e-07,
+          "native_ordered_slots": [
+            "breaklightson-tga",
+            "Null",
+            "Null"
+          ],
+          "source_uv_index_topology": "87348d59a8d77f77bf75b0f4190cbd9441ef490fe08c27a2451503285d5aead4"
+        }
+      ],
+      "glow": [
+        {
+          "path": "root.22.1.1",
+          "mode": 14,
+          "material": "$shader(carbrakelights)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightsonglow-tga",
+              "flags": [
+                true,
+                true,
+                false
+              ],
+              "offset": 246770
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelights",
+            "interned_shader": "carbrakelights",
+            "mode": null,
+            "authored_secondary": null,
+            "effective_secondary": null,
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSONGLOW-TGA.GXI",
+              "sha256": "b6350f92f674bf2b63200ce4bb39c0c26f03fd99856ac0b89e7fc0797861af09",
+              "bytes": 1032
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 28,
+          "vertices": 24,
+          "triangles": 24,
+          "geometry": "6527b839bb2f030b65bcf4570edacc75e543e9c6220dcacbe8e1c78ad5191785",
+          "positionUv": "729460cc7f4e3b92df3987baae7a448b6b456b283fc5bb72ea01a64e99425392",
+          "max_source_xyz_difference": 1.1920928955078125e-07,
+          "native_ordered_slots": [
+            "breaklightsonglow-tga",
+            "Null",
+            "Null"
+          ],
+          "source_uv_index_topology": "2b99ac9b0dd282715d74affec01553ee8c06e07fd2195c086640a0948cd48c03"
+        }
+      ],
+      "damaged_runtime": "Kia USER_CONFIRMED; other families REQUIRE_CURRENT_OWNER_HEALTHY_REFERENCE_AND_CLONE_PROOF"
+    },
+    {
+      "family": "Jump",
+      "ps2_family": "JUMP",
+      "pc_sha256": "a6ad8bcb7c71e572f065a5c3710308730c2c4f0cc8b32f25af279adc923a7baa",
+      "ps2_sha256": "049d2d2517b8feb949a422753570e34fd55d2d5a87f42d4c8221e0c5af45d304",
+      "off_status": "BLOCKED_NO_EXACT_OFF_PAIR",
+      "on": [
+        {
+          "path": "root.21.0.1",
+          "mode": 1,
+          "material": "$shader(carbrakelight)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightson-tga",
+              "flags": [
+                true,
+                true,
+                false
+              ],
+              "offset": 174204
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\perspex-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 174246
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelight",
+            "interned_shader": "carbrakelight",
+            "mode": null,
+            "authored_secondary": "perspex-tga",
+            "effective_secondary": "perspex-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSON-TGA.GXI",
+              "sha256": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\PERSPEX-TGA.GXI",
+              "sha256": "817275fa22c4c097837c737acedd84eccf938ed7868675315e1765d58bd856ba",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 27,
+          "vertices": 8,
+          "triangles": 4,
+          "geometry": "249e3b01ffc3902b114f281006038c46aa50448f975bc450db0eac7bb92ac1de",
+          "positionUv": "72f9a53ba36d59883fb770806bcdf76dc2bdcec3228d35dbd50c0f245e0c869a",
+          "max_source_xyz_difference": 0.0024013519287109375,
+          "native_ordered_slots": [
+            "breaklightson-tga",
+            "perspex-tga",
+            "Null"
+          ],
+          "source_uv_index_topology": "00e9d5135cb96aa33072324800220163f8bbf8e821f69dbd6123f48f5c7893bb"
+        }
+      ],
+      "glow": [
+        {
+          "path": "root.21.0.0",
+          "mode": 14,
+          "material": "$shader(carbrakelight)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightsonglow-tga",
+              "flags": [
+                true,
+                true,
+                false
+              ],
+              "offset": 174031
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\perspex-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 174077
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelight",
+            "interned_shader": "carbrakelight",
+            "mode": null,
+            "authored_secondary": "perspex-tga",
+            "effective_secondary": "perspex-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSONGLOW-TGA.GXI",
+              "sha256": "b6350f92f674bf2b63200ce4bb39c0c26f03fd99856ac0b89e7fc0797861af09",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\PERSPEX-TGA.GXI",
+              "sha256": "817275fa22c4c097837c737acedd84eccf938ed7868675315e1765d58bd856ba",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 28,
+          "vertices": 16,
+          "triangles": 16,
+          "geometry": "e596c5d2b8f03677cc7dbf610db3bc7ad4e3adc3098c6f1475084f175b372bff",
+          "positionUv": "13b3054affd20f7fa0f934248c5b8c8657a949d335b444fa39a5bc0f841d8256",
+          "max_source_xyz_difference": 0.0024013519287109375,
+          "native_ordered_slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga",
+            "Null"
+          ],
+          "source_uv_index_topology": "d19d209f17ed43515627ad37c922eb8c4fc99140a964319e0df5dd4da6f959c6"
+        }
+      ],
+      "damaged_runtime": "Kia USER_CONFIRMED; other families REQUIRE_CURRENT_OWNER_HEALTHY_REFERENCE_AND_CLONE_PROOF"
+    },
+    {
+      "family": "Kamaz",
+      "ps2_family": "KAMAZ",
+      "pc_sha256": "6f7cf0aa22ec998a2a98f0e642e156442ccd82b50b94ae8e80ec418459442b4f",
+      "ps2_sha256": "9559c040e9574a474e4c2ef8f2ed33e01fceaa457be794aea7ab79e17a2e7f33",
+      "off_status": "SOURCE_ADMITTED",
+      "on": [
+        {
+          "path": "root.19.1.0",
+          "mode": 1,
+          "material": "$shader(carbrakelights)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightson-tga",
+              "flags": [
+                true,
+                false,
+                false
+              ],
+              "offset": 209168
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\lightshine-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 209210
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelights",
+            "interned_shader": "carbrakelights",
+            "mode": null,
+            "authored_secondary": "lightshine-tga",
+            "effective_secondary": "lightshine-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSON-TGA.GXI",
+              "sha256": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\LIGHTSHINE-TGA.GXI",
+              "sha256": "40789a1924fa953b5b1c9d7cfb899e4b36cdbc88533e89c4314ab133b1cb7b9d",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 25,
+          "vertices": 8,
+          "triangles": 4,
+          "geometry": "84e02f9269dea1e27a3caeff099ace77b5abd7f742b4c2c8e7f097927df6485c",
+          "positionUv": "060ccc0ead410252127653bf25af4316cfd7cb52e4a5f1f7cef2cc41b6e450c3",
+          "max_source_xyz_difference": 1.1920928955078125e-07,
+          "native_ordered_slots": [
+            "breaklightson-tga",
+            "Null",
+            "Null"
+          ],
+          "source_uv_index_topology": "c858bc8b1d6b09efebdcc61d4b44e01fa58834605fba52c6c524167852698514"
+        }
+      ],
+      "glow": [
+        {
+          "path": "root.19.1.1",
+          "mode": 14,
+          "material": "$shader(carbrakelights)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightsonglow-tga",
+              "flags": [
+                true,
+                true,
+                false
+              ],
+              "offset": 209328
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelights",
+            "interned_shader": "carbrakelights",
+            "mode": null,
+            "authored_secondary": null,
+            "effective_secondary": null,
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSONGLOW-TGA.GXI",
+              "sha256": "b6350f92f674bf2b63200ce4bb39c0c26f03fd99856ac0b89e7fc0797861af09",
+              "bytes": 1032
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 26,
+          "vertices": 16,
+          "triangles": 16,
+          "geometry": "c0f1f7f8bcd1b486886d1cfe66d2a79a4f8238943c49ea77dc3d574deafb6470",
+          "positionUv": "f9a48f146fe85228f6869fcdb15c2012c4cdf21d27c94a5e58d5768409f8d2ef",
+          "max_source_xyz_difference": 1.1920928955078125e-07,
+          "native_ordered_slots": [
+            "breaklightsonglow-tga",
+            "Null",
+            "Null"
+          ],
+          "source_uv_index_topology": "e070d411d45ee85b098de39cac5dd1a57a8c10caec037baa14fbb88c298630a0"
+        }
+      ],
+      "damaged_runtime": "Kia USER_CONFIRMED; other families REQUIRE_CURRENT_OWNER_HEALTHY_REFERENCE_AND_CLONE_PROOF"
+    },
+    {
+      "family": "Kangoo",
+      "ps2_family": "KANGOO",
+      "pc_sha256": "8935c280c1a4d7dc63e30b3961fbb353445db2162c14bbd09e034cba717fe81d",
+      "ps2_sha256": "bf157a13a059a8cef0e59f8e4742db40b99713618a803adfd8b8355141fdd955",
+      "off_status": "SOURCE_ADMITTED",
+      "on": [
+        {
+          "path": "root.22.0.0",
+          "mode": 1,
+          "material": "$shader(carbrakelight)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightson-tga",
+              "flags": [
+                true,
+                false,
+                false
+              ],
+              "offset": 195664
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\perspex-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 195706
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelight",
+            "interned_shader": "carbrakelight",
+            "mode": null,
+            "authored_secondary": "perspex-tga",
+            "effective_secondary": "perspex-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSON-TGA.GXI",
+              "sha256": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\PERSPEX-TGA.GXI",
+              "sha256": "817275fa22c4c097837c737acedd84eccf938ed7868675315e1765d58bd856ba",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 26,
+          "vertices": 14,
+          "triangles": 10,
+          "geometry": "d3bd07afb295aa0c700edfce357936120e35c96c2fcb6b3d4dd9c8f37ff6b197",
+          "positionUv": "fdc801fd7344429db69acbf4badb2a0cae988d1d2f03a0b652ba44433d46603b",
+          "max_source_xyz_difference": 5.960464477539063e-08,
+          "native_ordered_slots": [
+            "breaklightson-tga",
+            "perspex-tga",
+            "Null"
+          ],
+          "source_uv_index_topology": "e50b6af12abd78621484485879e9a6a96c921cf4fdd4fb4f8fd0d0827c073d17"
+        }
+      ],
+      "glow": [
+        {
+          "path": "root.22.0.1",
+          "mode": 14,
+          "material": "$shader(carbrakelight)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightsonglow-tga",
+              "flags": [
+                true,
+                true,
+                false
+              ],
+              "offset": 195846
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\perspex-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 195892
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelight",
+            "interned_shader": "carbrakelight",
+            "mode": null,
+            "authored_secondary": "perspex-tga",
+            "effective_secondary": "perspex-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSONGLOW-TGA.GXI",
+              "sha256": "b6350f92f674bf2b63200ce4bb39c0c26f03fd99856ac0b89e7fc0797861af09",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\PERSPEX-TGA.GXI",
+              "sha256": "817275fa22c4c097837c737acedd84eccf938ed7868675315e1765d58bd856ba",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 27,
+          "vertices": 28,
+          "triangles": 28,
+          "geometry": "bd2e0cce84c80f88c5708601bb02db1f512a0e5b1ad48f003abfac5a510f7227",
+          "positionUv": "21572ca59de53a97b7dfc2614d4aed9346e6486a275f37b02a9c5baf12792f42",
+          "max_source_xyz_difference": 5.960464477539063e-08,
+          "native_ordered_slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga",
+            "Null"
+          ],
+          "source_uv_index_topology": "78b6b4fe90216b70ea45c02a4298b5794ec9659f5ae65dde8f2ead0b95bf4bb3"
+        }
+      ],
+      "damaged_runtime": "Kia USER_CONFIRMED; other families REQUIRE_CURRENT_OWNER_HEALTHY_REFERENCE_AND_CLONE_PROOF"
+    },
+    {
+      "family": "KiaSportage",
+      "ps2_family": "KIASPORTAGE",
+      "pc_sha256": "2d490121ee38e84ef7e0d47624f68efd2c1e5790c1138c6fe08db56c7b238451",
+      "ps2_sha256": "b4afabfab7437eae01ee72ca424beb90967c7b849cebdb9cf94e104560be33ce",
+      "off_status": "SOURCE_ADMITTED",
+      "on": [
+        {
+          "path": "root.25.1.0",
+          "mode": 1,
+          "material": "$shader(carbrakelights)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightson-tga",
+              "flags": [
+                true,
+                false,
+                false
+              ],
+              "offset": 190739
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\lightshine-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 190781
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelights",
+            "interned_shader": "carbrakelights",
+            "mode": null,
+            "authored_secondary": "lightshine-tga",
+            "effective_secondary": "lightshine-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSON-TGA.GXI",
+              "sha256": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\LIGHTSHINE-TGA.GXI",
+              "sha256": "40789a1924fa953b5b1c9d7cfb899e4b36cdbc88533e89c4314ab133b1cb7b9d",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 31,
+          "vertices": 16,
+          "triangles": 12,
+          "geometry": "36c7ae35f499923af99bc317cb0402b183d9d24e162a4d2918c9981322d03f54",
+          "positionUv": "3bfdba6278a48d057ca7508e9db3b4dc2ed3155b8075d173ee4f61376d1e0687",
+          "max_source_xyz_difference": 1.1920928955078125e-07,
+          "native_ordered_slots": [
+            "breaklightson-tga",
+            "Null",
+            "Null"
+          ],
+          "source_uv_index_topology": "58d8d557bef2062519ced8df717680b329dcf0b26e18693ce5c56129f0d380b8"
+        }
+      ],
+      "glow": [
+        {
+          "path": "root.25.1.1",
+          "mode": 14,
+          "material": "$shader(carbrakelights)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightsonglow-tga",
+              "flags": [
+                true,
+                true,
+                false
+              ],
+              "offset": 190899
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelights",
+            "interned_shader": "carbrakelights",
+            "mode": null,
+            "authored_secondary": null,
+            "effective_secondary": null,
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSONGLOW-TGA.GXI",
+              "sha256": "b6350f92f674bf2b63200ce4bb39c0c26f03fd99856ac0b89e7fc0797861af09",
+              "bytes": 1032
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 32,
+          "vertices": 32,
+          "triangles": 32,
+          "geometry": "950ac551cd2f840fccf79d545693410df2e236c5307bc3031a7a5a6cc7bc9f6b",
+          "positionUv": "3bd046bd96d6e36d2f86e73ba83a33dc5d5130d787d8789d9377cfdf37788c8a",
+          "max_source_xyz_difference": 1.1920928955078125e-07,
+          "native_ordered_slots": [
+            "breaklightsonglow-tga",
+            "Null",
+            "Null"
+          ],
+          "source_uv_index_topology": "9949e3f742475f032d2280a5adee702a3804d370a8c06742202c318fe74b1ee2"
+        }
+      ],
+      "damaged_runtime": "Kia USER_CONFIRMED; other families REQUIRE_CURRENT_OWNER_HEALTHY_REFERENCE_AND_CLONE_PROOF"
+    },
+    {
+      "family": "LandCruiser",
+      "ps2_family": "LANDCRUISER",
+      "pc_sha256": "c3a61a935244e9e1dcfcd72ecf993ea301e371794ba33d931dd8cfd205627103",
+      "ps2_sha256": "834873c104dbc139cd85ff24e0323ec8fc0a7130725d0a40de177b690946c5e9",
+      "off_status": "SOURCE_ADMITTED",
+      "on": [
+        {
+          "path": "root.24.0.0",
+          "mode": 1,
+          "material": "$shader(carbrakelight)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightson-tga",
+              "flags": [
+                true,
+                false,
+                false
+              ],
+              "offset": 219586
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\perspex-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 219628
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelight",
+            "interned_shader": "carbrakelight",
+            "mode": null,
+            "authored_secondary": "perspex-tga",
+            "effective_secondary": "perspex-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSON-TGA.GXI",
+              "sha256": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\PERSPEX-TGA.GXI",
+              "sha256": "817275fa22c4c097837c737acedd84eccf938ed7868675315e1765d58bd856ba",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 30,
+          "vertices": 16,
+          "triangles": 12,
+          "geometry": "f7906db50110774fedd1fbfac6df8cf662cd3463bdffc310493f3579bd4d94b1",
+          "positionUv": "8b6089f77af89efe98db90913fd8b652742675746f84e61e25cc44c7e59020fe",
+          "max_source_xyz_difference": 5.364418029785156e-07,
+          "native_ordered_slots": [
+            "breaklightson-tga",
+            "perspex-tga",
+            "Null"
+          ],
+          "source_uv_index_topology": "8194aa67778778a4caba5ea023aa97ac8a54ac834ff7e2c63a46538af94b7e61"
+        }
+      ],
+      "glow": [
+        {
+          "path": "root.24.0.1",
+          "mode": 14,
+          "material": "$shader(carbrakelight)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightsonglow-tga",
+              "flags": [
+                true,
+                true,
+                false
+              ],
+              "offset": 219742
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\perspex-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 219788
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelight",
+            "interned_shader": "carbrakelight",
+            "mode": null,
+            "authored_secondary": "perspex-tga",
+            "effective_secondary": "perspex-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSONGLOW-TGA.GXI",
+              "sha256": "b6350f92f674bf2b63200ce4bb39c0c26f03fd99856ac0b89e7fc0797861af09",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\PERSPEX-TGA.GXI",
+              "sha256": "817275fa22c4c097837c737acedd84eccf938ed7868675315e1765d58bd856ba",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 31,
+          "vertices": 32,
+          "triangles": 32,
+          "geometry": "0a1f71798fbbfcbbf411c0571d51c1261882eb402582066579c6879bc15a983e",
+          "positionUv": "509583d86bbc99c5f8df36b69328abd5accb43ce87c9fa034e9b6c1322d2a402",
+          "max_source_xyz_difference": 5.364418029785156e-07,
+          "native_ordered_slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga",
+            "Null"
+          ],
+          "source_uv_index_topology": "66a5d0b0bba3cbb3e29328aa5b1ba19fca13e92906448d0fc77a35b33141d170"
+        }
+      ],
+      "damaged_runtime": "Kia USER_CONFIRMED; other families REQUIRE_CURRENT_OWNER_HEALTHY_REFERENCE_AND_CLONE_PROOF"
+    },
+    {
+      "family": "Mattserati",
+      "ps2_family": "MATTSERATI",
+      "pc_sha256": "e0db7a014f60c71291337e1b3c43909926957132f50017b7ef9e00610fd528e2",
+      "ps2_sha256": "165a9b7c2553e7a55def29f3deee4b83af6e1e4435c33a41ef2107477f25246a",
+      "off_status": "BLOCKED_NO_EXACT_OFF_PAIR",
+      "on": [
+        {
+          "path": "root.21.0.0",
+          "mode": 1,
+          "material": "$shader(carbrakelight)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightson-tga",
+              "flags": [
+                true,
+                false,
+                false
+              ],
+              "offset": 164650
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\perspex-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 164692
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelight",
+            "interned_shader": "carbrakelight",
+            "mode": null,
+            "authored_secondary": "perspex-tga",
+            "effective_secondary": "perspex-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSON-TGA.GXI",
+              "sha256": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\PERSPEX-TGA.GXI",
+              "sha256": "817275fa22c4c097837c737acedd84eccf938ed7868675315e1765d58bd856ba",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 23,
+          "vertices": 34,
+          "triangles": 36,
+          "geometry": "e76f4eb487e8b8f5b516bd2e9d9a7979e4fb5500f1a4dfd8017538c47d4765d4",
+          "positionUv": "2aff968e28e0f19a460578782f0f693397cf3a2e55f1615f9f8d534364b9433b",
+          "max_source_xyz_difference": 0.008023202419281006,
+          "native_ordered_slots": [
+            "breaklightson-tga",
+            "perspex-tga",
+            "Null"
+          ],
+          "source_uv_index_topology": "71b8de9d692fcab6a54365ee0abfc7f0414ef7c3079ee85501190c23a09c0c78"
+        }
+      ],
+      "glow": [
+        {
+          "path": "root.21.0.1",
+          "mode": 14,
+          "material": "$shader(carbrakelight)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightsonglow-tga",
+              "flags": [
+                true,
+                true,
+                false
+              ],
+              "offset": 164884
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\perspex-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 164930
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelight",
+            "interned_shader": "carbrakelight",
+            "mode": null,
+            "authored_secondary": "perspex-tga",
+            "effective_secondary": "perspex-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSONGLOW-TGA.GXI",
+              "sha256": "b6350f92f674bf2b63200ce4bb39c0c26f03fd99856ac0b89e7fc0797861af09",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\PERSPEX-TGA.GXI",
+              "sha256": "817275fa22c4c097837c737acedd84eccf938ed7868675315e1765d58bd856ba",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 24,
+          "vertices": 48,
+          "triangles": 48,
+          "geometry": "6166db4797ca28731baea23873a55368f1aee812524f70ae72cc85fd0103f159",
+          "positionUv": "b389f600990b9df612d9a623c1c71c51d52870c2e8acd7a2543cc08156cfe97d",
+          "max_source_xyz_difference": 0.00802314281463623,
+          "native_ordered_slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga",
+            "Null"
+          ],
+          "source_uv_index_topology": "c45c9a23ce7c858113f3a1f99d87dad8e8074a20c2214e4e81f7486a1a20ad00"
+        }
+      ],
+      "damaged_runtime": "Kia USER_CONFIRMED; other families REQUIRE_CURRENT_OWNER_HEALTHY_REFERENCE_AND_CLONE_PROOF"
+    },
+    {
+      "family": "megane",
+      "ps2_family": "MEGANE",
+      "pc_sha256": "d082eb75dc537194f1bf0284e31e5a28a73d91b5a0ba29642bc0d5c7ad93fb7f",
+      "ps2_sha256": "6ee866b563309d1a9205cd99b2706fa3c7471d984daa3b4d954fa60e33bd0248",
+      "off_status": "SOURCE_ADMITTED",
+      "on": [
+        {
+          "path": "root.20.0.0",
+          "mode": 1,
+          "material": "$shader(carbrakelight)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightson-tga",
+              "flags": [
+                true,
+                false,
+                false
+              ],
+              "offset": 193389
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\perspex-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 193431
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelight",
+            "interned_shader": "carbrakelight",
+            "mode": null,
+            "authored_secondary": "perspex-tga",
+            "effective_secondary": "perspex-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSON-TGA.GXI",
+              "sha256": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\PERSPEX-TGA.GXI",
+              "sha256": "817275fa22c4c097837c737acedd84eccf938ed7868675315e1765d58bd856ba",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 24,
+          "vertices": 14,
+          "triangles": 10,
+          "geometry": "bf56bb744200df063146ad5acd9913403504d2ae6ab3a7bdbf7e6024144b4296",
+          "positionUv": "9022bceb22724061ea97253a0f1bff7f94f186cf68c0042396c997c70b8f4761",
+          "max_source_xyz_difference": 1.7881393432617188e-07,
+          "native_ordered_slots": [
+            "breaklightson-tga",
+            "perspex-tga",
+            "Null"
+          ],
+          "source_uv_index_topology": "08168d6e31c3b371af2fee3fbec7a08c074a4adc5c2ebf674b94767feec44879"
+        }
+      ],
+      "glow": [
+        {
+          "path": "root.20.0.1",
+          "mode": 14,
+          "material": "$shader(carbrakelight)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightsonglow-tga",
+              "flags": [
+                true,
+                true,
+                false
+              ],
+              "offset": 193545
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\perspex-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 193591
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelight",
+            "interned_shader": "carbrakelight",
+            "mode": null,
+            "authored_secondary": "perspex-tga",
+            "effective_secondary": "perspex-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSONGLOW-TGA.GXI",
+              "sha256": "b6350f92f674bf2b63200ce4bb39c0c26f03fd99856ac0b89e7fc0797861af09",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\PERSPEX-TGA.GXI",
+              "sha256": "817275fa22c4c097837c737acedd84eccf938ed7868675315e1765d58bd856ba",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 25,
+          "vertices": 28,
+          "triangles": 28,
+          "geometry": "9083324ed31d84d0b04f4f4eb5238adec4e43ded1b276f73ff8cae7a0f143cf2",
+          "positionUv": "77a3e8aaac556d192834410275cd93f1c17cfff68eeb97abd97cfcc845d672ac",
+          "max_source_xyz_difference": 1.7881393432617188e-07,
+          "native_ordered_slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga",
+            "Null"
+          ],
+          "source_uv_index_topology": "6e2ef382e656d1e000950eed49e5bd44fc1716e3da9d1be09783dfdd86977815"
+        }
+      ],
+      "damaged_runtime": "Kia USER_CONFIRMED; other families REQUIRE_CURRENT_OWNER_HEALTHY_REFERENCE_AND_CLONE_PROOF"
+    },
+    {
+      "family": "Navara",
+      "ps2_family": "NAVARA",
+      "pc_sha256": "2d3727f5bcd889ba38891276111c53f9c4d67cee1f5ece13de374a8235690655",
+      "ps2_sha256": "c5ecc753358a369280b2d5fc27435b1929b676b867a85acd9c458db24dbfffdf",
+      "off_status": "SOURCE_ADMITTED",
+      "on": [
+        {
+          "path": "root.22.1.0",
+          "mode": 1,
+          "material": "$shader(carbrakelights)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightson-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 223387
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\lightshine-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 223429
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelights",
+            "interned_shader": "carbrakelights",
+            "mode": null,
+            "authored_secondary": "lightshine-tga",
+            "effective_secondary": "lightshine-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSON-TGA.GXI",
+              "sha256": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\LIGHTSHINE-TGA.GXI",
+              "sha256": "40789a1924fa953b5b1c9d7cfb899e4b36cdbc88533e89c4314ab133b1cb7b9d",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 29,
+          "vertices": 14,
+          "triangles": 10,
+          "geometry": "d1e90e3644ee9d6fbaf7206da2459111c5285312d61dabfcafec92993a50a8f0",
+          "positionUv": "c50a56cbafd3a0d465c244eeae477698fb2d3a7b42b60a7f1916035bb3821381",
+          "max_source_xyz_difference": 0.0,
+          "native_ordered_slots": [
+            "breaklightson-tga",
+            "Null",
+            "Null"
+          ],
+          "source_uv_index_topology": "be870f4fef1a6c8fba17cf76fa8c6543047b67b25182d118148cae74fc3e9a71"
+        }
+      ],
+      "glow": [
+        {
+          "path": "root.22.1.1",
+          "mode": 14,
+          "material": "$shader(carbrakelights)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightsonglow-tga",
+              "flags": [
+                true,
+                true,
+                false
+              ],
+              "offset": 223560
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelights",
+            "interned_shader": "carbrakelights",
+            "mode": null,
+            "authored_secondary": null,
+            "effective_secondary": null,
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSONGLOW-TGA.GXI",
+              "sha256": "b6350f92f674bf2b63200ce4bb39c0c26f03fd99856ac0b89e7fc0797861af09",
+              "bytes": 1032
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 30,
+          "vertices": 28,
+          "triangles": 28,
+          "geometry": "aff47b003c98b32e8c99058a658431252f0f101a49ed7f3b4e9f369dac691b62",
+          "positionUv": "569395c65e70a0bc7729e4b66e7b861de7c1875234874d86a78052105d813945",
+          "max_source_xyz_difference": 0.0,
+          "native_ordered_slots": [
+            "breaklightsonglow-tga",
+            "Null",
+            "Null"
+          ],
+          "source_uv_index_topology": "c9165c60bc848e74d2e508955eaad1218351d63ea31de65f6c656bcd52f6edc9"
+        }
+      ],
+      "damaged_runtime": "Kia USER_CONFIRMED; other families REQUIRE_CURRENT_OWNER_HEALTHY_REFERENCE_AND_CLONE_PROOF"
+    },
+    {
+      "family": "NewRav",
+      "ps2_family": "NEWRAV",
+      "pc_sha256": "615f00a1d61ec84170c49c52727fcdd68fc96fcb89f1690324edf445ad3fbee6",
+      "ps2_sha256": "98b59c09cc878b01610165e1f7b498200441c0384e2223af185addc51d4e4cc7",
+      "off_status": "SOURCE_ADMITTED",
+      "on": [
+        {
+          "path": "root.26.0.0",
+          "mode": 1,
+          "material": "$shader(carbrakelight)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightson-tga",
+              "flags": [
+                true,
+                false,
+                false
+              ],
+              "offset": 181998
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\perspex-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 182040
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelight",
+            "interned_shader": "carbrakelight",
+            "mode": null,
+            "authored_secondary": "perspex-tga",
+            "effective_secondary": "perspex-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSON-TGA.GXI",
+              "sha256": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\PERSPEX-TGA.GXI",
+              "sha256": "817275fa22c4c097837c737acedd84eccf938ed7868675315e1765d58bd856ba",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 32,
+          "vertices": 14,
+          "triangles": 10,
+          "geometry": "267c20819afd7c28d0a02fe503106f86000f5edf96678b3008627c12a6ed8029",
+          "positionUv": "8c0734703c9335f20c2df907e7ddb8e4403df7cff205c40af4866d2b796a93fb",
+          "max_source_xyz_difference": 2.980232238769531e-07,
+          "native_ordered_slots": [
+            "breaklightson-tga",
+            "perspex-tga",
+            "Null"
+          ],
+          "source_uv_index_topology": "06d37ed515912cd5c92d3623321afc5fa09c5ec2e932041e0c2937bca83e81a0"
+        }
+      ],
+      "glow": [
+        {
+          "path": "root.26.0.1",
+          "mode": 14,
+          "material": "$shader(carbrakelight)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightsonglow-tga",
+              "flags": [
+                true,
+                true,
+                false
+              ],
+              "offset": 182180
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\perspex-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 182226
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelight",
+            "interned_shader": "carbrakelight",
+            "mode": null,
+            "authored_secondary": "perspex-tga",
+            "effective_secondary": "perspex-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSONGLOW-TGA.GXI",
+              "sha256": "b6350f92f674bf2b63200ce4bb39c0c26f03fd99856ac0b89e7fc0797861af09",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\PERSPEX-TGA.GXI",
+              "sha256": "817275fa22c4c097837c737acedd84eccf938ed7868675315e1765d58bd856ba",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 33,
+          "vertices": 28,
+          "triangles": 28,
+          "geometry": "3d6bb612ae9b17f7ae56f1b96df73acfd8a5d13bd6d7b0f659d65b32ecddae93",
+          "positionUv": "a65a8d19ece479b99b8b4d82c1634595d1324482b0987080828773fa76fe4496",
+          "max_source_xyz_difference": 2.980232238769531e-07,
+          "native_ordered_slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga",
+            "Null"
+          ],
+          "source_uv_index_topology": "bdc3c962947ee37b503e2267ddfe0f33093ea92f22ffb1f4f602a525df880e63"
+        }
+      ],
+      "damaged_runtime": "Kia USER_CONFIRMED; other families REQUIRE_CURRENT_OWNER_HEALTHY_REFERENCE_AND_CLONE_PROOF"
+    },
+    {
+      "family": "Pajero",
+      "ps2_family": "PAJERO",
+      "pc_sha256": "9d051539ce10ba650840bba6c50b2c8ba9f68b6960661280f69680f0bb7f2c90",
+      "ps2_sha256": "ea810c4087a9c2c7c10098d87e35fb17a91db126176c12f9f535ea2b4e87122f",
+      "off_status": "SOURCE_ADMITTED",
+      "on": [
+        {
+          "path": "root.20.1.0",
+          "mode": 1,
+          "material": "$shader(carbrakelights)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightson-tga",
+              "flags": [
+                true,
+                false,
+                false
+              ],
+              "offset": 193038
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\lightshine-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 193080
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelights",
+            "interned_shader": "carbrakelights",
+            "mode": null,
+            "authored_secondary": "lightshine-tga",
+            "effective_secondary": "lightshine-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSON-TGA.GXI",
+              "sha256": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\LIGHTSHINE-TGA.GXI",
+              "sha256": "40789a1924fa953b5b1c9d7cfb899e4b36cdbc88533e89c4314ab133b1cb7b9d",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 25,
+          "vertices": 12,
+          "triangles": 8,
+          "geometry": "4871e8d6b0a24a1d2083a51435199adfbae59ca5835eeecd2f908affc778a038",
+          "positionUv": "337f083aa9de0a758a21810047742ddda022a7c544dadfe687e9d20fddc047ff",
+          "max_source_xyz_difference": 3.5762786865234375e-07,
+          "native_ordered_slots": [
+            "breaklightson-tga",
+            "lightshine-tga",
+            "Null"
+          ],
+          "source_uv_index_topology": "c627f26a452a44427fb6d5de71fdf0a206e7492fcf8aff533143fa7eaf45d9e0"
+        }
+      ],
+      "glow": [
+        {
+          "path": "root.20.1.1",
+          "mode": 14,
+          "material": "$shader(carbrakelights)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightsonglow-tga",
+              "flags": [
+                true,
+                true,
+                false
+              ],
+              "offset": 193198
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelights",
+            "interned_shader": "carbrakelights",
+            "mode": null,
+            "authored_secondary": null,
+            "effective_secondary": null,
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSONGLOW-TGA.GXI",
+              "sha256": "b6350f92f674bf2b63200ce4bb39c0c26f03fd99856ac0b89e7fc0797861af09",
+              "bytes": 1032
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 26,
+          "vertices": 24,
+          "triangles": 24,
+          "geometry": "457c6c83681a048ff7eca227955849445dc8fda82adade50e0632d4fa0ce64fc",
+          "positionUv": "eb74414f29b1f8ff32d2a68cb1f9132e32702736ffa0615035f406f09727961f",
+          "max_source_xyz_difference": 3.5762786865234375e-07,
+          "native_ordered_slots": [
+            "breaklightsonglow-tga",
+            "Null",
+            "Null"
+          ],
+          "source_uv_index_topology": "4c95d6dfc94c59ff2a697afeb4762ac54846155f3fd0fcbe4fd9935e99be4335"
+        }
+      ],
+      "damaged_runtime": "Kia USER_CONFIRMED; other families REQUIRE_CURRENT_OWNER_HEALTHY_REFERENCE_AND_CLONE_PROOF"
+    },
+    {
+      "family": "Patrol",
+      "ps2_family": "PATROL",
+      "pc_sha256": "d3ca392b8ffc08bf2470fbdeb5099acc6be1675baab74a79b9e59d3596c0fa0c",
+      "ps2_sha256": "a01f0f74fa76f74506e3dcbf8a72c26b73536d1896ded11069d8135f68c08dff",
+      "off_status": "SOURCE_ADMITTED",
+      "on": [
+        {
+          "path": "root.24.1.0",
+          "mode": 1,
+          "material": "$shader(carbrakelight)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightson-tga",
+              "flags": [
+                true,
+                false,
+                false
+              ],
+              "offset": 175868
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\perspex-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 175910
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelight",
+            "interned_shader": "carbrakelight",
+            "mode": null,
+            "authored_secondary": "perspex-tga",
+            "effective_secondary": "perspex-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSON-TGA.GXI",
+              "sha256": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\PERSPEX-TGA.GXI",
+              "sha256": "817275fa22c4c097837c737acedd84eccf938ed7868675315e1765d58bd856ba",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 30,
+          "vertices": 12,
+          "triangles": 8,
+          "geometry": "ce70d163884820b55c2262e84edad85fc0ab4f16c8e5fc0c904799d445b837ec",
+          "positionUv": "1252b2f880589f47471f3e06740f7b7a61e54577ee3bcd6815d41b364b3e4bf6",
+          "max_source_xyz_difference": 1.7881393432617188e-07,
+          "native_ordered_slots": [
+            "breaklightson-tga",
+            "Null",
+            "Null"
+          ],
+          "source_uv_index_topology": "c686153b9a2bd05a5db360e61c9c9ad5957ee7535ec99c00aeec8cec2dce92bd"
+        }
+      ],
+      "glow": [
+        {
+          "path": "root.24.1.1",
+          "mode": 14,
+          "material": "$shader(carbrakelight)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightsonglow-tga",
+              "flags": [
+                true,
+                true,
+                false
+              ],
+              "offset": 176024
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\perspex-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 176070
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelight",
+            "interned_shader": "carbrakelight",
+            "mode": null,
+            "authored_secondary": "perspex-tga",
+            "effective_secondary": "perspex-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSONGLOW-TGA.GXI",
+              "sha256": "b6350f92f674bf2b63200ce4bb39c0c26f03fd99856ac0b89e7fc0797861af09",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\PERSPEX-TGA.GXI",
+              "sha256": "817275fa22c4c097837c737acedd84eccf938ed7868675315e1765d58bd856ba",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 31,
+          "vertices": 24,
+          "triangles": 24,
+          "geometry": "552eb445c4bd498ed7bda0f937f656be451f155a8b56e3b3bec4370c02791a39",
+          "positionUv": "489649282a2ead2fffdb09ca835c7dda1ce3342e33e4a5d0f1fb712ba6529887",
+          "max_source_xyz_difference": 1.7881393432617188e-07,
+          "native_ordered_slots": [
+            "breaklightsonglow-tga",
+            "Null",
+            "Null"
+          ],
+          "source_uv_index_topology": "226c228c1495dd5a33d77aebaf94043a8a5339e47116a43c6808c196670b9bd6"
+        }
+      ],
+      "damaged_runtime": "Kia USER_CONFIRMED; other families REQUIRE_CURRENT_OWNER_HEALTHY_REFERENCE_AND_CLONE_PROOF"
+    },
+    {
+      "family": "RMonster",
+      "ps2_family": "RMONSTER",
+      "pc_sha256": "b3c4e3485f7b864829ec594977230dc18a6deb4cdef9382757fecee5fdf42a46",
+      "ps2_sha256": "9d5805e16d855e10b25704e88a25ecd55adadb9f89de77e66f4c29c2f9eb6a4a",
+      "off_status": "SOURCE_ADMITTED",
+      "on": [
+        {
+          "path": "root.18.1.0",
+          "mode": 1,
+          "material": "$shader(carbrakelight)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightson-tga",
+              "flags": [
+                true,
+                false,
+                false
+              ],
+              "offset": 169400
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\perspex-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 169442
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelight",
+            "interned_shader": "carbrakelight",
+            "mode": null,
+            "authored_secondary": "perspex-tga",
+            "effective_secondary": "perspex-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSON-TGA.GXI",
+              "sha256": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\PERSPEX-TGA.GXI",
+              "sha256": "817275fa22c4c097837c737acedd84eccf938ed7868675315e1765d58bd856ba",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 23,
+          "vertices": 12,
+          "triangles": 8,
+          "geometry": "2ba9b5cdfa25c47b72b590b1672bb88c3008ebee5143ce6921e9bdd9cb4a444b",
+          "positionUv": "305c5e8e7917bcbeb05c627ae021d617bc5c1e947ea3b7b8eda4640d0d6ecb3a",
+          "max_source_xyz_difference": 1.1920928955078125e-07,
+          "native_ordered_slots": [
+            "breaklightson-tga",
+            "Null",
+            "Null"
+          ],
+          "source_uv_index_topology": "9e0590742ceb14c202bfb3669620fe5ce5f2b01ec9414e429ba7156965014f0e"
+        }
+      ],
+      "glow": [
+        {
+          "path": "root.18.1.1",
+          "mode": 14,
+          "material": "$shader(carbrakelight)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightsonglow-tga",
+              "flags": [
+                true,
+                true,
+                false
+              ],
+              "offset": 169569
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelight",
+            "interned_shader": "carbrakelight",
+            "mode": null,
+            "authored_secondary": null,
+            "effective_secondary": null,
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSONGLOW-TGA.GXI",
+              "sha256": "b6350f92f674bf2b63200ce4bb39c0c26f03fd99856ac0b89e7fc0797861af09",
+              "bytes": 1032
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 24,
+          "vertices": 24,
+          "triangles": 24,
+          "geometry": "8615ce9d474c41928d86f78b57427408b744d55895bb94145247db35e959618d",
+          "positionUv": "a5bf4720247fc87250f311e489bc17dbe32f207f7f099aa4420fe02d6be530d0",
+          "max_source_xyz_difference": 0.020730972290039062,
+          "native_ordered_slots": [
+            "breaklightsonglow-tga",
+            "Null",
+            "Null"
+          ],
+          "source_uv_index_topology": "792ed21c539a84aaa7e1e9dabfe73ba36e25e3e9d9e7e049fd71a920cfa08a26"
+        }
+      ],
+      "damaged_runtime": "Kia USER_CONFIRMED; other families REQUIRE_CURRENT_OWNER_HEALTHY_REFERENCE_AND_CLONE_PROOF"
+    },
+    {
+      "family": "SeatBuggy",
+      "ps2_family": "SEATBUGGY",
+      "pc_sha256": "468031a187dc968eda6451eb7e5b7dde2ec557c7fbfe5a77d0f09d195046b6e0",
+      "ps2_sha256": "3244c3decf33634d035cae682fa886acd9d86982250cbc64060a65109585c3f7",
+      "off_status": "SOURCE_ADMITTED",
+      "on": [
+        {
+          "path": "root.19.1.0",
+          "mode": 1,
+          "material": "$shader(carbrakelights)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightson-tga",
+              "flags": [
+                true,
+                false,
+                false
+              ],
+              "offset": 167094
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\lightshine-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 167136
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelights",
+            "interned_shader": "carbrakelights",
+            "mode": null,
+            "authored_secondary": "lightshine-tga",
+            "effective_secondary": "lightshine-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSON-TGA.GXI",
+              "sha256": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\LIGHTSHINE-TGA.GXI",
+              "sha256": "40789a1924fa953b5b1c9d7cfb899e4b36cdbc88533e89c4314ab133b1cb7b9d",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 25,
+          "vertices": 8,
+          "triangles": 4,
+          "geometry": "b420a735713d821158a8a55784185c8ce3a82ff365222e95c4a193beeea73da2",
+          "positionUv": "e57eac9c9b0df4fce479cce70ec08655bfc799b44a27442b565f0fd26ab6048c",
+          "max_source_xyz_difference": 5.960464477539063e-08,
+          "native_ordered_slots": [
+            "breaklightson-tga",
+            "lightshine-tga",
+            "Null"
+          ],
+          "source_uv_index_topology": "8ecdacff31b10bfe2b8e1710fd154f9007d0b37e8a59a6456044279c833fd170"
+        }
+      ],
+      "glow": [
+        {
+          "path": "root.19.1.1",
+          "mode": 14,
+          "material": "$shader(carbrakelights)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightsonglow-tga",
+              "flags": [
+                true,
+                true,
+                false
+              ],
+              "offset": 167254
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelights",
+            "interned_shader": "carbrakelights",
+            "mode": null,
+            "authored_secondary": null,
+            "effective_secondary": null,
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSONGLOW-TGA.GXI",
+              "sha256": "b6350f92f674bf2b63200ce4bb39c0c26f03fd99856ac0b89e7fc0797861af09",
+              "bytes": 1032
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 26,
+          "vertices": 16,
+          "triangles": 16,
+          "geometry": "5c13031bcd6a4ed52b89f38aa40d56c01c79a2e58378249addd6808d77c572c5",
+          "positionUv": "c156622c2b9eda0947380c83670b567b180eca47f2b8b3a58bbf3e92d0fa0957",
+          "max_source_xyz_difference": 5.960464477539063e-08,
+          "native_ordered_slots": [
+            "breaklightsonglow-tga",
+            "Null",
+            "Null"
+          ],
+          "source_uv_index_topology": "9f41fd895ecbb4cb6a64d7c277d2808d43d65ce3ec30536baf91a698177264d7"
+        }
+      ],
+      "damaged_runtime": "Kia USER_CONFIRMED; other families REQUIRE_CURRENT_OWNER_HEALTHY_REFERENCE_AND_CLONE_PROOF"
+    },
+    {
+      "family": "Simmbugghini",
+      "ps2_family": "SIMMBUGGHINI",
+      "pc_sha256": "b1345dfb75e6074b7592ec8f42c59fe3d1811b25cc2a75f3c2665487256963bb",
+      "ps2_sha256": "d3998e23fa1b26f800601e72959bb28d94278e069ff5f21efb0531c63ed210a1",
+      "off_status": "SOURCE_ADMITTED",
+      "on": [
+        {
+          "path": "root.21.0.0",
+          "mode": 1,
+          "material": "$shader(carbrakelight)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightson-tga",
+              "flags": [
+                true,
+                false,
+                false
+              ],
+              "offset": 178410
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\perspex-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 178452
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelight",
+            "interned_shader": "carbrakelight",
+            "mode": null,
+            "authored_secondary": "perspex-tga",
+            "effective_secondary": "perspex-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSON-TGA.GXI",
+              "sha256": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\PERSPEX-TGA.GXI",
+              "sha256": "817275fa22c4c097837c737acedd84eccf938ed7868675315e1765d58bd856ba",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 23,
+          "vertices": 34,
+          "triangles": 36,
+          "geometry": "545790c3cbc84222da62e805e4b4ac93cf029f821df11a176864fa78d78db50f",
+          "positionUv": "9ecf1a6126218847b6ad2f87d3b67ac09e3f8b924bb747588ea49dc6da3d5f0d",
+          "max_source_xyz_difference": 1.7881393432617188e-07,
+          "native_ordered_slots": [
+            "breaklightson-tga",
+            "perspex-tga",
+            "Null"
+          ],
+          "source_uv_index_topology": "df740683e1052e7bc2703015482591c5ddabc5b957556f014995cbc9faa8eee8"
+        }
+      ],
+      "glow": [
+        {
+          "path": "root.21.0.1",
+          "mode": 14,
+          "material": "$shader(carbrakelight)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightsonglow-tga",
+              "flags": [
+                true,
+                true,
+                false
+              ],
+              "offset": 178618
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\perspex-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 178664
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelight",
+            "interned_shader": "carbrakelight",
+            "mode": null,
+            "authored_secondary": "perspex-tga",
+            "effective_secondary": "perspex-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSONGLOW-TGA.GXI",
+              "sha256": "b6350f92f674bf2b63200ce4bb39c0c26f03fd99856ac0b89e7fc0797861af09",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\PERSPEX-TGA.GXI",
+              "sha256": "817275fa22c4c097837c737acedd84eccf938ed7868675315e1765d58bd856ba",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 24,
+          "vertices": 48,
+          "triangles": 48,
+          "geometry": "553393f2623332737b0a82fca999d3d3df3fa0fe796f34d9a3a52b562c52cb32",
+          "positionUv": "ca81d2dfc9f3398bb32430f1aa3884ffb952fec8dd2c90d13caf8a90348713cc",
+          "max_source_xyz_difference": 1.7881393432617188e-07,
+          "native_ordered_slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga",
+            "Null"
+          ],
+          "source_uv_index_topology": "035789206881e4ecb64fe5c2e1f73a953bda8dca3855de1d7320775e76cb532f"
+        }
+      ],
+      "damaged_runtime": "Kia USER_CONFIRMED; other families REQUIRE_CURRENT_OWNER_HEALTHY_REFERENCE_AND_CLONE_PROOF"
+    },
+    {
+      "family": "Tata",
+      "ps2_family": "TATA",
+      "pc_sha256": "45b7bfba6938e259c0ac6d79a42a878a8c66b1e53547a53a6d23343092fb34cb",
+      "ps2_sha256": "9397b4b9b60567a3ac3f5e0ac752a6794b3fea9ace8c2bb524db53bb565e6c84",
+      "off_status": "SOURCE_ADMITTED",
+      "on": [
+        {
+          "path": "root.24.1.0",
+          "mode": 1,
+          "material": "$shader(carbrakelights)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightson-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 174965
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\lightshine-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 175007
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelights",
+            "interned_shader": "carbrakelights",
+            "mode": null,
+            "authored_secondary": "lightshine-tga",
+            "effective_secondary": "lightshine-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSON-TGA.GXI",
+              "sha256": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\LIGHTSHINE-TGA.GXI",
+              "sha256": "40789a1924fa953b5b1c9d7cfb899e4b36cdbc88533e89c4314ab133b1cb7b9d",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 31,
+          "vertices": 18,
+          "triangles": 10,
+          "geometry": "91bbf4861afa2d3dcd37b9478eb773dfa3c380f13302901025cd6d8a78d50363",
+          "positionUv": "1e556a67536ea956047e2a8be544eec771eae34b4d699d3b98d7d333ea225da6",
+          "max_source_xyz_difference": 1.1920928955078125e-07,
+          "native_ordered_slots": [
+            "breaklightson-tga",
+            "Null",
+            "Null"
+          ],
+          "source_uv_index_topology": "2a87b6a745e3b20d7c39e01d309a98995fa8e645d3fcfc64c7b8c30133fb9473"
+        }
+      ],
+      "glow": [
+        {
+          "path": "root.24.1.1",
+          "mode": 14,
+          "material": "$shader(carbrakelights)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightsonglow-tga",
+              "flags": [
+                true,
+                true,
+                false
+              ],
+              "offset": 175151
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelights",
+            "interned_shader": "carbrakelights",
+            "mode": null,
+            "authored_secondary": null,
+            "effective_secondary": null,
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSONGLOW-TGA.GXI",
+              "sha256": "b6350f92f674bf2b63200ce4bb39c0c26f03fd99856ac0b89e7fc0797861af09",
+              "bytes": 1032
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 32,
+          "vertices": 36,
+          "triangles": 28,
+          "geometry": "a2880efe7045219bb310c943cfc4bec8036017f437269aa92cad3011f57196ae",
+          "positionUv": "a9790a77073faac9fb7016f68153969f9a97ebb98539f1583681d3a56d3a351c",
+          "max_source_xyz_difference": 0.04579043388366699,
+          "native_ordered_slots": [
+            "breaklightsonglow-tga",
+            "Null",
+            "Null"
+          ],
+          "source_uv_index_topology": "67312321b36898add7015726d97046b8a324185a95a875996e2e7f7f9852e533"
+        }
+      ],
+      "damaged_runtime": "Kia USER_CONFIRMED; other families REQUIRE_CURRENT_OWNER_HEALTHY_REFERENCE_AND_CLONE_PROOF"
+    },
+    {
+      "family": "Terrano",
+      "ps2_family": "TERRANO",
+      "pc_sha256": "90120ed0fea4428707cdc9505d53cb685ae85db6d13eeb8715d1e8e39fab927b",
+      "ps2_sha256": "bb0e2c4e34ba21812cf9fe57077da5e04a02501eae24451767c2ced42b95f1b1",
+      "off_status": "SOURCE_ADMITTED",
+      "on": [
+        {
+          "path": "root.24.0.0",
+          "mode": 1,
+          "material": "$shader(carbrakelight)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightson-tga",
+              "flags": [
+                true,
+                false,
+                false
+              ],
+              "offset": 191257
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\perspex-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 191299
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelight",
+            "interned_shader": "carbrakelight",
+            "mode": null,
+            "authored_secondary": "perspex-tga",
+            "effective_secondary": "perspex-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSON-TGA.GXI",
+              "sha256": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\PERSPEX-TGA.GXI",
+              "sha256": "817275fa22c4c097837c737acedd84eccf938ed7868675315e1765d58bd856ba",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 30,
+          "vertices": 10,
+          "triangles": 6,
+          "geometry": "2afd75bd071f0cb1bee35be8f99f0209511a5332b0e8880bb3b889fa52aaf847",
+          "positionUv": "8d2692151eb98d55bdc416394254ada22553e03395b44bedd5e21a42499b6107",
+          "max_source_xyz_difference": 4.172325134277344e-07,
+          "native_ordered_slots": [
+            "breaklightson-tga",
+            "perspex-tga",
+            "Null"
+          ],
+          "source_uv_index_topology": "65d5b641582bd878fb0cc0122b7d5de69dbced9606f2386395bea9e9d3fdac06"
+        }
+      ],
+      "glow": [
+        {
+          "path": "root.24.0.1",
+          "mode": 14,
+          "material": "$shader(carbrakelight)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightsonglow-tga",
+              "flags": [
+                true,
+                true,
+                false
+              ],
+              "offset": 191426
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\perspex-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 191472
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelight",
+            "interned_shader": "carbrakelight",
+            "mode": null,
+            "authored_secondary": "perspex-tga",
+            "effective_secondary": "perspex-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSONGLOW-TGA.GXI",
+              "sha256": "b6350f92f674bf2b63200ce4bb39c0c26f03fd99856ac0b89e7fc0797861af09",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\PERSPEX-TGA.GXI",
+              "sha256": "817275fa22c4c097837c737acedd84eccf938ed7868675315e1765d58bd856ba",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 31,
+          "vertices": 20,
+          "triangles": 20,
+          "geometry": "3658c62c72e54bbe2fba9ad4b9503bd55ab38d5ec40336e89341dc79ff828517",
+          "positionUv": "1744a01e0cf36bf9d47fb88f42cb930117867efa9f687673bb0b93a0286649fe",
+          "max_source_xyz_difference": 4.172325134277344e-07,
+          "native_ordered_slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga",
+            "Null"
+          ],
+          "source_uv_index_topology": "b999563988bd7b7b2666a3d370b8376031e55562dffc7ed8884d3187e1c4409c"
+        }
+      ],
+      "damaged_runtime": "Kia USER_CONFIRMED; other families REQUIRE_CURRENT_OWNER_HEALTHY_REFERENCE_AND_CLONE_PROOF"
+    },
+    {
+      "family": "Ufo",
+      "ps2_family": "UFO",
+      "pc_sha256": "f6995450ea0bcaebb51150f1472b5d2b72e82ce57e3d0207f2199376fe5718e2",
+      "ps2_sha256": "72e96dea29d35a2462dfac68161276e5bc343b491af7525c486e506e56be55a8",
+      "off_status": "BLOCKED_NO_EXACT_OFF_PAIR",
+      "on": [
+        {
+          "path": "root.9.0.0",
+          "mode": 1,
+          "material": "$shader(carbrakelight)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightson-tga",
+              "flags": [
+                true,
+                false,
+                false
+              ],
+              "offset": 104349
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\perspex-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 104391
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelight",
+            "interned_shader": "carbrakelight",
+            "mode": null,
+            "authored_secondary": "perspex-tga",
+            "effective_secondary": "perspex-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSON-TGA.GXI",
+              "sha256": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\PERSPEX-TGA.GXI",
+              "sha256": "817275fa22c4c097837c737acedd84eccf938ed7868675315e1765d58bd856ba",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 9,
+          "vertices": 65,
+          "triangles": 90,
+          "geometry": "f4a9dc75c4d14a3b5b03b524af259f3598d79fafdbf535121e2659d704cd777e",
+          "positionUv": "668a6015f7df70bd2e4ecced87896d79895adaccb9ae7ff4c4cd62f961b68077",
+          "max_source_xyz_difference": 4.76837158203125e-07,
+          "native_ordered_slots": [
+            "breaklightson-tga",
+            "perspex-tga",
+            "Null"
+          ],
+          "source_uv_index_topology": "ad683d941fd16e8b8394d2e51d99d143ad1e9b60d3b64a4c5f02a9a7a50a4439"
+        }
+      ],
+      "glow": [
+        {
+          "path": "root.9.0.1",
+          "mode": 14,
+          "material": "$shader(carbrakelight)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightsonglow-tga",
+              "flags": [
+                true,
+                true,
+                false
+              ],
+              "offset": 104583
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\perspex-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 104629
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelight",
+            "interned_shader": "carbrakelight",
+            "mode": null,
+            "authored_secondary": "perspex-tga",
+            "effective_secondary": "perspex-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSONGLOW-TGA.GXI",
+              "sha256": "b6350f92f674bf2b63200ce4bb39c0c26f03fd99856ac0b89e7fc0797861af09",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\PERSPEX-TGA.GXI",
+              "sha256": "817275fa22c4c097837c737acedd84eccf938ed7868675315e1765d58bd856ba",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 10,
+          "vertices": 60,
+          "triangles": 60,
+          "geometry": "4fb3ee2ceafe808fed37dd7b36f5844ea11311c1f3cf6821cc71f38af6552707",
+          "positionUv": "ebc52ebd10fc45a094139d24e6a9a0a42801a7146e8085a0e26f4a472042a79d",
+          "max_source_xyz_difference": 4.76837158203125e-07,
+          "native_ordered_slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga",
+            "Null"
+          ],
+          "source_uv_index_topology": "e86e6fa9d3c9bbe219928c053e1066b37fecf87c87bb87e5c596694e446113d4"
+        }
+      ],
+      "damaged_runtime": "Kia USER_CONFIRMED; other families REQUIRE_CURRENT_OWNER_HEALTHY_REFERENCE_AND_CLONE_PROOF"
+    },
+    {
+      "family": "WildCat",
+      "ps2_family": "WILDCAT",
+      "pc_sha256": "ccbcb74985d5b21a594b471eb42d242b5eb5809d8646e57ece08b4a1cd6614cd",
+      "ps2_sha256": "ea85c64312342149b7a18cc9060174a5532e53a1e02ed62c80a21c2c0a62425a",
+      "off_status": "SOURCE_ADMITTED",
+      "on": [
+        {
+          "path": "root.21.0.0",
+          "mode": 1,
+          "material": "$shader(carbrakelight)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightson-tga",
+              "flags": [
+                true,
+                false,
+                false
+              ],
+              "offset": 185513
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\perspex-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 185555
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelight",
+            "interned_shader": "carbrakelight",
+            "mode": null,
+            "authored_secondary": "perspex-tga",
+            "effective_secondary": "perspex-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSON-TGA.GXI",
+              "sha256": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\PERSPEX-TGA.GXI",
+              "sha256": "817275fa22c4c097837c737acedd84eccf938ed7868675315e1765d58bd856ba",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 26,
+          "vertices": 8,
+          "triangles": 4,
+          "geometry": "933a7fc03140062f644eec30e331f6de7059d5a8b63103ea371ea8dc33751ee5",
+          "positionUv": "f0405c3008bdb01c5100cfaabc9b69e38ee614e821efed3023fa522ce8ec6c24",
+          "max_source_xyz_difference": 1.1920928955078125e-07,
+          "native_ordered_slots": [
+            "breaklightson-tga",
+            "perspex-tga",
+            "Null"
+          ],
+          "source_uv_index_topology": "35ec6f33b8d56cb0d3d9247c549e8d767df2130be9987b8bcc26a50ba9c8ba47"
+        }
+      ],
+      "glow": [
+        {
+          "path": "root.21.0.1",
+          "mode": 14,
+          "material": "$shader(carbrakelight)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightsonglow-tga",
+              "flags": [
+                true,
+                true,
+                false
+              ],
+              "offset": 185669
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\perspex-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 185715
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelight",
+            "interned_shader": "carbrakelight",
+            "mode": null,
+            "authored_secondary": "perspex-tga",
+            "effective_secondary": "perspex-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSONGLOW-TGA.GXI",
+              "sha256": "b6350f92f674bf2b63200ce4bb39c0c26f03fd99856ac0b89e7fc0797861af09",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\PERSPEX-TGA.GXI",
+              "sha256": "817275fa22c4c097837c737acedd84eccf938ed7868675315e1765d58bd856ba",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 27,
+          "vertices": 16,
+          "triangles": 16,
+          "geometry": "a15aee40ddabb239fe61dfb1c1a2b23b95fed2ccd5923ac75e74e689f9f2538f",
+          "positionUv": "f2b4a25cd68ab19463768064369b3daece653ec69d81af56af87bf145cda4474",
+          "max_source_xyz_difference": 1.1920928955078125e-07,
+          "native_ordered_slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga",
+            "Null"
+          ],
+          "source_uv_index_topology": "fed2988eaa13ba8b6bfb5323fda984784bba30963782180cad3f327e05065502"
+        }
+      ],
+      "damaged_runtime": "Kia USER_CONFIRMED; other families REQUIRE_CURRENT_OWNER_HEALTHY_REFERENCE_AND_CLONE_PROOF"
+    },
+    {
+      "family": "Forester",
+      "ps2_family": "WOOLDAND",
+      "pc_sha256": "670ef07dc312aefa5628fe24c08aa696ee147043cfecdf2aadaf01e012c8b5fc",
+      "ps2_sha256": "93a2bd9e9ee884ac32a6d7af4b320212156e853fd85b02bc01bdcc783d0d533d",
+      "off_status": "SOURCE_ADMITTED",
+      "on": [
+        {
+          "path": "root.20.0.0",
+          "mode": 1,
+          "material": "$shader(carbrakelight)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightson-tga",
+              "flags": [
+                true,
+                false,
+                false
+              ],
+              "offset": 173667
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\perspex-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 173709
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelight",
+            "interned_shader": "carbrakelight",
+            "mode": null,
+            "authored_secondary": "perspex-tga",
+            "effective_secondary": "perspex-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSON-TGA.GXI",
+              "sha256": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\PERSPEX-TGA.GXI",
+              "sha256": "817275fa22c4c097837c737acedd84eccf938ed7868675315e1765d58bd856ba",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 24,
+          "vertices": 8,
+          "triangles": 4,
+          "geometry": "25ad9ad544a521492c507b39fb0f7b5aa62d33f71f23a1ae75895e1bc073dd92",
+          "positionUv": "5d607c0a57663cd138ff7e92488c8e6f6ad4e28405c55778384f8154f4b5f025",
+          "max_source_xyz_difference": 1.1920928955078125e-07,
+          "native_ordered_slots": [
+            "breaklightson-tga",
+            "perspex-tga",
+            "Null"
+          ],
+          "source_uv_index_topology": "0b417528d11ff595a7843b66b6da9ce9fff7d6385242f554f4217cb2bca1e305"
+        }
+      ],
+      "glow": [
+        {
+          "path": "root.20.0.1",
+          "mode": 14,
+          "material": "$shader(carbrakelight)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightsonglow-tga",
+              "flags": [
+                true,
+                true,
+                false
+              ],
+              "offset": 173823
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\perspex-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 173869
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelight",
+            "interned_shader": "carbrakelight",
+            "mode": null,
+            "authored_secondary": "perspex-tga",
+            "effective_secondary": "perspex-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSONGLOW-TGA.GXI",
+              "sha256": "b6350f92f674bf2b63200ce4bb39c0c26f03fd99856ac0b89e7fc0797861af09",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\PERSPEX-TGA.GXI",
+              "sha256": "817275fa22c4c097837c737acedd84eccf938ed7868675315e1765d58bd856ba",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 25,
+          "vertices": 16,
+          "triangles": 16,
+          "geometry": "c92cc8ed28a67750827285e419806fc0c29b058d2297f61e7524c71ebd11adcb",
+          "positionUv": "65d37ba0ca192f04a2e2804ea02bbe90069f81306267a3818304c8df57658852",
+          "max_source_xyz_difference": 1.1920928955078125e-07,
+          "native_ordered_slots": [
+            "breaklightsonglow-tga",
+            "perspex-tga",
+            "Null"
+          ],
+          "source_uv_index_topology": "b6d8aad6372dce70d05934e02e068dc4adfe156887dcd44d178ab535398ec982"
+        }
+      ],
+      "damaged_runtime": "Kia USER_CONFIRMED; other families REQUIRE_CURRENT_OWNER_HEALTHY_REFERENCE_AND_CLONE_PROOF"
+    },
+    {
+      "family": "Xtrail",
+      "ps2_family": "XTRAIL",
+      "pc_sha256": "e334085754f81d20d237a70e653b533344771e6409468e2e09252e380b3d063f",
+      "ps2_sha256": "af57572e92ce47d810666779fb60c8c178f1979feb203416131a3acc81449326",
+      "off_status": "SOURCE_ADMITTED",
+      "on": [
+        {
+          "path": "root.20.1.0",
+          "mode": 1,
+          "material": "$shader(carbrakelights)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightson-tga",
+              "flags": [
+                true,
+                false,
+                false
+              ],
+              "offset": 175732
+            },
+            {
+              "slot": 1,
+              "name": "commontextures\\lightshine-tga",
+              "flags": [
+                false,
+                false,
+                false
+              ],
+              "offset": 175774
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelights",
+            "interned_shader": "carbrakelights",
+            "mode": null,
+            "authored_secondary": "lightshine-tga",
+            "effective_secondary": "lightshine-tga",
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSON-TGA.GXI",
+              "sha256": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+              "bytes": 1032
+            },
+            {
+              "slot": 1,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\LIGHTSHINE-TGA.GXI",
+              "sha256": "40789a1924fa953b5b1c9d7cfb899e4b36cdbc88533e89c4314ab133b1cb7b9d",
+              "bytes": 4104
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 24,
+          "vertices": 10,
+          "triangles": 6,
+          "geometry": "a6d34ae167a6e81a9a411bd4856c5c5152fbd34ab37163cb76fd2079e1f59393",
+          "positionUv": "33d039633b69e082adcff43cf0a024ea90a4ffeb8b273eca398d9cc1d59dcfc5",
+          "max_source_xyz_difference": 1.1920928955078125e-07,
+          "native_ordered_slots": [
+            "breaklightson-tga",
+            "Null",
+            "Null"
+          ],
+          "source_uv_index_topology": "18b9e43ce9e01d3abccb8b27b61b99dc5cc13b08a6b76854e9565fd81bf9a512"
+        }
+      ],
+      "glow": [
+        {
+          "path": "root.20.1.1",
+          "mode": 14,
+          "material": "$shader(carbrakelights)",
+          "ordered_slots": [
+            {
+              "slot": 0,
+              "name": "commontextures\\breaklightsonglow-tga",
+              "flags": [
+                true,
+                true,
+                false
+              ],
+              "offset": 175892
+            }
+          ],
+          "loader_contract": {
+            "authored_shader": "carbrakelights",
+            "interned_shader": "carbrakelights",
+            "mode": null,
+            "authored_secondary": null,
+            "effective_secondary": null,
+            "rubber_substring_preserved": false,
+            "reflection_contract_known": false,
+            "environment_selector": null,
+            "handler": null,
+            "fallback": "UNTRACED_SHADER_OR_GENERIC_DEFAULT",
+            "evidence_grade": "UNKNOWN"
+          },
+          "resources": [
+            {
+              "slot": 0,
+              "resource": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSONGLOW-TGA.GXI",
+              "sha256": "b6350f92f674bf2b63200ce4bb39c0c26f03fd99856ac0b89e7fc0797861af09",
+              "bytes": 1032
+            }
+          ],
+          "status": "SOURCE_ADMITTED",
+          "original_vertex_rgba_words": [
+            4294967295
+          ],
+          "record": 25,
+          "vertices": 22,
+          "triangles": 22,
+          "geometry": "d93052345deb98b2470c8d5a18dee1660382dca073f08200f2e910e5cc165b35",
+          "positionUv": "309fb84c83cea05dfcc56aab0968c5b86250bb6c3c5b98f029fd3adee042eedc",
+          "max_source_xyz_difference": 1.1920928955078125e-07,
+          "native_ordered_slots": [
+            "breaklightsonglow-tga",
+            "Null",
+            "Null"
+          ],
+          "source_uv_index_topology": "31a34b19af6402ec9ebed15c1499f3c167a81d4510df4a92be651d17325543da"
+        }
+      ],
+      "damaged_runtime": "Kia USER_CONFIRMED; other families REQUIRE_CURRENT_OWNER_HEALTHY_REFERENCE_AND_CLONE_PROOF"
+    }
+  ]
+}

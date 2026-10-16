@@ -1,0 +1,8 @@
+{
+  "filename": "port3-TATA-wheel-fixtures.bin",
+  "sha256": "c0b0238594f005cb87f8fb00dcfc3bf02cb5a325dce47e2ef2d4b28548f1aa28",
+  "bytes": 8412,
+  "format": "PS2KWH01 + u32 source_count + source_count * (6xu32 layout/counts/sizes; vb; normalized u32 ib)",
+  "provenance": "ORIGINAL_PC_XYZ_UV_WITH_SYNTHETIC_WHITE_DIFFUSE; EXACT_NATIVE_WINDING",
+  "source_pc_sha256": "f106abef3ba6926350cfc2796b54c17bb762d2b057a0232c4f3d8676dcf638ea"
+}

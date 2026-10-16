@@ -1,0 +1,34 @@
+{
+  "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "image_base": "0x400000",
+  "windows": [
+    {
+      "va": "0x5769cf",
+      "end_exclusive": "0x5769f1",
+      "file_offset": "0x1769cf",
+      "bytes_hex": "8b4c24308b81b000000083c1448b506c528b50688b405c5250518b4d38e84fb0feff",
+      "sha256": "4304eadd035fd9265d6edaa07fd5466b79e30153af3d4ea0aec3bcb682cf2730"
+    },
+    {
+      "va": "0x561afc",
+      "end_exclusive": "0x561b25",
+      "file_offset": "0x161afc",
+      "bytes_hex": "8bac24ac00000085ff740983ff020f85470200008b8424b8000000480f84cd000000480f8521020000",
+      "sha256": "e38cad4e0847a8343cbf495837c15bdb70c886289e4056a9ed83f8afda6c0e3f"
+    },
+    {
+      "va": "0x561d46",
+      "end_exclusive": "0x561d57",
+      "file_offset": "0x161d46",
+      "bytes_hex": "83ff02750cd9433cd95d30d94344d95d38",
+      "sha256": "55d67d8f576d1327da5c973e2ec8c3406a4521ff0358879b1dad4e9c569366cd"
+    },
+    {
+      "va": "0x561dc9",
+      "end_exclusive": "0x561de0",
+      "file_offset": "0x161dc9",
+      "bytes_hex": "55f3a58b9b244d00006800010000538b03ff9094000000",
+      "sha256": "7212b26e6ebdfa583c5e699c4cf167d186c691de3f2e3f0a14dcb2811f1c54cb"
+    }
+  ]
+}

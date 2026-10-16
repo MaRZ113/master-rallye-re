@@ -1,0 +1,73 @@
+{
+  "schema": 1,
+  "legacy_profiles": 20,
+  "added_profiles": [
+    {
+      "family": "FRONTERA",
+      "record": 32,
+      "vertices": 16,
+      "triangles": 16,
+      "geometry": "926295a55026239ee0ddaee77a6170994823650c58946479c812c2ab202e760c",
+      "positionUv": "b579e1f9c196a0215f50bc3927e89c620d1483a41f0a1028994a8f8d93446e67",
+      "ps2_path": "root.23.0.1",
+      "ps2_mode": 14,
+      "original_pc_geometry_retained": true,
+      "max_original_xyz_difference": 0.039209842681884766,
+      "runtime_validation": "PENDING_USER_BRAKE_OFF_ON"
+    },
+    {
+      "family": "JUMP",
+      "record": 28,
+      "vertices": 16,
+      "triangles": 16,
+      "geometry": "e596c5d2b8f03677cc7dbf610db3bc7ad4e3adc3098c6f1475084f175b372bff",
+      "positionUv": "13b3054affd20f7fa0f934248c5b8c8657a949d335b444fa39a5bc0f841d8256",
+      "ps2_path": "root.21.0.0",
+      "ps2_mode": 14,
+      "original_pc_geometry_retained": true,
+      "max_original_xyz_difference": 0.0024013519287109375,
+      "runtime_validation": "PENDING_USER_BRAKE_OFF_ON"
+    },
+    {
+      "family": "MATTSERATI",
+      "record": 24,
+      "vertices": 48,
+      "triangles": 48,
+      "geometry": "6166db4797ca28731baea23873a55368f1aee812524f70ae72cc85fd0103f159",
+      "positionUv": "b389f600990b9df612d9a623c1c71c51d52870c2e8acd7a2543cc08156cfe97d",
+      "ps2_path": "root.21.0.1",
+      "ps2_mode": 14,
+      "original_pc_geometry_retained": true,
+      "max_original_xyz_difference": 0.00802314281463623,
+      "runtime_validation": "PENDING_USER_BRAKE_OFF_ON"
+    },
+    {
+      "family": "RMONSTER",
+      "record": 24,
+      "vertices": 24,
+      "triangles": 24,
+      "geometry": "8615ce9d474c41928d86f78b57427408b744d55895bb94145247db35e959618d",
+      "positionUv": "a5bf4720247fc87250f311e489bc17dbe32f207f7f099aa4420fe02d6be530d0",
+      "ps2_path": "root.18.1.1",
+      "ps2_mode": 14,
+      "original_pc_geometry_retained": true,
+      "max_original_xyz_difference": 0.020730972290039062,
+      "runtime_validation": "PENDING_USER_BRAKE_OFF_ON"
+    },
+    {
+      "family": "TATA",
+      "record": 32,
+      "vertices": 36,
+      "triangles": 28,
+      "geometry": "a2880efe7045219bb310c943cfc4bec8036017f437269aa92cad3011f57196ae",
+      "positionUv": "a9790a77073faac9fb7016f68153969f9a97ebb98539f1583681d3a56d3a351c",
+      "ps2_path": "root.24.1.1",
+      "ps2_mode": 14,
+      "original_pc_geometry_retained": true,
+      "max_original_xyz_difference": 0.04579043388366699,
+      "runtime_validation": "PENDING_USER_BRAKE_OFF_ON"
+    }
+  ],
+  "runtime_geometry_policy": "EXACT_NATIVE_PC_GEOMETRY_AND_UV_HASHES; NO_POSITION_TOLERANCE",
+  "new_ps2_geometry_replacement": false
+}

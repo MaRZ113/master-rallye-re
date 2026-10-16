@@ -1,0 +1,399 @@
+{
+  "status": "READ_ONLY_RUNTIME_CERTIFICATE; NO_KIA_REPLACEMENT_ENABLED",
+  "xtrail_damage_reflections": "USER_RUNTIME_CONFIRMED_9fecebfa",
+  "captures": [
+    {
+      "file": "race-fleet-11316-d1-f2529.jsonl",
+      "sha256": "3890eb13f47f4c5f8ae24b0c46663449d6f23f050e22537ed6177ac3e4155081",
+      "frame": 2529,
+      "proxy_sha256": "9fecebfa3ef3c8492c502b2c61f62599671341d06047c694bc85777953f47bd9",
+      "car_records": 26,
+      "expected_sources": 26,
+      "source_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25
+      ],
+      "missing_sources": [],
+      "car_root_counts": [
+        30
+      ],
+      "car_owners": 1,
+      "car_worlds": [
+        "d3bd663f968856bdf121dcbe00000000ce23b93d31597e3fe43e8c3d000000003fe0d83e2602cebd0777663f00000000c76e5c43d6c60342ac4f22430000803f"
+      ],
+      "wheels": [
+        {
+          "instance": 597097016,
+          "records": 4,
+          "root_counts": [
+            4
+          ],
+          "worlds": [
+            "fb2b673f4c1602bdac5bdbbe00000000b3687e3e216546bf1ac3143f000000009072b3be729521bf3c2231bf0000000090085b432d450442c07421430000803f"
+          ]
+        },
+        {
+          "instance": 597101416,
+          "records": 4,
+          "root_counts": [
+            4
+          ],
+          "worlds": [
+            "f840653f6ca7f1bce258e3be000000003c76cfbe4e8cb73e6a4c57bf000000009c683c3e73dd6e3f64409e3e000000007d335c43ac49034213ef23430000803f"
+          ]
+        },
+        {
+          "instance": 597098816,
+          "records": 4,
+          "root_counts": [
+            4
+          ],
+          "worlds": [
+            "385366bf9d0b8d3d87afdc3e00000000ccfa25be693678bf19d23bbe000000003c81cf3e788670be232d623f0000000042a85c4397f40342e7ae20430000803f"
+          ]
+        },
+        {
+          "instance": 597098016,
+          "records": 4,
+          "root_counts": [
+            4
+          ],
+          "worlds": [
+            "54f967bf96ce9f3db3d6d43e000000007cf8bebebd601cbf4ec932bf00000000de384c3e41b349bffe26153f0000000093d25d432cde0242c52823430000803f"
+          ]
+        }
+      ],
+      "private_tree": false,
+      "rendering_authorized": false,
+      "wheel_pose_metrics": [
+        {
+          "instance": 597097016,
+          "distance_to_chassis": 1.6445371483052624,
+          "basis_lengths": [
+            0.9999999839747664,
+            1.0000000186317797,
+            1.0000001889461778
+          ]
+        },
+        {
+          "instance": 597101416,
+          "distance_to_chassis": 1.643660824911306,
+          "basis_lengths": [
+            1.0000000969374194,
+            1.0000001450886542,
+            1.000000038444962
+          ]
+        },
+        {
+          "instance": 597098816,
+          "distance_to_chassis": 1.6440240329560647,
+          "basis_lengths": [
+            1.0000001475809754,
+            1.0000006214650987,
+            1.0000004857800182
+          ]
+        },
+        {
+          "instance": 597098016,
+          "distance_to_chassis": 1.6439052678805026,
+          "basis_lengths": [
+            1.0000001381389803,
+            1.0000003569285474,
+            1.0000004201976287
+          ]
+        }
+      ],
+      "chassis_translation": [
+        220.43272399902344,
+        32.944175720214844,
+        162.31121826171875
+      ]
+    },
+    {
+      "file": "race-fleet-11316-d1-f3858.jsonl",
+      "sha256": "c6971c7990be06e1e8f68bf5c5b737f9530ccef194fddd5cf21ab269d0fc4a5f",
+      "frame": 3858,
+      "proxy_sha256": "9fecebfa3ef3c8492c502b2c61f62599671341d06047c694bc85777953f47bd9",
+      "car_records": 26,
+      "expected_sources": 26,
+      "source_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25
+      ],
+      "missing_sources": [],
+      "car_root_counts": [
+        30
+      ],
+      "car_owners": 1,
+      "car_worlds": [
+        "5d75303fa27157bd8afa38bf0000000005b8c9bcd2bd7e3f7e74c4bd00000000685c393f93daab3d68422f3f00000000ccfc88433b7bf541473b58430000803f"
+      ],
+      "wheels": [
+        {
+          "instance": 597098816,
+          "records": 4,
+          "root_counts": [
+            4
+          ],
+          "worlds": [
+            "698a30bfc0fc8e3db986383f000000000964b9bec428543fba77dabe00000000548d20bff1240ebff2d50bbf00000000eccc88432cc9f34108a556430000803f"
+          ]
+        },
+        {
+          "instance": 597097016,
+          "records": 4,
+          "root_counts": [
+            4
+          ],
+          "worlds": [
+            "cf50303f81b80dbd766439bf00000000560ef13ea4eb473f9126d23e0000000006250d3f65a71fbfafdc0d3f000000001e2e88432185f44111f257430000803f"
+          ]
+        },
+        {
+          "instance": 597098016,
+          "records": 4,
+          "root_counts": [
+            4
+          ],
+          "worlds": [
+            "0dc133bfbce18f3de662353f00000000f583003f902628bf2808103f00000000aa42013f4231403fc514da3e00000000b6cb89437dd6f5415c8658430000803f"
+          ]
+        },
+        {
+          "instance": 597101416,
+          "records": 4,
+          "root_counts": [
+            4
+          ],
+          "worlds": [
+            "73092d3f35480cbde4753cbf000000003ad8bb3e38c9613f9676973e00000000c39f233f04aaf0bec9d41b3f00000000e82c89434493f64162d359430000803f"
+          ]
+        }
+      ],
+      "private_tree": false,
+      "rendering_authorized": false,
+      "wheel_pose_metrics": [
+        {
+          "instance": 597098816,
+          "distance_to_chassis": 1.6440988539446895,
+          "basis_lengths": [
+            1.0000000453706004,
+            1.0000000695822207,
+            0.9999999793832133
+          ]
+        },
+        {
+          "instance": 597097016,
+          "distance_to_chassis": 1.6442118421858203,
+          "basis_lengths": [
+            1.0000001449959373,
+            1.0000001333800346,
+            1.000000056451251
+          ]
+        },
+        {
+          "instance": 597098016,
+          "distance_to_chassis": 1.6435110092211673,
+          "basis_lengths": [
+            1.0000000316437454,
+            1.0000002708109796,
+            1.0000001628967659
+          ]
+        },
+        {
+          "instance": 597101416,
+          "distance_to_chassis": 1.643567994281578,
+          "basis_lengths": [
+            1.0000000595839875,
+            1.0000000122379369,
+            1.0000000116016814
+          ]
+        }
+      ],
+      "chassis_translation": [
+        273.9749755859375,
+        30.685171127319336,
+        216.23155212402344
+      ]
+    },
+    {
+      "file": "race-fleet-11316-d1-f4096.jsonl",
+      "sha256": "dba169d5cd5834a0802c131ce829cda06fa396fa1c5f4a8151fe188ff301215a",
+      "frame": 4096,
+      "proxy_sha256": "9fecebfa3ef3c8492c502b2c61f62599671341d06047c694bc85777953f47bd9",
+      "car_records": 26,
+      "expected_sources": 26,
+      "source_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25
+      ],
+      "missing_sources": [],
+      "car_root_counts": [
+        30
+      ],
+      "car_owners": 1,
+      "car_worlds": [
+        "4aa0303f9a0c5ebdbdc938bf0000000034c9fdbc267b7e3fb48ad5bd000000007e23393f3721c13df0252f3f000000004b248b437e04fa4132455c430000803f"
+      ],
+      "wheels": [
+        {
+          "instance": 597097016,
+          "records": 4,
+          "root_counts": [
+            4
+          ],
+          "worlds": [
+            "0474303f8c2614bde83d39bf000000009b56033f48c53a3fe28ae73e00000000c3f5023f8ed52ebf627c053f00000000bd558a43c0f3f84115fc5b430000803f"
+          ]
+        },
+        {
+          "instance": 597101416,
+          "records": 4,
+          "root_counts": [
+            4
+          ],
+          "worlds": [
+            "4e192d3f7ab0f2bc7a743cbf00000000774fae3e9a0f663f0a978d3e000000003943273fba0ee0be44241e3f000000004c548b43c10afb41b0dd5d430000803f"
+          ]
+        },
+        {
+          "instance": 597098016,
+          "records": 4,
+          "root_counts": [
+            4
+          ],
+          "worlds": [
+            "2ff933bf3a5a9f3d64f7343f00000000c304193f03a7f2be8a88253f00000000724ac53ed28a603ffdc6923e000000003ef38b43314afa41fa905c430000803f"
+          ]
+        },
+        {
+          "instance": 597098816,
+          "records": 4,
+          "root_counts": [
+            4
+          ],
+          "worlds": [
+            "85bc30bf5e39923d914c383f00000000442dd2befcde473f6d32f1be00000000598018bfd8e91ebfaf7b02bf00000000b0f48a436b32f84161af5a430000803f"
+          ]
+        }
+      ],
+      "private_tree": false,
+      "rendering_authorized": false,
+      "wheel_pose_metrics": [
+        {
+          "instance": 597097016,
+          "distance_to_chassis": 1.6441889526889428,
+          "basis_lengths": [
+            0.9999999687643927,
+            1.0000000115842234,
+            0.9999999827136054
+          ]
+        },
+        {
+          "instance": 597101416,
+          "distance_to_chassis": 1.6441464890146271,
+          "basis_lengths": [
+            1.0000000786030314,
+            0.9999999943275122,
+            1.0000000202910717
+          ]
+        },
+        {
+          "instance": 597098016,
+          "distance_to_chassis": 1.6440190913588657,
+          "basis_lengths": [
+            1.0000000828845323,
+            1.000000224893201,
+            1.0000002940288917
+          ]
+        },
+        {
+          "instance": 597098816,
+          "distance_to_chassis": 1.644091490331785,
+          "basis_lengths": [
+            0.9999999695370217,
+            0.9999999907409713,
+            0.9999999927416958
+          ]
+        }
+      ],
+      "chassis_translation": [
+        278.2835388183594,
+        31.252193450927734,
+        220.27029418945312
+      ]
+    }
+  ]
+}

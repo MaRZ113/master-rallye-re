@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "filename": "kia-damage-replay.bin",
+  "bytes": 263622,
+  "sha256": "3021386972b75c6a87d40a2f8f8762d6f45d8160e13d8a290323a4da88896167",
+  "fixture_format": "KIADMG01",
+  "captures": [
+    {
+      "capture": "fleet-damage-15036-d1-f2169.bin",
+      "sha256": "7d63b6b12f4adae2dce22f3b0204e7ee5a66ec0166c3ef50ec027e7e1ed4c81d",
+      "frame": 2169,
+      "private_tree": false,
+      "actual_native_sources": 26,
+      "synthetic_source_rows": 0
+    },
+    {
+      "capture": "fleet-damage-15036-d1-f2956.bin",
+      "sha256": "3b887200408d298ec6f4ddab04546e8f06daf8e5785667a287675749328e6a0b",
+      "frame": 2956,
+      "private_tree": true,
+      "actual_native_sources": 26,
+      "synthetic_source_rows": 0
+    },
+    {
+      "capture": "fleet-damage-15036-d1-f4994.bin",
+      "sha256": "fb3f6a3cc1658ec3cc6c88be0c7c4280fac79483275a1d791f7186483de955b3",
+      "frame": 4994,
+      "private_tree": true,
+      "actual_native_sources": 26,
+      "synthetic_source_rows": 0
+    }
+  ],
+  "evidence": "ALL78_ROWS_ARE_ACTUAL_CAPTURED_NATIVE_BYTES",
+  "original_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "runtime_grant": false,
+  "note": "Ignored proprietary native buffers; never commit fixture binary"
+}

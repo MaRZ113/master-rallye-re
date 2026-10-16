@@ -1,0 +1,855 @@
+[
+  {
+    "filename": "ASTERO-COMPLETE-FLEET.ps2model",
+    "asset_sha256": "23e274aa87ed9e855c1e64da3a121bc53f1e85e1b3355c0c053d2111f6610214",
+    "original_source_sha256": "84c0f393beb91e33d90f4f0c51c4f5c749c58cfd9f0a7a9f2e6131ac7f3627d7",
+    "meshes": 18,
+    "tread_u_wrap_mask": 8192,
+    "treads": [
+      {
+        "mesh": 13,
+        "source_path": "root.13",
+        "source_primary": "commontextures\\tread-tga",
+        "source_secondary": [
+          "commontextures\\rubber-tga"
+        ],
+        "mode": 3,
+        "faces": 660,
+        "u_range": [
+          -1.2299022674560547,
+          2.958979606628418
+        ],
+        "v_range": [
+          0.0004995167255401611,
+          0.9995005130767822
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "BRUNO-COMPLETE-FLEET.ps2model",
+    "asset_sha256": "423890a58b834aa3cc083461c3b68eb821c782b40801ccd730a0ee6cbc29db77",
+    "original_source_sha256": "d52e08e42e1ec80b2769f4cc38b1866d0f18230e706d6d7af70ed074b48c8c9a",
+    "meshes": 15,
+    "tread_u_wrap_mask": 1024,
+    "treads": [
+      {
+        "mesh": 10,
+        "source_path": "root.10",
+        "source_primary": "commontextures\\tread-tga",
+        "source_secondary": [
+          "commontextures\\rubber-tga"
+        ],
+        "mode": 3,
+        "faces": 792,
+        "u_range": [
+          -1.2299022674560547,
+          2.958979606628418
+        ],
+        "v_range": [
+          0.0004995167255401611,
+          0.9995005130767822
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "CHEVYBLAZER-COMPLETE-FLEET.ps2model",
+    "asset_sha256": "567fe02dfa617797000659a5644908d9d96e1a097793a6d46b9658d32be3cf2b",
+    "original_source_sha256": "3c510c765d2b263394962bfe4e5331b7876fcd437dfcc613de644195622e6287",
+    "meshes": 22,
+    "tread_u_wrap_mask": 4,
+    "treads": [
+      {
+        "mesh": 2,
+        "source_path": "root.2",
+        "source_primary": "commontextures\\merctread-tga",
+        "source_secondary": [
+          "commontextures\\rubber-tga"
+        ],
+        "mode": 3,
+        "faces": 162,
+        "u_range": [
+          -2.159478187561035,
+          2.830815315246582
+        ],
+        "v_range": [
+          0.0004994571208953857,
+          0.9995005130767822
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "FORKLIFT-COMPLETE-FLEET.ps2model",
+    "asset_sha256": "7cb18a6a53e3b5d7b7295de9d0570a76e2be2be38381d9f4c212df6b1ae3208b",
+    "original_source_sha256": "218d808d7cc311ec522ae28cf00d04a820fc9c19487825b4f2d27c9048ebb485",
+    "meshes": 19,
+    "tread_u_wrap_mask": 2,
+    "treads": [
+      {
+        "mesh": 1,
+        "source_path": "root.1",
+        "source_primary": "commontextures\\jumptread-tga",
+        "source_secondary": [
+          "commontextures\\rubber-tga"
+        ],
+        "mode": 3,
+        "faces": 144,
+        "u_range": [
+          -2.159478187561035,
+          2.830815315246582
+        ],
+        "v_range": [
+          0.0004994571208953857,
+          0.9995005130767822
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "FRONTERA-COMPLETE-FLEET.ps2model",
+    "asset_sha256": "83f21a0b5c0b43713aebeef457ae538efebeb198dd48284c2cae5969d532ecbf",
+    "original_source_sha256": "18289ffaa0d21e72345a405e66f4955d1d4758d67822541dc7578ae5cc477912",
+    "meshes": 17,
+    "tread_u_wrap_mask": 4096,
+    "treads": [
+      {
+        "mesh": 12,
+        "source_path": "root.12",
+        "source_primary": "commontextures\\tread-tga",
+        "source_secondary": [
+          "commontextures\\rubber-tga"
+        ],
+        "mode": 3,
+        "faces": 660,
+        "u_range": [
+          -1.2299022674560547,
+          2.958979606628418
+        ],
+        "v_range": [
+          0.0004995167255401611,
+          0.9995005130767822
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "ICECREAM-COMPLETE-FLEET.ps2model",
+    "asset_sha256": "a7797542b0fabfe513ad1bac8d906fc09f3fc79daaad93db7b6e4d490698b8e2",
+    "original_source_sha256": "29036121b8962232a87fddfb7fe8feeb8f3818de83b9e4e5e4981adec92faf46",
+    "meshes": 19,
+    "tread_u_wrap_mask": 8192,
+    "treads": [
+      {
+        "mesh": 13,
+        "source_path": "root.13",
+        "source_primary": "commontextures\\tread-tga",
+        "source_secondary": [
+          "commontextures\\rubber-tga"
+        ],
+        "mode": 3,
+        "faces": 528,
+        "u_range": [
+          -1.2299022674560547,
+          2.958979606628418
+        ],
+        "v_range": [
+          0.0004995167255401611,
+          0.9995005130767822
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "JUMP-COMPLETE-FLEET.ps2model",
+    "asset_sha256": "491ed6e8b61214fbb3e816c4fdd97142a24ab1413076da676f079a15b0131ca8",
+    "original_source_sha256": "33968e0029d95f98dfae2160c816b9dd14bb8d685b29400be317b9591271c0d4",
+    "meshes": 15,
+    "tread_u_wrap_mask": 1024,
+    "treads": [
+      {
+        "mesh": 10,
+        "source_path": "root.10",
+        "source_primary": "commontextures\\tread-tga",
+        "source_secondary": [
+          "commontextures\\rubber-tga"
+        ],
+        "mode": 3,
+        "faces": 660,
+        "u_range": [
+          -1.2299022674560547,
+          2.958979606628418
+        ],
+        "v_range": [
+          0.0004995167255401611,
+          0.9995005130767822
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "KAMAZ-COMPLETE-FLEET.ps2model",
+    "asset_sha256": "df3d58336f6596cc4915b055820c5d0008b116b33091cca6915abdf971d3826c",
+    "original_source_sha256": "ab4c30912280c68311343c049864e74a45799fcf177773d96dd2e882fbc3f9d8",
+    "meshes": 22,
+    "tread_u_wrap_mask": 262144,
+    "treads": [
+      {
+        "mesh": 18,
+        "source_path": "root.18",
+        "source_primary": "commontextures\\tread-tga",
+        "source_secondary": [
+          "commontextures\\rubber-tga"
+        ],
+        "mode": 3,
+        "faces": 528,
+        "u_range": [
+          -1.2299022674560547,
+          2.958979606628418
+        ],
+        "v_range": [
+          0.0004995167255401611,
+          0.9995005130767822
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "KANGOO-COMPLETE-FLEET.ps2model",
+    "asset_sha256": "6ecc4c5dcbe31802e4772b21f97cbe5eada279a78dbe11414edae852eff111c7",
+    "original_source_sha256": "39cc3b8dd9ff41c2b50e7b96748f2a6c9834a85ae7933ac8790a71f491427077",
+    "meshes": 19,
+    "tread_u_wrap_mask": 16384,
+    "treads": [
+      {
+        "mesh": 14,
+        "source_path": "root.14",
+        "source_primary": "commontextures\\tread-tga",
+        "source_secondary": [
+          "commontextures\\rubber-tga"
+        ],
+        "mode": 3,
+        "faces": 528,
+        "u_range": [
+          -1.2299022674560547,
+          2.958979606628418
+        ],
+        "v_range": [
+          0.0004995167255401611,
+          0.9995005130767822
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "KIASPORTAGE-COMPLETE-FLEET-FIX1.ps2model",
+    "asset_sha256": "e2cb00f367bf91ee68eb7443792f0f029be13db4593e9179596275130af2efb7",
+    "original_source_sha256": "abec0e9bdc55942680d25942cf5204a0d16c5c9366212b3a3327e309e894c3ff",
+    "meshes": 24,
+    "tread_u_wrap_mask": 4096,
+    "treads": [
+      {
+        "mesh": 12,
+        "source_path": "root.12",
+        "source_primary": "commontextures\\tread-tga",
+        "source_secondary": [
+          "commontextures\\rubber-tga"
+        ],
+        "mode": 3,
+        "faces": 528,
+        "u_range": [
+          -1.2299022674560547,
+          2.958979606628418
+        ],
+        "v_range": [
+          0.0004995167255401611,
+          0.9995005130767822
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "KIASPORTAGE-COMPLETE-FLEET.ps2model",
+    "asset_sha256": "9a3049a5819f31d05316754f803f26c969b6eda66b05b7b09249db545e7cb1cc",
+    "original_source_sha256": "abec0e9bdc55942680d25942cf5204a0d16c5c9366212b3a3327e309e894c3ff",
+    "meshes": 24,
+    "tread_u_wrap_mask": 4096,
+    "treads": [
+      {
+        "mesh": 12,
+        "source_path": "root.12",
+        "source_primary": "commontextures\\tread-tga",
+        "source_secondary": [
+          "commontextures\\rubber-tga"
+        ],
+        "mode": 3,
+        "faces": 528,
+        "u_range": [
+          -1.2299022674560547,
+          2.958979606628418
+        ],
+        "v_range": [
+          0.0004995167255401611,
+          0.9995005130767822
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "LANDCRUISER-COMPLETE-FLEET.ps2model",
+    "asset_sha256": "d9eebc0f6831a29552dfab612e0804b35a353259b647935ae255a0cba932d63b",
+    "original_source_sha256": "cd71fcdb9d6a3c9321816ea1b28924f31fd41f26a3441c970ef140ab0da73a84",
+    "meshes": 18,
+    "tread_u_wrap_mask": 1024,
+    "treads": [
+      {
+        "mesh": 10,
+        "source_path": "root.10",
+        "source_primary": "commontextures\\tread-tga",
+        "source_secondary": [
+          "commontextures\\rubber-tga"
+        ],
+        "mode": 3,
+        "faces": 660,
+        "u_range": [
+          -1.2299022674560547,
+          2.958979606628418
+        ],
+        "v_range": [
+          0.0004995167255401611,
+          0.9995005130767822
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "MATTSERATI-COMPLETE-FLEET-FIX1.ps2model",
+    "asset_sha256": "3d083ac40dce84877b842757b99471670ac7b8dd5d20a623b8160fd73ff0bd7e",
+    "original_source_sha256": "278275a1bd7158ac45fe4a7a007b1e8879df8e9003ba3bae1218247472d55cc6",
+    "meshes": 16,
+    "tread_u_wrap_mask": 1024,
+    "treads": [
+      {
+        "mesh": 10,
+        "source_path": "root.10",
+        "source_primary": "commontextures\\tread-tga",
+        "source_secondary": [
+          "commontextures\\rubber-tga"
+        ],
+        "mode": 3,
+        "faces": 660,
+        "u_range": [
+          -1.2299022674560547,
+          2.958979606628418
+        ],
+        "v_range": [
+          0.0004995167255401611,
+          0.9995005130767822
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "MEGANE-COMPLETE-FLEET.ps2model",
+    "asset_sha256": "69966f861ef742a990d6b7511bc455a9a1fc00d439b722a86f33b8234ecdc28e",
+    "original_source_sha256": "5d1eca4f9f943b012af462b7101288f38be3b45e03becfa3724f45b69aefd3be",
+    "meshes": 23,
+    "tread_u_wrap_mask": 262144,
+    "treads": [
+      {
+        "mesh": 18,
+        "source_path": "root.18",
+        "source_primary": "commontextures\\tread-tga",
+        "source_secondary": [
+          "commontextures\\rubber-tga"
+        ],
+        "mode": 3,
+        "faces": 528,
+        "u_range": [
+          -1.2299022674560547,
+          2.958979606628418
+        ],
+        "v_range": [
+          0.0004995167255401611,
+          0.9995005130767822
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "NAVARA-COMPLETE-FLEET.ps2model",
+    "asset_sha256": "7272d6ceb2982b9064c9ec38628fa04188b0eddd779a9edfaa2ff498ddd1b7b4",
+    "original_source_sha256": "d74137bf6f685effb9e8896dbe6900dcb90e496c0b7456348b3f11d89aa6a69d",
+    "meshes": 24,
+    "tread_u_wrap_mask": 2097152,
+    "treads": [
+      {
+        "mesh": 21,
+        "source_path": "root.21",
+        "source_primary": "commontextures\\merctread-tga",
+        "source_secondary": [
+          "commontextures\\rubber-tga"
+        ],
+        "mode": 3,
+        "faces": 308,
+        "u_range": [
+          -1.2299022674560547,
+          2.862253189086914
+        ],
+        "v_range": [
+          0.12272840738296509,
+          0.8772711157798767
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "NEWRAV-COMPLETE-FLEET.ps2model",
+    "asset_sha256": "dcff642f00076545705e7565bbba67aa5e18280752d386135fa961a21e75cc7f",
+    "original_source_sha256": "9b28c3a099a01651410108244e490f8c6179672d463d08bc6cdfa3b6e54284e4",
+    "meshes": 20,
+    "tread_u_wrap_mask": 32768,
+    "treads": [
+      {
+        "mesh": 15,
+        "source_path": "root.15",
+        "source_primary": "commontextures\\tread-tga",
+        "source_secondary": [
+          "commontextures\\rubber-tga"
+        ],
+        "mode": 3,
+        "faces": 660,
+        "u_range": [
+          -1.2299022674560547,
+          2.958979606628418
+        ],
+        "v_range": [
+          0.0004995167255401611,
+          0.9995005130767822
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "PAJERO-COMPLETE-FLEET.ps2model",
+    "asset_sha256": "20bd065ecbd2b339ec97e804a6c320c20b72c15abccd9e9bdf59d9fefec68315",
+    "original_source_sha256": "dc6d094a3f570552c6a4a1e4c830334c551ac4e613e87ba98e8627f830d1e67b",
+    "meshes": 19,
+    "tread_u_wrap_mask": 65536,
+    "treads": [
+      {
+        "mesh": 16,
+        "source_path": "root.16",
+        "source_primary": "commontextures\\tread-tga",
+        "source_secondary": [
+          "commontextures\\rubber-tga"
+        ],
+        "mode": 3,
+        "faces": 660,
+        "u_range": [
+          -1.2299022674560547,
+          2.958979606628418
+        ],
+        "v_range": [
+          0.0004995167255401611,
+          0.9995005130767822
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "PATROL-COMPLETE-FLEET.ps2model",
+    "asset_sha256": "0026bf54d4e88149a32cfcfd51ee606053cd16f0cf03eec09739f146bcfb4624",
+    "original_source_sha256": "ba56d52f6e765d9c8c2ce23aaac9ee10b5d9a24e2e1f0dbbafc83f4ef19d9b87",
+    "meshes": 20,
+    "tread_u_wrap_mask": 32768,
+    "treads": [
+      {
+        "mesh": 15,
+        "source_path": "root.15",
+        "source_primary": "commontextures\\tread-tga",
+        "source_secondary": [
+          "commontextures\\rubber-tga"
+        ],
+        "mode": 3,
+        "faces": 660,
+        "u_range": [
+          -1.2299022674560547,
+          2.958979606628418
+        ],
+        "v_range": [
+          0.0004995167255401611,
+          0.9995005130767822
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "RMONSTER-COMPLETE-FLEET.ps2model",
+    "asset_sha256": "e3018aaf0eecc1566471ba575b3e4fd40b2e13a5039ebdf06e91c896df6623cf",
+    "original_source_sha256": "6893fdfd9ad0f86a0a8e1445703dd064a055815af2398373c03526d843f69c45",
+    "meshes": 21,
+    "tread_u_wrap_mask": 65536,
+    "treads": [
+      {
+        "mesh": 16,
+        "source_path": "root.16",
+        "source_primary": "commontextures\\tread-tga",
+        "source_secondary": [
+          "commontextures\\rubber-tga"
+        ],
+        "mode": 3,
+        "faces": 528,
+        "u_range": [
+          -1.2299022674560547,
+          2.958979606628418
+        ],
+        "v_range": [
+          0.0004995167255401611,
+          0.9995005130767822
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "SEATBUGGY-COMPLETE-FLEET.ps2model",
+    "asset_sha256": "1f3f6e7fb84aa4d4cde3136ef38576059986706dd30c90e398cd2e4ce42f4fd5",
+    "original_source_sha256": "12020dd5967466d3ee8512e26e1d8b0726196f30a204ed88905caaf053414bba",
+    "meshes": 22,
+    "tread_u_wrap_mask": 65536,
+    "treads": [
+      {
+        "mesh": 16,
+        "source_path": "root.16",
+        "source_primary": "commontextures\\tread-tga",
+        "source_secondary": [
+          "commontextures\\rubber-tga"
+        ],
+        "mode": 3,
+        "faces": 528,
+        "u_range": [
+          -1.2299022674560547,
+          2.958979606628418
+        ],
+        "v_range": [
+          0.0004995167255401611,
+          0.9995005130767822
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "SIMMBUGGHINI-COMPLETE-FLEET-FIX1.ps2model",
+    "asset_sha256": "5add1b293c2881cc5ab8c754b9ed1f90a56e4a52d6895ad58ed3901d377331f9",
+    "original_source_sha256": "ac36ceaded96be73067112ef4935c4cd04cc10ada0c5a8887177300aa65d8919",
+    "meshes": 17,
+    "tread_u_wrap_mask": 2048,
+    "treads": [
+      {
+        "mesh": 11,
+        "source_path": "root.11",
+        "source_primary": "commontextures\\tread-tga",
+        "source_secondary": [
+          "commontextures\\rubber-tga"
+        ],
+        "mode": 3,
+        "faces": 660,
+        "u_range": [
+          -1.2299022674560547,
+          2.958979606628418
+        ],
+        "v_range": [
+          0.0004995167255401611,
+          0.9995005130767822
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "TATA-COMPLETE-FLEET-FIX1.ps2model",
+    "asset_sha256": "553189dd2b55fd39b3210bb7c6936523a815cf8a8b75df71954f59438d634d4f",
+    "original_source_sha256": "2c735b3bfe613c24f58f0a584a11a46e08716b5fda9cf87ce32d3e4dc76b1bb4",
+    "meshes": 27,
+    "tread_u_wrap_mask": 33554432,
+    "treads": [
+      {
+        "mesh": 25,
+        "source_path": "root.25",
+        "source_primary": "commontextures\\tread-tga",
+        "source_secondary": [
+          "commontextures\\rubber-tga"
+        ],
+        "mode": 3,
+        "faces": 528,
+        "u_range": [
+          -1.2299022674560547,
+          2.958979606628418
+        ],
+        "v_range": [
+          0.0004995167255401611,
+          0.9995005130767822
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "TATA-COMPLETE-FLEET.ps2model",
+    "asset_sha256": "6fdbe60af4544fb5fb97a33bee5c94412aa284a53dc3e05307f1af3ca02c0611",
+    "original_source_sha256": "2c735b3bfe613c24f58f0a584a11a46e08716b5fda9cf87ce32d3e4dc76b1bb4",
+    "meshes": 27,
+    "tread_u_wrap_mask": 33554432,
+    "treads": [
+      {
+        "mesh": 25,
+        "source_path": "root.25",
+        "source_primary": "commontextures\\tread-tga",
+        "source_secondary": [
+          "commontextures\\rubber-tga"
+        ],
+        "mode": 3,
+        "faces": 528,
+        "u_range": [
+          -1.2299022674560547,
+          2.958979606628418
+        ],
+        "v_range": [
+          0.0004995167255401611,
+          0.9995005130767822
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "TERRANO-COMPLETE-FLEET.ps2model",
+    "asset_sha256": "6401b2e3c16121b6397399725b94c176f19c385d85d302db85fed512e3d5e3dc",
+    "original_source_sha256": "3be8951fe9ec47fc35e8eeae6cc1c1c31fa3aa85be93ba2fd2cff9905da6dddb",
+    "meshes": 18,
+    "tread_u_wrap_mask": 8192,
+    "treads": [
+      {
+        "mesh": 13,
+        "source_path": "root.13",
+        "source_primary": "commontextures\\tread-tga",
+        "source_secondary": [
+          "commontextures\\rubber-tga"
+        ],
+        "mode": 3,
+        "faces": 660,
+        "u_range": [
+          -1.2299022674560547,
+          2.958979606628418
+        ],
+        "v_range": [
+          0.0004995167255401611,
+          0.9995005130767822
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "UFO-COMPLETE-CONTINUITY2-V1.ps2model",
+    "asset_sha256": "310c10ee1030188a7741973bef45c568096f549055c3d6c5b721cbd5540b10cf",
+    "original_source_sha256": "9c507f62e60ca87faa730aee0db92f465dc99c485ea3e7cb09035f2832943e80",
+    "meshes": 14,
+    "tread_u_wrap_mask": 0,
+    "treads": []
+  },
+  {
+    "filename": "UFO-COMPLETE-CONTINUITY2.ps2model",
+    "asset_sha256": "1d413c38c44dce3b29bfd008c8f67ab29614b79b285c96fdd9a7d96351805d1f",
+    "original_source_sha256": "9c507f62e60ca87faa730aee0db92f465dc99c485ea3e7cb09035f2832943e80",
+    "meshes": 14,
+    "tread_u_wrap_mask": 0,
+    "treads": []
+  },
+  {
+    "filename": "WILDCAT-COMPLETE-FLEET.ps2model",
+    "asset_sha256": "4192fda7741e5beea01f6222e0ec9b18148ce68cc3a6def4a01672aa578f7b5d",
+    "original_source_sha256": "25ebcee28ed6dac38ea74d3b4bdfed6d583dd07c168c144e42b4ff7ffbc27ee7",
+    "meshes": 22,
+    "tread_u_wrap_mask": 32768,
+    "treads": [
+      {
+        "mesh": 15,
+        "source_path": "root.15",
+        "source_primary": "commontextures\\tread-tga",
+        "source_secondary": [
+          "commontextures\\rubber-tga"
+        ],
+        "mode": 3,
+        "faces": 528,
+        "u_range": [
+          -1.2299022674560547,
+          2.958979606628418
+        ],
+        "v_range": [
+          0.0004995167255401611,
+          0.9995005130767822
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "WOOLDAND-COMPLETE-CONTINUITY2-V1.ps2model",
+    "asset_sha256": "9cc3fc4d7c4690ab7dd3876b809a20cc80c97d97198fd9dbed069c06acdd84f5",
+    "original_source_sha256": "741c26c7e775c7bc4da6e632bd1d04950f13df2a7510dec461e7ff6bb91286bb",
+    "meshes": 17,
+    "tread_u_wrap_mask": 8192,
+    "treads": [
+      {
+        "mesh": 13,
+        "source_path": "root.13",
+        "source_primary": "commontextures\\tread-tga",
+        "source_secondary": [
+          "commontextures\\rubber-tga"
+        ],
+        "mode": 3,
+        "faces": 528,
+        "u_range": [
+          -1.2299022674560547,
+          2.958979606628418
+        ],
+        "v_range": [
+          0.0004995167255401611,
+          0.9995005130767822
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "WOOLDAND-COMPLETE-CONTINUITY2.ps2model",
+    "asset_sha256": "9e74e64b26e2f58122461bf99cde9f8c19fe81f54e8038b4baa5c5315a7f633e",
+    "original_source_sha256": "741c26c7e775c7bc4da6e632bd1d04950f13df2a7510dec461e7ff6bb91286bb",
+    "meshes": 17,
+    "tread_u_wrap_mask": 8192,
+    "treads": [
+      {
+        "mesh": 13,
+        "source_path": "root.13",
+        "source_primary": "commontextures\\tread-tga",
+        "source_secondary": [
+          "commontextures\\rubber-tga"
+        ],
+        "mode": 3,
+        "faces": 528,
+        "u_range": [
+          -1.2299022674560547,
+          2.958979606628418
+        ],
+        "v_range": [
+          0.0004995167255401611,
+          0.9995005130767822
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "XTRAIL-COMPLETE-FLEET.ps2model",
+    "asset_sha256": "6444198f7ea60e60e174ec6fa587483cec4e10b8a6dfc9b4f35673748eae9cbe",
+    "original_source_sha256": "aaa54bcf21a8820d2432e393fac411abf4a92ac3fce99fb2008233640e44b662",
+    "meshes": 24,
+    "tread_u_wrap_mask": 524288,
+    "treads": [
+      {
+        "mesh": 19,
+        "source_path": "root.19",
+        "source_primary": "commontextures\\tread-tga",
+        "source_secondary": [
+          "commontextures\\rubber-tga"
+        ],
+        "mode": 3,
+        "faces": 528,
+        "u_range": [
+          -1.2299022674560547,
+          2.958979606628418
+        ],
+        "v_range": [
+          0.0004995167255401611,
+          0.9995005130767822
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "XTRAIL-COMPLETE-render.ps2model",
+    "asset_sha256": "ba1cee9a21c2a2ae2935158136ae80b587eca7dc9a6701afc573e069818d772b",
+    "original_source_sha256": "aaa54bcf21a8820d2432e393fac411abf4a92ac3fce99fb2008233640e44b662",
+    "meshes": 24,
+    "tread_u_wrap_mask": 524288,
+    "treads": [
+      {
+        "mesh": 19,
+        "source_path": "root.19",
+        "source_primary": "commontextures\\tread-tga",
+        "source_secondary": [
+          "commontextures\\rubber-tga"
+        ],
+        "mode": 3,
+        "faces": 528,
+        "u_range": [
+          -1.2299022674560547,
+          2.958979606628418
+        ],
+        "v_range": [
+          0.0004995167255401611,
+          0.9995005130767822
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "XTRAIL-COMPLETE-source-only.ps2model",
+    "asset_sha256": "641406d6ff45e028bb26d38bf69ea53dd48afd3d0fe420284e8055ca5f5809cc",
+    "original_source_sha256": "aaa54bcf21a8820d2432e393fac411abf4a92ac3fce99fb2008233640e44b662",
+    "meshes": 24,
+    "tread_u_wrap_mask": 524288,
+    "treads": [
+      {
+        "mesh": 19,
+        "source_path": "root.19",
+        "source_primary": "commontextures\\tread-tga",
+        "source_secondary": [
+          "commontextures\\rubber-tga"
+        ],
+        "mode": 3,
+        "faces": 528,
+        "u_range": [
+          -1.2299022674560547,
+          2.958979606628418
+        ],
+        "v_range": [
+          0.0004995167255401611,
+          0.9995005130767822
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "XTRAIL-COMPLETE.ps2model",
+    "asset_sha256": "ba1cee9a21c2a2ae2935158136ae80b587eca7dc9a6701afc573e069818d772b",
+    "original_source_sha256": "aaa54bcf21a8820d2432e393fac411abf4a92ac3fce99fb2008233640e44b662",
+    "meshes": 24,
+    "tread_u_wrap_mask": 524288,
+    "treads": [
+      {
+        "mesh": 19,
+        "source_path": "root.19",
+        "source_primary": "commontextures\\tread-tga",
+        "source_secondary": [
+          "commontextures\\rubber-tga"
+        ],
+        "mode": 3,
+        "faces": 528,
+        "u_range": [
+          -1.2299022674560547,
+          2.958979606628418
+        ],
+        "v_range": [
+          0.0004995167255401611,
+          0.9995005130767822
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,141 @@
+[
+  {
+    "path": "root.25.1.0",
+    "material": "$shader(carbrakelights)",
+    "textures": [
+      {
+        "slot": 0,
+        "name": "commontextures\\breaklightson-tga",
+        "flags": [
+          true,
+          false,
+          false
+        ],
+        "offset": 190739
+      },
+      {
+        "slot": 1,
+        "name": "commontextures\\lightshine-tga",
+        "flags": [
+          false,
+          false,
+          false
+        ],
+        "offset": 190781
+      }
+    ],
+    "rgba_words": [
+      4294967295
+    ],
+    "resources": [
+      {
+        "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSON-TGA.GXI",
+        "sha256": "fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131",
+        "bytes": 1032,
+        "channel_ranges": [
+          [
+            212,
+            254
+          ],
+          [
+            0,
+            166
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "center": [
+          222,
+          15,
+          0,
+          0
+        ]
+      },
+      {
+        "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\LIGHTSHINE-TGA.GXI",
+        "sha256": "40789a1924fa953b5b1c9d7cfb899e4b36cdbc88533e89c4314ab133b1cb7b9d",
+        "bytes": 4104,
+        "channel_ranges": [
+          [
+            0,
+            183
+          ],
+          [
+            0,
+            160
+          ],
+          [
+            0,
+            19
+          ],
+          [
+            255,
+            255
+          ]
+        ],
+        "center": [
+          0,
+          0,
+          0,
+          255
+        ]
+      }
+    ]
+  },
+  {
+    "path": "root.25.1.1",
+    "material": "$shader(carbrakelights)",
+    "textures": [
+      {
+        "slot": 0,
+        "name": "commontextures\\breaklightsonglow-tga",
+        "flags": [
+          true,
+          true,
+          false
+        ],
+        "offset": 190899
+      }
+    ],
+    "rgba_words": [
+      4294967295
+    ],
+    "resources": [
+      {
+        "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\BREAKLIGHTSONGLOW-TGA.GXI",
+        "sha256": "b6350f92f674bf2b63200ce4bb39c0c26f03fd99856ac0b89e7fc0797861af09",
+        "bytes": 1032,
+        "channel_ranges": [
+          [
+            0,
+            255
+          ],
+          [
+            0,
+            222
+          ],
+          [
+            0,
+            78
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "center": [
+          7,
+          0,
+          0,
+          0
+        ]
+      }
+    ]
+  }
+]

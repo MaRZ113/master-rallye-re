@@ -1,0 +1,8 @@
+{
+  "filename": "port3-BRUNO-wheel-fixtures.bin",
+  "sha256": "0a7ca82cfdbe6541310678976c007d78e617983d41ad8dcfb1cfab050380ed7b",
+  "bytes": 8436,
+  "format": "PS2KWH01 + u32 source_count + source_count * (6xu32 layout/counts/sizes; vb; normalized u32 ib)",
+  "provenance": "ORIGINAL_PC_XYZ_UV_WITH_SYNTHETIC_WHITE_DIFFUSE; EXACT_NATIVE_WINDING",
+  "source_pc_sha256": "9132ebbd9dae94d34387094ad0943129db9fab0f5d94304a10fd7df0665676c9"
+}

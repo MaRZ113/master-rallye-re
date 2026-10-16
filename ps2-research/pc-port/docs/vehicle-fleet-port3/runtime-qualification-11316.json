@@ -1,0 +1,356 @@
+{
+  "schema": 1,
+  "pid": 11316,
+  "captures": [
+    {
+      "file": "race-fleet-11316-d1-f18484.jsonl",
+      "sha256": "68bc31b343c0e7d469542e8808363152c82ddf6a1d58f645bb824aa8422a5d7d",
+      "proxy_sha256": "638645b7ddc60aaa50651d35ff2436de1d9ba87f770b69bd1bed12ac4ca14dd9",
+      "frame": 18484,
+      "reset": 1,
+      "msaa_samples": 4,
+      "families": [
+        {
+          "family": "Astero",
+          "body_draw_seen": false,
+          "whole_native_body_suppression_seen": false,
+          "healthy_body_confirmed": false,
+          "damaged_body_confirmed": false,
+          "complete_ps2_wheel_owners_observed": 0,
+          "wheel_owner_count_expected": null,
+          "lamp_layers": [
+            "OFF"
+          ],
+          "damaged_lamp_layers": [
+            "OFF"
+          ],
+          "rejections": [
+            {
+              "type": "fleet_car_certificate_failure",
+              "reason": "unsupported_private_tree"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "race-fleet-11316-d1-f23820.jsonl",
+      "sha256": "ff05c4b54b67a567a88f76318933c5f8cc856ded62e36cb0923cf4b9f1bef20a",
+      "proxy_sha256": "638645b7ddc60aaa50651d35ff2436de1d9ba87f770b69bd1bed12ac4ca14dd9",
+      "frame": 23820,
+      "reset": 1,
+      "msaa_samples": 4,
+      "families": [
+        {
+          "family": "Forester",
+          "body_draw_seen": false,
+          "whole_native_body_suppression_seen": false,
+          "healthy_body_confirmed": false,
+          "damaged_body_confirmed": false,
+          "complete_ps2_wheel_owners_observed": 0,
+          "wheel_owner_count_expected": null,
+          "lamp_layers": [
+            "OFF"
+          ],
+          "damaged_lamp_layers": [
+            "OFF"
+          ],
+          "rejections": [
+            {
+              "type": "fleet_car_certificate_failure",
+              "reason": "unsupported_private_tree"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "race-fleet-11316-d1-f3241.jsonl",
+      "sha256": "250af29f53ef90efb34aa5d0d0805311a6f591c801e2a690b375bd78e31e7a9e",
+      "proxy_sha256": "638645b7ddc60aaa50651d35ff2436de1d9ba87f770b69bd1bed12ac4ca14dd9",
+      "frame": 3241,
+      "reset": 1,
+      "msaa_samples": 4,
+      "families": [
+        {
+          "family": "NewRav",
+          "body_draw_seen": true,
+          "whole_native_body_suppression_seen": true,
+          "healthy_body_confirmed": true,
+          "damaged_body_confirmed": false,
+          "complete_ps2_wheel_owners_observed": 4,
+          "wheel_owner_count_expected": null,
+          "lamp_layers": [],
+          "damaged_lamp_layers": [],
+          "rejections": []
+        }
+      ]
+    },
+    {
+      "file": "race-fleet-11316-d1-f34660.jsonl",
+      "sha256": "6621779781dd5fdd8560021c6cd4aa5c774a7356352cc996f78ce752e33bd06d",
+      "proxy_sha256": "638645b7ddc60aaa50651d35ff2436de1d9ba87f770b69bd1bed12ac4ca14dd9",
+      "frame": 34660,
+      "reset": 1,
+      "msaa_samples": 4,
+      "families": [
+        {
+          "family": "Kamaz",
+          "body_draw_seen": false,
+          "whole_native_body_suppression_seen": false,
+          "healthy_body_confirmed": false,
+          "damaged_body_confirmed": false,
+          "complete_ps2_wheel_owners_observed": 0,
+          "wheel_owner_count_expected": null,
+          "lamp_layers": [
+            "OFF"
+          ],
+          "damaged_lamp_layers": [
+            "OFF"
+          ],
+          "rejections": [
+            {
+              "type": "fleet_car_certificate_failure",
+              "reason": "unsupported_private_tree"
+            },
+            {
+              "type": "fleet_lamp_continuity",
+              "reason": "damaged_material_identity_changed"
+            },
+            {
+              "type": "fleet_lamp_continuity",
+              "reason": "damaged_material_identity_changed"
+            },
+            {
+              "type": "fleet_lamp_continuity",
+              "reason": "damaged_material_identity_changed"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "race-fleet-11316-d1-f39238.jsonl",
+      "sha256": "8170117badbd0b9ddadad3d939ee1d2d2384e29ae1a1f8f6f7333cf46eea0dd6",
+      "proxy_sha256": "638645b7ddc60aaa50651d35ff2436de1d9ba87f770b69bd1bed12ac4ca14dd9",
+      "frame": 39238,
+      "reset": 1,
+      "msaa_samples": 4,
+      "families": [
+        {
+          "family": "Bruno",
+          "body_draw_seen": true,
+          "whole_native_body_suppression_seen": true,
+          "healthy_body_confirmed": true,
+          "damaged_body_confirmed": false,
+          "complete_ps2_wheel_owners_observed": 4,
+          "wheel_owner_count_expected": null,
+          "lamp_layers": [],
+          "damaged_lamp_layers": [],
+          "rejections": []
+        }
+      ]
+    },
+    {
+      "file": "race-fleet-11316-d1-f39380.jsonl",
+      "sha256": "a2d49736bc954b29a4f68531b7112d969a4dd3d65aef66a7fc58c883f8e362eb",
+      "proxy_sha256": "638645b7ddc60aaa50651d35ff2436de1d9ba87f770b69bd1bed12ac4ca14dd9",
+      "frame": 39380,
+      "reset": 1,
+      "msaa_samples": 4,
+      "families": [
+        {
+          "family": "Bruno",
+          "body_draw_seen": true,
+          "whole_native_body_suppression_seen": true,
+          "healthy_body_confirmed": true,
+          "damaged_body_confirmed": false,
+          "complete_ps2_wheel_owners_observed": 4,
+          "wheel_owner_count_expected": null,
+          "lamp_layers": [
+            "ADDITIVE_GLOW",
+            "ON_CORE"
+          ],
+          "damaged_lamp_layers": [],
+          "rejections": []
+        }
+      ]
+    },
+    {
+      "file": "race-fleet-11316-d1-f3954.jsonl",
+      "sha256": "650271f6613d509c45f73f51a58313c556681d01ee4bf8b8422e227de1366718",
+      "proxy_sha256": "638645b7ddc60aaa50651d35ff2436de1d9ba87f770b69bd1bed12ac4ca14dd9",
+      "frame": 3954,
+      "reset": 1,
+      "msaa_samples": 4,
+      "families": [
+        {
+          "family": "NewRav",
+          "body_draw_seen": false,
+          "whole_native_body_suppression_seen": false,
+          "healthy_body_confirmed": false,
+          "damaged_body_confirmed": false,
+          "complete_ps2_wheel_owners_observed": 0,
+          "wheel_owner_count_expected": null,
+          "lamp_layers": [
+            "ADDITIVE_GLOW",
+            "ON_CORE"
+          ],
+          "damaged_lamp_layers": [
+            "ADDITIVE_GLOW",
+            "ON_CORE"
+          ],
+          "rejections": [
+            {
+              "type": "fleet_car_certificate_failure",
+              "reason": "unsupported_private_tree"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "race-fleet-11316-d1-f7924.jsonl",
+      "sha256": "30763215eb62db4a8aae95d758da9b0b5aa1ecb8c85c5d166379605c3dcfeff4",
+      "proxy_sha256": "638645b7ddc60aaa50651d35ff2436de1d9ba87f770b69bd1bed12ac4ca14dd9",
+      "frame": 7924,
+      "reset": 1,
+      "msaa_samples": 4,
+      "families": [
+        {
+          "family": "Patrol",
+          "body_draw_seen": false,
+          "whole_native_body_suppression_seen": false,
+          "healthy_body_confirmed": false,
+          "damaged_body_confirmed": false,
+          "complete_ps2_wheel_owners_observed": 0,
+          "wheel_owner_count_expected": null,
+          "lamp_layers": [
+            "OFF"
+          ],
+          "damaged_lamp_layers": [
+            "OFF"
+          ],
+          "rejections": [
+            {
+              "type": "fleet_car_certificate_failure",
+              "reason": "unsupported_private_tree"
+            },
+            {
+              "type": "fleet_lamp_continuity",
+              "reason": "damaged_material_identity_changed"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "race-fleet-11316-d1-f84008.jsonl",
+      "sha256": "5fc713610e2c308cc2c4adcbcbea356d857cb690c6d1a1612829619151f0926e",
+      "proxy_sha256": "638645b7ddc60aaa50651d35ff2436de1d9ba87f770b69bd1bed12ac4ca14dd9",
+      "frame": 84008,
+      "reset": 1,
+      "msaa_samples": 4,
+      "families": [
+        {
+          "family": "Mattserati",
+          "body_draw_seen": true,
+          "whole_native_body_suppression_seen": true,
+          "healthy_body_confirmed": true,
+          "damaged_body_confirmed": false,
+          "complete_ps2_wheel_owners_observed": 4,
+          "wheel_owner_count_expected": null,
+          "lamp_layers": [],
+          "damaged_lamp_layers": [],
+          "rejections": []
+        }
+      ]
+    },
+    {
+      "file": "race-fleet-11316-d1-f84112.jsonl",
+      "sha256": "bb8f28a1a94040ec1226b873444f72575f666a658a451b0bff3a7421947c33be",
+      "proxy_sha256": "638645b7ddc60aaa50651d35ff2436de1d9ba87f770b69bd1bed12ac4ca14dd9",
+      "frame": 84112,
+      "reset": 1,
+      "msaa_samples": 4,
+      "families": [
+        {
+          "family": "Mattserati",
+          "body_draw_seen": true,
+          "whole_native_body_suppression_seen": true,
+          "healthy_body_confirmed": true,
+          "damaged_body_confirmed": false,
+          "complete_ps2_wheel_owners_observed": 4,
+          "wheel_owner_count_expected": null,
+          "lamp_layers": [
+            "ADDITIVE_GLOW",
+            "ON_CORE"
+          ],
+          "damaged_lamp_layers": [],
+          "rejections": []
+        }
+      ]
+    },
+    {
+      "file": "race-fleet-11316-d1-f93685.jsonl",
+      "sha256": "6506b9114fcda4b7ff020e0bbe305e619440444536571fc43be17db04fa06420",
+      "proxy_sha256": "638645b7ddc60aaa50651d35ff2436de1d9ba87f770b69bd1bed12ac4ca14dd9",
+      "frame": 93685,
+      "reset": 1,
+      "msaa_samples": 4,
+      "families": [
+        {
+          "family": "megane",
+          "body_draw_seen": true,
+          "whole_native_body_suppression_seen": true,
+          "healthy_body_confirmed": true,
+          "damaged_body_confirmed": false,
+          "complete_ps2_wheel_owners_observed": 4,
+          "wheel_owner_count_expected": null,
+          "lamp_layers": [
+            "OFF"
+          ],
+          "damaged_lamp_layers": [],
+          "rejections": [
+            {
+              "type": "fleet_lamp_continuity",
+              "reason": "healthy_geometry_signature_mismatch"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "race-fleet-11316-d1-f93789.jsonl",
+      "sha256": "ff14c9e8f7e99a95248303dbe17f51b9f363e4ee7fb021f547dd4c438b6b256c",
+      "proxy_sha256": "638645b7ddc60aaa50651d35ff2436de1d9ba87f770b69bd1bed12ac4ca14dd9",
+      "frame": 93789,
+      "reset": 1,
+      "msaa_samples": 4,
+      "families": [
+        {
+          "family": "megane",
+          "body_draw_seen": true,
+          "whole_native_body_suppression_seen": true,
+          "healthy_body_confirmed": true,
+          "damaged_body_confirmed": false,
+          "complete_ps2_wheel_owners_observed": 4,
+          "wheel_owner_count_expected": null,
+          "lamp_layers": [
+            "ADDITIVE_GLOW",
+            "ON_CORE"
+          ],
+          "damaged_lamp_layers": [],
+          "rejections": [
+            {
+              "type": "fleet_lamp_continuity",
+              "reason": "healthy_geometry_signature_mismatch"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "visual_acceptance": "USER_REPORT_REQUIRED",
+  "not_a_renderer_admission_certificate": true
+}

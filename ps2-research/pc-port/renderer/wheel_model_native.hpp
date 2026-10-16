@@ -1,7 +1,11 @@
 #pragma once
+#include "kia_wheel_native.hpp"
+#include "fleet_wheel_native.hpp"
 #include "wheel_model_registry.hpp"
 namespace gfx2::frontendmodelintegration {
 inline xtrailintegration::Result draw_wheel(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UINT start,UINT count,uintptr_t pc)noexcept{
+ const auto expanded=draw_fleet_wheel(d,type,min,vertices,start,count,pc);if(expanded.handled)return expanded;
+ const auto fleet=draw_kia_wheel(d,type,min,vertices,start,count,pc);if(fleet.handled)return fleet;
  auto* e=d.ps2_port();auto* p=e?e->wheel_model():nullptr;auto* chassis=e?e->race_model():nullptr;if(!p||!p->requested()||!chassis||!chassis->requested()||type!=D3DPT_TRIANGLELIST||!d.trace.scene_active||GetCurrentThreadId()!=d.trace.render_thread_id()||d.trace.shadow.recording||d.trace.effective_shadow.recording)return {};
  unsigned source=4;for(unsigned i=0;i<4;++i)if(ps2port::kWheelSources[i].vertices==vertices&&ps2port::kWheelSources[i].triangles==count)source=i;if(source==4)return {};
  unsigned gate=0;auto fallback=[&]()noexcept->xtrailintegration::Result{if(p->claim(1u<<(12+gate)))session().write("{\"type\":\"ps2_wheel_gate\",\"gate\":"+std::to_string(gate)+",\"frame\":"+std::to_string(d.trace.frame_number())+"}");return {};};

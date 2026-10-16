@@ -1,0 +1,19 @@
+{
+  "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "windows": [
+    {
+      "va": "0x692364",
+      "end_exclusive": "0x69236c",
+      "file_offset": "0x292364",
+      "bytes_hex": "d065570030665700",
+      "sha256": "272e93a7da72876cd121b56904ad88d57fe6e0aa330d23be6dbd7397602c8f3f"
+    },
+    {
+      "va": "0x57678e",
+      "end_exclusive": "0x5767b2",
+      "file_offset": "0x17678e",
+      "bytes_hex": "8b4b248d5328894d24528d4d28e8e00900008b43388945388b4b40894d408b533c89553c",
+      "sha256": "74e47846ecd7f8c8ba93c0f6e28d93c297b36608186347d019c472a0dd62e585"
+    }
+  ]
+}

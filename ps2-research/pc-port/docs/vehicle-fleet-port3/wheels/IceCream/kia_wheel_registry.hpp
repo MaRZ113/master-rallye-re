@@ -1,0 +1,14 @@
+#pragma once
+#include "race_fleet_registry.hpp"
+namespace gfx2::ps2port {
+inline constexpr FleetRaceSource kPort3IceCreamWheelSources[]={
+ {"9554eb13c2f6fe962f761186cdb2d59b5de9782ed663ed97c4a73b303a51be33","3c1707a242e6e67d4196c2e2133a9a44d69638d304b4b3a1a112d7689548b673","2b9b8660952fe50d437e9eec26ec02fb336966f9e407f6e02d9493bee0f64158","34911f21f48f7533a4b66f04f7210d7a03b499a3e530a17978f79a1d4cf4f54c",54u,72u,false},
+ {"ef83628d4ef7bebc4dd7f46ee6c3998aad195f21de44ca3e7050522e402373b8","90e26032765bd63dc7e8492934a57b3f9a54084e81d9b71df9c1741e98f9ceb1","1281f0664795bef099f5e2e6bddbaf4193b31f3c204ba779f4a2947468b9dc36","415ec54fbfcccb6b283f3261134599902311a230a2a7a3ef95532cfd4292ece8",38u,36u,false},
+ {"e381cb6a470b54fe3659dcf8c2cdfdc7faa5ddf272e75b0a5be76dc02cdfb5b3","2ad5987ff6036446b679f8bf07161424593fb9bc9d06a8438c3638785255b264","8d7eb3ab7d5645f0abd76f52f51e1016a12f20d01a45a746aa7de9af7a201219","91050cbb51b1794e0c29ed4ef02951d68a0ca1eabbf7f55e61f21ffa441b3749",37u,54u,false},
+ {"d25c647e0f08cadfd564ee7e2d95d5b48386d4ff0f83ce69e7be6480b4b302b8","44057e9aeebc4b1296bd91db73657eb8401b52675468e5a9e7ea56af04cfffbb","b8fe4329d1f60878541bc1e07be5e0fa06397d07b156c0331e6e7c9f132a8649","8ec5d38a8885436d9c1efe6c2d5f1c0b7e3c827b8055fb566374452ce6fbd006",19u,18u,false},
+ {"2baa5ec8354b22d8acfdf5666c6f912a99a12f51623eaeadab401e2fe7be0af2","6c1bf74dfee299795c36bdbbfa076efacf8b0b8f47c7b5551e7e085d716f9544","66d0f0300abcf20828b58e65df56377f5556f4bfcb77929de6c0e8f83ffe898a","7eb170fa61cc2a47836db6b0f3a9acf9c25ef3cd9e629b870e305a93e383d63d",72u,72u,false},
+};
+inline constexpr bool kPort3IceCreamWheelMixed[]={false,false,true,true};
+inline constexpr bool kPort3IceCreamWheelWrapU[]={false,true,false,false};
+inline constexpr FleetRaceProfile kPort3IceCreamWheelProfile={"IceCream","ICECREAM","port3-ICECREAM-WHEEL-FLEET.ps2model","6ac919d27287aa591d6287d0b2e40bca99f348d710245d620c2d722c10f5b5b9",62264u,300u,756u,6u,4u,5u,5u,kPort3IceCreamWheelSources,kPort3IceCreamWheelMixed,kPort3IceCreamWheelWrapU};
+}

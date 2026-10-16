@@ -1,0 +1,223 @@
+{
+  "user_observation": "Brake color applied and survives damage",
+  "evidence": [
+    {
+      "frame": 1332,
+      "file": "race-fleet-9508-d1-f1332.jsonl",
+      "sha256": "1d63b1767935e62ec9a1473ed89b981ea919b1830ab5181f58882d43b1960613",
+      "events": [
+        {
+          "type": "fleet_car_private_submission",
+          "frame": 1332,
+          "family": "KiaSportage",
+          "private_damage_tree": false,
+          "kia_damage_map_complete": true,
+          "asset_sha256": "1e2e7dce794f8843cb181771db7f4145cb8fdb903ae96a58476028475d381b46",
+          "instance": 557225456,
+          "packet": 46511704,
+          "source_records": 26,
+          "private_submission_faces": 2197,
+          "native_wheels_preserved": true,
+          "world_le_hex": "32c4563f5c8f50bc6a490bbf00000000b106803d25d07e3ff8b5953d0000000019670a3f3041c3bd6cf9553f000000004a37594361b00742916717430000803f",
+          "draw_hresult": 0,
+          "restore_hresult": 0
+        },
+        {
+          "type": "kia_brake_continuity",
+          "frame": 1332,
+          "layer": "ON_CORE",
+          "owner_verified": true,
+          "damaged_branch": false,
+          "damaged_branch_matched": false,
+          "override_applied": true,
+          "reason": "healthy_exact_source",
+          "material_vector": 45494968,
+          "material_token": 44331656,
+          "texture_generation": 778,
+          "apply_hresult": 0,
+          "draw_hresult": 0,
+          "restore_hresult": 0
+        },
+        {
+          "type": "fleet_ps2_wheel_submission",
+          "family": "KiaSportage",
+          "frame": 1332,
+          "slot": 1,
+          "instance": 557225856,
+          "source_records": 4,
+          "private_faces": 252,
+          "native_world_preserved": true,
+          "draw_hresult": 0,
+          "restore_hresult": 0
+        },
+        {
+          "type": "fleet_ps2_wheel_submission",
+          "family": "KiaSportage",
+          "frame": 1332,
+          "slot": 3,
+          "instance": 557231056,
+          "source_records": 4,
+          "private_faces": 252,
+          "native_world_preserved": true,
+          "draw_hresult": 0,
+          "restore_hresult": 0
+        },
+        {
+          "type": "fleet_ps2_wheel_submission",
+          "family": "KiaSportage",
+          "frame": 1332,
+          "slot": 2,
+          "instance": 557231256,
+          "source_records": 4,
+          "private_faces": 252,
+          "native_world_preserved": true,
+          "draw_hresult": 0,
+          "restore_hresult": 0
+        },
+        {
+          "type": "fleet_ps2_wheel_submission",
+          "family": "KiaSportage",
+          "frame": 1332,
+          "slot": 0,
+          "instance": 557225256,
+          "source_records": 4,
+          "private_faces": 252,
+          "native_world_preserved": true,
+          "draw_hresult": 0,
+          "restore_hresult": 0
+        },
+        {
+          "type": "kia_brake_continuity",
+          "frame": 1332,
+          "layer": "ADDITIVE_GLOW",
+          "owner_verified": true,
+          "damaged_branch": false,
+          "damaged_branch_matched": false,
+          "override_applied": true,
+          "reason": "healthy_exact_source",
+          "material_vector": 45495008,
+          "material_token": 44331824,
+          "texture_generation": 779,
+          "apply_hresult": 0,
+          "draw_hresult": 0,
+          "restore_hresult": 0
+        }
+      ],
+      "frame_metadata": {
+        "proxy_sha256": "d8e01ce1ddb98514a1e53671756a3380add65ec79ea774bff6ed008c8f58e9d7",
+        "frame": 1332,
+        "quality_reset_epoch": 0,
+        "msaa": 4
+      }
+    },
+    {
+      "frame": 5191,
+      "file": "race-fleet-9508-d1-f5191.jsonl",
+      "sha256": "1a22347818ad32bc92cc868de02690eabdb9f25e95df57a7f457260dbb435fa7",
+      "events": [
+        {
+          "type": "fleet_car_private_submission",
+          "frame": 5191,
+          "family": "KiaSportage",
+          "private_damage_tree": true,
+          "kia_damage_map_complete": true,
+          "asset_sha256": "1e2e7dce794f8843cb181771db7f4145cb8fdb903ae96a58476028475d381b46",
+          "instance": 557225456,
+          "packet": 46511704,
+          "source_records": 26,
+          "private_submission_faces": 2197,
+          "native_wheels_preserved": true,
+          "world_le_hex": "2c687ebf5f1fe43d803ba238000000002779e33d56ab7d3ff8d29b3d000000007b99093c3cdf9a3d08427fbf00000000690a65438961f141350438430000803f",
+          "draw_hresult": 0,
+          "restore_hresult": 0
+        },
+        {
+          "type": "kia_brake_continuity",
+          "frame": 5191,
+          "layer": "ON_CORE",
+          "owner_verified": true,
+          "damaged_branch": true,
+          "damaged_branch_matched": true,
+          "override_applied": true,
+          "reason": "healthy_exact_source",
+          "material_vector": 45494968,
+          "material_token": 44331656,
+          "texture_generation": 778,
+          "apply_hresult": 0,
+          "draw_hresult": 0,
+          "restore_hresult": 0
+        },
+        {
+          "type": "fleet_ps2_wheel_submission",
+          "family": "KiaSportage",
+          "frame": 5191,
+          "slot": 0,
+          "instance": 557225856,
+          "source_records": 4,
+          "private_faces": 252,
+          "native_world_preserved": true,
+          "draw_hresult": 0,
+          "restore_hresult": 0
+        },
+        {
+          "type": "fleet_ps2_wheel_submission",
+          "family": "KiaSportage",
+          "frame": 5191,
+          "slot": 1,
+          "instance": 557225256,
+          "source_records": 4,
+          "private_faces": 252,
+          "native_world_preserved": true,
+          "draw_hresult": 0,
+          "restore_hresult": 0
+        },
+        {
+          "type": "fleet_ps2_wheel_submission",
+          "family": "KiaSportage",
+          "frame": 5191,
+          "slot": 2,
+          "instance": 557231256,
+          "source_records": 4,
+          "private_faces": 252,
+          "native_world_preserved": true,
+          "draw_hresult": 0,
+          "restore_hresult": 0
+        },
+        {
+          "type": "fleet_ps2_wheel_submission",
+          "family": "KiaSportage",
+          "frame": 5191,
+          "slot": 3,
+          "instance": 557231056,
+          "source_records": 4,
+          "private_faces": 252,
+          "native_world_preserved": true,
+          "draw_hresult": 0,
+          "restore_hresult": 0
+        },
+        {
+          "type": "kia_brake_continuity",
+          "frame": 5191,
+          "layer": "ADDITIVE_GLOW",
+          "owner_verified": true,
+          "damaged_branch": true,
+          "damaged_branch_matched": true,
+          "override_applied": true,
+          "reason": "damaged_owned_clone_uv_index_match",
+          "material_vector": 45495008,
+          "material_token": 44331824,
+          "texture_generation": 779,
+          "apply_hresult": 0,
+          "draw_hresult": 0,
+          "restore_hresult": 0
+        }
+      ],
+      "frame_metadata": {
+        "proxy_sha256": "d8e01ce1ddb98514a1e53671756a3380add65ec79ea774bff6ed008c8f58e9d7",
+        "frame": 5191,
+        "quality_reset_epoch": 1,
+        "msaa": 4
+      }
+    }
+  ]
+}

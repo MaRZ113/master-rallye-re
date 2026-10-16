@@ -1,0 +1,8 @@
+{
+  "filename": "port3-NEWRAV-wheel-fixtures.bin",
+  "sha256": "6b4598dc695a8991c492877b1c4b7649e37d9f4907a5c86a7ca83203b925391d",
+  "bytes": 8436,
+  "format": "PS2KWH01 + u32 source_count + source_count * (6xu32 layout/counts/sizes; vb; normalized u32 ib)",
+  "provenance": "ORIGINAL_PC_XYZ_UV_WITH_SYNTHETIC_WHITE_DIFFUSE; EXACT_NATIVE_WINDING",
+  "source_pc_sha256": "335e5632714974bfc04087391854647c5f37289fe0d6625c56c265a66a049e94"
+}

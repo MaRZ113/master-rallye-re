@@ -1,0 +1,46 @@
+[
+  {
+    "frame": 2684,
+    "pc_record": 0,
+    "ps2_root": 0,
+    "ps2_referenced_vertices": 353,
+    "position_correspondence_unmapped": 8,
+    "position_correspondence_ambiguous_slots": 212,
+    "current_delta_conflicts": 0,
+    "ps2_vertices_receiving_nonzero_delta": 0,
+    "authority": "STATIC_POSITION_CANDIDATE_FEASIBILITY_ONLY_NOT_COMPILED_RUNTIME_CERTIFICATE"
+  },
+  {
+    "frame": 4497,
+    "pc_record": 0,
+    "ps2_root": 0,
+    "ps2_referenced_vertices": 353,
+    "position_correspondence_unmapped": 8,
+    "position_correspondence_ambiguous_slots": 212,
+    "current_delta_conflicts": 0,
+    "ps2_vertices_receiving_nonzero_delta": 8,
+    "authority": "STATIC_POSITION_CANDIDATE_FEASIBILITY_ONLY_NOT_COMPILED_RUNTIME_CERTIFICATE"
+  },
+  {
+    "frame": 2684,
+    "pc_record": 15,
+    "ps2_root": 17,
+    "ps2_referenced_vertices": 172,
+    "position_correspondence_unmapped": 0,
+    "position_correspondence_ambiguous_slots": 18,
+    "current_delta_conflicts": 0,
+    "ps2_vertices_receiving_nonzero_delta": 30,
+    "authority": "STATIC_POSITION_CANDIDATE_FEASIBILITY_ONLY_NOT_COMPILED_RUNTIME_CERTIFICATE"
+  },
+  {
+    "frame": 4497,
+    "pc_record": 15,
+    "ps2_root": 17,
+    "ps2_referenced_vertices": 172,
+    "position_correspondence_unmapped": 0,
+    "position_correspondence_ambiguous_slots": 18,
+    "current_delta_conflicts": 0,
+    "ps2_vertices_receiving_nonzero_delta": 30,
+    "authority": "STATIC_POSITION_CANDIDATE_FEASIBILITY_ONLY_NOT_COMPILED_RUNTIME_CERTIFICATE"
+  }
+]

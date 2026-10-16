@@ -1,0 +1,1155 @@
+{
+  "schema": 1,
+  "grant": "SOURCE_ONLY_NO_NATIVE_WHEEL_REPLACEMENT_AUTHORIZATION",
+  "families": [
+    {
+      "pc_family": "Astero",
+      "ps2_family": "ASTERO",
+      "native_wheel_records": 5,
+      "ps2_wheel_meshes": 5,
+      "runtime": "KEEP_NATIVE_IN_THIS_FLEET_PHASE",
+      "damage": "WHOLE_CHASSIS_STOCK_IF_ANY_CURRENT_SOURCE_CERTIFICATE_FAILS; XTRAIL_SEPARATE_PROVEN_PATH",
+      "source_ps2_sha256": "000cd47bb5d3811e833125514b4e479eb433e0dbd3174eb83b05b2f2bb5633ac",
+      "source_pc_sha256": "17edbf252c31bf671e19786c25694cc1cfad8599a39d881189e75971eb79aef6",
+      "source_partition": "SOURCE_GEOMETRY_DIFFERS",
+      "original_ps2_faces": 252,
+      "original_pc_faces": 252,
+      "ps2_only_faces": 252,
+      "pc_only_faces": 252,
+      "records": [
+        {
+          "path": "0",
+          "faces": 72,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 72
+        },
+        {
+          "path": "1",
+          "faces": 36,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 36
+        },
+        {
+          "path": "2",
+          "faces": 54,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 54
+        },
+        {
+          "path": "3",
+          "faces": 18,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 18
+        },
+        {
+          "path": "4",
+          "faces": 72,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 72
+        }
+      ]
+    },
+    {
+      "pc_family": "Bruno",
+      "ps2_family": "BRUNO",
+      "native_wheel_records": 5,
+      "ps2_wheel_meshes": 5,
+      "runtime": "KEEP_NATIVE_IN_THIS_FLEET_PHASE",
+      "damage": "WHOLE_CHASSIS_STOCK_IF_ANY_CURRENT_SOURCE_CERTIFICATE_FAILS; XTRAIL_SEPARATE_PROVEN_PATH",
+      "source_ps2_sha256": "8d8d57d6445155054be98d5d175f015a69a150c49b7e8fbd19aa0bc1a99502d3",
+      "source_pc_sha256": "9132ebbd9dae94d34387094ad0943129db9fab0f5d94304a10fd7df0665676c9",
+      "source_partition": "SOURCE_GEOMETRY_DIFFERS",
+      "original_ps2_faces": 252,
+      "original_pc_faces": 252,
+      "ps2_only_faces": 252,
+      "pc_only_faces": 252,
+      "records": [
+        {
+          "path": "0",
+          "faces": 72,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 72
+        },
+        {
+          "path": "1",
+          "faces": 36,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 36
+        },
+        {
+          "path": "2",
+          "faces": 54,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 54
+        },
+        {
+          "path": "3",
+          "faces": 18,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 18
+        },
+        {
+          "path": "4",
+          "faces": 72,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 72
+        }
+      ]
+    },
+    {
+      "pc_family": "ChevyBlazer",
+      "ps2_family": "CHEVYBLAZER",
+      "native_wheel_records": 5,
+      "ps2_wheel_meshes": 4,
+      "runtime": "KEEP_NATIVE_IN_THIS_FLEET_PHASE",
+      "damage": "WHOLE_CHASSIS_STOCK_IF_ANY_CURRENT_SOURCE_CERTIFICATE_FAILS; XTRAIL_SEPARATE_PROVEN_PATH",
+      "source_ps2_sha256": "0911fd38ddea30812c50b5f22e5b016c3001c760d1c7fab0e8690a237ad27688",
+      "source_pc_sha256": "acced5c9eb583c7ea969c1ba17ff61ee6cc4442f5b9cd3b01846b9139347a22a",
+      "source_partition": "SOURCE_GEOMETRY_DIFFERS",
+      "original_ps2_faces": 252,
+      "original_pc_faces": 252,
+      "ps2_only_faces": 252,
+      "pc_only_faces": 252,
+      "records": [
+        {
+          "path": "0",
+          "faces": 72,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 72
+        },
+        {
+          "path": "1",
+          "faces": 36,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 36
+        },
+        {
+          "path": "2",
+          "faces": 54,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 54
+        },
+        {
+          "path": "3",
+          "faces": 18,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 18
+        },
+        {
+          "path": "4",
+          "faces": 72,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 72
+        }
+      ]
+    },
+    {
+      "pc_family": "Frontera",
+      "ps2_family": "FRONTERA",
+      "native_wheel_records": 5,
+      "ps2_wheel_meshes": 5,
+      "runtime": "KEEP_NATIVE_IN_THIS_FLEET_PHASE",
+      "damage": "WHOLE_CHASSIS_STOCK_IF_ANY_CURRENT_SOURCE_CERTIFICATE_FAILS; XTRAIL_SEPARATE_PROVEN_PATH",
+      "source_ps2_sha256": "10ac8c004253eaeddf4f67052d8d8e0abb72c79d7e56573dbd833842cd043836",
+      "source_pc_sha256": "5742358403aa633c04562347522f316818c069c8d6dfbed47e1288aa19b85899",
+      "source_partition": "SOURCE_GEOMETRY_DIFFERS",
+      "original_ps2_faces": 252,
+      "original_pc_faces": 252,
+      "ps2_only_faces": 252,
+      "pc_only_faces": 252,
+      "records": [
+        {
+          "path": "0",
+          "faces": 72,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 72
+        },
+        {
+          "path": "1",
+          "faces": 36,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 36
+        },
+        {
+          "path": "2",
+          "faces": 54,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 54
+        },
+        {
+          "path": "3",
+          "faces": 18,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 18
+        },
+        {
+          "path": "4",
+          "faces": 72,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 72
+        }
+      ]
+    },
+    {
+      "pc_family": "IceCream",
+      "ps2_family": "ICECREAM",
+      "native_wheel_records": 5,
+      "ps2_wheel_meshes": 4,
+      "runtime": "KEEP_NATIVE_IN_THIS_FLEET_PHASE",
+      "damage": "WHOLE_CHASSIS_STOCK_IF_ANY_CURRENT_SOURCE_CERTIFICATE_FAILS; XTRAIL_SEPARATE_PROVEN_PATH",
+      "source_ps2_sha256": "41126b9ee2d7c846e88824d3bea596997c220fda8c0e83b3ee5a6a871809f4c1",
+      "source_pc_sha256": "48ec2e91d6770bcca19ae13e24f32cfa63747c0aeb53713fead1a6d3c13d8178",
+      "source_partition": "SOURCE_GEOMETRY_DIFFERS",
+      "original_ps2_faces": 252,
+      "original_pc_faces": 252,
+      "ps2_only_faces": 252,
+      "pc_only_faces": 252,
+      "records": [
+        {
+          "path": "0",
+          "faces": 72,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 72
+        },
+        {
+          "path": "1",
+          "faces": 36,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 36
+        },
+        {
+          "path": "2",
+          "faces": 54,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 54
+        },
+        {
+          "path": "3",
+          "faces": 18,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 18
+        },
+        {
+          "path": "4",
+          "faces": 72,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 72
+        }
+      ]
+    },
+    {
+      "pc_family": "Jump",
+      "ps2_family": "JUMP",
+      "native_wheel_records": 5,
+      "ps2_wheel_meshes": 5,
+      "runtime": "KEEP_NATIVE_IN_THIS_FLEET_PHASE",
+      "damage": "WHOLE_CHASSIS_STOCK_IF_ANY_CURRENT_SOURCE_CERTIFICATE_FAILS; XTRAIL_SEPARATE_PROVEN_PATH",
+      "source_ps2_sha256": "f6d47e756e96f33c03307fc5df79d29d31ff34e0700d8f57de3ad2708ea26f1d",
+      "source_pc_sha256": "81c6a980df7c32ae16702afda6a42dfb6f9b5917c9cd6d7ddb4e3a84c0bf0ab0",
+      "source_partition": "SOURCE_GEOMETRY_DIFFERS",
+      "original_ps2_faces": 252,
+      "original_pc_faces": 252,
+      "ps2_only_faces": 252,
+      "pc_only_faces": 252,
+      "records": [
+        {
+          "path": "0",
+          "faces": 72,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 72
+        },
+        {
+          "path": "1",
+          "faces": 36,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 36
+        },
+        {
+          "path": "2",
+          "faces": 54,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 54
+        },
+        {
+          "path": "3",
+          "faces": 18,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 18
+        },
+        {
+          "path": "4",
+          "faces": 72,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 72
+        }
+      ]
+    },
+    {
+      "pc_family": "Kamaz",
+      "ps2_family": "KAMAZ",
+      "native_wheel_records": 5,
+      "ps2_wheel_meshes": 4,
+      "runtime": "KEEP_NATIVE_IN_THIS_FLEET_PHASE",
+      "damage": "WHOLE_CHASSIS_STOCK_IF_ANY_CURRENT_SOURCE_CERTIFICATE_FAILS; XTRAIL_SEPARATE_PROVEN_PATH",
+      "source_ps2_sha256": "809ed8084c1652903987a9612def5b584bcec00d3607b4a051ebc331aa8f25f7",
+      "source_pc_sha256": "e4b1566b39efc881f88621ccc013baa4b02c290abd3d9d5a0844dd1f4f9e43da",
+      "source_partition": "SOURCE_GEOMETRY_DIFFERS",
+      "original_ps2_faces": 252,
+      "original_pc_faces": 252,
+      "ps2_only_faces": 252,
+      "pc_only_faces": 252,
+      "records": [
+        {
+          "path": "0",
+          "faces": 72,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 72
+        },
+        {
+          "path": "1",
+          "faces": 36,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 36
+        },
+        {
+          "path": "2",
+          "faces": 54,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 54
+        },
+        {
+          "path": "3",
+          "faces": 18,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 18
+        },
+        {
+          "path": "4",
+          "faces": 72,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 72
+        }
+      ]
+    },
+    {
+      "pc_family": "Kangoo",
+      "ps2_family": "KANGOO",
+      "native_wheel_records": 5,
+      "ps2_wheel_meshes": 5,
+      "runtime": "KEEP_NATIVE_IN_THIS_FLEET_PHASE",
+      "damage": "WHOLE_CHASSIS_STOCK_IF_ANY_CURRENT_SOURCE_CERTIFICATE_FAILS; XTRAIL_SEPARATE_PROVEN_PATH",
+      "source_ps2_sha256": "09d8ae292bc9c17ef287e28653e07a9d3ba39c4bcf4b86b4384dac7a3c171164",
+      "source_pc_sha256": "859446d5ee1c83f107f0804b0f13351f1397262092b86c7f4da8c1f6c5ffe3da",
+      "source_partition": "SOURCE_GEOMETRY_DIFFERS",
+      "original_ps2_faces": 252,
+      "original_pc_faces": 252,
+      "ps2_only_faces": 252,
+      "pc_only_faces": 252,
+      "records": [
+        {
+          "path": "0",
+          "faces": 72,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 72
+        },
+        {
+          "path": "1",
+          "faces": 36,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 36
+        },
+        {
+          "path": "2",
+          "faces": 54,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 54
+        },
+        {
+          "path": "3",
+          "faces": 18,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 18
+        },
+        {
+          "path": "4",
+          "faces": 72,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 72
+        }
+      ]
+    },
+    {
+      "pc_family": "KiaSportage",
+      "ps2_family": "KIASPORTAGE",
+      "native_wheel_records": 4,
+      "ps2_wheel_meshes": 4,
+      "runtime": "KEEP_NATIVE_IN_THIS_FLEET_PHASE",
+      "damage": "WHOLE_CHASSIS_STOCK_IF_ANY_CURRENT_SOURCE_CERTIFICATE_FAILS; XTRAIL_SEPARATE_PROVEN_PATH",
+      "source_ps2_sha256": "d6b40e441dbfe119ddc2b1b59bbf2cf23d3d0014007d02979e9d90e558724a46",
+      "source_pc_sha256": "9f8d512102e0ccaacd2232cfb7f957fd549bf07b571c3db5e161e3a2c4c18017",
+      "source_partition": "SOURCE_GEOMETRY_DIFFERS",
+      "original_ps2_faces": 252,
+      "original_pc_faces": 252,
+      "ps2_only_faces": 252,
+      "pc_only_faces": 252,
+      "records": [
+        {
+          "path": "0",
+          "faces": 72,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 72
+        },
+        {
+          "path": "1",
+          "faces": 36,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 36
+        },
+        {
+          "path": "2",
+          "faces": 54,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 54
+        },
+        {
+          "path": "3",
+          "faces": 90,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 90
+        }
+      ]
+    },
+    {
+      "pc_family": "LandCruiser",
+      "ps2_family": "LANDCRUISER",
+      "native_wheel_records": 5,
+      "ps2_wheel_meshes": 5,
+      "runtime": "KEEP_NATIVE_IN_THIS_FLEET_PHASE",
+      "damage": "WHOLE_CHASSIS_STOCK_IF_ANY_CURRENT_SOURCE_CERTIFICATE_FAILS; XTRAIL_SEPARATE_PROVEN_PATH",
+      "source_ps2_sha256": "48ef6aa73177f437b85abad1a0f8a4c89070ddcdf66e78ce452694a82939f077",
+      "source_pc_sha256": "9c82ed7d7c964ea9e7b3245cb7712c5e0a61ede6fe8d1a97d4fc6b81e176b669",
+      "source_partition": "SOURCE_GEOMETRY_DIFFERS",
+      "original_ps2_faces": 252,
+      "original_pc_faces": 252,
+      "ps2_only_faces": 252,
+      "pc_only_faces": 252,
+      "records": [
+        {
+          "path": "0",
+          "faces": 72,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 72
+        },
+        {
+          "path": "1",
+          "faces": 36,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 36
+        },
+        {
+          "path": "2",
+          "faces": 54,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 54
+        },
+        {
+          "path": "3",
+          "faces": 18,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 18
+        },
+        {
+          "path": "4",
+          "faces": 72,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 72
+        }
+      ]
+    },
+    {
+      "pc_family": "Mattserati",
+      "ps2_family": "MATTSERATI",
+      "native_wheel_records": 5,
+      "ps2_wheel_meshes": 5,
+      "runtime": "KEEP_NATIVE_IN_THIS_FLEET_PHASE",
+      "damage": "WHOLE_CHASSIS_STOCK_IF_ANY_CURRENT_SOURCE_CERTIFICATE_FAILS; XTRAIL_SEPARATE_PROVEN_PATH",
+      "source_ps2_sha256": "1b12c2c786c7f922c8b98a75b46ab6cf85a061ac36b8f2343d9cb126562e681b",
+      "source_pc_sha256": "e6e19dd1c30d4f4201aafb11c17173899b92b054fdb72bf51a96f97ca71eb44c",
+      "source_partition": "SOURCE_GEOMETRY_DIFFERS",
+      "original_ps2_faces": 252,
+      "original_pc_faces": 252,
+      "ps2_only_faces": 252,
+      "pc_only_faces": 252,
+      "records": [
+        {
+          "path": "0",
+          "faces": 72,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 72
+        },
+        {
+          "path": "1",
+          "faces": 36,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 36
+        },
+        {
+          "path": "2",
+          "faces": 54,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 54
+        },
+        {
+          "path": "3",
+          "faces": 18,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 18
+        },
+        {
+          "path": "4",
+          "faces": 72,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 72
+        }
+      ]
+    },
+    {
+      "pc_family": "megane",
+      "ps2_family": "MEGANE",
+      "native_wheel_records": 5,
+      "ps2_wheel_meshes": 5,
+      "runtime": "KEEP_NATIVE_IN_THIS_FLEET_PHASE",
+      "damage": "WHOLE_CHASSIS_STOCK_IF_ANY_CURRENT_SOURCE_CERTIFICATE_FAILS; XTRAIL_SEPARATE_PROVEN_PATH",
+      "source_ps2_sha256": "9e9f18ecb7611d99f6976f524a094eafc97000f949e7423fe7d2aa1c276265be",
+      "source_pc_sha256": "83b54805dad324f17e4e9eb9db8285c227a9190ac452b7c16d375b227465a124",
+      "source_partition": "EXACT_EXHAUSTIVE_FACE_MULTISET",
+      "original_ps2_faces": 252,
+      "original_pc_faces": 252,
+      "ps2_only_faces": 0,
+      "pc_only_faces": 0,
+      "records": [
+        {
+          "path": "0",
+          "faces": 72,
+          "ps2_roots_matching_faces": {
+            "root.0": 72
+          },
+          "missing_source_faces": 0
+        },
+        {
+          "path": "1",
+          "faces": 36,
+          "ps2_roots_matching_faces": {
+            "root.1": 36
+          },
+          "missing_source_faces": 0
+        },
+        {
+          "path": "2",
+          "faces": 54,
+          "ps2_roots_matching_faces": {
+            "root.2": 54
+          },
+          "missing_source_faces": 0
+        },
+        {
+          "path": "3",
+          "faces": 18,
+          "ps2_roots_matching_faces": {
+            "root.3": 18
+          },
+          "missing_source_faces": 0
+        },
+        {
+          "path": "4",
+          "faces": 72,
+          "ps2_roots_matching_faces": {
+            "root.4": 72
+          },
+          "missing_source_faces": 0
+        }
+      ]
+    },
+    {
+      "pc_family": "Navara",
+      "ps2_family": "NAVARA",
+      "native_wheel_records": 4,
+      "ps2_wheel_meshes": 3,
+      "runtime": "KEEP_NATIVE_IN_THIS_FLEET_PHASE",
+      "damage": "WHOLE_CHASSIS_STOCK_IF_ANY_CURRENT_SOURCE_CERTIFICATE_FAILS; XTRAIL_SEPARATE_PROVEN_PATH",
+      "source_ps2_sha256": "2f4f70e1f58e59f7a05847de927e571a6680bd7998dd45ff96d6bf15917aba96",
+      "source_pc_sha256": "2ae0c70a1912edfa8c628038541305132bf6843a00d33ce8761f351f17b72e08",
+      "source_partition": "EXACT_EXHAUSTIVE_FACE_MULTISET",
+      "original_ps2_faces": 252,
+      "original_pc_faces": 252,
+      "ps2_only_faces": 0,
+      "pc_only_faces": 0,
+      "records": [
+        {
+          "path": "0",
+          "faces": 72,
+          "ps2_roots_matching_faces": {
+            "root.0": 72
+          },
+          "missing_source_faces": 0
+        },
+        {
+          "path": "1",
+          "faces": 36,
+          "ps2_roots_matching_faces": {
+            "root.1": 36
+          },
+          "missing_source_faces": 0
+        },
+        {
+          "path": "2",
+          "faces": 54,
+          "ps2_roots_matching_faces": {
+            "root.0": 54
+          },
+          "missing_source_faces": 0
+        },
+        {
+          "path": "3",
+          "faces": 90,
+          "ps2_roots_matching_faces": {
+            "root.2": 90
+          },
+          "missing_source_faces": 0
+        }
+      ]
+    },
+    {
+      "pc_family": "NewRav",
+      "ps2_family": "NEWRAV",
+      "native_wheel_records": 5,
+      "ps2_wheel_meshes": 5,
+      "runtime": "KEEP_NATIVE_IN_THIS_FLEET_PHASE",
+      "damage": "WHOLE_CHASSIS_STOCK_IF_ANY_CURRENT_SOURCE_CERTIFICATE_FAILS; XTRAIL_SEPARATE_PROVEN_PATH",
+      "source_ps2_sha256": "c327c7ca37ed698acb5ab1e268e7f3c85ae70d6242420c0e179761fa81932526",
+      "source_pc_sha256": "335e5632714974bfc04087391854647c5f37289fe0d6625c56c265a66a049e94",
+      "source_partition": "EXACT_EXHAUSTIVE_FACE_MULTISET",
+      "original_ps2_faces": 252,
+      "original_pc_faces": 252,
+      "ps2_only_faces": 0,
+      "pc_only_faces": 0,
+      "records": [
+        {
+          "path": "0",
+          "faces": 72,
+          "ps2_roots_matching_faces": {
+            "root.0": 72
+          },
+          "missing_source_faces": 0
+        },
+        {
+          "path": "1",
+          "faces": 36,
+          "ps2_roots_matching_faces": {
+            "root.1": 36
+          },
+          "missing_source_faces": 0
+        },
+        {
+          "path": "2",
+          "faces": 54,
+          "ps2_roots_matching_faces": {
+            "root.2": 54
+          },
+          "missing_source_faces": 0
+        },
+        {
+          "path": "3",
+          "faces": 18,
+          "ps2_roots_matching_faces": {
+            "root.3": 18
+          },
+          "missing_source_faces": 0
+        },
+        {
+          "path": "4",
+          "faces": 72,
+          "ps2_roots_matching_faces": {
+            "root.4": 72
+          },
+          "missing_source_faces": 0
+        }
+      ]
+    },
+    {
+      "pc_family": "Pajero",
+      "ps2_family": "PAJERO",
+      "native_wheel_records": 5,
+      "ps2_wheel_meshes": 4,
+      "runtime": "KEEP_NATIVE_IN_THIS_FLEET_PHASE",
+      "damage": "WHOLE_CHASSIS_STOCK_IF_ANY_CURRENT_SOURCE_CERTIFICATE_FAILS; XTRAIL_SEPARATE_PROVEN_PATH",
+      "source_ps2_sha256": "f02e861fffc38527f900f872223f5d43fa1582e95e2c40c8d40cd9ad3f7e7752",
+      "source_pc_sha256": "31db2076dcfbdb85714f650712d4e5f2e4efb6cc8b72b695a14588387142f877",
+      "source_partition": "SOURCE_GEOMETRY_DIFFERS",
+      "original_ps2_faces": 252,
+      "original_pc_faces": 252,
+      "ps2_only_faces": 252,
+      "pc_only_faces": 252,
+      "records": [
+        {
+          "path": "0",
+          "faces": 72,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 72
+        },
+        {
+          "path": "1",
+          "faces": 36,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 36
+        },
+        {
+          "path": "2",
+          "faces": 54,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 54
+        },
+        {
+          "path": "3",
+          "faces": 18,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 18
+        },
+        {
+          "path": "4",
+          "faces": 72,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 72
+        }
+      ]
+    },
+    {
+      "pc_family": "Patrol",
+      "ps2_family": "PATROL",
+      "native_wheel_records": 5,
+      "ps2_wheel_meshes": 5,
+      "runtime": "KEEP_NATIVE_IN_THIS_FLEET_PHASE",
+      "damage": "WHOLE_CHASSIS_STOCK_IF_ANY_CURRENT_SOURCE_CERTIFICATE_FAILS; XTRAIL_SEPARATE_PROVEN_PATH",
+      "source_ps2_sha256": "c48ee165735e4c680e3c8012109ca2192c616f05bf493d3dfe85ef529ce0c997",
+      "source_pc_sha256": "b37ce51051d9c828c517213d87933ccb73a3d3fdd9557deb4fef33299347c409",
+      "source_partition": "SOURCE_GEOMETRY_DIFFERS",
+      "original_ps2_faces": 252,
+      "original_pc_faces": 252,
+      "ps2_only_faces": 252,
+      "pc_only_faces": 252,
+      "records": [
+        {
+          "path": "0",
+          "faces": 72,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 72
+        },
+        {
+          "path": "1",
+          "faces": 36,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 36
+        },
+        {
+          "path": "2",
+          "faces": 54,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 54
+        },
+        {
+          "path": "3",
+          "faces": 18,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 18
+        },
+        {
+          "path": "4",
+          "faces": 72,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 72
+        }
+      ]
+    },
+    {
+      "pc_family": "RMonster",
+      "ps2_family": "RMONSTER",
+      "native_wheel_records": 5,
+      "ps2_wheel_meshes": 5,
+      "runtime": "KEEP_NATIVE_IN_THIS_FLEET_PHASE",
+      "damage": "WHOLE_CHASSIS_STOCK_IF_ANY_CURRENT_SOURCE_CERTIFICATE_FAILS; XTRAIL_SEPARATE_PROVEN_PATH",
+      "source_ps2_sha256": "88d9f1109815cd7597c8c666f3070aff1a866043126467c71ca2d511f0628627",
+      "source_pc_sha256": "868b70f4fe21804854fdc5ef87235dbf85d6d34610045799bcc83cc7b63ac60d",
+      "source_partition": "SOURCE_GEOMETRY_DIFFERS",
+      "original_ps2_faces": 252,
+      "original_pc_faces": 252,
+      "ps2_only_faces": 252,
+      "pc_only_faces": 252,
+      "records": [
+        {
+          "path": "0",
+          "faces": 72,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 72
+        },
+        {
+          "path": "1",
+          "faces": 36,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 36
+        },
+        {
+          "path": "2",
+          "faces": 54,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 54
+        },
+        {
+          "path": "3",
+          "faces": 18,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 18
+        },
+        {
+          "path": "4",
+          "faces": 72,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 72
+        }
+      ]
+    },
+    {
+      "pc_family": "SeatBuggy",
+      "ps2_family": "SEATBUGGY",
+      "native_wheel_records": 5,
+      "ps2_wheel_meshes": 5,
+      "runtime": "KEEP_NATIVE_IN_THIS_FLEET_PHASE",
+      "damage": "WHOLE_CHASSIS_STOCK_IF_ANY_CURRENT_SOURCE_CERTIFICATE_FAILS; XTRAIL_SEPARATE_PROVEN_PATH",
+      "source_ps2_sha256": "d7e835b086a87ac4afc7c56ea2e472ffa092801b2eec319a63ae63fdd01fa82a",
+      "source_pc_sha256": "0d97a6c9df7ac62e2499d9f9e8e700f0f4b0bc1ec798e6de3b3c69b485175cbe",
+      "source_partition": "SOURCE_GEOMETRY_DIFFERS",
+      "original_ps2_faces": 252,
+      "original_pc_faces": 252,
+      "ps2_only_faces": 252,
+      "pc_only_faces": 252,
+      "records": [
+        {
+          "path": "0",
+          "faces": 72,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 72
+        },
+        {
+          "path": "1",
+          "faces": 36,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 36
+        },
+        {
+          "path": "2",
+          "faces": 54,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 54
+        },
+        {
+          "path": "3",
+          "faces": 18,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 18
+        },
+        {
+          "path": "4",
+          "faces": 72,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 72
+        }
+      ]
+    },
+    {
+      "pc_family": "Simmbugghini",
+      "ps2_family": "SIMMBUGGHINI",
+      "native_wheel_records": 5,
+      "ps2_wheel_meshes": 5,
+      "runtime": "KEEP_NATIVE_IN_THIS_FLEET_PHASE",
+      "damage": "WHOLE_CHASSIS_STOCK_IF_ANY_CURRENT_SOURCE_CERTIFICATE_FAILS; XTRAIL_SEPARATE_PROVEN_PATH",
+      "source_ps2_sha256": "6095092b5974f8bd54b2ec4346d527e014841febb5780d447706d9606aacb673",
+      "source_pc_sha256": "6da9a59930c80ea54ed56371946f66b541758b410de19a11ce8165aa4623910d",
+      "source_partition": "SOURCE_GEOMETRY_DIFFERS",
+      "original_ps2_faces": 252,
+      "original_pc_faces": 252,
+      "ps2_only_faces": 252,
+      "pc_only_faces": 252,
+      "records": [
+        {
+          "path": "0",
+          "faces": 72,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 72
+        },
+        {
+          "path": "1",
+          "faces": 36,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 36
+        },
+        {
+          "path": "2",
+          "faces": 54,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 54
+        },
+        {
+          "path": "3",
+          "faces": 18,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 18
+        },
+        {
+          "path": "4",
+          "faces": 72,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 72
+        }
+      ]
+    },
+    {
+      "pc_family": "Tata",
+      "ps2_family": "TATA",
+      "native_wheel_records": 4,
+      "ps2_wheel_meshes": 3,
+      "runtime": "KEEP_NATIVE_IN_THIS_FLEET_PHASE",
+      "damage": "WHOLE_CHASSIS_STOCK_IF_ANY_CURRENT_SOURCE_CERTIFICATE_FAILS; XTRAIL_SEPARATE_PROVEN_PATH",
+      "source_ps2_sha256": "e34f928937d0430e032ad4f65918eba8052c84a46be4dd1ed78d601cea9446bd",
+      "source_pc_sha256": "f106abef3ba6926350cfc2796b54c17bb762d2b057a0232c4f3d8676dcf638ea",
+      "source_partition": "SOURCE_GEOMETRY_DIFFERS",
+      "original_ps2_faces": 252,
+      "original_pc_faces": 252,
+      "ps2_only_faces": 252,
+      "pc_only_faces": 252,
+      "records": [
+        {
+          "path": "0",
+          "faces": 72,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 72
+        },
+        {
+          "path": "1",
+          "faces": 36,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 36
+        },
+        {
+          "path": "2",
+          "faces": 54,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 54
+        },
+        {
+          "path": "3",
+          "faces": 90,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 90
+        }
+      ]
+    },
+    {
+      "pc_family": "Terrano",
+      "ps2_family": "TERRANO",
+      "native_wheel_records": 5,
+      "ps2_wheel_meshes": 5,
+      "runtime": "KEEP_NATIVE_IN_THIS_FLEET_PHASE",
+      "damage": "WHOLE_CHASSIS_STOCK_IF_ANY_CURRENT_SOURCE_CERTIFICATE_FAILS; XTRAIL_SEPARATE_PROVEN_PATH",
+      "source_ps2_sha256": "cca60b9fd156c54870b79cd505302915f45676aaf371c254c63ef2953d90866c",
+      "source_pc_sha256": "1b132a537509035086a4dad7d23a021cbb5e59041c216f9b444682f2383aa5f5",
+      "source_partition": "SOURCE_GEOMETRY_DIFFERS",
+      "original_ps2_faces": 252,
+      "original_pc_faces": 252,
+      "ps2_only_faces": 252,
+      "pc_only_faces": 252,
+      "records": [
+        {
+          "path": "0",
+          "faces": 72,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 72
+        },
+        {
+          "path": "1",
+          "faces": 36,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 36
+        },
+        {
+          "path": "2",
+          "faces": 54,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 54
+        },
+        {
+          "path": "3",
+          "faces": 18,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 18
+        },
+        {
+          "path": "4",
+          "faces": 72,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 72
+        }
+      ]
+    },
+    {
+      "pc_family": "Ufo",
+      "ps2_family": "UFO",
+      "native_wheel_records": 0,
+      "ps2_wheel_meshes": 0,
+      "runtime": "KEEP_NATIVE_IN_THIS_FLEET_PHASE",
+      "damage": "WHOLE_CHASSIS_STOCK_IF_ANY_CURRENT_SOURCE_CERTIFICATE_FAILS; XTRAIL_SEPARATE_PROVEN_PATH",
+      "source_partition": "NO_PAIRED_WHEEL_RESOURCE"
+    },
+    {
+      "pc_family": "WildCat",
+      "ps2_family": "WILDCAT",
+      "native_wheel_records": 5,
+      "ps2_wheel_meshes": 5,
+      "runtime": "KEEP_NATIVE_IN_THIS_FLEET_PHASE",
+      "damage": "WHOLE_CHASSIS_STOCK_IF_ANY_CURRENT_SOURCE_CERTIFICATE_FAILS; XTRAIL_SEPARATE_PROVEN_PATH",
+      "source_ps2_sha256": "6ee0ab6c94ab126419abf0ca896df9ad937d90a2639864ddc9d64c751fe22c8b",
+      "source_pc_sha256": "a627f60b382f7f00ba577c532377ff078b59ab8a488f89daa53c34ca3cdb2af4",
+      "source_partition": "SOURCE_GEOMETRY_DIFFERS",
+      "original_ps2_faces": 252,
+      "original_pc_faces": 252,
+      "ps2_only_faces": 252,
+      "pc_only_faces": 252,
+      "records": [
+        {
+          "path": "0",
+          "faces": 72,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 72
+        },
+        {
+          "path": "1",
+          "faces": 36,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 36
+        },
+        {
+          "path": "2",
+          "faces": 54,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 54
+        },
+        {
+          "path": "3",
+          "faces": 18,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 18
+        },
+        {
+          "path": "4",
+          "faces": 72,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 72
+        }
+      ]
+    },
+    {
+      "pc_family": "Forester",
+      "ps2_family": "WOOLDAND",
+      "native_wheel_records": 5,
+      "ps2_wheel_meshes": 5,
+      "runtime": "KEEP_NATIVE_IN_THIS_FLEET_PHASE",
+      "damage": "WHOLE_CHASSIS_STOCK_IF_ANY_CURRENT_SOURCE_CERTIFICATE_FAILS; XTRAIL_SEPARATE_PROVEN_PATH",
+      "source_ps2_sha256": "b8f23ea481882adf60844e43c20f84e0b7a8f4d7f7aa277afeb427c4590739ff",
+      "source_pc_sha256": "ce2b6557cbd8975ec14d1c20a4d3df902512a3433c713dc3822f09bfd35ca01c",
+      "source_partition": "SOURCE_GEOMETRY_DIFFERS",
+      "original_ps2_faces": 252,
+      "original_pc_faces": 252,
+      "ps2_only_faces": 252,
+      "pc_only_faces": 252,
+      "records": [
+        {
+          "path": "0",
+          "faces": 72,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 72
+        },
+        {
+          "path": "1",
+          "faces": 36,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 36
+        },
+        {
+          "path": "2",
+          "faces": 54,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 54
+        },
+        {
+          "path": "3",
+          "faces": 18,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 18
+        },
+        {
+          "path": "4",
+          "faces": 72,
+          "ps2_roots_matching_faces": {},
+          "missing_source_faces": 72
+        }
+      ]
+    },
+    {
+      "pc_family": "Xtrail",
+      "ps2_family": "XTRAIL",
+      "native_wheel_records": 4,
+      "ps2_wheel_meshes": 3,
+      "runtime": "KEEP_NATIVE_IN_THIS_FLEET_PHASE",
+      "damage": "WHOLE_CHASSIS_STOCK_IF_ANY_CURRENT_SOURCE_CERTIFICATE_FAILS; XTRAIL_SEPARATE_PROVEN_PATH",
+      "source_ps2_sha256": "d53360eab52761fdadf1a4d5a2c87196be7674fbbb603c41cd4726a4b303773c",
+      "source_pc_sha256": "f05ac990b6ea2312f2a2d552ec886aded4c68a8d8fac027f99e1fc7b0826779c",
+      "source_partition": "EXACT_EXHAUSTIVE_FACE_MULTISET",
+      "original_ps2_faces": 252,
+      "original_pc_faces": 252,
+      "ps2_only_faces": 0,
+      "pc_only_faces": 0,
+      "records": [
+        {
+          "path": "0",
+          "faces": 72,
+          "ps2_roots_matching_faces": {
+            "root.0": 72
+          },
+          "missing_source_faces": 0
+        },
+        {
+          "path": "1",
+          "faces": 36,
+          "ps2_roots_matching_faces": {
+            "root.1": 36
+          },
+          "missing_source_faces": 0
+        },
+        {
+          "path": "2",
+          "faces": 54,
+          "ps2_roots_matching_faces": {
+            "root.0": 54
+          },
+          "missing_source_faces": 0
+        },
+        {
+          "path": "3",
+          "faces": 90,
+          "ps2_roots_matching_faces": {
+            "root.2": 90
+          },
+          "missing_source_faces": 0
+        }
+      ]
+    }
+  ]
+}

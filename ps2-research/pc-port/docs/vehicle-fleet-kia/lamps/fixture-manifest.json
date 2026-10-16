@@ -1,0 +1,11 @@
+{
+  "path": "D:\\Game\\Master Rallye\\master-rallye-re-general\\ps2-research\\pc-port\\.assets\\vehicles\\kia-off-on-glow-native.bin",
+  "bytes": 2412,
+  "sha256": "96dd25e7ed86bb88242d839c2b44d4145a49304b839eada641d6a938b4bf9720",
+  "cases": [
+    "OFF FVF152/36 mustreflect",
+    "ON FVF102/20 mustnotreflect",
+    "glow FVF102/20 mustnotreflect"
+  ],
+  "live_uploaded_bytes": false
+}

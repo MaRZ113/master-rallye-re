@@ -1,0 +1,370 @@
+[
+  {
+    "family": "KIASPORTAGE",
+    "original_sha256": "6d023e6eb257a17325bfbef0320dc2933b7f244e7f52f6865dcf7673ff62e52f",
+    "path": "root.11",
+    "node_offset": 379852,
+    "mode": 3,
+    "material": "$shader(carshiny)",
+    "faces": 1380,
+    "conditional": false,
+    "texture_slots": [
+      {
+        "slot": 1,
+        "name": "commontextures\\rubber-tga",
+        "flags": [
+          false,
+          false,
+          false
+        ],
+        "offset": 379875
+      }
+    ]
+  },
+  {
+    "family": "MATTSERATI",
+    "original_sha256": "b56667a1fc6c47c023084304e018de15f717082c0693ecbe3fd274928e5ef948",
+    "path": "root.15",
+    "node_offset": 325502,
+    "mode": 2,
+    "material": "$shader(caralpha)",
+    "faces": 12,
+    "conditional": false,
+    "texture_slots": [
+      {
+        "slot": 0,
+        "name": "commontextures\\mnet1-tga",
+        "flags": [
+          true,
+          true,
+          false
+        ],
+        "offset": 325524
+      }
+    ]
+  },
+  {
+    "family": "SIMMBUGGHINI",
+    "original_sha256": "a29e4ddf815c496525a2514247b37cc6dd5855734dd1e6b60438ab2e8b2caafa",
+    "path": "root.15",
+    "node_offset": 278266,
+    "mode": 2,
+    "material": "$shader(caralpha)",
+    "faces": 12,
+    "conditional": false,
+    "texture_slots": [
+      {
+        "slot": 0,
+        "name": "commontextures\\mnet1-tga",
+        "flags": [
+          true,
+          true,
+          false
+        ],
+        "offset": 278288
+      }
+    ]
+  },
+  {
+    "family": "TATA",
+    "original_sha256": "fa4b83e8b7144ad1e3ae9e84531ca32fd23f07c0f95d4f53d3e3bf8d1dc3b0a3",
+    "path": "root.21",
+    "node_offset": 349913,
+    "mode": 3,
+    "material": "$shader(carshiny)",
+    "faces": 48,
+    "conditional": false,
+    "texture_slots": [
+      {
+        "slot": 1,
+        "name": "commontextures\\glass-tga",
+        "flags": [
+          false,
+          false,
+          false
+        ],
+        "offset": 349936
+      }
+    ]
+  },
+  {
+    "family": "UFO",
+    "original_sha256": "1d7b5fd9cad5b804ffab6e8c1b57052c63f947e96f1ba012395a3bf33276b15f",
+    "path": "root.3",
+    "node_offset": 243031,
+    "mode": null,
+    "material": "$shader(carbrakelight)",
+    "faces": 60,
+    "conditional": false,
+    "texture_slots": [
+      {
+        "slot": 0,
+        "name": "commontextures\\b_light-tga",
+        "flags": [
+          false,
+          false,
+          false
+        ],
+        "offset": 243053
+      },
+      {
+        "slot": 1,
+        "name": "commontextures\\perspex-tga",
+        "flags": [
+          false,
+          false,
+          false
+        ],
+        "offset": 243089
+      }
+    ]
+  },
+  {
+    "family": "UFO",
+    "original_sha256": "1d7b5fd9cad5b804ffab6e8c1b57052c63f947e96f1ba012395a3bf33276b15f",
+    "path": "root.5",
+    "node_offset": 243435,
+    "mode": null,
+    "material": "$shader(carbrakelight)",
+    "faces": 90,
+    "conditional": false,
+    "texture_slots": [
+      {
+        "slot": 0,
+        "name": "commontextures\\b_light-tga",
+        "flags": [
+          false,
+          false,
+          false
+        ],
+        "offset": 243457
+      },
+      {
+        "slot": 1,
+        "name": "commontextures\\perspex-tga",
+        "flags": [
+          false,
+          false,
+          false
+        ],
+        "offset": 243493
+      }
+    ]
+  },
+  {
+    "family": "UFO",
+    "original_sha256": "1d7b5fd9cad5b804ffab6e8c1b57052c63f947e96f1ba012395a3bf33276b15f",
+    "path": "root.6",
+    "node_offset": 243741,
+    "mode": null,
+    "material": "Suit",
+    "faces": 222,
+    "conditional": false,
+    "texture_slots": [
+      {
+        "slot": 0,
+        "name": "commontextures\\whitesuit32-tga",
+        "flags": [
+          false,
+          false,
+          false
+        ],
+        "offset": 243763
+      }
+    ]
+  },
+  {
+    "family": "UFO",
+    "original_sha256": "1d7b5fd9cad5b804ffab6e8c1b57052c63f947e96f1ba012395a3bf33276b15f",
+    "path": "root.7",
+    "node_offset": 244050,
+    "mode": null,
+    "material": "UnderDash",
+    "faces": 40,
+    "conditional": false,
+    "texture_slots": [
+      {
+        "slot": 0,
+        "name": "commontextures\\underdash-tga",
+        "flags": [
+          false,
+          false,
+          false
+        ],
+        "offset": 244072
+      }
+    ]
+  },
+  {
+    "family": "UFO",
+    "original_sha256": "1d7b5fd9cad5b804ffab6e8c1b57052c63f947e96f1ba012395a3bf33276b15f",
+    "path": "root.8",
+    "node_offset": 244206,
+    "mode": null,
+    "material": "Chair",
+    "faces": 134,
+    "conditional": false,
+    "texture_slots": [
+      {
+        "slot": 0,
+        "name": "commontextures\\chair2-tga",
+        "flags": [
+          false,
+          false,
+          false
+        ],
+        "offset": 244228
+      }
+    ]
+  },
+  {
+    "family": "UFO",
+    "original_sha256": "1d7b5fd9cad5b804ffab6e8c1b57052c63f947e96f1ba012395a3bf33276b15f",
+    "path": "root.9",
+    "node_offset": 244394,
+    "mode": null,
+    "material": "MonkeyHead",
+    "faces": 182,
+    "conditional": false,
+    "texture_slots": [
+      {
+        "slot": 0,
+        "name": "commontextures\\head-tga",
+        "flags": [
+          false,
+          false,
+          false
+        ],
+        "offset": 244416
+      }
+    ]
+  },
+  {
+    "family": "UFO",
+    "original_sha256": "1d7b5fd9cad5b804ffab6e8c1b57052c63f947e96f1ba012395a3bf33276b15f",
+    "path": "root.12",
+    "node_offset": 245014,
+    "mode": 21,
+    "material": "$shader(carglow)",
+    "faces": 160,
+    "conditional": false,
+    "texture_slots": [
+      {
+        "slot": 0,
+        "name": "commontextures\\windscreen32-tga",
+        "flags": [
+          true,
+          true,
+          false
+        ],
+        "offset": 245036
+      },
+      {
+        "slot": 1,
+        "name": "commontextures\\glass-tga",
+        "flags": [
+          false,
+          false,
+          false
+        ],
+        "offset": 245077
+      }
+    ]
+  },
+  {
+    "family": "UFO",
+    "original_sha256": "1d7b5fd9cad5b804ffab6e8c1b57052c63f947e96f1ba012395a3bf33276b15f",
+    "path": "root.13",
+    "node_offset": 245330,
+    "mode": null,
+    "material": "$shader(carbrakelight)",
+    "faces": 144,
+    "conditional": false,
+    "texture_slots": [
+      {
+        "slot": 0,
+        "name": "commontextures\\breaklightsonglow-tga",
+        "flags": [
+          true,
+          true,
+          false
+        ],
+        "offset": 245352
+      },
+      {
+        "slot": 1,
+        "name": "commontextures\\perspex-tga",
+        "flags": [
+          false,
+          false,
+          false
+        ],
+        "offset": 245398
+      }
+    ]
+  },
+  {
+    "family": "WOOLDAND",
+    "original_sha256": "5407780253d3c96817a3062f5f863c3dd935e68ed843d882fa2e145794299eec",
+    "path": "root.7",
+    "node_offset": 331425,
+    "mode": null,
+    "material": "$shader(crashiny)",
+    "faces": 60,
+    "conditional": false,
+    "texture_slots": [
+      {
+        "slot": 0,
+        "name": "commontextures\\subpelkarear128-tga",
+        "flags": [
+          false,
+          false,
+          false
+        ],
+        "offset": 331447
+      },
+      {
+        "slot": 1,
+        "name": "commontextures\\rubber-tga",
+        "flags": [
+          false,
+          false,
+          false
+        ],
+        "offset": 331491
+      }
+    ]
+  },
+  {
+    "family": "WOOLDAND",
+    "original_sha256": "5407780253d3c96817a3062f5f863c3dd935e68ed843d882fa2e145794299eec",
+    "path": "root.16",
+    "node_offset": 334964,
+    "mode": null,
+    "material": "FScreen32",
+    "faces": 2,
+    "conditional": false,
+    "texture_slots": [
+      {
+        "slot": 0,
+        "name": "commontextures\\windscreen32-tga",
+        "flags": [
+          true,
+          true,
+          false
+        ],
+        "offset": 334986
+      },
+      {
+        "slot": 1,
+        "name": "commontextures\\glass-tga",
+        "flags": [
+          false,
+          false,
+          false
+        ],
+        "offset": 335027
+      }
+    ]
+  }
+]

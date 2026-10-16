@@ -1,0 +1,42 @@
+{
+  "phase": "PS2-VEHICLE-FLEET-PORT3",
+  "baseline_ctest": 24,
+  "ps2_ctest": 34,
+  "python_regression": 133,
+  "focused_source_tests": [
+    {
+      "suite": "car",
+      "tests": 10,
+      "status": "PASS",
+      "output": "test_forester_revision_is_not_nearest_admitted (test_contracts.Contracts.test_forester_revision_is_not_nearest_admitted) ... ok\ntest_full_fleet (test_contracts.Contracts.test_full_fleet) ... ok\ntest_missing_never_silently_static (test_contracts.Contracts.test_missing_never_silently_static) ... ok\ntest_never_runtime_grant (test_contracts.Contracts.test_never_runtime_grant) ... ok\ntest_no_duplicate_healthy_identity (test_contracts.Contracts.test_no_duplicate_healthy_identity) ... ok\ntest_preserve_separate_proven_paths (test_contracts.Contracts.test_preserve_separate_proven_paths) ... ok\ntest_runtime_header_skips_ineligible_arrays (test_contracts.Contracts.test_runtime_header_skips_ineligible_arrays) ... ok\ntest_static_component_accepts_rigid_source_translation (test_contracts.Contracts.test_static_component_accepts_rigid_source_translation) ... ok\ntest_static_component_rejects_uv_or_deformation (test_contracts.Contracts.test_static_component_rejects_uv_or_deformation) ... ok\ntest_ufo_complete_no_invented_wheels (test_contracts.Contracts.test_ufo_complete_no_invented_wheels) ... ok\n\n----------------------------------------------------------------------\nRan 10 tests in 0.014s\n\nOK\n"
+    },
+    {
+      "suite": "wheels",
+      "tests": 5,
+      "status": "PASS",
+      "output": "test_all_assets (test_contracts.FleetWheels.test_all_assets) ... ok\ntest_complete_inventory (test_contracts.FleetWheels.test_complete_inventory) ... ok\ntest_materials_are_source_derived (test_contracts.FleetWheels.test_materials_are_source_derived) ... ok\ntest_native_fixture_original_xyz_uv_winding (test_contracts.FleetWheels.test_native_fixture_original_xyz_uv_winding) ... ok\ntest_pivots_no_fitting (test_contracts.FleetWheels.test_pivots_no_fitting) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.016s\n\nOK\n"
+    },
+    {
+      "suite": "lamps",
+      "tests": 5,
+      "status": "PASS",
+      "output": "test_compact_fixtures_positive_negative (test_registry.LampTests.test_compact_fixtures_positive_negative) ... ok\ntest_complete_source_coverage (test_registry.LampTests.test_complete_source_coverage) ... ok\ntest_cpp_unique_exact_registry (test_registry.LampTests.test_cpp_unique_exact_registry) ... ok\ntest_exact_source_colors_and_ordered_slots (test_registry.LampTests.test_exact_source_colors_and_ordered_slots) ... ok\ntest_off_boundaries_and_geometry_differences (test_registry.LampTests.test_off_boundaries_and_geometry_differences) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.034s\n\nOK\n"
+    },
+    {
+      "suite": "coverage",
+      "tests": 5,
+      "status": "PASS",
+      "output": "test_damage_is_not_generic_tag_enable (test_coverage.Coverage.test_damage_is_not_generic_tag_enable) ... ok\ntest_playable_all25 (test_coverage.Coverage.test_playable_all25) ... ok\ntest_runtime_and_source_are_distinct (test_coverage.Coverage.test_runtime_and_source_are_distinct) ... ok\ntest_ufo_never_wheels (test_coverage.Coverage.test_ufo_never_wheels) ... ok\ntest_verified_lamp_boundaries (test_coverage.Coverage.test_verified_lamp_boundaries) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.001s\n\nOK\n"
+    }
+  ],
+  "dll_sha256": "1f17cc50a6a0b1f9dd815f20b636236707c0912fc74273956597c53229d1aadb",
+  "baseline_dll_sha256": "b923a74d820c15b67ec2194c9a3e2dd1660d2a34102564d04be542d6648401f6",
+  "renderer_tree": "e33386bcf682db6983380c499e4928726c758fe0",
+  "proxy_verification": {
+    "baseline": "PASS",
+    "ps2-enabled": "PASS"
+  },
+  "runtime_new_families": "PENDING_USER_CAPTURE",
+  "no_deployment": true,
+  "no_push": true
+}

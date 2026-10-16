@@ -1,0 +1,373 @@
+{
+  "schema_version": 2,
+  "role": "FLEET_WHOLE_SEPARATE_WHEEL",
+  "family": "Xtrail",
+  "source_sha256": "d53360eab52761fdadf1a4d5a2c87196be7674fbbb603c41cd4726a4b303773c",
+  "pc_source_sha256": "f05ac990b6ea2312f2a2d552ec886aded4c68a8d8fac027f99e1fc7b0826779c",
+  "meshes": [
+    {
+      "path": "root.0",
+      "node_offset": 15640,
+      "mode": 3,
+      "texture_indices": [
+        0,
+        1,
+        4294967295
+      ],
+      "first_index": 0,
+      "index_count": 378,
+      "faces": 126,
+      "contract": {
+        "authored_shader": "carshiny",
+        "interned_shader": "carshiny",
+        "mode": 3,
+        "authored_secondary": "commontextures\\rubber-tga",
+        "effective_secondary": "commontextures\\rubber-tga",
+        "rubber_substring_preserved": true,
+        "reflection_contract_known": true,
+        "environment_selector": 1,
+        "handler": "0x3ade58",
+        "fallback": null,
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      },
+      "mixed_reflection": false,
+      "u_range": [
+        -0.07942056655883789,
+        1.079420566558838
+      ],
+      "v_range": [
+        -0.07942050695419312,
+        1.079420566558838
+      ],
+      "primary_u_wrap": false,
+      "source_texture_slots": [
+        {
+          "slot": 0,
+          "name": "commontextures\\mercwheel643-tga",
+          "flags": [
+            false,
+            false,
+            false
+          ],
+          "offset": 15662
+        },
+        {
+          "slot": 1,
+          "name": "commontextures\\rubber-tga",
+          "flags": [
+            false,
+            false,
+            false
+          ],
+          "offset": 15703
+        }
+      ],
+      "adc_suppressed": 14,
+      "diagnostic_degenerate": 0
+    },
+    {
+      "path": "root.1",
+      "node_offset": 15841,
+      "mode": 3,
+      "texture_indices": [
+        2,
+        1,
+        4294967295
+      ],
+      "first_index": 378,
+      "index_count": 108,
+      "faces": 36,
+      "contract": {
+        "authored_shader": "carshiny",
+        "interned_shader": "carshiny",
+        "mode": 3,
+        "authored_secondary": "commontextures\\rubber-tga",
+        "effective_secondary": "commontextures\\rubber-tga",
+        "rubber_substring_preserved": true,
+        "reflection_contract_known": true,
+        "environment_selector": 1,
+        "handler": "0x3ade58",
+        "fallback": null,
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      },
+      "mixed_reflection": false,
+      "u_range": [
+        -2.159478187561035,
+        2.830815315246582
+      ],
+      "v_range": [
+        0.0004994571208953857,
+        0.9995005130767822
+      ],
+      "primary_u_wrap": true,
+      "source_texture_slots": [
+        {
+          "slot": 0,
+          "name": "commontextures\\merctread-tga",
+          "flags": [
+            false,
+            false,
+            false
+          ],
+          "offset": 15863
+        },
+        {
+          "slot": 1,
+          "name": "commontextures\\rubber-tga",
+          "flags": [
+            false,
+            false,
+            false
+          ],
+          "offset": 15901
+        }
+      ],
+      "adc_suppressed": 0,
+      "diagnostic_degenerate": 0
+    },
+    {
+      "path": "root.2",
+      "node_offset": 16000,
+      "mode": 3,
+      "texture_indices": [
+        3,
+        4,
+        4294967295
+      ],
+      "first_index": 486,
+      "index_count": 270,
+      "faces": 90,
+      "contract": {
+        "authored_shader": "carshiny",
+        "interned_shader": "carshiny",
+        "mode": 3,
+        "authored_secondary": "commontextures\\chrome-tga",
+        "effective_secondary": "CommonTextures\\rendertarget64x64",
+        "rubber_substring_preserved": false,
+        "reflection_contract_known": true,
+        "environment_selector": 1,
+        "handler": "0x3ade58",
+        "fallback": null,
+        "evidence_grade": "CONFIRMED_BY_EXE"
+      },
+      "mixed_reflection": true,
+      "u_range": [
+        0.17138126492500305,
+        0.8286187648773193
+      ],
+      "v_range": [
+        0.17138126492500305,
+        0.8286187648773193
+      ],
+      "primary_u_wrap": false,
+      "source_texture_slots": [
+        {
+          "slot": 0,
+          "name": "commontextures\\jumpwheel64-tga",
+          "flags": [
+            false,
+            false,
+            false
+          ],
+          "offset": 16022
+        },
+        {
+          "slot": 1,
+          "name": "commontextures\\chrome-tga",
+          "flags": [
+            false,
+            false,
+            false
+          ],
+          "offset": 16062
+        }
+      ],
+      "adc_suppressed": 6,
+      "diagnostic_degenerate": 0
+    }
+  ],
+  "texture_upload": [
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\MERCWHEEL643-TGA.GXI",
+      "sha256": "258c665963d18b8786bd3b56e694a25435ffa18dc767d75088e1cd4d5d1791f0",
+      "argb_sha256": "0653a7e6a9689bd00838b525d180c9a37f0aaf358e3e1b08f00447e2a0c38e03",
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\RUBBER-TGA.GXI",
+      "sha256": "afba5c39287f33d6ab32576eddbe80e15717385e524b3380d8f6daabcfe1a899",
+      "argb_sha256": "10a9f697ed2209833685b0f9d678d11f17afcf2533a18a31c3234729d7f339f0",
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\MERCTREAD-TGA.GXI",
+      "sha256": "24788d6abbeffe38cc37c27c564077d8bd976989d9e702b8b191efadf03883b2",
+      "argb_sha256": "3c3b645851dee76a70dca871a888ac987f40be145ceee9bb4c2e62736bfd5c0b",
+      "width": 16,
+      "height": 16
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\JUMPWHEEL64-TGA.GXI",
+      "sha256": "03671ce44fc80512b23da204cddf63c3936bc51031f6a9980e9818ab60fd897e",
+      "argb_sha256": "2e7b3a34f54a82eb90ccacf2be852bb97ac824d3444022355db7b40947fc7ce6",
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "\\TNG\\DATAPSM\\COMMONTEXTURES\\CHROME-TGA.GXI",
+      "sha256": "4368ca3f678c11c414eca8f4c16e44e7d3513137dd68362ac5e4759a4cc79d0c",
+      "argb_sha256": "7bc7aab42bff670d0f05aec5ca7c7fdae298fe1cdfea97ed56b0c80395ded745",
+      "width": 32,
+      "height": 32
+    }
+  ],
+  "coordinates": "ORIGINAL_WHEEL_LOCAL_NO_RESCALE_NO_PIVOT_TRANSLATION; CURRENT_INDEPENDENT_NATIVE_WHEEL_WORLD",
+  "primary_orientation": "RAW_SOURCE_UV_RUNTIME_V_EQUALS_1_MINUS_V",
+  "suppression": "ALL_ACTUAL_SOURCE_RECORDS_PER_CURRENT_NATIVE_WHEEL_OWNER_ATOMICALLY; NO_ASSUMED_OWNER_COUNT",
+  "original_post_tree_auxiliary": {
+    "tag": 102,
+    "offset": 16226,
+    "kind": "POST_TREE_WHEEL_CYLINDER_AUXILIARY",
+    "values": [
+      0.4000000059604645,
+      0.20000000298023224
+    ],
+    "value_fields": [
+      "cylinder+0x14",
+      "cylinder+0x18"
+    ],
+    "consumer": "0x003947b0",
+    "visual_owner": "0x003900f0 -> 0x00391d38",
+    "sentinel_offset": 16238,
+    "unparsed_bytes": 0,
+    "runtime_rule": "Model+0x38 assigned only when model name contains wheel; otherwise destroy cylinder",
+    "not_used_for_visual_geometry": true
+  },
+  "filename": "port3-XTRAIL-WHEEL-FLEET.ps2model",
+  "sha256": "3e2ee4c25635e3ecd99113e1b679285c9a95f09ca7f0cdc05e19b1c23f0d369b",
+  "bytes": 60867,
+  "vertices": 300,
+  "indices": 756,
+  "textures": 5,
+  "native_sources": [
+    {
+      "record_path": "0",
+      "record_offset": 9464,
+      "top_level_index": 0,
+      "tag": 2,
+      "group_label": null,
+      "vertices": 54,
+      "faces": 72,
+      "vertex_base_source_only": 0,
+      "ordered_texture_slots": [
+        "mercwheel64-tga",
+        "rubber-tga",
+        "Null"
+      ],
+      "geometry_sha256": "2f4938e041122fb29ecc25c7ebcf53a535c33bcacc1e49268e158722677af698",
+      "ordered_position_sha256": "193608464d1ef23d4b90f13ee76dd92338ba03830633609a37d70ad1a6d565dc",
+      "uv_topology_sha256": "65ad613c309360e4b9bc9b7a19ca3e7446566092824b73f87bddf41c43989442",
+      "native_uv_winding_sha256": "cbd585a2718ff47724436f4f492350877d71256ace5c7972dfcc33f7aae25537",
+      "whole_chassis_suppress_candidate": true,
+      "admission": "CURRENT_NATIVE_OWNER_AND_EXACT_SOURCE_CERTIFICATE_REQUIRED"
+    },
+    {
+      "record_path": "1",
+      "record_offset": 9553,
+      "top_level_index": 1,
+      "tag": 2,
+      "group_label": null,
+      "vertices": 38,
+      "faces": 36,
+      "vertex_base_source_only": 54,
+      "ordered_texture_slots": [
+        "merctread-tga",
+        "rubber-tga",
+        "Null"
+      ],
+      "geometry_sha256": "a57e255404ce0f61f76b3985a44d870f4eddfe03222760c7f36a9380894cd875",
+      "ordered_position_sha256": "c2558fb69201975bfdf2cb770ab90985985e6689d4dcd43b4e8e4b1bf4b17f10",
+      "uv_topology_sha256": "41d0988fbc58dfdd933d3c19252221d9fd68db2e650f2798692219c6781551ad",
+      "native_uv_winding_sha256": "956c39dcf73bb0efd0725e3ad83f936b9418dbad474d8c41265871e0ea7946b6",
+      "whole_chassis_suppress_candidate": true,
+      "admission": "CURRENT_NATIVE_OWNER_AND_EXACT_SOURCE_CERTIFICATE_REQUIRED"
+    },
+    {
+      "record_path": "2",
+      "record_offset": 9640,
+      "top_level_index": 2,
+      "tag": 2,
+      "group_label": null,
+      "vertices": 37,
+      "faces": 54,
+      "vertex_base_source_only": 92,
+      "ordered_texture_slots": [
+        "mercwheel643-tga",
+        "rubber-tga",
+        "Null"
+      ],
+      "geometry_sha256": "a7066b168c5330f1a2458fc08e671ec06ce634d2936983a09e06238fee35778d",
+      "ordered_position_sha256": "60da21e2579654ac4a4f4e713eacaccb43b30c9c9ad7f27693cf683d4f66d62d",
+      "uv_topology_sha256": "7e655768acf13b8d2c1cb603f106475b6d6d64303dcb549af688c4d7499d777e",
+      "native_uv_winding_sha256": "b50a88ae374a5daef5916efea9ee5cd85ddecc7441b5f74419749622efc138cb",
+      "whole_chassis_suppress_candidate": true,
+      "admission": "CURRENT_NATIVE_OWNER_AND_EXACT_SOURCE_CERTIFICATE_REQUIRED"
+    },
+    {
+      "record_path": "3",
+      "record_offset": 9730,
+      "top_level_index": 3,
+      "tag": 2,
+      "group_label": null,
+      "vertices": 91,
+      "faces": 90,
+      "vertex_base_source_only": 129,
+      "ordered_texture_slots": [
+        "xwheel-tga",
+        "chrome-tga",
+        "Null"
+      ],
+      "geometry_sha256": "283ca0c3a366146405df4d3fc18755abbe09376d11a7c326ebd25979c4b06c35",
+      "ordered_position_sha256": "afce3bf66b8a244c8da4d3e84d96180ef7743a11003ec668689f52aee44d0152",
+      "uv_topology_sha256": "6f3d81770e96cdeece57ab6a94ddf8bcd74e542bfbb0d1a36e2cfe611ab9193e",
+      "native_uv_winding_sha256": "cd832582d70a6d9718874c08426168fa984c7034b947c4d954ace2a794bd000b",
+      "whole_chassis_suppress_candidate": true,
+      "admission": "CURRENT_NATIVE_OWNER_AND_EXACT_SOURCE_CERTIFICATE_REQUIRED"
+    }
+  ],
+  "ps2_bounds": [
+    [
+      -0.14525257050991058,
+      0.14525257050991058
+    ],
+    [
+      -0.3810683488845825,
+      0.38138970732688904
+    ],
+    [
+      -0.3871101140975952,
+      0.3871101140975952
+    ]
+  ],
+  "pc_bounds": [
+    [
+      -0.14525257050991058,
+      0.14525257050991058
+    ],
+    [
+      -0.3810683488845825,
+      0.38138970732688904
+    ],
+    [
+      -0.3871101140975952,
+      0.3871101140975952
+    ]
+  ],
+  "runtime_grant": "CURRENT_OWNER_TRANSFORM_AND_SOURCE_PREFLIGHT_STILL_REQUIRED",
+  "status": "SOURCE_READY_NATIVE_OWNER_QUALIFICATION_REQUIRED",
+  "native_source_count": 4,
+  "native_wheel_owner_count": null,
+  "pivot_bounds_equal": true
+}

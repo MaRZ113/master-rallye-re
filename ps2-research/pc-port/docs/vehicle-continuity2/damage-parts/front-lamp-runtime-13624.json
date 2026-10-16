@@ -1,0 +1,80 @@
+[
+  {
+    "frame": 3221,
+    "file": "race-damage-13624-d1-f3221.jsonl",
+    "file_sha256": "60723427bf85e396a14b347771a1cd6d97f97c3a268b2ce6c623994ba3f4d64e",
+    "ps2_root": 5,
+    "pc_record": 21,
+    "geometry_sha256": "cb24d664e8af1db40cc4b161c7875e34a2042e709a5783384179b37f0ce5fe63",
+    "owner_context": true,
+    "context_gate": 7,
+    "changed_native_vertices": 0,
+    "candidate_delta_conflicts": [],
+    "maximum_component_displacement": 0.0
+  },
+  {
+    "frame": 3221,
+    "file": "race-damage-13624-d1-f3221.jsonl",
+    "file_sha256": "60723427bf85e396a14b347771a1cd6d97f97c3a268b2ce6c623994ba3f4d64e",
+    "ps2_root": 11,
+    "pc_record": 22,
+    "geometry_sha256": "7e42aed180591ce5a99972f8766f1d999d59da87c8212183e528f7fd7fd5f838",
+    "owner_context": true,
+    "context_gate": 7,
+    "changed_native_vertices": 0,
+    "candidate_delta_conflicts": [],
+    "maximum_component_displacement": 0.0
+  },
+  {
+    "frame": 6379,
+    "file": "race-damage-13624-d1-f6379.jsonl",
+    "file_sha256": "f514637489ba090b66f2614fc9a90e081bb01663059e4d566131e93e3401d985",
+    "ps2_root": 5,
+    "pc_record": 21,
+    "geometry_sha256": "cb24d664e8af1db40cc4b161c7875e34a2042e709a5783384179b37f0ce5fe63",
+    "owner_context": true,
+    "context_gate": 7,
+    "changed_native_vertices": 0,
+    "candidate_delta_conflicts": [],
+    "maximum_component_displacement": 0.0
+  },
+  {
+    "frame": 6379,
+    "file": "race-damage-13624-d1-f6379.jsonl",
+    "file_sha256": "f514637489ba090b66f2614fc9a90e081bb01663059e4d566131e93e3401d985",
+    "ps2_root": 11,
+    "pc_record": 22,
+    "geometry_sha256": "7e42aed180591ce5a99972f8766f1d999d59da87c8212183e528f7fd7fd5f838",
+    "owner_context": true,
+    "context_gate": 7,
+    "changed_native_vertices": 0,
+    "candidate_delta_conflicts": [],
+    "maximum_component_displacement": 0.0
+  },
+  {
+    "frame": 10314,
+    "file": "race-damage-13624-d1-f10314.jsonl",
+    "file_sha256": "b78decae71271fb03eedba7a837bd8af8545ad147db3b939e0b7fa88be53b90d",
+    "ps2_root": 5,
+    "pc_record": 21,
+    "geometry_sha256": "1e154984bd0e3dd3326e507789ff7266ba14957d5bc28fe562aded270bf44faa",
+    "owner_context": true,
+    "context_gate": 7,
+    "changed_native_vertices": 3,
+    "candidate_delta_conflicts": [],
+    "maximum_component_displacement": 0.019762814044952393
+  },
+  {
+    "frame": 10314,
+    "file": "race-damage-13624-d1-f10314.jsonl",
+    "file_sha256": "b78decae71271fb03eedba7a837bd8af8545ad147db3b939e0b7fa88be53b90d",
+    "ps2_root": 11,
+    "pc_record": 22,
+    "geometry_sha256": "32ac59a8e95b58ccce260dda476c12338bf66aadad2395d99ef1c8ac587ba4f1",
+    "owner_context": true,
+    "context_gate": 7,
+    "changed_native_vertices": 1,
+    "candidate_delta_conflicts": [],
+    "maximum_component_displacement": 0.019762814044952393
+  }
+]
