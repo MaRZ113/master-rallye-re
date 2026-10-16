@@ -1,0 +1,201 @@
+{
+ "after_fix": {
+  "note": "zero-area: rasterize no pixels; mesh row, mode and textures unchanged",
+  "overlay_triangles": [
+   [
+    8832,
+    8832,
+    8833
+   ],
+   [
+    8834,
+    8834,
+    8835
+   ],
+   [
+    8836,
+    8836,
+    8837
+   ],
+   [
+    8838,
+    8838,
+    8839
+   ]
+  ]
+ },
+ "coincidence": [
+  {
+   "intact_triangle": 0,
+   "max_corner_distance": 0.0,
+   "overlay_triangle": 0
+  },
+  {
+   "intact_triangle": 1,
+   "max_corner_distance": 0.0,
+   "overlay_triangle": 1
+  },
+  {
+   "intact_triangle": 2,
+   "max_corner_distance": 0.0,
+   "overlay_triangle": 2
+  },
+  {
+   "intact_triangle": 3,
+   "max_corner_distance": 0.0,
+   "overlay_triangle": 3
+  }
+ ],
+ "diagnosis": "UNCONDITIONAL_CRACKED_OVERLAY: root.20 (WINDSCREENC32-TGA.GXI) duplicates the intact right side window of root.19 and is drawn every frame on top of it",
+ "family": "Kamaz",
+ "id": "KAMAZ-COMPLETE-WINDOW1",
+ "intact": {
+  "mesh": "root.19",
+  "right_window_triangles": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "row": [
+   475708,
+   20,
+   22,
+   23,
+   4294967295,
+   19080,
+   108
+  ],
+  "texels": {
+   "mean_rgba": [
+    78.8,
+    69.7,
+    72.4,
+    120.9
+   ],
+   "min_alpha": 100,
+   "samples": 19,
+   "texel_bbox_xy": [
+    0,
+    2,
+    0,
+    7
+   ],
+   "texture_size": [
+    16,
+    16
+   ]
+  },
+  "texture": "WINDSCREEN32-TGA.GXI",
+  "texture_argb_sha256": "2925343ad94392fad0b39190045adc7c58b71b12c94e2ed713478c0fa19394df"
+ },
+ "kind": "retire_overlay",
+ "left_window_mirror": {
+  "cracked_overlay_present": false,
+  "mesh": "root.19",
+  "triangles": [
+   4,
+   5,
+   6,
+   7
+  ],
+  "x_range": [
+   0.922,
+   0.944
+  ]
+ },
+ "output": {
+  "file": "KAMAZ-COMPLETE-FLEET-WINDOW1.ps2model",
+  "header_counts": {
+   "indices": 19488,
+   "meshes": 22,
+   "textures": 26,
+   "vertices": 9008
+  },
+  "renderer_decode_checks": "PASS (python port of decode_frontend_asset structural rules)",
+  "sha256": "9351c7a6cb39cd9ce49695b94c5b3b6f7bb70646870d0e1615d86f26f4c005e5",
+  "size": 827756,
+  "written": true
+ },
+ "overlay": {
+  "mesh": "root.20",
+  "row": [
+   475895,
+   20,
+   24,
+   23,
+   4294967295,
+   19188,
+   12
+  ],
+  "texels": {
+   "mean_rgba": [
+    107.2,
+    107.2,
+    107.2,
+    144.6
+   ],
+   "min_alpha": 101,
+   "samples": 6778,
+   "texel_bbox_xy": [
+    3,
+    5,
+    28,
+    26
+   ],
+   "texture_size": [
+    32,
+    32
+   ]
+  },
+  "texture": "WINDSCREENC32-TGA.GXI",
+  "texture_argb_sha256": "0d655c626d83d7a3218b031688e30067d2ef4ff473e2c3aa1d1ff8242ae4acb6",
+  "triangles": [
+   [
+    8832,
+    8833,
+    8834
+   ],
+   [
+    8833,
+    8834,
+    8835
+   ],
+   [
+    8836,
+    8837,
+    8838
+   ],
+   [
+    8837,
+    8838,
+    8839
+   ]
+  ],
+  "vertices": [
+   8832,
+   8833,
+   8834,
+   8835,
+   8836,
+   8837,
+   8838,
+   8839
+  ],
+  "x_range": [
+   -0.944,
+   -0.921
+  ]
+ },
+ "ps2_source": {
+  "note": "COMPLETE (frontend) model: metadata source has 0 extra_nodes, i.e. no window switches; every mesh is unconditional"
+ },
+ "role": "frontend",
+ "side_convention": "model -x = vehicle right (driver sits at +x in these left-hand-drive models; see NAVARA-CREWFACE1 driver x=+0.31)",
+ "source": {
+  "file": "KAMAZ-COMPLETE-FLEET.ps2model",
+  "sha256": "df3d58336f6596cc4915b055820c5d0008b116b33091cca6915abdf971d3826c",
+  "size": 827015
+ },
+ "status": "USER_REPORTED"
+}

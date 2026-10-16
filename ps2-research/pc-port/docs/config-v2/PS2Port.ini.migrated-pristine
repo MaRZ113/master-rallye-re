@@ -1,0 +1,47 @@
+; PS2Port.ini v2 — only for the PS2-enabled d3d8.dll. Place beside MRRRenderer.ini.
+; Paths are relative to this file. Missing or mismatching private assets fall back to Stock.
+; Approximation of the PS2 look, not a claim of pixel-exact parity.
+[PS2Port]
+
+; --- Reflections ---------------------------------------------------------------
+; Reflection: 0 = Stock PC, 4 = PS2 environment reflection + PC framebuffer term (32-bit backbuffer).
+Reflection=4
+; ReflectionCoverage: 1 = every verified reflective vehicle material, 0 = original pilot subset.
+ReflectionCoverage=1
+; ReflectionTargetPrecision: 1 = 16-bit reflection target (runtime-accepted), 0 = 32-bit.
+ReflectionTargetPrecision=1
+; ReflectionSourceGXI: PS2 static environment texture.
+ReflectionSourceGXI=PS2Grass/PS2EnvSource64x64.gxi
+
+; --- Vehicles ------------------------------------------------------------------
+; RaceFleet: 1 = PS2 CAR models for every race car (wheels, crew, lamps, damage continuity), 0 = Stock.
+; Single-car races only; races with opponents stay Stock.
+RaceFleet=1
+; RaceModelAssetDirectory: folder with the *-CAR-FLEET, *-WHEEL-FLEET, *-OFF and content-fix models.
+RaceModelAssetDirectory=PS2Vehicles
+; BrakeGlow: 1 = PS2 brake lamp ON core + additive glow, 0 = Stock.
+BrakeGlow=1
+; BrakeGlowAsset: PS2 glow texture.
+BrakeGlowAsset=PS2Grass/PS2BrakeGlow.gxi
+; FrontendModel: menu/showroom car. 0 = Stock, 2 = PS2 COMPLETE model per car.
+FrontendModel=2
+; FrontendModelAssetDirectory: folder with the *-COMPLETE-FLEET models.
+FrontendModelAssetDirectory=PS2Vehicles
+; PS2ContentFixes: 1 = fix defects of the original PS2 content (Navara co-driver face,
+; cracked right window of Tata CAR, Kamaz CAR and Kamaz menu model). 0 = original PS2 content.
+PS2ContentFixes=1
+
+; --- Courses -------------------------------------------------------------------
+; Grass / Shrubs: 0 = Stock, 1 = PS2 terrain detail on all verified courses.
+Grass=1
+Shrubs=1
+; GrassAssetDirectory: folder with the *.ps2grass files and Turkey3Puddles.ps2obj.
+GrassAssetDirectory=PS2Grass
+; CourseObjects: 1 = extra PS2 puddle surfaces on Turkey3, 0 = Stock.
+CourseObjects=0
+; Foliage: 1 = PS2 blend contract for the France1 bush, 0 = Stock.
+Foliage=1
+
+; --- Diagnostics ---------------------------------------------------------------
+; Diagnostics: 1 = feature records in MRRRenderer/logs and F10 race-fleet sidecars.
+Diagnostics=1

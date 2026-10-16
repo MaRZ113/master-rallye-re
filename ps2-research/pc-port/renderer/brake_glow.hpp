@@ -14,7 +14,7 @@ class BrakeGlow {
  std::vector<DWORD> pixels_,kia_on_pixels_;IDirect3DTexture8* texture_=nullptr;IDirect3DTexture8* kia_on_texture_=nullptr;
 public:
  KiaLampContinuity kia_lamps;std::array<NativeLampContinuity,25> fleet_lamps;std::array<uint8_t,25> fleet_lamp_logs{};
- struct OffReference {KiaLampContext owner;std::vector<std::array<float,3>> positions;};std::array<OffReference,8> private_off_reference;
+ struct OffReference {KiaLampContext owner;std::vector<std::array<float,3>> positions;std::vector<unsigned> order;};std::array<OffReference,8> private_off_reference;
  bool claim_fleet(unsigned family,unsigned layer,bool damaged)noexcept{if(!diagnostics_||family>=25||layer>=3)return false;const unsigned bit=1u<<(layer*2+(damaged?1:0));if(fleet_lamp_logs[family]&bit)return false;fleet_lamp_logs[family]|=uint8_t(bit);return true;}
  // Rejections are logged once per family and literal reason, bounded.
  bool claim_fleet_rejection(unsigned family,const char* why)noexcept{if(!diagnostics_||family>=25||!why)return false;for(unsigned i=0;i<fleet_rejection_count_;++i)if(fleet_rejections_[i].first==family&&!std::strcmp(fleet_rejections_[i].second,why))return false;if(fleet_rejection_count_>=fleet_rejections_.size())return false;fleet_rejections_[fleet_rejection_count_++]={family,why};return true;}

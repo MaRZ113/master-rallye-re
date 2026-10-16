@@ -1,4 +1,5 @@
 #include "ps2_port_extension.hpp"
+#include "ps2_config.hpp"
 #include "reflection_pilot.hpp"
 #include "course_objects.hpp"
 #include "grass_pilot.hpp"
@@ -180,13 +181,13 @@ PS2PortExtension::PS2PortExtension(bool exact_build, const std::string& exe_sha,
     if (!build_valid_) { config_reason_ = "unsupported_build_stock"; return; }
     try {
         const auto ini = port_ini_path(renderer_ini);
-        const UINT mode = GetPrivateProfileIntW(L"PS2Port", L"FoliageMode", 0, ini.c_str());
-        diagnostics_ = GetPrivateProfileIntW(L"PS2Port", L"Diagnostics", 0, ini.c_str()) == 1;
+        const UINT mode = ::gfx2::ps2port::config::read_int(L"FoliageMode", 0, ini.c_str());
+        diagnostics_ = ::gfx2::ps2port::config::read_int(L"Diagnostics", 0, ini.c_str()) == 1;
         frontend_model_=std::make_unique<FrontendModel>(build_valid_,ini);
         race_model_=std::make_unique<FrontendModel>(build_valid_,ini,true);
         wheel_model_=std::make_unique<FrontendModel>(build_valid_,ini,2);
-        frontend_geometry_diagnostics_ = GetPrivateProfileIntW(L"PS2Port", L"FrontendGeometryDiagnostics", 0, ini.c_str()) == 1;
-        const UINT probe = GetPrivateProfileIntW(L"PS2Port", L"PixelProbe", 0, ini.c_str());
+        frontend_geometry_diagnostics_ = ::gfx2::ps2port::config::read_int(L"FrontendGeometryDiagnostics", 0, ini.c_str()) == 1;
+        const UINT probe = ::gfx2::ps2port::config::read_int(L"PixelProbe", 0, ini.c_str());
         pixel_probe_requested_ = probe == 1;
         if (mode == 0) { mode_ = PilotMode::Stock; config_reason_ = "stock_default_or_configured"; }
         else if (mode == 1) { mode_ = PilotMode::France1Bush01Treeblend; config_reason_ = "france1_bush01_opt_in"; }
@@ -194,9 +195,9 @@ PS2PortExtension::PS2PortExtension(bool exact_build, const std::string& exe_sha,
         else if (mode == 3) { mode_ = PilotMode::France1Bush01DepthWriteOnly; config_reason_ = "france1_bush01_depth_write_only"; }
         else { config_reason_ = "invalid_mode_stock"; }
         if (probe == 1) {
-            const INT x = static_cast<INT>(GetPrivateProfileIntW(L"PS2Port", L"PixelX", -1, ini.c_str()));
-            const INT y = static_cast<INT>(GetPrivateProfileIntW(L"PS2Port", L"PixelY", -1, ini.c_str()));
-            const INT later = static_cast<INT>(GetPrivateProfileIntW(L"PS2Port", L"PixelLaterDrawOrdinal", -1, ini.c_str()));
+            const INT x = static_cast<INT>(::gfx2::ps2port::config::read_int(L"PixelX", -1, ini.c_str()));
+            const INT y = static_cast<INT>(::gfx2::ps2port::config::read_int(L"PixelY", -1, ini.c_str()));
+            const INT later = static_cast<INT>(::gfx2::ps2port::config::read_int(L"PixelLaterDrawOrdinal", -1, ini.c_str()));
             if (!build_valid_) pixel_probe_status_ = "unsupported_build";
             else if (!pixel_probe_mode_supported(mode)) pixel_probe_status_ = "unsupported_mode_pixel_probe_allows_stock_or_mode3";
             else if (x < 0 || y < 0 || x >= 32768 || y >= 32768) pixel_probe_status_ = "pixel_coordinates_missing_or_out_of_range";

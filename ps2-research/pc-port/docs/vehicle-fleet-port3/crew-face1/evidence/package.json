@@ -1,0 +1,102 @@
+{
+ "default": 0,
+ "fixes": [
+  {
+   "family": "Navara",
+   "fixed": {
+    "file": "NAVARA-CAR-FLEET-CREWFACE1.ps2model",
+    "sha256": "586fd3d717007e407e0ffe8894b37e3ae78377c35cb4abe43617f54a96fd194e",
+    "size": 373616
+   },
+   "id": "NAVARA-CREWFACE1",
+   "original": {
+    "file": "NAVARA-CAR-FLEET.ps2model",
+    "sha256": "336318a5cc30f0cd7bf3c6f9addcf7e10848a1d762f5e7e88abee7f2f8caee0e",
+    "size": 372926
+   },
+   "registry_line": "renderer/race_fleet_registry.hpp:677",
+   "role": "race",
+   "status": "USER_REPORTED",
+   "unchanged_counts": {
+    "indices": 6738,
+    "meshes": 21,
+    "textures": 26,
+    "vertices": 4189
+   },
+   "written": true
+  },
+  {
+   "family": "Tata",
+   "fixed": {
+    "file": "TATA-CAR-FLEET-WINDOW1.ps2model",
+    "sha256": "8a03e06623a849335e8568b5b613a352cebeb4b9c56a617e9a6320d69f0b0252",
+    "size": 420814
+   },
+   "id": "TATA-WINDOW1",
+   "original": {
+    "file": "TATA-CAR-FLEET.ps2model",
+    "sha256": "20262ea17be8ef15e0faea7b70dc1ae2cff47df9aec2410fe3538587a5d18660",
+    "size": 420088
+   },
+   "registry_line": "renderer/race_fleet_registry.hpp:684",
+   "role": "race",
+   "status": "USER_REPORTED",
+   "unchanged_counts": {
+    "indices": 5856,
+    "meshes": 24,
+    "textures": 28,
+    "vertices": 3262
+   },
+   "written": true
+  },
+  {
+   "family": "Kamaz",
+   "fixed": {
+    "file": "KAMAZ-COMPLETE-FLEET-WINDOW1.ps2model",
+    "sha256": "9351c7a6cb39cd9ce49695b94c5b3b6f7bb70646870d0e1615d86f26f4c005e5",
+    "size": 827756
+   },
+   "id": "KAMAZ-COMPLETE-WINDOW1",
+   "original": {
+    "file": "KAMAZ-COMPLETE-FLEET.ps2model",
+    "sha256": "df3d58336f6596cc4915b055820c5d0008b116b33091cca6915abdf971d3826c",
+    "size": 827015
+   },
+   "registry_line": "renderer/frontend_fleet_registry.hpp:689",
+   "role": "frontend",
+   "status": "USER_REPORTED",
+   "unchanged_counts": {
+    "indices": 19488,
+    "meshes": 22,
+    "textures": 26,
+    "vertices": 9008
+   },
+   "written": true
+  },
+  {
+   "family": "Kamaz",
+   "fixed": {
+    "file": "KAMAZ-CAR-FLEET-WINDOW1.ps2model",
+    "sha256": "763c3a892378faaf8685cd2b09d89e4f376338e81d4164835b2a4b7937adccf1",
+    "size": 463996
+   },
+   "id": "KAMAZ-CAR-WINDOW1",
+   "original": {
+    "file": "KAMAZ-CAR-FLEET.ps2model",
+    "sha256": "1807d3e68bf080ad6c793ee548cad86d0846706bac8418b38495705196d401fa",
+    "size": 463264
+   },
+   "registry_line": "renderer/race_fleet_registry.hpp:671",
+   "role": "race",
+   "status": "CANDIDATE_NOT_USER_OBSERVED",
+   "unchanged_counts": {
+    "indices": 7272,
+    "meshes": 19,
+    "textures": 23,
+    "vertices": 3930
+   },
+   "written": true
+  }
+ ],
+ "ini_key": "PS2ContentFixes"
+}

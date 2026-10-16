@@ -1,4 +1,5 @@
 #include "xtrail_glass.hpp"
+#include "ps2_config.hpp"
 #include "xtrail_glass_identity.hpp"
 #include "provenance.hpp"
 #include <algorithm>
@@ -56,12 +57,12 @@ HRESULT GlassTransaction::capture(IDirect3DDevice8& n)noexcept{
     if(FAILED(hr)||!stream_||!indices_){release();return FAILED(hr)?hr:E_POINTER;}captured_=true;return S_OK;
 }
 XtrailGlass::XtrailGlass(bool supported,const std::wstring& ini)noexcept{
-    wchar_t mode[16]{},version[16]{};GetPrivateProfileStringW(L"PS2Port",L"XtrailGlassMode",L"0",mode,16,ini.c_str());
-    GetPrivateProfileStringW(L"PS2Port",L"XtrailGlassVersion",L"1",version,16,ini.c_str());
+    wchar_t mode[16]{},version[16]{};::gfx2::ps2port::config::read_string(L"XtrailGlassMode",L"0",mode,16,ini.c_str());
+    ::gfx2::ps2port::config::read_string(L"XtrailGlassVersion",L"1",version,16,ini.c_str());
     if(!xtrail_fidelity_opt_in(mode,version,supported))return;
-    diagnostics_=GetPrivateProfileIntW(L"PS2Port",L"XtrailGlassDiagnostics",0,ini.c_str())==1;
+    diagnostics_=::gfx2::ps2port::config::read_int(L"XtrailGlassDiagnostics",0,ini.c_str())==1;
     try{
-        wchar_t filename[32768]{};GetPrivateProfileStringW(L"PS2Port",L"XtrailGlassAsset",L"XtrailHeadlight.ps2glass",filename,32768,ini.c_str());
+        wchar_t filename[32768]{};::gfx2::ps2port::config::read_string(L"XtrailGlassAsset",L"XtrailHeadlight.ps2glass",filename,32768,ini.c_str());
         auto path=std::filesystem::path(filename);if(path.is_relative())path=std::filesystem::path(ini).parent_path()/path;
         std::ifstream file(path,std::ios::binary|std::ios::ate);if(!file||file.tellg()!=6920)return;
         std::vector<uint8_t> bytes(6920);file.seekg(0);file.read(reinterpret_cast<char*>(bytes.data()),6920);

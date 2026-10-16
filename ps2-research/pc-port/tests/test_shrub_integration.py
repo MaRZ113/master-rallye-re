@@ -6,9 +6,9 @@ STAGE=Path(os.environ.get('MRR_PC_PORT_RENDERER_ROOT',PORT/'.staging/ps2-enabled
 class ShrubIntegrationTests(unittest.TestCase):
     def test_independent_stock_defaults(self):
         cfg=configparser.ConfigParser();cfg.read(PORT/'PS2Port.ini.example')
-        self.assertEqual(cfg.getint('PS2Port','GrassMode'),0)
-        self.assertEqual(cfg.getint('PS2Port','ShrubsMode'),0)
-        self.assertEqual(cfg.getint('PS2Port','ShrubsDiagnostics'),0)
+        self.assertEqual(cfg.getint('PS2Port','Grass'),0)
+        self.assertEqual(cfg.getint('PS2Port','Shrubs'),0)
+        self.assertEqual(cfg.getint('PS2Port','Diagnostics'),0)
 
     def test_second_category_owns_its_proof_transaction_and_texture(self):
         s=(PORT/'renderer/ps2_port_extension.cpp').read_text()

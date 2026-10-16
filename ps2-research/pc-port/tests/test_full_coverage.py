@@ -44,7 +44,7 @@ class FullCoverageTests(unittest.TestCase):
     def test_stock_defaults_remain_stock(self):
         ini = configparser.ConfigParser()
         ini.read(PORT/'PS2Port.ini.example')
-        for key in ('ReflectionMode', 'GrassMode', 'ShrubsMode', 'FoliageMode', 'PixelProbe'):
+        for key in ('Reflection', 'Grass', 'Shrubs', 'Foliage', 'RaceFleet'):
             self.assertEqual(ini.getint('PS2Port', key), 0)
 
     def test_cache_generation_and_no_frame_io(self):

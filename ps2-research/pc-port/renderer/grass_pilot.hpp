@@ -104,6 +104,7 @@ class GrassPilot {
     IDirect3DTexture8* texture_=nullptr;
     uint64_t consumed_frame_=UINT64_MAX,consumed_race_=0,consumed_reset_=0;
 public:
+    bool multi_course() const noexcept { return multi_course_; }
     CourseWorldProof proof;
     CourseObjectTransaction transaction;
     GrassPilot(bool supported,const std::wstring& ini,GroundDetailKind=GroundDetailKind::Grass) noexcept;

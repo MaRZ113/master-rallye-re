@@ -1,4 +1,5 @@
 #include "course_objects.hpp"
+#include "ps2_config.hpp"
 #include "provenance.hpp"
 #include <algorithm>
 #include <cmath>
@@ -59,12 +60,12 @@ const char* course_object_admission(const CourseAdmission& a,std::string_view so
 CourseObjectsPilot::CourseObjectsPilot(bool supported,const std::wstring& ini)noexcept {
     if(!supported){reason_="unsupported_build_stock";return;}
     wchar_t mode[32]{},version[32]{};
-    GetPrivateProfileStringW(L"PS2Port",L"CourseObjectsMode",L"0",mode,32,ini.c_str());
-    GetPrivateProfileStringW(L"PS2Port",L"CourseObjectsVersion",L"1",version,32,ini.c_str());
+    ::gfx2::ps2port::config::read_string(L"CourseObjectsMode",L"0",mode,32,ini.c_str());
+    ::gfx2::ps2port::config::read_string(L"CourseObjectsVersion",L"1",version,32,ini.c_str());
     if(std::wstring_view(mode)!=L"1"||std::wstring_view(version)!=L"1")return;
-    requested_=true;diagnostics_=GetPrivateProfileIntW(L"PS2Port",L"CourseObjectsDiagnostics",0,ini.c_str())==1;
+    requested_=true;diagnostics_=::gfx2::ps2port::config::read_int(L"CourseObjectsDiagnostics",0,ini.c_str())==1;
     try {
-        wchar_t path[32768]{};const auto count=GetPrivateProfileStringW(L"PS2Port",L"CourseObjectsAsset",L"Turkey3Puddles.ps2obj",path,32768,ini.c_str());
+        wchar_t path[32768]{};wchar_t course_dir[32768]{};::gfx2::ps2port::config::read_string(L"GrassAssetDirectory",L".",course_dir,32768,ini.c_str());const std::wstring course_default=std::wstring(course_dir)+L"\\Turkey3Puddles.ps2obj";const auto count=::gfx2::ps2port::config::read_string(L"CourseObjectsAsset",course_default.c_str(),path,32768,ini.c_str());
         if(!count||count>=32767){reason_="invalid_asset_path";return;}
         std::filesystem::path input(path);if(input.is_relative())input=std::filesystem::path(ini).parent_path()/input;
         std::ifstream file(input,std::ios::binary|std::ios::ate);

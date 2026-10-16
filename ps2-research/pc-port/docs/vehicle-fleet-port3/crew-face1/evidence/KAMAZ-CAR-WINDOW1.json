@@ -1,0 +1,270 @@
+{
+ "after_fix": {
+  "note": "zero-area: rasterize no pixels; mesh row, mode and textures unchanged",
+  "overlay_triangles": [
+   [
+    3854,
+    3854,
+    3855
+   ],
+   [
+    3856,
+    3856,
+    3857
+   ],
+   [
+    3858,
+    3858,
+    3859
+   ],
+   [
+    3860,
+    3860,
+    3861
+   ]
+  ]
+ },
+ "asset_excluded_conditional_paths": [
+  "root.19.0.0",
+  "root.19.1.0",
+  "root.19.1.1",
+  "root.22.0.0",
+  "root.22.1.0",
+  "root.23.0.0",
+  "root.23.1.0"
+ ],
+ "coincidence": [
+  {
+   "intact_triangle": 0,
+   "max_corner_distance": 0.0,
+   "overlay_triangle": 0
+  },
+  {
+   "intact_triangle": 1,
+   "max_corner_distance": 0.0,
+   "overlay_triangle": 1
+  },
+  {
+   "intact_triangle": 2,
+   "max_corner_distance": 0.01242,
+   "overlay_triangle": 2
+  },
+  {
+   "intact_triangle": 3,
+   "max_corner_distance": 0.01242,
+   "overlay_triangle": 3
+  }
+ ],
+ "diagnosis": "UNCONDITIONAL_CRACKED_OVERLAY: root.18 (WINDSCREENC32-TGA.GXI) duplicates the intact right side window of root.17 and is drawn every frame on top of it",
+ "family": "Kamaz",
+ "id": "KAMAZ-CAR-WINDOW1",
+ "intact": {
+  "mesh": "root.17",
+  "right_window_triangles": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "row": [
+   208612,
+   20,
+   21,
+   4294967295,
+   4294967295,
+   7176,
+   84
+  ],
+  "texels": {
+   "mean_rgba": [
+    78.8,
+    69.7,
+    72.4,
+    120.9
+   ],
+   "min_alpha": 100,
+   "samples": 19,
+   "texel_bbox_xy": [
+    0,
+    2,
+    0,
+    7
+   ],
+   "texture_size": [
+    16,
+    16
+   ]
+  },
+  "texture": "WINDSCREEN32-TGA.GXI",
+  "texture_argb_sha256": "2925343ad94392fad0b39190045adc7c58b71b12c94e2ed713478c0fa19394df"
+ },
+ "kind": "retire_overlay",
+ "output": {
+  "file": "KAMAZ-CAR-FLEET-WINDOW1.ps2model",
+  "header_counts": {
+   "indices": 7272,
+   "meshes": 19,
+   "textures": 23,
+   "vertices": 3930
+  },
+  "renderer_decode_checks": "PASS (python port of decode_frontend_asset structural rules)",
+  "sha256": "763c3a892378faaf8685cd2b09d89e4f376338e81d4164835b2a4b7937adccf1",
+  "size": 463996,
+  "written": true
+ },
+ "overlay": {
+  "mesh": "root.18",
+  "row": [
+   208799,
+   20,
+   22,
+   4294967295,
+   4294967295,
+   7260,
+   12
+  ],
+  "texels": {
+   "mean_rgba": [
+    107.2,
+    107.2,
+    107.2,
+    144.6
+   ],
+   "min_alpha": 101,
+   "samples": 6778,
+   "texel_bbox_xy": [
+    3,
+    5,
+    28,
+    26
+   ],
+   "texture_size": [
+    32,
+    32
+   ]
+  },
+  "texture": "WINDSCREENC32-TGA.GXI",
+  "texture_argb_sha256": "0d655c626d83d7a3218b031688e30067d2ef4ff473e2c3aa1d1ff8242ae4acb6",
+  "triangles": [
+   [
+    3854,
+    3855,
+    3856
+   ],
+   [
+    3855,
+    3856,
+    3857
+   ],
+   [
+    3858,
+    3859,
+    3860
+   ],
+   [
+    3859,
+    3860,
+    3861
+   ]
+  ],
+  "vertices": [
+   3854,
+   3855,
+   3856,
+   3857,
+   3858,
+   3859,
+   3860,
+   3861
+  ],
+  "x_range": [
+   -1.261,
+   -1.23
+  ]
+ },
+ "ps2_source": {
+  "file": "KAMAZ-CAR-SOURCE.ps2vehicle",
+  "screen_switches": {
+   "screenfront": {
+    "children": {
+     "selector_1": [
+      {
+       "path": "root.23.0.0",
+       "texture": "commontextures\\windscreen32-tga"
+      }
+     ],
+     "selector_2": [
+      {
+       "path": "root.23.1.0",
+       "texture": "commontextures\\windscreenc32-tga"
+      }
+     ]
+    },
+    "path": "root.23"
+   },
+   "screenleft": {
+    "children": {
+     "selector_1": [
+      {
+       "path": "root.22.1.0",
+       "texture": "commontextures\\windscreen32-tga"
+      }
+     ],
+     "selector_2": [
+      {
+       "path": "root.22.0.0",
+       "texture": "commontextures\\windscreenc32-tga"
+      }
+     ]
+    },
+    "path": "root.22"
+   },
+   "screenrear": {
+    "children": {
+     "selector_1": [],
+     "selector_2": []
+    },
+    "path": "root.20"
+   },
+   "screenright": {
+    "children": {
+     "selector_1": [],
+     "selector_2": []
+    },
+    "path": "root.21"
+   }
+  },
+  "sha256": "c12984a2dda06cc2bdeb130528a52ff40aa19fbd4cb58274f1a2501a3859bdcc",
+  "source_resource": "\\TNG\\DATAPSM\\VEHICLES\\KAMAZ\\CAR.PSM",
+  "unconditional_mesh_paths": [
+   "root.0",
+   "root.1",
+   "root.2",
+   "root.3",
+   "root.4",
+   "root.5",
+   "root.6",
+   "root.7",
+   "root.8",
+   "root.9",
+   "root.10",
+   "root.11",
+   "root.12",
+   "root.13",
+   "root.14",
+   "root.15",
+   "root.16",
+   "root.17",
+   "root.18"
+  ]
+ },
+ "ps2_source_reading": "screenright switch has no child meshes; screenleft/screenfront switch between windscreen32 and windscreenc32; the right window pair (root.17 intact, root.18 cracked) is authored as unconditional root children instead",
+ "role": "race",
+ "side_convention": "model -x = vehicle right (driver sits at +x in these left-hand-drive models; see NAVARA-CREWFACE1 driver x=+0.31)",
+ "source": {
+  "file": "KAMAZ-CAR-FLEET.ps2model",
+  "sha256": "1807d3e68bf080ad6c793ee548cad86d0846706bac8418b38495705196d401fa",
+  "size": 463264
+ },
+ "status": "CANDIDATE_NOT_USER_OBSERVED"
+}

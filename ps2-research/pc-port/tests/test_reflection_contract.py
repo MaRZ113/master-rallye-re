@@ -15,7 +15,7 @@ class ReflectionContractTests(unittest.TestCase):
     def test_all_pilot_defaults_are_stock(self):
         ini = configparser.ConfigParser()
         ini.read(PORT / "PS2Port.ini.example")
-        for key in ("FoliageMode", "PixelProbe", "ReflectionMode", "ReflectionDiagnostics"):
+        for key in ("Foliage", "Reflection", "Diagnostics"):
             self.assertEqual(ini.getint("PS2Port", key), 0)
 
     def test_source_witness_is_a_single_original_vehicle_material(self):

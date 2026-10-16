@@ -1,4 +1,5 @@
 #include "grass_pilot.hpp"
+#include "ps2_config.hpp"
 #include "provenance.hpp"
 #include <algorithm>
 #include <cmath>
@@ -174,17 +175,19 @@ GrassPilot::GrassPilot(bool supported,const std::wstring& ini,GroundDetailKind k
     if(!supported){reason_="unsupported_build_stock";return;}
     wchar_t mode[32]{},version[32]{},size[64]{};
     const bool shrubs=kind_==GroundDetailKind::Shrubs;
-    GetPrivateProfileStringW(L"PS2Port",shrubs?L"ShrubsMode":L"GrassMode",L"0",mode,32,ini.c_str());
-    GetPrivateProfileStringW(L"PS2Port",shrubs?L"ShrubsConfigVersion":L"GrassConfigVersion",L"1",version,32,ini.c_str());
+    ::gfx2::ps2port::config::read_string(shrubs?L"ShrubsMode":L"GrassMode",L"0",mode,32,ini.c_str());
+    ::gfx2::ps2port::config::read_string(shrubs?L"ShrubsConfigVersion":L"GrassConfigVersion",L"1",version,32,ini.c_str());
     if((std::wstring_view(mode)!=L"1"&&std::wstring_view(mode)!=L"2")||std::wstring_view(version)!=L"1")return;
-    multi_course_=std::wstring_view(mode)==L"2";
-    const DWORD size_length=GetPrivateProfileStringW(L"PS2Port",shrubs?L"ShrubsSpriteHalfSize":L"GrassSpriteHalfSize",shrubs?L"0.4":L"0.33",size,64,ini.c_str());
+    // v2 Grass/Shrubs=1 means every verified course (the historical mode 2); the single-file Turkey3
+    // pilot (historical mode 1) stays reachable only through the legacy GrassMode/ShrubsMode keys.
+    multi_course_=std::wstring_view(mode)==L"2"||::gfx2::ps2port::config::present(shrubs?L"Shrubs":L"Grass",ini.c_str());
+    const DWORD size_length=::gfx2::ps2port::config::read_string(shrubs?L"ShrubsSpriteHalfSize":L"GrassSpriteHalfSize",shrubs?L"0.4":L"0.33",size,64,ini.c_str());
     if(!size_length||size_length>=63){reason_="invalid_grass_preview_size_stock";return;}
     wchar_t* end=nullptr;sprite_half_size_=std::wcstof(size,&end);
     if(!end||end==size||*end||!std::isfinite(sprite_half_size_)||sprite_half_size_<.05f||sprite_half_size_>2.f){reason_="invalid_grass_preview_size_stock";return;}
-    requested_=true;diagnostics_=GetPrivateProfileIntW(L"PS2Port",shrubs?L"ShrubsDiagnostics":L"GrassDiagnostics",0,ini.c_str())==1;
+    requested_=true;diagnostics_=::gfx2::ps2port::config::read_int(shrubs?L"ShrubsDiagnostics":L"GrassDiagnostics",0,ini.c_str())==1;
     try{
-        wchar_t path[32768]{};const auto count=GetPrivateProfileStringW(L"PS2Port",shrubs?L"ShrubsAsset":L"GrassAsset",shrubs?L"Turkey3Shrubs.ps2grass":L"Turkey3Grass.ps2grass",path,32768,ini.c_str());
+        wchar_t path[32768]{};const auto count=::gfx2::ps2port::config::read_string(shrubs?L"ShrubsAsset":L"GrassAsset",shrubs?L"Turkey3Shrubs.ps2grass":L"Turkey3Grass.ps2grass",path,32768,ini.c_str());
         if(!count||count>=32767){reason_="invalid_grass_asset_path";return;}
         std::filesystem::path input(path);if(input.is_relative())input=std::filesystem::path(ini).parent_path()/input;
         std::ifstream file(input,std::ios::binary|std::ios::ate);if(!file){reason_="missing_grass_source_asset";return;}
@@ -194,7 +197,7 @@ GrassPilot::GrassPilot(bool supported,const std::wstring& ini,GroundDetailKind k
         course_ready_[0]=verified_;
         if(verified_&&multi_course_){
             wchar_t directory[32768]{};
-            const auto dir_length=GetPrivateProfileStringW(L"PS2Port",L"GrassAssetDirectory",L".",directory,32768,ini.c_str());
+            const auto dir_length=::gfx2::ps2port::config::read_string(L"GrassAssetDirectory",L".",directory,32768,ini.c_str());
             if(!dir_length||dir_length>=32767)return;
             std::filesystem::path base(directory);if(base.is_relative())base=std::filesystem::path(ini).parent_path()/base;
             for(size_t i=1;i<kGrassSources.size();++i){

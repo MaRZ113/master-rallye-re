@@ -237,5 +237,6 @@ void shrub_category_and_independence(){
     CHECK(DeleteFileW(ini));
 }
 }
-int main(){format();floor_camera_fade();captured_gameplay_view();vertices();configuration_resource_reset();shrub_category_and_independence();
+void v2_grass_value_one_is_all_courses(){wchar_t directory[MAX_PATH]{},ini[MAX_PATH]{};CHECK(GetTempPathW(MAX_PATH,directory));CHECK(GetTempFileNameW(directory,L"gv2",0,ini));CHECK(WritePrivateProfileStringW(L"PS2Port",L"Grass",L"1",ini));GrassPilot v2(true,ini);CHECK(v2.multi_course());CHECK(WritePrivateProfileStringW(L"PS2Port",L"Grass",nullptr,ini));CHECK(WritePrivateProfileStringW(L"PS2Port",L"GrassMode",L"1",ini));GrassPilot legacy(true,ini);CHECK(!legacy.multi_course());CHECK(WritePrivateProfileStringW(L"PS2Port",L"GrassMode",L"2",ini));GrassPilot legacy_all(true,ini);CHECK(legacy_all.multi_course());DeleteFileW(ini);}
+int main(){v2_grass_value_one_is_all_courses();format();floor_camera_fade();captured_gameplay_view();vertices();configuration_resource_reset();shrub_category_and_independence();
     if(failures)return 1;std::cout<<"Grass source format, float32 camera/fade, billboard preview, defaults, lifecycle: PASS\n";return 0;}

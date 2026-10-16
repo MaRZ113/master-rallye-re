@@ -1,4 +1,5 @@
 #include "ps2_port_extension.hpp"
+#include "ps2_config.hpp"
 #include "provenance.hpp"
 
 #include <algorithm>
@@ -353,12 +354,39 @@ void exact_identity_contract() {
 }
 }
 
+void config_v2_contract() {
+    namespace cfg = gfx2::ps2port::config;
+    const auto dir = temp_dir();
+    CHECK(!dir.empty());
+    const std::wstring ini = dir + L"\\PS2Port.ini";
+    CHECK(write_config(dir, L"[PS2Port]\r\nRaceFleet=1\r\nReflection=4\r\nFrontendModel=2\r\nDiagnostics=1\r\nRaceModelAssetDirectory=PS2Vehicles\r\nRacePS2WheelMode=0\r\nReflectionMode=1\r\n"));
+    for (const wchar_t* key : {L"RacePS2FleetMode", L"RacePS2ModelMode", L"RacePS2WheelMode", L"RacePS2ModelParts", L"RacePS2CrewMode", L"XtrailFidelityMode", L"RaceModelMode"})
+        CHECK(cfg::read_int(key, 0, ini.c_str()) == 1);
+    CHECK(cfg::read_int(L"ReflectionMode", 0, ini.c_str()) == 4);  // v2 wins over the legacy key
+    CHECK(cfg::read_int(L"FrontendModelMode", 0, ini.c_str()) == 2);
+    for (const wchar_t* key : {L"ReflectionDiagnostics", L"RacePS2FleetCapture", L"RacePS2FleetDamageCapture", L"GrassDiagnostics"})
+        CHECK(cfg::read_int(key, 0, ini.c_str()) == 1);
+    wchar_t text[64]{};
+    cfg::read_string(L"RacePS2ModelAssetDirectory", L".", text, 64, ini.c_str());
+    CHECK(std::wstring(text) == L"PS2Vehicles");
+    CHECK(cfg::read_int(L"GrassMode", 7, ini.c_str()) == 7);  // neither key present: caller default
+    CHECK(write_config(dir, L"[PS2Port]\r\nRacePS2WheelMode=1\r\nReflectionMode=3\r\nGrassDiagnostics=1\r\n"));
+    CHECK(cfg::read_int(L"RacePS2WheelMode", 0, ini.c_str()) == 1);  // legacy-only INI keeps working
+    CHECK(cfg::read_int(L"RacePS2ModelMode", 0, ini.c_str()) == 0);
+    CHECK(cfg::read_int(L"ReflectionMode", 0, ini.c_str()) == 3);
+    CHECK(cfg::read_int(L"GrassDiagnostics", 0, ini.c_str()) == 1);
+    CHECK(cfg::read_int(L"ShrubsDiagnostics", 0, ini.c_str()) == 0);
+    CHECK(cfg::v2_key(L"FrontendModelAsset") == nullptr && cfg::v2_key(L"Diagnostics") == nullptr);
+    CHECK(cfg::v2_key(L"FrontendGeometryDiagnostics") == nullptr);  // heavy research probe stays legacy-only
+    cleanup(dir);
+}
 int main() {
     mode_and_mirror_policy();
     pixel_probe_configuration_and_format_contract();
     state_mode_contract();
     state_transaction_contract();
     exact_identity_contract();
+    config_v2_contract();
     if (failures) return 1;
     std::cout << "PS2 pilot modes, masked state transactions, rollback, fail-closed identity, mirroring and reset contracts passed\n";
     return 0;

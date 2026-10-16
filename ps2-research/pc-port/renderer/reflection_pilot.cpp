@@ -1,4 +1,5 @@
 #include "reflection_pilot.hpp"
+#include "ps2_config.hpp"
 #include "damage_identity.hpp"
 #include <cmath>
 #include "ps2_port_extension.hpp"
@@ -154,16 +155,16 @@ HRESULT StaticEnvTexture::upload(IDirect3DDevice8& device, const std::vector<DWO
 ReflectionPilot::ReflectionPilot(bool supported, const std::wstring& ini) noexcept {
     if (!supported) { reason_ = "unsupported_executable_stock"; return; }
     wchar_t value[32]{}, version[32]{};
-    GetPrivateProfileStringW(L"PS2Port",L"ReflectionMode",L"0",value,32,ini.c_str());
-    GetPrivateProfileStringW(L"PS2Port",L"ReflectionConfigVersion",L"1",version,32,ini.c_str());
+    ::gfx2::ps2port::config::read_string(L"ReflectionMode",L"0",value,32,ini.c_str());
+    ::gfx2::ps2port::config::read_string(L"ReflectionConfigVersion",L"1",version,32,ini.c_str());
     mode_ = reflection_mode(std::wstring_view(value),std::wstring_view(version),true);
     if (!requested()) { reason_ = std::wstring_view(value) == L"0" ? "stock_default" : "invalid_mode_or_version_stock"; return; }
     wchar_t coverage[16]{},precision[16]{};
-    GetPrivateProfileStringW(L"PS2Port",L"ReflectionCoverage",L"0",coverage,16,ini.c_str());
+    ::gfx2::ps2port::config::read_string(L"ReflectionCoverage",L"0",coverage,16,ini.c_str());
     expanded_=std::wstring_view(coverage)==L"1";
-    GetPrivateProfileStringW(L"PS2Port",L"ReflectionTargetPrecision",L"0",precision,16,ini.c_str());
+    ::gfx2::ps2port::config::read_string(L"ReflectionTargetPrecision",L"0",precision,16,ini.c_str());
     capture_.prefer_16bit(std::wstring_view(precision)==L"1");
-    diagnostics_ = GetPrivateProfileIntW(L"PS2Port",L"ReflectionDiagnostics",0,ini.c_str()) == 1;
+    diagnostics_ = ::gfx2::ps2port::config::read_int(L"ReflectionDiagnostics",0,ini.c_str()) == 1;
     if (mode_ == ReflectionMode::TataBodyNativeTextureAddOnly) {
         verified_asset_ = true; // This control uses only the already classified native texture.
         reason_ = "native_texture_colorop_control_waiting_for_device";
@@ -171,7 +172,7 @@ ReflectionPilot::ReflectionPilot(bool supported, const std::wstring& ini) noexce
     }
     try {
         wchar_t path[32768]{};
-        const DWORD count = GetPrivateProfileStringW(L"PS2Port",L"ReflectionSourceGXI",
+        const DWORD count = ::gfx2::ps2port::config::read_string(L"ReflectionSourceGXI",
             L"PS2EnvSource64x64.gxi",path,32768,ini.c_str());
         if (!count || count >= 32767) { reason_ = "missing_or_oversized_asset_path"; return; }
         std::filesystem::path input(path);

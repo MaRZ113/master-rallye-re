@@ -1,5 +1,6 @@
 #pragma once
 #include "provenance.hpp"
+#include "ps2_config.hpp"
 #include <array>
 #include <vector>
 namespace gfx2::ps2port {
@@ -15,7 +16,7 @@ class ModelProbe {
  void close()noexcept{if(file_!=INVALID_HANDLE_VALUE)CloseHandle(file_);file_=INVALID_HANDLE_VALUE;}
 public:
  ~ModelProbe(){close();if(transition_file_!=INVALID_HANDLE_VALUE)CloseHandle(transition_file_);}
- void configure(const std::wstring& ini)noexcept{wchar_t v[16]{};GetPrivateProfileStringW(L"PS2Port",L"RacePS2DamageCapture",L"0",v,16,ini.c_str());requested_=!std::wcscmp(v,L"1");}
+ void configure(const std::wstring& ini)noexcept{wchar_t v[16]{};::gfx2::ps2port::config::read_string(L"RacePS2DamageCapture",L"0",v,16,ini.c_str());requested_=!std::wcscmp(v,L"1");}
  bool begin(bool active,uint64_t frame,uint64_t device,const std::array<uint64_t,4>& key)noexcept{try{
   if(!requested_)return false;if(!active){was_active_=false;close();return false;}
   if(!was_active_){was_active_=true;close();frame_=frame;records_=0;bytes_=0;gates_=0;keys_={};if(captures_>=3)return false;++captures_;

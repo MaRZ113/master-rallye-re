@@ -25,7 +25,7 @@ class XtrailFocusedEvidenceTests(unittest.TestCase):
 
     def test_default_and_no_new_texture(self):
         config=(PORT/'PS2Port.ini.example').read_text()
-        self.assertIn('XtrailFidelityMode=0',config)
+        self.assertIn('RaceFleet=0',config)
         d=json.loads((PORT/'docs/xtrail-fidelity/runtime-ab-evidence.json').read_text())
         self.assertEqual(len(d['supplied_images']),4)
         self.assertEqual(set(x['grade'] for x in d['supplied_images']),{'USER_RUNTIME_OBSERVATION'})

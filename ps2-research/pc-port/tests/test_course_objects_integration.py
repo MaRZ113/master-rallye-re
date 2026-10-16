@@ -17,7 +17,7 @@ class CourseObjectsIntegrationTests(unittest.TestCase):
     def test_stock_defaults_and_static_asset_never_requests_cpu_mirroring(self):
         import configparser
         ini=configparser.ConfigParser();ini.read(PORT/'PS2Port.ini.example')
-        for key in ('CourseObjectsMode','CourseObjectsDiagnostics','FoliageMode','PixelProbe','ReflectionMode'):
+        for key in ('CourseObjects','Diagnostics','Foliage','Reflection','PS2ContentFixes'):
             self.assertEqual(ini.getint('PS2Port',key),0)
         source=(PORT/'renderer/ps2_port_extension.cpp').read_text()
         start=source.index('bool PS2PortExtension::buffer_mirroring_required()')

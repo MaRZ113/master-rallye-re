@@ -12,7 +12,7 @@ class GrassIntegrationTests(unittest.TestCase):
     def test_grass_and_other_pilots_are_stock_by_default(self):
         ini = configparser.ConfigParser()
         ini.read(PORT / 'PS2Port.ini.example')
-        for key in ('GrassMode', 'GrassDiagnostics', 'CourseObjectsMode', 'FoliageMode', 'PixelProbe', 'ReflectionMode'):
+        for key in ('Grass', 'Diagnostics', 'CourseObjects', 'Foliage', 'Reflection'):
             self.assertEqual(ini.getint('PS2Port', key), 0)
 
     def test_independent_proof_and_exact_owner_admission(self):

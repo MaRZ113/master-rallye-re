@@ -1,4 +1,5 @@
 #include "xtrail_fidelity.hpp"
+#include "ps2_config.hpp"
 #include "xtrail_decal_registry.hpp"
 #include "xtrail_glass.hpp"
 #include "brake_glow.hpp"
@@ -54,10 +55,10 @@ XtrailFidelity::XtrailFidelity(bool supported,const std::wstring& ini) noexcept 
     try{glass_=std::make_unique<XtrailGlass>(supported,ini);}catch(...){}
     try{brake_=std::make_unique<BrakeGlow>(supported,ini);}catch(...){}
     wchar_t mode[32]{},version[32]{};
-    GetPrivateProfileStringW(L"PS2Port",L"XtrailFidelityMode",L"0",mode,32,ini.c_str());
-    GetPrivateProfileStringW(L"PS2Port",L"XtrailFidelityVersion",L"1",version,32,ini.c_str());
+    ::gfx2::ps2port::config::read_string(L"XtrailFidelityMode",L"0",mode,32,ini.c_str());
+    ::gfx2::ps2port::config::read_string(L"XtrailFidelityVersion",L"1",version,32,ini.c_str());
     requested_=xtrail_fidelity_opt_in(mode,version,supported);
-    diagnostics_=GetPrivateProfileIntW(L"PS2Port",L"XtrailFidelityDiagnostics",0,ini.c_str())==1;
+    diagnostics_=::gfx2::ps2port::config::read_int(L"XtrailFidelityDiagnostics",0,ini.c_str())==1;
 }
 XtrailFidelity::~XtrailFidelity()=default;
 bool XtrailFidelity::glass_pending()const noexcept{return (glass_&&(glass_->blocked()||glass_->transaction.pending()))||(brake_&&(brake_->blocked()||brake_->transaction.pending()));}

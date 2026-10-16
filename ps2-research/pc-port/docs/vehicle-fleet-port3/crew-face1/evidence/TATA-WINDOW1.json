@@ -1,0 +1,275 @@
+{
+ "after_fix": {
+  "note": "zero-area: rasterize no pixels; mesh row, mode and textures unchanged",
+  "overlay_triangles": [
+   [
+    3150,
+    3150,
+    3151
+   ],
+   [
+    3152,
+    3152,
+    3153
+   ],
+   [
+    3154,
+    3154,
+    3155
+   ],
+   [
+    3156,
+    3156,
+    3157
+   ]
+  ]
+ },
+ "asset_excluded_conditional_paths": [
+  "root.24.0.0",
+  "root.24.1.0",
+  "root.24.1.1",
+  "root.26.0.0",
+  "root.26.1.0",
+  "root.28.0.0",
+  "root.28.1.0"
+ ],
+ "coincidence": [
+  {
+   "intact_triangle": 0,
+   "max_corner_distance": 0.0,
+   "overlay_triangle": 0
+  },
+  {
+   "intact_triangle": 1,
+   "max_corner_distance": 0.0,
+   "overlay_triangle": 1
+  },
+  {
+   "intact_triangle": 2,
+   "max_corner_distance": 0.0,
+   "overlay_triangle": 2
+  },
+  {
+   "intact_triangle": 3,
+   "max_corner_distance": 0.0,
+   "overlay_triangle": 3
+  }
+ ],
+ "diagnosis": "UNCONDITIONAL_CRACKED_OVERLAY: root.22 (WINDSCREENC32-TGA.GXI) duplicates the intact right side window of root.21 and is drawn every frame on top of it",
+ "family": "Tata",
+ "id": "TATA-WINDOW1",
+ "intact": {
+  "mesh": "root.21",
+  "right_window_triangles": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "row": [
+   174283,
+   20,
+   25,
+   4294967295,
+   4294967295,
+   5808,
+   24
+  ],
+  "texels": {
+   "mean_rgba": [
+    78.5,
+    78.2,
+    78.8,
+    124.3
+   ],
+   "min_alpha": 109,
+   "samples": 1809,
+   "texel_bbox_xy": [
+    0,
+    3,
+    15,
+    12
+   ],
+   "texture_size": [
+    16,
+    16
+   ]
+  },
+  "texture": "WINDSCREEN32-TGA.GXI",
+  "texture_argb_sha256": "2925343ad94392fad0b39190045adc7c58b71b12c94e2ed713478c0fa19394df"
+ },
+ "kind": "retire_overlay",
+ "output": {
+  "file": "TATA-CAR-FLEET-WINDOW1.ps2model",
+  "header_counts": {
+   "indices": 5856,
+   "meshes": 24,
+   "textures": 28,
+   "vertices": 3262
+  },
+  "renderer_decode_checks": "PASS (python port of decode_frontend_asset structural rules)",
+  "sha256": "8a03e06623a849335e8568b5b613a352cebeb4b9c56a617e9a6320d69f0b0252",
+  "size": 420814,
+  "written": true
+ },
+ "overlay": {
+  "mesh": "root.22",
+  "row": [
+   174444,
+   20,
+   26,
+   4294967295,
+   4294967295,
+   5832,
+   12
+  ],
+  "texels": {
+   "mean_rgba": [
+    105.2,
+    105.2,
+    105.2,
+    143.3
+   ],
+   "min_alpha": 101,
+   "samples": 7220,
+   "texel_bbox_xy": [
+    0,
+    6,
+    31,
+    25
+   ],
+   "texture_size": [
+    32,
+    32
+   ]
+  },
+  "texture": "WINDSCREENC32-TGA.GXI",
+  "texture_argb_sha256": "0d655c626d83d7a3218b031688e30067d2ef4ff473e2c3aa1d1ff8242ae4acb6",
+  "triangles": [
+   [
+    3150,
+    3151,
+    3152
+   ],
+   [
+    3151,
+    3152,
+    3153
+   ],
+   [
+    3154,
+    3155,
+    3156
+   ],
+   [
+    3155,
+    3156,
+    3157
+   ]
+  ],
+  "vertices": [
+   3150,
+   3151,
+   3152,
+   3153,
+   3154,
+   3155,
+   3156,
+   3157
+  ],
+  "x_range": [
+   -0.784,
+   -0.64
+  ]
+ },
+ "ps2_source": {
+  "file": "TATA-CAR-SOURCE.ps2vehicle",
+  "screen_switches": {
+   "screenfront": {
+    "children": {
+     "selector_1": [
+      {
+       "path": "root.28.0.0",
+       "texture": "commontextures\\windscreen32-tga"
+      }
+     ],
+     "selector_2": [
+      {
+       "path": "root.28.1.0",
+       "texture": "commontextures\\windscreenc32-tga"
+      }
+     ]
+    },
+    "path": "root.28"
+   },
+   "screenleft": {
+    "children": {
+     "selector_1": [
+      {
+       "path": "root.26.1.0",
+       "texture": "commontextures\\windscreen32-tga"
+      }
+     ],
+     "selector_2": [
+      {
+       "path": "root.26.0.0",
+       "texture": "commontextures\\windscreenc32-tga"
+      }
+     ]
+    },
+    "path": "root.26"
+   },
+   "screenrear": {
+    "children": {
+     "selector_1": [],
+     "selector_2": []
+    },
+    "path": "root.27"
+   },
+   "screenright": {
+    "children": {
+     "selector_1": [],
+     "selector_2": []
+    },
+    "path": "root.25"
+   }
+  },
+  "sha256": "2d8ea92ee3af82ec7b3fa266a9ce5d99fc9573bdc5ec4fee7f06d3e3084a47fa",
+  "source_resource": "\\TNG\\DATAPSM\\VEHICLES\\TATA\\CAR.PSM",
+  "unconditional_mesh_paths": [
+   "root.0",
+   "root.1",
+   "root.2",
+   "root.3",
+   "root.4",
+   "root.5",
+   "root.6",
+   "root.7",
+   "root.8",
+   "root.9",
+   "root.10",
+   "root.11",
+   "root.12",
+   "root.13",
+   "root.14",
+   "root.15",
+   "root.16",
+   "root.17",
+   "root.18",
+   "root.19",
+   "root.20",
+   "root.21",
+   "root.22",
+   "root.23"
+  ]
+ },
+ "ps2_source_reading": "screenright switch has no child meshes; screenleft/screenfront switch between windscreen32 and windscreenc32; the right window pair (root.21 intact, root.22 cracked) is authored as unconditional root children instead",
+ "role": "race",
+ "side_convention": "model -x = vehicle right (driver sits at +x in these left-hand-drive models; see NAVARA-CREWFACE1 driver x=+0.31)",
+ "source": {
+  "file": "TATA-CAR-FLEET.ps2model",
+  "sha256": "20262ea17be8ef15e0faea7b70dc1ae2cff47df9aec2410fe3538587a5d18660",
+  "size": 420088
+ },
+ "status": "USER_REPORTED"
+}

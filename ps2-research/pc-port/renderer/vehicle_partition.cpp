@@ -1,4 +1,5 @@
 #include "vehicle_partition.hpp"
+#include "ps2_config.hpp"
 #include "vehicle_partition_registry.hpp"
 #include "lamp_partition_registry.hpp"
 #include "foliage_probe.hpp"
@@ -74,10 +75,10 @@ bool partition_context_valid(const ReflectionSnapshot& s,uint64_t generation) no
 }
 VehiclePartitionPilot::VehiclePartitionPilot(bool supported,const std::wstring& ini) noexcept {
     wchar_t mode[32]{},version[32]{};
-    GetPrivateProfileStringW(L"PS2Port",L"RaceModelMode",L"0",mode,32,ini.c_str());
-    GetPrivateProfileStringW(L"PS2Port",L"VehicleModelConfigVersion",L"1",version,32,ini.c_str());
+    ::gfx2::ps2port::config::read_string(L"RaceModelMode",L"0",mode,32,ini.c_str());
+    ::gfx2::ps2port::config::read_string(L"VehicleModelConfigVersion",L"1",version,32,ini.c_str());
     requested_=vehicle_partition_opt_in(mode,version,supported);
-    diagnostics_=GetPrivateProfileIntW(L"PS2Port",L"VehicleModelDiagnostics",0,ini.c_str())==1;
+    diagnostics_=::gfx2::ps2port::config::read_int(L"VehicleModelDiagnostics",0,ini.c_str())==1;
 }
 PartitionPlan VehiclePartitionPilot::classify(const ReflectionSnapshot& s,uint64_t generation) noexcept {
     try {

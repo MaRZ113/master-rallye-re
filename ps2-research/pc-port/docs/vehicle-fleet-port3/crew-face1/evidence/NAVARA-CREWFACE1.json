@@ -1,0 +1,510 @@
+{
+ "codriver_face": {
+  "after_fix": {
+   "mean_rgba": [
+    74.2,
+    39.2,
+    32.7,
+    255.0
+   ],
+   "min_alpha": 255,
+   "mode": 1,
+   "samples": 2370,
+   "secondary": null,
+   "texel_bbox_xy": [
+    48,
+    32,
+    62,
+    45
+   ],
+   "texture": "UNDERDASH2-TGA.GXI",
+   "texture_size": [
+    64,
+    64
+   ]
+  },
+  "as_drawn_now": {
+   "mean_rgba": [
+    215.9,
+    226.3,
+    229.9,
+    255.0
+   ],
+   "min_alpha": 255,
+   "mode": 3,
+   "samples": 155,
+   "secondary": "mixed reflection capture (root.15 mixed=true)",
+   "texel_bbox_xy": [
+    12,
+    8,
+    15,
+    11
+   ],
+   "texture": "MLAMP32-TGA.GXI",
+   "texture_size": [
+    16,
+    16
+   ]
+  },
+  "bbox_xyz": [
+   [
+    -0.423,
+    1.041,
+    -0.039
+   ],
+   [
+    -0.255,
+    1.187,
+    0.031
+   ]
+  ],
+  "global_index_range": [
+   5673,
+   5754
+  ],
+  "local_triangles": [
+   0,
+   26
+  ],
+  "mesh": "root.15",
+  "triangles": [
+   [
+    3482,
+    3483,
+    3484
+   ],
+   [
+    3483,
+    3484,
+    3485
+   ],
+   [
+    3484,
+    3485,
+    3486
+   ],
+   [
+    3485,
+    3486,
+    3487
+   ],
+   [
+    3486,
+    3487,
+    3488
+   ],
+   [
+    3487,
+    3488,
+    3489
+   ],
+   [
+    3488,
+    3489,
+    3490
+   ],
+   [
+    3489,
+    3490,
+    3491
+   ],
+   [
+    3490,
+    3491,
+    3492
+   ],
+   [
+    3491,
+    3492,
+    3493
+   ],
+   [
+    3494,
+    3495,
+    3496
+   ],
+   [
+    3495,
+    3496,
+    3497
+   ],
+   [
+    3496,
+    3497,
+    3498
+   ],
+   [
+    3499,
+    3500,
+    3501
+   ],
+   [
+    3500,
+    3501,
+    3502
+   ],
+   [
+    3501,
+    3502,
+    3503
+   ],
+   [
+    3502,
+    3503,
+    3504
+   ],
+   [
+    3503,
+    3504,
+    3505
+   ],
+   [
+    3504,
+    3505,
+    3506
+   ],
+   [
+    3505,
+    3506,
+    3507
+   ],
+   [
+    3506,
+    3507,
+    3508
+   ],
+   [
+    3507,
+    3508,
+    3509
+   ],
+   [
+    3510,
+    3511,
+    3512
+   ],
+   [
+    3511,
+    3512,
+    3513
+   ],
+   [
+    3512,
+    3513,
+    3514
+   ],
+   [
+    3515,
+    3516,
+    3517
+   ],
+   [
+    3516,
+    3517,
+    3518
+   ]
+  ],
+  "vertices": [
+   3482,
+   3518
+  ]
+ },
+ "diagnosis": "WRONG_MATERIAL_SLOT_NOT_UV: co-driver face UVs already address the second face of underdash2-tga; the triangles sit in root.15 whose primary texture is mlamp32-tga",
+ "driver_face": {
+  "local_triangles": [
+   519,
+   520,
+   521,
+   522,
+   523,
+   524,
+   525,
+   526,
+   527,
+   528,
+   529,
+   530,
+   531,
+   532,
+   533,
+   534,
+   535,
+   536,
+   537,
+   538,
+   539,
+   540,
+   541,
+   542,
+   543,
+   544,
+   545,
+   546,
+   547,
+   548,
+   549,
+   550,
+   551,
+   568,
+   569
+  ],
+  "mean_rgba": [
+   53.0,
+   26.6,
+   22.3,
+   255.0
+  ],
+  "mesh": "root.0",
+  "min_alpha": 255,
+  "mode": 1,
+  "samples": 2875,
+  "texel_bbox_xy": [
+   27,
+   31,
+   54,
+   56
+  ],
+  "texture": "UNDERDASH2-TGA.GXI",
+  "texture_size": [
+   64,
+   64
+  ]
+ },
+ "family": "Navara",
+ "id": "NAVARA-CREWFACE1",
+ "kind": "rebind",
+ "lamps_remaining_in_root15": {
+  "local_triangles_before": [
+   27,
+   30
+  ],
+  "triangles": [
+   [
+    3519,
+    3520,
+    3521
+   ],
+   [
+    3520,
+    3521,
+    3522
+   ],
+   [
+    3523,
+    3524,
+    3525
+   ],
+   [
+    3524,
+    3525,
+    3526
+   ]
+  ]
+ },
+ "mesh_rows": {
+  "after": {
+   "root.0": [
+    217868,
+    1,
+    0,
+    4294967295,
+    4294967295,
+    0,
+    1848
+   ],
+   "root.15": [
+    221636,
+    3,
+    18,
+    19,
+    4294967295,
+    5754,
+    12
+   ]
+  },
+  "before": {
+   "root.0": [
+    217868,
+    1,
+    0,
+    4294967295,
+    4294967295,
+    0,
+    1767
+   ],
+   "root.15": [
+    221636,
+    3,
+    18,
+    19,
+    4294967295,
+    5673,
+    93
+   ]
+  },
+  "shifted_first_index": "root.1..root.14 first_index +81; root.16..root.20 unchanged"
+ },
+ "mhelmet32": {
+  "argb_sha256": "a6652d63a8fc592d4b50039453afd9ba5cfccdd8e85d5ddaf3429a82b412571f",
+  "contains_face": false,
+  "mesh": "root.18",
+  "note": "helmet shell only; visor triangles 140-143 (driver) and 144-147 (co-driver) have identical UVs; the 16 per-seat UV-asymmetric side triangles are identical in NEWRAV root.3, so root.18 is not the cause",
+  "size": [
+   32,
+   32
+  ],
+  "texture_index": 23,
+  "visor_codriver_texels": {
+   "mean_rgba": [
+    164.0,
+    158.3,
+    159.3,
+    255.0
+   ],
+   "min_alpha": 255,
+   "samples": 5011,
+   "texel_bbox_xy": [
+    0,
+    0,
+    31,
+    11
+   ],
+   "texture_size": [
+    32,
+    32
+   ]
+  },
+  "visor_driver_texels": {
+   "mean_rgba": [
+    164.0,
+    158.3,
+    159.3,
+    255.0
+   ],
+   "min_alpha": 255,
+   "samples": 5011,
+   "texel_bbox_xy": [
+    0,
+    0,
+    31,
+    11
+   ],
+   "texture_size": [
+    32,
+    32
+   ]
+  }
+ },
+ "output": {
+  "file": "NAVARA-CAR-FLEET-CREWFACE1.ps2model",
+  "header_counts": {
+   "indices": 6738,
+   "meshes": 21,
+   "textures": 26,
+   "vertices": 4189
+  },
+  "renderer_decode_checks": "PASS (python port of decode_frontend_asset structural rules)",
+  "sha256": "586fd3d717007e407e0ffe8894b37e3ae78377c35cb4abe43617f54a96fd194e",
+  "size": 373616,
+  "written": true
+ },
+ "reference_families": [
+  {
+   "codriver_face_uv_triangles_matched": 27,
+   "driver_face_uv_triangles_matched": 35,
+   "family": "NEWRAV",
+   "mesh": "root.0",
+   "mode": 1,
+   "texture": "commontextures\\underdash2-tga",
+   "texture_argb_sha256": "6c21ec1a545e396d6c47756c565819ce94680b0a3c7cfa6b859b70884d1aabd2"
+  },
+  {
+   "codriver_face_uv_triangles_matched": 27,
+   "driver_face_uv_triangles_matched": 35,
+   "family": "KIASPORTAGE",
+   "mesh": "root.17",
+   "mode": 1,
+   "texture": "commontextures\\underdash2-tga",
+   "texture_argb_sha256": "6c21ec1a545e396d6c47756c565819ce94680b0a3c7cfa6b859b70884d1aabd2"
+  },
+  {
+   "codriver_face_uv_triangles_matched": 27,
+   "driver_face_uv_triangles_matched": 35,
+   "family": "LANDCRUISER",
+   "mesh": "root.0",
+   "mode": 1,
+   "texture": "commontextures\\underdash2-tga",
+   "texture_argb_sha256": "6c21ec1a545e396d6c47756c565819ce94680b0a3c7cfa6b859b70884d1aabd2"
+  },
+  {
+   "codriver_face_uv_triangles_matched": 27,
+   "driver_face_uv_triangles_matched": 35,
+   "family": "FRONTERA",
+   "mesh": "root.0",
+   "mode": 1,
+   "texture": "commontextures\\underdash2-tga",
+   "texture_argb_sha256": "6c21ec1a545e396d6c47756c565819ce94680b0a3c7cfa6b859b70884d1aabd2"
+  },
+  {
+   "codriver_face_uv_triangles_matched": 27,
+   "driver_face_uv_triangles_matched": 35,
+   "family": "CHEVYBLAZER",
+   "mesh": "root.0",
+   "mode": 1,
+   "texture": "commontextures\\underdash2-tga",
+   "texture_argb_sha256": "6c21ec1a545e396d6c47756c565819ce94680b0a3c7cfa6b859b70884d1aabd2"
+  },
+  {
+   "codriver_face_uv_triangles_matched": 27,
+   "driver_face_uv_triangles_matched": 35,
+   "family": "KAMAZ",
+   "mesh": "root.0",
+   "mode": 1,
+   "texture": "commontextures\\underdash2-tga",
+   "texture_argb_sha256": "6c21ec1a545e396d6c47756c565819ce94680b0a3c7cfa6b859b70884d1aabd2"
+  },
+  {
+   "codriver_face_uv_triangles_matched": 27,
+   "driver_face_uv_triangles_matched": 35,
+   "family": "KANGOO",
+   "mesh": "root.14",
+   "mode": 1,
+   "texture": "commontextures\\underdash2-tga",
+   "texture_argb_sha256": "6c21ec1a545e396d6c47756c565819ce94680b0a3c7cfa6b859b70884d1aabd2"
+  },
+  {
+   "codriver_face_uv_triangles_matched": 27,
+   "driver_face_uv_triangles_matched": 35,
+   "family": "JUMP",
+   "mesh": "root.0",
+   "mode": 1,
+   "texture": "commontextures\\underdash2-tga",
+   "texture_argb_sha256": "6c21ec1a545e396d6c47756c565819ce94680b0a3c7cfa6b859b70884d1aabd2"
+  },
+  {
+   "codriver_face_uv_triangles_matched": 27,
+   "driver_face_uv_triangles_matched": 35,
+   "family": "BRUNO",
+   "mesh": "root.0",
+   "mode": 1,
+   "texture": "commontextures\\underdash2-tga",
+   "texture_argb_sha256": "6c21ec1a545e396d6c47756c565819ce94680b0a3c7cfa6b859b70884d1aabd2"
+  },
+  {
+   "codriver_face_uv_triangles_matched": 27,
+   "driver_face_uv_triangles_matched": 35,
+   "family": "ASTERO",
+   "mesh": "root.0",
+   "mode": 1,
+   "texture": "commontextures\\underdash2-tga",
+   "texture_argb_sha256": "6c21ec1a545e396d6c47756c565819ce94680b0a3c7cfa6b859b70884d1aabd2"
+  }
+ ],
+ "role": "race",
+ "source": {
+  "file": "NAVARA-CAR-FLEET.ps2model",
+  "sha256": "336318a5cc30f0cd7bf3c6f9addcf7e10848a1d762f5e7e88abee7f2f8caee0e",
+  "size": 372926
+ },
+ "status": "USER_REPORTED"
+}
