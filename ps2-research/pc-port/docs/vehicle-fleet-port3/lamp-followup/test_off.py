@@ -11,9 +11,9 @@ class OffContracts(unittest.TestCase):
   self.assertEqual(whole&mixed,{('Terrano','7f46a206c472a37c9cb951f0f110f63bb6742ce57466d4adea1ec8896854784e')})
  def setUp(self):self.rows=json.loads((HERE/'contracts.json').read_text())['families']
  def test_exact_bounded_families(self):
-  self.assertEqual([r['family'] for r in self.rows],['NewRav','Bruno','Mattserati'])
+  self.assertEqual([r['family'] for r in self.rows],['NewRav','Bruno','Mattserati','Jump','Ufo'])
   for r in self.rows:
-   self.assertEqual(r['mode'],3);self.assertEqual(r['material'],'$shader(carshiny)')
+   self.assertEqual(r['mode'],3);self.assertEqual(r['material'],'$shader(carshiny)' if r['mixed_reflection'] else '$shader(carbrakelight)');self.assertEqual(r['mixed_reflection'],r['family']!='Ufo')
    for key in ['native_geometry','native_position_uv','native_ordered_xyz','native_ordered_uv_indices','source_pc_sha256','source_ps2_sha256','sha256']:self.assertEqual(len(r[key]),64)
  def test_complete_original_mapping(self):
   for r in self.rows:

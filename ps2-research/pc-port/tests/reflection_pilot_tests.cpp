@@ -2,6 +2,8 @@
 #include "damage_identity.hpp"
 #include "brake_glow.hpp"
 #include "fleet_lamp_identity.hpp"
+#include "fleet_off_deformation.hpp"
+#include "fleet_frame_policy.hpp"
 #include "race_fleet_registry.hpp"
 #include "fleet_lamp_fixture_families.hpp"
 #include <limits>
@@ -13,6 +15,7 @@
 #include <algorithm>
 #include <cmath>
 #include <cstring>
+#include <cctype>
 #include <iostream>
 #include <vector>
 
@@ -520,7 +523,67 @@ void kia_damage_glow_pair(){
 }
 void port3_lamp_corpus(){const auto* path=std::getenv("MRR_PORT3_LAMP_FIXTURES");if(!path)return;std::ifstream file(path,std::ios::binary);std::vector<uint8_t> bytes((std::istreambuf_iterator<char>(file)),{});CHECK(sha256_bytes(bytes.data(),bytes.size())=="a4dc10a543de1bdfea558f84570c739ee3cb7880a6a0647158eb4356cf223ff0");size_t at=8;auto word=[&](){uint32_t v=0;CHECK(at+4<=bytes.size());if(at+4<=bytes.size()){std::memcpy(&v,bytes.data()+at,4);at+=4;}return v;};CHECK(bytes.size()>12&&!std::memcmp(bytes.data(),"PS2LMP01",8));const auto cases=word();CHECK(cases==774&&cases==std::size(kFleetLampFixtureFamily));unsigned ons=0,glows=0;for(unsigned row=0;row<cases;++row){const auto kind=word(),nv=word(),nf=word(),stride=word();DrawSnapshot g;valid(g);g.vertex_count=nv;g.primitive_count=nf;g.fvf=0x102;g.stride=stride;g.index_format=D3DFMT_INDEX32;const auto end=at+uint64_t(nv)*stride+uint64_t(nf)*12;CHECK(end<=bytes.size());if(end>bytes.size())return;g.vertex_bytes.assign(bytes.begin()+at,bytes.begin()+at+nv*stride);at+=nv*stride;g.index_bytes.assign(bytes.begin()+at,bytes.begin()+end);at=end;const auto* family=kRaceFleetProfiles[kFleetLampFixtureFamily[row]].family;const FleetOnProfile* on=nullptr;const BrakeGlowProfile* glow=nullptr;for(const auto& p:kFleetOnProfiles)if(!std::strcmp(p.family,family))on=&p;for(const auto& p:kBrakeGlowProfiles)if(!std::strcmp(p.family,family))glow=&p;CHECK(on&&glow);const bool on_match=on&&exact_native_lamp(g,on->vertices,on->triangles,on->geometry,on->positionUv),glow_match=glow&&exact_native_lamp(g,glow->vertices,glow->triangles,glow->geometry,glow->positionUv);CHECK(on_match==(kind==1));CHECK(glow_match==(kind==2));ons+=on_match;glows+=glow_match;if(on_match||glow_match){const unsigned layer=on_match?0:1;const unsigned v=on_match?on->vertices:glow->vertices,t=on_match?on->triangles:glow->triangles;NativeLampContinuity state;KiaLampContext c{1,2,3,4,0x10000,0x20000,0x30000,0x40000,5,0x50000,true,false};const char* reason=nullptr;CHECK(state.match_source(layer,g,c,true,reason,v,t));auto damaged=g;for(unsigned i=0;i<g.vertex_count;++i){float x;std::memcpy(&x,damaged.vertex_bytes.data()+i*stride,4);x+=.125f;std::memcpy(damaged.vertex_bytes.data()+i*stride,&x,4);}c.private_tree=true;CHECK(state.match_source(layer,damaged,c,false,reason,v,t));auto bad=damaged;bad.vertex_bytes[stride-8]^=1;CHECK(!state.match_source(layer,bad,c,false,reason,v,t));c.material_token++;CHECK(!state.match_source(layer,damaged,c,false,reason,v,t));}}
  CHECK(at==bytes.size()&&ons==25&&glows==25);}
-int main() {port3_lamp_corpus();kia_damage_glow_pair();fleet_off_fixtures();kia_lamp_fixtures();
+// PORT3 fix2: per-frame fleet admission predicate.
+void fleet_frame_policy_tests(){
+ RaceCertificate race;race.valid=true;race.single_human_car_race=true;race.participant_count=1;
+ CHECK(fleet_single_car_race(true,race));CHECK(!fleet_single_car_race(false,race));
+ auto bad=race;bad.valid=false;CHECK(!fleet_single_car_race(true,bad));
+ bad=race;bad.single_human_car_race=false;CHECK(!fleet_single_car_race(true,bad));
+ bad=race;bad.participant_count=2;CHECK(!fleet_single_car_race(true,bad));
+ bad=race;bad.participant_count=0;CHECK(!fleet_single_car_race(true,bad));
+ struct Shape{unsigned vertices,triangles;};const Shape shapes[]={{18,10},{14,10}};
+ CHECK(frontend_shape_candidate(shapes,2,14,10));CHECK(!frontend_shape_candidate(shapes,2,14,12));CHECK(!frontend_shape_candidate(shapes,0,18,10));
+}
+// The flat native lamp layout (XYZ|DIFFUSE|TEX1, 24 bytes) must produce exactly the identities
+// of the same geometry in the established 0x112/32 layout; nothing about the hashes is relaxed.
+DrawSnapshot flat_lamp(const DrawSnapshot& wide){
+ auto g=wide;g.fvf=0x142;g.stride=24;g.vertex_byte_offset=(uint64_t(g.base_vertex)+g.min_index)*24;g.vertex_bytes.assign(uint64_t(g.vertex_count)*24,0);
+ for(unsigned i=0;i<g.vertex_count;++i){std::memcpy(g.vertex_bytes.data()+i*24,wide.vertex_bytes.data()+i*32,12);const uint32_t white=0xffffffffu;std::memcpy(g.vertex_bytes.data()+i*24+12,&white,4);std::memcpy(g.vertex_bytes.data()+i*24+16,wide.vertex_bytes.data()+i*32+24,8);}
+ return g;
+}
+void flat_lamp_layout_tests(){
+ DrawSnapshot wide;valid(wide);wide.fvf=0x112;wide.stride=32;wide.vertex_count=6;wide.primitive_count=4;wide.min_index=0;wide.base_vertex=0;wide.vertex_byte_offset=0;wide.index_format=D3DFMT_INDEX16;
+ wide.vertex_bytes.assign(6*32,0);for(unsigned i=0;i<6;++i){const float xyz[3]={float(i),float(i*i%5),float(3-i)},uv[2]={i*.125f,1.f-i*.0625f};std::memcpy(wide.vertex_bytes.data()+i*32,xyz,12);std::memcpy(wide.vertex_bytes.data()+i*32+24,uv,8);}
+ const uint16_t ids[12]={0,1,2,2,1,3,3,1,4,4,5,0};wide.index_bytes.assign(reinterpret_cast<const uint8_t*>(ids),reinterpret_cast<const uint8_t*>(ids)+24);
+ const auto flat=flat_lamp(wide);
+ CHECK(!NativeLampContinuity::topology(flat).empty());CHECK(NativeLampContinuity::topology(flat)==NativeLampContinuity::topology(wide));
+ const auto puv=position_uv_corner_sha(wide);CHECK(!puv.empty()&&puv==position_uv_corner_sha(flat));
+ auto faces=vehicle_face_hashes(flat);CHECK(faces.size()==4);std::sort(faces.begin(),faces.end());std::string joined;for(const auto& f:faces)joined+=f;const auto geometry=sha256_bytes(joined.data(),joined.size());
+ CHECK(exact_native_lamp(wide,6,4,geometry.c_str(),puv.c_str()));CHECK(exact_native_lamp(flat,6,4,geometry.c_str(),puv.c_str()));
+ auto moved=flat;moved.vertex_bytes[0]^=1;CHECK(!exact_native_lamp(moved,6,4,geometry.c_str(),puv.c_str()));
+ auto remapped=flat;remapped.vertex_bytes[16]^=1;CHECK(!exact_native_lamp(remapped,6,4,geometry.c_str(),puv.c_str()));
+ auto wrong_stride=flat;wrong_stride.stride=32;CHECK(NativeLampContinuity::topology(wrong_stride).empty());CHECK(!exact_native_lamp(wrong_stride,6,4,geometry.c_str(),puv.c_str()));
+}
+// Every private OFF profile rebuilt from its pinned original car.dx record in the retail
+// layout and loader winding by docs/vehicle-fleet-port3/fix2/prepare_off_fixture.py
+// (private, never distributed).
+void private_off_fixtures(){
+ const char* dir=std::getenv("MRR_FIX2_PRIVATE_OFF_DIR");if(!dir){std::cout<<"Private OFF original-source identity: NOT_PERFORMED (set MRR_FIX2_PRIVATE_OFF_DIR)\n";return;}
+ const std::pair<const char*,const char*> pinned[]={{"NewRav","b31c9d8e64154f7a68ef18c0f4af653a3709a4401a6607d4633c26bcca7eaaa8"},{"Bruno","9d953f852afc4339e6201f6c0311d48dcf03322a286b18cb816c05c693bb2666"},{"Mattserati","b010a3b00104e24d27de784084f9d2b70ad542670fcb5eb9c4aa5656db4f362e"},{"Jump","bb51e2ad45cff1aca8019ae1be3e385bde6640a7c989826c4811a6b9d20bfa2e"},{"Ufo","3967521dbb7440ceca9b78696d27d6f1739efd7d4d375a5fcec9d024247e6cd9"}};
+ CHECK(std::size(off_followup::profiles)==std::size(pinned));
+ for(const auto& profile:off_followup::profiles){
+  const char* sha=nullptr;for(const auto& p:pinned)if(!std::strcmp(p.first,profile.family))sha=p.second;CHECK(sha);if(!sha)continue;
+  std::string name(profile.family);for(auto& ch:name)ch=char(std::tolower(static_cast<unsigned char>(ch)));
+  std::ifstream f(std::string(dir)+"\\"+name+"-off.bin",std::ios::binary);std::vector<uint8_t> b((std::istreambuf_iterator<char>(f)),{});
+  CHECK(sha256_bytes(b.data(),b.size())==sha);CHECK(b.size()>24&&!std::memcmp(b.data(),"MRRF2OFF",8));if(b.size()<=24)continue;
+  uint32_t header[4];std::memcpy(header,b.data()+8,16);const unsigned stride=header[3]==0x142?24u:header[3]==0x152?36u:0u;CHECK(stride);if(!stride)continue;
+  CHECK(header[0]==profile.nativeVertices&&header[1]==profile.triangles);const uint64_t vbytes=uint64_t(header[0])*stride,ibytes=uint64_t(header[1])*6;CHECK(b.size()==24+vbytes+ibytes);if(b.size()!=24+vbytes+ibytes)continue;
+  DrawSnapshot g;valid(g);g.fvf=header[3];g.stride=stride;g.vertex_count=header[0];g.primitive_count=header[1];g.min_index=header[2];g.base_vertex=0;g.vertex_byte_offset=uint64_t(header[2])*stride;g.index_format=D3DFMT_INDEX16;
+  g.vertex_bytes.assign(b.begin()+24,b.begin()+24+vbytes);g.index_bytes.assign(b.begin()+24+vbytes,b.end());
+  CHECK(!NativeLampContinuity::topology(g).empty());
+  CHECK(position_uv_corner_sha(g)==profile.positionUv);
+  CHECK(exact_native_lamp(g,profile.nativeVertices,profile.triangles,profile.geometry,profile.positionUv));
+  std::vector<std::array<float,3>> points;std::string xyz,uv;CHECK(RaceDamageState::snapshot(native_lamp_normalized(g),points,xyz,uv));
+  CHECK(xyz==profile.orderedXyz);CHECK(uv==profile.uvIndices);CHECK(points.size()==profile.nativeVertices);
+  // car.dx file winding (a,b,c) is not what the retail loader submits and must not satisfy the ordered contract.
+  {auto file_order=g;for(unsigned t=0;t<g.primitive_count;++t)std::swap_ranges(file_order.index_bytes.begin()+t*6,file_order.index_bytes.begin()+t*6+2,file_order.index_bytes.begin()+t*6+2);std::vector<std::array<float,3>> p2;std::string x2,u2;CHECK(RaceDamageState::snapshot(file_order,p2,x2,u2));CHECK(x2==profile.orderedXyz);CHECK(u2!=profile.uvIndices);CHECK(exact_native_lamp(file_order,profile.nativeVertices,profile.triangles,profile.geometry,profile.positionUv));}
+  // The same bytes declared with another admitted layout, or shifted by 1e-3, must not be accepted.
+  auto relabeled=g;relabeled.fvf=0x102;relabeled.stride=20;CHECK(!exact_native_lamp(relabeled,profile.nativeVertices,profile.triangles,profile.geometry,profile.positionUv));
+  auto shifted=g;float x=0;std::memcpy(&x,shifted.vertex_bytes.data(),4);x+=1e-3f;std::memcpy(shifted.vertex_bytes.data(),&x,4);CHECK(!exact_native_lamp(shifted,profile.nativeVertices,profile.triangles,profile.geometry,profile.positionUv));
+  std::cout<<profile.family<<" private OFF original-source identity ("<<(stride==24?"0x142/24":"0x152/36")<<"): PASS\n";
+ }
+}
+int main() {fleet_frame_policy_tests();flat_lamp_layout_tests();private_off_fixtures();port3_lamp_corpus();kia_damage_glow_pair();fleet_off_fixtures();kia_lamp_fixtures();
     fleet_glow_fixtures();original_lamp_fixtures();
     damage_identity_tests();
     identity();transaction();resource_and_reset();config_and_conversion();diagnostic_color_policy();enabled_reset();managed_reset_retention();stock_wrapper_draw();

@@ -1,0 +1,169 @@
+{
+  "schema": 1,
+  "rule": "retail loader submits car.dx triangle (a,b,c) as (b,a,c); vertex order unchanged",
+  "records": {
+    "flip_rule_holds": 250,
+    "skipped_private_tree_dump": 9
+  },
+  "by_family_fvf": [
+    {
+      "family": "KiaSportage",
+      "fvf": 322,
+      "result": "flip_rule_holds",
+      "records": 60
+    },
+    {
+      "family": "KiaSportage",
+      "fvf": 338,
+      "result": "flip_rule_holds",
+      "records": 70
+    },
+    {
+      "family": "NewRav",
+      "fvf": 322,
+      "result": "flip_rule_holds",
+      "records": 40
+    },
+    {
+      "family": "NewRav",
+      "fvf": 338,
+      "result": "flip_rule_holds",
+      "records": 80
+    }
+  ],
+  "dumps": [
+    {
+      "file": "fleet-damage-10424-d1-f3114.bin",
+      "sha256": "11ac365e5abdcd4452c6ec8c1aa4eb7c704b177563031fe8cb2f66a08a6cb246",
+      "family": "KiaSportage",
+      "proxy_sha256": "cea5417602a43b1ff88449ae206309da52cd8a6a19417b1fe25a369e11d2b6ad",
+      "private_tree": false
+    },
+    {
+      "file": "fleet-damage-11316-d1-f3241.bin",
+      "sha256": "531e2298a7ddb26b7a0126c73dab68a16d3d16c9ac2ab8de1b232aecd722c449",
+      "family": "NewRav",
+      "proxy_sha256": "638645b7ddc60aaa50651d35ff2436de1d9ba87f770b69bd1bed12ac4ca14dd9",
+      "private_tree": false
+    },
+    {
+      "file": "fleet-damage-11316-d1-f3954.bin",
+      "sha256": "024a9133b8a4e2f0af4abbf0af4d339c080a7a897b1505bd7288ea5339ab5a16",
+      "family": "NewRav",
+      "proxy_sha256": "638645b7ddc60aaa50651d35ff2436de1d9ba87f770b69bd1bed12ac4ca14dd9",
+      "private_tree": true
+    },
+    {
+      "file": "fleet-damage-11316-d1-f7924.bin",
+      "sha256": "a5d36d23774edc82aa1c7d13fed238fd46e1094420aefb4d69c5334db00e7972",
+      "family": "Patrol",
+      "proxy_sha256": "638645b7ddc60aaa50651d35ff2436de1d9ba87f770b69bd1bed12ac4ca14dd9",
+      "private_tree": true
+    },
+    {
+      "file": "fleet-damage-15036-d1-f2169.bin",
+      "sha256": "7d63b6b12f4adae2dce22f3b0204e7ee5a66ec0166c3ef50ec027e7e1ed4c81d",
+      "family": "KiaSportage",
+      "proxy_sha256": "cea5417602a43b1ff88449ae206309da52cd8a6a19417b1fe25a369e11d2b6ad",
+      "private_tree": false
+    },
+    {
+      "file": "fleet-damage-15036-d1-f2956.bin",
+      "sha256": "3b887200408d298ec6f4ddab04546e8f06daf8e5785667a287675749328e6a0b",
+      "family": "KiaSportage",
+      "proxy_sha256": "cea5417602a43b1ff88449ae206309da52cd8a6a19417b1fe25a369e11d2b6ad",
+      "private_tree": true
+    },
+    {
+      "file": "fleet-damage-15036-d1-f4994.bin",
+      "sha256": "fb3f6a3cc1658ec3cc6c88be0c7c4280fac79483275a1d791f7186483de955b3",
+      "family": "KiaSportage",
+      "proxy_sha256": "cea5417602a43b1ff88449ae206309da52cd8a6a19417b1fe25a369e11d2b6ad",
+      "private_tree": true
+    },
+    {
+      "file": "fleet-damage-15144-d1-f10852.bin",
+      "sha256": "86a9e5603966dc954ff918178b01351f75a10b1060b52aee29f0a121ecbde572",
+      "family": "KiaSportage",
+      "proxy_sha256": "40da3b8fade5694f0ba24f767ca1813d8ffd120f3e417d0fc1d604360bd212e2",
+      "private_tree": true
+    },
+    {
+      "file": "fleet-damage-15144-d1-f7921.bin",
+      "sha256": "6664b38e0859b65ebc69ca07a2f54c8d2a8a73329525f3c9abb516aee071b7c7",
+      "family": "KiaSportage",
+      "proxy_sha256": "40da3b8fade5694f0ba24f767ca1813d8ffd120f3e417d0fc1d604360bd212e2",
+      "private_tree": false
+    },
+    {
+      "file": "fleet-damage-21408-d1-f3855.bin",
+      "sha256": "8ff17ea95a6a2efe3448a1156d44ad88f6369d6b3303cd99763122afaad781a5",
+      "family": "NewRav",
+      "proxy_sha256": "81590049ba7062b6572e467430fe8711c0f3e4fa302e9ca56717f10bc34e7d26",
+      "private_tree": false
+    },
+    {
+      "file": "fleet-damage-21408-d1-f5437.bin",
+      "sha256": "a0ccc22174db691c94d8ef1eccf16ec56be2368cf9aa204c4072f76fc10e4f63",
+      "family": "NewRav",
+      "proxy_sha256": "81590049ba7062b6572e467430fe8711c0f3e4fa302e9ca56717f10bc34e7d26",
+      "private_tree": false
+    },
+    {
+      "file": "fleet-damage-21408-d1-f6410.bin",
+      "sha256": "19898eb4311e5cefbf719c68721b4b04370c6a9a470c8f0fed8ca4b4e71e339d",
+      "family": "NewRav",
+      "proxy_sha256": "81590049ba7062b6572e467430fe8711c0f3e4fa302e9ca56717f10bc34e7d26",
+      "private_tree": true
+    },
+    {
+      "file": "fleet-damage-26244-d1-f42468.bin",
+      "sha256": "3f81a061cae2ddfafb59906a23dbd21158743919447e2f43915c345b693a3511",
+      "family": "NewRav",
+      "proxy_sha256": "cf49fd6ab8a8fa82867dd66632ba7f188cff6a9125de8b596dd0e4e9096a5872",
+      "private_tree": false
+    },
+    {
+      "file": "fleet-damage-26244-d1-f42565.bin",
+      "sha256": "b46a8f3927f12f86f7ed0cbd5fc802bc8bbef8de48000dbc04a9cc0a6a72064e",
+      "family": "NewRav",
+      "proxy_sha256": "cf49fd6ab8a8fa82867dd66632ba7f188cff6a9125de8b596dd0e4e9096a5872",
+      "private_tree": false
+    },
+    {
+      "file": "fleet-damage-26244-d1-f44909.bin",
+      "sha256": "608ac65d40fbb3bb4cde2db2a84623cf2a2341343292d184d95683ac249b7f0a",
+      "family": "NewRav",
+      "proxy_sha256": "cf49fd6ab8a8fa82867dd66632ba7f188cff6a9125de8b596dd0e4e9096a5872",
+      "private_tree": true
+    },
+    {
+      "file": "fleet-damage-9508-d1-f1332.bin",
+      "sha256": "3d611d2bb8af6710891ccedcb1dcea3990aa3ffa095340d2c6486216152034c3",
+      "family": "KiaSportage",
+      "proxy_sha256": "d8e01ce1ddb98514a1e53671756a3380add65ec79ea774bff6ed008c8f58e9d7",
+      "private_tree": false
+    },
+    {
+      "file": "fleet-damage-9508-d1-f5191.bin",
+      "sha256": "3cbc4c09f606857b923cba8cb60ff563b66ac8af94945bbf0ce7d4dc74af67c7",
+      "family": "KiaSportage",
+      "proxy_sha256": "d8e01ce1ddb98514a1e53671756a3380add65ec79ea774bff6ed008c8f58e9d7",
+      "private_tree": true
+    },
+    {
+      "file": "fleet-damage-9516-d1-f1226.bin",
+      "sha256": "644eba7e043c61a3bdf74bd5f4f27860b796c72c7d9127d1b3b2cfe8a1f800a5",
+      "family": "KiaSportage",
+      "proxy_sha256": "92ef2779409acc57c03fda37a79f2b4b6d9248958ef97b7d828307b12736d9b5",
+      "private_tree": false
+    },
+    {
+      "file": "fleet-damage-9516-d1-f2800.bin",
+      "sha256": "8c729cacbf08de378b81e8280e7a7bd0ea44b090201c23838b27a979a371100a",
+      "family": "KiaSportage",
+      "proxy_sha256": "92ef2779409acc57c03fda37a79f2b4b6d9248958ef97b7d828307b12736d9b5",
+      "private_tree": true
+    }
+  ]
+}

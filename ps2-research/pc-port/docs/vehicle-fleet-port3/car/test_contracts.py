@@ -8,8 +8,19 @@ class Contracts(unittest.TestCase):
  def test_no_duplicate_healthy_identity(self):self.assertFalse(any(p['duplicate_healthy_sources'] for p in self.p))
  def test_missing_never_silently_static(self):
   for p in self.p:
-   self.assertEqual(p['referenced_vertices'],p['mapped_vertices']+p['static_vertices']+len(p['unresolved_vertices']))
-   self.assertFalse(p['eligible'] and p['unresolved_vertices'])
+   self.assertEqual(p['referenced_vertices'],p['mapped_vertices']+p['static_vertices']+p['rigid_component_vertices']+p['transfer_vertices']+len(p['unresolved_vertices']))
+   self.assertEqual(p['exact_unresolved_vertices'],p['rigid_component_vertices']+p['transfer_vertices']+len(p['unresolved_vertices']))
+   self.assertFalse(p['eligible'] and (p['unresolved_vertices'] or p['transfer_blocked_components']))
+ def test_surface_transfer_is_bounded_and_reported(self):
+  for p in self.p:
+   self.assertEqual((p['transfer_limit'],p['mixed_limit']),(.05,.08))
+   self.assertLessEqual(p['max_transfer_distance'],p['mixed_limit'] if p['widened_components'] else p['transfer_limit'])
+   for r in p['rigid_components']:self.assertGreater(r['beyond_limit'],0)
+   self.assertEqual(p['widened_vertices'],sum(c['beyond_transfer_limit'] for c in p['widened_components']))
+  self.assertFalse(any(p['transfer_blocked_components'] for p in self.p))
+  self.assertEqual({p['family'] for p in self.p if p['widened_components']},{'Mattserati','Tata'})
+  for name in ('KiaSportage','Ufo','Xtrail'):
+   p=next(p for p in self.p if p['family']==name);self.assertEqual((p['transfer_vertices'],p['rigid_component_vertices']),(0,0))
  def test_ufo_complete_no_invented_wheels(self):
   p=next(p for p in self.p if p['family']=='Ufo');self.assertTrue(p['eligible']);self.assertEqual(p['static_vertices'],0)
  def test_preserve_separate_proven_paths(self):

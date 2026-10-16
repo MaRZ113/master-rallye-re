@@ -13,11 +13,12 @@ class RaceDamageState {
  uint64_t revision_=0;unsigned reports_=0;std::string last_report_;
 public:
  static bool snapshot(const DrawSnapshot& g,std::vector<Point>& positions,std::string& position_sha,std::string& winding_sha){
-  const unsigned uv=g.fvf==0x142?16:g.fvf==0x152?28:g.fvf==0x112?24:0,stride=g.fvf==0x142?24:g.fvf==0x152?36:g.fvf==0x112?32:0;
+  // 0x42 (XYZ|DIFFUSE) carries no texture coordinate; the authored source UV of such records is (0,0), so the certificate uses zero.
+  const bool textured=g.fvf!=0x42;const unsigned uv=g.fvf==0x142?16:g.fvf==0x152?28:g.fvf==0x112?24:0,stride=g.fvf==0x142?24:g.fvf==0x152?36:g.fvf==0x112?32:g.fvf==0x42?16:0;
   const unsigned width=g.index_format==D3DFMT_INDEX16?2:g.index_format==D3DFMT_INDEX32?4:0;
   if(!g.supported_build||!g.device_id||!g.complete_mirror_coverage||!g.vertex_resource||!g.index_resource||!g.vertex_generation||!g.index_generation||!g.vertex_revision||!g.index_revision||g.primitive_type!=D3DPT_TRIANGLELIST||!stride||g.stride!=stride||!width||!g.vertex_count||g.vertex_count>8192||!g.primitive_count||g.primitive_count>8192||g.vertex_bytes.size()!=uint64_t(g.vertex_count)*stride||g.index_bytes.size()!=uint64_t(g.primitive_count)*3*width||g.vertex_byte_offset!=(uint64_t(g.base_vertex)+g.min_index)*stride)return false;
   std::string xyz,certificate;xyz.reserve(g.vertex_count*12);certificate.reserve(g.vertex_count*8+g.primitive_count*12);positions.resize(g.vertex_count);
-  for(unsigned i=0;i<g.vertex_count;++i){const auto* v=g.vertex_bytes.data()+i*stride;std::memcpy(positions[i].data(),v,12);for(float f:positions[i])if(!std::isfinite(f))return false;float coords[2];std::memcpy(coords,v+uv,8);for(float f:coords)if(!std::isfinite(f))return false;xyz.append(reinterpret_cast<const char*>(v),12);certificate.append(reinterpret_cast<const char*>(v+uv),8);}
+  for(unsigned i=0;i<g.vertex_count;++i){const auto* v=g.vertex_bytes.data()+i*stride;std::memcpy(positions[i].data(),v,12);for(float f:positions[i])if(!std::isfinite(f))return false;float coords[2]={0.f,0.f};if(textured)std::memcpy(coords,v+uv,8);for(float f:coords)if(!std::isfinite(f))return false;xyz.append(reinterpret_cast<const char*>(v),12);certificate.append(reinterpret_cast<const char*>(coords),8);}
   for(unsigned i=0;i<g.primitive_count*3;++i){uint32_t index=0;std::memcpy(&index,g.index_bytes.data()+i*width,width);if(index<g.min_index||index-g.min_index>=g.vertex_count)return false;index-=g.min_index;certificate.append(reinterpret_cast<const char*>(&index),4);}
   position_sha=sha256_bytes(xyz.data(),xyz.size());winding_sha=sha256_bytes(certificate.data(),certificate.size());return true;
  }

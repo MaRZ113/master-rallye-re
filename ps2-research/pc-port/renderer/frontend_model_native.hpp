@@ -1,4 +1,5 @@
 #pragma once
+#include "fleet_frame_policy.hpp"
 #include "frontend_model.hpp"
 #include "complete_tread.hpp"
 #include "frontend_geometry_native.hpp"
@@ -43,7 +44,10 @@ inline bool select_frontend_fleet(Device8& d,ps2port::FrontendModel& p,D3DPRIMIT
  }catch(...){return false;}
 }
 inline xtrailintegration::Result draw(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UINT start,UINT count,uintptr_t pc)noexcept{
- auto* e=d.ps2_port();auto* p=e?e->frontend_model():nullptr;if(!p)return {};const auto repaired=repair(d);if(FAILED(repaired))return {true,repaired};if(!p->requested()||!select_frontend_fleet(d,*p,type,min,vertices,start,count,pc))return {};
+ auto* e=d.ps2_port();auto* p=e?e->frontend_model():nullptr;if(!p)return {};const auto repaired=repair(d);if(FAILED(repaired))return {true,repaired};if(!p->requested())return {};
+ // World draws share the frontend callsite; reject impossible shapes before caller-stack ownership walks.
+ {const auto* active=p->profile();bool shape=ps2port::frontend_shape_candidate(active?active->source:ps2port::kXtrailCompleteSources,active?active->pcDrawCount:24u,vertices,count);if(!shape&&p->fleet_enabled())for(const auto& profile:ps2port::kFrontendFleetProfiles)for(unsigned i=0;!shape&&i<profile.pcDrawCount;++i)shape=profile.unique[i]&&profile.source[i].vertices==vertices&&profile.source[i].triangles==count;if(!shape)return {};}
+ if(!select_frontend_fleet(d,*p,type,min,vertices,start,count,pc))return {};
  const auto* profile=p->profile();const auto* sources=profile?profile->source:ps2port::kXtrailCompleteSources;const unsigned source_count=profile?profile->pcDrawCount:24u,mesh_count=unsigned(p->asset().meshes.size());const uint32_t complete_mask=(uint32_t(1)<<source_count)-1;
  bool candidate=false;for(unsigned i=0;i<source_count;++i){const auto& s=sources[i];candidate=candidate||(s.vertices==vertices&&s.triangles==count);}
  if(!candidate||type!=D3DPT_TRIANGLELIST||!d.trace.scene_active||GetCurrentThreadId()!=d.trace.render_thread_id()||d.trace.shadow.recording||d.trace.effective_shadow.recording)return {};
