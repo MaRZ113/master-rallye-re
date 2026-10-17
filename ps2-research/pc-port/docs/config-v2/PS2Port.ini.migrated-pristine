@@ -10,6 +10,10 @@ Reflection=4
 ReflectionCoverage=1
 ; ReflectionTargetPrecision: 1 = 16-bit reflection target (runtime-accepted), 0 = 32-bit.
 ReflectionTargetPrecision=1
+; ReflectionDebug: 1 = DIAGNOSTIC env pattern instead of the reflection (top-left red, top-right yellow,
+; bottom-left blue, bottom-right cyan). 2 = DIAGNOSTIC view of the real 64x64 env target (4x, top
+; centre of the screen). Only for screenshots, keep 0.
+ReflectionDebug=0
 ; ReflectionSourceGXI: PS2 static environment texture.
 ReflectionSourceGXI=PS2Grass/PS2EnvSource64x64.gxi
 
@@ -27,9 +31,27 @@ BrakeGlowAsset=PS2Grass/PS2BrakeGlow.gxi
 FrontendModel=2
 ; FrontendModelAssetDirectory: folder with the *-COMPLETE-FLEET models.
 FrontendModelAssetDirectory=PS2Vehicles
+; VehicleLighting: 1 = PS2 vehicle lighting contract on PS2 models (normal-based body shading,
+; full environment addition), 0 = previous PC-style full-bright base for A/B.
+VehicleLighting=1
 ; PS2ContentFixes: 1 = fix defects of the original PS2 content (Navara co-driver face,
 ; cracked right window of Tata CAR, Kamaz CAR and Kamaz menu model). 0 = original PS2 content.
 PS2ContentFixes=1
+
+; --- Picture -------------------------------------------------------------------
+; PS2Color: 1 = per-channel tone curve on the finished frame, fitted to PC/PS2 screenshot pairs
+; (darker mid-tones like the PS2 picture). Approximation, applies to the whole frame incl. HUD. 0 = off.
+PS2Color=0
+; PS2Output: 1 = PS2 display filter on the finished frame (640x512 -> 512-wide woven fields,
+; bilinear, as the PS2 copies its draw buffer to the TV field). Soft picture incl. HUD. 0 = off.
+PS2Output=1
+; PS2MotionBlur: 1 = PS2 display-copy trail in races (previous frame blended in), 0 = off.
+; PS2MotionBlurStrength: PS2 weight of the previous frame per 50 Hz PS2 frame (0..0.9);
+; 0.195 = PS2 chase camera (GS dump, FIX 103). Scaled to the PC frame time.
+PS2MotionBlur=1
+PS2MotionBlurStrength=0.195
+; PS2ColorCurve: k for R,G,B in y=(1-k)x+k*x^2 (0 = unchanged, 1 = x^2). Default = fitted values.
+PS2ColorCurve=0.426,0.384,0.364
 
 ; --- Courses -------------------------------------------------------------------
 ; Grass / Shrubs: 0 = Stock, 1 = PS2 terrain detail on all verified courses.
@@ -37,6 +59,11 @@ Grass=1
 Shrubs=1
 ; GrassAssetDirectory: folder with the *.ps2grass files and Turkey3Puddles.ps2obj.
 GrassAssetDirectory=PS2Grass
+; GroundDetail: 1 = PS2 ground detail (dark CommonTextures noise subtracted, as on PS2) on ground draws,
+; instead of the PC 2x noise multiply. 0 = Stock PC ground.
+GroundDetail=1
+; GroundDetailAsset: PS2 noise texture.
+GroundDetailAsset=PS2Grass/PS2GroundNoise.gxi
 ; CourseObjects: 1 = extra PS2 puddle surfaces on Turkey3, 0 = Stock.
 CourseObjects=0
 ; Foliage: 1 = PS2 blend contract for the France1 bush, 0 = Stock.

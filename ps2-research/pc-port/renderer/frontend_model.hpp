@@ -1,4 +1,5 @@
 #pragma once
+#include <cmath>
 #include "ps2_port_extension.hpp"
 #include "ps2_content_fixes.hpp"
 #include "provenance.hpp"
@@ -35,6 +36,11 @@ struct FrontendVertex {float xyz[3],normal[3];DWORD color;float uv[2];};
 static_assert(sizeof(FrontendVertex)==36);
 // X-Trail COMPLETE runtime primary sampling orientation, established by user A/B.
 inline FrontendVertex frontend_primary_sample_vertex(FrontendVertex v)noexcept{v.uv[1]=1.0f-v.uv[1];return v;}
+// PS2 prepared vehicle lighting (refl1/body-reflection.md, EE 322220): carshiny/carflat source colours are
+// replaced by a model-space normal-Y grayscale, gray=clamp(round((.225*ny+.4)*255),2,254), stored at half
+// and modulated by GS as tex*vcol/128, i.e. a D3D diffuse of gray/255 (alpha 254).
+inline DWORD ps2_prepared_vertex_color(float ny)noexcept{if(!std::isfinite(ny))ny=0.f;long g=std::lrintf((ny*.225f+.4f)*255.f);if(g<2)g=2;if(g>254)g=254;const DWORD c=DWORD(g);return 0xFE000000u|(c<<16)|(c<<8)|c;}
+inline bool ps2_prepared_lighting_mode(uint32_t mode)noexcept{return mode==1||mode==3;}
 inline DrawSnapshot frontend_position_snapshot(const DrawSnapshot& g){auto copy=g;if((g.fvf==0x112&&g.stride==32)||(g.fvf==0x42&&g.stride==16)){if(g.vertex_bytes.size()!=uint64_t(g.vertex_count)*g.stride)return {};copy.fvf=0x152;copy.stride=36;copy.base_vertex=0;copy.vertex_byte_offset=uint64_t(g.min_index)*36;copy.vertex_bytes.assign(uint64_t(g.vertex_count)*36,0);for(unsigned i=0;i<g.vertex_count;++i)std::memcpy(copy.vertex_bytes.data()+i*36,g.vertex_bytes.data()+i*g.stride,12);}return copy;}
 struct FrontendMesh {uint32_t node,mode,texture[3],first,count;};
 struct FrontendTexture {UINT width,height;std::vector<DWORD> pixels;};
@@ -46,7 +52,7 @@ struct FrontendRecord {uintptr_t mesh=0;DrawSnapshot geometry;bool valid=false;}
 struct WheelOwnerState {FrontendOwner owner{};std::array<FrontendRecord,4> records{};uint64_t frame=UINT64_MAX,drawn_frame=UINT64_MAX,blocked_frame=UINT64_MAX;uint32_t seen=0;bool certified=false;D3DMATRIX world{};};
 struct FleetWheelOwnerState {FrontendOwner owner{};std::array<FrontendRecord,16> records{};uint64_t frame=UINT64_MAX,drawn_frame=UINT64_MAX,blocked_frame=UINT64_MAX;uint32_t seen=0;bool certified=false;D3DMATRIX world{},view{},projection{};D3DVIEWPORT8 viewport{};uintptr_t target=0;};
 class FrontendModel {
- const FleetProfile* profile_=nullptr;const PS2ContentFix* content_fix_=nullptr;std::wstring ini_;bool fleet_=false;bool car_fleet_=false;uint32_t car_failed_=0;unsigned car_index_=UINT_MAX;std::unique_ptr<FrontendModel> car_child_,car_wheel_;bool car_wheels_=false;const FleetProfile* car_wheel_failed_=nullptr;
+ const FleetProfile* profile_=nullptr;const PS2ContentFix* content_fix_=nullptr;bool ps2_lighting_=false;std::wstring ini_;bool fleet_=false;bool car_fleet_=false;uint32_t car_failed_=0;unsigned car_index_=UINT_MAX;std::unique_ptr<FrontendModel> car_child_,car_wheel_;bool car_wheels_=false;const FleetProfile* car_wheel_failed_=nullptr;
  std::unique_ptr<FrontendModel> off_child_;const FleetProfile* off_failed_=nullptr;
  bool requested_=false,diagnostics_=false,disabled_=false,parts_=false,crew_=false;uint32_t logs_=0;
  float source_radius_sq_=0;FrontendAsset asset_;std::vector<IDirect3DTexture8*> textures_;std::vector<std::vector<FrontendVertex>> expanded_;
@@ -63,7 +69,7 @@ public:
  uint32_t car_source_logs=0;D3DMATRIX car_view{},car_projection{};D3DVIEWPORT8 car_viewport{};uintptr_t car_target=0;uint64_t car_fault_frame=UINT64_MAX,car_blocked_frame=UINT64_MAX;uint32_t parts_validated=0;uint64_t race_generation=0,race_owner_lifetime=0;FrontendOwner owner{};std::array<FrontendRecord,32> records{};uint32_t seen=0;uint64_t observed_frame=UINT64_MAX,drawn_frame=UINT64_MAX;D3DMATRIX drawn_world{};bool certified=false;
  FrontendModel(bool,const std::wstring&,unsigned role=0,const FleetProfile* profile=nullptr)noexcept;~FrontendModel(){transaction.release();reset();}
  bool fleet_enabled()const noexcept{return fleet_&&!disabled_;}
- const FleetProfile* profile()const noexcept{return profile_;}const PS2ContentFix* content_fix()const noexcept{return content_fix_;}
+ const FleetProfile* profile()const noexcept{return profile_;}const PS2ContentFix* content_fix()const noexcept{return content_fix_;}bool ps2_lighting()const noexcept{return ps2_lighting_;}void apply_ps2_lighting(const std::wstring& ini)noexcept;
  bool select_fleet(const FleetProfile&)noexcept;
  bool select_off(const FleetProfile&)noexcept;FrontendModel* off_child()noexcept{return off_child_.get();}
  bool car_fleet_enabled()const noexcept{return car_fleet_&&requested();}

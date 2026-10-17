@@ -69,7 +69,7 @@ struct Buffer final:IDirect3DVertexBuffer8 {
 struct Native final:MockDeviceBase {
     std::array<DWORD,256> rs{};
     std::array<std::array<DWORD,64>,2> tss{};
-    Texture original0,original1,env,copied,mixed;
+    Texture original0,original1,env,copied,mixed,ps2frame;
     Surface back,depth,other;
     Buffer buffer;
     IDirect3DSurface8* target=&back;
@@ -118,7 +118,7 @@ struct Native final:MockDeviceBase {
     HRESULT STDMETHODCALLTYPE CreateTexture(UINT w,UINT h,UINT levels,DWORD usage,D3DFORMAT format,D3DPOOL pool,IDirect3DTexture8** p) override{
         if(format==D3DFMT_A1R5G5B5&&fail_16bit){++creates;*p=nullptr;return D3DERR_NOTAVAILABLE;}
         CHECK(levels==1&&usage==D3DUSAGE_RENDERTARGET&&pool==D3DPOOL_DEFAULT);++creates;
-        if(creates==null_create){*p=nullptr;return S_OK;}Texture* value=successful_creates++%2==0?&copied:&mixed;
+        if(creates==null_create){*p=nullptr;return S_OK;}Texture* value=(w==640&&h==448)?&ps2frame:(successful_creates++%2==0?&copied:&mixed);
         value->refs=1;value->surface.desc.Width=w;value->surface.desc.Height=h;value->surface.desc.Format=format;*p=value;return S_OK;}
     HRESULT STDMETHODCALLTYPE CopyRects(IDirect3DSurface8* src,const RECT* rect,UINT n,IDirect3DSurface8* dst,const POINT* point) override{
         CHECK(src==&back&&dst==&copied.surface);
@@ -128,7 +128,7 @@ struct Native final:MockDeviceBase {
             CHECK(copied.surface.desc.Format==back.desc.Format&&copied.surface.desc.MultiSampleType==D3DMULTISAMPLE_NONE);}
         ++copies;return copy_hr;}
     HRESULT STDMETHODCALLTYPE DrawPrimitiveUP(D3DPRIMITIVETYPE p,UINT n,const void* data,UINT bytes) override{
-        CHECK(p==D3DPT_TRIANGLESTRIP&&n==2&&bytes==28&&target==&mixed.surface&&z==nullptr&&data);++draws;
+        CHECK(p==D3DPT_TRIANGLESTRIP&&n==2&&bytes==28&&z==nullptr&&data);CHECK(draws%3==0?target==&ps2frame.surface&&viewport.Width==640&&viewport.Height==448:target==&mixed.surface&&viewport.Width==64&&viewport.Height==64);++draws;
         if(stream)stream->Release();stream=nullptr;stride=0;return draw_hr;}
 };
 struct Original {
@@ -171,13 +171,13 @@ void gpu_tests(){
         CHECK(c.capture(n,&n.env,2,false)==S_OK);CHECK(c.last_status().target_format==D3DFMT_A1R5G5B5);original.check(n);}
     {Native n;Original original(n);n.fail_16bit=true;MixedReflectionCapture c;c.prefer_16bit(true);
         CHECK(c.capture(n,&n.env,1,false)==S_OK);CHECK(c.last_status().target_format==D3DFMT_A8R8G8B8);
-        CHECK(c.last_status().precision_fallback&&n.creates==3);original.check(n);}
+        CHECK(c.last_status().precision_fallback&&n.creates==4);original.check(n);}
     {Native n;Original original(n);MixedReflectionCapture c;c.set_writer(&n,&Native::callback);
         CHECK(c.capture(n,&n.env,10,false)==S_OK);CHECK(c.ready_texture(10)==&n.mixed);CHECK(c.ready_texture(11)==nullptr);
-        CHECK(n.copies==1&&n.draws==2&&n.creates==2&&c.last_status().private_draws==2);original.check(n);
-        CHECK(c.capture(n,&n.env,10,false)==S_OK);CHECK(n.copies==1&&n.draws==2);
-        CHECK(c.capture(n,&n.env,11,false)==S_OK);CHECK(n.copies==2&&n.draws==4&&n.creates==2);original.check(n);
-        c.release();CHECK(n.copied.refs==0&&n.mixed.refs==0&&n.copied.surface.refs==1&&n.mixed.surface.refs==1);CHECK(c.ready_texture(11)==nullptr);}
+        CHECK(n.copies==1&&n.draws==3&&n.creates==3&&c.last_status().private_draws==3&&n.ps2frame.surface.desc.Width==640&&n.ps2frame.surface.desc.Height==448);original.check(n);
+        CHECK(c.capture(n,&n.env,10,false)==S_OK);CHECK(n.copies==1&&n.draws==3);
+        CHECK(c.capture(n,&n.env,11,false)==S_OK);CHECK(n.copies==2&&n.draws==6&&n.creates==3);original.check(n);
+        c.release();CHECK(n.copied.refs==0&&n.mixed.refs==0&&n.ps2frame.refs==0&&n.copied.surface.refs==1&&n.mixed.surface.refs==1&&n.ps2frame.surface.refs==1);CHECK(c.ready_texture(11)==nullptr);}
     {Native n;Original original(n);MixedReflectionCapture c;n.copy_hr=D3DERR_INVALIDCALL;
         CHECK(FAILED(c.capture(n,&n.env,10,false)));CHECK(!c.ready_texture(10)&&n.draws==0&&n.copies==1&&n.sets==0);
         CHECK(FAILED(c.capture(n,&n.env,10,false)));CHECK(n.copies==1);original.check(n);}
@@ -191,7 +191,7 @@ void gpu_tests(){
     for(auto samples:{D3DMULTISAMPLE_2_SAMPLES,D3DMULTISAMPLE_4_SAMPLES})for(bool precision:{false,true}){
         Native n;n.caps.TextureCaps=0;n.back.desc.MultiSampleType=samples;Original original(n);
         MixedReflectionCapture c;c.prefer_16bit(precision);
-        CHECK(c.capture(n,&n.env,1,false)==S_OK);CHECK(n.copies==1&&n.draws==2);
+        CHECK(c.capture(n,&n.env,1,false)==S_OK);CHECK(n.copies==1&&n.draws==3);
         CHECK(c.last_status().source_multisample==samples);
         CHECK(c.last_status().target_format==(precision?D3DFMT_A1R5G5B5:D3DFMT_A8R8G8B8));original.check(n);
         CHECK(c.capture(n,&n.env,1,false)==S_OK&&n.copies==1);
@@ -211,9 +211,12 @@ void gpu_tests(){
         CHECK(FAILED(c.capture(n,&n.env,1,false)));CHECK(n.copies==0&&n.creates==0);}
     {Native n;MixedReflectionCapture c;n.target=&n.other;n.other.null_identity=n.back.null_identity=true;
         CHECK(FAILED(c.capture(n,&n.env,1,false)));CHECK(n.copies==0&&n.creates==0);}
+    // ReflectionDebug: the target holds the static (pattern) pass only, no framebuffer term.
+    {Native n;Original original(n);MixedReflectionCapture c;c.debug_pattern(true);CHECK(c.capture(n,&n.env,1,false)==S_OK);
+        CHECK(n.copies==1&&n.draws==2&&c.last_status().private_draws==2);original.check(n);}
     {Native n;MixedReflectionCapture c;CHECK(FAILED(c.capture(n,&n.env,1,true)));CHECK(n.gets==0&&n.copies==0&&n.creates==0);}
     {Native n;MixedReflectionCapture c;CHECK(FAILED(c.capture(n,nullptr,1,false)));CHECK(n.gets==0&&n.copies==0&&n.creates==0);}
-    for(int creation=1;creation<=2;++creation){Native n;MixedReflectionCapture c;n.null_create=creation;
+    for(int creation=1;creation<=3;++creation){Native n;MixedReflectionCapture c;n.null_create=creation;
         CHECK(FAILED(c.capture(n,&n.env,1,false)));CHECK(!c.ready_texture(1)&&n.copies==0&&n.draws==0);}
     {Native n;MixedReflectionCapture c;n.copied.null_surface=true;CHECK(FAILED(c.capture(n,&n.env,1,false)));
         CHECK(!c.ready_texture(1)&&n.copies==0&&n.draws==0&&n.copied.refs==0);}

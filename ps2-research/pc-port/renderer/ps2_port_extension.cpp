@@ -1,5 +1,6 @@
 #include "ps2_port_extension.hpp"
 #include "ps2_config.hpp"
+#include "race_epoch.hpp"
 #include "reflection_pilot.hpp"
 #include "course_objects.hpp"
 #include "grass_pilot.hpp"
@@ -12,6 +13,7 @@
 
 #include <algorithm>
 #include <array>
+#include <cstdio>
 #include <cstring>
 #include <iomanip>
 #include <iterator>
@@ -211,6 +213,10 @@ PS2PortExtension::PS2PortExtension(bool exact_build, const std::string& exe_sha,
         course_objects_ = std::make_unique<CourseObjectsPilot>(build_valid_, ini);
         grass_ = std::make_unique<GrassPilot>(build_valid_, ini);
         shrubs_ = std::make_unique<GrassPilot>(build_valid_, ini,GroundDetailKind::Shrubs);
+        color_.configure(read_ps2_color_config(ini.c_str()));
+        output_.configure(::gfx2::ps2port::config::read_int(L"PS2Output", 0, ini.c_str()) == 1);
+        if (::gfx2::ps2port::config::read_int(L"PS2MotionBlur", 0, ini.c_str()) == 1) { wchar_t blur[32]{}; ::gfx2::ps2port::config::read_string(L"PS2MotionBlurStrength", L"0.195", blur, 32, ini.c_str()); blur_.configure(parse_motion_blur_strength(blur)); }
+        ground_ = std::make_unique<GroundDetail>(build_valid_, ini);
     } catch (...) { mode_ = PilotMode::Stock; config_reason_ = "configuration_error_stock"; }
 }
 
@@ -229,10 +235,85 @@ bool PS2PortExtension::native_states_pending() const noexcept {
             reflection_->mixed_capture().pending())) ||
         (course_objects_ && (course_objects_->blocked() || course_objects_->transaction.has_pending())) ||
         (grass_ && (grass_->blocked() || grass_->transaction.has_pending())) ||
-        (shrubs_ && (shrubs_->blocked() || shrubs_->transaction.has_pending()));
+        (shrubs_ && (shrubs_->blocked() || shrubs_->transaction.has_pending())) ||
+        color_.pending() || output_.pending() || blur_.pending() || (ground_ && ground_->transaction.pending());
 }
 
 PS2PortExtension::~PS2PortExtension() { pixel_probe_release(); }
+
+std::string PS2PortExtension::color_present(IDirect3DDevice8& device, bool scene_active,
+                                            bool stateblock_recording) noexcept {
+    if (!build_valid_ || disabled_ || !present_pass_requested()) return {};
+    std::string notes;
+    try {
+        // Tone curve first (colour of the PS2 scene), then the PS2 display filter over the result.
+        if (color_.enabled()) {
+            const HRESULT hr = color_.apply(device, scene_active, stateblock_recording);
+            const auto& status = color_.status();
+            if (status.reason != color_logged_reason_) {
+                color_logged_reason_ = status.reason;
+                char text[256]{};
+                const auto& k = color_.config().k;
+                std::snprintf(text, sizeof(text),
+                    "{\"type\":\"ps2_color\",\"reason\":\"%s\",\"hr\":%lu,\"restore_hr\":%lu,\"k\":[%.3f,%.3f,%.3f]}",
+                    status.reason, static_cast<unsigned long>(hr), static_cast<unsigned long>(status.restore_hr),
+                    k[0], k[1], k[2]);
+                notes += text;
+            }
+        }
+        if (output_.enabled() && !color_.pending()) {
+            const HRESULT hr = output_.apply(device, scene_active, stateblock_recording);
+            const auto& status = output_.status();
+            if (status.reason != output_logged_reason_) {
+                output_logged_reason_ = status.reason;
+                char text[256]{};
+                std::snprintf(text, sizeof(text),
+                    "{\"type\":\"ps2_output\",\"reason\":\"%s\",\"hr\":%lu,\"restore_hr\":%lu,\"draws\":%u}",
+                    status.reason, static_cast<unsigned long>(hr), static_cast<unsigned long>(status.restore_hr), status.draws);
+                if (!notes.empty()) notes += "\n";
+                notes += text;
+            }
+        }
+        // PS2 display-copy blend: races only (camera blur); elsewhere the history is dropped.
+        if (blur_.enabled() && !color_.pending() && !output_.pending()) {
+            const auto hud = live_race_hud_context();
+            HRESULT hr = S_FALSE;
+            const char* reason = nullptr;
+            LARGE_INTEGER now{}, frequency{};
+            QueryPerformanceCounter(&now); QueryPerformanceFrequency(&frequency);
+            const float dt = blur_last_present_ && frequency.QuadPart
+                ? float(double(now.QuadPart - blur_last_present_) / double(frequency.QuadPart)) : 1.f;
+            blur_last_present_ = now.QuadPart;
+            if (!hud.valid || hud.attract || hud.paused) { blur_.interrupt(); reason = "outside_race"; }
+            else { hr = blur_.apply(device, scene_active, stateblock_recording, dt); reason = blur_.status().reason; }
+            if (reason != blur_logged_reason_) {
+                blur_logged_reason_ = reason;
+                char text[256]{};
+                std::snprintf(text, sizeof(text),
+                    "{\"type\":\"ps2_motion_blur\",\"reason\":\"%s\",\"hr\":%lu,\"blur\":%.3f,\"frame_weight\":%.3f,\"dt_ms\":%.2f}",
+                    reason, static_cast<unsigned long>(hr), blur_.blur(), blur_.status().weight, dt * 1000.f);
+                if (!notes.empty()) notes += "\n";
+                notes += text;
+            }
+        }
+        // ReflectionDebug=2: the PC 64x64 env target, 4x, point sampled, top centre (compare with the PS2 target).
+        if (reflection_view_requested() && !color_.pending() && !output_.pending() && !blur_.pending()) {
+            IDirect3DSurface8* back = nullptr;
+            if (SUCCEEDED(device.GetBackBuffer(0, D3DBACKBUFFER_TYPE_MONO, &back)) && back) {
+                D3DSURFACE_DESC desc{};
+                if (SUCCEEDED(back->GetDesc(&desc)))
+                    blur_.overlay(device, reflection_->mixed_capture().last_texture(), desc.Width, desc.Height,
+                        float(desc.Width / 2 - 128), 16.f, 256.f, scene_active, stateblock_recording);
+                back->Release();
+            }
+        }
+    } catch (...) {}
+    return notes;
+}
+
+bool PS2PortExtension::reflection_view_requested() const noexcept {
+    return reflection_ && reflection_->debug_view();
+}
 
 const char* PS2PortExtension::mode_name() const noexcept {
     switch (mode_) {

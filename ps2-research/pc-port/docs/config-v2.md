@@ -5,7 +5,7 @@ User decision 2026-10-17: drop `PS2` from race keys and the `Mode` suffix everyw
 Final key names: Reflection, ReflectionCoverage, ReflectionTargetPrecision, ReflectionSourceGXI, RaceFleet,
 RaceModelAssetDirectory, BrakeGlow, BrakeGlowAsset, FrontendModel, FrontendModelAsset,
 FrontendModelAssetDirectory, PS2ContentFixes, Grass, Shrubs, GrassAssetDirectory, CourseObjects,
-CourseObjectsAsset, Foliage, Diagnostics. `FrontendGeometryDiagnostics` (forces buffer mirroring) is not part
+CourseObjectsAsset, Foliage, Diagnostics. PS2-COLOR1 adds `PS2Color` (0/1) and `PS2ColorCurve` (k_R,k_G,k_B), see docs/ps2-color1. COURSE-LIGHT1 adds `GroundDetail` (0/1) and `GroundDetailAsset`, see docs/ground-detail1. PS2-OUTPUT1 adds `PS2Output` (0/1), see docs/ps2-output1. DIAG-REFLECTION2 adds `PS2MotionBlur` (0/1), `PS2MotionBlurStrength` (default 0.195) and `ReflectionDebug` (0, 1 = quadrant pattern, 2 = env target view), see docs/diag-reflection2. `FrontendGeometryDiagnostics` (forces buffer mirroring) is not part
 of `Diagnostics`; it remains a legacy-only research probe. The table below is the original proposal.
 
 Inventory: every `[PS2Port]` key the renderer reads today, grouped by the decision.

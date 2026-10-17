@@ -9,6 +9,10 @@
 #include <string_view>
 #include <vector>
 #include "sdk.hpp"
+#include "ps2_color.hpp"
+#include "ground_detail.hpp"
+#include "ps2_output.hpp"
+#include "ps2_motion_blur.hpp"
 
 namespace gfx2::ps2port {
 class ReflectionPilot;
@@ -300,6 +304,16 @@ public:
     GrassPilot* grass() noexcept { return grass_.get(); }
     GrassPilot* shrubs() noexcept { return shrubs_.get(); }
     std::array<GrassPilot*,2> ground_details() noexcept {return {grass_.get(),shrubs_.get()};}
+    PS2ColorGrade& color_grade() noexcept { return color_; }
+    PS2OutputFilter& output_filter() noexcept { return output_; }
+    // Present-time passes (PS2Color, PS2Output) share one hook.
+    PS2MotionBlur& motion_blur() noexcept { return blur_; }
+    bool present_pass_requested() const noexcept { return color_.enabled() || output_.enabled() || blur_.enabled() || reflection_view_requested(); }
+    bool reflection_view_requested() const noexcept;
+    void present_before_reset() noexcept { color_.before_reset(); output_.before_reset(); blur_.before_reset(); }
+    GroundDetail* ground_detail() noexcept { return ground_.get(); }
+    // Present-time PS2Color pass; returns a session record when the outcome changes, else empty.
+    std::string color_present(IDirect3DDevice8& device, bool scene_active, bool stateblock_recording) noexcept;
     Classification classify(const DrawSnapshot& snapshot) const noexcept;
     void device_reset(bool successful) noexcept;
     void disable(const char* reason) noexcept;
@@ -354,6 +368,14 @@ private:
     std::unique_ptr<CourseObjectsPilot> course_objects_;
     std::unique_ptr<GrassPilot> grass_;
     std::unique_ptr<GrassPilot> shrubs_;
+    PS2ColorGrade color_;
+    PS2OutputFilter output_;
+    PS2MotionBlur blur_;
+    const char* blur_logged_reason_ = nullptr;
+    long long blur_last_present_ = 0;
+    const char* output_logged_reason_ = nullptr;
+    std::unique_ptr<GroundDetail> ground_;
+    const char* color_logged_reason_ = nullptr;
     void pixel_probe_release() noexcept;
     PilotMode mode_ = PilotMode::Stock;
     bool build_valid_ = false;

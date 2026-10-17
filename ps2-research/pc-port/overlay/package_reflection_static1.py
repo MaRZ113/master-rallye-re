@@ -1,0 +1,72 @@
+"""REFLECTION-STATIC1 (static env rows reversed to PS2 VRAM order, on top of DIAG-REFLECTION2): source handoff and runtime kit; never deploys."""
+from pathlib import Path
+import importlib.util,json,subprocess,sys,hashlib,tempfile
+PORT=Path(__file__).resolve().parents[1];ROOT=PORT.parents[1]
+def main():
+ spec=importlib.util.spec_from_file_location('handoff',PORT/'overlay/package_reflection_handoff.py');h=importlib.util.module_from_spec(spec);spec.loader.exec_module(h)
+ report=json.loads((PORT/'dist/current/build-report.json').read_text());lock=json.loads((PORT/'overlay/baseline-lock.json').read_text());sources=h.verify_build_inputs(report,lock)
+ out=PORT/'dist/reflection-static1';out.mkdir(exist_ok=True);members={}
+ for prefix in ['renderer','tests','tools','overlay','docs/vehicle-crew-port1','docs/vehicle-model-port2/assets','docs/vehicle-damage-fix1','docs/vehicle-continuity2','docs/vehicle-fleet-port1','docs/vehicle-fleet-port1-fix1','docs/vehicle-fleet-port1-fix2','docs/vehicle-fleet-kia','docs/kia-brake-glow-continuity1','docs/vehicle-fleet-port3','docs/ps2-color1','docs/ground-detail1','docs/ps2-output1','docs/diag-reflection1','docs/diag-reflection2','docs/reflection-static1']:
+  directory=PORT/prefix
+  for name in subprocess.check_output(['git','ls-files','--cached','--others','--exclude-standard','--',directory.relative_to(ROOT).as_posix()],cwd=ROOT).decode().splitlines():
+   p=ROOT/name
+   if p.is_file() and p.suffix in {'.py','.hpp','.cpp','.md','.json','.patch','.ps1','.x32dbg','.txt'}:members[name]=p.read_bytes()
+ for name,p in sources.items():members[h.relative_name(p)]=p.read_bytes()
+ for name in subprocess.check_output(['git','ls-files','--','ps2-research/tools'],cwd=ROOT).decode().splitlines():
+  p=ROOT/name
+  if p.suffix in {'.py','.md','.json'}:members[name]=p.read_bytes()
+ members['d3d8.dll']=h.verified_dll(report,'ps2-enabled');members['build-report.json']=(PORT/'dist/current/build-report.json').read_bytes();members['RUNTIME-AB.md']=(PORT/'docs/reflection-static1/runtime-ab.md').read_bytes();members['PS2Port.ini.example']=(PORT/'PS2Port.ini.example').read_bytes()
+ validation=[]
+ with tempfile.TemporaryDirectory(prefix='mrr-fleet-source-') as tmp:
+  root=Path(tmp)
+  for name,data in members.items():p=root/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(data)
+  for folder,pattern,count in [('vehicle-fleet-port1/admission','test_source_contracts.py',6),('vehicle-fleet-port1/wheels-damage','test_contracts.py',5),('vehicle-fleet-port1/lamps','test_lamp_inventory.py',4),('vehicle-continuity2/fleet-car','test_contracts.py',6),('vehicle-continuity2/frontend','test_frontend_continuity2.py',5),('vehicle-continuity2/tread','test_tread.py',2),('vehicle-continuity2/damage-parts','test_front_lamp_evidence.py',3),('vehicle-fleet-kia/wheels','test_*.py',5),('vehicle-fleet-kia/lamps','test_*.py',4),('vehicle-fleet-kia/damage','test_*.py',10),('vehicle-fleet-kia/fleet-lamps','test_*.py',5),('kia-brake-glow-continuity1','test_*.py',7),('vehicle-fleet-port3/car','test_*.py',11),('vehicle-fleet-port3/wheels','test_*.py',5),('vehicle-fleet-port3/lamps','test_*.py',5),('vehicle-fleet-port3','test_coverage.py',5),('vehicle-fleet-port3/lamp-followup','test_*.py',6)]:
+   r=subprocess.run([sys.executable,'-m','unittest','discover','-s','ps2-research/pc-port/docs/'+folder,'-p',pattern,'-v'],cwd=root,text=True,capture_output=True);output=r.stdout+r.stderr
+   if r.returncode or f'Ran {count} tests' not in output:raise RuntimeError(output)
+   validation.append({'suite':folder,'tests':count,'output':output})
+ members['handoff-validation.json']=json.dumps({'extracted_focused_tests':validation,'result':'PASS_WITH_PRIVATE_FIXTURE_TESTS_SKIPPED','private_fixture_skips_expected':5,'native_private_fixtures_tested_in_canonical_ctest':True},indent=2).encode()
+ profiles=json.loads((PORT/'docs/vehicle-continuity2/fleet-car/race-profiles.json').read_text())['profiles'];assets={};manifest=[]
+ for p in profiles:
+  data=(PORT/'.assets/vehicles'/p['filename']).read_bytes()
+  if h.sha256(data)!=p['sha256'] or len(data)!=p['bytes']:raise ValueError('CAR asset changed')
+  assets[p['filename']]=data;manifest.append({'family':p['family'],'file':p['filename'],'bytes':len(data),'sha256':h.sha256(data),'runtime_render_confirmed_this_phase':False})
+ for name,sha in [('XTRAIL-CAR.ps2model','a15ee827bc93e7a7fe242d8ba2440afe1991cd06e8aeee15ce78b836e372ccac'),('XTRAIL-WHEEL-DRAW.ps2model','1c548d537acd75480515ff6d43140215638d2cd87c8b254d509dd5e6d004a31f'),('KIASPORTAGE-WHEEL-FLEET.ps2model','f213128983480386efc336816b53d7df7130f3fcfc40f5595a9bfd5e464816f1')]:
+  data=(PORT/'.assets/vehicles'/name).read_bytes()
+  if h.sha256(data)!=sha:raise ValueError('Accepted X-Trail asset changed')
+  assets[name]=data
+ wheel_name='PS2KiaBrakeOn.gxi';wheel_data=(PORT/'.assets/vehicles/KIA-BREAKLIGHTSON-TGA.GXI').read_bytes();wheel_sha='fd4c121f962ef4e9ee7491666c71b65db008d6ca276d9188881c0b35c7846131'
+ if h.sha256(wheel_data)!=wheel_sha:raise ValueError('Kia wheel changed')
+ assets[wheel_name]=wheel_data
+ for row in json.loads((PORT/'docs/vehicle-fleet-port3/wheels/manifest.json').read_text())['fleet']:
+  if row.get('status')!='SOURCE_READY_NATIVE_OWNER_QUALIFICATION_REQUIRED' or row['family'] in ('Xtrail','KiaSportage'):continue
+  blob=(PORT/'.assets/vehicles'/row['filename']).read_bytes()
+  if h.sha256(blob)!=row['sha256'] or len(blob)!=row['bytes']:raise ValueError('Fleet wheel asset drift')
+  assets[row['filename']]=blob
+ assets={r['asset']:(PORT/'.assets/vehicles'/r['asset']).read_bytes() for r in json.loads((PORT/'docs/vehicle-fleet-port3/lamp-followup/contracts.json').read_text())['families']}
+ for r in json.loads((PORT/'docs/vehicle-fleet-port3/lamp-followup/contracts.json').read_text())['families']:
+  if h.sha256(assets[r['asset']])!=r['sha256']:raise ValueError('Private OFF asset hash changed')
+ assets.update({n:(PORT/'.assets/vehicles'/n).read_bytes() for n in ('NAVARA-CAR-FLEET-CREWFACE1.ps2model','TATA-CAR-FLEET-WINDOW1.ps2model','KAMAZ-COMPLETE-FLEET-WINDOW1.ps2model','KAMAZ-CAR-FLEET-WINDOW1.ps2model')})
+ members['fix1-report.md']=(PORT/'docs/vehicle-fleet-port3/fix1/report.md').read_bytes();members['fix2-report.md']=(PORT/'docs/vehicle-fleet-port3/fix2/report.md').read_bytes();members['fix3-report.md']=(PORT/'docs/vehicle-fleet-port3/fix3/report.md').read_bytes();members['fix4-report.md']=(PORT/'docs/vehicle-fleet-port3/fix4/report.md').read_bytes();members['fix5-report.md']=(PORT/'docs/vehicle-fleet-port3/fix5/report.md').read_bytes();members['fix6-report.md']=(PORT/'docs/vehicle-fleet-port3/fix6/report.md').read_bytes();members['fix7-report.md']=(PORT/'docs/vehicle-fleet-port3/fix7/report.md').read_bytes();members['light2-report.md']=(PORT/'docs/vehicle-light2/report.md').read_bytes();members['diag-reflection1-README.md']=(PORT/'docs/diag-reflection1/README.md').read_bytes();members['diag-reflection2-README.md']=(PORT/'docs/diag-reflection2/README.md').read_bytes();members['reflection-static1-README.md']=(PORT/'docs/reflection-static1/README.md').read_bytes();members['ps2-env-quadrant-reference.png']=(PORT/'docs/diag-reflection1/ps2-env-quadrant-reference.png').read_bytes();members['ps2-output1-README.md']=(PORT/'docs/ps2-output1/README.md').read_bytes();members['ground-detail1-README.md']=(PORT/'docs/ground-detail1/README.md').read_bytes();members['ps2-color1-README.md']=(PORT/'docs/ps2-color1/README.md').read_bytes();members['light2.1-runtime-ab.md']=(PORT/'docs/vehicle-light2.1/runtime-ab.md').read_bytes();members['light1-report.md']=(PORT/'docs/vehicle-light1/report.md').read_bytes();members['fix8-report.md']=(PORT/'docs/vehicle-fleet-port3/fix8/report.md').read_bytes()
+ members['asset-manifest.json']=json.dumps({'schema':1,'runtime_assets':[{'file':name,'target':name if name.endswith('.gxi') else 'PS2Vehicles/'+name,'sha256':h.sha256(data),'bytes':len(data)} for name,data in assets.items()],'car_profiles':manifest,'preserved_controls':['Xtrail','KiaSportage'],'ufo_wheels':False,'assets_separate_from_source_handoff':True},indent=2).encode()
+ members['coverage.json']=(PORT/'docs/vehicle-fleet-port3/fix1/coverage.json').read_bytes()
+ members['provenance.json']=json.dumps({'phase':'REFLECTION-STATIC1','static_env':'convert_static_env reverses rows: PS2 VRAM 0x3840 = PS2EnvSource64x64.gxi rows reversed (SW dump 153853), PC chrome look cause','diag_reflection2_runtime':'user: blur fine; ReflectionDebug=2 capture showed sky highlight in the ground half','diagnostic':'ReflectionDebug=2 shows the PC 64x64 env target (4x, top centre); ReflectionDebug=1 runtime: PC env orientation equals PS2 (user screenshots); PS2MotionBlur=0/1 + PS2MotionBlurStrength (default 0.195), frame weight b^(dt*50)','diag_reflection1_runtime':'user: quadrants match PS2 reference; blur too strong because duplicate INI key PS2MotionBlur=1 was clamped to 0.9','ps2_output':'opt-in PS2Output=1: copy -> (W/2) -> 640x512 -> 512x512 woven fields (+0.5 source row) -> backbuffer, bilinear, before Present; evidence ps2-research/output1','ground_detail':'opt-in GroundDetail=1: PC base_noise MODULATE2X replaced by PS2 CommonTextures/NOISE subtract pass (REVSUBTRACT), exact PC noise-tga identity, course draw loop only; evidence ps2-research/course-light1 (GS dumps)','ps2_color':'opt-in PS2Color=1: per-channel y=(1-k)x+k*x^2 before Present, k fitted on 6 PC/PS2 pairs (0.426,0.384,0.364); patch 0001 Present hook + reset release, lock updated','light2_1_fix':'v2 INI default asset paths: Turkey3 grass/shrubs base and X-Trail race/wheel/COMPLETE files resolve inside their asset directories','light1_runtime':'user: darker, closer, not yet 1:1','env_target':'PC frame downsampled to PS2 640x448 before the 64x64 mix','lighting':'VehicleLighting=1: PS2 322220 prepared grayscale on carshiny/carflat + D3DTOP_ADD environment layer','fix8_1_runtime':'user-confirmed: all four PS2ContentFixes loaded and visible','fix8_runtime':'PID22340: UFO OFF confirmed; content fixes content_fix_unavailable because the corrected files were not installed (kit assets/ lacked them)','config':'PS2Port.ini v2 (docs/config-v2.md)','content_fixes':'PS2ContentFixes=1: NAVARA-CREWFACE1, TATA-WINDOW1, KAMAZ-COMPLETE-WINDOW1, KAMAZ-CAR-WINDOW1','supersedes':'dist/vehicle-fleet-port3-fix6 (PID30316: Tata/Mattserati damage confirmed; UFO OFF rejected on retail dome block order)','new_runtime_asset_fix6':'PS2Vehicles/port3-UFO-OFF.ps2model','damage_policy':'DAMAGE2 option A: surface-barycentric transfer <=0.05 m, PS2-only components wholly transferred or rigid, mixed beyond-limit components fail closed (Mattserati, Tata)','new_runtime_asset':'PS2Vehicles/port3-JUMP-OFF.ps2model','base_runtime_kit':'dist/vehicle-fleet-port3-fix1 (assets unchanged)','private_identity_fixtures':'ps2-research/data/fix2/<family>-off.bin for NewRav/Bruno/Mattserati/Jump (not distributed)','runtime_kit_requires_existing_port3_assets':True,'ufo_damage_user_confirmed':True,'new_fix_runtime_status':'PENDING','snapshot':'verified current working source; no unrelated changes staged or committed','head':report['current_head'],'baseline_commit':report['baseline_head'],'renderer_tree':report['renderer_tree'],'new_runtime_render_acceptance':'KIA_CAR_DAMAGE_WHEELS_USER_CONFIRMED; BRAKE_GLOW_DAMAGE_COLOR_RESET_MSAA4_USER_AND_SIDECAR_CONFIRMED_PID9508_F1332_F5191','builds':report['builds'],'new_build_trees':False,'new_integration_patches':False,'integration_patch_0001_changed':True,'original_assets_in_source_zip':False},indent=2).encode()
+ members['SHA256SUMS.txt']=''.join(h.sha256(v)+'  '+k+'\n' for k,v in sorted(members.items())).encode();archive=h.archive_bytes(members);h.verify_archive(archive,members)
+ if archive!=h.archive_bytes(members):raise ValueError('Nondeterministic handoff')
+ for name,data in [('handoff.zip',archive),('d3d8.dll',members['d3d8.dll']),('build-report.json',members['build-report.json']),('runtime-ab.md',members['RUNTIME-AB.md']),('asset-manifest.json',members['asset-manifest.json']),('coverage.json',members['coverage.json'])]:
+  p=out/name
+  if p.exists() and p.read_bytes()!=data and (out/'SHA256SUMS.txt').exists():raise ValueError('Refusing to replace different finalized release artifact: '+name)
+  p.write_bytes(data)
+ asset_dir=out/'assets';asset_dir.mkdir(exist_ok=True)
+ for name,data in assets.items():
+  p=asset_dir/name
+  if p.exists() and p.read_bytes()!=data:raise ValueError('Existing different asset')
+  p.write_bytes(data)
+ ground_noise=(PORT/'.assets/reflection/PS2GroundNoise.gxi').read_bytes()
+ if h.sha256(ground_noise)!='a9311356c962bb241fcdd5fd806b8733e513e62c637537109bf669ce9a482e92':raise ValueError('Ground noise asset changed')
+ runtime={'d3d8.dll':members['d3d8.dll'],'RUNTIME-AB.md':members['RUNTIME-AB.md'],'PS2Vehicles/port3-JUMP-OFF.ps2model':assets['port3-JUMP-OFF.ps2model'],'PS2Vehicles/port3-UFO-OFF.ps2model':assets['port3-UFO-OFF.ps2model'],'PS2Port.ini.example':(PORT/'PS2Port.ini.example').read_bytes(),'PS2Grass/PS2GroundNoise.gxi':ground_noise,'ps2-env-quadrant-reference.png':(PORT/'docs/diag-reflection1/ps2-env-quadrant-reference.png').read_bytes(),'PS2Port.ini.migrated-pristine':(PORT/'docs/config-v2/PS2Port.ini.migrated-pristine').read_bytes(),**{'PS2Vehicles/'+n:(PORT/'.assets/vehicles'/n).read_bytes() for n in ('NAVARA-CAR-FLEET-CREWFACE1.ps2model','TATA-CAR-FLEET-WINDOW1.ps2model','KAMAZ-COMPLETE-FLEET-WINDOW1.ps2model','KAMAZ-CAR-FLEET-WINDOW1.ps2model')}}
+ runtime['SHA256SUMS.txt']=''.join(h.sha256(v)+'  '+k+'\n' for k,v in sorted(runtime.items())).encode()
+ runtime_zip=h.archive_bytes(runtime);h.verify_archive(runtime_zip,runtime);(out/'runtime-kit.zip').write_bytes(runtime_zip)
+ (out/'SHA256SUMS.txt').write_text(''.join(h.sha256(p.read_bytes())+'  '+p.relative_to(out).as_posix()+'\n' for p in sorted(out.rglob('*')) if p.is_file() and p.name!='SHA256SUMS.txt'))
+ print(json.dumps({'dll_sha256':h.sha256(members['d3d8.dll']),'handoff_sha256':h.sha256(archive),'runtime_kit_sha256':h.sha256(runtime_zip),'local_asset_count':len(assets),'extracted_focused_tests':sum(v['tests'] for v in validation),'members':len(members),'output':str(out)},indent=2))
+if __name__=='__main__':main()
+

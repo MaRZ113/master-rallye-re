@@ -187,7 +187,10 @@ GrassPilot::GrassPilot(bool supported,const std::wstring& ini,GroundDetailKind k
     if(!end||end==size||*end||!std::isfinite(sprite_half_size_)||sprite_half_size_<.05f||sprite_half_size_>2.f){reason_="invalid_grass_preview_size_stock";return;}
     requested_=true;diagnostics_=::gfx2::ps2port::config::read_int(shrubs?L"ShrubsDiagnostics":L"GrassDiagnostics",0,ini.c_str())==1;
     try{
-        wchar_t path[32768]{};const auto count=::gfx2::ps2port::config::read_string(shrubs?L"ShrubsAsset":L"GrassAsset",shrubs?L"Turkey3Shrubs.ps2grass":L"Turkey3Grass.ps2grass",path,32768,ini.c_str());
+        // v2 INIs have no per-file key: the Turkey3 base asset lives in GrassAssetDirectory like the other courses.
+        wchar_t asset_dir[32768]{};::gfx2::ps2port::config::read_string(L"GrassAssetDirectory",L".",asset_dir,32768,ini.c_str());
+        const std::wstring base_default=(std::filesystem::path(asset_dir)/(shrubs?L"Turkey3Shrubs.ps2grass":L"Turkey3Grass.ps2grass")).wstring();
+        wchar_t path[32768]{};const auto count=::gfx2::ps2port::config::read_string(shrubs?L"ShrubsAsset":L"GrassAsset",base_default.c_str(),path,32768,ini.c_str());
         if(!count||count>=32767){reason_="invalid_grass_asset_path";return;}
         std::filesystem::path input(path);if(input.is_relative())input=std::filesystem::path(ini).parent_path()/input;
         std::ifstream file(input,std::ios::binary|std::ios::ate);if(!file){reason_="missing_grass_source_asset";return;}

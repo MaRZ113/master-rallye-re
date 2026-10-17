@@ -52,7 +52,8 @@ class ReflectionContractTests(unittest.TestCase):
         self.assertIn('capture.ready_texture(device_.trace.frame_number())', integration)
         capture = (PORT / 'renderer/reflection_capture.cpp').read_text()
         self.assertEqual(capture.count('native.CopyRects('), 1)
-        self.assertEqual(capture.count('native.DrawPrimitiveUP('), 2)
+        self.assertEqual(capture.count('native.DrawPrimitiveUP('), 3)  # PS2 640x448 downsample, .625 static, .375 frame
+        self.assertIn('kPS2FrameWidth,kPS2FrameHeight', capture)
         self.assertNotIn('DrawIndexedPrimitive(', capture)
         self.assertNotIn('.after(71', capture)
         self.assertNotIn('.after(72', capture)

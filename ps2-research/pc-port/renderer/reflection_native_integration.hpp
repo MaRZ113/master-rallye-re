@@ -127,6 +127,26 @@ inline bool pending(Device8& device) noexcept {
 }
 inline HRESULT repair(Device8& device) noexcept {
     auto* extension=device.ps2_port();
+    if (extension && extension->color_grade().pending()) {
+        const HRESULT color=extension->color_grade().restore(*device.native());
+        if (FAILED(color)) return color;
+    }
+    if (extension && extension->motion_blur().pending()) {
+        const HRESULT blur=extension->motion_blur().restore(*device.native());
+        if (FAILED(blur)) return blur;
+    }
+    if (extension && extension->output_filter().pending()) {
+        const HRESULT output=extension->output_filter().restore(*device.native());
+        if (FAILED(output)) return output;
+    }
+    if (extension && extension->ground_detail() && extension->ground_detail()->transaction.pending()) {
+        auto& ground=extension->ground_detail()->transaction;
+        ground.set_writer(&device,[](void* owner,uint32_t slot,const Args& args,HRESULT hr) noexcept {
+            static_cast<Device8*>(owner)->trace.after(slot,args,static_cast<uint32_t>(hr),0,&args,256,false,true);
+        });
+        const HRESULT restored=ground.restore(*device.native());
+        if (FAILED(restored)) return restored;
+    }
     if (!extension || !extension->reflection()) return S_OK;
     auto& pilot=*extension->reflection();
     if (pilot.blocked()) return D3DERR_DEVICELOST; // No native draw in an unrecovered device.

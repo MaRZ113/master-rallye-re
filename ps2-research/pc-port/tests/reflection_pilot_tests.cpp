@@ -348,7 +348,7 @@ void config_and_conversion() {
     std::vector<uint8_t> rgba(64*64*4);
     rgba[0]=160;rgba[1]=80;rgba[2]=40;rgba[3]=0;
     std::vector<DWORD> bgra;CHECK(convert_static_env(rgba.data(),rgba.size(),bgra));
-    CHECK(bgra[0]==0xff643219u); // Original alpha is intentionally ignored in this RGB static term.
+    CHECK(bgra[63*64]==0xff643219u&&bgra[0]==0xff000000u); // Rows reversed as in PS2 VRAM; alpha ignored (RGB static term).
     CHECK(!convert_static_env(rgba.data(),4,bgra));
     std::vector<uint8_t> gxi(16392);uint32_t magic=0x13039;uint16_t wh=64;
     std::memcpy(gxi.data(),&magic,4);std::memcpy(gxi.data()+4,&wh,2);std::memcpy(gxi.data()+6,&wh,2);

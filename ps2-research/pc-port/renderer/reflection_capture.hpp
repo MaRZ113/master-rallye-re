@@ -7,6 +7,11 @@
 #include <cstdint>
 
 namespace gfx2::ps2port {
+// Mixed PS2 environment target: .625*static (FIX 80/128) + .375*flipped framebuffer (FIX 48/128).
+// The static GXI is already uploaded at 80/128 (ReflectionPilot texture upload), so this pass is unscaled.
+inline constexpr DWORD kReflectionStaticPassColor=0xffffffffu;
+inline constexpr DWORD kReflectionFramebufferPassColor=0xff606060u;
+inline constexpr UINT kPS2FrameWidth=640,kPS2FrameHeight=448;
 
 struct ReflectionCaptureLayout {
     UINT source_width=0, source_height=0, texture_width=0, texture_height=0;
@@ -16,7 +21,7 @@ bool reflection_capture_layout(UINT width, UINT height, const D3DCAPS8& caps,
                                ReflectionCaptureLayout& out) noexcept;
 struct ReflectionCaptureVertex { float x,y,z,rhw; DWORD color; float u,v; };
 std::array<ReflectionCaptureVertex,4> reflection_capture_quad(
-    float u_max, float v_max, bool flip_y, DWORD color) noexcept;
+    float u_max, float v_max, bool flip_y, DWORD color,float width=64.f,float height=64.f) noexcept;
 
 enum class ReflectionCaptureStateKind : uint8_t { Render, Stage, VertexShader, PixelShader, Texture };
 struct ReflectionCaptureStateOp {
@@ -92,7 +97,7 @@ public:
     void set_writer(void* context,ReflectionCaptureWriter writer) noexcept {context_=context;writer_=writer;}
     bool pending() const noexcept {return pending_||target_pending_||viewport_pending_||stream_pending_;}
     HRESULT capture(IDirect3DDevice8&) noexcept;
-    HRESULT apply(IDirect3DDevice8&,IDirect3DSurface8* private_target,IDirect3DTexture8* env) noexcept;
+    HRESULT apply(IDirect3DDevice8&,IDirect3DSurface8* private_target,IDirect3DTexture8* env,UINT width=64,UINT height=64,bool chained=false) noexcept;
     HRESULT framebuffer_pass(IDirect3DDevice8&,IDirect3DTexture8* copied_frame) noexcept;
     // Mark before UP, including failing submissions. Explicitly synchronize its
     // native stream side effect afterward without recording another game draw.
@@ -119,9 +124,13 @@ class MixedReflectionCapture {
     IDirect3DSurface8* copy_surface_=nullptr;
     IDirect3DTexture8* mixed_texture_=nullptr;
     IDirect3DSurface8* mixed_surface_=nullptr;
+    // PS2 frame-sized intermediate (640x448): the original downsamples a 640x448 frame into 64x64.
+    IDirect3DTexture8* ps2frame_texture_=nullptr;
+    IDirect3DSurface8* ps2frame_surface_=nullptr;
     D3DFORMAT format_=D3DFMT_UNKNOWN;
     D3DFORMAT target_format_=D3DFMT_UNKNOWN;
     bool prefer_16bit_=false;
+    bool debug_pattern_=false;
     ReflectionCaptureLayout layout_{};
     ReflectionCaptureTransaction transaction_;
     ReflectionCaptureStatus status_{};
@@ -136,6 +145,8 @@ public:
     MixedReflectionCapture(const MixedReflectionCapture&)=delete;
     MixedReflectionCapture& operator=(const MixedReflectionCapture&)=delete;
     void prefer_16bit(bool enabled) noexcept {prefer_16bit_=enabled;}
+    // ReflectionDebug: the target holds only the (pattern) static pass, no framebuffer term.
+    void debug_pattern(bool enabled) noexcept {debug_pattern_=enabled;}
     void set_writer(void* context,ReflectionCaptureWriter writer) noexcept {transaction_.set_writer(context,writer);}
     HRESULT capture(IDirect3DDevice8&,IDirect3DTexture8* weighted_static_env,
                     uint64_t frame,bool stateblock_recording) noexcept;
@@ -145,6 +156,8 @@ public:
         return ready_&&ready_frame_==frame&&!pending()?mixed_texture_:nullptr;
     }
     bool pending() const noexcept {return transaction_.pending();}
+    // ReflectionDebug=2 view: the last composed target, whatever frame it belongs to.
+    IDirect3DTexture8* last_texture() const noexcept {return ready_&&!pending()?mixed_texture_:nullptr;}
     const ReflectionCaptureStatus& last_status() const noexcept {return status_;}
 };
 } // namespace gfx2::ps2port

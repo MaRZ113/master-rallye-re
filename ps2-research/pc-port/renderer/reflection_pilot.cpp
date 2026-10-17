@@ -115,13 +115,26 @@ bool canonical_env_identity(const uint8_t* bytes, size_t size, std::string_view 
     return magic == 0x13039 && width == 64 && height == 64;
 }
 
+// ReflectionDebug quadrants (texture rows top->bottom as uploaded): top-left red, top-right yellow,
+// bottom-left blue, bottom-right cyan. The PS2 target puts the framebuffer bottom (ground) at the top
+// and the framebuffer top (sky) at the bottom, so this shows which part each surface samples.
+void reflection_debug_pattern(std::vector<DWORD>& bgra) {
+    bgra.assign(64u * 64u, 0);
+    for (uint32_t y = 0; y < 64; ++y) for (uint32_t x = 0; x < 64; ++x) {
+        const bool top = y < 32, left = x < 32;
+        bgra[y * 64 + x] = top ? (left ? 0xffc80000u : 0xffc8c800u) : (left ? 0xff0000c8u : 0xff00c8c8u);
+    }
+}
+
 bool convert_static_env(const uint8_t* rgba, size_t size, std::vector<DWORD>& bgra) noexcept {
     bgra.clear();
     if (!rgba || size != 64u * 64u * 4u) return false;
     try {
         bgra.resize(64u * 64u);
+        // PS2 VRAM 0x3840 holds this GXI with its rows reversed (SW GS dump 153853: flipped error 12.8
+        // vs 27.4 as stored; docs/diag-reflection2), and the static sprite samples it V 0..64 unflipped.
         for (size_t n = 0; n < bgra.size(); ++n) {
-            const auto* p = rgba + n * 4;
+            const auto* p = rgba + ((63u - n / 64u) * 64u + n % 64u) * 4;
             const DWORD r = (DWORD(p[0]) * 80u) / 128u, g = (DWORD(p[1]) * 80u) / 128u, b = (DWORD(p[2]) * 80u) / 128u;
             // PS2's selected static contribution uses RGB (TCC=0), not image alpha.
             bgra[n] = 0xff000000u | (r << 16) | (g << 8) | b;
@@ -185,6 +198,11 @@ ReflectionPilot::ReflectionPilot(bool supported, const std::wstring& ini) noexce
             reason_ = "local_env_gxi_hash_or_layout_mismatch"; return;
         }
         verified_asset_ = convert_static_env(bytes.data()+8,bytes.size()-8,pixels_);
+        const int debug = verified_asset_ ? ::gfx2::ps2port::config::read_int(L"ReflectionDebug",0,ini.c_str()) : 0;
+        if (debug == 1) {
+            reflection_debug_pattern(pixels_); debug_pattern_ = true; capture_.debug_pattern(true);
+        }
+        debug_view_ = debug == 2;
         reason_ = verified_asset_ ? "verified_static_ps2_contribution_waiting_for_device" : "asset_conversion_failed";
     } catch (...) { reason_ = "local_asset_load_failed_stock"; verified_asset_ = false; }
 }

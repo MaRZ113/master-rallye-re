@@ -26,12 +26,13 @@ bool reflection_capture_layout(UINT width,UINT height,const D3DCAPS8& caps,Refle
     if(bytes>16ull*1024*1024)return false;
     out={width,height,tw,th,bytes};return true;
 }
-std::array<ReflectionCaptureVertex,4> reflection_capture_quad(float u,float v,bool flip,DWORD color) noexcept {
+std::array<ReflectionCaptureVertex,4> reflection_capture_quad(float u,float v,bool flip,DWORD color,float width,float height) noexcept {
     const float top=flip?v:0.f,bottom=flip?0.f:v;
+    const float r=width-.5f,b=height-.5f;
     return {{{-.5f,-.5f,0.f,1.f,color,0.f,top},
-             {63.5f,-.5f,0.f,1.f,color,u,top},
-             {-.5f,63.5f,0.f,1.f,color,0.f,bottom},
-             {63.5f,63.5f,0.f,1.f,color,u,bottom}}};
+             {r,-.5f,0.f,1.f,color,u,top},
+             {-.5f,b,0.f,1.f,color,0.f,bottom},
+             {r,b,0.f,1.f,color,u,bottom}}};
 }
 void ReflectionCaptureTransaction::notify(uint32_t slot,const Args& args,HRESULT hr) noexcept {
     if(writer_)writer_(context_,slot,args,hr);
@@ -75,14 +76,15 @@ HRESULT ReflectionCaptureTransaction::capture(IDirect3DDevice8& native) noexcept
     if(FAILED(hr)||!target_){release();return FAILED(hr)?hr:E_FAIL;}
     captured_=true;return S_OK;
 }
-HRESULT ReflectionCaptureTransaction::apply(IDirect3DDevice8& native,IDirect3DSurface8* target,IDirect3DTexture8* env) noexcept {
-    if(!captured_||pending()||!target||!env)return E_INVALIDARG;
+HRESULT ReflectionCaptureTransaction::apply(IDirect3DDevice8& native,IDirect3DSurface8* target,IDirect3DTexture8* env,UINT width,UINT height,bool chained) noexcept {
+    // A chained apply switches target/source inside the same captured transaction; restore() undoes all.
+    if(!captured_||(!chained&&pending())||!target||!env||!width||!height)return E_INVALIDARG;
     // Unbind stage 1 before changing targets, including retained previous targets.
     ReflectionCaptureSaved nil{};pending_|=uint64_t(1)<<41;
     HRESULT hr=write(native,41,nil);if(FAILED(hr))return hr;
     target_pending_=viewport_pending_=true; // SetRenderTarget can change viewport.
     hr=native.SetRenderTarget(target,nullptr);notify(31,pack(target,nullptr),hr);if(FAILED(hr))return hr;
-    const D3DVIEWPORT8 desired{0,0,64,64,0.f,1.f};
+    const D3DVIEWPORT8 desired{0,0,width,height,0.f,1.f};
     hr=native.SetViewport(&desired);notify(40,pack(&desired),hr);if(FAILED(hr))return hr;
     for(size_t i=0;i<kReflectionCaptureOps.size();++i){
         if(i==41)continue;
@@ -122,7 +124,7 @@ HRESULT ReflectionCaptureTransaction::restore(IDirect3DDevice8& native) noexcept
     if(!pending())release();return result;
 }
 void MixedReflectionCapture::release_resources() noexcept {
-    drop(copy_surface_);drop(copy_texture_);drop(mixed_surface_);drop(mixed_texture_);
+    drop(copy_surface_);drop(copy_texture_);drop(mixed_surface_);drop(mixed_texture_);drop(ps2frame_surface_);drop(ps2frame_texture_);
     layout_={};format_=D3DFMT_UNKNOWN;target_format_=D3DFMT_UNKNOWN;ready_=false;
 }
 void MixedReflectionCapture::release() noexcept {
@@ -133,7 +135,7 @@ HRESULT MixedReflectionCapture::repair(IDirect3DDevice8& native) noexcept {
     if(FAILED(hr))ready_=false;return hr;
 }
 HRESULT MixedReflectionCapture::allocate(IDirect3DDevice8& native,const D3DSURFACE_DESC& desc,const ReflectionCaptureLayout& layout) noexcept {
-    if(copy_texture_&&mixed_texture_&&format_==desc.Format&&layout_.source_width==layout.source_width&&
+    if(copy_texture_&&mixed_texture_&&ps2frame_texture_&&format_==desc.Format&&layout_.source_width==layout.source_width&&
        layout_.source_height==layout.source_height&&layout_.texture_width==layout.texture_width&&layout_.texture_height==layout.texture_height)return S_OK;
     release_resources();HRESULT hr=native.CreateTexture(layout.texture_width,layout.texture_height,1,D3DUSAGE_RENDERTARGET,
         desc.Format,D3DPOOL_DEFAULT,&copy_texture_);
@@ -152,7 +154,10 @@ HRESULT MixedReflectionCapture::allocate(IDirect3DDevice8& native,const D3DSURFA
     }
     if(SUCCEEDED(hr)&&!mixed_texture_)hr=E_FAIL;
     if(SUCCEEDED(hr))hr=mixed_texture_->GetSurfaceLevel(0,&mixed_surface_);
-    if(FAILED(hr)||!copy_texture_||!copy_surface_||!mixed_texture_||!mixed_surface_){release_resources();return FAILED(hr)?hr:E_FAIL;}
+    if(SUCCEEDED(hr))hr=native.CreateTexture(kPS2FrameWidth,kPS2FrameHeight,1,D3DUSAGE_RENDERTARGET,desc.Format,D3DPOOL_DEFAULT,&ps2frame_texture_);
+    if(SUCCEEDED(hr)&&!ps2frame_texture_)hr=E_FAIL;
+    if(SUCCEEDED(hr))hr=ps2frame_texture_->GetSurfaceLevel(0,&ps2frame_surface_);
+    if(FAILED(hr)||!copy_texture_||!copy_surface_||!mixed_texture_||!mixed_surface_||!ps2frame_texture_||!ps2frame_surface_){release_resources();return FAILED(hr)?hr:E_FAIL;}
     format_=desc.Format;layout_=layout;return S_OK;
 }
 HRESULT MixedReflectionCapture::capture(IDirect3DDevice8& native,IDirect3DTexture8* env,uint64_t frame,bool recording) noexcept {
@@ -195,17 +200,25 @@ HRESULT MixedReflectionCapture::capture(IDirect3DDevice8& native,IDirect3DTextur
         return fail(multisampled?"native_msaa_resolve_unsupported":"native_copyrects_failed",hr);
     }
     hr=transaction_.capture(native);if(FAILED(hr))return fail("native_state_capture_failed",hr);
-    hr=transaction_.apply(native,mixed_surface_,env);
+    // Downsample the PC frame to the PS2 frame size first, so the 64x64 target samples it at the original ~10:1.
+    hr=transaction_.apply(native,ps2frame_surface_,copy_texture_,kPS2FrameWidth,kPS2FrameHeight);
     if(SUCCEEDED(hr)){
-        const auto vertices=reflection_capture_quad(1.f,1.f,false,0xffffffffu);transaction_.mark_up();
+        const auto vertices=reflection_capture_quad(float(desc.Width)/layout.texture_width,float(desc.Height)/layout.texture_height,false,0xffffffffu,float(kPS2FrameWidth),float(kPS2FrameHeight));
+        transaction_.mark_up();hr=native.DrawPrimitiveUP(D3DPT_TRIANGLESTRIP,2,vertices.data(),sizeof(ReflectionCaptureVertex));++status_.private_draws;
+        const HRESULT sync=transaction_.sync_up_stream(native);if(SUCCEEDED(hr)&&FAILED(sync))hr=sync;
+    }
+    if(SUCCEEDED(hr))hr=transaction_.apply(native,mixed_surface_,env,64,64,true);
+    if(SUCCEEDED(hr)){
+        // PS2 first target pass (ALPHA ...a8, .625*static): the 80/128 weight is applied at texture upload.
+        const auto vertices=reflection_capture_quad(1.f,1.f,false,kReflectionStaticPassColor);transaction_.mark_up();
         hr=native.DrawPrimitiveUP(D3DPT_TRIANGLESTRIP,2,vertices.data(),sizeof(ReflectionCaptureVertex));++status_.private_draws;
         const HRESULT sync=transaction_.sync_up_stream(native);if(SUCCEEDED(hr)&&FAILED(sync))hr=sync;
     }
-    if(SUCCEEDED(hr))hr=transaction_.framebuffer_pass(native,copy_texture_);
-    if(SUCCEEDED(hr)){
+    if(SUCCEEDED(hr)&&!debug_pattern_)hr=transaction_.framebuffer_pass(native,ps2frame_texture_);
+    if(SUCCEEDED(hr)&&!debug_pattern_){
         // 96/255 is the fixed-function RGB approximation of PS2 FIX=48/128.
         // Original GS PSMCT16 quantization and update timing are not reproduced.
-        const auto vertices=reflection_capture_quad(float(desc.Width)/layout.texture_width,float(desc.Height)/layout.texture_height,true,0xff606060u);
+        const auto vertices=reflection_capture_quad(1.f,1.f,true,kReflectionFramebufferPassColor);
         transaction_.mark_up();hr=native.DrawPrimitiveUP(D3DPT_TRIANGLESTRIP,2,vertices.data(),sizeof(ReflectionCaptureVertex));++status_.private_draws;
         const HRESULT sync=transaction_.sync_up_stream(native);if(SUCCEEDED(hr)&&FAILED(sync))hr=sync;
     }

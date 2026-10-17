@@ -395,6 +395,7 @@ HRESULT apply_reflection_transaction(const ReflectionRequest& request, Reflectio
 
 bool canonical_env_identity(const uint8_t* bytes, size_t size, std::string_view digest) noexcept;
 bool convert_static_env(const uint8_t* rgba, size_t size, std::vector<DWORD>& bgra) noexcept;
+void reflection_debug_pattern(std::vector<DWORD>& bgra);
 
 class StaticEnvTexture {
     IDirect3DTexture8* texture_ = nullptr;
@@ -427,6 +428,8 @@ class ReflectionPilot {
     StaticEnvTexture texture_;
     ReflectionTransaction transaction_;
     MixedReflectionCapture capture_;
+    bool debug_pattern_ = false;
+    bool debug_view_ = false;
     HRESULT upload_hresult_ = E_PENDING;
 public:
     ReflectionPilot(bool supported_build, const std::wstring& port_ini) noexcept;
@@ -449,6 +452,8 @@ public:
     bool needs_mixed_source() const noexcept { return mode_ == ReflectionMode::TataBodyPS2MixedContribution; }
     ReflectionTransaction& transaction() noexcept { return transaction_; }
     MixedReflectionCapture& mixed_capture() noexcept { return capture_; }
+    bool debug_pattern() const noexcept { return debug_pattern_; }
+    bool debug_view() const noexcept { return debug_view_; }
     bool claim_damage_diagnostic()noexcept{if(!diagnostics_||damage_logged_)return false;damage_logged_=true;return true;}
     bool claim_diagnostic(bool applied, const char* vehicle="Tata") noexcept;
     void disable(const char* reason) noexcept { disabled_ = true; reason_ = reason; }
