@@ -13,7 +13,7 @@ One DX per model (template `haybaletest.dx`, same texture-slot rule as T4a), one
 Instance pairing: the vertex order of the instances differs, so the rotation is fitted by distance-from-centroid pairing followed by nearest-neighbour refinement (set residual in the report).
 
 ## Collision cost
-Hull planes: house 33 (82 cells), caravans 48 and 53, red caravans 96, 130, 111, 100 (3 to 262 cells). Tag100 tree 5.41 MB to 7.18 MB (the patched DX is 11,918,469 bytes), nodes 235,089 to 316,082, invariants hold. The hulls are convex fills (an open door or awning is solid), not the PS2 polygon collision.
+Hull planes: house 33 (82 cells), caravans 48 and 53, red caravans 96, 130, 111, 100 (3 to 262 cells). Tag100 tree 5.41 MB to 9.18 MB (the patched DX is 11,918,469 bytes), nodes 235,089 to 316,083, invariants hold. The hulls are convex fills (an open door or awning is solid), not the PS2 polygon collision.
 
 ## Not converted
 CARAVAN_ALPHA (2 meshes x 16 vertices, alpha-test material: the DX material flags for alpha test are not understood yet), huts, shrubs, boats, fences (PLACEMENT_DIFFERS: the PC course has these models elsewhere, adding PS2 placements would duplicate them, moving PC ones needs course-DX edits), puddles (own overlay channel), tyres (DIFFERENT_MATERIAL).
