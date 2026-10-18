@@ -40,10 +40,14 @@ GENERATOR_OUTPUTS = (
 PATCH_PATHS = {
     "0001-renderer-integration.patch": {
         "modernization/renderer/CMakeLists.txt",
+        "modernization/renderer/include/ui_margins.hpp",
         "modernization/renderer/include/wrappers.hpp",
         "modernization/renderer/src/buffer_provenance.cpp",
         "modernization/renderer/src/forwarders.cpp",
+        "modernization/renderer/src/provenance.cpp",
         "modernization/renderer/src/quality_wrappers.cpp",
+        "modernization/renderer/src/race_epoch.cpp",
+        "modernization/renderer/src/race_observer.cpp",
         "modernization/renderer/src/visual_wrappers.cpp",
         "modernization/renderer/src/wrappers.cpp",
     },

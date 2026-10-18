@@ -51,6 +51,7 @@ class GS:
         self.vtx = []      # current primitive queue
         self.kicks = []    # (state key, rgba, f, xyz, uv/st)
         self.q = 1.0
+        self.primseq = 0   # bumps on every PRIM write (vertex queue restart)
         self.uploads = []
 
     def prim_attr(self):
@@ -72,6 +73,7 @@ class GS:
 
     def write(self, addr, v):
         self.r[addr] = v
+        if addr == 0x00: self.primseq += 1
         if addr == 0x01:
             self.q = struct.unpack('<f', struct.pack('<I', (v >> 32) & 0xffffffff))[0]
         if addr in (0x04, 0x0c):   # XYZF2/3 raw
@@ -88,7 +90,7 @@ class GS:
             flg = (lo >> 58) & 3; nreg = (lo >> 60) & 0xf or 16
             regs = [(hi >> (4*i)) & 0xf for i in range(nreg)]
             if pre and flg != 2:
-                self.r[0x00] = prim
+                self.r[0x00] = prim; self.primseq += 1
             if flg == 0:
                 for _ in range(nloop):
                     for reg in regs:
@@ -114,7 +116,7 @@ class GS:
 
     def packed(self, reg, a, b):
         if reg == 0x0:
-            self.write(0x00, a & 0x7ff)
+            self.write(0x00, a & 0x7ff)  # bumps primseq
         elif reg == 0x1:
             r, g = a & 0xff, (a >> 32) & 0xff; bb, al = b & 0xff, (b >> 32) & 0xff
             self.r[0x01] = r | (g << 8) | (bb << 16) | (al << 24)

@@ -91,7 +91,12 @@ struct Native:MockDeviceBase {
   if(stream)stream->Release();stream=nullptr;stride=0;return draw_hresult;
  }
  HRESULT STDMETHODCALLTYPE SetRenderTarget(IDirect3DSurface8*,IDirect3DSurface8*) override {++rt_writes;return S_OK;}
- HRESULT STDMETHODCALLTYPE SetViewport(const D3DVIEWPORT8*) override {++viewport_writes;return S_OK;}
+ D3DVIEWPORT8 viewport{0,0,640,480,0.f,1.f};
+ int fail_viewport_get=0,fail_viewport_set=0; // n-th viewport call fails (and still mutates on a failed set).
+ int viewport_gets=0;
+ HRESULT STDMETHODCALLTYPE GetViewport(D3DVIEWPORT8* v) override {if(++viewport_gets==fail_viewport_get)return E_FAIL;*v=viewport;return S_OK;}
+ HRESULT STDMETHODCALLTYPE SetViewport(const D3DVIEWPORT8* v) override {++viewport_writes;if(v&&(viewport_writes!=fail_viewport_set||mutate_on_failure))viewport=*v;
+  return viewport_writes==fail_viewport_set?D3DERR_INVALIDCALL:S_OK;}
  HRESULT STDMETHODCALLTYPE SetIndices(IDirect3DIndexBuffer8*,UINT) override {++index_writes;return S_OK;}
  HRESULT STDMETHODCALLTYPE BeginStateBlock() override {++state_blocks;return S_OK;}
 };
@@ -220,5 +225,78 @@ void grass_material_policy(){
  CHECK(invalid.writes==0&&before.matches(invalid));
 }
 }
+bool same_viewport(const D3DVIEWPORT8& a,const D3DVIEWPORT8& b){return !std::memcmp(&a,&b,sizeof(a));}
+// SPLIT-GRASS1: split passes draw into their half; the UI viewport is always restored and reported as slot 40.
+void split_viewport_transaction(){
+ const CourseObjectMaterialState grass{FALSE,D3DTADDRESS_CLAMP,D3DTADDRESS_CLAMP};
+ const D3DVIEWPORT8 ui{0,0,640,480,0.f,1.f},top{0,0,640,238,0.f,1.f},bottom{0,240,640,238,0.f,1.f};
+ for(const auto& half:{top,bottom}){
+  Native n;Initial initial(n);CourseObjectTransaction t;std::vector<Record> log;
+  auto writer=[&](uint32_t slot,const Args& args,HRESULT hr)noexcept{
+   if(slot==CourseObjectTransaction::kSetViewportSlot){D3DVIEWPORT8 seen{};std::memcpy(&seen,reinterpret_cast<const void*>(args.a[0]),sizeof(seen));
+    CHECK(same_viewport(seen,n.viewport));} // The tracker reads the value synchronously, as set.
+   log.push_back({slot,args,hr});};
+  CHECK(FAILED(t.capture_viewport(n))); // Only after capture().
+  CHECK(SUCCEEDED(t.capture(n))&&SUCCEEDED(t.capture_viewport(n))&&t.viewport_captured()&&!t.has_pending());
+  CHECK(FAILED(t.capture_viewport(n))); // Once per transaction.
+  CHECK(SUCCEEDED(t.apply_viewport(n,half,writer))&&t.viewport_pending()&&t.has_pending()&&same_viewport(n.viewport,half));
+  CHECK(log.size()==1&&log[0].slot==40&&log[0].hr==S_OK);
+  CHECK(FAILED(t.apply_viewport(n,half,writer))); // No second viewport apply while pending.
+  CHECK(SUCCEEDED(t.apply(n,&n.replacement,matrix(1),matrix(8),writer,grass)));
+  t.mark_up_stream_changed();CHECK(n.DrawPrimitiveUP(D3DPT_TRIANGLELIST,1,nullptr,24)==n.draw_hresult);
+  CHECK(same_viewport(n.viewport,half)&&n.viewport_writes==1);
+  CHECK(SUCCEEDED(t.restore(n,writer)));
+  CHECK(initial.matches(n)&&same_viewport(n.viewport,ui)&&!t.has_pending()&&!t.captured()&&!t.viewport_captured());
+  CHECK(n.viewport_writes==2&&log.back().slot==40); // Viewport restored last, after every fixed state.
+  CHECK(n.original_texture.refs==1&&n.replacement.refs==1&&n.original_buffer.refs==1);
+ }
+ { // Same viewport: no setter and nothing pending.
+  Native n;CourseObjectTransaction t;int writes=0;auto writer=[&](uint32_t,const Args&,HRESULT)noexcept{++writes;};
+  CHECK(SUCCEEDED(t.capture(n))&&SUCCEEDED(t.capture_viewport(n))&&SUCCEEDED(t.apply_viewport(n,ui,writer)));
+  CHECK(!t.has_pending()&&writes==0&&n.viewport_writes==0);t.release();
+ }
+ { // Invalid viewport or failed GetViewport: nothing written.
+  Native n;CourseObjectTransaction t;auto writer=[](uint32_t,const Args&,HRESULT)noexcept{};
+  CHECK(SUCCEEDED(t.capture(n))&&SUCCEEDED(t.capture_viewport(n)));
+  D3DVIEWPORT8 empty=top;empty.Width=0;CHECK(FAILED(t.apply_viewport(n,empty,writer)));
+  D3DVIEWPORT8 nan=top;nan.MaxZ=std::numeric_limits<float>::quiet_NaN();CHECK(FAILED(t.apply_viewport(n,nan,writer)));
+  CHECK(n.viewport_writes==0&&!t.has_pending());t.release();
+  Native g;Initial gi(g);CourseObjectTransaction tg;g.fail_viewport_get=1;
+  CHECK(SUCCEEDED(tg.capture(g))&&FAILED(tg.capture_viewport(g))&&!tg.viewport_captured());
+  CHECK(FAILED(tg.apply_viewport(g,top,writer))&&g.viewport_writes==0&&gi.matches(g));tg.release();
+ }
+ { // Failed viewport setter mutates the slot: rolled back immediately.
+  Native n;CourseObjectTransaction t;auto writer=[](uint32_t,const Args&,HRESULT)noexcept{};n.fail_viewport_set=1;
+  CHECK(SUCCEEDED(t.capture(n))&&SUCCEEDED(t.capture_viewport(n)));
+  CHECK(t.apply_viewport(n,top,writer)==D3DERR_INVALIDCALL);
+  CHECK(same_viewport(n.viewport,ui)&&!t.has_pending()&&n.viewport_writes==2);
+ }
+ { // A failing fixed state after the viewport rolls back the viewport too.
+  for(int failure=1;failure<=33;++failure){
+   Native n;Initial initial(n);CourseObjectTransaction t;auto writer=[](uint32_t,const Args&,HRESULT)noexcept{};
+   CHECK(SUCCEEDED(t.capture(n))&&SUCCEEDED(t.capture_viewport(n))&&SUCCEEDED(t.apply_viewport(n,bottom,writer)));
+   n.fail_set=n.writes+failure;
+   CHECK(t.apply(n,&n.replacement,matrix(1),matrix(8),writer,grass)==D3DERR_INVALIDCALL);
+   CHECK(initial.matches(n)&&same_viewport(n.viewport,ui)&&!t.has_pending());
+  }
+ }
+ { // Viewport restore fails: stays pending (repair later), no new transaction until it is restored.
+  Native n;CourseObjectTransaction t;auto writer=[](uint32_t,const Args&,HRESULT)noexcept{};
+  CHECK(SUCCEEDED(t.capture(n))&&SUCCEEDED(t.capture_viewport(n))&&SUCCEEDED(t.apply_viewport(n,top,writer)));
+  CHECK(SUCCEEDED(t.apply(n,&n.replacement,matrix(1),matrix(8),writer,grass)));
+  n.fail_viewport_set=2;n.mutate_on_failure=false;
+  CHECK(t.restore(n,writer)==D3DERR_INVALIDCALL&&t.has_pending()&&t.viewport_pending()&&t.pending_mask()==0);
+  CHECK(same_viewport(n.viewport,top));
+  const int reads=n.gets;CHECK(t.capture(n)==D3DERR_INVALIDCALL&&n.gets==reads);
+  CHECK(SUCCEEDED(t.restore(n,writer))&&same_viewport(n.viewport,ui)&&!t.has_pending());
+ }
+ { // The single-camera transaction never reads or writes the viewport.
+  Native n;CourseObjectTransaction t;auto writer=[](uint32_t,const Args&,HRESULT)noexcept{};
+  CHECK(SUCCEEDED(t.capture(n))&&SUCCEEDED(t.apply(n,&n.replacement,matrix(7),matrix(8),writer,grass)));
+  t.mark_up_stream_changed();n.DrawPrimitiveUP(D3DPT_TRIANGLELIST,1,nullptr,24);
+  CHECK(SUCCEEDED(t.restore(n,writer))&&n.viewport_gets==0&&n.viewport_writes==0);
+ }
+}
 int main(){default_and_capture();preview_draw_restore();partial_apply();restore_retry();invalid_and_empty_binding();grass_material_policy();
+ split_viewport_transaction();
  if(failures)std::cerr<<failures<<" failed checks\n";return failures?1:0;}

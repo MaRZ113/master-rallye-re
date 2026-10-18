@@ -23,8 +23,17 @@ inline HRESULT repair(Device8& d) noexcept {
     return g->transaction.restore(*d.native());
 }
 
-inline bool stage(IDirect3DDevice8& n,DWORD s,D3DTEXTURESTAGESTATETYPE k,DWORD expected) noexcept {DWORD v=0;return SUCCEEDED(n.GetTextureStageState(s,k,&v))&&v==expected;}
-inline bool render(IDirect3DDevice8& n,D3DRENDERSTATETYPE k,DWORD expected) noexcept {DWORD v=0;return SUCCEEDED(n.GetRenderState(k,&v))&&v==expected;}
+// The proxy's tracked native state (effective_shadow, updated by every forwarded and native-only write) answers
+// first; only an unknown value is read back from the device. ~150 base_noise draws per view and frame.
+inline bool stage_value(Device8& d,IDirect3DDevice8& n,DWORD s,D3DTEXTURESTAGESTATETYPE k,DWORD& v) noexcept {
+    const auto& t=d.trace.effective_shadow.tss[s][k];if(t.known){v=t.value;return true;}
+    return SUCCEEDED(n.GetTextureStageState(s,k,&v));
+}
+inline bool stage(Device8& d,IDirect3DDevice8& n,DWORD s,D3DTEXTURESTAGESTATETYPE k,DWORD expected) noexcept {DWORD v=0;return stage_value(d,n,s,k,v)&&v==expected;}
+inline bool render(Device8& d,IDirect3DDevice8& n,D3DRENDERSTATETYPE k,DWORD expected) noexcept {
+    const auto& t=d.trace.effective_shadow.rs[k];if(t.known)return t.value==expected;
+    DWORD v=0;return SUCCEEDED(n.GetRenderState(k,&v))&&v==expected;
+}
 
 inline xtrailintegration::Result draw(Device8& d,D3DPRIMITIVETYPE type,UINT min_index,UINT vertices,UINT start,UINT count,uintptr_t pc) noexcept {
     auto* g=ground(d);if(!g)return {};
@@ -33,15 +42,16 @@ inline xtrailintegration::Result draw(Device8& d,D3DPRIMITIVETYPE type,UINT min_
        GetCurrentThreadId()!=d.trace.render_thread_id())return {};
     auto& n=*d.native();
     // Cheap pre-filter: only the noise stage of base_noise uses MODULATE2X in stage1.
-    if(!stage(n,1,D3DTSS_COLOROP,D3DTOP_MODULATE2X))return {};
+    if(!stage(d,n,1,D3DTSS_COLOROP,D3DTOP_MODULATE2X))return {};
     if(pc!=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+COURSE_DRAW_RETURN_RVA){log(d,*g,"modulate2x_outside_course_draw_loop");return {};}
     // Complete base_noise contract (opaque variant only; _alpha/_alphatest stay original).
-    DWORD pixel=1;
-    if(!stage(n,0,D3DTSS_COLOROP,D3DTOP_MODULATE)||!stage(n,0,D3DTSS_COLORARG1,D3DTA_TEXTURE)||!stage(n,0,D3DTSS_COLORARG2,D3DTA_DIFFUSE)||
-       !stage(n,1,D3DTSS_COLORARG1,D3DTA_CURRENT)||!stage(n,1,D3DTSS_COLORARG2,D3DTA_TEXTURE)||!stage(n,1,D3DTSS_TEXTURETRANSFORMFLAGS,D3DTTFF_DISABLE)||
-       !stage(n,2,D3DTSS_COLOROP,D3DTOP_DISABLE)||FAILED(n.GetPixelShader(&pixel))||pixel){log(d,*g,"base_noise_stage_contract_mismatch");return {};}
-    if(!render(n,D3DRS_ALPHABLENDENABLE,FALSE)||!render(n,D3DRS_ALPHATESTENABLE,FALSE)||!render(n,D3DRS_ZENABLE,D3DZB_TRUE)||
-       !render(n,D3DRS_BLENDOP,D3DBLENDOP_ADD)){log(d,*g,"base_noise_variant_not_opaque_or_state_mismatch");return {};}
+    DWORD pixel=1;const auto& tracked_ps=d.trace.effective_shadow.bindings.pixel_shader;
+    if(tracked_ps.known)pixel=tracked_ps.value;else if(FAILED(n.GetPixelShader(&pixel)))pixel=1;
+    if(!stage(d,n,0,D3DTSS_COLOROP,D3DTOP_MODULATE)||!stage(d,n,0,D3DTSS_COLORARG1,D3DTA_TEXTURE)||!stage(d,n,0,D3DTSS_COLORARG2,D3DTA_DIFFUSE)||
+       !stage(d,n,1,D3DTSS_COLORARG1,D3DTA_CURRENT)||!stage(d,n,1,D3DTSS_COLORARG2,D3DTA_TEXTURE)||!stage(d,n,1,D3DTSS_TEXTURETRANSFORMFLAGS,D3DTTFF_DISABLE)||
+       !stage(d,n,2,D3DTSS_COLOROP,D3DTOP_DISABLE)||pixel){log(d,*g,"base_noise_stage_contract_mismatch");return {};}
+    if(!render(d,n,D3DRS_ALPHABLENDENABLE,FALSE)||!render(d,n,D3DRS_ALPHATESTENABLE,FALSE)||!render(d,n,D3DRS_ZENABLE,D3DZB_TRUE)||
+       !render(d,n,D3DRS_BLENDOP,D3DBLENDOP_ADD)){log(d,*g,"base_noise_variant_not_opaque_or_state_mismatch");return {};}
     ps2integration::Ref<IDirect3DBaseTexture8> noise;
     if(FAILED(n.GetTexture(1,&noise.value))||!noise.value){log(d,*g,"stage1_texture_missing");return {};}
     const auto noise_id=reinterpret_cast<uintptr_t>(noise.value);
@@ -49,17 +59,15 @@ inline xtrailintegration::Result draw(Device8& d,D3DPRIMITIVETYPE type,UINT min_
     if(!tracked.known||tracked.value!=noise_id){log(d,*g,"stage1_texture_not_tracked");return {};}
     const auto identity=g->identify(noise.value,d.trace.resources.generation(noise_id));
     if(!identity.match){log(d,*g,identity.reason);return {};}
-    D3DCAPS8 caps{};
-    if(FAILED(n.GetDeviceCaps(&caps))||!(caps.PrimitiveMiscCaps&D3DPMISCCAPS_BLENDOP)||!(caps.SrcBlendCaps&D3DPBLENDCAPS_ONE)||
-       !(caps.DestBlendCaps&D3DPBLENDCAPS_ONE)||!(caps.TextureOpCaps&D3DTEXOPCAPS_SELECTARG1)){log(d,*g,"device_caps_rejected");return {};}
+    if(!g->caps_ok(n)){log(d,*g,"device_caps_rejected");return {};}
     if(!g->initialize(n)){log(d,*g,"ps2_noise_texture_create_failed");return {};}
 
     auto& t=g->transaction;
     t.set_writer(&d,[](void* o,uint32_t slot,const Args& a,HRESULT hr) noexcept {xtrailintegration::notify(*static_cast<Device8*>(o),slot,a,hr);});
-    HRESULT hr=t.capture(n);if(FAILED(hr)){log(d,*g,"transaction_capture_failed",hr);return {};}
+    HRESULT hr=t.capture(n,&d.trace.effective_shadow);if(FAILED(hr)){log(d,*g,"transaction_capture_failed",hr);return {};}
     DWORD uv=0,address_u=0,address_v=0;
-    if(FAILED(n.GetTextureStageState(1,D3DTSS_TEXCOORDINDEX,&uv))||FAILED(n.GetTextureStageState(1,D3DTSS_ADDRESSU,&address_u))||
-       FAILED(n.GetTextureStageState(1,D3DTSS_ADDRESSV,&address_v))){t.release();log(d,*g,"stage1_sampler_read_failed");return {};}
+    if(!stage_value(d,n,1,D3DTSS_TEXCOORDINDEX,uv)||!stage_value(d,n,1,D3DTSS_ADDRESSU,address_u)||
+       !stage_value(d,n,1,D3DTSS_ADDRESSV,address_v)){t.release();log(d,*g,"stage1_sampler_read_failed");return {};}
     // Pass 1: the original draw without the PC noise term.
     hr=t.set(n,0,D3DTOP_DISABLE);if(SUCCEEDED(hr))hr=t.set(n,1,D3DTOP_DISABLE);
     if(FAILED(hr)){const HRESULT restored=t.restore(n);log(d,*g,"pass1_state_failed",hr);if(FAILED(restored)){g->disable();return {true,restored};}return {};}

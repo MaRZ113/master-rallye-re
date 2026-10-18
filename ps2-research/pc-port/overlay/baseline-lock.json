@@ -6,6 +6,9 @@
     "modernization/renderer/CMakeLists.txt": {
       "sha256": "6d4a8791086556a7052f1bbcfbe6a1924589d571421ba54427898e8e1f8ecd8b"
     },
+    "modernization/renderer/include/ui_margins.hpp": {
+      "sha256": "ed191c1f8b589e3cd0f387195997fa1c506358effb2b89016135de9120fb4a5f"
+    },
     "modernization/renderer/include/wrappers.hpp": {
       "sha256": "8698cfd78bed05daa1b66ea32ecf0d1fe81577046524240ede3eac7a8b79b13c"
     },
@@ -26,11 +29,20 @@
     },
     "modernization/renderer/tools/generate_interfaces.py": {
       "sha256": "29562e7c510349ee7a93c78cb6b83db1a3519b6640dc7fad9e743b167f4f649a"
+    },
+    "modernization/renderer/src/race_epoch.cpp": {
+      "sha256": "585da4a49a857e034fa2feeec3cbd09eca6de6ab75017b45aa18d1f7e96761f0"
+    },
+    "modernization/renderer/src/race_observer.cpp": {
+      "sha256": "6f6655da67aac6013a7f70e3aa4a4b32cacb5d34df2a38e5b5c168136df4442f"
+    },
+    "modernization/renderer/src/provenance.cpp": {
+      "sha256": "63a18c78e69ac6563d6d8b143c8cab317893a598bc7d59ee2f27cdcc477c9b26"
     }
   },
   "patches": {
     "0001-renderer-integration.patch": {
-      "sha256": "09a64c4df6f6c19446e71dbd1f777e4d24796757ee6bce7e4ec31f5ad161d19c"
+      "sha256": "07e5a1f4b8e67beb9aea25d7132bbf58bc09eeb6df8d71710965ca68c47dea33"
     },
     "0002-interface-generator.patch": {
       "sha256": "ef102121a0b6418ce8fbb0c4477f37194bb30c69ef0f6905a37c75093502fb3f"

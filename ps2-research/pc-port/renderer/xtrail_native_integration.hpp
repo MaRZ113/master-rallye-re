@@ -1,5 +1,6 @@
 #pragma once
 #include "reflection_native_integration.hpp"
+#include "ps2_race_certificate.hpp"
 #include "xtrail_fidelity.hpp"
 #include "xtrail_decal_registry.hpp"
 #include "xtrail_glass.hpp"
@@ -77,7 +78,7 @@ inline Result draw(Device8& d,D3DPRIMITIVETYPE type,UINT min_index,UINT vertices
         if(!safe_copy(&manager,reinterpret_cast<void*>(image+CAMERA_MANAGER_RVA),4)||!manager||
            !safe_copy(&cameras,reinterpret_cast<void*>(manager+16),4)||cameras!=1||
            !safe_copy(&camera,reinterpret_cast<void*>(manager),4)||!camera)return {};
-        const auto certificate=live_race_certificate(camera);
+        const auto certificate=ps2port::ps2_race_certificate(camera);
         if(!certificate.valid||!certificate.race_generation||!certificate.owner_lifetime)return {};
         D3DMATRIX world{},texture_matrix{};
         for(auto key:{D3DTS_WORLD,D3DTS_TEXTURE1}){

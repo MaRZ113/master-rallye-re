@@ -109,14 +109,21 @@ public:
     bool pending() const noexcept {return pending_!=0;}
     DWORD saved(size_t i) const noexcept {return saved_[i].scalar;}
     void release() noexcept {for(auto& s:saved_){if(s.texture)s.texture->Release();s={};}pending_=0;captured_=false;}
-    HRESULT capture(IDirect3DDevice8& n) noexcept {
+    // shadow: the proxy's tracked native state (Trace::effective_shadow); a known value replaces the Get call.
+    HRESULT capture(IDirect3DDevice8& n,const Shadow* shadow=nullptr) noexcept {
         if(pending())return D3DERR_INVALIDCALL;
         release();HRESULT hr=S_OK;
         for(size_t i=0;i<kGroundOps.size()&&SUCCEEDED(hr);++i){
             const auto& op=kGroundOps[i];auto& v=saved_[i];
             switch(op.kind){
-            case GroundStateKind::Render:hr=n.GetRenderState(static_cast<D3DRENDERSTATETYPE>(op.key),&v.scalar);break;
-            case GroundStateKind::Stage:hr=n.GetTextureStageState(op.stage,static_cast<D3DTEXTURESTAGESTATETYPE>(op.key),&v.scalar);break;
+            case GroundStateKind::Render:
+                if(shadow&&op.key<shadow->rs.size()&&shadow->rs[op.key].known)v.scalar=shadow->rs[op.key].value;
+                else hr=n.GetRenderState(static_cast<D3DRENDERSTATETYPE>(op.key),&v.scalar);
+                break;
+            case GroundStateKind::Stage:
+                if(shadow&&op.stage<shadow->tss.size()&&op.key<shadow->tss[op.stage].size()&&shadow->tss[op.stage][op.key].known)v.scalar=shadow->tss[op.stage][op.key].value;
+                else hr=n.GetTextureStageState(op.stage,static_cast<D3DTEXTURESTAGESTATETYPE>(op.key),&v.scalar);
+                break;
             case GroundStateKind::Texture:hr=n.GetTexture(op.stage,&v.texture);break;
             }
         }
@@ -125,6 +132,8 @@ public:
     }
     HRESULT set(IDirect3DDevice8& n,size_t i,DWORD scalar,IDirect3DBaseTexture8* texture=nullptr) noexcept {
         if(!captured_||i>=kGroundOps.size())return E_INVALIDARG;
+        // Already the captured value and not written yet: nothing to set, nothing to restore.
+        if(!(pending_&(1u<<i))&&(kGroundOps[i].kind==GroundStateKind::Texture?saved_[i].texture==texture:saved_[i].scalar==scalar))return S_OK;
         pending_|=1u<<i; // a failed call may still have changed native state
         return write(n,i,scalar,texture);
     }
@@ -151,6 +160,7 @@ class GroundDetail {
     std::array<const char*,32> logged_{};
     size_t logged_count_=0;
     uint64_t passes_=0;
+    IDirect3DDevice8* caps_device_=nullptr;bool caps_ok_=false;
     const char* startup_reason_=nullptr;
 public:
     GroundDetailTransaction transaction;
@@ -173,6 +183,15 @@ public:
     bool requested() const noexcept {return requested_&&!disabled_;}
     void disable() noexcept {disabled_=true;}
     uint64_t passes() const noexcept {return passes_;}
+    // Device caps are checked once per native device.
+    bool caps_ok(IDirect3DDevice8& n) noexcept {
+        if(caps_device_!=&n){
+            D3DCAPS8 caps{};caps_device_=&n;
+            caps_ok_=SUCCEEDED(n.GetDeviceCaps(&caps))&&(caps.PrimitiveMiscCaps&D3DPMISCCAPS_BLENDOP)&&(caps.SrcBlendCaps&D3DPBLENDCAPS_ONE)&&
+                (caps.DestBlendCaps&D3DPBLENDCAPS_ONE)&&(caps.TextureOpCaps&D3DTEXOPCAPS_SELECTARG1);
+        }
+        return caps_ok_;
+    }
     void count_pass() noexcept {++passes_;}
     IDirect3DTexture8* texture() const noexcept {return texture_;}
     // The first occurrence of each outcome is reported once (bounded).

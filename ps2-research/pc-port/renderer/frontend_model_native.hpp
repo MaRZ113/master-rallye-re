@@ -5,10 +5,13 @@
 #include "frontend_geometry_native.hpp"
 #include "buffer_provenance.hpp"
 #include <intrin.h>
+#include <optional>
 namespace gfx2::frontendmodelintegration {
 inline thread_local uintptr_t caller_stack=0;
 inline thread_local unsigned context_gate=0;
-struct CallerScope {uintptr_t previous;explicit CallerScope(uintptr_t p)noexcept:previous(caller_stack){caller_stack=p;}~CallerScope(){caller_stack=previous;}};
+// caller_serial numbers every DrawIndexedPrimitive entry (per-call caches, e.g. the fleet participant scope).
+inline thread_local uint64_t caller_serial=0;
+struct CallerScope {uintptr_t previous;explicit CallerScope(uintptr_t p)noexcept:previous(caller_stack){caller_stack=p;++caller_serial;}~CallerScope(){caller_stack=previous;}};
 inline bool read_leaf(uintptr_t p,void* out,size_t n)noexcept{if(p<0x10000||p>0x7fffffff||n>256||n>0x7fffffff-p)return false;__try{std::memcpy(out,reinterpret_cast<void*>(p),n);return true;}__except(EXCEPTION_EXECUTE_HANDLER){return false;}}
 inline bool word(uintptr_t p,uint32_t& out)noexcept{return !(p&3)&&read_leaf(p,&out,4);}
 inline bool pointer_word(uintptr_t p,uintptr_t& out)noexcept{uint32_t x=0;if(!word(p,x)||x<0x10000||x>0x7ffffffc||(x&3))return false;out=x;return true;}
@@ -24,8 +27,10 @@ inline bool context(uintptr_t stack,uintptr_t pc,Context& out,unsigned expected=
  context_gate=7;uintptr_t current=0;return ps2port::frontend_queue_owner(stack,base,out.mesh,word,current)&&current==o.instance&&pointer_word(o.packet+0x74,check)&&check==o.instance;
 }
 inline void notify(Device8& d,uint32_t slot,const Args& args,HRESULT hr)noexcept{d.trace.after(slot,args,static_cast<uint32_t>(hr),0,&args,256,false,true);}
-inline HRESULT repair(Device8& d)noexcept{auto* e=d.ps2_port();auto* p=e?e->frontend_model():nullptr;if(auto* wheels=e?e->wheel_model():nullptr){if(wheels->transaction.pending()){const auto h=wheels->transaction.restore(*d.native(),[&](uint32_t s,const Args& a,HRESULT v)noexcept{notify(d,s,a,v);});if(FAILED(h)){wheels->disable();return h;}}}if(auto* race=e?e->race_model():nullptr){if(auto* wheel=race->car_wheel()){if(wheel->transaction.pending()){const auto h=wheel->transaction.restore(*d.native(),[&](uint32_t s,const Args& a,HRESULT v)noexcept{notify(d,s,a,v);});if(FAILED(h)){wheel->disable();return h;}}}if(auto* child=race->car_child()){if(child->transaction.pending()){const auto h=child->transaction.restore(*d.native(),[&](uint32_t s,const Args& a,HRESULT v)noexcept{notify(d,s,a,v);});if(FAILED(h)){child->disable();return h;}}}if(race->transaction.pending()){const auto h=race->transaction.restore(*d.native(),[&](uint32_t s,const Args& a,HRESULT v)noexcept{notify(d,s,a,v);});if(FAILED(h)){race->disable();return h;}}}if(!p||!p->transaction.pending())return S_OK;const auto hr=p->transaction.restore(*d.native(),[&](uint32_t s,const Args& a,HRESULT h)noexcept{notify(d,s,a,h);});if(FAILED(hr))p->disable();return hr;}
-inline std::string source_hash(const ps2port::DrawSnapshot& g){auto copy=ps2port::frontend_position_snapshot(g);auto faces=ps2port::vehicle_face_hashes(copy);if(faces.size()!=g.primitive_count)return {};std::sort(faces.begin(),faces.end());std::string all;for(auto& f:faces)all+=f;return sha256_bytes(all.data(),all.size());}
+// Race-fleet parents of one slot (for_each_fleet_slot sets the slot scope).
+inline HRESULT repair_fleet_slot(Device8& d)noexcept{auto* e=d.ps2_port();if(auto* wheels=e?e->wheel_model():nullptr){if(wheels->transaction.pending()){const auto h=wheels->transaction.restore(*d.native(),[&](uint32_t s,const Args& a,HRESULT v)noexcept{notify(d,s,a,v);});if(FAILED(h)){wheels->disable();return h;}}}if(auto* race=e?e->race_model():nullptr){if(auto* wheel=race->car_wheel()){if(wheel->transaction.pending()){const auto h=wheel->transaction.restore(*d.native(),[&](uint32_t s,const Args& a,HRESULT v)noexcept{notify(d,s,a,v);});if(FAILED(h)){wheel->disable();return h;}}}if(auto* child=race->car_child()){if(child->transaction.pending()){const auto h=child->transaction.restore(*d.native(),[&](uint32_t s,const Args& a,HRESULT v)noexcept{notify(d,s,a,v);});if(FAILED(h)){child->disable();return h;}}}if(race->transaction.pending()){const auto h=race->transaction.restore(*d.native(),[&](uint32_t s,const Args& a,HRESULT v)noexcept{notify(d,s,a,v);});if(FAILED(h)){race->disable();return h;}}}return S_OK;}
+inline HRESULT repair(Device8& d)noexcept{auto* e=d.ps2_port();auto* p=e?e->frontend_model():nullptr;HRESULT fleet=S_OK;if(e)e->for_each_fleet_slot([&](unsigned)noexcept{if(SUCCEEDED(fleet))fleet=repair_fleet_slot(d);});if(FAILED(fleet))return fleet;(void)p;HRESULT front=S_OK;if(e)e->for_each_frontend_slot([&](unsigned)noexcept{auto* m=e->frontend_model();if(FAILED(front)||!m||!m->transaction.pending())return;front=m->transaction.restore(*d.native(),[&](uint32_t s,const Args& a,HRESULT h)noexcept{notify(d,s,a,h);});if(FAILED(front))m->disable();});return front;}
+inline std::string source_hash(const ps2port::DrawSnapshot& g){ps2port::perf::Timer perf_timer(ps2port::perf::GeometryHash);auto copy=ps2port::frontend_position_snapshot(g);auto faces=ps2port::vehicle_face_hashes(copy);if(faces.size()!=g.primitive_count)return {};std::sort(faces.begin(),faces.end());std::string all;for(auto& f:faces)all+=f;return sha256_bytes(all.data(),all.size());}
 inline bool current_tokens(Device8& d,const ps2port::FrontendRecord& r)noexcept{const auto& g=r.geometry;std::vector<BYTE> empty;uint64_t rev=0;return r.valid&&d.trace.resources.generation(g.vertex_resource)==g.vertex_generation&&d.trace.resources.generation(g.index_resource)==g.index_generation&&d.copy_buffer_shadow(reinterpret_cast<void*>(g.vertex_resource),BufferKind::Vertex,g.vertex_generation,0,0,empty,rev)&&rev==g.vertex_revision&&d.copy_buffer_shadow(reinterpret_cast<void*>(g.index_resource),BufferKind::Index,g.index_generation,0,0,empty,rev)&&rev==g.index_revision;}
 inline bool select_frontend_fleet(Device8& d,ps2port::FrontendModel& p,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UINT start,UINT count,uintptr_t pc)noexcept{
  if(!p.fleet_enabled())return true;
@@ -44,9 +49,23 @@ inline bool select_frontend_fleet(Device8& d,ps2port::FrontendModel& p,D3DPRIMIT
  }catch(...){return false;}
 }
 inline xtrailintegration::Result draw(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UINT start,UINT count,uintptr_t pc)noexcept{
+ ps2port::perf::Timer perf_timer(ps2port::perf::FrontendEntry);
  auto* e=d.ps2_port();auto* p=e?e->frontend_model():nullptr;if(!p)return {};const auto repaired=repair(d);if(FAILED(repaired))return {true,repaired};if(!p->requested())return {};
  // World draws share the frontend callsite; reject impossible shapes before caller-stack ownership walks.
  {const auto* active=p->profile();bool shape=ps2port::frontend_shape_candidate(active?active->source:ps2port::kXtrailCompleteSources,active?active->pcDrawCount:24u,vertices,count);if(!shape&&p->fleet_enabled())for(const auto& profile:ps2port::kFrontendFleetProfiles)for(unsigned i=0;!shape&&i<profile.pcDrawCount;++i)shape=profile.unique[i]&&profile.source[i].vertices==vertices&&profile.source[i].triangles==count;if(!shape)return {};}
+ // PERF3: COMPLETE models are menu/showroom cars only; inside a certified race (cached per frame/camera) skip the
+ // owner-tree probing below for every race draw that happens to share a COMPLETE shape.
+ {bool race_single=false;const auto race=courseintegration::certificate(d,race_single);if(race_single&&race.valid)return {};}
+ // One frontend model per COMPLETE car instance drawn this frame (Challenge preview shows two at once).
+ std::optional<ps2port::FrontendSlotScope> slot_scope;
+ {const auto exe=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));uintptr_t mesh=0,instance=0;
+  // Only a draw proven to belong to a flat COMPLETE owner tree may bind a slot.
+  auto complete_tree=[&]()noexcept{Context probe;if(context(caller_stack,pc,probe,24))return true;for(const auto& profile:ps2port::kFrontendFleetProfiles)if(context(caller_stack,pc,probe,profile.pcDrawCount))return true;return false;};
+  if(pc==exe+0x17707e&&caller_stack&&pointer_word(caller_stack+0x34,mesh)&&ps2port::frontend_queue_owner(caller_stack,exe,mesh,word,instance)&&complete_tree()){
+   static thread_local ps2port::FrontendSlotTable table;static thread_local uint64_t table_device=UINT64_MAX;
+   if(table_device!=d.trace.device_id()){table={};table_device=d.trace.device_id();}
+   const unsigned slot=table.assign(instance,d.trace.frame_number(),e->frontend_slot_count());if(slot==UINT32_MAX)return {};
+   slot_scope.emplace(slot);p=e->frontend_model();if(!p||!p->requested())return {};}}
  if(!select_frontend_fleet(d,*p,type,min,vertices,start,count,pc))return {};
  const auto* profile=p->profile();const auto* sources=profile?profile->source:ps2port::kXtrailCompleteSources;const unsigned source_count=profile?profile->pcDrawCount:24u,mesh_count=unsigned(p->asset().meshes.size());const uint32_t complete_mask=(uint32_t(1)<<source_count)-1;
  bool candidate=false;for(unsigned i=0;i<source_count;++i){const auto& s=sources[i];candidate=candidate||(s.vertices==vertices&&s.triangles==count);}
@@ -89,4 +108,5 @@ inline xtrailintegration::Result draw(Device8& d,D3DPRIMITIVETYPE type,UINT min,
 }
 }
 
+#include "fleet_participant_native.hpp"
 #include "race_model_native.hpp"

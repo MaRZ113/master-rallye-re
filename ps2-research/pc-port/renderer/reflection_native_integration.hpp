@@ -2,6 +2,7 @@
 // Compiled only into the staged baseline. The extension classifies and owns its
 // private texture; this native integration alone applies/restores draw state.
 #include "wrappers.hpp"
+#include "ps2_race_certificate.hpp"
 #include "reflection_pilot.hpp"
 #include "vehicle_partition.hpp"
 #include "ps2_port_extension.hpp"
@@ -21,6 +22,7 @@ inline bool snapshot(Device8& device, const DrawClassification& classification,
                      D3DPRIMITIVETYPE type, UINT min_index, UINT vertices,
                      UINT start, UINT count, ps2port::DrawSnapshot& geometry,
                      ps2port::ReflectionSnapshot& out, bool partition=false, bool xtrail_glass=false) noexcept {
+    ps2port::perf::Timer perf_timer(ps2port::perf::ReflectionSnapshot);
     auto* extension = device.ps2_port();
     if (!extension || !extension->reflection() || !extension->reflection()->active()) return false;
     if (type != D3DPT_TRIANGLELIST || !(xtrail_glass ? (count==18&&vertices==22) : partition ? ps2port::vehicle_partition_layout(count,vertices) :
@@ -47,7 +49,15 @@ inline bool snapshot(Device8& device, const DrawClassification& classification,
         safe_copy(&manager,reinterpret_cast<const void*>(image+CAMERA_MANAGER_RVA),4) && manager &&
         safe_copy(&cameras,reinterpret_cast<const void*>(manager+16),4) && cameras == 1 &&
         safe_copy(&camera,reinterpret_cast<const void*>(manager),4) && camera) {
-        const auto certificate = live_race_certificate(camera);
+        // PERF2: one race certificate per device/reset/frame/camera, as the fleet paths cache it; owner, material
+        // and geometry identity of this draw are still proven per draw below.
+        struct CertificateCache { uint64_t device=UINT64_MAX, reset=UINT64_MAX, frame=UINT64_MAX; uintptr_t camera=0; ps2port::Ps2RaceCertificate value{}; };
+        static thread_local CertificateCache cache;
+        if (cache.device != geometry.device_id || cache.reset != geometry.reset_generation || cache.frame != device.trace.frame_number() || cache.camera != camera) {
+            cache.device = geometry.device_id; cache.reset = geometry.reset_generation; cache.frame = device.trace.frame_number(); cache.camera = camera;
+            cache.value = ps2port::ps2_race_certificate(camera);
+        }
+        const auto& certificate = cache.value;
         out.live_race_verified = certificate.valid;
         out.race_generation = certificate.race_generation;
         out.owner_lifetime = certificate.owner_lifetime;
@@ -130,6 +140,22 @@ inline HRESULT repair(Device8& device) noexcept {
     if (extension && extension->color_grade().pending()) {
         const HRESULT color=extension->color_grade().restore(*device.native());
         if (FAILED(color)) return color;
+    }
+    if (extension && extension->hud_damage() && extension->hud_damage()->layer.pending()) {
+        const HRESULT hud=extension->hud_damage()->layer.restore(*device.native());
+        if (FAILED(hud)) return hud;
+    }
+    if (extension && extension->hud_map() && extension->hud_map()->layer.pending()) {
+        const HRESULT map=extension->hud_map()->layer.restore(*device.native());
+        if (FAILED(map)) return map;
+    }
+    if (extension && extension->hud_template() && extension->hud_template()->layer.pending()) {
+        const HRESULT bar=extension->hud_template()->layer.restore(*device.native());
+        if (FAILED(bar)) return bar;
+    }
+    if (extension && extension->hud_timediffs() && extension->hud_timediffs()->layer.pending()) {
+        const HRESULT rows=extension->hud_timediffs()->layer.restore(*device.native());
+        if (FAILED(rows)) return rows;
     }
     if (extension && extension->motion_blur().pending()) {
         const HRESULT blur=extension->motion_blur().restore(*device.native());

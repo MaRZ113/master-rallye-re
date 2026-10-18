@@ -18,6 +18,10 @@ inline bool owned_lamp_context(Device8& d,const RaceCertificate& race,const ps2p
 inline bool kia_context(Device8& d,const RaceCertificate& race,const ps2port::DrawSnapshot& g,const D3DMATRIX& world,uintptr_t texture,ps2port::KiaLampContext& c)noexcept{unsigned family=UINT_MAX;if(!owned_lamp_context(d,race,g,world,texture,c,family)||std::strcmp(ps2port::kRaceFleetProfiles[family].ps2Family,"KIASPORTAGE"))return false;auto* body=d.ps2_port()->race_model()->car_child();return body&&body->certified&&body->drawn_frame==d.trace.frame_number()&&body->kia_damage.complete();}
 inline xtrailintegration::Result draw_fleet_lamp(Device8&,D3DPRIMITIVETYPE,UINT,UINT,UINT,UINT,uintptr_t)noexcept;
 inline xtrailintegration::Result draw(Device8& d,D3DPRIMITIVETYPE type,UINT min_index,UINT vertices,UINT start,UINT count,uintptr_t pc)noexcept{
+ // First PS2 entry of every indexed draw: frame boundary of the PERF2 timing window.
+ ps2port::perf::frame(d.trace.device_id(),d.trace.frame_number(),[](const std::string& r){session().write(r);});
+ ps2port::perf::Timer perf_timer(ps2port::perf::LampEntry);
+ frontendmodelintegration::FleetParticipantScope fleet_scope(d,pc);
  const auto fleet=draw_fleet_lamp(d,type,min_index,vertices,start,count,pc);if(fleet.handled)return fleet;
  auto* e=d.ps2_port();auto* p=e&&e->xtrail()?e->xtrail()->brake():nullptr;
  if(!p||!p->requested()||!e->reflection()||!e->reflection()->active()||e->reflection()->mode_value()!=4||type!=D3DPT_TRIANGLELIST||!d.trace.scene_active||GetCurrentThreadId()!=d.trace.render_thread_id()||d.trace.shadow.recording||d.trace.effective_shadow.recording)return {};
@@ -25,7 +29,7 @@ inline xtrailintegration::Result draw(Device8& d,D3DPRIMITIVETYPE type,UINT min_
  if(pc!=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+SHARED_WORLD_RETURN_RVA)return {};
  bool committed=false;HRESULT submitted=E_FAIL;
  try{
-  bool single=false;const auto certificate=courseintegration::certificate(single);if(!single||!certificate.valid)return {};
+  bool single=false;const auto certificate=courseintegration::certificate(d,single);if(!single||!certificate.valid)return {};
   auto& n=*d.native();ps2integration::Ref<IDirect3DVertexBuffer8> vb;ps2integration::Ref<IDirect3DIndexBuffer8> ib;ps2integration::Ref<IDirect3DBaseTexture8> texture;
   DWORD fvf=0,pixel=0;UINT stride=0,base=0;
   if(FAILED(n.GetVertexShader(&fvf))||(fvf!=0x112&&fvf!=0x102)||FAILED(n.GetPixelShader(&pixel))||pixel||FAILED(n.GetStreamSource(0,&vb.value,&stride))||!vb.value||stride!=(fvf==0x102?20u:32u)||FAILED(n.GetIndices(&ib.value,&base))||!ib.value||FAILED(n.GetTexture(0,&texture.value))||!texture.value||texture.value->GetType()!=D3DRTYPE_TEXTURE)return {};

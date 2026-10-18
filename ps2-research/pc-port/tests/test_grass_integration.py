@@ -19,7 +19,7 @@ class GrassIntegrationTests(unittest.TestCase):
         source = (PORT / 'renderer/grass_native_integration.hpp').read_text()
         self.assertIn('d.ps2_port()->grass()', source)
         self.assertIn('ps2port::course_object_admission(a,p->course())', source)
-        self.assertIn('courseintegration::certificate(single)', source)
+        self.assertIn('courseintegration::certificate(d,single)', source)
         self.assertIn('p->select_course(cert.course_id.data(),*d.native())', source)
         water=(PORT/'renderer/course_objects_native_integration.hpp').read_text()
         self.assertIn('ps2port::turkey3_course(cert.course_id.data())',water)

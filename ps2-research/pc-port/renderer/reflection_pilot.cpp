@@ -3,6 +3,7 @@
 #include "damage_identity.hpp"
 #include <cmath>
 #include "ps2_port_extension.hpp"
+#include "ps2_perf_timing.hpp"
 #include "foliage_probe.hpp"
 #include "provenance.hpp"
 #include <algorithm>
@@ -255,20 +256,41 @@ ReflectionIdentity damage_compatible_identity(const ReflectionSnapshot& s,std::s
  }return result;
 }
 ReflectionIdentity ReflectionPilot::classify(const ReflectionSnapshot& s, uint64_t generation) noexcept {
+    perf::Timer perf_timer(perf::ReflectionClassify);
     try {
         if (!s.geometry) return classify_reflection(s,generation);
         const auto& g=*s.geometry;
         const std::array<uint64_t,15> key={g.device_id,g.reset_generation,g.vertex_resource,g.index_resource,
             g.vertex_generation,g.index_generation,g.vertex_revision,g.index_revision,g.start_index,
             g.base_vertex,g.min_index,g.vertex_count,g.index_format,g.vertex_byte_offset,g.primitive_count};
-        for (const auto& entry:geometry_cache_) if(entry.valid&&entry.key==key)
-            return damage_compatible_identity(s,entry.digest,entry.stable,generation,expanded_);
-        ++geometry_evaluations_;
-        const auto digest=reflection_geometry_sha(g);
-        const auto stable=g.primitive_count==324&&g.vertex_count==330?damage_uv_topology_sha(g):std::string{};
-        auto& entry=geometry_cache_[next_cache_++ % geometry_cache_.size()];
-        entry={key,digest,stable,true};
-        return damage_compatible_identity(s,digest,stable,generation,expanded_);
+        CachedGeometry* entry=nullptr;
+        for (auto& cached:geometry_cache_) if(cached.valid&&cached.key==key){entry=&cached;break;}
+        if(!entry){
+            ++geometry_evaluations_;
+            const auto digest=reflection_geometry_sha(g);
+            const auto stable=g.primitive_count==324&&g.vertex_count==330?damage_uv_topology_sha(g):std::string{};
+            entry=&geometry_cache_[next_cache_++ % geometry_cache_.size()];
+            *entry={key,digest,stable,true};
+        }
+        auto result=damage_compatible_identity(s,entry->digest,entry->stable,generation,expanded_);
+        const std::array<uint64_t,13> layout={g.device_id,g.reset_generation,g.vertex_resource,g.index_resource,
+            g.vertex_generation,g.index_generation,g.start_index,g.base_vertex,g.min_index,g.vertex_count,
+            g.index_format,g.vertex_byte_offset,g.primitive_count};
+        const auto stable_now=[&]()->const std::string&{if(entry->stable.empty())entry->stable=damage_uv_topology_sha(g);return entry->stable;};
+        if(result.accepted&&result.current_geometry_sha256.empty()&&s.vehicle_body_verified){
+            bool known=false;for(const auto& body:learned_)if(body.valid&&body.key==layout){known=true;break;}
+            if(!known&&!stable_now().empty())learned_[next_learned_++ % learned_.size()]={layout,entry->digest,entry->stable,true};
+        }else if(!result.accepted&&s.requested_mode==4&&s.vehicle_body_verified){
+            for(const auto& body:learned_){
+                if(!body.valid||body.key!=layout||body.digest==entry->digest)continue;
+                if(stable_now().empty()||stable_now()!=body.stable)break;
+                auto learned=reflection_identity_for_hash(s,body.digest,generation,expanded_);
+                if(learned.accepted){++learned_matches_;learned.reason="learned_uv_topology_on_deformed_body";
+                    learned.current_geometry_sha256=entry->digest;learned.uv_topology_sha256=entry->stable;result=learned;}
+                break;
+            }
+        }
+        return result;
     } catch (...) { ReflectionIdentity result;result.reason="geometry_evaluation_failed";return result; }
 }
 

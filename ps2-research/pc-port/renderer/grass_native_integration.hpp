@@ -3,6 +3,7 @@
 // with the existing object layer; grass owns independent proof and resources.
 #include "course_objects_native_integration.hpp"
 #include "grass_pilot.hpp"
+#include "grass_split_native.hpp"
 #include <vector>
 
 namespace gfx2::grassintegration {
@@ -18,6 +19,7 @@ inline HRESULT repair_one(Device8& d,ps2port::GrassPilot* p) noexcept {
     });
 }
 inline void observe_transform_one(Device8& d,ps2port::GrassPilot* p,D3DTRANSFORMSTATETYPE type,bool exe,uint32_t rva,HRESULT hr) noexcept {
+    if(grasssplit::observe_transform(d,p,type,exe,rva,hr))return; // SPLIT-GRASS1: PS2SplitScreen=1 passes only.
     if(!p||!p->active()||!exe)return;
     const bool is_view=type==D3DTS_VIEW&&rva==GAMEPLAY_VIEW_RETURN_RVA;
     const bool is_projection=type==D3DTS_PROJECTION&&rva==GAMEPLAY_PROJECTION_RETURN_RVA;
@@ -26,7 +28,7 @@ inline void observe_transform_one(Device8& d,ps2port::GrassPilot* p,D3DTRANSFORM
     if(is_view)p->proof.view_site=false;
     if(is_projection)p->proof.projection_site=false;
     if(FAILED(hr)||!d.trace.scene_active||GetCurrentThreadId()!=d.trace.render_thread_id())return;
-    bool single=false; const auto cert=courseintegration::certificate(single);
+    bool single=false; const auto cert=courseintegration::certificate(d,single);
     if(!single||!cert.valid||!p->select_course(cert.course_id.data(),*d.native())){p->proof.clear();return;}
     auto& proof=p->proof; const auto frame=d.trace.frame_number(); const auto reset=d.ps2_port()->reset_generation();
     if(proof.frame!=frame||proof.device!=d.trace.device_id()||proof.reset!=reset||
@@ -45,6 +47,7 @@ inline void observe_transform_one(Device8& d,ps2port::GrassPilot* p,D3DTRANSFORM
 inline void observe_world_draw_one(Device8& d,ps2port::GrassPilot* p,HRESULT hr) noexcept {
     if(!p||!p->active()||FAILED(hr)||!d.trace.scene_active||
         GetCurrentThreadId()!=d.trace.render_thread_id())return;
+    if(grasssplit::observe_world_draw(d,p))return;
     auto& proof=p->proof;
     if(proof.world_draw||proof.frame!=d.trace.frame_number()||!proof.view_site||!proof.projection_site)return;
     auto& n=*d.native();D3DMATRIX view{},projection{};DWORD z=0,func=0;
@@ -63,13 +66,14 @@ inline void observe_world_draw_one(Device8& d,ps2port::GrassPilot* p,HRESULT hr)
 }
 inline HRESULT before_ui_one(Device8& d,ps2port::GrassPilot* p,bool ui_callsite,bool ui_consumer) noexcept {
     if(!p||!p->active()||!ui_callsite)return S_OK;
+    if(p->proof.split.count)return grasssplit::before_ui(d,p,ui_callsite,ui_consumer);
     const ps2port::CourseBoundaryContext boundary{d.trace.frame_number(),d.trace.device_id(),
         d.ps2_port()->reset_generation(),GetCurrentThreadId()==d.trace.render_thread_id(),
         d.trace.scene_active,ui_consumer,d.trace.shadow.recording||d.trace.effective_shadow.recording};
     if(!ps2port::course_world_preflight(p->proof,boundary)||
        p->boundary_consumed(boundary.frame,p->proof.race,boundary.reset))return S_OK;
     auto& proof=p->proof;auto& n=*d.native();bool single=false;
-    const auto cert=courseintegration::certificate(single);
+    const auto cert=courseintegration::certificate(d,single);
     courseintegration::Ref<IDirect3DSurface8> target,depth;D3DVIEWPORT8 viewport{};
     ps2port::CourseAdmission a;
     a.supported_build=session().target;a.render_thread=GetCurrentThreadId()==d.trace.render_thread_id();

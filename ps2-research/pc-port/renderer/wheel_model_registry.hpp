@@ -8,4 +8,6 @@ inline constexpr FrontendSource kWheelSources[]={
 {"283ca0c3a366146405df4d3fc18755abbe09376d11a7c326ebd25979c4b06c35",91u,90u},
 };
 constexpr bool wheel_certificate_scope(bool current,bool single,uint32_t participants,bool chassis)noexcept{return current&&single&&participants==1&&chassis;}
+// race_scope = fleet_single_car_race(single camera, certificate) for the active participant.
+constexpr bool wheel_certificate_scope(bool race_scope,bool chassis)noexcept{return race_scope&&chassis;}
 }

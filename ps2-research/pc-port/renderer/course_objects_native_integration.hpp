@@ -1,5 +1,7 @@
 #pragma once
 #include "wrappers.hpp"
+#include "ps2_race_certificate.hpp"
+#include "ps2_perf_timing.hpp"
 #include "ps2_port_extension.hpp"
 #include "course_objects.hpp"
 #include "camera_probe.hpp"
@@ -10,18 +12,44 @@
 namespace gfx2::courseintegration {
 template<class T>struct Ref{T* p=nullptr;~Ref(){if(p)p->Release();}};
 inline ps2port::CourseObjectsPilot* pilot(Device8& d)noexcept{return d.ps2_port()?d.ps2_port()->course_objects():nullptr;}
-inline RaceCertificate certificate(bool& single)noexcept {
-    single=false;const uintptr_t image=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));
+inline RaceCertificate certificate(bool& single,bool& split)noexcept {
+    ps2port::perf::Timer timer(ps2port::perf::Certificate);single=split=false;const uintptr_t image=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));
     // HUD context rejects frontend/no-owner scenes before resolving missing
     // race keys. The camera certificate remains mandatory after this gate.
-    const auto hud=live_race_hud_context();
-    if(!hud.valid||hud.attract)return {};
+    const auto hud=ps2port::ps2_race_hud_context();
+    if(!hud.valid)return {};
     uintptr_t manager=0,camera=0;uint32_t cameras=0;
     if(image==0x400000&&safe_copy(&manager,reinterpret_cast<const void*>(image+CAMERA_MANAGER_RVA),4)&&manager&&
        safe_copy(&cameras,reinterpret_cast<const void*>(manager+16),4)&&cameras==1&&
-       safe_copy(&camera,reinterpret_cast<const void*>(manager),4)&&camera){single=true;return live_race_certificate(camera);}
+       safe_copy(&camera,reinterpret_cast<const void*>(manager),4)&&camera){single=true;return ps2port::ps2_race_certificate(camera);}
+    // PS2SplitScreen=1: two active cameras; the certificate is for the renderer's current camera (this pass).
+    uintptr_t holder=0,current=0;
+    if(image==0x400000&&ps2port::ps2_race_certifier().split_screen()&&manager&&cameras==2&&
+       safe_copy(&holder,reinterpret_cast<const void*>(image+RENDERER_HOLDER_RVA),4)&&holder&&
+       safe_copy(&holder,reinterpret_cast<const void*>(holder+0x38),4)&&holder&&safe_copy(&current,reinterpret_cast<const void*>(holder+4),4)&&current){
+        const auto race=ps2port::ps2_race_certificate(current);
+        if(race.valid&&race.mode==ps2port::Ps2RaceMode::SplitScreen){single=split=true;return race;}
+    }
     return {};
 }
+// PERF2.1 (docs/perf2): one race certificate per device / reset generation / frame / renderer current camera for
+// every PS2 path. The certificate is a race-level proof (owner registry, lifecycle, course, context, camera); the
+// game's main loop (0x5AFE30) runs its update before the frame scheduler (0x653080) draws every camera, so it cannot
+// change during one camera's traversal. Runtime PERF2 timing: 90 uncached calls per split-screen frame cost ~5.3 ms.
+// Each draw still proves its own owner, buffers, tokens and transforms.
+// `split` (SPLIT-GRASS1) reports that the certificate is the PS2SplitScreen=1 certificate of the current pass.
+inline RaceCertificate certificate(Device8& d,bool& single,bool& split)noexcept {
+    struct Cache{uint64_t device=UINT64_MAX,reset=UINT64_MAX,frame=UINT64_MAX;uintptr_t camera=0;bool single=false,split=false;RaceCertificate value{};};
+    static thread_local Cache cache;
+    const uintptr_t image=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));uintptr_t holder=0,camera=0;
+    if(image==0x400000&&safe_copy(&holder,reinterpret_cast<const void*>(image+RENDERER_HOLDER_RVA),4)&&holder&&
+       safe_copy(&holder,reinterpret_cast<const void*>(holder+0x38),4)&&holder)safe_copy(&camera,reinterpret_cast<const void*>(holder+4),4);
+    const uint64_t device=d.trace.device_id(),reset=d.ps2_port()?d.ps2_port()->reset_generation():0,frame=d.trace.frame_number();
+    if(cache.device!=device||cache.reset!=reset||cache.frame!=frame||cache.camera!=camera){
+        cache.device=device;cache.reset=reset;cache.frame=frame;cache.camera=camera;cache.value=certificate(cache.single,cache.split);}
+    single=cache.single;split=cache.split;return cache.value;
+}
+inline RaceCertificate certificate(Device8& d,bool& single)noexcept {bool split=false;return certificate(d,single,split);}
 inline bool same_identity(IUnknown* a,IUnknown* b)noexcept {
     if(!a||!b)return false;Ref<IUnknown>x,y;
     return SUCCEEDED(a->QueryInterface(IID_IUnknown,reinterpret_cast<void**>(&x.p)))&&
@@ -45,7 +73,7 @@ inline void observe_transform(Device8& d,D3DTRANSFORMSTATETYPE type,bool exe,uin
     p->proof.invalidate_depth();
     if(is_view)p->proof.view_site=false;if(is_projection)p->proof.projection_site=false;
     if(FAILED(hr)||!d.trace.scene_active||GetCurrentThreadId()!=d.trace.render_thread_id())return;
-    bool single=false;const auto cert=certificate(single);
+    bool single=false;const auto cert=certificate(d,single);
     if(!single||!cert.valid||!ps2port::turkey3_course(cert.course_id.data())){p->proof.clear();return;}
     auto& proof=p->proof;const auto frame=d.trace.frame_number();const auto reset=d.ps2_port()->reset_generation();
     if(proof.frame!=frame||proof.device!=d.trace.device_id()||proof.reset!=reset||
@@ -96,7 +124,7 @@ inline HRESULT before_ui(Device8& d,bool ui_callsite,bool ui_consumer)noexcept {
         d.trace.scene_active,ui_consumer,d.trace.shadow.recording||d.trace.effective_shadow.recording};
     if(!ps2port::course_world_preflight(p->proof,boundary)||
        p->boundary_consumed(boundary.frame,p->proof.race,boundary.reset))return S_OK;
-    auto& proof=p->proof;auto& n=*d.native();bool single=false;const auto cert=certificate(single);
+    auto& proof=p->proof;auto& n=*d.native();bool single=false;const auto cert=certificate(d,single);
     Ref<IDirect3DSurface8> target,depth;D3DVIEWPORT8 viewport{};
     ps2port::CourseAdmission a;
     a.supported_build=session().target;a.render_thread=GetCurrentThreadId()==d.trace.render_thread_id();

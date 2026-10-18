@@ -57,6 +57,24 @@ const char* course_object_admission(const CourseAdmission& a,std::string_view so
     if(!a.pc_depth_convention||!a.native_dependency_states)return "unsupported_native_depth_or_vertex_blend";
     return "eligible";
 }
+const char* course_split_admission(const CourseSplitAdmission& a,const CourseSplitProof& p,std::string_view source_course)noexcept {
+    if(!a.supported_build||!a.asset_ready)return "unsupported_build_or_missing_verified_asset";
+    if(!a.render_thread||!a.scene_active)return "outside_verified_render_scene";
+    if(a.state_block_recording)return "native_state_block_recording";
+    if(!a.race_valid||!a.split_certificate||!course_id_matches(a.course,source_course)||!a.race||!a.owner||!a.camera)return "split_owner_or_camera_unverified";
+    if(!a.ui_callsite||!a.ui_consumer)return "typed_pre_ui_boundary_unverified";
+    if(!a.device||!p.same_frame(a.frame,a.device,a.reset,a.race,a.owner))return "split_stale_world_frame_or_owner";
+    if(p.count!=kCourseSplitPasses||!p.passes[0].camera||!p.passes[1].camera||p.passes[0].camera==p.passes[1].camera)return "split_two_camera_passes_missing";
+    if(a.camera!=p.passes[0].camera&&a.camera!=p.passes[1].camera)return "split_ui_camera_not_a_pass";
+    for(size_t i=0;i<kCourseSplitPasses;++i){const auto& pass=p.passes[i];
+        if(!pass.view_site||!pass.projection_site||!pass.world_draw)return i?"split_pass2_camera_or_world_draw_missing":"split_pass1_camera_or_world_draw_missing";
+        if(!a.target_matches[i]||!a.depth_matches[i]||!course_split_viewport(pass.viewport,a.target_width,a.target_height))return "split_target_depth_or_viewport_changed";
+        if(!a.pc_depth_convention[i])return "unsupported_native_depth_or_vertex_blend";
+    }
+    if(!course_viewports_disjoint(p.passes[0].viewport,p.passes[1].viewport))return "split_viewports_overlap";
+    if(!a.native_dependency_states)return "unsupported_native_depth_or_vertex_blend";
+    return "eligible";
+}
 CourseObjectsPilot::CourseObjectsPilot(bool supported,const std::wstring& ini)noexcept {
     if(!supported){reason_="unsupported_build_stock";return;}
     wchar_t mode[32]{},version[32]{};

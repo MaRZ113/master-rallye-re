@@ -416,6 +416,17 @@ class ReflectionPilot {
     };
     std::array<CachedGeometry,256> geometry_cache_{};
     size_t next_cache_=0;
+    // Bodies first accepted on their exact healthy geometry digest, keyed by resource lifetime and draw layout
+    // (not by content revision). A later revision of the same draw keeps the identity only when its UV set and
+    // index topology still equal the learned ones (in-game deformation moves positions/normals only).
+    struct LearnedBody {
+        std::array<uint64_t,13> key{};
+        std::string digest, stable;
+        bool valid=false;
+    };
+    std::array<LearnedBody,128> learned_{};
+    size_t next_learned_=0;
+    uint64_t learned_matches_=0;
     uint64_t geometry_evaluations_=0;
     bool damage_logged_=false;
     ReflectionMode mode_ = ReflectionMode::Stock;
@@ -447,6 +458,7 @@ public:
     bool initialize(IDirect3DDevice8&) noexcept;
     ReflectionIdentity classify(const ReflectionSnapshot&, uint64_t reset_generation) noexcept;
     uint64_t geometry_evaluations() const noexcept { return geometry_evaluations_; }
+    uint64_t learned_matches() const noexcept { return learned_matches_; }
     ReflectionRequest request(const ReflectionIdentity&, IDirect3DTexture8* mixed_texture = nullptr) const noexcept;
     IDirect3DTexture8* static_texture() const noexcept { return texture_.get(); }
     bool needs_mixed_source() const noexcept { return mode_ == ReflectionMode::TataBodyPS2MixedContribution; }

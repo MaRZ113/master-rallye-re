@@ -75,6 +75,16 @@ class CourseObjectTransaction {
     std::array<CourseObjectSavedState,kCourseObjectStateOps.size()> saved_{};
     uint64_t pending_=0;
     bool captured_=false;
+    // SPLIT-GRASS1: optional viewport slot, used only by split-screen passes. Captured after the fixed states,
+    // applied first and restored last; the single-camera transaction never touches it.
+    D3DVIEWPORT8 saved_viewport_{};
+    bool viewport_captured_=false,viewport_pending_=false;
+    template<class Writer>
+    HRESULT set_viewport(IDirect3DDevice8& native,const D3DVIEWPORT8& value,Writer& writer) noexcept {
+        const Args args=pack(&value);const HRESULT hr=native.SetViewport(&value);
+        writer(kSetViewportSlot,args,hr); // method_names.hpp: SetViewport.
+        return hr;
+    }
 
     static bool finite(const D3DMATRIX& matrix) noexcept {
         for(const auto& row:matrix.m)for(float value:row)if(!std::isfinite(value))return false;
@@ -110,13 +120,16 @@ class CourseObjectTransaction {
         return hr;
     }
 public:
+    static constexpr uint32_t kSetViewportSlot=40;
     HRESULT last_failure=S_OK;
     CourseObjectTransaction()=default;
     CourseObjectTransaction(const CourseObjectTransaction&)=delete;
     CourseObjectTransaction& operator=(const CourseObjectTransaction&)=delete;
     ~CourseObjectTransaction(){release();}
-    bool has_pending() const noexcept {return pending_!=0;}
+    bool has_pending() const noexcept {return pending_!=0||viewport_pending_;}
     bool captured() const noexcept {return captured_;}
+    bool viewport_captured() const noexcept {return viewport_captured_;}
+    bool viewport_pending() const noexcept {return viewport_pending_;}
     uint64_t pending_mask() const noexcept {return pending_;}
 
     // Explicit abandonment is only for device reset/final shutdown. It does
@@ -128,6 +141,7 @@ public:
             saved={};
         }
         pending_=0;captured_=false;
+        saved_viewport_={};viewport_captured_=viewport_pending_=false;
     }
     HRESULT capture(IDirect3DDevice8& native) noexcept {
         if(has_pending()){last_failure=D3DERR_INVALIDCALL;return last_failure;}
@@ -157,6 +171,11 @@ public:
             if(SUCCEEDED(hr))pending_&=~bit;
             else if(SUCCEEDED(result))result=hr;
         }
+        if(viewport_pending_){
+            const HRESULT hr=set_viewport(native,saved_viewport_,writer);
+            if(SUCCEEDED(hr))viewport_pending_=false;
+            else if(SUCCEEDED(result))result=hr;
+        }
         if(!has_pending())release();
         last_failure=result;return result;
     }
@@ -165,7 +184,8 @@ public:
                   const D3DMATRIX& view,const D3DMATRIX& projection,Writer&& writer,
                   const CourseObjectMaterialState& material={}) noexcept {
         const auto valid_address=[](DWORD v){return v==D3DTADDRESS_WRAP||v==D3DTADDRESS_CLAMP;};
-        if(!captured_||has_pending()||!texture||!finite(view)||!finite(projection)||
+        // A split pass applies its viewport first; only pending fixed states forbid an overlapping apply.
+        if(!captured_||pending_||!texture||!finite(view)||!finite(projection)||
            material.z_write>TRUE||!valid_address(material.address_u)||!valid_address(material.address_v)){
             last_failure=E_INVALIDARG;return last_failure;
         }
@@ -189,6 +209,24 @@ public:
             const HRESULT hr=set(native,i,desired,writer);
             if(FAILED(hr)){restore(native,writer);last_failure=hr;return hr;}
         }
+        last_failure=S_OK;return S_OK;
+    }
+    // After capture(), before any apply: remembers the native viewport so a split pass can draw into its half.
+    HRESULT capture_viewport(IDirect3DDevice8& native) noexcept {
+        if(!captured_||has_pending()||viewport_captured_){last_failure=D3DERR_INVALIDCALL;return last_failure;}
+        D3DVIEWPORT8 value{};const HRESULT hr=native.GetViewport(&value);
+        if(FAILED(hr)){last_failure=hr;return hr;}
+        saved_viewport_=value;viewport_captured_=true;last_failure=S_OK;return S_OK;
+    }
+    // Before apply(): a failed setter can still have mutated the viewport, so it stays pending until restore().
+    template<class Writer>
+    HRESULT apply_viewport(IDirect3DDevice8& native,const D3DVIEWPORT8& viewport,Writer&& writer) noexcept {
+        if(!captured_||!viewport_captured_||has_pending()||!viewport.Width||!viewport.Height||
+           !std::isfinite(viewport.MinZ)||!std::isfinite(viewport.MaxZ)){last_failure=E_INVALIDARG;return last_failure;}
+        if(!std::memcmp(&viewport,&saved_viewport_,sizeof(viewport))){last_failure=S_OK;return S_OK;}
+        viewport_pending_=true;
+        const HRESULT hr=set_viewport(native,viewport,writer);
+        if(FAILED(hr)){restore(native,writer);last_failure=hr;return hr;}
         last_failure=S_OK;return S_OK;
     }
     // Mark immediately BEFORE the native UP call, including failing draws.

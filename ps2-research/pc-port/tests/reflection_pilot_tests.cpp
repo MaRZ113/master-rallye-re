@@ -7,6 +7,7 @@
 #include "race_fleet_registry.hpp"
 #include "fleet_lamp_fixture_families.hpp"
 #include <limits>
+#include <map>
 #include <fstream>
 #include <cstdlib>
 #include "ps2_port_extension.hpp"
@@ -534,6 +535,84 @@ void fleet_frame_policy_tests(){
  struct Shape{unsigned vertices,triangles;};const Shape shapes[]={{18,10},{14,10}};
  CHECK(frontend_shape_candidate(shapes,2,14,10));CHECK(!frontend_shape_candidate(shapes,2,14,12));CHECK(!frontend_shape_candidate(shapes,0,18,10));
 }
+// FLEET-ALL-CARS1: exact participant egg chains over a fake retail process image.
+class FleetWorld final : public RaceReadMemory {
+public:
+ std::map<uint32_t,uint8_t> bytes;uint32_t next=0x01000000;std::vector<uint32_t> pool,broker;std::vector<std::vector<uint32_t>> buckets;std::map<size_t,uint32_t> tags;
+ bool read(uint32_t a,void* out,size_t n) noexcept override {auto* o=static_cast<uint8_t*>(out);for(size_t i=0;i<n;++i){auto it=bytes.find(a+uint32_t(i));if(it==bytes.end())return false;o[i]=it->second;}return true;}
+ uint32_t alloc(uint32_t n){const auto a=next;next+=(n+15)&~15u;for(uint32_t i=0;i<n;++i)bytes[a+i]=0;return a;}
+ void put(uint32_t a,uint32_t v){for(int i=0;i<4;++i)bytes[a+i]=uint8_t(v>>(8*i));}
+ uint32_t id(const std::string& text){for(uint32_t i=0;i<pool.size();++i){char t[192]{};if(race_pool_text(*this,0x400000,i,t,sizeof(t))&&text==t)return i;}
+  const auto a=alloc(uint32_t(text.size()+1));for(size_t i=0;i<text.size();++i)bytes[a+uint32_t(i)]=uint8_t(text[i]);pool.push_back(a);broker.push_back(0);buckets.emplace_back();publish();return uint32_t(pool.size()-1);}
+ uint32_t vec(const std::vector<uint32_t>& v){const auto data=alloc(uint32_t(v.size()*4+4));for(size_t i=0;i<v.size();++i)put(data+uint32_t(i*4),v[i]);const auto h=alloc(16);put(h+4,data);put(h+8,data+uint32_t(v.size()*4));put(h+12,data+uint32_t(v.size()*4));return h;}
+ void publish(){
+  const auto pm=alloc(8);put(pm+4,vec(pool));put(0x400000+0x2f93d4,pm);
+  std::vector<uint32_t> regs;for(auto& b:buckets)regs.push_back(vec(b));const auto em=alloc(0x20);put(em+0x1c,vec(regs));put(0x400000+0x2f96fc,em);
+  const auto records=alloc(uint32_t(broker.size()*0x1c+4));
+  for(size_t i=0;i<broker.size();++i){put(records+uint32_t(i*0x1c),uint32_t(i));put(records+uint32_t(i*0x1c+4),broker[i]);put(records+uint32_t(i*0x1c+8),broker[i]?tags[i]:99u);}
+  const auto bm=alloc(16);put(bm+4,records);put(bm+8,records+uint32_t(broker.size()*0x1c));put(bm+12,records+uint32_t(broker.size()*0x1c));put(0x400000+0x2f9410,bm);
+ }
+ void scalar(const std::string& key,int32_t value){const auto i=id(key);const auto p=alloc(4);put(p,uint32_t(value));broker[i]=p;tags[i]=2;publish();}
+ void vehicle(uint32_t car_id){const auto type=id("gaVehicleOutputData");const auto p=alloc(16);put(p+4,type);broker[car_id]=p;tags[car_id]=10;publish();}
+ // egg -> en3d -> instance with the instance+0xb0 back link and the en3d+0xc model name.
+ struct Egg{uint32_t egg,en3d,instance;};
+ Egg egg(const std::string& name,const std::string& model){const auto n=id(name);const auto m=id(model);Egg e{alloc(0x78),alloc(0x78),alloc(0xc0)};put(e.egg+0x5c,n);put(e.egg+0x50,e.en3d);put(e.en3d+0x74,e.instance);put(e.instance+0xb0,e.en3d);put(e.en3d+0xc,m);buckets[n].push_back(e.egg);publish();return e;}
+ std::vector<Egg> cars,wheels;
+ // 0x4d1010 stores lower-case file names with backslashes ("vehicles\\jump\\car"), as observed live (PID 26308).
+ static std::string game_path(std::string folder,const char* leaf){for(auto& ch:folder)ch=char(std::tolower(static_cast<unsigned char>(ch)));return "vehicles\\"+folder+"\\"+leaf;}
+ void car(unsigned n,const std::string& folder,int player_type){const auto c="Car"+std::to_string(n);cars.push_back(egg(c,game_path(folder,"car")));for(unsigned w=0;w<4;++w)wheels.push_back(egg(c+"/Wheel"+std::to_string(w),game_path(folder,"wheel")));scalar("Race/Car"+std::to_string(n)+"/PlayerType",player_type);vehicle(id(c));}
+};
+RaceCertificate fleet_race(uint32_t count,uint64_t generation=7){RaceCertificate r;r.valid=true;r.race_generation=generation;r.owner_lifetime=3;r.participant_count=count;r.single_human_car_race=false;return r;}
+void fleet_participant_tests(){
+ CHECK(fleet_folder_matches("megane","megane")&&fleet_folder_matches("Forester","forester")&&!fleet_folder_matches("Jump","Jum")&&!fleet_folder_matches("","Jump"));
+ std::array<char,48> folder{};CHECK(fleet_model_folder("Vehicles/Jump/car","car",folder)&&std::string(folder.data())=="Jump");
+ CHECK(fleet_model_folder("vehicles\\kamaz\\car","car",folder)&&std::string(folder.data())=="kamaz"&&fleet_folder_matches(folder.data(),"Kamaz"));
+ CHECK(!fleet_model_folder("vehicles\\kamaz/car","car",folder)&&!fleet_model_folder("vehicles/kamaz\\car","car",folder)&&!fleet_model_folder("vehicles\\a\\b\\car","car",folder)&&!fleet_model_folder("vehiclesx\\a\\car","car",folder));
+ CHECK(!fleet_model_folder("vehicles/Jump/carx","car",folder)&&!fleet_model_folder("vehicles//car","car",folder)&&!fleet_model_folder("vehicles/Jump/wheel","car",folder)&&!fleet_model_folder("vehicles/a/b/car","car",folder)&&!fleet_model_folder("cars/Jump/car","car",folder));
+ {FleetWorld w;w.car(0,"Jump",0);w.car(1,"NewRav",1);w.car(2,"Jump",0);w.car(3,"Mercedes",0);FleetParticipantResolver r;
+  auto t=r.resolve(w,0x400000,fleet_race(4));CHECK(t.valid&&t.proven==4&&t.local==1&&t.count==4);
+  uint32_t index=0;FleetRole role=FleetRole::None;unsigned wheel=0;
+  CHECK(t.find(w.cars[2].instance,index,role,wheel)&&index==2&&role==FleetRole::Body);
+  CHECK(t.find(w.wheels[3*4+1].instance,index,role,wheel)&&index==3&&role==FleetRole::Wheel&&wheel==1);
+  CHECK(!t.find(w.cars[2].en3d,index,role,wheel)&&!t.find(0,index,role,wheel));
+  CHECK(std::string(t.cars[1].folder.data())=="newrav"&&fleet_folder_matches(t.cars[1].folder.data(),"NewRav")&&t.cars[0].wheel_mask==15&&!t.cars[1].model_text[0]);
+  // The same generation reuses pool ids; a new race generation resolves them again.
+  const auto first=r.id_resolutions();r.resolve(w,0x400000,fleet_race(4));CHECK(r.id_resolutions()==first);r.resolve(w,0x400000,fleet_race(4,8));CHECK(r.id_resolutions()==first+1);
+  CHECK(!r.resolve(w,0x400000,fleet_race(9)).valid);CHECK(!r.resolve(w,0x400000,fleet_race(0)).valid);auto bad=fleet_race(4);bad.valid=false;CHECK(!r.resolve(w,0x400000,bad).valid);
+  // Retired egg, broken instance link, second registry entry: only those cars leave the table.
+  w.bytes[w.cars[0].egg]=2;w.put(w.cars[2].instance+0xb0,w.cars[1].en3d);const auto car3=w.id("Car3");const auto extra=w.alloc(0x78);w.put(extra+0x5c,car3);w.buckets[car3].push_back(extra);w.publish();
+  t=r.resolve(w,0x400000,fleet_race(4));
+  CHECK(t.valid&&t.proven==1&&t.cars[1].valid&&std::string(t.cars[0].reason)=="egg_retired"&&std::string(t.cars[2].reason)=="instance_en3d_link_mismatch"&&std::string(t.cars[3].reason)=="egg_name_not_unique");
+  CHECK(!t.find(w.cars[0].instance,index,role,wheel));}
+ {FleetWorld w;w.car(0,"Jump",1);w.car(1,"Jump",1);FleetParticipantResolver r;auto t=r.resolve(w,0x400000,fleet_race(2));CHECK(!t.valid&&std::string(t.reason)=="multiple_local_participants");
+  // Split screen: two local drivers, each its own participant; never three.
+  FleetParticipantResolver q;t=q.resolve(w,0x400000,fleet_race(2),2);CHECK(t.valid&&t.proven==2);
+  w.car(2,"Jump",1);FleetParticipantResolver q3;CHECK(!q3.resolve(w,0x400000,fleet_race(3),2).valid);}
+ {// Two eggs claiming the same en3d/instance are a contradiction: no participant is admitted.
+  FleetWorld w;w.car(0,"Jump",1);w.car(1,"Jump",0);w.put(w.cars[1].egg+0x50,w.cars[0].en3d);FleetParticipantResolver r;auto t=r.resolve(w,0x400000,fleet_race(2));CHECK(!t.valid&&std::string(t.reason)=="participant_identity_not_unique");}
+ {FleetWorld w;w.car(0,"Jump",1);w.put(w.wheels[2].en3d+0xc,w.id("vehicles\\bruno\\wheel"));w.put(w.cars[0].en3d+0x74,0);FleetParticipantResolver r;auto t=r.resolve(w,0x400000,fleet_race(1));
+  CHECK(!t.valid&&std::string(t.cars[0].reason)=="en3d_instance_not_created");
+  w.put(w.cars[0].en3d+0x74,w.cars[0].instance);t=r.resolve(w,0x400000,fleet_race(1));CHECK(t.valid&&t.cars[0].wheel_mask==11);
+  w.put(w.cars[0].en3d+0xc,w.id("vehicles\\jump\\complete"));t=r.resolve(w,0x400000,fleet_race(1));CHECK(std::string(t.cars[0].reason)=="body_model_name_not_vehicle_car"&&std::string(t.cars[0].model_text.data())=="vehicles\\jump\\complete");}
+ {FleetWorld w;w.car(0,"Jump",0);w.broker[w.id("Car0")]=0;w.publish();FleetParticipantResolver r;CHECK(std::string(r.resolve(w,0x400000,fleet_race(1)).cars[0].reason)=="vehicle_output_missing");}
+ // Gate policy: the original single-car predicate is unchanged; a proven participant scope admits AI races.
+ auto race=fleet_race(4);FleetActive a;CHECK(!fleet_single_car_race(true,race,a));
+ a.active=true;a.index=2;a.race_generation=7;a.owner_lifetime=3;CHECK(fleet_single_car_race(true,race,a));CHECK(!fleet_single_car_race(false,race,a));
+ auto other=a;other.race_generation=8;CHECK(!fleet_single_car_race(true,race,other));other=a;other.owner_lifetime=4;CHECK(!fleet_single_car_race(true,race,other));
+ other=a;other.index=4;CHECK(!fleet_single_car_race(true,race,other));auto invalid=race;invalid.valid=false;CHECK(!fleet_single_car_race(true,invalid,a));
+ CHECK(fleet_slot(a)==3);auto local=a;local.local=true;CHECK(fleet_slot(local)==0);CHECK(fleet_slot(FleetActive{})==0);
+ {FleetActiveScope outer(a);CHECK(fleet_active.active&&fleet_active.index==2);{FleetActiveScope none{FleetActive{}};CHECK(!fleet_active.active);}CHECK(fleet_active.index==2);}CHECK(!fleet_active.active);
+ RaceCertificate single;single.valid=true;single.single_human_car_race=true;single.participant_count=1;CHECK(fleet_single_car_race(true,single));
+ // FRONTEND-CARS1 slot table: stable per instance, one slot refuses a second car of the same frame.
+ {FrontendSlotTable t;CHECK(t.assign(0x1000,10,1)==0&&t.assign(0x1000,10,1)==0&&t.assign(0x2000,10,1)==UINT32_MAX);
+  CHECK(t.assign(0x1000,11,1)==0&&t.assign(0x2000,11,1)==UINT32_MAX);              // car A drawn every frame keeps the model
+  CHECK(t.assign(0x2000,13,1)==0&&t.assign(0x1000,13,1)==UINT32_MAX);              // A gone for two frames: B takes the slot
+  FrontendSlotTable m;CHECK(m.assign(0x1000,10,4)==0&&m.assign(0x2000,10,4)==1&&m.assign(0x1000,11,4)==0&&m.assign(0x2000,11,4)==1);
+  CHECK(m.assign(0x3000,11,4)==2&&m.assign(0x4000,11,4)==3&&m.assign(0x5000,11,4)==UINT32_MAX&&m.assign(0,11,4)==UINT32_MAX&&m.assign(0x1000,11,5)==UINT32_MAX);
+  CHECK(m.assign(0x5000,14,4)==0);
+  {FrontendSlotScope a(2);CHECK(frontend_slot_active==2);{FrontendSlotScope b(0);CHECK(frontend_slot_active==0);}CHECK(frontend_slot_active==2);}CHECK(frontend_slot_active==0);}
+ std::cout<<"FLEET-ALL-CARS1 participant identity and gate policy: PASS\n";
+}
 // The flat native lamp layout (XYZ|DIFFUSE|TEX1, 24 bytes) must produce exactly the identities
 // of the same geometry in the established 0x112/32 layout; nothing about the hashes is relaxed.
 DrawSnapshot flat_lamp(const DrawSnapshot& wide){
@@ -585,7 +664,7 @@ void private_off_fixtures(){
  }
 }
 void ambiguous_block_order(){DrawSnapshot g;valid(g);g.fvf=0x152;g.stride=36;g.vertex_count=6;g.primitive_count=2;g.min_index=0;g.base_vertex=0;g.vertex_byte_offset=0;g.index_format=D3DFMT_INDEX16;g.vertex_bytes.assign(6*36,0);for(unsigned v=0;v<6;++v){const float xyz[3]={float(v%3),float(v%3==1),0.f};std::memcpy(g.vertex_bytes.data()+v*36,xyz,12);}const uint16_t ids[6]={1,0,2,4,3,5};g.index_bytes.assign(reinterpret_cast<const uint8_t*>(ids),reinterpret_cast<const uint8_t*>(ids)+12);std::vector<std::array<float,3>> pts;std::string x,u;CHECK(RaceDamageState::snapshot(g,pts,x,u));CHECK(block_source_order(g,pts,x.c_str()).empty());}
-int main() {ambiguous_block_order();fleet_frame_policy_tests();flat_lamp_layout_tests();private_off_fixtures();port3_lamp_corpus();kia_damage_glow_pair();fleet_off_fixtures();kia_lamp_fixtures();
+int main() {ambiguous_block_order();fleet_frame_policy_tests();fleet_participant_tests();flat_lamp_layout_tests();private_off_fixtures();port3_lamp_corpus();kia_damage_glow_pair();fleet_off_fixtures();kia_lamp_fixtures();
     fleet_glow_fixtures();original_lamp_fixtures();
     damage_identity_tests();
     identity();transaction();resource_and_reset();config_and_conversion();diagnostic_color_policy();enabled_reset();managed_reset_retention();stock_wrapper_draw();
