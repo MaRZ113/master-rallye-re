@@ -1,0 +1,247 @@
+{
+ "points": {
+  "1": {
+   "xz": [
+    3161.5,
+    168.3
+   ],
+   "nearest_route_index": 6,
+   "route_heading_deg_atan2_dx_dz": -12.9,
+   "wall_distance_by_heading_deg": {
+    "0": 120.0,
+    "22": 106.0,
+    "44": 76.0,
+    "66": 70.0,
+    "88": 82.0,
+    "110": 100.0,
+    "132": null,
+    "154": null,
+    "176": null,
+    "198": null,
+    "220": null,
+    "242": null,
+    "264": null,
+    "286": null,
+    "308": null,
+    "330": null,
+    "352": null
+   }
+  },
+  "2": {
+   "xz": [
+    3182.7,
+    176.4
+   ],
+   "nearest_route_index": 7,
+   "route_heading_deg_atan2_dx_dz": -9.8,
+   "wall_distance_by_heading_deg": {
+    "0": 108.0,
+    "22": 70.0,
+    "44": 52.0,
+    "66": 46.0,
+    "88": 54.0,
+    "110": 70.0,
+    "132": 116.0,
+    "154": null,
+    "176": null,
+    "198": null,
+    "220": null,
+    "242": null,
+    "264": null,
+    "286": null,
+    "308": null,
+    "330": null,
+    "352": 114.0
+   }
+  },
+  "3": {
+   "xz": [
+    3217.6,
+    189.7
+   ],
+   "nearest_route_index": 7,
+   "route_heading_deg_atan2_dx_dz": -9.8,
+   "wall_distance_by_heading_deg": {
+    "0": 24.0,
+    "22": 12.0,
+    "44": 10.0,
+    "66": 8.0,
+    "88": 10.0,
+    "110": 12.0,
+    "132": 36.0,
+    "154": null,
+    "176": null,
+    "198": null,
+    "220": null,
+    "242": null,
+    "264": null,
+    "286": null,
+    "308": null,
+    "330": 114.0,
+    "352": 42.0
+   }
+  },
+  "4": {
+   "xz": [
+    2592.5,
+    309.6
+   ],
+   "nearest_route_index": 84,
+   "route_heading_deg_atan2_dx_dz": -102.4,
+   "wall_distance_by_heading_deg": {
+    "0": null,
+    "22": null,
+    "44": null,
+    "66": null,
+    "88": null,
+    "110": null,
+    "132": null,
+    "154": null,
+    "176": null,
+    "198": 96.0,
+    "220": 94.0,
+    "242": 102.0,
+    "264": null,
+    "286": null,
+    "308": null,
+    "330": null,
+    "352": null
+   }
+  },
+  "5": {
+   "xz": [
+    2585.9,
+    280.3
+   ],
+   "nearest_route_index": 85,
+   "route_heading_deg_atan2_dx_dz": -99.2,
+   "wall_distance_by_heading_deg": {
+    "0": null,
+    "22": null,
+    "44": null,
+    "66": null,
+    "88": null,
+    "110": null,
+    "132": null,
+    "154": null,
+    "176": 82.0,
+    "198": 64.0,
+    "220": 72.0,
+    "242": 72.0,
+    "264": 96.0,
+    "286": null,
+    "308": null,
+    "330": null,
+    "352": null
+   }
+  },
+  "6": {
+   "xz": [
+    2574.5,
+    229.5
+   ],
+   "nearest_route_index": 86,
+   "route_heading_deg_atan2_dx_dz": -90.4,
+   "wall_distance_by_heading_deg": {
+    "0": null,
+    "22": null,
+    "44": null,
+    "66": null,
+    "88": null,
+    "110": null,
+    "132": null,
+    "154": 12.0,
+    "176": 8.0,
+    "198": 8.0,
+    "220": 14.0,
+    "242": 34.0,
+    "264": 34.0,
+    "286": 50.0,
+    "308": null,
+    "330": null,
+    "352": null
+   }
+  },
+  "7": {
+   "xz": [
+    2387.6,
+    -686.3
+   ],
+   "nearest_route_index": 219,
+   "route_heading_deg_atan2_dx_dz": -158.4,
+   "wall_distance_by_heading_deg": {
+    "0": null,
+    "22": null,
+    "44": null,
+    "66": null,
+    "88": null,
+    "110": null,
+    "132": null,
+    "154": null,
+    "176": null,
+    "198": null,
+    "220": null,
+    "242": 88.0,
+    "264": 80.0,
+    "286": 58.0,
+    "308": 44.0,
+    "330": 40.0,
+    "352": null
+   }
+  },
+  "8": {
+   "xz": [
+    2368.2,
+    -681.4
+   ],
+   "nearest_route_index": 220,
+   "route_heading_deg_atan2_dx_dz": -155.2,
+   "wall_distance_by_heading_deg": {
+    "0": 30.0,
+    "22": null,
+    "44": null,
+    "66": null,
+    "88": null,
+    "110": null,
+    "132": null,
+    "154": null,
+    "176": null,
+    "198": null,
+    "220": null,
+    "242": 70.0,
+    "264": 56.0,
+    "286": 40.0,
+    "308": 30.0,
+    "330": 26.0,
+    "352": 28.0
+   }
+  },
+  "9": {
+   "xz": [
+    2337.3,
+    -673.5
+   ],
+   "nearest_route_index": 220,
+   "route_heading_deg_atan2_dx_dz": -155.2,
+   "wall_distance_by_heading_deg": {
+    "0": 6.0,
+    "22": 8.0,
+    "44": 16.0,
+    "66": null,
+    "88": null,
+    "110": null,
+    "132": null,
+    "154": null,
+    "176": null,
+    "198": null,
+    "220": 48.0,
+    "242": 26.0,
+    "264": 14.0,
+    "286": 8.0,
+    "308": 6.0,
+    "330": 6.0,
+    "352": 6.0
+   }
+  }
+ }
+}

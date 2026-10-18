@@ -41,6 +41,8 @@ RaceLine XYZ match within 1 unit). Pairing is semantic, not file-identical. Cano
 | [track-delta1/README.md](track-delta1/README.md) | Turkey3 delta census, registry v2, collision and scene censuses |
 | [track-delta1/T2-BSP-FORMAT.md](track-delta1/T2-BSP-FORMAT.md) | PS2 `.BSP` format reversed from the ELF |
 | [track-delta1/T2-SOLID-SHELL.md](track-delta1/T2-SOLID-SHELL.md) | PS2 solid exterior across 36 courses and runtime probe plan |
+| [track-delta1/T2-BEHAVIOR.md](track-delta1/T2-BEHAVIOR.md) | Static comparison of the PS2 wall and PC OFF COURSE, verdict: not ported for now |
+| [track-delta1/PROBE-TELEPORT.md](track-delta1/PROBE-TELEPORT.md) | Development teleport used for the runtime probes |
 | [track-delta1/SCENE-CENSUS.md](track-delta1/SCENE-CENSUS.md) | Splits, limit lists, controllers across 36 courses |
 
 ## 3. Already in the PC port (`pc-port/`)

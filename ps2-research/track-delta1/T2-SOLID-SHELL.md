@@ -63,3 +63,12 @@ and take a screenshot. Expected from the data: PS2 stops at the wall; PC keeps g
 | 3 | (2387.6, -686.3) route idx 219 | right | (2329.5, -671.5) | 60 | 75 | 35.3 / 61.3 |
 Controls: the same route points one third of the way to the wall (expected open on both).
 Only three probes survive the filters (straight section, wall on real PC ground within 40 of road height and within 15 to 150 units).
+
+## Runtime probes: first results (2026-10-18, user-driven, screenshots in the user's ShareX folder)
+Setup: PC Stock with the probe teleport (`PROBE-TELEPORT.md`), PS2 under PCSX2 driven by hand to the same places. Points 1/4/7 road, 2/5/8 control, 3/6/9 near wall (8 units before the predicted wall).
+- Controls: free on both platforms.
+- Probe 1 (point 3), PS2: the car stops hard against an invisible barrier (speed 0, car tilted against the surface, `3ps.png`). PC: the car keeps moving and OFF COURSE appears (`3.png`, speed 19); the stock reset follows. **Consistent with the static prediction (PS2 blocks, PC relies on the limit reset).**
+- Probe 2 (point 6), PS2: a reset occurred (user report); `6ps.png` shows the car still moving at speed 61 before it. PC: OFF COURSE reset.
+- Probe 3 (point 9), PS2: the car keeps driving (speed 45) and gets WRONG WAY (`9ps.png`); no block seen. PC: OFF COURSE reset. **Does not confirm the prediction for this point** (the heading used is not recorded, so a wrong direction cannot be excluded).
+- PC always resets with OFF COURSE at the near-wall points, so a missing hard stop on PC is masked by the reset; it is not proof of no collision on PC.
+Status of G-COLL: still OPEN. One of three probes supports a PS2 barrier at the predicted place; two do not show it.
