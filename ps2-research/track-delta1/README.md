@@ -31,11 +31,18 @@ A candidate PC target is a draw that uses the same texture basename or exactly m
 | Other | 8 | UNCLASSIFIED | |
 | PC-only (reverse direction) | 971 in 99 groups | SAME / NONE | kept untouched; delta-port never removes PC content |
 
-Ground extras (1,242 triangles, about 120,000 area units) are not simple decals. Centroid against the PC surface directly below:
-439 far below (more than 0.5), 300 far above (mean normal Y only 0.49, i.e. steep slopes), 256 slightly below,
-118 overlay above (0 to 0.5), 73 with no PC surface under them (mean 153 units from the RaceLine), 56 coincident.
-They are mostly 50 to 65 units from the RaceLine. Reading them as extra terrain pieces such as banks or hidden layers is
-a hypothesis; a visual review of the geometry_delta SVG overlay is needed before classifying them.
+Surface coverage (area-weighted, non-exact faces only; plan view = PC surface directly below, 7 samples per triangle):
+
+| Element | Coplanar PC | Near-parallel PC (within 1) | Rest of area, plan view |
+|---|---:|---:|---|
+| Ground (about 120,400 area units) | 0.1% | 5.1% | 4.7% coincident, 8.6% overlay above, 19.1% slightly below, 32.6% far below, 20.0% far above, 14.9% no PC surface under |
+| Puddle (about 38,100) | 0.0% | 17.8% | 1.1% coincident, 12.3% overlay, 11.5% slightly below, 35.7% far below, 39.3% far above |
+| Shrubs, huts, caravans, boats, fence | about 0% | about 0% | mostly far above the ground (objects standing on it) |
+
+So the puddle is not purely absent: about 18% of its non-exact area has a near-parallel PC surface (the 225 modified faces).
+The 520 extra faces have no PC counterpart. The ground extras are not decals either: only 5% of their area lies in the PC surface plane.
+They are mostly 50 to 65 units from the RaceLine. Reading them as extra terrain pieces such as banks or hidden layers is a
+hypothesis; a visual review of the geometry_delta SVG overlay and a collision query (G-COLL) are needed before classifying them.
 
 ## Scene logic (PS2 vs PC Turkey3 XML)
 
@@ -65,6 +72,11 @@ PC scenes, none in PS2 Turkey3 (grep over the scene text); their purpose is a se
 - Splits: PS2 and PC agree on the three real splits. The PC `Copy of SplitTime1` is PC-only; do not import it as PS2 logic.
 - Limit-list structure differs, so G1-style authoring cannot be applied before mapping their semantics.
 
+## Registry format
+Each element now has per-aspect channels (`visual`, `spawn`, `physics`, `logic`), `pcsx2_verification` (REQUIRED_PENDING for all
+non-SAME Turkey3 elements, per the revised policy) and, for triggers, `behavior_intent`
+(see [../track-port0/policy.md](../track-port0/policy.md)).
+
 ## Next
-T1c: run the same pipeline on France1 and ItalyS1, then the remaining courses. Add a visual review step for ground extras
-(`tools/geometry_delta_visualize.py`). Investigate what `Copy of` Eggs do on PC (T5).
+Turkey3 vertical-slice prototype comes before the other courses. The full 36-course census (T1-full) follows the prototype.
+Still open on Turkey3: visual review of the ground extras, PCSX2 captures (mandatory), and what the PC `Copy of` Eggs do.

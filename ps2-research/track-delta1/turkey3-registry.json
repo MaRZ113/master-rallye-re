@@ -4,13 +4,22 @@
       "course": "TURKEY3",
       "elements": [
         {
-          "channel": "A_RENDER_OVERLAY",
+          "channels": {
+            "logic": "N_A",
+            "physics": "UNDECIDED",
+            "spawn": "N_A",
+            "visual": "A_RENDER_OVERLAY"
+          },
           "delta_class": "MISSING_ON_PC",
           "evidence": "CONFIRMED_BY_BYTES",
           "id": "TURKEY3:geometry:puddle",
           "layer": "geometry",
           "metrics": {
             "area": 38112.915,
+            "area_coverage_percent": {
+              "coplanar_pc": 0.0,
+              "near_parallel_pc": 17.8
+            },
             "groups": 23,
             "materials": [
               "water $surfacetype(water) $shader(puddle)"
@@ -22,13 +31,22 @@
               "PS2_EXTRA_VISUAL_SOURCE": 520
             },
             "vertical_relation_to_pc_surface": {
-              "COINCIDENT_WITH_PC_SURFACE": 2,
-              "FAR_ABOVE_PC_SURFACE": 297,
-              "FAR_BELOW_PC_SURFACE": 249,
-              "OVERLAY_ABOVE_PC_SURFACE": 107,
-              "SLIGHTLY_BELOW_PC_SURFACE": 90
+              "COINCIDENT_WITH_PC_SURFACE": 2.0,
+              "FAR_ABOVE_PC_SURFACE": 297.0,
+              "FAR_BELOW_PC_SURFACE": 249.0,
+              "OVERLAY_ABOVE_PC_SURFACE": 107.0,
+              "SLIGHTLY_BELOW_PC_SURFACE": 90.0,
+              "area_coplanar_pc": 0.0,
+              "area_near_parallel_pc": 6785.99,
+              "area_total": 38112.915,
+              "plan_area_COINCIDENT_WITH_PC_SURFACE": 430.939,
+              "plan_area_FAR_ABOVE_PC_SURFACE": 14975.132,
+              "plan_area_FAR_BELOW_PC_SURFACE": 13624.494,
+              "plan_area_OVERLAY_ABOVE_PC_SURFACE": 4688.334,
+              "plan_area_SLIGHTLY_BELOW_PC_SURFACE": 4394.016
             }
           },
+          "pcsx2_verification": "REQUIRED_PENDING",
           "sources": [
             "data/geom1/TURKEY3-cli.json (tools/geometry_delta.py, baseline profile)",
             "geom1/final-report.md",
@@ -39,7 +57,12 @@
         },
         {
           "blocker": "PC compiled draws with no PS2 source match; kept untouched by the delta-port (delta-port never removes PC content)",
-          "channel": "NONE",
+          "channels": {
+            "logic": "N_A",
+            "physics": "NONE",
+            "spawn": "N_A",
+            "visual": "NONE"
+          },
           "delta_class": "SAME",
           "evidence": "STATIC_INFERENCE",
           "id": "TURKEY3:geometry:pc_only",
@@ -48,6 +71,7 @@
             "groups": 99,
             "triangles": 971
           },
+          "pcsx2_verification": "NOT_REQUIRED",
           "sources": [
             "data/geom1/TURKEY3-cli.json (reverse direction)"
           ],
@@ -55,12 +79,27 @@
         },
         {
           "blocker": "Mixed or no congruent fit; manual inspection needed",
-          "channel": "UNDECIDED",
+          "channels": {
+            "logic": "N_A",
+            "physics": "UNDECIDED",
+            "spawn": "N_A",
+            "visual": "UNDECIDED"
+          },
           "delta_class": "UNCLASSIFIED",
           "evidence": "STATIC_INFERENCE",
           "id": "TURKEY3:geometry:foliage_tree:fence",
           "layer": "geometry",
           "metrics": {
+            "area_coverage_percent": {
+              "coplanar_pc": 0.0,
+              "near_parallel_pc": 0.0,
+              "plan_view": {
+                "FAR_ABOVE_PC_SURFACE": 65.3,
+                "FAR_BELOW_PC_SURFACE": 10.7,
+                "OVERLAY_ABOVE_PC_SURFACE": 22.8,
+                "SLIGHTLY_BELOW_PC_SURFACE": 1.2
+              }
+            },
             "fit_verdict_groups": {
               "NO_CONGRUENT_FIT": 5
             },
@@ -73,6 +112,7 @@
               "fence_02-tga"
             ]
           },
+          "pcsx2_verification": "REQUIRED_PENDING",
           "sources": [
             "track-delta1/turkey3-t1b.json (tools/dressing_runtime.py rigid_shape_search, tolerance .001)",
             "dressing1/pc-counterpart-search.md"
@@ -81,12 +121,28 @@
         },
         {
           "blocker": "PC holds congruent geometry at another pose (fitted diagnostic, not authored); decide whether PS2 adds instances or merely places existing meshes differently",
-          "channel": "UNDECIDED",
+          "channels": {
+            "logic": "N_A",
+            "physics": "UNDECIDED",
+            "spawn": "N_A",
+            "visual": "UNDECIDED"
+          },
           "delta_class": "PLACEMENT_DIFFERS",
           "evidence": "STATIC_INFERENCE",
           "id": "TURKEY3:geometry:foliage_treeblend:shrub",
           "layer": "geometry",
           "metrics": {
+            "area_coverage_percent": {
+              "coplanar_pc": 0.0,
+              "near_parallel_pc": 0.0,
+              "plan_view": {
+                "COINCIDENT_WITH_PC_SURFACE": 0.9,
+                "FAR_ABOVE_PC_SURFACE": 70.6,
+                "FAR_BELOW_PC_SURFACE": 1.7,
+                "OVERLAY_ABOVE_PC_SURFACE": 24.7,
+                "SLIGHTLY_BELOW_PC_SURFACE": 2.2
+              }
+            },
             "faces_with_congruent_pc_counterpart": 1312,
             "fit_verdict_groups": {
               "COMPONENTS_CONGRUENT": 12,
@@ -102,6 +158,7 @@
               "shrubtrig2-tga"
             ]
           },
+          "pcsx2_verification": "REQUIRED_PENDING",
           "sources": [
             "track-delta1/turkey3-t1b.json (tools/dressing_runtime.py rigid_shape_search, tolerance .001)",
             "dressing1/pc-counterpart-search.md"
@@ -110,12 +167,29 @@
         },
         {
           "blocker": "Mixed or no congruent fit; manual inspection needed",
-          "channel": "UNDECIDED",
+          "channels": {
+            "logic": "N_A",
+            "physics": "UNDECIDED",
+            "spawn": "N_A",
+            "visual": "UNDECIDED"
+          },
           "delta_class": "UNCLASSIFIED",
           "evidence": "STATIC_INFERENCE",
           "id": "TURKEY3:geometry:ground:ground",
           "layer": "geometry",
           "metrics": {
+            "area_coverage_percent": {
+              "coplanar_pc": 0.1,
+              "near_parallel_pc": 5.1,
+              "plan_view": {
+                "COINCIDENT_WITH_PC_SURFACE": 4.7,
+                "FAR_ABOVE_PC_SURFACE": 20.0,
+                "FAR_BELOW_PC_SURFACE": 32.6,
+                "NO_PC_SURFACE_UNDER": 14.9,
+                "OVERLAY_ABOVE_PC_SURFACE": 8.6,
+                "SLIGHTLY_BELOW_PC_SURFACE": 19.1
+              }
+            },
             "fit_verdict_groups": {
               "GROUND_ANALYSIS": 112
             },
@@ -152,6 +226,7 @@
               "SLIGHTLY_BELOW_PC_SURFACE": 256
             }
           },
+          "pcsx2_verification": "REQUIRED_PENDING",
           "sources": [
             "track-delta1/turkey3-t1b.json (tools/dressing_runtime.py rigid_shape_search, tolerance .001)",
             "dressing1/pc-counterpart-search.md"
@@ -160,12 +235,27 @@
         },
         {
           "blocker": "No PC draw uses these textures, so the model has no PC twin by texture; PC-side substitute not searched",
-          "channel": "A_RENDER_OVERLAY",
+          "channels": {
+            "logic": "N_A",
+            "physics": "UNDECIDED",
+            "spawn": "N_A",
+            "visual": "A_RENDER_OVERLAY"
+          },
           "delta_class": "MISSING_ON_PC",
           "evidence": "STATIC_INFERENCE",
           "id": "TURKEY3:geometry:object_building:house",
           "layer": "geometry",
           "metrics": {
+            "area_coverage_percent": {
+              "coplanar_pc": 0.0,
+              "near_parallel_pc": 0.0,
+              "plan_view": {
+                "COINCIDENT_WITH_PC_SURFACE": 0.1,
+                "FAR_ABOVE_PC_SURFACE": 88.9,
+                "OVERLAY_ABOVE_PC_SURFACE": 7.5,
+                "SLIGHTLY_BELOW_PC_SURFACE": 3.5
+              }
+            },
             "fit_verdict_groups": {
               "NO_PC_TEXTURE_FAMILY": 1
             },
@@ -178,6 +268,7 @@
               "brickhouse-tga"
             ]
           },
+          "pcsx2_verification": "REQUIRED_PENDING",
           "sources": [
             "track-delta1/turkey3-t1b.json (tools/dressing_runtime.py rigid_shape_search, tolerance .001)",
             "dressing1/pc-counterpart-search.md"
@@ -186,12 +277,28 @@
         },
         {
           "blocker": "Mixed or no congruent fit; manual inspection needed",
-          "channel": "UNDECIDED",
+          "channels": {
+            "logic": "N_A",
+            "physics": "UNDECIDED",
+            "spawn": "N_A",
+            "visual": "UNDECIDED"
+          },
           "delta_class": "UNCLASSIFIED",
           "evidence": "STATIC_INFERENCE",
           "id": "TURKEY3:geometry:object_building:hut",
           "layer": "geometry",
           "metrics": {
+            "area_coverage_percent": {
+              "coplanar_pc": 0.0,
+              "near_parallel_pc": 0.0,
+              "plan_view": {
+                "COINCIDENT_WITH_PC_SURFACE": 0.6,
+                "FAR_ABOVE_PC_SURFACE": 81.0,
+                "FAR_BELOW_PC_SURFACE": 10.5,
+                "OVERLAY_ABOVE_PC_SURFACE": 5.0,
+                "SLIGHTLY_BELOW_PC_SURFACE": 2.9
+              }
+            },
             "faces_with_congruent_pc_counterpart": 309,
             "fit_verdict_groups": {
               "COMPONENTS_CONGRUENT": 5,
@@ -208,6 +315,7 @@
               "hut_01-tga"
             ]
           },
+          "pcsx2_verification": "REQUIRED_PENDING",
           "sources": [
             "track-delta1/turkey3-t1b.json (tools/dressing_runtime.py rigid_shape_search, tolerance .001)",
             "dressing1/pc-counterpart-search.md"
@@ -216,12 +324,28 @@
         },
         {
           "blocker": "PC holds congruent geometry at another pose (fitted diagnostic, not authored); decide whether PS2 adds instances or merely places existing meshes differently",
-          "channel": "UNDECIDED",
+          "channels": {
+            "logic": "N_A",
+            "physics": "UNDECIDED",
+            "spawn": "N_A",
+            "visual": "UNDECIDED"
+          },
           "delta_class": "PLACEMENT_DIFFERS",
           "evidence": "STATIC_INFERENCE",
           "id": "TURKEY3:geometry:object_vehicle_prop:boats",
           "layer": "geometry",
           "metrics": {
+            "area_coverage_percent": {
+              "coplanar_pc": 0.0,
+              "near_parallel_pc": 0.0,
+              "plan_view": {
+                "COINCIDENT_WITH_PC_SURFACE": 0.2,
+                "FAR_ABOVE_PC_SURFACE": 76.1,
+                "FAR_BELOW_PC_SURFACE": 11.6,
+                "OVERLAY_ABOVE_PC_SURFACE": 6.5,
+                "SLIGHTLY_BELOW_PC_SURFACE": 5.6
+              }
+            },
             "faces_with_congruent_pc_counterpart": 256,
             "fit_verdict_groups": {
               "WHOLE_GROUP_CONGRUENT": 5
@@ -241,6 +365,7 @@
               "boat4 copy-tga"
             ]
           },
+          "pcsx2_verification": "REQUIRED_PENDING",
           "sources": [
             "track-delta1/turkey3-t1b.json (tools/dressing_runtime.py rigid_shape_search, tolerance .001)",
             "dressing1/pc-counterpart-search.md"
@@ -249,12 +374,28 @@
         },
         {
           "blocker": "No PC draw uses these textures, so the model has no PC twin by texture; PC-side substitute not searched",
-          "channel": "A_RENDER_OVERLAY",
+          "channels": {
+            "logic": "N_A",
+            "physics": "UNDECIDED",
+            "spawn": "N_A",
+            "visual": "A_RENDER_OVERLAY"
+          },
           "delta_class": "MISSING_ON_PC",
           "evidence": "STATIC_INFERENCE",
           "id": "TURKEY3:geometry:object_vehicle_prop:caravan",
           "layer": "geometry",
           "metrics": {
+            "area_coverage_percent": {
+              "coplanar_pc": 0.0,
+              "near_parallel_pc": 0.0,
+              "plan_view": {
+                "COINCIDENT_WITH_PC_SURFACE": 0.7,
+                "FAR_ABOVE_PC_SURFACE": 75.1,
+                "FAR_BELOW_PC_SURFACE": 11.6,
+                "OVERLAY_ABOVE_PC_SURFACE": 8.1,
+                "SLIGHTLY_BELOW_PC_SURFACE": 4.5
+              }
+            },
             "fit_verdict_groups": {
               "NO_PC_TEXTURE_FAMILY": 8
             },
@@ -268,6 +409,7 @@
               "newtex-tga"
             ]
           },
+          "pcsx2_verification": "REQUIRED_PENDING",
           "sources": [
             "track-delta1/turkey3-t1b.json (tools/dressing_runtime.py rigid_shape_search, tolerance .001)",
             "dressing1/pc-counterpart-search.md"
@@ -276,12 +418,24 @@
         },
         {
           "blocker": "Most tyre faces match exactly; the non-exact part differs in texture binding",
-          "channel": "UNDECIDED",
+          "channels": {
+            "logic": "N_A",
+            "physics": "UNDECIDED",
+            "spawn": "N_A",
+            "visual": "UNDECIDED"
+          },
           "delta_class": "DIFFERENT_MATERIAL",
           "evidence": "STATIC_INFERENCE",
           "id": "TURKEY3:geometry:object_vehicle_prop:tyres",
           "layer": "geometry",
           "metrics": {
+            "area_coverage_percent": {
+              "coplanar_pc": 0.0,
+              "near_parallel_pc": 26.2,
+              "plan_view": {
+                "COINCIDENT_WITH_PC_SURFACE": 100.0
+              }
+            },
             "faces_with_congruent_pc_counterpart": 26,
             "fit_verdict_groups": {
               "COMPONENTS_CONGRUENT": 1,
@@ -298,6 +452,7 @@
               "rubber-tga"
             ]
           },
+          "pcsx2_verification": "REQUIRED_PENDING",
           "sources": [
             "track-delta1/turkey3-t1b.json (tools/dressing_runtime.py rigid_shape_search, tolerance .001)",
             "dressing1/pc-counterpart-search.md"
@@ -306,12 +461,25 @@
         },
         {
           "blocker": "Mixed or no congruent fit; manual inspection needed",
-          "channel": "UNDECIDED",
+          "channels": {
+            "logic": "N_A",
+            "physics": "UNDECIDED",
+            "spawn": "N_A",
+            "visual": "UNDECIDED"
+          },
           "delta_class": "UNCLASSIFIED",
           "evidence": "STATIC_INFERENCE",
           "id": "TURKEY3:geometry:other:other",
           "layer": "geometry",
           "metrics": {
+            "area_coverage_percent": {
+              "coplanar_pc": 53.2,
+              "near_parallel_pc": 0.0,
+              "plan_view": {
+                "COINCIDENT_WITH_PC_SURFACE": 53.2,
+                "FAR_ABOVE_PC_SURFACE": 46.8
+              }
+            },
             "fit_verdict_groups": {
               "GROUND_ANALYSIS": 3
             },
@@ -330,6 +498,7 @@
               "FAR_ABOVE_PC_SURFACE": 2
             }
           },
+          "pcsx2_verification": "REQUIRED_PENDING",
           "sources": [
             "track-delta1/turkey3-t1b.json (tools/dressing_runtime.py rigid_shape_search, tolerance .001)",
             "dressing1/pc-counterpart-search.md"
@@ -338,7 +507,12 @@
         },
         {
           "blocker": "RIGID-PORT1.3 NO-GO for private admission; needs new gate G-PROP",
-          "channel": "C_NATIVE_HOOK",
+          "channels": {
+            "logic": "UNDECIDED",
+            "physics": "C_NATIVE_HOOK",
+            "spawn": "B_DATA_COPY",
+            "visual": "UNDECIDED"
+          },
           "delta_class": "MISSING_ON_PC",
           "evidence": "CONFIRMED_BY_BYTES",
           "id": "TURKEY3:rigid_prop:tumbleweed",
@@ -347,6 +521,7 @@
             "pc_eggs": 0,
             "ps2_eggs": 6
           },
+          "pcsx2_verification": "REQUIRED_PENDING",
           "sources": [
             "rigid1/turkey1-tumbleweed.md",
             "pc-port/docs/rigid-port1.3/final-report.md"
@@ -355,7 +530,12 @@
         },
         {
           "blocker": "Live bird counts UNKNOWN; controller not implemented",
-          "channel": "A_RENDER_OVERLAY",
+          "channels": {
+            "logic": "UNDECIDED",
+            "physics": "N_A",
+            "spawn": "UNDECIDED",
+            "visual": "A_RENDER_OVERLAY"
+          },
           "delta_class": "MISSING_ON_PC",
           "evidence": "CONFIRMED_BY_BYTES",
           "id": "TURKEY3:bird:manager",
@@ -367,6 +547,7 @@
             ],
             "ps2_managers": 1
           },
+          "pcsx2_verification": "REQUIRED_PENDING",
           "sources": [
             "ambient2/final-report.md"
           ],
@@ -374,7 +555,12 @@
         },
         {
           "blocker": "aiSpawnParticle effect binding UNKNOWN (plan T8)",
-          "channel": "UNDECIDED",
+          "channels": {
+            "logic": "UNDECIDED",
+            "physics": "N_A",
+            "spawn": "UNDECIDED",
+            "visual": "UNDECIDED"
+          },
           "delta_class": "MISSING_ON_PC",
           "evidence": "CONFIRMED_BY_BYTES",
           "id": "TURKEY3:emitter:smoke",
@@ -383,14 +569,21 @@
             "pc_eggs": 0,
             "ps2_eggs": 11
           },
+          "pcsx2_verification": "REQUIRED_PENDING",
           "sources": [
             "cdelta1/course-dressing-survey.md"
           ],
           "status": "NOT_STARTED"
         },
         {
+          "behavior_intent": "UNCHANGED_FROM_PC",
           "blocker": "PC-only Egg \"Copy of SplitTime1\" reuses Split Time ID 1 (radius 10, ExtraTime 85) with four checkpoint models at another place; looks like an authoring leftover but whether it triggers is UNKNOWN. The three shared splits have identical IDs, radii, ExtraTime and positions",
-          "channel": "B_DATA_COPY",
+          "channels": {
+            "logic": "B_DATA_COPY",
+            "physics": "N_A",
+            "spawn": "NONE",
+            "visual": "NONE"
+          },
           "delta_class": "DIFFERENT_LOGIC",
           "evidence": "CONFIRMED_BY_BYTES",
           "id": "TURKEY3:trigger:split",
@@ -498,6 +691,7 @@
               }
             ]
           },
+          "pcsx2_verification": "REQUIRED_PENDING",
           "sources": [
             "cdelta1/checkpoint-survey.md",
             "src/master_rallye/course_race_authoring.py"
@@ -505,8 +699,14 @@
           "status": "RESEARCHED"
         },
         {
+          "behavior_intent": "UNDECIDED",
           "blocker": "Limit lists are named differently on PS2 (...Limit2, Boom/StaticCameras); semantic mapping UNKNOWN",
-          "channel": "B_DATA_COPY",
+          "channels": {
+            "logic": "UNDECIDED",
+            "physics": "N_A",
+            "spawn": "NONE",
+            "visual": "NONE"
+          },
           "delta_class": "DIFFERENT_LOGIC",
           "evidence": "CONFIRMED_BY_BYTES",
           "id": "TURKEY3:trigger:marker_lists",
@@ -580,6 +780,7 @@
               }
             }
           },
+          "pcsx2_verification": "REQUIRED_PENDING",
           "sources": [
             "src/master_rallye/course_xml.py",
             "cdelta1/course-pairs.md"
@@ -588,7 +789,12 @@
         },
         {
           "blocker": "Checkpoint asset differs (PS2 drum vs PC legacy); knockability owner UNKNOWN",
-          "channel": "B_DATA_COPY",
+          "channels": {
+            "logic": "N_A",
+            "physics": "UNDECIDED",
+            "spawn": "NONE",
+            "visual": "B_DATA_COPY"
+          },
           "delta_class": "DIFFERENT_MATERIAL",
           "evidence": "CONFIRMED_BY_BYTES",
           "id": "TURKEY3:checkpoint:model",
@@ -613,6 +819,7 @@
               ]
             }
           },
+          "pcsx2_verification": "REQUIRED_PENDING",
           "sources": [
             "cdelta1/checkpoint-survey.md"
           ],
@@ -621,6 +828,7 @@
       ],
       "pc_dx_sha256": "724a69da708a124f7dbfd666b7ad8d391bcaf22ff94bd2c91143e305749cf7f8",
       "pc_scene": "DataScene/RaceTest/Turkey3.xml",
+      "pcsx2_required": true,
       "ps2_psm_sha256": "dd274ac1cb56c16d35410fbe2e8e3771a750b47710b747fddc70604fdb3d59fc",
       "ps2_scene": "/TNG/DATASCENE/RACETEST/TURKEY3.XML"
     }

@@ -40,6 +40,10 @@ def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
+def channels(visual='N_A', spawn='N_A', physics='N_A', logic='N_A'):
+    return {'visual': visual, 'spawn': spawn, 'physics': physics, 'logic': logic}
+
+
 def geometry_elements(report):
     buckets = defaultdict(lambda: {'groups': 0, 'triangles': 0, 'area': 0.0,
                                    'materials': set(), 'relations': defaultdict(int)})
@@ -65,7 +69,8 @@ def geometry_elements(report):
             'id': f'TURKEY3:geometry:{name}',
             'layer': 'geometry',
             'delta_class': 'MISSING_ON_PC' if puddle else 'UNCLASSIFIED',
-            'channel': 'A_RENDER_OVERLAY' if puddle else 'UNDECIDED',
+            'channels': channels('A_RENDER_OVERLAY' if puddle else 'UNDECIDED', physics='UNDECIDED'),
+            'pcsx2_verification': 'REQUIRED_PENDING',
             'evidence': 'CONFIRMED_BY_BYTES' if puddle else 'STATIC_INFERENCE',
             'sources': ['data/geom1/TURKEY3-cli.json (tools/geometry_delta.py, baseline profile)',
                         'geom1/final-report.md']
@@ -83,7 +88,8 @@ def geometry_elements(report):
     pc_only = [g for g in report['groups'] if g['geometry_relation'] == 'PC_EXTRA_COMPILED_DRAW']
     out.append({
         'id': 'TURKEY3:geometry:pc_only',
-        'layer': 'geometry', 'delta_class': 'SAME', 'channel': 'NONE', 'evidence': 'STATIC_INFERENCE',
+        'layer': 'geometry', 'delta_class': 'SAME', 'channels': channels('NONE', physics='NONE'),
+        'pcsx2_verification': 'NOT_REQUIRED', 'evidence': 'STATIC_INFERENCE',
         'sources': ['data/geom1/TURKEY3-cli.json (reverse direction)'],
         'metrics': {'groups': len(pc_only), 'triangles': sum(g['source_triangles'] for g in pc_only)},
         'status': 'RESEARCHED',
@@ -145,7 +151,20 @@ def t1b_elements(t1b):
         else:
             cls, channel, status = 'UNCLASSIFIED', 'UNDECIDED', 'RESEARCHED'
             note = 'Mixed or no congruent fit; manual inspection needed'
-        out.append({'id': f'TURKEY3:geometry:{cat}:{sub}', 'layer': 'geometry', 'delta_class': cls, 'channel': channel,
+        cov = {'total_area': 0.0, 'coplanar_pc_area': 0.0, 'near_parallel_pc_area': 0.0}
+        plan = defaultdict(float)
+        for r in rows:
+            for k in cov:
+                cov[k] += r['surface_coverage'][k]
+            for k, v in r['plan_view_area'].items():
+                plan[k] += v
+        total = cov['total_area'] or 1.0
+        metrics['area_coverage_percent'] = {
+            'coplanar_pc': round(100 * cov['coplanar_pc_area'] / total, 1),
+            'near_parallel_pc': round(100 * cov['near_parallel_pc_area'] / total, 1),
+            'plan_view': {k: round(100 * v / total, 1) for k, v in sorted(plan.items())}}
+        out.append({'id': f'TURKEY3:geometry:{cat}:{sub}', 'layer': 'geometry', 'delta_class': cls,
+                    'channels': channels(channel, physics='UNDECIDED'), 'pcsx2_verification': 'REQUIRED_PENDING',
                     'evidence': 'STATIC_INFERENCE', 'status': status, 'blocker': note, 'metrics': metrics,
                     'sources': ['track-delta1/turkey3-t1b.json (tools/dressing_runtime.py rigid_shape_search, tolerance .001)',
                                 'dressing1/pc-counterpart-search.md']})
@@ -155,25 +174,32 @@ def t1b_elements(t1b):
 def scene_elements(ps2, pc, ps2_rows, pc_rows):
     els = []
 
-    def add(eid, layer, cls, channel, ev, sources, metrics, status, blocker=None):
-        e = {'id': eid, 'layer': layer, 'delta_class': cls, 'channel': channel, 'evidence': ev,
-             'sources': sources, 'metrics': metrics, 'status': status}
+    def add(eid, layer, cls, chans, ev, sources, metrics, status, blocker=None, intent=None, gates=None):
+        e = {'id': eid, 'layer': layer, 'delta_class': cls, 'channels': chans, 'evidence': ev,
+             'sources': sources, 'metrics': metrics, 'status': status, 'pcsx2_verification': 'REQUIRED_PENDING'}
         if blocker:
             e['blocker'] = blocker
+        if intent:
+            e['behavior_intent'] = intent
+        if gates:
+            e['gates'] = gates
         els.append(e)
 
     pcc = pc['controller_egg_counts']
     ctl = ps2['controller_egg_counts']
-    add('TURKEY3:rigid_prop:tumbleweed', 'rigid_prop', 'MISSING_ON_PC', 'C_NATIVE_HOOK', 'CONFIRMED_BY_BYTES',
+    add('TURKEY3:rigid_prop:tumbleweed', 'rigid_prop', 'MISSING_ON_PC',
+        channels('UNDECIDED', 'B_DATA_COPY', 'C_NATIVE_HOOK', 'UNDECIDED'), 'CONFIRMED_BY_BYTES',
         ['rigid1/turkey1-tumbleweed.md', 'pc-port/docs/rigid-port1.3/final-report.md'],
         {'ps2_eggs': ctl['gaAiRigidBody'], 'pc_eggs': pcc['gaAiRigidBody']},
         'BLOCKED', 'RIGID-PORT1.3 NO-GO for private admission; needs new gate G-PROP')
-    add('TURKEY3:bird:manager', 'bird', 'MISSING_ON_PC', 'A_RENDER_OVERLAY', 'CONFIRMED_BY_BYTES',
+    add('TURKEY3:bird:manager', 'bird', 'MISSING_ON_PC',
+        channels('A_RENDER_OVERLAY', 'UNDECIDED', 'N_A', 'UNDECIDED'), 'CONFIRMED_BY_BYTES',
         ['ambient2/final-report.md'],
         {'ps2_managers': ctl['gaAnimals_BirdManager'], 'pc_managers': pcc['gaAnimals_BirdManager'],
          'ps2_bird_marker_lists': sorted(k for k in ps2['marker_lists'] if k in ('FlightList', 'MillingList'))},
         'RESEARCHED', 'Live bird counts UNKNOWN; controller not implemented')
-    add('TURKEY3:emitter:smoke', 'emitter', 'MISSING_ON_PC', 'UNDECIDED', 'CONFIRMED_BY_BYTES',
+    add('TURKEY3:emitter:smoke', 'emitter', 'MISSING_ON_PC',
+        channels('UNDECIDED', 'UNDECIDED', 'N_A', 'UNDECIDED'), 'CONFIRMED_BY_BYTES',
         ['cdelta1/course-dressing-survey.md'],
         {'ps2_eggs': ctl['aiSpawnParticle'], 'pc_eggs': pcc['aiSpawnParticle']},
         'NOT_STARTED', 'aiSpawnParticle effect binding UNKNOWN (plan T8)')
@@ -188,24 +214,28 @@ def scene_elements(ps2, pc, ps2_rows, pc_rows):
     ps2_names = {r['egg'] for r in ps2_split}
     pc_only = [split_params(r) for r in pc_split if r['egg'] not in ps2_names]
     copies = [r['egg'] for r in pc_rows if (r['egg'] or '').startswith('Copy of')]
-    add('TURKEY3:trigger:split', 'trigger', 'DIFFERENT_LOGIC', 'B_DATA_COPY', 'CONFIRMED_BY_BYTES',
+    add('TURKEY3:trigger:split', 'trigger', 'DIFFERENT_LOGIC',
+        channels('NONE', 'NONE', 'N_A', 'B_DATA_COPY'), 'CONFIRMED_BY_BYTES',
         ['cdelta1/checkpoint-survey.md', 'src/master_rallye/course_race_authoring.py'],
         {'ps2_split_eggs': [split_params(r) for r in ps2_split], 'pc_split_eggs': [split_params(r) for r in pc_split],
          'pc_only_split_eggs': pc_only, 'pc_eggs_named_copy_of': copies},
         'RESEARCHED', 'PC-only Egg "Copy of SplitTime1" reuses Split Time ID 1 (radius 10, ExtraTime 85) with four checkpoint '
         'models at another place; looks like an authoring leftover but whether it triggers is UNKNOWN. The three shared splits '
-        'have identical IDs, radii, ExtraTime and positions')
+        'have identical IDs, radii, ExtraTime and positions', intent='UNCHANGED_FROM_PC')
     ml = {}
     for name in sorted(set(ps2['marker_lists']) | set(pc['marker_lists'])):
         a, b = ps2['marker_lists'].get(name), pc['marker_lists'].get(name)
         ml[name] = {'ps2': a and a['count'], 'pc': b and b['count'],
                     'identical_ordered_xyz': bool(a and b and a['ordered_xyz_f32_sha256'] == b['ordered_xyz_f32_sha256'])}
-    add('TURKEY3:trigger:marker_lists', 'trigger', 'DIFFERENT_LOGIC', 'B_DATA_COPY', 'CONFIRMED_BY_BYTES',
+    add('TURKEY3:trigger:marker_lists', 'trigger', 'DIFFERENT_LOGIC',
+        channels('NONE', 'NONE', 'N_A', 'UNDECIDED'), 'CONFIRMED_BY_BYTES',
         ['src/master_rallye/course_xml.py', 'cdelta1/course-pairs.md'], {'marker_lists': ml},
-        'RESEARCHED', 'Limit lists are named differently on PS2 (...Limit2, Boom/StaticCameras); semantic mapping UNKNOWN')
+        'RESEARCHED', 'Limit lists are named differently on PS2 (...Limit2, Boom/StaticCameras); semantic mapping UNKNOWN',
+        intent='UNDECIDED')
     ma, mb = ps2['model_references'], pc['model_references']
     diff = {k: [ma.get(k, 0), mb.get(k, 0)] for k in sorted(set(ma) | set(mb)) if ma.get(k, 0) != mb.get(k, 0)}
-    add('TURKEY3:checkpoint:model', 'checkpoint', 'DIFFERENT_MATERIAL', 'B_DATA_COPY', 'CONFIRMED_BY_BYTES',
+    add('TURKEY3:checkpoint:model', 'checkpoint', 'DIFFERENT_MATERIAL',
+        channels('B_DATA_COPY', 'NONE', 'UNDECIDED', 'N_A'), 'CONFIRMED_BY_BYTES',
         ['cdelta1/checkpoint-survey.md'], {'model_reference_count_diff_ps2_pc': diff},
         'RESEARCHED', 'Checkpoint asset differs (PS2 drum vs PC legacy); knockability owner UNKNOWN')
     return els
@@ -233,6 +263,10 @@ def main():
         for e in keep:
             if e['id'].endswith(':puddle') and puddle_ground:
                 e['metrics']['vertical_relation_to_pc_surface'] = puddle_ground
+                t = puddle_ground['area_total'] or 1.0
+                e['metrics']['area_coverage_percent'] = {
+                    'coplanar_pc': round(100 * puddle_ground['area_coplanar_pc'] / t, 1),
+                    'near_parallel_pc': round(100 * puddle_ground['area_near_parallel_pc'] / t, 1)}
         geom = keep + t1b_elements(t1b)
     registry = {
         'schema_version': 2,
@@ -244,6 +278,7 @@ def main():
             'pc_scene': 'DataScene/RaceTest/Turkey3.xml',
             'ps2_psm_sha256': report['ps2_source']['decoded_sha256'],
             'pc_dx_sha256': sha(args.pc_dx),
+            'pcsx2_required': True,
             'elements': geom + scene_elements(ps2, pc, ps2_rows, pc_rows)}],
     }
     args.output.write_text(json.dumps(registry, indent=2, sort_keys=True) + '\n', encoding='utf-8')

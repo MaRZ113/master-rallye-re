@@ -21,8 +21,16 @@
    "node_offset": 3403248,
    "non_exact": 39,
    "pc_texture_family_draws": 6,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 235.986
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 39
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 235.986
    },
    "textures": [
     "hut_01-tga"
@@ -40,8 +48,16 @@
    "node_offset": 3403455,
    "non_exact": 88,
    "pc_texture_family_draws": 0,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 148.212
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 88
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 148.212
    },
    "textures": [
     "newtex-tga"
@@ -65,10 +81,22 @@
    "node_offset": 3403802,
    "non_exact": 21,
    "pc_texture_family_draws": 53,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 289.764,
+    "FAR_ABOVE_PC_SURFACE": 363.744,
+    "FAR_BELOW_PC_SURFACE": 90.98,
+    "OVERLAY_ABOVE_PC_SURFACE": 154.619,
+    "SLIGHTLY_BELOW_PC_SURFACE": 774.59
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 14,
     "GEOMETRY_MODIFIED": 5,
     "PS2_EXTRA_VISUAL_SOURCE": 16
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 830.561,
+    "total_area": 1673.697
    },
    "textures": [
     "mud to ror-tga"
@@ -93,8 +121,19 @@
    "node_offset": 3404058,
    "non_exact": 16,
    "pc_texture_family_draws": 54,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 864.603,
+    "FAR_BELOW_PC_SURFACE": 169.761,
+    "OVERLAY_ABOVE_PC_SURFACE": 158.332,
+    "SLIGHTLY_BELOW_PC_SURFACE": 62.952
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 16
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 1255.648
    },
    "textures": [
     "basegravel-tga"
@@ -115,9 +154,18 @@
    "node_offset": 3404991,
    "non_exact": 5,
    "pc_texture_family_draws": 53,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 4.047,
+    "SLIGHTLY_BELOW_PC_SURFACE": 177.915
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 7,
     "PS2_EXTRA_VISUAL_SOURCE": 5
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 181.963
    },
    "textures": [
     "gravel_road-tga"
@@ -137,9 +185,17 @@
    "node_offset": 3409059,
    "non_exact": 1,
    "pc_texture_family_draws": 67,
+   "plan_view_area": {
+    "NO_PC_SURFACE_UNDER": 597.954
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 28,
     "PS2_EXTRA_VISUAL_SOURCE": 1
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 597.954
    },
    "textures": [
     "neu rocky-tga"
@@ -159,9 +215,18 @@
    "node_offset": 3418591,
    "non_exact": 6,
    "pc_texture_family_draws": 17,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 147.687,
+    "SLIGHTLY_BELOW_PC_SURFACE": 196.916
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 6,
     "PS2_EXTRA_VISUAL_SOURCE": 6
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 344.603
    },
    "textures": [
     "neubeddirt-tga"
@@ -182,9 +247,17 @@
    "node_offset": 3420504,
    "non_exact": 2,
    "pc_texture_family_draws": 17,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 25.46
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 120,
     "PS2_EXTRA_VISUAL_SOURCE": 2
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 25.46
    },
    "textures": [
     "i2a_planks2-tga"
@@ -207,8 +280,20 @@
    "node_offset": 3420712,
    "non_exact": 71,
    "pc_texture_family_draws": 6,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 20.599,
+    "FAR_ABOVE_PC_SURFACE": 703.323,
+    "FAR_BELOW_PC_SURFACE": 49.139,
+    "OVERLAY_ABOVE_PC_SURFACE": 100.738,
+    "SLIGHTLY_BELOW_PC_SURFACE": 29.887
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 71
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 903.687
    },
    "textures": [
     "hut_01-tga"
@@ -226,8 +311,19 @@
    "node_offset": 3423540,
    "non_exact": 88,
    "pc_texture_family_draws": 0,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 0.198,
+    "FAR_ABOVE_PC_SURFACE": 138.271,
+    "OVERLAY_ABOVE_PC_SURFACE": 9.372,
+    "SLIGHTLY_BELOW_PC_SURFACE": 0.374
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 88
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 148.215
    },
    "textures": [
     "newtex-tga"
@@ -248,8 +344,19 @@
    "node_offset": 3423994,
    "non_exact": 18,
    "pc_texture_family_draws": 8,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 152.125,
+    "FAR_BELOW_PC_SURFACE": 5.322,
+    "OVERLAY_ABOVE_PC_SURFACE": 32.746,
+    "SLIGHTLY_BELOW_PC_SURFACE": 2.124
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 18
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 192.317
    },
    "textures": [
     "fence_02-tga"
@@ -269,9 +376,17 @@
    "node_offset": 3424147,
    "non_exact": 2,
    "pc_texture_family_draws": 37,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 8.407
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 73,
     "PARTIAL_SURFACE_OVERLAP": 2
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 8.406,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 8.407
    },
    "textures": [
     "wires-tga"
@@ -295,9 +410,18 @@
    "node_offset": 3424395,
    "non_exact": 32,
    "pc_texture_family_draws": 60,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 58.761,
+    "OVERLAY_ABOVE_PC_SURFACE": 12.274
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 48,
     "PS2_EXTRA_VISUAL_SOURCE": 32
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 71.035
    },
    "textures": [
     "shrubtrig2-tga"
@@ -319,9 +443,18 @@
    "node_offset": 3424815,
    "non_exact": 2,
    "pc_texture_family_draws": 89,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 26.229,
+    "OVERLAY_ABOVE_PC_SURFACE": 157.377
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 13,
     "PS2_EXTRA_VISUAL_SOURCE": 2
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 183.606
    },
    "textures": [
     "grass to grav-tga"
@@ -345,9 +478,21 @@
    "node_offset": 3425453,
    "non_exact": 16,
    "pc_texture_family_draws": 54,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 11.497,
+    "FAR_ABOVE_PC_SURFACE": 86.027,
+    "FAR_BELOW_PC_SURFACE": 391.998,
+    "OVERLAY_ABOVE_PC_SURFACE": 390.655,
+    "SLIGHTLY_BELOW_PC_SURFACE": 153.016
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 48,
     "PS2_EXTRA_VISUAL_SOURCE": 16
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 1033.193
    },
    "textures": [
     "basegravel-tga"
@@ -369,10 +514,20 @@
    "node_offset": 3426618,
    "non_exact": 4,
    "pc_texture_family_draws": 16,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 61.775,
+    "FAR_BELOW_PC_SURFACE": 76.332,
+    "SLIGHTLY_BELOW_PC_SURFACE": 40.844
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 64,
     "PS2_EXTRA_VISUAL_SOURCE": 3,
     "SAME_SURFACE_DIFFERENT_TRIANGULATION": 1
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 61.775,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 178.951
    },
    "textures": [
     "bed to mud-tga"
@@ -393,9 +548,18 @@
    "node_offset": 3426902,
    "non_exact": 52,
    "pc_texture_family_draws": 17,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 2107.83,
+    "SLIGHTLY_BELOW_PC_SURFACE": 1203.988
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 60,
     "PS2_EXTRA_VISUAL_SOURCE": 52
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 3311.818
    },
    "textures": [
     "neubeddirt-tga"
@@ -416,8 +580,17 @@
    "node_offset": 3427187,
    "non_exact": 3,
    "pc_texture_family_draws": 17,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 120.936,
+    "SLIGHTLY_BELOW_PC_SURFACE": 131.73
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 3
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 252.666
    },
    "textures": [
     "neubeddirt-tga"
@@ -437,9 +610,19 @@
    "node_offset": 3429418,
    "non_exact": 77,
    "pc_texture_family_draws": 0,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 3730.531,
+    "OVERLAY_ABOVE_PC_SURFACE": 7.143,
+    "SLIGHTLY_BELOW_PC_SURFACE": 125.283
+   },
    "relations": {
     "GEOMETRY_MODIFIED": 75,
     "PS2_EXTRA_VISUAL_SOURCE": 2
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 3415.894,
+    "total_area": 3862.956
    },
    "textures": [
     "water-tga"
@@ -462,8 +645,20 @@
    "node_offset": 3429766,
    "non_exact": 139,
    "pc_texture_family_draws": 6,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 6.64,
+    "FAR_ABOVE_PC_SURFACE": 853.503,
+    "FAR_BELOW_PC_SURFACE": 134.271,
+    "OVERLAY_ABOVE_PC_SURFACE": 45.313,
+    "SLIGHTLY_BELOW_PC_SURFACE": 48.058
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 139
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 1087.784
    },
    "textures": [
     "hut_01-tga"
@@ -486,9 +681,18 @@
    "node_offset": 3430255,
    "non_exact": 3,
    "pc_texture_family_draws": 89,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 336.061,
+    "SLIGHTLY_BELOW_PC_SURFACE": 101.658
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 6,
     "PS2_EXTRA_VISUAL_SOURCE": 3
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 437.719
    },
    "textures": [
     "grass to grav-tga"
@@ -508,9 +712,18 @@
    "node_offset": 3430477,
    "non_exact": 2,
    "pc_texture_family_draws": 58,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 494.137,
+    "SLIGHTLY_BELOW_PC_SURFACE": 164.164
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 11,
     "PS2_EXTRA_VISUAL_SOURCE": 2
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 658.301
    },
    "textures": [
     "base1-tga"
@@ -532,9 +745,18 @@
    "node_offset": 3430691,
    "non_exact": 10,
    "pc_texture_family_draws": 112,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 2218.635,
+    "SLIGHTLY_BELOW_PC_SURFACE": 1352.22
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 21,
     "PS2_EXTRA_VISUAL_SOURCE": 10
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 3570.856
    },
    "textures": [
     "grass to roc2-tga"
@@ -556,9 +778,18 @@
    "node_offset": 3430920,
    "non_exact": 3,
    "pc_texture_family_draws": 53,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 177.633,
+    "SLIGHTLY_BELOW_PC_SURFACE": 36.204
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 5,
     "PS2_EXTRA_VISUAL_SOURCE": 3
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 213.837
    },
    "textures": [
     "mud to ror-tga"
@@ -576,8 +807,18 @@
    "node_offset": 3431150,
    "non_exact": 60,
    "pc_texture_family_draws": 0,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 0.316,
+    "FAR_ABOVE_PC_SURFACE": 71.08,
+    "OVERLAY_ABOVE_PC_SURFACE": 7.223
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 60
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 78.619
    },
    "textures": [
     "caravan-tga"
@@ -595,8 +836,19 @@
    "node_offset": 3431371,
    "non_exact": 8,
    "pc_texture_family_draws": 0,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 0.099,
+    "FAR_ABOVE_PC_SURFACE": 4.991,
+    "OVERLAY_ABOVE_PC_SURFACE": 1.527,
+    "SLIGHTLY_BELOW_PC_SURFACE": 0.895
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 8
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 7.512
    },
    "textures": [
     "caravan-tga"
@@ -617,8 +869,19 @@
    "node_offset": 3431532,
    "non_exact": 10,
    "pc_texture_family_draws": 8,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 76.985,
+    "FAR_BELOW_PC_SURFACE": 2.062,
+    "OVERLAY_ABOVE_PC_SURFACE": 31.212,
+    "SLIGHTLY_BELOW_PC_SURFACE": 3.093
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 10
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 113.352
    },
    "textures": [
     "fence_02-tga"
@@ -638,9 +901,17 @@
    "node_offset": 3431685,
    "non_exact": 4,
    "pc_texture_family_draws": 37,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 20.568
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 61,
     "PARTIAL_SURFACE_OVERLAP": 4
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 20.565,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 20.568
    },
    "textures": [
     "wires-tga"
@@ -664,9 +935,19 @@
    "node_offset": 3431946,
    "non_exact": 32,
    "pc_texture_family_draws": 60,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 0.427,
+    "FAR_ABOVE_PC_SURFACE": 25.547,
+    "OVERLAY_ABOVE_PC_SURFACE": 11.256
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 128,
     "PS2_EXTRA_VISUAL_SOURCE": 32
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 37.23
    },
    "textures": [
     "shrubtrig2-tga"
@@ -690,9 +971,20 @@
    "node_offset": 3432910,
    "non_exact": 8,
    "pc_texture_family_draws": 54,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 6.753,
+    "FAR_BELOW_PC_SURFACE": 345.298,
+    "OVERLAY_ABOVE_PC_SURFACE": 62.371,
+    "SLIGHTLY_BELOW_PC_SURFACE": 220.481
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 51,
     "PS2_EXTRA_VISUAL_SOURCE": 8
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 634.904
    },
    "textures": [
     "basegravel-tga"
@@ -714,9 +1006,18 @@
    "node_offset": 3433159,
    "non_exact": 1,
    "pc_texture_family_draws": 89,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 15.777,
+    "OVERLAY_ABOVE_PC_SURFACE": 94.663
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 22,
     "PS2_EXTRA_VISUAL_SOURCE": 1
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 110.441
    },
    "textures": [
     "grass to grav-tga"
@@ -736,8 +1037,16 @@
    "node_offset": 3435785,
    "non_exact": 20,
    "pc_texture_family_draws": 67,
+   "plan_view_area": {
+    "NO_PC_SURFACE_UNDER": 1800.614
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 20
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 1800.614
    },
    "textures": [
     "neu rocky-tga"
@@ -758,9 +1067,17 @@
    "node_offset": 3436015,
    "non_exact": 16,
    "pc_texture_family_draws": 112,
+   "plan_view_area": {
+    "NO_PC_SURFACE_UNDER": 1146.924
+   },
    "relations": {
     "DIAGNOSTIC_DEGENERATE": 3,
     "PS2_EXTRA_VISUAL_SOURCE": 13
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 1146.924
    },
    "textures": [
     "grass to roc2-tga"
@@ -787,9 +1104,18 @@
    "node_offset": 3436607,
    "non_exact": 16,
    "pc_texture_family_draws": 60,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 17.294,
+    "OVERLAY_ABOVE_PC_SURFACE": 6.619
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 48,
     "PS2_EXTRA_VISUAL_SOURCE": 16
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 23.913
    },
    "textures": [
     "shrubtrig2-tga"
@@ -810,9 +1136,17 @@
    "node_offset": 3436783,
    "non_exact": 11,
    "pc_texture_family_draws": 112,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 1072.088
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 8,
     "PS2_EXTRA_VISUAL_SOURCE": 11
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 1072.088
    },
    "textures": [
     "grass to roc2-tga"
@@ -835,9 +1169,20 @@
    "node_offset": 3436999,
    "non_exact": 12,
    "pc_texture_family_draws": 25,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 488.519,
+    "FAR_BELOW_PC_SURFACE": 232.795,
+    "OVERLAY_ABOVE_PC_SURFACE": 136.425,
+    "SLIGHTLY_BELOW_PC_SURFACE": 337.457
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 6,
     "PS2_EXTRA_VISUAL_SOURCE": 12
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 1195.196
    },
    "textures": [
     "mud to ro1-tga"
@@ -859,9 +1204,21 @@
    "node_offset": 3437256,
    "non_exact": 35,
    "pc_texture_family_draws": 67,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 5.048,
+    "FAR_ABOVE_PC_SURFACE": 490.705,
+    "FAR_BELOW_PC_SURFACE": 1823.587,
+    "OVERLAY_ABOVE_PC_SURFACE": 57.328,
+    "SLIGHTLY_BELOW_PC_SURFACE": 21.683
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 4,
     "PS2_EXTRA_VISUAL_SOURCE": 35
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 2398.352
    },
    "textures": [
     "neu rocky-tga"
@@ -881,9 +1238,17 @@
    "node_offset": 3437486,
    "non_exact": 4,
    "pc_texture_family_draws": 58,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 430.754
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 48,
     "PS2_EXTRA_VISUAL_SOURCE": 4
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 430.754
    },
    "textures": [
     "base1-tga"
@@ -907,9 +1272,20 @@
    "node_offset": 3440018,
    "non_exact": 12,
    "pc_texture_family_draws": 112,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 91.643,
+    "FAR_BELOW_PC_SURFACE": 47.191,
+    "OVERLAY_ABOVE_PC_SURFACE": 175.184,
+    "SLIGHTLY_BELOW_PC_SURFACE": 45.326
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 13,
     "PS2_EXTRA_VISUAL_SOURCE": 12
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 359.344
    },
    "textures": [
     "grass to roc2-tga"
@@ -931,9 +1307,20 @@
    "node_offset": 3440448,
    "non_exact": 47,
    "pc_texture_family_draws": 67,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 1295.928,
+    "FAR_BELOW_PC_SURFACE": 644.428,
+    "OVERLAY_ABOVE_PC_SURFACE": 84.648,
+    "SLIGHTLY_BELOW_PC_SURFACE": 80.333
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 77,
     "PS2_EXTRA_VISUAL_SOURCE": 47
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 2105.337
    },
    "textures": [
     "neu rocky-tga"
@@ -954,9 +1341,18 @@
    "node_offset": 3440769,
    "non_exact": 13,
    "pc_texture_family_draws": 25,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 349.211,
+    "OVERLAY_ABOVE_PC_SURFACE": 133.545
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 75,
     "PS2_EXTRA_VISUAL_SOURCE": 13
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 482.756
    },
    "textures": [
     "mud to ro1-tga"
@@ -979,9 +1375,19 @@
    "node_offset": 3441953,
    "non_exact": 7,
    "pc_texture_family_draws": 112,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 102.633,
+    "FAR_ABOVE_PC_SURFACE": 63.185,
+    "OVERLAY_ABOVE_PC_SURFACE": 159.076
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 15,
     "PS2_EXTRA_VISUAL_SOURCE": 7
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 324.894
    },
    "textures": [
     "grass to roc2-tga"
@@ -1002,9 +1408,21 @@
    "node_offset": 3442195,
    "non_exact": 33,
    "pc_texture_family_draws": 67,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 21.326,
+    "FAR_ABOVE_PC_SURFACE": 2273.979,
+    "FAR_BELOW_PC_SURFACE": 77.24,
+    "OVERLAY_ABOVE_PC_SURFACE": 67.091,
+    "SLIGHTLY_BELOW_PC_SURFACE": 22.572
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 79,
     "PS2_EXTRA_VISUAL_SOURCE": 33
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 2462.207
    },
    "textures": [
     "neu rocky-tga"
@@ -1027,9 +1445,20 @@
    "node_offset": 3442477,
    "non_exact": 12,
    "pc_texture_family_draws": 25,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 205.463,
+    "FAR_BELOW_PC_SURFACE": 57.889,
+    "OVERLAY_ABOVE_PC_SURFACE": 227.672,
+    "SLIGHTLY_BELOW_PC_SURFACE": 77.185
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 68,
     "PS2_EXTRA_VISUAL_SOURCE": 12
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 568.209
    },
    "textures": [
     "mud to ro1-tga"
@@ -1053,9 +1482,21 @@
    "node_offset": 3444296,
    "non_exact": 64,
    "pc_texture_family_draws": 67,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 10.681,
+    "FAR_ABOVE_PC_SURFACE": 1571.112,
+    "FAR_BELOW_PC_SURFACE": 3631.47,
+    "OVERLAY_ABOVE_PC_SURFACE": 112.053,
+    "SLIGHTLY_BELOW_PC_SURFACE": 302.499
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 76,
     "PS2_EXTRA_VISUAL_SOURCE": 64
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 5627.815
    },
    "textures": [
     "neu rocky-tga"
@@ -1079,10 +1520,22 @@
    "node_offset": 3444604,
    "non_exact": 15,
    "pc_texture_family_draws": 25,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 108.071,
+    "FAR_ABOVE_PC_SURFACE": 5.519,
+    "FAR_BELOW_PC_SURFACE": 268.553,
+    "OVERLAY_ABOVE_PC_SURFACE": 141.929,
+    "SLIGHTLY_BELOW_PC_SURFACE": 343.456
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 117,
     "GEOMETRY_MODIFIED": 2,
     "PS2_EXTRA_VISUAL_SOURCE": 13
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 117.276,
+    "total_area": 867.528
    },
    "textures": [
     "mud to ro1-tga"
@@ -1106,9 +1559,21 @@
    "node_offset": 3444939,
    "non_exact": 14,
    "pc_texture_family_draws": 112,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 69.082,
+    "FAR_BELOW_PC_SURFACE": 543.209,
+    "NO_PC_SURFACE_UNDER": 81.691,
+    "OVERLAY_ABOVE_PC_SURFACE": 46.64,
+    "SLIGHTLY_BELOW_PC_SURFACE": 405.343
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 32,
     "PS2_EXTRA_VISUAL_SOURCE": 14
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 1145.965
    },
    "textures": [
     "grass to roc2-tga"
@@ -1132,9 +1597,20 @@
    "node_offset": 3450656,
    "non_exact": 48,
    "pc_texture_family_draws": 60,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 0.719,
+    "FAR_ABOVE_PC_SURFACE": 71.566,
+    "OVERLAY_ABOVE_PC_SURFACE": 16.532,
+    "SLIGHTLY_BELOW_PC_SURFACE": 2.275
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 92,
     "PS2_EXTRA_VISUAL_SOURCE": 48
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 91.092
    },
    "textures": [
     "shrubtrig2-tga"
@@ -1155,9 +1631,18 @@
    "node_offset": 3452095,
    "non_exact": 25,
    "pc_texture_family_draws": 17,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 2589.256,
+    "SLIGHTLY_BELOW_PC_SURFACE": 1144.382
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 33,
     "PS2_EXTRA_VISUAL_SOURCE": 25
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 3733.638
    },
    "textures": [
     "neubeddirt-tga"
@@ -1179,9 +1664,18 @@
    "node_offset": 3452368,
    "non_exact": 7,
    "pc_texture_family_draws": 28,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 321.965,
+    "SLIGHTLY_BELOW_PC_SURFACE": 1203.459
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 11,
     "PS2_EXTRA_VISUAL_SOURCE": 7
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 1525.424
    },
    "textures": [
     "bedlef-tga"
@@ -1202,8 +1696,20 @@
    "node_offset": 3454793,
    "non_exact": 63,
    "pc_texture_family_draws": 0,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 20.724,
+    "FAR_ABOVE_PC_SURFACE": 376.6,
+    "FAR_BELOW_PC_SURFACE": 2113.088,
+    "OVERLAY_ABOVE_PC_SURFACE": 261.595,
+    "SLIGHTLY_BELOW_PC_SURFACE": 390.803
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 63
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 3162.811
    },
    "textures": [
     "water-tga"
@@ -1223,9 +1729,17 @@
    "node_offset": 3455551,
    "non_exact": 1,
    "pc_texture_family_draws": 58,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 0.0
+   },
    "relations": {
     "DIAGNOSTIC_DEGENERATE": 1,
     "EXACT_TRIANGLE_MATCH": 87
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 0.0
    },
    "textures": [
     "base1-tga"
@@ -1247,9 +1761,18 @@
    "node_offset": 3455856,
    "non_exact": 1,
    "pc_texture_family_draws": 89,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 16.825,
+    "SLIGHTLY_BELOW_PC_SURFACE": 22.433
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 13,
     "PS2_EXTRA_VISUAL_SOURCE": 1
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 39.258
    },
    "textures": [
     "grass to grav-tga"
@@ -1270,8 +1793,16 @@
    "node_offset": 3456529,
    "non_exact": 1,
    "pc_texture_family_draws": 28,
+   "plan_view_area": {
+    "SLIGHTLY_BELOW_PC_SURFACE": 262.226
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 1
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 262.226
    },
    "textures": [
     "bedlef-tga"
@@ -1291,9 +1822,18 @@
    "node_offset": 3456742,
    "non_exact": 3,
    "pc_texture_family_draws": 16,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 251.403,
+    "SLIGHTLY_BELOW_PC_SURFACE": 38.088
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 1,
     "PS2_EXTRA_VISUAL_SOURCE": 3
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 289.491
    },
    "textures": [
     "bed to wall-tga"
@@ -1313,8 +1853,16 @@
    "node_offset": 3456955,
    "non_exact": 1,
    "pc_texture_family_draws": 17,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 132.314
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 1
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 132.314
    },
    "textures": [
     "neubeddirt-tga"
@@ -1334,8 +1882,18 @@
    "node_offset": 3457163,
    "non_exact": 4,
    "pc_texture_family_draws": 9,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 26.74,
+    "FAR_BELOW_PC_SURFACE": 86.332,
+    "SLIGHTLY_BELOW_PC_SURFACE": 45.516
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 4
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 158.588
    },
    "textures": [
     "bed to wall2-tga"
@@ -1358,9 +1916,18 @@
    "node_offset": 3457377,
    "non_exact": 2,
    "pc_texture_family_draws": 54,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 67.5,
+    "SLIGHTLY_BELOW_PC_SURFACE": 41.332
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 1,
     "GEOMETRY_MODIFIED": 2
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 93.343,
+    "total_area": 108.832
    },
    "textures": [
     "basegravel-tga"
@@ -1384,9 +1951,20 @@
    "node_offset": 3459408,
    "non_exact": 192,
    "pc_texture_family_draws": 60,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 1.913,
+    "FAR_ABOVE_PC_SURFACE": 263.994,
+    "OVERLAY_ABOVE_PC_SURFACE": 93.239,
+    "SLIGHTLY_BELOW_PC_SURFACE": 5.226
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 228,
     "PS2_EXTRA_VISUAL_SOURCE": 192
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 364.371
    },
    "textures": [
     "shrubtrig2-tga"
@@ -1411,9 +1989,21 @@
    "node_offset": 3460108,
    "non_exact": 7,
    "pc_texture_family_draws": 54,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 32.916,
+    "FAR_ABOVE_PC_SURFACE": 55.641,
+    "FAR_BELOW_PC_SURFACE": 66.956,
+    "OVERLAY_ABOVE_PC_SURFACE": 25.681,
+    "SLIGHTLY_BELOW_PC_SURFACE": 56.988
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 102,
     "PS2_EXTRA_VISUAL_SOURCE": 7
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 238.181
    },
    "textures": [
     "basegravel-tga"
@@ -1435,9 +2025,20 @@
    "node_offset": 3460396,
    "non_exact": 5,
    "pc_texture_family_draws": 9,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 100.492,
+    "FAR_BELOW_PC_SURFACE": 12.611,
+    "OVERLAY_ABOVE_PC_SURFACE": 66.434,
+    "SLIGHTLY_BELOW_PC_SURFACE": 45.976
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 16,
     "PS2_EXTRA_VISUAL_SOURCE": 5
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 225.513
    },
    "textures": [
     "bed to wall2-tga"
@@ -1458,9 +2059,19 @@
    "node_offset": 3461144,
    "non_exact": 24,
    "pc_texture_family_draws": 17,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 57.726,
+    "FAR_BELOW_PC_SURFACE": 860.662,
+    "SLIGHTLY_BELOW_PC_SURFACE": 635.819
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 77,
     "PS2_EXTRA_VISUAL_SOURCE": 24
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 1554.208
    },
    "textures": [
     "neubeddirt-tga"
@@ -1480,9 +2091,17 @@
    "node_offset": 3462119,
    "non_exact": 1,
    "pc_texture_family_draws": 9,
+   "plan_view_area": {
+    "SLIGHTLY_BELOW_PC_SURFACE": 90.406
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 20,
     "PS2_EXTRA_VISUAL_SOURCE": 1
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 90.406
    },
    "textures": [
     "bed to mud multi-tga"
@@ -1503,9 +2122,18 @@
    "node_offset": 3462382,
    "non_exact": 2,
    "pc_texture_family_draws": 28,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 40.99,
+    "SLIGHTLY_BELOW_PC_SURFACE": 434.74
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 34,
     "PS2_EXTRA_VISUAL_SOURCE": 2
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 475.73
    },
    "textures": [
     "bedlef-tga"
@@ -1525,9 +2153,18 @@
    "node_offset": 3462621,
    "non_exact": 3,
    "pc_texture_family_draws": 16,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 267.74,
+    "SLIGHTLY_BELOW_PC_SURFACE": 40.096
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 39,
     "PS2_EXTRA_VISUAL_SOURCE": 3
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 307.836
    },
    "textures": [
     "bed to wall-tga"
@@ -1550,10 +2187,21 @@
    "node_offset": 3463313,
    "non_exact": 20,
    "pc_texture_family_draws": 14,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 412.863,
+    "FAR_BELOW_PC_SURFACE": 17.553,
+    "OVERLAY_ABOVE_PC_SURFACE": 178.872,
+    "SLIGHTLY_BELOW_PC_SURFACE": 45.418
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 11,
     "GEOMETRY_MODIFIED": 17,
     "PS2_EXTRA_VISUAL_SOURCE": 3
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 374.653,
+    "total_area": 654.705
    },
    "textures": [
     "new wall-tga"
@@ -1575,9 +2223,19 @@
    "node_offset": 3463685,
    "non_exact": 4,
    "pc_texture_family_draws": 89,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 9.493,
+    "FAR_BELOW_PC_SURFACE": 61.284,
+    "SLIGHTLY_BELOW_PC_SURFACE": 380.36
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 80,
     "PS2_EXTRA_VISUAL_SOURCE": 4
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 451.137
    },
    "textures": [
     "grass to grav-tga"
@@ -1598,9 +2256,21 @@
    "node_offset": 3464996,
    "non_exact": 38,
    "pc_texture_family_draws": 0,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 33.534,
+    "FAR_ABOVE_PC_SURFACE": 228.06,
+    "FAR_BELOW_PC_SURFACE": 817.745,
+    "OVERLAY_ABOVE_PC_SURFACE": 439.778,
+    "SLIGHTLY_BELOW_PC_SURFACE": 407.769
+   },
    "relations": {
     "GEOMETRY_MODIFIED": 4,
     "PS2_EXTRA_VISUAL_SOURCE": 34
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 80.11,
+    "total_area": 1926.887
    },
    "textures": [
     "water-tga"
@@ -1621,10 +2291,20 @@
    "node_offset": 3466471,
    "non_exact": 4,
    "pc_texture_family_draws": 112,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 96.343,
+    "FAR_BELOW_PC_SURFACE": 106.057,
+    "SLIGHTLY_BELOW_PC_SURFACE": 764.799
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 103,
     "GEOMETRY_MODIFIED": 1,
     "PS2_EXTRA_VISUAL_SOURCE": 3
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 224.801,
+    "total_area": 967.199
    },
    "textures": [
     "grass to roc2-tga"
@@ -1644,10 +2324,19 @@
    "node_offset": 3467025,
    "non_exact": 5,
    "pc_texture_family_draws": 58,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 518.416,
+    "SLIGHTLY_BELOW_PC_SURFACE": 691.222
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 106,
     "GEOMETRY_MODIFIED": 3,
     "PS2_EXTRA_VISUAL_SOURCE": 2
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 817.081,
+    "total_area": 1209.638
    },
    "textures": [
     "base1-tga"
@@ -1669,9 +2358,18 @@
    "node_offset": 3469003,
    "non_exact": 10,
    "pc_texture_family_draws": 25,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 697.093,
+    "SLIGHTLY_BELOW_PC_SURFACE": 964.948
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 26,
     "PS2_EXTRA_VISUAL_SOURCE": 10
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 1662.041
    },
    "textures": [
     "mud to ro1-tga"
@@ -1692,9 +2390,21 @@
    "node_offset": 3469260,
    "non_exact": 104,
    "pc_texture_family_draws": 0,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 58.799,
+    "FAR_ABOVE_PC_SURFACE": 2704.767,
+    "FAR_BELOW_PC_SURFACE": 1469.979,
+    "OVERLAY_ABOVE_PC_SURFACE": 587.993,
+    "SLIGHTLY_BELOW_PC_SURFACE": 529.194
+   },
    "relations": {
     "GEOMETRY_MODIFIED": 92,
     "PS2_EXTRA_VISUAL_SOURCE": 12
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 1910.196,
+    "total_area": 5350.733
    },
    "textures": [
     "water-tga"
@@ -1718,8 +2428,18 @@
    "node_offset": 3472827,
    "non_exact": 176,
    "pc_texture_family_draws": 60,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 0.148,
+    "FAR_ABOVE_PC_SURFACE": 171.232,
+    "OVERLAY_ABOVE_PC_SURFACE": 70.659
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 176
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 242.039
    },
    "textures": [
     "shrubtrig2-tga"
@@ -1741,9 +2461,19 @@
    "node_offset": 3477227,
    "non_exact": 11,
    "pc_texture_family_draws": 67,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 11.201,
+    "FAR_BELOW_PC_SURFACE": 8.633,
+    "SLIGHTLY_BELOW_PC_SURFACE": 47.001
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 134,
     "PS2_EXTRA_VISUAL_SOURCE": 11
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 66.835
    },
    "textures": [
     "neu rocky-tga"
@@ -1766,10 +2496,20 @@
    "node_offset": 3477574,
    "non_exact": 14,
    "pc_texture_family_draws": 112,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 10.474,
+    "FAR_BELOW_PC_SURFACE": 67.002,
+    "SLIGHTLY_BELOW_PC_SURFACE": 26.018
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 110,
     "GEOMETRY_MODIFIED": 2,
     "PS2_EXTRA_VISUAL_SOURCE": 12
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 8.359,
+    "total_area": 103.494
    },
    "textures": [
     "grass to roc2-tga"
@@ -1792,10 +2532,20 @@
    "node_offset": 3478408,
    "non_exact": 23,
    "pc_texture_family_draws": 28,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 280.364,
+    "FAR_BELOW_PC_SURFACE": 182.387,
+    "SLIGHTLY_BELOW_PC_SURFACE": 2077.903
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 14,
     "GEOMETRY_MODIFIED": 2,
     "PS2_EXTRA_VISUAL_SOURCE": 21
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 155.929,
+    "total_area": 2540.653
    },
    "textures": [
     "bedlef-tga"
@@ -1817,10 +2567,20 @@
    "node_offset": 3478647,
    "non_exact": 28,
    "pc_texture_family_draws": 17,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 19.759,
+    "FAR_BELOW_PC_SURFACE": 1947.424,
+    "SLIGHTLY_BELOW_PC_SURFACE": 887.85
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 7,
     "GEOMETRY_MODIFIED": 1,
     "PS2_EXTRA_VISUAL_SOURCE": 27
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 19.759,
+    "total_area": 2855.033
    },
    "textures": [
     "neubeddirt-tga"
@@ -1841,9 +2601,21 @@
    "node_offset": 3479433,
    "non_exact": 63,
    "pc_texture_family_draws": 0,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 7.143,
+    "FAR_ABOVE_PC_SURFACE": 1122.409,
+    "FAR_BELOW_PC_SURFACE": 1472.633,
+    "OVERLAY_ABOVE_PC_SURFACE": 337.692,
+    "SLIGHTLY_BELOW_PC_SURFACE": 276.448
+   },
    "relations": {
     "GEOMETRY_MODIFIED": 25,
     "PS2_EXTRA_VISUAL_SOURCE": 38
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 817.74,
+    "total_area": 3216.326
    },
    "textures": [
     "water-tga"
@@ -1865,9 +2637,21 @@
    "node_offset": 3479749,
    "non_exact": 28,
    "pc_texture_family_draws": 67,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 22.227,
+    "FAR_ABOVE_PC_SURFACE": 955.438,
+    "FAR_BELOW_PC_SURFACE": 1282.556,
+    "OVERLAY_ABOVE_PC_SURFACE": 109.413,
+    "SLIGHTLY_BELOW_PC_SURFACE": 76.137
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 55,
     "PS2_EXTRA_VISUAL_SOURCE": 28
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 2445.77
    },
    "textures": [
     "neu rocky-tga"
@@ -1890,9 +2674,20 @@
    "node_offset": 3480018,
    "non_exact": 10,
    "pc_texture_family_draws": 25,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 35.27,
+    "FAR_BELOW_PC_SURFACE": 245.169,
+    "OVERLAY_ABOVE_PC_SURFACE": 221.638,
+    "SLIGHTLY_BELOW_PC_SURFACE": 230.904
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 59,
     "PS2_EXTRA_VISUAL_SOURCE": 10
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 732.981
    },
    "textures": [
     "mud to ro1-tga"
@@ -1915,9 +2710,20 @@
    "node_offset": 3480314,
    "non_exact": 8,
    "pc_texture_family_draws": 112,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 74.751,
+    "FAR_BELOW_PC_SURFACE": 457.547,
+    "OVERLAY_ABOVE_PC_SURFACE": 36.924,
+    "SLIGHTLY_BELOW_PC_SURFACE": 66.258
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 15,
     "PS2_EXTRA_VISUAL_SOURCE": 8
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 635.48
    },
    "textures": [
     "grass to roc2-tga"
@@ -1940,8 +2746,20 @@
    "node_offset": 3482339,
    "non_exact": 69,
    "pc_texture_family_draws": 6,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 1.485,
+    "FAR_ABOVE_PC_SURFACE": 411.188,
+    "FAR_BELOW_PC_SURFACE": 17.409,
+    "OVERLAY_ABOVE_PC_SURFACE": 28.701,
+    "SLIGHTLY_BELOW_PC_SURFACE": 10.606
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 69
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 469.389
    },
    "textures": [
     "hut_01-tga"
@@ -1962,8 +2780,17 @@
    "node_offset": 3483002,
    "non_exact": 12,
    "pc_texture_family_draws": 8,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 88.329,
+    "OVERLAY_ABOVE_PC_SURFACE": 35.328
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 12
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 123.658
    },
    "textures": [
     "fence_02-tga"
@@ -1986,10 +2813,22 @@
    "node_offset": 3483142,
    "non_exact": 91,
    "pc_texture_family_draws": 67,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 11.631,
+    "FAR_ABOVE_PC_SURFACE": 1600.884,
+    "FAR_BELOW_PC_SURFACE": 1608.035,
+    "OVERLAY_ABOVE_PC_SURFACE": 603.095,
+    "SLIGHTLY_BELOW_PC_SURFACE": 247.83
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 67,
     "GEOMETRY_MODIFIED": 4,
     "PS2_EXTRA_VISUAL_SOURCE": 87
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 365.354,
+    "total_area": 4071.475
    },
    "textures": [
     "neu rocky-tga"
@@ -2013,9 +2852,20 @@
    "node_offset": 3483476,
    "non_exact": 21,
    "pc_texture_family_draws": 25,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 251.077,
+    "FAR_ABOVE_PC_SURFACE": 236.378,
+    "FAR_BELOW_PC_SURFACE": 117.009,
+    "OVERLAY_ABOVE_PC_SURFACE": 686.548
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 93,
     "PS2_EXTRA_VISUAL_SOURCE": 21
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 1291.012
    },
    "textures": [
     "mud to ro1-tga"
@@ -2039,10 +2889,21 @@
    "node_offset": 3483785,
    "non_exact": 11,
    "pc_texture_family_draws": 112,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 65.113,
+    "FAR_ABOVE_PC_SURFACE": 150.745,
+    "OVERLAY_ABOVE_PC_SURFACE": 253.801,
+    "SLIGHTLY_BELOW_PC_SURFACE": 58.955
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 5,
     "GEOMETRY_MODIFIED": 1,
     "PS2_EXTRA_VISUAL_SOURCE": 10
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 42.031,
+    "total_area": 528.615
    },
    "textures": [
     "grass to roc2-tga"
@@ -2061,9 +2922,20 @@
    "node_offset": 3488650,
    "non_exact": 3,
    "pc_texture_family_draws": 0,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 14.7,
+    "FAR_BELOW_PC_SURFACE": 73.499,
+    "OVERLAY_ABOVE_PC_SURFACE": 14.7,
+    "SLIGHTLY_BELOW_PC_SURFACE": 51.45
+   },
    "relations": {
     "GEOMETRY_MODIFIED": 2,
     "PS2_EXTRA_VISUAL_SOURCE": 1
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 1.944,
+    "total_area": 154.349
    },
    "textures": [
     "water-tga"
@@ -2088,11 +2960,19 @@
    "node_offset": 3495324,
    "non_exact": 64,
    "pc_texture_family_draws": 4,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 1.73
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 320,
     "GEOMETRY_MODIFIED": 24,
     "PARTIAL_SURFACE_OVERLAP": 2,
     "PS2_EXTRA_VISUAL_SOURCE": 38
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.583,
+    "total_area": 1.73
    },
    "textures": [
     "ctyre-tga",
@@ -2117,9 +2997,21 @@
    "node_offset": 3498844,
    "non_exact": 64,
    "pc_texture_family_draws": 60,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 0.65,
+    "FAR_ABOVE_PC_SURFACE": 130.788,
+    "FAR_BELOW_PC_SURFACE": 1.538,
+    "OVERLAY_ABOVE_PC_SURFACE": 30.156,
+    "SLIGHTLY_BELOW_PC_SURFACE": 9.084
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 64,
     "PS2_EXTRA_VISUAL_SOURCE": 64
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 172.216
    },
    "textures": [
     "shrubtrig2-tga"
@@ -2141,9 +3033,18 @@
    "node_offset": 3499059,
    "non_exact": 1,
    "pc_texture_family_draws": 53,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 28.387,
+    "SLIGHTLY_BELOW_PC_SURFACE": 21.29
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 68,
     "PS2_EXTRA_VISUAL_SOURCE": 1
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 49.677
    },
    "textures": [
     "mud to ror-tga"
@@ -2163,9 +3064,18 @@
    "node_offset": 3500284,
    "non_exact": 1,
    "pc_texture_family_draws": 67,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 32.067,
+    "SLIGHTLY_BELOW_PC_SURFACE": 24.05
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 111,
     "PS2_EXTRA_VISUAL_SOURCE": 1
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 56.117
    },
    "textures": [
     "neu rocky-tga"
@@ -2185,8 +3095,16 @@
    "node_offset": 3501251,
    "non_exact": 3,
    "pc_texture_family_draws": 58,
+   "plan_view_area": {
+    "NO_PC_SURFACE_UNDER": 1862.394
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 3
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 1862.394
    },
    "textures": [
     "base1-tga"
@@ -2206,8 +3124,16 @@
    "node_offset": 3501452,
    "non_exact": 7,
    "pc_texture_family_draws": 67,
+   "plan_view_area": {
+    "NO_PC_SURFACE_UNDER": 2555.607
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 7
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 2555.607
    },
    "textures": [
     "neu rocky-tga"
@@ -2228,8 +3154,16 @@
    "node_offset": 3501643,
    "non_exact": 3,
    "pc_texture_family_draws": 112,
+   "plan_view_area": {
+    "NO_PC_SURFACE_UNDER": 1301.587
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 3
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 1301.587
    },
    "textures": [
     "grass to roc2-tga"
@@ -2250,8 +3184,20 @@
    "node_offset": 3505409,
    "non_exact": 30,
    "pc_texture_family_draws": 0,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 7.143,
+    "FAR_ABOVE_PC_SURFACE": 984.672,
+    "FAR_BELOW_PC_SURFACE": 381.339,
+    "OVERLAY_ABOVE_PC_SURFACE": 78.004,
+    "SLIGHTLY_BELOW_PC_SURFACE": 96.378
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 30
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 1547.536
    },
    "textures": [
     "water-tga"
@@ -2272,9 +3218,21 @@
    "node_offset": 3505554,
    "non_exact": 77,
    "pc_texture_family_draws": 0,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 51.461,
+    "FAR_ABOVE_PC_SURFACE": 2370.02,
+    "FAR_BELOW_PC_SURFACE": 301.138,
+    "OVERLAY_ABOVE_PC_SURFACE": 819.767,
+    "SLIGHTLY_BELOW_PC_SURFACE": 481.216
+   },
    "relations": {
     "GEOMETRY_MODIFIED": 27,
     "PS2_EXTRA_VISUAL_SOURCE": 50
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 560.106,
+    "total_area": 4023.602
    },
    "textures": [
     "water-tga"
@@ -2296,9 +3254,18 @@
    "node_offset": 3506522,
    "non_exact": 3,
    "pc_texture_family_draws": 53,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 62.825,
+    "OVERLAY_ABOVE_PC_SURFACE": 47.119
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 73,
     "PS2_EXTRA_VISUAL_SOURCE": 3
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 109.944
    },
    "textures": [
     "mud to ror-tga"
@@ -2318,8 +3285,16 @@
    "node_offset": 3507956,
    "non_exact": 13,
    "pc_texture_family_draws": 67,
+   "plan_view_area": {
+    "NO_PC_SURFACE_UNDER": 5119.079
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 13
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 5119.079
    },
    "textures": [
     "neu rocky-tga"
@@ -2341,9 +3316,18 @@
    "node_offset": 3509615,
    "non_exact": 1,
    "pc_texture_family_draws": 89,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 29.584,
+    "SLIGHTLY_BELOW_PC_SURFACE": 39.445
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 21,
     "PS2_EXTRA_VISUAL_SOURCE": 1
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 69.028
    },
    "textures": [
     "grass to grav-tga"
@@ -2365,9 +3349,18 @@
    "node_offset": 3511001,
    "non_exact": 2,
    "pc_texture_family_draws": 53,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 55.208,
+    "SLIGHTLY_BELOW_PC_SURFACE": 73.611
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 20,
     "PS2_EXTRA_VISUAL_SOURCE": 2
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 128.819
    },
    "textures": [
     "mud to ror-tga"
@@ -2389,9 +3382,18 @@
    "node_offset": 3511231,
    "non_exact": 3,
    "pc_texture_family_draws": 89,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 156.376,
+    "SLIGHTLY_BELOW_PC_SURFACE": 77.096
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 10,
     "PS2_EXTRA_VISUAL_SOURCE": 3
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 233.472
    },
    "textures": [
     "grass to grav-tga"
@@ -2412,8 +3414,19 @@
    "node_offset": 3514344,
    "non_exact": 53,
    "pc_texture_family_draws": 0,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 1931.1,
+    "FAR_BELOW_PC_SURFACE": 632.193,
+    "OVERLAY_ABOVE_PC_SURFACE": 90.878,
+    "SLIGHTLY_BELOW_PC_SURFACE": 78.945
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 53
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 2733.116
    },
    "textures": [
     "water-tga"
@@ -2440,9 +3453,21 @@
    "node_offset": 3514510,
    "non_exact": 32,
    "pc_texture_family_draws": 60,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 1.202,
+    "FAR_ABOVE_PC_SURFACE": 25.407,
+    "FAR_BELOW_PC_SURFACE": 29.56,
+    "OVERLAY_ABOVE_PC_SURFACE": 19.101,
+    "SLIGHTLY_BELOW_PC_SURFACE": 10.839
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 32,
     "PS2_EXTRA_VISUAL_SOURCE": 32
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 86.108
    },
    "textures": [
     "shrubtrig2-tga"
@@ -2463,8 +3488,19 @@
    "node_offset": 3517138,
    "non_exact": 8,
    "pc_texture_family_draws": 0,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 188.473,
+    "FAR_BELOW_PC_SURFACE": 146.101,
+    "OVERLAY_ABOVE_PC_SURFACE": 12.877,
+    "SLIGHTLY_BELOW_PC_SURFACE": 40.04
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 8
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 387.491
    },
    "textures": [
     "water-tga"
@@ -2486,8 +3522,19 @@
    "node_offset": 3519717,
    "non_exact": 13,
    "pc_texture_family_draws": 17,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 79.025,
+    "FAR_BELOW_PC_SURFACE": 264.855,
+    "OVERLAY_ABOVE_PC_SURFACE": 49.977,
+    "SLIGHTLY_BELOW_PC_SURFACE": 246.732
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 13
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 640.589
    },
    "textures": [
     "neubeddirt-tga"
@@ -2509,9 +3556,18 @@
    "node_offset": 3521413,
    "non_exact": 11,
    "pc_texture_family_draws": 28,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 340.235,
+    "OVERLAY_ABOVE_PC_SURFACE": 545.466
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 20,
     "PS2_EXTRA_VISUAL_SOURCE": 11
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 885.7
    },
    "textures": [
     "bedlef-tga"
@@ -2532,8 +3588,20 @@
    "node_offset": 3522569,
    "non_exact": 17,
    "pc_texture_family_draws": 0,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 50.0,
+    "FAR_ABOVE_PC_SURFACE": 214.286,
+    "FAR_BELOW_PC_SURFACE": 157.237,
+    "OVERLAY_ABOVE_PC_SURFACE": 244.325,
+    "SLIGHTLY_BELOW_PC_SURFACE": 204.698
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 17
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 870.545
    },
    "textures": [
     "water-tga"
@@ -2557,9 +3625,20 @@
    "node_offset": 3525339,
    "non_exact": 128,
    "pc_texture_family_draws": 60,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 4.272,
+    "FAR_ABOVE_PC_SURFACE": 142.417,
+    "OVERLAY_ABOVE_PC_SURFACE": 55.533,
+    "SLIGHTLY_BELOW_PC_SURFACE": 1.374
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 256,
     "PS2_EXTRA_VISUAL_SOURCE": 128
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 203.595
    },
    "textures": [
     "shrubtrig2-tga"
@@ -2582,10 +3661,20 @@
    "node_offset": 3526001,
    "non_exact": 43,
    "pc_texture_family_draws": 89,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 1005.073,
+    "FAR_BELOW_PC_SURFACE": 27.744,
+    "SLIGHTLY_BELOW_PC_SURFACE": 1277.466
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 106,
     "GEOMETRY_MODIFIED": 17,
     "PS2_EXTRA_VISUAL_SOURCE": 26
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 798.072,
+    "total_area": 2310.284
    },
    "textures": [
     "grass to grav-tga"
@@ -2608,9 +3697,18 @@
    "node_offset": 3526313,
    "non_exact": 23,
    "pc_texture_family_draws": 54,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 614.27,
+    "SLIGHTLY_BELOW_PC_SURFACE": 822.144
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 74,
     "PS2_EXTRA_VISUAL_SOURCE": 23
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 1436.414
    },
    "textures": [
     "basegravel-tga"
@@ -2634,10 +3732,20 @@
    "node_offset": 3526919,
    "non_exact": 10,
    "pc_texture_family_draws": 53,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 76.873,
+    "FAR_ABOVE_PC_SURFACE": 520.87,
+    "OVERLAY_ABOVE_PC_SURFACE": 174.073
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 70,
     "GEOMETRY_MODIFIED": 2,
     "PS2_EXTRA_VISUAL_SOURCE": 8
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 89.356,
+    "total_area": 771.816
    },
    "textures": [
     "mud to ror-tga"
@@ -2657,9 +3765,18 @@
    "node_offset": 3527966,
    "non_exact": 2,
    "pc_texture_family_draws": 17,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 291.739,
+    "SLIGHTLY_BELOW_PC_SURFACE": 164.719
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 23,
     "PS2_EXTRA_VISUAL_SOURCE": 2
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 456.458
    },
    "textures": [
     "neubeddirt-tga"
@@ -2682,10 +3799,20 @@
    "node_offset": 3528420,
    "non_exact": 11,
    "pc_texture_family_draws": 16,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 84.91,
+    "FAR_ABOVE_PC_SURFACE": 538.789,
+    "OVERLAY_ABOVE_PC_SURFACE": 410.154
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 44,
     "GEOMETRY_MODIFIED": 2,
     "PS2_EXTRA_VISUAL_SOURCE": 9
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 99.062,
+    "total_area": 1033.853
    },
    "textures": [
     "bed to mud-tga"
@@ -2706,9 +3833,21 @@
    "node_offset": 3529351,
    "non_exact": 10,
    "pc_texture_family_draws": 67,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 90.77,
+    "FAR_ABOVE_PC_SURFACE": 68.772,
+    "FAR_BELOW_PC_SURFACE": 1193.339,
+    "OVERLAY_ABOVE_PC_SURFACE": 224.185,
+    "SLIGHTLY_BELOW_PC_SURFACE": 72.922
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 94,
     "PS2_EXTRA_VISUAL_SOURCE": 10
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 1649.988
    },
    "textures": [
     "neu rocky-tga"
@@ -2729,10 +3868,18 @@
    "node_offset": 3529646,
    "non_exact": 3,
    "pc_texture_family_draws": 112,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 642.134
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 47,
     "GEOMETRY_MODIFIED": 1,
     "PS2_EXTRA_VISUAL_SOURCE": 2
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.001,
+    "total_area": 642.134
    },
    "textures": [
     "grass to roc2-tga"
@@ -2753,8 +3900,20 @@
    "node_offset": 3530853,
    "non_exact": 27,
    "pc_texture_family_draws": 0,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 7.143,
+    "FAR_ABOVE_PC_SURFACE": 522.191,
+    "FAR_BELOW_PC_SURFACE": 455.509,
+    "OVERLAY_ABOVE_PC_SURFACE": 214.709,
+    "SLIGHTLY_BELOW_PC_SURFACE": 188.725
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 27
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 1388.277
    },
    "textures": [
     "water-tga"
@@ -2774,8 +3933,19 @@
    "node_offset": 3530998,
    "non_exact": 6,
    "pc_texture_family_draws": 0,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 21.429,
+    "FAR_BELOW_PC_SURFACE": 92.857,
+    "OVERLAY_ABOVE_PC_SURFACE": 78.571,
+    "SLIGHTLY_BELOW_PC_SURFACE": 107.143
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 6
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 300.0
    },
    "textures": [
     "water-tga"
@@ -2795,8 +3965,19 @@
    "node_offset": 3531143,
    "non_exact": 18,
    "pc_texture_family_draws": 0,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 35.714,
+    "FAR_BELOW_PC_SURFACE": 393.442,
+    "OVERLAY_ABOVE_PC_SURFACE": 155.195,
+    "SLIGHTLY_BELOW_PC_SURFACE": 315.648
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 18
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 899.999
    },
    "textures": [
     "water-tga"
@@ -2817,9 +3998,20 @@
    "node_offset": 3532121,
    "non_exact": 5,
    "pc_texture_family_draws": 67,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 276.514,
+    "FAR_BELOW_PC_SURFACE": 80.338,
+    "OVERLAY_ABOVE_PC_SURFACE": 186.687,
+    "SLIGHTLY_BELOW_PC_SURFACE": 530.829
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 49,
     "PS2_EXTRA_VISUAL_SOURCE": 5
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 1074.368
    },
    "textures": [
     "neu rocky-tga"
@@ -2843,8 +4035,19 @@
    "node_offset": 3532989,
    "non_exact": 64,
    "pc_texture_family_draws": 60,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 1.024,
+    "FAR_ABOVE_PC_SURFACE": 70.565,
+    "OVERLAY_ABOVE_PC_SURFACE": 26.755,
+    "SLIGHTLY_BELOW_PC_SURFACE": 0.379
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 64
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 98.724
    },
    "textures": [
     "shrubtrig2-tga"
@@ -2864,9 +4067,17 @@
    "node_offset": 3535569,
    "non_exact": 3,
    "pc_texture_family_draws": 17,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 612.119
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 1,
     "PS2_EXTRA_VISUAL_SOURCE": 3
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 612.119
    },
    "textures": [
     "neubeddirt-tga"
@@ -2889,9 +4100,18 @@
    "node_offset": 3537557,
    "non_exact": 3,
    "pc_texture_family_draws": 53,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 213.447,
+    "OVERLAY_ABOVE_PC_SURFACE": 142.805
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 47,
     "PS2_EXTRA_VISUAL_SOURCE": 3
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 356.253
    },
    "textures": [
     "mud to ror-tga"
@@ -2913,9 +4133,18 @@
    "node_offset": 3538287,
    "non_exact": 1,
    "pc_texture_family_draws": 54,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 166.014,
+    "OVERLAY_ABOVE_PC_SURFACE": 124.511
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 8,
     "PS2_EXTRA_VISUAL_SOURCE": 1
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 290.525
    },
    "textures": [
     "basegravel-tga"
@@ -2936,9 +4165,18 @@
    "node_offset": 3538725,
    "non_exact": 2,
    "pc_texture_family_draws": 16,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 279.705,
+    "OVERLAY_ABOVE_PC_SURFACE": 138.539
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 3,
     "PS2_EXTRA_VISUAL_SOURCE": 2
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 418.245
    },
    "textures": [
     "bed to mud-tga"
@@ -2958,8 +4196,17 @@
    "node_offset": 3538957,
    "non_exact": 4,
    "pc_texture_family_draws": 17,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 605.242,
+    "SLIGHTLY_BELOW_PC_SURFACE": 44.782
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 4
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 650.025
    },
    "textures": [
     "neubeddirt-tga"
@@ -2980,8 +4227,20 @@
    "node_offset": 3539369,
    "non_exact": 35,
    "pc_texture_family_draws": 0,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 7.143,
+    "FAR_ABOVE_PC_SURFACE": 1259.184,
+    "FAR_BELOW_PC_SURFACE": 222.333,
+    "OVERLAY_ABOVE_PC_SURFACE": 169.646,
+    "SLIGHTLY_BELOW_PC_SURFACE": 148.603
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 35
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 1806.908
    },
    "textures": [
     "water-tga"
@@ -3002,9 +4261,19 @@
    "node_offset": 3558318,
    "non_exact": 12,
    "pc_texture_family_draws": 67,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 2842.416,
+    "FAR_BELOW_PC_SURFACE": 419.945,
+    "SLIGHTLY_BELOW_PC_SURFACE": 149.21
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 33,
     "PS2_EXTRA_VISUAL_SOURCE": 12
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 3411.572
    },
    "textures": [
     "neu rocky-tga"
@@ -3024,9 +4293,18 @@
    "node_offset": 3562717,
    "non_exact": 11,
    "pc_texture_family_draws": 67,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 2488.808,
+    "SLIGHTLY_BELOW_PC_SURFACE": 569.409
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 58,
     "PS2_EXTRA_VISUAL_SOURCE": 11
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 3058.217
    },
    "textures": [
     "neu rocky-tga"
@@ -3048,8 +4326,20 @@
    "node_offset": 3576123,
    "non_exact": 26,
    "pc_texture_family_draws": 0,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 71.907,
+    "FAR_ABOVE_PC_SURFACE": 96.658,
+    "FAR_BELOW_PC_SURFACE": 121.181,
+    "OVERLAY_ABOVE_PC_SURFACE": 631.567,
+    "SLIGHTLY_BELOW_PC_SURFACE": 415.129
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 26
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 1336.441
    },
    "textures": [
     "water-tga"
@@ -3075,8 +4365,19 @@
    "node_offset": 3583641,
    "non_exact": 113,
    "pc_texture_family_draws": 3,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 0.183,
+    "FAR_ABOVE_PC_SURFACE": 402.402,
+    "OVERLAY_ABOVE_PC_SURFACE": 4.158,
+    "SLIGHTLY_BELOW_PC_SURFACE": 2.252
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 113
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 408.994
    },
    "textures": [
     "boat1-tga"
@@ -3102,8 +4403,19 @@
    "node_offset": 3583896,
    "non_exact": 30,
    "pc_texture_family_draws": 3,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 27.231,
+    "FAR_BELOW_PC_SURFACE": 0.296,
+    "OVERLAY_ABOVE_PC_SURFACE": 2.532,
+    "SLIGHTLY_BELOW_PC_SURFACE": 2.448
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 30
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 32.507
    },
    "textures": [
     "boat3-tga"
@@ -3129,8 +4441,20 @@
    "node_offset": 3584047,
    "non_exact": 82,
    "pc_texture_family_draws": 5,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 1.632,
+    "FAR_ABOVE_PC_SURFACE": 114.717,
+    "FAR_BELOW_PC_SURFACE": 75.335,
+    "OVERLAY_ABOVE_PC_SURFACE": 32.139,
+    "SLIGHTLY_BELOW_PC_SURFACE": 30.048
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 82
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 253.87
    },
    "textures": [
     "boat2-tga"
@@ -3156,8 +4480,20 @@
    "node_offset": 3584224,
    "non_exact": 27,
    "pc_texture_family_draws": 2,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 0.263,
+    "FAR_ABOVE_PC_SURFACE": 246.075,
+    "FAR_BELOW_PC_SURFACE": 45.23,
+    "OVERLAY_ABOVE_PC_SURFACE": 27.094,
+    "SLIGHTLY_BELOW_PC_SURFACE": 22.513
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 27
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 341.174
    },
    "textures": [
     "boat4 copy-tga"
@@ -3180,11 +4516,19 @@
    "node_offset": 3584354,
    "non_exact": 60,
    "pc_texture_family_draws": 4,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 1.798
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 324,
     "GEOMETRY_MODIFIED": 14,
     "PARTIAL_SURFACE_OVERLAP": 4,
     "PS2_EXTRA_VISUAL_SOURCE": 42
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.342,
+    "total_area": 1.798
    },
    "textures": [
     "ctyre-tga",
@@ -3211,8 +4555,19 @@
    "node_offset": 3588987,
    "non_exact": 4,
    "pc_texture_family_draws": 5,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 6.214,
+    "FAR_BELOW_PC_SURFACE": 0.391,
+    "OVERLAY_ABOVE_PC_SURFACE": 2.609,
+    "SLIGHTLY_BELOW_PC_SURFACE": 1.201
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 4
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 10.416
    },
    "textures": [
     "boat2-tga"
@@ -3236,9 +4591,18 @@
    "node_offset": 3595105,
    "non_exact": 64,
    "pc_texture_family_draws": 60,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 79.01,
+    "OVERLAY_ABOVE_PC_SURFACE": 29.256
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 112,
     "PS2_EXTRA_VISUAL_SOURCE": 64
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 108.266
    },
    "textures": [
     "shrubtrig2-tga"
@@ -3258,8 +4622,16 @@
    "node_offset": 3600430,
    "non_exact": 2,
    "pc_texture_family_draws": 67,
+   "plan_view_area": {
+    "NO_PC_SURFACE_UNDER": 1686.835
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 2
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 1686.835
    },
    "textures": [
     "neu rocky-tga"
@@ -3277,8 +4649,20 @@
    "node_offset": 3600621,
    "non_exact": 60,
    "pc_texture_family_draws": 0,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 1.652,
+    "FAR_ABOVE_PC_SURFACE": 46.928,
+    "FAR_BELOW_PC_SURFACE": 1.126,
+    "OVERLAY_ABOVE_PC_SURFACE": 16.186,
+    "SLIGHTLY_BELOW_PC_SURFACE": 12.727
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 60
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 78.62
    },
    "textures": [
     "caravan-tga"
@@ -3296,8 +4680,20 @@
    "node_offset": 3600855,
    "non_exact": 88,
    "pc_texture_family_draws": 0,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 0.554,
+    "FAR_ABOVE_PC_SURFACE": 128.147,
+    "FAR_BELOW_PC_SURFACE": 0.745,
+    "OVERLAY_ABOVE_PC_SURFACE": 13.135,
+    "SLIGHTLY_BELOW_PC_SURFACE": 5.632
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 88
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 148.213
    },
    "textures": [
     "newtex-tga"
@@ -3315,8 +4711,20 @@
    "node_offset": 3601052,
    "non_exact": 8,
    "pc_texture_family_draws": 0,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 0.2,
+    "FAR_ABOVE_PC_SURFACE": 2.335,
+    "FAR_BELOW_PC_SURFACE": 0.994,
+    "OVERLAY_ABOVE_PC_SURFACE": 3.006,
+    "SLIGHTLY_BELOW_PC_SURFACE": 0.979
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 8
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 7.513
    },
    "textures": [
     "caravan-tga"
@@ -3339,9 +4747,18 @@
    "node_offset": 3601925,
    "non_exact": 9,
    "pc_texture_family_draws": 89,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 564.173,
+    "SLIGHTLY_BELOW_PC_SURFACE": 192.219
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 1,
     "PS2_EXTRA_VISUAL_SOURCE": 9
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 756.392
    },
    "textures": [
     "grass to grav-tga"
@@ -3364,9 +4781,18 @@
    "node_offset": 3602147,
    "non_exact": 5,
    "pc_texture_family_draws": 53,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 192.583,
+    "SLIGHTLY_BELOW_PC_SURFACE": 124.783
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 15,
     "PS2_EXTRA_VISUAL_SOURCE": 5
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 317.365
    },
    "textures": [
     "mud to ror-tga"
@@ -3389,8 +4815,20 @@
    "node_offset": 3602836,
    "non_exact": 64,
    "pc_texture_family_draws": 6,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 9.614,
+    "FAR_ABOVE_PC_SURFACE": 1838.383,
+    "FAR_BELOW_PC_SURFACE": 190.668,
+    "OVERLAY_ABOVE_PC_SURFACE": 78.673,
+    "SLIGHTLY_BELOW_PC_SURFACE": 57.474
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 64
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 2174.811
    },
    "textures": [
     "hut_01-tga"
@@ -3411,9 +4849,18 @@
    "node_offset": 3603043,
    "non_exact": 9,
    "pc_texture_family_draws": 112,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 751.219,
+    "SLIGHTLY_BELOW_PC_SURFACE": 134.075
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 12,
     "PS2_EXTRA_VISUAL_SOURCE": 9
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 885.295
    },
    "textures": [
     "grass to roc2-tga"
@@ -3437,10 +4884,21 @@
    "node_offset": 3603259,
    "non_exact": 9,
    "pc_texture_family_draws": 89,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 64.503,
+    "FAR_BELOW_PC_SURFACE": 260.085,
+    "OVERLAY_ABOVE_PC_SURFACE": 80.912,
+    "SLIGHTLY_BELOW_PC_SURFACE": 177.139
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 5,
     "GEOMETRY_MODIFIED": 1,
     "PS2_EXTRA_VISUAL_SOURCE": 8
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 114.867,
+    "total_area": 582.639
    },
    "textures": [
     "grass to grav-tga"
@@ -3464,9 +4922,20 @@
    "node_offset": 3603494,
    "non_exact": 20,
    "pc_texture_family_draws": 54,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 46.357,
+    "FAR_BELOW_PC_SURFACE": 92.858,
+    "OVERLAY_ABOVE_PC_SURFACE": 64.286,
+    "SLIGHTLY_BELOW_PC_SURFACE": 746.312
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 20,
     "PS2_EXTRA_VISUAL_SOURCE": 20
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 949.812
    },
    "textures": [
     "basegravel-tga"
@@ -3489,8 +4958,17 @@
    "node_offset": 3604659,
    "non_exact": 14,
    "pc_texture_family_draws": 53,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 564.4,
+    "SLIGHTLY_BELOW_PC_SURFACE": 136.223
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 14
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 700.624
    },
    "textures": [
     "mud to ror-tga"
@@ -3511,8 +4989,19 @@
    "node_offset": 3605136,
    "non_exact": 8,
    "pc_texture_family_draws": 8,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 60.821,
+    "FAR_BELOW_PC_SURFACE": 63.508,
+    "OVERLAY_ABOVE_PC_SURFACE": 20.752,
+    "SLIGHTLY_BELOW_PC_SURFACE": 5.899
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 8
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 150.981
    },
    "textures": [
     "fence_02-tga"
@@ -3536,8 +5025,20 @@
    "node_offset": 3605276,
    "non_exact": 80,
    "pc_texture_family_draws": 60,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 4.404,
+    "FAR_ABOVE_PC_SURFACE": 102.969,
+    "FAR_BELOW_PC_SURFACE": 10.825,
+    "OVERLAY_ABOVE_PC_SURFACE": 35.688,
+    "SLIGHTLY_BELOW_PC_SURFACE": 14.657
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 80
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 168.543
    },
    "textures": [
     "shrubtrig2-tga"
@@ -3559,9 +5060,19 @@
    "node_offset": 3605465,
    "non_exact": 4,
    "pc_texture_family_draws": 54,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 53.512,
+    "OVERLAY_ABOVE_PC_SURFACE": 7.143,
+    "SLIGHTLY_BELOW_PC_SURFACE": 113.252
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 33,
     "PS2_EXTRA_VISUAL_SOURCE": 4
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 173.908
    },
    "textures": [
     "basegravel-tga"
@@ -3583,9 +5094,18 @@
    "node_offset": 3605701,
    "non_exact": 1,
    "pc_texture_family_draws": 53,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 42.939,
+    "SLIGHTLY_BELOW_PC_SURFACE": 7.156
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 25,
     "PS2_EXTRA_VISUAL_SOURCE": 1
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 50.095
    },
    "textures": [
     "mud to ror-tga"
@@ -3608,9 +5128,19 @@
    "node_offset": 3606183,
    "non_exact": 7,
    "pc_texture_family_draws": 89,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 52.891,
+    "FAR_BELOW_PC_SURFACE": 157.239,
+    "SLIGHTLY_BELOW_PC_SURFACE": 130.044
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 94,
     "PS2_EXTRA_VISUAL_SOURCE": 7
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 340.175
    },
    "textures": [
     "grass to grav-tga"
@@ -3631,9 +5161,18 @@
    "node_offset": 3607191,
    "non_exact": 8,
    "pc_texture_family_draws": 112,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 725.04,
+    "SLIGHTLY_BELOW_PC_SURFACE": 124.65
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 12,
     "PS2_EXTRA_VISUAL_SOURCE": 8
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 849.69
    },
    "textures": [
     "grass to roc2-tga"
@@ -3655,10 +5194,20 @@
    "node_offset": 3609703,
    "non_exact": 12,
    "pc_texture_family_draws": 67,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 652.201,
+    "FAR_ABOVE_PC_SURFACE": 1252.064,
+    "OVERLAY_ABOVE_PC_SURFACE": 809.891
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 29,
     "GEOMETRY_MODIFIED": 2,
     "PS2_EXTRA_VISUAL_SOURCE": 10
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 571.309,
+    "total_area": 2714.156
    },
    "textures": [
     "neu rocky-tga"
@@ -3681,10 +5230,20 @@
    "node_offset": 3609907,
    "non_exact": 13,
    "pc_texture_family_draws": 54,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 165.305,
+    "FAR_ABOVE_PC_SURFACE": 1391.817,
+    "OVERLAY_ABOVE_PC_SURFACE": 791.592
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 23,
     "GEOMETRY_MODIFIED": 1,
     "PS2_EXTRA_VISUAL_SOURCE": 12
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 197.298,
+    "total_area": 2348.713
    },
    "textures": [
     "basegravel-tga"
@@ -3707,9 +5266,18 @@
    "node_offset": 3610516,
    "non_exact": 6,
    "pc_texture_family_draws": 53,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 696.96,
+    "OVERLAY_ABOVE_PC_SURFACE": 252.006
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 13,
     "PS2_EXTRA_VISUAL_SOURCE": 6
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 948.967
    },
    "textures": [
     "mud to ror-tga"
@@ -3730,9 +5298,17 @@
    "node_offset": 3611399,
    "non_exact": 3,
    "pc_texture_family_draws": 112,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 612.314
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 11,
     "GEOMETRY_MODIFIED": 3
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 612.311,
+    "total_area": 612.314
    },
    "textures": [
     "grass to roc2-tga"
@@ -3753,10 +5329,20 @@
    "node_offset": 3611615,
    "non_exact": 21,
    "pc_texture_family_draws": 67,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 333.311,
+    "FAR_ABOVE_PC_SURFACE": 1791.167,
+    "OVERLAY_ABOVE_PC_SURFACE": 1250.613
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 5,
     "GEOMETRY_MODIFIED": 1,
     "PS2_EXTRA_VISUAL_SOURCE": 20
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 307.259,
+    "total_area": 3375.091
    },
    "textures": [
     "neu rocky-tga"
@@ -3779,9 +5365,19 @@
    "node_offset": 3611956,
    "non_exact": 11,
    "pc_texture_family_draws": 53,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 17.262,
+    "FAR_ABOVE_PC_SURFACE": 568.382,
+    "OVERLAY_ABOVE_PC_SURFACE": 83.338
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 24,
     "PS2_EXTRA_VISUAL_SOURCE": 11
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 668.981
    },
    "textures": [
     "mud to ror-tga"
@@ -3803,10 +5399,20 @@
    "node_offset": 3612971,
    "non_exact": 13,
    "pc_texture_family_draws": 67,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 270.799,
+    "FAR_ABOVE_PC_SURFACE": 601.749,
+    "OVERLAY_ABOVE_PC_SURFACE": 246.775
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 11,
     "GEOMETRY_MODIFIED": 3,
     "PS2_EXTRA_VISUAL_SOURCE": 10
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 270.465,
+    "total_area": 1119.322
    },
    "textures": [
     "neu rocky-tga"
@@ -3829,9 +5435,19 @@
    "node_offset": 3613427,
    "non_exact": 5,
    "pc_texture_family_draws": 54,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 50.34,
+    "FAR_ABOVE_PC_SURFACE": 528.813,
+    "OVERLAY_ABOVE_PC_SURFACE": 136.484
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 6,
     "PS2_EXTRA_VISUAL_SOURCE": 5
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 715.638
    },
    "textures": [
     "basegravel-tga"
@@ -3851,9 +5467,17 @@
    "node_offset": 3614981,
    "non_exact": 7,
    "pc_texture_family_draws": 67,
+   "plan_view_area": {
+    "NO_PC_SURFACE_UNDER": 1808.248
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 21,
     "PS2_EXTRA_VISUAL_SOURCE": 7
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 1808.248
    },
    "textures": [
     "neu rocky-tga"
@@ -3874,8 +5498,19 @@
    "node_offset": 3617919,
    "non_exact": 6,
    "pc_texture_family_draws": 6,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 174.921,
+    "FAR_BELOW_PC_SURFACE": 24.43,
+    "OVERLAY_ABOVE_PC_SURFACE": 11.974,
+    "SLIGHTLY_BELOW_PC_SURFACE": 3.6
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 6
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 214.925
    },
    "textures": [
     "hut_01-tga"
@@ -3899,8 +5534,20 @@
    "node_offset": 3620664,
    "non_exact": 256,
    "pc_texture_family_draws": 60,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 3.218,
+    "FAR_ABOVE_PC_SURFACE": 372.143,
+    "FAR_BELOW_PC_SURFACE": 0.481,
+    "OVERLAY_ABOVE_PC_SURFACE": 126.997,
+    "SLIGHTLY_BELOW_PC_SURFACE": 6.482
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 256
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 509.321
    },
    "textures": [
     "shrubtrig2-tga"
@@ -3923,8 +5570,20 @@
    "node_offset": 3623323,
    "non_exact": 103,
    "pc_texture_family_draws": 6,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 10.4,
+    "FAR_ABOVE_PC_SURFACE": 2074.263,
+    "FAR_BELOW_PC_SURFACE": 400.024,
+    "OVERLAY_ABOVE_PC_SURFACE": 124.975,
+    "SLIGHTLY_BELOW_PC_SURFACE": 72.354
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 103
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 2682.015
    },
    "textures": [
     "hut_01-tga"
@@ -3942,8 +5601,19 @@
    "node_offset": 3623569,
    "non_exact": 33,
    "pc_texture_family_draws": 0,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 0.535,
+    "FAR_ABOVE_PC_SURFACE": 381.581,
+    "OVERLAY_ABOVE_PC_SURFACE": 32.263,
+    "SLIGHTLY_BELOW_PC_SURFACE": 14.87
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 33
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 429.25
    },
    "textures": [
     "brickhouse-tga"
@@ -3964,9 +5634,17 @@
    "node_offset": 3624367,
    "non_exact": 1,
    "pc_texture_family_draws": 112,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 318.922
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 13,
     "PS2_EXTRA_VISUAL_SOURCE": 1
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 318.922
    },
    "textures": [
     "grass to roc2-tga"
@@ -3986,9 +5664,18 @@
    "node_offset": 3624818,
    "non_exact": 11,
    "pc_texture_family_draws": 58,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 682.491,
+    "SLIGHTLY_BELOW_PC_SURFACE": 108.102
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 23,
     "PS2_EXTRA_VISUAL_SOURCE": 11
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 790.593
    },
    "textures": [
     "base1-tga"
@@ -4006,8 +5693,20 @@
    "node_offset": 3625276,
    "non_exact": 88,
    "pc_texture_family_draws": 0,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 2.333,
+    "FAR_ABOVE_PC_SURFACE": 34.554,
+    "FAR_BELOW_PC_SURFACE": 86.159,
+    "OVERLAY_ABOVE_PC_SURFACE": 11.681,
+    "SLIGHTLY_BELOW_PC_SURFACE": 13.487
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 88
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 148.214
    },
    "textures": [
     "newtex-tga"
@@ -4028,8 +5727,18 @@
    "node_offset": 3626163,
    "non_exact": 36,
    "pc_texture_family_draws": 8,
+   "plan_view_area": {
+    "FAR_ABOVE_PC_SURFACE": 234.6,
+    "FAR_BELOW_PC_SURFACE": 29.325,
+    "OVERLAY_ABOVE_PC_SURFACE": 93.719
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 36
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 357.643
    },
    "textures": [
     "fence_02-tga"
@@ -4053,9 +5762,20 @@
    "node_offset": 3626329,
    "non_exact": 176,
    "pc_texture_family_draws": 60,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 3.752,
+    "FAR_ABOVE_PC_SURFACE": 220.243,
+    "OVERLAY_ABOVE_PC_SURFACE": 77.943,
+    "SLIGHTLY_BELOW_PC_SURFACE": 3.879
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 214,
     "PS2_EXTRA_VISUAL_SOURCE": 176
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 305.816
    },
    "textures": [
     "shrubtrig2-tga"
@@ -4076,9 +5796,18 @@
    "node_offset": 3627618,
    "non_exact": 3,
    "pc_texture_family_draws": 112,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 427.699,
+    "SLIGHTLY_BELOW_PC_SURFACE": 34.89
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 97,
     "PS2_EXTRA_VISUAL_SOURCE": 3
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 462.589
    },
    "textures": [
     "grass to roc2-tga"
@@ -4098,9 +5827,18 @@
    "node_offset": 3628581,
    "non_exact": 1,
    "pc_texture_family_draws": 58,
+   "plan_view_area": {
+    "FAR_BELOW_PC_SURFACE": 18.606,
+    "SLIGHTLY_BELOW_PC_SURFACE": 13.954
+   },
    "relations": {
     "EXACT_TRIANGLE_MATCH": 47,
     "PS2_EXTRA_VISUAL_SOURCE": 1
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 32.56
    },
    "textures": [
     "base1-tga"
@@ -4122,8 +5860,20 @@
    "node_offset": 3630563,
    "non_exact": 100,
    "pc_texture_family_draws": 0,
+   "plan_view_area": {
+    "COINCIDENT_WITH_PC_SURFACE": 58.799,
+    "FAR_ABOVE_PC_SURFACE": 2962.012,
+    "FAR_BELOW_PC_SURFACE": 1043.689,
+    "OVERLAY_ABOVE_PC_SURFACE": 543.894,
+    "SLIGHTLY_BELOW_PC_SURFACE": 536.544
+   },
    "relations": {
     "PS2_EXTRA_VISUAL_SOURCE": 100
+   },
+   "surface_coverage": {
+    "coplanar_pc_area": 0.0,
+    "near_parallel_pc_area": 0.0,
+    "total_area": 5144.938
    },
    "textures": [
     "water-tga"
@@ -4146,53 +5896,106 @@
  "schema": 1,
  "summary": {
   "foliage_tree": {
-   "NO_CONGRUENT_FIT_faces": 84,
-   "NO_CONGRUENT_FIT_groups": 5
+   "NO_CONGRUENT_FIT_faces": 84.0,
+   "NO_CONGRUENT_FIT_groups": 5.0,
+   "area_coplanar_pc": 0.0,
+   "area_near_parallel_pc": 0.0,
+   "area_total": 937.951,
+   "plan_area_FAR_ABOVE_PC_SURFACE": 612.86,
+   "plan_area_FAR_BELOW_PC_SURFACE": 100.217,
+   "plan_area_OVERLAY_ABOVE_PC_SURFACE": 213.757,
+   "plan_area_SLIGHTLY_BELOW_PC_SURFACE": 11.116
   },
   "foliage_treeblend": {
-   "COMPONENTS_CONGRUENT_faces": 1312,
-   "COMPONENTS_CONGRUENT_groups": 12,
-   "WHOLE_GROUP_CONGRUENT_faces": 48,
-   "WHOLE_GROUP_CONGRUENT_groups": 2
+   "COMPONENTS_CONGRUENT_faces": 1312.0,
+   "COMPONENTS_CONGRUENT_groups": 12.0,
+   "WHOLE_GROUP_CONGRUENT_faces": 48.0,
+   "WHOLE_GROUP_CONGRUENT_groups": 2.0,
+   "area_coplanar_pc": 0.0,
+   "area_near_parallel_pc": 0.0,
+   "area_total": 2482.269,
+   "plan_area_COINCIDENT_WITH_PC_SURFACE": 21.729,
+   "plan_area_FAR_ABOVE_PC_SURFACE": 1751.936,
+   "plan_area_FAR_BELOW_PC_SURFACE": 42.404,
+   "plan_area_OVERLAY_ABOVE_PC_SURFACE": 612.008,
+   "plan_area_SLIGHTLY_BELOW_PC_SURFACE": 54.195
   },
   "ground": {
-   "COINCIDENT_WITH_PC_SURFACE": 56,
-   "FAR_ABOVE_PC_SURFACE": 300,
-   "FAR_BELOW_PC_SURFACE": 439,
-   "NO_PC_SURFACE_UNDER": 73,
-   "OVERLAY_ABOVE_PC_SURFACE": 118,
-   "SLIGHTLY_BELOW_PC_SURFACE": 256
+   "COINCIDENT_WITH_PC_SURFACE": 56.0,
+   "FAR_ABOVE_PC_SURFACE": 300.0,
+   "FAR_BELOW_PC_SURFACE": 439.0,
+   "NO_PC_SURFACE_UNDER": 73.0,
+   "OVERLAY_ABOVE_PC_SURFACE": 118.0,
+   "SLIGHTLY_BELOW_PC_SURFACE": 256.0,
+   "area_coplanar_pc": 61.775,
+   "area_near_parallel_pc": 6109.147,
+   "area_total": 120379.061,
+   "plan_area_COINCIDENT_WITH_PC_SURFACE": 5693.551,
+   "plan_area_FAR_ABOVE_PC_SURFACE": 24100.975,
+   "plan_area_FAR_BELOW_PC_SURFACE": 39278.926,
+   "plan_area_NO_PC_SURFACE_UNDER": 17960.933,
+   "plan_area_OVERLAY_ABOVE_PC_SURFACE": 10308.57,
+   "plan_area_SLIGHTLY_BELOW_PC_SURFACE": 23036.1
   },
   "object_building": {
-   "COMPONENTS_CONGRUENT_faces": 446,
-   "COMPONENTS_CONGRUENT_groups": 5,
-   "NO_CONGRUENT_FIT_faces": 6,
-   "NO_CONGRUENT_FIT_groups": 1,
-   "NO_PC_TEXTURE_FAMILY_faces": 33,
-   "NO_PC_TEXTURE_FAMILY_groups": 1,
-   "WHOLE_GROUP_CONGRUENT_faces": 39,
-   "WHOLE_GROUP_CONGRUENT_groups": 1
+   "COMPONENTS_CONGRUENT_faces": 446.0,
+   "COMPONENTS_CONGRUENT_groups": 5.0,
+   "NO_CONGRUENT_FIT_faces": 6.0,
+   "NO_CONGRUENT_FIT_groups": 1.0,
+   "NO_PC_TEXTURE_FAMILY_faces": 33.0,
+   "NO_PC_TEXTURE_FAMILY_groups": 1.0,
+   "WHOLE_GROUP_CONGRUENT_faces": 39.0,
+   "WHOLE_GROUP_CONGRUENT_groups": 1.0,
+   "area_coplanar_pc": 0.0,
+   "area_near_parallel_pc": 0.0,
+   "area_total": 8197.847,
+   "plan_area_COINCIDENT_WITH_PC_SURFACE": 49.273,
+   "plan_area_FAR_ABOVE_PC_SURFACE": 6673.148,
+   "plan_area_FAR_BELOW_PC_SURFACE": 815.941,
+   "plan_area_OVERLAY_ABOVE_PC_SURFACE": 422.637,
+   "plan_area_SLIGHTLY_BELOW_PC_SURFACE": 236.849
   },
   "object_vehicle_prop": {
-   "COMPONENTS_CONGRUENT_faces": 64,
-   "COMPONENTS_CONGRUENT_groups": 1,
-   "NO_CONGRUENT_FIT_faces": 60,
-   "NO_CONGRUENT_FIT_groups": 1,
-   "NO_PC_TEXTURE_FAMILY_faces": 488,
-   "NO_PC_TEXTURE_FAMILY_groups": 8,
-   "WHOLE_GROUP_CONGRUENT_faces": 256,
-   "WHOLE_GROUP_CONGRUENT_groups": 5
+   "COMPONENTS_CONGRUENT_faces": 64.0,
+   "COMPONENTS_CONGRUENT_groups": 1.0,
+   "NO_CONGRUENT_FIT_faces": 60.0,
+   "NO_CONGRUENT_FIT_groups": 1.0,
+   "NO_PC_TEXTURE_FAMILY_faces": 488.0,
+   "NO_PC_TEXTURE_FAMILY_groups": 8.0,
+   "WHOLE_GROUP_CONGRUENT_faces": 256.0,
+   "WHOLE_GROUP_CONGRUENT_groups": 5.0,
+   "area_coplanar_pc": 0.0,
+   "area_near_parallel_pc": 0.925,
+   "area_total": 1815.607,
+   "plan_area_COINCIDENT_WITH_PC_SURFACE": 10.958,
+   "plan_area_FAR_ABOVE_PC_SURFACE": 1371.157,
+   "plan_area_FAR_BELOW_PC_SURFACE": 210.276,
+   "plan_area_OVERLAY_ABOVE_PC_SURFACE": 130.662,
+   "plan_area_SLIGHTLY_BELOW_PC_SURFACE": 92.556
   },
   "other": {
-   "COINCIDENT_WITH_PC_SURFACE": 6,
-   "FAR_ABOVE_PC_SURFACE": 2
+   "COINCIDENT_WITH_PC_SURFACE": 6.0,
+   "FAR_ABOVE_PC_SURFACE": 2.0,
+   "area_coplanar_pc": 28.971,
+   "area_near_parallel_pc": 0.0,
+   "area_total": 54.435,
+   "plan_area_COINCIDENT_WITH_PC_SURFACE": 28.975,
+   "plan_area_FAR_ABOVE_PC_SURFACE": 25.46
   },
   "puddle": {
-   "COINCIDENT_WITH_PC_SURFACE": 2,
-   "FAR_ABOVE_PC_SURFACE": 297,
-   "FAR_BELOW_PC_SURFACE": 249,
-   "OVERLAY_ABOVE_PC_SURFACE": 107,
-   "SLIGHTLY_BELOW_PC_SURFACE": 90
+   "COINCIDENT_WITH_PC_SURFACE": 2.0,
+   "FAR_ABOVE_PC_SURFACE": 297.0,
+   "FAR_BELOW_PC_SURFACE": 249.0,
+   "OVERLAY_ABOVE_PC_SURFACE": 107.0,
+   "SLIGHTLY_BELOW_PC_SURFACE": 90.0,
+   "area_coplanar_pc": 0.0,
+   "area_near_parallel_pc": 6785.99,
+   "area_total": 38112.915,
+   "plan_area_COINCIDENT_WITH_PC_SURFACE": 430.939,
+   "plan_area_FAR_ABOVE_PC_SURFACE": 14975.132,
+   "plan_area_FAR_BELOW_PC_SURFACE": 13624.494,
+   "plan_area_OVERLAY_ABOVE_PC_SURFACE": 4688.334,
+   "plan_area_SLIGHTLY_BELOW_PC_SURFACE": 4394.016
   }
  }
 }

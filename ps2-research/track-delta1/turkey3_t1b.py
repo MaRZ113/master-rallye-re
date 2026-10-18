@@ -88,6 +88,36 @@ def ground_relation(face, index):
     return 'FAR_ABOVE_PC_SURFACE' if gap > 0 else 'FAR_BELOW_PC_SURFACE'
 
 
+SAMPLES = ((1/3, 1/3, 1/3), (.8, .1, .1), (.1, .8, .1), (.1, .1, .8), (.45, .45, .1), (.1, .45, .45), (.45, .1, .45))
+
+
+def plan_view_area(face, index):
+    """Area of a triangle by vertical relation to the PC surface below it (7 barycentric samples).
+
+    This compares surface coverage in plan view, so an unmatched triangle that lies on, just above
+    or below PC ground is not mistaken for missing content.
+    """
+    area = g.w.area_normal(face.points)[0]
+    out = defaultdict(float)
+    for weights in SAMPLES:
+        x, y, z = (sum(w * p[i] for w, p in zip(weights, face.points)) for i in range(3))
+        hs = index.heights(x, z)
+        if not hs:
+            out['NO_PC_SURFACE_UNDER'] += area / len(SAMPLES)
+            continue
+        gap = min((y - h for h in hs), key=abs)
+        if abs(gap) <= GAP_COINCIDENT:
+            k = 'COINCIDENT_WITH_PC_SURFACE'
+        elif 0 < gap <= GAP_OVERLAY:
+            k = 'OVERLAY_ABOVE_PC_SURFACE'
+        elif -GAP_OVERLAY <= gap < 0:
+            k = 'SLIGHTLY_BELOW_PC_SURFACE'
+        else:
+            k = 'FAR_ABOVE_PC_SURFACE' if gap > 0 else 'FAR_BELOW_PC_SURFACE'
+        out[k] += area / len(SAMPLES)
+    return out
+
+
 def fit(faces, target):
     """Whole-group rigid fit, then per edge component. Returns a compact verdict."""
     if len(faces) < MIN_COMPONENT:
@@ -130,10 +160,12 @@ def main():
     _, forward, _ = g.compare(a, b)  # same baseline profile as the GEOM1 report
     relation_by_group = defaultdict(Counter)
     face_relation = {}
+    face_row = {}
     exact_peers = defaultdict(set)  # PS2 texture key -> PC draws that exactly matched faces with that texture
     for r in forward:
         relation_by_group[r['group']][r['geometry_relation']] += 1
         face_relation[r['source']] = r['geometry_relation']
+        face_row[r['source']] = r
         if r['geometry_relation'] == 'EXACT_TRIANGLE_MATCH':
             for key in family(a.groups[r['group']]['textures']):
                 exact_peers[key].update(r['other_groups'])
@@ -166,6 +198,17 @@ def main():
                'exact_peer_textures': sorted({t for x in peers for t in family(b.groups[x]['textures'])}),
                'relations': dict(sorted(rels.items())),
                'pc_texture_family_draws': len(pc_groups)}
+        coverage = {'total_area': 0.0, 'coplanar_pc_area': 0.0, 'near_parallel_pc_area': 0.0}
+        plan = defaultdict(float)
+        for f in faces:
+            r = face_row[f.identifier]
+            coverage['total_area'] += r['area']
+            coverage['coplanar_pc_area'] += r['area'] * r['coverage']
+            coverage['near_parallel_pc_area'] += r['area'] * r.get('near_coverage', 0.0)
+            for k, v in plan_view_area(f, surface).items():
+                plan[k] += v
+        row['surface_coverage'] = {k: round(v, 3) for k, v in coverage.items()}
+        row['plan_view_area'] = {k: round(v, 3) for k, v in sorted(plan.items())}
         if cat in ('ground', 'puddle', 'other'):
             counts = Counter(ground_relation(f, surface) for f in faces)
             row['ground_relation'] = dict(sorted(counts.items()))
@@ -176,9 +219,14 @@ def main():
                 target = [f for gid2 in pc_groups for f in pc_faces_by_group[gid2]]
                 row['fit'] = fit(faces, target)
         rows.append(row)
-    summary = defaultdict(lambda: defaultdict(int))
+    summary = defaultdict(lambda: defaultdict(float))
     for r in rows:
         cat = r['category']
+        summary[cat]['area_total'] += r['surface_coverage']['total_area']
+        summary[cat]['area_coplanar_pc'] += r['surface_coverage']['coplanar_pc_area']
+        summary[cat]['area_near_parallel_pc'] += r['surface_coverage']['near_parallel_pc_area']
+        for k, v in r['plan_view_area'].items():
+            summary[cat]['plan_area_' + k] += v
         if 'fit' in r:
             summary[cat][r['fit']['verdict'] + '_faces'] += r['faces']
             summary[cat][r['fit']['verdict'] + '_groups'] += 1
@@ -191,7 +239,8 @@ def main():
            'limitations': ['Fits are diagnostics, not authored or runtime transforms',
                            'A failed fit is not proof of absence (changed topology is not searched)',
                            'Ground relation uses face centroids against PC faces under the same XZ'],
-           'summary': {k: dict(sorted(v.items())) for k, v in sorted(summary.items())}, 'groups': rows}
+           'summary': {k: {a: (round(b, 3) if isinstance(b, float) else b) for a, b in sorted(v.items())}
+                       for k, v in sorted(summary.items())}, 'groups': rows}
     args.output.write_text(json.dumps(out, indent=1, sort_keys=True) + '\n', encoding='utf-8')
     print(json.dumps(out['summary'], indent=1))
 

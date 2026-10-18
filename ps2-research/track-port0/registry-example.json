@@ -16,23 +16,45 @@
           "id": "TURKEY3:geometry:puddle:0",
           "layer": "geometry",
           "delta_class": "MISSING_ON_PC",
-          "channel": "A_RENDER_OVERLAY",
           "evidence": "CONFIRMED_BY_BYTES",
-          "sources": ["water1/turkey3-delta.md", "pc-port/docs/course-objects1/final-report.md"],
-          "metrics": {"faces": 745, "meshes": 17, "pc_exact_matches": 0},
-          "status": "IMPLEMENTED_PENDING_USER_RUNTIME"
+          "sources": [
+            "water1/turkey3-delta.md",
+            "pc-port/docs/course-objects1/final-report.md"
+          ],
+          "metrics": {
+            "faces": 745,
+            "meshes": 17,
+            "pc_exact_matches": 0
+          },
+          "status": "IMPLEMENTED_PENDING_USER_RUNTIME",
+          "channels": {
+            "visual": "A_RENDER_OVERLAY",
+            "spawn": "N_A",
+            "physics": "UNDECIDED",
+            "logic": "N_A"
+          },
+          "pcsx2_verification": "REQUIRED_PENDING"
         },
         {
           "id": "TURKEY3:collision:landscape:0",
           "layer": "collision",
           "delta_class": "UNCLASSIFIED",
-          "channel": "UNDECIDED",
           "evidence": "UNKNOWN",
-          "sources": ["rigid1/terrain-contact.md"],
+          "sources": [
+            "rigid1/terrain-contact.md"
+          ],
           "status": "NOT_STARTED",
-          "blocker": "PS2 .BSP format not reversed"
+          "blocker": "PS2 .BSP format not reversed",
+          "channels": {
+            "visual": "UNDECIDED",
+            "spawn": "UNDECIDED",
+            "physics": "UNDECIDED",
+            "logic": "N_A"
+          },
+          "pcsx2_verification": "REQUIRED_PENDING"
         }
-      ]
+      ],
+      "pcsx2_required": true
     }
   ]
 }
