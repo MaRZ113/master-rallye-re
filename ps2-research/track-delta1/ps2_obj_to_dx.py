@@ -7,7 +7,7 @@ Slice for the Turkey3 'House 1' mesh (texture brickhouse-tga). The PC engine alr
   DataScene/RaceTest/Turkey3.xml            retail PC XML plus one Egg in the IContManager list
 Vertices are stored relative to the mesh centroid, the Egg translation is the centroid (identity rotation).
 Winding of the PS2 strips is unresolved, so every triangle is written twice (both windings, flat normals); this is an explicit
-placeholder policy, not a PS2 claim. Vertex colour is white; the PS2 colour tint is not reproduced. No collision is generated.
+placeholder policy, not a PS2 claim. Vertex colour is the PS2 baked tint copied as is (same value as the PC course DX for shared vertices). No collision is generated.
 """
 import argparse
 import hashlib
@@ -27,6 +27,8 @@ import tngtool as t  # noqa: E402
 import water_runtime as w  # noqa: E402
 from master_rallye.dx import parse_dx_bytes  # noqa: E402
 from master_rallye.dxt import parse_dxt_bytes  # noqa: E402
+from master_rallye.tag100_diff import extract_tag100_from_dx_bytes  # noqa: E402
+import tag100_patch as tp  # noqa: E402
 from master_rallye.topology_writer import CompiledVertex, DrawGeometry, rebuild_topology  # noqa: E402
 
 PSM_PATH = r'\TNG\DATAPSM\COURSE\TURKEY3\TURKEY3.PSM'
@@ -57,7 +59,10 @@ def source_triangles(scene, mesh):
             if w.area_normal(pos)[0] <= 1e-7:
                 continue
             uv = tuple(struct.unpack_from('<2f', scene.payload, 32 + i * 52 + 20) for i in idx)
-            out.append((pos, uv))
+            # PS2 vertex word at +16 holds bytes (A, c1, c2, c3); the PC course DX colour is (c1, c2, c3, 255) for the same vertex
+            # (48,406 exact-position pairs in Turkey3: same value within 1, no x2 scaling), so the tint is copied as is.
+            col = tuple(bytes(scene.payload[32 + i * 52 + 17:32 + i * 52 + 20]) + bytes([255]) for i in idx)
+            out.append((pos, uv, col))
     return out
 
 
@@ -71,8 +76,7 @@ def normal_of(a, b, c):
 
 def build_geometry(triangles, centroid, flip_v):
     vertices, faces = [], []
-    white = bytes([255, 255, 255, 255])
-    for pos, uv in triangles:
+    for pos, uv, col in triangles:
         local = [(x - centroid[0], y - centroid[1], z - centroid[2]) for x, y, z in pos]
         n = normal_of(*local)
         for winding, normal in ((0, n), (1, tuple(-x for x in n))):
@@ -80,7 +84,7 @@ def build_geometry(triangles, centroid, flip_v):
             base = len(vertices)
             for i in order:
                 u, v = uv[i]
-                vertices.append(CompiledVertex(tuple(local[i]), normal, white, ((u, 1.0 - v if flip_v else v),)))
+                vertices.append(CompiledVertex(tuple(local[i]), normal, col[i], ((u, 1.0 - v if flip_v else v),)))
             faces.append((base, base + 1, base + 2))
     return DrawGeometry(tuple(vertices), tuple(faces))
 
@@ -132,6 +136,7 @@ def main():
     ap.add_argument('--ps2-root', type=Path, default=Path('D:/Game/Master Rallye PS2'))
     ap.add_argument('--pc-root', type=Path, required=True)
     ap.add_argument('--out', type=Path, required=True)
+    ap.add_argument('--collision', action='store_true', help='also write a loose turkey3.dx whose tag100 has the convex hull of the mesh as a solid brush')
     ap.add_argument('--flip-v', action='store_true', help='mirror V (PS2 and PC row order are not proven equal)')
     a = ap.parse_args()
     manifest, _ = t.load_pak(a.ps2_root / 'TNG.PAK')
@@ -140,7 +145,7 @@ def main():
     if t.logical_path(mesh['textures'][0]['name']) != t.logical_path(r'Course\turkey3\brickhouse-tga'):
         raise SystemExit('mesh texture changed: ' + str(mesh['textures']))
     triangles = source_triangles(scene, mesh)
-    allpos = [pt for pos, _ in triangles for pt in pos]
+    allpos = [pt for pos, _, _ in triangles for pt in pos]
     centroid = tuple(sum(c[i] for c in allpos) / len(allpos) for i in range(3))
     geometry = build_geometry(triangles, centroid, a.flip_v)
     template = (a.pc_root / 'DataGx/Misc/Haybale/haybaletest.dx').read_bytes()
@@ -166,13 +171,43 @@ def main():
     start = pc_xml.index(b'    <List Name="IContManager">\r\n')
     end = pc_xml.index(b'    </List>\r\n', start)
     new_xml = pc_xml[:end] + egg_xml(EGG_NAME, MODEL_NAME, centroid) + pc_xml[end:]
-    files = {MODEL_DIR + '/house1.dx': bytes(dx), MODEL_DIR + '/brk-tga.dxt': dxt, 'DataScene/RaceTest/Turkey3.xml': new_xml}
+    collision = {}
+    if a.collision:
+        course = (a.pc_root / 'DataGx/Course/Turkey3/turkey3.dx').read_bytes()
+        sl = extract_tag100_from_dx_bytes(course, 'turkey3.dx')
+        verts = sorted(set(allpos))
+        patched, rep = tp.insert_brush(sl.raw, verts)
+        nodes_old, _ = tp.to_nodes(sl.raw)
+        nodes_new, _ = tp.to_nodes(patched)
+        import random
+        rnd = random.Random(7)
+        lo = [min(v[i] for v in verts) for i in range(3)]
+        hi = [max(v[i] for v in verts) for i in range(3)]
+        planes = tp.hull_planes(verts)
+
+        def inside(pt):
+            return all(n[0] * pt[0] + n[1] * pt[1] + n[2] * pt[2] + n[3] < -1e-3 for n in planes)
+
+        checks = {'inside_solid': 0, 'inside_total': 0, 'outside_changed': 0, 'outside_total': 0}
+        for _ in range(30000):
+            pt = tuple(rnd.uniform(lo[i] - 25, hi[i] + 25) for i in range(3))
+            old, new = tp.classify(nodes_old, pt).field_0, tp.classify(nodes_new, pt).field_0
+            if inside(pt):
+                checks['inside_total'] += 1
+                checks['inside_solid'] += new == tp.SOLID
+            else:
+                checks['outside_total'] += 1
+                checks['outside_changed'] += old != new and not any(
+                    n[0] * pt[0] + n[1] * pt[1] + n[2] * pt[2] + n[3] > -1e-3 and n[0] * pt[0] + n[1] * pt[1] + n[2] * pt[2] + n[3] < 1e-3 for n in planes)
+        collision = {'DataGx/Course/Turkey3/turkey3.dx': course[:sl.tag_offset] + patched}
+        coll_report = {'brush_planes': rep, 'sampled_checks': checks}
+    files = {MODEL_DIR + '/house1.dx': bytes(dx), MODEL_DIR + '/brk-tga.dxt': dxt, 'DataScene/RaceTest/Turkey3.xml': new_xml, **collision}
     for rel, data in files.items():
         path = a.out / rel
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(data)
     report = {'mesh': MESH_PATH, 'source_triangles': len(triangles), 'dx_triangles': len(geometry.triangles), 'centroid': centroid,
-              'flip_v': a.flip_v, 'files': {rel: {'bytes': len(d), 'sha256': hashlib.sha256(d).hexdigest()} for rel, d in files.items()}}
+              'flip_v': a.flip_v, 'collision': coll_report if a.collision else None, 'files': {rel: {'bytes': len(d), 'sha256': hashlib.sha256(d).hexdigest()} for rel, d in files.items()}}
     (a.out / 'report.json').write_text(json.dumps(report, indent=1))
     print(json.dumps(report, indent=1))
 
