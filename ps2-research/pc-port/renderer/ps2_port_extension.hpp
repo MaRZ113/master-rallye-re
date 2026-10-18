@@ -13,6 +13,13 @@
 #include "ground_detail.hpp"
 #include "ps2_output.hpp"
 #include "ps2_motion_blur.hpp"
+#include "ps2_hud_damage.hpp"
+#include "ps2_hud_damage_feed.hpp"
+#include "ps2_hud_template.hpp"
+#include "ps2_hud_eggs.hpp"
+#include "ps2_hud_timediffs.hpp"
+#include "ps2_hud_splitflash.hpp"
+#include "fleet_participants.hpp"
 
 namespace gfx2::ps2port {
 class ReflectionPilot;
@@ -280,9 +287,25 @@ public:
                      const std::wstring& renderer_ini) noexcept;
     ~PS2PortExtension();
 
-    FrontendModel* wheel_model() noexcept { return wheel_model_.get(); }
-    FrontendModel* race_model() noexcept { return race_model_.get(); }
-    FrontendModel* frontend_model() noexcept { return frontend_model_.get(); }
+    // PS2FleetAllCars=1: the race-fleet parents of the participant that owns the current draw
+    // (fleet_participants.hpp); slot 0 = the original single-car parents.
+    FrontendModel* wheel_model() noexcept { const unsigned s = ps2port::fleet_slot(ps2port::fleet_active); return s && s <= fleet_wheel_.size() && fleet_wheel_[s - 1] ? fleet_wheel_[s - 1].get() : wheel_model_.get(); }
+    FrontendModel* race_model() noexcept { const unsigned s = ps2port::fleet_slot(ps2port::fleet_active); return s && s <= fleet_race_.size() && fleet_race_[s - 1] ? fleet_race_[s - 1].get() : race_model_.get(); }
+    bool fleet_all_cars() const noexcept { return fleet_all_cars_; }
+    // Runs f once per fleet slot (0 = original parents) with that slot's participant scope active.
+    template <class F> void for_each_fleet_slot(F&& f) noexcept {
+        { ps2port::FleetActiveScope none{ps2port::FleetActive{}}; f(0u); }
+        for (unsigned i = 0; i < fleet_race_.size(); ++i) if (fleet_race_[i] || fleet_wheel_[i]) {
+            ps2port::FleetActive a; a.active = true; a.index = i; ps2port::FleetActiveScope scope(a); f(i + 1);
+        }
+    }
+    void fleet_before_reset() noexcept;
+    // PS2FrontendAllCars=1: the frontend model of the COMPLETE car that owns the current draw (slot 0 = original).
+    FrontendModel* frontend_model() noexcept { const unsigned s = ps2port::frontend_slot_active; return s && s <= frontend_extra_.size() && frontend_extra_[s - 1] ? frontend_extra_[s - 1].get() : frontend_model_.get(); }
+    unsigned frontend_slot_count() const noexcept { unsigned n = 1; for (const auto& m : frontend_extra_) if (m) ++n; return n; }
+    template <class F> void for_each_frontend_slot(F&& f) noexcept {
+        for (unsigned i = 0; i < frontend_slot_count(); ++i) { ps2port::FrontendSlotScope scope(i); f(i); }
+    }
     bool buffer_mirroring_required() const noexcept;
     bool frontend_geometry_diagnostics() const noexcept { return frontend_geometry_diagnostics_ && build_valid_ && !disabled_; }
     bool claim_frontend_probe_attempt() noexcept { return frontend_attempts_<128 && ++frontend_attempts_<=128; }
@@ -308,10 +331,22 @@ public:
     PS2OutputFilter& output_filter() noexcept { return output_; }
     // Present-time passes (PS2Color, PS2Output) share one hook.
     PS2MotionBlur& motion_blur() noexcept { return blur_; }
-    bool present_pass_requested() const noexcept { return color_.enabled() || output_.enabled() || blur_.enabled() || reflection_view_requested(); }
+    bool present_pass_requested() const noexcept { return color_.enabled() || output_.enabled() || blur_.enabled() || reflection_view_requested() || (hud_damage_ && hud_damage_->requested()) || (hud_map_ && hud_map_->requested()) || hud_eggs_requested() || (hud_timediffs_ && hud_timediffs_->requested()); }
     bool reflection_view_requested() const noexcept;
-    void present_before_reset() noexcept { color_.before_reset(); output_.before_reset(); blur_.before_reset(); }
+    void present_before_reset() noexcept { color_.before_reset(); output_.before_reset(); blur_.before_reset(); fleet_before_reset(); }
     GroundDetail* ground_detail() noexcept { return ground_.get(); }
+    PS2HudDamage* hud_damage() noexcept { return hud_damage_.get(); }
+    PS2HudMap* hud_map() noexcept { return hud_map_.get(); }
+    PS2HudTemplate* hud_template() noexcept { return hud_template_.get(); }
+    PS2HudTimeDiffs* hud_timediffs() noexcept { return hud_timediffs_.get(); }
+    PS2HudSplitFlash* hud_split_flash() noexcept { return hud_split_flash_.get(); }
+    // Egg names of UI draws: read while PS2HudTemplate or PS2HudHidePcOnly is on (names are logged for both).
+    bool hud_eggs_requested() const noexcept { return build_valid_ && !disabled_ && (hud_hide_pc_only_ || (hud_template_ && hud_template_->requested()) || (hud_split_flash_ && hud_split_flash_->requested())); }
+    bool hud_hide_pc_only() const noexcept { return hud_hide_pc_only_ && hud_eggs_context_; }
+    // Egg names are read only while the last Present had a certified race HUD context.
+    bool hud_eggs_context() const noexcept { return hud_eggs_context_; }
+    HudEggNames& hud_eggs() noexcept { return hud_eggs_; }
+    uint64_t& hud_hidden_draws() noexcept { return hud_hidden_; }
     // Present-time PS2Color pass; returns a session record when the outcome changes, else empty.
     std::string color_present(IDirect3DDevice8& device, bool scene_active, bool stateblock_recording) noexcept;
     Classification classify(const DrawSnapshot& snapshot) const noexcept;
@@ -365,6 +400,9 @@ private:
     std::unique_ptr<FrontendModel> frontend_model_;
     std::unique_ptr<FrontendModel> race_model_;
     std::unique_ptr<FrontendModel> wheel_model_;
+    bool fleet_all_cars_ = false;
+    std::array<std::unique_ptr<FrontendModel>, ps2port::kFleetMaxCars> fleet_race_, fleet_wheel_;
+    std::array<std::unique_ptr<FrontendModel>, ps2port::kFrontendExtraSlots> frontend_extra_;
     std::unique_ptr<CourseObjectsPilot> course_objects_;
     std::unique_ptr<GrassPilot> grass_;
     std::unique_ptr<GrassPilot> shrubs_;
@@ -375,6 +413,26 @@ private:
     long long blur_last_present_ = 0;
     const char* output_logged_reason_ = nullptr;
     std::unique_ptr<GroundDetail> ground_;
+    std::unique_ptr<PS2HudDamage> hud_damage_;
+    std::unique_ptr<PS2HudMap> hud_map_;
+    std::unique_ptr<PS2HudTemplate> hud_template_;
+    std::unique_ptr<PS2HudTimeDiffs> hud_timediffs_;
+    std::unique_ptr<PS2HudSplitFlash> hud_split_flash_;
+    const char* split_flash_logged_reason_ = nullptr;
+    TimeDiffsFeedReader timediffs_feed_;
+    const char* timediffs_logged_reason_ = nullptr;
+    const char* timediffs_logged_layer_ = nullptr;
+    HudEggNames hud_eggs_;
+    bool hud_hide_pc_only_ = false;
+    bool hud_eggs_context_ = false;
+    uint64_t hud_hidden_ = 0;
+    uint64_t hud_eggs_generation_ = 0;
+    const char* template_logged_reason_ = nullptr;
+    const char* map_logged_feed_ = nullptr;
+    const char* map_logged_layer_ = nullptr;
+    HudDamageFeedReader hud_feed_;
+    const char* hud_logged_feed_ = nullptr;
+    const char* hud_logged_layer_ = nullptr;
     const char* color_logged_reason_ = nullptr;
     void pixel_probe_release() noexcept;
     PilotMode mode_ = PilotMode::Stock;

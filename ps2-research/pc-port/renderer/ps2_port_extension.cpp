@@ -1,4 +1,6 @@
 #include "ps2_port_extension.hpp"
+#include "ps2_race_certificate.hpp"
+#include "ps2_perf_timing.hpp"
 #include "ps2_config.hpp"
 #include "race_epoch.hpp"
 #include "reflection_pilot.hpp"
@@ -188,6 +190,22 @@ PS2PortExtension::PS2PortExtension(bool exact_build, const std::string& exe_sha,
         frontend_model_=std::make_unique<FrontendModel>(build_valid_,ini);
         race_model_=std::make_unique<FrontendModel>(build_valid_,ini,true);
         wheel_model_=std::make_unique<FrontendModel>(build_valid_,ini,2);
+        // PS2PerfTiming=1 (docs/perf2): per-category timing records every PS2PerfWindow frames.
+        perf::configure(::gfx2::ps2port::config::read_int(L"PS2PerfTiming", 0, ini.c_str()) == 1,
+                        ::gfx2::ps2port::config::read_int(L"PS2PerfWindow", 300, ini.c_str()));
+        // PS2FrontendAllCars=1 (docs/race-modes1): one COMPLETE model per car shown at once (Challenge preview).
+        if (::gfx2::ps2port::config::read_int(L"PS2FrontendAllCars", 0, ini.c_str()) == 1 && frontend_model_->fleet_enabled())
+            for (auto& m : frontend_extra_) m = std::make_unique<FrontendModel>(build_valid_, ini);
+        // PS2RaceAllModes=1 (docs/race-modes1): Master Rallye, Rallye Cup, Challenge, Invitation and replay certificates.
+        // PS2SplitScreen=1 (docs/split-screen1): two-player split-screen races (two cameras, two local drivers).
+        ps2_race_certifier().configure(::gfx2::ps2port::config::read_int(L"PS2RaceAllModes", 0, ini.c_str()) == 1,
+                                       ::gfx2::ps2port::config::read_int(L"PS2SplitScreen", 0, ini.c_str()) == 1);
+        // PS2FleetAllCars=1 (docs/fleet-all-cars): one race/wheel parent per non-local participant.
+        fleet_all_cars_ = ::gfx2::ps2port::config::read_int(L"PS2FleetAllCars", 0, ini.c_str()) == 1 && race_model_->car_fleet_enabled();
+        if (fleet_all_cars_) for (unsigned i = 0; i < fleet_race_.size(); ++i) {
+            fleet_race_[i]=std::make_unique<FrontendModel>(build_valid_,ini,true);
+            fleet_wheel_[i]=std::make_unique<FrontendModel>(build_valid_,ini,2);
+        }
         frontend_geometry_diagnostics_ = ::gfx2::ps2port::config::read_int(L"FrontendGeometryDiagnostics", 0, ini.c_str()) == 1;
         const UINT probe = ::gfx2::ps2port::config::read_int(L"PixelProbe", 0, ini.c_str());
         pixel_probe_requested_ = probe == 1;
@@ -217,6 +235,12 @@ PS2PortExtension::PS2PortExtension(bool exact_build, const std::string& exe_sha,
         output_.configure(::gfx2::ps2port::config::read_int(L"PS2Output", 0, ini.c_str()) == 1);
         if (::gfx2::ps2port::config::read_int(L"PS2MotionBlur", 0, ini.c_str()) == 1) { wchar_t blur[32]{}; ::gfx2::ps2port::config::read_string(L"PS2MotionBlurStrength", L"0.195", blur, 32, ini.c_str()); blur_.configure(parse_motion_blur_strength(blur)); }
         ground_ = std::make_unique<GroundDetail>(build_valid_, ini);
+        hud_damage_ = std::make_unique<PS2HudDamage>(build_valid_, ini);
+        hud_map_ = std::make_unique<PS2HudMap>(build_valid_, ini);
+        hud_template_ = std::make_unique<PS2HudTemplate>(build_valid_, ini);
+        hud_timediffs_ = std::make_unique<PS2HudTimeDiffs>(build_valid_, ini);
+        hud_split_flash_ = std::make_unique<PS2HudSplitFlash>(build_valid_, ini);
+        hud_hide_pc_only_ = build_valid_ && ::gfx2::ps2port::config::read_int(L"PS2HudHidePcOnly", 0, ini.c_str()) == 1;
     } catch (...) { mode_ = PilotMode::Stock; config_reason_ = "configuration_error_stock"; }
 }
 
@@ -229,14 +253,25 @@ bool PS2PortExtension::analysis_enabled() const noexcept { return active() || pi
     (!disabled_ && ((course_objects_ && course_objects_->identity_requested()) ||
                   (grass_ && grass_->identity_requested()) || (shrubs_ && shrubs_->identity_requested()))); }
 
+void PS2PortExtension::fleet_before_reset() noexcept {
+    for (auto& m : fleet_race_) if (m) m->reset();
+    for (auto& m : fleet_wheel_) if (m) m->reset();
+    for (auto& m : frontend_extra_) if (m) m->reset();
+}
+
 bool PS2PortExtension::native_states_pending() const noexcept {
+    for (const auto& m : fleet_race_) if (m && m->states_pending()) return true;
+    for (const auto& m : fleet_wheel_) if (m && m->transaction.pending()) return true;
+    for (const auto& m : frontend_extra_) if (m && m->transaction.pending()) return true;
     return (wheel_model_ && wheel_model_->transaction.pending()) || (race_model_ && race_model_->states_pending()) || (frontend_model_ && frontend_model_->transaction.pending()) || (xtrail_ && (xtrail_->blocked() || xtrail_->transaction.pending() || xtrail_->glass_pending())) ||
         (reflection_ && (reflection_->blocked() || reflection_->transaction().changed_mask ||
             reflection_->mixed_capture().pending())) ||
         (course_objects_ && (course_objects_->blocked() || course_objects_->transaction.has_pending())) ||
         (grass_ && (grass_->blocked() || grass_->transaction.has_pending())) ||
         (shrubs_ && (shrubs_->blocked() || shrubs_->transaction.has_pending())) ||
-        color_.pending() || output_.pending() || blur_.pending() || (ground_ && ground_->transaction.pending());
+        color_.pending() || output_.pending() || blur_.pending() || (ground_ && ground_->transaction.pending()) ||
+        (hud_damage_ && hud_damage_->layer.pending()) || (hud_map_ && hud_map_->layer.pending()) ||
+        (hud_timediffs_ && hud_timediffs_->layer.pending()) || (hud_template_ && hud_template_->layer.pending());
 }
 
 PS2PortExtension::~PS2PortExtension() { pixel_probe_release(); }
@@ -245,9 +280,181 @@ std::string PS2PortExtension::color_present(IDirect3DDevice8& device, bool scene
                                             bool stateblock_recording) noexcept {
     if (!build_valid_ || disabled_ || !present_pass_requested()) return {};
     std::string notes;
+    // One certified race HUD context per Present, shared by every pass below (it is not a cheap read).
+    using HudContext = decltype(ps2port::ps2_race_hud_context());
+    HudContext present_hud{};
+    bool present_hud_read = false;
+    auto hud_context = [&]() -> const HudContext& {
+        if (!present_hud_read) { present_hud = ps2port::ps2_race_hud_context(); present_hud_read = true; }
+        return present_hud;
+    };
     try {
+        // PS2 HUD widgets first: they are part of the PS2 frame that the curve, filter and blur see.
+        if (hud_damage_ && hud_damage_->requested()) {
+            if (const char* startup = hud_damage_->take_startup_reason()) {
+                if (!notes.empty()) notes += "\n";
+                notes += std::string("{\"type\":\"ps2_hud_damage\",\"reason\":\"") + startup + "\"}";
+            }
+            const auto& hud = hud_context();
+            HudDamageFeed feed;
+            // Attract too: the feed itself requires a unique local (PlayerType 1) car and fails closed in the demo.
+            if (!hud.valid) feed.reason = hud.reason;
+            else { HudLiveMemory memory; feed = hud_feed_.read(memory, 0x400000, hud.race_generation); }
+            LARGE_INTEGER now{}, frequency{};
+            QueryPerformanceCounter(&now); QueryPerformanceFrequency(&frequency);
+            const float dt = hud_damage_->tick(now.QuadPart, frequency.QuadPart);
+            const auto quads = hud_damage_->frame(feed.ok, feed.values, hud.race_generation, hud.paused, dt);
+            HRESULT hr = S_FALSE;
+            if (!quads.empty() && hud_damage_->initialize(device)) {
+                IDirect3DSurface8* back = nullptr;
+                if (SUCCEEDED(device.GetBackBuffer(0, D3DBACKBUFFER_TYPE_MONO, &back)) && back) {
+                    D3DSURFACE_DESC desc{};
+                    if (SUCCEEDED(back->GetDesc(&desc)))
+                        hr = hud_damage_->layer.draw(device, hud_damage_->pages(), quads, desc.Width, desc.Height, scene_active, stateblock_recording);
+                    back->Release();
+                }
+            }
+            const char* layer = quads.empty() ? "no_pc_damage_row_this_frame" : hud_damage_->layer.status().reason;
+            if (feed.reason != hud_logged_feed_ || layer != hud_logged_layer_) {
+                hud_logged_feed_ = feed.reason; hud_logged_layer_ = layer;
+                char text[384]{};
+                std::snprintf(text, sizeof(text),
+                    "{\"type\":\"ps2_hud_damage\",\"feed\":\"%s\",\"layer\":\"%s\",\"hr\":%lu,\"quads\":%u,\"suppressed\":%llu,"
+                    "\"values\":[%.3f,%.3f,%.3f,%.3f,%.3f]}",
+                    feed.reason, layer, static_cast<unsigned long>(hr), static_cast<unsigned>(quads.size()),
+                    static_cast<unsigned long long>(hud_damage_->suppressed()),
+                    feed.values[0], feed.values[1], feed.values[2], feed.values[3], feed.values[4]);
+                if (!notes.empty()) notes += "\n";
+                notes += text;
+            }
+        }
+        if (hud_map_ && hud_map_->requested() && !(hud_damage_ && hud_damage_->layer.pending())) {
+            const auto& hud = hud_context();
+            MapInput input;
+            const char* feed = hud.reason;
+            if (hud.valid) { HudLiveMemory memory; hud_feed_.read_map(memory, 0x400000, hud.race_generation, kMapWindow, input, feed); }
+            const auto strips = hud_map_->frame(input, hud.race_generation);
+            HRESULT hr = S_FALSE;
+            if (!strips.empty()) {
+                IDirect3DSurface8* back = nullptr;
+                if (SUCCEEDED(device.GetBackBuffer(0, D3DBACKBUFFER_TYPE_MONO, &back)) && back) {
+                    D3DSURFACE_DESC desc{};
+                    if (SUCCEEDED(back->GetDesc(&desc)))
+                        hr = hud_map_->layer.draw_strips(device, strips, desc.Width, desc.Height, scene_active, stateblock_recording);
+                    back->Release();
+                }
+            }
+            const char* layer = strips.empty() ? "no_pc_gps_this_frame" : hud_map_->layer.status().reason;
+            if (feed != map_logged_feed_ || layer != map_logged_layer_) {
+                map_logged_feed_ = feed; map_logged_layer_ = layer;
+                char text[384]{};
+                std::snprintf(text, sizeof(text),
+                    "{\"type\":\"ps2_hud_map\",\"feed\":\"%s\",\"layer\":\"%s\",\"hr\":%lu,\"strips\":%u,\"suppressed\":%llu,"
+                    "\"last\":%d,\"finish\":%d,\"points\":%u,\"heading\":[%.3f,%.3f]}",
+                    feed, layer, static_cast<unsigned long>(hr), static_cast<unsigned>(strips.size()),
+                    static_cast<unsigned long long>(hud_map_->suppressed()), input.last, input.finish,
+                    static_cast<unsigned>(input.points.size()), hud_map_->heading().x(), hud_map_->heading().z());
+                if (!notes.empty()) notes += "\n";
+                notes += text;
+            }
+        }
+        // PS2HudTimeDiffs: PS2 opponent list (gaHudTimeDiffs2Ai) over the hidden PC gaHudTimeDiffsAi rows.
+        // A missing or mismatched asset turns the feature off at startup; report that once.
+        if (hud_timediffs_ && !hud_timediffs_->requested()) {
+            if (const char* startup = hud_timediffs_->take_startup_reason()) {
+                if (!notes.empty()) notes += "\n";
+                notes += std::string("{\"type\":\"ps2_hud_time_diffs\",\"reason\":\"") + startup + "\"}";
+            }
+        }
+        if (hud_timediffs_ && hud_timediffs_->requested() && !(hud_damage_ && hud_damage_->layer.pending()) &&
+            !(hud_map_ && hud_map_->layer.pending())) {
+            const auto& hud = hud_context();
+            TimeDiffsInput input;
+            if (!hud.valid) input.reason = hud.reason;
+            else { HudLiveMemory memory; input = timediffs_feed_.read(memory, 0x400000, hud.race_generation); hud_timediffs_->refresh_rows(memory, 0x400000, hud.race_generation); }
+            LARGE_INTEGER now{}, frequency{};
+            QueryPerformanceCounter(&now); QueryPerformanceFrequency(&frequency);
+            const float dt = hud_timediffs_->tick(now.QuadPart, frequency.QuadPart);
+            const char* reason = input.reason;
+            if (const char* startup = hud_timediffs_->take_startup_reason()) reason = startup;
+            const auto quads = hud_timediffs_->frame(input, hud.race_generation, dt, reason);
+            HRESULT hr = S_FALSE;
+            if (!quads.empty() && hud_timediffs_->initialize(device)) {
+                IDirect3DSurface8* back = nullptr;
+                if (SUCCEEDED(device.GetBackBuffer(0, D3DBACKBUFFER_TYPE_MONO, &back)) && back) {
+                    D3DSURFACE_DESC desc{};
+                    if (SUCCEEDED(back->GetDesc(&desc)))
+                        hr = hud_timediffs_->layer.draw_textured(device, hud_timediffs_->pages(), quads, desc.Width, desc.Height, scene_active, stateblock_recording);
+                    back->Release();
+                }
+            }
+            const char* layer = quads.empty() ? "no_rows_this_frame" : hud_timediffs_->layer.status().reason;
+            if (reason != timediffs_logged_reason_ || layer != timediffs_logged_layer_) {
+                timediffs_logged_reason_ = reason; timediffs_logged_layer_ = layer;
+                char text[320]{};
+                std::snprintf(text, sizeof(text),
+                    "{\"type\":\"ps2_hud_time_diffs\",\"reason\":\"%s\",\"layer\":\"%s\",\"hr\":%lu,\"cars\":%d,\"local\":%d,\"markers\":%d,\"quads\":%u,\"hidden\":%llu,\"pc_local_icon\":%d}",
+                    reason, layer, static_cast<unsigned long>(hr), input.count, input.local, input.markers, static_cast<unsigned>(quads.size()),
+                    static_cast<unsigned long long>(hud_timediffs_->hidden()), hud_timediffs_->pc_local_icon());
+                if (!notes.empty()) notes += "\n";
+                notes += text;
+            }
+        }
+        // PS2HudTemplate / PS2HudHidePcOnly act inside the next frame's UI draws (hud_damage_native.hpp); here they
+        // only take the certified race HUD context, create the PS2 textures and report.
+        if (hud_eggs_requested()) {
+            const auto& hud = hud_context();
+            if (hud.race_generation != hud_eggs_generation_) { hud_eggs_generation_ = hud.race_generation; hud_eggs_.reset(); }
+            hud_eggs_context_ = hud.valid;
+            const char* reason = hud.valid ? "race_hud_context" : hud.reason;
+            if (hud_template_ && hud_template_->requested()) {
+                if (const char* startup = hud_template_->take_startup_reason()) reason = startup;
+                const bool ready = hud.valid && hud_template_->initialize(device);
+                hud_template_->set_context(ready);
+                if (hud.valid && !ready) reason = "hud_template_texture_creation_failed";
+                const auto deferred = hud_template_->take_deferred();
+                if (ready && !deferred.empty() && !hud_template_->layer.pending()) {
+                    IDirect3DSurface8* back = nullptr;
+                    if (SUCCEEDED(device.GetBackBuffer(0, D3DBACKBUFFER_TYPE_MONO, &back)) && back) {
+                        D3DSURFACE_DESC desc{};
+                        if (SUCCEEDED(back->GetDesc(&desc)))
+                            hud_template_->layer.draw_textured(device, hud_template_->pages(), deferred, desc.Width, desc.Height, scene_active, stateblock_recording);
+                        back->Release();
+                    }
+                }
+            } else if (hud_template_) {
+                if (const char* startup = hud_template_->take_startup_reason()) reason = startup;
+            }
+            if (hud_split_flash_ && hud_split_flash_->requested()) {
+                HudLiveMemory memory; LARGE_INTEGER now{}, frequency{};
+                QueryPerformanceCounter(&now); QueryPerformanceFrequency(&frequency);
+                hud_split_flash_->present(memory, 0x400000, hud.valid, hud.race_generation, now.QuadPart, frequency.QuadPart);
+                if (hud_split_flash_->reason() != split_flash_logged_reason_) {
+                    split_flash_logged_reason_ = hud_split_flash_->reason();
+                    char text[160]{};
+                    std::snprintf(text, sizeof(text), "{\"type\":\"ps2_hud_split_flash\",\"reason\":\"%s\",\"modulated\":%llu}",
+                        hud_split_flash_->reason(), static_cast<unsigned long long>(hud_split_flash_->modulated()));
+                    if (!notes.empty()) notes += "\n";
+                    notes += text;
+                }
+            }
+            std::string names;
+            if (hud_eggs_.take_seen_json(names)) { if (!notes.empty()) notes += "\n"; notes += names; }
+            if (reason != template_logged_reason_) {
+                template_logged_reason_ = reason;
+                char text[256]{};
+                std::snprintf(text, sizeof(text),
+                    "{\"type\":\"ps2_hud_template\",\"reason\":\"%s\",\"template\":%s,\"hide_pc_only\":%s,\"substituted\":%llu,\"hidden\":%llu}",
+                    reason, hud_template_ && hud_template_->requested() ? "true" : "false", hud_hide_pc_only_ ? "true" : "false",
+                    static_cast<unsigned long long>(hud_template_ ? hud_template_->substituted() : 0),
+                    static_cast<unsigned long long>(hud_hidden_));
+                if (!notes.empty()) notes += "\n";
+                notes += text;
+            }
+        }
         // Tone curve first (colour of the PS2 scene), then the PS2 display filter over the result.
-        if (color_.enabled()) {
+        if (color_.enabled() && !(hud_damage_ && hud_damage_->layer.pending()) && !(hud_map_ && hud_map_->layer.pending()) &&
+            !(hud_timediffs_ && hud_timediffs_->layer.pending()) && !(hud_template_ && hud_template_->layer.pending())) {
             const HRESULT hr = color_.apply(device, scene_active, stateblock_recording);
             const auto& status = color_.status();
             if (status.reason != color_logged_reason_) {
@@ -276,7 +483,7 @@ std::string PS2PortExtension::color_present(IDirect3DDevice8& device, bool scene
         }
         // PS2 display-copy blend: races only (camera blur); elsewhere the history is dropped.
         if (blur_.enabled() && !color_.pending() && !output_.pending()) {
-            const auto hud = live_race_hud_context();
+            const auto& hud = hud_context();
             HRESULT hr = S_FALSE;
             const char* reason = nullptr;
             LARGE_INTEGER now{}, frequency{};
@@ -284,7 +491,7 @@ std::string PS2PortExtension::color_present(IDirect3DDevice8& device, bool scene
             const float dt = blur_last_present_ && frequency.QuadPart
                 ? float(double(now.QuadPart - blur_last_present_) / double(frequency.QuadPart)) : 1.f;
             blur_last_present_ = now.QuadPart;
-            if (!hud.valid || hud.attract || hud.paused) { blur_.interrupt(); reason = "outside_race"; }
+            if (!hud.valid || hud.paused) { blur_.interrupt(); reason = "outside_race"; }
             else { hr = blur_.apply(device, scene_active, stateblock_recording, dt); reason = blur_.status().reason; }
             if (reason != blur_logged_reason_) {
                 blur_logged_reason_ = reason;

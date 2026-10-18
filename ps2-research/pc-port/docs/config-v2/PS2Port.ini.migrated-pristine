@@ -19,8 +19,19 @@ ReflectionSourceGXI=PS2Grass/PS2EnvSource64x64.gxi
 
 ; --- Vehicles ------------------------------------------------------------------
 ; RaceFleet: 1 = PS2 CAR models for every race car (wheels, crew, lamps, damage continuity), 0 = Stock.
-; Single-car races only; races with opponents stay Stock.
+; Single-car races only unless PS2FleetAllCars=1.
 RaceFleet=1
+; PS2FleetAllCars: 1 = with RaceFleet=1 also every AI opponent (up to 8 cars) and Attract demo cars, each
+;   bound to its own Car<N> egg (body and Car<N>/Wheel0..3), with its own damage, wheels and lamps;
+;   cars without a PS2 model or with an unproven chain stay Stock. 0 = player car only.
+PS2FleetAllCars=0
+; PS2RaceAllModes: 1 = PS2 race features (cars, reflections, HUD, ...) also in Master Rallye, Rallye Cup,
+;   Challenge, Invitation and replay playback (same owner/course/camera/participant proofs as Quick Race).
+;   0 = Quick Race, single-car races and Attract only.
+PS2RaceAllModes=0
+; PS2SplitScreen: 1 = PS2 race features in two-player split-screen races (two cameras, two local drivers,
+;   each pass proven for its own camera). 0 = split screen stays PC.
+PS2SplitScreen=0
 ; RaceModelAssetDirectory: folder with the *-CAR-FLEET, *-WHEEL-FLEET, *-OFF and content-fix models.
 RaceModelAssetDirectory=PS2Vehicles
 ; BrakeGlow: 1 = PS2 brake lamp ON core + additive glow, 0 = Stock.
@@ -29,6 +40,9 @@ BrakeGlow=1
 BrakeGlowAsset=PS2Grass/PS2BrakeGlow.gxi
 ; FrontendModel: menu/showroom car. 0 = Stock, 2 = PS2 COMPLETE model per car.
 FrontendModel=2
+; PS2FrontendAllCars: 1 = with FrontendModel=2 every car shown at once in a menu (Challenge preview) gets
+;   its own PS2 COMPLETE model; 0 = one car, a second car in the same frame stays PC.
+PS2FrontendAllCars=0
 ; FrontendModelAssetDirectory: folder with the *-COMPLETE-FLEET models.
 FrontendModelAssetDirectory=PS2Vehicles
 ; VehicleLighting: 1 = PS2 vehicle lighting contract on PS2 models (normal-based body shading,
@@ -53,6 +67,25 @@ PS2MotionBlurStrength=0.195
 ; PS2ColorCurve: k for R,G,B in y=(1-k)x+k*x^2 (0 = unchanged, 1 = x^2). Default = fitted values.
 PS2ColorCurve=0.426,0.384,0.364
 
+; PS2HudDamage: 1 = PS2 damage row colours (white/green/yellow/orange/red) and the PS2 damage
+; notification icon, drawn in place of the PC damage row. 0 = PC row.
+PS2HudDamage=1
+; PS2HudMap: 1 = PS2 square race map (route line, finish bar, heading-up) in place of the PC round GPS. 0 = PC GPS.
+PS2HudMap=1
+; PS2HudTemplate: 1 = PS2 art on the speed dial, needle and race progress bar (PS2 HUD-TEMPLATE images on the PC
+; draws; PS2Hud/PS2HudTemplate.bin). 0 = PC art.
+PS2HudTemplate=1
+; PS2HudHidePcOnly: 1 = hide the HUD elements the PS2 does not have (MPH/KPH label under the speed, opponent
+; time list with its arrow). 0 = keep them.
+PS2HudHidePcOnly=1
+; PS2HudTimeDiffs: 1 = PS2 opponent list under the rank (car icons + time gaps, nothing in single-car races)
+; in place of the PC name list (PS2Hud/PS2HudTimeDiffs.bin). 0 = PC list.
+PS2HudTimeDiffs=1
+; PS2HudSplitFlash: 1 = the PS2 flash of the SPLIT TIME value after each checkpoint. 0 = PC (steady).
+PS2HudSplitFlash=1
+; PS2HudAssetDir: folder with PS2HudDamage000.gxi / PS2HudDamage001.gxi / PS2HudTemplate.bin / PS2HudTimeDiffs.bin (relative to this file).
+PS2HudAssetDir=PS2Hud
+
 ; --- Courses -------------------------------------------------------------------
 ; Grass / Shrubs: 0 = Stock, 1 = PS2 terrain detail on all verified courses.
 Grass=1
@@ -72,3 +105,7 @@ Foliage=1
 ; --- Diagnostics ---------------------------------------------------------------
 ; Diagnostics: 1 = feature records in MRRRenderer/logs and F10 race-fleet sidecars.
 Diagnostics=1
+; PS2PerfTiming: 1 = DIAGNOSTIC per-category timing records (ps2_perf_timing) in the session log every
+;   PS2PerfWindow frames. Keep 0 for play.
+PS2PerfTiming=0
+PS2PerfWindow=300

@@ -1,4 +1,6 @@
 #include "ps2_port_extension.hpp"
+#include "frontend_model.hpp"
+#include "ps2_perf_timing.hpp"
 #include "ps2_config.hpp"
 #include "provenance.hpp"
 
@@ -6,6 +8,7 @@
 #include <array>
 #include <cstdio>
 #include <cstring>
+#include <cstdlib>
 #include <iostream>
 #include <initializer_list>
 #include <string>
@@ -380,6 +383,96 @@ void config_v2_contract() {
     CHECK(cfg::v2_key(L"FrontendGeometryDiagnostics") == nullptr);  // heavy research probe stays legacy-only
     cleanup(dir);
 }
+// FLEET-ALL-CARS1: PS2FleetAllCars is opt-in, needs RaceFleet, and routes only non-local proven participants.
+void fleet_all_cars_slots() {
+    using namespace gfx2::ps2port;
+    const auto dir = temp_dir();
+    CHECK(!dir.empty());
+    CHECK(write_config(dir, L"[PS2Port]\r\nPS2FleetAllCars=1\r\n"));
+    {
+        PS2PortExtension no_fleet(true, gfx2::TARGET_SHA, renderer_ini(dir));
+        CHECK(!no_fleet.fleet_all_cars());
+        FleetActive a; a.active = true; a.index = 3; FleetActiveScope scope(a);
+        CHECK(no_fleet.race_model() == nullptr || !no_fleet.race_model()->car_fleet_enabled());
+    }
+    const char* race = std::getenv("MRR_RACE_MODEL_ASSET");
+    const char* wheel = std::getenv("MRR_WHEEL_MODEL_ASSET");
+    if (!race || !wheel) { cleanup(dir); std::cout << "FLEET-ALL-CARS1 slot routing: private race/wheel fixtures not set, asset part skipped\n"; return; }
+    auto widen = [](const char* s) { std::wstring w; for (; *s; ++s) w += static_cast<wchar_t>(static_cast<unsigned char>(*s)); return w; };
+    for (int enabled = 0; enabled < 2; ++enabled) {
+        const std::wstring config = L"[PS2Port]\r\nRaceFleet=1\r\nRacePS2ModelAsset=" + widen(race) + L"\r\nRacePS2WheelAsset=" + widen(wheel) +
+            L"\r\nPS2FleetAllCars=" + std::to_wstring(enabled) + L"\r\n";
+        CHECK(write_config(dir, config.c_str()));
+        PS2PortExtension e(true, gfx2::TARGET_SHA, renderer_ini(dir));
+        CHECK(e.race_model() && e.race_model()->car_fleet_enabled());
+        CHECK(e.fleet_all_cars() == (enabled == 1));
+        auto* primary = e.race_model(); auto* primary_wheel = e.wheel_model();
+        std::vector<FrontendModel*> seen;
+        for (uint32_t i = 0; i < kFleetMaxCars; ++i) {
+            FleetActive a; a.active = true; a.index = i; a.race_generation = 1; a.owner_lifetime = 1;
+            {
+                FleetActiveScope scope(a);
+                if (enabled) {
+                    CHECK(e.race_model() != primary && e.wheel_model() != primary_wheel && e.race_model()->car_fleet_enabled());
+                    CHECK(std::find(seen.begin(), seen.end(), e.race_model()) == seen.end());
+                    seen.push_back(e.race_model());
+                } else CHECK(e.race_model() == primary && e.wheel_model() == primary_wheel);
+            }
+            a.local = true; FleetActiveScope local(a);
+            CHECK(e.race_model() == primary && e.wheel_model() == primary_wheel);
+        }
+        CHECK(e.race_model() == primary);
+        unsigned slots = 0; std::vector<FrontendModel*> visited;
+        e.for_each_fleet_slot([&](unsigned) noexcept { ++slots; visited.push_back(e.race_model()); });
+        CHECK(slots == (enabled ? 1u + kFleetMaxCars : 1u));
+        CHECK(visited.front() == primary);
+        if (enabled) CHECK(std::equal(seen.begin(), seen.end(), visited.begin() + 1));
+        // Inside a participant scope the slot-0 pass still reaches the original parents.
+        { FleetActive a; a.active = true; a.index = 5; FleetActiveScope scope(a); FrontendModel* first = nullptr;
+          e.for_each_fleet_slot([&](unsigned s) noexcept { if (!s) first = e.race_model(); }); CHECK(first == primary); CHECK(fleet_active.index == 5); }
+        CHECK(!e.native_states_pending());
+        e.fleet_before_reset();
+    }
+    for (int enabled = 0; enabled < 2; ++enabled) {
+        const std::wstring config = L"[PS2Port]\r\nFrontendModel=2\r\nPS2FrontendAllCars=" + std::to_wstring(enabled) + L"\r\n";
+        CHECK(write_config(dir, config.c_str()));
+        PS2PortExtension e(true, gfx2::TARGET_SHA, renderer_ini(dir));
+        CHECK(e.frontend_slot_count() == (enabled ? 1u + kFrontendExtraSlots : 1u));
+        auto* primary = e.frontend_model(); std::vector<FrontendModel*> models;
+        e.for_each_frontend_slot([&](unsigned) noexcept { models.push_back(e.frontend_model()); });
+        CHECK(models.size() == e.frontend_slot_count() && models.front() == primary);
+        for (size_t i = 1; i < models.size(); ++i) CHECK(models[i] && models[i] != primary && std::find(models.begin(), models.begin() + i, models[i]) == models.begin() + i);
+        CHECK(e.frontend_model() == primary && !e.native_states_pending());
+    }
+    { CHECK(write_config(dir, L"[PS2Port]\r\nFrontendModel=1\r\nPS2FrontendAllCars=1\r\n")); PS2PortExtension e(true, gfx2::TARGET_SHA, renderer_ini(dir)); CHECK(e.frontend_slot_count() == 1); }
+    cleanup(dir);
+    std::cout << "FLEET-ALL-CARS1 slot routing: PASS\n";
+}
+
+// PERF2: provider reuse keeps sha256_bytes output exact; timing window records only when enabled.
+void perf2_contracts() {
+    CHECK(gfx2::sha256_bytes("abc", 3) == "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad");
+    CHECK(gfx2::sha256_bytes(nullptr, 0) == "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855");
+    CHECK(gfx2::sha256_bytes(nullptr, 1).empty());
+    std::string big(100000, 'a'); CHECK(gfx2::sha256_bytes(big.data(), big.size()) == gfx2::sha256_bytes(big.data(), big.size()) && gfx2::sha256_bytes(big.data(), big.size()).size() == 64);
+    namespace perf = gfx2::ps2port::perf;
+    std::vector<std::string> records; auto writer = [&](const std::string& r) { records.push_back(r); };
+    perf::configure(false, 300); for (uint64_t f = 0; f < 1000; ++f) { perf::frame(1, f, writer); perf::Timer t(perf::Certificate); }
+    CHECK(records.empty() && !perf::enabled());
+    perf::configure(true, 30); for (uint64_t f = 10; f < 75; ++f) { perf::frame(1, f, writer); perf::Timer t(perf::Certificate); perf::Timer u(perf::FleetCar); }
+    CHECK(records.size() == 2);
+    if (!records.empty()) {
+        const auto& r = records[0];
+        CHECK(r.rfind("{\"type\":\"ps2_perf_timing\"", 0) == 0);
+        CHECK(r.find("\"certificate\":{\"calls_per_frame\":1.0") != std::string::npos);
+        CHECK(r.find("\"fleet_car\"") != std::string::npos);
+        CHECK(r.find("\"frames\":30") != std::string::npos);
+        CHECK(r.find("hud_context") == std::string::npos);
+    }
+    perf::frame(2, 5, writer); CHECK(records.size() == 2);   // a new device restarts the window
+    perf::configure(false, 300);
+}
+
 int main() {
     mode_and_mirror_policy();
     pixel_probe_configuration_and_format_contract();
@@ -387,6 +480,8 @@ int main() {
     state_transaction_contract();
     exact_identity_contract();
     config_v2_contract();
+    fleet_all_cars_slots();
+    perf2_contracts();
     if (failures) return 1;
     std::cout << "PS2 pilot modes, masked state transactions, rollback, fail-closed identity, mirroring and reset contracts passed\n";
     return 0;

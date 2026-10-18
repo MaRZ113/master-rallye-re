@@ -24,7 +24,7 @@ diff --git a/modernization/renderer/CMakeLists.txt b/modernization/renderer/CMak
  target_compile_options(proxy_core PRIVATE /W4 /permissive- /fp:strict /EHsc /Zi)
  target_link_libraries(proxy_core PUBLIC bcrypt user32)
  add_library(d3d8 SHARED src/dllmain.cpp src/real_d3d8.cpp exports.def)
-@@ -115,4 +125,75 @@
+@@ -115,4 +125,80 @@
   target_include_directories(physics_transaction_abi_tests PRIVATE include vendor/d3d8)
   target_compile_options(physics_transaction_abi_tests PRIVATE /W4 /fp:strict /EHsc)
   add_test(NAME physics_transaction_abi_contracts COMMAND physics_transaction_abi_tests)
@@ -97,9 +97,26 @@ diff --git a/modernization/renderer/CMakeLists.txt b/modernization/renderer/CMak
 +  target_link_libraries(ps2_motion_blur_tests PRIVATE proxy_core)
 +  target_compile_options(ps2_motion_blur_tests PRIVATE /W4 /fp:strict /EHsc)
 +  add_test(NAME ps2_motion_blur_contracts COMMAND ps2_motion_blur_tests)
++  add_executable(ps2_hud_damage_tests "${MRR_PS2_PORT_ROOT}/tests/ps2_hud_damage_tests.cpp")
++  target_include_directories(ps2_hud_damage_tests PRIVATE include tests vendor/d3d8 "${MRR_PS2_PORT_ROOT}/renderer")
++  target_link_libraries(ps2_hud_damage_tests PRIVATE proxy_core)
++  target_compile_options(ps2_hud_damage_tests PRIVATE /W4 /fp:strict /EHsc)
++  add_test(NAME ps2_hud_damage_contracts COMMAND ps2_hud_damage_tests)
 +
 + endif()
  endif()
+diff --git a/modernization/renderer/include/ui_margins.hpp b/modernization/renderer/include/ui_margins.hpp
+--- a/modernization/renderer/include/ui_margins.hpp
++++ b/modernization/renderer/include/ui_margins.hpp
+@@ -236,6 +236,8 @@ public:
+  bool enter_consume(uintptr_t entity) noexcept;
+  void leave_consume() noexcept;
+  bool consumer_hook_intact() const noexcept;
++ // PS2 port: the egg whose native UI packet is being consumed now (0 outside a consumer scope).
++ uintptr_t current_entity() const noexcept {return consumer_hook_intact()&&scope_depth_?scopes_[scope_depth_-1].ownership_entity:0;}
+  bool clean_view_scope_identity(uint64_t& scope_id,uint64_t& epoch,const char*& reason,MarginIdentity* stable_identity=nullptr) noexcept;
+  void note_clean_view_draw(bool eligible,bool suppressed,bool requested,bool draw_requested,bool ui_callsite,bool scope_invalidated,
+   const char* admission_reason,const char* scope_reason,bool context_valid,const char* context_reason,
 diff --git a/modernization/renderer/include/wrappers.hpp b/modernization/renderer/include/wrappers.hpp
 --- a/modernization/renderer/include/wrappers.hpp
 +++ b/modernization/renderer/include/wrappers.hpp
@@ -427,6 +444,38 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(90, args, pc);
   HRESULT result = real_->DeletePixelShader(Handle);
   trace.after(90, args, static_cast<uint32_t>(result), pc);
+diff --git a/modernization/renderer/src/provenance.cpp b/modernization/renderer/src/provenance.cpp
+--- a/modernization/renderer/src/provenance.cpp
++++ b/modernization/renderer/src/provenance.cpp
+@@ -38,17 +38,24 @@
+  }catch(...){output.clear();}
+  if(h)BCryptDestroyHash(h);if(a)BCryptCloseAlgorithmProvider(a,0);if(f!=INVALID_HANDLE_VALUE)CloseHandle(f);return output;
+ }
++// PERF2: the SHA-256 provider is opened once per process (opening it per call cost ~6 us per hash; a geometry
++// identity takes ~50 hashes). BCryptCreateHash on a shared algorithm handle is thread-safe; the output is unchanged.
++static BCRYPT_ALG_HANDLE sha256_provider() noexcept {
++ static const BCRYPT_ALG_HANDLE provider=[]() noexcept {BCRYPT_ALG_HANDLE a=nullptr;return BCryptOpenAlgorithmProvider(&a,BCRYPT_SHA256_ALGORITHM,nullptr,0)<0?nullptr:a;}();
++ return provider;
++}
+ std::string sha256_bytes(const void* data,size_t size) noexcept {
+- BCRYPT_ALG_HANDLE a=nullptr;BCRYPT_HASH_HANDLE h=nullptr;std::string output;
++ BCRYPT_HASH_HANDLE h=nullptr;std::string output;
+  try {
+   if((!data&&size)||size>ULONG_MAX)throw 1;
+-  if(BCryptOpenAlgorithmProvider(&a,BCRYPT_SHA256_ALGORITHM,nullptr,0)<0)throw 1;
++  const BCRYPT_ALG_HANDLE a=sha256_provider();if(!a)throw 1;
+   if(BCryptCreateHash(a,&h,nullptr,0,nullptr,0,0)<0)throw 1;
+   if(size&&BCryptHashData(h,reinterpret_cast<PUCHAR>(const_cast<void*>(data)),static_cast<ULONG>(size),0)<0)throw 1;
+   unsigned char digest[32];if(BCryptFinishHash(h,digest,32,0)<0)throw 1;
+-  char b[3];for(unsigned char c:digest){sprintf_s(b,"%02x",c);output+=b;}
++  static constexpr char hex[]="0123456789abcdef";output.resize(64);
++  for(size_t i=0;i<32;++i){output[i*2]=hex[digest[i]>>4];output[i*2+1]=hex[digest[i]&15];}
+  }catch(...){output.clear();}
+- if(h)BCryptDestroyHash(h);if(a)BCryptCloseAlgorithmProvider(a,0);return output;
++ if(h)BCryptDestroyHash(h);return output;
+ }
+ Caller caller_info(uintptr_t pc){
+  Caller c;c.address=pc;HMODULE m=nullptr;
 diff --git a/modernization/renderer/src/quality_wrappers.cpp b/modernization/renderer/src/quality_wrappers.cpp
 --- a/modernization/renderer/src/quality_wrappers.cpp
 +++ b/modernization/renderer/src/quality_wrappers.cpp
@@ -513,10 +562,46 @@ diff --git a/modernization/renderer/src/quality_wrappers.cpp b/modernization/ren
   HRESULT hr=real_->GetViewport(out);D3DVIEWPORT8 native{};bool virtualized=false;
   if(SUCCEEDED(hr)&&safe_copy(&native,out,sizeof(native))&&trace.shadow.bindings.viewport.known&&trace.effective_shadow.bindings.viewport.known&&std::memcmp(&trace.shadow.bindings.viewport.value,&trace.effective_shadow.bindings.viewport.value,sizeof(native)))virtualized=safe_copy(out,&trace.shadow.bindings.viewport.value,sizeof(native));
   auto effective=virtualized?pack(&native):args;trace.after(41,args,static_cast<uint32_t>(hr),pc,&effective,virtualized?16:0);return hr;
+diff --git a/modernization/renderer/src/race_epoch.cpp b/modernization/renderer/src/race_epoch.cpp
+--- a/modernization/renderer/src/race_epoch.cpp
++++ b/modernization/renderer/src/race_epoch.cpp
+@@ -23,8 +23,10 @@
+  const char* scene=attract?"Hud/AttractMode":"Hud/Hud0";const char* source=attract?"DataScene/Hud/AttractMode.xml":"DataScene/Hud/Hud0.xml";
+  unsigned matching=0;
+  for(size_t i=0;i<e.jobs_used;++i){const auto& job=e.jobs[i];if(job.race_generation!=e.race_generation||job.lifetime==root->lifetime)continue;
++  // 0x4aa040 requests Hud/Hud1 instead of Hud/Hud0 for two local players (split screen), from the same caller.
++  const bool split=!attract&&ascii_equal(job.scene_text.data(),"Hud/Hud1")&&ascii_equal(job.source_text.data(),"DataScene/Hud/Hud1.xml");
+   if(!job.supported_hud||job.parent_lifetime!=root->lifetime||job.failed||!job.terminal||!job.commit_seen||!job.commit_success||job.flag21!=1||job.flag22!=0||
+-     !ascii_equal(job.scene_text.data(),scene)||!ascii_equal(job.source_text.data(),source))return false;
++     (!split&&(!ascii_equal(job.scene_text.data(),scene)||!ascii_equal(job.source_text.data(),source))))return false;
+   ++matching;
+  }
+  return matching==1;
+@@ -61,7 +63,7 @@
+  // distinct scene request; its separate runtime certificate requires the
+  // committed Attract scene, typed AttractMode context, and this same owner ancestry.
+  const bool supported_hud_name=text&&
+-  ((!std::strcmp(text,"Hud/Hud0")&&origin==0x004aa0c1)||!std::strcmp(text,"Hud/AttractMode"));
++  (((!std::strcmp(text,"Hud/Hud0")||!std::strcmp(text,"Hud/Hud1"))&&origin==0x004aa0c1)||!std::strcmp(text,"Hud/AttractMode"));
+  request_supported_hud=parent&&parent->executing&&supported_hud_name&&
+   owner.initialized&&!owner.retired&&owner.execution_job_lifetime==parent->lifetime&&owner.race_generation==race_generation;
+  if(!request_supported_hud){if(!next(race_generation))return;successful_generation=successful_race_generation=0;}
+diff --git a/modernization/renderer/src/race_observer.cpp b/modernization/renderer/src/race_observer.cpp
+--- a/modernization/renderer/src/race_observer.cpp
++++ b/modernization/renderer/src/race_observer.cpp
+@@ -221,7 +221,7 @@
+   else {
+    uint32_t scene_countdown=0;const bool countdown_active=word(scene_manager+12,scene_countdown)&&scene_countdown>0;
+    const bool attract_scene=!std::strcmp(committed_name,"Hud/AttractMode");
+-   const bool race_scene=!std::strcmp(committed_name,"Hud/Hud0");
++   const bool race_scene=!std::strcmp(committed_name,"Hud/Hud0")||!std::strcmp(committed_name,"Hud/Hud1");
+    if(!attract_scene&&!race_scene)result.reason="committed_scene_not_race_hud";
+    else if(!e.correlated_owner_candidate()||!(attract_scene?race_attract_hud_scene_proven(e):race_hud_scene_proven(e)))
+     result.reason=attract_scene?"attract_hud_lifecycle_not_proven":"race_hud_lifecycle_not_proven";
 diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/renderer/src/visual_wrappers.cpp
 --- a/modernization/renderer/src/visual_wrappers.cpp
 +++ b/modernization/renderer/src/visual_wrappers.cpp
-@@ -3,6 +3,22 @@
+@@ -3,6 +3,23 @@
  #include "camera_probe.hpp"
  #include <intrin.h>
  #include <cstring>
@@ -528,6 +613,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
 +#include "xtrail_glass_native.hpp"
 +#include "brake_glow_native.hpp"
 +#include "ground_detail_native.hpp"
++#include "hud_damage_native.hpp"
 +#include "frontend_geometry_native.hpp"
 +#include "frontend_model_native.hpp"
 +#include "grass_native_integration.hpp"
@@ -539,7 +625,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
  namespace gfx2 {
  namespace {
  bool site(uintptr_t pc,uint32_t& rva) noexcept {
-@@ -11,8 +27,76 @@
+@@ -11,8 +28,76 @@
   auto base=reinterpret_cast<uintptr_t>(module);if(pc<base||pc-base>UINT32_MAX)return false;rva=static_cast<uint32_t>(pc-base);return true;
  }
  }
@@ -616,7 +702,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
   DWORD effective=visuals.filter(stage,type,value);
   if(effective!=value&&type==D3DTSS_MINFILTER){
    auto& max=trace.effective_shadow.tss[0][D3DTSS_MAXANISOTROPY];
-@@ -29,6 +113,9 @@
+@@ -29,6 +114,9 @@
  }
  HRESULT STDMETHODCALLTYPE Device8::GetTextureStageState(DWORD stage,D3DTEXTURESTAGESTATETYPE type,DWORD* value){
   auto guard=trace.guard();auto args=pack(stage,type,value);auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(62,args,pc);
@@ -626,7 +712,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
   HRESULT hr=real_->GetTextureStageState(stage,type,value);DWORD native_value=0;bool virtualized=false;
   if(SUCCEEDED(hr)&&stage<8&&type<64&&safe_copy(&native_value,value,4)){
    const auto& logical=trace.shadow.tss[stage][type];const auto& native=trace.effective_shadow.tss[stage][type];
-@@ -41,7 +128,7 @@
+@@ -41,7 +129,7 @@
   return set_transform_at(type,input,reinterpret_cast<uintptr_t>(_ReturnAddress()));
  }
  HRESULT Device8::set_transform_at(D3DTRANSFORMSTATETYPE type,const D3DMATRIX* input,uintptr_t pc){
@@ -635,7 +721,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
   D3DMATRIX changed{};uint32_t rva=0;bool exe=site(pc,rva);int observed_scene_family=-1;float cinematic_vfov=0;D3DMATRIX source_projection{};
   bool cinematic_projection=type==D3DTS_PROJECTION&&safe_copy(&source_projection,input,sizeof(source_projection))&&game_fov.cinematic_projection_vfov(source_projection,exe,rva,cinematic_vfov);
   float applied_vfov=cinematic_projection?cinematic_vfov:visuals.effective.vfov;
-@@ -64,6 +151,10 @@
+@@ -64,6 +152,10 @@
   trace.culling=game_fov.status();
   const D3DMATRIX* forwarded=(rewritten||ui_rewritten||preview_rewritten)?&changed:input;auto native=pack(type,forwarded);
  HRESULT hr=real_->SetTransform(type,forwarded);if(rewritten&&type==D3DTS_PROJECTION)game_fov.projection_applied(applied_vfov,SUCCEEDED(hr));if(FAILED(hr)&&(rewritten||ui_rewritten||preview_rewritten)){trace.after(37,native,static_cast<uint32_t>(hr),pc,&native,rewritten?2:preview_rewritten?64:32,false,true);if(rewritten){game_fov.disable("native_projection_rejected");visuals.effective.fov=false;}if(preview_rewritten){quality->preview_capability.status="UNSUPPORTED";quality->preview_capability.reason="native_preview_projection_rejected";}if(ui_rewritten){quality->config.interface_mode="Stock";ui_margins.disable("native_ui_projection_rejected");}native=args;hr=real_->SetTransform(type,input);rewritten=ui_rewritten=preview_rewritten=false;}if(SUCCEEDED(hr)&&quality&&type==D3DTS_PROJECTION)quality->ui_projection_live=ui_rewritten;trace.after(37,args,static_cast<uint32_t>(hr),pc,&native,rewritten?2:ui_rewritten?32:preview_rewritten?64:0);
@@ -646,7 +732,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
   if(SUCCEEDED(hr)&&observed_scene_family>=0)ui_margins.scene_context(observed_scene_family==1);
   if(SUCCEEDED(hr)&&type==D3DTS_VIEW&&exe&&rva==GAMEPLAY_VIEW_RETURN_RVA){D3DMATRIX stock{};if(safe_copy(&stock,input,sizeof(stock)))game_fov.stock_view(stock);}
   if(type==D3DTS_VIEW&&exe){
-@@ -106,6 +197,9 @@
+@@ -106,6 +198,9 @@
  }
  HRESULT STDMETHODCALLTYPE Device8::GetTransform(D3DTRANSFORMSTATETYPE type,D3DMATRIX* out){
   auto guard=trace.guard();auto args=pack(type,out);auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(38,args,pc);
@@ -656,7 +742,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
   HRESULT hr=real_->GetTransform(type,out);D3DMATRIX native_value{};bool virtualized=false;
   if(SUCCEEDED(hr)&&type<512&&safe_copy(&native_value,out,sizeof(native_value))){
    const auto& logical=trace.shadow.matrices[type];const auto& native=trace.effective_shadow.matrices[type];
-@@ -185,6 +279,10 @@
+@@ -185,9 +280,19 @@
    game_fov.clean_view_disarm_count(),game_fov.clean_view_last_disarm_reason(),clean_scope_id!=0,
    game_fov.clean_view_context_trace_frame(),game_fov.clean_view_context_scheduler_generation(),clean_admission.frame);
   skip=skip||suppress_clean_view||suppress_global_hud;
@@ -666,9 +752,23 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
 +#endif
   const auto& view=trace.effective_shadow.matrices[D3DTS_VIEW];D3DMATRIX identity{};identity._11=identity._22=identity._33=identity._44=1;
   bool allowed=!skip&&quality&&quality->config.interface_mode=="PreserveMargins"&&quality->ui_projection_live&&exe&&rva==UI_DRAW_RETURN_RVA&&type==D3DPT_TRIANGLELIST&&trace.shadow.bindings.vertex_shader.known&&trace.shadow.bindings.vertex_shader.value==0x142&&view.known&&!std::memcmp(&view.value,&identity,sizeof(identity));
-  UiWorldScope ui(*real_,trace,ui_margins,pc,allowed,type,start,count,rva,exe,skip,!skip,trace.shadow.bindings.vertex_shader.known,trace.shadow.bindings.vertex_shader.value);trace.before(70,args,pc);HRESULT hr=skip?S_OK:real_->DrawPrimitive(type,start,count);
-@@ -201,6 +299,9 @@
-  trace.after(70,args,static_cast<uint32_t>(hr),pc,nullptr,skip?4:ui.changed()?128:0,skip);ui.draw_result(hr);return hr;
+- UiWorldScope ui(*real_,trace,ui_margins,pc,allowed,type,start,count,rva,exe,skip,!skip,trace.shadow.bindings.vertex_shader.known,trace.shadow.bindings.vertex_shader.value);trace.before(70,args,pc);HRESULT hr=skip?S_OK:real_->DrawPrimitive(type,start,count);
++ UiWorldScope ui(*real_,trace,ui_margins,pc,allowed,type,start,count,rva,exe,skip,!skip,trace.shadow.bindings.vertex_shader.known,trace.shadow.bindings.vertex_shader.value);
++#ifdef MRR_ENABLE_PS2_PORT
++ const bool ps2_hud_owned=!skip&&hudintegration::capture_ui_draw(*this,ui_callsite,type,start,count,ui_margins.current_entity());
++#else
++ const bool ps2_hud_owned=false;
++#endif
++ trace.before(70,args,pc);HRESULT hr=(skip||ps2_hud_owned)?S_OK:real_->DrawPrimitive(type,start,count);
+  UiOwnershipDrawState ownership_state{};
+  const auto& fvf=trace.shadow.bindings.vertex_shader;ownership_state.fvf_known=fvf.known;ownership_state.fvf=fvf.value;
+  const auto& texture0=trace.shadow.bindings.textures[0];ownership_state.texture0_known=texture0.known;ownership_state.texture0=texture0.value;
+@@ -198,9 +303,12 @@
+  for(unsigned i=0;i<UI_OWNERSHIP_STAGE_FIELD_COUNT;++i){unsigned stage=i<3?0u:1u;const auto& state=trace.shadow.tss[stage][stage_keys[i]];ownership_state.stage_known[i]=state.known?1u:0u;ownership_state.stage_values[i]=state.value;}
+  uint64_t race_generation=0;const bool race_generation_known=game_fov.race_lifecycle_generation(race_generation);
+  ui_margins.observe_ownership_draw(trace.frame_number(),race_generation_known,race_generation,rva,type,count,ownership_state,!skip,skip,hr);
+- trace.after(70,args,static_cast<uint32_t>(hr),pc,nullptr,skip?4:ui.changed()?128:0,skip);ui.draw_result(hr);return hr;
++ trace.after(70,args,static_cast<uint32_t>(hr),pc,nullptr,skip?4:ps2_hud_owned?256:ui.changed()?128:0,skip||ps2_hud_owned);ui.draw_result(hr);return hr;
  }
  HRESULT STDMETHODCALLTYPE Device8::DrawIndexedPrimitive(D3DPRIMITIVETYPE type,UINT min_index,UINT vertices,UINT start,UINT count){
 +#ifdef MRR_ENABLE_PS2_PORT
@@ -677,7 +777,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
   return draw_indexed_at(type,min_index,vertices,start,count,reinterpret_cast<uintptr_t>(_ReturnAddress()));
  }
  HRESULT Device8::draw_indexed_at(D3DPRIMITIVETYPE type,UINT min_index,UINT vertices,UINT start,UINT count,uintptr_t pc){
-@@ -210,13 +311,102 @@
+@@ -210,13 +318,102 @@
   if(visuals.effective.foliage_diagnostics&&trace.enabled&&trace.control.active)
    trace.foliage_result(probe_foliage(*real_,trace.resources,args,trace.frame_number(),trace.foliage_budget,this));
   HRESULT hr;
