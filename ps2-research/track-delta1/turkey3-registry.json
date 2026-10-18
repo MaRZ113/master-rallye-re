@@ -1,0 +1,451 @@
+{
+  "courses": [
+    {
+      "course": "TURKEY3",
+      "elements": [
+        {
+          "blocker": "Extra PS2 source is not proved visible or absent on PC (LOD, re-triangulation, existing PC counterpart); needs per-group matching",
+          "channel": "UNDECIDED",
+          "delta_class": "UNCLASSIFIED",
+          "evidence": "STATIC_INFERENCE",
+          "id": "TURKEY3:geometry:foliage_tree",
+          "layer": "geometry",
+          "metrics": {
+            "area": 937.951,
+            "groups": 5,
+            "materials": [
+              "Fence hut $alphatest() $shader(tree) $clamp(v)"
+            ],
+            "non_exact_triangles": 84,
+            "ps2_extra_triangles": 84,
+            "relations": {
+              "PS2_EXTRA_VISUAL_SOURCE": 84
+            }
+          },
+          "sources": [
+            "data/geom1/TURKEY3-cli.json (tools/geometry_delta.py, baseline profile)",
+            "geom1/final-report.md"
+          ],
+          "status": "RESEARCHED"
+        },
+        {
+          "blocker": "Extra PS2 source is not proved visible or absent on PC (LOD, re-triangulation, existing PC counterpart); needs per-group matching",
+          "channel": "UNDECIDED",
+          "delta_class": "UNCLASSIFIED",
+          "evidence": "STATIC_INFERENCE",
+          "id": "TURKEY3:geometry:foliage_treeblend",
+          "layer": "geometry",
+          "metrics": {
+            "area": 2482.269,
+            "groups": 14,
+            "materials": [
+              "TURshrub2 $alphatest() $shader(treeblend)"
+            ],
+            "non_exact_triangles": 1360,
+            "ps2_extra_triangles": 1360,
+            "relations": {
+              "PS2_EXTRA_VISUAL_SOURCE": 1360
+            }
+          },
+          "sources": [
+            "data/geom1/TURKEY3-cli.json (tools/geometry_delta.py, baseline profile)",
+            "geom1/final-report.md"
+          ],
+          "status": "RESEARCHED"
+        },
+        {
+          "blocker": "Extra PS2 source is not proved visible or absent on PC (LOD, re-triangulation, existing PC counterpart); needs per-group matching",
+          "channel": "UNDECIDED",
+          "delta_class": "UNCLASSIFIED",
+          "evidence": "STATIC_INFERENCE",
+          "id": "TURKEY3:geometry:ground",
+          "layer": "geometry",
+          "metrics": {
+            "area": 120379.059,
+            "groups": 134,
+            "materials": [
+              "$surfacetype(grass) $shader(ground) $clamp(u)$grnd:grass_hardNoise Pass",
+              "$surfacetype(grass) $shader(ground) $detail(shrubs)$grnd:grass_hardNoise Pass",
+              "$surfacetype(gravel) $shader(ground)",
+              "$surfacetype(gravel) $shader(ground) $clamp(u) $detail(grass)$grnd:gravel_hardNo",
+              "$surfacetype(gravel) $shader(ground) $clamp(u) $detail(grass)$grndu:50:gravel_ha",
+              "$surfacetype(gravel) $shader(ground) $clamp(u)$grnd:mud_softNoise Pass"
+            ],
+            "non_exact_triangles": 1242,
+            "ps2_extra_triangles": 1164,
+            "relations": {
+              "DIAGNOSTIC_DEGENERATE": 4,
+              "GEOMETRY_MODIFIED": 73,
+              "PS2_EXTRA_VISUAL_SOURCE": 1164,
+              "SAME_SURFACE_DIFFERENT_TRIANGULATION": 1
+            }
+          },
+          "sources": [
+            "data/geom1/TURKEY3-cli.json (tools/geometry_delta.py, baseline profile)",
+            "geom1/final-report.md"
+          ],
+          "status": "RESEARCHED"
+        },
+        {
+          "blocker": "Extra PS2 source is not proved visible or absent on PC (LOD, re-triangulation, existing PC counterpart); needs per-group matching",
+          "channel": "UNDECIDED",
+          "delta_class": "UNCLASSIFIED",
+          "evidence": "STATIC_INFERENCE",
+          "id": "TURKEY3:geometry:object_building",
+          "layer": "geometry",
+          "metrics": {
+            "area": 8197.849,
+            "groups": 8,
+            "materials": [
+              "House 1 $shader(object)",
+              "rustic Hut $clamp(uv) $shader(object)"
+            ],
+            "non_exact_triangles": 524,
+            "ps2_extra_triangles": 524,
+            "relations": {
+              "PS2_EXTRA_VISUAL_SOURCE": 524
+            }
+          },
+          "sources": [
+            "data/geom1/TURKEY3-cli.json (tools/geometry_delta.py, baseline profile)",
+            "geom1/final-report.md"
+          ],
+          "status": "RESEARCHED"
+        },
+        {
+          "blocker": "Extra PS2 source is not proved visible or absent on PC (LOD, re-triangulation, existing PC counterpart); needs per-group matching",
+          "channel": "UNDECIDED",
+          "delta_class": "UNCLASSIFIED",
+          "evidence": "STATIC_INFERENCE",
+          "id": "TURKEY3:geometry:object_vehicle_prop",
+          "layer": "geometry",
+          "metrics": {
+            "area": 1815.607,
+            "groups": 19,
+            "materials": [
+              "CARAVAN $shader(object)",
+              "CARAVAN_ALPHA $shader(object) $alphatest()",
+              "RED CARAVAN $shader(object)",
+              "Tyres $shader(metal)",
+              "boat1 $shader(object)",
+              "boat2 $shader(object)"
+            ],
+            "non_exact_triangles": 868,
+            "ps2_extra_triangles": 824,
+            "relations": {
+              "GEOMETRY_MODIFIED": 38,
+              "PARTIAL_SURFACE_OVERLAP": 6,
+              "PS2_EXTRA_VISUAL_SOURCE": 824
+            }
+          },
+          "sources": [
+            "data/geom1/TURKEY3-cli.json (tools/geometry_delta.py, baseline profile)",
+            "geom1/final-report.md"
+          ],
+          "status": "RESEARCHED"
+        },
+        {
+          "blocker": "Extra PS2 source is not proved visible or absent on PC (LOD, re-triangulation, existing PC counterpart); needs per-group matching",
+          "channel": "UNDECIDED",
+          "delta_class": "UNCLASSIFIED",
+          "evidence": "STATIC_INFERENCE",
+          "id": "TURKEY3:geometry:other",
+          "layer": "geometry",
+          "metrics": {
+            "area": 54.435,
+            "groups": 3,
+            "materials": [
+              "telegraphwires $alphablend() $shader(wires) $clamp(v)",
+              "wood $shader(object)"
+            ],
+            "non_exact_triangles": 8,
+            "ps2_extra_triangles": 2,
+            "relations": {
+              "PARTIAL_SURFACE_OVERLAP": 6,
+              "PS2_EXTRA_VISUAL_SOURCE": 2
+            }
+          },
+          "sources": [
+            "data/geom1/TURKEY3-cli.json (tools/geometry_delta.py, baseline profile)",
+            "geom1/final-report.md"
+          ],
+          "status": "RESEARCHED"
+        },
+        {
+          "channel": "A_RENDER_OVERLAY",
+          "delta_class": "MISSING_ON_PC",
+          "evidence": "CONFIRMED_BY_BYTES",
+          "id": "TURKEY3:geometry:puddle",
+          "layer": "geometry",
+          "metrics": {
+            "area": 38112.915,
+            "groups": 23,
+            "materials": [
+              "water $surfacetype(water) $shader(puddle)"
+            ],
+            "non_exact_triangles": 745,
+            "ps2_extra_triangles": 520,
+            "relations": {
+              "GEOMETRY_MODIFIED": 225,
+              "PS2_EXTRA_VISUAL_SOURCE": 520
+            }
+          },
+          "sources": [
+            "data/geom1/TURKEY3-cli.json (tools/geometry_delta.py, baseline profile)",
+            "geom1/final-report.md",
+            "water1/turkey3-delta.md",
+            "pc-port/docs/course-objects1/final-report.md"
+          ],
+          "status": "IMPLEMENTED_PENDING_USER_RUNTIME"
+        },
+        {
+          "blocker": "PC compiled draws with no PS2 source match; kept untouched by the delta-port (delta-port never removes PC content)",
+          "channel": "NONE",
+          "delta_class": "SAME",
+          "evidence": "STATIC_INFERENCE",
+          "id": "TURKEY3:geometry:pc_only",
+          "layer": "geometry",
+          "metrics": {
+            "groups": 99,
+            "triangles": 971
+          },
+          "sources": [
+            "data/geom1/TURKEY3-cli.json (reverse direction)"
+          ],
+          "status": "RESEARCHED"
+        },
+        {
+          "blocker": "RIGID-PORT1.3 NO-GO for private admission; needs new gate G-PROP",
+          "channel": "C_NATIVE_HOOK",
+          "delta_class": "MISSING_ON_PC",
+          "evidence": "CONFIRMED_BY_BYTES",
+          "id": "TURKEY3:rigid_prop:tumbleweed",
+          "layer": "rigid_prop",
+          "metrics": {
+            "pc_eggs": 0,
+            "ps2_eggs": 6
+          },
+          "sources": [
+            "rigid1/turkey1-tumbleweed.md",
+            "pc-port/docs/rigid-port1.3/final-report.md"
+          ],
+          "status": "BLOCKED"
+        },
+        {
+          "blocker": "Live bird counts UNKNOWN; controller not implemented",
+          "channel": "A_RENDER_OVERLAY",
+          "delta_class": "MISSING_ON_PC",
+          "evidence": "CONFIRMED_BY_BYTES",
+          "id": "TURKEY3:bird:manager",
+          "layer": "bird",
+          "metrics": {
+            "pc_managers": 0,
+            "ps2_bird_marker_lists": [
+              "FlightList"
+            ],
+            "ps2_managers": 1
+          },
+          "sources": [
+            "ambient2/final-report.md"
+          ],
+          "status": "RESEARCHED"
+        },
+        {
+          "blocker": "aiSpawnParticle effect binding UNKNOWN (plan T8)",
+          "channel": "UNDECIDED",
+          "delta_class": "MISSING_ON_PC",
+          "evidence": "CONFIRMED_BY_BYTES",
+          "id": "TURKEY3:emitter:smoke",
+          "layer": "emitter",
+          "metrics": {
+            "pc_eggs": 0,
+            "ps2_eggs": 11
+          },
+          "sources": [
+            "cdelta1/course-dressing-survey.md"
+          ],
+          "status": "NOT_STARTED"
+        },
+        {
+          "blocker": "Why PC has one more split Egg is UNKNOWN; compare Split Time ID/Radius before any edit",
+          "channel": "B_DATA_COPY",
+          "delta_class": "DIFFERENT_LOGIC",
+          "evidence": "CONFIRMED_BY_BYTES",
+          "id": "TURKEY3:trigger:split",
+          "layer": "trigger",
+          "metrics": {
+            "pc_positions": [
+              [
+                2568.01,
+                39.01,
+                526.21
+              ],
+              [
+                2408.85,
+                28.69,
+                -518.98
+              ],
+              [
+                2813.93,
+                46.37,
+                -245.43
+              ],
+              [
+                2454.25,
+                18.23,
+                -490.17
+              ]
+            ],
+            "pc_split_eggs": 4,
+            "ps2_positions": [
+              [
+                2568.01,
+                39.01,
+                526.21
+              ],
+              [
+                2408.85,
+                28.69,
+                -518.98
+              ],
+              [
+                2813.93,
+                46.37,
+                -245.43
+              ]
+            ],
+            "ps2_split_eggs": 3
+          },
+          "sources": [
+            "cdelta1/checkpoint-survey.md",
+            "src/master_rallye/course_race_authoring.py"
+          ],
+          "status": "RESEARCHED"
+        },
+        {
+          "blocker": "Limit lists are named differently on PS2 (...Limit2, Boom/StaticCameras); semantic mapping UNKNOWN",
+          "channel": "B_DATA_COPY",
+          "delta_class": "DIFFERENT_LOGIC",
+          "evidence": "CONFIRMED_BY_BYTES",
+          "id": "TURKEY3:trigger:marker_lists",
+          "layer": "trigger",
+          "metrics": {
+            "marker_lists": {
+              "BoomCameras": {
+                "identical_ordered_xyz": false,
+                "pc": null,
+                "ps2": 4
+              },
+              "Cameras": {
+                "identical_ordered_xyz": false,
+                "pc": 69,
+                "ps2": 70
+              },
+              "FinishArea": {
+                "identical_ordered_xyz": true,
+                "pc": 4,
+                "ps2": 4
+              },
+              "FlightList": {
+                "identical_ordered_xyz": false,
+                "pc": null,
+                "ps2": 12
+              },
+              "LeftInnerLimit": {
+                "identical_ordered_xyz": false,
+                "pc": 141,
+                "ps2": null
+              },
+              "LeftOuterLimit": {
+                "identical_ordered_xyz": false,
+                "pc": 110,
+                "ps2": null
+              },
+              "LeftOuterLimit2": {
+                "identical_ordered_xyz": false,
+                "pc": null,
+                "ps2": 230
+              },
+              "RaceLine": {
+                "identical_ordered_xyz": false,
+                "pc": 420,
+                "ps2": 422
+              },
+              "RightInnerLimit": {
+                "identical_ordered_xyz": false,
+                "pc": 159,
+                "ps2": null
+              },
+              "RightOuterLimit": {
+                "identical_ordered_xyz": false,
+                "pc": 126,
+                "ps2": null
+              },
+              "RightOuterLimit2": {
+                "identical_ordered_xyz": false,
+                "pc": null,
+                "ps2": 209
+              },
+              "StartArea": {
+                "identical_ordered_xyz": true,
+                "pc": 4,
+                "ps2": 4
+              },
+              "StaticCameras": {
+                "identical_ordered_xyz": false,
+                "pc": null,
+                "ps2": 5
+              }
+            }
+          },
+          "sources": [
+            "src/master_rallye/course_xml.py",
+            "cdelta1/course-pairs.md"
+          ],
+          "status": "RESEARCHED"
+        },
+        {
+          "blocker": "Checkpoint asset differs (PS2 drum vs PC legacy); knockability owner UNKNOWN",
+          "channel": "B_DATA_COPY",
+          "delta_class": "DIFFERENT_MATERIAL",
+          "evidence": "CONFIRMED_BY_BYTES",
+          "id": "TURKEY3:checkpoint:model",
+          "layer": "checkpoint",
+          "metrics": {
+            "model_reference_count_diff_ps2_pc": {
+              "misc\\checkpoints\\checkpoint": [
+                0,
+                16
+              ],
+              "misc\\objects\\checkpoints\\checkpoint": [
+                12,
+                0
+              ],
+              "misc\\objects\\tumbleweed\\tumblweed": [
+                6,
+                0
+              ],
+              "test\\gps_test\\gps_arrow": [
+                3,
+                27
+              ]
+            }
+          },
+          "sources": [
+            "cdelta1/checkpoint-survey.md"
+          ],
+          "status": "RESEARCHED"
+        }
+      ],
+      "pc_dx_sha256": "724a69da708a124f7dbfd666b7ad8d391bcaf22ff94bd2c91143e305749cf7f8",
+      "pc_scene": "DataScene/RaceTest/Turkey3.xml",
+      "ps2_psm_sha256": "dd274ac1cb56c16d35410fbe2e8e3771a750b47710b747fddc70604fdb3d59fc",
+      "ps2_scene": "/TNG/DATASCENE/RACETEST/TURKEY3.XML"
+    }
+  ],
+  "inputs": {
+    "pc_provenance": "cdelta1/input-provenance.json#pc_source_sha256",
+    "ps2_provenance": "cdelta1/input-provenance.json"
+  },
+  "schema_version": 2
+}
