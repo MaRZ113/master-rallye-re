@@ -1,0 +1,38 @@
+{
+  "schema_version": 2,
+  "inputs": {
+    "ps2_provenance": "cdelta1/input-provenance.json",
+    "pc_provenance": "cdelta1/input-provenance.json#pc_source_sha256"
+  },
+  "courses": [
+    {
+      "course": "TURKEY3",
+      "ps2_scene": "/TNG/DATASCENE/RACETEST/TURKEY3.XML",
+      "pc_scene": "DataScene/RaceTest/Turkey3.xml",
+      "ps2_psm_sha256": "dd274ac1cb56c16d35410fbe2e8e3771a750b47710b747fddc70604fdb3d59fc",
+      "pc_dx_sha256": "724a69da708a124f7dbfd666b7ad8d391bcaf22ff94bd2c91143e305749cf7f8",
+      "elements": [
+        {
+          "id": "TURKEY3:geometry:puddle:0",
+          "layer": "geometry",
+          "delta_class": "MISSING_ON_PC",
+          "channel": "A_RENDER_OVERLAY",
+          "evidence": "CONFIRMED_BY_BYTES",
+          "sources": ["water1/turkey3-delta.md", "pc-port/docs/course-objects1/final-report.md"],
+          "metrics": {"faces": 745, "meshes": 17, "pc_exact_matches": 0},
+          "status": "IMPLEMENTED_PENDING_USER_RUNTIME"
+        },
+        {
+          "id": "TURKEY3:collision:landscape:0",
+          "layer": "collision",
+          "delta_class": "UNCLASSIFIED",
+          "channel": "UNDECIDED",
+          "evidence": "UNKNOWN",
+          "sources": ["rigid1/terrain-contact.md"],
+          "status": "NOT_STARTED",
+          "blocker": "PS2 .BSP format not reversed"
+        }
+      ]
+    }
+  ]
+}

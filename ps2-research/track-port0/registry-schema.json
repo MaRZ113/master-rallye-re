@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "course-delta-registry-v2",
+  "title": "Course Delta Registry v2",
+  "type": "object",
+  "required": ["schema_version", "inputs", "courses"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"const": 2},
+    "inputs": {
+      "type": "object",
+      "required": ["ps2_provenance", "pc_provenance"],
+      "properties": {
+        "ps2_provenance": {"type": "string", "description": "Relative path of the pinned PS2 input-provenance JSON"},
+        "pc_provenance": {"type": "string", "description": "Relative path of the pinned PC source hash JSON"}
+      },
+      "additionalProperties": false
+    },
+    "courses": {"type": "array", "items": {"$ref": "#/$defs/course"}}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "evidence": {"enum": ["CONFIRMED_BY_BYTES", "CONFIRMED_BY_BOTH", "CONFIRMED_BY_RUNTIME", "USER_RUNTIME_OBSERVATION", "STATIC_INFERENCE", "UNKNOWN"]},
+    "course": {
+      "type": "object",
+      "required": ["course", "ps2_scene", "pc_scene", "ps2_psm_sha256", "pc_dx_sha256", "elements"],
+      "additionalProperties": false,
+      "properties": {
+        "course": {"type": "string"},
+        "ps2_scene": {"type": "string"},
+        "pc_scene": {"type": "string"},
+        "ps2_psm_sha256": {"$ref": "#/$defs/sha256"},
+        "pc_dx_sha256": {"$ref": "#/$defs/sha256"},
+        "elements": {"type": "array", "items": {"$ref": "#/$defs/element"}}
+      }
+    },
+    "element": {
+      "type": "object",
+      "required": ["id", "layer", "delta_class", "channel", "evidence", "sources", "status"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {"type": "string", "description": "Stable key, e.g. TURKEY3:geometry:puddle:0"},
+        "layer": {"enum": ["geometry", "material", "texture", "collision", "surface", "trigger", "rigid_prop", "spline_object", "bird", "emitter", "checkpoint", "detail"]},
+        "delta_class": {"enum": ["SAME", "MISSING_ON_PC", "DIFFERENT_MATERIAL", "DIFFERENT_LOGIC", "UNCLASSIFIED"]},
+        "channel": {"enum": ["A_RENDER_OVERLAY", "B_DATA_COPY", "C_NATIVE_HOOK", "NONE", "UNDECIDED"]},
+        "evidence": {"$ref": "#/$defs/evidence"},
+        "sources": {"type": "array", "minItems": 1, "items": {"type": "string"}, "description": "Source files, functions, ELF addresses"},
+        "metrics": {"type": "object", "description": "Counts such as triangles, faces, points"},
+        "status": {"enum": ["NOT_STARTED", "RESEARCHED", "ASSET_BUILT", "IMPLEMENTED_PENDING_USER_RUNTIME", "RUNTIME_CONFIRMED", "BLOCKED", "REJECTED"]},
+        "blocker": {"type": "string"}
+      },
+      "allOf": [
+        {"if": {"properties": {"channel": {"const": "C_NATIVE_HOOK"}}},
+         "then": {"properties": {"status": {"not": {"const": "IMPLEMENTED_PENDING_USER_RUNTIME"}}}, "description": "A native hook needs its evidence gate recorded first"}}
+      ]
+    }
+  }
+}
