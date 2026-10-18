@@ -146,7 +146,7 @@ def main():
         gscene = scene
         ps2_grid = gdp.build_index(gdp.ground_triangles(gscene))
         coll = terrain.collision(tree, ps2_non, pc_all, pcn0, ps2_top=lambda x, z: gdp.height_at(ps2_grid, x, z))
-        tfiles, terrain_eggs, vis = terrain.visual_models(a.ps2_root, manifest, ps2_non, template, hay)
+        tfiles, terrain_eggs, vis = terrain.visual_models(a.ps2_root, manifest, ps2_non, template, hay, a.pc_root / 'DataGx/Course/Turkey3')
         files_terrain = tfiles
         terrain_report = {'ps2_non_exact_ground': len(ps2_non), 'pc_non_exact_ground_neutralised': len(pc_neutral), 'pc_non_exact_ground_kept_no_replacement': len(pc_kept), 'collision': coll, 'visual': vis}
     else:
@@ -169,19 +169,14 @@ def main():
         slot = next(s for s in rebuilt.output_model.physical_draws[0].texture_slots if s.slot == 0)
         dx[slot.data_offset:slot.data_offset + len(model['slot'])] = model['slot']
         parse_dx_bytes(bytes(dx))
-        gxi = o.extract(manifest, a.ps2_root, BS + 'TNG' + BS + 'DATAPSM' + BS + 'COURSE' + BS + 'TURKEY3' + BS + model['gxi'])
-        tex = o.p.parse_gxi(gxi)
-        w_, h_ = tex['width'], tex['height']
-        rgba = gxi[8:8 + w_ * h_ * 4]
-        bgra = bytearray(len(rgba))
-        for i in range(0, len(rgba), 4):
-            bgra[i], bgra[i + 1], bgra[i + 2], bgra[i + 3] = rgba[i + 2], rgba[i + 1], rgba[i], rgba[i + 3]
-        dxt = hay.header[:12] + struct.pack('<2I', w_, h_) + bytes(bgra)
-        parse_dxt_bytes(dxt)
+        built = terrain.texture_dxt(manifest, a.ps2_root, model['texture'], hay.header, a.pc_root / 'DataGx/Course/Turkey3')
+        if built is None:
+            raise SystemExit('texture not convertible: ' + model['texture'])
+        dxt, (w_, h_), tex_source = built
         mdir = DIR + model['name'] + '/'
         files[mdir + model['name'] + '.dx'] = bytes(dx)
         files[mdir + model['slot'].decode() + '.dxt'] = dxt
-        entry = {'name': model['name'], 'texture': [w_, h_], 'dx_triangles': len(geometry.triangles), 'instances': []}
+        entry = {'name': model['name'], 'texture': [w_, h_], 'texture_source': tex_source, 'dx_triangles': len(geometry.triangles), 'instances': []}
         for k, path in enumerate(model['meshes']):
             mesh = by_path[path]
             verts = strip_vertices(scene, mesh)

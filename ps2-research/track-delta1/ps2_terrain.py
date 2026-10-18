@@ -175,38 +175,68 @@ def collision(tree, ps2_non, pc_all, pcn, ps2_top=None, max_dy=8.0):
     return stats
 
 
-def texture_dxt(manifest, ps2_root, name, hay_header):
-    path = BS + 'TNG' + BS + 'DATAPSM' + BS + 'COURSE' + BS + 'TURKEY3' + BS + name.split(BS)[-1].upper() + '.GXI'
+def texture_dxt(manifest, ps2_root, name, hay_header, pc_dir=None, tolerance=14.0):
+    """DXT bytes for a PS2 texture name: the PC texture of the same name when it exists and shows the same image, otherwise the PS2 GXI (64x64).
+
+    The PC course textures are 128x128, the PS2 ones 64x64. Similarity: the PC image is box-filtered to the PS2 size (PC rows are bottom-up, GXI rows
+    top-down) and the mean absolute channel difference must be below `tolerance` (0..255). Returns (dxt bytes, (w, h), 'pc' | 'ps2') or None.
+    """
+    base = name.split(BS)[-1]
+    path = BS + 'TNG' + BS + 'DATAPSM' + BS + 'COURSE' + BS + 'TURKEY3' + BS + base.upper() + '.GXI'
     try:
         gxi = o.extract(manifest, ps2_root, path)
-    except SystemExit:
-        return None
-    try:
         tex = o.p.parse_gxi(gxi)
     except Exception:
-        return None
-    w_, h_ = tex['width'], tex['height']
-    rgba = gxi[8:8 + w_ * h_ * 4]
-    if len(rgba) != w_ * h_ * 4:
+        gxi, tex = None, None
+    if gxi is not None:
+        w_, h_ = tex['width'], tex['height']
+        rgba = gxi[8:8 + w_ * h_ * 4]
+        if len(rgba) != w_ * h_ * 4:
+            gxi = None
+    if pc_dir is not None:
+        pc_file = Path(pc_dir) / (base + '.dxt')
+        if pc_file.exists():
+            pc = parse_dxt_bytes(pc_file.read_bytes())
+            if gxi is None:
+                return pc_file.read_bytes(), (pc.width, pc.height), 'pc'
+            if pc.width % w_ == 0 and pc.height % h_ == 0:
+                fx, fy = pc.width // w_, pc.height // h_
+                total = 0
+                for y in range(h_):
+                    for x in range(w_):
+                        acc = [0, 0, 0]
+                        for yy in range(fy):
+                            for xx in range(fx):
+                                row = pc.height - 1 - (y * fy + yy)  # PC rows are bottom-up
+                                i = (row * pc.width + x * fx + xx) * 4
+                                acc[0] += pc.bgra[i + 2]
+                                acc[1] += pc.bgra[i + 1]
+                                acc[2] += pc.bgra[i]
+                        g = (y * w_ + x) * 4
+                        n = fx * fy
+                        total += abs(acc[0] / n - rgba[g]) + abs(acc[1] / n - rgba[g + 1]) + abs(acc[2] / n - rgba[g + 2])
+                if total / (w_ * h_ * 3) <= tolerance:
+                    return pc_file.read_bytes(), (pc.width, pc.height), 'pc'
+    if gxi is None:
         return None
     bgra = bytearray(len(rgba))
     for i in range(0, len(rgba), 4):
         bgra[i], bgra[i + 1], bgra[i + 2], bgra[i + 3] = rgba[i + 2], rgba[i + 1], rgba[i], rgba[i + 3]
-    return hay_header[:12] + struct.pack('<2I', w_, h_) + bytes(bgra), (w_, h_)
+    return hay_header[:12] + struct.pack('<2I', w_, h_) + bytes(bgra), (w_, h_), 'ps2'
 
 
-def visual_models(ps2_root, manifest, ps2_non, template, hay):
+def visual_models(ps2_root, manifest, ps2_non, template, hay, pc_dir=None):
     """Per-texture static models of the PS2 non-exact ground triangles: ({path: bytes}, [(egg name, model name, centroid)], report)."""
     by_tex = defaultdict(list)
     for t in ps2_non:
         by_tex[t['tex']].append(t)
     files, eggs, report = {}, [], {'textures': []}
     for n, (tex, tris) in enumerate(sorted(by_tex.items(), key=lambda kv: -len(kv[1]))):
-        built = texture_dxt(manifest, ps2_root, tex, hay.header) if tex else None
+        built = texture_dxt(manifest, ps2_root, tex, hay.header, pc_dir) if tex else None
         if built is None:
             report['textures'].append({'texture': tex, 'triangles': len(tris), 'skipped': 'texture not convertible'})
             continue
-        dxt, size = built
+        dxt, size, source = built
         allp = [p for t in tris for p in t['p']]
         c = tuple(sum(p[i] for p in allp) / len(allp) for i in range(3))
         vertices, faces = [], []
@@ -238,5 +268,5 @@ def visual_models(ps2_root, manifest, ps2_non, template, hay):
         files[MODEL_DIR + name + '/' + name + '.dx'] = bytes(dx)
         files[MODEL_DIR + name + '/' + slot_name.decode() + '.dxt'] = dxt
         eggs.append((f'ps2_{name}', 'misc' + BS + 'ps2port' + BS + 'terrain' + BS + name + BS + name, c))
-        report['textures'].append({'texture': tex, 'model': name, 'triangles': len(tris), 'vertices': len(vertices), 'size': list(size)})
+        report['textures'].append({'texture': tex, 'model': name, 'triangles': len(tris), 'vertices': len(vertices), 'size': list(size), 'texture_source': source})
     return files, eggs, report
