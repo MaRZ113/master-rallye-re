@@ -40,7 +40,7 @@ Drive or teleport the car from the road toward the wall at the points below, bot
 (`C:\Games\PCSX2_Nightly`, canonical disc). Record whether the car is stopped at the wall position, what the HUD limit state shows,
 and take a screenshot. Expected from the data: PS2 stops at the wall; PC keeps going until the outer limit resets the car.
 
-| Probe | Route point (x, z) | Direction | Wall at (x, z) | Wall distance | PC outer limit at | PC ground at road / wall |
+| Probe | Route point (x, z) | Direction | Wall at (x, z) | Wall distance | Nearest PC outer limit, distance | PC ground at road / wall |
 |---|---|---|---|---:|---:|---|
 | 1 | (3161.5, 168.3) route idx 6 | right of travel | (3225.1, 192.5) | 68 | 61 | 36.2 / 33.3 |
 | 2 | (2592.5, 309.6) route idx 84 | left | (2572.7, 221.7) | 90 | 75 | 33.8 / 52.8 |
