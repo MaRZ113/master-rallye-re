@@ -82,6 +82,25 @@ def load_delta(ps2_root, pc_dx):
     return scene, model, ps2_non, pc_non, pc
 
 
+def with_replacement(pc_non, ps2_non, cell=12.0, ratio=0.75):
+    """PC triangles that have a PS2 replacement near them: some PS2 added triangle whose centroid lies within `ratio` of the PC triangle's longest edge
+    (3D). PC triangles without one stay (neutralising them leaves a hole, seen in the first terrain build at the rock arch near 2600, 85, -845)."""
+    def cen(p):
+        return tuple(sum(q[i] for q in p) / 3 for i in range(3))
+    grid = defaultdict(list)
+    for t in ps2_non:
+        c = cen(t['p'])
+        grid[int(c[0] // cell), int(c[1] // cell), int(c[2] // cell)].append(c)
+    keep, drop = [], []
+    for t in pc_non:
+        c = cen(t['p'])
+        edge = max(math.dist(t['p'][i], t['p'][(i + 1) % 3]) for i in range(3))
+        kx, ky, kz = int(c[0] // cell), int(c[1] // cell), int(c[2] // cell)
+        near = min((math.dist(c, q) for dx in (-1, 0, 1) for dy in (-1, 0, 1) for dz in (-1, 0, 1) for q in grid.get((kx + dx, ky + dy, kz + dz), [])), default=1e9)
+        (keep if near <= ratio * edge else drop).append(t)
+    return keep, drop
+
+
 def neutralise(course, model, pc_non):
     """Set the three local indices of every listed PC triangle to its first one (zero area, no structural change)."""
     data = bytearray(course)
@@ -94,7 +113,7 @@ def neutralise(course, model, pc_non):
     return bytes(data)
 
 
-def collision(tree, ps2_non, pc_all, pcn):
+def collision(tree, ps2_non, pc_all, pcn, ps2_top=None, max_dy=8.0):
     """Fill / carve slabs for the PS2 non-exact ground triangles; returns a report dict."""
     twins = defaultdict(list)
     for t in pc_all:
@@ -110,12 +129,25 @@ def collision(tree, ps2_non, pc_all, pcn):
             stats['skipped_vertical'] += 1
             continue
         twin = twins.get(kxz(pts))
+        if not twin:
+            stats['no_twin_skipped'] = stats.get('no_twin_skipped', 0) + 1  # PC surface unknown under this triangle: no collision edit
+            continue
+        centroid_xz = (sum(p[0] for p in pts) / 3, sum(p[2] for p in pts) / 3)
+        if ps2_top is not None:
+            top = ps2_top(*centroid_xz)
+            if top is not None and sum(p[1] for p in pts) / 3 < top - 0.05:
+                stats['lower_layer_skipped'] = stats.get('lower_layer_skipped', 0) + 1  # arches, overhangs, rock undersides: slabs would fill or cut passages
+                continue
         if twin:
             stats['twin'] += 1
             m = {(round(p[0], 2), round(p[2], 2)): p[1] for p in twin[0]['p']}
             pc_pts = [(p[0], m[(round(p[0], 2), round(p[2], 2))], p[2]) for p in pts]
-            if max(abs(a[1] - b[1]) for a, b in zip(pts, pc_pts)) < 1e-3:
+            dys = max(abs(a[1] - b[1]) for a, b in zip(pts, pc_pts))
+            if dys < 1e-3:
                 stats['same_height'] += 1
+                continue
+            if dys > max_dy:
+                stats['too_thick_skipped'] = stats.get('too_thick_skipped', 0) + 1
                 continue
         else:
             stats['estimated_lower'] += 1
@@ -181,14 +213,18 @@ def visual_models(ps2_root, manifest, ps2_non, template, hay):
         for t in tris:
             local = [(p[0] - c[0], p[1] - c[1], p[2] - c[2]) for p in t['p']]
             nrm = o.normal_of(*local)
-            order = (0, 1, 2) if nrm[1] >= 0 else (0, 2, 1)  # ground faces point up; mirrored triangles are flipped
-            if nrm[1] < 0:
-                nrm = tuple(-x for x in nrm)
-            base = len(vertices)
-            for i in order:
-                u, v = t['uv'][i]
-                vertices.append(CompiledVertex(tuple(local[i]), nrm, t['col'][i], ((u, 1.0 - v),)))
-            faces.append((base, base + 1, base + 2))
+            # gentle slopes are written once, facing up; steep, vertical and downward faces (cliffs, rock undersides) in both windings:
+            # the PS2 strip winding is not resolved and a wrong single winding is culled away (holes in the first terrain build)
+            if abs(nrm[1]) > 0.7:
+                variants = [((0, 1, 2), nrm)] if nrm[1] > 0 else [((0, 2, 1), tuple(-x for x in nrm))]
+            else:
+                variants = [((0, 1, 2), nrm), ((0, 2, 1), tuple(-x for x in nrm))]
+            for order, vn in variants:
+                base = len(vertices)
+                for i in order:
+                    u, v = t['uv'][i]
+                    vertices.append(CompiledVertex(tuple(local[i]), vn, t['col'][i], ((u, 1.0 - v),)))
+                faces.append((base, base + 1, base + 2))
         if len(vertices) > 65000:
             report['textures'].append({'texture': tex, 'triangles': len(tris), 'skipped': 'more than 65,000 vertices'})
             continue

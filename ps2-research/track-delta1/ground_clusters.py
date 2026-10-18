@@ -28,7 +28,8 @@ def load(ps2_root, pc_dx):
     scene = o.w.decode_scene(o.extract(manifest, ps2_root, o.PSM_PATH))
     ps2 = []  # (points, uv, colors, texture, mesh path, is_ground)
     for mesh in scene.meshes:
-        ground = 'shader(ground)' in mesh['material'].lower()
+        # ground family: shader(ground) or a noise-tga detail slot (some ground meshes have an empty material name), same family as the PC third slot
+        ground = 'shader(ground)' in mesh['material'].lower() or any('noise' in x['name'].lower() for x in mesh['textures'])
         tex = mesh['textures'][0]['name'] if mesh['textures'] else ''
         for pos, uv, col in o.source_triangles(scene, mesh):
             ps2.append({'p': pos, 'uv': uv, 'col': col, 'tex': tex, 'mesh': mesh['path'], 'ground': ground})

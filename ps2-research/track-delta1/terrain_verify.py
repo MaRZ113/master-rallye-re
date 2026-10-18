@@ -11,6 +11,7 @@ import ground_delta_probe as g  # noqa: E402
 import ps2_terrain as terrain  # noqa: E402
 import gcoll_columns as gc  # noqa: E402
 import gcoll_walls_vs_limits as gw  # noqa: E402
+import bsp_query as q  # noqa: E402
 
 
 def main():
@@ -56,6 +57,37 @@ def main():
         total += 1
         changed += abs(h0 - h1) > 0.05
     print('random columns over the course box whose collision ground changed:', changed, 'of', total)
+    print('passability at PS2 non-exact columns (blocking = solid 0.6 above the PS2 top ground, falling = empty 0.6 below):', passability(a.retail_dx, a.patched_dx, a.ps2_root))
+
+
+
+
+def solid(nodes, p):
+    return q.classify(nodes, p, False).field_0 == 0xFFFFFFFF
+
+
+def passability(retail_dx, patched_dx, ps2_root, samples=4000):
+    """Open-air and ground checks against the PS2 top ground surface at random columns of the PS2 non-exact area:
+    blocking = solid 0.6 above the PS2 top surface, falling = empty 0.6 below it (both counted for retail and patched trees)."""
+    import random
+    scene, model, ps2_non, pc_non, pc_all = terrain.load_delta(ps2_root, retail_dx)
+    grid = g.build_index(g.ground_triangles(scene))
+    old, new = gc.pc_nodes(retail_dx), gc.pc_nodes(patched_dx)
+    rnd = random.Random(11)
+    tri = rnd.sample(ps2_non, min(samples, len(ps2_non)))
+    res = {'n': 0, 'blocking_old': 0, 'blocking_new': 0, 'falling_old': 0, 'falling_new': 0}
+    for t in tri:
+        x = sum(p[0] for p in t['p']) / 3
+        z = sum(p[2] for p in t['p']) / 3
+        top = g.height_at(grid, x, z)
+        if top is None:
+            continue
+        res['n'] += 1
+        res['blocking_old'] += solid(old, (x, top + 0.6, z))
+        res['blocking_new'] += solid(new, (x, top + 0.6, z))
+        res['falling_old'] += not solid(old, (x, top - 0.6, z))
+        res['falling_new'] += not solid(new, (x, top - 0.6, z))
+    return res
 
 
 if __name__ == '__main__':

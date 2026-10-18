@@ -25,7 +25,7 @@ CELL = 8.0
 def ground_triangles(scene):
     tris = []
     for mesh in scene.meshes:
-        if 'shader(ground)' not in mesh['material'].lower():
+        if not ('shader(ground)' in mesh['material'].lower() or any('noise' in x['name'].lower() for x in mesh['textures'])):
             continue
         for pos, _, _ in o.source_triangles(scene, mesh):
             tris.append(pos)

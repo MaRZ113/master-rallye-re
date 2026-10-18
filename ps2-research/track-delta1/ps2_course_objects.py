@@ -139,12 +139,16 @@ def main():
     terrain_report, terrain_eggs = None, []
     if a.terrain:
         _, pc_model, ps2_non, pc_non, pc_all = terrain.load_delta(a.ps2_root, a.pc_root / 'DataGx/Course/Turkey3/turkey3.dx')
-        course = terrain.neutralise(course, pc_model, pc_non)
+        pc_neutral, pc_kept = terrain.with_replacement(pc_non, ps2_non)
+        course = terrain.neutralise(course, pc_model, pc_neutral)
         pcn0 = gc.pc_nodes(a.pc_root / 'DataGx/Course/Turkey3/turkey3.dx')
-        coll = terrain.collision(tree, ps2_non, pc_all, pcn0)
+        import ground_delta_probe as gdp
+        gscene = scene
+        ps2_grid = gdp.build_index(gdp.ground_triangles(gscene))
+        coll = terrain.collision(tree, ps2_non, pc_all, pcn0, ps2_top=lambda x, z: gdp.height_at(ps2_grid, x, z))
         tfiles, terrain_eggs, vis = terrain.visual_models(a.ps2_root, manifest, ps2_non, template, hay)
         files_terrain = tfiles
-        terrain_report = {'ps2_non_exact_ground': len(ps2_non), 'pc_non_exact_ground_neutralised': len(pc_non), 'collision': coll, 'visual': vis}
+        terrain_report = {'ps2_non_exact_ground': len(ps2_non), 'pc_non_exact_ground_neutralised': len(pc_neutral), 'pc_non_exact_ground_kept_no_replacement': len(pc_kept), 'collision': coll, 'visual': vis}
     else:
         files_terrain = {}
     pcn = gc.pc_nodes(a.pc_root / 'DataGx/Course/Turkey3/turkey3.dx')
