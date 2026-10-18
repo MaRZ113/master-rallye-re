@@ -18,3 +18,12 @@ Each Egg: model `misc\haybale\haybaletest`, AI 0 `gaAiHayBale` with an empty pro
 3. Record: does the game load the course (no crash, no black screen); are bales visible; does the car push or bounce off them; do they fall to the ground and stay stable; does a restart (race, menu, race, three times) crash.
 4. Delete the file to return to stock.
 Possible outcomes: crash or hang on load (the Egg or class does not accept this authoring, tell me where it stopped), course loads with no bales (silently ignored), or bales that react to the car (the data channel works for native physics props).
+
+## Result 1 (user, 2026-10-18)
+Crash during course load, exactly while `haybaletest.dx` is loaded (seen in the debug window). The file itself looks sane: header `0xD00D`, revision 135, same layout as `checkpoint.dx` and `banner.dx`; texture `hay-tga.dxt` sits next to it like the other models. The crash therefore comes either from the model loader or collision resource for this dormant 2001 asset, or from the `gaAiHayBale` initializer.
+
+## Bisect B: same model, no hay AI
+`D:\Game\Master Rallye\research-output\hay-probe-visual\Turkey3.xml` (`hay_probe.py --count 1 --visual-only`): one Egg `hay1`, model `misc\haybale\haybaletest`, all AI slots Null, same position as hay1. Install it in place of the hay candidate.
+- It crashes at the same place: the model loader fails on `haybaletest.dx` itself, the AI is not involved.
+- It loads and the bale is drawn: the loader is fine, and `gaAiHayBale` (initializer, body or collision resource) is the culprit.
+Useful with either outcome: the crash address and module from the debugger (exception code, EIP, and the top frames).

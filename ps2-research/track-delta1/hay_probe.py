@@ -41,8 +41,7 @@ EGG = '''      <Egg Name="{name}">
         <Value Name="en2d 2dGlobal" Type="Bool" Value="False"/>
         <AI_List>
           <AI No="0">
-            <Value Name="AI Name" Type="String" Value="gaAiHayBale"/>
-            <gaAiHayBale/>
+            <Value Name="AI Name" Type="String" Value="{ai0}"/>{ai0_body}
           </AI>
           <AI No="1">
             <Value Name="AI Name" Type="String" Value="Null"/>
@@ -63,6 +62,7 @@ def main():
     ap.add_argument('--pc-root', type=Path, required=True)
     ap.add_argument('--ps2-scene', type=Path, required=True)
     ap.add_argument('--count', type=int, default=3)
+    ap.add_argument('--visual-only', action='store_true', help='bisect: same model, all AI slots Null (tests the model loader without gaAiHayBale)')
     ap.add_argument('--output', type=Path, required=True)
     a = ap.parse_args()
     pc = (a.pc_root / 'DataScene/RaceTest/Turkey3.xml').read_bytes()
@@ -82,7 +82,7 @@ def main():
         g = gw.ground_at(pcn, x, z)
         yy = (g + 1.5) if g is not None else y
         report.append({'name': f'hay{k}', 'ps2_pose': [x, y, z], 'pc_ground': g, 'used_y': round(yy, 2)})
-        eggs += EGG.format(name=f'hay{k}', x=x, y=yy, z=z).encode('latin1')
+        eggs += EGG.format(name=f'hay{k}', x=x, y=yy, z=z, ai0='Null' if a.visual_only else 'gaAiHayBale', ai0_body='' if a.visual_only else '\r\n            <gaAiHayBale/>').encode('latin1')
     out = out[:list_end] + eggs + out[list_end:]
     a.output.write_bytes(out)
     print(report)
