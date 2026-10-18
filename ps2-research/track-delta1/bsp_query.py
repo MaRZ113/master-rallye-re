@@ -118,3 +118,58 @@ def ps2_first_contact(bsp, a, b):
     if hits and (best is None or hits[0][0] < best[0]):
         best = (hits[0][0], 'polygon', hits[0][1])
     return best
+
+
+PS2_EPS = 9.999999747378752e-05  # float at VA 0x4264a0 in SLES_509.06
+
+
+def ps2_leaf_is_solid(bsp, leaf, p):
+    """Solidity of point p inside a leaf, from the leaf-class vtable methods (ELF 0x2378a8, 0x236070, 0x236518).
+
+    - empty leaf class (field_0 == +1): 0;  solid leaf class (field_0 == -1): 1;
+    - payload leaf: 1 if its run has no planes, else 1 only when p is strictly behind every plane (n.p + d <= -eps).
+    """
+    if leaf.payload is None:
+        return leaf.field_0 == 0xffffffff
+    start, count = leaf.payload[0] & 0xffffff, leaf.payload[1] & 0xff
+    if count == 0:
+        return True
+    for nx, ny, nz, d, _code in bsp.plane_table[start:start + count]:
+        if nx * p[0] + ny * p[1] + nz * p[2] + d > -PS2_EPS:
+            return False
+    return True
+
+
+def ps2_is_solid(bsp, p):
+    return ps2_leaf_is_solid(bsp, classify(bsp.nodes, p, False), p)
+
+
+def ps2_first_solid_t(bsp, a, b):
+    """Smallest t in [0, 1] along a->b at which the point is solid, exact per leaf (polyhedron clipped to the leaf segment)."""
+    for leaf, t0, t1 in ps2_segment_leaves(bsp.nodes, a, b):
+        if leaf.payload is None:
+            if leaf.field_0 == 0xffffffff:
+                return t0
+            continue
+        start, count = leaf.payload[0] & 0xffffff, leaf.payload[1] & 0xff
+        lo, hi = t0, t1
+        for nx, ny, nz, d, _code in bsp.plane_table[start:start + count]:
+            s0 = nx * a[0] + ny * a[1] + nz * a[2] + d
+            s1 = nx * b[0] + ny * b[1] + nz * b[2] + d
+            ds = s1 - s0                      # require s0 + t*ds <= -eps
+            rhs = -PS2_EPS - s0
+            if abs(ds) < 1e-12:
+                if rhs < 0:
+                    lo, hi = 1.0, 0.0
+                    break
+                continue
+            t = rhs / ds
+            if ds > 0:
+                hi = min(hi, t)
+            else:
+                lo = max(lo, t)
+            if lo > hi:
+                break
+        if lo <= hi:
+            return lo
+    return None

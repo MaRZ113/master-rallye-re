@@ -1,0 +1,116 @@
+{
+ "exact_match_ground": {
+  "columns": 1656,
+  "both_hit": 1645,
+  "ps2_only": 0,
+  "pc_only": 11,
+  "neither": 0,
+  "within_0.05": 1377,
+  "within_0.25": 1377,
+  "within_1.0": 1377,
+  "dy_ps2_minus_pc_percentiles": {
+   "1": -0.0,
+   "10": -0.0,
+   "50": 0.0,
+   "90": 3.0,
+   "99": 3.0
+  },
+  "ps2_vs_visual_within_0.05": 1326,
+  "pc_vs_visual_within_0.05": 1605
+ },
+ "non_exact_ground": {
+  "columns": 495,
+  "both_hit": 495,
+  "ps2_only": 0,
+  "pc_only": 0,
+  "neither": 0,
+  "within_0.05": 91,
+  "within_0.25": 138,
+  "within_1.0": 309,
+  "dy_ps2_minus_pc_percentiles": {
+   "1": -2.727,
+   "10": -0.898,
+   "50": 0.0,
+   "90": 2.851,
+   "99": 4.8
+  },
+  "ps2_vs_visual_within_0.05": 315,
+  "pc_vs_visual_within_0.05": 72
+ },
+ "exact_match_ground_within_30_of_route": {
+  "columns": 965,
+  "both_hit": 965,
+  "ps2_only": 0,
+  "pc_only": 0,
+  "neither": 0,
+  "within_0.05": 963,
+  "within_0.25": 963,
+  "within_1.0": 963,
+  "dy_ps2_minus_pc_percentiles": {
+   "1": -0.0,
+   "10": -0.0,
+   "50": -0.0,
+   "90": 0.0,
+   "99": 0.0
+  },
+  "ps2_vs_visual_within_0.05": 933,
+  "pc_vs_visual_within_0.05": 935
+ },
+ "exact_match_ground_beyond_30_of_route": {
+  "columns": 691,
+  "both_hit": 680,
+  "ps2_only": 0,
+  "pc_only": 11,
+  "neither": 0,
+  "within_0.05": 414,
+  "within_0.25": 414,
+  "within_1.0": 414,
+  "dy_ps2_minus_pc_percentiles": {
+   "1": -0.0,
+   "10": -0.0,
+   "50": 0.0,
+   "90": 3.0,
+   "99": 3.0
+  },
+  "ps2_vs_visual_within_0.05": 393,
+  "pc_vs_visual_within_0.05": 670
+ },
+ "non_exact_ground_within_30_of_route": {
+  "columns": 125,
+  "both_hit": 125,
+  "ps2_only": 0,
+  "pc_only": 0,
+  "neither": 0,
+  "within_0.05": 29,
+  "within_0.25": 47,
+  "within_1.0": 91,
+  "dy_ps2_minus_pc_percentiles": {
+   "1": -1.674,
+   "10": -0.799,
+   "50": -0.119,
+   "90": 2.681,
+   "99": 3.186
+  },
+  "ps2_vs_visual_within_0.05": 109,
+  "pc_vs_visual_within_0.05": 29
+ },
+ "non_exact_ground_beyond_30_of_route": {
+  "columns": 370,
+  "both_hit": 370,
+  "ps2_only": 0,
+  "pc_only": 0,
+  "neither": 0,
+  "within_0.05": 62,
+  "within_0.25": 91,
+  "within_1.0": 218,
+  "dy_ps2_minus_pc_percentiles": {
+   "1": -2.855,
+   "10": -0.91,
+   "50": 0.005,
+   "90": 2.908,
+   "99": 4.904
+  },
+  "ps2_vs_visual_within_0.05": 206,
+  "pc_vs_visual_within_0.05": 43
+ }
+}

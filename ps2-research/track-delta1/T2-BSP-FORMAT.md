@@ -45,27 +45,37 @@ PS2 additions: header is six words without a tag; a payload block (8 bytes) in p
 a trailing plane table. PC Turkey3 has 235,089 nodes, all planes coded -1; PS2 Turkey3 has 99,681 nodes with polygon ids.
 So the PS2 file carries per-leaf convex cells and polygon ids that the PC tree does not.
 
-## Orientation and leaf kinds (added by the query work, see T2-QUERIES.md)
-- Plane convention in both trees: `n.p + d >= 0` is the front half-space, and the front half-space is the **second** link (`sibling` in the
-  parser's naming), the back half-space is the first link (`child`). Checked on PC tag100 (98% empty above ground, 99% solid below) and on
-  the PS2 tree (ground-plane matches only with this orientation).
-- A plane node has exactly two links. `field_0` of a leaf follows from its link: every `-1` leaf is a back link (solid side), every `+1`
-  leaf is a front link (empty side), on PS2 (16,166 and 7,096 on Turkey3) and PC alike. Payload leaves occur on both links
-  (17,312 front, 9,267 back on Turkey3).
-- Payload leaves are therefore the PS2-specific addition. Their meaning (solid or empty, and how the stored planes define polygons) is
-  not settled: treating them as solid when reached through a back link gives 90 to 99% solid below ground but also 21% solid 30 units
-  above ground, so the rule is incomplete.
+## Node and leaf classes (from the pool allocators and vtables)
+The BSP object (vtable `0x487fb0`, built by `0x3b7ea0`) owns four typed pools. The two selector bytes after a child or sibling flag choose the class:
+
+| Selectors | Pool (object field) | Size | Class vtable | Meaning |
+|---|---|---:|---|---|
+| (0, 0) | +0x48 (`0x3b8988`) | 32 | `0x47a678` (ctor `0x237350`) | plane node: vptr, plane (5 words), back link, front link |
+| (1, 0) on the first link | +0x40 (`0x3b8868`) | 4 | `0x47a398` | solid leaf; virtual `IsSolid` at `0x236070` returns 1 |
+| (1, 0) on the second link | +0x44 (`0x3b88f8`) | 4 | `0x47a2e0` | empty leaf; `IsSolid` at `0x2378a8` returns 0 |
+| (1, 1) on either link | +0x3c (`0x3b87d8`) | 8 | `0x47a450` | payload leaf: vptr plus one word (low 24 bits start index, high 8 bits count) |
+
+The same four pools hold in the PS2 data exactly the node counts listed in the header (verified on all 36 files).
+
+Payload leaf `IsSolid(point)` (ELF `0x236518`, reached through `0x2344a8`): with plane table `T` (`DAT_00426610`, set by `0x3b8a18`),
+the point is solid when the run is empty, otherwise solid only if for every plane in the run `n.p + d <= -1e-4` (`DAT_004264a0`).
+So a payload run is a convex solid polyhedron; the leaf cell then cuts it. Other virtual methods of this class (`0x2365e0`, `0x236738`)
+take the same word and are probably distance and trace queries; not read yet.
+
+## Orientation (verified on both trees)
+Plane convention `n.p + d >= 0` is the front half-space and it is the **second** link (`sibling` in the parser's naming); the back half-space is
+the first link (`child`). PC tag100 uses the same convention: 98% empty above ground and 99% solid below it (`T2-QUERIES.md`).
+Both links of a plane node are used; every `-1` leaf is on a back link and every `+1` leaf on a front link, on PS2 and PC alike.
 
 ## Open
-- How the engine decides solidity inside a payload leaf, and how `code` maps to the visual polygons, material and `$surfacetype`.
-- The PS2 query code that walks this tree. `0x2470f8` (convex versus BSP) calls `0x247ef0`, `0x248658`, `0x248780`, `0x248820`, `0x248fd8`;
-  `0x247ef0` was read and handles hull plane sets, not the tree walk, so the walker is elsewhere. Next target: the callers of the leaf
-  accessors and the `BSPNonLeafNode` virtual methods.
-- The PC runtime meaning of tag100 beyond the solid/empty model is also not fully established (see `docs/course-cooker.md`).
+- The meaning of `code` (polygon id? surface type?) and its link to visual polygons and `$surfacetype`.
+- The other two payload-leaf virtual methods and the tree walker used by the narrow phase (`0x2470f8` handles hull plane sets and calls other helpers).
+- The PC runtime meaning of tag100 beyond the solid/empty model (see `docs/course-cooker.md`).
 
 ## Reproduce
     python -X utf8 ps2-research/track-delta1/bsp_census.py "D:/Game/Master Rallye PS2" ps2-research/track-delta1/ps2-bsp-census.json
     python -X utf8 ps2-research/track-delta1/test_ps2_bsp.py
 
 Ghidra: `DecompFns.java` (run with `analyzeHeadless ... -readOnly -noanalysis -postScript DecompFns.java <out> <addr>...` on the
-`EERevalidation2` project). Raw decompiler output stays local (`data/track-bsp/`), it is not committed.
+`EERevalidation2` project); raw instructions: `r5900_dis.py` (Rabbitizer from the revalidation1 venv). Raw decompiler output stays local
+(`data/track-bsp/`), it is not committed.

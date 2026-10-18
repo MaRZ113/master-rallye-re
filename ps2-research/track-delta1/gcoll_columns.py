@@ -18,6 +18,7 @@ sys.path.insert(0, str(HERE))
 import geometry_delta as g  # noqa: E402
 import ps2_bsp  # noqa: E402
 import bsp_query as q  # noqa: E402
+import course_delta as cd  # noqa: E402
 from master_rallye.course_tag100 import parse_course_tag100_bytes  # noqa: E402
 from master_rallye.tag100_diff import extract_tag100_from_dx  # noqa: E402
 
@@ -80,13 +81,25 @@ def main(ps2_root, pc_root, sdk, ps2_bsp_path, limit=1500, lift=3.0, depth=6.0):
     bsp = ps2_bsp.parse(Path(ps2_bsp_path).read_bytes())
     pcn = pc_nodes(Path(pc_root) / 'DataGx/Course/Turkey3/turkey3.dx')
     exact, extra = columns(a, forward, limit)
+    sdkmod, _ = cd.sdk_modules(Path(sdk))
+    scene, _ = cd.parse_scene((Path(pc_root) / 'DataScene/RaceTest/Turkey3.xml').read_bytes(), 'pc', sdkmod)
+    route = scene['_route_points']
+
+    def near_route(c, radius=30.0):
+        return min(math.dist((c[0], c[2]), (p[0], p[2])) for p in route) <= radius
+
     out = {}
-    for name, cols in (('exact_match_ground', exact), ('non_exact_ground', extra)):
+    groups = [('exact_match_ground', exact), ('non_exact_ground', extra),
+              ('exact_match_ground_within_30_of_route', [c for c in exact if near_route(c)]),
+              ('exact_match_ground_beyond_30_of_route', [c for c in exact if not near_route(c)]),
+              ('non_exact_ground_within_30_of_route', [c for c in extra if near_route(c)]),
+              ('non_exact_ground_beyond_30_of_route', [c for c in extra if not near_route(c)])]
+    for name, cols in groups:
         pairs = []
         for c in cols:
             top, bot = (c[0], c[1] + lift, c[2]), (c[0], c[1] - depth, c[2])
-            h = q.ps2_first_contact(bsp, top, bot)
-            ps2_y = None if h is None else top[1] + (bot[1] - top[1]) * h[0]
+            h = q.ps2_first_solid_t(bsp, top, bot)
+            ps2_y = None if h is None else top[1] + (bot[1] - top[1]) * h
             t = pc_first_contact(pcn, top, bot)
             pc_y = None if t is None else top[1] + (bot[1] - top[1]) * t
             pairs.append((None if ps2_y is None else ps2_y - c[1], None if pc_y is None else pc_y - c[1]))
