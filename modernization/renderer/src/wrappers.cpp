@@ -5,6 +5,7 @@
 #include "menu_freeze.hpp"
 #include "free_camera.hpp"
 #include "physics_probe.hpp"
+#include "crash_log.hpp"
 #include "broker_null_guard.hpp"
 namespace gfx2 {
 HRESULT STDMETHODCALLTYPE Root8::QueryInterface(REFIID iid,void** out){
@@ -47,6 +48,7 @@ Device8::Device8(IDirect3DDevice8* p,Root8* parent,std::unique_ptr<QualityPipeli
  const auto flight_config=parse_free_camera_config(s.visual_config.raw_fields);
  const bool hud_feature_requested=s.target&&s.visual_config.version_ok&&s.visual_config.hud_toggle_valid&&
   (s.visual_config.hud_toggle_enabled||s.visual_config.hud_hidden_at_startup);
+ install_crash_log(s.config_path);
  auto physics_settings=forward_free_camera_teleport_settings(
   read_physics_probe_settings(s.config_path),flight_config);
  physics_probe_attached=attach_physics_probe(s.target,physics_settings);

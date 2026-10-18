@@ -212,3 +212,8 @@ RoadTargetPreviewRadius=60.0
 Enabled=0
 ; Turkey3 probe 1: route idx 6, then one third / the wall side (see ps2-research/track-delta1/T2-SOLID-SHELL.md)
 ;Point1=3161.5,37.7,168.3,0
+
+; Development diagnostic. CrashLog=1 writes MRRRenderer\logs\crash-<pid>.txt (exception code, address, registers,
+; stack and EBP chain, module+rva) for severe exceptions raised inside MRallye.exe. It never changes the exception flow.
+[Diagnostics]
+CrashLog=0
