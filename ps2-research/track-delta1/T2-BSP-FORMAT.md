@@ -45,12 +45,23 @@ PS2 additions: header is six words without a tag; a payload block (8 bytes) in p
 a trailing plane table. PC Turkey3 has 235,089 nodes, all planes coded -1; PS2 Turkey3 has 99,681 nodes with polygon ids.
 So the PS2 file carries per-leaf convex cells and polygon ids that the PC tree does not.
 
+## Orientation and leaf kinds (added by the query work, see T2-QUERIES.md)
+- Plane convention in both trees: `n.p + d >= 0` is the front half-space, and the front half-space is the **second** link (`sibling` in the
+  parser's naming), the back half-space is the first link (`child`). Checked on PC tag100 (98% empty above ground, 99% solid below) and on
+  the PS2 tree (ground-plane matches only with this orientation).
+- A plane node has exactly two links. `field_0` of a leaf follows from its link: every `-1` leaf is a back link (solid side), every `+1`
+  leaf is a front link (empty side), on PS2 (16,166 and 7,096 on Turkey3) and PC alike. Payload leaves occur on both links
+  (17,312 front, 9,267 back on Turkey3).
+- Payload leaves are therefore the PS2-specific addition. Their meaning (solid or empty, and how the stored planes define polygons) is
+  not settled: treating them as solid when reached through a back link gives 90 to 99% solid below ground but also 21% solid 30 units
+  above ground, so the rule is incomplete.
+
 ## Open
-- Orientation: which of child/sibling is the front half-space; what `field_0 in {0, 1, -1}` mean (leaf content such as solid/empty is a guess).
-- How `code` maps to the visual polygons, material and `$surfacetype`.
-- The PC runtime meaning of tag100 is also not fully established (see `docs/course-cooker.md`).
-These block the geometric queries that G-COLL needs; the next step is a point-classification and ray query on both trees, checked against
-the visual ground heights (`SurfaceIndex` in `turkey3_t1b.py`), then the same queries on the PC tag100.
+- How the engine decides solidity inside a payload leaf, and how `code` maps to the visual polygons, material and `$surfacetype`.
+- The PS2 query code that walks this tree. `0x2470f8` (convex versus BSP) calls `0x247ef0`, `0x248658`, `0x248780`, `0x248820`, `0x248fd8`;
+  `0x247ef0` was read and handles hull plane sets, not the tree walk, so the walker is elsewhere. Next target: the callers of the leaf
+  accessors and the `BSPNonLeafNode` virtual methods.
+- The PC runtime meaning of tag100 beyond the solid/empty model is also not fully established (see `docs/course-cooker.md`).
 
 ## Reproduce
     python -X utf8 ps2-research/track-delta1/bsp_census.py "D:/Game/Master Rallye PS2" ps2-research/track-delta1/ps2-bsp-census.json
