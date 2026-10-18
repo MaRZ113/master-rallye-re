@@ -27,3 +27,8 @@ Crash during course load, exactly while `haybaletest.dx` is loaded (seen in the 
 - It crashes at the same place: the model loader fails on `haybaletest.dx` itself, the AI is not involved.
 - It loads and the bale is drawn: the loader is fine, and `gaAiHayBale` (initializer, body or collision resource) is the culprit.
 Useful with either outcome: the crash address and module from the debugger (exception code, EIP, and the top frames).
+
+## Result 2 and bisect C (2026-10-18)
+Bisect B (same model, no hay AI): loads, the bale is visible. So the model file and the loader are fine and the crash comes from `gaAiHayBale`.
+Disassembly of its initializer (`0x004C9CF0`, objdump): it takes the Egg's en3d component (`[Egg+0x50]`), calls `0x004F5B70` with the model string `Misc/Haybale/haybaletest` (the call that loads the model), ORs flag 1 into the component, then calls `0x0043E2A0` to create the physical body from the Egg position (`[component+0x4C]`). The model is therefore loaded a second time over a model that the XML had already loaded. Hypothesis: replacing an already loaded en3d model crashes.
+Candidate C: `D:\Game\Master Rallye\research-output\hay-probe-nullmodel\Turkey3.xml` (`hay_probe.py --count 1 --model-null`): one Egg `hay1`, en3d model `Null`, AI 0 `gaAiHayBale`. Expected if the hypothesis holds: loads, the bale is drawn by the initializer's model and is physical.

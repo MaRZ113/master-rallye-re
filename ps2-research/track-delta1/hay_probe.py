@@ -24,7 +24,7 @@ EGG = '''      <Egg Name="{name}">
         <Value Name="Draw Priority" Type="Int" Value="3"/>
         <Value Name="Tick Priority" Type="Int" Value="3"/>
         <Value Name="Egg Group" Type="Int" Value="0"/>
-        <Value Name="en3d Model Name" Type="String" Value="misc\haybale\haybaletest"/>
+        <Value Name="en3d Model Name" Type="String" Value="{model}"/>
         <Value Name="en3d Matrix" Type="Matrix" Row0="1.00 0.00 0.00 0.00" Row1="0.00 1.00 0.00 0.00" Row2="0.00 0.00 1.00 0.00" Row3="{x:.2f} {y:.2f} {z:.2f} 1.00"/>
         <Value Name="en3d Draw 2D" Type="Bool" Value="False"/>
         <Value Name="en3d Interpolated" Type="Bool" Value="True"/>
@@ -63,6 +63,7 @@ def main():
     ap.add_argument('--ps2-scene', type=Path, required=True)
     ap.add_argument('--count', type=int, default=3)
     ap.add_argument('--visual-only', action='store_true', help='bisect: same model, all AI slots Null (tests the model loader without gaAiHayBale)')
+    ap.add_argument('--model-null', action='store_true', help='bisect: leave the en3d model Null, the gaAiHayBale initializer selects the hay model itself')
     ap.add_argument('--output', type=Path, required=True)
     a = ap.parse_args()
     pc = (a.pc_root / 'DataScene/RaceTest/Turkey3.xml').read_bytes()
@@ -82,7 +83,7 @@ def main():
         g = gw.ground_at(pcn, x, z)
         yy = (g + 1.5) if g is not None else y
         report.append({'name': f'hay{k}', 'ps2_pose': [x, y, z], 'pc_ground': g, 'used_y': round(yy, 2)})
-        eggs += EGG.format(name=f'hay{k}', x=x, y=yy, z=z, ai0='Null' if a.visual_only else 'gaAiHayBale', ai0_body='' if a.visual_only else '\r\n            <gaAiHayBale/>').encode('latin1')
+        eggs += EGG.format(name=f'hay{k}', x=x, y=yy, z=z, model='Null' if a.model_null else 'misc\haybale\haybaletest', ai0='Null' if a.visual_only else 'gaAiHayBale', ai0_body='' if a.visual_only else '\r\n            <gaAiHayBale/>').encode('latin1')
     out = out[:list_end] + eggs + out[list_end:]
     a.output.write_bytes(out)
     print(report)
