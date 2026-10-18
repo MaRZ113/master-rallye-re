@@ -12,6 +12,46 @@
 #include <intrin.h>
 #include <cfenv>
 namespace gfx2 {
+
+namespace {
+// Development-only collision-probe teleport: Ctrl+Alt+1..9 relocates the human car to
+// [ProbeTeleport] PointN=x,y,z,yawDegrees. Default OFF; requires PhysicsObserver.Enabled=1.
+struct ProbePoint{bool defined=false;float v[4]{};};
+struct ProbeTeleportConfig{bool loaded=false,enabled=false;ProbePoint points[9];bool down[9]{};};
+ProbeTeleportConfig& probe_teleport_config(){
+ static ProbeTeleportConfig c;
+ if(c.loaded)return c;
+ c.loaded=true;
+ try{
+  const std::wstring path=session().config_path;
+  c.enabled=GetPrivateProfileIntW(L"ProbeTeleport",L"Enabled",0,path.c_str())==1;
+  for(int i=0;i<9&&c.enabled;++i){
+   wchar_t key[16],buffer[128]{};swprintf(key,16,L"Point%d",i+1);
+   GetPrivateProfileStringW(L"ProbeTeleport",key,L"",buffer,128,path.c_str());
+   float a=0,b=0,d=0,e=0;
+   if(swscanf(buffer,L"%f , %f , %f , %f",&a,&b,&d,&e)==4){c.points[i].defined=true;c.points[i].v[0]=a;c.points[i].v[1]=b;c.points[i].v[2]=d;c.points[i].v[3]=e;}
+  }
+ }catch(...){c.enabled=false;}
+ return c;
+}
+void probe_teleport_poll(bool ready){
+ auto& c=probe_teleport_config();
+ if(!c.enabled)return;
+ physics_probe_dev_teleport_tick();
+ DWORD foreground_pid=0;GetWindowThreadProcessId(GetForegroundWindow(),&foreground_pid);
+ const bool own_focus=foreground_pid==GetCurrentProcessId();
+ const bool chord=ready&&own_focus&&(GetAsyncKeyState(VK_CONTROL)&0x8000)&&(GetAsyncKeyState(VK_MENU)&0x8000);
+ for(int i=0;i<9;++i){
+  const bool pressed=chord&&(GetAsyncKeyState('1'+i)&0x8000);
+  if(pressed&&!c.down[i]&&c.points[i].defined){
+   const auto& v=c.points[i].v;
+   physics_probe_dev_teleport_request(v[0],v[1],v[2],v[3]);
+  }
+  c.down[i]=pressed;
+ }
+}
+}
+
 struct FlightState {
  FreeCameraConfig config;FlightWindowInput input;FlightController controller;RaceCertificate certificate,visible_certificate,scope_certificate;
  FreeCameraAdmission admission{};
@@ -347,6 +387,7 @@ void GameFov::before_submit(unsigned index) noexcept {
    f.certificate.valid,f.certificate.camera!=0,f.pause_known,f.pause_enabled,input.focused);
   bool flying=f.controller.update(f.config,input,f.admission.admitted,visible?&f.visible_pose:nullptr);
    process_bookmark_inputs(f,input,flying);
+  probe_teleport_poll(f.certificate.valid);
   const bool road_teleport_arm_edge=input.focused&&input.arm_road_teleport&&!f.road_teleport_arm_down;
   if(!input.focused)f.road_teleport_arm_down=true;else if(!input.arm_road_teleport)f.road_teleport_arm_down=false;else f.road_teleport_arm_down=true;
   if(road_teleport_arm_edge&&f.config.vehicle_teleport_enabled&&road_course_supported(f.certificate)){

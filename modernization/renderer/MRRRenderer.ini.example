@@ -203,3 +203,12 @@ RoadTargetPreviewEnabled=0
 RoadTargetPreviewRadius=60.0
 ; For the experimental road-only request set FreeCamera.VehicleTeleportEnabled=1,
 ; FreeCamera.VehicleTeleportRoadOnly=1, Enabled=1, RoadTargetPreviewEnabled=1.
+
+; Development-only collision-probe teleport. Needs FreeCamera.Enabled=1 and
+; PhysicsObserver.Enabled=1. Ctrl+Alt+1..9 moves the human car to PointN = x,y,z,yawDegrees
+; (Y is world height, give the ground height plus about 1.5). Stop the car first; velocity
+; is not reset by this tool. Not validated in game.
+[ProbeTeleport]
+Enabled=0
+; Turkey3 probe 1: route idx 6, then one third / the wall side (see ps2-research/track-delta1/T2-SOLID-SHELL.md)
+;Point1=3161.5,37.7,168.3,0

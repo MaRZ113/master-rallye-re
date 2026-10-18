@@ -37,6 +37,9 @@ void publish_physics_probe_race_context(bool valid, uint64_t race_generation,
                                         uint64_t owner_lifetime) noexcept;
 void publish_physics_probe_pause_state(bool known, bool paused,
                                        uint64_t sampled_tick_ms) noexcept;
+// Development-only probe relocation (see ProbeTeleport in MRRRenderer.ini.example).
+const char* physics_probe_dev_teleport_request(float x, float y, float z, float yaw_degrees) noexcept;
+void physics_probe_dev_teleport_tick() noexcept;
 bool arm_physics_probe_road_teleport(float camera_x, float camera_y, float camera_z,
                                      bool freecam_active, bool pause_known, bool paused,
                                      const RaceCertificate& certificate,

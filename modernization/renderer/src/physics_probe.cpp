@@ -988,8 +988,11 @@ road_teleport::ConsumerEvent consumer_event(const Track& track, const Snapshot& 
     return out;
 }
 
+void dev_teleport_apply_before_controller(uint32_t controller) noexcept;
+
 uint32_t __cdecl controller_before(uint32_t controller) noexcept {
     if (InterlockedCompareExchange(&probe.enabled, 0, 0) == 0) return 0;
+    dev_teleport_apply_before_controller(controller);
     Snapshot before{};
     if (!capture_snapshot(controller, before) || !(before.valid_mask & 1u)) {
         InterlockedIncrement(&probe.invalid_snapshots);
@@ -2164,6 +2167,110 @@ void publish_physics_probe_pause_state(bool known, bool paused,
     probe.pause_paused = probe.pause_state_known && paused;
     probe.pause_sample_tick_ms = probe.pause_state_known ? sampled_tick_ms : 0;
     ReleaseSRWLockExclusive(&probe.lock);
+}
+
+// Development-only direct relocation for collision probes. It reuses the stock
+// recovery publication contract (matrix at P+0x34, level flag at P+0x33) with a
+// caller-chosen destination. Not certified: the reset manager may clear the flag
+// before the controller consumes it, so the pair is re-asserted until the chassis
+// reaches the target or a frame budget expires. Default OFF; see ProbeTeleport.
+namespace {
+struct DevTeleport {
+    volatile bool active = false;
+    float x = 0, y = 0, z = 0, yaw_degrees = 0;
+    uint32_t frames = 0;   // native writes performed inside the controller hook
+    uint32_t ticks = 0;    // render-side polls since the request
+    uint64_t sequence = 0;
+};
+DevTeleport dev_teleport;
+constexpr uint32_t DEV_TELEPORT_WRITE_BUDGET = 30;
+constexpr uint32_t DEV_TELEPORT_TICK_BUDGET = 240;
+
+void dev_teleport_log(const char* state, const char* reason) noexcept {
+    try {
+        session().write(std::string("{\"type\":\"probe_teleport\",\"state\":") + quote(std::string(state)) +
+            ",\"reason\":" + quote(std::string(reason)) + ",\"sequence\":" + std::to_string(dev_teleport.sequence) +
+            ",\"target\":[" + std::to_string(dev_teleport.x) + ',' + std::to_string(dev_teleport.y) + ',' +
+            std::to_string(dev_teleport.z) + "],\"yaw_degrees\":" + std::to_string(dev_teleport.yaw_degrees) +
+            ",\"frames\":" + std::to_string(dev_teleport.frames) + "}");
+    } catch (...) {}
+}
+}
+
+const char* physics_probe_dev_teleport_request(float x, float y, float z, float yaw_degrees) noexcept {
+    if (InterlockedCompareExchange(&probe.enabled, 0, 0) == 0) return "physics_observer_disabled";
+    if (!std::isfinite(x) || !std::isfinite(y) || !std::isfinite(z) || !std::isfinite(yaw_degrees))
+        return "target_not_finite";
+    AcquireSRWLockExclusive(&probe.lock);
+    dev_teleport.active = true;
+    dev_teleport.x = x; dev_teleport.y = y; dev_teleport.z = z;
+    dev_teleport.yaw_degrees = yaw_degrees;
+    dev_teleport.frames = 0;
+    dev_teleport.ticks = 0;
+    ++dev_teleport.sequence;
+    ReleaseSRWLockExclusive(&probe.lock);
+    dev_teleport_log("requested", "hotkey");
+    return "requested";
+}
+
+// Runs inside the controller bridge, immediately before the native controller update.
+// The reset manager clears P+0x33 almost every tick, so only a write at this point is
+// guaranteed to be seen by the consumer in the same tick.
+namespace {
+void dev_teleport_apply_before_controller(uint32_t controller) noexcept {
+    if (!dev_teleport.active) return;
+    NativeLinks links{};
+    if (!read_native_links(controller, links) || links.player_type != 1) return;
+    AcquireSRWLockExclusive(&probe.lock);
+    if (dev_teleport.active && dev_teleport.frames < DEV_TELEPORT_WRITE_BUDGET && batch_intact()) {
+        const float radians = dev_teleport.yaw_degrees * 3.14159265358979f / 180.0f;
+        const float c = std::cos(radians), sn = std::sin(radians);
+        // Row-major 4x4, translation in row 3 (stock layout). Yaw about +Y only;
+        // the sign and the car's forward axis are unverified.
+        const float m[16] = { c, 0, -sn, 0,  0, 1, 0, 0,  sn, 0, c, 0,
+                              dev_teleport.x, dev_teleport.y, dev_teleport.z, 1 };
+        const uint8_t one = 1;
+        if (safe_copy(reinterpret_cast<void*>(static_cast<uintptr_t>(links.backing) + 0x34), m, sizeof(m)) &&
+            safe_copy(reinterpret_cast<void*>(static_cast<uintptr_t>(links.backing) + 0x33), &one, 1))
+            ++dev_teleport.frames;
+    }
+    ReleaseSRWLockExclusive(&probe.lock);
+}
+} // namespace
+
+void physics_probe_dev_teleport_tick() noexcept {
+    if (InterlockedCompareExchange(&probe.enabled, 0, 0) == 0) return;
+    if (!dev_teleport.active) return;
+    AcquireSRWLockExclusive(&probe.lock);
+    if (!dev_teleport.active) { ReleaseSRWLockExclusive(&probe.lock); return; }
+    const char* failure = nullptr;
+    bool done = false;
+    ++dev_teleport.ticks;
+    NativeLinks links{};
+    if (!probe.installed || probe.base != 0x00400000) failure = "probe_not_installed";
+    else if (!batch_intact()) failure = "hook_ownership_lost";
+    else {
+        const Track* human = nullptr;
+        size_t humans = 0;
+        for (const auto& track : probe.tracks)
+            if (track.used && track.identity.player_type == 1) { ++humans; human = &track; }
+        if (humans != 1) failure = "no_unique_human_controller";
+        else if (!read_native_links(human->identity.controller, links)) failure = "controller_links_unreadable";
+    }
+    if (!failure) {
+        float position[3]{};
+        if (dev_teleport.frames > 0 && read_bytes(links.body, 0xA0, position, sizeof(position)) &&
+            std::fabs(position[0] - dev_teleport.x) < 1.5f && std::fabs(position[2] - dev_teleport.z) < 1.5f)
+            done = true;
+        else if (dev_teleport.frames >= DEV_TELEPORT_WRITE_BUDGET)
+            failure = "chassis_did_not_reach_target";
+        else if (dev_teleport.ticks >= DEV_TELEPORT_TICK_BUDGET)
+            failure = dev_teleport.frames ? "chassis_did_not_reach_target" : "controller_hook_never_ran_for_human";
+    }
+    if (failure || done) dev_teleport.active = false;
+    const char* state = failure ? "failed" : done ? "completed" : nullptr;
+    ReleaseSRWLockExclusive(&probe.lock);
+    if (state) dev_teleport_log(state, failure ? failure : "chassis_at_target");
 }
 
 bool arm_physics_probe_road_teleport(float camera_x, float camera_y, float camera_z,
