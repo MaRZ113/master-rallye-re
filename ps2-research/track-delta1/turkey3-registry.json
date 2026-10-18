@@ -700,7 +700,7 @@
         },
         {
           "behavior_intent": "UNDECIDED",
-          "blocker": "Limit lists are named differently on PS2 (...Limit2, Boom/StaticCameras); semantic mapping UNKNOWN",
+          "blocker": "PS2 Limit2 lists sit farther from the RaceLine than the PC outer lists (median 88 vs 61 left, 59 vs 48 right) and the user saw PS2 reset later; whether PC should adopt them is a gameplay decision, and the PC LimitState rule (inner/outer use) is not reversed",
           "channels": {
             "logic": "UNDECIDED",
             "physics": "N_A",
@@ -783,7 +783,8 @@
           "pcsx2_verification": "REQUIRED_PENDING",
           "sources": [
             "src/master_rallye/course_xml.py",
-            "cdelta1/course-pairs.md"
+            "cdelta1/course-pairs.md",
+            "track-delta1/limits-compare-turkey3.json"
           ],
           "status": "RESEARCHED"
         },

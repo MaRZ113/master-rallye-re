@@ -27,3 +27,7 @@ The model therefore predicted the blocked and open headings of every point the u
 - Behaviour difference is real but local: PC OFF COURSE covers about 70% of the border, the PS2 wall changes the result only where it stands inside the limit.
 - Porting means changing PC collision (a tag100 writer that does not exist, and risk of trapping the car), for a difference the player mostly sees as a hard stop instead of a reset.
 - Decision (registry element `TURKEY3:collision:solid_exterior`): not ported now, physics and logic channels NONE, evidence USER_RUNTIME_OBSERVATION, PCSX2 verification PERFORMED. Revisit only together with a tag100 writer, or if repeat probes on points 6 and 9 along the blocked headings confirm broader blocking.
+
+## Limit lists: PS2 border sits farther out (`limits_compare.py`, `limits-compare-turkey3.json`)
+Median distance from the RaceLine: PS2 LeftOuterLimit2 88 (PC outer 61, PC inner 31), PS2 RightOuterLimit2 59 (PC outer 48, PC inner 29). Each PS2 list lies on the same side as the PC outer list of that side (median polyline distance 13 left, 6.8 right) but with a wide spread (90th percentile 75 and 37). So PS2 uses a more permissive border, matching the user's observation that the PS2 reset is softer.
+Open: PC `LimitState` rules for the four lists are not reversed, and adopting the PS2 lists on PC would be a gameplay change that needs a decision (registry element `TURKEY3:trigger:marker_lists` stays UNDECIDED).

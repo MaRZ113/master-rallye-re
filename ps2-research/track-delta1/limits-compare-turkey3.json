@@ -1,0 +1,98 @@
+{
+ "sizes": {
+  "PC LeftOuterLimit": 110,
+  "PC RightOuterLimit": 126,
+  "PC LeftInnerLimit": 141,
+  "PC RightInnerLimit": 159,
+  "PS2 LeftOuterLimit2": 230,
+  "PS2 RightOuterLimit2": 209
+ },
+ "distance_to_route": {
+  "PC LeftOuterLimit": {
+   "n": 110,
+   "median": 60.6,
+   "p90": 104.2,
+   "max": 203.7
+  },
+  "PC RightOuterLimit": {
+   "n": 126,
+   "median": 47.9,
+   "p90": 70.3,
+   "max": 121.3
+  },
+  "PC LeftInnerLimit": {
+   "n": 141,
+   "median": 31.0,
+   "p90": 51.5,
+   "max": 69.9
+  },
+  "PC RightInnerLimit": {
+   "n": 159,
+   "median": 29.0,
+   "p90": 45.0,
+   "max": 64.4
+  },
+  "PS2 LeftOuterLimit2": {
+   "n": 230,
+   "median": 88.2,
+   "p90": 188.3,
+   "max": 220.3
+  },
+  "PS2 RightOuterLimit2": {
+   "n": 209,
+   "median": 59.4,
+   "p90": 102.2,
+   "max": 146.8
+  }
+ },
+ "ps2_to_pc_polyline": {
+  "PS2 LeftOuterLimit2 -> polyline of PC LeftOuterLimit": {
+   "n": 230,
+   "median": 13.0,
+   "p90": 75.4,
+   "max": 157.0
+  },
+  "PS2 LeftOuterLimit2 -> polyline of PC RightOuterLimit": {
+   "n": 230,
+   "median": 151.9,
+   "p90": 266.1,
+   "max": 410.4
+  },
+  "PS2 LeftOuterLimit2 -> polyline of PC LeftInnerLimit": {
+   "n": 230,
+   "median": 58.2,
+   "p90": 133.6,
+   "max": 187.7
+  },
+  "PS2 LeftOuterLimit2 -> polyline of PC RightInnerLimit": {
+   "n": 230,
+   "median": 120.5,
+   "p90": 231.3,
+   "max": 264.1
+  },
+  "PS2 RightOuterLimit2 -> polyline of PC LeftOuterLimit": {
+   "n": 209,
+   "median": 137.4,
+   "p90": 240.4,
+   "max": 350.8
+  },
+  "PS2 RightOuterLimit2 -> polyline of PC RightOuterLimit": {
+   "n": 209,
+   "median": 6.8,
+   "p90": 37.0,
+   "max": 103.8
+  },
+  "PS2 RightOuterLimit2 -> polyline of PC LeftInnerLimit": {
+   "n": 209,
+   "median": 104.0,
+   "p90": 201.5,
+   "max": 333.3
+  },
+  "PS2 RightOuterLimit2 -> polyline of PC RightInnerLimit": {
+   "n": 209,
+   "median": 28.7,
+   "p90": 75.2,
+   "max": 118.6
+  }
+ }
+}

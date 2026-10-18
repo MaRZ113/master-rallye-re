@@ -229,8 +229,8 @@ def scene_elements(ps2, pc, ps2_rows, pc_rows):
                     'identical_ordered_xyz': bool(a and b and a['ordered_xyz_f32_sha256'] == b['ordered_xyz_f32_sha256'])}
     add('TURKEY3:trigger:marker_lists', 'trigger', 'DIFFERENT_LOGIC',
         channels('NONE', 'NONE', 'N_A', 'UNDECIDED'), 'CONFIRMED_BY_BYTES',
-        ['src/master_rallye/course_xml.py', 'cdelta1/course-pairs.md'], {'marker_lists': ml},
-        'RESEARCHED', 'Limit lists are named differently on PS2 (...Limit2, Boom/StaticCameras); semantic mapping UNKNOWN',
+        ['src/master_rallye/course_xml.py', 'cdelta1/course-pairs.md', 'track-delta1/limits-compare-turkey3.json'], {'marker_lists': ml},
+        'RESEARCHED', 'PS2 Limit2 lists sit farther from the RaceLine than the PC outer lists (median 88 vs 61 left, 59 vs 48 right) and the user saw PS2 reset later; whether PC should adopt them is a gameplay decision, and the PC LimitState rule (inner/outer use) is not reversed',
         intent='UNDECIDED')
     ma, mb = ps2['model_references'], pc['model_references']
     diff = {k: [ma.get(k, 0), mb.get(k, 0)] for k in sorted(set(ma) | set(mb)) if ma.get(k, 0) != mb.get(k, 0)}
