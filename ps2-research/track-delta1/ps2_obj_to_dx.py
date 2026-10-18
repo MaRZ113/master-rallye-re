@@ -89,7 +89,7 @@ def build_geometry(triangles, centroid, flip_v):
     return DrawGeometry(tuple(vertices), tuple(faces))
 
 
-def egg_xml(name, model, row3):
+def egg_xml(name, model, row3, rows=((1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (0.0, 0.0, 1.0))):
     lines = f'''      <Egg Name="{name}">
         <Value Name="Use en2d" Type="Bool" Value="False"/>
         <Value Name="Freezable" Type="Bool" Value="True"/>
@@ -98,7 +98,7 @@ def egg_xml(name, model, row3):
         <Value Name="Tick Priority" Type="Int" Value="3"/>
         <Value Name="Egg Group" Type="Int" Value="0"/>
         <Value Name="en3d Model Name" Type="String" Value="{model}"/>
-        <Value Name="en3d Matrix" Type="Matrix" Row0="1.00 0.00 0.00 0.00" Row1="0.00 1.00 0.00 0.00" Row2="0.00 0.00 1.00 0.00" Row3="{row3[0]:.2f} {row3[1]:.2f} {row3[2]:.2f} 1.00"/>
+        <Value Name="en3d Matrix" Type="Matrix" Row0="{rows[0][0]:.6f} {rows[0][1]:.6f} {rows[0][2]:.6f} 0.00" Row1="{rows[1][0]:.6f} {rows[1][1]:.6f} {rows[1][2]:.6f} 0.00" Row2="{rows[2][0]:.6f} {rows[2][1]:.6f} {rows[2][2]:.6f} 0.00" Row3="{row3[0]:.2f} {row3[1]:.2f} {row3[2]:.2f} 1.00"/>
         <Value Name="en3d Draw 2D" Type="Bool" Value="False"/>
         <Value Name="en3d Interpolated" Type="Bool" Value="True"/>
         <Value Name="en3d Visible" Type="Bool" Value="True"/>

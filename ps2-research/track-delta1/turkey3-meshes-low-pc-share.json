@@ -1,0 +1,1656 @@
+[
+ {
+  "path": "root.0.0.0",
+  "material": "rustic Hut $clamp(uv) $shader(object)",
+  "textures": [
+   "hut_01-tga"
+  ],
+  "vertices": 67,
+  "pc_share": 0.0,
+  "centroid": [
+   2986.72,
+   49.76,
+   -422.66
+  ],
+  "bbox": [
+   [
+    2982.22,
+    46.07,
+    -428.57
+   ],
+   [
+    2993.35,
+    51.28,
+    -417.1
+   ]
+  ]
+ },
+ {
+  "path": "root.0.0.1",
+  "material": "RED CARAVAN $shader(object)",
+  "textures": [
+   "newtex-tga"
+  ],
+  "vertices": 146,
+  "pc_share": 0.0,
+  "centroid": [
+   2993.73,
+   47.14,
+   -435.21
+  ],
+  "bbox": [
+   [
+    2989.84,
+    46.03,
+    -440.52
+   ],
+   [
+    2997.57,
+    50.74,
+    -429.86
+   ]
+  ]
+ },
+ {
+  "path": "root.0.0.4",
+  "material": "$surfacetype(harddirt) $shader(ground) $detail(shrubs)$grnd:gravel_hardNoise Pass",
+  "textures": [
+   "basegravel-tga",
+   "noise-tga"
+  ],
+  "vertices": 26,
+  "pc_share": 0.115,
+  "centroid": [
+   3005.57,
+   46.5,
+   -423.47
+  ],
+  "bbox": [
+   [
+    2977.85,
+    45.29,
+    -452.66
+   ],
+   [
+    3029.29,
+    48.38,
+    -391.02
+   ]
+  ]
+ },
+ {
+  "path": "root.0.8.1",
+  "material": "rustic Hut $clamp(uv) $shader(object)",
+  "textures": [
+   "hut_01-tga"
+  ],
+  "vertices": 135,
+  "pc_share": 0.0,
+  "centroid": [
+   2401.24,
+   35.57,
+   -827.15
+  ],
+  "bbox": [
+   [
+    2386.48,
+    31.18,
+    -856.2
+   ],
+   [
+    2414.09,
+    39.98,
+    -813.81
+   ]
+  ]
+ },
+ {
+  "path": "root.0.8.15",
+  "material": "RED CARAVAN $shader(object)",
+  "textures": [
+   "newtex-tga"
+  ],
+  "vertices": 146,
+  "pc_share": 0.0,
+  "centroid": [
+   2383.64,
+   33.62,
+   -843.64
+  ],
+  "bbox": [
+   [
+    2379.24,
+    32.14,
+    -848.74
+   ],
+   [
+    2387.84,
+    37.7,
+    -838.23
+   ]
+  ]
+ },
+ {
+  "path": "root.0.8.18",
+  "material": "Fence hut $alphatest() $shader(tree) $clamp(v)",
+  "textures": [
+   "fence_02-tga"
+  ],
+  "vertices": 36,
+  "pc_share": 0.25,
+  "centroid": [
+   2397.71,
+   32.36,
+   -820.8
+  ],
+  "bbox": [
+   [
+    2380.78,
+    26.19,
+    -842.04
+   ],
+   [
+    2417.03,
+    35.53,
+    -808.48
+   ]
+  ]
+ },
+ {
+  "path": "root.0.8.42",
+  "material": "water $surfacetype(water) $shader(puddle)",
+  "textures": [
+   "water-tga"
+  ],
+  "vertices": 111,
+  "pc_share": 0.0,
+  "centroid": [
+   2356.19,
+   21.4,
+   -788.94
+  ],
+  "bbox": [
+   [
+    2300.34,
+    21.4,
+    -818.29
+   ],
+   [
+    2408.68,
+    21.4,
+    -752.16
+   ]
+  ]
+ },
+ {
+  "path": "root.0.9.1",
+  "material": "rustic Hut $clamp(uv) $shader(object)",
+  "textures": [
+   "hut_01-tga"
+  ],
+  "vertices": 245,
+  "pc_share": 0.008,
+  "centroid": [
+   2332.44,
+   44.55,
+   -905.95
+  ],
+  "bbox": [
+   [
+    2257.13,
+    33.53,
+    -957.75
+   ],
+   [
+    2421.17,
+    50.6,
+    -835.97
+   ]
+  ]
+ },
+ {
+  "path": "root.0.9.7",
+  "material": "CARAVAN  $shader(object)",
+  "textures": [
+   "caravan-tga"
+  ],
+  "vertices": 112,
+  "pc_share": 0.0,
+  "centroid": [
+   2393.11,
+   35.8,
+   -854.04
+  ],
+  "bbox": [
+   [
+    2389.92,
+    33.87,
+    -856.97
+   ],
+   [
+    2396.14,
+    39.82,
+    -850.6
+   ]
+  ]
+ },
+ {
+  "path": "root.0.9.8",
+  "material": "CARAVAN_ALPHA $shader(object) $alphatest()",
+  "textures": [
+   "caravan-tga"
+  ],
+  "vertices": 16,
+  "pc_share": 0.0,
+  "centroid": [
+   2392.18,
+   34.66,
+   -853.35
+  ],
+  "bbox": [
+   [
+    2388.52,
+    33.16,
+    -856.81
+   ],
+   [
+    2395.85,
+    35.8,
+    -850.6
+   ]
+  ]
+ },
+ {
+  "path": "root.0.9.9",
+  "material": "Fence hut $alphatest() $shader(tree) $clamp(v)",
+  "textures": [
+   "fence_02-tga"
+  ],
+  "vertices": 20,
+  "pc_share": 0.3,
+  "centroid": [
+   2463.54,
+   43.74,
+   -846.92
+  ],
+  "bbox": [
+   [
+    2399.44,
+    34.52,
+    -858.9
+   ],
+   [
+    2517.37,
+    53.68,
+    -832.81
+   ]
+  ]
+ },
+ {
+  "path": "root.0.10.5",
+  "material": "$surfacetype(gravel) $shader(ground)$grnd:gravel_hardNoise Pass",
+  "textures": [
+   "neu rocky-tga",
+   "noise-tga"
+  ],
+  "vertices": 32,
+  "pc_share": 0.281,
+  "centroid": [
+   2578.4,
+   56.81,
+   -752.5
+  ],
+  "bbox": [
+   [
+    2568.81,
+    43.44,
+    -817.43
+   ],
+   [
+    2592.98,
+    68.34,
+    -681.86
+   ]
+  ]
+ },
+ {
+  "path": "root.0.10.6",
+  "material": "$surfacetype(grass) $shader(ground) $clamp(u)$grnd:grass_hardNoise Pass",
+  "textures": [
+   "grass to roc2-tga",
+   "noise-tga"
+  ],
+  "vertices": 26,
+  "pc_share": 0.038,
+  "centroid": [
+   2576.78,
+   64.46,
+   -769.28
+  ],
+  "bbox": [
+   [
+    2559.06,
+    58.86,
+    -831.18
+   ],
+   [
+    2593.37,
+    71.4,
+    -681.86
+   ]
+  ]
+ },
+ {
+  "path": "root.0.10.10",
+  "material": "$surfacetype(grass) $shader(ground) $clamp(u)$grnd:grass_hardNoise Pass",
+  "textures": [
+   "grass to roc2-tga",
+   "noise-tga"
+  ],
+  "vertices": 35,
+  "pc_share": 0.4,
+  "centroid": [
+   2615.23,
+   60.73,
+   -770.53
+  ],
+  "bbox": [
+   [
+    2579.1,
+    39.57,
+    -853.92
+   ],
+   [
+    2659.72,
+    69.88,
+    -642.68
+   ]
+  ]
+ },
+ {
+  "path": "root.0.10.12",
+  "material": "$surfacetype(gravel) $shader(ground)$grnd:gravel_hardNoise Pass",
+  "textures": [
+   "neu rocky-tga",
+   "noise-tga"
+  ],
+  "vertices": 93,
+  "pc_share": 0.215,
+  "centroid": [
+   2622.97,
+   50.66,
+   -813.29
+  ],
+  "bbox": [
+   [
+    2583.81,
+    35.67,
+    -850.65
+   ],
+   [
+    2662.97,
+    73.75,
+    -621.1
+   ]
+  ]
+ },
+ {
+  "path": "root.0.15.26",
+  "material": "water $surfacetype(water) $shader(puddle)",
+  "textures": [
+   "water-tga"
+  ],
+  "vertices": 99,
+  "pc_share": 0.0,
+  "centroid": [
+   2420.64,
+   19.01,
+   -452.48
+  ],
+  "bbox": [
+   [
+    2355.9,
+    19.01,
+    -508.23
+   ],
+   [
+    2472.75,
+    19.01,
+    -402.15
+   ]
+  ]
+ },
+ {
+  "path": "root.0.16.6",
+  "material": "$surfacetype(harddirt) $shader(ground) $clamp(u) $detail(shrubs)$grnd:mud_hardNoise Pass",
+  "textures": [
+   "bedlef-tga",
+   "noise-tga"
+  ],
+  "vertices": 3,
+  "pc_share": 0.333,
+  "centroid": [
+   2102.12,
+   21.07,
+   -328.24
+  ],
+  "bbox": [
+   [
+    2085.32,
+    19.4,
+    -335.22
+   ],
+   [
+    2111.35,
+    24.41,
+    -315.63
+   ]
+  ]
+ },
+ {
+  "path": "root.0.16.8",
+  "material": "$surfacetype(harddirt) $shader(ground) $detail(shrubs)$grnd:dirt_softNoise Pass",
+  "textures": [
+   "neubeddirt-tga",
+   "noise-tga"
+  ],
+  "vertices": 3,
+  "pc_share": 0.0,
+  "centroid": [
+   2102.34,
+   18.91,
+   -341.76
+  ],
+  "bbox": [
+   [
+    2085.27,
+    18.67,
+    -345.68
+   ],
+   [
+    2111.35,
+    19.4,
+    -335.22
+   ]
+  ]
+ },
+ {
+  "path": "root.0.16.37",
+  "material": "$surfacetype(gravel) $shader(ground)",
+  "textures": [
+   "new wall-tga"
+  ],
+  "vertices": 63,
+  "pc_share": 0.492,
+  "centroid": [
+   2147.12,
+   26.05,
+   -345.36
+  ],
+  "bbox": [
+   [
+    2130.79,
+    19.68,
+    -389.57
+   ],
+   [
+    2166.64,
+    29.64,
+    -283.71
+   ]
+  ]
+ },
+ {
+  "path": "root.0.16.44",
+  "material": "water $surfacetype(water) $shader(puddle)",
+  "textures": [
+   "water-tga"
+  ],
+  "vertices": 58,
+  "pc_share": 0.0,
+  "centroid": [
+   2127.82,
+   20.37,
+   -344.69
+  ],
+  "bbox": [
+   [
+    2098.03,
+    20.37,
+    -370.88
+   ],
+   [
+    2162.86,
+    20.37,
+    -319.13
+   ]
+  ]
+ },
+ {
+  "path": "root.0.17.16",
+  "material": "water $surfacetype(water) $shader(puddle)",
+  "textures": [
+   "water-tga"
+  ],
+  "vertices": 156,
+  "pc_share": 0.0,
+  "centroid": [
+   2217.74,
+   19.95,
+   -18.48
+  ],
+  "bbox": [
+   [
+    2126.78,
+    19.95,
+    -70.95
+   ],
+   [
+    2306.48,
+    19.95,
+    32.03
+   ]
+  ]
+ },
+ {
+  "path": "root.0.19.6",
+  "material": "TURshrub2 $alphatest() $shader(treeblend)",
+  "textures": [
+   "shrubtrig2-tga"
+  ],
+  "vertices": 264,
+  "pc_share": 0.0,
+  "centroid": [
+   2767.05,
+   24.47,
+   -699.87
+  ],
+  "bbox": [
+   [
+    2723.02,
+    23.46,
+    -744.32
+   ],
+   [
+    2800.61,
+    25.82,
+    -649.92
+   ]
+  ]
+ },
+ {
+  "path": "root.0.21.5",
+  "material": "$surfacetype(harddirt) $shader(ground) $detail(shrubs)$grnd:dirt_softNoise Pass",
+  "textures": [
+   "neubeddirt-tga",
+   "noise-tga"
+  ],
+  "vertices": 51,
+  "pc_share": 0.431,
+  "centroid": [
+   2030.45,
+   20.48,
+   -359.21
+  ],
+  "bbox": [
+   [
+    1959.69,
+    17.76,
+    -387.38
+   ],
+   [
+    2111.35,
+    22.58,
+    -333.87
+   ]
+  ]
+ },
+ {
+  "path": "root.0.21.8",
+  "material": "water $surfacetype(water) $shader(puddle)",
+  "textures": [
+   "water-tga"
+  ],
+  "vertices": 101,
+  "pc_share": 0.0,
+  "centroid": [
+   2056.28,
+   20.37,
+   -355.86
+  ],
+  "bbox": [
+   [
+    1993.26,
+    20.37,
+    -389.65
+   ],
+   [
+    2106.33,
+    20.37,
+    -327.93
+   ]
+  ]
+ },
+ {
+  "path": "root.0.23.0",
+  "material": "rustic Hut $clamp(uv) $shader(object)",
+  "textures": [
+   "hut_01-tga"
+  ],
+  "vertices": 117,
+  "pc_share": 0.0,
+  "centroid": [
+   2514.67,
+   52.53,
+   -851.96
+  ],
+  "bbox": [
+   [
+    2504.22,
+    48.43,
+    -857.91
+   ],
+   [
+    2525.87,
+    54.48,
+    -845.59
+   ]
+  ]
+ },
+ {
+  "path": "root.0.24.16",
+  "material": "water $surfacetype(water) $shader(puddle)",
+  "textures": [
+   "water-tga"
+  ],
+  "vertices": 5,
+  "pc_share": 0.0,
+  "centroid": [
+   2304.05,
+   19.95,
+   -38.35
+  ],
+  "bbox": [
+   [
+    2297.14,
+    19.95,
+    -51.14
+   ],
+   [
+    2310.44,
+    19.95,
+    -28.5
+   ]
+  ]
+ },
+ {
+  "path": "root.0.28.1",
+  "material": "$surfacetype(gravel) $shader(ground)$grnd:gravel_hardNoise Pass",
+  "textures": [
+   "neu rocky-tga",
+   "noise-tga"
+  ],
+  "vertices": 17,
+  "pc_share": 0.353,
+  "centroid": [
+   3151.39,
+   55.92,
+   -691.97
+  ],
+  "bbox": [
+   [
+    3110.94,
+    46.21,
+    -734.77
+   ],
+   [
+    3190.92,
+    62.53,
+    -663.59
+   ]
+  ]
+ },
+ {
+  "path": "root.0.28.2",
+  "material": "$surfacetype(grass) $shader(ground) $clamp(u)$grnd:grass_hardNoise Pass",
+  "textures": [
+   "grass to roc2-tga",
+   "noise-tga"
+  ],
+  "vertices": 5,
+  "pc_share": 0.4,
+  "centroid": [
+   3119.58,
+   53.08,
+   -675.33
+  ],
+  "bbox": [
+   [
+    3092.24,
+    46.21,
+    -701.3
+   ],
+   [
+    3145.99,
+    59.36,
+    -652.99
+   ]
+  ]
+ },
+ {
+  "path": "root.0.28.17",
+  "material": "water $surfacetype(water) $shader(puddle)",
+  "textures": [
+   "water-tga"
+  ],
+  "vertices": 42,
+  "pc_share": 0.0,
+  "centroid": [
+   3287.64,
+   20.6,
+   -519.6
+  ],
+  "bbox": [
+   [
+    3261.63,
+    20.6,
+    -542.44
+   ],
+   [
+    3323.36,
+    20.6,
+    -501.65
+   ]
+  ]
+ },
+ {
+  "path": "root.0.28.18",
+  "material": "water $surfacetype(water) $shader(puddle)",
+  "textures": [
+   "water-tga"
+  ],
+  "vertices": 115,
+  "pc_share": 0.0,
+  "centroid": [
+   3215.83,
+   20.6,
+   -580.76
+  ],
+  "bbox": [
+   [
+    3179.9,
+    20.6,
+    -625.44
+   ],
+   [
+    3247.09,
+    20.6,
+    -531.33
+   ]
+  ]
+ },
+ {
+  "path": "root.0.30.0",
+  "material": "$surfacetype(gravel) $shader(ground)$grnd:gravel_hardNoise Pass",
+  "textures": [
+   "neu rocky-tga",
+   "noise-tga"
+  ],
+  "vertices": 21,
+  "pc_share": 0.19,
+  "centroid": [
+   3184.57,
+   62.59,
+   -740.3
+  ],
+  "bbox": [
+   [
+    3142.93,
+    56.92,
+    -800.2
+   ],
+   [
+    3230.38,
+    66.72,
+    -687.99
+   ]
+  ]
+ },
+ {
+  "path": "root.0.32.11",
+  "material": "water $surfacetype(water) $shader(puddle)",
+  "textures": [
+   "water-tga"
+  ],
+  "vertices": 79,
+  "pc_share": 0.0,
+  "centroid": [
+   3397.03,
+   35.39,
+   -411.88
+  ],
+  "bbox": [
+   [
+    3359.49,
+    35.39,
+    -443.78
+   ],
+   [
+    3436.29,
+    35.39,
+    -377.82
+   ]
+  ]
+ },
+ {
+  "path": "root.0.33.11",
+  "material": "water $surfacetype(water) $shader(puddle)",
+  "textures": [
+   "water-tga"
+  ],
+  "vertices": 12,
+  "pc_share": 0.0,
+  "centroid": [
+   3365.36,
+   35.39,
+   -385.92
+  ],
+  "bbox": [
+   [
+    3355.95,
+    35.39,
+    -401.81
+   ],
+   [
+    3376.73,
+    35.39,
+    -370.33
+   ]
+  ]
+ },
+ {
+  "path": "root.0.35.1",
+  "material": "$surfacetype(harddirt) $shader(ground) $detail(shrubs)$grnd:dirt_softNoise Pass",
+  "textures": [
+   "neubeddirt-tga",
+   "noise-tga"
+  ],
+  "vertices": 21,
+  "pc_share": 0.381,
+  "centroid": [
+   2535.17,
+   22.64,
+   369.49
+  ],
+  "bbox": [
+   [
+    2506.69,
+    21.17,
+    352.88
+   ],
+   [
+    2561.61,
+    24.38,
+    394.82
+   ]
+  ]
+ },
+ {
+  "path": "root.0.35.13",
+  "material": "water $surfacetype(water) $shader(puddle)",
+  "textures": [
+   "water-tga"
+  ],
+  "vertices": 25,
+  "pc_share": 0.0,
+  "centroid": [
+   2533.03,
+   22.84,
+   367.99
+  ],
+  "bbox": [
+   [
+    2508.18,
+    22.84,
+    347.17
+   ],
+   [
+    2558.18,
+    22.84,
+    387.17
+   ]
+  ]
+ },
+ {
+  "path": "root.0.36.34",
+  "material": "water $surfacetype(water) $shader(puddle)",
+  "textures": [
+   "water-tga"
+  ],
+  "vertices": 41,
+  "pc_share": 0.0,
+  "centroid": [
+   2314.12,
+   21.91,
+   490.43
+  ],
+  "bbox": [
+   [
+    2278.72,
+    21.91,
+    451.52
+   ],
+   [
+    2346.14,
+    21.91,
+    534.19
+   ]
+  ]
+ },
+ {
+  "path": "root.0.36.35",
+  "material": "water $surfacetype(water) $shader(puddle)",
+  "textures": [
+   "water-tga"
+  ],
+  "vertices": 10,
+  "pc_share": 0.0,
+  "centroid": [
+   2509.18,
+   22.84,
+   396.17
+  ],
+  "bbox": [
+   [
+    2498.18,
+    22.84,
+    387.17
+   ],
+   [
+    2528.18,
+    22.84,
+    407.17
+   ]
+  ]
+ },
+ {
+  "path": "root.0.36.36",
+  "material": "water $surfacetype(water) $shader(puddle)",
+  "textures": [
+   "water-tga"
+  ],
+  "vertices": 26,
+  "pc_share": 0.0,
+  "centroid": [
+   2545.74,
+   37.96,
+   474.0
+  ],
+  "bbox": [
+   [
+    2531.05,
+    37.96,
+    452.19
+   ],
+   [
+    2564.06,
+    37.96,
+    493.32
+   ]
+  ]
+ },
+ {
+  "path": "root.0.37.7",
+  "material": "TURshrub2 $alphatest() $shader(treeblend)",
+  "textures": [
+   "shrubtrig2-tga"
+  ],
+  "vertices": 96,
+  "pc_share": 0.0,
+  "centroid": [
+   2473.22,
+   40.44,
+   601.15
+  ],
+  "bbox": [
+   [
+    2470.85,
+    39.28,
+    594.18
+   ],
+   [
+    2477.44,
+    41.83,
+    610.05
+   ]
+  ]
+ },
+ {
+  "path": "root.0.39.16",
+  "material": "$surfacetype(harddirt) $shader(ground) $detail(shrubs)$grnd:dirt_softNoise Pass",
+  "textures": [
+   "neubeddirt-tga",
+   "noise-tga"
+  ],
+  "vertices": 8,
+  "pc_share": 0.375,
+  "centroid": [
+   2309.53,
+   16.63,
+   464.24
+  ],
+  "bbox": [
+   [
+    2285.75,
+    11.42,
+    449.3
+   ],
+   [
+    2326.72,
+    22.8,
+    480.07
+   ]
+  ]
+ },
+ {
+  "path": "root.0.39.18",
+  "material": "water $surfacetype(water) $shader(puddle)",
+  "textures": [
+   "water-tga"
+  ],
+  "vertices": 53,
+  "pc_share": 0.0,
+  "centroid": [
+   2301.03,
+   21.91,
+   473.24
+  ],
+  "bbox": [
+   [
+    2278.01,
+    21.91,
+    444.92
+   ],
+   [
+    2334.26,
+    21.91,
+    516.2
+   ]
+  ]
+ },
+ {
+  "path": "root.0.50.29",
+  "material": "water $surfacetype(water) $shader(puddle)",
+  "textures": [
+   "water-tga"
+  ],
+  "vertices": 40,
+  "pc_share": 0.0,
+  "centroid": [
+   2910.82,
+   19.89,
+   415.64
+  ],
+  "bbox": [
+   [
+    2888.11,
+    19.89,
+    386.59
+   ],
+   [
+    2938.41,
+    19.89,
+    457.15
+   ]
+  ]
+ },
+ {
+  "path": "root.0.52.8",
+  "material": "boat1 $shader(object)",
+  "textures": [
+   "boat1-tga"
+  ],
+  "vertices": 215,
+  "pc_share": 0.0,
+  "centroid": [
+   3260.68,
+   27.26,
+   208.19
+  ],
+  "bbox": [
+   [
+    3244.03,
+    23.06,
+    197.43
+   ],
+   [
+    3275.19,
+    34.05,
+    218.91
+   ]
+  ]
+ },
+ {
+  "path": "root.0.52.9",
+  "material": "boat3 $shader(object)",
+  "textures": [
+   "boat3-tga"
+  ],
+  "vertices": 66,
+  "pc_share": 0.0,
+  "centroid": [
+   3255.9,
+   25.14,
+   210.79
+  ],
+  "bbox": [
+   [
+    3243.44,
+    22.75,
+    206.2
+   ],
+   [
+    3258.89,
+    27.61,
+    220.78
+   ]
+  ]
+ },
+ {
+  "path": "root.0.52.10",
+  "material": "boat2 $shader(object)",
+  "textures": [
+   "boat2-tga"
+  ],
+  "vertices": 136,
+  "pc_share": 0.0,
+  "centroid": [
+   3263.81,
+   24.76,
+   205.95
+  ],
+  "bbox": [
+   [
+    3238.68,
+    21.69,
+    195.51
+   ],
+   [
+    3277.18,
+    27.02,
+    222.47
+   ]
+  ]
+ },
+ {
+  "path": "root.0.52.11",
+  "material": "boat4 $shader(object)",
+  "textures": [
+   "boat4 copy-tga"
+  ],
+  "vertices": 45,
+  "pc_share": 0.0,
+  "centroid": [
+   3262.04,
+   24.51,
+   207.62
+  ],
+  "bbox": [
+   [
+    3239.21,
+    22.71,
+    196.69
+   ],
+   [
+    3276.45,
+    26.42,
+    222.47
+   ]
+  ]
+ },
+ {
+  "path": "root.0.53.6",
+  "material": "boat2 $shader(object)",
+  "textures": [
+   "boat2-tga"
+  ],
+  "vertices": 6,
+  "pc_share": 0.0,
+  "centroid": [
+   3240.72,
+   23.88,
+   221.26
+  ],
+  "bbox": [
+   [
+    3238.69,
+    22.54,
+    219.96
+   ],
+   [
+    3242.7,
+    25.56,
+    222.47
+   ]
+  ]
+ },
+ {
+  "path": "root.0.56.1",
+  "material": "CARAVAN  $shader(object)",
+  "textures": [
+   "caravan-tga"
+  ],
+  "vertices": 112,
+  "pc_share": 0.0,
+  "centroid": [
+   3419.16,
+   48.79,
+   -710.95
+  ],
+  "bbox": [
+   [
+    3416.11,
+    47.07,
+    -714.24
+   ],
+   [
+    3422.6,
+    52.59,
+    -708.1
+   ]
+  ]
+ },
+ {
+  "path": "root.0.56.2",
+  "material": "RED CARAVAN $shader(object)",
+  "textures": [
+   "newtex-tga"
+  ],
+  "vertices": 146,
+  "pc_share": 0.0,
+  "centroid": [
+   3428.45,
+   48.12,
+   -716.19
+  ],
+  "bbox": [
+   [
+    3423.17,
+    47.0,
+    -720.31
+   ],
+   [
+    3433.68,
+    51.72,
+    -712.07
+   ]
+  ]
+ },
+ {
+  "path": "root.0.56.3",
+  "material": "CARAVAN_ALPHA $shader(object) $alphatest()",
+  "textures": [
+   "caravan-tga"
+  ],
+  "vertices": 16,
+  "pc_share": 0.0,
+  "centroid": [
+   3420.28,
+   47.76,
+   -711.51
+  ],
+  "bbox": [
+   [
+    3416.16,
+    46.43,
+    -714.23
+   ],
+   [
+    3423.72,
+    48.92,
+    -708.75
+   ]
+  ]
+ },
+ {
+  "path": "root.0.57.0",
+  "material": "rustic Hut $clamp(uv) $shader(object)",
+  "textures": [
+   "hut_01-tga"
+  ],
+  "vertices": 126,
+  "pc_share": 0.016,
+  "centroid": [
+   3534.97,
+   42.2,
+   -525.27
+  ],
+  "bbox": [
+   [
+    3499.22,
+    37.96,
+    -540.02
+   ],
+   [
+    3563.14,
+    46.55,
+    -510.58
+   ]
+  ]
+ },
+ {
+  "path": "root.0.57.2",
+  "material": "$surfacetype(harddirt) $shader(ground) $clamp(u) $detail(shrubs)$grnd:grass_hardNoise Pass",
+  "textures": [
+   "grass to grav-tga",
+   "noise-tga"
+  ],
+  "vertices": 28,
+  "pc_share": 0.464,
+  "centroid": [
+   3568.31,
+   41.68,
+   -534.6
+  ],
+  "bbox": [
+   [
+    3542.53,
+    37.96,
+    -555.87
+   ],
+   [
+    3584.65,
+    52.01,
+    -511.34
+   ]
+  ]
+ },
+ {
+  "path": "root.0.57.8",
+  "material": "$surfacetype(gravel) $shader(ground) $clamp(u) $detail(grass)$grnd:gravel_hardNoise Pass",
+  "textures": [
+   "mud to ror-tga",
+   "noise-tga"
+  ],
+  "vertices": 20,
+  "pc_share": 0.1,
+  "centroid": [
+   3525.76,
+   38.1,
+   -518.69
+  ],
+  "bbox": [
+   [
+    3479.69,
+    37.97,
+    -532.86
+   ],
+   [
+    3558.98,
+    39.22,
+    -506.45
+   ]
+  ]
+ },
+ {
+  "path": "root.0.57.11",
+  "material": "Fence hut $alphatest() $shader(tree) $clamp(v)",
+  "textures": [
+   "fence_02-tga"
+  ],
+  "vertices": 16,
+  "pc_share": 0.25,
+  "centroid": [
+   3492.71,
+   39.36,
+   -529.0
+  ],
+  "bbox": [
+   [
+    3479.69,
+    37.96,
+    -542.63
+   ],
+   [
+    3517.77,
+    41.22,
+    -514.76
+   ]
+  ]
+ },
+ {
+  "path": "root.0.57.12",
+  "material": "TURshrub2 $alphatest() $shader(treeblend)",
+  "textures": [
+   "shrubtrig2-tga"
+  ],
+  "vertices": 120,
+  "pc_share": 0.0,
+  "centroid": [
+   3511.67,
+   39.22,
+   -540.77
+  ],
+  "bbox": [
+   [
+    3489.3,
+    37.78,
+    -547.9
+   ],
+   [
+    3542.83,
+    40.92,
+    -531.3
+   ]
+  ]
+ },
+ {
+  "path": "root.0.60.1",
+  "material": "$surfacetype(gravel) $shader(ground)$grnd:gravel_hardNoise Pass",
+  "textures": [
+   "neu rocky-tga",
+   "noise-tga"
+  ],
+  "vertices": 38,
+  "pc_share": 0.474,
+  "centroid": [
+   3086.58,
+   50.43,
+   -290.43
+  ],
+  "bbox": [
+   [
+    3046.67,
+    37.28,
+    -336.59
+   ],
+   [
+    3135.28,
+    70.32,
+    -225.74
+   ]
+  ]
+ },
+ {
+  "path": "root.0.63.0",
+  "material": "rustic Hut $clamp(uv) $shader(object)",
+  "textures": [
+   "hut_01-tga"
+  ],
+  "vertices": 12,
+  "pc_share": 0.167,
+  "centroid": [
+   1916.07,
+   32.53,
+   -114.93
+  ],
+  "bbox": [
+   [
+    1910.83,
+    29.93,
+    -129.5
+   ],
+   [
+    1926.08,
+    35.06,
+    -104.3
+   ]
+  ]
+ },
+ {
+  "path": "root.0.63.11",
+  "material": "TURshrub2 $alphatest() $shader(treeblend)",
+  "textures": [
+   "shrubtrig2-tga"
+  ],
+  "vertices": 384,
+  "pc_share": 0.0,
+  "centroid": [
+   1822.1,
+   42.52,
+   -31.51
+  ],
+  "bbox": [
+   [
+    1769.26,
+    30.16,
+    -78.14
+   ],
+   [
+    1877.36,
+    57.84,
+    30.38
+   ]
+  ]
+ },
+ {
+  "path": "root.0.65.0",
+  "material": "rustic Hut $clamp(uv) $shader(object)",
+  "textures": [
+   "hut_01-tga"
+  ],
+  "vertices": 199,
+  "pc_share": 0.075,
+  "centroid": [
+   1949.16,
+   33.23,
+   -137.48
+  ],
+  "bbox": [
+   [
+    1910.86,
+    28.23,
+    -165.73
+   ],
+   [
+    1999.56,
+    36.97,
+    -104.3
+   ]
+  ]
+ },
+ {
+  "path": "root.0.65.1",
+  "material": "House 1 $shader(object)",
+  "textures": [
+   "brickhouse-tga"
+  ],
+  "vertices": 49,
+  "pc_share": 0.0,
+  "centroid": [
+   1971.43,
+   39.09,
+   -112.97
+  ],
+  "bbox": [
+   [
+    1966.27,
+    34.25,
+    -120.01
+   ],
+   [
+    1977.85,
+    49.69,
+    -108.24
+   ]
+  ]
+ },
+ {
+  "path": "root.0.65.9",
+  "material": "RED CARAVAN $shader(object)",
+  "textures": [
+   "newtex-tga"
+  ],
+  "vertices": 146,
+  "pc_share": 0.0,
+  "centroid": [
+   1969.94,
+   30.85,
+   -160.64
+  ],
+  "bbox": [
+   [
+    1964.52,
+    29.74,
+    -163.76
+   ],
+   [
+    1975.32,
+    34.45,
+    -157.42
+   ]
+  ]
+ },
+ {
+  "path": "root.0.65.15",
+  "material": "Fence hut $alphatest() $shader(tree) $clamp(v)",
+  "textures": [
+   "fence_02-tga"
+  ],
+  "vertices": 68,
+  "pc_share": 0.412,
+  "centroid": [
+   1971.85,
+   31.82,
+   -122.93
+  ],
+  "bbox": [
+   [
+    1935.53,
+    28.23,
+    -165.73
+   ],
+   [
+    1998.82,
+    34.66,
+    -98.3
+   ]
+  ]
+ },
+ {
+  "path": "root.0.65.31",
+  "material": "water $surfacetype(water) $shader(puddle)",
+  "textures": [
+   "water-tga"
+  ],
+  "vertices": 150,
+  "pc_share": 0.0,
+  "centroid": [
+   2059.85,
+   19.95,
+   -5.65
+  ],
+  "bbox": [
+   [
+    1957.56,
+    19.95,
+    -42.41
+   ],
+   [
+    2137.53,
+    19.95,
+    32.03
+   ]
+  ]
+ }
+]
