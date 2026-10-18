@@ -1,0 +1,1918 @@
+[
+ {
+  "course": "FRANCE1",
+  "splits_ps2": 3,
+  "splits_pc": 3,
+  "splits_shared_by_name": 3,
+  "shared_splits_identical": 3,
+  "split_differences": {},
+  "pc_only_splits": [],
+  "ps2_only_splits": [],
+  "copy_of_eggs_pc": [
+   "Copy of river1"
+  ],
+  "copy_of_eggs_ps2": [
+   "Copy of river1"
+  ],
+  "ps2_controllers": {
+   "gaEntitySpline": 2,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 1,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "pc_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 0,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "ps2_checkpoint_models": {
+   "misc\\objects\\checkpoints\\checkpoint": 12
+  },
+  "pc_checkpoint_models": {
+   "misc\\checkpoints\\checkpoint": 12
+  },
+  "marker_lists_ps2_only": [
+   "BoomCameras",
+   "FlightList",
+   "LeftOuterLimit2",
+   "MillList",
+   "RightOuterLimit2",
+   "StaticCameras",
+   "boatlist1",
+   "boatlist2"
+  ],
+  "marker_lists_pc_only": [
+   "LeftInnerLimit",
+   "LeftOuterLimit",
+   "RightInnerLimit",
+   "RightOuterLimit"
+  ],
+  "entities": [
+   79,
+   76
+  ]
+ },
+ {
+  "course": "FRANCE2",
+  "splits_ps2": 3,
+  "splits_pc": 3,
+  "splits_shared_by_name": 3,
+  "shared_splits_identical": 3,
+  "split_differences": {},
+  "pc_only_splits": [],
+  "ps2_only_splits": [],
+  "copy_of_eggs_pc": [],
+  "copy_of_eggs_ps2": [],
+  "ps2_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 1,
+   "aiSpawnParticle": 6,
+   "gaRaceSplitTimeAI": 3
+  },
+  "pc_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 0,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "ps2_checkpoint_models": {
+   "misc\\objects\\checkpoints\\checkpoint": 12
+  },
+  "pc_checkpoint_models": {
+   "misc\\checkpoints\\checkpoint": 12
+  },
+  "marker_lists_ps2_only": [
+   "BoomCameras",
+   "FlightList",
+   "LeftOuterLimit2",
+   "RightOuterLimit2",
+   "StaticCameras"
+  ],
+  "marker_lists_pc_only": [
+   "LeftInnerLimit",
+   "LeftOuterLimit",
+   "RightInnerLimit",
+   "RightOuterLimit"
+  ],
+  "entities": [
+   76,
+   69
+  ]
+ },
+ {
+  "course": "FRANCEM",
+  "splits_ps2": 3,
+  "splits_pc": 3,
+  "splits_shared_by_name": 3,
+  "shared_splits_identical": 3,
+  "split_differences": {},
+  "pc_only_splits": [],
+  "ps2_only_splits": [],
+  "copy_of_eggs_pc": [
+   "Copy of PaceNote14",
+   "Copy of river1"
+  ],
+  "copy_of_eggs_ps2": [
+   "Copy of PaceNote14",
+   "Copy of river1"
+  ],
+  "ps2_controllers": {
+   "gaEntitySpline": 1,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 1,
+   "aiSpawnParticle": 4,
+   "gaRaceSplitTimeAI": 3
+  },
+  "pc_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 0,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "ps2_checkpoint_models": {
+   "misc\\objects\\checkpoints\\checkpoint": 12
+  },
+  "pc_checkpoint_models": {
+   "misc\\checkpoints\\checkpoint": 12
+  },
+  "marker_lists_ps2_only": [
+   "BoomCameras",
+   "FlightList",
+   "LeftOuterLimit2",
+   "RightOuterLimit2",
+   "StaticCameras",
+   "zeppelin"
+  ],
+  "marker_lists_pc_only": [
+   "LeftInnerLimit",
+   "LeftOuterLimit",
+   "RightInnerLimit",
+   "RightOuterLimit"
+  ],
+  "entities": [
+   80,
+   72
+  ]
+ },
+ {
+  "course": "FRANCES1",
+  "splits_ps2": 3,
+  "splits_pc": 3,
+  "splits_shared_by_name": 3,
+  "shared_splits_identical": 3,
+  "split_differences": {},
+  "pc_only_splits": [],
+  "ps2_only_splits": [],
+  "copy_of_eggs_pc": [
+   "Copy of river1"
+  ],
+  "copy_of_eggs_ps2": [
+   "Copy of river1"
+  ],
+  "ps2_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 1,
+   "aiSpawnParticle": 2,
+   "gaRaceSplitTimeAI": 3
+  },
+  "pc_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 0,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "ps2_checkpoint_models": {
+   "misc\\objects\\checkpoints\\checkpoint": 12
+  },
+  "pc_checkpoint_models": {
+   "misc\\checkpoints\\checkpoint": 12
+  },
+  "marker_lists_ps2_only": [
+   "BoomCameras",
+   "FlightList",
+   "LeftOuterLimit2",
+   "RightOuterLimit2",
+   "StaticCameras"
+  ],
+  "marker_lists_pc_only": [
+   "LeftInnerLimit",
+   "LeftOuterLimit",
+   "RightInnerLimit",
+   "RightOuterLimit"
+  ],
+  "entities": [
+   72,
+   69
+  ]
+ },
+ {
+  "course": "FRANCES2",
+  "splits_ps2": 3,
+  "splits_pc": 3,
+  "splits_shared_by_name": 3,
+  "shared_splits_identical": 3,
+  "split_differences": {},
+  "pc_only_splits": [],
+  "ps2_only_splits": [],
+  "copy_of_eggs_pc": [],
+  "copy_of_eggs_ps2": [
+   "Copy of bigleft"
+  ],
+  "ps2_controllers": {
+   "gaEntitySpline": 2,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 1,
+   "aiSpawnParticle": 3,
+   "gaRaceSplitTimeAI": 3
+  },
+  "pc_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 0,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "ps2_checkpoint_models": {
+   "misc\\objects\\checkpoints\\checkpoint": 12
+  },
+  "pc_checkpoint_models": {
+   "misc\\checkpoints\\checkpoint": 12
+  },
+  "marker_lists_ps2_only": [
+   "BoomCameras",
+   "FlightList",
+   "LeftOuterLimit2",
+   "RightOuterLimit2",
+   "StaticCameras",
+   "boat1list",
+   "boat2list"
+  ],
+  "marker_lists_pc_only": [
+   "LeftInnerLimit",
+   "LeftOuterLimit",
+   "RightInnerLimit",
+   "RightOuterLimit"
+  ],
+  "entities": [
+   84,
+   73
+  ]
+ },
+ {
+  "course": "FRANCEW",
+  "splits_ps2": 3,
+  "splits_pc": 3,
+  "splits_shared_by_name": 3,
+  "shared_splits_identical": 3,
+  "split_differences": {},
+  "pc_only_splits": [],
+  "ps2_only_splits": [],
+  "copy_of_eggs_pc": [
+   "Copy of PaceNote13"
+  ],
+  "copy_of_eggs_ps2": [
+   "Copy of PaceNote13"
+  ],
+  "ps2_controllers": {
+   "gaEntitySpline": 2,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 1,
+   "aiSpawnParticle": 1,
+   "gaRaceSplitTimeAI": 3
+  },
+  "pc_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 0,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "ps2_checkpoint_models": {
+   "misc\\objects\\checkpoints\\checkpoint": 12
+  },
+  "pc_checkpoint_models": {
+   "misc\\checkpoints\\checkpoint": 12
+  },
+  "marker_lists_ps2_only": [
+   "BoomCameras",
+   "FlightList",
+   "LeftOuterLimit2",
+   "RightOuterLimit2",
+   "StaticCameras",
+   "boat1",
+   "boat2"
+  ],
+  "marker_lists_pc_only": [
+   "LeftInnerLimit",
+   "LeftOuterLimit",
+   "RightInnerLimit",
+   "RightOuterLimit"
+  ],
+  "entities": [
+   73,
+   69
+  ]
+ },
+ {
+  "course": "FRANCEWFLIP",
+  "splits_ps2": 3,
+  "splits_pc": 3,
+  "splits_shared_by_name": 3,
+  "shared_splits_identical": 3,
+  "split_differences": {},
+  "pc_only_splits": [],
+  "ps2_only_splits": [],
+  "copy_of_eggs_pc": [],
+  "copy_of_eggs_ps2": [],
+  "ps2_controllers": {
+   "gaEntitySpline": 2,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 1,
+   "aiSpawnParticle": 2,
+   "gaRaceSplitTimeAI": 3
+  },
+  "pc_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 0,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "ps2_checkpoint_models": {
+   "misc\\objects\\checkpoints\\checkpoint": 12
+  },
+  "pc_checkpoint_models": {
+   "misc\\checkpoints\\checkpoint": 12
+  },
+  "marker_lists_ps2_only": [
+   "BoomCameras",
+   "FlightList",
+   "LeftOuterLimit2",
+   "RightOuterLimit2",
+   "StaticCameras",
+   "boat1",
+   "boat2"
+  ],
+  "marker_lists_pc_only": [
+   "LeftInnerLimit",
+   "LeftOuterLimit",
+   "RightInnerLimit",
+   "RightOuterLimit"
+  ],
+  "entities": [
+   73,
+   68
+  ]
+ },
+ {
+  "course": "ITALY1",
+  "splits_ps2": 3,
+  "splits_pc": 3,
+  "splits_shared_by_name": 3,
+  "shared_splits_identical": 3,
+  "split_differences": {},
+  "pc_only_splits": [],
+  "ps2_only_splits": [],
+  "copy_of_eggs_pc": [],
+  "copy_of_eggs_ps2": [],
+  "ps2_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 1,
+   "aiSpawnParticle": 6,
+   "gaRaceSplitTimeAI": 3
+  },
+  "pc_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 0,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "ps2_checkpoint_models": {
+   "misc\\objects\\checkpoints\\checkpoint": 12
+  },
+  "pc_checkpoint_models": {
+   "misc\\checkpoints\\checkpoint": 12
+  },
+  "marker_lists_ps2_only": [
+   "BoomCameras",
+   "FlightList",
+   "LeftOuterLimit2",
+   "RightOuterLimit2",
+   "StaticCameras"
+  ],
+  "marker_lists_pc_only": [
+   "LeftInnerLimit",
+   "LeftOuterLimit",
+   "RightInnerLimit",
+   "RightOuterLimit"
+  ],
+  "entities": [
+   68,
+   61
+  ]
+ },
+ {
+  "course": "ITALY2",
+  "splits_ps2": 3,
+  "splits_pc": 3,
+  "splits_shared_by_name": 3,
+  "shared_splits_identical": 3,
+  "split_differences": {},
+  "pc_only_splits": [],
+  "ps2_only_splits": [],
+  "copy_of_eggs_pc": [],
+  "copy_of_eggs_ps2": [],
+  "ps2_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 11,
+   "gaAnimals_BirdManager": 1,
+   "aiSpawnParticle": 2,
+   "gaRaceSplitTimeAI": 3
+  },
+  "pc_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 0,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "ps2_checkpoint_models": {
+   "misc\\objects\\checkpoints\\checkpoint": 12
+  },
+  "pc_checkpoint_models": {
+   "misc\\checkpoints\\checkpoint": 12
+  },
+  "marker_lists_ps2_only": [
+   "BoomCameras",
+   "FlightList",
+   "LeftOuterLimit2",
+   "MillList",
+   "RightOuterLimit2",
+   "StaticCameras"
+  ],
+  "marker_lists_pc_only": [
+   "LeftInnerLimit",
+   "LeftOuterLimit",
+   "RightInnerLimit",
+   "RightOuterLimit"
+  ],
+  "entities": [
+   75,
+   61
+  ]
+ },
+ {
+  "course": "ITALY3",
+  "splits_ps2": 3,
+  "splits_pc": 3,
+  "splits_shared_by_name": 3,
+  "shared_splits_identical": 3,
+  "split_differences": {},
+  "pc_only_splits": [],
+  "ps2_only_splits": [],
+  "copy_of_eggs_pc": [
+   "Copy of birds2",
+   "Copy of ocean2"
+  ],
+  "copy_of_eggs_ps2": [
+   "Copy of birds2",
+   "Copy of ocean2"
+  ],
+  "ps2_controllers": {
+   "gaEntitySpline": 1,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 1,
+   "aiSpawnParticle": 2,
+   "gaRaceSplitTimeAI": 3
+  },
+  "pc_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 0,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "ps2_checkpoint_models": {
+   "misc\\objects\\checkpoints\\checkpoint": 12
+  },
+  "pc_checkpoint_models": {
+   "misc\\checkpoints\\checkpoint": 12
+  },
+  "marker_lists_ps2_only": [
+   "BoomCameras",
+   "FlightList",
+   "LeftOuterLimit2",
+   "MillList",
+   "RightOuterLimit2",
+   "StaticCameras",
+   "barge"
+  ],
+  "marker_lists_pc_only": [
+   "LeftInnerLimit",
+   "LeftOuterLimit",
+   "RightInnerLimit",
+   "RightOuterLimit"
+  ],
+  "entities": [
+   68,
+   64
+  ]
+ },
+ {
+  "course": "ITALYM1",
+  "splits_ps2": 3,
+  "splits_pc": 3,
+  "splits_shared_by_name": 3,
+  "shared_splits_identical": 1,
+  "split_differences": {
+   "SplitTime0": {
+    "extra_time": [
+     77.5,
+     75.0
+    ]
+   },
+   "SplitTime1": {
+    "extra_time": [
+     60.0,
+     82.5
+    ]
+   }
+  },
+  "pc_only_splits": [],
+  "ps2_only_splits": [],
+  "copy_of_eggs_pc": [],
+  "copy_of_eggs_ps2": [],
+  "ps2_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 1,
+   "aiSpawnParticle": 6,
+   "gaRaceSplitTimeAI": 3
+  },
+  "pc_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 0,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "ps2_checkpoint_models": {
+   "misc\\objects\\checkpoints\\checkpoint": 12
+  },
+  "pc_checkpoint_models": {
+   "misc\\checkpoints\\checkpoint": 12
+  },
+  "marker_lists_ps2_only": [
+   "BoomCameras",
+   "FlightList",
+   "LeftOuterLimit2",
+   "RightOuterLimit2",
+   "StaticCameras"
+  ],
+  "marker_lists_pc_only": [
+   "LeftInnerLimit",
+   "LeftOuterLimit",
+   "RightInnerLimit",
+   "RightOuterLimit"
+  ],
+  "entities": [
+   76,
+   69
+  ]
+ },
+ {
+  "course": "ITALYM1FLIP",
+  "splits_ps2": 3,
+  "splits_pc": 3,
+  "splits_shared_by_name": 3,
+  "shared_splits_identical": 3,
+  "split_differences": {},
+  "pc_only_splits": [],
+  "ps2_only_splits": [],
+  "copy_of_eggs_pc": [],
+  "copy_of_eggs_ps2": [],
+  "ps2_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 1,
+   "aiSpawnParticle": 5,
+   "gaRaceSplitTimeAI": 3
+  },
+  "pc_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 0,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "ps2_checkpoint_models": {
+   "misc\\objects\\checkpoints\\checkpoint": 12
+  },
+  "pc_checkpoint_models": {
+   "misc\\checkpoints\\checkpoint": 12
+  },
+  "marker_lists_ps2_only": [
+   "BoomCameras",
+   "FlightList",
+   "LeftOuterLimit2",
+   "RightOuterLimit2",
+   "StaticCameras"
+  ],
+  "marker_lists_pc_only": [
+   "LeftInnerLimit",
+   "LeftOuterLimit",
+   "RightInnerLimit",
+   "RightOuterLimit"
+  ],
+  "entities": [
+   84,
+   78
+  ]
+ },
+ {
+  "course": "ITALYM2",
+  "splits_ps2": 3,
+  "splits_pc": 3,
+  "splits_shared_by_name": 3,
+  "shared_splits_identical": 3,
+  "split_differences": {},
+  "pc_only_splits": [],
+  "ps2_only_splits": [],
+  "copy_of_eggs_pc": [
+   "Copy of birds2"
+  ],
+  "copy_of_eggs_ps2": [
+   "Copy of PaceNote22",
+   "Copy of birds2"
+  ],
+  "ps2_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 1,
+   "aiSpawnParticle": 2,
+   "gaRaceSplitTimeAI": 3
+  },
+  "pc_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 0,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "ps2_checkpoint_models": {
+   "misc\\objects\\checkpoints\\checkpoint": 12
+  },
+  "pc_checkpoint_models": {
+   "misc\\checkpoints\\checkpoint": 12
+  },
+  "marker_lists_ps2_only": [
+   "BoomCameras",
+   "FlightList",
+   "LeftOuterLimit2",
+   "MillList",
+   "RightOuterLimit2",
+   "StaticCameras"
+  ],
+  "marker_lists_pc_only": [
+   "LeftInnerLimit",
+   "LeftOuterLimit",
+   "RightInnerLimit",
+   "RightOuterLimit"
+  ],
+  "entities": [
+   75,
+   71
+  ]
+ },
+ {
+  "course": "ITALYS1",
+  "splits_ps2": 3,
+  "splits_pc": 3,
+  "splits_shared_by_name": 3,
+  "shared_splits_identical": 2,
+  "split_differences": {
+   "SplitTime2": {
+    "radius": [
+     18.0,
+     19.0
+    ]
+   }
+  },
+  "pc_only_splits": [],
+  "ps2_only_splits": [],
+  "copy_of_eggs_pc": [],
+  "copy_of_eggs_ps2": [],
+  "ps2_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 14,
+   "gaAnimals_BirdManager": 1,
+   "aiSpawnParticle": 4,
+   "gaRaceSplitTimeAI": 3
+  },
+  "pc_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 0,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "ps2_checkpoint_models": {
+   "misc\\objects\\checkpoints\\checkpoint": 12
+  },
+  "pc_checkpoint_models": {
+   "misc\\checkpoints\\checkpoint": 12
+  },
+  "marker_lists_ps2_only": [
+   "BoomCameras",
+   "FlightList",
+   "LeftOuterLimit2",
+   "RightOuterLimit2",
+   "StaticCameras"
+  ],
+  "marker_lists_pc_only": [
+   "LeftInnerLimit",
+   "LeftOuterLimit",
+   "RightInnerLimit",
+   "RightOuterLimit"
+  ],
+  "entities": [
+   88,
+   69
+  ]
+ },
+ {
+  "course": "ITALYS2",
+  "splits_ps2": 3,
+  "splits_pc": 3,
+  "splits_shared_by_name": 3,
+  "shared_splits_identical": 3,
+  "split_differences": {},
+  "pc_only_splits": [],
+  "ps2_only_splits": [],
+  "copy_of_eggs_pc": [],
+  "copy_of_eggs_ps2": [],
+  "ps2_controllers": {
+   "gaEntitySpline": 1,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 1,
+   "aiSpawnParticle": 1,
+   "gaRaceSplitTimeAI": 3
+  },
+  "pc_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 0,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "ps2_checkpoint_models": {
+   "misc\\objects\\checkpoints\\checkpoint": 12
+  },
+  "pc_checkpoint_models": {
+   "misc\\checkpoints\\checkpoint": 12
+  },
+  "marker_lists_ps2_only": [
+   "BoomCameras",
+   "FlightList",
+   "LeftOuterLimit2",
+   "RightOuterLimit2",
+   "StaticCameras",
+   "zeppelin"
+  ],
+  "marker_lists_pc_only": [
+   "LeftInnerLimit",
+   "LeftOuterLimit",
+   "RightInnerLimit",
+   "RightOuterLimit"
+  ],
+  "entities": [
+   73,
+   69
+  ]
+ },
+ {
+  "course": "ITALYS3",
+  "splits_ps2": 3,
+  "splits_pc": 3,
+  "splits_shared_by_name": 3,
+  "shared_splits_identical": 3,
+  "split_differences": {},
+  "pc_only_splits": [],
+  "ps2_only_splits": [],
+  "copy_of_eggs_pc": [
+   "Copy of ocean2"
+  ],
+  "copy_of_eggs_ps2": [
+   "Copy of ocean2"
+  ],
+  "ps2_controllers": {
+   "gaEntitySpline": 1,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 1,
+   "aiSpawnParticle": 3,
+   "gaRaceSplitTimeAI": 3
+  },
+  "pc_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 0,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "ps2_checkpoint_models": {
+   "misc\\objects\\checkpoints\\checkpoint": 12
+  },
+  "pc_checkpoint_models": {
+   "misc\\checkpoints\\checkpoint": 12
+  },
+  "marker_lists_ps2_only": [
+   "BoomCameras",
+   "FlightList",
+   "LeftOuterLimit2",
+   "RightOuterLimit2",
+   "StaticCameras",
+   "boat1"
+  ],
+  "marker_lists_pc_only": [
+   "LeftInnerLimit",
+   "LeftOuterLimit",
+   "RightInnerLimit",
+   "RightOuterLimit"
+  ],
+  "entities": [
+   71,
+   66
+  ]
+ },
+ {
+  "course": "ITALYS3FLIP",
+  "splits_ps2": 3,
+  "splits_pc": 3,
+  "splits_shared_by_name": 3,
+  "shared_splits_identical": 3,
+  "split_differences": {},
+  "pc_only_splits": [],
+  "ps2_only_splits": [],
+  "copy_of_eggs_pc": [
+   "Copy of ocean2"
+  ],
+  "copy_of_eggs_ps2": [
+   "Copy of ocean2"
+  ],
+  "ps2_controllers": {
+   "gaEntitySpline": 1,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 1,
+   "aiSpawnParticle": 1,
+   "gaRaceSplitTimeAI": 3
+  },
+  "pc_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 0,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "ps2_checkpoint_models": {
+   "misc\\objects\\checkpoints\\checkpoint": 12
+  },
+  "pc_checkpoint_models": {
+   "misc\\checkpoints\\checkpoint": 12
+  },
+  "marker_lists_ps2_only": [
+   "BoomCameras",
+   "FlightList",
+   "LeftOuterLimit2",
+   "MillList",
+   "RightOuterLimit2",
+   "StaticCameras",
+   "boat1"
+  ],
+  "marker_lists_pc_only": [
+   "LeftInnerLimit",
+   "LeftOuterLimit",
+   "RightInnerLimit",
+   "RightOuterLimit"
+  ],
+  "entities": [
+   75,
+   72
+  ]
+ },
+ {
+  "course": "ITALYS4",
+  "splits_ps2": 3,
+  "splits_pc": 3,
+  "splits_shared_by_name": 3,
+  "shared_splits_identical": 3,
+  "split_differences": {},
+  "pc_only_splits": [],
+  "ps2_only_splits": [],
+  "copy_of_eggs_pc": [
+   "Copy of birds2"
+  ],
+  "copy_of_eggs_ps2": [
+   "Copy of birds2"
+  ],
+  "ps2_controllers": {
+   "gaEntitySpline": 1,
+   "gaAiRigidBody": 10,
+   "gaAnimals_BirdManager": 1,
+   "aiSpawnParticle": 3,
+   "gaRaceSplitTimeAI": 3
+  },
+  "pc_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 0,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "ps2_checkpoint_models": {
+   "misc\\objects\\checkpoints\\checkpoint": 12
+  },
+  "pc_checkpoint_models": {
+   "misc\\checkpoints\\checkpoint": 12
+  },
+  "marker_lists_ps2_only": [
+   "BoomCameras",
+   "FlightList",
+   "LeftOuterLimit2",
+   "MillList",
+   "RightOuterLimit2",
+   "StaticCameras",
+   "zeppelin"
+  ],
+  "marker_lists_pc_only": [
+   "LeftInnerLimit",
+   "LeftOuterLimit",
+   "RightInnerLimit",
+   "RightOuterLimit"
+  ],
+  "entities": [
+   92,
+   76
+  ]
+ },
+ {
+  "course": "ITALYW1",
+  "splits_ps2": 3,
+  "splits_pc": 3,
+  "splits_shared_by_name": 3,
+  "shared_splits_identical": 3,
+  "split_differences": {},
+  "pc_only_splits": [],
+  "ps2_only_splits": [],
+  "copy_of_eggs_pc": [],
+  "copy_of_eggs_ps2": [],
+  "ps2_controllers": {
+   "gaEntitySpline": 1,
+   "gaAiRigidBody": 10,
+   "gaAnimals_BirdManager": 1,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "pc_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 0,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "ps2_checkpoint_models": {
+   "misc\\objects\\checkpoints\\checkpoint": 12
+  },
+  "pc_checkpoint_models": {
+   "misc\\checkpoints\\checkpoint": 12
+  },
+  "marker_lists_ps2_only": [
+   "BoomCameras",
+   "FlightList",
+   "LeftOuterLimit2",
+   "RightOuterLimit2",
+   "StaticCameras",
+   "zeppelin"
+  ],
+  "marker_lists_pc_only": [
+   "LeftInnerLimit",
+   "LeftOuterLimit",
+   "RightInnerLimit",
+   "RightOuterLimit"
+  ],
+  "entities": [
+   92,
+   80
+  ]
+ },
+ {
+  "course": "ITALYW2",
+  "splits_ps2": 3,
+  "splits_pc": 3,
+  "splits_shared_by_name": 3,
+  "shared_splits_identical": 3,
+  "split_differences": {},
+  "pc_only_splits": [],
+  "ps2_only_splits": [],
+  "copy_of_eggs_pc": [
+   "Copy of ocean2"
+  ],
+  "copy_of_eggs_ps2": [
+   "Copy of ocean2"
+  ],
+  "ps2_controllers": {
+   "gaEntitySpline": 1,
+   "gaAiRigidBody": 13,
+   "gaAnimals_BirdManager": 1,
+   "aiSpawnParticle": 1,
+   "gaRaceSplitTimeAI": 3
+  },
+  "pc_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 0,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "ps2_checkpoint_models": {
+   "misc\\objects\\checkpoints\\checkpoint": 12
+  },
+  "pc_checkpoint_models": {
+   "misc\\checkpoints\\checkpoint": 12
+  },
+  "marker_lists_ps2_only": [
+   "BoomCameras",
+   "FlightList",
+   "LeftOuterLimit2",
+   "RightOuterLimit2",
+   "StaticCameras",
+   "boat"
+  ],
+  "marker_lists_pc_only": [
+   "LeftInnerLimit",
+   "LeftOuterLimit",
+   "RightInnerLimit",
+   "RightOuterLimit"
+  ],
+  "entities": [
+   96,
+   81
+  ]
+ },
+ {
+  "course": "SPAIN1",
+  "splits_ps2": 3,
+  "splits_pc": 3,
+  "splits_shared_by_name": 3,
+  "shared_splits_identical": 3,
+  "split_differences": {},
+  "pc_only_splits": [],
+  "ps2_only_splits": [],
+  "copy_of_eggs_pc": [
+   "Copy of wind"
+  ],
+  "copy_of_eggs_ps2": [
+   "Copy of wind"
+  ],
+  "ps2_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 1,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "pc_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 0,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "ps2_checkpoint_models": {
+   "misc\\objects\\checkpoints\\checkpoint": 12
+  },
+  "pc_checkpoint_models": {
+   "misc\\checkpoints\\checkpoint": 12
+  },
+  "marker_lists_ps2_only": [
+   "BoomCameras",
+   "FlightList",
+   "LeftOuterLimit2",
+   "RightOuterLimit2",
+   "StaticCameras"
+  ],
+  "marker_lists_pc_only": [
+   "LeftInnerLimit",
+   "LeftOuterLimit",
+   "RightInnerLimit",
+   "RightOuterLimit"
+  ],
+  "entities": [
+   64,
+   64
+  ]
+ },
+ {
+  "course": "SPAIN2",
+  "splits_ps2": 3,
+  "splits_pc": 3,
+  "splits_shared_by_name": 3,
+  "shared_splits_identical": 3,
+  "split_differences": {},
+  "pc_only_splits": [],
+  "ps2_only_splits": [],
+  "copy_of_eggs_pc": [],
+  "copy_of_eggs_ps2": [],
+  "ps2_controllers": {
+   "gaEntitySpline": 1,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 1,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "pc_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 0,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "ps2_checkpoint_models": {
+   "misc\\objects\\checkpoints\\checkpoint": 12
+  },
+  "pc_checkpoint_models": {
+   "misc\\checkpoints\\checkpoint": 12
+  },
+  "marker_lists_ps2_only": [
+   "BoomCameras",
+   "FlightList",
+   "LeftOuterLimit2",
+   "RightOuterLimit2",
+   "StaticCameras",
+   "boat"
+  ],
+  "marker_lists_pc_only": [
+   "LeftInnerLimit",
+   "LeftOuterLimit",
+   "RightInnerLimit",
+   "RightOuterLimit"
+  ],
+  "entities": [
+   76,
+   74
+  ]
+ },
+ {
+  "course": "SPAINM",
+  "splits_ps2": 3,
+  "splits_pc": 3,
+  "splits_shared_by_name": 3,
+  "shared_splits_identical": 2,
+  "split_differences": {
+   "SplitTime2": {
+    "position_max_axis_shift": 0.14
+   }
+  },
+  "pc_only_splits": [],
+  "ps2_only_splits": [],
+  "copy_of_eggs_pc": [
+   "Copy of wind"
+  ],
+  "copy_of_eggs_ps2": [
+   "Copy of wind"
+  ],
+  "ps2_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 1,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "pc_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 0,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "ps2_checkpoint_models": {
+   "misc\\objects\\checkpoints\\checkpoint": 12
+  },
+  "pc_checkpoint_models": {
+   "misc\\checkpoints\\checkpoint": 12
+  },
+  "marker_lists_ps2_only": [
+   "BoomCameras",
+   "FlightList",
+   "LeftOuterLimit2",
+   "RightOuterLimit2",
+   "StaticCameras"
+  ],
+  "marker_lists_pc_only": [
+   "LeftInnerLimit",
+   "LeftOuterLimit",
+   "RightInnerLimit",
+   "RightOuterLimit"
+  ],
+  "entities": [
+   78,
+   77
+  ]
+ },
+ {
+  "course": "SPAINS1",
+  "splits_ps2": 3,
+  "splits_pc": 3,
+  "splits_shared_by_name": 3,
+  "shared_splits_identical": 3,
+  "split_differences": {},
+  "pc_only_splits": [],
+  "ps2_only_splits": [],
+  "copy_of_eggs_pc": [],
+  "copy_of_eggs_ps2": [],
+  "ps2_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 1,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "pc_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 0,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "ps2_checkpoint_models": {
+   "misc\\objects\\checkpoints\\checkpoint": 12
+  },
+  "pc_checkpoint_models": {
+   "misc\\checkpoints\\checkpoint": 12
+  },
+  "marker_lists_ps2_only": [
+   "BoomCameras",
+   "FlightList",
+   "LeftOuterLimit2",
+   "RightOuterLimit2",
+   "StaticCameras"
+  ],
+  "marker_lists_pc_only": [
+   "LeftInnerLimit",
+   "LeftOuterLimit",
+   "RightInnerLimit",
+   "RightOuterLimit"
+  ],
+  "entities": [
+   69,
+   69
+  ]
+ },
+ {
+  "course": "SPAINS1FLIP",
+  "splits_ps2": 3,
+  "splits_pc": 3,
+  "splits_shared_by_name": 3,
+  "shared_splits_identical": 3,
+  "split_differences": {},
+  "pc_only_splits": [],
+  "ps2_only_splits": [],
+  "copy_of_eggs_pc": [],
+  "copy_of_eggs_ps2": [],
+  "ps2_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 1,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "pc_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 0,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "ps2_checkpoint_models": {
+   "misc\\objects\\checkpoints\\checkpoint": 12
+  },
+  "pc_checkpoint_models": {
+   "misc\\checkpoints\\checkpoint": 12
+  },
+  "marker_lists_ps2_only": [
+   "BoomCameras",
+   "FlightList",
+   "LeftOuterLimit2",
+   "RightOuterLimit2",
+   "StaticCameras"
+  ],
+  "marker_lists_pc_only": [
+   "LeftInnerLimit",
+   "LeftOuterLimit",
+   "RightInnerLimit",
+   "RightOuterLimit"
+  ],
+  "entities": [
+   70,
+   70
+  ]
+ },
+ {
+  "course": "SPAINS2",
+  "splits_ps2": 3,
+  "splits_pc": 3,
+  "splits_shared_by_name": 3,
+  "shared_splits_identical": 3,
+  "split_differences": {},
+  "pc_only_splits": [],
+  "ps2_only_splits": [],
+  "copy_of_eggs_pc": [
+   "Copy of wind"
+  ],
+  "copy_of_eggs_ps2": [
+   "Copy of wind"
+  ],
+  "ps2_controllers": {
+   "gaEntitySpline": 2,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 1,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "pc_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 0,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "ps2_checkpoint_models": {
+   "misc\\objects\\checkpoints\\checkpoint": 12
+  },
+  "pc_checkpoint_models": {
+   "misc\\checkpoints\\checkpoint": 12
+  },
+  "marker_lists_ps2_only": [
+   "BoomCameras",
+   "FlightList",
+   "LeftOuterLimit2",
+   "MillList",
+   "RightOuterLimit2",
+   "StaticCameras",
+   "boat1",
+   "boat5"
+  ],
+  "marker_lists_pc_only": [
+   "LeftInnerLimit",
+   "LeftOuterLimit",
+   "RightInnerLimit",
+   "RightOuterLimit"
+  ],
+  "entities": [
+   84,
+   81
+  ]
+ },
+ {
+  "course": "SPAINW",
+  "splits_ps2": 3,
+  "splits_pc": 3,
+  "splits_shared_by_name": 3,
+  "shared_splits_identical": 3,
+  "split_differences": {},
+  "pc_only_splits": [],
+  "ps2_only_splits": [],
+  "copy_of_eggs_pc": [],
+  "copy_of_eggs_ps2": [],
+  "ps2_controllers": {
+   "gaEntitySpline": 2,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 1,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "pc_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 0,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "ps2_checkpoint_models": {
+   "misc\\objects\\checkpoints\\checkpoint": 12
+  },
+  "pc_checkpoint_models": {
+   "misc\\checkpoints\\checkpoint": 12
+  },
+  "marker_lists_ps2_only": [
+   "BoomCameras",
+   "FlightList",
+   "LeftOuterLimit2",
+   "MillList",
+   "RightOuterLimit2",
+   "StaticCameras",
+   "boat1",
+   "boat2"
+  ],
+  "marker_lists_pc_only": [
+   "LeftInnerLimit",
+   "LeftOuterLimit",
+   "RightInnerLimit",
+   "RightOuterLimit"
+  ],
+  "entities": [
+   79,
+   77
+  ]
+ },
+ {
+  "course": "SPAINWFLIP",
+  "splits_ps2": 3,
+  "splits_pc": 3,
+  "splits_shared_by_name": 3,
+  "shared_splits_identical": 2,
+  "split_differences": {
+   "SplitTime0": {
+    "position_max_axis_shift": 0.22
+   }
+  },
+  "pc_only_splits": [],
+  "ps2_only_splits": [],
+  "copy_of_eggs_pc": [],
+  "copy_of_eggs_ps2": [],
+  "ps2_controllers": {
+   "gaEntitySpline": 2,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 1,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "pc_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 0,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "ps2_checkpoint_models": {
+   "misc\\objects\\checkpoints\\checkpoint": 11
+  },
+  "pc_checkpoint_models": {
+   "misc\\checkpoints\\checkpoint": 12
+  },
+  "marker_lists_ps2_only": [
+   "BoomCameras",
+   "FlightList",
+   "LeftOuterLimit2",
+   "RightOuterLimit2",
+   "StaticCameras",
+   "boat1",
+   "boat2"
+  ],
+  "marker_lists_pc_only": [
+   "LeftInnerLimit",
+   "LeftOuterLimit",
+   "RightInnerLimit",
+   "RightOuterLimit"
+  ],
+  "entities": [
+   75,
+   73
+  ]
+ },
+ {
+  "course": "TURKEY1",
+  "splits_ps2": 3,
+  "splits_pc": 3,
+  "splits_shared_by_name": 3,
+  "shared_splits_identical": 3,
+  "split_differences": {},
+  "pc_only_splits": [],
+  "ps2_only_splits": [],
+  "copy_of_eggs_pc": [
+   "Copy of rocks",
+   "Copy of tunnel"
+  ],
+  "copy_of_eggs_ps2": [
+   "Copy of tunnel"
+  ],
+  "ps2_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 7,
+   "gaAnimals_BirdManager": 1,
+   "aiSpawnParticle": 2,
+   "gaRaceSplitTimeAI": 3
+  },
+  "pc_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 0,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "ps2_checkpoint_models": {
+   "misc\\objects\\checkpoints\\checkpoint": 12
+  },
+  "pc_checkpoint_models": {
+   "misc\\checkpoints\\checkpoint": 12
+  },
+  "marker_lists_ps2_only": [
+   "BoomCameras",
+   "FlightList",
+   "LeftOuterLimit2",
+   "RightOuterLimit2",
+   "StaticCameras"
+  ],
+  "marker_lists_pc_only": [
+   "LeftInnerLimit",
+   "LeftOuterLimit",
+   "RightInnerLimit",
+   "RightOuterLimit"
+  ],
+  "entities": [
+   69,
+   61
+  ]
+ },
+ {
+  "course": "TURKEY2",
+  "splits_ps2": 3,
+  "splits_pc": 3,
+  "splits_shared_by_name": 3,
+  "shared_splits_identical": 3,
+  "split_differences": {},
+  "pc_only_splits": [],
+  "ps2_only_splits": [],
+  "copy_of_eggs_pc": [],
+  "copy_of_eggs_ps2": [],
+  "ps2_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 1,
+   "aiSpawnParticle": 1,
+   "gaRaceSplitTimeAI": 3
+  },
+  "pc_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 0,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "ps2_checkpoint_models": {
+   "misc\\objects\\checkpoints\\checkpoint": 12
+  },
+  "pc_checkpoint_models": {
+   "misc\\checkpoints\\checkpoint": 12
+  },
+  "marker_lists_ps2_only": [
+   "BoomCameras",
+   "FlightList",
+   "LeftOuterLimit2",
+   "RightOuterLimit2",
+   "StaticCameras"
+  ],
+  "marker_lists_pc_only": [
+   "LeftInnerLimit",
+   "LeftOuterLimit",
+   "RightInnerLimit",
+   "RightOuterLimit"
+  ],
+  "entities": [
+   64,
+   62
+  ]
+ },
+ {
+  "course": "TURKEY3",
+  "splits_ps2": 3,
+  "splits_pc": 4,
+  "splits_shared_by_name": 3,
+  "shared_splits_identical": 3,
+  "split_differences": {},
+  "pc_only_splits": [
+   "Copy of SplitTime1"
+  ],
+  "ps2_only_splits": [],
+  "copy_of_eggs_pc": [
+   "Copy of SplitTime1",
+   "Copy of SplitTime1-0",
+   "Copy of SplitTime1-1",
+   "Copy of SplitTime1-2",
+   "Copy of SplitTime1-3"
+  ],
+  "copy_of_eggs_ps2": [],
+  "ps2_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 6,
+   "gaAnimals_BirdManager": 1,
+   "aiSpawnParticle": 11,
+   "gaRaceSplitTimeAI": 3
+  },
+  "pc_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 0,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 4
+  },
+  "ps2_checkpoint_models": {
+   "misc\\objects\\checkpoints\\checkpoint": 12
+  },
+  "pc_checkpoint_models": {
+   "misc\\checkpoints\\checkpoint": 16
+  },
+  "marker_lists_ps2_only": [
+   "BoomCameras",
+   "FlightList",
+   "LeftOuterLimit2",
+   "RightOuterLimit2",
+   "StaticCameras"
+  ],
+  "marker_lists_pc_only": [
+   "LeftInnerLimit",
+   "LeftOuterLimit",
+   "RightInnerLimit",
+   "RightOuterLimit"
+  ],
+  "entities": [
+   83,
+   71
+  ]
+ },
+ {
+  "course": "TURKEYM",
+  "splits_ps2": 3,
+  "splits_pc": 3,
+  "splits_shared_by_name": 3,
+  "shared_splits_identical": 3,
+  "split_differences": {},
+  "pc_only_splits": [],
+  "ps2_only_splits": [],
+  "copy_of_eggs_pc": [
+   "Copy of rocks",
+   "Copy of tunnel"
+  ],
+  "copy_of_eggs_ps2": [
+   "Copy of tunnel"
+  ],
+  "ps2_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 9,
+   "gaAnimals_BirdManager": 1,
+   "aiSpawnParticle": 1,
+   "gaRaceSplitTimeAI": 3
+  },
+  "pc_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 0,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "ps2_checkpoint_models": {
+   "misc\\objects\\checkpoints\\checkpoint": 12
+  },
+  "pc_checkpoint_models": {
+   "misc\\checkpoints\\checkpoint": 12
+  },
+  "marker_lists_ps2_only": [
+   "BoomCameras",
+   "FlightList",
+   "LeftOuterLimit2",
+   "MillList",
+   "RightOuterLimit2",
+   "StaticCameras"
+  ],
+  "marker_lists_pc_only": [
+   "LeftInnerLimit",
+   "LeftOuterLimit",
+   "RightInnerLimit",
+   "RightOuterLimit"
+  ],
+  "entities": [
+   78,
+   69
+  ]
+ },
+ {
+  "course": "TURKEYS1",
+  "splits_ps2": 3,
+  "splits_pc": 3,
+  "splits_shared_by_name": 3,
+  "shared_splits_identical": 3,
+  "split_differences": {},
+  "pc_only_splits": [],
+  "ps2_only_splits": [],
+  "copy_of_eggs_pc": [],
+  "copy_of_eggs_ps2": [],
+  "ps2_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 1,
+   "aiSpawnParticle": 1,
+   "gaRaceSplitTimeAI": 3
+  },
+  "pc_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 0,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "ps2_checkpoint_models": {
+   "misc\\objects\\checkpoints\\checkpoint": 12
+  },
+  "pc_checkpoint_models": {
+   "misc\\checkpoints\\checkpoint": 12
+  },
+  "marker_lists_ps2_only": [
+   "BoomCameras",
+   "FlightList",
+   "LeftOuterLimit2",
+   "MillList",
+   "RightOuterLimit2",
+   "StaticCameras"
+  ],
+  "marker_lists_pc_only": [
+   "LeftInnerLimit",
+   "LeftOuterLimit",
+   "RightInnerLimit",
+   "RightOuterLimit"
+  ],
+  "entities": [
+   70,
+   68
+  ]
+ },
+ {
+  "course": "TURKEYS2",
+  "splits_ps2": 3,
+  "splits_pc": 3,
+  "splits_shared_by_name": 3,
+  "shared_splits_identical": 3,
+  "split_differences": {},
+  "pc_only_splits": [],
+  "ps2_only_splits": [],
+  "copy_of_eggs_pc": [],
+  "copy_of_eggs_ps2": [
+   "Copy of PaceNote7"
+  ],
+  "ps2_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 1,
+   "aiSpawnParticle": 6,
+   "gaRaceSplitTimeAI": 3
+  },
+  "pc_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 0,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "ps2_checkpoint_models": {
+   "misc\\objects\\checkpoints\\checkpoint": 12
+  },
+  "pc_checkpoint_models": {
+   "misc\\checkpoints\\checkpoint": 12
+  },
+  "marker_lists_ps2_only": [
+   "BoomCameras",
+   "FlightList",
+   "LeftOuterLimit2",
+   "RightOuterLimit2",
+   "StaticCameras"
+  ],
+  "marker_lists_pc_only": [
+   "LeftInnerLimit",
+   "LeftOuterLimit",
+   "RightInnerLimit",
+   "RightOuterLimit"
+  ],
+  "entities": [
+   80,
+   73
+  ]
+ },
+ {
+  "course": "TURKEYS2FLIP",
+  "splits_ps2": 3,
+  "splits_pc": 4,
+  "splits_shared_by_name": 3,
+  "shared_splits_identical": 3,
+  "split_differences": {},
+  "pc_only_splits": [
+   "Copy of SplitTime0"
+  ],
+  "ps2_only_splits": [],
+  "copy_of_eggs_pc": [
+   "Copy of SplitTime0",
+   "Copy of SplitTime0-0",
+   "Copy of SplitTime0-1",
+   "Copy of SplitTime0-2",
+   "Copy of SplitTime0-3"
+  ],
+  "copy_of_eggs_ps2": [],
+  "ps2_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 3,
+   "gaAnimals_BirdManager": 1,
+   "aiSpawnParticle": 5,
+   "gaRaceSplitTimeAI": 3
+  },
+  "pc_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 0,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 4
+  },
+  "ps2_checkpoint_models": {
+   "misc\\objects\\checkpoints\\checkpoint": 12
+  },
+  "pc_checkpoint_models": {
+   "misc\\checkpoints\\checkpoint": 16
+  },
+  "marker_lists_ps2_only": [
+   "BoomCameras",
+   "FlightList",
+   "LeftOuterLimit2",
+   "RightOuterLimit2",
+   "StaticCameras"
+  ],
+  "marker_lists_pc_only": [
+   "LeftInnerLimit",
+   "LeftOuterLimit",
+   "RightInnerLimit",
+   "RightOuterLimit"
+  ],
+  "entities": [
+   75,
+   71
+  ]
+ },
+ {
+  "course": "TURKEYW",
+  "splits_ps2": 3,
+  "splits_pc": 3,
+  "splits_shared_by_name": 3,
+  "shared_splits_identical": 3,
+  "split_differences": {},
+  "pc_only_splits": [],
+  "ps2_only_splits": [],
+  "copy_of_eggs_pc": [],
+  "copy_of_eggs_ps2": [
+   "Copy of PaceNote11",
+   "Copy of PaceNote7"
+  ],
+  "ps2_controllers": {
+   "gaEntitySpline": 1,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 1,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "pc_controllers": {
+   "gaEntitySpline": 0,
+   "gaAiRigidBody": 0,
+   "gaAnimals_BirdManager": 0,
+   "aiSpawnParticle": 0,
+   "gaRaceSplitTimeAI": 3
+  },
+  "ps2_checkpoint_models": {
+   "misc\\objects\\checkpoints\\checkpoint": 12
+  },
+  "pc_checkpoint_models": {
+   "misc\\checkpoints\\checkpoint": 12
+  },
+  "marker_lists_ps2_only": [
+   "BoomCameras",
+   "FlightList",
+   "LeftOuterLimit2",
+   "RightOuterLimit2",
+   "StaticCameras",
+   "bargelist"
+  ],
+  "marker_lists_pc_only": [
+   "LeftInnerLimit",
+   "LeftOuterLimit",
+   "RightInnerLimit",
+   "RightOuterLimit"
+  ],
+  "entities": [
+   69,
+   65
+  ]
+ }
+]

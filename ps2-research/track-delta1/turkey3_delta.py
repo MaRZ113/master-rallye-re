@@ -241,6 +241,40 @@ def scene_elements(ps2, pc, ps2_rows, pc_rows):
     return els
 
 
+def collision_elements(here):
+    """Collision elements from the T2 measurements (static; PC and PCSX2 runtime probes still pending)."""
+    solid_map = json.loads((here / 'turkey3-ps2-solid-map.json').read_text(encoding='utf-8'))
+    columns = json.loads((here / 'gcoll-columns-turkey3.json').read_text(encoding='utf-8'))
+    c = solid_map['counts']
+    near = columns['exact_match_ground_within_30_of_route']
+    far = columns['exact_match_ground_beyond_30_of_route']
+    common = {'layer': 'collision', 'evidence': 'STATIC_INFERENCE', 'status': 'RESEARCHED', 'pcsx2_verification': 'REQUIRED_PENDING',
+              'gates': []}
+    return [
+        dict(common, id='TURKEY3:collision:corridor_ground', delta_class='SAME', channels=channels('N_A', 'N_A', 'NONE', 'N_A'),
+             sources=['track-delta1/T2-QUERIES.md', 'track-delta1/gcoll-columns-turkey3.json'],
+             metrics={'columns_within_30_of_route': near['columns'], 'ps2_matches_pc_within_0.05': near['within_0.05']},
+             blocker='Static agreement only; PC and PCSX2 runtime check pending'),
+        dict(common, id='TURKEY3:collision:solid_exterior', delta_class='DIFFERENT_LOGIC',
+             channels=channels('N_A', 'N_A', 'UNDECIDED', 'UNDECIDED'),
+             sources=['track-delta1/T2-SOLID-SHELL.md', 'track-delta1/turkey3-ps2-solid-map.json', 'track-delta1/gcoll-census-36.json'],
+             metrics={'pc_ground_cells': c['pc_ground'], 'ps2_solid_at_3_cells': c['solid_at_3'], 'ps2_solid_at_100_cells': c['solid_at_100'],
+                      'exact_match_columns_beyond_30': far['columns'], 'ps2_matches_pc_within_0.05_beyond_30': far['within_0.05']},
+             blocker='PS2 collision is solid outside the corridor, PC tag100 is open; whether the engine blocks cars there is UNKNOWN until the runtime probes in T2-SOLID-SHELL.md are done; compile of the PS2 tree into PC tag100 needs the tag100 writer (none exists)'),
+        dict(common, id='TURKEY3:collision:ps2_only_ground', delta_class='DIFFERENT_LOGIC', channels=channels('N_A', 'N_A', 'UNDECIDED', 'N_A'),
+             sources=['track-delta1/T2-QUERIES.md'],
+             metrics={'columns_within_30_of_route': columns['non_exact_ground_within_30_of_route']['columns'],
+                      'ps2_matches_pc_within_0.05': columns['non_exact_ground_within_30_of_route']['within_0.05'],
+                      'columns_beyond_30': columns['non_exact_ground_beyond_30_of_route']['columns'],
+                      'ps2_matches_pc_within_0.05_beyond_30': columns['non_exact_ground_beyond_30_of_route']['within_0.05']},
+             blocker='PS2-only visual ground has different collision contact heights than PC; confirm with a runtime probe'),
+        dict(common, id='TURKEY3:surface:type_ids', layer='surface', delta_class='UNCLASSIFIED', channels=channels('N_A', 'N_A', 'UNDECIDED', 'N_A'),
+             sources=['track-delta1/T2-BSP-FORMAT.md'], evidence='UNKNOWN',
+             metrics={'bsp_plane_codes': 'not tag103 triangle indices (6 of 41,245 planes match)'},
+             blocker='Mapping from BSP plane code to material or $surfacetype not found; PC side surfaces come from $grnd in the TXT sidecar'),
+    ]
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--geometry-report', type=Path, default=ROOT / 'data/geom1/TURKEY3-cli.json')
@@ -279,7 +313,7 @@ def main():
             'ps2_psm_sha256': report['ps2_source']['decoded_sha256'],
             'pc_dx_sha256': sha(args.pc_dx),
             'pcsx2_required': True,
-            'elements': geom + scene_elements(ps2, pc, ps2_rows, pc_rows)}],
+            'elements': geom + scene_elements(ps2, pc, ps2_rows, pc_rows) + collision_elements(Path(__file__).resolve().parent)}],
     }
     args.output.write_text(json.dumps(registry, indent=2, sort_keys=True) + '\n', encoding='utf-8')
     print(json.dumps({'elements': len(registry['courses'][0]['elements']), 'exact_ps2_triangles': exact}))

@@ -67,6 +67,11 @@ Plane convention `n.p + d >= 0` is the front half-space and it is the **second**
 the first link (`child`). PC tag100 uses the same convention: 98% empty above ground and 99% solid below it (`T2-QUERIES.md`).
 Both links of a plane node are used; every `-1` leaf is on a back link and every `+1` leaf on a front link, on PS2 and PC alike.
 
+## Plane codes (negative result)
+`bsp_code_probe.py` tests whether a plane's `code` is the index of a tag103 triangle of the same landscape PSM (which would give the material and `$surfacetype`).
+On Turkey3 only 6 of 41,245 table planes equal the plane of the triangle with that index, 10,921 codes exceed the tag103 triangle count (22,016)
+and 30,318 differ. The hypothesis is rejected; the codes are likely ids from the original collision source, not from tag103.
+
 ## Open
 - The meaning of `code` (polygon id? surface type?) and its link to visual polygons and `$surfacetype`.
 - The other two payload-leaf virtual methods and the tree walker used by the narrow phase (`0x2470f8` handles hull plane sets and calls other helpers).

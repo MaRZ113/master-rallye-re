@@ -35,6 +35,22 @@ The corridor edge is therefore a property of the collision data, not derived fro
 - UNKNOWN: the engine's handling of the solid exterior at the tree level (for example whether the vehicle code uses these leaves at all
   for car-versus-world contact), and whether the solid belongs to the original BSP source or to a compile default.
 
+## All 36 courses (static census)
+`gcoll_census.py` repeats the grid on every paired course (step 32, route box plus 300), using the PS2 BSP and the PC tag100 of the paired landscapes;
+results in `gcoll-census-36.json`. All 36 pairs ran. Share of PC-ground cells that are solid in PS2 at +3 above ground, per distance from the RaceLine:
+
+| Distance | Minimum | Median | Maximum |
+|---|---:|---:|---:|
+| 0 to 50 units | 0.4% | 9.2% | 22.0% |
+| 50 to 100 | 28.2% | 47.3% | 66.3% |
+| 100 to 200 | 59.5% | 78.3% | 93.0% |
+| beyond 200 | 48.3% | 73.8% | 99.9% |
+
+The values at +100 are within 0.2 points of the values at +3 on every course, so the solid columns are full height on all of them.
+The solid exterior is therefore not a Turkey3 quirk: it appears on all 36 courses, and the far field is rarely fully solid
+(lowest ItalyW1 48%, SpainM 56%, ItalyM1 56%), consistent with open rectangular patches like the ones in the Turkey3 map.
+Flip courses give identical numbers to their originals, as expected.
+
 ## Runtime probes (required by the policy; not performed)
 Drive or teleport the car from the road toward the wall at the points below, both on the PC game (Stock) and on PS2 under PCSX2
 (`C:\Games\PCSX2_Nightly`, canonical disc). Record whether the car is stopped at the wall position, what the HUD limit state shows,

@@ -77,6 +77,14 @@ Each element now has per-aspect channels (`visual`, `spawn`, `physics`, `logic`)
 non-SAME Turkey3 elements, per the revised policy) and, for triggers, `behavior_intent`
 (see [../track-port0/policy.md](../track-port0/policy.md)).
 
+## Collision work (T2) and logic census (T1-full, logic part)
+- [T2-BSP-FORMAT.md](T2-BSP-FORMAT.md): PS2 `.BSP` grammar, leaf classes and the solidity rule recovered from the ELF; reader `ps2_bsp.py`, parses all 36 files exactly.
+- [T2-QUERIES.md](T2-QUERIES.md): first G-COLL measurements (PS2 BSP versus PC tag100 ground contact heights on Turkey3).
+- [T2-SOLID-SHELL.md](T2-SOLID-SHELL.md): PS2 solid space outside the corridor, map, limit lists, 36-course census and the runtime probe plan.
+- [SCENE-CENSUS.md](SCENE-CENSUS.md): splits, limit lists and controllers over all 36 courses.
+The registry now has collision and surface elements for Turkey3 (21 elements).
+
 ## Next
-Turkey3 vertical-slice prototype comes before the other courses. The full 36-course census (T1-full) follows the prototype.
-Still open on Turkey3: visual review of the ground extras, PCSX2 captures (mandatory), and what the PC `Copy of` Eggs do.
+Needs the user: runtime probes (PC and PCSX2) from [T2-SOLID-SHELL.md](T2-SOLID-SHELL.md), then the Turkey3 prototype A/B.
+Static work that remains: geometry and material census for the other 33 courses (requires lifting the three-course hash gate in `geometry_delta.py`),
+more G-COLL queries (horizontal rays, convex sweeps, hull penetration), the meaning of BSP plane codes, and the two other payload-leaf virtual methods.

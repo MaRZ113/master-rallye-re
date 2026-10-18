@@ -1,0 +1,1262 @@
+[
+ {
+  "bsp_nodes": 93161,
+  "pc_tag100_nodes": 351793,
+  "route_points": 448,
+  "cells_with_pc_ground": 6049,
+  "bands": [
+   {
+    "distance": "0-50",
+    "cells": 865,
+    "ps2_solid_at_3_percent": 7.5,
+    "ps2_solid_at_100_percent": 7.4
+   },
+   {
+    "distance": "50-100",
+    "cells": 786,
+    "ps2_solid_at_3_percent": 42.7,
+    "ps2_solid_at_100_percent": 42.7
+   },
+   {
+    "distance": "100-200",
+    "cells": 1299,
+    "ps2_solid_at_3_percent": 82.7,
+    "ps2_solid_at_100_percent": 82.4
+   },
+   {
+    "distance": "200-inf",
+    "cells": 3099,
+    "ps2_solid_at_3_percent": 80.4,
+    "ps2_solid_at_100_percent": 80.4
+   }
+  ],
+  "course": "FRANCE1",
+  "landscape": "course\\france1\\france1",
+  "seconds": 3.8
+ },
+ {
+  "bsp_nodes": 74581,
+  "pc_tag100_nodes": 355677,
+  "route_points": 349,
+  "cells_with_pc_ground": 3898,
+  "bands": [
+   {
+    "distance": "0-50",
+    "cells": 671,
+    "ps2_solid_at_3_percent": 20.1,
+    "ps2_solid_at_100_percent": 19.8
+   },
+   {
+    "distance": "50-100",
+    "cells": 618,
+    "ps2_solid_at_3_percent": 59.4,
+    "ps2_solid_at_100_percent": 59.1
+   },
+   {
+    "distance": "100-200",
+    "cells": 985,
+    "ps2_solid_at_3_percent": 81.5,
+    "ps2_solid_at_100_percent": 81.4
+   },
+   {
+    "distance": "200-inf",
+    "cells": 1624,
+    "ps2_solid_at_3_percent": 62.7,
+    "ps2_solid_at_100_percent": 62.7
+   }
+  ],
+  "course": "FRANCE2",
+  "landscape": "course\\france2\\france2",
+  "seconds": 3.5
+ },
+ {
+  "bsp_nodes": 89279,
+  "pc_tag100_nodes": 379165,
+  "route_points": 412,
+  "cells_with_pc_ground": 6622,
+  "bands": [
+   {
+    "distance": "0-50",
+    "cells": 800,
+    "ps2_solid_at_3_percent": 11.8,
+    "ps2_solid_at_100_percent": 11.6
+   },
+   {
+    "distance": "50-100",
+    "cells": 757,
+    "ps2_solid_at_3_percent": 46.8,
+    "ps2_solid_at_100_percent": 46.8
+   },
+   {
+    "distance": "100-200",
+    "cells": 1312,
+    "ps2_solid_at_3_percent": 70.4,
+    "ps2_solid_at_100_percent": 70.1
+   },
+   {
+    "distance": "200-inf",
+    "cells": 3753,
+    "ps2_solid_at_3_percent": 63.5,
+    "ps2_solid_at_100_percent": 63.5
+   }
+  ],
+  "course": "FRANCEM",
+  "landscape": "course\\france_m\\francem",
+  "seconds": 4.0
+ },
+ {
+  "bsp_nodes": 84263,
+  "pc_tag100_nodes": 383803,
+  "route_points": 388,
+  "cells_with_pc_ground": 7097,
+  "bands": [
+   {
+    "distance": "0-50",
+    "cells": 753,
+    "ps2_solid_at_3_percent": 7.7,
+    "ps2_solid_at_100_percent": 8.2
+   },
+   {
+    "distance": "50-100",
+    "cells": 704,
+    "ps2_solid_at_3_percent": 49.3,
+    "ps2_solid_at_100_percent": 50.0
+   },
+   {
+    "distance": "100-200",
+    "cells": 1208,
+    "ps2_solid_at_3_percent": 80.4,
+    "ps2_solid_at_100_percent": 79.7
+   },
+   {
+    "distance": "200-inf",
+    "cells": 4432,
+    "ps2_solid_at_3_percent": 59.1,
+    "ps2_solid_at_100_percent": 59.0
+   }
+  ],
+  "course": "FRANCES1",
+  "landscape": "course\\france_s1\\frances1",
+  "seconds": 4.1
+ },
+ {
+  "bsp_nodes": 82393,
+  "pc_tag100_nodes": 345659,
+  "route_points": 429,
+  "cells_with_pc_ground": 9086,
+  "bands": [
+   {
+    "distance": "0-50",
+    "cells": 829,
+    "ps2_solid_at_3_percent": 15.3,
+    "ps2_solid_at_100_percent": 15.3
+   },
+   {
+    "distance": "50-100",
+    "cells": 732,
+    "ps2_solid_at_3_percent": 47.3,
+    "ps2_solid_at_100_percent": 47.1
+   },
+   {
+    "distance": "100-200",
+    "cells": 1375,
+    "ps2_solid_at_3_percent": 83.3,
+    "ps2_solid_at_100_percent": 83.2
+   },
+   {
+    "distance": "200-inf",
+    "cells": 6150,
+    "ps2_solid_at_3_percent": 66.6,
+    "ps2_solid_at_100_percent": 66.6
+   }
+  ],
+  "course": "FRANCES2",
+  "landscape": "course\\france_s2\\frances2",
+  "seconds": 4.0
+ },
+ {
+  "bsp_nodes": 89197,
+  "pc_tag100_nodes": 386835,
+  "route_points": 429,
+  "cells_with_pc_ground": 6006,
+  "bands": [
+   {
+    "distance": "0-50",
+    "cells": 817,
+    "ps2_solid_at_3_percent": 9.1,
+    "ps2_solid_at_100_percent": 9.1
+   },
+   {
+    "distance": "50-100",
+    "cells": 752,
+    "ps2_solid_at_3_percent": 36.3,
+    "ps2_solid_at_100_percent": 36.2
+   },
+   {
+    "distance": "100-200",
+    "cells": 1327,
+    "ps2_solid_at_3_percent": 71.1,
+    "ps2_solid_at_100_percent": 71.0
+   },
+   {
+    "distance": "200-inf",
+    "cells": 3110,
+    "ps2_solid_at_3_percent": 73.8,
+    "ps2_solid_at_100_percent": 73.8
+   }
+  ],
+  "course": "FRANCEW",
+  "landscape": "course\\france_w\\francew",
+  "seconds": 4.0
+ },
+ {
+  "bsp_nodes": 87989,
+  "pc_tag100_nodes": 386691,
+  "route_points": 429,
+  "cells_with_pc_ground": 6006,
+  "bands": [
+   {
+    "distance": "0-50",
+    "cells": 817,
+    "ps2_solid_at_3_percent": 9.4,
+    "ps2_solid_at_100_percent": 9.4
+   },
+   {
+    "distance": "50-100",
+    "cells": 752,
+    "ps2_solid_at_3_percent": 36.3,
+    "ps2_solid_at_100_percent": 36.0
+   },
+   {
+    "distance": "100-200",
+    "cells": 1325,
+    "ps2_solid_at_3_percent": 71.2,
+    "ps2_solid_at_100_percent": 71.1
+   },
+   {
+    "distance": "200-inf",
+    "cells": 3112,
+    "ps2_solid_at_3_percent": 73.7,
+    "ps2_solid_at_100_percent": 73.7
+   }
+  ],
+  "course": "FRANCEWFLIP",
+  "landscape": "course\\france_w_flip\\francew_flip",
+  "seconds": 4.0
+ },
+ {
+  "bsp_nodes": 85045,
+  "pc_tag100_nodes": 254899,
+  "route_points": 213,
+  "cells_with_pc_ground": 3129,
+  "bands": [
+   {
+    "distance": "0-50",
+    "cells": 652,
+    "ps2_solid_at_3_percent": 7.8,
+    "ps2_solid_at_100_percent": 7.7
+   },
+   {
+    "distance": "50-100",
+    "cells": 475,
+    "ps2_solid_at_3_percent": 47.2,
+    "ps2_solid_at_100_percent": 47.2
+   },
+   {
+    "distance": "100-200",
+    "cells": 717,
+    "ps2_solid_at_3_percent": 79.4,
+    "ps2_solid_at_100_percent": 79.4
+   },
+   {
+    "distance": "200-inf",
+    "cells": 1285,
+    "ps2_solid_at_3_percent": 79.3,
+    "ps2_solid_at_100_percent": 79.3
+   }
+  ],
+  "course": "ITALY1",
+  "landscape": "course\\italy1\\italy1",
+  "seconds": 2.5
+ },
+ {
+  "bsp_nodes": 69941,
+  "pc_tag100_nodes": 212957,
+  "route_points": 175,
+  "cells_with_pc_ground": 4471,
+  "bands": [
+   {
+    "distance": "0-50",
+    "cells": 666,
+    "ps2_solid_at_3_percent": 5.9,
+    "ps2_solid_at_100_percent": 5.9
+   },
+   {
+    "distance": "50-100",
+    "cells": 609,
+    "ps2_solid_at_3_percent": 34.3,
+    "ps2_solid_at_100_percent": 34.3
+   },
+   {
+    "distance": "100-200",
+    "cells": 1033,
+    "ps2_solid_at_3_percent": 66.9,
+    "ps2_solid_at_100_percent": 66.9
+   },
+   {
+    "distance": "200-inf",
+    "cells": 2163,
+    "ps2_solid_at_3_percent": 62.4,
+    "ps2_solid_at_100_percent": 62.4
+   }
+  ],
+  "course": "ITALY2",
+  "landscape": "course\\italy2\\italy2",
+  "seconds": 2.3
+ },
+ {
+  "bsp_nodes": 68735,
+  "pc_tag100_nodes": 346581,
+  "route_points": 136,
+  "cells_with_pc_ground": 4967,
+  "bands": [
+   {
+    "distance": "0-50",
+    "cells": 542,
+    "ps2_solid_at_3_percent": 0.4,
+    "ps2_solid_at_100_percent": 0.4
+   },
+   {
+    "distance": "50-100",
+    "cells": 553,
+    "ps2_solid_at_3_percent": 28.2,
+    "ps2_solid_at_100_percent": 28.2
+   },
+   {
+    "distance": "100-200",
+    "cells": 1108,
+    "ps2_solid_at_3_percent": 78.5,
+    "ps2_solid_at_100_percent": 78.5
+   },
+   {
+    "distance": "200-inf",
+    "cells": 2764,
+    "ps2_solid_at_3_percent": 83.1,
+    "ps2_solid_at_100_percent": 83.1
+   }
+  ],
+  "course": "ITALY3",
+  "landscape": "course\\italy3\\italy3",
+  "seconds": 3.2
+ },
+ {
+  "bsp_nodes": 88899,
+  "pc_tag100_nodes": 284147,
+  "route_points": 385,
+  "cells_with_pc_ground": 7096,
+  "bands": [
+   {
+    "distance": "0-50",
+    "cells": 792,
+    "ps2_solid_at_3_percent": 7.2,
+    "ps2_solid_at_100_percent": 7.2
+   },
+   {
+    "distance": "50-100",
+    "cells": 633,
+    "ps2_solid_at_3_percent": 46.0,
+    "ps2_solid_at_100_percent": 46.0
+   },
+   {
+    "distance": "100-200",
+    "cells": 1108,
+    "ps2_solid_at_3_percent": 75.4,
+    "ps2_solid_at_100_percent": 75.1
+   },
+   {
+    "distance": "200-inf",
+    "cells": 4563,
+    "ps2_solid_at_3_percent": 55.9,
+    "ps2_solid_at_100_percent": 55.9
+   }
+  ],
+  "course": "ITALYM1",
+  "landscape": "course\\italy_m1\\italy_m1",
+  "seconds": 3.3
+ },
+ {
+  "bsp_nodes": 88757,
+  "pc_tag100_nodes": 284147,
+  "route_points": 385,
+  "cells_with_pc_ground": 7096,
+  "bands": [
+   {
+    "distance": "0-50",
+    "cells": 792,
+    "ps2_solid_at_3_percent": 7.2,
+    "ps2_solid_at_100_percent": 7.2
+   },
+   {
+    "distance": "50-100",
+    "cells": 633,
+    "ps2_solid_at_3_percent": 46.0,
+    "ps2_solid_at_100_percent": 46.0
+   },
+   {
+    "distance": "100-200",
+    "cells": 1108,
+    "ps2_solid_at_3_percent": 75.4,
+    "ps2_solid_at_100_percent": 75.1
+   },
+   {
+    "distance": "200-inf",
+    "cells": 4563,
+    "ps2_solid_at_3_percent": 55.9,
+    "ps2_solid_at_100_percent": 55.9
+   }
+  ],
+  "course": "ITALYM1FLIP",
+  "landscape": "course\\italy_m1_flip\\italy_m1_flip",
+  "seconds": 3.2
+ },
+ {
+  "bsp_nodes": 84365,
+  "pc_tag100_nodes": 347871,
+  "route_points": 386,
+  "cells_with_pc_ground": 7693,
+  "bands": [
+   {
+    "distance": "0-50",
+    "cells": 831,
+    "ps2_solid_at_3_percent": 4.7,
+    "ps2_solid_at_100_percent": 4.7
+   },
+   {
+    "distance": "50-100",
+    "cells": 773,
+    "ps2_solid_at_3_percent": 38.0,
+    "ps2_solid_at_100_percent": 38.0
+   },
+   {
+    "distance": "100-200",
+    "cells": 1447,
+    "ps2_solid_at_3_percent": 69.7,
+    "ps2_solid_at_100_percent": 69.7
+   },
+   {
+    "distance": "200-inf",
+    "cells": 4642,
+    "ps2_solid_at_3_percent": 60.1,
+    "ps2_solid_at_100_percent": 60.1
+   }
+  ],
+  "course": "ITALYM2",
+  "landscape": "course\\italy_m2\\italy_m2",
+  "seconds": 3.7
+ },
+ {
+  "bsp_nodes": 73275,
+  "pc_tag100_nodes": 246795,
+  "route_points": 292,
+  "cells_with_pc_ground": 5561,
+  "bands": [
+   {
+    "distance": "0-50",
+    "cells": 595,
+    "ps2_solid_at_3_percent": 2.9,
+    "ps2_solid_at_100_percent": 2.9
+   },
+   {
+    "distance": "50-100",
+    "cells": 462,
+    "ps2_solid_at_3_percent": 41.3,
+    "ps2_solid_at_100_percent": 41.3
+   },
+   {
+    "distance": "100-200",
+    "cells": 813,
+    "ps2_solid_at_3_percent": 89.1,
+    "ps2_solid_at_100_percent": 88.9
+   },
+   {
+    "distance": "200-inf",
+    "cells": 3691,
+    "ps2_solid_at_3_percent": 64.3,
+    "ps2_solid_at_100_percent": 64.3
+   }
+  ],
+  "course": "ITALYS1",
+  "landscape": "course\\italy_s1\\italy_s1",
+  "seconds": 2.6
+ },
+ {
+  "bsp_nodes": 80829,
+  "pc_tag100_nodes": 283931,
+  "route_points": 416,
+  "cells_with_pc_ground": 5306,
+  "bands": [
+   {
+    "distance": "0-50",
+    "cells": 848,
+    "ps2_solid_at_3_percent": 12.6,
+    "ps2_solid_at_100_percent": 12.6
+   },
+   {
+    "distance": "50-100",
+    "cells": 688,
+    "ps2_solid_at_3_percent": 52.5,
+    "ps2_solid_at_100_percent": 52.5
+   },
+   {
+    "distance": "100-200",
+    "cells": 1131,
+    "ps2_solid_at_3_percent": 72.8,
+    "ps2_solid_at_100_percent": 72.7
+   },
+   {
+    "distance": "200-inf",
+    "cells": 2639,
+    "ps2_solid_at_3_percent": 69.2,
+    "ps2_solid_at_100_percent": 69.2
+   }
+  ],
+  "course": "ITALYS2",
+  "landscape": "course\\italy_s2\\italy_s2",
+  "seconds": 3.0
+ },
+ {
+  "bsp_nodes": 80567,
+  "pc_tag100_nodes": 326789,
+  "route_points": 346,
+  "cells_with_pc_ground": 9129,
+  "bands": [
+   {
+    "distance": "0-50",
+    "cells": 723,
+    "ps2_solid_at_3_percent": 6.1,
+    "ps2_solid_at_100_percent": 6.1
+   },
+   {
+    "distance": "50-100",
+    "cells": 684,
+    "ps2_solid_at_3_percent": 34.1,
+    "ps2_solid_at_100_percent": 34.1
+   },
+   {
+    "distance": "100-200",
+    "cells": 1284,
+    "ps2_solid_at_3_percent": 77.8,
+    "ps2_solid_at_100_percent": 77.8
+   },
+   {
+    "distance": "200-inf",
+    "cells": 6438,
+    "ps2_solid_at_3_percent": 75.0,
+    "ps2_solid_at_100_percent": 75.0
+   }
+  ],
+  "course": "ITALYS3",
+  "landscape": "course\\italy_s3\\italy_s3",
+  "seconds": 3.6
+ },
+ {
+  "bsp_nodes": 80515,
+  "pc_tag100_nodes": 327853,
+  "route_points": 340,
+  "cells_with_pc_ground": 8855,
+  "bands": [
+   {
+    "distance": "0-50",
+    "cells": 716,
+    "ps2_solid_at_3_percent": 6.7,
+    "ps2_solid_at_100_percent": 6.7
+   },
+   {
+    "distance": "50-100",
+    "cells": 659,
+    "ps2_solid_at_3_percent": 32.9,
+    "ps2_solid_at_100_percent": 32.9
+   },
+   {
+    "distance": "100-200",
+    "cells": 1275,
+    "ps2_solid_at_3_percent": 78.1,
+    "ps2_solid_at_100_percent": 78.1
+   },
+   {
+    "distance": "200-inf",
+    "cells": 6205,
+    "ps2_solid_at_3_percent": 76.4,
+    "ps2_solid_at_100_percent": 76.4
+   }
+  ],
+  "course": "ITALYS3FLIP",
+  "landscape": "course\\italy_s3_flip\\italy_s3_flip",
+  "seconds": 3.6
+ },
+ {
+  "bsp_nodes": 83689,
+  "pc_tag100_nodes": 379767,
+  "route_points": 365,
+  "cells_with_pc_ground": 8074,
+  "bands": [
+   {
+    "distance": "0-50",
+    "cells": 761,
+    "ps2_solid_at_3_percent": 3.0,
+    "ps2_solid_at_100_percent": 2.5
+   },
+   {
+    "distance": "50-100",
+    "cells": 696,
+    "ps2_solid_at_3_percent": 40.5,
+    "ps2_solid_at_100_percent": 39.9
+   },
+   {
+    "distance": "100-200",
+    "cells": 1318,
+    "ps2_solid_at_3_percent": 79.5,
+    "ps2_solid_at_100_percent": 79.5
+   },
+   {
+    "distance": "200-inf",
+    "cells": 5299,
+    "ps2_solid_at_3_percent": 77.9,
+    "ps2_solid_at_100_percent": 77.9
+   }
+  ],
+  "course": "ITALYS4",
+  "landscape": "course\\italy_s4\\italy_s4",
+  "seconds": 4.0
+ },
+ {
+  "bsp_nodes": 78255,
+  "pc_tag100_nodes": 282221,
+  "route_points": 354,
+  "cells_with_pc_ground": 5395,
+  "bands": [
+   {
+    "distance": "0-50",
+    "cells": 699,
+    "ps2_solid_at_3_percent": 10.2,
+    "ps2_solid_at_100_percent": 10.2
+   },
+   {
+    "distance": "50-100",
+    "cells": 567,
+    "ps2_solid_at_3_percent": 50.1,
+    "ps2_solid_at_100_percent": 50.1
+   },
+   {
+    "distance": "100-200",
+    "cells": 919,
+    "ps2_solid_at_3_percent": 78.1,
+    "ps2_solid_at_100_percent": 78.1
+   },
+   {
+    "distance": "200-inf",
+    "cells": 3210,
+    "ps2_solid_at_3_percent": 48.3,
+    "ps2_solid_at_100_percent": 48.3
+   }
+  ],
+  "course": "ITALYW1",
+  "landscape": "course\\italy_w1\\italy_w1",
+  "seconds": 3.0
+ },
+ {
+  "bsp_nodes": 86173,
+  "pc_tag100_nodes": 375001,
+  "route_points": 356,
+  "cells_with_pc_ground": 8036,
+  "bands": [
+   {
+    "distance": "0-50",
+    "cells": 737,
+    "ps2_solid_at_3_percent": 4.5,
+    "ps2_solid_at_100_percent": 4.5
+   },
+   {
+    "distance": "50-100",
+    "cells": 681,
+    "ps2_solid_at_3_percent": 38.8,
+    "ps2_solid_at_100_percent": 38.8
+   },
+   {
+    "distance": "100-200",
+    "cells": 1263,
+    "ps2_solid_at_3_percent": 80.7,
+    "ps2_solid_at_100_percent": 80.7
+   },
+   {
+    "distance": "200-inf",
+    "cells": 5355,
+    "ps2_solid_at_3_percent": 69.1,
+    "ps2_solid_at_100_percent": 69.1
+   }
+  ],
+  "course": "ITALYW2",
+  "landscape": "course\\italy_w2\\italy_w2",
+  "seconds": 4.0
+ },
+ {
+  "bsp_nodes": 74647,
+  "pc_tag100_nodes": 174559,
+  "route_points": 307,
+  "cells_with_pc_ground": 3763,
+  "bands": [
+   {
+    "distance": "0-50",
+    "cells": 573,
+    "ps2_solid_at_3_percent": 15.4,
+    "ps2_solid_at_100_percent": 15.4
+   },
+   {
+    "distance": "50-100",
+    "cells": 504,
+    "ps2_solid_at_3_percent": 51.2,
+    "ps2_solid_at_100_percent": 51.2
+   },
+   {
+    "distance": "100-200",
+    "cells": 853,
+    "ps2_solid_at_3_percent": 75.3,
+    "ps2_solid_at_100_percent": 75.3
+   },
+   {
+    "distance": "200-inf",
+    "cells": 1833,
+    "ps2_solid_at_3_percent": 68.5,
+    "ps2_solid_at_100_percent": 68.5
+   }
+  ],
+  "course": "SPAIN1",
+  "landscape": "course\\spain1\\spain1",
+  "seconds": 1.9
+ },
+ {
+  "bsp_nodes": 72793,
+  "pc_tag100_nodes": 218897,
+  "route_points": 324,
+  "cells_with_pc_ground": 3558,
+  "bands": [
+   {
+    "distance": "0-50",
+    "cells": 724,
+    "ps2_solid_at_3_percent": 18.1,
+    "ps2_solid_at_100_percent": 17.4
+   },
+   {
+    "distance": "50-100",
+    "cells": 563,
+    "ps2_solid_at_3_percent": 64.3,
+    "ps2_solid_at_100_percent": 64.3
+   },
+   {
+    "distance": "100-200",
+    "cells": 711,
+    "ps2_solid_at_3_percent": 86.8,
+    "ps2_solid_at_100_percent": 86.8
+   },
+   {
+    "distance": "200-inf",
+    "cells": 1560,
+    "ps2_solid_at_3_percent": 86.7,
+    "ps2_solid_at_100_percent": 86.7
+   }
+  ],
+  "course": "SPAIN2",
+  "landscape": "course\\spain2\\spain2",
+  "seconds": 2.4
+ },
+ {
+  "bsp_nodes": 74885,
+  "pc_tag100_nodes": 210089,
+  "route_points": 401,
+  "cells_with_pc_ground": 3830,
+  "bands": [
+   {
+    "distance": "0-50",
+    "cells": 649,
+    "ps2_solid_at_3_percent": 12.6,
+    "ps2_solid_at_100_percent": 12.5
+   },
+   {
+    "distance": "50-100",
+    "cells": 517,
+    "ps2_solid_at_3_percent": 51.8,
+    "ps2_solid_at_100_percent": 51.8
+   },
+   {
+    "distance": "100-200",
+    "cells": 833,
+    "ps2_solid_at_3_percent": 69.4,
+    "ps2_solid_at_100_percent": 69.4
+   },
+   {
+    "distance": "200-inf",
+    "cells": 1831,
+    "ps2_solid_at_3_percent": 55.6,
+    "ps2_solid_at_100_percent": 55.6
+   }
+  ],
+  "course": "SPAINM",
+  "landscape": "course\\spain_m\\spain_m",
+  "seconds": 2.4
+ },
+ {
+  "bsp_nodes": 80499,
+  "pc_tag100_nodes": 236859,
+  "route_points": 337,
+  "cells_with_pc_ground": 5364,
+  "bands": [
+   {
+    "distance": "0-50",
+    "cells": 726,
+    "ps2_solid_at_3_percent": 21.9,
+    "ps2_solid_at_100_percent": 21.3
+   },
+   {
+    "distance": "50-100",
+    "cells": 618,
+    "ps2_solid_at_3_percent": 59.7,
+    "ps2_solid_at_100_percent": 59.7
+   },
+   {
+    "distance": "100-200",
+    "cells": 968,
+    "ps2_solid_at_3_percent": 82.5,
+    "ps2_solid_at_100_percent": 82.5
+   },
+   {
+    "distance": "200-inf",
+    "cells": 3052,
+    "ps2_solid_at_3_percent": 76.3,
+    "ps2_solid_at_100_percent": 76.3
+   }
+  ],
+  "course": "SPAINS1",
+  "landscape": "course\\spain_s1\\spain_s1",
+  "seconds": 2.7
+ },
+ {
+  "bsp_nodes": 80525,
+  "pc_tag100_nodes": 236797,
+  "route_points": 337,
+  "cells_with_pc_ground": 5364,
+  "bands": [
+   {
+    "distance": "0-50",
+    "cells": 726,
+    "ps2_solid_at_3_percent": 21.9,
+    "ps2_solid_at_100_percent": 21.3
+   },
+   {
+    "distance": "50-100",
+    "cells": 618,
+    "ps2_solid_at_3_percent": 59.7,
+    "ps2_solid_at_100_percent": 59.7
+   },
+   {
+    "distance": "100-200",
+    "cells": 968,
+    "ps2_solid_at_3_percent": 82.5,
+    "ps2_solid_at_100_percent": 82.5
+   },
+   {
+    "distance": "200-inf",
+    "cells": 3052,
+    "ps2_solid_at_3_percent": 76.3,
+    "ps2_solid_at_100_percent": 76.3
+   }
+  ],
+  "course": "SPAINS1FLIP",
+  "landscape": "course\\spain_s1_flip\\spain_s1_flip",
+  "seconds": 2.7
+ },
+ {
+  "bsp_nodes": 80507,
+  "pc_tag100_nodes": 219537,
+  "route_points": 258,
+  "cells_with_pc_ground": 4443,
+  "bands": [
+   {
+    "distance": "0-50",
+    "cells": 647,
+    "ps2_solid_at_3_percent": 18.7,
+    "ps2_solid_at_100_percent": 18.7
+   },
+   {
+    "distance": "50-100",
+    "cells": 564,
+    "ps2_solid_at_3_percent": 62.2,
+    "ps2_solid_at_100_percent": 61.9
+   },
+   {
+    "distance": "100-200",
+    "cells": 887,
+    "ps2_solid_at_3_percent": 82.1,
+    "ps2_solid_at_100_percent": 82.2
+   },
+   {
+    "distance": "200-inf",
+    "cells": 2345,
+    "ps2_solid_at_3_percent": 74.2,
+    "ps2_solid_at_100_percent": 74.2
+   }
+  ],
+  "course": "SPAINS2",
+  "landscape": "course\\spain_s2\\spain_s2",
+  "seconds": 2.4
+ },
+ {
+  "bsp_nodes": 83467,
+  "pc_tag100_nodes": 244621,
+  "route_points": 202,
+  "cells_with_pc_ground": 4559,
+  "bands": [
+   {
+    "distance": "0-50",
+    "cells": 737,
+    "ps2_solid_at_3_percent": 22.0,
+    "ps2_solid_at_100_percent": 22.0
+   },
+   {
+    "distance": "50-100",
+    "cells": 665,
+    "ps2_solid_at_3_percent": 63.9,
+    "ps2_solid_at_100_percent": 63.9
+   },
+   {
+    "distance": "100-200",
+    "cells": 990,
+    "ps2_solid_at_3_percent": 79.9,
+    "ps2_solid_at_100_percent": 80.0
+   },
+   {
+    "distance": "200-inf",
+    "cells": 2167,
+    "ps2_solid_at_3_percent": 80.1,
+    "ps2_solid_at_100_percent": 80.1
+   }
+  ],
+  "course": "SPAINW",
+  "landscape": "course\\spain_w\\spain_w",
+  "seconds": 2.6
+ },
+ {
+  "bsp_nodes": 83467,
+  "pc_tag100_nodes": 244621,
+  "route_points": 202,
+  "cells_with_pc_ground": 4559,
+  "bands": [
+   {
+    "distance": "0-50",
+    "cells": 737,
+    "ps2_solid_at_3_percent": 22.0,
+    "ps2_solid_at_100_percent": 22.0
+   },
+   {
+    "distance": "50-100",
+    "cells": 665,
+    "ps2_solid_at_3_percent": 63.9,
+    "ps2_solid_at_100_percent": 63.9
+   },
+   {
+    "distance": "100-200",
+    "cells": 990,
+    "ps2_solid_at_3_percent": 79.9,
+    "ps2_solid_at_100_percent": 80.0
+   },
+   {
+    "distance": "200-inf",
+    "cells": 2167,
+    "ps2_solid_at_3_percent": 80.1,
+    "ps2_solid_at_100_percent": 80.1
+   }
+  ],
+  "course": "SPAINWFLIP",
+  "landscape": "course\\spain_w_flip\\spain_w_flip",
+  "seconds": 2.6
+ },
+ {
+  "bsp_nodes": 112067,
+  "pc_tag100_nodes": 255643,
+  "route_points": 339,
+  "cells_with_pc_ground": 3113,
+  "bands": [
+   {
+    "distance": "0-50",
+    "cells": 715,
+    "ps2_solid_at_3_percent": 6.6,
+    "ps2_solid_at_100_percent": 6.6
+   },
+   {
+    "distance": "50-100",
+    "cells": 552,
+    "ps2_solid_at_3_percent": 66.3,
+    "ps2_solid_at_100_percent": 65.0
+   },
+   {
+    "distance": "100-200",
+    "cells": 771,
+    "ps2_solid_at_3_percent": 91.3,
+    "ps2_solid_at_100_percent": 90.9
+   },
+   {
+    "distance": "200-inf",
+    "cells": 1075,
+    "ps2_solid_at_3_percent": 99.9,
+    "ps2_solid_at_100_percent": 99.9
+   }
+  ],
+  "course": "TURKEY1",
+  "landscape": "course\\turkey1\\turkey1",
+  "seconds": 2.7
+ },
+ {
+  "bsp_nodes": 64875,
+  "pc_tag100_nodes": 255023,
+  "route_points": 349,
+  "cells_with_pc_ground": 3363,
+  "bands": [
+   {
+    "distance": "0-50",
+    "cells": 568,
+    "ps2_solid_at_3_percent": 12.7,
+    "ps2_solid_at_100_percent": 11.4
+   },
+   {
+    "distance": "50-100",
+    "cells": 457,
+    "ps2_solid_at_3_percent": 49.9,
+    "ps2_solid_at_100_percent": 49.7
+   },
+   {
+    "distance": "100-200",
+    "cells": 745,
+    "ps2_solid_at_3_percent": 85.1,
+    "ps2_solid_at_100_percent": 85.0
+   },
+   {
+    "distance": "200-inf",
+    "cells": 1593,
+    "ps2_solid_at_3_percent": 78.9,
+    "ps2_solid_at_100_percent": 78.9
+   }
+  ],
+  "course": "TURKEY2",
+  "landscape": "course\\turkey2\\turkey2",
+  "seconds": 2.6
+ },
+ {
+  "bsp_nodes": 99681,
+  "pc_tag100_nodes": 235089,
+  "route_points": 420,
+  "cells_with_pc_ground": 3948,
+  "bands": [
+   {
+    "distance": "0-50",
+    "cells": 769,
+    "ps2_solid_at_3_percent": 5.9,
+    "ps2_solid_at_100_percent": 5.5
+   },
+   {
+    "distance": "50-100",
+    "cells": 625,
+    "ps2_solid_at_3_percent": 33.9,
+    "ps2_solid_at_100_percent": 33.6
+   },
+   {
+    "distance": "100-200",
+    "cells": 911,
+    "ps2_solid_at_3_percent": 59.5,
+    "ps2_solid_at_100_percent": 59.5
+   },
+   {
+    "distance": "200-inf",
+    "cells": 1643,
+    "ps2_solid_at_3_percent": 85.5,
+    "ps2_solid_at_100_percent": 85.5
+   }
+  ],
+  "course": "TURKEY3",
+  "landscape": "course\\turkey3\\turkey3",
+  "seconds": 2.6
+ },
+ {
+  "bsp_nodes": 115475,
+  "pc_tag100_nodes": 347683,
+  "route_points": 458,
+  "cells_with_pc_ground": 5844,
+  "bands": [
+   {
+    "distance": "0-50",
+    "cells": 750,
+    "ps2_solid_at_3_percent": 11.2,
+    "ps2_solid_at_100_percent": 10.7
+   },
+   {
+    "distance": "50-100",
+    "cells": 543,
+    "ps2_solid_at_3_percent": 56.5,
+    "ps2_solid_at_100_percent": 56.0
+   },
+   {
+    "distance": "100-200",
+    "cells": 922,
+    "ps2_solid_at_3_percent": 93.0,
+    "ps2_solid_at_100_percent": 92.7
+   },
+   {
+    "distance": "200-inf",
+    "cells": 3629,
+    "ps2_solid_at_3_percent": 80.7,
+    "ps2_solid_at_100_percent": 80.7
+   }
+  ],
+  "course": "TURKEYM",
+  "landscape": "course\\turkey_m\\turkey_m",
+  "seconds": 3.8
+ },
+ {
+  "bsp_nodes": 83989,
+  "pc_tag100_nodes": 306001,
+  "route_points": 364,
+  "cells_with_pc_ground": 6907,
+  "bands": [
+   {
+    "distance": "0-50",
+    "cells": 677,
+    "ps2_solid_at_3_percent": 9.0,
+    "ps2_solid_at_100_percent": 8.6
+   },
+   {
+    "distance": "50-100",
+    "cells": 632,
+    "ps2_solid_at_3_percent": 47.3,
+    "ps2_solid_at_100_percent": 47.0
+   },
+   {
+    "distance": "100-200",
+    "cells": 1115,
+    "ps2_solid_at_3_percent": 75.1,
+    "ps2_solid_at_100_percent": 75.1
+   },
+   {
+    "distance": "200-inf",
+    "cells": 4483,
+    "ps2_solid_at_3_percent": 82.4,
+    "ps2_solid_at_100_percent": 82.4
+   }
+  ],
+  "course": "TURKEYS1",
+  "landscape": "course\\turkey_s1\\turkey_s1",
+  "seconds": 3.4
+ },
+ {
+  "bsp_nodes": 85299,
+  "pc_tag100_nodes": 305291,
+  "route_points": 469,
+  "cells_with_pc_ground": 5233,
+  "bands": [
+   {
+    "distance": "0-50",
+    "cells": 779,
+    "ps2_solid_at_3_percent": 13.6,
+    "ps2_solid_at_100_percent": 12.3
+   },
+   {
+    "distance": "50-100",
+    "cells": 604,
+    "ps2_solid_at_3_percent": 59.4,
+    "ps2_solid_at_100_percent": 59.1
+   },
+   {
+    "distance": "100-200",
+    "cells": 1032,
+    "ps2_solid_at_3_percent": 76.8,
+    "ps2_solid_at_100_percent": 76.8
+   },
+   {
+    "distance": "200-inf",
+    "cells": 2818,
+    "ps2_solid_at_3_percent": 64.8,
+    "ps2_solid_at_100_percent": 64.8
+   }
+  ],
+  "course": "TURKEYS2",
+  "landscape": "course\\turkey_s2\\turkey_s2",
+  "seconds": 3.3
+ },
+ {
+  "bsp_nodes": 85997,
+  "pc_tag100_nodes": 305181,
+  "route_points": 470,
+  "cells_with_pc_ground": 5280,
+  "bands": [
+   {
+    "distance": "0-50",
+    "cells": 780,
+    "ps2_solid_at_3_percent": 13.1,
+    "ps2_solid_at_100_percent": 12.6
+   },
+   {
+    "distance": "50-100",
+    "cells": 616,
+    "ps2_solid_at_3_percent": 62.0,
+    "ps2_solid_at_100_percent": 61.9
+   },
+   {
+    "distance": "100-200",
+    "cells": 1034,
+    "ps2_solid_at_3_percent": 77.1,
+    "ps2_solid_at_100_percent": 77.1
+   },
+   {
+    "distance": "200-inf",
+    "cells": 2850,
+    "ps2_solid_at_3_percent": 65.1,
+    "ps2_solid_at_100_percent": 65.1
+   }
+  ],
+  "course": "TURKEYS2FLIP",
+  "landscape": "course\\turkey_s2_flip\\turkey_s2_flip",
+  "seconds": 3.2
+ },
+ {
+  "bsp_nodes": 79599,
+  "pc_tag100_nodes": 250973,
+  "route_points": 334,
+  "cells_with_pc_ground": 5667,
+  "bands": [
+   {
+    "distance": "0-50",
+    "cells": 643,
+    "ps2_solid_at_3_percent": 6.1,
+    "ps2_solid_at_100_percent": 6.1
+   },
+   {
+    "distance": "50-100",
+    "cells": 499,
+    "ps2_solid_at_3_percent": 28.3,
+    "ps2_solid_at_100_percent": 28.1
+   },
+   {
+    "distance": "100-200",
+    "cells": 901,
+    "ps2_solid_at_3_percent": 72.8,
+    "ps2_solid_at_100_percent": 72.8
+   },
+   {
+    "distance": "200-inf",
+    "cells": 3624,
+    "ps2_solid_at_3_percent": 56.5,
+    "ps2_solid_at_100_percent": 56.5
+   }
+  ],
+  "course": "TURKEYW",
+  "landscape": "course\\turkey_w\\turkey_w",
+  "seconds": 2.9
+ }
+]
