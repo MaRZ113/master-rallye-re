@@ -49,7 +49,7 @@ Only an element with no exact match, no surface coverage and no congruent counte
 
 ## 4. PCSX2 verification is mandatory for the first course (Turkey3)
 Static reading is not enough to claim PS2 behaviour. Before Turkey3 elements can be marked verified, the live PS2 side is captured
-with PCSX2 Nightly (version 2.9.117.0 was used in REVALIDATION2; installed at `C:GamesPCSX2_Nightly`) on the canonical disc and ELF,
+with PCSX2 Nightly (version 2.9.117.0 was used in REVALIDATION2; installed at `C:\Games\PCSX2_Nightly`) on the canonical disc and ELF,
 following [../revalidation2/pcsx2-capture-plan.md](../revalidation2/pcsx2-capture-plan.md).
 Required captures: fixed-camera frames for puddles, shrubs, hut, house, caravans and boats; GS state for puddle and treeblend draws;
 collision probes from section 3; split timing and checkpoint contact; observed bird and emitter behaviour; prop contact.
