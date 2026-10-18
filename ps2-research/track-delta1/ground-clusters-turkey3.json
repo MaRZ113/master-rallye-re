@@ -1,0 +1,2480 @@
+[
+ {
+  "bbox_xz": [
+   2491.4,
+   -978.3,
+   2869.4,
+   -585.2
+  ],
+  "y_range": [
+   13.7,
+   90.7
+  ],
+  "ps2_triangles": 956,
+  "pc_triangles": 648
+ },
+ {
+  "bbox_xz": [
+   2302.0,
+   -909.0,
+   2502.0,
+   -716.5
+  ],
+  "y_range": [
+   20.3,
+   54.5
+  ],
+  "ps2_triangles": 288,
+  "pc_triangles": 274
+ },
+ {
+  "bbox_xz": [
+   1960.9,
+   -428.4,
+   2176.9,
+   -278.8
+  ],
+  "y_range": [
+   17.8,
+   39.1
+  ],
+  "ps2_triangles": 180,
+  "pc_triangles": 159
+ },
+ {
+  "bbox_xz": [
+   3446.3,
+   -612.9,
+   3612.7,
+   -469.3
+  ],
+  "y_range": [
+   33.3,
+   74.3
+  ],
+  "ps2_triangles": 139,
+  "pc_triangles": 139
+ },
+ {
+  "bbox_xz": [
+   2962.0,
+   -349.5,
+   3114.4,
+   -212.8
+  ],
+  "y_range": [
+   28.5,
+   70.3
+  ],
+  "ps2_triangles": 129,
+  "pc_triangles": 103
+ },
+ {
+  "bbox_xz": [
+   2104.1,
+   -992.4,
+   2345.1,
+   -852.9
+  ],
+  "y_range": [
+   26.6,
+   63.5
+  ],
+  "ps2_triangles": 96,
+  "pc_triangles": 96
+ },
+ {
+  "bbox_xz": [
+   2722.1,
+   492.7,
+   2917.3,
+   582.7
+  ],
+  "y_range": [
+   17.9,
+   84.3
+  ],
+  "ps2_triangles": 83,
+  "pc_triangles": 83
+ },
+ {
+  "bbox_xz": [
+   2512.5,
+   437.8,
+   2574.9,
+   551.1
+  ],
+  "y_range": [
+   35.7,
+   40.6
+  ],
+  "ps2_triangles": 81,
+  "pc_triangles": 81
+ },
+ {
+  "bbox_xz": [
+   2527.2,
+   394.4,
+   2699.1,
+   623.8
+  ],
+  "y_range": [
+   24.1,
+   78.4
+  ],
+  "ps2_triangles": 75,
+  "pc_triangles": 75
+ },
+ {
+  "bbox_xz": [
+   1856.1,
+   -616.9,
+   1998.8,
+   -373.0
+  ],
+  "y_range": [
+   21.0,
+   59.9
+  ],
+  "ps2_triangles": 68,
+  "pc_triangles": 68
+ },
+ {
+  "bbox_xz": [
+   1952.5,
+   210.8,
+   2241.8,
+   623.5
+  ],
+  "y_range": [
+   13.8,
+   105.8
+  ],
+  "ps2_triangles": 52,
+  "pc_triangles": 52
+ },
+ {
+  "bbox_xz": [
+   2324.7,
+   -478.8,
+   2475.2,
+   -388.3
+  ],
+  "y_range": [
+   16.6,
+   40.9
+  ],
+  "ps2_triangles": 49,
+  "pc_triangles": 49
+ },
+ {
+  "bbox_xz": [
+   2975.3,
+   -455.0,
+   3031.8,
+   -390.3
+  ],
+  "y_range": [
+   43.0,
+   74.0
+  ],
+  "ps2_triangles": 48,
+  "pc_triangles": 48
+ },
+ {
+  "bbox_xz": [
+   3159.4,
+   -574.3,
+   3277.7,
+   -474.9
+  ],
+  "y_range": [
+   19.7,
+   34.7
+  ],
+  "ps2_triangles": 48,
+  "pc_triangles": 48
+ },
+ {
+  "bbox_xz": [
+   2285.7,
+   418.8,
+   2379.9,
+   491.0
+  ],
+  "y_range": [
+   11.4,
+   39.8
+  ],
+  "ps2_triangles": 45,
+  "pc_triangles": 45
+ },
+ {
+  "bbox_xz": [
+   2440.0,
+   -1099.5,
+   2571.8,
+   -950.5
+  ],
+  "y_range": [
+   32.8,
+   82.8
+  ],
+  "ps2_triangles": 42,
+  "pc_triangles": 42
+ },
+ {
+  "bbox_xz": [
+   2715.4,
+   -524.9,
+   2897.4,
+   -406.9
+  ],
+  "y_range": [
+   16.1,
+   47.2
+  ],
+  "ps2_triangles": 45,
+  "pc_triangles": 37
+ },
+ {
+  "bbox_xz": [
+   2265.0,
+   520.7,
+   2591.0,
+   781.6
+  ],
+  "y_range": [
+   20.4,
+   79.3
+  ],
+  "ps2_triangles": 37,
+  "pc_triangles": 37
+ },
+ {
+  "bbox_xz": [
+   3392.6,
+   -745.6,
+   3496.6,
+   -649.6
+  ],
+  "y_range": [
+   45.2,
+   53.3
+  ],
+  "ps2_triangles": 34,
+  "pc_triangles": 34
+ },
+ {
+  "bbox_xz": [
+   2506.7,
+   339.7,
+   2579.8,
+   394.8
+  ],
+  "y_range": [
+   21.2,
+   37.5
+  ],
+  "ps2_triangles": 33,
+  "pc_triangles": 33
+ },
+ {
+  "bbox_xz": [
+   2672.6,
+   171.9,
+   2783.9,
+   228.4
+  ],
+  "y_range": [
+   34.7,
+   41.1
+  ],
+  "ps2_triangles": 45,
+  "pc_triangles": 17
+ },
+ {
+  "bbox_xz": [
+   2297.8,
+   -709.1,
+   2392.9,
+   -631.3
+  ],
+  "y_range": [
+   33.7,
+   61.6
+  ],
+  "ps2_triangles": 30,
+  "pc_triangles": 30
+ },
+ {
+  "bbox_xz": [
+   2292.8,
+   -506.6,
+   2394.6,
+   -464.5
+  ],
+  "y_range": [
+   26.5,
+   31.7
+  ],
+  "ps2_triangles": 27,
+  "pc_triangles": 27
+ },
+ {
+  "bbox_xz": [
+   2006.3,
+   -555.6,
+   2081.3,
+   -470.1
+  ],
+  "y_range": [
+   36.3,
+   65.1
+  ],
+  "ps2_triangles": 27,
+  "pc_triangles": 27
+ },
+ {
+  "bbox_xz": [
+   2201.0,
+   -550.3,
+   2283.0,
+   -453.0
+  ],
+  "y_range": [
+   25.4,
+   44.8
+  ],
+  "ps2_triangles": 25,
+  "pc_triangles": 25
+ },
+ {
+  "bbox_xz": [
+   3668.7,
+   -484.8,
+   3710.1,
+   -358.9
+  ],
+  "y_range": [
+   45.2,
+   53.1
+  ],
+  "ps2_triangles": 24,
+  "pc_triangles": 24
+ },
+ {
+  "bbox_xz": [
+   2713.5,
+   445.8,
+   2789.0,
+   499.1
+  ],
+  "y_range": [
+   17.9,
+   71.0
+  ],
+  "ps2_triangles": 23,
+  "pc_triangles": 23
+ },
+ {
+  "bbox_xz": [
+   2764.7,
+   -305.5,
+   2813.9,
+   -241.0
+  ],
+  "y_range": [
+   35.1,
+   45.7
+  ],
+  "ps2_triangles": 36,
+  "pc_triangles": 9
+ },
+ {
+  "bbox_xz": [
+   3338.9,
+   -566.5,
+   3411.5,
+   -431.2
+  ],
+  "y_range": [
+   46.9,
+   74.4
+  ],
+  "ps2_triangles": 21,
+  "pc_triangles": 21
+ },
+ {
+  "bbox_xz": [
+   3629.8,
+   -481.6,
+   3674.3,
+   -410.0
+  ],
+  "y_range": [
+   44.0,
+   59.9
+  ],
+  "ps2_triangles": 21,
+  "pc_triangles": 21
+ },
+ {
+  "bbox_xz": [
+   1962.6,
+   -468.3,
+   2050.1,
+   -423.9
+  ],
+  "y_range": [
+   29.5,
+   44.1
+  ],
+  "ps2_triangles": 20,
+  "pc_triangles": 20
+ },
+ {
+  "bbox_xz": [
+   2131.9,
+   -18.5,
+   2221.0,
+   43.3
+  ],
+  "y_range": [
+   17.9,
+   40.2
+  ],
+  "ps2_triangles": 19,
+  "pc_triangles": 19
+ },
+ {
+  "bbox_xz": [
+   2443.3,
+   356.3,
+   2469.7,
+   432.4
+  ],
+  "y_range": [
+   30.3,
+   56.8
+  ],
+  "ps2_triangles": 19,
+  "pc_triangles": 19
+ },
+ {
+  "bbox_xz": [
+   2613.8,
+   -407.4,
+   2683.7,
+   -368.8
+  ],
+  "y_range": [
+   30.5,
+   52.8
+  ],
+  "ps2_triangles": 18,
+  "pc_triangles": 18
+ },
+ {
+  "bbox_xz": [
+   1772.9,
+   -36.7,
+   1822.1,
+   29.3
+  ],
+  "y_range": [
+   39.6,
+   63.3
+  ],
+  "ps2_triangles": 18,
+  "pc_triangles": 18
+ },
+ {
+  "bbox_xz": [
+   1907.8,
+   -142.0,
+   1962.4,
+   -85.2
+  ],
+  "y_range": [
+   29.7,
+   30.2
+  ],
+  "ps2_triangles": 18,
+  "pc_triangles": 18
+ },
+ {
+  "bbox_xz": [
+   2726.6,
+   -497.4,
+   2791.1,
+   -462.0
+  ],
+  "y_range": [
+   31.7,
+   63.0
+  ],
+  "ps2_triangles": 17,
+  "pc_triangles": 17
+ },
+ {
+  "bbox_xz": [
+   2797.4,
+   -960.9,
+   2823.8,
+   -907.2
+  ],
+  "y_range": [
+   31.4,
+   38.9
+  ],
+  "ps2_triangles": 17,
+  "pc_triangles": 17
+ },
+ {
+  "bbox_xz": [
+   3239.9,
+   -528.8,
+   3334.3,
+   -431.2
+  ],
+  "y_range": [
+   13.4,
+   62.2
+  ],
+  "ps2_triangles": 16,
+  "pc_triangles": 16
+ },
+ {
+  "bbox_xz": [
+   3311.1,
+   -558.4,
+   3363.9,
+   -532.6
+  ],
+  "y_range": [
+   31.2,
+   43.6
+  ],
+  "ps2_triangles": 16,
+  "pc_triangles": 16
+ },
+ {
+  "bbox_xz": [
+   1937.9,
+   -175.6,
+   2011.0,
+   -142.4
+  ],
+  "y_range": [
+   28.2,
+   41.0
+  ],
+  "ps2_triangles": 16,
+  "pc_triangles": 16
+ },
+ {
+  "bbox_xz": [
+   2659.5,
+   -1186.3,
+   2791.3,
+   -1111.3
+  ],
+  "y_range": [
+   16.3,
+   84.3
+  ],
+  "ps2_triangles": 15,
+  "pc_triangles": 15
+ },
+ {
+  "bbox_xz": [
+   2366.8,
+   -884.4,
+   2381.7,
+   -871.6
+  ],
+  "y_range": [
+   31.5,
+   38.6
+  ],
+  "ps2_triangles": 14,
+  "pc_triangles": 14
+ },
+ {
+  "bbox_xz": [
+   2327.9,
+   -606.9,
+   2364.0,
+   -528.4
+  ],
+  "y_range": [
+   39.3,
+   52.3
+  ],
+  "ps2_triangles": 14,
+  "pc_triangles": 14
+ },
+ {
+  "bbox_xz": [
+   3044.0,
+   -830.1,
+   3261.4,
+   -602.6
+  ],
+  "y_range": [
+   46.2,
+   71.3
+  ],
+  "ps2_triangles": 28,
+  "pc_triangles": 0
+ },
+ {
+  "bbox_xz": [
+   2461.1,
+   -406.2,
+   2627.6,
+   -149.9
+  ],
+  "y_range": [
+   29.8,
+   77.7
+  ],
+  "ps2_triangles": 13,
+  "pc_triangles": 13
+ },
+ {
+  "bbox_xz": [
+   2720.9,
+   -196.0,
+   2796.2,
+   -87.5
+  ],
+  "y_range": [
+   61.7,
+   78.0
+  ],
+  "ps2_triangles": 17,
+  "pc_triangles": 9
+ },
+ {
+  "bbox_xz": [
+   2636.7,
+   -365.5,
+   2678.3,
+   -339.8
+  ],
+  "y_range": [
+   30.2,
+   46.5
+  ],
+  "ps2_triangles": 13,
+  "pc_triangles": 13
+ },
+ {
+  "bbox_xz": [
+   2648.5,
+   -790.1,
+   2684.2,
+   -742.0
+  ],
+  "y_range": [
+   17.9,
+   31.0
+  ],
+  "ps2_triangles": 13,
+  "pc_triangles": 13
+ },
+ {
+  "bbox_xz": [
+   2444.1,
+   190.8,
+   2499.6,
+   259.4
+  ],
+  "y_range": [
+   32.3,
+   46.1
+  ],
+  "ps2_triangles": 13,
+  "pc_triangles": 13
+ },
+ {
+  "bbox_xz": [
+   2716.0,
+   249.4,
+   2741.1,
+   345.4
+  ],
+  "y_range": [
+   28.7,
+   38.4
+  ],
+  "ps2_triangles": 13,
+  "pc_triangles": 13
+ },
+ {
+  "bbox_xz": [
+   2409.7,
+   -618.1,
+   2439.0,
+   -548.2
+  ],
+  "y_range": [
+   22.4,
+   29.2
+  ],
+  "ps2_triangles": 13,
+  "pc_triangles": 13
+ },
+ {
+  "bbox_xz": [
+   2691.5,
+   -310.9,
+   2745.3,
+   -284.8
+  ],
+  "y_range": [
+   29.7,
+   33.3
+  ],
+  "ps2_triangles": 16,
+  "pc_triangles": 10
+ },
+ {
+  "bbox_xz": [
+   2106.2,
+   -763.2,
+   2250.8,
+   -683.1
+  ],
+  "y_range": [
+   33.1,
+   63.4
+  ],
+  "ps2_triangles": 12,
+  "pc_triangles": 12
+ },
+ {
+  "bbox_xz": [
+   2860.5,
+   -657.8,
+   2896.1,
+   -581.4
+  ],
+  "y_range": [
+   33.1,
+   35.9
+  ],
+  "ps2_triangles": 12,
+  "pc_triangles": 12
+ },
+ {
+  "bbox_xz": [
+   2845.3,
+   -606.5,
+   2864.5,
+   -568.0
+  ],
+  "y_range": [
+   30.2,
+   33.8
+  ],
+  "ps2_triangles": 12,
+  "pc_triangles": 12
+ },
+ {
+  "bbox_xz": [
+   2380.5,
+   -550.5,
+   2403.7,
+   -502.6
+  ],
+  "y_range": [
+   29.4,
+   44.6
+  ],
+  "ps2_triangles": 12,
+  "pc_triangles": 12
+ },
+ {
+  "bbox_xz": [
+   2251.4,
+   -458.5,
+   2301.2,
+   -436.6
+  ],
+  "y_range": [
+   24.9,
+   28.6
+  ],
+  "ps2_triangles": 12,
+  "pc_triangles": 12
+ },
+ {
+  "bbox_xz": [
+   2802.6,
+   -517.7,
+   2809.5,
+   -507.8
+  ],
+  "y_range": [
+   29.7,
+   33.9
+  ],
+  "ps2_triangles": 12,
+  "pc_triangles": 12
+ },
+ {
+  "bbox_xz": [
+   2455.1,
+   544.8,
+   2504.7,
+   571.7
+  ],
+  "y_range": [
+   38.1,
+   40.3
+  ],
+  "ps2_triangles": 12,
+  "pc_triangles": 12
+ },
+ {
+  "bbox_xz": [
+   2864.2,
+   363.6,
+   2883.4,
+   418.5
+  ],
+  "y_range": [
+   31.3,
+   34.6
+  ],
+  "ps2_triangles": 12,
+  "pc_triangles": 12
+ },
+ {
+  "bbox_xz": [
+   2350.8,
+   -929.0,
+   2386.9,
+   -891.7
+  ],
+  "y_range": [
+   50.9,
+   81.5
+  ],
+  "ps2_triangles": 11,
+  "pc_triangles": 11
+ },
+ {
+  "bbox_xz": [
+   2442.3,
+   -891.8,
+   2475.4,
+   -861.1
+  ],
+  "y_range": [
+   37.8,
+   46.6
+  ],
+  "ps2_triangles": 11,
+  "pc_triangles": 11
+ },
+ {
+  "bbox_xz": [
+   2933.5,
+   -1018.8,
+   3025.6,
+   -856.1
+  ],
+  "y_range": [
+   41.5,
+   92.8
+  ],
+  "ps2_triangles": 11,
+  "pc_triangles": 11
+ },
+ {
+  "bbox_xz": [
+   3242.4,
+   -356.8,
+   3282.7,
+   -322.2
+  ],
+  "y_range": [
+   50.8,
+   51.9
+  ],
+  "ps2_triangles": 10,
+  "pc_triangles": 10
+ },
+ {
+  "bbox_xz": [
+   2735.6,
+   381.6,
+   2758.1,
+   398.0
+  ],
+  "y_range": [
+   27.8,
+   35.9
+  ],
+  "ps2_triangles": 10,
+  "pc_triangles": 10
+ },
+ {
+  "bbox_xz": [
+   3549.6,
+   -594.4,
+   3590.7,
+   -575.4
+  ],
+  "y_range": [
+   38.9,
+   51.5
+  ],
+  "ps2_triangles": 10,
+  "pc_triangles": 10
+ },
+ {
+  "bbox_xz": [
+   2834.2,
+   -330.0,
+   2846.2,
+   -264.1
+  ],
+  "y_range": [
+   49.6,
+   61.7
+  ],
+  "ps2_triangles": 17,
+  "pc_triangles": 3
+ },
+ {
+  "bbox_xz": [
+   3662.6,
+   -554.1,
+   3673.9,
+   -547.0
+  ],
+  "y_range": [
+   41.5,
+   46.9
+  ],
+  "ps2_triangles": 10,
+  "pc_triangles": 10
+ },
+ {
+  "bbox_xz": [
+   2737.0,
+   -810.2,
+   2773.5,
+   -792.0
+  ],
+  "y_range": [
+   25.9,
+   30.5
+  ],
+  "ps2_triangles": 15,
+  "pc_triangles": 3
+ },
+ {
+  "bbox_xz": [
+   2745.9,
+   -994.0,
+   2781.3,
+   -977.2
+  ],
+  "y_range": [
+   24.1,
+   28.0
+  ],
+  "ps2_triangles": 9,
+  "pc_triangles": 9
+ },
+ {
+  "bbox_xz": [
+   2228.4,
+   -392.3,
+   2232.8,
+   -384.7
+  ],
+  "y_range": [
+   21.6,
+   24.8
+  ],
+  "ps2_triangles": 9,
+  "pc_triangles": 9
+ },
+ {
+  "bbox_xz": [
+   3151.8,
+   -433.6,
+   3218.0,
+   -398.9
+  ],
+  "y_range": [
+   53.6,
+   64.7
+  ],
+  "ps2_triangles": 9,
+  "pc_triangles": 9
+ },
+ {
+  "bbox_xz": [
+   2295.4,
+   217.9,
+   2339.3,
+   256.0
+  ],
+  "y_range": [
+   34.2,
+   49.6
+  ],
+  "ps2_triangles": 9,
+  "pc_triangles": 9
+ },
+ {
+  "bbox_xz": [
+   2954.9,
+   376.8,
+   2962.4,
+   384.5
+  ],
+  "y_range": [
+   21.9,
+   25.4
+  ],
+  "ps2_triangles": 9,
+  "pc_triangles": 9
+ },
+ {
+  "bbox_xz": [
+   3566.1,
+   -570.6,
+   3606.2,
+   -552.4
+  ],
+  "y_range": [
+   39.3,
+   44.3
+  ],
+  "ps2_triangles": 9,
+  "pc_triangles": 9
+ },
+ {
+  "bbox_xz": [
+   1762.5,
+   -218.8,
+   1835.4,
+   -144.1
+  ],
+  "y_range": [
+   29.4,
+   62.3
+  ],
+  "ps2_triangles": 9,
+  "pc_triangles": 9
+ },
+ {
+  "bbox_xz": [
+   2359.3,
+   -368.3,
+   2455.5,
+   -261.8
+  ],
+  "y_range": [
+   44.4,
+   70.8
+  ],
+  "ps2_triangles": 8,
+  "pc_triangles": 8
+ },
+ {
+  "bbox_xz": [
+   2268.0,
+   -375.9,
+   2274.4,
+   -369.1
+  ],
+  "y_range": [
+   23.8,
+   26.0
+  ],
+  "ps2_triangles": 8,
+  "pc_triangles": 8
+ },
+ {
+  "bbox_xz": [
+   2638.1,
+   333.6,
+   2652.9,
+   339.3
+  ],
+  "y_range": [
+   30.0,
+   33.6
+  ],
+  "ps2_triangles": 8,
+  "pc_triangles": 8
+ },
+ {
+  "bbox_xz": [
+   2661.3,
+   326.3,
+   2674.7,
+   333.3
+  ],
+  "y_range": [
+   31.8,
+   34.0
+  ],
+  "ps2_triangles": 8,
+  "pc_triangles": 8
+ },
+ {
+  "bbox_xz": [
+   3134.0,
+   6.3,
+   3165.2,
+   47.0
+  ],
+  "y_range": [
+   43.7,
+   60.6
+  ],
+  "ps2_triangles": 8,
+  "pc_triangles": 8
+ },
+ {
+  "bbox_xz": [
+   2711.4,
+   -249.3,
+   2768.0,
+   -214.4
+  ],
+  "y_range": [
+   30.9,
+   58.6
+  ],
+  "ps2_triangles": 8,
+  "pc_triangles": 8
+ },
+ {
+  "bbox_xz": [
+   2484.6,
+   405.8,
+   2516.5,
+   419.6
+  ],
+  "y_range": [
+   24.4,
+   37.6
+  ],
+  "ps2_triangles": 12,
+  "pc_triangles": 3
+ },
+ {
+  "bbox_xz": [
+   2286.0,
+   -851.7,
+   2327.1,
+   -833.5
+  ],
+  "y_range": [
+   22.2,
+   31.1
+  ],
+  "ps2_triangles": 7,
+  "pc_triangles": 7
+ },
+ {
+  "bbox_xz": [
+   2259.1,
+   -791.0,
+   2290.1,
+   -742.6
+  ],
+  "y_range": [
+   27.6,
+   39.3
+  ],
+  "ps2_triangles": 7,
+  "pc_triangles": 7
+ },
+ {
+  "bbox_xz": [
+   2221.3,
+   -436.3,
+   2246.5,
+   -416.2
+  ],
+  "y_range": [
+   23.7,
+   29.2
+  ],
+  "ps2_triangles": 7,
+  "pc_triangles": 7
+ },
+ {
+  "bbox_xz": [
+   2786.6,
+   -850.0,
+   2833.8,
+   -825.4
+  ],
+  "y_range": [
+   38.6,
+   57.5
+  ],
+  "ps2_triangles": 7,
+  "pc_triangles": 7
+ },
+ {
+  "bbox_xz": [
+   3340.3,
+   -272.0,
+   3376.6,
+   -211.4
+  ],
+  "y_range": [
+   53.3,
+   77.1
+  ],
+  "ps2_triangles": 7,
+  "pc_triangles": 7
+ },
+ {
+  "bbox_xz": [
+   3062.0,
+   70.4,
+   3112.4,
+   105.1
+  ],
+  "y_range": [
+   39.9,
+   66.8
+  ],
+  "ps2_triangles": 7,
+  "pc_triangles": 7
+ },
+ {
+  "bbox_xz": [
+   2474.5,
+   -604.0,
+   2484.6,
+   -587.4
+  ],
+  "y_range": [
+   19.6,
+   23.2
+  ],
+  "ps2_triangles": 7,
+  "pc_triangles": 7
+ },
+ {
+  "bbox_xz": [
+   2707.0,
+   -385.4,
+   2741.0,
+   -368.3
+  ],
+  "y_range": [
+   49.5,
+   53.5
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2592.2,
+   -377.2,
+   2608.7,
+   -330.0
+  ],
+  "y_range": [
+   28.9,
+   40.8
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2605.8,
+   -522.6,
+   2679.8,
+   -491.4
+  ],
+  "y_range": [
+   63.3,
+   79.7
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2654.2,
+   -434.6,
+   2697.2,
+   -419.4
+  ],
+  "y_range": [
+   34.2,
+   38.0
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2394.1,
+   -891.5,
+   2401.6,
+   -884.8
+  ],
+  "y_range": [
+   37.8,
+   42.2
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2890.0,
+   -949.9,
+   2923.4,
+   -928.6
+  ],
+  "y_range": [
+   32.8,
+   59.1
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2693.8,
+   -1035.0,
+   2763.1,
+   -1011.3
+  ],
+  "y_range": [
+   14.7,
+   21.6
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2608.8,
+   -1108.6,
+   2628.0,
+   -1037.8
+  ],
+  "y_range": [
+   46.3,
+   85.4
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2538.1,
+   -920.8,
+   2576.2,
+   -905.3
+  ],
+  "y_range": [
+   28.5,
+   32.4
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2629.0,
+   -998.3,
+   2676.4,
+   -969.5
+  ],
+  "y_range": [
+   16.7,
+   24.3
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2484.3,
+   -548.9,
+   2538.2,
+   -476.7
+  ],
+  "y_range": [
+   35.9,
+   55.4
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2112.0,
+   -496.1,
+   2146.9,
+   -468.0
+  ],
+  "y_range": [
+   45.9,
+   68.4
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2199.7,
+   -291.3,
+   2212.5,
+   -247.6
+  ],
+  "y_range": [
+   32.6,
+   40.1
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2260.4,
+   -261.9,
+   2319.0,
+   -217.3
+  ],
+  "y_range": [
+   59.9,
+   68.1
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2214.7,
+   -200.7,
+   2249.5,
+   -165.0
+  ],
+  "y_range": [
+   41.0,
+   58.9
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2161.6,
+   -228.6,
+   2171.1,
+   -196.3
+  ],
+  "y_range": [
+   26.1,
+   30.7
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2941.7,
+   -527.4,
+   2980.9,
+   -472.7
+  ],
+  "y_range": [
+   47.9,
+   59.9
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2853.9,
+   -903.8,
+   2906.4,
+   -842.4
+  ],
+  "y_range": [
+   30.9,
+   44.2
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   3447.5,
+   -531.9,
+   3466.0,
+   -521.0
+  ],
+  "y_range": [
+   38.8,
+   39.7
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   3140.3,
+   -606.4,
+   3186.1,
+   -569.6
+  ],
+  "y_range": [
+   20.0,
+   34.0
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   3108.0,
+   -553.4,
+   3160.1,
+   -520.7
+  ],
+  "y_range": [
+   31.0,
+   40.7
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   3363.8,
+   -603.5,
+   3395.2,
+   -572.5
+  ],
+  "y_range": [
+   35.8,
+   40.8
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   3273.6,
+   -766.3,
+   3337.6,
+   -672.7
+  ],
+  "y_range": [
+   32.8,
+   52.0
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   3533.5,
+   -716.0,
+   3556.2,
+   -642.0
+  ],
+  "y_range": [
+   46.4,
+   58.4
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   3393.0,
+   -335.3,
+   3437.2,
+   -319.2
+  ],
+  "y_range": [
+   47.2,
+   50.0
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   3307.1,
+   -329.7,
+   3323.9,
+   -310.4
+  ],
+  "y_range": [
+   56.0,
+   66.0
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   3280.7,
+   -266.4,
+   3290.7,
+   -217.1
+  ],
+  "y_range": [
+   43.7,
+   49.5
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2381.5,
+   42.0,
+   2397.8,
+   60.0
+  ],
+  "y_range": [
+   48.5,
+   54.0
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2385.1,
+   165.7,
+   2393.4,
+   174.5
+  ],
+  "y_range": [
+   51.8,
+   56.4
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2369.7,
+   375.5,
+   2386.9,
+   403.6
+  ],
+  "y_range": [
+   35.6,
+   52.0
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2426.2,
+   492.2,
+   2430.4,
+   497.8
+  ],
+  "y_range": [
+   25.3,
+   30.9
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2587.2,
+   645.7,
+   2655.9,
+   708.4
+  ],
+  "y_range": [
+   46.6,
+   77.7
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2245.6,
+   308.9,
+   2293.8,
+   375.3
+  ],
+  "y_range": [
+   46.9,
+   61.7
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2594.2,
+   122.6,
+   2675.5,
+   198.8
+  ],
+  "y_range": [
+   35.1,
+   64.5
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2760.2,
+   288.9,
+   2770.2,
+   327.8
+  ],
+  "y_range": [
+   36.5,
+   40.3
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2689.7,
+   338.1,
+   2705.7,
+   353.9
+  ],
+  "y_range": [
+   24.2,
+   33.3
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2821.3,
+   456.1,
+   2836.7,
+   484.8
+  ],
+  "y_range": [
+   38.3,
+   51.0
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2944.3,
+   464.8,
+   2991.4,
+   483.9
+  ],
+  "y_range": [
+   68.3,
+   93.4
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2973.3,
+   435.3,
+   3039.2,
+   458.8
+  ],
+  "y_range": [
+   34.3,
+   49.1
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2848.8,
+   313.9,
+   2857.2,
+   337.6
+  ],
+  "y_range": [
+   43.2,
+   59.7
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2836.1,
+   345.4,
+   2850.1,
+   367.0
+  ],
+  "y_range": [
+   56.5,
+   69.9
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2903.2,
+   318.1,
+   2910.1,
+   325.6
+  ],
+  "y_range": [
+   35.5,
+   38.5
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   3064.7,
+   317.6,
+   3094.9,
+   339.2
+  ],
+  "y_range": [
+   29.7,
+   41.9
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   3156.2,
+   81.9,
+   3189.1,
+   104.5
+  ],
+  "y_range": [
+   38.2,
+   52.6
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   3149.2,
+   154.5,
+   3154.9,
+   184.4
+  ],
+  "y_range": [
+   34.9,
+   37.8
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2488.6,
+   -715.6,
+   2517.1,
+   -670.0
+  ],
+  "y_range": [
+   30.0,
+   52.3
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   3592.3,
+   -616.4,
+   3635.4,
+   -585.2
+  ],
+  "y_range": [
+   55.5,
+   62.7
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2964.9,
+   -319.1,
+   2976.0,
+   -308.5
+  ],
+  "y_range": [
+   47.6,
+   51.7
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2801.4,
+   -327.8,
+   2823.0,
+   -299.6
+  ],
+  "y_range": [
+   36.2,
+   48.3
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2737.9,
+   -293.7,
+   2765.7,
+   -278.5
+  ],
+  "y_range": [
+   21.7,
+   25.7
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2858.4,
+   -301.3,
+   2871.9,
+   -263.0
+  ],
+  "y_range": [
+   56.2,
+   67.0
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   1916.5,
+   -70.5,
+   1957.1,
+   -58.6
+  ],
+  "y_range": [
+   29.7,
+   32.5
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   1856.6,
+   -50.2,
+   1881.1,
+   -32.7
+  ],
+  "y_range": [
+   29.4,
+   31.8
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   1807.9,
+   -31.1,
+   1823.3,
+   -0.3
+  ],
+  "y_range": [
+   38.4,
+   40.5
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   3605.3,
+   -440.0,
+   3629.3,
+   -377.0
+  ],
+  "y_range": [
+   47.7,
+   57.4
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2055.9,
+   -160.6,
+   2092.4,
+   -144.8
+  ],
+  "y_range": [
+   29.3,
+   31.5
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2082.1,
+   -43.7,
+   2088.5,
+   -37.2
+  ],
+  "y_range": [
+   23.3,
+   25.3
+  ],
+  "ps2_triangles": 6,
+  "pc_triangles": 6
+ },
+ {
+  "bbox_xz": [
+   2593.2,
+   -941.6,
+   2618.2,
+   -928.8
+  ],
+  "y_range": [
+   27.2,
+   29.9
+  ],
+  "ps2_triangles": 5,
+  "pc_triangles": 5
+ },
+ {
+  "bbox_xz": [
+   2141.7,
+   -424.1,
+   2179.5,
+   -413.6
+  ],
+  "y_range": [
+   28.7,
+   29.2
+  ],
+  "ps2_triangles": 5,
+  "pc_triangles": 5
+ },
+ {
+  "bbox_xz": [
+   2813.2,
+   -577.2,
+   2836.2,
+   -557.9
+  ],
+  "y_range": [
+   40.0,
+   47.3
+  ],
+  "ps2_triangles": 5,
+  "pc_triangles": 5
+ },
+ {
+  "bbox_xz": [
+   2087.8,
+   -431.8,
+   2098.4,
+   -424.6
+  ],
+  "y_range": [
+   29.7,
+   39.0
+  ],
+  "ps2_triangles": 5,
+  "pc_triangles": 5
+ },
+ {
+  "bbox_xz": [
+   2424.3,
+   -1094.4,
+   2470.1,
+   -1066.3
+  ],
+  "y_range": [
+   53.2,
+   88.0
+  ],
+  "ps2_triangles": 5,
+  "pc_triangles": 5
+ },
+ {
+  "bbox_xz": [
+   3103.8,
+   -66.2,
+   3129.2,
+   -37.9
+  ],
+  "y_range": [
+   51.1,
+   56.4
+  ],
+  "ps2_triangles": 5,
+  "pc_triangles": 5
+ },
+ {
+  "bbox_xz": [
+   3072.6,
+   -432.5,
+   3095.1,
+   -399.1
+  ],
+  "y_range": [
+   63.5,
+   77.3
+  ],
+  "ps2_triangles": 5,
+  "pc_triangles": 5
+ },
+ {
+  "bbox_xz": [
+   3410.5,
+   -432.5,
+   3433.3,
+   -412.6
+  ],
+  "y_range": [
+   27.4,
+   42.0
+  ],
+  "ps2_triangles": 5,
+  "pc_triangles": 5
+ },
+ {
+  "bbox_xz": [
+   2429.7,
+   157.8,
+   2447.1,
+   171.0
+  ],
+  "y_range": [
+   37.2,
+   42.8
+  ],
+  "ps2_triangles": 5,
+  "pc_triangles": 5
+ },
+ {
+  "bbox_xz": [
+   2388.4,
+   450.4,
+   2399.4,
+   464.4
+  ],
+  "y_range": [
+   23.8,
+   30.2
+  ],
+  "ps2_triangles": 5,
+  "pc_triangles": 5
+ },
+ {
+  "bbox_xz": [
+   2409.3,
+   440.5,
+   2427.2,
+   456.5
+  ],
+  "y_range": [
+   28.2,
+   36.2
+  ],
+  "ps2_triangles": 5,
+  "pc_triangles": 5
+ },
+ {
+  "bbox_xz": [
+   2396.6,
+   478.5,
+   2406.5,
+   495.2
+  ],
+  "y_range": [
+   23.4,
+   24.1
+  ],
+  "ps2_triangles": 5,
+  "pc_triangles": 5
+ },
+ {
+  "bbox_xz": [
+   2649.4,
+   286.8,
+   2668.1,
+   300.2
+  ],
+  "y_range": [
+   35.4,
+   37.4
+  ],
+  "ps2_triangles": 5,
+  "pc_triangles": 5
+ },
+ {
+  "bbox_xz": [
+   2603.9,
+   323.9,
+   2617.4,
+   330.8
+  ],
+  "y_range": [
+   32.8,
+   34.7
+  ],
+  "ps2_triangles": 5,
+  "pc_triangles": 5
+ },
+ {
+  "bbox_xz": [
+   2702.5,
+   489.7,
+   2705.8,
+   495.1
+  ],
+  "y_range": [
+   18.5,
+   21.3
+  ],
+  "ps2_triangles": 5,
+  "pc_triangles": 5
+ },
+ {
+  "bbox_xz": [
+   2903.8,
+   466.7,
+   2921.4,
+   498.1
+  ],
+  "y_range": [
+   32.4,
+   41.3
+  ],
+  "ps2_triangles": 5,
+  "pc_triangles": 5
+ },
+ {
+  "bbox_xz": [
+   2878.4,
+   437.8,
+   2885.8,
+   458.7
+  ],
+  "y_range": [
+   22.4,
+   28.8
+  ],
+  "ps2_triangles": 5,
+  "pc_triangles": 5
+ },
+ {
+  "bbox_xz": [
+   2971.7,
+   278.0,
+   2986.6,
+   318.9
+  ],
+  "y_range": [
+   36.6,
+   42.3
+  ],
+  "ps2_triangles": 5,
+  "pc_triangles": 5
+ },
+ {
+  "bbox_xz": [
+   3169.7,
+   36.2,
+   3183.7,
+   57.9
+  ],
+  "y_range": [
+   43.0,
+   56.3
+  ],
+  "ps2_triangles": 5,
+  "pc_triangles": 5
+ },
+ {
+  "bbox_xz": [
+   2969.1,
+   -371.3,
+   2993.3,
+   -351.7
+  ],
+  "y_range": [
+   68.8,
+   77.0
+  ],
+  "ps2_triangles": 4,
+  "pc_triangles": 4
+ },
+ {
+  "bbox_xz": [
+   1778.3,
+   -556.9,
+   1806.7,
+   -510.3
+  ],
+  "y_range": [
+   30.7,
+   42.2
+  ],
+  "ps2_triangles": 4,
+  "pc_triangles": 4
+ },
+ {
+  "bbox_xz": [
+   2337.7,
+   -439.0,
+   2344.3,
+   -435.5
+  ],
+  "y_range": [
+   21.8,
+   26.5
+  ],
+  "ps2_triangles": 4,
+  "pc_triangles": 4
+ },
+ {
+  "bbox_xz": [
+   2313.9,
+   -1088.6,
+   2365.8,
+   -1050.2
+  ],
+  "y_range": [
+   78.5,
+   98.6
+  ],
+  "ps2_triangles": 3,
+  "pc_triangles": 3
+ },
+ {
+  "bbox_xz": [
+   2307.5,
+   172.2,
+   2376.2,
+   205.6
+  ],
+  "y_range": [
+   55.7,
+   61.4
+  ],
+  "ps2_triangles": 3,
+  "pc_triangles": 3
+ },
+ {
+  "bbox_xz": [
+   2574.2,
+   -24.5,
+   2707.5,
+   32.3
+  ],
+  "y_range": [
+   58.3,
+   79.0
+  ],
+  "ps2_triangles": 3,
+  "pc_triangles": 3
+ },
+ {
+  "bbox_xz": [
+   2933.6,
+   -427.1,
+   2949.5,
+   -397.9
+  ],
+  "y_range": [
+   67.8,
+   82.8
+  ],
+  "ps2_triangles": 3,
+  "pc_triangles": 3
+ },
+ {
+  "bbox_xz": [
+   3482.7,
+   -916.9,
+   3675.9,
+   -783.7
+  ],
+  "y_range": [
+   64.7,
+   80.2
+  ],
+  "ps2_triangles": 2,
+  "pc_triangles": 2
+ },
+ {
+  "bbox_xz": [
+   1674.5,
+   -509.4,
+   1703.9,
+   -444.5
+  ],
+  "y_range": [
+   34.3,
+   40.8
+  ],
+  "ps2_triangles": 1,
+  "pc_triangles": 1
+ },
+ {
+  "bbox_xz": [
+   2292.9,
+   -594.7,
+   2307.1,
+   -588.3
+  ],
+  "y_range": [
+   50.7,
+   53.5
+  ],
+  "ps2_triangles": 0,
+  "pc_triangles": 1
+ }
+]

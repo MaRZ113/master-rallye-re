@@ -1,0 +1,1846 @@
+{
+ "summary": {
+  "step": 6.0,
+  "covered_cells": 66684,
+  "differing_cells": 2707,
+  "regions": 141,
+  "differing_share": 0.0406,
+  "above_cells": 474,
+  "below_cells": 2233
+ },
+ "regions": [
+  {
+   "cells": 345,
+   "area": 12420,
+   "center": [
+    3162.6,
+    -718.7
+   ],
+   "min_dh": -353.27,
+   "max_dh": -328.33,
+   "mean_dh": -340.42,
+   "above": 0,
+   "below": 345
+  },
+  {
+   "cells": 299,
+   "area": 10764,
+   "center": [
+    2621.3,
+    -846.6
+   ],
+   "min_dh": -352.29,
+   "max_dh": 15.29,
+   "mean_dh": -58.46,
+   "above": 94,
+   "below": 205
+  },
+  {
+   "cells": 196,
+   "area": 7056,
+   "center": [
+    3048.2,
+    -279.3
+   ],
+   "min_dh": 0.26,
+   "max_dh": 4.82,
+   "mean_dh": 1.87,
+   "above": 196,
+   "below": 0
+  },
+  {
+   "cells": 128,
+   "area": 4608,
+   "center": [
+    2712.0,
+    -688.7
+   ],
+   "min_dh": -25.48,
+   "max_dh": -25.24,
+   "mean_dh": -25.36,
+   "above": 0,
+   "below": 128
+  },
+  {
+   "cells": 112,
+   "area": 4032,
+   "center": [
+    2664.5,
+    494.8
+   ],
+   "min_dh": -3.9,
+   "max_dh": 10.54,
+   "mean_dh": 0.17,
+   "above": 45,
+   "below": 67
+  },
+  {
+   "cells": 111,
+   "area": 3996,
+   "center": [
+    2260.3,
+    -962.7
+   ],
+   "min_dh": -3.75,
+   "max_dh": -0.27,
+   "mean_dh": -1.47,
+   "above": 0,
+   "below": 111
+  },
+  {
+   "cells": 107,
+   "area": 3852,
+   "center": [
+    3086.1,
+    -17.9
+   ],
+   "min_dh": -350.78,
+   "max_dh": -156.88,
+   "mean_dh": -337.76,
+   "above": 0,
+   "below": 107
+  },
+  {
+   "cells": 103,
+   "area": 3708,
+   "center": [
+    2403.6,
+    -431.7
+   ],
+   "min_dh": -2.41,
+   "max_dh": -0.28,
+   "mean_dh": -1.11,
+   "above": 0,
+   "below": 103
+  },
+  {
+   "cells": 93,
+   "area": 3348,
+   "center": [
+    2536.6,
+    585.2
+   ],
+   "min_dh": -6.73,
+   "max_dh": -6.44,
+   "mean_dh": -6.72,
+   "above": 0,
+   "below": 93
+  },
+  {
+   "cells": 93,
+   "area": 3348,
+   "center": [
+    2783.0,
+    -718.9
+   ],
+   "min_dh": -30.09,
+   "max_dh": -28.48,
+   "mean_dh": -29.01,
+   "above": 0,
+   "below": 93
+  },
+  {
+   "cells": 91,
+   "area": 3276,
+   "center": [
+    2108.0,
+    -343.4
+   ],
+   "min_dh": -1.5,
+   "max_dh": 1.75,
+   "mean_dh": -0.61,
+   "above": 4,
+   "below": 87
+  },
+  {
+   "cells": 91,
+   "area": 3276,
+   "center": [
+    2261.1,
+    -487.6
+   ],
+   "min_dh": -6.73,
+   "max_dh": -1.76,
+   "mean_dh": -6.67,
+   "above": 0,
+   "below": 91
+  },
+  {
+   "cells": 89,
+   "area": 3204,
+   "center": [
+    2325.3,
+    459.7
+   ],
+   "min_dh": -6.81,
+   "max_dh": 2.19,
+   "mean_dh": -0.66,
+   "above": 53,
+   "below": 36
+  },
+  {
+   "cells": 89,
+   "area": 3204,
+   "center": [
+    2395.8,
+    -804.6
+   ],
+   "min_dh": -3.98,
+   "max_dh": 0.7,
+   "mean_dh": -1.04,
+   "above": 11,
+   "below": 78
+  },
+  {
+   "cells": 61,
+   "area": 2196,
+   "center": [
+    2745.1,
+    -132.7
+   ],
+   "min_dh": -338.26,
+   "max_dh": -22.11,
+   "mean_dh": -321.68,
+   "above": 0,
+   "below": 61
+  },
+  {
+   "cells": 60,
+   "area": 2160,
+   "center": [
+    2498.6,
+    545.4
+   ],
+   "min_dh": -6.74,
+   "max_dh": -6.72,
+   "mean_dh": -6.73,
+   "above": 0,
+   "below": 60
+  },
+  {
+   "cells": 55,
+   "area": 1980,
+   "center": [
+    2631.9,
+    519.5
+   ],
+   "min_dh": -222.71,
+   "max_dh": 2.77,
+   "mean_dh": -5.91,
+   "above": 10,
+   "below": 45
+  },
+  {
+   "cells": 51,
+   "area": 1836,
+   "center": [
+    2297.8,
+    -460.4
+   ],
+   "min_dh": -7.21,
+   "max_dh": -6.72,
+   "mean_dh": -6.76,
+   "above": 0,
+   "below": 51
+  },
+  {
+   "cells": 51,
+   "area": 1836,
+   "center": [
+    3530.5,
+    -515.0
+   ],
+   "min_dh": -6.1,
+   "max_dh": -0.28,
+   "mean_dh": -1.85,
+   "above": 0,
+   "below": 51
+  },
+  {
+   "cells": 47,
+   "area": 1692,
+   "center": [
+    2021.6,
+    -363.9
+   ],
+   "min_dh": -3.79,
+   "max_dh": -0.25,
+   "mean_dh": -1.23,
+   "above": 0,
+   "below": 47
+  },
+  {
+   "cells": 46,
+   "area": 1656,
+   "center": [
+    3004.7,
+    -426.5
+   ],
+   "min_dh": -2.47,
+   "max_dh": 3.12,
+   "mean_dh": 1.24,
+   "above": 36,
+   "below": 10
+  },
+  {
+   "cells": 37,
+   "area": 1332,
+   "center": [
+    2172.2,
+    10.7
+   ],
+   "min_dh": -1.07,
+   "max_dh": -0.25,
+   "mean_dh": -0.54,
+   "above": 0,
+   "below": 37
+  },
+  {
+   "cells": 36,
+   "area": 1296,
+   "center": [
+    2327.2,
+    -799.6
+   ],
+   "min_dh": -1.9,
+   "max_dh": -0.27,
+   "mean_dh": -0.96,
+   "above": 0,
+   "below": 36
+  },
+  {
+   "cells": 35,
+   "area": 1260,
+   "center": [
+    2542.8,
+    485.3
+   ],
+   "min_dh": -1.39,
+   "max_dh": -0.25,
+   "mean_dh": -0.61,
+   "above": 0,
+   "below": 35
+  },
+  {
+   "cells": 34,
+   "area": 1224,
+   "center": [
+    1975.7,
+    -159.6
+   ],
+   "min_dh": -6.59,
+   "max_dh": -0.32,
+   "mean_dh": -2.57,
+   "above": 0,
+   "below": 34
+  },
+  {
+   "cells": 31,
+   "area": 1116,
+   "center": [
+    3436.2,
+    -718.3
+   ],
+   "min_dh": -1.98,
+   "max_dh": -0.26,
+   "mean_dh": -0.92,
+   "above": 0,
+   "below": 31
+  },
+  {
+   "cells": 29,
+   "area": 1044,
+   "center": [
+    2533.3,
+    363.0
+   ],
+   "min_dh": -1.11,
+   "max_dh": 0.92,
+   "mean_dh": 0.16,
+   "above": 19,
+   "below": 10
+  },
+  {
+   "cells": 12,
+   "area": 432,
+   "center": [
+    3557.5,
+    -535.8
+   ],
+   "min_dh": -1.66,
+   "max_dh": -0.28,
+   "mean_dh": -0.87,
+   "above": 0,
+   "below": 12
+  },
+  {
+   "cells": 11,
+   "area": 396,
+   "center": [
+    2468.7,
+    -523.0
+   ],
+   "min_dh": -11.87,
+   "max_dh": -10.65,
+   "mean_dh": -11.36,
+   "above": 0,
+   "below": 11
+  },
+  {
+   "cells": 9,
+   "area": 324,
+   "center": [
+    2144.5,
+    -294.3
+   ],
+   "min_dh": -0.61,
+   "max_dh": 0.58,
+   "mean_dh": -0.15,
+   "above": 3,
+   "below": 6
+  },
+  {
+   "cells": 9,
+   "area": 324,
+   "center": [
+    2189.2,
+    -358.9
+   ],
+   "min_dh": -14.54,
+   "max_dh": -13.91,
+   "mean_dh": -14.13,
+   "above": 0,
+   "below": 9
+  },
+  {
+   "cells": 9,
+   "area": 324,
+   "center": [
+    2745.2,
+    321.1
+   ],
+   "min_dh": -2.91,
+   "max_dh": -1.95,
+   "mean_dh": -2.8,
+   "above": 0,
+   "below": 9
+  },
+  {
+   "cells": 5,
+   "area": 180,
+   "center": [
+    2112.5,
+    -311.5
+   ],
+   "min_dh": -7.12,
+   "max_dh": -0.39,
+   "mean_dh": -2.1,
+   "above": 0,
+   "below": 5
+  },
+  {
+   "cells": 4,
+   "area": 144,
+   "center": [
+    2106.5,
+    -763.3
+   ],
+   "min_dh": -358.21,
+   "max_dh": -349.36,
+   "mean_dh": -353.8,
+   "above": 0,
+   "below": 4
+  },
+  {
+   "cells": 4,
+   "area": 144,
+   "center": [
+    2403.5,
+    -739.3
+   ],
+   "min_dh": -0.67,
+   "max_dh": -0.32,
+   "mean_dh": -0.56,
+   "above": 0,
+   "below": 4
+  },
+  {
+   "cells": 4,
+   "area": 144,
+   "center": [
+    2462.0,
+    -622.3
+   ],
+   "min_dh": -7.25,
+   "max_dh": -6.17,
+   "mean_dh": -6.77,
+   "above": 0,
+   "below": 4
+  },
+  {
+   "cells": 4,
+   "area": 144,
+   "center": [
+    3225.5,
+    -152.8
+   ],
+   "min_dh": -4.59,
+   "max_dh": -2.64,
+   "mean_dh": -3.92,
+   "above": 0,
+   "below": 4
+  },
+  {
+   "cells": 3,
+   "area": 108,
+   "center": [
+    1758.5,
+    -28.3
+   ],
+   "min_dh": -334.95,
+   "max_dh": -330.64,
+   "mean_dh": -332.79,
+   "above": 0,
+   "below": 3
+  },
+  {
+   "cells": 3,
+   "area": 108,
+   "center": [
+    2622.5,
+    -1096.3
+   ],
+   "min_dh": -15.78,
+   "max_dh": -4.37,
+   "mean_dh": -10.08,
+   "above": 0,
+   "below": 3
+  },
+  {
+   "cells": 3,
+   "area": 108,
+   "center": [
+    3256.5,
+    -178.3
+   ],
+   "min_dh": -2.61,
+   "max_dh": -2.46,
+   "mean_dh": -2.53,
+   "above": 0,
+   "below": 3
+  },
+  {
+   "cells": 2,
+   "area": 72,
+   "center": [
+    1734.5,
+    -217.3
+   ],
+   "min_dh": -350.39,
+   "max_dh": -348.99,
+   "mean_dh": -349.69,
+   "above": 0,
+   "below": 2
+  },
+  {
+   "cells": 2,
+   "area": 72,
+   "center": [
+    2160.5,
+    -319.3
+   ],
+   "min_dh": -2.17,
+   "max_dh": -2.16,
+   "mean_dh": -2.16,
+   "above": 0,
+   "below": 2
+  },
+  {
+   "cells": 2,
+   "area": 72,
+   "center": [
+    2499.5,
+    -880.3
+   ],
+   "min_dh": 0.29,
+   "max_dh": 1.24,
+   "mean_dh": 0.77,
+   "above": 2,
+   "below": 0
+  },
+  {
+   "cells": 2,
+   "area": 72,
+   "center": [
+    3012.5,
+    634.7
+   ],
+   "min_dh": -309.05,
+   "max_dh": -308.67,
+   "mean_dh": -308.86,
+   "above": 0,
+   "below": 2
+  },
+  {
+   "cells": 2,
+   "area": 72,
+   "center": [
+    3087.5,
+    -478.3
+   ],
+   "min_dh": -1.69,
+   "max_dh": -1.55,
+   "mean_dh": -1.62,
+   "above": 0,
+   "below": 2
+  },
+  {
+   "cells": 2,
+   "area": 72,
+   "center": [
+    3516.5,
+    -577.3
+   ],
+   "min_dh": -1.95,
+   "max_dh": -1.88,
+   "mean_dh": -1.92,
+   "above": 0,
+   "below": 2
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    1734.5,
+    -196.3
+   ],
+   "min_dh": -356.17,
+   "max_dh": -356.17,
+   "mean_dh": -356.17,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    1824.5,
+    -568.3
+   ],
+   "min_dh": -376.67,
+   "max_dh": -376.67,
+   "mean_dh": -376.67,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    1836.5,
+    -574.3
+   ],
+   "min_dh": -363.9,
+   "max_dh": -363.9,
+   "mean_dh": -363.9,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    1866.5,
+    -184.3
+   ],
+   "min_dh": -333.54,
+   "max_dh": -333.54,
+   "mean_dh": -333.54,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    1908.5,
+    -214.3
+   ],
+   "min_dh": -334.33,
+   "max_dh": -334.33,
+   "mean_dh": -334.33,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    1944.5,
+    -226.3
+   ],
+   "min_dh": -336.65,
+   "max_dh": -336.65,
+   "mean_dh": -336.65,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    1956.5,
+    391.7
+   ],
+   "min_dh": -305.64,
+   "max_dh": -305.64,
+   "mean_dh": -305.64,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    1980.5,
+    -232.3
+   ],
+   "min_dh": -338.33,
+   "max_dh": -338.33,
+   "mean_dh": -338.33,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    1998.5,
+    -634.3
+   ],
+   "min_dh": -342.18,
+   "max_dh": -342.18,
+   "mean_dh": -342.18,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2034.5,
+    -244.3
+   ],
+   "min_dh": -328.76,
+   "max_dh": -328.76,
+   "mean_dh": -328.76,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2064.5,
+    205.7
+   ],
+   "min_dh": -331.53,
+   "max_dh": -331.53,
+   "mean_dh": -331.53,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2082.5,
+    193.7
+   ],
+   "min_dh": -341.94,
+   "max_dh": -341.94,
+   "mean_dh": -341.94,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2088.5,
+    -46.3
+   ],
+   "min_dh": -2.11,
+   "max_dh": -2.11,
+   "mean_dh": -2.11,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2112.5,
+    -382.3
+   ],
+   "min_dh": -1.23,
+   "max_dh": -1.23,
+   "mean_dh": -1.23,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2112.5,
+    151.7
+   ],
+   "min_dh": -353.21,
+   "max_dh": -353.21,
+   "mean_dh": -353.21,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2124.5,
+    -580.3
+   ],
+   "min_dh": -346.89,
+   "max_dh": -346.89,
+   "mean_dh": -346.89,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2136.5,
+    -958.3
+   ],
+   "min_dh": -370.79,
+   "max_dh": -370.79,
+   "mean_dh": -370.79,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2196.5,
+    -610.3
+   ],
+   "min_dh": -344.91,
+   "max_dh": -344.91,
+   "mean_dh": -344.91,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2238.5,
+    -622.3
+   ],
+   "min_dh": -337.63,
+   "max_dh": -337.63,
+   "mean_dh": -337.63,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2256.5,
+    -364.3
+   ],
+   "min_dh": -2.18,
+   "max_dh": -2.18,
+   "mean_dh": -2.18,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2262.5,
+    -382.3
+   ],
+   "min_dh": -1.97,
+   "max_dh": -1.97,
+   "mean_dh": -1.97,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2268.5,
+    -1042.3
+   ],
+   "min_dh": -333.15,
+   "max_dh": -333.15,
+   "mean_dh": -333.15,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2304.5,
+    -640.3
+   ],
+   "min_dh": -343.5,
+   "max_dh": -343.5,
+   "mean_dh": -343.5,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2316.5,
+    13.7
+   ],
+   "min_dh": -2.22,
+   "max_dh": -2.22,
+   "mean_dh": -2.22,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2394.5,
+    -1108.3
+   ],
+   "min_dh": -301.89,
+   "max_dh": -301.89,
+   "mean_dh": -301.89,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2412.5,
+    337.7
+   ],
+   "min_dh": -325.87,
+   "max_dh": -325.87,
+   "mean_dh": -325.87,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2418.5,
+    325.7
+   ],
+   "min_dh": -327.93,
+   "max_dh": -327.93,
+   "mean_dh": -327.93,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2454.5,
+    -160.3
+   ],
+   "min_dh": -337.22,
+   "max_dh": -337.22,
+   "mean_dh": -337.22,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2472.5,
+    277.7
+   ],
+   "min_dh": -333.85,
+   "max_dh": -333.85,
+   "mean_dh": -333.85,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2490.5,
+    -1132.3
+   ],
+   "min_dh": -307.59,
+   "max_dh": -307.59,
+   "mean_dh": -307.59,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2508.5,
+    -394.3
+   ],
+   "min_dh": -333.28,
+   "max_dh": -333.28,
+   "mean_dh": -333.28,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2508.5,
+    247.7
+   ],
+   "min_dh": -333.05,
+   "max_dh": -333.05,
+   "mean_dh": -333.05,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2520.5,
+    -412.3
+   ],
+   "min_dh": -337.56,
+   "max_dh": -337.56,
+   "mean_dh": -337.56,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2520.5,
+    -46.3
+   ],
+   "min_dh": -331.11,
+   "max_dh": -331.11,
+   "mean_dh": -331.11,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2544.5,
+    -796.3
+   ],
+   "min_dh": -331.0,
+   "max_dh": -331.0,
+   "mean_dh": -331.0,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2544.5,
+    -778.3
+   ],
+   "min_dh": -335.64,
+   "max_dh": -335.64,
+   "mean_dh": -335.64,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2544.5,
+    199.7
+   ],
+   "min_dh": -324.96,
+   "max_dh": -324.96,
+   "mean_dh": -324.96,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2550.5,
+    -466.3
+   ],
+   "min_dh": -333.8,
+   "max_dh": -333.8,
+   "mean_dh": -333.8,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2550.5,
+    7.7
+   ],
+   "min_dh": -327.11,
+   "max_dh": -327.11,
+   "mean_dh": -327.11,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2550.5,
+    181.7
+   ],
+   "min_dh": -324.26,
+   "max_dh": -324.26,
+   "mean_dh": -324.26,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2556.5,
+    -724.3
+   ],
+   "min_dh": -348.8,
+   "max_dh": -348.8,
+   "mean_dh": -348.8,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2556.5,
+    -478.3
+   ],
+   "min_dh": -333.38,
+   "max_dh": -333.38,
+   "mean_dh": -333.38,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2562.5,
+    -490.3
+   ],
+   "min_dh": -333.23,
+   "max_dh": -333.23,
+   "mean_dh": -333.23,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2562.5,
+    49.7
+   ],
+   "min_dh": -326.45,
+   "max_dh": -326.45,
+   "mean_dh": -326.45,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2562.5,
+    139.7
+   ],
+   "min_dh": -325.31,
+   "max_dh": -325.31,
+   "mean_dh": -325.31,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2574.5,
+    -520.3
+   ],
+   "min_dh": -338.85,
+   "max_dh": -338.85,
+   "mean_dh": -338.85,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2730.5,
+    -796.3
+   ],
+   "min_dh": 2.21,
+   "max_dh": 2.21,
+   "mean_dh": 2.21,
+   "above": 1,
+   "below": 0
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2736.5,
+    -532.3
+   ],
+   "min_dh": -335.42,
+   "max_dh": -335.42,
+   "mean_dh": -335.42,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2754.5,
+    283.7
+   ],
+   "min_dh": -3.9,
+   "max_dh": -3.9,
+   "mean_dh": -3.9,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2760.5,
+    325.7
+   ],
+   "min_dh": -2.0,
+   "max_dh": -2.0,
+   "mean_dh": -2.0,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2784.5,
+    445.7
+   ],
+   "min_dh": -328.56,
+   "max_dh": -328.56,
+   "mean_dh": -328.56,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2796.5,
+    385.7
+   ],
+   "min_dh": -330.63,
+   "max_dh": -330.63,
+   "mean_dh": -330.63,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2802.5,
+    367.7
+   ],
+   "min_dh": -327.29,
+   "max_dh": -327.29,
+   "mean_dh": -327.29,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2814.5,
+    -1174.3
+   ],
+   "min_dh": -324.21,
+   "max_dh": -324.21,
+   "mean_dh": -324.21,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2862.5,
+    -58.3
+   ],
+   "min_dh": -330.36,
+   "max_dh": -330.36,
+   "mean_dh": -330.36,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2862.5,
+    235.7
+   ],
+   "min_dh": -326.57,
+   "max_dh": -326.57,
+   "mean_dh": -326.57,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2892.5,
+    187.7
+   ],
+   "min_dh": -324.23,
+   "max_dh": -324.23,
+   "mean_dh": -324.23,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2898.5,
+    -316.3
+   ],
+   "min_dh": -313.33,
+   "max_dh": -313.33,
+   "mean_dh": -313.33,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2898.5,
+    175.7
+   ],
+   "min_dh": -324.27,
+   "max_dh": -324.27,
+   "mean_dh": -324.27,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2904.5,
+    -232.3
+   ],
+   "min_dh": -322.61,
+   "max_dh": -322.61,
+   "mean_dh": -322.61,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2904.5,
+    -70.3
+   ],
+   "min_dh": -332.06,
+   "max_dh": -332.06,
+   "mean_dh": -332.06,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2910.5,
+    -298.3
+   ],
+   "min_dh": -313.51,
+   "max_dh": -313.51,
+   "mean_dh": -313.51,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2928.5,
+    121.7
+   ],
+   "min_dh": -320.82,
+   "max_dh": -320.82,
+   "mean_dh": -320.82,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2934.5,
+    97.7
+   ],
+   "min_dh": -321.08,
+   "max_dh": -321.08,
+   "mean_dh": -321.08,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2952.5,
+    -160.3
+   ],
+   "min_dh": -325.3,
+   "max_dh": -325.3,
+   "mean_dh": -325.3,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    2994.5,
+    -166.3
+   ],
+   "min_dh": -332.9,
+   "max_dh": -332.9,
+   "mean_dh": -332.9,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    3000.5,
+    571.7
+   ],
+   "min_dh": -306.01,
+   "max_dh": -306.01,
+   "mean_dh": -306.01,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    3030.5,
+    -580.3
+   ],
+   "min_dh": -347.0,
+   "max_dh": -347.0,
+   "mean_dh": -347.0,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    3054.5,
+    -478.3
+   ],
+   "min_dh": -2.18,
+   "max_dh": -2.18,
+   "mean_dh": -2.18,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    3060.5,
+    -364.3
+   ],
+   "min_dh": -326.45,
+   "max_dh": -326.45,
+   "mean_dh": -326.45,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    3084.5,
+    -208.3
+   ],
+   "min_dh": -348.39,
+   "max_dh": -348.39,
+   "mean_dh": -348.39,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    3108.5,
+    -466.3
+   ],
+   "min_dh": -1.69,
+   "max_dh": -1.69,
+   "mean_dh": -1.69,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    3114.5,
+    -256.3
+   ],
+   "min_dh": -337.43,
+   "max_dh": -337.43,
+   "mean_dh": -337.43,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    3120.5,
+    -388.3
+   ],
+   "min_dh": -334.71,
+   "max_dh": -334.71,
+   "mean_dh": -334.71,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    3132.5,
+    -298.3
+   ],
+   "min_dh": -341.66,
+   "max_dh": -341.66,
+   "mean_dh": -341.66,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    3186.5,
+    -160.3
+   ],
+   "min_dh": -2.4,
+   "max_dh": -2.4,
+   "mean_dh": -2.4,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    3198.5,
+    73.7
+   ],
+   "min_dh": -1.96,
+   "max_dh": -1.96,
+   "mean_dh": -1.96,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    3204.5,
+    -172.3
+   ],
+   "min_dh": -1.44,
+   "max_dh": -1.44,
+   "mean_dh": -1.44,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    3246.5,
+    -166.3
+   ],
+   "min_dh": -1.12,
+   "max_dh": -1.12,
+   "mean_dh": -1.12,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    3252.5,
+    -94.3
+   ],
+   "min_dh": -331.9,
+   "max_dh": -331.9,
+   "mean_dh": -331.9,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    3258.5,
+    -430.3
+   ],
+   "min_dh": -338.11,
+   "max_dh": -338.11,
+   "mean_dh": -338.11,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    3306.5,
+    -862.3
+   ],
+   "min_dh": -323.21,
+   "max_dh": -323.21,
+   "mean_dh": -323.21,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    3306.5,
+    -454.3
+   ],
+   "min_dh": -341.77,
+   "max_dh": -341.77,
+   "mean_dh": -341.77,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    3330.5,
+    -160.3
+   ],
+   "min_dh": -330.55,
+   "max_dh": -330.55,
+   "mean_dh": -330.55,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    3336.5,
+    -472.3
+   ],
+   "min_dh": -341.49,
+   "max_dh": -341.49,
+   "mean_dh": -341.49,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    3348.5,
+    -892.3
+   ],
+   "min_dh": -318.09,
+   "max_dh": -318.09,
+   "mean_dh": -318.09,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    3354.5,
+    -484.3
+   ],
+   "min_dh": -333.73,
+   "max_dh": -333.73,
+   "mean_dh": -333.73,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    3378.5,
+    -904.3
+   ],
+   "min_dh": -316.84,
+   "max_dh": -316.84,
+   "mean_dh": -316.84,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    3378.5,
+    199.7
+   ],
+   "min_dh": -144.81,
+   "max_dh": -144.81,
+   "mean_dh": -144.81,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    3390.5,
+    181.7
+   ],
+   "min_dh": -375.56,
+   "max_dh": -375.56,
+   "mean_dh": -375.56,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    3402.5,
+    -574.3
+   ],
+   "min_dh": -334.64,
+   "max_dh": -334.64,
+   "mean_dh": -334.64,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    3420.5,
+    -598.3
+   ],
+   "min_dh": -331.54,
+   "max_dh": -331.54,
+   "mean_dh": -331.54,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    3420.5,
+    -166.3
+   ],
+   "min_dh": -348.38,
+   "max_dh": -348.38,
+   "mean_dh": -348.38,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    3444.5,
+    -664.3
+   ],
+   "min_dh": -318.98,
+   "max_dh": -318.98,
+   "mean_dh": -318.98,
+   "above": 0,
+   "below": 1
+  },
+  {
+   "cells": 1,
+   "area": 36,
+   "center": [
+    3480.5,
+    -916.3
+   ],
+   "min_dh": -319.77,
+   "max_dh": -319.77,
+   "mean_dh": -319.77,
+   "above": 0,
+   "below": 1
+  }
+ ]
+}
