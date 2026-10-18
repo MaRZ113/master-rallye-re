@@ -41,7 +41,7 @@
       "properties": {
         "id": {"type": "string", "description": "Stable key, e.g. TURKEY3:geometry:puddle:0"},
         "layer": {"enum": ["geometry", "material", "texture", "collision", "surface", "trigger", "rigid_prop", "spline_object", "bird", "emitter", "checkpoint", "detail"]},
-        "delta_class": {"enum": ["SAME", "MISSING_ON_PC", "DIFFERENT_MATERIAL", "DIFFERENT_LOGIC", "UNCLASSIFIED"]},
+        "delta_class": {"enum": ["SAME", "MISSING_ON_PC", "DIFFERENT_MATERIAL", "DIFFERENT_LOGIC", "PLACEMENT_DIFFERS", "UNCLASSIFIED"]},
         "channel": {"enum": ["A_RENDER_OVERLAY", "B_DATA_COPY", "C_NATIVE_HOOK", "NONE", "UNDECIDED"]},
         "evidence": {"$ref": "#/$defs/evidence"},
         "sources": {"type": "array", "minItems": 1, "items": {"type": "string"}, "description": "Source files, functions, ELF addresses"},

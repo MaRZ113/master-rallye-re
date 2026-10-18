@@ -1,0 +1,4198 @@
+{
+ "course": "TURKEY3",
+ "groups": [
+  {
+   "category": "object_building",
+   "exact_peer_textures": [
+    "hut_01-tga"
+   ],
+   "faces": 39,
+   "fit": {
+    "faces": 39,
+    "fits": 1,
+    "residual": 0.0002616760575619992,
+    "target_draws": [
+     "PC:724a69da708a124f7dbfd666b7ad8d391bcaf22ff94bd2c91143e305749cf7f8:draw:627"
+    ],
+    "verdict": "WHOLE_GROUP_CONGRUENT"
+   },
+   "group_faces": 39,
+   "material": "rustic Hut $clamp(uv) $shader(object)",
+   "node_offset": 3403248,
+   "non_exact": 39,
+   "pc_texture_family_draws": 6,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 39
+   },
+   "textures": [
+    "hut_01-tga"
+   ]
+  },
+  {
+   "category": "object_vehicle_prop",
+   "exact_peer_textures": [],
+   "faces": 88,
+   "fit": {
+    "verdict": "NO_PC_TEXTURE_FAMILY"
+   },
+   "group_faces": 88,
+   "material": "RED CARAVAN $shader(object)",
+   "node_offset": 3403455,
+   "non_exact": 88,
+   "pc_texture_family_draws": 0,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 88
+   },
+   "textures": [
+    "newtex-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grav to ro1-tga",
+    "mud to ror-tga",
+    "new wall-tga"
+   ],
+   "faces": 21,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 11,
+    "FAR_BELOW_PC_SURFACE": 4,
+    "SLIGHTLY_BELOW_PC_SURFACE": 6
+   },
+   "group_faces": 35,
+   "material": "$surfacetype(gravel) $shader(ground) $clamp(u) $detail(grass)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3403802,
+   "non_exact": 21,
+   "pc_texture_family_draws": 53,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 14,
+    "GEOMETRY_MODIFIED": 5,
+    "PS2_EXTRA_VISUAL_SOURCE": 16
+   },
+   "textures": [
+    "mud to ror-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "basegravel-tga",
+    "gravel_road-tga",
+    "neu grass to rock-tga"
+   ],
+   "faces": 16,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 8,
+    "FAR_BELOW_PC_SURFACE": 5,
+    "OVERLAY_ABOVE_PC_SURFACE": 2,
+    "SLIGHTLY_BELOW_PC_SURFACE": 1
+   },
+   "group_faces": 16,
+   "material": "$surfacetype(harddirt) $shader(ground) $detail(shrubs)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3404058,
+   "non_exact": 16,
+   "pc_texture_family_draws": 54,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 16
+   },
+   "textures": [
+    "basegravel-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "basegravel-tga",
+    "gravel_road-tga"
+   ],
+   "faces": 5,
+   "ground_relation": {
+    "SLIGHTLY_BELOW_PC_SURFACE": 5
+   },
+   "group_faces": 12,
+   "material": "$surfacetype(harddirt) $shader(ground) $detail(grass)$grnd:gravel_hard $shader(ground)Nois",
+   "node_offset": 3404991,
+   "non_exact": 5,
+   "pc_texture_family_draws": 53,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 7,
+    "PS2_EXTRA_VISUAL_SOURCE": 5
+   },
+   "textures": [
+    "gravel_road-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "neu rocky-tga"
+   ],
+   "faces": 1,
+   "ground_relation": {
+    "NO_PC_SURFACE_UNDER": 1
+   },
+   "group_faces": 29,
+   "material": "$surfacetype(gravel) $shader(ground)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3409059,
+   "non_exact": 1,
+   "pc_texture_family_draws": 67,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 28,
+    "PS2_EXTRA_VISUAL_SOURCE": 1
+   },
+   "textures": [
+    "neu rocky-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "neubeddirt-tga"
+   ],
+   "faces": 6,
+   "ground_relation": {
+    "SLIGHTLY_BELOW_PC_SURFACE": 6
+   },
+   "group_faces": 12,
+   "material": "$surfacetype(harddirt) $shader(ground) $detail(shrubs)$grnd:dirt_softNoise Pass",
+   "node_offset": 3418591,
+   "non_exact": 6,
+   "pc_texture_family_draws": 17,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 6,
+    "PS2_EXTRA_VISUAL_SOURCE": 6
+   },
+   "textures": [
+    "neubeddirt-tga"
+   ]
+  },
+  {
+   "category": "other",
+   "exact_peer_textures": [
+    "i2a_planks2-tga",
+    "wood_01-tga"
+   ],
+   "faces": 2,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 2
+   },
+   "group_faces": 122,
+   "material": "wood $shader(object)",
+   "node_offset": 3420504,
+   "non_exact": 2,
+   "pc_texture_family_draws": 17,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 120,
+    "PS2_EXTRA_VISUAL_SOURCE": 2
+   },
+   "textures": [
+    "i2a_planks2-tga"
+   ]
+  },
+  {
+   "category": "object_building",
+   "exact_peer_textures": [
+    "hut_01-tga"
+   ],
+   "faces": 71,
+   "fit": {
+    "component_faces": 70,
+    "faces": 71,
+    "fitted_faces": 48,
+    "verdict": "COMPONENTS_CONGRUENT"
+   },
+   "group_faces": 71,
+   "material": "rustic Hut $clamp(uv) $shader(object)",
+   "node_offset": 3420712,
+   "non_exact": 71,
+   "pc_texture_family_draws": 6,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 71
+   },
+   "textures": [
+    "hut_01-tga"
+   ]
+  },
+  {
+   "category": "object_vehicle_prop",
+   "exact_peer_textures": [],
+   "faces": 88,
+   "fit": {
+    "verdict": "NO_PC_TEXTURE_FAMILY"
+   },
+   "group_faces": 88,
+   "material": "RED CARAVAN $shader(object)",
+   "node_offset": 3423540,
+   "non_exact": 88,
+   "pc_texture_family_draws": 0,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 88
+   },
+   "textures": [
+    "newtex-tga"
+   ]
+  },
+  {
+   "category": "foliage_tree",
+   "exact_peer_textures": [
+    "fence_02-tga"
+   ],
+   "faces": 18,
+   "fit": {
+    "faces": 18,
+    "verdict": "NO_CONGRUENT_FIT"
+   },
+   "group_faces": 18,
+   "material": "Fence hut $alphatest() $shader(tree) $clamp(v)",
+   "node_offset": 3423994,
+   "non_exact": 18,
+   "pc_texture_family_draws": 8,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 18
+   },
+   "textures": [
+    "fence_02-tga"
+   ]
+  },
+  {
+   "category": "other",
+   "exact_peer_textures": [
+    "wires-tga"
+   ],
+   "faces": 2,
+   "ground_relation": {
+    "COINCIDENT_WITH_PC_SURFACE": 2
+   },
+   "group_faces": 75,
+   "material": "telegraphwires $alphablend() $shader(wires) $clamp(v)",
+   "node_offset": 3424147,
+   "non_exact": 2,
+   "pc_texture_family_draws": 37,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 73,
+    "PARTIAL_SURFACE_OVERLAP": 2
+   },
+   "textures": [
+    "wires-tga"
+   ]
+  },
+  {
+   "category": "foliage_treeblend",
+   "exact_peer_textures": [
+    "shrub-tga",
+    "shrub1-tga"
+   ],
+   "faces": 32,
+   "fit": {
+    "component_faces": 32,
+    "faces": 32,
+    "fitted_faces": 32,
+    "verdict": "COMPONENTS_CONGRUENT"
+   },
+   "group_faces": 80,
+   "material": "TURshrub2 $alphatest() $shader(treeblend)",
+   "node_offset": 3424395,
+   "non_exact": 32,
+   "pc_texture_family_draws": 60,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 48,
+    "PS2_EXTRA_VISUAL_SOURCE": 32
+   },
+   "textures": [
+    "shrubtrig2-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grass to grav-tga",
+    "grass to grav2-tga",
+    "mud to ror-tga"
+   ],
+   "faces": 2,
+   "ground_relation": {
+    "OVERLAY_ABOVE_PC_SURFACE": 2
+   },
+   "group_faces": 15,
+   "material": "$surfacetype(harddirt) $shader(ground) $clamp(u) $detail(shrubs)$grnd:grass_hardNoise Pass",
+   "node_offset": 3424815,
+   "non_exact": 2,
+   "pc_texture_family_draws": 89,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 13,
+    "PS2_EXTRA_VISUAL_SOURCE": 2
+   },
+   "textures": [
+    "grass to grav-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "basegravel-tga",
+    "gravel_road-tga",
+    "neu grass to rock-tga"
+   ],
+   "faces": 16,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 7,
+    "OVERLAY_ABOVE_PC_SURFACE": 8,
+    "SLIGHTLY_BELOW_PC_SURFACE": 1
+   },
+   "group_faces": 64,
+   "material": "$surfacetype(harddirt) $shader(ground) $detail(shrubs)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3425453,
+   "non_exact": 16,
+   "pc_texture_family_draws": 54,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 48,
+    "PS2_EXTRA_VISUAL_SOURCE": 16
+   },
+   "textures": [
+    "basegravel-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "bed to mud-tga",
+    "bed to mud2-tga"
+   ],
+   "faces": 4,
+   "ground_relation": {
+    "COINCIDENT_WITH_PC_SURFACE": 1,
+    "FAR_BELOW_PC_SURFACE": 3
+   },
+   "group_faces": 68,
+   "material": "$surfacetype(harddirt) $shader(ground) $clamp(u)$grndu:50:grass_hard:gravel_hardNoise Pass",
+   "node_offset": 3426618,
+   "non_exact": 4,
+   "pc_texture_family_draws": 16,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 64,
+    "PS2_EXTRA_VISUAL_SOURCE": 3,
+    "SAME_SURFACE_DIFFERENT_TRIANGULATION": 1
+   },
+   "textures": [
+    "bed to mud-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "neubeddirt-tga"
+   ],
+   "faces": 52,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 24,
+    "SLIGHTLY_BELOW_PC_SURFACE": 28
+   },
+   "group_faces": 112,
+   "material": "$surfacetype(harddirt) $shader(ground) $detail(grass)$grnd:dirt_softNoise Pass",
+   "node_offset": 3426902,
+   "non_exact": 52,
+   "pc_texture_family_draws": 17,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 60,
+    "PS2_EXTRA_VISUAL_SOURCE": 52
+   },
+   "textures": [
+    "neubeddirt-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "neubeddirt-tga"
+   ],
+   "faces": 3,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 1,
+    "SLIGHTLY_BELOW_PC_SURFACE": 2
+   },
+   "group_faces": 3,
+   "material": "$surfacetype(harddirt) $shader(ground) $detail(shrubs)$grnd:dirt_softNoise Pass",
+   "node_offset": 3427187,
+   "non_exact": 3,
+   "pc_texture_family_draws": 17,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 3
+   },
+   "textures": [
+    "neubeddirt-tga"
+   ]
+  },
+  {
+   "category": "puddle",
+   "exact_peer_textures": [],
+   "faces": 77,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 72,
+    "OVERLAY_ABOVE_PC_SURFACE": 1,
+    "SLIGHTLY_BELOW_PC_SURFACE": 4
+   },
+   "group_faces": 77,
+   "material": "water $surfacetype(water) $shader(puddle)",
+   "node_offset": 3429418,
+   "non_exact": 77,
+   "pc_texture_family_draws": 0,
+   "relations": {
+    "GEOMETRY_MODIFIED": 75,
+    "PS2_EXTRA_VISUAL_SOURCE": 2
+   },
+   "textures": [
+    "water-tga"
+   ]
+  },
+  {
+   "category": "object_building",
+   "exact_peer_textures": [
+    "hut_01-tga"
+   ],
+   "faces": 139,
+   "fit": {
+    "component_faces": 138,
+    "faces": 139,
+    "fitted_faces": 126,
+    "verdict": "COMPONENTS_CONGRUENT"
+   },
+   "group_faces": 139,
+   "material": "rustic Hut $clamp(uv) $shader(object)",
+   "node_offset": 3429766,
+   "non_exact": 139,
+   "pc_texture_family_draws": 6,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 139
+   },
+   "textures": [
+    "hut_01-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grass to grav-tga",
+    "grass to grav2-tga",
+    "mud to ror-tga"
+   ],
+   "faces": 3,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 2,
+    "SLIGHTLY_BELOW_PC_SURFACE": 1
+   },
+   "group_faces": 9,
+   "material": "$surfacetype(harddirt) $shader(ground) $clamp(u) $detail(shrubs)$grnd:grass_hardNoise Pass",
+   "node_offset": 3430255,
+   "non_exact": 3,
+   "pc_texture_family_draws": 89,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 6,
+    "PS2_EXTRA_VISUAL_SOURCE": 3
+   },
+   "textures": [
+    "grass to grav-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "base1-tga"
+   ],
+   "faces": 2,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 2
+   },
+   "group_faces": 13,
+   "material": "$surfacetype(grass) $shader(ground) $detail(shrubs)$grnd:grass_hardNoise Pass",
+   "node_offset": 3430477,
+   "non_exact": 2,
+   "pc_texture_family_draws": 58,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 11,
+    "PS2_EXTRA_VISUAL_SOURCE": 2
+   },
+   "textures": [
+    "base1-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grass to roc1-tga",
+    "grass to roc2-tga"
+   ],
+   "faces": 10,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 8,
+    "SLIGHTLY_BELOW_PC_SURFACE": 2
+   },
+   "group_faces": 31,
+   "material": "$surfacetype(grass) $shader(ground) $clamp(u)$grnd:grass_hardNoise Pass",
+   "node_offset": 3430691,
+   "non_exact": 10,
+   "pc_texture_family_draws": 112,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 21,
+    "PS2_EXTRA_VISUAL_SOURCE": 10
+   },
+   "textures": [
+    "grass to roc2-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grav to ro1-tga",
+    "mud to ror-tga",
+    "new wall-tga"
+   ],
+   "faces": 3,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 3
+   },
+   "group_faces": 8,
+   "material": "$surfacetype(gravel) $shader(ground) $clamp(u) $detail(grass)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3430920,
+   "non_exact": 3,
+   "pc_texture_family_draws": 53,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 5,
+    "PS2_EXTRA_VISUAL_SOURCE": 3
+   },
+   "textures": [
+    "mud to ror-tga"
+   ]
+  },
+  {
+   "category": "object_vehicle_prop",
+   "exact_peer_textures": [],
+   "faces": 60,
+   "fit": {
+    "verdict": "NO_PC_TEXTURE_FAMILY"
+   },
+   "group_faces": 60,
+   "material": "CARAVAN $shader(object)",
+   "node_offset": 3431150,
+   "non_exact": 60,
+   "pc_texture_family_draws": 0,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 60
+   },
+   "textures": [
+    "caravan-tga"
+   ]
+  },
+  {
+   "category": "object_vehicle_prop",
+   "exact_peer_textures": [],
+   "faces": 8,
+   "fit": {
+    "verdict": "NO_PC_TEXTURE_FAMILY"
+   },
+   "group_faces": 8,
+   "material": "CARAVAN_ALPHA $shader(object) $alphatest()",
+   "node_offset": 3431371,
+   "non_exact": 8,
+   "pc_texture_family_draws": 0,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 8
+   },
+   "textures": [
+    "caravan-tga"
+   ]
+  },
+  {
+   "category": "foliage_tree",
+   "exact_peer_textures": [
+    "fence_02-tga"
+   ],
+   "faces": 10,
+   "fit": {
+    "faces": 10,
+    "verdict": "NO_CONGRUENT_FIT"
+   },
+   "group_faces": 10,
+   "material": "Fence hut $alphatest() $shader(tree) $clamp(v)",
+   "node_offset": 3431532,
+   "non_exact": 10,
+   "pc_texture_family_draws": 8,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 10
+   },
+   "textures": [
+    "fence_02-tga"
+   ]
+  },
+  {
+   "category": "other",
+   "exact_peer_textures": [
+    "wires-tga"
+   ],
+   "faces": 4,
+   "ground_relation": {
+    "COINCIDENT_WITH_PC_SURFACE": 4
+   },
+   "group_faces": 65,
+   "material": "telegraphwires $alphablend() $shader(wires) $clamp(v)",
+   "node_offset": 3431685,
+   "non_exact": 4,
+   "pc_texture_family_draws": 37,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 61,
+    "PARTIAL_SURFACE_OVERLAP": 4
+   },
+   "textures": [
+    "wires-tga"
+   ]
+  },
+  {
+   "category": "foliage_treeblend",
+   "exact_peer_textures": [
+    "shrub-tga",
+    "shrub1-tga"
+   ],
+   "faces": 32,
+   "fit": {
+    "component_faces": 32,
+    "faces": 32,
+    "fitted_faces": 32,
+    "verdict": "COMPONENTS_CONGRUENT"
+   },
+   "group_faces": 160,
+   "material": "TURshrub2 $alphatest() $shader(treeblend)",
+   "node_offset": 3431946,
+   "non_exact": 32,
+   "pc_texture_family_draws": 60,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 128,
+    "PS2_EXTRA_VISUAL_SOURCE": 32
+   },
+   "textures": [
+    "shrubtrig2-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "basegravel-tga",
+    "gravel_road-tga",
+    "neu grass to rock-tga"
+   ],
+   "faces": 8,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 5,
+    "OVERLAY_ABOVE_PC_SURFACE": 1,
+    "SLIGHTLY_BELOW_PC_SURFACE": 2
+   },
+   "group_faces": 59,
+   "material": "$surfacetype(harddirt) $shader(ground) $detail(shrubs)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3432910,
+   "non_exact": 8,
+   "pc_texture_family_draws": 54,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 51,
+    "PS2_EXTRA_VISUAL_SOURCE": 8
+   },
+   "textures": [
+    "basegravel-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grass to grav-tga",
+    "grass to grav2-tga",
+    "mud to ror-tga"
+   ],
+   "faces": 1,
+   "ground_relation": {
+    "OVERLAY_ABOVE_PC_SURFACE": 1
+   },
+   "group_faces": 23,
+   "material": "$surfacetype(harddirt) $shader(ground) $clamp(u) $detail(shrubs)$grnd:grass_hardNoise Pass",
+   "node_offset": 3433159,
+   "non_exact": 1,
+   "pc_texture_family_draws": 89,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 22,
+    "PS2_EXTRA_VISUAL_SOURCE": 1
+   },
+   "textures": [
+    "grass to grav-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "neu rocky-tga"
+   ],
+   "faces": 20,
+   "ground_relation": {
+    "NO_PC_SURFACE_UNDER": 20
+   },
+   "group_faces": 20,
+   "material": "$surfacetype(gravel) $shader(ground)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3435785,
+   "non_exact": 20,
+   "pc_texture_family_draws": 67,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 20
+   },
+   "textures": [
+    "neu rocky-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grass to roc1-tga",
+    "grass to roc2-tga"
+   ],
+   "faces": 16,
+   "ground_relation": {
+    "NO_PC_SURFACE_UNDER": 16
+   },
+   "group_faces": 16,
+   "material": "$surfacetype(grass) $shader(ground) $clamp(u)$grnd:grass_hardNoise Pass",
+   "node_offset": 3436015,
+   "non_exact": 16,
+   "pc_texture_family_draws": 112,
+   "relations": {
+    "DIAGNOSTIC_DEGENERATE": 3,
+    "PS2_EXTRA_VISUAL_SOURCE": 13
+   },
+   "textures": [
+    "grass to roc2-tga"
+   ]
+  },
+  {
+   "category": "foliage_treeblend",
+   "exact_peer_textures": [
+    "shrub-tga",
+    "shrub1-tga"
+   ],
+   "faces": 16,
+   "fit": {
+    "faces": 16,
+    "fits": 46,
+    "residual": 0.00041126187761619803,
+    "target_draws": [
+     "PC:724a69da708a124f7dbfd666b7ad8d391bcaf22ff94bd2c91143e305749cf7f8:draw:102"
+    ],
+    "verdict": "WHOLE_GROUP_CONGRUENT"
+   },
+   "group_faces": 64,
+   "material": "TURshrub2 $alphatest() $shader(treeblend)",
+   "node_offset": 3436607,
+   "non_exact": 16,
+   "pc_texture_family_draws": 60,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 48,
+    "PS2_EXTRA_VISUAL_SOURCE": 16
+   },
+   "textures": [
+    "shrubtrig2-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grass to roc1-tga",
+    "grass to roc2-tga"
+   ],
+   "faces": 11,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 11
+   },
+   "group_faces": 19,
+   "material": "$surfacetype(grass) $shader(ground) $clamp(u)$grnd:grass_hardNoise Pass",
+   "node_offset": 3436783,
+   "non_exact": 11,
+   "pc_texture_family_draws": 112,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 8,
+    "PS2_EXTRA_VISUAL_SOURCE": 11
+   },
+   "textures": [
+    "grass to roc2-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "mud to ro-tga",
+    "mud to ro1-tga"
+   ],
+   "faces": 12,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 6,
+    "FAR_BELOW_PC_SURFACE": 2,
+    "SLIGHTLY_BELOW_PC_SURFACE": 4
+   },
+   "group_faces": 18,
+   "material": "$surfacetype(gravel) $shader(ground) $clamp(u) $detail(grass)$grndu:50:gravel_hard:dirt_ha",
+   "node_offset": 3436999,
+   "non_exact": 12,
+   "pc_texture_family_draws": 25,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 6,
+    "PS2_EXTRA_VISUAL_SOURCE": 12
+   },
+   "textures": [
+    "mud to ro1-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "neu rocky-tga"
+   ],
+   "faces": 35,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 6,
+    "FAR_BELOW_PC_SURFACE": 28,
+    "OVERLAY_ABOVE_PC_SURFACE": 1
+   },
+   "group_faces": 39,
+   "material": "$surfacetype(gravel) $shader(ground)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3437256,
+   "non_exact": 35,
+   "pc_texture_family_draws": 67,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 4,
+    "PS2_EXTRA_VISUAL_SOURCE": 35
+   },
+   "textures": [
+    "neu rocky-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "base1-tga"
+   ],
+   "faces": 4,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 4
+   },
+   "group_faces": 52,
+   "material": "$surfacetype(grass) $shader(ground) $detail(shrubs)$grnd:grass_hardNoise Pass",
+   "node_offset": 3437486,
+   "non_exact": 4,
+   "pc_texture_family_draws": 58,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 48,
+    "PS2_EXTRA_VISUAL_SOURCE": 4
+   },
+   "textures": [
+    "base1-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grass to roc1-tga",
+    "grass to roc2-tga"
+   ],
+   "faces": 12,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 5,
+    "FAR_BELOW_PC_SURFACE": 2,
+    "OVERLAY_ABOVE_PC_SURFACE": 4,
+    "SLIGHTLY_BELOW_PC_SURFACE": 1
+   },
+   "group_faces": 25,
+   "material": "$surfacetype(grass) $shader(ground) $clamp(u)$grnd:grass_hardNoise Pass",
+   "node_offset": 3440018,
+   "non_exact": 12,
+   "pc_texture_family_draws": 112,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 13,
+    "PS2_EXTRA_VISUAL_SOURCE": 12
+   },
+   "textures": [
+    "grass to roc2-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "neu rocky-tga"
+   ],
+   "faces": 47,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 36,
+    "FAR_BELOW_PC_SURFACE": 10,
+    "SLIGHTLY_BELOW_PC_SURFACE": 1
+   },
+   "group_faces": 124,
+   "material": "$surfacetype(gravel) $shader(ground)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3440448,
+   "non_exact": 47,
+   "pc_texture_family_draws": 67,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 77,
+    "PS2_EXTRA_VISUAL_SOURCE": 47
+   },
+   "textures": [
+    "neu rocky-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "mud to ro-tga",
+    "mud to ro1-tga"
+   ],
+   "faces": 13,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 13
+   },
+   "group_faces": 88,
+   "material": "$surfacetype(gravel) $shader(ground) $clamp(u) $detail(grass)$grndu:50:gravel_hard:dirt_ha",
+   "node_offset": 3440769,
+   "non_exact": 13,
+   "pc_texture_family_draws": 25,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 75,
+    "PS2_EXTRA_VISUAL_SOURCE": 13
+   },
+   "textures": [
+    "mud to ro1-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grass to roc1-tga",
+    "grass to roc2-tga"
+   ],
+   "faces": 7,
+   "ground_relation": {
+    "COINCIDENT_WITH_PC_SURFACE": 2,
+    "FAR_ABOVE_PC_SURFACE": 3,
+    "OVERLAY_ABOVE_PC_SURFACE": 2
+   },
+   "group_faces": 22,
+   "material": "$surfacetype(grass) $shader(ground) $clamp(u)$grnd:grass_hardNoise Pass",
+   "node_offset": 3441953,
+   "non_exact": 7,
+   "pc_texture_family_draws": 112,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 15,
+    "PS2_EXTRA_VISUAL_SOURCE": 7
+   },
+   "textures": [
+    "grass to roc2-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "neu rocky-tga"
+   ],
+   "faces": 33,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 31,
+    "OVERLAY_ABOVE_PC_SURFACE": 2
+   },
+   "group_faces": 112,
+   "material": "$surfacetype(gravel) $shader(ground)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3442195,
+   "non_exact": 33,
+   "pc_texture_family_draws": 67,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 79,
+    "PS2_EXTRA_VISUAL_SOURCE": 33
+   },
+   "textures": [
+    "neu rocky-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "mud to ro-tga",
+    "mud to ro1-tga"
+   ],
+   "faces": 12,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 4,
+    "OVERLAY_ABOVE_PC_SURFACE": 5,
+    "SLIGHTLY_BELOW_PC_SURFACE": 3
+   },
+   "group_faces": 80,
+   "material": "$surfacetype(gravel) $shader(ground) $clamp(u) $detail(grass)$grndu:50:gravel_hard:dirt_ha",
+   "node_offset": 3442477,
+   "non_exact": 12,
+   "pc_texture_family_draws": 25,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 68,
+    "PS2_EXTRA_VISUAL_SOURCE": 12
+   },
+   "textures": [
+    "mud to ro1-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "neu rocky-tga"
+   ],
+   "faces": 64,
+   "ground_relation": {
+    "COINCIDENT_WITH_PC_SURFACE": 1,
+    "FAR_ABOVE_PC_SURFACE": 20,
+    "FAR_BELOW_PC_SURFACE": 38,
+    "OVERLAY_ABOVE_PC_SURFACE": 1,
+    "SLIGHTLY_BELOW_PC_SURFACE": 4
+   },
+   "group_faces": 140,
+   "material": "$surfacetype(gravel) $shader(ground)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3444296,
+   "non_exact": 64,
+   "pc_texture_family_draws": 67,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 76,
+    "PS2_EXTRA_VISUAL_SOURCE": 64
+   },
+   "textures": [
+    "neu rocky-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "mud to ro-tga",
+    "mud to ro1-tga"
+   ],
+   "faces": 15,
+   "ground_relation": {
+    "COINCIDENT_WITH_PC_SURFACE": 2,
+    "FAR_BELOW_PC_SURFACE": 5,
+    "OVERLAY_ABOVE_PC_SURFACE": 3,
+    "SLIGHTLY_BELOW_PC_SURFACE": 5
+   },
+   "group_faces": 132,
+   "material": "$surfacetype(gravel) $shader(ground) $clamp(u) $detail(grass)$grndu:50:gravel_hard:dirt_ha",
+   "node_offset": 3444604,
+   "non_exact": 15,
+   "pc_texture_family_draws": 25,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 117,
+    "GEOMETRY_MODIFIED": 2,
+    "PS2_EXTRA_VISUAL_SOURCE": 13
+   },
+   "textures": [
+    "mud to ro1-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grass to roc1-tga",
+    "grass to roc2-tga"
+   ],
+   "faces": 14,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 1,
+    "FAR_BELOW_PC_SURFACE": 10,
+    "NO_PC_SURFACE_UNDER": 1,
+    "SLIGHTLY_BELOW_PC_SURFACE": 2
+   },
+   "group_faces": 46,
+   "material": "$surfacetype(grass) $shader(ground) $clamp(u)$grnd:grass_hardNoise Pass",
+   "node_offset": 3444939,
+   "non_exact": 14,
+   "pc_texture_family_draws": 112,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 32,
+    "PS2_EXTRA_VISUAL_SOURCE": 14
+   },
+   "textures": [
+    "grass to roc2-tga"
+   ]
+  },
+  {
+   "category": "foliage_treeblend",
+   "exact_peer_textures": [
+    "shrub-tga",
+    "shrub1-tga"
+   ],
+   "faces": 48,
+   "fit": {
+    "component_faces": 48,
+    "faces": 48,
+    "fitted_faces": 48,
+    "verdict": "COMPONENTS_CONGRUENT"
+   },
+   "group_faces": 140,
+   "material": "TURshrub2 $alphatest() $shader(treeblend)",
+   "node_offset": 3450656,
+   "non_exact": 48,
+   "pc_texture_family_draws": 60,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 92,
+    "PS2_EXTRA_VISUAL_SOURCE": 48
+   },
+   "textures": [
+    "shrubtrig2-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "neubeddirt-tga"
+   ],
+   "faces": 25,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 16,
+    "SLIGHTLY_BELOW_PC_SURFACE": 9
+   },
+   "group_faces": 58,
+   "material": "$surfacetype(harddirt) $shader(ground) $detail(shrubs)$grnd:dirt_softNoise Pass",
+   "node_offset": 3452095,
+   "non_exact": 25,
+   "pc_texture_family_draws": 17,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 33,
+    "PS2_EXTRA_VISUAL_SOURCE": 25
+   },
+   "textures": [
+    "neubeddirt-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "bedlef-tga",
+    "neubedrig-tga"
+   ],
+   "faces": 7,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 1,
+    "SLIGHTLY_BELOW_PC_SURFACE": 6
+   },
+   "group_faces": 18,
+   "material": "$surfacetype(harddirt) $shader(ground) $clamp(u) $detail(shrubs)$grnd:mud_hardNoise Pass",
+   "node_offset": 3452368,
+   "non_exact": 7,
+   "pc_texture_family_draws": 28,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 11,
+    "PS2_EXTRA_VISUAL_SOURCE": 7
+   },
+   "textures": [
+    "bedlef-tga"
+   ]
+  },
+  {
+   "category": "puddle",
+   "exact_peer_textures": [],
+   "faces": 63,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 7,
+    "FAR_BELOW_PC_SURFACE": 42,
+    "OVERLAY_ABOVE_PC_SURFACE": 7,
+    "SLIGHTLY_BELOW_PC_SURFACE": 7
+   },
+   "group_faces": 63,
+   "material": "water $surfacetype(water) $shader(puddle)",
+   "node_offset": 3454793,
+   "non_exact": 63,
+   "pc_texture_family_draws": 0,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 63
+   },
+   "textures": [
+    "water-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "base1-tga"
+   ],
+   "faces": 1,
+   "ground_relation": {
+    "COINCIDENT_WITH_PC_SURFACE": 1
+   },
+   "group_faces": 88,
+   "material": "$surfacetype(grass) $shader(ground) $detail(shrubs)$grnd:grass_hardNoise Pass",
+   "node_offset": 3455551,
+   "non_exact": 1,
+   "pc_texture_family_draws": 58,
+   "relations": {
+    "DIAGNOSTIC_DEGENERATE": 1,
+    "EXACT_TRIANGLE_MATCH": 87
+   },
+   "textures": [
+    "base1-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grass to grav-tga",
+    "grass to grav2-tga",
+    "mud to ror-tga"
+   ],
+   "faces": 1,
+   "ground_relation": {
+    "SLIGHTLY_BELOW_PC_SURFACE": 1
+   },
+   "group_faces": 14,
+   "material": "$surfacetype(harddirt) $shader(ground) $clamp(u) $detail(grass)$grnd:grass_hardNoise Pass",
+   "node_offset": 3455856,
+   "non_exact": 1,
+   "pc_texture_family_draws": 89,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 13,
+    "PS2_EXTRA_VISUAL_SOURCE": 1
+   },
+   "textures": [
+    "grass to grav-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "bedlef-tga",
+    "neubedrig-tga"
+   ],
+   "faces": 1,
+   "ground_relation": {
+    "SLIGHTLY_BELOW_PC_SURFACE": 1
+   },
+   "group_faces": 1,
+   "material": "$surfacetype(harddirt) $shader(ground) $clamp(u) $detail(shrubs)$grnd:mud_hardNoise Pass",
+   "node_offset": 3456529,
+   "non_exact": 1,
+   "pc_texture_family_draws": 28,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 1
+   },
+   "textures": [
+    "bedlef-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "bed to wall-tga"
+   ],
+   "faces": 3,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 3
+   },
+   "group_faces": 4,
+   "material": "$surfacetype(gravel) $shader(ground) $clamp(u)$grnd:mud_softNoise Pass",
+   "node_offset": 3456742,
+   "non_exact": 3,
+   "pc_texture_family_draws": 16,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 1,
+    "PS2_EXTRA_VISUAL_SOURCE": 3
+   },
+   "textures": [
+    "bed to wall-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "neubeddirt-tga"
+   ],
+   "faces": 1,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 1
+   },
+   "group_faces": 1,
+   "material": "$surfacetype(harddirt) $shader(ground) $detail(shrubs)$grnd:dirt_softNoise Pass",
+   "node_offset": 3456955,
+   "non_exact": 1,
+   "pc_texture_family_draws": 17,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 1
+   },
+   "textures": [
+    "neubeddirt-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "bed to wall2-tga"
+   ],
+   "faces": 4,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 4
+   },
+   "group_faces": 4,
+   "material": "$surfacetype(gravel) $shader(ground) $clamp(uv)Material #242Noise Pass",
+   "node_offset": 3457163,
+   "non_exact": 4,
+   "pc_texture_family_draws": 9,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 4
+   },
+   "textures": [
+    "bed to wall2-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "basegravel-tga",
+    "gravel_road-tga",
+    "neu grass to rock-tga"
+   ],
+   "faces": 2,
+   "ground_relation": {
+    "COINCIDENT_WITH_PC_SURFACE": 1,
+    "SLIGHTLY_BELOW_PC_SURFACE": 1
+   },
+   "group_faces": 3,
+   "material": "$surfacetype(harddirt) $shader(ground) $detail(shrubs)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3457377,
+   "non_exact": 2,
+   "pc_texture_family_draws": 54,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 1,
+    "GEOMETRY_MODIFIED": 2
+   },
+   "textures": [
+    "basegravel-tga"
+   ]
+  },
+  {
+   "category": "foliage_treeblend",
+   "exact_peer_textures": [
+    "shrub-tga",
+    "shrub1-tga"
+   ],
+   "faces": 192,
+   "fit": {
+    "component_faces": 192,
+    "faces": 192,
+    "fitted_faces": 192,
+    "verdict": "COMPONENTS_CONGRUENT"
+   },
+   "group_faces": 420,
+   "material": "TURshrub2 $alphatest() $shader(treeblend)",
+   "node_offset": 3459408,
+   "non_exact": 192,
+   "pc_texture_family_draws": 60,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 228,
+    "PS2_EXTRA_VISUAL_SOURCE": 192
+   },
+   "textures": [
+    "shrubtrig2-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "basegravel-tga",
+    "gravel_road-tga",
+    "neu grass to rock-tga"
+   ],
+   "faces": 7,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 1,
+    "FAR_BELOW_PC_SURFACE": 3,
+    "OVERLAY_ABOVE_PC_SURFACE": 1,
+    "SLIGHTLY_BELOW_PC_SURFACE": 2
+   },
+   "group_faces": 109,
+   "material": "$surfacetype(harddirt) $shader(ground) $detail(shrubs)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3460108,
+   "non_exact": 7,
+   "pc_texture_family_draws": 54,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 102,
+    "PS2_EXTRA_VISUAL_SOURCE": 7
+   },
+   "textures": [
+    "basegravel-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "bed to wall2-tga"
+   ],
+   "faces": 5,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 3,
+    "OVERLAY_ABOVE_PC_SURFACE": 1,
+    "SLIGHTLY_BELOW_PC_SURFACE": 1
+   },
+   "group_faces": 21,
+   "material": "$surfacetype(gravel) $shader(ground) $clamp(uv)Material #242Noise Pass",
+   "node_offset": 3460396,
+   "non_exact": 5,
+   "pc_texture_family_draws": 9,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 16,
+    "PS2_EXTRA_VISUAL_SOURCE": 5
+   },
+   "textures": [
+    "bed to wall2-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "neubeddirt-tga"
+   ],
+   "faces": 24,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 12,
+    "SLIGHTLY_BELOW_PC_SURFACE": 12
+   },
+   "group_faces": 101,
+   "material": "$surfacetype(harddirt) $shader(ground) $detail(shrubs)$grnd:dirt_softNoise Pass",
+   "node_offset": 3461144,
+   "non_exact": 24,
+   "pc_texture_family_draws": 17,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 77,
+    "PS2_EXTRA_VISUAL_SOURCE": 24
+   },
+   "textures": [
+    "neubeddirt-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "bed to mud multi-tga"
+   ],
+   "faces": 1,
+   "ground_relation": {
+    "SLIGHTLY_BELOW_PC_SURFACE": 1
+   },
+   "group_faces": 21,
+   "material": "$surfacetype(harddirt) $shader(ground) $clamp(v) $detail(grass)$grndv:50:dirt_hard:dirt_so",
+   "node_offset": 3462119,
+   "non_exact": 1,
+   "pc_texture_family_draws": 9,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 20,
+    "PS2_EXTRA_VISUAL_SOURCE": 1
+   },
+   "textures": [
+    "bed to mud multi-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "bedlef-tga",
+    "neubedrig-tga"
+   ],
+   "faces": 2,
+   "ground_relation": {
+    "SLIGHTLY_BELOW_PC_SURFACE": 2
+   },
+   "group_faces": 36,
+   "material": "$surfacetype(harddirt) $shader(ground) $clamp(u) $detail(shrubs)$grnd:mud_hardNoise Pass",
+   "node_offset": 3462382,
+   "non_exact": 2,
+   "pc_texture_family_draws": 28,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 34,
+    "PS2_EXTRA_VISUAL_SOURCE": 2
+   },
+   "textures": [
+    "bedlef-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "bed to wall-tga"
+   ],
+   "faces": 3,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 3
+   },
+   "group_faces": 42,
+   "material": "$surfacetype(gravel) $shader(ground) $clamp(u)$grnd:mud_softNoise Pass",
+   "node_offset": 3462621,
+   "non_exact": 3,
+   "pc_texture_family_draws": 16,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 39,
+    "PS2_EXTRA_VISUAL_SOURCE": 3
+   },
+   "textures": [
+    "bed to wall-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "new wall-tga"
+   ],
+   "faces": 20,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 9,
+    "FAR_BELOW_PC_SURFACE": 2,
+    "OVERLAY_ABOVE_PC_SURFACE": 8,
+    "SLIGHTLY_BELOW_PC_SURFACE": 1
+   },
+   "group_faces": 31,
+   "material": "$surfacetype(gravel) $shader(ground)",
+   "node_offset": 3463313,
+   "non_exact": 20,
+   "pc_texture_family_draws": 14,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 11,
+    "GEOMETRY_MODIFIED": 17,
+    "PS2_EXTRA_VISUAL_SOURCE": 3
+   },
+   "textures": [
+    "new wall-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grass to grav-tga",
+    "grass to grav2-tga",
+    "mud to ror-tga"
+   ],
+   "faces": 4,
+   "ground_relation": {
+    "SLIGHTLY_BELOW_PC_SURFACE": 4
+   },
+   "group_faces": 84,
+   "material": "$surfacetype(harddirt) $shader(ground) $clamp(u) $detail(shrubs)$grnd:grass_hardNoise Pass",
+   "node_offset": 3463685,
+   "non_exact": 4,
+   "pc_texture_family_draws": 89,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 80,
+    "PS2_EXTRA_VISUAL_SOURCE": 4
+   },
+   "textures": [
+    "grass to grav-tga"
+   ]
+  },
+  {
+   "category": "puddle",
+   "exact_peer_textures": [],
+   "faces": 38,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 4,
+    "FAR_BELOW_PC_SURFACE": 15,
+    "OVERLAY_ABOVE_PC_SURFACE": 13,
+    "SLIGHTLY_BELOW_PC_SURFACE": 6
+   },
+   "group_faces": 38,
+   "material": "water $surfacetype(water) $shader(puddle)",
+   "node_offset": 3464996,
+   "non_exact": 38,
+   "pc_texture_family_draws": 0,
+   "relations": {
+    "GEOMETRY_MODIFIED": 4,
+    "PS2_EXTRA_VISUAL_SOURCE": 34
+   },
+   "textures": [
+    "water-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grass to roc1-tga",
+    "grass to roc2-tga"
+   ],
+   "faces": 4,
+   "ground_relation": {
+    "SLIGHTLY_BELOW_PC_SURFACE": 4
+   },
+   "group_faces": 107,
+   "material": "$surfacetype(grass) $shader(ground) $clamp(u)$grnd:grass_hardNoise Pass",
+   "node_offset": 3466471,
+   "non_exact": 4,
+   "pc_texture_family_draws": 112,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 103,
+    "GEOMETRY_MODIFIED": 1,
+    "PS2_EXTRA_VISUAL_SOURCE": 3
+   },
+   "textures": [
+    "grass to roc2-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "base1-tga"
+   ],
+   "faces": 5,
+   "ground_relation": {
+    "SLIGHTLY_BELOW_PC_SURFACE": 5
+   },
+   "group_faces": 111,
+   "material": "$surfacetype(grass) $shader(ground) $detail(shrubs)$grnd:grass_hardNoise Pass",
+   "node_offset": 3467025,
+   "non_exact": 5,
+   "pc_texture_family_draws": 58,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 106,
+    "GEOMETRY_MODIFIED": 3,
+    "PS2_EXTRA_VISUAL_SOURCE": 2
+   },
+   "textures": [
+    "base1-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "mud to ro-tga",
+    "mud to ro1-tga"
+   ],
+   "faces": 10,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 4,
+    "SLIGHTLY_BELOW_PC_SURFACE": 6
+   },
+   "group_faces": 36,
+   "material": "$surfacetype(gravel) $shader(ground) $clamp(u) $detail(grass)$grndu:50:gravel_hard:dirt_ha",
+   "node_offset": 3469003,
+   "non_exact": 10,
+   "pc_texture_family_draws": 25,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 26,
+    "PS2_EXTRA_VISUAL_SOURCE": 10
+   },
+   "textures": [
+    "mud to ro1-tga"
+   ]
+  },
+  {
+   "category": "puddle",
+   "exact_peer_textures": [],
+   "faces": 104,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 55,
+    "FAR_BELOW_PC_SURFACE": 29,
+    "OVERLAY_ABOVE_PC_SURFACE": 15,
+    "SLIGHTLY_BELOW_PC_SURFACE": 5
+   },
+   "group_faces": 104,
+   "material": "water $surfacetype(water) $shader(puddle)",
+   "node_offset": 3469260,
+   "non_exact": 104,
+   "pc_texture_family_draws": 0,
+   "relations": {
+    "GEOMETRY_MODIFIED": 92,
+    "PS2_EXTRA_VISUAL_SOURCE": 12
+   },
+   "textures": [
+    "water-tga"
+   ]
+  },
+  {
+   "category": "foliage_treeblend",
+   "exact_peer_textures": [
+    "shrub-tga",
+    "shrub1-tga"
+   ],
+   "faces": 176,
+   "fit": {
+    "component_faces": 176,
+    "faces": 176,
+    "fitted_faces": 144,
+    "verdict": "COMPONENTS_CONGRUENT"
+   },
+   "group_faces": 176,
+   "material": "TURshrub2 $alphatest() $shader(treeblend)",
+   "node_offset": 3472827,
+   "non_exact": 176,
+   "pc_texture_family_draws": 60,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 176
+   },
+   "textures": [
+    "shrubtrig2-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "neu rocky-tga"
+   ],
+   "faces": 11,
+   "ground_relation": {
+    "COINCIDENT_WITH_PC_SURFACE": 1,
+    "FAR_BELOW_PC_SURFACE": 1,
+    "SLIGHTLY_BELOW_PC_SURFACE": 9
+   },
+   "group_faces": 145,
+   "material": "$surfacetype(gravel) $shader(ground)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3477227,
+   "non_exact": 11,
+   "pc_texture_family_draws": 67,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 134,
+    "PS2_EXTRA_VISUAL_SOURCE": 11
+   },
+   "textures": [
+    "neu rocky-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grass to roc1-tga",
+    "grass to roc2-tga"
+   ],
+   "faces": 14,
+   "ground_relation": {
+    "COINCIDENT_WITH_PC_SURFACE": 3,
+    "FAR_BELOW_PC_SURFACE": 6,
+    "SLIGHTLY_BELOW_PC_SURFACE": 5
+   },
+   "group_faces": 124,
+   "material": "$surfacetype(grass) $shader(ground) $clamp(u)$grnd:grass_hardNoise Pass",
+   "node_offset": 3477574,
+   "non_exact": 14,
+   "pc_texture_family_draws": 112,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 110,
+    "GEOMETRY_MODIFIED": 2,
+    "PS2_EXTRA_VISUAL_SOURCE": 12
+   },
+   "textures": [
+    "grass to roc2-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "bedlef-tga",
+    "neubedrig-tga"
+   ],
+   "faces": 23,
+   "ground_relation": {
+    "COINCIDENT_WITH_PC_SURFACE": 2,
+    "FAR_BELOW_PC_SURFACE": 3,
+    "SLIGHTLY_BELOW_PC_SURFACE": 18
+   },
+   "group_faces": 37,
+   "material": "$surfacetype(harddirt) $shader(ground) $clamp(u) $detail(shrubs)$grnd:mud_hardNoise Pass",
+   "node_offset": 3478408,
+   "non_exact": 23,
+   "pc_texture_family_draws": 28,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 14,
+    "GEOMETRY_MODIFIED": 2,
+    "PS2_EXTRA_VISUAL_SOURCE": 21
+   },
+   "textures": [
+    "bedlef-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "neubeddirt-tga"
+   ],
+   "faces": 28,
+   "ground_relation": {
+    "COINCIDENT_WITH_PC_SURFACE": 1,
+    "FAR_BELOW_PC_SURFACE": 19,
+    "SLIGHTLY_BELOW_PC_SURFACE": 8
+   },
+   "group_faces": 35,
+   "material": "$surfacetype(harddirt) $shader(ground) $detail(shrubs)$grnd:dirt_softNoise Pass",
+   "node_offset": 3478647,
+   "non_exact": 28,
+   "pc_texture_family_draws": 17,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 7,
+    "GEOMETRY_MODIFIED": 1,
+    "PS2_EXTRA_VISUAL_SOURCE": 27
+   },
+   "textures": [
+    "neubeddirt-tga"
+   ]
+  },
+  {
+   "category": "puddle",
+   "exact_peer_textures": [],
+   "faces": 63,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 22,
+    "FAR_BELOW_PC_SURFACE": 28,
+    "OVERLAY_ABOVE_PC_SURFACE": 7,
+    "SLIGHTLY_BELOW_PC_SURFACE": 6
+   },
+   "group_faces": 63,
+   "material": "water $surfacetype(water) $shader(puddle)",
+   "node_offset": 3479433,
+   "non_exact": 63,
+   "pc_texture_family_draws": 0,
+   "relations": {
+    "GEOMETRY_MODIFIED": 25,
+    "PS2_EXTRA_VISUAL_SOURCE": 38
+   },
+   "textures": [
+    "water-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "neu rocky-tga"
+   ],
+   "faces": 28,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 10,
+    "FAR_BELOW_PC_SURFACE": 17,
+    "OVERLAY_ABOVE_PC_SURFACE": 1
+   },
+   "group_faces": 83,
+   "material": "$surfacetype(gravel) $shader(ground)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3479749,
+   "non_exact": 28,
+   "pc_texture_family_draws": 67,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 55,
+    "PS2_EXTRA_VISUAL_SOURCE": 28
+   },
+   "textures": [
+    "neu rocky-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "mud to ro-tga",
+    "mud to ro1-tga"
+   ],
+   "faces": 10,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 7,
+    "OVERLAY_ABOVE_PC_SURFACE": 2,
+    "SLIGHTLY_BELOW_PC_SURFACE": 1
+   },
+   "group_faces": 69,
+   "material": "$surfacetype(gravel) $shader(ground) $clamp(u) $detail(grass)$grndu:50:gravel_hard:dirt_ha",
+   "node_offset": 3480018,
+   "non_exact": 10,
+   "pc_texture_family_draws": 25,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 59,
+    "PS2_EXTRA_VISUAL_SOURCE": 10
+   },
+   "textures": [
+    "mud to ro1-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grass to roc1-tga",
+    "grass to roc2-tga"
+   ],
+   "faces": 8,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 2,
+    "FAR_BELOW_PC_SURFACE": 5,
+    "SLIGHTLY_BELOW_PC_SURFACE": 1
+   },
+   "group_faces": 23,
+   "material": "$surfacetype(grass) $shader(ground) $clamp(u)$grnd:grass_hardNoise Pass",
+   "node_offset": 3480314,
+   "non_exact": 8,
+   "pc_texture_family_draws": 112,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 15,
+    "PS2_EXTRA_VISUAL_SOURCE": 8
+   },
+   "textures": [
+    "grass to roc2-tga"
+   ]
+  },
+  {
+   "category": "object_building",
+   "exact_peer_textures": [
+    "hut_01-tga"
+   ],
+   "faces": 69,
+   "fit": {
+    "component_faces": 69,
+    "faces": 69,
+    "fitted_faces": 69,
+    "verdict": "COMPONENTS_CONGRUENT"
+   },
+   "group_faces": 69,
+   "material": "rustic Hut $clamp(uv) $shader(object)",
+   "node_offset": 3482339,
+   "non_exact": 69,
+   "pc_texture_family_draws": 6,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 69
+   },
+   "textures": [
+    "hut_01-tga"
+   ]
+  },
+  {
+   "category": "foliage_tree",
+   "exact_peer_textures": [
+    "fence_02-tga"
+   ],
+   "faces": 12,
+   "fit": {
+    "faces": 12,
+    "verdict": "NO_CONGRUENT_FIT"
+   },
+   "group_faces": 12,
+   "material": "Fence hut $alphatest() $shader(tree) $clamp(v)",
+   "node_offset": 3483002,
+   "non_exact": 12,
+   "pc_texture_family_draws": 8,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 12
+   },
+   "textures": [
+    "fence_02-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "neu rocky-tga"
+   ],
+   "faces": 91,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 37,
+    "FAR_BELOW_PC_SURFACE": 38,
+    "OVERLAY_ABOVE_PC_SURFACE": 11,
+    "SLIGHTLY_BELOW_PC_SURFACE": 5
+   },
+   "group_faces": 158,
+   "material": "$surfacetype(gravel) $shader(ground)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3483142,
+   "non_exact": 91,
+   "pc_texture_family_draws": 67,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 67,
+    "GEOMETRY_MODIFIED": 4,
+    "PS2_EXTRA_VISUAL_SOURCE": 87
+   },
+   "textures": [
+    "neu rocky-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "mud to ro-tga",
+    "mud to ro1-tga"
+   ],
+   "faces": 21,
+   "ground_relation": {
+    "COINCIDENT_WITH_PC_SURFACE": 4,
+    "FAR_ABOVE_PC_SURFACE": 4,
+    "FAR_BELOW_PC_SURFACE": 2,
+    "OVERLAY_ABOVE_PC_SURFACE": 11
+   },
+   "group_faces": 114,
+   "material": "$surfacetype(gravel) $shader(ground) $clamp(u) $detail(grass)$grndu:50:gravel_hard:dirt_ha",
+   "node_offset": 3483476,
+   "non_exact": 21,
+   "pc_texture_family_draws": 25,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 93,
+    "PS2_EXTRA_VISUAL_SOURCE": 21
+   },
+   "textures": [
+    "mud to ro1-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grass to roc1-tga",
+    "grass to roc2-tga"
+   ],
+   "faces": 11,
+   "ground_relation": {
+    "COINCIDENT_WITH_PC_SURFACE": 2,
+    "FAR_ABOVE_PC_SURFACE": 3,
+    "OVERLAY_ABOVE_PC_SURFACE": 4,
+    "SLIGHTLY_BELOW_PC_SURFACE": 2
+   },
+   "group_faces": 16,
+   "material": "$surfacetype(grass) $shader(ground) $clamp(u)$grnd:grass_hardNoise Pass",
+   "node_offset": 3483785,
+   "non_exact": 11,
+   "pc_texture_family_draws": 112,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 5,
+    "GEOMETRY_MODIFIED": 1,
+    "PS2_EXTRA_VISUAL_SOURCE": 10
+   },
+   "textures": [
+    "grass to roc2-tga"
+   ]
+  },
+  {
+   "category": "puddle",
+   "exact_peer_textures": [],
+   "faces": 3,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 1,
+    "SLIGHTLY_BELOW_PC_SURFACE": 2
+   },
+   "group_faces": 3,
+   "material": "water $surfacetype(water) $shader(puddle)",
+   "node_offset": 3488650,
+   "non_exact": 3,
+   "pc_texture_family_draws": 0,
+   "relations": {
+    "GEOMETRY_MODIFIED": 2,
+    "PS2_EXTRA_VISUAL_SOURCE": 1
+   },
+   "textures": [
+    "water-tga"
+   ]
+  },
+  {
+   "category": "object_vehicle_prop",
+   "exact_peer_textures": [
+    "ctyre-tga",
+    "tred1-tga",
+    "wheel-tga"
+   ],
+   "faces": 64,
+   "fit": {
+    "component_faces": 64,
+    "faces": 64,
+    "fitted_faces": 26,
+    "verdict": "COMPONENTS_CONGRUENT"
+   },
+   "group_faces": 384,
+   "material": "Tyres $shader(metal)",
+   "node_offset": 3495324,
+   "non_exact": 64,
+   "pc_texture_family_draws": 4,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 320,
+    "GEOMETRY_MODIFIED": 24,
+    "PARTIAL_SURFACE_OVERLAP": 2,
+    "PS2_EXTRA_VISUAL_SOURCE": 38
+   },
+   "textures": [
+    "ctyre-tga",
+    "rubber-tga"
+   ]
+  },
+  {
+   "category": "foliage_treeblend",
+   "exact_peer_textures": [
+    "shrub-tga",
+    "shrub1-tga"
+   ],
+   "faces": 64,
+   "fit": {
+    "component_faces": 64,
+    "faces": 64,
+    "fitted_faces": 64,
+    "verdict": "COMPONENTS_CONGRUENT"
+   },
+   "group_faces": 128,
+   "material": "TURshrub2 $alphatest() $shader(treeblend)",
+   "node_offset": 3498844,
+   "non_exact": 64,
+   "pc_texture_family_draws": 60,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 64,
+    "PS2_EXTRA_VISUAL_SOURCE": 64
+   },
+   "textures": [
+    "shrubtrig2-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grav to ro1-tga",
+    "mud to ror-tga",
+    "new wall-tga"
+   ],
+   "faces": 1,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 1
+   },
+   "group_faces": 69,
+   "material": "$surfacetype(gravel) $shader(ground) $clamp(u) $detail(grass)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3499059,
+   "non_exact": 1,
+   "pc_texture_family_draws": 53,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 68,
+    "PS2_EXTRA_VISUAL_SOURCE": 1
+   },
+   "textures": [
+    "mud to ror-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "neu rocky-tga"
+   ],
+   "faces": 1,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 1
+   },
+   "group_faces": 112,
+   "material": "$surfacetype(gravel) $shader(ground)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3500284,
+   "non_exact": 1,
+   "pc_texture_family_draws": 67,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 111,
+    "PS2_EXTRA_VISUAL_SOURCE": 1
+   },
+   "textures": [
+    "neu rocky-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "base1-tga"
+   ],
+   "faces": 3,
+   "ground_relation": {
+    "NO_PC_SURFACE_UNDER": 3
+   },
+   "group_faces": 3,
+   "material": "$surfacetype(grass) $shader(ground) $detail(shrubs)$grnd:grass_hardNoise Pass",
+   "node_offset": 3501251,
+   "non_exact": 3,
+   "pc_texture_family_draws": 58,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 3
+   },
+   "textures": [
+    "base1-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "neu rocky-tga"
+   ],
+   "faces": 7,
+   "ground_relation": {
+    "NO_PC_SURFACE_UNDER": 7
+   },
+   "group_faces": 7,
+   "material": "$surfacetype(gravel) $shader(ground)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3501452,
+   "non_exact": 7,
+   "pc_texture_family_draws": 67,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 7
+   },
+   "textures": [
+    "neu rocky-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grass to roc1-tga",
+    "grass to roc2-tga"
+   ],
+   "faces": 3,
+   "ground_relation": {
+    "NO_PC_SURFACE_UNDER": 3
+   },
+   "group_faces": 3,
+   "material": "$surfacetype(grass) $shader(ground) $clamp(u)$grnd:grass_hardNoise Pass",
+   "node_offset": 3501643,
+   "non_exact": 3,
+   "pc_texture_family_draws": 112,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 3
+   },
+   "textures": [
+    "grass to roc2-tga"
+   ]
+  },
+  {
+   "category": "puddle",
+   "exact_peer_textures": [],
+   "faces": 30,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 21,
+    "FAR_BELOW_PC_SURFACE": 4,
+    "OVERLAY_ABOVE_PC_SURFACE": 3,
+    "SLIGHTLY_BELOW_PC_SURFACE": 2
+   },
+   "group_faces": 30,
+   "material": "water $surfacetype(water) $shader(puddle)",
+   "node_offset": 3505409,
+   "non_exact": 30,
+   "pc_texture_family_draws": 0,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 30
+   },
+   "textures": [
+    "water-tga"
+   ]
+  },
+  {
+   "category": "puddle",
+   "exact_peer_textures": [],
+   "faces": 77,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 48,
+    "FAR_BELOW_PC_SURFACE": 5,
+    "OVERLAY_ABOVE_PC_SURFACE": 17,
+    "SLIGHTLY_BELOW_PC_SURFACE": 7
+   },
+   "group_faces": 77,
+   "material": "water $surfacetype(water) $shader(puddle)",
+   "node_offset": 3505554,
+   "non_exact": 77,
+   "pc_texture_family_draws": 0,
+   "relations": {
+    "GEOMETRY_MODIFIED": 27,
+    "PS2_EXTRA_VISUAL_SOURCE": 50
+   },
+   "textures": [
+    "water-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grav to ro1-tga",
+    "mud to ror-tga",
+    "new wall-tga"
+   ],
+   "faces": 3,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 3
+   },
+   "group_faces": 76,
+   "material": "$surfacetype(gravel) $shader(ground) $clamp(u) $detail(grass)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3506522,
+   "non_exact": 3,
+   "pc_texture_family_draws": 53,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 73,
+    "PS2_EXTRA_VISUAL_SOURCE": 3
+   },
+   "textures": [
+    "mud to ror-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "neu rocky-tga"
+   ],
+   "faces": 13,
+   "ground_relation": {
+    "NO_PC_SURFACE_UNDER": 13
+   },
+   "group_faces": 13,
+   "material": "$surfacetype(gravel) $shader(ground)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3507956,
+   "non_exact": 13,
+   "pc_texture_family_draws": 67,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 13
+   },
+   "textures": [
+    "neu rocky-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grass to grav-tga",
+    "grass to grav2-tga",
+    "mud to ror-tga"
+   ],
+   "faces": 1,
+   "ground_relation": {
+    "SLIGHTLY_BELOW_PC_SURFACE": 1
+   },
+   "group_faces": 22,
+   "material": "$surfacetype(harddirt) $shader(ground) $clamp(u) $detail(shrubs)$grnd:grass_hardNoise Pass",
+   "node_offset": 3509615,
+   "non_exact": 1,
+   "pc_texture_family_draws": 89,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 21,
+    "PS2_EXTRA_VISUAL_SOURCE": 1
+   },
+   "textures": [
+    "grass to grav-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grav to ro1-tga",
+    "mud to ror-tga",
+    "new wall-tga"
+   ],
+   "faces": 2,
+   "ground_relation": {
+    "SLIGHTLY_BELOW_PC_SURFACE": 2
+   },
+   "group_faces": 22,
+   "material": "$surfacetype(gravel) $shader(ground) $clamp(u) $detail(grass)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3511001,
+   "non_exact": 2,
+   "pc_texture_family_draws": 53,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 20,
+    "PS2_EXTRA_VISUAL_SOURCE": 2
+   },
+   "textures": [
+    "mud to ror-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grass to grav-tga",
+    "grass to grav2-tga",
+    "mud to ror-tga"
+   ],
+   "faces": 3,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 3
+   },
+   "group_faces": 13,
+   "material": "$surfacetype(harddirt) $shader(ground) $clamp(u) $detail(shrubs)$grnd:grass_hardNoise Pass",
+   "node_offset": 3511231,
+   "non_exact": 3,
+   "pc_texture_family_draws": 89,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 10,
+    "PS2_EXTRA_VISUAL_SOURCE": 3
+   },
+   "textures": [
+    "grass to grav-tga"
+   ]
+  },
+  {
+   "category": "puddle",
+   "exact_peer_textures": [],
+   "faces": 53,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 38,
+    "FAR_BELOW_PC_SURFACE": 12,
+    "OVERLAY_ABOVE_PC_SURFACE": 2,
+    "SLIGHTLY_BELOW_PC_SURFACE": 1
+   },
+   "group_faces": 53,
+   "material": "water $surfacetype(water) $shader(puddle)",
+   "node_offset": 3514344,
+   "non_exact": 53,
+   "pc_texture_family_draws": 0,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 53
+   },
+   "textures": [
+    "water-tga"
+   ]
+  },
+  {
+   "category": "foliage_treeblend",
+   "exact_peer_textures": [
+    "shrub-tga",
+    "shrub1-tga"
+   ],
+   "faces": 32,
+   "fit": {
+    "faces": 32,
+    "fits": 1,
+    "residual": 0.00025790865245056693,
+    "target_draws": [
+     "PC:724a69da708a124f7dbfd666b7ad8d391bcaf22ff94bd2c91143e305749cf7f8:draw:491"
+    ],
+    "verdict": "WHOLE_GROUP_CONGRUENT"
+   },
+   "group_faces": 64,
+   "material": "TURshrub2 $alphatest() $shader(treeblend)",
+   "node_offset": 3514510,
+   "non_exact": 32,
+   "pc_texture_family_draws": 60,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 32,
+    "PS2_EXTRA_VISUAL_SOURCE": 32
+   },
+   "textures": [
+    "shrubtrig2-tga"
+   ]
+  },
+  {
+   "category": "puddle",
+   "exact_peer_textures": [],
+   "faces": 8,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 3,
+    "FAR_BELOW_PC_SURFACE": 2,
+    "OVERLAY_ABOVE_PC_SURFACE": 1,
+    "SLIGHTLY_BELOW_PC_SURFACE": 2
+   },
+   "group_faces": 8,
+   "material": "water $surfacetype(water) $shader(puddle)",
+   "node_offset": 3517138,
+   "non_exact": 8,
+   "pc_texture_family_draws": 0,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 8
+   },
+   "textures": [
+    "water-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "neubeddirt-tga"
+   ],
+   "faces": 13,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 4,
+    "OVERLAY_ABOVE_PC_SURFACE": 3,
+    "SLIGHTLY_BELOW_PC_SURFACE": 6
+   },
+   "group_faces": 13,
+   "material": "$surfacetype(harddirt) $shader(ground) $detail(shrubs)$grnd:dirt_softNoise Pass",
+   "node_offset": 3519717,
+   "non_exact": 13,
+   "pc_texture_family_draws": 17,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 13
+   },
+   "textures": [
+    "neubeddirt-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "bedlef-tga",
+    "neubedrig-tga"
+   ],
+   "faces": 11,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 3,
+    "OVERLAY_ABOVE_PC_SURFACE": 8
+   },
+   "group_faces": 31,
+   "material": "$surfacetype(harddirt) $shader(ground) $clamp(u) $detail(shrubs)$grnd:mud_hardNoise Pass",
+   "node_offset": 3521413,
+   "non_exact": 11,
+   "pc_texture_family_draws": 28,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 20,
+    "PS2_EXTRA_VISUAL_SOURCE": 11
+   },
+   "textures": [
+    "bedlef-tga"
+   ]
+  },
+  {
+   "category": "puddle",
+   "exact_peer_textures": [],
+   "faces": 17,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 5,
+    "FAR_BELOW_PC_SURFACE": 2,
+    "OVERLAY_ABOVE_PC_SURFACE": 5,
+    "SLIGHTLY_BELOW_PC_SURFACE": 5
+   },
+   "group_faces": 17,
+   "material": "water $surfacetype(water) $shader(puddle)",
+   "node_offset": 3522569,
+   "non_exact": 17,
+   "pc_texture_family_draws": 0,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 17
+   },
+   "textures": [
+    "water-tga"
+   ]
+  },
+  {
+   "category": "foliage_treeblend",
+   "exact_peer_textures": [
+    "shrub-tga",
+    "shrub1-tga"
+   ],
+   "faces": 128,
+   "fit": {
+    "component_faces": 128,
+    "faces": 128,
+    "fitted_faces": 128,
+    "verdict": "COMPONENTS_CONGRUENT"
+   },
+   "group_faces": 384,
+   "material": "TURshrub2 $alphatest() $shader(treeblend)",
+   "node_offset": 3525339,
+   "non_exact": 128,
+   "pc_texture_family_draws": 60,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 256,
+    "PS2_EXTRA_VISUAL_SOURCE": 128
+   },
+   "textures": [
+    "shrubtrig2-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grass to grav-tga",
+    "grass to grav2-tga",
+    "mud to ror-tga"
+   ],
+   "faces": 43,
+   "ground_relation": {
+    "COINCIDENT_WITH_PC_SURFACE": 20,
+    "SLIGHTLY_BELOW_PC_SURFACE": 23
+   },
+   "group_faces": 149,
+   "material": "$surfacetype(harddirt) $shader(ground) $clamp(u) $detail(grass)$grnd:grass_hardNoise Pass",
+   "node_offset": 3526001,
+   "non_exact": 43,
+   "pc_texture_family_draws": 89,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 106,
+    "GEOMETRY_MODIFIED": 17,
+    "PS2_EXTRA_VISUAL_SOURCE": 26
+   },
+   "textures": [
+    "grass to grav-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "basegravel-tga",
+    "gravel_road-tga",
+    "neu grass to rock-tga"
+   ],
+   "faces": 23,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 9,
+    "SLIGHTLY_BELOW_PC_SURFACE": 14
+   },
+   "group_faces": 97,
+   "material": "$surfacetype(harddirt) $shader(ground) $detail(shrubs)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3526313,
+   "non_exact": 23,
+   "pc_texture_family_draws": 54,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 74,
+    "PS2_EXTRA_VISUAL_SOURCE": 23
+   },
+   "textures": [
+    "basegravel-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grav to ro1-tga",
+    "mud to ror-tga",
+    "new wall-tga"
+   ],
+   "faces": 10,
+   "ground_relation": {
+    "COINCIDENT_WITH_PC_SURFACE": 2,
+    "FAR_ABOVE_PC_SURFACE": 5,
+    "OVERLAY_ABOVE_PC_SURFACE": 3
+   },
+   "group_faces": 80,
+   "material": "$surfacetype(gravel) $shader(ground) $clamp(u) $detail(grass)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3526919,
+   "non_exact": 10,
+   "pc_texture_family_draws": 53,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 70,
+    "GEOMETRY_MODIFIED": 2,
+    "PS2_EXTRA_VISUAL_SOURCE": 8
+   },
+   "textures": [
+    "mud to ror-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "neubeddirt-tga"
+   ],
+   "faces": 2,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 2
+   },
+   "group_faces": 25,
+   "material": "$surfacetype(harddirt) $shader(ground) $detail(shrubs)$grnd:dirt_softNoise Pass",
+   "node_offset": 3527966,
+   "non_exact": 2,
+   "pc_texture_family_draws": 17,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 23,
+    "PS2_EXTRA_VISUAL_SOURCE": 2
+   },
+   "textures": [
+    "neubeddirt-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "bed to mud-tga",
+    "bed to mud2-tga"
+   ],
+   "faces": 11,
+   "ground_relation": {
+    "COINCIDENT_WITH_PC_SURFACE": 2,
+    "FAR_ABOVE_PC_SURFACE": 4,
+    "OVERLAY_ABOVE_PC_SURFACE": 5
+   },
+   "group_faces": 55,
+   "material": "$surfacetype(harddirt) $shader(ground) $clamp(u)$grndu:50:grass_hard:gravel_hardNoise Pass",
+   "node_offset": 3528420,
+   "non_exact": 11,
+   "pc_texture_family_draws": 16,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 44,
+    "GEOMETRY_MODIFIED": 2,
+    "PS2_EXTRA_VISUAL_SOURCE": 9
+   },
+   "textures": [
+    "bed to mud-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "neu rocky-tga"
+   ],
+   "faces": 10,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 6,
+    "OVERLAY_ABOVE_PC_SURFACE": 4
+   },
+   "group_faces": 104,
+   "material": "$surfacetype(gravel) $shader(ground)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3529351,
+   "non_exact": 10,
+   "pc_texture_family_draws": 67,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 94,
+    "PS2_EXTRA_VISUAL_SOURCE": 10
+   },
+   "textures": [
+    "neu rocky-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grass to roc1-tga",
+    "grass to roc2-tga"
+   ],
+   "faces": 3,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 3
+   },
+   "group_faces": 50,
+   "material": "$surfacetype(grass) $shader(ground) $clamp(u)$grnd:grass_hardNoise Pass",
+   "node_offset": 3529646,
+   "non_exact": 3,
+   "pc_texture_family_draws": 112,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 47,
+    "GEOMETRY_MODIFIED": 1,
+    "PS2_EXTRA_VISUAL_SOURCE": 2
+   },
+   "textures": [
+    "grass to roc2-tga"
+   ]
+  },
+  {
+   "category": "puddle",
+   "exact_peer_textures": [],
+   "faces": 27,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 10,
+    "FAR_BELOW_PC_SURFACE": 8,
+    "OVERLAY_ABOVE_PC_SURFACE": 3,
+    "SLIGHTLY_BELOW_PC_SURFACE": 6
+   },
+   "group_faces": 27,
+   "material": "water $surfacetype(water) $shader(puddle)",
+   "node_offset": 3530853,
+   "non_exact": 27,
+   "pc_texture_family_draws": 0,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 27
+   },
+   "textures": [
+    "water-tga"
+   ]
+  },
+  {
+   "category": "puddle",
+   "exact_peer_textures": [],
+   "faces": 6,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 2,
+    "OVERLAY_ABOVE_PC_SURFACE": 2,
+    "SLIGHTLY_BELOW_PC_SURFACE": 2
+   },
+   "group_faces": 6,
+   "material": "water $surfacetype(water) $shader(puddle)",
+   "node_offset": 3530998,
+   "non_exact": 6,
+   "pc_texture_family_draws": 0,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 6
+   },
+   "textures": [
+    "water-tga"
+   ]
+  },
+  {
+   "category": "puddle",
+   "exact_peer_textures": [],
+   "faces": 18,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 7,
+    "OVERLAY_ABOVE_PC_SURFACE": 3,
+    "SLIGHTLY_BELOW_PC_SURFACE": 8
+   },
+   "group_faces": 18,
+   "material": "water $surfacetype(water) $shader(puddle)",
+   "node_offset": 3531143,
+   "non_exact": 18,
+   "pc_texture_family_draws": 0,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 18
+   },
+   "textures": [
+    "water-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "neu rocky-tga"
+   ],
+   "faces": 5,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 2,
+    "SLIGHTLY_BELOW_PC_SURFACE": 3
+   },
+   "group_faces": 54,
+   "material": "$surfacetype(gravel) $shader(ground)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3532121,
+   "non_exact": 5,
+   "pc_texture_family_draws": 67,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 49,
+    "PS2_EXTRA_VISUAL_SOURCE": 5
+   },
+   "textures": [
+    "neu rocky-tga"
+   ]
+  },
+  {
+   "category": "foliage_treeblend",
+   "exact_peer_textures": [
+    "shrub-tga",
+    "shrub1-tga"
+   ],
+   "faces": 64,
+   "fit": {
+    "component_faces": 64,
+    "faces": 64,
+    "fitted_faces": 64,
+    "verdict": "COMPONENTS_CONGRUENT"
+   },
+   "group_faces": 64,
+   "material": "TURshrub2 $alphatest() $shader(treeblend)",
+   "node_offset": 3532989,
+   "non_exact": 64,
+   "pc_texture_family_draws": 60,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 64
+   },
+   "textures": [
+    "shrubtrig2-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "neubeddirt-tga"
+   ],
+   "faces": 3,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 3
+   },
+   "group_faces": 4,
+   "material": "$surfacetype(harddirt) $shader(ground) $detail(shrubs)$grnd:dirt_softNoise Pass",
+   "node_offset": 3535569,
+   "non_exact": 3,
+   "pc_texture_family_draws": 17,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 1,
+    "PS2_EXTRA_VISUAL_SOURCE": 3
+   },
+   "textures": [
+    "neubeddirt-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grav to ro1-tga",
+    "mud to ror-tga",
+    "new wall-tga"
+   ],
+   "faces": 3,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 1,
+    "OVERLAY_ABOVE_PC_SURFACE": 2
+   },
+   "group_faces": 50,
+   "material": "$surfacetype(gravel) $shader(ground) $clamp(u) $detail(grass)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3537557,
+   "non_exact": 3,
+   "pc_texture_family_draws": 53,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 47,
+    "PS2_EXTRA_VISUAL_SOURCE": 3
+   },
+   "textures": [
+    "mud to ror-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "basegravel-tga",
+    "gravel_road-tga",
+    "neu grass to rock-tga"
+   ],
+   "faces": 1,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 1
+   },
+   "group_faces": 9,
+   "material": "$surfacetype(harddirt) $shader(ground) $detail(shrubs)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3538287,
+   "non_exact": 1,
+   "pc_texture_family_draws": 54,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 8,
+    "PS2_EXTRA_VISUAL_SOURCE": 1
+   },
+   "textures": [
+    "basegravel-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "bed to mud-tga",
+    "bed to mud2-tga"
+   ],
+   "faces": 2,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 2
+   },
+   "group_faces": 5,
+   "material": "$surfacetype(harddirt) $shader(ground) $clamp(u)$grndu:50:grass_hard:gravel_hardNoise Pass",
+   "node_offset": 3538725,
+   "non_exact": 2,
+   "pc_texture_family_draws": 16,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 3,
+    "PS2_EXTRA_VISUAL_SOURCE": 2
+   },
+   "textures": [
+    "bed to mud-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "neubeddirt-tga"
+   ],
+   "faces": 4,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 4
+   },
+   "group_faces": 4,
+   "material": "$surfacetype(harddirt) $shader(ground) $detail(shrubs)$grnd:dirt_softNoise Pass",
+   "node_offset": 3538957,
+   "non_exact": 4,
+   "pc_texture_family_draws": 17,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 4
+   },
+   "textures": [
+    "neubeddirt-tga"
+   ]
+  },
+  {
+   "category": "puddle",
+   "exact_peer_textures": [],
+   "faces": 35,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 26,
+    "FAR_BELOW_PC_SURFACE": 3,
+    "OVERLAY_ABOVE_PC_SURFACE": 2,
+    "SLIGHTLY_BELOW_PC_SURFACE": 4
+   },
+   "group_faces": 35,
+   "material": "water $surfacetype(water) $shader(puddle)",
+   "node_offset": 3539369,
+   "non_exact": 35,
+   "pc_texture_family_draws": 0,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 35
+   },
+   "textures": [
+    "water-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "neu rocky-tga"
+   ],
+   "faces": 12,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 11,
+    "FAR_BELOW_PC_SURFACE": 1
+   },
+   "group_faces": 45,
+   "material": "$surfacetype(gravel) $shader(ground)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3558318,
+   "non_exact": 12,
+   "pc_texture_family_draws": 67,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 33,
+    "PS2_EXTRA_VISUAL_SOURCE": 12
+   },
+   "textures": [
+    "neu rocky-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "neu rocky-tga"
+   ],
+   "faces": 11,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 11
+   },
+   "group_faces": 69,
+   "material": "$surfacetype(gravel) $shader(ground)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3562717,
+   "non_exact": 11,
+   "pc_texture_family_draws": 67,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 58,
+    "PS2_EXTRA_VISUAL_SOURCE": 11
+   },
+   "textures": [
+    "neu rocky-tga"
+   ]
+  },
+  {
+   "category": "puddle",
+   "exact_peer_textures": [],
+   "faces": 26,
+   "ground_relation": {
+    "COINCIDENT_WITH_PC_SURFACE": 1,
+    "FAR_ABOVE_PC_SURFACE": 2,
+    "FAR_BELOW_PC_SURFACE": 1,
+    "OVERLAY_ABOVE_PC_SURFACE": 12,
+    "SLIGHTLY_BELOW_PC_SURFACE": 10
+   },
+   "group_faces": 26,
+   "material": "water $surfacetype(water) $shader(puddle)",
+   "node_offset": 3576123,
+   "non_exact": 26,
+   "pc_texture_family_draws": 0,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 26
+   },
+   "textures": [
+    "water-tga"
+   ]
+  },
+  {
+   "category": "object_vehicle_prop",
+   "exact_peer_textures": [
+    "boat1-tga"
+   ],
+   "faces": 113,
+   "fit": {
+    "faces": 113,
+    "fits": 1,
+    "residual": 0.00039404595099767903,
+    "target_draws": [
+     "PC:724a69da708a124f7dbfd666b7ad8d391bcaf22ff94bd2c91143e305749cf7f8:draw:825"
+    ],
+    "verdict": "WHOLE_GROUP_CONGRUENT"
+   },
+   "group_faces": 113,
+   "material": "boat1 $shader(object)",
+   "node_offset": 3583641,
+   "non_exact": 113,
+   "pc_texture_family_draws": 3,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 113
+   },
+   "textures": [
+    "boat1-tga"
+   ]
+  },
+  {
+   "category": "object_vehicle_prop",
+   "exact_peer_textures": [
+    "boat3-tga"
+   ],
+   "faces": 30,
+   "fit": {
+    "faces": 30,
+    "fits": 1,
+    "residual": 0.0009560193658089133,
+    "target_draws": [
+     "PC:724a69da708a124f7dbfd666b7ad8d391bcaf22ff94bd2c91143e305749cf7f8:draw:824"
+    ],
+    "verdict": "WHOLE_GROUP_CONGRUENT"
+   },
+   "group_faces": 30,
+   "material": "boat3 $shader(object)",
+   "node_offset": 3583896,
+   "non_exact": 30,
+   "pc_texture_family_draws": 3,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 30
+   },
+   "textures": [
+    "boat3-tga"
+   ]
+  },
+  {
+   "category": "object_vehicle_prop",
+   "exact_peer_textures": [
+    "boat2-tga"
+   ],
+   "faces": 82,
+   "fit": {
+    "faces": 82,
+    "fits": 1,
+    "residual": 0.0003892327113135252,
+    "target_draws": [
+     "PC:724a69da708a124f7dbfd666b7ad8d391bcaf22ff94bd2c91143e305749cf7f8:draw:823"
+    ],
+    "verdict": "WHOLE_GROUP_CONGRUENT"
+   },
+   "group_faces": 82,
+   "material": "boat2 $shader(object)",
+   "node_offset": 3584047,
+   "non_exact": 82,
+   "pc_texture_family_draws": 5,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 82
+   },
+   "textures": [
+    "boat2-tga"
+   ]
+  },
+  {
+   "category": "object_vehicle_prop",
+   "exact_peer_textures": [
+    "boat4 copy-tga"
+   ],
+   "faces": 27,
+   "fit": {
+    "faces": 27,
+    "fits": 1,
+    "residual": 0.0003416518311496475,
+    "target_draws": [
+     "PC:724a69da708a124f7dbfd666b7ad8d391bcaf22ff94bd2c91143e305749cf7f8:draw:826"
+    ],
+    "verdict": "WHOLE_GROUP_CONGRUENT"
+   },
+   "group_faces": 27,
+   "material": "boat4 $shader(object)",
+   "node_offset": 3584224,
+   "non_exact": 27,
+   "pc_texture_family_draws": 2,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 27
+   },
+   "textures": [
+    "boat4 copy-tga"
+   ]
+  },
+  {
+   "category": "object_vehicle_prop",
+   "exact_peer_textures": [
+    "ctyre-tga",
+    "tred1-tga",
+    "wheel-tga"
+   ],
+   "faces": 60,
+   "fit": {
+    "faces": 60,
+    "verdict": "NO_CONGRUENT_FIT"
+   },
+   "group_faces": 384,
+   "material": "Tyres $shader(metal)",
+   "node_offset": 3584354,
+   "non_exact": 60,
+   "pc_texture_family_draws": 4,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 324,
+    "GEOMETRY_MODIFIED": 14,
+    "PARTIAL_SURFACE_OVERLAP": 4,
+    "PS2_EXTRA_VISUAL_SOURCE": 42
+   },
+   "textures": [
+    "ctyre-tga",
+    "rubber-tga"
+   ]
+  },
+  {
+   "category": "object_vehicle_prop",
+   "exact_peer_textures": [
+    "boat2-tga"
+   ],
+   "faces": 4,
+   "fit": {
+    "faces": 4,
+    "fits": 1,
+    "residual": 0.0003641883590717043,
+    "target_draws": [
+     "PC:724a69da708a124f7dbfd666b7ad8d391bcaf22ff94bd2c91143e305749cf7f8:draw:823"
+    ],
+    "verdict": "WHOLE_GROUP_CONGRUENT"
+   },
+   "group_faces": 4,
+   "material": "boat2 $shader(object)",
+   "node_offset": 3588987,
+   "non_exact": 4,
+   "pc_texture_family_draws": 5,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 4
+   },
+   "textures": [
+    "boat2-tga"
+   ]
+  },
+  {
+   "category": "foliage_treeblend",
+   "exact_peer_textures": [
+    "shrub-tga",
+    "shrub1-tga"
+   ],
+   "faces": 64,
+   "fit": {
+    "component_faces": 64,
+    "faces": 64,
+    "fitted_faces": 64,
+    "verdict": "COMPONENTS_CONGRUENT"
+   },
+   "group_faces": 176,
+   "material": "TURshrub2 $alphatest() $shader(treeblend)",
+   "node_offset": 3595105,
+   "non_exact": 64,
+   "pc_texture_family_draws": 60,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 112,
+    "PS2_EXTRA_VISUAL_SOURCE": 64
+   },
+   "textures": [
+    "shrubtrig2-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "neu rocky-tga"
+   ],
+   "faces": 2,
+   "ground_relation": {
+    "NO_PC_SURFACE_UNDER": 2
+   },
+   "group_faces": 2,
+   "material": "$surfacetype(gravel) $shader(ground)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3600430,
+   "non_exact": 2,
+   "pc_texture_family_draws": 67,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 2
+   },
+   "textures": [
+    "neu rocky-tga"
+   ]
+  },
+  {
+   "category": "object_vehicle_prop",
+   "exact_peer_textures": [],
+   "faces": 60,
+   "fit": {
+    "verdict": "NO_PC_TEXTURE_FAMILY"
+   },
+   "group_faces": 60,
+   "material": "CARAVAN $shader(object)",
+   "node_offset": 3600621,
+   "non_exact": 60,
+   "pc_texture_family_draws": 0,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 60
+   },
+   "textures": [
+    "caravan-tga"
+   ]
+  },
+  {
+   "category": "object_vehicle_prop",
+   "exact_peer_textures": [],
+   "faces": 88,
+   "fit": {
+    "verdict": "NO_PC_TEXTURE_FAMILY"
+   },
+   "group_faces": 88,
+   "material": "RED CARAVAN $shader(object)",
+   "node_offset": 3600855,
+   "non_exact": 88,
+   "pc_texture_family_draws": 0,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 88
+   },
+   "textures": [
+    "newtex-tga"
+   ]
+  },
+  {
+   "category": "object_vehicle_prop",
+   "exact_peer_textures": [],
+   "faces": 8,
+   "fit": {
+    "verdict": "NO_PC_TEXTURE_FAMILY"
+   },
+   "group_faces": 8,
+   "material": "CARAVAN_ALPHA $shader(object) $alphatest()",
+   "node_offset": 3601052,
+   "non_exact": 8,
+   "pc_texture_family_draws": 0,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 8
+   },
+   "textures": [
+    "caravan-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grass to grav-tga",
+    "grass to grav2-tga",
+    "mud to ror-tga"
+   ],
+   "faces": 9,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 8,
+    "SLIGHTLY_BELOW_PC_SURFACE": 1
+   },
+   "group_faces": 10,
+   "material": "$surfacetype(harddirt) $shader(ground) $clamp(u) $detail(shrubs)$grnd:grass_hardNoise Pass",
+   "node_offset": 3601925,
+   "non_exact": 9,
+   "pc_texture_family_draws": 89,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 1,
+    "PS2_EXTRA_VISUAL_SOURCE": 9
+   },
+   "textures": [
+    "grass to grav-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grav to ro1-tga",
+    "mud to ror-tga",
+    "new wall-tga"
+   ],
+   "faces": 5,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 2,
+    "SLIGHTLY_BELOW_PC_SURFACE": 3
+   },
+   "group_faces": 20,
+   "material": "$surfacetype(gravel) $shader(ground) $clamp(u) $detail(grass)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3602147,
+   "non_exact": 5,
+   "pc_texture_family_draws": 53,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 15,
+    "PS2_EXTRA_VISUAL_SOURCE": 5
+   },
+   "textures": [
+    "mud to ror-tga"
+   ]
+  },
+  {
+   "category": "object_building",
+   "exact_peer_textures": [
+    "hut_01-tga"
+   ],
+   "faces": 64,
+   "fit": {
+    "component_faces": 64,
+    "faces": 64,
+    "fitted_faces": 9,
+    "verdict": "COMPONENTS_CONGRUENT"
+   },
+   "group_faces": 64,
+   "material": "rustic Hut $clamp(uv) $shader(object)",
+   "node_offset": 3602836,
+   "non_exact": 64,
+   "pc_texture_family_draws": 6,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 64
+   },
+   "textures": [
+    "hut_01-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grass to roc1-tga",
+    "grass to roc2-tga"
+   ],
+   "faces": 9,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 9
+   },
+   "group_faces": 21,
+   "material": "$surfacetype(grass) $shader(ground) $clamp(u)$grnd:grass_hardNoise Pass",
+   "node_offset": 3603043,
+   "non_exact": 9,
+   "pc_texture_family_draws": 112,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 12,
+    "PS2_EXTRA_VISUAL_SOURCE": 9
+   },
+   "textures": [
+    "grass to roc2-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grass to grav-tga",
+    "grass to grav2-tga",
+    "mud to ror-tga"
+   ],
+   "faces": 9,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 6,
+    "OVERLAY_ABOVE_PC_SURFACE": 1,
+    "SLIGHTLY_BELOW_PC_SURFACE": 2
+   },
+   "group_faces": 14,
+   "material": "$surfacetype(harddirt) $shader(ground) $clamp(u) $detail(shrubs)$grnd:grass_hardNoise Pass",
+   "node_offset": 3603259,
+   "non_exact": 9,
+   "pc_texture_family_draws": 89,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 5,
+    "GEOMETRY_MODIFIED": 1,
+    "PS2_EXTRA_VISUAL_SOURCE": 8
+   },
+   "textures": [
+    "grass to grav-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "basegravel-tga",
+    "gravel_road-tga",
+    "neu grass to rock-tga"
+   ],
+   "faces": 20,
+   "ground_relation": {
+    "COINCIDENT_WITH_PC_SURFACE": 1,
+    "FAR_BELOW_PC_SURFACE": 3,
+    "SLIGHTLY_BELOW_PC_SURFACE": 16
+   },
+   "group_faces": 40,
+   "material": "$surfacetype(harddirt) $shader(ground) $detail(shrubs)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3603494,
+   "non_exact": 20,
+   "pc_texture_family_draws": 54,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 20,
+    "PS2_EXTRA_VISUAL_SOURCE": 20
+   },
+   "textures": [
+    "basegravel-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grav to ro1-tga",
+    "mud to ror-tga",
+    "new wall-tga"
+   ],
+   "faces": 14,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 12,
+    "SLIGHTLY_BELOW_PC_SURFACE": 2
+   },
+   "group_faces": 14,
+   "material": "$surfacetype(gravel) $shader(ground) $clamp(u) $detail(grass)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3604659,
+   "non_exact": 14,
+   "pc_texture_family_draws": 53,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 14
+   },
+   "textures": [
+    "mud to ror-tga"
+   ]
+  },
+  {
+   "category": "foliage_tree",
+   "exact_peer_textures": [
+    "fence_02-tga"
+   ],
+   "faces": 8,
+   "fit": {
+    "faces": 8,
+    "verdict": "NO_CONGRUENT_FIT"
+   },
+   "group_faces": 8,
+   "material": "Fence hut $alphatest() $shader(tree) $clamp(v)",
+   "node_offset": 3605136,
+   "non_exact": 8,
+   "pc_texture_family_draws": 8,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 8
+   },
+   "textures": [
+    "fence_02-tga"
+   ]
+  },
+  {
+   "category": "foliage_treeblend",
+   "exact_peer_textures": [
+    "shrub-tga",
+    "shrub1-tga"
+   ],
+   "faces": 80,
+   "fit": {
+    "component_faces": 80,
+    "faces": 80,
+    "fitted_faces": 80,
+    "verdict": "COMPONENTS_CONGRUENT"
+   },
+   "group_faces": 80,
+   "material": "TURshrub2 $alphatest() $shader(treeblend)",
+   "node_offset": 3605276,
+   "non_exact": 80,
+   "pc_texture_family_draws": 60,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 80
+   },
+   "textures": [
+    "shrubtrig2-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "basegravel-tga",
+    "gravel_road-tga",
+    "neu grass to rock-tga"
+   ],
+   "faces": 4,
+   "ground_relation": {
+    "SLIGHTLY_BELOW_PC_SURFACE": 4
+   },
+   "group_faces": 37,
+   "material": "$surfacetype(harddirt) $shader(ground) $detail(shrubs)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3605465,
+   "non_exact": 4,
+   "pc_texture_family_draws": 54,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 33,
+    "PS2_EXTRA_VISUAL_SOURCE": 4
+   },
+   "textures": [
+    "basegravel-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grav to ro1-tga",
+    "mud to ror-tga",
+    "new wall-tga"
+   ],
+   "faces": 1,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 1
+   },
+   "group_faces": 26,
+   "material": "$surfacetype(gravel) $shader(ground) $clamp(u) $detail(grass)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3605701,
+   "non_exact": 1,
+   "pc_texture_family_draws": 53,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 25,
+    "PS2_EXTRA_VISUAL_SOURCE": 1
+   },
+   "textures": [
+    "mud to ror-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grass to grav-tga",
+    "grass to grav2-tga",
+    "mud to ror-tga"
+   ],
+   "faces": 7,
+   "ground_relation": {
+    "COINCIDENT_WITH_PC_SURFACE": 2,
+    "FAR_BELOW_PC_SURFACE": 5
+   },
+   "group_faces": 101,
+   "material": "$surfacetype(harddirt) $shader(ground) $clamp(u) $detail(shrubs)$grnd:grass_hardNoise Pass",
+   "node_offset": 3606183,
+   "non_exact": 7,
+   "pc_texture_family_draws": 89,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 94,
+    "PS2_EXTRA_VISUAL_SOURCE": 7
+   },
+   "textures": [
+    "grass to grav-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grass to roc1-tga",
+    "grass to roc2-tga"
+   ],
+   "faces": 8,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 8
+   },
+   "group_faces": 20,
+   "material": "$surfacetype(grass) $shader(ground) $clamp(u)$grnd:grass_hardNoise Pass",
+   "node_offset": 3607191,
+   "non_exact": 8,
+   "pc_texture_family_draws": 112,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 12,
+    "PS2_EXTRA_VISUAL_SOURCE": 8
+   },
+   "textures": [
+    "grass to roc2-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "neu rocky-tga"
+   ],
+   "faces": 12,
+   "ground_relation": {
+    "COINCIDENT_WITH_PC_SURFACE": 2,
+    "FAR_ABOVE_PC_SURFACE": 7,
+    "OVERLAY_ABOVE_PC_SURFACE": 3
+   },
+   "group_faces": 41,
+   "material": "$surfacetype(gravel) $shader(ground)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3609703,
+   "non_exact": 12,
+   "pc_texture_family_draws": 67,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 29,
+    "GEOMETRY_MODIFIED": 2,
+    "PS2_EXTRA_VISUAL_SOURCE": 10
+   },
+   "textures": [
+    "neu rocky-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "basegravel-tga",
+    "gravel_road-tga",
+    "neu grass to rock-tga"
+   ],
+   "faces": 13,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 9,
+    "OVERLAY_ABOVE_PC_SURFACE": 4
+   },
+   "group_faces": 36,
+   "material": "$surfacetype(harddirt) $shader(ground) $detail(shrubs)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3609907,
+   "non_exact": 13,
+   "pc_texture_family_draws": 54,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 23,
+    "GEOMETRY_MODIFIED": 1,
+    "PS2_EXTRA_VISUAL_SOURCE": 12
+   },
+   "textures": [
+    "basegravel-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grav to ro1-tga",
+    "mud to ror-tga",
+    "new wall-tga"
+   ],
+   "faces": 6,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 4,
+    "OVERLAY_ABOVE_PC_SURFACE": 2
+   },
+   "group_faces": 19,
+   "material": "$surfacetype(gravel) $shader(ground) $clamp(u) $detail(grass)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3610516,
+   "non_exact": 6,
+   "pc_texture_family_draws": 53,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 13,
+    "PS2_EXTRA_VISUAL_SOURCE": 6
+   },
+   "textures": [
+    "mud to ror-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grass to roc1-tga",
+    "grass to roc2-tga"
+   ],
+   "faces": 3,
+   "ground_relation": {
+    "COINCIDENT_WITH_PC_SURFACE": 3
+   },
+   "group_faces": 14,
+   "material": "$surfacetype(grass) $shader(ground) $clamp(u)$grnd:grass_hardNoise Pass",
+   "node_offset": 3611399,
+   "non_exact": 3,
+   "pc_texture_family_draws": 112,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 11,
+    "GEOMETRY_MODIFIED": 3
+   },
+   "textures": [
+    "grass to roc2-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "neu rocky-tga"
+   ],
+   "faces": 21,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 16,
+    "OVERLAY_ABOVE_PC_SURFACE": 5
+   },
+   "group_faces": 26,
+   "material": "$surfacetype(gravel) $shader(ground)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3611615,
+   "non_exact": 21,
+   "pc_texture_family_draws": 67,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 5,
+    "GEOMETRY_MODIFIED": 1,
+    "PS2_EXTRA_VISUAL_SOURCE": 20
+   },
+   "textures": [
+    "neu rocky-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grav to ro1-tga",
+    "mud to ror-tga",
+    "new wall-tga"
+   ],
+   "faces": 11,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 9,
+    "OVERLAY_ABOVE_PC_SURFACE": 2
+   },
+   "group_faces": 35,
+   "material": "$surfacetype(gravel) $shader(ground) $clamp(u) $detail(grass)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3611956,
+   "non_exact": 11,
+   "pc_texture_family_draws": 53,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 24,
+    "PS2_EXTRA_VISUAL_SOURCE": 11
+   },
+   "textures": [
+    "mud to ror-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "neu rocky-tga"
+   ],
+   "faces": 13,
+   "ground_relation": {
+    "COINCIDENT_WITH_PC_SURFACE": 3,
+    "FAR_ABOVE_PC_SURFACE": 7,
+    "OVERLAY_ABOVE_PC_SURFACE": 3
+   },
+   "group_faces": 24,
+   "material": "$surfacetype(gravel) $shader(ground)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3612971,
+   "non_exact": 13,
+   "pc_texture_family_draws": 67,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 11,
+    "GEOMETRY_MODIFIED": 3,
+    "PS2_EXTRA_VISUAL_SOURCE": 10
+   },
+   "textures": [
+    "neu rocky-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "basegravel-tga",
+    "gravel_road-tga",
+    "neu grass to rock-tga"
+   ],
+   "faces": 5,
+   "ground_relation": {
+    "FAR_ABOVE_PC_SURFACE": 3,
+    "OVERLAY_ABOVE_PC_SURFACE": 2
+   },
+   "group_faces": 11,
+   "material": "$surfacetype(harddirt) $shader(ground) $detail(shrubs)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3613427,
+   "non_exact": 5,
+   "pc_texture_family_draws": 54,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 6,
+    "PS2_EXTRA_VISUAL_SOURCE": 5
+   },
+   "textures": [
+    "basegravel-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "neu rocky-tga"
+   ],
+   "faces": 7,
+   "ground_relation": {
+    "NO_PC_SURFACE_UNDER": 7
+   },
+   "group_faces": 28,
+   "material": "$surfacetype(gravel) $shader(ground)$grnd:gravel_hardNoise Pass",
+   "node_offset": 3614981,
+   "non_exact": 7,
+   "pc_texture_family_draws": 67,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 21,
+    "PS2_EXTRA_VISUAL_SOURCE": 7
+   },
+   "textures": [
+    "neu rocky-tga"
+   ]
+  },
+  {
+   "category": "object_building",
+   "exact_peer_textures": [
+    "hut_01-tga"
+   ],
+   "faces": 6,
+   "fit": {
+    "faces": 6,
+    "verdict": "NO_CONGRUENT_FIT"
+   },
+   "group_faces": 6,
+   "material": "rustic Hut $clamp(uv) $shader(object)",
+   "node_offset": 3617919,
+   "non_exact": 6,
+   "pc_texture_family_draws": 6,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 6
+   },
+   "textures": [
+    "hut_01-tga"
+   ]
+  },
+  {
+   "category": "foliage_treeblend",
+   "exact_peer_textures": [
+    "shrub-tga",
+    "shrub1-tga"
+   ],
+   "faces": 256,
+   "fit": {
+    "component_faces": 256,
+    "faces": 256,
+    "fitted_faces": 256,
+    "verdict": "COMPONENTS_CONGRUENT"
+   },
+   "group_faces": 256,
+   "material": "TURshrub2 $alphatest() $shader(treeblend)",
+   "node_offset": 3620664,
+   "non_exact": 256,
+   "pc_texture_family_draws": 60,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 256
+   },
+   "textures": [
+    "shrubtrig2-tga"
+   ]
+  },
+  {
+   "category": "object_building",
+   "exact_peer_textures": [
+    "hut_01-tga"
+   ],
+   "faces": 103,
+   "fit": {
+    "component_faces": 103,
+    "faces": 103,
+    "fitted_faces": 18,
+    "verdict": "COMPONENTS_CONGRUENT"
+   },
+   "group_faces": 103,
+   "material": "rustic Hut $clamp(uv) $shader(object)",
+   "node_offset": 3623323,
+   "non_exact": 103,
+   "pc_texture_family_draws": 6,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 103
+   },
+   "textures": [
+    "hut_01-tga"
+   ]
+  },
+  {
+   "category": "object_building",
+   "exact_peer_textures": [],
+   "faces": 33,
+   "fit": {
+    "verdict": "NO_PC_TEXTURE_FAMILY"
+   },
+   "group_faces": 33,
+   "material": "House 1 $shader(object)",
+   "node_offset": 3623569,
+   "non_exact": 33,
+   "pc_texture_family_draws": 0,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 33
+   },
+   "textures": [
+    "brickhouse-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grass to roc1-tga",
+    "grass to roc2-tga"
+   ],
+   "faces": 1,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 1
+   },
+   "group_faces": 14,
+   "material": "$surfacetype(grass) $shader(ground) $clamp(u)$grnd:grass_hardNoise Pass",
+   "node_offset": 3624367,
+   "non_exact": 1,
+   "pc_texture_family_draws": 112,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 13,
+    "PS2_EXTRA_VISUAL_SOURCE": 1
+   },
+   "textures": [
+    "grass to roc2-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "base1-tga"
+   ],
+   "faces": 11,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 11
+   },
+   "group_faces": 34,
+   "material": "$surfacetype(grass) $shader(ground) $detail(shrubs)$grnd:grass_hardNoise Pass",
+   "node_offset": 3624818,
+   "non_exact": 11,
+   "pc_texture_family_draws": 58,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 23,
+    "PS2_EXTRA_VISUAL_SOURCE": 11
+   },
+   "textures": [
+    "base1-tga"
+   ]
+  },
+  {
+   "category": "object_vehicle_prop",
+   "exact_peer_textures": [],
+   "faces": 88,
+   "fit": {
+    "verdict": "NO_PC_TEXTURE_FAMILY"
+   },
+   "group_faces": 88,
+   "material": "RED CARAVAN $shader(object)",
+   "node_offset": 3625276,
+   "non_exact": 88,
+   "pc_texture_family_draws": 0,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 88
+   },
+   "textures": [
+    "newtex-tga"
+   ]
+  },
+  {
+   "category": "foliage_tree",
+   "exact_peer_textures": [
+    "fence_02-tga"
+   ],
+   "faces": 36,
+   "fit": {
+    "faces": 36,
+    "verdict": "NO_CONGRUENT_FIT"
+   },
+   "group_faces": 36,
+   "material": "Fence hut $alphatest() $shader(tree) $clamp(v)",
+   "node_offset": 3626163,
+   "non_exact": 36,
+   "pc_texture_family_draws": 8,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 36
+   },
+   "textures": [
+    "fence_02-tga"
+   ]
+  },
+  {
+   "category": "foliage_treeblend",
+   "exact_peer_textures": [
+    "shrub-tga",
+    "shrub1-tga"
+   ],
+   "faces": 176,
+   "fit": {
+    "component_faces": 176,
+    "faces": 176,
+    "fitted_faces": 160,
+    "verdict": "COMPONENTS_CONGRUENT"
+   },
+   "group_faces": 390,
+   "material": "TURshrub2 $alphatest() $shader(treeblend)",
+   "node_offset": 3626329,
+   "non_exact": 176,
+   "pc_texture_family_draws": 60,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 214,
+    "PS2_EXTRA_VISUAL_SOURCE": 176
+   },
+   "textures": [
+    "shrubtrig2-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "grass to roc1-tga",
+    "grass to roc2-tga"
+   ],
+   "faces": 3,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 3
+   },
+   "group_faces": 100,
+   "material": "$surfacetype(grass) $shader(ground) $clamp(u)$grnd:grass_hardNoise Pass",
+   "node_offset": 3627618,
+   "non_exact": 3,
+   "pc_texture_family_draws": 112,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 97,
+    "PS2_EXTRA_VISUAL_SOURCE": 3
+   },
+   "textures": [
+    "grass to roc2-tga"
+   ]
+  },
+  {
+   "category": "ground",
+   "exact_peer_textures": [
+    "base1-tga"
+   ],
+   "faces": 1,
+   "ground_relation": {
+    "FAR_BELOW_PC_SURFACE": 1
+   },
+   "group_faces": 48,
+   "material": "$surfacetype(grass) $shader(ground) $detail(shrubs)$grnd:grass_hardNoise Pass",
+   "node_offset": 3628581,
+   "non_exact": 1,
+   "pc_texture_family_draws": 58,
+   "relations": {
+    "EXACT_TRIANGLE_MATCH": 47,
+    "PS2_EXTRA_VISUAL_SOURCE": 1
+   },
+   "textures": [
+    "base1-tga"
+   ]
+  },
+  {
+   "category": "puddle",
+   "exact_peer_textures": [],
+   "faces": 100,
+   "ground_relation": {
+    "COINCIDENT_WITH_PC_SURFACE": 1,
+    "FAR_ABOVE_PC_SURFACE": 56,
+    "FAR_BELOW_PC_SURFACE": 16,
+    "OVERLAY_ABOVE_PC_SURFACE": 14,
+    "SLIGHTLY_BELOW_PC_SURFACE": 13
+   },
+   "group_faces": 100,
+   "material": "water $surfacetype(water) $shader(puddle)",
+   "node_offset": 3630563,
+   "non_exact": 100,
+   "pc_texture_family_draws": 0,
+   "relations": {
+    "PS2_EXTRA_VISUAL_SOURCE": 100
+   },
+   "textures": [
+    "water-tga"
+   ]
+  }
+ ],
+ "limitations": [
+  "Fits are diagnostics, not authored or runtime transforms",
+  "A failed fit is not proof of absence (changed topology is not searched)",
+  "Ground relation uses face centroids against PC faces under the same XZ"
+ ],
+ "method": {
+  "coincident_gap": 0.02,
+  "fit_budget": 20000,
+  "fit_tolerance": 0.001,
+  "ground_cell": 16.0,
+  "min_component_faces": 4,
+  "overlay_gap": 0.5
+ },
+ "schema": 1,
+ "summary": {
+  "foliage_tree": {
+   "NO_CONGRUENT_FIT_faces": 84,
+   "NO_CONGRUENT_FIT_groups": 5
+  },
+  "foliage_treeblend": {
+   "COMPONENTS_CONGRUENT_faces": 1312,
+   "COMPONENTS_CONGRUENT_groups": 12,
+   "WHOLE_GROUP_CONGRUENT_faces": 48,
+   "WHOLE_GROUP_CONGRUENT_groups": 2
+  },
+  "ground": {
+   "COINCIDENT_WITH_PC_SURFACE": 56,
+   "FAR_ABOVE_PC_SURFACE": 300,
+   "FAR_BELOW_PC_SURFACE": 439,
+   "NO_PC_SURFACE_UNDER": 73,
+   "OVERLAY_ABOVE_PC_SURFACE": 118,
+   "SLIGHTLY_BELOW_PC_SURFACE": 256
+  },
+  "object_building": {
+   "COMPONENTS_CONGRUENT_faces": 446,
+   "COMPONENTS_CONGRUENT_groups": 5,
+   "NO_CONGRUENT_FIT_faces": 6,
+   "NO_CONGRUENT_FIT_groups": 1,
+   "NO_PC_TEXTURE_FAMILY_faces": 33,
+   "NO_PC_TEXTURE_FAMILY_groups": 1,
+   "WHOLE_GROUP_CONGRUENT_faces": 39,
+   "WHOLE_GROUP_CONGRUENT_groups": 1
+  },
+  "object_vehicle_prop": {
+   "COMPONENTS_CONGRUENT_faces": 64,
+   "COMPONENTS_CONGRUENT_groups": 1,
+   "NO_CONGRUENT_FIT_faces": 60,
+   "NO_CONGRUENT_FIT_groups": 1,
+   "NO_PC_TEXTURE_FAMILY_faces": 488,
+   "NO_PC_TEXTURE_FAMILY_groups": 8,
+   "WHOLE_GROUP_CONGRUENT_faces": 256,
+   "WHOLE_GROUP_CONGRUENT_groups": 5
+  },
+  "other": {
+   "COINCIDENT_WITH_PC_SURFACE": 6,
+   "FAR_ABOVE_PC_SURFACE": 2
+  },
+  "puddle": {
+   "COINCIDENT_WITH_PC_SURFACE": 2,
+   "FAR_ABOVE_PC_SURFACE": 297,
+   "FAR_BELOW_PC_SURFACE": 249,
+   "OVERLAY_ABOVE_PC_SURFACE": 107,
+   "SLIGHTLY_BELOW_PC_SURFACE": 90
+  }
+ }
+}
