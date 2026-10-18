@@ -77,6 +77,7 @@ def to_nodes(raw):
             pass
         o = N()
         o.plane = n.optional_record.values if n.optional_record else None
+        o.code = n.optional_record.code if n.optional_record else None
         o.child, o.sibling, o.field_0, o.offset = n.first_child_index, n.next_sibling_index, n.field_0, n.offset
         nodes.append(o)
     return nodes, parsed
@@ -88,6 +89,23 @@ def classify(nodes, p):
         nx, ny, nz, d = n.plane[:4]
         n = nodes[n.sibling if nx * p[0] + ny * p[1] + nz * p[2] + d >= 0 else n.child]
     return n
+
+
+def reference_code(nodes, point):
+    """Valid (non-negative as int32) plane code on the descent path to `point`, preferring near-horizontal planes (ground).
+
+    The engine's contact code (0x006363C0) rejects a hit whose plane code is negative (0xFFFFFFFF = splitter without surface),
+    so brush planes need a real code; the surface of the ground below the object is the natural choice.
+    """
+    best = None
+    n = nodes[0]
+    while n.plane is not None:
+        code = n.code
+        if code is not None and code < 0x80000000 and abs(n.plane[1]) > 0.8:
+            best = code
+        nx, ny, nz, d = n.plane[:4]
+        n = nodes[n.sibling if nx * point[0] + ny * point[1] + nz * point[2] + d >= 0 else n.child]
+    return best
 
 
 def find_leaves(nodes, verts):

@@ -176,8 +176,13 @@ def main():
         course = (a.pc_root / 'DataGx/Course/Turkey3/turkey3.dx').read_bytes()
         sl = extract_tag100_from_dx_bytes(course, 'turkey3.dx')
         verts = sorted(set(allpos))
-        patched, rep = tp.insert_brush(sl.raw, verts)
         nodes_old, _ = tp.to_nodes(sl.raw)
+        # the plane code must be a valid non-negative surface code (0xFFFFFFFF planes never generate contacts, see tag100_patch.reference_code)
+        below = (centroid[0], min(v[1] for v in verts) - 0.5, centroid[2])
+        code = tp.reference_code(nodes_old, below)
+        if code is None:
+            raise SystemExit('no ground plane code found below the object')
+        patched, rep = tp.insert_brush(sl.raw, verts, code=code)
         nodes_new, _ = tp.to_nodes(patched)
         import random
         rnd = random.Random(7)
@@ -200,7 +205,7 @@ def main():
                 checks['outside_changed'] += old != new and not any(
                     n[0] * pt[0] + n[1] * pt[1] + n[2] * pt[2] + n[3] > -1e-3 and n[0] * pt[0] + n[1] * pt[1] + n[2] * pt[2] + n[3] < 1e-3 for n in planes)
         collision = {'DataGx/Course/Turkey3/turkey3.dx': course[:sl.tag_offset] + patched}
-        coll_report = {'brush_planes': rep, 'sampled_checks': checks}
+        coll_report = {'plane_code_used': code, 'brush_planes': rep, 'sampled_checks': checks}
     files = {MODEL_DIR + '/house1.dx': bytes(dx), MODEL_DIR + '/brk-tga.dxt': dxt, 'DataScene/RaceTest/Turkey3.xml': new_xml, **collision}
     for rel, data in files.items():
         path = a.out / rel
