@@ -1,0 +1,1190 @@
+[
+ {
+  "header": [
+   23016,
+   13026,
+   5803,
+   41844,
+   41844,
+   37153
+  ],
+  "nodes": 83689,
+  "nodes_with_plane": 41844,
+  "nodes_with_payload": 23016,
+  "max_depth": 32,
+  "tree_end": 2192676,
+  "plane_table": 37153,
+  "consumed": 2935736,
+  "file_size": 2935736,
+  "trailing": 0,
+  "course": "ITALY_S4",
+  "invariants": {
+   "consumed_eq_size": true,
+   "nodes_eq_2P_plus_1": true,
+   "planes_eq_w3": true,
+   "payload_nodes_eq_w0": true,
+   "w3_eq_w4": true
+  },
+  "payload_word0_max_low24": 37152,
+  "payload_word0_max_high8": 0,
+  "payload_word1_range": [
+   1,
+   18
+  ]
+ },
+ {
+  "header": [
+   21680,
+   12613,
+   5507,
+   39799,
+   39799,
+   33467
+  ],
+  "nodes": 79599,
+  "nodes_with_plane": 39799,
+  "nodes_with_payload": 21680,
+  "max_depth": 47,
+  "tree_end": 2083828,
+  "plane_table": 33467,
+  "consumed": 2753168,
+  "file_size": 2753168,
+  "trailing": 0,
+  "course": "TURKEY_W",
+  "invariants": {
+   "consumed_eq_size": true,
+   "nodes_eq_2P_plus_1": true,
+   "planes_eq_w3": true,
+   "payload_nodes_eq_w0": true,
+   "w3_eq_w4": true
+  },
+  "payload_word0_max_low24": 33466,
+  "payload_word0_max_high8": 0,
+  "payload_word1_range": [
+   1,
+   12
+  ]
+ },
+ {
+  "header": [
+   19652,
+   13231,
+   4560,
+   37442,
+   37442,
+   29961
+  ],
+  "nodes": 74885,
+  "nodes_with_plane": 37442,
+  "nodes_with_payload": 19652,
+  "max_depth": 41,
+  "tree_end": 1954468,
+  "plane_table": 29961,
+  "consumed": 2553688,
+  "file_size": 2553688,
+  "trailing": 0,
+  "course": "SPAIN_M",
+  "invariants": {
+   "consumed_eq_size": true,
+   "nodes_eq_2P_plus_1": true,
+   "planes_eq_w3": true,
+   "payload_nodes_eq_w0": true,
+   "w3_eq_w4": true
+  },
+  "payload_word0_max_low24": 29960,
+  "payload_word0_max_high8": 0,
+  "payload_word1_range": [
+   1,
+   13
+  ]
+ },
+ {
+  "header": [
+   21710,
+   12727,
+   5821,
+   40257,
+   40257,
+   36235
+  ],
+  "nodes": 80515,
+  "nodes_with_plane": 40257,
+  "nodes_with_payload": 21710,
+  "max_depth": 33,
+  "tree_end": 2106052,
+  "plane_table": 36235,
+  "consumed": 2830752,
+  "file_size": 2830752,
+  "trailing": 0,
+  "course": "ITALY_S3_FLIP",
+  "invariants": {
+   "consumed_eq_size": true,
+   "nodes_eq_2P_plus_1": true,
+   "planes_eq_w3": true,
+   "payload_nodes_eq_w0": true,
+   "w3_eq_w4": true
+  },
+  "payload_word0_max_low24": 36233,
+  "payload_word0_max_high8": 0,
+  "payload_word1_range": [
+   1,
+   15
+  ]
+ },
+ {
+  "header": [
+   25421,
+   15094,
+   6066,
+   46580,
+   46580,
+   39817
+  ],
+  "nodes": 93161,
+  "nodes_with_plane": 46580,
+  "nodes_with_payload": 25421,
+  "max_depth": 34,
+  "tree_end": 2439244,
+  "plane_table": 39817,
+  "consumed": 3235584,
+  "file_size": 3235584,
+  "trailing": 0,
+  "course": "FRANCE1",
+  "invariants": {
+   "consumed_eq_size": true,
+   "nodes_eq_2P_plus_1": true,
+   "planes_eq_w3": true,
+   "payload_nodes_eq_w0": true,
+   "w3_eq_w4": true
+  },
+  "payload_word0_max_low24": 39814,
+  "payload_word0_max_high8": 0,
+  "payload_word1_range": [
+   1,
+   15
+  ]
+ },
+ {
+  "header": [
+   23437,
+   15216,
+   5726,
+   44378,
+   44378,
+   35932
+  ],
+  "nodes": 88757,
+  "nodes_with_plane": 44378,
+  "nodes_with_payload": 23437,
+  "max_depth": 31,
+  "tree_end": 2317676,
+  "plane_table": 35932,
+  "consumed": 3036316,
+  "file_size": 3036316,
+  "trailing": 0,
+  "course": "ITALY_M1_FLIP",
+  "invariants": {
+   "consumed_eq_size": true,
+   "nodes_eq_2P_plus_1": true,
+   "planes_eq_w3": true,
+   "payload_nodes_eq_w0": true,
+   "w3_eq_w4": true
+  },
+  "payload_word0_max_low24": 35931,
+  "payload_word0_max_high8": 0,
+  "payload_word1_range": [
+   1,
+   19
+  ]
+ },
+ {
+  "header": [
+   23024,
+   13011,
+   5162,
+   41196,
+   41196,
+   35050
+  ],
+  "nodes": 82393,
+  "nodes_with_plane": 41196,
+  "nodes_with_payload": 23024,
+  "max_depth": 29,
+  "tree_end": 2161636,
+  "plane_table": 35050,
+  "consumed": 2862636,
+  "file_size": 2862636,
+  "trailing": 0,
+  "course": "FRANCES2",
+  "invariants": {
+   "consumed_eq_size": true,
+   "nodes_eq_2P_plus_1": true,
+   "planes_eq_w3": true,
+   "payload_nodes_eq_w0": true,
+   "w3_eq_w4": true
+  },
+  "payload_word0_max_low24": 35049,
+  "payload_word0_max_high8": 0,
+  "payload_word1_range": [
+   1,
+   11
+  ]
+ },
+ {
+  "header": [
+   30769,
+   19040,
+   7929,
+   57737,
+   57737,
+   45889
+  ],
+  "nodes": 115475,
+  "nodes_with_plane": 57737,
+  "nodes_with_payload": 30769,
+  "max_depth": 35,
+  "tree_end": 3017564,
+  "plane_table": 45889,
+  "consumed": 3935344,
+  "file_size": 3935344,
+  "trailing": 0,
+  "course": "TURKEY_M",
+  "invariants": {
+   "consumed_eq_size": true,
+   "nodes_eq_2P_plus_1": true,
+   "planes_eq_w3": true,
+   "payload_nodes_eq_w0": true,
+   "w3_eq_w4": true
+  },
+  "payload_word0_max_low24": 45888,
+  "payload_word0_max_high8": 0,
+  "payload_word1_range": [
+   1,
+   19
+  ]
+ },
+ {
+  "header": [
+   22500,
+   13636,
+   6047,
+   42182,
+   42182,
+   36288
+  ],
+  "nodes": 84365,
+  "nodes_with_plane": 42182,
+  "nodes_with_payload": 22500,
+  "max_depth": 31,
+  "tree_end": 2204772,
+  "plane_table": 36288,
+  "consumed": 2930532,
+  "file_size": 2930532,
+  "trailing": 0,
+  "course": "ITALY_M2",
+  "invariants": {
+   "consumed_eq_size": true,
+   "nodes_eq_2P_plus_1": true,
+   "planes_eq_w3": true,
+   "payload_nodes_eq_w0": true,
+   "w3_eq_w4": true
+  },
+  "payload_word0_max_low24": 36285,
+  "payload_word0_max_high8": 0,
+  "payload_word1_range": [
+   1,
+   15
+  ]
+ },
+ {
+  "header": [
+   23464,
+   15215,
+   5771,
+   44449,
+   44449,
+   35993
+  ],
+  "nodes": 88899,
+  "nodes_with_plane": 44449,
+  "nodes_with_payload": 23464,
+  "max_depth": 31,
+  "tree_end": 2321300,
+  "plane_table": 35993,
+  "consumed": 3041160,
+  "file_size": 3041160,
+  "trailing": 0,
+  "course": "ITALY_M1",
+  "invariants": {
+   "consumed_eq_size": true,
+   "nodes_eq_2P_plus_1": true,
+   "planes_eq_w3": true,
+   "payload_nodes_eq_w0": true,
+   "w3_eq_w4": true
+  },
+  "payload_word0_max_low24": 35992,
+  "payload_word0_max_high8": 0,
+  "payload_word1_range": [
+   1,
+   19
+  ]
+ },
+ {
+  "header": [
+   19111,
+   10928,
+   4932,
+   34970,
+   34970,
+   30099
+  ],
+  "nodes": 69941,
+  "nodes_with_plane": 34970,
+  "nodes_with_payload": 19111,
+  "max_depth": 34,
+  "tree_end": 1831484,
+  "plane_table": 30099,
+  "consumed": 2433464,
+  "file_size": 2433464,
+  "trailing": 0,
+  "course": "ITALY2",
+  "invariants": {
+   "consumed_eq_size": true,
+   "nodes_eq_2P_plus_1": true,
+   "planes_eq_w3": true,
+   "payload_nodes_eq_w0": true,
+   "w3_eq_w4": true
+  },
+  "payload_word0_max_low24": 30097,
+  "payload_word0_max_high8": 0,
+  "payload_word1_range": [
+   1,
+   12
+  ]
+ },
+ {
+  "header": [
+   19065,
+   12942,
+   4390,
+   36396,
+   36396,
+   28585
+  ],
+  "nodes": 72793,
+  "nodes_with_plane": 36396,
+  "nodes_with_payload": 19065,
+  "max_depth": 32,
+  "tree_end": 1899564,
+  "plane_table": 28585,
+  "consumed": 2471264,
+  "file_size": 2471264,
+  "trailing": 0,
+  "course": "SPAIN2",
+  "invariants": {
+   "consumed_eq_size": true,
+   "nodes_eq_2P_plus_1": true,
+   "planes_eq_w3": true,
+   "payload_nodes_eq_w0": true,
+   "w3_eq_w4": true
+  },
+  "payload_word0_max_low24": 28584,
+  "payload_word0_max_high8": 0,
+  "payload_word1_range": [
+   1,
+   13
+  ]
+ },
+ {
+  "header": [
+   22973,
+   14010,
+   5667,
+   42649,
+   42649,
+   35329
+  ],
+  "nodes": 85299,
+  "nodes_with_plane": 42649,
+  "nodes_with_payload": 22973,
+  "max_depth": 33,
+  "tree_end": 2230972,
+  "plane_table": 35329,
+  "consumed": 2937552,
+  "file_size": 2937552,
+  "trailing": 0,
+  "course": "TURKEY_S2",
+  "invariants": {
+   "consumed_eq_size": true,
+   "nodes_eq_2P_plus_1": true,
+   "planes_eq_w3": true,
+   "payload_nodes_eq_w0": true,
+   "w3_eq_w4": true
+  },
+  "payload_word0_max_low24": 35328,
+  "payload_word0_max_high8": 0,
+  "payload_word1_range": [
+   1,
+   17
+  ]
+ },
+ {
+  "header": [
+   20421,
+   11515,
+   4702,
+   36637,
+   36637,
+   32198
+  ],
+  "nodes": 73275,
+  "nodes_with_plane": 36637,
+  "nodes_with_payload": 20421,
+  "max_depth": 32,
+  "tree_end": 1921980,
+  "plane_table": 32198,
+  "consumed": 2565940,
+  "file_size": 2565940,
+  "trailing": 0,
+  "course": "ITALY_S1",
+  "invariants": {
+   "consumed_eq_size": true,
+   "nodes_eq_2P_plus_1": true,
+   "planes_eq_w3": true,
+   "payload_nodes_eq_w0": true,
+   "w3_eq_w4": true
+  },
+  "payload_word0_max_low24": 32196,
+  "payload_word0_max_high8": 0,
+  "payload_word1_range": [
+   1,
+   12
+  ]
+ },
+ {
+  "header": [
+   21772,
+   14563,
+   5399,
+   41733,
+   41733,
+   33044
+  ],
+  "nodes": 83467,
+  "nodes_with_plane": 41733,
+  "nodes_with_payload": 21772,
+  "max_depth": 36,
+  "tree_end": 2177396,
+  "plane_table": 33044,
+  "consumed": 2838276,
+  "file_size": 2838276,
+  "trailing": 0,
+  "course": "SPAIN_W_FLIP",
+  "invariants": {
+   "consumed_eq_size": true,
+   "nodes_eq_2P_plus_1": true,
+   "planes_eq_w3": true,
+   "payload_nodes_eq_w0": true,
+   "w3_eq_w4": true
+  },
+  "payload_word0_max_low24": 33043,
+  "payload_word0_max_high8": 0,
+  "payload_word1_range": [
+   1,
+   10
+  ]
+ },
+ {
+  "header": [
+   29452,
+   18584,
+   7998,
+   56033,
+   56033,
+   44224
+  ],
+  "nodes": 112067,
+  "nodes_with_plane": 56033,
+  "nodes_with_payload": 29452,
+  "max_depth": 35,
+  "tree_end": 2925236,
+  "plane_table": 44224,
+  "consumed": 3809716,
+  "file_size": 3809716,
+  "trailing": 0,
+  "course": "TURKEY1",
+  "invariants": {
+   "consumed_eq_size": true,
+   "nodes_eq_2P_plus_1": true,
+   "planes_eq_w3": true,
+   "payload_nodes_eq_w0": true,
+   "w3_eq_w4": true
+  },
+  "payload_word0_max_low24": 44223,
+  "payload_word0_max_high8": 0,
+  "payload_word1_range": [
+   1,
+   17
+  ]
+ },
+ {
+  "header": [
+   20887,
+   14768,
+   4608,
+   40262,
+   40262,
+   31161
+  ],
+  "nodes": 80525,
+  "nodes_with_plane": 40262,
+  "nodes_with_payload": 20887,
+  "max_depth": 34,
+  "tree_end": 2099708,
+  "plane_table": 31161,
+  "consumed": 2722928,
+  "file_size": 2722928,
+  "trailing": 0,
+  "course": "SPAIN_S1_FLIP",
+  "invariants": {
+   "consumed_eq_size": true,
+   "nodes_eq_2P_plus_1": true,
+   "planes_eq_w3": true,
+   "payload_nodes_eq_w0": true,
+   "w3_eq_w4": true
+  },
+  "payload_word0_max_low24": 31160,
+  "payload_word0_max_high8": 0,
+  "payload_word1_range": [
+   1,
+   16
+  ]
+ },
+ {
+  "header": [
+   23121,
+   13319,
+   5555,
+   41994,
+   41994,
+   35960
+  ],
+  "nodes": 83989,
+  "nodes_with_plane": 41994,
+  "nodes_with_payload": 23121,
+  "max_depth": 34,
+  "tree_end": 2200716,
+  "plane_table": 35960,
+  "consumed": 2919916,
+  "file_size": 2919916,
+  "trailing": 0,
+  "course": "TURKEY_S1",
+  "invariants": {
+   "consumed_eq_size": true,
+   "nodes_eq_2P_plus_1": true,
+   "planes_eq_w3": true,
+   "payload_nodes_eq_w0": true,
+   "w3_eq_w4": true
+  },
+  "payload_word0_max_low24": 35957,
+  "payload_word0_max_high8": 0,
+  "payload_word1_range": [
+   1,
+   16
+  ]
+ },
+ {
+  "header": [
+   21237,
+   11390,
+   4664,
+   37290,
+   37290,
+   34963
+  ],
+  "nodes": 74581,
+  "nodes_with_plane": 37290,
+  "nodes_with_payload": 21237,
+  "max_depth": 28,
+  "tree_end": 1959852,
+  "plane_table": 34963,
+  "consumed": 2659112,
+  "file_size": 2659112,
+  "trailing": 0,
+  "course": "FRANCE2",
+  "invariants": {
+   "consumed_eq_size": true,
+   "nodes_eq_2P_plus_1": true,
+   "planes_eq_w3": true,
+   "payload_nodes_eq_w0": true,
+   "w3_eq_w4": true
+  },
+  "payload_word0_max_low24": 34962,
+  "payload_word0_max_high8": 0,
+  "payload_word1_range": [
+   1,
+   10
+  ]
+ },
+ {
+  "header": [
+   18692,
+   10357,
+   5319,
+   34367,
+   34367,
+   31584
+  ],
+  "nodes": 68735,
+  "nodes_with_plane": 34367,
+  "nodes_with_payload": 18692,
+  "max_depth": 36,
+  "tree_end": 1799188,
+  "plane_table": 31584,
+  "consumed": 2430868,
+  "file_size": 2430868,
+  "trailing": 0,
+  "course": "ITALY3",
+  "invariants": {
+   "consumed_eq_size": true,
+   "nodes_eq_2P_plus_1": true,
+   "planes_eq_w3": true,
+   "payload_nodes_eq_w0": true,
+   "w3_eq_w4": true
+  },
+  "payload_word0_max_low24": 31583,
+  "payload_word0_max_high8": 0,
+  "payload_word1_range": [
+   1,
+   17
+  ]
+ },
+ {
+  "header": [
+   21100,
+   13014,
+   5014,
+   39127,
+   39127,
+   32532
+  ],
+  "nodes": 78255,
+  "nodes_with_plane": 39127,
+  "nodes_with_payload": 21100,
+  "max_depth": 44,
+  "tree_end": 2046932,
+  "plane_table": 32532,
+  "consumed": 2697572,
+  "file_size": 2697572,
+  "trailing": 0,
+  "course": "ITALY_W1",
+  "invariants": {
+   "consumed_eq_size": true,
+   "nodes_eq_2P_plus_1": true,
+   "planes_eq_w3": true,
+   "payload_nodes_eq_w0": true,
+   "w3_eq_w4": true
+  },
+  "payload_word0_max_low24": 32530,
+  "payload_word0_max_high8": 0,
+  "payload_word1_range": [
+   1,
+   9
+  ]
+ },
+ {
+  "header": [
+   24250,
+   14022,
+   5723,
+   43994,
+   43994,
+   38551
+  ],
+  "nodes": 87989,
+  "nodes_with_plane": 43994,
+  "nodes_with_payload": 24250,
+  "max_depth": 30,
+  "tree_end": 2305748,
+  "plane_table": 38551,
+  "consumed": 3076768,
+  "file_size": 3076768,
+  "trailing": 0,
+  "course": "FRANCEW_FLIP",
+  "invariants": {
+   "consumed_eq_size": true,
+   "nodes_eq_2P_plus_1": true,
+   "planes_eq_w3": true,
+   "payload_nodes_eq_w0": true,
+   "w3_eq_w4": true
+  },
+  "payload_word0_max_low24": 38550,
+  "payload_word0_max_high8": 0,
+  "payload_word1_range": [
+   1,
+   12
+  ]
+ },
+ {
+  "header": [
+   20871,
+   14770,
+   4609,
+   40249,
+   40249,
+   31175
+  ],
+  "nodes": 80499,
+  "nodes_with_plane": 40249,
+  "nodes_with_payload": 20871,
+  "max_depth": 34,
+  "tree_end": 2098956,
+  "plane_table": 31175,
+  "consumed": 2722456,
+  "file_size": 2722456,
+  "trailing": 0,
+  "course": "SPAIN_S1",
+  "invariants": {
+   "consumed_eq_size": true,
+   "nodes_eq_2P_plus_1": true,
+   "planes_eq_w3": true,
+   "payload_nodes_eq_w0": true,
+   "w3_eq_w4": true
+  },
+  "payload_word0_max_low24": 31174,
+  "payload_word0_max_high8": 0,
+  "payload_word1_range": [
+   1,
+   16
+  ]
+ },
+ {
+  "header": [
+   21772,
+   14563,
+   5399,
+   41733,
+   41733,
+   33044
+  ],
+  "nodes": 83467,
+  "nodes_with_plane": 41733,
+  "nodes_with_payload": 21772,
+  "max_depth": 36,
+  "tree_end": 2177396,
+  "plane_table": 33044,
+  "consumed": 2838276,
+  "file_size": 2838276,
+  "trailing": 0,
+  "course": "SPAIN_W",
+  "invariants": {
+   "consumed_eq_size": true,
+   "nodes_eq_2P_plus_1": true,
+   "planes_eq_w3": true,
+   "payload_nodes_eq_w0": true,
+   "w3_eq_w4": true
+  },
+  "payload_word0_max_low24": 33043,
+  "payload_word0_max_high8": 0,
+  "payload_word1_range": [
+   1,
+   10
+  ]
+ },
+ {
+  "header": [
+   23341,
+   13121,
+   5670,
+   42131,
+   42131,
+   38250
+  ],
+  "nodes": 84263,
+  "nodes_with_plane": 42131,
+  "nodes_with_payload": 23341,
+  "max_depth": 35,
+  "tree_end": 2209052,
+  "plane_table": 38250,
+  "consumed": 2974052,
+  "file_size": 2974052,
+  "trailing": 0,
+  "course": "FRANCES1",
+  "invariants": {
+   "consumed_eq_size": true,
+   "nodes_eq_2P_plus_1": true,
+   "planes_eq_w3": true,
+   "payload_nodes_eq_w0": true,
+   "w3_eq_w4": true
+  },
+  "payload_word0_max_low24": 38246,
+  "payload_word0_max_high8": 0,
+  "payload_word1_range": [
+   1,
+   16
+  ]
+ },
+ {
+  "header": [
+   26579,
+   16166,
+   7096,
+   49840,
+   49840,
+   41245
+  ],
+  "nodes": 99681,
+  "nodes_with_plane": 49840,
+  "nodes_with_payload": 26579,
+  "max_depth": 36,
+  "tree_end": 2604988,
+  "plane_table": 41245,
+  "consumed": 3429888,
+  "file_size": 3429888,
+  "trailing": 0,
+  "course": "TURKEY3",
+  "invariants": {
+   "consumed_eq_size": true,
+   "nodes_eq_2P_plus_1": true,
+   "planes_eq_w3": true,
+   "payload_nodes_eq_w0": true,
+   "w3_eq_w4": true
+  },
+  "payload_word0_max_low24": 41243,
+  "payload_word0_max_high8": 0,
+  "payload_word1_range": [
+   1,
+   14
+  ]
+ },
+ {
+  "header": [
+   18137,
+   10038,
+   4263,
+   32437,
+   32437,
+   29333
+  ],
+  "nodes": 64875,
+  "nodes_with_plane": 32437,
+  "nodes_with_payload": 18137,
+  "max_depth": 36,
+  "tree_end": 1702108,
+  "plane_table": 29333,
+  "consumed": 2288768,
+  "file_size": 2288768,
+  "trailing": 0,
+  "course": "TURKEY2",
+  "invariants": {
+   "consumed_eq_size": true,
+   "nodes_eq_2P_plus_1": true,
+   "planes_eq_w3": true,
+   "payload_nodes_eq_w0": true,
+   "w3_eq_w4": true
+  },
+  "payload_word0_max_low24": 29328,
+  "payload_word0_max_high8": 0,
+  "payload_word1_range": [
+   1,
+   14
+  ]
+ },
+ {
+  "header": [
+   21132,
+   13767,
+   5355,
+   40253,
+   40253,
+   32505
+  ],
+  "nodes": 80507,
+  "nodes_with_plane": 40253,
+  "nodes_with_payload": 21132,
+  "max_depth": 34,
+  "tree_end": 2101236,
+  "plane_table": 32505,
+  "consumed": 2751336,
+  "file_size": 2751336,
+  "trailing": 0,
+  "course": "SPAIN_S2",
+  "invariants": {
+   "consumed_eq_size": true,
+   "nodes_eq_2P_plus_1": true,
+   "planes_eq_w3": true,
+   "payload_nodes_eq_w0": true,
+   "w3_eq_w4": true
+  },
+  "payload_word0_max_low24": 32504,
+  "payload_word0_max_high8": 0,
+  "payload_word1_range": [
+   1,
+   15
+  ]
+ },
+ {
+  "header": [
+   24568,
+   14157,
+   5874,
+   44598,
+   44598,
+   39309
+  ],
+  "nodes": 89197,
+  "nodes_with_plane": 44598,
+  "nodes_with_payload": 24568,
+  "max_depth": 30,
+  "tree_end": 2337284,
+  "plane_table": 39309,
+  "consumed": 3123464,
+  "file_size": 3123464,
+  "trailing": 0,
+  "course": "FRANCEW",
+  "invariants": {
+   "consumed_eq_size": true,
+   "nodes_eq_2P_plus_1": true,
+   "planes_eq_w3": true,
+   "payload_nodes_eq_w0": true,
+   "w3_eq_w4": true
+  },
+  "payload_word0_max_low24": 39308,
+  "payload_word0_max_high8": 0,
+  "payload_word1_range": [
+   1,
+   12
+  ]
+ },
+ {
+  "header": [
+   20003,
+   12795,
+   4526,
+   37323,
+   37323,
+   29611
+  ],
+  "nodes": 74647,
+  "nodes_with_plane": 37323,
+  "nodes_with_payload": 20003,
+  "max_depth": 33,
+  "tree_end": 1951564,
+  "plane_table": 29611,
+  "consumed": 2543784,
+  "file_size": 2543784,
+  "trailing": 0,
+  "course": "SPAIN1",
+  "invariants": {
+   "consumed_eq_size": true,
+   "nodes_eq_2P_plus_1": true,
+   "planes_eq_w3": true,
+   "payload_nodes_eq_w0": true,
+   "w3_eq_w4": true
+  },
+  "payload_word0_max_low24": 29610,
+  "payload_word0_max_high8": 0,
+  "payload_word1_range": [
+   1,
+   11
+  ]
+ },
+ {
+  "header": [
+   22831,
+   14274,
+   5418,
+   42522,
+   42522,
+   35137
+  ],
+  "nodes": 85045,
+  "nodes_with_plane": 42522,
+  "nodes_with_payload": 22831,
+  "max_depth": 33,
+  "tree_end": 2223740,
+  "plane_table": 35137,
+  "consumed": 2926480,
+  "file_size": 2926480,
+  "trailing": 0,
+  "course": "ITALY1",
+  "invariants": {
+   "consumed_eq_size": true,
+   "nodes_eq_2P_plus_1": true,
+   "planes_eq_w3": true,
+   "payload_nodes_eq_w0": true,
+   "w3_eq_w4": true
+  },
+  "payload_word0_max_low24": 35135,
+  "payload_word0_max_high8": 0,
+  "payload_word1_range": [
+   1,
+   17
+  ]
+ },
+ {
+  "header": [
+   23366,
+   14002,
+   5631,
+   42998,
+   42998,
+   36207
+  ],
+  "nodes": 85997,
+  "nodes_with_plane": 42998,
+  "nodes_with_payload": 23366,
+  "max_depth": 33,
+  "tree_end": 2250868,
+  "plane_table": 36207,
+  "consumed": 2975008,
+  "file_size": 2975008,
+  "trailing": 0,
+  "course": "TURKEY_S2_FLIP",
+  "invariants": {
+   "consumed_eq_size": true,
+   "nodes_eq_2P_plus_1": true,
+   "planes_eq_w3": true,
+   "payload_nodes_eq_w0": true,
+   "w3_eq_w4": true
+  },
+  "payload_word0_max_low24": 36206,
+  "payload_word0_max_high8": 0,
+  "payload_word1_range": [
+   1,
+   17
+  ]
+ },
+ {
+  "header": [
+   21790,
+   12707,
+   5787,
+   40283,
+   40283,
+   36418
+  ],
+  "nodes": 80567,
+  "nodes_with_plane": 40283,
+  "nodes_with_payload": 21790,
+  "max_depth": 33,
+  "tree_end": 2107940,
+  "plane_table": 36418,
+  "consumed": 2836300,
+  "file_size": 2836300,
+  "trailing": 0,
+  "course": "ITALY_S3",
+  "invariants": {
+   "consumed_eq_size": true,
+   "nodes_eq_2P_plus_1": true,
+   "planes_eq_w3": true,
+   "payload_nodes_eq_w0": true,
+   "w3_eq_w4": true
+  },
+  "payload_word0_max_low24": 36416,
+  "payload_word0_max_high8": 0,
+  "payload_word1_range": [
+   1,
+   15
+  ]
+ },
+ {
+  "header": [
+   24934,
+   13956,
+   5750,
+   44639,
+   44639,
+   39478
+  ],
+  "nodes": 89279,
+  "nodes_with_plane": 44639,
+  "nodes_with_payload": 24934,
+  "max_depth": 30,
+  "tree_end": 2342180,
+  "plane_table": 39478,
+  "consumed": 3131740,
+  "file_size": 3131740,
+  "trailing": 0,
+  "course": "FRANCEM",
+  "invariants": {
+   "consumed_eq_size": true,
+   "nodes_eq_2P_plus_1": true,
+   "planes_eq_w3": true,
+   "payload_nodes_eq_w0": true,
+   "w3_eq_w4": true
+  },
+  "payload_word0_max_low24": 39477,
+  "payload_word0_max_high8": 0,
+  "payload_word1_range": [
+   1,
+   15
+  ]
+ },
+ {
+  "header": [
+   23498,
+   13391,
+   6198,
+   43086,
+   43086,
+   38623
+  ],
+  "nodes": 86173,
+  "nodes_with_plane": 43086,
+  "nodes_with_payload": 23498,
+  "max_depth": 32,
+  "tree_end": 2256148,
+  "plane_table": 38623,
+  "consumed": 3028608,
+  "file_size": 3028608,
+  "trailing": 0,
+  "course": "ITALY_W2",
+  "invariants": {
+   "consumed_eq_size": true,
+   "nodes_eq_2P_plus_1": true,
+   "planes_eq_w3": true,
+   "payload_nodes_eq_w0": true,
+   "w3_eq_w4": true
+  },
+  "payload_word0_max_low24": 38622,
+  "payload_word0_max_high8": 0,
+  "payload_word1_range": [
+   1,
+   17
+  ]
+ },
+ {
+  "header": [
+   20986,
+   14091,
+   5338,
+   40414,
+   40414,
+   31942
+  ],
+  "nodes": 80829,
+  "nodes_with_plane": 40414,
+  "nodes_with_payload": 20986,
+  "max_depth": 31,
+  "tree_end": 2107796,
+  "plane_table": 31942,
+  "consumed": 2746636,
+  "file_size": 2746636,
+  "trailing": 0,
+  "course": "ITALY_S2",
+  "invariants": {
+   "consumed_eq_size": true,
+   "nodes_eq_2P_plus_1": true,
+   "planes_eq_w3": true,
+   "payload_nodes_eq_w0": true,
+   "w3_eq_w4": true
+  },
+  "payload_word0_max_low24": 31941,
+  "payload_word0_max_high8": 0,
+  "payload_word1_range": [
+   1,
+   14
+  ]
+ }
+]
