@@ -19,6 +19,8 @@ import ps2_obj_to_dx as o  # noqa: E402
 import gcoll_columns as gc  # noqa: E402
 import gcoll_walls_vs_limits as gw  # noqa: E402
 import tag100_patch as tp  # noqa: E402
+import tag100_tree as tt  # noqa: E402
+import ps2_terrain as terrain  # noqa: E402
 from master_rallye.dx import parse_dx_bytes  # noqa: E402
 from master_rallye.dxt import parse_dxt_bytes  # noqa: E402
 from master_rallye.tag100_diff import extract_tag100_from_dx_bytes  # noqa: E402
@@ -122,7 +124,8 @@ def main():
     ap.add_argument('--pc-root', type=Path, required=True)
     ap.add_argument('--out', type=Path, required=True)
     ap.add_argument('--no-flip-v', action='store_true', help='keep the PS2 V as is (default flips V: the GXI rows are top-down, the PC texture V runs bottom-up; confirmed by the user on Turkey3)')
-    ap.add_argument('--snap-threshold', type=float, default=0.75, help='shift an instance vertically when its lowest vertices are this far above or below the PC ground (the PS2 ground differs there)')
+    ap.add_argument('--terrain', action='store_true', help='also carry the PS2 ground that differs from the PC ground (ps2_terrain.py)')
+    ap.add_argument('--snap-threshold', type=float, default=1e9, help='shift an instance vertically when its lowest vertices are this far above or below the PC ground (the PS2 ground differs there)')
     a = ap.parse_args()
     manifest, _ = o.t.load_pak(a.ps2_root / 'TNG.PAK')
     scene = o.w.decode_scene(o.extract(manifest, a.ps2_root, o.PSM_PATH))
@@ -132,9 +135,22 @@ def main():
     pc_xml = (a.pc_root / 'DataScene/RaceTest/Turkey3.xml').read_bytes()
     course = (a.pc_root / 'DataGx/Course/Turkey3/turkey3.dx').read_bytes()
     slice_ = extract_tag100_from_dx_bytes(course, 'turkey3.dx')
-    tree = slice_.raw
+    tree = tt.Tree(slice_.raw)
+    terrain_report, terrain_eggs = None, []
+    if a.terrain:
+        _, pc_model, ps2_non, pc_non, pc_all = terrain.load_delta(a.ps2_root, a.pc_root / 'DataGx/Course/Turkey3/turkey3.dx')
+        course = terrain.neutralise(course, pc_model, pc_non)
+        pcn0 = gc.pc_nodes(a.pc_root / 'DataGx/Course/Turkey3/turkey3.dx')
+        coll = terrain.collision(tree, ps2_non, pc_all, pcn0)
+        tfiles, terrain_eggs, vis = terrain.visual_models(a.ps2_root, manifest, ps2_non, template, hay)
+        files_terrain = tfiles
+        terrain_report = {'ps2_non_exact_ground': len(ps2_non), 'pc_non_exact_ground_neutralised': len(pc_non), 'collision': coll, 'visual': vis}
+    else:
+        files_terrain = {}
     pcn = gc.pc_nodes(a.pc_root / 'DataGx/Course/Turkey3/turkey3.dx')
-    files, eggs, report = {}, b'', {'models': []}
+    files, eggs, report = dict(files_terrain), b'', {'models': []}
+    for ename, mname, ec in terrain_eggs:
+        eggs += o.egg_xml(ename, mname, ec)
     for model in MODELS:
         first = by_path[model['meshes'][0]]
         tex_name = first['textures'][0]['name']
@@ -181,11 +197,13 @@ def main():
             c_world = (c[0], c[1] + dy, c[2])
             eggs += o.egg_xml(name, 'misc' + BS + 'ps2port' + BS + model['name'] + BS + model['name'], c_world, rows)
             allpos = [(pt[0], pt[1] + dy, pt[2]) for pos, _, _ in o.source_triangles(scene, mesh) for pt in pos]
-            nodes, _ = tp.to_nodes(tree)
-            code = tp.reference_code(nodes, (c_world[0], min(p[1] for p in allpos) - 0.5, c_world[2]))
+            code = tree.reference_code((c_world[0], min(p[1] for p in allpos) - 0.5, c_world[2]))
             if code is None:
                 raise SystemExit(path + ': no ground code below the object')
-            tree, rep = tp.insert_brush(tree, sorted(set(allpos)), code=code)
+            hull_verts = sorted(set(allpos))
+            hull = tp.hull_planes(hull_verts)
+            leaves = tree.apply_prepared(hull_verts, [((q[0], q[1], q[2]), q[3]) for q in hull], code, 'fill')
+            rep = {'planes': len(hull), 'leaves_replaced': leaves}
             entry['instances'].append({'egg': name, 'mesh': path, 'translation': [round(x, 2) for x in c_world], 'ground_offset_before': round(lift, 2), 'applied_dy': round(dy, 2), 'rotation_rows': [[round(x, 6) for x in r] for r in rows],
                                        'fit_residual': round(residual, 5), 'plane_code': code, 'brush_planes': rep['planes'],
                                        'leaves_replaced': rep['leaves_replaced']})
@@ -193,9 +211,11 @@ def main():
     start = pc_xml.index(b'    <List Name="IContManager">\r\n')
     end = pc_xml.index(b'    </List>\r\n', start)
     files['DataScene/RaceTest/Turkey3.xml'] = pc_xml[:end] + eggs + pc_xml[end:]
-    files['DataGx/Course/Turkey3/turkey3.dx'] = course[:slice_.tag_offset] + tree
-    nodes, parsed = tp.to_nodes(tree)
-    report['tag100'] = {'header': list(parsed.header_words), 'invariants_ok': all(parsed.count_invariants().values()), 'bytes': len(tree)}
+    tree_bytes = tree.serialize()
+    files['DataGx/Course/Turkey3/turkey3.dx'] = course[:slice_.tag_offset] + tree_bytes
+    nodes, parsed = tp.to_nodes(tree_bytes)
+    report['tag100'] = {'header': list(parsed.header_words), 'invariants_ok': all(parsed.count_invariants().values()), 'bytes': len(tree_bytes)}
+    report['terrain'] = terrain_report
     for rel, data in files.items():
         path = a.out / rel
         path.parent.mkdir(parents=True, exist_ok=True)
