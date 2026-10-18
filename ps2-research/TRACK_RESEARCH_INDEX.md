@@ -33,6 +33,16 @@ RaceLine XYZ match within 1 unit). Pairing is semantic, not file-identical. Cano
 | Reflection and environment | Vehicle-focused, shared render contract | [refl1/](refl1/final-report.md) | Context only |
 | In-race map | Procedural `gaHudAiMap` from route/split data | [ui2/minimap.md](ui2/minimap.md), `minimap-format.json` | Covered by HUD port (hud-port docs) |
 
+## 2b. Track port work (this effort)
+
+| Doc | Content |
+|---|---|
+| [track-port0/policy.md](track-port0/policy.md) | Per-aspect channels, coverage rules, G-COLL and PCSX2 gates, trigger criteria |
+| [track-delta1/README.md](track-delta1/README.md) | Turkey3 delta census, registry v2, collision and scene censuses |
+| [track-delta1/T2-BSP-FORMAT.md](track-delta1/T2-BSP-FORMAT.md) | PS2 `.BSP` format reversed from the ELF |
+| [track-delta1/T2-SOLID-SHELL.md](track-delta1/T2-SOLID-SHELL.md) | PS2 solid exterior across 36 courses and runtime probe plan |
+| [track-delta1/SCENE-CENSUS.md](track-delta1/SCENE-CENSUS.md) | Splits, limit lists, controllers across 36 courses |
+
 ## 3. Already in the PC port (`pc-port/`)
 
 | Item | Docs | Status |
