@@ -30,3 +30,9 @@ Point6=3414.4,52.8,-716.2,0   ; red caravan 3
 Point7=1955.9,35.3,-160.6,0   ; red caravan 4
 ```
 Check: each object is drawn at the right place and orientation (compare with PS2), lit like its surroundings, solid, no crash on load or after three race restarts. Remove `PS2Port`, the XML and `DataGx\Course` to return to stock.
+
+## Update 1 (user run, 2026-10-19)
+Result: all objects load, all have collision. Two findings.
+1. Textures are mapped upside down. The GXI rows are top-down (`BRICKHOUSE-TGA` has the door and windows in the lower half), the PC DXT is stored bottom-up (`dxt.py` flips rows for PNG), so copying the rows unchanged turned the images over. The converters now flip V by default (`--no-flip-v` restores the old behaviour); to be confirmed by the next run.
+2. Red caravans 1 and 4 stood crooked: their lowest vertices are +1.35 and -3.33 units away from the PC ground (the other instances are within 0.6). The PS2 terrain differs from the PC terrain at those two places (the PS2 screenshot of the house shows a fence and a different ground texture around it, the registry lists 1,242 non-exact ground triangles). The converter now shifts an instance vertically when its lowest vertices are more than 0.75 away from the PC ground (red caravan 1 by -1.35, red caravan 4 by +3.33; collision brush shifted the same). This hides the symptom; the real fix is the PS2 terrain and fence placements, next step.
+New teleport points are unchanged except the two shifted objects (about 1 to 3 units in height only).

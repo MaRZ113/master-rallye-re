@@ -16,6 +16,8 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 import ps2_obj_to_dx as o  # noqa: E402
+import gcoll_columns as gc  # noqa: E402
+import gcoll_walls_vs_limits as gw  # noqa: E402
 import tag100_patch as tp  # noqa: E402
 from master_rallye.dx import parse_dx_bytes  # noqa: E402
 from master_rallye.dxt import parse_dxt_bytes  # noqa: E402
@@ -119,7 +121,8 @@ def main():
     ap.add_argument('--ps2-root', type=Path, default=Path('D:/Game/Master Rallye PS2'))
     ap.add_argument('--pc-root', type=Path, required=True)
     ap.add_argument('--out', type=Path, required=True)
-    ap.add_argument('--flip-v', action='store_true')
+    ap.add_argument('--no-flip-v', action='store_true', help='keep the PS2 V as is (default flips V: the GXI rows are top-down, the PC texture V runs bottom-up; confirmed by the user on Turkey3)')
+    ap.add_argument('--snap-threshold', type=float, default=0.75, help='shift an instance vertically when its lowest vertices are this far above or below the PC ground (the PS2 ground differs there)')
     a = ap.parse_args()
     manifest, _ = o.t.load_pak(a.ps2_root / 'TNG.PAK')
     scene = o.w.decode_scene(o.extract(manifest, a.ps2_root, o.PSM_PATH))
@@ -130,6 +133,7 @@ def main():
     course = (a.pc_root / 'DataGx/Course/Turkey3/turkey3.dx').read_bytes()
     slice_ = extract_tag100_from_dx_bytes(course, 'turkey3.dx')
     tree = slice_.raw
+    pcn = gc.pc_nodes(a.pc_root / 'DataGx/Course/Turkey3/turkey3.dx')
     files, eggs, report = {}, b'', {'models': []}
     for model in MODELS:
         first = by_path[model['meshes'][0]]
@@ -139,7 +143,7 @@ def main():
         tris0 = o.source_triangles(scene, first)
         verts0 = strip_vertices(scene, first)
         c0 = tuple(sum(v[i] for v in verts0) / len(verts0) for i in range(3))
-        geometry = o.build_geometry(tris0, c0, a.flip_v)
+        geometry = o.build_geometry(tris0, c0, (not a.no_flip_v))
         rebuilt = rebuild_topology(template, {0: geometry}, bounds_mode='recompute')
         dx = bytearray(rebuilt.data)
         slot = next(s for s in rebuilt.output_model.physical_draws[0].texture_slots if s.slot == 0)
@@ -164,20 +168,25 @@ def main():
             if len(verts) != len(verts0):
                 raise SystemExit('instance vertex count differs: ' + path)
             c = tuple(sum(v[i] for v in verts) / len(verts) for i in range(3))
+            low = sorted(verts, key=lambda p: p[1])[:20]
+            offsets = [p[1] - g for p in low for g in [gw.ground_at(pcn, p[0], p[2])] if g is not None]
+            lift = (sum(offsets[:8]) / len(offsets[:8])) if offsets else 0.0
+            dy = -lift if abs(lift) > a.snap_threshold else 0.0
             rot, residual = fit_unordered([tuple(p[i] - c0[i] for i in range(3)) for p in verts0], [tuple(p[i] - c[i] for i in range(3)) for p in verts])
             if residual > 0.01:
                 raise SystemExit(f'{path}: instance is not a rigid copy of the first one (residual {residual:.4f})')
             # row-vector convention of the Egg matrix: world = local . M with M = R^T, so Row i is column i of R
             rows = tuple(tuple(rot[j][i] for j in range(3)) for i in range(3))
             name = f'ps2_{model["name"]}{k + 1}'
-            eggs += o.egg_xml(name, 'misc' + BS + 'ps2port' + BS + model['name'] + BS + model['name'], c, rows)
-            allpos = [pt for pos, _, _ in o.source_triangles(scene, mesh) for pt in pos]
+            c_world = (c[0], c[1] + dy, c[2])
+            eggs += o.egg_xml(name, 'misc' + BS + 'ps2port' + BS + model['name'] + BS + model['name'], c_world, rows)
+            allpos = [(pt[0], pt[1] + dy, pt[2]) for pos, _, _ in o.source_triangles(scene, mesh) for pt in pos]
             nodes, _ = tp.to_nodes(tree)
-            code = tp.reference_code(nodes, (c[0], min(p[1] for p in allpos) - 0.5, c[2]))
+            code = tp.reference_code(nodes, (c_world[0], min(p[1] for p in allpos) - 0.5, c_world[2]))
             if code is None:
                 raise SystemExit(path + ': no ground code below the object')
             tree, rep = tp.insert_brush(tree, sorted(set(allpos)), code=code)
-            entry['instances'].append({'egg': name, 'mesh': path, 'translation': [round(x, 2) for x in c], 'rotation_rows': [[round(x, 6) for x in r] for r in rows],
+            entry['instances'].append({'egg': name, 'mesh': path, 'translation': [round(x, 2) for x in c_world], 'ground_offset_before': round(lift, 2), 'applied_dy': round(dy, 2), 'rotation_rows': [[round(x, 6) for x in r] for r in rows],
                                        'fit_residual': round(residual, 5), 'plane_code': code, 'brush_planes': rep['planes'],
                                        'leaves_replaced': rep['leaves_replaced']})
         report['models'].append(entry)
