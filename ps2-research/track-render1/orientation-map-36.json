@@ -1,0 +1,202 @@
+{
+ "{\"noise_texture\": true, \"shader\": \"ground\", \"surfacetype\": \"yes\"}": {
+  "shared": 706093,
+  "pc_two_sided": 48,
+  "two_sided_fraction": 0.0,
+  "single_sided": 706045,
+  "normals_rule": 1.0,
+  "uv_rule": 0.212
+ },
+ "{\"noise_texture\": false, \"shader\": \"object\"}": {
+  "shared": 201971,
+  "pc_two_sided": 15208,
+  "two_sided_fraction": 0.075,
+  "single_sided": 186763,
+  "normals_rule": 0.999,
+  "uv_rule": 0.153
+ },
+ "{\"alphatest\": \"\", \"noise_texture\": false, \"shader\": \"tree\"}": {
+  "shared": 150841,
+  "pc_two_sided": 118035,
+  "two_sided_fraction": 0.783,
+  "single_sided": 32806,
+  "normals_rule": 1.0,
+  "uv_rule": 0.027
+ },
+ "{\"noise_texture\": false, \"shader\": \"puddle\", \"surfacetype\": \"yes\"}": {
+  "shared": 43684,
+  "pc_two_sided": 0,
+  "two_sided_fraction": 0.0,
+  "single_sided": 43684,
+  "normals_rule": 1.0,
+  "uv_rule": 0.0
+ },
+ "{\"noise_texture\": false, \"shader\": \"metal\"}": {
+  "shared": 22348,
+  "pc_two_sided": 4922,
+  "two_sided_fraction": 0.22,
+  "single_sided": 17426,
+  "normals_rule": 1.0,
+  "uv_rule": 0.249
+ },
+ "{\"alphatest\": \"\", \"noise_texture\": false, \"shader\": \"treeblend\"}": {
+  "shared": 19022,
+  "pc_two_sided": 18978,
+  "two_sided_fraction": 0.998,
+  "single_sided": 44,
+  "normals_rule": 1.0,
+  "uv_rule": 0.0
+ },
+ "{\"noise_texture\": false}": {
+  "shared": 16924,
+  "pc_two_sided": 2247,
+  "two_sided_fraction": 0.133,
+  "single_sided": 14677,
+  "normals_rule": 1.0,
+  "uv_rule": 0.147
+ },
+ "{\"noise_texture\": false, \"shader\": \"water\", \"surfacetype\": \"yes\"}": {
+  "shared": 16880,
+  "pc_two_sided": 0,
+  "two_sided_fraction": 0.0,
+  "single_sided": 16880,
+  "normals_rule": 1.0,
+  "uv_rule": 0.0
+ },
+ "{\"noise_texture\": false, \"shader\": \"sign\"}": {
+  "shared": 11562,
+  "pc_two_sided": 116,
+  "two_sided_fraction": 0.01,
+  "single_sided": 11446,
+  "normals_rule": 1.0,
+  "uv_rule": 0.03
+ },
+ "{\"alphatest\": \"\", \"noise_texture\": false}": {
+  "shared": 5805,
+  "pc_two_sided": 5695,
+  "two_sided_fraction": 0.981,
+  "single_sided": 110,
+  "normals_rule": 1.0,
+  "uv_rule": 0.345
+ },
+ "{\"noise_texture\": false, \"shader\": \"ground\", \"surfacetype\": \"yes\"}": {
+  "shared": 5232,
+  "pc_two_sided": 0,
+  "two_sided_fraction": 0.0,
+  "single_sided": 5232,
+  "normals_rule": 1.0,
+  "uv_rule": 0.073
+ },
+ "{\"noise_texture\": false, \"shader\": \"tree\"}": {
+  "shared": 3156,
+  "pc_two_sided": 64,
+  "two_sided_fraction": 0.02,
+  "single_sided": 3092,
+  "normals_rule": 1.0,
+  "uv_rule": 0.018
+ },
+ "{\"noise_texture\": false, \"shader\": \"waterfall\"}": {
+  "shared": 1255,
+  "pc_two_sided": 0,
+  "two_sided_fraction": 0.0,
+  "single_sided": 1255,
+  "normals_rule": 1.0,
+  "uv_rule": 0.0
+ },
+ "{\"noise_texture\": false, \"shader\": \"wires\"}": {
+  "shared": 1191,
+  "pc_two_sided": 1191,
+  "two_sided_fraction": 1.0,
+  "single_sided": 0,
+  "normals_rule": null,
+  "uv_rule": null
+ },
+ "{\"alphablend\": \"\", \"noise_texture\": false, \"shader\": \"wire\"}": {
+  "shared": 651,
+  "pc_two_sided": 651,
+  "two_sided_fraction": 1.0,
+  "single_sided": 0,
+  "normals_rule": null,
+  "uv_rule": null
+ },
+ "{\"noise_texture\": false, \"shader\": \"signtest\"}": {
+  "shared": 603,
+  "pc_two_sided": 603,
+  "two_sided_fraction": 1.0,
+  "single_sided": 0,
+  "normals_rule": null,
+  "uv_rule": null
+ },
+ "{\"alphablend\": \"\", \"noise_texture\": false, \"shader\": \"wires\"}": {
+  "shared": 412,
+  "pc_two_sided": 412,
+  "two_sided_fraction": 1.0,
+  "single_sided": 0,
+  "normals_rule": null,
+  "uv_rule": null
+ },
+ "{\"alphatest\": \"\", \"noise_texture\": false, \"shader\": \"wires\"}": {
+  "shared": 304,
+  "pc_two_sided": 304,
+  "two_sided_fraction": 1.0,
+  "single_sided": 0,
+  "normals_rule": null,
+  "uv_rule": null
+ },
+ "{\"noise_texture\": true, \"shader\": \"ground\"}": {
+  "shared": 272,
+  "pc_two_sided": 0,
+  "two_sided_fraction": 0.0,
+  "single_sided": 272,
+  "normals_rule": 1.0,
+  "uv_rule": 0.015
+ },
+ "{\"alphatest\": \"\", \"noise_texture\": false, \"shader\": \"metal\"}": {
+  "shared": 84,
+  "pc_two_sided": 84,
+  "two_sided_fraction": 1.0,
+  "single_sided": 0,
+  "normals_rule": null,
+  "uv_rule": null
+ },
+ "{\"noise_texture\": false, \"shader\": \"waterall\"}": {
+  "shared": 84,
+  "pc_two_sided": 0,
+  "two_sided_fraction": 0.0,
+  "single_sided": 84,
+  "normals_rule": 1.0,
+  "uv_rule": 0.0
+ },
+ "{\"noise_texture\": false, \"shader\": \"wire\"}": {
+  "shared": 64,
+  "pc_two_sided": 64,
+  "two_sided_fraction": 1.0,
+  "single_sided": 0,
+  "normals_rule": null,
+  "uv_rule": null
+ },
+ "{\"noise_texture\": false, \"shader\": \"glass\"}": {
+  "shared": 53,
+  "pc_two_sided": 53,
+  "two_sided_fraction": 1.0,
+  "single_sided": 0,
+  "normals_rule": null,
+  "uv_rule": null
+ },
+ "{\"alphatest\": \"\", \"noise_texture\": false, \"shader\": \"ground\"}": {
+  "shared": 28,
+  "pc_two_sided": 28,
+  "two_sided_fraction": 1.0,
+  "single_sided": 0,
+  "normals_rule": null,
+  "uv_rule": null
+ },
+ "{\"alphatest\": \"\", \"noise_texture\": false, \"shader\": \"object\"}": {
+  "shared": 20,
+  "pc_two_sided": 6,
+  "two_sided_fraction": 0.3,
+  "single_sided": 14,
+  "normals_rule": 1.0,
+  "uv_rule": 0.429
+ }
+}

@@ -60,6 +60,10 @@ Found in the data (it was opaque so far):
 - **Engine use: not reversed.** The loader is at `0x005541D0` (called from `0x551430`); the `$surfacetype(` parser string is used at
   `0x4dbd2c`, called from `0x441b80`. R5T-F.2.1 showed that the tested collision follows the tree and not tag1400. The surface type a wheel
   reads probably comes from here; that is a hypothesis.
+- **Record orientation (fixed after the first game test).** PC stores records with a downward plane normal: 97 percent of ground and
+  100 percent of water on retail courses. The first build kept the PS2 strip order; in the game that gave splashes on dry ground, a permanent
+  "recovering vehicle" on a bridge over water and missing car shadows. Records are now written in PC corner order; Turkey3 has 96.8 percent
+  facing down, like retail. See `../track-render1/GAME-TEST-1.md`.
 - **Effect of the PS2 grid on Turkey3 columns.** 321 of 16,676 columns change surface type, mostly to `water` (PS2 puddles) and to grass or
   gravel where retail has no record.
 

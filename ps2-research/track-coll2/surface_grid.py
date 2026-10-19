@@ -17,7 +17,13 @@ import math
 import re
 import struct
 
+import sys
+from pathlib import Path
+
 import tag1400_io as io
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / 'course-port'))
+import ps2_mesh  # noqa: E402
 
 CELL = 20.0
 DETAIL = re.compile(r' ?\$detail\([^)]*\)')
@@ -70,14 +76,21 @@ def rebuild_from_parsed(t):
     return grid_bytes(recs, [s.raw_bytes for s in t.strings], t.scalar)
 
 
-def ps2_records(scene, source_triangles):
-    """[(9 floats, string bytes)] from the PS2 scene: triangles of meshes whose material carries $surfacetype."""
+def ps2_records(scene, source_triangles=None):
+    """[(9 floats, string bytes)] from the PS2 scene: triangles of meshes whose material carries $surfacetype, in PC corner order.
+
+    PC stores every record with its face normal against the vertex normals (on retail Turkey3, Turkey2, France1, Italy3: 97 percent of the
+    ground records and 100 percent of the water records have a downward normal). The first PS2 build kept the PS2 strip order (half up, half
+    down); in the game that gave water splashes on dry ground, a permanent "recovering vehicle" on a bridge over water and a missing car shadow.
+    `source_triangles` is kept for the old call signature and not used."""
+    payload = scene.payload
     out = []
     for m in scene.meshes:
         if '$surfacetype' not in m['material']:
             continue
         name = DETAIL.sub('', m['material']).encode('ascii')
-        for pos, _, _ in source_triangles(scene, m):
+        for idx in ps2_mesh.mesh_triangles(scene, m):
+            pos = [ps2_mesh.vertex(payload, i)[0] for i in ps2_mesh.pc_order(payload, idx)]
             out.append(((*pos[0], *pos[1], *pos[2]), name))
     return out
 

@@ -70,6 +70,9 @@ def build(course, surface='ps2'):
                  'round_trip_identical': again.serialize() == raw, 'count_invariants_ok': new.counts_ok(),
                  'negative_codes': sum(1 for c in new.code if c is not None and c >= 0x80000000)},
         'tag1400': {**u_rep, 'retail_records': len(parse_course_tag1400_bytes(u_retail, 'r').records), 'new_records': len(parsed_u.records),
+                    'records_normal_down_fraction': round(sum(1 for r in parsed_u.records if r.float_suffix[1] < 0) / max(1, len(parsed_u.records)), 3),
+                    'retail_records_normal_down_fraction': round(sum(1 for r in parse_course_tag1400_bytes(u_retail, 'r').records if r.float_suffix[1] < 0)
+                                                                 / max(1, len(parse_course_tag1400_bytes(u_retail, 'r').records)), 3),
                     'dims': [parsed_u.dimension_0, parsed_u.dimension_1], 'bytes': len(u)},
         'render_prefix_identical': dx[:sl.tag_offset] == retail[:sl.tag_offset],
         'dx_bytes': len(dx), 'dx_sha256': hashlib.sha256(dx).hexdigest(),

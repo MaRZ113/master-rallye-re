@@ -46,6 +46,8 @@ def package(course, out_root, noise='plain', step=12.0, points=50000):
         'textures_resolved': not render_rep['unresolved_texture_slots'],
         'tag100_round_trip': coll_rep['tree']['round_trip_identical'] and coll_rep['tree']['count_invariants_ok'],
         'no_negative_codes': coll_rep['tree']['negative_codes'] == 0,
+        # PC stores 97 percent of its surface records facing down; a PS2 build must not differ by more than a few percent
+        'surface_records_face_down': coll_rep['tag1400']['records_normal_down_fraction'] >= coll_rep['tag1400']['retail_records_normal_down_fraction'] - 0.05,
     }
     rep = {'course': course.name, 'noise': noise, 'checks': checks, 'all_checks_passed': all(checks.values()),
            'collision': coll_rep, 'render': render_rep, 'collision_validation': val, 'seconds': round(time.time() - t0, 1),

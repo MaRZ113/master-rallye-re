@@ -101,6 +101,17 @@ class Turkey3Build(unittest.TestCase):
         self.assertEqual(rep['unresolved_texture_slots'], {})
         self.assertEqual(rep['batches'], 220)
         self.assertEqual(set(textures), {'brickhouse-tga', 'caravan-tga', 'shrubtrig2-tga', 'water-tga'})
+        self.assertGreater(rep.get('tri_two_sided_measured', 0), 0)       # shrubs, wires, fences get their reversed copy
+        # PC uses the raw PS2 UV: every banner triangle has the PC handedness (negative UV determinant in wire order)
+        from master_rallye.course_render_writer import CourseRender
+        r = CourseRender.from_bytes(data)
+        signs = set()
+        for d in r.draws():
+            if d.texture_tuple[0] in ('bagoo-tga', 'kaori-tga', 'go-tga'):
+                for k in range(d.index_start, d.index_start + d.index_count, 3):
+                    uv = [r.uv_sets[0][d.vertex_base + r.indices[k + j]] for j in range(3)]
+                    signs.add((uv[1][0] - uv[0][0]) * (uv[2][1] - uv[0][1]) - (uv[1][1] - uv[0][1]) * (uv[2][0] - uv[0][0]) < 0)
+        self.assertEqual(signs, {True})
         # a triangle without PC noise UV must not take the noise layer away from the rest of its mesh: the local mode
         # gives exactly the dropped triangles a noise UV and leaves the PC-vertex ones alone
         _, _, loc = br.build(course, course.pc_dx.read_bytes(), 'local')

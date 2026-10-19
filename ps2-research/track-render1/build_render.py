@@ -40,6 +40,7 @@ import ps2_obj_to_dx as o  # noqa: E402
 import ps2_terrain as terrain  # noqa: E402
 import tag1400_io as io  # noqa: E402
 import tag1500_probe as sectors_mod  # noqa: E402
+import ps2_mesh  # noqa: E402
 from master_rallye.course_render_writer import Container, CourseRender, Draw  # noqa: E402
 from master_rallye.dx_course import parse_course_dx_bytes  # noqa: E402
 from master_rallye.tag100_diff import extract_tag100_from_dx_bytes  # noqa: E402
@@ -50,26 +51,34 @@ ONE = struct.pack('<f', 1.0)
 
 # ------------------------------------------------------------------ PS2 side
 def ps2_vertex(payload, i):
-    b = 32 + 52 * i
-    pos = struct.unpack_from('<3f', payload, b + 36)
-    nrm = struct.unpack_from('<3f', payload, b)
-    col = bytes(payload[b + 17:b + 20]) + bytes([payload[b + 16]])
-    u, v = struct.unpack_from('<2f', payload, b + 20)
-    return pos, nrm, col, (u, 1.0 - v)
+    """PS2 vertex: position, normal, colour (PS2 bytes +17, +18, +19, +16), UV as is (the PC course uses the raw PS2 UV, see ps2_mesh)."""
+    return ps2_mesh.vertex(payload, i)
 
 
 def ps2_mesh_triangles(scene, mesh):
-    """Vertex index triples by the strip rule of ps2_obj_to_dx.source_triangles_ext."""
-    out = []
-    for strip in mesh['strips']:
-        for newest in range(strip['start'] + 2, strip['start'] + strip['count']):
-            if scene.control(newest) & 1:
-                continue
-            idx = (newest - 2, newest - 1, newest)
-            if o.w.area_normal(tuple(scene.position(i) for i in idx))[0] <= 1e-7:
-                continue
-            out.append(idx)
-    return out
+    return ps2_mesh.mesh_triangles(scene, mesh)
+
+
+ORIENTATION_MAP = HERE / 'orientation-map-36.json'
+
+
+def group_key(mat, textures):
+    """Directive group without $clamp (key of orientation-map-36.json)."""
+    d = mm.directives(mat)
+    d.pop('clamp', None)
+    noise = any('noise' in t['name'].lower() for t in textures)
+    return json.dumps({**d, 'noise_texture': noise}, sort_keys=True)
+
+
+def two_sided_rule(mat, textures, table):
+    """True when PC stores this material two-sided (each triangle plus a reversed copy): from the measured PC fraction of the group (>= 0.5), or,
+    for a group PC never shows, when it is alpha-tested or alpha-blended (every such measured group is two-sided on PC)."""
+    g = group_key(mat, textures)
+    row = table.get(g)
+    if row and row['shared'] >= 20:
+        return row['two_sided_fraction'] >= 0.5, 'measured'
+    d = mm.directives(mat)
+    return ('alphatest' in d or 'alphablend' in d), 'alpha_rule'
 
 
 def tex_stem(name):
@@ -151,6 +160,7 @@ class Builder:
         self.report = collections.Counter()
         self.textures = {}               # stem -> (dxt bytes or None when the PC file is used as is, source)
         self.pc_dir = course.pc_dx.parent
+        self.orientation = json.loads(ORIENTATION_MAP.read_text()) if ORIENTATION_MAP.exists() else {}
         header = (self.pc_dir / 'noise-tga.dxt').read_bytes()[:20] if (self.pc_dir / 'noise-tga.dxt').exists() else None
         self.dxt_header = header
         self._index_pc()
@@ -244,6 +254,9 @@ class Builder:
             name = src.split(':', 1)[1] if src.startswith('pc_renamed:') else stem
             if src.startswith('pc'):
                 data = None          # the PC file is in the retail course folder already
+            elif src == 'ps2':
+                # PC DXT rows are bottom-up and the course uses the raw PS2 UV: write the GXI rows flipped
+                data = terrain.make_dxt(ps2_mesh.convert_gxi_rows(rgba, w_, h_), w_, h_, self.dxt_header)
         self.textures[stem] = (name, data, src)
         self.report['texture_' + src.split(':')[0]] += 1
         return name
@@ -263,24 +276,33 @@ class Builder:
             slot1 = None
             if len(names) > 1 and 'noise' not in tex_stem(names[1]).lower():
                 slot1 = self.texture(names[1])
+            two_sided, why = two_sided_rule(mat, m['textures'], self.orientation)
             for idx in ps2_mesh_triangles(self.scene, m):
-                verts = [ps2_vertex(self.payload, i) for i in idx]
+                verts = [ps2_vertex(self.payload, i) for i in ps2_mesh.pc_order(self.payload, idx)]
                 pos = [v[0] for v in verts]
                 k = mm.key(pos)
                 ps2_keys.append(k)
+                if two_sided:
+                    ps2_keys.append(k)          # the reversed copy
+                    self.report['tri_two_sided_' + why] += 1
                 hit = self.pc_tris.get(k)
                 if hit and hit[2][0] == base:
                     d, vids, tt_, f, in_root = hit
                     r = self.pc
                     attrs = [(r.positions[v], r.normals[v], bytes(r.colors[4 * v:4 * v + 4]), r.uv_sets[0][v], r.uv_sets[1][v]) for v in vids]
                     # PC triangles drawn from the root record (always drawn, no sector) stay in the root
-                    tris.append((-1 if in_root else self.batch_of(pos), tt_, f, mi, attrs, 'pc_copy'))
+                    if two_sided:
+                        # PC keeps a two-sided triangle twice; the copy found first may be the reversed one: use the PS2-rule order
+                        order = [tuple(round(c, 3) for c in v[0]) for v in verts]
+                        if len(set(order)) == 3:
+                            attrs = sorted(attrs, key=lambda a: order.index(tuple(round(c, 3) for c in a[0])))
+                    batch = -1 if in_root else self.batch_of(pos)
+                    tris.append((batch, tt_, f, mi, attrs, 'pc_copy'))
+                    if two_sided:
+                        tris.append((batch, tt_, f, mi, [attrs[1], attrs[0], attrs[2]], 'pc_copy'))
                     self.report['tri_pc_copy_root' if in_root else 'tri_pc_copy'] += 1
                     continue
-                # PS2 attributes
-                avg = tuple(sum(v[1][c] for v in verts) for c in range(3))
-                if dot(cross(sub(pos[1], pos[0]), sub(pos[2], pos[0])), avg) > 0:
-                    verts = [verts[1], verts[0], verts[2]]
+                # PS2 attributes (corner order already by ps2_mesh.pc_order)
                 tri_noise = noise            # per triangle: a triangle without noise UV must not change the mesh flag
                 tt_ = (base, slot1 or 'Null', 'noise-tga' if tri_noise else 'Null')
                 uv1 = [(0.0, 0.0)] * 3
@@ -303,7 +325,10 @@ class Builder:
                     f, prov = rule_fields(dirs, tri_noise, slot1)
                 self.report['tri_fields_' + prov.split(':')[0]] += 1
                 attrs = [(v[0], v[1], v[2], v[3], uv1[j]) for j, v in enumerate(verts)]
-                tris.append((self.batch_of(pos), tt_, f, mi, attrs, prov))
+                batch = self.batch_of(pos)
+                tris.append((batch, tt_, f, mi, attrs, prov))
+                if two_sided:
+                    tris.append((batch, tt_, f, mi, [attrs[1], attrs[0], attrs[2]], prov))
         self.ps2_keys = ps2_keys
         return self.assemble(tris)
 

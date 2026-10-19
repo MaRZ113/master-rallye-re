@@ -19,8 +19,11 @@ Part of the full PS2 course conversion. Offline only; nothing has been run in th
 - **Same triangle in PC with the same base texture** (20,959 on Turkey3): normal, colour, both UV sets and the corner order are copied from
   PC, and so are the draw fields.
 - **Otherwise** (19,869):
-  - **attributes:** PS2 position, PS2 normal, colour = PS2 bytes (+17, +18, +19, +16), PS2 UV with V flipped;
-  - **corner order:** the face normal points against the vertex normals. That is how PC stores 96.6 percent of shared triangles.
+  - **attributes:** PS2 position, PS2 normal, colour = PS2 bytes (+17, +18, +19, +16), PS2 UV as is. PC uses the raw PS2 UV on every shared
+    vertex; v1 flipped V by mistake, see `GAME-TEST-1.md`;
+  - **corner order:** the face normal points against the vertex normals. This reproduces the PC order on 100 percent of the shared single-sided
+    triangles of every material group (`orientation_map.py`).
+  - **two-sided materials** (foliage, wires, fences: groups that PC stores twice) get a reversed copy in the same draw.
   - **draw fields:** from a PC draw with the same texture tuple (7,835), else from the directive table (12,034). The table was derived from
     1.2 million triangles shared by PS2 and PC on 36 courses (`material_map.py`, `material-map-36.json`, table in `NOTES.md`):
     - `$clamp` gives word +0x14;
@@ -51,6 +54,10 @@ Part of the full PS2 course conversion. Offline only; nothing has been run in th
   planes, the structure PC uses (5 clusters on Turkey3).
 - **tag1339** (course bounds) is widened downward because PS2 ground goes to y = 11.42 (retail 13.40). Its x/z come from the unchanged sector
   polygons.
+
+## After the first game test
+v1 showed three faults: wrong surface record orientation, flipped V, and missing two-sided copies. The causes were measured and fixed (v2);
+details in `GAME-TEST-1.md`.
 
 ## Limits and open points
 - The tag-6 sort trees are built by a simple rule (first polygon's plane, front/back partition, no splitting). Wrong back-to-front order shows only
