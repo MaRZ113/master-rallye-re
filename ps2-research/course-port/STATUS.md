@@ -8,9 +8,9 @@ W7). Everything below was done offline; nothing has been run in the game yet. Lo
 | W1 collision | done for 36 courses: whole PS2 BSP as PC tag100, PS2 surface grid (tag1400), checks against the PS2 BSP | `../track-coll2/REPORT.md` |
 | W2 render | writer done (36/36 round trip); PS2 render builder runs on all 36 courses | `../track-render1/REPORT.md`, `NOTES.md` |
 | W3 materials | draw-field rules derived from 1.2 million shared triangles; alpha copied from PS2; textures by the TRACK-GROUND1 policy | `../track-render1/NOTES.md`, `material-map-36.json` |
-| W4 logic | survey only (no XML writer yet); PC XML stays the base | `LOGIC-DELTA.md`, `logic-delta-36.json` |
-| W5 ambient (birds, splines, emitters) | not started | contracts in `ambient1/`, `ambient2/` |
-| W6 physics props | not started (hay-bale crash analysis in `track-delta1/HAY-PROBE.md`) | |
+| W4 logic | XML writer done for 36 courses (limits, splits, replay cameras, 3 sounds); OFF COURSE behaviour of both games decompiled and modelled offline; timing differs by code only | `LOGIC-PORT.md`, `build_logic.py`, `limit_sim.py`, `limit-sim-36.json` |
+| W5 ambient (birds, splines, emitters) | PC models of the spline objects and their route data ready, optional static stand-in; motion and birds need native code (classes missing in the PC exe) | `AMBIENT-PROPS.md`, `build_objects.py` |
+| W6 physics props | hay bale model ready; bodies need native code (PS2 class missing on PC, PC `gaAiHayBale` crashes in the contact code) | `AMBIENT-PROPS.md`, `track-delta1/HAY-PROBE.md` |
 | W7 packages | `build_course.py --all` built all 36 packages; 34 pass every offline check, SpainS1 and its flip miss one collision column of 18,035 (float32 step at a vertical wall, W1 report) | `course-packages-36.json`, `research-output\course-port-36` |
 
 ## What a package contains now
@@ -20,7 +20,7 @@ W7). Everything below was done offline; nothing has been run in the game yet. Lo
 - the PS2 surface grid;
 - the PC sector table.
 
-Plus the PS2-only textures as `.dxt` files. The RaceTest XML is not touched.
+Plus the PS2-only textures as `.dxt` files, and `DataScene/RaceTest/<Course>.xml` with the PS2 race logic (W4, `LOGIC-PORT.md`).
 
 ## First game test (owner)
 Turkey3 v1 (`research-output\course-port-turkey3-v1`, README there), optionally against the EXPERIMENTAL noise variant
@@ -39,4 +39,6 @@ Turkey3 v1 (`research-output\course-port-turkey3-v1`, README there), optionally 
 - PS2 triangles outside every PC sector are drawn from the root (always drawn, as PC does). Mostly a few hundred per course, but ~3,500 on
   Spain2, SpainM, SpainS1 (+flip) and ~1,900 on SpainW (+flip), up to 298 units outside. The cost on frame time is unknown.
 - Draw counts 465 to 1,532 and up to 79,879 vertices per course, inside the retail ranges (367 to 1,558 draws, 87,479 vertices).
-- PS2 limit behaviour (Limit2) is not reproduced, and moving objects, birds, emitters and rigid props are not ported.
+- The PS2 OFF COURSE border is in the XML; the PS2 reset timing (about 2 ticks against about 12 on PC) needs two code bytes, not applied.
+- Moving objects, birds and rigid props need native code (`AMBIENT-PROPS.md`).
+- Turkey3 v4 game test: the gap at the rock foot got larger with the v4 two-sided rule; open (`../track-render1/GAME-TEST-1.md`).

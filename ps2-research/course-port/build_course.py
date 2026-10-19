@@ -3,8 +3,9 @@
     python build_course.py --course Turkey3 --out <dir> [--noise plain|local]
     python build_course.py --all --out <dir> --summary course-packages-36.json
 
-Each package is <out>/<Course>/DataGx/Course/<dir>/<name>.dx (+ .dxt files) and <out>/<Course>/package-report.json. Nothing is installed. The
-RaceTest XML is not part of the package (W4 has no writer yet); the retail XML stays in use.
+Each package is <out>/<Course>/DataGx/Course/<dir>/<name>.dx (+ .dxt files), <out>/<Course>/DataScene/RaceTest/<Course>.xml (W4, PS2 race
+logic on the retail PC XML, `build_logic.py`; `--no-logic` leaves it out) and <out>/<Course>/package-report.json. Nothing is installed.
+`--xml-only` writes only the XML into existing package folders (the DX build takes minutes per course).
 Checks per package: collision against the PS2 BSP (validate_collision, random points and columns), render triangle set equal to PS2, render
 section validated by the parser, every texture slot resolved, tag100 round trip.
 """
@@ -22,12 +23,21 @@ sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(HERE.parent / 'track-coll2'))
 sys.path.insert(0, str(HERE.parent / 'track-render1'))
 import build_collision as bc  # noqa: E402
+import build_logic as bl  # noqa: E402
 import build_render as br  # noqa: E402
 import course_config as cc  # noqa: E402
 import validate_collision as vc  # noqa: E402
 
 
-def package(course, out_root, noise='plain', step=12.0, points=50000):
+def write_logic(course, out_root):
+    data, rep = bl.build(course)
+    rel = course.pc_xml.relative_to(cc.PC_ROOT)
+    (out_root / course.name / rel).parent.mkdir(parents=True, exist_ok=True)
+    (out_root / course.name / rel).write_bytes(data)
+    return rep
+
+
+def package(course, out_root, noise='plain', step=12.0, points=50000, logic=True):
     t0 = time.time()
     coll_dx, _, coll_rep = bc.build(course, 'ps2')
     data, textures, render_rep = br.build(course, coll_dx, noise, 'all')
@@ -55,7 +65,11 @@ def package(course, out_root, noise='plain', step=12.0, points=50000):
         'within_retail_vertex_and_index_range': render_rep['vertices'] <= 87479 and render_rep['indices'] <= 227061,
         'surface_records_face_down': coll_rep['tag1400']['records_normal_down_fraction'] >= coll_rep['tag1400']['retail_records_normal_down_fraction'] - 0.05,
     }
-    rep = {'course': course.name, 'noise': noise, 'checks': checks, 'all_checks_passed': all(checks.values()),
+    logic_rep = None
+    if logic:
+        logic_rep = write_logic(course, out_root)
+        checks['logic_xml_checks_pass'] = bool(logic_rep['checks'].get('pass'))
+    rep = {'course': course.name, 'noise': noise, 'checks': checks, 'logic': logic_rep, 'all_checks_passed': all(checks.values()),
            'collision': coll_rep, 'render': render_rep, 'collision_validation': val, 'seconds': round(time.time() - t0, 1),
            'installed': False, 'runtime_checked': False}
     (root / 'package-report.json').write_text(json.dumps(rep, indent=1))
@@ -69,12 +83,26 @@ def main():
     ap.add_argument('--out', type=Path, required=True)
     ap.add_argument('--noise', choices=('plain', 'local'), default='plain')
     ap.add_argument('--summary', type=Path)
+    ap.add_argument('--no-logic', action='store_true')
+    ap.add_argument('--xml-only', action='store_true')
     a = ap.parse_args()
+    if a.xml_only:
+        for course in (cc.courses() if a.all else [cc.course(a.course)]):
+            r = write_logic(course, a.out)
+            p = a.out / course.name / 'package-report.json'
+            if p.exists():
+                pr = json.loads(p.read_text())
+                pr['logic'] = r
+                pr['checks']['logic_xml_checks_pass'] = bool(r['checks'].get('pass'))
+                pr['all_checks_passed'] = all(pr['checks'].values())
+                p.write_text(json.dumps(pr, indent=1))
+            print(course.name, 'xml', 'pass' if r['checks'].get('pass') else r['checks'], flush=True)
+        return
     courses = cc.courses() if a.all else [cc.course(a.course)]
     summary = {}
     for course in courses:
         try:
-            rep = package(course, a.out, a.noise)
+            rep = package(course, a.out, a.noise, logic=not a.no_logic)
             summary[course.name] = {'checks': rep['checks'], 'all_checks_passed': rep['all_checks_passed'], 'seconds': rep['seconds'],
                                     'draws': rep['render']['draws'], 'vertices': rep['render']['vertices'], 'indices': rep['render']['indices'],
                                     'two_sided': {k: v for k, v in rep['render'].items() if k.startswith('tri_two_sided')},

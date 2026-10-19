@@ -84,3 +84,18 @@ faces, PC culls them and shows the far terrain.
 **Fix in v4 (mode `all`).** Every object (except signs and water) and every steep or downward-facing ground triangle gets both sides,
 whether PC has it or not. Turkey3: 6,052 object and 3,141 ground triangles; 168,681 indices, inside the retail maximum of 227,061. A course that
 would leave the retail vertex or index range falls back to the v3 rule (PS2-only geometry) and the report says so.
+
+## Fourth game test (v4)
+Owner result (2026-10-19):
+- The fence is see-through now. It shows the PC material (fencegate + aluminium) rather than the PS2 look; accepted, not worth more work for
+  one fence.
+- **The gap at the rock foot got larger.** The screenshot shows a white wedge (sky colour) at the rock base, so nothing at all is drawn there,
+  not even the far terrain behind it.
+
+So the v4 hypothesis (missing back faces behind an open foot) is wrong or incomplete. If back faces were the cause, the wedge would show the
+rock's inside; instead nothing is drawn, and two-sided copies made it worse. Leads, not yet checked:
+- a draw or sector culled too early, for example by its tag5 sphere or by the sector polygon of the triangles at the foot;
+- depth or sort trouble between the reversed copies and the alpha-sorted draws.
+
+As agreed with the owner, this stays open and moves into the later phases; the PCSX2 GS dumps of the spot are available for it. Packages keep
+the v4 rule for now.
