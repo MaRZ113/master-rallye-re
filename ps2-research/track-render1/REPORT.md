@@ -21,10 +21,16 @@ Part of the full PS2 course conversion. Offline only; nothing has been run in th
 - **Otherwise** (19,869):
   - **attributes:** PS2 position, PS2 normal, colour = PS2 bytes (+17, +18, +19, +16), PS2 UV as is. PC uses the raw PS2 UV on every shared
     vertex; v1 flipped V by mistake, see `GAME-TEST-1.md`;
-  - **corner order:** the face normal points against the vertex normals. This reproduces the PC order on 100 percent of the shared single-sided
-    triangles of every material group (`orientation_map.py`).
+  - **corner order:** PC's own order when PC has the same triangle single-sided with another texture; otherwise the face normal points
+    against the vertex normals. The normal rule reproduces the PC order on all but one shared single-sided ground triangle of Turkey3. That one
+    lies in a fold under a rock, where the visible face looks down; the rule flipped it, PC culled it, and the sky colour showed through
+    (seventh test, `GAME-TEST-1.md`). A PS2-only ground triangle whose order runs its shared edges the same way as its neighbours gets both
+    sides (11 on 36 courses). PC's order changes 169 triangles on 27 courses.
   - **two-sided materials** (foliage, wires, fences: groups that PC stores twice) get a reversed copy in the same draw.
-  - **draw fields:** from a PC draw with the same texture tuple (7,835), else from the directive table (12,034). The table was derived from
+  - **draw fields:** from the PC draw of the matched triangles of the same PS2 mesh, else from the first PC draw with the same texture tuple,
+    else from the PC draw with that tuple and the right alpha class, else from the directive table. The PC draw must have the alpha class
+    that the PS2 material asks for (`$alphatest` gives alpha test, `$alphablend` gives blend, neither gives opaque). Before the seventh test,
+    the first PC draw with the tuple was taken whatever its alpha class: the ItalyW2 `$alphatest` gate got the opaque gate01 draw. The table was derived from
     1.2 million triangles shared by PS2 and PC on 36 courses (`material_map.py`, `material-map-36.json`, table in `NOTES.md`):
     - `$clamp` gives word +0x14;
     - `$alphatest` / `$alphablend` give the flag bytes;

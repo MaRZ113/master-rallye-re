@@ -130,3 +130,43 @@ Owner result (2026-10-19), Turkey2:
   (`afadb23`). The PS2 noise UV removed the grain seams (`cd36c64`);
 - the invisible one-sided wall next to the fence is gone (`cba0008`, `../track-coll2/REPORT.md`, section on invisible walls).
 Still open from earlier tests: the gap at the Turkey3 rock foot (fourth test).
+
+## Seventh game test (36 packages, proxy with the PS2 effects: GroundDetail, grass, spline objects)
+Owner report (2026-10-20), with three Observatory broker dumps (`Release-Assets\Observatory-R-OBS2-0.2.4-beta-hotfix-release\captures\2026-10-20`).
+The dumps give the car pose (`Physics/Car0/Transform`; row 3 is the heading): ItalyW2 fence at (3088, -60, 876), Turkey3 "neod" at
+(2698, 22, -968), Turkey3 rock at (2824, 32, -518). A software render of the package DX from a chase camera behind each pose
+(scratch tool, PC back-face rule, texture x vertex colour) reproduces the screenshots, so every finding below was checked on the exact view.
+
+**1. ItalyW2: the fence looks torn (gaps between the planks filled in).**
+- PS2 has two meshes there: `Post $shader(object)` (130 triangles, 106 shared with PC) and `Gate $alphatest() $shader(tree)` (26, 19 shared).
+- The 7 unshared gate triangles and the 24 unshared posts took "the first PC draw with texture gate01". On ItalyW2 that draw is
+  `00000001`/1, an opaque material, so a part of the gate lost its alpha test.
+- **Fix.** An unshared triangle first takes the PC material of the shared triangles of its own PS2 mesh. Otherwise it takes a PC draw with
+  the same textures only when its alpha class matches the PS2 material (`$alphatest` gives alpha test, `$alphablend` gives blend, neither
+  gives opaque). Otherwise it falls back to the directive table.
+- ItalyW2 now has 52 alpha-tested gate triangles at the spot, the same as retail (two-sided). Test `test_italyw2_alphatest_gate_keeps_alpha_test`:
+  every output triangle of a PS2 `$alphatest` mesh is alpha-tested. On 36 courses 2,177 triangles had a first PC draw of the wrong alpha class
+  (most on ItalyM1, ItalyS1, ItalyS2, ItalyW1: alpha-tested PS2 meshes that had taken an opaque PC draw).
+
+**2. Turkey3 rock: the white wedge at the rock foot (open since the fourth test).**
+- The render shows the hole on the package and not on retail. Without back-face culling the package has no hole either.
+- The pixels belong to one ground triangle, (2817.51, 31.20, -517.89) (2817.59, 30.94, -521.23) (2818.69, 31.94, -521.77). PC has the same
+  triangle with texture `grass to roc1`, PS2 with `grass to roc2`, so it was not a matched triangle and its corner order came from the normal
+  rule. It lies in a fold under the rock: the visible face looks down, while the smoothed PS2 vertex normals point up. The rule therefore
+  flipped it, PC culled it, and nothing at all was drawn there. That explains the sky colour, and also why two-sided copies of other
+  triangles did not help.
+- **Fix.** Wherever PC has the same triangle single-sided, its PC corner order is used, whatever its texture. On 36 courses this
+  reorients 169 triangles on 27 courses (Turkey3: exactly this one). A consistency check over shared edges then runs each PS2-only
+  ground triangle against its neighbours. 11 triangles on 6 courses (France2, FranceS2, Italy3, ItalyS3 and its Flip, ItalyW2) run an
+  edge the same way as a neighbour; they get both sides.
+- In the render the wedge is gone. The Turkey3 test asserts PC's corner order on every triangle PC has single-sided.
+
+**3. Turkey3 "neod": a band with straight edges in front of the mound.**
+- The band starts in front of the car and runs to the mound. Over the mound it looks lighter, on the ground darker.
+- In the course data that area is the same as retail: base layer, noise layer (second UV set) and sector partition rendered from the same
+  camera differ only on the cliffs (PS2 vertex colour), not on the ground or the mound.
+- So the band does not come from the package. It comes from what the proxy draws over the ground. Not checked further here; an A/B with
+  `GroundDetail=0` (and with `Grass=0` / `Shrubs=0`) on the same spot, or an F10 frame capture, would tell which layer it is.
+
+Rebuild of the 36 packages (`research-output\course-port-36`; the previous set is kept in `course-port-36-v6`): 33 pass every check. The 3
+known exceptions are unchanged: SpainS1 and its Flip (one known collision column), ItalyS4 (one float32 ray sliver). Not yet confirmed in the game.

@@ -15,12 +15,12 @@
    "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 47.8,
-  "draws": 706,
+  "seconds": 49.3,
+  "draws": 705,
   "vertices": 61450,
-  "indices": 173349,
+  "indices": 173361,
   "two_sided": {
-   "tri_two_sided_steep_ground_all": 1578,
+   "tri_two_sided_steep_ground_all": 1582,
    "tri_two_sided_measured": 10766,
    "tri_two_sided_object_all": 3622
   },
@@ -52,18 +52,21 @@
    "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 43.0,
-  "draws": 785,
+  "seconds": 44.5,
+  "draws": 786,
   "vertices": 73552,
-  "indices": 203490,
+  "indices": 203502,
   "two_sided": {
-   "tri_two_sided_steep_ground_all": 2167,
+   "tri_two_sided_steep_ground_all": 2169,
    "tri_two_sided_object_all": 7671,
-   "tri_two_sided_measured": 14532
+   "tri_two_sided_measured": 14532,
+   "tri_two_sided_ground_winding_inconsistent": 2
   },
   "two_sided_mode": "all",
   "two_sided_fallback": null,
-  "alpha_fields": {},
+  "alpha_fields": {
+   "tri_fields_pc_template_alpha_class": 8
+  },
   "root_outside_sectors": 239,
   "root_outside_sectors_max_distance": 78.98,
   "noise_dropped": 0,
@@ -88,18 +91,20 @@
    "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 48.2,
+  "seconds": 51.2,
   "draws": 953,
-  "vertices": 72140,
-  "indices": 201660,
+  "vertices": 72145,
+  "indices": 201672,
   "two_sided": {
    "tri_two_sided_object_all": 6010,
    "tri_two_sided_measured": 12716,
-   "tri_two_sided_steep_ground_all": 2161
+   "tri_two_sided_steep_ground_all": 2165
   },
   "two_sided_mode": "all",
   "two_sided_fallback": null,
-  "alpha_fields": {},
+  "alpha_fields": {
+   "tri_fields_pc_template_alpha_class": 10
+  },
   "root_outside_sectors": 390,
   "root_outside_sectors_max_distance": 216.53,
   "noise_dropped": 0,
@@ -124,18 +129,20 @@
    "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 46.2,
-  "draws": 804,
+  "seconds": 47.5,
+  "draws": 802,
   "vertices": 62972,
-  "indices": 180360,
+  "indices": 180372,
   "two_sided": {
    "tri_two_sided_object_all": 4774,
    "tri_two_sided_measured": 12778,
-   "tri_two_sided_steep_ground_all": 1945
+   "tri_two_sided_steep_ground_all": 1949
   },
   "two_sided_mode": "all",
   "two_sided_fallback": null,
-  "alpha_fields": {},
+  "alpha_fields": {
+   "tri_fields_pc_template_alpha_class": 10
+  },
   "root_outside_sectors": 0,
   "root_outside_sectors_max_distance": 0,
   "noise_dropped": 0,
@@ -160,14 +167,15 @@
    "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 46.7,
-  "draws": 855,
+  "seconds": 47.5,
+  "draws": 854,
   "vertices": 76507,
-  "indices": 206982,
+  "indices": 206991,
   "two_sided": {
    "tri_two_sided_object_all": 7398,
-   "tri_two_sided_steep_ground_all": 1988,
-   "tri_two_sided_measured": 11644
+   "tri_two_sided_steep_ground_all": 1990,
+   "tri_two_sided_measured": 11644,
+   "tri_two_sided_ground_winding_inconsistent": 1
   },
   "two_sided_mode": "all",
   "two_sided_fallback": null,
@@ -196,14 +204,14 @@
    "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 48.5,
-  "draws": 688,
-  "vertices": 70205,
-  "indices": 195603,
+  "seconds": 49.2,
+  "draws": 689,
+  "vertices": 70211,
+  "indices": 195609,
   "two_sided": {
    "tri_two_sided_object_all": 4848,
    "tri_two_sided_measured": 13637,
-   "tri_two_sided_steep_ground_all": 1884
+   "tri_two_sided_steep_ground_all": 1886
   },
   "two_sided_mode": "all",
   "two_sided_fallback": null,
@@ -232,14 +240,14 @@
    "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 47.8,
-  "draws": 689,
-  "vertices": 69417,
-  "indices": 195693,
+  "seconds": 48.6,
+  "draws": 688,
+  "vertices": 69423,
+  "indices": 195699,
   "two_sided": {
    "tri_two_sided_object_all": 4848,
    "tri_two_sided_measured": 13637,
-   "tri_two_sided_steep_ground_all": 1888
+   "tri_two_sided_steep_ground_all": 1890
   },
   "two_sided_mode": "all",
   "two_sided_fallback": null,
@@ -268,14 +276,14 @@
    "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 37.6,
-  "draws": 638,
+  "seconds": 37.9,
+  "draws": 636,
   "vertices": 54824,
-  "indices": 149988,
+  "indices": 149991,
   "two_sided": {
    "tri_two_sided_object_all": 9233,
    "tri_two_sided_measured": 3792,
-   "tri_two_sided_steep_ground_all": 2616
+   "tri_two_sided_steep_ground_all": 2617
   },
   "two_sided_mode": "all",
   "two_sided_fallback": null,
@@ -304,14 +312,14 @@
    "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 35.5,
+  "seconds": 35.9,
   "draws": 821,
   "vertices": 68080,
-  "indices": 199947,
+  "indices": 199950,
   "two_sided": {
    "tri_two_sided_measured": 5200,
    "tri_two_sided_object_all": 16731,
-   "tri_two_sided_steep_ground_all": 1726
+   "tri_two_sided_steep_ground_all": 1727
   },
   "two_sided_mode": "all",
   "two_sided_fallback": null,
@@ -339,14 +347,15 @@
    "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 39.0,
+  "seconds": 39.1,
   "draws": 576,
   "vertices": 52020,
-  "indices": 144753,
+  "indices": 144759,
   "two_sided": {
    "tri_two_sided_measured": 8341,
    "tri_two_sided_steep_ground_all": 820,
-   "tri_two_sided_object_all": 3825
+   "tri_two_sided_object_all": 3825,
+   "tri_two_sided_ground_winding_inconsistent": 2
   },
   "two_sided_mode": "all",
   "two_sided_fallback": null,
@@ -375,18 +384,20 @@
    "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 42.7,
-  "draws": 976,
+  "seconds": 43.1,
+  "draws": 963,
   "vertices": 73764,
-  "indices": 202968,
+  "indices": 202974,
   "two_sided": {
-   "tri_two_sided_steep_ground_all": 2806,
+   "tri_two_sided_steep_ground_all": 2808,
    "tri_two_sided_object_all": 14388,
    "tri_two_sided_measured": 5052
   },
   "two_sided_mode": "all",
   "two_sided_fallback": null,
-  "alpha_fields": {},
+  "alpha_fields": {
+   "tri_fields_pc_template_alpha_class": 374
+  },
   "root_outside_sectors": 216,
   "root_outside_sectors_max_distance": 142.66,
   "noise_dropped": 0,
@@ -410,18 +421,20 @@
    "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 42.7,
-  "draws": 977,
+  "seconds": 43.2,
+  "draws": 963,
   "vertices": 73748,
-  "indices": 203010,
+  "indices": 203016,
   "two_sided": {
-   "tri_two_sided_steep_ground_all": 2806,
+   "tri_two_sided_steep_ground_all": 2808,
    "tri_two_sided_object_all": 14388,
    "tri_two_sided_measured": 5054
   },
   "two_sided_mode": "all",
   "two_sided_fallback": null,
-  "alpha_fields": {},
+  "alpha_fields": {
+   "tri_fields_pc_template_alpha_class": 374
+  },
   "root_outside_sectors": 226,
   "root_outside_sectors_max_distance": 142.66,
   "noise_dropped": 0,
@@ -445,12 +458,12 @@
    "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 46.3,
-  "draws": 966,
+  "seconds": 46.5,
+  "draws": 958,
   "vertices": 77591,
-  "indices": 201867,
+  "indices": 201870,
   "two_sided": {
-   "tri_two_sided_steep_ground_all": 1544,
+   "tri_two_sided_steep_ground_all": 1545,
    "tri_two_sided_measured": 8216,
    "tri_two_sided_object_all": 10239
   },
@@ -481,18 +494,20 @@
    "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 36.2,
-  "draws": 759,
+  "seconds": 36.7,
+  "draws": 758,
   "vertices": 62903,
-  "indices": 180282,
+  "indices": 180285,
   "two_sided": {
-   "tri_two_sided_steep_ground_all": 2042,
+   "tri_two_sided_steep_ground_all": 2043,
    "tri_two_sided_measured": 4172,
    "tri_two_sided_object_all": 13401
   },
   "two_sided_mode": "all",
   "two_sided_fallback": null,
-  "alpha_fields": {},
+  "alpha_fields": {
+   "tri_fields_pc_template_alpha_class": 492
+  },
   "root_outside_sectors": 21,
   "root_outside_sectors_max_distance": 22.96,
   "noise_dropped": 0,
@@ -516,18 +531,20 @@
    "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 41.6,
-  "draws": 1001,
+  "seconds": 42.4,
+  "draws": 998,
   "vertices": 72788,
-  "indices": 200112,
+  "indices": 200118,
   "two_sided": {
-   "tri_two_sided_steep_ground_all": 2535,
+   "tri_two_sided_steep_ground_all": 2537,
    "tri_two_sided_object_all": 12463,
    "tri_two_sided_measured": 5708
   },
   "two_sided_mode": "all",
   "two_sided_fallback": null,
-  "alpha_fields": {},
+  "alpha_fields": {
+   "tri_fields_pc_template_alpha_class": 401
+  },
   "root_outside_sectors": 121,
   "root_outside_sectors_max_distance": 49.35,
   "noise_dropped": 0,
@@ -551,14 +568,15 @@
    "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 43.1,
-  "draws": 832,
+  "seconds": 43.2,
+  "draws": 822,
   "vertices": 67581,
-  "indices": 187596,
+  "indices": 187605,
   "two_sided": {
-   "tri_two_sided_steep_ground_all": 1825,
+   "tri_two_sided_steep_ground_all": 1826,
    "tri_two_sided_object_all": 10578,
-   "tri_two_sided_measured": 7567
+   "tri_two_sided_measured": 7567,
+   "tri_two_sided_ground_winding_inconsistent": 2
   },
   "two_sided_mode": "all",
   "two_sided_fallback": null,
@@ -587,14 +605,15 @@
    "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 43.7,
-  "draws": 831,
+  "seconds": 43.2,
+  "draws": 821,
   "vertices": 67829,
-  "indices": 188076,
+  "indices": 188085,
   "two_sided": {
-   "tri_two_sided_steep_ground_all": 1825,
+   "tri_two_sided_steep_ground_all": 1826,
    "tri_two_sided_object_all": 10634,
-   "tri_two_sided_measured": 7567
+   "tri_two_sided_measured": 7567,
+   "tri_two_sided_ground_winding_inconsistent": 2
   },
   "two_sided_mode": "all",
   "two_sided_fallback": null,
@@ -623,8 +642,8 @@
    "logic_xml_checks_pass": true
   },
   "all_checks_passed": false,
-  "seconds": 47.7,
-  "draws": 879,
+  "seconds": 47.5,
+  "draws": 878,
   "vertices": 70239,
   "indices": 195087,
   "two_sided": {
@@ -659,18 +678,20 @@
    "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 40.3,
-  "draws": 850,
+  "seconds": 40.7,
+  "draws": 849,
   "vertices": 64458,
-  "indices": 187320,
+  "indices": 187323,
   "two_sided": {
    "tri_two_sided_object_all": 11872,
-   "tri_two_sided_steep_ground_all": 2020,
+   "tri_two_sided_steep_ground_all": 2021,
    "tri_two_sided_measured": 5230
   },
   "two_sided_mode": "all",
   "two_sided_fallback": null,
-  "alpha_fields": {},
+  "alpha_fields": {
+   "tri_fields_pc_template_alpha_class": 488
+  },
   "root_outside_sectors": 42,
   "root_outside_sectors_max_distance": 23.6,
   "noise_dropped": 0,
@@ -695,13 +716,14 @@
   },
   "all_checks_passed": true,
   "seconds": 48.2,
-  "draws": 796,
+  "draws": 792,
   "vertices": 72359,
-  "indices": 202011,
+  "indices": 202017,
   "two_sided": {
    "tri_two_sided_measured": 8021,
    "tri_two_sided_object_all": 10582,
-   "tri_two_sided_steep_ground_all": 1744
+   "tri_two_sided_steep_ground_all": 1744,
+   "tri_two_sided_ground_winding_inconsistent": 2
   },
   "two_sided_mode": "all",
   "two_sided_fallback": null,
@@ -730,7 +752,7 @@
    "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 30.6,
+  "seconds": 31.4,
   "draws": 333,
   "vertices": 55346,
   "indices": 161193,
@@ -765,20 +787,18 @@
    "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 35.7,
+  "seconds": 36.2,
   "draws": 421,
   "vertices": 75967,
-  "indices": 220446,
+  "indices": 220455,
   "two_sided": {
-   "tri_two_sided_steep_ground_all": 1561,
+   "tri_two_sided_steep_ground_all": 1564,
    "tri_two_sided_object_all": 16081,
    "tri_two_sided_measured": 9376
   },
   "two_sided_mode": "all",
   "two_sided_fallback": null,
-  "alpha_fields": {
-   "tri_fields_pc_base_texture_alpha": 3
-  },
+  "alpha_fields": {},
   "root_outside_sectors": 3520,
   "root_outside_sectors_max_distance": 44.24,
   "noise_dropped": 0,
@@ -803,7 +823,7 @@
    "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 37.5,
+  "seconds": 37.9,
   "draws": 468,
   "vertices": 72396,
   "indices": 208197,
@@ -849,7 +869,7 @@
    "logic_xml_checks_pass": true
   },
   "all_checks_passed": false,
-  "seconds": 45.6,
+  "seconds": 41.5,
   "draws": 499,
   "vertices": 76830,
   "indices": 225447,
@@ -895,7 +915,7 @@
    "logic_xml_checks_pass": true
   },
   "all_checks_passed": false,
-  "seconds": 45.1,
+  "seconds": 41.6,
   "draws": 503,
   "vertices": 76749,
   "indices": 225303,
@@ -941,20 +961,18 @@
    "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 39.4,
+  "seconds": 36.8,
   "draws": 415,
   "vertices": 67344,
-  "indices": 184764,
+  "indices": 184776,
   "two_sided": {
-   "tri_two_sided_steep_ground_all": 4126,
+   "tri_two_sided_steep_ground_all": 4130,
    "tri_two_sided_measured": 7702,
    "tri_two_sided_object_all": 7626
   },
   "two_sided_mode": "all",
   "two_sided_fallback": null,
-  "alpha_fields": {
-   "tri_fields_pc_base_texture_alpha": 3
-  },
+  "alpha_fields": {},
   "root_outside_sectors": 36,
   "root_outside_sectors_max_distance": 21.84,
   "noise_dropped": 0,
@@ -979,7 +997,7 @@
    "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 54.3,
+  "seconds": 53.6,
   "draws": 464,
   "vertices": 78950,
   "indices": 192921,
@@ -990,9 +1008,7 @@
   },
   "two_sided_mode": "ps2only",
   "two_sided_fallback": "all -> ps2only (retail vertex/index range)",
-  "alpha_fields": {
-   "tri_fields_pc_base_texture_alpha": 7
-  },
+  "alpha_fields": {},
   "root_outside_sectors": 1939,
   "root_outside_sectors_max_distance": 298.09,
   "noise_dropped": 0,
@@ -1018,7 +1034,7 @@
    "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 64.1,
+  "seconds": 54.1,
   "draws": 464,
   "vertices": 78971,
   "indices": 192966,
@@ -1029,9 +1045,7 @@
   },
   "two_sided_mode": "ps2only",
   "two_sided_fallback": "all -> ps2only (retail vertex/index range)",
-  "alpha_fields": {
-   "tri_fields_pc_base_texture_alpha": 7
-  },
+  "alpha_fields": {},
   "root_outside_sectors": 1938,
   "root_outside_sectors_max_distance": 298.09,
   "noise_dropped": 0,
@@ -1058,8 +1072,8 @@
    "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 75.1,
-  "draws": 938,
+  "seconds": 53.3,
+  "draws": 942,
   "vertices": 65139,
   "indices": 167775,
   "two_sided": {
@@ -1102,7 +1116,7 @@
    "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 51.6,
+  "seconds": 43.6,
   "draws": 878,
   "vertices": 68723,
   "indices": 206742,
@@ -1142,14 +1156,14 @@
    "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 55.6,
+  "seconds": 47.6,
   "draws": 819,
   "vertices": 60809,
-  "indices": 168681,
+  "indices": 168684,
   "two_sided": {
    "tri_two_sided_object_all": 6052,
    "tri_two_sided_measured": 6206,
-   "tri_two_sided_steep_ground_all": 3141
+   "tri_two_sided_steep_ground_all": 3142
   },
   "two_sided_mode": "all",
   "two_sided_fallback": null,
@@ -1182,7 +1196,7 @@
    "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 72.0,
+  "seconds": 64.1,
   "draws": 1035,
   "vertices": 79391,
   "indices": 226104,
@@ -1194,7 +1208,8 @@
   "two_sided_mode": "all",
   "two_sided_fallback": null,
   "alpha_fields": {
-   "tri_fields_pc_base_texture_alpha": 413
+   "tri_fields_pc_base_texture_alpha": 413,
+   "tri_fields_pc_template_alpha_class": 20
   },
   "root_outside_sectors": 475,
   "root_outside_sectors_max_distance": 95.95,
@@ -1231,7 +1246,7 @@
    "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 82.1,
+  "seconds": 76.9,
   "draws": 1106,
   "vertices": 78792,
   "indices": 209019,
@@ -1272,9 +1287,9 @@
    "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 59.1,
-  "draws": 960,
-  "vertices": 74969,
+  "seconds": 52.8,
+  "draws": 963,
+  "vertices": 74967,
   "indices": 209760,
   "two_sided": {
    "tri_two_sided_measured": 10092,
@@ -1315,7 +1330,7 @@
    "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 56.3,
+  "seconds": 50.5,
   "draws": 957,
   "vertices": 73051,
   "indices": 213942,
@@ -1359,7 +1374,7 @@
    "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 52.2,
+  "seconds": 46.3,
   "draws": 990,
   "vertices": 65061,
   "indices": 191805,

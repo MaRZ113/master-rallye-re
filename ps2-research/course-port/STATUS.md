@@ -41,6 +41,11 @@ Turkey3 v1 (`research-output\course-port-turkey3-v1`, README there), optionally 
 - Draw counts 465 to 1,532 and up to 79,879 vertices per course, inside the retail ranges (367 to 1,558 draws, 87,479 vertices).
 - The PS2 OFF COURSE border is in the XML; the PS2 reset timing (about 2 ticks against about 12 on PC) needs two code bytes, not applied.
 - Moving objects, birds and rigid props need native code (`AMBIENT-PROPS.md`).
-- Turkey3 v4 game test: the gap at the rock foot got larger with the v4 two-sided rule; open (`../track-render1/GAME-TEST-1.md`).
-- Owner game tests so far (`../track-render1/GAME-TEST-1.md`, six rounds): courses load and race to the finish, the PS2 OFF COURSE border works,
-  the Turkey2 grass seam and invisible wall are fixed. Only Turkey3, Turkey2, FranceM were driven; the other courses are checked offline only.
+- Turkey3 rock foot gap (open since the v4 test): found in the seventh test, from the owner's dumps and a software render. One ground triangle
+  in a fold under the rock was flipped by the normal rule; PC's corner order is now used wherever PC has the triangle. The ItalyW2 torn
+  fence was fixed in the same round: the PC material now has to match the PS2 alpha class. Not yet confirmed in the game
+  (`../track-render1/GAME-TEST-1.md`).
+- Owner game tests so far (`../track-render1/GAME-TEST-1.md`, seven rounds): courses load and race to the finish, the PS2 OFF COURSE border works,
+  the Turkey2 grass seam and invisible wall are fixed. Only Turkey3, Turkey2, FranceM and ItalyW2 were driven; the other courses are checked
+  offline only. The band in front of the Turkey3 mound (seventh test) is not in the course data (same as retail there); it comes from a proxy
+  layer and needs an A/B on the proxy side.

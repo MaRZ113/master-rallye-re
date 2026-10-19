@@ -139,6 +139,57 @@ class Turkey3Build(unittest.TestCase):
                         self.assertLess(min(d, 1 - d), 1e-3)
                     checked += 1
         self.assertGreater(checked, 1000)
+        # winding: wherever PC has the triangle single-sided, the output has PC's corner order (the rock foot at 2817/-519 was flipped by the
+        # normal rule and culled, owner's fourth and seventh tests)
+        self.assertEqual(rep.get('tri_winding_from_pc'), 1)
+        out = {}
+        for d in r.draws():
+            for k in range(d.index_start, d.index_start + d.index_count, 3):
+                P = [r.positions[d.vertex_base + r.indices[k + j]] for j in range(3)]
+                out.setdefault(mm.key(P), set()).add(br.cyc([br.rkey(p) for p in P]))
+        missing = [k for k, o in b.pc_orient.items() if len(o) == 1 and k in out and not (o & out[k])]
+        self.assertEqual(missing, [])
+        foot = [(2817.51, 31.2, -517.89), (2817.59, 30.94, -521.23), (2818.69, 31.94, -521.77)]
+
+        def near(k):
+            return all(any(max(abs(a - b) for a, b in zip(p, q)) < 0.01 for p in k) for q in foot)
+        self.assertEqual(sum(1 for k in out if near(k)), 1)
+
+
+class TemplateTests(unittest.TestCase):
+    def test_alpha_class(self):
+        self.assertEqual(br.alpha_class('01010101'), 'test')
+        self.assertEqual(br.alpha_class('00010101'), 'test')
+        self.assertEqual(br.alpha_class('01000001'), 'blend')
+        self.assertEqual(br.alpha_class('01000101'), 'blend')
+        self.assertEqual(br.alpha_class('00000101'), 'opaque')
+        self.assertEqual(br.alpha_class('00000001'), 'opaque')
+        self.assertEqual(br.cyc([(2, 0, 0), (0, 0, 0), (1, 0, 0)]), ((0, 0, 0), (1, 0, 0), (2, 0, 0)))
+
+    @unittest.skipUnless(RETAIL.exists(), 'retail data not available')
+    def test_italyw2_alphatest_gate_keeps_alpha_test(self):
+        # ItalyW2: the first PC draw with gate01 is opaque; the unmatched triangles of the PS2 `$alphatest` gate took it (owner's fence test)
+        import course_config as cc
+        import ps2_mesh
+        from master_rallye.course_render_writer import CourseRender
+        course = cc.course('ItalyW2')
+        data, _, rep = br.build(course, course.pc_dx.read_bytes())
+        b = br.Builder(course)
+        alpha_keys = set()
+        for m in b.scene.meshes:
+            if 'alphatest' in mm.directives(m['material']):
+                alpha_keys.update(mm.key([b.scene.position(i) for i in idx]) for idx in ps2_mesh.mesh_triangles(b.scene, m))
+        r = CourseRender.from_bytes(data)
+        wrong = 0
+        seen = 0
+        for d in r.draws():
+            for k in range(d.index_start, d.index_start + d.index_count, 3):
+                if mm.key([r.positions[d.vertex_base + r.indices[k + j]] for j in range(3)]) in alpha_keys:
+                    seen += 1
+                    wrong += br.alpha_class(d.flags_0x20.hex()) != 'test'
+        self.assertGreater(seen, 1000)
+        self.assertEqual(wrong, 0)
+
 
 if __name__ == '__main__':
     unittest.main()

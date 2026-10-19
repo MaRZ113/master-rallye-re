@@ -150,6 +150,23 @@ def draw_fields(d):
     return {'flags': d.flags_0x20.hex(), 'w14': d.unknown_0x14, 'w18': d.unknown_0x18, 'w24': d.unknown_0x24}
 
 
+def alpha_class(flags_hex):
+    """'test', 'blend' or 'opaque' from the draw flags (byte 0 alpha on, byte 1 alpha test; see rule_fields)."""
+    if flags_hex[2:4] == '01':
+        return 'test'
+    return 'blend' if flags_hex[:2] == '01' else 'opaque'
+
+
+def cyc(pts):
+    """Cyclic corner order normalised to start at the smallest corner (winding identity of a triangle)."""
+    i = pts.index(min(pts))
+    return tuple(pts[i:] + pts[:i])
+
+
+def rkey(p):
+    return tuple(round(c, 3) for c in p)
+
+
 # ------------------------------------------------------------------ builder
 class Builder:
     def __init__(self, course, noise_mode='ps2', two_sided_mode='all'):
@@ -174,6 +191,8 @@ class Builder:
         self.pc_tris = {}
         self.pc_noise_uv = {}
         self.pc_templates = {}           # texture tuple -> fields of the first PC draw with it
+        self._tuple_votes = collections.defaultdict(collections.Counter)   # texture tuple -> fields json -> PC triangles
+        self.pc_orient = collections.defaultdict(set)                      # triangle key -> PC corner orders (cyc)
         self._base_votes = collections.defaultdict(collections.Counter)
         sorted_draws = set()
 
@@ -202,12 +221,14 @@ class Builder:
             f = draw_fields(d)
             f['sorted'] = id(d) in sorted_draws
             self.pc_templates.setdefault(tt_, f)
+            self._tuple_votes[tt_][json.dumps(f, sort_keys=True)] += d.index_count // 3
             self._base_votes[tt_[0]][(tt_, json.dumps(f, sort_keys=True))] += d.index_count // 3
             noise = len(tt_) > 2 and tt_[2] == 'noise-tga'
             for k in range(d.index_start, d.index_start + d.index_count, 3):
                 vids = [d.vertex_base + r.indices[k + j] for j in range(3)]
                 pts = [r.positions[v] for v in vids]
                 self.pc_tris[mm.key(pts)] = (d, vids, tt_, f, id(d) in root_draws)
+                self.pc_orient[mm.key(pts)].add(cyc([rkey(p) for p in pts]))
                 if noise:
                     for v in vids:
                         self.pc_noise_uv.setdefault(tuple(round(c, 3) for c in r.positions[v]), r.uv_sets[1][v])
@@ -266,9 +287,62 @@ class Builder:
         self.report['texture_' + src.split(':')[0]] += 1
         return name
 
+    def oriented(self, idx):
+        """PC corner order of a PS2 triangle: PC's own order where PC has the same triangle single-sided (whatever its texture), else the normal
+        rule (ps2_mesh.pc_order). The normal rule fails where the ground folds under a rock: the visible face looks down there and the smoothed
+        vertex normals point up (Turkey3 rock foot, owner's fourth test: PC culled the triangle and the sky colour showed through)."""
+        o = ps2_mesh.pc_order(self.payload, idx)
+        P = [ps2_mesh.vertex(self.payload, i)[0] for i in o]
+        dirs = self.pc_orient.get(mm.key(P))
+        if dirs and len(dirs) == 1 and cyc([rkey(p) for p in P]) not in dirs:
+            return (o[1], o[0], o[2]), True
+        return o, False
+
+    def template_for(self, tt_, want):
+        """Fields of the PC draws with this texture tuple whose alpha class is in `want` (most PC triangles first), or None. The texture tuple
+        alone is not enough: ItalyW2 draws gate01 opaque first, and the PS2 `$alphatest` gate took that draw (owner's fence test)."""
+        votes = [(n, fj) for fj, n in self._tuple_votes.get(tt_, {}).items() if alpha_class(json.loads(fj)['flags']) in want]
+        if not votes:
+            return None
+        return json.loads(max(votes)[1])
+
+    def ground_winding_suspects(self):
+        """Keys of PS2-only ground triangles whose final corner order runs most of their shared edges in the same direction as the neighbour
+        (an inconsistently oriented surface: one of them is flipped). Such a triangle gets both sides."""
+        tris = []
+        for m in self.scene.meshes:
+            mat = m['material']
+            if 'nodraw' in mm.directives(mat) or not ('$shader(ground)' in mat.lower() or '$surfacetype' in mat):
+                continue
+            for idx in ps2_mesh_triangles(self.scene, m):
+                o, _ = self.oriented(idx)
+                P = [ps2_mesh.vertex(self.payload, i)[0] for i in o]
+                pts = [rkey(p) for p in P]
+                if len(set(pts)) == 3:
+                    tris.append((pts, mm.key(P)))
+        edges = collections.defaultdict(int)
+        for pts, _ in tris:
+            for j in range(3):
+                edges[(pts[j], pts[(j + 1) % 3])] += 1
+        out = set()
+        for pts, k in tris:
+            if k in self.pc_orient:
+                continue
+            good = bad = 0
+            for j in range(3):
+                a, b = pts[j], pts[(j + 1) % 3]
+                if edges.get((b, a)):
+                    good += 1
+                elif edges[(a, b)] > 1:
+                    bad += 1
+            if bad > good:
+                out.add(k)
+        return out
+
     def build(self):
         tris = []          # (batch, group key, cluster, [(pos, nrm, col, uv0, uv1)] x 3, fields, provenance)
         ps2_keys = []
+        suspects = self.ground_winding_suspects()
         for mi, m in enumerate(self.scene.meshes):
             mat = m['material']
             dirs = mm.directives(mat)
@@ -283,12 +357,23 @@ class Builder:
                 slot1 = self.texture(names[1])
             group_two_sided, why0 = two_sided_rule(mat, m['textures'], self.orientation)
             is_ground = '$shader(ground)' in mat.lower() or '$surfacetype' in mat
+            # PC material of this mesh's matched triangles (texture tuple, fields json) -> triangles: the unmatched triangles of the same mesh take
+            # it first (ItalyW2 posts: PC draws the matched ones 00000101/3, the first PC draw with gate01 is 00000001/1)
+            mesh_votes = collections.Counter()
             for idx in ps2_mesh_triangles(self.scene, m):
-                order_idx = ps2_mesh.pc_order(self.payload, idx)
+                hit = self.pc_tris.get(mm.key([self.scene.position(i) for i in idx]))
+                if hit and hit[2][0] == base:
+                    mesh_votes[(hit[2], json.dumps(hit[3], sort_keys=True))] += 1
+            for idx in ps2_mesh_triangles(self.scene, m):
+                order_idx, from_pc = self.oriented(idx)
+                if from_pc:
+                    self.report['tri_winding_from_pc'] += 1
                 verts = [ps2_vertex(self.payload, i) for i in order_idx]
                 pos = [v[0] for v in verts]
                 k = mm.key(pos)
                 two_sided, why = group_two_sided, why0
+                if is_ground and not two_sided and k in suspects:
+                    two_sided, why = True, 'ground_winding_inconsistent'
                 if not two_sided and (self.two_sided_mode == 'all' or k not in self.pc_tris):
                     # PS2 shows back sides (no culling), PC culls them: open shells and the open undersides of rocks show holes on PC (owner's
                     # v2/v3 tests). Mode 'all': every object and every steep or downward-facing ground triangle gets both sides; mode 'ps2only':
@@ -350,10 +435,27 @@ class Builder:
                         tt_ = (base, slot1 or 'Null', 'Null')
                         tri_noise = False
                         self.report['tri_noise_dropped_no_pc_uv'] += 1
-                tmpl = self.pc_templates.get(tt_)
                 mesh_alpha = bool(m['flags'][0]) and 'alphatest' not in dirs and 'alphablend' not in dirs
-                if tmpl is not None and not (mesh_alpha and tmpl['flags'][:2] == '00'):
-                    f, prov = tmpl, 'pc_template'
+                if 'alphatest' in dirs:
+                    want = ('test',)
+                elif 'alphablend' in dirs or dirs.get('shader') in ('wires', 'wire', 'waterfall'):
+                    want = ('blend',)
+                elif mesh_alpha:
+                    want = ('test', 'blend')
+                else:
+                    want = ('opaque',) if dirs.get('shader') not in ('water', 'puddle') else ('opaque', 'blend')
+                same_mesh = [(n, fj) for (t, fj), n in mesh_votes.items() if t == tt_ and alpha_class(json.loads(fj)['flags']) in want]
+                first = self.pc_templates.get(tt_)
+                if same_mesh:
+                    tmpl, tprov = json.loads(max(same_mesh)[1]), 'pc_same_mesh'
+                elif first is not None and alpha_class(first['flags']) in want:
+                    tmpl, tprov = first, 'pc_template'
+                else:
+                    tmpl, tprov = self.template_for(tt_, want), 'pc_template_alpha_class'
+                if first is not None and tmpl != first:
+                    self.report['tri_template_not_first_pc_draw'] += 1
+                if tmpl is not None:
+                    f, prov = tmpl, tprov
                 elif mesh_alpha:
                     # PS2 mesh flag 0 = alpha on without a directive (fence, fencegate): on 36 courses PC draws 91 percent of such triangles with
                     # alpha, mostly blended. Use PC's own material of this base texture when it is an alpha material, else alpha blend + sort.
