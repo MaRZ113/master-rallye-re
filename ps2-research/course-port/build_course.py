@@ -30,7 +30,11 @@ import validate_collision as vc  # noqa: E402
 def package(course, out_root, noise='plain', step=12.0, points=50000):
     t0 = time.time()
     coll_dx, _, coll_rep = bc.build(course, 'ps2')
-    data, textures, render_rep = br.build(course, coll_dx, noise)
+    data, textures, render_rep = br.build(course, coll_dx, noise, 'all')
+    if render_rep['vertices'] > 87479 or render_rep['indices'] > 227061:
+        # two-sided everything would leave the retail range: fall back to two-sided PS2-only geometry (v3 rule), recorded in the report
+        data, textures, render_rep = br.build(course, coll_dx, noise, 'ps2only')
+        render_rep['two_sided_fallback'] = 'all -> ps2only (retail vertex/index range)'
     val = vc.validate(course, data, step, points)
     rel = course.pc_dx.relative_to(cc.PC_ROOT)
     root = out_root / course.name
@@ -74,6 +78,8 @@ def main():
             summary[course.name] = {'checks': rep['checks'], 'all_checks_passed': rep['all_checks_passed'], 'seconds': rep['seconds'],
                                     'draws': rep['render']['draws'], 'vertices': rep['render']['vertices'], 'indices': rep['render']['indices'],
                                     'two_sided': {k: v for k, v in rep['render'].items() if k.startswith('tri_two_sided')},
+                                    'two_sided_mode': rep['render']['two_sided_mode'], 'two_sided_fallback': rep['render'].get('two_sided_fallback'),
+                                    'alpha_fields': {k: v for k, v in rep['render'].items() if 'alpha' in k},
                                     'root_outside_sectors': rep['render'].get('root_outside_sectors', 0),
                                     'root_outside_sectors_max_distance': rep['render'].get('root_outside_sectors_max_distance', 0),
                                     'noise_dropped': rep['render'].get('tri_noise_dropped_no_pc_uv', 0),

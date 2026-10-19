@@ -150,9 +150,10 @@ def draw_fields(d):
 
 # ------------------------------------------------------------------ builder
 class Builder:
-    def __init__(self, course, noise_mode='plain'):
+    def __init__(self, course, noise_mode='plain', two_sided_mode='all'):
         self.course = course
         self.noise_mode = noise_mode
+        self.two_sided_mode = two_sided_mode
         self.retail = course.pc_dx.read_bytes()
         self.pc = CourseRender.from_bytes(self.retail, course.name)
         self.payload = cc.read_ps2(course.ps2_psm)
@@ -171,6 +172,7 @@ class Builder:
         self.pc_tris = {}
         self.pc_noise_uv = {}
         self.pc_templates = {}           # texture tuple -> fields of the first PC draw with it
+        self._base_votes = collections.defaultdict(collections.Counter)
         sorted_draws = set()
 
         def mark(rec, inside):
@@ -198,6 +200,7 @@ class Builder:
             f = draw_fields(d)
             f['sorted'] = id(d) in sorted_draws
             self.pc_templates.setdefault(tt_, f)
+            self._base_votes[tt_[0]][(tt_, json.dumps(f, sort_keys=True))] += d.index_count // 3
             noise = len(tt_) > 2 and tt_[2] == 'noise-tga'
             for k in range(d.index_start, d.index_start + d.index_count, 3):
                 vids = [d.vertex_base + r.indices[k + j] for j in range(3)]
@@ -283,19 +286,20 @@ class Builder:
                 pos = [v[0] for v in verts]
                 k = mm.key(pos)
                 two_sided, why = group_two_sided, why0
-                if not two_sided and k not in self.pc_tris:
-                    # geometry PC does not have: PS2 shows its back side (no culling), PC would cut a hole. Objects get both sides; ground only
-                    # where it is steep or faces down (outward normal = -(b - a) x (c - a) in PC order), flat ground is never seen from below
-                    if dirs.get('shader') == 'sign':
+                if not two_sided and (self.two_sided_mode == 'all' or k not in self.pc_tris):
+                    # PS2 shows back sides (no culling), PC culls them: open shells and the open undersides of rocks show holes on PC (owner's
+                    # v2/v3 tests). Mode 'all': every object and every steep or downward-facing ground triangle gets both sides; mode 'ps2only':
+                    # only geometry PC does not have. Outward normal = -(b - a) x (c - a) in PC order; flat ground is never seen from below
+                    if dirs.get('shader') in ('sign', 'water', 'puddle', 'waterfall', 'waterall'):
                         pass   # signs stay single-sided: PC keeps 99 percent of them single-sided; two-sided banners show mirrored text and
                                # fight with a banner mounted back to back (seen in the v1 test)
                     elif not is_ground:
-                        two_sided, why = True, 'ps2only_object'
+                        two_sided, why = True, 'object_' + self.two_sided_mode
                     else:
                         fn = cross(sub(pos[1], pos[0]), sub(pos[2], pos[0]))
                         ln = math.sqrt(dot(fn, fn)) or 1.0
                         if -fn[1] / ln < 0.5:
-                            two_sided, why = True, 'ps2only_steep_ground'
+                            two_sided, why = True, 'steep_ground_' + self.two_sided_mode
                 ps2_keys.append(k)
                 if two_sided:
                     ps2_keys.append(k)          # the reversed copy
@@ -334,8 +338,20 @@ class Builder:
                         tri_noise = False
                         self.report['tri_noise_dropped_no_pc_uv'] += 1
                 tmpl = self.pc_templates.get(tt_)
-                if tmpl is not None:
+                mesh_alpha = bool(m['flags'][0]) and 'alphatest' not in dirs and 'alphablend' not in dirs
+                if tmpl is not None and not (mesh_alpha and tmpl['flags'][:2] == '00'):
                     f, prov = tmpl, 'pc_template'
+                elif mesh_alpha:
+                    # PS2 mesh flag 0 = alpha on without a directive (fence, fencegate): on 36 courses PC draws 91 percent of such triangles with
+                    # alpha, mostly blended. Use PC's own material of this base texture when it is an alpha material, else alpha blend + sort.
+                    votes = [(n, t, json.loads(fj)) for (t, fj), n in self._base_votes.get(base, {}).items()]
+                    votes = [v for v in votes if v[2]['flags'][:2] == '01']
+                    if votes:
+                        _, tt_, f = max(votes, key=lambda v: v[0])
+                        tt_ = tuple(tt_)
+                        prov = 'pc_base_texture_alpha'
+                    else:
+                        f, prov = {'flags': '01000101', 'w14': clamp_word(dirs), 'w18': 0, 'w24': 7 if slot1 else 3, 'sorted': True}, 'rule:mesh_alpha_flag'
                 else:
                     f, prov = rule_fields(dirs, tri_noise, slot1)
                 self.report['tri_fields_' + prov.split(':')[0]] += 1
@@ -533,8 +549,8 @@ def widen_1339(tag1339, positions):
     return struct.pack('<I10f', *v), changed
 
 
-def build(course, suffix_dx, noise_mode='plain'):
-    b = Builder(course, noise_mode)
+def build(course, suffix_dx, noise_mode='plain', two_sided_mode='all'):
+    b = Builder(course, noise_mode, two_sided_mode)
     render = b.build()
     sl = extract_tag100_from_dx_bytes(suffix_dx, 'suffix')
     tree, t1339, u, r1500 = io.split_suffix(sl.raw)
@@ -558,7 +574,7 @@ def build(course, suffix_dx, noise_mode='plain'):
     report['unresolved_texture_slots'] = dict(unresolved)
     report['retail_triangles_not_in_ps2'] = len(pc_keys - set(ps2_keys))
     report.update({
-        'course': course.name, 'noise_mode': noise_mode,
+        'course': course.name, 'noise_mode': noise_mode, 'two_sided_mode': two_sided_mode,
         'ps2_triangles': sum(ps2_keys.values()), 'output_triangles': sum(out_keys.values()),
         'triangle_multiset_equal_ps2': out_keys == ps2_keys,
         'vertices': len(render.positions), 'retail_vertices': len(b.pc.positions), 'indices': len(render.indices), 'draws': sum(1 for _ in render.draws()),

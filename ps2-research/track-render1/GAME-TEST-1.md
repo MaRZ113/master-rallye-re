@@ -59,3 +59,28 @@ Packages: `research-output\course-port-turkey3-v2` (+ `-noise-local`), all 36 re
 
   Turkey3 v3: 1,149 draws, 61,019 vertices, 154,119 indices, inside the retail maximum (227,061 indices, FranceM). The new package check
   `within_retail_vertex_and_index_range` covers this.
+
+## Third game test (v3)
+The owner compared v3 with PCSX2 screenshots of the same places (GS dumps in `C:\Games\PCSX2_Nightly\snaps`, 2026-10-19 17:41 and 17:43, not
+needed in the end).
+
+**1. The see-through fence was solid.**
+- The mesh is `fence $shader(tree)` with `fencegate-tga`: 52 percent of the texture is transparent, and the PS2 mesh flag 0 (alpha on) is set,
+  but the material has no `$alphatest` / `$alphablend` directive. The v3 rule table looked only at directives and made it opaque.
+- Measured on 36 courses (PS2 mesh flag 0 against the PC alpha byte on shared triangles):
+  - flag 0 set without a directive: PC draws 91 percent of these triangles with alpha, mostly blended;
+  - flag 0 clear: PC is opaque on 99.9 percent.
+- **Fix in v4.** A mesh with flag 0 and no directive takes PC's own material of the same base texture when that is an alpha material.
+  `fencegate` gets (fencegate, aluminium) blended and sorted, exactly as PC draws its gate. Otherwise it gets alpha blend with sorting.
+
+**2. A rock still had a gap at its foot** (PS2 shows it closed). Ruled out with data:
+- The built triangle set equals the decoded PS2 scene exactly.
+- T-junctions: PS2 132, retail PC 133.
+- The ADC strip rule was verified earlier against the VU microcode.
+
+What remains is the PS2 "no culling" effect on geometry that PC also has: through the open foot of the rock PS2 shows the rock's inner (back)
+faces, PC culls them and shows the far terrain.
+
+**Fix in v4 (mode `all`).** Every object (except signs and water) and every steep or downward-facing ground triangle gets both sides,
+whether PC has it or not. Turkey3: 6,052 object and 3,141 ground triangles; 168,681 indices, inside the retail maximum of 227,061. A course that
+would leave the retail vertex or index range falls back to the v3 rule (PS2-only geometry) and the report says so.
