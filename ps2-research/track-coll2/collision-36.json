@@ -1,0 +1,3460 @@
+{
+ "France1": {
+  "build": {
+   "course": "France1",
+   "surface": "ps2",
+   "ps2_bsp": {
+    "nodes": 93161,
+    "plane_table": 39817
+   },
+   "tree": {
+    "stats": {
+     "plane_nodes": 86016,
+     "leaf_solid": 40410,
+     "payload_leaves": 25421,
+     "leaf_empty": 45607,
+     "pruned_run_planes": 238,
+     "payload_empty": 98,
+     "pruned_planes": 13
+    },
+    "code_provenance": {
+     "pc_ground_path": 18203,
+     "default": 113,
+     "pc_same_plane": 67700
+    },
+    "default_code": 43781,
+    "default_code_source": "reference_code at the course centre",
+    "retail_tree_bytes": 8091252,
+    "new_tree_bytes": 3956772,
+    "retail_plane_nodes": 175896,
+    "new_plane_nodes": 86016,
+    "round_trip_identical": true,
+    "count_invariants_ok": true,
+    "negative_codes": 0
+   },
+   "tag1400": {
+    "records": 26644,
+    "strings": 18,
+    "degenerate_nan_plane": 0,
+    "retail_records": 27719,
+    "new_records": 26644,
+    "dims": [
+     155,
+     105
+    ],
+    "bytes": 1968131
+   },
+   "render_prefix_identical": true,
+   "dx_bytes": 9276732,
+   "dx_sha256": "a49f7e5e518fb6664651e462330663b8466275440c566225306c777bda5fcdf9"
+  },
+  "validation": {
+   "course": "France1",
+   "box": [
+    [
+     -3651.086669921875,
+     -65.38961410522461,
+     -554.8104248046875
+    ],
+    [
+     -552.7696533203125,
+     162.82042694091797,
+     1533.0982666015625
+    ]
+   ],
+   "random_points": {
+    "points": 50000,
+    "mismatch": 0,
+    "first": []
+   },
+   "columns": {
+    "columns": 24359,
+    "new_agree": 24359,
+    "retail_differs": 10934,
+    "retail_agree": 13425
+   },
+   "columns_new_differs_first": [],
+   "contact_codes": {
+    "valid": 10384,
+    "same_code_as_retail": 9977,
+    "other_code_than_retail": 378
+   },
+   "surface_types": {
+    "compared": 24359,
+    "ps2_vs_retail_same": 24340,
+    "ps2_vs_retail_differs": 19
+   },
+   "surface_type_changes_retail_to_ps2": {
+    "None->gravel": 15,
+    "None->water": 3,
+    "gravel->water": 1
+   }
+  },
+  "seconds": 30.9
+ },
+ "France2": {
+  "build": {
+   "course": "France2",
+   "surface": "ps2",
+   "ps2_bsp": {
+    "nodes": 74581,
+    "plane_table": 34963
+   },
+   "tree": {
+    "stats": {
+     "plane_nodes": 71830,
+     "leaf_solid": 32593,
+     "payload_leaves": 21237,
+     "leaf_empty": 39238,
+     "pruned_run_planes": 375,
+     "payload_empty": 34
+    },
+    "code_provenance": {
+     "pc_ground_path": 24294,
+     "default": 7,
+     "pc_same_plane": 47529
+    },
+    "default_code": 17816,
+    "default_code_source": "most frequent near-horizontal retail code",
+    "retail_tree_bytes": 8180584,
+    "new_tree_bytes": 3304216,
+    "retail_plane_nodes": 177838,
+    "new_plane_nodes": 71830,
+    "round_trip_identical": true,
+    "count_invariants_ok": true,
+    "negative_codes": 0
+   },
+   "tag1400": {
+    "records": 20853,
+    "strings": 15,
+    "degenerate_nan_plane": 0,
+    "retail_records": 21615,
+    "new_records": 20853,
+    "dims": [
+     112,
+     90
+    ],
+    "bytes": 1473519
+   },
+   "render_prefix_identical": true,
+   "dx_bytes": 8982468,
+   "dx_sha256": "2181c3e8a075320f7800b0397798590bc970156b1e7c45958e9e6e7e9419ffca"
+  },
+  "validation": {
+   "course": "France2",
+   "box": [
+    [
+     -647.3995361328125,
+     6.923486709594727,
+     -571.792236328125
+    ],
+    [
+     1590.552734375,
+     188.87847900390625,
+     1213.091552734375
+    ]
+   ],
+   "random_points": {
+    "points": 50000,
+    "mismatch": 0,
+    "first": []
+   },
+   "columns": {
+    "columns": 13563,
+    "new_agree": 13563,
+    "retail_differs": 6090,
+    "retail_agree": 7473
+   },
+   "columns_new_differs_first": [],
+   "contact_codes": {
+    "valid": 5825,
+    "same_code_as_retail": 5425,
+    "other_code_than_retail": 373
+   },
+   "surface_types": {
+    "compared": 13563,
+    "ps2_vs_retail_same": 13449,
+    "ps2_vs_retail_differs": 114
+   },
+   "surface_type_changes_retail_to_ps2": {
+    "None->gravel": 101,
+    "harddirt->tarmac": 13
+   }
+  },
+  "seconds": 28.0
+ },
+ "FranceM": {
+  "build": {
+   "course": "FranceM",
+   "surface": "ps2",
+   "ps2_bsp": {
+    "nodes": 89279,
+    "plane_table": 39478
+   },
+   "tree": {
+    "stats": {
+     "plane_nodes": 83731,
+     "leaf_solid": 38781,
+     "payload_leaves": 24934,
+     "leaf_empty": 44951,
+     "pruned_run_planes": 236,
+     "payload_empty": 109
+    },
+    "code_provenance": {
+     "pc_ground_path": 22971,
+     "default": 63,
+     "pc_same_plane": 60697
+    },
+    "default_code": 195,
+    "default_code_source": "reference_code at the course centre",
+    "retail_tree_bytes": 8720808,
+    "new_tree_bytes": 3851662,
+    "retail_plane_nodes": 189582,
+    "new_plane_nodes": 83731,
+    "round_trip_identical": true,
+    "count_invariants_ok": true,
+    "negative_codes": 0
+   },
+   "tag1400": {
+    "records": 26846,
+    "strings": 17,
+    "degenerate_nan_plane": 0,
+    "retail_records": 29354,
+    "new_records": 26846,
+    "dims": [
+     263,
+     74
+    ],
+    "bytes": 1949576
+   },
+   "render_prefix_identical": true,
+   "dx_bytes": 10231522,
+   "dx_sha256": "27d71a518b8066f15d3a109e99e14b8e379bef51439709a39bc86f5a195dd955"
+  },
+  "validation": {
+   "course": "FranceM",
+   "box": [
+    [
+     -3651.0869140625,
+     -35.24190902709961,
+     -571.792236328125
+    ],
+    [
+     1590.552490234375,
+     162.82042694091797,
+     888.677001953125
+    ]
+   ],
+   "random_points": {
+    "points": 50000,
+    "mismatch": 0,
+    "first": []
+   },
+   "columns": {
+    "columns": 20128,
+    "new_agree": 20128,
+    "retail_differs": 8677,
+    "retail_agree": 11451
+   },
+   "columns_new_differs_first": [],
+   "contact_codes": {
+    "valid": 9117,
+    "other_code_than_retail": 435,
+    "same_code_as_retail": 8597
+   },
+   "surface_types": {
+    "compared": 20128,
+    "ps2_vs_retail_same": 20006,
+    "ps2_vs_retail_differs": 122
+   },
+   "surface_type_changes_retail_to_ps2": {
+    "None->gravel": 115,
+    "None->water": 3,
+    "grass->gravel": 3,
+    "gravel->grass": 1
+   }
+  },
+  "seconds": 39.1
+ },
+ "FranceS1": {
+  "build": {
+   "course": "FranceS1",
+   "surface": "ps2",
+   "ps2_bsp": {
+    "nodes": 84263,
+    "plane_table": 38250
+   },
+   "tree": {
+    "stats": {
+     "plane_nodes": 80025,
+     "leaf_solid": 36427,
+     "payload_leaves": 23341,
+     "leaf_empty": 43599,
+     "pruned_run_planes": 303,
+     "payload_empty": 35,
+     "pruned_planes": 2
+    },
+    "code_provenance": {
+     "pc_ground_path": 23219,
+     "default": 61,
+     "pc_same_plane": 56745
+    },
+    "default_code": 612,
+    "default_code_source": "reference_code at the course centre",
+    "retail_tree_bytes": 8827482,
+    "new_tree_bytes": 3681186,
+    "retail_plane_nodes": 191901,
+    "new_plane_nodes": 80025,
+    "round_trip_identical": true,
+    "count_invariants_ok": true,
+    "negative_codes": 0
+   },
+   "tag1400": {
+    "records": 22370,
+    "strings": 17,
+    "degenerate_nan_plane": 0,
+    "retail_records": 23991,
+    "new_records": 22370,
+    "dims": [
+     213,
+     89
+    ],
+    "bytes": 1642520
+   },
+   "render_prefix_identical": true,
+   "dx_bytes": 9075480,
+   "dx_sha256": "71bf59cfc9d39d3ffe2b4c1743be5b32d7760709862b69e95109abdfcebfae63"
+  },
+  "validation": {
+   "course": "FranceS1",
+   "box": [
+    [
+     -3054.87060546875,
+     -35.24190902709961,
+     -554.810546875
+    ],
+    [
+     1192.593017578125,
+     188.87847900390625,
+     1213.0916748046875
+    ]
+   ],
+   "random_points": {
+    "points": 50000,
+    "mismatch": 0,
+    "first": []
+   },
+   "columns": {
+    "columns": 17428,
+    "new_agree": 17428,
+    "retail_differs": 6956,
+    "retail_agree": 10472
+   },
+   "columns_new_differs_first": [],
+   "contact_codes": {
+    "valid": 8531,
+    "same_code_as_retail": 8093,
+    "other_code_than_retail": 330
+   },
+   "surface_types": {
+    "compared": 17428,
+    "ps2_vs_retail_same": 17392,
+    "ps2_vs_retail_differs": 36
+   },
+   "surface_type_changes_retail_to_ps2": {
+    "gravel->grass": 17,
+    "None->gravel": 15,
+    "None->water": 4
+   }
+  },
+  "seconds": 31.5
+ },
+ "FranceS2": {
+  "build": {
+   "course": "FranceS2",
+   "surface": "ps2",
+   "ps2_bsp": {
+    "nodes": 82393,
+    "plane_table": 35050
+   },
+   "tree": {
+    "stats": {
+     "plane_nodes": 75985,
+     "leaf_solid": 35964,
+     "payload_leaves": 23024,
+     "leaf_empty": 40022,
+     "pruned_run_planes": 161,
+     "payload_empty": 71,
+     "pruned_planes": 1
+    },
+    "code_provenance": {
+     "pc_ground_path": 18764,
+     "default": 15,
+     "pc_same_plane": 57206
+    },
+    "default_code": 7032,
+    "default_code_source": "reference_code at the course centre",
+    "retail_tree_bytes": 7950170,
+    "new_tree_bytes": 3495346,
+    "retail_plane_nodes": 172829,
+    "new_plane_nodes": 75985,
+    "round_trip_identical": true,
+    "count_invariants_ok": true,
+    "negative_codes": 0
+   },
+   "tag1400": {
+    "records": 28466,
+    "strings": 19,
+    "degenerate_nan_plane": 0,
+    "retail_records": 28806,
+    "new_records": 28466,
+    "dims": [
+     263,
+     106
+    ],
+    "bytes": 2122043
+   },
+   "render_prefix_identical": true,
+   "dx_bytes": 9970043,
+   "dx_sha256": "370aa8761eee9348967015d9044b203213f7513d4a9a33bb8ec34216571bd557"
+  },
+  "validation": {
+   "course": "FranceS2",
+   "box": [
+    [
+     -3651.086669921875,
+     -65.38961410522461,
+     -571.792236328125
+    ],
+    [
+     1590.5526123046875,
+     157.32422637939453,
+     1533.097900390625
+    ]
+   ],
+   "random_points": {
+    "points": 50000,
+    "mismatch": 0,
+    "first": []
+   },
+   "columns": {
+    "columns": 24396,
+    "new_agree": 24396,
+    "retail_differs": 13597,
+    "retail_agree": 10799
+   },
+   "columns_new_differs_first": [],
+   "contact_codes": {
+    "valid": 8353,
+    "same_code_as_retail": 7813,
+    "other_code_than_retail": 512
+   },
+   "surface_types": {
+    "compared": 24396,
+    "ps2_vs_retail_same": 24296,
+    "ps2_vs_retail_differs": 100
+   },
+   "surface_type_changes_retail_to_ps2": {
+    "None->gravel": 100
+   }
+  },
+  "seconds": 32.4
+ },
+ "FranceW": {
+  "build": {
+   "course": "FranceW",
+   "surface": "ps2",
+   "ps2_bsp": {
+    "nodes": 89197,
+    "plane_table": 39309
+   },
+   "tree": {
+    "stats": {
+     "plane_nodes": 83593,
+     "leaf_solid": 38662,
+     "payload_leaves": 24568,
+     "leaf_empty": 44932,
+     "pruned_run_planes": 236,
+     "payload_empty": 56,
+     "pruned_planes": 7
+    },
+    "code_provenance": {
+     "pc_ground_path": 21254,
+     "default": 45,
+     "pc_same_plane": 62294
+    },
+    "default_code": 48943,
+    "default_code_source": "reference_code at the course centre",
+    "retail_tree_bytes": 8897218,
+    "new_tree_bytes": 3845314,
+    "retail_plane_nodes": 193417,
+    "new_plane_nodes": 83593,
+    "round_trip_identical": true,
+    "count_invariants_ok": true,
+    "negative_codes": 0
+   },
+   "tag1400": {
+    "records": 25931,
+    "strings": 19,
+    "degenerate_nan_plane": 0,
+    "retail_records": 27757,
+    "new_records": 25931,
+    "dims": [
+     256,
+     85
+    ],
+    "bytes": 1937315
+   },
+   "render_prefix_identical": true,
+   "dx_bytes": 9896850,
+   "dx_sha256": "0cdc8ad6cf80582ce7e8e1311d82541f5e51a293656ca4ac44bfd8ef2f81aa46"
+  },
+  "validation": {
+   "course": "FranceW",
+   "box": [
+    [
+     -3651.086669921875,
+     -65.38961410522461,
+     -162.7751007080078
+    ],
+    [
+     1465.717529296875,
+     188.87847900390625,
+     1533.09814453125
+    ]
+   ],
+   "random_points": {
+    "points": 50000,
+    "mismatch": 0,
+    "first": []
+   },
+   "columns": {
+    "columns": 24399,
+    "new_agree": 24399,
+    "retail_differs": 11962,
+    "retail_agree": 12437
+   },
+   "columns_new_differs_first": [],
+   "contact_codes": {
+    "valid": 10413,
+    "same_code_as_retail": 9944,
+    "other_code_than_retail": 440
+   },
+   "surface_types": {
+    "compared": 24399,
+    "ps2_vs_retail_same": 24378,
+    "ps2_vs_retail_differs": 21
+   },
+   "surface_type_changes_retail_to_ps2": {
+    "gravel->grass": 19,
+    "harddirt->grass": 2
+   }
+  },
+  "seconds": 32.4
+ },
+ "FranceWFlip": {
+  "build": {
+   "course": "FranceWFlip",
+   "surface": "ps2",
+   "ps2_bsp": {
+    "nodes": 87989,
+    "plane_table": 38551
+   },
+   "tree": {
+    "stats": {
+     "plane_nodes": 82242,
+     "leaf_solid": 38206,
+     "payload_leaves": 24250,
+     "leaf_empty": 44037,
+     "pruned_run_planes": 220,
+     "payload_empty": 66
+    },
+    "code_provenance": {
+     "pc_ground_path": 21097,
+     "default": 51,
+     "pc_same_plane": 61094
+    },
+    "default_code": 48943,
+    "default_code_source": "reference_code at the course centre",
+    "retail_tree_bytes": 8893906,
+    "new_tree_bytes": 3783168,
+    "retail_plane_nodes": 193345,
+    "new_plane_nodes": 82242,
+    "round_trip_identical": true,
+    "count_invariants_ok": true,
+    "negative_codes": 0
+   },
+   "tag1400": {
+    "records": 25957,
+    "strings": 19,
+    "degenerate_nan_plane": 0,
+    "retail_records": 27757,
+    "new_records": 25957,
+    "dims": [
+     256,
+     85
+    ],
+    "bytes": 1939443
+   },
+   "render_prefix_identical": true,
+   "dx_bytes": 9837729,
+   "dx_sha256": "7149c653e67ade89a225da1c05b5becdbcb47217f173aafd7632e7a334f42881"
+  },
+  "validation": {
+   "course": "FranceWFlip",
+   "box": [
+    [
+     -3651.086669921875,
+     -65.38961410522461,
+     -162.7752227783203
+    ],
+    [
+     1465.717529296875,
+     188.87847900390625,
+     1533.0980224609375
+    ]
+   ],
+   "random_points": {
+    "points": 50000,
+    "mismatch": 0,
+    "first": []
+   },
+   "columns": {
+    "columns": 24421,
+    "new_agree": 24421,
+    "retail_differs": 12327,
+    "retail_agree": 12094
+   },
+   "columns_new_differs_first": [],
+   "contact_codes": {
+    "valid": 10052,
+    "same_code_as_retail": 9578,
+    "other_code_than_retail": 439
+   },
+   "surface_types": {
+    "compared": 24421,
+    "ps2_vs_retail_same": 24378,
+    "ps2_vs_retail_differs": 43
+   },
+   "surface_type_changes_retail_to_ps2": {
+    "None->gravel": 22,
+    "gravel->grass": 19,
+    "harddirt->grass": 2
+   }
+  },
+  "seconds": 32.0
+ },
+ "Italy1": {
+  "build": {
+   "course": "Italy1",
+   "surface": "ps2",
+   "ps2_bsp": {
+    "nodes": 85045,
+    "plane_table": 35137
+   },
+   "tree": {
+    "stats": {
+     "plane_nodes": 77007,
+     "leaf_solid": 36931,
+     "payload_leaves": 22831,
+     "leaf_empty": 40077,
+     "pruned_run_planes": 439,
+     "payload_empty": 168,
+     "pruned_planes": 8
+    },
+    "code_provenance": {
+     "pc_ground_path": 12364,
+     "default": 156,
+     "pc_same_plane": 64487
+    },
+    "default_code": 20848,
+    "default_code_source": "reference_code at the course centre",
+    "retail_tree_bytes": 5862690,
+    "new_tree_bytes": 3542358,
+    "retail_plane_nodes": 127449,
+    "new_plane_nodes": 77007,
+    "round_trip_identical": true,
+    "count_invariants_ok": true,
+    "negative_codes": 0
+   },
+   "tag1400": {
+    "records": 20998,
+    "strings": 17,
+    "degenerate_nan_plane": 0,
+    "retail_records": 22909,
+    "new_records": 20998,
+    "dims": [
+     91,
+     107
+    ],
+    "bytes": 1506131
+   },
+   "render_prefix_identical": true,
+   "dx_bytes": 7787248,
+   "dx_sha256": "5690d17560344cd08cf730e769311d28bf39a4211bfc0e837c4fee142f7b5fb6"
+  },
+  "validation": {
+   "course": "Italy1",
+   "box": [
+    [
+     -3010.1220703125,
+     -40.23650932312012,
+     -1330.9376220703125
+    ],
+    [
+     -1200.0914306640625,
+     290.03135681152344,
+     803.247802734375
+    ]
+   ],
+   "random_points": {
+    "points": 50000,
+    "mismatch": 0,
+    "first": []
+   },
+   "columns": {
+    "columns": 16782,
+    "new_agree": 16782,
+    "retail_differs": 9218,
+    "retail_agree": 7564
+   },
+   "columns_new_differs_first": [],
+   "contact_codes": {
+    "valid": 6733,
+    "same_code_as_retail": 6367,
+    "other_code_than_retail": 308
+   },
+   "surface_types": {
+    "compared": 16782,
+    "ps2_vs_retail_differs": 10931,
+    "ps2_vs_retail_same": 5851
+   },
+   "surface_type_changes_retail_to_ps2": {
+    "gravel->harddirt": 8450,
+    "grass->harddirt": 2432,
+    "None->harddirt": 39,
+    "gravel->grass": 5,
+    "tarmac->gravel": 3,
+    "harddirt->grass": 2
+   }
+  },
+  "seconds": 28.1
+ },
+ "Italy2": {
+  "build": {
+   "course": "Italy2",
+   "surface": "ps2",
+   "ps2_bsp": {
+    "nodes": 69941,
+    "plane_table": 30099
+   },
+   "tree": {
+    "stats": {
+     "plane_nodes": 64682,
+     "leaf_solid": 29962,
+     "payload_leaves": 19111,
+     "leaf_empty": 34721,
+     "pruned_run_planes": 272,
+     "payload_empty": 77
+    },
+    "code_provenance": {
+     "pc_ground_path": 9624,
+     "default": 31,
+     "pc_same_plane": 55027
+    },
+    "default_code": 11542,
+    "default_code_source": "reference_code at the course centre",
+    "retail_tree_bytes": 4898024,
+    "new_tree_bytes": 2975408,
+    "retail_plane_nodes": 106478,
+    "new_plane_nodes": 64682,
+    "round_trip_identical": true,
+    "count_invariants_ok": true,
+    "negative_codes": 0
+   },
+   "tag1400": {
+    "records": 20705,
+    "strings": 13,
+    "degenerate_nan_plane": 0,
+    "retail_records": 22126,
+    "new_records": 20705,
+    "dims": [
+     125,
+     108
+    ],
+    "bytes": 1534331
+   },
+   "render_prefix_identical": true,
+   "dx_bytes": 7906381,
+   "dx_sha256": "fd353486f20842c8eac577e3c9c67fdc99c879485336668845518ba34dc799e1"
+  },
+  "validation": {
+   "course": "Italy2",
+   "box": [
+    [
+     -1355.767822265625,
+     -118.3259048461914,
+     -932.914306640625
+    ],
+    [
+     1136.9404296875,
+     155.82077026367188,
+     1220.855224609375
+    ]
+   ],
+   "random_points": {
+    "points": 50000,
+    "mismatch": 0,
+    "first": []
+   },
+   "columns": {
+    "columns": 21132,
+    "new_agree": 21132,
+    "retail_differs": 10960,
+    "retail_agree": 10172
+   },
+   "columns_new_differs_first": [],
+   "contact_codes": {
+    "valid": 9285,
+    "same_code_as_retail": 8298,
+    "other_code_than_retail": 839
+   },
+   "surface_types": {
+    "compared": 21132,
+    "ps2_vs_retail_differs": 9812,
+    "ps2_vs_retail_same": 11320
+   },
+   "surface_type_changes_retail_to_ps2": {
+    "gravel->harddirt": 6076,
+    "grass->harddirt": 3667,
+    "None->harddirt": 44,
+    "None->grass": 25
+   }
+  },
+  "seconds": 26.1
+ },
+ "Italy3": {
+  "build": {
+   "course": "Italy3",
+   "surface": "ps2",
+   "ps2_bsp": {
+    "nodes": 68735,
+    "plane_table": 31584
+   },
+   "tree": {
+    "stats": {
+     "plane_nodes": 65624,
+     "leaf_solid": 28981,
+     "payload_leaves": 18692,
+     "leaf_empty": 36644,
+     "pruned_run_planes": 235,
+     "payload_empty": 65,
+     "pruned_planes": 4
+    },
+    "code_provenance": {
+     "pc_ground_path": 19233,
+     "default": 28,
+     "pc_same_plane": 46363
+    },
+    "default_code": 46364,
+    "default_code_source": "reference_code at the course centre",
+    "retail_tree_bytes": 7971376,
+    "new_tree_bytes": 3018740,
+    "retail_plane_nodes": 173290,
+    "new_plane_nodes": 65624,
+    "round_trip_identical": true,
+    "count_invariants_ok": true,
+    "negative_codes": 0
+   },
+   "tag1400": {
+    "records": 22827,
+    "strings": 21,
+    "degenerate_nan_plane": 0,
+    "retail_records": 24121,
+    "new_records": 22827,
+    "dims": [
+     135,
+     138
+    ],
+    "bytes": 1697007
+   },
+   "render_prefix_identical": true,
+   "dx_bytes": 7780131,
+   "dx_sha256": "55720b7bf119c695b39a5d531a9ffb7853bb8f8c1b2e03fc215de0efe82b755a"
+  },
+  "validation": {
+   "course": "Italy3",
+   "box": [
+    [
+     1013.1844482421875,
+     -126.27903747558594,
+     -747.3866577148438
+    ],
+    [
+     3707.064453125,
+     35.48754167556763,
+     2004.074951171875
+    ]
+   ],
+   "random_points": {
+    "points": 50000,
+    "mismatch": 0,
+    "first": []
+   },
+   "columns": {
+    "columns": 22358,
+    "new_agree": 22358,
+    "retail_differs": 10812,
+    "retail_agree": 11546
+   },
+   "columns_new_differs_first": [],
+   "contact_codes": {
+    "valid": 8138,
+    "same_code_as_retail": 7489,
+    "other_code_than_retail": 528
+   },
+   "surface_types": {
+    "compared": 22358,
+    "ps2_vs_retail_differs": 9625,
+    "ps2_vs_retail_same": 12733
+   },
+   "surface_type_changes_retail_to_ps2": {
+    "gravel->harddirt": 6260,
+    "grass->harddirt": 3137,
+    "grass->gravel": 161,
+    "gravel->water": 32,
+    "None->water": 21,
+    "gravel->grass": 8,
+    "None->harddirt": 6
+   }
+  },
+  "seconds": 26.3
+ },
+ "ItalyM1": {
+  "build": {
+   "course": "ItalyM1",
+   "surface": "ps2",
+   "ps2_bsp": {
+    "nodes": 88899,
+    "plane_table": 35993
+   },
+   "tree": {
+    "stats": {
+     "plane_nodes": 80073,
+     "leaf_solid": 38599,
+     "payload_leaves": 23464,
+     "leaf_empty": 41475,
+     "payload_empty": 77,
+     "pruned_run_planes": 270,
+     "pruned_planes": 3
+    },
+    "code_provenance": {
+     "pc_ground_path": 12849,
+     "default": 70,
+     "pc_same_plane": 67154
+    },
+    "default_code": 10213,
+    "default_code_source": "reference_code at the course centre",
+    "retail_tree_bytes": 6535394,
+    "new_tree_bytes": 3683394,
+    "retail_plane_nodes": 142073,
+    "new_plane_nodes": 80073,
+    "round_trip_identical": true,
+    "count_invariants_ok": true,
+    "negative_codes": 0
+   },
+   "tag1400": {
+    "records": 25646,
+    "strings": 19,
+    "degenerate_nan_plane": 0,
+    "retail_records": 25311,
+    "new_records": 25646,
+    "dims": [
+     209,
+     111
+    ],
+    "bytes": 1908357
+   },
+   "render_prefix_identical": true,
+   "dx_bytes": 9098434,
+   "dx_sha256": "e239a1a5adba3f2b3aacb84c6ffe90efe0ddb4f8c09dbd7dd9f8563c1869d71b"
+  },
+  "validation": {
+   "course": "ItalyM1",
+   "box": [
+    [
+     -3129.24267578125,
+     -118.3259048461914,
+     -1330.93701171875
+    ],
+    [
+     1042.556640625,
+     290.03135681152344,
+     872.2896118164062
+    ]
+   ],
+   "random_points": {
+    "points": 50000,
+    "mismatch": 0,
+    "first": []
+   },
+   "columns": {
+    "columns": 22362,
+    "new_agree": 22362,
+    "retail_differs": 11975,
+    "retail_agree": 10387
+   },
+   "columns_new_differs_first": [],
+   "contact_codes": {
+    "valid": 8714,
+    "same_code_as_retail": 8072,
+    "other_code_than_retail": 581
+   },
+   "surface_types": {
+    "compared": 22362,
+    "ps2_vs_retail_differs": 11880,
+    "ps2_vs_retail_same": 10482
+   },
+   "surface_type_changes_retail_to_ps2": {
+    "gravel->harddirt": 8270,
+    "grass->harddirt": 3455,
+    "None->harddirt": 150,
+    "tarmac->gravel": 4,
+    "harddirt->gravel": 1
+   }
+  },
+  "seconds": 28.1
+ },
+ "ItalyM1Flip": {
+  "build": {
+   "course": "ItalyM1Flip",
+   "surface": "ps2",
+   "ps2_bsp": {
+    "nodes": 88757,
+    "plane_table": 35932
+   },
+   "tree": {
+    "stats": {
+     "plane_nodes": 79941,
+     "leaf_solid": 38573,
+     "payload_leaves": 23437,
+     "leaf_empty": 41369,
+     "payload_empty": 77,
+     "pruned_run_planes": 270,
+     "pruned_planes": 3
+    },
+    "code_provenance": {
+     "pc_ground_path": 12868,
+     "default": 70,
+     "pc_same_plane": 67003
+    },
+    "default_code": 10213,
+    "default_code_source": "reference_code at the course centre",
+    "retail_tree_bytes": 6535394,
+    "new_tree_bytes": 3677322,
+    "retail_plane_nodes": 142073,
+    "new_plane_nodes": 79941,
+    "round_trip_identical": true,
+    "count_invariants_ok": true,
+    "negative_codes": 0
+   },
+   "tag1400": {
+    "records": 25656,
+    "strings": 19,
+    "degenerate_nan_plane": 0,
+    "retail_records": 25311,
+    "new_records": 25656,
+    "dims": [
+     209,
+     111
+    ],
+    "bytes": 1909097
+   },
+   "render_prefix_identical": true,
+   "dx_bytes": 9093081,
+   "dx_sha256": "7a042098edc4fb3b0303842ad05725a17d66842c63812cbfbbb9a539f129eaeb"
+  },
+  "validation": {
+   "course": "ItalyM1Flip",
+   "box": [
+    [
+     -3129.24267578125,
+     -118.3259048461914,
+     -1330.93701171875
+    ],
+    [
+     1042.556640625,
+     290.03135681152344,
+     872.2896118164062
+    ]
+   ],
+   "random_points": {
+    "points": 50000,
+    "mismatch": 0,
+    "first": []
+   },
+   "columns": {
+    "columns": 22373,
+    "new_agree": 22373,
+    "retail_differs": 11973,
+    "retail_agree": 10400
+   },
+   "columns_new_differs_first": [],
+   "contact_codes": {
+    "valid": 8712,
+    "same_code_as_retail": 8071,
+    "other_code_than_retail": 582
+   },
+   "surface_types": {
+    "compared": 22373,
+    "ps2_vs_retail_differs": 11891,
+    "ps2_vs_retail_same": 10482
+   },
+   "surface_type_changes_retail_to_ps2": {
+    "gravel->harddirt": 8270,
+    "grass->harddirt": 3455,
+    "None->harddirt": 161,
+    "tarmac->gravel": 4,
+    "harddirt->gravel": 1
+   }
+  },
+  "seconds": 30.1
+ },
+ "ItalyM2": {
+  "build": {
+   "course": "ItalyM2",
+   "surface": "ps2",
+   "ps2_bsp": {
+    "nodes": 84365,
+    "plane_table": 36288
+   },
+   "tree": {
+    "stats": {
+     "plane_nodes": 78024,
+     "leaf_solid": 36046,
+     "payload_leaves": 22500,
+     "leaf_empty": 41979,
+     "pruned_run_planes": 319,
+     "payload_empty": 83,
+     "pruned_planes": 7
+    },
+    "code_provenance": {
+     "default": 41,
+     "pc_ground_path": 17373,
+     "pc_same_plane": 60610
+    },
+    "default_code": 35126,
+    "default_code_source": "most frequent near-horizontal retail code",
+    "retail_tree_bytes": 8001046,
+    "new_tree_bytes": 3589140,
+    "retail_plane_nodes": 173935,
+    "new_plane_nodes": 78024,
+    "round_trip_identical": true,
+    "count_invariants_ok": true,
+    "negative_codes": 0
+   },
+   "tag1400": {
+    "records": 28505,
+    "strings": 16,
+    "degenerate_nan_plane": 0,
+    "retail_records": 28229,
+    "new_records": 28505,
+    "dims": [
+     254,
+     108
+    ],
+    "bytes": 2139497
+   },
+   "render_prefix_identical": true,
+   "dx_bytes": 9578382,
+   "dx_sha256": "7d1a3744c2429b1a51c70ac13f451a7aa7683fed9f098a2fef6cbca07da9c0e6"
+  },
+  "validation": {
+   "course": "ItalyM2",
+   "box": [
+    [
+     -1363.7230224609375,
+     -118.32589721679688,
+     -932.9141845703125
+    ],
+    [
+     3707.06494140625,
+     155.82077026367188,
+     1220.85546875
+    ]
+   ],
+   "random_points": {
+    "points": 50000,
+    "mismatch": 0,
+    "first": []
+   },
+   "columns": {
+    "columns": 28148,
+    "new_agree": 28148,
+    "retail_differs": 16746,
+    "retail_agree": 11402
+   },
+   "columns_new_differs_first": [],
+   "contact_codes": {
+    "valid": 10736,
+    "same_code_as_retail": 9912,
+    "other_code_than_retail": 731
+   },
+   "surface_types": {
+    "compared": 28148,
+    "ps2_vs_retail_differs": 14996,
+    "ps2_vs_retail_same": 13152
+   },
+   "surface_type_changes_retail_to_ps2": {
+    "gravel->harddirt": 9538,
+    "grass->harddirt": 5458
+   }
+  },
+  "seconds": 30.5
+ },
+ "ItalyS1": {
+  "build": {
+   "course": "ItalyS1",
+   "surface": "ps2",
+   "ps2_bsp": {
+    "nodes": 73275,
+    "plane_table": 32198
+   },
+   "tree": {
+    "stats": {
+     "plane_nodes": 68392,
+     "leaf_solid": 31856,
+     "payload_leaves": 20421,
+     "leaf_empty": 36537,
+     "pruned_run_planes": 333,
+     "payload_empty": 79,
+     "pruned_planes": 1
+    },
+    "code_provenance": {
+     "pc_ground_path": 12225,
+     "default": 25,
+     "pc_same_plane": 56142
+    },
+    "default_code": 17844,
+    "default_code_source": "reference_code at the course centre",
+    "retail_tree_bytes": 5676298,
+    "new_tree_bytes": 3146068,
+    "retail_plane_nodes": 123397,
+    "new_plane_nodes": 68392,
+    "round_trip_identical": true,
+    "count_invariants_ok": true,
+    "negative_codes": 0
+   },
+   "tag1400": {
+    "records": 22646,
+    "strings": 18,
+    "degenerate_nan_plane": 0,
+    "retail_records": 22530,
+    "new_records": 22646,
+    "dims": [
+     188,
+     128
+    ],
+    "bytes": 1676880
+   },
+   "render_prefix_identical": true,
+   "dx_bytes": 7894373,
+   "dx_sha256": "dc51eee6985b6a3bd664d25ef2a05213830cfe5c6b37f541254789fcad2d17d7"
+  },
+  "validation": {
+   "course": "ItalyS1",
+   "box": [
+    [
+     -2612.61865234375,
+     -106.56880950927734,
+     -1330.93701171875
+    ],
+    [
+     1136.9405517578125,
+     262.55601501464844,
+     1220.8553466796875
+    ]
+   ],
+   "random_points": {
+    "points": 50000,
+    "mismatch": 0,
+    "first": []
+   },
+   "columns": {
+    "columns": 17085,
+    "new_agree": 17085,
+    "retail_differs": 9883,
+    "retail_agree": 7202
+   },
+   "columns_new_differs_first": [],
+   "contact_codes": {
+    "valid": 6525,
+    "same_code_as_retail": 6029,
+    "other_code_than_retail": 450
+   },
+   "surface_types": {
+    "compared": 17085,
+    "ps2_vs_retail_differs": 7524,
+    "ps2_vs_retail_same": 9561
+   },
+   "surface_type_changes_retail_to_ps2": {
+    "gravel->harddirt": 5058,
+    "grass->harddirt": 2463,
+    "tarmac->gravel": 3
+   }
+  },
+  "seconds": 29.1
+ },
+ "ItalyS2": {
+  "build": {
+   "course": "ItalyS2",
+   "surface": "ps2",
+   "ps2_bsp": {
+    "nodes": 80829,
+    "plane_table": 31942
+   },
+   "tree": {
+    "stats": {
+     "plane_nodes": 71918,
+     "leaf_solid": 34946,
+     "payload_leaves": 20986,
+     "leaf_empty": 36973,
+     "payload_empty": 129,
+     "pruned_run_planes": 261,
+     "pruned_planes": 4
+    },
+    "code_provenance": {
+     "default": 86,
+     "pc_ground_path": 11460,
+     "pc_same_plane": 60372
+    },
+    "default_code": 4295,
+    "default_code_source": "reference_code at the course centre",
+    "retail_tree_bytes": 6530426,
+    "new_tree_bytes": 3308264,
+    "retail_plane_nodes": 141965,
+    "new_plane_nodes": 71918,
+    "round_trip_identical": true,
+    "count_invariants_ok": true,
+    "negative_codes": 0
+   },
+   "tag1400": {
+    "records": 27399,
+    "strings": 15,
+    "degenerate_nan_plane": 0,
+    "retail_records": 28117,
+    "new_records": 27399,
+    "dims": [
+     214,
+     105
+    ],
+    "bytes": 2047617
+   },
+   "render_prefix_identical": true,
+   "dx_bytes": 8847518,
+   "dx_sha256": "e67768cd515575b32e2918dc04155e708d5cd0f00636522abd76bd1219e31c0a"
+  },
+  "validation": {
+   "course": "ItalyS2",
+   "box": [
+    [
+     -3129.24267578125,
+     -118.3259048461914,
+     -1207.8402099609375
+    ],
+    [
+     1136.9405517578125,
+     280.48204040527344,
+     872.2896118164062
+    ]
+   ],
+   "random_points": {
+    "points": 50000,
+    "mismatch": 0,
+    "first": []
+   },
+   "columns": {
+    "columns": 27610,
+    "new_agree": 27610,
+    "retail_differs": 17281,
+    "retail_agree": 10329
+   },
+   "columns_new_differs_first": [],
+   "contact_codes": {
+    "valid": 8691,
+    "same_code_as_retail": 8027,
+    "other_code_than_retail": 627
+   },
+   "surface_types": {
+    "compared": 27610,
+    "ps2_vs_retail_differs": 16351,
+    "ps2_vs_retail_same": 11259
+   },
+   "surface_type_changes_retail_to_ps2": {
+    "gravel->harddirt": 11384,
+    "grass->harddirt": 4784,
+    "None->harddirt": 182,
+    "tarmac->gravel": 1
+   }
+  },
+  "seconds": 37.7
+ },
+ "ItalyS3": {
+  "build": {
+   "course": "ItalyS3",
+   "surface": "ps2",
+   "ps2_bsp": {
+    "nodes": 80567,
+    "plane_table": 36418
+   },
+   "tree": {
+    "stats": {
+     "plane_nodes": 76294,
+     "leaf_solid": 34420,
+     "payload_leaves": 21790,
+     "leaf_empty": 41875,
+     "pruned_run_planes": 309,
+     "payload_empty": 76,
+     "pruned_planes": 2
+    },
+    "code_provenance": {
+     "default": 33,
+     "pc_ground_path": 19355,
+     "pc_same_plane": 56906
+    },
+    "default_code": 21740,
+    "default_code_source": "reference_code at the course centre",
+    "retail_tree_bytes": 7516160,
+    "new_tree_bytes": 3509560,
+    "retail_plane_nodes": 163394,
+    "new_plane_nodes": 76294,
+    "round_trip_identical": true,
+    "count_invariants_ok": true,
+    "negative_codes": 0
+   },
+   "tag1400": {
+    "records": 24145,
+    "strings": 24,
+    "degenerate_nan_plane": 0,
+    "retail_records": 24248,
+    "new_records": 24145,
+    "dims": [
+     214,
+     147
+    ],
+    "bytes": 1873438
+   },
+   "render_prefix_identical": true,
+   "dx_bytes": 8878069,
+   "dx_sha256": "b1451e80b7b4cd975bddcb60c795c454de557cc986678b028666899c13ff25b9"
+  },
+  "validation": {
+   "course": "ItalyS3",
+   "box": [
+    [
+     -571.8150634765625,
+     -126.27903747558594,
+     -932.913818359375
+    ],
+    [
+     3707.065185546875,
+     155.82077026367188,
+     2004.074951171875
+    ]
+   ],
+   "random_points": {
+    "points": 50000,
+    "mismatch": 0,
+    "first": []
+   },
+   "columns": {
+    "columns": 26748,
+    "new_agree": 26748,
+    "retail_differs": 13110,
+    "retail_agree": 13638
+   },
+   "columns_new_differs_first": [],
+   "contact_codes": {
+    "valid": 9612,
+    "same_code_as_retail": 8773,
+    "other_code_than_retail": 785
+   },
+   "surface_types": {
+    "compared": 26748,
+    "ps2_vs_retail_differs": 11903,
+    "ps2_vs_retail_same": 14845
+   },
+   "surface_type_changes_retail_to_ps2": {
+    "gravel->harddirt": 8247,
+    "grass->harddirt": 3520,
+    "gravel->water": 39,
+    "None->grass": 35,
+    "None->harddirt": 29,
+    "None->gravel": 24,
+    "gravel->grass": 9
+   }
+  },
+  "seconds": 41.4
+ },
+ "ItalyS3Flip": {
+  "build": {
+   "course": "ItalyS3Flip",
+   "surface": "ps2",
+   "ps2_bsp": {
+    "nodes": 80515,
+    "plane_table": 36235
+   },
+   "tree": {
+    "stats": {
+     "plane_nodes": 76078,
+     "leaf_solid": 34354,
+     "payload_leaves": 21710,
+     "leaf_empty": 41725,
+     "pruned_run_planes": 303,
+     "payload_empty": 82,
+     "pruned_planes": 2
+    },
+    "code_provenance": {
+     "default": 33,
+     "pc_ground_path": 19473,
+     "pc_same_plane": 56572
+    },
+    "default_code": 21740,
+    "default_code_source": "reference_code at the course centre",
+    "retail_tree_bytes": 7540632,
+    "new_tree_bytes": 3499624,
+    "retail_plane_nodes": 163926,
+    "new_plane_nodes": 76078,
+    "round_trip_identical": true,
+    "count_invariants_ok": true,
+    "negative_codes": 0
+   },
+   "tag1400": {
+    "records": 24145,
+    "strings": 24,
+    "degenerate_nan_plane": 0,
+    "retail_records": 24248,
+    "new_records": 24145,
+    "dims": [
+     214,
+     147
+    ],
+    "bytes": 1873448
+   },
+   "render_prefix_identical": true,
+   "dx_bytes": 8885994,
+   "dx_sha256": "249fd6deeb188cfc29de371dbf39b169532296bc8d4a44adb1409e0bc90dea18"
+  },
+  "validation": {
+   "course": "ItalyS3Flip",
+   "box": [
+    [
+     -571.8150634765625,
+     -126.27903747558594,
+     -932.913818359375
+    ],
+    [
+     3707.065185546875,
+     155.82077026367188,
+     2004.074951171875
+    ]
+   ],
+   "random_points": {
+    "points": 50000,
+    "mismatch": 0,
+    "first": []
+   },
+   "columns": {
+    "columns": 26748,
+    "new_agree": 26748,
+    "retail_differs": 13111,
+    "retail_agree": 13637
+   },
+   "columns_new_differs_first": [],
+   "contact_codes": {
+    "valid": 9612,
+    "same_code_as_retail": 8773,
+    "other_code_than_retail": 784
+   },
+   "surface_types": {
+    "compared": 26748,
+    "ps2_vs_retail_differs": 11903,
+    "ps2_vs_retail_same": 14845
+   },
+   "surface_type_changes_retail_to_ps2": {
+    "gravel->harddirt": 8247,
+    "grass->harddirt": 3520,
+    "gravel->water": 39,
+    "None->grass": 35,
+    "None->harddirt": 29,
+    "None->gravel": 24,
+    "gravel->grass": 9
+   }
+  },
+  "seconds": 40.7
+ },
+ "ItalyS4": {
+  "build": {
+   "course": "ItalyS4",
+   "surface": "ps2",
+   "ps2_bsp": {
+    "nodes": 83689,
+    "plane_table": 37153
+   },
+   "tree": {
+    "stats": {
+     "plane_nodes": 78517,
+     "leaf_solid": 35936,
+     "payload_leaves": 23016,
+     "leaf_empty": 42582,
+     "pruned_run_planes": 335,
+     "payload_empty": 105,
+     "pruned_planes": 4
+    },
+    "code_provenance": {
+     "pc_ground_path": 20621,
+     "pc_same_plane": 57817,
+     "default": 79
+    },
+    "default_code": 13689,
+    "default_code_source": "reference_code at the course centre",
+    "retail_tree_bytes": 8734654,
+    "new_tree_bytes": 3611818,
+    "retail_plane_nodes": 189883,
+    "new_plane_nodes": 78517,
+    "round_trip_identical": true,
+    "count_invariants_ok": true,
+    "negative_codes": 0
+   },
+   "tag1400": {
+    "records": 28781,
+    "strings": 18,
+    "degenerate_nan_plane": 0,
+    "retail_records": 29398,
+    "new_records": 28781,
+    "dims": [
+     254,
+     99
+    ],
+    "bytes": 2130720
+   },
+   "render_prefix_identical": true,
+   "dx_bytes": 9687458,
+   "dx_sha256": "19b68101b05788835cd2a1aa59cac634a7dbf407768aceca9ae6b2541a457510"
+  },
+  "validation": {
+   "course": "ItalyS4",
+   "box": [
+    [
+     -1355.76806640625,
+     -118.3259048461914,
+     -747.3865966796875
+    ],
+    [
+     3707.064453125,
+     119.74423217773438,
+     1220.85546875
+    ]
+   ],
+   "random_points": {
+    "points": 50000,
+    "mismatch": 0,
+    "first": []
+   },
+   "columns": {
+    "columns": 25661,
+    "new_agree": 25661,
+    "retail_agree": 9826,
+    "retail_differs": 15835
+   },
+   "columns_new_differs_first": [],
+   "contact_codes": {
+    "valid": 9731,
+    "same_code_as_retail": 8915,
+    "other_code_than_retail": 554
+   },
+   "surface_types": {
+    "compared": 25661,
+    "ps2_vs_retail_differs": 11541,
+    "ps2_vs_retail_same": 14120
+   },
+   "surface_type_changes_retail_to_ps2": {
+    "gravel->harddirt": 6650,
+    "grass->harddirt": 4714,
+    "None->harddirt": 114,
+    "water->harddirt": 34,
+    "None->grass": 27,
+    "harddirt->gravel": 1,
+    "water->grass": 1
+   }
+  },
+  "seconds": 40.0
+ },
+ "ItalyW1": {
+  "build": {
+   "course": "ItalyW1",
+   "surface": "ps2",
+   "ps2_bsp": {
+    "nodes": 78255,
+    "plane_table": 32532
+   },
+   "tree": {
+    "stats": {
+     "plane_nodes": 71118,
+     "leaf_solid": 34011,
+     "payload_leaves": 21100,
+     "leaf_empty": 37108,
+     "pruned_run_planes": 410,
+     "payload_empty": 98,
+     "pruned_planes": 6
+    },
+    "code_provenance": {
+     "pc_ground_path": 14141,
+     "default": 45,
+     "pc_same_plane": 56932
+    },
+    "default_code": 21716,
+    "default_code_source": "reference_code at the course centre",
+    "retail_tree_bytes": 6491096,
+    "new_tree_bytes": 3271464,
+    "retail_plane_nodes": 141110,
+    "new_plane_nodes": 71118,
+    "round_trip_identical": true,
+    "count_invariants_ok": true,
+    "negative_codes": 0
+   },
+   "tag1400": {
+    "records": 25776,
+    "strings": 16,
+    "degenerate_nan_plane": 0,
+    "retail_records": 26768,
+    "new_records": 25776,
+    "dims": [
+     191,
+     123
+    ],
+    "bytes": 1912558
+   },
+   "render_prefix_identical": true,
+   "dx_bytes": 8451960,
+   "dx_sha256": "4904f6e1da125aebaa6dc8536e6c58b70210c2b5795c78b87055ffd4e9e983e2"
+  },
+  "validation": {
+   "course": "ItalyW1",
+   "box": [
+    [
+     -3129.24267578125,
+     -93.23764038085938,
+     -1225.6456298828125
+    ],
+    [
+     674.6112060546875,
+     280.48204040527344,
+     1220.8553466796875
+    ]
+   ],
+   "random_points": {
+    "points": 50000,
+    "mismatch": 0,
+    "first": []
+   },
+   "columns": {
+    "columns": 22811,
+    "new_agree": 22811,
+    "retail_differs": 14603,
+    "retail_agree": 8208
+   },
+   "columns_new_differs_first": [],
+   "contact_codes": {
+    "valid": 7535,
+    "same_code_as_retail": 7011,
+    "other_code_than_retail": 382
+   },
+   "surface_types": {
+    "compared": 22811,
+    "ps2_vs_retail_differs": 12524,
+    "ps2_vs_retail_same": 10287
+   },
+   "surface_type_changes_retail_to_ps2": {
+    "gravel->harddirt": 8621,
+    "grass->harddirt": 3843,
+    "None->harddirt": 43,
+    "None->grass": 16,
+    "tarmac->gravel": 1
+   }
+  },
+  "seconds": 35.4
+ },
+ "ItalyW2": {
+  "build": {
+   "course": "ItalyW2",
+   "surface": "ps2",
+   "ps2_bsp": {
+    "nodes": 86173,
+    "plane_table": 38623
+   },
+   "tree": {
+    "stats": {
+     "plane_nodes": 81287,
+     "leaf_solid": 36790,
+     "payload_leaves": 23498,
+     "leaf_empty": 44498,
+     "payload_empty": 99,
+     "pruned_run_planes": 286,
+     "pruned_planes": 2
+    },
+    "code_provenance": {
+     "pc_ground_path": 20979,
+     "default": 26,
+     "pc_same_plane": 60282
+    },
+    "default_code": 13765,
+    "default_code_source": "reference_code at the course centre",
+    "retail_tree_bytes": 8625036,
+    "new_tree_bytes": 3739238,
+    "retail_plane_nodes": 187500,
+    "new_plane_nodes": 81287,
+    "round_trip_identical": true,
+    "count_invariants_ok": true,
+    "negative_codes": 0
+   },
+   "tag1400": {
+    "records": 27983,
+    "strings": 18,
+    "degenerate_nan_plane": 0,
+    "retail_records": 29898,
+    "new_records": 27983,
+    "dims": [
+     244,
+     130
+    ],
+    "bytes": 2128994
+   },
+   "render_prefix_identical": true,
+   "dx_bytes": 9899579,
+   "dx_sha256": "98e3be446c89f768b4ca395aa692e2feb93e69f4e5aa279c5a230bed1789dbe9"
+  },
+  "validation": {
+   "course": "ItalyW2",
+   "box": [
+    [
+     -1355.767578125,
+     -126.27903747558594,
+     -579.2026977539062
+    ],
+    [
+     3510.383544921875,
+     119.74423217773438,
+     2004.074951171875
+    ]
+   ],
+   "random_points": {
+    "points": 50000,
+    "mismatch": 0,
+    "first": []
+   },
+   "columns": {
+    "columns": 28008,
+    "new_agree": 28008,
+    "retail_differs": 16026,
+    "retail_agree": 11982
+   },
+   "columns_new_differs_first": [],
+   "contact_codes": {
+    "valid": 9228,
+    "other_code_than_retail": 595,
+    "same_code_as_retail": 8522
+   },
+   "surface_types": {
+    "compared": 28008,
+    "ps2_vs_retail_differs": 10253,
+    "ps2_vs_retail_same": 17755
+   },
+   "surface_type_changes_retail_to_ps2": {
+    "gravel->harddirt": 6307,
+    "grass->harddirt": 3830,
+    "gravel->water": 48,
+    "water->harddirt": 35,
+    "None->harddirt": 24,
+    "gravel->grass": 7,
+    "harddirt->gravel": 1,
+    "water->grass": 1
+   }
+  },
+  "seconds": 41.1
+ },
+ "Spain1": {
+  "build": {
+   "course": "Spain1",
+   "surface": "ps2",
+   "ps2_bsp": {
+    "nodes": 74647,
+    "plane_table": 29611
+   },
+   "tree": {
+    "stats": {
+     "plane_nodes": 66689,
+     "leaf_solid": 32773,
+     "payload_leaves": 20003,
+     "leaf_empty": 33917,
+     "pruned_run_planes": 207,
+     "payload_empty": 25
+    },
+    "code_provenance": {
+     "pc_ground_path": 12124,
+     "default": 121,
+     "pc_same_plane": 54444
+    },
+    "default_code": 21167,
+    "default_code_source": "reference_code at the course centre",
+    "retail_tree_bytes": 4014870,
+    "new_tree_bytes": 3067730,
+    "retail_plane_nodes": 87279,
+    "new_plane_nodes": 66689,
+    "round_trip_identical": true,
+    "count_invariants_ok": true,
+    "negative_codes": 0
+   },
+   "tag1400": {
+    "records": 23352,
+    "strings": 8,
+    "degenerate_nan_plane": 0,
+    "retail_records": 23241,
+    "new_records": 23352,
+    "dims": [
+     90,
+     99
+    ],
+    "bytes": 1621010
+   },
+   "render_prefix_identical": true,
+   "dx_bytes": 6588113,
+   "dx_sha256": "8096c27d481a9ed853a0b8cac8d9f29df8b7b11caf30b73b64b3d6a9aa005a57"
+  },
+  "validation": {
+   "course": "Spain1",
+   "box": [
+    [
+     -388.90283203125,
+     -21.526153326034546,
+     -1048.0740966796875
+    ],
+    [
+     1397.8568115234375,
+     210.34376525878906,
+     930.3004150390625
+    ]
+   ],
+   "random_points": {
+    "points": 50000,
+    "mismatch": 0,
+    "first": []
+   },
+   "columns": {
+    "columns": 13217,
+    "new_agree": 13217,
+    "retail_differs": 7317,
+    "retail_agree": 5900
+   },
+   "columns_new_differs_first": [],
+   "contact_codes": {
+    "valid": 5872,
+    "same_code_as_retail": 5575,
+    "other_code_than_retail": 197
+   },
+   "surface_types": {
+    "compared": 13217,
+    "ps2_vs_retail_same": 12995,
+    "ps2_vs_retail_differs": 222
+   },
+   "surface_type_changes_retail_to_ps2": {
+    "None->grass": 87,
+    "gravel->grass": 74,
+    "None->gravel": 25,
+    "water->grass": 21,
+    "water->gravel": 12,
+    "grass->gravel": 2,
+    "harddirt->water": 1
+   }
+  },
+  "seconds": 29.3
+ },
+ "Spain2": {
+  "build": {
+   "course": "Spain2",
+   "surface": "ps2",
+   "ps2_bsp": {
+    "nodes": 72793,
+    "plane_table": 28585
+   },
+   "tree": {
+    "stats": {
+     "plane_nodes": 64501,
+     "leaf_solid": 31941,
+     "payload_leaves": 19065,
+     "leaf_empty": 32561,
+     "pruned_run_planes": 397,
+     "payload_empty": 66,
+     "pruned_planes": 2
+    },
+    "code_provenance": {
+     "pc_ground_path": 15183,
+     "default": 76,
+     "pc_same_plane": 49242
+    },
+    "default_code": 5115,
+    "default_code_source": "reference_code at the course centre",
+    "retail_tree_bytes": 5034644,
+    "new_tree_bytes": 2967082,
+    "retail_plane_nodes": 109448,
+    "new_plane_nodes": 64501,
+    "round_trip_identical": true,
+    "count_invariants_ok": true,
+    "negative_codes": 0
+   },
+   "tag1400": {
+    "records": 20713,
+    "strings": 10,
+    "degenerate_nan_plane": 0,
+    "retail_records": 22781,
+    "new_records": 20713,
+    "dims": [
+     85,
+     99
+    ],
+    "bytes": 1470244
+   },
+   "render_prefix_identical": true,
+   "dx_bytes": 8256710,
+   "dx_sha256": "c5ad8ab4b51f39dcea278c434b11232bb0b1c7abca4ed91e5932d3299118106e"
+  },
+  "validation": {
+   "course": "Spain2",
+   "box": [
+    [
+     1263.86767578125,
+     -39.40464973449707,
+     -1112.188232421875
+    ],
+    [
+     2950.488525390625,
+     155.72032928466797,
+     861.5361328125
+    ]
+   ],
+   "random_points": {
+    "points": 50000,
+    "mismatch": 0,
+    "first": []
+   },
+   "columns": {
+    "columns": 15610,
+    "new_agree": 15610,
+    "retail_differs": 7136,
+    "retail_agree": 8474
+   },
+   "columns_new_differs_first": [],
+   "contact_codes": {
+    "valid": 5527,
+    "same_code_as_retail": 5159,
+    "other_code_than_retail": 266
+   },
+   "surface_types": {
+    "compared": 15610,
+    "ps2_vs_retail_same": 15511,
+    "ps2_vs_retail_differs": 99
+   },
+   "surface_type_changes_retail_to_ps2": {
+    "None->grass": 58,
+    "water->gravel": 39,
+    "grass->gravel": 1,
+    "mud->gravel": 1
+   }
+  },
+  "seconds": 32.6
+ },
+ "SpainM": {
+  "build": {
+   "course": "SpainM",
+   "surface": "ps2",
+   "ps2_bsp": {
+    "nodes": 74885,
+    "plane_table": 29961
+   },
+   "tree": {
+    "stats": {
+     "plane_nodes": 66888,
+     "leaf_solid": 32791,
+     "payload_leaves": 19652,
+     "leaf_empty": 34098,
+     "pruned_run_planes": 382,
+     "payload_empty": 88,
+     "pruned_planes": 5
+    },
+    "code_provenance": {
+     "pc_ground_path": 13235,
+     "default": 113,
+     "pc_same_plane": 53540
+    },
+    "default_code": 3711,
+    "default_code_source": "reference_code at the course centre",
+    "retail_tree_bytes": 4832060,
+    "new_tree_bytes": 3076884,
+    "retail_plane_nodes": 105044,
+    "new_plane_nodes": 66888,
+    "round_trip_identical": true,
+    "count_invariants_ok": true,
+    "negative_codes": 0
+   },
+   "tag1400": {
+    "records": 23508,
+    "strings": 8,
+    "degenerate_nan_plane": 0,
+    "retail_records": 25930,
+    "new_records": 23508,
+    "dims": [
+     130,
+     80
+    ],
+    "bytes": 1642682
+   },
+   "render_prefix_identical": true,
+   "dx_bytes": 8102467,
+   "dx_sha256": "8054ad2b038a9145fc771e7a56f5494fd07c22e6f8f0cc45074017181b98d4f4"
+  },
+  "validation": {
+   "course": "SpainM",
+   "box": [
+    [
+     357.94805908203125,
+     -21.526153326034546,
+     -1112.188232421875
+    ],
+    [
+     2950.488525390625,
+     210.34376525878906,
+     469.5997619628906
+    ]
+   ],
+   "random_points": {
+    "points": 50000,
+    "mismatch": 0,
+    "first": []
+   },
+   "columns": {
+    "columns": 13666,
+    "new_agree": 13666,
+    "retail_differs": 7137,
+    "retail_agree": 6529
+   },
+   "columns_new_differs_first": [],
+   "contact_codes": {
+    "valid": 6376,
+    "same_code_as_retail": 6087,
+    "other_code_than_retail": 223
+   },
+   "surface_types": {
+    "compared": 13666,
+    "ps2_vs_retail_same": 13384,
+    "ps2_vs_retail_differs": 282
+   },
+   "surface_type_changes_retail_to_ps2": {
+    "None->grass": 112,
+    "gravel->grass": 70,
+    "water->grass": 64,
+    "None->gravel": 21,
+    "water->gravel": 11,
+    "water->harddirt": 2,
+    "grass->gravel": 1,
+    "tarmac->water": 1
+   }
+  },
+  "seconds": 31.9
+ },
+ "SpainS1": {
+  "build": {
+   "course": "SpainS1",
+   "surface": "ps2",
+   "ps2_bsp": {
+    "nodes": 80499,
+    "plane_table": 31175
+   },
+   "tree": {
+    "stats": {
+     "plane_nodes": 71050,
+     "leaf_solid": 35591,
+     "payload_leaves": 20871,
+     "leaf_empty": 35460,
+     "pruned_run_planes": 300,
+     "payload_empty": 50,
+     "pruned_planes": 1
+    },
+    "code_provenance": {
+     "pc_ground_path": 18207,
+     "default": 58,
+     "pc_same_plane": 52785
+    },
+    "default_code": 7437,
+    "default_code_source": "reference_code at the course centre",
+    "retail_tree_bytes": 5447770,
+    "new_tree_bytes": 3268336,
+    "retail_plane_nodes": 118429,
+    "new_plane_nodes": 71050,
+    "round_trip_identical": true,
+    "count_invariants_ok": true,
+    "negative_codes": 0
+   },
+   "tag1400": {
+    "records": 26702,
+    "strings": 7,
+    "degenerate_nan_plane": 0,
+    "retail_records": 27988,
+    "new_records": 26702,
+    "dims": [
+     167,
+     103
+    ],
+    "bytes": 1905050
+   },
+   "render_prefix_identical": true,
+   "dx_bytes": 8507176,
+   "dx_sha256": "d986de1117858d4b140141a915e2bae3ef1712c4004e42c0dc83cd202f23ca32"
+  },
+  "validation": {
+   "course": "SpainS1",
+   "box": [
+    [
+     -388.90277099609375,
+     -11.384178161621094,
+     -1112.188232421875
+    ],
+    [
+     2950.488525390625,
+     155.84209442138672,
+     930.3004150390625
+    ]
+   ],
+   "random_points": {
+    "points": 50000,
+    "mismatch": 0,
+    "first": []
+   },
+   "columns": {
+    "columns": 18035,
+    "new_agree": 18034,
+    "retail_differs": 12060,
+    "retail_agree": 5975,
+    "new_differs": 1
+   },
+   "columns_new_differs_first": [
+    {
+     "x": 2293.0972290039062,
+     "z": -290.188232421875,
+     "ps2": 60.18205863105674,
+     "new": 57.76616554794282
+    }
+   ],
+   "contact_codes": {
+    "valid": 5961,
+    "same_code_as_retail": 5635,
+    "other_code_than_retail": 255
+   },
+   "surface_types": {
+    "compared": 18035,
+    "ps2_vs_retail_same": 17982,
+    "ps2_vs_retail_differs": 53
+   },
+   "surface_type_changes_retail_to_ps2": {
+    "None->grass": 39,
+    "harddirt->grass": 12,
+    "tarmac->harddirt": 1,
+    "grass->harddirt": 1
+   }
+  },
+  "seconds": 33.0
+ },
+ "SpainS1Flip": {
+  "build": {
+   "course": "SpainS1Flip",
+   "surface": "ps2",
+   "ps2_bsp": {
+    "nodes": 80525,
+    "plane_table": 31161
+   },
+   "tree": {
+    "stats": {
+     "plane_nodes": 71047,
+     "leaf_solid": 35605,
+     "payload_leaves": 20887,
+     "leaf_empty": 35443,
+     "pruned_run_planes": 302,
+     "payload_empty": 50,
+     "pruned_planes": 1
+    },
+    "code_provenance": {
+     "pc_ground_path": 18262,
+     "default": 58,
+     "pc_same_plane": 52727
+    },
+    "default_code": 7437,
+    "default_code_source": "reference_code at the course centre",
+    "retail_tree_bytes": 5446344,
+    "new_tree_bytes": 3268198,
+    "retail_plane_nodes": 118398,
+    "new_plane_nodes": 71047,
+    "round_trip_identical": true,
+    "count_invariants_ok": true,
+    "negative_codes": 0
+   },
+   "tag1400": {
+    "records": 26702,
+    "strings": 7,
+    "degenerate_nan_plane": 0,
+    "retail_records": 27988,
+    "new_records": 26702,
+    "dims": [
+     167,
+     103
+    ],
+    "bytes": 1905050
+   },
+   "render_prefix_identical": true,
+   "dx_bytes": 8507057,
+   "dx_sha256": "fabd1a8311e7b4c258432a299f0126b7a2ff45bc24c41e4f6d0c0f1d37391d35"
+  },
+  "validation": {
+   "course": "SpainS1Flip",
+   "box": [
+    [
+     -388.90277099609375,
+     -11.384178161621094,
+     -1112.188232421875
+    ],
+    [
+     2950.488525390625,
+     155.84209442138672,
+     930.3004150390625
+    ]
+   ],
+   "random_points": {
+    "points": 50000,
+    "mismatch": 0,
+    "first": []
+   },
+   "columns": {
+    "columns": 18035,
+    "new_agree": 18034,
+    "retail_differs": 12060,
+    "retail_agree": 5975,
+    "new_differs": 1
+   },
+   "columns_new_differs_first": [
+    {
+     "x": 2293.0972290039062,
+     "z": -290.188232421875,
+     "ps2": 60.18205863105674,
+     "new": 57.76616554794282
+    }
+   ],
+   "contact_codes": {
+    "valid": 5961,
+    "same_code_as_retail": 5634,
+    "other_code_than_retail": 256
+   },
+   "surface_types": {
+    "compared": 18035,
+    "ps2_vs_retail_same": 17982,
+    "ps2_vs_retail_differs": 53
+   },
+   "surface_type_changes_retail_to_ps2": {
+    "None->grass": 39,
+    "harddirt->grass": 12,
+    "tarmac->harddirt": 1,
+    "grass->harddirt": 1
+   }
+  },
+  "seconds": 33.2
+ },
+ "SpainS2": {
+  "build": {
+   "course": "SpainS2",
+   "surface": "ps2",
+   "ps2_bsp": {
+    "nodes": 80507,
+    "plane_table": 32505
+   },
+   "tree": {
+    "stats": {
+     "plane_nodes": 72234,
+     "leaf_solid": 34792,
+     "payload_leaves": 21132,
+     "leaf_empty": 37443,
+     "pruned_run_planes": 363,
+     "payload_empty": 104,
+     "pruned_planes": 3
+    },
+    "code_provenance": {
+     "pc_ground_path": 14969,
+     "default": 30,
+     "pc_same_plane": 57235
+    },
+    "default_code": 2695,
+    "default_code_source": "reference_code at the course centre",
+    "retail_tree_bytes": 5049364,
+    "new_tree_bytes": 3322800,
+    "retail_plane_nodes": 109768,
+    "new_plane_nodes": 72234,
+    "round_trip_identical": true,
+    "count_invariants_ok": true,
+    "negative_codes": 0
+   },
+   "tag1400": {
+    "records": 26346,
+    "strings": 10,
+    "degenerate_nan_plane": 0,
+    "retail_records": 27623,
+    "new_records": 26346,
+    "dims": [
+     159,
+     96
+    ],
+    "bytes": 1871641
+   },
+   "render_prefix_identical": true,
+   "dx_bytes": 8713566,
+   "dx_sha256": "38e2003c6ff67c8a9dea839a88459abe590d39182688ed19c84cb05d9260f4fa"
+  },
+  "validation": {
+   "course": "SpainS2",
+   "box": [
+    [
+     -388.90277099609375,
+     -39.404672622680664,
+     -1048.0740966796875
+    ],
+    [
+     2790.962890625,
+     210.34376525878906,
+     861.5361938476562
+    ]
+   ],
+   "random_points": {
+    "points": 50000,
+    "mismatch": 0,
+    "first": []
+   },
+   "columns": {
+    "columns": 17776,
+    "new_agree": 17776,
+    "retail_differs": 9470,
+    "retail_agree": 8306
+   },
+   "columns_new_differs_first": [],
+   "contact_codes": {
+    "valid": 5657,
+    "same_code_as_retail": 5444,
+    "other_code_than_retail": 188
+   },
+   "surface_types": {
+    "compared": 17776,
+    "ps2_vs_retail_same": 17465,
+    "ps2_vs_retail_differs": 311
+   },
+   "surface_type_changes_retail_to_ps2": {
+    "None->grass": 100,
+    "gravel->grass": 72,
+    "water->gravel": 49,
+    "grass->water": 38,
+    "None->gravel": 24,
+    "water->grass": 21,
+    "harddirt->gravel": 4,
+    "grass->gravel": 1,
+    "harddirt->water": 1,
+    "mud->gravel": 1
+   }
+  },
+  "seconds": 24.7
+ },
+ "SpainW": {
+  "build": {
+   "course": "SpainW",
+   "surface": "ps2",
+   "ps2_bsp": {
+    "nodes": 83467,
+    "plane_table": 33044
+   },
+   "tree": {
+    "stats": {
+     "plane_nodes": 74279,
+     "leaf_solid": 36241,
+     "payload_leaves": 21772,
+     "leaf_empty": 38039,
+     "pruned_run_planes": 390,
+     "payload_empty": 92,
+     "pruned_planes": 2
+    },
+    "code_provenance": {
+     "pc_ground_path": 17853,
+     "default": 171,
+     "pc_same_plane": 56255
+    },
+    "default_code": 23946,
+    "default_code_source": "reference_code at the course centre",
+    "retail_tree_bytes": 5626296,
+    "new_tree_bytes": 3416870,
+    "retail_plane_nodes": 122310,
+    "new_plane_nodes": 74279,
+    "round_trip_identical": true,
+    "count_invariants_ok": true,
+    "negative_codes": 0
+   },
+   "tag1400": {
+    "records": 28967,
+    "strings": 10,
+    "degenerate_nan_plane": 0,
+    "retail_records": 30274,
+    "new_records": 28967,
+    "dims": [
+     167,
+     82
+    ],
+    "bytes": 2053621
+   },
+   "render_prefix_identical": true,
+   "dx_bytes": 9177655,
+   "dx_sha256": "6a7bd7583eefa0ae3a63fbedcd2649171a6e1ff7b14f8db24560112001578058"
+  },
+  "validation": {
+   "course": "SpainW",
+   "box": [
+    [
+     -388.90277099609375,
+     -39.404672622680664,
+     -707.300537109375
+    ],
+    [
+     2950.488525390625,
+     167.09527587890625,
+     930.3004150390625
+    ]
+   ],
+   "random_points": {
+    "points": 50000,
+    "mismatch": 0,
+    "first": []
+   },
+   "columns": {
+    "columns": 20542,
+    "new_agree": 20542,
+    "retail_differs": 12067,
+    "retail_agree": 8475
+   },
+   "columns_new_differs_first": [],
+   "contact_codes": {
+    "valid": 6141,
+    "same_code_as_retail": 5945,
+    "other_code_than_retail": 192
+   },
+   "surface_types": {
+    "compared": 20542,
+    "ps2_vs_retail_same": 20468,
+    "ps2_vs_retail_differs": 74
+   },
+   "surface_type_changes_retail_to_ps2": {
+    "water->gravel": 38,
+    "None->grass": 23,
+    "harddirt->grass": 12,
+    "mud->gravel": 1
+   }
+  },
+  "seconds": 26.3
+ },
+ "SpainWFlip": {
+  "build": {
+   "course": "SpainWFlip",
+   "surface": "ps2",
+   "ps2_bsp": {
+    "nodes": 83467,
+    "plane_table": 33044
+   },
+   "tree": {
+    "stats": {
+     "plane_nodes": 74279,
+     "leaf_solid": 36241,
+     "payload_leaves": 21772,
+     "leaf_empty": 38039,
+     "pruned_run_planes": 390,
+     "payload_empty": 92,
+     "pruned_planes": 2
+    },
+    "code_provenance": {
+     "pc_ground_path": 17853,
+     "default": 171,
+     "pc_same_plane": 56255
+    },
+    "default_code": 23946,
+    "default_code_source": "reference_code at the course centre",
+    "retail_tree_bytes": 5626296,
+    "new_tree_bytes": 3416870,
+    "retail_plane_nodes": 122310,
+    "new_plane_nodes": 74279,
+    "round_trip_identical": true,
+    "count_invariants_ok": true,
+    "negative_codes": 0
+   },
+   "tag1400": {
+    "records": 28967,
+    "strings": 10,
+    "degenerate_nan_plane": 0,
+    "retail_records": 30274,
+    "new_records": 28967,
+    "dims": [
+     167,
+     82
+    ],
+    "bytes": 2053621
+   },
+   "render_prefix_identical": true,
+   "dx_bytes": 9177667,
+   "dx_sha256": "994013fd2fb07bda9076bf259bf224c276664e485cae88f24641b3eecf2d9cdb"
+  },
+  "validation": {
+   "course": "SpainWFlip",
+   "box": [
+    [
+     -388.90277099609375,
+     -39.404672622680664,
+     -707.300537109375
+    ],
+    [
+     2950.488525390625,
+     167.09527587890625,
+     930.3004150390625
+    ]
+   ],
+   "random_points": {
+    "points": 50000,
+    "mismatch": 0,
+    "first": []
+   },
+   "columns": {
+    "columns": 20542,
+    "new_agree": 20542,
+    "retail_differs": 12067,
+    "retail_agree": 8475
+   },
+   "columns_new_differs_first": [],
+   "contact_codes": {
+    "valid": 6141,
+    "same_code_as_retail": 5945,
+    "other_code_than_retail": 192
+   },
+   "surface_types": {
+    "compared": 20542,
+    "ps2_vs_retail_same": 20468,
+    "ps2_vs_retail_differs": 74
+   },
+   "surface_type_changes_retail_to_ps2": {
+    "water->gravel": 38,
+    "None->grass": 23,
+    "harddirt->grass": 12,
+    "mud->gravel": 1
+   }
+  },
+  "seconds": 26.3
+ },
+ "Turkey1": {
+  "build": {
+   "course": "Turkey1",
+   "surface": "ps2",
+   "ps2_bsp": {
+    "nodes": 112067,
+    "plane_table": 44224
+   },
+   "tree": {
+    "stats": {
+     "plane_nodes": 100085,
+     "leaf_solid": 48014,
+     "payload_leaves": 29452,
+     "leaf_empty": 52072,
+     "payload_empty": 22,
+     "pruned_run_planes": 138
+    },
+    "code_provenance": {
+     "default": 193,
+     "pc_ground_path": 12628,
+     "pc_same_plane": 87264
+    },
+    "default_code": 13963,
+    "default_code_source": "reference_code at the course centre",
+    "retail_tree_bytes": 5879802,
+    "new_tree_bytes": 4603946,
+    "retail_plane_nodes": 127821,
+    "new_plane_nodes": 100085,
+    "round_trip_identical": true,
+    "count_invariants_ok": true,
+    "negative_codes": 0
+   },
+   "tag1400": {
+    "records": 28402,
+    "strings": 21,
+    "degenerate_nan_plane": 0,
+    "retail_records": 28265,
+    "new_records": 28402,
+    "dims": [
+     86,
+     99
+    ],
+    "bytes": 1939277
+   },
+   "render_prefix_identical": true,
+   "dx_bytes": 9558287,
+   "dx_sha256": "c0b8c45c7709abdd960571aff545729c10080ce1d97a1942726c435a9d0a5065"
+  },
+  "validation": {
+   "course": "Turkey1",
+   "box": [
+    [
+     -1748.3160400390625,
+     -34.82504177093506,
+     -1620.4564208984375
+    ],
+    [
+     -28.58950424194336,
+     123.9344711303711,
+     344.59356689453125
+    ]
+   ],
+   "random_points": {
+    "points": 50000,
+    "mismatch": 0,
+    "first": []
+   },
+   "columns": {
+    "columns": 12343,
+    "new_agree": 12342,
+    "retail_differs": 5730,
+    "retail_agree": 6613,
+    "new_differs": 1
+   },
+   "columns_new_differs_first": [
+    {
+     "x": -1346.3160400390625,
+     "z": -366.4564208984375,
+     "ps2": 30.52738213594712,
+     "new": 30.009100277276183
+    }
+   ],
+   "contact_codes": {
+    "valid": 6406,
+    "same_code_as_retail": 6213,
+    "other_code_than_retail": 184
+   },
+   "surface_types": {
+    "compared": 12343,
+    "ps2_vs_retail_same": 9789,
+    "ps2_vs_retail_differs": 2554
+   },
+   "surface_type_changes_retail_to_ps2": {
+    "gravel->harddirt": 2349,
+    "None->harddirt": 205
+   }
+  },
+  "seconds": 30.2
+ },
+ "Turkey2": {
+  "build": {
+   "course": "Turkey2",
+   "surface": "ps2",
+   "ps2_bsp": {
+    "nodes": 64875,
+    "plane_table": 29333
+   },
+   "tree": {
+    "stats": {
+     "plane_nodes": 61410,
+     "leaf_solid": 28134,
+     "payload_leaves": 18137,
+     "leaf_empty": 33277,
+     "pruned_run_planes": 297,
+     "payload_empty": 41
+    },
+    "code_provenance": {
+     "pc_ground_path": 14372,
+     "default": 9,
+     "pc_same_plane": 47029
+    },
+    "default_code": 20636,
+    "default_code_source": "reference_code at the course centre",
+    "retail_tree_bytes": 5865542,
+    "new_tree_bytes": 2824896,
+    "retail_plane_nodes": 127511,
+    "new_plane_nodes": 61410,
+    "round_trip_identical": true,
+    "count_invariants_ok": true,
+    "negative_codes": 0
+   },
+   "tag1400": {
+    "records": 23039,
+    "strings": 24,
+    "degenerate_nan_plane": 0,
+    "retail_records": 22712,
+    "new_records": 23039,
+    "dims": [
+     102,
+     87
+    ],
+    "bytes": 1630554
+   },
+   "render_prefix_identical": true,
+   "dx_bytes": 7781337,
+   "dx_sha256": "8abfb48d16483b8be02fa14dd2a2fafc603daeccbf7ab54bec57481709ecd217"
+  },
+  "validation": {
+   "course": "Turkey2",
+   "box": [
+    [
+     -288.5343017578125,
+     -61.97079849243164,
+     -636.151123046875
+    ],
+    [
+     1749.25048828125,
+     154.06293487548828,
+     1088.003662109375
+    ]
+   ],
+   "random_points": {
+    "points": 50000,
+    "mismatch": 0,
+    "first": []
+   },
+   "columns": {
+    "columns": 14696,
+    "new_agree": 14696,
+    "retail_differs": 8702,
+    "retail_agree": 5994
+   },
+   "columns_new_differs_first": [],
+   "contact_codes": {
+    "valid": 5176,
+    "same_code_as_retail": 4581,
+    "other_code_than_retail": 365
+   },
+   "surface_types": {
+    "compared": 14696,
+    "ps2_vs_retail_same": 14263,
+    "ps2_vs_retail_differs": 433
+   },
+   "surface_type_changes_retail_to_ps2": {
+    "harddirt->gravel": 157,
+    "harddirt->grass": 106,
+    "grass->harddirt": 72,
+    "grass->water": 38,
+    "harddirt->water": 29,
+    "gravel->water": 25,
+    "None->gravel": 4,
+    "grass->gravel": 2
+   }
+  },
+  "seconds": 24.4
+ },
+ "Turkey3": {
+  "build": {
+   "course": "Turkey3",
+   "surface": "ps2",
+   "ps2_bsp": {
+    "nodes": 99681,
+    "plane_table": 41245
+   },
+   "tree": {
+    "stats": {
+     "plane_nodes": 90078,
+     "leaf_solid": 42501,
+     "payload_leaves": 26579,
+     "leaf_empty": 47578,
+     "payload_empty": 233,
+     "pruned_run_planes": 641,
+     "pruned_planes": 19
+    },
+    "code_provenance": {
+     "pc_ground_path": 15913,
+     "default": 66,
+     "pc_same_plane": 74099
+    },
+    "default_code": 23394,
+    "default_code_source": "reference_code at the course centre",
+    "retail_tree_bytes": 5407060,
+    "new_tree_bytes": 4143624,
+    "retail_plane_nodes": 117544,
+    "new_plane_nodes": 90078,
+    "round_trip_identical": true,
+    "count_invariants_ok": true,
+    "negative_codes": 0
+   },
+   "tag1400": {
+    "records": 27866,
+    "strings": 24,
+    "degenerate_nan_plane": 0,
+    "retail_records": 26767,
+    "new_records": 27866,
+    "dims": [
+     103,
+     99
+    ],
+    "bytes": 1949291
+   },
+   "render_prefix_identical": true,
+   "dx_bytes": 8864092,
+   "dx_sha256": "60194883da07f36914cdcf4d4d48c2d1d306bba706c8544e7bd655b319b03ed9"
+  },
+  "validation": {
+   "course": "Turkey3",
+   "box": [
+    [
+     1674.50048828125,
+     -8.577116012573242,
+     -1186.26513671875
+    ],
+    [
+     3730.914794921875,
+     145.83667755126953,
+     789.0968627929688
+    ]
+   ],
+   "random_points": {
+    "points": 50000,
+    "mismatch": 0,
+    "first": []
+   },
+   "columns": {
+    "columns": 16676,
+    "new_agree": 16676,
+    "retail_differs": 6885,
+    "retail_agree": 9791
+   },
+   "columns_new_differs_first": [],
+   "contact_codes": {
+    "valid": 9866,
+    "same_code_as_retail": 9167,
+    "other_code_than_retail": 382
+   },
+   "surface_types": {
+    "compared": 16676,
+    "ps2_vs_retail_same": 16355,
+    "ps2_vs_retail_differs": 321
+   },
+   "surface_type_changes_retail_to_ps2": {
+    "harddirt->water": 112,
+    "None->gravel": 107,
+    "gravel->water": 40,
+    "None->grass": 28,
+    "grass->water": 17,
+    "gravel->harddirt": 14,
+    "grass->gravel": 2,
+    "gravel->grass": 1
+   }
+  },
+  "seconds": 33.9
+ },
+ "TurkeyM": {
+  "build": {
+   "course": "TurkeyM",
+   "surface": "ps2",
+   "ps2_bsp": {
+    "nodes": 115475,
+    "plane_table": 45889
+   },
+   "tree": {
+    "stats": {
+     "plane_nodes": 103368,
+     "leaf_solid": 49772,
+     "payload_leaves": 30769,
+     "leaf_empty": 53597,
+     "payload_empty": 37,
+     "pruned_run_planes": 196
+    },
+    "code_provenance": {
+     "pc_ground_path": 12132,
+     "default": 73,
+     "pc_same_plane": 91163
+    },
+    "default_code": 10839,
+    "default_code_source": "most frequent near-horizontal retail code",
+    "retail_tree_bytes": 7996722,
+    "new_tree_bytes": 4754964,
+    "retail_plane_nodes": 173841,
+    "new_plane_nodes": 103368,
+    "round_trip_identical": true,
+    "count_invariants_ok": true,
+    "negative_codes": 0
+   },
+   "tag1400": {
+    "records": 33306,
+    "strings": 32,
+    "degenerate_nan_plane": 0,
+    "retail_records": 35714,
+    "new_records": 33306,
+    "dims": [
+     151,
+     105
+    ],
+    "bytes": 2292275
+   },
+   "render_prefix_identical": true,
+   "dx_bytes": 11386467,
+   "dx_sha256": "5adff9f08a7776dd8a9140d0bd8594d3a75cba498ba09071405f1e1d6b3e5a76"
+  },
+  "validation": {
+   "course": "TurkeyM",
+   "box": [
+    [
+     -1474.2493896484375,
+     -61.97079849243164,
+     -1615.9541015625
+    ],
+    [
+     1532.1904296875,
+     145.4905776977539,
+     466.31732177734375
+    ]
+   ],
+   "random_points": {
+    "points": 50000,
+    "mismatch": 0,
+    "first": []
+   },
+   "columns": {
+    "columns": 12638,
+    "new_agree": 12638,
+    "retail_differs": 5609,
+    "retail_agree": 7029
+   },
+   "columns_new_differs_first": [],
+   "contact_codes": {
+    "valid": 6536,
+    "same_code_as_retail": 6016,
+    "other_code_than_retail": 332
+   },
+   "surface_types": {
+    "compared": 12638,
+    "ps2_vs_retail_differs": 1300,
+    "ps2_vs_retail_same": 11338
+   },
+   "surface_type_changes_retail_to_ps2": {
+    "gravel->harddirt": 954,
+    "None->harddirt": 199,
+    "grass->harddirt": 74,
+    "grass->water": 31,
+    "gravel->water": 26,
+    "gravel->grass": 7,
+    "harddirt->grass": 4,
+    "harddirt->gravel": 3,
+    "harddirt->water": 1,
+    "grass->gravel": 1
+   }
+  },
+  "seconds": 38.4
+ },
+ "TurkeyS1": {
+  "build": {
+   "course": "TurkeyS1",
+   "surface": "ps2",
+   "ps2_bsp": {
+    "nodes": 83989,
+    "plane_table": 35960
+   },
+   "tree": {
+    "stats": {
+     "plane_nodes": 77271,
+     "leaf_solid": 36301,
+     "payload_leaves": 23121,
+     "leaf_empty": 40971,
+     "pruned_run_planes": 510,
+     "payload_empty": 133,
+     "pruned_planes": 6
+    },
+    "code_provenance": {
+     "pc_ground_path": 18051,
+     "default": 49,
+     "pc_same_plane": 59171
+    },
+    "default_code": 23931,
+    "default_code_source": "reference_code at the course centre",
+    "retail_tree_bytes": 7038036,
+    "new_tree_bytes": 3554502,
+    "retail_plane_nodes": 153000,
+    "new_plane_nodes": 77271,
+    "round_trip_identical": true,
+    "count_invariants_ok": true,
+    "negative_codes": 0
+   },
+   "tag1400": {
+    "records": 31052,
+    "strings": 33,
+    "degenerate_nan_plane": 0,
+    "retail_records": 32137,
+    "new_records": 31052,
+    "dims": [
+     199,
+     114
+    ],
+    "bytes": 2252120
+   },
+   "render_prefix_identical": true,
+   "dx_bytes": 9961647,
+   "dx_sha256": "5230a3fd78c3735f4bd180ad6cd29edecd44cfb25cb0a1d29e76808eb2b26096"
+  },
+  "validation": {
+   "course": "TurkeyS1",
+   "box": [
+    [
+     -288.5345458984375,
+     -30.162795066833496,
+     -1186.26513671875
+    ],
+    [
+     3675.940185546875,
+     154.06292724609375,
+     1088.00341796875
+    ]
+   ],
+   "random_points": {
+    "points": 50000,
+    "mismatch": 0,
+    "first": []
+   },
+   "columns": {
+    "columns": 20723,
+    "new_agree": 20723,
+    "retail_agree": 8257,
+    "retail_differs": 12466
+   },
+   "columns_new_differs_first": [],
+   "contact_codes": {
+    "valid": 7588,
+    "same_code_as_retail": 6940,
+    "other_code_than_retail": 336
+   },
+   "surface_types": {
+    "compared": 20723,
+    "ps2_vs_retail_same": 19912,
+    "ps2_vs_retail_differs": 811
+   },
+   "surface_type_changes_retail_to_ps2": {
+    "harddirt->gravel": 374,
+    "harddirt->grass": 105,
+    "harddirt->water": 86,
+    "None->gravel": 77,
+    "grass->harddirt": 63,
+    "gravel->water": 37,
+    "None->grass": 20,
+    "grass->water": 19,
+    "gravel->grass": 16,
+    "None->harddirt": 11,
+    "grass->gravel": 3
+   }
+  },
+  "seconds": 32.7
+ },
+ "TurkeyS2": {
+  "build": {
+   "course": "TurkeyS2",
+   "surface": "ps2",
+   "ps2_bsp": {
+    "nodes": 85299,
+    "plane_table": 35329
+   },
+   "tree": {
+    "stats": {
+     "plane_nodes": 77455,
+     "leaf_solid": 36866,
+     "payload_leaves": 22973,
+     "leaf_empty": 40590,
+     "pruned_run_planes": 356,
+     "payload_empty": 113,
+     "pruned_planes": 4
+    },
+    "code_provenance": {
+     "pc_ground_path": 13631,
+     "default": 26,
+     "pc_same_plane": 63798
+    },
+    "default_code": 6143,
+    "default_code_source": "reference_code at the course centre",
+    "retail_tree_bytes": 7021706,
+    "new_tree_bytes": 3562966,
+    "retail_plane_nodes": 152645,
+    "new_plane_nodes": 77455,
+    "round_trip_identical": true,
+    "count_invariants_ok": true,
+    "negative_codes": 0
+   },
+   "tag1400": {
+    "records": 30546,
+    "strings": 32,
+    "degenerate_nan_plane": 0,
+    "retail_records": 30636,
+    "new_records": 30546,
+    "dims": [
+     197,
+     86
+    ],
+    "bytes": 2156078
+   },
+   "render_prefix_identical": true,
+   "dx_bytes": 9501604,
+   "dx_sha256": "90de4b85bed747d04ef915ec1761d68686bbcbaaff00eb344ef9b987937c4828"
+  },
+  "validation": {
+   "course": "TurkeyS2",
+   "box": [
+    [
+     -228.121826171875,
+     -61.97079849243164,
+     -916.90234375
+    ],
+    [
+     3694.142578125,
+     145.83667755126953,
+     789.0968627929688
+    ]
+   ],
+   "random_points": {
+    "points": 50000,
+    "mismatch": 0,
+    "first": []
+   },
+   "columns": {
+    "columns": 16520,
+    "new_agree": 16520,
+    "retail_differs": 9590,
+    "retail_agree": 6930
+   },
+   "columns_new_differs_first": [],
+   "contact_codes": {
+    "valid": 6544,
+    "same_code_as_retail": 5851,
+    "other_code_than_retail": 399
+   },
+   "surface_types": {
+    "compared": 16520,
+    "ps2_vs_retail_same": 16135,
+    "ps2_vs_retail_differs": 385
+   },
+   "surface_type_changes_retail_to_ps2": {
+    "gravel->harddirt": 75,
+    "None->gravel": 74,
+    "gravel->water": 58,
+    "grass->harddirt": 50,
+    "harddirt->water": 47,
+    "grass->water": 35,
+    "None->grass": 17,
+    "gravel->grass": 16,
+    "grass->gravel": 8,
+    "harddirt->grass": 3,
+    "None->harddirt": 1,
+    "harddirt->gravel": 1
+   }
+  },
+  "seconds": 35.1
+ },
+ "TurkeyS2Flip": {
+  "build": {
+   "course": "TurkeyS2Flip",
+   "surface": "ps2",
+   "ps2_bsp": {
+    "nodes": 85997,
+    "plane_table": 36207
+   },
+   "tree": {
+    "stats": {
+     "plane_nodes": 78759,
+     "leaf_solid": 37285,
+     "payload_leaves": 23366,
+     "leaf_empty": 41475,
+     "pruned_run_planes": 341,
+     "payload_empty": 79,
+     "pruned_planes": 4
+    },
+    "code_provenance": {
+     "pc_ground_path": 13906,
+     "default": 28,
+     "pc_same_plane": 64825
+    },
+    "default_code": 6171,
+    "default_code_source": "reference_code at the course centre",
+    "retail_tree_bytes": 7019176,
+    "new_tree_bytes": 3622950,
+    "retail_plane_nodes": 152590,
+    "new_plane_nodes": 78759,
+    "round_trip_identical": true,
+    "count_invariants_ok": true,
+    "negative_codes": 0
+   },
+   "tag1400": {
+    "records": 30442,
+    "strings": 31,
+    "degenerate_nan_plane": 0,
+    "retail_records": 30636,
+    "new_records": 30442,
+    "dims": [
+     197,
+     86
+    ],
+    "bytes": 2149322
+   },
+   "render_prefix_identical": true,
+   "dx_bytes": 9554979,
+   "dx_sha256": "61be31a4c5243649b1ff851d1470483ef203707808292f6ebb5bac48369c0801"
+  },
+  "validation": {
+   "course": "TurkeyS2Flip",
+   "box": [
+    [
+     -228.1217041015625,
+     -61.97079849243164,
+     -916.90234375
+    ],
+    [
+     3694.142822265625,
+     145.83667755126953,
+     789.0968627929688
+    ]
+   ],
+   "random_points": {
+    "points": 50000,
+    "mismatch": 0,
+    "first": []
+   },
+   "columns": {
+    "columns": 16485,
+    "new_agree": 16485,
+    "retail_differs": 9581,
+    "retail_agree": 6904
+   },
+   "columns_new_differs_first": [],
+   "contact_codes": {
+    "valid": 6550,
+    "same_code_as_retail": 5900,
+    "other_code_than_retail": 387
+   },
+   "surface_types": {
+    "compared": 16485,
+    "ps2_vs_retail_same": 16184,
+    "ps2_vs_retail_differs": 301
+   },
+   "surface_type_changes_retail_to_ps2": {
+    "gravel->harddirt": 75,
+    "grass->harddirt": 50,
+    "gravel->water": 48,
+    "harddirt->water": 47,
+    "grass->water": 33,
+    "None->gravel": 30,
+    "gravel->grass": 16,
+    "harddirt->gravel": 1,
+    "grass->gravel": 1
+   }
+  },
+  "seconds": 30.0
+ },
+ "TurkeyW": {
+  "build": {
+   "course": "TurkeyW",
+   "surface": "ps2",
+   "ps2_bsp": {
+    "nodes": 79599,
+    "plane_table": 33467
+   },
+   "tree": {
+    "stats": {
+     "plane_nodes": 73042,
+     "leaf_solid": 34262,
+     "payload_leaves": 21680,
+     "leaf_empty": 38781,
+     "pruned_run_planes": 185,
+     "payload_empty": 29,
+     "pruned_planes": 2
+    },
+    "code_provenance": {
+     "pc_ground_path": 13632,
+     "default": 10,
+     "pc_same_plane": 59400
+    },
+    "default_code": 2828,
+    "default_code_source": "reference_code at the course centre",
+    "retail_tree_bytes": 5772392,
+    "new_tree_bytes": 3359968,
+    "retail_plane_nodes": 125486,
+    "new_plane_nodes": 73042,
+    "round_trip_identical": true,
+    "count_invariants_ok": true,
+    "negative_codes": 0
+   },
+   "tag1400": {
+    "records": 24902,
+    "strings": 27,
+    "degenerate_nan_plane": 0,
+    "retail_records": 24556,
+    "new_records": 24902,
+    "dims": [
+     160,
+     121
+    ],
+    "bytes": 1818496
+   },
+   "render_prefix_identical": true,
+   "dx_bytes": 8267683,
+   "dx_sha256": "bff392c8d0e5807e77f21cac210e8a2477d2afcd2610c480f10b64c9c4ad80e4"
+  },
+  "validation": {
+   "course": "TurkeyW",
+   "box": [
+    [
+     -1618.4053955078125,
+     -34.82504177093506,
+     -1318.0145263671875
+    ],
+    [
+     1570.2799072265625,
+     154.06293487548828,
+     1088.003662109375
+    ]
+   ],
+   "random_points": {
+    "points": 50000,
+    "mismatch": 0,
+    "first": []
+   },
+   "columns": {
+    "columns": 17314,
+    "new_agree": 17314,
+    "retail_differs": 8929,
+    "retail_agree": 8385
+   },
+   "columns_new_differs_first": [],
+   "contact_codes": {
+    "valid": 7780,
+    "same_code_as_retail": 7369,
+    "other_code_than_retail": 297
+   },
+   "surface_types": {
+    "compared": 17314,
+    "ps2_vs_retail_same": 15317,
+    "ps2_vs_retail_differs": 1997
+   },
+   "surface_type_changes_retail_to_ps2": {
+    "gravel->harddirt": 1704,
+    "harddirt->grass": 104,
+    "grass->harddirt": 81,
+    "None->gravel": 42,
+    "None->grass": 20,
+    "grass->water": 17,
+    "harddirt->gravel": 14,
+    "None->harddirt": 14,
+    "harddirt->water": 1
+   }
+  },
+  "seconds": 25.2
+ }
+}

@@ -1,0 +1,434 @@
+{
+ "france1.dx": {
+  "records": 27719,
+  "strings": 17,
+  "cell": 20.0,
+  "dims": [
+   167,
+   105
+  ],
+  "rebuild_identical": true,
+  "roundtrip_identical": true,
+  "tag1500_bytes": 8024
+ },
+ "france2.dx": {
+  "records": 21615,
+  "strings": 15,
+  "cell": 20.0,
+  "dims": [
+   126,
+   90
+  ],
+  "rebuild_identical": true,
+  "roundtrip_identical": true,
+  "tag1500_bytes": 10092
+ },
+ "francem.dx": {
+  "records": 29354,
+  "strings": 17,
+  "cell": 20.0,
+  "dims": [
+   263,
+   76
+  ],
+  "rebuild_identical": true,
+  "roundtrip_identical": true,
+  "tag1500_bytes": 12564
+ },
+ "frances1.dx": {
+  "records": 23991,
+  "strings": 17,
+  "cell": 20.0,
+  "dims": [
+   216,
+   89
+  ],
+  "rebuild_identical": true,
+  "roundtrip_identical": true,
+  "tag1500_bytes": 9888
+ },
+ "frances2.dx": {
+  "records": 28806,
+  "strings": 17,
+  "cell": 20.0,
+  "dims": [
+   263,
+   106
+  ],
+  "rebuild_identical": true,
+  "roundtrip_identical": true,
+  "tag1500_bytes": 10120
+ },
+ "francew.dx": {
+  "records": 27757,
+  "strings": 17,
+  "cell": 20.0,
+  "dims": [
+   256,
+   90
+  ],
+  "rebuild_identical": true,
+  "roundtrip_identical": true,
+  "tag1500_bytes": 8648
+ },
+ "FranceW_flip.dx": {
+  "records": 27757,
+  "strings": 17,
+  "cell": 20.0,
+  "dims": [
+   256,
+   90
+  ],
+  "rebuild_identical": true,
+  "roundtrip_identical": true,
+  "tag1500_bytes": 8648
+ },
+ "track01.dx": {
+  "records": 22909,
+  "strings": 21,
+  "cell": 20.0,
+  "dims": [
+   97,
+   107
+  ],
+  "rebuild_identical": true,
+  "roundtrip_identical": true,
+  "tag1500_bytes": 12364
+ },
+ "italy2.dx": {
+  "records": 22126,
+  "strings": 19,
+  "cell": 20.0,
+  "dims": [
+   128,
+   108
+  ],
+  "rebuild_identical": true,
+  "roundtrip_identical": true,
+  "tag1500_bytes": 16088
+ },
+ "italy3.dx": {
+  "records": 24121,
+  "strings": 26,
+  "cell": 20.0,
+  "dims": [
+   137,
+   138
+  ],
+  "rebuild_identical": true,
+  "roundtrip_identical": true,
+  "tag1500_bytes": 8748
+ },
+ "italy_m1.dx": {
+  "records": 25311,
+  "strings": 25,
+  "cell": 20.0,
+  "dims": [
+   209,
+   111
+  ],
+  "rebuild_identical": true,
+  "roundtrip_identical": true,
+  "tag1500_bytes": 17476
+ },
+ "italy_m1_flip.dx": {
+  "records": 25311,
+  "strings": 25,
+  "cell": 20.0,
+  "dims": [
+   209,
+   111
+  ],
+  "rebuild_identical": true,
+  "roundtrip_identical": true,
+  "tag1500_bytes": 17476
+ },
+ "italy_m2.dx": {
+  "records": 28229,
+  "strings": 26,
+  "cell": 20.0,
+  "dims": [
+   254,
+   108
+  ],
+  "rebuild_identical": true,
+  "roundtrip_identical": true,
+  "tag1500_bytes": 17568
+ },
+ "italy_s1.dx": {
+  "records": 22530,
+  "strings": 26,
+  "cell": 20.0,
+  "dims": [
+   188,
+   128
+  ],
+  "rebuild_identical": true,
+  "roundtrip_identical": true,
+  "tag1500_bytes": 13124
+ },
+ "italy_s2.dx": {
+  "records": 28117,
+  "strings": 21,
+  "cell": 20.0,
+  "dims": [
+   216,
+   105
+  ],
+  "rebuild_identical": true,
+  "roundtrip_identical": true,
+  "tag1500_bytes": 20212
+ },
+ "italy_s3.dx": {
+  "records": 24248,
+  "strings": 25,
+  "cell": 20.0,
+  "dims": [
+   214,
+   147
+  ],
+  "rebuild_identical": true,
+  "roundtrip_identical": true,
+  "tag1500_bytes": 14804
+ },
+ "Italy_S3_flip.dx": {
+  "records": 24248,
+  "strings": 25,
+  "cell": 20.0,
+  "dims": [
+   214,
+   147
+  ],
+  "rebuild_identical": true,
+  "roundtrip_identical": true,
+  "tag1500_bytes": 14804
+ },
+ "italy_s4.dx": {
+  "records": 29398,
+  "strings": 27,
+  "cell": 20.0,
+  "dims": [
+   254,
+   103
+  ],
+  "rebuild_identical": true,
+  "roundtrip_identical": true,
+  "tag1500_bytes": 16056
+ },
+ "italy_w1.dx": {
+  "records": 26768,
+  "strings": 22,
+  "cell": 20.0,
+  "dims": [
+   214,
+   123
+  ],
+  "rebuild_identical": true,
+  "roundtrip_identical": true,
+  "tag1500_bytes": 17216
+ },
+ "italy_w2.dx": {
+  "records": 29898,
+  "strings": 26,
+  "cell": 20.0,
+  "dims": [
+   254,
+   142
+  ],
+  "rebuild_identical": true,
+  "roundtrip_identical": true,
+  "tag1500_bytes": 16168
+ },
+ "spain1.dx": {
+  "records": 23241,
+  "strings": 10,
+  "cell": 20.0,
+  "dims": [
+   90,
+   99
+  ],
+  "rebuild_identical": true,
+  "roundtrip_identical": true,
+  "tag1500_bytes": 5936
+ },
+ "spain2.dx": {
+  "records": 22781,
+  "strings": 11,
+  "cell": 20.0,
+  "dims": [
+   97,
+   99
+  ],
+  "rebuild_identical": true,
+  "roundtrip_identical": true,
+  "tag1500_bytes": 8300
+ },
+ "spain_m.dx": {
+  "records": 25930,
+  "strings": 10,
+  "cell": 20.0,
+  "dims": [
+   130,
+   103
+  ],
+  "rebuild_identical": true,
+  "roundtrip_identical": true,
+  "tag1500_bytes": 9560
+ },
+ "spain_s1.dx": {
+  "records": 27988,
+  "strings": 9,
+  "cell": 20.0,
+  "dims": [
+   167,
+   103
+  ],
+  "rebuild_identical": true,
+  "roundtrip_identical": true,
+  "tag1500_bytes": 10012
+ },
+ "Spain_S1_flip.dx": {
+  "records": 27988,
+  "strings": 9,
+  "cell": 20.0,
+  "dims": [
+   167,
+   103
+  ],
+  "rebuild_identical": true,
+  "roundtrip_identical": true,
+  "tag1500_bytes": 10012
+ },
+ "spain_s2.dx": {
+  "records": 27623,
+  "strings": 14,
+  "cell": 20.0,
+  "dims": [
+   167,
+   96
+  ],
+  "rebuild_identical": true,
+  "roundtrip_identical": true,
+  "tag1500_bytes": 6836
+ },
+ "spain_w.dx": {
+  "records": 30274,
+  "strings": 13,
+  "cell": 20.0,
+  "dims": [
+   167,
+   99
+  ],
+  "rebuild_identical": true,
+  "roundtrip_identical": true,
+  "tag1500_bytes": 8440
+ },
+ "Spain_W_flip.dx": {
+  "records": 30274,
+  "strings": 13,
+  "cell": 20.0,
+  "dims": [
+   167,
+   99
+  ],
+  "rebuild_identical": true,
+  "roundtrip_identical": true,
+  "tag1500_bytes": 8440
+ },
+ "turkey1.dx": {
+  "records": 28265,
+  "strings": 36,
+  "cell": 20.0,
+  "dims": [
+   86,
+   99
+  ],
+  "rebuild_identical": true,
+  "roundtrip_identical": true,
+  "tag1500_bytes": 32952
+ },
+ "turkey2.dx": {
+  "records": 22712,
+  "strings": 27,
+  "cell": 20.0,
+  "dims": [
+   102,
+   87
+  ],
+  "rebuild_identical": true,
+  "roundtrip_identical": true,
+  "tag1500_bytes": 32744
+ },
+ "turkey3.dx": {
+  "records": 26767,
+  "strings": 25,
+  "cell": 20.0,
+  "dims": [
+   103,
+   99
+  ],
+  "rebuild_identical": true,
+  "roundtrip_identical": true,
+  "tag1500_bytes": 32264
+ },
+ "turkey_m.dx": {
+  "records": 35714,
+  "strings": 53,
+  "cell": 20.0,
+  "dims": [
+   169,
+   120
+  ],
+  "rebuild_identical": true,
+  "roundtrip_identical": true,
+  "tag1500_bytes": 33196
+ },
+ "turkey_s1.dx": {
+  "records": 32137,
+  "strings": 36,
+  "cell": 20.0,
+  "dims": [
+   199,
+   116
+  ],
+  "rebuild_identical": true,
+  "roundtrip_identical": true,
+  "tag1500_bytes": 32596
+ },
+ "turkey_s2.dx": {
+  "records": 30636,
+  "strings": 36,
+  "cell": 20.0,
+  "dims": [
+   198,
+   86
+  ],
+  "rebuild_identical": true,
+  "roundtrip_identical": true,
+  "tag1500_bytes": 32688
+ },
+ "turkey_s2_flip.dx": {
+  "records": 30636,
+  "strings": 36,
+  "cell": 20.0,
+  "dims": [
+   198,
+   86
+  ],
+  "rebuild_identical": true,
+  "roundtrip_identical": true,
+  "tag1500_bytes": 32688
+ },
+ "turkey_w.dx": {
+  "records": 24556,
+  "strings": 35,
+  "cell": 20.0,
+  "dims": [
+   160,
+   122
+  ],
+  "rebuild_identical": true,
+  "roundtrip_identical": true,
+  "tag1500_bytes": 32964
+ }
+}
