@@ -1,0 +1,12 @@
+{
+ "pairs": 16845,
+ "f28_f32 vs PC noise UV (exact)": 0,
+ "f28_f32 vs PC noise UV (exact) modulo 1": 0,
+ "f28_f32 vs PC base UV (exact)": 0,
+ "f28_f32 vs PC base UV (exact) modulo 1": 0,
+ "f28_f32 inside 0..1.1 (share)": 0.68,
+ "f28_f32 min/max": [
+  -2.86,
+  4.126
+ ]
+}

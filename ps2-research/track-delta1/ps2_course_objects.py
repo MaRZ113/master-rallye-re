@@ -124,6 +124,7 @@ def main():
     ap.add_argument('--pc-root', type=Path, required=True)
     ap.add_argument('--out', type=Path, required=True)
     ap.add_argument('--no-flip-v', action='store_true', help='keep the PS2 V as is (default flips V: the GXI rows are top-down, the PC texture V runs bottom-up; confirmed by the user on Turkey3)')
+    ap.add_argument('--ground-detail', choices=('tint', 'noise2'), default='tint', help="added ground: 'tint' (mean noise factor, default) or 'noise2' (EXPERIMENTAL second UV set + noise-tga slot, runtime A/B needed)")
     ap.add_argument('--terrain', action='store_true', help='also carry the PS2 ground that differs from the PC ground (ps2_terrain.py)')
     ap.add_argument('--snap-threshold', type=float, default=1e9, help='shift an instance vertically when its lowest vertices are this far above or below the PC ground (the PS2 ground differs there)')
     a = ap.parse_args()
@@ -139,6 +140,8 @@ def main():
     terrain_report, terrain_eggs = None, []
     if a.terrain:
         _, pc_model, ps2_non, pc_non, pc_all = terrain.load_delta(a.ps2_root, a.pc_root / 'DataGx/Course/Turkey3/turkey3.dx')
+        ps2_all_non = ps2_non
+        ps2_non, pc_non, refine_stats = terrain.refine(ps2_non, pc_non, pc_all)
         pc_neutral, pc_kept = terrain.with_replacement(pc_non, ps2_non)
         course = terrain.neutralise(course, pc_model, pc_neutral)
         pcn0 = gc.pc_nodes(a.pc_root / 'DataGx/Course/Turkey3/turkey3.dx')
@@ -146,9 +149,9 @@ def main():
         gscene = scene
         ps2_grid = gdp.build_index(gdp.ground_triangles(gscene))
         coll = terrain.collision(tree, ps2_non, pc_all, pcn0, ps2_top=lambda x, z: gdp.height_at(ps2_grid, x, z))
-        tfiles, terrain_eggs, vis = terrain.visual_models(a.ps2_root, manifest, ps2_non, template, hay, a.pc_root / 'DataGx/Course/Turkey3')
+        tfiles, terrain_eggs, vis = terrain.visual_models(a.ps2_root, manifest, ps2_non, template, hay, a.pc_root / 'DataGx/Course/Turkey3', detail=a.ground_detail)
         files_terrain = tfiles
-        terrain_report = {'ps2_non_exact_ground': len(ps2_non), 'pc_non_exact_ground_neutralised': len(pc_neutral), 'pc_non_exact_ground_kept_no_replacement': len(pc_kept), 'collision': coll, 'visual': vis}
+        terrain_report = {'ps2_non_exact_ground_by_position': len(ps2_all_non), 'refine': refine_stats, 'ps2_replacing_ground': len(ps2_non), 'pc_non_exact_ground_neutralised': len(pc_neutral), 'pc_non_exact_ground_kept_no_replacement': len(pc_kept), 'collision': coll, 'visual': vis}
     else:
         files_terrain = {}
     pcn = gc.pc_nodes(a.pc_root / 'DataGx/Course/Turkey3/turkey3.dx')

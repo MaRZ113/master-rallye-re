@@ -16,6 +16,7 @@ import math
 import re
 import struct
 import sys
+import zlib
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -47,7 +48,7 @@ def extract(manifest, root, path):
     return t.read_payload(entries[0], root / 'TNG.000')[0]
 
 
-def source_triangles(scene, mesh):
+def source_triangles_ext(scene, mesh):
     """Same strip/ADC rule as prepare_course_objects.collect_preview_vertices; returns (positions, uv) triples."""
     out = []
     for strip in mesh['strips']:
@@ -62,8 +63,14 @@ def source_triangles(scene, mesh):
             # PS2 vertex word at +16 holds bytes (A, c1, c2, c3); the PC course DX colour is (c1, c2, c3, 255) for the same vertex
             # (48,406 exact-position pairs in Turkey3: same value within 1, no x2 scaling), so the tint is copied as is.
             col = tuple(bytes(scene.payload[32 + i * 52 + 17:32 + i * 52 + 20]) + bytes([255]) for i in idx)
-            out.append((pos, uv, col))
+            aux = tuple(struct.unpack_from('<2f', scene.payload, 32 + i * 52 + 28) for i in idx)  # unexplained pair at +28/+32 (HYPOTHESIS: PS2 noise UV)
+            out.append((pos, uv, col, aux))
     return out
+
+
+def source_triangles(scene, mesh):
+    """(positions, uv, colours) per triangle; see source_triangles_ext for the extra +28/+32 pair."""
+    return [(p, u, c) for p, u, c, _ in source_triangles_ext(scene, mesh)]
 
 
 def normal_of(a, b, c):
@@ -165,7 +172,7 @@ def main():
     bgra = bytearray(len(rgba))
     for i in range(0, len(rgba), 4):
         bgra[i], bgra[i + 1], bgra[i + 2], bgra[i + 3] = rgba[i + 2], rgba[i + 1], rgba[i], rgba[i + 3]
-    dxt = hay.header[:12] + struct.pack('<2I', 64, 64) + bytes(bgra)
+    dxt = hay.header[:8] + struct.pack('<3I', zlib.crc32(bytes(bgra)) & 0xFFFFFFFF, 64, 64) + bytes(bgra)  # word_0x08 = CRC32 of the pixel payload
     parse_dxt_bytes(dxt)
     pc_xml = (a.pc_root / 'DataScene/RaceTest/Turkey3.xml').read_bytes()
     start = pc_xml.index(b'    <List Name="IContManager">\r\n')

@@ -1,0 +1,68 @@
+{
+ "package": "D:\\Game\\Master Rallye\\research-output\\t4-terrain-g1",
+ "models": 21,
+ "model_problems": [],
+ "eggs": {
+  "ps2port_eggs": 25,
+  "duplicate_egg_names": [
+   "AttractMode"
+  ],
+  "models_missing": []
+ },
+ "course_dx": {
+  "retail_bytes": 10055607,
+  "patched_bytes": 16506233,
+  "render_prefix_changed_bytes_outside_local_indices": 0,
+  "local_index_bytes_changed": 2808,
+  "triangles_neutralised_in_report": 1402,
+  "degenerate_triangles_retail": 0,
+  "degenerate_triangles_patched": 1402,
+  "newly_degenerate": 1402,
+  "tag100_offset_equal": true
+ },
+ "tag100": {
+  "invariants_ok": true,
+  "header": [
+   94947,
+   162829,
+   257775,
+   257775,
+   0
+  ]
+ },
+ "object_hulls": [
+  {
+   "egg": "ps2_house11",
+   "centroid_solid": true
+  },
+  {
+   "egg": "ps2_caravan1",
+   "centroid_solid": true
+  },
+  {
+   "egg": "ps2_caravan2",
+   "centroid_solid": true
+  },
+  {
+   "egg": "ps2_redcaravan1",
+   "centroid_solid": true
+  },
+  {
+   "egg": "ps2_redcaravan2",
+   "centroid_solid": true
+  },
+  {
+   "egg": "ps2_redcaravan3",
+   "centroid_solid": true
+  },
+  {
+   "egg": "ps2_redcaravan4",
+   "centroid_solid": true
+  }
+ ],
+ "z_fighting": {
+  "added_ps2_triangles": 1916,
+  "coplanar_with_a_remaining_pc_triangle_at_centroid": 0,
+  "pc_triangles_kept_without_replacement": 6
+ }
+}

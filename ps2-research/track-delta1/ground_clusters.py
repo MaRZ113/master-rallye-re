@@ -31,8 +31,8 @@ def load(ps2_root, pc_dx):
         # ground family: shader(ground) or a noise-tga detail slot (some ground meshes have an empty material name), same family as the PC third slot
         ground = 'shader(ground)' in mesh['material'].lower() or any('noise' in x['name'].lower() for x in mesh['textures'])
         tex = mesh['textures'][0]['name'] if mesh['textures'] else ''
-        for pos, uv, col in o.source_triangles(scene, mesh):
-            ps2.append({'p': pos, 'uv': uv, 'col': col, 'tex': tex, 'mesh': mesh['path'], 'ground': ground})
+        for pos, uv, col, aux in o.source_triangles_ext(scene, mesh):
+            ps2.append({'p': pos, 'uv': uv, 'col': col, 'aux': aux, 'tex': tex, 'mesh': mesh['path'], 'ground': ground})
     model = parse_course_dx_bytes(pc_dx.read_bytes(), 'pc')
     pc = []  # triangles with the file offset of their three local indices
     for draw in model.physical_draws:
@@ -41,7 +41,8 @@ def load(ps2_root, pc_dx):
             first = draw.index_start + 3 * k
             idx = [model.local_indices[first + j] + draw.vertex_base for j in range(3)]
             pts = [model.vertices.positions[i] for i in idx]
-            pc.append({'p': tuple(pts), 'ground': ground, 'draw': draw.draw_index, 'first_index': first})
+            pc.append({'p': tuple(pts), 'ground': ground, 'draw': draw.draw_index, 'first_index': first, 'ids': tuple(idx),
+                       'tex': draw.texture_tuple[0], 'uv': tuple(model.uv_sets[0].values[i] for i in idx)})
     return scene, ps2, model, pc
 
 

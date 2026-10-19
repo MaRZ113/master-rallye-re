@@ -1,0 +1,2109 @@
+{
+ "summary": {
+  "textures": 69,
+  "decisions": {
+   "pc": 63,
+   "ps2_only": 4,
+   "pc_renamed": 2
+  },
+  "expected_orientation_best": 63,
+  "pc_headers_crc_ok": 65
+ },
+ "tolerance": 8.0,
+ "rename_tolerance": 2.0,
+ "textures": [
+  {
+   "texture": "aluminium-tga",
+   "materials": [
+    "Material #29",
+    "PLATING"
+   ],
+   "ps2": [
+    32,
+    32
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    32,
+    32
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.0,
+    "rows_not_flipped": 20.64,
+    "cols_flipped": 15.61,
+    "both_flipped": 22.83
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "rubber-tga",
+    29.23
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "bagoo-tga",
+   "materials": [
+    "MR Banner"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.34,
+    "rows_not_flipped": 80.71,
+    "cols_flipped": 16.56,
+    "both_flipped": 80.52
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "fujitsu-tga",
+    27.32
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "base1-tga",
+   "materials": [
+    "(ground family)"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.37,
+    "rows_not_flipped": 40.3,
+    "cols_flipped": 41.12,
+    "both_flipped": 41.97
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "grass to roc2-tga",
+    22.14
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "basegravel-tga",
+   "materials": [
+    "(ground family)"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.38,
+    "rows_not_flipped": 31.9,
+    "cols_flipped": 31.63,
+    "both_flipped": 32.51
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "gravel dirt to road-tga",
+    8.67
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "basemud-tga",
+   "materials": [
+    "(ground family)"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.38,
+    "rows_not_flipped": 15.78,
+    "cols_flipped": 15.71,
+    "both_flipped": 18.27
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "mud road tran-tga",
+    6.55
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "bed to mud gravel-tga",
+   "materials": [
+    "(ground family)"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.38,
+    "rows_not_flipped": 20.91,
+    "cols_flipped": 19.6,
+    "both_flipped": 22.48
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "bedroad-tga",
+    10.53
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "bed to mud multi-tga",
+   "materials": [
+    "(ground family)"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.37,
+    "rows_not_flipped": 30.02,
+    "cols_flipped": 25.57,
+    "both_flipped": 30.23
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "mutlirgd-tga",
+    25.17
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "bed to mud-tga",
+   "materials": [
+    "(ground family)"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.38,
+    "rows_not_flipped": 24.78,
+    "cols_flipped": 37.0,
+    "both_flipped": 37.9
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "g to m-tga",
+    16.62
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "bed to wall-tga",
+   "materials": [
+    "(ground family)"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.38,
+    "rows_not_flipped": 18.27,
+    "cols_flipped": 24.39,
+    "both_flipped": 24.32
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "bed to wall2-tga",
+    16.61
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "bed to wall2-tga",
+   "materials": [
+    "(ground family)"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.37,
+    "rows_not_flipped": 30.83,
+    "cols_flipped": 24.46,
+    "both_flipped": 32.11
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "bed to wall-tga",
+    16.14
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "bedlef-tga",
+   "materials": [
+    "(ground family)"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.37,
+    "rows_not_flipped": 21.03,
+    "cols_flipped": 27.08,
+    "both_flipped": 28.61
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "bed to wall-tga",
+    17.71
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "bedroad-tga",
+   "materials": [
+    "(ground family)"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.38,
+    "rows_not_flipped": 19.15,
+    "cols_flipped": 20.36,
+    "both_flipped": 20.37
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "mud a-tga",
+    6.83
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "boat1-tga",
+   "materials": [
+    "boat1"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 2.72,
+    "rows_not_flipped": 47.74,
+    "cols_flipped": 43.23,
+    "both_flipped": 47.74
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "boat4 copy-tga",
+    35.32
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "boat2-tga",
+   "materials": [
+    "(ground family)",
+    "boat2"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 3.01,
+    "rows_not_flipped": 55.5,
+    "cols_flipped": 28.19,
+    "both_flipped": 57.05
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "mutlirgd-tga",
+    35.29
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "boat3-tga",
+   "materials": [
+    "boat3"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 3.23,
+    "rows_not_flipped": 24.77,
+    "cols_flipped": 23.39,
+    "both_flipped": 28.1
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "basemud-tga",
+    20.29
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "boat4 copy-tga",
+   "materials": [
+    "boat4"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    64,
+    64
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.0,
+    "rows_not_flipped": 23.52,
+    "cols_flipped": 22.53,
+    "both_flipped": 24.72
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "basemud-tga",
+    25.59
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "brickhouse-tga",
+   "materials": [
+    "House 1"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": null,
+   "decision": "ps2_only"
+  },
+  {
+   "texture": "caravan-tga",
+   "materials": [
+    "CARAVAN",
+    "CARAVAN_ALPHA"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    0,
+    255
+   ],
+   "pc": null,
+   "decision": "ps2_only"
+  },
+  {
+   "texture": "checks-tga",
+   "materials": [
+    "checks"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.3,
+    "rows_not_flipped": 109.22,
+    "cols_flipped": 96.22,
+    "both_flipped": 90.55
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "masterlogo-tga",
+    57.67
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "ctyre-tga",
+   "materials": [
+    "Tyres"
+   ],
+   "ps2": [
+    32,
+    32
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    32,
+    32
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.0,
+    "rows_not_flipped": 0.84,
+    "cols_flipped": 0.21,
+    "both_flipped": 0.79
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "rubber-tga",
+    21.81
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "drum2-tga",
+   "materials": [
+    "inside"
+   ],
+   "ps2": [
+    32,
+    32
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    32,
+    32
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.0,
+    "rows_not_flipped": 20.15,
+    "cols_flipped": 5.99,
+    "both_flipped": 20.57
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "neubeddirt-tga",
+    22.28
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "fence_02-tga",
+   "materials": [
+    "Fence hut"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    0,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 1.44,
+    "rows_not_flipped": 38.62,
+    "cols_flipped": 15.96,
+    "both_flipped": 39.52
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "plating2-tga",
+    24.88
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "fencegate-tga",
+   "materials": [
+    "fence"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    0,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.37,
+    "rows_not_flipped": 8.97,
+    "cols_flipped": 9.58,
+    "both_flipped": 10.28
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "tanky-tga",
+    23.33
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "g to m-tga",
+   "materials": [
+    "(ground family)"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.38,
+    "rows_not_flipped": 25.25,
+    "cols_flipped": 30.3,
+    "both_flipped": 30.63
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "grav to ro1-tga",
+    13.14
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "go-tga",
+   "materials": [
+    "MR Banner"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.25,
+    "rows_not_flipped": 20.78,
+    "cols_flipped": 33.0,
+    "both_flipped": 44.9
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "michelin-tga",
+    41.99
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "goodrich-tga",
+   "materials": [
+    "MR Banner"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.35,
+    "rows_not_flipped": 74.23,
+    "cols_flipped": 32.52,
+    "both_flipped": 77.22
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "bagoo-tga",
+    39.67
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "grass to grav-tga",
+   "materials": [
+    "(ground family)"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.37,
+    "rows_not_flipped": 32.99,
+    "cols_flipped": 42.33,
+    "both_flipped": 43.22
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "grass to roc1-tga",
+    23.57
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "grass to roc2-tga",
+   "materials": [
+    "(ground family)"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.38,
+    "rows_not_flipped": 28.52,
+    "cols_flipped": 31.39,
+    "both_flipped": 32.15
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "base1-tga",
+    22.16
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "gravel dirt to road 2-tga",
+   "materials": [
+    "(ground family)"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.38,
+    "rows_not_flipped": 25.0,
+    "cols_flipped": 25.13,
+    "both_flipped": 25.98
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "gravel_road-tga",
+    10.13
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "gravel_road-tga",
+   "materials": [
+    "(ground family)"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.37,
+    "rows_not_flipped": 24.14,
+    "cols_flipped": 25.51,
+    "both_flipped": 25.52
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "gravel dirt to road 2-tga",
+    9.99
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "hut_01-tga",
+   "materials": [
+    "rustic Hut"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 1.66,
+    "rows_not_flipped": 37.7,
+    "cols_flipped": 29.13,
+    "both_flipped": 38.47
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "tanky-tga",
+    29.88
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "i2a_planks2-tga",
+   "materials": [
+    "post",
+    "wood"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 26.01,
+    "rows_not_flipped": 25.09,
+    "cols_flipped": 25.77,
+    "both_flipped": 24.95
+   },
+   "expected_is_best": false,
+   "best_other_pc_texture": [
+    "wood_01-tga",
+    0.0
+   ],
+   "decision": "pc_renamed:wood_01-tga"
+  },
+  {
+   "texture": "kaori-tga",
+   "materials": [
+    "MR Banner"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.33,
+    "rows_not_flipped": 48.42,
+    "cols_flipped": 31.22,
+    "both_flipped": 55.57
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "masterlogo-tga",
+    35.19
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "masterlogo-tga",
+   "materials": [
+    "MR Banner"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.34,
+    "rows_not_flipped": 65.54,
+    "cols_flipped": 26.07,
+    "both_flipped": 69.16
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "kaori-tga",
+    35.55
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "mrtruck roller-tga",
+   "materials": [
+    "MRTruck"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    64,
+    64
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.0,
+    "rows_not_flipped": 25.11,
+    "cols_flipped": 5.34,
+    "both_flipped": 25.29
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "mrtruck sidedoorb-tga",
+    20.13
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "mrtruck side-tga",
+   "materials": [
+    "Material #63"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    64,
+    64
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.0,
+    "rows_not_flipped": 23.23,
+    "cols_flipped": 9.04,
+    "both_flipped": 23.6
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "mrtruck sidedoorb-tga",
+    7.79
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "mrtruck sidedoor-tga",
+   "materials": [
+    "Material #65"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    64,
+    64
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.0,
+    "rows_not_flipped": 12.67,
+    "cols_flipped": 8.3,
+    "both_flipped": 15.63
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "mrtruck sidedoorb-tga",
+    6.79
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "mrtruck sidedoorb-tga",
+   "materials": [
+    "Material #59"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    64,
+    64
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.0,
+    "rows_not_flipped": 9.82,
+    "cols_flipped": 2.64,
+    "both_flipped": 10.1
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "mrtruck sidedoor-tga",
+    6.79
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "mrtruckroof-tga",
+   "materials": [
+    "Material #64"
+   ],
+   "ps2": [
+    32,
+    32
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    32,
+    32
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.0,
+    "rows_not_flipped": 2.26,
+    "cols_flipped": 3.43,
+    "both_flipped": 4.19
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "mrtruck sidedoorb-tga",
+    8.28
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "mud to ro1-tga",
+   "materials": [
+    "(ground family)"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.38,
+    "rows_not_flipped": 25.62,
+    "cols_flipped": 29.96,
+    "both_flipped": 30.42
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "mud to ror-tga",
+    6.08
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "mud to ror-tga",
+   "materials": [
+    "(ground family)"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.38,
+    "rows_not_flipped": 28.06,
+    "cols_flipped": 35.29,
+    "both_flipped": 35.62
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "mud to ro1-tga",
+    6.03
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "mud tran b-tga",
+   "materials": [
+    "(ground family)"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.37,
+    "rows_not_flipped": 19.46,
+    "cols_flipped": 21.77,
+    "both_flipped": 24.74
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "mud_road-tga",
+    10.16
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "mud_road-tga",
+   "materials": [
+    "(ground family)"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.37,
+    "rows_not_flipped": 16.24,
+    "cols_flipped": 16.28,
+    "both_flipped": 18.72
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "mud road tran-tga",
+    3.65
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "mutlirgd-tga",
+   "materials": [
+    "(ground family)"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.37,
+    "rows_not_flipped": 34.08,
+    "cols_flipped": 22.86,
+    "both_flipped": 34.4
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "grass to roc2-tga",
+    23.87
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "neu grass to rock2-tga",
+   "materials": [
+    "(ground family)"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.37,
+    "rows_not_flipped": 23.93,
+    "cols_flipped": 27.31,
+    "both_flipped": 26.97
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "mud_to_grass-tga",
+    17.56
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "neu rocky-tga",
+   "materials": [
+    "(ground family)"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.37,
+    "rows_not_flipped": 27.66,
+    "cols_flipped": 26.56,
+    "both_flipped": 28.63
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "neu grass to rock2-tga",
+    19.5
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "neubeddirt-tga",
+   "materials": [
+    "(ground family)"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.37,
+    "rows_not_flipped": 30.42,
+    "cols_flipped": 29.66,
+    "both_flipped": 30.01
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "neubedright-tga",
+    17.32
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "new wall-tga",
+   "materials": [
+    "(ground family)"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 4.02,
+    "rows_not_flipped": 30.76,
+    "cols_flipped": 28.29,
+    "both_flipped": 30.85
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "plating2-tga",
+    24.18
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "newtex-tga",
+   "materials": [
+    "RED CARAVAN"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 6.56,
+    "rows_not_flipped": 52.92,
+    "cols_flipped": 20.51,
+    "both_flipped": 52.65
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "fence_02-tga",
+    31.96
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "noise-tga",
+   "materials": [
+    "(ground family)"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.37,
+    "rows_not_flipped": 8.36,
+    "cols_flipped": 8.87,
+    "both_flipped": 9.13
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "dirt_shrub_blend_rht-tga",
+    16.38
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "pathesport-tga",
+   "materials": [
+    "MR Banner"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.33,
+    "rows_not_flipped": 71.17,
+    "cols_flipped": 32.86,
+    "both_flipped": 72.4
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "bagoo-tga",
+    44.52
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "plant1-tga",
+   "materials": [
+    "pumphouse"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 4.03,
+    "rows_not_flipped": 29.59,
+    "cols_flipped": 17.42,
+    "both_flipped": 29.97
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "plant3-tga",
+    10.09
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "plant2-tga",
+   "materials": [
+    "pumphouse2"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 3.71,
+    "rows_not_flipped": 33.2,
+    "cols_flipped": 25.74,
+    "both_flipped": 33.91
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "plant1-tga",
+    11.8
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "plant3-tga",
+   "materials": [
+    "pumphouse3"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 3.6,
+    "rows_not_flipped": 28.42,
+    "cols_flipped": 20.06,
+    "both_flipped": 29.83
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "plant1-tga",
+    10.23
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "plant4-tga",
+   "materials": [
+    "pumphouse4"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 2.85,
+    "rows_not_flipped": 34.16,
+    "cols_flipped": 13.22,
+    "both_flipped": 34.27
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "plant1-tga",
+    22.68
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "plating2-tga",
+   "materials": [
+    "PLATING"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    128,
+    128
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 11.77,
+    "rows_not_flipped": 11.55,
+    "cols_flipped": 11.63,
+    "both_flipped": 11.55
+   },
+   "expected_is_best": false,
+   "best_other_pc_texture": [
+    "tanky-tga",
+    0.0
+   ],
+   "decision": "pc_renamed:tanky-tga"
+  },
+  {
+   "texture": "rubber-tga",
+   "materials": [
+    "Treads",
+    "Tyres",
+    "Wheel"
+   ],
+   "ps2": [
+    32,
+    32
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    32,
+    32
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.0,
+    "rows_not_flipped": 17.91,
+    "cols_flipped": 0.27,
+    "both_flipped": 17.91
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "wires-tga",
+    13.58
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "shrubtrig2-tga",
+   "materials": [
+    "TURshrub2"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    0,
+    255
+   ],
+   "pc": null,
+   "decision": "ps2_only"
+  },
+  {
+   "texture": "stpf-tga",
+   "materials": [
+    "stp"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    64,
+    64
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.0,
+    "rows_not_flipped": 15.14,
+    "cols_flipped": 9.76,
+    "both_flipped": 16.53
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "rock_track_bleed_in-tga",
+    21.81
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "tent2-tga",
+   "materials": [
+    "Material #78"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    64,
+    64
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.0,
+    "rows_not_flipped": 45.39,
+    "cols_flipped": 17.87,
+    "both_flipped": 44.92
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "concrete-tga",
+    32.47
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "tent3-tga",
+   "materials": [
+    "Material #88",
+    "Tent1"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    64,
+    64
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.0,
+    "rows_not_flipped": 10.4,
+    "cols_flipped": 17.2,
+    "both_flipped": 17.17
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "canyon_track-tga",
+    18.0
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "tfront-tga",
+   "materials": [
+    "white front"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    64,
+    64
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.0,
+    "rows_not_flipped": 58.62,
+    "cols_flipped": 17.6,
+    "both_flipped": 58.58
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "pathesport-tga",
+    47.05
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "top-tga",
+   "materials": [
+    "Material #29"
+   ],
+   "ps2": [
+    32,
+    32
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    32,
+    32
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.0,
+    "rows_not_flipped": 13.56,
+    "cols_flipped": 16.75,
+    "both_flipped": 21.15
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "darkrock_track_left_bleed_in-tga",
+    37.73
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "tred1-tga",
+   "materials": [
+    "Treads"
+   ],
+   "ps2": [
+    32,
+    32
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    32,
+    32
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.0,
+    "rows_not_flipped": 24.18,
+    "cols_flipped": 23.33,
+    "both_flipped": 11.32
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "ctyre-tga",
+    33.71
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "tsidew-tga",
+   "materials": [
+    "Material #61"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    64,
+    64
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.0,
+    "rows_not_flipped": 37.9,
+    "cols_flipped": 40.46,
+    "both_flipped": 47.16
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "stpf-tga",
+    37.03
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "water-tga",
+   "materials": [
+    "water"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": null,
+   "decision": "ps2_only"
+  },
+  {
+   "texture": "wheel-tga",
+   "materials": [
+    "Wheel"
+   ],
+   "ps2": [
+    32,
+    32
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    32,
+    32
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.0,
+    "rows_not_flipped": 54.65,
+    "cols_flipped": 10.13,
+    "both_flipped": 55.2
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "plating2-tga",
+    38.61
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "whitepaint-tga",
+   "materials": [
+    "MRTruck",
+    "Material #59",
+    "Material #61",
+    "Material #63",
+    "Material #64",
+    "Material #65",
+    "stp",
+    "white front"
+   ],
+   "ps2": [
+    32,
+    32
+   ],
+   "ps2_alpha_min_max": [
+    255,
+    255
+   ],
+   "pc": [
+    32,
+    32
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.0,
+    "rows_not_flipped": 28.51,
+    "cols_flipped": 18.05,
+    "both_flipped": 30.83
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "aluminium-tga",
+    30.02
+   ],
+   "decision": "pc"
+  },
+  {
+   "texture": "wires-tga",
+   "materials": [
+    "telegraphwires"
+   ],
+   "ps2": [
+    64,
+    64
+   ],
+   "ps2_alpha_min_max": [
+    0,
+    255
+   ],
+   "pc": [
+    64,
+    64
+   ],
+   "pc_header_crc_ok": true,
+   "difference_by_orientation": {
+    "expected_rows_flipped": 0.0,
+    "rows_not_flipped": 0.0,
+    "cols_flipped": 0.0,
+    "both_flipped": 0.0
+   },
+   "expected_is_best": true,
+   "best_other_pc_texture": [
+    "elf-tga",
+    61.91
+   ],
+   "decision": "pc"
+  }
+ ]
+}

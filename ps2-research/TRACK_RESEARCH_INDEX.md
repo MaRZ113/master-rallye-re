@@ -43,6 +43,7 @@ RaceLine XYZ match within 1 unit). Pairing is semantic, not file-identical. Cano
 | [track-delta1/T2-SOLID-SHELL.md](track-delta1/T2-SOLID-SHELL.md) | PS2 solid exterior across 36 courses and runtime probe plan |
 | [track-delta1/T2-BEHAVIOR.md](track-delta1/T2-BEHAVIOR.md) | Static comparison of the PS2 wall and PC OFF COURSE, verdict: not ported for now |
 | [track-delta1/PROBE-TELEPORT.md](track-delta1/PROBE-TELEPORT.md) | Development teleport used for the runtime probes |
+| [track-ground1/final-report.md](track-ground1/final-report.md) | TRACK-GROUND1: texture and ground material parity, collision diagnostics, ranked regions for TRACK-COLL1 |
 | [track-delta1/SCENE-CENSUS.md](track-delta1/SCENE-CENSUS.md) | Splits, limit lists, controllers across 36 courses |
 
 ## 3. Already in the PC port (`pc-port/`)
