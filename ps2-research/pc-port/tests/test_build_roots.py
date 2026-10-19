@@ -59,8 +59,9 @@ class BuildRootTests(unittest.TestCase):
         lock=json.loads(b.LOCK_PATH.read_text())
         audit_root=b.PORT/'docs/build-policy/hud-baseline-adoption'
         audit=json.loads((audit_root/'audit.json').read_text())
-        self.assertEqual(lock['baseline_head'],audit['adopted_baseline_head'])
-        self.assertEqual(lock['renderer_tree'],audit['adopted_renderer_tree'])
+        # COURSE-ALIVE1 adopted the opt-in probe commits on top of the HUD baseline (lock probe_baseline_adoption).
+        self.assertEqual(lock['probe_baseline_adoption']['previous_baseline_head'],audit['adopted_baseline_head'])
+        self.assertEqual(lock['probe_baseline_adoption']['previous_renderer_tree'],audit['adopted_renderer_tree'])
         self.assertEqual(set(lock['patches']),set(b.PATCH_PATHS))
         self.assertEqual(set(b.PATCH_PATHS),{'0001-renderer-integration.patch','0002-interface-generator.patch'})
         self.assertEqual(lock['hud_baseline_adoption']['exact_approved_git_blob_sha256'],audit['approved_git_blob_sha256'])

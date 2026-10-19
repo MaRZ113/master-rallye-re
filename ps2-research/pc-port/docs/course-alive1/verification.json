@@ -1,0 +1,981 @@
+{
+ "schema_version": 1,
+ "phase": "COURSE-ALIVE1",
+ "asset_sha256": "3b1ae1cb33bbd8807ebd35a61e441c997e601ef34ab7347c87e2e6ef2729a8e8",
+ "overall": "PASS",
+ "checks": {
+  "asset_deterministic_and_pinned": {
+   "status": "PASS",
+   "sha256": "3b1ae1cb33bbd8807ebd35a61e441c997e601ef34ab7347c87e2e6ef2729a8e8",
+   "pinned": "3b1ae1cb33bbd8807ebd35a61e441c997e601ef34ab7347c87e2e6ef2729a8e8",
+   "bytes": 230496,
+   "on_disk_equal": true
+  },
+  "inventory_24_objects_17_courses": {
+   "status": "PASS",
+   "courses": 17,
+   "objects": 24,
+   "ambient1_applicability_rows": 24,
+   "ambient1_rows_matched": 24
+  },
+  "resources_equal_w5_models": {
+   "status": "PASS",
+   "models": {
+    "airship": {
+     "vertices_equal_w5_dx": true,
+     "textures_equal_w5_dxt": true,
+     "triangles": 120,
+     "ps2_triangles": 60,
+     "dx_sources": {
+      "airship.dx": "520e65d7d2c99b103a00eafc0e394c94bb90a6bdfa6ebc2540ef9757e9adbe76",
+      "whi-tga.dxt": "4faf43819ad0da7f33a05d71d49b950648dfbaaa9e7a57fba24469a91d307aa6"
+     }
+    },
+    "barge": {
+     "vertices_equal_w5_dx": true,
+     "textures_equal_w5_dxt": true,
+     "triangles": 162,
+     "ps2_triangles": 81,
+     "dx_sources": {
+      "barge.dx": "a8ce78182ef2b626ff789f9fef279d9c80137522c08d17c5b1c6db4ba21d4660",
+      "basegravelx-tga.dxt": "9575768b648b34ed800a53ea3df5739a1e11fe94289620ff58a42954d8c35cbe",
+      "plating2-tga.dxt": "0d50c0069481cb771d0a7f387e4ccd251bbb7812962a6f2eb645e8321bc8ffa6"
+     }
+    },
+    "bluedinghy": {
+     "vertices_equal_w5_dx": true,
+     "textures_equal_w5_dxt": true,
+     "triangles": 48,
+     "ps2_triangles": 24,
+     "dx_sources": {
+      "bluedinghy.dx": "13d7a346609c91802b76fceb786a7d22aa1e272efddae7daef34b74187a80895",
+      "din-tga.dxt": "c57158c9eb630f5300a8ce4ac70162157863dac5d5c9aebe24993918b60c8526"
+     }
+    },
+    "reddinghy": {
+     "vertices_equal_w5_dx": true,
+     "textures_equal_w5_dxt": true,
+     "triangles": 48,
+     "ps2_triangles": 24,
+     "dx_sources": {
+      "din-tga.dxt": "c57158c9eb630f5300a8ce4ac70162157863dac5d5c9aebe24993918b60c8526",
+      "reddinghy.dx": "a3fb08d456ae478a0443eaf6b81388159ede19bb5846367af73f31daa2a8475c"
+     }
+    }
+   }
+  },
+  "cpp_equals_ambient1_reference": {
+   "status": "PASS",
+   "invocations_compared": 480000,
+   "ticks_per_object": 20000,
+   "mismatches": 0,
+   "first": []
+  },
+  "bounds_loops_reinit": {
+   "status": "PASS",
+   "objects": {
+    "France1/boat1": {
+     "inside_control_box_plus_quarter_chord": true,
+     "closed_returns_to_marker0": true,
+     "reinit_identical": true,
+     "cycle_invocations": 6331
+    },
+    "France1/boat2": {
+     "inside_control_box_plus_quarter_chord": true,
+     "closed_returns_to_marker0": true,
+     "reinit_identical": true,
+     "cycle_invocations": 5468
+    },
+    "FranceM/zeppelin": {
+     "inside_control_box_plus_quarter_chord": true,
+     "closed_returns_to_marker0": true,
+     "reinit_identical": true,
+     "cycle_invocations": 7764
+    },
+    "FranceS2/boat1": {
+     "inside_control_box_plus_quarter_chord": true,
+     "closed_returns_to_marker0": true,
+     "reinit_identical": true,
+     "cycle_invocations": 4456
+    },
+    "FranceS2/boat2": {
+     "inside_control_box_plus_quarter_chord": true,
+     "closed_returns_to_marker0": true,
+     "reinit_identical": true,
+     "cycle_invocations": 2924
+    },
+    "FranceW/boat1": {
+     "inside_control_box_plus_quarter_chord": true,
+     "closed_returns_to_marker0": true,
+     "reinit_identical": true,
+     "cycle_invocations": 3069
+    },
+    "FranceW/boat2": {
+     "inside_control_box_plus_quarter_chord": true,
+     "closed_returns_to_marker0": true,
+     "reinit_identical": true,
+     "cycle_invocations": 3130
+    },
+    "FranceWFlip/boat1": {
+     "inside_control_box_plus_quarter_chord": true,
+     "closed_returns_to_marker0": true,
+     "reinit_identical": true,
+     "cycle_invocations": 3069
+    },
+    "FranceWFlip/boat2": {
+     "inside_control_box_plus_quarter_chord": true,
+     "closed_returns_to_marker0": true,
+     "reinit_identical": true,
+     "cycle_invocations": 3130
+    },
+    "Italy3/barge": {
+     "inside_control_box_plus_quarter_chord": true,
+     "open_holds_last_marker": true,
+     "reinit_identical": true,
+     "cycle_invocations": 15980
+    },
+    "ItalyS2/zeppelin": {
+     "inside_control_box_plus_quarter_chord": true,
+     "closed_returns_to_marker0": true,
+     "reinit_identical": true,
+     "cycle_invocations": 8333
+    },
+    "ItalyS3/boat": {
+     "inside_control_box_plus_quarter_chord": true,
+     "closed_returns_to_marker0": true,
+     "reinit_identical": true,
+     "cycle_invocations": 10943
+    },
+    "ItalyS3Flip/boat": {
+     "inside_control_box_plus_quarter_chord": true,
+     "closed_returns_to_marker0": true,
+     "reinit_identical": true,
+     "cycle_invocations": 10943
+    },
+    "ItalyS4/race zeppelin": {
+     "inside_control_box_plus_quarter_chord": true,
+     "closed_returns_to_marker0": true,
+     "reinit_identical": true,
+     "cycle_invocations": 11600
+    },
+    "ItalyW1/zeppelin": {
+     "inside_control_box_plus_quarter_chord": true,
+     "closed_returns_to_marker0": true,
+     "reinit_identical": true,
+     "cycle_invocations": 9430
+    },
+    "ItalyW2/boat": {
+     "inside_control_box_plus_quarter_chord": true,
+     "closed_returns_to_marker0": true,
+     "reinit_identical": true,
+     "cycle_invocations": 12459
+    },
+    "Spain2/boat": {
+     "inside_control_box_plus_quarter_chord": true,
+     "closed_returns_to_marker0": true,
+     "reinit_identical": true,
+     "cycle_invocations": 18304
+    },
+    "SpainS2/boat1": {
+     "inside_control_box_plus_quarter_chord": true,
+     "closed_returns_to_marker0": true,
+     "reinit_identical": true,
+     "cycle_invocations": 6925
+    },
+    "SpainS2/boat5": {
+     "inside_control_box_plus_quarter_chord": true,
+     "closed_returns_to_marker0": true,
+     "reinit_identical": true,
+     "cycle_invocations": 4009
+    },
+    "SpainW/boat1": {
+     "inside_control_box_plus_quarter_chord": true,
+     "closed_returns_to_marker0": true,
+     "reinit_identical": true,
+     "cycle_invocations": 6052
+    },
+    "SpainW/boat2": {
+     "inside_control_box_plus_quarter_chord": true,
+     "closed_returns_to_marker0": true,
+     "reinit_identical": true,
+     "cycle_invocations": 8224
+    },
+    "SpainWFlip/boat1": {
+     "inside_control_box_plus_quarter_chord": true,
+     "closed_returns_to_marker0": true,
+     "reinit_identical": true,
+     "cycle_invocations": 6052
+    },
+    "SpainWFlip/boat2": {
+     "inside_control_box_plus_quarter_chord": true,
+     "closed_returns_to_marker0": true,
+     "reinit_identical": true,
+     "cycle_invocations": 8224
+    },
+    "TurkeyW/barge": {
+     "inside_control_box_plus_quarter_chord": true,
+     "open_holds_last_marker": true,
+     "reinit_identical": true,
+     "cycle_invocations": 13831
+    }
+   }
+  },
+  "no_static_duplicates_and_guard": {
+   "status": "PASS",
+   "courses": {
+    "France1": {
+     "xml_has_no_spline_or_w5_egg": true,
+     "landscape_copies_near_route": [],
+     "package_dx_differs_from_retail": true,
+     "package_dx": "DataGx/Course/France1/france1.dx"
+    },
+    "FranceM": {
+     "xml_has_no_spline_or_w5_egg": true,
+     "landscape_copies_near_route": [],
+     "package_dx_differs_from_retail": true,
+     "package_dx": "DataGx/Course/France_M/francem.dx"
+    },
+    "FranceS2": {
+     "xml_has_no_spline_or_w5_egg": true,
+     "landscape_copies_near_route": [],
+     "package_dx_differs_from_retail": true,
+     "package_dx": "DataGx/Course/France_S2/frances2.dx"
+    },
+    "FranceW": {
+     "xml_has_no_spline_or_w5_egg": true,
+     "landscape_copies_near_route": [],
+     "package_dx_differs_from_retail": true,
+     "package_dx": "DataGx/Course/France_W/francew.dx"
+    },
+    "FranceWFlip": {
+     "xml_has_no_spline_or_w5_egg": true,
+     "landscape_copies_near_route": [],
+     "package_dx_differs_from_retail": true,
+     "package_dx": "DataGx/Course/France_W_flip/FranceW_flip.dx"
+    },
+    "Italy3": {
+     "xml_has_no_spline_or_w5_egg": true,
+     "landscape_copies_near_route": [],
+     "package_dx_differs_from_retail": true,
+     "package_dx": "DataGx/Course/Italy3/italy3.dx"
+    },
+    "ItalyS2": {
+     "xml_has_no_spline_or_w5_egg": true,
+     "landscape_copies_near_route": [],
+     "package_dx_differs_from_retail": true,
+     "package_dx": "DataGx/Course/Italy_S2/italy_s2.dx"
+    },
+    "ItalyS3": {
+     "xml_has_no_spline_or_w5_egg": true,
+     "landscape_copies_near_route": [],
+     "package_dx_differs_from_retail": true,
+     "package_dx": "DataGx/Course/Italy_S3/italy_s3.dx"
+    },
+    "ItalyS3Flip": {
+     "xml_has_no_spline_or_w5_egg": true,
+     "landscape_copies_near_route": [],
+     "package_dx_differs_from_retail": true,
+     "package_dx": "DataGx/Course/Italy_S3_flip/Italy_S3_flip.dx"
+    },
+    "ItalyS4": {
+     "xml_has_no_spline_or_w5_egg": true,
+     "landscape_copies_near_route": [],
+     "package_dx_differs_from_retail": true,
+     "package_dx": "DataGx/Course/Italy_S4/italy_s4.dx"
+    },
+    "ItalyW1": {
+     "xml_has_no_spline_or_w5_egg": true,
+     "landscape_copies_near_route": [],
+     "package_dx_differs_from_retail": true,
+     "package_dx": "DataGx/Course/Italy_W1/italy_w1.dx"
+    },
+    "ItalyW2": {
+     "xml_has_no_spline_or_w5_egg": true,
+     "landscape_copies_near_route": [],
+     "package_dx_differs_from_retail": true,
+     "package_dx": "DataGx/Course/Italy_W2/italy_w2.dx"
+    },
+    "Spain2": {
+     "xml_has_no_spline_or_w5_egg": true,
+     "landscape_copies_near_route": [],
+     "package_dx_differs_from_retail": true,
+     "package_dx": "DataGx/Course/Spain2/spain2.dx"
+    },
+    "SpainS2": {
+     "xml_has_no_spline_or_w5_egg": true,
+     "landscape_copies_near_route": [],
+     "package_dx_differs_from_retail": true,
+     "package_dx": "DataGx/Course/Spain_S2/spain_s2.dx"
+    },
+    "SpainW": {
+     "xml_has_no_spline_or_w5_egg": true,
+     "landscape_copies_near_route": [],
+     "package_dx_differs_from_retail": true,
+     "package_dx": "DataGx/Course/Spain_W/spain_w.dx"
+    },
+    "SpainWFlip": {
+     "xml_has_no_spline_or_w5_egg": true,
+     "landscape_copies_near_route": [],
+     "package_dx_differs_from_retail": true,
+     "package_dx": "DataGx/Course/Spain_W_flip/Spain_W_flip.dx"
+    },
+    "TurkeyW": {
+     "xml_has_no_spline_or_w5_egg": true,
+     "landscape_copies_near_route": [],
+     "package_dx_differs_from_retail": true,
+     "package_dx": "DataGx/Course/Turkey_w/turkey_w.dx"
+    }
+   }
+  }
+ },
+ "time_marks": {
+  "France1/boat1": {
+   "0s": {
+    "status": 0,
+    "time": 0.0,
+    "moved_from_start": 0.0
+   },
+   "10s": {
+    "status": 2,
+    "time": 15.0001,
+    "moved_from_start": 32.639
+   },
+   "60s": {
+    "status": 2,
+    "time": 98.3322,
+    "moved_from_start": 230.177
+   },
+   "120s": {
+    "status": 2,
+    "time": 198.3467,
+    "moved_from_start": 23.415
+   },
+   "300s": {
+    "status": 2,
+    "time": 76.1992,
+    "moved_from_start": 175.474
+   }
+  },
+  "France1/boat2": {
+   "0s": {
+    "status": 0,
+    "time": 0.0,
+    "moved_from_start": 0.0
+   },
+   "10s": {
+    "status": 2,
+    "time": 15.0001,
+    "moved_from_start": 31.114
+   },
+   "60s": {
+    "status": 2,
+    "time": 98.3322,
+    "moved_from_start": 239.153
+   },
+   "120s": {
+    "status": 2,
+    "time": 16.0668,
+    "moved_from_start": 34.762
+   },
+   "300s": {
+    "status": 2,
+    "time": 133.7996,
+    "moved_from_start": 133.858
+   }
+  },
+  "FranceM/zeppelin": {
+   "0s": {
+    "status": 0,
+    "time": 0.0,
+    "moved_from_start": 0.0
+   },
+   "10s": {
+    "status": 2,
+    "time": 15.0001,
+    "moved_from_start": 111.623
+   },
+   "60s": {
+    "status": 2,
+    "time": 98.3322,
+    "moved_from_start": 1230.78
+   },
+   "120s": {
+    "status": 2,
+    "time": 198.3467,
+    "moved_from_start": 859.034
+   },
+   "300s": {
+    "status": 2,
+    "time": 239.5222,
+    "moved_from_start": 179.287
+   }
+  },
+  "FranceS2/boat1": {
+   "0s": {
+    "status": 0,
+    "time": 0.0,
+    "moved_from_start": 0.0
+   },
+   "10s": {
+    "status": 2,
+    "time": 15.0001,
+    "moved_from_start": 34.145
+   },
+   "60s": {
+    "status": 2,
+    "time": 98.3322,
+    "moved_from_start": 133.094
+   },
+   "120s": {
+    "status": 2,
+    "time": 49.7663,
+    "moved_from_start": 156.934
+   },
+   "300s": {
+    "status": 2,
+    "time": 52.6329,
+    "moved_from_start": 167.411
+   }
+  },
+  "FranceS2/boat2": {
+   "0s": {
+    "status": 0,
+    "time": 0.0,
+    "moved_from_start": 0.0
+   },
+   "10s": {
+    "status": 2,
+    "time": 15.0001,
+    "moved_from_start": 32.88
+   },
+   "60s": {
+    "status": 2,
+    "time": 0.8333,
+    "moved_from_start": 2.222
+   },
+   "120s": {
+    "status": 2,
+    "time": 3.3333,
+    "moved_from_start": 8.964
+   },
+   "300s": {
+    "status": 2,
+    "time": 10.8334,
+    "moved_from_start": 26.07
+   }
+  },
+  "FranceW/boat1": {
+   "0s": {
+    "status": 0,
+    "time": 0.0,
+    "moved_from_start": 0.0
+   },
+   "10s": {
+    "status": 2,
+    "time": 15.0001,
+    "moved_from_start": 37.597
+   },
+   "60s": {
+    "status": 2,
+    "time": 98.3322,
+    "moved_from_start": 8.32
+   },
+   "120s": {
+    "status": 2,
+    "time": 95.9989,
+    "moved_from_start": 13.712
+   },
+   "300s": {
+    "status": 2,
+    "time": 88.999,
+    "moved_from_start": 29.03
+   }
+  },
+  "FranceW/boat2": {
+   "0s": {
+    "status": 0,
+    "time": 0.0,
+    "moved_from_start": 0.0
+   },
+   "10s": {
+    "status": 2,
+    "time": 15.0001,
+    "moved_from_start": 43.423
+   },
+   "60s": {
+    "status": 2,
+    "time": 98.3322,
+    "moved_from_start": 13.266
+   },
+   "120s": {
+    "status": 2,
+    "time": 93.9656,
+    "moved_from_start": 24.105
+   },
+   "300s": {
+    "status": 2,
+    "time": 80.8658,
+    "moved_from_start": 50.451
+   }
+  },
+  "FranceWFlip/boat1": {
+   "0s": {
+    "status": 0,
+    "time": 0.0,
+    "moved_from_start": 0.0
+   },
+   "10s": {
+    "status": 2,
+    "time": 15.0001,
+    "moved_from_start": 37.597
+   },
+   "60s": {
+    "status": 2,
+    "time": 98.3322,
+    "moved_from_start": 8.32
+   },
+   "120s": {
+    "status": 2,
+    "time": 95.9989,
+    "moved_from_start": 13.712
+   },
+   "300s": {
+    "status": 2,
+    "time": 88.999,
+    "moved_from_start": 29.03
+   }
+  },
+  "FranceWFlip/boat2": {
+   "0s": {
+    "status": 0,
+    "time": 0.0,
+    "moved_from_start": 0.0
+   },
+   "10s": {
+    "status": 2,
+    "time": 15.0001,
+    "moved_from_start": 43.423
+   },
+   "60s": {
+    "status": 2,
+    "time": 98.3322,
+    "moved_from_start": 13.266
+   },
+   "120s": {
+    "status": 2,
+    "time": 93.9656,
+    "moved_from_start": 24.105
+   },
+   "300s": {
+    "status": 2,
+    "time": 80.8658,
+    "moved_from_start": 50.451
+   }
+  },
+  "Italy3/barge": {
+   "0s": {
+    "status": 0,
+    "time": 0.0,
+    "moved_from_start": 0.0
+   },
+   "10s": {
+    "status": 1,
+    "time": 0.0,
+    "moved_from_start": 0.0
+   },
+   "60s": {
+    "status": 2,
+    "time": 81.6658,
+    "moved_from_start": 243.021
+   },
+   "120s": {
+    "status": 2,
+    "time": 181.6765,
+    "moved_from_start": 532.206
+   },
+   "300s": {
+    "status": 1,
+    "time": 381.6617,
+    "moved_from_start": 795.325
+   }
+  },
+  "ItalyS2/zeppelin": {
+   "0s": {
+    "status": 0,
+    "time": 0.0,
+    "moved_from_start": 0.0
+   },
+   "10s": {
+    "status": 2,
+    "time": 15.0001,
+    "moved_from_start": 119.026
+   },
+   "60s": {
+    "status": 2,
+    "time": 98.3322,
+    "moved_from_start": 1101.319
+   },
+   "120s": {
+    "status": 2,
+    "time": 198.3467,
+    "moved_from_start": 845.929
+   },
+   "300s": {
+    "status": 2,
+    "time": 220.5848,
+    "moved_from_start": 740.82
+   }
+  },
+  "ItalyS3/boat": {
+   "0s": {
+    "status": 0,
+    "time": 0.0,
+    "moved_from_start": 0.0
+   },
+   "10s": {
+    "status": 1,
+    "time": 0.0,
+    "moved_from_start": 0.0
+   },
+   "60s": {
+    "status": 2,
+    "time": 81.6658,
+    "moved_from_start": 191.698
+   },
+   "120s": {
+    "status": 2,
+    "time": 181.6765,
+    "moved_from_start": 442.679
+   },
+   "300s": {
+    "status": 2,
+    "time": 50.1996,
+    "moved_from_start": 53.799
+   }
+  },
+  "ItalyS3Flip/boat": {
+   "0s": {
+    "status": 0,
+    "time": 0.0,
+    "moved_from_start": 0.0
+   },
+   "10s": {
+    "status": 2,
+    "time": 15.0001,
+    "moved_from_start": 14.241
+   },
+   "60s": {
+    "status": 2,
+    "time": 98.3322,
+    "moved_from_start": 284.472
+   },
+   "120s": {
+    "status": 2,
+    "time": 198.3467,
+    "moved_from_start": 456.032
+   },
+   "300s": {
+    "status": 2,
+    "time": 133.5329,
+    "moved_from_start": 380.063
+   }
+  },
+  "ItalyS4/race zeppelin": {
+   "0s": {
+    "status": 0,
+    "time": 0.0,
+    "moved_from_start": 0.0
+   },
+   "10s": {
+    "status": 2,
+    "time": 15.0001,
+    "moved_from_start": 190.297
+   },
+   "60s": {
+    "status": 2,
+    "time": 98.3322,
+    "moved_from_start": 249.525
+   },
+   "120s": {
+    "status": 2,
+    "time": 198.3467,
+    "moved_from_start": 989.826
+   },
+   "300s": {
+    "status": 2,
+    "time": 111.632,
+    "moved_from_start": 314.849
+   }
+  },
+  "ItalyW1/zeppelin": {
+   "0s": {
+    "status": 0,
+    "time": 0.0,
+    "moved_from_start": 0.0
+   },
+   "10s": {
+    "status": 2,
+    "time": 15.0001,
+    "moved_from_start": 76.092
+   },
+   "60s": {
+    "status": 2,
+    "time": 98.3322,
+    "moved_from_start": 602.938
+   },
+   "120s": {
+    "status": 2,
+    "time": 198.3467,
+    "moved_from_start": 1312.329
+   },
+   "300s": {
+    "status": 2,
+    "time": 184.0103,
+    "moved_from_start": 1206.268
+   }
+  },
+  "ItalyW2/boat": {
+   "0s": {
+    "status": 0,
+    "time": 0.0,
+    "moved_from_start": 0.0
+   },
+   "10s": {
+    "status": 2,
+    "time": 15.0001,
+    "moved_from_start": 52.606
+   },
+   "60s": {
+    "status": 2,
+    "time": 98.3322,
+    "moved_from_start": 411.9
+   },
+   "120s": {
+    "status": 2,
+    "time": 198.3467,
+    "moved_from_start": 532.155
+   },
+   "300s": {
+    "status": 2,
+    "time": 82.9657,
+    "moved_from_start": 349.575
+   }
+  },
+  "Spain2/boat": {
+   "0s": {
+    "status": 0,
+    "time": 0.0,
+    "moved_from_start": 0.0
+   },
+   "10s": {
+    "status": 2,
+    "time": 15.0001,
+    "moved_from_start": 33.117
+   },
+   "60s": {
+    "status": 2,
+    "time": 98.3322,
+    "moved_from_start": 306.816
+   },
+   "120s": {
+    "status": 2,
+    "time": 198.3467,
+    "moved_from_start": 692.034
+   },
+   "300s": {
+    "status": 2,
+    "time": 498.2999,
+    "moved_from_start": 160.198
+   }
+  },
+  "SpainS2/boat1": {
+   "0s": {
+    "status": 0,
+    "time": 0.0,
+    "moved_from_start": 0.0
+   },
+   "10s": {
+    "status": 1,
+    "time": 0.0,
+    "moved_from_start": 0.0
+   },
+   "60s": {
+    "status": 2,
+    "time": 81.6658,
+    "moved_from_start": 102.319
+   },
+   "120s": {
+    "status": 1,
+    "time": 143.8018,
+    "moved_from_start": 594.209
+   },
+   "300s": {
+    "status": 1,
+    "time": 143.8018,
+    "moved_from_start": 594.209
+   }
+  },
+  "SpainS2/boat5": {
+   "0s": {
+    "status": 0,
+    "time": 0.0,
+    "moved_from_start": 0.0
+   },
+   "10s": {
+    "status": 1,
+    "time": 0.0,
+    "moved_from_start": 0.0
+   },
+   "60s": {
+    "status": 1,
+    "time": 0.0,
+    "moved_from_start": 0.0
+   },
+   "120s": {
+    "status": 1,
+    "time": 0.0,
+    "moved_from_start": 0.0
+   },
+   "300s": {
+    "status": 1,
+    "time": 0.0,
+    "moved_from_start": 0.0
+   }
+  },
+  "SpainW/boat1": {
+   "0s": {
+    "status": 0,
+    "time": 0.0,
+    "moved_from_start": 0.0
+   },
+   "10s": {
+    "status": 2,
+    "time": 15.0001,
+    "moved_from_start": 66.356
+   },
+   "60s": {
+    "status": 2,
+    "time": 98.3322,
+    "moved_from_start": 138.207
+   },
+   "120s": {
+    "status": 2,
+    "time": 198.3467,
+    "moved_from_start": 10.275
+   },
+   "300s": {
+    "status": 2,
+    "time": 94.7989,
+    "moved_from_start": 146.633
+   }
+  },
+  "SpainW/boat2": {
+   "0s": {
+    "status": 0,
+    "time": 0.0,
+    "moved_from_start": 0.0
+   },
+   "10s": {
+    "status": 2,
+    "time": 15.0001,
+    "moved_from_start": 21.424
+   },
+   "60s": {
+    "status": 2,
+    "time": 98.3322,
+    "moved_from_start": 227.618
+   },
+   "120s": {
+    "status": 2,
+    "time": 198.3467,
+    "moved_from_start": 202.261
+   },
+   "300s": {
+    "status": 2,
+    "time": 224.2189,
+    "moved_from_start": 153.334
+   }
+  },
+  "SpainWFlip/boat1": {
+   "0s": {
+    "status": 0,
+    "time": 0.0,
+    "moved_from_start": 0.0
+   },
+   "10s": {
+    "status": 2,
+    "time": 15.0001,
+    "moved_from_start": 66.356
+   },
+   "60s": {
+    "status": 2,
+    "time": 98.3322,
+    "moved_from_start": 138.207
+   },
+   "120s": {
+    "status": 2,
+    "time": 198.3467,
+    "moved_from_start": 10.275
+   },
+   "300s": {
+    "status": 2,
+    "time": 94.7989,
+    "moved_from_start": 146.633
+   }
+  },
+  "SpainWFlip/boat2": {
+   "0s": {
+    "status": 0,
+    "time": 0.0,
+    "moved_from_start": 0.0
+   },
+   "10s": {
+    "status": 2,
+    "time": 15.0001,
+    "moved_from_start": 21.424
+   },
+   "60s": {
+    "status": 2,
+    "time": 98.3322,
+    "moved_from_start": 227.618
+   },
+   "120s": {
+    "status": 2,
+    "time": 198.3467,
+    "moved_from_start": 202.261
+   },
+   "300s": {
+    "status": 2,
+    "time": 224.2189,
+    "moved_from_start": 153.334
+   }
+  },
+  "TurkeyW/barge": {
+   "0s": {
+    "status": 0,
+    "time": 0.0,
+    "moved_from_start": 0.0
+   },
+   "10s": {
+    "status": 2,
+    "time": 15.0001,
+    "moved_from_start": 39.945
+   },
+   "60s": {
+    "status": 2,
+    "time": 98.3322,
+    "moved_from_start": 289.766
+   },
+   "120s": {
+    "status": 2,
+    "time": 198.3467,
+    "moved_from_start": 538.22
+   },
+   "300s": {
+    "status": 2,
+    "time": 461.056,
+    "moved_from_start": 623.875
+   }
+  }
+ }
+}

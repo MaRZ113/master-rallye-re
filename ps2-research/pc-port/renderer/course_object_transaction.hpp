@@ -65,10 +65,14 @@ struct CourseObjectSavedState {
 
 // The existing object preview retains its original defaults. Grass explicitly
 // selects no depth writes and clamped sprite edges through the same transaction.
+// Spline objects (COURSE-ALIVE1) are opaque PS2 objects with fog (FGE 1): they turn
+// blending off and the native course fog on; fog mode, range and colour stay native.
 struct CourseObjectMaterialState {
     DWORD z_write=TRUE;
     DWORD address_u=D3DTADDRESS_WRAP;
     DWORD address_v=D3DTADDRESS_WRAP;
+    DWORD alpha_blend=TRUE;
+    DWORD fog=FALSE;
 };
 
 class CourseObjectTransaction {
@@ -186,7 +190,8 @@ public:
         const auto valid_address=[](DWORD v){return v==D3DTADDRESS_WRAP||v==D3DTADDRESS_CLAMP;};
         // A split pass applies its viewport first; only pending fixed states forbid an overlapping apply.
         if(!captured_||pending_||!texture||!finite(view)||!finite(projection)||
-           material.z_write>TRUE||!valid_address(material.address_u)||!valid_address(material.address_v)){
+           material.z_write>TRUE||material.alpha_blend>TRUE||material.fog>TRUE||
+           !valid_address(material.address_u)||!valid_address(material.address_v)){
             last_failure=E_INVALIDARG;return last_failure;
         }
         for(size_t i=0;i<kCourseObjectStateOps.size();++i){
@@ -194,6 +199,8 @@ public:
             if(op.kind==CourseObjectStateKind::Stream)continue; // UP owns this side effect.
             CourseObjectSavedState desired{};desired.scalar=op.preview;
             if(op.kind==CourseObjectStateKind::Render&&op.key==D3DRS_ZWRITEENABLE)desired.scalar=material.z_write;
+            if(op.kind==CourseObjectStateKind::Render&&op.key==D3DRS_ALPHABLENDENABLE)desired.scalar=material.alpha_blend;
+            if(op.kind==CourseObjectStateKind::Render&&op.key==D3DRS_FOGENABLE)desired.scalar=material.fog;
             if(op.kind==CourseObjectStateKind::Stage&&op.key==D3DTSS_ADDRESSU)desired.scalar=material.address_u;
             if(op.kind==CourseObjectStateKind::Stage&&op.key==D3DTSS_ADDRESSV)desired.scalar=material.address_v;
             bool changed=saved_[i].scalar!=desired.scalar;

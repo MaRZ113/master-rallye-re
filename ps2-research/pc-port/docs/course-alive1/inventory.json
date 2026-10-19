@@ -1,0 +1,1162 @@
+{
+ "schema_version": 1,
+ "phase": "COURSE-ALIVE1",
+ "asset": "PS2SplineObjects.ps2spl",
+ "asset_sha256": "3b1ae1cb33bbd8807ebd35a61e441c997e601ef34ab7347c87e2e6ef2729a8e8",
+ "tick_contract": {
+  "nominal_increment_s": "1/30 (float32 0x3d088889) per controller invocation",
+  "invocations_per_second": 50,
+  "evidence": "EE main loop 3ed9e0 -> 2a13e0 -> 2a2300 -> 21f088 once per rendered frame; PS2 PAL frame 50 Hz (diag-reflection2 GS dumps)"
+ },
+ "courses": 17,
+ "objects": 24,
+ "models": {
+  "airship": {
+   "ps2_model": "misc\\airship\\airship",
+   "ps2_triangles": 60,
+   "dx_triangles_per_draw": [
+    120
+   ],
+   "two_sided_copies": true,
+   "bounding_radius": 15.276,
+   "textures": [
+    {
+     "file": "whi-tga.dxt",
+     "ps2_texture": "stamp_01-tga",
+     "pc_source": "white 8x8 ($shader(notexture): vertex colour only, read from the shader name)"
+    }
+   ],
+   "source_sha256": {
+    "airship.dx": "520e65d7d2c99b103a00eafc0e394c94bb90a6bdfa6ebc2540ef9757e9adbe76",
+    "whi-tga.dxt": "4faf43819ad0da7f33a05d71d49b950648dfbaaa9e7a57fba24469a91d307aa6"
+   }
+  },
+  "barge": {
+   "ps2_model": "misc\\barge\\barge",
+   "ps2_triangles": 81,
+   "dx_triangles_per_draw": [
+    66,
+    96
+   ],
+   "two_sided_copies": true,
+   "bounding_radius": 56.715,
+   "textures": [
+    {
+     "file": "basegravelx-tga.dxt",
+     "ps2_texture": "basegravel-tga",
+     "pc_source": "DataGx\\Course\\Turkey1\\basegravel-tga.dxt"
+    },
+    {
+     "file": "plating2-tga.dxt",
+     "ps2_texture": "plating2-tga",
+     "pc_source": "DataGx\\Course\\Turkey2\\plating2-tga.dxt"
+    }
+   ],
+   "source_sha256": {
+    "barge.dx": "a8ce78182ef2b626ff789f9fef279d9c80137522c08d17c5b1c6db4ba21d4660",
+    "basegravelx-tga.dxt": "9575768b648b34ed800a53ea3df5739a1e11fe94289620ff58a42954d8c35cbe",
+    "plating2-tga.dxt": "0d50c0069481cb771d0a7f387e4ccd251bbb7812962a6f2eb645e8321bc8ffa6"
+   }
+  },
+  "bluedinghy": {
+   "ps2_model": "misc\\objects\\dinghys\\bluedinghy",
+   "ps2_triangles": 24,
+   "dx_triangles_per_draw": [
+    48
+   ],
+   "two_sided_copies": true,
+   "bounding_radius": 8.346,
+   "textures": [
+    {
+     "file": "din-tga.dxt",
+     "ps2_texture": "dinghy-tga",
+     "pc_source": "DataGx\\Course\\France1\\dinghy-tga.dxt"
+    }
+   ],
+   "source_sha256": {
+    "bluedinghy.dx": "13d7a346609c91802b76fceb786a7d22aa1e272efddae7daef34b74187a80895",
+    "din-tga.dxt": "c57158c9eb630f5300a8ce4ac70162157863dac5d5c9aebe24993918b60c8526"
+   }
+  },
+  "reddinghy": {
+   "ps2_model": "misc\\objects\\dinghys\\reddinghy",
+   "ps2_triangles": 24,
+   "dx_triangles_per_draw": [
+    48
+   ],
+   "two_sided_copies": true,
+   "bounding_radius": 8.346,
+   "textures": [
+    {
+     "file": "din-tga.dxt",
+     "ps2_texture": "dinghy-tga",
+     "pc_source": "DataGx\\Course\\France1\\dinghy-tga.dxt"
+    }
+   ],
+   "source_sha256": {
+    "din-tga.dxt": "c57158c9eb630f5300a8ce4ac70162157863dac5d5c9aebe24993918b60c8526",
+    "reddinghy.dx": "a3fb08d456ae478a0443eaf6b81388159ede19bb5846367af73f31daa2a8475c"
+   }
+  }
+ },
+ "by_course": [
+  {
+   "course": "France1",
+   "course_id": "RaceTest/France1",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\FRANCE1.XML",
+   "ps2_xml_sha256": "fc7c3e5aec9f0aa753be0bbabd158da826b8331f5e6327949c96066352c4c437",
+   "pc_dx_path": "DataGx/Course/France1/france1.dx",
+   "retail_pc_dx_sha256": "a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5",
+   "objects": [
+    {
+     "egg": "boat1",
+     "occurrence": 0,
+     "ps2_model": "misc\\objects\\dinghys\\reddinghy",
+     "pc_model": "reddinghy",
+     "marker_list": "boatlist1",
+     "route_sha256": "1d1aa4ebd0b3725eb1f3e1e30c910bcf9d3480bf9de41aace4a42bf6d9621cc1",
+     "route_points": 6,
+     "config": {
+      "use_const_speed": true,
+      "use_closed_loop": true,
+      "use_trigger_system": false,
+      "max_speed_const_speed": 2.5,
+      "trigger_dist_on": 200.0,
+      "trigger_dist_off": 600.0,
+      "use_rest_on_nonloop": true,
+      "rest_ticks": 9000,
+      "banking": 0.0,
+      "number_of_samples": 30
+     },
+     "open_route_length": 464.673,
+     "closing_chord": 62.952,
+     "closing_time": 25.180919647216797,
+     "duration_nominal_s": 211.04994201660156,
+     "cycle_ticks": 6332,
+     "cycle_seconds_at_50hz": 126.64,
+     "route_y_constant": true,
+     "behaviour": "closed loop, chord/speed knot times, authored rest ignored (closed branch)",
+     "authored_matrix_identity_basis": true,
+     "egg_flags": {
+      "Freezable": "True",
+      "Hitable": "True",
+      "en3d Interpolated": "True",
+      "en3d Visible": "True",
+      "en3d ZBuffered": "True"
+     }
+    },
+    {
+     "egg": "boat2",
+     "occurrence": 0,
+     "ps2_model": "misc\\objects\\dinghys\\bluedinghy",
+     "pc_model": "bluedinghy",
+     "marker_list": "boatlist2",
+     "route_sha256": "b30df53b37d453e3e7bf759fc9f1e1a2c20a30cbe1df4aa1226ed0701455005d",
+     "route_points": 4,
+     "config": {
+      "use_const_speed": true,
+      "use_closed_loop": true,
+      "use_trigger_system": false,
+      "max_speed_const_speed": 2.700000047683716,
+      "trigger_dist_on": 200.0,
+      "trigger_dist_off": 600.0,
+      "use_rest_on_nonloop": false,
+      "rest_ticks": 0,
+      "banking": 0.0,
+      "number_of_samples": 30
+     },
+     "open_route_length": 275.194,
+     "closing_chord": 216.946,
+     "closing_time": 80.3504867553711,
+     "duration_nominal_s": 182.27427673339844,
+     "cycle_ticks": 5469,
+     "cycle_seconds_at_50hz": 109.38,
+     "route_y_constant": true,
+     "behaviour": "closed loop, chord/speed knot times",
+     "authored_matrix_identity_basis": true,
+     "egg_flags": {
+      "Freezable": "True",
+      "Hitable": "True",
+      "en3d Interpolated": "True",
+      "en3d Visible": "True",
+      "en3d ZBuffered": "True"
+     }
+    }
+   ]
+  },
+  {
+   "course": "FranceM",
+   "course_id": "RaceTest/FranceM",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\FRANCEM.XML",
+   "ps2_xml_sha256": "b9d4d752f181b0915b1fa82a4eebc48d25dbb1287a92007bf0a8968aae77c780",
+   "pc_dx_path": "DataGx/Course/France_M/francem.dx",
+   "retail_pc_dx_sha256": "50e76cf51d279531f9e5188145657aaa12bed30d8f88d27e7614eec0a97b56ce",
+   "objects": [
+    {
+     "egg": "zeppelin",
+     "occurrence": 0,
+     "ps2_model": "misc\\airship\\airship",
+     "pc_model": "airship",
+     "marker_list": "zeppelin",
+     "route_sha256": "701515344711a732c384f32b60d6986a1712f1c3d5fc49435ceebb9e9de50523",
+     "route_points": 4,
+     "config": {
+      "use_const_speed": false,
+      "use_closed_loop": true,
+      "use_trigger_system": false,
+      "max_speed_const_speed": 12.0,
+      "trigger_dist_on": 200.0,
+      "trigger_dist_off": 600.0,
+      "use_rest_on_nonloop": false,
+      "rest_ticks": 0,
+      "banking": 0.0,
+      "number_of_samples": 30
+     },
+     "open_route_length": 2198.368,
+     "closing_chord": 907.595,
+     "closing_time": 64.7075424194336,
+     "duration_nominal_s": 258.8301696777344,
+     "cycle_ticks": 7765,
+     "cycle_seconds_at_50hz": 155.3,
+     "route_y_constant": true,
+     "behaviour": "closed loop, equal knot times",
+     "authored_matrix_identity_basis": true,
+     "egg_flags": {
+      "Freezable": "True",
+      "Hitable": "True",
+      "en3d Interpolated": "True",
+      "en3d Visible": "True",
+      "en3d ZBuffered": "True"
+     }
+    }
+   ]
+  },
+  {
+   "course": "FranceS2",
+   "course_id": "RaceTest/FranceS2",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\FRANCES2.XML",
+   "ps2_xml_sha256": "61f18daf5146c79f21334708a195fe72f0f79cfc4e8282e3fb95ac9d20c64c1e",
+   "pc_dx_path": "DataGx/Course/France_S2/frances2.dx",
+   "retail_pc_dx_sha256": "26664bd12844fd179ac0ef61379f65a301f2da7b0c234d671b670407ee396809",
+   "objects": [
+    {
+     "egg": "boat1",
+     "occurrence": 0,
+     "ps2_model": "misc\\objects\\dinghys\\reddinghy",
+     "pc_model": "reddinghy",
+     "marker_list": "boat1list",
+     "route_sha256": "84caabdbf559670165efc4809b7cd9e16a2bfd746b6b55800470e654f8398062",
+     "route_points": 6,
+     "config": {
+      "use_const_speed": true,
+      "use_closed_loop": true,
+      "use_trigger_system": false,
+      "max_speed_const_speed": 3.0,
+      "trigger_dist_on": 200.0,
+      "trigger_dist_off": 600.0,
+      "use_rest_on_nonloop": false,
+      "rest_ticks": 0,
+      "banking": 0.0,
+      "number_of_samples": 30
+     },
+     "open_route_length": 374.929,
+     "closing_chord": 70.754,
+     "closing_time": 23.58477210998535,
+     "duration_nominal_s": 148.56112670898438,
+     "cycle_ticks": 4457,
+     "cycle_seconds_at_50hz": 89.14,
+     "route_y_constant": true,
+     "behaviour": "closed loop, chord/speed knot times",
+     "authored_matrix_identity_basis": true,
+     "egg_flags": {
+      "Freezable": "True",
+      "Hitable": "True",
+      "en3d Interpolated": "True",
+      "en3d Visible": "True",
+      "en3d ZBuffered": "True"
+     }
+    },
+    {
+     "egg": "boat2",
+     "occurrence": 0,
+     "ps2_model": "misc\\objects\\dinghys\\bluedinghy",
+     "pc_model": "bluedinghy",
+     "marker_list": "boat2list",
+     "route_sha256": "042e0af8e0b44a0e8d14844b818812134c37c95eaee0be6ac65b2adaf9d9856b",
+     "route_points": 7,
+     "config": {
+      "use_const_speed": true,
+      "use_closed_loop": true,
+      "use_trigger_system": false,
+      "max_speed_const_speed": 2.5,
+      "trigger_dist_on": 200.0,
+      "trigger_dist_off": 600.0,
+      "use_rest_on_nonloop": false,
+      "rest_ticks": 0,
+      "banking": 0.0,
+      "number_of_samples": 30
+     },
+     "open_route_length": 207.38,
+     "closing_chord": 36.318,
+     "closing_time": 14.527200698852539,
+     "duration_nominal_s": 97.4792251586914,
+     "cycle_ticks": 2925,
+     "cycle_seconds_at_50hz": 58.5,
+     "route_y_constant": true,
+     "behaviour": "closed loop, chord/speed knot times",
+     "authored_matrix_identity_basis": true,
+     "egg_flags": {
+      "Freezable": "True",
+      "Hitable": "True",
+      "en3d Interpolated": "True",
+      "en3d Visible": "True",
+      "en3d ZBuffered": "True"
+     }
+    }
+   ]
+  },
+  {
+   "course": "FranceW",
+   "course_id": "RaceTest/FranceW",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\FRANCEW.XML",
+   "ps2_xml_sha256": "6584be244c0081dff1b11ae41f4a30da1905adcd99d753e5a921c2c1f27e1bef",
+   "pc_dx_path": "DataGx/Course/France_W/francew.dx",
+   "retail_pc_dx_sha256": "8c5392b7583760828ae1a4d5780aa67f3612fd7a13dfaba9fe540a2300f46f88",
+   "objects": [
+    {
+     "egg": "boat1",
+     "occurrence": 0,
+     "ps2_model": "misc\\objects\\dinghys\\bluedinghy",
+     "pc_model": "bluedinghy",
+     "marker_list": "boat1",
+     "route_sha256": "27cb82033007e4d274e94774f17870cb7ac8b6a8eedc7086df7eb142edd564c7",
+     "route_points": 6,
+     "config": {
+      "use_const_speed": false,
+      "use_closed_loop": true,
+      "use_trigger_system": false,
+      "max_speed_const_speed": 3.0,
+      "trigger_dist_on": 200.0,
+      "trigger_dist_off": 600.0,
+      "use_rest_on_nonloop": false,
+      "rest_ticks": 0,
+      "banking": 0.30000001192092896,
+      "number_of_samples": 30
+     },
+     "open_route_length": 272.657,
+     "closing_chord": 34.311,
+     "closing_time": 17.053770065307617,
+     "duration_nominal_s": 102.32262420654297,
+     "cycle_ticks": 3070,
+     "cycle_seconds_at_50hz": 61.4,
+     "route_y_constant": true,
+     "behaviour": "closed loop, equal knot times, banking 0.3 over 30 samples",
+     "authored_matrix_identity_basis": true,
+     "egg_flags": {
+      "Freezable": "True",
+      "Hitable": "True",
+      "en3d Interpolated": "True",
+      "en3d Visible": "True",
+      "en3d ZBuffered": "True"
+     }
+    },
+    {
+     "egg": "boat2",
+     "occurrence": 0,
+     "ps2_model": "misc\\objects\\dinghys\\reddinghy",
+     "pc_model": "reddinghy",
+     "marker_list": "boat2",
+     "route_sha256": "819fc454e312a3af795ae10dcf4467efc79741d5d5dc2b624d6d956fb372575f",
+     "route_points": 4,
+     "config": {
+      "use_const_speed": false,
+      "use_closed_loop": true,
+      "use_trigger_system": false,
+      "max_speed_const_speed": 3.0,
+      "trigger_dist_on": 200.0,
+      "trigger_dist_off": 600.0,
+      "use_rest_on_nonloop": false,
+      "rest_ticks": 0,
+      "banking": 0.30000001192092896,
+      "number_of_samples": 30
+     },
+     "open_route_length": 260.156,
+     "closing_chord": 52.907,
+     "closing_time": 26.088600158691406,
+     "duration_nominal_s": 104.35440063476562,
+     "cycle_ticks": 3131,
+     "cycle_seconds_at_50hz": 62.62,
+     "route_y_constant": true,
+     "behaviour": "closed loop, equal knot times, banking 0.3 over 30 samples",
+     "authored_matrix_identity_basis": true,
+     "egg_flags": {
+      "Freezable": "True",
+      "Hitable": "True",
+      "en3d Interpolated": "True",
+      "en3d Visible": "True",
+      "en3d ZBuffered": "True"
+     }
+    }
+   ]
+  },
+  {
+   "course": "FranceWFlip",
+   "course_id": "RaceTest/FranceWFlip",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\FRANCEWFLIP.XML",
+   "ps2_xml_sha256": "6615efe8ff52dacb7b0312576e27f1404a7ba37edb90d388c8c833876ec772ee",
+   "pc_dx_path": "DataGx/Course/France_W_flip/FranceW_flip.dx",
+   "retail_pc_dx_sha256": "9ed7bfdf16eef35ce3e46aeb38ed87b980005dab11639c6dd116421997368779",
+   "objects": [
+    {
+     "egg": "boat1",
+     "occurrence": 0,
+     "ps2_model": "misc\\objects\\dinghys\\bluedinghy",
+     "pc_model": "bluedinghy",
+     "marker_list": "boat1",
+     "route_sha256": "27cb82033007e4d274e94774f17870cb7ac8b6a8eedc7086df7eb142edd564c7",
+     "route_points": 6,
+     "config": {
+      "use_const_speed": false,
+      "use_closed_loop": true,
+      "use_trigger_system": false,
+      "max_speed_const_speed": 3.0,
+      "trigger_dist_on": 200.0,
+      "trigger_dist_off": 600.0,
+      "use_rest_on_nonloop": false,
+      "rest_ticks": 0,
+      "banking": 0.30000001192092896,
+      "number_of_samples": 30
+     },
+     "open_route_length": 272.657,
+     "closing_chord": 34.311,
+     "closing_time": 17.053770065307617,
+     "duration_nominal_s": 102.32262420654297,
+     "cycle_ticks": 3070,
+     "cycle_seconds_at_50hz": 61.4,
+     "route_y_constant": true,
+     "behaviour": "closed loop, equal knot times, banking 0.3 over 30 samples",
+     "authored_matrix_identity_basis": true,
+     "egg_flags": {
+      "Freezable": "True",
+      "Hitable": "True",
+      "en3d Interpolated": "True",
+      "en3d Visible": "True",
+      "en3d ZBuffered": "True"
+     }
+    },
+    {
+     "egg": "boat2",
+     "occurrence": 0,
+     "ps2_model": "misc\\objects\\dinghys\\reddinghy",
+     "pc_model": "reddinghy",
+     "marker_list": "boat2",
+     "route_sha256": "819fc454e312a3af795ae10dcf4467efc79741d5d5dc2b624d6d956fb372575f",
+     "route_points": 4,
+     "config": {
+      "use_const_speed": false,
+      "use_closed_loop": true,
+      "use_trigger_system": false,
+      "max_speed_const_speed": 3.0,
+      "trigger_dist_on": 200.0,
+      "trigger_dist_off": 600.0,
+      "use_rest_on_nonloop": false,
+      "rest_ticks": 0,
+      "banking": 0.30000001192092896,
+      "number_of_samples": 30
+     },
+     "open_route_length": 260.156,
+     "closing_chord": 52.907,
+     "closing_time": 26.088600158691406,
+     "duration_nominal_s": 104.35440063476562,
+     "cycle_ticks": 3131,
+     "cycle_seconds_at_50hz": 62.62,
+     "route_y_constant": true,
+     "behaviour": "closed loop, equal knot times, banking 0.3 over 30 samples",
+     "authored_matrix_identity_basis": true,
+     "egg_flags": {
+      "Freezable": "True",
+      "Hitable": "True",
+      "en3d Interpolated": "True",
+      "en3d Visible": "True",
+      "en3d ZBuffered": "True"
+     }
+    }
+   ]
+  },
+  {
+   "course": "Italy3",
+   "course_id": "RaceTest/Italy3",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\ITALY3.XML",
+   "ps2_xml_sha256": "4906b90b90560a73df3b73ed11b5fd536accbdd1a02d1f599531c694902a5cee",
+   "pc_dx_path": "DataGx/Course/Italy3/italy3.dx",
+   "retail_pc_dx_sha256": "4c97fc6faf743adb2c356da8c04851cd25fe91e5951be536b673c589819d3daa",
+   "objects": [
+    {
+     "egg": "barge",
+     "occurrence": 0,
+     "ps2_model": "misc\\barge\\barge",
+     "pc_model": "barge",
+     "marker_list": "barge",
+     "route_sha256": "5595448dfa96e41464a09a63b9497dd29e956b863ff8ba91c0958a94f4234e00",
+     "route_points": 11,
+     "config": {
+      "use_const_speed": true,
+      "use_closed_loop": false,
+      "use_trigger_system": true,
+      "max_speed_const_speed": 3.0,
+      "trigger_dist_on": 400.0,
+      "trigger_dist_off": 1000.0,
+      "use_rest_on_nonloop": false,
+      "rest_ticks": 0,
+      "banking": 0.0,
+      "number_of_samples": 30
+     },
+     "open_route_length": 802.751,
+     "closing_chord": 795.325,
+     "closing_time": 265.1084289550781,
+     "duration_nominal_s": 532.6920166015625,
+     "cycle_ticks": 15981,
+     "cycle_seconds_at_50hz": 319.62,
+     "route_y_constant": true,
+     "behaviour": "open route, chord/speed knot times, trigger on<400 off>1000 (Car0 XZ), endpoint hold 265.11 nominal s, stays at the last marker",
+     "authored_matrix_identity_basis": true,
+     "egg_flags": {
+      "Freezable": "True",
+      "Hitable": "True",
+      "en3d Interpolated": "True",
+      "en3d Visible": "True",
+      "en3d ZBuffered": "True"
+     }
+    }
+   ]
+  },
+  {
+   "course": "ItalyS2",
+   "course_id": "RaceTest/ItalyS2",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\ITALYS2.XML",
+   "ps2_xml_sha256": "e43d3a14d063814590a582e5d968b6f04c7b68d75e5e4b3c8240c2c822161957",
+   "pc_dx_path": "DataGx/Course/Italy_S2/italy_s2.dx",
+   "retail_pc_dx_sha256": "c3f3d6b7fc579d17852afae66dcb915562741657cfbf0d84a78cdf15c525b4cf",
+   "objects": [
+    {
+     "egg": "zeppelin",
+     "occurrence": 0,
+     "ps2_model": "misc\\airship\\airship",
+     "pc_model": "airship",
+     "marker_list": "zeppelin",
+     "route_sha256": "89130340dcfc380415a73d111d2a7457e0ea6d1d02e6c809655844d817e77eeb",
+     "route_points": 6,
+     "config": {
+      "use_const_speed": false,
+      "use_closed_loop": true,
+      "use_trigger_system": false,
+      "max_speed_const_speed": 12.0,
+      "trigger_dist_on": 200.0,
+      "trigger_dist_off": 600.0,
+      "use_rest_on_nonloop": false,
+      "rest_ticks": 0,
+      "banking": 0.0,
+      "number_of_samples": 30
+     },
+     "open_route_length": 2655.872,
+     "closing_chord": 677.342,
+     "closing_time": 46.29462814331055,
+     "duration_nominal_s": 277.76776123046875,
+     "cycle_ticks": 8334,
+     "cycle_seconds_at_50hz": 166.68,
+     "route_y_constant": true,
+     "behaviour": "closed loop, equal knot times",
+     "authored_matrix_identity_basis": true,
+     "egg_flags": {
+      "Freezable": "True",
+      "Hitable": "True",
+      "en3d Interpolated": "True",
+      "en3d Visible": "True",
+      "en3d ZBuffered": "True"
+     }
+    }
+   ]
+  },
+  {
+   "course": "ItalyS3",
+   "course_id": "RaceTest/ItalyS3",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\ITALYS3.XML",
+   "ps2_xml_sha256": "d5e5d88c50cd641b97058dd74dcb07ab9b349c49bcf7f9bab59cd70a27ad4ff8",
+   "pc_dx_path": "DataGx/Course/Italy_S3/italy_s3.dx",
+   "retail_pc_dx_sha256": "fccd6344d5c9c4bd1d3b25c2d1d4da6375e049e7d5a188e0c9f7c6cf194940df",
+   "objects": [
+    {
+     "egg": "boat",
+     "occurrence": 0,
+     "ps2_model": "misc\\objects\\dinghys\\bluedinghy",
+     "pc_model": "bluedinghy",
+     "marker_list": "boat1",
+     "route_sha256": "2d68d62db3ac87a511558c86f301ec2098b6b3a286d45a3b12c27fa971597f04",
+     "route_points": 7,
+     "config": {
+      "use_const_speed": false,
+      "use_closed_loop": true,
+      "use_trigger_system": true,
+      "max_speed_const_speed": 3.0,
+      "trigger_dist_on": 300.0,
+      "trigger_dist_off": 1200.0,
+      "use_rest_on_nonloop": false,
+      "rest_ticks": 0,
+      "banking": 0.05000000074505806,
+      "number_of_samples": 30
+     },
+     "open_route_length": 986.706,
+     "closing_chord": 107.69,
+     "closing_time": 52.11411666870117,
+     "duration_nominal_s": 364.7987976074219,
+     "cycle_ticks": 10944,
+     "cycle_seconds_at_50hz": 218.88,
+     "route_y_constant": true,
+     "behaviour": "closed loop, equal knot times, trigger on<300 off>1200 (Car0 XZ), banking 0.05 over 30 samples",
+     "authored_matrix_identity_basis": true,
+     "egg_flags": {
+      "Freezable": "True",
+      "Hitable": "True",
+      "en3d Interpolated": "True",
+      "en3d Visible": "True",
+      "en3d ZBuffered": "True"
+     }
+    }
+   ]
+  },
+  {
+   "course": "ItalyS3Flip",
+   "course_id": "RaceTest/ItalyS3Flip",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\ITALYS3FLIP.XML",
+   "ps2_xml_sha256": "ba5fae57e1b1cb0ed46b4b75ed6609d078ef5632384ce5da4ab06ccb1e3e338d",
+   "pc_dx_path": "DataGx/Course/Italy_S3_flip/Italy_S3_flip.dx",
+   "retail_pc_dx_sha256": "f6c534feae3498b2943663573001a87f5096af060bd7cda4c9e2a3a14bf7644a",
+   "objects": [
+    {
+     "egg": "boat",
+     "occurrence": 0,
+     "ps2_model": "misc\\objects\\dinghys\\bluedinghy",
+     "pc_model": "bluedinghy",
+     "marker_list": "boat1",
+     "route_sha256": "2d68d62db3ac87a511558c86f301ec2098b6b3a286d45a3b12c27fa971597f04",
+     "route_points": 7,
+     "config": {
+      "use_const_speed": false,
+      "use_closed_loop": true,
+      "use_trigger_system": false,
+      "max_speed_const_speed": 3.0,
+      "trigger_dist_on": 300.0,
+      "trigger_dist_off": 1200.0,
+      "use_rest_on_nonloop": false,
+      "rest_ticks": 0,
+      "banking": 0.20000000298023224,
+      "number_of_samples": 30
+     },
+     "open_route_length": 986.706,
+     "closing_chord": 107.69,
+     "closing_time": 52.11411666870117,
+     "duration_nominal_s": 364.7987976074219,
+     "cycle_ticks": 10944,
+     "cycle_seconds_at_50hz": 218.88,
+     "route_y_constant": true,
+     "behaviour": "closed loop, equal knot times, banking 0.2 over 30 samples",
+     "authored_matrix_identity_basis": true,
+     "egg_flags": {
+      "Freezable": "True",
+      "Hitable": "True",
+      "en3d Interpolated": "True",
+      "en3d Visible": "True",
+      "en3d ZBuffered": "True"
+     }
+    }
+   ]
+  },
+  {
+   "course": "ItalyS4",
+   "course_id": "RaceTest/ItalyS4",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML",
+   "ps2_xml_sha256": "2d7249f24e6556c13be8f38027b1df22bd1e49d94b81ccfabbb6f61420a13e1a",
+   "pc_dx_path": "DataGx/Course/Italy_S4/italy_s4.dx",
+   "retail_pc_dx_sha256": "bde1528ff5cdd7c4d831f6b31b4065170b98de06ab06db26f29ccfd38920aba9",
+   "objects": [
+    {
+     "egg": "race zeppelin",
+     "occurrence": 0,
+     "ps2_model": "misc\\airship\\airship",
+     "pc_model": "airship",
+     "marker_list": "zeppelin",
+     "route_sha256": "4240131c1d136e5fc90520e26a34d7eb3457c6fbb67d19ebf7cc0b863ea2823d",
+     "route_points": 9,
+     "config": {
+      "use_const_speed": true,
+      "use_closed_loop": true,
+      "use_trigger_system": false,
+      "max_speed_const_speed": 9.0,
+      "trigger_dist_on": 500.0,
+      "trigger_dist_off": 3000.0,
+      "use_rest_on_nonloop": false,
+      "rest_ticks": 0,
+      "banking": 0.0,
+      "number_of_samples": 30
+     },
+     "open_route_length": 2183.17,
+     "closing_chord": 1297.048,
+     "closing_time": 144.11648559570312,
+     "duration_nominal_s": 386.6908874511719,
+     "cycle_ticks": 11601,
+     "cycle_seconds_at_50hz": 232.02,
+     "route_y_constant": true,
+     "behaviour": "closed loop, chord/speed knot times",
+     "authored_matrix_identity_basis": true,
+     "egg_flags": {
+      "Freezable": "True",
+      "Hitable": "True",
+      "en3d Interpolated": "True",
+      "en3d Visible": "True",
+      "en3d ZBuffered": "True"
+     }
+    }
+   ]
+  },
+  {
+   "course": "ItalyW1",
+   "course_id": "RaceTest/ItalyW1",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML",
+   "ps2_xml_sha256": "d9461c464e967d52773aeaf691520d6ef0b130f062d8b9590d17bd9fc0110af0",
+   "pc_dx_path": "DataGx/Course/Italy_W1/italy_w1.dx",
+   "retail_pc_dx_sha256": "fcad9da53b7d436d79e9d9322276e98aa5039376e091a487b85d30ac1b3ae7d2",
+   "objects": [
+    {
+     "egg": "zeppelin",
+     "occurrence": 0,
+     "ps2_model": "misc\\airship\\airship",
+     "pc_model": "airship",
+     "marker_list": "zeppelin",
+     "route_sha256": "0c3c6d6fd371d979fb08ee05b72c9b7188cb069e3d44c84abfbd641f00fc13b3",
+     "route_points": 4,
+     "config": {
+      "use_const_speed": false,
+      "use_closed_loop": true,
+      "use_trigger_system": false,
+      "max_speed_const_speed": 10.0,
+      "trigger_dist_on": 200.0,
+      "trigger_dist_off": 600.0,
+      "use_rest_on_nonloop": false,
+      "rest_ticks": 0,
+      "banking": 0.0,
+      "number_of_samples": 30
+     },
+     "open_route_length": 1760.499,
+     "closing_chord": 1382.923,
+     "closing_time": 78.58555603027344,
+     "duration_nominal_s": 314.34222412109375,
+     "cycle_ticks": 9431,
+     "cycle_seconds_at_50hz": 188.62,
+     "route_y_constant": true,
+     "behaviour": "closed loop, equal knot times",
+     "authored_matrix_identity_basis": true,
+     "egg_flags": {
+      "Freezable": "True",
+      "Hitable": "True",
+      "en3d Interpolated": "True",
+      "en3d Visible": "True",
+      "en3d ZBuffered": "True"
+     }
+    }
+   ]
+  },
+  {
+   "course": "ItalyW2",
+   "course_id": "RaceTest/ItalyW2",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML",
+   "ps2_xml_sha256": "e910034391104ec29c6456a4e13cc6c697b614b06b245a53d85be1d2c2011126",
+   "pc_dx_path": "DataGx/Course/Italy_W2/italy_w2.dx",
+   "retail_pc_dx_sha256": "c66e8f0cff376b0f535c0cdc4fcd0bf53ad46d157b5aab4ca2648cf9cb9998d7",
+   "objects": [
+    {
+     "egg": "boat",
+     "occurrence": 0,
+     "ps2_model": "misc\\objects\\dinghys\\reddinghy",
+     "pc_model": "reddinghy",
+     "marker_list": "boat",
+     "route_sha256": "b9018750257411388b6446ab6bebbdc2b4c5b89a981ba4575d83d21ce3fec365",
+     "route_points": 15,
+     "config": {
+      "use_const_speed": false,
+      "use_closed_loop": true,
+      "use_trigger_system": false,
+      "max_speed_const_speed": 3.200000047683716,
+      "trigger_dist_on": 200.0,
+      "trigger_dist_off": 1000.0,
+      "use_rest_on_nonloop": false,
+      "rest_ticks": 0,
+      "banking": 0.30000001192092896,
+      "number_of_samples": 30
+     },
+     "open_route_length": 1302.464,
+     "closing_chord": 26.567,
+     "closing_time": 27.688152313232422,
+     "duration_nominal_s": 415.3222351074219,
+     "cycle_ticks": 12460,
+     "cycle_seconds_at_50hz": 249.2,
+     "route_y_constant": true,
+     "behaviour": "closed loop, equal knot times, banking 0.3 over 30 samples",
+     "authored_matrix_identity_basis": true,
+     "egg_flags": {
+      "Freezable": "True",
+      "Hitable": "True",
+      "en3d Interpolated": "True",
+      "en3d Visible": "True",
+      "en3d ZBuffered": "True"
+     }
+    }
+   ]
+  },
+  {
+   "course": "Spain2",
+   "course_id": "RaceTest/Spain2",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\SPAIN2.XML",
+   "ps2_xml_sha256": "6a064bdcf407ab026d5f9640f6ce33cc8c59c6272ba3afabdb6128dec3256016",
+   "pc_dx_path": "DataGx/Course/Spain2/spain2.dx",
+   "retail_pc_dx_sha256": "a427351031cdb8936033176c7793982860cd5214f60e7bd2a99bf0d49d0d1f9c",
+   "objects": [
+    {
+     "egg": "boat",
+     "occurrence": 0,
+     "ps2_model": "misc\\objects\\dinghys\\reddinghy",
+     "pc_model": "reddinghy",
+     "marker_list": "boat",
+     "route_sha256": "262bac42a455c785cdcb63be87e4ea06e05784c8da695991ffcd914475125890",
+     "route_points": 6,
+     "config": {
+      "use_const_speed": false,
+      "use_closed_loop": true,
+      "use_trigger_system": false,
+      "max_speed_const_speed": 3.0,
+      "trigger_dist_on": 200.0,
+      "trigger_dist_off": 600.0,
+      "use_rest_on_nonloop": false,
+      "rest_ticks": 0,
+      "banking": 0.20000000298023224,
+      "number_of_samples": 30
+     },
+     "open_route_length": 1673.495,
+     "closing_chord": 156.951,
+     "closing_time": 101.69143676757812,
+     "duration_nominal_s": 610.1486206054688,
+     "cycle_ticks": 18305,
+     "cycle_seconds_at_50hz": 366.1,
+     "route_y_constant": true,
+     "behaviour": "closed loop, equal knot times, banking 0.2 over 30 samples",
+     "authored_matrix_identity_basis": true,
+     "egg_flags": {
+      "Freezable": "True",
+      "Hitable": "True",
+      "en3d Interpolated": "True",
+      "en3d Visible": "True",
+      "en3d ZBuffered": "True"
+     }
+    }
+   ]
+  },
+  {
+   "course": "SpainS2",
+   "course_id": "RaceTest/SpainS2",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\SPAINS2.XML",
+   "ps2_xml_sha256": "a86028f610083c4769a9c0826106eafa17087cd06dcd34bd7c676779db4d2b45",
+   "pc_dx_path": "DataGx/Course/Spain_S2/spain_s2.dx",
+   "retail_pc_dx_sha256": "37a8be02cd18c1ad2a3f72043924103ed8279d4b2d3237f54a23f8143301986b",
+   "objects": [
+    {
+     "egg": "boat1",
+     "occurrence": 0,
+     "ps2_model": "misc\\objects\\dinghys\\reddinghy",
+     "pc_model": "reddinghy",
+     "marker_list": "boat1",
+     "route_sha256": "e6aa7987831de40dece5855135e0cf45d8b041917a1dceabd80eb2e7ee70e1fc",
+     "route_points": 7,
+     "config": {
+      "use_const_speed": true,
+      "use_closed_loop": true,
+      "use_trigger_system": true,
+      "max_speed_const_speed": 8.0,
+      "trigger_dist_on": 300.0,
+      "trigger_dist_off": 600.0,
+      "use_rest_on_nonloop": false,
+      "rest_ticks": 0,
+      "banking": 1.0,
+      "number_of_samples": 30
+     },
+     "open_route_length": 1281.696,
+     "closing_chord": 565.157,
+     "closing_time": 70.64466857910156,
+     "duration_nominal_s": 230.856689453125,
+     "cycle_ticks": 6926,
+     "cycle_seconds_at_50hz": 138.52,
+     "route_y_constant": true,
+     "behaviour": "closed loop, chord/speed knot times, trigger on<300 off>600 (Car0 XZ), banking 1 over 30 samples",
+     "authored_matrix_identity_basis": true,
+     "egg_flags": {
+      "Freezable": "True",
+      "Hitable": "True",
+      "en3d Interpolated": "True",
+      "en3d Visible": "True",
+      "en3d ZBuffered": "True"
+     }
+    },
+    {
+     "egg": "boat5",
+     "occurrence": 0,
+     "ps2_model": "misc\\objects\\dinghys\\bluedinghy",
+     "pc_model": "bluedinghy",
+     "marker_list": "boat5",
+     "route_sha256": "e38a3742cd8a83ab2dc239e749047c3574302b2632a1503a900d999d8a49975f",
+     "route_points": 5,
+     "config": {
+      "use_const_speed": true,
+      "use_closed_loop": true,
+      "use_trigger_system": true,
+      "max_speed_const_speed": 6.0,
+      "trigger_dist_on": 300.0,
+      "trigger_dist_off": 600.0,
+      "use_rest_on_nonloop": false,
+      "rest_ticks": 0,
+      "banking": 0.6000000238418579,
+      "number_of_samples": 30
+     },
+     "open_route_length": 672.179,
+     "closing_chord": 129.814,
+     "closing_time": 21.635618209838867,
+     "duration_nominal_s": 133.66551208496094,
+     "cycle_ticks": 4010,
+     "cycle_seconds_at_50hz": 80.2,
+     "route_y_constant": true,
+     "behaviour": "closed loop, chord/speed knot times, trigger on<300 off>600 (Car0 XZ), banking 0.6 over 30 samples",
+     "authored_matrix_identity_basis": true,
+     "egg_flags": {
+      "Freezable": "True",
+      "Hitable": "True",
+      "en3d Interpolated": "True",
+      "en3d Visible": "True",
+      "en3d ZBuffered": "True"
+     }
+    }
+   ]
+  },
+  {
+   "course": "SpainW",
+   "course_id": "RaceTest/SpainW",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\SPAINW.XML",
+   "ps2_xml_sha256": "fc439bc40aaa64bb257c870220154082fcbd2a4751a72f53380e87cd5ba984ca",
+   "pc_dx_path": "DataGx/Course/Spain_W/spain_w.dx",
+   "retail_pc_dx_sha256": "109644f89549d35dcdac92d63881815010266e2a2d1dc6e89d112e02cdb63424",
+   "objects": [
+    {
+     "egg": "boat1",
+     "occurrence": 0,
+     "ps2_model": "misc\\objects\\dinghys\\bluedinghy",
+     "pc_model": "bluedinghy",
+     "marker_list": "boat1",
+     "route_sha256": "4affe1e36d99719e773a010960311f95a2f89167db5b040e1d85e695b61a2ecc",
+     "route_points": 5,
+     "config": {
+      "use_const_speed": false,
+      "use_closed_loop": true,
+      "use_trigger_system": false,
+      "max_speed_const_speed": 3.0,
+      "trigger_dist_on": 200.0,
+      "trigger_dist_off": 600.0,
+      "use_rest_on_nonloop": false,
+      "rest_ticks": 0,
+      "banking": 0.4000000059604645,
+      "number_of_samples": 30
+     },
+     "open_route_length": 471.752,
+     "closing_chord": 133.53,
+     "closing_time": 40.35211944580078,
+     "duration_nominal_s": 201.76058959960938,
+     "cycle_ticks": 6053,
+     "cycle_seconds_at_50hz": 121.06,
+     "route_y_constant": true,
+     "behaviour": "closed loop, equal knot times, banking 0.4 over 30 samples",
+     "authored_matrix_identity_basis": true,
+     "egg_flags": {
+      "Freezable": "True",
+      "Hitable": "True",
+      "en3d Interpolated": "True",
+      "en3d Visible": "True",
+      "en3d ZBuffered": "True"
+     }
+    },
+    {
+     "egg": "boat2",
+     "occurrence": 0,
+     "ps2_model": "misc\\objects\\dinghys\\reddinghy",
+     "pc_model": "reddinghy",
+     "marker_list": "boat2",
+     "route_sha256": "6c73d24596af3ec9565ab24641520978276f1ff35569238d6cec688a46c124e6",
+     "route_points": 5,
+     "config": {
+      "use_const_speed": false,
+      "use_closed_loop": true,
+      "use_trigger_system": false,
+      "max_speed_const_speed": 3.0,
+      "trigger_dist_on": 200.0,
+      "trigger_dist_off": 600.0,
+      "use_rest_on_nonloop": false,
+      "rest_ticks": 0,
+      "banking": 0.4000000059604645,
+      "number_of_samples": 30
+     },
+     "open_route_length": 659.364,
+     "closing_chord": 163.039,
+     "closing_time": 54.82686233520508,
+     "duration_nominal_s": 274.1343078613281,
+     "cycle_ticks": 8225,
+     "cycle_seconds_at_50hz": 164.5,
+     "route_y_constant": true,
+     "behaviour": "closed loop, equal knot times, banking 0.4 over 30 samples",
+     "authored_matrix_identity_basis": true,
+     "egg_flags": {
+      "Freezable": "True",
+      "Hitable": "True",
+      "en3d Interpolated": "True",
+      "en3d Visible": "True",
+      "en3d ZBuffered": "True"
+     }
+    }
+   ]
+  },
+  {
+   "course": "SpainWFlip",
+   "course_id": "RaceTest/SpainWFlip",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\SPAINWFLIP.XML",
+   "ps2_xml_sha256": "3f608f088959a055dafae017800fa5fc73d00bbb44f99340848b66338a188203",
+   "pc_dx_path": "DataGx/Course/Spain_W_flip/Spain_W_flip.dx",
+   "retail_pc_dx_sha256": "74132a218e36a09543fee55993a99575155461fb249a9dd4795d5d3764fe1729",
+   "objects": [
+    {
+     "egg": "boat1",
+     "occurrence": 0,
+     "ps2_model": "misc\\objects\\dinghys\\bluedinghy",
+     "pc_model": "bluedinghy",
+     "marker_list": "boat1",
+     "route_sha256": "4affe1e36d99719e773a010960311f95a2f89167db5b040e1d85e695b61a2ecc",
+     "route_points": 5,
+     "config": {
+      "use_const_speed": false,
+      "use_closed_loop": true,
+      "use_trigger_system": false,
+      "max_speed_const_speed": 3.0,
+      "trigger_dist_on": 200.0,
+      "trigger_dist_off": 600.0,
+      "use_rest_on_nonloop": false,
+      "rest_ticks": 0,
+      "banking": 0.4000000059604645,
+      "number_of_samples": 30
+     },
+     "open_route_length": 471.752,
+     "closing_chord": 133.53,
+     "closing_time": 40.35211944580078,
+     "duration_nominal_s": 201.76058959960938,
+     "cycle_ticks": 6053,
+     "cycle_seconds_at_50hz": 121.06,
+     "route_y_constant": true,
+     "behaviour": "closed loop, equal knot times, banking 0.4 over 30 samples",
+     "authored_matrix_identity_basis": true,
+     "egg_flags": {
+      "Freezable": "True",
+      "Hitable": "True",
+      "en3d Interpolated": "True",
+      "en3d Visible": "True",
+      "en3d ZBuffered": "True"
+     }
+    },
+    {
+     "egg": "boat2",
+     "occurrence": 0,
+     "ps2_model": "misc\\objects\\dinghys\\reddinghy",
+     "pc_model": "reddinghy",
+     "marker_list": "boat2",
+     "route_sha256": "6c73d24596af3ec9565ab24641520978276f1ff35569238d6cec688a46c124e6",
+     "route_points": 5,
+     "config": {
+      "use_const_speed": false,
+      "use_closed_loop": true,
+      "use_trigger_system": false,
+      "max_speed_const_speed": 3.0,
+      "trigger_dist_on": 200.0,
+      "trigger_dist_off": 600.0,
+      "use_rest_on_nonloop": false,
+      "rest_ticks": 0,
+      "banking": 0.4000000059604645,
+      "number_of_samples": 30
+     },
+     "open_route_length": 659.364,
+     "closing_chord": 163.039,
+     "closing_time": 54.82686233520508,
+     "duration_nominal_s": 274.1343078613281,
+     "cycle_ticks": 8225,
+     "cycle_seconds_at_50hz": 164.5,
+     "route_y_constant": true,
+     "behaviour": "closed loop, equal knot times, banking 0.4 over 30 samples",
+     "authored_matrix_identity_basis": true,
+     "egg_flags": {
+      "Freezable": "True",
+      "Hitable": "True",
+      "en3d Interpolated": "True",
+      "en3d Visible": "True",
+      "en3d ZBuffered": "True"
+     }
+    }
+   ]
+  },
+  {
+   "course": "TurkeyW",
+   "course_id": "RaceTest/TurkeyW",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\TURKEYW.XML",
+   "ps2_xml_sha256": "d3f6ca2853a3cfe448edd06e86ff0cae4184812bc6259b256fbabe50dd940f90",
+   "pc_dx_path": "DataGx/Course/Turkey_w/turkey_w.dx",
+   "retail_pc_dx_sha256": "d180cb0e0ea801438a39e54a5d683472d3ded30ff09db0a6ffd987d06d5f2a00",
+   "objects": [
+    {
+     "egg": "barge",
+     "occurrence": 0,
+     "ps2_model": "misc\\barge\\barge",
+     "pc_model": "barge",
+     "marker_list": "bargelist",
+     "route_sha256": "037bc95fb79868121a55a79a234c40ea0e4ee93145b0d5a13c16fdba64d8e840",
+     "route_points": 10,
+     "config": {
+      "use_const_speed": true,
+      "use_closed_loop": false,
+      "use_trigger_system": false,
+      "max_speed_const_speed": 3.0,
+      "trigger_dist_on": 200.0,
+      "trigger_dist_off": 600.0,
+      "use_rest_on_nonloop": false,
+      "rest_ticks": 0,
+      "banking": 0.0,
+      "number_of_samples": 30
+     },
+     "open_route_length": 759.293,
+     "closing_chord": 623.875,
+     "closing_time": 207.9582061767578,
+     "duration_nominal_s": 461.0559997558594,
+     "cycle_ticks": 13832,
+     "cycle_seconds_at_50hz": 276.64,
+     "route_y_constant": true,
+     "behaviour": "open route, chord/speed knot times, endpoint hold 207.96 nominal s, stays at the last marker",
+     "authored_matrix_identity_basis": true,
+     "egg_flags": {
+      "Freezable": "True",
+      "Hitable": "True",
+      "en3d Interpolated": "True",
+      "en3d Visible": "True",
+      "en3d ZBuffered": "True"
+     }
+    }
+   ]
+  }
+ ]
+}

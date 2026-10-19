@@ -25,6 +25,7 @@ namespace gfx2::ps2port {
 class ReflectionPilot;
 class CourseObjectsPilot;
 class GrassPilot;
+class SplineObjectsPilot;
 class VehiclePartitionPilot;
 class XtrailFidelity;
 class FrontendModel;
@@ -327,6 +328,8 @@ public:
     GrassPilot* grass() noexcept { return grass_.get(); }
     GrassPilot* shrubs() noexcept { return shrubs_.get(); }
     std::array<GrassPilot*,2> ground_details() noexcept {return {grass_.get(),shrubs_.get()};}
+    // COURSE-ALIVE1: moving PS2 gaEntitySpline objects (SplineObjects=1).
+    SplineObjectsPilot* spline_objects() noexcept { return spline_objects_.get(); }
     PS2ColorGrade& color_grade() noexcept { return color_; }
     PS2OutputFilter& output_filter() noexcept { return output_; }
     // Present-time passes (PS2Color, PS2Output) share one hook.
@@ -406,6 +409,7 @@ private:
     std::unique_ptr<CourseObjectsPilot> course_objects_;
     std::unique_ptr<GrassPilot> grass_;
     std::unique_ptr<GrassPilot> shrubs_;
+    std::unique_ptr<SplineObjectsPilot> spline_objects_;
     PS2ColorGrade color_;
     PS2OutputFilter output_;
     PS2MotionBlur blur_;

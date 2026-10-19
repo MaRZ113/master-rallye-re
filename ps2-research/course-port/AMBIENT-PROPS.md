@@ -44,6 +44,11 @@ ignores them, at worst it fails on load.
   so this only shows that the models load and sit in the right place. It does not reproduce the PS2 behaviour.
 - `objects-report.json` contains every spline object's parameters and its route points, ready for a native controller.
 
+## Spline objects: done in COURSE-ALIVE1
+The 24 spline objects now move: `../pc-port/docs/course-alive1/README.md`. Not through an engine hook (point 1 below):
+the PS2 port proxy runs the AMBIENT1 controller (portable `ps2_spline_motion.hpp`, 50 Hz invocations, Car0 trigger,
+pause, restart) and draws the W5 models itself. Do not install the `--static-splines` stand-in together with it.
+
 ## What needs native code (not started)
 Proposed as one small component of its own (no dependency on the modernization proxy), loaded with the course and driven per game tick:
 1. **Spline objects (W5a).** Find the stand-in Egg by name, then write its en3d matrix every tick:

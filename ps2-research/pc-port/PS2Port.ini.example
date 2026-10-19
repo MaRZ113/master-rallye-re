@@ -102,6 +102,12 @@ GroundDetailAsset=PS2Grass/PS2GroundNoise.gxi
 CourseObjects=0
 ; Foliage: 1 = PS2 blend contract for the France1 bush, 0 = Stock.
 Foliage=0
+; SplineObjects: 1 = the moving PS2 objects (dinghies, barges, airships: 24 objects on 17 courses) on their PS2
+;   routes, timing and banking. Only on installed PS2 course packages (a stock PC course stays Stock). 0 = none.
+SplineObjects=0
+; SplineObjectsAsset: packed models and routes (default <GrassAssetDirectory>/PS2SplineObjects.ps2spl).
+; SplineObjectsStockCourses: 1 = also on the stock PC course geometry (DIAGNOSTIC: routes are PS2-authored). Keep 0.
+SplineObjectsStockCourses=0
 
 ; --- Diagnostics ---------------------------------------------------------------
 ; Diagnostics: 1 = feature records in MRRRenderer/logs and F10 race-fleet sidecars.

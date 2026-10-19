@@ -32,8 +32,10 @@ class ResetOverlayTests(unittest.TestCase):
 
     def test_frozen_renderer_identity_unchanged(self):
         lock=json.loads((PORT/'overlay/baseline-lock.json').read_text())
-        self.assertEqual(lock['renderer_tree'],'e33386bcf682db6983380c499e4928726c758fe0')
-        self.assertEqual(lock['baseline_head'],'0bddf7c7bc5e95831f98714ff6231da05ab073ea')
+        # COURSE-ALIVE1 adopted the opt-in probe teleport / crash log commits (lock probe_baseline_adoption).
+        self.assertEqual(lock['renderer_tree'],'46663a8db86922443e74f4fb760b29b2d8ae6978')
+        self.assertEqual(lock['baseline_head'],'c357e8b780734b1505acb86f723a0e1b57f3c8a8')
+        self.assertEqual(lock['probe_baseline_adoption']['previous_renderer_tree'],'e33386bcf682db6983380c499e4928726c758fe0')
 
 
 if __name__=='__main__':unittest.main()
