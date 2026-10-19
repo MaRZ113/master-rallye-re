@@ -49,8 +49,19 @@ def ps2_surface(bsp, x, z, top, bottom):
     return top + (bottom - top) * t, t <= 1e-9
 
 
+MIN_SOLID = 1e-4   # units; a PC solid leaf thinner than this is a ray grazing a cell edge, not a surface (TRACK-COLL1A correction)
+
+
+def pc_first_contact(nodes, a, b):
+    length = math.dist(a, b)
+    for leaf, t0, t1 in q.ps2_segment_leaves(nodes, a, b):
+        if leaf.field_0 == 0xffffffff and (t1 - t0) * length > MIN_SOLID:
+            return t0
+    return None
+
+
 def pc_surface(nodes, x, z, top, bottom):
-    t = gc.pc_first_contact(nodes, (x, top, z), (x, bottom, z))
+    t = pc_first_contact(nodes, (x, top, z), (x, bottom, z))
     if t is None:
         return None, False
     return top + (bottom - top) * t, t <= 1e-9
@@ -181,6 +192,7 @@ def main():
     ap.add_argument('--objects-report', type=Path, help='report.json of ps2_course_objects.py (object centres to keep away from)')
     ap.add_argument('--step', type=float, default=6.0)
     ap.add_argument('--limit', type=int, default=0, help='only the first N columns (smoke test)')
+    ap.add_argument('--requery-pc', action='store_true', help='keep h_vis and the PS2 results of --columns-cache but query the two PC trees again (after the grazing-leaf correction)')
     ap.add_argument('--columns-cache', type=Path, help='gzip JSON of the raw per-column queries; reused when it exists (queries are the slow part)')
     ap.add_argument('--out', type=Path, required=True)
     a = ap.parse_args()
@@ -235,6 +247,12 @@ def main():
         break
     if cached is not None:
         cols = cached
+        if a.requery_pc:
+            for c in cols.values():
+                top, bottom = c['h_vis'] + UP, c['h_vis'] - DOWN
+                for key, st, nodes in (('old', 'st_old', old), ('new', 'st_new', new)):
+                    h, started = pc_surface(nodes, c['x'], c['z'], top, bottom)
+                    c[key], c[st] = (None if h is None else round(h, 3)), bool(started)
     elif a.columns_cache:
         a.columns_cache.write_bytes(gzip.compress(json.dumps({f'{k[0]},{k[1]}': v for k, v in cols.items()}).encode()))
     for c in cols.values():

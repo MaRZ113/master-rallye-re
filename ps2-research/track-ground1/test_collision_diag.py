@@ -57,5 +57,17 @@ class RankTests(unittest.TestCase):
         self.assertGreater(ranking[1]['score'], ranking[0]['score'] - 1000)
 
 
+class GrazingLeafTests(unittest.TestCase):
+    def test_zero_thickness_solid_leaf_is_not_a_surface(self):
+        class N:
+            def __init__(self, plane=None, f0=1, child=None, sibling=None):
+                self.plane, self.field_0, self.child, self.sibling, self.payload = plane, f0, child, sibling, None
+        def column(lower):
+            # root: y = 0.5 (front empty); back: plane y = lower (front solid, back empty) -> solid between `lower` and 0.5
+            return [N((0, 1, 0, -0.5), 0, 1, 2), N((0, 1, 0, -lower), 0, 3, 4), N(f0=1), N(f0=1), N(f0=0xffffffff)]
+        self.assertAlmostEqual(cd.pc_first_contact(column(0.0), (0, 5, 0), (0, -5, 0)), 0.45)          # 0.5 thick: a surface
+        self.assertIsNone(cd.pc_first_contact(column(0.5 - 1e-7), (0, 5, 0), (0, -5, 0)))               # 1e-7 thick: grazing a cell edge
+
+
 if __name__ == '__main__':
     unittest.main()

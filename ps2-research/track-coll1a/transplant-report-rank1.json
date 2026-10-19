@@ -1,0 +1,206 @@
+{
+ "box_lo": [
+  2142.5,
+  6.367000000000001,
+  -4.27
+ ],
+ "box_hi": [
+  2202.5,
+  26.505,
+  31.73
+ ],
+ "transplant": {
+  "method": "graft",
+  "code": 16939,
+  "ps2_polytopes": 37,
+  "ps2_stats": {
+   "leaves_visited": 45,
+   "solid_leaves": 23,
+   "payload_leaves": 21,
+   "empty_leaves": 1,
+   "sliver_cells_dropped": 0,
+   "sliver_volume": 0.0
+  },
+  "graft": {
+   "grafted_subtrees": 64,
+   "straddling_leaves": 192,
+   "box_planes_emitted": 327,
+   "plane_nodes_visited": 562
+  },
+  "nodes_reachable_before": 515551,
+  "nodes_reachable_after": 515329,
+  "nodes_net_change": -222,
+  "nodes_allocated": 2220,
+  "polytope_volume": 33216.577
+ },
+ "structure": {
+  "round_trip_identical": true,
+  "count_invariants_ok": true,
+  "header_before": [
+   94947,
+   162829,
+   257775,
+   257775,
+   0
+  ],
+  "header_after": [
+   94491,
+   163174,
+   257664,
+   257664,
+   0
+  ],
+  "tree_bytes_before": 13767364,
+  "tree_bytes_after": 13762258,
+  "tail_bytes_equal": true,
+  "dx_prefix_equal": true,
+  "changed_existing_links": 256,
+  "changed_links_outside_box_subtrees": 0,
+  "nodes_allocated": 2220,
+  "added_plane_codes_distinct": [
+   16625,
+   16626,
+   16629,
+   16630,
+   16632,
+   16644,
+   16646,
+   16647,
+   16648,
+   16650,
+   16651,
+   16652,
+   16791,
+   16817,
+   16819,
+   16844,
+   16856,
+   16857,
+   16894,
+   16895,
+   16896,
+   16898,
+   16899,
+   16901,
+   16904,
+   16931,
+   16932,
+   16933,
+   16935,
+   16939,
+   16941,
+   16965,
+   16970,
+   17489,
+   17574,
+   17781
+  ],
+  "negative_codes_added": 0,
+  "reachable_nodes_before": 515551,
+  "reachable_nodes_after": 515329,
+  "node_growth_percent": -0.043,
+  "tree_bytes_growth_percent": -0.037
+ },
+ "validation": {
+  "first_contact_2_unit_grid": {
+   "columns": 540,
+   "tolerance": 0.05,
+   "per_tree": {
+    "original_pc": {
+     "agree": 164,
+     "higher": 376,
+     "lower": 0,
+     "max_abs": 1.1351,
+     "compared": 540,
+     "mean_abs": 0.3314
+    },
+    "current_ground1": {
+     "agree": 540,
+     "higher": 0,
+     "lower": 0,
+     "max_abs": 0.0003,
+     "compared": 540,
+     "mean_abs": 0.0
+    },
+    "candidate": {
+     "agree": 540,
+     "higher": 0,
+     "lower": 0,
+     "max_abs": 0.0001,
+     "compared": 540,
+     "mean_abs": 0.0
+    }
+   }
+  },
+  "classification_samples": {
+   "points": 6680,
+   "per_tree": {
+    "original_pc": {
+     "mismatch": 564,
+     "ps2_solid_missing": 0,
+     "ps2_empty_solid": 564
+    },
+    "current_ground1": {
+     "mismatch": 0,
+     "ps2_solid_missing": 0,
+     "ps2_empty_solid": 0
+    },
+    "candidate": {
+     "mismatch": 0,
+     "ps2_solid_missing": 0,
+     "ps2_empty_solid": 0
+    }
+   }
+  },
+  "rays": {
+   "candidate": {
+    "rays": 240,
+    "crossing_box": 238,
+    "inside_mismatch": 0,
+    "outside_mismatch": 0,
+    "first_inside_mismatches": [],
+    "first_outside_mismatches": []
+   }
+  },
+  "outside_points_compared": 72667,
+  "outside_points_changed": 0,
+  "first_outside_changes": [],
+  "boundary_shell_points_compared": 139098,
+  "boundary_shell_points_changed": 0,
+  "first_boundary_changes": []
+ },
+ "checks": {
+  "first_contact_within_tolerance": true,
+  "classification_matches_ps2": true,
+  "rays_inside_match_ps2": true,
+  "rays_outside_unchanged": true,
+  "no_change_outside_box": true,
+  "tag100_valid": true,
+  "codes_valid": true
+ },
+ "all_checks_passed": true,
+ "region": {
+  "rank": 1,
+  "class": "invisible_block",
+  "centroid_xz": [
+   2173.59,
+   16.46
+  ],
+  "bounds_xz": [
+   2148.5,
+   1.73,
+   2196.5,
+   25.73
+  ],
+  "columns": 11
+ },
+ "inputs": {
+  "bsp_sha256": "70918e3e11c52549",
+  "retail_dx_sha256": "724a69da708a124f",
+  "current_dx_sha256": "6652692e39cb5315"
+ },
+ "output": {
+  "dx_bytes": 16501127,
+  "dx_sha256": "42a2868d93389ed3131efc5d4863e0e66cb2d2c5dc3144a52728b1aacf6272a8"
+ }
+}

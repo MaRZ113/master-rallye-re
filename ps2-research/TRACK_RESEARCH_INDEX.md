@@ -44,6 +44,7 @@ RaceLine XYZ match within 1 unit). Pairing is semantic, not file-identical. Cano
 | [track-delta1/T2-BEHAVIOR.md](track-delta1/T2-BEHAVIOR.md) | Static comparison of the PS2 wall and PC OFF COURSE, verdict: not ported for now |
 | [track-delta1/PROBE-TELEPORT.md](track-delta1/PROBE-TELEPORT.md) | Development teleport used for the runtime probes |
 | [track-ground1/final-report.md](track-ground1/final-report.md) | TRACK-GROUND1: texture and ground material parity, collision diagnostics, ranked regions for TRACK-COLL1 |
+| [track-coll1a/REPORT.md](track-coll1a/REPORT.md) | TRACK-COLL1A: regional PS2 BSP to PC tag100 converter (exact solid volumes, cell-restricted graft), Turkey3 rank 1; erratum for the TRACK-GROUND1 collision diagnostics |
 | [track-delta1/SCENE-CENSUS.md](track-delta1/SCENE-CENSUS.md) | Splits, limit lists, controllers across 36 courses |
 
 ## 3. Already in the PC port (`pc-port/`)

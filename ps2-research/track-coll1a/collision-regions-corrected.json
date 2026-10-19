@@ -1,0 +1,2683 @@
+{
+ "summary": {
+  "step": 6.0,
+  "columns": 66684,
+  "classes_patched": {
+   "ps2_exterior": 24244,
+   "ps2_void": 2932,
+   "agree": 39061,
+   "invisible_block": 331,
+   "missing_support": 116
+  },
+  "classes_retail": {
+   "agree": 38463,
+   "missing_support": 327,
+   "invisible_block": 718,
+   "ps2_exterior": 24244,
+   "ps2_void": 2932
+  },
+  "old_to_new": {
+   "agree->agree": 38463,
+   "invisible_block->agree": 387,
+   "invisible_block->invisible_block": 331,
+   "missing_support->agree": 211,
+   "missing_support->missing_support": 116,
+   "ps2_exterior->ps2_exterior": 24244,
+   "ps2_void->ps2_void": 2932
+  },
+  "overhang_columns": 0,
+  "multilayer_columns": 178,
+  "ps2_surface_vs_visible_gt_0.5": 39
+ },
+ "parameters": {
+  "up": 6.0,
+  "down": 12.0,
+  "overhang": 8.0,
+  "tolerance": 0.25,
+  "step": 6.0
+ },
+ "ranking": [
+  {
+   "score": -7.9,
+   "exterior_free_within_36_units": false,
+   "neighbourhood_36_units_class_counts": {
+    "agree": 45,
+    "invisible_block": 29,
+    "ps2_exterior": 16
+   },
+   "class": "invisible_block",
+   "centroid_xz": [
+    2628.15,
+    499.2
+   ],
+   "bounds_xz": [
+    2610.5,
+    463.73,
+    2640.5,
+    541.73
+   ],
+   "columns": 34,
+   "area_units2": 1224,
+   "error_new_max_abs": 6.0,
+   "error_new_mean_abs": 3.257,
+   "distance_to_raceline": 44.0,
+   "isolation_to_next_region": 43.0,
+   "distance_to_converted_object": 897.8,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 0,
+    "invisible_block": 34,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 2628.5,
+     "z": 499.73,
+     "ps2_contact_height": 65.833,
+     "retail_contact_height": 71.208,
+     "patched_contact_height": 71.208,
+     "teleport_point": "2628.5,67.33,499.73,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 2622.5,
+     "z": 493.73,
+     "ps2_contact_height": 63.774,
+     "retail_contact_height": 69.774,
+     "patched_contact_height": 69.774,
+     "teleport_point": "2622.5,65.27,493.73,0"
+    }
+   ],
+   "columns_table": [
+    {
+     "x": 2610.5,
+     "z": 511.73,
+     "visible_ps2_height": 56.336,
+     "ps2_bsp_contact": 56.336,
+     "retail_pc_contact": 57.984,
+     "patched_pc_contact": 57.984,
+     "error_patched_minus_ps2": 1.648
+    },
+    {
+     "x": 2616.5,
+     "z": 499.73,
+     "visible_ps2_height": 58.322,
+     "ps2_bsp_contact": 58.322,
+     "retail_pc_contact": 61.224,
+     "patched_pc_contact": 61.224,
+     "error_patched_minus_ps2": 2.902
+    },
+    {
+     "x": 2616.5,
+     "z": 505.73,
+     "visible_ps2_height": 59.872,
+     "ps2_bsp_contact": 59.872,
+     "retail_pc_contact": 63.666,
+     "patched_pc_contact": 63.666,
+     "error_patched_minus_ps2": 3.794
+    },
+    {
+     "x": 2616.5,
+     "z": 511.73,
+     "visible_ps2_height": 58.063,
+     "ps2_bsp_contact": 58.063,
+     "retail_pc_contact": 59.938,
+     "patched_pc_contact": 59.938,
+     "error_patched_minus_ps2": 1.875
+    },
+    {
+     "x": 2622.5,
+     "z": 475.73,
+     "visible_ps2_height": 61.554,
+     "ps2_bsp_contact": 61.554,
+     "retail_pc_contact": 61.809,
+     "patched_pc_contact": 61.809,
+     "error_patched_minus_ps2": 0.255
+    },
+    {
+     "x": 2622.5,
+     "z": 481.73,
+     "visible_ps2_height": 61.524,
+     "ps2_bsp_contact": 61.524,
+     "retail_pc_contact": 63.613,
+     "patched_pc_contact": 63.613,
+     "error_patched_minus_ps2": 2.089
+    },
+    {
+     "x": 2622.5,
+     "z": 487.73,
+     "visible_ps2_height": 61.495,
+     "ps2_bsp_contact": 61.495,
+     "retail_pc_contact": 65.418,
+     "patched_pc_contact": 65.418,
+     "error_patched_minus_ps2": 3.923
+    },
+    {
+     "x": 2622.5,
+     "z": 493.73,
+     "visible_ps2_height": 63.774,
+     "ps2_bsp_contact": 63.774,
+     "retail_pc_contact": 69.774,
+     "patched_pc_contact": 69.774,
+     "error_patched_minus_ps2": 6.0
+    },
+    {
+     "x": 2622.5,
+     "z": 499.73,
+     "visible_ps2_height": 63.408,
+     "ps2_bsp_contact": 63.408,
+     "retail_pc_contact": 69.349,
+     "patched_pc_contact": 69.349,
+     "error_patched_minus_ps2": 5.941
+    },
+    {
+     "x": 2622.5,
+     "z": 505.73,
+     "visible_ps2_height": 61.599,
+     "ps2_bsp_contact": 61.599,
+     "retail_pc_contact": 65.621,
+     "patched_pc_contact": 65.621,
+     "error_patched_minus_ps2": 4.022
+    },
+    {
+     "x": 2622.5,
+     "z": 511.73,
+     "visible_ps2_height": 59.79,
+     "ps2_bsp_contact": 59.79,
+     "retail_pc_contact": 61.893,
+     "patched_pc_contact": 61.893,
+     "error_patched_minus_ps2": 2.103
+    },
+    {
+     "x": 2628.5,
+     "z": 463.73,
+     "visible_ps2_height": 68.89,
+     "ps2_bsp_contact": 68.89,
+     "retail_pc_contact": 69.879,
+     "patched_pc_contact": 69.879,
+     "error_patched_minus_ps2": 0.989
+    },
+    {
+     "x": 2628.5,
+     "z": 469.73,
+     "visible_ps2_height": 68.552,
+     "ps2_bsp_contact": 68.552,
+     "retail_pc_contact": 71.137,
+     "patched_pc_contact": 71.137,
+     "error_patched_minus_ps2": 2.585
+    },
+    {
+     "x": 2628.5,
+     "z": 475.73,
+     "visible_ps2_height": 68.215,
+     "ps2_bsp_contact": 68.215,
+     "retail_pc_contact": 72.395,
+     "patched_pc_contact": 72.395,
+     "error_patched_minus_ps2": 4.18
+    },
+    {
+     "x": 2628.5,
+     "z": 481.73,
+     "visible_ps2_height": 67.878,
+     "ps2_bsp_contact": 67.878,
+     "retail_pc_contact": 73.654,
+     "patched_pc_contact": 73.654,
+     "error_patched_minus_ps2": 5.776
+    },
+    {
+     "x": 2628.5,
+     "z": 487.73,
+     "visible_ps2_height": 67.81,
+     "ps2_bsp_contact": 67.81,
+     "retail_pc_contact": 73.81,
+     "patched_pc_contact": 73.81,
+     "error_patched_minus_ps2": 6.0
+    },
+    {
+     "x": 2628.5,
+     "z": 493.73,
+     "visible_ps2_height": 67.528,
+     "ps2_bsp_contact": 67.528,
+     "retail_pc_contact": 73.528,
+     "patched_pc_contact": 73.528,
+     "error_patched_minus_ps2": 6.0
+    },
+    {
+     "x": 2628.5,
+     "z": 499.73,
+     "visible_ps2_height": 65.833,
+     "ps2_bsp_contact": 65.833,
+     "retail_pc_contact": 71.208,
+     "patched_pc_contact": 71.208,
+     "error_patched_minus_ps2": 5.375
+    },
+    {
+     "x": 2628.5,
+     "z": 505.73,
+     "visible_ps2_height": 64.137,
+     "ps2_bsp_contact": 64.137,
+     "retail_pc_contact": 67.465,
+     "patched_pc_contact": 67.465,
+     "error_patched_minus_ps2": 3.328
+    },
+    {
+     "x": 2628.5,
+     "z": 535.73,
+     "visible_ps2_height": 61.776,
+     "ps2_bsp_contact": 61.776,
+     "retail_pc_contact": 62.469,
+     "patched_pc_contact": 62.469,
+     "error_patched_minus_ps2": 0.693
+    },
+    {
+     "x": 2628.5,
+     "z": 541.73,
+     "visible_ps2_height": 60.608,
+     "ps2_bsp_contact": 60.608,
+     "retail_pc_contact": 60.969,
+     "patched_pc_contact": 60.969,
+     "error_patched_minus_ps2": 0.361
+    },
+    {
+     "x": 2634.5,
+     "z": 463.73,
+     "visible_ps2_height": 70.254,
+     "ps2_bsp_contact": 70.254,
+     "retail_pc_contact": 71.062,
+     "patched_pc_contact": 71.062,
+     "error_patched_minus_ps2": 0.808
+    },
+    {
+     "x": 2634.5,
+     "z": 469.73,
+     "visible_ps2_height": 69.917,
+     "ps2_bsp_contact": 69.917,
+     "retail_pc_contact": 72.32,
+     "patched_pc_contact": 72.32,
+     "error_patched_minus_ps2": 2.403
+    },
+    {
+     "x": 2634.5,
+     "z": 475.73,
+     "visible_ps2_height": 69.874,
+     "ps2_bsp_contact": 69.874,
+     "retail_pc_contact": 73.584,
+     "patched_pc_contact": 73.584,
+     "error_patched_minus_ps2": 3.71
+    },
+    {
+     "x": 2634.5,
+     "z": 481.73,
+     "visible_ps2_height": 70.056,
+     "ps2_bsp_contact": 70.056,
+     "retail_pc_contact": 74.852,
+     "patched_pc_contact": 74.852,
+     "error_patched_minus_ps2": 4.796
+    },
+    {
+     "x": 2634.5,
+     "z": 487.73,
+     "visible_ps2_height": 70.238,
+     "ps2_bsp_contact": 70.238,
+     "retail_pc_contact": 76.12,
+     "patched_pc_contact": 76.12,
+     "error_patched_minus_ps2": 5.882
+    },
+    {
+     "x": 2634.5,
+     "z": 493.73,
+     "visible_ps2_height": 70.19,
+     "ps2_bsp_contact": 70.19,
+     "retail_pc_contact": 76.19,
+     "patched_pc_contact": 76.19,
+     "error_patched_minus_ps2": 6.0
+    },
+    {
+     "x": 2634.5,
+     "z": 499.73,
+     "visible_ps2_height": 68.494,
+     "ps2_bsp_contact": 68.494,
+     "retail_pc_contact": 73.035,
+     "patched_pc_contact": 73.035,
+     "error_patched_minus_ps2": 4.541
+    },
+    {
+     "x": 2634.5,
+     "z": 511.73,
+     "visible_ps2_height": 69.045,
+     "ps2_bsp_contact": 69.045,
+     "retail_pc_contact": 71.371,
+     "patched_pc_contact": 71.371,
+     "error_patched_minus_ps2": 2.326
+    },
+    {
+     "x": 2634.5,
+     "z": 517.73,
+     "visible_ps2_height": 68.322,
+     "ps2_bsp_contact": 68.322,
+     "retail_pc_contact": 69.844,
+     "patched_pc_contact": 69.844,
+     "error_patched_minus_ps2": 1.522
+    },
+    {
+     "x": 2634.5,
+     "z": 523.73,
+     "visible_ps2_height": 67.466,
+     "ps2_bsp_contact": 67.466,
+     "retail_pc_contact": 68.349,
+     "patched_pc_contact": 68.349,
+     "error_patched_minus_ps2": 0.883
+    },
+    {
+     "x": 2634.5,
+     "z": 529.73,
+     "visible_ps2_height": 65.525,
+     "ps2_bsp_contact": 65.525,
+     "retail_pc_contact": 66.94,
+     "patched_pc_contact": 66.94,
+     "error_patched_minus_ps2": 1.415
+    },
+    {
+     "x": 2634.5,
+     "z": 535.73,
+     "visible_ps2_height": 64.779,
+     "ps2_bsp_contact": 64.779,
+     "retail_pc_contact": 65.392,
+     "patched_pc_contact": 65.392,
+     "error_patched_minus_ps2": 0.613
+    },
+    {
+     "x": 2640.5,
+     "z": 541.73,
+     "visible_ps2_height": 68.987,
+     "ps2_bsp_contact": 68.987,
+     "retail_pc_contact": 74.987,
+     "patched_pc_contact": 74.987,
+     "error_patched_minus_ps2": 6.0
+    }
+   ],
+   "rank": 1
+  },
+  {
+   "score": -23.8,
+   "exterior_free_within_36_units": false,
+   "neighbourhood_36_units_class_counts": {
+    "agree": 100,
+    "invisible_block": 6,
+    "ps2_exterior": 2
+   },
+   "class": "invisible_block",
+   "centroid_xz": [
+    2385.5,
+    -772.27
+   ],
+   "bounds_xz": [
+    2382.5,
+    -778.27,
+    2388.5,
+    -766.27
+   ],
+   "columns": 6,
+   "area_units2": 216,
+   "error_new_max_abs": 1.151,
+   "error_new_mean_abs": 0.963,
+   "distance_to_raceline": 32.1,
+   "isolation_to_next_region": 39.0,
+   "distance_to_converted_object": 71.4,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 0,
+    "invisible_block": 6,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 2382.5,
+     "z": -772.27,
+     "ps2_contact_height": 21.375,
+     "retail_contact_height": 22.229,
+     "patched_contact_height": 22.229,
+     "teleport_point": "2382.5,22.88,-772.27,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 2388.5,
+     "z": -778.27,
+     "ps2_contact_height": 21.078,
+     "retail_contact_height": 22.229,
+     "patched_contact_height": 22.229,
+     "teleport_point": "2388.5,22.58,-778.27,0"
+    }
+   ],
+   "columns_table": [
+    {
+     "x": 2382.5,
+     "z": -778.27,
+     "visible_ps2_height": 21.082,
+     "ps2_bsp_contact": 21.082,
+     "retail_pc_contact": 22.229,
+     "patched_pc_contact": 22.229,
+     "error_patched_minus_ps2": 1.147
+    },
+    {
+     "x": 2382.5,
+     "z": -772.27,
+     "visible_ps2_height": 21.375,
+     "ps2_bsp_contact": 21.375,
+     "retail_pc_contact": 22.229,
+     "patched_pc_contact": 22.229,
+     "error_patched_minus_ps2": 0.854
+    },
+    {
+     "x": 2382.5,
+     "z": -766.27,
+     "visible_ps2_height": 21.702,
+     "ps2_bsp_contact": 21.702,
+     "retail_pc_contact": 22.229,
+     "patched_pc_contact": 22.229,
+     "error_patched_minus_ps2": 0.527
+    },
+    {
+     "x": 2388.5,
+     "z": -778.27,
+     "visible_ps2_height": 21.078,
+     "ps2_bsp_contact": 21.078,
+     "retail_pc_contact": 22.229,
+     "patched_pc_contact": 22.229,
+     "error_patched_minus_ps2": 1.151
+    },
+    {
+     "x": 2388.5,
+     "z": -772.27,
+     "visible_ps2_height": 21.146,
+     "ps2_bsp_contact": 21.146,
+     "retail_pc_contact": 22.229,
+     "patched_pc_contact": 22.229,
+     "error_patched_minus_ps2": 1.083
+    },
+    {
+     "x": 2388.5,
+     "z": -766.27,
+     "visible_ps2_height": 21.213,
+     "ps2_bsp_contact": 21.213,
+     "retail_pc_contact": 22.229,
+     "patched_pc_contact": 22.229,
+     "error_patched_minus_ps2": 1.016
+    }
+   ],
+   "rank": 2
+  }
+ ],
+ "regions": [
+  {
+   "class": "invisible_block",
+   "columns": 155,
+   "area_units2": 5580,
+   "bounds_xz": [
+    2544.5,
+    -928.27,
+    2730.5,
+    -796.27
+   ],
+   "ps2_surface_range": [
+    25.55,
+    73.497
+   ],
+   "error_new_max_abs": 6.001,
+   "error_new_mean_abs": 3.532,
+   "unresolved_columns_without_ps2_or_patched_surface": 0,
+   "overhang_columns": 0,
+   "multilayer_columns": 0,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 0,
+    "invisible_block": 155,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "distance_to_raceline": 57.6,
+   "distance_to_converted_object": 236.7,
+   "centroid_xz": [
+    2629.74,
+    -857.97
+   ],
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 2628.5,
+     "z": -850.27,
+     "ps2_contact_height": 69.49,
+     "retail_contact_height": 75.49,
+     "patched_contact_height": 75.49,
+     "teleport_point": "2628.5,70.99,-850.27,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 2598.5,
+     "z": -820.27,
+     "ps2_contact_height": 62.831,
+     "retail_contact_height": 68.832,
+     "patched_contact_height": 68.832,
+     "teleport_point": "2598.5,64.33,-820.27,0"
+    }
+   ],
+   "bsp_second_surface_columns": 0,
+   "isolation_to_next_region": 22.8,
+   "ineligible_reasons": [
+    "size",
+    "not isolated"
+   ]
+  },
+  {
+   "class": "invisible_block",
+   "columns": 107,
+   "area_units2": 3852,
+   "bounds_xz": [
+    3042.5,
+    -76.27,
+    3150.5,
+    55.73
+   ],
+   "ps2_surface_range": [
+    49.224,
+    66.909
+   ],
+   "error_new_max_abs": 6.001,
+   "error_new_mean_abs": 6.0,
+   "unresolved_columns_without_ps2_or_patched_surface": 0,
+   "overhang_columns": 0,
+   "multilayer_columns": 0,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 0,
+    "invisible_block": 107,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "distance_to_raceline": 127.3,
+   "distance_to_converted_object": 427.4,
+   "centroid_xz": [
+    3086.07,
+    -17.9
+   ],
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 3084.5,
+     "z": -16.27,
+     "ps2_contact_height": 57.239,
+     "retail_contact_height": 63.239,
+     "patched_contact_height": 63.239,
+     "teleport_point": "3084.5,58.74,-16.27,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 3072.5,
+     "z": -64.27,
+     "ps2_contact_height": 65.497,
+     "retail_contact_height": 71.498,
+     "patched_contact_height": 71.498,
+     "teleport_point": "3072.5,67.0,-64.27,0"
+    }
+   ],
+   "bsp_second_surface_columns": 0,
+   "isolation_to_next_region": 218.5,
+   "ineligible_reasons": [
+    "size",
+    "far from the road"
+   ]
+  },
+  {
+   "class": "invisible_block",
+   "columns": 34,
+   "area_units2": 1224,
+   "bounds_xz": [
+    2610.5,
+    463.73,
+    2640.5,
+    541.73
+   ],
+   "ps2_surface_range": [
+    56.336,
+    70.254
+   ],
+   "error_new_max_abs": 6.0,
+   "error_new_mean_abs": 3.257,
+   "unresolved_columns_without_ps2_or_patched_surface": 0,
+   "overhang_columns": 0,
+   "multilayer_columns": 0,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 0,
+    "invisible_block": 34,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "distance_to_raceline": 44.0,
+   "distance_to_converted_object": 897.8,
+   "centroid_xz": [
+    2628.15,
+    499.2
+   ],
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 2628.5,
+     "z": 499.73,
+     "ps2_contact_height": 65.833,
+     "retail_contact_height": 71.208,
+     "patched_contact_height": 71.208,
+     "teleport_point": "2628.5,67.33,499.73,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 2622.5,
+     "z": 493.73,
+     "ps2_contact_height": 63.774,
+     "retail_contact_height": 69.774,
+     "patched_contact_height": 69.774,
+     "teleport_point": "2622.5,65.27,493.73,0"
+    }
+   ],
+   "bsp_second_surface_columns": 0,
+   "isolation_to_next_region": 43.0,
+   "ineligible_reasons": []
+  },
+  {
+   "class": "missing_support",
+   "columns": 29,
+   "area_units2": 1044,
+   "bounds_xz": [
+    2514.5,
+    -880.27,
+    2586.5,
+    -844.27
+   ],
+   "ps2_surface_range": [
+    30.5,
+    70.697
+   ],
+   "error_new_max_abs": 5.624,
+   "error_new_mean_abs": 1.412,
+   "unresolved_columns_without_ps2_or_patched_surface": 2,
+   "overhang_columns": 0,
+   "multilayer_columns": 1,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 29,
+    "invisible_block": 0,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "distance_to_raceline": 58.4,
+   "distance_to_converted_object": 160.3,
+   "centroid_xz": [
+    2552.98,
+    -865.99
+   ],
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 2550.5,
+     "z": -868.27,
+     "ps2_contact_height": 38.816,
+     "retail_contact_height": 37.651,
+     "patched_contact_height": 37.651,
+     "teleport_point": "2550.5,40.32,-868.27,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 2574.5,
+     "z": -868.27,
+     "ps2_contact_height": 61.134,
+     "retail_contact_height": null,
+     "patched_contact_height": null,
+     "teleport_point": "2574.5,62.63,-868.27,0"
+    }
+   ],
+   "bsp_second_surface_columns": 0,
+   "isolation_to_next_region": 39.8,
+   "ineligible_reasons": [
+    "unresolved columns",
+    "multilayer or overhang"
+   ]
+  },
+  {
+   "class": "missing_support",
+   "columns": 22,
+   "area_units2": 792,
+   "bounds_xz": [
+    2688.5,
+    -958.27,
+    2760.5,
+    -916.27
+   ],
+   "ps2_surface_range": [
+    27.131,
+    80.391
+   ],
+   "error_new_max_abs": 11.941,
+   "error_new_mean_abs": 3.848,
+   "unresolved_columns_without_ps2_or_patched_surface": 3,
+   "overhang_columns": 0,
+   "multilayer_columns": 0,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 22,
+    "invisible_block": 0,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "distance_to_raceline": 34.4,
+   "distance_to_converted_object": 345.0,
+   "centroid_xz": [
+    2726.68,
+    -941.91
+   ],
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 2724.5,
+     "z": -946.27,
+     "ps2_contact_height": 67.362,
+     "retail_contact_height": 57.52,
+     "patched_contact_height": 57.52,
+     "teleport_point": "2724.5,68.86,-946.27,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 2706.5,
+     "z": -934.27,
+     "ps2_contact_height": 59.756,
+     "retail_contact_height": null,
+     "patched_contact_height": null,
+     "teleport_point": "2706.5,61.26,-934.27,0"
+    }
+   ],
+   "bsp_second_surface_columns": 0,
+   "isolation_to_next_region": 25.2,
+   "ineligible_reasons": [
+    "unresolved columns",
+    "not isolated"
+   ]
+  },
+  {
+   "class": "missing_support",
+   "columns": 12,
+   "area_units2": 432,
+   "bounds_xz": [
+    2580.5,
+    -802.27,
+    2598.5,
+    -784.27
+   ],
+   "ps2_surface_range": [
+    44.281,
+    52.56
+   ],
+   "error_new_max_abs": 5.427,
+   "error_new_mean_abs": 2.103,
+   "unresolved_columns_without_ps2_or_patched_surface": 0,
+   "overhang_columns": 0,
+   "multilayer_columns": 0,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 12,
+    "invisible_block": 0,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "distance_to_raceline": 114.5,
+   "distance_to_converted_object": 207.0,
+   "centroid_xz": [
+    2591.0,
+    -793.27
+   ],
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 2592.5,
+     "z": -796.27,
+     "ps2_contact_height": 49.325,
+     "retail_contact_height": 45.892,
+     "patched_contact_height": 45.892,
+     "teleport_point": "2592.5,50.83,-796.27,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 2592.5,
+     "z": -802.27,
+     "ps2_contact_height": 52.56,
+     "retail_contact_height": 47.133,
+     "patched_contact_height": 47.133,
+     "teleport_point": "2592.5,54.06,-802.27,0"
+    }
+   ],
+   "bsp_second_surface_columns": 0,
+   "isolation_to_next_region": 42.3,
+   "ineligible_reasons": [
+    "far from the road"
+   ]
+  },
+  {
+   "class": "invisible_block",
+   "columns": 9,
+   "area_units2": 324,
+   "bounds_xz": [
+    2322.5,
+    -802.27,
+    2328.5,
+    -778.27
+   ],
+   "ps2_surface_range": [
+    20.331,
+    21.941
+   ],
+   "error_new_max_abs": 1.898,
+   "error_new_mean_abs": 1.184,
+   "unresolved_columns_without_ps2_or_patched_surface": 0,
+   "overhang_columns": 0,
+   "multilayer_columns": 0,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 0,
+    "invisible_block": 9,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "distance_to_raceline": 28.5,
+   "distance_to_converted_object": 77.8,
+   "centroid_xz": [
+    2325.83,
+    -791.6
+   ],
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 2328.5,
+     "z": -790.27,
+     "ps2_contact_height": 20.526,
+     "retail_contact_height": 22.229,
+     "patched_contact_height": 22.229,
+     "teleport_point": "2328.5,22.03,-790.27,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 2328.5,
+     "z": -784.27,
+     "ps2_contact_height": 20.331,
+     "retail_contact_height": 22.229,
+     "patched_contact_height": 22.229,
+     "teleport_point": "2328.5,21.83,-784.27,0"
+    }
+   ],
+   "bsp_second_surface_columns": 0,
+   "isolation_to_next_region": 16.4,
+   "ineligible_reasons": [
+    "not isolated"
+   ]
+  },
+  {
+   "class": "missing_support",
+   "columns": 8,
+   "area_units2": 288,
+   "bounds_xz": [
+    2820.5,
+    -742.27,
+    2832.5,
+    -724.27
+   ],
+   "ps2_surface_range": [
+    24.76,
+    27.635
+   ],
+   "error_new_max_abs": 2.516,
+   "error_new_mean_abs": 1.409,
+   "unresolved_columns_without_ps2_or_patched_surface": 0,
+   "overhang_columns": 0,
+   "multilayer_columns": 0,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 8,
+    "invisible_block": 0,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "distance_to_raceline": 56.5,
+   "distance_to_converted_object": 342.5,
+   "centroid_xz": [
+    2825.0,
+    -733.27
+   ],
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 2826.5,
+     "z": -736.27,
+     "ps2_contact_height": 27.025,
+     "retail_contact_height": 24.509,
+     "patched_contact_height": 24.509,
+     "teleport_point": "2826.5,28.52,-736.27,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 2826.5,
+     "z": -736.27,
+     "ps2_contact_height": 27.025,
+     "retail_contact_height": 24.509,
+     "patched_contact_height": 24.509,
+     "teleport_point": "2826.5,28.52,-736.27,0"
+    }
+   ],
+   "bsp_second_surface_columns": 1,
+   "isolation_to_next_region": 113.6,
+   "ineligible_reasons": [
+    "multilayer or overhang"
+   ]
+  },
+  {
+   "class": "invisible_block",
+   "columns": 8,
+   "area_units2": 288,
+   "bounds_xz": [
+    1980.5,
+    -172.27,
+    2004.5,
+    -148.27
+   ],
+   "ps2_surface_range": [
+    30.233,
+    39.366
+   ],
+   "error_new_max_abs": 5.264,
+   "error_new_mean_abs": 2.407,
+   "unresolved_columns_without_ps2_or_patched_surface": 0,
+   "overhang_columns": 0,
+   "multilayer_columns": 0,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 0,
+    "invisible_block": 8,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "distance_to_raceline": 54.3,
+   "distance_to_converted_object": 23.3,
+   "centroid_xz": [
+    1993.25,
+    -160.27
+   ],
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 1992.5,
+     "z": -160.27,
+     "ps2_contact_height": 34.3,
+     "retail_contact_height": 37.692,
+     "patched_contact_height": 37.692,
+     "teleport_point": "1992.5,35.8,-160.27,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 1980.5,
+     "z": -166.27,
+     "ps2_contact_height": 31.814,
+     "retail_contact_height": 37.078,
+     "patched_contact_height": 37.078,
+     "teleport_point": "1980.5,33.31,-166.27,0"
+    }
+   ],
+   "bsp_second_surface_columns": 0,
+   "isolation_to_next_region": 195.4,
+   "ineligible_reasons": [
+    "near a converted object"
+   ]
+  },
+  {
+   "class": "invisible_block",
+   "columns": 6,
+   "area_units2": 216,
+   "bounds_xz": [
+    2382.5,
+    -778.27,
+    2388.5,
+    -766.27
+   ],
+   "ps2_surface_range": [
+    21.078,
+    21.702
+   ],
+   "error_new_max_abs": 1.151,
+   "error_new_mean_abs": 0.963,
+   "unresolved_columns_without_ps2_or_patched_surface": 0,
+   "overhang_columns": 0,
+   "multilayer_columns": 0,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 0,
+    "invisible_block": 6,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "distance_to_raceline": 32.1,
+   "distance_to_converted_object": 71.4,
+   "centroid_xz": [
+    2385.5,
+    -772.27
+   ],
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 2382.5,
+     "z": -772.27,
+     "ps2_contact_height": 21.375,
+     "retail_contact_height": 22.229,
+     "patched_contact_height": 22.229,
+     "teleport_point": "2382.5,22.88,-772.27,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 2388.5,
+     "z": -778.27,
+     "ps2_contact_height": 21.078,
+     "retail_contact_height": 22.229,
+     "patched_contact_height": 22.229,
+     "teleport_point": "2388.5,22.58,-778.27,0"
+    }
+   ],
+   "bsp_second_surface_columns": 0,
+   "isolation_to_next_region": 39.0,
+   "ineligible_reasons": []
+  },
+  {
+   "class": "missing_support",
+   "columns": 5,
+   "area_units2": 180,
+   "bounds_xz": [
+    2538.5,
+    -814.27,
+    2550.5,
+    -808.27
+   ],
+   "ps2_surface_range": [
+    54.847,
+    72.682
+   ],
+   "error_new_max_abs": 7.447,
+   "error_new_mean_abs": 3.448,
+   "unresolved_columns_without_ps2_or_patched_surface": 0,
+   "overhang_columns": 0,
+   "multilayer_columns": 0,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 5,
+    "invisible_block": 0,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "distance_to_raceline": 113.4,
+   "distance_to_converted_object": 156.0,
+   "centroid_xz": [
+    2543.3,
+    -811.87
+   ],
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 2544.5,
+     "z": -814.27,
+     "ps2_contact_height": 69.801,
+     "retail_contact_height": 66.629,
+     "patched_contact_height": 66.629,
+     "teleport_point": "2544.5,71.3,-814.27,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 2538.5,
+     "z": -808.27,
+     "ps2_contact_height": 66.754,
+     "retail_contact_height": 59.307,
+     "patched_contact_height": 59.307,
+     "teleport_point": "2538.5,68.25,-808.27,0"
+    }
+   ],
+   "bsp_second_surface_columns": 0,
+   "isolation_to_next_region": 16.1,
+   "ineligible_reasons": [
+    "far from the road",
+    "not isolated"
+   ]
+  },
+  {
+   "class": "missing_support",
+   "columns": 5,
+   "area_units2": 180,
+   "bounds_xz": [
+    2616.5,
+    -886.27,
+    2634.5,
+    -874.27
+   ],
+   "ps2_surface_range": [
+    37.677,
+    62.462
+   ],
+   "error_new_max_abs": 5.545,
+   "error_new_mean_abs": 3.563,
+   "unresolved_columns_without_ps2_or_patched_surface": 0,
+   "overhang_columns": 0,
+   "multilayer_columns": 0,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 5,
+    "invisible_block": 0,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "distance_to_raceline": 34.9,
+   "distance_to_converted_object": 233.3,
+   "centroid_xz": [
+    2624.9,
+    -880.27
+   ],
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 2622.5,
+     "z": -880.27,
+     "ps2_contact_height": 48.88,
+     "retail_contact_height": 44.525,
+     "patched_contact_height": 44.525,
+     "teleport_point": "2622.5,50.38,-880.27,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 2634.5,
+     "z": -886.27,
+     "ps2_contact_height": 50.224,
+     "retail_contact_height": 44.679,
+     "patched_contact_height": 44.679,
+     "teleport_point": "2634.5,51.72,-886.27,0"
+    }
+   ],
+   "bsp_second_surface_columns": 0,
+   "isolation_to_next_region": 22.8,
+   "ineligible_reasons": [
+    "not isolated"
+   ]
+  },
+  {
+   "class": "missing_support",
+   "columns": 5,
+   "area_units2": 180,
+   "bounds_xz": [
+    2646.5,
+    -844.27,
+    2664.5,
+    -838.27
+   ],
+   "ps2_surface_range": [
+    34.166,
+    46.445
+   ],
+   "error_new_max_abs": 2.112,
+   "error_new_mean_abs": 1.509,
+   "unresolved_columns_without_ps2_or_patched_surface": 0,
+   "overhang_columns": 0,
+   "multilayer_columns": 0,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 5,
+    "invisible_block": 0,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "distance_to_raceline": 62.4,
+   "distance_to_converted_object": 263.3,
+   "centroid_xz": [
+    2656.1,
+    -840.67
+   ],
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 2658.5,
+     "z": -838.27,
+     "ps2_contact_height": 34.166,
+     "retail_contact_height": 33.163,
+     "patched_contact_height": 33.163,
+     "teleport_point": "2658.5,35.67,-838.27,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 2652.5,
+     "z": -838.27,
+     "ps2_contact_height": 37.509,
+     "retail_contact_height": 35.397,
+     "patched_contact_height": 35.397,
+     "teleport_point": "2652.5,39.01,-838.27,0"
+    }
+   ],
+   "bsp_second_surface_columns": 0,
+   "isolation_to_next_region": 28.3,
+   "ineligible_reasons": [
+    "not isolated"
+   ]
+  },
+  {
+   "class": "missing_support",
+   "columns": 4,
+   "area_units2": 144,
+   "bounds_xz": [
+    2694.5,
+    -892.27,
+    2700.5,
+    -880.27
+   ],
+   "ps2_surface_range": [
+    41.832,
+    69.459
+   ],
+   "error_new_max_abs": 2.683,
+   "error_new_mean_abs": 1.778,
+   "unresolved_columns_without_ps2_or_patched_surface": 0,
+   "overhang_columns": 0,
+   "multilayer_columns": 0,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 4,
+    "invisible_block": 0,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "distance_to_raceline": 53.2,
+   "distance_to_converted_object": 306.1,
+   "centroid_xz": [
+    2697.5,
+    -886.27
+   ],
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 2694.5,
+     "z": -886.27,
+     "ps2_contact_height": 69.459,
+     "retail_contact_height": 68.172,
+     "patched_contact_height": 68.172,
+     "teleport_point": "2694.5,70.96,-886.27,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 2700.5,
+     "z": -886.27,
+     "ps2_contact_height": 41.832,
+     "retail_contact_height": 39.149,
+     "patched_contact_height": 39.149,
+     "teleport_point": "2700.5,43.33,-886.27,0"
+    }
+   ],
+   "bsp_second_surface_columns": 0,
+   "isolation_to_next_region": 29.5,
+   "ineligible_reasons": [
+    "not isolated"
+   ]
+  },
+  {
+   "class": "missing_support",
+   "columns": 3,
+   "area_units2": 108,
+   "bounds_xz": [
+    2670.5,
+    -862.27,
+    2682.5,
+    -856.27
+   ],
+   "ps2_surface_range": [
+    39.202,
+    49.523
+   ],
+   "error_new_max_abs": 8.686,
+   "error_new_mean_abs": 4.016,
+   "unresolved_columns_without_ps2_or_patched_surface": 0,
+   "overhang_columns": 0,
+   "multilayer_columns": 0,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 3,
+    "invisible_block": 0,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "distance_to_raceline": 55.3,
+   "distance_to_converted_object": 283.5,
+   "centroid_xz": [
+    2676.5,
+    -860.27
+   ],
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 2676.5,
+     "z": -862.27,
+     "ps2_contact_height": 49.523,
+     "retail_contact_height": 40.837,
+     "patched_contact_height": 40.837,
+     "teleport_point": "2676.5,51.02,-862.27,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 2676.5,
+     "z": -862.27,
+     "ps2_contact_height": 49.523,
+     "retail_contact_height": 40.837,
+     "patched_contact_height": 40.837,
+     "teleport_point": "2676.5,51.02,-862.27,0"
+    }
+   ],
+   "bsp_second_surface_columns": 0,
+   "isolation_to_next_region": 28.3,
+   "ineligible_reasons": [
+    "not isolated"
+   ]
+  },
+  {
+   "class": "missing_support",
+   "columns": 3,
+   "area_units2": 108,
+   "bounds_xz": [
+    2748.5,
+    -928.27,
+    2760.5,
+    -922.27
+   ],
+   "ps2_surface_range": [
+    57.386,
+    69.433
+   ],
+   "error_new_max_abs": 8.653,
+   "error_new_mean_abs": 4.337,
+   "unresolved_columns_without_ps2_or_patched_surface": 0,
+   "overhang_columns": 0,
+   "multilayer_columns": 0,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 3,
+    "invisible_block": 0,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "distance_to_raceline": 47.8,
+   "distance_to_converted_object": 368.5,
+   "centroid_xz": [
+    2754.5,
+    -926.27
+   ],
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 2754.5,
+     "z": -928.27,
+     "ps2_contact_height": 69.433,
+     "retail_contact_height": 60.78,
+     "patched_contact_height": 60.78,
+     "teleport_point": "2754.5,70.93,-928.27,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 2754.5,
+     "z": -928.27,
+     "ps2_contact_height": 69.433,
+     "retail_contact_height": 60.78,
+     "patched_contact_height": 60.78,
+     "teleport_point": "2754.5,70.93,-928.27,0"
+    }
+   ],
+   "bsp_second_surface_columns": 0,
+   "isolation_to_next_region": 12.6,
+   "ineligible_reasons": [
+    "not isolated"
+   ]
+  },
+  {
+   "class": "invisible_block",
+   "columns": 3,
+   "area_units2": 108,
+   "bounds_xz": [
+    2112.5,
+    -310.27,
+    2124.5,
+    -310.27
+   ],
+   "ps2_surface_range": [
+    33.191,
+    33.865
+   ],
+   "error_new_max_abs": 1.405,
+   "error_new_mean_abs": 0.988,
+   "unresolved_columns_without_ps2_or_patched_surface": 0,
+   "overhang_columns": 0,
+   "multilayer_columns": 0,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 0,
+    "invisible_block": 3,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "distance_to_raceline": 58.8,
+   "distance_to_converted_object": 210.9,
+   "centroid_xz": [
+    2118.5,
+    -310.27
+   ],
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 2118.5,
+     "z": -310.27,
+     "ps2_contact_height": 33.528,
+     "retail_contact_height": 34.516,
+     "patched_contact_height": 34.516,
+     "teleport_point": "2118.5,35.03,-310.27,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 2112.5,
+     "z": -310.27,
+     "ps2_contact_height": 33.865,
+     "retail_contact_height": 35.27,
+     "patched_contact_height": 35.27,
+     "teleport_point": "2112.5,35.37,-310.27,0"
+    }
+   ],
+   "bsp_second_surface_columns": 0,
+   "isolation_to_next_region": 28.5,
+   "ineligible_reasons": [
+    "not isolated"
+   ]
+  },
+  {
+   "class": "invisible_block",
+   "columns": 3,
+   "area_units2": 108,
+   "bounds_xz": [
+    2340.5,
+    -790.27,
+    2340.5,
+    -778.27
+   ],
+   "ps2_surface_range": [
+    21.119,
+    21.218
+   ],
+   "error_new_max_abs": 1.076,
+   "error_new_mean_abs": 0.84,
+   "unresolved_columns_without_ps2_or_patched_surface": 0,
+   "overhang_columns": 0,
+   "multilayer_columns": 0,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 0,
+    "invisible_block": 3,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "distance_to_raceline": 16.5,
+   "distance_to_converted_object": 73.4,
+   "centroid_xz": [
+    2340.5,
+    -784.27
+   ],
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 2340.5,
+     "z": -784.27,
+     "ps2_contact_height": 21.119,
+     "retail_contact_height": 22.149,
+     "patched_contact_height": 22.149,
+     "teleport_point": "2340.5,22.62,-784.27,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 2340.5,
+     "z": -790.27,
+     "ps2_contact_height": 21.153,
+     "retail_contact_height": 22.229,
+     "patched_contact_height": 22.229,
+     "teleport_point": "2340.5,22.65,-790.27,0"
+    }
+   ],
+   "bsp_second_surface_columns": 0,
+   "isolation_to_next_region": 16.4,
+   "ineligible_reasons": [
+    "not isolated"
+   ]
+  },
+  {
+   "class": "invisible_block",
+   "columns": 3,
+   "area_units2": 108,
+   "bounds_xz": [
+    2622.5,
+    -1102.27,
+    2622.5,
+    -1090.27
+   ],
+   "ps2_surface_range": [
+    52.967,
+    68.944
+   ],
+   "error_new_max_abs": 6.001,
+   "error_new_mean_abs": 5.459,
+   "unresolved_columns_without_ps2_or_patched_surface": 0,
+   "overhang_columns": 0,
+   "multilayer_columns": 0,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 0,
+    "invisible_block": 3,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "distance_to_raceline": 152.9,
+   "distance_to_converted_object": 333.6,
+   "centroid_xz": [
+    2622.5,
+    -1096.27
+   ],
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 2622.5,
+     "z": -1096.27,
+     "ps2_contact_height": 60.956,
+     "retail_contact_height": 66.956,
+     "patched_contact_height": 66.956,
+     "teleport_point": "2622.5,62.46,-1096.27,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 2622.5,
+     "z": -1090.27,
+     "ps2_contact_height": 52.967,
+     "retail_contact_height": 58.968,
+     "patched_contact_height": 58.968,
+     "teleport_point": "2622.5,54.47,-1090.27,0"
+    }
+   ],
+   "bsp_second_surface_columns": 0,
+   "isolation_to_next_region": 186.2,
+   "ineligible_reasons": [
+    "far from the road"
+   ]
+  },
+  {
+   "class": "missing_support",
+   "columns": 2,
+   "area_units2": 72,
+   "bounds_xz": [
+    2142.5,
+    -358.27,
+    2148.5,
+    -358.27
+   ],
+   "ps2_surface_range": [
+    28.402,
+    28.418
+   ],
+   "error_new_max_abs": 1.678,
+   "error_new_mean_abs": 1.022,
+   "unresolved_columns_without_ps2_or_patched_surface": 0,
+   "overhang_columns": 0,
+   "multilayer_columns": 0,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 2,
+    "invisible_block": 0,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "distance_to_raceline": 47.2,
+   "distance_to_converted_object": 264.3,
+   "centroid_xz": [
+    2145.5,
+    -358.27
+   ],
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 2142.5,
+     "z": -358.27,
+     "ps2_contact_height": 28.402,
+     "retail_contact_height": 28.037,
+     "patched_contact_height": 28.037,
+     "teleport_point": "2142.5,29.9,-358.27,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 2148.5,
+     "z": -358.27,
+     "ps2_contact_height": 28.418,
+     "retail_contact_height": 26.74,
+     "patched_contact_height": 26.74,
+     "teleport_point": "2148.5,29.92,-358.27,0"
+    }
+   ],
+   "bsp_second_surface_columns": 0,
+   "isolation_to_next_region": 24.7,
+   "ineligible_reasons": [
+    "size",
+    "not isolated"
+   ]
+  },
+  {
+   "class": "missing_support",
+   "columns": 2,
+   "area_units2": 72,
+   "bounds_xz": [
+    2142.5,
+    -304.27,
+    2148.5,
+    -298.27
+   ],
+   "ps2_surface_range": [
+    33.114,
+    34.315
+   ],
+   "error_new_max_abs": 0.419,
+   "error_new_mean_abs": 0.391,
+   "unresolved_columns_without_ps2_or_patched_surface": 0,
+   "overhang_columns": 0,
+   "multilayer_columns": 0,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 2,
+    "invisible_block": 0,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "distance_to_raceline": 33.8,
+   "distance_to_converted_object": 224.9,
+   "centroid_xz": [
+    2145.5,
+    -301.27
+   ],
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 2142.5,
+     "z": -304.27,
+     "ps2_contact_height": 33.114,
+     "retail_contact_height": 32.751,
+     "patched_contact_height": 32.751,
+     "teleport_point": "2142.5,34.61,-304.27,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 2148.5,
+     "z": -298.27,
+     "ps2_contact_height": 34.315,
+     "retail_contact_height": 33.896,
+     "patched_contact_height": 33.896,
+     "teleport_point": "2148.5,35.81,-298.27,0"
+    }
+   ],
+   "bsp_second_surface_columns": 0,
+   "isolation_to_next_region": 17.5,
+   "ineligible_reasons": [
+    "size",
+    "not isolated",
+    "error too small to observe"
+   ]
+  },
+  {
+   "class": "missing_support",
+   "columns": 2,
+   "area_units2": 72,
+   "bounds_xz": [
+    2148.5,
+    -334.27,
+    2154.5,
+    -334.27
+   ],
+   "ps2_surface_range": [
+    28.18,
+    28.361
+   ],
+   "error_new_max_abs": 1.754,
+   "error_new_mean_abs": 1.242,
+   "unresolved_columns_without_ps2_or_patched_surface": 0,
+   "overhang_columns": 0,
+   "multilayer_columns": 0,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 2,
+    "invisible_block": 0,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "distance_to_raceline": 32.6,
+   "distance_to_converted_object": 251.2,
+   "centroid_xz": [
+    2151.5,
+    -334.27
+   ],
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 2148.5,
+     "z": -334.27,
+     "ps2_contact_height": 28.18,
+     "retail_contact_height": 27.449,
+     "patched_contact_height": 27.449,
+     "teleport_point": "2148.5,29.68,-334.27,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 2154.5,
+     "z": -334.27,
+     "ps2_contact_height": 28.361,
+     "retail_contact_height": 26.607,
+     "patched_contact_height": 26.607,
+     "teleport_point": "2154.5,29.86,-334.27,0"
+    }
+   ],
+   "bsp_second_surface_columns": 0,
+   "isolation_to_next_region": 24.7,
+   "ineligible_reasons": [
+    "size",
+    "not isolated"
+   ]
+  },
+  {
+   "class": "missing_support",
+   "columns": 2,
+   "area_units2": 72,
+   "bounds_xz": [
+    2496.5,
+    -880.27,
+    2502.5,
+    -880.27
+   ],
+   "ps2_surface_range": [
+    38.796,
+    45.063
+   ],
+   "error_new_max_abs": 1.256,
+   "error_new_mean_abs": 0.782,
+   "unresolved_columns_without_ps2_or_patched_surface": 0,
+   "overhang_columns": 0,
+   "multilayer_columns": 0,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 2,
+    "invisible_block": 0,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "distance_to_raceline": 41.6,
+   "distance_to_converted_object": 109.6,
+   "centroid_xz": [
+    2499.5,
+    -880.27
+   ],
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 2496.5,
+     "z": -880.27,
+     "ps2_contact_height": 45.063,
+     "retail_contact_height": 44.755,
+     "patched_contact_height": 44.755,
+     "teleport_point": "2496.5,46.56,-880.27,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 2502.5,
+     "z": -880.27,
+     "ps2_contact_height": 38.796,
+     "retail_contact_height": 37.54,
+     "patched_contact_height": 37.54,
+     "teleport_point": "2502.5,40.3,-880.27,0"
+    }
+   ],
+   "bsp_second_surface_columns": 0,
+   "isolation_to_next_region": 55.4,
+   "ineligible_reasons": [
+    "size"
+   ]
+  },
+  {
+   "class": "missing_support",
+   "columns": 2,
+   "area_units2": 72,
+   "bounds_xz": [
+    2604.5,
+    -868.27,
+    2610.5,
+    -862.27
+   ],
+   "ps2_surface_range": [
+    56.252,
+    63.618
+   ],
+   "error_new_max_abs": 3.809,
+   "error_new_mean_abs": 3.043,
+   "unresolved_columns_without_ps2_or_patched_surface": 0,
+   "overhang_columns": 0,
+   "multilayer_columns": 0,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 2,
+    "invisible_block": 0,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "distance_to_raceline": 51.7,
+   "distance_to_converted_object": 214.7,
+   "centroid_xz": [
+    2607.5,
+    -865.27
+   ],
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 2604.5,
+     "z": -868.27,
+     "ps2_contact_height": 56.252,
+     "retail_contact_height": 52.443,
+     "patched_contact_height": 52.443,
+     "teleport_point": "2604.5,57.75,-868.27,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 2604.5,
+     "z": -868.27,
+     "ps2_contact_height": 56.252,
+     "retail_contact_height": 52.443,
+     "patched_contact_height": 52.443,
+     "teleport_point": "2604.5,57.75,-868.27,0"
+    }
+   ],
+   "bsp_second_surface_columns": 0,
+   "isolation_to_next_region": 23.0,
+   "ineligible_reasons": [
+    "size",
+    "not isolated"
+   ]
+  },
+  {
+   "class": "missing_support",
+   "columns": 1,
+   "area_units2": 36,
+   "bounds_xz": [
+    2154.5,
+    -286.27,
+    2154.5,
+    -286.27
+   ],
+   "ps2_surface_range": [
+    30.353,
+    30.353
+   ],
+   "error_new_max_abs": 0.582,
+   "error_new_mean_abs": 0.582,
+   "unresolved_columns_without_ps2_or_patched_surface": 0,
+   "overhang_columns": 0,
+   "multilayer_columns": 0,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 1,
+    "invisible_block": 0,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "distance_to_raceline": 26.5,
+   "distance_to_converted_object": 223.3,
+   "centroid_xz": [
+    2154.5,
+    -286.27
+   ],
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 2154.5,
+     "z": -286.27,
+     "ps2_contact_height": 30.353,
+     "retail_contact_height": 29.771,
+     "patched_contact_height": 29.771,
+     "teleport_point": "2154.5,31.85,-286.27,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 2154.5,
+     "z": -286.27,
+     "ps2_contact_height": 30.353,
+     "retail_contact_height": 29.771,
+     "patched_contact_height": 29.771,
+     "teleport_point": "2154.5,31.85,-286.27,0"
+    }
+   ],
+   "bsp_second_surface_columns": 0,
+   "isolation_to_next_region": 17.5,
+   "ineligible_reasons": [
+    "size",
+    "not isolated"
+   ]
+  },
+  {
+   "class": "missing_support",
+   "columns": 1,
+   "area_units2": 36,
+   "bounds_xz": [
+    2394.5,
+    -856.27,
+    2394.5,
+    -856.27
+   ],
+   "ps2_surface_range": [
+    37.103,
+    37.103
+   ],
+   "error_new_max_abs": 0.953,
+   "error_new_mean_abs": 0.953,
+   "unresolved_columns_without_ps2_or_patched_surface": 0,
+   "overhang_columns": 0,
+   "multilayer_columns": 0,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 1,
+    "invisible_block": 0,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "distance_to_raceline": 18.4,
+   "distance_to_converted_object": 2.6,
+   "centroid_xz": [
+    2394.5,
+    -856.27
+   ],
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 2394.5,
+     "z": -856.27,
+     "ps2_contact_height": 37.103,
+     "retail_contact_height": 34.344,
+     "patched_contact_height": 36.15,
+     "teleport_point": "2394.5,38.6,-856.27,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 2394.5,
+     "z": -856.27,
+     "ps2_contact_height": 37.103,
+     "retail_contact_height": 34.344,
+     "patched_contact_height": 36.15,
+     "teleport_point": "2394.5,38.6,-856.27,0"
+    }
+   ],
+   "bsp_second_surface_columns": 1,
+   "isolation_to_next_region": 48.4,
+   "ineligible_reasons": [
+    "size",
+    "multilayer or overhang",
+    "near a converted object"
+   ]
+  },
+  {
+   "class": "missing_support",
+   "columns": 1,
+   "area_units2": 36,
+   "bounds_xz": [
+    2514.5,
+    409.73,
+    2514.5,
+    409.73
+   ],
+   "ps2_surface_range": [
+    27.874,
+    27.874
+   ],
+   "error_new_max_abs": 2.521,
+   "error_new_mean_abs": 2.521,
+   "unresolved_columns_without_ps2_or_patched_surface": 0,
+   "overhang_columns": 0,
+   "multilayer_columns": 1,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 1,
+    "invisible_block": 0,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "distance_to_raceline": 11.1,
+   "distance_to_converted_object": 753.8,
+   "centroid_xz": [
+    2514.5,
+    409.73
+   ],
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 2514.5,
+     "z": 409.73,
+     "ps2_contact_height": 27.874,
+     "retail_contact_height": 25.353,
+     "patched_contact_height": 25.353,
+     "teleport_point": "2514.5,29.37,409.73,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 2514.5,
+     "z": 409.73,
+     "ps2_contact_height": 27.874,
+     "retail_contact_height": 25.353,
+     "patched_contact_height": 25.353,
+     "teleport_point": "2514.5,29.37,409.73,0"
+    }
+   ],
+   "bsp_second_surface_columns": 1,
+   "isolation_to_next_region": 144.6,
+   "ineligible_reasons": [
+    "size",
+    "multilayer or overhang"
+   ]
+  },
+  {
+   "class": "missing_support",
+   "columns": 1,
+   "area_units2": 36,
+   "bounds_xz": [
+    2550.5,
+    -826.27,
+    2550.5,
+    -826.27
+   ],
+   "ps2_surface_range": [
+    47.814,
+    47.814
+   ],
+   "error_new_max_abs": 2.078,
+   "error_new_mean_abs": 2.078,
+   "unresolved_columns_without_ps2_or_patched_surface": 0,
+   "overhang_columns": 0,
+   "multilayer_columns": 0,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 1,
+    "invisible_block": 0,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "distance_to_raceline": 98.0,
+   "distance_to_converted_object": 159.8,
+   "centroid_xz": [
+    2550.5,
+    -826.27
+   ],
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 2550.5,
+     "z": -826.27,
+     "ps2_contact_height": 47.814,
+     "retail_contact_height": 45.736,
+     "patched_contact_height": 45.736,
+     "teleport_point": "2550.5,49.31,-826.27,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 2550.5,
+     "z": -826.27,
+     "ps2_contact_height": 47.814,
+     "retail_contact_height": 45.736,
+     "patched_contact_height": 45.736,
+     "teleport_point": "2550.5,49.31,-826.27,0"
+    }
+   ],
+   "bsp_second_surface_columns": 0,
+   "isolation_to_next_region": 16.1,
+   "ineligible_reasons": [
+    "size",
+    "far from the road",
+    "not isolated"
+   ]
+  },
+  {
+   "class": "missing_support",
+   "columns": 1,
+   "area_units2": 36,
+   "bounds_xz": [
+    2574.5,
+    -832.27,
+    2574.5,
+    -832.27
+   ],
+   "ps2_surface_range": [
+    69.299,
+    69.299
+   ],
+   "error_new_max_abs": 0.512,
+   "error_new_mean_abs": 0.512,
+   "unresolved_columns_without_ps2_or_patched_surface": 0,
+   "overhang_columns": 0,
+   "multilayer_columns": 0,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 1,
+    "invisible_block": 0,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "distance_to_raceline": 88.4,
+   "distance_to_converted_object": 182.7,
+   "centroid_xz": [
+    2574.5,
+    -832.27
+   ],
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 2574.5,
+     "z": -832.27,
+     "ps2_contact_height": 69.299,
+     "retail_contact_height": 68.787,
+     "patched_contact_height": 68.787,
+     "teleport_point": "2574.5,70.8,-832.27,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 2574.5,
+     "z": -832.27,
+     "ps2_contact_height": 69.299,
+     "retail_contact_height": 68.787,
+     "patched_contact_height": 68.787,
+     "teleport_point": "2574.5,70.8,-832.27,0"
+    }
+   ],
+   "bsp_second_surface_columns": 0,
+   "isolation_to_next_region": 24.7,
+   "ineligible_reasons": [
+    "size",
+    "far from the road",
+    "not isolated"
+   ]
+  },
+  {
+   "class": "missing_support",
+   "columns": 1,
+   "area_units2": 36,
+   "bounds_xz": [
+    2634.5,
+    541.73,
+    2634.5,
+    541.73
+   ],
+   "ps2_surface_range": [
+    64.798,
+    64.798
+   ],
+   "error_new_max_abs": 1.114,
+   "error_new_mean_abs": 1.114,
+   "unresolved_columns_without_ps2_or_patched_surface": 0,
+   "overhang_columns": 0,
+   "multilayer_columns": 0,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 1,
+    "invisible_block": 0,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "distance_to_raceline": 65.3,
+   "distance_to_converted_object": 931.8,
+   "centroid_xz": [
+    2634.5,
+    541.73
+   ],
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 2634.5,
+     "z": 541.73,
+     "ps2_contact_height": 64.798,
+     "retail_contact_height": 63.684,
+     "patched_contact_height": 63.684,
+     "teleport_point": "2634.5,66.3,541.73,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 2634.5,
+     "z": 541.73,
+     "ps2_contact_height": 64.798,
+     "retail_contact_height": 63.684,
+     "patched_contact_height": 63.684,
+     "teleport_point": "2634.5,66.3,541.73,0"
+    }
+   ],
+   "bsp_second_surface_columns": 0,
+   "isolation_to_next_region": 43.0,
+   "ineligible_reasons": [
+    "size"
+   ]
+  },
+  {
+   "class": "missing_support",
+   "columns": 1,
+   "area_units2": 36,
+   "bounds_xz": [
+    2670.5,
+    -898.27,
+    2670.5,
+    -898.27
+   ],
+   "ps2_surface_range": [
+    54.679,
+    54.679
+   ],
+   "error_new_max_abs": 5.722,
+   "error_new_mean_abs": 5.722,
+   "unresolved_columns_without_ps2_or_patched_surface": 0,
+   "overhang_columns": 0,
+   "multilayer_columns": 0,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 1,
+    "invisible_block": 0,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "distance_to_raceline": 33.0,
+   "distance_to_converted_object": 280.9,
+   "centroid_xz": [
+    2670.5,
+    -898.27
+   ],
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 2670.5,
+     "z": -898.27,
+     "ps2_contact_height": 54.679,
+     "retail_contact_height": 48.957,
+     "patched_contact_height": 48.957,
+     "teleport_point": "2670.5,56.18,-898.27,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 2670.5,
+     "z": -898.27,
+     "ps2_contact_height": 54.679,
+     "retail_contact_height": 48.957,
+     "patched_contact_height": 48.957,
+     "teleport_point": "2670.5,56.18,-898.27,0"
+    }
+   ],
+   "bsp_second_surface_columns": 0,
+   "isolation_to_next_region": 29.5,
+   "ineligible_reasons": [
+    "size",
+    "not isolated"
+   ]
+  },
+  {
+   "class": "missing_support",
+   "columns": 1,
+   "area_units2": 36,
+   "bounds_xz": [
+    2730.5,
+    -796.27,
+    2730.5,
+    -796.27
+   ],
+   "ps2_surface_range": [
+    25.742,
+    25.742
+   ],
+   "error_new_max_abs": 2.207,
+   "error_new_mean_abs": 2.207,
+   "unresolved_columns_without_ps2_or_patched_surface": 0,
+   "overhang_columns": 0,
+   "multilayer_columns": 0,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 1,
+    "invisible_block": 0,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "distance_to_raceline": 23.5,
+   "distance_to_converted_object": 342.3,
+   "centroid_xz": [
+    2730.5,
+    -796.27
+   ],
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 2730.5,
+     "z": -796.27,
+     "ps2_contact_height": 25.742,
+     "retail_contact_height": 23.535,
+     "patched_contact_height": 23.535,
+     "teleport_point": "2730.5,27.24,-796.27,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 2730.5,
+     "z": -796.27,
+     "ps2_contact_height": 25.742,
+     "retail_contact_height": 23.535,
+     "patched_contact_height": 23.535,
+     "teleport_point": "2730.5,27.24,-796.27,0"
+    }
+   ],
+   "bsp_second_surface_columns": 0,
+   "isolation_to_next_region": 83.7,
+   "ineligible_reasons": [
+    "size"
+   ]
+  },
+  {
+   "class": "missing_support",
+   "columns": 1,
+   "area_units2": 36,
+   "bounds_xz": [
+    2736.5,
+    -916.27,
+    2736.5,
+    -916.27
+   ],
+   "ps2_surface_range": [
+    56.527,
+    56.527
+   ],
+   "error_new_max_abs": 6.176,
+   "error_new_mean_abs": 6.176,
+   "unresolved_columns_without_ps2_or_patched_surface": 0,
+   "overhang_columns": 0,
+   "multilayer_columns": 0,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 1,
+    "invisible_block": 0,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "distance_to_raceline": 49.4,
+   "distance_to_converted_object": 349.0,
+   "centroid_xz": [
+    2736.5,
+    -916.27
+   ],
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 2736.5,
+     "z": -916.27,
+     "ps2_contact_height": 56.527,
+     "retail_contact_height": 50.351,
+     "patched_contact_height": 50.351,
+     "teleport_point": "2736.5,58.03,-916.27,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 2736.5,
+     "z": -916.27,
+     "ps2_contact_height": 56.527,
+     "retail_contact_height": 50.351,
+     "patched_contact_height": 50.351,
+     "teleport_point": "2736.5,58.03,-916.27,0"
+    }
+   ],
+   "bsp_second_surface_columns": 0,
+   "isolation_to_next_region": 8.5,
+   "ineligible_reasons": [
+    "size",
+    "not isolated"
+   ]
+  },
+  {
+   "class": "missing_support",
+   "columns": 1,
+   "area_units2": 36,
+   "bounds_xz": [
+    2964.5,
+    -940.27,
+    2964.5,
+    -940.27
+   ],
+   "ps2_surface_range": [
+    69.539,
+    69.539
+   ],
+   "error_new_max_abs": 0.274,
+   "error_new_mean_abs": 0.274,
+   "unresolved_columns_without_ps2_or_patched_surface": 0,
+   "overhang_columns": 0,
+   "multilayer_columns": 0,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 1,
+    "invisible_block": 0,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "distance_to_raceline": 156.7,
+   "distance_to_converted_object": 505.9,
+   "centroid_xz": [
+    2964.5,
+    -940.27
+   ],
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 2964.5,
+     "z": -940.27,
+     "ps2_contact_height": 69.539,
+     "retail_contact_height": 69.265,
+     "patched_contact_height": 69.265,
+     "teleport_point": "2964.5,71.04,-940.27,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 2964.5,
+     "z": -940.27,
+     "ps2_contact_height": 69.539,
+     "retail_contact_height": 69.265,
+     "patched_contact_height": 69.265,
+     "teleport_point": "2964.5,71.04,-940.27,0"
+    }
+   ],
+   "bsp_second_surface_columns": 0,
+   "isolation_to_next_region": 210.5,
+   "ineligible_reasons": [
+    "size",
+    "far from the road",
+    "error too small to observe"
+   ]
+  },
+  {
+   "class": "invisible_block",
+   "columns": 1,
+   "area_units2": 36,
+   "bounds_xz": [
+    2400.5,
+    -808.27,
+    2400.5,
+    -808.27
+   ],
+   "ps2_surface_range": [
+    23.48,
+    23.48
+   ],
+   "error_new_max_abs": 3.992,
+   "error_new_mean_abs": 3.992,
+   "unresolved_columns_without_ps2_or_patched_surface": 0,
+   "overhang_columns": 0,
+   "multilayer_columns": 0,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 0,
+    "invisible_block": 1,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "distance_to_raceline": 45.6,
+   "distance_to_converted_object": 39.2,
+   "centroid_xz": [
+    2400.5,
+    -808.27
+   ],
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 2400.5,
+     "z": -808.27,
+     "ps2_contact_height": 23.48,
+     "retail_contact_height": 27.472,
+     "patched_contact_height": 27.472,
+     "teleport_point": "2400.5,24.98,-808.27,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 2400.5,
+     "z": -808.27,
+     "ps2_contact_height": 23.48,
+     "retail_contact_height": 27.472,
+     "patched_contact_height": 27.472,
+     "teleport_point": "2400.5,24.98,-808.27,0"
+    }
+   ],
+   "bsp_second_surface_columns": 0,
+   "isolation_to_next_region": 39.0,
+   "ineligible_reasons": [
+    "size",
+    "near a converted object"
+   ]
+  },
+  {
+   "class": "invisible_block",
+   "columns": 1,
+   "area_units2": 36,
+   "bounds_xz": [
+    2742.5,
+    -922.27,
+    2742.5,
+    -922.27
+   ],
+   "ps2_surface_range": [
+    73.013,
+    73.013
+   ],
+   "error_new_max_abs": 4.268,
+   "error_new_mean_abs": 4.268,
+   "unresolved_columns_without_ps2_or_patched_surface": 0,
+   "overhang_columns": 0,
+   "multilayer_columns": 0,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 0,
+    "invisible_block": 1,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "distance_to_raceline": 51.1,
+   "distance_to_converted_object": 356.0,
+   "centroid_xz": [
+    2742.5,
+    -922.27
+   ],
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 2742.5,
+     "z": -922.27,
+     "ps2_contact_height": 73.013,
+     "retail_contact_height": 77.281,
+     "patched_contact_height": 77.281,
+     "teleport_point": "2742.5,74.51,-922.27,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 2742.5,
+     "z": -922.27,
+     "ps2_contact_height": 73.013,
+     "retail_contact_height": 77.281,
+     "patched_contact_height": 77.281,
+     "teleport_point": "2742.5,74.51,-922.27,0"
+    }
+   ],
+   "bsp_second_surface_columns": 0,
+   "isolation_to_next_region": 8.5,
+   "ineligible_reasons": [
+    "size",
+    "not isolated"
+   ]
+  },
+  {
+   "class": "invisible_block",
+   "columns": 1,
+   "area_units2": 36,
+   "bounds_xz": [
+    3246.5,
+    -166.27,
+    3246.5,
+    -166.27
+   ],
+   "ps2_surface_range": [
+    42.246,
+    42.246
+   ],
+   "error_new_max_abs": 0.709,
+   "error_new_mean_abs": 0.709,
+   "unresolved_columns_without_ps2_or_patched_surface": 0,
+   "overhang_columns": 0,
+   "multilayer_columns": 0,
+   "retail_class_counts": {
+    "agree": 0,
+    "missing_support": 0,
+    "invisible_block": 1,
+    "ps2_exterior": 0,
+    "ps2_void": 0
+   },
+   "distance_to_raceline": 21.9,
+   "distance_to_converted_object": 369.1,
+   "centroid_xz": [
+    3246.5,
+    -166.27
+   ],
+   "probes": [
+    {
+     "label": "centroid_nearest",
+     "x": 3246.5,
+     "z": -166.27,
+     "ps2_contact_height": 42.246,
+     "retail_contact_height": 42.955,
+     "patched_contact_height": 42.955,
+     "teleport_point": "3246.5,43.75,-166.27,0"
+    },
+    {
+     "label": "worst_error",
+     "x": 3246.5,
+     "z": -166.27,
+     "ps2_contact_height": 42.246,
+     "retail_contact_height": 42.955,
+     "patched_contact_height": 42.955,
+     "teleport_point": "3246.5,43.75,-166.27,0"
+    }
+   ],
+   "bsp_second_surface_columns": 0,
+   "isolation_to_next_region": 218.5,
+   "ineligible_reasons": [
+    "size"
+   ]
+  }
+ ]
+}
