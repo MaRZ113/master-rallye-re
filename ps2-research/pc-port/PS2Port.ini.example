@@ -108,6 +108,11 @@ SplineObjects=0
 ; SplineObjectsAsset: packed models and routes (default <GrassAssetDirectory>/PS2SplineObjects.ps2spl).
 ; SplineObjectsStockCourses: 1 = also on the stock PC course geometry (DIAGNOSTIC: routes are PS2-authored). Keep 0.
 SplineObjectsStockCourses=0
+; PS2Water: 1 = PS2 water, puddles and waterfalls (two PS2 passes, PS2 transparency, wave and reflection UV) on every
+;   course water draw whose geometry is in the asset (36 PS2 course packages, and stock PC draws that equal the PS2
+;   surfaces). Replaces the PC water draw; supersedes CourseObjects on the same course. 0 = Stock.
+PS2Water=0
+; PS2WaterAsset: default <GrassAssetDirectory>/PS2Water.ps2wtr.
 
 ; --- Diagnostics ---------------------------------------------------------------
 ; Diagnostics: 1 = feature records in MRRRenderer/logs and F10 race-fleet sidecars.

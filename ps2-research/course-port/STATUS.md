@@ -10,6 +10,7 @@ W7). Everything below was done offline; nothing has been run in the game yet. Lo
 | W3 materials | draw-field rules derived from 1.2 million shared triangles; alpha copied from PS2; textures by the TRACK-GROUND1 policy | `../track-render1/NOTES.md`, `material-map-36.json` |
 | W4 logic | XML writer done for 36 courses (limits, splits, replay cameras, 3 sounds); OFF COURSE behaviour of both games decompiled and modelled offline; timing differs by code only | `LOGIC-PORT.md`, `build_logic.py`, `limit_sim.py`, `limit-sim-36.json` |
 | W5 ambient (birds, splines, emitters) | spline objects: 24/24 move on 17 courses (COURSE-ALIVE1, opt-in `SplineObjects=1`, drawn by the PS2 port proxy, bit-equal to the AMBIENT1 reference; user game test 2026-10-20: loads, draws, PS2 speed); birds and emitters not started | `AMBIENT-PROPS.md`, `../pc-port/docs/course-alive1/README.md` |
+| water render (COURSE-WATER1) | PS2 puddle / water / waterfall passes replace the package water draws on all 34 water courses (opt-in `PS2Water=1`, PS2 port proxy); contract checked against 20 PCSX2 GS dumps; game test pending | `../pc-port/docs/course-water1/README.md` |
 | W6 physics props | hay bale model ready; bodies need native code (PS2 class missing on PC, PC `gaAiHayBale` crashes in the contact code) | `AMBIENT-PROPS.md`, `track-delta1/HAY-PROBE.md` |
 | W7 packages | `build_course.py --all` built all 36 packages; rebuilt 2026-10-19 after the Turkey2 invisible-wall fix (PS2 splitter planes keep the no-contact code, `track-coll2/REPORT.md`); 33 pass every offline check, SpainS1 and its flip miss one collision column of 18,035 and ItalyS4 one horizontal ray of 9,731 (float32 step, W1 report) | `course-packages-36.json`, `research-output\course-port-36` |
 
@@ -28,7 +29,8 @@ Turkey3 v1 (`research-output\course-port-turkey3-v1`, README there), optionally 
 - does the course load and stay stable;
 - are faces missing (corner-order rule);
 - does the car rest on the PS2 ground;
-- do puddles and wires look right.
+- do puddles and wires look right (the PC base_water shader draws the PS2 puddles opaque; `PS2Water=1` gives the PS2
+  look, `../pc-port/docs/course-water1/`).
 
 ## Known limits (details in the reports)
 - tag1339 max y and radius rule, the sector polygon rule and three tag1500 constants are not decoded. They stay as in retail, which is consistent

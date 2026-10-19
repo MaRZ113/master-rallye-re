@@ -4,6 +4,7 @@
 #include "ps2_perf_timing.hpp"
 #include "ps2_port_extension.hpp"
 #include "course_objects.hpp"
+#include "ps2_water_pilot.hpp"
 #include "camera_probe.hpp"
 #include "provenance.hpp"
 #include <cmath>
@@ -125,6 +126,12 @@ inline HRESULT before_ui(Device8& d,bool ui_callsite,bool ui_consumer)noexcept {
     if(!ps2port::course_world_preflight(p->proof,boundary)||
        p->boundary_consumed(boundary.frame,p->proof.race,boundary.reset))return S_OK;
     auto& proof=p->proof;auto& n=*d.native();bool single=false;const auto cert=certificate(d,single);
+    // COURSE-WATER1: when PS2Water draws this course's water in this race, the static puddle preview would be a second
+    // copy of the same surfaces (one rendering path per surface).
+    if(auto* water=d.ps2_port()->water();water&&cert.valid&&water->owns(cert.course_id.data(),cert.race_generation)){
+        if(p->claim_log(false))try{session().write("{\"type\":\"ps2_course_objects_gate\",\"reason\":\"superseded_by_ps2_water\",\"course\":"+quote(std::string(cert.course_id.data()))+"}");}catch(...){}
+        return S_OK;
+    }
     Ref<IDirect3DSurface8> target,depth;D3DVIEWPORT8 viewport{};
     ps2port::CourseAdmission a;
     a.supported_build=session().target;a.render_thread=GetCurrentThreadId()==d.trace.render_thread_id();

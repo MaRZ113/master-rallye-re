@@ -29,7 +29,8 @@ class SplineObjectsContracts(unittest.TestCase):
                      'spline_objects()->before_reset()', 'spline_objects()->after_reset', 'spline_objects()->shutdown()',
                      'splines.initialize(*real_)', '"${MRR_PS2_PORT_ROOT}/renderer/spline_objects.cpp"', 'ps2_spline_objects_contracts'):
             self.assertIn(call, PATCH, call)
-        self.assertEqual(PATCH.count('splineintegration::observe_world_draw'), 3)
+        # Native, ground-detail and vehicle draws, plus the COURSE-WATER1 replaced water draw.
+        self.assertEqual(PATCH.count('splineintegration::observe_world_draw'), 4)
         # Proof resets in the generated forwarders come from the generator patch.
         self.assertEqual(GENERATOR.count('spline_objects()->proof'), 3)
 

@@ -1,0 +1,1260 @@
+{
+ "method": "COURSE-WATER1 runtime check of the PS2 water contract against PCSX2 GS dumps (decompressed *.gs files).",
+ "dumps": {
+  "20261017143139.gs": {
+   "water_strips": 228,
+   "puddle_strips": 20,
+   "course": "Turkey2",
+   "puddle_strips_matching_320938": 20,
+   "states": [
+    {
+     "primary": {
+      "alpha": "44",
+      "ctx": 0,
+      "fge": 1,
+      "test": "51000",
+      "tex0": {
+       "PSM": 2,
+       "TBP": 9664,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "2000050"
+     },
+     "secondary": {
+      "alpha": "44",
+      "ctx": 1,
+      "fge": 1,
+      "test": "5040c",
+      "tex0": {
+       "PSM": 0,
+       "TBP": 9728,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "102000050"
+     },
+     "runs": 228
+    },
+    {
+     "primary": {
+      "alpha": "44",
+      "ctx": 0,
+      "fge": 1,
+      "test": "51000",
+      "tex0": {
+       "PSM": 2,
+       "TBP": 9664,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "2000050"
+     },
+     "secondary": {
+      "alpha": "3800000068",
+      "ctx": 1,
+      "fge": 0,
+      "test": "5040c",
+      "tex0": {
+       "PSM": 0,
+       "TBP": 9728,
+       "TCC": 0,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "102000050"
+     },
+     "runs": 20
+    }
+   ]
+  },
+  "20261017143210.gs": {
+   "water_strips": 0,
+   "puddle_strips": 24,
+   "course": "France1",
+   "puddle_strips_matching_320938": 24,
+   "states": [
+    {
+     "primary": {
+      "alpha": "44",
+      "ctx": 0,
+      "fge": 1,
+      "test": "51000",
+      "tex0": {
+       "PSM": 2,
+       "TBP": 10112,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "2000050"
+     },
+     "secondary": {
+      "alpha": "3800000068",
+      "ctx": 1,
+      "fge": 0,
+      "test": "5040c",
+      "tex0": {
+       "PSM": 0,
+       "TBP": 10176,
+       "TCC": 0,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "102000050"
+     },
+     "runs": 24
+    }
+   ]
+  },
+  "20261017152841.gs": {
+   "water_strips": 228,
+   "puddle_strips": 20,
+   "course": "Turkey2",
+   "puddle_strips_matching_320938": 20,
+   "states": [
+    {
+     "primary": {
+      "alpha": "44",
+      "ctx": 0,
+      "fge": 1,
+      "test": "51000",
+      "tex0": {
+       "PSM": 2,
+       "TBP": 9664,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "2000050"
+     },
+     "secondary": {
+      "alpha": "44",
+      "ctx": 1,
+      "fge": 1,
+      "test": "5040c",
+      "tex0": {
+       "PSM": 0,
+       "TBP": 9728,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "102000050"
+     },
+     "runs": 228
+    },
+    {
+     "primary": {
+      "alpha": "44",
+      "ctx": 0,
+      "fge": 1,
+      "test": "51000",
+      "tex0": {
+       "PSM": 2,
+       "TBP": 9664,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "2000050"
+     },
+     "secondary": {
+      "alpha": "3800000068",
+      "ctx": 1,
+      "fge": 0,
+      "test": "5040c",
+      "tex0": {
+       "PSM": 0,
+       "TBP": 9728,
+       "TCC": 0,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "102000050"
+     },
+     "runs": 20
+    }
+   ]
+  },
+  "20261017153853.gs": {
+   "water_strips": 200,
+   "puddle_strips": 88,
+   "course": "Turkey2",
+   "puddle_strips_matching_320938": 88,
+   "states": [
+    {
+     "primary": {
+      "alpha": "44",
+      "ctx": 0,
+      "fge": 1,
+      "test": "51000",
+      "tex0": {
+       "PSM": 2,
+       "TBP": 9664,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "2000050"
+     },
+     "secondary": {
+      "alpha": "44",
+      "ctx": 1,
+      "fge": 1,
+      "test": "5040c",
+      "tex0": {
+       "PSM": 0,
+       "TBP": 9728,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "102000050"
+     },
+     "runs": 200
+    },
+    {
+     "primary": {
+      "alpha": "44",
+      "ctx": 0,
+      "fge": 1,
+      "test": "51000",
+      "tex0": {
+       "PSM": 2,
+       "TBP": 9664,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "2000050"
+     },
+     "secondary": {
+      "alpha": "3800000068",
+      "ctx": 1,
+      "fge": 0,
+      "test": "5040c",
+      "tex0": {
+       "PSM": 0,
+       "TBP": 9728,
+       "TCC": 0,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "102000050"
+     },
+     "runs": 88
+    }
+   ]
+  },
+  "20261017194946.gs": {
+   "water_strips": 136,
+   "puddle_strips": 0,
+   "course": null,
+   "puddle_strips_matching_320938": 0,
+   "states": [
+    {
+     "primary": {
+      "alpha": "44",
+      "ctx": 0,
+      "fge": 1,
+      "test": "51000",
+      "tex0": {
+       "PSM": 2,
+       "TBP": 9664,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "2000050"
+     },
+     "secondary": {
+      "alpha": "44",
+      "ctx": 1,
+      "fge": 1,
+      "test": "5040c",
+      "tex0": {
+       "PSM": 0,
+       "TBP": 9728,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "102000050"
+     },
+     "runs": 136
+    }
+   ]
+  },
+  "20261017195001.gs": {
+   "water_strips": 44,
+   "puddle_strips": 56,
+   "course": "Turkey2",
+   "puddle_strips_matching_320938": 56,
+   "states": [
+    {
+     "primary": {
+      "alpha": "44",
+      "ctx": 0,
+      "fge": 1,
+      "test": "51000",
+      "tex0": {
+       "PSM": 2,
+       "TBP": 9664,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "2000050"
+     },
+     "secondary": {
+      "alpha": "3800000068",
+      "ctx": 1,
+      "fge": 0,
+      "test": "5040c",
+      "tex0": {
+       "PSM": 0,
+       "TBP": 9728,
+       "TCC": 0,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "102000050"
+     },
+     "runs": 56
+    },
+    {
+     "primary": {
+      "alpha": "44",
+      "ctx": 0,
+      "fge": 1,
+      "test": "51000",
+      "tex0": {
+       "PSM": 2,
+       "TBP": 9664,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "2000050"
+     },
+     "secondary": {
+      "alpha": "44",
+      "ctx": 1,
+      "fge": 1,
+      "test": "5040c",
+      "tex0": {
+       "PSM": 0,
+       "TBP": 9728,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "102000050"
+     },
+     "runs": 44
+    }
+   ]
+  },
+  "20261017195259.gs": {
+   "water_strips": 0,
+   "puddle_strips": 100,
+   "course": "Turkey2",
+   "puddle_strips_matching_320938": 100,
+   "states": [
+    {
+     "primary": {
+      "alpha": "44",
+      "ctx": 0,
+      "fge": 1,
+      "test": "51000",
+      "tex0": {
+       "PSM": 2,
+       "TBP": 9664,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "2000050"
+     },
+     "secondary": {
+      "alpha": "3800000068",
+      "ctx": 1,
+      "fge": 0,
+      "test": "5040c",
+      "tex0": {
+       "PSM": 0,
+       "TBP": 9728,
+       "TCC": 0,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "102000050"
+     },
+     "runs": 100
+    }
+   ]
+  },
+  "20261017195339.gs": {
+   "water_strips": 0,
+   "puddle_strips": 88,
+   "course": "Turkey2",
+   "puddle_strips_matching_320938": 88,
+   "states": [
+    {
+     "primary": {
+      "alpha": "44",
+      "ctx": 0,
+      "fge": 1,
+      "test": "51000",
+      "tex0": {
+       "PSM": 2,
+       "TBP": 9664,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "2000050"
+     },
+     "secondary": {
+      "alpha": "3800000068",
+      "ctx": 1,
+      "fge": 0,
+      "test": "5040c",
+      "tex0": {
+       "PSM": 0,
+       "TBP": 9728,
+       "TCC": 0,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "102000050"
+     },
+     "runs": 88
+    }
+   ]
+  },
+  "20261017195341.gs": {
+   "water_strips": 0,
+   "puddle_strips": 72,
+   "course": "Turkey2",
+   "puddle_strips_matching_320938": 72,
+   "states": [
+    {
+     "primary": {
+      "alpha": "44",
+      "ctx": 0,
+      "fge": 1,
+      "test": "51000",
+      "tex0": {
+       "PSM": 2,
+       "TBP": 9664,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "2000050"
+     },
+     "secondary": {
+      "alpha": "3800000068",
+      "ctx": 1,
+      "fge": 0,
+      "test": "5040c",
+      "tex0": {
+       "PSM": 0,
+       "TBP": 9728,
+       "TCC": 0,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "102000050"
+     },
+     "runs": 72
+    }
+   ]
+  },
+  "20261017195654.gs": {
+   "water_strips": 168,
+   "puddle_strips": 88,
+   "course": "Turkey2",
+   "puddle_strips_matching_320938": 88,
+   "states": [
+    {
+     "primary": {
+      "alpha": "44",
+      "ctx": 0,
+      "fge": 1,
+      "test": "51000",
+      "tex0": {
+       "PSM": 2,
+       "TBP": 9664,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "2000050"
+     },
+     "secondary": {
+      "alpha": "44",
+      "ctx": 1,
+      "fge": 1,
+      "test": "5040c",
+      "tex0": {
+       "PSM": 0,
+       "TBP": 9728,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "102000050"
+     },
+     "runs": 168
+    },
+    {
+     "primary": {
+      "alpha": "44",
+      "ctx": 0,
+      "fge": 1,
+      "test": "51000",
+      "tex0": {
+       "PSM": 2,
+       "TBP": 9664,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "2000050"
+     },
+     "secondary": {
+      "alpha": "3800000068",
+      "ctx": 1,
+      "fge": 0,
+      "test": "5040c",
+      "tex0": {
+       "PSM": 0,
+       "TBP": 9728,
+       "TCC": 0,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "102000050"
+     },
+     "runs": 88
+    }
+   ]
+  },
+  "20261018110543.gs": {
+   "water_strips": 164,
+   "puddle_strips": 44,
+   "course": "Turkey2",
+   "puddle_strips_matching_320938": 44,
+   "states": [
+    {
+     "primary": {
+      "alpha": "44",
+      "ctx": 0,
+      "fge": 1,
+      "test": "51000",
+      "tex0": {
+       "PSM": 2,
+       "TBP": 9664,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "2000050"
+     },
+     "secondary": {
+      "alpha": "44",
+      "ctx": 1,
+      "fge": 1,
+      "test": "5040c",
+      "tex0": {
+       "PSM": 0,
+       "TBP": 9728,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "102000050"
+     },
+     "runs": 164
+    },
+    {
+     "primary": {
+      "alpha": "44",
+      "ctx": 0,
+      "fge": 1,
+      "test": "51000",
+      "tex0": {
+       "PSM": 2,
+       "TBP": 9664,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "2000050"
+     },
+     "secondary": {
+      "alpha": "3800000068",
+      "ctx": 1,
+      "fge": 0,
+      "test": "5040c",
+      "tex0": {
+       "PSM": 0,
+       "TBP": 9728,
+       "TCC": 0,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "102000050"
+     },
+     "runs": 44
+    }
+   ]
+  },
+  "20261018111721.gs": {
+   "water_strips": 164,
+   "puddle_strips": 44,
+   "course": "Turkey2",
+   "puddle_strips_matching_320938": 44,
+   "states": [
+    {
+     "primary": {
+      "alpha": "44",
+      "ctx": 0,
+      "fge": 1,
+      "test": "51000",
+      "tex0": {
+       "PSM": 2,
+       "TBP": 9664,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "2000050"
+     },
+     "secondary": {
+      "alpha": "44",
+      "ctx": 1,
+      "fge": 1,
+      "test": "5040c",
+      "tex0": {
+       "PSM": 0,
+       "TBP": 9728,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "102000050"
+     },
+     "runs": 164
+    },
+    {
+     "primary": {
+      "alpha": "44",
+      "ctx": 0,
+      "fge": 1,
+      "test": "51000",
+      "tex0": {
+       "PSM": 2,
+       "TBP": 9664,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "2000050"
+     },
+     "secondary": {
+      "alpha": "3800000068",
+      "ctx": 1,
+      "fge": 0,
+      "test": "5040c",
+      "tex0": {
+       "PSM": 0,
+       "TBP": 9728,
+       "TCC": 0,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "102000050"
+     },
+     "runs": 44
+    }
+   ]
+  },
+  "20261018111734.gs": {
+   "water_strips": 164,
+   "puddle_strips": 44,
+   "course": "Turkey2",
+   "puddle_strips_matching_320938": 44,
+   "states": [
+    {
+     "primary": {
+      "alpha": "44",
+      "ctx": 0,
+      "fge": 1,
+      "test": "51000",
+      "tex0": {
+       "PSM": 2,
+       "TBP": 9664,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "2000050"
+     },
+     "secondary": {
+      "alpha": "44",
+      "ctx": 1,
+      "fge": 1,
+      "test": "5040c",
+      "tex0": {
+       "PSM": 0,
+       "TBP": 9728,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "102000050"
+     },
+     "runs": 164
+    },
+    {
+     "primary": {
+      "alpha": "44",
+      "ctx": 0,
+      "fge": 1,
+      "test": "51000",
+      "tex0": {
+       "PSM": 2,
+       "TBP": 9664,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "2000050"
+     },
+     "secondary": {
+      "alpha": "3800000068",
+      "ctx": 1,
+      "fge": 0,
+      "test": "5040c",
+      "tex0": {
+       "PSM": 0,
+       "TBP": 9728,
+       "TCC": 0,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "102000050"
+     },
+     "runs": 44
+    }
+   ]
+  },
+  "20261018111737.gs": {
+   "water_strips": 164,
+   "puddle_strips": 44,
+   "course": "Turkey2",
+   "puddle_strips_matching_320938": 44,
+   "states": [
+    {
+     "primary": {
+      "alpha": "44",
+      "ctx": 0,
+      "fge": 1,
+      "test": "51000",
+      "tex0": {
+       "PSM": 2,
+       "TBP": 9664,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "2000050"
+     },
+     "secondary": {
+      "alpha": "44",
+      "ctx": 1,
+      "fge": 1,
+      "test": "5040c",
+      "tex0": {
+       "PSM": 0,
+       "TBP": 9728,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "102000050"
+     },
+     "runs": 164
+    },
+    {
+     "primary": {
+      "alpha": "44",
+      "ctx": 0,
+      "fge": 1,
+      "test": "51000",
+      "tex0": {
+       "PSM": 2,
+       "TBP": 9664,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "2000050"
+     },
+     "secondary": {
+      "alpha": "3800000068",
+      "ctx": 1,
+      "fge": 0,
+      "test": "5040c",
+      "tex0": {
+       "PSM": 0,
+       "TBP": 9728,
+       "TCC": 0,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "102000050"
+     },
+     "runs": 44
+    }
+   ]
+  },
+  "20261018111758.gs": {
+   "water_strips": 228,
+   "puddle_strips": 36,
+   "course": "Turkey2",
+   "puddle_strips_matching_320938": 36,
+   "states": [
+    {
+     "primary": {
+      "alpha": "44",
+      "ctx": 0,
+      "fge": 1,
+      "test": "51000",
+      "tex0": {
+       "PSM": 2,
+       "TBP": 10912,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "2000050"
+     },
+     "secondary": {
+      "alpha": "44",
+      "ctx": 1,
+      "fge": 1,
+      "test": "5040c",
+      "tex0": {
+       "PSM": 0,
+       "TBP": 10944,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "102000050"
+     },
+     "runs": 228
+    },
+    {
+     "primary": {
+      "alpha": "44",
+      "ctx": 0,
+      "fge": 1,
+      "test": "51000",
+      "tex0": {
+       "PSM": 2,
+       "TBP": 10912,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "2000050"
+     },
+     "secondary": {
+      "alpha": "3800000068",
+      "ctx": 1,
+      "fge": 0,
+      "test": "5040c",
+      "tex0": {
+       "PSM": 0,
+       "TBP": 10944,
+       "TCC": 0,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "102000050"
+     },
+     "runs": 36
+    }
+   ]
+  },
+  "20261018161115.gs": {
+   "water_strips": 192,
+   "puddle_strips": 20,
+   "course": "Turkey2",
+   "puddle_strips_matching_320938": 20,
+   "states": [
+    {
+     "primary": {
+      "alpha": "44",
+      "ctx": 0,
+      "fge": 1,
+      "test": "51000",
+      "tex0": {
+       "PSM": 2,
+       "TBP": 10912,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "2000050"
+     },
+     "secondary": {
+      "alpha": "44",
+      "ctx": 1,
+      "fge": 1,
+      "test": "5040c",
+      "tex0": {
+       "PSM": 0,
+       "TBP": 10944,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "102000050"
+     },
+     "runs": 192
+    },
+    {
+     "primary": {
+      "alpha": "44",
+      "ctx": 0,
+      "fge": 1,
+      "test": "51000",
+      "tex0": {
+       "PSM": 2,
+       "TBP": 10912,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "2000050"
+     },
+     "secondary": {
+      "alpha": "3800000068",
+      "ctx": 1,
+      "fge": 0,
+      "test": "5040c",
+      "tex0": {
+       "PSM": 0,
+       "TBP": 10944,
+       "TCC": 0,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "102000050"
+     },
+     "runs": 20
+    }
+   ]
+  },
+  "20261018161201.gs": {
+   "water_strips": 84,
+   "puddle_strips": 72,
+   "course": "Turkey2",
+   "puddle_strips_matching_320938": 72,
+   "states": [
+    {
+     "primary": {
+      "alpha": "44",
+      "ctx": 0,
+      "fge": 1,
+      "test": "51000",
+      "tex0": {
+       "PSM": 2,
+       "TBP": 10912,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "2000050"
+     },
+     "secondary": {
+      "alpha": "44",
+      "ctx": 1,
+      "fge": 1,
+      "test": "5040c",
+      "tex0": {
+       "PSM": 0,
+       "TBP": 10944,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "102000050"
+     },
+     "runs": 84
+    },
+    {
+     "primary": {
+      "alpha": "44",
+      "ctx": 0,
+      "fge": 1,
+      "test": "51000",
+      "tex0": {
+       "PSM": 2,
+       "TBP": 10912,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "2000050"
+     },
+     "secondary": {
+      "alpha": "3800000068",
+      "ctx": 1,
+      "fge": 0,
+      "test": "5040c",
+      "tex0": {
+       "PSM": 0,
+       "TBP": 10944,
+       "TCC": 0,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "102000050"
+     },
+     "runs": 72
+    }
+   ]
+  },
+  "20261019174115.gs": {
+   "water_strips": 0,
+   "puddle_strips": 0,
+   "course": null,
+   "puddle_strips_matching_320938": 0,
+   "states": []
+  },
+  "20261019174342.gs": {
+   "water_strips": 0,
+   "puddle_strips": 0,
+   "course": null,
+   "puddle_strips_matching_320938": 0,
+   "states": []
+  },
+  "20261019211737.gs": {
+   "water_strips": 64,
+   "puddle_strips": 184,
+   "course": "Turkey2",
+   "puddle_strips_matching_320938": 184,
+   "states": [
+    {
+     "primary": {
+      "alpha": "44",
+      "ctx": 0,
+      "fge": 1,
+      "test": "51000",
+      "tex0": {
+       "PSM": 2,
+       "TBP": 9664,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "2000050"
+     },
+     "secondary": {
+      "alpha": "3800000068",
+      "ctx": 1,
+      "fge": 0,
+      "test": "5040c",
+      "tex0": {
+       "PSM": 0,
+       "TBP": 9728,
+       "TCC": 0,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "102000050"
+     },
+     "runs": 184
+    },
+    {
+     "primary": {
+      "alpha": "44",
+      "ctx": 0,
+      "fge": 1,
+      "test": "51000",
+      "tex0": {
+       "PSM": 2,
+       "TBP": 9664,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "2000050"
+     },
+     "secondary": {
+      "alpha": "44",
+      "ctx": 1,
+      "fge": 1,
+      "test": "5040c",
+      "tex0": {
+       "PSM": 0,
+       "TBP": 9728,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "102000050"
+     },
+     "runs": 64
+    }
+   ]
+  }
+ },
+ "uv": {
+  "Turkey2:20261017195259.gs": {
+   "puddle": {
+    "status": "SOLVED",
+    "vertices": 2044,
+    "phase": 73.70665740966797,
+    "counter": 11055.999,
+    "primary_max_residual": 0.002139172702094072,
+    "camera_x_column": {
+     "column": [
+      0.75389,
+      0.00025,
+      -0.6579
+     ],
+     "norm": 1.00059,
+     "spread_of_normal_term": 0.04906,
+     "max_difference_residual": 0.02013
+    },
+    "camera_y_down_column": {
+     "column": [
+      0.19122,
+      -0.95678,
+      0.21924
+     ],
+     "norm": 1.00003,
+     "spread_of_normal_term": 0.01736,
+     "max_difference_residual": 0.00623
+    },
+    "columns_dot": -0.00032
+   },
+   "water": {
+    "status": "NO_WATER_RUNS"
+   }
+  },
+  "Turkey2:20261017143139.gs": {
+   "puddle": {
+    "status": "SOLVED",
+    "vertices": 516,
+    "phase": 70.6666488647461,
+    "counter": 10599.997,
+    "primary_max_residual": 0.004317303062189026,
+    "camera_x_column": {
+     "column": [
+      -0.85176,
+      -0.00287,
+      0.5403
+     ],
+     "norm": 1.00867,
+     "spread_of_normal_term": 0.0833,
+     "max_difference_residual": 0.03949
+    },
+    "camera_y_down_column": {
+     "column": [
+      -0.13777,
+      -0.96647,
+      -0.21459
+     ],
+     "norm": 0.99955,
+     "spread_of_normal_term": 0.025,
+     "max_difference_residual": 0.01142
+    },
+    "columns_dot": 0.00418
+   },
+   "water": {
+    "status": "SOLVED",
+    "runs": 228,
+    "vertices": 5932,
+    "load_phase": 50.76665496826172,
+    "load_counter": 7614.998,
+    "primary_max_residual": 5.6906010380997074e-05,
+    "secondary_max_residual": 8.871514367214672e-05
+   }
+  }
+ }
+}

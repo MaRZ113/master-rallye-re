@@ -7,6 +7,7 @@
 #include "course_objects.hpp"
 #include "grass_pilot.hpp"
 #include "spline_objects.hpp"
+#include "ps2_water_pilot.hpp"
 #include "vehicle_partition.hpp"
 #include "xtrail_fidelity.hpp"
 #include "frontend_model.hpp"
@@ -233,6 +234,8 @@ PS2PortExtension::PS2PortExtension(bool exact_build, const std::string& exe_sha,
         grass_ = std::make_unique<GrassPilot>(build_valid_, ini);
         shrubs_ = std::make_unique<GrassPilot>(build_valid_, ini,GroundDetailKind::Shrubs);
         spline_objects_ = std::make_unique<SplineObjectsPilot>(build_valid_, ini);
+        // COURSE-WATER1 (docs/course-water1): PS2Water=1 replaces matched native water draws by the PS2 passes.
+        water_ = std::make_unique<PS2WaterPilot>(build_valid_, ini);
         color_.configure(read_ps2_color_config(ini.c_str()));
         output_.configure(::gfx2::ps2port::config::read_int(L"PS2Output", 0, ini.c_str()) == 1);
         if (::gfx2::ps2port::config::read_int(L"PS2MotionBlur", 0, ini.c_str()) == 1) { wchar_t blur[32]{}; ::gfx2::ps2port::config::read_string(L"PS2MotionBlurStrength", L"0.195", blur, 32, ini.c_str()); blur_.configure(parse_motion_blur_strength(blur)); }
@@ -250,11 +253,11 @@ bool PS2PortExtension::requested() const noexcept {
     return mode_ != PilotMode::Stock || (reflection_ && reflection_->mirroring_required());
 }
 bool PS2PortExtension::active() const noexcept { return requested() && build_valid_ && !disabled_; }
-bool PS2PortExtension::buffer_mirroring_required() const noexcept { return active() || pixel_probe_enabled() || frontend_geometry_diagnostics() || (wheel_model_ && wheel_model_->requested()) || (race_model_ && race_model_->requested()) || (frontend_model_ && frontend_model_->requested()); }
+bool PS2PortExtension::buffer_mirroring_required() const noexcept { return active() || pixel_probe_enabled() || frontend_geometry_diagnostics() || (water_ && water_->identity_requested()) || (wheel_model_ && wheel_model_->requested()) || (race_model_ && race_model_->requested()) || (frontend_model_ && frontend_model_->requested()); }
 bool PS2PortExtension::analysis_enabled() const noexcept { return active() || pixel_probe_enabled() ||
     (!disabled_ && ((course_objects_ && course_objects_->identity_requested()) ||
                   (grass_ && grass_->identity_requested()) || (shrubs_ && shrubs_->identity_requested()) ||
-                  (spline_objects_ && spline_objects_->identity_requested()))); }
+                  (spline_objects_ && spline_objects_->identity_requested()) || (water_ && water_->identity_requested()))); }
 
 void PS2PortExtension::fleet_before_reset() noexcept {
     for (auto& m : fleet_race_) if (m) m->reset();
@@ -273,6 +276,7 @@ bool PS2PortExtension::native_states_pending() const noexcept {
         (grass_ && (grass_->blocked() || grass_->transaction.has_pending())) ||
         (shrubs_ && (shrubs_->blocked() || shrubs_->transaction.has_pending())) ||
         (spline_objects_ && (spline_objects_->blocked() || spline_objects_->transaction.has_pending())) ||
+        (water_ && (water_->blocked() || water_->transaction.pending())) ||
         color_.pending() || output_.pending() || blur_.pending() || (ground_ && ground_->transaction.pending()) ||
         (hud_damage_ && hud_damage_->layer.pending()) || (hud_map_ && hud_map_->layer.pending()) ||
         (hud_timediffs_ && hud_timediffs_->layer.pending()) || (hud_template_ && hud_template_->layer.pending());
@@ -1049,6 +1053,7 @@ void PS2PortExtension::disable(const char* reason) noexcept {
     if (grass_) grass_->disable(reason);
     if (shrubs_) shrubs_->disable(reason);
     if (spline_objects_) spline_objects_->disable(reason);
+    if (water_) water_->disable(reason);
 }
 
 } // namespace gfx2::ps2port
