@@ -3,8 +3,9 @@
     python build_render.py --course Turkey3 --suffix-from <W1 course DX> --out <dir> [--noise fit]
 
 Every triangle of every drawn PS2 landscape mesh becomes a triangle of the PC course DX, nothing else stays. Per triangle:
-  * matched: the PC course has the same triangle (positions, 1e-3) with the same base texture -> the PC vertex attributes (normal, colour, both UV sets)
-    and the PC corner order are copied and the triangle joins a draw with the PC draw fields;
+  * matched: the PC course has the same triangle (positions, 1e-3) with the same base texture -> the PC vertex attributes (normal, both UV sets)
+    and the PC corner order are copied and the triangle joins a draw with the PC draw fields; the colour is the PS2 one (PS2 bakes the shade of
+    its own objects into it; equal to PC within 8 on most vertices);
   * otherwise PS2 attributes: position, normal (+0), colour = PS2 bytes (+17, +18, +19, +16), UV (+20) with V flipped; corner order such that
     (b - a) x (c - a) points against the vertex normals (the PC convention on 96.6 percent of the shared triangles; matched ones keep the PC order);
     draw fields from a PC draw with the same texture tuple and directive group, else from the directive rule table (NOTES.md, material-map-36.json).
@@ -310,7 +311,14 @@ class Builder:
                 if hit and hit[2][0] == base:
                     d, vids, tt_, f, in_root = hit
                     r = self.pc
-                    attrs = [(r.positions[v], r.normals[v], bytes(r.colors[4 * v:4 * v + 4]), r.uv_sets[0][v], r.uv_sets[1][v]) for v in vids]
+                    # colour from PS2: PS2 bakes the shade of its own objects (trees PC does not have) into the vertex colour, PC lit those
+                    # vertices without them; a PC colour next to a PS2-only triangle leaves a hard light/dark edge (owner's Turkey2 test)
+                    ps2_col = {tuple(round(c, 3) for c in v[0]): bytes(v[2]) for v in verts}
+                    attrs = [(r.positions[v], r.normals[v], ps2_col.get(tuple(round(c, 3) for c in r.positions[v]), bytes(r.colors[4 * v:4 * v + 4])),
+                              r.uv_sets[0][v], r.uv_sets[1][v]) for v in vids]
+                    self.report['vert_colour_ps2_differs_from_pc'] += sum(
+                        1 for v in vids if max(abs(a - c) for a, c in zip(ps2_col.get(tuple(round(c, 3) for c in r.positions[v]), bytes(r.colors[4 * v:4 * v + 4])),
+                                                                         bytes(r.colors[4 * v:4 * v + 4]))) > 8)
                     # PC triangles drawn from the root record (always drawn, no sector) stay in the root
                     if two_sided:
                         # PC keeps a two-sided triangle twice; the copy found first may be the reversed one: use the PS2-rule order
