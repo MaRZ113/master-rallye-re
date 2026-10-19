@@ -4,6 +4,11 @@ Geometry (against the PS2 BSP):
   * solid/empty at seeded random points in the course box;
   * first contact of vertical columns (fixed grid over the PS2 visible ground, window h + 6 .. h - 12), new tree vs PS2 BSP within 0.05, with the
     retail tree for comparison (columns inside the PS2 solid exterior are included: the shell is ported on purpose).
+  * first solid along horizontal rays at car height (0.3 to 1.5 above the PS2 contact of each column, seeded direction, 20 units), new tree vs
+    PS2 BSP within 0.05 (vertical columns and random points cannot see thin or vertical solids);
+  * contact plane of the engine's nearest-plane fallback (`ps2_fallback`, `pc_fallback`) for a point 0.005 to 0.3 below the PS2 contact of each
+    column: the plane the engine uses when the 1-unit trace finds no exit plane, which is the usual case for a wheel under flat ground. A steep
+    plane chosen on PC where PS2 chooses a non-steep one is a sideways push (an invisible one-sided wall in the game).
 Properties (not implied by the geometry):
   * the plane on which each column's contact happens in the new tree: non-negative code (contact allowed), and how its code was chosen;
   * whether that code equals the retail code at the same column when the retail contact is at the same height (same surface id as PC);
@@ -15,6 +20,8 @@ import argparse
 import collections
 import json
 import math
+import random
+import struct
 import sys
 from pathlib import Path
 
@@ -37,6 +44,77 @@ from master_rallye.tag100_diff import extract_tag100_from_dx_bytes  # noqa: E402
 from master_rallye.course_tag1400 import parse_course_tag1400_bytes  # noqa: E402
 
 UP, DOWN, TOL = 6.0, 12.0, 0.05
+H_RAY = 20.0
+ENGINE_EPS = struct.unpack('<f', bytes.fromhex('17b7d138'))[0]   # 1e-4 as float32, PC 0x6e7b54 and PS2 0x4264a0
+FLT_MAX = 3.4028234663852886e38
+
+
+def _side(pl, p):
+    s = pl[0] * p[0] + pl[1] * p[1] + pl[2] * p[2] + pl[3]
+    return s, (1 if s >= ENGINE_EPS else -1 if s <= -ENGINE_EPS else 0)
+
+
+def _negative(code):
+    return code is None or code >= 0x80000000
+
+
+def ps2_fallback(bsp, p):
+    """Nearest-plane fallback on the PS2 BSP, transcribed from SLES_509.06: plane node 0x237610 (in front: front link only; on or behind: the node
+    plane is a candidate when its code is >= 0 and |n.p + d| is below the best; behind: back link), payload leaf 0x2365e0 (every run plane the
+    point is on or behind is a candidate while the current best code is >= 0; the check reads the best, not the plane), other leaves add nothing.
+    Start: distance FLT_MAX, code -1. Returns (distance, plane or None, code)."""
+    best = (FLT_MAX, None, 0xffffffff)
+    i = 0
+    while True:
+        n = bsp.nodes[i]
+        if n.plane is not None:
+            s, sd = _side(n.plane, p)
+            if sd == 1:
+                i = n.sibling
+                continue
+            if not _negative(n.plane[4]) and abs(s) < best[0]:
+                best = (abs(s), tuple(n.plane[:4]), n.plane[4])
+            if sd == -1:
+                i = n.child
+                continue
+            return best
+        if n.payload is not None:
+            start, count = n.payload[0] & 0xffffff, n.payload[1] & 0xff
+            for pl in bsp.plane_table[start:start + count]:
+                s, sd = _side(pl, p)
+                if sd != 1 and not _negative(best[2]) and abs(s) < best[0]:
+                    best = (abs(s), tuple(pl[:4]), pl[4])
+        return best
+
+
+def pc_fallback(tree, p):
+    """The same query on a PC tag100 tree, transcribed from MRallye.exe 0x61fff0 (called from 0x62f5f0 when 0x636770 finds no exit plane); the
+    start values are the static ones written at 0x4e67d0 (distance FLT_MAX, code 0xFFFFFFFF)."""
+    best = (FLT_MAX, None, 0xffffffff)
+    i = 0
+    while tree.plane[i] is not None:
+        pl = tree.plane[i]
+        s, sd = _side(pl, p)
+        if sd == 1:
+            i = tree.sib[i]
+            continue
+        if not _negative(tree.code[i]) and abs(s) < best[0]:
+            best = (abs(s), tuple(pl[:4]), tree.code[i])
+        if sd == -1:
+            i = tree.child[i]
+            continue
+        break
+    return best
+
+
+def same_plane(a, b):
+    if a[1] is None or b[1] is None:
+        return a[1] is None and b[1] is None
+    return max(abs(a[1][k] - b[1][k]) for k in range(3)) < 1e-3 and abs(a[1][3] - b[1][3]) < 2e-3
+
+
+def steep(plane):
+    return plane is not None and abs(plane[1]) < 0.5
 
 
 class SurfaceLookup:
@@ -147,6 +225,9 @@ def validate(course, dx, step=6.0, points=100000, seed=20261019):
     # 2. columns over the PS2 landscape (heights from the PS2-built surface grid = PS2 visible landscape)
     res = collections.Counter()
     errs_new, errs_old = [], []
+    hres, herr = collections.Counter(), []
+    fres, ferr = collections.Counter(), []
+    rnd = random.Random(seed)
     code_kind = collections.Counter()
     surf = collections.Counter()
     surf_pairs = collections.Counter()
@@ -171,6 +252,32 @@ def validate(course, dx, step=6.0, points=100000, seed=20261019):
                 errs_new.append({'x': x, 'z': z, 'ps2': hp, 'new': hn})
             else:
                 res['new_agree'] += 1
+            if hp is not None and hp < top - 1e-6:
+                # horizontal ray at car height from above the PS2 contact
+                y = hp + rnd.uniform(0.3, 1.5)
+                ang = rnd.uniform(0.0, 2 * math.pi)
+                a, b = (x, y, z), (x + H_RAY * math.cos(ang), y, z + H_RAY * math.sin(ang))
+                if not q.ps2_is_solid(bsp, a):
+                    tp = ps2_first_solid_t(bsp, a, b)
+                    tn = rv.tree_first_solid_t(new, a, b)
+                    hres['rays'] += 1
+                    if (tp is None) != (tn is None) or (tp is not None and abs(tp - tn) * H_RAY > TOL):
+                        hres['new_differs'] += 1
+                        herr.append({'a': a, 'b': b, 'ps2': tp and tp * H_RAY, 'new': tn and tn * H_RAY})
+                    else:
+                        hres['new_agree'] += 1
+                # nearest-plane fallback for a point just under the PS2 contact
+                pt = (x, hp - rnd.uniform(0.005, 0.3), z)
+                fp, fn = ps2_fallback(bsp, pt), pc_fallback(new, pt)
+                fres['points'] += 1
+                if same_plane(fp, fn):
+                    fres['same_plane'] += 1
+                else:
+                    fres['other_plane'] += 1
+                    kind = 'steep_on_new_only' if steep(fn[1]) and not steep(fp[1]) else 'none_on_ps2' if fp[1] is None else 'none_on_new' if fn[1] is None else 'other'
+                    fres[kind] += 1
+                    if len(ferr) < 20:
+                        ferr.append({'point': pt, 'kind': kind, 'ps2': [fp[1], fp[2]], 'new': [fn[1], fn[2]]})
             if (hp is None) == (ho is None) and (hp is None or abs(hp - ho) <= TOL):
                 res['retail_agree'] += 1
             else:
@@ -197,6 +304,8 @@ def validate(course, dx, step=6.0, points=100000, seed=20261019):
         'course': course.name, 'box': [lo, hi],
         'random_points': {'points': points, 'mismatch': len(mism), 'first': mism[:5]},
         'columns': dict(res), 'columns_new_differs_first': errs_new[:10],
+        'horizontal_rays': dict(hres), 'horizontal_rays_new_differs_first': herr[:10],
+        'fallback_planes': dict(fres), 'fallback_planes_differs_first': ferr,
         'contact_codes': dict(code_kind),
         'surface_types': dict(surf), 'surface_type_changes_retail_to_ps2': dict(surf_pairs.most_common(20)),
     }
@@ -212,7 +321,7 @@ def main():
     a = ap.parse_args()
     rep = validate(cc.course(a.course), a.dx.read_bytes(), a.step, a.points)
     a.out.write_text(json.dumps(rep, indent=1))
-    print(json.dumps({k: rep[k] for k in ('random_points', 'columns', 'contact_codes', 'surface_types', 'surface_type_changes_retail_to_ps2')}, indent=1))
+    print(json.dumps({k: rep[k] for k in ('random_points', 'columns', 'horizontal_rays', 'fallback_planes', 'contact_codes', 'surface_types', 'surface_type_changes_retail_to_ps2')}, indent=1))
 
 
 if __name__ == '__main__':

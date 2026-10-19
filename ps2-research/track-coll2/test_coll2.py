@@ -26,6 +26,21 @@ def solid(tree, p):
     return tree.f0[tree.classify(p)] == tt.SOLID
 
 
+def stats_splitters(bsp):
+    return sum(1 for n in bsp.nodes if n.plane is not None and n.plane[4] == conv.PS2_SPLITTER)
+
+
+def ground_with_splitter():
+    """Ground y = 0 (code 7) with a vertical PS2 splitter x = 0 (code 0xFFFFFFFF) inside the solid below it."""
+    b = Builder()
+    root = b.plane_node((0.0, 1.0, 0.0, 0.0), 0, 0)
+    b.nodes[root].sibling = b.empty()
+    split = b.add(plane=(1.0, 0.0, 0.0, 0.0, conv.PS2_SPLITTER), f0=0)
+    b.nodes[split].child, b.nodes[split].sibling = b.solid(), b.solid()
+    b.nodes[root].child = split
+    return b.build()
+
+
 class ConvertTests(unittest.TestCase):
     def codes(self):
         return conv.PlaneCodes(tt.Tree(pc_tree(0.0, code=5)), (0, 10, 0))
@@ -38,7 +53,8 @@ class ConvertTests(unittest.TestCase):
         self.assertTrue(tree.counts_ok())
         for p in self.grid():
             self.assertEqual(solid(tree, p), q.ps2_is_solid(bsp, p), p)
-        self.assertTrue(all(c is None or c < 0x80000000 for c in tree.code))
+        # negative (no contact) codes only where the PS2 tree plane is a splitter coded 0xFFFFFFFF
+        self.assertEqual(sum(1 for c in tree.code if c is not None and c >= 0x80000000), stats_splitters(bsp))
         raw = tree.serialize()
         self.assertEqual(tt.Tree(raw).serialize(), raw)
         return tree, stats
@@ -72,6 +88,17 @@ class ConvertTests(unittest.TestCase):
             self.assertEqual(solid(tree, (0, y, 0)), q.ps2_is_solid(bsp, (0, y, 0)), y)
         self.assertGreaterEqual(conv.inset_d(-0.00012), -0.00012 + conv.PS2_EPS)
         self.assertGreaterEqual(conv.inset_d(-2500.123), -2500.123 + conv.PS2_EPS)
+
+    def test_ps2_splitter_keeps_no_contact_code(self):
+        # the engine's nearest-plane fallback must pick the ground under the surface, not the splitter 0.01 away (Turkey2 one-sided wall)
+        import validate_collision as vc
+        bsp = ground_with_splitter()
+        tree, stats = self.check(bsp)
+        p = (-0.01, -0.05, 0.0)
+        self.assertEqual(vc.ps2_fallback(bsp, p)[1], (0.0, 1.0, 0.0, 0.0))
+        self.assertEqual(vc.pc_fallback(tree, p)[1], (0.0, 1.0, 0.0, 0.0))
+        old, _ = conv.convert(bsp, self.codes(), keep_splitters=False)
+        self.assertEqual(vc.pc_fallback(old, p)[1], (1.0, 0.0, 0.0, 0.0))      # the earlier build: the splitter becomes the contact plane
 
     def test_same_plane_code_is_taken_from_pc(self):
         bsp = ps2_ground(0.0)          # the PS2 ground plane equals the PC plane y = 0 (code 5)

@@ -55,11 +55,15 @@ def package(course, out_root, noise='ps2', step=12.0, points=50000, logic=True):
     checks = {
         'collision_points_match_ps2': val['random_points']['mismatch'] == 0,
         'collision_columns_match_ps2': val['columns'].get('new_differs', 0) == 0,
+        'collision_horizontal_rays_match_ps2': val['horizontal_rays'].get('new_differs', 0) == 0,
+        # nearest-plane fallback: no steep contact plane on PC where PS2 has a non-steep one (invisible one-sided wall, Turkey2 test 2026-10-19)
+        'fallback_no_steep_plane_on_new_only': val['fallback_planes'].get('steep_on_new_only', 0) == 0,
         'render_triangles_equal_ps2': render_rep['triangle_multiset_equal_ps2'],
         'render_validated': render_rep['course_render_validated'],
         'textures_resolved': not render_rep['unresolved_texture_slots'],
         'tag100_round_trip': coll_rep['tree']['round_trip_identical'] and coll_rep['tree']['count_invariants_ok'],
-        'no_negative_codes': coll_rep['tree']['negative_codes'] == 0,
+        # negative (no contact) codes only on the PS2 splitter planes that are coded 0xFFFFFFFF in the PS2 tree
+        'negative_codes_only_ps2_splitters': coll_rep['tree']['negative_codes'] == coll_rep['tree']['code_provenance'].get('ps2_splitter', 0),
         # PC stores 97 percent of its surface records facing down; a PS2 build must not differ by more than a few percent
         # retail ranges (all 36 retail course DX): at most 87,479 vertices (FranceM) and 227,061 local indices (FranceM)
         'within_retail_vertex_and_index_range': render_rep['vertices'] <= 87479 and render_rep['indices'] <= 227061,

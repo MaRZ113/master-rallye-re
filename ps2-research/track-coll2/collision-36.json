@@ -18,9 +18,10 @@
      "pruned_planes": 13
     },
     "code_provenance": {
-     "pc_ground_path": 18203,
-     "default": 113,
-     "pc_same_plane": 67700
+     "ps2_splitter": 3575,
+     "pc_same_plane": 67699,
+     "pc_ground_path": 14678,
+     "default": 64
     },
     "default_code": 43781,
     "default_code_source": "reference_code at the course centre",
@@ -30,7 +31,7 @@
     "new_plane_nodes": 86016,
     "round_trip_identical": true,
     "count_invariants_ok": true,
-    "negative_codes": 0
+    "negative_codes": 3575
    },
    "tag1400": {
     "records": 26644,
@@ -38,6 +39,8 @@
     "degenerate_nan_plane": 0,
     "retail_records": 27719,
     "new_records": 26644,
+    "records_normal_down_fraction": 0.983,
+    "retail_records_normal_down_fraction": 0.985,
     "dims": [
      155,
      105
@@ -46,7 +49,7 @@
    },
    "render_prefix_identical": true,
    "dx_bytes": 9276732,
-   "dx_sha256": "a49f7e5e518fb6664651e462330663b8466275440c566225306c777bda5fcdf9"
+   "dx_sha256": "588a7a40028f5ee39a647ad60f1e137cc98cf40b343c1bf3455811f99ad6c97c"
   },
   "validation": {
    "course": "France1",
@@ -74,6 +77,45 @@
     "retail_agree": 13425
    },
    "columns_new_differs_first": [],
+   "horizontal_rays": {
+    "rays": 10384,
+    "new_agree": 10384
+   },
+   "horizontal_rays_new_differs_first": [],
+   "fallback_planes": {
+    "points": 10384,
+    "same_plane": 10383,
+    "other_plane": 1,
+    "other": 1
+   },
+   "fallback_planes_differs_first": [
+    {
+     "point": [
+      -2433.086669921875,
+      76.84726400198552,
+      -128.8104248046875
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       0.25763463973999023,
+       0.965459942817688,
+       0.0388789065182209,
+       557.5455932617188
+      ],
+      15161
+     ],
+     "new": [
+      [
+       0.2548412084579468,
+       0.9669827818870544,
+       0.0004227394820190966,
+       545.6784057617188
+      ],
+      18137
+     ]
+    }
+   ],
    "contact_codes": {
     "valid": 10384,
     "same_code_as_retail": 9977,
@@ -90,7 +132,7 @@
     "gravel->water": 1
    }
   },
-  "seconds": 30.9
+  "seconds": 47.8
  },
  "France2": {
   "build": {
@@ -110,9 +152,9 @@
      "payload_empty": 34
     },
     "code_provenance": {
-     "pc_ground_path": 24294,
-     "default": 7,
-     "pc_same_plane": 47529
+     "ps2_splitter": 3347,
+     "pc_same_plane": 47515,
+     "pc_ground_path": 20968
     },
     "default_code": 17816,
     "default_code_source": "most frequent near-horizontal retail code",
@@ -122,7 +164,7 @@
     "new_plane_nodes": 71830,
     "round_trip_identical": true,
     "count_invariants_ok": true,
-    "negative_codes": 0
+    "negative_codes": 3347
    },
    "tag1400": {
     "records": 20853,
@@ -130,6 +172,8 @@
     "degenerate_nan_plane": 0,
     "retail_records": 21615,
     "new_records": 20853,
+    "records_normal_down_fraction": 0.957,
+    "retail_records_normal_down_fraction": 0.954,
     "dims": [
      112,
      90
@@ -138,7 +182,7 @@
    },
    "render_prefix_identical": true,
    "dx_bytes": 8982468,
-   "dx_sha256": "2181c3e8a075320f7800b0397798590bc970156b1e7c45958e9e6e7e9419ffca"
+   "dx_sha256": "001ccef5243593f453b4ceb755b5c3d0c057c47075f8bfc412f48677fdc594a8"
   },
   "validation": {
    "course": "France2",
@@ -166,6 +210,123 @@
     "retail_agree": 7473
    },
    "columns_new_differs_first": [],
+   "horizontal_rays": {
+    "rays": 5825,
+    "new_agree": 5825
+   },
+   "horizontal_rays_new_differs_first": [],
+   "fallback_planes": {
+    "points": 5825,
+    "same_plane": 5821,
+    "other_plane": 4,
+    "other": 4
+   },
+   "fallback_planes_differs_first": [
+    {
+     "point": [
+      510.6004638671875,
+      48.21436352669947,
+      -445.792236328125
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.05686319246888161,
+       0.997866153717041,
+       -0.03209025412797928,
+       -33.39873504638672
+      ],
+      8960
+     ],
+     "new": [
+      [
+       -0.056134771555662155,
+       0.9978787302970886,
+       -0.03296850621700287,
+       -34.162742614746094
+      ],
+      13753
+     ]
+    },
+    {
+     "point": [
+      858.6004638671875,
+      63.65582418999407,
+      970.207763671875
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -3.87670224881731e-05,
+       1.0,
+       -2.5005199859151617e-05,
+       -63.86382293701172
+      ],
+      727
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       -0.0,
+       -63.921329498291016
+      ],
+      1828
+     ]
+    },
+    {
+     "point": [
+      882.6004638671875,
+      58.47322146513524,
+      874.207763671875
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.034061405807733536,
+       0.9828953146934509,
+       -0.1809878945350647,
+       130.75775146484375
+      ],
+      1849
+     ],
+     "new": [
+      [
+       -0.04933258146047592,
+       0.9810623526573181,
+       -0.18730475008487701,
+       149.86558532714844
+      ],
+      3153
+     ]
+    },
+    {
+     "point": [
+      1146.6004638671875,
+      43.49499647805703,
+      418.207763671875
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.057726651430130005,
+       0.9332677125930786,
+       -0.354512482881546,
+       173.74404907226562
+      ],
+      4218
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       -0.0,
+       -43.60768508911133
+      ],
+      4960
+     ]
+    }
+   ],
    "contact_codes": {
     "valid": 5825,
     "same_code_as_retail": 5425,
@@ -181,7 +342,7 @@
     "harddirt->tarmac": 13
    }
   },
-  "seconds": 28.0
+  "seconds": 43.0
  },
  "FranceM": {
   "build": {
@@ -201,9 +362,10 @@
      "payload_empty": 109
     },
     "code_provenance": {
-     "pc_ground_path": 22971,
-     "default": 63,
-     "pc_same_plane": 60697
+     "ps2_splitter": 3553,
+     "pc_same_plane": 60693,
+     "pc_ground_path": 19449,
+     "default": 36
     },
     "default_code": 195,
     "default_code_source": "reference_code at the course centre",
@@ -213,7 +375,7 @@
     "new_plane_nodes": 83731,
     "round_trip_identical": true,
     "count_invariants_ok": true,
-    "negative_codes": 0
+    "negative_codes": 3553
    },
    "tag1400": {
     "records": 26846,
@@ -221,6 +383,8 @@
     "degenerate_nan_plane": 0,
     "retail_records": 29354,
     "new_records": 26846,
+    "records_normal_down_fraction": 0.971,
+    "retail_records_normal_down_fraction": 0.974,
     "dims": [
      263,
      74
@@ -229,7 +393,7 @@
    },
    "render_prefix_identical": true,
    "dx_bytes": 10231522,
-   "dx_sha256": "27d71a518b8066f15d3a109e99e14b8e379bef51439709a39bc86f5a195dd955"
+   "dx_sha256": "e01ff2a1ee20d538011a510943f9e9c68497893e890eee7ef5bbbef388905f9e"
   },
   "validation": {
    "course": "FranceM",
@@ -257,6 +421,175 @@
     "retail_agree": 11451
    },
    "columns_new_differs_first": [],
+   "horizontal_rays": {
+    "rays": 9117,
+    "new_agree": 9117
+   },
+   "horizontal_rays_new_differs_first": [],
+   "fallback_planes": {
+    "points": 9117,
+    "same_plane": 9111,
+    "other_plane": 6,
+    "other": 6
+   },
+   "fallback_planes_differs_first": [
+    {
+     "point": [
+      -3153.0869140625,
+      22.426055954313505,
+      -61.792236328125
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.0010279251728206873,
+       0.999999463558197,
+       -2.9826223908457905e-05,
+       -25.888826370239258
+      ],
+      9052
+     ],
+     "new": [
+      [
+       -0.0009203333174809813,
+       0.9999995827674866,
+       -0.0002996332768816501,
+       -25.56615447998047
+      ],
+      11622
+     ]
+    },
+    {
+     "point": [
+      -2997.0869140625,
+      55.18717501164346,
+      94.207763671875
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.6426045298576355,
+       0.6899834275245667,
+       -0.33313992619514465,
+       -1932.822509765625
+      ],
+      8470
+     ],
+     "new": [
+      [
+       -0.6421171426773071,
+       0.690840482711792,
+       -0.33230265974998474,
+       -1931.4879150390625
+      ],
+      10774
+     ]
+    },
+    {
+     "point": [
+      -2073.0869140625,
+      58.944364613048954,
+      -61.792236328125
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       0.4221937358379364,
+       0.9004780054092407,
+       0.1043640673160553,
+       828.5451049804688
+      ],
+      4732
+     ],
+     "new": [
+      [
+       0.7415251135826111,
+       0.6707829236984253,
+       0.013813801109790802,
+       1498.4908447265625
+      ],
+      6606
+     ]
+    },
+    {
+     "point": [
+      -1737.0869140625,
+      -10.819837493556314,
+      -241.792236328125
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.011254718527197838,
+       0.9999265074729919,
+       0.004503824282437563,
+       -7.674321174621582
+      ],
+      5430
+     ],
+     "new": [
+      [
+       -0.01049912627786398,
+       0.9999362230300903,
+       0.004168905783444643,
+       -6.442600250244141
+      ],
+      7317
+     ]
+    },
+    {
+     "point": [
+      -1485.0869140625,
+      12.789158856501022,
+      -85.792236328125
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.11948126554489136,
+       0.9894363284111023,
+       0.08209727704524994,
+       -183.25289916992188
+      ],
+      5704
+     ],
+     "new": [
+      [
+       -0.11465354263782501,
+       0.9896344542503357,
+       0.08647630363702774,
+       -175.71011352539062
+      ],
+      7736
+     ]
+    },
+    {
+     "point": [
+      182.9130859375,
+      49.867193858831875,
+      -277.792236328125
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.1915568709373474,
+       0.9601139426231384,
+       -0.20368435978889465,
+       -69.4599838256836
+      ],
+      15083
+     ],
+     "new": [
+      [
+       -0.05296531319618225,
+       0.9888322353363037,
+       -0.13930357992649078,
+       -78.35773468017578
+      ],
+      22663
+     ]
+    }
+   ],
    "contact_codes": {
     "valid": 9117,
     "other_code_than_retail": 435,
@@ -274,7 +607,7 @@
     "gravel->grass": 1
    }
   },
-  "seconds": 39.1
+  "seconds": 48.2
  },
  "FranceS1": {
   "build": {
@@ -295,9 +628,10 @@
      "pruned_planes": 2
     },
     "code_provenance": {
-     "pc_ground_path": 23219,
-     "default": 61,
-     "pc_same_plane": 56745
+     "ps2_splitter": 3130,
+     "pc_same_plane": 56732,
+     "pc_ground_path": 20143,
+     "default": 20
     },
     "default_code": 612,
     "default_code_source": "reference_code at the course centre",
@@ -307,7 +641,7 @@
     "new_plane_nodes": 80025,
     "round_trip_identical": true,
     "count_invariants_ok": true,
-    "negative_codes": 0
+    "negative_codes": 3130
    },
    "tag1400": {
     "records": 22370,
@@ -315,6 +649,8 @@
     "degenerate_nan_plane": 0,
     "retail_records": 23991,
     "new_records": 22370,
+    "records_normal_down_fraction": 0.969,
+    "retail_records_normal_down_fraction": 0.973,
     "dims": [
      213,
      89
@@ -323,7 +659,7 @@
    },
    "render_prefix_identical": true,
    "dx_bytes": 9075480,
-   "dx_sha256": "71bf59cfc9d39d3ffe2b4c1743be5b32d7760709862b69e95109abdfcebfae63"
+   "dx_sha256": "1a751ea4b9cbc631073cc3426a0413472676aca0a5bd5f32a054924adcaba0de"
   },
   "validation": {
    "course": "FranceS1",
@@ -351,6 +687,166 @@
     "retail_agree": 10472
    },
    "columns_new_differs_first": [],
+   "horizontal_rays": {
+    "rays": 8531,
+    "new_agree": 8531
+   },
+   "horizontal_rays_new_differs_first": [],
+   "fallback_planes": {
+    "points": 8531,
+    "same_plane": 8525,
+    "other_plane": 6,
+    "other": 4,
+    "none_on_ps2": 2
+   },
+   "fallback_planes_differs_first": [
+    {
+     "point": [
+      -1692.87060546875,
+      51.769443461656394,
+      327.189453125
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.09472028911113739,
+       0.9942572116851807,
+       0.04980635643005371,
+       -228.25198364257812
+      ],
+      1013
+     ],
+     "new": [
+      [
+       -0.09121764451265335,
+       0.9946929812431335,
+       0.04759291186928749,
+       -221.62075805664062
+      ],
+      1046
+     ]
+    },
+    {
+     "point": [
+      -1536.87060546875,
+      65.84231535189124,
+      399.189453125
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       0.08218248933553696,
+       0.9943744540214539,
+       0.06682467460632324,
+       34.014190673828125
+      ],
+      1700
+     ],
+     "new": [
+      [
+       0.07772429287433624,
+       0.9949598908424377,
+       0.06335371732711792,
+       28.509639739990234
+      ],
+      1793
+     ]
+    },
+    {
+     "point": [
+      -888.87060546875,
+      45.360257891842565,
+      387.189453125
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       0.16406138241291046,
+       0.9617481231689453,
+       0.21937258541584015,
+       16.99761199951172
+      ],
+      746
+     ],
+     "new": [
+      [
+       0.16410788893699646,
+       0.9617121815681458,
+       0.21949540078639984,
+       16.993061065673828
+      ],
+      766
+     ]
+    },
+    {
+     "point": [
+      -720.87060546875,
+      48.054612951322106,
+      267.189453125
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       0.050100281834602356,
+       0.9748319387435913,
+       0.21723879873752594,
+       -68.98025512695312
+      ],
+      9631
+     ],
+     "new": [
+      [
+       0.08018764108419418,
+       0.9799257516860962,
+       0.18252520263195038,
+       -38.26079559326172
+      ],
+      12395
+     ]
+    },
+    {
+     "point": [
+      -72.87060546875,
+      37.77635586669643,
+      375.189453125
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -37.9990119934082
+      ],
+      17193
+     ]
+    },
+    {
+     "point": [
+      -60.87060546875,
+      38.18397943515874,
+      375.189453125
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.047914084047079086,
+       0.99885094165802,
+       0.0010045923991128802,
+       -41.567970275878906
+      ],
+      17157
+     ]
+    }
+   ],
    "contact_codes": {
     "valid": 8531,
     "same_code_as_retail": 8093,
@@ -367,7 +863,7 @@
     "None->water": 4
    }
   },
-  "seconds": 31.5
+  "seconds": 46.2
  },
  "FranceS2": {
   "build": {
@@ -388,9 +884,9 @@
      "pruned_planes": 1
     },
     "code_provenance": {
-     "pc_ground_path": 18764,
-     "default": 15,
-     "pc_same_plane": 57206
+     "ps2_splitter": 4297,
+     "pc_same_plane": 57196,
+     "pc_ground_path": 14492
     },
     "default_code": 7032,
     "default_code_source": "reference_code at the course centre",
@@ -400,7 +896,7 @@
     "new_plane_nodes": 75985,
     "round_trip_identical": true,
     "count_invariants_ok": true,
-    "negative_codes": 0
+    "negative_codes": 4297
    },
    "tag1400": {
     "records": 28466,
@@ -408,6 +904,8 @@
     "degenerate_nan_plane": 0,
     "retail_records": 28806,
     "new_records": 28466,
+    "records_normal_down_fraction": 0.972,
+    "retail_records_normal_down_fraction": 0.971,
     "dims": [
      263,
      106
@@ -416,7 +914,7 @@
    },
    "render_prefix_identical": true,
    "dx_bytes": 9970043,
-   "dx_sha256": "370aa8761eee9348967015d9044b203213f7513d4a9a33bb8ec34216571bd557"
+   "dx_sha256": "66df99c1647c9ad9f30a86a97872baa41dc5a1e0ebe1b78dd0491d5abfc03f56"
   },
   "validation": {
    "course": "FranceS2",
@@ -444,6 +942,97 @@
     "retail_agree": 10799
    },
    "columns_new_differs_first": [],
+   "horizontal_rays": {
+    "rays": 8353,
+    "new_agree": 8353
+   },
+   "horizontal_rays_new_differs_first": [],
+   "fallback_planes": {
+    "points": 8353,
+    "same_plane": 8350,
+    "other_plane": 3,
+    "other": 3
+   },
+   "fallback_planes_differs_first": [
+    {
+     "point": [
+      -2433.086669921875,
+      -18.50812060420332,
+      886.207763671875
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -7.099442882463336e-05,
+       0.9999997615814209,
+       -0.0006763311102986336,
+       18.75864028930664
+      ],
+      5510
+     ],
+     "new": [
+      [
+       0.0001424861402483657,
+       0.9999997615814209,
+       -0.0007384346099570394,
+       19.33311653137207
+      ],
+      6789
+     ]
+    },
+    {
+     "point": [
+      -1509.086669921875,
+      30.0465454176555,
+      994.207763671875
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       0.00016834065900184214,
+       1.0,
+       0.000200761467567645,
+       -30.103130340576172
+      ],
+      9347
+     ],
+     "new": [
+      [
+       0.0004342491156421602,
+       0.9999998211860657,
+       -0.0004354646662250161,
+       -29.069292068481445
+      ],
+      13874
+     ]
+    },
+    {
+     "point": [
+      -1461.086669921875,
+      32.30339037965716,
+      958.207763671875
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.08742518723011017,
+       0.9961268305778503,
+       -0.009391027502715588,
+       -150.9782257080078
+      ],
+      5111
+     ],
+     "new": [
+      [
+       -0.08743131160736084,
+       0.9961255192756653,
+       -0.009468513540923595,
+       -150.91281127929688
+      ],
+      6250
+     ]
+    }
+   ],
    "contact_codes": {
     "valid": 8353,
     "same_code_as_retail": 7813,
@@ -458,7 +1047,7 @@
     "None->gravel": 100
    }
   },
-  "seconds": 32.4
+  "seconds": 46.7
  },
  "FranceW": {
   "build": {
@@ -479,9 +1068,10 @@
      "pruned_planes": 7
     },
     "code_provenance": {
-     "pc_ground_path": 21254,
-     "default": 45,
-     "pc_same_plane": 62294
+     "ps2_splitter": 3380,
+     "pc_same_plane": 62289,
+     "pc_ground_path": 17919,
+     "default": 5
     },
     "default_code": 48943,
     "default_code_source": "reference_code at the course centre",
@@ -491,7 +1081,7 @@
     "new_plane_nodes": 83593,
     "round_trip_identical": true,
     "count_invariants_ok": true,
-    "negative_codes": 0
+    "negative_codes": 3380
    },
    "tag1400": {
     "records": 25931,
@@ -499,6 +1089,8 @@
     "degenerate_nan_plane": 0,
     "retail_records": 27757,
     "new_records": 25931,
+    "records_normal_down_fraction": 0.973,
+    "retail_records_normal_down_fraction": 0.973,
     "dims": [
      256,
      85
@@ -507,7 +1099,7 @@
    },
    "render_prefix_identical": true,
    "dx_bytes": 9896850,
-   "dx_sha256": "0cdc8ad6cf80582ce7e8e1311d82541f5e51a293656ca4ac44bfd8ef2f81aa46"
+   "dx_sha256": "32b16c9d88dbfc4b22a1c4284f228169e6c521ea69e2163921f640ba362dd3e8"
   },
   "validation": {
    "course": "FranceW",
@@ -535,6 +1127,88 @@
     "retail_agree": 12437
    },
    "columns_new_differs_first": [],
+   "horizontal_rays": {
+    "rays": 10413,
+    "new_agree": 10413
+   },
+   "horizontal_rays_new_differs_first": [],
+   "fallback_planes": {
+    "points": 10413,
+    "same_plane": 10410,
+    "other_plane": 3,
+    "none_on_ps2": 2,
+    "other": 1
+   },
+   "fallback_planes_differs_first": [
+    {
+     "point": [
+      -2625.086669921875,
+      18.319272356242873,
+      695.2248992919922
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.40872400999069214,
+       0.8333397507667542,
+       0.37214183807373047,
+       798.8648681640625
+      ],
+      4368
+     ]
+    },
+    {
+     "point": [
+      -813.086669921875,
+      54.790332280507464,
+      431.2248992919922
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.1250736117362976,
+       0.9601477384567261,
+       -0.24994604289531708,
+       -46.711509704589844
+      ],
+      7751
+     ]
+    },
+    {
+     "point": [
+      1106.913330078125,
+      36.17062268062009,
+      683.2248992919922
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.22678038477897644,
+       0.9661194086074829,
+       -0.12322302907705307,
+       300.081298828125
+      ],
+      12380
+     ],
+     "new": [
+      [
+       -0.21850353479385376,
+       0.9698899984359741,
+       -0.10756201297044754,
+       280.0832214355469
+      ],
+      18489
+     ]
+    }
+   ],
    "contact_codes": {
     "valid": 10413,
     "same_code_as_retail": 9944,
@@ -550,7 +1224,7 @@
     "harddirt->grass": 2
    }
   },
-  "seconds": 32.4
+  "seconds": 48.5
  },
  "FranceWFlip": {
   "build": {
@@ -570,9 +1244,10 @@
      "payload_empty": 66
     },
     "code_provenance": {
-     "pc_ground_path": 21097,
-     "default": 51,
-     "pc_same_plane": 61094
+     "ps2_splitter": 3449,
+     "pc_same_plane": 61089,
+     "pc_ground_path": 17696,
+     "default": 8
     },
     "default_code": 48943,
     "default_code_source": "reference_code at the course centre",
@@ -582,7 +1257,7 @@
     "new_plane_nodes": 82242,
     "round_trip_identical": true,
     "count_invariants_ok": true,
-    "negative_codes": 0
+    "negative_codes": 3449
    },
    "tag1400": {
     "records": 25957,
@@ -590,6 +1265,8 @@
     "degenerate_nan_plane": 0,
     "retail_records": 27757,
     "new_records": 25957,
+    "records_normal_down_fraction": 0.973,
+    "retail_records_normal_down_fraction": 0.973,
     "dims": [
      256,
      85
@@ -598,7 +1275,7 @@
    },
    "render_prefix_identical": true,
    "dx_bytes": 9837729,
-   "dx_sha256": "7149c653e67ade89a225da1c05b5becdbcb47217f173aafd7632e7a334f42881"
+   "dx_sha256": "790997c887b7cc56c0d57c6e102fb635eb79761a4942984010569bc5e60c8ac0"
   },
   "validation": {
    "course": "FranceWFlip",
@@ -626,6 +1303,119 @@
     "retail_agree": 12094
    },
    "columns_new_differs_first": [],
+   "horizontal_rays": {
+    "rays": 10052,
+    "new_agree": 10052
+   },
+   "horizontal_rays_new_differs_first": [],
+   "fallback_planes": {
+    "points": 10052,
+    "same_plane": 10048,
+    "other_plane": 4,
+    "none_on_ps2": 1,
+    "other": 3
+   },
+   "fallback_planes_differs_first": [
+    {
+     "point": [
+      -1437.086669921875,
+      39.519852040262954,
+      1139.2247772216797
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.004543897230178118,
+       0.9996786117553711,
+       0.02494102343916893,
+       -61.4795036315918
+      ],
+      404
+     ]
+    },
+    {
+     "point": [
+      -1233.086669921875,
+      72.88673415799609,
+      623.2247772216797
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       0.2115926444530487,
+       0.9066020250320435,
+       0.3651045262813568,
+       -32.81439971923828
+      ],
+      6617
+     ],
+     "new": [
+      [
+       0.20801644027233124,
+       0.9091655015945435,
+       0.36075925827026367,
+       -34.70283508300781
+      ],
+      9229
+     ]
+    },
+    {
+     "point": [
+      -357.086669921875,
+      57.43858553348673,
+      371.2247772216797
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       0.03984269127249718,
+       0.9951267242431641,
+       -0.09019603580236435,
+       -9.723198890686035
+      ],
+      9205
+     ],
+     "new": [
+      [
+       0.039944715797901154,
+       0.995093584060669,
+       -0.09051617980003357,
+       -9.565951347351074
+      ],
+      14499
+     ]
+    },
+    {
+     "point": [
+      806.913330078125,
+      63.953407439132214,
+      851.2247772216797
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       0.3471115529537201,
+       0.8713802695274353,
+       -0.34671321511268616,
+       -40.937461853027344
+      ],
+      10776
+     ],
+     "new": [
+      [
+       0.3507741391658783,
+       0.868492603302002,
+       -0.35025447607040405,
+       -40.693756103515625
+      ],
+      18147
+     ]
+    }
+   ],
    "contact_codes": {
     "valid": 10052,
     "same_code_as_retail": 9578,
@@ -642,7 +1432,7 @@
     "harddirt->grass": 2
    }
   },
-  "seconds": 32.0
+  "seconds": 47.8
  },
  "Italy1": {
   "build": {
@@ -663,9 +1453,10 @@
      "pruned_planes": 8
     },
     "code_provenance": {
-     "pc_ground_path": 12364,
-     "default": 156,
-     "pc_same_plane": 64487
+     "ps2_splitter": 2455,
+     "pc_same_plane": 64482,
+     "pc_ground_path": 9981,
+     "default": 89
     },
     "default_code": 20848,
     "default_code_source": "reference_code at the course centre",
@@ -675,7 +1466,7 @@
     "new_plane_nodes": 77007,
     "round_trip_identical": true,
     "count_invariants_ok": true,
-    "negative_codes": 0
+    "negative_codes": 2455
    },
    "tag1400": {
     "records": 20998,
@@ -683,6 +1474,8 @@
     "degenerate_nan_plane": 0,
     "retail_records": 22909,
     "new_records": 20998,
+    "records_normal_down_fraction": 0.962,
+    "retail_records_normal_down_fraction": 0.963,
     "dims": [
      91,
      107
@@ -691,7 +1484,7 @@
    },
    "render_prefix_identical": true,
    "dx_bytes": 7787248,
-   "dx_sha256": "5690d17560344cd08cf730e769311d28bf39a4211bfc0e837c4fee142f7b5fb6"
+   "dx_sha256": "3e8a5d63e2cdefeee3497520e3948fd4aedd459addcb94a9d75db7cf8349bdba"
   },
   "validation": {
    "course": "Italy1",
@@ -719,6 +1512,67 @@
     "retail_agree": 7564
    },
    "columns_new_differs_first": [],
+   "horizontal_rays": {
+    "rays": 6733,
+    "new_agree": 6733
+   },
+   "horizontal_rays_new_differs_first": [],
+   "fallback_planes": {
+    "points": 6733,
+    "same_plane": 6731,
+    "other_plane": 2,
+    "none_on_ps2": 1,
+    "other": 1
+   },
+   "fallback_planes_differs_first": [
+    {
+     "point": [
+      -2380.1220703125,
+      98.04321509534769,
+      163.0623779296875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.022996393963694572,
+       0.9969918131828308,
+       0.07401575148105621,
+       -164.59791564941406
+      ],
+      16949
+     ]
+    },
+    {
+     "point": [
+      -1576.1220703125,
+      -2.409435470210354,
+      -1060.9376220703125
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.0020178616978228092,
+       0.9999977946281433,
+       -0.0006169196567498147,
+       -1.5525866746902466
+      ],
+      16081
+     ],
+     "new": [
+      [
+       -0.0020083992276340723,
+       0.9999977946281433,
+       -0.0005949251353740692,
+       -1.5143117904663086
+      ],
+      31948
+     ]
+    }
+   ],
    "contact_codes": {
     "valid": 6733,
     "same_code_as_retail": 6367,
@@ -738,7 +1592,7 @@
     "harddirt->grass": 2
    }
   },
-  "seconds": 28.1
+  "seconds": 37.6
  },
  "Italy2": {
   "build": {
@@ -758,9 +1612,10 @@
      "payload_empty": 77
     },
     "code_provenance": {
-     "pc_ground_path": 9624,
-     "default": 31,
-     "pc_same_plane": 55027
+     "ps2_splitter": 3723,
+     "pc_same_plane": 55018,
+     "pc_ground_path": 5924,
+     "default": 17
     },
     "default_code": 11542,
     "default_code_source": "reference_code at the course centre",
@@ -770,7 +1625,7 @@
     "new_plane_nodes": 64682,
     "round_trip_identical": true,
     "count_invariants_ok": true,
-    "negative_codes": 0
+    "negative_codes": 3723
    },
    "tag1400": {
     "records": 20705,
@@ -778,6 +1633,8 @@
     "degenerate_nan_plane": 0,
     "retail_records": 22126,
     "new_records": 20705,
+    "records_normal_down_fraction": 0.96,
+    "retail_records_normal_down_fraction": 0.973,
     "dims": [
      125,
      108
@@ -786,7 +1643,7 @@
    },
    "render_prefix_identical": true,
    "dx_bytes": 7906381,
-   "dx_sha256": "fd353486f20842c8eac577e3c9c67fdc99c879485336668845518ba34dc799e1"
+   "dx_sha256": "dbcc2bc7f0fd18a0d2899ea36ff4fedb01517a84ed5e4df65c6cfed09bd8de66"
   },
   "validation": {
    "course": "Italy2",
@@ -814,6 +1671,213 @@
     "retail_agree": 10172
    },
    "columns_new_differs_first": [],
+   "horizontal_rays": {
+    "rays": 9285,
+    "new_agree": 9285
+   },
+   "horizontal_rays_new_differs_first": [],
+   "fallback_planes": {
+    "points": 9285,
+    "same_plane": 9277,
+    "other_plane": 8,
+    "other": 5,
+    "none_on_ps2": 3
+   },
+   "fallback_planes_differs_first": [
+    {
+     "point": [
+      -701.767822265625,
+      -57.886254567538884,
+      213.085693359375
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.07031300663948059,
+       0.9949876070022583,
+       0.0711040198802948,
+       -6.967876434326172
+      ],
+      754
+     ],
+     "new": [
+      [
+       -0.0702897235751152,
+       0.9949902892112732,
+       0.07108938694000244,
+       -6.9482221603393555
+      ],
+      9612
+     ]
+    },
+    {
+     "point": [
+      -617.767822265625,
+      -62.71289764152634,
+      321.085693359375
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.23416569828987122,
+       0.807301938533783,
+       0.5416917204856873,
+       -267.9938659667969
+      ],
+      893
+     ],
+     "new": [
+      [
+       -0.23417991399765015,
+       0.8072881698608398,
+       0.5417062044143677,
+       -268.008056640625
+      ],
+      9798
+     ]
+    },
+    {
+     "point": [
+      -545.767822265625,
+      -58.016928667696725,
+      285.085693359375
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       0.05846857652068138,
+       0.9596089720726013,
+       0.27519434690475464,
+       8.968110084533691
+      ],
+      5006
+     ],
+     "new": [
+      [
+       0.05847764387726784,
+       0.9596112370491028,
+       0.27518463134765625,
+       8.97603988647461
+      ],
+      14529
+     ]
+    },
+    {
+     "point": [
+      -449.767822265625,
+      86.71354160439795,
+      -470.914306640625
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.015240556560456753,
+       0.9760165810585022,
+       -0.21716199815273285,
+       -180.17218017578125
+      ],
+      18326
+     ]
+    },
+    {
+     "point": [
+      -449.767822265625,
+      87.33408211882036,
+      -458.914306640625
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.2300659567117691,
+       0.9730541110038757,
+       -0.015341445803642273,
+       11.296936988830566
+      ],
+      18327
+     ]
+    },
+    {
+     "point": [
+      246.232177734375,
+      14.8304549191094,
+      -602.914306640625
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.1486871838569641,
+       0.9856984615325928,
+       0.07931365072727203,
+       69.73269653320312
+      ],
+      8030
+     ],
+     "new": [
+      [
+       -0.14894422888755798,
+       0.9855772852897644,
+       0.08033007383346558,
+       70.41069793701172
+      ],
+      20373
+     ]
+    },
+    {
+     "point": [
+      498.232177734375,
+      -57.39588829218602,
+      801.085693359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.14099818468093872,
+       0.9687106609344482,
+       -0.20425266027450562,
+       289.3250427246094
+      ],
+      14131
+     ]
+    },
+    {
+     "point": [
+      654.232177734375,
+      -76.26652119917802,
+      489.085693359375
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       0.509355366230011,
+       0.8355331420898438,
+       -0.20601333677768707,
+       -168.79660034179688
+      ],
+      11450
+     ],
+     "new": [
+      [
+       0.48877227306365967,
+       0.8530856966972351,
+       -0.18261031806468964,
+       -165.43780517578125
+      ],
+      24333
+     ]
+    }
+   ],
    "contact_codes": {
     "valid": 9285,
     "same_code_as_retail": 8298,
@@ -831,7 +1895,7 @@
     "None->grass": 25
    }
   },
-  "seconds": 26.1
+  "seconds": 35.5
  },
  "Italy3": {
   "build": {
@@ -852,9 +1916,10 @@
      "pruned_planes": 4
     },
     "code_provenance": {
-     "pc_ground_path": 19233,
-     "default": 28,
-     "pc_same_plane": 46363
+     "ps2_splitter": 1826,
+     "default": 6,
+     "pc_same_plane": 46361,
+     "pc_ground_path": 17431
     },
     "default_code": 46364,
     "default_code_source": "reference_code at the course centre",
@@ -864,7 +1929,7 @@
     "new_plane_nodes": 65624,
     "round_trip_identical": true,
     "count_invariants_ok": true,
-    "negative_codes": 0
+    "negative_codes": 1826
    },
    "tag1400": {
     "records": 22827,
@@ -872,6 +1937,8 @@
     "degenerate_nan_plane": 0,
     "retail_records": 24121,
     "new_records": 22827,
+    "records_normal_down_fraction": 0.99,
+    "retail_records_normal_down_fraction": 0.994,
     "dims": [
      135,
      138
@@ -880,7 +1947,7 @@
    },
    "render_prefix_identical": true,
    "dx_bytes": 7780131,
-   "dx_sha256": "55720b7bf119c695b39a5d531a9ffb7853bb8f8c1b2e03fc215de0efe82b755a"
+   "dx_sha256": "b5b797be87cc33a6b89f5719293658814392af0b79673d147a64d7316a75c76b"
   },
   "validation": {
    "course": "Italy3",
@@ -908,6 +1975,71 @@
     "retail_agree": 11546
    },
    "columns_new_differs_first": [],
+   "horizontal_rays": {
+    "rays": 8138,
+    "new_agree": 8138
+   },
+   "horizontal_rays_new_differs_first": [],
+   "fallback_planes": {
+    "points": 8138,
+    "same_plane": 8136,
+    "other_plane": 2,
+    "other": 2
+   },
+   "fallback_planes_differs_first": [
+    {
+     "point": [
+      2447.1844482421875,
+      -64.16315931357995,
+      1334.6133422851562
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.00017313107673544437,
+       1.0,
+       -0.00019238743698224425,
+       64.54389953613281
+      ],
+      8535
+     ],
+     "new": [
+      [
+       -4.461022058421804e-07,
+       1.0,
+       5.443464488052996e-07,
+       63.863868713378906
+      ],
+      44568
+     ]
+    },
+    {
+     "point": [
+      2651.1844482421875,
+      -53.15070442175275,
+      -273.38665771484375
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.1220613569021225,
+       0.984690248966217,
+       0.12444344907999039,
+       409.7551574707031
+      ],
+      1810
+     ],
+     "new": [
+      [
+       -0.12183539569377899,
+       0.984639048576355,
+       0.12506867945194244,
+       409.3243103027344
+      ],
+      36891
+     ]
+    }
+   ],
    "contact_codes": {
     "valid": 8138,
     "same_code_as_retail": 7489,
@@ -928,7 +2060,7 @@
     "None->harddirt": 6
    }
   },
-  "seconds": 26.3
+  "seconds": 39.0
  },
  "ItalyM1": {
   "build": {
@@ -949,9 +2081,10 @@
      "pruned_planes": 3
     },
     "code_provenance": {
-     "pc_ground_path": 12849,
-     "default": 70,
-     "pc_same_plane": 67154
+     "ps2_splitter": 2575,
+     "pc_same_plane": 67146,
+     "pc_ground_path": 10303,
+     "default": 49
     },
     "default_code": 10213,
     "default_code_source": "reference_code at the course centre",
@@ -961,7 +2094,7 @@
     "new_plane_nodes": 80073,
     "round_trip_identical": true,
     "count_invariants_ok": true,
-    "negative_codes": 0
+    "negative_codes": 2575
    },
    "tag1400": {
     "records": 25646,
@@ -969,6 +2102,8 @@
     "degenerate_nan_plane": 0,
     "retail_records": 25311,
     "new_records": 25646,
+    "records_normal_down_fraction": 0.958,
+    "retail_records_normal_down_fraction": 0.964,
     "dims": [
      209,
      111
@@ -977,7 +2112,7 @@
    },
    "render_prefix_identical": true,
    "dx_bytes": 9098434,
-   "dx_sha256": "e239a1a5adba3f2b3aacb84c6ffe90efe0ddb4f8c09dbd7dd9f8563c1869d71b"
+   "dx_sha256": "1ff6127d8562f4b2fc30755772246a6d6c6311b2e0f88c6c21737a31a9973581"
   },
   "validation": {
    "course": "ItalyM1",
@@ -1005,6 +2140,455 @@
     "retail_agree": 10387
    },
    "columns_new_differs_first": [],
+   "horizontal_rays": {
+    "rays": 8714,
+    "new_agree": 8714
+   },
+   "horizontal_rays_new_differs_first": [],
+   "fallback_planes": {
+    "points": 8714,
+    "same_plane": 8694,
+    "other_plane": 20,
+    "other": 3,
+    "none_on_ps2": 17
+   },
+   "fallback_planes_differs_first": [
+    {
+     "point": [
+      -1599.24267578125,
+      25.017664771706066,
+      -676.93701171875
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       0.26503750681877136,
+       0.7380528450012207,
+       -0.6205103397369385,
+       -14.75617504119873
+      ],
+      16820
+     ],
+     "new": [
+      [
+       0.25532013177871704,
+       0.7350245118141174,
+       -0.6281326413154602,
+       -35.38060760498047
+      ],
+      24888
+     ]
+    },
+    {
+     "point": [
+      -1575.24267578125,
+      -2.5244052515439708,
+      -1060.93701171875
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.0020178616978228092,
+       0.9999977946281433,
+       -0.0006169196567498147,
+       -1.552594542503357
+      ],
+      17329
+     ],
+     "new": [
+      [
+       -0.0020083992276340723,
+       0.9999977946281433,
+       -0.0005949251353740692,
+       -1.5142972469329834
+      ],
+      24175
+     ]
+    },
+    {
+     "point": [
+      -1491.24267578125,
+      -10.026844153300587,
+      -844.93701171875
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.11723346263170242,
+       0.9919704794883728,
+       0.04744219407439232,
+       -125.0613784790039
+      ],
+      16533
+     ],
+     "new": [
+      [
+       -0.14895810186862946,
+       0.9887956380844116,
+       0.009733240120112896,
+       -204.26400756835938
+      ],
+      23324
+     ]
+    },
+    {
+     "point": [
+      -171.24267578125,
+      28.468222615298526,
+      -172.93701171875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14208
+     ]
+    },
+    {
+     "point": [
+      -159.24267578125,
+      28.440750183861304,
+      -232.93701171875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14208
+     ]
+    },
+    {
+     "point": [
+      -159.24267578125,
+      28.669981600840295,
+      -220.93701171875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14208
+     ]
+    },
+    {
+     "point": [
+      -159.24267578125,
+      28.557530492970944,
+      -208.93701171875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14208
+     ]
+    },
+    {
+     "point": [
+      -159.24267578125,
+      28.596382521645126,
+      -196.93701171875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14208
+     ]
+    },
+    {
+     "point": [
+      -159.24267578125,
+      28.639679425931472,
+      -184.93701171875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14208
+     ]
+    },
+    {
+     "point": [
+      -159.24267578125,
+      28.585138896016545,
+      -172.93701171875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14208
+     ]
+    },
+    {
+     "point": [
+      -159.24267578125,
+      28.525955594261596,
+      -160.93701171875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14208
+     ]
+    },
+    {
+     "point": [
+      -147.24267578125,
+      28.45250453596035,
+      -232.93701171875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14208
+     ]
+    },
+    {
+     "point": [
+      -147.24267578125,
+      28.672836831668498,
+      -220.93701171875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14208
+     ]
+    },
+    {
+     "point": [
+      -147.24267578125,
+      28.44805962601495,
+      -208.93701171875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14208
+     ]
+    },
+    {
+     "point": [
+      -147.24267578125,
+      28.492687158900072,
+      -196.93701171875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14208
+     ]
+    },
+    {
+     "point": [
+      -147.24267578125,
+      28.690602588687142,
+      -184.93701171875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14208
+     ]
+    },
+    {
+     "point": [
+      -147.24267578125,
+      28.56584954716779,
+      -172.93701171875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14208
+     ]
+    },
+    {
+     "point": [
+      -147.24267578125,
+      28.648048136943412,
+      -160.93701171875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14208
+     ]
+    },
+    {
+     "point": [
+      -147.24267578125,
+      28.64006866520822,
+      -148.93701171875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14208
+     ]
+    },
+    {
+     "point": [
+      20.75732421875,
+      35.897068376077115,
+      -256.93701171875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -36.00058364868164
+      ],
+      31441
+     ]
+    }
+   ],
    "contact_codes": {
     "valid": 8714,
     "same_code_as_retail": 8072,
@@ -1023,7 +2607,7 @@
     "harddirt->gravel": 1
    }
   },
-  "seconds": 28.1
+  "seconds": 42.7
  },
  "ItalyM1Flip": {
   "build": {
@@ -1044,9 +2628,10 @@
      "pruned_planes": 3
     },
     "code_provenance": {
-     "pc_ground_path": 12868,
-     "default": 70,
-     "pc_same_plane": 67003
+     "ps2_splitter": 2572,
+     "pc_same_plane": 66995,
+     "pc_ground_path": 10325,
+     "default": 49
     },
     "default_code": 10213,
     "default_code_source": "reference_code at the course centre",
@@ -1056,7 +2641,7 @@
     "new_plane_nodes": 79941,
     "round_trip_identical": true,
     "count_invariants_ok": true,
-    "negative_codes": 0
+    "negative_codes": 2572
    },
    "tag1400": {
     "records": 25656,
@@ -1064,6 +2649,8 @@
     "degenerate_nan_plane": 0,
     "retail_records": 25311,
     "new_records": 25656,
+    "records_normal_down_fraction": 0.958,
+    "retail_records_normal_down_fraction": 0.964,
     "dims": [
      209,
      111
@@ -1072,7 +2659,7 @@
    },
    "render_prefix_identical": true,
    "dx_bytes": 9093081,
-   "dx_sha256": "7a042098edc4fb3b0303842ad05725a17d66842c63812cbfbbb9a539f129eaeb"
+   "dx_sha256": "9508d9e6070176e2c9dae0b831cd6fac31fe65bd8da5a145a6f885258260c9be"
   },
   "validation": {
    "course": "ItalyM1Flip",
@@ -1100,6 +2687,455 @@
     "retail_agree": 10400
    },
    "columns_new_differs_first": [],
+   "horizontal_rays": {
+    "rays": 8712,
+    "new_agree": 8712
+   },
+   "horizontal_rays_new_differs_first": [],
+   "fallback_planes": {
+    "points": 8712,
+    "same_plane": 8692,
+    "other_plane": 20,
+    "other": 3,
+    "none_on_ps2": 17
+   },
+   "fallback_planes_differs_first": [
+    {
+     "point": [
+      -1599.24267578125,
+      25.017664771706066,
+      -676.93701171875
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       0.26503750681877136,
+       0.7380528450012207,
+       -0.6205103397369385,
+       -14.75617504119873
+      ],
+      16816
+     ],
+     "new": [
+      [
+       0.25532013177871704,
+       0.7350245118141174,
+       -0.6281326413154602,
+       -35.38060760498047
+      ],
+      24888
+     ]
+    },
+    {
+     "point": [
+      -1575.24267578125,
+      -2.5244052515439708,
+      -1060.93701171875
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.0020178616978228092,
+       0.9999977946281433,
+       -0.0006169196567498147,
+       -1.552594542503357
+      ],
+      17325
+     ],
+     "new": [
+      [
+       -0.0020083992276340723,
+       0.9999977946281433,
+       -0.0005949251353740692,
+       -1.5142972469329834
+      ],
+      24175
+     ]
+    },
+    {
+     "point": [
+      -1491.24267578125,
+      -10.026844153300587,
+      -844.93701171875
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.11723346263170242,
+       0.9919704794883728,
+       0.04744219407439232,
+       -125.0613784790039
+      ],
+      16529
+     ],
+     "new": [
+      [
+       -0.14895810186862946,
+       0.9887956380844116,
+       0.009733240120112896,
+       -204.26400756835938
+      ],
+      23324
+     ]
+    },
+    {
+     "point": [
+      -171.24267578125,
+      28.468222615298526,
+      -172.93701171875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14208
+     ]
+    },
+    {
+     "point": [
+      -159.24267578125,
+      28.440750183861304,
+      -232.93701171875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14208
+     ]
+    },
+    {
+     "point": [
+      -159.24267578125,
+      28.669981600840295,
+      -220.93701171875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14208
+     ]
+    },
+    {
+     "point": [
+      -159.24267578125,
+      28.557530492970944,
+      -208.93701171875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14208
+     ]
+    },
+    {
+     "point": [
+      -159.24267578125,
+      28.596382521645126,
+      -196.93701171875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14208
+     ]
+    },
+    {
+     "point": [
+      -159.24267578125,
+      28.639679425931472,
+      -184.93701171875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14208
+     ]
+    },
+    {
+     "point": [
+      -159.24267578125,
+      28.585138896016545,
+      -172.93701171875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14208
+     ]
+    },
+    {
+     "point": [
+      -159.24267578125,
+      28.525955594261596,
+      -160.93701171875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14208
+     ]
+    },
+    {
+     "point": [
+      -147.24267578125,
+      28.45250453596035,
+      -232.93701171875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14208
+     ]
+    },
+    {
+     "point": [
+      -147.24267578125,
+      28.672836831668498,
+      -220.93701171875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14208
+     ]
+    },
+    {
+     "point": [
+      -147.24267578125,
+      28.44805962601495,
+      -208.93701171875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14208
+     ]
+    },
+    {
+     "point": [
+      -147.24267578125,
+      28.492687158900072,
+      -196.93701171875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14208
+     ]
+    },
+    {
+     "point": [
+      -147.24267578125,
+      28.690602588687142,
+      -184.93701171875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14208
+     ]
+    },
+    {
+     "point": [
+      -147.24267578125,
+      28.56584954716779,
+      -172.93701171875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14208
+     ]
+    },
+    {
+     "point": [
+      -147.24267578125,
+      28.648048136943412,
+      -160.93701171875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14208
+     ]
+    },
+    {
+     "point": [
+      -147.24267578125,
+      28.64006866520822,
+      -148.93701171875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14208
+     ]
+    },
+    {
+     "point": [
+      20.75732421875,
+      35.897068376077115,
+      -256.93701171875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -36.00058364868164
+      ],
+      31441
+     ]
+    }
+   ],
    "contact_codes": {
     "valid": 8712,
     "same_code_as_retail": 8071,
@@ -1118,7 +3154,7 @@
     "harddirt->gravel": 1
    }
   },
-  "seconds": 30.1
+  "seconds": 42.7
  },
  "ItalyM2": {
   "build": {
@@ -1139,9 +3175,10 @@
      "pruned_planes": 7
     },
     "code_provenance": {
-     "default": 41,
-     "pc_ground_path": 17373,
-     "pc_same_plane": 60610
+     "ps2_splitter": 2939,
+     "pc_same_plane": 60605,
+     "pc_ground_path": 14469,
+     "default": 11
     },
     "default_code": 35126,
     "default_code_source": "most frequent near-horizontal retail code",
@@ -1151,7 +3188,7 @@
     "new_plane_nodes": 78024,
     "round_trip_identical": true,
     "count_invariants_ok": true,
-    "negative_codes": 0
+    "negative_codes": 2939
    },
    "tag1400": {
     "records": 28505,
@@ -1159,6 +3196,8 @@
     "degenerate_nan_plane": 0,
     "retail_records": 28229,
     "new_records": 28505,
+    "records_normal_down_fraction": 0.98,
+    "retail_records_normal_down_fraction": 0.986,
     "dims": [
      254,
      108
@@ -1167,7 +3206,7 @@
    },
    "render_prefix_identical": true,
    "dx_bytes": 9578382,
-   "dx_sha256": "7d1a3744c2429b1a51c70ac13f451a7aa7683fed9f098a2fef6cbca07da9c0e6"
+   "dx_sha256": "79068d1463bc1de3863edbcb4cbcc9e549d8b5e28b7c74d641fb6c0a209955c9"
   },
   "validation": {
    "course": "ItalyM2",
@@ -1195,6 +3234,303 @@
     "retail_agree": 11402
    },
    "columns_new_differs_first": [],
+   "horizontal_rays": {
+    "rays": 10736,
+    "new_agree": 10736
+   },
+   "horizontal_rays_new_differs_first": [],
+   "fallback_planes": {
+    "points": 10736,
+    "same_plane": 10723,
+    "other_plane": 13,
+    "none_on_ps2": 11,
+    "other": 2
+   },
+   "fallback_planes_differs_first": [
+    {
+     "point": [
+      466.2769775390625,
+      -86.27275509076807,
+      129.0858154296875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.2065395563840866,
+       0.8981413245201111,
+       0.3881798982620239,
+       -69.006103515625
+      ],
+      35922
+     ]
+    },
+    {
+     "point": [
+      478.2769775390625,
+      -83.93623665196426,
+      117.0858154296875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.2065395563840866,
+       0.8981413245201111,
+       0.3881798982620239,
+       -69.006103515625
+      ],
+      35922
+     ]
+    },
+    {
+     "point": [
+      478.2769775390625,
+      -89.10837550782237,
+      129.0858154296875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.2065395563840866,
+       0.8981413245201111,
+       0.3881798982620239,
+       -69.006103515625
+      ],
+      35922
+     ]
+    },
+    {
+     "point": [
+      838.2769775390625,
+      -57.690879052940254,
+      -26.9141845703125
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.004043636377900839,
+       0.9939678907394409,
+       0.10959669202566147,
+       56.67240524291992
+      ],
+      35420
+     ]
+    },
+    {
+     "point": [
+      850.2769775390625,
+      -57.68818344788752,
+      -26.9141845703125
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.004043636377900839,
+       0.9939678907394409,
+       0.10959669202566147,
+       56.67240524291992
+      ],
+      35420
+     ]
+    },
+    {
+     "point": [
+      850.2769775390625,
+      -58.9220387972657,
+      -14.9141845703125
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.004043636377900839,
+       0.9939678907394409,
+       0.10959669202566147,
+       56.67240524291992
+      ],
+      35420
+     ]
+    },
+    {
+     "point": [
+      862.2769775390625,
+      -57.71757066887834,
+      -26.9141845703125
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.004043636377900839,
+       0.9939678907394409,
+       0.10959669202566147,
+       56.67240524291992
+      ],
+      35420
+     ]
+    },
+    {
+     "point": [
+      862.2769775390625,
+      -59.083044337880835,
+      -14.9141845703125
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.004043636377900839,
+       0.9939678907394409,
+       0.10959669202566147,
+       56.67240524291992
+      ],
+      35420
+     ]
+    },
+    {
+     "point": [
+      874.2769775390625,
+      -57.694824473614446,
+      -26.9141845703125
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.004043636377900839,
+       0.9939678907394409,
+       0.10959669202566147,
+       56.67240524291992
+      ],
+      35420
+     ]
+    },
+    {
+     "point": [
+      874.2769775390625,
+      -59.097842482682566,
+      -14.9141845703125
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.004043636377900839,
+       0.9939678907394409,
+       0.10959669202566147,
+       56.67240524291992
+      ],
+      35420
+     ]
+    },
+    {
+     "point": [
+      874.2769775390625,
+      -60.333705012083065,
+      -2.9141845703125
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.004043636377900839,
+       0.9939678907394409,
+       0.10959669202566147,
+       56.67240524291992
+      ],
+      35420
+     ]
+    },
+    {
+     "point": [
+      2158.2769775390625,
+      -41.35252380970673,
+      -242.9141845703125
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.07489442080259323,
+       0.9964702129364014,
+       -0.037920497357845306,
+       193.63101196289062
+      ],
+      11882
+     ],
+     "new": [
+      [
+       -0.07463771104812622,
+       0.9964993596076965,
+       -0.03765908628702164,
+       193.1417694091797
+      ],
+      44261
+     ]
+    },
+    {
+     "point": [
+      3034.2769775390625,
+      -54.13254212867939,
+      -338.9141845703125
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.3431359529495239,
+       0.8974819779396057,
+       0.27709874510765076,
+       1183.6309814453125
+      ],
+      14176
+     ],
+     "new": [
+      [
+       -0.34584131836891174,
+       0.8964217901229858,
+       0.2771673798561096,
+       1191.8057861328125
+      ],
+      46176
+     ]
+    }
+   ],
    "contact_codes": {
     "valid": 10736,
     "same_code_as_retail": 9912,
@@ -1210,7 +3546,7 @@
     "grass->harddirt": 5458
    }
   },
-  "seconds": 30.5
+  "seconds": 46.3
  },
  "ItalyS1": {
   "build": {
@@ -1231,9 +3567,10 @@
      "pruned_planes": 1
     },
     "code_provenance": {
-     "pc_ground_path": 12225,
-     "default": 25,
-     "pc_same_plane": 56142
+     "ps2_splitter": 3287,
+     "pc_same_plane": 56139,
+     "pc_ground_path": 8954,
+     "default": 12
     },
     "default_code": 17844,
     "default_code_source": "reference_code at the course centre",
@@ -1243,7 +3580,7 @@
     "new_plane_nodes": 68392,
     "round_trip_identical": true,
     "count_invariants_ok": true,
-    "negative_codes": 0
+    "negative_codes": 3287
    },
    "tag1400": {
     "records": 22646,
@@ -1251,6 +3588,8 @@
     "degenerate_nan_plane": 0,
     "retail_records": 22530,
     "new_records": 22646,
+    "records_normal_down_fraction": 0.966,
+    "retail_records_normal_down_fraction": 0.969,
     "dims": [
      188,
      128
@@ -1259,7 +3598,7 @@
    },
    "render_prefix_identical": true,
    "dx_bytes": 7894373,
-   "dx_sha256": "dc51eee6985b6a3bd664d25ef2a05213830cfe5c6b37f541254789fcad2d17d7"
+   "dx_sha256": "86d3eaddf48bb9152b3685c1baaf9f8d89da13e4906f964315ce01f7bf8db778"
   },
   "validation": {
    "course": "ItalyS1",
@@ -1287,6 +3626,123 @@
     "retail_agree": 7202
    },
    "columns_new_differs_first": [],
+   "horizontal_rays": {
+    "rays": 6525,
+    "new_agree": 6525
+   },
+   "horizontal_rays_new_differs_first": [],
+   "fallback_planes": {
+    "points": 6525,
+    "same_plane": 6521,
+    "other_plane": 4,
+    "other": 4
+   },
+   "fallback_planes_differs_first": [
+    {
+     "point": [
+      -1862.61865234375,
+      78.69473191481357,
+      -868.93701171875
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.19811367988586426,
+       0.9801658987998962,
+       -0.005079371854662895,
+       -450.70501708984375
+      ],
+      734
+     ],
+     "new": [
+      [
+       -0.19809392094612122,
+       0.9801698923110962,
+       -0.005074355285614729,
+       -450.6641540527344
+      ],
+      1211
+     ]
+    },
+    {
+     "point": [
+      -1862.61865234375,
+      78.64768962930044,
+      -856.93701171875
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.19811367988586426,
+       0.9801658987998962,
+       -0.005079371854662895,
+       -450.70501708984375
+      ],
+      734
+     ],
+     "new": [
+      [
+       -0.19809392094612122,
+       0.9801698923110962,
+       -0.005074355285614729,
+       -450.6641540527344
+      ],
+      1211
+     ]
+    },
+    {
+     "point": [
+      -1574.61865234375,
+      -2.3858275294409395,
+      -1060.93701171875
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.0020178616978228092,
+       0.9999977946281433,
+       -0.0006169196567498147,
+       -1.5525914430618286
+      ],
+      5081
+     ],
+     "new": [
+      [
+       -0.0020083992276340723,
+       0.9999977946281433,
+       -0.0005949251353740692,
+       -1.5143086910247803
+      ],
+      6177
+     ]
+    },
+    {
+     "point": [
+      -1466.61865234375,
+      14.676592660203811,
+      -388.93701171875
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       0.018709752708673477,
+       0.9998078942298889,
+       0.0058440337888896465,
+       14.996726989746094
+      ],
+      5956
+     ],
+     "new": [
+      [
+       0.01571468822658062,
+       0.9998311400413513,
+       0.009524977765977383,
+       12.03550910949707
+      ],
+      7310
+     ]
+    }
+   ],
    "contact_codes": {
     "valid": 6525,
     "same_code_as_retail": 6029,
@@ -1303,7 +3759,7 @@
     "tarmac->gravel": 3
    }
   },
-  "seconds": 29.1
+  "seconds": 36.2
  },
  "ItalyS2": {
   "build": {
@@ -1324,9 +3780,10 @@
      "pruned_planes": 4
     },
     "code_provenance": {
-     "default": 86,
-     "pc_ground_path": 11460,
-     "pc_same_plane": 60372
+     "ps2_splitter": 2547,
+     "pc_same_plane": 60365,
+     "pc_ground_path": 8959,
+     "default": 47
     },
     "default_code": 4295,
     "default_code_source": "reference_code at the course centre",
@@ -1336,7 +3793,7 @@
     "new_plane_nodes": 71918,
     "round_trip_identical": true,
     "count_invariants_ok": true,
-    "negative_codes": 0
+    "negative_codes": 2547
    },
    "tag1400": {
     "records": 27399,
@@ -1344,6 +3801,8 @@
     "degenerate_nan_plane": 0,
     "retail_records": 28117,
     "new_records": 27399,
+    "records_normal_down_fraction": 0.969,
+    "retail_records_normal_down_fraction": 0.974,
     "dims": [
      214,
      105
@@ -1352,7 +3811,7 @@
    },
    "render_prefix_identical": true,
    "dx_bytes": 8847518,
-   "dx_sha256": "e67768cd515575b32e2918dc04155e708d5cd0f00636522abd76bd1219e31c0a"
+   "dx_sha256": "e59c12d09d7c19921f5d79b13f2babfe9103d77ce3a4f670eb4d05eb2f88eb0a"
   },
   "validation": {
    "course": "ItalyS2",
@@ -1380,6 +3839,450 @@
     "retail_agree": 10329
    },
    "columns_new_differs_first": [],
+   "horizontal_rays": {
+    "rays": 8690,
+    "new_agree": 8690
+   },
+   "horizontal_rays_new_differs_first": [],
+   "fallback_planes": {
+    "points": 8691,
+    "same_plane": 8593,
+    "other_plane": 98,
+    "other": 2,
+    "none_on_ps2": 96
+   },
+   "fallback_planes_differs_first": [
+    {
+     "point": [
+      -2211.24267578125,
+      103.72269846784425,
+      262.1597900390625
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       0.35476231575012207,
+       0.6898995041847229,
+       -0.6310169100761414,
+       878.21875
+      ],
+      1608
+     ],
+     "new": [
+      [
+       0.3547627925872803,
+       0.6899167895317078,
+       -0.6309977173805237,
+       878.2130737304688
+      ],
+      12212
+     ]
+    },
+    {
+     "point": [
+      -1179.24267578125,
+      5.062261285717358,
+      -325.8402099609375
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       0.3229834735393524,
+       0.9414965510368347,
+       -0.0962594747543335,
+       344.705322265625
+      ],
+      16972
+     ],
+     "new": [
+      [
+       0.32932186126708984,
+       0.9377340078353882,
+       -0.11046258360147476,
+       347.57098388671875
+      ],
+      36611
+     ]
+    },
+    {
+     "point": [
+      -147.24267578125,
+      28.463837850425218,
+      -169.8402099609375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14311
+     ]
+    },
+    {
+     "point": [
+      -147.24267578125,
+      28.690149459334307,
+      -157.8402099609375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14311
+     ]
+    },
+    {
+     "point": [
+      -135.24267578125,
+      28.548007322368054,
+      -169.8402099609375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14311
+     ]
+    },
+    {
+     "point": [
+      -135.24267578125,
+      28.484857884520846,
+      -157.8402099609375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14311
+     ]
+    },
+    {
+     "point": [
+      -135.24267578125,
+      28.545123063812294,
+      -145.8402099609375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14311
+     ]
+    },
+    {
+     "point": [
+      -123.24267578125,
+      31.488262938105755,
+      -349.8402099609375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.0,
+       1.0,
+       0.0,
+       -31.632986068725586
+      ],
+      27720
+     ]
+    },
+    {
+     "point": [
+      -123.24267578125,
+      28.564923230232296,
+      -169.8402099609375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14311
+     ]
+    },
+    {
+     "point": [
+      -123.24267578125,
+      28.436258088498,
+      -157.8402099609375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14311
+     ]
+    },
+    {
+     "point": [
+      -123.24267578125,
+      28.431097133342544,
+      -145.8402099609375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14311
+     ]
+    },
+    {
+     "point": [
+      -111.24267578125,
+      31.531358219849064,
+      -361.8402099609375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.0,
+       1.0,
+       0.0,
+       -31.632986068725586
+      ],
+      27720
+     ]
+    },
+    {
+     "point": [
+      -111.24267578125,
+      31.37110182317412,
+      -349.8402099609375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.0,
+       1.0,
+       0.0,
+       -31.632986068725586
+      ],
+      27720
+     ]
+    },
+    {
+     "point": [
+      -111.24267578125,
+      28.503173315231965,
+      -169.8402099609375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14311
+     ]
+    },
+    {
+     "point": [
+      -111.24267578125,
+      28.577574793038877,
+      -157.8402099609375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14311
+     ]
+    },
+    {
+     "point": [
+      -111.24267578125,
+      28.507645007097594,
+      -145.8402099609375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14311
+     ]
+    },
+    {
+     "point": [
+      -99.24267578125,
+      31.589909231992486,
+      -361.8402099609375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.0,
+       1.0,
+       0.0,
+       -31.632986068725586
+      ],
+      27720
+     ]
+    },
+    {
+     "point": [
+      -99.24267578125,
+      31.34205606741691,
+      -349.8402099609375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.0,
+       1.0,
+       0.0,
+       -31.632986068725586
+      ],
+      27720
+     ]
+    },
+    {
+     "point": [
+      -99.24267578125,
+      28.47623105789541,
+      -169.8402099609375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14311
+     ]
+    },
+    {
+     "point": [
+      -99.24267578125,
+      28.711641371580463,
+      -157.8402099609375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      14311
+     ]
+    }
+   ],
    "contact_codes": {
     "valid": 8691,
     "same_code_as_retail": 8027,
@@ -1397,7 +4300,7 @@
     "tarmac->gravel": 1
    }
   },
-  "seconds": 37.7
+  "seconds": 41.6
  },
  "ItalyS3": {
   "build": {
@@ -1418,9 +4321,10 @@
      "pruned_planes": 2
     },
     "code_provenance": {
-     "default": 33,
-     "pc_ground_path": 19355,
-     "pc_same_plane": 56906
+     "ps2_splitter": 2706,
+     "pc_same_plane": 56896,
+     "pc_ground_path": 16679,
+     "default": 13
     },
     "default_code": 21740,
     "default_code_source": "reference_code at the course centre",
@@ -1430,7 +4334,7 @@
     "new_plane_nodes": 76294,
     "round_trip_identical": true,
     "count_invariants_ok": true,
-    "negative_codes": 0
+    "negative_codes": 2706
    },
    "tag1400": {
     "records": 24145,
@@ -1438,6 +4342,8 @@
     "degenerate_nan_plane": 0,
     "retail_records": 24248,
     "new_records": 24145,
+    "records_normal_down_fraction": 0.97,
+    "retail_records_normal_down_fraction": 0.982,
     "dims": [
      214,
      147
@@ -1446,7 +4352,7 @@
    },
    "render_prefix_identical": true,
    "dx_bytes": 8878069,
-   "dx_sha256": "b1451e80b7b4cd975bddcb60c795c454de557cc986678b028666899c13ff25b9"
+   "dx_sha256": "90b70c89182dd74898c5cf5e3f979ad048989e8a48945edeff3d151aa9cf4b4a"
   },
   "validation": {
    "course": "ItalyS3",
@@ -1474,6 +4380,440 @@
     "retail_agree": 13638
    },
    "columns_new_differs_first": [],
+   "horizontal_rays": {
+    "rays": 9612,
+    "new_agree": 9612
+   },
+   "horizontal_rays_new_differs_first": [],
+   "fallback_planes": {
+    "points": 9612,
+    "same_plane": 9587,
+    "other_plane": 25,
+    "none_on_ps2": 24,
+    "other": 1
+   },
+   "fallback_planes_differs_first": [
+    {
+     "point": [
+      -121.8150634765625,
+      28.458861777697223,
+      -146.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    },
+    {
+     "point": [
+      -109.8150634765625,
+      28.66699220470877,
+      -146.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    },
+    {
+     "point": [
+      -97.8150634765625,
+      28.546773386230424,
+      -146.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    },
+    {
+     "point": [
+      -85.8150634765625,
+      28.662009873756322,
+      -146.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    },
+    {
+     "point": [
+      -73.8150634765625,
+      28.721885121120724,
+      -146.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    },
+    {
+     "point": [
+      -61.8150634765625,
+      28.59913460862625,
+      -146.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    },
+    {
+     "point": [
+      -49.8150634765625,
+      28.43452182367704,
+      -146.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    },
+    {
+     "point": [
+      -37.8150634765625,
+      28.55733192857727,
+      -146.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    },
+    {
+     "point": [
+      -37.8150634765625,
+      28.496489861116803,
+      -134.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    },
+    {
+     "point": [
+      -25.8150634765625,
+      28.723728731850265,
+      -146.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    },
+    {
+     "point": [
+      -25.8150634765625,
+      28.51482120427051,
+      -134.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    },
+    {
+     "point": [
+      -13.8150634765625,
+      28.479272156610588,
+      -146.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    },
+    {
+     "point": [
+      -13.8150634765625,
+      28.460806536321623,
+      -134.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    },
+    {
+     "point": [
+      -1.8150634765625,
+      28.588966683647648,
+      -146.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    },
+    {
+     "point": [
+      -1.8150634765625,
+      28.657773394798742,
+      -134.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    },
+    {
+     "point": [
+      10.1849365234375,
+      28.586834688673154,
+      -146.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    },
+    {
+     "point": [
+      10.1849365234375,
+      28.64347382604991,
+      -134.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    },
+    {
+     "point": [
+      22.1849365234375,
+      28.6123525533082,
+      -146.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       -0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    },
+    {
+     "point": [
+      22.1849365234375,
+      28.458965634618504,
+      -134.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       -0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    },
+    {
+     "point": [
+      34.1849365234375,
+      28.459566357952806,
+      -146.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    }
+   ],
    "contact_codes": {
     "valid": 9612,
     "same_code_as_retail": 8773,
@@ -1494,7 +4834,7 @@
     "gravel->grass": 9
    }
   },
-  "seconds": 41.4
+  "seconds": 43.1
  },
  "ItalyS3Flip": {
   "build": {
@@ -1515,9 +4855,10 @@
      "pruned_planes": 2
     },
     "code_provenance": {
-     "default": 33,
-     "pc_ground_path": 19473,
-     "pc_same_plane": 56572
+     "ps2_splitter": 2723,
+     "pc_same_plane": 56562,
+     "pc_ground_path": 16780,
+     "default": 13
     },
     "default_code": 21740,
     "default_code_source": "reference_code at the course centre",
@@ -1527,7 +4868,7 @@
     "new_plane_nodes": 76078,
     "round_trip_identical": true,
     "count_invariants_ok": true,
-    "negative_codes": 0
+    "negative_codes": 2723
    },
    "tag1400": {
     "records": 24145,
@@ -1535,6 +4876,8 @@
     "degenerate_nan_plane": 0,
     "retail_records": 24248,
     "new_records": 24145,
+    "records_normal_down_fraction": 0.97,
+    "retail_records_normal_down_fraction": 0.982,
     "dims": [
      214,
      147
@@ -1543,7 +4886,7 @@
    },
    "render_prefix_identical": true,
    "dx_bytes": 8885994,
-   "dx_sha256": "249fd6deeb188cfc29de371dbf39b169532296bc8d4a44adb1409e0bc90dea18"
+   "dx_sha256": "7904f41743d3c03dffa60b59d7ed42a6daac7679f6f48c14cd6fa316b05aed64"
   },
   "validation": {
    "course": "ItalyS3Flip",
@@ -1571,6 +4914,440 @@
     "retail_agree": 13637
    },
    "columns_new_differs_first": [],
+   "horizontal_rays": {
+    "rays": 9612,
+    "new_agree": 9612
+   },
+   "horizontal_rays_new_differs_first": [],
+   "fallback_planes": {
+    "points": 9612,
+    "same_plane": 9587,
+    "other_plane": 25,
+    "none_on_ps2": 24,
+    "other": 1
+   },
+   "fallback_planes_differs_first": [
+    {
+     "point": [
+      -121.8150634765625,
+      28.458861777697223,
+      -146.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    },
+    {
+     "point": [
+      -109.8150634765625,
+      28.66699220470877,
+      -146.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    },
+    {
+     "point": [
+      -97.8150634765625,
+      28.546773386230424,
+      -146.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    },
+    {
+     "point": [
+      -85.8150634765625,
+      28.662009873756322,
+      -146.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    },
+    {
+     "point": [
+      -73.8150634765625,
+      28.721885121120724,
+      -146.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    },
+    {
+     "point": [
+      -61.8150634765625,
+      28.59913460862625,
+      -146.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    },
+    {
+     "point": [
+      -49.8150634765625,
+      28.43452182367704,
+      -146.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    },
+    {
+     "point": [
+      -37.8150634765625,
+      28.55733192857727,
+      -146.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    },
+    {
+     "point": [
+      -37.8150634765625,
+      28.496489861116803,
+      -134.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    },
+    {
+     "point": [
+      -25.8150634765625,
+      28.723728731850265,
+      -146.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    },
+    {
+     "point": [
+      -25.8150634765625,
+      28.51482120427051,
+      -134.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    },
+    {
+     "point": [
+      -13.8150634765625,
+      28.479272156610588,
+      -146.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    },
+    {
+     "point": [
+      -13.8150634765625,
+      28.460806536321623,
+      -134.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    },
+    {
+     "point": [
+      -1.8150634765625,
+      28.588966683647648,
+      -146.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    },
+    {
+     "point": [
+      -1.8150634765625,
+      28.657773394798742,
+      -134.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    },
+    {
+     "point": [
+      10.1849365234375,
+      28.586834688673154,
+      -146.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    },
+    {
+     "point": [
+      10.1849365234375,
+      28.64347382604991,
+      -134.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    },
+    {
+     "point": [
+      22.1849365234375,
+      28.6123525533082,
+      -146.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       -0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    },
+    {
+     "point": [
+      22.1849365234375,
+      28.458965634618504,
+      -134.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       -0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    },
+    {
+     "point": [
+      34.1849365234375,
+      28.459566357952806,
+      -146.913818359375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.730031967163086
+      ],
+      1840
+     ]
+    }
+   ],
    "contact_codes": {
     "valid": 9612,
     "same_code_as_retail": 8773,
@@ -1591,7 +5368,7 @@
     "gravel->grass": 9
    }
   },
-  "seconds": 40.7
+  "seconds": 43.7
  },
  "ItalyS4": {
   "build": {
@@ -1612,9 +5389,10 @@
      "pruned_planes": 4
     },
     "code_provenance": {
-     "pc_ground_path": 20621,
-     "pc_same_plane": 57817,
-     "default": 79
+     "ps2_splitter": 3752,
+     "pc_same_plane": 57814,
+     "pc_ground_path": 16896,
+     "default": 55
     },
     "default_code": 13689,
     "default_code_source": "reference_code at the course centre",
@@ -1624,7 +5402,7 @@
     "new_plane_nodes": 78517,
     "round_trip_identical": true,
     "count_invariants_ok": true,
-    "negative_codes": 0
+    "negative_codes": 3752
    },
    "tag1400": {
     "records": 28781,
@@ -1632,6 +5410,8 @@
     "degenerate_nan_plane": 0,
     "retail_records": 29398,
     "new_records": 28781,
+    "records_normal_down_fraction": 0.98,
+    "retail_records_normal_down_fraction": 0.984,
     "dims": [
      254,
      99
@@ -1640,7 +5420,7 @@
    },
    "render_prefix_identical": true,
    "dx_bytes": 9687458,
-   "dx_sha256": "19b68101b05788835cd2a1aa59cac634a7dbf407768aceca9ae6b2541a457510"
+   "dx_sha256": "32b709b96cfa222425fe3239fdef9471e2592da027675a638bff9123835ef8ad"
   },
   "validation": {
    "course": "ItalyS4",
@@ -1668,6 +5448,182 @@
     "retail_differs": 15835
    },
    "columns_new_differs_first": [],
+   "horizontal_rays": {
+    "rays": 9731,
+    "new_agree": 9730,
+    "new_differs": 1
+   },
+   "horizontal_rays_new_differs_first": [
+    {
+     "a": [
+      3222.23193359375,
+      -65.69390151454161,
+      -213.3865966796875
+     ],
+     "b": [
+      3211.1935800600245,
+      -65.69390151454161,
+      -230.06456871661373
+     ],
+     "ps2": 12.030141719068368,
+     "new": null
+    }
+   ],
+   "fallback_planes": {
+    "points": 9731,
+    "same_plane": 9725,
+    "other_plane": 6,
+    "none_on_ps2": 2,
+    "other": 4
+   },
+   "fallback_planes_differs_first": [
+    {
+     "point": [
+      -593.76806640625,
+      -69.19564185054935,
+      422.6134033203125
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.013358589261770248,
+       0.9993907809257507,
+       0.03224225714802742,
+       47.382537841796875
+      ],
+      5399
+     ]
+    },
+    {
+     "point": [
+      834.23193359375,
+      -86.49491482432165,
+      518.6134033203125
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.0,
+       1.0,
+       0.0,
+       86.23785400390625
+      ],
+      10536
+     ]
+    },
+    {
+     "point": [
+      2106.23193359375,
+      -39.163800121819925,
+      -297.3865966796875
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       0.08045987039804459,
+       0.975104570388794,
+       0.20663334429264069,
+       -69.98021697998047
+      ],
+      11148
+     ],
+     "new": [
+      [
+       0.07952908426523209,
+       0.9836758375167847,
+       0.16142171621322632,
+       -81.12937927246094
+      ],
+      16869
+     ]
+    },
+    {
+     "point": [
+      2370.23193359375,
+      -42.56718326801161,
+      -165.3865966796875
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       2.3068580048857257e-05,
+       1.0,
+       -9.291942660638597e-06,
+       42.4326057434082
+      ],
+      11369
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       42.48891830444336
+      ],
+      17201
+     ]
+    },
+    {
+     "point": [
+      2646.23193359375,
+      -52.74966452271755,
+      -285.3865966796875
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.05434127151966095,
+       0.9974802136421204,
+       0.04561011120676994,
+       209.27163696289062
+      ],
+      12454
+     ],
+     "new": [
+      [
+       -0.05457054451107979,
+       0.9974852800369263,
+       0.04522303119301796,
+       209.76820373535156
+      ],
+      18611
+     ]
+    },
+    {
+     "point": [
+      3366.23193359375,
+      -64.75156103548589,
+      74.6134033203125
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       0.15193621814250946,
+       0.9870800971984863,
+       -0.050874851644039154,
+       -443.9613037109375
+      ],
+      14698
+     ],
+     "new": [
+      [
+       0.15089881420135498,
+       0.9872778058052063,
+       -0.050120823085308075,
+       -440.5125732421875
+      ],
+      21169
+     ]
+    }
+   ],
    "contact_codes": {
     "valid": 9731,
     "same_code_as_retail": 8915,
@@ -1688,7 +5644,7 @@
     "water->grass": 1
    }
   },
-  "seconds": 40.0
+  "seconds": 47.7
  },
  "ItalyW1": {
   "build": {
@@ -1709,9 +5665,10 @@
      "pruned_planes": 6
     },
     "code_provenance": {
-     "pc_ground_path": 14141,
-     "default": 45,
-     "pc_same_plane": 56932
+     "ps2_splitter": 3280,
+     "pc_same_plane": 56931,
+     "pc_ground_path": 10880,
+     "default": 27
     },
     "default_code": 21716,
     "default_code_source": "reference_code at the course centre",
@@ -1721,7 +5678,7 @@
     "new_plane_nodes": 71118,
     "round_trip_identical": true,
     "count_invariants_ok": true,
-    "negative_codes": 0
+    "negative_codes": 3280
    },
    "tag1400": {
     "records": 25776,
@@ -1729,6 +5686,8 @@
     "degenerate_nan_plane": 0,
     "retail_records": 26768,
     "new_records": 25776,
+    "records_normal_down_fraction": 0.975,
+    "retail_records_normal_down_fraction": 0.978,
     "dims": [
      191,
      123
@@ -1737,7 +5696,7 @@
    },
    "render_prefix_identical": true,
    "dx_bytes": 8451960,
-   "dx_sha256": "4904f6e1da125aebaa6dc8536e6c58b70210c2b5795c78b87055ffd4e9e983e2"
+   "dx_sha256": "966a2111e051f5e822e2abd5a7c1f2211e79df8392a27b3b8677b672363d84bf"
   },
   "validation": {
    "course": "ItalyW1",
@@ -1765,6 +5724,161 @@
     "retail_agree": 8208
    },
    "columns_new_differs_first": [],
+   "horizontal_rays": {
+    "rays": 7535,
+    "new_agree": 7535
+   },
+   "horizontal_rays_new_differs_first": [],
+   "fallback_planes": {
+    "points": 7535,
+    "same_plane": 7529,
+    "other_plane": 6,
+    "other": 3,
+    "none_on_ps2": 3
+   },
+   "fallback_planes_differs_first": [
+    {
+     "point": [
+      -2559.24267578125,
+      109.54144458342779,
+      28.3543701171875
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       0.06097749248147011,
+       0.9948503375053406,
+       0.08096029609441757,
+       44.75857925415039
+      ],
+      2472
+     ],
+     "new": [
+      [
+       0.06064143404364586,
+       0.9948941469192505,
+       0.0806732177734375,
+       43.90187454223633
+      ],
+      4230
+     ]
+    },
+    {
+     "point": [
+      -1515.24267578125,
+      28.92711924604175,
+      -355.6456298828125
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0053881206549704075,
+       0.9615117311477661,
+       -0.2747110426425934,
+       -117.52468872070312
+      ],
+      9449
+     ]
+    },
+    {
+     "point": [
+      -1503.24267578125,
+      32.36731993469136,
+      -343.6456298828125
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0053881206549704075,
+       0.9615117311477661,
+       -0.2747110426425934,
+       -117.52468872070312
+      ],
+      9449
+     ]
+    },
+    {
+     "point": [
+      -1455.24267578125,
+      14.446297828948707,
+      -379.6456298828125
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       0.01571468822658062,
+       0.9998311400413513,
+       0.009524977765977383,
+       12.035400390625
+      ],
+      6302
+     ],
+     "new": [
+      [
+       0.018709752708673477,
+       0.9998078942298889,
+       0.0058440337888896465,
+       14.99683666229248
+      ],
+      9816
+     ]
+    },
+    {
+     "point": [
+      -723.24267578125,
+      -59.29432118683789,
+      316.3543701171875
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       0.07402689009904861,
+       0.9972114562988281,
+       0.009448804892599583,
+       109.61341857910156
+      ],
+      10512
+     ],
+     "new": [
+      [
+       0.09451814740896225,
+       0.995131254196167,
+       0.027930766344070435,
+       118.46338653564453
+      ],
+      15811
+     ]
+    },
+    {
+     "point": [
+      -75.24267578125,
+      -33.452807550179855,
+      556.3543701171875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       33.40913009643555
+      ],
+      18028
+     ]
+    }
+   ],
    "contact_codes": {
     "valid": 7535,
     "same_code_as_retail": 7011,
@@ -1783,7 +5897,7 @@
     "tarmac->gravel": 1
    }
   },
-  "seconds": 35.4
+  "seconds": 40.3
  },
  "ItalyW2": {
   "build": {
@@ -1804,9 +5918,10 @@
      "pruned_planes": 2
     },
     "code_provenance": {
-     "pc_ground_path": 20979,
-     "default": 26,
-     "pc_same_plane": 60282
+     "ps2_splitter": 3539,
+     "default": 6,
+     "pc_same_plane": 60279,
+     "pc_ground_path": 17463
     },
     "default_code": 13765,
     "default_code_source": "reference_code at the course centre",
@@ -1816,7 +5931,7 @@
     "new_plane_nodes": 81287,
     "round_trip_identical": true,
     "count_invariants_ok": true,
-    "negative_codes": 0
+    "negative_codes": 3539
    },
    "tag1400": {
     "records": 27983,
@@ -1824,6 +5939,8 @@
     "degenerate_nan_plane": 0,
     "retail_records": 29898,
     "new_records": 27983,
+    "records_normal_down_fraction": 0.973,
+    "retail_records_normal_down_fraction": 0.981,
     "dims": [
      244,
      130
@@ -1832,7 +5949,7 @@
    },
    "render_prefix_identical": true,
    "dx_bytes": 9899579,
-   "dx_sha256": "98e3be446c89f768b4ca395aa692e2feb93e69f4e5aa279c5a230bed1789dbe9"
+   "dx_sha256": "641061b9a71195166221dade8a75154e8c76e02cdadcf5841f2938b426d3c905"
   },
   "validation": {
    "course": "ItalyW2",
@@ -1860,6 +5977,140 @@
     "retail_agree": 11982
    },
    "columns_new_differs_first": [],
+   "horizontal_rays": {
+    "rays": 9228,
+    "new_agree": 9228
+   },
+   "horizontal_rays_new_differs_first": [],
+   "fallback_planes": {
+    "points": 9228,
+    "same_plane": 9223,
+    "other_plane": 5,
+    "other": 3,
+    "none_on_ps2": 2
+   },
+   "fallback_planes_differs_first": [
+    {
+     "point": [
+      -89.767578125,
+      -33.86491741085559,
+      542.7973022460938
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       0.04551837220788002,
+       0.9949952960014343,
+       -0.08895207941532135,
+       85.84383392333984
+      ],
+      2759
+     ],
+     "new": [
+      [
+       0.04546494036912918,
+       0.9950160384178162,
+       -0.08874741196632385,
+       85.72868347167969
+      ],
+      3127
+     ]
+    },
+    {
+     "point": [
+      402.232421875,
+      -53.137128155957285,
+      902.7973022460938
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       -0.0,
+       52.90913009643555
+      ],
+      4217
+     ]
+    },
+    {
+     "point": [
+      834.232421875,
+      -86.53739651738364,
+      518.7973022460938
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       86.23785400390625
+      ],
+      10712
+     ]
+    },
+    {
+     "point": [
+      1506.232421875,
+      -59.531917959796814,
+      794.7973022460938
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.1960245817899704,
+       0.9746986031532288,
+       -0.10741051286458969,
+       438.532958984375
+      ],
+      9467
+     ],
+     "new": [
+      [
+       -0.1426486223936081,
+       0.9789225459098816,
+       -0.14615760743618011,
+       389.1839294433594
+      ],
+      16849
+     ]
+    },
+    {
+     "point": [
+      2946.232421875,
+      -71.6770776229846,
+      878.7973022460938
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.03227534890174866,
+       0.9622557163238525,
+       0.27022624015808105,
+       -73.55584716796875
+      ],
+      13926
+     ],
+     "new": [
+      [
+       -0.031290050595998764,
+       0.9611725211143494,
+       0.27416831254959106,
+       -80.00064086914062
+      ],
+      22112
+     ]
+    }
+   ],
    "contact_codes": {
     "valid": 9228,
     "other_code_than_retail": 595,
@@ -1881,7 +6132,7 @@
     "water->grass": 1
    }
   },
-  "seconds": 41.1
+  "seconds": 48.2
  },
  "Spain1": {
   "build": {
@@ -1901,9 +6152,10 @@
      "payload_empty": 25
     },
     "code_provenance": {
-     "pc_ground_path": 12124,
-     "default": 121,
-     "pc_same_plane": 54444
+     "ps2_splitter": 4041,
+     "pc_same_plane": 54443,
+     "pc_ground_path": 8103,
+     "default": 102
     },
     "default_code": 21167,
     "default_code_source": "reference_code at the course centre",
@@ -1913,7 +6165,7 @@
     "new_plane_nodes": 66689,
     "round_trip_identical": true,
     "count_invariants_ok": true,
-    "negative_codes": 0
+    "negative_codes": 4041
    },
    "tag1400": {
     "records": 23352,
@@ -1921,6 +6173,8 @@
     "degenerate_nan_plane": 0,
     "retail_records": 23241,
     "new_records": 23352,
+    "records_normal_down_fraction": 0.94,
+    "retail_records_normal_down_fraction": 0.947,
     "dims": [
      90,
      99
@@ -1929,7 +6183,7 @@
    },
    "render_prefix_identical": true,
    "dx_bytes": 6588113,
-   "dx_sha256": "8096c27d481a9ed853a0b8cac8d9f29df8b7b11caf30b73b64b3d6a9aa005a57"
+   "dx_sha256": "8864cd0991630981203805a09f7049598b7364c401ec1a8ef2b8973884fea8c9"
   },
   "validation": {
    "course": "Spain1",
@@ -1957,6 +6211,303 @@
     "retail_agree": 5900
    },
    "columns_new_differs_first": [],
+   "horizontal_rays": {
+    "rays": 5872,
+    "new_agree": 5872
+   },
+   "horizontal_rays_new_differs_first": [],
+   "fallback_planes": {
+    "points": 5872,
+    "same_plane": 5859,
+    "other_plane": 13,
+    "other": 2,
+    "none_on_ps2": 11
+   },
+   "fallback_planes_differs_first": [
+    {
+     "point": [
+      433.09716796875,
+      84.94251111648246,
+      -334.0740966796875
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.030124487355351448,
+       0.9991576671600342,
+       -0.027862992137670517,
+       -81.35480499267578
+      ],
+      4200
+     ],
+     "new": [
+      [
+       -0.030871041119098663,
+       0.9991804361343384,
+       -0.02618323639035225,
+       -80.47215270996094
+      ],
+      5274
+     ]
+    },
+    {
+     "point": [
+      745.09716796875,
+      20.349430066994852,
+      -574.0740966796875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -20.454519271850586
+      ],
+      1583
+     ]
+    },
+    {
+     "point": [
+      745.09716796875,
+      20.191729613159843,
+      -562.0740966796875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -20.454519271850586
+      ],
+      1583
+     ]
+    },
+    {
+     "point": [
+      745.09716796875,
+      20.20862809017246,
+      -550.0740966796875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -20.454519271850586
+      ],
+      1583
+     ]
+    },
+    {
+     "point": [
+      757.09716796875,
+      20.346677022475284,
+      -574.0740966796875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -20.454519271850586
+      ],
+      1583
+     ]
+    },
+    {
+     "point": [
+      757.09716796875,
+      20.215244055788272,
+      -562.0740966796875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -20.454519271850586
+      ],
+      1583
+     ]
+    },
+    {
+     "point": [
+      757.09716796875,
+      20.2531779994741,
+      -550.0740966796875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -20.454519271850586
+      ],
+      1583
+     ]
+    },
+    {
+     "point": [
+      769.09716796875,
+      20.42948276218797,
+      -574.0740966796875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -20.454519271850586
+      ],
+      1583
+     ]
+    },
+    {
+     "point": [
+      769.09716796875,
+      20.424413440827678,
+      -562.0740966796875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -20.454519271850586
+      ],
+      1583
+     ]
+    },
+    {
+     "point": [
+      973.09716796875,
+      49.277931217070105,
+      -598.0740966796875
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       0.48425769805908203,
+       0.7074875831604004,
+       0.5147385597229004,
+       -198.25973510742188
+      ],
+      16399
+     ],
+     "new": [
+      [
+       0.6778143048286438,
+       0.6263138055801392,
+       0.38509586453437805,
+       -460.1448974609375
+      ],
+      20842
+     ]
+    },
+    {
+     "point": [
+      1021.09716796875,
+      24.673641459929165,
+      433.9259033203125
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.011720654554665089,
+       0.9988436102867126,
+       0.046628277748823166,
+       -32.938751220703125
+      ],
+      13564
+     ]
+    },
+    {
+     "point": [
+      1105.09716796875,
+      25.635808003997184,
+      -238.0740966796875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.029902223497629166,
+       0.9992923140525818,
+       0.022818828001618385,
+       -53.238975524902344
+      ],
+      7234
+     ]
+    },
+    {
+     "point": [
+      1105.09716796875,
+      25.729391822336623,
+      -226.0740966796875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.033951327204704285,
+       0.9992657899856567,
+       0.017756694927811623,
+       -59.25909423828125
+      ],
+      7424
+     ]
+    }
+   ],
    "contact_codes": {
     "valid": 5872,
     "same_code_as_retail": 5575,
@@ -1977,7 +6528,7 @@
     "harddirt->water": 1
    }
   },
-  "seconds": 29.3
+  "seconds": 30.6
  },
  "Spain2": {
   "build": {
@@ -1998,9 +6549,10 @@
      "pruned_planes": 2
     },
     "code_provenance": {
-     "pc_ground_path": 15183,
-     "default": 76,
-     "pc_same_plane": 49242
+     "ps2_splitter": 4248,
+     "pc_same_plane": 49234,
+     "pc_ground_path": 10968,
+     "default": 51
     },
     "default_code": 5115,
     "default_code_source": "reference_code at the course centre",
@@ -2010,7 +6562,7 @@
     "new_plane_nodes": 64501,
     "round_trip_identical": true,
     "count_invariants_ok": true,
-    "negative_codes": 0
+    "negative_codes": 4248
    },
    "tag1400": {
     "records": 20713,
@@ -2018,6 +6570,8 @@
     "degenerate_nan_plane": 0,
     "retail_records": 22781,
     "new_records": 20713,
+    "records_normal_down_fraction": 0.974,
+    "retail_records_normal_down_fraction": 0.974,
     "dims": [
      85,
      99
@@ -2026,7 +6580,7 @@
    },
    "render_prefix_identical": true,
    "dx_bytes": 8256710,
-   "dx_sha256": "c5ad8ab4b51f39dcea278c434b11232bb0b1c7abca4ed91e5932d3299118106e"
+   "dx_sha256": "93005632a5887a3835295b4b184d54b12f36556bf5f46fee8f35ed142be785fc"
   },
   "validation": {
    "course": "Spain2",
@@ -2054,6 +6608,114 @@
     "retail_agree": 8474
    },
    "columns_new_differs_first": [],
+   "horizontal_rays": {
+    "rays": 5527,
+    "new_agree": 5527
+   },
+   "horizontal_rays_new_differs_first": [],
+   "fallback_planes": {
+    "points": 5527,
+    "same_plane": 5523,
+    "other_plane": 4,
+    "other": 2,
+    "none_on_ps2": 2
+   },
+   "fallback_planes_differs_first": [
+    {
+     "point": [
+      1965.86767578125,
+      44.98220852099037,
+      -794.188232421875
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       0.0031569383572787046,
+       0.9994595050811768,
+       -0.03271997347474098,
+       -77.19424438476562
+      ],
+      1192
+     ],
+     "new": [
+      [
+       0.06624794751405716,
+       0.9977877736091614,
+       -0.005549055058509111,
+       -179.5687255859375
+      ],
+      21748
+     ]
+    },
+    {
+     "point": [
+      2265.86767578125,
+      30.10764509907184,
+      33.811767578125
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.045777853578329086,
+       0.9989389181137085,
+       0.005037559662014246,
+       73.45787048339844
+      ],
+      18423
+     ]
+    },
+    {
+     "point": [
+      2265.86767578125,
+      28.28323599434213,
+      45.811767578125
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.02872483991086483,
+       0.9902021884918213,
+       0.1366545408964157,
+       30.77195930480957
+      ],
+      13555
+     ]
+    },
+    {
+     "point": [
+      2277.86767578125,
+      32.37052425582957,
+      345.811767578125
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       0.0011932363267987967,
+       0.9999427199363708,
+       -0.010637769475579262,
+       -31.61045265197754
+      ],
+      13020
+     ],
+     "new": [
+      [
+       -0.002345358720049262,
+       0.9999274015426636,
+       -0.011816492304205894,
+       -23.141813278198242
+      ],
+      18560
+     ]
+    }
+   ],
    "contact_codes": {
     "valid": 5527,
     "same_code_as_retail": 5159,
@@ -2071,7 +6733,7 @@
     "mud->gravel": 1
    }
   },
-  "seconds": 32.6
+  "seconds": 35.7
  },
  "SpainM": {
   "build": {
@@ -2092,9 +6754,10 @@
      "pruned_planes": 5
     },
     "code_provenance": {
-     "pc_ground_path": 13235,
-     "default": 113,
-     "pc_same_plane": 53540
+     "ps2_splitter": 3531,
+     "pc_same_plane": 53537,
+     "pc_ground_path": 9728,
+     "default": 92
     },
     "default_code": 3711,
     "default_code_source": "reference_code at the course centre",
@@ -2104,7 +6767,7 @@
     "new_plane_nodes": 66888,
     "round_trip_identical": true,
     "count_invariants_ok": true,
-    "negative_codes": 0
+    "negative_codes": 3531
    },
    "tag1400": {
     "records": 23508,
@@ -2112,6 +6775,8 @@
     "degenerate_nan_plane": 0,
     "retail_records": 25930,
     "new_records": 23508,
+    "records_normal_down_fraction": 0.956,
+    "retail_records_normal_down_fraction": 0.966,
     "dims": [
      130,
      80
@@ -2120,7 +6785,7 @@
    },
    "render_prefix_identical": true,
    "dx_bytes": 8102467,
-   "dx_sha256": "8054ad2b038a9145fc771e7a56f5494fd07c22e6f8f0cc45074017181b98d4f4"
+   "dx_sha256": "daf98588125d23bbf334b7c860c58595c124767362cdfd7ae38698be145632e9"
   },
   "validation": {
    "course": "SpainM",
@@ -2148,6 +6813,245 @@
     "retail_agree": 6529
    },
    "columns_new_differs_first": [],
+   "horizontal_rays": {
+    "rays": 6376,
+    "new_agree": 6376
+   },
+   "horizontal_rays_new_differs_first": [],
+   "fallback_planes": {
+    "points": 6376,
+    "same_plane": 6366,
+    "other_plane": 10,
+    "other": 3,
+    "none_on_ps2": 7
+   },
+   "fallback_planes_differs_first": [
+    {
+     "point": [
+      999.9480590820312,
+      27.668491276913663,
+      -158.188232421875
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.006981744430959225,
+       0.9995447993278503,
+       0.029351936653256416,
+       -16.316890716552734
+      ],
+      13656
+     ],
+     "new": [
+      [
+       -0.006906731054186821,
+       0.9995466470718384,
+       0.02930569276213646,
+       -16.399198532104492
+      ],
+      20118
+     ]
+    },
+    {
+     "point": [
+      2019.9480590820312,
+      56.73866165823095,
+      -866.188232421875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.2933659851551056,
+       0.9468786716461182,
+       0.1317463517189026,
+       652.7178955078125
+      ],
+      2372
+     ]
+    },
+    {
+     "point": [
+      2031.9480590820312,
+      59.775105911447746,
+      -866.188232421875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.15502460300922394,
+       0.9866338968276978,
+       0.050209760665893555,
+       299.37261962890625
+      ],
+      2371
+     ]
+    },
+    {
+     "point": [
+      2031.9480590820312,
+      58.91681493631726,
+      -854.188232421875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.2933659851551056,
+       0.9468786716461182,
+       0.1317463517189026,
+       652.7178955078125
+      ],
+      2372
+     ]
+    },
+    {
+     "point": [
+      2043.9480590820312,
+      61.5866479992137,
+      -878.188232421875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.12874510884284973,
+       0.9916338324546814,
+       0.009334729984402657,
+       210.03427124023438
+      ],
+      2370
+     ]
+    },
+    {
+     "point": [
+      2043.9480590820312,
+      61.4220776936225,
+      -866.188232421875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.12874510884284973,
+       0.9916338324546814,
+       0.009334729984402657,
+       210.03427124023438
+      ],
+      2370
+     ]
+    },
+    {
+     "point": [
+      2043.9480590820312,
+      61.01583487349857,
+      -854.188232421875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.15502460300922394,
+       0.9866338968276978,
+       0.050209760665893555,
+       299.37261962890625
+      ],
+      2371
+     ]
+    },
+    {
+     "point": [
+      2043.9480590820312,
+      60.56937704457229,
+      -842.188232421875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.15502460300922394,
+       0.9866338968276978,
+       0.050209760665893555,
+       299.37261962890625
+      ],
+      2371
+     ]
+    },
+    {
+     "point": [
+      2115.9480590820312,
+      29.953187411178128,
+      -734.188232421875
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       0.0034348717890679836,
+       0.99998939037323,
+       0.0030736064072698355,
+       -34.976402282714844
+      ],
+      2200
+     ],
+     "new": [
+      [
+       0.0016337563283741474,
+       0.9999979734420776,
+       -0.001126784016378224,
+       -34.24945831298828
+      ],
+      3052
+     ]
+    },
+    {
+     "point": [
+      2127.9480590820312,
+      29.896899770801777,
+      -734.188232421875
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       0.0005886254948563874,
+       0.9999996423721313,
+       -0.0005832252791151404,
+       -31.622379302978516
+      ],
+      2201
+     ],
+     "new": [
+      [
+       0.0016569275176152587,
+       0.9999969005584717,
+       0.001855733571574092,
+       -32.104896545410156
+      ],
+      3057
+     ]
+    }
+   ],
    "contact_codes": {
     "valid": 6376,
     "same_code_as_retail": 6087,
@@ -2169,7 +7073,7 @@
     "tarmac->water": 1
    }
   },
-  "seconds": 31.9
+  "seconds": 37.5
  },
  "SpainS1": {
   "build": {
@@ -2190,9 +7094,10 @@
      "pruned_planes": 1
     },
     "code_provenance": {
-     "pc_ground_path": 18207,
-     "default": 58,
-     "pc_same_plane": 52785
+     "ps2_splitter": 4075,
+     "pc_same_plane": 52785,
+     "pc_ground_path": 14151,
+     "default": 39
     },
     "default_code": 7437,
     "default_code_source": "reference_code at the course centre",
@@ -2202,7 +7107,7 @@
     "new_plane_nodes": 71050,
     "round_trip_identical": true,
     "count_invariants_ok": true,
-    "negative_codes": 0
+    "negative_codes": 4075
    },
    "tag1400": {
     "records": 26702,
@@ -2210,6 +7115,8 @@
     "degenerate_nan_plane": 0,
     "retail_records": 27988,
     "new_records": 26702,
+    "records_normal_down_fraction": 0.986,
+    "retail_records_normal_down_fraction": 0.986,
     "dims": [
      167,
      103
@@ -2218,7 +7125,7 @@
    },
    "render_prefix_identical": true,
    "dx_bytes": 8507176,
-   "dx_sha256": "d986de1117858d4b140141a915e2bae3ef1712c4004e42c0dc83cd202f23ca32"
+   "dx_sha256": "e4fc90c15ce5f575a3ff4220f5328674c8446c71b5aa8e05b4aee3170d13c2d2"
   },
   "validation": {
    "course": "SpainS1",
@@ -2254,6 +7161,40 @@
      "new": 57.76616554794282
     }
    ],
+   "horizontal_rays": {
+    "rays": 5960,
+    "new_agree": 5960
+   },
+   "horizontal_rays_new_differs_first": [],
+   "fallback_planes": {
+    "points": 5960,
+    "same_plane": 5959,
+    "other_plane": 1,
+    "none_on_ps2": 1
+   },
+   "fallback_planes_differs_first": [
+    {
+     "point": [
+      2233.0972290039062,
+      29.934252809148166,
+      -722.188232421875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.022311188280582428,
+       0.9993630051612854,
+       0.02785108983516693,
+       -59.65480422973633
+      ],
+      12624
+     ]
+    }
+   ],
    "contact_codes": {
     "valid": 5961,
     "same_code_as_retail": 5635,
@@ -2271,7 +7212,7 @@
     "grass->harddirt": 1
    }
   },
-  "seconds": 33.0
+  "seconds": 45.6
  },
  "SpainS1Flip": {
   "build": {
@@ -2292,9 +7233,10 @@
      "pruned_planes": 1
     },
     "code_provenance": {
-     "pc_ground_path": 18262,
-     "default": 58,
-     "pc_same_plane": 52727
+     "ps2_splitter": 4086,
+     "pc_same_plane": 52727,
+     "pc_ground_path": 14195,
+     "default": 39
     },
     "default_code": 7437,
     "default_code_source": "reference_code at the course centre",
@@ -2304,7 +7246,7 @@
     "new_plane_nodes": 71047,
     "round_trip_identical": true,
     "count_invariants_ok": true,
-    "negative_codes": 0
+    "negative_codes": 4086
    },
    "tag1400": {
     "records": 26702,
@@ -2312,6 +7254,8 @@
     "degenerate_nan_plane": 0,
     "retail_records": 27988,
     "new_records": 26702,
+    "records_normal_down_fraction": 0.986,
+    "retail_records_normal_down_fraction": 0.986,
     "dims": [
      167,
      103
@@ -2320,7 +7264,7 @@
    },
    "render_prefix_identical": true,
    "dx_bytes": 8507057,
-   "dx_sha256": "fabd1a8311e7b4c258432a299f0126b7a2ff45bc24c41e4f6d0c0f1d37391d35"
+   "dx_sha256": "731a79d0e6e0e5f0b121e9e498d2ef5bc1facab6500817634af21e00d571ee3b"
   },
   "validation": {
    "course": "SpainS1Flip",
@@ -2356,6 +7300,40 @@
      "new": 57.76616554794282
     }
    ],
+   "horizontal_rays": {
+    "rays": 5960,
+    "new_agree": 5960
+   },
+   "horizontal_rays_new_differs_first": [],
+   "fallback_planes": {
+    "points": 5960,
+    "same_plane": 5959,
+    "other_plane": 1,
+    "none_on_ps2": 1
+   },
+   "fallback_planes_differs_first": [
+    {
+     "point": [
+      2233.0972290039062,
+      29.934252809148166,
+      -722.188232421875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.022311188280582428,
+       0.9993630051612854,
+       0.02785108983516693,
+       -59.65480422973633
+      ],
+      12624
+     ]
+    }
+   ],
    "contact_codes": {
     "valid": 5961,
     "same_code_as_retail": 5634,
@@ -2373,7 +7351,7 @@
     "grass->harddirt": 1
    }
   },
-  "seconds": 33.2
+  "seconds": 45.1
  },
  "SpainS2": {
   "build": {
@@ -2394,9 +7372,10 @@
      "pruned_planes": 3
     },
     "code_provenance": {
-     "pc_ground_path": 14969,
-     "default": 30,
-     "pc_same_plane": 57235
+     "ps2_splitter": 3762,
+     "pc_same_plane": 57230,
+     "pc_ground_path": 11221,
+     "default": 21
     },
     "default_code": 2695,
     "default_code_source": "reference_code at the course centre",
@@ -2406,7 +7385,7 @@
     "new_plane_nodes": 72234,
     "round_trip_identical": true,
     "count_invariants_ok": true,
-    "negative_codes": 0
+    "negative_codes": 3762
    },
    "tag1400": {
     "records": 26346,
@@ -2414,6 +7393,8 @@
     "degenerate_nan_plane": 0,
     "retail_records": 27623,
     "new_records": 26346,
+    "records_normal_down_fraction": 0.939,
+    "retail_records_normal_down_fraction": 0.947,
     "dims": [
      159,
      96
@@ -2422,7 +7403,7 @@
    },
    "render_prefix_identical": true,
    "dx_bytes": 8713566,
-   "dx_sha256": "38e2003c6ff67c8a9dea839a88459abe590d39182688ed19c84cb05d9260f4fa"
+   "dx_sha256": "105652d9bb5d86fa01c3a323dcb7845c4850627f8e8e936067fd89b885841672"
   },
   "validation": {
    "course": "SpainS2",
@@ -2450,6 +7431,161 @@
     "retail_agree": 8306
    },
    "columns_new_differs_first": [],
+   "horizontal_rays": {
+    "rays": 5657,
+    "new_agree": 5657
+   },
+   "horizontal_rays_new_differs_first": [],
+   "fallback_planes": {
+    "points": 5657,
+    "same_plane": 5651,
+    "other_plane": 6,
+    "none_on_ps2": 3,
+    "other": 3
+   },
+   "fallback_planes_differs_first": [
+    {
+     "point": [
+      145.09722900390625,
+      31.624632785231366,
+      -238.0740966796875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.20486949384212494,
+       0.9732075929641724,
+       -0.10438153147697449,
+       -26.00782012939453
+      ],
+      26272
+     ]
+    },
+    {
+     "point": [
+      157.09722900390625,
+      32.846449584661016,
+      -250.0740966796875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.20486949384212494,
+       0.9732075929641724,
+       -0.10438153147697449,
+       -26.00782012939453
+      ],
+      26272
+     ]
+    },
+    {
+     "point": [
+      193.09722900390625,
+      55.483285570975085,
+      -466.0740966796875
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.9999023079872131,
+       0.01397184282541275,
+       -0.00045317457988858223,
+       192.0911865234375
+      ],
+      20167
+     ],
+     "new": [
+      [
+       0.14122045040130615,
+       0.7331038117408752,
+       0.6652936935424805,
+       241.53494262695312
+      ],
+      16551
+     ]
+    },
+    {
+     "point": [
+      1897.0972290039062,
+      28.441158183587845,
+      25.9259033203125
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.008794366382062435,
+       0.9997918605804443,
+       0.01840973272919655,
+       -12.362812042236328
+      ],
+      6755
+     ],
+     "new": [
+      [
+       -0.009272851049900055,
+       0.9997920989990234,
+       0.01816064864397049,
+       -11.448620796203613
+      ],
+      12844
+     ]
+    },
+    {
+     "point": [
+      1993.0972290039062,
+      38.95030526547133,
+      121.9259033203125
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.023391462862491608,
+       0.9985226392745972,
+       -0.04904486984014511,
+       13.661454200744629
+      ],
+      6210
+     ],
+     "new": [
+      [
+       -0.023490840569138527,
+       0.9985225200653076,
+       -0.04899926856160164,
+       13.854029655456543
+      ],
+      12145
+     ]
+    },
+    {
+     "point": [
+      2245.0972290039062,
+      28.547745526594582,
+      13.9259033203125
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.0,
+       1.0,
+       0.0,
+       -28.707387924194336
+      ],
+      10001
+     ]
+    }
+   ],
    "contact_codes": {
     "valid": 5657,
     "same_code_as_retail": 5444,
@@ -2473,7 +7609,7 @@
     "mud->gravel": 1
    }
   },
-  "seconds": 24.7
+  "seconds": 39.4
  },
  "SpainW": {
   "build": {
@@ -2494,9 +7630,10 @@
      "pruned_planes": 2
     },
     "code_provenance": {
-     "pc_ground_path": 17853,
-     "default": 171,
-     "pc_same_plane": 56255
+     "ps2_splitter": 4159,
+     "pc_same_plane": 56250,
+     "pc_ground_path": 13726,
+     "default": 144
     },
     "default_code": 23946,
     "default_code_source": "reference_code at the course centre",
@@ -2506,7 +7643,7 @@
     "new_plane_nodes": 74279,
     "round_trip_identical": true,
     "count_invariants_ok": true,
-    "negative_codes": 0
+    "negative_codes": 4159
    },
    "tag1400": {
     "records": 28967,
@@ -2514,6 +7651,8 @@
     "degenerate_nan_plane": 0,
     "retail_records": 30274,
     "new_records": 28967,
+    "records_normal_down_fraction": 0.968,
+    "retail_records_normal_down_fraction": 0.968,
     "dims": [
      167,
      82
@@ -2522,7 +7661,7 @@
    },
    "render_prefix_identical": true,
    "dx_bytes": 9177655,
-   "dx_sha256": "6a7bd7583eefa0ae3a63fbedcd2649171a6e1ff7b14f8db24560112001578058"
+   "dx_sha256": "38a65cb30a4042168505a1b76982656d792b57375ade1e8fd4daba7c08a58694"
   },
   "validation": {
    "course": "SpainW",
@@ -2550,6 +7689,16 @@
     "retail_agree": 8475
    },
    "columns_new_differs_first": [],
+   "horizontal_rays": {
+    "rays": 6141,
+    "new_agree": 6141
+   },
+   "horizontal_rays_new_differs_first": [],
+   "fallback_planes": {
+    "points": 6141,
+    "same_plane": 6141
+   },
+   "fallback_planes_differs_first": [],
    "contact_codes": {
     "valid": 6141,
     "same_code_as_retail": 5945,
@@ -2567,7 +7716,7 @@
     "mud->gravel": 1
    }
   },
-  "seconds": 26.3
+  "seconds": 54.3
  },
  "SpainWFlip": {
   "build": {
@@ -2588,9 +7737,10 @@
      "pruned_planes": 2
     },
     "code_provenance": {
-     "pc_ground_path": 17853,
-     "default": 171,
-     "pc_same_plane": 56255
+     "ps2_splitter": 4159,
+     "pc_same_plane": 56250,
+     "pc_ground_path": 13726,
+     "default": 144
     },
     "default_code": 23946,
     "default_code_source": "reference_code at the course centre",
@@ -2600,7 +7750,7 @@
     "new_plane_nodes": 74279,
     "round_trip_identical": true,
     "count_invariants_ok": true,
-    "negative_codes": 0
+    "negative_codes": 4159
    },
    "tag1400": {
     "records": 28967,
@@ -2608,6 +7758,8 @@
     "degenerate_nan_plane": 0,
     "retail_records": 30274,
     "new_records": 28967,
+    "records_normal_down_fraction": 0.968,
+    "retail_records_normal_down_fraction": 0.968,
     "dims": [
      167,
      82
@@ -2616,7 +7768,7 @@
    },
    "render_prefix_identical": true,
    "dx_bytes": 9177667,
-   "dx_sha256": "994013fd2fb07bda9076bf259bf224c276664e485cae88f24641b3eecf2d9cdb"
+   "dx_sha256": "de68d3781ca2a2b1f19e2cf9d5a5035a0cea3bc3782c87b3d23730e5e29c8708"
   },
   "validation": {
    "course": "SpainWFlip",
@@ -2644,6 +7796,16 @@
     "retail_agree": 8475
    },
    "columns_new_differs_first": [],
+   "horizontal_rays": {
+    "rays": 6141,
+    "new_agree": 6141
+   },
+   "horizontal_rays_new_differs_first": [],
+   "fallback_planes": {
+    "points": 6141,
+    "same_plane": 6141
+   },
+   "fallback_planes_differs_first": [],
    "contact_codes": {
     "valid": 6141,
     "same_code_as_retail": 5945,
@@ -2661,7 +7823,7 @@
     "mud->gravel": 1
    }
   },
-  "seconds": 26.3
+  "seconds": 64.1
  },
  "Turkey1": {
   "build": {
@@ -2681,9 +7843,10 @@
      "pruned_run_planes": 138
     },
     "code_provenance": {
-     "default": 193,
-     "pc_ground_path": 12628,
-     "pc_same_plane": 87264
+     "ps2_splitter": 3744,
+     "pc_same_plane": 87256,
+     "pc_ground_path": 8970,
+     "default": 115
     },
     "default_code": 13963,
     "default_code_source": "reference_code at the course centre",
@@ -2693,7 +7856,7 @@
     "new_plane_nodes": 100085,
     "round_trip_identical": true,
     "count_invariants_ok": true,
-    "negative_codes": 0
+    "negative_codes": 3744
    },
    "tag1400": {
     "records": 28402,
@@ -2701,6 +7864,8 @@
     "degenerate_nan_plane": 0,
     "retail_records": 28265,
     "new_records": 28402,
+    "records_normal_down_fraction": 0.963,
+    "retail_records_normal_down_fraction": 0.964,
     "dims": [
      86,
      99
@@ -2709,7 +7874,7 @@
    },
    "render_prefix_identical": true,
    "dx_bytes": 9558287,
-   "dx_sha256": "c0b8c45c7709abdd960571aff545729c10080ce1d97a1942726c435a9d0a5065"
+   "dx_sha256": "61646d8511681c1c9fdfb427d8ba122c677cb248574d4f3ee1052064b0be83d2"
   },
   "validation": {
    "course": "Turkey1",
@@ -2732,17 +7897,48 @@
    },
    "columns": {
     "columns": 12343,
-    "new_agree": 12342,
-    "retail_differs": 5730,
-    "retail_agree": 6613,
-    "new_differs": 1
+    "new_agree": 12343,
+    "retail_differs": 5729,
+    "retail_agree": 6614
    },
-   "columns_new_differs_first": [
+   "columns_new_differs_first": [],
+   "horizontal_rays": {
+    "rays": 6406,
+    "new_agree": 6406
+   },
+   "horizontal_rays_new_differs_first": [],
+   "fallback_planes": {
+    "points": 6406,
+    "same_plane": 6405,
+    "other_plane": 1,
+    "other": 1
+   },
+   "fallback_planes_differs_first": [
     {
-     "x": -1346.3160400390625,
-     "z": -366.4564208984375,
-     "ps2": 30.52738213594712,
-     "new": 30.009100277276183
+     "point": [
+      -410.3160400390625,
+      43.321254989983544,
+      -834.4564208984375
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       0.016338322311639786,
+       0.896703839302063,
+       -0.442329466342926,
+       -401.37640380859375
+      ],
+      9569
+     ],
+     "new": [
+      [
+       0.10549593716859818,
+       -0.9155698418617249,
+       -0.3880753219127655,
+       -241.36489868164062
+      ],
+      14646
+     ]
     }
    ],
    "contact_codes": {
@@ -2760,7 +7956,7 @@
     "None->harddirt": 205
    }
   },
-  "seconds": 30.2
+  "seconds": 75.1
  },
  "Turkey2": {
   "build": {
@@ -2780,9 +7976,9 @@
      "payload_empty": 41
     },
     "code_provenance": {
-     "pc_ground_path": 14372,
-     "default": 9,
-     "pc_same_plane": 47029
+     "ps2_splitter": 3064,
+     "pc_same_plane": 47026,
+     "pc_ground_path": 11320
     },
     "default_code": 20636,
     "default_code_source": "reference_code at the course centre",
@@ -2792,7 +7988,7 @@
     "new_plane_nodes": 61410,
     "round_trip_identical": true,
     "count_invariants_ok": true,
-    "negative_codes": 0
+    "negative_codes": 3064
    },
    "tag1400": {
     "records": 23039,
@@ -2800,6 +7996,8 @@
     "degenerate_nan_plane": 0,
     "retail_records": 22712,
     "new_records": 23039,
+    "records_normal_down_fraction": 0.958,
+    "retail_records_normal_down_fraction": 0.959,
     "dims": [
      102,
      87
@@ -2808,7 +8006,7 @@
    },
    "render_prefix_identical": true,
    "dx_bytes": 7781337,
-   "dx_sha256": "8abfb48d16483b8be02fa14dd2a2fafc603daeccbf7ab54bec57481709ecd217"
+   "dx_sha256": "4bc3a731e5c6c8b07145871a68a9e9e2cf8ed32ddf5fb8c7825490383ea35b26"
   },
   "validation": {
    "course": "Turkey2",
@@ -2836,6 +8034,93 @@
     "retail_agree": 5994
    },
    "columns_new_differs_first": [],
+   "horizontal_rays": {
+    "rays": 5176,
+    "new_agree": 5176
+   },
+   "horizontal_rays_new_differs_first": [],
+   "fallback_planes": {
+    "points": 5176,
+    "same_plane": 5173,
+    "other_plane": 3,
+    "other": 2,
+    "none_on_ps2": 1
+   },
+   "fallback_planes_differs_first": [
+    {
+     "point": [
+      1097.4656982421875,
+      92.02277772697046,
+      545.848876953125
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       0.00010861004557227716,
+       1.0,
+       -5.752479410148226e-05,
+       -92.34259033203125
+      ],
+      3315
+     ],
+     "new": [
+      [
+       -0.0,
+       1.0,
+       0.0,
+       -92.2547378540039
+      ],
+      18785
+     ]
+    },
+    {
+     "point": [
+      1133.4656982421875,
+      8.710856693893057,
+      -18.151123046875
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       0.023049520328640938,
+       0.9996486902236938,
+       0.01308783795684576,
+       -34.7306022644043
+      ],
+      53
+     ],
+     "new": [
+      [
+       0.023280968889594078,
+       0.9996386766433716,
+       0.01343825925141573,
+       -34.986488342285156
+      ],
+      12700
+     ]
+    },
+    {
+     "point": [
+      1157.4656982421875,
+      11.34141818713674,
+      -186.151123046875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.20458422601222992,
+       0.9749584197998047,
+       -0.08718618750572205,
+       209.4773406982422
+      ],
+      19484
+     ]
+    }
+   ],
    "contact_codes": {
     "valid": 5176,
     "same_code_as_retail": 4581,
@@ -2857,7 +8142,7 @@
     "grass->gravel": 2
    }
   },
-  "seconds": 24.4
+  "seconds": 51.6
  },
  "Turkey3": {
   "build": {
@@ -2878,9 +8163,10 @@
      "pruned_planes": 19
     },
     "code_provenance": {
-     "pc_ground_path": 15913,
-     "default": 66,
-     "pc_same_plane": 74099
+     "ps2_splitter": 3146,
+     "pc_same_plane": 74097,
+     "pc_ground_path": 12797,
+     "default": 38
     },
     "default_code": 23394,
     "default_code_source": "reference_code at the course centre",
@@ -2890,7 +8176,7 @@
     "new_plane_nodes": 90078,
     "round_trip_identical": true,
     "count_invariants_ok": true,
-    "negative_codes": 0
+    "negative_codes": 3146
    },
    "tag1400": {
     "records": 27866,
@@ -2898,6 +8184,8 @@
     "degenerate_nan_plane": 0,
     "retail_records": 26767,
     "new_records": 27866,
+    "records_normal_down_fraction": 0.968,
+    "retail_records_normal_down_fraction": 0.968,
     "dims": [
      103,
      99
@@ -2906,7 +8194,7 @@
    },
    "render_prefix_identical": true,
    "dx_bytes": 8864092,
-   "dx_sha256": "60194883da07f36914cdcf4d4d48c2d1d306bba706c8544e7bd655b319b03ed9"
+   "dx_sha256": "8204b64e8ad5459675aa6493c89b29f040be8679f3ebcafb7020923cd4a34af7"
   },
   "validation": {
    "course": "Turkey3",
@@ -2934,6 +8222,71 @@
     "retail_agree": 9791
    },
    "columns_new_differs_first": [],
+   "horizontal_rays": {
+    "rays": 9866,
+    "new_agree": 9866
+   },
+   "horizontal_rays_new_differs_first": [],
+   "fallback_planes": {
+    "points": 9866,
+    "same_plane": 9864,
+    "other_plane": 2,
+    "other": 2
+   },
+   "fallback_planes_differs_first": [
+    {
+     "point": [
+      2856.50048828125,
+      30.64358087681767,
+      451.73486328125
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       0.12085004150867462,
+       0.9767997860908508,
+       0.17679749429225922,
+       -455.03985595703125
+      ],
+      14604
+     ],
+     "new": [
+      [
+       0.1480957418680191,
+       0.9706448912620544,
+       0.1895156055688858,
+       -538.4237060546875
+      ],
+      22343
+     ]
+    },
+    {
+     "point": [
+      3216.50048828125,
+      48.36736423063391,
+      163.73486328125
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       0.2896091639995575,
+       0.9255571365356445,
+       0.2438657432794571,
+       -1016.3925170898438
+      ],
+      13512
+     ],
+     "new": [
+      [
+       0.28959593176841736,
+       0.9255663752555847,
+       0.2438463270664215,
+       -1016.3471069335938
+      ],
+      20236
+     ]
+    }
+   ],
    "contact_codes": {
     "valid": 9866,
     "same_code_as_retail": 9167,
@@ -2955,7 +8308,7 @@
     "gravel->grass": 1
    }
   },
-  "seconds": 33.9
+  "seconds": 55.6
  },
  "TurkeyM": {
   "build": {
@@ -2975,9 +8328,10 @@
      "pruned_run_planes": 196
     },
     "code_provenance": {
-     "pc_ground_path": 12132,
-     "default": 73,
-     "pc_same_plane": 91163
+     "ps2_splitter": 4377,
+     "pc_same_plane": 91158,
+     "pc_ground_path": 7828,
+     "default": 5
     },
     "default_code": 10839,
     "default_code_source": "most frequent near-horizontal retail code",
@@ -2987,7 +8341,7 @@
     "new_plane_nodes": 103368,
     "round_trip_identical": true,
     "count_invariants_ok": true,
-    "negative_codes": 0
+    "negative_codes": 4377
    },
    "tag1400": {
     "records": 33306,
@@ -2995,6 +8349,8 @@
     "degenerate_nan_plane": 0,
     "retail_records": 35714,
     "new_records": 33306,
+    "records_normal_down_fraction": 0.949,
+    "retail_records_normal_down_fraction": 0.951,
     "dims": [
      151,
      105
@@ -3003,7 +8359,7 @@
    },
    "render_prefix_identical": true,
    "dx_bytes": 11386467,
-   "dx_sha256": "5adff9f08a7776dd8a9140d0bd8594d3a75cba498ba09071405f1e1d6b3e5a76"
+   "dx_sha256": "c2449ba9a3b79e1097439c73a53f64741337860bfb951b52fae9c086c128d9a2"
   },
   "validation": {
    "course": "TurkeyM",
@@ -3031,6 +8387,45 @@
     "retail_agree": 7029
    },
    "columns_new_differs_first": [],
+   "horizontal_rays": {
+    "rays": 6536,
+    "new_agree": 6536
+   },
+   "horizontal_rays_new_differs_first": [],
+   "fallback_planes": {
+    "points": 6536,
+    "same_plane": 6535,
+    "other_plane": 1,
+    "other": 1
+   },
+   "fallback_planes_differs_first": [
+    {
+     "point": [
+      571.7506103515625,
+      -22.55968223318431,
+      -181.9541015625
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.09956984221935272,
+       0.9950303435325623,
+       0.000590114388614893,
+       79.29840850830078
+      ],
+      20284
+     ],
+     "new": [
+      [
+       -0.09924498945474625,
+       0.9950301647186279,
+       0.008081184700131416,
+       80.47578430175781
+      ],
+      20186
+     ]
+    }
+   ],
    "contact_codes": {
     "valid": 6536,
     "same_code_as_retail": 6016,
@@ -3054,7 +8449,7 @@
     "grass->gravel": 1
    }
   },
-  "seconds": 38.4
+  "seconds": 72.0
  },
  "TurkeyS1": {
   "build": {
@@ -3075,9 +8470,10 @@
      "pruned_planes": 6
     },
     "code_provenance": {
-     "pc_ground_path": 18051,
-     "default": 49,
-     "pc_same_plane": 59171
+     "ps2_splitter": 3811,
+     "pc_same_plane": 59169,
+     "pc_ground_path": 14263,
+     "default": 28
     },
     "default_code": 23931,
     "default_code_source": "reference_code at the course centre",
@@ -3087,7 +8483,7 @@
     "new_plane_nodes": 77271,
     "round_trip_identical": true,
     "count_invariants_ok": true,
-    "negative_codes": 0
+    "negative_codes": 3811
    },
    "tag1400": {
     "records": 31052,
@@ -3095,6 +8491,8 @@
     "degenerate_nan_plane": 0,
     "retail_records": 32137,
     "new_records": 31052,
+    "records_normal_down_fraction": 0.972,
+    "retail_records_normal_down_fraction": 0.967,
     "dims": [
      199,
      114
@@ -3103,7 +8501,7 @@
    },
    "render_prefix_identical": true,
    "dx_bytes": 9961647,
-   "dx_sha256": "5230a3fd78c3735f4bd180ad6cd29edecd44cfb25cb0a1d29e76808eb2b26096"
+   "dx_sha256": "d9b825b0f172a1b37956baa4815f61b54db5f6982e00bd429b8c8720b441821e"
   },
   "validation": {
    "course": "TurkeyS1",
@@ -3131,10 +8529,176 @@
     "retail_differs": 12466
    },
    "columns_new_differs_first": [],
+   "horizontal_rays": {
+    "rays": 7588,
+    "new_agree": 7588
+   },
+   "horizontal_rays_new_differs_first": [],
+   "fallback_planes": {
+    "points": 7588,
+    "same_plane": 7582,
+    "other_plane": 6,
+    "other": 5,
+    "none_on_ps2": 1
+   },
+   "fallback_planes_differs_first": [
+    {
+     "point": [
+      689.4654541015625,
+      62.59071605952018,
+      511.73486328125
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.007099577225744724,
+       0.9998476505279541,
+       -0.015945954248309135,
+       -49.65890884399414
+      ],
+      4727
+     ],
+     "new": [
+      [
+       -0.007323520258069038,
+       0.9998481273651123,
+       -0.015817634761333466,
+       -49.5701904296875
+      ],
+      16702
+     ]
+    },
+    {
+     "point": [
+      2345.4654541015625,
+      28.796734601434267,
+      -736.26513671875
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       0.23708242177963257,
+       0.9549818634986877,
+       -0.17833001911640167,
+       -714.9584350585938
+      ],
+      10304
+     ],
+     "new": [
+      [
+       0.23707978427410126,
+       0.9549850225448608,
+       -0.1783166080713272,
+       -714.9423828125
+      ],
+      30416
+     ]
+    },
+    {
+     "point": [
+      2357.4654541015625,
+      28.343178967245866,
+      -748.26513671875
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.9938458204269409,
+       -0.09264232963323593,
+       -0.06072787195444107,
+       2300.015869140625
+      ],
+      12412
+     ],
+     "new": [
+      [
+       -0.9938711524009705,
+       -0.09237632900476456,
+       -0.060717977583408356,
+       2300.07568359375
+      ],
+      33588
+     ]
+    },
+    {
+     "point": [
+      2417.4654541015625,
+      28.95003362278903,
+      -520.26513671875
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.08355378359556198,
+       0.9955160021781921,
+       -0.044347330927848816,
+       149.9628143310547
+      ],
+      6475
+     ],
+     "new": [
+      [
+       -0.08367251604795456,
+       0.9955014586448669,
+       -0.04444893077015877,
+       150.1974334716797
+      ],
+      25578
+     ]
+    },
+    {
+     "point": [
+      2765.4654541015625,
+      21.787006760463527,
+      -280.26513671875
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       0.09261801838874817,
+       0.9892205595970154,
+       0.11342191696166992,
+       -246.04678344726562
+      ],
+      13691
+     ],
+     "new": [
+      [
+       0.0973091647028923,
+       0.9888325333595276,
+       0.11287686973810196,
+       -259.1641845703125
+      ],
+      34244
+     ]
+    },
+    {
+     "point": [
+      2849.4654541015625,
+      68.94391979564509,
+      -412.26513671875
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.3460681140422821,
+       0.9083113670349121,
+       -0.23496226966381073,
+       826.466796875
+      ],
+      37698
+     ]
+    }
+   ],
    "contact_codes": {
-    "valid": 7588,
+    "valid": 7587,
     "same_code_as_retail": 6940,
-    "other_code_than_retail": 336
+    "other_code_than_retail": 336,
+    "negative": 1
    },
    "surface_types": {
     "compared": 20723,
@@ -3155,7 +8719,7 @@
     "grass->gravel": 3
    }
   },
-  "seconds": 32.7
+  "seconds": 82.1
  },
  "TurkeyS2": {
   "build": {
@@ -3176,9 +8740,9 @@
      "pruned_planes": 4
     },
     "code_provenance": {
-     "pc_ground_path": 13631,
-     "default": 26,
-     "pc_same_plane": 63798
+     "ps2_splitter": 3438,
+     "pc_same_plane": 63796,
+     "pc_ground_path": 10221
     },
     "default_code": 6143,
     "default_code_source": "reference_code at the course centre",
@@ -3188,7 +8752,7 @@
     "new_plane_nodes": 77455,
     "round_trip_identical": true,
     "count_invariants_ok": true,
-    "negative_codes": 0
+    "negative_codes": 3438
    },
    "tag1400": {
     "records": 30546,
@@ -3196,6 +8760,8 @@
     "degenerate_nan_plane": 0,
     "retail_records": 30636,
     "new_records": 30546,
+    "records_normal_down_fraction": 0.964,
+    "retail_records_normal_down_fraction": 0.963,
     "dims": [
      197,
      86
@@ -3204,7 +8770,7 @@
    },
    "render_prefix_identical": true,
    "dx_bytes": 9501604,
-   "dx_sha256": "90de4b85bed747d04ef915ec1761d68686bbcbaaff00eb344ef9b987937c4828"
+   "dx_sha256": "a409a9ee6b25d8fb0acd4a1701589da7c94e39f97d0d0556cdf80f2c643d2382"
   },
   "validation": {
    "course": "TurkeyS2",
@@ -3232,6 +8798,156 @@
     "retail_agree": 6930
    },
    "columns_new_differs_first": [],
+   "horizontal_rays": {
+    "rays": 6544,
+    "new_agree": 6544
+   },
+   "horizontal_rays_new_differs_first": [],
+   "fallback_planes": {
+    "points": 6544,
+    "same_plane": 6538,
+    "other_plane": 6,
+    "other": 2,
+    "none_on_ps2": 4
+   },
+   "fallback_planes_differs_first": [
+    {
+     "point": [
+      53.878173828125,
+      34.68209405375308,
+      -10.90234375
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.02673323266208172,
+       0.9969385266304016,
+       -0.073477603495121,
+       -34.09726333618164
+      ],
+      11157
+     ],
+     "new": [
+      [
+       0.00831680279225111,
+       0.9948829412460327,
+       0.10069135576486588,
+       -34.01552963256836
+      ],
+      38797
+     ]
+    },
+    {
+     "point": [
+      353.878173828125,
+      9.362293101007516,
+      -214.90234375
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.01537545770406723,
+       0.9968989491462708,
+       -0.07717517763376236,
+       -20.610517501831055
+      ],
+      17395
+     ],
+     "new": [
+      [
+       -0.015057677403092384,
+       0.9969131946563721,
+       -0.0770539939403534,
+       -20.697046279907227
+      ],
+      21363
+     ]
+    },
+    {
+     "point": [
+      833.878173828125,
+      -5.974597799988281,
+      -58.90234375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.0341682992875576,
+       0.7458888292312622,
+       0.6651933789253235,
+       71.98200225830078
+      ],
+      18344
+     ]
+    },
+    {
+     "point": [
+      845.878173828125,
+      -5.515719301708545,
+      -58.90234375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.0341682992875576,
+       0.7458888292312622,
+       0.6651933789253235,
+       71.98200225830078
+      ],
+      18344
+     ]
+    },
+    {
+     "point": [
+      2225.878173828125,
+      20.681663318021638,
+      -58.90234375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.12079877406358719,
+       0.9469974637031555,
+       0.2976633906364441,
+       -270.9815673828125
+      ],
+      30509
+     ]
+    },
+    {
+     "point": [
+      2237.878173828125,
+      19.092111323810677,
+      -58.90234375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.12079877406358719,
+       0.9469974637031555,
+       0.2976633906364441,
+       -270.9815673828125
+      ],
+      30509
+     ]
+    }
+   ],
    "contact_codes": {
     "valid": 6544,
     "same_code_as_retail": 5851,
@@ -3257,7 +8973,7 @@
     "harddirt->gravel": 1
    }
   },
-  "seconds": 35.1
+  "seconds": 59.1
  },
  "TurkeyS2Flip": {
   "build": {
@@ -3278,9 +8994,9 @@
      "pruned_planes": 4
     },
     "code_provenance": {
-     "pc_ground_path": 13906,
-     "default": 28,
-     "pc_same_plane": 64825
+     "ps2_splitter": 3807,
+     "pc_same_plane": 64823,
+     "pc_ground_path": 10129
     },
     "default_code": 6171,
     "default_code_source": "reference_code at the course centre",
@@ -3290,7 +9006,7 @@
     "new_plane_nodes": 78759,
     "round_trip_identical": true,
     "count_invariants_ok": true,
-    "negative_codes": 0
+    "negative_codes": 3807
    },
    "tag1400": {
     "records": 30442,
@@ -3298,6 +9014,8 @@
     "degenerate_nan_plane": 0,
     "retail_records": 30636,
     "new_records": 30442,
+    "records_normal_down_fraction": 0.963,
+    "retail_records_normal_down_fraction": 0.963,
     "dims": [
      197,
      86
@@ -3306,7 +9024,7 @@
    },
    "render_prefix_identical": true,
    "dx_bytes": 9554979,
-   "dx_sha256": "61be31a4c5243649b1ff851d1470483ef203707808292f6ebb5bac48369c0801"
+   "dx_sha256": "fc007e3a1fcd06031cdec737b08239114aeb24492ca40fdaddc94f21bc068729"
   },
   "validation": {
    "course": "TurkeyS2Flip",
@@ -3334,6 +9052,161 @@
     "retail_agree": 6904
    },
    "columns_new_differs_first": [],
+   "horizontal_rays": {
+    "rays": 6550,
+    "new_agree": 6550
+   },
+   "horizontal_rays_new_differs_first": [],
+   "fallback_planes": {
+    "points": 6550,
+    "same_plane": 6544,
+    "other_plane": 6,
+    "other": 3,
+    "none_on_ps2": 3
+   },
+   "fallback_planes_differs_first": [
+    {
+     "point": [
+      53.8782958984375,
+      34.68209303329663,
+      -10.90234375
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.026733778417110443,
+       0.9969385266304016,
+       -0.07347699254751205,
+       -34.097232818603516
+      ],
+      11157
+     ],
+     "new": [
+      [
+       0.00831680279225111,
+       0.9948829412460327,
+       0.10069135576486588,
+       -34.01552963256836
+      ],
+      38797
+     ]
+    },
+    {
+     "point": [
+      353.8782958984375,
+      9.362291118285361,
+      -214.90234375
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.01537545770406723,
+       0.9968989491462708,
+       -0.07717517763376236,
+       -20.61052131652832
+      ],
+      17395
+     ],
+     "new": [
+      [
+       -0.015057677403092384,
+       0.9969131946563721,
+       -0.0770539939403534,
+       -20.69704246520996
+      ],
+      21363
+     ]
+    },
+    {
+     "point": [
+      833.8782958984375,
+      -5.974589692895717,
+      -58.90234375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.03416825830936432,
+       0.7458893656730652,
+       0.6651929020881653,
+       71.98194122314453
+      ],
+      18344
+     ]
+    },
+    {
+     "point": [
+      845.8782958984375,
+      -5.515733948154321,
+      -58.90234375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       -0.03416825830936432,
+       0.7458893656730652,
+       0.6651929020881653,
+       71.98194122314453
+      ],
+      18344
+     ]
+    },
+    {
+     "point": [
+      2237.8782958984375,
+      19.102354299407512,
+      -58.90234375
+     ],
+     "kind": "none_on_ps2",
+     "ps2": [
+      null,
+      4294967295
+     ],
+     "new": [
+      [
+       0.12080837786197662,
+       0.9469927549362183,
+       0.2976745665073395,
+       -271.00225830078125
+      ],
+      30509
+     ]
+    },
+    {
+     "point": [
+      2765.8782958984375,
+      39.54086877402313,
+      217.09765625
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       0.5879945158958435,
+       0.7919535040855408,
+       -0.16453590989112854,
+       -1621.95703125
+      ],
+      852
+     ],
+     "new": [
+      [
+       0.5879459381103516,
+       0.7919874787330627,
+       -0.164546400308609,
+       -1621.8216552734375
+      ],
+      24804
+     ]
+    }
+   ],
    "contact_codes": {
     "valid": 6550,
     "same_code_as_retail": 5900,
@@ -3356,7 +9229,7 @@
     "grass->gravel": 1
    }
   },
-  "seconds": 30.0
+  "seconds": 56.3
  },
  "TurkeyW": {
   "build": {
@@ -3377,9 +9250,9 @@
      "pruned_planes": 2
     },
     "code_provenance": {
-     "pc_ground_path": 13632,
-     "default": 10,
-     "pc_same_plane": 59400
+     "ps2_splitter": 3723,
+     "pc_same_plane": 59390,
+     "pc_ground_path": 9929
     },
     "default_code": 2828,
     "default_code_source": "reference_code at the course centre",
@@ -3389,7 +9262,7 @@
     "new_plane_nodes": 73042,
     "round_trip_identical": true,
     "count_invariants_ok": true,
-    "negative_codes": 0
+    "negative_codes": 3723
    },
    "tag1400": {
     "records": 24902,
@@ -3397,6 +9270,8 @@
     "degenerate_nan_plane": 0,
     "retail_records": 24556,
     "new_records": 24902,
+    "records_normal_down_fraction": 0.978,
+    "retail_records_normal_down_fraction": 0.977,
     "dims": [
      160,
      121
@@ -3405,7 +9280,7 @@
    },
    "render_prefix_identical": true,
    "dx_bytes": 8267683,
-   "dx_sha256": "bff392c8d0e5807e77f21cac210e8a2477d2afcd2610c480f10b64c9c4ad80e4"
+   "dx_sha256": "87198f8c1a5ed7c4c4ce87744be61c4b6d6fa2faf60dac928cce286d7917581c"
   },
   "validation": {
    "course": "TurkeyW",
@@ -3433,6 +9308,97 @@
     "retail_agree": 8385
    },
    "columns_new_differs_first": [],
+   "horizontal_rays": {
+    "rays": 7780,
+    "new_agree": 7780
+   },
+   "horizontal_rays_new_differs_first": [],
+   "fallback_planes": {
+    "points": 7780,
+    "same_plane": 7777,
+    "other_plane": 3,
+    "other": 3
+   },
+   "fallback_planes_differs_first": [
+    {
+     "point": [
+      -1324.4053955078125,
+      48.66419679073444,
+      -880.0145263671875
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       0.08344762772321701,
+       0.9715689420700073,
+       0.2215632051229477,
+       258.0653076171875
+      ],
+      8076
+     ],
+     "new": [
+      [
+       0.08724278956651688,
+       0.9746359586715698,
+       0.20609064400196075,
+       249.32635498046875
+      ],
+      26927
+     ]
+    },
+    {
+     "point": [
+      -676.4053955078125,
+      12.814142853392116,
+      31.9854736328125
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       -0.3552916646003723,
+       0.8847649097442627,
+       0.30159392952919006,
+       -261.46807861328125
+      ],
+      6161
+     ],
+     "new": [
+      [
+       -0.3552239239215851,
+       0.8849067091941833,
+       0.30125752091407776,
+       -261.4132385253906
+      ],
+      24831
+     ]
+    },
+    {
+     "point": [
+      715.5946044921875,
+      62.756882609369136,
+      559.9854736328125
+     ],
+     "kind": "other",
+     "ps2": [
+      [
+       0.00625874986872077,
+       0.9999585151672363,
+       0.006619185674935579,
+       -71.05060577392578
+      ],
+      16394
+     ],
+     "new": [
+      [
+       0.006274167913943529,
+       0.9999584555625916,
+       0.006611955352127552,
+       -71.0574951171875
+      ],
+      17539
+     ]
+    }
+   ],
    "contact_codes": {
     "valid": 7780,
     "same_code_as_retail": 7369,
@@ -3455,6 +9421,6 @@
     "harddirt->water": 1
    }
   },
-  "seconds": 25.2
+  "seconds": 52.2
  }
 }

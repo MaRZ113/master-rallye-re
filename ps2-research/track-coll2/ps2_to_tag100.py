@@ -12,9 +12,12 @@ new PC tree:
 The walk carries the convex cell of every node (`bsp_region.ConvexCell`, universe cube cut by the path planes). It is used to drop planes that do not cut
 their cell and to find a point on each plane for choosing its plane code. Geometry is exact against the PS2 BSP up to one float32 step of the inset plane.
 
-Plane codes. The engine's contact code skips a hit on a plane whose code is negative as int32, so every new plane gets a non-negative code. The code is
-the source triangle ordinal of the PC collision source (R5T-F.2.1); its runtime use beyond "non-negative = contact" is not known. Choice per plane, with
-provenance recorded:
+Plane codes. The engine's contact code skips a plane whose code is negative as int32: the trace (PC 0x62f840, PS2 0x243718) ignores such a plane
+and the nearest-plane fallback (PC 0x61fff0, PS2 0x237610) does not take it as the contact plane. PS2 tree planes with code 0xFFFFFFFF are splitters
+of that kind and keep 0xFFFFFFFF (provenance `ps2_splitter`); with a valid code the fallback can pick such a plane under the ground and push the car
+sideways (invisible one-sided wall, Turkey2 game test 2026-10-19). Every other plane gets a non-negative code. The code is the source triangle
+ordinal of the PC collision source (R5T-F.2.1); its runtime use beyond "non-negative = contact" is not known. Choice per plane, with provenance
+recorded:
   pc_same_plane  a retail PC plane with the same equation (|dn| <= 1e-3, |dd| <= 0.05) and a valid code exists: its code
   pc_ground_path the last near-horizontal valid code on the retail PC descent path at a point of the plane inside its cell (Tree.reference_code)
   default        the course default code (reference code at the centre of the PS2 ground)
@@ -34,6 +37,7 @@ from bsp_region import ConvexCell, PS2_EPS  # noqa: E402
 import tag100_tree as tt  # noqa: E402
 
 UNIVERSE = 1.0e5
+PS2_SPLITTER = 0xFFFFFFFF   # PS2 tree plane code of a splitter plane (no contact)
 
 
 class PlaneCodes:
@@ -119,8 +123,9 @@ def _empty_tree(tail):
     return t
 
 
-def convert(bsp, codes, tail=b'', prune=True):
-    """Returns (Tree, stats). The root of the PS2 tree becomes node 0."""
+def convert(bsp, codes, tail=b'', prune=True, keep_splitters=True):
+    """Returns (Tree, stats). The root of the PS2 tree becomes node 0. keep_splitters=False gives every plane a valid code (the build
+    before 2026-10-19)."""
     tree = _empty_tree(tail)
     stats = collections.Counter()
     sys.setrecursionlimit(max(sys.getrecursionlimit(), 200000))
@@ -130,9 +135,13 @@ def convert(bsp, codes, tail=b'', prune=True):
         stats['leaf_solid' if f0 == tt.SOLID else 'leaf_empty'] += 1
         return tree.new_node(None, None, f0)
 
-    def plane_node(pl, cell):
+    def plane_node(pl, cell, ps2_code=None):
         node = tree.new_node(tuple(pl), None, 0)
-        tree.code[node] = codes.choose(pl, _face_point(cell, pl) if cell is not None else None)
+        if keep_splitters and ps2_code == PS2_SPLITTER:
+            tree.code[node] = PS2_SPLITTER
+            codes.provenance['ps2_splitter'] += 1
+        else:
+            tree.code[node] = codes.choose(pl, _face_point(cell, pl) if cell is not None else None)
         stats['plane_nodes'] += 1
         return node
 
@@ -153,7 +162,7 @@ def convert(bsp, codes, tail=b'', prune=True):
                 front = cell.clip((-nx, -ny, -nz, -d)) or cell
             else:
                 back = front = cell
-            node = plane_node((nx, ny, nz, d), back)
+            node = plane_node((nx, ny, nz, d), back, n.plane[4])
             c = walk(n.child, back)
             s = walk(n.sibling, front)
             tree.child[node], tree.sib[node] = c, s

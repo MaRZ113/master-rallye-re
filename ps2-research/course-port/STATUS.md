@@ -11,7 +11,7 @@ W7). Everything below was done offline; nothing has been run in the game yet. Lo
 | W4 logic | XML writer done for 36 courses (limits, splits, replay cameras, 3 sounds); OFF COURSE behaviour of both games decompiled and modelled offline; timing differs by code only | `LOGIC-PORT.md`, `build_logic.py`, `limit_sim.py`, `limit-sim-36.json` |
 | W5 ambient (birds, splines, emitters) | PC models of the spline objects and their route data ready, optional static stand-in; motion and birds need native code (classes missing in the PC exe) | `AMBIENT-PROPS.md`, `build_objects.py` |
 | W6 physics props | hay bale model ready; bodies need native code (PS2 class missing on PC, PC `gaAiHayBale` crashes in the contact code) | `AMBIENT-PROPS.md`, `track-delta1/HAY-PROBE.md` |
-| W7 packages | `build_course.py --all` built all 36 packages; 34 pass every offline check, SpainS1 and its flip miss one collision column of 18,035 (float32 step at a vertical wall, W1 report) | `course-packages-36.json`, `research-output\course-port-36` |
+| W7 packages | `build_course.py --all` built all 36 packages; rebuilt 2026-10-19 after the Turkey2 invisible-wall fix (PS2 splitter planes keep the no-contact code, `track-coll2/REPORT.md`); 33 pass every offline check, SpainS1 and its flip miss one collision column of 18,035 and ItalyS4 one horizontal ray of 9,731 (float32 step, W1 report) | `course-packages-36.json`, `research-output\course-port-36` |
 
 ## What a package contains now
 `DataGx/Course/<dir>/<name>.dx` with:
