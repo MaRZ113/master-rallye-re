@@ -42,3 +42,20 @@ Not yet explained: the reported banner tearing could also come from two PS2 bann
 remains.
 
 Packages: `research-output\course-port-turkey3-v2` (+ `-noise-local`), all 36 rebuilt in `research-output\course-port-36`.
+
+## Second game test (v2, same day)
+- **Confirmed fixed by the owner:** banners, caravans, bridge, splashes, shadow.
+- **Ground grain:** hard to see; on screenshots the rock looks more uniform without the experimental noise. The plain variant stays the default.
+- **Remaining fault: holes in some walls (the concrete walls near the brick house) and in a rock.**
+  - Corner order inside each mesh is consistent: of 38,666 shared edges only 4 are walked the same way by both triangles. So the holes are not
+    flipped neighbours.
+  - They are open shells that PC does not have. Example: `rustic Hut` near the house has 103 triangles, none of them on PC, and 33 open edges.
+    PS2 shows the back side of such a shell, because it does not cull; PC culls it away.
+  - Geometry that PC has was made culling-proof by the PC artists and keeps its PC sidedness.
+- **Fix in v3.** Triangles that PC does not have get a reversed copy:
+  - PS2-only objects (non-ground, except signs): 3,649 on Turkey3. Signs stay single-sided: PC keeps 99 percent of them single-sided, and a
+    two-sided banner shows mirrored text and fights with a banner mounted back to back;
+  - PS2-only ground where it is steep or faces down (outward normal y < 0.5): 690. Flat ground is never seen from below.
+
+  Turkey3 v3: 1,149 draws, 61,019 vertices, 154,119 indices, inside the retail maximum (227,061 indices, FranceM). The new package check
+  `within_retail_vertex_and_index_range` covers this.

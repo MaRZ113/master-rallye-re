@@ -47,6 +47,8 @@ def package(course, out_root, noise='plain', step=12.0, points=50000):
         'tag100_round_trip': coll_rep['tree']['round_trip_identical'] and coll_rep['tree']['count_invariants_ok'],
         'no_negative_codes': coll_rep['tree']['negative_codes'] == 0,
         # PC stores 97 percent of its surface records facing down; a PS2 build must not differ by more than a few percent
+        # retail ranges (all 36 retail course DX): at most 87,479 vertices (FranceM) and 227,061 local indices (FranceM)
+        'within_retail_vertex_and_index_range': render_rep['vertices'] <= 87479 and render_rep['indices'] <= 227061,
         'surface_records_face_down': coll_rep['tag1400']['records_normal_down_fraction'] >= coll_rep['tag1400']['retail_records_normal_down_fraction'] - 0.05,
     }
     rep = {'course': course.name, 'noise': noise, 'checks': checks, 'all_checks_passed': all(checks.values()),
@@ -70,7 +72,8 @@ def main():
         try:
             rep = package(course, a.out, a.noise)
             summary[course.name] = {'checks': rep['checks'], 'all_checks_passed': rep['all_checks_passed'], 'seconds': rep['seconds'],
-                                    'draws': rep['render']['draws'], 'vertices': rep['render']['vertices'],
+                                    'draws': rep['render']['draws'], 'vertices': rep['render']['vertices'], 'indices': rep['render']['indices'],
+                                    'two_sided': {k: v for k, v in rep['render'].items() if k.startswith('tri_two_sided')},
                                     'root_outside_sectors': rep['render'].get('root_outside_sectors', 0),
                                     'root_outside_sectors_max_distance': rep['render'].get('root_outside_sectors_max_distance', 0),
                                     'noise_dropped': rep['render'].get('tri_noise_dropped_no_pc_uv', 0),

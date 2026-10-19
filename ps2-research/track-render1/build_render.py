@@ -276,11 +276,26 @@ class Builder:
             slot1 = None
             if len(names) > 1 and 'noise' not in tex_stem(names[1]).lower():
                 slot1 = self.texture(names[1])
-            two_sided, why = two_sided_rule(mat, m['textures'], self.orientation)
+            group_two_sided, why0 = two_sided_rule(mat, m['textures'], self.orientation)
+            is_ground = '$shader(ground)' in mat.lower() or '$surfacetype' in mat
             for idx in ps2_mesh_triangles(self.scene, m):
                 verts = [ps2_vertex(self.payload, i) for i in ps2_mesh.pc_order(self.payload, idx)]
                 pos = [v[0] for v in verts]
                 k = mm.key(pos)
+                two_sided, why = group_two_sided, why0
+                if not two_sided and k not in self.pc_tris:
+                    # geometry PC does not have: PS2 shows its back side (no culling), PC would cut a hole. Objects get both sides; ground only
+                    # where it is steep or faces down (outward normal = -(b - a) x (c - a) in PC order), flat ground is never seen from below
+                    if dirs.get('shader') == 'sign':
+                        pass   # signs stay single-sided: PC keeps 99 percent of them single-sided; two-sided banners show mirrored text and
+                               # fight with a banner mounted back to back (seen in the v1 test)
+                    elif not is_ground:
+                        two_sided, why = True, 'ps2only_object'
+                    else:
+                        fn = cross(sub(pos[1], pos[0]), sub(pos[2], pos[0]))
+                        ln = math.sqrt(dot(fn, fn)) or 1.0
+                        if -fn[1] / ln < 0.5:
+                            two_sided, why = True, 'ps2only_steep_ground'
                 ps2_keys.append(k)
                 if two_sided:
                     ps2_keys.append(k)          # the reversed copy
@@ -546,7 +561,7 @@ def build(course, suffix_dx, noise_mode='plain'):
         'course': course.name, 'noise_mode': noise_mode,
         'ps2_triangles': sum(ps2_keys.values()), 'output_triangles': sum(out_keys.values()),
         'triangle_multiset_equal_ps2': out_keys == ps2_keys,
-        'vertices': len(render.positions), 'retail_vertices': len(b.pc.positions), 'draws': sum(1 for _ in render.draws()),
+        'vertices': len(render.positions), 'retail_vertices': len(b.pc.positions), 'indices': len(render.indices), 'draws': sum(1 for _ in render.draws()),
         'retail_draws': sum(1 for _ in b.pc.draws()), 'batches': len(render.batches),
         'course_render_validated': model.course_render_validated, 'tag1339_widened': widened,
         'textures': {k: {'name': v[0], 'source': v[2]} for k, v in b.textures.items()},
