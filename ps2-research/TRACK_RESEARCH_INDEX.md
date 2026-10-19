@@ -45,6 +45,9 @@ RaceLine XYZ match within 1 unit). Pairing is semantic, not file-identical. Cano
 | [track-delta1/PROBE-TELEPORT.md](track-delta1/PROBE-TELEPORT.md) | Development teleport used for the runtime probes |
 | [track-ground1/final-report.md](track-ground1/final-report.md) | TRACK-GROUND1: texture and ground material parity, collision diagnostics, ranked regions for TRACK-COLL1 |
 | [track-coll1a/REPORT.md](track-coll1a/REPORT.md) | TRACK-COLL1A: regional PS2 BSP to PC tag100 converter (exact solid volumes, cell-restricted graft), Turkey3 rank 1; erratum for the TRACK-GROUND1 collision diagnostics |
+| [track-coll2/REPORT.md](track-coll2/REPORT.md) | W1: full PS2 collision for all 36 courses (whole BSP converted, PS2 surface grid tag1400, object collision inventory) |
+| [track-render1/REPORT.md](track-render1/REPORT.md) | W2/W3: course DX render writer (36/36 round trip), PS2 render built into the PC course DX, material rule table, tag1500 sector table; notes in NOTES.md |
+| [course-port/LOGIC-DELTA.md](course-port/LOGIC-DELTA.md) | W4 survey: race logic PS2 vs PC on 36 courses; course-port/build_course.py builds full course packages (W7) |
 | [track-delta1/SCENE-CENSUS.md](track-delta1/SCENE-CENSUS.md) | Splits, limit lists, controllers across 36 courses |
 
 ## 3. Already in the PC port (`pc-port/`)

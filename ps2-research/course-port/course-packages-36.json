@@ -1,0 +1,870 @@
+{
+ "France1": {
+  "checks": {
+   "collision_points_match_ps2": true,
+   "collision_columns_match_ps2": true,
+   "render_triangles_equal_ps2": true,
+   "render_validated": true,
+   "textures_resolved": true,
+   "tag100_round_trip": true,
+   "no_negative_codes": true
+  },
+  "all_checks_passed": true,
+  "seconds": 41.7,
+  "draws": 925,
+  "vertices": 61446,
+  "root_outside_sectors": 99,
+  "root_outside_sectors_max_distance": 112.51,
+  "noise_dropped": 3931,
+  "ps2_textures": [
+   "michelin-tga",
+   "neu pinerow-tga",
+   "singtree02-tga"
+  ]
+ },
+ "France2": {
+  "checks": {
+   "collision_points_match_ps2": true,
+   "collision_columns_match_ps2": true,
+   "render_triangles_equal_ps2": true,
+   "render_validated": true,
+   "textures_resolved": true,
+   "tag100_round_trip": true,
+   "no_negative_codes": true
+  },
+  "all_checks_passed": true,
+  "seconds": 40.2,
+  "draws": 1010,
+  "vertices": 73663,
+  "root_outside_sectors": 239,
+  "root_outside_sectors_max_distance": 78.98,
+  "noise_dropped": 3656,
+  "ps2_textures": [
+   "neu pinerow-tga",
+   "singtree02-tga"
+  ]
+ },
+ "FranceM": {
+  "checks": {
+   "collision_points_match_ps2": true,
+   "collision_columns_match_ps2": true,
+   "render_triangles_equal_ps2": true,
+   "render_validated": true,
+   "textures_resolved": true,
+   "tag100_round_trip": true,
+   "no_negative_codes": true
+  },
+  "all_checks_passed": true,
+  "seconds": 42.2,
+  "draws": 1159,
+  "vertices": 72168,
+  "root_outside_sectors": 390,
+  "root_outside_sectors_max_distance": 216.53,
+  "noise_dropped": 5082,
+  "ps2_textures": [
+   "neu pinerow-tga",
+   "singtree02-tga"
+  ]
+ },
+ "FranceS1": {
+  "checks": {
+   "collision_points_match_ps2": true,
+   "collision_columns_match_ps2": true,
+   "render_triangles_equal_ps2": true,
+   "render_validated": true,
+   "textures_resolved": true,
+   "tag100_round_trip": true,
+   "no_negative_codes": true
+  },
+  "all_checks_passed": true,
+  "seconds": 39.3,
+  "draws": 1021,
+  "vertices": 63032,
+  "root_outside_sectors": 0,
+  "root_outside_sectors_max_distance": 0,
+  "noise_dropped": 2840,
+  "ps2_textures": [
+   "neu pinerow-tga",
+   "singtree02-tga"
+  ]
+ },
+ "FranceS2": {
+  "checks": {
+   "collision_points_match_ps2": true,
+   "collision_columns_match_ps2": true,
+   "render_triangles_equal_ps2": true,
+   "render_validated": true,
+   "textures_resolved": true,
+   "tag100_round_trip": true,
+   "no_negative_codes": true
+  },
+  "all_checks_passed": true,
+  "seconds": 39.6,
+  "draws": 1109,
+  "vertices": 76712,
+  "root_outside_sectors": 70,
+  "root_outside_sectors_max_distance": 80.18,
+  "noise_dropped": 5052,
+  "ps2_textures": [
+   "neu pinerow-tga",
+   "singtree02-tga"
+  ]
+ },
+ "FranceW": {
+  "checks": {
+   "collision_points_match_ps2": true,
+   "collision_columns_match_ps2": true,
+   "render_triangles_equal_ps2": true,
+   "render_validated": true,
+   "textures_resolved": true,
+   "tag100_round_trip": true,
+   "no_negative_codes": true
+  },
+  "all_checks_passed": true,
+  "seconds": 41.4,
+  "draws": 965,
+  "vertices": 70454,
+  "root_outside_sectors": 352,
+  "root_outside_sectors_max_distance": 213.81,
+  "noise_dropped": 4724,
+  "ps2_textures": [
+   "neu pinerow-tga",
+   "singtree02-tga"
+  ]
+ },
+ "FranceWFlip": {
+  "checks": {
+   "collision_points_match_ps2": true,
+   "collision_columns_match_ps2": true,
+   "render_triangles_equal_ps2": true,
+   "render_validated": true,
+   "textures_resolved": true,
+   "tag100_round_trip": true,
+   "no_negative_codes": true
+  },
+  "all_checks_passed": true,
+  "seconds": 40.9,
+  "draws": 926,
+  "vertices": 69551,
+  "root_outside_sectors": 364,
+  "root_outside_sectors_max_distance": 213.81,
+  "noise_dropped": 3224,
+  "ps2_textures": [
+   "neu pinerow-tga",
+   "singtree02-tga"
+  ]
+ },
+ "Italy1": {
+  "checks": {
+   "collision_points_match_ps2": true,
+   "collision_columns_match_ps2": true,
+   "render_triangles_equal_ps2": true,
+   "render_validated": true,
+   "textures_resolved": true,
+   "tag100_round_trip": true,
+   "no_negative_codes": true
+  },
+  "all_checks_passed": true,
+  "seconds": 32.2,
+  "draws": 861,
+  "vertices": 55473,
+  "root_outside_sectors": 1265,
+  "root_outside_sectors_max_distance": 163.66,
+  "noise_dropped": 5099,
+  "ps2_textures": [
+   "pinus-tga",
+   "roof-tga"
+  ]
+ },
+ "Italy2": {
+  "checks": {
+   "collision_points_match_ps2": true,
+   "collision_columns_match_ps2": true,
+   "render_triangles_equal_ps2": true,
+   "render_validated": true,
+   "textures_resolved": true,
+   "tag100_round_trip": true,
+   "no_negative_codes": true
+  },
+  "all_checks_passed": true,
+  "seconds": 29.8,
+  "draws": 1030,
+  "vertices": 68011,
+  "root_outside_sectors": 50,
+  "root_outside_sectors_max_distance": 43.78,
+  "noise_dropped": 1861,
+  "ps2_textures": [
+   "pinus-tga"
+  ]
+ },
+ "Italy3": {
+  "checks": {
+   "collision_points_match_ps2": true,
+   "collision_columns_match_ps2": true,
+   "render_triangles_equal_ps2": true,
+   "render_validated": true,
+   "textures_resolved": true,
+   "tag100_round_trip": true,
+   "no_negative_codes": true
+  },
+  "all_checks_passed": true,
+  "seconds": 33.5,
+  "draws": 794,
+  "vertices": 52158,
+  "root_outside_sectors": 85,
+  "root_outside_sectors_max_distance": 122.46,
+  "noise_dropped": 3294,
+  "ps2_textures": [
+   "pinus-tga",
+   "pinus2-tga"
+  ]
+ },
+ "ItalyM1": {
+  "checks": {
+   "collision_points_match_ps2": true,
+   "collision_columns_match_ps2": true,
+   "render_triangles_equal_ps2": true,
+   "render_validated": true,
+   "textures_resolved": true,
+   "tag100_round_trip": true,
+   "no_negative_codes": true
+  },
+  "all_checks_passed": true,
+  "seconds": 36.3,
+  "draws": 1287,
+  "vertices": 74637,
+  "root_outside_sectors": 216,
+  "root_outside_sectors_max_distance": 142.66,
+  "noise_dropped": 2736,
+  "ps2_textures": [
+   "pinus-tga"
+  ]
+ },
+ "ItalyM1Flip": {
+  "checks": {
+   "collision_points_match_ps2": true,
+   "collision_columns_match_ps2": true,
+   "render_triangles_equal_ps2": true,
+   "render_validated": true,
+   "textures_resolved": true,
+   "tag100_round_trip": true,
+   "no_negative_codes": true
+  },
+  "all_checks_passed": true,
+  "seconds": 36.3,
+  "draws": 1288,
+  "vertices": 74630,
+  "root_outside_sectors": 226,
+  "root_outside_sectors_max_distance": 142.66,
+  "noise_dropped": 2708,
+  "ps2_textures": [
+   "pinus-tga"
+  ]
+ },
+ "ItalyM2": {
+  "checks": {
+   "collision_points_match_ps2": true,
+   "collision_columns_match_ps2": true,
+   "render_triangles_equal_ps2": true,
+   "render_validated": true,
+   "textures_resolved": true,
+   "tag100_round_trip": true,
+   "no_negative_codes": true
+  },
+  "all_checks_passed": true,
+  "seconds": 39.6,
+  "draws": 1509,
+  "vertices": 78180,
+  "root_outside_sectors": 65,
+  "root_outside_sectors_max_distance": 48.83,
+  "noise_dropped": 12059,
+  "ps2_textures": [
+   "pinus-tga",
+   "pinus2-tga"
+  ]
+ },
+ "ItalyS1": {
+  "checks": {
+   "collision_points_match_ps2": true,
+   "collision_columns_match_ps2": true,
+   "render_triangles_equal_ps2": true,
+   "render_validated": true,
+   "textures_resolved": true,
+   "tag100_round_trip": true,
+   "no_negative_codes": true
+  },
+  "all_checks_passed": true,
+  "seconds": 30.8,
+  "draws": 1000,
+  "vertices": 63684,
+  "root_outside_sectors": 21,
+  "root_outside_sectors_max_distance": 22.96,
+  "noise_dropped": 2149,
+  "ps2_textures": [
+   "pinus-tga"
+  ]
+ },
+ "ItalyS2": {
+  "checks": {
+   "collision_points_match_ps2": true,
+   "collision_columns_match_ps2": true,
+   "render_triangles_equal_ps2": true,
+   "render_validated": true,
+   "textures_resolved": true,
+   "tag100_round_trip": true,
+   "no_negative_codes": true
+  },
+  "all_checks_passed": true,
+  "seconds": 35.4,
+  "draws": 1400,
+  "vertices": 72816,
+  "root_outside_sectors": 121,
+  "root_outside_sectors_max_distance": 49.35,
+  "noise_dropped": 4238,
+  "ps2_textures": [
+   "pinus-tga"
+  ]
+ },
+ "ItalyS3": {
+  "checks": {
+   "collision_points_match_ps2": true,
+   "collision_columns_match_ps2": true,
+   "render_triangles_equal_ps2": true,
+   "render_validated": true,
+   "textures_resolved": true,
+   "tag100_round_trip": true,
+   "no_negative_codes": true
+  },
+  "all_checks_passed": true,
+  "seconds": 37.1,
+  "draws": 1128,
+  "vertices": 67357,
+  "root_outside_sectors": 99,
+  "root_outside_sectors_max_distance": 127.06,
+  "noise_dropped": 6813,
+  "ps2_textures": [
+   "pinus-tga",
+   "pinus2-tga"
+  ]
+ },
+ "ItalyS3Flip": {
+  "checks": {
+   "collision_points_match_ps2": true,
+   "collision_columns_match_ps2": true,
+   "render_triangles_equal_ps2": true,
+   "render_validated": true,
+   "textures_resolved": true,
+   "tag100_round_trip": true,
+   "no_negative_codes": true
+  },
+  "all_checks_passed": true,
+  "seconds": 37.1,
+  "draws": 1128,
+  "vertices": 67654,
+  "root_outside_sectors": 99,
+  "root_outside_sectors_max_distance": 127.06,
+  "noise_dropped": 6853,
+  "ps2_textures": [
+   "pinus-tga",
+   "pinus2-tga"
+  ]
+ },
+ "ItalyS4": {
+  "checks": {
+   "collision_points_match_ps2": true,
+   "collision_columns_match_ps2": true,
+   "render_triangles_equal_ps2": true,
+   "render_validated": true,
+   "textures_resolved": true,
+   "tag100_round_trip": true,
+   "no_negative_codes": true
+  },
+  "all_checks_passed": true,
+  "seconds": 41.2,
+  "draws": 1233,
+  "vertices": 70361,
+  "root_outside_sectors": 75,
+  "root_outside_sectors_max_distance": 57.67,
+  "noise_dropped": 6538,
+  "ps2_textures": [
+   "pinus-tga",
+   "pinus2-tga"
+  ]
+ },
+ "ItalyW1": {
+  "checks": {
+   "collision_points_match_ps2": true,
+   "collision_columns_match_ps2": true,
+   "render_triangles_equal_ps2": true,
+   "render_validated": true,
+   "textures_resolved": true,
+   "tag100_round_trip": true,
+   "no_negative_codes": true
+  },
+  "all_checks_passed": true,
+  "seconds": 35.5,
+  "draws": 1082,
+  "vertices": 64455,
+  "root_outside_sectors": 42,
+  "root_outside_sectors_max_distance": 23.6,
+  "noise_dropped": 1953,
+  "ps2_textures": [
+   "pinus-tga"
+  ]
+ },
+ "ItalyW2": {
+  "checks": {
+   "collision_points_match_ps2": true,
+   "collision_columns_match_ps2": true,
+   "render_triangles_equal_ps2": true,
+   "render_validated": true,
+   "textures_resolved": true,
+   "tag100_round_trip": true,
+   "no_negative_codes": true
+  },
+  "all_checks_passed": true,
+  "seconds": 42.3,
+  "draws": 1130,
+  "vertices": 72325,
+  "root_outside_sectors": 48,
+  "root_outside_sectors_max_distance": 124.07,
+  "noise_dropped": 7012,
+  "ps2_textures": [
+   "pinus-tga",
+   "pinus2-tga"
+  ]
+ },
+ "Spain1": {
+  "checks": {
+   "collision_points_match_ps2": true,
+   "collision_columns_match_ps2": true,
+   "render_triangles_equal_ps2": true,
+   "render_validated": true,
+   "textures_resolved": true,
+   "tag100_round_trip": true,
+   "no_negative_codes": true
+  },
+  "all_checks_passed": true,
+  "seconds": 27.4,
+  "draws": 465,
+  "vertices": 55210,
+  "root_outside_sectors": 420,
+  "root_outside_sectors_max_distance": 298.09,
+  "noise_dropped": 2486,
+  "ps2_textures": [
+   "wires-tga"
+  ]
+ },
+ "Spain2": {
+  "checks": {
+   "collision_points_match_ps2": true,
+   "collision_columns_match_ps2": true,
+   "render_triangles_equal_ps2": true,
+   "render_validated": true,
+   "textures_resolved": true,
+   "tag100_round_trip": true,
+   "no_negative_codes": true
+  },
+  "all_checks_passed": true,
+  "seconds": 31.0,
+  "draws": 568,
+  "vertices": 75857,
+  "root_outside_sectors": 3520,
+  "root_outside_sectors_max_distance": 44.24,
+  "noise_dropped": 1497,
+  "ps2_textures": [
+   "fence-tga",
+   "roof-tga"
+  ]
+ },
+ "SpainM": {
+  "checks": {
+   "collision_points_match_ps2": true,
+   "collision_columns_match_ps2": true,
+   "render_triangles_equal_ps2": true,
+   "render_validated": true,
+   "textures_resolved": true,
+   "tag100_round_trip": true,
+   "no_negative_codes": true
+  },
+  "all_checks_passed": true,
+  "seconds": 33.3,
+  "draws": 616,
+  "vertices": 72254,
+  "root_outside_sectors": 3580,
+  "root_outside_sectors_max_distance": 44.24,
+  "noise_dropped": 1512,
+  "ps2_textures": [
+   "concrete-tga",
+   "mrtruck roller-tga",
+   "mrtruck side-tga",
+   "mrtruck sidedoorb-tga",
+   "mrtruckroof-tga",
+   "roof-tga",
+   "stpf-tga",
+   "tfront-tga",
+   "tsidew-tga",
+   "wh2-tga",
+   "white hotel-tga",
+   "wires-tga"
+  ]
+ },
+ "SpainS1": {
+  "checks": {
+   "collision_points_match_ps2": true,
+   "collision_columns_match_ps2": false,
+   "render_triangles_equal_ps2": true,
+   "render_validated": true,
+   "textures_resolved": true,
+   "tag100_round_trip": true,
+   "no_negative_codes": true
+  },
+  "all_checks_passed": false,
+  "seconds": 36.4,
+  "draws": 660,
+  "vertices": 76686,
+  "root_outside_sectors": 3573,
+  "root_outside_sectors_max_distance": 44.24,
+  "noise_dropped": 1501,
+  "ps2_textures": [
+   "concrete-tga",
+   "mrtruck roller-tga",
+   "mrtruck side-tga",
+   "mrtruck sidedoor-tga",
+   "mrtruck sidedoorb-tga",
+   "mrtruckroof-tga",
+   "roof-tga",
+   "schlesser-tga",
+   "tfront-tga",
+   "tsidew-tga",
+   "wh2-tga",
+   "wires-tga"
+  ]
+ },
+ "SpainS1Flip": {
+  "checks": {
+   "collision_points_match_ps2": true,
+   "collision_columns_match_ps2": false,
+   "render_triangles_equal_ps2": true,
+   "render_validated": true,
+   "textures_resolved": true,
+   "tag100_round_trip": true,
+   "no_negative_codes": true
+  },
+  "all_checks_passed": false,
+  "seconds": 35.4,
+  "draws": 664,
+  "vertices": 76617,
+  "root_outside_sectors": 3573,
+  "root_outside_sectors_max_distance": 44.24,
+  "noise_dropped": 1501,
+  "ps2_textures": [
+   "bark-tga",
+   "fence-tga",
+   "mrtruck roller-tga",
+   "mrtruck side-tga",
+   "mrtruck sidedoor-tga",
+   "mrtruck sidedoorb-tga",
+   "mrtruckroof-tga",
+   "roof-tga",
+   "tfront-tga",
+   "tsidew-tga",
+   "wh2-tga",
+   "wires-tga"
+  ]
+ },
+ "SpainS2": {
+  "checks": {
+   "collision_points_match_ps2": true,
+   "collision_columns_match_ps2": true,
+   "render_triangles_equal_ps2": true,
+   "render_validated": true,
+   "textures_resolved": true,
+   "tag100_round_trip": true,
+   "no_negative_codes": true
+  },
+  "all_checks_passed": true,
+  "seconds": 31.7,
+  "draws": 537,
+  "vertices": 67214,
+  "root_outside_sectors": 36,
+  "root_outside_sectors_max_distance": 21.84,
+  "noise_dropped": 1441,
+  "ps2_textures": [
+   "roof-tga",
+   "wires-tga"
+  ]
+ },
+ "SpainW": {
+  "checks": {
+   "collision_points_match_ps2": true,
+   "collision_columns_match_ps2": true,
+   "render_triangles_equal_ps2": true,
+   "render_validated": true,
+   "textures_resolved": true,
+   "tag100_round_trip": true,
+   "no_negative_codes": true
+  },
+  "all_checks_passed": true,
+  "seconds": 34.7,
+  "draws": 589,
+  "vertices": 78849,
+  "root_outside_sectors": 1939,
+  "root_outside_sectors_max_distance": 298.09,
+  "noise_dropped": 1282,
+  "ps2_textures": [
+   "concrete-tga",
+   "roof-tga",
+   "wires-tga"
+  ]
+ },
+ "SpainWFlip": {
+  "checks": {
+   "collision_points_match_ps2": true,
+   "collision_columns_match_ps2": true,
+   "render_triangles_equal_ps2": true,
+   "render_validated": true,
+   "textures_resolved": true,
+   "tag100_round_trip": true,
+   "no_negative_codes": true
+  },
+  "all_checks_passed": true,
+  "seconds": 36.1,
+  "draws": 589,
+  "vertices": 78873,
+  "root_outside_sectors": 1938,
+  "root_outside_sectors_max_distance": 298.09,
+  "noise_dropped": 1282,
+  "ps2_textures": [
+   "concrete-tga",
+   "fence-tga",
+   "roof-tga",
+   "wires-tga"
+  ]
+ },
+ "Turkey1": {
+  "checks": {
+   "collision_points_match_ps2": true,
+   "collision_columns_match_ps2": true,
+   "render_triangles_equal_ps2": true,
+   "render_validated": true,
+   "textures_resolved": true,
+   "tag100_round_trip": true,
+   "no_negative_codes": true
+  },
+  "all_checks_passed": true,
+  "seconds": 47.8,
+  "draws": 1532,
+  "vertices": 67232,
+  "root_outside_sectors": 1,
+  "root_outside_sectors_max_distance": 0.42,
+  "noise_dropped": 14705,
+  "ps2_textures": [
+   "burago-tga",
+   "mrtruck roller-tga",
+   "mrtruck side-tga",
+   "mrtruck sidedoor-tga",
+   "mrtruck sidedoorb-tga",
+   "mrtruckroof-tga",
+   "neu dryrock-sand-rht-tga",
+   "perspex-tga",
+   "tfront-tga",
+   "tsidew-tga"
+  ]
+ },
+ "Turkey2": {
+  "checks": {
+   "collision_points_match_ps2": true,
+   "collision_columns_match_ps2": true,
+   "render_triangles_equal_ps2": true,
+   "render_validated": true,
+   "textures_resolved": true,
+   "tag100_round_trip": true,
+   "no_negative_codes": true
+  },
+  "all_checks_passed": true,
+  "seconds": 39.1,
+  "draws": 1124,
+  "vertices": 68833,
+  "root_outside_sectors": 838,
+  "root_outside_sectors_max_distance": 91.1,
+  "noise_dropped": 5527,
+  "ps2_textures": [
+   "gate01-tga",
+   "green shrub-tga",
+   "neu pinerow-tga",
+   "new wall-tga",
+   "perspex-tga",
+   "plating2-tga"
+  ]
+ },
+ "Turkey3": {
+  "checks": {
+   "collision_points_match_ps2": true,
+   "collision_columns_match_ps2": true,
+   "render_triangles_equal_ps2": true,
+   "render_validated": true,
+   "textures_resolved": true,
+   "tag100_round_trip": true,
+   "no_negative_codes": true
+  },
+  "all_checks_passed": true,
+  "seconds": 41.6,
+  "draws": 1143,
+  "vertices": 61004,
+  "root_outside_sectors": 32,
+  "root_outside_sectors_max_distance": 41.35,
+  "noise_dropped": 3848,
+  "ps2_textures": [
+   "brickhouse-tga",
+   "caravan-tga",
+   "shrubtrig2-tga",
+   "water-tga"
+  ]
+ },
+ "TurkeyM": {
+  "checks": {
+   "collision_points_match_ps2": true,
+   "collision_columns_match_ps2": true,
+   "render_triangles_equal_ps2": true,
+   "render_validated": true,
+   "textures_resolved": true,
+   "tag100_round_trip": true,
+   "no_negative_codes": true
+  },
+  "all_checks_passed": true,
+  "seconds": 58.1,
+  "draws": 1412,
+  "vertices": 79879,
+  "root_outside_sectors": 475,
+  "root_outside_sectors_max_distance": 95.95,
+  "noise_dropped": 5752,
+  "ps2_textures": [
+   "gate01-tga",
+   "green shrub-tga",
+   "mrtruck roller-tga",
+   "mrtruck side-tga",
+   "mrtruck sidedoor-tga",
+   "mrtruck sidedoorb-tga",
+   "mrtruckroof-tga",
+   "neu dryrock-sand-rht-tga",
+   "neu pinerow-tga",
+   "plating2-tga",
+   "stpf-tga",
+   "tfront-tga",
+   "tsidew-tga"
+  ]
+ },
+ "TurkeyS1": {
+  "checks": {
+   "collision_points_match_ps2": true,
+   "collision_columns_match_ps2": true,
+   "render_triangles_equal_ps2": true,
+   "render_validated": true,
+   "textures_resolved": true,
+   "tag100_round_trip": true,
+   "no_negative_codes": true
+  },
+  "all_checks_passed": true,
+  "seconds": 48.4,
+  "draws": 1527,
+  "vertices": 79176,
+  "root_outside_sectors": 71,
+  "root_outside_sectors_max_distance": 56.98,
+  "noise_dropped": 7090,
+  "ps2_textures": [
+   "caravan-tga",
+   "checks-tga",
+   "gate01-tga",
+   "green shrub-tga",
+   "neu pinerow-tga",
+   "newtex-tga",
+   "plane01-tga"
+  ]
+ },
+ "TurkeyS2": {
+  "checks": {
+   "collision_points_match_ps2": true,
+   "collision_columns_match_ps2": true,
+   "render_triangles_equal_ps2": true,
+   "render_validated": true,
+   "textures_resolved": true,
+   "tag100_round_trip": true,
+   "no_negative_codes": true
+  },
+  "all_checks_passed": true,
+  "seconds": 47.0,
+  "draws": 1318,
+  "vertices": 75196,
+  "root_outside_sectors": 423,
+  "root_outside_sectors_max_distance": 95.95,
+  "noise_dropped": 5779,
+  "ps2_textures": [
+   "boat1-tga",
+   "boat3-tga",
+   "boat4 copy-tga",
+   "gate01-tga",
+   "green shrub-tga",
+   "neu pinerow-tga",
+   "new wall-tga",
+   "plane01-tga",
+   "plating2-tga"
+  ]
+ },
+ "TurkeyS2Flip": {
+  "checks": {
+   "collision_points_match_ps2": true,
+   "collision_columns_match_ps2": true,
+   "render_triangles_equal_ps2": true,
+   "render_validated": true,
+   "textures_resolved": true,
+   "tag100_round_trip": true,
+   "no_negative_codes": true
+  },
+  "all_checks_passed": true,
+  "seconds": 45.5,
+  "draws": 1221,
+  "vertices": 73124,
+  "root_outside_sectors": 417,
+  "root_outside_sectors_max_distance": 95.95,
+  "noise_dropped": 2825,
+  "ps2_textures": [
+   "bigbarn-tga",
+   "boat1-tga",
+   "boat3-tga",
+   "boat4 copy-tga",
+   "gate01-tga",
+   "neu pinerow-tga",
+   "new wall-tga",
+   "newtex-tga",
+   "plane01-tga",
+   "plating2-tga"
+  ]
+ },
+ "TurkeyW": {
+  "checks": {
+   "collision_points_match_ps2": true,
+   "collision_columns_match_ps2": true,
+   "render_triangles_equal_ps2": true,
+   "render_validated": true,
+   "textures_resolved": true,
+   "tag100_round_trip": true,
+   "no_negative_codes": true
+  },
+  "all_checks_passed": true,
+  "seconds": 42.0,
+  "draws": 1321,
+  "vertices": 65654,
+  "root_outside_sectors": 231,
+  "root_outside_sectors_max_distance": 72.43,
+  "noise_dropped": 5309,
+  "ps2_textures": [
+   "gate01-tga",
+   "green shrub-tga",
+   "neu dryrock-sand-rht-tga",
+   "neu pinerow-tga",
+   "new wall-tga",
+   "plating2-tga"
+  ]
+ }
+}

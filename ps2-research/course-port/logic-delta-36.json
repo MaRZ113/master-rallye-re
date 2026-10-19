@@ -1,0 +1,6408 @@
+{
+ "France1": {
+  "lists": {
+   "BoomCameras": {
+    "ps2": 7,
+    "pc": null
+   },
+   "Cameras": {
+    "ps2": 127,
+    "pc": 127,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "FinishArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FlightList": {
+    "ps2": 10,
+    "pc": null
+   },
+   "LeftInnerLimit": {
+    "ps2": null,
+    "pc": 147
+   },
+   "LeftOuterLimit": {
+    "ps2": null,
+    "pc": 85
+   },
+   "LeftOuterLimit2": {
+    "ps2": 216,
+    "pc": null
+   },
+   "MillList": {
+    "ps2": 6,
+    "pc": null
+   },
+   "RaceLine": {
+    "ps2": 450,
+    "pc": 448,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "RightInnerLimit": {
+    "ps2": null,
+    "pc": 168
+   },
+   "RightOuterLimit": {
+    "ps2": null,
+    "pc": 97
+   },
+   "RightOuterLimit2": {
+    "ps2": 272,
+    "pc": null
+   },
+   "StartArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "StaticCameras": {
+    "ps2": 7,
+    "pc": null
+   },
+   "boatlist1": {
+    "ps2": 6,
+    "pc": null
+   },
+   "boatlist2": {
+    "ps2": 4,
+    "pc": null
+   }
+  },
+  "egg_groups_that_differ": {
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"null\"}": {
+    "ps2": 14,
+    "pc": 0
+   },
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 14
+   },
+   "{\"ai\": [\"gaAiWaterfallSound\"], \"model\": \"markers\\\\green_marker\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaAiWaterfallSound\"], \"model\": \"null\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaAnimals_BirdManager\"], \"model\": \"null\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaEntitySpline\"], \"model\": \"misc\\\\objects\\\\dinghys\\\\bluedinghy\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaEntitySpline\"], \"model\": \"misc\\\\objects\\\\dinghys\\\\reddinghy\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaHudLoader\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"null\"}": {
+    "ps2": 19,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 19
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"null\"}": {
+    "ps2": 3,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 3
+   },
+   "{\"ai\": [\"gaVehicleResetManager\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 0,
+    "pc": 12
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\objects\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 12,
+    "pc": 0
+   },
+   "{\"ai\": [], \"model\": \"null\"}": {
+    "ps2": 12,
+    "pc": 10
+   }
+  },
+  "splits": {
+   "ps2": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      -2470.51,
+      84.36,
+      -110.63
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      -2797.56,
+      -4.64,
+      563.6
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      -1644.96,
+      38.88,
+      1009.46
+     ]
+    }
+   ],
+   "pc": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      -2470.51,
+      84.36,
+      -110.63
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      -2797.56,
+      -4.64,
+      563.6
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      -1644.96,
+      38.88,
+      1009.46
+     ]
+    }
+   ]
+  },
+  "eggs_total": {
+   "ps2": 79,
+   "pc": 76
+  }
+ },
+ "France2": {
+  "lists": {
+   "BoomCameras": {
+    "ps2": 6,
+    "pc": null
+   },
+   "Cameras": {
+    "ps2": 93,
+    "pc": 93,
+    "max_pc_to_nearest_ps2_xz": 31.35,
+    "equal": false
+   },
+   "FinishArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FlightList": {
+    "ps2": 15,
+    "pc": null
+   },
+   "LeftInnerLimit": {
+    "ps2": null,
+    "pc": 159
+   },
+   "LeftOuterLimit": {
+    "ps2": null,
+    "pc": 157
+   },
+   "LeftOuterLimit2": {
+    "ps2": 216,
+    "pc": null
+   },
+   "RaceLine": {
+    "ps2": 351,
+    "pc": 349,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "RightInnerLimit": {
+    "ps2": null,
+    "pc": 156
+   },
+   "RightOuterLimit": {
+    "ps2": null,
+    "pc": 139
+   },
+   "RightOuterLimit2": {
+    "ps2": 201,
+    "pc": null
+   },
+   "StartArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "StaticCameras": {
+    "ps2": 5,
+    "pc": null
+   }
+  },
+  "egg_groups_that_differ": {
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"null\"}": {
+    "ps2": 11,
+    "pc": 0
+   },
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 11
+   },
+   "{\"ai\": [\"gaAnimals_BirdManager\"], \"model\": \"null\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaHudLoader\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"null\"}": {
+    "ps2": 16,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 16
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"null\"}": {
+    "ps2": 3,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 3
+   },
+   "{\"ai\": [\"gaVehicleResetManager\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 0,
+    "pc": 12
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\objects\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 12,
+    "pc": 0
+   },
+   "{\"ai\": [], \"model\": \"null\"}": {
+    "ps2": 18,
+    "pc": 10
+   }
+  },
+  "splits": {
+   "ps2": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      827.81,
+      54.43,
+      -312.99
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      1284.75,
+      42.51,
+      392.73
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      873.85,
+      63.92,
+      943.91
+     ]
+    }
+   ],
+   "pc": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      827.81,
+      54.43,
+      -312.99
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      1284.75,
+      42.51,
+      392.73
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      873.85,
+      63.92,
+      943.91
+     ]
+    }
+   ]
+  },
+  "eggs_total": {
+   "ps2": 76,
+   "pc": 69
+  }
+ },
+ "FranceM": {
+  "lists": {
+   "BoomCameras": {
+    "ps2": 5,
+    "pc": null
+   },
+   "Cameras": {
+    "ps2": 109,
+    "pc": 109,
+    "max_pc_to_nearest_ps2_xz": 13.47,
+    "equal": false
+   },
+   "FinishArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FlightList": {
+    "ps2": 29,
+    "pc": null
+   },
+   "LeftInnerLimit": {
+    "ps2": null,
+    "pc": 148
+   },
+   "LeftOuterLimit": {
+    "ps2": null,
+    "pc": 130
+   },
+   "LeftOuterLimit2": {
+    "ps2": 240,
+    "pc": null
+   },
+   "RaceLine": {
+    "ps2": 414,
+    "pc": 412,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "RightInnerLimit": {
+    "ps2": null,
+    "pc": 157
+   },
+   "RightOuterLimit": {
+    "ps2": null,
+    "pc": 128
+   },
+   "RightOuterLimit2": {
+    "ps2": 231,
+    "pc": null
+   },
+   "StartArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "StaticCameras": {
+    "ps2": 6,
+    "pc": null
+   },
+   "zeppelin": {
+    "ps2": 4,
+    "pc": null
+   }
+  },
+  "egg_groups_that_differ": {
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"null\"}": {
+    "ps2": 14,
+    "pc": 0
+   },
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 13
+   },
+   "{\"ai\": [\"gaAiWaterfallSound\"], \"model\": \"null\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaAnimals_BirdManager\"], \"model\": \"null\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaEntitySpline\"], \"model\": \"misc\\\\airship\\\\airship\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaHudLoader\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"null\"}": {
+    "ps2": 17,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 17
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"null\"}": {
+    "ps2": 3,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 3
+   },
+   "{\"ai\": [\"gaVehicleResetManager\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 0,
+    "pc": 12
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\objects\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 12,
+    "pc": 0
+   },
+   "{\"ai\": [], \"model\": \"null\"}": {
+    "ps2": 16,
+    "pc": 10
+   }
+  },
+  "splits": {
+   "ps2": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      -2006.22,
+      19.65,
+      -111.36
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      -1407.47,
+      51.41,
+      375.53
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      124.9,
+      44.51,
+      -96.51
+     ]
+    }
+   ],
+   "pc": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      -2006.22,
+      19.65,
+      -111.36
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      -1407.47,
+      51.41,
+      375.53
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      124.9,
+      44.51,
+      -96.51
+     ]
+    }
+   ]
+  },
+  "eggs_total": {
+   "ps2": 80,
+   "pc": 72
+  }
+ },
+ "FranceS1": {
+  "lists": {
+   "BoomCameras": {
+    "ps2": 5,
+    "pc": null
+   },
+   "Cameras": {
+    "ps2": 96,
+    "pc": 96,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FinishArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FlightList": {
+    "ps2": 28,
+    "pc": null
+   },
+   "LeftInnerLimit": {
+    "ps2": null,
+    "pc": 150
+   },
+   "LeftOuterLimit": {
+    "ps2": null,
+    "pc": 128
+   },
+   "LeftOuterLimit2": {
+    "ps2": 177,
+    "pc": null
+   },
+   "RaceLine": {
+    "ps2": 390,
+    "pc": 388,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "RightInnerLimit": {
+    "ps2": null,
+    "pc": 146
+   },
+   "RightOuterLimit": {
+    "ps2": null,
+    "pc": 126
+   },
+   "RightOuterLimit2": {
+    "ps2": 151,
+    "pc": null
+   },
+   "StartArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "StaticCameras": {
+    "ps2": 6,
+    "pc": null
+   }
+  },
+  "egg_groups_that_differ": {
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"null\"}": {
+    "ps2": 13,
+    "pc": 0
+   },
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 13
+   },
+   "{\"ai\": [\"gaAnimals_BirdManager\"], \"model\": \"null\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaHudLoader\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 14
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"null\"}": {
+    "ps2": 3,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 3
+   },
+   "{\"ai\": [\"gaVehicleResetManager\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 0,
+    "pc": 12
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\objects\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 12,
+    "pc": 0
+   },
+   "{\"ai\": [], \"model\": \"null\"}": {
+    "ps2": 28,
+    "pc": 10
+   }
+  },
+  "splits": {
+   "ps2": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      -1724.66,
+      -10.48,
+      -247.74
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      -1182.39,
+      55.21,
+      457.03
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      312.48,
+      44.92,
+      727.93
+     ]
+    }
+   ],
+   "pc": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      -1724.66,
+      -10.48,
+      -247.74
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      -1182.39,
+      55.21,
+      457.03
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      312.48,
+      44.92,
+      727.93
+     ]
+    }
+   ]
+  },
+  "eggs_total": {
+   "ps2": 72,
+   "pc": 69
+  }
+ },
+ "FranceS2": {
+  "lists": {
+   "BoomCameras": {
+    "ps2": 4,
+    "pc": null
+   },
+   "Cameras": {
+    "ps2": 109,
+    "pc": 109,
+    "max_pc_to_nearest_ps2_xz": 1.41,
+    "equal": false
+   },
+   "FinishArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FlightList": {
+    "ps2": 5,
+    "pc": null
+   },
+   "LeftInnerLimit": {
+    "ps2": null,
+    "pc": 170
+   },
+   "LeftOuterLimit": {
+    "ps2": null,
+    "pc": 104
+   },
+   "LeftOuterLimit2": {
+    "ps2": 225,
+    "pc": null
+   },
+   "RaceLine": {
+    "ps2": 431,
+    "pc": 429,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "RightInnerLimit": {
+    "ps2": null,
+    "pc": 144
+   },
+   "RightOuterLimit": {
+    "ps2": null,
+    "pc": 103
+   },
+   "RightOuterLimit2": {
+    "ps2": 221,
+    "pc": null
+   },
+   "StartArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "StaticCameras": {
+    "ps2": 4,
+    "pc": null
+   },
+   "boat1list": {
+    "ps2": 6,
+    "pc": null
+   },
+   "boat2list": {
+    "ps2": 7,
+    "pc": null
+   }
+  },
+  "egg_groups_that_differ": {
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"null\"}": {
+    "ps2": 12,
+    "pc": 0
+   },
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 12
+   },
+   "{\"ai\": [\"gaAnimals_BirdManager\"], \"model\": \"null\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaEntitySpline\"], \"model\": \"misc\\\\objects\\\\dinghys\\\\bluedinghy\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaEntitySpline\"], \"model\": \"misc\\\\objects\\\\dinghys\\\\reddinghy\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaHudLoader\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"null\"}": {
+    "ps2": 24,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 19
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"null\"}": {
+    "ps2": 3,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 3
+   },
+   "{\"ai\": [\"gaVehicleResetManager\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 0,
+    "pc": 12
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\objects\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 12,
+    "pc": 0
+   },
+   "{\"ai\": [], \"model\": \"null\"}": {
+    "ps2": 15,
+    "pc": 10
+   }
+  },
+  "splits": {
+   "ps2": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      124.97,
+      54.54,
+      -196.81
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      -1062.1,
+      49.0,
+      629.05
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      -2173.87,
+      -5.91,
+      1212.88
+     ]
+    }
+   ],
+   "pc": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      124.97,
+      54.54,
+      -196.81
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      -1062.1,
+      49.0,
+      629.05
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      -2173.87,
+      -5.91,
+      1212.88
+     ]
+    }
+   ]
+  },
+  "eggs_total": {
+   "ps2": 84,
+   "pc": 73
+  }
+ },
+ "FranceW": {
+  "lists": {
+   "BoomCameras": {
+    "ps2": 6,
+    "pc": null
+   },
+   "Cameras": {
+    "ps2": 103,
+    "pc": 103,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "FinishArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FlightList": {
+    "ps2": 34,
+    "pc": null
+   },
+   "LeftInnerLimit": {
+    "ps2": null,
+    "pc": 190
+   },
+   "LeftOuterLimit": {
+    "ps2": null,
+    "pc": 123
+   },
+   "LeftOuterLimit2": {
+    "ps2": 218,
+    "pc": null
+   },
+   "RaceLine": {
+    "ps2": 431,
+    "pc": 429,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "RightInnerLimit": {
+    "ps2": null,
+    "pc": 176
+   },
+   "RightOuterLimit": {
+    "ps2": null,
+    "pc": 123
+   },
+   "RightOuterLimit2": {
+    "ps2": 237,
+    "pc": null
+   },
+   "StartArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "StaticCameras": {
+    "ps2": 5,
+    "pc": null
+   },
+   "boat1": {
+    "ps2": 6,
+    "pc": null
+   },
+   "boat2": {
+    "ps2": 4,
+    "pc": null
+   }
+  },
+  "egg_groups_that_differ": {
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"null\"}": {
+    "ps2": 10,
+    "pc": 0
+   },
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 10
+   },
+   "{\"ai\": [\"gaAnimals_BirdManager\"], \"model\": \"null\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaEntitySpline\"], \"model\": \"misc\\\\objects\\\\dinghys\\\\bluedinghy\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaEntitySpline\"], \"model\": \"misc\\\\objects\\\\dinghys\\\\reddinghy\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaHudLoader\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"null\"}": {
+    "ps2": 17,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 17
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"null\"}": {
+    "ps2": 3,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 3
+   },
+   "{\"ai\": [\"gaVehicleResetManager\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 0,
+    "pc": 12
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\objects\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 12,
+    "pc": 0
+   },
+   "{\"ai\": [], \"model\": \"null\"}": {
+    "ps2": 13,
+    "pc": 10
+   }
+  },
+  "splits": {
+   "ps2": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      491.68,
+      52.63,
+      968.93
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      -970.98,
+      45.0,
+      466.49
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      -2093.72,
+      15.57,
+      1108.64
+     ]
+    }
+   ],
+   "pc": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      491.68,
+      52.63,
+      968.93
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      -970.98,
+      45.0,
+      466.49
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      -2093.72,
+      15.57,
+      1108.64
+     ]
+    }
+   ]
+  },
+  "eggs_total": {
+   "ps2": 73,
+   "pc": 69
+  }
+ },
+ "FranceWFlip": {
+  "lists": {
+   "BoomCameras": {
+    "ps2": 6,
+    "pc": null
+   },
+   "Cameras": {
+    "ps2": 103,
+    "pc": 103,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "FinishArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FlightList": {
+    "ps2": 23,
+    "pc": null
+   },
+   "LeftInnerLimit": {
+    "ps2": null,
+    "pc": 176
+   },
+   "LeftOuterLimit": {
+    "ps2": null,
+    "pc": 123
+   },
+   "LeftOuterLimit2": {
+    "ps2": 193,
+    "pc": null
+   },
+   "RaceLine": {
+    "ps2": 431,
+    "pc": 429,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "RightInnerLimit": {
+    "ps2": null,
+    "pc": 190
+   },
+   "RightOuterLimit": {
+    "ps2": null,
+    "pc": 123
+   },
+   "RightOuterLimit2": {
+    "ps2": 161,
+    "pc": null
+   },
+   "StartArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "StaticCameras": {
+    "ps2": 5,
+    "pc": null
+   },
+   "boat1": {
+    "ps2": 6,
+    "pc": null
+   },
+   "boat2": {
+    "ps2": 4,
+    "pc": null
+   }
+  },
+  "egg_groups_that_differ": {
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"null\"}": {
+    "ps2": 10,
+    "pc": 0
+   },
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 10
+   },
+   "{\"ai\": [\"gaAnimals_BirdManager\"], \"model\": \"null\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaEntitySpline\"], \"model\": \"misc\\\\objects\\\\dinghys\\\\bluedinghy\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaEntitySpline\"], \"model\": \"misc\\\\objects\\\\dinghys\\\\reddinghy\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaHudLoader\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 16
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"null\"}": {
+    "ps2": 3,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 3
+   },
+   "{\"ai\": [\"gaVehicleResetManager\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 0,
+    "pc": 12
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\objects\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 12,
+    "pc": 0
+   },
+   "{\"ai\": [], \"model\": \"null\"}": {
+    "ps2": 30,
+    "pc": 10
+   }
+  },
+  "splits": {
+   "ps2": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      -2093.27,
+      15.57,
+      1110.16
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      -962.86,
+      45.0,
+      449.78
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      495.8,
+      51.49,
+      987.14
+     ]
+    }
+   ],
+   "pc": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      -2093.27,
+      15.57,
+      1110.16
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      -962.86,
+      45.0,
+      449.78
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      495.8,
+      51.49,
+      987.14
+     ]
+    }
+   ]
+  },
+  "eggs_total": {
+   "ps2": 73,
+   "pc": 68
+  }
+ },
+ "Italy1": {
+  "lists": {
+   "BoomCameras": {
+    "ps2": 5,
+    "pc": null
+   },
+   "Cameras": {
+    "ps2": 56,
+    "pc": 56,
+    "max_pc_to_nearest_ps2_xz": 9.23,
+    "equal": false
+   },
+   "FinishArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FlightList": {
+    "ps2": 13,
+    "pc": null
+   },
+   "LeftInnerLimit": {
+    "ps2": null,
+    "pc": 260
+   },
+   "LeftOuterLimit": {
+    "ps2": null,
+    "pc": 225
+   },
+   "LeftOuterLimit2": {
+    "ps2": 65,
+    "pc": null
+   },
+   "RaceLine": {
+    "ps2": 215,
+    "pc": 213,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "RightInnerLimit": {
+    "ps2": null,
+    "pc": 223
+   },
+   "RightOuterLimit": {
+    "ps2": null,
+    "pc": 217
+   },
+   "RightOuterLimit2": {
+    "ps2": 124,
+    "pc": null
+   },
+   "StartArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "StaticCameras": {
+    "ps2": 6,
+    "pc": null
+   }
+  },
+  "egg_groups_that_differ": {
+   "{\"ai\": [\"aiShadowBoot\", \"aiTrackBoot\"], \"model\": \"course\\\\italy1\\\\italy1\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"aiShadowBoot\", \"aiTrackBoot\"], \"model\": \"course\\\\italy1\\\\track01\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"null\"}": {
+    "ps2": 8,
+    "pc": 0
+   },
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 8
+   },
+   "{\"ai\": [\"gaAnimals_BirdManager\"], \"model\": \"null\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaHudLoader\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 11
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"null\"}": {
+    "ps2": 3,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 3
+   },
+   "{\"ai\": [\"gaVehicleResetManager\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 0,
+    "pc": 12
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\objects\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 12,
+    "pc": 0
+   },
+   "{\"ai\": [], \"model\": \"null\"}": {
+    "ps2": 29,
+    "pc": 10
+   }
+  },
+  "splits": {
+   "ps2": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      -1843.23,
+      26.19,
+      -908.03
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      -1640.15,
+      15.97,
+      -476.28
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      -2079.49,
+      101.85,
+      54.35
+     ]
+    }
+   ],
+   "pc": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      -1843.23,
+      26.19,
+      -908.03
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      -1640.15,
+      15.97,
+      -476.28
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      -2079.49,
+      101.85,
+      54.35
+     ]
+    }
+   ]
+  },
+  "eggs_total": {
+   "ps2": 68,
+   "pc": 61
+  }
+ },
+ "Italy2": {
+  "lists": {
+   "BoomCameras": {
+    "ps2": 4,
+    "pc": null
+   },
+   "Cameras": {
+    "ps2": 74,
+    "pc": 74,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "FinishArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FlightList": {
+    "ps2": 3,
+    "pc": null
+   },
+   "LeftInnerLimit": {
+    "ps2": null,
+    "pc": 233
+   },
+   "LeftOuterLimit": {
+    "ps2": null,
+    "pc": 221
+   },
+   "LeftOuterLimit2": {
+    "ps2": 163,
+    "pc": null
+   },
+   "MillList": {
+    "ps2": 7,
+    "pc": null
+   },
+   "RaceLine": {
+    "ps2": 177,
+    "pc": 175,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "RightInnerLimit": {
+    "ps2": null,
+    "pc": 235
+   },
+   "RightOuterLimit": {
+    "ps2": null,
+    "pc": 193
+   },
+   "RightOuterLimit2": {
+    "ps2": 174,
+    "pc": null
+   },
+   "StartArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "StaticCameras": {
+    "ps2": 5,
+    "pc": null
+   }
+  },
+  "egg_groups_that_differ": {
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"null\"}": {
+    "ps2": 10,
+    "pc": 0
+   },
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 10
+   },
+   "{\"ai\": [\"gaAiRigidBody\"], \"model\": \"misc\\\\haybale\\\\haybale\"}": {
+    "ps2": 11,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaAnimals_BirdManager\"], \"model\": \"null\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaHudLoader\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 9
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"null\"}": {
+    "ps2": 3,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 3
+   },
+   "{\"ai\": [\"gaVehicleResetManager\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 0,
+    "pc": 12
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\objects\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 12,
+    "pc": 0
+   },
+   "{\"ai\": [], \"model\": \"null\"}": {
+    "ps2": 23,
+    "pc": 10
+   }
+  },
+  "splits": {
+   "ps2": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      -79.64,
+      -33.91,
+      393.31
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      671.16,
+      -82.88,
+      435.04
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      428.73,
+      -1.5,
+      -605.12
+     ]
+    }
+   ],
+   "pc": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      -79.64,
+      -33.91,
+      393.31
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      671.16,
+      -82.88,
+      435.04
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      428.73,
+      -1.5,
+      -605.12
+     ]
+    }
+   ]
+  },
+  "eggs_total": {
+   "ps2": 75,
+   "pc": 61
+  }
+ },
+ "Italy3": {
+  "lists": {
+   "BoomCameras": {
+    "ps2": 5,
+    "pc": null
+   },
+   "Cameras": {
+    "ps2": 68,
+    "pc": 67,
+    "max_pc_to_nearest_ps2_xz": 0.13,
+    "equal": false
+   },
+   "FinishArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FinishAreaQuick": {
+    "ps2": 5,
+    "pc": 5,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FlightList": {
+    "ps2": 20,
+    "pc": null
+   },
+   "LeftInnerLimit": {
+    "ps2": null,
+    "pc": 160
+   },
+   "LeftOuterLimit": {
+    "ps2": null,
+    "pc": 156
+   },
+   "LeftOuterLimit2": {
+    "ps2": 160,
+    "pc": null
+   },
+   "MillList": {
+    "ps2": 8,
+    "pc": null
+   },
+   "RaceLine": {
+    "ps2": 138,
+    "pc": 136,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "RightInnerLimit": {
+    "ps2": null,
+    "pc": 144
+   },
+   "RightOuterLimit": {
+    "ps2": null,
+    "pc": 130
+   },
+   "RightOuterLimit2": {
+    "ps2": 136,
+    "pc": null
+   },
+   "StartArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "StaticCameras": {
+    "ps2": 5,
+    "pc": null
+   },
+   "barge": {
+    "ps2": 11,
+    "pc": null
+   }
+  },
+  "egg_groups_that_differ": {
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"null\"}": {
+    "ps2": 8,
+    "pc": 0
+   },
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 8
+   },
+   "{\"ai\": [\"gaAnimals_BirdManager\"], \"model\": \"null\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaEntitySpline\"], \"model\": \"misc\\\\barge\\\\barge\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaHudLoader\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 14
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"null\"}": {
+    "ps2": 3,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 3
+   },
+   "{\"ai\": [\"gaVehicleResetManager\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 0,
+    "pc": 12
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\objects\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 12,
+    "pc": 0
+   },
+   "{\"ai\": [], \"model\": \"null\"}": {
+    "ps2": 28,
+    "pc": 10
+   }
+  },
+  "splits": {
+   "ps2": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      2560.1,
+      -70.1,
+      1085.16
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      3334.35,
+      -68.24,
+      620.47
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      3035.05,
+      -62.79,
+      -271.87
+     ]
+    }
+   ],
+   "pc": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      2560.1,
+      -70.1,
+      1085.16
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      3334.35,
+      -68.24,
+      620.47
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      3035.05,
+      -62.79,
+      -271.87
+     ]
+    }
+   ]
+  },
+  "eggs_total": {
+   "ps2": 68,
+   "pc": 64
+  }
+ },
+ "ItalyM1": {
+  "lists": {
+   "BoomCameras": {
+    "ps2": 6,
+    "pc": null
+   },
+   "Cameras": {
+    "ps2": 76,
+    "pc": 76,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "FinishArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FlightList": {
+    "ps2": 12,
+    "pc": null
+   },
+   "LeftInnerLimit": {
+    "ps2": null,
+    "pc": 298
+   },
+   "LeftOuterLimit": {
+    "ps2": null,
+    "pc": 263
+   },
+   "LeftOuterLimit2": {
+    "ps2": 204,
+    "pc": null
+   },
+   "RaceLine": {
+    "ps2": 387,
+    "pc": 385,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "RightInnerLimit": {
+    "ps2": null,
+    "pc": 335
+   },
+   "RightOuterLimit": {
+    "ps2": null,
+    "pc": 323
+   },
+   "RightOuterLimit2": {
+    "ps2": 199,
+    "pc": null
+   },
+   "StartArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "StaticCameras": {
+    "ps2": 5,
+    "pc": null
+   }
+  },
+  "egg_groups_that_differ": {
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"null\"}": {
+    "ps2": 7,
+    "pc": 0
+   },
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 7
+   },
+   "{\"ai\": [\"gaAnimals_BirdManager\"], \"model\": \"null\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaHudLoader\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 20
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"null\"}": {
+    "ps2": 3,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 3
+   },
+   "{\"ai\": [\"gaVehicleResetManager\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 0,
+    "pc": 12
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\objects\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 12,
+    "pc": 0
+   },
+   "{\"ai\": [], \"model\": \"null\"}": {
+    "ps2": 38,
+    "pc": 10
+   }
+  },
+  "splits": {
+   "ps2": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      -1784.1,
+      13.89,
+      -841.21
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      -1272.91,
+      24.75,
+      -300.15
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      94.77,
+      19.6,
+      -493.89
+     ]
+    }
+   ],
+   "pc": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      -1784.1,
+      13.89,
+      -841.21
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      -1272.91,
+      24.75,
+      -300.15
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      94.77,
+      19.6,
+      -493.89
+     ]
+    }
+   ]
+  },
+  "eggs_total": {
+   "ps2": 76,
+   "pc": 69
+  }
+ },
+ "ItalyM1Flip": {
+  "lists": {
+   "BoomCameras": {
+    "ps2": 5,
+    "pc": null
+   },
+   "Cameras": {
+    "ps2": 76,
+    "pc": 76,
+    "max_pc_to_nearest_ps2_xz": 0.14,
+    "equal": false
+   },
+   "FinishArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FlightList": {
+    "ps2": 22,
+    "pc": null
+   },
+   "LeftInnerLimit": {
+    "ps2": null,
+    "pc": 336
+   },
+   "LeftOuterLimit": {
+    "ps2": null,
+    "pc": 323
+   },
+   "LeftOuterLimit2": {
+    "ps2": 211,
+    "pc": null
+   },
+   "RaceLine": {
+    "ps2": 387,
+    "pc": 385,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "RightInnerLimit": {
+    "ps2": null,
+    "pc": 304
+   },
+   "RightOuterLimit": {
+    "ps2": null,
+    "pc": 263
+   },
+   "RightOuterLimit2": {
+    "ps2": 120,
+    "pc": null
+   },
+   "StartArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "StaticCameras": {
+    "ps2": 5,
+    "pc": null
+   }
+  },
+  "egg_groups_that_differ": {
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"null\"}": {
+    "ps2": 7,
+    "pc": 0
+   },
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 7
+   },
+   "{\"ai\": [\"gaAnimals_BirdManager\"], \"model\": \"null\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaHudLoader\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 29
+   },
+   "{\"ai\": [\"gaVehicleResetManager\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 0,
+    "pc": 12
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\objects\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 12,
+    "pc": 0
+   },
+   "{\"ai\": [], \"model\": \"null\"}": {
+    "ps2": 46,
+    "pc": 10
+   }
+  },
+  "splits": {
+   "ps2": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      94.97,
+      19.6,
+      -494.32
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      -1293.66,
+      25.86,
+      -300.55
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      -1784.14,
+      13.89,
+      -841.11
+     ]
+    }
+   ],
+   "pc": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      94.97,
+      19.6,
+      -494.31
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      -1293.66,
+      25.86,
+      -300.55
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      -1784.14,
+      13.89,
+      -841.11
+     ]
+    }
+   ]
+  },
+  "eggs_total": {
+   "ps2": 84,
+   "pc": 78
+  }
+ },
+ "ItalyM2": {
+  "lists": {
+   "BoomCameras": {
+    "ps2": 5,
+    "pc": null
+   },
+   "Cameras": {
+    "ps2": 88,
+    "pc": 88,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "FinishArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FlightList": {
+    "ps2": 20,
+    "pc": null
+   },
+   "LeftInnerLimit": {
+    "ps2": null,
+    "pc": 297
+   },
+   "LeftOuterLimit": {
+    "ps2": null,
+    "pc": 282
+   },
+   "LeftOuterLimit2": {
+    "ps2": 147,
+    "pc": null
+   },
+   "MillList": {
+    "ps2": 5,
+    "pc": null
+   },
+   "RaceLine": {
+    "ps2": 388,
+    "pc": 386,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "RightInnerLimit": {
+    "ps2": null,
+    "pc": 229
+   },
+   "RightOuterLimit": {
+    "ps2": null,
+    "pc": 200
+   },
+   "RightOuterLimit2": {
+    "ps2": 116,
+    "pc": null
+   },
+   "StartArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "StaticCameras": {
+    "ps2": 4,
+    "pc": null
+   }
+  },
+  "egg_groups_that_differ": {
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"null\"}": {
+    "ps2": 5,
+    "pc": 0
+   },
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 5
+   },
+   "{\"ai\": [\"gaAnimals_BirdManager\"], \"model\": \"null\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaBootAICar\"], \"model\": \"null\"}": {
+    "ps2": 7,
+    "pc": 6
+   },
+   "{\"ai\": [\"gaBootAICar\"], \"model\": \"vehicles\\\\mercedes\\\\car\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaHudLoader\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 24
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"null\"}": {
+    "ps2": 3,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 3
+   },
+   "{\"ai\": [\"gaVehicleResetManager\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 0,
+    "pc": 12
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\objects\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 12,
+    "pc": 0
+   },
+   "{\"ai\": [], \"model\": \"null\"}": {
+    "ps2": 39,
+    "pc": 10
+   }
+  },
+  "splits": {
+   "ps2": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      2149.11,
+      -42.04,
+      -215.9
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      629.59,
+      -85.13,
+      409.95
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      239.96,
+      11.52,
+      -629.69
+     ]
+    }
+   ],
+   "pc": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      2149.11,
+      -42.04,
+      -215.9
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      629.59,
+      -85.13,
+      409.95
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      239.96,
+      11.52,
+      -629.69
+     ]
+    }
+   ]
+  },
+  "eggs_total": {
+   "ps2": 75,
+   "pc": 71
+  }
+ },
+ "ItalyS1": {
+  "lists": {
+   "BoomCameras": {
+    "ps2": 4,
+    "pc": null
+   },
+   "Cameras": {
+    "ps2": 66,
+    "pc": 66,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "FinishArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FlightList": {
+    "ps2": 14,
+    "pc": null
+   },
+   "LeftInnerLimit": {
+    "ps2": null,
+    "pc": 230
+   },
+   "LeftOuterLimit": {
+    "ps2": null,
+    "pc": 220
+   },
+   "LeftOuterLimit2": {
+    "ps2": 81,
+    "pc": null
+   },
+   "RaceLine": {
+    "ps2": 293,
+    "pc": 292,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "RightInnerLimit": {
+    "ps2": null,
+    "pc": 223
+   },
+   "RightOuterLimit": {
+    "ps2": null,
+    "pc": 212
+   },
+   "RightOuterLimit2": {
+    "ps2": 110,
+    "pc": null
+   },
+   "StartArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "StaticCameras": {
+    "ps2": 3,
+    "pc": null
+   }
+  },
+  "egg_groups_that_differ": {
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"null\"}": {
+    "ps2": 12,
+    "pc": 0
+   },
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 12
+   },
+   "{\"ai\": [\"gaAiRigidBody\"], \"model\": \"misc\\\\haybale\\\\haybale\"}": {
+    "ps2": 14,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaAnimals_BirdManager\"], \"model\": \"null\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaBootAICar\"], \"model\": \"null\"}": {
+    "ps2": 7,
+    "pc": 6
+   },
+   "{\"ai\": [\"gaBootAICar\"], \"model\": \"vehicles\\\\mercedes\\\\car\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaHudLoader\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 15
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"null\"}": {
+    "ps2": 3,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 3
+   },
+   "{\"ai\": [\"gaVehicleResetManager\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 0,
+    "pc": 12
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\objects\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 12,
+    "pc": 0
+   },
+   "{\"ai\": [], \"model\": \"null\"}": {
+    "ps2": 31,
+    "pc": 10
+   }
+  },
+  "splits": {
+   "ps2": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      -1764.7,
+      34.06,
+      -1011.61
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      -1116.89,
+      -6.78,
+      -317.18
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      -533.02,
+      -48.68,
+      163.88
+     ]
+    }
+   ],
+   "pc": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      -1764.7,
+      34.06,
+      -1011.61
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      -1116.89,
+      -6.78,
+      -317.18
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      -533.02,
+      -48.68,
+      163.88
+     ]
+    }
+   ]
+  },
+  "eggs_total": {
+   "ps2": 88,
+   "pc": 69
+  }
+ },
+ "ItalyS2": {
+  "lists": {
+   "BoomCameras": {
+    "ps2": 6,
+    "pc": null
+   },
+   "Cameras": {
+    "ps2": 74,
+    "pc": 74,
+    "max_pc_to_nearest_ps2_xz": 6.94,
+    "equal": false
+   },
+   "FinishArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FlightList": {
+    "ps2": 11,
+    "pc": null
+   },
+   "LeftInnerLimit": {
+    "ps2": null,
+    "pc": 267
+   },
+   "LeftOuterLimit": {
+    "ps2": null,
+    "pc": 232
+   },
+   "LeftOuterLimit2": {
+    "ps2": 110,
+    "pc": null
+   },
+   "RaceLine": {
+    "ps2": 418,
+    "pc": 416,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "RightInnerLimit": {
+    "ps2": null,
+    "pc": 332
+   },
+   "RightOuterLimit": {
+    "ps2": null,
+    "pc": 282
+   },
+   "RightOuterLimit2": {
+    "ps2": 120,
+    "pc": null
+   },
+   "StartArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "StaticCameras": {
+    "ps2": 3,
+    "pc": null
+   },
+   "zeppelin": {
+    "ps2": 6,
+    "pc": null
+   }
+  },
+  "egg_groups_that_differ": {
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"null\"}": {
+    "ps2": 8,
+    "pc": 0
+   },
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 8
+   },
+   "{\"ai\": [\"gaAnimals_BirdManager\"], \"model\": \"null\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaBootAICar\"], \"model\": \"null\"}": {
+    "ps2": 7,
+    "pc": 6
+   },
+   "{\"ai\": [\"gaBootAICar\"], \"model\": \"vehicles\\\\mercedes\\\\car\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaEntitySpline\"], \"model\": \"misc\\\\airship\\\\airship\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaHudLoader\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 19
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"null\"}": {
+    "ps2": 3,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 3
+   },
+   "{\"ai\": [\"gaVehicleResetManager\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 0,
+    "pc": 12
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\objects\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 12,
+    "pc": 0
+   },
+   "{\"ai\": [], \"model\": \"null\"}": {
+    "ps2": 33,
+    "pc": 10
+   }
+  },
+  "splits": {
+   "ps2": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      -2287.27,
+      106.5,
+      220.91
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      -1482.75,
+      15.59,
+      -406.97
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      -20.47,
+      32.36,
+      -450.44
+     ]
+    }
+   ],
+   "pc": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      -2287.27,
+      106.5,
+      220.91
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      -1482.75,
+      15.59,
+      -406.97
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      -20.47,
+      32.36,
+      -450.44
+     ]
+    }
+   ]
+  },
+  "eggs_total": {
+   "ps2": 73,
+   "pc": 69
+  }
+ },
+ "ItalyS3": {
+  "lists": {
+   "BoomCameras": {
+    "ps2": 3,
+    "pc": null
+   },
+   "Cameras": {
+    "ps2": 81,
+    "pc": 81,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "FinishArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FlightList": {
+    "ps2": 20,
+    "pc": null
+   },
+   "LeftInnerLimit": {
+    "ps2": null,
+    "pc": 216
+   },
+   "LeftOuterLimit": {
+    "ps2": null,
+    "pc": 200
+   },
+   "LeftOuterLimit2": {
+    "ps2": 136,
+    "pc": null
+   },
+   "RaceLine": {
+    "ps2": 348,
+    "pc": 346,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "RightInnerLimit": {
+    "ps2": null,
+    "pc": 250
+   },
+   "RightOuterLimit": {
+    "ps2": null,
+    "pc": 223
+   },
+   "RightOuterLimit2": {
+    "ps2": 117,
+    "pc": null
+   },
+   "StartArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "StaticCameras": {
+    "ps2": 4,
+    "pc": null
+   },
+   "boat1": {
+    "ps2": 7,
+    "pc": null
+   }
+  },
+  "egg_groups_that_differ": {
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"null\"}": {
+    "ps2": 8,
+    "pc": 0
+   },
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 8
+   },
+   "{\"ai\": [\"gaAnimals_BirdManager\"], \"model\": \"null\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaBootAICar\"], \"model\": \"null\"}": {
+    "ps2": 8,
+    "pc": 7
+   },
+   "{\"ai\": [\"gaBootAICar\"], \"model\": \"vehicles\\\\mercedes\\\\car\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaEntitySpline\"], \"model\": \"misc\\\\objects\\\\dinghys\\\\bluedinghy\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaHudLoader\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 16
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"null\"}": {
+    "ps2": 3,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 3
+   },
+   "{\"ai\": [\"gaVehicleResetManager\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 0,
+    "pc": 12
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\objects\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 12,
+    "pc": 0
+   },
+   "{\"ai\": [], \"model\": \"null\"}": {
+    "ps2": 31,
+    "pc": 10
+   }
+  },
+  "splits": {
+   "ps2": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      601.12,
+      -47.22,
+      -512.15
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      1092.45,
+      -79.35,
+      498.89
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      2449.01,
+      -66.23,
+      1263.75
+     ]
+    }
+   ],
+   "pc": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      601.12,
+      -47.22,
+      -512.15
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      1092.45,
+      -79.35,
+      498.89
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      2449.01,
+      -66.23,
+      1263.75
+     ]
+    }
+   ]
+  },
+  "eggs_total": {
+   "ps2": 71,
+   "pc": 66
+  }
+ },
+ "ItalyS3Flip": {
+  "lists": {
+   "BoomCameras": {
+    "ps2": 5,
+    "pc": null
+   },
+   "Cameras": {
+    "ps2": 81,
+    "pc": 81,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "FinishArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FlightList": {
+    "ps2": 18,
+    "pc": null
+   },
+   "LeftInnerLimit": {
+    "ps2": null,
+    "pc": 250
+   },
+   "LeftOuterLimit": {
+    "ps2": null,
+    "pc": 223
+   },
+   "LeftOuterLimit2": {
+    "ps2": 147,
+    "pc": null
+   },
+   "MillList": {
+    "ps2": 4,
+    "pc": null
+   },
+   "RaceLine": {
+    "ps2": 342,
+    "pc": 340,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "RightInnerLimit": {
+    "ps2": null,
+    "pc": 216
+   },
+   "RightOuterLimit": {
+    "ps2": null,
+    "pc": 200
+   },
+   "RightOuterLimit2": {
+    "ps2": 142,
+    "pc": null
+   },
+   "StartArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "StaticCameras": {
+    "ps2": 6,
+    "pc": null
+   },
+   "boat1": {
+    "ps2": 7,
+    "pc": null
+   }
+  },
+  "egg_groups_that_differ": {
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"null\"}": {
+    "ps2": 8,
+    "pc": 0
+   },
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 8
+   },
+   "{\"ai\": [\"gaAnimals_BirdManager\"], \"model\": \"null\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaBootAICar\"], \"model\": \"null\"}": {
+    "ps2": 8,
+    "pc": 7
+   },
+   "{\"ai\": [\"gaBootAICar\"], \"model\": \"vehicles\\\\mercedes\\\\car\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaEntitySpline\"], \"model\": \"misc\\\\objects\\\\dinghys\\\\bluedinghy\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaHudLoader\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 22
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"null\"}": {
+    "ps2": 3,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 3
+   },
+   "{\"ai\": [\"gaVehicleResetManager\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 0,
+    "pc": 12
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\objects\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 12,
+    "pc": 0
+   },
+   "{\"ai\": [], \"model\": \"null\"}": {
+    "ps2": 35,
+    "pc": 10
+   }
+  },
+  "splits": {
+   "ps2": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      2445.55,
+      -67.1,
+      1262.17
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      1093.63,
+      -79.45,
+      498.23
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      618.57,
+      -50.78,
+      -502.42
+     ]
+    }
+   ],
+   "pc": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      2445.55,
+      -67.1,
+      1262.17
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      1093.63,
+      -79.45,
+      498.23
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      618.57,
+      -50.78,
+      -502.42
+     ]
+    }
+   ]
+  },
+  "eggs_total": {
+   "ps2": 75,
+   "pc": 72
+  }
+ },
+ "ItalyS4": {
+  "lists": {
+   "BoomCameras": {
+    "ps2": 5,
+    "pc": null
+   },
+   "Cameras": {
+    "ps2": 90,
+    "pc": 90,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "FinishArea": {
+    "ps2": 5,
+    "pc": 5,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FlightList": {
+    "ps2": 6,
+    "pc": null
+   },
+   "LeftInnerLimit": {
+    "ps2": null,
+    "pc": 190
+   },
+   "LeftOuterLimit": {
+    "ps2": null,
+    "pc": 188
+   },
+   "LeftOuterLimit2": {
+    "ps2": 91,
+    "pc": null
+   },
+   "MillList": {
+    "ps2": 12,
+    "pc": null
+   },
+   "RaceLine": {
+    "ps2": 367,
+    "pc": 365,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "RightInnerLimit": {
+    "ps2": null,
+    "pc": 246
+   },
+   "RightOuterLimit": {
+    "ps2": null,
+    "pc": 224
+   },
+   "RightOuterLimit2": {
+    "ps2": 138,
+    "pc": null
+   },
+   "StartArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "StaticCameras": {
+    "ps2": 3,
+    "pc": null
+   },
+   "zeppelin": {
+    "ps2": 9,
+    "pc": null
+   }
+  },
+  "egg_groups_that_differ": {
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"null\"}": {
+    "ps2": 11,
+    "pc": 0
+   },
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 11
+   },
+   "{\"ai\": [\"gaAiRigidBody\"], \"model\": \"misc\\\\objects\\\\haybales\\\\haybale\"}": {
+    "ps2": 10,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaAnimals_BirdManager\"], \"model\": \"null\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaEntitySpline\"], \"model\": \"misc\\\\airship\\\\airship\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaHudLoader\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 23
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"null\"}": {
+    "ps2": 3,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 3
+   },
+   "{\"ai\": [\"gaVehicleResetManager\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 0,
+    "pc": 12
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\objects\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 12,
+    "pc": 0
+   },
+   "{\"ai\": [], \"model\": \"null\"}": {
+    "ps2": 39,
+    "pc": 10
+   }
+  },
+  "splits": {
+   "ps2": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      -64.69,
+      -32.43,
+      368.02
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      843.96,
+      -86.22,
+      528.7
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      2248.7,
+      -42.36,
+      -145.76
+     ]
+    }
+   ],
+   "pc": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      -64.69,
+      -32.43,
+      368.02
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      843.96,
+      -86.22,
+      528.7
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      2248.7,
+      -42.36,
+      -145.76
+     ]
+    }
+   ]
+  },
+  "eggs_total": {
+   "ps2": 92,
+   "pc": 76
+  }
+ },
+ "ItalyW1": {
+  "lists": {
+   "BoomCameras": {
+    "ps2": 5,
+    "pc": null
+   },
+   "Cameras": {
+    "ps2": 67,
+    "pc": 67,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FinishArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FlightList": {
+    "ps2": 19,
+    "pc": null
+   },
+   "LeftInnerLimit": {
+    "ps2": null,
+    "pc": 257
+   },
+   "LeftOuterLimit": {
+    "ps2": null,
+    "pc": 203
+   },
+   "LeftOuterLimit2": {
+    "ps2": 153,
+    "pc": null
+   },
+   "RaceLine": {
+    "ps2": 356,
+    "pc": 354,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "RightInnerLimit": {
+    "ps2": null,
+    "pc": 214
+   },
+   "RightOuterLimit": {
+    "ps2": null,
+    "pc": 207
+   },
+   "RightOuterLimit2": {
+    "ps2": 169,
+    "pc": null
+   },
+   "StartArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "StaticCameras": {
+    "ps2": 4,
+    "pc": null
+   },
+   "zeppelin": {
+    "ps2": 4,
+    "pc": null
+   }
+  },
+  "egg_groups_that_differ": {
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"null\"}": {
+    "ps2": 14,
+    "pc": 0
+   },
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 14
+   },
+   "{\"ai\": [\"gaAiRigidBody\"], \"model\": \"misc\\\\haybale\\\\haybale\"}": {
+    "ps2": 10,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaAnimals_BirdManager\"], \"model\": \"null\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaEntitySpline\"], \"model\": \"misc\\\\airship\\\\airship\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaHudLoader\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 24
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"null\"}": {
+    "ps2": 3,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 3
+   },
+   "{\"ai\": [\"gaVehicleResetManager\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 0,
+    "pc": 12
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\objects\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 12,
+    "pc": 0
+   },
+   "{\"ai\": [], \"model\": \"null\"}": {
+    "ps2": 36,
+    "pc": 10
+   }
+  },
+  "splits": {
+   "ps2": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      -897.33,
+      -45.72,
+      189.48
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      -1950.59,
+      31.21,
+      -242.62
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      -2567.18,
+      99.43,
+      160.68
+     ]
+    }
+   ],
+   "pc": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      -897.33,
+      -45.72,
+      189.48
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      -1950.59,
+      31.21,
+      -242.62
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      -2567.18,
+      99.43,
+      160.68
+     ]
+    }
+   ]
+  },
+  "eggs_total": {
+   "ps2": 92,
+   "pc": 80
+  }
+ },
+ "ItalyW2": {
+  "lists": {
+   "BoomCameras": {
+    "ps2": 4,
+    "pc": null
+   },
+   "Cameras": {
+    "ps2": 91,
+    "pc": 91,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FinishArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FlightList": {
+    "ps2": 17,
+    "pc": null
+   },
+   "LeftInnerLimit": {
+    "ps2": null,
+    "pc": 234
+   },
+   "LeftOuterLimit": {
+    "ps2": null,
+    "pc": 195
+   },
+   "LeftOuterLimit2": {
+    "ps2": 158,
+    "pc": null
+   },
+   "RaceLine": {
+    "ps2": 358,
+    "pc": 356,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "RightInnerLimit": {
+    "ps2": null,
+    "pc": 206
+   },
+   "RightOuterLimit": {
+    "ps2": null,
+    "pc": 209
+   },
+   "RightOuterLimit2": {
+    "ps2": 140,
+    "pc": null
+   },
+   "StartArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "StaticCameras": {
+    "ps2": 4,
+    "pc": null
+   },
+   "boat": {
+    "ps2": 15,
+    "pc": null
+   }
+  },
+  "egg_groups_that_differ": {
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"null\"}": {
+    "ps2": 15,
+    "pc": 0
+   },
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 15
+   },
+   "{\"ai\": [\"gaAiRigidBody\"], \"model\": \"misc\\\\haybale\\\\haybale\"}": {
+    "ps2": 13,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaAnimals_BirdManager\"], \"model\": \"null\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaEntitySpline\"], \"model\": \"misc\\\\objects\\\\dinghys\\\\reddinghy\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaHudLoader\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 24
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"null\"}": {
+    "ps2": 3,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 3
+   },
+   "{\"ai\": [\"gaVehicleResetManager\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 0,
+    "pc": 12
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\objects\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 12,
+    "pc": 0
+   },
+   "{\"ai\": [], \"model\": \"null\"}": {
+    "ps2": 36,
+    "pc": 10
+   }
+  },
+  "splits": {
+   "ps2": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      2128.68,
+      -72.01,
+      1273.18
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      687.72,
+      -80.43,
+      574.48
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      -83.64,
+      -28.96,
+      317.18
+     ]
+    }
+   ],
+   "pc": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      2128.68,
+      -72.01,
+      1273.18
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      687.72,
+      -80.43,
+      574.48
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      -83.64,
+      -28.96,
+      317.18
+     ]
+    }
+   ]
+  },
+  "eggs_total": {
+   "ps2": 96,
+   "pc": 81
+  }
+ },
+ "Spain1": {
+  "lists": {
+   "BoomCameras": {
+    "ps2": 5,
+    "pc": null
+   },
+   "Cameras": {
+    "ps2": 89,
+    "pc": 89,
+    "max_pc_to_nearest_ps2_xz": 1.42,
+    "equal": false
+   },
+   "FinishArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FlightList": {
+    "ps2": 19,
+    "pc": null
+   },
+   "LeftInnerLimit": {
+    "ps2": null,
+    "pc": 107
+   },
+   "LeftOuterLimit": {
+    "ps2": null,
+    "pc": 96
+   },
+   "LeftOuterLimit2": {
+    "ps2": 92,
+    "pc": null
+   },
+   "RaceLine": {
+    "ps2": 309,
+    "pc": 307,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "RightInnerLimit": {
+    "ps2": null,
+    "pc": 136
+   },
+   "RightOuterLimit": {
+    "ps2": null,
+    "pc": 137
+   },
+   "RightOuterLimit2": {
+    "ps2": 127,
+    "pc": null
+   },
+   "StartArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "StaticCameras": {
+    "ps2": 3,
+    "pc": null
+   }
+  },
+  "egg_groups_that_differ": {
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"null\"}": {
+    "ps2": 6,
+    "pc": 0
+   },
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 7
+   },
+   "{\"ai\": [\"gaAnimals_BirdManager\"], \"model\": \"null\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaHudLoader\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 15
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"null\"}": {
+    "ps2": 3,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 3
+   },
+   "{\"ai\": [\"gaVehicleResetManager\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 0,
+    "pc": 12
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\objects\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 12,
+    "pc": 0
+   },
+   "{\"ai\": [], \"model\": \"null\"}": {
+    "ps2": 27,
+    "pc": 10
+   }
+  },
+  "splits": {
+   "ps2": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      697.15,
+      75.25,
+      -589.85
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      1137.41,
+      27.36,
+      -274.48
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      805.46,
+      23.24,
+      759.54
+     ]
+    }
+   ],
+   "pc": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      697.15,
+      75.25,
+      -589.85
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      1137.41,
+      27.36,
+      -274.48
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      805.46,
+      23.24,
+      759.54
+     ]
+    }
+   ]
+  },
+  "eggs_total": {
+   "ps2": 64,
+   "pc": 64
+  }
+ },
+ "Spain2": {
+  "lists": {
+   "BoomCameras": {
+    "ps2": 4,
+    "pc": null
+   },
+   "Cameras": {
+    "ps2": 74,
+    "pc": 79,
+    "max_pc_to_nearest_ps2_xz": 297.48,
+    "equal": false
+   },
+   "FinishArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FlightList": {
+    "ps2": 25,
+    "pc": null
+   },
+   "LeftInnerLimit": {
+    "ps2": null,
+    "pc": 292
+   },
+   "LeftOuterLimit": {
+    "ps2": null,
+    "pc": 289
+   },
+   "LeftOuterLimit2": {
+    "ps2": 176,
+    "pc": null
+   },
+   "RaceLine": {
+    "ps2": 326,
+    "pc": 324,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "RightInnerLimit": {
+    "ps2": null,
+    "pc": 328
+   },
+   "RightOuterLimit": {
+    "ps2": null,
+    "pc": 241
+   },
+   "RightOuterLimit2": {
+    "ps2": 134,
+    "pc": null
+   },
+   "StartArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "StaticCameras": {
+    "ps2": 6,
+    "pc": null
+   },
+   "boat": {
+    "ps2": 6,
+    "pc": null
+   }
+  },
+  "egg_groups_that_differ": {
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"null\"}": {
+    "ps2": 7,
+    "pc": 0
+   },
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 7
+   },
+   "{\"ai\": [\"gaAnimals_BirdManager\"], \"model\": \"null\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaEntitySpline\"], \"model\": \"misc\\\\objects\\\\dinghys\\\\reddinghy\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaHudLoader\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 25
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"null\"}": {
+    "ps2": 3,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 3
+   },
+   "{\"ai\": [\"gaVehicleResetManager\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 0,
+    "pc": 12
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\objects\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 12,
+    "pc": 0
+   },
+   "{\"ai\": [], \"model\": \"null\"}": {
+    "ps2": 37,
+    "pc": 10
+   }
+  },
+  "splits": {
+   "ps2": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      2416.49,
+      26.81,
+      365.7
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      2259.08,
+      31.05,
+      -340.27
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      1920.56,
+      36.68,
+      -696.74
+     ]
+    }
+   ],
+   "pc": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      2416.49,
+      26.81,
+      365.7
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      2259.08,
+      31.05,
+      -340.27
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      1920.56,
+      36.68,
+      -696.74
+     ]
+    }
+   ]
+  },
+  "eggs_total": {
+   "ps2": 76,
+   "pc": 74
+  }
+ },
+ "SpainM": {
+  "lists": {
+   "BoomCameras": {
+    "ps2": 3,
+    "pc": null
+   },
+   "Cameras": {
+    "ps2": 76,
+    "pc": 76,
+    "max_pc_to_nearest_ps2_xz": 3.48,
+    "equal": false
+   },
+   "FinishArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FlightList": {
+    "ps2": 12,
+    "pc": null
+   },
+   "LeftInnerLimit": {
+    "ps2": null,
+    "pc": 264
+   },
+   "LeftOuterLimit": {
+    "ps2": null,
+    "pc": 245
+   },
+   "LeftOuterLimit2": {
+    "ps2": 154,
+    "pc": null
+   },
+   "RaceLine": {
+    "ps2": 403,
+    "pc": 401,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "RightInnerLimit": {
+    "ps2": null,
+    "pc": 232
+   },
+   "RightOuterLimit": {
+    "ps2": null,
+    "pc": 189
+   },
+   "RightOuterLimit2": {
+    "ps2": 161,
+    "pc": null
+   },
+   "StartArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "StaticCameras": {
+    "ps2": 4,
+    "pc": null
+   }
+  },
+  "egg_groups_that_differ": {
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"null\"}": {
+    "ps2": 9,
+    "pc": 0
+   },
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 9
+   },
+   "{\"ai\": [\"gaAnimals_BirdManager\"], \"model\": \"null\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaHudLoader\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 26
+   },
+   "{\"ai\": [\"gaVehicleResetManager\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 0,
+    "pc": 12
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\objects\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 12,
+    "pc": 0
+   },
+   "{\"ai\": [], \"model\": \"null\"}": {
+    "ps2": 38,
+    "pc": 10
+   }
+  },
+  "splits": {
+   "ps2": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      2095.04,
+      32.65,
+      -560.28
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      1799.92,
+      31.11,
+      -212.21
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      1018.84,
+      28.57,
+      -508.82
+     ]
+    }
+   ],
+   "pc": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      2095.04,
+      32.65,
+      -560.28
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      1799.92,
+      31.11,
+      -212.21
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      1018.84,
+      28.57,
+      -508.68
+     ]
+    }
+   ]
+  },
+  "eggs_total": {
+   "ps2": 78,
+   "pc": 77
+  }
+ },
+ "SpainS1": {
+  "lists": {
+   "BoomCameras": {
+    "ps2": 4,
+    "pc": null
+   },
+   "Cameras": {
+    "ps2": 80,
+    "pc": 80,
+    "max_pc_to_nearest_ps2_xz": 0.09,
+    "equal": false
+   },
+   "FinishArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FlightList": {
+    "ps2": 9,
+    "pc": null
+   },
+   "LeftInnerLimit": {
+    "ps2": null,
+    "pc": 261
+   },
+   "LeftOuterLimit": {
+    "ps2": null,
+    "pc": 224
+   },
+   "LeftOuterLimit2": {
+    "ps2": 191,
+    "pc": null
+   },
+   "RaceLine": {
+    "ps2": 339,
+    "pc": 337,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "RightInnerLimit": {
+    "ps2": null,
+    "pc": 253
+   },
+   "RightOuterLimit": {
+    "ps2": null,
+    "pc": 236
+   },
+   "RightOuterLimit2": {
+    "ps2": 164,
+    "pc": null
+   },
+   "StartArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "StaticCameras": {
+    "ps2": 5,
+    "pc": null
+   }
+  },
+  "egg_groups_that_differ": {
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"null\"}": {
+    "ps2": 4,
+    "pc": 0
+   },
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 5
+   },
+   "{\"ai\": [\"gaAnimals_BirdManager\"], \"model\": \"null\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaHudLoader\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 22
+   },
+   "{\"ai\": [\"gaVehicleResetManager\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 0,
+    "pc": 12
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\objects\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 12,
+    "pc": 0
+   },
+   "{\"ai\": [], \"model\": \"null\"}": {
+    "ps2": 34,
+    "pc": 10
+   }
+  },
+  "splits": {
+   "ps2": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      1311.45,
+      31.32,
+      16.51
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      2020.48,
+      51.17,
+      -482.94
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      2176.71,
+      30.34,
+      -299.48
+     ]
+    }
+   ],
+   "pc": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      1311.45,
+      31.32,
+      16.51
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      2020.48,
+      51.17,
+      -482.94
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      2176.71,
+      30.34,
+      -299.48
+     ]
+    }
+   ]
+  },
+  "eggs_total": {
+   "ps2": 69,
+   "pc": 69
+  }
+ },
+ "SpainS1Flip": {
+  "lists": {
+   "BoomCameras": {
+    "ps2": 3,
+    "pc": null
+   },
+   "Cameras": {
+    "ps2": 80,
+    "pc": 80,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "FinishArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FlightList": {
+    "ps2": 29,
+    "pc": null
+   },
+   "LeftInnerLimit": {
+    "ps2": null,
+    "pc": 251
+   },
+   "LeftOuterLimit": {
+    "ps2": null,
+    "pc": 236
+   },
+   "LeftOuterLimit2": {
+    "ps2": 164,
+    "pc": null
+   },
+   "RaceLine": {
+    "ps2": 339,
+    "pc": 337,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "RightInnerLimit": {
+    "ps2": null,
+    "pc": 261
+   },
+   "RightOuterLimit": {
+    "ps2": null,
+    "pc": 224
+   },
+   "RightOuterLimit2": {
+    "ps2": 189,
+    "pc": null
+   },
+   "StartArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "StaticCameras": {
+    "ps2": 6,
+    "pc": null
+   }
+  },
+  "egg_groups_that_differ": {
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"null\"}": {
+    "ps2": 4,
+    "pc": 0
+   },
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 5
+   },
+   "{\"ai\": [\"gaAnimals_BirdManager\"], \"model\": \"null\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaHudLoader\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 23
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"null\"}": {
+    "ps2": 3,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 3
+   },
+   "{\"ai\": [\"gaVehicleResetManager\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 0,
+    "pc": 12
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\objects\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 12,
+    "pc": 0
+   },
+   "{\"ai\": [], \"model\": \"null\"}": {
+    "ps2": 35,
+    "pc": 10
+   }
+  },
+  "splits": {
+   "ps2": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      2176.67,
+      30.46,
+      -300.38
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      2020.48,
+      51.39,
+      -482.94
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      1253.28,
+      35.31,
+      27.66
+     ]
+    }
+   ],
+   "pc": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      2176.67,
+      30.46,
+      -300.38
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      2020.48,
+      51.39,
+      -482.94
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      1253.28,
+      35.31,
+      27.66
+     ]
+    }
+   ]
+  },
+  "eggs_total": {
+   "ps2": 70,
+   "pc": 70
+  }
+ },
+ "SpainS2": {
+  "lists": {
+   "BoomCameras": {
+    "ps2": 4,
+    "pc": null
+   },
+   "Cameras": {
+    "ps2": 87,
+    "pc": 87,
+    "max_pc_to_nearest_ps2_xz": 12.06,
+    "equal": false
+   },
+   "FinishArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FlightList": {
+    "ps2": 7,
+    "pc": null
+   },
+   "LeftInnerLimit": {
+    "ps2": null,
+    "pc": 233
+   },
+   "LeftOuterLimit": {
+    "ps2": null,
+    "pc": 195
+   },
+   "LeftOuterLimit2": {
+    "ps2": 37,
+    "pc": null
+   },
+   "MillList": {
+    "ps2": 4,
+    "pc": null
+   },
+   "RaceLine": {
+    "ps2": 260,
+    "pc": 258,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "RightInnerLimit": {
+    "ps2": null,
+    "pc": 184
+   },
+   "RightOuterLimit": {
+    "ps2": null,
+    "pc": 187
+   },
+   "RightOuterLimit2": {
+    "ps2": 47,
+    "pc": null
+   },
+   "StartArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "StaticCameras": {
+    "ps2": 4,
+    "pc": null
+   },
+   "boat1": {
+    "ps2": 7,
+    "pc": null
+   },
+   "boat5": {
+    "ps2": 5,
+    "pc": null
+   }
+  },
+  "egg_groups_that_differ": {
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"null\"}": {
+    "ps2": 11,
+    "pc": 0
+   },
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 11
+   },
+   "{\"ai\": [\"gaAnimals_BirdManager\"], \"model\": \"null\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaEntitySpline\"], \"model\": \"misc\\\\objects\\\\dinghys\\\\bluedinghy\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaEntitySpline\"], \"model\": \"misc\\\\objects\\\\dinghys\\\\reddinghy\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaHudLoader\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"null\"}": {
+    "ps2": 28,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 28
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"null\"}": {
+    "ps2": 3,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 3
+   },
+   "{\"ai\": [\"gaVehicleResetManager\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 0,
+    "pc": 12
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\objects\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 12,
+    "pc": 0
+   },
+   "{\"ai\": [], \"model\": \"null\"}": {
+    "ps2": 12,
+    "pc": 10
+   }
+  },
+  "splits": {
+   "ps2": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      1873.64,
+      28.63,
+      147.88
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      1083.11,
+      25.69,
+      -425.9
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      685.22,
+      75.24,
+      -578.14
+     ]
+    }
+   ],
+   "pc": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      1873.64,
+      28.63,
+      147.88
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      1083.11,
+      25.69,
+      -425.9
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      685.22,
+      75.24,
+      -578.14
+     ]
+    }
+   ]
+  },
+  "eggs_total": {
+   "ps2": 84,
+   "pc": 81
+  }
+ },
+ "SpainW": {
+  "lists": {
+   "BoomCameras": {
+    "ps2": 4,
+    "pc": null
+   },
+   "Cameras": {
+    "ps2": 93,
+    "pc": 93,
+    "max_pc_to_nearest_ps2_xz": 89.18,
+    "equal": false
+   },
+   "FinishArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FlightList": {
+    "ps2": 3,
+    "pc": null
+   },
+   "LeftInnerLimit": {
+    "ps2": null,
+    "pc": 230
+   },
+   "LeftOuterLimit": {
+    "ps2": null,
+    "pc": 236
+   },
+   "LeftOuterLimit2": {
+    "ps2": 208,
+    "pc": null
+   },
+   "MillList": {
+    "ps2": 3,
+    "pc": null
+   },
+   "RaceLine": {
+    "ps2": 204,
+    "pc": 202,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "RightInnerLimit": {
+    "ps2": null,
+    "pc": 252
+   },
+   "RightOuterLimit": {
+    "ps2": null,
+    "pc": 186
+   },
+   "RightOuterLimit2": {
+    "ps2": 156,
+    "pc": null
+   },
+   "StartArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "StaticCameras": {
+    "ps2": 4,
+    "pc": null
+   },
+   "boat1": {
+    "ps2": 5,
+    "pc": null
+   },
+   "boat2": {
+    "ps2": 5,
+    "pc": null
+   }
+  },
+  "egg_groups_that_differ": {
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"null\"}": {
+    "ps2": 7,
+    "pc": 0
+   },
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 8
+   },
+   "{\"ai\": [\"gaAnimals_BirdManager\"], \"model\": \"null\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaEntitySpline\"], \"model\": \"misc\\\\objects\\\\dinghys\\\\bluedinghy\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaEntitySpline\"], \"model\": \"misc\\\\objects\\\\dinghys\\\\reddinghy\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaHudLoader\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"null\"}": {
+    "ps2": 27,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 27
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"null\"}": {
+    "ps2": 3,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 3
+   },
+   "{\"ai\": [\"gaVehicleResetManager\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 0,
+    "pc": 12
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\objects\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 12,
+    "pc": 0
+   },
+   "{\"ai\": [], \"model\": \"null\"}": {
+    "ps2": 12,
+    "pc": 10
+   }
+  },
+  "splits": {
+   "ps2": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      647.37,
+      17.85,
+      683.64
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      1418.36,
+      29.83,
+      181.04
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      2071.57,
+      32.58,
+      475.86
+     ]
+    }
+   ],
+   "pc": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      647.37,
+      17.85,
+      683.64
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      1418.36,
+      29.83,
+      181.04
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      2071.57,
+      32.58,
+      475.86
+     ]
+    }
+   ]
+  },
+  "eggs_total": {
+   "ps2": 79,
+   "pc": 77
+  }
+ },
+ "SpainWFlip": {
+  "lists": {
+   "BoomCameras": {
+    "ps2": 5,
+    "pc": null
+   },
+   "Cameras": {
+    "ps2": 93,
+    "pc": 93,
+    "max_pc_to_nearest_ps2_xz": 89.18,
+    "equal": false
+   },
+   "FinishArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FlightList": {
+    "ps2": 16,
+    "pc": null
+   },
+   "LeftInnerLimit": {
+    "ps2": null,
+    "pc": 252
+   },
+   "LeftOuterLimit": {
+    "ps2": null,
+    "pc": 175
+   },
+   "LeftOuterLimit2": {
+    "ps2": 156,
+    "pc": null
+   },
+   "RaceLine": {
+    "ps2": 204,
+    "pc": 202,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "RightInnerLimit": {
+    "ps2": null,
+    "pc": 230
+   },
+   "RightOuterLimit": {
+    "ps2": null,
+    "pc": 236
+   },
+   "RightOuterLimit2": {
+    "ps2": 208,
+    "pc": null
+   },
+   "StartArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "StaticCameras": {
+    "ps2": 5,
+    "pc": null
+   },
+   "boat1": {
+    "ps2": 5,
+    "pc": null
+   },
+   "boat2": {
+    "ps2": 5,
+    "pc": null
+   }
+  },
+  "egg_groups_that_differ": {
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"null\"}": {
+    "ps2": 7,
+    "pc": 0
+   },
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 8
+   },
+   "{\"ai\": [\"gaAnimals_BirdManager\"], \"model\": \"null\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaEntitySpline\"], \"model\": \"misc\\\\objects\\\\dinghys\\\\bluedinghy\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaEntitySpline\"], \"model\": \"misc\\\\objects\\\\dinghys\\\\reddinghy\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaHudLoader\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 23
+   },
+   "{\"ai\": [\"gaVehicleResetManager\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 0,
+    "pc": 12
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\nessie\\\\nessie\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\objects\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 11,
+    "pc": 0
+   },
+   "{\"ai\": [], \"model\": \"null\"}": {
+    "ps2": 35,
+    "pc": 10
+   }
+  },
+  "splits": {
+   "ps2": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      2073.42,
+      32.58,
+      474.81
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      1451.5,
+      31.38,
+      159.06
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      646.3,
+      17.03,
+      648.79
+     ]
+    }
+   ],
+   "pc": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      2073.2,
+      32.58,
+      474.78
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      1451.5,
+      31.38,
+      159.06
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      646.3,
+      17.03,
+      648.79
+     ]
+    }
+   ]
+  },
+  "eggs_total": {
+   "ps2": 75,
+   "pc": 73
+  }
+ },
+ "Turkey1": {
+  "lists": {
+   "BoomCameras": {
+    "ps2": 5,
+    "pc": null
+   },
+   "Cameras": {
+    "ps2": 74,
+    "pc": 74,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "FinishArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FlightList": {
+    "ps2": 12,
+    "pc": null
+   },
+   "LeftInnerLimit": {
+    "ps2": null,
+    "pc": 182
+   },
+   "LeftOuterLimit": {
+    "ps2": null,
+    "pc": 159
+   },
+   "LeftOuterLimit2": {
+    "ps2": 229,
+    "pc": null
+   },
+   "RaceLine": {
+    "ps2": 341,
+    "pc": 339,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "RightInnerLimit": {
+    "ps2": null,
+    "pc": 159
+   },
+   "RightOuterLimit": {
+    "ps2": null,
+    "pc": 121
+   },
+   "RightOuterLimit2": {
+    "ps2": 203,
+    "pc": null
+   },
+   "StartArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "StaticCameras": {
+    "ps2": 7,
+    "pc": null
+   }
+  },
+  "egg_groups_that_differ": {
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"null\"}": {
+    "ps2": 3,
+    "pc": 0
+   },
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 5
+   },
+   "{\"ai\": [\"gaAiRigidBody\"], \"model\": \"misc\\\\objects\\\\tumbleweed\\\\tumblweed\"}": {
+    "ps2": 7,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaAnimals_BirdManager\"], \"model\": \"null\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaHudLoader\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"null\"}": {
+    "ps2": 14,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 14
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"null\"}": {
+    "ps2": 3,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 3
+   },
+   "{\"ai\": [\"gaVehicleResetManager\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 0,
+    "pc": 12
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\objects\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 12,
+    "pc": 0
+   },
+   "{\"ai\": [], \"model\": \"null\"}": {
+    "ps2": 14,
+    "pc": 10
+   }
+  },
+  "splits": {
+   "ps2": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      -372.73,
+      25.22,
+      -824.7
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      -934.37,
+      37.36,
+      -798.94
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      -1379.54,
+      27.66,
+      -629.82
+     ]
+    }
+   ],
+   "pc": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      -372.73,
+      25.22,
+      -824.7
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      -934.37,
+      37.36,
+      -798.94
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      -1379.54,
+      27.66,
+      -629.82
+     ]
+    }
+   ]
+  },
+  "eggs_total": {
+   "ps2": 69,
+   "pc": 61
+  }
+ },
+ "Turkey2": {
+  "lists": {
+   "BoomCameras": {
+    "ps2": 4,
+    "pc": null
+   },
+   "Cameras": {
+    "ps2": 60,
+    "pc": 60,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "FinishArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FlightList": {
+    "ps2": 11,
+    "pc": null
+   },
+   "LeftInnerLimit": {
+    "ps2": null,
+    "pc": 131
+   },
+   "LeftOuterLimit": {
+    "ps2": null,
+    "pc": 103
+   },
+   "LeftOuterLimit2": {
+    "ps2": 102,
+    "pc": null
+   },
+   "RaceLine": {
+    "ps2": 351,
+    "pc": 349,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "RightInnerLimit": {
+    "ps2": null,
+    "pc": 130
+   },
+   "RightOuterLimit": {
+    "ps2": null,
+    "pc": 112
+   },
+   "RightOuterLimit2": {
+    "ps2": 94,
+    "pc": null
+   },
+   "StartArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "StaticCameras": {
+    "ps2": 5,
+    "pc": null
+   }
+  },
+  "egg_groups_that_differ": {
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"null\"}": {
+    "ps2": 6,
+    "pc": 0
+   },
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 6
+   },
+   "{\"ai\": [\"gaAnimals_BirdManager\"], \"model\": \"null\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaHudLoader\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"null\"}": {
+    "ps2": 14,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 14
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"null\"}": {
+    "ps2": 3,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 3
+   },
+   "{\"ai\": [\"gaVehicleResetManager\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 0,
+    "pc": 12
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\objects\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 12,
+    "pc": 0
+   },
+   "{\"ai\": [], \"model\": \"null\"}": {
+    "ps2": 13,
+    "pc": 10
+   }
+  },
+  "splits": {
+   "ps2": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      583.29,
+      61.23,
+      299.38
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      1277.48,
+      31.91,
+      153.96
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      603.69,
+      -0.13,
+      -349.97
+     ]
+    }
+   ],
+   "pc": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      583.29,
+      61.23,
+      299.38
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      1277.48,
+      31.91,
+      153.96
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      603.69,
+      -0.13,
+      -349.97
+     ]
+    }
+   ]
+  },
+  "eggs_total": {
+   "ps2": 64,
+   "pc": 62
+  }
+ },
+ "Turkey3": {
+  "lists": {
+   "BoomCameras": {
+    "ps2": 4,
+    "pc": null
+   },
+   "Cameras": {
+    "ps2": 70,
+    "pc": 69,
+    "max_pc_to_nearest_ps2_xz": 0.1,
+    "equal": false
+   },
+   "FinishArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FlightList": {
+    "ps2": 12,
+    "pc": null
+   },
+   "LeftInnerLimit": {
+    "ps2": null,
+    "pc": 141
+   },
+   "LeftOuterLimit": {
+    "ps2": null,
+    "pc": 110
+   },
+   "LeftOuterLimit2": {
+    "ps2": 230,
+    "pc": null
+   },
+   "RaceLine": {
+    "ps2": 422,
+    "pc": 420,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "RightInnerLimit": {
+    "ps2": null,
+    "pc": 159
+   },
+   "RightOuterLimit": {
+    "ps2": null,
+    "pc": 126
+   },
+   "RightOuterLimit2": {
+    "ps2": 209,
+    "pc": null
+   },
+   "StartArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "StaticCameras": {
+    "ps2": 5,
+    "pc": null
+   }
+  },
+  "egg_groups_that_differ": {
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"null\"}": {
+    "ps2": 4,
+    "pc": 0
+   },
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 4
+   },
+   "{\"ai\": [\"gaAiRigidBody\"], \"model\": \"misc\\\\objects\\\\tumbleweed\\\\tumblweed\"}": {
+    "ps2": 6,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaAnimals_BirdManager\"], \"model\": \"null\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaHudLoader\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 19
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 3,
+    "pc": 4
+   },
+   "{\"ai\": [\"gaVehicleResetManager\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 0,
+    "pc": 16
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\objects\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 12,
+    "pc": 0
+   },
+   "{\"ai\": [], \"model\": \"null\"}": {
+    "ps2": 42,
+    "pc": 11
+   }
+  },
+  "splits": {
+   "ps2": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      2568.01,
+      39.01,
+      526.21
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      2408.85,
+      28.69,
+      -518.98
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      2813.93,
+      46.37,
+      -245.43
+     ]
+    }
+   ],
+   "pc": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      2568.01,
+      39.01,
+      526.21
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      2408.85,
+      28.69,
+      -518.98
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      2813.93,
+      46.37,
+      -245.43
+     ]
+    },
+    {
+     "name": "Copy of SplitTime1",
+     "pos": [
+      2454.25,
+      18.23,
+      -490.17
+     ]
+    }
+   ]
+  },
+  "eggs_total": {
+   "ps2": 83,
+   "pc": 71
+  }
+ },
+ "TurkeyM": {
+  "lists": {
+   "BoomCameras": {
+    "ps2": 5,
+    "pc": null
+   },
+   "Cameras": {
+    "ps2": 79,
+    "pc": 79,
+    "max_pc_to_nearest_ps2_xz": 92.59,
+    "equal": false
+   },
+   "FinishArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FlightList": {
+    "ps2": 12,
+    "pc": null
+   },
+   "LeftInnerLimit": {
+    "ps2": null,
+    "pc": 208
+   },
+   "LeftOuterLimit": {
+    "ps2": null,
+    "pc": 167
+   },
+   "LeftOuterLimit2": {
+    "ps2": 213,
+    "pc": null
+   },
+   "MillList": {
+    "ps2": 3,
+    "pc": null
+   },
+   "RaceLine": {
+    "ps2": 460,
+    "pc": 458,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "RightInnerLimit": {
+    "ps2": null,
+    "pc": 237
+   },
+   "RightOuterLimit": {
+    "ps2": null,
+    "pc": 205
+   },
+   "RightOuterLimit2": {
+    "ps2": 225,
+    "pc": null
+   },
+   "StartArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "StaticCameras": {
+    "ps2": 6,
+    "pc": null
+   }
+  },
+  "egg_groups_that_differ": {
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"null\"}": {
+    "ps2": 7,
+    "pc": 0
+   },
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 9
+   },
+   "{\"ai\": [\"gaAiRigidBody\"], \"model\": \"misc\\\\objects\\\\tumbleweed\\\\tumblweed\"}": {
+    "ps2": 9,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaAnimals_BirdManager\"], \"model\": \"null\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaHudLoader\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"null\"}": {
+    "ps2": 18,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 18
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"null\"}": {
+    "ps2": 3,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 3
+   },
+   "{\"ai\": [\"gaVehicleResetManager\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 0,
+    "pc": 12
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\objects\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 12,
+    "pc": 0
+   },
+   "{\"ai\": [], \"model\": \"null\"}": {
+    "ps2": 13,
+    "pc": 10
+   }
+  },
+  "splits": {
+   "ps2": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      -272.53,
+      41.95,
+      -841.97
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      -97.14,
+      17.43,
+      -32.31
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      351.52,
+      5.45,
+      -302.74
+     ]
+    }
+   ],
+   "pc": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      -272.53,
+      41.95,
+      -841.97
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      -97.14,
+      17.43,
+      -32.31
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      351.52,
+      5.45,
+      -302.74
+     ]
+    }
+   ]
+  },
+  "eggs_total": {
+   "ps2": 78,
+   "pc": 69
+  }
+ },
+ "TurkeyS1": {
+  "lists": {
+   "BoomCameras": {
+    "ps2": 5,
+    "pc": null
+   },
+   "Cameras": {
+    "ps2": 63,
+    "pc": 62,
+    "max_pc_to_nearest_ps2_xz": 124.88,
+    "equal": false
+   },
+   "FinishArea": {
+    "ps2": 5,
+    "pc": 5,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FlightList": {
+    "ps2": 6,
+    "pc": null
+   },
+   "LeftInnerLimit": {
+    "ps2": null,
+    "pc": 144
+   },
+   "LeftOuterLimit": {
+    "ps2": null,
+    "pc": 117
+   },
+   "LeftOuterLimit2": {
+    "ps2": 227,
+    "pc": null
+   },
+   "MillList": {
+    "ps2": 3,
+    "pc": null
+   },
+   "RaceLine": {
+    "ps2": 366,
+    "pc": 364,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "RightInnerLimit": {
+    "ps2": null,
+    "pc": 139
+   },
+   "RightOuterLimit": {
+    "ps2": null,
+    "pc": 115
+   },
+   "RightOuterLimit2": {
+    "ps2": 190,
+    "pc": null
+   },
+   "StartArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "StaticCameras": {
+    "ps2": 5,
+    "pc": null
+   }
+  },
+  "egg_groups_that_differ": {
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"null\"}": {
+    "ps2": 8,
+    "pc": 0
+   },
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 8
+   },
+   "{\"ai\": [\"gaAnimals_BirdManager\"], \"model\": \"null\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaHudLoader\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"null\"}": {
+    "ps2": 18,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 18
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"null\"}": {
+    "ps2": 3,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 3
+   },
+   "{\"ai\": [\"gaVehicleResetManager\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 0,
+    "pc": 12
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\objects\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 12,
+    "pc": 0
+   },
+   "{\"ai\": [], \"model\": \"null\"}": {
+    "ps2": 13,
+    "pc": 10
+   }
+  },
+  "splits": {
+   "ps2": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      2761.7,
+      23.36,
+      -683.28
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      2102.2,
+      30.17,
+      -168.98
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      1119.58,
+      66.58,
+      664.29
+     ]
+    }
+   ],
+   "pc": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      2761.7,
+      23.36,
+      -683.28
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      2102.2,
+      30.17,
+      -168.98
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      1119.58,
+      66.58,
+      664.29
+     ]
+    }
+   ]
+  },
+  "eggs_total": {
+   "ps2": 70,
+   "pc": 68
+  }
+ },
+ "TurkeyS2": {
+  "lists": {
+   "BoomCameras": {
+    "ps2": 4,
+    "pc": null
+   },
+   "Cameras": {
+    "ps2": 79,
+    "pc": 79,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "FinishArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FlightList": {
+    "ps2": 9,
+    "pc": null
+   },
+   "LeftInnerLimit": {
+    "ps2": null,
+    "pc": 181
+   },
+   "LeftOuterLimit": {
+    "ps2": null,
+    "pc": 142
+   },
+   "LeftOuterLimit2": {
+    "ps2": 176,
+    "pc": null
+   },
+   "RaceLine": {
+    "ps2": 471,
+    "pc": 469,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "RightInnerLimit": {
+    "ps2": null,
+    "pc": 169
+   },
+   "RightOuterLimit": {
+    "ps2": null,
+    "pc": 124
+   },
+   "RightOuterLimit2": {
+    "ps2": 200,
+    "pc": null
+   },
+   "StartArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "StaticCameras": {
+    "ps2": 5,
+    "pc": null
+   }
+  },
+  "egg_groups_that_differ": {
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"null\"}": {
+    "ps2": 6,
+    "pc": 0
+   },
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 6
+   },
+   "{\"ai\": [\"gaAnimals_BirdManager\"], \"model\": \"null\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaHudLoader\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"null\"}": {
+    "ps2": 25,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 25
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"null\"}": {
+    "ps2": 3,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 3
+   },
+   "{\"ai\": [\"gaVehicleResetManager\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 0,
+    "pc": 12
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\objects\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 12,
+    "pc": 0
+   },
+   "{\"ai\": [], \"model\": \"null\"}": {
+    "ps2": 18,
+    "pc": 10
+   }
+  },
+  "splits": {
+   "ps2": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      533.31,
+      -4.13,
+      -430.02
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      1684.02,
+      42.24,
+      23.65
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      2476.61,
+      38.21,
+      346.56
+     ]
+    }
+   ],
+   "pc": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      533.31,
+      -4.13,
+      -430.02
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      1684.02,
+      42.24,
+      23.65
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      2476.61,
+      38.21,
+      346.56
+     ]
+    }
+   ]
+  },
+  "eggs_total": {
+   "ps2": 80,
+   "pc": 73
+  }
+ },
+ "TurkeyS2Flip": {
+  "lists": {
+   "BoomCameras": {
+    "ps2": 5,
+    "pc": null
+   },
+   "Cameras": {
+    "ps2": 79,
+    "pc": 79,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FinishArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FlightList": {
+    "ps2": 11,
+    "pc": null
+   },
+   "LeftInnerLimit": {
+    "ps2": null,
+    "pc": 169
+   },
+   "LeftOuterLimit": {
+    "ps2": null,
+    "pc": 124
+   },
+   "LeftOuterLimit2": {
+    "ps2": 215,
+    "pc": null
+   },
+   "RaceLine": {
+    "ps2": 472,
+    "pc": 470,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "RightInnerLimit": {
+    "ps2": null,
+    "pc": 181
+   },
+   "RightOuterLimit": {
+    "ps2": null,
+    "pc": 142
+   },
+   "RightOuterLimit2": {
+    "ps2": 189,
+    "pc": null
+   },
+   "StartArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "StaticCameras": {
+    "ps2": 5,
+    "pc": null
+   }
+  },
+  "egg_groups_that_differ": {
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"null\"}": {
+    "ps2": 6,
+    "pc": 0
+   },
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 6
+   },
+   "{\"ai\": [\"gaAiRigidBody\"], \"model\": \"misc\\\\objects\\\\tumbleweed\\\\tumblweed\"}": {
+    "ps2": 3,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaAnimals_BirdManager\"], \"model\": \"null\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaHudLoader\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 18
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"null\"}": {
+    "ps2": 3,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaRaceSplitTimeAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 4
+   },
+   "{\"ai\": [\"gaVehicleResetManager\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 0,
+    "pc": 16
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\objects\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 12,
+    "pc": 0
+   },
+   "{\"ai\": [], \"model\": \"null\"}": {
+    "ps2": 35,
+    "pc": 10
+   }
+  },
+  "splits": {
+   "ps2": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      2535.99,
+      38.11,
+      300.4
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      1668.18,
+      42.41,
+      29.78
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      544.42,
+      -3.29,
+      -421.37
+     ]
+    }
+   ],
+   "pc": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      2535.99,
+      38.11,
+      300.4
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      1668.18,
+      42.41,
+      29.78
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      544.42,
+      -3.29,
+      -421.37
+     ]
+    },
+    {
+     "name": "Copy of SplitTime0",
+     "pos": [
+      2556.46,
+      23.77,
+      356.33
+     ]
+    }
+   ]
+  },
+  "eggs_total": {
+   "ps2": 75,
+   "pc": 71
+  }
+ },
+ "TurkeyW": {
+  "lists": {
+   "BoomCameras": {
+    "ps2": 7,
+    "pc": null
+   },
+   "Cameras": {
+    "ps2": 69,
+    "pc": 69,
+    "max_pc_to_nearest_ps2_xz": 62.95,
+    "equal": false
+   },
+   "FinishArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "FlightList": {
+    "ps2": 10,
+    "pc": null
+   },
+   "LeftInnerLimit": {
+    "ps2": null,
+    "pc": 168
+   },
+   "LeftOuterLimit": {
+    "ps2": null,
+    "pc": 120
+   },
+   "LeftOuterLimit2": {
+    "ps2": 198,
+    "pc": null
+   },
+   "RaceLine": {
+    "ps2": 336,
+    "pc": 334,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": false
+   },
+   "RightInnerLimit": {
+    "ps2": null,
+    "pc": 189
+   },
+   "RightOuterLimit": {
+    "ps2": null,
+    "pc": 139
+   },
+   "RightOuterLimit2": {
+    "ps2": 189,
+    "pc": null
+   },
+   "StartArea": {
+    "ps2": 4,
+    "pc": 4,
+    "max_pc_to_nearest_ps2_xz": 0.0,
+    "equal": true
+   },
+   "StaticCameras": {
+    "ps2": 6,
+    "pc": null
+   },
+   "bargelist": {
+    "ps2": 10,
+    "pc": null
+   }
+  },
+  "egg_groups_that_differ": {
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"null\"}": {
+    "ps2": 6,
+    "pc": 0
+   },
+   "{\"ai\": [\"enAiSoundSource\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 6
+   },
+   "{\"ai\": [\"gaAnimals_BirdManager\"], \"model\": \"null\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaEntitySpline\"], \"model\": \"misc\\\\barge\\\\barge\"}": {
+    "ps2": 1,
+    "pc": 0
+   },
+   "{\"ai\": [\"gaHudLoader\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [\"gaRacePaceNoteAI\"], \"model\": \"test\\\\gps_test\\\\gps_arrow\"}": {
+    "ps2": 0,
+    "pc": 17
+   },
+   "{\"ai\": [\"gaVehicleResetManager\"], \"model\": \"null\"}": {
+    "ps2": 0,
+    "pc": 1
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 0,
+    "pc": 12
+   },
+   "{\"ai\": [], \"model\": \"misc\\\\objects\\\\checkpoints\\\\checkpoint\"}": {
+    "ps2": 12,
+    "pc": 0
+   },
+   "{\"ai\": [], \"model\": \"null\"}": {
+    "ps2": 31,
+    "pc": 10
+   }
+  },
+  "splits": {
+   "ps2": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      -35.88,
+      64.96,
+      521.99
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      -97.14,
+      16.77,
+      -32.31
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      -1226.93,
+      18.0,
+      -247.85
+     ]
+    }
+   ],
+   "pc": [
+    {
+     "name": "SplitTime0",
+     "pos": [
+      -35.88,
+      64.96,
+      521.99
+     ]
+    },
+    {
+     "name": "SplitTime1",
+     "pos": [
+      -97.14,
+      16.77,
+      -32.31
+     ]
+    },
+    {
+     "name": "SplitTime2",
+     "pos": [
+      -1226.93,
+      18.0,
+      -247.85
+     ]
+    }
+   ]
+  },
+  "eggs_total": {
+   "ps2": 69,
+   "pc": 65
+  }
+ }
+}
