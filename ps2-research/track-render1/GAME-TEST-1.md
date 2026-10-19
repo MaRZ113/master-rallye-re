@@ -123,3 +123,10 @@ vertex of a triangle shared with PS2:
 `ps2_mesh.noise_uv` and `build_render.py --noise ps2` (now the default) use it for every PS2-only noise triangle, so no triangle loses the
 layer. The experimental `local` fit is no longer needed. Turkey2: 8,522 triangles get the PS2 noise UV, and all package checks pass.
 Not yet confirmed in the game: whether this also brings the darker PS2 grass under the trees, or whether that area differs for another reason.
+
+## Sixth game test (36 packages: PS2 noise UV, PS2 vertex colour, collision fix)
+Owner result (2026-10-19), Turkey2:
+- the hard light/dark edge in the grass under the PS2 trees is gone: the PS2 vertex colour on the triangles shared with PC was the fix
+  (`afadb23`). The PS2 noise UV removed the grain seams (`cd36c64`);
+- the invisible one-sided wall next to the fence is gone (`cba0008`, `../track-coll2/REPORT.md`, section on invisible walls).
+Still open from earlier tests: the gap at the Turkey3 rock foot (fourth test).

@@ -42,3 +42,5 @@ Turkey3 v1 (`research-output\course-port-turkey3-v1`, README there), optionally 
 - The PS2 OFF COURSE border is in the XML; the PS2 reset timing (about 2 ticks against about 12 on PC) needs two code bytes, not applied.
 - Moving objects, birds and rigid props need native code (`AMBIENT-PROPS.md`).
 - Turkey3 v4 game test: the gap at the rock foot got larger with the v4 two-sided rule; open (`../track-render1/GAME-TEST-1.md`).
+- Owner game tests so far (`../track-render1/GAME-TEST-1.md`, six rounds): courses load and race to the finish, the PS2 OFF COURSE border works,
+  the Turkey2 grass seam and invisible wall are fixed. Only Turkey3, Turkey2, FranceM were driven; the other courses are checked offline only.
