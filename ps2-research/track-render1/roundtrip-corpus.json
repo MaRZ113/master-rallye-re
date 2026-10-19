@@ -1,0 +1,290 @@
+{
+ "france1.dx": {
+  "identical": true,
+  "bytes": 13489510,
+  "draws": 995,
+  "batches": 48,
+  "uv_sets": 2,
+  "seconds": 0.3
+ },
+ "france2.dx": {
+  "identical": true,
+  "bytes": 13917083,
+  "draws": 1085,
+  "batches": 57,
+  "uv_sets": 2,
+  "seconds": 0.4
+ },
+ "francem.dx": {
+  "identical": true,
+  "bytes": 15275322,
+  "draws": 1343,
+  "batches": 75,
+  "uv_sets": 2,
+  "seconds": 0.4
+ },
+ "frances1.dx": {
+  "identical": true,
+  "bytes": 14332202,
+  "draws": 1044,
+  "batches": 60,
+  "uv_sets": 2,
+  "seconds": 0.3
+ },
+ "frances2.dx": {
+  "identical": true,
+  "bytes": 14449165,
+  "draws": 1263,
+  "batches": 58,
+  "uv_sets": 2,
+  "seconds": 0.4
+ },
+ "francew.dx": {
+  "identical": true,
+  "bytes": 15081000,
+  "draws": 1094,
+  "batches": 50,
+  "uv_sets": 2,
+  "seconds": 0.4
+ },
+ "FranceW_flip.dx": {
+  "identical": true,
+  "bytes": 15078585,
+  "draws": 1101,
+  "batches": 50,
+  "uv_sets": 2,
+  "seconds": 0.4
+ },
+ "track01.dx": {
+  "identical": true,
+  "bytes": 10243860,
+  "draws": 837,
+  "batches": 76,
+  "uv_sets": 2,
+  "seconds": 0.2
+ },
+ "italy2.dx": {
+  "identical": true,
+  "bytes": 9932430,
+  "draws": 981,
+  "batches": 99,
+  "uv_sets": 2,
+  "seconds": 0.3
+ },
+ "italy3.dx": {
+  "identical": true,
+  "bytes": 12829008,
+  "draws": 656,
+  "batches": 60,
+  "uv_sets": 2,
+  "seconds": 0.3
+ },
+ "italy_m1.dx": {
+  "identical": true,
+  "bytes": 11929811,
+  "draws": 1124,
+  "batches": 109,
+  "uv_sets": 2,
+  "seconds": 0.4
+ },
+ "italy_m1_flip.dx": {
+  "identical": true,
+  "bytes": 11929790,
+  "draws": 1124,
+  "batches": 109,
+  "uv_sets": 2,
+  "seconds": 0.5
+ },
+ "italy_m2.dx": {
+  "identical": true,
+  "bytes": 13974643,
+  "draws": 1126,
+  "batches": 112,
+  "uv_sets": 2,
+  "seconds": 0.5
+ },
+ "italy_s1.dx": {
+  "identical": true,
+  "bytes": 10418531,
+  "draws": 867,
+  "batches": 81,
+  "uv_sets": 2,
+  "seconds": 0.4
+ },
+ "italy_s2.dx": {
+  "identical": true,
+  "bytes": 12119257,
+  "draws": 1212,
+  "batches": 126,
+  "uv_sets": 2,
+  "seconds": 0.5
+ },
+ "italy_s3.dx": {
+  "identical": true,
+  "bytes": 12901492,
+  "draws": 919,
+  "batches": 94,
+  "uv_sets": 2,
+  "seconds": 0.4
+ },
+ "Italy_S3_flip.dx": {
+  "identical": true,
+  "bytes": 12943815,
+  "draws": 922,
+  "batches": 94,
+  "uv_sets": 2,
+  "seconds": 0.4
+ },
+ "italy_s4.dx": {
+  "identical": true,
+  "bytes": 14864694,
+  "draws": 1011,
+  "batches": 103,
+  "uv_sets": 2,
+  "seconds": 0.5
+ },
+ "italy_w1.dx": {
+  "identical": true,
+  "bytes": 11756394,
+  "draws": 1017,
+  "batches": 106,
+  "uv_sets": 2,
+  "seconds": 0.3
+ },
+ "italy_w2.dx": {
+  "identical": true,
+  "bytes": 14946592,
+  "draws": 975,
+  "batches": 103,
+  "uv_sets": 2,
+  "seconds": 0.4
+ },
+ "spain1.dx": {
+  "identical": true,
+  "bytes": 7527520,
+  "draws": 367,
+  "batches": 38,
+  "uv_sets": 2,
+  "seconds": 0.2
+ },
+ "spain2.dx": {
+  "identical": true,
+  "bytes": 10464841,
+  "draws": 537,
+  "batches": 51,
+  "uv_sets": 2,
+  "seconds": 0.3
+ },
+ "spain_m.dx": {
+  "identical": true,
+  "bytes": 10035198,
+  "draws": 579,
+  "batches": 60,
+  "uv_sets": 2,
+  "seconds": 0.3
+ },
+ "spain_s1.dx": {
+  "identical": true,
+  "bytes": 10772910,
+  "draws": 595,
+  "batches": 64,
+  "uv_sets": 2,
+  "seconds": 0.4
+ },
+ "Spain_S1_flip.dx": {
+  "identical": true,
+  "bytes": 10771503,
+  "draws": 595,
+  "batches": 64,
+  "uv_sets": 2,
+  "seconds": 0.3
+ },
+ "spain_s2.dx": {
+  "identical": true,
+  "bytes": 10529758,
+  "draws": 479,
+  "batches": 42,
+  "uv_sets": 2,
+  "seconds": 0.4
+ },
+ "spain_w.dx": {
+  "identical": true,
+  "bytes": 11488206,
+  "draws": 545,
+  "batches": 52,
+  "uv_sets": 2,
+  "seconds": 0.4
+ },
+ "Spain_W_flip.dx": {
+  "identical": true,
+  "bytes": 11488218,
+  "draws": 545,
+  "batches": 52,
+  "uv_sets": 2,
+  "seconds": 0.3
+ },
+ "turkey1.dx": {
+  "identical": true,
+  "bytes": 10825457,
+  "draws": 1295,
+  "batches": 224,
+  "uv_sets": 2,
+  "seconds": 0.4
+ },
+ "turkey2.dx": {
+  "identical": true,
+  "bytes": 10813941,
+  "draws": 1159,
+  "batches": 224,
+  "uv_sets": 2,
+  "seconds": 0.3
+ },
+ "turkey3.dx": {
+  "identical": true,
+  "bytes": 10055607,
+  "draws": 939,
+  "batches": 220,
+  "uv_sets": 2,
+  "seconds": 0.3
+ },
+ "turkey_m.dx": {
+  "identical": true,
+  "bytes": 14820108,
+  "draws": 1558,
+  "batches": 224,
+  "uv_sets": 2,
+  "seconds": 0.6
+ },
+ "turkey_s1.dx": {
+  "identical": true,
+  "bytes": 13526074,
+  "draws": 1510,
+  "batches": 220,
+  "uv_sets": 2,
+  "seconds": 0.4
+ },
+ "turkey_s2.dx": {
+  "identical": true,
+  "bytes": 12968283,
+  "draws": 1223,
+  "batches": 223,
+  "uv_sets": 2,
+  "seconds": 0.4
+ },
+ "turkey_s2_flip.dx": {
+  "identical": true,
+  "bytes": 12965900,
+  "draws": 1224,
+  "batches": 223,
+  "uv_sets": 2,
+  "seconds": 0.4
+ },
+ "turkey_w.dx": {
+  "identical": true,
+  "bytes": 10659103,
+  "draws": 1352,
+  "batches": 224,
+  "uv_sets": 2,
+  "seconds": 0.3
+ }
+}

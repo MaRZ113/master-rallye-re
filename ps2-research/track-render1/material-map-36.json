@@ -1,0 +1,937 @@
+{
+ "courses": {
+  "France1": {
+   "ps2_triangles": 41817,
+   "shared_with_pc": 36354,
+   "pc_triangles": 45622
+  },
+  "France2": {
+   "ps2_triangles": 43460,
+   "shared_with_pc": 38135,
+   "pc_triangles": 50200
+  },
+  "FranceM": {
+   "ps2_triangles": 46333,
+   "shared_with_pc": 40615,
+   "pc_triangles": 55689
+  },
+  "FranceS1": {
+   "ps2_triangles": 40623,
+   "shared_with_pc": 36100,
+   "pc_triangles": 47512
+  },
+  "FranceS2": {
+   "ps2_triangles": 47964,
+   "shared_with_pc": 41486,
+   "pc_triangles": 54202
+  },
+  "FranceW": {
+   "ps2_triangles": 44832,
+   "shared_with_pc": 38021,
+   "pc_triangles": 52555
+  },
+  "FranceWFlip": {
+   "ps2_triangles": 44858,
+   "shared_with_pc": 39570,
+   "pc_triangles": 52555
+  },
+  "Italy1": {
+   "ps2_triangles": 34355,
+   "shared_with_pc": 26959,
+   "pc_triangles": 36456
+  },
+  "Italy2": {
+   "ps2_triangles": 42992,
+   "shared_with_pc": 38820,
+   "pc_triangles": 45437
+  },
+  "Italy3": {
+   "ps2_triangles": 35265,
+   "shared_with_pc": 27504,
+   "pc_triangles": 42586
+  },
+  "ItalyM1": {
+   "ps2_triangles": 45410,
+   "shared_with_pc": 40373,
+   "pc_triangles": 44822
+  },
+  "ItalyM1Flip": {
+   "ps2_triangles": 45422,
+   "shared_with_pc": 40445,
+   "pc_triangles": 44822
+  },
+  "ItalyM2": {
+   "ps2_triangles": 47290,
+   "shared_with_pc": 30326,
+   "pc_triangles": 51248
+  },
+  "ItalyS1": {
+   "ps2_triangles": 40479,
+   "shared_with_pc": 36265,
+   "pc_triangles": 41263
+  },
+  "ItalyS2": {
+   "ps2_triangles": 45998,
+   "shared_with_pc": 37918,
+   "pc_triangles": 46617
+  },
+  "ItalyS3": {
+   "ps2_triangles": 42562,
+   "shared_with_pc": 31579,
+   "pc_triangles": 46150
+  },
+  "ItalyS3Flip": {
+   "ps2_triangles": 42666,
+   "shared_with_pc": 31594,
+   "pc_triangles": 46358
+  },
+  "ItalyS4": {
+   "ps2_triangles": 46354,
+   "shared_with_pc": 35448,
+   "pc_triangles": 54796
+  },
+  "ItalyW1": {
+   "ps2_triangles": 43318,
+   "shared_with_pc": 39402,
+   "pc_triangles": 45681
+  },
+  "ItalyW2": {
+   "ps2_triangles": 46990,
+   "shared_with_pc": 34335,
+   "pc_triangles": 55892
+  },
+  "Spain1": {
+   "ps2_triangles": 36372,
+   "shared_with_pc": 24867,
+   "pc_triangles": 28688
+  },
+  "Spain2": {
+   "ps2_triangles": 46464,
+   "shared_with_pc": 33368,
+   "pc_triangles": 46496
+  },
+  "SpainM": {
+   "ps2_triangles": 44996,
+   "shared_with_pc": 29622,
+   "pc_triangles": 43564
+  },
+  "SpainS1": {
+   "ps2_triangles": 49769,
+   "shared_with_pc": 32483,
+   "pc_triangles": 44609
+  },
+  "SpainS1Flip": {
+   "ps2_triangles": 49745,
+   "shared_with_pc": 32503,
+   "pc_triangles": 44609
+  },
+  "SpainS2": {
+   "ps2_triangles": 42134,
+   "shared_with_pc": 34354,
+   "pc_triangles": 45448
+  },
+  "SpainW": {
+   "ps2_triangles": 51194,
+   "shared_with_pc": 40545,
+   "pc_triangles": 49567
+  },
+  "SpainWFlip": {
+   "ps2_triangles": 51194,
+   "shared_with_pc": 40513,
+   "pc_triangles": 49567
+  },
+  "Turkey1": {
+   "ps2_triangles": 40201,
+   "shared_with_pc": 19970,
+   "pc_triangles": 38992
+  },
+  "Turkey2": {
+   "ps2_triangles": 44899,
+   "shared_with_pc": 22228,
+   "pc_triangles": 40243
+  },
+  "Turkey3": {
+   "ps2_triangles": 40828,
+   "shared_with_pc": 28443,
+   "pc_triangles": 37077
+  },
+  "TurkeyM": {
+   "ps2_triangles": 51369,
+   "shared_with_pc": 33216,
+   "pc_triangles": 54222
+  },
+  "TurkeyS1": {
+   "ps2_triangles": 52288,
+   "shared_with_pc": 28952,
+   "pc_triangles": 52719
+  },
+  "TurkeyS2": {
+   "ps2_triangles": 48640,
+   "shared_with_pc": 29478,
+   "pc_triangles": 47540
+  },
+  "TurkeyS2Flip": {
+   "ps2_triangles": 49290,
+   "shared_with_pc": 32856,
+   "pc_triangles": 47540
+  },
+  "TurkeyW": {
+   "ps2_triangles": 43777,
+   "shared_with_pc": 23892,
+   "pc_triangles": 38631
+  }
+ },
+ "groups": {
+  "{\"noise_texture\": true, \"shader\": \"ground\", \"surfacetype\": \"yes\"}": {
+   "pairs": 500617,
+   "pc_fields": {
+    "{\"flags\": \"00000101\", \"slot1\": \"Null\", \"slot2\": \"noise-tga\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 0, \"w24\": 11}": 497717,
+    "{\"flags\": \"00000101\", \"slot1\": \"Null\", \"slot2\": \"noise-tga\", \"slots\": 3, \"sorted\": false, \"w14\": 2, \"w18\": 0, \"w24\": 11}": 1601,
+    "{\"flags\": \"00000101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 1, \"w24\": 19}": 535,
+    "{\"flags\": \"00000101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 0, \"w24\": 3}": 498,
+    "{\"flags\": \"00000101\", \"slot1\": \"Null\", \"slot2\": \"noise-tga\", \"slots\": 3, \"sorted\": false, \"w14\": 4, \"w18\": 0, \"w24\": 11}": 209,
+    "{\"flags\": \"00000101\", \"slot1\": \"aluminium-tga\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 0, \"w24\": 7}": 39
+   },
+   "pc_vertex_alpha": {
+    "255": 1501851
+   },
+   "ps2_vertex_alpha_shared": {
+    "255": 1501851
+   },
+   "ps2_vertex_alpha_all": {
+    "255": 1828782
+   },
+   "examples": [
+    "$surfacetype(grass) $shader(ground) $detail(grass)$grnd(grass)Noise Pass",
+    "$surfacetype(grass) $shader(ground) $detail(shrubs)$grnd(grass)Noise Pass",
+    "$surfacetype(gravel) $shader(ground) $detail(none)$grnd(gravel)Noise Pass",
+    "$surfacetype(tarmac) $shader(ground) $detail(none)$grnd(tarmac) $grass(off)Noise Pass"
+   ]
+  },
+  "{\"noise_texture\": false, \"shader\": \"object\"}": {
+   "pairs": 200439,
+   "pc_fields": {
+    "{\"flags\": \"00000101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 0, \"w24\": 3}": 162575,
+    "{\"flags\": \"00000001\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 0, \"w24\": 1}": 37600,
+    "{\"flags\": \"00010101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 0, \"w24\": 3}": 229,
+    "{\"flags\": \"00000101\", \"slot1\": \"Null\", \"slot2\": \"noise-tga\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 0, \"w24\": 11}": 31,
+    "{\"flags\": \"00000101\", \"slot1\": \"aluminium-tga\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 0, \"w24\": 7}": 4
+   },
+   "pc_vertex_alpha": {
+    "255": 601317
+   },
+   "ps2_vertex_alpha_shared": {
+    "255": 601317
+   },
+   "ps2_vertex_alpha_all": {
+    "255": 829395
+   },
+   "examples": [
+    "post $shader(object) $mip(1.0)",
+    "trunk $shader(object)",
+    "tyre $shader(object)",
+    "walls $shader(object)"
+   ]
+  },
+  "{\"clamp\": \"u\", \"noise_texture\": true, \"shader\": \"ground\", \"surfacetype\": \"yes\"}": {
+   "pairs": 197017,
+   "pc_fields": {
+    "{\"flags\": \"00000101\", \"slot1\": \"Null\", \"slot2\": \"noise-tga\", \"slots\": 3, \"sorted\": false, \"w14\": 2, \"w18\": 0, \"w24\": 11}": 196474,
+    "{\"flags\": \"00000101\", \"slot1\": \"Null\", \"slot2\": \"noise-tga\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 0, \"w24\": 11}": 436,
+    "{\"flags\": \"00000101\", \"slot1\": \"Null\", \"slot2\": \"noise-tga\", \"slots\": 3, \"sorted\": false, \"w14\": 4, \"w18\": 0, \"w24\": 11}": 66,
+    "{\"flags\": \"00000101\", \"slot1\": \"Null\", \"slot2\": \"noise-tga\", \"slots\": 3, \"sorted\": false, \"w14\": 0, \"w18\": 0, \"w24\": 11}": 25,
+    "{\"flags\": \"00000101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 0, \"w24\": 3}": 10,
+    "{\"flags\": \"00000101\", \"slot1\": \"whitepaint-tga\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 0, \"w24\": 7}": 6
+   },
+   "pc_vertex_alpha": {
+    "255": 591051
+   },
+   "ps2_vertex_alpha_shared": {
+    "255": 591051
+   },
+   "ps2_vertex_alpha_all": {
+    "255": 725307
+   },
+   "examples": [
+    "$surfacetype(gravel) $clamp(u) $shader(ground) $detail(grass)$grnd(gravel)Noise Pass",
+    "$surfacetype(harddirt) $clamp(u) $shader(ground) $detail(grass)$grnd(grass)Noise Pass",
+    "$surfacetype(harddirt) $clamp(u) $shader(ground) $detail(grass)$grnd(harddirt)Noise Pass",
+    "$surfacetype(harddirt) $clamp(u) $shader(ground) $detail(none)$grnd(gravel)Noise Pass"
+   ]
+  },
+  "{\"alphatest\": \"\", \"clamp\": \"uv\", \"noise_texture\": false, \"shader\": \"tree\"}": {
+   "pairs": 89689,
+   "pc_fields": {
+    "{\"flags\": \"01010101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 0, \"w18\": 0, \"w24\": 3}": 86525,
+    "{\"flags\": \"01010101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 0, \"w24\": 3}": 1898,
+    "{\"flags\": \"01010101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 4, \"w18\": 0, \"w24\": 3}": 1266
+   },
+   "pc_vertex_alpha": {
+    "255": 269067
+   },
+   "ps2_vertex_alpha_shared": {
+    "255": 269067
+   },
+   "ps2_vertex_alpha_all": {
+    "255": 331290
+   },
+   "examples": [
+    "bush $alphatest() $clamp(uv) $shader(tree)",
+    "greentree $alphatest() $clamp(uv) $shader(tree)",
+    "pinetree $alphatest() $clamp(uv) $shader(tree)",
+    "trainpylon $alphatest() $clamp(uv) $shader(tree)"
+   ]
+  },
+  "{\"noise_texture\": false, \"shader\": \"puddle\", \"surfacetype\": \"yes\"}": {
+   "pairs": 43684,
+   "pc_fields": {
+    "{\"flags\": \"00000101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 1, \"w24\": 19}": 43684
+   },
+   "pc_vertex_alpha": {
+    "255": 131052
+   },
+   "ps2_vertex_alpha_shared": {
+    "255": 131052
+   },
+   "ps2_vertex_alpha_all": {
+    "255": 147168
+   },
+   "examples": [
+    "Italy Water Shallow $surfacetype(water) $shader(puddle) $mip(1.0)",
+    "Water $surfacetype(water) $shader(puddle)",
+    "water $surfacetype(water) $shader(puddle)"
+   ]
+  },
+  "{\"alphatest\": \"\", \"clamp\": \"v\", \"noise_texture\": false, \"shader\": \"tree\"}": {
+   "pairs": 32477,
+   "pc_fields": {
+    "{\"flags\": \"01010101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 4, \"w18\": 0, \"w24\": 3}": 30058,
+    "{\"flags\": \"01010101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 0, \"w24\": 3}": 1736,
+    "{\"flags\": \"01010101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 0, \"w18\": 0, \"w24\": 3}": 519,
+    "{\"flags\": \"01010101\", \"slot1\": \"aluminium-tga\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 4, \"w18\": 0, \"w24\": 7}": 135,
+    "{\"flags\": \"00000101\", \"slot1\": \"Null\", \"slot2\": \"noise-tga\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 0, \"w24\": 11}": 18,
+    "{\"flags\": \"01000101\", \"slot1\": \"aluminium-tga\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": true, \"w14\": 1, \"w18\": 0, \"w24\": 7}": 11
+   },
+   "pc_vertex_alpha": {
+    "255": 97431
+   },
+   "ps2_vertex_alpha_shared": {
+    "255": 97431
+   },
+   "ps2_vertex_alpha_all": {
+    "255": 177273
+   },
+   "examples": [
+    "$alphatest() $clamp(v) $shader(tree)",
+    "fences $alphatest() $clamp(v) $shader(tree)",
+    "hedge $alphatest() $clamp(v) $shader(tree)",
+    "pinetree $alphatest() $clamp(v) $shader(tree)"
+   ]
+  },
+  "{\"alphatest\": \"\", \"noise_texture\": false, \"shader\": \"tree\"}": {
+   "pairs": 28675,
+   "pc_fields": {
+    "{\"flags\": \"01010101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 0, \"w24\": 3}": 28391,
+    "{\"flags\": \"01010101\", \"slot1\": \"aluminium-tga\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 0, \"w24\": 7}": 229,
+    "{\"flags\": \"00010101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 0, \"w24\": 3}": 32,
+    "{\"flags\": \"01000101\", \"slot1\": \"aluminium-tga\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": true, \"w14\": 1, \"w18\": 0, \"w24\": 7}": 17,
+    "{\"flags\": \"01010001\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 0, \"w24\": 1}": 6
+   },
+   "pc_vertex_alpha": {
+    "255": 86025
+   },
+   "ps2_vertex_alpha_shared": {
+    "255": 86025
+   },
+   "ps2_vertex_alpha_all": {
+    "255": 303066
+   },
+   "examples": [
+    "Tent04 $alphatest() $shader(tree)",
+    "branches $alphatest() clamp(uv) $shader(tree)",
+    "log hedge $alphatest() $shader(tree)",
+    "roof $alphatest() hedge $alphatest() $shader(tree)"
+   ]
+  },
+  "{\"noise_texture\": false, \"shader\": \"metal\"}": {
+   "pairs": 22348,
+   "pc_fields": {
+    "{\"flags\": \"00000101\", \"slot1\": \"aluminium-tga\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 0, \"w24\": 7}": 12376,
+    "{\"flags\": \"00000101\", \"slot1\": \"whitepaint-tga\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 0, \"w24\": 7}": 6270,
+    "{\"flags\": \"00000101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 0, \"w24\": 3}": 3702
+   },
+   "pc_vertex_alpha": {
+    "255": 67044
+   },
+   "ps2_vertex_alpha_shared": {
+    "255": 67044
+   },
+   "ps2_vertex_alpha_all": {
+    "255": 90597
+   },
+   "examples": [
+    "Drum2 $shader(metal)",
+    "front $shader(metal)",
+    "stp $shader(metal)",
+    "top $shader(metal)"
+   ]
+  },
+  "{\"noise_texture\": false}": {
+   "pairs": 16924,
+   "pc_fields": {
+    "{\"flags\": \"00000101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 0, \"w24\": 3}": 15864,
+    "{\"flags\": \"01010101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 4, \"w18\": 0, \"w24\": 3}": 577,
+    "{\"flags\": \"00000101\", \"slot1\": \"aluminium-tga\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 0, \"w24\": 7}": 247,
+    "{\"flags\": \"01000101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": true, \"w14\": 1, \"w18\": 0, \"w24\": 3}": 124,
+    "{\"flags\": \"00000001\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 0, \"w24\": 1}": 112
+   },
+   "pc_vertex_alpha": {
+    "255": 50772
+   },
+   "ps2_vertex_alpha_shared": {
+    "255": 50772
+   },
+   "ps2_vertex_alpha_all": {
+    "255": 62406
+   },
+   "examples": [
+    "$grnd:tarmac_hard",
+    "Tent03",
+    "Tent05",
+    "Tent06"
+   ]
+  },
+  "{\"noise_texture\": false, \"shader\": \"water\", \"surfacetype\": \"yes\"}": {
+   "pairs": 16880,
+   "pc_fields": {
+    "{\"flags\": \"00000101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 1, \"w24\": 19}": 16880
+   },
+   "pc_vertex_alpha": {
+    "255": 50640
+   },
+   "ps2_vertex_alpha_shared": {
+    "255": 50640
+   },
+   "ps2_vertex_alpha_all": {
+    "255": 55527
+   },
+   "examples": [
+    "Italy Deep $surfacetype(water) $shader(water) $mip(1.0)",
+    "Italy Deep Shallow $surfacetype(water) $shader(water)",
+    "Italy Deep Shallow $surfacetype(water) $shader(water) $mip(1.0)",
+    "water $surfacetype(water) $shader(water)"
+   ]
+  },
+  "{\"alphatest\": \"\", \"noise_texture\": false, \"shader\": \"treeblend\"}": {
+   "pairs": 13779,
+   "pc_fields": {
+    "{\"flags\": \"01010101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 0, \"w24\": 3}": 13779
+   },
+   "pc_vertex_alpha": {
+    "255": 41337
+   },
+   "ps2_vertex_alpha_shared": {
+    "255": 41337
+   },
+   "ps2_vertex_alpha_all": {
+    "255": 92148
+   },
+   "examples": [
+    "TURshrub2 $alphatest() $shader(treeblend)",
+    "bigshrub $alphatest() $shader(treeblend)",
+    "greenBush $shader(treeblend) $alphatest()"
+   ]
+  },
+  "{\"noise_texture\": false, \"shader\": \"sign\"}": {
+   "pairs": 11116,
+   "pc_fields": {
+    "{\"flags\": \"00000101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 0, \"w24\": 3}": 10828,
+    "{\"flags\": \"00000101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 2, \"w18\": 0, \"w24\": 3}": 132,
+    "{\"flags\": \"00000001\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 0, \"w24\": 1}": 96,
+    "{\"flags\": \"00000101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 4, \"w18\": 0, \"w24\": 3}": 60
+   },
+   "pc_vertex_alpha": {
+    "255": 33348
+   },
+   "ps2_vertex_alpha_shared": {
+    "255": 33348
+   },
+   "ps2_vertex_alpha_all": {
+    "255": 43530
+   },
+   "examples": [
+    "MR Banner $shader(sign) $mip(1.0) ",
+    "bagoo $shader(sign)",
+    "banner $shader(sign)",
+    "go $shader(sign)"
+   ]
+  },
+  "{\"alphatest\": \"\", \"noise_texture\": false}": {
+   "pairs": 5805,
+   "pc_fields": {
+    "{\"flags\": \"01010101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 0, \"w24\": 3}": 4925,
+    "{\"flags\": \"01010101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 0, \"w18\": 0, \"w24\": 3}": 780,
+    "{\"flags\": \"00000101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 0, \"w24\": 3}": 100
+   },
+   "pc_vertex_alpha": {
+    "255": 17415
+   },
+   "ps2_vertex_alpha_shared": {
+    "255": 17415
+   },
+   "ps2_vertex_alpha_all": {
+    "255": 26805
+   },
+   "examples": [
+    "Treerow $alphatest() clamp(v) shader(tree)",
+    "fir $alphatest()",
+    "log branches $alphatest() shader(object)",
+    "wire fence $alphatest()"
+   ]
+  },
+  "{\"alphatest\": \"\", \"clamp\": \"uv\", \"noise_texture\": false, \"shader\": \"treeblend\"}": {
+   "pairs": 5243,
+   "pc_fields": {
+    "{\"flags\": \"01010101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 0, \"w18\": 0, \"w24\": 3}": 5243
+   },
+   "pc_vertex_alpha": {
+    "255": 15729
+   },
+   "ps2_vertex_alpha_shared": {
+    "255": 15729
+   },
+   "ps2_vertex_alpha_all": {
+    "255": 16440
+   },
+   "examples": [
+    " bush $alphatest() $clamp(uv) $shader(treeblend)",
+    "bush $alphatest() $clamp(uv) $shader(treeblend)"
+   ]
+  },
+  "{\"noise_texture\": false, \"shader\": \"ground\", \"surfacetype\": \"yes\"}": {
+   "pairs": 5232,
+   "pc_fields": {
+    "{\"flags\": \"00000101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 0, \"w24\": 3}": 5232
+   },
+   "pc_vertex_alpha": {
+    "255": 15696
+   },
+   "ps2_vertex_alpha_shared": {
+    "255": 15696
+   },
+   "ps2_vertex_alpha_all": {
+    "255": 23385
+   },
+   "examples": [
+    "$surfacetype(gravel) $shader(ground)",
+    "$surfacetype(tarmac) $shader(ground) $detail(none)"
+   ]
+  },
+  "{\"clamp\": \"v\", \"noise_texture\": true, \"shader\": \"ground\", \"surfacetype\": \"yes\"}": {
+   "pairs": 4929,
+   "pc_fields": {
+    "{\"flags\": \"00000101\", \"slot1\": \"Null\", \"slot2\": \"noise-tga\", \"slots\": 3, \"sorted\": false, \"w14\": 4, \"w18\": 0, \"w24\": 11}": 4911,
+    "{\"flags\": \"00000101\", \"slot1\": \"Null\", \"slot2\": \"noise-tga\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 0, \"w24\": 11}": 18
+   },
+   "pc_vertex_alpha": {
+    "255": 14787
+   },
+   "ps2_vertex_alpha_shared": {
+    "255": 14787
+   },
+   "ps2_vertex_alpha_all": {
+    "255": 18696
+   },
+   "examples": [
+    "$surfacetype(harddirt) $shader(ground) $clamp(v) $detail(none)Material #39Noise Pass",
+    "$surfacetype(tarmac) $shader(ground) $clamp(v) $detail(none)Material #3524Noise Pass",
+    "$surfacetype(tarmac) $shader(ground) $clamp(v) $detail(none)bridge blendNoise Pass",
+    "$surfacetype(tarmac) $shader(ground) $clamp(v) $detail(none)tarmac blendNoise Pass"
+   ]
+  },
+  "{\"clamp\": \"uv\", \"noise_texture\": true, \"shader\": \"ground\", \"surfacetype\": \"yes\"}": {
+   "pairs": 3530,
+   "pc_fields": {
+    "{\"flags\": \"00000101\", \"slot1\": \"Null\", \"slot2\": \"noise-tga\", \"slots\": 3, \"sorted\": false, \"w14\": 0, \"w18\": 0, \"w24\": 11}": 3506,
+    "{\"flags\": \"00000101\", \"slot1\": \"Null\", \"slot2\": \"noise-tga\", \"slots\": 3, \"sorted\": false, \"w14\": 4, \"w18\": 0, \"w24\": 11}": 24
+   },
+   "pc_vertex_alpha": {
+    "255": 10590
+   },
+   "ps2_vertex_alpha_shared": {
+    "255": 10590
+   },
+   "ps2_vertex_alpha_all": {
+    "255": 12408
+   },
+   "examples": [
+    "$surfacetype(gravel) $shader(ground) $clamp(uv)$grndu:50:grass_hard:dirt_hardNoise Pass",
+    "$surfacetype(harddirt) $clamp(uv) $shader(ground) $detail(grass)$grnd(grass)Noise Pass",
+    "$surfacetype(harddirt) $clamp(uv) $shader(ground) $detail(grass)$grnd(gravel)Noise Pass",
+    "$surfacetype(tarmac) $clamp(uv) $shader(ground) $detail(none)$grnd(tarmac)Noise Pass"
+   ]
+  },
+  "{\"noise_texture\": false, \"shader\": \"tree\"}": {
+   "pairs": 3156,
+   "pc_fields": {
+    "{\"flags\": \"00000101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 0, \"w24\": 3}": 2984,
+    "{\"flags\": \"01000101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": true, \"w14\": 1, \"w18\": 0, \"w24\": 3}": 108,
+    "{\"flags\": \"01000101\", \"slot1\": \"aluminium-tga\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": true, \"w14\": 1, \"w18\": 0, \"w24\": 7}": 64
+   },
+   "pc_vertex_alpha": {
+    "255": 9468
+   },
+   "ps2_vertex_alpha_shared": {
+    "255": 9468
+   },
+   "ps2_vertex_alpha_all": {
+    "255": 10380
+   },
+   "examples": [
+    "Post $shader(tree)",
+    "fence $shader(tree)",
+    "fence $shader(tree) ",
+    "lighthose B $shader(tree)"
+   ]
+  },
+  "{\"noise_texture\": false, \"shader\": \"waterfall\"}": {
+   "pairs": 1255,
+   "pc_fields": {
+    "{\"flags\": \"01000001\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 2, \"w24\": 1}": 1087,
+    "{\"flags\": \"01000101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": true, \"w14\": 1, \"w18\": 2, \"w24\": 3}": 84,
+    "{\"flags\": \"01000101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 2, \"w24\": 3}": 84
+   },
+   "pc_vertex_alpha": {
+    "255": 3765
+   },
+   "ps2_vertex_alpha_shared": {
+    "255": 3765
+   },
+   "ps2_vertex_alpha_all": {
+    "255": 4005
+   },
+   "examples": [
+    "$shader(waterfall) $scroll(v,+1)"
+   ]
+  },
+  "{\"noise_texture\": false, \"shader\": \"wires\"}": {
+   "pairs": 1063,
+   "pc_fields": {
+    "{\"flags\": \"01000101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": true, \"w14\": 1, \"w18\": 0, \"w24\": 3}": 835,
+    "{\"flags\": \"01000001\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": true, \"w14\": 1, \"w18\": 0, \"w24\": 1}": 228
+   },
+   "pc_vertex_alpha": {
+    "255": 3189
+   },
+   "ps2_vertex_alpha_shared": {
+    "255": 3189
+   },
+   "ps2_vertex_alpha_all": {
+    "255": 4206
+   },
+   "examples": [
+    "newbarb $shader(wires)",
+    "trainsign1 $shader(wires)",
+    "wires $shader(wires)"
+   ]
+  },
+  "{\"clamp\": \"uv\", \"noise_texture\": false, \"shader\": \"object\"}": {
+   "pairs": 907,
+   "pc_fields": {
+    "{\"flags\": \"00000101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 0, \"w18\": 0, \"w24\": 3}": 907
+   },
+   "pc_vertex_alpha": {
+    "255": 2721
+   },
+   "ps2_vertex_alpha_shared": {
+    "255": 2721
+   },
+   "ps2_vertex_alpha_all": {
+    "255": 8172
+   },
+   "examples": [
+    "rustic Hut $clamp(uv) $shader(object)"
+   ]
+  },
+  "{\"alphablend\": \"\", \"noise_texture\": false, \"shader\": \"wire\"}": {
+   "pairs": 651,
+   "pc_fields": {
+    "{\"flags\": \"01000001\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": true, \"w14\": 1, \"w18\": 0, \"w24\": 1}": 651
+   },
+   "pc_vertex_alpha": {
+    "255": 1953
+   },
+   "ps2_vertex_alpha_shared": {
+    "255": 1953
+   },
+   "ps2_vertex_alpha_all": {
+    "255": 5856
+   },
+   "examples": [
+    "wires $alphablend() $shader(wire)",
+    "wires $alphablend() $shader(wire) "
+   ]
+  },
+  "{\"clamp\": \"v\", \"noise_texture\": false, \"shader\": \"object\"}": {
+   "pairs": 625,
+   "pc_fields": {
+    "{\"flags\": \"00000101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 4, \"w18\": 0, \"w24\": 3}": 625
+   },
+   "pc_vertex_alpha": {
+    "255": 1875
+   },
+   "ps2_vertex_alpha_shared": {
+    "255": 1875
+   },
+   "ps2_vertex_alpha_all": {
+    "255": 2424
+   },
+   "examples": [
+    "Material #78 $shader(object) $clamp(v)",
+    "map $clamp(v) $shader(object)",
+    "trees $shader(object) $clamp(v)"
+   ]
+  },
+  "{\"noise_texture\": false, \"shader\": \"signtest\"}": {
+   "pairs": 603,
+   "pc_fields": {
+    "{\"flags\": \"01000101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": true, \"w14\": 1, \"w18\": 0, \"w24\": 3}": 603
+   },
+   "pc_vertex_alpha": {
+    "255": 1809
+   },
+   "ps2_vertex_alpha_shared": {
+    "255": 1809
+   },
+   "ps2_vertex_alpha_all": {
+    "255": 2052
+   },
+   "examples": [
+    "trainsign $shader(signtest)"
+   ]
+  },
+  "{\"clamp\": \"u\", \"noise_texture\": false, \"shader\": \"sign\"}": {
+   "pairs": 446,
+   "pc_fields": {
+    "{\"flags\": \"00000101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 2, \"w18\": 0, \"w24\": 3}": 386,
+    "{\"flags\": \"00000101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 0, \"w24\": 3}": 60
+   },
+   "pc_vertex_alpha": {
+    "255": 1338
+   },
+   "ps2_vertex_alpha_shared": {
+    "255": 1338
+   },
+   "ps2_vertex_alpha_all": {
+    "255": 1680
+   },
+   "examples": [
+    "checks $shader(sign) $clamp(u)",
+    "checks $shader(sign) $mip(1.0) $clamp(u)"
+   ]
+  },
+  "{\"alphablend\": \"\", \"noise_texture\": false, \"shader\": \"wires\"}": {
+   "pairs": 360,
+   "pc_fields": {
+    "{\"flags\": \"01000001\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": true, \"w14\": 1, \"w18\": 0, \"w24\": 1}": 360
+   },
+   "pc_vertex_alpha": {
+    "255": 1080
+   },
+   "ps2_vertex_alpha_shared": {
+    "255": 1080
+   },
+   "ps2_vertex_alpha_all": {
+    "255": 3576
+   },
+   "examples": [
+    "wires  $shader(wires) $alphablend() ",
+    "wires $alphablend() $shader(wires)",
+    "wires $alphablend() $shader(wires) "
+   ]
+  },
+  "{\"alphatest\": \"\", \"noise_texture\": false, \"shader\": \"wires\"}": {
+   "pairs": 304,
+   "pc_fields": {
+    "{\"flags\": \"01000001\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": true, \"w14\": 1, \"w18\": 0, \"w24\": 1}": 304
+   },
+   "pc_vertex_alpha": {
+    "255": 912
+   },
+   "ps2_vertex_alpha_shared": {
+    "255": 912
+   },
+   "ps2_vertex_alpha_all": {
+    "255": 5850
+   },
+   "examples": [
+    "newbarb $shader(wires) $alphatest()",
+    "wires  $shader(wires) $alphatest() "
+   ]
+  },
+  "{\"noise_texture\": true, \"shader\": \"ground\"}": {
+   "pairs": 272,
+   "pc_fields": {
+    "{\"flags\": \"00000101\", \"slot1\": \"Null\", \"slot2\": \"noise-tga\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 0, \"w24\": 11}": 272
+   },
+   "pc_vertex_alpha": {
+    "255": 816
+   },
+   "ps2_vertex_alpha_shared": {
+    "255": 816
+   },
+   "ps2_vertex_alpha_all": {
+    "255": 1422
+   },
+   "examples": [
+    "surfacetype(harddirt) $shader(ground) $detail(none)$grnd:dirt_hardNoise Pass"
+   ]
+  },
+  "{\"clamp\": \"u\", \"noise_texture\": false, \"shader\": \"wires\"}": {
+   "pairs": 128,
+   "pc_fields": {
+    "{\"flags\": \"01000101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": true, \"w14\": 2, \"w18\": 0, \"w24\": 3}": 128
+   },
+   "pc_vertex_alpha": {
+    "255": 384
+   },
+   "ps2_vertex_alpha_shared": {
+    "255": 384
+   },
+   "ps2_vertex_alpha_all": {
+    "255": 456
+   },
+   "examples": [
+    "francewires $clamp(u) $shader(wires)"
+   ]
+  },
+  "{\"alphatest\": \"\", \"noise_texture\": false, \"shader\": \"metal\"}": {
+   "pairs": 84,
+   "pc_fields": {
+    "{\"flags\": \"01010101\", \"slot1\": \"aluminium-tga\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 0, \"w24\": 7}": 84
+   },
+   "pc_vertex_alpha": {
+    "255": 252
+   },
+   "ps2_vertex_alpha_shared": {
+    "255": 252
+   },
+   "ps2_vertex_alpha_all": {
+    "255": 300
+   },
+   "examples": [
+    "streetlamp $alphatest() $shader(metal)"
+   ]
+  },
+  "{\"noise_texture\": false, \"shader\": \"waterall\"}": {
+   "pairs": 84,
+   "pc_fields": {
+    "{\"flags\": \"01000101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 2, \"w24\": 3}": 84
+   },
+   "pc_vertex_alpha": {
+    "255": 252
+   },
+   "ps2_vertex_alpha_shared": {
+    "255": 252
+   },
+   "ps2_vertex_alpha_all": {
+    "255": 288
+   },
+   "examples": [
+    "$shader(waterall) $scroll(v,+1)"
+   ]
+  },
+  "{\"noise_texture\": false, \"shader\": \"wire\"}": {
+   "pairs": 64,
+   "pc_fields": {
+    "{\"flags\": \"01000001\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": true, \"w14\": 1, \"w18\": 0, \"w24\": 1}": 64
+   },
+   "pc_vertex_alpha": {
+    "255": 192
+   },
+   "ps2_vertex_alpha_shared": {
+    "255": 192
+   },
+   "ps2_vertex_alpha_all": {
+    "255": 564
+   },
+   "examples": [
+    "telegraph wires $shader(wire)"
+   ]
+  },
+  "{\"noise_texture\": false, \"shader\": \"glass\"}": {
+   "pairs": 53,
+   "pc_fields": {
+    "{\"flags\": \"01000101\", \"slot1\": \"glass-tga\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": true, \"w14\": 1, \"w18\": 0, \"w24\": 7}": 53
+   },
+   "pc_vertex_alpha": {
+    "255": 159
+   },
+   "ps2_vertex_alpha_shared": {
+    "255": 159
+   },
+   "ps2_vertex_alpha_all": {
+    "255": 204
+   },
+   "examples": [
+    "shades $shader(glass)"
+   ]
+  },
+  "{\"alphablend\": \"\", \"clamp\": \"v\", \"noise_texture\": false, \"shader\": \"wires\"}": {
+   "pairs": 52,
+   "pc_fields": {
+    "{\"flags\": \"01000001\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": true, \"w14\": 1, \"w18\": 0, \"w24\": 1}": 52
+   },
+   "pc_vertex_alpha": {
+    "255": 156
+   },
+   "ps2_vertex_alpha_shared": {
+    "255": 156
+   },
+   "ps2_vertex_alpha_all": {
+    "255": 564
+   },
+   "examples": [
+    "telegraphwires $alphablend() $shader(wires) $clamp(v)"
+   ]
+  },
+  "{\"alphatest\": \"\", \"noise_texture\": false, \"shader\": \"ground\"}": {
+   "pairs": 28,
+   "pc_fields": {
+    "{\"flags\": \"01010101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 0, \"w24\": 3}": 28
+   },
+   "pc_vertex_alpha": {
+    "255": 84
+   },
+   "ps2_vertex_alpha_shared": {
+    "255": 84
+   },
+   "ps2_vertex_alpha_all": {
+    "255": 84
+   },
+   "examples": [
+    "Tent01 $alphatest() $shader(ground)"
+   ]
+  },
+  "{\"alphatest\": \"\", \"noise_texture\": false, \"shader\": \"object\"}": {
+   "pairs": 20,
+   "pc_fields": {
+    "{\"flags\": \"01010101\", \"slot1\": \"Null\", \"slot2\": \"Null\", \"slots\": 3, \"sorted\": false, \"w14\": 1, \"w18\": 0, \"w24\": 3}": 20
+   },
+   "pc_vertex_alpha": {
+    "255": 60
+   },
+   "ps2_vertex_alpha_shared": {
+    "255": 60
+   },
+   "ps2_vertex_alpha_all": {
+    "255": 138
+   },
+   "examples": [
+    "CARAVAN_ALPHA $shader(object) $alphatest()",
+    "Tent02 $alphatest() $shader(object)",
+    "Tent04 $alphatest() $shader(object)"
+   ]
+  }
+ }
+}
