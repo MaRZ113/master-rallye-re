@@ -63,7 +63,7 @@ def source_triangles_ext(scene, mesh):
             # PS2 vertex word at +16 holds bytes (A, c1, c2, c3); the PC course DX colour is (c1, c2, c3, 255) for the same vertex
             # (48,406 exact-position pairs in Turkey3: same value within 1, no x2 scaling), so the tint is copied as is.
             col = tuple(bytes(scene.payload[32 + i * 52 + 17:32 + i * 52 + 20]) + bytes([255]) for i in idx)
-            aux = tuple(struct.unpack_from('<2f', scene.payload, 32 + i * 52 + 28) for i in idx)  # unexplained pair at +28/+32 (HYPOTHESIS: PS2 noise UV)
+            aux = tuple(struct.unpack_from('<2f', scene.payload, 32 + i * 52 + 28) for i in idx)  # noise UV: PC noise UV = this + 0.5 modulo 1 (course-port/ps2_mesh.noise_uv)
             out.append((pos, uv, col, aux))
     return out
 

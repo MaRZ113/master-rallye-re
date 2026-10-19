@@ -112,12 +112,33 @@ class Turkey3Build(unittest.TestCase):
                     uv = [r.uv_sets[0][d.vertex_base + r.indices[k + j]] for j in range(3)]
                     signs.add((uv[1][0] - uv[0][0]) * (uv[2][1] - uv[0][1]) - (uv[1][1] - uv[0][1]) * (uv[2][0] - uv[0][0]) < 0)
         self.assertEqual(signs, {True})
-        # a triangle without PC noise UV must not take the noise layer away from the rest of its mesh: the local mode
-        # gives exactly the dropped triangles a noise UV and leaves the PC-vertex ones alone
-        _, _, loc = br.build(course, course.pc_dx.read_bytes(), 'local')
-        self.assertEqual(loc.get('tri_noise_uv_pc_vertex'), rep.get('tri_noise_uv_pc_vertex'))
-        self.assertEqual(loc.get('tri_noise_uv_local_plane_EXPERIMENTAL', 0), rep.get('tri_noise_dropped_no_pc_uv', 0))
-
+        # default noise mode 'ps2': every PS2-only noise triangle gets the PS2 noise UV, none is dropped, and on the shared vertices it equals
+        # the PC noise UV modulo 1
+        self.assertGreater(rep.get('tri_noise_uv_ps2', 0), 0)
+        self.assertEqual(rep.get('tri_noise_dropped_no_pc_uv', 0), 0)
+        import math
+        import ps2_mesh
+        import material_map as mm
+        b = br.Builder(course)
+        checked = 0
+        for m in b.scene.meshes:
+            if not any('noise' in br.tex_stem(t['name']).lower() for t in m['textures']):
+                continue
+            for idx in ps2_mesh.mesh_triangles(b.scene, m)[:50]:
+                hit = b.pc_tris.get(mm.key([b.scene.position(i) for i in idx]))
+                if not hit or len(hit[2]) < 3 or hit[2][2] != 'noise-tga':
+                    continue
+                pc = {tuple(round(c, 3) for c in b.pc.positions[v]): b.pc.uv_sets[1][v] for v in hit[1]}
+                for i in idx:
+                    u = pc.get(tuple(round(c, 3) for c in b.scene.position(i)))
+                    if u is None:
+                        continue
+                    n = ps2_mesh.noise_uv(b.payload, i)
+                    for k in range(2):
+                        d = (u[k] - n[k]) % 1.0
+                        self.assertLess(min(d, 1 - d), 1e-3)
+                    checked += 1
+        self.assertGreater(checked, 1000)
 
 if __name__ == '__main__':
     unittest.main()

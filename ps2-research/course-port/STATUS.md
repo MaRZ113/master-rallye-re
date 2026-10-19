@@ -34,8 +34,8 @@ Turkey3 v1 (`research-output\course-port-turkey3-v1`, README there), optionally 
 - tag1339 max y and radius rule, the sector polygon rule and three tag1500 constants are not decoded. They stay as in retail, which is consistent
   because the batch partition is kept.
 - Plane codes are valid but their physical meaning is unknown. Surface types come from tag1400, whose engine use is not reversed.
-- Without the experimental noise UV, part of the PS2 ground has no noise layer: 155,159 triangles over the 36 courses (Turkey3: 3,848). The
-  `--noise local` variant is the candidate fix and needs a game A/B first.
+- Noise layer: PS2-only ground takes the PS2 noise UV (vertex pair +28 plus 0.5, equal to PC modulo 1 on 36 courses), so no triangle loses
+  the layer any more (`../track-render1/GAME-TEST-1.md`, fifth test).
 - PS2 triangles outside every PC sector are drawn from the root (always drawn, as PC does). Mostly a few hundred per course, but ~3,500 on
   Spain2, SpainM, SpainS1 (+flip) and ~1,900 on SpainW (+flip), up to 298 units outside. The cost on frame time is unknown.
 - Draw counts 465 to 1,532 and up to 79,879 vertices per course, inside the retail ranges (367 to 1,558 draws, 87,479 vertices).

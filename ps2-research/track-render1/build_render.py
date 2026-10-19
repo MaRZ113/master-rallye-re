@@ -8,9 +8,10 @@ Every triangle of every drawn PS2 landscape mesh becomes a triangle of the PC co
   * otherwise PS2 attributes: position, normal (+0), colour = PS2 bytes (+17, +18, +19, +16), UV (+20) with V flipped; corner order such that
     (b - a) x (c - a) points against the vertex normals (the PC convention on 96.6 percent of the shared triangles; matched ones keep the PC order);
     draw fields from a PC draw with the same texture tuple and directive group, else from the directive rule table (NOTES.md, material-map-36.json).
-Noise UV (second set) for ground triangles that use noise-tga and are not matched: per vertex the PC noise UV of a PC noise-draw vertex at the same
-position; if a vertex has none the triangle goes to a noise-less ground draw (the PC "ground without noise" fields) unless --noise local
-(EXPERIMENTAL: the planar XZ map of the nearest PC noise triangle, exact modulo 1 on held-out PC vertices). Non-noise draws have a zero second UV set (as PC).
+Noise UV (second set) for ground triangles that use noise-tga and are not matched: the PS2 vertex pair at +28 plus 0.5 (`--noise ps2`, default;
+equal to the PC noise UV modulo 1 on every shared vertex of 36 courses, ps2_mesh.noise_uv). Older modes: `plain` takes the PC noise UV of a PC
+vertex at the same position and drops the noise layer otherwise; `local` fits the planar map of the nearest PC noise triangle. Non-noise draws
+have a zero second UV set (as PC).
 Batches: the PC batch / sector partition is kept; each triangle goes to the batch whose tag1500 sector polygon contains its XZ centroid. A
 triangle outside every sector polygon goes to the root record (always drawn), which is where PC keeps exactly such triangles; PC root triangles
 stay in the root. Alpha-blended groups are wrapped in a tag-5 sphere and a tag-6 sort tree built from polygon planes.
@@ -150,7 +151,7 @@ def draw_fields(d):
 
 # ------------------------------------------------------------------ builder
 class Builder:
-    def __init__(self, course, noise_mode='plain', two_sided_mode='all'):
+    def __init__(self, course, noise_mode='ps2', two_sided_mode='all'):
         self.course = course
         self.noise_mode = noise_mode
         self.two_sided_mode = two_sided_mode
@@ -282,7 +283,8 @@ class Builder:
             group_two_sided, why0 = two_sided_rule(mat, m['textures'], self.orientation)
             is_ground = '$shader(ground)' in mat.lower() or '$surfacetype' in mat
             for idx in ps2_mesh_triangles(self.scene, m):
-                verts = [ps2_vertex(self.payload, i) for i in ps2_mesh.pc_order(self.payload, idx)]
+                order_idx = ps2_mesh.pc_order(self.payload, idx)
+                verts = [ps2_vertex(self.payload, i) for i in order_idx]
                 pos = [v[0] for v in verts]
                 k = mm.key(pos)
                 two_sided, why = group_two_sided, why0
@@ -325,7 +327,10 @@ class Builder:
                 tri_noise = noise            # per triangle: a triangle without noise UV must not change the mesh flag
                 tt_ = (base, slot1 or 'Null', 'noise-tga' if tri_noise else 'Null')
                 uv1 = [(0.0, 0.0)] * 3
-                if tri_noise:
+                if tri_noise and self.noise_mode == 'ps2':
+                    uv1 = [ps2_mesh.noise_uv(self.payload, i) for i in order_idx]
+                    self.report['tri_noise_uv_ps2'] += 1
+                elif tri_noise:
                     got = [self.pc_noise_uv.get(tuple(round(c, 3) for c in v[0])) for v in verts]
                     if all(g is not None for g in got):
                         uv1 = got
@@ -549,7 +554,7 @@ def widen_1339(tag1339, positions):
     return struct.pack('<I10f', *v), changed
 
 
-def build(course, suffix_dx, noise_mode='plain', two_sided_mode='all'):
+def build(course, suffix_dx, noise_mode='ps2', two_sided_mode='all'):
     b = Builder(course, noise_mode, two_sided_mode)
     render = b.build()
     sl = extract_tag100_from_dx_bytes(suffix_dx, 'suffix')
@@ -591,7 +596,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--course', required=True)
     ap.add_argument('--suffix-from', type=Path, required=True, help='course DX whose tag100-starting suffix is used (W1 build)')
-    ap.add_argument('--noise', choices=('plain', 'local'), default='plain', help="'local' = EXPERIMENTAL noise UV from the nearest PC noise triangle's XZ map")
+    ap.add_argument('--noise', choices=('ps2', 'plain', 'local'), default='ps2', help="'local' = EXPERIMENTAL noise UV from the nearest PC noise triangle's XZ map")
     ap.add_argument('--out', type=Path, required=True)
     a = ap.parse_args()
     course = cc.course(a.course)

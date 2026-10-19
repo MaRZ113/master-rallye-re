@@ -1,7 +1,7 @@
 """PS2 landscape mesh access shared by the collision (W1) and render (W2) builders.
 
 Vertex record (52 bytes, at 32 + 52 * i in the landscape PSM): normal (+0, 3 f32), colour word (+16: bytes A, c1, c2, c3), UV (+20, 2 f32),
-an unexplained f32 pair (+28), position (+36, 3 f32).
+the noise UV (+28, 2 f32; see noise_uv), position (+36, 3 f32).
 UV: the PC course uses the PS2 UV as is. On every PC/PS2 shared vertex of Turkey3 the PC UV equals the raw PS2 UV, not 1 - v; PC DXT rows are
 bottom-up and the GXI rows top-down, so a converted PS2 texture is written with its rows flipped (convert_gxi_rows).
 Corner order: PS2 draws without back-face culling, so its strip order does not tell the visible side. PC stores a single-sided triangle with its
@@ -25,6 +25,14 @@ def vertex(payload, i):
     col = bytes(payload[b + 17:b + 20]) + bytes([payload[b + 16]])
     uv = struct.unpack_from('<2f', payload, b + 20)
     return pos, nrm, col, uv
+
+
+def noise_uv(payload, i):
+    """PC noise UV (second UV set) of a PS2 vertex: the pair at +28 plus 0.5. On 36 courses every PC noise vertex of a triangle shared with
+    PS2 (1,711,740 vertices, 570,580 triangles) equals this modulo 1, with one integer offset per triangle; the noise texture wraps, so the
+    integer part does not change the image."""
+    u, v = struct.unpack_from('<2f', payload, 32 + 52 * i + 28)
+    return (u + 0.5, v + 0.5)
 
 
 def mesh_triangles(scene, mesh):

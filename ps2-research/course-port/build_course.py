@@ -37,7 +37,7 @@ def write_logic(course, out_root):
     return rep
 
 
-def package(course, out_root, noise='plain', step=12.0, points=50000, logic=True):
+def package(course, out_root, noise='ps2', step=12.0, points=50000, logic=True):
     t0 = time.time()
     coll_dx, _, coll_rep = bc.build(course, 'ps2')
     data, textures, render_rep = br.build(course, coll_dx, noise, 'all')
@@ -81,7 +81,7 @@ def main():
     ap.add_argument('--course')
     ap.add_argument('--all', action='store_true')
     ap.add_argument('--out', type=Path, required=True)
-    ap.add_argument('--noise', choices=('plain', 'local'), default='plain')
+    ap.add_argument('--noise', choices=('ps2', 'plain', 'local'), default='ps2')
     ap.add_argument('--summary', type=Path)
     ap.add_argument('--no-logic', action='store_true')
     ap.add_argument('--xml-only', action='store_true')

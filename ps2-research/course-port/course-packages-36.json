@@ -9,12 +9,13 @@
    "tag100_round_trip": true,
    "no_negative_codes": true,
    "within_retail_vertex_and_index_range": true,
-   "surface_records_face_down": true
+   "surface_records_face_down": true,
+   "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 47.2,
-  "draws": 923,
-  "vertices": 61446,
+  "seconds": 58.1,
+  "draws": 706,
+  "vertices": 61435,
   "indices": 173349,
   "two_sided": {
    "tri_two_sided_steep_ground_all": 1578,
@@ -26,7 +27,7 @@
   "alpha_fields": {},
   "root_outside_sectors": 99,
   "root_outside_sectors_max_distance": 112.51,
-  "noise_dropped": 3931,
+  "noise_dropped": 0,
   "ps2_textures": [
    "michelin-tga",
    "neu pinerow-tga",
@@ -43,12 +44,13 @@
    "tag100_round_trip": true,
    "no_negative_codes": true,
    "within_retail_vertex_and_index_range": true,
-   "surface_records_face_down": true
+   "surface_records_face_down": true,
+   "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 44.4,
-  "draws": 1026,
-  "vertices": 73672,
+  "seconds": 58.9,
+  "draws": 785,
+  "vertices": 73554,
   "indices": 203490,
   "two_sided": {
    "tri_two_sided_steep_ground_all": 2167,
@@ -60,7 +62,7 @@
   "alpha_fields": {},
   "root_outside_sectors": 239,
   "root_outside_sectors_max_distance": 78.98,
-  "noise_dropped": 3656,
+  "noise_dropped": 0,
   "ps2_textures": [
    "neu pinerow-tga",
    "singtree02-tga"
@@ -76,12 +78,13 @@
    "tag100_round_trip": true,
    "no_negative_codes": true,
    "within_retail_vertex_and_index_range": true,
-   "surface_records_face_down": true
+   "surface_records_face_down": true,
+   "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 50.3,
-  "draws": 1164,
-  "vertices": 72032,
+  "seconds": 58.5,
+  "draws": 953,
+  "vertices": 72173,
   "indices": 201660,
   "two_sided": {
    "tri_two_sided_object_all": 6010,
@@ -93,7 +96,7 @@
   "alpha_fields": {},
   "root_outside_sectors": 390,
   "root_outside_sectors_max_distance": 216.53,
-  "noise_dropped": 5082,
+  "noise_dropped": 0,
   "ps2_textures": [
    "neu pinerow-tga",
    "singtree02-tga"
@@ -109,12 +112,13 @@
    "tag100_round_trip": true,
    "no_negative_codes": true,
    "within_retail_vertex_and_index_range": true,
-   "surface_records_face_down": true
+   "surface_records_face_down": true,
+   "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 46.9,
-  "draws": 1038,
-  "vertices": 63038,
+  "seconds": 48.2,
+  "draws": 804,
+  "vertices": 62961,
   "indices": 180360,
   "two_sided": {
    "tri_two_sided_object_all": 4774,
@@ -126,7 +130,7 @@
   "alpha_fields": {},
   "root_outside_sectors": 0,
   "root_outside_sectors_max_distance": 0,
-  "noise_dropped": 2840,
+  "noise_dropped": 0,
   "ps2_textures": [
    "neu pinerow-tga",
    "singtree02-tga"
@@ -142,12 +146,13 @@
    "tag100_round_trip": true,
    "no_negative_codes": true,
    "within_retail_vertex_and_index_range": true,
-   "surface_records_face_down": true
+   "surface_records_face_down": true,
+   "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 47.5,
-  "draws": 1125,
-  "vertices": 76726,
+  "seconds": 48.2,
+  "draws": 855,
+  "vertices": 76500,
   "indices": 206982,
   "two_sided": {
    "tri_two_sided_object_all": 7398,
@@ -159,7 +164,7 @@
   "alpha_fields": {},
   "root_outside_sectors": 70,
   "root_outside_sectors_max_distance": 80.18,
-  "noise_dropped": 5052,
+  "noise_dropped": 0,
   "ps2_textures": [
    "neu pinerow-tga",
    "singtree02-tga"
@@ -175,12 +180,13 @@
    "tag100_round_trip": true,
    "no_negative_codes": true,
    "within_retail_vertex_and_index_range": true,
-   "surface_records_face_down": true
+   "surface_records_face_down": true,
+   "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 49.7,
-  "draws": 970,
-  "vertices": 70459,
+  "seconds": 50.0,
+  "draws": 688,
+  "vertices": 70200,
   "indices": 195603,
   "two_sided": {
    "tri_two_sided_object_all": 4848,
@@ -192,7 +198,7 @@
   "alpha_fields": {},
   "root_outside_sectors": 352,
   "root_outside_sectors_max_distance": 213.81,
-  "noise_dropped": 4724,
+  "noise_dropped": 0,
   "ps2_textures": [
    "neu pinerow-tga",
    "singtree02-tga"
@@ -208,12 +214,13 @@
    "tag100_round_trip": true,
    "no_negative_codes": true,
    "within_retail_vertex_and_index_range": true,
-   "surface_records_face_down": true
+   "surface_records_face_down": true,
+   "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 48.6,
-  "draws": 931,
-  "vertices": 69556,
+  "seconds": 50.1,
+  "draws": 689,
+  "vertices": 69401,
   "indices": 195693,
   "two_sided": {
    "tri_two_sided_object_all": 4848,
@@ -225,7 +232,7 @@
   "alpha_fields": {},
   "root_outside_sectors": 364,
   "root_outside_sectors_max_distance": 213.81,
-  "noise_dropped": 3224,
+  "noise_dropped": 0,
   "ps2_textures": [
    "neu pinerow-tga",
    "singtree02-tga"
@@ -241,12 +248,13 @@
    "tag100_round_trip": true,
    "no_negative_codes": true,
    "within_retail_vertex_and_index_range": true,
-   "surface_records_face_down": true
+   "surface_records_face_down": true,
+   "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
   "seconds": 38.9,
-  "draws": 868,
-  "vertices": 55473,
+  "draws": 638,
+  "vertices": 55509,
   "indices": 149988,
   "two_sided": {
    "tri_two_sided_object_all": 9233,
@@ -258,7 +266,7 @@
   "alpha_fields": {},
   "root_outside_sectors": 1265,
   "root_outside_sectors_max_distance": 163.66,
-  "noise_dropped": 5099,
+  "noise_dropped": 0,
   "ps2_textures": [
    "pinus-tga",
    "roof-tga"
@@ -274,12 +282,13 @@
    "tag100_round_trip": true,
    "no_negative_codes": true,
    "within_retail_vertex_and_index_range": true,
-   "surface_records_face_down": true
+   "surface_records_face_down": true,
+   "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 37.7,
-  "draws": 1030,
-  "vertices": 68011,
+  "seconds": 36.1,
+  "draws": 821,
+  "vertices": 68050,
   "indices": 199947,
   "two_sided": {
    "tri_two_sided_measured": 5200,
@@ -291,7 +300,7 @@
   "alpha_fields": {},
   "root_outside_sectors": 50,
   "root_outside_sectors_max_distance": 43.78,
-  "noise_dropped": 1861,
+  "noise_dropped": 0,
   "ps2_textures": [
    "pinus-tga"
   ]
@@ -306,12 +315,13 @@
    "tag100_round_trip": true,
    "no_negative_codes": true,
    "within_retail_vertex_and_index_range": true,
-   "surface_records_face_down": true
+   "surface_records_face_down": true,
+   "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 41.7,
-  "draws": 794,
-  "vertices": 52158,
+  "seconds": 40.0,
+  "draws": 576,
+  "vertices": 51956,
   "indices": 144753,
   "two_sided": {
    "tri_two_sided_measured": 8341,
@@ -323,7 +333,7 @@
   "alpha_fields": {},
   "root_outside_sectors": 85,
   "root_outside_sectors_max_distance": 122.46,
-  "noise_dropped": 3294,
+  "noise_dropped": 0,
   "ps2_textures": [
    "pinus-tga",
    "pinus2-tga"
@@ -339,12 +349,13 @@
    "tag100_round_trip": true,
    "no_negative_codes": true,
    "within_retail_vertex_and_index_range": true,
-   "surface_records_face_down": true
+   "surface_records_face_down": true,
+   "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 47.3,
-  "draws": 1287,
-  "vertices": 74637,
+  "seconds": 43.5,
+  "draws": 976,
+  "vertices": 74455,
   "indices": 202968,
   "two_sided": {
    "tri_two_sided_steep_ground_all": 2806,
@@ -356,7 +367,7 @@
   "alpha_fields": {},
   "root_outside_sectors": 216,
   "root_outside_sectors_max_distance": 142.66,
-  "noise_dropped": 2736,
+  "noise_dropped": 0,
   "ps2_textures": [
    "pinus-tga"
   ]
@@ -371,12 +382,13 @@
    "tag100_round_trip": true,
    "no_negative_codes": true,
    "within_retail_vertex_and_index_range": true,
-   "surface_records_face_down": true
+   "surface_records_face_down": true,
+   "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 47.6,
-  "draws": 1288,
-  "vertices": 74630,
+  "seconds": 44.1,
+  "draws": 977,
+  "vertices": 74438,
   "indices": 203010,
   "two_sided": {
    "tri_two_sided_steep_ground_all": 2806,
@@ -388,7 +400,7 @@
   "alpha_fields": {},
   "root_outside_sectors": 226,
   "root_outside_sectors_max_distance": 142.66,
-  "noise_dropped": 2708,
+  "noise_dropped": 0,
   "ps2_textures": [
    "pinus-tga"
   ]
@@ -403,12 +415,13 @@
    "tag100_round_trip": true,
    "no_negative_codes": true,
    "within_retail_vertex_and_index_range": true,
-   "surface_records_face_down": true
+   "surface_records_face_down": true,
+   "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 51.2,
-  "draws": 1509,
-  "vertices": 78180,
+  "seconds": 47.1,
+  "draws": 966,
+  "vertices": 77565,
   "indices": 201867,
   "two_sided": {
    "tri_two_sided_steep_ground_all": 1544,
@@ -420,7 +433,7 @@
   "alpha_fields": {},
   "root_outside_sectors": 65,
   "root_outside_sectors_max_distance": 48.83,
-  "noise_dropped": 12059,
+  "noise_dropped": 0,
   "ps2_textures": [
    "pinus-tga",
    "pinus2-tga"
@@ -436,12 +449,13 @@
    "tag100_round_trip": true,
    "no_negative_codes": true,
    "within_retail_vertex_and_index_range": true,
-   "surface_records_face_down": true
+   "surface_records_face_down": true,
+   "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 39.8,
-  "draws": 1000,
-  "vertices": 63684,
+  "seconds": 35.8,
+  "draws": 759,
+  "vertices": 63586,
   "indices": 180282,
   "two_sided": {
    "tri_two_sided_steep_ground_all": 2042,
@@ -453,7 +467,7 @@
   "alpha_fields": {},
   "root_outside_sectors": 21,
   "root_outside_sectors_max_distance": 22.96,
-  "noise_dropped": 2149,
+  "noise_dropped": 0,
   "ps2_textures": [
    "pinus-tga"
   ]
@@ -468,12 +482,13 @@
    "tag100_round_trip": true,
    "no_negative_codes": true,
    "within_retail_vertex_and_index_range": true,
-   "surface_records_face_down": true
+   "surface_records_face_down": true,
+   "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 44.1,
-  "draws": 1400,
-  "vertices": 72816,
+  "seconds": 42.7,
+  "draws": 1001,
+  "vertices": 72762,
   "indices": 200112,
   "two_sided": {
    "tri_two_sided_steep_ground_all": 2535,
@@ -485,7 +500,7 @@
   "alpha_fields": {},
   "root_outside_sectors": 121,
   "root_outside_sectors_max_distance": 49.35,
-  "noise_dropped": 4238,
+  "noise_dropped": 0,
   "ps2_textures": [
    "pinus-tga"
   ]
@@ -500,12 +515,13 @@
    "tag100_round_trip": true,
    "no_negative_codes": true,
    "within_retail_vertex_and_index_range": true,
-   "surface_records_face_down": true
+   "surface_records_face_down": true,
+   "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 47.4,
-  "draws": 1128,
-  "vertices": 67357,
+  "seconds": 42.5,
+  "draws": 832,
+  "vertices": 67559,
   "indices": 187596,
   "two_sided": {
    "tri_two_sided_steep_ground_all": 1825,
@@ -517,7 +533,7 @@
   "alpha_fields": {},
   "root_outside_sectors": 99,
   "root_outside_sectors_max_distance": 127.06,
-  "noise_dropped": 6813,
+  "noise_dropped": 0,
   "ps2_textures": [
    "pinus-tga",
    "pinus2-tga"
@@ -533,12 +549,13 @@
    "tag100_round_trip": true,
    "no_negative_codes": true,
    "within_retail_vertex_and_index_range": true,
-   "surface_records_face_down": true
+   "surface_records_face_down": true,
+   "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 45.8,
-  "draws": 1128,
-  "vertices": 67654,
+  "seconds": 42.3,
+  "draws": 831,
+  "vertices": 67804,
   "indices": 188076,
   "two_sided": {
    "tri_two_sided_steep_ground_all": 1825,
@@ -550,7 +567,7 @@
   "alpha_fields": {},
   "root_outside_sectors": 99,
   "root_outside_sectors_max_distance": 127.06,
-  "noise_dropped": 6853,
+  "noise_dropped": 0,
   "ps2_textures": [
    "pinus-tga",
    "pinus2-tga"
@@ -566,12 +583,13 @@
    "tag100_round_trip": true,
    "no_negative_codes": true,
    "within_retail_vertex_and_index_range": true,
-   "surface_records_face_down": true
+   "surface_records_face_down": true,
+   "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 51.6,
-  "draws": 1233,
-  "vertices": 70361,
+  "seconds": 46.5,
+  "draws": 879,
+  "vertices": 70182,
   "indices": 195087,
   "two_sided": {
    "tri_two_sided_measured": 8156,
@@ -583,7 +601,7 @@
   "alpha_fields": {},
   "root_outside_sectors": 75,
   "root_outside_sectors_max_distance": 57.67,
-  "noise_dropped": 6538,
+  "noise_dropped": 0,
   "ps2_textures": [
    "pinus-tga",
    "pinus2-tga"
@@ -599,12 +617,13 @@
    "tag100_round_trip": true,
    "no_negative_codes": true,
    "within_retail_vertex_and_index_range": true,
-   "surface_records_face_down": true
+   "surface_records_face_down": true,
+   "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 44.6,
-  "draws": 1082,
-  "vertices": 64455,
+  "seconds": 39.2,
+  "draws": 850,
+  "vertices": 64448,
   "indices": 187320,
   "two_sided": {
    "tri_two_sided_object_all": 11872,
@@ -616,7 +635,7 @@
   "alpha_fields": {},
   "root_outside_sectors": 42,
   "root_outside_sectors_max_distance": 23.6,
-  "noise_dropped": 1953,
+  "noise_dropped": 0,
   "ps2_textures": [
    "pinus-tga"
   ]
@@ -631,12 +650,13 @@
    "tag100_round_trip": true,
    "no_negative_codes": true,
    "within_retail_vertex_and_index_range": true,
-   "surface_records_face_down": true
+   "surface_records_face_down": true,
+   "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 54.9,
-  "draws": 1130,
-  "vertices": 72325,
+  "seconds": 47.0,
+  "draws": 796,
+  "vertices": 72328,
   "indices": 202011,
   "two_sided": {
    "tri_two_sided_measured": 8021,
@@ -648,7 +668,7 @@
   "alpha_fields": {},
   "root_outside_sectors": 48,
   "root_outside_sectors_max_distance": 124.07,
-  "noise_dropped": 7012,
+  "noise_dropped": 0,
   "ps2_textures": [
    "pinus-tga",
    "pinus2-tga"
@@ -664,12 +684,13 @@
    "tag100_round_trip": true,
    "no_negative_codes": true,
    "within_retail_vertex_and_index_range": true,
-   "surface_records_face_down": true
+   "surface_records_face_down": true,
+   "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 37.0,
-  "draws": 467,
-  "vertices": 55210,
+  "seconds": 30.1,
+  "draws": 333,
+  "vertices": 55358,
   "indices": 161193,
   "two_sided": {
    "tri_two_sided_steep_ground_all": 4791,
@@ -681,7 +702,7 @@
   "alpha_fields": {},
   "root_outside_sectors": 420,
   "root_outside_sectors_max_distance": 298.09,
-  "noise_dropped": 2486,
+  "noise_dropped": 0,
   "ps2_textures": [
    "wires-tga"
   ]
@@ -696,12 +717,13 @@
    "tag100_round_trip": true,
    "no_negative_codes": true,
    "within_retail_vertex_and_index_range": true,
-   "surface_records_face_down": true
+   "surface_records_face_down": true,
+   "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 41.1,
-  "draws": 568,
-  "vertices": 75857,
+  "seconds": 35.4,
+  "draws": 421,
+  "vertices": 75902,
   "indices": 220446,
   "two_sided": {
    "tri_two_sided_steep_ground_all": 1561,
@@ -715,7 +737,7 @@
   },
   "root_outside_sectors": 3520,
   "root_outside_sectors_max_distance": 44.24,
-  "noise_dropped": 1497,
+  "noise_dropped": 0,
   "ps2_textures": [
    "fence-tga",
    "roof-tga"
@@ -731,12 +753,13 @@
    "tag100_round_trip": true,
    "no_negative_codes": true,
    "within_retail_vertex_and_index_range": true,
-   "surface_records_face_down": true
+   "surface_records_face_down": true,
+   "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 40.3,
-  "draws": 618,
-  "vertices": 72254,
+  "seconds": 37.1,
+  "draws": 468,
+  "vertices": 72350,
   "indices": 208197,
   "two_sided": {
    "tri_two_sided_object_all": 12134,
@@ -748,7 +771,7 @@
   "alpha_fields": {},
   "root_outside_sectors": 3580,
   "root_outside_sectors_max_distance": 44.24,
-  "noise_dropped": 1512,
+  "noise_dropped": 0,
   "ps2_textures": [
    "concrete-tga",
    "mrtruck roller-tga",
@@ -774,12 +797,13 @@
    "tag100_round_trip": true,
    "no_negative_codes": true,
    "within_retail_vertex_and_index_range": true,
-   "surface_records_face_down": true
+   "surface_records_face_down": true,
+   "logic_xml_checks_pass": true
   },
   "all_checks_passed": false,
-  "seconds": 43.4,
-  "draws": 662,
-  "vertices": 76686,
+  "seconds": 40.2,
+  "draws": 499,
+  "vertices": 76730,
   "indices": 225447,
   "two_sided": {
    "tri_two_sided_object_all": 12421,
@@ -791,7 +815,7 @@
   "alpha_fields": {},
   "root_outside_sectors": 3573,
   "root_outside_sectors_max_distance": 44.24,
-  "noise_dropped": 1501,
+  "noise_dropped": 0,
   "ps2_textures": [
    "concrete-tga",
    "mrtruck roller-tga",
@@ -817,12 +841,13 @@
    "tag100_round_trip": true,
    "no_negative_codes": true,
    "within_retail_vertex_and_index_range": true,
-   "surface_records_face_down": true
+   "surface_records_face_down": true,
+   "logic_xml_checks_pass": true
   },
   "all_checks_passed": false,
-  "seconds": 41.1,
-  "draws": 666,
-  "vertices": 76617,
+  "seconds": 40.2,
+  "draws": 503,
+  "vertices": 76638,
   "indices": 225303,
   "two_sided": {
    "tri_two_sided_object_all": 12421,
@@ -834,7 +859,7 @@
   "alpha_fields": {},
   "root_outside_sectors": 3573,
   "root_outside_sectors_max_distance": 44.24,
-  "noise_dropped": 1501,
+  "noise_dropped": 0,
   "ps2_textures": [
    "bark-tga",
    "fence-tga",
@@ -860,12 +885,13 @@
    "tag100_round_trip": true,
    "no_negative_codes": true,
    "within_retail_vertex_and_index_range": true,
-   "surface_records_face_down": true
+   "surface_records_face_down": true,
+   "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 37.8,
-  "draws": 539,
-  "vertices": 67214,
+  "seconds": 35.6,
+  "draws": 415,
+  "vertices": 67334,
   "indices": 184764,
   "two_sided": {
    "tri_two_sided_steep_ground_all": 4126,
@@ -879,7 +905,7 @@
   },
   "root_outside_sectors": 36,
   "root_outside_sectors_max_distance": 21.84,
-  "noise_dropped": 1441,
+  "noise_dropped": 0,
   "ps2_textures": [
    "roof-tga",
    "wires-tga"
@@ -895,12 +921,13 @@
    "tag100_round_trip": true,
    "no_negative_codes": true,
    "within_retail_vertex_and_index_range": true,
-   "surface_records_face_down": true
+   "surface_records_face_down": true,
+   "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 51.7,
-  "draws": 593,
-  "vertices": 78849,
+  "seconds": 48.8,
+  "draws": 464,
+  "vertices": 78921,
   "indices": 192921,
   "two_sided": {
    "tri_two_sided_steep_ground_ps2only": 164,
@@ -914,7 +941,7 @@
   },
   "root_outside_sectors": 1939,
   "root_outside_sectors_max_distance": 298.09,
-  "noise_dropped": 1282,
+  "noise_dropped": 0,
   "ps2_textures": [
    "concrete-tga",
    "roof-tga",
@@ -931,12 +958,13 @@
    "tag100_round_trip": true,
    "no_negative_codes": true,
    "within_retail_vertex_and_index_range": true,
-   "surface_records_face_down": true
+   "surface_records_face_down": true,
+   "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 53.0,
-  "draws": 593,
-  "vertices": 78873,
+  "seconds": 48.6,
+  "draws": 464,
+  "vertices": 78934,
   "indices": 192966,
   "two_sided": {
    "tri_two_sided_steep_ground_ps2only": 164,
@@ -950,7 +978,7 @@
   },
   "root_outside_sectors": 1938,
   "root_outside_sectors_max_distance": 298.09,
-  "noise_dropped": 1282,
+  "noise_dropped": 0,
   "ps2_textures": [
    "concrete-tga",
    "fence-tga",
@@ -968,12 +996,13 @@
    "tag100_round_trip": true,
    "no_negative_codes": true,
    "within_retail_vertex_and_index_range": true,
-   "surface_records_face_down": true
+   "surface_records_face_down": true,
+   "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 57.3,
-  "draws": 1542,
-  "vertices": 67271,
+  "seconds": 52.1,
+  "draws": 938,
+  "vertices": 65122,
   "indices": 167775,
   "two_sided": {
    "tri_two_sided_object_all": 4215,
@@ -985,7 +1014,7 @@
   "alpha_fields": {},
   "root_outside_sectors": 1,
   "root_outside_sectors_max_distance": 0.42,
-  "noise_dropped": 14705,
+  "noise_dropped": 0,
   "ps2_textures": [
    "burago-tga",
    "mrtruck roller-tga",
@@ -1009,12 +1038,13 @@
    "tag100_round_trip": true,
    "no_negative_codes": true,
    "within_retail_vertex_and_index_range": true,
-   "surface_records_face_down": true
+   "surface_records_face_down": true,
+   "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 46.9,
-  "draws": 1169,
-  "vertices": 68901,
+  "seconds": 41.5,
+  "draws": 878,
+  "vertices": 68731,
   "indices": 206742,
   "two_sided": {
    "tri_two_sided_object_all": 9120,
@@ -1026,7 +1056,7 @@
   "alpha_fields": {},
   "root_outside_sectors": 838,
   "root_outside_sectors_max_distance": 91.1,
-  "noise_dropped": 5527,
+  "noise_dropped": 0,
   "ps2_textures": [
    "gate01-tga",
    "green shrub-tga",
@@ -1046,12 +1076,13 @@
    "tag100_round_trip": true,
    "no_negative_codes": true,
    "within_retail_vertex_and_index_range": true,
-   "surface_records_face_down": true
+   "surface_records_face_down": true,
+   "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 49.9,
-  "draws": 1148,
-  "vertices": 61019,
+  "seconds": 48.0,
+  "draws": 819,
+  "vertices": 60812,
   "indices": 168681,
   "two_sided": {
    "tri_two_sided_object_all": 6052,
@@ -1065,7 +1096,7 @@
   },
   "root_outside_sectors": 32,
   "root_outside_sectors_max_distance": 41.35,
-  "noise_dropped": 3848,
+  "noise_dropped": 0,
   "ps2_textures": [
    "brickhouse-tga",
    "caravan-tga",
@@ -1083,12 +1114,13 @@
    "tag100_round_trip": true,
    "no_negative_codes": true,
    "within_retail_vertex_and_index_range": true,
-   "surface_records_face_down": true
+   "surface_records_face_down": true,
+   "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 70.4,
-  "draws": 1439,
-  "vertices": 79901,
+  "seconds": 65.9,
+  "draws": 1035,
+  "vertices": 79407,
   "indices": 226104,
   "two_sided": {
    "tri_two_sided_object_all": 6721,
@@ -1102,7 +1134,7 @@
   },
   "root_outside_sectors": 475,
   "root_outside_sectors_max_distance": 95.95,
-  "noise_dropped": 5752,
+  "noise_dropped": 0,
   "ps2_textures": [
    "gate01-tga",
    "green shrub-tga",
@@ -1129,12 +1161,13 @@
    "tag100_round_trip": true,
    "no_negative_codes": true,
    "within_retail_vertex_and_index_range": true,
-   "surface_records_face_down": true
+   "surface_records_face_down": true,
+   "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 80.8,
-  "draws": 1566,
-  "vertices": 79207,
+  "seconds": 75.5,
+  "draws": 1106,
+  "vertices": 78778,
   "indices": 209019,
   "two_sided": {
    "tri_two_sided_steep_ground_ps2only": 836,
@@ -1146,7 +1179,7 @@
   "alpha_fields": {},
   "root_outside_sectors": 71,
   "root_outside_sectors_max_distance": 56.98,
-  "noise_dropped": 7090,
+  "noise_dropped": 0,
   "ps2_textures": [
    "caravan-tga",
    "checks-tga",
@@ -1167,12 +1200,13 @@
    "tag100_round_trip": true,
    "no_negative_codes": true,
    "within_retail_vertex_and_index_range": true,
-   "surface_records_face_down": true
+   "surface_records_face_down": true,
+   "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 58.0,
-  "draws": 1338,
-  "vertices": 75225,
+  "seconds": 53.2,
+  "draws": 960,
+  "vertices": 74983,
   "indices": 209760,
   "two_sided": {
    "tri_two_sided_measured": 10092,
@@ -1184,7 +1218,7 @@
   "alpha_fields": {},
   "root_outside_sectors": 423,
   "root_outside_sectors_max_distance": 95.95,
-  "noise_dropped": 5779,
+  "noise_dropped": 0,
   "ps2_textures": [
    "boat1-tga",
    "boat3-tga",
@@ -1207,12 +1241,13 @@
    "tag100_round_trip": true,
    "no_negative_codes": true,
    "within_retail_vertex_and_index_range": true,
-   "surface_records_face_down": true
+   "surface_records_face_down": true,
+   "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 55.4,
-  "draws": 1238,
-  "vertices": 73141,
+  "seconds": 51.5,
+  "draws": 957,
+  "vertices": 73050,
   "indices": 213942,
   "two_sided": {
    "tri_two_sided_object_all": 7980,
@@ -1224,7 +1259,7 @@
   "alpha_fields": {},
   "root_outside_sectors": 417,
   "root_outside_sectors_max_distance": 95.95,
-  "noise_dropped": 2825,
+  "noise_dropped": 0,
   "ps2_textures": [
    "bigbarn-tga",
    "boat1-tga",
@@ -1248,12 +1283,13 @@
    "tag100_round_trip": true,
    "no_negative_codes": true,
    "within_retail_vertex_and_index_range": true,
-   "surface_records_face_down": true
+   "surface_records_face_down": true,
+   "logic_xml_checks_pass": true
   },
   "all_checks_passed": true,
-  "seconds": 51.6,
-  "draws": 1344,
-  "vertices": 65679,
+  "seconds": 47.2,
+  "draws": 990,
+  "vertices": 65058,
   "indices": 191805,
   "two_sided": {
    "tri_two_sided_steep_ground_all": 1639,
@@ -1267,7 +1303,7 @@
   },
   "root_outside_sectors": 231,
   "root_outside_sectors_max_distance": 72.43,
-  "noise_dropped": 5309,
+  "noise_dropped": 0,
   "ps2_textures": [
    "gate01-tga",
    "green shrub-tga",

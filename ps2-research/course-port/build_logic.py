@@ -14,7 +14,8 @@ Changes (each can be switched off):
 - splits: Radius, ExtraTime and position (matrix Row3) of each `gaRaceSplitTimeAI` from the PS2 Egg of the same name, `TimeToFirstCheckpoint`
   of `gaRacePostFirstSplitTimeAI` from PS2, and PC split Eggs without a PS2 counterpart (`Copy of SplitTime1` on Turkey3, `Copy of SplitTime0` on
   TurkeyS2Flip) removed.
-- cameras: the `Cameras` marker list (replay/TV positions) from PS2, Marker Type kept from PC.
+- cameras (`--cameras`, off by default): the `Cameras` marker list (replay/TV positions) from PS2, Marker Type kept from PC. Off because PS2 uses
+  these positions with its own replay camera logic, which is a separate port (owner, 2026-10-19).
 - sounds: PS2 `enAiSoundSource` Eggs with no PC sound source within 100 units, when the sound file exists on PC (3 on FranceM).
 
     python build_logic.py --all --out <dir>          # writes <dir>/<Course>.xml and logic-36.json
@@ -187,7 +188,7 @@ def densify(pts, step):
     return out
 
 
-def build(course, limits=True, inner='ps2', splits=True, cameras=True, sounds=True, limit_step=LIMIT_STEP):
+def build(course, limits=True, inner='ps2', splits=True, cameras=False, sounds=True, limit_step=LIMIT_STEP):
     pc = course.pc_xml.read_bytes()
     ps2 = cc.read_ps2(course.ps2_xml)
     eol = nl(pc)
@@ -336,7 +337,7 @@ def main():
     ap.add_argument('--no-limits', action='store_true')
     ap.add_argument('--inner', choices=('ps2', 'keep'), default='ps2')
     ap.add_argument('--no-splits', action='store_true')
-    ap.add_argument('--no-cameras', action='store_true')
+    ap.add_argument('--cameras', action='store_true', help='PS2 replay camera positions (off: PS2 drives them with its own camera logic, not ported)')
     ap.add_argument('--no-sounds', action='store_true')
     ap.add_argument('--limit-step', type=float, default=LIMIT_STEP, help='densify the limit lists to this X/Z spacing (0 = PS2 markers only)')
     a = ap.parse_args()
@@ -344,7 +345,7 @@ def main():
     todo = cc.courses() if a.all else [cc.course(a.course)]
     reps = {}
     for c in todo:
-        data, rep = build(c, not a.no_limits, a.inner, not a.no_splits, not a.no_cameras, not a.no_sounds, a.limit_step or None)
+        data, rep = build(c, not a.no_limits, a.inner, not a.no_splits, a.cameras, not a.no_sounds, a.limit_step or None)
         (a.out / f'{c.name}.xml').write_bytes(data)
         reps[c.name] = rep
         print(c.name, 'pass' if rep['checks'].get('pass') else rep['checks'], len(rep['changes']), 'changes')

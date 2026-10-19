@@ -99,3 +99,27 @@ rock's inside; instead nothing is drawn, and two-sided copies made it worse. Lea
 
 As agreed with the owner, this stays open and moves into the later phases; the PCSX2 GS dumps of the spot are available for it. Packages keep
 the v4 rule for now.
+
+## Fifth game test (36 packages with the W4 XML)
+Owner result (2026-10-19):
+- the courses load with the long limit lists, the OFF COURSE border is clearly wider, races finish normally;
+- the reset timing difference is accepted as is;
+- replay cameras: PS2 drives them with its own logic, which is a separate port. The PS2 camera positions are therefore off by default
+  again (`build_logic.py --cameras` turns them on);
+- the FranceM airship stand-in loads and looks right;
+- **Turkey2:** straight seams in the ground grain, and lighter grass than PS2 where PS2 added trees.
+
+**Cause of both Turkey2 findings: the noise layer was missing on PS2-only ground.** Turkey2 v4 had 5,527 PS2-only noise triangles without
+the layer (2,995 got it from a PC vertex at the same position). Without it the ground has no fine grain and looks lighter, and the border to
+triangles that do have it is a straight seam.
+
+**Fix: the noise UV comes from the PS2 data.** The PS2 vertex pair at +28, so far marked "unexplained", is the noise UV. On every PC noise
+vertex of a triangle shared with PS2:
+- PC noise UV = PS2 pair + (0.5, 0.5) + an integer;
+- checked on 36 courses: 1,711,740 vertices in 570,580 triangles;
+- the integer is the same for all three corners of every triangle;
+- the noise texture wraps, so the integer does not change the image.
+
+`ps2_mesh.noise_uv` and `build_render.py --noise ps2` (now the default) use it for every PS2-only noise triangle, so no triangle loses the
+layer. The experimental `local` fit is no longer needed. Turkey2: 8,522 triangles get the PS2 noise UV, and all package checks pass.
+Not yet confirmed in the game: whether this also brings the darker PS2 grass under the trees, or whether that area differs for another reason.

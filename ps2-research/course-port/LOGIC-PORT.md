@@ -13,7 +13,7 @@ refresh the XML alone). All 36 pass their checks.
 | Limits | 36 | `Left/RightOuterLimit` and `Left/RightInnerLimit` = PS2 `Left/RightOuterLimit2`, in PS2 order, Y = 0, polyline densified to 10 units |
 | Split values | ItalyM1 (ExtraTime 75 -> 77.5 and 82.5 -> 60, TimeToFirstCheckpoint 75 -> 62.5), ItalyS1 (Radius 19 -> 18), 3 courses with position offsets of 0.01 to 0.22 | Radius, ExtraTime, Row3 from the PS2 Egg of the same name |
 | PC-only split copies removed | Turkey3 (`Copy of SplitTime1`), TurkeyS2Flip (`Copy of SplitTime0`) | PC split Eggs without a PS2 Egg of that name |
-| Replay cameras | 32 courses where the PS2 `Cameras` list differs (all but FranceS1, ItalyW1, ItalyW2, TurkeyS2Flip) | PS2 positions and directions, PC Marker Type |
+| Replay cameras (option `--cameras`, off by default) | 32 courses where the PS2 `Cameras` list differs (all but FranceS1, ItalyW1, ItalyW2, TurkeyS2Flip) | PS2 positions and directions, PC Marker Type; off because PS2 drives them with its own replay camera logic (separate port, owner 2026-10-19) |
 | Sound sources | FranceM (`tunnel1`, `harbour`, `ocean`) | PS2 `enAiSoundSource` with no PC sound source within 100 units, sound file present on PC |
 
 Not changed, with the reason:
