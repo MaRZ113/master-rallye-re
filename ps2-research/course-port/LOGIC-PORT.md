@@ -30,7 +30,7 @@ Why the limits are written this way (all from the decompiled code, see W4b):
 - PC treats a car inside the inner lists as inside without looking at the outer ones. With inner = outer the PC border is the PS2 border.
 - PS2 tests the car against one segment, chosen by the corner bisector at the nearest marker. PC needs the car outside two consecutive
   segments. On the PS2 marker spacing this differs on 1.5 to 9% of the area around the road. With the same polyline densified to 10 units
-  the two agree on 99.5% or more (table below).
+  the two agree on 99.8% of the area (median; minimum 97.2% on SpainS2, 98.9% on Spain1, table below).
 - Densifying makes the lists longer than any retail list: up to 1,187 markers, retail maximum 470 (a RaceLine). The PC lists are vectors
   (count = (end - begin) / 0x48), no fixed array was seen. If the game has trouble with it, `--limit-step 20` halves the count at about 99.2%.
 
@@ -38,7 +38,45 @@ Why the limits are written this way (all from the decompiled code, see W4b):
 Both classifiers are transcribed from the code. On a grid (8 units) up to 320 units around the RaceLine it compares PC "state 2" with PS2
 "outside". Car height = nearest RaceLine marker.
 
-SIM_TABLE
+| Course | retail PC lists | PS2 markers only | written lists (dense 10) |
+|---|---|---|---|
+| France1 | 87.8% | 98.5% | 99.7% |
+| France2 | 87.8% | 98.5% | 99.7% |
+| FranceM | 80.1% | 97.3% | 99.2% |
+| FranceS1 | 86.3% | 99.2% | 100.0% |
+| FranceS2 | 78.8% | 98.9% | 99.9% |
+| FranceW | 80.0% | 99.0% | 99.9% |
+| FranceWFlip | 79.8% | 98.7% | 100.0% |
+| Italy1 | 81.9% | 91.0% | 99.5% |
+| Italy2 | 80.2% | 97.6% | 99.5% |
+| Italy3 | 83.5% | 98.3% | 99.7% |
+| ItalyM1 | 74.6% | 98.4% | 99.8% |
+| ItalyM1Flip | 77.0% | 95.6% | 99.9% |
+| ItalyM2 | 90.4% | 93.7% | 99.9% |
+| ItalyS1 | 89.2% | 94.4% | 99.8% |
+| ItalyS2 | 86.5% | 94.8% | 99.9% |
+| ItalyS3 | 82.3% | 93.3% | 99.9% |
+| ItalyS3Flip | 84.4% | 93.8% | 99.7% |
+| ItalyS4 | 90.3% | 96.1% | 99.8% |
+| ItalyW1 | 95.9% | 98.6% | 99.9% |
+| ItalyW2 | 95.4% | 98.5% | 100.0% |
+| Spain1 | 93.5% | 98.5% | 98.9% |
+| Spain2 | 88.8% | 97.9% | 99.9% |
+| SpainM | 90.0% | 98.2% | 99.8% |
+| SpainS1 | 84.3% | 99.1% | 100.0% |
+| SpainS1Flip | 83.7% | 99.0% | 100.0% |
+| SpainS2 | 78.7% | 84.8% | 97.2% |
+| SpainW | 80.6% | 99.3% | 100.0% |
+| SpainWFlip | 81.8% | 99.3% | 100.0% |
+| Turkey1 | 89.1% | 98.4% | 99.8% |
+| Turkey2 | 91.7% | 96.1% | 99.6% |
+| Turkey3 | 90.3% | 98.5% | 99.9% |
+| TurkeyM | 91.4% | 98.6% | 99.9% |
+| TurkeyS1 | 87.0% | 98.0% | 99.2% |
+| TurkeyS2 | 86.0% | 98.2% | 99.4% |
+| TurkeyS2Flip | 87.3% | 99.0% | 99.8% |
+| TurkeyW | 79.2% | 98.5% | 99.6% |
+| **min / median** | 74.6 / 86.3% | 84.8 / 98.4% | 97.2 / 99.8% |
 
 `ps2_route_inside` is the share of PS2 RaceLine markers that PS2 itself classifies as inside: a few courses have a RaceLine marker outside
 their own Limit2 (start or finish areas), PC with the new lists gives the same.

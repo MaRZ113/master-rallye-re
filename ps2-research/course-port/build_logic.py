@@ -9,8 +9,8 @@ Changes (each can be switched off):
   3D minimum is the X/Z minimum. `--inner ps2` (default) also writes the PS2 lists into `Left/RightInnerLimit`: PS2 has one border, PC has an
   inner and an outer one and treats a car inside the inner one as inside. With inner = outer the PC border is the PS2 border.
   The lists are densified to 10 units (same polyline, extra points on the PS2 segments): the PC side test needs the car outside two
-  consecutive segments, PS2 tests one segment chosen by the corner bisector; with short segments the two agree on 99.5 to 99.9% of the
-  area around the road instead of 91 to 98.6% (`limit_sim.py`).
+  consecutive segments, PS2 tests one segment chosen by the corner bisector; with short segments the two agree on 97.2 to 100% (median 99.8%) of the
+  area around the road instead of 84.8 to 99.3% (median 98.4%) with the PS2 markers alone (`limit_sim.py`).
 - splits: Radius, ExtraTime and position (matrix Row3) of each `gaRaceSplitTimeAI` from the PS2 Egg of the same name, `TimeToFirstCheckpoint`
   of `gaRacePostFirstSplitTimeAI` from PS2, and PC split Eggs without a PS2 counterpart (`Copy of SplitTime1` on Turkey3, `Copy of SplitTime0` on
   TurkeyS2Flip) removed.
