@@ -99,10 +99,14 @@ Diagnostics=1   ; ps2_spline_objects_config/_course/_gate/_draw and a pose recor
 - C++ contracts (ctest `ps2_spline_objects_contracts`): basis, knots, clock, trigger equality, freeze/resume, rest,
   open hold, banking, asset layout rejections, runtime restart, world vertices.
 
-## Not verified (needs the game)
+## Game test (owner, 2026-10-20, kit DLL 6a4f65aa)
 
-- visibility and look: position on the water/in the sky, colours, fog, both sides, no flicker against water;
-- speed impression against the PS2 (cadence decision 1);
+User-confirmed: the objects load, are drawn correctly and move; the speed matches the PS2 (so the 50 Hz cadence of
+decision 1 holds in practice). Status: **CONFIRMED_BY_USER_GAME_TEST** for the kit courses.
+
+## Still open after the game test
+
+- courses outside the kit (14 more spline courses) were not driven; same code and data path;
 - pause/restart/exit in the real menus, replays;
 - performance (expected negligible: at most 2 objects, 3 draws, ~500 triangles per frame).
 
