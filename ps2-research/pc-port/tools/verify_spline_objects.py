@@ -7,7 +7,7 @@ Checks, each reported PASS / FAIL / NOT_PERFORMED:
    power-of-two BGRA, every draw references an existing texture;
 3. reference: the C++ controller (tests/spline_objects_tests.cpp --dump, built by the overlay) equals the AMBIENT1
    float32 reference `ps2-research/tools/spline_runtime.py` bit for bit for every object and every invocation of a
-   20,000-invocation schedule (400 s at 50 Hz) with missing, far and near Car0 observers; plus pose summaries at
+   20,000-invocation schedule (667 s at 30 Hz) with missing, far and near Car0 observers; plus pose summaries at
    0/10/60/120/300 s;
 4. bounds, loops and re-initialisation: positions stay inside the control-point box widened by the Catmull-Rom
    overshoot bound, closed routes return to marker 0 at the cycle end, open routes hold the last marker, a second start
@@ -205,7 +205,7 @@ def check_reference(rep, asset_path, courses):
                     mismatches.append(None)
             marks = {}
             for s in MARKS_S:
-                t = max(0, s * 50 - 1)
+                t = max(0, s * 30 - 1)
                 r = ref[t]
                 marks[f'{s}s'] = {'status': r[0], 'time': round(r[2], 4), 'moved_from_start': round(math.dist(r[3:6], o['points'][0]), 3)}
             summaries[f'{c["name"]}/{o["egg"]}'] = marks

@@ -205,7 +205,7 @@ def inventory(models, courses, asset_sha, coordinates):
                    'marker_list': o['marker_list'], 'route_sha256': o['route_sha256'], 'route_points': len(o['points']),
                    'config': cfg(k), 'open_route_length': round(o['open_route_length'], 3),
                    'closing_chord': round(o['closing_chord'], 3), 'closing_time': o['closing_time'], 'duration_nominal_s': o['duration'],
-                   'cycle_ticks': math.floor(ticks) + 1, 'cycle_seconds_at_50hz': round((math.floor(ticks) + 1) / 50.0, 2),
+                   'cycle_ticks': math.floor(ticks) + 1, 'cycle_seconds_at_30hz': round((math.floor(ticks) + 1) / 30.0, 2),
                    'route_y_constant': len({p[1] for p in o['points']}) == 1,
                    'behaviour': _behaviour(o, k), 'authored_matrix_identity_basis': o['authored_matrix_identity'],
                    'egg_flags': o['egg_flags']}
@@ -222,7 +222,7 @@ def inventory(models, courses, asset_sha, coordinates):
                            'source_sha256': m['sources']}
     return {'schema_version': 1, 'phase': 'COURSE-ALIVE1', 'asset': 'PS2SplineObjects.ps2spl', 'asset_sha256': asset_sha,
             'tick_contract': {'nominal_increment_s': '1/30 (float32 0x3d088889) per controller invocation',
-                              'invocations_per_second': 50, 'evidence': 'EE main loop 3ed9e0 -> 2a13e0 -> 2a2300 -> 21f088 once per rendered frame; PS2 PAL frame 50 Hz (diag-reflection2 GS dumps)'},
+                              'invocations_per_second': 30, 'evidence': 'PS2 game state ticks ~30 per second (Spain_S2 dinghy ~0.6 ticks per 50 Hz field, 316808 counter 11 steps in 18 fields; docs/course-water1); rendering interpolates every field'},
             'courses': len(rows), 'objects': sum(len(r['objects']) for r in rows), 'models': mods, 'by_course': rows}
 
 

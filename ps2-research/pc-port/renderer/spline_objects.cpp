@@ -228,8 +228,8 @@ unsigned SplineObjectsPilot::advance_frame(uint64_t frame,bool paused,const ps2s
 }
 bool SplineObjectsPilot::claim_pose_log() noexcept {
     if(!diagnostics_||!runtime_.ready())return false;
-    // One pose record per 250 invocations (5 s at 50 Hz) and the first one.
-    const uint64_t slot=runtime_.ticks()/250+1;if(slot==last_pose_log_)return false;last_pose_log_=slot;return true;
+    // One pose record per 150 invocations (5 s at 30 Hz) and the first one.
+    const uint64_t slot=runtime_.ticks()/150+1;if(slot==last_pose_log_)return false;last_pose_log_=slot;return true;
 }
 bool SplineObjectsPilot::consume_boundary(uint64_t frame,uint64_t race,uint64_t reset) noexcept {
     if(consumed_frame_==frame&&consumed_race_==race&&consumed_reset_==reset)return false;

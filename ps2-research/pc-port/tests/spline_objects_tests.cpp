@@ -46,8 +46,8 @@ void knots_and_clock(){
     auto slow=config(true,true);slow.speed=0.f;CHECK(!p.prepare(kSquare,4,slow));
     const Vec3 bad[4]={{0,0,0},{1,0,0},{std::numeric_limits<float>::quiet_NaN(),0,0},{2,0,0}};CHECK(!p.prepare(bad,4,config(true,true)));
     ps2spline::SplineClock clock;unsigned total=0;for(int i=0;i<100;++i)total+=clock.advance(1.0/144.0);
-    CHECK(total==34);                                                // 100/144 s at 50 Hz = 34.7 invocations
-    CHECK(clock.advance(10.0)==13);                                  // a stall is clamped to 0.25 s (12.5 + carried .72)
+    CHECK(total==20);                                                // 100/144 s at 30 Hz = 20.8 invocations
+    CHECK(clock.advance(10.0)==8);                                   // a stall is clamped to 0.25 s (7.5 + carried .83)
     CHECK(clock.advance(-1.0)==0&&clock.advance(0.0)==0);
 }
 void controller(){
@@ -124,7 +124,7 @@ void asset_and_runtime(){
     CHECK(rt.start(a,0,7)&&rt.ready()&&rt.race()==7);
     const Vec3 car{1e4f,0,1e4f};
     CHECK(rt.advance(1.0,true,&car)==0&&rt.ticks()==0);                                   // paused
-    CHECK(rt.advance(.1,false,&car)==5&&rt.ticks()==5);
+    CHECK(rt.advance(.1,false,&car)==3&&rt.ticks()==3);                                  // 0.1 s at 30 Hz
     std::vector<SplineBatch> batches;CHECK(rt.build(batches)&&batches.size()==1&&batches[0].vertices.size()==3);
     const auto pose=rt.controllers()[0].pose();const auto w=ps2spline::transform(pose,{0,0,1});
     CHECK(batches[0].vertices[0].x==w[0]&&batches[0].vertices[0].y==w[1]&&batches[0].vertices[0].z==w[2]);

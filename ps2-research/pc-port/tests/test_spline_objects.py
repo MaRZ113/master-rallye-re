@@ -21,7 +21,7 @@ class SplineObjectsContracts(unittest.TestCase):
         self.assertEqual(sorted(includes), sorted(['#include <array>', '#include <cmath>', '#include <cstddef>', '#include <cstdint>',
                                                    '#include <cstring>', '#include <optional>', '#include <vector>']))
         self.assertIn('kTickIncrement = 1.f / 30.f', CORE)
-        self.assertIn('kTicksPerSecond = 50.0', CORE)
+        self.assertIn('kTicksPerSecond = 30.0', CORE)
         self.assertIn('return {Vec3{f[2], f[1], -f[0]}, up, f, position};', CORE)
 
     def test_every_native_seam_is_wired(self):

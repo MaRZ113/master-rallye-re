@@ -39,12 +39,14 @@ Everything below is the existing static reverse in `ps2-research/ambient1/`; the
 
 ## Decisions
 
-1. **Cadence: 50 invocations per second.** The owner has no elapsed-time input; it adds 1/30 per invocation. New
-   static evidence (this phase, Ghidra EER on SLES_509.06): the EE main loop `3ed9e0` calls entity dispatch
-   `2a13e0 -> 2a2300 -> 21f088` exactly once per loop iteration, with no fixed-step accumulator (`3e80a8/3e8150` are a
-   frame timer only), and the PS2 PAL game renders one frame per 50 Hz field (all GS dumps, `docs/diag-reflection2`).
-   So `SplineClock` converts host time to 50 Hz invocations (0.25 s stall clamp). Consequence: a nominal route second
-   lasts 0.6 s; the inventory gives each cycle in real seconds. Not runtime-captured on PS2 (see limits).
+1. **Cadence: 30 invocations per second** (corrected 2026-10-20; the first kit used 50). The owner has no
+   elapsed-time input; it adds 1/30 per invocation, i.e. route time in seconds at 30 ticks per second. The EE main loop
+   `3ed9e0` calls entity dispatch `2a13e0 -> 2a2300 -> 21f088` once per loop iteration. PS2 draws every 50 Hz field, but
+   with interpolated poses (Egg flag `en3d Interpolated`): in the owner's Spain_S2 GS dump the red dinghy (depth ~88,
+   ~0.65 px per field, model height 8.7 = 38 px) moves ~0.16 units per field, ~0.6 ticks of 8/30 units, and the game
+   frame counter (316808, solved per field from the camera-free puddle UV of six Turkey2 dumps) steps 11 times in 18
+   fields. Both give ~30 game ticks per second (`docs/course-water1/README.md`). The owner saw the 50 Hz kit run faster
+   than PS2 (second game test, 2026-10-20). `SplineClock` converts host time to 30 Hz invocations (0.25 s stall clamp).
 2. **Pause, restart, exit.** The dispatcher skips frozen entities when the world is frozen, and every spline Egg is
    `Freezable=True`, so the clock stops while the PC pause menu is up. A new race generation re-creates the controllers
    at t=0 (the PS2 owner is created when the Egg hatches); leaving the race stops drawing; a device reset only drops
@@ -73,7 +75,7 @@ SplineObjects=1
 ; optional:
 SplineObjectsAsset=PS2Grass/PS2SplineObjects.ps2spl
 SplineObjectsStockCourses=0
-Diagnostics=1   ; ps2_spline_objects_config/_course/_gate/_draw and a pose record every 250 invocations
+Diagnostics=1   ; ps2_spline_objects_config/_course/_gate/_draw and a pose record every 150 invocations
 ```
 
 ## Build and kit
@@ -101,8 +103,9 @@ Diagnostics=1   ; ps2_spline_objects_config/_course/_gate/_draw and a pose recor
 
 ## Game test (owner, 2026-10-20, kit DLL 6a4f65aa)
 
-User-confirmed: the objects load, are drawn correctly and move; the speed matches the PS2 (so the 50 Hz cadence of
-decision 1 holds in practice). Status: **CONFIRMED_BY_USER_GAME_TEST** for the kit courses.
+User-confirmed: the objects load, are drawn correctly and move. Status: **CONFIRMED_BY_USER_GAME_TEST** for the kit
+courses. A closer second check by the owner (2026-10-20) found the 50 Hz kit faster than PS2; decision 1 now uses 30 Hz
+(GS-dump measurement), not yet re-checked in the game.
 
 ## Still open after the game test
 
@@ -112,8 +115,8 @@ decision 1 holds in practice). Status: **CONFIRMED_BY_USER_GAME_TEST** for the k
 
 ## Limits
 
-- The PS2 cadence is a static conclusion (main loop + 50 Hz frames). If a PCSX2 capture shows otherwise, only
-  `kTicksPerSecond` changes.
+- The PS2 cadence (30 per second) is measured from GS dumps (one dinghy, one frame counter); PS2 may slow down when a
+  frame takes longer. Only `kTicksPerSecond` changes if a better measurement disagrees.
 - Split-screen: drawn only in single-camera races (the split proof is not wired for this feature).
 - Water: the object is drawn after the course, so translucent water does not cover a submerged hull (PS2 draw order
   between the Egg and the water is not reversed).

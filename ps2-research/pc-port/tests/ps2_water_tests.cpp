@@ -93,7 +93,7 @@ void geometry_key(){
 void phase_clock(){
     Clock c;c.advance(5.0/kCountsPerSecond+1e-9,false);CHECK(c.counter()==5);
     c.advance(0.5,true);CHECK(c.counter()==5);                   // paused: frozen (316808 PauseMenuEnabled)
-    c.advance(5.0,false);CHECK(c.counter()==5+7);                // 0.25 s stall clamp (28 per second)
+    c.advance(5.0,false);CHECK(c.counter()==5+7);                // 0.25 s stall clamp (7.5 at 30 per second)
     CHECK(c.t()==phase(12));
 }
 void transaction_layout(){

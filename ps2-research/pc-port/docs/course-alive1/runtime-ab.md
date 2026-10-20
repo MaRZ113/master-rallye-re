@@ -28,7 +28,7 @@ race removes it; the fps is unchanged.
 - `ps2_spline_objects_course`: `selected true`, `course_guard ps2_course_package` (a stock course gives
   `stock_pc_course_*` and nothing is drawn);
 - `ps2_spline_objects_draw` once: draws, triangles, `fog`, `observer car0_vehicle_output`, all HRESULTs 0;
-- `ps2_spline_objects_pose` every 250 invocations (5 s): per object time, active, position, forward, up. These can be
+- `ps2_spline_objects_pose` every 150 invocations (5 s at 30 Hz): per object time, active, position, forward, up. These can be
   compared with `tools/spline_runtime.py` for the same invocation count;
 - `ps2_spline_objects_gate` once if a frame was refused (reason).
 

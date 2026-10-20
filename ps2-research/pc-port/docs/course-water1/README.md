@@ -60,10 +60,13 @@ connected; the "reflection" look is the static WATERSURFACE2 image mapped by the
 - France1 waterfall (dump 20261020100436, owner, after the first version ran too fast in the game): both layers use the
   common WATERFALL-TGA / WATERFALL2-TGA (1,011 of 1,024 texels in VRAM), ALPHA 0x44, fog, Z write in both contexts;
   20/20 strips match 321838 (U = authored U within 1e-7, V - .05y constant per strip, frac(4T) = 2 frac(2T)).
-- **Speed.** A dump holds four fields. The waterfall dump shows two rendered frames, each for two fields, and frac(2T)
-  grows by 0.01318 between them: the counter advances by 0.99, i.e. **once per rendered frame**, not per field. Over the
-  16 race dumps PS2 shows a new frame on 27 of 48 field changes (`frame_rate` in gs-validation.json): about 28 frames per
-  second. The port advances the counter 28 times per second (first version: 50, 1.8 times too fast in the game).
+- **Speed.** PS2 draws every 50 Hz field (the scene moves every field) with interpolated poses, but the 316808 counter
+  is the game frame counter. Solved exactly per field from the camera-free puddle primary UV of six Turkey2 dumps, it
+  steps 11 times in 18 field changes (30.6 per second); the waterfall dump shows one step of 0.99 in three fields.
+  The Spain_S2 dump gives the same rate for entities: the red dinghy moves ~0.16 units per field (depth ~88, model
+  height 8.7 = 38 px), ~0.6 ticks of 8/30 units. The port advances the counter **30 times per second** (first version:
+  50, too fast in the game; COURSE-ALIVE1 splines use the same 30). The earlier `frame_rate` figure in gs-validation.json
+  (28 per second) counts the camera-dependent second-layer UV and is only an upper bound for re-rendered frames.
 
 ## 2. What PC does
 
@@ -130,7 +133,7 @@ Diagnostics=1   ; ps2_water_config, one ps2_water_course record per course, gate
   clock, transaction layout.
 - GS dumps: section 1.
 - Overlay build on master `a6b7c31` + this change: ctest baseline 24/24, PS2 41/41 (new `ps2_water_contracts`),
-  unittest 147 OK, compileall; PS2-enabled DLL `61e90675...` (`dist/current`). Patch 0001 gained only the water seams; its
+  unittest 147 OK, compileall; PS2-enabled DLL `235aae55...` (`dist/current`). Patch 0001 gained only the water seams; its
   hash in `overlay/baseline-lock.json` is updated (baseline unchanged). In-game kit: `dist/course-water1/`
   (`overlay/package_course_water1.py`), steps in [runtime-ab.md](runtime-ab.md).
 - Not verified: anything in the game (status PENDING_USER).
@@ -140,8 +143,8 @@ Diagnostics=1   ; ps2_water_config, one ps2_water_course record per course, gate
 - The PS2 LOD (TEX1 K -3.5 per strip, CT16 5-bit course map) is replaced by D3D trilinear filtering of the 8-bit PC map.
 - 56/128 of the puddle second layer becomes 112/255 (0.4392 instead of 0.4375).
 - The EE FPU rounding mode is not reproduced (IEEE round to nearest); the dumps show UV residuals of 5.7e-5 to 2e-3.
-- The counter rate is the mean PS2 frame rate of the dumps (28 per second); on PS2 it follows the frame rate of the scene
-  (25 when every frame takes two fields, up to 50), so a heavy or light PS2 scene animates slightly slower or faster.
+- The counter rate (30 per second) is measured from the dumps; whether PS2 holds it constant or slows down in heavy
+  scenes is not known.
 - Water draws the engine culls are not drawn (as on PC); PS2 culls by its own scene tree.
 - Order between PS2 Eggs (boats) and the landscape water is not reversed; with the water primary writing depth, a hull
   below the surface is hidden, not seen through a translucent puddle.

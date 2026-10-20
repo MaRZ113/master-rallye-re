@@ -13,8 +13,10 @@
 //   Number Of Samples, only up is rotated; right 1aa2e0: (F.z, F.y, -F.x), no cross product;
 // * tick 1a80e8: Car0 XZ distance, strict squared hysteresis, ring index, evaluate, publish, then 1aa3b8 advance by
 //   float32 1/30 with closed wrap to 0, open clamp, open rest counter.
-// Cadence (not in the owner): the EE main loop 3ed9e0 runs entity dispatch 21f088 once per rendered frame, and the PS2
-// PAL game renders every 50 Hz field (docs/diag-reflection2), so SplineClock turns host seconds into 50 Hz invocations.
+// Cadence (not in the owner): 30 invocations per second. PS2 draws every 50 Hz field with interpolated poses (Egg
+// "en3d Interpolated"), but the game state advances about 30 times a second: the Spain_S2 red dinghy moves ~0.6 ticks
+// per field and the 316808 frame counter steps 11 times in 18 fields (docs/course-water1/README.md, owner GS dumps),
+// matching the owner's 1/30 per invocation (route time in seconds). SplineClock turns host seconds into these ticks.
 #include <array>
 #include <cmath>
 #include <cstddef>
@@ -28,7 +30,7 @@ namespace ps2spline {
 using Vec3 = std::array<float, 3>;
 
 inline constexpr float kTickIncrement = 1.f / 30.f;   // 0x3d088889, owner +64
-inline constexpr double kTicksPerSecond = 50.0;         // PS2 PAL rendered frames (one dispatch each)
+inline constexpr double kTicksPerSecond = 30.0;         // PS2 game ticks (one dispatch each), see above
 inline constexpr float kPi = 3.14159265358979323846f;   // 0x40490fdb (15acb0)
 inline constexpr size_t kMaxPoints = 64;
 inline constexpr int kMaxSamples = 100000;
@@ -284,7 +286,7 @@ public:
     }
 };
 
-// Host seconds -> PS2 controller invocations at 50 Hz. A long host stall (loading, alt-tab) is clamped so the
+// Host seconds -> PS2 controller invocations at 30 Hz. A long host stall (loading, alt-tab) is clamped so the
 // objects never jump far ahead; the remainder carries over so the long-run rate stays exact.
 class SplineClock {
     double pending_ = 0.0;
