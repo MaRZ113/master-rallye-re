@@ -40,4 +40,5 @@ microseconds at most (Turkey2 ~3,000 puddle vertices updated per frame, one extr
 - `MRRRenderer/logs/` of a B run: `ps2_water_config` (effective_mode 1, status water_ready), one `ps2_water_course` record
   per course (triangles, parts, source 1 = package), any `ps2_water` reason records, `ps2_course_objects_gate`.
 - Paired screenshots A/B of the spots above; PS2 screenshots of the same spots if you have them (PCSX2).
-- A GS dump of France1 at a waterfall would confirm the waterfall passes (not in the existing dumps).
+- Second round (after the waterfall dump 20261020100436): water, puddle and waterfall animation now advance 28 counts per
+  second instead of 50; compare their speed with PS2 again.

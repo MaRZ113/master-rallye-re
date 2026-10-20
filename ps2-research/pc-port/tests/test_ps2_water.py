@@ -63,7 +63,7 @@ class PS2WaterContracts(unittest.TestCase):
         self.assertEqual(includes, sorted(['#include <algorithm>', '#include <array>', '#include <cmath>', '#include <cstddef>',
                                            '#include <cstdint>', '#include <cstring>', '#include <string>', '#include <string_view>',
                                            '#include <vector>']))
-        for text in ('kPhaseDivisor = 150.f', 'kCountsPerSecond = 50.0', '0x40c90fdbu', 'z * 0.05f + w.b * 0.05f', 'x * 0.01f + w.a * 0.05f'):
+        for text in ('kPhaseDivisor = 150.f', 'kCountsPerSecond = 28.0', '0x40c90fdbu', 'z * 0.05f + w.b * 0.05f', 'x * 0.01f + w.a * 0.05f'):
             self.assertIn(text, CORE)
 
     def test_every_native_seam_is_wired(self):

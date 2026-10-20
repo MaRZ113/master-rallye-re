@@ -27,7 +27,10 @@ inline constexpr char kMagic[8] = {'P','S','2','W','T','R','0','1'};
 inline constexpr uint32_t kVersion = 1;
 inline constexpr size_t kMaximumAssetBytes = 32u * 1024u * 1024u;
 inline constexpr uint32_t kModePuddle = 9, kModeWater = 10, kModeWaterfall = 19;
-inline constexpr double kCountsPerSecond = 50.0;    // the renderer counter of 316808 advances once per PAL frame
+// The renderer counter of 316808 advances once per RENDERED frame (France1 waterfall dump: +0.99 between two frames two
+// fields apart). PS2 renders a new frame on 27 of 48 field changes in the 16 race dumps (mostly every second field):
+// 50 * 27/48 = 28.1 frames per second; the port uses that mean (docs/course-water1/README.md).
+inline constexpr double kCountsPerSecond = 28.0;
 inline constexpr float kPhaseDivisor = 150.f;       // 316808: T = float(counter) / 150.0
 
 struct Texture { uint32_t width = 0, height = 0; std::vector<uint32_t> argb; };     // rows in D3D order (row 0 = v 0)
@@ -322,7 +325,7 @@ inline bool canonical_triangles(const float* positions, size_t triangles, std::v
     } catch (...) { out.clear(); return false; }
 }
 
-// Host time -> PS2 renderer counter (50 per second), frozen while paused; 0.25 s stall clamp (SplineClock rule).
+// Host time -> PS2 renderer counter (kCountsPerSecond), frozen while paused; 0.25 s stall clamp (SplineClock rule).
 class Clock {
     double pending_ = 0.0;
     uint32_t counter_ = 0;

@@ -6,6 +6,11 @@
    "puddle_strips": 20,
    "course": "Turkey2",
    "puddle_strips_matching_320938": 20,
+   "frames": {
+    "fields": 4,
+    "new_frames": 2,
+    "field_changes": 3
+   },
    "states": [
     {
      "primary": {
@@ -80,6 +85,11 @@
    "puddle_strips": 24,
    "course": "France1",
    "puddle_strips_matching_320938": 24,
+   "frames": {
+    "fields": 4,
+    "new_frames": 2,
+    "field_changes": 3
+   },
    "states": [
     {
      "primary": {
@@ -121,6 +131,11 @@
    "puddle_strips": 20,
    "course": "Turkey2",
    "puddle_strips_matching_320938": 20,
+   "frames": {
+    "fields": 4,
+    "new_frames": 1,
+    "field_changes": 3
+   },
    "states": [
     {
      "primary": {
@@ -195,6 +210,11 @@
    "puddle_strips": 88,
    "course": "Turkey2",
    "puddle_strips_matching_320938": 88,
+   "frames": {
+    "fields": 4,
+    "new_frames": 2,
+    "field_changes": 3
+   },
    "states": [
     {
      "primary": {
@@ -269,6 +289,7 @@
    "puddle_strips": 0,
    "course": null,
    "puddle_strips_matching_320938": 0,
+   "frames": null,
    "states": [
     {
      "primary": {
@@ -310,6 +331,11 @@
    "puddle_strips": 56,
    "course": "Turkey2",
    "puddle_strips_matching_320938": 56,
+   "frames": {
+    "fields": 4,
+    "new_frames": 2,
+    "field_changes": 3
+   },
    "states": [
     {
      "primary": {
@@ -384,6 +410,11 @@
    "puddle_strips": 100,
    "course": "Turkey2",
    "puddle_strips_matching_320938": 100,
+   "frames": {
+    "fields": 4,
+    "new_frames": 1,
+    "field_changes": 3
+   },
    "states": [
     {
      "primary": {
@@ -425,6 +456,11 @@
    "puddle_strips": 88,
    "course": "Turkey2",
    "puddle_strips_matching_320938": 88,
+   "frames": {
+    "fields": 4,
+    "new_frames": 1,
+    "field_changes": 3
+   },
    "states": [
     {
      "primary": {
@@ -466,6 +502,11 @@
    "puddle_strips": 72,
    "course": "Turkey2",
    "puddle_strips_matching_320938": 72,
+   "frames": {
+    "fields": 4,
+    "new_frames": 1,
+    "field_changes": 3
+   },
    "states": [
     {
      "primary": {
@@ -507,6 +548,11 @@
    "puddle_strips": 88,
    "course": "Turkey2",
    "puddle_strips_matching_320938": 88,
+   "frames": {
+    "fields": 4,
+    "new_frames": 2,
+    "field_changes": 3
+   },
    "states": [
     {
      "primary": {
@@ -581,6 +627,11 @@
    "puddle_strips": 44,
    "course": "Turkey2",
    "puddle_strips_matching_320938": 44,
+   "frames": {
+    "fields": 4,
+    "new_frames": 2,
+    "field_changes": 3
+   },
    "states": [
     {
      "primary": {
@@ -655,6 +706,11 @@
    "puddle_strips": 44,
    "course": "Turkey2",
    "puddle_strips_matching_320938": 44,
+   "frames": {
+    "fields": 4,
+    "new_frames": 0,
+    "field_changes": 3
+   },
    "states": [
     {
      "primary": {
@@ -729,6 +785,11 @@
    "puddle_strips": 44,
    "course": "Turkey2",
    "puddle_strips_matching_320938": 44,
+   "frames": {
+    "fields": 4,
+    "new_frames": 0,
+    "field_changes": 3
+   },
    "states": [
     {
      "primary": {
@@ -803,6 +864,11 @@
    "puddle_strips": 44,
    "course": "Turkey2",
    "puddle_strips_matching_320938": 44,
+   "frames": {
+    "fields": 4,
+    "new_frames": 2,
+    "field_changes": 3
+   },
    "states": [
     {
      "primary": {
@@ -877,6 +943,11 @@
    "puddle_strips": 36,
    "course": "Turkey2",
    "puddle_strips_matching_320938": 36,
+   "frames": {
+    "fields": 4,
+    "new_frames": 2,
+    "field_changes": 3
+   },
    "states": [
     {
      "primary": {
@@ -951,6 +1022,11 @@
    "puddle_strips": 20,
    "course": "Turkey2",
    "puddle_strips_matching_320938": 20,
+   "frames": {
+    "fields": 4,
+    "new_frames": 2,
+    "field_changes": 3
+   },
    "states": [
     {
      "primary": {
@@ -1025,6 +1101,11 @@
    "puddle_strips": 72,
    "course": "Turkey2",
    "puddle_strips_matching_320938": 72,
+   "frames": {
+    "fields": 4,
+    "new_frames": 2,
+    "field_changes": 3
+   },
    "states": [
     {
      "primary": {
@@ -1099,6 +1180,7 @@
    "puddle_strips": 0,
    "course": null,
    "puddle_strips_matching_320938": 0,
+   "frames": null,
    "states": []
   },
   "20261019174342.gs": {
@@ -1106,6 +1188,7 @@
    "puddle_strips": 0,
    "course": null,
    "puddle_strips_matching_320938": 0,
+   "frames": null,
    "states": []
   },
   "20261019211737.gs": {
@@ -1113,6 +1196,11 @@
    "puddle_strips": 184,
    "course": "Turkey2",
    "puddle_strips_matching_320938": 184,
+   "frames": {
+    "fields": 4,
+    "new_frames": 2,
+    "field_changes": 3
+   },
    "states": [
     {
      "primary": {
@@ -1179,6 +1267,52 @@
       "zbuf": "102000050"
      },
      "runs": 64
+    }
+   ]
+  },
+  "20261020100436.gs": {
+   "water_strips": 0,
+   "puddle_strips": 200,
+   "course": "France1",
+   "puddle_strips_matching_320938": 200,
+   "frames": {
+    "fields": 4,
+    "new_frames": 1,
+    "field_changes": 3
+   },
+   "states": [
+    {
+     "primary": {
+      "alpha": "44",
+      "ctx": 0,
+      "fge": 1,
+      "test": "51000",
+      "tex0": {
+       "PSM": 2,
+       "TBP": 10112,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "2000050"
+     },
+     "secondary": {
+      "alpha": "3800000068",
+      "ctx": 1,
+      "fge": 0,
+      "test": "5040c",
+      "tex0": {
+       "PSM": 0,
+       "TBP": 10176,
+       "TCC": 0,
+       "TFX": 0,
+       "TH": 6,
+       "TW": 6
+      },
+      "zbuf": "102000050"
+     },
+     "runs": 200
     }
    ]
   }
@@ -1256,5 +1390,84 @@
     "secondary_max_residual": 8.871514367214672e-05
    }
   }
+ },
+ "waterfall": {
+  "France1:20261020100436.gs": {
+   "fields": [
+    {
+     "field": 0,
+     "runs": 35,
+     "strips_matched": 20,
+     "frac_2t": 0.14673,
+     "frac_4t": 0.29346,
+     "max_u_minus_authored": 1.0364971902987463e-07
+    },
+    {
+     "field": 1,
+     "runs": 35,
+     "strips_matched": 20,
+     "frac_2t": 0.14673,
+     "frac_4t": 0.29346,
+     "max_u_minus_authored": 9.500063447021034e-08
+    },
+    {
+     "field": 2,
+     "runs": 35,
+     "strips_matched": 20,
+     "frac_2t": 0.15991,
+     "frac_4t": 0.31982,
+     "max_u_minus_authored": 1.0814704742845294e-07
+    },
+    {
+     "field": 3,
+     "runs": 35,
+     "strips_matched": 20,
+     "frac_2t": 0.15991,
+     "frac_4t": 0.31982,
+     "max_u_minus_authored": 9.631850728109015e-08
+    }
+   ],
+   "counter_step_between_rendered_frames": [
+    0.988
+   ],
+   "states": [
+    {
+     "primary": {
+      "alpha": "44",
+      "fge": 1,
+      "tex0": {
+       "PSM": 0,
+       "TBP": 9760,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 5,
+       "TW": 5
+      },
+      "zbuf": "2000050"
+     },
+     "secondary": {
+      "alpha": "44",
+      "fge": 1,
+      "tex0": {
+       "PSM": 0,
+       "TBP": 8768,
+       "TCC": 1,
+       "TFX": 0,
+       "TH": 5,
+       "TW": 5
+      },
+      "zbuf": "2000050"
+     },
+     "runs": 80
+    }
+   ]
+  }
+ },
+ "frame_rate": {
+  "dumps": 16,
+  "new_frames": 27,
+  "field_changes": 48,
+  "frames_per_second": 28.12,
+  "note": "a field shows a new rendered frame or the previous one; paused dumps excluded"
  }
 }

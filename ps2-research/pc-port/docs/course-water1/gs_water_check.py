@@ -6,11 +6,15 @@ For every dump:
      (WATERSURFACE2, ALPHA 0x44 or 0x3800000068, ZMSK 1);
   2. puddles: the per-vertex alpha sequence of each run is looked up among the 320938 weights // 2 of every course's
      puddle strips (identifies the course and checks the load-time colour bit for bit);
+  3. frame rate: a dump holds four vsyncs (fields); the first puddle UV of each field shows whether PS2 rendered a new frame
+     (the UV moves with the phase and the camera) or showed the previous one again;
 with --uv on one dump of a course: the phase T and the camera rows are solved from the UVs of the identified puddle strips
 and every vertex is compared with 320c78; the water strips are matched by their secondary V and the load phase T0 is
-solved and every vertex compared with 321098.
+solved and every vertex compared with 321098; with --waterfall: the waterfall strips (both layers 32x32, Z write) are
+matched to the course's mode-19 strips (U = authored U, V - .05y constant per strip) and frac(2T) is compared between the
+rendered frames of the dump (the counter step per rendered frame).
 
-    python gs_water_check.py <dir with *.gs> --out gs-validation.json [--uv Turkey2:<dump name>]
+    python gs_water_check.py <dir with *.gs> --out gs-validation.json [--uv Turkey2:<dump>] [--waterfall France1:<dump>]
 """
 from __future__ import annotations
 
@@ -45,20 +49,38 @@ class GS(gsdump.GS):
         self.kicks.append((key, (rgba & 0xff, (rgba >> 8) & 0xff, (rgba >> 16) & 0xff, (rgba >> 24) & 0xff), (x, y, z), s, t, self.q))
 
 
-def runs(path):
+def runs(path, with_fields=False):
     _, _, _, _, packets = gsdump.read_dump(path)
     gs = GS()
+    marks = []
     for p in packets:
         if p[0] == 'xfer':
             gs.gif(p[2])
-    out, cur = [], None
-    for k in gs.kicks:
-        if cur and cur[0] == k[0]:
+        elif p[0] == 'vsync':
+            marks.append(len(gs.kicks))
+    out, cur, field = [], None, 0
+    for i, k in enumerate(gs.kicks):
+        while field < len(marks) and marks[field] <= i:
+            field += 1
+        if cur and cur[0] == k[0] and cur[2] == field:
             cur[1].append(k)
         else:
-            cur = [k[0], [k]]
+            cur = [k[0], [k], field]
             out.append(cur)
-    return out
+    return (out, len(marks)) if with_fields else [r[:2] for r in out]
+
+
+def field_frames(path):
+    """First puddle second-layer UV of each field; a repeated value = the previous frame shown again."""
+    rs, fields = runs(path, True)
+    first = [None] * fields
+    for key, ks, f in rs:
+        t = tex0(key[3])
+        if f < fields and first[f] is None and key[2] == 1 and t['TW'] == 6 and (key[4] & 0xff) == 0x68:
+            first[f] = (round(ks[0][3] / ks[0][5], 5), round(ks[0][4] / ks[0][5], 5))
+    if not fields or None in first:
+        return None
+    return dict(fields=fields, new_frames=sum(1 for a, b in zip(first, first[1:]) if a != b), field_changes=fields - 1)
 
 
 def tex0(v):
@@ -225,11 +247,56 @@ def check_water_uv(course, pairs, tmax):
                 primary_max_residual=mp, secondary_max_residual=ms)
 
 
+def check_waterfall(course, path):
+    """Waterfall layers (both 32x32, ALPHA 0x44, ZMSK 0) of every field against the course's mode-19 strips (321838)."""
+    payload, strips = course_strips(course, 19)
+    P = lambda i: struct.unpack_from('<3f', payload, 32 + 52 * i + 36)  # noqa: E731
+    UV = lambda i: struct.unpack_from('<2f', payload, 32 + 52 * i + 20)  # noqa: E731
+    rs, fields = runs(path, True)
+
+    def layer(k, ctx):
+        return k[2] == ctx and tex0(k[3])['TW'] == 5 and (k[4] & 0xff) == 0x44 and not (k[6] >> 32) & 1
+    out, states = [], Counter()
+    for f in range(fields):
+        prim = [(k, ks) for k, ks, ff in rs if ff == f and layer(k, 0)]
+        sec = [(k, ks) for k, ks, ff in rs if ff == f and layer(k, 1)]
+        matched, f2, f4, umax = 0, [], [], 0.0
+        for (kp, pr), (kq, se) in zip(prim, sec):
+            states[json.dumps(dict(primary=dict(alpha='%x' % kp[4], zbuf='%x' % kp[6], fge=(kp[1] >> 5) & 1, tex0=tex0(kp[3])),
+                                   secondary=dict(alpha='%x' % kq[4], zbuf='%x' % kq[6], fge=(kq[1] >> 5) & 1, tex0=tex0(kq[3]))),
+                              sort_keys=True)] += 1
+            best = None
+            for idx in strips:
+                if len(idx) != len(pr):
+                    continue
+                cp = [(e[4] / e[5] - .05 * P(i)[1]) % 1 for i, e in zip(idx, pr)]
+                cs = [(e[4] / e[5] - .05 * P(i)[1]) % 1 for i, e in zip(idx, se)]
+                du = max(abs(frac(e[3] / e[5] - UV(i)[0])) for i, e in list(zip(idx, pr)) + list(zip(idx, se)))
+                score = max(cp) - min(cp) + max(cs) - min(cs) + du
+                if best is None or score < best[0]:
+                    best = (score, cp[0], cs[0], du)
+            if best and best[0] < 0.01:
+                matched += 1
+                f2.append(best[1])
+                f4.append(best[2])
+                umax = max(umax, best[3])
+        out.append(dict(field=f, runs=len(prim), strips_matched=matched, frac_2t=round(f2[0], 5) if f2 else None,
+                        frac_4t=round(f4[0], 5) if f4 else None, max_u_minus_authored=umax))
+    distinct = []
+    for fr in out:
+        if fr['frac_2t'] is not None and (not distinct or distinct[-1] != fr['frac_2t']):
+            distinct.append(fr['frac_2t'])
+    steps = [round((b - a) % 1 * 75, 3) for a, b in zip(distinct, distinct[1:])]   # d(2T) = 2 dc / 150
+    return dict(fields=out, counter_step_between_rendered_frames=steps,
+                states=[dict(json.loads(k), runs=n) for k, n in states.most_common()])
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('dumps', type=Path)
     ap.add_argument('--out', type=Path, required=True)
     ap.add_argument('--uv', action='append', default=[], help='Course:dumpname for the UV solve')
+    ap.add_argument('--waterfall', action='append', default=[], help='Course:dumpname for the waterfall check')
     ap.add_argument('--tmax', type=float, default=60000.0)
     args = ap.parse_args()
     table = puddle_fingerprints()
@@ -243,7 +310,7 @@ def main():
         scores = sorted(((sum(1 for r in puddles if r in seqs), name) for name, (_, seqs) in table.items()), reverse=True)
         best = scores[0] if puddles else (0, None)
         result['dumps'][path.name] = dict(water_strips=sum(1 for k, *_ in pairs if k == 'water'), puddle_strips=len(puddles),
-                                          course=best[1], puddle_strips_matching_320938=best[0],
+                                          course=best[1], puddle_strips_matching_320938=best[0], frames=field_frames(path),
                                           states=[dict(json.loads(s), runs=n) for s, n in states.most_common()])
         print(path.name, result['dumps'][path.name]['course'], best[0], '/', len(puddles), flush=True)
     for spec in args.uv:
@@ -260,6 +327,17 @@ def main():
         result.setdefault('uv', {})[spec] = dict(puddle=check_puddle_uv(payload, groups, args.tmax),
                                                  water=check_water_uv(course, cache[dump], args.tmax))
         print(spec, json.dumps(result['uv'][spec]), flush=True)
+    for spec in args.waterfall:
+        name, dump = spec.split(':')
+        result.setdefault('waterfall', {})[spec] = check_waterfall(cc.course(name), args.dumps / dump)
+        print(spec, json.dumps(result['waterfall'][spec])[:600], flush=True)
+    frames = [d['frames'] for d in result['dumps'].values() if d.get('frames') and d['frames']['new_frames']]
+    if frames:
+        new, changes = sum(f['new_frames'] for f in frames), sum(f['field_changes'] for f in frames)
+        result['frame_rate'] = dict(dumps=len(frames), new_frames=new, field_changes=changes,
+                                    frames_per_second=round(50 * new / changes, 2),
+                                    note='a field shows a new rendered frame or the previous one; paused dumps excluded')
+        print('frame rate', result['frame_rate'], flush=True)
     args.out.write_text(json.dumps(result, indent=1) + '\n', encoding='utf-8')
 
 
