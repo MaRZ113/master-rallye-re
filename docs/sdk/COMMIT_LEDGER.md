@@ -100,3 +100,10 @@ candidates. 822 tests / 1 optional skip; actual Windows stock/addon builds and
 history/restore; final128 captures and original native CPU replay PASS.
 Gameplay acceptance remains pending. The following evidence-index commit records
 the resolved phase hash; no historical snapshot or previous commit is rewritten.
+
+Resolved implementation commit: `9a0b16735a4a2fac4fc24f6a0f8b407b99d3282b`. Phase source files, tests and docs only;
+private game resources and captures excluded. Prior history preserved.
+
+Review archives: `.research-output/vehicles/vsdk4c1/review/` contains a clean
+source/documentation/test review tree and a separate changed-files archive, each
+with SHA256 manifests. Actual game tests remain pending. No push performed.
