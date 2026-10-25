@@ -33,11 +33,11 @@ def main():
         shutil.rmtree(OUT)
     a = ('; A: reflection check on SpainS2 (and the stock control Italy3). Add to [PS2Port] in PS2Port.ini.\n'
          'Reflection=4\nReflectionCoverage=1\nReflectionTargetPrecision=1\nReflectionDebug=2\n'
-         'ReflectionCaptureTiming=auto\nReflectionExcludeCar=1\nReflectionStageDiag=1\nDiagnostics=1\n')
+         'ReflectionCaptureTiming=auto\nReflectionStageDiag=1\nDiagnostics=1\n')
     b = ('; B: 14 race cycles (race-cycle-plan.md). Add to [PS2Port] in PS2Port.ini, keep your own effect keys.\n'
          'Reflection=4\nReflectionDebug=0\nReflectionCaptureTiming=auto\nReflectionStageDiag=0\nDiagnostics=1\nPS2PerfTiming=0\n')
     c = ('; C: control = the behaviour of every earlier build (capture at the first car draw, no probe, no readback).\n'
-         'ReflectionCaptureTiming=inframe\nReflectionExcludeCar=0\nReflectionStageDiag=0\n')
+         'ReflectionCaptureTiming=inframe\nReflectionStageDiag=0\n')
     files = {
         'd3d8.dll': dll,
         'PS2Port.A-reflection-diag.ini': a.encode(), 'PS2Port.B-race-cycles.ini': b.encode(), 'PS2Port.C-inframe-control.ini': c.encode(),

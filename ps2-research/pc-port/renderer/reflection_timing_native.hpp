@@ -8,7 +8,7 @@
 #include "reflection_inspect.hpp"
 #include "course_objects_native_integration.hpp"
 #include "ps2_diag.hpp"
-#include "reflection_exclusion.hpp"
+#include "render_queue_order_native.hpp"
 #include <array>
 #include <cstdio>
 #include <cstring>
@@ -58,6 +58,10 @@ inline void frame_begin(Device8& d, ps2port::PS2PortExtension& x, ps2port::Refle
         capture.set_observer(&d, capture_event);
         capture.set_inspector(inspector());
         capture.set_race(state.race);
+        // The engine draw queue puts the cars before the course on some courses (render_queue_order.hpp): sort them last.
+        renderorder::ensure_installed(d, p->world_first(), capture.decision().stage_diag());
+    } else if (renderorder::state().installed) {
+        renderorder::state().modify = renderorder::state().observe = false;   // pilot not active: the engine order stays
     }
     if (x.ledger_enabled() && cert.valid)
         x.ledger_race_frame(d.trace.frame_number(), cert.race_generation, cert.owner_lifetime, state.course.data(),
@@ -65,78 +69,8 @@ inline void frame_begin(Device8& d, ps2port::PS2PortExtension& x, ps2port::Refle
 }
 
 
-// ---- the player car in its own reflection ---------------------------------------------------------------------------------
-// Draws that sample the environment target (stage 1 coordinates = camera space normal) are the car. Their projected local
-// bounding boxes make the mask that the late capture refills (reflection_exclusion.hpp). One instance per render thread.
-struct CarMaskState {
-    struct Entry { uintptr_t buffer = 0; uint64_t generation = 0, offset = 0, size = 0; ps2diag::Aabb box; };
-    ps2diag::CarSilhouette silhouette;
-    uint64_t frame = UINT64_MAX;
-    std::array<Entry, 64> cache{};
-    size_t next = 0;
-    unsigned boxes_total = 0, no_shadow = 0;
-};
-inline CarMaskState& car_mask() noexcept { static thread_local CarMaskState state; return state; }
-
-inline void note_env_draw(Device8& d, uint32_t min_index, uint32_t vertices) noexcept {
-    try {
-        auto& mask = car_mask();
-        const uint64_t frame = d.trace.frame_number();
-        if (mask.frame != frame) { mask.frame = frame; mask.silhouette.clear(); }
-        auto& n = *d.native();
-        DWORD coord = 0, fvf = 0;
-        if (FAILED(n.GetTextureStageState(1, D3DTSS_TEXCOORDINDEX, &coord)) || coord != D3DTSS_TCI_CAMERASPACENORMAL) return;
-        if (FAILED(n.GetVertexShader(&fvf)) || (fvf & D3DFVF_POSITION_MASK) != D3DFVF_XYZ || !vertices) return;
-        IDirect3DVertexBuffer8* vb = nullptr; IDirect3DIndexBuffer8* ib = nullptr; UINT stride = 0, base = 0;
-        const bool have = SUCCEEDED(n.GetStreamSource(0, &vb, &stride)) && vb && SUCCEEDED(n.GetIndices(&ib, &base)) && ib;
-        const auto release = [&]() noexcept { if (vb) vb->Release(); if (ib) ib->Release(); };
-        if (!have || stride < 12) { release(); return; }
-        const uint64_t offset = (uint64_t(base) + min_index) * stride, size = uint64_t(vertices) * stride;
-        const uintptr_t buffer = reinterpret_cast<uintptr_t>(vb);
-        const uint64_t generation = d.trace.resources.generation(buffer);
-        ps2diag::Aabb box; bool cached = false;
-        for (const auto& e : mask.cache)
-            if (e.buffer == buffer && e.generation == generation && e.offset == offset && e.size == size) { box = e.box; cached = true; break; }
-        if (!cached) {
-            std::vector<BYTE> bytes; uint64_t revision = 0;
-            if (!generation || !d.copy_buffer_shadow(vb, BufferKind::Vertex, generation, offset, static_cast<size_t>(size), bytes, revision)) {
-                ++mask.no_shadow; release(); return;
-            }
-            box = ps2diag::aabb_from_vertices(bytes.data(), vertices, stride);
-            mask.cache[mask.next++ % mask.cache.size()] = {buffer, generation, offset, size, box};
-        }
-        release();
-        if (!box.valid || box.diagonal() > ps2diag::kMaxCarBoxDiagonal) return;
-        D3DMATRIX world{}, view{}, projection{}; D3DVIEWPORT8 vp{};
-        if (FAILED(n.GetTransform(D3DTS_WORLD, &world)) || FAILED(n.GetTransform(D3DTS_VIEW, &view)) ||
-            FAILED(n.GetTransform(D3DTS_PROJECTION, &projection)) || FAILED(n.GetViewport(&vp))) return;
-        std::array<ps2diag::Point2, 8> corners;
-        if (!ps2diag::project_box(box, &world.m[0][0], &view.m[0][0], &projection.m[0][0],
-                                  {float(vp.X), float(vp.Y), float(vp.Width), float(vp.Height)}, corners)) return;
-        if (mask.silhouette.add(corners)) ++mask.boxes_total;
-    } catch (...) {}
-}
-
-// Before the late capture of `frame`: the hull of the car draws of that frame, in 64x64 target coordinates.
-inline void publish_car_mask(Device8& d, ps2port::ReflectionPilot& p, uint64_t frame) noexcept {
-    try {
-        auto& capture = p.mixed_capture();
-        if (!capture.excludes_car()) return;
-        auto& mask = car_mask();
-        if (mask.frame != frame || mask.silhouette.empty()) return;
-        IDirect3DSurface8* back = nullptr; D3DSURFACE_DESC desc{};
-        if (FAILED(d.native()->GetBackBuffer(0, D3DBACKBUFFER_TYPE_MONO, &back)) || !back) return;
-        const bool ok = SUCCEEDED(back->GetDesc(&desc));
-        back->Release();
-        if (!ok) return;
-        std::vector<ps2diag::Point2> hull, env;
-        if (mask.silhouette.hull(hull) && ps2diag::hull_to_env(hull, float(desc.Width), float(desc.Height), env))
-            capture.set_exclusion(frame, std::move(env));
-    } catch (...) {}
-}
-
 // Every indexed draw (before the integrations see it). Cheap when neither the ledger nor the capture timing is in use.
-inline void note_draw(Device8& d, uint32_t triangles, uint32_t min_index, uint32_t vertices) noexcept {
+inline void note_draw(Device8& d, uint32_t triangles) noexcept {
     auto* x = d.ps2_port();
     if (!x) return;
     auto* p = x->reflection();
@@ -145,7 +79,6 @@ inline void note_draw(Device8& d, uint32_t triangles, uint32_t min_index, uint32
     const uint64_t frame = d.trace.frame_number();
     auto& state = frame_state();
     if (state.frame != frame) { state.frame = frame; try { frame_begin(d, *x, p); } catch (...) {} }
-    if (reflect && p->mixed_capture().excludes_car() && p->mixed_capture().late_wanted()) note_env_draw(d, min_index, vertices);
     if (reflect && x->ledger_enabled() && p->mixed_capture().decision().stage_diag()) {
         const auto& fvf = d.trace.shadow.bindings.vertex_shader;
         x->draw_ledger().note(frame, fvf.known ? fvf.value : 0u, triangles);
@@ -176,7 +109,7 @@ inline void write_stage_report(Device8& d, ps2port::PS2PortExtension& x, ps2port
             ",\"source\":" + ps2diag::stats_json(r.source) + ",\"ps2frame\":" + ps2diag::stats_json(r.ps2frame) +
             ",\"bottom_third\":" + ps2diag::stats_json(r.bottom) + ",\"world_incomplete\":" + (ps2diag::world_incomplete(r.bottom) ? "true" : "false") +
             ",\"static\":" + ps2diag::stats_json(r.static_term) + ",\"env\":" + ps2diag::stats_json(r.env) + ",\"dynamic\":" + ps2diag::stats_json(r.dynamic) +
-            ",\"png\":" + ps2diag::quote(png_name) + "}";
+            ",\"render_order\":" + renderorder::status_json() + ",\"png\":" + ps2diag::quote(png_name) + "}";
         x.diag_write(json);
         (void)d;
     } catch (...) {}
@@ -213,7 +146,6 @@ inline HRESULT before_ui(Device8& d, bool ui_callsite) noexcept {
         auto& device = *static_cast<Device8*>(owner);
         device.trace.after(slot, args, static_cast<uint32_t>(hr), 0, &args, 256, false, true);
     });
-    publish_car_mask(d, *p, frame);
     capture.capture_late(*d.native(), p->static_texture(), frame, d.trace.shadow.recording || d.trace.effective_shadow.recording);
     if (capture.pending()) {
         const HRESULT restored = ps2integration::repair(d);

@@ -1,9 +1,9 @@
 // COURSE-RENDER-FIX1 contracts of the portable diagnostics core (renderer/ps2_diag.hpp): PNG/JSON writers, image statistics,
 // draw ledger, capture-timing decision, per-race ledger, disable log and the capped stream.
 #include "ps2_diag.hpp"
-#include "reflection_exclusion.hpp"
-#include <cmath>
-#include <cstring>
+#include "render_queue_order.hpp"
+#include <map>
+#include <algorithm>
 #include <cstdio>
 #include <filesystem>
 #include <fstream>
@@ -319,6 +319,58 @@ void ledger_tests() {
     CHECK(log.take(e) && e.sequence == 27 && valid_json(log.recent_json()));   // the ring keeps the last 16 (sequence 27..42)
 }
 
+// Engine draw queue (render_queue_order.hpp): the cars sort behind every other opaque record.
+void render_queue_tests() {
+    using namespace gfx2::ps2port;
+    constexpr uint32_t queue = 0x20000, begin = 0x30000, kCar = 0xCA0000, kCourse = 0xC0000;
+    std::map<uint32_t, uint32_t> memory;
+    const auto read = [&](uintptr_t a, uint32_t& v) { auto i = memory.find(uint32_t(a)); if (i == memory.end()) return false; v = i->second; return true; };
+    const auto write = [&](uintptr_t a, uint32_t v) { if (!memory.count(uint32_t(a))) return false; memory[uint32_t(a)] = v; return true; };
+    const auto is_vehicle = [&](uint32_t owner) { return owner == kCar; };
+    const auto record = [&](unsigned i, uint32_t owner, uint32_t sub, uint32_t material, uint32_t texture, uint32_t high) {
+        const uint32_t at = begin + i * kQueueRecordSize;
+        memory[at] = owner; memory[at + 4] = 0x70000 + i; memory[at + 8] = sub; memory[at + 0xc] = 0;
+        memory[at + 0x10] = (sub << 29) | (material << 16) | texture; memory[at + 0x14] = high;
+    };
+    // Converted SpainS2 order: car materials have smaller pool ids than the terrain.
+    record(0, kCar, 0, 20, 634, 0); record(1, kCourse, 0, 30, 1067, 0); record(2, kCar, 0, 25, 645, 0);
+    record(3, kCourse, 0, 31, 1075, 0); record(4, kCourse, 0, 10, 626, 0);
+    memory[queue + 0x24] = begin; memory[queue + 0x28] = begin + 5 * kQueueRecordSize;
+    const auto sorted = [&]() {   // the engine's order: high word, then low word
+        std::vector<std::pair<uint64_t, uint32_t>> order;
+        for (unsigned i = 0; i < 5; ++i) order.push_back({(uint64_t(memory[begin + i * 24 + 0x14]) << 32) | memory[begin + i * 24 + 0x10], memory[begin + i * 24]});
+        std::sort(order.begin(), order.end());
+        return order;
+    };
+    CHECK(sorted()[0].second == kCourse && sorted()[1].second == kCar);          // the defect: a car record draws before the terrain
+    RenderQueueStats stats; RenderQueueSnapshot snapshot;
+    CHECK(prioritize_vehicle_records(queue, read, write, is_vehicle, stats, &snapshot, false) && stats.promoted == 0 && memory[begin + 0x14] == 0);   // observe only
+    CHECK(snapshot.records == 5 && snapshot.vehicles == 2 && snapshot.owners.size() == 2 && snapshot.runs.size() == 5);
+    CHECK(prioritize_vehicle_records(queue, read, write, is_vehicle, stats, nullptr, true));
+    CHECK(stats.promoted == 2 && stats.last_promoted == 2 && std::string(stats.last_reason) == "vehicles_moved_last");
+    const auto order = sorted();
+    CHECK(order[0].second == kCourse && order[1].second == kCourse && order[2].second == kCourse && order[3].second == kCar && order[4].second == kCar);
+    CHECK(order[0].first == ((10ull << 16) | 626) && order[1].first == ((30ull << 16) | 1067) && order[2].first == ((31ull << 16) | 1075));   // engine order inside the groups is kept
+    CHECK(order[3].first == ((1ull << 32) | (20ull << 16) | 634) && order[4].first == ((1ull << 32) | (25ull << 16) | 645));
+    CHECK(prioritize_vehicle_records(queue, read, write, is_vehicle, stats, nullptr, true) && stats.last_promoted == 0 &&
+          std::string(stats.last_reason) == "vehicles_already_last");                  // idempotent
+    // Alpha records (high word set by the depth key) are never touched.
+    record(1, kCar, 0, 30, 1067, 0x3f000000);
+    CHECK(prioritize_vehicle_records(queue, read, write, is_vehicle, stats, nullptr, true) && memory[begin + 24 + 0x14] == 0x3f000000);
+    // A queue that is not in the expected shape is left alone.
+    memory[queue + 0x28] = begin + 5 * kQueueRecordSize + 4;
+    const uint32_t keep = memory[begin + 0x14];
+    CHECK(!prioritize_vehicle_records(queue, read, write, is_vehicle, stats) && stats.rejected == 1 && memory[begin + 0x14] == keep);
+    memory[queue + 0x28] = begin + 5000 * kQueueRecordSize; CHECK(!prioritize_vehicle_records(queue, read, write, is_vehicle, stats) && stats.rejected == 2);
+    memory[queue + 0x24] = 0; memory[queue + 0x28] = 0; CHECK(prioritize_vehicle_records(queue, read, write, is_vehicle, stats) && std::string(stats.last_reason) == "empty");
+    CHECK(!prioritize_vehicle_records(0x10, read, write, is_vehicle, stats) && !prioritize_vehicle_records(queue + 0x1000, read, write, is_vehicle, stats) && stats.unreadable == 2);
+    memory[queue + 0x24] = begin; memory[queue + 0x28] = begin + 5 * kQueueRecordSize; memory.erase(begin + 3 * 24 + 0x10);
+    CHECK(!prioritize_vehicle_records(queue, read, write, is_vehicle, stats) && std::string(stats.last_reason) == "record_unreadable");
+    // Diagnostic record.
+    const auto json = render_queue_json(snapshot, 42, 1, true);
+    CHECK(valid_json(json) && json.find("\"ps2_render_queue\"") != std::string::npos && json.find("\"runs\":[[") != std::string::npos);
+}
+
 void stream_tests() {
     const auto dir = std::filesystem::temp_directory_path() / "ps2diag-test";
     std::error_code error; std::filesystem::remove_all(dir, error);
@@ -334,62 +386,10 @@ void stream_tests() {
     CHECK(write_file(dir / "b" / "x.bin", std::vector<uint8_t>{1, 2, 3}) && std::filesystem::file_size(dir / "b" / "x.bin") == 3);
     std::filesystem::remove_all(dir, error);
 }
-void exclusion_tests() {
-    // AABB of a vertex stream (stride 36, position first); non-finite positions invalidate.
-    std::vector<uint8_t> bytes(3 * 36, 0);
-    const float pts[3][3] = {{-1, 0, -2}, {1, 1.5f, 2}, {0, 0.5f, 0}};
-    for (int i = 0; i < 3; ++i) std::memcpy(bytes.data() + i * 36, pts[i], 12);
-    const Aabb box = aabb_from_vertices(bytes.data(), 3, 36);
-    CHECK(box.valid && box.lo[0] == -1 && box.hi[0] == 1 && box.lo[2] == -2 && box.hi[2] == 2 && box.hi[1] == 1.5f);
-    CHECK(std::fabs(box.diagonal() - std::sqrt(4.f + 2.25f + 16.f)) < 1e-4f);
-    const float nan = std::nanf(""); std::memcpy(bytes.data() + 36, &nan, 4);
-    CHECK(!aabb_from_vertices(bytes.data(), 3, 36).valid && !aabb_from_vertices(nullptr, 3, 36).valid && !aabb_from_vertices(bytes.data(), 0, 36).valid &&
-          !aabb_from_vertices(bytes.data(), 3, 8).valid);
-    // Projection: identity world/view, perspective looking down +Z, car box 4 m ahead.
-    const float identity[16] = {1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1};
-    float world[16]; std::memcpy(world, identity, sizeof(world)); world[14] = 10.f;   // 10 m in front
-    float projection[16] = {1,0,0,0, 0,1,0,0, 0,0,1,1, 0,0,0,0};                      // x/z, y/z (w = z)
-    Aabb car; car.valid = true; car.lo = {-1, -1, -2}; car.hi = {1, 1, 2};
-    std::array<Point2, 8> corners{};
-    CHECK(project_box(car, world, identity, projection, {0, 0, 640, 480}, corners));
-    // near face z = 8: x in [-1/8, 1/8]; far face z = 12: x in [-1/12, 1/12]; screen x = (x*0.5+0.5)*640
-    float minx = 1e9f, maxx = -1e9f, miny = 1e9f, maxy = -1e9f;
-    for (const auto& p : corners) { minx = std::min(minx, p.x); maxx = std::max(maxx, p.x); miny = std::min(miny, p.y); maxy = std::max(maxy, p.y); }
-    CHECK(std::fabs(minx - (0.5f - 0.0625f) * 640.f) < 0.01f && std::fabs(maxx - (0.5f + 0.0625f) * 640.f) < 0.01f);
-    CHECK(std::fabs(miny - (0.5f - 0.0625f) * 480.f) < 0.01f && std::fabs(maxy - (0.5f + 0.0625f) * 480.f) < 0.01f);
-    world[14] = 1.f;                                                                    // a corner behind the near plane
-    CHECK(!project_box(car, world, identity, projection, {0, 0, 640, 480}, corners));
-    CHECK(!project_box(Aabb{}, world, identity, projection, {0, 0, 640, 480}, corners));
-    // Convex hull of two boxes plus interior points.
-    CarSilhouette s; CHECK(s.empty());
-    std::array<Point2, 8> a{}, b{};
-    for (int i = 0; i < 8; ++i) { a[i] = {float(i & 1) * 10 + 100, float((i >> 1) & 1) * 10 + 100}; b[i] = {float(i & 1) * 10 + 105, float((i >> 1) & 1) * 10 + 105}; }
-    CHECK(s.add(a) && s.add(b) && s.boxes() == 2);
-    std::vector<Point2> hull; CHECK(s.hull(hull));
-    CHECK(hull.size() == 6 && std::fabs(polygon_area(hull) - 200.f) < 0.01f);       // 15x15 minus the two corner triangles of 12.5
-    CarSilhouette line; std::array<Point2, 8> c{}; for (int i = 0; i < 8; ++i) c[i] = {float(i), float(i)};
-    CHECK(line.add(c) && !line.hull(hull));                                            // collinear
-    CarSilhouette full; unsigned added = 0; while (full.add(a)) ++added;
-    CHECK(added == kMaxSilhouettePoints / 8 && full.rejected() == 1);
-    full.clear(); CHECK(full.empty() && full.boxes() == 0);
-    // Pixel hull -> 64x64 target: x scaled, y flipped; a hull of more than a third of the target is no car.
-    std::vector<Point2> px = {{320, 240}, {384, 240}, {384, 336}, {320, 336}}, env;
-    CHECK(hull_to_env(px, 640, 480, env) && env.size() == 4 && std::fabs(env[0].x - 32.f) < 1e-4f && std::fabs(env[0].y - 32.f) < 1e-4f &&
-          std::fabs(env[2].x - 38.4f) < 1e-3f && std::fabs(env[2].y - 19.2f) < 1e-3f);
-    std::vector<Point2> huge = {{0, 0}, {640, 0}, {640, 400}, {0, 400}};
-    CHECK(!hull_to_env(huge, 640, 480, env) && env.empty() && !hull_to_env(px, 0, 480, env));
-    // Stage logging: only the capture that will be reported.
-    TimingDecision d(CaptureTiming::Auto); d.configure(CaptureTiming::Auto, true); d.on_race(1);
-    CHECK(d.stage_next());                                  // capture 1
-    d.note_capture(); CHECK(d.stage_due() && d.stage_next());   // capture 2
-    d.note_capture(); CHECK(d.stage_due() && d.stage_next());   // capture 3
-    d.note_capture(); CHECK(d.stage_due() && !d.stage_next());  // capture 4 is not in the schedule
-    TimingDecision off(CaptureTiming::Auto); off.on_race(1); CHECK(!off.stage_next());
-}
 }
 
 int main() {
-    exclusion_tests(); json_helper_tests(); png_tests(); image_tests(); draw_ledger_tests(); timing_tests(); ledger_tests(); stream_tests();
+    json_helper_tests(); render_queue_tests(); png_tests(); image_tests(); draw_ledger_tests(); timing_tests(); ledger_tests(); stream_tests();
     if (failures) std::cerr << failures << " failures\n";
     else std::cout << "ps2_diag contracts ok\n";
     return failures ? 1 : 0;

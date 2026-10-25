@@ -23,17 +23,33 @@ when the first car draw of the frame arrives, as on the PS2 (the PS2 draws the c
   All four stock-course captures of earlier sessions (`A-start-stationary`, `E-combined-race-start`, `capture2.0cam`,
   `turkey3` of the stock PC course) draw **100%** of their terrain-class triangles before the first car draw and none after it.
 
-Inside one frame the engine draws in groups of one vertex format, each group sorted by the creation serial of its base
-texture (F10 capture: 322-class draws on textures 626..1092, the car 634..651, the terrain 1067..1086 in the converted frame).
-Where the car group lands between the other groups is decided by the engine's draw queue and by the data of the course;
-in the converted SpainS2 frame it lands before the terrain group, in every stock capture after it. The queue order was not
-analysed further (it is engine code, not the converter output), which is why the fix measures the captured frame per race instead
-of assuming an order: the order can differ per course, and the same course can differ between sessions or races if the queue
-depends on load order.
+### Why the order differs (engine draw queue, static analysis of MRallye.exe, second run)
 
-So on a converted course DX the terrain is drawn after the car; the PS2-faithful capture point (first car draw) then holds
-only the sky, which is the static black region the owner saw. It does not change with the car because the terrain never is in
-the frame at that moment; the sky changes only with the camera pitch.
+The order is not a property of the course geometry; it comes from the engine's opaque draw queue:
+
+* the scene walk submits one 24-byte record per draw (owner instance, mesh, sub-mesh index, 64-bit sort key) into a vector of the
+  renderer object (`this+0x24..0x28`); the flush `0x562810` (the only caller is `0x56ba70`, called when the pass changes) sorts the
+  records ascending by the key (high word, then low word) and draws them with `0x576970` (the `0x17707e` call site of every
+  draw in the F10 captures);
+* for the opaque list the key is built by `0x583820`: high word 0, low word
+  `(sub-mesh index & 7) << 29 | (material id & 0x1fff) << 16 | texture id`. The material id is a slot of the engine's resource pool
+  (allocated at load, freed ids are recycled through a free list: `0x53bca0`), i.e. it carries no meaning about what a draw is.
+  That is the "groups of one material, ascending texture" order seen in every capture; the groups are material ids, not vertex
+  formats;
+* so where the cars land between the course draws is decided by pool slots. In the stock captures with a race (about 90 F10
+  captures of earlier sessions) the terrain group sorts before the cars; in the converted SpainS2 captures
+  (`frame-18300-d1-00051123` and the two of the last run, `frame-27960-d1-00008947`/`00011073`) the car groups sort before the
+  terrain and the water. The ps2diag stage reports of the last runs agree race by race: 10 races on SpainS2 (three sessions, the
+  first race of a session as well as later ones) have an empty ground in the in-frame capture, 60+ races on FranceWFlip, SpainS1
+  (40 restarts), TurkeyS1, TurkeyS2Flip, ItalyM1, ItalyM1Flip have a complete one.
+
+Which pool slots the converted SpainS2 materials receive is not read from the data. The new `ps2_render_queue` records
+(`ReflectionStageDiag=1`) list the submitted records of every flush of a stage-report frame grouped by owner and material id,
+so the slots of terrain and cars are in the next log.
+
+So on SpainS2 the terrain is drawn after the car; the PS2-faithful capture point (first car draw) then holds only the sky,
+which is the static black region the owner saw. It does not change with the car because the terrain never is in the frame at that
+moment; the sky changes only with the camera pitch.
 
 ### The chain that was checked (what is correct, what was the problem)
 
@@ -50,53 +66,38 @@ the frame at that moment; the sky changes only with the camera pitch.
 
 ### Fix
 
-`ReflectionCaptureTiming` (PS2Port.ini, default `auto`):
+**`ReflectionWorldFirst=1`** (default, only with `Reflection=4`): the PS2 draws the course first and the cars after it; the PC queue
+only does so by luck of the pool slots. The proxy wraps the single call of the flush (`0x56bab8`, same call-site patch mechanism as
+the baseline camera hook: original ECX, flags, registers and x87/SSE state survive, the original flush runs next; the call bytes and
+the flush prologue are verified before anything is written) and, right before the engine sorts, raises the key high word of the
+records whose owner is a proven race car body or wheel (the participant table of `fleet_participants.hpp`: egg registry,
+`instance+0xb0 -> en3d`, no geometry or distance heuristic) from 0 to 1. The cars then sort behind every other opaque record; the
+order inside both groups stays the engine's, the alpha list is untouched, nothing moves when the table is not proven (menu,
+loading). Idempotent, nothing is cached, nothing is rebuilt. The first car draw is now behind all the terrain, so the in-frame
+capture is the PS2 one: no car in the reflection (the car is not drawn yet), complete ground.
 
-* `inframe` — the old behaviour (first car draw).
-* `late` — the target is composed at the typed pre-UI boundary (first UI draw: the whole world and the cars are in the frame
-  buffer) and used by the NEXT frame; the in-frame capture of that frame then does no work.
-* `auto` — in-frame, but each race measures its own capture: at the 1st, 16th, 48th, 120th and 300th capture of a race the
-  bottom third of the 640x448 PS2 frame is read back (150 rows, a few GPU readbacks per race, never in a stock race that
-  passes). Three empty samples (>= 85% of the pixels with r+g+b <= 12) switch that race to `late`; three good samples settle
-  it in-frame. The decision restarts with every race generation, so a stock course is never switched by an earlier race.
+`ReflectionCaptureTiming` (PS2Port.ini, default `auto`) stays as a measured safety net and for diagnosis:
 
-The reading is the proof: the measured quantity is the symptom itself (an empty ground in the captured frame).
+* `inframe` - always at the first car draw;
+* `late` - at the first UI draw, for the NEXT frame: the whole world but also the cars in it (the PS2 does not have them);
+* `auto` - in-frame, but each race measures its own capture (captures 1, 16, 48, 120, 300: the bottom third of the 640x448 PS2
+  frame, 3 of 5 empty samples switch that race to `late`). With `ReflectionWorldFirst=1` working this never triggers; if it does,
+  `ps2_reflection_stage` says `timing_now:"late"` and `render_order` says why the order did not engage.
+
 Not changed: brightness, car materials, UV, the 80/128 + 96/255 weights, the stage states.
 
-Limits (kept visible): a late capture lags the frame by one (the car itself is removed, see "The car in its own reflection"); the first
-~50 captures of a race on a converted course (about a second at the start line) are still in-frame until three samples agree;
-the capture point is a measured proxy for the PS2 order, not a reproduction of the PS2 display list.
-
-### The car in its own reflection (second run)
-
-The first run showed the reflections, and also the player car in them: the end-of-world capture sees the finished frame, the
-PS2 capture does not (it runs after the terrain and before the car). `ReflectionExcludeCar=1` (default) removes the car from the
-late capture:
-
-* the car draws are the draws that sample the environment target (stage 1 texture coordinates = camera space normal, the same
-  signature the fleet code already learns the environment from); their local vertex bounding boxes (read from the proxy's CPU
-  vertex mirror, cached per buffer/offset, boxes larger than 9 world units are not cars) are projected with the world, view,
-  projection and viewport of the draw; the convex hull of all projected corners of the frame is the car area
-  (`reflection_exclusion.hpp`, portable, `ps2_diag_tests`);
-* before the late capture of that frame the hull is converted to 64x64 target coordinates (x scaled, y flipped like the frame
-  term) and the capture refills it with the whole static term (.625 replace, then .375 added) after the frame pass, so the area
-  shows what the PS2 static environment would show there. A hull larger than a third of the screen, fewer than three points or a
-  frame without environment draws leaves the capture as it was (counted: `car_excluded` / `car_not_excluded` in the reflection
-  status);
-* the in-frame capture (stock courses) has no car in the buffer and is not touched; `ReflectionExcludeCar=0` restores the
-  finished frame as it is.
-
-Limits: the hull comes from bounding boxes, so it is a little larger than the car silhouette (the refill is the static term,
-which is what the surroundings of the car look like at 64x64); the mask belongs to the frame that is captured, the target is
-used by the next frame. Not verified without the game: where the mask lands on screen. The stage PNG (`ReflectionStageDiag=1`)
-shows the refilled target; `ReflectionDebug=2` shows it live.
+Limits (kept visible): the engine function addresses are those of the retail executable (the patch refuses anything else); a car
+whose participant table is not proven keeps the engine order; the `late` fallback contains the car.
 
 ### Diagnostics for the next run
 
 `ReflectionStageDiag=1` writes, at captures 1, 2, 3, 30, 120, 480 and 1200 of every race (<= 64 per session), a
 `ps2_reflection_stage` record and one PNG (`ps2diag-*/stage-r<race>-f<frame>-<inframe|late>.png`: source frame | PS2 frame |
 env target | env minus static term x2.7) with, per stage, the mean colour, the share of black pixels, 8 horizontal bands and a
-content hash, the MSAA/format data, the copy/restore HRESULTs and the env lookups per frame. `ps2_reflection_order` lists the
+content hash, the MSAA/format data, the copy/restore HRESULTs, the env lookups per frame and `render_order` (installed, flushes,
+records, car records moved). `ps2_render_queue` lists the submitted records of each flush of that frame grouped by owner and material
+id (`runs`: owner index, car, sub-mesh index, material id, records, texture id min/max; sorting them by sub-mesh index, material id,
+texture id reproduces the engine order). `ps2_reflection_order` lists the
 indexed draws of the frame (count, triangles, per vertex format) before the capture and for the whole frame; it is written only
 for the captures that also get a stage report (the first run wrote it for every capture, about 8,500 records, and used up the
 4 MiB stream within the first minutes).
@@ -200,8 +201,8 @@ from "drawn but empty".
 * `ps2_reflection_pilot_tests`: ini keys, default `auto`, status record.
 * `tests/test_course_render_fix1.py`: patch hooks, absence of the session latches, disable log coverage, ini defaults, analyzer
   (healthy 14 races, an effect lost after race 6, disables, growth, generations), the recorded evidence.
-* `ps2_diag_tests` also covers the car mask (vertex boxes, projection, hull, hull -> target coordinates, size limit);
-  `ps2_reflection_capture_tests` the refill (two extra private draws on the 64x64 target, once per published frame, state
-  restored). `test_course_render_fix1.py` pins the raised registry bounds in the patch and in `fleet_participants.hpp`.
+* `ps2_diag_tests` also covers the draw queue (`render_queue_order.hpp`: the converted-SpainS2 order with the cars first becomes
+  cars last, engine order inside the groups kept, idempotent, alpha records and malformed vectors untouched, diagnostic record).
+  `test_course_render_fix1.py` pins the raised registry bounds in the patch and in `fleet_participants.hpp` and the flush hook.
 * Not proven without the game: that `auto` switches SpainS2 and leaves stock courses alone, the visual result, the readback
   cost, and the cause of the effect loss the owner observed. `docs/course-render-fix1/runtime-ab.md` lists the checks.

@@ -20,11 +20,13 @@ afterwards.
    * Italy3: `world_incomplete:false`, `timing_now:"inframe"` throughout.
 5. A/B of the fix itself: `ReflectionCaptureTiming=inframe` reproduces the black ground on SpainS2 (the old behaviour),
    `late` gives the fixed look from the first frame.
-6. The car must not be in the target: in the `ReflectionDebug=2` view of SpainS2 the target shows ground and surroundings and
-   no car silhouette (a smooth static-term patch where the car is). `ReflectionExcludeCar=0` brings the car back in the
-   target (A/B). In `ps2diag-*.jsonl` the reflection status has `car_excluded` (grows every frame) and `car_not_excluded`
-   (small: frames without a car mask). If the patch is misplaced or too large, send the screenshot and the
-   `stage-*-late.png` of the run.
+6. The cars are now sorted behind the course by the proxy (`ReflectionWorldFirst=1`): on SpainS2 the in-frame capture must already
+   show the ground (`timing_now:"inframe"`, `world_incomplete:false` in the stage reports of all races) and the car is not in the
+   target (the car is not drawn when the capture happens). `render_order` in the stage record: `installed:true`,
+   `last.vehicles` > 0 and `last.reason:"vehicles_moved_last"` on SpainS2; on a stock course `"vehicles_already_last"` or
+   `"vehicles_moved_last"`. `ReflectionWorldFirst=0` is the A/B (old engine order, black ground, `auto` then switches to `late`).
+7. Send `ps2diag-*.jsonl` of a SpainS2 race and a stock race (Italy3 or Spain2) in the same session: the `ps2_render_queue` records
+   show the material ids of the terrain and the cars on both courses.
 
 ## B. Race cycles (about 25 minutes)
 

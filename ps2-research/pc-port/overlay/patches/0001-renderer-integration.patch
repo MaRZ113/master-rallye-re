@@ -848,7 +848,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
 + uint32_t pilot_ordinal=UINT32_MAX;
 + bool pixel_probe_target_started=false;
 + if(pilot_extension&&pilot_extension->pixel_probe_enabled())pilot_ordinal=pilot_extension->note_indexed_draw(pilot_frame);
-+ reflectionintegration::note_draw(*this,count,min_index,vertices);
++ reflectionintegration::note_draw(*this,count);
 + const auto brake_draw=lampintegration::draw(*this,type,min_index,vertices,start,count,pc);
 + if(brake_draw.handled){reflectionintegration::note_result(*this,ps2diag::Effect::Models,"brake_lamp","brake_lamp_failed",brake_draw.hr);trace.after(71,args,static_cast<uint32_t>(brake_draw.hr),pc);return brake_draw.hr;}
 + const auto water_draw=waterintegration::draw(*this,type,min_index,vertices,start,count,pc);

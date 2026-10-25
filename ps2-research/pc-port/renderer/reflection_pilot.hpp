@@ -441,6 +441,7 @@ class ReflectionPilot {
     ReflectionTransaction transaction_;
     MixedReflectionCapture capture_;
     bool debug_pattern_ = false;
+    bool world_first_ = true;   // ReflectionWorldFirst: the race cars sort behind the course in the engine draw queue
     bool debug_view_ = false;
     HRESULT upload_hresult_ = E_PENDING;
 public:
@@ -466,6 +467,7 @@ public:
     ReflectionTransaction& transaction() noexcept { return transaction_; }
     MixedReflectionCapture& mixed_capture() noexcept { return capture_; }
     bool debug_pattern() const noexcept { return debug_pattern_; }
+    bool world_first() const noexcept { return world_first_; }
     bool debug_view() const noexcept { return debug_view_; }
     bool claim_damage_diagnostic()noexcept{if(!diagnostics_||damage_logged_)return false;damage_logged_=true;return true;}
     bool claim_diagnostic(bool applied, const char* vehicle="Tata") noexcept;

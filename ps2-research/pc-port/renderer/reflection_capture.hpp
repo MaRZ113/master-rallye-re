@@ -4,7 +4,6 @@
 // Main-target state is restored before the caller submits its original draw.
 #include "state_tracker.hpp"
 #include "ps2_diag.hpp"
-#include "reflection_exclusion.hpp"
 #include <array>
 #include <cstdint>
 #include <utility>
@@ -136,7 +135,7 @@ struct ReflectionStageReport {
     ps2diag::Montage montage;
 };
 struct ReflectionCaptureCounters {
-    uint32_t attempts=0, ok=0, late_ok=0, failed=0, probes=0, probes_incomplete=0, stage_reports=0, readback_failed=0, late_latched_races=0, resolve_latch_cleared=0, car_excluded=0, car_not_excluded=0;
+    uint32_t attempts=0, ok=0, late_ok=0, failed=0, probes=0, probes_incomplete=0, stage_reports=0, readback_failed=0, late_latched_races=0, resolve_latch_cleared=0;
     const char* last_failure="";
     HRESULT last_failure_hr=S_OK;
 };
@@ -194,11 +193,6 @@ class MixedReflectionCapture {
     ReflectionStageReport report_{};
     bool report_pending_=false;
     ReflectionInspector* inspector_=nullptr;
-    // Hull of the car draws of one frame in 64x64 target coordinates (set before the late capture of that frame).
-    std::vector<ps2diag::Point2> exclusion_;
-    uint64_t exclusion_frame_=UINT64_MAX;
-    bool exclude_car_=true;
-    HRESULT draw_exclusion(IDirect3DDevice8&,IDirect3DTexture8* env) noexcept;
     HRESULT allocate(IDirect3DDevice8&,const D3DSURFACE_DESC&,const ReflectionCaptureLayout&) noexcept;
     HRESULT allocate_late(IDirect3DDevice8&) noexcept;
     void release_resources() noexcept;
@@ -216,10 +210,6 @@ public:
     void set_observer(void* context,ReflectionCaptureObserver observer) noexcept {observer_context_=context;observer_=observer;}
     // Diagnostics: the readbacks of the timing probe and the stage report (null = none; the inspector outlives the capture).
     void set_inspector(ReflectionInspector* inspector) noexcept {inspector_=inspector;}
-    // ReflectionExcludeCar: the late capture refills the area of the car draws with the static term (no car in its own reflection).
-    void exclude_car(bool enabled) noexcept {exclude_car_=enabled;}
-    bool excludes_car() const noexcept {return exclude_car_;}
-    void set_exclusion(uint64_t frame,std::vector<ps2diag::Point2> hull) noexcept {exclusion_=std::move(hull);exclusion_frame_=frame;}
     // ReflectionCaptureTiming / ReflectionStageDiag (default: the original in-frame capture, no readbacks).
     void configure(ps2diag::CaptureTiming timing,bool stage_diag) noexcept {decision_.configure(timing,stage_diag);}
     // 64x64 BGRA of the static term (80/128 already applied) for the stage report.

@@ -27,7 +27,7 @@ def load_tool(name):
 
 class SourceContracts(unittest.TestCase):
     def test_patch_hooks(self):
-        for token in ('reflectionintegration::note_draw(*this,count,min_index,vertices);', 'reflectionintegration::before_ui(*this,ui_callsite)',
+        for token in ('reflectionintegration::note_draw(*this,count);', 'reflectionintegration::before_ui(*this,ui_callsite)',
                       '#include "reflection_timing_native.hpp"', 'add_test(NAME ps2_diag_contracts COMMAND ps2_diag_tests)'):
             self.assertEqual(PATCH.count(token), 1, token)
         self.assertEqual(PATCH.count('reflectionintegration::note_result('), 8)
@@ -62,20 +62,29 @@ class SourceContracts(unittest.TestCase):
         self.assertNotIn('32768', participants)
         self.assertIn('vector(m,registry,1u<<20,begin,count)', participants)
 
-    def test_car_is_excluded_from_its_own_late_reflection(self):
-        exclusion = read('reflection_exclusion.hpp')
-        for line in exclusion.splitlines():
+    def test_engine_queue_puts_the_cars_behind_the_course(self):
+        # Cause of the black SpainS2 reflection: the engine sorts its opaque draw queue by (sub-mesh index, material pool id,
+        # texture id); on the converted SpainS2 the car records sort before the terrain. The flush call is wrapped and the
+        # records of the proven race cars get key high word 1.
+        core = read('render_queue_order.hpp')
+        for line in core.splitlines():
             if line.startswith('#include'):
                 self.assertTrue(re.match(r'#include <[a-z_]+>$', line), line)
+        self.assertIn('kQueueFlushCallRva = 0x16bab8', core)
+        self.assertIn('kQueueFlushRva = 0x162810', core)
+        self.assertIn('write(begin + i * kQueueRecordSize + 0x14, 1u)', core)
+        native = read('render_queue_order_native.hpp')
+        self.assertIn('0xe8, 0x53, 0x6d, 0xff, 0xff', native)            # the original call 0x56bab8 -> 0x562810
+        self.assertIn('0x83, 0xec, 0x0c, 0x53, 0x8b, 0xd9', native)        # prologue of the flush is verified
+        self.assertIn('jmp dword ptr [original_flush]', native)
+        self.assertIn('table.valid', native)                               # nothing moves without a proven participant table
         timing = read('reflection_timing_native.hpp')
-        self.assertIn('D3DTSS_TCI_CAMERASPACENORMAL', timing)          # the draws that sample the environment target
-        self.assertIn('publish_car_mask(d, *p, frame);', timing)
-        self.assertLess(timing.index('publish_car_mask(d, *p, frame);'), timing.index('capture.capture_late('))
-        capture = read('reflection_capture.cpp')
-        self.assertIn('draw_exclusion(native,env)', capture)
-        self.assertIn('late&&!debug_pattern_', capture)               # the in-frame capture (no car yet) is untouched
-        self.assertIn('L"ReflectionExcludeCar",1', read('reflection_pilot.cpp'))
-        self.assertIn('ReflectionExcludeCar=1', (PORT / 'PS2Port.ini.example').read_text(encoding='utf-8'))
+        self.assertIn('renderorder::ensure_installed(d, p->world_first(), capture.decision().stage_diag());', timing)
+        self.assertIn('L"ReflectionWorldFirst",1', read('reflection_pilot.cpp'))
+        self.assertIn('ReflectionWorldFirst=1', (PORT / 'PS2Port.ini.example').read_text(encoding='utf-8'))
+        # the rejected approach (refilling the car area of the late capture) is gone
+        self.assertFalse((RENDERER / 'reflection_exclusion.hpp').exists())
+        self.assertNotIn('draw_exclusion', read('reflection_capture.cpp'))
 
     def test_order_records_only_for_reported_captures(self):
         timing = read('reflection_timing_native.hpp')

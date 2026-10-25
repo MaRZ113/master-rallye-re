@@ -25,9 +25,11 @@ ReflectionCaptureTiming=auto
 ;   source frame | PS2 frame | env target | env minus static term) at captures 1, 2, 3, 30, 120, 480, 1200 of every race
 ;   (at most 64 per session). Costs a few GPU readbacks per race. Keep 0 for play.
 ReflectionStageDiag=0
-; ReflectionExcludeCar: 1 (default) = the end-of-world capture does not show the player car in its own reflection: the area
-;   of the draws that sample the environment target is refilled with the static term. 0 = the finished frame as it is.
-ReflectionExcludeCar=1
+; ReflectionWorldFirst (COURSE-RENDER-FIX1): 1 (default, only with Reflection=4) = the race cars are sorted behind the course in the
+;   engine's own opaque draw queue, as on the PS2 (course first, cars after). The PC engine orders the queue by material pool
+;   slots, which on some converted courses (SpainS2) puts the cars before the terrain, so the environment capture at the first
+;   car draw saw an empty ground. 0 = the engine order as it is. See docs/course-render-fix1.
+ReflectionWorldFirst=1
 ; ReflectionSourceGXI: PS2 static environment texture.
 ReflectionSourceGXI=PS2Grass/PS2EnvSource64x64.gxi
 
