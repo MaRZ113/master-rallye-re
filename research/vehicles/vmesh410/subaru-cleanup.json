@@ -1,0 +1,18 @@
+{
+  "baseline_sha256": {
+    "car.dx": "5769fbdf5e77baeb7de62cabd6005cb313461d14128ef61523b1a534ae81e3b9",
+    "complete.dx": "f88bfc70284090ec228eff91241e14917b2464004c116abb1b2ed0552f8a6f3f",
+    "wheel.dx": "3e56f0ee1815519a417329599086bc2453e454431bd533de75e92f0e454a74c2"
+  },
+  "retail_exe": "D:/Game/Master Rallye/MRallye.exe",
+  "installed_proxy": "D:/Game/Master Rallye/d3d8.dll",
+  "protected_sha256": {
+    "MRallye.exe": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "d3d8.dll": "eb7ea3d9501b514bff668f1e75e86041906c5fe4e8afa89f06d658751429aaf4"
+  },
+  "headlamp_cap_face_pairs": [[3242,3243],[3244,3245],[3375,3376],[3377,3378]],
+  "intercooler_faces": [2117,2118],
+  "intercooler_padding_m": 0.012,
+  "intercooler_depth_m": 0.012,
+  "glow_inset_m": 0.0015
+}
