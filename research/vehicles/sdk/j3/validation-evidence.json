@@ -1,0 +1,237 @@
+{
+  "date": "2026-10-09",
+  "phase": "R5V-J.3-A+B",
+  "classification": "STATIC_DONOR_AUTHORING_AND_BOUNDED_COLLECTION_RUNTIME_COMPILER_VALIDATION",
+  "retail": {
+    "exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "exe_size": 3121214,
+    "data_sma_sha256": "03c2b52d451b378c7ec634132ebfab706616e33c57fea2985b83db66d3fd4b2f",
+    "data_sma_size": 282396172,
+    "vehicles_xml_sha256": "a6762bb20999c7224c71b9f5d1d7edca55bcea147ff9f973300a8cf8d350aee0",
+    "modifications_xml_sha256": "16df5a3a6b0c50c40f4ee74186e47b40294e6cb4ac11e0a3d7d20dafb8a5a65d"
+  },
+  "reference_offline_plan": {
+    "sha256": "357d3cf10f32b63af27d28c23a858197d7eedbd0d7ef79e4deb2a63a6b170989",
+    "runtime_installable": false,
+    "verification": "PASS"
+  },
+  "author_project": {
+    "addon_id": "glacier-sprint",
+    "runtime_family": "GlacierSprint",
+    "physical_id": 27,
+    "class": "T2",
+    "class_local_index": 7,
+    "slot_qualified": true,
+    "identity_runtime_qualified": false,
+    "asset_validation": {
+      "dx_resources_parsed": 3,
+      "dxt_dependency_bindings_resolved": 114,
+      "unresolved_dependencies": 0,
+      "compiled_edits": 0
+    },
+    "generated_physics_family_rows": {
+      "vehicles_xml": 147,
+      "modifications_xml": 26
+    },
+    "build": {
+      "status": "PASS",
+      "declared_artifact_count": 47,
+      "resource_count": 44,
+      "addon_plan_sha256": "1d64c320cc104d177db3c012986631590183175cdd167051267e68568ad5f492",
+      "build_manifest_sha256": "1f471894df19091d7f9eb99f6b52eb4a3478318359a5c5481c715f7770ca3ab8",
+      "frontend_plan_sha256": "3096a51b394524d4efde3167f4e11de304c63909299b21759ce12a6be429e180",
+      "resource_inventory_sha256": "43229e22c86cdb154df1f2045d042796d90c28bd8dc8feec73498fddae733780",
+      "vehicles_xml_output_sha256": "e82e273fc84221397e09b97667026accd12194b7fce9ff32ce38000183f0ebad",
+      "modifications_xml_output_sha256": "e3b321ec36df9f06231626d9ae7c42cac21d5e3605bbd72aa2fbb230c5389ab0",
+      "on_disk_files": 48,
+      "tree_sha256": "426406a9d6ea405f857febbba9ff3055248fcf5d39d1524dc4bfadccf3988c9f",
+      "repeat_build": "48 paths and SHA256 values identical"
+    },
+    "runtime_installable": false,
+    "human_runtime_test": "NOT_RUN"
+  },
+  "j2_closeout": {
+    "status": "FULL_PASS_CLOSED_BY_OWNER_REPORT",
+    "id27_reentry": "HUMAN_CONFIRMED_PASS",
+    "reverse_mapping": "STATICALLY_VERIFIED",
+    "corrected_store": "C7 46 18 07",
+    "j1_parent_operations": 246,
+    "j2_operations": 248
+  },
+  "tests": {
+    "focused": {
+      "count": 53,
+      "passed": 53,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "full_synthetic": {
+      "count": 431,
+      "passed": 429,
+      "failed": 1,
+      "errors": 1,
+      "skipped": 0,
+      "limitations": [
+        "test_single_file_writes_valid_dx_and_machine_report: Windows sandbox denied child-process atomic replace in approved TEMP (WinError 5)",
+        "test_stage_builds_self_contained_package_and_drops_profile_state: Windows sandbox denied Path.resolve on test fixture under .research-output (WinError 5)"
+      ]
+    },
+    "compileall": "PASS",
+    "git_diff_check": "PASS_WITH_LINE_ENDING_NOTICES",
+    "j3b_focused": {
+      "count": 63,
+      "passed": 63,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "j3b_review_archive_extracted_focused": {
+      "command": "python -m unittest tests.synthetic.test_addon_collection_runtime tests.synthetic.test_addon_sdk tests.synthetic.test_addon_sdk_project tests.synthetic.test_addon_sdk_runtime tests.synthetic.test_addon_sdk_j2_composition tests.synthetic.test_j2_frontend_reentry -v",
+      "count": 42,
+      "passed": 40,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 2,
+      "status": "PASS_WITH_EXTERNAL_BINARY_FIXTURE_SKIPS",
+      "skip_reason": "The source-only archive excludes the proprietary retail executable and verified J.1 runtime bundle required by two test classes.",
+      "output": "validation-output/j3b-archive-focused-reproduction.txt"
+    },
+    "j3a_full_synthetic_historical": {
+      "count": 421,
+      "passed": 419,
+      "failed": 1,
+      "errors": 1,
+      "skipped": 0,
+      "recorded_in": "validation.md J.3-A historical baseline"
+    }
+  },
+  "j1_canonical_bundle_verification": {
+    "path_label": "reference-runtime-final",
+    "operations": 246,
+    "status": "PASS_STATIC_RUNTIME_BUNDLE"
+  },
+  "j2_reentry_bundle_verification": {
+    "operations": 248,
+    "stub_abi_audit": "PASS_SYMBOLIC_STUB_ABI",
+    "status": "PASS_STATIC_J2_REENTRY_BUNDLE"
+  },
+  "j3_status": {
+    "j3_a": "PASS_OFFLINE_AUTHORING_AND_COMPILER",
+    "j3_b": "READY_FOR_HUMAN_RUNTIME_STATIC_COLLECTION_COMPILER",
+    "j3_c": "NOT_STARTED",
+    "public_release": false
+  },
+  "j3b_collection_compiler": {
+    "status": "READY_FOR_HUMAN_RUNTIME",
+    "supported_layout": "physical ID26/T1 Mercedes plus physical ID27/T2 addon",
+    "t2_only_collection": "FAIL_CLOSED_NO_IMPLICIT_MERCEDES",
+    "j0_runtime_installable": false,
+    "reference_pair": {
+      "addon_plan_sha256": "357d3cf10f32b63af27d28c23a858197d7eedbd0d7ef79e4deb2a63a6b170989",
+      "operation_count": 248,
+      "rvp_sha256": "44c139de5b211947857bcb4e70ac84a6b9f1adc23cc9b0fe2a520978a5282f5a",
+      "reconstructed_image_sha256": "2f3b1d95d05c997bb13d6a8e235327098e344b75b46d0432c4a3a7ecf289ab64",
+      "matches_j2_corrected_candidate": true,
+      "verification": "PASS_STATIC_COLLECTION_RUNTIME_BUNDLE",
+      "resource_index_sha256": "2fc7121c3d4f66c407cedbcb47dc223c580301971e3d12d16aa197c7a70a3384",
+      "reference_resources_byte_equal_to_i1": true,
+      "preserved_resource_hashes": {
+        "DataGame/vehicles.xml": "6442df4d043517dd87ed31c82e2bfa7065aff4cc8154c7f3db5f5e9c4239c75a",
+        "DataGame/Modifications.xml": "e41053998c75fe411c666b7e5ee623163ab5e73cc5d464eeb86e1265f840b6d2",
+        "DataScene/FrontendScreens/VehicleSelect.xml": "0b8c61efd2959a5b3b5dcef0d3810c2b445e021c465816627e87b9e3da2b4490"
+      }
+    },
+    "glacier_sprint": {
+      "addon_manifest_sha256": "a1860562cb99c035f08887898b97f2646e317038bd0488d45e8041e5f8ffd436",
+      "addon_plan_sha256": "1a242651f78fbe7d528d1f078be35573a37fb78abb955c53ad5d438af1b20dff",
+      "physical_id": 27,
+      "class": "T2",
+      "class_local_index": 7,
+      "runtime_family": "GlacierSprint",
+      "native_operation_count": 247,
+      "rvp_sha256": "3f18db5ab4f3d635f743868d3649b4f5b41d5198f31d26fb8f2e7a7be3076e0e",
+      "native_manifest_sha256": "539ec636e7294eda561a819c89c416d15fb0aee49cd64f9dad37c048840e4a47",
+      "reconstructed_image_sha256": "3cdf0db5ef579c27a04bc83d58a019cd5866329a254e5e34ece4ba74dff1cb46",
+      "resource_count": 187,
+      "id27_family_resources": 42,
+      "runtime_qualified": false,
+      "verification": "PASS_STATIC_COLLECTION_RUNTIME_BUNDLE",
+      "resource_index_sha256": "137d44afd6c2dc93723d340d8a59371b19a64c79b78f2543ea028ab246aba156",
+      "resource_manifest_sha256": "1aea6adaf1f7bd5ae017a5b22b15b1830555414ea00775b1863e25810b58ec30"
+    },
+    "native_launcher": {
+      "generator": "Visual Studio 18 2026",
+      "compiler": "MSVC 19.50.35729.0",
+      "sha256": "f93cb2c1dc92285fb268a99ff462dce63276c0be772fbba41be653fc6f473d1b",
+      "size": 141312,
+      "build_status": "STATIC_BUILD_ONLY_NOT_RUNTIME_QUALIFIED",
+      "bundle_verify": "PASS",
+      "retail_exe_sha256_after_verify": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "launcher_sha256": "f93cb2c1dc92285fb268a99ff462dce63276c0be772fbba41be653fc6f473d1b",
+      "launcher_size": 141312
+    },
+    "negative_paths": {
+      "wrong_executable": "FAIL_CLOSED",
+      "id27_t2_only": "FAIL_CLOSED_WITHOUT_OUTPUT_BUNDLE",
+      "original_executable_modified": false
+    },
+    "human_runtime_test": "NOT_RUN",
+    "deterministic_rebuild": {
+      "status": "PASS_DETERMINISTIC_RUNTIME_COLLECTION_REBUILD",
+      "compared_fields": [
+        "addon_plan_sha256",
+        "native_patch_manifest_sha256",
+        "native_patch_operation_count",
+        "native_patch_operations_sha256",
+        "process_memory_operation_count",
+        "reference_image_sha256",
+        "resource_count",
+        "resource_index_sha256",
+        "resource_manifest_sha256",
+        "retail_exe_sha256",
+        "runtime_family_id27",
+        "runtime_qualified",
+        "status"
+      ],
+      "collections": {
+        "reference_pair": {
+          "status": "BYTE_IDENTITY_INDEX_AND_PLAN_FIELDS_MATCH",
+          "bundle_path_differs_by_design": true,
+          "addon_plan_sha256": "357d3cf10f32b63af27d28c23a858197d7eedbd0d7ef79e4deb2a63a6b170989",
+          "operations_sha256": "44c139de5b211947857bcb4e70ac84a6b9f1adc23cc9b0fe2a520978a5282f5a",
+          "reference_image_sha256": "2f3b1d95d05c997bb13d6a8e235327098e344b75b46d0432c4a3a7ecf289ab64",
+          "resource_index_sha256": "2fc7121c3d4f66c407cedbcb47dc223c580301971e3d12d16aa197c7a70a3384",
+          "resource_count": 243
+        },
+        "glacier_sprint": {
+          "status": "BYTE_IDENTITY_INDEX_AND_PLAN_FIELDS_MATCH",
+          "bundle_path_differs_by_design": true,
+          "addon_plan_sha256": "1a242651f78fbe7d528d1f078be35573a37fb78abb955c53ad5d438af1b20dff",
+          "operations_sha256": "3f18db5ab4f3d635f743868d3649b4f5b41d5198f31d26fb8f2e7a7be3076e0e",
+          "reference_image_sha256": "3cdf0db5ef579c27a04bc83d58a019cd5866329a254e5e34ece4ba74dff1cb46",
+          "resource_index_sha256": "137d44afd6c2dc93723d340d8a59371b19a64c79b78f2543ea028ab246aba156",
+          "resource_count": 187
+        }
+      }
+    },
+    "candidate_bundle_paths": {
+      "reference_pair": ".research-output/vehicles/sdk/j3b/reference-pair-runtime-byte-exact",
+      "glacier_sprint": ".research-output/vehicles/sdk/j3b/glacier-sprint-runtime-final",
+      "fresh_rebuilds": [
+        ".research-output/vehicles/sdk/j3b/reference-pair-runtime-repro-20261009",
+        ".research-output/vehicles/sdk/j3b/glacier-sprint-runtime-repro-20261009"
+      ]
+    },
+    "family_identifier_limit": {
+      "max_length": 64,
+      "alphabet": "ASCII letters, digits, underscore; first character letter",
+      "schema_and_validator": "MATCH",
+      "oversized_and_unsafe_tests": "PASS"
+    },
+    "single_slot_collections": {
+      "t1_only": "FAIL_CLOSED_EXACT_LAYOUT_REQUIRED",
+      "t2_only": "FAIL_CLOSED_NO_IMPLICIT_MERCEDES"
+    }
+  }
+}
