@@ -125,7 +125,9 @@ def stage_vehicle(source:Path, output:Path, *, profile:Path|None=None):
     if not profile and len(paths)==3:
         try:config=presentation_wheels(*(parse_dx(source.parent/n) for n in ('car.dx','complete.dx','wheel.dx')))
         except ValueError as exc:config={'provenance':f'automatic rest-pose assembly unavailable: {exc}'}
-    if set(config)-{'race_wheel_instances','provenance','mechanical_debug','attached_models'}:raise ValueError('unknown viewer profile field')
+    if set(config)-{'race_wheel_instances','provenance','mechanical_debug','attached_models','glass_states'}:raise ValueError('unknown viewer profile field')
+    glass_states=config.get('glass_states',{})
+    if not isinstance(glass_states,dict) or any(k not in ('screenfront','screenrear','screenleft','screenright') or type(v)is not int or v not in (1,2) for k,v in glass_states.items()):raise ValueError('Glass diagnostics require named source groups and case 1 or 2')
     instances=config.get('race_wheel_instances',[])
     if instances and not config.get('provenance'):raise ValueError('wheel transforms require provenance')
     if len(instances)>16:raise ValueError('too many wheel instances')
@@ -163,6 +165,13 @@ def stage_vehicle(source:Path, output:Path, *, profile:Path|None=None):
         if not m.diagnostics.validated:raise ValueError(f'invalid DX {path}: {m.diagnostics.errors}')
         if m.vertex_count>1000000 or len(m.physical_draws)>8192:raise ValueError('preview mesh budget exceeded')
         cases,warnings=logical_cases(m)
+        selected_glass={}
+        if path.name.casefold()=='car.dx':
+            labels={g.root.group_label for g in m.draw_groups if g.root.tag==7}
+            if set(glass_states)-labels:raise ValueError('Requested glass group is absent from source model')
+            for g in m.draw_groups:
+                if g.root.group_label in glass_states:
+                    for index in g.draw_indices:selected_glass[index]=glass_states[g.root.group_label]
         model_kind={'car.dx':1,'complete.dx':2,'wheel.dx':3}.get(path.name.casefold(),0)
         if model_kind==3:
             wheel_votes=[m.vertices.normals[k][0] for d in m.physical_draws for k in sorted(set(m.draw_global_indices(d))) if abs(m.vertices.normals[k][0])>.7]
@@ -187,6 +196,7 @@ def stage_vehicle(source:Path, output:Path, *, profile:Path|None=None):
                 return tuple(out[k]+(tr[k] if position else 0) for k in range(3))
             for d in m.physical_draws:
                 if d.index_count==0:continue
+                if d.draw_index in selected_glass and cases[d.draw_index][1]!=selected_glass[d.draw_index]:continue
                 sem=MaterialSemantics.from_draw(d)
                 if len(d.texture_slots)!=3:raise ValueError('requires evidenced three texture slots')
                 flags=list(d.flags_0x20)
@@ -204,6 +214,7 @@ def stage_vehicle(source:Path, output:Path, *, profile:Path|None=None):
                 ps=[vec(m.vertices.positions[k],True) for k in used]
                 centre=[sum(p[k] for p in ps)/len(ps) for k in range(3)]
                 switch,case=cases.get(d.draw_index,(0,0))
+                if d.draw_index in selected_glass:switch,case=0,0
                 name=f'{path.name}:{d.draw_index}:{d.group_label or d.texture_tuple[0]}'
                 staged_indices=[remap[v] for v in ids]
                 # A reflected position transform reverses triangle handedness.

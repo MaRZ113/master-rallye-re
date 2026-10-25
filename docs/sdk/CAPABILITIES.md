@@ -60,6 +60,16 @@ current bounded milestone; V-SDK4B/V-SDK4C and later phases are not started.
 Filtered Pillow LANCZOS/bicubic resampling with premultiplied alpha replaces integer Tk scaling. Exact1:1/optional nearest, cursor anchoring, bounded viewport and RGB/RGBA/Alpha are Windows-tested; source data is unchanged. Original SVG and multi-resolution ICO are distributable CC0 artwork; Tk/native icons and explicit Tk taskbar identity are implemented. See VSDK4A1_RESULTS.md. V-SDK4C follows by explicit owner authorization; later Paint Studio remains deferred.
 # V-SDK4C material/Help additions
 
+## V-SDK4C native glass qualification
+
+Source-audited four-zone native intact/broken ownership repair IMPLEMENTED as an
+opt-in source-hash-pinned profile. Subaru experimental candidate prepared; actual
+owner collisions remain PENDING. Native getter/setter/front increment verified
+with original x86 CPU replay. No independent third shattered stage claimed.
+Preview profile `glass_states` selects named source cases for diagnosis; it does
+not simulate impacts. Stock/GT4 imported baselines remain unchanged.
+See VSDK4C_RESULTS.md for precise boundaries and reproduction.
+
 Existing diffuse-slot assignment: IMPLEMENTED, bounded equal-name-length /
 format / dimensions / alpha subset. Unknown states and environment slots are
 read-only. Native per-draw persistence, Undo/Redo/Restore, shared compiler and

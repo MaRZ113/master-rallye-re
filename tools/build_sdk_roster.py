@@ -54,8 +54,23 @@ def load_author(project,build):
     _,resources,report=legacy._load_project_build(manifest['addon_id'],manifest,manifest_raw,original,build)
     return original,resources,report
 
+def apply_base_glass_profiles(resources,base_rows,profiles):
+    """Explicit post-validation render repair; frozen-base pins remain enforced."""
+    from master_rallye.glass_authoring import redistribute_glass
+    if not isinstance(profiles,dict) or any(not isinstance(k,str) or not isinstance(v,str) for k,v in profiles.items()):raise ValueError('base_glass_profiles must map owned addon IDs to profile paths')
+    rows={r['addon_id']:r for r in base_rows};reports=[]
+    for addon_id,profile_path in sorted(profiles.items()):
+        if addon_id not in rows:raise ValueError('Glass profile cannot target stock or an unknown addon')
+        row=rows[addon_id];path=row['assets']['model_package_root']+'/car.dx'
+        if path not in resources:raise ValueError('Missing owned base car resource')
+        profile=json.loads(Path(profile_path).read_text())
+        data,report=redistribute_glass(probe.value(resources[path]),profile)
+        resources[path]=data;reports.append({'addon_id':addon_id,'path':path,'profile_sha256':probe.sha(Path(profile_path).read_bytes()),**report})
+    return reports
+
+
 def derive(config):
-    if not isinstance(config,dict) or not {'sdk_roster_version','base_runtime','projects'}<=set(config) or set(config)-{'sdk_roster_version','base_runtime','projects','reservations','retail_exe','frontend_profiler','frontend_bulk_read','stock_resource_projects','camera_profiles'} or type(config.get('sdk_roster_version')) is not int or config['sdk_roster_version']!=1:raise ValueError('unsupported SDK roster declaration')
+    if not isinstance(config,dict) or not {'sdk_roster_version','base_runtime','projects'}<=set(config) or set(config)-{'sdk_roster_version','base_runtime','projects','reservations','retail_exe','frontend_profiler','frontend_bulk_read','stock_resource_projects','camera_profiles','base_glass_profiles'} or type(config.get('sdk_roster_version')) is not int or config['sdk_roster_version']!=1:raise ValueError('unsupported SDK roster declaration')
     if type(config.get('frontend_profiler',False)) is not bool:raise ValueError('frontend_profiler must be an explicit boolean')
     if type(config.get('frontend_bulk_read',False)) is not bool:raise ValueError('frontend_bulk_read must be an explicit boolean')
     inputs=config.get('projects')
@@ -82,6 +97,8 @@ def derive(config):
     lock,active=reserve_roster(requests,slots=slots,previous=previous)
     if [r['physical_id'] for r in active]!=list(range(26,28+len(rows))):raise ValueError('reserved roster differs from selected layout')
     output=dict(assets);owned={p.casefold():p for p in output};ownership={};ui_report={}
+    glass_reports=apply_base_glass_profiles(output,plan['addons'],config.get('base_glass_profiles',{}))
+    for item in glass_reports:ownership[item['path']]='explicit-glass-profile:'+item['addon_id']
     for row,author in zip(rows,authors):
         for path,location,role in author['resources']:
             key=path.casefold()
@@ -193,6 +210,7 @@ def derive(config):
         sdk_roster_layout={'record_count':28+len(rows),'addon_ids':list(range(26,28+len(rows)))},
         physical_slots_runtime_qualified=[26,27],experimental_physical_slots=[r['physical_id'] for r in rows],unresolved_runtime_gates=['Exact combined imported roster player/AI, finishing, Results and re-entry','Simultaneous independent physics/audio/damage/light behavior','No migration of experimental probe saves or other candidate state'])
     audit={'runtime_qualified':False,'capacity_mechanism':'SCALE1 29/30 user gameplay confirmed; this combined candidate not gameplay tested','author_slot_rebindings':[{'addon_id':r['addon_id'],'author_id':a['original']['physical_id'],'runtime_id':r['physical_id']} for r,a in zip(rows,authors)],'bindings':bindings,'native_hook_count':len(ops),'resource_ownership':ownership,'ui_frames':ui_report,'source_reports':reports,'base_plan_sha256':probe.sha(canonical_json(base_plan))}
+    if glass_reports:audit['base_glass_profiles']=glass_reports
     files={'addon-plan.json':plan_raw,'native-patch-manifest.json':pm,'native-patch-ops.rvp':rvp,'native-extension.bin':blob,'runtime-profile.json':canonical_json(profile),'resource-manifest.json':rm,'resource-index.tsv':index,'roster-reservations.json':canonical_json(lock),'sdk-roster-audit.json':canonical_json(audit),'runtime-artifact.json':canonical_json({'profile':PROFILE,'runtime_qualified':False,'resource_manifest_sha256':probe.sha(rm)})}
     return {'resources':output,'files':files,'profile':profile,'image':image,'capacity':cap,'rows':rows,'audit':audit}
 

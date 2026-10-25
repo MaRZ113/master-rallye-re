@@ -21,3 +21,4 @@ dist/
 
 # Generated third-party console diagnostics are local, not SDK source.
 /console-example-internal.log
+/vehicles_scratch/

@@ -60,6 +60,15 @@ Private game resources and generated candidates remain ignored. Of the 422 previ
 Owner explicitly authorized subsequent local phase commits; no push/release/publication. Further phase IDs are recorded in subsequent documentation commits to avoid self-referential commit IDs.
 # V-SDK4A.1 and V-SDK4C continuation — 25 October 2026
 
+- `c3c0b12`: V-SDK4C tracks B/C / V-SDK4A.2 existing native diffuse-slot assignment,
+  shared compiler/history integration and offline F1/context Help. Initial suite
+  810/1 skip; actual Windows addon and stock build/restore checks passed.
+- Following glass phase: original retail instruction evidence, native CPU switch
+  replay, explicit pane profile and isolated candidate. Release suite 814/1 skip;
+  64 native Previewer captures; all 368 resources unchanged except Subaru car.dx;
+  native extension/patch operations/plan identical. Gameplay remains pending.
+  Resolved glass commit ID is recorded in the final evidence-index entry.
+
 - `8085800`: V-SDK4A.1 filtered, bounded texture rasterization; original CC0 SVG/ICO;
   Windows identity. 805 tests / 1 skip, 56 real Windows zoom captures, source pixel
   invariance, native Previewer build and four-family GUI smoke. No game byte edits.

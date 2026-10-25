@@ -58,6 +58,17 @@ Do not mark native gameplay acceptance from the GUI harness or GPU smoke output.
 805 tests/one skip in the complete Windows checkout; texture_viewer test checks exact1:1, global fractional mapping, alpha-edge contamination, source immutability, output budget and icon sizes. Private `vsdk4a1/zoom-windows/validation.json` records seven zooms/two windows/four source classes and56 actual captures. `vsdk4a1/ui-controls-final.json` exercises existing four-family GUI features. Original/current image comparison remains distinct from gameplay material qualification.
 # V-SDK4C material/Help regression
 
+## Release evidence
+
+`vsdk4c/tests-release.txt`: **814 tests, 1 skip, PASS**. Native glass synthetic
+tests cover full triangle accounting, missing/duplicate ownership rejection,
+case orientation, collision suffix, deterministic output, untouched unrelated
+draws, absent/invalid preview states and rejection of unknown/stock repair targets.
+Original-instruction switch and deformation replay PASS; 64 real D3D9 comparative
+captures PASS. 368 candidate resources: only Subaru race car.dx differs; native
+extension, native patch operations and addon plan identical to the qualified
+three-car baseline. Actual gameplay and collision-trigger classification PENDING.
+
 810 synthetic Windows tests / 1 optional skip. Existing shared texture used by
 an additional selected draw: native descriptor byte isolation, untouched image,
 Save/reopen, Undo/Redo/Restore and asset inclusion via actual addon and stock

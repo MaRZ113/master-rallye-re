@@ -157,3 +157,19 @@ V-SDK4A is implemented; V-SDK4B/V-SDK4C and later phases have not been started.
 ## V-SDK4A.1 texture filtering and identity
 
 Pillow is now required for the optional Studio (`pip install -e ".[workshop]"`). Smooth display uses LANCZOS down/bicubic up with premultiplied alpha; Pixel-sharp uses nearest. At1:1 the original texels are shown exactly. Wheel zoom anchors the cursor, and pan/fit/current/original/channels remain display-only. Source dimensions and native pixels never change. The original application icon is distributed with the source; a versioned native executable is used when an old Previewer remains open.
+# V-SDK4C additions
+
+Use **Assign Existing Texture…** after selecting a native draw/slot leaf. Its
+picker previews the image and lists exact compatibility/ownership limits. This
+changes a binding, not shared image bytes. Slot 0 only; existing local textures
+must retain encoded name length, dimensions, format and alpha. Other native slots
+remain read-only. See VSDK4A2_RESULTS.md.
+
+Help is available in the top bar, with F1 and Material/Texture context buttons.
+It is offline and searchable. English is the implemented locale; topic IDs and
+locale directories support later translation.
+
+Native glass diagnostics are a CLI/profile capability, not a speculative GUI
+glass authoring panel. Preview profiles accept named `glass_states` with cases
+1/2. The opt-in Subaru repair and owner-test launcher are documented in
+VSDK4C_RESULTS.md. Native collisions still require gameplay validation.
