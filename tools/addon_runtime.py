@@ -67,6 +67,8 @@ RUNTIME_STATE_PATHS = frozenset({
     "datagame/playerstate.xml#",
     "datagame/options.xml#",
 })
+USER_EDITABLE_RESOURCE_PATHS = frozenset({"datagame/options.xml"})
+MAX_USER_EDITABLE_OPTIONS_BYTES = 64 * 1024
 
 
 class RuntimeIntegrationError(ValueError):
@@ -199,7 +201,10 @@ def _build_reference_candidate(source: bytes) -> tuple[bytes, dict[str, Any]]:
     return candidate, build_manifest
 
 
-def _native_patch_artifacts(source: bytes, plan: dict[str, Any]) -> tuple[dict[str, Any], bytes, bytes]:
+def _native_patch_artifacts(source: bytes, plan: dict[str, Any], *,
+                            generated_candidate: tuple[bytes, dict[str, Any]] | None = None,
+                            expected_plan_sha256: str = REFERENCE_PLAN_SHA256,
+                            profile: str = "r5v-j1-two-addon-retail-2001-reference") -> tuple[dict[str, Any], bytes, bytes]:
     digest = sha256(source)
     if digest != RETAIL_SHA256 or len(source) != RETAIL_SIZE:
         raise RuntimeIntegrationError("native runtime patch source is not the exact pristine retail image")
@@ -207,7 +212,9 @@ def _native_patch_artifacts(source: bytes, plan: dict[str, Any]) -> tuple[dict[s
     if (pe["machine"] != MACHINE_I386 or pe["image_base"] != IMAGE_BASE
             or not pe["relocations_stripped"]):
         raise RuntimeIntegrationError("retail PE architecture/base/relocation profile changed")
-    candidate, build_manifest = _build_reference_candidate(source)
+    reference_mode = generated_candidate is None
+    candidate, build_manifest = (_build_reference_candidate(source) if reference_mode
+                                  else generated_candidate)
     expected_candidate_sha = build_manifest.get("patched_sha256")
     if (build_manifest.get("source_sha256") != RETAIL_SHA256
             or sha256(candidate) != expected_candidate_sha
@@ -372,12 +379,12 @@ def _native_patch_artifacts(source: bytes, plan: dict[str, Any]) -> tuple[dict[s
     })
     rvp_operations.append((CANARY_FILE_OFFSET, canary_rva, 2, CANARY_BYTES, CANARY_BYTES))
     plan_sha = sha256(canonical_json(plan))
-    if plan_sha != REFERENCE_PLAN_SHA256:
-        raise RuntimeIntegrationError("canonical runtime plan SHA changed")
+    if plan_sha != expected_plan_sha256:
+        raise RuntimeIntegrationError("canonical runtime plan SHA differs from the verified collection input")
     patch_manifest = {
         "schema_version": 1,
         "artifact_kind": "native in-memory patch manifest",
-        "profile": "r5v-j1-two-addon-retail-2001-reference",
+        "profile": profile,
         "status": "STATICALLY_VERIFIED_READY_FOR_BOOTSTRAP_TEST",
         "source": {"file_name": "MRallye.exe", "sha256": digest, "size": len(source)},
         "addon_plan_sha256": plan_sha,
@@ -385,7 +392,9 @@ def _native_patch_artifacts(source: bytes, plan: dict[str, Any]) -> tuple[dict[s
             "sha256": expected_candidate_sha,
             "size": len(candidate),
             "written_to_disk": False,
-            "derivation": "deterministic audited I.1 retail-relative reference reconstruction; no executable file is emitted",
+            "derivation": ("deterministic audited I.1 retail-relative reference reconstruction; no executable file is emitted"
+                           if reference_mode else
+                           "deterministic audited H.2/I.0 native operation composition from the resolved manifest collection; no executable file is emitted"),
             "hash_semantics": "SHA256 of deterministic retail-file reconstruction, including the file-only PE-header operation; not a hash of the mapped process address space",
         },
         "pe": {"machine": "I386", "machine_value": MACHINE_I386,
@@ -455,6 +464,21 @@ def _validate_runtime_resource_set(expected: set[str], actual: set[str]) -> None
     unexpected = actual_folded - expected_folded - RUNTIME_STATE_PATHS
     if resource_files != expected_folded or unexpected:
         raise RuntimeIntegrationError("resource-root file set differs from the qualified package inventory")
+
+
+def is_user_editable_resource(path: str) -> bool:
+    return path.replace("\\", "/").casefold() in USER_EDITABLE_RESOURCE_PATHS
+
+
+def validate_user_editable_resource(path: Path, relative: str) -> None:
+    """Allow the game's options file to change, while bounding its size."""
+    if not is_user_editable_resource(relative):
+        raise RuntimeIntegrationError(f"resource is not in the editable-settings allowlist: {relative}")
+    if path.is_symlink() or not path.is_file():
+        raise RuntimeIntegrationError("editable DataGame/options.xml must be a regular file")
+    size = path.stat().st_size
+    if size == 0 or size > MAX_USER_EDITABLE_OPTIONS_BYTES:
+        raise RuntimeIntegrationError("editable DataGame/options.xml is empty or exceeds 64 KiB")
 
 
 def _unique_package_paths(paths: list[str]) -> list[str]:
@@ -652,6 +676,9 @@ def verify_bundle(bundle: Path, *, retail_exe: Path = DEFAULT_RETAIL_EXE,
     _validate_runtime_resource_set(expected_root_files, actual_root_files)
     for row in rows:
         path = _inside(root, row["path"])
+        if is_user_editable_resource(row["path"]):
+            validate_user_editable_resource(path, row["path"])
+            continue
         if path.stat().st_size != row["size"] or sha256_file(path) != row["sha256"]:
             raise RuntimeIntegrationError(f"resource-root hash/size mismatch: {row['path']}")
     index_bytes = _resource_index(rows)

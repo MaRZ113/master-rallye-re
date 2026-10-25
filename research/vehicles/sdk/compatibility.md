@@ -21,6 +21,8 @@ build manifest.
 The J.1 native launcher supports only the same exact retail hash/size and the
 fixed PE32/I386 image at `0x00400000` with relocations stripped. It is built
 as x64 and requires an x64 Windows host exposing `IsWow64Process2`. Other PE
-builds, image bases, architectures, and unknown local proxy conflicts are
-rejected. The external resource-root/CWD arrangement and graphics-wrapper
-coexistence remain human runtime gates.
+builds, image bases, architectures, unknown local proxy conflicts, and all
+adjacent wrappers other than the exact V-LAUNCH1 D3D8 allowlist are rejected.
+The D3D8 exception is limited to four SHA-pinned PE32/I386 builds and is ready
+for combined human runtime testing; it does not imply general third-party
+wrapper compatibility. See [V-LAUNCH1](vlaunch1/graphics-proxy-compatibility.md).

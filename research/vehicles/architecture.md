@@ -91,10 +91,14 @@ The architecture demonstrates formula-based registry layout through IDs26
 and 27 and sparse placement in T1 and T2. The identity/presentation layer is
 runtime-qualified only for those two additions; it does not prove arbitrary-N
 runtime support. J.2 captures verify the live ID27 marker Broker value is
-magenta `[1,0,1,1]`, though visual HUD appearance remains a human gate. The
-2026-10-09 Vehicle Select snapshots show stored ID27 and displayed CarModel27
-agree at capture time, but the complete post-race scene-restoration sequence
-remains unqualified.
+magenta `[1,0,1,1]`, though visual HUD appearance remains a human observation
+channel. The 19-pair 2026-10-09 batch confirms simultaneous ID26/ID27
+SplitScreen, Cup stage roster reuse, and Master Rallye native roster restore
+after a process restart. Static tracing mapped the Vehicle Select constructor
+re-entry mismatch to stale XYButton Broker values after sparse physical-ID
+restoration; a dedicated candidate republishes the final class/local ordinal.
+The owner human-tested the exact corrected candidate and confirmed re-entry
+restoration; no new Observatory capture was supplied for that confirmation.
 
 ## Generic addon SDK J0
 
@@ -106,7 +110,12 @@ optional external DX/DXT payload validation, deterministic multi-addon output,
 and hash verification. It emits semantic frontend plans rather than native
 XML or executable patches and remains `runtime_installable=false`. J.1's
 separate fail-closed runtime bundle and launcher are **CLOSED /
-CONFIRMED_BY_RUNTIME**. J.2 has partial live qualification of the combined
-Mercedes+R5VQualifier package; SplitScreen, complete re-entry, Cup stage reuse,
-and Master Rallye fresh-process persistence remain open. See
-[SDK architecture](sdk/architecture.md) and [J.2 evidence](sdk/j2/).
+CONFIRMED_BY_RUNTIME**. R5V-J.2 is **FULL PASS / CLOSED**: runtime evidence
+confirms the combined Mercedes+R5VQualifier package in SplitScreen, Cup stage
+reuse, and Master Rallye fresh-process persistence; the owner separately
+confirmed the corrected Vehicle Select re-entry candidate. No new capture was
+supplied for that report. J.3-A has an offline donor-project and addon identity
+compiler path; J.3-B now statically compiles the bounded Mercedes ID26/T1 plus
+ID27/T2 layout and its GlacierSprint candidate passes launcher preflight.
+Human GlacierSprint runtime qualification remains pending. See the
+[J.3 implementation status](sdk/j3/) and [J.2 evidence](sdk/j2/).

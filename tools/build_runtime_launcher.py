@@ -10,7 +10,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import tempfile
-from typing import Any
+from typing import Any, Callable
 
 import addon_runtime
 
@@ -46,21 +46,56 @@ def _header(profile: dict[str, Any], patch_manifest: dict[str, Any]) -> bytes:
     rows.extend(f'#define {key} "{value}"' for key, value in sorted(values.items()))
     rows.extend((f"#define MR_PATCH_OPERATION_COUNT {operation_count}u",
                  f"#define MR_RESOURCE_COUNT {resource_count}u"))
+    extension = profile.get('native_extension')
+    if extension is not None:
+        allocation=extension.get('allocation_size')
+        large_damage=(allocation==131072 and profile.get('profile')=='sdk-native-damage-coverage-alpha'
+                      and type(extension.get('size')) is int and extension['size']>65536)
+        roster=profile.get('sdk_roster_layout',{})
+        combined=(allocation==262144 and profile.get('profile')=='sdk-multi-addon-roster'
+                  and isinstance(roster,dict) and set(roster)=={'record_count','addon_ids'}
+                  and type(roster['record_count']) is int and roster['record_count'] in (29,30)
+                  and roster['addon_ids']==list(range(26,roster['record_count'])))
+        if (set(extension)-{'writable_ranges'} != {'address','size','sha256','allocation_size'}
+                or extension['address'] != 0x10000000
+                or type(extension['size']) is not int or not 1 <= extension['size'] <= (262144 if combined else 131072 if large_damage else 65536)
+                or (allocation!=65536 and not large_damage and not combined)
+                or not isinstance(extension['sha256'], str) or len(extension['sha256']) != 64
+                or any(c not in '0123456789abcdef' for c in extension['sha256'])):
+            raise LauncherBuildError('unsupported private native extension layout')
+        ranges=extension.get('writable_ranges',[])
+        if not isinstance(ranges,list) or len(ranges)>1:
+            raise LauncherBuildError('unsupported native writable ranges')
+        for region in ranges:
+            if (not isinstance(region,dict) or set(region)!={'offset','size'}
+                or type(region['offset']) is not int or type(region['size']) is not int
+                or region['offset']<4096 or region['offset']%4096 or region['size']!=4096
+                or region['offset']+region['size']>extension['size']):
+                raise LauncherBuildError('invalid bounded native data page')
+        if ranges:
+            rows.extend((f"#define MR_EXTENSION_RW_OFFSET {ranges[0]['offset']}u",f"#define MR_EXTENSION_RW_SIZE {ranges[0]['size']}u"))
+        rows.extend((f"#define MR_EXTENSION_SIZE {extension['size']}u",
+                     f"#define MR_EXTENSION_ADDRESS {extension['address']}u",
+                     f"#define MR_EXTENSION_ALLOCATION_SIZE {extension['allocation_size']}u",
+                     f"#define MR_EXTENSION_SHA256 \"{extension['sha256']}\""))
     return ("\n".join(rows) + "\n").encode("ascii")
 
 
 def build_launcher(*, bundle: Path, output: Path = DEFAULT_OUTPUT,
                    retail_exe: Path | None = None,
-                   generator: str = "Visual Studio 18 2026") -> dict[str, Any]:
+                   generator: str = "Visual Studio 18 2026",
+                   bundle_verifier: Callable[[], dict[str, Any]] | None = None) -> dict[str, Any]:
     if os.name != "nt":
         raise LauncherBuildError("the native launcher can only be built on Windows")
     bundle = Path(bundle)
     retail_exe = Path(retail_exe or addon_runtime.DEFAULT_RETAIL_EXE).resolve()
-    verified = addon_runtime.verify_bundle(bundle, retail_exe=retail_exe)
+    verified = (bundle_verifier() if bundle_verifier is not None
+                else addon_runtime.verify_bundle(bundle, retail_exe=retail_exe))
     output = addon_runtime._under_research_output(Path(output))
     profile = json.loads((bundle / "runtime-profile.json").read_text(encoding="utf-8"))
     patch_manifest = json.loads((bundle / "native-patch-manifest.json").read_text(encoding="utf-8"))
-    if verified.get("status") != "PASS_STATIC_RUNTIME_BUNDLE" or verified.get("runtime_qualified") is not False:
+    allowed_statuses = {"PASS_STATIC_RUNTIME_BUNDLE", "PASS_STATIC_COLLECTION_RUNTIME_BUNDLE"}
+    if verified.get("status") not in allowed_statuses or verified.get("runtime_qualified") is not False:
         raise LauncherBuildError("bundle is not a statically verified, unqualified runtime candidate")
     output.parent.mkdir(parents=True, exist_ok=True)
     stage = Path(tempfile.mkdtemp(prefix=f".{output.name}.building-", dir=output.parent))

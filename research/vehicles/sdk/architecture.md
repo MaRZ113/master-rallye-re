@@ -2,12 +2,12 @@
 
 J.0 provides versioned addon definitions and a deterministic offline compiler
 foundation. J.1 adds a separate exact-build Windows launcher and external
-resource bundle. J.1 is now **CLOSED / CONFIRMED_BY_RUNTIME**: human runtime
-captures from Observatory 0.2.3-beta show the original retail executable
-identity on disk and the approved hardened walker in memory while ID26 and
-ID27 materialize through the shared addon integration. The full two-addon
-campaign is tracked separately in `j2/`; it still has SplitScreen, repeated
-Vehicle Select re-entry, Cup next-stage, and Master Rallye fresh-process gates.
+resource bundle. J.1 is **CLOSED / CONFIRMED_BY_RUNTIME**. J.2 is also
+**FULL PASS / CLOSED**: the capture batch confirms two-addon SplitScreen, Cup
+stage reuse, Master Rallye fresh-process persistence and the hardened Dump
+walker; the owner separately confirmed the exact corrected ID27 Vehicle Select
+re-entry candidate. That report is not represented as a new Observatory
+capture. See `j2/closeout-2026-10-09.md` for provenance and identities.
 
 The components are separated deliberately:
 
@@ -56,3 +56,26 @@ separate J.1 launcher and runtime bundle are documented in
 [the loader decision](loader-decision.md). See
 [manifest schema](manifest-schema.md), [compilation](compilation.md), and
 [remaining gates](remaining-gates.md).
+
+## R5V-J.3 donor-authoring productization
+
+J.3-A adds a project initializer and bridge to the existing VehicleProject
+validators/build outputs. A project owns an addon manifest plus a VehicleProject
+recipe; no DX/DXT or collision parser was duplicated. The project compiler can
+stage validated model and DXT dependencies under the declared independent
+family and, when the exact pinned retail Data.sma and matching unpacked root
+are supplied, clone the donor's DataGame physics/config values into a separate
+family namespace. These DataGame rows inherit donor values unchanged.
+
+The independent Glacier Sprint T2 manifest demonstrates a new family and
+frontend name without SDK-source changes. It resolves synthetically to the
+qualified physical slot ID27/T2/local7. That does not runtime-qualify Glacier
+Sprint: only the exact Mercedes ID26 and R5VQualifier ID27 profiles have game
+runtime qualification.
+
+The offline author build remains `runtime_installable=false`. J.3-B adds a
+separate statically verified collection runtime artifact for the bounded
+ID26/T1 plus ID27/T2 layout and uses the unchanged-executable J.1/J.2 launcher
+format. GlacierSprint is ready for human runtime testing, not runtime-qualified;
+T2-only input fails closed. See [`j3/release-boundary.md`](j3/release-boundary.md)
+and [`j3/runtime-compiler.md`](j3/runtime-compiler.md).

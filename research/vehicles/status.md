@@ -96,22 +96,23 @@ or finishing position. Six exact candidate capture pairs and rehashed raw
 sidecars are summarized in
 [I.1 runtime evidence](multislot/i1-runtime-evidence.json).
 
-The I.1 candidate captured a scene-local Vehicle Select re-entry mismatch
-(stored Quick Race ID27, but one capture displays Navara at T2/local0; exact
-native writer unresolved) and a white race marker. The later J.2 capture
-confirms ID27's live Broker marker value is magenta `[1,0,1,1]`; visual HUD
-appearance remains unverified. J.2's menu snapshots show ID27 consistently in
-the stored Quick Race ID and displayed CarModel at capture time, but the full
-post-race return/reopen lifecycle remains unproven. Neither observation
-proves loss of physical ID27 or automatic Navara commit. See the
-[I.1 lifecycle and handoff](multislot/i1-qualification.md) and
+The I.1 candidate exposed a scene-local Vehicle Select re-entry mismatch
+(stored Quick Race ID27, but one capture displays Navara at T2/local0) and a
+white marker in that older candidate. The 2026-10-09 J.2 captures retain the
+stored physical IDs 27/26 and show the ID27 marker Broker value magenta
+`[1,0,1,1]`; they do not alone prove the visual marker or close re-entry. The
+native constructor owner is now mapped and the corrected J.2 candidate restores
+the committed class/local ordinal. The owner confirmed the ID27 re-entry fix in
+human runtime; the J.2 closeout records this separately from the earlier
+captures. The mismatch did not prove physical ID loss or automatic Navara
+commit. See the [I.1 lifecycle](multislot/i1-qualification.md) and
 [SDK frontend lifecycle](sdk/frontend-lifecycle.md).
 
 Future non-bonus T3 addons must qualify Invitation's ordinary T3 pool
 explicitly; class membership alone does not imply eligibility in every mode.
 Bonus/special T3 vehicles must not be added to that pool automatically.
 
-## Current phase — R5V-J.2 Two-addon external runtime qualification
+## Current phase — R5V-J.3 Public Vehicle SDK productization
 
 **J.0: ACCEPTED / OFFLINE COMPILER FOUNDATION.** Versioned JSON manifests,
 strict validation, deterministic physical-ID resolution, bidirectional sparse
@@ -128,16 +129,38 @@ NULL-safe native Dump walker, ID26 in Player and natural-AI roles, and ID27 in
 a natural-AI role. J.0 output remains `runtime_installable=false`; the
 runtime bundle is a separately verified fail-closed artifact.
 
-**J.2: PARTIAL_RUNTIME_CONFIRMED / READY FOR REMAINING HUMAN GATES.** The
-combined package has runtime evidence for Mercedes ID26 player and AI,
-R5VQualifier ID27 AI, both Results identities, and the initial ID27 T2 Rallye
-Cup race/Results pair. All 11 JSON/raw pairs were rehashed. SplitScreen dual
-addon operation, post-race Vehicle Select re-entry, Cup next-stage reuse, and
-Master Rallye fresh-process save/resume still need human proof; J.2 is not
-closed. See [J.2 runtime evidence](sdk/j2/runtime-evidence.md),
-[candidate audit](sdk/j2/bundle-audit.md),
-[human handoff](sdk/j2/human-qualification-handoff.md), and
-[remaining gates](sdk/remaining-gates.md).
+**J.2: FULL PASS / CLOSED.** The owner human-tested the exact corrected
+ID27 reverse-mapper candidate and confirmed Vehicle Select re-entry is fixed.
+The mapper now writes T2 local7 into `this+0x18` using `C7 46 18 07`; the
+general invariant is `local_field_offset = 0x14 + 4 * class_id`. The ABI-safe
+publisher hotfix and unchanged 246-operation J.1 parent are preserved. The
+19 verified 2026-10-09 JSON/raw pairs independently confirm two-addon
+SplitScreen, Rallye Cup stage persistence, Master Rallye fresh-process
+persistence, and the hardened live Dump walker. Stock launch without the
+loader remains `HUMAN_CONFIRMED_UNINSTRUMENTED`, with no instrumented capture.
+No candidate manifest was rewritten to claim runtime status retroactively.
+See [J.2 closeout](sdk/j2/closeout-2026-10-09.md).
+
+**J.3-A: PASS for offline donor project and addon identity compilation.** The
+new `addon init --name`, `project-validate`, and `project-build` path bridges
+the existing VehicleProject validators, stages validated DX/DXT dependencies
+under independent model families, and can generate hashed DataGame physics
+family overlays from the exact pinned retail Data.sma. A third metadata-only
+T2 identity compiles without source edits. This is synthetic/offline evidence;
+the new family is not runtime-qualified.
+
+**J.3-B: STATIC COMPILER IMPLEMENTED / READY FOR HUMAN RUNTIME.** A bounded
+collection compiler emits native operations and a verified external resource
+root for the qualified ID26/T1 + ID27/T2 layout, while preserving the J.2
+`C7 46 18 07` reverse-map correction. The Mercedes+R5VQualifier regression
+retains the exact J.2 RVP and reconstructed image. A separate GlacierSprint
+bundle and MSVC-built launcher pass static verification; its in-game identity
+is not yet qualified. T2-only input fails closed rather than silently adding
+Mercedes. J.0 offline outputs still report `runtime_installable=false`.
+
+**J.3-C: NOT STARTED. SDK v1 is not release-ready.** Only physical IDs 26 and
+27 have exact runtime-qualified identities. No ID28 runtime research or UI
+ordering is a release prerequisite. See [J.3 status and evidence](sdk/j3/).
 
 **R5V-I core qualification:** ID26/T1 and ID27/T2 remain the only two
 runtime-qualified added physical IDs. This does not establish arbitrary-N

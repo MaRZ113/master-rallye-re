@@ -1,0 +1,8 @@
+{
+  "provenance_version": 1,
+  "donor_family": "Navara",
+  "vehicle_class": "T2",
+  "donor_source_is_bundled": false,
+  "source_reference": "User-provided compatible retail/demo installation or previously validated VehicleProject.",
+  "compatibility_must_be_verified": true
+}

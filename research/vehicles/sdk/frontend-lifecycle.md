@@ -1,15 +1,11 @@
 # Frontend identity and selection lifecycle
 
-Frontend vehicle identity is multi-channel. The established consumers include
-Vehicle Select manufacturer/model (`0x33`/`0x34`), Quick Race combined name
-(`0x35`), Race Options split manufacturer/model, Vehicle Setup combined name,
-and Race Details combined name. These consumers were qualified for ID26 on
-their respective research candidates; one localization fix is not a global
-vehicle-name fix. Runtime `CarType` and `WheelType` remain separate from
-display selectors.
+Frontend identity is multi-channel. The verified display consumers include
+Vehicle Select manufacturer/model (`0x33`/`0x34`), Quick Race (`0x35`), Race
+Options manufacturer/model, Vehicle Setup, and Race Details. Runtime
+`CarType` and `WheelType` remain independent of display selectors.
 
-The J0 planner emits both absolute-physical-ID to class/local and
-class/local-to-absolute mappings. For the verified mappings:
+The SDK's class-local mappings are sparse and explicit:
 
 | Vehicle | Physical ID | Class | Local ordinal |
 |---|---:|---|---:|
@@ -17,35 +13,39 @@ class/local-to-absolute mappings. For the verified mappings:
 | R5VQualifier | 27 | T2 | 7 |
 | Mercedes | 26 | T1 | 7 |
 
-## Runtime re-entry divergence
+## Vehicle Select initialization and re-entry
 
-Four earlier captures with executable SHA
-`90abfbf9825f1cc7acebb3a1a2811a179e6474f2406433854e1ffdbc60bdd955` were
-verified from their actual JSON/raw pairs. `r5vq_navara-reset` retains
-`Frontend/QuickRace/Car0=27` while the Vehicle Select scene reports CarModel 7,
-selectedCar 7, T2/local ordinal 0, and NISSAN/NAVARA. In
-`r5vq_quickrace-preview`, the stored ID remains 27 while CarModel and
-selectedCar are 27 and the local ordinal is 7 with R5VQualifier labels. There
-are 21 changed Broker paths between these captures.
+`FUN_00480B60` (`0x00480B60`) reads the active
+`Frontend/VehicleSelect/PlayerID`. In the Quick Race restore path it selects
+the corresponding player context through `FUN_004AE700`, reads that player's
+stored physical vehicle through `FUN_004ADFB0`, then calls
+`FUN_00481E50` at `0x00480E5E` with the physical ID and scene object. This is
+the native physical-ID-to-class/local restoration boundary. At the end of
+construction, the J.2 hook at `0x00481152` publishes the resolved class and
+class-local ordinal as `UI/XYButton/YValue` and `UI/XYButton/XValue`.
 
-This is a scene initialization/restoration mismatch. It does not prove that the
-physical ID27 record was lost, that `selectedCar` is the persisted commit
-oracle, or that a user action committed Navara automatically. The later
-`navara_choice` capture may reflect deliberate user selection. The exact native
-initializer/writer and the single-player versus SplitScreen ownership
-differences remain unknown. J0 does not patch this state. It is a required
-runtime-release gate, and synthetic mapping tests prevent a future integration
-from conflating physical IDs and local ordinals.
+The first incorrect transition was in the inherited sparse reverse mapper's
+ID27 arm at `0x0068E895`, not in the XY publication hook. The arm set
+`this+0x10` to T2 (`1`) but wrote local ordinal `7` to `this+0x14`, which is
+the T1 ordinal field. The per-class fields are T1 `+0x14`, T2 `+0x18`, and T3
+`+0x1c`; the matching forward mapper also reads T2 from `+0x18`. As a result,
+the selected T2 ordinal remained at its existing/default zero in the observed
+constructor path. The publisher correctly exposed T2/local0, and the native
+forward mapper resolved that to stock physical ID7/Navara. This matches the
+human-observed CarModel/selectedCar 7 and XValue 0 while stored Quick Race
+Car0 remained 27.
 
-The 2026-10-09 J.2 archive adds `R5VQ-quickrace-menu` and
-`R5VQ-carselect-menu` captures where the stored Quick Race physical ID and
-visible Vehicle Select `CarModel` are both 27. This is a consistent selection
-snapshot, but it does not show the sequence after race completion and a second
-Vehicle Select scene construction. The required repeatable post-race re-entry
-test therefore remains open; the J.1 runtime bundle still does not claim to
-fix or globally rewrite scene-local selection initialization.
+ID26 was unaffected because T1/local7 belongs at `+0x14`; stock ID7 remains
+on the unmodified native T2/local0 path at `+0x18`. The corrected J.2
+composite changes only the ID27 mapper displacement byte at `0x0068E897`
+from `0x14` to `0x18`. The class stays T2, the physical ID stays 27, and the
+existing publication hook then observes T2/local7 and publishes XValue 7.
+No fixed ordinal or physical ID is forced globally.
 
-The checker reports stored Quick Race CarID, displayed CarModel, selectedCar,
-class, and `UI/XYButton/XValue` separately. A divergence is reported without
-claiming loss or commit. Class switching and SplitScreen must retain independent
-selection ownership in a later frontend integration pass.
+This is an exact-bundle static dataflow finding that explains the reported
+runtime symptom. The owner subsequently tested the exact corrected candidate
+and confirmed ID27 re-entry works. Record that as
+`HUMAN_CONFIRMED_PASS`; there is no new Broker capture for this result. The
+native forward/reverse mapping remains `STATICALLY_VERIFIED`. See the
+[J.2 closeout](j2/closeout-2026-10-09.md) for candidate identity and evidence
+boundaries.

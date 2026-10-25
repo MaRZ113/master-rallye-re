@@ -28,9 +28,10 @@ from master_rallye.vehicle_packaging import (
 )
 from master_rallye.addon_sdk import (
     AddonValidationError, build_artifacts, build_to_directory, inspect_frontend_capture,
-    load_capabilities, load_manifests, validate_manifests, verify_build,
+    load_capabilities, load_manifests, validate_manifests, verify_build, classify_runtime_identity,
 )
 from master_rallye.addon_sdk.compiler import verify_retail_executable
+from master_rallye.addon_sdk.project import build_project, initialize_project, validate_project
 import hashlib
 
 def r4e_command(args):
@@ -213,6 +214,43 @@ def collision_corpus_command(args) -> int:
 
 def addon_command(args) -> int:
     """Manifest-driven generic addon planner; all outputs remain offline plans."""
+    if args.addon_command == 'collection-plan':
+        from master_rallye.addon_sdk.collection import plan_collection
+        from master_rallye.addon_sdk.manifest import read_json, canonical_json
+        manifests,_=load_manifests(args.manifest);capabilities,_=load_capabilities(args.capabilities)
+        previous=read_json(args.reservations)[0] if args.reservations else None
+        plan,reservations=plan_collection(manifests,capabilities,previous)
+        if args.output.exists():raise AddonValidationError('collection output exists')
+        args.output.mkdir(parents=True)
+        (args.output/'addon-plan.json').write_bytes(canonical_json(plan))
+        (args.output/'roster-reservations.json').write_bytes(canonical_json(reservations))
+        print(json.dumps({'status':'OFFLINE_COLLECTION_PLAN','runtime_qualified':False,'addons':reservations['reservations']},indent=2))
+        return 0
+    if args.addon_command in {"runtime-prepare", "runtime-verify", "runtime-launcher-build"}:
+        # Keep native collection integration separate from the offline J.0
+        # planner.  The runtime compiler accepts complete manifest collections
+        # and never upgrades their offline plan to runtime-installable.
+        try:
+            from tools import addon_collection_runtime
+        except ImportError:  # direct script invocation places tools/ on sys.path
+            import addon_collection_runtime
+        projects = addon_collection_runtime._parse_project_builds(args.project_build)
+        common = {
+            "manifest_paths": args.manifest,
+            "project_builds": projects,
+            "capabilities_path": args.capabilities,
+            "retail_exe": args.retail_exe,
+            "base_package": args.base_package,
+        }
+        if args.addon_command == "runtime-prepare":
+            result = addon_collection_runtime.prepare_bundle(**common, output=args.output)
+        elif args.addon_command == "runtime-verify":
+            result = addon_collection_runtime.verify_bundle(args.bundle, **common)
+        else:
+            result = addon_collection_runtime.build_collection_launcher(
+                bundle=args.bundle, output=args.launcher_output, **common)
+        print(json.dumps(result, indent=2, ensure_ascii=False, sort_keys=True))
+        return 0
     if args.addon_command == "validate":
         manifests, _ = load_manifests(args.manifest)
         capabilities, cap_sha = load_capabilities(args.capabilities)
@@ -225,12 +263,45 @@ def addon_command(args) -> int:
                   "asset_validation": json.loads(resource_check.decode("utf-8")) if resource_check else "NOT_REQUESTED",
                   "addon_count": len(plan["addons"]), "resolved_addons": [
                       {"addon_id": row["addon_id"], "physical_id": row["physical_id"],
-                       "vehicle_class": row["vehicle_class"], "class_local_index": row["class_local_index"]}
+                       "vehicle_class": row["vehicle_class"], "class_local_index": row["class_local_index"],
+                       "runtime_qualification": classify_runtime_identity(row, capabilities)}
                       for row in plan["addons"]],
                   "runtime_installable": False}
     elif args.addon_command == "build":
         result = build_to_directory(args.manifest, args.capabilities, args.output,
                                     assets_root=args.assets_root, retail_exe=args.retail_exe)
+    elif args.addon_command == "init":
+        result = initialize_project(
+            name=args.name, vehicle_class=args.vehicle_class, donor=args.donor,
+            output=args.output, family=args.family, donor_source=args.donor_source)
+    elif args.addon_command == "project-validate":
+        result = validate_project(args.project, args.capabilities,
+                                  retail_data_sma=args.retail_data_sma,
+                                  retail_data_root=args.retail_data_root)
+        if result["status"] == "FAIL":
+            result["diagnostics"] = [
+                {**_author_facing_diagnostic(ValueError(row.get("message", "project validation failed"))),
+                 "severity": "ERROR"}
+                for row in result.get("diagnostics", [])
+            ]
+            print(json.dumps(result, indent=2, ensure_ascii=False, sort_keys=True))
+            return 2
+        source = result.get("source_validation", {})
+        dependency = source.get("dependency_manifest") or {}
+        result = {key: value for key, value in result.items() if key != "source_validation"}
+        result["source_validation"] = {
+            "status": source.get("status"),
+            "resource_count": len(dependency.get("resources", [])),
+            "resolved_dxt_dependency_count": sum(
+                1 for row in dependency.get("bindings", []) if row.get("resolution") == "RESOLVED"),
+            "unresolved_dependency_count": dependency.get("unresolved_count", 0),
+            "compiled_edit_count": len(source.get("compiled", {})),
+            "diagnostics": source.get("diagnostics", []),
+        }
+    elif args.addon_command == "project-build":
+        result = build_project(args.project, args.capabilities, args.output,
+                               retail_data_sma=args.retail_data_sma,
+                               retail_data_root=args.retail_data_root)
     elif args.addon_command == "verify":
         result = verify_build(args.output)
     elif args.addon_command == "inspect":
@@ -300,8 +371,14 @@ def build_parser() -> argparse.ArgumentParser:
     collision.add_argument("--report", required=True, type=Path)
     collision.add_argument("--markdown", type=Path)
     collision.set_defaults(function=collision_corpus_command)
-    addon = commands.add_parser("addon", help="validate, plan, build and inspect generic addon definitions")
+    addon = commands.add_parser("addon", help="author, validate, plan, build and inspect addon definitions")
     addon_commands = addon.add_subparsers(dest="addon_command", required=True)
+    collection_plan = addon_commands.add_parser('collection-plan', help='plan a stable multi-addon roster with persistent ID reservations')
+    collection_plan.add_argument('--manifest', action='append', type=Path, required=True)
+    collection_plan.add_argument('--capabilities', type=Path, default=REPOSITORY_ROOT / 'research/vehicles/sdk/capabilities/retail-2001.json')
+    collection_plan.add_argument('--reservations', type=Path)
+    collection_plan.add_argument('--output', type=Path, required=True)
+    collection_plan.set_defaults(function=addon_command)
     addon_default_capabilities = REPOSITORY_ROOT / "research" / "vehicles" / "sdk" / "capabilities" / "retail-2001.json"
     addon_validate = addon_commands.add_parser("validate", help="validate one or more addon manifests")
     addon_validate.add_argument("--manifest", action="append", required=True, type=Path)
@@ -316,6 +393,33 @@ def build_parser() -> argparse.ArgumentParser:
     addon_build.add_argument("--retail-exe", type=Path, help="optional exact pristine retail image to hash-check; never modified or copied")
     addon_build.add_argument("--output", required=True, type=Path)
     addon_build.set_defaults(function=addon_command)
+    addon_init = addon_commands.add_parser("init", help="create a donor-based addon author project scaffold")
+    addon_init.add_argument("--name", required=True,
+                            help="visible/project name used to seed a stable addon ID")
+    addon_init.add_argument("--class", dest="vehicle_class", choices=("T1", "T2"), required=True)
+    addon_init.add_argument("--donor", required=True, help="donor family name, such as Landcruiser or Navara")
+    addon_init.add_argument("--family", help="independent safe runtime/model/physics family name")
+    addon_init.add_argument("--donor-source", type=Path,
+                            help="optional user-owned donor resource directory; referenced, never copied")
+    addon_init.add_argument("--output", required=True, type=Path)
+    addon_init.set_defaults(function=addon_command)
+    addon_project_validate = addon_commands.add_parser("project-validate", help="validate a VehicleProject and addon manifest together")
+    addon_project_validate.add_argument("project", type=Path)
+    addon_project_validate.add_argument("--capabilities", type=Path, default=addon_default_capabilities)
+    addon_project_validate.add_argument("--retail-data-sma", type=Path,
+                                        help="optional exact pinned retail Data.sma for physics-family validation")
+    addon_project_validate.add_argument("--retail-data-root", type=Path,
+                                        help="optional exact unpacked retail resource root; pair with --retail-data-sma")
+    addon_project_validate.set_defaults(function=addon_command)
+    addon_project_build = addon_commands.add_parser("project-build", help="compile a donor project into a deterministic offline addon plan and resources")
+    addon_project_build.add_argument("project", type=Path)
+    addon_project_build.add_argument("--capabilities", type=Path, default=addon_default_capabilities)
+    addon_project_build.add_argument("--output", required=True, type=Path)
+    addon_project_build.add_argument("--retail-data-sma", type=Path,
+                                     help="exact pinned retail Data.sma; pair with --retail-data-root to emit DataGame physics overlays")
+    addon_project_build.add_argument("--retail-data-root", type=Path,
+                                     help="matching unpacked retail resource root; pair with --retail-data-sma")
+    addon_project_build.set_defaults(function=addon_command)
     addon_verify = addon_commands.add_parser("verify", help="verify every deterministic output hash")
     addon_verify.add_argument("output", type=Path)
     addon_verify.set_defaults(function=addon_command)
@@ -327,6 +431,25 @@ def build_parser() -> argparse.ArgumentParser:
     addon_state.add_argument("capture", type=Path)
     addon_state.add_argument("--expected-exe-sha256")
     addon_state.set_defaults(function=addon_command)
+    for runtime_name, help_text in (
+        ("runtime-prepare", "compile a validated collection into an external J.1/J.2 runtime bundle"),
+        ("runtime-verify", "deterministically rebuild and verify a collection runtime bundle"),
+        ("runtime-launcher-build", "build the existing native launcher for a verified collection bundle"),
+    ):
+        runtime = addon_commands.add_parser(runtime_name, help=help_text)
+        if runtime_name != "runtime-prepare":
+            runtime.add_argument("bundle", type=Path)
+        runtime.add_argument("--manifest", action="append", required=True, type=Path)
+        runtime.add_argument("--project-build", action="append", default=[], metavar="ADDON_ID=PATH")
+        runtime.add_argument("--capabilities", type=Path, default=addon_default_capabilities)
+        runtime.add_argument("--retail-exe", type=Path, default=REPOSITORY_ROOT.parent / "corpora" / "retail" / "MRallye.exe")
+        runtime.add_argument("--base-package", type=Path,
+                             default=REPOSITORY_ROOT / ".research-output/vehicles/multislot/i1/runtime-package")
+        if runtime_name == "runtime-prepare":
+            runtime.add_argument("--output", required=True, type=Path)
+        elif runtime_name == "runtime-launcher-build":
+            runtime.add_argument("--launcher-output", required=True, type=Path)
+        runtime.set_defaults(function=addon_command)
     vehicle=commands.add_parser("inspect-vehicle",help="exact DX/DXT dependencies for one vehicle")
     vehicle.add_argument("vehicle_dir",type=Path)
     vehicle.set_defaults(function=r4e_command)
@@ -375,9 +498,49 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
+def _author_facing_diagnostic(exc: Exception) -> dict[str, str]:
+    message = str(exc)
+    lower = message.casefold()
+    code = "ADDON_VALIDATION_FAILED"
+    field = ""
+    action = "Review the named project or manifest value, then rerun addon validate."
+    tokens = (
+        ("class-local capacity", "ADDON_CLASS_SLOT_UNAVAILABLE", "/vehicle_class",
+         "Choose a class with a free slot in the selected capability profile. This retail profile currently qualifies only ID26/T1 and ID27/T2."),
+        ("physical id collision", "ADDON_PHYSICAL_ID_COLLISION", "/physical_id",
+         "Resolve the duplicate ID in the complete addon collection or leave allocation on auto."),
+        ("resource-name collision", "ADDON_RESOURCE_FAMILY_COLLISION", "/identity",
+         "Choose a unique runtime/model/physics resource family; the compiler will not apply last-writer-wins."),
+        ("unresolved", "ADDON_ASSET_DEPENDENCY_MISSING", "/assets",
+         "Add the exact referenced DXT dependency to the donor family or correct its existing texture reference."),
+        ("source folder is absent", "ADDON_DONOR_SOURCE_MISSING", "/vehicle-project.json/source_vehicle_dir",
+         "Point source_vehicle_dir at a supported donor folder containing car.dx, complete.dx, wheel.dx and its referenced DXT files."),
+        ("source sha-256 mismatch", "ADDON_DONOR_SOURCE_CHANGED", "/vehicle-project.json/resources",
+         "Re-audit the intended donor edit and update its source hash deliberately; do not accept an unknown source automatically."),
+        ("data.sma size/sha256", "ADDON_RETAIL_DATA_MISMATCH", "",
+         "Select the exact retail Data.sma and matching unpacked data root named by the chosen capability profile."),
+        ("output already exists", "ADDON_OUTPUT_EXISTS", "",
+         "Choose a new empty output directory; build commands never overwrite existing output."),
+        ("unsupported", "ADDON_CAPABILITY_UNSUPPORTED", "",
+         "Check the documented capability profile. Unsupported IDs, policies and resource formats fail closed."),
+    )
+    for needle, candidate_code, candidate_field, candidate_action in tokens:
+        if needle in lower:
+            code, field, action = candidate_code, candidate_field, candidate_action
+            break
+    return {"severity": "ERROR", "code": code, "field": field,
+            "message": message, "suggested_action": action}
+
+
 def main() -> int:
     args = build_parser().parse_args()
-    return args.function(args)
+    try:
+        return args.function(args)
+    except (AddonValidationError, OSError, ValueError, KeyError, TypeError) as exc:
+        print(json.dumps({"status": "FAIL_CLOSED", "error": str(exc),
+                          "diagnostic": _author_facing_diagnostic(exc)},
+                         indent=2, ensure_ascii=False, sort_keys=True))
+        return 2
 
 
 if __name__ == "__main__":

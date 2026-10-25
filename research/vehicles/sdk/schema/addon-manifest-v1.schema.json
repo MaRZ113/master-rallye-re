@@ -80,8 +80,8 @@
     }
   },
   "$defs": {
-    "family": {"type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_]*$"},
-    "stockFrame": {"type": "object", "additionalProperties": false, "required": ["policy", "frame"], "properties": {"policy": {"const": "stock_frame"}, "frame": {"type": "integer", "minimum": 0}}},
+    "family": {"type": "string", "maxLength": 64, "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"},
+    "stockFrame": {"type": "object", "additionalProperties": false, "required": ["policy", "frame"], "properties": {"policy": {"enum": ["stock_frame", "project_frame"]}, "frame": {"type": "integer", "minimum": 0}}, "allOf": [{"if": {"properties": {"policy": {"const": "project_frame"}}}, "then": {"properties": {"frame": {"maximum": 127}}}}]},
     "aiMode": {"oneOf": [{"type": "object", "additionalProperties": false, "required": ["enabled", "boundary", "pool"], "properties": {"enabled": {"const": true}, "boundary": {"type": "string"}, "pool": {"type": "string"}}}, {"$ref": "#/$defs/disabledMode"}]},
     "disabledMode": {"type": "object", "additionalProperties": false, "required": ["enabled", "reason"], "properties": {"enabled": {"const": false}, "reason": {"type": "string", "minLength": 1}}}
   }

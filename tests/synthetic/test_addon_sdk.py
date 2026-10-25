@@ -17,11 +17,12 @@ TEST_DIR = Path(__file__).resolve().parent
 if str(TEST_DIR) not in sys.path:
     sys.path.insert(0, str(TEST_DIR))
 
-from test_library import simple_record, synthetic_dx
+from test_library import footer56, simple_record, synthetic_dx
 from master_rallye.addon_sdk import (
-    AddonValidationError, build_to_directory, inspect_frontend_capture,
+    AddonValidationError, build_project, build_to_directory, classify_runtime_identity,
+    initialize_project, inspect_frontend_capture,
     load_capabilities, load_manifests, validate_manifests, verify_build,
-    verify_retail_executable,
+    verify_retail_executable, validate_project,
 )
 
 
@@ -57,6 +58,26 @@ class AddonSdkTests(unittest.TestCase):
             "race_test_base": 0x5B4, "race_test_count": 39, "race_test_stride": 0x2C,
             "allocation_size": 0xC68,
         })
+
+    def test_reference_identity_qualification_is_separate_from_slot_qualification(self) -> None:
+        plan = validate_manifests(self.manifests, self.capabilities)
+        self.assertTrue(all(classify_runtime_identity(row, self.capabilities)["physical_slot_runtime_qualified"]
+                            for row in plan["addons"]))
+        self.assertTrue(all(classify_runtime_identity(row, self.capabilities)["exact_identity_runtime_qualified"]
+                            for row in plan["addons"]))
+
+    def test_third_t2_author_identity_allocates_id27_without_reference_identity_leak(self) -> None:
+        third = json.loads((EXAMPLE_DIR / "glacier-sprint-t2.json").read_text(encoding="utf-8"))
+        plan = validate_manifests([third], self.capabilities)
+        addon = plan["addons"][0]
+        self.assertEqual((addon["physical_id"], addon["vehicle_class"], addon["class_local_index"]), (27, "T2", 7))
+        self.assertEqual(plan["class_mapping"]["class_to_physical_ids"]["T2"], list(range(7, 14)) + [27])
+        self.assertEqual(plan["class_mapping"]["class_to_physical_ids"]["T1"], list(range(7)))
+        self.assertEqual(addon["identity"]["runtime_family"], "GlacierSprint")
+        classification = classify_runtime_identity(addon, self.capabilities)
+        self.assertTrue(classification["physical_slot_runtime_qualified"])
+        self.assertFalse(classification["exact_identity_runtime_qualified"])
+        self.assertEqual(classification["identity_status"], "IDENTITY_NOT_RUNTIME_QUALIFIED")
 
     def test_auto_id_resolution_is_stable_and_reads_capability_pool(self) -> None:
         manifests = load_example_values()
@@ -94,6 +115,16 @@ class AddonSdkTests(unittest.TestCase):
         manifests[1]["identity"]["runtime_family"] = manifests[0]["identity"]["runtime_family"]
         with self.assertRaisesRegex(AddonValidationError, "runtime_family collision"):
             validate_manifests(manifests, self.capabilities)
+
+    def test_family_identifiers_are_ascii_safe_and_limited_to_64_characters(self) -> None:
+        invalid = copy.deepcopy(self.manifests[1])
+        invalid["identity"]["runtime_family"] = "A" * 65
+        with self.assertRaisesRegex(AddonValidationError, "safe resource-family identifier"):
+            validate_manifests([invalid], self.capabilities)
+        invalid = copy.deepcopy(self.manifests[1])
+        invalid["identity"]["runtime_family"] = "Glacier-Sprint"
+        with self.assertRaisesRegex(AddonValidationError, "safe resource-family identifier"):
+            validate_manifests([invalid], self.capabilities)
 
     def test_policy_validation_keeps_unlock_audio_ai_and_results_independent(self) -> None:
         plan = validate_manifests(self.manifests, self.capabilities)
@@ -148,7 +179,8 @@ class AddonSdkTests(unittest.TestCase):
     def test_external_asset_dependency_closure_is_validated_and_staged(self) -> None:
         positions = [(0.0, 0.0, 0.0), (1.0, 0.0, 0.0), (0.0, 1.0, 0.0)]
         record = simple_record(0, 2, 0, 3, ("Null",))
-        dx = synthetic_dx(positions, [0, 1, 2], [record], [(0, 0, 3)])
+        dx = synthetic_dx(positions, [0, 1, 2], [record], [(0, 0, 3)],
+                          trailing=footer56(positions))
         with tempfile.TemporaryDirectory(dir=ROOT) as temporary:
             root = Path(temporary)
             assets = root / "assets"
@@ -164,6 +196,43 @@ class AddonSdkTests(unittest.TestCase):
             self.assertEqual(inventory["status"], "REQUIRED_ASSETS_VALIDATED")
             self.assertEqual(len(inventory["resources"]), 6)
             self.assertEqual(len(list((output / "DataGx" / "Vehicles").rglob("*.dx"))), 6)
+
+    def test_donor_project_init_validate_and_build_are_deterministic_and_offline(self) -> None:
+        positions = [(0.0, 0.0, 0.0), (1.0, 0.0, 0.0), (0.0, 1.0, 0.0)]
+        record = simple_record(0, 2, 0, 3, ("Null",))
+        dx = synthetic_dx(positions, [0, 1, 2], [record], [(0, 0, 3)],
+                          trailing=footer56(positions))
+        with tempfile.TemporaryDirectory(dir=ROOT) as temporary:
+            root = Path(temporary)
+            project = root / "glacier-author-project"
+            created = initialize_project(name="Glacier Sprint", vehicle_class="T2", donor="Navara",
+                                         family="GlacierSprint", output=project)
+            self.assertEqual(created["status"], "PROJECT_INITIALIZED")
+            source = project / "assets" / "source" / "Navara"
+            for role in ("car.dx", "complete.dx", "wheel.dx"):
+                (source / role).write_bytes(dx)
+            before = validate_project(project, CAPABILITIES_PATH)
+            self.assertEqual(before["status"], "PASS", before)
+            self.assertEqual((before["physical_id"], before["class_local_index"]), (27, 7))
+            self.assertFalse(before["runtime_qualification"]["exact_identity_runtime_qualified"])
+            out_a, out_b = root / "compiled-a", root / "compiled-b"
+            built_a = build_project(project, CAPABILITIES_PATH, out_a)
+            built_b = build_project(project, CAPABILITIES_PATH, out_b)
+            self.assertEqual(built_a["plan_sha256"], built_b["plan_sha256"])
+            self.assertFalse(built_a["runtime_installable"])
+            self.assertEqual(verify_build(out_a)["status"], "PASS")
+            files_a = {p.relative_to(out_a).as_posix(): p.read_bytes()
+                       for p in out_a.rglob("*") if p.is_file()}
+            files_b = {p.relative_to(out_b).as_posix(): p.read_bytes()
+                       for p in out_b.rglob("*") if p.is_file()}
+            self.assertEqual(files_a, files_b)
+            self.assertTrue((out_a / "DataGx/Vehicles/GlacierSprint/car.dx").is_file())
+            self.assertTrue((out_a / "DataGx/Vehicles/GlacierSprint/wheel.dx").is_file())
+            built_plan = json.loads((out_a / "addon-plan.json").read_text(encoding="utf-8"))
+            self.assertEqual([row["addon_id"] for row in built_plan["addons"]], ["glacier-sprint"])
+            self.assertNotIn("Mercedes", (out_a / "resource-inventory.json").read_text(encoding="utf-8"))
+            self.assertFalse(json.loads((out_a / "build-manifest.json").read_text(encoding="utf-8"))
+                             ["runtime_installable"])
 
     def test_missing_or_invalid_asset_dependency_fails_closed(self) -> None:
         with tempfile.TemporaryDirectory(dir=ROOT) as temporary:
@@ -235,6 +304,8 @@ class AddonSdkTests(unittest.TestCase):
         self.assertTrue(evidence["all_six_capture_pairs_raw_sha_verified"])
         ai_capture = next(row for row in evidence["captures"] if row["status"] == "NATURAL_AI_MATERIALIZATION")
         self.assertEqual(ai_capture["evidence"]["Race/Car3/CarID"], 27)
+        third = json.loads((EXAMPLE_DIR / "glacier-sprint-t2.json").read_text(encoding="utf-8"))
+        self.assertEqual(third["identity"]["runtime_family"], "GlacierSprint")
 
 
 if __name__ == "__main__":

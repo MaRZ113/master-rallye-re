@@ -54,7 +54,7 @@ def _tree_resource_inventory(plan: dict[str, Any], assets_root: Path | None) -> 
             raise AddonValidationError(f"required model package is missing: {root}")
 
         try:
-            dependency_report = vehicle_dependencies(vehicle_dir)
+            dependency_report = vehicle_dependencies(vehicle_dir,resource_names=addon['assets']['required_roles'])
         except Exception as exc:
             raise AddonValidationError(f"asset package validation failed for {addon['addon_id']}: {exc}") from exc
         parsed_roles = {row["resource"] for row in dependency_report["resources"] if row["status"] == "PARSED"}
@@ -130,11 +130,42 @@ def build_artifacts(manifests: list[dict[str, Any]], capabilities: dict[str, Any
 
 
 def build_to_directory(manifest_paths: list[Path], capabilities_path: Path, output: Path,
-                       *, assets_root: Path | None = None, retail_exe: Path | None = None) -> dict[str, Any]:
+                       *, assets_root: Path | None = None, retail_exe: Path | None = None,
+                       project_metadata: dict[str, Any] | None = None,
+                       additional_artifacts: dict[str, bytes] | None = None) -> dict[str, Any]:
     manifests, provenance = load_manifests(manifest_paths)
     capabilities, capability_sha = load_capabilities(capabilities_path)
     executable_provenance = verify_retail_executable(retail_exe, capabilities) if retail_exe else None
     artifacts = build_artifacts(manifests, capabilities, assets_root)
+    additional_rows: list[dict[str, Any]] = []
+    for relative, data in (additional_artifacts or {}).items():
+        path = _safe_relative(relative)
+        if path.as_posix() in artifacts or not isinstance(data, bytes):
+            raise AddonValidationError(f"invalid or duplicate additional build artifact: {relative}")
+        artifacts[path.as_posix()] = data
+        if path.parts and path.parts[0].casefold()=='dataaudio':
+            from .audio_profile import decode_pcm,audio_resource_hashes
+            report=(project_metadata or {}).get('audio_resources',{})
+            if audio_resource_hashes(report).get(path.as_posix())!=hashlib.sha256(data).hexdigest():
+                raise AddonValidationError('generated audio differs from declared native source')
+            _samples,fmt=decode_pcm(data)
+            if (fmt['sample_rate'],fmt['channels'],fmt['bits_per_sample'])!=(48000,1,16) or len(data)!=44+fmt['frames']*2:
+                raise AddonValidationError('native custom audio must use canonical PCM16 mono 48000 WAV')
+        if path.parts and path.parts[0].casefold() in {"datagame", "datascene", "datagx", "dataaudio"}:
+            additional_rows.append({
+                "scope": "build",
+                "path": path.as_posix(),
+                "role": ("generated_independent_bov_release" if path.name=='bov_release.wav' else "generated_independent_turbo_spool" if path.name=='turbo_spool.wav' else "generated_independent_transmission_whine" if path.name=='transmission_whine.wav' else "generated_independent_engine_audio") if path.parts[0].casefold()=='dataaudio' else "generated_frontend_or_physics_resource",
+                "sha256": hashlib.sha256(data).hexdigest(),
+                "size": len(data),
+                "status": "GENERATED_AND_HASHED",
+            })
+    if additional_rows:
+        inventory = json.loads(artifacts["resource-inventory.json"].decode("utf-8"))
+        inventory["status"] = "AUGMENTED_RESOURCE_SET"
+        inventory["generated_resource_count"] = len(additional_rows)
+        inventory["resources"].extend(sorted(additional_rows, key=lambda row: row["path"].casefold()))
+        artifacts["resource-inventory.json"] = canonical_json(inventory)
     plan = json.loads(artifacts["addon-plan.json"].decode("utf-8"))
     inventory = json.loads(artifacts["resource-inventory.json"].decode("utf-8"))
     copy_rows: list[tuple[Path, PurePosixPath]] = []
@@ -169,6 +200,12 @@ def build_to_directory(manifest_paths: list[Path], capabilities_path: Path, outp
             "output_status": "OFFLINE_PLAN_ONLY",
             "runtime_installable": False,
         }
+        if project_metadata is not None:
+            if not isinstance(project_metadata, dict) or project_metadata.get("project_metadata_version") != 1:
+                raise AddonValidationError("project metadata must be a version-1 authoring provenance object")
+            if project_metadata.get("runtime_installable") is not False:
+                raise AddonValidationError("authoring project metadata cannot make an offline build runtime-installable")
+            build_manifest["authoring_project"] = project_metadata
         (stage / "build-manifest.json").write_bytes(canonical_json(build_manifest))
         os.replace(stage, output)
     except Exception:
@@ -203,6 +240,12 @@ def verify_build(path: Path) -> dict[str, Any]:
     manifest, _ = read_json(manifest_path)
     if manifest.get("build_manifest_version") != 1 or manifest.get("runtime_installable") is not False:
         raise AddonValidationError("unsupported or unsafe addon build manifest")
+    authoring = manifest.get("authoring_project")
+    if authoring is not None and (
+            not isinstance(authoring, dict)
+            or authoring.get("project_metadata_version") != 1
+            or authoring.get("runtime_installable") is not False):
+        raise AddonValidationError("authoring provenance is malformed or overstates runtime readiness")
     expected = manifest.get("artifact_sha256")
     if not isinstance(expected, dict):
         raise AddonValidationError("build manifest has no artifact SHA map")
@@ -220,5 +263,26 @@ def verify_build(path: Path) -> dict[str, Any]:
     plan, _ = read_json(plan_path)
     if plan.get("build_target", {}).get("runtime_deployment") != "NOT_IMPLEMENTED_FAIL_CLOSED":
         raise AddonValidationError("plan does not preserve fail-closed runtime boundary")
+    inventory_path = root / "resource-inventory.json"
+    if inventory_path.is_file():
+        inventory, _ = read_json(inventory_path)
+        if not isinstance(inventory.get("resources"), list):
+            raise AddonValidationError("resource inventory is malformed")
+        seen_resources: set[str] = set()
+        for row in inventory["resources"]:
+            if not isinstance(row, dict) or not isinstance(row.get("path"), str):
+                raise AddonValidationError("resource inventory contains a malformed row")
+            relative = _safe_relative(row["path"])
+            folded = relative.as_posix().casefold()
+            if folded in seen_resources:
+                raise AddonValidationError(f"resource inventory path is duplicated: {row['path']}")
+            seen_resources.add(folded)
+            if row.get("status") == "GENERATED_AND_HASHED":
+                resource_path = root.joinpath(*relative.parts)
+                if not resource_path.is_file():
+                    raise AddonValidationError(f"generated resource is missing: {row['path']}")
+                data = resource_path.read_bytes()
+                if len(data) != row.get("size") or hashlib.sha256(data).hexdigest() != row.get("sha256"):
+                    raise AddonValidationError(f"generated resource inventory mismatch: {row['path']}")
     return {"status": "PASS", "artifact_count": len(expected), "runtime_installable": False,
             "plan_sha256": hashlib.sha256(plan_path.read_bytes()).hexdigest()}

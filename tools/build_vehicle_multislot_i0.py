@@ -327,7 +327,10 @@ def t2_append_stub_bytes(stub_va: int, reentry_va: int,
 
 def build_code_payload(h2_manifest: dict[str, Any], *,
                        id27_record: registry.VehicleRecordProfile = ID27_RECORD,
-                       results_label: str = RESULTS_ID27) -> tuple[bytes, dict[str, int]]:
+                       results_label: str = RESULTS_ID27,
+                       unlock_oracle_id: int = 10,
+                       audio_profile_id: int = 7,
+                       ai_pool_modes: tuple[str, ...] = ("quickrace", "rallye_cup", "master_rallye")) -> tuple[bytes, dict[str, int]]:
     if (id27_record.slot_id, id27_record.vehicle_class, id27_record.local_index) != (27, 1, 7):
         raise CandidateError("the composed second slot must remain physical ID27 / T2 local7")
     if not id27_record.internal_name or not id27_record.internal_name.isascii() or "\x00" in id27_record.internal_name:
@@ -338,6 +341,14 @@ def build_code_payload(h2_manifest: dict[str, Any], *,
         raise CandidateError("ID27 frontend identity must be three non-empty NUL-free ASCII strings")
     if not results_label or not results_label.isascii() or "\x00" in results_label:
         raise CandidateError("ID27 Results identity must be non-empty NUL-free ASCII")
+    if unlock_oracle_id != 10:
+        raise CandidateError("the audited ID27 locked-reason path currently supports only T2CupCar1 / stock ID10")
+    if type(audio_profile_id) is not int or not 0 <= audio_profile_id <= 24:
+        raise CandidateError("ID27 audio profile must be a tuned stock profile ID in 0..24")
+    allowed_modes = ("quickrace", "rallye_cup", "master_rallye")
+    if (len(set(ai_pool_modes)) != len(ai_pool_modes)
+            or any(mode not in allowed_modes for mode in ai_pool_modes)):
+        raise CandidateError("ID27 AI pool modes must be a unique subset of qualified dynamic mode owners")
     prior = h2_manifest.get("base_manifest", {})
     structural = prior.get("structural_self_check", {})
     old_entries = structural.get("code_entrypoints", {})
@@ -439,7 +450,7 @@ def build_code_payload(h2_manifest: dict[str, Any], *,
     code.jne("unlock_id26_and_stock")
     code.emit(b"\x83\xEC\x08")
     code.emit(b"\xC7\x04\x24\x00\x00\x00\x00")
-    code.emit(b"\xC7\x44\x24\x04\x0A\x00\x00\x00")  # oracle ID10
+    code.emit(b"\xC7\x44\x24\x04" + struct.pack("<I", unlock_oracle_id))
     code.emit(b"\x8D\x0C\x24")
     code.call(0x0045A150)
     code.emit(b"\x83\xC4\x08\x59\xC3")
@@ -470,13 +481,15 @@ def build_code_payload(h2_manifest: dict[str, Any], *,
     code.label("audio_profile_id26")
     code.emit(b"\x31\xC0\xC2\x04\x00")  # ID26 -> profile0
     code.label("audio_profile_id27")
-    code.emit(b"\xB8\x07\x00\x00\x00\xC2\x04\x00")  # ID27 -> profile7
+    code.emit(b"\xB8" + struct.pack("<I", audio_profile_id) + b"\xC2\x04\x00")
 
-    for name, reentry, exit_va in (
-        ("quickrace_t2_id27_append", QUICKRACE_T2_REENTRY_VA, QUICKRACE_T2_EXIT_VA),
-        ("rallyecup_t2_id27_append", CUP_T2_REENTRY_VA, CUP_T2_EXIT_VA),
-        ("masterrallye_t2_id27_append", MASTER_T2_REENTRY_VA, MASTER_T2_EXIT_VA),
+    for mode, name, reentry, exit_va in (
+        ("quickrace", "quickrace_t2_id27_append", QUICKRACE_T2_REENTRY_VA, QUICKRACE_T2_EXIT_VA),
+        ("rallye_cup", "rallyecup_t2_id27_append", CUP_T2_REENTRY_VA, CUP_T2_EXIT_VA),
+        ("master_rallye", "masterrallye_t2_id27_append", MASTER_T2_REENTRY_VA, MASTER_T2_EXIT_VA),
     ):
+        if mode not in ai_pool_modes:
+            continue
         code.align(4)
         code.label(name)
         stub = t2_append_stub_bytes(code.va, reentry, exit_va)
@@ -504,7 +517,10 @@ def make_candidate(data: bytes, *,
                    id27_record: registry.VehicleRecordProfile = ID27_RECORD,
                    results_label: str = RESULTS_ID27,
                    profile: str = PROFILE,
-                   phase: str = "R5V-I.0 two-addon-slot / T2 local7 diagnostic candidate") -> tuple[bytes, dict[str, Any]]:
+                   phase: str = "R5V-I.0 two-addon-slot / T2 local7 diagnostic candidate",
+                   unlock_oracle_id: int = 10,
+                   audio_profile_id: int = 7,
+                   ai_pool_modes: tuple[str, ...] = ("quickrace", "rallye_cup", "master_rallye")) -> tuple[bytes, dict[str, Any]]:
     source_hash = sha256(data)
     if source_hash != RETAIL_SHA256 or len(data) != RETAIL_SIZE:
         raise CandidateError(f"unsupported pristine retail image: SHA256={source_hash}, size={len(data)}")
@@ -528,7 +544,9 @@ def make_candidate(data: bytes, *,
             raise CandidateError(f"internal two-addon layout error for {key}: {layout[key]:#x}")
 
     payload, entrypoints = build_code_payload(
-        parent_manifest, id27_record=id27_record, results_label=results_label)
+        parent_manifest, id27_record=id27_record, results_label=results_label,
+        unlock_oracle_id=unlock_oracle_id, audio_profile_id=audio_profile_id,
+        ai_pool_modes=ai_pool_modes)
     cave_offset = registry.va_to_file_offset(pe, CODE_CAVE_VA, len(payload))
     if parent[cave_offset:cave_offset + len(payload)] != bytes(len(payload)):
         raise CandidateError("fresh I.0 code cave is not zero-filled in the exact H.2 parent")
@@ -621,7 +639,7 @@ def make_candidate(data: bytes, *,
          "route only physical ID27 through the native ID10 group-6 selector path")
     hook("audio_profile_lookup_multi_addon", AUDIO_PROFILE_CALL_VA,
          _call_rel32(AUDIO_PROFILE_CALL_VA, entrypoints["multi_addon_audio_profile"]),
-         "preserve physical IDs; map ID26 to profile0 and ID27 to tuned stock profile7")
+         f"preserve physical IDs; map ID26 to profile0 and ID27 to tuned stock profile{audio_profile_id}")
 
     display_hooks: list[tuple[str, int, str, str]] = [
         ("vehicle_select_manufacturer_id27", 0x00481A0E, "vehicle_select_manufacturer_id27", "group0x33 NISSAN-compatible slot label"),
@@ -654,11 +672,11 @@ def make_candidate(data: bytes, *,
                       purpose="set T2 capacity to eight independently; preserve T1=8 and T3=12")
 
     pool_hooks = (
-        ("quickrace_t2_pool_exit_id27", QUICKRACE_T2_HOOK_VA,
+        ("quickrace", "quickrace_t2_pool_exit_id27", QUICKRACE_T2_HOOK_VA,
          QUICKRACE_T2_REENTRY_VA, QUICKRACE_T2_EXIT_VA),
-        ("rallyecup_t2_pool_exit_id27", CUP_T2_HOOK_VA,
+        ("rallye_cup", "rallyecup_t2_pool_exit_id27", CUP_T2_HOOK_VA,
          CUP_T2_REENTRY_VA, CUP_T2_EXIT_VA),
-        ("masterrallye_t2_pool_exit_id27", MASTER_T2_HOOK_VA,
+        ("master_rallye", "masterrallye_t2_pool_exit_id27", MASTER_T2_HOOK_VA,
          MASTER_T2_REENTRY_VA, MASTER_T2_EXIT_VA),
     )
     stub_entry_by_hook = {
@@ -666,7 +684,9 @@ def make_candidate(data: bytes, *,
         "rallyecup_t2_pool_exit_id27": "rallyecup_t2_id27_append",
         "masterrallye_t2_pool_exit_id27": "masterrallye_t2_id27_append",
     }
-    for name, va, reentry, exit_va in pool_hooks:
+    for mode, name, va, reentry, exit_va in pool_hooks:
+        if mode not in ai_pool_modes:
+            continue
         _ = reentry, exit_va
         stub_entry = entrypoints[stub_entry_by_hook[name]]
         hook(name, va, _rel32(va, stub_entry),
@@ -705,9 +725,13 @@ def make_candidate(data: bytes, *,
             },
             {
                 "physical_id": 27, "class": 1, "local_index": 7,
-                "profile_role": ("SLOT PROOF / DONOR; NOT A REAL SECOND ADDON"
-                                 if id27_record.internal_name == "Navara"
-                                 else "AUTHORED SDK QUALIFICATION VEHICLE"),
+                "profile_role": (
+                    "SLOT PROOF / DONOR; NOT A REAL SECOND ADDON"
+                    if id27_record.internal_name == "Navara" else
+                    "AUTHORED SDK QUALIFICATION VEHICLE"
+                    if id27_record.internal_name == "R5VQualifier" else
+                    "AUTHORED ADDON VEHICLE; NOT HISTORICAL CONTENT"
+                ),
                 "name": id27_record.internal_name, "donor_physical_id": id27_record.donor_id,
                 "runtime_family": id27_record.runtime_family,
                 "model_family": id27_record.model_family,
@@ -720,10 +744,12 @@ def make_candidate(data: bytes, *,
                             "model": id27_record.display_model,
                             "combined": id27_record.display_quickrace,
                             "results": results_label},
-                "unlock_oracle_id": 10,
+                "unlock_oracle_id": unlock_oracle_id,
                 "unlock_path": "Progress/UnlockedCars/T2CupCar1",
-                "audio_profile_id": 7,
-                "ai_pools": ["quickrace:T2", "rallye_cup:new-roster:T2", "master_rallye:new-roster:T2"],
+                "audio_profile_id": audio_profile_id,
+                "ai_pools": [mode for mode in (
+                    "quickrace:T2", "rallye_cup:new-roster:T2", "master_rallye:new-roster:T2")
+                    if mode.split(":", 1)[0] in ai_pool_modes],
                 "native_driver_id_changed": False,
                 "donor_frontend_art": True,
                 "id7_record_overwritten": False,
@@ -753,16 +779,19 @@ def make_candidate(data: bytes, *,
             "id27_group6_requirement_selector": 12,
         },
         "audio": {
-            "physical_id26_profile": 0, "physical_id27_profile": 7,
-            "id27_profile_record": "tuned-07 / Navara donor",
+            "physical_id26_profile": 0, "physical_id27_profile": audio_profile_id,
+            "id27_profile_record": (
+                "tuned-07 / Navara donor"
+                if audio_profile_id == 7 and id27_record.internal_name == "R5VQualifier"
+                else f"tuned-{audio_profile_id:02d} / manifest-selected stock profile"),
             "physical_car_id_rewritten": False,
             "stock_ids_0_to25_native": True,
         },
         "ai_pools": {
             "quickrace_t1": list(T1_PHYSICAL_IDS),
-            "quickrace_t2": list(T2_PHYSICAL_IDS),
-            "rallye_cup_t2_new_roster_only": list(T2_PHYSICAL_IDS),
-            "master_rallye_t2_new_competition_only": list(T2_PHYSICAL_IDS),
+            "quickrace_t2": list(T2_PHYSICAL_IDS) if "quickrace" in ai_pool_modes else list(range(7, 14)),
+            "rallye_cup_t2_new_roster_only": list(T2_PHYSICAL_IDS) if "rallye_cup" in ai_pool_modes else list(range(7, 14)),
+            "master_rallye_t2_new_competition_only": list(T2_PHYSICAL_IDS) if "master_rallye" in ai_pool_modes else list(range(7, 14)),
             "invitation_id27": "NOT_APPLICABLE; normal tested mode uses T3 ordinary IDs14..20",
             "challenge": "authored roster unchanged",
             "id27_forced_participant": False,
@@ -867,9 +896,16 @@ def _verify_structure(candidate: bytes, manifest: dict[str, Any], *,
         inverse[start:start + len(original)] = original
     if sha256(bytes(inverse)) != manifest.get("parent_candidate", {}).get("sha256"):
         raise CandidateError("I.0 inverse does not restore the pinned H.2 parent")
-    for key in ("quickrace_t2_id27_append", "rallyecup_t2_id27_append", "masterrallye_t2_id27_append"):
-        if key not in entrypoints:
-            raise CandidateError(f"candidate is missing the T2 append entrypoint {key}")
+    mode_entrypoints = {
+        "quickrace": "quickrace_t2_id27_append",
+        "rallye_cup": "rallyecup_t2_id27_append",
+        "master_rallye": "masterrallye_t2_id27_append",
+    }
+    profile_row = manifest.get("profiles", [{}, {}])[1]
+    enabled_modes = {item.split(":", 1)[0] for item in profile_row.get("ai_pools", [])}
+    for mode, key in mode_entrypoints.items():
+        if (mode in enabled_modes) != (key in entrypoints):
+            raise CandidateError(f"candidate T2 append entrypoint does not match {mode} AI eligibility")
     if manifest.get("profiles", [])[0].get("physical_id") != 26 or manifest.get("profiles", [])[1].get("physical_id") != 27:
         raise CandidateError("ID26/ID27 profile order or identity changed")
     if manifest["profiles"][0].get("name") != "Mercedes" or manifest["profiles"][1].get("name") != expected_id27_name:

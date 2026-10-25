@@ -66,9 +66,11 @@ profile files; the external runtime folder is disposable test state. Do not
 use a valued profile for the first integrated run.
 
 The launcher scans common proxy names beside the original executable and
-refuses the integrated path if any are present. It does not yet enumerate all
-loaded modules, mediate arbitrary hooks, or prove coexistence with third-party
-graphics wrappers. It does not hot-unload. Removal between runs means using
+refuses the integrated path if any are present. V-LAUNCH1 supersedes that rule
+only for four exact, statically audited adjacent D3D8 proxy builds; other
+wrappers remain refused and combined gameplay remains pending a human test.
+The launcher does not enumerate all loaded modules, mediate arbitrary hooks,
+or prove coexistence with arbitrary third-party graphics wrappers. It does not hot-unload. Removal between runs means using
 the original EXE normally and removing the generated J.1 launcher/bundle.
 
 ## Remaining uncertainties

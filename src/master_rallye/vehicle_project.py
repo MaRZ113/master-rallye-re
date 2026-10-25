@@ -7,11 +7,14 @@ import math
 import json
 from pathlib import Path
 import shutil
+import struct
+import zlib
 
 from .bounds import bound_points, compute_bounds1339, replace_bounds1339
 from .collision_writer import patch_dx_collision_translation
 from .collision_scale import scale_dx_collision
 from .dx import parse_dx_bytes
+from .errors import DxWriteError
 from .dxt import parse_dxt, parse_dxt_bytes, encode_dxt_pixels, PNG_ROWS_FLIP_VERTICAL
 from .r4e_writer import patch_dx_attributes
 from .texture_authoring import decode_rgba_png
@@ -46,7 +49,7 @@ class VehicleProject:
         texture_names = list(spec.get("texture_edits", {})) + list(spec.get("texture_replacements", {}))
         if len({name.casefold() for name in texture_names}) != len(texture_names):
             raise ValueError("duplicate texture edit/replacement names")
-        allowed_resource = {"source_sha256", "candidate", "topology_candidate",
+        allowed_resource = {"source_sha256", "candidate", "topology_candidate", "scene_candidate", "native_brake_scene_candidate",
                             "attributes", "collision_scale", "collision_center",
                             "collision_translation"}
         for role, edit in resources.items():
@@ -71,12 +74,20 @@ def _topology_candidate(source: bytes, candidate: bytes, role: str) -> dict:
         raise ValueError(f"{role}: candidate DX failed structural validation")
     if source[:12] != candidate[:12] or len(original.physical_draws) != len(edited.physical_draws):
         raise ValueError(f"{role}: source header or draw count changed")
+    alpha_toggles = []
     for old, new in zip(original.physical_draws, edited.physical_draws):
         if (old.tag, old.texture_tuple, old.group_label, old.control_words,
-                old.flags_0x20, old.unknown_0x24) != (
+                old.flags_0x20[2:], old.unknown_0x24) != (
                 new.tag, new.texture_tuple, new.group_label, new.control_words,
-                new.flags_0x20, new.unknown_0x24):
+                new.flags_0x20[2:], new.unknown_0x24):
             raise ValueError(f"{role}: existing draw/material identity changed")
+        alpha_edit = old.flags_0x20[0] != new.flags_0x20[0]
+        alpha_test_edit = old.flags_0x20[1] != new.flags_0x20[1]
+        if alpha_edit or alpha_test_edit:
+            if old.tag not in (2, 7, 8) or tuple(new.flags_0x20[:2]) not in ((0, 0), (1, 0), (1, 1)):
+                raise ValueError(f"{role}: unauthorized or conflicting material pass change on draw {old.draw_index}")
+            alpha_toggles.append({"draw": old.draw_index, "alpha": bool(new.flags_0x20[0]),
+                                  "alpha_test": bool(new.flags_0x20[1])})
         a = bytearray(source[old.offset:old.offset + old.own_size])
         b = bytearray(candidate[new.offset:new.offset + new.own_size])
         for relative in (4, 8, 12, 16):
@@ -84,6 +95,10 @@ def _topology_candidate(source: bytes, candidate: bytes, role: str) -> dict:
             offset_b = new.core_offset - new.offset + relative
             a[offset_a:offset_a + 4] = b"\0" * 4
             b[offset_b:offset_b + 4] = b"\0" * 4
+        if alpha_edit or alpha_test_edit:
+            for relative in (0x20, 0x21):
+                a[old.core_offset - old.offset + relative] = 0
+                b[new.core_offset - new.offset + relative] = 0
         if a != b:
             raise ValueError(f"{role}: unexpected draw-record bytes")
     if source[original.collision.offset:original.collision.unparsed_offset] != candidate[edited.collision.offset:edited.collision.unparsed_offset]:
@@ -103,7 +118,7 @@ def _topology_candidate(source: bytes, candidate: bytes, role: str) -> dict:
         raise ValueError(f"{role}: unrecognized bytes after bounds")
     return {"source_vertices": original.vertex_count, "output_vertices": edited.vertex_count,
             "source_triangles": original.triangle_count, "output_triangles": edited.triangle_count,
-            "bounds": bounds.to_dict(), "status": "PASS"}
+            "alpha_toggles": alpha_toggles, "bounds": bounds.to_dict(), "status": "PASS"}
 
 
 def _attribute_candidate(source: bytes, candidate: bytes, role: str) -> dict:
@@ -112,17 +127,20 @@ def _attribute_candidate(source: bytes, candidate: bytes, role: str) -> dict:
     if old.vertex_count != new.vertex_count or old.local_indices != new.local_indices:
         raise ValueError(f"{role}: candidate is not same-topology")
     alpha = {}
+    alpha_test = {}
     env = {}
     for index, (before, after) in enumerate(zip(old.physical_draws, new.physical_draws)):
         if before.flags_0x20[0] != after.flags_0x20[0]:
             alpha[index] = bool(after.flags_0x20[0])
+        if before.flags_0x20[1] != after.flags_0x20[1]:
+            alpha_test[index] = bool(after.flags_0x20[1])
         if bool(before.unknown_0x24 & 4) != bool(after.unknown_0x24 & 4):
             env[index] = bool(after.unknown_0x24 & 4)
     expected = patch_dx_attributes(
         source, positions=new.vertices.positions,
         normals=[v if all(math.isfinite(x) for x in v) else None for v in new.vertices.normals],
         uv_sets=[layer.values for layer in new.uv_sets],
-        colors=new.vertices.colors, material_alpha=alpha, material_env=env)
+        colors=new.vertices.colors, material_alpha=alpha, material_alpha_test=alpha_test, material_env=env)
     if expected.data != candidate:
         raise ValueError(f"{role}: same-topology candidate contains unauthorized bytes")
     return {"status": "PASS", "classification": expected.classification}
@@ -134,12 +152,24 @@ def _compile_resource(project: VehicleProject, role: str, spec: dict) -> tuple[b
     expected = spec.get("source_sha256")
     if expected != _sha(source):
         raise ValueError(f"{role}: source SHA-256 mismatch")
-    operations = [key for key in ("candidate", "topology_candidate", "attributes") if key in spec]
+    operations = [key for key in ("candidate", "topology_candidate", "scene_candidate", "native_brake_scene_candidate", "attributes") if key in spec]
     if len(operations) > 1:
-        raise ValueError(f"{role}: candidate, topology_candidate and attributes cannot be combined")
+        raise ValueError(f"{role}: candidate operations cannot be combined")
     data = source
     detail = {"resource": role, "source_sha256": _sha(source)}
-    if "candidate" in spec or "topology_candidate" in spec:
+    if 'native_brake_scene_candidate' in spec:
+        from .addon_sdk.native_brakes import validate_brake_scene
+        candidate=project.resolve(spec['native_brake_scene_candidate'])
+        if candidate==path.resolve() or role!='car.dx':raise ValueError('native brake scene requires a separate race resource')
+        if any(key.startswith('collision_') for key in spec):raise ValueError('native brake scene preserves donor collision')
+        data=candidate.read_bytes();detail['imported_scene']=validate_brake_scene(source,data)
+    elif 'scene_candidate' in spec:
+        from .scene_dx_writer import validate_scene_dx
+        candidate=project.resolve(spec['scene_candidate'])
+        if candidate==path.resolve():raise ValueError(f'{role}: candidate is original source')
+        if any(key.startswith('collision_') for key in spec):raise ValueError('imported scenes preserve donor collision; collision edits require a separate stage')
+        data=candidate.read_bytes();detail['imported_scene']=validate_scene_dx(source,data)
+    elif "candidate" in spec or "topology_candidate" in spec:
         candidate = project.resolve(spec.get("candidate", spec.get("topology_candidate")))
         if candidate.resolve() == path.resolve():
             raise ValueError(f"{role}: candidate is original source")
@@ -148,7 +178,14 @@ def _compile_resource(project: VehicleProject, role: str, spec: dict) -> tuple[b
         candidate_model = parse_dx_bytes(data)
         if (source_model.vertex_count == candidate_model.vertex_count
                 and source_model.local_indices == candidate_model.local_indices):
-            detail["attributes"] = _attribute_candidate(source, data, role)
+            try:
+                detail["attributes"] = _attribute_candidate(source, data, role)
+            except (ValueError, DxWriteError):
+                # An explicit topology_candidate may rewrite the bounds footer (e.g. a uniformly scaled
+                # wheel.dx); the topology validator checks the fixed draw records, collision and suffix.
+                if "topology_candidate" not in spec:
+                    raise
+                detail["topology"] = _topology_candidate(source, data, role)
         else:
             detail["topology"] = _topology_candidate(source, data, role)
     elif "attributes" in spec:
@@ -157,6 +194,7 @@ def _compile_resource(project: VehicleProject, role: str, spec: dict) -> tuple[b
             positions=edit.get("positions"), normals=edit.get("normals"),
             uv_sets=edit.get("uv_sets"), colors=edit.get("colors"),
             material_alpha={int(k):v for k,v in edit.get("material_alpha",{}).items()},
+            material_alpha_test={int(k):v for k,v in edit.get("material_alpha_test",{}).items()},
             material_env={int(k):v for k,v in edit.get("material_env",{}).items()})
         data = patch.data
         detail["attributes"] = patch.classification
@@ -199,8 +237,13 @@ def _compile_texture(project: VehicleProject, name: str, spec: dict) -> tuple[by
     png = project.resolve(spec["png"])
     width, height, rgba = decode_rgba_png(png.read_bytes())
     data = encode_dxt_pixels(template, rgba, width, height, row_policy=PNG_ROWS_FLIP_VERTICAL)
+    refresh_crc=spec.get('refresh_crc32',False)
+    if type(refresh_crc) is not bool:raise ValueError(f'{name}: refresh_crc32 must be boolean')
+    if refresh_crc:data=data[:8]+struct.pack('<I',zlib.crc32(data[20:])&0xffffffff)+data[12:]
     after = parse_dxt_bytes(data)
-    if template.header != after.header or len(data) != len(source):
+    old_header=template.header[:8]+template.header[12:] if refresh_crc else template.header
+    new_header=after.header[:8]+after.header[12:] if refresh_crc else after.header
+    if old_header != new_header or len(data) != len(source):
         raise ValueError(f"{name}: DXT header/size changed")
     return data, {"resource": name, "source_sha256": _sha(source),
                   "output_sha256": _sha(data), "dimensions": [width, height], "status": "PASS"}

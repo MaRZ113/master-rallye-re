@@ -9,12 +9,26 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <iterator>
 #include <cstdint>
 #include <cstring>
 #include <cwctype>
 #include <limits>
 
 #include "trusted_profile.hpp"
+
+// Legacy profiles have no allocated native payload and preserve their exact
+// resource/operation contract. New profiles pin every payload byte at build.
+#ifndef MR_EXTENSION_RW_SIZE
+#define MR_EXTENSION_RW_OFFSET 0u
+#define MR_EXTENSION_RW_SIZE 0u
+#endif
+#ifndef MR_EXTENSION_SIZE
+#define MR_EXTENSION_SIZE 0u
+#define MR_EXTENSION_ADDRESS 0u
+#define MR_EXTENSION_ALLOCATION_SIZE 0u
+#define MR_EXTENSION_SHA256 ""
+#endif
 
 #pragma comment(lib, "bcrypt.lib")
 
@@ -31,6 +45,7 @@ constexpr uint8_t kFileOnly = 1;
 constexpr uint8_t kNoopCanary = 2;
 constexpr uint8_t kPageCode = 1;
 constexpr uint8_t kPageData = 2;
+constexpr uint64_t kMaxMutableOptionsBytes = 64 * 1024;
 
 struct Section {
     std::string name;
@@ -343,6 +358,10 @@ std::string TrimCR(std::string value) {
     return value;
 }
 
+bool IsUserEditableOptions(const fs::path& relative) {
+    return Lower(relative.generic_wstring()) == L"datagame/options.xml";
+}
+
 void VerifyResourceRoot(const fs::path& root, const fs::path& indexPath) {
     FileHashEquals(indexPath, MR_RESOURCE_INDEX_SHA256, "resource index");
     const fs::path manifestPath = indexPath.parent_path() / L"resource-manifest.json";
@@ -384,8 +403,18 @@ void VerifyResourceRoot(const fs::path& root, const fs::path& indexPath) {
         if (!expected.insert(key).second) Fail("duplicate case-insensitive resource path");
         const fs::path full = root / rel;
         if (!fs::is_regular_file(full) || fs::is_symlink(full)) Fail("indexed resource is missing or linked: " + relative);
-        if (fs::file_size(full) != expectedSize) Fail("resource size mismatch: " + relative);
-        if (HashFile(full) != digest) Fail("resource SHA256 mismatch: " + relative);
+        const auto actualSize = fs::file_size(full);
+        if (IsUserEditableOptions(rel)) {
+            // The game writes control/audio/video preferences here. Keep the
+            // path pinned in the inventory, but allow its contents to change.
+            // Bound it so a corrupt or unexpectedly large settings file fails
+            // closed before the game parses it.
+            if (actualSize == 0 || actualSize > kMaxMutableOptionsBytes)
+                Fail("editable DataGame/options.xml is empty or exceeds 64 KiB");
+        } else {
+            if (actualSize != expectedSize) Fail("resource size mismatch: " + relative);
+            if (HashFile(full) != digest) Fail("resource SHA256 mismatch: " + relative);
+        }
         ++count;
     }
     if (count != MR_RESOURCE_COUNT) Fail("resource count differs from trusted profile");
@@ -419,6 +448,38 @@ HANDLE OpenPinnedRetail(const fs::path& path) {
         CloseHandle(file); Fail("pinned retail executable size mismatch");
     }
     return file;
+}
+
+std::string HashHandle(HANDLE file);
+
+HANDLE OpenPinnedGraphicsProxy(const fs::path& path) {
+    const DWORD attributes = GetFileAttributesW(path.c_str());
+    if (attributes == INVALID_FILE_ATTRIBUTES || (attributes & FILE_ATTRIBUTE_REPARSE_POINT)
+        || (attributes & FILE_ATTRIBUTE_DIRECTORY))
+        Fail("adjacent d3d8.dll is missing, linked, or not a regular file");
+    HANDLE file = CreateFileW(path.c_str(), GENERIC_READ | FILE_READ_ATTRIBUTES, FILE_SHARE_READ,
+                              nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+    if (file == INVALID_HANDLE_VALUE) Fail("cannot pin adjacent graphics proxy against writes/replacement");
+    try {
+        BY_HANDLE_FILE_INFORMATION info{};
+        if (!GetFileInformationByHandle(file, &info) || (info.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
+            Fail("cannot identify adjacent graphics proxy file handle");
+        const auto hash = HashHandle(file);
+        static constexpr const char* kApprovedProxyHashes[] = {
+            "eb7ea3d9501b514bff668f1e75e86041906c5fe4e8afa89f06d658751429aaf4", // pc-port baseline Release
+            "235aae55e077fca1e5b5208d4ac158b1a00dd80041fa5885bd06890a041b1eb8", // pc-port ps2-enabled Release
+            "339174529605b6b4602715470ac67e0bf39d7f95197b0d07fe2dbd048a960ea1", // renderer .build-msvc Release
+            "f84fd763dcf26ab2d79c254cfe49f1b4deb19f8b6378882971a08659d2318b77"  // renderer .build-msvc-hudperf Release
+        };
+        const bool approved = std::any_of(std::begin(kApprovedProxyHashes), std::end(kApprovedProxyHashes),
+            [&](const char* expected) { return hash == expected; });
+        if (!approved) Fail("adjacent d3d8.dll SHA256 is not an audited graphics proxy");
+        std::cout << "APPROVED_GRAPHICS_PROXY sha256=" << hash << "\n";
+        return file;
+    } catch (...) {
+        CloseHandle(file);
+        throw;
+    }
 }
 
 std::string HashHandle(HANDLE file) {
@@ -623,9 +684,71 @@ void ValidateAndInstall(PROCESS_INFORMATION& pi, uintptr_t imageBase, const Runt
     if (!restored) TerminateSuspended(pi, "page-protection restoration failed");
 }
 
-bool HasUnqualifiedProxy(const fs::path& exePath) {
+std::vector<uint8_t> VerifyNativeExtension(const fs::path& bundle) {
+    const fs::path path = bundle / L"native-extension.bin";
+    if constexpr (MR_EXTENSION_SIZE == 0) {
+        if (fs::exists(path)) Fail("unexpected private native extension in legacy bundle");
+        return {};
+    } else {
+        const DWORD attrs = GetFileAttributesW(path.c_str());
+        if (attrs == INVALID_FILE_ATTRIBUTES || (attrs & FILE_ATTRIBUTE_REPARSE_POINT)
+            || !fs::is_regular_file(path) || fs::file_size(path) != MR_EXTENSION_SIZE)
+            Fail("private native extension is missing, linked or has an invalid size");
+        auto bytes = ReadFileBytes(path);
+        if (Sha256Bytes(bytes.data(), bytes.size()) != MR_EXTENSION_SHA256)
+            Fail("private native extension SHA256 mismatch");
+        return bytes;
+    }
+}
+
+void InstallNativeExtension(PROCESS_INFORMATION& pi, const std::vector<uint8_t>& bytes) {
+    if constexpr (MR_EXTENSION_SIZE != 0) {
+        if (bytes.size() != MR_EXTENSION_SIZE) Fail("private native payload size changed");
+        void* target = reinterpret_cast<void*>(static_cast<uintptr_t>(MR_EXTENSION_ADDRESS));
+        MEMORY_BASIC_INFORMATION vacant{};
+        if (VirtualQueryEx(pi.hProcess, target, &vacant, sizeof(vacant)) != sizeof(vacant)
+            || vacant.State != MEM_FREE
+            || reinterpret_cast<uintptr_t>(vacant.BaseAddress) + vacant.RegionSize
+                < static_cast<uintptr_t>(MR_EXTENSION_ADDRESS) + MR_EXTENSION_ALLOCATION_SIZE)
+            Fail("private native allocation range is occupied; refusing replacement");
+        void* allocation = VirtualAllocEx(pi.hProcess, target, MR_EXTENSION_ALLOCATION_SIZE,
+                                          MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
+        if (allocation != target) Fail("private native allocation address unavailable; refusing relocation");
+        MEMORY_BASIC_INFORMATION region{};
+        if (VirtualQueryEx(pi.hProcess, target, &region, sizeof(region)) != sizeof(region)
+            || region.Type != MEM_PRIVATE || region.State != MEM_COMMIT
+            || region.AllocationBase != target || region.RegionSize < MR_EXTENSION_ALLOCATION_SIZE)
+            Fail("private native allocation layout mismatch");
+        SIZE_T written{};
+        if (!WriteProcessMemory(pi.hProcess, target, bytes.data(), bytes.size(), &written)
+            || written != bytes.size()) Fail("private native payload installation failed");
+        std::vector<uint8_t> actual(bytes.size()); SIZE_T received{};
+        if (!ReadProcessMemory(pi.hProcess, target, actual.data(), actual.size(), &received)
+            || received != actual.size() || actual != bytes)
+            Fail("private native payload readback mismatch");
+        DWORD old{};
+        if (!VirtualProtectEx(pi.hProcess, target, MR_EXTENSION_ALLOCATION_SIZE, PAGE_EXECUTE_READ, &old)
+            || !FlushInstructionCache(pi.hProcess, target, bytes.size()))
+            Fail("private native payload protection/cache preparation failed");
+        if constexpr (MR_EXTENSION_RW_SIZE != 0) {
+            auto* data = static_cast<uint8_t*>(target) + MR_EXTENSION_RW_OFFSET;
+            if (!VirtualProtectEx(pi.hProcess, data, MR_EXTENSION_RW_SIZE, PAGE_READWRITE, &old))
+                Fail("private native data-page protection failed");
+            MEMORY_BASIC_INFORMATION dataRegion{};
+            if (VirtualQueryEx(pi.hProcess,data,&dataRegion,sizeof(dataRegion)) != sizeof(dataRegion)
+                || dataRegion.Protect != PAGE_READWRITE)
+                Fail("private native data page is not RW/NX");
+            std::cout << "PRIVATE_NATIVE_DATA_PAGE_VERIFIED offset=" << MR_EXTENSION_RW_OFFSET
+                      << " size=" << MR_EXTENSION_RW_SIZE << " protection=RW/NX\n";
+        }
+        std::cout << "PRIVATE_NATIVE_EXTENSION_INSTALLED bytes=" << bytes.size()
+                  << " sha256=" << MR_EXTENSION_SHA256 << "\n";
+    }
+}
+
+HANDLE VerifyAdjacentWrappers(const fs::path& exePath) {
     static constexpr const wchar_t* names[] = {
-        L"d3d8.dll", L"d3d9.dll", L"ddraw.dll", L"dinput8.dll",
+        L"d3d9.dll", L"ddraw.dll", L"dinput8.dll",
         L"dsound.dll", L"winmm.dll", L"version.dll", L"dxgi.dll"
     };
     const auto directory = exePath.parent_path();
@@ -633,20 +756,28 @@ bool HasUnqualifiedProxy(const fs::path& exePath) {
         const auto path = directory / name;
         if (fs::exists(path)) {
             std::wcerr << L"UNQUALIFIED_LOCAL_WRAPPER " << path << L"\n";
-            return true;
+            Fail("unqualified local graphics/input/audio wrapper is present");
         }
     }
-    return false;
+    const auto graphicsProxy = directory / L"d3d8.dll";
+    if (fs::exists(graphicsProxy)) return OpenPinnedGraphicsProxy(graphicsProxy);
+    return INVALID_HANDLE_VALUE;
 }
 
 void Launch(const fs::path& exePath, const fs::path& workingDirectory,
-            const RuntimePlan* plan) {
+            const RuntimePlan* plan, const fs::path* nativeBundle = nullptr) {
     HANDLE pinnedExe = OpenPinnedRetail(exePath);
     if (HashHandle(pinnedExe) != MR_RETAIL_SHA256) {
         CloseHandle(pinnedExe); Fail("pinned executable SHA256 mismatch");
     }
-    if (plan && HasUnqualifiedProxy(exePath)) {
-        CloseHandle(pinnedExe); Fail("graphics/input proxy compatibility is not qualified; refusing modded launch");
+    HANDLE pinnedGraphicsProxy = INVALID_HANDLE_VALUE;
+    if (plan) {
+        try {
+            pinnedGraphicsProxy = VerifyAdjacentWrappers(exePath);
+        } catch (...) {
+            CloseHandle(pinnedExe);
+            throw;
+        }
     }
 
     STARTUPINFOW startup{};
@@ -656,6 +787,7 @@ void Launch(const fs::path& exePath, const fs::path& workingDirectory,
     if (!CreateProcessW(exePath.c_str(), command.data(), nullptr, nullptr, FALSE,
                         CREATE_SUSPENDED | CREATE_UNICODE_ENVIRONMENT,
                         nullptr, workingDirectory.c_str(), &startup, &pi)) {
+        if (pinnedGraphicsProxy != INVALID_HANDLE_VALUE) CloseHandle(pinnedGraphicsProxy);
         CloseHandle(pinnedExe); Fail("CreateProcessW(CREATE_SUSPENDED) failed");
     }
     try {
@@ -666,6 +798,12 @@ void Launch(const fs::path& exePath, const fs::path& workingDirectory,
         identityPlan.pe = pe;
         VerifyProcessIdentity(pi, pinnedExe, identityPlan);
         if (plan) {
+            // The child is suspended throughout allocation, byte verification,
+            // image preflight and patch installation. Any failure terminates it.
+            if (nativeBundle) {
+                auto extension = VerifyNativeExtension(*nativeBundle);
+                InstallNativeExtension(pi, extension);
+            }
             ValidateAndInstall(pi, ProcessImageBase32(pi.hProcess), *plan);
             if (plan->operations.size() == 1 && plan->operations.front().flags == kNoopCanary)
                 std::cout << "IN_MEMORY_CANARY_VERIFIED rva=0x" << std::hex
@@ -685,6 +823,7 @@ void Launch(const fs::path& exePath, const fs::path& workingDirectory,
             Fail("retail executable hash changed while the game was running");
         std::cout << "PROCESS_EXIT exit_code=" << exitCode << " retail_exe_sha256=" << MR_RETAIL_SHA256 << "\n";
         CloseHandle(pi.hThread); CloseHandle(pi.hProcess); CloseHandle(pinnedExe);
+        if (pinnedGraphicsProxy != INVALID_HANDLE_VALUE) CloseHandle(pinnedGraphicsProxy);
     } catch (...) {
         if (pi.hProcess) {
             TerminateProcess(pi.hProcess, 0xE002);
@@ -692,9 +831,28 @@ void Launch(const fs::path& exePath, const fs::path& workingDirectory,
         }
         if (pi.hThread) CloseHandle(pi.hThread);
         if (pi.hProcess) CloseHandle(pi.hProcess);
+        if (pinnedGraphicsProxy != INVALID_HANDLE_VALUE) CloseHandle(pinnedGraphicsProxy);
         CloseHandle(pinnedExe);
         throw;
     }
+}
+
+void VerifyLaunchEnvironment(const fs::path& exePath) {
+    HANDLE pinnedExe = OpenPinnedRetail(exePath);
+    HANDLE pinnedGraphicsProxy = INVALID_HANDLE_VALUE;
+    try {
+        if (HashHandle(pinnedExe) != MR_RETAIL_SHA256)
+            Fail("pinned executable SHA256 mismatch");
+        pinnedGraphicsProxy = VerifyAdjacentWrappers(exePath);
+        std::cout << "LAUNCH_ENVIRONMENT_VERIFIED graphics_proxy="
+                  << (pinnedGraphicsProxy == INVALID_HANDLE_VALUE ? "absent" : "approved-d3d8") << "\n";
+    } catch (...) {
+        if (pinnedGraphicsProxy != INVALID_HANDLE_VALUE) CloseHandle(pinnedGraphicsProxy);
+        CloseHandle(pinnedExe);
+        throw;
+    }
+    if (pinnedGraphicsProxy != INVALID_HANDLE_VALUE) CloseHandle(pinnedGraphicsProxy);
+    CloseHandle(pinnedExe);
 }
 
 void VerifyBundle(const fs::path& exePath, const fs::path& bundle) {
@@ -708,12 +866,38 @@ void VerifyBundle(const fs::path& exePath, const fs::path& bundle) {
     const fs::path manifestPath = bundle / L"native-patch-manifest.json";
     const fs::path opsPath = bundle / L"native-patch-ops.rvp";
     const fs::path indexPath = bundle / L"resource-index.tsv";
+    VerifyNativeExtension(bundle);
     FileHashEquals(manifestPath, MR_PATCH_MANIFEST_SHA256, "native patch manifest");
     FileHashEquals(bundle / L"resource-manifest.json", MR_RESOURCE_MANIFEST_SHA256, "resource manifest");
     VerifyResourceRoot(bundle / L"resource-root", indexPath);
     const auto plan = ParsePatchPlan(exePath, opsPath, planPath);
     std::cout << "RUNTIME_BUNDLE_VERIFIED patch_operations=" << plan.operations.size()
               << " plan_sha256=" << MR_ADDON_PLAN_SHA256 << "\n";
+}
+
+void SelfTestNativeAllocation(const fs::path& bundle) {
+    if constexpr (MR_EXTENSION_SIZE != 0) {
+        auto bytes = VerifyNativeExtension(bundle);
+        PROCESS_INFORMATION fixture{}; fixture.hProcess = GetCurrentProcess();
+        void* target = reinterpret_cast<void*>(static_cast<uintptr_t>(MR_EXTENSION_ADDRESS));
+        bool installed = false;
+        try {
+            InstallNativeExtension(fixture, bytes); installed = true;
+            bool rejected = false;
+            try { InstallNativeExtension(fixture, bytes); }
+            catch (const std::exception&) { rejected = true; }
+            if (!rejected) Fail("occupied native allocation address was not rejected");
+            if (!VirtualFreeEx(fixture.hProcess, target, 0, MEM_RELEASE))
+                Fail("native allocation self-test cleanup failed");
+            installed = false;
+            std::cout << "NATIVE_ALLOCATION_SELF_TEST_PASS code_executed=false game_launched=false occupied_address_rejected=true\n";
+        } catch (...) {
+            if (installed) VirtualFreeEx(fixture.hProcess, target, 0, MEM_RELEASE);
+            throw;
+        }
+    } else {
+        Fail("this legacy profile has no private native allocation to test");
+    }
 }
 
 } // namespace
@@ -723,6 +907,8 @@ int wmain(int argc, wchar_t** argv) {
         if (argc < 3) {
             std::wcerr << L"Usage:\n"
                        << L"  mr-runtime-launcher --verify <retail-exe> <bundle>\n"
+                       << L"  mr-runtime-launcher --verify-launch-environment <retail-exe> <bundle>\n"
+                       << L"  mr-runtime-launcher --self-test-native-allocation <retail-exe> <bundle>\n"
                        << L"  mr-runtime-launcher --bootstrap-only <retail-exe>\n"
                        << L"  mr-runtime-launcher --canary-only <retail-exe> <bundle>\n"
                        << L"  mr-runtime-launcher --integrated <retail-exe> <bundle>\n";
@@ -744,6 +930,14 @@ int wmain(int argc, wchar_t** argv) {
         const fs::path bundle = fs::absolute(argv[3]);
         VerifyBundle(exePath, bundle);
         if (mode == L"--verify") return 0;
+        if (mode == L"--self-test-native-allocation") {
+            SelfTestNativeAllocation(bundle);
+            return 0;
+        }
+        if (mode == L"--verify-launch-environment") {
+            VerifyLaunchEnvironment(exePath);
+            return 0;
+        }
         if (mode != L"--integrated" && mode != L"--canary-only") Fail("unknown launcher mode");
         auto plan = ParsePatchPlan(exePath, bundle / L"native-patch-ops.rvp", bundle / L"addon-plan.json");
         if (mode == L"--canary-only") {
@@ -752,7 +946,7 @@ int wmain(int argc, wchar_t** argv) {
             if (plan.operations.size() != 1) Fail("bundle must contain exactly one approved no-op canary");
             Launch(exePath, exePath.parent_path(), &plan);
         } else {
-            Launch(exePath, bundle / L"resource-root", &plan);
+            Launch(exePath, bundle / L"resource-root", &plan, &bundle);
         }
         return 0;
     } catch (const std::exception& error) {

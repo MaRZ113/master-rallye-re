@@ -14,7 +14,7 @@ class AddonValidationError(ValueError):
     """Input failed the fail-closed generic addon contract."""
 
 
-_FAMILY = re.compile(r"^[A-Za-z][A-Za-z0-9_]*$")
+_FAMILY = re.compile(r"^[A-Za-z][A-Za-z0-9_]{0,63}$")
 _SHA256 = re.compile(r"^[0-9a-f]{64}$")
 _MODES = ("quick_race", "rallye_cup", "master_rallye", "invitation", "challenge", "practice")
 _STOCK_CLASS_MAP = {
@@ -69,6 +69,72 @@ def load_capabilities(path: Path) -> tuple[dict[str, Any], str]:
         raise AddonValidationError("capability addon-ID set overlaps reserved stock IDs")
     if not runtime_ids <= supported_ids:
         raise AddonValidationError("runtime-qualified IDs must be a subset of supported addon IDs")
+    slots = value.get("qualified_addon_slots")
+    if not isinstance(slots, list):
+        raise AddonValidationError("capability qualified_addon_slots must be an explicit slot list")
+    slot_ids: set[int] = set()
+    slot_keys: set[tuple[str, int]] = set()
+    for slot in slots:
+        if not isinstance(slot, dict) or set(slot) != {"physical_id", "vehicle_class", "class_local_index"}:
+            raise AddonValidationError("each qualified addon slot needs physical_id, vehicle_class and class_local_index")
+        physical_id = slot["physical_id"]
+        class_name = slot["vehicle_class"]
+        local_index = slot["class_local_index"]
+        if type(physical_id) is not int or physical_id < 0:
+            raise AddonValidationError("qualified addon slot physical_id must be a non-negative integer")
+        if class_name not in _STOCK_CLASS_MAP:
+            raise AddonValidationError("qualified addon slot has an unsupported vehicle_class")
+        if type(local_index) is not int or local_index < len(_STOCK_CLASS_MAP[class_name]):
+            raise AddonValidationError("qualified addon slot must append after the stock class map")
+        if physical_id not in supported_ids or physical_id in reserved_ids or physical_id in slot_ids:
+            raise AddonValidationError("qualified addon slot physical ID is unsupported, reserved or duplicated")
+        key = (class_name, local_index)
+        if key in slot_keys:
+            raise AddonValidationError("qualified addon class/local slot is duplicated")
+        slot_ids.add(physical_id)
+        slot_keys.add(key)
+    if slot_ids != supported_ids:
+        raise AddonValidationError("qualified_addon_slots must map every supported physical ID exactly once")
+    for class_name, stock in _STOCK_CLASS_MAP.items():
+        locals_ = sorted(index for name, index in slot_keys if name == class_name)
+        if locals_ != list(range(len(stock), len(stock) + len(locals_))):
+            raise AddonValidationError("qualified addon slots must append contiguously after the stock class map")
+    qualified_profiles = value.get("runtime_qualified_addon_profiles")
+    if not isinstance(qualified_profiles, list):
+        raise AddonValidationError("capability runtime_qualified_addon_profiles must be an explicit identity list")
+    profile_ids: set[int] = set()
+    profile_fields = {
+        "physical_id", "vehicle_class", "class_local_index", "runtime_family", "model_family",
+        "wheel_family", "physics_family", "manufacturer", "model", "combined", "results_display_name",
+        "audio_profile_id", "unlock_policy", "unlock_stock_vehicle_id",
+    }
+    for profile in qualified_profiles:
+        if not isinstance(profile, dict) or set(profile) != profile_fields:
+            raise AddonValidationError("each runtime-qualified identity profile has an invalid field set")
+        physical_id = profile["physical_id"]
+        slot = next((row for row in slots if row["physical_id"] == physical_id), None)
+        if (type(physical_id) is not int or physical_id not in runtime_ids or physical_id in profile_ids
+                or slot is None or profile["vehicle_class"] != slot["vehicle_class"]
+                or profile["class_local_index"] != slot["class_local_index"]):
+            raise AddonValidationError("runtime-qualified identity profile does not match a unique runtime-qualified slot")
+        profile_ids.add(physical_id)
+        for key in ("runtime_family", "model_family", "wheel_family"):
+            _valid_family(profile[key], f"runtime_qualified_addon_profiles.{key}")
+        _valid_family(profile["physics_family"].removeprefix("Vehicles/"),
+                      "runtime_qualified_addon_profiles.physics_family")
+        if not profile["physics_family"].startswith("Vehicles/"):
+            raise AddonValidationError("runtime-qualified physics_family must be a Vehicles/<family> path")
+        for key in ("manufacturer", "model", "combined", "results_display_name"):
+            if not isinstance(profile[key], str) or not profile[key].isascii() or not profile[key].strip():
+                raise AddonValidationError(f"runtime-qualified profile {key} must be non-empty ASCII text")
+        if (type(profile["audio_profile_id"]) is not int or not 0 <= profile["audio_profile_id"] <= 24
+                or profile["unlock_policy"] not in {"always_available", "mirror_stock_unlock"}
+                or (profile["unlock_policy"] == "mirror_stock_unlock"
+                    and (type(profile["unlock_stock_vehicle_id"]) is not int
+                         or not 0 <= profile["unlock_stock_vehicle_id"] <= 25))):
+            raise AddonValidationError("runtime-qualified profile contains an unsupported audio or unlock policy")
+    if profile_ids != runtime_ids:
+        raise AddonValidationError("runtime-qualified identity profiles must cover the runtime-qualified ID list")
     if not isinstance(value.get("stock_class_map"), dict) or set(value["stock_class_map"]) != set(_STOCK_CLASS_MAP):
         raise AddonValidationError("capability profile must define stock T1/T2/T3 class maps")
     for class_name, expected in _STOCK_CLASS_MAP.items():
@@ -85,6 +151,13 @@ def load_capabilities(path: Path) -> tuple[dict[str, Any], str]:
         raise AddonValidationError("capability class slot limit is smaller than its stock class map")
     if type(value.get("retail_exe_size")) is not int or value["retail_exe_size"] <= 0:
         raise AddonValidationError("capability retail_exe_size must be a positive integer")
+    data_sha = value.get("retail_data_sma_sha256")
+    data_size = value.get("retail_data_sma_size")
+    if (data_sha is None) != (data_size is None):
+        raise AddonValidationError("capability retail_data_sma_sha256 and retail_data_sma_size must be supplied together")
+    if data_sha is not None and (not _SHA256.fullmatch(data_sha)
+                                 or type(data_size) is not int or data_size <= 0):
+        raise AddonValidationError("capability retail Data.sma identity requires lowercase SHA256 and positive size")
     layout = value["registry_layout"]
     for key in ("header_bytes", "vehicle_record_stride", "racetest_count", "racetest_stride"):
         if type(layout.get(key)) is not int or layout[key] <= 0:
@@ -178,17 +251,18 @@ def _validate_one(manifest: dict[str, Any]) -> None:
         "manufacturer", "model", "combined", "stats", "vehicle_select_art", "smallcarsheet",
     })
     for key in ("manufacturer", "model", "combined"):
-        if not isinstance(frontend[key], str) or not frontend[key].strip():
-            raise AddonValidationError(f"frontend.{key} must be a non-empty display string")
+        if (not isinstance(frontend[key], str) or not frontend[key].strip()
+                or not frontend[key].isascii() or "\x00" in frontend[key]):
+            raise AddonValidationError(f"frontend.{key} must be a non-empty ASCII display string without NUL")
     stats = frontend["stats"]
     if not isinstance(stats, list) or len(stats) != 4 or any(type(item) is not int or not 0 <= item <= 10 for item in stats):
         raise AddonValidationError("frontend.stats must contain four integer values in 0..10")
     art = _need_object(frontend["vehicle_select_art"], "frontend.vehicle_select_art", {"policy", "frame"})
-    if art["policy"] != "stock_frame" or type(art["frame"]) is not int or art["frame"] < 0:
-        raise AddonValidationError("Vehicle Select art V1 must reference a non-negative stock_frame")
+    if art["policy"] not in {"stock_frame", "project_frame"} or type(art["frame"]) is not int or art["frame"] < 0 or art["policy"] == "project_frame" and art["frame"] > 127:
+        raise AddonValidationError("Vehicle Select art must reference stock_frame or a bounded project_frame")
     small = _need_object(frontend["smallcarsheet"], "frontend.smallcarsheet", {"policy", "frame"})
-    if small["policy"] != "stock_frame" or type(small["frame"]) is not int or small["frame"] < 0:
-        raise AddonValidationError("SmallCarSheet V1 must reference a non-negative stock_frame")
+    if small["policy"] not in {"stock_frame", "project_frame"} or type(small["frame"]) is not int or small["frame"] < 0 or small["policy"] == "project_frame" and small["frame"] > 127:
+        raise AddonValidationError("SmallCarSheet must reference stock_frame or a bounded project_frame")
 
     colour = manifest["race_colour_rgba"]
     if not isinstance(colour, list) or len(colour) != 4 or any(
@@ -243,8 +317,10 @@ def _validate_one(manifest: dict[str, Any]) -> None:
         raise AddonValidationError("Practice has no qualified stock AI pool in V1")
 
     results = _need_object(manifest["results"], "results", {"policy", "display_name"})
-    if results["policy"] != "fixed" or not isinstance(results["display_name"], str) or not results["display_name"].strip():
-        raise AddonValidationError("V1 Results policy must provide a fixed non-empty display_name")
+    if (results["policy"] != "fixed" or not isinstance(results["display_name"], str)
+            or not results["display_name"].strip() or not results["display_name"].isascii()
+            or "\x00" in results["display_name"]):
+        raise AddonValidationError("V1 Results policy must provide a fixed non-empty ASCII display_name without NUL")
 
 
 def validate_manifests(manifests: list[dict[str, Any]], capabilities: dict[str, Any]) -> dict[str, Any]:
@@ -261,9 +337,14 @@ def validate_manifests(manifests: list[dict[str, Any]], capabilities: dict[str, 
 
     supported = set(capabilities["supported_addon_physical_ids"])
     reserved = set(capabilities["reserved_stock_ids"])
-    allocation_order = list(capabilities["supported_addon_physical_ids"])
+    slots_by_class: dict[str, list[dict[str, Any]]] = {name: [] for name in _STOCK_CLASS_MAP}
+    for slot in capabilities["qualified_addon_slots"]:
+        slots_by_class[slot["vehicle_class"]].append(slot)
+    for rows in slots_by_class.values():
+        rows.sort(key=lambda row: (row["class_local_index"], row["physical_id"]))
     resolved: dict[str, int] = {}
     used: set[int] = set()
+    slot_by_physical = {row["physical_id"]: row for row in capabilities["qualified_addon_slots"]}
     for item in sorted_manifests:
         physical = item["physical_id"]
         if physical["policy"] != "explicit":
@@ -278,20 +359,37 @@ def validate_manifests(manifests: list[dict[str, Any]], capabilities: dict[str, 
         resolved[item["addon_id"]] = value
         used.add(value)
     for item in sorted_manifests:
+        if item["physical_id"]["policy"] != "explicit":
+            continue
+        value = resolved[item["addon_id"]]
+        slot = slot_by_physical[value]
+        if item["vehicle_class"] != slot["vehicle_class"]:
+            raise AddonValidationError(
+                f"physical ID {value} is qualified for {slot['vehicle_class']} local{slot['class_local_index']}, "
+                f"not {item['vehicle_class']}"
+            )
+    for item in sorted_manifests:
         if item["physical_id"]["policy"] == "explicit":
             continue
-        available = next((value for value in allocation_order if value not in reserved and value not in used), None)
-        if available is None:
-            raise AddonValidationError("target capability profile has no unassigned addon physical ID")
-        resolved[item["addon_id"]] = available
-        used.add(available)
+        available_slot = next((slot for slot in slots_by_class[item["vehicle_class"]]
+                               if slot["physical_id"] not in used), None)
+        if available_slot is None:
+            raise AddonValidationError(
+                f"{item['vehicle_class']}_ADDON_SLOT_UNAVAILABLE: class-local capacity has no qualified physical slot remaining"
+            )
+        resolved[item["addon_id"]] = available_slot["physical_id"]
+        used.add(available_slot["physical_id"])
 
     identity_keys = ("runtime_family", "model_family", "wheel_family", "physics_family")
     identity_owners: dict[tuple[str, str], str] = {}
     resource_owners: dict[str, str] = {}
     class_map = {key: list(value) for key, value in capabilities["stock_class_map"].items()}
     planned: list[dict[str, Any]] = []
-    for item in sorted_manifests:
+    # Explicit assignments can be presented in any addon-name order. Build the
+    # class table in slot order, while retaining deterministic auto allocation.
+    slot_order = sorted(sorted_manifests, key=lambda item: (
+        item['vehicle_class'], slot_by_physical[resolved[item['addon_id']]]['class_local_index']))
+    for item in slot_order:
         addon_id = item["addon_id"]
         class_name = item["vehicle_class"]
         physical_id = resolved[addon_id]
@@ -310,10 +408,15 @@ def validate_manifests(manifests: list[dict[str, Any]], capabilities: dict[str, 
             resource_owners[path] = addon_id
         if physical_id in {entry for values in class_map.values() for entry in values}:
             raise AddonValidationError(f"physical ID {physical_id} already appears in a stock class map")
-        local_index = len(class_map[class_name])
+        slot = slot_by_physical[physical_id]
+        local_index = slot["class_local_index"]
         slot_limit = capabilities["class_slot_limits"][class_name]
         if local_index >= slot_limit:
             raise AddonValidationError(f"{class_name} class-local capacity exceeded by {addon_id}")
+        if local_index != len(class_map[class_name]):
+            raise AddonValidationError(
+                f"{class_name}_ADDON_SLOT_ORDER_UNSUPPORTED: qualified slot local{local_index} cannot be inserted after the current collection"
+            )
         class_map[class_name].append(physical_id)
         planned.append({
             "addon_id": addon_id,
@@ -331,6 +434,9 @@ def validate_manifests(manifests: list[dict[str, Any]], capabilities: dict[str, 
             "results": dict(item["results"]),
         })
 
+    # Preserve V1 serialization order for existing author projects, including
+    # the frozen Subaru plan, while class insertion above follows slot order.
+    planned.sort(key=lambda row: row['addon_id'])
     highest = max([*reserved, *used], default=max(reserved, default=-1))
     layout = capabilities["registry_layout"]
     count = highest + 1
@@ -371,6 +477,41 @@ def validate_manifests(manifests: list[dict[str, Any]], capabilities: dict[str, 
             "custom_ordering": "deferred",
             "unqualified_physical_ids": sorted(value for value in used if value not in capabilities["runtime_qualified_addon_ids"]),
         },
+    }
+
+
+def classify_runtime_identity(addon: dict[str, Any], capabilities: dict[str, Any]) -> dict[str, Any]:
+    """Separate a runtime-qualified physical slot from its exact qualified identity profile."""
+    physical_id = addon.get("physical_id")
+    slot = next((row for row in capabilities["qualified_addon_slots"]
+                 if row["physical_id"] == physical_id), None)
+    identity = addon.get("identity", {})
+    frontend = addon.get("frontend", {})
+    unlock = addon.get("unlock", {})
+    audio = addon.get("audio", {})
+    results = addon.get("results", {})
+    candidate = {
+        "physical_id": physical_id,
+        "vehicle_class": addon.get("vehicle_class"),
+        "class_local_index": addon.get("class_local_index"),
+        "runtime_family": identity.get("runtime_family"),
+        "model_family": identity.get("model_family"),
+        "wheel_family": identity.get("wheel_family"),
+        "physics_family": identity.get("physics_family"),
+        "manufacturer": frontend.get("manufacturer"),
+        "model": frontend.get("model"),
+        "combined": frontend.get("combined"),
+        "results_display_name": results.get("display_name"),
+        "audio_profile_id": audio.get("stock_audio_profile_id"),
+        "unlock_policy": unlock.get("policy"),
+        "unlock_stock_vehicle_id": unlock.get("stock_vehicle_id"),
+    }
+    qualified = next((row for row in capabilities["runtime_qualified_addon_profiles"]
+                      if row["physical_id"] == physical_id and row == candidate), None)
+    return {
+        "physical_slot_runtime_qualified": physical_id in capabilities["runtime_qualified_addon_ids"],
+        "exact_identity_runtime_qualified": qualified is not None,
+        "identity_status": "EXACT_RUNTIME_QUALIFIED_PROFILE" if qualified else "IDENTITY_NOT_RUNTIME_QUALIFIED",
     }
 
 

@@ -144,6 +144,7 @@ def patch_dx_attributes(
     uv_sets=None,
     colors=None,
     material_alpha: dict[int, bool] | None = None,
+    material_alpha_test: dict[int, bool] | None = None,
     material_env: dict[int, bool] | None = None,
     source="<template>",
     safe_bounds=True,
@@ -211,9 +212,19 @@ def patch_dx_attributes(
         draw = draws[draw_id]
         if draw.draw_index != draw_id or draw.tag not in (2, 7, 8):
             raise DxWriteError("alpha edit requires a physical vehicle draw identity")
-        if draw.flags_0x20[1] != 0:
-            raise DxWriteError("alpha-test material is experimental and cannot be edited here")
         patch("material_alpha_enable",draw_id,draw.core_offset+0x20,bytes([int(enabled)]))
+    for draw_id, enabled in (material_alpha_test or {}).items():
+        if type(enabled) is not bool or not 0 <= draw_id < len(draws):
+            raise DxWriteError("invalid alpha-test edit")
+        draw = draws[draw_id]
+        if draw.draw_index != draw_id or draw.tag not in (2, 7, 8):
+            raise DxWriteError("alpha-test edit requires a physical vehicle draw identity")
+        patch("material_alpha_test_enable",draw_id,draw.core_offset+0x21,bytes([int(enabled)]))
+    for draw_id in set(material_alpha or {}) | set(material_alpha_test or {}):
+        draw = draws[draw_id]
+        state = tuple(work[draw.core_offset+0x20:draw.core_offset+0x22])
+        if state not in ((0, 0), (1, 0), (1, 1)):
+            raise DxWriteError("alpha-test selector requires alpha enable: use (1,1), not (0,1)")
     for draw_id, enabled in (material_env or {}).items():
         if type(enabled) is not bool or not 0 <= draw_id < len(draws):
             raise DxWriteError("invalid environment edit")
@@ -249,9 +260,10 @@ def patch_dx_attributes(
         raise DxWriteError("unexpected color edit")
     old_draws=original.physical_draws
     for idx,(before,after) in enumerate(zip(old_draws,parsed.physical_draws)):
-        if before.texture_tuple != after.texture_tuple or before.flags_0x20[1:] != after.flags_0x20[1:] or before.unknown_0x14 != after.unknown_0x14 or before.unknown_0x18 != after.unknown_0x18:
+        if before.texture_tuple != after.texture_tuple or before.flags_0x20[2:] != after.flags_0x20[2:] or before.unknown_0x14 != after.unknown_0x14 or before.unknown_0x18 != after.unknown_0x18:
             raise DxWriteError(f"unknown draw field changed at {idx}")
-        if idx not in (material_alpha or {}) and before.flags_0x20 != after.flags_0x20:
+        if (idx not in (material_alpha or {}) and before.flags_0x20[0] != after.flags_0x20[0]
+                or idx not in (material_alpha_test or {}) and before.flags_0x20[1] != after.flags_0x20[1]):
             raise DxWriteError(f"unexpected material flags at {idx}")
         if idx not in (material_env or {}) and before.unknown_0x24 != after.unknown_0x24:
             raise DxWriteError(f"unexpected material feature mask at {idx}")

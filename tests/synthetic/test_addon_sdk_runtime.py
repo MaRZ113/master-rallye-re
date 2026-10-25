@@ -121,6 +121,32 @@ class AddonRuntimeCompilerTests(unittest.TestCase):
         with self.assertRaisesRegex(addon_runtime.RuntimeIntegrationError, "file set"):
             addon_runtime._validate_runtime_resource_set(expected, {"Data.sma"})
 
+    def test_only_game_options_xml_is_mutable_and_bounded(self) -> None:
+        import tempfile
+
+        with tempfile.TemporaryDirectory() as temp:
+            options = Path(temp) / "options.xml"
+            options.write_text("<Game><Broker/></Game>", encoding="utf-8")
+            addon_runtime.validate_user_editable_resource(options, "DataGame/options.xml")
+            addon_runtime.validate_user_editable_resource(options, "datagame/OPTIONS.XML")
+            with self.assertRaisesRegex(addon_runtime.RuntimeIntegrationError, "not in the editable-settings allowlist"):
+                addon_runtime.validate_user_editable_resource(options, "DataGame/vehicles.xml")
+            options.write_bytes(b"")
+            with self.assertRaisesRegex(addon_runtime.RuntimeIntegrationError, "empty or exceeds"):
+                addon_runtime.validate_user_editable_resource(options, "DataGame/options.xml")
+            options.write_bytes(b"x" * (addon_runtime.MAX_USER_EDITABLE_OPTIONS_BYTES + 1))
+            with self.assertRaisesRegex(addon_runtime.RuntimeIntegrationError, "empty or exceeds"):
+                addon_runtime.validate_user_editable_resource(options, "DataGame/options.xml")
+
+    def test_launcher_mutable_settings_exception_is_exact_and_bounded(self) -> None:
+        source = (ROOT / "runtime_launcher/src/main.cpp").read_text(encoding="utf-8")
+        self.assertIn('L"datagame/options.xml"', source)
+        self.assertIn("kMaxMutableOptionsBytes = 64 * 1024", source)
+        self.assertIn("if (IsUserEditableOptions(rel))", source)
+        self.assertIn('Fail("editable DataGame/options.xml is empty or exceeds 64 KiB")', source)
+        self.assertIn('if (HashFile(full) != digest) Fail("resource SHA256 mismatch: " + relative);', source)
+        self.assertIn('if (actual != expected) Fail("resource-root file set differs from the sealed index");', source)
+
     def test_launcher_trust_header_pins_exact_bundle_artifacts(self) -> None:
         profile = {
             "retail_exe": {"sha256": addon_runtime.RETAIL_SHA256},
@@ -149,7 +175,28 @@ class AddonRuntimeCompilerTests(unittest.TestCase):
         self.assertIn("wait == WAIT_OBJECT_0", source)
         self.assertIn("--integrated", source)
         self.assertIn("--canary-only", source)
+        self.assertIn("--verify-launch-environment", source)
         self.assertFalse(self.manifest.get("runtime_installable", False))
+
+    def test_launcher_allows_only_audited_adjacent_d3d8_proxies(self) -> None:
+        source = (ROOT / "runtime_launcher/src/main.cpp").read_text(encoding="utf-8")
+        expected = {
+            "eb7ea3d9501b514bff668f1e75e86041906c5fe4e8afa89f06d658751429aaf4",
+            "235aae55e077fca1e5b5208d4ac158b1a00dd80041fa5885bd06890a041b1eb8",
+            "339174529605b6b4602715470ac67e0bf39d7f95197b0d07fe2dbd048a960ea1",
+            "f84fd763dcf26ab2d79c254cfe49f1b4deb19f8b6378882971a08659d2318b77",
+        }
+        self.assertIn("OpenPinnedGraphicsProxy", source)
+        self.assertIn("FILE_SHARE_READ", source)
+        self.assertIn("VerifyAdjacentWrappers", source)
+        self.assertIn("L\"d3d9.dll\"", source)
+        self.assertIn("L\"dinput8.dll\"", source)
+        self.assertNotIn("L\"d3d8.dll\"", source[source.index("static constexpr const wchar_t* names[]"):source.index("HANDLE VerifyAdjacentWrappers")])
+        for digest in expected:
+            self.assertIn(digest, source)
+        self.assertIn("adjacent d3d8.dll SHA256 is not an audited graphics proxy", source)
+        self.assertIn("LAUNCH_ENVIRONMENT_VERIFIED graphics_proxy=", source)
+        self.assertIn("if (plan) {\n        try {\n            pinnedGraphicsProxy = VerifyAdjacentWrappers(exePath);", source)
 
 
 if __name__ == "__main__":

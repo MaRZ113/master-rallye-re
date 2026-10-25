@@ -3,9 +3,27 @@
   "profile_id": "retail-pc-2001-known-build-v1",
   "retail_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
   "retail_exe_size": 3121214,
+  "retail_data_sma_sha256": "03c2b52d451b378c7ec634132ebfab706616e33c57fea2985b83db66d3fd4b2f",
+  "retail_data_sma_size": 282396172,
   "reserved_stock_ids": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25],
   "supported_addon_physical_ids": [26, 27],
   "runtime_qualified_addon_ids": [26, 27],
+  "runtime_qualified_addon_profiles": [
+    {"physical_id": 26, "vehicle_class": "T1", "class_local_index": 7,
+     "runtime_family": "Mercedes", "model_family": "Mercedes", "wheel_family": "Mercedes",
+     "physics_family": "Vehicles/Mercedes", "manufacturer": "MERCEDES", "model": "ML-320",
+     "combined": "MERCEDES ML-320", "results_display_name": "JEAN-PIERRE STRUGO",
+     "audio_profile_id": 0, "unlock_policy": "mirror_stock_unlock", "unlock_stock_vehicle_id": 3},
+    {"physical_id": 27, "vehicle_class": "T2", "class_local_index": 7,
+     "runtime_family": "R5VQualifier", "model_family": "R5VQualifier", "wheel_family": "R5VQualifier",
+     "physics_family": "Vehicles/R5VQualifier", "manufacturer": "R5V", "model": "T2 QUALIFIER",
+     "combined": "R5V T2 QUALIFIER", "results_display_name": "R5V TEST DRIVER",
+     "audio_profile_id": 7, "unlock_policy": "mirror_stock_unlock", "unlock_stock_vehicle_id": 10}
+  ],
+  "qualified_addon_slots": [
+    {"physical_id": 26, "vehicle_class": "T1", "class_local_index": 7},
+    {"physical_id": 27, "vehicle_class": "T2", "class_local_index": 7}
+  ],
   "stock_class_map": {
     "T1": [0, 1, 2, 3, 4, 5, 6],
     "T2": [7, 8, 9, 10, 11, 12, 13],
@@ -20,7 +38,8 @@
   },
   "capability_boundary": {
     "physical_ids_above_27": "UNQUALIFIED_AND_REJECTED_BY_THIS_PROFILE",
-    "runtime_integration": "NO_UNCHANGED_EXE_LOADER_IMPLEMENTED",
+    "runtime_integration": "EXTERNAL_J1_J2_LOADER_EXISTS; PROFILE_COMPOSITION_REMAINS_REFERENCE_BOUNDED",
+    "runtime_qualified_addon_ids_means": "PHYSICAL_SLOT_LAYOUT_ONLY; EXACT_RUNTIME_IDENTITIES_ARE_LISTED_SEPARATELY",
     "registry_layout_formula": "PLANNER_ONLY_UNTIL_A_NEW_BUILD_PROFILE_IS_AUDITED"
   }
 }

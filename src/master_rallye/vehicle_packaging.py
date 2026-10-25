@@ -149,12 +149,17 @@ def sha256(path: Path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
-def vehicle_dependencies(vehicle_dir: Path):
+def vehicle_dependencies(vehicle_dir: Path, *, resource_names=None):
     vehicle_dir=Path(vehicle_dir).resolve()
+    names=RESOURCE_NAMES if resource_names is None else tuple(resource_names)
+    if (not names or len(names)>64 or len(set(names))!=len(names) or any(
+        not isinstance(name,str) or PurePosixPath(name).name!=name or '\\' in name
+        or ':' in name or not name.endswith('.dx') for name in names)):
+        raise ValueError('vehicle dependency roles must be unique local DX basenames')
     resolver=AssetResolver(vehicle_dir)
     resources=[]
     bindings=[]
-    for name in RESOURCE_NAMES:
+    for name in names:
         path=vehicle_dir/name
         if not path.is_file():
             resources.append({"resource":name,"status":"ABSENT"})

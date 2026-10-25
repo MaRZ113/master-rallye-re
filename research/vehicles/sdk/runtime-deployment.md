@@ -12,10 +12,12 @@ retail identity and the approved in-memory hardened Dump walker while the
 same runtime integration materializes Mercedes ID26 and R5VQualifier ID27.
 That archive is independently indexed and sidecar-verified in `j2/`.
 
-The current J.2 status is **PARTIAL_RUNTIME_CONFIRMED**. One verified
-two-addon runtime bundle and both addon identities are exercised, but
-SplitScreen, post-race Vehicle Select re-entry, Cup next-stage reuse, and
-Master Rallye fresh-process resume remain human gates. See the J.2 handoff.
+R5V-J.2 is **FULL PASS / CLOSED**. The verified capture batch confirms
+two-addon SplitScreen, Rallye Cup stage reuse, Master Rallye fresh-process
+roster restoration, and the hardened live Dump walker. The owner separately
+confirmed the exact corrected ID27 Vehicle Select re-entry candidate in human
+runtime; no new capture was supplied for that result. See the
+[J.2 closeout](j2/closeout-2026-10-09.md).
 
 J.0 remains an offline semantic planner and continues to report
 `runtime_installable: false`. J.1 uses a distinct runtime bundle and native
@@ -91,10 +93,14 @@ inventory changes fail verification.
 
 The launcher is a standalone command-line program. It is not installed as a
 proxy DLL, adds no DLL beside the retail EXE, and does not alter DLL search
-order. Integrated launch checks for common adjacent D3D/input/sound proxy DLL
-names; any such local wrapper currently causes a fail-closed refusal because
-coexistence is not qualified. This scan is intentionally conservative and is
-not a complete module-conflict detector.
+order. Integrated launch still fails closed on adjacent D3D9, DirectDraw,
+DirectInput, sound, version, or DXGI wrapper names. For D3D8, V-LAUNCH1 now
+accepts only four exact PE32/I386 graphics proxy builds by SHA256, opens the
+adjacent DLL read-only while denying write/delete sharing, and holds it through
+game exit. It does not install or replace the proxy. See
+[`vlaunch1/graphics-proxy-compatibility.md`](vlaunch1/graphics-proxy-compatibility.md)
+for the exact hashes and test handoff. Static preflight passed; combined
+launcher/proxy rendering remains pending human runtime qualification.
 
 Normal startup bypasses the launcher. Remove J.1 between runs by disabling or
 deleting the generated launcher and external bundle under ignored
@@ -107,11 +113,43 @@ does not mutate or replace the original retail path.
 
 The human J.1 runtime closeout supersedes the original static-only statements
 in `j1-runtime-validation.md`; that file preserves the evidence status at the
-time it was written. J.2 ingested 11 JSON/raw pairs from one PID. Every raw
-sidecar SHA256 and length matches its JSON metadata. The records show a retail
-EXE on disk, a verified live hardened walker with both approved trampolines,
-and live ID26/ID27 identities in Quick Race plus ID27 in an initial Rallye
-Cup stage and Results. The capture set does not prove SplitScreen, next-stage
-Cup persistence, fresh-process Master Rallye persistence, or post-race menu
-re-entry. See [J.2 runtime evidence](j2/runtime-evidence.md) and the
-[remaining gates](remaining-gates.md).
+time it was written. J.2 ingested 19 JSON/raw pairs; every raw sidecar SHA256
+and length matches its JSON metadata. Those captures prove SplitScreen,
+next-stage Cup persistence, fresh-process Master Rallye persistence, and the
+live hardened walker. ID27 re-entry is separately owner-confirmed in human
+runtime and has no new Observatory capture. The stock launch without the
+loader is human-confirmed but uninstrumented. See [J.2 runtime evidence]
+(j2/runtime-evidence.md) and [final closeout](j2/closeout-2026-10-09.md).
+
+## J.3 author-build boundary
+
+The J.3-A `project-build` command creates an offline author build and may
+include hashed DataGame donor-family XML overlays. It does not install or
+launch them. The accepted J.1/J.2 external loader still validates the exact
+Mercedes + R5VQualifier reference plan and resource package; it is not a
+generic consumer of J.3 addon collections. Until collection-driven native
+operation generation and a matching resource package verifier exist, keep
+`runtime_installable=false` and do not use the reference launcher for a
+different family name. J.3's [release boundary](j3/release-boundary.md)
+records the precise blocker.
+# User-editable game settings in staged runtime roots
+
+The external launcher keeps the runtime resource inventory sealed. One exact
+path is intentionally mutable because the game saves user preferences there:
+`resource-root/DataGame/options.xml`. The file must remain present as a regular,
+non-linked file and must be between 1 byte and 64 KiB. Its content hash and
+original size are not used as integrity gates. The inventory row and original
+digest remain in the bundle as provenance for the generated default.
+
+This exception does not apply to `DataGame/Modifications.xml`,
+`DataGame/vehicles.xml`, frontend scenes, models, wheels, textures, physics,
+the native patch manifest, launcher trust data, or any other resource. Those
+remain subject to exact size/hash and file-set checks. Unknown extra files,
+missing resources, links/reparse points, malformed inventory data, wrong retail
+EXE identity, or changed native preimages still fail closed. User save/state
+files retain their separate narrow allowlist.
+
+The exception supports the game's own controller, sound and display options;
+it is not a general override mechanism for addon resources. Keep a backup of
+`DataGame/options.xml` before manual edits. If it becomes empty or exceeds 64
+KiB, restore a valid copy before launching.

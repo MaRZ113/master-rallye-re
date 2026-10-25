@@ -62,7 +62,7 @@ class MaterialSemantics:
             runtime_shader_family=None,
             d3d8_render_states=(
                 {"ALPHABLENDENABLE": True, "ALPHATESTENABLE": False,
-                 "ZWRITEENABLE": False, "SRCBLEND": "SRCALPHA",
+                 "ZWRITEENABLE": bool(draw.unknown_0x24 & 4), "SRCBLEND": "SRCALPHA",
                  "DESTBLEND": "INVSRCALPHA"} if alpha_mode == "ALPHA_BLEND"
                 else {"ALPHABLENDENABLE": False, "ALPHATESTENABLE": True,
                       "ZWRITEENABLE": True, "ALPHAFUNC": "GREATER",

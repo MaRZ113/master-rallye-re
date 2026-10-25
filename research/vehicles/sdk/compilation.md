@@ -44,3 +44,23 @@ The current capability profile is
 runtime-qualified addon IDs 26/27. A different executable must use a separately
 audited capability profile; the compiler never infers compatibility from a
 similar file size or version string.
+
+## Donor project build (J.3-A)
+
+`addon init --name ... --class T1|T2 --donor ... --output ...` creates a
+metadata/source scaffold and does not copy donor assets. `addon project-validate`
+joins the addon manifest checks to the existing VehicleProject DX/DXT,
+dependency, bounds and collision checks. `addon project-build` emits the
+offline compiler plan plus validated assets under the new model family.
+
+With both `--retail-data-sma` and `--retail-data-root`, the project build also
+requires the exact Data.sma hash/size in the target capability profile and
+byte-compares unpacked `DataGame/vehicles.xml` and `Modifications.xml` to the
+archive members. It appends verified donor-value clones under the independent
+physics family, preserving stock bytes. The generated DataGame rows are
+included and hashed in `resource-inventory.json`.
+
+This adds resource generation only. It does not change the J.0 semantic frontend
+artifact into native XML or make a runtime-installable package. The exact
+native reference bundle remains profile-bound to Mercedes + R5VQualifier. See
+the J.3 [quick start](j3/quick-start.md) and [release boundary](j3/release-boundary.md).

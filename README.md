@@ -1,5 +1,30 @@
 # Master Rallye RE
 
+Current follow-up: [V-PAJERO3](research/vehicles/vpajero3/README.md) fixes the
+added headlamp backing and rear brake illumination; [V-SDK2](research/vehicles/vsdk2/stock-camera.md)
+adds copy-on-write stock editing and isolated experimental per-CarID follow
+camera controls. New candidates require their own human gameplay qualification.
+
+Latest follow-up: [V-SDK1-PERF2 + V-PAJERO2](research/vehicles/vsdk1-perf2/README.md)
+adds a qualified lossless DXT bulk reader, measured frontend diagnostics,
+quality-aware texture policies and isolated Pajero material/fitment candidates.
+New combined packages are offline validated; gameplay confirmation remains separate.
+
+Latest vehicle work: [V-SDK1 multi-car workflow](research/vehicles/vsdk1/README.md)
+combines frozen Subaru ID27, independent Lancer ID28 and GT4 Pajero ID29.
+The owner has gameplay-qualified the SCALE1 29/30-entry capacity mechanism;
+the new combined imported roster is offline validated and awaits its own
+gameplay test. Start with `python tools/vehicle_sdk.py --help`.
+
+The vehicle addon SDK research has completed R5V-J.2: two-addon external
+runtime qualification is **FULL PASS / CLOSED**. The owner confirmed the exact
+corrected ID27 Vehicle Select re-entry candidate; that confirmation is
+documented separately from the verified 2026-10-09 capture batch. J.3
+productization preparation is under
+[`research/vehicles/sdk/j3/`](research/vehicles/sdk/j3/README.md). Only added
+physical IDs 26 and 27 were qualified by that historical milestone. Later
+capacity evidence is kept separate from exact-candidate import qualification.
+
 Clean-room interoperability and preservation research for *Master Rallye* (2001).
 
 The repository contains only tools, documentation, machine-readable forensic
@@ -61,11 +86,13 @@ historical authenticity or unique collision topology. See
 R5V-J.0 is **ACCEPTED / OFFLINE COMPILER FOUNDATION** and continues to report
 `runtime_installable=false`. R5V-J.1 is **CLOSED / CONFIRMED_BY_RUNTIME** for
 the external launcher and combined two-addon bundle using the byte-unchanged
-retail EXE. R5V-J.2 is **PARTIAL_RUNTIME_CONFIRMED**: the same package has
-separate live ID26 and ID27 Player/AI/Results scenarios and an initial T2 Cup
-race/Results pair. SplitScreen, post-race selector restoration, Cup next-stage
-reuse, and Master Rallye fresh-process persistence remain human gates. See
-`research/vehicles/sdk/`.
+retail EXE. R5V-J.2 is **FULL PASS / CLOSED**: the 19 verified capture pairs
+confirm dual-addon SplitScreen, Rallye Cup stage roster reuse, Master Rallye
+fresh-process persistence, and the hardened live Dump walker. The owner
+separately confirmed ID27 Vehicle Select re-entry on the exact corrected
+candidate; no new capture was supplied. J.3 productization preparation is in
+`research/vehicles/sdk/j3/`. Only physical IDs 26 and 27 are runtime-qualified.
+See `research/vehicles/sdk/j2/closeout-2026-10-09.md`.
 
 Phase R4G hardens the runtime-confirmed R4F topology writer into a vehicle project workflow. Earlier R4C work established: the validated vehicle DX/DXT library drives a native
 Blender add-on with single-resource and vehicle-folder import, editable meshes,
@@ -227,6 +254,17 @@ See `research/r2_5/findings.md` for legacy consolidation and
 ## MASTER RALLYE VEHICLE SDK v1 — RUNTIME-CONFIRMED BASELINE
 
 R4G adds typed marker-1339 bounds, a conservative out-of-donor-bounds topology path, finite tag101 per-axis collision scale, and a VehicleProject validator/builder with Blender controls. Four isolated Astero candidates (B1 bounds, C1 scale, P1 complete topology, W1 wheel topology) were generated under ignored local output and then tested in-game. B1, C1, P1 and W1 each passed original-game testing. The full existing-donor Vehicle SDK v1 baseline is frozen; see research/r4g/runtime-results.md for the separate human evidence. See docs/vehicle-sdk.md and research/r4g/runtime-test-plan.md. No game asset or Data.sma is committed.
+
+### R5V-J.3 — donor authoring and bounded runtime compiler
+
+The current J.3-A implementation adds `mrtool addon init --name`, project
+validation, deterministic donor-project builds, and exact-retail DataGame
+physics-family cloning. It reuses the existing VehicleProject/DX/DXT validators
+and does not bundle donor assets. J.3-B now compiles the supported ID26/T1 plus
+ID27/T2 collection into a statically verified native/resource bundle and
+builds the existing unchanged-EXE launcher. GlacierSprint is ready for a human
+runtime test but is not runtime-qualified; the SDK is not a public release.
+See `research/vehicles/sdk/j3/README.md` and its runtime handoff.
 
 ## R5V-B dormant retail vehicle slot audit
 
