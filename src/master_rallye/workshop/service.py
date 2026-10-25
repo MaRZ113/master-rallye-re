@@ -206,12 +206,13 @@ class WorkshopProject:
         if state.get('__workshop_state__')==1:self.data['edits']=state['textures'];self.data['surfaces']=state['surfaces']
         else:self.data['edits']=state;self.data['surfaces']={}
 
-    def edit_surface(self,model,draw_id,*,rgb=None,disable_reflection=None):
+    def edit_surface(self,model,draw_id,*,rgb=None,disable_reflection=None,reflection_strength=None):
         from master_rallye.surface_authoring import apply_surface_edits
         if model not in ('car.dx','complete.dx','wheel.dx'):raise ValueError('Unsupported model')
         recipe=dict(self.data.get('surfaces',{}).get(model,{}).get(str(draw_id),{'draw_id':draw_id}))
         if rgb is not None:recipe['rgb']=rgb
         if disable_reflection is not None:recipe['disable_reflection']=disable_reflection
+        if reflection_strength is not None:recipe['reflection_strength']=reflection_strength
         raw=_owned(self.baseline,model).read_bytes();apply_surface_edits(raw,[recipe],source_sha256=sha(raw),texture_provider=self.binding_texture)
         self._record();self.data.setdefault('surfaces',{}).setdefault(model,{})[str(draw_id)]=recipe;self.materialize();self.save()
 
@@ -222,15 +223,17 @@ class WorkshopProject:
         from master_rallye.assets import AssetResolver
         path=AssetResolver(self.assets).resolve_texture(stem)
         if path is None or path.name not in self.data['inputs']:raise ValueError('Texture is not owned by this project: '+stem)
-        return path.read_bytes()
+        raw=path.read_bytes();expected=self.data['edits'].get(path.name,{}).get('output_sha256',self.data['inputs'][path.name])
+        if sha(raw)!=expected:raise ValueError('Owned texture changed outside project: '+path.name)
+        return raw
 
     def assign_existing_texture(self,model,draw_id,slot,target):
         from master_rallye.surface_authoring import apply_surface_edits
         if model not in ('car.dx','complete.dx','wheel.dx'):raise ValueError('Unsupported model')
-        if slot!=0 or type(slot) is not int:raise ValueError('Only diffuse slot 0 is qualified')
+        if type(slot) is not int or slot not in (0,1):raise ValueError('Only existing diffuse/environment slots 0/1 are qualified')
         self.verify_inputs()
         recipe=dict(self.data.get('surfaces',{}).get(model,{}).get(str(draw_id),{'draw_id':draw_id}))
-        recipe['bindings']={**recipe.get('bindings',{}),'0':target}
+        recipe['bindings']={**recipe.get('bindings',{}),str(slot):target}
         raw=_owned(self.baseline,model).read_bytes()
         apply_surface_edits(raw,[recipe],source_sha256=sha(raw),texture_provider=self.binding_texture)
         self._record();self.data.setdefault('surfaces',{}).setdefault(model,{})[str(draw_id)]=recipe

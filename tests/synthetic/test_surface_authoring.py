@@ -9,6 +9,19 @@ from master_rallye.workshop.service import WorkshopProject
 from tests.synthetic.test_workshop import family
 
 class SurfaceAuthoringTests(unittest.TestCase):
+    def test_reflection_weight_is_source_relative_and_rejects_opacity(self):
+        from tests.synthetic.test_library import simple_record,synthetic_dx,footer56
+        import struct
+        points=[(0.,0.,0.),(1.,0.,0.),(0.,1.,0.)]
+        record=bytearray(simple_record(0,2,0,3,('base-tga','base-tga','Null')));record[34]=1;struct.pack_into('<I',record,36,7)
+        raw=synthetic_dx(points,[0,1,2],[record],[(0,0,3)],trailing=footer56(points))
+        original=parse_dx_bytes(raw)
+        result=apply_surface_edits(raw,[{'draw_id':0,'reflection_strength':.4}],source_sha256=hashlib.sha256(raw).hexdigest())
+        after=parse_dx_bytes(result.data)
+        self.assertEqual(after.vertices.colors[3::4],bytes([102]*3));self.assertEqual(after.physical_draws,original.physical_draws)
+        self.assertEqual(after.vertices.colors[:3],original.vertices.colors[:3])
+        record[32]=1;raw=synthetic_dx(points,[0,1,2],[record],[(0,0,3)],trailing=footer56(points))
+        with self.assertRaisesRegex(ValueError,'opaque'):apply_surface_edits(raw,[{'draw_id':0,'reflection_strength':.4}],source_sha256=hashlib.sha256(raw).hexdigest())
     def test_disable_only_existing_environment_pass_preserves_ownership(self):
         from tests.synthetic.test_library import simple_record,synthetic_dx,footer56
         import struct

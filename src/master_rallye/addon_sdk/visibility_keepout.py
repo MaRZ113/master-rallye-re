@@ -96,6 +96,36 @@ def apply_keepouts(draws,selections,source_sha256):
     return result,reports
 
 
+def _contour_housing(aperture,boxes,axis,front_sign):
+    """Loft the actual aperture perimeter to a rear plane behind the lens."""
+    from collections import Counter
+    vertices=[];triangles=[]
+    def face(points,towards):
+        a,b,c=points[:3];u=[b[k]-a[k] for k in range(3)];v=[c[k]-a[k] for k in range(3)];n=(u[1]*v[2]-u[2]*v[1],u[2]*v[0]-u[0]*v[2],u[0]*v[1]-u[1]*v[0])
+        length=math.sqrt(sum(x*x for x in n))
+        if length<=EPS:return
+        if sum(n[k]*towards[k] for k in range(3))<0:points=list(reversed(points));n=tuple(-x for x in n)
+        normal=tuple(x/length for x in n);start=len(vertices)
+        vertices.extend({'position':tuple(p),'normal':normal,'uv':None,'rgba_ps2':(0,0,0,128)} for p in points)
+        triangles.extend((start,start+i,start+i+1) for i in range(1,len(points)-1))
+    for lo,hi in boxes:
+        source=[tuple(tuple(aperture['vertices'][i]['position']) for i in tri) for tri in aperture['triangles'] if all(all(lo[k]-EPS<=aperture['vertices'][i]['position'][k]<=hi[k]+EPS for k in range(3)) for i in tri)]
+        if not source:raise ValueError('Contour aperture component is empty')
+        rear=hi[axis] if front_sign<0 else lo[axis];centre=tuple((lo[k]+hi[k])*.5 for k in range(3));normal=tuple(front_sign if k==axis else 0 for k in range(3))
+        def back(p):return tuple(rear if k==axis else p[k] for k in range(3))
+        def front(p):return tuple(p[k]-front_sign*.001 if k==axis else p[k] for k in range(3))
+        if any((rear-front(p)[axis])*(-front_sign)<=EPS for tri in source for p in tri):raise ValueError('Contour rear plane must lie behind the entire inset aperture')
+        edges=Counter(tuple(sorted((a,b))) for tri in source for a,b in zip(tri,tri[1:]+tri[:1]))
+        if any(n>2 for n in edges.values()):raise ValueError('Non-manifold aperture contour')
+        degree=Counter(p for edge,n in edges.items() if n==1 for p in edge)
+        if not degree or any(n!=2 for n in degree.values()):raise ValueError('Aperture perimeter is not closed')
+        for tri in source:face([back(p) for p in tri],normal)
+        for (a,b),n in edges.items():
+            if n!=1:continue
+            points=[front(a),front(b),back(b),back(a)];mid=tuple(sum(p[k] for p in points)/4 for k in range(3));towards=tuple(centre[k]-mid[k] if k!=axis else 0 for k in range(3));face(points,towards)
+    return vertices,triangles
+
+
 def append_source_housings(draws,selections,source_sha256):
     """Explicit dark housings or rear-only caps from aperture/interior bounds.
 
@@ -106,7 +136,7 @@ def append_source_housings(draws,selections,source_sha256):
     result=list(draws);reports=[]
     faces=[(0,False,(0,2,6,4)),(0,True,(1,5,7,3)),(1,False,(0,4,5,1)),(1,True,(2,3,7,6)),(2,False,(0,1,3,2)),(2,True,(4,6,7,5))]
     for item in selections:
-        if not isinstance(item,dict) or set(item)-{'mode'}!={'source_sha256','aperture','interior','front_axis','front_sign','role'} or item.get('mode','open_box') not in ('open_box','rear_cap') or item['source_sha256']!=source_sha256 or type(item['front_axis'])is not int or item['front_axis'] not in (0,1,2) or type(item['front_sign'])is not int or item['front_sign'] not in (-1,1) or not isinstance(item['role'],str) or not item['role']:raise ValueError('invalid source housing declaration')
+        if not isinstance(item,dict) or set(item)-{'mode'}!={'source_sha256','aperture','interior','front_axis','front_sign','role'} or item.get('mode','open_box') not in ('open_box','rear_cap','contour_housing') or item['source_sha256']!=source_sha256 or type(item['front_axis'])is not int or item['front_axis'] not in (0,1,2) or type(item['front_sign'])is not int or item['front_sign'] not in (-1,1) or not isinstance(item['role'],str) or not item['role']:raise ValueError('invalid source housing declaration')
         selected={}
         for kind in ('aperture','interior'):
             selector=item[kind]
@@ -121,7 +151,7 @@ def append_source_housings(draws,selections,source_sha256):
             if len(matches)!=1:raise ValueError('source housing component correspondence is ambiguous')
             il,ih=matches[0];boxes.append((tuple(min(lo[k],il[k]) for k in range(3)),tuple(max(hi[k],ih[k]) for k in range(3))))
         vertices=[];triangles=[]
-        for lo,hi in boxes:
+        for lo,hi in ([] if item.get('mode')=='contour_housing' else boxes):
             if any(hi[k]-lo[k]<=EPS for k in range(3)):raise ValueError('source housing has no closed depth')
             corners=[tuple((hi[k] if (i>>k)&1 else lo[k]) for k in range(3)) for i in range(8)]
             for face_axis,high,ids in faces:
@@ -130,9 +160,10 @@ def append_source_housings(draws,selections,source_sha256):
                 normal=tuple(((-1 if high else 1) if k==face_axis else 0) for k in range(3));base=len(vertices)
                 vertices.extend({'position':corners[i],'normal':normal,'uv':None,'rgba_ps2':(0,0,0,128)} for i in ids)
                 triangles.extend(((base,base+1,base+2),(base,base+2,base+3)))
+        if item.get('mode')=='contour_housing':vertices,triangles=_contour_housing(selected['aperture'],boxes,axis,item['front_sign'])
         report={'role':item['role'],'source_sha256':source_sha256,'aperture':item['aperture'],'interior':item['interior'],
                 'mode':item.get('mode','open_box'),'source_component_boxes':[{'min':lo,'max':hi} for lo,hi in boxes],'generated_triangles':len(triangles),
-                'boundary':'Explicit MR occlusion approximation from source glass and lens bounds. rear_cap retains only the rear plane, preventing AABB sidewalls from protruding through sloped fascia. No source asset edits or renderer-parity claim.'}
+                'boundary':'Explicit MR occlusion approximation. contour_housing uses actual aperture perimeter, 1mm rearward inset and a rear plane behind lens bounds; rear_cap retains only the rear plane. No source asset edits or renderer-parity claim.'}
         source=selected['interior'];state={**source['state'],'alpha_test':False,'depth_write':True,'fbmask':0,'date':False}
         result.append({**source,'component':'derived_housing','vertices':vertices,'triangles':triangles,'texture':None,'gif':{**source['gif'],'blend':False,'textured':False},'state':state,'issues':[],'_mr_source_housing':report});reports.append(report)
     return result,reports

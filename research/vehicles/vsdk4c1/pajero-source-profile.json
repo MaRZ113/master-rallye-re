@@ -1,0 +1,222 @@
+{
+  "schema_version": 1,
+  "model_code": "mits0038",
+  "source_label": "Mitsubishi Pajero Rally Raid Car '85",
+  "body_menu_sha256": "ff5b4e22b97c04c55114021a27a6ee1e52b47cb3091ffe520e84d7838b2e207f",
+  "body_race_sha256": "3bc554b1c1ead43b452aafccd91fa235c213a12bbac20d575c58e38d2bd9aea7",
+  "spec_folder": "GT4_PREMIUM_US2560",
+  "spec_labels": {
+    "CHASSIS": "ch_pajero_parisdakar_rally_85_a",
+    "RACINGMODIFY": "rm_pajero_parisdakar_rally_85_a",
+    "SUSPENSION": "su_pajero_parisdakar_rally_85_a",
+    "FRONTTIRE": "ft_pajero_parisdakar_rally_85_a",
+    "REARTIRE": "rt_pajero_parisdakar_rally_85_a"
+  },
+  "body_callbacks": {
+    "0": 0,
+    "7": 0,
+    "11": 1,
+    "12": 1,
+    "13": 1,
+    "14": 1
+  },
+  "selection": {
+    "menu_model": 0,
+    "race_model": 0,
+    "race_lod": 0,
+    "wheel_model": 0
+  },
+  "freeze_dynamic_morphs": true,
+  "mr_environment_reference": "chrome-tga.dxt",
+  "addon": {
+    "name": "Mitsubishi Pajero Rally Raid 85",
+    "manufacturer": "MITSUBISHI",
+    "model": "PAJERO RALLY RAID '85",
+    "family": "SdkPajero85"
+  },
+  "policy": "Independent GT4 SUV import; source rest pose and donor-derived physics, no model-specific repairs",
+  "material_policy": {
+    "menu": {
+      "qualified_environment": true,
+      "paint_surfaces": [
+        {
+          "shape": 5,
+          "packets": [
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33
+          ],
+          "role": "source-environment-qualified exterior body livery, bonnet, roof and front/rear panels; exact triangle correspondence required"
+        }
+      ],
+      "paint_cutout_min_alpha": 129,
+      "source_backfaces": true,
+      "layered_opaque_surfaces": [
+        {
+          "shape": 8,
+          "packets": [
+            1
+          ],
+          "role": "Opaque cabin frame/Nikon-side trim inside shared blended atlas; source RGB/alpha-only/environment correspondence"
+        }
+      ]
+    },
+    "race": {
+      "qualified_environment": true,
+      "paint_surfaces": [
+        {
+          "shape": 4,
+          "packets": [
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35
+          ],
+          "role": "source-environment-qualified exterior body livery, bonnet, roof and front/rear panels; exact triangle correspondence required"
+        }
+      ],
+      "paint_cutout_min_alpha": 129,
+      "source_backfaces": true,
+      "layered_opaque_surfaces": [
+        {
+          "shape": 8,
+          "packets": [
+            1
+          ],
+          "role": "Opaque cabin frame/Nikon-side trim inside shared blended atlas; source RGB/alpha-only/environment correspondence"
+        }
+      ]
+    }
+  },
+  "geometry_policy": {
+    "menu": {
+      "visibility_keepouts": [
+        {
+          "source_sha256": "ff5b4e22b97c04c55114021a27a6ee1e52b47cb3091ffe520e84d7838b2e207f",
+          "target": {
+            "shape": 17,
+            "packet": 0
+          },
+          "protect": {
+            "shape": 12,
+            "packet": 0
+          },
+          "role": "Isolated A/B: source wheelwell occluder overlaps source concave headlamp pair; subtract only lamp-component closed bounds"
+        }
+      ],
+      "source_housings": [
+        {
+          "source_sha256": "ff5b4e22b97c04c55114021a27a6ee1e52b47cb3091ffe520e84d7838b2e207f",
+          "aperture": {
+            "shape": 13,
+            "packet": 0
+          },
+          "interior": {
+            "shape": 12,
+            "packet": 0
+          },
+          "front_axis": 2,
+          "front_sign": -1,
+          "role": "Owner-approved MR approximation: rear plane plus walls lofted from actual source glass perimeter, 1mm inset; no AABB sidewalls",
+          "mode": "contour_housing"
+        }
+      ]
+    },
+    "race": {
+      "visibility_keepouts": [
+        {
+          "source_sha256": "3bc554b1c1ead43b452aafccd91fa235c213a12bbac20d575c58e38d2bd9aea7",
+          "target": {
+            "shape": 19,
+            "packet": 0
+          },
+          "protect": {
+            "shape": 12,
+            "packet": 0
+          },
+          "role": "Isolated A/B: source wheelwell occluder overlaps source concave headlamp pair; subtract only lamp-component closed bounds"
+        }
+      ],
+      "source_housings": [
+        {
+          "source_sha256": "3bc554b1c1ead43b452aafccd91fa235c213a12bbac20d575c58e38d2bd9aea7",
+          "aperture": {
+            "shape": 15,
+            "packet": 0
+          },
+          "interior": {
+            "shape": 12,
+            "packet": 0
+          },
+          "front_axis": 2,
+          "front_sign": -1,
+          "role": "Owner-approved MR approximation: rear plane plus walls lofted from actual source glass perimeter, 1mm inset; no AABB sidewalls",
+          "mode": "contour_housing"
+        }
+      ]
+    }
+  },
+  "vm_tween_callback_profile": {
+    "engine_sha256": "962523fb4156aefa4e7d255c4937825614e0b99a9a48e94f1c9fcbe7c586c5c0",
+    "callback_indices": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "evidence": "Original Beta ModelSet opcode0x59/0x5A -> virtual slot+0x14, CarModel dispatch indices1..4 ->0x2F3B10 ->0x2F8540 scalar tween setter ->0x5A4648; no spatial matrix mutation. Native evidence scratch/vpajero2/tween-callbacks.txt",
+    "vm_context": "GT4Beta.CarModel.callback_vtable_006C15B8"
+  },
+  "native_brakes": {
+    "callback": 0,
+    "off_case": 0,
+    "on_case": 1,
+    "alpha_ref": 32,
+    "halo_offset": 0.001,
+    "source_shapes": {
+      "off": [
+        24
+      ],
+      "on": [
+        27,
+        26
+      ]
+    },
+    "halo_max_edge": 32
+  }
+}

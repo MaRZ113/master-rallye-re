@@ -1,7 +1,25 @@
 # Rally Workshop capability inventory
 
-V-SDK3.1 / V-SDK4A audit, 25 October2026. Status applies to the named feature, not every
-vehicle/version or all future Studio scope. [Master Plan](MASTER_PLAN.md).
+Current update: V-SDK4C.1, 26 October2026. See [phase results](VSDK4C1_RESULTS.md).
+These current entries supersede historical restrictions below. Gameplay remains
+an explicit owner acceptance gate, separate from Windows/offline validation.
+
+| Current capability | Status / boundary |
+| --- | --- |
+| Texture Binding v2 | Implemented: variable-length owned diffuse references and existing opaque env slot; different power-of-two dimensions; material-specific alpha checks; exact semantic/suffix guards |
+| Practical picker | Compatible-first, search/filter/counts, compact statuses and large independent texture view; original pixels remain unchanged |
+| Reflection Strength | Implemented source-relative weight for independent opaque environment vertices; blend/test/shared/special families read-only; save/build/history tested |
+| Reflection mask and controls | D mask mode; F3 current K/W/E/B/D/Z/C/A, layer/model controls; permanent F1 hint; NONE warning; stock/addon native key-state tests |
+| GT4 cull-disabled surfaces | Opt-in explicit reverse geometry and normals; default unchanged; no global MR culling change |
+| GT4 layered frame material | Explicit source selection; unity-opacity footprint plus alpha-only/environment correspondence; translucent residual preserved |
+| Headlamp housing | Owner-approved actual-aperture contour loft; explicit MR approximation, no AABB protruding walls |
+| Subaru broken glass | UV-only continuation of repaired V-SDK4C model, adapted repeating MR art; four logical zones unchanged; actual collision routing pending |
+| Regression | 822 tests / 1 optional skip; Windows addon/stock builds, history/zero-edit restore, 128 final matrix captures, native CPU replay and sealed candidates PASS |
+
+## Historical V-SDK3.1 / V-SDK4A audit
+
+The following table records the earlier milestone, not current restrictions.
+[Master Plan](MASTER_PLAN.md).
 
 | Capability | Existing callable backend / interface | Studio status and boundary |
 | --- | --- | --- |

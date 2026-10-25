@@ -106,6 +106,10 @@ class WorkshopApp:
         ttk.Button(materials,text='Assign Existing Texture…',command=self.assign_texture).pack(fill='x')
         ttk.Button(materials,text='Material help',command=lambda:self.show_help('materials')).pack(fill='x')
         self.reflection_off=tk.BooleanVar();self.reflection_button=ttk.Checkbutton(materials,text='Disable existing environment pass (selected draw)',variable=self.reflection_off,command=self.edit_reflection);self.reflection_button.pack(fill='x')
+        strength_row=ttk.Frame(materials);strength_row.pack(fill='x');self.reflection_strength=tk.DoubleVar(value=1.)
+        ttk.Label(strength_row,text='Reflection weight × source').pack(side='left');ttk.Spinbox(strength_row,from_=0,to=2,increment=.1,width=5,textvariable=self.reflection_strength).pack(side='left')
+        self.strength_button=ttk.Button(strength_row,text='Apply weight',command=self.edit_reflection_strength);self.strength_button.pack(side='left')
+        ttk.Label(materials,text='Opaque environment only. Preserves source mask; saturated weights cannot brighten further. Blended/cutout alpha is read-only.',wraplength=350).pack(fill='x')
         row=ttk.Frame(materials);row.pack(fill='x');ttk.Button(row,text='Restore surface',command=self.restore_surface).pack(side='left',fill='x',expand=True);ttk.Button(row,text='Redo',command=self.redo).pack(side='left',fill='x',expand=True)
         self.original_capture=tk.BooleanVar();ttk.Checkbutton(materials,text='Before / original GPU view',variable=self.original_capture,command=self.refresh).pack(anchor='w')
         texture_tab=ttk.Frame(tabs,padding=6);tabs.add(texture_tab,text='Texture Studio')
@@ -163,6 +167,7 @@ class WorkshopApp:
                 caps=surface_capabilities((self.project.baseline/selection[0]).read_bytes(),selection[1])
             self.surface_button.state(['!disabled'] if not self.busy and caps.get('diffuse_rgb_editable') else ['disabled'])
             self.reflection_button.state(['!disabled'] if not self.busy and caps.get('reflection_disable_editable') else ['disabled'])
+            self.strength_button.state(['!disabled'] if not self.busy and caps.get('reflection_strength_editable') else ['disabled'])
 
     def add_library(self,project,save=True):
         key=str(project.root)
@@ -420,6 +425,8 @@ class WorkshopApp:
         recipe=self.project.data.get('surfaces',{}).get(model,{}).get(str(index),{})
         for var,value in zip(self.surface_gain,recipe.get('rgb',[1,1,1])):var.set(str(value))
         self.reflection_off.set(recipe.get('disable_reflection',False))
+        self.reflection_strength.set(recipe.get('reflection_strength',1.))
+        self.strength_button.state(['!disabled'] if caps.get('reflection_strength_editable') and not self.busy else ['disabled'])
         self._inspect(model+'\n'+json.dumps({**d,'authoring':caps},indent=2)+'\nNative fields; D3D9 rendering is approximate.')
         for name in d['textures']:
             candidate=str(name)+'.dxt'
@@ -445,39 +452,56 @@ class WorkshopApp:
         selection=self._surface_selection()
         if not self.project or not selection:return
         model,index=selection
-        from master_rallye.texture_binding import binding_patch
-        raw=(self.project.assets/model).read_bytes();draw=next(d for d in parse_dx_bytes(raw).physical_draws if d.draw_index==index)
+        from master_rallye.texture_binding import binding_compatibility
+        native=parse_dx_bytes((self.project.assets/model).read_bytes());draw=native.physical_draws[index]
         selected=self.draws.selection()[0].split(':');slot=int(selected[3]) if selected[0]=='texture' else 0
-        win=tk.Toplevel(self.root);apply_icon(win);win.title('Assign Existing Texture — selected native slot');win.geometry('1000x700');win.minsize(800,550)
-        ttk.Label(win,text=f'{model} / draw {index} / slot {slot} / current: {draw.texture_slots[slot].value}',wraplength=730).pack(anchor='w',padx=10,pady=8)
-        ttk.Label(win,text='Only existing project textures. Same encoded name length, dimensions, native format and alpha required. Other draws and texture bytes remain unchanged.',wraplength=730).pack(anchor='w',padx=10)
-        body=ttk.Frame(win);body.pack(fill='both',expand=True,padx=10,pady=8)
-        items=tk.Listbox(body,width=46);items.pack(side='left',fill='both',expand=True)
+        win=tk.Toplevel(self.root);apply_icon(win);win.title('Assign Existing Texture — native slot');win.geometry('1100x760');win.minsize(850,600)
+        ttk.Label(win,text=f'{model} / draw {index} / slot {slot} / current: {draw.texture_slots[slot].value}',wraplength=1000).pack(anchor='w',padx=10,pady=8)
+        ttk.Label(win,text='Owned textures only. Names and resolution may differ; UVs and pixels stay unchanged. Compatibility follows the native material state.',wraplength=1000).pack(anchor='w',padx=10)
+        filters=ttk.Frame(win);filters.pack(fill='x',padx=10,pady=8)
+        search=tk.StringVar();compatible=tk.BooleanVar(value=True);count=tk.StringVar()
+        ttk.Label(filters,text='Search').pack(side='left');ttk.Entry(filters,textvariable=search,width=32).pack(side='left',padx=8)
+        ttk.Checkbutton(filters,text='Compatible only',variable=compatible).pack(side='left');ttk.Label(filters,textvariable=count).pack(side='right')
+        body=ttk.Frame(win);body.pack(fill='both',expand=True,padx=10)
+        items=tk.Listbox(body,width=39,exportselection=False);items.pack(side='left',fill='y')
         bar=ttk.Scrollbar(body,command=items.yview);bar.pack(side='left',fill='y');items.configure(yscrollcommand=bar.set)
+        candidates=[];shown=[]
         def image_input(original=False):
-            if not items.curselection():return None
-            return self.project.texture(candidates[items.curselection()[0]][0].name)
+            return self.project.texture(shown[items.curselection()[0]][0].name) if items.curselection() else None
         preview=TextureView(body,image_input);preview.pack(side='left',fill='both',expand=True)
-        details=tk.StringVar();ttk.Label(win,textvariable=details,wraplength=960).pack(fill='x',padx=10)
-        candidates=[]
+        details=tk.StringVar();ttk.Label(win,textvariable=details,wraplength=1050).pack(fill='x',padx=10,pady=8)
         for path in sorted(self.project.assets.glob('*.dxt')):
-            try:binding_patch(raw,index,slot,path.stem,self.project.binding_texture);reason='compatible'
-            except ValueError as e:reason=str(e)
-            candidates.append((path,reason));items.insert('end',path.name+' — '+reason)
+            try:
+                info=binding_compatibility(native,index,slot,path.stem,self.project.binding_texture)
+                candidates.append((path,True,'; '.join(info['warnings'])))
+            except ValueError as e:candidates.append((path,False,str(e)))
+        candidates.sort(key=lambda item:(not item[1],item[0].name.casefold()))
         def inspect(event=None):
             if not items.curselection():return
-            path,reason=candidates[items.curselection()[0]];t=self.project.texture(path.name);usage=self.project.texture_usage(path.name)
-            alpha=t.bgra[3::4]
-            details.set(f'{path}\n{t.width} × {t.height}, {len(t.bgra):,} bytes; alpha {min(alpha)}..{max(alpha)}; {len(usage)} current draw/slot references (full list in Texture Studio): '+str(usage[:6])+'\n'+reason)
-            self.texture_name.set(path.name);self.show_texture();items.see(items.curselection()[0]);preview.load()
-        items.bind('<<ListboxSelect>>',inspect)
+            path,ok,reason=shown[items.curselection()[0]];t=self.project.texture(path.name);alpha=t.bgra[3::4]
+            details.set(f'{path.name} | {t.width} × {t.height} | {len(t.bgra):,} BGRA bytes | alpha {min(alpha)}..{max(alpha)}\n'+reason)
+            assign.state(['!disabled'] if ok else ['disabled']);preview.load()
+        def refresh(*args):
+            shown[:]=[c for c in candidates if (c[1] or not compatible.get()) and search.get().casefold() in c[0].name.casefold()]
+            items.delete(0,'end')
+            for path,ok,reason in shown:items.insert('end',('OK  ' if ok else '—   ')+path.name)
+            count.set(f'{sum(c[1] for c in candidates)} compatible / {len(candidates)} total; {len(shown)} shown')
+            assign.state(['disabled']);details.set('Select a texture to inspect its compatibility and full preview.')
         def apply():
             if not items.curselection():return
-            path,reason=candidates[items.curselection()[0]]
-            if reason!='compatible':messagebox.showerror('Unsupported binding',reason,parent=win);return
+            path,ok,reason=shown[items.curselection()[0]]
+            if not ok:return
             project=self.project;win.destroy()
             self.run('Assign owned texture to selected native slot',lambda:project.assign_existing_texture(model,index,slot,path.stem),lambda _:self.refresh())
-        ttk.Button(win,text='Assign selected texture',command=apply).pack(pady=8)
+        assign=ttk.Button(win,text='Assign selected texture',command=apply);assign.pack(pady=8)
+        items.bind('<<ListboxSelect>>',inspect);search.trace_add('write',refresh);compatible.trace_add('write',refresh);refresh()
+
+    def edit_reflection_strength(self):
+        selection=self._surface_selection()
+        if not self.project or not selection:return
+        try:gain=self.reflection_strength.get()
+        except tk.TclError:return
+        self.run('Set opaque native reflection weight',lambda:self.project.edit_surface(*selection,reflection_strength=gain),lambda _:self.refresh())
 
     def edit_reflection(self):
         selection=self._surface_selection()

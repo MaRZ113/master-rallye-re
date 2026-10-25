@@ -1,23 +1,32 @@
-# Surfaces and texture bindings
+# Surfaces, native texture bindings and reflection weights
 
-The hierarchy identifies model, physical draw, material and texture slot. Select
-a draw to highlight its actual source surface. Shared wheel geometry affects all
-assembled instances. Shared vertices prevent independent diffuse RGB edits.
+The hierarchy identifies variant, physical draw, native material and exact texture
+slot. Select a draw to highlight its source surface. Shared vertices reject
+independent RGB/reflection-weight changes. Wheel draws affect all instances.
 
-Selected-surface RGB modulates native vertex colors. It is not semantic paint:
-baked lettering can change too. Alpha is preserved. Existing environment passes
-can be disabled where qualified; arbitrary shader features are not invented.
+Selected-surface RGB modulates vertex colors; it is not semantic paint. Baked
+lettering may change too. Existing environment passes can be disabled. Reflection
+weight × source (0..2) is qualified only for independent **opaque** environment
+vertices. It preserves the original weight pattern and clamps to a byte; weights
+already at 255 cannot brighten further. A source zero stays zero. Restore returns
+the baseline. Native damage may subsequently lower the weight. Blended/cutout
+alpha and unknown shader families stay read-only: opacity is not a universal
+reflection-intensity knob.
 
-Assign Existing Texture changes one selected draw's diffuse slot 0. Select a
-slot leaf to choose its exact native slot. The dialog lists every existing local
-texture, dimensions, usage and an incompatibility reason. Selecting a texture
-shows it in Texture Studio. Assignment does not recolor or replace that texture.
+Assign Existing Texture changes one existing owned diffuse slot 0 or existing
+opaque environment slot 1. Compatible textures appear first, with search, an
+optional incompatible list, counts and a large independent image preview.
+Select a texture for dimensions, memory, alpha range and compatibility details.
+This changes a native descriptor, **not** the pixels of any shared image.
 
-Qualified bindings require equal ASCII name length, native format, dimensions
-and alpha plane. Environment/effect slots, new resources, Null activation,
-length-changing records and aliased descriptors are rejected. This preserves
-record offsets and native damage/reflection alpha semantics. Multiple draws can
-reference one image without changing each other's descriptors.
+Names may have different lengths. The structural writer reconstructs one
+length-prefixed string and verifies geometry, UVs, other material records and
+collision/suffix bytes. Different dimensions retain normalized UVs without
+resampling. Blended opacity classes must remain compatible; cutouts retain
+visible/discarded coverage at native threshold 128. Opaque environment texture
+alpha is reflection weight; warnings expose that distinction. Native switch-owned
+lamp/glass variants, Null activation, unowned/missing resources, aliases and
+unknown special shaders reject. Effects are never silently classified by names.
 
-An assignment applies only to the selected model variant. Inspect the other
-variant explicitly; no guessed correspondence is applied.
+An assignment affects only the selected model variant. Inspect race/frontend
+explicitly. Save/reopen, candidate build and Undo/Redo/Restore use shared SDK Core.

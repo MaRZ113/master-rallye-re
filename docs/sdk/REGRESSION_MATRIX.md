@@ -77,3 +77,26 @@ unsupported slots, alpha changes, path traversal and missing resources reject.
 Offline Help locale fallback/search data, visible controls and real Tk capture
 PASS. Gameplay remains an owner test. See VSDK4A2_RESULTS.md.
 
+
+
+## V-SDK4C.1 — 26 October2026 (current)
+
+| Gate | Evidence | Result |
+| --- | --- | --- |
+| Complete Windows synthetic suite | vsdk4c1/tests-final.txt | 822 PASS / 1 optional skip |
+| Native viewer build and controls | application-build.json; stock/addon-controls.json | MSVC build; real key events, cull state and label roundtrips PASS |
+| Binding v2 | test_texture_binding; gui-binding/gui-validation.json | Variable names/resolution, alpha/state guards, structural receipts; actual stock/addon save/reopen/build/history PASS |
+| Reflection strength | test_surface_authoring; gui-reflection/gui-validation.json | Opaque source-relative weight, texture invariance, stock/addon visible GPU change and zero-edit restore PASS |
+| 2D viewer preservation | zoom-windows/validation.json | 56 fresh Windows captures, exact source bytes, seven scales and both windows PASS |
+| Picker raster | picker-full-preview.png; picker-preview-evidence.json | Actual mapped Tk popup with rendered image, counts and compact list PASS |
+| GT4 source/determinism | pajero-final-source-validation.json | Original relocated Beta hashes, reconstruction/rebuild/DX/DXT semantics PASS |
+| Culling/housing/material views | pajero-final-visibility/validation.json | 64 fixed-camera CW/CCW/NONE/mask/env captures; GPU inspection only |
+| Subaru continuation | glass-validation/validation.json | 64 captures, broken-UV-only ownership, native switch and unchanged deformation CPU replay PASS |
+| Pajero damage/brakes | pajero-native-damage.json; pajero-native-brake-validation.json | Original CPU replay, coverage alpha, native alternatives PASS |
+| Candidate isolation | candidate-preservation.json | Pajero 2 DX +1 new DXT only; Subaru car.dx only; other resources and originals unchanged, known user saves excluded |
+| Roster/cache/preflight | both candidate validation.json; candidate-preservation.json | Resource/environment/native allocation PASS; bounded synthetic race LRU zero warm evictions, not FPS |
+| Actual MR gameplay | Owner checklist in VSDK4C1_RESULTS.md | PENDING: visibility, damaged reflections, collision routing and re-entry |
+
+Earlier equal-name-length/dimension/alpha restrictions describe the superseded
+V-SDK4C writer. Later tests retain rejection of unknown shader/stage activation,
+paths, aliased descriptors and switch-owned uncoordinated light/glass edits.

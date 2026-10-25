@@ -33,6 +33,18 @@ class KeepoutTests(unittest.TestCase):
 
 
 class HousingTests(unittest.TestCase):
+    def test_contour_loft_uses_actual_edge_and_inward_normals(self):
+        from master_rallye.addon_sdk.visibility_keepout import _contour_housing
+        points=[(-.8,0.,-1.),(.8,0.,-1.),(.6,.7,-.9),(-.6,.7,-.9)]
+        aperture={'vertices':[vertex(p) for p in points],'triangles':[(0,1,2),(0,2,3)]}
+        v,t=_contour_housing(aperture,[((-.8,0.,-1.),(.8,.7,-.6))],2,-1)
+        self.assertEqual(len(t),10)
+        self.assertTrue(all(tuple(p[k]+(.001 if k==2 else 0) for k in range(3)) in [x['position'] for x in v] for p in points))
+        for tri in t:
+            ps=[v[i]['position'] for i in tri];a=[ps[1][k]-ps[0][k] for k in range(3)];b=[ps[2][k]-ps[0][k] for k in range(3)];cross=(a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0])
+            self.assertGreater(sum(cross[k]*v[tri[0]]['normal'][k] for k in range(3)),0)
+        broken=copy.deepcopy(aperture);broken['triangles'].append((0,1,2))
+        with self.assertRaises(ValueError):_contour_housing(broken,[((-.8,0.,-1.),(.8,.7,-.6))],2,-1)
     def test_source_bounds_generate_open_front_inward_box_and_preserve_source(self):
         draws,_=fixture();draws[1]['state']={};draws[1]['gif']={};before=copy.deepcopy(draws)
         policy=[{'source_sha256':'a'*64,'aperture':{'shape':1,'packet':0},'interior':{'shape':2,'packet':0},'front_axis':0,'front_sign':-1,'role':'own fixture explicit MR fallback'}]

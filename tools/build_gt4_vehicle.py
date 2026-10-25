@@ -22,6 +22,7 @@ from master_rallye.addon_sdk.wheel_orientation import orient_parts,instance_angl
 from master_rallye.addon_sdk.gt4_brakes import source_states,source_key,native_surfaces
 from master_rallye.addon_sdk.native_brakes import write_brake_scene
 from master_rallye.addon_sdk.gt4_paint import prepare_paint
+from master_rallye.addon_sdk.gt4_layered import opaque_layered_surfaces
 from master_rallye.addon_sdk.crew import fit_crew
 from master_rallye.addon_sdk.visibility_keepout import apply_keepouts,append_source_housings
 
@@ -30,7 +31,9 @@ def rotate(v):return (-v[0],v[1],-v[2]) # RH +Y frame, source front -Z -> MR fro
 def compile_draws(draws,output,*,environment_reference=None,material_policy=None):
     parts=[];report=[]
     policy=material_policy or {}
-    if set(policy)-{'qualified_environment','window_decal_shapes','decal_alpha_ref','paint_surfaces','paint_cutout_min_alpha','binary_cutout_surfaces'}:raise ValueError('unsupported material policy')
+    if set(policy)-{'qualified_environment','window_decal_shapes','decal_alpha_ref','paint_surfaces','paint_cutout_min_alpha','binary_cutout_surfaces','layered_opaque_surfaces','source_backfaces'}:raise ValueError('unsupported material policy')
+    if type(policy.get('source_backfaces',False)) is not bool:raise ValueError('source_backfaces must be boolean')
+    if policy.get('layered_opaque_surfaces'):draws=opaque_layered_surfaces(draws,policy['layered_opaque_surfaces'])
     if type(policy.get('qualified_environment',False)) is not bool:raise ValueError('qualified_environment must be boolean')
     selected=policy.get('window_decal_shapes',[])
     if not isinstance(selected,list) or any(type(i) is not int or i<0 for i in selected) or len(set(selected))!=len(selected):raise ValueError('invalid window decal shape selection')
@@ -141,7 +144,19 @@ def compile_draws(draws,output,*,environment_reference=None,material_policy=None
                 raw[i+3]=255
             helper='gt4-env-'+hashlib.sha256(bytes(raw)).hexdigest()[:20]+'-tga'
             (output/(helper+'.dxt')).write_bytes(struct.pack('<5I',0xfeed,1,zlib.crc32(raw)&0xffffffff,ref.width,ref.height)+raw)
-        parts.append(ScenePart(DrawGeometry(tuple(compiled),tuple(tuple(remap[k] for k in tri) for tri in indices)),(stem,helper,'Null'),alpha or test,test,bool(reflection)))
+        triangles=tuple(tuple(remap[k] for k in tri) for tri in indices)
+        backfaces=policy.get('source_backfaces') and not state['cull']
+        if backfaces:
+            # MR has global culling. Honor source cull-disable with explicit
+            # reverse faces and independent normals, not a global render hook.
+            def cyclic(t):
+                positions=tuple(compiled[i].position for i in t)
+                return min(positions,positions[1:]+positions[:1],positions[2:]+positions[:2])
+            present={cyclic(t) for t in triangles};missing=[t for t in triangles if cyclic(tuple(reversed(t))) not in present]
+            count=len(compiled);used_back=sorted({i for t in missing for i in t});reverse_ids={i:count+n for n,i in enumerate(used_back)}
+            compiled.extend(replace(compiled[i],normal=tuple(-n for n in compiled[i].normal)) for i in used_back)
+            triangles+=tuple(tuple(reverse_ids[i] for i in reversed(t)) for t in missing)
+        parts.append(ScenePart(DrawGeometry(tuple(compiled),triangles),(stem,helper,'Null'),alpha or test,test,bool(reflection)))
         report.append({'packet':no,'shape':draw['source_shape'],'route':'MR source-alpha' if alpha else 'MR cutout' if test else 'MR opaque',
             'source_packet':draw.get('packet',no),'command_offset':draw.get('command_offset'),
             'triangles':len(indices),'texture':stem,'generated_normals':missing_normals,'component':draw.get('component','body'),'sampler':sampler,
@@ -149,6 +164,7 @@ def compile_draws(draws,output,*,environment_reference=None,material_policy=None
             **({'qualified_tween_callbacks':draw['qualified_tween_callbacks']} if draw.get('qualified_tween_callbacks') else {}),
             'environment':reflection,
             'depth_safe_window_decal':decal,
+            'source_cull_backfaces':bool(backfaces),
             **({'visibility_keepout':draw['_mr_visibility_keepout']} if '_mr_visibility_keepout' in draw else {}),
             **({'source_housing':draw['_mr_source_housing']} if '_mr_source_housing' in draw else {}),
             **({'binary_cutout_approximation':{'role':binary[draw['source_shape'],draw.get('packet',no)],'boundary':'Explicit diagnostic fallback: binary source blend becomes MR cutout; filtered edges quantized, source RGB/UV/geometry unchanged.'}} if binary_cutout else {}),
@@ -174,7 +190,7 @@ def build_model(name,draws,template,assets,*,environment=None,policy=None,brake_
         off,on,provenance=source_states(brake_source,profile);keys={source_key(d) for d in off}
         body=[d for d in draws if source_key(d) not in keys or d.get('component','body')!='body']
         parts,record=compile_draws(body,assets,environment_reference=environment,material_policy=policy)
-        unlit,off_records=compile_draws(off,assets,environment_reference=environment,material_policy={k:v for k,v in (policy or {}).items() if not k.startswith('paint_')})
+        unlit,off_records=compile_draws(off,assets,environment_reference=environment,material_policy={k:v for k,v in (policy or {}).items() if not k.startswith('paint_') and k!='layered_opaque_surfaces'})
         source_on,on_records=compile_draws(on,assets)
         # Preserve opaque/cutout source cores and generate the halo only from
         # the actual blended source lens, never its shared off-state atlas.

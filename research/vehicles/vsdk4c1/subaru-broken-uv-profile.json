@@ -1,0 +1,83 @@
+{
+  "operation": "broken-uv-only",
+  "source_sha256": "ebfa6be3987ab9c97de01253b75bd61e49e0a0e8d7c4714b9a3f36f46b4eec39",
+  "provenance": "V-SDK4C repaired Subaru continuation. Stock Navara side/rear repeating crack UV extents, front inset; authored MR adaptation, four logical zones unchanged. Stock textures remain user-owned.",
+  "panes": [
+    {
+      "label": "screenright",
+      "broken_draw": 27,
+      "intact_draw": 26,
+      "axes": [
+        2,
+        1
+      ],
+      "uv_ranges": [
+        [
+          -1.0817515,
+          2.0817515
+        ],
+        [
+          0.004729,
+          0.83723
+        ]
+      ]
+    },
+    {
+      "label": "screenleft",
+      "broken_draw": 33,
+      "intact_draw": 34,
+      "axes": [
+        2,
+        1
+      ],
+      "uv_ranges": [
+        [
+          -1.0817515,
+          2.0817515
+        ],
+        [
+          0.004729,
+          0.83723
+        ]
+      ]
+    },
+    {
+      "label": "screenrear",
+      "broken_draw": 31,
+      "intact_draw": 32,
+      "axes": [
+        0,
+        1
+      ],
+      "uv_ranges": [
+        [
+          -0.5575362,
+          1.5575362
+        ],
+        [
+          0.0197252,
+          0.800195
+        ]
+      ]
+    },
+    {
+      "label": "screenfront",
+      "broken_draw": 36,
+      "intact_draw": 35,
+      "axes": [
+        0,
+        1
+      ],
+      "uv_ranges": [
+        [
+          0.0004995,
+          0.9995005
+        ],
+        [
+          0.0004994,
+          0.9995005
+        ]
+      ]
+    }
+  ]
+}

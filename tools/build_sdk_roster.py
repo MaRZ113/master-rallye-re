@@ -56,16 +56,19 @@ def load_author(project,build):
 
 def apply_base_glass_profiles(resources,base_rows,profiles):
     """Explicit post-validation render repair; frozen-base pins remain enforced."""
-    from master_rallye.glass_authoring import redistribute_glass
-    if not isinstance(profiles,dict) or any(not isinstance(k,str) or not isinstance(v,str) for k,v in profiles.items()):raise ValueError('base_glass_profiles must map owned addon IDs to profile paths')
+    from master_rallye.glass_authoring import redistribute_glass,remap_broken_uv
+    if not isinstance(profiles,dict) or any(not isinstance(k,str) or not (isinstance(v,str) or isinstance(v,list) and v and all(isinstance(p,str) for p in v)) for k,v in profiles.items()):raise ValueError('base_glass_profiles must map owned addon IDs to explicit profile paths or ordered path lists')
     rows={r['addon_id']:r for r in base_rows};reports=[]
     for addon_id,profile_path in sorted(profiles.items()):
         if addon_id not in rows:raise ValueError('Glass profile cannot target stock or an unknown addon')
         row=rows[addon_id];path=row['assets']['model_package_root']+'/car.dx'
         if path not in resources:raise ValueError('Missing owned base car resource')
-        profile=json.loads(Path(profile_path).read_text())
-        data,report=redistribute_glass(probe.value(resources[path]),profile)
-        resources[path]=data;reports.append({'addon_id':addon_id,'path':path,'profile_sha256':probe.sha(Path(profile_path).read_bytes()),**report})
+        for layer in ([profile_path] if isinstance(profile_path,str) else profile_path):
+            profile=json.loads(Path(layer).read_text())
+            operation=profile.get('operation','redistribute')
+            if operation not in ('redistribute','broken-uv-only'):raise ValueError('Unsupported glass profile operation')
+            data,report=(remap_broken_uv if operation=='broken-uv-only' else redistribute_glass)(probe.value(resources[path]),profile)
+            resources[path]=data;reports.append({'addon_id':addon_id,'path':path,'profile_sha256':probe.sha(Path(layer).read_bytes()),**report})
     return reports
 
 

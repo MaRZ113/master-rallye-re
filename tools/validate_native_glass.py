@@ -40,12 +40,25 @@ def validate(before,after,profile,exe):
     return {'intact_attribute_triangle_multiset_identical':True,'intact_material_flags_and_bindings_identical':True,'collision_suffix_byte_identical':True,'original_native_deformation_matches_preserved_positions':True,'native_switch':replay(exe),'boundary':'synthetic impacts and controller arrays, actual original x86 instructions; not gameplay'}
 
 
+def validate_uv_continuation(before,after,profile,exe):
+    from master_rallye.glass_authoring import remap_broken_uv
+    expected,audit=remap_broken_uv(before,profile)
+    if expected!=after:raise ValueError('UV-only candidate does not reproduce')
+    a,b=map(parse_dx_bytes,(before,after))
+    if a.vertices!=b.vertices or a.local_indices!=b.local_indices or a.physical_draws!=b.physical_draws or before[a.trailing.offset:]!=after[b.trailing.offset:]:raise ValueError('UV-only continuation changed geometry/material/controls/collision')
+    impacts=[{'point':[0.,1.,.9],'direction':[.2,-.1,-.5],'speed':8.,'scale':1.}]*3
+    left=execute(exe,before,impacts,adapted=False);right=execute(exe,after,impacts,adapted=False)
+    if left['positions']!=right['positions']:raise ValueError('Native deformation changed')
+    return {'uv_only_audit':audit,'intact_materials_geometry_and_native_switches_identical':True,'native_deformation_byte_identical':True,'native_switch':replay(exe),'boundary':'original x86 CPU replay with synthetic input; actual collision trigger classification needs gameplay'}
+
+
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     for name in ('before','after','stock','imported','profile','exe','viewer','output'):p.add_argument('--'+name,type=Path,required=True)
     p.add_argument('--imported-preview-profile',type=Path)
+    p.add_argument('--uv-only',action='store_true',help='Continue from an already repaired source, changing broken UVs only')
     a=p.parse_args();a.output.mkdir(parents=True,exist_ok=True);profile=json.loads(a.profile.read_text())
-    report=validate((a.before/'car.dx').read_bytes(),(a.after/'car.dx').read_bytes(),profile,a.exe.read_bytes());report['captures']=[];report['families']={}
+    report=(validate_uv_continuation if a.uv_only else validate)((a.before/'car.dx').read_bytes(),(a.after/'car.dx').read_bytes(),profile,a.exe.read_bytes());report['captures']=[];report['families']={}
     for label,family in [('Subaru-before',a.before),('Subaru-after',a.after),('Stock',a.stock),('Imported',a.imported)]:
         raw=(family/'car.dx').read_bytes();e=audit(raw);report['families'][label]=e
         try:config=presentation_wheels(*(parse_dx_bytes((family/n).read_bytes()) for n in ('car.dx','complete.dx','wheel.dx')))

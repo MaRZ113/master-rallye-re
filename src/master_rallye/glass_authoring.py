@@ -10,6 +10,35 @@ from .dx import parse_dx_bytes
 from .topology_writer import source_geometry,DrawGeometry,rebuild_topology
 
 
+def remap_broken_uv(raw,profile):
+    """Hash-pinned UV-only continuation of an already redistributed model.
+
+    Logical damage zones remain unchanged. Explicit atlas ranges can reproduce
+    stock repeating crack placement across a continuous side shell.
+    """
+    from .r4e_writer import patch_dx_attributes
+    import math
+    if hashlib.sha256(raw).hexdigest()!=profile['source_sha256']:raise ValueError('Broken UV source SHA256 mismatch')
+    m=parse_dx_bytes(raw);uv=[list(s.values) for s in m.uv_sets];seen=set();reports=[]
+    for item in profile['panes']:
+        draw=item['broken_draw'];intact=item['intact_draw']
+        group=next((g for g in m.draw_groups if g.root.group_label==item['label']),None)
+        if group is None or set(group.draw_indices)!={draw,intact} or group.root.control_words[:3]!=(2,2,8):raise ValueError('UV profile native zone mismatch')
+        d=m.physical_draws[draw];case=d.control_words[3] if d.tag==7 else d.control_words[0]
+        if case!=2:raise ValueError('Only broken alternative UVs may change')
+        indices=set(m.draw_global_indices(d))
+        if any(indices.intersection(m.draw_global_indices(other)) for other in m.physical_draws if other.draw_index!=draw):raise ValueError('Broken UV vertices are shared')
+        if seen&indices:raise ValueError('Duplicate broken UV target')
+        seen|=indices;axes=item['axes'];ranges=item['uv_ranges']
+        if len(axes)!=2 or len(set(axes))!=2 or any(type(a)is not int or a not in (0,1,2) for a in axes) or len(ranges)!=2 or any(len(r)!=2 or any(type(v)not in (int,float) or not math.isfinite(v) or abs(v)>8 for v in r) or r[0]>=r[1] for r in ranges):raise ValueError('Invalid qualified broken UV ranges')
+        lo=[min(m.vertices.positions[i][a] for i in indices) for a in axes];hi=[max(m.vertices.positions[i][a] for i in indices) for a in axes]
+        if min(b-a for a,b in zip(lo,hi))<1e-8:raise ValueError('Degenerate broken UV projection')
+        for i in indices:uv[0][i]=tuple(ranges[k][0]+(m.vertices.positions[i][a]-lo[k])/(hi[k]-lo[k])*(ranges[k][1]-ranges[k][0]) for k,a in enumerate(axes))
+        reports.append({'label':item['label'],'broken_draw':draw,'vertices':len(indices),'uv_ranges':ranges})
+    patch=patch_dx_attributes(raw,uv_sets=uv)
+    return patch.data,{'operation':'broken-uv-only','source_sha256':profile['source_sha256'],'output_sha256':patch.output_sha256,'zones':reports,'audit':patch.to_dict(),'native_controllers_unchanged':True,'runtime_qualified':False}
+
+
 def subset(geometry,indices,axes=None):
     used=sorted({v for i in indices for v in geometry.triangles[i]});mapping={v:i for i,v in enumerate(used)}
     vertices=[replace(geometry.vertices[i],source_vertex_id=None,parent_source_vertex_id=geometry.vertices[i].source_vertex_id) for i in used]

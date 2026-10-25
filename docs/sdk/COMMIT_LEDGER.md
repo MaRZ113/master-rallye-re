@@ -90,3 +90,13 @@ Owner explicitly authorized subsequent local phase commits; no push/release/publ
   1 skip, real Windows slot picker and addon/stock build/restore validation.
   Its resolved commit ID is recorded by the following phase entry.
 
+
+## V-SDK4C.1 — 26 October2026
+
+Validated phase: structural Texture Binding v2, practical picker, qualified
+reflection weights/mask, native controls/help, source-informed Pajero material
+and backfaces/contoured housing, Subaru UV-only continuation, isolated sealed
+candidates. 822 tests / 1 optional skip; actual Windows stock/addon builds and
+history/restore; final128 captures and original native CPU replay PASS.
+Gameplay acceptance remains pending. The following evidence-index commit records
+the resolved phase hash; no historical snapshot or previous commit is rewritten.

@@ -16,6 +16,15 @@ def fixture():
 
 
 class GlassAuthoringTests(unittest.TestCase):
+    def test_broken_uv_continuation_preserves_intact_and_controls(self):
+        from master_rallye.glass_authoring import remap_broken_uv
+        raw,p=fixture();before=redistribute_glass(raw,p)[0]
+        profile={'source_sha256':hashlib.sha256(before).hexdigest(),'panes':[{'label':'screenfront','intact_draw':1,'broken_draw':2,'axes':[0,1],'uv_ranges':[[-1.,2.],[0.,1.]]}]}
+        after,report=remap_broken_uv(before,profile);a,b=map(parse_dx_bytes,(before,after))
+        self.assertEqual(a.physical_draws,b.physical_draws);self.assertEqual(a.vertices,b.vertices);self.assertEqual(a.local_indices,b.local_indices)
+        ga,gb=map(source_geometry,(a,b));self.assertEqual(ga[1],gb[1]);self.assertNotEqual(ga[2],gb[2]);self.assertTrue(report['native_controllers_unchanged'])
+        profile['panes'][0]['broken_draw']=1;profile['panes'][0]['intact_draw']=2
+        with self.assertRaisesRegex(ValueError,'broken'):remap_broken_uv(before,profile)
     def test_preview_per_pane_cases_are_explicit_and_bounded(self):
         import json,struct,tempfile
         from pathlib import Path

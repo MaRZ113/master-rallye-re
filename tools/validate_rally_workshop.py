@@ -55,6 +55,7 @@ def main():
     for name in ('addon-project','roster-candidate','retail-sma','retail-root','viewer','output'):p.add_argument('--'+name,type=Path,required=True)
     p.add_argument('--surface',action='store_true',help='V-SDK4A selected-draw RGB instead of the V-SDK3 whole-texture demonstration')
     p.add_argument('--binding',action='store_true',help='Assign an existing compatible texture using the actual picker')
+    p.add_argument('--reflection',action='store_true',help='Author qualified opaque reflection weight through actual controls')
     a=p.parse_args();output=a.output.resolve()
     if output.exists():raise ValueError('Use a fresh GUI evidence output directory')
     output.mkdir(parents=True);root=tk.Tk();app=WorkshopApp(root,output/'workspace',ROOT,a.viewer)
@@ -93,8 +94,7 @@ def main():
                 if not old:continue
                 t=old[1]
                 for stem,(path,new) in textures.items():
-                    if stem not in used or stem==old[0].stem or len(stem)!=len(old[0].stem):continue
-                    if (t.width,t.height,t.word_0x04,t.bgra[3::4])!=(new.width,new.height,new.word_0x04,new.bgra[3::4]):continue
+                    if stem not in used or stem==old[0].stem:continue
                     try:binding_patch(raw,d.draw_index,0,stem,app.project.binding_texture)
                     except ValueError:continue
                     chosen=d,path;break
@@ -103,17 +103,18 @@ def main():
             draw,path=chosen
             app.draws.selection_set(f'texture:{model}:{draw.draw_index}:0');app._draw_selected();app.assign_texture()
             dialog=next(w for w in root.winfo_children() if isinstance(w,tk.Toplevel))
+            root.update()
             box=next(w for w in descendants(dialog) if isinstance(w,tk.Listbox))
-            index=next(i for i,value in enumerate(box.get(0,'end')) if value.startswith(path.name+' — compatible'))
-            box.selection_set(index);box.event_generate('<<ListboxSelect>>');root.update();screenshot(dialog,output/(app.project.data['kind']+'-binding-picker.png'))
+            index=next(i for i,value in enumerate(box.get(0,'end')) if value=='OK  '+path.name)
+            box.selection_set(index);box.see(index);box.event_generate('<<ListboxSelect>>');root.update();time.sleep(.06);root.update();screenshot(dialog,output/(app.project.data['kind']+'-binding-picker.png'))
             next(w for w in descendants(dialog) if isinstance(w,ttk.Button) and w['text']=='Assign selected texture').invoke()
             record('native slot assignment through actual picker',{'model':model,'draw':draw.draw_index,'target':path.name,'already_used_by':app.project.texture_usage(path.name)})
             return
-        if a.surface:
+        if a.surface or a.reflection:
             from master_rallye.dx import parse_dx_bytes
             from master_rallye.surface_authoring import surface_capabilities
             model=app.current_info['model'];raw=(app.project.baseline/model).read_bytes();mesh=parse_dx_bytes(raw)
-            candidates=[d for d in mesh.physical_draws if d.unknown_0x24&4 and not d.flags_0x20[0] and surface_capabilities(raw,d.draw_index)['diffuse_rgb_editable']]
+            candidates=[d for d in mesh.physical_draws if d.unknown_0x24&4 and not d.flags_0x20[0] and surface_capabilities(raw,d.draw_index)['reflection_strength_editable' if a.reflection else 'diffuse_rgb_editable']]
             def projected_area(draw):
                 import math
                 eye=(math.sin(.65)*math.cos(.18),math.sin(.18),math.cos(.65)*math.cos(.18));ids=mesh.draw_global_indices(draw);score=0
@@ -122,6 +123,9 @@ def main():
                 return score
             draw=max(candidates,key=projected_area)
             app.draws.selection_set(app._draw_node(model,draw.draw_index));app._draw_selected()
+            if a.reflection:
+                app.reflection_strength.set(.25);assert not app.strength_button.instate(['disabled']);app.strength_button.invoke()
+                record('qualified opaque reflection weight via GUI',{'model':model,'draw':draw.draw_index,'multiplier':.25,'texture_bytes_unchanged':True});return
             for var,value in zip(app.surface_gain,('.05','.1','1')):var.set(value)
             assert not app.surface_button.instate(['disabled'])
             app.surface_button.invoke();record('apply selected-surface RGB using real native attribute writer',{'model':model,'draw':draw.draw_index,'texture_unchanged':True})

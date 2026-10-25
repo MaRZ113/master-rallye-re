@@ -1,9 +1,13 @@
 # Master Rallye Vehicle SDK — Master Plan / Rally Workshop
 
-**Working baseline:** 25 October 2026 (revision 4.3: owner-prioritized glass damage, existing-texture slot assignment, offline help; inherited V-SDK4A owner acceptance and revisions preserved)  
+**Working baseline:** 25 October 2026 (revision 4.5: V-SDK4C.1 owner culling evidence, Previewer shortcut discoverability and stock-MR glass-adaptation clarification)
 **Repository:** `master-rallye-re-vehicles` · **branch:** `research/vehicles`  
 **Purpose:** single living specification for development, review, acceptance and public beta planning.  
 **Status disclaimer:** this document summarizes previous source-review discussions and reported gameplay tests. It is **not** a new repository or binary audit; verify each item against the current checkout before implementation. Update the ledger after every development phase.
+
+
+> **CURRENT DECISION — 2026-10-25 / revision 4.5:** The newest implementation/evidence status is in sections 17–18, which supersede outdated 'not started' or 'read-only' statuses in historical tables below. Keep older milestone notes for auditability. The next milestone is **V-SDK4C.1: material semantics, usable texture rebinding, visibility/culling, reflection strength and glass gameplay qualification**, followed by V-SDK4B Paint/Classic MR Style and crew fitment. Do not conflate D3D9 Previewer evidence with actual D3D8 gameplay.
+
 
 ## 0. Product contract
 
@@ -475,3 +479,100 @@ limited to existing slot-0 resources with equal encoded name length, dimensions,
 format and alpha; no general descriptor allocation is claimed. Native glass
 work proceeds separately. V-SDK4B/V-SDK5 have not been started.
 
+
+
+## 17. 2026-10-25 owner review — V-SDK4C and V-SDK4C.1 decision (current)
+
+### Source provenance / independently observed review
+
+- Owner supplied `rally-workshop-vsdk4c-source-review.zip` and six supporting screenshots. ZIP CRC passed. `REVIEW_MANIFEST.json` lists **1,046 content files**, all **1,046 SHA256 hashes** match. The extra archived file is the manifest itself. **430 `.py` files** parse as Python. Nine targeted synthetic tests (`test_texture_binding`, `test_glass_authoring`) passed in the independent review environment. No full Windows/gameplay suite was independently reproduced.
+- Archive reports branch `research/vehicles`, snapshot commit `bbc1f8aa4146ad9d488a4001272e1c0806cb6a96`, clean working tree. These fields cannot be authenticated without `.git`. Ledger names separate commits V-SDK4A.1 `8085800`, texture binding/Help `c3c0b12`, native glass `b22f83f`. The development agent reports 814 passed / 1 skipped on Windows; treat as **agent-reported**, not independently replayed.
+- `texture_binding.binding_patch` **really changes only the selected physical draw's inline diffuse slot-0 ASCII bytes**, and retains identical byte offsets. It permits only same encoded stem length, same FEED dimensions/native header format and *identical every-pixel alpha plane*; other slots and Null-to-texture transitions are forbidden. These limits are implementation constraints of the current safe patcher, **not proven absolute MR engine restrictions**.
+- `MaterialSemantics.from_draw` extracts native alpha blend/test state and an environment capability bit. The UI currently permits **environment ON/OFF**, not a verified continuous reflectivity value. Existing GT4 material code already treats some source texture alpha as reflection weighting; do not blindly edit opacity-alpha as reflection strength.
+- V-SDK4C reauthoring **implemented OFFLINE** for baseline Subaru race `car.dx`, behind explicit source SHA256 and optional `base_glass_profiles`. It maps four logical native groups (`screenfront`, `screenrear`, `screenleft`, `screenright`) and relocates static lamp glass to an ordinary draw. The new cracked imagery is the **stock MR broken-glass texture mapped with new planar UVs**, not source GT art or a verified third state. Only this Subaru race `car.dx` differs in the author's 368-resource candidate comparison. Glass damage **still requires owner gameplay acceptance** against the isolated candidate.
+- Stock Navara shows independent native glass-zone cases in research and owner's screenshots. Four **logical** zones do not imply one damage controller per physical pane; front/rear side panes can share one side-zone state.
+
+### Owner-observed defects, not yet fixed or game-qualified
+
+1. **Texture-slot picker is practically unusable for general substitution.** Most visible rows carry long incompatibility warnings and the only enabled row is commonly the currently assigned texture. Make the UI show 'compatible N / available M', prioritizing actual eligible alternatives; summarize exclusions rather than appending long reasons to every asset name. The fundamental writer limitations must be removed by a *verified structural DX rebuild* where safe, or documented and broadened through other sound native alternatives (never by silent truncation/padding).
+2. **Pajero Nikon-side surface shows unwanted see-through/alpha and lacks expected reflections** in affected areas. Treat as two independently diagnosed problems: transparency/alpha/depth and paint/environment coverage. Owner screenshots and overlay show Frontend `complete.dx` material selection near the area, but cannot establish exactly which native draw/texture owns every pixel without source-qualified geometric picking and material audit. Audit Race `car.dx` and Frontend `complete.dx` separately.
+3. **Pajero splash guards and frontal guard/bar vanish from one viewpoint/side.** Investigate real source triangle winding, normals, culling, mirrored transforms and missing backside geometry. Previewer `K` can switch CW/CCW/NONE as a diagnostic, but global `D3DCULL_NONE` is **not** an acceptable general fix. Require both D3D9 captures and owner game test.
+4. **Subaru and Navara glass discrepancy.** The owner reports stock Navara gives convincing damage while Subaru still has a combined-looking cracked texture. Differentiate group-controller switching from *crack-texture UV tiling/coverage*. Check the precise V-SDK4C isolated candidate, one zone per fresh race, repeat race, individual vs adjacent panes. Do not promise physical per-pane independence beyond native four-zone evidence.
+5. **Reflectivity editor needs a source-qualified intensity control.** Where native reflection is controlled by a proven reflection-weight mask/alpha or other source-qualified value, expose a controllable strength and preview comparison, retaining opacity, cutout, DATE/alpha-test, native damage alpha and other textures. Otherwise provide inspect-only/explicit unsupported state. Never invent an arbitrary shader constant or patch retail executable.
+6. **Crew fitment and occupant placement** is scheduled for V-SDK4B alongside Classic MR Style/visual fitting, using already qualified Subaru crew work as a reference. It is not silently included in V-SDK4C.1.
+
+### Next bounded milestone: V-SDK4C.1 — native material/visibility quality gate
+
+**Track A — Texture Binding v2:** map DX inline strings, lengths, offsets, owning draw record, resource lookup and loader compatibility; add safe variable-length reconstruction or alternative proven general reference writer, independently qualify diffuse and (where possible) other stage slots; qualify alpha and resolution rules by actual stage usage, not a blanket whole-texture-alpha equality; preserve all owner resources, descriptor independence, undo/redo/reopen/build/restore and native byte invariants. Reject truly unsupported cases with one actionable reason. UI picker compatible-first, compact reasons, search/filter and accurate counters.
+
+**Track B — Pajero material and reflection fidelity:** source-qualified isolation of the Nikon-side draw(s), log blend/test, depth-write, texture/vertex alpha, render ordering, environment stage/mask. Fix unwanted transparency and missing reflections conservatively in Race and Frontend. Reflection-strength control may be per material/surface only if real MR semantics are verified; protect intentional glass, livery and native damage. Compare environmental reflections ON/OFF.
+
+**Track C — One-sided geometry and culling:** exhaustively locate splash guards and guard/bar using opposite-side screenshots + DX draw/triangle provenance, with culling modes and both fixed camera directions. Repair source winding or mirror transform, or add necessary explicit backside geometry using qualified topology writer; no global two-sided state hacks. Preserve materials, normals, UV, damage, collision, other vehicle baselines.
+
+**Track D — Subaru glass acceptance:** reproduce owner-observed combined-looking glass, verify exactly which V-SDK4C Subaru candidate was launched, correlate native control-case changes with each glass zone, isolate broken-texture UV orientation/scale separately, and repair if source-qualified. Compare stock Navara, Subaru and untouched Lancer. The owner must explicitly validate the final candidate in MR under isolated impacts; offline captures are not a substitute.
+
+**Gate:** close A–C with real GUI/native-resource before-and-after/build checks and regression. Provide one isolated Pajero candidate and one isolated Subaru glass candidate rather than bundling unrelated experiments. Keep tests, CAPABILITIES, REGRESSION_MATRIX, Help and COMMIT_LEDGER current. Authorize only **scoped local commits after validation**, no push/publication. Do not begin V-SDK4B until this bounded quality gate is reviewed or qualified blockers are documented.
+
+### V-SDK4B after this gate
+
+Paint/Recolor, Classic MR Style matching from locally installed stock textures, semantic masks, A/B geometry/appearance comparison and **crew/driver/co-driver seat orientation/position fitment**. Reuse successful Subaru occupant workflow without assuming GT model topology. Material/texture fixes in V-SDK4C.1 are prerequisites; keep V-SDK5 Blender/scale and V-SDK6 audio/physics/camera plans unchanged.
+
+### Minimum owner game checklist for V-SDK4C.1
+
+- Subaru: fresh isolated race, no damage, one **front** impact; restart then **rear**, then **left**, then **right**; inspect crack ownership and which glass/lamp stays. Re-enter race and repeat. Use exact candidate/build hash and state.
+- Navara control: reproduce same broad damage-zone views; record whether two panes share a single side zone. Do not infer separate per-door controllers just from simultaneous cracked panes.
+- Pajero: from front-left and front-right, rear-left and rear-right, verify mudflaps and bars against original source; repeat reflections ON/OFF and view the Nikon-side panel for transparency at all angles.
+- GUI: choose a *different* existing texture (ideally different-length name and dimensions where stage-safe), bind selected surface, save/reopen, build, undo/redo, verify texture resource remains intact and unrelated draws remain unchanged.
+- All changes: check Menu/Frontend, Race, AI/re-entry and wheel/crew/audio/light/damage preservation, PERF2 responsiveness and original EXE/DLL hashes.
+
+
+## 18. 2026-10-25 owner follow-up — culling proof, discoverable hotkeys, glass authoring policy (revision 4.5)
+
+**Evidence source:** two additional owner screenshots of Pajero Frontend `complete.dx` at identical close-up camera angles with Previewer `K` culling changed, and explicit owner testimony that the underside/backfaces of headlamp backing, frontal guard/bullbar and splash guards are missing **in the game**, on corresponding model variants. This is **owner gameplay observation**, not independently recreated gameplay by the reviewer. Do not confuse front-side legitimate opacity/alpha defects near Nikon with rear-face culling defects.
+
+### 18.1 Culling diagnosis and target native repair
+
+- `K` is confirmed in archived `vehicle_previewer/src/main.cpp`: `cull=cull%3+1`, cycling D3D9 `CW`, `CCW` and `NONE`; it changes Previewer rasterizer culling, not DX geometry bytes nor native game's culling mode.
+- The new screenshots show that toggling cull changes visibility of the Pajero headlamp backing. The owner reports the same one-sided visibility for frontal guard/bullbar and mudflaps in Master Rallye itself. This **strongly implicates missing opposite-facing polygons, inconsistent winding/mirror transforms, or a native draw-level two-sided requirement**, but is not by itself proof of which specific triangles must be edited.
+- **V-SDK4C.1 native geometry acceptance:** identify exact draw/triangle ownership and desired front/back visibility in `car.dx` and `complete.dx`; compare source geometry and qualified stock MR examples. Where two-sided visibility is genuinely intended, prefer repaired winding or complete/closed source topology; otherwise add a deliberate opposite-facing surface with proper normals/UVs, or use a qualified native per-draw two-sided state only if actually supported. Never fix by globally setting game or Previewer `D3DCULL_NONE`, disabling all opacity, or modifying original on-disk EXE/DLL.
+- For the **headlamp backing**, distinguish internal occlusion from external panel visibility. Ensure no black rectangle protrudes, no artificial lamp bleed appears, and the lamp lens/reflector is correct from both intended viewing directions. Preserve lighting behavior, depth tests, intentional glass and body reflection passes.
+- Provide fixed front-left/front-right/rear-left/rear-right previews with `CW/CCW/NONE` and reference stock render views; then a separately identified isolated MR candidate for owner gameplay acceptance. Do not call the defect fixed merely because `K` makes it visible in the D3D9 viewer.
+
+### 18.2 F3 Overlay and F1 Help: complete actual control discovery
+
+- Owner did not know about `K`; show the full set of currently implemented diagnostic keys in discoverable UI. In V-SDK4C code, `F1` already opens native Previewer help and offline Workshop help has a viewport guide, but the F3 overlay omits important keys. No need to add a second input system; expose the existing one.
+- The source's `App::key` defines: `K` cull, `W` wireframe, `E` environment/reflections, `B` brake test, `D` composed/base/vertex, `C` alternate switch-case, `Z` instance depth write, `L` next layer, `0` all layers, `A` assembled/raw wheels, `Tab` Race/Frontend/Wheel, `F3` HUD, `I` resource dialog, `R` resource reload, `O` open DX, `F` focus, `Home` reset, `1..6` view presets, `Ctrl+1..6` save, `Shift+1..6` recall, `S/V` save/recall bookmark 1, and `F1` help. Document **only verified working actions** and their actual side effects; update when implementation changes.
+- Include `F1 — all controls` in the normal viewport hint **even when F3 is off**. F3 HUD should show current values/labels for K/Cull CW/CCW/NONE, E/reflections, B/braking, W/wireframe, D/material mode, Z/depth and A/assembly; group remaining shortcuts compactly with an expandable cheat-sheet/help pane. Keep HUD readable at 1280x720, avoid covering model and expose color/selection labels with sufficient contrast.
+- Use a single authoritative shortcut/action mapping where practical to drive interactive help, tooltip and HUD. Cross-check full English offline F1 Workshop help and native Previewer F1 text. Never advertise K=permanent game repair; if diagnostic `NONE` enabled, mark it `PREVIEW-ONLY — may mask single-sided faces`.
+- Add regression tests for cycling `K` and for F3 state labels matching current controls and corresponding active render states; test both stock and imported geometry. Preserve owner-confirmed model preview navigation, editor help and build workflows.
+
+### 18.3 Subaru broken glass — clarified intended origin
+
+- Owner **explicitly confirms** that GT3 does not supply a suitable cracked-glass effect for this project and that **using/adapting locally sourced stock MR broken-glass textures is the intended approach**, not an undesirable source-fidelity compromise. Do **not** make recovery of nonexistent GT3 damaged-glass textures a blocker.
+- Outstanding acceptance is **native damage-zone ownership/trigger behavior, pane-specific appearance, UV layout/coverage, and preservation of intact glass, lamps, materials and deformation**. Four native logical zones remain the proven boundary absent new evidence; do not advertise independent physical side panes beyond that evidence.
+- Stock MR content is loaded only from the user's own installation; never redistribute stock MR textures or private GT assets in SDK source/build artifacts.
+
+### 18.4 Scope/sequence and delivery
+
+- These findings are **an explicit addendum to existing V-SDK4C.1**, not a new speculative rewrite. Continue Texture Binding v2, Nikon-side alpha/depth and reflection integrity, qualified reflection strength, one-sided Pajero geometry, and Subaru glass qualification as specified in section 17.
+- First patch discoverability/HUD affordances (low risk), use K CW/CCW/NONE diagnostic views to isolate faces, repair actual DX geometry/qualified native materials with isolated Pajero candidates, then solicit owner gameplay validation. Keep glass separate from culling and from paint styling.
+- Update `MASTER_PLAN.md`, `CAPABILITIES.md`, `REGRESSION_MATRIX.md`, `COMMIT_LEDGER.md` and F1/offline help. Local scoped commits permitted after validation only; never push/release without authorization. V-SDK4B remains deferred until this functional quality gate.
+
+
+## 19. V-SDK4C.1 implementation ledger — 26 October2026
+
+Implemented and offline/Windows validated: Texture Binding v2 structural native
+references, material-specific compatibility, practical searchable picker;
+qualified opaque reflection weights and mask diagnostics; source-cull-disabled
+reverse faces; mixed GT4 frame opacity/alpha-only reflection translation;
+owner-approved contoured headlamp housing; complete Previewer status/help;
+UV-only continuation of the existing Subaru four-zone repair with stock-MR art.
+
+822 tests passed, one optional skip. Actual Windows addon/stock picker and
+reflection editing/build/history/zero-edit restore passed. Final Pajero and
+Subaru candidates are separate. 64 final Pajero matrix captures plus64 glass
+captures, original native CPU replay and sealed preflight pass. New gameplay
+qualification remains pending; do not promote offline evidence to acceptance.
+See VSDK4C1_RESULTS.md and COMMIT_LEDGER.md for scope, limits and reproducibility.
+Existing private resources remain local; no old runtimes were removed after the
+owner changed the cleanup instruction. No Paint Studio/crew phase started.

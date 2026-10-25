@@ -1,19 +1,35 @@
 # 3D viewport and diagnostics
 
-The embedded GPU capture and interactive Previewer share SDK decoding. They are
-diagnostics, not proof of identical gameplay rendering or physics.
+The D3D9 fixed-function Previewer is a diagnostic approximation of native D3D8,
+not gameplay proof. Runtime lighting, sorting and inherited states can differ.
 
-Interactive navigation: left mouse rotates/selects; middle mouse pans; mouse
-wheel zooms. F focuses the selection, Home resets the camera. Keys 1 through 6
-select presets. Ctrl+1..6 saves views; Shift+1..6 recalls them.
+| Control | Action |
+| --- | --- |
+| Left mouse / middle mouse / wheel | Orbit and geometric pick / pan / zoom |
+| F / Home | Focus selected draw / reset view |
+| 1..6 | Camera presets |
+| Ctrl+1..6 / Shift+1..6 | Save / recall view bookmarks |
+| S / V | Save / recall bookmark 1 |
+| F3 / F1 | Current diagnostic states / complete help |
+| K | Cycle Cull CW / CCW / NONE |
+| W / E / B | Wireframe / reflections / brake-light test |
+| D | Composed / base / vertex colors / reflection-weight mask |
+| Z | Instance-enabled depth-write / shader-only diagnostic |
+| C | Case 1/2 for all generic source switch groups; NOT an impact simulation |
+| L / 0 | Next isolated layer / restore all layers |
+| A | Raw / assembled race wheels |
+| Tab / I | Race/frontend/wheel / resource accounting |
+| R / O | Reload resources / open converted DX |
 
-R reloads generated resources. Tab cycles variants. A switches raw/assembled
-wheels. E toggles reflections, B brake state, W wireframe, K culling, Z depth,
-L material layer and 0 all layers. F3 toggles diagnostic HUD.
+An F1 hint remains visible with F3 hidden. F3 shows K/W/E/B/D/Z/C/A states and
+layer/model/diagnostic shortcuts. **Cull NONE is preview-only and may hide real
+missing backfaces.** Stock-calibrated CW remains the default. Compare opposite
+views under CW, CCW and NONE before editing winding.
 
-Wheel fitting here is a preview rest pose. It does not tune suspension, handling
-or race wheel attachment. Physics and camera profiles remain separate CLI data.
+Reflection-mask mode shows texture-alpha × vertex-alpha for environment-capable
+surfaces; other draws are dark. It intentionally overrides blend/test for mask
+inspection and is not a native beauty render or a semantic paint mask.
 
-When checking a defect compare race/frontend models, both sides, reflections on
-and off, alpha and individual layers. Retain a gameplay test for native damage,
-light triggers and draw ordering.
+Wheel fitting is a rest-pose preview, not settled suspension. Use named
+`glass_states` profiles for individual native zones. C does not simulate impacts.
+Native damage, brake triggers and draw ordering require actual gameplay tests.
