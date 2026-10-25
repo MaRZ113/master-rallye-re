@@ -1,0 +1,121 @@
+// MR resource inspector: deliberately uses the D3D fixed-function pipeline.
+#include <windows.h>
+#include <windowsx.h>
+#include <commdlg.h>
+#include <shellapi.h>
+#include <d3d9.h>
+#include <algorithm>
+#include <array>
+#include <cmath>
+#include <cstdint>
+#include <cstring>
+#include <filesystem>
+#include <fstream>
+#include <numeric>
+#include <stdexcept>
+#include <string>
+#include <vector>
+
+namespace fs=std::filesystem;
+struct V3 {float x,y,z; V3 operator-(V3 b)const{return{x-b.x,y-b.y,z-b.z};} V3 operator+(V3 b)const{return{x+b.x,y+b.y,z+b.z};} V3 operator*(float f)const{return{x*f,y*f,z*f};}};
+float dot(V3 a,V3 b){return a.x*b.x+a.y*b.y+a.z*b.z;}
+V3 cross(V3 a,V3 b){return{a.y*b.z-a.z*b.y,a.z*b.x-a.x*b.z,a.x*b.y-a.y*b.x};}
+V3 norm(V3 a){float f=std::sqrt(dot(a,a));return f>1e-8f?a*(1/f):V3{0,1,0};}
+D3DMATRIX identity(){D3DMATRIX m{};for(int i=0;i<4;i++)m.m[i][i]=1;return m;}
+D3DMATRIX look(V3 eye,V3 at){V3 z=norm(eye-at),x=norm(cross({0,1,0},z)),y=cross(z,x);D3DMATRIX m{};
+ for(int i=0;i<3;i++){m.m[i][0]=(&x.x)[i];m.m[i][1]=(&y.x)[i];m.m[i][2]=(&z.x)[i];}
+ m._41=-dot(x,eye);m._42=-dot(y,eye);m._43=-dot(z,eye);m._44=1;return m;}
+D3DMATRIX perspective(float aspect,float nearZ,float farZ){D3DMATRIX m{};m._22=1/std::tan(.6f/2);m._11=m._22/aspect;m._33=farZ/(nearZ-farZ);m._34=-1;m._43=nearZ*farZ/(nearZ-farZ);return m;}
+template<class T>void release(T*&p){if(p){p->Release();p=nullptr;}}
+void check(HRESULT h,const char*what){if(FAILED(h))throw std::runtime_error(std::string(what)+" HRESULT="+std::to_string(static_cast<unsigned long>(h)));}
+std::wstring wide(const std::string&s){if(s.empty())return{};int n=MultiByteToWideChar(CP_UTF8,MB_ERR_INVALID_CHARS,s.data(),int(s.size()),nullptr,0);if(!n)throw std::runtime_error("invalid UTF8");std::wstring w(n,L' ');MultiByteToWideChar(CP_UTF8,MB_ERR_INVALID_CHARS,s.data(),int(s.size()),w.data(),n);return w;}
+struct Reader{std::vector<char>d;size_t p=0;
+ explicit Reader(const fs::path&path){auto size=fs::file_size(path);if(size>256*1024*1024||size<40)throw std::runtime_error("scene size outside bounds");d.resize(size_t(size));std::ifstream f(path,std::ios::binary);if(!f.read(d.data(),std::streamsize(d.size())))throw std::runtime_error("scene read failed");}
+ void read(void*out,size_t n){if(n>d.size()-p)throw std::runtime_error("truncated scene");std::memcpy(out,d.data()+p,n);p+=n;}
+ template<class T>T get(){T v;read(&v,sizeof v);return v;}
+ std::string str(){auto n=get<uint32_t>();if(n>4096)throw std::runtime_error("scene string too long");std::string s(n,' ');read(s.data(),n);return s;}
+};
+struct Vertex{V3 p,n;DWORD colour;float u,v;};static_assert(sizeof(Vertex)==36);
+struct Texture{std::string name;uint32_t w,h;std::vector<char>pixels;IDirect3DTexture9*gpu=nullptr;};
+struct Draw{std::string name;uint32_t model;int32_t base,env;uint32_t alpha,test,sw,which;V3 centre;std::vector<Vertex>v;std::vector<uint32_t>i;};
+struct App{
+ HWND window=nullptr;IDirect3D9*d3d=nullptr;IDirect3DDevice9*device=nullptr;D3DPRESENT_PARAMETERS pp{};
+ std::vector<Texture>textures;std::vector<Draw>draws;V3 centre{};float radius=3,az=.65f,el=.18f,distance=10;int model=2,preset=4,layer=-1,mode=0,cull=D3DCULL_CW;
+ bool reflections=true,brake=false,wire=false,alternate=false,drag=false,busy=false,instanceDepth=true;POINT mouse{};
+ fs::path scene=fs::path(SDK_ROOT)/L".research-output/vehicles/previewer/cache"/(std::to_wstring(GetCurrentProcessId())+L".mrpv"),source,python=L"python.exe",exporter=fs::path(SDK_ROOT)/L"tools/preview_vehicle.py",profile,capture;std::wstring error;
+ ~App(){for(auto&t:textures)release(t.gpu);release(device);release(d3d);}
+ void title(){std::wstring t=L"Master Rallye Vehicle Previewer | "+source.filename().wstring()+L" | "+(model==1?L"race":model==2?L"frontend":L"wheel")+L" | "+(brake?L"BRAKE ON":L"brake off")+(reflections?L" | reflections":L" | no reflections");
+  t+=cull==D3DCULL_NONE?L" | cull NONE (diagnostic)":cull==D3DCULL_CW?L" | cull CW":L" | cull CCW";
+  t+=instanceDepth?L" | instance ZWrite ON":L" | shader ZWrite";
+  if(layer>=0&&layer<int(draws.size()))t+=L" | "+wide(draws[layer].name);if(!error.empty())t+=L" | ERROR: "+error;SetWindowTextW(window,t.c_str());}
+ void resetCamera(){std::vector<V3>points;for(auto&d:draws)if(d.model==uint32_t(model)||d.model==0)for(auto&v:d.v)points.push_back(v.p);if(points.empty())return;
+  V3 lo=points[0],hi=lo;for(auto p:points)for(int k=0;k<3;k++){(&lo.x)[k]=std::min((&lo.x)[k],(&p.x)[k]);(&hi.x)[k]=std::max((&hi.x)[k],(&p.x)[k]);}centre=(lo+hi)*.5f;radius=std::max(.01f,std::sqrt(dot(hi-lo,hi-lo))*.5f);distance=radius*3.8f;}
+ void camera(int n){preset=n;constexpr float pi=3.141592654f;el=.07f;az=0;if(n==2)az=pi;if(n==3)az=pi/2;if(n==4){az=.65f;el=.18f;}if(n==5){el=pi*.495f;az=0;}if(n==6)az=-pi/2;}
+ void upload(){for(auto&t:textures){check(device->CreateTexture(t.w,t.h,1,0,D3DFMT_A8R8G8B8,D3DPOOL_MANAGED,&t.gpu,nullptr),"texture creation");D3DLOCKED_RECT r;check(t.gpu->LockRect(0,&r,nullptr,0),"texture lock");for(uint32_t y=0;y<t.h;y++)std::memcpy(static_cast<char*>(r.pBits)+size_t(y)*r.Pitch,t.pixels.data()+size_t(y)*t.w*4,size_t(t.w)*4);t.gpu->UnlockRect(0);}}
+ void load(){Reader r(scene);if(r.get<uint32_t>()!=0x5650524d||r.get<uint32_t>()!=1)throw std::runtime_error("unsupported MRPV version");auto nt=r.get<uint32_t>(),nd=r.get<uint32_t>();if(nt>4096||nd>32768)throw std::runtime_error("scene count budget");float bounds[6];r.read(bounds,sizeof bounds);
+  std::vector<Texture>tx;std::vector<Draw>ds;
+  for(uint32_t j=0;j<nt;j++){Texture t;t.name=r.str();t.w=r.get<uint32_t>();t.h=r.get<uint32_t>();if(!t.w||!t.h||t.w>16384||t.h>16384||uint64_t(t.w)*t.h>16*1024*1024||uint64_t(t.w)*t.h*4>r.d.size()-r.p)throw std::runtime_error("texture dimensions/span");t.pixels.resize(size_t(t.w)*t.h*4);r.read(t.pixels.data(),t.pixels.size());tx.push_back(std::move(t));}
+  for(uint32_t j=0;j<nd;j++){Draw d;d.name=r.str();d.model=r.get<uint32_t>();d.base=r.get<int32_t>();d.env=r.get<int32_t>();d.alpha=r.get<uint32_t>();d.test=r.get<uint32_t>();d.sw=r.get<uint32_t>();d.which=r.get<uint32_t>();d.centre=r.get<V3>();auto nv=r.get<uint32_t>(),ni=r.get<uint32_t>();
+   if(nv>1000000||ni>6000000||ni%3||uint64_t(nv)*sizeof(Vertex)+uint64_t(ni)*4>r.d.size()-r.p||d.base< -1||d.env< -1||d.base>=int(nt)||d.env>=int(nt)||d.alpha>1||d.test>1||d.sw>2||d.which>2)throw std::runtime_error("invalid scene draw");d.v.resize(nv);d.i.resize(ni);r.read(d.v.data(),size_t(nv)*sizeof(Vertex));r.read(d.i.data(),size_t(ni)*4);
+   for(auto i:d.i)if(i>=nv)throw std::runtime_error("scene index outside vertices");for(auto&v:d.v)for(float f:{v.p.x,v.p.y,v.p.z,v.n.x,v.n.y,v.n.z,v.u,v.v})if(!std::isfinite(f))throw std::runtime_error("nonfinite scene vertex");ds.push_back(std::move(d));}
+  if(r.p!=r.d.size())throw std::runtime_error("trailing scene data");for(auto&t:textures)release(t.gpu);textures=std::move(tx);draws=std::move(ds);upload();layer=-1;error.clear();resetCamera();title();}
+ static std::wstring quote(const std::wstring&s){std::wstring o=L"\"";unsigned slashes=0;for(wchar_t c:s){if(c==L'\\'){slashes++;continue;}if(c==L'\"')o.append(slashes*2+1,L'\\');else o.append(slashes,L'\\');slashes=0;o+=c;}o.append(slashes*2,L'\\');return o+L"\"";}
+ void rebuild(){if(busy)return;busy=true;struct Guard{bool&b;~Guard(){b=false;}}guard{busy};if(source.empty()||exporter.empty())throw std::runtime_error("Open via tools/preview_vehicle.py to enable DX reload");
+  std::wstring command=quote(python.wstring())+L" "+quote(exporter.wstring())+L" "+quote(source.wstring())+L" --export-only --output "+quote(scene.wstring());if(!profile.empty())command+=L" --profile "+quote(profile.wstring());
+  STARTUPINFOW si{sizeof(si)};PROCESS_INFORMATION pi{};if(!CreateProcessW(nullptr,command.data(),nullptr,nullptr,FALSE,CREATE_NO_WINDOW,nullptr,nullptr,&si,&pi))throw std::runtime_error("could not start SDK Python exporter");
+  // Continue pumping messages so a conversion cannot freeze the preview window.
+  bool quit=false;while(WaitForSingleObject(pi.hProcess,15)==WAIT_TIMEOUT){MSG msg;while(PeekMessageW(&msg,nullptr,0,0,PM_REMOVE)){if(msg.message==WM_QUIT){quit=true;break;}TranslateMessage(&msg);DispatchMessageW(&msg);}if(quit)break;}
+  DWORD code=1;if(quit)WaitForSingleObject(pi.hProcess,INFINITE);GetExitCodeProcess(pi.hProcess,&code);CloseHandle(pi.hThread);CloseHandle(pi.hProcess);if(quit){PostQuitMessage(0);return;}if(code)throw std::runtime_error("DX export failed; previous scene retained. Run exporter CLI for diagnostics.");float zoom=distance/radius;load();distance=zoom*radius;}
+ void open(){if(busy)return;wchar_t path[32768]{};OPENFILENAMEW ofn{sizeof ofn};ofn.hwndOwner=window;ofn.lpstrFilter=L"Master Rallye DX\0*.dx\0Preview scene\0*.mrpv\0\0";ofn.lpstrFile=path;ofn.nMaxFile=32768;ofn.Flags=OFN_FILEMUSTEXIST|OFN_NOCHANGEDIR;if(GetOpenFileNameW(&ofn)){auto oldSource=source,oldProfile=profile,oldScene=scene;try{profile.clear();if(fs::path(path).extension()==L".mrpv"){scene=path;source.clear();load();}else{source=path;rebuild();}resetCamera();}catch(...){source=oldSource;profile=oldProfile;scene=oldScene;throw;}}}
+ void init(){d3d=Direct3DCreate9(D3D_SDK_VERSION);if(!d3d)throw std::runtime_error("Direct3D9 unavailable");pp.Windowed=TRUE;pp.SwapEffect=D3DSWAPEFFECT_DISCARD;pp.hDeviceWindow=window;pp.EnableAutoDepthStencil=TRUE;pp.AutoDepthStencilFormat=D3DFMT_D24S8;pp.BackBufferFormat=D3DFMT_UNKNOWN;pp.PresentationInterval=D3DPRESENT_INTERVAL_ONE;
+  HRESULT h=d3d->CreateDevice(D3DADAPTER_DEFAULT,D3DDEVTYPE_HAL,window,D3DCREATE_SOFTWARE_VERTEXPROCESSING,&pp,&device);check(h,"D3D9 device creation");}
+ void resize(){if(!device)return;HRESULT h=device->Reset(&pp);if(FAILED(h)&&h!=D3DERR_DEVICELOST)check(h,"device reset");}
+ bool visible(const Draw&d,int index)const{if(!(d.model==uint32_t(model)||d.model==0)|| (layer>=0&&index!=layer))return false;if(d.sw==1)return d.which==(brake?2u:1u);if(d.sw==2)return d.which==(alternate?2u:1u);return true;}
+ void render(){if(!device)return;auto health=device->TestCooperativeLevel();if(health==D3DERR_DEVICELOST)return;if(health==D3DERR_DEVICENOTRESET){resize();return;}
+  RECT client;GetClientRect(window,&client);if(client.right<1||client.bottom<1)return;
+  V3 eye=centre+V3{std::sin(az)*std::cos(el),std::sin(el),std::cos(az)*std::cos(el)}*distance;auto world=identity(),view=look(eye,centre),projection=perspective(float(client.right)/client.bottom,std::max(.001f,radius*.005f),distance+radius*10);
+  device->Clear(0,nullptr,D3DCLEAR_TARGET|D3DCLEAR_ZBUFFER,0xffbfc4ca,1,0);check(device->BeginScene(),"BeginScene");device->SetTransform(D3DTS_WORLD,&world);device->SetTransform(D3DTS_VIEW,&view);device->SetTransform(D3DTS_PROJECTION,&projection);
+  device->SetFVF(D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_DIFFUSE|D3DFVF_TEX1);device->SetRenderState(D3DRS_LIGHTING,FALSE);device->SetRenderState(D3DRS_ZENABLE,TRUE);device->SetRenderState(D3DRS_ZFUNC,D3DCMP_LESSEQUAL);device->SetRenderState(D3DRS_CULLMODE,DWORD(cull));device->SetRenderState(D3DRS_FOGENABLE,FALSE);device->SetRenderState(D3DRS_FILLMODE,wire?D3DFILL_WIREFRAME:D3DFILL_SOLID);device->SetRenderState(D3DRS_SRCBLEND,D3DBLEND_SRCALPHA);device->SetRenderState(D3DRS_DESTBLEND,D3DBLEND_INVSRCALPHA);device->SetRenderState(D3DRS_ALPHAREF,128);device->SetRenderState(D3DRS_ALPHAFUNC,D3DCMP_GREATER);
+  for(int s=0;s<2;s++){device->SetSamplerState(s,D3DSAMP_MINFILTER,D3DTEXF_LINEAR);device->SetSamplerState(s,D3DSAMP_MAGFILTER,D3DTEXF_LINEAR);device->SetSamplerState(s,D3DSAMP_MIPFILTER,D3DTEXF_NONE);device->SetSamplerState(s,D3DSAMP_ADDRESSU,D3DTADDRESS_WRAP);device->SetSamplerState(s,D3DSAMP_ADDRESSV,D3DTADDRESS_WRAP);}
+  std::vector<int>order;for(int i=0;i<int(draws.size());i++)if(visible(draws[i],i))order.push_back(i);
+  std::stable_sort(order.begin(),order.end(),[&](int a,int b){auto&x=draws[a];auto&y=draws[b];bool xd=x.name.rfind("diagnostic:",0)==0,yd=y.name.rfind("diagnostic:",0)==0;if(xd!=yd)return !xd;bool xa=x.alpha&&!x.test,ya=y.alpha&&!y.test;if(xa!=ya)return !xa;if(xa){V3 dir=norm(centre-eye);return dot(x.centre-eye,dir)>dot(y.centre-eye,dir);}return false;});
+  for(int index:order){auto&d=draws[index];bool env=reflections&&d.env>=0&&mode!=1;bool alpha=d.alpha&&!d.test;
+   bool diagnostic=d.name.rfind("diagnostic:",0)==0;device->SetRenderState(D3DRS_ZENABLE,!diagnostic);device->SetRenderState(D3DRS_CULLMODE,diagnostic?D3DCULL_NONE:DWORD(cull));
+   device->SetRenderState(D3DRS_ZWRITEENABLE,(instanceDepth||!alpha||env)?TRUE:FALSE);device->SetRenderState(D3DRS_ALPHABLENDENABLE,alpha);device->SetRenderState(D3DRS_ALPHATESTENABLE,d.alpha&&d.test);device->SetTexture(0,d.base>=0&&mode!=2?textures[d.base].gpu:nullptr);
+   for(auto pair:{std::pair{D3DTSS_COLOROP,D3DTOP_MODULATE},std::pair{D3DTSS_ALPHAOP,D3DTOP_MODULATE}})device->SetTextureStageState(0,pair.first,pair.second);
+   device->SetTextureStageState(0,D3DTSS_COLORARG1,D3DTA_TEXTURE);device->SetTextureStageState(0,D3DTSS_COLORARG2,D3DTA_DIFFUSE);device->SetTextureStageState(0,D3DTSS_ALPHAARG1,D3DTA_TEXTURE);device->SetTextureStageState(0,D3DTSS_ALPHAARG2,D3DTA_DIFFUSE);device->SetTextureStageState(0,D3DTSS_TEXCOORDINDEX,0);device->SetTextureStageState(0,D3DTSS_TEXTURETRANSFORMFLAGS,D3DTTFF_DISABLE);
+   if(d.base<0||mode==2){device->SetTextureStageState(0,D3DTSS_COLOROP,D3DTOP_SELECTARG2);device->SetTextureStageState(0,D3DTSS_ALPHAOP,D3DTOP_SELECTARG2);}
+   if(env){device->SetTexture(1,textures[d.env].gpu);device->SetTextureStageState(1,D3DTSS_COLOROP,D3DTOP_MODULATEALPHA_ADDCOLOR);device->SetTextureStageState(1,D3DTSS_COLORARG1,D3DTA_CURRENT);device->SetTextureStageState(1,D3DTSS_COLORARG2,D3DTA_TEXTURE);device->SetTextureStageState(1,D3DTSS_ALPHAOP,D3DTOP_MODULATE);device->SetTextureStageState(1,D3DTSS_ALPHAARG1,D3DTA_CURRENT);device->SetTextureStageState(1,D3DTSS_ALPHAARG2,D3DTA_TEXTURE);device->SetTextureStageState(1,D3DTSS_TEXCOORDINDEX,D3DTSS_TCI_CAMERASPACENORMAL);device->SetTextureStageState(1,D3DTSS_TEXTURETRANSFORMFLAGS,D3DTTFF_COUNT2);auto tm=identity();tm._11=.5f;tm._22=.5f;tm._41=.5f;tm._42=.5f;device->SetTransform(D3DTS_TEXTURE1,&tm);}
+   else{device->SetTexture(1,nullptr);device->SetTextureStageState(1,D3DTSS_COLOROP,D3DTOP_DISABLE);device->SetTextureStageState(1,D3DTSS_ALPHAOP,D3DTOP_DISABLE);}
+   device->SetTextureStageState(2,D3DTSS_COLOROP,D3DTOP_DISABLE);
+   if(!d.i.empty())check(device->DrawIndexedPrimitiveUP(D3DPT_TRIANGLELIST,0,UINT(d.v.size()),UINT(d.i.size()/3),d.i.data(),D3DFMT_INDEX32,d.v.data(),sizeof(Vertex)),"DrawIndexedPrimitiveUP");
+  }check(device->EndScene(),"EndScene");
+  if(!capture.empty()){save(capture);capture.clear();PostMessageW(window,WM_CLOSE,0,0);}HRESULT presented=device->Present(nullptr,nullptr,nullptr,nullptr);if(presented!=D3DERR_DEVICELOST)check(presented,"Present");}
+ void save(const fs::path&file){IDirect3DSurface9*back=nullptr,*cpu=nullptr;check(device->GetBackBuffer(0,0,D3DBACKBUFFER_TYPE_MONO,&back),"backbuffer");D3DSURFACE_DESC desc;back->GetDesc(&desc);HRESULT h=device->CreateOffscreenPlainSurface(desc.Width,desc.Height,desc.Format,D3DPOOL_SYSTEMMEM,&cpu,nullptr);if(SUCCEEDED(h))h=device->GetRenderTargetData(back,cpu);release(back);if(FAILED(h)){release(cpu);check(h,"capture readback");}D3DLOCKED_RECT r;check(cpu->LockRect(&r,nullptr,D3DLOCK_READONLY),"capture lock");
+  BITMAPFILEHEADER fh{};BITMAPINFOHEADER ih{};ih.biSize=sizeof ih;ih.biWidth=LONG(desc.Width);ih.biHeight=-LONG(desc.Height);ih.biPlanes=1;ih.biBitCount=32;ih.biCompression=BI_RGB;ih.biSizeImage=desc.Width*desc.Height*4;fh.bfType=0x4d42;fh.bfOffBits=sizeof(fh)+sizeof(ih);fh.bfSize=fh.bfOffBits+ih.biSizeImage;std::ofstream f(file,std::ios::binary);f.write(reinterpret_cast<char*>(&fh),sizeof fh);f.write(reinterpret_cast<char*>(&ih),sizeof ih);for(UINT y=0;y<desc.Height;y++)f.write(static_cast<char*>(r.pBits)+size_t(y)*r.Pitch,desc.Width*4);cpu->UnlockRect();release(cpu);if(!f)throw std::runtime_error("capture write failed");}
+ void resourceInfo(){uint64_t bytes=0,triangles=0,vertices=0;unsigned count=0,reflective=0,alpha=0;std::vector<bool>used(textures.size());
+  for(int i=0;i<int(draws.size());i++){const auto&d=draws[i];if(!visible(d,i))continue;count++;triangles+=d.i.size()/3;vertices+=d.v.size();reflective+=d.env>=0;alpha+=d.alpha!=0;for(int t:{d.base,d.env})if(t>=0)used[t]=true;}
+  std::wstring details;unsigned nt=0;for(size_t i=0;i<textures.size();i++){const auto&t=textures[i];bytes+=uint64_t(t.w)*t.h*4;if(used[i]){nt++;if(layer>=0)details+=L"\n"+wide(t.name)+L" "+std::to_wstring(t.w)+L"x"+std::to_wstring(t.h);}}
+  std::wstring message=L"Visible state: "+std::to_wstring(count)+L" draws / "+std::to_wstring(triangles)+L" triangles / "+std::to_wstring(vertices)+L" staged vertices\nReflection-capable draws: "+std::to_wstring(reflective)+L"; alpha draws: "+std::to_wstring(alpha)+L"\nBound textures: "+std::to_wstring(nt)+L" / family "+std::to_wstring(textures.size())+L"\nNative family texture accounting: "+std::to_wstring(bytes)+L" bytes / retail cache 33554432 bytes"+details+L"\n\nStatic resource counts only. This D3D9 viewer does not measure native menu loading or settled suspension. Use --resource-diagnostics for per-texture UV/area/detail data; the separate QPC candidate measures native loading stages.";
+  MessageBoxW(window,message.c_str(),L"Vehicle resource diagnostics",MB_OK);}
+ void key(WPARAM k){if(k>='1'&&k<='6')camera(int(k-'0'));else if(k=='I')resourceInfo();else if(k=='R')rebuild();else if(k=='O')open();else if(k==VK_TAB){model=model%3+1;resetCamera();}else if(k=='E')reflections=!reflections;else if(k=='B')brake=!brake;else if(k=='W')wire=!wire;else if(k=='C')alternate=!alternate;else if(k=='D')mode=(mode+1)%3;else if(k=='K')cull=cull%3+1;else if(k=='Z')instanceDepth=!instanceDepth;else if(k=='L'){for(size_t n=0;n<=draws.size();n++){layer++;if(layer>=int(draws.size())){layer=-1;break;}if(draws[layer].model==uint32_t(model)||draws[layer].model==0)break;}}else if(k=='0')layer=-1;else if(k=='F')resetCamera();else if(k==VK_F1)MessageBoxW(window,L"Drag left mouse: orbit | wheel: zoom\n1 Front  2 Rear  3 Side  4 Three-quarter  5 Top  6 Opposite side\nK: culling CCW / NONE / CW | Z: instance/shader ZWrite\nTab: race/frontend/wheel | F: frame | R: reload DX\nO: open DX | E: reflections | B: brake state\nI: resource counts and selected layer texture dimensions\nC: alternate generic switch case | W: wireframe\nD: composed/base/vertex-only | L: isolate next layer | 0: all layers\n\nFixed-function diagnostic approximation. Runtime world lighting, fog, exact sorting and inherited instance states differ. Race wheels need a provenance-bearing rest-pose profile. No physics is simulated.",L"Vehicle Previewer",MB_OK);title();}
+};
+App*app=nullptr;
+LRESULT CALLBACK proc(HWND w,UINT m,WPARAM p,LPARAM l){try{switch(m){case WM_DESTROY:PostQuitMessage(0);return 0;case WM_SIZE:if(app&&app->device&&p!=SIZE_MINIMIZED)app->resize();return 0;case WM_LBUTTONDOWN:app->drag=true;app->mouse={GET_X_LPARAM(l),GET_Y_LPARAM(l)};SetCapture(w);return 0;case WM_LBUTTONUP:app->drag=false;ReleaseCapture();return 0;case WM_CAPTURECHANGED:app->drag=false;return 0;case WM_MOUSEMOVE:if(app->drag){int x=GET_X_LPARAM(l),y=GET_Y_LPARAM(l);app->az-=(x-app->mouse.x)*.008f;app->el=std::clamp(app->el+(y-app->mouse.y)*.008f,-1.55f,1.55f);app->mouse={x,y};}return 0;case WM_MOUSEWHEEL:app->distance=std::clamp(app->distance*std::pow(.88f,float(GET_WHEEL_DELTA_WPARAM(p))/120),app->radius*.15f,app->radius*100);return 0;case WM_KEYDOWN:app->key(p);return 0;}}
+ catch(const std::exception&e){app->error=wide(e.what());app->title();MessageBoxW(w,app->error.c_str(),L"Preview error",MB_ICONERROR);}return DefWindowProcW(w,m,p,l);}
+int WINAPI wWinMain(HINSTANCE h,HINSTANCE,PWSTR,int show){try{App a;app=&a;fs::path exercise;V3 targetOverride{NAN,NAN,NAN};float cameraZoom=1,azOverride=NAN,elOverride=NAN;int argc=0;auto argv=CommandLineToArgvW(GetCommandLineW(),&argc);for(int i=1;i<argc;i++){std::wstring k=argv[i];auto value=[&](){if(i+1>=argc)throw std::runtime_error("missing argument");return std::wstring(argv[++i]);};if(k==L"--exercise")exercise=value();else if(k==L"--scene")a.scene=value();else if(k==L"--source")a.source=value();else if(k==L"--python")a.python=value();else if(k==L"--exporter")a.exporter=value();else if(k==L"--profile")a.profile=value();else if(k==L"--capture")a.capture=value();else if(k==L"--brake")a.brake=true;else if(k==L"--no-reflections")a.reflections=false;else if(k==L"--preset")a.preset=std::stoi(value());else if(k==L"--zoom"){cameraZoom=std::stof(value());if(!std::isfinite(cameraZoom)||cameraZoom<.1f||cameraZoom>5.f)throw std::runtime_error("invalid camera zoom");}else if(k==L"--target"){targetOverride={std::stof(value()),std::stof(value()),std::stof(value())};if(!std::isfinite(targetOverride.x)||!std::isfinite(targetOverride.y)||!std::isfinite(targetOverride.z))throw std::runtime_error("invalid camera target");}else if(k==L"--azimuth")azOverride=std::stof(value())*.01745329252f;else if(k==L"--elevation")elOverride=std::stof(value())*.01745329252f;else if(k==L"--cull"){auto v=value();if(v==L"none")a.cull=D3DCULL_NONE;else if(v==L"cw")a.cull=D3DCULL_CW;else if(v==L"ccw")a.cull=D3DCULL_CCW;else throw std::runtime_error("unknown culling mode");}else if(k==L"--depth-write"){auto v=value();if(v==L"shader")a.instanceDepth=false;else if(v==L"instance-on")a.instanceDepth=true;else throw std::runtime_error("unknown depth policy");}else if(k==L"--model"){auto v=value();a.model=v==L"race"?1:v==L"wheel"?3:2;}else throw std::runtime_error("unknown viewer argument");}LocalFree(argv);
+  WNDCLASSW wc{};wc.lpfnWndProc=proc;wc.hInstance=h;wc.lpszClassName=L"MRVehiclePreviewer";wc.hCursor=LoadCursorW(nullptr,IDC_ARROW);RegisterClassW(&wc);a.window=CreateWindowW(wc.lpszClassName,L"Master Rallye Vehicle Previewer",WS_OVERLAPPEDWINDOW,CW_USEDEFAULT,CW_USEDEFAULT,1100,760,nullptr,nullptr,h,nullptr);if(!a.window)throw std::runtime_error("window creation failed");ShowWindow(a.window,show);a.init();if(fs::exists(a.scene))a.load();a.camera(a.preset);a.distance*=cameraZoom;if(std::isfinite(targetOverride.x))a.centre=targetOverride;if(std::isfinite(azOverride))a.az=azOverride;if(std::isfinite(elOverride))a.el=elOverride;a.title();if(a.draws.empty())a.key(VK_F1);
+  if(!exercise.empty()){
+   if(a.draws.empty()||a.source.empty())throw std::runtime_error("exercise needs source and staged scene");
+   a.render();a.save(fs::path(exercise.wstring()+L"-before.bmp"));float oldAz=a.az,oldDistance=a.distance;
+   SendMessageW(a.window,WM_LBUTTONDOWN,MK_LBUTTON,MAKELPARAM(100,100));SendMessageW(a.window,WM_MOUSEMOVE,MK_LBUTTON,MAKELPARAM(160,125));SendMessageW(a.window,WM_LBUTTONUP,0,MAKELPARAM(160,125));SendMessageW(a.window,WM_MOUSEWHEEL,MAKEWPARAM(0,120),0);
+   if(a.az==oldAz||a.distance==oldDistance)throw std::runtime_error("orbit/zoom event failed");
+   float orbit=a.az,elevation=a.el,zoom=a.distance/a.radius;SendMessageW(a.window,WM_KEYDOWN,'R',0);
+   if(a.az!=orbit||a.el!=elevation||std::abs(a.distance/a.radius-zoom)>1e-5f||!a.error.empty())throw std::runtime_error("reload/camera retention failed");
+   a.render();a.save(fs::path(exercise.wstring()+L"-after.bmp"));for(int key='1';key<='5';key++)SendMessageW(a.window,WM_KEYDOWN,key,0);
+   for(int n=0;n<3;n++)SendMessageW(a.window,WM_KEYDOWN,VK_TAB,0);
+   std::ofstream result(fs::path(exercise.wstring()+L".json"));result<<"{\"orbit\":true,\"zoom\":true,\"reload\":true,\"camera_retained\":true,\"presets\":true,\"model_switch\":true}\n";
+   PostMessageW(a.window,WM_CLOSE,0,0);
+  }
+  MSG msg{};bool running=true;while(running){while(PeekMessageW(&msg,nullptr,0,0,PM_REMOVE)){if(msg.message==WM_QUIT){running=false;break;}TranslateMessage(&msg);DispatchMessageW(&msg);}if(running){a.render();Sleep(1);}}app=nullptr;return 0;
+ }catch(const std::exception&e){MessageBoxW(nullptr,wide(e.what()).c_str(),L"Vehicle Previewer failed",MB_ICONERROR);return 1;}}
