@@ -1,0 +1,17 @@
+{
+  "phase": "V-LANCER5",
+  "authority": "direct user gameplay report, 2026-10-23",
+  "confirmed": [
+    "race and menu loading",
+    "acceptable performance",
+    "catastrophic tearing fixed",
+    "brake lights and rear stop illumination",
+    "correct wheel orientation",
+    "geometry, livery and general presentation close to final"
+  ],
+  "remaining_request": [
+    "continuous body reflections",
+    "visible stock MR crew"
+  ],
+  "boundary": "does not qualify V-LANCER6"
+}

@@ -1,0 +1,408 @@
+{
+  "schema_version": 1,
+  "model_code": "mits0015",
+  "source_label": "Mitsubishi Lancer Evolution IV Rally Car '97",
+  "body_menu_sha256": "b3e24db37de08aaa7e4df1ab2c8e508c037b1b4ecb3b8c528f769e1214b99a15",
+  "body_race_sha256": "6586265558f008d69991e8cb1a826136e5209cb063402b6df411653e195ac36c",
+  "spec_folder": "GT4_PREMIUM_US2560",
+  "spec_labels": {
+    "CHASSIS": "ch_lancer_evo4_wrc_97_a",
+    "RACINGMODIFY": "rm_lancer_evo4_wrc_97_a",
+    "SUSPENSION": "su_lancer_evo4_wrc_97_a",
+    "FRONTTIRE": "ft_lancer_evo4_wrc_97_a",
+    "REARTIRE": "rt_lancer_evo4_wrc_97_a"
+  },
+  "body_callbacks": {
+    "0": 0,
+    "7": 0,
+    "11": 1,
+    "12": 1,
+    "13": 1,
+    "14": 1
+  },
+  "selection": {
+    "menu_model": 0,
+    "race_model": 0,
+    "race_lod": 0,
+    "wheel_model": 0
+  },
+  "freeze_dynamic_morphs": true,
+  "mr_environment_reference": "chrome-tga.dxt",
+  "addon": {
+    "name": "Mitsubishi Lancer Evo IV Rally 97",
+    "manufacturer": "MITSUBISHI",
+    "model": "LANCER EVO IV RALLY '97",
+    "family": "LancerEvo4"
+  },
+  "policy": "Source rest pose only; no MR race-wheel physics tuning. Alternative tire compounds need independent profile qualification.",
+  "material_policy": {
+    "menu": {
+      "qualified_environment": true,
+      "window_decal_shapes": [
+        26
+      ],
+      "decal_alpha_ref": 32,
+      "paint_surfaces": [
+        {
+          "shape": 14,
+          "packets": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            29,
+            30,
+            31,
+            32,
+            33
+          ],
+          "role": "painted exterior panels, bumpers, roof, mirror casings and spoiler"
+        },
+        {
+          "shape": 6,
+          "packets": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "role": "painted spoiler and source-qualified mirror surfaces"
+        }
+      ],
+      "paint_cutout_min_alpha": 129
+    },
+    "race": {
+      "qualified_environment": true,
+      "window_decal_shapes": [
+        37
+      ],
+      "decal_alpha_ref": 32,
+      "paint_surfaces": [
+        {
+          "shape": 25,
+          "packets": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            29,
+            30,
+            31,
+            32,
+            33
+          ],
+          "role": "painted exterior panels, bumpers, roof, mirror casings and spoiler"
+        },
+        {
+          "shape": 17,
+          "packets": [
+            7,
+            8,
+            9,
+            10
+          ],
+          "role": "painted spoiler and source-qualified mirror surfaces"
+        }
+      ],
+      "paint_cutout_min_alpha": 129
+    }
+  },
+  "native_brakes": {
+    "callback": 0,
+    "off_case": 0,
+    "on_case": 1,
+    "alpha_ref": 32,
+    "halo_offset": 0.001
+  },
+  "crew": {
+    "source": "car.dx",
+    "source_sha256": "2d3727f5bcd889ba38891276111c53f9c4d67cee1f5ece13de374a8235690655",
+    "seat_pair_preset": "retail Navara stock seated crew, rigid per-person fit",
+    "draws": [
+      {
+        "index": 0,
+        "textures": [
+          "underdash-tga",
+          "Null",
+          "Null"
+        ],
+        "role": "stock harnesses",
+        "triangles": [
+          193,
+          194,
+          195,
+          196,
+          197,
+          198,
+          199,
+          200,
+          201,
+          202,
+          203,
+          204,
+          205,
+          206,
+          207,
+          208,
+          209,
+          210,
+          211,
+          212,
+          213,
+          214,
+          215,
+          216,
+          217,
+          218,
+          219,
+          220,
+          221,
+          222,
+          223,
+          224,
+          225,
+          226,
+          227,
+          228,
+          229,
+          230,
+          231,
+          232,
+          233,
+          234,
+          235,
+          236,
+          237,
+          238,
+          239,
+          240,
+          241,
+          242,
+          243,
+          244
+        ]
+      },
+      {
+        "index": 1,
+        "textures": [
+          "chair2-tga",
+          "Null",
+          "Null"
+        ],
+        "role": "helmet brow and inner shell",
+        "triangles": [
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          62,
+          63,
+          64,
+          65,
+          66,
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75
+        ]
+      },
+      {
+        "index": 16,
+        "textures": [
+          "whitesuit32-tga",
+          "Null",
+          "Null"
+        ],
+        "role": "suit and hands"
+      },
+      {
+        "index": 17,
+        "textures": [
+          "dnissanslave3-tga",
+          "Null",
+          "Null"
+        ],
+        "role": "driver face"
+      },
+      {
+        "index": 18,
+        "textures": [
+          "black-tga",
+          "Null",
+          "Null"
+        ],
+        "role": "visors"
+      },
+      {
+        "index": 19,
+        "textures": [
+          "xhelmet32-tga",
+          "whitepaint-tga",
+          "Null"
+        ],
+        "role": "helmets"
+      },
+      {
+        "index": 20,
+        "textures": [
+          "dnissanslave4-tga",
+          "Null",
+          "Null"
+        ],
+        "role": "co-driver face"
+      }
+    ],
+    "people": {
+      "driver": {
+        "side": 1,
+        "pivot": [
+          0.35,
+          0.65,
+          0
+        ]
+      },
+      "codriver": {
+        "side": -1,
+        "pivot": [
+          -0.27,
+          0.65,
+          0
+        ]
+      }
+    },
+    "placements": {
+      "race": {
+        "driver": {
+          "lateral": 0,
+          "vertical": -0.06,
+          "longitudinal": -0.18,
+          "yaw_degrees": 0
+        },
+        "codriver": {
+          "lateral": -0.06,
+          "vertical": -0.06,
+          "longitudinal": -0.18,
+          "yaw_degrees": 0
+        }
+      },
+      "menu": {
+        "driver": {
+          "lateral": 0,
+          "vertical": -0.12,
+          "longitudinal": -0.18,
+          "yaw_degrees": 0
+        },
+        "codriver": {
+          "lateral": -0.06,
+          "vertical": -0.12,
+          "longitudinal": -0.18,
+          "yaw_degrees": 0
+        }
+      }
+    }
+  },
+  "diagnostics": {
+    "glass_shapes": [
+      24,
+      35
+    ],
+    "cockpit_shapes": [
+      4,
+      5,
+      6,
+      16,
+      17
+    ],
+    "cockpit_bounds": [
+      [
+        -0.74,
+        0.35,
+        -0.65
+      ],
+      [
+        0.74,
+        1.35,
+        0.65
+      ]
+    ]
+  }
+}

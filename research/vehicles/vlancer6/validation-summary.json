@@ -1,0 +1,76 @@
+{
+  "phase": "V-LANCER6",
+  "status": "READY_FOR_HUMAN_GAMEPLAY",
+  "candidate": ".research-output\\vehicles\\vlancer6\\candidate-04",
+  "build": ".research-output\\vehicles\\vlancer6\\build-04",
+  "runtime_qualified": false,
+  "game_launched": false,
+  "baseline_human_confirmation": "research/vehicles/vlancer6/v5-human-confirmation.json",
+  "paint": {
+    "car.dx": {
+      "paint_source_packets": 35,
+      "paint_triangles": 1240,
+      "paint_cutout_triangles": 187,
+      "crew_triangles": 544,
+      "helmet_roof_min_clearance_m": 0.044516079962146016
+    },
+    "complete.dx": {
+      "paint_source_packets": 35,
+      "paint_triangles": 1240,
+      "paint_cutout_triangles": 187,
+      "crew_triangles": 544,
+      "helmet_roof_min_clearance_m": 0.042336894797316615
+    }
+  },
+  "assets": {
+    "car.dx": "b1798279dfa54cb9ecb5276ee8fe199858b56f146ca15195390cd0584796ac2e",
+    "complete.dx": "3c9817b48e2a3fb89d1a25d8551cb55fa740c0f79a1a146b400426e444d2fad2",
+    "wheel.dx": "050b69e9b78d1e7f0684895469ad67bcb06342730dbdd424aeadc51beb56540f"
+  },
+  "checks": {
+    "synthetic_suite": {
+      "tests": 643,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1
+    },
+    "native_damage_cpu_replay": "PASS: 36 impacts, original XYZ/RGB unchanged, coverage alpha preserved",
+    "deterministic_rebuild": "PASS",
+    "v5_rebuild": "PASS",
+    "stock_navara_pajero_gpu": "PASS",
+    "frozen_subaru_scale29_scale30": "PASS",
+    "native_launcher_installed_exe": "PASS",
+    "negative_extension_cases": "missing/truncated/altered rejected",
+    "non_lancer_immutable_resources_unchanged": 148
+  },
+  "extension": {
+    "address": 268435456,
+    "allocation_size": 131072,
+    "sha256": "3ca9743111a61196d49312fd1a72fbcabfbc6c9e6a2a645128e57921b5854360",
+    "size": 76591
+  },
+  "texture_budget": {
+    "unique_textures": 77,
+    "cache_bytes": 12199936,
+    "authoring_budget_bytes": 16777216
+  },
+  "original_hashes": {
+    "D:\\Game\\Master Rallye\\MRallye.exe": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "D:\\Game\\Master Rallye\\d3d8.dll": "eb7ea3d9501b514bff668f1e75e86041906c5fe4e8afa89f06d658751429aaf4"
+  },
+  "evidence": {
+    "offline": ".research-output\\vehicles\\vlancer6\\offline-validation-final.json",
+    "materials": ".research-output\\vehicles\\vlancer6\\material-validation-final.json",
+    "damage": ".research-output\\vehicles\\vlancer6\\damage-validation-final.json",
+    "runtime": ".research-output\\vehicles\\vlancer6\\runtime-regression-final.json",
+    "captures": ".research-output\\vehicles\\vlancer6\\preview-captures.json",
+    "V5": ".research-output\\vehicles\\vlancer6\\v5-reproducibility.json",
+    "tests": ".research-output\\vehicles\\vlancer6\\tests-final.log"
+  },
+  "limitations": [
+    "residual reflective cutouts share coverage/weight alpha; explicit floor on 187 triangles",
+    "static stock crew pose; hand/seat fitting approximate",
+    "original dark glass preserved",
+    "requires V6 gameplay checks of reflections, crew, damage, brakes and performance"
+  ]
+}
