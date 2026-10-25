@@ -1,0 +1,19 @@
+{
+  "profile_version": 1,
+  "donor_family": "Navara",
+  "runtime_family": "LancerEvo4",
+  "source_sha256": {
+    "DataGame/vehicles.xml": "a6762bb20999c7224c71b9f5d1d7edca55bcea147ff9f973300a8cf8d350aee0",
+    "DataGame/Modifications.xml": "16df5a3a6b0c50c40f4ee74186e47b40294e6cb4ac11e0a3d7d20dafb8a5a65d"
+  },
+  "overrides": {
+    "DataGame/vehicles.xml": {
+      "Dimensions/WheelBase": 2.5100000000000002,
+      "Dimensions/TrackWidthFront": 1.49,
+      "Dimensions/TrackWidthRear": 1.49,
+      "Dimensions/WheelRadiusFront": 0.32535,
+      "Dimensions/WheelRadiusRear": 0.32535
+    }
+  },
+  "notes": "V-PHYS1 donor-derived baseline; V-LANCER6 visual resources are frozen. No capacity or drivetrain tuning. GT4 qualified assembly wheelbase/track and actual MR visual wheel radius; donor suspension datum retained."
+}

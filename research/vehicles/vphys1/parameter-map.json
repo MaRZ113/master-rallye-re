@@ -1,0 +1,2305 @@
+{
+  "source_sha256": "a6762bb20999c7224c71b9f5d1d7edca55bcea147ff9f973300a8cf8d350aee0",
+  "parameters": [
+    {
+      "path": "Chassis/AerodynamicDownForceCoeff",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049B940",
+      "instance_writer": "FUN_00494730",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.45,
+          0.75
+        ]
+      ]
+    },
+    {
+      "path": "Chassis/AerodynamicDragCoeff",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049B940",
+      "instance_writer": "FUN_00494730",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.14,
+          0.24
+        ]
+      ]
+    },
+    {
+      "path": "Chassis/BrakeTorqueFront",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049B940",
+      "instance_writer": "FUN_00494730",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          1400.0,
+          10300.0
+        ]
+      ]
+    },
+    {
+      "path": "Chassis/BrakeTorqueRear",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049B940",
+      "instance_writer": "FUN_00494730",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          1200.0,
+          10200.0
+        ]
+      ]
+    },
+    {
+      "path": "Chassis/CentreOfGravity",
+      "type": "Vector3",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049B940",
+      "instance_writer": "FUN_00494730",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.2,
+          0.7
+        ],
+        [
+          0.1,
+          0.5
+        ]
+      ]
+    },
+    {
+      "path": "Chassis/DragCoeff",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049B940",
+      "instance_writer": "FUN_00494730",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.1,
+          0.1
+        ]
+      ]
+    },
+    {
+      "path": "Chassis/Gravity",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049B940",
+      "instance_writer": "FUN_00494730",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          9.81,
+          9.81
+        ]
+      ]
+    },
+    {
+      "path": "Chassis/HandBrakeTorque",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049B940",
+      "instance_writer": "FUN_00494730",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          2000.0,
+          10000.0
+        ]
+      ]
+    },
+    {
+      "path": "Chassis/MaxAerodynamicDownForceSpeed",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049B940",
+      "instance_writer": "FUN_00494730",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          40.0,
+          40.0
+        ]
+      ]
+    },
+    {
+      "path": "Chassis/MinAerodynamicDownForceSpeed",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049B940",
+      "instance_writer": "FUN_00494730",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "path": "Chassis/MomentOfInertia",
+      "type": "Vector3",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049B940",
+      "instance_writer": "FUN_00494730",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          1.0,
+          1.0
+        ],
+        [
+          1.1,
+          1.8
+        ],
+        [
+          0.7,
+          1.25
+        ]
+      ]
+    },
+    {
+      "path": "Chassis/Restitution",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049B940",
+      "instance_writer": "FUN_00494730",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.15,
+          0.2
+        ]
+      ]
+    },
+    {
+      "path": "Chassis/RollingDrag",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049B940",
+      "instance_writer": "FUN_00494730",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "path": "Chassis/SlidingFriction",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049B940",
+      "instance_writer": "FUN_00494730",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.25,
+          0.85
+        ]
+      ]
+    },
+    {
+      "path": "Chassis/TotalMass",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049B940",
+      "instance_writer": "FUN_00494730",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          1200.0,
+          3500.0
+        ]
+      ]
+    },
+    {
+      "path": "Chassis/UseCuboidMOI",
+      "type": "Bool",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049B940",
+      "instance_writer": "FUN_00494730",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence"
+    },
+    {
+      "path": "DamageParams/EngineDamageResetScore",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A1A30",
+      "instance_writer": "FUN_00499400",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "path": "DamageParams/EngineDamageStrength",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A1A30",
+      "instance_writer": "FUN_00499400",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          10.0,
+          50.0
+        ]
+      ]
+    },
+    {
+      "path": "DamageParams/EngineThresholdDamageScore",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A1A30",
+      "instance_writer": "FUN_00499400",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          16.0,
+          30.0
+        ]
+      ]
+    },
+    {
+      "path": "DamageParams/EngineThresholdDamageSpeed",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A1A30",
+      "instance_writer": "FUN_00499400",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          2.5,
+          10.0
+        ]
+      ]
+    },
+    {
+      "path": "DamageParams/GearDamageResetScore",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A1A30",
+      "instance_writer": "FUN_00499400",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "path": "DamageParams/GearDamageStrength",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A1A30",
+      "instance_writer": "FUN_00499400",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          1.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "DamageParams/GearThresholdDamageScore",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A1A30",
+      "instance_writer": "FUN_00499400",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          1000.0,
+          10000.0
+        ]
+      ]
+    },
+    {
+      "path": "DamageParams/GearThresholdDamageSpeed",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A1A30",
+      "instance_writer": "FUN_00499400",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          1000.0,
+          3000.0
+        ]
+      ]
+    },
+    {
+      "path": "DamageParams/MaxEngineDamage",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A1A30",
+      "instance_writer": "FUN_00499400",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          50.0,
+          200.0
+        ]
+      ]
+    },
+    {
+      "path": "DamageParams/MaxGearDamage",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A1A30",
+      "instance_writer": "FUN_00499400",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          1.0,
+          2.0
+        ]
+      ]
+    },
+    {
+      "path": "DamageParams/MaxSteeringDamage",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A1A30",
+      "instance_writer": "FUN_00499400",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.08,
+          0.25
+        ]
+      ]
+    },
+    {
+      "path": "DamageParams/MaxSuspensionDamage",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A1A30",
+      "instance_writer": "FUN_00499400",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          6000.0,
+          18000.0
+        ]
+      ]
+    },
+    {
+      "path": "DamageParams/MaxTyreDamage",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A1A30",
+      "instance_writer": "FUN_00499400",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.4,
+          0.5
+        ]
+      ]
+    },
+    {
+      "path": "DamageParams/SteeringDamageResetScore",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A1A30",
+      "instance_writer": "FUN_00499400",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "path": "DamageParams/SteeringDamageStrength",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A1A30",
+      "instance_writer": "FUN_00499400",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.01,
+          0.05
+        ]
+      ]
+    },
+    {
+      "path": "DamageParams/SteeringThresholdDamageScore",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A1A30",
+      "instance_writer": "FUN_00499400",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          16.0,
+          50.0
+        ]
+      ]
+    },
+    {
+      "path": "DamageParams/SteeringThresholdDamageSpeed",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A1A30",
+      "instance_writer": "FUN_00499400",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          2.5,
+          8.0
+        ]
+      ]
+    },
+    {
+      "path": "DamageParams/SuspensionDamageResetScore",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A1A30",
+      "instance_writer": "FUN_00499400",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "path": "DamageParams/SuspensionDamageStrength",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A1A30",
+      "instance_writer": "FUN_00499400",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          2000.0,
+          6000.0
+        ]
+      ]
+    },
+    {
+      "path": "DamageParams/SuspensionThresholdDamageScore",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A1A30",
+      "instance_writer": "FUN_00499400",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          8.0,
+          20.0
+        ]
+      ]
+    },
+    {
+      "path": "DamageParams/SuspensionThresholdDamageSpeed",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A1A30",
+      "instance_writer": "FUN_00499400",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          2.8,
+          8.0
+        ]
+      ]
+    },
+    {
+      "path": "DamageParams/TyreDamageResetScore",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A1A30",
+      "instance_writer": "FUN_00499400",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "path": "DamageParams/TyreDamageStrength",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A1A30",
+      "instance_writer": "FUN_00499400",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.025,
+          0.1
+        ]
+      ]
+    },
+    {
+      "path": "DamageParams/TyreThresholdDamageScore",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A1A30",
+      "instance_writer": "FUN_00499400",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          12000.0,
+          27000.0
+        ]
+      ]
+    },
+    {
+      "path": "DamageParams/TyreThresholdDamageSpeed",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A1A30",
+      "instance_writer": "FUN_00499400",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          5.0,
+          100.0
+        ]
+      ]
+    },
+    {
+      "path": "Dimensions/Height",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049B0C0",
+      "instance_writer": "FUN_004940A0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          1.5,
+          2.5
+        ]
+      ]
+    },
+    {
+      "path": "Dimensions/Length",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049B0C0",
+      "instance_writer": "FUN_004940A0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          2.5,
+          3.5
+        ]
+      ]
+    },
+    {
+      "path": "Dimensions/TrackWidthFront",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049B0C0",
+      "instance_writer": "FUN_004940A0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          1.5,
+          2.4
+        ]
+      ]
+    },
+    {
+      "path": "Dimensions/TrackWidthRear",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049B0C0",
+      "instance_writer": "FUN_004940A0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          1.5,
+          2.4
+        ]
+      ]
+    },
+    {
+      "path": "Dimensions/WheelBase",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049B0C0",
+      "instance_writer": "FUN_004940A0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          2.4,
+          4.1
+        ]
+      ]
+    },
+    {
+      "path": "Dimensions/WheelRadiusFront",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049B0C0",
+      "instance_writer": "FUN_004940A0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.38,
+          0.6
+        ]
+      ]
+    },
+    {
+      "path": "Dimensions/WheelRadiusRear",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049B0C0",
+      "instance_writer": "FUN_004940A0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.38,
+          0.6
+        ]
+      ]
+    },
+    {
+      "path": "Dimensions/Width",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049B0C0",
+      "instance_writer": "FUN_004940A0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          2.0,
+          3.0
+        ]
+      ]
+    },
+    {
+      "path": "Engine/AutoGears",
+      "type": "Bool",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence"
+    },
+    {
+      "path": "Engine/BrakeBias",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.5,
+          0.5
+        ]
+      ]
+    },
+    {
+      "path": "Engine/CentreLSDBias",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          1.0,
+          2.0
+        ]
+      ]
+    },
+    {
+      "path": "Engine/ChangeDownRevs0",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          20.0,
+          57.0
+        ]
+      ]
+    },
+    {
+      "path": "Engine/ChangeDownRevs1",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          35.0,
+          57.0
+        ]
+      ]
+    },
+    {
+      "path": "Engine/ChangeDownRevs2",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          20.0,
+          57.0
+        ]
+      ]
+    },
+    {
+      "path": "Engine/ChangeDownRevs3",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          30.0,
+          57.0
+        ]
+      ]
+    },
+    {
+      "path": "Engine/ChangeDownRevs4",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          35.0,
+          57.0
+        ]
+      ]
+    },
+    {
+      "path": "Engine/ChangeDownRevs5",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          30.0,
+          57.0
+        ]
+      ]
+    },
+    {
+      "path": "Engine/ChangeDownRevs6",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 33,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          30.0,
+          57.0
+        ]
+      ]
+    },
+    {
+      "path": "Engine/ChangeUpRevs0",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          75.0,
+          97.0
+        ]
+      ]
+    },
+    {
+      "path": "Engine/ChangeUpRevs1",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          35.0,
+          97.0
+        ]
+      ]
+    },
+    {
+      "path": "Engine/ChangeUpRevs2",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          75.0,
+          97.0
+        ]
+      ]
+    },
+    {
+      "path": "Engine/ChangeUpRevs3",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          84.0,
+          97.0
+        ]
+      ]
+    },
+    {
+      "path": "Engine/ChangeUpRevs4",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          90.0,
+          97.0
+        ]
+      ]
+    },
+    {
+      "path": "Engine/ChangeUpRevs5",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          90.0,
+          97.0
+        ]
+      ]
+    },
+    {
+      "path": "Engine/ChangeUpRevs6",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 33,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          90.0,
+          97.0
+        ]
+      ]
+    },
+    {
+      "path": "Engine/ClutchSwitchTime",
+      "type": "Int",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          2.0,
+          6.0
+        ]
+      ]
+    },
+    {
+      "path": "Engine/DriveShaftInertia",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.05,
+          0.3
+        ]
+      ]
+    },
+    {
+      "path": "Engine/DriveType",
+      "type": "Int",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "path": "Engine/EngineDamping",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.05,
+          0.15
+        ]
+      ]
+    },
+    {
+      "path": "Engine/EngineInertia",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.6,
+          0.8
+        ]
+      ]
+    },
+    {
+      "path": "Engine/FrontLSDBias",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          1.0,
+          1.3
+        ]
+      ]
+    },
+    {
+      "path": "Engine/Gear0",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          -9.40338,
+          -3.2
+        ]
+      ]
+    },
+    {
+      "path": "Engine/Gear1",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "path": "Engine/Gear2",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          3.5,
+          5.96276
+        ]
+      ]
+    },
+    {
+      "path": "Engine/Gear3",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          1.9,
+          3.72672
+        ]
+      ]
+    },
+    {
+      "path": "Engine/Gear4",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          1.35,
+          1.98759
+        ]
+      ]
+    },
+    {
+      "path": "Engine/Gear5",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          1.0,
+          1.49069
+        ]
+      ]
+    },
+    {
+      "path": "Engine/Gear6",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 33,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.9,
+          1.14668
+        ]
+      ]
+    },
+    {
+      "path": "Engine/GearRatioDiff",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          3.4,
+          4.8
+        ]
+      ]
+    },
+    {
+      "path": "Engine/Gears",
+      "type": "Int",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          6.0,
+          7.0
+        ]
+      ]
+    },
+    {
+      "path": "Engine/IdleRevs",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          500.0,
+          1000.0
+        ]
+      ]
+    },
+    {
+      "path": "Engine/LiftOffEngineDamping",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.3,
+          0.35
+        ]
+      ]
+    },
+    {
+      "path": "Engine/MaxClutchTorque",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          1600.0,
+          10000.0
+        ]
+      ]
+    },
+    {
+      "path": "Engine/PeakTorque",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          180.0,
+          1300.0
+        ]
+      ]
+    },
+    {
+      "path": "Engine/RearLSDBias",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          1.0,
+          1.3
+        ]
+      ]
+    },
+    {
+      "path": "Engine/RevLimit",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          6500.0,
+          7000.0
+        ]
+      ]
+    },
+    {
+      "path": "Engine/TorqueEntries",
+      "type": "Int",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          5.0,
+          8.0
+        ]
+      ]
+    },
+    {
+      "path": "Engine/TorqueEntry0",
+      "type": "Vector2",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.25,
+          0.6
+        ]
+      ]
+    },
+    {
+      "path": "Engine/TorqueEntry1",
+      "type": "Vector2",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.2,
+          0.32
+        ],
+        [
+          0.68,
+          0.85
+        ]
+      ]
+    },
+    {
+      "path": "Engine/TorqueEntry2",
+      "type": "Vector2",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.4,
+          0.6
+        ],
+        [
+          0.95,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "Engine/TorqueEntry3",
+      "type": "Vector2",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.58,
+          0.8
+        ],
+        [
+          1.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "Engine/TorqueEntry4",
+      "type": "Vector2",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.75,
+          1.0
+        ],
+        [
+          0.8,
+          0.97
+        ]
+      ]
+    },
+    {
+      "path": "Engine/TorqueEntry5",
+      "type": "Vector2",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 34,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.8,
+          1.0
+        ],
+        [
+          0.7,
+          0.92
+        ]
+      ]
+    },
+    {
+      "path": "Engine/TorqueEntry6",
+      "type": "Vector2",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 2,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.9,
+          0.9
+        ],
+        [
+          0.85,
+          0.85
+        ]
+      ]
+    },
+    {
+      "path": "Engine/TorqueEntry7",
+      "type": "Vector2",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 2,
+      "reader": "FUN_0049CEF0",
+      "instance_writer": "FUN_004958E0",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          1.0,
+          1.0
+        ],
+        [
+          0.62,
+          0.62
+        ]
+      ]
+    },
+    {
+      "path": "Steering/MaxSpeed",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049C950",
+      "instance_writer": "FUN_00495460",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          60.0,
+          80.0
+        ]
+      ]
+    },
+    {
+      "path": "Steering/MaxSteer",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049C950",
+      "instance_writer": "FUN_00495460",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.6,
+          0.7
+        ]
+      ]
+    },
+    {
+      "path": "Steering/MinSpeed",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049C950",
+      "instance_writer": "FUN_00495460",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          15.0,
+          25.0
+        ]
+      ]
+    },
+    {
+      "path": "Steering/SteerOffset",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049C950",
+      "instance_writer": "FUN_00495460",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "path": "Steering/SteerScale",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049C950",
+      "instance_writer": "FUN_00495460",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          1.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Front/AntiDiveCoeff",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049E970",
+      "instance_writer": "FUN_00496D20",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          1.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Front/AuxRollStiffness",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049E970",
+      "instance_writer": "FUN_00496D20",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.0,
+          10000.0
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Front/Camber",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049E970",
+      "instance_writer": "FUN_00496D20",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          -2.0,
+          -1.5
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Front/CamverVsJounce",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049E970",
+      "instance_writer": "FUN_00496D20",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          15.0,
+          15.0
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Front/DamperArmRatio",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049E970",
+      "instance_writer": "FUN_00496D20",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          1.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Front/DamperRate",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049E970",
+      "instance_writer": "FUN_00496D20",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          1500.0,
+          6000.0
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Front/MaxBounce",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049E970",
+      "instance_writer": "FUN_00496D20",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.25,
+          0.45
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Front/MaxDroop",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049E970",
+      "instance_writer": "FUN_00496D20",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.1,
+          0.2
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Front/RideHeight",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049E970",
+      "instance_writer": "FUN_00496D20",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.0,
+          0.15
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Front/SpringArmRatio",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049E970",
+      "instance_writer": "FUN_00496D20",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          1.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Front/SpringRate",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049E970",
+      "instance_writer": "FUN_00496D20",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          21000.0,
+          110000.0
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Front/SteerVsLat",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049E970",
+      "instance_writer": "FUN_00496D20",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Front/SteerVsMoment",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049E970",
+      "instance_writer": "FUN_00496D20",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Front/SuspAppPointOffsetLat",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049E970",
+      "instance_writer": "FUN_00496D20",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.17,
+          0.5
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Front/SuspAppPointOffsetLong",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049E970",
+      "instance_writer": "FUN_00496D20",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.17,
+          0.5
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Front/SuspAppPointOffsetVert",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049E970",
+      "instance_writer": "FUN_00496D20",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.3,
+          0.7
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Front/ToeIn",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049E970",
+      "instance_writer": "FUN_00496D20",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Front/ToeVsJounce",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049E970",
+      "instance_writer": "FUN_00496D20",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Front/ToeVsLong",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049E970",
+      "instance_writer": "FUN_00496D20",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Front/TyreType",
+      "type": "String",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049E970",
+      "instance_writer": "FUN_00496D20",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence"
+    },
+    {
+      "path": "Suspension/Front/UnsprungMass",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049E970",
+      "instance_writer": "FUN_00496D20",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          60.0,
+          200.0
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Front/WaterDamping",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049E970",
+      "instance_writer": "FUN_00496D20",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          1.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Front/WheelDamping",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049E970",
+      "instance_writer": "FUN_00496D20",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.02,
+          0.1
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Front/WheelMOI",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_0049E970",
+      "instance_writer": "FUN_00496D20",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          2.3,
+          3.2
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Rear/AntiDiveCoeff",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A01D0",
+      "instance_writer": "FUN_00498090",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          1.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Rear/AuxRollStiffness",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A01D0",
+      "instance_writer": "FUN_00498090",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.0,
+          10000.0
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Rear/Camber",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A01D0",
+      "instance_writer": "FUN_00498090",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          -1.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Rear/CamverVsJounce",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A01D0",
+      "instance_writer": "FUN_00498090",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          15.0,
+          15.0
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Rear/DamperArmRatio",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A01D0",
+      "instance_writer": "FUN_00498090",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          1.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Rear/DamperRate",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A01D0",
+      "instance_writer": "FUN_00498090",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          1500.0,
+          6000.0
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Rear/MaxBounce",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A01D0",
+      "instance_writer": "FUN_00498090",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.25,
+          0.45
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Rear/MaxDroop",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A01D0",
+      "instance_writer": "FUN_00498090",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.1,
+          0.2
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Rear/RideHeight",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A01D0",
+      "instance_writer": "FUN_00498090",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.0,
+          0.15
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Rear/SpringArmRatio",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A01D0",
+      "instance_writer": "FUN_00498090",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          1.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Rear/SpringRate",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A01D0",
+      "instance_writer": "FUN_00498090",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          21000.0,
+          110000.0
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Rear/SteerVsLat",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A01D0",
+      "instance_writer": "FUN_00498090",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Rear/SteerVsMoment",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A01D0",
+      "instance_writer": "FUN_00498090",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Rear/SuspAppPointOffsetLat",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A01D0",
+      "instance_writer": "FUN_00498090",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.16,
+          0.4
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Rear/SuspAppPointOffsetLong",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A01D0",
+      "instance_writer": "FUN_00498090",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.16,
+          0.4
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Rear/SuspAppPointOffsetVert",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A01D0",
+      "instance_writer": "FUN_00498090",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.3,
+          0.7
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Rear/ToeIn",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A01D0",
+      "instance_writer": "FUN_00498090",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Rear/ToeVsJounce",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A01D0",
+      "instance_writer": "FUN_00498090",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Rear/ToeVsLong",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A01D0",
+      "instance_writer": "FUN_00498090",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Rear/TyreType",
+      "type": "String",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A01D0",
+      "instance_writer": "FUN_00498090",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence"
+    },
+    {
+      "path": "Suspension/Rear/UnsprungMass",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A01D0",
+      "instance_writer": "FUN_00498090",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          60.0,
+          200.0
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Rear/WaterDamping",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A01D0",
+      "instance_writer": "FUN_00498090",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          1.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Rear/WheelDamping",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A01D0",
+      "instance_writer": "FUN_00498090",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          0.02,
+          0.1
+        ]
+      ]
+    },
+    {
+      "path": "Suspension/Rear/WheelMOI",
+      "type": "Float",
+      "source_member": "DataGame/vehicles.xml",
+      "family_count": 35,
+      "reader": "FUN_004A01D0",
+      "instance_writer": "FUN_00498090",
+      "consumer_boundary": "reader/writer dataflow; per-field force semantics require separate native consumer evidence",
+      "observed_component_min_max": [
+        [
+          2.3,
+          3.2
+        ]
+      ]
+    }
+  ],
+  "families": [
+    "Astero",
+    "Bowler",
+    "Bruno",
+    "Cherokee",
+    "Chevyblazer",
+    "Citroen",
+    "Custom",
+    "Forester",
+    "Frontera",
+    "Icecream",
+    "Jump",
+    "Kamaz",
+    "Kangoo",
+    "Kiasportage",
+    "Landcruiser",
+    "Mattserati",
+    "Megane",
+    "Megane2",
+    "Mercedes",
+    "Navara",
+    "Navarabig",
+    "Newrav",
+    "Pajero",
+    "Pajerostripe",
+    "Patrol",
+    "Rmonster",
+    "SeatBuggy",
+    "Simmbugghini",
+    "Tata",
+    "Terios",
+    "Terrano",
+    "Trooper",
+    "Ufo",
+    "Wildcat",
+    "Xtrail"
+  ],
+  "excluded_namespaces": [
+    "Tyres"
+  ],
+  "boundary": "observed stock ranges are not engine clamps or proven safe tuning bounds; includes XML-only named families as well as selectable records"
+}

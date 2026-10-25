@@ -1,0 +1,61 @@
+{
+  "phase": "V-PHYS1",
+  "status": "READY_FOR_HUMAN_GAMEPLAY_TEST",
+  "runtime_qualified": false,
+  "game_launched": false,
+  "candidate": ".research-output\\vehicles\\vphys1\\final-fitment",
+  "launch": ".research-output\\vehicles\\vphys1\\final-fitment\\Launch-Physics.cmd",
+  "profile": "research/vehicles/vphys1/fitment-physics.json",
+  "alternative_candidates": {
+    "control": ".research-output\\vehicles\\vphys1\\candidate-control\\Launch-V-PHYS1-control.cmd",
+    "dimensions": ".research-output\\vehicles\\vphys1\\candidate-dimensions\\Launch-V-PHYS1-dimensions.cmd"
+  },
+  "tests": {
+    "synthetic": 651,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1,
+    "native_parameter_sensitivity": 11,
+    "native_damage_impacts": 36,
+    "default_v6_resources_reproduced": 86,
+    "immutable_runtime_resources": 228,
+    "byte_identical_runtime_resources": 227
+  },
+  "source_qualified_profile_values": {
+    "DataGame/vehicles.xml": {
+      "Dimensions/WheelBase": 2.5100000000000002,
+      "Dimensions/TrackWidthFront": 1.49,
+      "Dimensions/TrackWidthRear": 1.49,
+      "Dimensions/WheelRadiusFront": 0.32535,
+      "Dimensions/WheelRadiusRear": 0.32535,
+      "Suspension/Front/RideHeight": -0.18535000000000001,
+      "Suspension/Rear/RideHeight": -0.18535000000000001
+    }
+  },
+  "baseline_asset_hashes": {
+    "car.dx": "b1798279dfa54cb9ecb5276ee8fe199858b56f146ca15195390cd0584796ac2e",
+    "complete.dx": "3c9817b48e2a3fb89d1a25d8551cb55fa740c0f79a1a146b400426e444d2fad2",
+    "wheel.dx": "050b69e9b78d1e7f0684895469ad67bcb06342730dbdd424aeadc51beb56540f"
+  },
+  "original_hashes": {
+    "D:\\Game\\Master Rallye\\MRallye.exe": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "D:\\Game\\Master Rallye\\d3d8.dll": "eb7ea3d9501b514bff668f1e75e86041906c5fe4e8afa89f06d658751429aaf4"
+  },
+  "evidence": {
+    "regression": ".research-output\\vehicles\\vphys1\\regression-final.json",
+    "native": ".research-output\\vehicles\\vphys1\\native-sensitivity-final.json",
+    "damage": ".research-output\\vehicles\\vphys1\\damage-regression.json",
+    "fitment": ".research-output\\vehicles\\vphys1\\fitment-fitment.json",
+    "captures": ".research-output\\vehicles\\vphys1\\preview-captures.json",
+    "tamper": ".research-output\\vehicles\\vphys1\\negative-xml-validation.json",
+    "suite": ".research-output\\vehicles\\vphys1\\tests-final.log"
+  },
+  "limits": [
+    "dynamic suspension/ground clearance require gameplay",
+    "signed source-origin ride-height values are outside observed stock range",
+    "donor contact hull retained; future source-informed hull fit needed",
+    "shared surface and tyre tables remain immutable; private per-addon compounds not qualified",
+    "mass/power/gearing/springs remain donor-derived; no GT4 physics reproduction",
+    "capacity and physics candidates kept separate"
+  ]
+}
