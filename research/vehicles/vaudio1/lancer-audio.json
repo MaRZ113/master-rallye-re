@@ -1,0 +1,19 @@
+{
+  "audio_profile_version": 1,
+  "policy": "native_custom_engine",
+  "physical_car_id": 27,
+  "stock_audio_profile_id": 7,
+  "namespace": "lancer_evo4",
+  "engine": {
+    "source_path": "audio/engine.wav",
+    "source_sha256": "6cb99e0c853ebc88f89ce893e6c2d7eb5c32fa5f5b7a6663b076a621c2fc9c59",
+    "trim_frames": [
+      0,
+      17668
+    ],
+    "gain_db": -3,
+    "remove_dc": true,
+    "crossfade_frames": 0
+  },
+  "notes": "Private original GT4 Beta mits0015 source: vehicle mapping engine bank22601, table0 band04, source reference4000RPM. SPU2 pitch1831 gives rounded21457Hz via48000*1831/4096. Source loop17668samples decoded without source normalization/fade. Converted to native MR PCM16 mono48000Hz, -3dB and DC removal only. This is one authentic source band through MR wsDsFxRevs and stock7 tables, not GT4's original engine/exhaust multilayer mixture or accurate GT4 audio reproduction. Keep extracted source/WAVs private; no bundled game audio. Pitch-field interpretation uses the exact comparative supplied Online-US CORE; pairing with a historical Beta runtime is not independently proved."
+}
