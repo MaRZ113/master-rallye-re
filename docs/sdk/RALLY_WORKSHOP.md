@@ -153,3 +153,7 @@ Run edited candidates in Master Rallye yourself to verify actual material/glass,
 reflections, damage, brake lights, sound, camera modes, AI/Results/re-entry and
 unrelated stock/addons. GUI and D3D9 evidence is not native gameplay confirmation.
 V-SDK4A is implemented; V-SDK4B/V-SDK4C and later phases have not been started.
+
+## V-SDK4A.1 texture filtering and identity
+
+Pillow is now required for the optional Studio (`pip install -e ".[workshop]"`). Smooth display uses LANCZOS down/bicubic up with premultiplied alpha; Pixel-sharp uses nearest. At1:1 the original texels are shown exactly. Wheel zoom anchors the cursor, and pan/fit/current/original/channels remain display-only. Source dimensions and native pixels never change. The original application icon is distributed with the source; a versioned native executable is used when an old Previewer remains open.

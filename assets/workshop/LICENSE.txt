@@ -1,0 +1,12 @@
+SPDX-License-Identifier: CC0-1.0
+
+Rally Workshop icon artwork is original geometric vector artwork created for
+this project in 2026. It contains no game renders, extracted sprites, textures,
+models, sponsor logos or manufacturer marks. The broad silhouette evokes an
+off-road rally prototype; it does not reproduce a proprietary vehicle asset.
+
+To the extent possible under law, the authors dedicate this icon artwork and
+its generated PNG/ICO representations to the public domain under CC0 1.0:
+https://creativecommons.org/publicdomain/zero/1.0/
+
+The generator tools/generate_workshop_icon.py records all original shape data.

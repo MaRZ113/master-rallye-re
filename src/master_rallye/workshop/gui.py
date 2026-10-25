@@ -12,6 +12,7 @@ from tkinter import ttk, filedialog, messagebox
 
 from .service import WorkshopProject, write_json
 from .texture_view import TextureView
+from .branding import apply_icon,taskbar_identity
 from master_rallye.dxt import DxtTexture, encode_png, PNG_ROWS_PRESERVE_STORED
 from master_rallye.preview_scene import stage_vehicle
 from master_rallye.dx import parse_dx_bytes
@@ -30,7 +31,7 @@ def bmp_png(path):
 
 class WorkshopApp:
     def __init__(self, root, workspace, sdk_root, viewer):
-        self.root=root;self.workspace=Path(workspace).resolve();self.workspace.mkdir(parents=True,exist_ok=True)
+        apply_icon(root);self.root=root;self.workspace=Path(workspace).resolve();self.workspace.mkdir(parents=True,exist_ok=True)
         self.sdk_root=Path(sdk_root).resolve();self.viewer=Path(viewer).resolve();self.messages=queue.Queue();self.busy=False
         self.project=None;self.current_info=None;self.process=None;self.last_selection='';self.photos=[];self.library={}
         self.assembled=tk.BooleanVar(value=True);self.texture_popup=None
@@ -123,7 +124,7 @@ class WorkshopApp:
         settings=ttk.Frame(tabs,padding=9);tabs.add(settings,text='Build / Scope')
         ttk.Button(settings,text='Configure build inputs…',command=self.configure).pack(fill='x')
         ttk.Button(settings,text='Open last build folder',command=self.open_build_folder).pack(fill='x',pady=7)
-        ttk.Label(settings,text='IMPLEMENTED\nDX/DXT inspection, texture multiplier/PNG replacement, Save, Undo, Restore, validation, stock overrides and existing addon roster build.\n\nFUTURE — not editable in V-SDK3\nGlass damage, masked repaint, Classic MR Style, geometry/Blender bridge, scale/fit, Physics/Audio/Camera Studio.\n\nExisting CLI profiles remain intact. Converted-family-only projects build resource packages, not new CarIDs.',wraplength=320).pack(anchor='w',pady=10)
+        ttk.Label(settings,text='IMPLEMENTED\nNative model/draw/material inspection, selected-surface RGB and existing environment pass controls, texture impact warnings and PNG replacement, filtered RGBA/Alpha image views, preview wheel fitting, Save, Undo/Redo/Restore, validation and isolated stock/addon builds.\n\nFUTURE — not editable in this milestone\nGlass damage, masked repaint, Classic MR Style, geometry/Blender bridge, scale/fit, Physics/Audio/Camera Studio.\n\nExisting CLI profiles remain intact. Converted-family-only projects build resource packages, not new CarIDs.',wraplength=320).pack(anchor='w',pady=10)
         bottom=ttk.Frame(self.outer,padding=7);self.outer.add(bottom,weight=1)
         ttk.Label(bottom,text='DIAGNOSTICS / BUILD LOG / PROVENANCE').pack(anchor='w')
         self.log=tk.Text(bottom,height=8,bg='#15191f',fg='#c5ccd6',font=('Consolas',9),wrap='word',relief='flat');self.log.pack(fill='both',expand=True)
@@ -248,7 +249,7 @@ class WorkshopApp:
     def new_stock(self):
         folder=filedialog.askdirectory(title='Choose user-supplied unpacked retail data root',parent=self.root)
         if not folder:return
-        dialog=tk.Toplevel(self.root);dialog.title('Qualified stock vehicle');value=tk.StringVar(value='Megane / CarID18')
+        dialog=tk.Toplevel(self.root);apply_icon(dialog);dialog.title('Qualified stock vehicle');value=tk.StringVar(value='Megane / CarID18')
         ttk.Label(dialog,text='Only source-qualified registry pairs are available.').pack(padx=15,pady=10)
         ttk.Combobox(dialog,textvariable=value,values=['Megane / CarID18','Pajero / CarID1'],state='readonly',width=30).pack(padx=15,pady=5)
         def create():
@@ -370,7 +371,7 @@ class WorkshopApp:
 
     def detach_texture(self):
         if self.texture_popup and self.texture_popup.winfo_exists():self.texture_popup.lift();return
-        win=tk.Toplevel(self.root);win.title('Texture Studio — RGBA / alpha / Original comparison');win.geometry('1000x760');win.minsize(500,350);self.texture_popup=win
+        win=tk.Toplevel(self.root);apply_icon(win);win.title('Texture Studio — RGBA / alpha / Original comparison');win.geometry('1000x760');win.minsize(500,350);self.texture_popup=win
         path=self.workspace/'texture-window.json'
         if path.exists():
             try:win.geometry(json.loads(path.read_text())['geometry'])
@@ -478,7 +479,7 @@ class WorkshopApp:
 
     def configure(self):
         if not self.project:return
-        dialog=tk.Toplevel(self.root);dialog.title('Build inputs — existing qualified SDK paths');fields={}
+        dialog=tk.Toplevel(self.root);apply_icon(dialog);dialog.title('Build inputs — existing qualified SDK paths');fields={}
         labels={'roster_candidate':'Existing roster candidate folder','retail_sma':'Original retail Data.sma','retail_root':'Matching unpacked retail data root'}
         for key,label in labels.items():
             row=ttk.Frame(dialog,padding=7);row.pack(fill='x');ttk.Label(row,text=label,width=32).pack(side='left');v=tk.StringVar(value=self.project.data['build_settings'].get(key,''));fields[key]=v;ttk.Entry(row,textvariable=v,width=65).pack(side='left')
@@ -552,9 +553,12 @@ class WorkshopApp:
 def main():
     import argparse
     root_path=Path(__file__).resolve().parents[3]
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--workspace',type=Path,default=root_path/'.research-output/rally-workshop-workspace');p.add_argument('--viewer',type=Path,default=root_path/'.research-output/rally-workshop/bin/mr-vehicle-previewer.exe');p.add_argument('--project',type=Path);a=p.parse_args()
+    default_viewer=root_path/'.research-output/rally-workshop/bin/mr-vehicle-previewer.exe'
+    manifest=root_path/'.research-output/rally-workshop/application-build.json'
+    if manifest.is_file():default_viewer=Path(json.loads(manifest.read_text()).get('viewer_path',default_viewer))
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--workspace',type=Path,default=root_path/'.research-output/rally-workshop-workspace');p.add_argument('--viewer',type=Path,default=default_viewer);p.add_argument('--project',type=Path);a=p.parse_args()
     if not a.viewer.is_file():raise RuntimeError('Build Rally Workshop first: python tools/build_rally_workshop.py')
-    root=tk.Tk();app=WorkshopApp(root,a.workspace,root_path,a.viewer)
+    taskbar_identity();root=tk.Tk();app=WorkshopApp(root,a.workspace,root_path,a.viewer)
     if a.project:app._opened(WorkshopProject(a.project))
     elif app.library:root.after(250,lambda:app.library_tree.selection_set(next(iter(app.library))))
     root.mainloop()

@@ -11,3 +11,6 @@ target_compile_definitions(mr-vehicle-previewer PRIVATE SDK_ROOT=L"${SDK_ROOT}")
 target_compile_options(mr-vehicle-previewer PRIVATE /W4 /permissive- /EHsc /utf-8)
 target_link_options(mr-vehicle-previewer PRIVATE /Brepro)
 target_link_libraries(mr-vehicle-previewer PRIVATE d3d9 comdlg32 shell32)
+
+configure_file(workshop.rc.in workshop.rc @ONLY)
+target_sources(mr-vehicle-previewer PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/workshop.rc")

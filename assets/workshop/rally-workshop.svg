@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Rally Workshop original rally prototype icon">
+<rect x="12" y="12" width="488" height="488" rx="96" fill="#252930"/>
+<polygon points="65,295 123,269 179,221 217,164 329,164 391,225 454,267 449,335 65,335" fill="#edb34d"/>
+<polygon points="190,222 231,181 316,181 358,224" fill="#252930"/>
+<path d="M273 179V225M99 287H159M379 239H422" fill="none" stroke="#252930" stroke-width="14"/>
+<path d="M214 157H333" stroke="#ece5d5" stroke-width="12" stroke-linecap="round"/>
+<path d="M90 343H430" stroke="#ece5d5" stroke-width="12"/>
+<g fill="#15191f" stroke="#252930" stroke-width="14"><circle cx="157" cy="335" r="65"/><circle cx="369" cy="335" r="65"/></g>
+<g fill="#edb34d"><circle cx="157" cy="335" r="29"/><circle cx="369" cy="335" r="29"/></g>
+</svg>

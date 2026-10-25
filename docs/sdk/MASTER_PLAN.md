@@ -1,6 +1,6 @@
 # Master Rallye Vehicle SDK — Master Plan / Rally Workshop
 
-**Working baseline:** 25 October 2026 (V-SDK3 source review + owner Windows screenshots, revision 4.1; earlier phase requests retained as historical context)  
+**Working baseline:** 25 October 2026 (revision 4.3: owner-prioritized glass damage, existing-texture slot assignment, offline help; inherited V-SDK4A owner acceptance and revisions preserved)  
 **Repository:** `master-rallye-re-vehicles` · **branch:** `research/vehicles`  
 **Purpose:** single living specification for development, review, acceptance and public beta planning.  
 **Status disclaimer:** this document summarizes previous source-review discussions and reported gameplay tests. It is **not** a new repository or binary audit; verify each item against the current checkout before implementation. Update the ledger after every development phase.
@@ -16,7 +16,7 @@
 3. Every transformation is non-destructive, reproducible, testable, and traceable to input resources and configuration. Immutable input + editable layer(s) + generated output.
 4. GT3/GT4 resource extraction is optional and local. Never include/distribute proprietary models, textures, audio, icons or game binaries. User-created/licensed assets also work.
 5. `Randomizer & AI Extender` remains a separate project; no unapproved integration.
-6. No git commit, push, release or publication without explicit authorization. No claims of in-game verification based solely on synthetic tests.
+6. **Owner-authorized local commits after each completed and validated phase** (with clear scope and passing tests); existing earlier phase commits are retained. Never push, release or publish without separate explicit authorization. Do not reconstruct fictitious intermediate historical snapshots. No claims of in-game verification based solely on synthetic tests.
 7. Features that are not supported by the verified Master Rallye engine must be marked as **approximation / unsupported**, not silently simulated or advertised as native.
 8. **GUI must be an actual working editor** calling existing SDK services, not a disconnected mockup or a rewrite of the proven conversion pipeline.
 9. Source authenticity and target style are **independent authoring choices**. Preserve an untouched GT/MR source reference, plus optional author-edited texture/material/paint/scale layers; no destructive automatic "style conversions".
@@ -50,6 +50,8 @@ At release time, maintain both per-feature and per-car statuses, plus a test evi
 | Wheels and fitment | Stock-informed rim shelf, new rim texture rules, GT4 wheel transform, physics wheelbase/track/radius profiles | Unified visual hub/brake disc/wheel assembly editor; statically vs dynamically loaded stance distinction; physical suspension and source geometry fitting |
 | Native damage | Corrected GT4 body tearing via compatible opacity/damage handling; Lancer user gameplay report | Automated deformation compatibility warnings on newly edited meshes; stock/addon regressions |
 | **Broken/cracked glass** | **User-reported issue on Subaru:** breaking a window can make glass disappear; no systematic native glass-break study or accepted repair yet | Research stock MR intact/cracked/shattered transitions, per-pane state and vertex/texture ownership; implement and validate damage-aware broken-glass layer/state **only as supported by actual engine behavior** |
+| **Existing texture reassignment** | V-SDK4A Inspector enumerates draws and native texture slots, resolves associated DXT and permits replacing pixels in existing texture resources; native slot IDs are presently **read-only** | Add verified, draw/slot-scoped **Assign Existing Texture** workflow. Select a DXT already present in the opened project, validate slot semantics and dimensions/UV/alpha/reflection, guard shared native table entries; persist edits, preview, build, undo/restore. Distinguish a slot pointer reassignment from replacing the pixel payload shared by many draws. |
+| **Offline user help** | V-SDK3/V-SDK4A has diagnostic labels and tooltips/status text but no complete novice-oriented reference verified | Dedicated local Help/F1 and contextual help for project types, Open/Save/Validate/Build/Undo/Restore, viewport mouse controls, F3 debug, Raw/Assembled Race, wheel fitment, original-vs-edited texture, texture slot reassignment, native D3D9 preview limitations; update help alongside controls. |
 | **Classic MR style matching** | Stock MR texture/material resources can be inspected; existing source-fidelity/balanced texture authoring | Optional locally sourced stock-MR material/texture equivalents with UV/scale/alpha adaptation, visual A/B, provenance; no bulk blind swapping |
 | **Whole-car scaling** | Native source dimensions/mesh transforms, fitment and camera bounds partially mapped | Non-destructive scale/fit profile, synchronized source↔MR comparison, dimension targets, wheel/crew/light/collision/damage/camera dependency checks; no automatic physics claims |
 | **Repainting / base paint** | GT material zoning and color/paint classification partly implemented; no qualified general paint editor | Editable base color and paint masks where source semantics permit, preserve liveries/decals/highlights; refuse unsafe hue shifts across shared atlases |
@@ -205,6 +207,8 @@ Add camera bookmark Save/Recall; mouse sensitivity and invert settings; pan move
 - Material picking/highlight, alpha/paint/glass/decal/damage/reflection diagnostics, safe presets and editable overrides.
 - Investigate Subaru's window-break disappearance against stock MR and create an isolated, tested **per-pane intact/cracked/shattered workflow**. If actual runtime cannot support all three states, label the supported subset instead of simulating functionality without warning.
 - Texture browser, import/replace, alpha/UV details, Source Fidelity/Balanced/Performance options, reload and budget warning.
+- Add **native texture-slot assignment** of an existing project DXT to a qualified selected draw/slot. This must NOT be confused with editing every usage of a shared DXT pixel payload; validate native pointer/name table ownership and conflict behavior.
+- Provide **offline Help/F1** and discoverable view-control explanations for the editor. Keep docs synchronized with implemented functions.
 - Add stock-MR texture/material substitution, `Classic MR Style` A/B, and masked body-color editing with persistent override/preset metadata.
 - **Gate:** demonstrate repeatable repair of a visible import defect without hand-editing code; stock and addon changes independently reversible.
 
@@ -257,6 +261,8 @@ Add camera bookmark Save/Recall; mouse sensitivity and invert settings; pan move
 | Material/rendering | Frontend/race, glass/decal order, reflection mask seams, headlights, brake glow, crew, both reflection states, damage |
 | Cracked/shattered windows | Stock pane damage behaviors vs Subaru regression; smash one window then examine all other panes; intact→damaged states, alpha/depth/reflections, race/preview parity |
 | Style/material substitutions | Local stock MR texture replacement with visible before/after, verified UV adaptation, no unrelated shared atlas mutation; undo/restore; texture-memory and license/source checks |
+| Native texture-slot reassignment | Same loaded project texture assigned to two or more eligible draws; verify only intended slot references change, shared native descriptors protected, preview/build/reopen/undo/restore; unsafe cross-pass alpha/env swaps rejected |
+| Offline Help and F1 | Open context help in stock/addon project, inspect F3/hotkeys and material slots; verify links, correct current shortcut labels, native-preview qualification notes, navigation without internet |
 | Repaint | Recolor a car's actual base coat while preserving baked logos where feasible; fallback UI and no wrong recolor when paint is baked into same pixels as decals |
 | Scaling | Uniform scale and explicitly qualified dimension fit; Source vs MR reference view, correct wheel/brake/crew/light/collision/shadow/camera dependency reports; restore source and retain patch layers |
 | Wheels/fitment | Four corners, front/rear brakes, tyre/rim layers, static stance vs loaded race stance, turns/bumps/jumps |
@@ -375,4 +381,79 @@ The v4.1 owner specification above remains intact. Imported source SHA256: `59dd
 
 **V-SDK4A IMPLEMENTED; exact checks in VSDK4A_RESULTS.md:** hierarchical source model/draw/material/texture inspector; per-draw native vertex diffuse RGB through the existing attribute writer; disable/restore an existing environment pass. Alpha/depth, unknown flags, UV and texture-slot assignment remain read-only. Shared vertex conflicts refuse selective edits. Whole-image texture changes list every referenced draw/slot and ask for explicit impact confirmation. Image alpha/orientation and native damage alpha ownership are preserved by scoped RGB edits. Save/reopen, Undo/Redo/Restore, hash-pinned surface layers and isolated stock/addon candidate builds use shared SDK APIs.
 
-**Boundaries:** no semantic paint mask or selective texture cloning is claimed; a selected draw's RGB also modulates baked content on that draw. Preview wheel coordinates are not gameplay wheel positions. Original-game appearance and edited-candidate regressions remain owner gameplay gates. No new stock CarIDs, capacity, physics, audio, camera policy, glass-damage states or GT reconstruction were introduced. No new commits or pushes are authorized by this phase. V-SDK4B/V-SDK4C and later roadmap remain deferred.
+**Boundaries:** no semantic paint mask or selective texture cloning is claimed; a selected draw's RGB also modulates baked content on that draw. Preview wheel coordinates are not gameplay wheel positions. Original-game appearance and edited-candidate regressions remain owner gameplay gates. No new stock CarIDs, capacity, physics, audio, camera policy, glass-damage states or GT reconstruction were introduced. Owner subsequently authorized a local commit per completed and validated phase; push/publication remain separately prohibited. V-SDK4B/V-SDK4C and later roadmap remain deferred.
+
+
+## 15. Owner V-SDK4A acceptance + source review (25 October 2026, revision 4.2)
+
+**Source archive examined:** `rally-workshop-vsdk4a-source.zip`. Its 735 ZIP entries pass archive integrity, all 734 manifest-tracked files exactly match SHA-256, and all 418 Python sources parse. An independent targeted run of `tests.synthetic.test_workshop`, `test_workshop_stabilization` and `test_surface_authoring` passes 20 tests; the claimed 799-test/one-skipped full Windows suite is reported in `VSDK4A_RESULTS.md`, not independently reproduced in this review environment. Private compiled evidence and native gameplay remain user-side checks.
+
+**Owner Windows observations:** previous Subaru wheel and raw/assembled Pajero issues are now resolved; texture replacement succeeds. Remaining 2D texture viewer issue: zoomed/fitted images visually break or distort, while exact 1:1 view is correct. This affects the texture image inspection canvas only, not 3D model textures or persisted DX/DXT assets.
+
+### Immediate bounded follow-up: V-SDK4A.1 — Texture Viewer Resampling, UI Identity, and History
+
+1. **Texture viewer only:** `src/master_rallye/workshop/texture_view.py` currently maps fractional zoom to `Fraction(...).limit_denominator(1024)` then `tk.PhotoImage copy -zoom n,n -subsample d,d`. This is integer pixel replication/subsampling, not proper area-filtered downscaling or bilinear interpolation. It can produce aliasing and misleading pixel/color appearances at non-1:1 scales. Replace with a well-tested **display-only** viewport rasterization path: exact original texels at 1:1, pixel-sharp integer zoom if selected, readable filtered reduction at fit/0.25/0.5/0.75, sensible fractional enlargement; premultiplied-alpha resampling and checkerboard correctness; zoom focal-point anchoring, smooth pan, clipping and bounded memory. Preserve actual texture byte payload, `encode_png` row orientation, alpha and existing source/edited/Undo/Build contract. Do not automatically change DXT resolution or texture source pixels.
+2. **Zoom regression:** exercise actual TK images / screenshots, alpha edges, diagonal lines and lettering, 64², 128², 1024×256 and 2048² examples at 0.25×, 0.5×, 0.75×, 1×, 1.25×, 2× and 4×; verify Original/current in RGB/RGBA/Alpha, detached and embedded viewer, pan near edges, output byte-for-byte unchanged. Document filtering choices.
+3. **Distinctive Rally Workshop application icon:** author a NEW original stylized off-road rally prototype silhouette reminiscent of the **Schlesser Renault Megane** shape, rather than extracting or distributing Master Rallye/other-game renders, logos, livery or screenshots. Graphite + restrained amber, high contrast at 16×16. Keep source SVG/vector art plus generated Windows multi-resolution `.ico` (16, 24, 32, 48, 64, 128, 256). Apply it to Tk main window, detached/dlg windows as appropriate, Windows taskbar where the launcher supports a real app identity, future executable/package, and optionally native Previewer if cleanly supported by the build. No proprietary image in the public asset bundle.
+4. **Local history policy:** owner explicitly approves one local commit after each validated phase, with tests and artifact/evidence summary. Earlier 43 phase commits and the V-SDK3 baseline are already documented; do not manufacture historical versions or rewrite prior verified commits. Commit V-SDK4A only after confirming the real checkout status; subsequently commit V-SDK4A.1 as its own bounded change. No push, remote publication, release or unrelated repository operations.
+5. **Owner acceptance:** ask the owner to verify corrected zoom on their actual Windows installation, legible app/taskbar icon and no regressions to surface RGB, mirrored wheel views, raw/assembled Race, native imports, existing texture replacement/build, stock restore and addon candidates.
+
+### Historic V-SDK4A.1 review outlook (superseded for ordering by §16 below)
+
+- **V-SDK4B:** Paint/Recolor Studio and Classic MR Style, starting with source-qualified opaque paint materials, mask-aware recolor that protects logos/glass, existing-texture reuse from *user-supplied* retail MR resources, original vs edited comparison, UV/provenance diagnostics, explicit non-destructive choices.
+- **V-SDK4C:** Subaru damaged-glass root-cause research against original MR native states before implementing any cracked-glass authoring; don't assume the symptom proves a missing overlay.
+- **V-SDK5:** Blender round-trip and qualified visual Scale/Fit + stock geometry comparison.
+- **V-SDK6:** Physics/Audio/Camera Studio; preserve current synthesized whine/spool/BOV and allow independent user-supplied replacements with presets.
+- **V-SDK7:** full fleet, format compatibility, release safety, installer, docs, and voluntary sponsor information after appropriate legal review.
+
+**Definition of success for V-SDK4A.1:** both embedded and detached texture views display predictable, visually faithful images at arbitrary zoom, 1:1 remains pixel-exact, resource bytes remain identical, the app has a coherent legally distributable icon, and local Git history is clean and scoped.
+
+## 16. Owner roadmap decision — V-SDK4A.1 completion → V-SDK4C damage-first (revision 4.3, 25 October 2026)
+
+**This section supersedes the sequencing in §15 and earlier roadmap summaries, but does not delete or weaken their requirements.** The owner wants native vehicle completeness and physical/damage behavior investigated before cosmetic Paint Studio/Classic MR Style work. The next Codex run after V-SDK4A.1 is **V-SDK4C**; V-SDK4B is postponed, **not canceled**.
+
+### A. Close V-SDK4A.1 cleanly
+
+- Finish and verify Texture Viewer display-only fractional zoom/fit resampling (1:1 still pixel exact; actual DXT/PNG bytes unchanged); create the original Rally Workshop icon, preserving copyright boundaries.
+- Run relevant Windows checks, isolate unrelated changes, create a **local** `V-SDK4A.1` commit only on acceptance; retain prior `V-SDK4A` commit and previous genuine history. No push or publication.
+- Record owner acceptance, build hashes, tests and any remaining display issues. If this subphase has not yet been implemented, do not falsely mark it complete.
+
+### B. Next run: V-SDK4C — Broken Glass & Native Damage Fidelity (primary mission)
+
+**Observation, not yet diagnosed:** owner reports that when **one** window on the imported Subaru is broken, the car's glass disappears. It is **not established** that a separate cracked-glass texture or overlay is the correct repair; investigate actual stock native game behavior first.
+
+1. Establish source-qualified stock MR glass baseline: intact, damaged/cracked if the engine supports it, broken/absent; multiple separate panes and which vertices/materials/flags/resources/damage groups own their state. Examine installed stock `car.dx`/`complete.dx`, original texture alpha, damage transitions, geometry and renderer ordering; isolate unknowns.
+2. Reproduce Subaru regression in the actual game under controlled conditions: break left window only; observe all other panes, from several angles, before/after and after race re-entry. Compare with at least one stock sedan and one other import. Preserve exact candidate/provenance and capture proof. Offline Previewer cannot be asserted to simulate game damage unless a real mechanism is added and qualified.
+3. Determine root cause rather than implementing an unqualified decorative cracked-glass decal. Candidate categories include shared damage indices/state, draw grouping, shared vertex alpha, blend/depth/alpha-test state, hidden geometry and texture ownership; these are **hypotheses**.
+4. Implement the **smallest native-compatible correction** with independent per-pane intact/broken behavior as far as engine actually supports it. A cracked intermediate state or separate overlay is optional only if backed by evidence. Preserve intact glass appearance, UV, reflection, collision/damage effects, race/frontend distinction and other damageable body parts.
+5. Provide appropriate semantic `Glass / Damage` diagnostics and future editor extension points, not fake glass authoring controls. If proof or in-game user testing is required, stop at an honest research status with a specific targeted Windows test recipe; do not claim the native fix is gameplay-verified without a tested candidate.
+
+### C. In the same next development run: V-SDK4A.2 targeted Material/Texture UI gap
+
+**Already supported:** selected native model/draw/material inspection; editing vertex RGB and disabling a qualified environment pass; replacing pixels in an existing `.dxt` changes **every** draw using that texture. **Missing:** reassigning a selected draw's slot to another texture already loaded in the project. This is not the same operation as changing image pixels.
+
+- Add `Assign Existing Texture…` next to an actual selected **model/draw/texture slot**, not to the global image replacement control alone. Populate choices from project-owned resolvable DXT resources; show original binding, target, usage count, size/alpha/format, variant and native slot ID, preview difference and risk warnings.
+- Research actual DX texture reference representation and `r4e_writer` behavior before writing. Support a slot/pointer/name reassignment only when exact native write semantics and sharing are proven. If a native string table/material descriptor is shared by other draws, either implement a validated copy/split or **refuse with clear diagnostics**; never silently rewrite all shared users.
+- Verify that the target resource is available in the built addon/stock candidate, with correct resolver naming, no bank/resource collisions and proper alpha-test/blend/reflection semantics. Reject or warn on incompatible glass/lamp/environment use. Do not assume that replacing a `.dxt` file name in JSON patches the `car.dx` binary.
+- Changes must be **reversible and composable** with existing vertex RGB, environment-pass, PNG replacement and undo/redo; survive Save → Reopen → Validate → Build → Restore. Test across at least two draws sharing one input texture, one target shared by two draws, and a deliberately unsupported native sharing case.
+- If a safe native writer cannot be qualified within this milestone, deliver the researched binding map plus a disabled reasoned UI action and independently tested API instead of advertising a functional button.
+
+### D. In the same next run: Rally Workshop Offline Help / User Guide
+
+- Add an unobtrusive **Help** menu/button and **F1** shortcut plus contextual `?` near complex controls, preferably local searchable Markdown/HTML rendered by a readable help window (no network required).
+- Explain: start/project library, addon vs stock projects; what `car.dx`, `complete.dx`, `wheel.dx`, `DXT` and CarID mean; Open DX family; Save/Validate/Build/Restore, Undo/Redo; Original/current and per-texture pixel replacement versus per-draw slot reassignment; RGB/alpha and native material limitations.
+- Document viewport controls **MMB pan**, orbit, wheel zoom, `F` focus, `Home` reset, **F3 diagnostics**, Ctrl+1/Ctrl+6 view shortcuts if still current, Raw versus Assembled Race and preview-only Wheel Fitment. Explain how to show the detailed debug overlay and which figures come from D3D9 approximation versus actual MR.
+- Include troubleshooting (missing source/private assets, build inputs, preview mismatch, performance, unsupported material/glass behavior), a short first-project walkthrough and keyboard-shortcuts quick reference. Cross-check against code so that no documentation tells users to click a control that does not exist.
+- Keep help and program labels in English initially if that matches implemented UI; structure files so localization/Russian translation is straightforward later. Package help and icon with local Windows builds.
+
+### E. Sequencing, commitments and gates
+
+- Prefer **two scoped local commits** if both workstreams qualify: `V-SDK4A.2` (slot rebinding + offline help) and `V-SDK4C` (glass research/fix). Committing a verified research report is acceptable, but do **not** label an unverified gameplay fix as complete. Always inspect working tree and preserve prior actual commits.
+- The owner authorizes local version-history commits after completed validated phases, **not** push, release, public asset upload or publication. Retain private GT/MR data local. Keep original `MRallye.exe`, `d3d8.dll`, retail archives unchanged; Randomizer separate.
+- Owner **Windows acceptance gate**: texture zoom and app icon first; then native broken-window behavior, safe existing-texture reassign on a named draw, functional F1/help, Undo/Restore, and normal Subaru/Lancer/Pajero/stock game behavior. No regressions to PERF2/physics/audio/cameras/lights/30-car capacity.
+- **Later:** V-SDK4B Paint & Classic MR Style, V-SDK5 Blender/Scale, V-SDK6 Physics/Audio/Camera Studio, V-SDK7 Fleet/release as already specified. Prioritize native completeness before cosmetic adaptation but preserve full product scope.
+
+
+## 17. V-SDK4A.1 implementation boundary
+
+Imported v4.3 source SHA256: `97d134bf1f0a5ad33022c8c8af40ab66f057bc054c2162608d7baaea222fdb8d`. V-SDK4A was locally committed after a fresh799-test run (one skip). V-SDK4A.1 adds display-only premultiplied Pillow resampling, exact1:1 and nearest mode, bounded viewport output, cursor anchoring, original SVG/ICO identity and safe versioned Previewer builds. Full805-test Windows result and56 zoom captures are documented in VSDK4A1_RESULTS.md. Owner gameplay/display acceptance remains separate. V-SDK4C is next by explicit owner direction; V-SDK4B remains deferred.

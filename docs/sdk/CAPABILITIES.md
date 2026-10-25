@@ -54,3 +54,7 @@ Classic MR Style, semantic masked recoloring, geometry round-trip, scale/fit,
 new physics tuning, audio/camera editing GUI, new CarID expansion or fourth
 import is included. Existing CLI workflows remain available. V-SDK4A is the
 current bounded milestone; V-SDK4B/V-SDK4C and later phases are not started.
+
+## V-SDK4A.1 display/identity update
+
+Filtered Pillow LANCZOS/bicubic resampling with premultiplied alpha replaces integer Tk scaling. Exact1:1/optional nearest, cursor anchoring, bounded viewport and RGB/RGBA/Alpha are Windows-tested; source data is unchanged. Original SVG and multi-resolution ICO are distributable CC0 artwork; Tk/native icons and explicit Tk taskbar identity are implemented. See VSDK4A1_RESULTS.md. V-SDK4C follows by explicit owner authorization; later Paint Studio remains deferred.

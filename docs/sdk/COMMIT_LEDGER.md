@@ -49,3 +49,12 @@ The owner authorized committing all preceding vehicles work before V-SDK3. Each 
 | vsdk2 | `47d4c326c4ea2cbe89f0628c6438f83c86e6f277` | 10 |
 
 Private game resources and generated candidates remain ignored. Of the 422 previously untracked files, 421 source/research text files were committed with the tracked changes. The unrelated generated `console-example-internal.log` was excluded and explicitly ignored.
+
+## Studio follow-up history
+
+| Phase | Local commit | Validation / scope |
+| --- | --- | --- |
+| V-SDK3 | `2a42ee769b5a2f014fbe414f6eea11bbe4afe3d7` |790 tests, one skipped; original Studio foundation |
+| V-SDK3.1 + V-SDK4A actual accumulated state | `f4df4f4594e43dfc15a78266508cfddeafe7348e` |799 tests, one skipped on revalidation; owner accepted Previewer corrections and texture replacement. No historical snapshot fabrication |
+
+Owner explicitly authorized subsequent local phase commits; no push/release/publication. Further phase IDs are recorded in subsequent documentation commits to avoid self-referential commit IDs.

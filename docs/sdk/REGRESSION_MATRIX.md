@@ -52,3 +52,7 @@ evidence). See `VSDK4A_RESULTS.md` for final run names and boundaries.
    cover each newly edited candidate.
 
 Do not mark native gameplay acceptance from the GUI harness or GPU smoke output.
+
+## V-SDK4A.1
+
+805 tests/one skip in the complete Windows checkout; texture_viewer test checks exact1:1, global fractional mapping, alpha-edge contamination, source immutability, output budget and icon sizes. Private `vsdk4a1/zoom-windows/validation.json` records seven zooms/two windows/four source classes and56 actual captures. `vsdk4a1/ui-controls-final.json` exercises existing four-family GUI features. Original/current image comparison remains distinct from gameplay material qualification.
