@@ -1,0 +1,26 @@
+{
+  "profile_version": 1,
+  "donor_family": "Navara",
+  "runtime_family": "LancerEvo4",
+  "source_sha256": {
+    "DataGame/vehicles.xml": "a6762bb20999c7224c71b9f5d1d7edca55bcea147ff9f973300a8cf8d350aee0",
+    "DataGame/Modifications.xml": "16df5a3a6b0c50c40f4ee74186e47b40294e6cb4ac11e0a3d7d20dafb8a5a65d"
+  },
+  "overrides": {
+    "DataGame/vehicles.xml": {
+      "Dimensions/WheelBase": 2.6,
+      "Dimensions/TrackWidthFront": 1.49,
+      "Dimensions/TrackWidthRear": 1.49,
+      "Dimensions/WheelRadiusFront": 0.32535,
+      "Dimensions/WheelRadiusRear": 0.32535,
+      "Suspension/Front/RideHeight": 0,
+      "Suspension/Rear/RideHeight": 0
+    }
+  },
+  "notes": "V-PHYS2 fitment isolation: V-PHYS1 dimensions/radius; menu base 0, explicit participant ride reference -0.15 m. Derived from user tested -150 mm absolute setting, not claimed source or measured equilibrium. Other donor rates, mass, geometry and collision unchanged. Fresh candidate saves only. USER-APPROVED controlled body fit: MR WheelBase=2.60 m, replacing the nominal GT4 2.51 only in this candidate. Upper-edge circular diagnostics give 2.6094 m separation and -0.01716 m common centre; those are geometric approximations, not recovered GT4 axle coordinates. Native symmetric half-wheelbase moves each axle 45 mm outward longitudinally; no individual hub/body translation or frozen geometry edit. V-PHYS3: exact raw registry-name binding at participant publication. Corrects inactive V-PHYS2 guard; the existing -.15 m datum is not increased. Handling, meshes and collision declaration unchanged from this control.",
+  "ride_height_reference_m": {
+    "Front": -0.15,
+    "Rear": -0.15
+  },
+  "ride_height_reference_binding": "registry_name"
+}

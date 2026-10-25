@@ -1,0 +1,138 @@
+{
+  "profile_version": 1,
+  "donor_family": "Navara",
+  "runtime_family": "LancerEvo4",
+  "source_sha256": {
+    "DataGame/vehicles.xml": "a6762bb20999c7224c71b9f5d1d7edca55bcea147ff9f973300a8cf8d350aee0",
+    "DataGame/Modifications.xml": "16df5a3a6b0c50c40f4ee74186e47b40294e6cb4ac11e0a3d7d20dafb8a5a65d"
+  },
+  "overrides": {
+    "DataGame/vehicles.xml": {
+      "Dimensions/WheelBase": 2.5100000000000002,
+      "Dimensions/TrackWidthFront": 1.49,
+      "Dimensions/TrackWidthRear": 1.49,
+      "Dimensions/WheelRadiusFront": 0.32535,
+      "Dimensions/WheelRadiusRear": 0.32535,
+      "Suspension/Front/RideHeight": 0,
+      "Suspension/Rear/RideHeight": 0,
+      "Dimensions/Length": 4.33,
+      "Dimensions/Width": 1.69,
+      "Dimensions/Height": 1.405,
+      "Chassis/TotalMass": 1230,
+      "Chassis/MomentOfInertia": [
+        0.83,
+        1.25,
+        0.72
+      ],
+      "Chassis/CentreOfGravity": [
+        0,
+        0.24,
+        0.2
+      ],
+      "Chassis/AerodynamicDragCoeff": 0.12,
+      "Chassis/AerodynamicDownForceCoeff": 0.35,
+      "Chassis/BrakeTorqueFront": 1550,
+      "Chassis/BrakeTorqueRear": 1100,
+      "Chassis/HandBrakeTorque": 2800,
+      "Steering/MinSpeed": 15,
+      "Steering/MaxSpeed": 50,
+      "Steering/MaxSteer": 0.6,
+      "Engine/DriveType": 0,
+      "Engine/RevLimit": 7000,
+      "Engine/IdleRevs": 1000,
+      "Engine/PeakTorque": 490.3325,
+      "Engine/EngineInertia": 0.35,
+      "Engine/DriveShaftInertia": 0.04,
+      "Engine/EngineDamping": 0.03,
+      "Engine/LiftOffEngineDamping": 0.3,
+      "Engine/GearRatioDiff": 4.875,
+      "Engine/BrakeBias": 0.58,
+      "Engine/CentreLSDBias": 1.2,
+      "Engine/FrontLSDBias": 1.3,
+      "Engine/RearLSDBias": 1.5,
+      "Engine/Gear0": -3.2,
+      "Engine/Gear2": 2.8,
+      "Engine/Gear3": 1.8,
+      "Engine/Gear4": 1.35,
+      "Engine/Gear5": 1.05,
+      "Engine/Gear6": 0.85,
+      "Engine/TorqueEntry0": [
+        0.14285714285714285,
+        0.4262
+      ],
+      "Engine/TorqueEntry1": [
+        0.2857142857142857,
+        0.8422
+      ],
+      "Engine/TorqueEntry2": [
+        0.5,
+        1.0
+      ],
+      "Engine/TorqueEntry3": [
+        0.6428571428571429,
+        0.8976
+      ],
+      "Engine/TorqueEntry4": [
+        0.8571428571428571,
+        0.6044
+      ],
+      "Engine/TorqueEntry5": [
+        1.0,
+        0.4674
+      ],
+      "Suspension/Front/UnsprungMass": 45,
+      "Suspension/Front/WheelMOI": 1.2,
+      "Suspension/Front/MaxBounce": 0.2,
+      "Suspension/Front/MaxDroop": 0.12,
+      "Suspension/Front/SpringRate": 36000,
+      "Suspension/Front/DamperRate": 2800,
+      "Suspension/Front/AuxRollStiffness": 4500,
+      "Suspension/Front/ToeIn": 0,
+      "Suspension/Front/Camber": -1.5,
+      "Suspension/Front/CamverVsJounce": 8,
+      "Suspension/Front/SuspAppPointOffsetLat": 0.22,
+      "Suspension/Front/SuspAppPointOffsetLong": 0.22,
+      "Suspension/Front/SuspAppPointOffsetVert": 0.35,
+      "Suspension/Rear/UnsprungMass": 45,
+      "Suspension/Rear/WheelMOI": 1.2,
+      "Suspension/Rear/MaxBounce": 0.2,
+      "Suspension/Rear/MaxDroop": 0.12,
+      "Suspension/Rear/SpringRate": 33000,
+      "Suspension/Rear/DamperRate": 2500,
+      "Suspension/Rear/AuxRollStiffness": 3500,
+      "Suspension/Rear/ToeIn": 0.1,
+      "Suspension/Rear/Camber": -1.0,
+      "Suspension/Rear/CamverVsJounce": 8,
+      "Suspension/Rear/SuspAppPointOffsetLat": 0.22,
+      "Suspension/Rear/SuspAppPointOffsetLong": 0.22,
+      "Suspension/Rear/SuspAppPointOffsetVert": 0.35
+    }
+  },
+  "notes": "V-PHYS2 handling prototype. GT4 Beta CHASSIS: 4330/1405/2510 mm and 1230 kg; original rig tracks1490 mm/radius .32535 m. Official Mitsubishi WRC1997: 1690 mm width, 50 kg-m (490.3325 Nm), 4WD, 290 PS. GT4 gear final 4875 interpreted /1000. Rev7000 supported by source curve endpoint, power curve is a six-knot normalized approximation of 13 recovered Beta torque/rpm codes (PDTools metadata interpretation), not exact GT4 simulation; net native damping losses remain. Five-forward MR count retained; manual rally gearing, sprung/unsprung masses, CG, gyration radii, rates, damping, aero, steering, brakes and LSD need gameplay calibration. Independent family; shared tyres and native damage parameters unchanged. V-PHYS3: exact raw registry-name binding at participant publication. Corrects inactive V-PHYS2 guard; the existing -.15 m datum is not increased. Handling, meshes and collision declaration unchanged from this control.",
+  "ride_height_reference_m": {
+    "Front": -0.15,
+    "Rear": -0.15
+  },
+  "collision_fit": {
+    "source_sha256": "b1798279dfa54cb9ecb5276ee8fe199858b56f146ca15195390cd0584796ac2e",
+    "core_draw_indices": [
+      0,
+      1,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26
+    ],
+    "padding_m": [
+      0,
+      0,
+      0
+    ],
+    "evidence": "Frozen V-LANCER6 car.dx core shell: bumper/sill/shell draw0, upper cabin/roof draw1, painted body packets19-26; excludes spoiler5-9, mirror10, antenna79, mudflaps86-89, mechanical layers90-101, crew102+. Affine donor topology approximation, not recovered GT4 collision."
+  },
+  "ride_height_reference_binding": "registry_name"
+}

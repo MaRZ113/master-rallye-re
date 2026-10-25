@@ -1,0 +1,383 @@
+{
+  "status": "READY_FOR_HUMAN_GAMEPLAY_AND_AUDIO_TEST",
+  "game_launched": false,
+  "primary_baseline": "V-PHYS2 candidate-fitment-260 (user-confirmed last launch)",
+  "synthetic_tests": {
+    "run": 674,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1
+  },
+  "native_registry_binding_cases": 30,
+  "native_audio_identity_cases": 552,
+  "audio_panel_native_render": "PASS",
+  "v6_generated_game_resources_reproduced": 86,
+  "original_hashes": {
+    "MRallye.exe": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "d3d8.dll": "eb7ea3d9501b514bff668f1e75e86041906c5fe4e8afa89f06d658751429aaf4"
+  },
+  "frozen_bundle_checks": [
+    "Subaru V-MESH4.13",
+    "Lancer V-LANCER6",
+    "SCALE1 29",
+    "SCALE1 30",
+    "V-PHYS2 Handling260"
+  ],
+  "candidates": {
+    "physics-main": {
+      "path": ".research-output\\vehicles\\vphys3\\candidate-fitment-260",
+      "current_source_verification": {
+        "status": "PASS_STATIC_COLLECTION_RUNTIME_BUNDLE",
+        "retail_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "addon_plan_sha256": "579e67cbd7c4b90b70dc971ef9ec69bba493ba66952ae03813a9a58c6228acdf",
+        "native_patch_operation_count": 251,
+        "process_memory_operation_count": 250,
+        "native_patch_manifest_sha256": "e8ed0d851634356c888e3b5ea1ae4d44ad59bba75c0f426eb12368b17e156dae",
+        "native_patch_operations_sha256": "c4d774fd9d6566d3f49f90beb5098841c727d782ba4c00551b56ea897c31dee8",
+        "resource_count": 229,
+        "resource_index_sha256": "be650e29a70d7263634157683dc7de4e17d92a6a6e67e854c1f9571e98f81c39",
+        "resource_manifest_sha256": "7a16578a68b3a5a9b708798a3e2106cdb3d4c81aaf6ea7122707b12ca437ed09",
+        "reference_image_sha256": "9ae2c943fc0909769f9e691eb3ba16fc8148aacc630c865620a9578e10f1c633",
+        "runtime_qualified": false,
+        "original_executable_written": false
+      },
+      "preflight": {
+        "--verify": 0,
+        "--verify-launch-environment": 0,
+        "--self-test-native-allocation": 0
+      }
+    },
+    "physics-handling": {
+      "path": ".research-output\\vehicles\\vphys3\\candidate-handling-260",
+      "current_source_verification": {
+        "status": "PASS_STATIC_COLLECTION_RUNTIME_BUNDLE",
+        "retail_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "addon_plan_sha256": "579e67cbd7c4b90b70dc971ef9ec69bba493ba66952ae03813a9a58c6228acdf",
+        "native_patch_operation_count": 251,
+        "process_memory_operation_count": 250,
+        "native_patch_manifest_sha256": "d7ee646e2f32faaa6e9c081f0238397db501b49798307a83109f663c6aa07a91",
+        "native_patch_operations_sha256": "c4d774fd9d6566d3f49f90beb5098841c727d782ba4c00551b56ea897c31dee8",
+        "resource_count": 229,
+        "resource_index_sha256": "d9a7a29f50bd307d1f7578b639b2652c355e14673367d4dddd4b39c81fc83f6a",
+        "resource_manifest_sha256": "a4ecdea3f19325129cb8f559fab650d86666aedf6b919392af2918fd6f43564f",
+        "reference_image_sha256": "9ae2c943fc0909769f9e691eb3ba16fc8148aacc630c865620a9578e10f1c633",
+        "runtime_qualified": false,
+        "original_executable_written": false
+      },
+      "preflight": {
+        "--verify": 0,
+        "--verify-launch-environment": 0,
+        "--self-test-native-allocation": 0
+      }
+    },
+    "physics251-control": {
+      "path": ".research-output\\vehicles\\vphys3\\candidate-handling-251",
+      "current_source_verification": {
+        "status": "PASS_STATIC_COLLECTION_RUNTIME_BUNDLE",
+        "retail_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "addon_plan_sha256": "579e67cbd7c4b90b70dc971ef9ec69bba493ba66952ae03813a9a58c6228acdf",
+        "native_patch_operation_count": 251,
+        "process_memory_operation_count": 250,
+        "native_patch_manifest_sha256": "d7ee646e2f32faaa6e9c081f0238397db501b49798307a83109f663c6aa07a91",
+        "native_patch_operations_sha256": "c4d774fd9d6566d3f49f90beb5098841c727d782ba4c00551b56ea897c31dee8",
+        "resource_count": 229,
+        "resource_index_sha256": "ef40e2e8f9ce5088db3f4ada42e34230da3a48c14c29ca43eb057542e84229bb",
+        "resource_manifest_sha256": "61d230ccb143ebbbd44f5be520105b763dc15225b83cf37f56551ab518f448f8",
+        "reference_image_sha256": "9ae2c943fc0909769f9e691eb3ba16fc8148aacc630c865620a9578e10f1c633",
+        "runtime_qualified": false,
+        "original_executable_written": false
+      },
+      "preflight": {
+        "--verify": 0,
+        "--verify-launch-environment": 0,
+        "--self-test-native-allocation": 0
+      }
+    },
+    "audio-main-control": {
+      "path": ".research-output\\vehicles\\vaudio1\\candidate-audio-fitment",
+      "current_source_verification": {
+        "status": "PASS_STATIC_COLLECTION_RUNTIME_BUNDLE",
+        "retail_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "addon_plan_sha256": "579e67cbd7c4b90b70dc971ef9ec69bba493ba66952ae03813a9a58c6228acdf",
+        "native_patch_operation_count": 252,
+        "process_memory_operation_count": 251,
+        "native_patch_manifest_sha256": "95cd57c836cea9a5829f7565ed2edc4874a528af3b5bbce3d278c8f5cd254abf",
+        "native_patch_operations_sha256": "cb1c01a3411d4763ecf562ef8fcf9661fb7c85a71ef067a81e3cd9228b880c8c",
+        "resource_count": 230,
+        "resource_index_sha256": "6cbd8da16e380b9ec4e18049b0a93879f50d44d4be59d731632a81b409193a4c",
+        "resource_manifest_sha256": "b20367a843efdaa480faf5e0b8e2cd970dc74e9a928719e87461a14112ad3245",
+        "reference_image_sha256": "efa626557d56e911b2386f6b35699a6fe020535d88c2250e155152993378b09a",
+        "runtime_qualified": false,
+        "original_executable_written": false
+      },
+      "preflight": {
+        "--verify": 0,
+        "--verify-launch-environment": 0,
+        "--self-test-native-allocation": 0
+      },
+      "audio_isolation": {
+        "status": "PASS_INDEPENDENT_AUDIO_REVISION",
+        "unchanged_resource_count": 228,
+        "new_resource": "DataAudio/vehicles/sdk/lancer_evo4/engine.wav",
+        "new_resource_sha256": "b778f1aee0e51138e5c944269da7d49ca44d6bcb48713ee7eae11df4f953b8e4",
+        "source_format": {
+          "sample_rate": 48000,
+          "channels": 1,
+          "bits_per_sample": 16,
+          "frames": 39523
+        },
+        "native_binding": {
+          "operations": [
+            {
+              "name": "independent_engine_source_0x4093a0",
+              "file_offset": 37792,
+              "original_bytes": "e8db710c00",
+              "replacement_bytes": "e80b98c00f"
+            }
+          ],
+          "entries": [
+            {
+              "entry_va": 268512176,
+              "size": 81,
+              "call_va": 4232096,
+              "profiles": [
+                {
+                  "physical_car_id": 27,
+                  "stock_audio_profile_id": 7,
+                  "engine_resource": "vehicles/sdk/lancer_evo4/engine"
+                }
+              ]
+            }
+          ],
+          "prefix_size": 76720,
+          "prefix_sha256": "c8804b9fa3013f92f44853d2589c260ea4279e226494920766a222ff25421d82",
+          "native_intern_va": 5047680,
+          "physical_carid_getter_va": 4900448,
+          "race_broker_va": 4905552,
+          "scope": "engine source name at construction, exact physical CarID; native tuning and per-frame synthesis unchanged",
+          "runtime_qualified": false
+        },
+        "runtime_qualified": false,
+        "boundary": "exact resource and process-code comparison, no DirectSound playback/race confirmation"
+      }
+    },
+    "combined-main": {
+      "path": ".research-output\\vehicles\\vaudio1\\candidate-combined-fitment",
+      "current_source_verification": {
+        "status": "PASS_STATIC_COLLECTION_RUNTIME_BUNDLE",
+        "retail_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "addon_plan_sha256": "579e67cbd7c4b90b70dc971ef9ec69bba493ba66952ae03813a9a58c6228acdf",
+        "native_patch_operation_count": 252,
+        "process_memory_operation_count": 251,
+        "native_patch_manifest_sha256": "f7ad735a73e4b45409f6034f8f78471a86486c0ce9dccbdf62cd6a7a67ef5cde",
+        "native_patch_operations_sha256": "cb1c01a3411d4763ecf562ef8fcf9661fb7c85a71ef067a81e3cd9228b880c8c",
+        "resource_count": 230,
+        "resource_index_sha256": "6cbd8da16e380b9ec4e18049b0a93879f50d44d4be59d731632a81b409193a4c",
+        "resource_manifest_sha256": "b20367a843efdaa480faf5e0b8e2cd970dc74e9a928719e87461a14112ad3245",
+        "reference_image_sha256": "efa626557d56e911b2386f6b35699a6fe020535d88c2250e155152993378b09a",
+        "runtime_qualified": false,
+        "original_executable_written": false
+      },
+      "preflight": {
+        "--verify": 0,
+        "--verify-launch-environment": 0,
+        "--self-test-native-allocation": 0
+      },
+      "audio_isolation": {
+        "status": "PASS_INDEPENDENT_AUDIO_REVISION",
+        "unchanged_resource_count": 228,
+        "new_resource": "DataAudio/vehicles/sdk/lancer_evo4/engine.wav",
+        "new_resource_sha256": "b778f1aee0e51138e5c944269da7d49ca44d6bcb48713ee7eae11df4f953b8e4",
+        "source_format": {
+          "sample_rate": 48000,
+          "channels": 1,
+          "bits_per_sample": 16,
+          "frames": 39523
+        },
+        "native_binding": {
+          "operations": [
+            {
+              "name": "independent_engine_source_0x4093a0",
+              "file_offset": 37792,
+              "original_bytes": "e8db710c00",
+              "replacement_bytes": "e80b98c00f"
+            }
+          ],
+          "entries": [
+            {
+              "entry_va": 268512176,
+              "size": 81,
+              "call_va": 4232096,
+              "profiles": [
+                {
+                  "physical_car_id": 27,
+                  "stock_audio_profile_id": 7,
+                  "engine_resource": "vehicles/sdk/lancer_evo4/engine"
+                }
+              ]
+            }
+          ],
+          "prefix_size": 76708,
+          "prefix_sha256": "f50c6fb79dc13661743d038ae3a2d654403ce7892bb72a31201bc003076fdce5",
+          "native_intern_va": 5047680,
+          "physical_carid_getter_va": 4900448,
+          "race_broker_va": 4905552,
+          "scope": "engine source name at construction, exact physical CarID; native tuning and per-frame synthesis unchanged",
+          "runtime_qualified": false
+        },
+        "runtime_qualified": false,
+        "boundary": "exact resource and process-code comparison, no DirectSound playback/race confirmation"
+      }
+    },
+    "audio-handling-control": {
+      "path": ".research-output\\vehicles\\vaudio1\\candidate-audio-only",
+      "current_source_verification": {
+        "status": "PASS_STATIC_COLLECTION_RUNTIME_BUNDLE",
+        "retail_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "addon_plan_sha256": "579e67cbd7c4b90b70dc971ef9ec69bba493ba66952ae03813a9a58c6228acdf",
+        "native_patch_operation_count": 252,
+        "process_memory_operation_count": 251,
+        "native_patch_manifest_sha256": "f061e4efcc4f6fe6c2863416970a294005b0026e7d19e9a9721ee872269374d5",
+        "native_patch_operations_sha256": "cb1c01a3411d4763ecf562ef8fcf9661fb7c85a71ef067a81e3cd9228b880c8c",
+        "resource_count": 230,
+        "resource_index_sha256": "34eb4a26b17ce9739c406d11015dade9cf2a36d2b9b99a7aa7895dd142788a98",
+        "resource_manifest_sha256": "4477fe456a651eb301dc1b464e06ea604a3f30c0dab3a97792c49ac7a4ff17ab",
+        "reference_image_sha256": "efa626557d56e911b2386f6b35699a6fe020535d88c2250e155152993378b09a",
+        "runtime_qualified": false,
+        "original_executable_written": false
+      },
+      "preflight": {
+        "--verify": 0,
+        "--verify-launch-environment": 0,
+        "--self-test-native-allocation": 0
+      },
+      "audio_isolation": {
+        "status": "PASS_INDEPENDENT_AUDIO_REVISION",
+        "unchanged_resource_count": 228,
+        "new_resource": "DataAudio/vehicles/sdk/lancer_evo4/engine.wav",
+        "new_resource_sha256": "b778f1aee0e51138e5c944269da7d49ca44d6bcb48713ee7eae11df4f953b8e4",
+        "source_format": {
+          "sample_rate": 48000,
+          "channels": 1,
+          "bits_per_sample": 16,
+          "frames": 39523
+        },
+        "native_binding": {
+          "operations": [
+            {
+              "name": "independent_engine_source_0x4093a0",
+              "file_offset": 37792,
+              "original_bytes": "e8db710c00",
+              "replacement_bytes": "e80b98c00f"
+            }
+          ],
+          "entries": [
+            {
+              "entry_va": 268512176,
+              "size": 81,
+              "call_va": 4232096,
+              "profiles": [
+                {
+                  "physical_car_id": 27,
+                  "stock_audio_profile_id": 7,
+                  "engine_resource": "vehicles/sdk/lancer_evo4/engine"
+                }
+              ]
+            }
+          ],
+          "prefix_size": 76720,
+          "prefix_sha256": "c8804b9fa3013f92f44853d2589c260ea4279e226494920766a222ff25421d82",
+          "native_intern_va": 5047680,
+          "physical_carid_getter_va": 4900448,
+          "race_broker_va": 4905552,
+          "scope": "engine source name at construction, exact physical CarID; native tuning and per-frame synthesis unchanged",
+          "runtime_qualified": false
+        },
+        "runtime_qualified": false,
+        "boundary": "exact resource and process-code comparison, no DirectSound playback/race confirmation"
+      }
+    },
+    "combined-handling": {
+      "path": ".research-output\\vehicles\\vaudio1\\candidate-combined",
+      "current_source_verification": {
+        "status": "PASS_STATIC_COLLECTION_RUNTIME_BUNDLE",
+        "retail_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "addon_plan_sha256": "579e67cbd7c4b90b70dc971ef9ec69bba493ba66952ae03813a9a58c6228acdf",
+        "native_patch_operation_count": 252,
+        "process_memory_operation_count": 251,
+        "native_patch_manifest_sha256": "a374004f9784b816abaf6bdc87d6ea4852380e38269fe8b5626e81521d2013e0",
+        "native_patch_operations_sha256": "cb1c01a3411d4763ecf562ef8fcf9661fb7c85a71ef067a81e3cd9228b880c8c",
+        "resource_count": 230,
+        "resource_index_sha256": "34eb4a26b17ce9739c406d11015dade9cf2a36d2b9b99a7aa7895dd142788a98",
+        "resource_manifest_sha256": "4477fe456a651eb301dc1b464e06ea604a3f30c0dab3a97792c49ac7a4ff17ab",
+        "reference_image_sha256": "efa626557d56e911b2386f6b35699a6fe020535d88c2250e155152993378b09a",
+        "runtime_qualified": false,
+        "original_executable_written": false
+      },
+      "preflight": {
+        "--verify": 0,
+        "--verify-launch-environment": 0,
+        "--self-test-native-allocation": 0
+      },
+      "audio_isolation": {
+        "status": "PASS_INDEPENDENT_AUDIO_REVISION",
+        "unchanged_resource_count": 228,
+        "new_resource": "DataAudio/vehicles/sdk/lancer_evo4/engine.wav",
+        "new_resource_sha256": "b778f1aee0e51138e5c944269da7d49ca44d6bcb48713ee7eae11df4f953b8e4",
+        "source_format": {
+          "sample_rate": 48000,
+          "channels": 1,
+          "bits_per_sample": 16,
+          "frames": 39523
+        },
+        "native_binding": {
+          "operations": [
+            {
+              "name": "independent_engine_source_0x4093a0",
+              "file_offset": 37792,
+              "original_bytes": "e8db710c00",
+              "replacement_bytes": "e80b98c00f"
+            }
+          ],
+          "entries": [
+            {
+              "entry_va": 268512176,
+              "size": 81,
+              "call_va": 4232096,
+              "profiles": [
+                {
+                  "physical_car_id": 27,
+                  "stock_audio_profile_id": 7,
+                  "engine_resource": "vehicles/sdk/lancer_evo4/engine"
+                }
+              ]
+            }
+          ],
+          "prefix_size": 76708,
+          "prefix_sha256": "f50c6fb79dc13661743d038ae3a2d654403ce7892bb72a31201bc003076fdce5",
+          "native_intern_va": 5047680,
+          "physical_carid_getter_va": 4900448,
+          "race_broker_va": 4905552,
+          "scope": "engine source name at construction, exact physical CarID; native tuning and per-frame synthesis unchanged",
+          "runtime_qualified": false
+        },
+        "runtime_qualified": false,
+        "boundary": "exact resource and process-code comparison, no DirectSound playback/race confirmation"
+      }
+    }
+  },
+  "limitations": [
+    "No live race/contact/settling or audibility confirmation in this phase",
+    "GT4 source is shared bank22601; one selected band through native MR synthesis, not GT4 two-bank mixing",
+    "Pitch interpretation uses comparative supplied Online-US CORE, not independently paired Beta runtime",
+    "Preview timing omits DirectSound thread, listener/SFX attenuation and full mix",
+    "No independent native throttle/load sample layer implemented",
+    "Setup endpoints/full bump require tyre/body clearance testing",
+    "2.60m remains approved shell adaptation, not recovered source axle centres"
+  ],
+  "main_author_reproduction": {
+    "status": "PASS",
+    "byte_identical_artifacts": 94
+  },
+  "vphys2_legacy_current_source_verification": "PASS"
+}
