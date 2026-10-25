@@ -1,5 +1,19 @@
 # Accumulated vehicles work — local phase commits
 
+## V-SDK4C resolved phase commits (25 October 2026)
+
+| Phase | Local commit | Validation |
+| --- | --- | --- |
+| V-SDK4A accumulated accepted implementation | `f4df4f4` | 799 tests, 1 skipped |
+| V-SDK4A.1 texture rasterization / original branding | `8085800` | 805 tests, 1 skipped; 56 real Windows zoom captures |
+| V-SDK4A.2 / V-SDK4C B/C slot assignment and Help | `c3c0b12` | 810 tests, 1 skipped; actual addon/stock GUI builds and restore |
+| V-SDK4C native glass ownership and isolated Subaru candidate | `b22f83f` | 814 tests, 1 skipped; original x86 CPU replay; 64 D3D9 captures; sealed candidate preflights |
+
+Existing V-SDK3 and earlier history is preserved. These are actual successive
+local commits, with no historical reconstruction or push. The subsequent
+documentation-only evidence index records these IDs; it does not represent a
+new implementation milestone. Source archives exclude proprietary game assets.
+
 The owner authorized committing all preceding vehicles work before V-SDK3. Each row records the current consolidated files attributed to that phase. These commits do not recreate unavailable intermediate versions of shared modules. The complete final pre-Studio tree passed778 synthetic tests (one skipped). No push occurred.
 
 | Phase | Commit | Files |
