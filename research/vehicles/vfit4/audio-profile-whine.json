@@ -1,0 +1,42 @@
+{
+  "audio_profile_version": 1,
+  "engine": {
+    "crossfade_frames": 0,
+    "gain_db": -3,
+    "remove_dc": true,
+    "source_path": "audio/engine.wav",
+    "source_sha256": "6cb99e0c853ebc88f89ce893e6c2d7eb5c32fa5f5b7a6663b076a621c2fc9c59",
+    "trim_frames": [
+      0,
+      17668
+    ]
+  },
+  "namespace": "lancer_evo4",
+  "notes": "Private original GT4 Beta mits0015 source: vehicle mapping engine bank22601, table0 band04, source reference4000RPM. SPU2 pitch1831 gives rounded21457Hz via48000*1831/4096. Source loop17668samples decoded without source normalization/fade. Converted to native MR PCM16 mono48000Hz, -3dB and DC removal only. This is one authentic source band through MR wsDsFxRevs and stock7 tables, not GT4's original engine/exhaust multilayer mixture or accurate GT4 audio reproduction. Keep extracted source/WAVs private; no bundled game audio. Pitch-field interpretation uses the exact comparative supplied Online-US CORE; pairing with a historical Beta runtime is not independently proved.",
+  "physical_car_id": 27,
+  "policy": "native_custom_engine",
+  "stock_audio_profile_id": 7,
+  "transmission_whine": {
+    "provenance": "Optional original synthetic 800 Hz periodic mesh tone with authored harmonics. No GT transmission sample could be reliably identified. Reference 4000 RPM and 12 teeth are design choices, not recovered Evo IV constants.",
+    "response": {
+      "fade_in_rpm": 1000,
+      "gain_coast": 0.08,
+      "gain_drive": 0.18,
+      "mute_neutral": true,
+      "pitch_max": 1.8,
+      "pitch_min": 0.2,
+      "reference_rpm": 4000
+    },
+    "source": {
+      "crossfade_frames": 0,
+      "gain_db": 0,
+      "remove_dc": false,
+      "source_path": "audio/transmission-whine.wav",
+      "source_sha256": "eea551ee21ec98e33fefa9f350a30b89780546a3d4aa2a74931852796bcf9361",
+      "trim_frames": [
+        0,
+        48000
+      ]
+    }
+  }
+}

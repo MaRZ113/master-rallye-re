@@ -1,0 +1,14 @@
+{
+  "alpha_threshold": 32,
+  "margin_x_m": 0.05,
+  "margin_z_m": 0.1,
+  "offset_x_m": 0.0,
+  "offset_z_m": 0.0,
+  "policy": "body_alpha_support",
+  "profile_version": 1,
+  "runtime_family": "LancerEvo4",
+  "scale_x": 1.0,
+  "scale_z": 1.0,
+  "source_model_sha256": "59400d0cf7ccfe437384bb2fac617cca53f4b3aa02c0651f8b9d0c7503779fdb",
+  "source_texture_sha256": "2623f2c1bd390bc7a87e3ec9f1c71c7b3e9692caa22f03956ef9828fc4122c7c"
+}

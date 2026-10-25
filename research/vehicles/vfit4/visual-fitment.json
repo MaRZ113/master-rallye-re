@@ -1,0 +1,89 @@
+{
+  "profile_version": 1,
+  "provenance": "V-FIT4: explicit visual brake rest-frame correction; physics and complete.dx unchanged.",
+  "roles": {
+    "car.dx": {
+      "groups": [
+        {
+          "draw_indices": [
+            90,
+            91,
+            92
+          ],
+          "name": "front-positive-x",
+          "provenance": "Original CAR4 SHA6586265558f008d69991e8cb1a826136e5209cb063402b6df411653e195ac36c callback11; qualified GT4 DBT rest hub rotated 180deg Y into MR; target from actual combined-fitment XML + exact registry_name ride reference, unloaded attachment formula004407FC..004408C0. Rotor quad draw90; paired caliper faces draws91,92.",
+          "source_hub_m": [
+            0.745,
+            0.18535000000000001,
+            1.2550000000000001
+          ],
+          "target_hub_m": [
+            0.745,
+            0.15,
+            1.3
+          ]
+        },
+        {
+          "draw_indices": [
+            93,
+            94,
+            95
+          ],
+          "name": "front-negative-x",
+          "provenance": "Original CAR4 SHA6586265558f008d69991e8cb1a826136e5209cb063402b6df411653e195ac36c callback12; qualified GT4 DBT rest hub rotated 180deg Y into MR; target from actual combined-fitment XML + exact registry_name ride reference, unloaded attachment formula004407FC..004408C0. Rotor quad draw93; paired caliper faces draws94,95.",
+          "source_hub_m": [
+            -0.745,
+            0.18535000000000001,
+            1.2550000000000001
+          ],
+          "target_hub_m": [
+            -0.745,
+            0.15,
+            1.3
+          ]
+        },
+        {
+          "draw_indices": [
+            96,
+            97,
+            98
+          ],
+          "name": "rear-positive-x",
+          "provenance": "Original CAR4 SHA6586265558f008d69991e8cb1a826136e5209cb063402b6df411653e195ac36c callback13; qualified GT4 DBT rest hub rotated 180deg Y into MR; target from actual combined-fitment XML + exact registry_name ride reference, unloaded attachment formula004407FC..004408C0. Rotor quad draw96; paired caliper faces draws97,98.",
+          "source_hub_m": [
+            0.745,
+            0.18535000000000001,
+            -1.2550000000000001
+          ],
+          "target_hub_m": [
+            0.745,
+            0.15,
+            -1.3
+          ]
+        },
+        {
+          "draw_indices": [
+            99,
+            100,
+            101
+          ],
+          "name": "rear-negative-x",
+          "provenance": "Original CAR4 SHA6586265558f008d69991e8cb1a826136e5209cb063402b6df411653e195ac36c callback14; qualified GT4 DBT rest hub rotated 180deg Y into MR; target from actual combined-fitment XML + exact registry_name ride reference, unloaded attachment formula004407FC..004408C0. Rotor quad draw99; paired caliper faces draws100,101.",
+          "source_hub_m": [
+            -0.745,
+            0.18535000000000001,
+            -1.2550000000000001
+          ],
+          "target_hub_m": [
+            -0.745,
+            0.15,
+            -1.3
+          ]
+        }
+      ],
+      "profile_version": 1,
+      "provenance": "V-FIT4 optional car.dx rest-pose mechanical alignment only. Source GT4 rig is recovered DBT/IDI. Target preserves existing combined-fitment physics, including WB2.60 and active-.15 ride reference. No body/physics/collision/audio shift; not a dynamic attachment correction.",
+      "source_sha256": "b1798279dfa54cb9ecb5276ee8fe199858b56f146ca15195390cd0584796ac2e"
+    }
+  }
+}
