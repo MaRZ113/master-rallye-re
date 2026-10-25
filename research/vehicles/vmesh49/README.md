@@ -1,0 +1,34 @@
+# V-MESH4.9 — visual geometry/material cleanup
+
+Scope: `master-rallye-re-vehicles`, `research/vehicles`. Private GT3 sb0097 input, latest V4.8 `v48-exp-003` runtime family as the before reference. No game launch, original EXE/installed graphics DLL edit, Randomizer change, publication or push. Wheel placement, tyre envelope and physics are frozen for the future physics phase.
+
+## Changes in actual resources
+
+- **Headlamps:** optional `solid_black_lamp_caps_only` restores clear black constants only where they are internal surfaces of an identified lamp object. Original circular caps and covered upper housing remain. `source_caps_only` prevents the previous whole-triangle black backs under cutout lamp shells and decorative overlays. The shared-vertex reflective glass shell remains native alpha blend. Removing the opaque outer backing changes the glass appearance; native blending/reflections need runtime inspection.
+- **Bumper:** originally clear non-lamp constant swatches remain clear. Whole-triangle black backs beneath small decorative masks are not emitted. These were responsible for black rectangular patches, while genuine black trim and ventilation surfaces remain imported.
+- **Grille:** optional material density weights allocate more existing atlas pixels to a source UV island. Small edge bridges are limited to4mm and recess collars to6mm padding, instead of the earlier broad black closure. These are bounded source-derived repairs; no source paint vertices are moved or intake mouths capped. Source pixel resolution, rasterization and native mipmaps still limit edge quality.
+- **Rear decal:** preserve the original lettering RGB instead of flattening every alpha-positive pixel to one yellow colour. The source lettering uses RGB variation to describe the letters inside a relatively broad alpha silhouette. A higher editable density priority and optional compact free-rectangle packing give the rear graphic more pixels in the unchanged128-square atlas while retaining the prior texel density of the other main livery decals. The compact packer fills short spaces beside tall islands that shelf packing wasted. The graphic remains a private composition of existing source artwork, not a recovered original rear texture. Model-specific input/profile/output stay ignored.
+- **Rims:** `vmesh_wheels.recess_rim` is optional and accepts only a flat rim. It measures the stock rim depth/radius and constructs a shallow inner disc, bevel and retained outer lip; the redundant flat sidewall centre cap is removed so it cannot cover the bowl. The current editable depth scale0.4 yields about20mm. Wheel width/radius, hub origin, frontend hubs, tread geometry, stock tread texture and inboard sidewall remain preserved. After the user supplied a metal-wheel reference, an optional9-ring Hermite outboard shoulder with tangent-derived normals seats the rubber bead against the rim lip without leaving the existing envelope. Its texture is sampled from the stock tyre annulus with a1.5-texel guard to exclude baked old-rim colour. No procedural rubber texture is introduced. Gold rim RGB remains unchanged; its existing opaque chrome-helper material gets reflection alpha217 instead of26 on metal texels only. Dark spoke gaps retain alpha0 (nonreflective) with blend/test gates0,0 (opaque). This is shallow visual depth, not separately modeled spokes/brakes.
+- **Brake glow:** `vmesh_brake_lights` populates the existing native `blight` case2 with explicit GT lit patches and the stock glow mesh fitted to those patches. Native draw order, tags, case controls, material flags and brake textures remain intact. Case1 remains unlit. `complete.dx` has no native brake switch, so Vehicle Select remains at the static tail-light appearance. No permanent glow is added there.
+
+## Reuse and editable data
+
+Reusable helpers live in `vmesh_materials.py`, `gtmat.py`, `vmesh_surface_repair.py`, `vmesh_wheels.py` and `vmesh_brake_lights.py`. Features are opt-in; old builders keep their defaults. Unknown brake layouts and already-deep/unsupported wheel meshes fail closed. GT4 support is not qualified merely because the processing rules use generic geometry.
+
+`subaru-cleanup.json` contains source/baseline identity hashes and unavoidable source material density priorities. The builder validates those hashes before using the profile. Source indices are data, not branches inside reusable converter code. The private artwork composition is separately editable and does not modify original GT textures.
+
+## Native evidence and limits
+
+Retail EXE SHA256: `bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4`. REA/Ghidra12.1.4 resolves the brake class constructor at`0x004CA040`, its `blight` lookup at`0x004CA110`, and state setter at`0x004D3C50`. Exact original bytes and independent objdump disassembly at`0x004CA1D0` show the brake value compared with float0.1, selecting2 above the threshold and1 otherwise. Ghidra did not recover that update function boundary; its bytes/assembly are retained without claiming recovered original source.
+
+The stock Navara TXT places38 triangles under `$case(2)` (10 lit plus28 glow); corresponding DX draw29 is the case2 record and draw30 is its following material mesh. The current parser's flattened physical parent/child view is not the full logical switch span. Existing native record bytes are retained rather than changing the general parser in this phase. The same case controls and stock texture tuples are audited in the final candidate. Actual braking response remains a human runtime test.
+
+The `.dxt` wrapper stores20 header bytes plus `width*height*4` BGRA bytes: no BC/DXT block compression occurs in these resources. Offline encoding/decoding is exact. Decal losses come from source detail, atlas downsampling, mask threshold and runtime filtering; native driver texture conversion/mipmapping is not proven by this file-format check.
+
+## Build and validation
+
+Use `tools/build_vmesh49_impreza_experimental.py` with private `--gt-dir`, protected retail donor/EXE, V4.8 `--before-candidate-dir`, ignored authored `--rear-decal`, `--cleanup-profile research/vehicles/vmesh49/subaru-cleanup.json` and a new ignored `--output-root`.
+
+`tools/validate_vmesh49_candidate.py` audits the serialized runtime resources, collision/configuration, source positions, declared face removals, wheel envelope/hubs/textures, car/complete embedding, lamp glass, native brake cases, UV density and ZIP integrity. Source and runtime SHA256 differ where project compilation applies collision transforms; the current before runtime file and its resource manifest are the identity authority.
+
+See `VALIDATION.md` for final paths, actual counts, remaining limitations and reflections-on/off test boundaries. Previews are software approximations, never native rendering confirmation. Stop after the offline-validated candidate for the user's Vehicle Select/race test.

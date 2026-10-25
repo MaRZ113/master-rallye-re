@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "source_obj_sha256": "487eed0d5f7c788db4df270812942c93da685ff3cc4f630fdd7c1d19259375bb",
+  "before_car_sha256": "0dc466dd6cddc394046cbe31012f7d44f402adbf9dd1b8386b42e1e41c6fbf0b",
+  "material_density_weights": {
+    "Mat1_Tex17": 8
+  },
+  "rear_decal_density_weight": 1.75,
+  "maximum_bridge_gap_m": 0.004,
+  "recess_padding_m": 0.006,
+  "rim_recess_depth_scale": 0.4,
+  "rim_lip_ratio": 0.94,
+  "native_brake_lights": true,
+  "notes": [
+    "Material density override is model-specific editable data; no proprietary pixels.",
+    "Wheel placement/physics unchanged. Rim depth is visual geometry only."
+  ],
+  "preserve_livery_density_materials": [
+    "Mat1_Tex29",
+    "Mat1_Tex30",
+    "Mat1_Tex36"
+  ],
+  "rim_reflection": 0.85,
+  "tyre_shoulder_subdivisions": 4,
+  "tyre_bead_guard_texels": 1.5
+}
