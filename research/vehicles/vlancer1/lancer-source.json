@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "vehicle": "Mitsubishi Lancer Evolution IV Rally Car '97",
+  "source_profile": "GT4 Beta CAR4 / MDLS ModelSet2",
+  "body_model": "lancer-menu_dump/model0.obj",
+  "wheel_model": "lancer-wheel_dump/model0.obj",
+  "source_to_mr_axes": ["x", "y", "-z"],
+  "material_policy": "explicit source render-state adapter required; do not infer passes from Mat numbers",
+  "wheel_anchors": null,
+  "wheel_anchor_status": "source transforms not yet qualified; no guessed offsets",
+  "requested_runtime_class": "T2",
+  "physical_id": null,
+  "physics_baseline": "existing verified Navara profile; no tuning performed",
+  "runtime_status": "BLOCKED_NO_ADDITIONAL_QUALIFIED_T2_SLOT",
+  "automatic_repairs": false
+}
