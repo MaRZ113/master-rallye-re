@@ -1,0 +1,43 @@
+{
+  "status": "READY_FOR_HUMAN_GAMEPLAY_TESTING",
+  "runtime_qualified": false,
+  "branch": "research/vehicles",
+  "candidate": ".research-output/vehicles/vlancer5/candidate-01/Launch-V-LANCER5.cmd",
+  "tests": {
+    "run": 637,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1
+  },
+  "checks": {
+    "offline-final.json": "PASS_OFFLINE_WITH_DOCUMENTED_TRANSLATION_LIMITATIONS",
+    "v4-repro-final.json": "PASS_OFFLINE_WITH_DOCUMENTED_TRANSLATION_LIMITATIONS",
+    "material-validation.json": "PASS_MATERIAL_REVISION_WITH_DOCUMENTED_APPROXIMATIONS",
+    "damage-01.json": "PASS_ORIGINAL_NATIVE_DAMAGE_AND_ADAPTER_CPU_REPLAY",
+    "native-brake-controller.json": "PASS_ORIGINAL_NATIVE_BRAKE_UPDATE_AND_SETTER",
+    "installed-preflight.json": "PASS_INSTALLED_EXE_PREFLIGHT",
+    "negative-extension.json": "PASS_SEALED_EXTENSION_REJECTIONS",
+    "frozen-candidates.json": "PASS_FROZEN_MANIFEST_AND_RESOURCE_CHECKS",
+    "collision-investigation.json": "PASS_EXISTING_COLLISION_ADJUSTMENT_CAPABILITY",
+    "final-asset-identity.json": "PASS_FINAL_REBUILD_AND_SEALED_RUNTIME_RESOURCE_IDENTITY"
+  },
+  "native_operations_same_as_v4": true,
+  "frozen_baselines_preserved": true,
+  "original_exe_and_graphics_unchanged": true,
+  "body_reflective_draws": {
+    "before": 7,
+    "after": 31,
+    "per_scene": [
+      "race",
+      "menu"
+    ]
+  },
+  "texture_cache_bytes": 10969088,
+  "physics_collision_ui_wheel_fitment_unchanged": true,
+  "remaining": [
+    "runtime glass/decal sorting confirmation",
+    "live blight binding and brake switch confirmation",
+    "post-damage reflections and cutout coverage gameplay check",
+    "native lighting/fog/sorting differ from diagnostic viewer"
+  ]
+}

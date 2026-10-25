@@ -1,0 +1,12 @@
+{
+  "date": "2026-10-23",
+  "evidence": "Direct owner report in this chat, V-LANCER5 request",
+  "status": "HUMAN_GAMEPLAY_CONFIRMED",
+  "confirmed": [
+    "SCALE1 29 and 30: race loading, AI participation, finishing, Results and race re-entry",
+    "V-LANCER4: correctly oriented race wheels and coherent native damage",
+    "Vehicle Select, geometry, livery and performance satisfactory",
+    "Initial model loading around three seconds acceptable"
+  ],
+  "scope": "Existing delivered V-LANCER4 and SCALE1 candidates; not a qualification of V-LANCER5 material changes"
+}

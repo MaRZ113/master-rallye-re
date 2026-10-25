@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "model_code": "mits0015",
+  "source_label": "Mitsubishi Lancer Evolution IV Rally Car '97",
+  "body_menu_sha256": "b3e24db37de08aaa7e4df1ab2c8e508c037b1b4ecb3b8c528f769e1214b99a15",
+  "body_race_sha256": "6586265558f008d69991e8cb1a826136e5209cb063402b6df411653e195ac36c",
+  "spec_folder": "GT4_PREMIUM_US2560",
+  "spec_labels": {
+    "CHASSIS": "ch_lancer_evo4_wrc_97_a",
+    "RACINGMODIFY": "rm_lancer_evo4_wrc_97_a",
+    "SUSPENSION": "su_lancer_evo4_wrc_97_a",
+    "FRONTTIRE": "ft_lancer_evo4_wrc_97_a",
+    "REARTIRE": "rt_lancer_evo4_wrc_97_a"
+  },
+  "body_callbacks": {
+    "0": 0,
+    "7": 0,
+    "11": 1,
+    "12": 1,
+    "13": 1,
+    "14": 1
+  },
+  "selection": {
+    "menu_model": 0,
+    "race_model": 0,
+    "race_lod": 0,
+    "wheel_model": 0
+  },
+  "freeze_dynamic_morphs": true,
+  "mr_environment_reference": "chrome-tga.dxt",
+  "addon": {
+    "name": "Mitsubishi Lancer Evo IV Rally 97",
+    "manufacturer": "MITSUBISHI",
+    "model": "LANCER EVO IV RALLY '97",
+    "family": "LancerEvo4"
+  },
+  "policy": "Source rest pose only; no MR race-wheel physics tuning. Alternative tire compounds need independent profile qualification.",
+  "material_policy": {
+    "menu": {
+      "qualified_environment": true,
+      "window_decal_shapes": [
+        26
+      ],
+      "decal_alpha_ref": 32
+    },
+    "race": {
+      "qualified_environment": true,
+      "window_decal_shapes": [
+        37
+      ],
+      "decal_alpha_ref": 32
+    }
+  },
+  "native_brakes": {
+    "callback": 0,
+    "off_case": 0,
+    "on_case": 1,
+    "alpha_ref": 32,
+    "halo_offset": 0.001
+  }
+}

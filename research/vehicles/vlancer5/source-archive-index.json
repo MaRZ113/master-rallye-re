@@ -1,0 +1,94 @@
+{
+  "scope": "V-LANCER5 changed source, editable profile, documentation and generated synthetic tests; no retail/GT assets or diagnostics",
+  "requires": "existing research/vehicles checkout and user-owned source resources",
+  "files": [
+    {
+      "path": "src/master_rallye/addon_sdk/gt4_mr_materials.py",
+      "sha256": "7e537796f45da9d5def82e765cbcf2eb1186c45296db75e62b053e1e1d687adc"
+    },
+    {
+      "path": "src/master_rallye/addon_sdk/gt4_brakes.py",
+      "sha256": "f5df53b06afa05eba893c056868dfc927933f7b773ea3a99b8619b44125da26f"
+    },
+    {
+      "path": "src/master_rallye/addon_sdk/native_brakes.py",
+      "sha256": "e3362e6243ef8448f2e9363b265232f3208fbc146d8961833b18ec3e25b98a25"
+    },
+    {
+      "path": "src/master_rallye/addon_sdk/damage_policy.py",
+      "sha256": "c1dbb5ff907dca14085213b3d6801b2a723a69c519e0b5e5f6936b0a8da497ea"
+    },
+    {
+      "path": "src/master_rallye/scene_dx_writer.py",
+      "sha256": "b09835f069dda3dd3ca80e3267c433788ded1ab35981ddf533f947d113266629"
+    },
+    {
+      "path": "src/master_rallye/vehicle_project.py",
+      "sha256": "b0b272b97fd9b1137e642efd75927110f86137162d0eb84255ed4d64f3353973"
+    },
+    {
+      "path": "src/master_rallye/preview_scene.py",
+      "sha256": "aa466a4929d32539240721652935743a7d57e6f9bbbb15e60e4af5629b434d69"
+    },
+    {
+      "path": "src/master_rallye/material_semantics.py",
+      "sha256": "ef098fe4e31d7c7682c81f14d05d248dc5c9346531d0ba306e8bfa34874a8a71"
+    },
+    {
+      "path": "tools/build_gt4_vehicle.py",
+      "sha256": "08aef32dd13a91534bf977ed913e99100f87ead635c2960786c957c97bc9242f"
+    },
+    {
+      "path": "tools/prepare_gt4_addon.py",
+      "sha256": "288b625347378192bf42dc71b3e1e847f95f0aeeabd229129d11e7acf215250c"
+    },
+    {
+      "path": "tools/validate_gt4_vehicle.py",
+      "sha256": "ac3c7e7af7e4f66f87c0928d8a918b42fc061f2e81ca753763661e946dbdbb63"
+    },
+    {
+      "path": "tools/validate_native_brake_controller.py",
+      "sha256": "e624d28020b0145067521e2a12d902f2a8f0e4825225014688b9b32e0d9847b8"
+    },
+    {
+      "path": "tools/validate_vehicle_materials.py",
+      "sha256": "bf22559244354aac1bf835dd1b9bed10b3fb9c394e6fb71c74026b0e1a969b3c"
+    },
+    {
+      "path": "tools/validate_vehicle_previewer.py",
+      "sha256": "5f542dcbddf74cfb1b6dec9d2329c46312d2bf5d8e8d7ef2526bc680b2837608"
+    },
+    {
+      "path": "tools/preview_vehicle.py",
+      "sha256": "4a9c8a561efb4aac42f45e6b90acd750a0087195ce5f0b77974b3c7f75fd5c50"
+    },
+    {
+      "path": "vehicle_previewer/src/main.cpp",
+      "sha256": "fc2e50861edd452cb93772c261068dcfca82695c695f56c87fafa8112c73c5e2"
+    },
+    {
+      "path": "tests/synthetic/test_gt4_material_pipeline.py",
+      "sha256": "4317050ae4031f02efa8701dbe2901edfd9dee40347a3900711f55097ac7930d"
+    },
+    {
+      "path": "research/vehicles/vlancer5/README.md",
+      "sha256": "8bab4c75311f18e6347ce4d1808197de46f5cbf2eccb6589dc0eedd05dfe945f"
+    },
+    {
+      "path": "research/vehicles/vlancer5/collision.md",
+      "sha256": "e560e2788196ba1377213b7b3c394f6cffca6eefbd7dcd480b315e835146da84"
+    },
+    {
+      "path": "research/vehicles/vlancer5/lancer-source-profile.json",
+      "sha256": "751f2b54d73abb96b8d0e0c92a652457fdd2b1ccf2996f711386d51d164c27ee"
+    },
+    {
+      "path": "research/vehicles/vlancer5/v4-human-confirmation.json",
+      "sha256": "fcfbc9f7380a27a2c0f50bc23c108b96b06494b08f18db5d4caccaebeea2e18f"
+    },
+    {
+      "path": "research/vehicles/vlancer5/validation-summary.json",
+      "sha256": "d7fb397e3baa2c2264fe9581f1080f4510f6a10e0bf43365da82cbd6bdea007d"
+    }
+  ]
+}
