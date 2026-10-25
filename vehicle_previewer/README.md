@@ -116,3 +116,22 @@ Workshop forwards source-draw selection and model switching only to its owned
 Previewer process. The CLI defaults and existing material debug controls remain
 available. See `docs/sdk/RALLY_WORKSHOP.md` for the editor workflow and limits.
 
+### V-SDK3.1 / V-SDK4A
+
+**A** toggles Raw/Assembled Race; `--raw-race` starts raw. Profile-injected wheel
+and attachment draws are separate from the original race resource. Exact embedded
+four-wheel matches suppress duplicate assembly without deleting source geometry.
+Negative-determinant instances reverse staged winding, preserving outward faces
+with the transformed normals. This does not change game DX resources.
+
+For standalone wheels, presets1/2 show outside/inside when source axial normals
+provide a clear dominant direction. Ambiguous data retains the generic view;
+rotate and inspect both sides. No global mesh flip is applied. F3/title identifies
+the active presentation. The Workshop Wheel Fitment panel saves preview-only
+positions/orientation/scale; these are not runtime suspension or physics controls.
+
+Source model/draw picking now addresses the hierarchical Studio inspector,
+including wheel instances. Material authoring uses the shared attribute writer;
+unknown alpha/depth states and texture-slot allocation remain read-only. See
+`docs/sdk/VSDK4A_RESULTS.md` for exact functionality and validation evidence.
+

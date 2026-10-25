@@ -1,4 +1,26 @@
-# Rally Workshop — V-SDK3 Studio Foundation
+# Rally Workshop — V-SDK3.1 / V-SDK4A
+
+The original V-SDK3 workflow below remains supported. New controls and exact
+delivery status are documented in `VSDK4A_RESULTS.md`.
+
+- **Inspect / Texture:** model/group/draw/material/slot hierarchy. Select a draw,
+  inspect capability reasons, apply native surface RGB, optionally disable its
+  existing environment pass, or Restore surface. RGB values are multipliers;
+  alpha and source textures are retained. Shared vertex conflicts fail closed.
+- **Texture Studio:** complete shared-use list, RGBA/RGB/Alpha, Original/current,
+  fit, 1:1, zoom, drag-to-pan and detachable window. Whole-image multiplier/PNG
+  edits require confirmation of their full shared-image impact.
+- **Race + Show assembled wheels:** unchecked shows raw `car.dx`; checked adds
+  source-qualified preview instances. Native A toggles these modes. Frontend and
+  Wheel remain independent. Wheel presets1/2 show outside/inside when source
+  axial normals provide a clear convention; no global mesh flip is applied.
+- **Wheel Fitment:** source-order index plus explicit +Z front/+X left display
+  convention, XYZ/yaw/scale, source reset, load/save profile. Manual identity
+  transforms are offered only after explicit acknowledgement; no anchors are
+  guessed. Saved preview poses never become game physics or DX edits.
+- **Before / original GPU view:** central capture comparison; the interactive
+  native window remains the edited model. **Undo/Redo/Restore** affect reversible
+  texture and surface layers. Split/window geometry is retained in the workspace.
 
 ## Launch
 
@@ -130,4 +152,4 @@ are listed in [REGRESSION_MATRIX.md](REGRESSION_MATRIX.md).
 Run edited candidates in Master Rallye yourself to verify actual material/glass,
 reflections, damage, brake lights, sound, camera modes, AI/Results/re-entry and
 unrelated stock/addons. GUI and D3D9 evidence is not native gameplay confirmation.
-V-SDK4–7 have not been started.
+V-SDK4A is implemented; V-SDK4B/V-SDK4C and later phases have not been started.

@@ -1,7 +1,7 @@
 # Master Rallye RE
 
-**Rally Workshop:** run [`Rally-Workshop.cmd`](Rally-Workshop.cmd) for the V-SDK3
-Windows Studio foundation. [Launch/edit/build guide](docs/sdk/RALLY_WORKSHOP.md),
+**Rally Workshop:** run [`Rally-Workshop.cmd`](Rally-Workshop.cmd) for the V-SDK3.1
+Previewer corrections and V-SDK4A Material/Texture Studio. [Results and limits](docs/sdk/VSDK4A_RESULTS.md), [Launch/edit/build guide](docs/sdk/RALLY_WORKSHOP.md),
 [capability inventory](docs/sdk/CAPABILITIES.md), [master plan](docs/sdk/MASTER_PLAN.md).
 Interactive 3D uses the managed D3D9 Previewer; the center panel is a labelled
 GPU capture. Original retail and optional GT inputs remain local and unmodified.

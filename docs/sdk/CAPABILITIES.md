@@ -1,10 +1,19 @@
 # Rally Workshop capability inventory
 
-V-SDK3 audit, 25 October2026. Status applies to the named feature, not every
+V-SDK3.1 / V-SDK4A audit, 25 October2026. Status applies to the named feature, not every
 vehicle/version or all future Studio scope. [Master Plan](MASTER_PLAN.md).
 
 | Capability | Existing callable backend / interface | Studio status and boundary |
 | --- | --- | --- |
+| Selected-surface RGB | `surface_authoring.surface_capabilities/apply_surface_edits`, existing `r4e_writer.patch_dx_attributes`; `WorkshopProject.edit_surface` | Real physical draw vertex RGB. Rejects shared vertices/disabled color stream. Alpha, texture image, UVs, collision and topology unchanged. Baked content on that draw is modulated; not semantic paint |
+| Environment assignment | Same writer, `disable_reflection` recipe | Only disable/restore a source-qualified existing environment pass; cannot add arbitrary reflection shaders. Edited native appearance still needs owner gameplay testing |
+| Hierarchical inspector | Parsed model → native group → physical draw → material → texture slot | Stable source IDs, core offsets, exact states; unnamed groups remain unclassified. Texture bindings and unknown/native alpha-depth flags are read-only with reasons |
+| Texture inspection | `workshop.texture_view.TextureView`, existing FEED/PNG codecs | Resize-aware, detached view, fit/1:1/zoom/pan, RGBA/RGB/Alpha, checkerboard and original/current switch. Scaled images are viewport crops, no persistent high-resolution duplicates |
+| Texture impact | `WorkshopProject.texture_usage` | Complete scrollable model/draw/slot usage list; whole-image edit asks impact confirmation and records users. No silent semantic atlas selection |
+| Raw/Assembled Race | Native `--raw-race`, A toggle, GUI checkbox; staged wheel model kind5 | Raw shows only car resource; assembled adds provenance-bearing wheel/attachment instances. Exact embedded-instance matches suppress duplicates; unfamiliar baked geometry is never removed |
+| Preview wheel fitting | `preview_profile/save_preview_profile` | Four source/manual transforms, named XYZ-side/axle convention, translation/yaw/scale, source reset and saved reload. Preview-only; no physics edits or automatic arch placement |
+| Preview orientation repair | `stage_vehicle` determinant/winding correction | Negative determinant reverses staged triangle order, normals use inverse transpose. Source DX/UV unchanged; fixed-camera four-family checks |
+| Surface persistence | Shared VehicleProject `surface_layers`, Workshop undo/redo/state | Hash-pinned post-conversion attribute layers preserve existing source authoring. Stock COW still uses its pinned resource ownership; zero-edit restoration produces no overrides |
 | Project open/save/restore | `workshop.service.WorkshopProject.create/save/restore/undo` | Real private working project, pinned baseline and content-addressed texture layers; JSON persists edits/history |
 | Addon authoring | `VehicleProject.load`, `validate_vehicle`, `addon_sdk.project.build_project` | Reused; GUI RGB/PNG edits use existing `texture_edits` contract; no converter rewrite |
 | Full addon candidate | `build_sdk_roster.derive/build/verify`, through Workshop service | Existing qualified roster candidate must contain one matching author entry; build includes existing launcher preflights |
@@ -43,5 +52,5 @@ runtime launcher API/behavior was retained. Inputs remain in the project.
 Broken Subaru glass remains owner-observed, cause unknown. No glass repair,
 Classic MR Style, semantic masked recoloring, geometry round-trip, scale/fit,
 new physics tuning, audio/camera editing GUI, new CarID expansion or fourth
-import is included. Existing CLI workflows remain available. V-SDK4–7 are not
-automatically started.
+import is included. Existing CLI workflows remain available. V-SDK4A is the
+current bounded milestone; V-SDK4B/V-SDK4C and later phases are not started.

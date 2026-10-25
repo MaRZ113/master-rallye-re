@@ -1,8 +1,26 @@
-# V-SDK3 regression and acceptance matrix
+# V-SDK3.1 / V-SDK4A regression and acceptance matrix
 
 Evidence root: `.research-output/vehicles/vsdk3/`. Private captures/candidates
 are not shipped in the source archive. Final commands/results are recorded in
 the delivery report; failed intermediate GUI runs remain private diagnostics.
+
+Current phase roots: `.research-output/vehicles/vsdk31/` (792 tests, one skip,
+four-family fixed-camera assembly/texture checks) and
+`.research-output/vehicles/vsdk4a/` (full regression, GUI build and preservation
+evidence). See `VSDK4A_RESULTS.md` for final run names and boundaries.
+
+| New check | Evidence / acceptance | Boundary |
+| --- | --- | --- |
+| Subaru mirrored wheels | Reverse winding on negative determinant; six fixed camera poses with unchanged staged vertex/index hashes | Frozen runtime DX is not edited |
+| Lancer source assembly | Original wheel SHA matches; 87 body draws show zero frame translation | Original GT4 rest pose, not settled MR suspension |
+| Pajero raw/assembled | Raw source has no references to wheel resource textures; profile adds four separate instances | No authentic geometry is stripped |
+| Stock wheels | Original Megane resource culling/UV/render smoke and outside/inside views | Unqualified wheel anchors stay unavailable, manual preview explicit |
+| Image inspection | Actual 1024×256 texture, alpha/RGBA, fit/actual/zoom/pan, detached-window capture | No generated texture included in source archive |
+| Selected-surface editing | Stock and addon real GUI pick/Save/Validate/Build/Restore; before/after captures; textures unchanged | Source-draw RGB, not masked texture repaint |
+| Shared vertex ownership | Conflicting draw set rejects RGB edit; unknown shader/slot fields read-only | Conservative fallback is explicitly confirmed whole-texture edit |
+| Persistence | Reopen, Undo/Redo, restore, original author layers composed via source SHA pins | No game resources edited in place |
+| Material preservation | Only selected RGB ranges/qualified env bit allowed; alpha/normals/UV/topology/collision retained | Owner validates damage/glass/brakes/reflections in MR |
+| Candidate isolation | Resource manifests, native payload, EXE/DLL hashes, stock zero-edit rebuild | Not gameplay confirmation |
 
 | Area | Automated / visual check | Runtime boundary |
 | --- | --- | --- |

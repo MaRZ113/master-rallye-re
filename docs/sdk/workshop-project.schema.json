@@ -3,37 +3,121 @@
   "title": "Rally Workshop authoring project v1",
   "description": "Private editor state, not a new native game format. Runtime changes flow through existing qualified SDK APIs.",
   "type": "object",
-  "required": ["version", "kind", "identity", "inputs", "edits", "extensions", "build_settings"],
+  "required": [
+    "version",
+    "kind",
+    "identity",
+    "inputs",
+    "edits",
+    "extensions",
+    "build_settings"
+  ],
   "properties": {
-    "version": {"const": 1},
-    "kind": {"enum": ["addon", "stock", "family"]},
-    "identity": {"type": "string"},
-    "car_id": {"type": ["integer", "null"]},
-    "inputs": {"type": "object", "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"}},
-    "author_sources": {"type": "object", "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"}},
-    "edits": {"type": "object", "description": "Texture resource names map to source/output hashes and an explicit RGB or PNG recipe."},
-    "build_settings": {"type": "object", "description": "GUI-selected existing roster candidate and user-supplied retail input paths."},
-    "extensions": {
-      "type": "object", "additionalProperties": false,
-      "properties": {
-        "glass_panes": {"$ref": "#/$defs/metadata"},
-        "paint_masks": {"$ref": "#/$defs/metadata"},
-        "transforms": {"$ref": "#/$defs/metadata"},
-        "audio_presets": {"$ref": "#/$defs/metadata"},
-        "adapters": {"$ref": "#/$defs/metadata"}
+    "version": {
+      "const": 1
+    },
+    "kind": {
+      "enum": [
+        "addon",
+        "stock",
+        "family"
+      ]
+    },
+    "identity": {
+      "type": "string"
+    },
+    "car_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "inputs": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
       }
+    },
+    "author_sources": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      }
+    },
+    "edits": {
+      "type": "object",
+      "description": "Texture resource names map to source/output hashes and an explicit RGB or PNG recipe."
+    },
+    "build_settings": {
+      "type": "object",
+      "description": "GUI-selected existing roster candidate and user-supplied retail input paths."
+    },
+    "extensions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "glass_panes": {
+          "$ref": "#/$defs/metadata"
+        },
+        "paint_masks": {
+          "$ref": "#/$defs/metadata"
+        },
+        "transforms": {
+          "$ref": "#/$defs/metadata"
+        },
+        "audio_presets": {
+          "$ref": "#/$defs/metadata"
+        },
+        "adapters": {
+          "$ref": "#/$defs/metadata"
+        }
+      }
+    },
+    "surfaces": {
+      "type": "object",
+      "description": "Model \u2192 physical draw ID \u2192 source-scoped RGB and/or disable-existing-environment recipe. Applied by shared native attribute writer; alpha remains untouched."
+    },
+    "preview_only": {
+      "type": "object",
+      "description": "Provenance-bearing preview rest pose only; never exported as game physics or DX changes."
+    },
+    "history": {
+      "type": "array",
+      "description": "Reversible texture/surface snapshots; older texture-only snapshots remain readable."
+    },
+    "redo": {
+      "type": "array"
     }
   },
   "$defs": {
     "metadata": {
-      "type": "array", "description": "Reserved authoring metadata; never silently interpreted as native behavior in V-SDK3.",
+      "type": "array",
+      "description": "Reserved authoring metadata; never silently interpreted as native behavior in V-SDK3.",
       "items": {
-        "type": "object", "additionalProperties": false,
-        "required": ["id", "status", "data"],
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "status",
+          "data"
+        ],
         "properties": {
-          "id": {"type": "string", "minLength": 1, "maxLength": 64},
-          "status": {"enum": ["PLANNED", "AUTHORING-METADATA"]},
-          "data": {"type": "object"}
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "status": {
+            "enum": [
+              "PLANNED",
+              "AUTHORING-METADATA"
+            ]
+          },
+          "data": {
+            "type": "object"
+          }
         }
       }
     }

@@ -53,6 +53,7 @@ def descendants(widget):
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     for name in ('addon-project','roster-candidate','retail-sma','retail-root','viewer','output'):p.add_argument('--'+name,type=Path,required=True)
+    p.add_argument('--surface',action='store_true',help='V-SDK4A selected-draw RGB instead of the V-SDK3 whole-texture demonstration')
     a=p.parse_args();output=a.output.resolve()
     if output.exists():raise ValueError('Use a fresh GUI evidence output directory')
     output.mkdir(parents=True);root=tk.Tk();app=WorkshopApp(root,output/'workspace',ROOT,a.viewer)
@@ -69,27 +70,55 @@ def main():
         next(w for w in descendants(dialog) if isinstance(w,ttk.Button) and w['text']=='Save build inputs').invoke()
     def baseline_capture():
         nonlocal baseline
-        baseline=(app.project.root/'preview/latest.bmp').read_bytes();report[app.project.data['kind']+'_project']=str(app.project.root)
+        baseline=(app.project.root/'preview/latest.bmp').read_bytes();(output/(app.project.data['kind']+'-before.bmp')).write_bytes(baseline);report[app.project.data['kind']+'_project']=str(app.project.root)
         configure();record('configure build through GUI dialog',app.project.data['build_settings'])
         next(w for w in descendants(root) if isinstance(w,ttk.Button) and w['text']=='Open interactive 3D').invoke()
         assert app.process and app.process.poll() is None
         record('GUI opens managed native D3D9 window',app.process.pid)
     def edit():
+        if a.surface:
+            from master_rallye.dx import parse_dx_bytes
+            from master_rallye.surface_authoring import surface_capabilities
+            model=app.current_info['model'];raw=(app.project.baseline/model).read_bytes();mesh=parse_dx_bytes(raw)
+            candidates=[d for d in mesh.physical_draws if d.unknown_0x24&4 and not d.flags_0x20[0] and surface_capabilities(raw,d.draw_index)['diffuse_rgb_editable']]
+            def projected_area(draw):
+                import math
+                eye=(math.sin(.65)*math.cos(.18),math.sin(.18),math.cos(.65)*math.cos(.18));ids=mesh.draw_global_indices(draw);score=0
+                for i in range(0,len(ids),3):
+                    a,b,c=[mesh.vertices.positions[k] for k in ids[i:i+3]];u=[b[k]-a[k] for k in range(3)];v=[c[k]-a[k] for k in range(3)];normal=(u[1]*v[2]-u[2]*v[1],u[2]*v[0]-u[0]*v[2],u[0]*v[1]-u[1]*v[0]);score+=max(0,sum(normal[k]*eye[k] for k in range(3)))
+                return score
+            draw=max(candidates,key=projected_area)
+            app.draws.selection_set(app._draw_node(model,draw.draw_index));app._draw_selected()
+            for var,value in zip(app.surface_gain,('.05','.1','1')):var.set(value)
+            assert not app.surface_button.instate(['disabled'])
+            app.surface_button.invoke();record('apply selected-surface RGB using real native attribute writer',{'model':model,'draw':draw.draw_index,'texture_unchanged':True})
+            return
         counts=collections.Counter(str(d['textures'][0])+'.dxt' for d in app.current_info['draws'] if d['textures'])
         if app.project.data['kind']=='stock':name='whitepaint-tga.dxt'
         else:name=max((t for t in app.current_info['textures'] if counts[t['name']]),key=lambda t:counts[t['name']]*t['width']*t['height'])['name']
         draw=next((d for d in app.current_info['draws'] if d['textures'] and str(d['textures'][0])+'.dxt'==name),None)
         if draw:
-            app.draws.selection_set(str(draw['id']));app._draw_selected();assert 'semantics' in app.inspector.get('1.0','end')
+            app.draws.selection_set(app._draw_node(app.current_info['model'],draw['id']));app._draw_selected();assert 'semantics' in app.inspector.get('1.0','end')
             record('inspect selected actual material',{'model':app.current_info['model'],'draw':draw['id'],'texture':name})
         app.texture_name.set(name);app.show_texture()
         for var,value in zip(app.gain,('.15','.45','1.0')):var.set(value)
         app.tint_button.invoke();record('apply visible whole-texture multiplier via button',name)
     def edited_capture():
-        after=(app.project.root/'preview/latest.bmp').read_bytes();difference=sum(x!=y for x,y in zip(baseline[54:],after[54:]));assert difference>100,('No visible GPU difference',difference)
+        after=(app.project.root/'preview/latest.bmp').read_bytes();(output/(app.project.data['kind']+'-after.bmp')).write_bytes(after);difference=sum(x!=y for x,y in zip(baseline[54:],after[54:]));assert difference>100,('No visible GPU difference',difference)
         screenshot(root,output/(app.project.data['kind']+'-edited-gui.png'))
-        record('visible real GPU change',{'different_bytes':difference,'texture_edits':app.project.data['edits']})
+        record('visible real GPU change',{'different_bytes':difference,'texture_edits':app.project.data['edits'],'surface_edits':app.project.data.get('surfaces',{})})
         app.buttons['Save'].invoke();app.buttons['Validate'].invoke()
+        from master_rallye.workshop.service import WorkshopProject
+        reopened=WorkshopProject(app.project.root);reopened.materialize();assert reopened.data.get('surfaces',{})==app.project.data.get('surfaces',{})
+        record('saved project reopened with identical scoped recipes')
+    def undo_edit():
+        next(w for w in descendants(root) if isinstance(w,ttk.Button) and w['text']=='Undo').invoke()
+    def undo_checked():
+        assert (app.project.root/'preview/latest.bmp').read_bytes()==baseline
+        record('GUI Undo restores original GPU capture');next(w for w in descendants(root) if isinstance(w,ttk.Button) and w['text']=='Redo').invoke()
+    def redo_checked():
+        assert (app.project.root/'preview/latest.bmp').read_bytes()==(output/(app.project.data['kind']+'-after.bmp')).read_bytes()
+        record('GUI Redo restores edited GPU capture')
     def build():app.buttons['Build'].invoke()
     def built():
         path=Path(app.project.data['last_build']);assert (path/'candidate/Launch-SDK-Roster.cmd').is_file()
@@ -97,7 +126,7 @@ def main():
         app.buttons['Restore all'].invoke()
     def restored():
         assert (app.project.root/'preview/latest.bmp').read_bytes()==baseline,'Restore GPU image differs from original'
-        assert not app.project.data['edits'];record('GUI restore matches original GPU capture byte-for-byte',app.project.data['kind'])
+        assert not app.project.data['edits'] and not any(app.project.data.get('surfaces',{}).values());record('GUI restore matches original GPU capture byte-for-byte',app.project.data['kind'])
     def new_stock():
         with patch('master_rallye.workshop.gui.filedialog.askdirectory',return_value=str(a.retail_root.resolve())):app.buttons['New stock'].invoke()
         dialog=next(w for w in root.winfo_children() if isinstance(w,tk.Toplevel))
@@ -107,7 +136,7 @@ def main():
     def restored_build():
         output=Path(app.project.data['last_build']);manifest=json.loads((output/'stock-overrides/override-manifest.json').read_text());assert manifest['zero_edit']
         report['stock_restored_candidate']=str(output/'candidate');record('GUI rebuild after Restore emits zero stock overrides',str(output))
-    actions=[open_addon,baseline_capture,edit,edited_capture,build,built,restored,new_stock,baseline_capture,edit,edited_capture,build,built,restored,build,restored_build,finish]
+    actions=[open_addon,baseline_capture,edit,edited_capture,undo_edit,undo_checked,redo_checked,build,built,restored,new_stock,baseline_capture,edit,edited_capture,undo_edit,undo_checked,redo_checked,build,built,restored,build,restored_build,finish]
     def tick():
         nonlocal index,idle,last
         try:
@@ -124,7 +153,8 @@ def main():
             hwnd=app._viewer_window()
             if hwnd:ctypes.windll.user32.PostMessageW(hwnd,0x10,0,0)
             root.destroy()
-    with patch('master_rallye.workshop.gui.messagebox.showerror',side_effect=lambda *args,**kw:errors.append(args)):
+    root.report_callback_exception=lambda *args:errors.append(str(args))
+    with patch('master_rallye.workshop.gui.messagebox.askyesno',return_value=True), patch('master_rallye.workshop.gui.messagebox.showerror',side_effect=lambda *args,**kw:errors.append(args)):
         root.after(500,tick);root.mainloop()
     if report['status']!='PASS_ACTUAL_WINDOWS_GUI_AND_TWO_SDK_BUILDS':raise ValueError(report)
     print(report['status'])

@@ -196,10 +196,60 @@ class WorkshopProject:
             if sha(_owned(self.baseline,name).read_bytes())!=expected:raise ValueError('Workshop baseline changed: '+name)
 
     def _record(self):
-        self.data['history'].append(json.loads(json.dumps(self.data['edits'])))
+        self.data['history'].append(self._state())
         self.data['history']=self.data['history'][-30:]
+        self.data['redo']=[]
+
+    def _state(self):return json.loads(json.dumps({'__workshop_state__':1,'textures':self.data['edits'],'surfaces':self.data.get('surfaces',{})}))
+
+    def _load_state(self,state):
+        if state.get('__workshop_state__')==1:self.data['edits']=state['textures'];self.data['surfaces']=state['surfaces']
+        else:self.data['edits']=state;self.data['surfaces']={}
+
+    def edit_surface(self,model,draw_id,*,rgb=None,disable_reflection=None):
+        from master_rallye.surface_authoring import apply_surface_edits
+        if model not in ('car.dx','complete.dx','wheel.dx'):raise ValueError('Unsupported model')
+        recipe=dict(self.data.get('surfaces',{}).get(model,{}).get(str(draw_id),{'draw_id':draw_id}))
+        if rgb is not None:recipe['rgb']=rgb
+        if disable_reflection is not None:recipe['disable_reflection']=disable_reflection
+        raw=_owned(self.baseline,model).read_bytes();apply_surface_edits(raw,[recipe],source_sha256=sha(raw))
+        self._record();self.data.setdefault('surfaces',{}).setdefault(model,{})[str(draw_id)]=recipe;self.materialize();self.save()
+
+    def restore_surface(self,model,draw_id):
+        self._record();self.data.setdefault('surfaces',{}).get(model,{}).pop(str(draw_id),None);self.materialize();self.save()
+
+    def texture_usage(self,name):
+        from master_rallye.assets import AssetResolver
+        result=[];resolver=AssetResolver(self.assets);resolved_slots={}
+        for path in sorted(self.assets.glob('*.dx')):
+            model=parse_dx_bytes(path.read_bytes())
+            for d in model.physical_draws:
+                for slot in d.texture_slots:
+                    if slot.value not in resolved_slots:resolved_slots[slot.value]=resolver.resolve_texture(slot.value)
+                    resolved=resolved_slots[slot.value]
+                    if resolved and resolved.name.casefold()==name.casefold():result.append({'model':path.name,'draw':d.draw_index,'slot':slot.slot,'group':d.group_label})
+        return result
 
     def texture(self,name):return parse_dxt_bytes(_owned(self.assets,name).read_bytes())
+
+    def preview_profile(self):
+        """Preview-only rest pose, never a physics or runtime resource edit."""
+        if self.data.get('preview_only') is not None:return self.data['preview_only']
+        path=self.baseline/'preview-profile.json'
+        if path.exists():return json.loads(path.read_text())
+        from master_rallye.preview_scene import presentation_wheels
+        try:return presentation_wheels(*(parse_dx_bytes((self.baseline/n).read_bytes()) for n in ('car.dx','complete.dx','wheel.dx')))
+        except (ValueError,FileNotFoundError) as e:return {'provenance':'No qualified assembly: '+str(e),'race_wheel_instances':[]}
+
+    def save_preview_profile(self,config):
+        if not isinstance(config,dict) or len(config.get('race_wheel_instances',[])) not in (0,4):raise ValueError('Preview layout requires four wheels or an empty raw layout')
+        from master_rallye.preview_scene import stage_vehicle
+        path=self.root/'preview/wheel-edit.json';write_json(path,config)
+        stage_vehicle(self.assets/'car.dx',self.root/'preview/wheel-check.mrpv',profile=path)
+        self.data['preview_only']=config;self.save()
+
+    def preview_profile_path(self):
+        path=self.root/'preview/active-profile.json';write_json(path,self.preview_profile());return path
 
     def tint(self,name,rgb):
         self.verify_inputs();texture=parse_dxt_bytes(_owned(self.baseline,name).read_bytes())
@@ -220,7 +270,7 @@ class WorkshopProject:
         texture=parse_dxt_bytes(_owned(self.baseline,name).read_bytes())
         raw=texture.header[:8]+struct.pack('<I',zlib.crc32(pixels)&0xffffffff)+texture.header[12:]+pixels
         parse_dxt_bytes(raw);folder=self.root/'overrides';folder.mkdir(exist_ok=True);_owned(folder,sha(raw)+'.dxt').write_bytes(raw)
-        self.data['edits'][name]={**recipe,'baseline_sha256':self.data['inputs'][name],'output_sha256':sha(raw)}
+        self.data['edits'][name]={**recipe,'affected_draws':self.texture_usage(name),'baseline_sha256':self.data['inputs'][name],'output_sha256':sha(raw)}
         self.materialize();self.save()
 
     def materialize(self):
@@ -230,12 +280,22 @@ class WorkshopProject:
             raw=_owned(self.root/'overrides',edited['output_sha256']+'.dxt').read_bytes() if edited else _owned(self.baseline,name).read_bytes()
             if edited and sha(raw)!=edited['output_sha256']:raise ValueError('Edited texture changed outside project: '+name)
             write_resource(_owned(self.assets,name),raw)
+        from master_rallye.surface_authoring import apply_surface_edits
+        for model,edits in self.data.get('surfaces',{}).items():
+            if model not in ('car.dx','complete.dx','wheel.dx'):raise ValueError('Unowned surface model')
+            raw=_owned(self.baseline,model).read_bytes()
+            output=apply_surface_edits(raw,list(edits.values()),source_sha256=self.data['inputs'][model]).data
+            write_resource(_owned(self.assets,model),output)
         if self.data['kind']=='stock':
             meta=json.loads((self.working/'stock-project.json').read_text())
             for rel in meta['original_sha256']:
                 shutil.copyfile(_owned(self.assets,Path(rel).name),stock_project.safe(self.working/'resources',rel))
         elif self.data['kind']=='addon':
             spec=json.loads((self.root/'original-author.json').read_text());original=VehicleProject.load(self.working/'vehicle-project.json')
+            for model,edits in self.data.get('surfaces',{}).items():
+                if edits:
+                    entry=spec.setdefault('resources',{}).setdefault(model,{'source_sha256':sha((original.source_vehicle_dir/model).read_bytes())})
+                    entry.setdefault('surface_layers',[]).append({'edits':list(edits.values()),'source_sha256':self.data['inputs'][model]})
             for name in self.data['edits']:
                 png=self.root/'overrides'/(name+'.png');png.write_bytes(encode_png(self.texture(name)))
                 donor=_owned(original.source_vehicle_dir,name).read_bytes()
@@ -245,14 +305,18 @@ class WorkshopProject:
 
     def restore(self,name=None):
         self._record()
-        if name is None:self.data['edits']={}
+        if name is None:self.data['edits']={};self.data['surfaces']={}
         else:self.data['edits'].pop(name,None)
         self.materialize();self.save()
 
     def undo(self):
         if not self.data['history']:raise ValueError('No undo history')
-        previous=self.data['history'].pop()
-        self.data['edits']=previous;self.materialize();self.save()
+        previous=self.data['history'].pop();self.data.setdefault('redo',[]).append(self._state())
+        self._load_state(previous);self.materialize();self.save()
+
+    def redo(self):
+        if not self.data.get('redo'):raise ValueError('No redo history')
+        state=self.data['redo'].pop();self.data['history'].append(self._state());self._load_state(state);self.materialize();self.save()
 
     def inspect(self,model='car.dx'):
         self.materialize();m=parse_dx_bytes(_owned(self.assets,model).read_bytes())
@@ -305,7 +369,7 @@ class WorkshopProject:
                 for name,edit in spec.get('texture_edits',{}).items():
                     image=author.resolve(edit['png']);destination=textures/(name+'.png');shutil.copyfile(image,destination);edit['png']=str(destination)
                 write_json(snapshot/'vehicle-project.json',spec)
-            write_json(output/'workshop-edit-ledger.json',{'project':str(self.root),'inputs':self.data['inputs'],'edits':self.data['edits'],'settings':settings})
+            write_json(output/'workshop-edit-ledger.json',{'project':str(self.root),'inputs':self.data['inputs'],'edits':self.data['edits'],'surfaces':self.data.get('surfaces',{}),'settings':settings})
             if self.data['kind']=='stock':
                 report=stock_project.build(snapshot,output/'stock-overrides')
                 roster.setdefault('stock_resource_projects',[]).append(str(snapshot))

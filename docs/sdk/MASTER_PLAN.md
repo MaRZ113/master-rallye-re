@@ -1,6 +1,6 @@
 # Master Rallye Vehicle SDK — Master Plan / Rally Workshop
 
-**Working baseline:** 25 October 2026 (reviewed V-SDK2 + V-PAJERO3 source overlays, revision 3)  
+**Working baseline:** 25 October 2026 (V-SDK3 source review + owner Windows screenshots, revision 4.1; earlier phase requests retained as historical context)  
 **Repository:** `master-rallye-re-vehicles` · **branch:** `research/vehicles`  
 **Purpose:** single living specification for development, review, acceptance and public beta planning.  
 **Status disclaimer:** this document summarizes previous source-review discussions and reported gameplay tests. It is **not** a new repository or binary audit; verify each item against the current checkout before implementation. Update the ledger after every development phase.
@@ -193,7 +193,7 @@ Add camera bookmark Save/Recall; mouse sensitivity and invert settings; pan move
 - Archives reviewed: `vsdk2-source.zip` (13 manifest file hashes, 10 parseable Python files), `vpajero3-source.zip` (8 hashes, 5 parseable Python files); both ZIP CRC clean. Each is a **source overlay**, not a full reproducible checkout or runtime candidate. Repo-level test reports and in-game qualification remain independently bounded.
 - **Gate reached for beginning V-SDK3**, with qualified features frozen and residual camera/stock-family gaps explicitly carried forward.
 
-### NEXT ACTIVE: V-SDK3 — Studio Foundation / first vertical slice
+### HISTORICAL V-SDK3 REQUEST (delivered in source; see sections 11–12)
 - Define SDK core services and stable project API (`open`, `inspect`, `override`, `validate`, `build`, `revert`); stop using independent one-off scripts as GUI backends.
 - Create Rally Workshop shell, Vehicle Library (stock/addon), native-resource preview embed/dock, pan/orbit/zoom, Basic+Material debug HUD, persistence of camera bookmarks.
 - Add **cross-cutting data schemas** now for pane IDs/state, paint masks, user texture overrides, dimension/coordinate transformations, sound preset references and import adapter capabilities, even if their complete editing UI arrives later. No speculative game-native claims.
@@ -302,3 +302,77 @@ With V-SDK2 first-pass controls accepted, start **V-SDK3 Studio Foundation**. Pr
 The complete user-supplied v3 specification above is preserved. Imported SHA256: `29453cdf1ac9fb891524f44fb7faee0490052d1f92a7070753eed29613c50178`.
 
 Studio Foundation adds a GUI-independent Workshop service, a real Windows Tk shell, managed D3D9 Previewer navigation/inspection, and texture edit/build/restore vertical slices. See CAPABILITIES.md and REGRESSION_MATRIX.md for actual validation status. The central image is a labelled GPU capture; interactive 3D runs in a managed native window, not a fake embedded viewport. No native gameplay feature was reimplemented for the GUI. V-SDK4 through V-SDK7 remain planned and require separate authorization.
+
+
+## 12. V-SDK3 source review and V-SDK4 execution gate (25 October 2026)
+
+**Current status:** V-SDK3 Foundation source-delivered, owner Windows acceptance and edited-candidate gameplay tests pending. V-SDK4 has not started. This section supersedes the earlier historical V-SDK3 prompt outline.
+
+### Independently reviewed (source archive `rally-workshop-vsdk3-source.zip`)
+
+- 728 tracked source files match SHA256 entries in `SOURCE_MANIFEST.json`; ZIP CRC clean and no unlisted archived files. Manifest claims `research/vehicles` commit `2a42ee769b5a2f014fbe414f6eea11bbe4afe3d7`, not independently verifiable without `.git`.
+- 413 Python source files AST-parse cleanly. All 11 `tests.synthetic.test_workshop` tests passed under an isolated Linux environment.
+- Cross-platform full suite attempt: 760 discovered tests, 76 skips, seven environment-dependent errors (six tests require missing `unicorn` x86 emulator, one requires the Windows MSVC x86 compiler). These are **not** proven product regressions. Windows agent reports 790 passing / one skipped; that Windows run was not reproduced in this review.
+- Source establishes actual Tk GUI, project library, managed Win32/D3D9 interactive Previewer, orbit/MMB pan/zoom/focus/bookmarks/F3, draw selection, material semantics inspection, texture-wide RGB multiplier, qualified dimension-preserving RGBA PNG replacement, project undo/restore, stock copy-on-write and addon builds via prequalified roster.
+- UI's central pane displays a labelled GPU *capture*, not live embedded 3D. Interactive Previewer opens a separate native window. Picking is triangle intersection, not alpha-texel-aware shader picking. Preview fidelity is approximate, not D3D8 parity.
+- Existing qualified stock COW families remain Pajero/CarID1 and Megane/CarID18. Generic DX family inspection does not allocate a registered runtime CarID.
+- Current color multiplier affects whole atlas and painted logos/decals. No general per-material native reassignment, UV editing, masked paint, crack/broken-glass logic, Classic MR Style mapper, Blender round-trip, geometric scaling, audio or gameplay camera GUI is implemented. Metadata reserved for future editors does not imply runtime behavior.
+- Agent's Windows GUI tests/reports and launchable candidate paths are referenced in `.research-output` but neither private evidence nor candidate binaries ship in this source archive. Original EXE/DLL unchanged is claimed in agent report; cannot re-hash absent original binary inputs.
+- Source history docs claim owner authorized 43 earlier local commits and a V-SDK3 commit. Confirm authorization and **no push** before any public release; archive alone cannot validate Git history.
+
+### Immediate owner acceptance gate (before declaring Studio user-ready)
+
+1. In the real Windows checkout run `Rally-Workshop.cmd` (build requires Python with Tk, CMake and MSVC for native Previewer on clean checkout). The review ZIP is source-only and has no retail or GT resources.
+2. Open one addon and one qualified stock car. Check Race/Frontend/Wheel variants, material information, correct selections, missing-texture behavior and rest-pose/wheel positioning.
+3. Interactive 3D: test LMB rotate/select, MMB pan without orbiting, wheel zoom, F focus, Home, Ctrl1–6 save/Shift1–6 recall, F3 overlay, reload without losing camera.
+4. Apply an obviously visible local RGB edit or dimension-preserving PNG to one deliberately selected DXT. Check GUI capture and separate 3D viewer, Undo/Restore and project reopen persistence. Do not test on the canonical frozen finished cars themselves: work in a private Workshop project copy.
+5. Configure the qualified roster and build a candidate. Launch it in the game and check menu, race, AI, sounds, damage/glass, brakes, cameras, Results and re-entry. Verify unrelated cars unchanged; restore and rebuild a zero-edit stock candidate.
+6. Record Windows screenshots, exact candidate path/manifest, steps to reproduce problems and reported time/load/memory regressions, if any. Mark acceptance `OWNER-VERIFIED` only for runs the owner performs.
+
+### Next implementation: V-SDK4A — Material/Texture Studio (bounded first vertical slice)
+
+- Promote diagnostics into a real hierarchical mesh → draw → material → texture inspector with stable IDs/source provenance, selected/highlighted surfaces and reversible edit layers. Preserve race/frontend/wheel variants and stock/addon symmetry.
+- Add supported real material reassignment/authoring only where native DX semantics, shader flags/texture slots and current writer can round-trip safely; otherwise show read-only fields and specific diagnostics. Do not call an RGB texture multiplier material authoring.
+- Texture editor: diffuse/alpha channel views, previews, local PNG replacement with dimensional/alpha/orientation/UV warnings, resource-usage budget and non-destructive history. Keep existing DXT bulk loader and 32 MiB native cache behavior intact.
+- Provide one **visible, selected-surface-scoped** edit demonstrated on a qualified addon and one qualified stock vehicle. If the render format forces shared-texture changes, disclose all affected draws and require user confirmation; do not silently alter decals/glass.
+- Add before/after A/B and precise source-vs-renderer approximation labels. Avoid fake 'live D3D8 parity'. Preserve CLI and file provenance.
+- Validate project reload, Undo/Redo/Restore, byte-stable zero-edit, asset ownership, edited candidate build and regressions for Subaru/Lancer/Pajero, cache/performance, AI/camera/audio/UI and native materials.
+- Implement V-SDK4A end to end rather than expanding into all planned modules. Follow with separate V-SDK4B masked paint/Classic MR Style and V-SDK4C glass damage **research first**, preserving the existing Subaru symptom as cause-unknown.
+
+### Remaining product roadmap (unchanged)
+
+V-SDK4B: qualified basecoat/repaint masks and Classic MR style/stock material matching with UV adaptation. V-SDK4C: native cracked/broken-glass state research and reversible authoring. V-SDK5: Blender Bridge, topology conflict handling and coherent scale/fit, source/stock comparative overlays. V-SDK6: Physics, Audio (engine/whine/spool/BOV user presets) and gameplay Camera Studio. V-SDK7: Fleet Builder, format adapters, reversible install, public beta readiness. Existing planned work on lighting, crew, damaged state, UI icons, shadow and wheel fitment remains explicitly in the broader master-plan/regression matrix.
+
+**Invariants:** original MRallye.exe untouched; existing d3d8.dll untouched; Randomizer separate; proprietary GT3/GT4 resources private; do not create or push commits without explicit authorization; no false native qualification or unsupported new CarIDs.
+
+
+## 13. V-SDK3.1 owner acceptance findings and preview assembly gate (25 October 2026)
+
+**New direct owner reports from the running Windows Rally Workshop (screenshots supplied):**
+- Texture replacement **succeeded**. The dark Rally Workshop GUI is generally liked and must be preserved.
+- Texture preview in Inspector is **unacceptably small and cannot be expanded**. Source `workshop/gui.py::show_texture()` uses hardcoded PhotoImage subsampling toward ~280×110 and a compact fixed-height texture label. Provide resize-aware main/right-pane texture preview and an independent resizable popup/dockable texture viewer with 1:1/fit/zoom/pan/alpha or checkerboard display; retain original/edited A/B. Preserve VRAM/CPU resource budgets and native FEED BGRA/alpha semantics.
+- Subaru `car.dx` Race in live GPU preview and Workshop capture **appears to have left wheels whose facing/visibility follows camera azimuth**. This is a user-observed symptom, not a proven root cause. Produce fixed-camera multi-angle captured evidence; inspect `preview_scene.py` staging and `preview-profile.json` source transforms, left/right mirrored wheel winding, normals, outward-facing surfaces, culling and D3D9 draw state. Verify world-space wheel/hub vertices do not change under camera orbit. Do **not** silently edit the qualified Subaru runtime DX or wheel assets to hide a Previewer bug.
+- Pajero Race displays wheels while other Race body views do not. Determine whether wheels are baked into `car.dx`, added as provenance-bearing `wheel.dx` rest-pose instances, or duplicated/incorrectly filtered. Existing `preview_scene.py` conditionally adds wheel instances to model kind 1; this must be inventoried and presented explicitly. **A raw Race DX can legitimately differ from an assembled race appearance**; never strip authentic geometry without evidence.
+- Standalone Wheel preview currently shows a back/inner wheel face; default should show the actual visible exterior/rim face using per-side/per-rig verified outward-axis conventions. Support switching outer/inner side, no global hardcoded reversal.
+- Provide a separately labeled **Preview Car + Wheels** toggle in Race variant, with optional rest-pose wheel assembly and explicit authoring of X/Y/Z position, yaw/rotation and qualified size/scale per wheel when the source-profile permits. Persist it in reversible per-vehicle preview metadata. Display wheel centers, body reference and physical/reference hubs when available; offer comparison to frontend rest pose. **These are preview-only transforms**, not native race physics/wheel installation, unless separate evidence and full end-to-end qualification exist.
+- User expressly authorized Codex's previous local commits. This is not blanket authorization for future commits or pushes; obtain scope-specific authorization or obey the current direction. All other repo safety/publication constraints remain.
+
+### V-SDK3.1 completion gate before V-SDK4A expansion
+
+1. Compare original `car.dx` Race, assembled Race + Wheels, complete.dx Frontend and isolated wheel.dx for Subaru, Lancer, Pajero and one stock model. Document which family includes or omits baked wheels. Label source-vs-assembled mode and provenance in UI/HUD/captures.
+2. Capture fixed frontal/rear/left/right/three-quarter views under camera orbit and cull-mode changes; show correctly oriented outside faces on all four wheels. Demonstrate no camera-dependent wheel pose, no phantom duplicate wheels and no accidental wheel geometry removal. Treat culling/faces vs transforms as distinct root causes until established.
+3. Open a large texture and inspect it at full resolution (or a zoomable crop), navigate without clipping controls, resize the Inspector/preview and restore the last UI layout. The image is an actual supported texture, not a placeholder.
+4. Persist a preview-only rest-pose wheel layout for a qualified vehicle, reload it deterministically, then build an unmodified vehicle and verify no game-resource change occurred. If user requests actual fitment authoring, gate that work behind explicit validated native controls.
+5. Preserve successful texture replacement, visible material selection, GPU capture, F3 data, navigation, stock overrides, undo/restore, project save/build and PERF2 performance. Ensure preview changes do not become runtime edits accidentally.
+6. Update `CAPABILITIES.md`, `REGRESSION_MATRIX.md` and this Master Plan with implementation evidence; owner executes final Windows/game checks. **V-SDK4A material authoring remains the next planned vertical slice; fix these rendering/UI issues before building advanced editors on top.**
+
+
+## 14. V-SDK3.1 → V-SDK4A implementation ledger (25 October 2026)
+
+The v4.1 owner specification above remains intact. Imported source SHA256: `59dd6361c1f0fc25b7975d403efc287048c06256aab7abae508ee6289f08cfb6`.
+
+**V-SDK3.1 OFFLINE/WINDOWS-VERIFIED:** viewport-sized RGBA/RGB/Alpha image inspection, detachable resizable viewer, checkerboard, fit/1:1/zoom/pan, Original comparison and window/split persistence. Mirrored wheel transforms now reverse staged triangle winding while preserving inverse-transpose normals; frozen Subaru DX remains untouched. Raw Race excludes injected wheels/attachments; Assembled Race includes qualified profile instances. Exact embedded-wheel matching suppresses duplicates where provable. Lancer profile uses unchanged source wheel plus 87 matching body-frame draws. Wheel rest-pose editing is preview-only metadata, explicitly separate from game physics. Outside/inside camera uses dominant axial source normals, with an ambiguity fallback; not a global mesh flip. Six-angle captures for four families and configuration roundtrip evidence are private under `.research-output/vehicles/vsdk31/`.
+
+**V-SDK4A IMPLEMENTED; exact checks in VSDK4A_RESULTS.md:** hierarchical source model/draw/material/texture inspector; per-draw native vertex diffuse RGB through the existing attribute writer; disable/restore an existing environment pass. Alpha/depth, unknown flags, UV and texture-slot assignment remain read-only. Shared vertex conflicts refuse selective edits. Whole-image texture changes list every referenced draw/slot and ask for explicit impact confirmation. Image alpha/orientation and native damage alpha ownership are preserved by scoped RGB edits. Save/reopen, Undo/Redo/Restore, hash-pinned surface layers and isolated stock/addon candidate builds use shared SDK APIs.
+
+**Boundaries:** no semantic paint mask or selective texture cloning is claimed; a selected draw's RGB also modulates baked content on that draw. Preview wheel coordinates are not gameplay wheel positions. Original-game appearance and edited-candidate regressions remain owner gameplay gates. No new stock CarIDs, capacity, physics, audio, camera policy, glass-damage states or GT reconstruction were introduced. No new commits or pushes are authorized by this phase. V-SDK4B/V-SDK4C and later roadmap remain deferred.

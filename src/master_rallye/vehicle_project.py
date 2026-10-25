@@ -50,7 +50,7 @@ class VehicleProject:
         if len({name.casefold() for name in texture_names}) != len(texture_names):
             raise ValueError("duplicate texture edit/replacement names")
         allowed_resource = {"source_sha256", "candidate", "topology_candidate", "scene_candidate", "native_brake_scene_candidate",
-                            "attributes", "collision_scale", "collision_center",
+                            "attributes", "surface_edits", "surface_source_sha256", "surface_layers", "collision_scale", "collision_center",
                             "collision_translation"}
         for role, edit in resources.items():
             if set(edit) - allowed_resource:
@@ -218,6 +218,18 @@ def _compile_resource(project: VehicleProject, role: str, spec: dict) -> tuple[b
             "delta": list(spec["collision_translation"]),
             "changed_byte_count": translated.diff.changed_byte_count,
             "unexpected_diff_count": 0, "bounds": bounds.to_dict()}
+    if "surface_edits" in spec:
+        from .surface_authoring import apply_surface_edits
+        surface=apply_surface_edits(data,spec['surface_edits'],source_sha256=spec.get('surface_source_sha256'))
+        data=surface.data;detail['surface_authoring']=surface.to_dict()
+    if 'surface_layers' in spec:
+        from .surface_authoring import apply_surface_edits
+        if not isinstance(spec['surface_layers'],list) or len(spec['surface_layers'])>30:raise ValueError('Invalid surface layer stack')
+        detail['surface_layers']=[]
+        for layer in spec['surface_layers']:
+            if not isinstance(layer,dict) or set(layer)!={'source_sha256','edits'}:raise ValueError('Invalid surface layer')
+            surface=apply_surface_edits(data,layer['edits'],source_sha256=layer['source_sha256'])
+            data=surface.data;detail['surface_layers'].append(surface.to_dict())
     final = parse_dx_bytes(data)
     if not final.diagnostics.validated or final.collision.spatial_bounds_1339 is None:
         raise ValueError(f"{role}: compiled DX failed final validation")

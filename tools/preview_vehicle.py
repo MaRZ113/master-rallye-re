@@ -45,6 +45,7 @@ def main():
     p.add_argument('--target',type=float,nargs=3,help='explicit camera look-at XYZ in model units')
     p.add_argument('--cull',choices=['none','cw','ccw'],default='cw',help='CW calibrated for stored-global indices/RH camera; none is an explicit diagnostic')
     p.add_argument('--depth-write',choices=['instance-on','shader'],default='instance-on',help='native instance constructor enables ZWrite; shader-only is a separate diagnostic')
+    p.add_argument('--raw-race',action='store_true',help='show car.dx only; keep qualified staged wheels hidden')
     p.add_argument('--brake',action='store_true');p.add_argument('--no-reflections',action='store_true')
     a=p.parse_args()
     if bool(a.audio_profile)!=bool(a.audio_source_root):p.error('--audio-profile and --audio-source-root must be supplied together')
@@ -105,6 +106,7 @@ def main():
         if a.profile:command+=['--profile',str(a.profile.resolve())]
         if a.capture:command+=['--capture',str(a.capture.resolve())]
         if a.brake:command+=['--brake']
+        if a.raw_race:command+=['--raw-race']
         if a.no_reflections:command+=['--no-reflections']
         subprocess.run(command,check=True)
     print(f'{report["draws"]} draws / {report["textures"]} textures: {a.output}')

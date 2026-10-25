@@ -139,7 +139,14 @@ def stage_vehicle(source:Path, output:Path, *, profile:Path|None=None):
         path=source.parent/item['resource']
         if path in attached or len(attached)>=16:raise ValueError('duplicate or excessive attached preview models')
         attached[path]=instances[item['wheel_index']];paths.append(path)
-    textures=[];texture_ids={};draws=[];points=[];reports=[]
+    embedded=False
+    if (source.parent/'car.dx').exists() and (source.parent/'wheel.dx').exists():
+        try:
+            body=parse_dx(source.parent/'car.dx');presentation_wheels(body,body,parse_dx(source.parent/'wheel.dx'));embedded=True
+        except ValueError:pass
+    if embedded and instances:
+        instances=[] # Exact source geometry already contains all four wheels.
+    textures=[];texture_ids={};draws=[];points=[];reports=[];wheel_votes=[]
     def texture(value):
         if value.strip().casefold()=='null':return -1
         path=AssetResolver(source.parent).resolve_texture(value)
@@ -157,6 +164,8 @@ def stage_vehicle(source:Path, output:Path, *, profile:Path|None=None):
         if m.vertex_count>1000000 or len(m.physical_draws)>8192:raise ValueError('preview mesh budget exceeded')
         cases,warnings=logical_cases(m)
         model_kind={'car.dx':1,'complete.dx':2,'wheel.dx':3}.get(path.name.casefold(),0)
+        if model_kind==3:
+            wheel_votes=[m.vertices.normals[k][0] for d in m.physical_draws for k in sorted(set(m.draw_global_indices(d))) if abs(m.vertices.normals[k][0])>.7]
         transforms=[None]
         if path in attached:model_kind=4;transforms=[attached[path]]
         # Race rest-pose instances are explicit, never synthesized from physics.
@@ -196,7 +205,13 @@ def stage_vehicle(source:Path, output:Path, *, profile:Path|None=None):
                 centre=[sum(p[k] for p in ps)/len(ps) for k in range(3)]
                 switch,case=cases.get(d.draw_index,(0,0))
                 name=f'{path.name}:{d.draw_index}:{d.group_label or d.texture_tuple[0]}'
-                draws.append((name,target_model,base,env,flags[0],flags[1],switch,case,centre,bytes(vertices),[remap[v] for v in ids]))
+                staged_indices=[remap[v] for v in ids]
+                # A reflected position transform reverses triangle handedness.
+                # Preserve outward faces with the inverse-transpose normals.
+                if transform and math.prod(scale)<0:
+                    for j in range(0,len(staged_indices),3):staged_indices[j+1],staged_indices[j+2]=staged_indices[j+2],staged_indices[j+1]
+                if instance_no:name+=f'@wheel{instance_no-1}'
+                draws.append((name,5 if instance_no or model_kind==4 else target_model,base,env,flags[0],flags[1],switch,case,centre,bytes(vertices),staged_indices))
         reports.append({'source':str(path),'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'model':model_kind,
                         'draws':len(m.physical_draws),'vertices':m.vertex_count,'warnings':warnings,
                         'materials':[MaterialSemantics.from_draw(d).to_dict() for d in m.physical_draws]})
@@ -243,6 +258,11 @@ def stage_vehicle(source:Path, output:Path, *, profile:Path|None=None):
                 'scope':'all staged family textures; native MR eviction is not simulated by the D3D9 viewer'},
             'instance_handedness':[{'index':i,'determinant':math.prod(t.get('scale',[1.,1.,1.])),
                 'mirrored':math.prod(t.get('scale',[1.,1.,1.]))<0} for i,t in enumerate(instances)],
+            'embedded_four_wheel_match':embedded,
+            'wheel_outside_camera':{'axial_normal_votes':len(wheel_votes),'mean_axial_vote':sum(wheel_votes)/len(wheel_votes) if wheel_votes else 0,
+                'rule':'dominant axial source normals; 1 outside / 2 inside; ambiguous votes retain generic camera. No mesh flip.'},
+            'wheel_geometry':[{'draw':d[0],'centre':d[8],'vertices_sha256':hashlib.sha256(d[9]).hexdigest(),
+                'indices_sha256':hashlib.sha256(struct.pack(f'<{len(d[10])}I',*d[10])).hexdigest()} for d in draws if d[1]==5],
             'scene_sha256':hashlib.sha256(data).hexdigest(),'bounds':[lo,hi],
             'texture_raster':'stored BGRA rows and original UVs preserved; right-handed view/projection',
             'race_wheel_assembly':'explicit profile' if instances else 'not inferred; frontend embedded wheels and standalone wheel available',
