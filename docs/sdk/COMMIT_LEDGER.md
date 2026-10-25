@@ -124,3 +124,20 @@ New gameplay remains pending; no FPS/gameplay claim from previews or package che
 
 The following evidence-index entry records the resolved phase commit; no prior
 commit is rewritten. No proprietary resource/capture is staged. No push.
+
+Resolved V-SDK4B implementation commit:
+`de1cd394294ee1b2fce381d70913fa07f8ff4748`.
+
+Review outputs: `.research-output/vehicles/vsdk4b/review/`:
+`rally-workshop-vsdk4b-source-review.zip` and
+`rally-workshop-vsdk4b-changed-files.zip`, with per-entry and archive SHA256
+manifests. Only source/docs/tests and original Workshop branding are included;
+private MR/GT assets, masks, runtime bundles and captures are excluded.
+
+Final full regression: 837 tests in 33.414 seconds, OK (1 optional skip).
+Actual Windows GUI results: `PASS_WINDOWS_APPEARANCE_AND_CREW`,
+`PASS_WINDOWS_CLASSIC_STYLE`, `PASS_ACTUAL_WINDOWS_GUI_AND_TWO_SDK_BUILDS`.
+Runtime resource audit: Custom Lancer 2 DX +1 DXT; Classic Lancer 2 DX +1 DXT;
+stock Megane 1 DXT only. All other roster resource hashes and plan identities
+unchanged; physics/audio semantics and mechanics/shadow settings unchanged.
+Source archive and package checks are not new gameplay acceptance.
