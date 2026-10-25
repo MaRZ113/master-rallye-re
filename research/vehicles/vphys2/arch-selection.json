@@ -1,0 +1,7 @@
+{
+  "model_sha256": "b1798279dfa54cb9ecb5276ee8fe199858b56f146ca15195390cd0584796ac2e",
+  "arch_vertex_indices": {
+    "Front": [796, 18, 1074, 16, 14, 12],
+    "Rear": [893, 895, 30, 892, 28]
+  }
+}

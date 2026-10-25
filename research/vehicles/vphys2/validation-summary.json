@@ -1,0 +1,112 @@
+{
+  "status": "READY_FOR_HUMAN_GAMEPLAY_TEST",
+  "game_launched": false,
+  "synthetic_tests": {
+    "run": 656,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1
+  },
+  "candidates": {
+    "candidate-fitment-260": {
+      "immutable_resource_count": 228,
+      "byte_identical_resources": 227,
+      "native_force_cases": 12,
+      "family_reference_cases": 15,
+      "drivetrain_modes": 3,
+      "engine_cases": 14,
+      "controls_cases": 2,
+      "preflight_exits": {
+        "--verify": 0,
+        "--verify-launch-environment": 0,
+        "--self-test-native-allocation": 0
+      },
+      "model_sha256": "b1798279dfa54cb9ecb5276ee8fe199858b56f146ca15195390cd0584796ac2e"
+    },
+    "candidate-handling-260": {
+      "immutable_resource_count": 228,
+      "byte_identical_resources": 226,
+      "native_force_cases": 12,
+      "family_reference_cases": 15,
+      "drivetrain_modes": 3,
+      "engine_cases": 14,
+      "controls_cases": 2,
+      "preflight_exits": {
+        "--verify": 0,
+        "--verify-launch-environment": 0,
+        "--self-test-native-allocation": 0
+      },
+      "model_sha256": "78b17417a9eae87e7ce4a49425ed94e83372a1dce7d25196deb5f8142cae22c0"
+    }
+  },
+  "v6_reproduction": {
+    "status": "PASS",
+    "generated_game_resource_count": 86,
+    "changed_resources": []
+  },
+  "frozen_regression": {
+    "vlancer6": {
+      "exit": 0,
+      "stdout": "RESOURCE_ROOT_VERIFIED files=229 index=5f6fefe89f26dfe62c52fde60b1149cc52764f7b0e81919ec4dc04977b81968c\nRUNTIME_BUNDLE_VERIFIED patch_operations=250 plan_sha256=579e67cbd7c4b90b70dc971ef9ec69bba493ba66952ae03813a9a58c6228acdf\n",
+      "stderr": ""
+    },
+    "subaru": {
+      "exit": 0,
+      "stdout": "RESOURCE_ROOT_VERIFIED files=191 index=b5910b8864f9e8c4254223d5be1c709196ac3881ace7337a5fc8358ab4da5599\nRUNTIME_BUNDLE_VERIFIED patch_operations=246 plan_sha256=e5ee7bc3c0eae64bc6bbb817ab3c23c0d7a8a3577552d83d73e27d22669dfafe\n",
+      "stderr": ""
+    },
+    "scale29": {
+      "exit": 0,
+      "stdout": "RESOURCE_ROOT_VERIFIED files=291 index=8264b2750ab20ccdce90ae65b1c3f7705ebdabada1a4ea34205c90fb617ca15e\nRUNTIME_BUNDLE_VERIFIED patch_operations=335 plan_sha256=79a51dd1d38a11d335734d7bc63e4d55cc2c827db940c9220aba0f78871ea652\n",
+      "stderr": ""
+    },
+    "scale30": {
+      "exit": 0,
+      "stdout": "RESOURCE_ROOT_VERIFIED files=391 index=bd9c367f49e97ea4da1ae197c55ceaee56ac10bacd134c14c2c018d4ed1fa3b2\nRUNTIME_BUNDLE_VERIFIED patch_operations=249 plan_sha256=e5e5bb1a1f6702107829c1d1061ad91d038c8503d79263b23efc916bee7b41b9\n",
+      "stderr": ""
+    },
+    "MRallye.exe": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "d3d8.dll": "eb7ea3d9501b514bff668f1e75e86041906c5fe4e8afa89f06d658751429aaf4"
+  },
+  "arch_diagnostics": {
+    "status": "GEOMETRIC_ARCH_DIAGNOSTIC_NOT_SOURCE_AXLES",
+    "model_sha256": "b1798279dfa54cb9ecb5276ee8fe199858b56f146ca15195390cd0584796ac2e",
+    "arches": {
+      "Front": {
+        "sample_indices": [
+          796,
+          18,
+          1074,
+          16,
+          14,
+          12
+        ],
+        "centre_zy_m": [
+          1.2875389429938429,
+          0.14210186532792068
+        ],
+        "circle_radius_m": 0.44068592879439705,
+        "max_radial_residual_m": 0.00316638649633999
+      },
+      "Rear": {
+        "sample_indices": [
+          893,
+          895,
+          30,
+          892,
+          28
+        ],
+        "centre_zy_m": [
+          -1.3218592758284453,
+          0.10889980836504959
+        ],
+        "circle_radius_m": 0.4505514028996783,
+        "max_radial_residual_m": 0.0011620974531242334
+      }
+    },
+    "arch_centre_spacing_m": 2.609398218822288,
+    "common_longitudinal_centre_m": -0.017160166417301226,
+    "boundary": "explicit upper-edge samples; circular approximation only; neither automatic hub fitting nor proof of original GT4 wheelbase. A symmetric MR WheelBase cannot exactly satisfy an asymmetric body opening pair."
+  },
+  "scope": "no whole-vehicle dynamics/gameplay qualification; user-approved WheelBase260 is geometry calibration, not nominal GT4 wheelbase"
+}
