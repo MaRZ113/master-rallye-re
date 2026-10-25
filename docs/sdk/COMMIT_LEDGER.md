@@ -58,3 +58,12 @@ Private game resources and generated candidates remain ignored. Of the 422 previ
 | V-SDK3.1 + V-SDK4A actual accumulated state | `f4df4f4594e43dfc15a78266508cfddeafe7348e` |799 tests, one skipped on revalidation; owner accepted Previewer corrections and texture replacement. No historical snapshot fabrication |
 
 Owner explicitly authorized subsequent local phase commits; no push/release/publication. Further phase IDs are recorded in subsequent documentation commits to avoid self-referential commit IDs.
+# V-SDK4A.1 and V-SDK4C continuation — 25 October 2026
+
+- `8085800`: V-SDK4A.1 filtered, bounded texture rasterization; original CC0 SVG/ICO;
+  Windows identity. 805 tests / 1 skip, 56 real Windows zoom captures, source pixel
+  invariance, native Previewer build and four-family GUI smoke. No game byte edits.
+- Next scoped material/Help commit: V-SDK4A.2 and V-SDK4C tracks B/C; 810 tests /
+  1 skip, real Windows slot picker and addon/stock build/restore validation.
+  Its resolved commit ID is recorded by the following phase entry.
+

@@ -1,0 +1,8 @@
+[
+  {"id":"start","title":"Projects, saving and safety"},
+  {"id":"viewport","title":"3D viewport and diagnostics"},
+  {"id":"materials","title":"Surfaces and texture bindings"},
+  {"id":"textures","title":"Texture Studio"},
+  {"id":"build","title":"Build, validation and recovery"},
+  {"id":"glass","title":"Glass damage evidence"}
+]

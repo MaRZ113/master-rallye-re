@@ -54,6 +54,7 @@ def main():
     p=argparse.ArgumentParser(description=__doc__)
     for name in ('addon-project','roster-candidate','retail-sma','retail-root','viewer','output'):p.add_argument('--'+name,type=Path,required=True)
     p.add_argument('--surface',action='store_true',help='V-SDK4A selected-draw RGB instead of the V-SDK3 whole-texture demonstration')
+    p.add_argument('--binding',action='store_true',help='Assign an existing compatible texture using the actual picker')
     a=p.parse_args();output=a.output.resolve()
     if output.exists():raise ValueError('Use a fresh GUI evidence output directory')
     output.mkdir(parents=True);root=tk.Tk();app=WorkshopApp(root,output/'workspace',ROOT,a.viewer)
@@ -76,6 +77,38 @@ def main():
         assert app.process and app.process.poll() is None
         record('GUI opens managed native D3D9 window',app.process.pid)
     def edit():
+        if a.binding:
+            from master_rallye.dx import parse_dx_bytes
+            from master_rallye.texture_binding import binding_patch
+            from master_rallye.dxt import parse_dxt_bytes
+            model=app.current_info['model'];raw=(app.project.assets/model).read_bytes();mesh=parse_dx_bytes(raw)
+            textures={p.stem:(p,parse_dxt_bytes(p.read_bytes())) for p in app.project.assets.glob('*.dxt')}
+            used={d.texture_slots[0].value for d in mesh.physical_draws}
+            def score(d):
+                points=[mesh.vertices.positions[i] for i in mesh.draw_global_indices(d)]
+                return len(points)*max(0,max(p[2] for p in points))
+            chosen=None
+            for d in sorted(mesh.physical_draws,key=score,reverse=True):
+                old=textures.get(d.texture_slots[0].value)
+                if not old:continue
+                t=old[1]
+                for stem,(path,new) in textures.items():
+                    if stem not in used or stem==old[0].stem or len(stem)!=len(old[0].stem):continue
+                    if (t.width,t.height,t.word_0x04,t.bgra[3::4])!=(new.width,new.height,new.word_0x04,new.bgra[3::4]):continue
+                    try:binding_patch(raw,d.draw_index,0,stem,app.project.binding_texture)
+                    except ValueError:continue
+                    chosen=d,path;break
+                if chosen:break
+            if chosen is None:raise ValueError('No compatible existing shared texture for fixture')
+            draw,path=chosen
+            app.draws.selection_set(f'texture:{model}:{draw.draw_index}:0');app._draw_selected();app.assign_texture()
+            dialog=next(w for w in root.winfo_children() if isinstance(w,tk.Toplevel))
+            box=next(w for w in descendants(dialog) if isinstance(w,tk.Listbox))
+            index=next(i for i,value in enumerate(box.get(0,'end')) if value.startswith(path.name+' — compatible'))
+            box.selection_set(index);box.event_generate('<<ListboxSelect>>');root.update();screenshot(dialog,output/(app.project.data['kind']+'-binding-picker.png'))
+            next(w for w in descendants(dialog) if isinstance(w,ttk.Button) and w['text']=='Assign selected texture').invoke()
+            record('native slot assignment through actual picker',{'model':model,'draw':draw.draw_index,'target':path.name,'already_used_by':app.project.texture_usage(path.name)})
+            return
         if a.surface:
             from master_rallye.dx import parse_dx_bytes
             from master_rallye.surface_authoring import surface_capabilities

@@ -1,7 +1,8 @@
 """Qualified draw-scoped diffuse modulation through the existing attribute writer.
 
 Never splits topology, invents material types or changes diffuse alpha ownership.
-Texture bindings and unknown native states remain read-only in this editor.
+Diffuse slot bindings use a separately qualified fixed-size inline writer.
+Unknown native states remain read-only.
 """
 import hashlib
 import math
@@ -18,14 +19,14 @@ def surface_capabilities(raw,draw_id):
     return {'draw_id':draw_id,'record_path':list(d.record_path),'core_offset':d.core_offset,
             'vertices':len(vertices),'shared_vertex_draws':overlap,'diffuse_rgb_editable':bool(d.flags_0x20[2]) and bool(vertices) and not overlap,
             'reflection_disable_editable':bool(d.unknown_0x24&4),'alpha':'read-only: preserved native damage/reflection ownership',
-            'texture_slots':'read-only: length-changing binding/resource-allocation authoring is not qualified by this editor',
+            'texture_slots':'Assign Existing Texture: slot 0 only, existing owned texture, same name length/format/dimensions/alpha; other slots read-only',
             'reason':'Vertex colors disabled' if not d.flags_0x20[2] else 'Shared vertex ownership with draws '+str(overlap) if overlap else 'Independent vertex RGB; baked texture remains untouched'}
 
-def apply_surface_edits(raw,edits,*,source_sha256):
+def apply_surface_edits(raw,edits,*,source_sha256,texture_provider=None):
     if hashlib.sha256(raw).hexdigest()!=source_sha256:raise ValueError('Surface source SHA256 mismatch')
     m=parse_dx_bytes(raw);colors=bytearray(m.vertices.colors);env={};seen=set()
     for edit in edits:
-        if not isinstance(edit,dict) or set(edit)-{'draw_id','rgb','disable_reflection'}:raise ValueError('Unsupported surface property')
+        if not isinstance(edit,dict) or set(edit)-{'draw_id','rgb','disable_reflection','bindings'}:raise ValueError('Unsupported surface property')
         draw_id=edit['draw_id'];caps=surface_capabilities(raw,draw_id)
         if draw_id in seen:raise ValueError('Duplicate surface edit')
         seen.add(draw_id);draw=next(d for d in m.physical_draws if d.draw_index==draw_id)
@@ -40,6 +41,23 @@ def apply_surface_edits(raw,edits,*,source_sha256):
             if not caps['reflection_disable_editable']:raise ValueError('Source draw has no qualified environment pass')
             env[draw_id]=not edit['disable_reflection']
     result=patch_dx_attributes(raw,colors=bytes(colors),material_env=env)
+    from dataclasses import replace
+    from .texture_binding import binding_patch
+    from .dx_writer import audit_binary_diff,ByteRange
+    from .r4e_writer import FieldChange
+    data=result.data;ranges=[];changes=list(result.changes)
+    for edit in edits:
+        bindings=edit.get('bindings',{})
+        if not isinstance(bindings,dict):raise ValueError('Invalid texture bindings')
+        for slot,target in bindings.items():
+            if slot!='0' or texture_provider is None:raise ValueError('Qualified binding requires slot 0 and owned texture provider')
+            d=next(d for d in m.physical_draws if d.draw_index==edit['draw_id']);s=d.texture_slots[0]
+            data=binding_patch(data,edit['draw_id'],0,target,texture_provider)
+            ranges.append(ByteRange(s.data_offset,s.data_offset+len(s.raw)))
+            changes.append(FieldChange('texture_slot_0',edit['draw_id'],s.data_offset,s.raw.hex(),target.encode('ascii').hex()))
+    if ranges:
+        ranges.extend(ByteRange(c.offset,c.offset+len(bytes.fromhex(c.new_hex))) for c in result.changes)
+        result=replace(result,data=data,output_sha256=hashlib.sha256(data).hexdigest(),changes=tuple(changes),diff=audit_binary_diff(raw,data,ranges),classification='MULTIPLE_SAFE_CHANGES')
     parsed=parse_dx_bytes(result.data)
     if parsed.vertices.colors[3::4]!=m.vertices.colors[3::4]:raise ValueError('Unexpected alpha mutation')
     return result

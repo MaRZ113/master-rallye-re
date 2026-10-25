@@ -147,6 +147,16 @@ def _attribute_candidate(source: bytes, candidate: bytes, role: str) -> dict:
 
 
 def _compile_resource(project: VehicleProject, role: str, spec: dict) -> tuple[bytes, dict]:
+    def binding_texture(stem):
+        from .assets import AssetResolver
+        path=AssetResolver(project.source_vehicle_dir).resolve_texture(stem)
+        if path is None:raise ValueError('Unresolved binding texture: '+stem)
+        if path.name in project.texture_edits:return _compile_texture(project,path.name,project.texture_edits[path.name])[0]
+        if path.name in project.texture_replacements:
+            entry=project.texture_replacements[path.name]
+            if _sha(path.read_bytes())!=entry['source_sha256']:raise ValueError('Binding texture source changed')
+            return project.resolve(entry['candidate']).read_bytes()
+        return path.read_bytes()
     path = project.source_vehicle_dir / role
     source = path.read_bytes()
     expected = spec.get("source_sha256")
@@ -220,7 +230,7 @@ def _compile_resource(project: VehicleProject, role: str, spec: dict) -> tuple[b
             "unexpected_diff_count": 0, "bounds": bounds.to_dict()}
     if "surface_edits" in spec:
         from .surface_authoring import apply_surface_edits
-        surface=apply_surface_edits(data,spec['surface_edits'],source_sha256=spec.get('surface_source_sha256'))
+        surface=apply_surface_edits(data,spec['surface_edits'],source_sha256=spec.get('surface_source_sha256'),texture_provider=binding_texture)
         data=surface.data;detail['surface_authoring']=surface.to_dict()
     if 'surface_layers' in spec:
         from .surface_authoring import apply_surface_edits
@@ -228,7 +238,7 @@ def _compile_resource(project: VehicleProject, role: str, spec: dict) -> tuple[b
         detail['surface_layers']=[]
         for layer in spec['surface_layers']:
             if not isinstance(layer,dict) or set(layer)!={'source_sha256','edits'}:raise ValueError('Invalid surface layer')
-            surface=apply_surface_edits(data,layer['edits'],source_sha256=layer['source_sha256'])
+            surface=apply_surface_edits(data,layer['edits'],source_sha256=layer['source_sha256'],texture_provider=binding_texture)
             data=surface.data;detail['surface_layers'].append(surface.to_dict())
     final = parse_dx_bytes(data)
     if not final.diagnostics.validated or final.collision.spatial_bounds_1339 is None:

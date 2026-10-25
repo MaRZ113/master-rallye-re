@@ -56,3 +56,13 @@ Do not mark native gameplay acceptance from the GUI harness or GPU smoke output.
 ## V-SDK4A.1
 
 805 tests/one skip in the complete Windows checkout; texture_viewer test checks exact1:1, global fractional mapping, alpha-edge contamination, source immutability, output budget and icon sizes. Private `vsdk4a1/zoom-windows/validation.json` records seven zooms/two windows/four source classes and56 actual captures. `vsdk4a1/ui-controls-final.json` exercises existing four-family GUI features. Original/current image comparison remains distinct from gameplay material qualification.
+# V-SDK4C material/Help regression
+
+810 synthetic Windows tests / 1 optional skip. Existing shared texture used by
+an additional selected draw: native descriptor byte isolation, untouched image,
+Save/reopen, Undo/Redo/Restore and asset inclusion via actual addon and stock
+candidate builds PASS. Restore stock emits zero overrides. Aliased descriptors,
+unsupported slots, alpha changes, path traversal and missing resources reject.
+Offline Help locale fallback/search data, visible controls and real Tk capture
+PASS. Gameplay remains an owner test. See VSDK4A2_RESULTS.md.
+

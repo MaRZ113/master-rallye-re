@@ -212,11 +212,29 @@ class WorkshopProject:
         recipe=dict(self.data.get('surfaces',{}).get(model,{}).get(str(draw_id),{'draw_id':draw_id}))
         if rgb is not None:recipe['rgb']=rgb
         if disable_reflection is not None:recipe['disable_reflection']=disable_reflection
-        raw=_owned(self.baseline,model).read_bytes();apply_surface_edits(raw,[recipe],source_sha256=sha(raw))
+        raw=_owned(self.baseline,model).read_bytes();apply_surface_edits(raw,[recipe],source_sha256=sha(raw),texture_provider=self.binding_texture)
         self._record();self.data.setdefault('surfaces',{}).setdefault(model,{})[str(draw_id)]=recipe;self.materialize();self.save()
 
     def restore_surface(self,model,draw_id):
         self._record();self.data.setdefault('surfaces',{}).get(model,{}).pop(str(draw_id),None);self.materialize();self.save()
+
+    def binding_texture(self,stem):
+        from master_rallye.assets import AssetResolver
+        path=AssetResolver(self.assets).resolve_texture(stem)
+        if path is None or path.name not in self.data['inputs']:raise ValueError('Texture is not owned by this project: '+stem)
+        return path.read_bytes()
+
+    def assign_existing_texture(self,model,draw_id,slot,target):
+        from master_rallye.surface_authoring import apply_surface_edits
+        if model not in ('car.dx','complete.dx','wheel.dx'):raise ValueError('Unsupported model')
+        if slot!=0 or type(slot) is not int:raise ValueError('Only diffuse slot 0 is qualified')
+        self.verify_inputs()
+        recipe=dict(self.data.get('surfaces',{}).get(model,{}).get(str(draw_id),{'draw_id':draw_id}))
+        recipe['bindings']={**recipe.get('bindings',{}),'0':target}
+        raw=_owned(self.baseline,model).read_bytes()
+        apply_surface_edits(raw,[recipe],source_sha256=sha(raw),texture_provider=self.binding_texture)
+        self._record();self.data.setdefault('surfaces',{}).setdefault(model,{})[str(draw_id)]=recipe
+        self.materialize();self.save()
 
     def texture_usage(self,name):
         from master_rallye.assets import AssetResolver
@@ -284,7 +302,7 @@ class WorkshopProject:
         for model,edits in self.data.get('surfaces',{}).items():
             if model not in ('car.dx','complete.dx','wheel.dx'):raise ValueError('Unowned surface model')
             raw=_owned(self.baseline,model).read_bytes()
-            output=apply_surface_edits(raw,list(edits.values()),source_sha256=self.data['inputs'][model]).data
+            output=apply_surface_edits(raw,list(edits.values()),source_sha256=self.data['inputs'][model],texture_provider=self.binding_texture).data
             write_resource(_owned(self.assets,model),output)
         if self.data['kind']=='stock':
             meta=json.loads((self.working/'stock-project.json').read_text())

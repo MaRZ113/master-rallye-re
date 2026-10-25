@@ -457,3 +457,11 @@ The v4.1 owner specification above remains intact. Imported source SHA256: `59dd
 ## 17. V-SDK4A.1 implementation boundary
 
 Imported v4.3 source SHA256: `97d134bf1f0a5ad33022c8c8af40ab66f057bc054c2162608d7baaea222fdb8d`. V-SDK4A was locally committed after a fresh799-test run (one skip). V-SDK4A.1 adds display-only premultiplied Pillow resampling, exact1:1 and nearest mode, bounded viewport output, cursor anchoring, original SVG/ICO identity and safe versioned Previewer builds. Full805-test Windows result and56 zoom captures are documented in VSDK4A1_RESULTS.md. Owner gameplay/display acceptance remains separate. V-SDK4C is next by explicit owner direction; V-SDK4B remains deferred.
+# Implementation update: V-SDK4C tracks B/C
+
+V-SDK4A.1 is committed as `8085800`. Existing-texture slot rebinding and offline
+Help are implemented in a separate following phase. Binding scope is deliberately
+limited to existing slot-0 resources with equal encoded name length, dimensions,
+format and alpha; no general descriptor allocation is claimed. Native glass
+work proceeds separately. V-SDK4B/V-SDK5 have not been started.
+

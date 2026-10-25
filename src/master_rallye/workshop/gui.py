@@ -40,6 +40,7 @@ class WorkshopApp:
         self.name=tk.StringVar(value='RALLY WORKSHOP');self.context=tk.StringVar(value='No vehicle selected')
         self._style();self._layout();self._load_library();self.root.after(100,self._poll)
         self._sync_controls()
+        self.root.bind('<F1>',lambda e:self.show_help())
         layout=self.workspace/'window-layout.json'
         if layout.exists():
             try:
@@ -67,7 +68,7 @@ class WorkshopApp:
         top=ttk.Frame(self.root,padding=10);top.pack(fill='x')
         ttk.Label(top,text='RALLY WORKSHOP',style='Header.TLabel').pack(side='left',padx=(0,24))
         self.buttons={}
-        for label,command in [('Open project',self.open_project),('Open DX family',self.open_family),('New stock',self.new_stock),('Save',self.save),('Validate',self.validate),('Build',self.build),('Restore all',lambda:self.restore(None))]:
+        for label,command in [('Open project',self.open_project),('Open DX family',self.open_family),('New stock',self.new_stock),('Save',self.save),('Validate',self.validate),('Build',self.build),('Restore all',lambda:self.restore(None)),('Help',self.show_help)]:
             button=ttk.Button(top,text=label,command=command,style='Accent.TButton' if label=='Build' else 'TButton');button.pack(side='left',padx=3);self.buttons[label]=button
         self.outer=ttk.Panedwindow(self.root,orient='vertical');self.outer.pack(fill='both',expand=True,padx=10)
         main=ttk.Panedwindow(self.outer,orient='horizontal');self.main_split=main;self.outer.add(main,weight=5)
@@ -102,6 +103,8 @@ class WorkshopApp:
         sr=ttk.Frame(materials);sr.pack(fill='x');self.surface_gain=[tk.StringVar(value='1') for _ in range(3)]
         for label,var in zip(('R','G','B'),self.surface_gain):ttk.Label(sr,text=label).pack(side='left');ttk.Entry(sr,textvariable=var,width=5).pack(side='left')
         self.surface_button=ttk.Button(materials,text='Apply selected-surface RGB',command=self.edit_surface);self.surface_button.pack(fill='x')
+        ttk.Button(materials,text='Assign Existing Texture…',command=self.assign_texture).pack(fill='x')
+        ttk.Button(materials,text='Material help',command=lambda:self.show_help('materials')).pack(fill='x')
         self.reflection_off=tk.BooleanVar();self.reflection_button=ttk.Checkbutton(materials,text='Disable existing environment pass (selected draw)',variable=self.reflection_off,command=self.edit_reflection);self.reflection_button.pack(fill='x')
         row=ttk.Frame(materials);row.pack(fill='x');ttk.Button(row,text='Restore surface',command=self.restore_surface).pack(side='left',fill='x',expand=True);ttk.Button(row,text='Redo',command=self.redo).pack(side='left',fill='x',expand=True)
         self.original_capture=tk.BooleanVar();ttk.Checkbutton(materials,text='Before / original GPU view',variable=self.original_capture,command=self.refresh).pack(anchor='w')
@@ -113,6 +116,7 @@ class WorkshopApp:
         self.usage_tree.pack(fill='x');usage_scroll=ttk.Scrollbar(texture_tab,orient='vertical',command=self.usage_tree.yview);self.usage_tree.configure(yscrollcommand=usage_scroll.set);usage_scroll.pack(side='right',fill='y')
         self.texture_view=TextureView(texture_tab,self._texture_input);self.texture_view.pack(fill='both',expand=True)
         ttk.Button(texture_tab,text='Enlarge / detach texture viewer',command=self.detach_texture).pack(fill='x')
+        ttk.Button(texture_tab,text='Texture help',command=lambda:self.show_help('textures')).pack(fill='x')
         row=ttk.Frame(texture_tab);row.pack(fill='x')
         for label,var in zip(('R','G','B'),self.gain):ttk.Label(row,text=label).pack(side='left');ttk.Entry(row,textvariable=var,width=5).pack(side='left',padx=3)
         ttk.Label(texture_tab,text='Whole-texture multiplier (0–2). Includes baked lettering.\nAlpha preserved; this is not a semantic base-paint tool.',wraplength=330).pack(anchor='w',pady=5)
@@ -138,7 +142,7 @@ class WorkshopApp:
                 except Exception as e:self.log.insert('end',f'Cannot reopen {p}: {e}\n')
 
     def _sync_controls(self):
-        actions={'Save','Validate','Build','Restore all','Open interactive 3D','Reload preview','Apply texture multiplier','Replace with same-size PNG…','Undo','Restore texture','Configure build inputs…','Open last build folder'}
+        actions={'Save','Validate','Build','Restore all','Open interactive 3D','Reload preview','Apply texture multiplier','Replace with same-size PNG…','Undo','Restore texture','Configure build inputs…','Open last build folder','Assign Existing Texture…'}
         def walk(widget):
             for child in widget.winfo_children():
                 if isinstance(child,ttk.Button):
@@ -411,7 +415,7 @@ class WorkshopApp:
         model,index=selected;d=self.current_info['source_draws'][model][index]
         from master_rallye.surface_authoring import surface_capabilities
         caps=surface_capabilities((self.project.baseline/model).read_bytes(),index)
-        self.surface_status.set(caps['reason']+(' · Shared source: all assembled wheel instances' if model=='wheel.dx' else '')+'\nAlpha, UVs, topology and texture slots are preserved. RGB modulates selected vertices, not semantic paint.')
+        self.surface_status.set(caps['reason']+(' · Shared source: all assembled wheel instances' if model=='wheel.dx' else '')+'\nRGB preserves alpha, UVs and topology. Existing texture assignment is a separate qualified slot operation, not semantic paint.')
         self.surface_button.state(['!disabled'] if caps['diffuse_rgb_editable'] and not self.busy else ['disabled']);self.reflection_button.state(['!disabled'] if caps['reflection_disable_editable'] and not self.busy else ['disabled'])
         recipe=self.project.data.get('surfaces',{}).get(model,{}).get(str(index),{})
         for var,value in zip(self.surface_gain,recipe.get('rgb',[1,1,1])):var.set(str(value))
@@ -432,6 +436,48 @@ class WorkshopApp:
         except ValueError:messagebox.showerror('Surface RGB','Enter finite RGB values in 0..2.');return
         model,index=selection;self.original_capture.set(False)
         self.run('Apply selected-surface vertex RGB',lambda:self.project.edit_surface(model,index,rgb=rgb),lambda _:self.refresh())
+
+    def show_help(self,topic=None):
+        from .help_view import HelpWindow
+        HelpWindow(self.root,self.sdk_root/'docs/sdk/help',topic=topic)
+
+    def assign_texture(self):
+        selection=self._surface_selection()
+        if not self.project or not selection:return
+        model,index=selection
+        from master_rallye.texture_binding import binding_patch
+        raw=(self.project.assets/model).read_bytes();draw=next(d for d in parse_dx_bytes(raw).physical_draws if d.draw_index==index)
+        selected=self.draws.selection()[0].split(':');slot=int(selected[3]) if selected[0]=='texture' else 0
+        win=tk.Toplevel(self.root);apply_icon(win);win.title('Assign Existing Texture — selected native slot');win.geometry('1000x700');win.minsize(800,550)
+        ttk.Label(win,text=f'{model} / draw {index} / slot {slot} / current: {draw.texture_slots[slot].value}',wraplength=730).pack(anchor='w',padx=10,pady=8)
+        ttk.Label(win,text='Only existing project textures. Same encoded name length, dimensions, native format and alpha required. Other draws and texture bytes remain unchanged.',wraplength=730).pack(anchor='w',padx=10)
+        body=ttk.Frame(win);body.pack(fill='both',expand=True,padx=10,pady=8)
+        items=tk.Listbox(body,width=46);items.pack(side='left',fill='both',expand=True)
+        bar=ttk.Scrollbar(body,command=items.yview);bar.pack(side='left',fill='y');items.configure(yscrollcommand=bar.set)
+        def image_input(original=False):
+            if not items.curselection():return None
+            return self.project.texture(candidates[items.curselection()[0]][0].name)
+        preview=TextureView(body,image_input);preview.pack(side='left',fill='both',expand=True)
+        details=tk.StringVar();ttk.Label(win,textvariable=details,wraplength=960).pack(fill='x',padx=10)
+        candidates=[]
+        for path in sorted(self.project.assets.glob('*.dxt')):
+            try:binding_patch(raw,index,slot,path.stem,self.project.binding_texture);reason='compatible'
+            except ValueError as e:reason=str(e)
+            candidates.append((path,reason));items.insert('end',path.name+' — '+reason)
+        def inspect(event=None):
+            if not items.curselection():return
+            path,reason=candidates[items.curselection()[0]];t=self.project.texture(path.name);usage=self.project.texture_usage(path.name)
+            alpha=t.bgra[3::4]
+            details.set(f'{path}\n{t.width} × {t.height}, {len(t.bgra):,} bytes; alpha {min(alpha)}..{max(alpha)}; {len(usage)} current draw/slot references (full list in Texture Studio): '+str(usage[:6])+'\n'+reason)
+            self.texture_name.set(path.name);self.show_texture();items.see(items.curselection()[0]);preview.load()
+        items.bind('<<ListboxSelect>>',inspect)
+        def apply():
+            if not items.curselection():return
+            path,reason=candidates[items.curselection()[0]]
+            if reason!='compatible':messagebox.showerror('Unsupported binding',reason,parent=win);return
+            project=self.project;win.destroy()
+            self.run('Assign owned texture to selected native slot',lambda:project.assign_existing_texture(model,index,slot,path.stem),lambda _:self.refresh())
+        ttk.Button(win,text='Assign selected texture',command=apply).pack(pady=8)
 
     def edit_reflection(self):
         selection=self._surface_selection()
