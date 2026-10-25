@@ -189,6 +189,16 @@ PS2PortExtension::PS2PortExtension(bool exact_build, const std::string& exe_sha,
         const auto ini = port_ini_path(renderer_ini);
         const UINT mode = ::gfx2::ps2port::config::read_int(L"FoliageMode", 0, ini.c_str());
         diagnostics_ = ::gfx2::ps2port::config::read_int(L"Diagnostics", 0, ini.c_str()) == 1;
+        // COURSE-RENDER-FIX1: the per-race ledger follows Diagnostics unless RaceLedger says otherwise.
+        ledger_enabled_ = ::gfx2::ps2port::config::read_int(L"RaceLedger", diagnostics_ ? 1 : 0, ini.c_str()) == 1;
+        {
+            wchar_t directory[32768]{};
+            if (::gfx2::ps2port::config::read_string(L"DiagDirectory", L"", directory, 32768, ini.c_str()) && directory[0]) {
+                std::filesystem::path path(directory);
+                if (path.is_relative()) path = std::filesystem::path(ini).parent_path() / path;
+                diag_override_ = path;
+            }
+        }
         frontend_model_=std::make_unique<FrontendModel>(build_valid_,ini);
         race_model_=std::make_unique<FrontendModel>(build_valid_,ini,true);
         wheel_model_=std::make_unique<FrontendModel>(build_valid_,ini,2);
@@ -282,7 +292,120 @@ bool PS2PortExtension::native_states_pending() const noexcept {
         (hud_timediffs_ && hud_timediffs_->layer.pending()) || (hud_template_ && hud_template_->layer.pending());
 }
 
-PS2PortExtension::~PS2PortExtension() { pixel_probe_release(); }
+PS2PortExtension::~PS2PortExtension() { ledger_finish("shutdown"); pixel_probe_release(); }
+
+// ---- COURSE-RENDER-FIX1 ledger ----------------------------------------------------------------------------------------
+
+namespace {
+template<class P> std::string pilot_state(const P* pilot) {
+    if (!pilot) return "null";
+    return std::string("{\"requested\":") + (pilot->identity_requested() ? "true" : "false") + ",\"active\":" + (pilot->active() ? "true" : "false") +
+        ",\"blocked\":" + (pilot->blocked() ? "true" : "false") + ",\"reason\":" + ps2diag::quote(pilot->reason()) + "}";
+}
+}
+
+std::string PS2PortExtension::status_json() const {
+    std::string out = std::string("{\"extension_disabled\":") + (disabled_ ? "true" : "false") + ",\"reset_generation\":" + std::to_string(reset_generation_) +
+        ",\"resources\":{\"tracked\":" + std::to_string(ledger_tracked_) + ",\"serial\":" + std::to_string(ledger_serial_) + "}";
+    if (reflection_) out += ",\"reflection\":" + reflection_->status_json();
+    out += ",\"grass\":" + pilot_state(grass_.get()) + ",\"shrubs\":" + pilot_state(shrubs_.get()) +
+        ",\"spline\":" + pilot_state(spline_objects_.get()) + ",\"water\":" + pilot_state(water_.get()) +
+        ",\"course_objects\":" + pilot_state(course_objects_.get());
+    if (ground_) out += std::string(",\"ground_detail\":{\"requested\":") + (ground_->requested() ? "true" : "false") + ",\"passes\":" + std::to_string(ground_->passes()) + "}";
+    out += ",\"disables\":{\"total\":" + std::to_string(ps2diag::disable_log().total()) + ",\"recent\":" + ps2diag::disable_log().recent_json() + "}";
+    out += std::string(",\"models\":{\"frontend\":") + (frontend_model_ && frontend_model_->requested() ? "true" : "false") +
+        ",\"race\":" + (race_model_ && race_model_->requested() ? "true" : "false") + ",\"wheel\":" + (wheel_model_ && wheel_model_->requested() ? "true" : "false") +
+        ",\"fleet_all_cars\":" + (fleet_all_cars_ ? "true" : "false") + "}";
+    return out + "}";
+}
+
+void PS2PortExtension::diag_open() noexcept {
+    if (!diag_stream_.path().empty()) return;
+    try {
+        SYSTEMTIME now{}; GetLocalTime(&now);
+        wchar_t stem[96]{};
+        std::swprintf(stem, std::size(stem), L"ps2diag-%04u%02u%02u-%02u%02u%02u-%lu", now.wYear, now.wMonth, now.wDay, now.wHour, now.wMinute, now.wSecond,
+                      static_cast<unsigned long>(GetCurrentProcessId()));
+        const std::filesystem::path directory = !diag_override_.empty() ? diag_override_
+            : std::filesystem::path(session().directory.empty() ? std::wstring(L".") : session().directory);
+        diag_directory_ = directory / stem;
+        diag_stream_.configure(directory / (std::wstring(stem) + L".jsonl"), 4ull * 1024 * 1024);
+        diag_stream_.write(std::string("{\"type\":\"ps2_diag_session\",\"schema\":1,\"phase\":\"COURSE-RENDER-FIX1\",\"exe_sha256\":") +
+            ps2diag::quote(session().exe_sha) + ",\"proxy_sha256\":" + ps2diag::quote(session().proxy_sha) + ",\"pid\":" +
+            std::to_string(GetCurrentProcessId()) + ",\"ledger\":true}");
+    } catch (...) {}
+}
+
+void PS2PortExtension::diag_write(const std::string& line) noexcept {
+    if (!ledger_enabled_) return;
+    diag_open();
+    diag_stream_.write(line);
+}
+
+void PS2PortExtension::diag_write_file(const std::string& name, const std::vector<uint8_t>& bytes) noexcept {
+    if (!ledger_enabled_ || bytes.empty()) return;
+    diag_open();
+    if (diag_directory_.empty()) return;
+    ps2diag::write_file(diag_directory_ / name, bytes);
+}
+
+// A session-wide switch-off is an event of its own: it goes to the session log and to the ps2diag stream at once.
+void PS2PortExtension::drain_disables() noexcept {
+    ps2diag::DisableLog::Entry entry;
+    while (ps2diag::disable_log().take(entry)) {
+        try {
+            const std::string line = "{\"type\":\"ps2_effect_disabled\",\"effect\":" + ps2diag::quote(entry.effect) + ",\"reason\":" + ps2diag::quote(entry.reason) +
+                ",\"sequence\":" + std::to_string(entry.sequence) + ",\"frame\":" + std::to_string(ledger_frame_) +
+                ",\"race_generation\":" + std::to_string(ledger_.race().generation) + ",\"course\":" + ps2diag::quote(ledger_.race().course) + "}";
+            session().write(line);
+            diag_write(line);
+        } catch (...) {}
+    }
+}
+
+void PS2PortExtension::ledger_finish(const char* reason) noexcept {
+    if (!ledger_enabled_ || !ledger_.open()) return;
+    try {
+        std::string epoch = "{}";
+        // Not at shutdown: the baseline race observer is already released while the device is being destroyed.
+        if (std::strcmp(reason, "shutdown")) try {
+            const std::string json = race_epoch_capture_json(0, 0);
+            std::string fields = "{";
+            const char* keys[] = {"request_generation", "race_lifecycle_generation", "successful_race_generation", "successful_generation"};
+            bool first = true;
+            for (const char* key : keys) {
+                int64_t value = 0;
+                if (!ps2diag::extract_integer(json, key, value)) continue;
+                if (!first) fields += ",";
+                first = false;
+                fields += std::string("\"") + key + "\":" + std::to_string(value);
+            }
+            std::string state;
+            if (ps2diag::extract_string(json, "state", state)) { if (!first) fields += ","; fields += "\"owner_state\":" + ps2diag::quote(state); first = false; }
+            std::string status;
+            if (ps2diag::extract_string(json, "status", status)) { if (!first) fields += ","; fields += "\"status\":" + ps2diag::quote(status); }
+            epoch = fields + "}";
+        } catch (...) {}
+        diag_write(ledger_.finish(reason, epoch, status_json()));
+    } catch (...) {}
+}
+
+void PS2PortExtension::ledger_race_frame(uint64_t frame, uint64_t generation, uint64_t owner, const char* course,
+                                         size_t tracked_resources, uint64_t resource_serial) noexcept {
+    if (!ledger_enabled_) return;
+    try {
+        ledger_tracked_ = tracked_resources; ledger_serial_ = resource_serial; ledger_frame_ = frame;
+        drain_disables();
+        if (ledger_.needs_new_race(generation, owner)) {
+            ledger_finish("new_race");
+            ledger_.begin(generation, owner, course ? course : "", frame);
+            diag_write("{\"type\":\"ps2_race_start\",\"seq\":" + std::to_string(ledger_.races()) + ",\"course\":" + ps2diag::quote(course ? course : "") +
+                ",\"race_generation\":" + std::to_string(generation) + ",\"owner_lifetime\":" + std::to_string(owner) + ",\"frame\":" + std::to_string(frame) +
+                ",\"state\":" + status_json() + "}");
+        }
+        ledger_.frame(frame);
+    } catch (...) {}
+}
 
 std::string PS2PortExtension::color_present(IDirect3DDevice8& device, bool scene_active,
                                             bool stateblock_recording) noexcept {
@@ -297,6 +420,12 @@ std::string PS2PortExtension::color_present(IDirect3DDevice8& device, bool scene
         return present_hud;
     };
     try {
+        // COURSE-RENDER-FIX1: the race record closes when the certified race HUD has been absent for a few presents.
+        if (ledger_enabled_) drain_disables();
+        if (ledger_enabled_ && ledger_.open()) {
+            const auto& hud = hud_context();
+            if (ledger_.note_present(hud.valid && hud.race_generation == ledger_.race().generation)) ledger_finish("race_left");
+        }
         // PS2 HUD widgets first: they are part of the PS2 frame that the curve, filter and blur see.
         if (hud_damage_ && hud_damage_->requested()) {
             if (const char* startup = hud_damage_->take_startup_reason()) {
@@ -323,6 +452,7 @@ std::string PS2PortExtension::color_present(IDirect3DDevice8& device, bool scene
                 }
             }
             const char* layer = quads.empty() ? "no_pc_damage_row_this_frame" : hud_damage_->layer.status().reason;
+            note(ps2diag::Effect::Hud, layer);
             if (feed.reason != hud_logged_feed_ || layer != hud_logged_layer_) {
                 hud_logged_feed_ = feed.reason; hud_logged_layer_ = layer;
                 char text[384]{};
@@ -353,6 +483,7 @@ std::string PS2PortExtension::color_present(IDirect3DDevice8& device, bool scene
                 }
             }
             const char* layer = strips.empty() ? "no_pc_gps_this_frame" : hud_map_->layer.status().reason;
+            note(ps2diag::Effect::Hud, layer);
             if (feed != map_logged_feed_ || layer != map_logged_layer_) {
                 map_logged_feed_ = feed; map_logged_layer_ = layer;
                 char text[384]{};
@@ -397,6 +528,7 @@ std::string PS2PortExtension::color_present(IDirect3DDevice8& device, bool scene
                 }
             }
             const char* layer = quads.empty() ? "no_rows_this_frame" : hud_timediffs_->layer.status().reason;
+            note(ps2diag::Effect::Hud, layer);
             if (reason != timediffs_logged_reason_ || layer != timediffs_logged_layer_) {
                 timediffs_logged_reason_ = reason; timediffs_logged_layer_ = layer;
                 char text[320]{};
@@ -448,6 +580,7 @@ std::string PS2PortExtension::color_present(IDirect3DDevice8& device, bool scene
             }
             std::string names;
             if (hud_eggs_.take_seen_json(names)) { if (!notes.empty()) notes += "\n"; notes += names; }
+            note(ps2diag::Effect::Hud, reason);
             if (reason != template_logged_reason_) {
                 template_logged_reason_ = reason;
                 char text[256]{};
@@ -465,6 +598,7 @@ std::string PS2PortExtension::color_present(IDirect3DDevice8& device, bool scene
             !(hud_timediffs_ && hud_timediffs_->layer.pending()) && !(hud_template_ && hud_template_->layer.pending())) {
             const HRESULT hr = color_.apply(device, scene_active, stateblock_recording);
             const auto& status = color_.status();
+            note(ps2diag::Effect::PostFx, status.reason);
             if (status.reason != color_logged_reason_) {
                 color_logged_reason_ = status.reason;
                 char text[256]{};
@@ -479,6 +613,7 @@ std::string PS2PortExtension::color_present(IDirect3DDevice8& device, bool scene
         if (output_.enabled() && !color_.pending()) {
             const HRESULT hr = output_.apply(device, scene_active, stateblock_recording);
             const auto& status = output_.status();
+            note(ps2diag::Effect::PostFx, status.reason);
             if (status.reason != output_logged_reason_) {
                 output_logged_reason_ = status.reason;
                 char text[256]{};
@@ -501,6 +636,7 @@ std::string PS2PortExtension::color_present(IDirect3DDevice8& device, bool scene
             blur_last_present_ = now.QuadPart;
             if (!hud.valid || hud.paused) { blur_.interrupt(); reason = "outside_race"; }
             else { hr = blur_.apply(device, scene_active, stateblock_recording, dt); reason = blur_.status().reason; }
+            note(ps2diag::Effect::PostFx, reason);
             if (reason != blur_logged_reason_) {
                 blur_logged_reason_ = reason;
                 char text[256]{};

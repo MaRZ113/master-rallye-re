@@ -7,6 +7,7 @@
 // The draw keeps its own geometry, UV sets, fog and depth; only the noise term changes:
 //   pass 1: original states with stage1 disabled
 //   pass 2: same geometry, PS2 noise in stage0 on the PC noise UV set, dest - src, no fog, no Z write
+#include "ps2_diag.hpp"
 #include "sdk.hpp"
 #include "state_tracker.hpp"
 #include "provenance.hpp"
@@ -181,7 +182,7 @@ public:
     GroundDetail(const GroundDetail&)=delete;
     GroundDetail& operator=(const GroundDetail&)=delete;
     bool requested() const noexcept {return requested_&&!disabled_;}
-    void disable() noexcept {disabled_=true;}
+    void disable() noexcept {ps2diag::disable_log().note("ground_detail","state_restore_or_texture_failure");disabled_=true;}
     uint64_t passes() const noexcept {return passes_;}
     // Device caps are checked once per native device.
     bool caps_ok(IDirect3DDevice8& n) noexcept {

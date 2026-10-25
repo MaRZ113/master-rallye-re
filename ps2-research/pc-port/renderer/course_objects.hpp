@@ -1,4 +1,5 @@
 #pragma once
+#include "ps2_diag.hpp"
 #include "sdk.hpp"
 #include "course_object_transaction.hpp"
 #include <array>
@@ -151,7 +152,7 @@ public:
         return consumed_frame_==frame&&consumed_race_==race&&consumed_reset_==reset;
     }
     bool claim_log(bool draw)noexcept;
-    void disable(const char* reason)noexcept{disabled_=true;reason_=reason;proof.clear();}
+    void disable(const char* reason)noexcept{ps2diag::disable_log().note("course_objects",reason);disabled_=true;reason_=reason;proof.clear();}
     void before_reset()noexcept;
     void after_reset(IDirect3DDevice8&,bool native_called,bool success)noexcept;
     void shutdown()noexcept;

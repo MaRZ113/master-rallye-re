@@ -74,6 +74,8 @@ inline HRESULT before_ui_one(Device8& d,ps2port::GrassPilot* p,bool ui_callsite,
        p->boundary_consumed(boundary.frame,p->proof.race,boundary.reset))return S_OK;
     auto& proof=p->proof;auto& n=*d.native();bool single=false;
     const auto cert=courseintegration::certificate(d,single);
+    const auto effect=std::strcmp(p->category(),"shrubs")?ps2diag::Effect::Grass:ps2diag::Effect::Shrubs;
+    if(cert.valid&&!p->supports_course(cert.course_id.data())){if(auto* x=d.ps2_port())x->note(effect,"course_has_no_asset");return S_OK;}
     courseintegration::Ref<IDirect3DSurface8> target,depth;D3DVIEWPORT8 viewport{};
     ps2port::CourseAdmission a;
     a.supported_build=session().target;a.render_thread=GetCurrentThreadId()==d.trace.render_thread_id();
@@ -92,6 +94,7 @@ inline HRESULT before_ui_one(Device8& d,ps2port::GrassPilot* p,bool ui_callsite,
     a.native_dependency_states=courseintegration::native_dependencies(n);
     const char* reason=ps2port::course_object_admission(a,p->course());
     if(std::strcmp(reason,"eligible")){
+        if(auto* x=d.ps2_port())x->note(effect,reason);
         if(p->claim_log(false))try{session().write("{\"type\":\"ps2_grass_gate\",\"reason\":"+quote(reason)+
             ",\"course\":"+quote(std::string(a.course))+",\"frame\":"+std::to_string(a.frame)+"}");}catch(...){}
         return S_OK;
@@ -103,12 +106,16 @@ inline HRESULT before_ui_one(Device8& d,ps2port::GrassPilot* p,bool ui_callsite,
         std::to_string(a.frame)+",\"course\":"+quote(p->course())+",\"success\":"+(built?"true":"false")+
         ",\"sprite_candidates\":"+std::to_string(vertices.size()/6)+",\"reason\":"+quote(p->reason())+",\"detail_category\":"+quote(p->category())+"}");}catch(...){}
     if(!built){
+        // COURSE-RENDER-FIX1: a frame whose camera or point set cannot be built is skipped and counted; it must not latch the
+        // detail layer off for the rest of the session (the next frame, race or course starts from a clean proof).
         const char* failure=p->reason();
+        if(auto* x=d.ps2_port())x->note(effect,failure);
         if(p->claim_log(false))try{session().write("{\"type\":\"ps2_grass_gate\",\"reason\":"+quote(failure)+
             ",\"phase\":\"build_preview_vertices\",\"frame\":"+std::to_string(a.frame)+"}");}catch(...){}
-        p->disable(failure);return S_OK;
+        p->proof.clear();
+        return S_OK;
     }
-    if(vertices.empty())return S_OK;
+    if(vertices.empty()){if(auto* x=d.ps2_port())x->note(effect,"no_points_in_range");return S_OK;}
     const auto writer=[&](uint32_t slot,const Args& args,HRESULT hr) noexcept {
         courseintegration::after_setter(d,slot,args,hr);
     };
@@ -125,6 +132,7 @@ inline HRESULT before_ui_one(Device8& d,ps2port::GrassPilot* p,bool ui_callsite,
     if(p->transaction.has_pending())restored=p->transaction.restore(n,writer);
     if(FAILED(restored))p->disable("native_grass_state_restore_failed");
     else p->transaction.release();
+    if(auto* x=d.ps2_port())x->note(effect,FAILED(draw)?"draw_failed":FAILED(restored)?"restore_failed":FAILED(applied)?"apply_failed":FAILED(captured)?"capture_failed":"drawn");
     if(p->claim_log(true)||FAILED(restored))try{session().write("{\"type\":\"ps2_grass_draw\",\"course\":"+quote(p->course())+
         std::string(",\"frame\":")+std::to_string(a.frame)+",\"device\":"+std::to_string(a.device)+
         ",\"race_generation\":"+std::to_string(a.race)+",\"owner_lifetime\":"+std::to_string(a.owner)+

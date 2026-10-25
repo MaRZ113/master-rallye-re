@@ -199,6 +199,13 @@ ReflectionPilot::ReflectionPilot(bool supported, const std::wstring& ini) noexce
             reason_ = "local_env_gxi_hash_or_layout_mismatch"; return;
         }
         verified_asset_ = convert_static_env(bytes.data()+8,bytes.size()-8,pixels_);
+        // COURSE-RENDER-FIX1: when the framebuffer is captured (auto = in-frame, switched per race by a measured probe) and
+        // the optional stage report (ReflectionStageDiag=1, off by default).
+        wchar_t timing[16]{};
+        ::gfx2::ps2port::config::read_string(L"ReflectionCaptureTiming",L"auto",timing,16,ini.c_str());
+        capture_.configure(ps2diag::parse_timing(std::wstring_view(timing)),
+            ::gfx2::ps2port::config::read_int(L"ReflectionStageDiag",0,ini.c_str()) == 1);
+        if (verified_asset_) capture_.set_static_pixels(pixels_);
         const int debug = verified_asset_ ? ::gfx2::ps2port::config::read_int(L"ReflectionDebug",0,ini.c_str()) : 0;
         if (debug == 1) {
             reflection_debug_pattern(pixels_); debug_pattern_ = true; capture_.debug_pattern(true);
@@ -292,6 +299,28 @@ ReflectionIdentity ReflectionPilot::classify(const ReflectionSnapshot& s, uint64
         }
         return result;
     } catch (...) { ReflectionIdentity result;result.reason="geometry_evaluation_failed";return result; }
+}
+
+std::string ReflectionPilot::status_json() const {
+    size_t geometry = 0, learned = 0;
+    for (const auto& e : geometry_cache_) if (e.valid) ++geometry;
+    for (const auto& e : learned_) if (e.valid) ++learned;
+    const auto& c = capture_.counters();
+    const auto& d = capture_.decision();
+    return std::string("{\"requested\":") + (requested() ? "true" : "false") + ",\"active\":" + (active() ? "true" : "false") +
+        ",\"disabled\":" + (disabled_ ? "true" : "false") + ",\"blocked\":" + (blocked_ ? "true" : "false") +
+        ",\"suspended\":" + (suspended_ ? "true" : "false") + ",\"reason\":" + ps2diag::quote(reason_) +
+        ",\"geometry_cache\":" + std::to_string(geometry) + ",\"learned_bodies\":" + std::to_string(learned) +
+        ",\"timing\":" + ps2diag::quote(ps2diag::timing_name(d.timing())) + ",\"timing_now\":" + ps2diag::quote(d.mode_now()) +
+        ",\"probe\":{\"decided\":" + (d.decided() ? "true" : "false") + ",\"sampled\":" + std::to_string(d.sampled()) +
+        ",\"incomplete\":" + std::to_string(d.incomplete()) + "},\"capture\":{\"allocated\":" + (capture_.resources_allocated() ? "true" : "false") +
+        ",\"late_allocated\":" + (capture_.late_allocated() ? "true" : "false") + ",\"unsupported\":" + (capture_.permanently_unsupported() ? "true" : "false") +
+        ",\"pending\":" + (capture_.pending() ? "true" : "false") + ",\"attempts\":" + std::to_string(c.attempts) + ",\"ok\":" + std::to_string(c.ok) +
+        ",\"late_ok\":" + std::to_string(c.late_ok) + ",\"failed\":" + std::to_string(c.failed) + ",\"probes\":" + std::to_string(c.probes) +
+        ",\"probes_incomplete\":" + std::to_string(c.probes_incomplete) + ",\"stage_reports\":" + std::to_string(c.stage_reports) +
+        ",\"readback_failed\":" + std::to_string(c.readback_failed) + ",\"late_latched_races\":" + std::to_string(c.late_latched_races) +
+        ",\"resolve_latch_cleared\":" + std::to_string(c.resolve_latch_cleared) +
+        ",\"last_failure\":" + ps2diag::quote(c.last_failure ? c.last_failure : "") + "}}";
 }
 
 bool ReflectionPilot::claim_diagnostic(bool applied, const char* vehicle) noexcept {

@@ -125,14 +125,33 @@ HRESULT ReflectionCaptureTransaction::restore(IDirect3DDevice8& native) noexcept
 }
 void MixedReflectionCapture::release_resources() noexcept {
     drop(copy_surface_);drop(copy_texture_);drop(mixed_surface_);drop(mixed_texture_);drop(ps2frame_surface_);drop(ps2frame_texture_);
-    layout_={};format_=D3DFMT_UNKNOWN;target_format_=D3DFMT_UNKNOWN;ready_=false;
+    drop(late_surface_);drop(late_texture_);
+    if(inspector_)inspector_->release();
+    layout_={};format_=D3DFMT_UNKNOWN;target_format_=D3DFMT_UNKNOWN;ready_=false;late_ready_=false;
 }
 void MixedReflectionCapture::release() noexcept {
-    transaction_.release();release_resources();attempted_=false;permanently_unsupported_=false;ready_frame_=attempted_frame_=0;status_={};
+    transaction_.release();release_resources();attempted_=false;late_attempted_=false;permanently_unsupported_=false;late_unsupported_=false;msaa_resolve_latched_=false;
+    ready_frame_=attempted_frame_=late_frame_=late_attempted_frame_=0;status_={};
+    decision_.on_race(0);report_={};report_pending_=false;
+}
+void MixedReflectionCapture::set_static_pixels(const std::vector<DWORD>& bgra) {
+    static_rgb_.clear();
+    if(bgra.size()!=4096)return;
+    static_rgb_.resize(4096u*3u);
+    for(size_t i=0;i<bgra.size();++i){static_rgb_[i*3]=uint8_t(bgra[i]>>16);static_rgb_[i*3+1]=uint8_t(bgra[i]>>8);static_rgb_[i*3+2]=uint8_t(bgra[i]);}
+}
+void MixedReflectionCapture::set_race(uint64_t generation) noexcept {
+    // The MSAA resolve latch stops a failing CopyRects from being retried every frame. It is the only unsupported-latch caused
+    // by a runtime call result (all others follow from caps, format or size), so a new race gets one fresh attempt instead of
+    // inheriting a failure of an earlier race for the rest of the session.
+    if(generation&&generation!=decision_.race()&&msaa_resolve_latched_){
+        msaa_resolve_latched_=false;permanently_unsupported_=false;++counters_.resolve_latch_cleared;
+    }
+    decision_.on_race(generation);
 }
 HRESULT MixedReflectionCapture::repair(IDirect3DDevice8& native) noexcept {
     const HRESULT hr=transaction_.restore(native);status_.restore_hr=hr;
-    if(FAILED(hr))ready_=false;return hr;
+    if(FAILED(hr)){ready_=false;late_ready_=false;}return hr;
 }
 HRESULT MixedReflectionCapture::allocate(IDirect3DDevice8& native,const D3DSURFACE_DESC& desc,const ReflectionCaptureLayout& layout) noexcept {
     if(copy_texture_&&mixed_texture_&&ps2frame_texture_&&format_==desc.Format&&layout_.source_width==layout.source_width&&
@@ -160,14 +179,47 @@ HRESULT MixedReflectionCapture::allocate(IDirect3DDevice8& native,const D3DSURFA
     if(FAILED(hr)||!copy_texture_||!copy_surface_||!mixed_texture_||!mixed_surface_||!ps2frame_texture_||!ps2frame_surface_){release_resources();return FAILED(hr)?hr:E_FAIL;}
     format_=desc.Format;layout_=layout;return S_OK;
 }
+HRESULT MixedReflectionCapture::allocate_late(IDirect3DDevice8& native) noexcept {
+    if(late_texture_&&late_surface_)return S_OK;
+    drop(late_surface_);drop(late_texture_);
+    HRESULT hr=native.CreateTexture(64,64,1,D3DUSAGE_RENDERTARGET,target_format_,D3DPOOL_DEFAULT,&late_texture_);
+    if(SUCCEEDED(hr)&&!late_texture_)hr=E_FAIL;
+    if(SUCCEEDED(hr))hr=late_texture_->GetSurfaceLevel(0,&late_surface_);
+    if(SUCCEEDED(hr)&&!late_surface_)hr=E_FAIL;
+    if(FAILED(hr)){drop(late_surface_);drop(late_texture_);}
+    return hr;
+}
 HRESULT MixedReflectionCapture::capture(IDirect3DDevice8& native,IDirect3DTexture8* env,uint64_t frame,bool recording) noexcept {
-    if(ready_texture(frame))return S_OK;
+    if(has_ready(frame))return S_OK;
+    return execute(native,env,frame,false,recording);
+}
+HRESULT MixedReflectionCapture::capture_late(IDirect3DDevice8& native,IDirect3DTexture8* env,uint64_t frame,bool recording) noexcept {
+    if(has_ready(frame+1))return S_OK;
+    if(late_unsupported_)return E_FAIL;
+    return execute(native,env,frame,true,recording);
+}
+HRESULT MixedReflectionCapture::execute(IDirect3DDevice8& native,IDirect3DTexture8* env,uint64_t frame,bool late,bool recording) noexcept {
     if(permanently_unsupported_)return status_.capture_hr;
-    if(attempted_&&attempted_frame_==frame)return status_.capture_hr;
-    ready_=false;attempted_=true;attempted_frame_=frame;status_={};status_.frame=frame;
-    const auto fail=[&](const char* reason,HRESULT hr){status_.reason=reason;status_.capture_hr=hr;return hr;};
+    if(!late){
+        if(attempted_&&attempted_frame_==frame)return status_.capture_hr;
+        ready_=false;attempted_=true;attempted_frame_=frame;
+    }else{
+        if(late_attempted_&&late_attempted_frame_==frame)return status_.capture_hr;
+        late_ready_=false;late_attempted_=true;late_attempted_frame_=frame;
+    }
+    const uint64_t valid_frame=late?frame+1:frame;
+    status_={};status_.frame=valid_frame;status_.late=late;
+    ++counters_.attempts;
+    const auto notify_end=[&](HRESULT hr,const char* reason){
+        if(observer_)observer_(observer_context_,ReflectionCaptureEvent{valid_frame,late,false,hr,reason});
+    };
+    const auto fail=[&](const char* reason,HRESULT hr){
+        status_.reason=reason;status_.capture_hr=hr;++counters_.failed;counters_.last_failure=reason;counters_.last_failure_hr=hr;
+        notify_end(hr,reason);return hr;
+    };
     if(pending())return fail("native_restore_pending",D3DERR_INVALIDCALL);
     if(recording||!env)return fail(recording?"stateblock_recording":"missing_verified_static_source",D3DERR_INVALIDCALL);
+    if(observer_)observer_(observer_context_,ReflectionCaptureEvent{valid_frame,late,true,S_OK,""});
     Ref<IDirect3DSurface8> current,back;
     HRESULT hr=native.GetRenderTarget(&current.value);if(FAILED(hr))return fail("get_render_target_failed",hr);
     hr=native.GetBackBuffer(0,D3DBACKBUFFER_TYPE_MONO,&back.value);if(FAILED(hr))return fail("get_backbuffer_failed",hr);
@@ -190,13 +242,18 @@ HRESULT MixedReflectionCapture::capture(IDirect3DDevice8& native,IDirect3DTextur
     }
     status_.layout=layout;hr=allocate(native,desc,layout);if(FAILED(hr))return fail("private_target_allocation_failed",hr);
     status_.target_format=target_format_;status_.precision_fallback=prefer_16bit_&&target_format_!=D3DFMT_A1R5G5B5;
+    if(late){
+        hr=allocate_late(native);
+        if(FAILED(hr)){late_unsupported_=true;return fail("late_target_allocation_failed",hr);}
+    }
+    IDirect3DSurface8* const target=late?late_surface_:mixed_surface_;
     const RECT source{0,0,static_cast<LONG>(desc.Width),static_cast<LONG>(desc.Height)};const POINT destination{0,0};
     // D3D8 has no StretchRect. Use a same-format whole-surface CopyRects
     // resolve only for exact-sized NONE targets; no MSAA setting is changed.
     hr=native.CopyRects(current.value,multisampled?nullptr:&source,multisampled?0:1,
         copy_surface_,multisampled?nullptr:&destination);status_.copy_hr=hr;
     if(FAILED(hr)){
-        if(multisampled&&(hr==D3DERR_INVALIDCALL||hr==D3DERR_NOTAVAILABLE))permanently_unsupported_=true;
+        if(multisampled&&(hr==D3DERR_INVALIDCALL||hr==D3DERR_NOTAVAILABLE)){permanently_unsupported_=true;msaa_resolve_latched_=true;}
         return fail(multisampled?"native_msaa_resolve_unsupported":"native_copyrects_failed",hr);
     }
     hr=transaction_.capture(native);if(FAILED(hr))return fail("native_state_capture_failed",hr);
@@ -207,7 +264,7 @@ HRESULT MixedReflectionCapture::capture(IDirect3DDevice8& native,IDirect3DTextur
         transaction_.mark_up();hr=native.DrawPrimitiveUP(D3DPT_TRIANGLESTRIP,2,vertices.data(),sizeof(ReflectionCaptureVertex));++status_.private_draws;
         const HRESULT sync=transaction_.sync_up_stream(native);if(SUCCEEDED(hr)&&FAILED(sync))hr=sync;
     }
-    if(SUCCEEDED(hr))hr=transaction_.apply(native,mixed_surface_,env,64,64,true);
+    if(SUCCEEDED(hr))hr=transaction_.apply(native,target,env,64,64,true);
     if(SUCCEEDED(hr)){
         // PS2 first target pass (ALPHA ...a8, .625*static): the 80/128 weight is applied at texture upload.
         const auto vertices=reflection_capture_quad(1.f,1.f,false,kReflectionStaticPassColor);transaction_.mark_up();
@@ -225,6 +282,39 @@ HRESULT MixedReflectionCapture::capture(IDirect3DDevice8& native,IDirect3DTextur
     const HRESULT restored=transaction_.restore(native);status_.restore_hr=restored;
     if(FAILED(restored))return fail("native_state_restore_failed",restored);
     if(FAILED(hr))return fail("private_composition_failed",hr);
-    ready_=true;ready_frame_=frame;status_.capture_hr=S_OK;status_.reason="mixed_source_ready";return S_OK;
+    if(late){late_ready_=true;late_frame_=valid_frame;++counters_.late_ok;}
+    else{ready_=true;ready_frame_=frame;}
+    status_.capture_hr=S_OK;status_.reason="mixed_source_ready";++counters_.ok;
+    decision_.note_capture();
+    // COURSE-RENDER-FIX1: bounded readbacks, only on the scheduled captures of a race (never in the default InFrame mode).
+    const bool probe=!late&&decision_.probe_due();
+    const bool stage=decision_.stage_due();
+    if(probe||stage)inspect(native,target,valid_frame,late,probe,stage);
+    notify_end(S_OK,status_.reason);
+    return S_OK;
+}
+void MixedReflectionCapture::inspect(IDirect3DDevice8& native,IDirect3DSurface8* target,uint64_t frame,bool late,bool probe,bool stage) noexcept {
+    if(!inspector_){++counters_.readback_failed;return;}
+    ReflectionInspectInput in;
+    in.native=&native;in.copy=copy_surface_;in.ps2frame=ps2frame_surface_;in.target=target;
+    in.copy_format=format_;in.target_format=target_format_;in.source_format=status_.source_format;in.source_multisample=status_.source_multisample;
+    in.source_width=layout_.source_width;in.source_height=layout_.source_height;
+    in.frame=frame;in.race=decision_.race();in.ordinal=decision_.captures();in.late=late;in.probe=probe;in.stage=stage;in.reason=status_.reason;
+    in.static_rgb=&static_rgb_;
+    ReflectionInspectResult out;
+    inspector_->inspect(in,out);
+    if(probe){
+        if(out.probe_ok){
+            ++counters_.probes;
+            if(out.incomplete)++counters_.probes_incomplete;
+            const bool was_late=decision_.late();
+            decision_.record_probe(out.incomplete);
+            if(!was_late&&decision_.late())++counters_.late_latched_races;
+        }else ++counters_.readback_failed;
+    }
+    if(stage){
+        if(out.report.valid){++counters_.stage_reports;report_=std::move(out.report);report_pending_=true;}
+        else if(!probe)++counters_.readback_failed;
+    }
 }
 } // namespace gfx2::ps2port

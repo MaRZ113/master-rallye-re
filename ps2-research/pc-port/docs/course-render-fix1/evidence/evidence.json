@@ -1,0 +1,326 @@
+{
+ "env_arithmetic": {
+  "screenshot": "spains2-env-view.png",
+  "bands": [
+   {
+    "rows": [
+     0,
+     3
+    ],
+    "target_mean": [
+     7.9,
+     7.8,
+     7.8
+    ],
+    "framebuffer_term_mean": [
+     0.1,
+     0.2,
+     0.2
+    ]
+   },
+   {
+    "rows": [
+     4,
+     7
+    ],
+    "target_mean": [
+     14.3,
+     11.9,
+     10.7
+    ],
+    "framebuffer_term_mean": [
+     0.3,
+     0.2,
+     0.2
+    ]
+   },
+   {
+    "rows": [
+     8,
+     11
+    ],
+    "target_mean": [
+     18.4,
+     14.4,
+     11.3
+    ],
+    "framebuffer_term_mean": [
+     0.1,
+     0.1,
+     0.4
+    ]
+   },
+   {
+    "rows": [
+     12,
+     15
+    ],
+    "target_mean": [
+     19.1,
+     14.8,
+     10.5
+    ],
+    "framebuffer_term_mean": [
+     -0.4,
+     -0.1,
+     -0.2
+    ]
+   },
+   {
+    "rows": [
+     16,
+     19
+    ],
+    "target_mean": [
+     17.8,
+     13.9,
+     10.3
+    ],
+    "framebuffer_term_mean": [
+     -0.5,
+     -0.3,
+     -0.1
+    ]
+   },
+   {
+    "rows": [
+     20,
+     23
+    ],
+    "target_mean": [
+     21.1,
+     18.2,
+     15.3
+    ],
+    "framebuffer_term_mean": [
+     4.4,
+     4.5,
+     4.5
+    ]
+   },
+   {
+    "rows": [
+     24,
+     27
+    ],
+    "target_mean": [
+     95.0,
+     93.3,
+     91.5
+    ],
+    "framebuffer_term_mean": [
+     78.1,
+     78.1,
+     78.0
+    ]
+   },
+   {
+    "rows": [
+     28,
+     31
+    ],
+    "target_mean": [
+     112.1,
+     111.7,
+     111.3
+    ],
+    "framebuffer_term_mean": [
+     91.7,
+     91.7,
+     91.8
+    ]
+   },
+   {
+    "rows": [
+     32,
+     35
+    ],
+    "target_mean": [
+     116.4,
+     117.4,
+     118.5
+    ],
+    "framebuffer_term_mean": [
+     91.2,
+     91.1,
+     91.3
+    ]
+   },
+   {
+    "rows": [
+     36,
+     39
+    ],
+    "target_mean": [
+     120.0,
+     122.9,
+     125.4
+    ],
+    "framebuffer_term_mean": [
+     90.3,
+     90.3,
+     90.4
+    ]
+   },
+   {
+    "rows": [
+     40,
+     43
+    ],
+    "target_mean": [
+     123.3,
+     128.3,
+     133.4
+    ],
+    "framebuffer_term_mean": [
+     89.8,
+     90.2,
+     90.7
+    ]
+   },
+   {
+    "rows": [
+     44,
+     47
+    ],
+    "target_mean": [
+     118.7,
+     125.3,
+     133.0
+    ],
+    "framebuffer_term_mean": [
+     85.7,
+     85.9,
+     87.4
+    ]
+   },
+   {
+    "rows": [
+     48,
+     51
+    ],
+    "target_mean": [
+     107.8,
+     116.6,
+     123.8
+    ],
+    "framebuffer_term_mean": [
+     81.2,
+     82.8,
+     84.1
+    ]
+   },
+   {
+    "rows": [
+     52,
+     55
+    ],
+    "target_mean": [
+     96.3,
+     104.1,
+     112.9
+    ],
+    "framebuffer_term_mean": [
+     74.2,
+     76.2,
+     80.6
+    ]
+   },
+   {
+    "rows": [
+     56,
+     59
+    ],
+    "target_mean": [
+     87.7,
+     92.6,
+     99.5
+    ],
+    "framebuffer_term_mean": [
+     71.7,
+     73.8,
+     78.4
+    ]
+   },
+   {
+    "rows": [
+     60,
+     63
+    ],
+    "target_mean": [
+     82.6,
+     83.8,
+     87.4
+    ],
+    "framebuffer_term_mean": [
+     78.3,
+     79.2,
+     82.6
+    ]
+   }
+  ],
+  "empty_framebuffer_term_rows": [
+   0,
+   19
+  ],
+  "first_lit_row": 24,
+  "reading": "The framebuffer term is exactly zero (target == static term) from the top of the target (screen bottom, the ground) down to the horizon and bright from the horizon on: the frame buffer seen by the capture held the sky and nothing else."
+ },
+ "draw_order": {
+  "spains2_converted": {
+   "capture": "frame-18300-d1-00051123.jsonl",
+   "draws": 426,
+   "triangles": 17521,
+   "first_car_draw_index": 59,
+   "triangles_before_first_car_draw": 7979,
+   "ground_class_triangles_total": 6215,
+   "ground_class_triangles_before_first_car_draw": 0,
+   "ground_class_fraction_before_first_car_draw": 0.0,
+   "ground_class_draws_after_first_car_draw": 41
+  },
+  "stock_a_start": {
+   "capture": "A-start-stationary.jsonl",
+   "draws": 780,
+   "triangles": 17308,
+   "first_car_draw_index": 91,
+   "triangles_before_first_car_draw": 5985,
+   "ground_class_triangles_total": 1508,
+   "ground_class_triangles_before_first_car_draw": 1508,
+   "ground_class_fraction_before_first_car_draw": 1.0,
+   "ground_class_draws_after_first_car_draw": 0
+  },
+  "stock_e_combined": {
+   "capture": "E-combined-race-start.jsonl",
+   "draws": 581,
+   "triangles": 20122,
+   "first_car_draw_index": 140,
+   "triangles_before_first_car_draw": 10549,
+   "ground_class_triangles_total": 2672,
+   "ground_class_triangles_before_first_car_draw": 2672,
+   "ground_class_fraction_before_first_car_draw": 1.0,
+   "ground_class_draws_after_first_car_draw": 0
+  },
+  "stock_turkey3": {
+   "capture": "turkey3.jsonl",
+   "draws": 451,
+   "triangles": 10614,
+   "first_car_draw_index": 142,
+   "triangles_before_first_car_draw": 8306,
+   "ground_class_triangles_total": 3880,
+   "ground_class_triangles_before_first_car_draw": 3880,
+   "ground_class_fraction_before_first_car_draw": 1.0,
+   "ground_class_draws_after_first_car_draw": 0
+  },
+  "stock_capture2": {
+   "capture": "capture2.0cam.jsonl",
+   "draws": 403,
+   "triangles": 9511,
+   "first_car_draw_index": 91,
+   "triangles_before_first_car_draw": 7158,
+   "ground_class_triangles_total": 2726,
+   "ground_class_triangles_before_first_car_draw": 2726,
+   "ground_class_fraction_before_first_car_draw": 1.0,
+   "ground_class_draws_after_first_car_draw": 0
+  }
+ }
+}

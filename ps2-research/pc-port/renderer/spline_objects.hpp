@@ -2,7 +2,7 @@
 // COURSE-ALIVE1 (opt-in SplineObjects=1, docs/course-alive1): the 24 PS2 gaEntitySpline objects of 17 courses
 // (dinghies, barges, airships) moving on their PS2 routes.
 //
-// * Motion: ps2_spline_motion.hpp (portable PS2 controller), one Controller per object, 50 Hz invocations from host
+// * Motion: ps2_spline_motion.hpp (portable PS2 controller), one Controller per object, 30 Hz invocations from host
 //   time, frozen while the race is paused, restarted with every race generation (the PS2 owner is created when the
 //   course Egg hatches).
 // * Geometry/material: the course-port W5 PC models (DataGx/Misc/PS2Port/<model>, retail loader winding), packed with
@@ -10,6 +10,7 @@
 //   texture x vertex colour (MODULATE), opaque, no back-face culling, course fog, depth tested and written.
 // * Nothing static is added or hidden: the PS2 course packages contain no spline Egg and no copy of these models
 //   (docs/course-alive1/README.md, verify_spline_objects.py), so the moving object is the only instance.
+#include "ps2_diag.hpp"
 #include "course_objects.hpp"
 #include "ps2_spline_motion.hpp"
 #include <array>
@@ -115,7 +116,7 @@ public:
         return consumed_frame_==frame&&consumed_race_==race&&consumed_reset_==reset;
     }
     bool claim_log(bool draw)noexcept;
-    void disable(const char* reason)noexcept{disabled_=true;reason_=reason;proof.clear();runtime_.stop();}
+    void disable(const char* reason)noexcept{ps2diag::disable_log().note("spline",reason);disabled_=true;reason_=reason;proof.clear();runtime_.stop();}
     void before_reset()noexcept;
     void after_reset(IDirect3DDevice8&,bool native_called,bool success)noexcept;
     void shutdown()noexcept;

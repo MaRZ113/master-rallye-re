@@ -7,6 +7,7 @@
 // native draw, so terrain/objects drawn later (cars, splashes, COURSE-ALIVE1 boats at the pre-UI boundary) are depth
 // tested against the PS2 water exactly as PS2 draws them after the landscape. Draws that do not match stay native, so
 // every surface has one path: PC base_water (PS2Water=0 or no key) or PS2 water.
+#include "ps2_diag.hpp"
 #include "sdk.hpp"
 #include "state_tracker.hpp"
 #include "provenance.hpp"
@@ -217,7 +218,7 @@ public:
     void count(uint64_t passes) noexcept {++replaced_;passes_+=passes;}
     float phase() const noexcept {return clock_.t();}
     uint32_t counter() const noexcept {return clock_.counter();}
-    void disable(const char* reason) noexcept {disabled_=true;reason_=reason;}
+    void disable(const char* reason) noexcept {ps2diag::disable_log().note("water",reason);disabled_=true;reason_=reason;}
 
     bool caps_ok(IDirect3DDevice8& n) noexcept {
         if(caps_device_!=&n){

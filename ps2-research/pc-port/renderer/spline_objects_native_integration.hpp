@@ -109,7 +109,11 @@ inline HRESULT before_ui(Device8& d,bool ui_callsite,bool ui_consumer) noexcept 
     if(!ps2port::course_world_preflight(p->proof,boundary)||p->boundary_consumed(boundary.frame,p->proof.race,boundary.reset))return S_OK;
     auto& proof=p->proof;auto& n=*d.native();bool single=false;
     const auto cert=courseintegration::certificate(d,single);
-    if(!single||!cert.valid||!p->select_course(cert.course_id.data(),cert.race_generation))return S_OK;
+    if(!single||!cert.valid||!p->select_course(cert.course_id.data(),cert.race_generation)){
+        // Intentional off (course without spline objects, stock PC course DX) is told apart from a failure by the reason.
+        if(auto* x=d.ps2_port())x->note(ps2diag::Effect::Spline,single&&cert.valid?p->guard_reason():"no_single_race_certificate");
+        return S_OK;
+    }
     // Motion first, once per frame: it must not depend on whether this frame's draw is admitted.
     const char* observer_reason="not_read";ps2spline::Vec3 observer{};
     ps2port::HudLiveMemory memory;
@@ -137,13 +141,15 @@ inline HRESULT before_ui(Device8& d,bool ui_callsite,bool ui_consumer) noexcept 
     const auto& course=p->asset().courses[p->runtime().course()];
     const char* reason=ps2port::course_object_admission(a,course.id);
     if(std::strcmp(reason,"eligible")){
+        if(auto* x=d.ps2_port())x->note(ps2diag::Effect::Spline,reason);
         if(p->claim_log(false))try{session().write("{\"type\":\"ps2_spline_objects_gate\",\"reason\":"+quote(reason)+
             ",\"course\":"+quote(std::string(a.course))+",\"frame\":"+std::to_string(a.frame)+"}");}catch(...){}
         return S_OK;
     }
     if(!p->consume_boundary(a.frame,a.race,a.reset))return S_OK;
     std::vector<ps2port::SplineBatch> batches;
-    if(!p->runtime().build(batches)){p->disable("spline_world_vertices_nonfinite");return S_OK;}
+    // COURSE-RENDER-FIX1: a non-finite pose of one frame skips that frame; it must not switch the layer off for the session.
+    if(!p->runtime().build(batches)){if(auto* x=d.ps2_port())x->note(ps2diag::Effect::Spline,"world_vertices_nonfinite");p->proof.clear();return S_OK;}
     const bool fog=native_course_fog(n);
     const auto writer=[&](uint32_t slot,const Args& args,HRESULT hr) noexcept {courseintegration::after_setter(d,slot,args,hr);};
     HRESULT captured=S_OK,applied=S_OK,draw=E_PENDING,restored=S_OK;UINT triangles=0,draws=0;
@@ -165,6 +171,7 @@ inline HRESULT before_ui(Device8& d,bool ui_callsite,bool ui_consumer) noexcept 
         p->transaction.release();
         if(FAILED(applied)||FAILED(draw))break;
     }
+    if(auto* x=d.ps2_port())x->note(ps2diag::Effect::Spline,FAILED(restored)?"restore_failed":FAILED(draw)?"draw_failed":FAILED(applied)?"apply_failed":FAILED(captured)?"capture_failed":draws?"drawn":"nothing_visible");
     if(p->claim_log(true)||FAILED(restored))try{session().write("{\"type\":\"ps2_spline_objects_draw\",\"course\":"+quote(course.id)+
         ",\"frame\":"+std::to_string(a.frame)+",\"race_generation\":"+std::to_string(a.race)+",\"camera\":"+std::to_string(a.camera)+
         ",\"objects\":"+std::to_string(p->runtime().controllers().size())+",\"draws\":"+std::to_string(draws)+",\"triangles\":"+std::to_string(triangles)+

@@ -9,6 +9,8 @@
 #include <cstdio>
 #include <cstring>
 #include <cstdlib>
+#include <filesystem>
+#include <fstream>
 #include <iostream>
 #include <initializer_list>
 #include <string>
@@ -473,7 +475,62 @@ void perf2_contracts() {
     perf::configure(false, 300);
 }
 
+// COURSE-RENDER-FIX1: the per-race ledger of the extension (race boundaries, outcome counters, resource state, disable events,
+// its own stream) over many simulated race cycles.
+void race_ledger_contracts() {
+    namespace diag = ps2diag;
+    const auto dir = temp_dir();
+    const std::wstring diagnostics = dir + L"\\diag";
+    // Default: follows Diagnostics; RaceLedger=0/1 overrides.
+    CHECK(write_config(dir, L"[PS2Port]\r\nDiagnostics=1\r\n"));
+    { gfx2::ps2port::PS2PortExtension e(true, gfx2::TARGET_SHA, renderer_ini(dir)); CHECK(e.ledger_enabled() && e.present_pass_requested()); }
+    CHECK(write_config(dir, L"[PS2Port]\r\nDiagnostics=1\r\nRaceLedger=0\r\n"));
+    { gfx2::ps2port::PS2PortExtension e(true, gfx2::TARGET_SHA, renderer_ini(dir)); CHECK(!e.ledger_enabled() && !e.present_pass_requested()); e.note(diag::Effect::Grass, "drawn"); e.ledger_race_frame(1, 1, 1, "x", 0, 0); CHECK(!e.race_ledger().open()); }
+    CHECK(write_config(dir, L"[PS2Port]\r\nDiagnostics=0\r\n"));
+    { gfx2::ps2port::PS2PortExtension e(true, gfx2::TARGET_SHA, renderer_ini(dir)); CHECK(!e.ledger_enabled()); }
+    { gfx2::ps2port::PS2PortExtension e(false, gfx2::TARGET_SHA, renderer_ini(dir)); CHECK(!e.ledger_enabled()); }
+    std::wstring body = L"[PS2Port]\r\nDiagnostics=1\r\nReflection=0\r\nDiagDirectory=" + diagnostics + L"\r\n";
+    CHECK(write_config(dir, body.c_str()));
+    std::filesystem::path stream_path;
+    {
+        gfx2::ps2port::PS2PortExtension e(true, gfx2::TARGET_SHA, renderer_ini(dir));
+        CHECK(e.ledger_enabled());
+        uint64_t frame = 1000;
+        for (uint64_t race = 1; race <= 25; ++race) {      // 25 race -> menu -> race cycles, nothing may accumulate
+            const uint64_t generation = race * 7, owner = race;
+            for (int f = 0; f < 3; ++f) { e.ledger_race_frame(++frame, generation, owner, race % 2 ? "RaceTest/SpainS2" : "RaceTest/Turkey3", 400 + race, 9000 + race); }
+            e.note(diag::Effect::Grass, "drawn", 3); e.note(diag::Effect::Water, race % 2 ? "replaced" : "no_water_key");
+            e.note(diag::Effect::Spline, "stock_pc_course_no_loose_course_dx");
+            if (race == 10) ps2diag::disable_log().note("grass", "native_grass_preview_draw_failed");
+            CHECK(e.race_ledger().open() && e.race_ledger().race().generation == generation && e.race_ledger().outcomes(diag::Effect::Grass).count("drawn") == 3);
+        }
+        CHECK(e.race_ledger().races() == 25 && e.race_ledger().summaries() == 24);
+        const auto status = e.status_json();
+        CHECK(status.front() == '{' && status.back() == '}' && status.find("\"reflection\":{\"requested\":false") != std::string::npos && status.find("\"tracked\":425") != std::string::npos &&
+              status.find("\"disables\":{\"total\":1") != std::string::npos && status.find("native_grass_preview_draw_failed") != std::string::npos);
+        stream_path = e.diag_stream_path();
+        CHECK(!stream_path.empty() && std::filesystem::exists(stream_path));
+    }   // destruction finishes the open race ("shutdown")
+    std::ifstream in(stream_path);
+    std::string line, text; unsigned starts = 0, summaries = 0, disabled = 0, sessions = 0, shutdown = 0, new_race = 0;
+    while (std::getline(in, line)) {
+        text += line + "\n";
+        if (line.find("\"type\":\"ps2_race_start\"") != std::string::npos) ++starts;
+        if (line.find("\"type\":\"ps2_race_summary\"") != std::string::npos) ++summaries;
+        if (line.find("\"type\":\"ps2_effect_disabled\"") != std::string::npos) ++disabled;
+        if (line.find("\"type\":\"ps2_diag_session\"") != std::string::npos) ++sessions;
+        if (line.find("\"end_reason\":\"shutdown\"") != std::string::npos) ++shutdown;
+        if (line.find("\"end_reason\":\"new_race\"") != std::string::npos) ++new_race;
+        CHECK(line.front() == '{' && line.back() == '}');
+    }
+    CHECK(sessions == 1 && starts == 25 && summaries == 25 && shutdown == 1 && new_race == 24 && disabled == 1);
+    CHECK(text.find("\"course\":\"RaceTest/Turkey3\"") != std::string::npos && text.find("\"grass\":{\"drawn\":3}") != std::string::npos);
+    std::error_code error; std::filesystem::remove_all(std::filesystem::path(diagnostics), error);
+    cleanup(dir);
+}
+
 int main() {
+    race_ledger_contracts();
     mode_and_mirror_policy();
     pixel_probe_configuration_and_format_contract();
     state_mode_contract();

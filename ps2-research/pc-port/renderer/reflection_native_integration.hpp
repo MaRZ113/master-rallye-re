@@ -273,6 +273,9 @@ public:
                     std::to_string(device_.trace.device_id())+",\"hresult\":"+std::to_string(static_cast<uint32_t>(restore_hr_))+"}"); } catch (...) {}
             }
         } else if (applied_) restore_hr_=S_OK;
+        if (std::strcmp(identity_.vehicle,"UNKNOWN"))
+            if (auto* ledger=device_.ps2_port())
+                ledger->note(ps2diag::Effect::ReflectionBody, applied_ ? "applied" : identity_.accepted ? "accepted_not_applied" : identity_.reason);
         if (!std::strcmp(identity_.vehicle,"UNKNOWN") ||
             !geometry_ || !(identity_.uv_topology_sha256.empty()?pilot_->claim_diagnostic(applied_,identity_.vehicle):pilot_->claim_damage_diagnostic())) return;
         try {

@@ -120,7 +120,12 @@ inline HRESULT before_ui(Device8& d,ps2port::GrassPilot* p,bool ui_callsite,bool
             std::to_string(frame)+",\"mode\":\"split_screen\",\"pass\":"+std::to_string(i)+",\"course\":"+quote(p->course())+
             ",\"success\":"+(built?"true":"false")+",\"sprite_candidates\":"+std::to_string(vertices.size()/6)+
             ",\"reason\":"+quote(p->reason())+",\"detail_category\":"+quote(p->category())+"}");}catch(...){}
-        if(!built){const char* failure=p->reason();gate_log(p,failure,frame);p->disable(failure);return S_OK;}
+        if(!built){
+            // COURSE-RENDER-FIX1: skipped and counted, not a session-wide latch (see grass_native_integration.hpp).
+            const char* failure=p->reason();gate_log(p,failure,frame);
+            if(auto* x=d.ps2_port())x->note(std::strcmp(p->category(),"shrubs")?ps2diag::Effect::Grass:ps2diag::Effect::Shrubs,failure);
+            p->proof.clear();return S_OK;
+        }
         sprites[i]=vertices.size()/6;
         if(vertices.empty())continue;
         captured[i]=p->transaction.capture(n);

@@ -12,6 +12,7 @@ inline constexpr uintptr_t COURSE_DRAW_RETURN_RVA=0x17707e;
 inline ps2port::GroundDetail* ground(Device8& d) noexcept {return d.ps2_port()?d.ps2_port()->ground_detail():nullptr;}
 
 inline void log(Device8& d,ps2port::GroundDetail& g,const char* reason,HRESULT hr=S_OK) noexcept {
+    if(auto* x=d.ps2_port())x->note(ps2diag::Effect::GroundDetail,reason);
     if(!g.note_reason(reason))return;
     try{session().write("{\"type\":\"ps2_ground_detail\",\"reason\":\""+std::string(reason)+"\",\"hr\":"+std::to_string(static_cast<uint32_t>(hr))+
         ",\"frame\":"+std::to_string(d.trace.frame_number())+",\"passes\":"+std::to_string(g.passes())+"}");}catch(...){}

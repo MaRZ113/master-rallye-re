@@ -1,0 +1,100 @@
+[
+ {
+  "entry": 1,
+  "course": "RaceTest/SpainS2",
+  "kind": "converted",
+  "note": "black reflection candidate; PS2 water (12 triangles); boats (spline objects); grass",
+  "min_frames": 600
+ },
+ {
+  "entry": 2,
+  "course": "RaceTest/Italy3",
+  "kind": "stock",
+  "note": "control: stock PC course on the same car; spline gate must say stock course, grass/shrubs",
+  "min_frames": 600
+ },
+ {
+  "entry": 3,
+  "course": "RaceTest/Turkey3",
+  "kind": "converted",
+  "note": "PS2 water (26 triangles), grass and shrubs, converted course",
+  "min_frames": 600
+ },
+ {
+  "entry": 4,
+  "course": "RaceTest/France1",
+  "kind": "converted",
+  "note": "converted course with boats; waterfall",
+  "min_frames": 600
+ },
+ {
+  "entry": 5,
+  "course": "RaceTest/SpainS2",
+  "kind": "converted",
+  "note": "second entry of the candidate: every effect must come back",
+  "min_frames": 600
+ },
+ {
+  "entry": 6,
+  "course": "RaceTest/Italy3",
+  "kind": "stock",
+  "note": "second control entry",
+  "min_frames": 600
+ },
+ {
+  "entry": 7,
+  "course": "RaceTest/Turkey3",
+  "kind": "converted",
+  "note": "second entry: water, grass, shrubs",
+  "min_frames": 600
+ },
+ {
+  "entry": 8,
+  "course": "RaceTest/Spain2",
+  "kind": "stock",
+  "note": "stock course with water (PS2 water on retail geometry)",
+  "min_frames": 600
+ },
+ {
+  "entry": 9,
+  "course": "RaceTest/SpainS2",
+  "kind": "converted",
+  "note": "third entry",
+  "min_frames": 600
+ },
+ {
+  "entry": 10,
+  "course": "RaceTest/Turkey2",
+  "kind": "converted",
+  "note": "converted course, puddles",
+  "min_frames": 600
+ },
+ {
+  "entry": 11,
+  "course": "RaceTest/ItalyM1",
+  "kind": "stock",
+  "note": "stock control",
+  "min_frames": 600
+ },
+ {
+  "entry": 12,
+  "course": "RaceTest/Turkey3",
+  "kind": "converted",
+  "note": "third entry",
+  "min_frames": 600
+ },
+ {
+  "entry": 13,
+  "course": "RaceTest/SpainS2",
+  "kind": "converted",
+  "note": "fourth entry",
+  "min_frames": 600
+ },
+ {
+  "entry": 14,
+  "course": "RaceTest/France1",
+  "kind": "converted",
+  "note": "second entry",
+  "min_frames": 600
+ }
+]

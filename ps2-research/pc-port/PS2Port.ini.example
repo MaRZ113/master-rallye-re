@@ -14,6 +14,17 @@ ReflectionTargetPrecision=1
 ; bottom-left blue, bottom-right cyan). 2 = DIAGNOSTIC view of the real 64x64 env target (4x, top
 ; centre of the screen). Only for screenshots, keep 0.
 ReflectionDebug=0
+; ReflectionCaptureTiming (COURSE-RENDER-FIX1, docs/course-render-fix1): when the frame buffer term of the target is captured.
+;   auto (default) = at the first car draw (as on the PS2: after the course), but each race measures the captured frame
+;     (bottom third of the 640x448 PS2 frame, 3 of 5 samples in the first 300 captures) and, when the terrain is not yet
+;     drawn (converted course DX: the terrain is drawn after the car), switches that race to the end-of-world capture.
+;   inframe = always at the first car draw (the builds before COURSE-RENDER-FIX1);  late = always at the first UI draw
+;     of the previous frame (the whole course and the cars are in it).
+ReflectionCaptureTiming=auto
+; ReflectionStageDiag: 1 = DIAGNOSTIC stage report (ps2_reflection_stage in ps2diag-*.jsonl + a PNG montage per report:
+;   source frame | PS2 frame | env target | env minus static term) at captures 1, 2, 3, 30, 120, 480, 1200 of every race
+;   (at most 64 per session). Costs a few GPU readbacks per race. Keep 0 for play.
+ReflectionStageDiag=0
 ; ReflectionSourceGXI: PS2 static environment texture.
 ReflectionSourceGXI=PS2Grass/PS2EnvSource64x64.gxi
 
@@ -117,6 +128,12 @@ PS2Water=0
 ; --- Diagnostics ---------------------------------------------------------------
 ; Diagnostics: 1 = feature records in MRRRenderer/logs and F10 race-fleet sidecars.
 Diagnostics=0
+; RaceLedger (COURSE-RENDER-FIX1): 1 = one summary record per race (course, race/owner generation, per-effect outcome counters,
+;   state of every pilot, resource counts, every session-wide effect switch-off) in MRRRenderer/logs/ps2diag-*.jsonl, a
+;   4 MiB stream of its own (the session log is capped at 16 MiB). Default: the value of Diagnostics.
+; RaceLedger=1
+; DiagDirectory: where ps2diag-*.jsonl and the stage PNG folder go (default: the session log folder).
+; DiagDirectory=logs
 ; PS2PerfTiming: 1 = DIAGNOSTIC per-category timing records (ps2_perf_timing) in the session log every
 ;   PS2PerfWindow frames. Keep 0 for play.
 PS2PerfTiming=0

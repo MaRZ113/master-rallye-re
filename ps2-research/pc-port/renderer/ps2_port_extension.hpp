@@ -4,6 +4,7 @@
 #include <atomic>
 #include <cstddef>
 #include <cstdint>
+#include <filesystem>
 #include <memory>
 #include <string>
 #include <string_view>
@@ -20,6 +21,7 @@
 #include "ps2_hud_timediffs.hpp"
 #include "ps2_hud_splitflash.hpp"
 #include "fleet_participants.hpp"
+#include "ps2_diag.hpp"
 
 namespace gfx2::ps2port {
 class ReflectionPilot;
@@ -337,7 +339,7 @@ public:
     PS2OutputFilter& output_filter() noexcept { return output_; }
     // Present-time passes (PS2Color, PS2Output) share one hook.
     PS2MotionBlur& motion_blur() noexcept { return blur_; }
-    bool present_pass_requested() const noexcept { return color_.enabled() || output_.enabled() || blur_.enabled() || reflection_view_requested() || (hud_damage_ && hud_damage_->requested()) || (hud_map_ && hud_map_->requested()) || hud_eggs_requested() || (hud_timediffs_ && hud_timediffs_->requested()); }
+    bool present_pass_requested() const noexcept { return ledger_enabled_ || color_.enabled() || output_.enabled() || blur_.enabled() || reflection_view_requested() || (hud_damage_ && hud_damage_->requested()) || (hud_map_ && hud_map_->requested()) || hud_eggs_requested() || (hud_timediffs_ && hud_timediffs_->requested()); }
     bool reflection_view_requested() const noexcept;
     void present_before_reset() noexcept { color_.before_reset(); output_.before_reset(); blur_.before_reset(); fleet_before_reset(); }
     GroundDetail* ground_detail() noexcept { return ground_.get(); }
@@ -364,6 +366,21 @@ public:
     uint32_t mode_value() const noexcept { return static_cast<uint32_t>(mode_); }
     const char* mode_name() const noexcept;
     bool claim_draw_diagnostic() noexcept;
+    // COURSE-RENDER-FIX1 (docs/course-render-fix1): per-race effect ledger and its own compact JSONL stream. RaceLedger=1
+    // (default: the value of Diagnostics) writes ps2diag-*.jsonl next to the session log; one record per race.
+    bool ledger_enabled() const noexcept { return ledger_enabled_; }
+    void note(ps2diag::Effect effect, const char* outcome, uint32_t n = 1) noexcept { if (ledger_enabled_) ledger_.note(effect, outcome, n); }
+    ps2diag::DrawLedger& draw_ledger() noexcept { return draws_; }
+    ps2diag::RaceLedger& race_ledger() noexcept { return ledger_; }
+    // One call per rendered race frame (render thread): opens/closes the per-race record.
+    void ledger_race_frame(uint64_t frame, uint64_t generation, uint64_t owner, const char* course,
+                           size_t tracked_resources, uint64_t resource_serial) noexcept;
+    void diag_write(const std::string& line) noexcept;
+    void diag_write_file(const std::string& name, const std::vector<uint8_t>& bytes) noexcept;
+    std::string status_json() const;
+    // DiagDirectory= (PS2Port.ini) or a test: where ps2diag-*.jsonl and the stage PNG folder go (default: the session log folder).
+    void diag_set_directory(std::filesystem::path directory) { diag_override_ = std::move(directory); }
+    const std::filesystem::path& diag_stream_path() const noexcept { return diag_stream_.path(); }
     bool pixel_probe_requested() const noexcept { return pixel_probe_requested_; }
     bool pixel_probe_enabled() const noexcept { return pixel_probe_enabled_ && build_valid_ && !disabled_; }
     bool pixel_probe_ready() const noexcept { return pixel_probe_ready_; }
@@ -443,6 +460,16 @@ private:
     const char* hud_logged_layer_ = nullptr;
     const char* color_logged_reason_ = nullptr;
     void pixel_probe_release() noexcept;
+    void ledger_finish(const char* reason) noexcept;
+    void drain_disables() noexcept;
+    void diag_open() noexcept;
+    bool ledger_enabled_ = false;
+    ps2diag::RaceLedger ledger_;
+    ps2diag::DrawLedger draws_;
+    ps2diag::Stream diag_stream_;
+    std::filesystem::path diag_directory_, diag_override_;
+    size_t ledger_tracked_ = 0;
+    uint64_t ledger_serial_ = 0, ledger_frame_ = 0;
     PilotMode mode_ = PilotMode::Stock;
     bool build_valid_ = false;
     bool disabled_ = false;

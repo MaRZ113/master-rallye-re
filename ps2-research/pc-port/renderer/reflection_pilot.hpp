@@ -1,4 +1,5 @@
 #pragma once
+#include "ps2_diag.hpp"
 #include "fleet_off_lamp_registry.hpp"
 #include "sdk.hpp"
 #include "reflection_capture.hpp"
@@ -468,7 +469,12 @@ public:
     bool debug_view() const noexcept { return debug_view_; }
     bool claim_damage_diagnostic()noexcept{if(!diagnostics_||damage_logged_)return false;damage_logged_=true;return true;}
     bool claim_diagnostic(bool applied, const char* vehicle="Tata") noexcept;
-    void disable(const char* reason) noexcept { disabled_ = true; reason_ = reason; }
+    void disable(const char* reason) noexcept { ps2diag::disable_log().note("reflection", reason); disabled_ = true; reason_ = reason; }
+    // COURSE-RENDER-FIX1: compact state of the pilot for the per-race ledger.
+    std::string status_json() const;
+    // A new race generation: the once-per-session diagnostic claims start again, so every race writes its own records.
+    // Rendering state is untouched (diagnostics only).
+    void new_race() noexcept { logged_.fill(0); damage_logged_ = false; }
     void before_reset() noexcept;
     void after_reset(IDirect3DDevice8&, bool native_reset_called, bool successful) noexcept;
     void shutdown() noexcept { capture_.release(); transaction_.release(); texture_.release(); disabled_=true; }

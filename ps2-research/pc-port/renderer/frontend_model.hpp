@@ -1,4 +1,5 @@
 #pragma once
+#include "ps2_diag.hpp"
 #include <cmath>
 #include "ps2_port_extension.hpp"
 #include "ps2_content_fixes.hpp"
@@ -91,7 +92,7 @@ public:
  IDirect3DTexture8* texture(uint32_t i)const noexcept{return i<textures_.size()?textures_[i]:nullptr;}
  bool prepare_headlight(const DrawSnapshot&,bool original,bool private_tree,unsigned part=0)noexcept;const std::vector<FrontendVertex>& headlight_vertices(unsigned part=0)const noexcept{return headlight_current_[part];}
  bool initialize(IDirect3DDevice8&)noexcept;void reset()noexcept;void invalidate()noexcept{kia_deformed_.clear();kia_revision_=UINT64_MAX;kia_damage.invalidate_current();fleet_damage.invalidate_current();for(auto& v:headlight_current_)v.clear();damage.invalidate_current();deformation_ready_=false;deformation_revision_=UINT64_MAX;trim17_native_runs.clear();kia_warmup={};wheel_owners={};fleet_wheel_owners={};environment_known=false;validated=false;parts_validated=0;certified=false;seen=0;records={};observed_frame=drawn_frame=UINT64_MAX;owner={};}
- void disable()noexcept{disabled_=true;invalidate();}
+ void disable()noexcept{ps2diag::disable_log().note("model","draw_failed_or_exception");disabled_=true;invalidate();}
 };
 }
 

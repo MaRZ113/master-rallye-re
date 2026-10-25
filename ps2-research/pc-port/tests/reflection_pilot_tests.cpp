@@ -313,6 +313,7 @@ void resource_and_reset() {
     }
     ReflectionPilot pilot(false,L"");
     CHECK(!pilot.active()&&!pilot.requested()&&!pilot.mirroring_required());CHECK(!pilot.initialize(n));
+    {const auto status=pilot.status_json();CHECK(status.front()=='{'&&status.back()=='}'&&status.find("\"requested\":false")!=std::string::npos&&status.find("\"active\":false")!=std::string::npos);}
     pilot.before_reset();pilot.after_reset(n,true,false);
     CHECK(!pilot.blocked()&&!pilot.active()); // A disabled pilot preserves Stock after failed Reset.
     auto& t=pilot.transaction();t.original_texture=&n.old;n.old.AddRef();t.changed_mask=2;
@@ -452,6 +453,25 @@ void enabled_reset() {
             CHECK(!selected_pilot.request(target,&selected.old).requested);
             selected_pilot.shutdown();CHECK(selected.replacement.refs==0);
         }
+        // COURSE-RENDER-FIX1: capture timing and stage report keys; the default is the measured per-race switch (auto).
+        CHECK(WritePrivateProfileStringW(L"PS2Port",L"ReflectionMode",L"4",ini));
+        {
+            Native native;ReflectionPilot automatic(true,ini);
+            CHECK(automatic.mixed_capture().decision().timing()==ps2diag::CaptureTiming::Auto&&!automatic.mixed_capture().decision().stage_diag());
+            const auto json=automatic.status_json();
+            CHECK(json.front()=='{'&&json.back()=='}'&&json.find("\"timing\":\"auto\"")!=std::string::npos&&json.find("\"active\":true")!=std::string::npos);
+        }
+        CHECK(WritePrivateProfileStringW(L"PS2Port",L"ReflectionCaptureTiming",L"late",ini));
+        CHECK(WritePrivateProfileStringW(L"PS2Port",L"ReflectionStageDiag",L"1",ini));
+        {
+            Native native;ReflectionPilot late(true,ini);
+            CHECK(late.mixed_capture().decision().timing()==ps2diag::CaptureTiming::Late&&late.mixed_capture().decision().stage_diag());
+            late.mixed_capture().set_race(4);CHECK(late.mixed_capture().late_wanted());
+            late.new_race();                                 // diagnostics claims only; rendering state is untouched
+            CHECK(late.mixed_capture().late_wanted()&&late.status_json().find("\"timing\":\"late\"")!=std::string::npos);
+        }
+        CHECK(WritePrivateProfileStringW(L"PS2Port",L"ReflectionCaptureTiming",L"0",ini));
+        { Native native;ReflectionPilot inframe(true,ini);CHECK(inframe.mixed_capture().decision().timing()==ps2diag::CaptureTiming::InFrame); }
         std::cout<<"Verified local GXI enabled Reset/suspension/mirroring: PASS\n";
     } else {
         CHECK(length==0);

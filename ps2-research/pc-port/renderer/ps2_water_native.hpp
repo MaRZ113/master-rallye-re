@@ -20,6 +20,7 @@ inline HRESULT repair(Device8& d) noexcept {
     return p->transaction.restore(*d.native());
 }
 inline void log(Device8& d,ps2port::PS2WaterPilot& p,const char* reason,const std::string& extra=std::string()) noexcept {
+    if(auto* x=d.ps2_port())x->note(ps2diag::Effect::Water,reason);
     if(!p.note_reason(reason))return;
     try{session().write("{\"type\":\"ps2_water\",\"reason\":\""+std::string(reason)+"\",\"frame\":"+std::to_string(d.trace.frame_number())+extra+"}");}catch(...){}
 }
@@ -181,6 +182,7 @@ inline Result draw(Device8& d,D3DPRIMITIVETYPE type,UINT min_index,UINT vertices
         return {};
     }
     p->count(passes);p->note_owned(course,cert.race_generation);
+    if(auto* x=d.ps2_port())x->note(ps2diag::Effect::Water,"replaced");
     if(p->claim_course_log(course))try{
         char buf[160];std::snprintf(buf,sizeof(buf),",\"triangles\":%u,\"parts\":%u,\"source\":%u,\"phase\":%.4f,\"counter\":%u,\"caller_rva\":%u",
             k.triangles,k.parts,k.source,double(t),p->counter(),static_cast<unsigned>(pc-reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))));

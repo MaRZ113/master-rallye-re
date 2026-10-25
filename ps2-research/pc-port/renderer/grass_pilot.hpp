@@ -2,6 +2,7 @@
 
 // Source-derived point preview, not the PS2 camera-history placement lifecycle
 // or a claim of live VU/GS parity. All coordinates remain game-source world XYZ.
+#include "ps2_diag.hpp"
 #include "course_objects.hpp"
 #include <array>
 #include <cstddef>
@@ -116,6 +117,8 @@ public:
     const char* reason()const noexcept{return reason_;}
     float sprite_half_size()const noexcept{return sprite_half_size_;}
     GroundDetailKind kind()const noexcept{return kind_;}
+    // True when a verified asset of this detail layer exists for the course (false = intentionally off on this course).
+    bool supports_course(std::string_view course_id)const noexcept;
     const char* category()const noexcept{return kind_==GroundDetailKind::Shrubs?"shrubs":"grass";}
     const char* artifact_sha()const noexcept{return kind_==GroundDetailKind::Shrubs?kGrassSources[selected_course_].shrubs_artifact:kGrassSources[selected_course_].grass_artifact;}
     const char* course()const noexcept{return kGrassSources[selected_course_].course;}
@@ -130,7 +133,7 @@ public:
     }
     bool claim_log(bool draw)noexcept;
     bool claim_build_log()noexcept {if(!diagnostics_||logged_build_)return false;logged_build_=true;return true;}
-    void disable(const char* reason)noexcept{disabled_=true;reason_=reason;proof.clear();}
+    void disable(const char* reason)noexcept{ps2diag::disable_log().note(kind_==GroundDetailKind::Shrubs?"shrubs":"grass",reason);disabled_=true;reason_=reason;proof.clear();}
     void before_reset()noexcept;
     void after_reset(IDirect3DDevice8&,bool native_called,bool success)noexcept;
     void shutdown()noexcept;

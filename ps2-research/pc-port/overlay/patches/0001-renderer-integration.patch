@@ -24,7 +24,7 @@ diff --git a/modernization/renderer/CMakeLists.txt b/modernization/renderer/CMak
  target_compile_options(proxy_core PRIVATE /W4 /permissive- /fp:strict /EHsc /Zi)
  target_link_libraries(proxy_core PUBLIC bcrypt user32)
  add_library(d3d8 SHARED src/dllmain.cpp src/real_d3d8.cpp exports.def)
-@@ -115,4 +125,90 @@
+@@ -115,4 +125,95 @@
   target_include_directories(physics_transaction_abi_tests PRIVATE include vendor/d3d8)
   target_compile_options(physics_transaction_abi_tests PRIVATE /W4 /fp:strict /EHsc)
   add_test(NAME physics_transaction_abi_contracts COMMAND physics_transaction_abi_tests)
@@ -112,6 +112,11 @@ diff --git a/modernization/renderer/CMakeLists.txt b/modernization/renderer/CMak
 +  target_link_libraries(ps2_water_tests PRIVATE proxy_core)
 +  target_compile_options(ps2_water_tests PRIVATE /W4 /fp:strict /EHsc)
 +  add_test(NAME ps2_water_contracts COMMAND ps2_water_tests)
++  add_executable(ps2_diag_tests "${MRR_PS2_PORT_ROOT}/tests/ps2_diag_tests.cpp")
++  target_include_directories(ps2_diag_tests PRIVATE include tests vendor/d3d8 "${MRR_PS2_PORT_ROOT}/renderer")
++  target_link_libraries(ps2_diag_tests PRIVATE proxy_core)
++  target_compile_options(ps2_diag_tests PRIVATE /W4 /fp:strict /EHsc)
++  add_test(NAME ps2_diag_contracts COMMAND ps2_diag_tests)
 +
 + endif()
  endif()
@@ -616,7 +621,7 @@ diff --git a/modernization/renderer/src/race_observer.cpp b/modernization/render
 diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/renderer/src/visual_wrappers.cpp
 --- a/modernization/renderer/src/visual_wrappers.cpp
 +++ b/modernization/renderer/src/visual_wrappers.cpp
-@@ -3,6 +3,25 @@
+@@ -3,6 +3,26 @@
  #include "camera_probe.hpp"
  #include <intrin.h>
  #include <cstring>
@@ -634,6 +639,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
 +#include "grass_native_integration.hpp"
 +#include "spline_objects_native_integration.hpp"
 +#include "ps2_water_native.hpp"
++#include "reflection_timing_native.hpp"
 +#include "course_objects_native_integration.hpp"
 +#include "course_objects_native_integration.hpp"
 +#include "buffer_provenance.hpp"
@@ -642,7 +648,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
  namespace gfx2 {
  namespace {
  bool site(uintptr_t pc,uint32_t& rva) noexcept {
-@@ -11,8 +30,76 @@
+@@ -11,8 +31,76 @@
   auto base=reinterpret_cast<uintptr_t>(module);if(pc<base||pc-base>UINT32_MAX)return false;rva=static_cast<uint32_t>(pc-base);return true;
  }
  }
@@ -719,7 +725,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
   DWORD effective=visuals.filter(stage,type,value);
   if(effective!=value&&type==D3DTSS_MINFILTER){
    auto& max=trace.effective_shadow.tss[0][D3DTSS_MAXANISOTROPY];
-@@ -29,6 +116,9 @@
+@@ -29,6 +117,9 @@
  }
  HRESULT STDMETHODCALLTYPE Device8::GetTextureStageState(DWORD stage,D3DTEXTURESTAGESTATETYPE type,DWORD* value){
   auto guard=trace.guard();auto args=pack(stage,type,value);auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(62,args,pc);
@@ -729,7 +735,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
   HRESULT hr=real_->GetTextureStageState(stage,type,value);DWORD native_value=0;bool virtualized=false;
   if(SUCCEEDED(hr)&&stage<8&&type<64&&safe_copy(&native_value,value,4)){
    const auto& logical=trace.shadow.tss[stage][type];const auto& native=trace.effective_shadow.tss[stage][type];
-@@ -41,7 +131,7 @@
+@@ -41,7 +132,7 @@
   return set_transform_at(type,input,reinterpret_cast<uintptr_t>(_ReturnAddress()));
  }
  HRESULT Device8::set_transform_at(D3DTRANSFORMSTATETYPE type,const D3DMATRIX* input,uintptr_t pc){
@@ -738,7 +744,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
   D3DMATRIX changed{};uint32_t rva=0;bool exe=site(pc,rva);int observed_scene_family=-1;float cinematic_vfov=0;D3DMATRIX source_projection{};
   bool cinematic_projection=type==D3DTS_PROJECTION&&safe_copy(&source_projection,input,sizeof(source_projection))&&game_fov.cinematic_projection_vfov(source_projection,exe,rva,cinematic_vfov);
   float applied_vfov=cinematic_projection?cinematic_vfov:visuals.effective.vfov;
-@@ -64,6 +154,11 @@
+@@ -64,6 +155,11 @@
   trace.culling=game_fov.status();
   const D3DMATRIX* forwarded=(rewritten||ui_rewritten||preview_rewritten)?&changed:input;auto native=pack(type,forwarded);
  HRESULT hr=real_->SetTransform(type,forwarded);if(rewritten&&type==D3DTS_PROJECTION)game_fov.projection_applied(applied_vfov,SUCCEEDED(hr));if(FAILED(hr)&&(rewritten||ui_rewritten||preview_rewritten)){trace.after(37,native,static_cast<uint32_t>(hr),pc,&native,rewritten?2:preview_rewritten?64:32,false,true);if(rewritten){game_fov.disable("native_projection_rejected");visuals.effective.fov=false;}if(preview_rewritten){quality->preview_capability.status="UNSUPPORTED";quality->preview_capability.reason="native_preview_projection_rejected";}if(ui_rewritten){quality->config.interface_mode="Stock";ui_margins.disable("native_ui_projection_rejected");}native=args;hr=real_->SetTransform(type,input);rewritten=ui_rewritten=preview_rewritten=false;}if(SUCCEEDED(hr)&&quality&&type==D3DTS_PROJECTION)quality->ui_projection_live=ui_rewritten;trace.after(37,args,static_cast<uint32_t>(hr),pc,&native,rewritten?2:ui_rewritten?32:preview_rewritten?64:0);
@@ -750,7 +756,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
   if(SUCCEEDED(hr)&&observed_scene_family>=0)ui_margins.scene_context(observed_scene_family==1);
   if(SUCCEEDED(hr)&&type==D3DTS_VIEW&&exe&&rva==GAMEPLAY_VIEW_RETURN_RVA){D3DMATRIX stock{};if(safe_copy(&stock,input,sizeof(stock)))game_fov.stock_view(stock);}
   if(type==D3DTS_VIEW&&exe){
-@@ -106,6 +201,9 @@
+@@ -106,6 +202,9 @@
  }
  HRESULT STDMETHODCALLTYPE Device8::GetTransform(D3DTRANSFORMSTATETYPE type,D3DMATRIX* out){
   auto guard=trace.guard();auto args=pack(type,out);auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(38,args,pc);
@@ -760,7 +766,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
   HRESULT hr=real_->GetTransform(type,out);D3DMATRIX native_value{};bool virtualized=false;
   if(SUCCEEDED(hr)&&type<512&&safe_copy(&native_value,out,sizeof(native_value))){
    const auto& logical=trace.shadow.matrices[type];const auto& native=trace.effective_shadow.matrices[type];
-@@ -185,9 +283,20 @@
+@@ -185,9 +284,21 @@
    game_fov.clean_view_disarm_count(),game_fov.clean_view_last_disarm_reason(),clean_scope_id!=0,
    game_fov.clean_view_context_trace_frame(),game_fov.clean_view_context_scheduler_generation(),clean_admission.frame);
   skip=skip||suppress_clean_view||suppress_global_hud;
@@ -768,6 +774,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
 + {HRESULT extra=courseintegration::before_ui(*this,ui_callsite,!clean_scope_invalidated&&clean_scope_id&&ui_margins.consumer_hook_intact());if(FAILED(extra))return extra;}
 + {HRESULT extra=grassintegration::before_ui(*this,ui_callsite,!clean_scope_invalidated&&clean_scope_id&&ui_margins.consumer_hook_intact());if(FAILED(extra))return extra;}
 + {HRESULT extra=splineintegration::before_ui(*this,ui_callsite,!clean_scope_invalidated&&clean_scope_id&&ui_margins.consumer_hook_intact());if(FAILED(extra))return extra;}
++ {HRESULT extra=reflectionintegration::before_ui(*this,ui_callsite);if(FAILED(extra))return extra;}
 +#endif
   const auto& view=trace.effective_shadow.matrices[D3DTS_VIEW];D3DMATRIX identity{};identity._11=identity._22=identity._33=identity._44=1;
   bool allowed=!skip&&quality&&quality->config.interface_mode=="PreserveMargins"&&quality->ui_projection_live&&exe&&rva==UI_DRAW_RETURN_RVA&&type==D3DPT_TRIANGLELIST&&trace.shadow.bindings.vertex_shader.known&&trace.shadow.bindings.vertex_shader.value==0x142&&view.known&&!std::memcmp(&view.value,&identity,sizeof(identity));
@@ -782,7 +789,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
   UiOwnershipDrawState ownership_state{};
   const auto& fvf=trace.shadow.bindings.vertex_shader;ownership_state.fvf_known=fvf.known;ownership_state.fvf=fvf.value;
   const auto& texture0=trace.shadow.bindings.textures[0];ownership_state.texture0_known=texture0.known;ownership_state.texture0=texture0.value;
-@@ -198,9 +307,12 @@
+@@ -198,9 +309,12 @@
   for(unsigned i=0;i<UI_OWNERSHIP_STAGE_FIELD_COUNT;++i){unsigned stage=i<3?0u:1u;const auto& state=trace.shadow.tss[stage][stage_keys[i]];ownership_state.stage_known[i]=state.known?1u:0u;ownership_state.stage_values[i]=state.value;}
   uint64_t race_generation=0;const bool race_generation_known=game_fov.race_lifecycle_generation(race_generation);
   ui_margins.observe_ownership_draw(trace.frame_number(),race_generation_known,race_generation,rva,type,count,ownership_state,!skip,skip,hr);
@@ -796,7 +803,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
   return draw_indexed_at(type,min_index,vertices,start,count,reinterpret_cast<uintptr_t>(_ReturnAddress()));
  }
  HRESULT Device8::draw_indexed_at(D3DPRIMITIVETYPE type,UINT min_index,UINT vertices,UINT start,UINT count,uintptr_t pc){
-@@ -210,13 +322,108 @@
+@@ -210,13 +324,111 @@
   if(visuals.effective.foliage_diagnostics&&trace.enabled&&trace.control.active)
    trace.foliage_result(probe_foliage(*real_,trace.resources,args,trace.frame_number(),trace.foliage_budget,this));
   HRESULT hr;
@@ -806,30 +813,33 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
 + uint32_t pilot_ordinal=UINT32_MAX;
 + bool pixel_probe_target_started=false;
 + if(pilot_extension&&pilot_extension->pixel_probe_enabled())pilot_ordinal=pilot_extension->note_indexed_draw(pilot_frame);
++ reflectionintegration::note_draw(*this,count);
 + const auto brake_draw=lampintegration::draw(*this,type,min_index,vertices,start,count,pc);
-+ if(brake_draw.handled){trace.after(71,args,static_cast<uint32_t>(brake_draw.hr),pc);return brake_draw.hr;}
++ if(brake_draw.handled){reflectionintegration::note_result(*this,ps2diag::Effect::Models,"brake_lamp","brake_lamp_failed",brake_draw.hr);trace.after(71,args,static_cast<uint32_t>(brake_draw.hr),pc);return brake_draw.hr;}
 + const auto water_draw=waterintegration::draw(*this,type,min_index,vertices,start,count,pc);
 + if(water_draw.handled){trace.after(71,args,static_cast<uint32_t>(water_draw.hr),pc,nullptr,256,true);if(count)courseintegration::observe_world_draw(*this,water_draw.hr);if(count)grassintegration::observe_world_draw(*this,water_draw.hr);if(count)splineintegration::observe_world_draw(*this,water_draw.hr);return water_draw.hr;}
 + const auto ground_draw=groundintegration::draw(*this,type,min_index,vertices,start,count,pc);
 + if(ground_draw.handled){trace.after(71,args,static_cast<uint32_t>(ground_draw.hr),pc,nullptr,256,true);if(count)courseintegration::observe_world_draw(*this,ground_draw.hr);if(count)grassintegration::observe_world_draw(*this,ground_draw.hr);if(count)splineintegration::observe_world_draw(*this,ground_draw.hr);return ground_draw.hr;}
 + const auto glass_draw=xtrailintegration::glass_draw(*this,classification,type,min_index,vertices,start,count,pc);
-+ if(glass_draw.handled){trace.after(71,args,static_cast<uint32_t>(glass_draw.hr),pc);return glass_draw.hr;}
++ if(glass_draw.handled){reflectionintegration::note_result(*this,ps2diag::Effect::Models,"xtrail_glass","xtrail_glass_failed",glass_draw.hr);trace.after(71,args,static_cast<uint32_t>(glass_draw.hr),pc);return glass_draw.hr;}
 + const auto race_draw=frontendmodelintegration::draw_race(*this,type,min_index,vertices,start,count,pc);
-+ if(race_draw.handled){trace.after(71,args,static_cast<uint32_t>(race_draw.hr),pc,nullptr,256,true);return race_draw.hr;}
++ if(race_draw.handled){reflectionintegration::note_result(*this,ps2diag::Effect::Fleet,"race_body","race_body_failed",race_draw.hr);trace.after(71,args,static_cast<uint32_t>(race_draw.hr),pc,nullptr,256,true);return race_draw.hr;}
 + const auto race_part=frontendmodelintegration::draw_race_part(*this,type,min_index,vertices,start,count,pc);
-+ if(race_part.handled){trace.after(71,args,static_cast<uint32_t>(race_part.hr),pc,nullptr,256,true);return race_part.hr;}
++ if(race_part.handled){reflectionintegration::note_result(*this,ps2diag::Effect::Fleet,"race_part","race_part_failed",race_part.hr);trace.after(71,args,static_cast<uint32_t>(race_part.hr),pc,nullptr,256,true);return race_part.hr;}
 + const auto wheel_draw=frontendmodelintegration::draw_wheel(*this,type,min_index,vertices,start,count,pc);
-+ if(wheel_draw.handled){trace.after(71,args,static_cast<uint32_t>(wheel_draw.hr),pc,nullptr,256,true);return wheel_draw.hr;}
++ if(wheel_draw.handled){reflectionintegration::note_result(*this,ps2diag::Effect::FleetWheels,"wheel","wheel_failed",wheel_draw.hr);trace.after(71,args,static_cast<uint32_t>(wheel_draw.hr),pc,nullptr,256,true);return wheel_draw.hr;}
 + const auto xtrail_draw=xtrailintegration::draw(*this,type,min_index,vertices,start,count,pc);
 + if(xtrail_draw.handled){
++  reflectionintegration::note_result(*this,ps2diag::Effect::Models,"xtrail","xtrail_failed",xtrail_draw.hr);
 +  trace.after(71,args,static_cast<uint32_t>(xtrail_draw.hr),pc);
 +  return xtrail_draw.hr;
 + }
 + const auto frontend_draw=frontendmodelintegration::draw(*this,type,min_index,vertices,start,count,pc);
-+ if(frontend_draw.handled){trace.after(71,args,static_cast<uint32_t>(frontend_draw.hr),pc,nullptr,256,true);return frontend_draw.hr;}
++ if(frontend_draw.handled){reflectionintegration::note_result(*this,ps2diag::Effect::Models,"frontend_model","frontend_model_failed",frontend_draw.hr);trace.after(71,args,static_cast<uint32_t>(frontend_draw.hr),pc,nullptr,256,true);return frontend_draw.hr;}
 + frontendintegration::observe(*this,type,min_index,vertices,start,count);
 + const auto vehicle_draw=vehicleintegration::draw(*this,classification,type,min_index,vertices,start,count,pc);
 + if(vehicle_draw.handled){
++  reflectionintegration::note_result(*this,ps2diag::Effect::Models,"vehicle_partition","vehicle_partition_failed",vehicle_draw.hr);
 +  trace.after(71,args,static_cast<uint32_t>(vehicle_draw.hr),pc);
 +  if(count)courseintegration::observe_world_draw(*this,vehicle_draw.hr);
 +  if(count)grassintegration::observe_world_draw(*this,vehicle_draw.hr);

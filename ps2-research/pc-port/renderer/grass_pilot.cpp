@@ -234,6 +234,10 @@ bool GrassPilot::build_vertices(const D3DMATRIX& view,std::vector<ObjectVertex>&
     if(!active()){vertices.clear();return false;}
     return grass_preview_vertices(asset(),view,sprite_half_size_,vertices,reason_);
 }
+bool GrassPilot::supports_course(std::string_view course_id)const noexcept{
+    for(size_t i=0;i<(multi_course_?kGrassSources.size():1);++i)if(course_ready_[i]&&course_id_matches(course_id,kGrassSources[i].course))return true;
+    return false;
+}
 bool GrassPilot::select_course(std::string_view course_id,IDirect3DDevice8& device)noexcept{
     for(size_t i=0;i<(multi_course_?kGrassSources.size():1);++i){
         if(!course_id_matches(course_id,kGrassSources[i].course)||!course_ready_[i])continue;
