@@ -1,5 +1,11 @@
 # Master Rallye RE
 
+**Rally Workshop:** run [`Rally-Workshop.cmd`](Rally-Workshop.cmd) for the V-SDK3
+Windows Studio foundation. [Launch/edit/build guide](docs/sdk/RALLY_WORKSHOP.md),
+[capability inventory](docs/sdk/CAPABILITIES.md), [master plan](docs/sdk/MASTER_PLAN.md).
+Interactive 3D uses the managed D3D9 Previewer; the center panel is a labelled
+GPU capture. Original retail and optional GT inputs remain local and unmodified.
+
 Current follow-up: [V-PAJERO3](research/vehicles/vpajero3/README.md) fixes the
 added headlamp backing and rear brake illumination; [V-SDK2](research/vehicles/vsdk2/stock-camera.md)
 adds copy-on-write stock editing and isolated experimental per-CarID follow

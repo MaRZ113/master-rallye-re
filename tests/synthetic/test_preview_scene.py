@@ -6,6 +6,12 @@ from tests.synthetic.test_library import simple_record,synthetic_dx,footer56,tag
 from master_rallye.dx import parse_dx_bytes
 
 class PreviewTests(unittest.TestCase):
+    def test_brake_lit_first_material_span_matches_stock_megane_grammar(self):
+        points=[(0.,0.,0.),(1.,0.,0.),(0.,1.,0.)]
+        core=simple_record(0,2,0,3,('Null','Null','Null'));halo=simple_record(0,2,3,3,('Null','Null','Null'));off=simple_record(0,2,6,3,('Null','Null','Null'))
+        raw=synthetic_dx(points,[0,1,2]*3,[tag7_record('blight',core,2,controls=(2,2,8,2)),halo,tag8_record(off,controls=(1,1))],[(0,0,3),(0,3,3),(0,6,3)],declared_count=1)
+        model=parse_dx_bytes(raw);self.assertTrue(model.diagnostics.validated)
+        cases,_=logical_cases(model);self.assertEqual(cases,{0:(1,2),1:(1,2),2:(1,1)})
     def fixture(self,root):
         points=[(0.,0.,0.),(1.,0.,0.),(0.,1.,0.)]
         record=bytearray(simple_record(0,2,0,3,('base-tga','Null','Null')));record[32:36]=bytes([0,0,1,1]);struct.pack_into('<I',record,36,3)

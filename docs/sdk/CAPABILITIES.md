@@ -1,0 +1,47 @@
+# Rally Workshop capability inventory
+
+V-SDK3 audit, 25 October2026. Status applies to the named feature, not every
+vehicle/version or all future Studio scope. [Master Plan](MASTER_PLAN.md).
+
+| Capability | Existing callable backend / interface | Studio status and boundary |
+| --- | --- | --- |
+| Project open/save/restore | `workshop.service.WorkshopProject.create/save/restore/undo` | Real private working project, pinned baseline and content-addressed texture layers; JSON persists edits/history |
+| Addon authoring | `VehicleProject.load`, `validate_vehicle`, `addon_sdk.project.build_project` | Reused; GUI RGB/PNG edits use existing `texture_edits` contract; no converter rewrite |
+| Full addon candidate | `build_sdk_roster.derive/build/verify`, through Workshop service | Existing qualified roster candidate must contain one matching author entry; build includes existing launcher preflights |
+| Stock authoring | `stock_project.create/build/restore/validated_overrides` | Qualified retail Pajero/1 and Megane/18 only; changed DX/DXT ownership and source pins remain enforced |
+| Source family inspection | `WorkshopProject.create(kind='family')` | User-supplied converted DX/DXT; asset-only build explicitly NOT an installed new CarID |
+| MR mesh/material inspection | `parse_dx_bytes`, `MaterialSemantics.from_draw` | Actual physical draw IDs, groups, flags, texture slots and interpreted semantics; no MatN guesses |
+| Texture RGB/PNG override | Existing DXT/PNG codecs, `WorkshopProject.tint/replace_png` | Whole-image multiplier preserves alpha; same-size PNG uses supplied alpha. Not a masked repaint tool; baked lettering may change |
+| Viewport | `preview_scene.stage_vehicle`, Win32/D3D9 Previewer | Managed standalone interactive window; center panel is a labelled real GPU capture. No unsafe SetParent/device embedding |
+| Navigation/debug | Native Previewer event handlers | Orbit, MMB pan/focus, wheel zoom, selected-draw F, Home, presets, persisted bookmarks, F3 real data/FPS |
+| Material picking | Native geometry ray tests + owned-process selection channel | Amber wire highlight, inspector selection. Geometric picking ignores alpha texels/culling; not pixel-perfect shader picking |
+| Hot reload | Existing Previewer exporter and atomic Workshop outputs | Separate capture/interactive scene files; unchanged assets skipped; short file-lock retries; view focus retained |
+| Physics/audio/camera profiles | Existing `physics_profile`, `audio_profile`, `camera_profile` + native adapters | Preserved in author project/build; dedicated editing UI deferred. No new native fields exposed |
+| GT3/GT4 conversion | Existing qualified source adapters/converter CLI | Existing converted project opening supported. Raw-source import wizard deferred; input assets remain optional/local |
+| Future modules | `workshop.adapters`, project `extensions` metadata | Reserved panes/masks/transforms/audio/adapters metadata, no native execution. GUI lists limits instead of inert editing controls |
+
+Build outputs use short SDK-owned `.research-output/workshop-builds/<job>`
+directories: the deeply nested GUI project path made MSVC compiler detection
+fail, whereas the same bundle compiled in a short control directory. The proven
+runtime launcher API/behavior was retained. Inputs remain in the project.
+
+## Evidence vocabulary
+
+- Previous SCALE1 capacity, Lancer handling/audio/materials and import milestones
+  retain their individually recorded owner gameplay evidence; no new blanket
+  roster gameplay qualification is inferred.
+- User's V-SDK3 request reports visible per-vehicle camera changes and Pajero
+  rear brake illumination. Exact executable capture hashes were not provided;
+  follow/replay/split/teardown coverage remains separately bounded.
+- Studio tests and GPU captures are offline/Windows application evidence. They
+  cannot prove actual MR material, damage or game-camera fidelity.
+- Source formats are enumerated in `workshop.adapters.FORMATS`; unknown input
+  is rejected by the established parser/decoder, not silently converted.
+
+## Deferred scope
+
+Broken Subaru glass remains owner-observed, cause unknown. No glass repair,
+Classic MR Style, semantic masked recoloring, geometry round-trip, scale/fit,
+new physics tuning, audio/camera editing GUI, new CarID expansion or fourth
+import is included. Existing CLI workflows remain available. V-SDK4–7 are not
+automatically started.

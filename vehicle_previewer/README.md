@@ -97,3 +97,22 @@ resolution comparisons. These diagnostics do not measure original-game loading.
 The opt-in native QPC candidate and capture tool are documented in
 `research/vehicles/vsdk1-perf2/performance.md`.
 
+## Rally Workshop navigation (V-SDK3)
+
+The Studio manages this same native window; its center panel displays the latest
+GPU capture. It does not embed a second renderer.
+
+- Left drag: orbit; middle drag: pan both camera and orbit focus; wheel: zoom.
+- Click: geometric triangle picking and amber highlight. Alpha texels are not
+  sampled by picking, so a transparent surface can be selected.
+- F: focus selection; Home: reset model framing; 1–6: camera presets.
+- Ctrl1–6: save bookmarks; Shift1–6: recall. Bookmarks persist when a bookmark
+  path is supplied. R reload preserves the camera.
+- F3: actual Previewer FPS, staged draw/triangle/texture counts, uploaded BGRA
+  bytes, declared CarID/provenance and selected material flags. These are
+  Previewer measurements, not original-game performance or rendering proof.
+
+Workshop forwards source-draw selection and model switching only to its owned
+Previewer process. The CLI defaults and existing material debug controls remain
+available. See `docs/sdk/RALLY_WORKSHOP.md` for the editor workflow and limits.
+

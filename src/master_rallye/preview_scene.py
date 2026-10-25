@@ -79,17 +79,18 @@ def logical_cases(model):
     for group in model.draw_groups:
         root=group.root
         if root.tag!=7:continue
-        if root.group_label=='blight' and root.control_words[:4]==(2,2,8,1):
+        if root.group_label=='blight' and root.control_words[:3]==(2,2,8) and root.control_words[3] in (1,2):
             # Decode native case material spans, independently of the legacy
             # flattened parser parentage and independently of texture names.
             i=root.draw_index;n=root.control_words[4];j=i+n;draws=model.physical_draws
             if not 1<=n<=16 or j>=len(draws):raise ValueError('invalid native brake case1')
             second=draws[j]
-            if second.tag!=8 or second.control_words[0]!=2:raise ValueError('invalid native brake case2')
+            first_case=root.control_words[3]
+            if second.tag!=8 or second.control_words[0] not in (1,2) or second.control_words[0]==first_case:raise ValueError('invalid native brake case2')
             count=second.control_words[1]
             if not 1<=count<=17 or j+count>len(draws):raise ValueError('invalid native brake material span')
-            for k in range(i,j):out[k]=(1,1)
-            for k in range(j,j+count):out[k]=(1,2)
+            for k in range(i,j):out[k]=(1,first_case)
+            for k in range(j,j+count):out[k]=(1,second.control_words[0])
             continue
         if (root.control_words[:3]!=(2,2,8) or root.control_words[3] not in (1,2)
                 or root.control_words[4]!=1 or len(root.children)!=1):
