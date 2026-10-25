@@ -1,0 +1,70 @@
+{
+  "addon_plan_sha256": "357d3cf10f32b63af27d28c23a858197d7eedbd0d7ef79e4deb2a63a6b170989",
+  "hook_va": 4723026,
+  "id27_reverse_mapping_correction": {
+    "changed_instruction": "MOV [ESI+0x18],7 at 0x0068E895",
+    "class_field_offset": 16,
+    "class_local_field_expected": 24,
+    "class_value": 1,
+    "forward_physical_id": 27,
+    "local_field_offset": 24,
+    "local_value": 7,
+    "native_common_tail": "0x00481E89",
+    "parent_operation_after": "c7461807",
+    "parent_operation_before": "c7461407",
+    "parent_operation_file_offset": "0x28E895",
+    "parent_operation_index": 187,
+    "physical_id_written": false,
+    "restored_state": {
+      "CarClass": 1,
+      "local_ordinal": 7
+    },
+    "reverse_entry_va": "0x0068E880",
+    "reverse_local_store_va": "0x0068E895",
+    "status": "PASS_ID27_NATIVE_REVERSE_FORWARD_MAP"
+  },
+  "j2_added_operations": [
+    "vehicle_select_republish_final_class_local_xy",
+    "vehicle_select_republish_stub"
+  ],
+  "native_operation_count": 248,
+  "native_patch_manifest_sha256": "162de9762c070fd970731da030f03150b303ecf2f8886bd4f25ca357b9129f11",
+  "native_patch_operations_sha256": "44c139de5b211947857bcb4e70ac84a6b9f1adc23cc9b0fe2a520978a5282f5a",
+  "original_executable_written": false,
+  "physical_ids_or_commit_state_changed_by_reentry_hook": false,
+  "profile": "r5v-j2-vehicle-select-reentry-two-addon-retail-2001",
+  "reference_reconstruction_sha256": "2f3b1d95d05c997bb13d6a8e235327098e344b75b46d0432c4a3a7ecf289ab64",
+  "retail_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "retail_exe_size": 3121214,
+  "runtime_qualified": false,
+  "status": "PASS_STATIC_J2_REENTRY_BUNDLE",
+  "stub_abi_audit": {
+    "broker_path_object_offsets": [
+      20,
+      20
+    ],
+    "calls": [
+      "0x004d0580",
+      "0x004d8ec0",
+      "0x004d8000",
+      "0x004d0580",
+      "0x004d8ec0",
+      "0x004d8000"
+    ],
+    "continuation": "0x00481157",
+    "continuation_esp": -4,
+    "entry_esp_before_replayed_push": 0,
+    "initialized_paths": [
+      "UI/XYButton/YValue",
+      "UI/XYButton/XValue"
+    ],
+    "path_init_ret_cleanup": 4,
+    "replayed_push": "PUSH 0x006b74f8",
+    "status": "PASS_SYMBOLIC_STUB_ABI",
+    "value_get_ret_cleanup": 0,
+    "value_set_ret_cleanup": 8
+  },
+  "stub_sha256": "f39f33838e0e7d3d276fbec03af0439c6c36a4807224ebe8cfc7ce14e70324ee",
+  "stub_size": 86,
+  "stub_va": 6875968
+}

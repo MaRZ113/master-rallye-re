@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "phase": "R5V-J.2 ID27 Vehicle Select re-entry root cause",
+  "evidence_level": "STATIC_EXACT_BUNDLE_BYTES_AND_NATIVE_DATAFLOW",
+  "human_runtime_observation": {
+    "stack_abi_hotfix_vehicle_select": "CRASH_FREE",
+    "id26_t1_local7_reentry": "RESTORES",
+    "id27_t2_local7_reentry": "RESETS_TO_NAVARA_ID7",
+    "same_player_broker_pair_supplied": false
+  },
+  "retail_identity": {
+    "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "size": 3121214
+  },
+  "constructor": {
+    "address": "0x00480B60",
+    "active_player_field": "this+0x2c",
+    "quickrace_read_context_owner": "FUN_004AE700",
+    "stored_physical_car_reader": "FUN_004ADFB0",
+    "reverse_mapper_callsite": "0x00480E5E",
+    "reverse_mapper": "FUN_00481E50"
+  },
+  "scene_object_layout": {
+    "class_field_offset": "0x10",
+    "local_ordinal_fields": {
+      "T1": "0x14",
+      "T2": "0x18",
+      "T3": "0x1c"
+    },
+    "local_field_formula": "0x14 + 4 * class"
+  },
+  "inherited_j1_reverse_mapper": {
+    "entry": "0x0068E880",
+    "id27_discriminator": "CMP dword ptr [ESP+4],27",
+    "class_write": "MOV dword ptr [ESI+0x10],1",
+    "incorrect_local_write": {
+      "address": "0x0068E895",
+      "bytes": "c7461407",
+      "meaning": "MOV dword ptr [ESI+0x14],7",
+      "field_owner": "T1 local ordinal"
+    },
+    "tail": "0x00481E89"
+  },
+  "first_incorrect_transition": {
+    "owner": "ID27 arm in FUN_00481E50 reverse sparse mapper",
+    "cause": "ID27 writes the ordinal to the T1 field while setting class T2",
+    "mapper_write_set": {
+      "class": 1,
+      "T1_local_ordinal": 7,
+      "T2_local_ordinal": "not_written_by_faulty_ID27_arm"
+    },
+    "observed_constructor_path": {
+      "preexisting_T2_local_ordinal": 0,
+      "selected_class_local": [1, 0],
+      "forward_physical_id": 7,
+      "evidence": "human symptom plus constructor/forward-mapper static trace; no same-player internal-boundary capture"
+    },
+    "explains": [
+      "T2/local0 restored in the Vehicle Select scene",
+      "J.2 XY republisher reading local0 and publishing XValue=0",
+      "CarModel/selectedCar resolving as physical stock ID7",
+      "CarID27 remaining in Quick Race storage"
+    ]
+  },
+  "controls": {
+    "ID26": {
+      "class": 0,
+      "local_ordinal": 7,
+      "field_offset": "0x14",
+      "status": "UNCHANGED_CORRECT_FIELD"
+    },
+    "stock_ID7": {
+      "class": 1,
+      "local_ordinal": 0,
+      "field_offset": "0x18",
+      "status": "NATIVE_FALLBACK_UNCHANGED"
+    }
+  },
+  "j2_correction": {
+    "parent_bundle_mutated_on_disk": false,
+    "instruction": "MOV dword ptr [ESI+0x18],7",
+    "instruction_va": "0x0068E895",
+    "parent_operation_index": 187,
+    "operation_bytes_before": "c7461407",
+    "operation_bytes_after": "c7461807",
+    "only_changed_displacement": {
+      "va": "0x0068E897",
+      "file_offset": "0x28E897",
+      "from": "14",
+      "to": "18"
+    },
+    "emulated_state_after_reverse_and_forward_mapping": {
+      "CarClass": 1,
+      "local_ordinal": 7,
+      "physical_id": 27
+    },
+    "physical_car_id_write": false,
+    "operation_count": 248,
+    "j1_parent_operations": 246,
+    "new_j2_operations": 2,
+    "runtime_qualified": false
+  },
+  "candidate": {
+    "path": ".research-output/vehicles/sdk/j2-reentry/root-cause-candidate",
+    "launcher_sha256": "1fb190ae85d2b7b119576a650e4723abb1130ef4bbdee6d353357087e3de66c7",
+    "addon_plan_sha256": "357d3cf10f32b63af27d28c23a858197d7eedbd0d7ef79e4deb2a63a6b170989",
+    "native_patch_manifest_sha256": "162de9762c070fd970731da030f03150b303ecf2f8886bd4f25ca357b9129f11",
+    "native_patch_operations_sha256": "44c139de5b211947857bcb4e70ac84a6b9f1adc23cc9b0fe2a520978a5282f5a",
+    "reconstructed_reference_image_sha256": "2f3b1d95d05c997bb13d6a8e235327098e344b75b46d0432c4a3a7ecf289ab64",
+    "stub_sha256": "f39f33838e0e7d3d276fbec03af0439c6c36a4807224ebe8cfc7ce14e70324ee",
+    "resource_count": 243,
+    "resource_index_sha256": "2fc7121c3d4f66c407cedbcb47dc223c580301971e3d12d16aa197c7a70a3384",
+    "status": "READY_FOR_HUMAN_RUNTIME"
+  }
+}

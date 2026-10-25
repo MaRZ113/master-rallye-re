@@ -1,0 +1,6 @@
+{
+  "artifact_count": 3,
+  "plan_sha256": "357d3cf10f32b63af27d28c23a858197d7eedbd0d7ef79e4deb2a63a6b170989",
+  "runtime_installable": false,
+  "status": "PASS"
+}

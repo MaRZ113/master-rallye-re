@@ -1,0 +1,13 @@
+J2_PLAN_DERIVATION_DETERMINISM=PASS
+Method: tests.synthetic.test_j2_frontend_reentry.J2ReentryPatchPlanTests.test_patch_plan_is_deterministic_and_preserves_identity_maps
+Repeated manifest bytes: identical
+Repeated operation payload bytes: identical
+Repeated reference reconstruction bytes: identical
+J0 addon plan SHA256: 357d3cf10f32b63af27d28c23a858197d7eedbd0d7ef79e4deb2a63a6b170989
+J1 parent operation count: 246
+J2 total operation count: 248
+J2 native patch manifest SHA256: 53c5b1deccfaee1e798a7ff271db8232028eab501060186b582b04974e41b489
+J2 native operation payload SHA256: 945012567528fbe1b2794ed48b6d17473bcca340cc4e35d60d41a0fdd1c4fd9e
+J2 native reconstruction SHA256 (analysis artifact only): aee7439cdc00897b23984042b26e566629156330f908e6c03533bfd1bfe6255e
+Original retail executable written: NO
+Runtime qualified: NO

@@ -1,0 +1,17 @@
+{
+  "addon_plan_sha256": "357d3cf10f32b63af27d28c23a858197d7eedbd0d7ef79e4deb2a63a6b170989",
+  "architecture": "x64 launcher / x86 target process",
+  "artifact_kind": "J.2 native external runtime launcher build",
+  "candidate_profile": "r5v-j2-vehicle-select-reentry-two-addon-retail-2001",
+  "generator": "Visual Studio 18 2026",
+  "launcher_sha256": "c10c27a72387004a3696a1eab3d25f24e777ea2c566bf0a5f642f68e1085765c",
+  "launcher_size": 141312,
+  "native_patch_manifest_sha256": "53c5b1deccfaee1e798a7ff271db8232028eab501060186b582b04974e41b489",
+  "native_patch_operations_sha256": "945012567528fbe1b2794ed48b6d17473bcca340cc4e35d60d41a0fdd1c4fd9e",
+  "resource_index_sha256": "2fc7121c3d4f66c407cedbcb47dc223c580301971e3d12d16aa197c7a70a3384",
+  "resource_manifest_sha256": "b7e0fd4f785ed3f7a94dc6a0632cd8c16d7311478470087ad42bd73c0b871948",
+  "retail_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "runtime_qualified": false,
+  "schema_version": 1,
+  "status": "STATIC_BUILD_ONLY_READY_FOR_HUMAN_RUNTIME"
+}

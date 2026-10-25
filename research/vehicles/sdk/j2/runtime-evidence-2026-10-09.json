@@ -2,1137 +2,2461 @@
   "all_captures_dump_verification": "verified",
   "all_captures_post_results_dump_safe": true,
   "all_captures_same_live_walker_sha256": "16d85b7cae971b50f0ad1fd33425bae992cc758c0416c856199eb5ea3dfe2fe9",
-  "all_captures_same_pid": 50160,
+  "all_captures_same_live_walker_variant": "native-hardened-null-safe-stubs-v1",
   "all_captures_same_retail_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
   "all_json_raw_pairs_verified": true,
   "archive_name": "2026-10-09.zip",
-  "archive_sha256": "715c647e3602ec5635efb0fa5e90e00d6b8f498d8b2ad2fa10e983672aecf5ac",
-  "archive_size_bytes": 5674503,
-  "capture_pair_count": 11,
+  "archive_sha256": "62b02155b8e4d89bbbdc316541a7f9d96ba030c5511df428008516a7047544b0",
+  "archive_size_bytes": 8816072,
+  "capture_pair_count": 19,
   "captures": [
     {
-      "capture_json": "20261009-104623_R5VQ-quickrace-menu.json",
-      "disk_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
-      "disk_exe_size": 3121214,
-      "disk_profile_registry_classification": "pristine",
-      "effective_dump_variant": "native-hardened-null-safe-stubs-v1",
-      "effective_walker_sha256": "16d85b7cae971b50f0ad1fd33425bae992cc758c0416c856199eb5ea3dfe2fe9",
-      "evidence": {
+      "broker_state": {
         "Frontend/QuickRace/Car0": 27,
-        "Frontend/QuickRace/CurrentVehicleString": "R5V T2 QUALIFIER",
+        "Frontend/QuickRace/Car1": 0,
         "Frontend/VehicleSelect/CarModel": 27,
-        "MasterRallye/Car0/CarClass": 0,
-        "MasterRallye/Car0/CarID": 0,
-        "MasterRallye/Car0/DriverID": 0,
-        "MasterRallye/Car1/CarClass": 0,
-        "MasterRallye/Car1/CarID": 0,
-        "MasterRallye/Car1/DriverID": 0,
-        "MasterRallye/Car2/CarClass": 0,
-        "MasterRallye/Car2/CarID": 0,
-        "MasterRallye/Car2/DriverID": 0,
-        "MasterRallye/Car3/CarClass": 0,
-        "MasterRallye/Car3/CarID": 0,
-        "MasterRallye/Car3/DriverID": 0,
-        "MasterRallye/Car4/CarClass": 0,
-        "MasterRallye/Car4/CarID": 0,
-        "MasterRallye/Car4/DriverID": 0,
-        "MasterRallye/Car5/CarClass": 0,
-        "MasterRallye/Car5/CarID": 0,
-        "MasterRallye/Car5/DriverID": 0,
+        "MasterRallye/Stage": 0,
         "Race/Type": 0
       },
-      "image_path": "D:\\Game\\Master Rallye\\MRallye.exe",
-      "label": "R5VQ-quickrace-menu",
-      "live_dump_verified": "verified",
-      "observatory_version": "0.2.3-beta",
-      "post_results_dump_safe": true,
+      "capture_json": "20261009-104623_R5VQ-quickrace-menu.json",
+      "capture_json_sha256": "3b8c47a9b809e4a277f6a7cf5b1193495ca811293ca11734ea5466ae673a97ff",
+      "capture_label": "R5VQ-quickrace-menu",
+      "disk_build_classification": "exact",
+      "disk_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "disk_exe_size": 3121214,
+      "effective_broker_dump_variant": "native_hardened",
+      "masterrallye_native_roster": {
+        "0": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "1": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "2": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "3": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        }
+      },
+      "native_dump_verification": "verified",
+      "native_dump_walker_sha256": "16d85b7cae971b50f0ad1fd33425bae992cc758c0416c856199eb5ea3dfe2fe9",
+      "native_dump_walker_variant": "native-hardened-null-safe-stubs-v1",
+      "post_results_native_dump_safe": true,
       "process_id": 50160,
+      "profile_id": "retail-pristine",
+      "race_roster": {},
+      "raw_byte_length": 1001149,
+      "raw_sha256": "937ce192234ed40d7ee16347124ea512be06384ef76a5fd90db007119cbeffcc",
       "raw_sidecar": "20261009-104623_R5VQ-quickrace-menu.dump.bin",
-      "raw_sidecar_sha256": "937ce192234ed40d7ee16347124ea512be06384ef76a5fd90db007119cbeffcc",
-      "raw_sidecar_size": 1001149,
-      "verified_trampolines": [
-        {
-          "length": 19,
-          "name": "stringlist-null-guard",
-          "null_target_va": "0x00602040",
-          "resume_target_va": "0x00602024",
-          "sha256": "1262617fb90ce85e293c226ac947578ec8e844e6c9048f51696205501114a4c5",
-          "target_va": "0x0068E6D0"
-        },
-        {
-          "length": 20,
-          "name": "xmldata-null-guard",
-          "null_target_va": "0x0060218E",
-          "resume_target_va": "0x0060215A",
-          "sha256": "247e2d5ea0fd0c7b0c97cbc79247d39bfad7b783c023fe641d6af44a71c85a87",
-          "target_va": "0x0068E6F0"
-        }
+      "runtime_verified_native_dump_anchors": [
+        "broker_editor_dump_route",
+        "broker_singleton_accessor",
+        "debug_logger",
+        "debug_sink_vtable",
+        "native_dump_walker:native-hardened-null-safe-stubs-v1"
       ]
     },
     {
-      "capture_json": "20261009-104725_R5VQ-carselect-menu.json",
-      "disk_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
-      "disk_exe_size": 3121214,
-      "disk_profile_registry_classification": "pristine",
-      "effective_dump_variant": "native-hardened-null-safe-stubs-v1",
-      "effective_walker_sha256": "16d85b7cae971b50f0ad1fd33425bae992cc758c0416c856199eb5ea3dfe2fe9",
-      "evidence": {
+      "broker_state": {
+        "FrontEnd/Network/selectedCar": 27,
         "Frontend/QuickRace/Car0": 27,
-        "Frontend/QuickRace/CurrentVehicleString": "R5V T2 QUALIFIER",
+        "Frontend/QuickRace/Car1": 0,
         "Frontend/VehicleSelect/CarModel": 27,
-        "Frontend/VehicleSelect/ManufacturerName": "R5V",
-        "Frontend/VehicleSelect/ModelName": "T2 QUALIFIER",
+        "Frontend/VehicleSelect/PlayerID": 0,
         "Frontend/VehicleSelect/Vehicle": 1,
-        "MasterRallye/Car0/CarClass": 0,
-        "MasterRallye/Car0/CarID": 0,
-        "MasterRallye/Car0/DriverID": 0,
-        "MasterRallye/Car1/CarClass": 0,
-        "MasterRallye/Car1/CarID": 0,
-        "MasterRallye/Car1/DriverID": 0,
-        "MasterRallye/Car2/CarClass": 0,
-        "MasterRallye/Car2/CarID": 0,
-        "MasterRallye/Car2/DriverID": 0,
-        "MasterRallye/Car3/CarClass": 0,
-        "MasterRallye/Car3/CarID": 0,
-        "MasterRallye/Car3/DriverID": 0,
-        "MasterRallye/Car4/CarClass": 0,
-        "MasterRallye/Car4/CarID": 0,
-        "MasterRallye/Car4/DriverID": 0,
-        "MasterRallye/Car5/CarClass": 0,
-        "MasterRallye/Car5/CarID": 0,
-        "MasterRallye/Car5/DriverID": 0,
+        "MasterRallye/Stage": 0,
         "Race/Type": 0,
-        "UI/XYButton/XValue": 7
+        "UI/XYButton/XValue": 7,
+        "UI/XYButton/YValue": 1
       },
-      "image_path": "D:\\Game\\Master Rallye\\MRallye.exe",
-      "label": "R5VQ-carselect-menu",
-      "live_dump_verified": "verified",
-      "observatory_version": "0.2.3-beta",
-      "post_results_dump_safe": true,
+      "capture_json": "20261009-104725_R5VQ-carselect-menu.json",
+      "capture_json_sha256": "1a61dd2eecf20ded3c8e9336a03ff5d986feaf02b57a45cbabb69ad6119c9b21",
+      "capture_label": "R5VQ-carselect-menu",
+      "disk_build_classification": "exact",
+      "disk_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "disk_exe_size": 3121214,
+      "effective_broker_dump_variant": "native_hardened",
+      "masterrallye_native_roster": {
+        "0": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "1": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "2": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "3": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        }
+      },
+      "native_dump_verification": "verified",
+      "native_dump_walker_sha256": "16d85b7cae971b50f0ad1fd33425bae992cc758c0416c856199eb5ea3dfe2fe9",
+      "native_dump_walker_variant": "native-hardened-null-safe-stubs-v1",
+      "post_results_native_dump_safe": true,
       "process_id": 50160,
+      "profile_id": "retail-pristine",
+      "race_roster": {},
+      "raw_byte_length": 2962275,
+      "raw_sha256": "ff0f485a141f1163b2c91af02f3133fef29f4d5025e2c5989b43cd6450125966",
       "raw_sidecar": "20261009-104725_R5VQ-carselect-menu.dump.bin",
-      "raw_sidecar_sha256": "ff0f485a141f1163b2c91af02f3133fef29f4d5025e2c5989b43cd6450125966",
-      "raw_sidecar_size": 2962275,
-      "verified_trampolines": [
-        {
-          "length": 19,
-          "name": "stringlist-null-guard",
-          "null_target_va": "0x00602040",
-          "resume_target_va": "0x00602024",
-          "sha256": "1262617fb90ce85e293c226ac947578ec8e844e6c9048f51696205501114a4c5",
-          "target_va": "0x0068E6D0"
-        },
-        {
-          "length": 20,
-          "name": "xmldata-null-guard",
-          "null_target_va": "0x0060218E",
-          "resume_target_va": "0x0060215A",
-          "sha256": "247e2d5ea0fd0c7b0c97cbc79247d39bfad7b783c023fe641d6af44a71c85a87",
-          "target_va": "0x0068E6F0"
-        }
+      "runtime_verified_native_dump_anchors": [
+        "broker_editor_dump_route",
+        "broker_singleton_accessor",
+        "debug_logger",
+        "debug_sink_vtable",
+        "native_dump_walker:native-hardened-null-safe-stubs-v1"
       ]
     },
     {
-      "capture_json": "20261009-104800_Merc-carselect-menu.json",
-      "disk_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
-      "disk_exe_size": 3121214,
-      "disk_profile_registry_classification": "pristine",
-      "effective_dump_variant": "native-hardened-null-safe-stubs-v1",
-      "effective_walker_sha256": "16d85b7cae971b50f0ad1fd33425bae992cc758c0416c856199eb5ea3dfe2fe9",
-      "evidence": {
+      "broker_state": {
+        "FrontEnd/Network/selectedCar": 26,
         "Frontend/QuickRace/Car0": 27,
-        "Frontend/QuickRace/CurrentVehicleString": "R5V T2 QUALIFIER",
+        "Frontend/QuickRace/Car1": 0,
         "Frontend/VehicleSelect/CarModel": 26,
-        "Frontend/VehicleSelect/ManufacturerName": "MERCEDES",
-        "Frontend/VehicleSelect/ModelName": "ML-320",
+        "Frontend/VehicleSelect/PlayerID": 0,
         "Frontend/VehicleSelect/Vehicle": 0,
-        "MasterRallye/Car0/CarClass": 0,
-        "MasterRallye/Car0/CarID": 0,
-        "MasterRallye/Car0/DriverID": 0,
-        "MasterRallye/Car1/CarClass": 0,
-        "MasterRallye/Car1/CarID": 0,
-        "MasterRallye/Car1/DriverID": 0,
-        "MasterRallye/Car2/CarClass": 0,
-        "MasterRallye/Car2/CarID": 0,
-        "MasterRallye/Car2/DriverID": 0,
-        "MasterRallye/Car3/CarClass": 0,
-        "MasterRallye/Car3/CarID": 0,
-        "MasterRallye/Car3/DriverID": 0,
-        "MasterRallye/Car4/CarClass": 0,
-        "MasterRallye/Car4/CarID": 0,
-        "MasterRallye/Car4/DriverID": 0,
-        "MasterRallye/Car5/CarClass": 0,
-        "MasterRallye/Car5/CarID": 0,
-        "MasterRallye/Car5/DriverID": 0,
+        "MasterRallye/Stage": 0,
         "Race/Type": 0,
-        "UI/XYButton/XValue": 7
+        "UI/XYButton/XValue": 7,
+        "UI/XYButton/YValue": 0
       },
-      "image_path": "D:\\Game\\Master Rallye\\MRallye.exe",
-      "label": "Merc-carselect-menu",
-      "live_dump_verified": "verified",
-      "observatory_version": "0.2.3-beta",
-      "post_results_dump_safe": true,
+      "capture_json": "20261009-104800_Merc-carselect-menu.json",
+      "capture_json_sha256": "5ba9fcf89589ff578e63350edcd428ed509f1dd7b19dd19cb52fb574848c0fad",
+      "capture_label": "Merc-carselect-menu",
+      "disk_build_classification": "exact",
+      "disk_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "disk_exe_size": 3121214,
+      "effective_broker_dump_variant": "native_hardened",
+      "masterrallye_native_roster": {
+        "0": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "1": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "2": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "3": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        }
+      },
+      "native_dump_verification": "verified",
+      "native_dump_walker_sha256": "16d85b7cae971b50f0ad1fd33425bae992cc758c0416c856199eb5ea3dfe2fe9",
+      "native_dump_walker_variant": "native-hardened-null-safe-stubs-v1",
+      "post_results_native_dump_safe": true,
       "process_id": 50160,
+      "profile_id": "retail-pristine",
+      "race_roster": {},
+      "raw_byte_length": 3923087,
+      "raw_sha256": "1bd4c3764af1fc9b4f9658d39fe3bcdc0734695a8a999c8b97857f72555d586d",
       "raw_sidecar": "20261009-104800_Merc-carselect-menu.dump.bin",
-      "raw_sidecar_sha256": "1bd4c3764af1fc9b4f9658d39fe3bcdc0734695a8a999c8b97857f72555d586d",
-      "raw_sidecar_size": 3923087,
-      "verified_trampolines": [
-        {
-          "length": 19,
-          "name": "stringlist-null-guard",
-          "null_target_va": "0x00602040",
-          "resume_target_va": "0x00602024",
-          "sha256": "1262617fb90ce85e293c226ac947578ec8e844e6c9048f51696205501114a4c5",
-          "target_va": "0x0068E6D0"
-        },
-        {
-          "length": 20,
-          "name": "xmldata-null-guard",
-          "null_target_va": "0x0060218E",
-          "resume_target_va": "0x0060215A",
-          "sha256": "247e2d5ea0fd0c7b0c97cbc79247d39bfad7b783c023fe641d6af44a71c85a87",
-          "target_va": "0x0068E6F0"
-        }
+      "runtime_verified_native_dump_anchors": [
+        "broker_editor_dump_route",
+        "broker_singleton_accessor",
+        "debug_logger",
+        "debug_sink_vtable",
+        "native_dump_walker:native-hardened-null-safe-stubs-v1"
       ]
     },
     {
-      "capture_json": "20261009-104841_Merc-quickrace-menu.json",
-      "disk_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
-      "disk_exe_size": 3121214,
-      "disk_profile_registry_classification": "pristine",
-      "effective_dump_variant": "native-hardened-null-safe-stubs-v1",
-      "effective_walker_sha256": "16d85b7cae971b50f0ad1fd33425bae992cc758c0416c856199eb5ea3dfe2fe9",
-      "evidence": {
+      "broker_state": {
+        "FrontEnd/Network/selectedCar": 26,
         "Frontend/QuickRace/Car0": 26,
-        "Frontend/QuickRace/CurrentVehicleString": "MERCEDES ML-320",
+        "Frontend/QuickRace/Car1": 0,
         "Frontend/VehicleSelect/CarModel": 26,
-        "Frontend/VehicleSelect/ManufacturerName": "MERCEDES",
-        "Frontend/VehicleSelect/ModelName": "ML-320",
+        "Frontend/VehicleSelect/PlayerID": 0,
         "Frontend/VehicleSelect/Vehicle": 0,
-        "MasterRallye/Car0/CarClass": 0,
-        "MasterRallye/Car0/CarID": 0,
-        "MasterRallye/Car0/DriverID": 0,
-        "MasterRallye/Car1/CarClass": 0,
-        "MasterRallye/Car1/CarID": 0,
-        "MasterRallye/Car1/DriverID": 0,
-        "MasterRallye/Car2/CarClass": 0,
-        "MasterRallye/Car2/CarID": 0,
-        "MasterRallye/Car2/DriverID": 0,
-        "MasterRallye/Car3/CarClass": 0,
-        "MasterRallye/Car3/CarID": 0,
-        "MasterRallye/Car3/DriverID": 0,
-        "MasterRallye/Car4/CarClass": 0,
-        "MasterRallye/Car4/CarID": 0,
-        "MasterRallye/Car4/DriverID": 0,
-        "MasterRallye/Car5/CarClass": 0,
-        "MasterRallye/Car5/CarID": 0,
-        "MasterRallye/Car5/DriverID": 0,
-        "Race/Car0/CarClass": 0,
-        "Race/Car0/CarID": 26,
+        "MasterRallye/Stage": 0,
         "Race/Type": 0,
-        "UI/XYButton/XValue": 7
+        "UI/XYButton/XValue": 7,
+        "UI/XYButton/YValue": 0
       },
-      "image_path": "D:\\Game\\Master Rallye\\MRallye.exe",
-      "label": "Merc-quickrace-menu",
-      "live_dump_verified": "verified",
-      "observatory_version": "0.2.3-beta",
-      "post_results_dump_safe": true,
+      "capture_json": "20261009-104841_Merc-quickrace-menu.json",
+      "capture_json_sha256": "4542895cb925a8accd68ae9b0deab403cfdf7250fdec57daf4ca9ac4b3a49e01",
+      "capture_label": "Merc-quickrace-menu",
+      "disk_build_classification": "exact",
+      "disk_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "disk_exe_size": 3121214,
+      "effective_broker_dump_variant": "native_hardened",
+      "masterrallye_native_roster": {
+        "0": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "1": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "2": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "3": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        }
+      },
+      "native_dump_verification": "verified",
+      "native_dump_walker_sha256": "16d85b7cae971b50f0ad1fd33425bae992cc758c0416c856199eb5ea3dfe2fe9",
+      "native_dump_walker_variant": "native-hardened-null-safe-stubs-v1",
+      "post_results_native_dump_safe": true,
       "process_id": 50160,
+      "profile_id": "retail-pristine",
+      "race_roster": {
+        "0": {
+          "CarClass": 0,
+          "CarID": 26,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": null,
+          "PlayerType": null,
+          "WheelType": null
+        }
+      },
+      "raw_byte_length": 4882930,
+      "raw_sha256": "03e8e28eecace6268b5ee96ee33be90aaef35698a805269835ee263c81b858da",
       "raw_sidecar": "20261009-104841_Merc-quickrace-menu.dump.bin",
-      "raw_sidecar_sha256": "03e8e28eecace6268b5ee96ee33be90aaef35698a805269835ee263c81b858da",
-      "raw_sidecar_size": 4882930,
-      "verified_trampolines": [
-        {
-          "length": 19,
-          "name": "stringlist-null-guard",
-          "null_target_va": "0x00602040",
-          "resume_target_va": "0x00602024",
-          "sha256": "1262617fb90ce85e293c226ac947578ec8e844e6c9048f51696205501114a4c5",
-          "target_va": "0x0068E6D0"
-        },
-        {
-          "length": 20,
-          "name": "xmldata-null-guard",
-          "null_target_va": "0x0060218E",
-          "resume_target_va": "0x0060215A",
-          "sha256": "247e2d5ea0fd0c7b0c97cbc79247d39bfad7b783c023fe641d6af44a71c85a87",
-          "target_va": "0x0068E6F0"
-        }
+      "runtime_verified_native_dump_anchors": [
+        "broker_editor_dump_route",
+        "broker_singleton_accessor",
+        "debug_logger",
+        "debug_sink_vtable",
+        "native_dump_walker:native-hardened-null-safe-stubs-v1"
       ]
     },
     {
-      "capture_json": "20261009-104951_Merc-quickrace.json",
-      "disk_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
-      "disk_exe_size": 3121214,
-      "disk_profile_registry_classification": "pristine",
-      "effective_dump_variant": "native-hardened-null-safe-stubs-v1",
-      "effective_walker_sha256": "16d85b7cae971b50f0ad1fd33425bae992cc758c0416c856199eb5ea3dfe2fe9",
-      "evidence": {
+      "broker_state": {
+        "FrontEnd/Network/selectedCar": 26,
         "Frontend/QuickRace/Car0": 26,
-        "Frontend/QuickRace/CurrentVehicleString": "MERCEDES ML-320",
+        "Frontend/QuickRace/Car1": 0,
         "Frontend/VehicleSelect/CarModel": 26,
-        "Frontend/VehicleSelect/ManufacturerName": "MERCEDES",
-        "Frontend/VehicleSelect/ModelName": "ML-320",
+        "Frontend/VehicleSelect/PlayerID": 0,
         "Frontend/VehicleSelect/Vehicle": 0,
-        "MasterRallye/Car0/CarClass": 0,
-        "MasterRallye/Car0/CarID": 0,
-        "MasterRallye/Car0/DriverID": 0,
-        "MasterRallye/Car1/CarClass": 0,
-        "MasterRallye/Car1/CarID": 0,
-        "MasterRallye/Car1/DriverID": 0,
-        "MasterRallye/Car2/CarClass": 0,
-        "MasterRallye/Car2/CarID": 0,
-        "MasterRallye/Car2/DriverID": 0,
-        "MasterRallye/Car3/CarClass": 0,
-        "MasterRallye/Car3/CarID": 0,
-        "MasterRallye/Car3/DriverID": 0,
-        "MasterRallye/Car4/CarClass": 0,
-        "MasterRallye/Car4/CarID": 0,
-        "MasterRallye/Car4/DriverID": 0,
-        "MasterRallye/Car5/CarClass": 0,
-        "MasterRallye/Car5/CarID": 0,
-        "MasterRallye/Car5/DriverID": 0,
-        "Race/Car0/CarClass": 0,
-        "Race/Car0/CarID": 26,
-        "Race/Car0/CarType": "Mercedes",
-        "Race/Car0/Colour": [
-          1.0,
-          0.0,
-          0.0,
-          1.0
-        ],
-        "Race/Car0/DriverID": 30,
-        "Race/Car0/PlayerType": 1,
-        "Race/Car0/WheelType": "Mercedes",
-        "Race/Car1/CarClass": 0,
-        "Race/Car1/CarID": 3,
-        "Race/Car1/CarType": "Terrano",
-        "Race/Car1/Colour": [
-          0.65,
-          0.71,
-          0.72,
-          1.0
-        ],
-        "Race/Car1/DriverID": 2,
-        "Race/Car1/PlayerType": 2,
-        "Race/Car1/WheelType": "Terrano",
-        "Race/Car2/CarClass": 0,
-        "Race/Car2/CarID": 4,
-        "Race/Car2/CarType": "Chevyblazer",
-        "Race/Car2/Colour": [
-          0.65,
-          0.21,
-          0.1,
-          1.0
-        ],
-        "Race/Car2/DriverID": 0,
-        "Race/Car2/PlayerType": 2,
-        "Race/Car2/WheelType": "Chevyblazer",
-        "Race/Car3/CarClass": 0,
-        "Race/Car3/CarID": 1,
-        "Race/Car3/CarType": "Pajero",
-        "Race/Car3/Colour": [
-          0.96,
-          0.96,
-          0.08,
-          1.0
-        ],
-        "Race/Car3/DriverID": 4,
-        "Race/Car3/PlayerType": 2,
-        "Race/Car3/WheelType": "Pajero",
+        "MasterRallye/Stage": 0,
         "Race/NumCars": 4,
         "Race/NumPlayers": 1,
         "Race/Type": 2,
-        "UI/XYButton/XValue": 7
+        "UI/XYButton/XValue": 7,
+        "UI/XYButton/YValue": 0
       },
-      "image_path": "D:\\Game\\Master Rallye\\MRallye.exe",
-      "label": "Merc-quickrace",
-      "live_dump_verified": "verified",
-      "observatory_version": "0.2.3-beta",
-      "post_results_dump_safe": true,
+      "capture_json": "20261009-104951_Merc-quickrace.json",
+      "capture_json_sha256": "2ff16efdfd881a714c3aef4716c8870e31ef44822d477d604fed987f8d9c47aa",
+      "capture_label": "Merc-quickrace",
+      "disk_build_classification": "exact",
+      "disk_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "disk_exe_size": 3121214,
+      "effective_broker_dump_variant": "native_hardened",
+      "masterrallye_native_roster": {
+        "0": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "1": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "2": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "3": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        }
+      },
+      "native_dump_verification": "verified",
+      "native_dump_walker_sha256": "16d85b7cae971b50f0ad1fd33425bae992cc758c0416c856199eb5ea3dfe2fe9",
+      "native_dump_walker_variant": "native-hardened-null-safe-stubs-v1",
+      "post_results_native_dump_safe": true,
       "process_id": 50160,
+      "profile_id": "retail-pristine",
+      "race_roster": {
+        "0": {
+          "CarClass": 0,
+          "CarID": 26,
+          "CarType": "Mercedes",
+          "Colour": [
+            1.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "DriverID": 30,
+          "PlayerType": 1,
+          "WheelType": "Mercedes"
+        },
+        "1": {
+          "CarClass": 0,
+          "CarID": 3,
+          "CarType": "Terrano",
+          "Colour": [
+            0.65,
+            0.71,
+            0.72,
+            1.0
+          ],
+          "DriverID": 2,
+          "PlayerType": 2,
+          "WheelType": "Terrano"
+        },
+        "2": {
+          "CarClass": 0,
+          "CarID": 4,
+          "CarType": "Chevyblazer",
+          "Colour": [
+            0.65,
+            0.21,
+            0.1,
+            1.0
+          ],
+          "DriverID": 0,
+          "PlayerType": 2,
+          "WheelType": "Chevyblazer"
+        },
+        "3": {
+          "CarClass": 0,
+          "CarID": 1,
+          "CarType": "Pajero",
+          "Colour": [
+            0.96,
+            0.96,
+            0.08,
+            1.0
+          ],
+          "DriverID": 4,
+          "PlayerType": 2,
+          "WheelType": "Pajero"
+        }
+      },
+      "raw_byte_length": 5973601,
+      "raw_sha256": "8f82cdad735ec5d60fd35c4f09c3b5537b751bf9691b55134b5ae7e4f2d4b9f1",
       "raw_sidecar": "20261009-104951_Merc-quickrace.dump.bin",
-      "raw_sidecar_sha256": "8f82cdad735ec5d60fd35c4f09c3b5537b751bf9691b55134b5ae7e4f2d4b9f1",
-      "raw_sidecar_size": 5973601,
-      "verified_trampolines": [
-        {
-          "length": 19,
-          "name": "stringlist-null-guard",
-          "null_target_va": "0x00602040",
-          "resume_target_va": "0x00602024",
-          "sha256": "1262617fb90ce85e293c226ac947578ec8e844e6c9048f51696205501114a4c5",
-          "target_va": "0x0068E6D0"
-        },
-        {
-          "length": 20,
-          "name": "xmldata-null-guard",
-          "null_target_va": "0x0060218E",
-          "resume_target_va": "0x0060215A",
-          "sha256": "247e2d5ea0fd0c7b0c97cbc79247d39bfad7b783c023fe641d6af44a71c85a87",
-          "target_va": "0x0068E6F0"
-        }
+      "runtime_verified_native_dump_anchors": [
+        "broker_editor_dump_route",
+        "broker_singleton_accessor",
+        "debug_logger",
+        "debug_sink_vtable",
+        "native_dump_walker:native-hardened-null-safe-stubs-v1"
       ]
     },
     {
+      "broker_state": {
+        "FrontEnd/Network/selectedCar": 6,
+        "Frontend/QuickRace/Car0": 6,
+        "Frontend/QuickRace/Car1": 0,
+        "Frontend/VehicleSelect/CarModel": 6,
+        "Frontend/VehicleSelect/PlayerID": 0,
+        "Frontend/VehicleSelect/Vehicle": 0,
+        "MasterRallye/Stage": 0,
+        "Race/NumCars": 4,
+        "Race/NumPlayers": 1,
+        "Race/Type": 2,
+        "UI/XYButton/XValue": 6,
+        "UI/XYButton/YValue": 0
+      },
       "capture_json": "20261009-105201_Merc-quickrace-AI.json",
+      "capture_json_sha256": "1b925f4784d7ff4cc55989b953dfb9eb7dae7aa3b770eb4db484bcacd6033f3c",
+      "capture_label": "Merc-quickrace-AI",
+      "disk_build_classification": "exact",
       "disk_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
       "disk_exe_size": 3121214,
-      "disk_profile_registry_classification": "pristine",
-      "effective_dump_variant": "native-hardened-null-safe-stubs-v1",
-      "effective_walker_sha256": "16d85b7cae971b50f0ad1fd33425bae992cc758c0416c856199eb5ea3dfe2fe9",
-      "evidence": {
-        "Frontend/QuickRace/Car0": 6,
-        "Frontend/QuickRace/CurrentVehicleString": "VAUXHALL FRONTERA SPORT",
-        "Frontend/RaceResults/NameList": [
-          "\"1P\"",
-          "\"BAMBOS KOUYIOUNTA\"",
-          "\"CALLUM MITCHELL\"",
-          "\"ALAIN PEACOCK\""
-        ],
-        "Frontend/RaceResults/PositionList": [
-          "\"1\"",
-          "\"2\"",
-          "\"3\"",
-          "\"4\""
-        ],
-        "Frontend/VehicleSelect/CarModel": 6,
-        "Frontend/VehicleSelect/ManufacturerName": "VAUXHALL",
-        "Frontend/VehicleSelect/ModelName": "FRONTERA SPORT",
-        "Frontend/VehicleSelect/Vehicle": 0,
-        "MasterRallye/Car0/CarClass": 0,
-        "MasterRallye/Car0/CarID": 0,
-        "MasterRallye/Car0/DriverID": 0,
-        "MasterRallye/Car1/CarClass": 0,
-        "MasterRallye/Car1/CarID": 0,
-        "MasterRallye/Car1/DriverID": 0,
-        "MasterRallye/Car2/CarClass": 0,
-        "MasterRallye/Car2/CarID": 0,
-        "MasterRallye/Car2/DriverID": 0,
-        "MasterRallye/Car3/CarClass": 0,
-        "MasterRallye/Car3/CarID": 0,
-        "MasterRallye/Car3/DriverID": 0,
-        "MasterRallye/Car4/CarClass": 0,
-        "MasterRallye/Car4/CarID": 0,
-        "MasterRallye/Car4/DriverID": 0,
-        "MasterRallye/Car5/CarClass": 0,
-        "MasterRallye/Car5/CarID": 0,
-        "MasterRallye/Car5/DriverID": 0,
-        "Race/Car0/CarClass": 0,
-        "Race/Car0/CarID": 6,
-        "Race/Car0/CarType": "Frontera",
-        "Race/Car0/Colour": [
-          0.76,
-          0.78,
-          0.8,
-          1.0
-        ],
-        "Race/Car0/DriverID": 30,
-        "Race/Car0/PlayerType": 1,
-        "Race/Car0/WheelType": "Frontera",
-        "Race/Car1/CarClass": 0,
-        "Race/Car1/CarID": 5,
-        "Race/Car1/CarType": "Xtrail",
-        "Race/Car1/Colour": [
-          0.64,
-          0.05,
-          0.09,
-          1.0
-        ],
-        "Race/Car1/DriverID": 4,
-        "Race/Car1/PlayerType": 2,
-        "Race/Car1/WheelType": "Xtrail",
-        "Race/Car2/CarClass": 0,
-        "Race/Car2/CarID": 0,
-        "Race/Car2/CarType": "Landcruiser",
-        "Race/Car2/Colour": [
-          0.08,
-          0.42,
-          0.25,
-          1.0
-        ],
-        "Race/Car2/DriverID": 7,
-        "Race/Car2/PlayerType": 2,
-        "Race/Car2/WheelType": "Landcruiser",
-        "Race/Car3/CarClass": 0,
-        "Race/Car3/CarID": 26,
-        "Race/Car3/CarType": "Mercedes",
-        "Race/Car3/Colour": [
-          1.0,
-          0.0,
-          0.0,
-          1.0
-        ],
-        "Race/Car3/DriverID": 2,
-        "Race/Car3/PlayerType": 2,
-        "Race/Car3/WheelType": "Mercedes",
-        "Race/NumCars": 4,
-        "Race/NumPlayers": 1,
-        "Race/Type": 2,
-        "UI/XYButton/XValue": 6
+      "effective_broker_dump_variant": "native_hardened",
+      "masterrallye_native_roster": {
+        "0": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "1": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "2": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "3": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        }
       },
-      "image_path": "D:\\Game\\Master Rallye\\MRallye.exe",
-      "label": "Merc-quickrace-AI",
-      "live_dump_verified": "verified",
-      "observatory_version": "0.2.3-beta",
-      "post_results_dump_safe": true,
+      "native_dump_verification": "verified",
+      "native_dump_walker_sha256": "16d85b7cae971b50f0ad1fd33425bae992cc758c0416c856199eb5ea3dfe2fe9",
+      "native_dump_walker_variant": "native-hardened-null-safe-stubs-v1",
+      "post_results_native_dump_safe": true,
       "process_id": 50160,
+      "profile_id": "retail-pristine",
+      "race_roster": {
+        "0": {
+          "CarClass": 0,
+          "CarID": 6,
+          "CarType": "Frontera",
+          "Colour": [
+            0.76,
+            0.78,
+            0.8,
+            1.0
+          ],
+          "DriverID": 30,
+          "PlayerType": 1,
+          "WheelType": "Frontera"
+        },
+        "1": {
+          "CarClass": 0,
+          "CarID": 5,
+          "CarType": "Xtrail",
+          "Colour": [
+            0.64,
+            0.05,
+            0.09,
+            1.0
+          ],
+          "DriverID": 4,
+          "PlayerType": 2,
+          "WheelType": "Xtrail"
+        },
+        "2": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": "Landcruiser",
+          "Colour": [
+            0.08,
+            0.42,
+            0.25,
+            1.0
+          ],
+          "DriverID": 7,
+          "PlayerType": 2,
+          "WheelType": "Landcruiser"
+        },
+        "3": {
+          "CarClass": 0,
+          "CarID": 26,
+          "CarType": "Mercedes",
+          "Colour": [
+            1.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "DriverID": 2,
+          "PlayerType": 2,
+          "WheelType": "Mercedes"
+        }
+      },
+      "raw_byte_length": 7064365,
+      "raw_sha256": "07944f1c8acce709eb58c2c474b41eec2d999288a2dd9485b93bf4271ba90a81",
       "raw_sidecar": "20261009-105201_Merc-quickrace-AI.dump.bin",
-      "raw_sidecar_sha256": "07944f1c8acce709eb58c2c474b41eec2d999288a2dd9485b93bf4271ba90a81",
-      "raw_sidecar_size": 7064365,
-      "verified_trampolines": [
-        {
-          "length": 19,
-          "name": "stringlist-null-guard",
-          "null_target_va": "0x00602040",
-          "resume_target_va": "0x00602024",
-          "sha256": "1262617fb90ce85e293c226ac947578ec8e844e6c9048f51696205501114a4c5",
-          "target_va": "0x0068E6D0"
-        },
-        {
-          "length": 20,
-          "name": "xmldata-null-guard",
-          "null_target_va": "0x0060218E",
-          "resume_target_va": "0x0060215A",
-          "sha256": "247e2d5ea0fd0c7b0c97cbc79247d39bfad7b783c023fe641d6af44a71c85a87",
-          "target_va": "0x0068E6F0"
-        }
+      "runtime_verified_native_dump_anchors": [
+        "broker_editor_dump_route",
+        "broker_singleton_accessor",
+        "debug_logger",
+        "debug_sink_vtable",
+        "native_dump_walker:native-hardened-null-safe-stubs-v1"
       ]
     },
     {
-      "capture_json": "20261009-105320_Merc-raceresult-AI.json",
-      "disk_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
-      "disk_exe_size": 3121214,
-      "disk_profile_registry_classification": "pristine",
-      "effective_dump_variant": "native-hardened-null-safe-stubs-v1",
-      "effective_walker_sha256": "16d85b7cae971b50f0ad1fd33425bae992cc758c0416c856199eb5ea3dfe2fe9",
-      "evidence": {
+      "broker_state": {
+        "FrontEnd/Network/selectedCar": 6,
         "Frontend/QuickRace/Car0": 6,
-        "Frontend/QuickRace/CurrentVehicleString": "VAUXHALL FRONTERA SPORT",
-        "Frontend/RaceResults/NameList": [
-          "\"JEAN-PIERRE STRUGO\"",
-          "\"1P\"",
-          "\"ANDREW LIMBERT\"",
-          "\"PHILLIPE BETAILLE\""
-        ],
-        "Frontend/RaceResults/PositionList": [
-          "\"1\"",
-          "\"2\"",
-          "\"3\"",
-          "\"4\""
-        ],
+        "Frontend/QuickRace/Car1": 0,
         "Frontend/VehicleSelect/CarModel": 6,
-        "Frontend/VehicleSelect/ManufacturerName": "VAUXHALL",
-        "Frontend/VehicleSelect/ModelName": "FRONTERA SPORT",
+        "Frontend/VehicleSelect/PlayerID": 0,
         "Frontend/VehicleSelect/Vehicle": 0,
-        "MasterRallye/Car0/CarClass": 0,
-        "MasterRallye/Car0/CarID": 0,
-        "MasterRallye/Car0/DriverID": 0,
-        "MasterRallye/Car1/CarClass": 0,
-        "MasterRallye/Car1/CarID": 0,
-        "MasterRallye/Car1/DriverID": 0,
-        "MasterRallye/Car2/CarClass": 0,
-        "MasterRallye/Car2/CarID": 0,
-        "MasterRallye/Car2/DriverID": 0,
-        "MasterRallye/Car3/CarClass": 0,
-        "MasterRallye/Car3/CarID": 0,
-        "MasterRallye/Car3/DriverID": 0,
-        "MasterRallye/Car4/CarClass": 0,
-        "MasterRallye/Car4/CarID": 0,
-        "MasterRallye/Car4/DriverID": 0,
-        "MasterRallye/Car5/CarClass": 0,
-        "MasterRallye/Car5/CarID": 0,
-        "MasterRallye/Car5/DriverID": 0,
-        "Race/Car0/CarClass": 0,
-        "Race/Car0/CarID": 6,
-        "Race/Car0/CarType": "Frontera",
-        "Race/Car0/Colour": [
-          0.76,
-          0.78,
-          0.8,
-          1.0
-        ],
-        "Race/Car0/DriverID": 30,
-        "Race/Car0/PlayerType": 1,
-        "Race/Car0/WheelType": "Frontera",
-        "Race/Car1/CarClass": 0,
-        "Race/Car1/CarID": 5,
-        "Race/Car1/CarType": "Xtrail",
-        "Race/Car1/Colour": [
-          0.64,
-          0.05,
-          0.09,
-          1.0
-        ],
-        "Race/Car1/DriverID": 4,
-        "Race/Car1/PlayerType": 2,
-        "Race/Car1/WheelType": "Xtrail",
-        "Race/Car2/CarClass": 0,
-        "Race/Car2/CarID": 0,
-        "Race/Car2/CarType": "Landcruiser",
-        "Race/Car2/Colour": [
-          0.08,
-          0.42,
-          0.25,
-          1.0
-        ],
-        "Race/Car2/DriverID": 7,
-        "Race/Car2/PlayerType": 2,
-        "Race/Car2/WheelType": "Landcruiser",
-        "Race/Car3/CarClass": 0,
-        "Race/Car3/CarID": 26,
-        "Race/Car3/CarType": "Mercedes",
-        "Race/Car3/Colour": [
-          1.0,
-          0.0,
-          0.0,
-          1.0
-        ],
-        "Race/Car3/DriverID": 2,
-        "Race/Car3/PlayerType": 2,
-        "Race/Car3/WheelType": "Mercedes",
+        "MasterRallye/Stage": 0,
         "Race/NumCars": 4,
         "Race/NumPlayers": 1,
         "Race/Type": 2,
-        "UI/XYButton/XValue": 6
+        "UI/XYButton/XValue": 6,
+        "UI/XYButton/YValue": 0
       },
-      "image_path": "D:\\Game\\Master Rallye\\MRallye.exe",
-      "label": "Merc-raceresult-AI",
-      "live_dump_verified": "verified",
-      "observatory_version": "0.2.3-beta",
-      "post_results_dump_safe": true,
+      "capture_json": "20261009-105320_Merc-raceresult-AI.json",
+      "capture_json_sha256": "109eee9e244c6a76049a7ca594b36f9b17f5bf156de206da299414fab6d0828e",
+      "capture_label": "Merc-raceresult-AI",
+      "disk_build_classification": "exact",
+      "disk_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "disk_exe_size": 3121214,
+      "effective_broker_dump_variant": "native_hardened",
+      "masterrallye_native_roster": {
+        "0": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "1": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "2": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "3": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        }
+      },
+      "native_dump_verification": "verified",
+      "native_dump_walker_sha256": "16d85b7cae971b50f0ad1fd33425bae992cc758c0416c856199eb5ea3dfe2fe9",
+      "native_dump_walker_variant": "native-hardened-null-safe-stubs-v1",
+      "post_results_native_dump_safe": true,
       "process_id": 50160,
+      "profile_id": "retail-pristine",
+      "race_roster": {
+        "0": {
+          "CarClass": 0,
+          "CarID": 6,
+          "CarType": "Frontera",
+          "Colour": [
+            0.76,
+            0.78,
+            0.8,
+            1.0
+          ],
+          "DriverID": 30,
+          "PlayerType": 1,
+          "WheelType": "Frontera"
+        },
+        "1": {
+          "CarClass": 0,
+          "CarID": 5,
+          "CarType": "Xtrail",
+          "Colour": [
+            0.64,
+            0.05,
+            0.09,
+            1.0
+          ],
+          "DriverID": 4,
+          "PlayerType": 2,
+          "WheelType": "Xtrail"
+        },
+        "2": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": "Landcruiser",
+          "Colour": [
+            0.08,
+            0.42,
+            0.25,
+            1.0
+          ],
+          "DriverID": 7,
+          "PlayerType": 2,
+          "WheelType": "Landcruiser"
+        },
+        "3": {
+          "CarClass": 0,
+          "CarID": 26,
+          "CarType": "Mercedes",
+          "Colour": [
+            1.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "DriverID": 2,
+          "PlayerType": 2,
+          "WheelType": "Mercedes"
+        }
+      },
+      "raw_byte_length": 8137165,
+      "raw_sha256": "2e340c2daf6402a86135892b0e4626d73c006101d3f5ffe3ba4f4aff20725875",
       "raw_sidecar": "20261009-105320_Merc-raceresult-AI.dump.bin",
-      "raw_sidecar_sha256": "2e340c2daf6402a86135892b0e4626d73c006101d3f5ffe3ba4f4aff20725875",
-      "raw_sidecar_size": 8137165,
-      "verified_trampolines": [
-        {
-          "length": 19,
-          "name": "stringlist-null-guard",
-          "null_target_va": "0x00602040",
-          "resume_target_va": "0x00602024",
-          "sha256": "1262617fb90ce85e293c226ac947578ec8e844e6c9048f51696205501114a4c5",
-          "target_va": "0x0068E6D0"
-        },
-        {
-          "length": 20,
-          "name": "xmldata-null-guard",
-          "null_target_va": "0x0060218E",
-          "resume_target_va": "0x0060215A",
-          "sha256": "247e2d5ea0fd0c7b0c97cbc79247d39bfad7b783c023fe641d6af44a71c85a87",
-          "target_va": "0x0068E6F0"
-        }
+      "runtime_verified_native_dump_anchors": [
+        "broker_editor_dump_route",
+        "broker_singleton_accessor",
+        "debug_logger",
+        "debug_sink_vtable",
+        "native_dump_walker:native-hardened-null-safe-stubs-v1"
       ]
     },
     {
+      "broker_state": {
+        "FrontEnd/Network/selectedCar": 7,
+        "Frontend/QuickRace/Car0": 7,
+        "Frontend/QuickRace/Car1": 0,
+        "Frontend/VehicleSelect/CarModel": 7,
+        "Frontend/VehicleSelect/PlayerID": 0,
+        "Frontend/VehicleSelect/Vehicle": 1,
+        "MasterRallye/Stage": 0,
+        "Race/NumCars": 4,
+        "Race/NumPlayers": 1,
+        "Race/Type": 2,
+        "UI/XYButton/XValue": 0,
+        "UI/XYButton/YValue": 1
+      },
       "capture_json": "20261009-105458_R5VQ-quickrace-AI.json",
+      "capture_json_sha256": "8f45ffbe202c920c933aabd5c468d5d867987a30c0dc9da87051c6e80977bb43",
+      "capture_label": "R5VQ-quickrace-AI",
+      "disk_build_classification": "exact",
       "disk_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
       "disk_exe_size": 3121214,
-      "disk_profile_registry_classification": "pristine",
-      "effective_dump_variant": "native-hardened-null-safe-stubs-v1",
-      "effective_walker_sha256": "16d85b7cae971b50f0ad1fd33425bae992cc758c0416c856199eb5ea3dfe2fe9",
-      "evidence": {
-        "Frontend/QuickRace/Car0": 7,
-        "Frontend/QuickRace/CurrentVehicleString": "NISSAN NAVARA",
-        "Frontend/RaceResults/NameList": [
-          "\"JEAN-PIERRE STRUGO\"",
-          "\"1P\"",
-          "\"ANDREW LIMBERT\"",
-          "\"PHILLIPE BETAILLE\""
-        ],
-        "Frontend/RaceResults/PositionList": [
-          "\"1\"",
-          "\"2\"",
-          "\"3\"",
-          "\"4\""
-        ],
-        "Frontend/VehicleSelect/CarModel": 7,
-        "Frontend/VehicleSelect/ManufacturerName": "NISSAN",
-        "Frontend/VehicleSelect/ModelName": "NAVARA",
-        "Frontend/VehicleSelect/Vehicle": 1,
-        "MasterRallye/Car0/CarClass": 0,
-        "MasterRallye/Car0/CarID": 0,
-        "MasterRallye/Car0/DriverID": 0,
-        "MasterRallye/Car1/CarClass": 0,
-        "MasterRallye/Car1/CarID": 0,
-        "MasterRallye/Car1/DriverID": 0,
-        "MasterRallye/Car2/CarClass": 0,
-        "MasterRallye/Car2/CarID": 0,
-        "MasterRallye/Car2/DriverID": 0,
-        "MasterRallye/Car3/CarClass": 0,
-        "MasterRallye/Car3/CarID": 0,
-        "MasterRallye/Car3/DriverID": 0,
-        "MasterRallye/Car4/CarClass": 0,
-        "MasterRallye/Car4/CarID": 0,
-        "MasterRallye/Car4/DriverID": 0,
-        "MasterRallye/Car5/CarClass": 0,
-        "MasterRallye/Car5/CarID": 0,
-        "MasterRallye/Car5/DriverID": 0,
-        "Race/Car0/CarClass": 1,
-        "Race/Car0/CarID": 7,
-        "Race/Car0/CarType": "Navara",
-        "Race/Car0/Colour": [
-          0.63,
-          0.66,
-          0.67,
-          1.0
-        ],
-        "Race/Car0/DriverID": 30,
-        "Race/Car0/PlayerType": 1,
-        "Race/Car0/WheelType": "Navara",
-        "Race/Car1/CarClass": 1,
-        "Race/Car1/CarID": 8,
-        "Race/Car1/CarType": "Forester",
-        "Race/Car1/Colour": [
-          0.89,
-          0.93,
-          0.94,
-          1.0
-        ],
-        "Race/Car1/DriverID": 8,
-        "Race/Car1/PlayerType": 2,
-        "Race/Car1/WheelType": "Forester",
-        "Race/Car2/CarClass": 1,
-        "Race/Car2/CarID": 27,
-        "Race/Car2/CarType": "R5VQualifier",
-        "Race/Car2/Colour": [
-          1.0,
-          0.0,
-          1.0,
-          1.0
-        ],
-        "Race/Car2/DriverID": 5,
-        "Race/Car2/PlayerType": 2,
-        "Race/Car2/WheelType": "R5VQualifier",
-        "Race/Car3/CarClass": 1,
-        "Race/Car3/CarID": 9,
-        "Race/Car3/CarType": "Jump",
-        "Race/Car3/Colour": [
-          0.96,
-          0.8,
-          0.12,
-          1.0
-        ],
-        "Race/Car3/DriverID": 6,
-        "Race/Car3/PlayerType": 2,
-        "Race/Car3/WheelType": "Jump",
-        "Race/NumCars": 4,
-        "Race/NumPlayers": 1,
-        "Race/Type": 2,
-        "UI/XYButton/XValue": 0
+      "effective_broker_dump_variant": "native_hardened",
+      "masterrallye_native_roster": {
+        "0": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "1": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "2": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "3": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        }
       },
-      "image_path": "D:\\Game\\Master Rallye\\MRallye.exe",
-      "label": "R5VQ-quickrace-AI",
-      "live_dump_verified": "verified",
-      "observatory_version": "0.2.3-beta",
-      "post_results_dump_safe": true,
+      "native_dump_verification": "verified",
+      "native_dump_walker_sha256": "16d85b7cae971b50f0ad1fd33425bae992cc758c0416c856199eb5ea3dfe2fe9",
+      "native_dump_walker_variant": "native-hardened-null-safe-stubs-v1",
+      "post_results_native_dump_safe": true,
       "process_id": 50160,
+      "profile_id": "retail-pristine",
+      "race_roster": {
+        "0": {
+          "CarClass": 1,
+          "CarID": 7,
+          "CarType": "Navara",
+          "Colour": [
+            0.63,
+            0.66,
+            0.67,
+            1.0
+          ],
+          "DriverID": 30,
+          "PlayerType": 1,
+          "WheelType": "Navara"
+        },
+        "1": {
+          "CarClass": 1,
+          "CarID": 8,
+          "CarType": "Forester",
+          "Colour": [
+            0.89,
+            0.93,
+            0.94,
+            1.0
+          ],
+          "DriverID": 8,
+          "PlayerType": 2,
+          "WheelType": "Forester"
+        },
+        "2": {
+          "CarClass": 1,
+          "CarID": 27,
+          "CarType": "R5VQualifier",
+          "Colour": [
+            1.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "DriverID": 5,
+          "PlayerType": 2,
+          "WheelType": "R5VQualifier"
+        },
+        "3": {
+          "CarClass": 1,
+          "CarID": 9,
+          "CarType": "Jump",
+          "Colour": [
+            0.96,
+            0.8,
+            0.12,
+            1.0
+          ],
+          "DriverID": 6,
+          "PlayerType": 2,
+          "WheelType": "Jump"
+        }
+      },
+      "raw_byte_length": 9222687,
+      "raw_sha256": "b4b7abfda2572970b9abd63b462093c80c4c1a3738abb9f129a51bf2b95eea5e",
       "raw_sidecar": "20261009-105458_R5VQ-quickrace-AI.dump.bin",
-      "raw_sidecar_sha256": "b4b7abfda2572970b9abd63b462093c80c4c1a3738abb9f129a51bf2b95eea5e",
-      "raw_sidecar_size": 9222687,
-      "verified_trampolines": [
-        {
-          "length": 19,
-          "name": "stringlist-null-guard",
-          "null_target_va": "0x00602040",
-          "resume_target_va": "0x00602024",
-          "sha256": "1262617fb90ce85e293c226ac947578ec8e844e6c9048f51696205501114a4c5",
-          "target_va": "0x0068E6D0"
-        },
-        {
-          "length": 20,
-          "name": "xmldata-null-guard",
-          "null_target_va": "0x0060218E",
-          "resume_target_va": "0x0060215A",
-          "sha256": "247e2d5ea0fd0c7b0c97cbc79247d39bfad7b783c023fe641d6af44a71c85a87",
-          "target_va": "0x0068E6F0"
-        }
+      "runtime_verified_native_dump_anchors": [
+        "broker_editor_dump_route",
+        "broker_singleton_accessor",
+        "debug_logger",
+        "debug_sink_vtable",
+        "native_dump_walker:native-hardened-null-safe-stubs-v1"
       ]
     },
     {
-      "capture_json": "20261009-105605_R5VQ-raceresult-AI.json",
-      "disk_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
-      "disk_exe_size": 3121214,
-      "disk_profile_registry_classification": "pristine",
-      "effective_dump_variant": "native-hardened-null-safe-stubs-v1",
-      "effective_walker_sha256": "16d85b7cae971b50f0ad1fd33425bae992cc758c0416c856199eb5ea3dfe2fe9",
-      "evidence": {
+      "broker_state": {
+        "FrontEnd/Network/selectedCar": 7,
         "Frontend/QuickRace/Car0": 7,
-        "Frontend/QuickRace/CurrentVehicleString": "NISSAN NAVARA",
-        "Frontend/RaceResults/NameList": [
-          "\"R5V TEST DRIVER\"",
-          "\"1P\"",
-          "\"JEAN-MICHEL MUIRRE\"",
-          "\"RICARDO BELL\""
-        ],
-        "Frontend/RaceResults/PositionList": [
-          "\"1\"",
-          "\"2\"",
-          "\"3\"",
-          "\"4\""
-        ],
+        "Frontend/QuickRace/Car1": 0,
         "Frontend/VehicleSelect/CarModel": 7,
-        "Frontend/VehicleSelect/ManufacturerName": "NISSAN",
-        "Frontend/VehicleSelect/ModelName": "NAVARA",
+        "Frontend/VehicleSelect/PlayerID": 0,
         "Frontend/VehicleSelect/Vehicle": 1,
-        "MasterRallye/Car0/CarClass": 0,
-        "MasterRallye/Car0/CarID": 0,
-        "MasterRallye/Car0/DriverID": 0,
-        "MasterRallye/Car1/CarClass": 0,
-        "MasterRallye/Car1/CarID": 0,
-        "MasterRallye/Car1/DriverID": 0,
-        "MasterRallye/Car2/CarClass": 0,
-        "MasterRallye/Car2/CarID": 0,
-        "MasterRallye/Car2/DriverID": 0,
-        "MasterRallye/Car3/CarClass": 0,
-        "MasterRallye/Car3/CarID": 0,
-        "MasterRallye/Car3/DriverID": 0,
-        "MasterRallye/Car4/CarClass": 0,
-        "MasterRallye/Car4/CarID": 0,
-        "MasterRallye/Car4/DriverID": 0,
-        "MasterRallye/Car5/CarClass": 0,
-        "MasterRallye/Car5/CarID": 0,
-        "MasterRallye/Car5/DriverID": 0,
-        "Race/Car0/CarClass": 1,
-        "Race/Car0/CarID": 7,
-        "Race/Car0/CarType": "Navara",
-        "Race/Car0/Colour": [
-          0.63,
-          0.66,
-          0.67,
-          1.0
-        ],
-        "Race/Car0/DriverID": 30,
-        "Race/Car0/PlayerType": 1,
-        "Race/Car0/WheelType": "Navara",
-        "Race/Car1/CarClass": 1,
-        "Race/Car1/CarID": 8,
-        "Race/Car1/CarType": "Forester",
-        "Race/Car1/Colour": [
-          0.89,
-          0.93,
-          0.94,
-          1.0
-        ],
-        "Race/Car1/DriverID": 8,
-        "Race/Car1/PlayerType": 2,
-        "Race/Car1/WheelType": "Forester",
-        "Race/Car2/CarClass": 1,
-        "Race/Car2/CarID": 27,
-        "Race/Car2/CarType": "R5VQualifier",
-        "Race/Car2/Colour": [
-          1.0,
-          0.0,
-          1.0,
-          1.0
-        ],
-        "Race/Car2/DriverID": 5,
-        "Race/Car2/PlayerType": 2,
-        "Race/Car2/WheelType": "R5VQualifier",
-        "Race/Car3/CarClass": 1,
-        "Race/Car3/CarID": 9,
-        "Race/Car3/CarType": "Jump",
-        "Race/Car3/Colour": [
-          0.96,
-          0.8,
-          0.12,
-          1.0
-        ],
-        "Race/Car3/DriverID": 6,
-        "Race/Car3/PlayerType": 2,
-        "Race/Car3/WheelType": "Jump",
+        "MasterRallye/Stage": 0,
         "Race/NumCars": 4,
         "Race/NumPlayers": 1,
         "Race/Type": 2,
-        "UI/XYButton/XValue": 0
+        "UI/XYButton/XValue": 0,
+        "UI/XYButton/YValue": 1
       },
-      "image_path": "D:\\Game\\Master Rallye\\MRallye.exe",
-      "label": "R5VQ-raceresult-AI",
-      "live_dump_verified": "verified",
-      "observatory_version": "0.2.3-beta",
-      "post_results_dump_safe": true,
+      "capture_json": "20261009-105605_R5VQ-raceresult-AI.json",
+      "capture_json_sha256": "eb675e1128baf3c4356541faffa10170844776f37bc146c9c9634c0c40b26422",
+      "capture_label": "R5VQ-raceresult-AI",
+      "disk_build_classification": "exact",
+      "disk_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "disk_exe_size": 3121214,
+      "effective_broker_dump_variant": "native_hardened",
+      "masterrallye_native_roster": {
+        "0": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "1": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "2": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "3": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        }
+      },
+      "native_dump_verification": "verified",
+      "native_dump_walker_sha256": "16d85b7cae971b50f0ad1fd33425bae992cc758c0416c856199eb5ea3dfe2fe9",
+      "native_dump_walker_variant": "native-hardened-null-safe-stubs-v1",
+      "post_results_native_dump_safe": true,
       "process_id": 50160,
+      "profile_id": "retail-pristine",
+      "race_roster": {
+        "0": {
+          "CarClass": 1,
+          "CarID": 7,
+          "CarType": "Navara",
+          "Colour": [
+            0.63,
+            0.66,
+            0.67,
+            1.0
+          ],
+          "DriverID": 30,
+          "PlayerType": 1,
+          "WheelType": "Navara"
+        },
+        "1": {
+          "CarClass": 1,
+          "CarID": 8,
+          "CarType": "Forester",
+          "Colour": [
+            0.89,
+            0.93,
+            0.94,
+            1.0
+          ],
+          "DriverID": 8,
+          "PlayerType": 2,
+          "WheelType": "Forester"
+        },
+        "2": {
+          "CarClass": 1,
+          "CarID": 27,
+          "CarType": "R5VQualifier",
+          "Colour": [
+            1.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "DriverID": 5,
+          "PlayerType": 2,
+          "WheelType": "R5VQualifier"
+        },
+        "3": {
+          "CarClass": 1,
+          "CarID": 9,
+          "CarType": "Jump",
+          "Colour": [
+            0.96,
+            0.8,
+            0.12,
+            1.0
+          ],
+          "DriverID": 6,
+          "PlayerType": 2,
+          "WheelType": "Jump"
+        }
+      },
+      "raw_byte_length": 10295919,
+      "raw_sha256": "546283699dc8418142e4c9f57bbc0937033903978e4b58d7a8cbe1e805458c05",
       "raw_sidecar": "20261009-105605_R5VQ-raceresult-AI.dump.bin",
-      "raw_sidecar_sha256": "546283699dc8418142e4c9f57bbc0937033903978e4b58d7a8cbe1e805458c05",
-      "raw_sidecar_size": 10295919,
-      "verified_trampolines": [
-        {
-          "length": 19,
-          "name": "stringlist-null-guard",
-          "null_target_va": "0x00602040",
-          "resume_target_va": "0x00602024",
-          "sha256": "1262617fb90ce85e293c226ac947578ec8e844e6c9048f51696205501114a4c5",
-          "target_va": "0x0068E6D0"
-        },
-        {
-          "length": 20,
-          "name": "xmldata-null-guard",
-          "null_target_va": "0x0060218E",
-          "resume_target_va": "0x0060215A",
-          "sha256": "247e2d5ea0fd0c7b0c97cbc79247d39bfad7b783c023fe641d6af44a71c85a87",
-          "target_va": "0x0068E6F0"
-        }
+      "runtime_verified_native_dump_anchors": [
+        "broker_editor_dump_route",
+        "broker_singleton_accessor",
+        "debug_logger",
+        "debug_sink_vtable",
+        "native_dump_walker:native-hardened-null-safe-stubs-v1"
       ]
     },
     {
+      "broker_state": {
+        "FrontEnd/Network/selectedCar": 12,
+        "Frontend/QuickRace/Car0": 7,
+        "Frontend/QuickRace/Car1": 0,
+        "Frontend/RaceDetails/CurrentRaceString": "RACE 1/3",
+        "Frontend/RaceDetails/Race": "RALLYE CUP",
+        "Frontend/VehicleSelect/CarModel": 12,
+        "Frontend/VehicleSelect/PlayerID": 0,
+        "Frontend/VehicleSelect/Vehicle": 1,
+        "MasterRallye/Stage": 0,
+        "Race/NumCars": 4,
+        "Race/NumPlayers": 1,
+        "Race/Type": 6,
+        "UI/XYButton/XValue": 5,
+        "UI/XYButton/YValue": 1
+      },
       "capture_json": "20261009-105758_R5VQ-rallyecup-AI.json",
+      "capture_json_sha256": "83fbeb70331f361811281a7b3cd41cb89f24248fa3a5f879d2b28fc09d8dbf2a",
+      "capture_label": "R5VQ-rallyecup-AI",
+      "disk_build_classification": "exact",
       "disk_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
       "disk_exe_size": 3121214,
-      "disk_profile_registry_classification": "pristine",
-      "effective_dump_variant": "native-hardened-null-safe-stubs-v1",
-      "effective_walker_sha256": "16d85b7cae971b50f0ad1fd33425bae992cc758c0416c856199eb5ea3dfe2fe9",
-      "evidence": {
-        "Frontend/QuickRace/Car0": 7,
-        "Frontend/QuickRace/CurrentVehicleString": "NISSAN NAVARA",
-        "Frontend/RaceDetails/CurrentRaceString": "RACE 1/3",
-        "Frontend/RaceDetails/CurrentVehicleString": "REECE PICKUP",
-        "Frontend/RaceDetails/Race": "RALLYE CUP",
-        "Frontend/RaceResults/NameList": [
-          "\"PAULO ADAM\"",
-          "\"1P\"",
-          "\"DAVID JACKSON\"",
-          "\"SIMON THOMAS\""
-        ],
-        "Frontend/RaceResults/PositionList": [
-          "\"1\"",
-          "\"2\"",
-          "\"3\"",
-          "\"4\""
-        ],
-        "Frontend/VehicleSelect/CarModel": 12,
-        "Frontend/VehicleSelect/ManufacturerName": "REECE",
-        "Frontend/VehicleSelect/ModelName": "PICKUP",
-        "Frontend/VehicleSelect/Vehicle": 1,
-        "MasterRallye/Car0/CarClass": 0,
-        "MasterRallye/Car0/CarID": 0,
-        "MasterRallye/Car0/DriverID": 0,
-        "MasterRallye/Car1/CarClass": 0,
-        "MasterRallye/Car1/CarID": 0,
-        "MasterRallye/Car1/DriverID": 0,
-        "MasterRallye/Car2/CarClass": 0,
-        "MasterRallye/Car2/CarID": 0,
-        "MasterRallye/Car2/DriverID": 0,
-        "MasterRallye/Car3/CarClass": 0,
-        "MasterRallye/Car3/CarID": 0,
-        "MasterRallye/Car3/DriverID": 0,
-        "MasterRallye/Car4/CarClass": 0,
-        "MasterRallye/Car4/CarID": 0,
-        "MasterRallye/Car4/DriverID": 0,
-        "MasterRallye/Car5/CarClass": 0,
-        "MasterRallye/Car5/CarID": 0,
-        "MasterRallye/Car5/DriverID": 0,
-        "Race/Car0/CarClass": 1,
-        "Race/Car0/CarID": 12,
-        "Race/Car0/CarType": "Newrav",
-        "Race/Car0/Colour": [
-          0.7,
-          0.14,
-          0.17,
-          1.0
-        ],
-        "Race/Car0/DriverID": 30,
-        "Race/Car0/PlayerType": 1,
-        "Race/Car0/WheelType": "Newrav",
-        "Race/Car1/CarClass": 1,
-        "Race/Car1/CarID": 9,
-        "Race/Car1/CarType": "Jump",
-        "Race/Car1/Colour": [
-          0.96,
-          0.8,
-          0.12,
-          1.0
-        ],
-        "Race/Car1/DriverID": 2,
-        "Race/Car1/PlayerType": 2,
-        "Race/Car1/WheelType": "Jump",
-        "Race/Car2/CarClass": 1,
-        "Race/Car2/CarID": 27,
-        "Race/Car2/CarType": "R5VQualifier",
-        "Race/Car2/Colour": [
-          1.0,
-          0.0,
-          1.0,
-          1.0
-        ],
-        "Race/Car2/DriverID": 7,
-        "Race/Car2/PlayerType": 2,
-        "Race/Car2/WheelType": "R5VQualifier",
-        "Race/Car3/CarClass": 1,
-        "Race/Car3/CarID": 7,
-        "Race/Car3/CarType": "Navara",
-        "Race/Car3/Colour": [
-          0.63,
-          0.66,
-          0.67,
-          1.0
-        ],
-        "Race/Car3/DriverID": 0,
-        "Race/Car3/PlayerType": 2,
-        "Race/Car3/WheelType": "Navara",
-        "Race/NumCars": 4,
-        "Race/NumPlayers": 1,
-        "Race/Type": 6,
-        "UI/XYButton/XValue": 5
-      },
-      "image_path": "D:\\Game\\Master Rallye\\MRallye.exe",
-      "label": "R5VQ-rallyecup-AI",
-      "live_dump_verified": "verified",
-      "observatory_version": "0.2.3-beta",
-      "post_results_dump_safe": true,
-      "process_id": 50160,
-      "raw_sidecar": "20261009-105758_R5VQ-rallyecup-AI.dump.bin",
-      "raw_sidecar_sha256": "37975472d142e6f0b6003e8dca667b6d66cf9836c838402192a4080668356ca0",
-      "raw_sidecar_size": 11427195,
-      "verified_trampolines": [
-        {
-          "length": 19,
-          "name": "stringlist-null-guard",
-          "null_target_va": "0x00602040",
-          "resume_target_va": "0x00602024",
-          "sha256": "1262617fb90ce85e293c226ac947578ec8e844e6c9048f51696205501114a4c5",
-          "target_va": "0x0068E6D0"
+      "effective_broker_dump_variant": "native_hardened",
+      "masterrallye_native_roster": {
+        "0": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
         },
-        {
-          "length": 20,
-          "name": "xmldata-null-guard",
-          "null_target_va": "0x0060218E",
-          "resume_target_va": "0x0060215A",
-          "sha256": "247e2d5ea0fd0c7b0c97cbc79247d39bfad7b783c023fe641d6af44a71c85a87",
-          "target_va": "0x0068E6F0"
+        "1": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "2": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "3": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
         }
+      },
+      "native_dump_verification": "verified",
+      "native_dump_walker_sha256": "16d85b7cae971b50f0ad1fd33425bae992cc758c0416c856199eb5ea3dfe2fe9",
+      "native_dump_walker_variant": "native-hardened-null-safe-stubs-v1",
+      "post_results_native_dump_safe": true,
+      "process_id": 50160,
+      "profile_id": "retail-pristine",
+      "race_roster": {
+        "0": {
+          "CarClass": 1,
+          "CarID": 12,
+          "CarType": "Newrav",
+          "Colour": [
+            0.7,
+            0.14,
+            0.17,
+            1.0
+          ],
+          "DriverID": 30,
+          "PlayerType": 1,
+          "WheelType": "Newrav"
+        },
+        "1": {
+          "CarClass": 1,
+          "CarID": 9,
+          "CarType": "Jump",
+          "Colour": [
+            0.96,
+            0.8,
+            0.12,
+            1.0
+          ],
+          "DriverID": 2,
+          "PlayerType": 2,
+          "WheelType": "Jump"
+        },
+        "2": {
+          "CarClass": 1,
+          "CarID": 27,
+          "CarType": "R5VQualifier",
+          "Colour": [
+            1.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "DriverID": 7,
+          "PlayerType": 2,
+          "WheelType": "R5VQualifier"
+        },
+        "3": {
+          "CarClass": 1,
+          "CarID": 7,
+          "CarType": "Navara",
+          "Colour": [
+            0.63,
+            0.66,
+            0.67,
+            1.0
+          ],
+          "DriverID": 0,
+          "PlayerType": 2,
+          "WheelType": "Navara"
+        }
+      },
+      "raw_byte_length": 11427195,
+      "raw_sha256": "37975472d142e6f0b6003e8dca667b6d66cf9836c838402192a4080668356ca0",
+      "raw_sidecar": "20261009-105758_R5VQ-rallyecup-AI.dump.bin",
+      "runtime_verified_native_dump_anchors": [
+        "broker_editor_dump_route",
+        "broker_singleton_accessor",
+        "debug_logger",
+        "debug_sink_vtable",
+        "native_dump_walker:native-hardened-null-safe-stubs-v1"
       ]
     },
     {
-      "capture_json": "20261009-105913_R5VQ-rc-raceresult-AI.json",
-      "disk_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
-      "disk_exe_size": 3121214,
-      "disk_profile_registry_classification": "pristine",
-      "effective_dump_variant": "native-hardened-null-safe-stubs-v1",
-      "effective_walker_sha256": "16d85b7cae971b50f0ad1fd33425bae992cc758c0416c856199eb5ea3dfe2fe9",
-      "evidence": {
+      "broker_state": {
+        "FrontEnd/Network/selectedCar": 12,
         "Frontend/QuickRace/Car0": 7,
-        "Frontend/QuickRace/CurrentVehicleString": "NISSAN NAVARA",
+        "Frontend/QuickRace/Car1": 0,
         "Frontend/RaceDetails/CurrentRaceString": "RACE 1/3",
-        "Frontend/RaceDetails/CurrentVehicleString": "REECE PICKUP",
         "Frontend/RaceDetails/Race": "RALLYE CUP",
-        "Frontend/RaceResults/NameList": [
-          "\"1P\"",
-          "\"RICARDO BELL\"",
-          "\"DAVID JACKSON\"",
-          "\"R5V TEST DRIVER\""
-        ],
-        "Frontend/RaceResults/PositionList": [
-          "\"1\"",
-          "\"2\"",
-          "\"3\"",
-          "\"4\""
-        ],
         "Frontend/VehicleSelect/CarModel": 12,
-        "Frontend/VehicleSelect/ManufacturerName": "REECE",
-        "Frontend/VehicleSelect/ModelName": "PICKUP",
+        "Frontend/VehicleSelect/PlayerID": 0,
         "Frontend/VehicleSelect/Vehicle": 1,
-        "MasterRallye/Car0/CarClass": 0,
-        "MasterRallye/Car0/CarID": 0,
-        "MasterRallye/Car0/DriverID": 0,
-        "MasterRallye/Car1/CarClass": 0,
-        "MasterRallye/Car1/CarID": 0,
-        "MasterRallye/Car1/DriverID": 0,
-        "MasterRallye/Car2/CarClass": 0,
-        "MasterRallye/Car2/CarID": 0,
-        "MasterRallye/Car2/DriverID": 0,
-        "MasterRallye/Car3/CarClass": 0,
-        "MasterRallye/Car3/CarID": 0,
-        "MasterRallye/Car3/DriverID": 0,
-        "MasterRallye/Car4/CarClass": 0,
-        "MasterRallye/Car4/CarID": 0,
-        "MasterRallye/Car4/DriverID": 0,
-        "MasterRallye/Car5/CarClass": 0,
-        "MasterRallye/Car5/CarID": 0,
-        "MasterRallye/Car5/DriverID": 0,
-        "Race/Car0/CarClass": 1,
-        "Race/Car0/CarID": 12,
-        "Race/Car0/CarType": "Newrav",
-        "Race/Car0/Colour": [
-          0.7,
-          0.14,
-          0.17,
-          1.0
-        ],
-        "Race/Car0/DriverID": 30,
-        "Race/Car0/PlayerType": 1,
-        "Race/Car0/WheelType": "Newrav",
-        "Race/Car1/CarClass": 1,
-        "Race/Car1/CarID": 9,
-        "Race/Car1/CarType": "Jump",
-        "Race/Car1/Colour": [
-          0.96,
-          0.8,
-          0.12,
-          1.0
-        ],
-        "Race/Car1/DriverID": 2,
-        "Race/Car1/PlayerType": 2,
-        "Race/Car1/WheelType": "Jump",
-        "Race/Car2/CarClass": 1,
-        "Race/Car2/CarID": 27,
-        "Race/Car2/CarType": "R5VQualifier",
-        "Race/Car2/Colour": [
-          1.0,
-          0.0,
-          1.0,
-          1.0
-        ],
-        "Race/Car2/DriverID": 7,
-        "Race/Car2/PlayerType": 2,
-        "Race/Car2/WheelType": "R5VQualifier",
-        "Race/Car3/CarClass": 1,
-        "Race/Car3/CarID": 7,
-        "Race/Car3/CarType": "Navara",
-        "Race/Car3/Colour": [
-          0.63,
-          0.66,
-          0.67,
-          1.0
-        ],
-        "Race/Car3/DriverID": 0,
-        "Race/Car3/PlayerType": 2,
-        "Race/Car3/WheelType": "Navara",
+        "MasterRallye/Stage": 0,
         "Race/NumCars": 4,
         "Race/NumPlayers": 1,
         "Race/Type": 6,
-        "UI/XYButton/XValue": 5
+        "UI/XYButton/XValue": 5,
+        "UI/XYButton/YValue": 1
       },
-      "image_path": "D:\\Game\\Master Rallye\\MRallye.exe",
-      "label": "R5VQ-rc-raceresult-AI",
-      "live_dump_verified": "verified",
-      "observatory_version": "0.2.3-beta",
-      "post_results_dump_safe": true,
-      "process_id": 50160,
-      "raw_sidecar": "20261009-105913_R5VQ-rc-raceresult-AI.dump.bin",
-      "raw_sidecar_sha256": "fc3126f3566b13fa848186409e118c643301b2a970322aa48605d6dc02aa49ac",
-      "raw_sidecar_size": 12509465,
-      "verified_trampolines": [
-        {
-          "length": 19,
-          "name": "stringlist-null-guard",
-          "null_target_va": "0x00602040",
-          "resume_target_va": "0x00602024",
-          "sha256": "1262617fb90ce85e293c226ac947578ec8e844e6c9048f51696205501114a4c5",
-          "target_va": "0x0068E6D0"
+      "capture_json": "20261009-105913_R5VQ-rc-raceresult-AI.json",
+      "capture_json_sha256": "d5237e65157be03ab2e1650ccc9a024cc370167cb98fa862e3eeabf96df0c0ec",
+      "capture_label": "R5VQ-rc-raceresult-AI",
+      "disk_build_classification": "exact",
+      "disk_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "disk_exe_size": 3121214,
+      "effective_broker_dump_variant": "native_hardened",
+      "masterrallye_native_roster": {
+        "0": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
         },
-        {
-          "length": 20,
-          "name": "xmldata-null-guard",
-          "null_target_va": "0x0060218E",
-          "resume_target_va": "0x0060215A",
-          "sha256": "247e2d5ea0fd0c7b0c97cbc79247d39bfad7b783c023fe641d6af44a71c85a87",
-          "target_va": "0x0068E6F0"
+        "1": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "2": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "3": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
         }
+      },
+      "native_dump_verification": "verified",
+      "native_dump_walker_sha256": "16d85b7cae971b50f0ad1fd33425bae992cc758c0416c856199eb5ea3dfe2fe9",
+      "native_dump_walker_variant": "native-hardened-null-safe-stubs-v1",
+      "post_results_native_dump_safe": true,
+      "process_id": 50160,
+      "profile_id": "retail-pristine",
+      "race_roster": {
+        "0": {
+          "CarClass": 1,
+          "CarID": 12,
+          "CarType": "Newrav",
+          "Colour": [
+            0.7,
+            0.14,
+            0.17,
+            1.0
+          ],
+          "DriverID": 30,
+          "PlayerType": 1,
+          "WheelType": "Newrav"
+        },
+        "1": {
+          "CarClass": 1,
+          "CarID": 9,
+          "CarType": "Jump",
+          "Colour": [
+            0.96,
+            0.8,
+            0.12,
+            1.0
+          ],
+          "DriverID": 2,
+          "PlayerType": 2,
+          "WheelType": "Jump"
+        },
+        "2": {
+          "CarClass": 1,
+          "CarID": 27,
+          "CarType": "R5VQualifier",
+          "Colour": [
+            1.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "DriverID": 7,
+          "PlayerType": 2,
+          "WheelType": "R5VQualifier"
+        },
+        "3": {
+          "CarClass": 1,
+          "CarID": 7,
+          "CarType": "Navara",
+          "Colour": [
+            0.63,
+            0.66,
+            0.67,
+            1.0
+          ],
+          "DriverID": 0,
+          "PlayerType": 2,
+          "WheelType": "Navara"
+        }
+      },
+      "raw_byte_length": 12509465,
+      "raw_sha256": "fc3126f3566b13fa848186409e118c643301b2a970322aa48605d6dc02aa49ac",
+      "raw_sidecar": "20261009-105913_R5VQ-rc-raceresult-AI.dump.bin",
+      "runtime_verified_native_dump_anchors": [
+        "broker_editor_dump_route",
+        "broker_singleton_accessor",
+        "debug_logger",
+        "debug_sink_vtable",
+        "native_dump_walker:native-hardened-null-safe-stubs-v1"
+      ]
+    },
+    {
+      "broker_state": {
+        "FrontEnd/Network/selectedCar": 26,
+        "Frontend/QuickRace/Car0": 27,
+        "Frontend/QuickRace/Car1": 26,
+        "Frontend/VehicleSelect/CarModel": 27,
+        "Frontend/VehicleSelect/PlayerID": 1,
+        "Frontend/VehicleSelect/Vehicle": 0,
+        "MasterRallye/Stage": 0,
+        "Race/NumPlayers": 2,
+        "Race/Type": 0,
+        "UI/XYButton/XValue": 7,
+        "UI/XYButton/YValue": 0
+      },
+      "capture_json": "20261009-121114_R5VQ-quickrace-splitscreen-menu.json",
+      "capture_json_sha256": "6754e691775c8bf7603d6f785d10b1ed24336a24e24f25a272e9fedfc126384b",
+      "capture_label": "R5VQ-quickrace-splitscreen-menu",
+      "disk_build_classification": "exact",
+      "disk_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "disk_exe_size": 3121214,
+      "effective_broker_dump_variant": "native_hardened",
+      "masterrallye_native_roster": {
+        "0": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "1": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "2": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "3": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        }
+      },
+      "native_dump_verification": "verified",
+      "native_dump_walker_sha256": "16d85b7cae971b50f0ad1fd33425bae992cc758c0416c856199eb5ea3dfe2fe9",
+      "native_dump_walker_variant": "native-hardened-null-safe-stubs-v1",
+      "post_results_native_dump_safe": true,
+      "process_id": 42244,
+      "profile_id": "retail-pristine",
+      "race_roster": {
+        "0": {
+          "CarClass": 0,
+          "CarID": 27,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": null,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "1": {
+          "CarClass": null,
+          "CarID": 26,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": null,
+          "PlayerType": null,
+          "WheelType": null
+        }
+      },
+      "raw_byte_length": 1052835,
+      "raw_sha256": "3c0fe5c9b5ade8584e431b3ca8a15f9bf09c76d5ab6c9f6edea92abaef94c1f3",
+      "raw_sidecar": "20261009-121114_R5VQ-quickrace-splitscreen-menu.dump.bin",
+      "runtime_verified_native_dump_anchors": [
+        "broker_editor_dump_route",
+        "broker_singleton_accessor",
+        "debug_logger",
+        "debug_sink_vtable",
+        "native_dump_walker:native-hardened-null-safe-stubs-v1"
+      ]
+    },
+    {
+      "broker_state": {
+        "FrontEnd/Network/selectedCar": 26,
+        "Frontend/QuickRace/Car0": 27,
+        "Frontend/QuickRace/Car1": 26,
+        "Frontend/VehicleSelect/CarModel": 27,
+        "Frontend/VehicleSelect/PlayerID": 1,
+        "Frontend/VehicleSelect/Vehicle": 0,
+        "MasterRallye/Stage": 0,
+        "Race/NumCars": 4,
+        "Race/NumPlayers": 2,
+        "Race/Type": 2,
+        "UI/XYButton/XValue": 7,
+        "UI/XYButton/YValue": 0
+      },
+      "capture_json": "20261009-121220_R5VQ-quickrace-splitscreen.json",
+      "capture_json_sha256": "f81d50c40658ef4c76ea0b1275acc1c7721214be5f9b3c5cb7d3609172cc4900",
+      "capture_label": "R5VQ-quickrace-splitscreen",
+      "disk_build_classification": "exact",
+      "disk_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "disk_exe_size": 3121214,
+      "effective_broker_dump_variant": "native_hardened",
+      "masterrallye_native_roster": {
+        "0": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "1": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "2": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "3": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        }
+      },
+      "native_dump_verification": "verified",
+      "native_dump_walker_sha256": "16d85b7cae971b50f0ad1fd33425bae992cc758c0416c856199eb5ea3dfe2fe9",
+      "native_dump_walker_variant": "native-hardened-null-safe-stubs-v1",
+      "post_results_native_dump_safe": true,
+      "process_id": 42244,
+      "profile_id": "retail-pristine",
+      "race_roster": {
+        "0": {
+          "CarClass": 1,
+          "CarID": 27,
+          "CarType": "R5VQualifier",
+          "Colour": [
+            1.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "DriverID": 30,
+          "PlayerType": 1,
+          "WheelType": "R5VQualifier"
+        },
+        "1": {
+          "CarClass": 0,
+          "CarID": 26,
+          "CarType": "Mercedes",
+          "Colour": [
+            1.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "DriverID": 31,
+          "PlayerType": 1,
+          "WheelType": "Mercedes"
+        },
+        "2": {
+          "CarClass": 1,
+          "CarID": 9,
+          "CarType": "Jump",
+          "Colour": [
+            0.96,
+            0.8,
+            0.12,
+            1.0
+          ],
+          "DriverID": 6,
+          "PlayerType": 2,
+          "WheelType": "Jump"
+        },
+        "3": {
+          "CarClass": 1,
+          "CarID": 13,
+          "CarType": "Kiasportage",
+          "Colour": [
+            0.37,
+            0.43,
+            0.5,
+            1.0
+          ],
+          "DriverID": 7,
+          "PlayerType": 2,
+          "WheelType": "Kiasportage"
+        }
+      },
+      "raw_byte_length": 2143722,
+      "raw_sha256": "6e6c7df579d366bf5e2d3dac935a79233fd90de577e80ab7debeec94f193eb74",
+      "raw_sidecar": "20261009-121220_R5VQ-quickrace-splitscreen.dump.bin",
+      "runtime_verified_native_dump_anchors": [
+        "broker_editor_dump_route",
+        "broker_singleton_accessor",
+        "debug_logger",
+        "debug_sink_vtable",
+        "native_dump_walker:native-hardened-null-safe-stubs-v1"
+      ]
+    },
+    {
+      "broker_state": {
+        "FrontEnd/Network/selectedCar": 26,
+        "Frontend/QuickRace/Car0": 27,
+        "Frontend/QuickRace/Car1": 26,
+        "Frontend/VehicleSelect/CarModel": 27,
+        "Frontend/VehicleSelect/PlayerID": 1,
+        "Frontend/VehicleSelect/Vehicle": 0,
+        "MasterRallye/Stage": 0,
+        "Race/NumCars": 4,
+        "Race/NumPlayers": 1,
+        "Race/Type": 2,
+        "UI/XYButton/XValue": 7,
+        "UI/XYButton/YValue": 0
+      },
+      "capture_json": "20261009-122810_R5VQ-quickrace-afterrace.json",
+      "capture_json_sha256": "2707e3dee128ef791662d42d3ed764bdb8521985140a3dc05c7e064603331852",
+      "capture_label": "R5VQ-quickrace-afterrace",
+      "disk_build_classification": "exact",
+      "disk_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "disk_exe_size": 3121214,
+      "effective_broker_dump_variant": "native_hardened",
+      "masterrallye_native_roster": {
+        "0": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "1": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "2": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "3": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        }
+      },
+      "native_dump_verification": "verified",
+      "native_dump_walker_sha256": "16d85b7cae971b50f0ad1fd33425bae992cc758c0416c856199eb5ea3dfe2fe9",
+      "native_dump_walker_variant": "native-hardened-null-safe-stubs-v1",
+      "post_results_native_dump_safe": true,
+      "process_id": 42244,
+      "profile_id": "retail-pristine",
+      "race_roster": {
+        "0": {
+          "CarClass": 1,
+          "CarID": 27,
+          "CarType": "R5VQualifier",
+          "Colour": [
+            1.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "DriverID": 30,
+          "PlayerType": 1,
+          "WheelType": "R5VQualifier"
+        },
+        "1": {
+          "CarClass": 1,
+          "CarID": 7,
+          "CarType": "Navara",
+          "Colour": [
+            0.63,
+            0.66,
+            0.67,
+            1.0
+          ],
+          "DriverID": 3,
+          "PlayerType": 2,
+          "WheelType": "Navara"
+        },
+        "2": {
+          "CarClass": 1,
+          "CarID": 13,
+          "CarType": "Kiasportage",
+          "Colour": [
+            0.37,
+            0.43,
+            0.5,
+            1.0
+          ],
+          "DriverID": 1,
+          "PlayerType": 2,
+          "WheelType": "Kiasportage"
+        },
+        "3": {
+          "CarClass": 1,
+          "CarID": 8,
+          "CarType": "Forester",
+          "Colour": [
+            0.89,
+            0.93,
+            0.94,
+            1.0
+          ],
+          "DriverID": 9,
+          "PlayerType": 2,
+          "WheelType": "Forester"
+        }
+      },
+      "raw_byte_length": 3224216,
+      "raw_sha256": "8aa4e186b4973a506ce2f75192849ab48cb9e59045bd459c3207d5b1d023e081",
+      "raw_sidecar": "20261009-122810_R5VQ-quickrace-afterrace.dump.bin",
+      "runtime_verified_native_dump_anchors": [
+        "broker_editor_dump_route",
+        "broker_singleton_accessor",
+        "debug_logger",
+        "debug_sink_vtable",
+        "native_dump_walker:native-hardened-null-safe-stubs-v1"
+      ]
+    },
+    {
+      "broker_state": {
+        "FrontEnd/Network/selectedCar": 7,
+        "Frontend/QuickRace/Car0": 27,
+        "Frontend/QuickRace/Car1": 26,
+        "Frontend/VehicleSelect/CarModel": 7,
+        "Frontend/VehicleSelect/PlayerID": 0,
+        "Frontend/VehicleSelect/Vehicle": 1,
+        "MasterRallye/Stage": 0,
+        "Race/NumCars": 4,
+        "Race/NumPlayers": 1,
+        "Race/Type": 2,
+        "UI/XYButton/XValue": 0,
+        "UI/XYButton/YValue": 1
+      },
+      "capture_json": "20261009-123026_R5VQ-quickrace-afterrace-carselect-z-navarareset.json",
+      "capture_json_sha256": "9f18784b5a76770212e26a4eb546ab10b21825410761f811db7f0a10ba09af4e",
+      "capture_label": "R5VQ-quickrace-afterrace-carselect-z-navarareset",
+      "disk_build_classification": "exact",
+      "disk_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "disk_exe_size": 3121214,
+      "effective_broker_dump_variant": "native_hardened",
+      "masterrallye_native_roster": {
+        "0": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "1": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "2": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "3": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        }
+      },
+      "native_dump_verification": "verified",
+      "native_dump_walker_sha256": "16d85b7cae971b50f0ad1fd33425bae992cc758c0416c856199eb5ea3dfe2fe9",
+      "native_dump_walker_variant": "native-hardened-null-safe-stubs-v1",
+      "post_results_native_dump_safe": true,
+      "process_id": 42244,
+      "profile_id": "retail-pristine",
+      "race_roster": {
+        "0": {
+          "CarClass": 1,
+          "CarID": 27,
+          "CarType": "R5VQualifier",
+          "Colour": [
+            1.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "DriverID": 30,
+          "PlayerType": 1,
+          "WheelType": "R5VQualifier"
+        },
+        "1": {
+          "CarClass": 1,
+          "CarID": 7,
+          "CarType": "Navara",
+          "Colour": [
+            0.63,
+            0.66,
+            0.67,
+            1.0
+          ],
+          "DriverID": 3,
+          "PlayerType": 2,
+          "WheelType": "Navara"
+        },
+        "2": {
+          "CarClass": 1,
+          "CarID": 13,
+          "CarType": "Kiasportage",
+          "Colour": [
+            0.37,
+            0.43,
+            0.5,
+            1.0
+          ],
+          "DriverID": 1,
+          "PlayerType": 2,
+          "WheelType": "Kiasportage"
+        },
+        "3": {
+          "CarClass": 1,
+          "CarID": 8,
+          "CarType": "Forester",
+          "Colour": [
+            0.89,
+            0.93,
+            0.94,
+            1.0
+          ],
+          "DriverID": 9,
+          "PlayerType": 2,
+          "WheelType": "Forester"
+        }
+      },
+      "raw_byte_length": 4298610,
+      "raw_sha256": "208e5725c6021fe15de4c6b1188f3850990153ab16d888852ea740c1d859c091",
+      "raw_sidecar": "20261009-123026_R5VQ-quickrace-afterrace-carselect-z-navarareset.dump.bin",
+      "runtime_verified_native_dump_anchors": [
+        "broker_editor_dump_route",
+        "broker_singleton_accessor",
+        "debug_logger",
+        "debug_sink_vtable",
+        "native_dump_walker:native-hardened-null-safe-stubs-v1"
+      ]
+    },
+    {
+      "broker_state": {
+        "FrontEnd/Network/selectedCar": 7,
+        "Frontend/QuickRace/Car0": 27,
+        "Frontend/QuickRace/Car1": 26,
+        "Frontend/RaceDetails/CurrentRaceString": "RACE 1/3",
+        "Frontend/RaceDetails/Race": "RALLYE CUP",
+        "Frontend/VehicleSelect/CarModel": 7,
+        "Frontend/VehicleSelect/PlayerID": 0,
+        "Frontend/VehicleSelect/Vehicle": 1,
+        "MasterRallye/Stage": 0,
+        "Race/NumCars": 4,
+        "Race/NumPlayers": 1,
+        "Race/Type": 6,
+        "UI/XYButton/XValue": 0,
+        "UI/XYButton/YValue": 1
+      },
+      "capture_json": "20261009-123623_R5VQ-rallyecup-race1.json",
+      "capture_json_sha256": "2d041963a89ede49969da06304de1be9ff0bb93af010ddd01d2d187631990899",
+      "capture_label": "R5VQ-rallyecup-race1",
+      "disk_build_classification": "exact",
+      "disk_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "disk_exe_size": 3121214,
+      "effective_broker_dump_variant": "native_hardened",
+      "masterrallye_native_roster": {
+        "0": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "1": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "2": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "3": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        }
+      },
+      "native_dump_verification": "verified",
+      "native_dump_walker_sha256": "16d85b7cae971b50f0ad1fd33425bae992cc758c0416c856199eb5ea3dfe2fe9",
+      "native_dump_walker_variant": "native-hardened-null-safe-stubs-v1",
+      "post_results_native_dump_safe": true,
+      "process_id": 42244,
+      "profile_id": "retail-pristine",
+      "race_roster": {
+        "0": {
+          "CarClass": 1,
+          "CarID": 7,
+          "CarType": "Navara",
+          "Colour": [
+            0.63,
+            0.66,
+            0.67,
+            1.0
+          ],
+          "DriverID": 30,
+          "PlayerType": 1,
+          "WheelType": "Navara"
+        },
+        "1": {
+          "CarClass": 1,
+          "CarID": 8,
+          "CarType": "Forester",
+          "Colour": [
+            0.89,
+            0.93,
+            0.94,
+            1.0
+          ],
+          "DriverID": 6,
+          "PlayerType": 2,
+          "WheelType": "Forester"
+        },
+        "2": {
+          "CarClass": 1,
+          "CarID": 27,
+          "CarType": "R5VQualifier",
+          "Colour": [
+            1.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "DriverID": 7,
+          "PlayerType": 2,
+          "WheelType": "R5VQualifier"
+        },
+        "3": {
+          "CarClass": 1,
+          "CarID": 13,
+          "CarType": "Kiasportage",
+          "Colour": [
+            0.37,
+            0.43,
+            0.5,
+            1.0
+          ],
+          "DriverID": 5,
+          "PlayerType": 2,
+          "WheelType": "Kiasportage"
+        }
+      },
+      "raw_byte_length": 5425086,
+      "raw_sha256": "ee8d724baff35efc45697f77960f10bbb5c60975047f34ef3c74754b5d640b44",
+      "raw_sidecar": "20261009-123623_R5VQ-rallyecup-race1.dump.bin",
+      "runtime_verified_native_dump_anchors": [
+        "broker_editor_dump_route",
+        "broker_singleton_accessor",
+        "debug_logger",
+        "debug_sink_vtable",
+        "native_dump_walker:native-hardened-null-safe-stubs-v1"
+      ]
+    },
+    {
+      "broker_state": {
+        "FrontEnd/Network/selectedCar": 7,
+        "Frontend/QuickRace/Car0": 27,
+        "Frontend/QuickRace/Car1": 26,
+        "Frontend/RaceDetails/CurrentRaceString": "RACE 2/3",
+        "Frontend/RaceDetails/Race": "RALLYE CUP",
+        "Frontend/VehicleSelect/CarModel": 7,
+        "Frontend/VehicleSelect/PlayerID": 0,
+        "Frontend/VehicleSelect/Vehicle": 1,
+        "MasterRallye/Stage": 0,
+        "Race/NumCars": 4,
+        "Race/NumPlayers": 1,
+        "Race/Type": 6,
+        "UI/XYButton/XValue": 0,
+        "UI/XYButton/YValue": 1
+      },
+      "capture_json": "20261009-133655_R5VQ-rallyecup-race2.json",
+      "capture_json_sha256": "22713cae2999b3ef83fc051dbe0c12cda022c8fef0ffb86532f7b76f4f85036d",
+      "capture_label": "R5VQ-rallyecup-race2",
+      "disk_build_classification": "exact",
+      "disk_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "disk_exe_size": 3121214,
+      "effective_broker_dump_variant": "native_hardened",
+      "masterrallye_native_roster": {
+        "0": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "1": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "2": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "3": {
+          "CarClass": 0,
+          "CarID": 0,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 0,
+          "PlayerType": null,
+          "WheelType": null
+        }
+      },
+      "native_dump_verification": "verified",
+      "native_dump_walker_sha256": "16d85b7cae971b50f0ad1fd33425bae992cc758c0416c856199eb5ea3dfe2fe9",
+      "native_dump_walker_variant": "native-hardened-null-safe-stubs-v1",
+      "post_results_native_dump_safe": true,
+      "process_id": 42244,
+      "profile_id": "retail-pristine",
+      "race_roster": {
+        "0": {
+          "CarClass": 1,
+          "CarID": 7,
+          "CarType": "Navara",
+          "Colour": [
+            0.63,
+            0.66,
+            0.67,
+            1.0
+          ],
+          "DriverID": 30,
+          "PlayerType": 1,
+          "WheelType": "Navara"
+        },
+        "1": {
+          "CarClass": 1,
+          "CarID": 8,
+          "CarType": "Forester",
+          "Colour": [
+            0.89,
+            0.93,
+            0.94,
+            1.0
+          ],
+          "DriverID": 6,
+          "PlayerType": 2,
+          "WheelType": "Forester"
+        },
+        "2": {
+          "CarClass": 1,
+          "CarID": 27,
+          "CarType": "R5VQualifier",
+          "Colour": [
+            1.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "DriverID": 7,
+          "PlayerType": 2,
+          "WheelType": "R5VQualifier"
+        },
+        "3": {
+          "CarClass": 1,
+          "CarID": 13,
+          "CarType": "Kiasportage",
+          "Colour": [
+            0.37,
+            0.43,
+            0.5,
+            1.0
+          ],
+          "DriverID": 5,
+          "PlayerType": 2,
+          "WheelType": "Kiasportage"
+        }
+      },
+      "raw_byte_length": 6515773,
+      "raw_sha256": "9b564bf6636a637d7f6e35d0886e4874365e0a28f23114d96e3836732412ed8e",
+      "raw_sidecar": "20261009-133655_R5VQ-rallyecup-race2.dump.bin",
+      "runtime_verified_native_dump_anchors": [
+        "broker_editor_dump_route",
+        "broker_singleton_accessor",
+        "debug_logger",
+        "debug_sink_vtable",
+        "native_dump_walker:native-hardened-null-safe-stubs-v1"
+      ]
+    },
+    {
+      "broker_state": {
+        "FrontEnd/Network/selectedCar": 12,
+        "Frontend/QuickRace/Car0": 27,
+        "Frontend/QuickRace/Car1": 26,
+        "Frontend/RaceDetails/CurrentRaceString": "LEG 1/10 - FRANCE",
+        "Frontend/RaceDetails/Race": "MASTER RALLYE",
+        "Frontend/VehicleSelect/CarModel": 12,
+        "Frontend/VehicleSelect/PlayerID": 0,
+        "Frontend/VehicleSelect/Vehicle": 1,
+        "MasterRallye/Stage": 0,
+        "Race/NumCars": 4,
+        "Race/NumPlayers": 1,
+        "Race/Type": 5,
+        "UI/XYButton/XValue": 5,
+        "UI/XYButton/YValue": 1
+      },
+      "capture_json": "20261009-144023_R5VQ-masterrallye-race1-AI-beforeres.json",
+      "capture_json_sha256": "ecc92f05e27359ca6853b448f8ee6300c6f992313aea24b2dba93db3e1332538",
+      "capture_label": "R5VQ-masterrallye-race1-AI-beforeres",
+      "disk_build_classification": "exact",
+      "disk_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "disk_exe_size": 3121214,
+      "effective_broker_dump_variant": "native_hardened",
+      "masterrallye_native_roster": {
+        "0": {
+          "CarClass": 1,
+          "CarID": 12,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 30,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "1": {
+          "CarClass": 1,
+          "CarID": 10,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 3,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "2": {
+          "CarClass": 1,
+          "CarID": 11,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 9,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "3": {
+          "CarClass": 1,
+          "CarID": 27,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 4,
+          "PlayerType": null,
+          "WheelType": null
+        }
+      },
+      "native_dump_verification": "verified",
+      "native_dump_walker_sha256": "16d85b7cae971b50f0ad1fd33425bae992cc758c0416c856199eb5ea3dfe2fe9",
+      "native_dump_walker_variant": "native-hardened-null-safe-stubs-v1",
+      "post_results_native_dump_safe": true,
+      "process_id": 42244,
+      "profile_id": "retail-pristine",
+      "race_roster": {
+        "0": {
+          "CarClass": 1,
+          "CarID": 12,
+          "CarType": "Newrav",
+          "Colour": [
+            0.7,
+            0.14,
+            0.17,
+            1.0
+          ],
+          "DriverID": 30,
+          "PlayerType": 1,
+          "WheelType": "Newrav"
+        },
+        "1": {
+          "CarClass": 1,
+          "CarID": 10,
+          "CarType": "Rmonster",
+          "Colour": [
+            0.05,
+            0.06,
+            0.08,
+            1.0
+          ],
+          "DriverID": 3,
+          "PlayerType": 2,
+          "WheelType": "Rmonster"
+        },
+        "2": {
+          "CarClass": 1,
+          "CarID": 11,
+          "CarType": "Patrol",
+          "Colour": [
+            0.22,
+            0.41,
+            0.66,
+            1.0
+          ],
+          "DriverID": 9,
+          "PlayerType": 2,
+          "WheelType": "Patrol"
+        },
+        "3": {
+          "CarClass": 1,
+          "CarID": 27,
+          "CarType": "R5VQualifier",
+          "Colour": [
+            1.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "DriverID": 4,
+          "PlayerType": 2,
+          "WheelType": "R5VQualifier"
+        }
+      },
+      "raw_byte_length": 7675571,
+      "raw_sha256": "c30f65e2538e10a21c9d0532dfb0f3c6261a70fca69e2305aed610bc6c305c48",
+      "raw_sidecar": "20261009-144023_R5VQ-masterrallye-race1-AI-beforeres.dump.bin",
+      "runtime_verified_native_dump_anchors": [
+        "broker_editor_dump_route",
+        "broker_singleton_accessor",
+        "debug_logger",
+        "debug_sink_vtable",
+        "native_dump_walker:native-hardened-null-safe-stubs-v1"
+      ]
+    },
+    {
+      "broker_state": {
+        "Frontend/QuickRace/Car0": 27,
+        "Frontend/QuickRace/Car1": 26,
+        "Frontend/RaceDetails/CurrentRaceString": "LEG 2/10 - GERMANY",
+        "Frontend/RaceDetails/Race": "MASTER RALLYE",
+        "Frontend/VehicleSelect/CarModel": 12,
+        "MasterRallye/Stage": 1,
+        "Race/NumCars": 4,
+        "Race/NumPlayers": 1,
+        "Race/Type": 5
+      },
+      "capture_json": "20261009-144558_R5VQ-masterrallye-race2-AI-afterres.json",
+      "capture_json_sha256": "4d05a66efa62970ea01027b64bab60cdd04ab68b91fba545a9390eeb1b602ad5",
+      "capture_label": "R5VQ-masterrallye-race2-AI-afterres",
+      "disk_build_classification": "exact",
+      "disk_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "disk_exe_size": 3121214,
+      "effective_broker_dump_variant": "native_hardened",
+      "masterrallye_native_roster": {
+        "0": {
+          "CarClass": 1,
+          "CarID": 12,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 30,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "1": {
+          "CarClass": 1,
+          "CarID": 10,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 3,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "2": {
+          "CarClass": 1,
+          "CarID": 11,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 9,
+          "PlayerType": null,
+          "WheelType": null
+        },
+        "3": {
+          "CarClass": 1,
+          "CarID": 27,
+          "CarType": null,
+          "Colour": null,
+          "DriverID": 4,
+          "PlayerType": null,
+          "WheelType": null
+        }
+      },
+      "native_dump_verification": "verified",
+      "native_dump_walker_sha256": "16d85b7cae971b50f0ad1fd33425bae992cc758c0416c856199eb5ea3dfe2fe9",
+      "native_dump_walker_variant": "native-hardened-null-safe-stubs-v1",
+      "post_results_native_dump_safe": true,
+      "process_id": 41800,
+      "profile_id": "retail-pristine",
+      "race_roster": {
+        "0": {
+          "CarClass": 1,
+          "CarID": 12,
+          "CarType": "Newrav",
+          "Colour": [
+            0.7,
+            0.14,
+            0.17,
+            1.0
+          ],
+          "DriverID": 30,
+          "PlayerType": 1,
+          "WheelType": "Newrav"
+        },
+        "1": {
+          "CarClass": 1,
+          "CarID": 10,
+          "CarType": "Rmonster",
+          "Colour": [
+            0.05,
+            0.06,
+            0.08,
+            1.0
+          ],
+          "DriverID": 3,
+          "PlayerType": 2,
+          "WheelType": "Rmonster"
+        },
+        "2": {
+          "CarClass": 1,
+          "CarID": 11,
+          "CarType": "Patrol",
+          "Colour": [
+            0.22,
+            0.41,
+            0.66,
+            1.0
+          ],
+          "DriverID": 9,
+          "PlayerType": 2,
+          "WheelType": "Patrol"
+        },
+        "3": {
+          "CarClass": 1,
+          "CarID": 27,
+          "CarType": "R5VQualifier",
+          "Colour": [
+            1.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "DriverID": 4,
+          "PlayerType": 2,
+          "WheelType": "R5VQualifier"
+        }
+      },
+      "raw_byte_length": 1180818,
+      "raw_sha256": "3d7a27a1933f422953169df623170501edc95271348414f662bea7312dfba22e",
+      "raw_sidecar": "20261009-144558_R5VQ-masterrallye-race2-AI-afterres.dump.bin",
+      "runtime_verified_native_dump_anchors": [
+        "broker_editor_dump_route",
+        "broker_singleton_accessor",
+        "debug_logger",
+        "debug_sink_vtable",
+        "native_dump_walker:native-hardened-null-safe-stubs-v1"
       ]
     }
   ],
-  "evidence_kind": "derived runtime capture summary; raw Broker dumps intentionally not copied",
-  "important_provenance_note": "vehicle_registry_profile=pristine describes the on-disk executable profile; it does not contradict addon records materialized in live Broker state.",
-  "launcher_identity_note": "The Observatory capture metadata does not embed the launcher SHA. The associated J.1 launcher identity is documented from the canonical local candidate and human runtime handoff, not inferred from JSON.",
-  "phase": "R5V-J.2",
-  "schema_version": 1
+  "evidence_kind": "verified Observatory Broker captures plus separately identified human-only stock-launch observation",
+  "phase": "R5V-J.2 final evidence closeout and Vehicle Select re-entry regression",
+  "process_ids_observed": [
+    41800,
+    42244,
+    50160
+  ],
+  "runtime_results": {
+    "master_rallye_fresh_process_roster_persistence": {
+      "id27_driverid": 4,
+      "same_carid_driverid_roster": [
+        [
+          12,
+          30
+        ],
+        [
+          10,
+          3
+        ],
+        [
+          11,
+          9
+        ],
+        [
+          27,
+          4
+        ]
+      ],
+      "stage0": 0,
+      "stage0_capture": "20261009-144023_R5VQ-masterrallye-race1-AI-beforeres.json",
+      "stage0_process_id": 42244,
+      "stage1": 1,
+      "stage1_capture": "20261009-144558_R5VQ-masterrallye-race2-AI-afterres.json",
+      "stage1_process_id": 41800,
+      "status": "CONFIRMED_BY_RUNTIME"
+    },
+    "original_stock_launch_without_loader": {
+      "instrumented_capture": null,
+      "observations": [
+        "no addon vehicles present",
+        "normal stock save environment observed"
+      ],
+      "status": "HUMAN_CONFIRMED_UNINSTRUMENTED"
+    },
+    "rallye_cup_stage_roster_persistence": {
+      "id27_driverid": 7,
+      "same_carid_driverid_roster": [
+        [
+          7,
+          30
+        ],
+        [
+          8,
+          6
+        ],
+        [
+          27,
+          7
+        ],
+        [
+          13,
+          5
+        ]
+      ],
+      "stage1": "RACE 1/3",
+      "stage1_capture": "20261009-123623_R5VQ-rallyecup-race1.json",
+      "stage2": "RACE 2/3",
+      "stage2_capture": "20261009-133655_R5VQ-rallyecup-race2.json",
+      "status": "CONFIRMED_BY_RUNTIME"
+    },
+    "splitscreen_id27_t2_r5vqualifier_plus_id26_t1_mercedes": {
+      "capture": "20261009-121220_R5VQ-quickrace-splitscreen.json",
+      "race_roster": {
+        "0": {
+          "CarClass": 1,
+          "CarID": 27,
+          "CarType": "R5VQualifier",
+          "Colour": [
+            1.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "DriverID": 30,
+          "PlayerType": 1,
+          "WheelType": "R5VQualifier"
+        },
+        "1": {
+          "CarClass": 0,
+          "CarID": 26,
+          "CarType": "Mercedes",
+          "Colour": [
+            1.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "DriverID": 31,
+          "PlayerType": 1,
+          "WheelType": "Mercedes"
+        },
+        "2": {
+          "CarClass": 1,
+          "CarID": 9,
+          "CarType": "Jump",
+          "Colour": [
+            0.96,
+            0.8,
+            0.12,
+            1.0
+          ],
+          "DriverID": 6,
+          "PlayerType": 2,
+          "WheelType": "Jump"
+        },
+        "3": {
+          "CarClass": 1,
+          "CarID": 13,
+          "CarType": "Kiasportage",
+          "Colour": [
+            0.37,
+            0.43,
+            0.5,
+            1.0
+          ],
+          "DriverID": 7,
+          "PlayerType": 2,
+          "WheelType": "Kiasportage"
+        }
+      },
+      "status": "CONFIRMED_BY_RUNTIME"
+    },
+    "vehicle_select_reentry_divergence": {
+      "afterrace_car_model": 27,
+      "afterrace_player_id": 1,
+      "afterrace_x_ordinal": 7,
+      "different_player_ids": true,
+      "navara_reset_car_model": 7,
+      "navara_reset_player_id": 0,
+      "navara_reset_x_ordinal": 0,
+      "status": "REPRODUCED_BOUNDED_FRONTEND_STATE_DIVERGENCE",
+      "stored_quickrace_car0_both": 27,
+      "vehicle_record_loss_inferred": false
+    }
+  },
+  "schema_version": 2
 }

@@ -1,0 +1,18 @@
+{
+  "canonicalization": "UTF-8 JSON, sorted keys, compact separators",
+  "canonical_sha256": "22c8f428b8e1508091e3b447b1f4d9c5851aca64ca4475b0d70abf9d9c545eb7",
+  "identity": {
+    "addon_plan_sha256": "357d3cf10f32b63af27d28c23a858197d7eedbd0d7ef79e4deb2a63a6b170989",
+    "identity_schema": "r5v-j2-runtime-candidate-identity-v1",
+    "indexed_resource_count": 243,
+    "launcher_sha256": "4a91217c7fcb1e78f2165d12634ee7fd1746ae28a5855c9698f10b8904a0afd4",
+    "native_operation_count": 248,
+    "native_patch_manifest_sha256": "09d2852ff8c439bb102d5b6a351860101fc7094175ab79bd2faeefe79c9b891c",
+    "native_patch_operations_sha256": "aac0f887227c64ca4a591f542d9eda8a170b8b76f16687145c23e33664d57c17",
+    "profile": "r5v-j2-vehicle-select-reentry-two-addon-retail-2001",
+    "reconstructed_reference_image_sha256": "a2170bdbdd1bc951862bc9fd6c93fc9a26d9eeba2b4b014810fc85474055dc2f",
+    "resource_index_sha256": "2fc7121c3d4f66c407cedbcb47dc223c580301971e3d12d16aa197c7a70a3384",
+    "resource_manifest_sha256": "b7e0fd4f785ed3f7a94dc6a0632cd8c16d7311478470087ad42bd73c0b871948",
+    "retail_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4"
+  }
+}

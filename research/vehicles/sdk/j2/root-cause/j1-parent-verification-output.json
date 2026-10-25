@@ -1,0 +1,20 @@
+{
+  "addon_plan_sha256": "357d3cf10f32b63af27d28c23a858197d7eedbd0d7ef79e4deb2a63a6b170989",
+  "file_only_operation_count": 1,
+  "patch_manifest_sha256": "78c1070f2e656677f02d22f5d4fdff457e43c7ba74c67bb4e5a5c1488ca53179",
+  "patch_operation_count": 246,
+  "patch_ops_sha256": "f4938b1a997364e371af6b1aee4798ca1865d67b22752bead9849c5d216a34ce",
+  "patched_executable_written": false,
+  "process_memory_operation_count": 245,
+  "reconstructed_reference_file_sha256": "dd03adbd9f45c679e59d09e0a9f09337bd99c787d81f4ce018edb654c1cec881",
+  "resource_count": 243,
+  "resource_index_sha256": "2fc7121c3d4f66c407cedbcb47dc223c580301971e3d12d16aa197c7a70a3384",
+  "retail_exe": {
+    "path_label": "MRallye.exe",
+    "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "size": 3121214,
+    "status": "EXACT_RETAIL_BUILD_VERIFIED"
+  },
+  "runtime_qualified": false,
+  "status": "PASS_STATIC_RUNTIME_BUNDLE"
+}

@@ -1,10 +1,12 @@
-# R5V-J.2 combined runtime bundle audit
+# R5V-J.2 combined runtime bundle and re-entry candidate audit
 
 ## Candidate identity
 
-The tested bundle is the existing J.1 **combined two-addon** candidate. It is
-one plan, one runtime resource root and one native patch operation table; it
-is not a pair of separate one-addon launches.
+The 2026-10-09 gameplay captures were produced by the existing J.1
+**combined two-addon** candidate: one plan, one runtime resource root and one
+native patch operation table, not separate one-addon launches. The J.2
+re-entry candidate below is a static derivative of that exact bundle; it has
+not yet been used for the supplied captures or human-tested.
 
 | Artifact | Location under checkout | SHA256 / value |
 |---|---|---|
@@ -61,6 +63,53 @@ provide human runtime qualification of this route. The Observatory captures
 themselves do not encode the launcher SHA or full resource-root path, so those
 values remain candidate/handoff provenance rather than Broker-derived facts.
 
+## J.2 Vehicle Select re-entry derivative
+
+The ignored candidate under
+`.research-output/vehicles/sdk/j2-reentry/runtime-candidate/` preserves the
+J.0 plan, all 246 parent J.1 operations, and all 243 resources. It appends only
+the constructor-convergence XY republish hook and its stub, producing 248
+operations. Its dedicated Windows launcher is 141,312 bytes with SHA256
+`c10c27a72387004a3696a1eab3d25f24e777ea2c566bf0a5f642f68e1085765c`. The
+J.2 patch manifest SHA is
+`53c5b1deccfaee1e798a7ff271db8232028eab501060186b582b04974e41b489`; the
+operation payload SHA is
+`945012567528fbe1b2794ed48b6d17473bcca340cc4e35d60d41a0fdd1c4fd9e`.
+Native launcher `--verify` accepted the exact retail executable, 243-resource
+inventory, and all 248 operations. This is static/package verification only;
+the constructor hook still requires the human re-entry test.
+
+## Critical hotfix disposition
+
+The candidate above was later **FAILED_BY_HUMAN_RUNTIME** because opening
+Vehicle Select crashed. It is retained unchanged as the failure record. The
+static root cause was both post-`0x004D0580` LEAs using `[ESP+0x14]` after that
+callee's `RET 4`; both must use `[ESP+0x18]` to address the constructor local
+at `S+0x14`.
+
+The separate repaired candidate lives at
+`.research-output/vehicles/sdk/j2-reentry/repaired-candidate/`. Its launcher
+SHA256 is
+`4a91217c7fcb1e78f2165d12634ee7fd1746ae28a5855c9698f10b8904a0afd4`, patch
+manifest SHA256 is
+`09d2852ff8c439bb102d5b6a351860101fc7094175ab79bd2faeefe79c9b891c`,
+operation-table SHA256 is
+`aac0f887227c64ca4a591f542d9eda8a170b8b76f16687145c23e33664d57c17`, and
+reconstructed reference-image SHA256 is
+`a2170bdbdd1bc951862bc9fd6c93fc9a26d9eeba2b4b014810fc85474055dc2f`. It
+retains exactly the parent 246-operation body, adds the same two J.2
+operations, and still verifies 243 resources. The 86-byte stub SHA256 is
+`f39f33838e0e7d3d276fbec03af0439c6c36a4807224ebe8cfc7ce14e70324ee`.
+
+The emitted-byte symbolic verifier confirms both path-object addresses equal
+`S+0x14`, call order/targets, `RET 4` / plain `RET` / `RET 8` stack effects,
+balanced flags, final ESP and exact continuation. A negative test changes the
+two displacements back to `0x14` and is rejected. Native launcher `--verify`
+passes for the repaired bundle. The owner later confirmed that this
+stack-fixed candidate opens Vehicle Select and restores ID26, but ID27 still
+returns as Navara. It is superseded for the current retest by the
+root-cause candidate below.
+
 ## Verification and scope boundary
 
 The final existing bundle passed both the native launcher verifier
@@ -75,3 +124,33 @@ reference profiles and composes the audited H.2/I.1 patch layers. This is a
 fail-closed two-profile capability, not generic arbitrary-addon runtime
 execution. The J.0 compiler remains manifest-driven and unchanged. ID28 and
 broader ID allocation runtime support are outside J.2.
+
+## Current root-cause candidate — ID27 reverse-map correction
+
+The stack-fixed candidate above was subsequently tested by the owner: Vehicle
+Select opens, ID26 restores, but ID27 still becomes Navara. Exact decoding of
+its effective reverse mapper found that the ID27 arm wrote T2/local7 into the
+T1 ordinal slot at `this+0x14`; T2's field is `this+0x18`. The latest separate
+candidate is under
+`.research-output/vehicles/sdk/j2-reentry/root-cause-candidate/`. It is
+derived from the same 246-operation J.1 parent, corrects one inherited
+displacement byte, and retains the two stack-fixed J.2 publication
+operations: 248 operations total and the same 243 resources.
+
+| Artifact | SHA256 |
+|---|---|
+| Launcher | `1fb190ae85d2b7b119576a650e4723abb1130ef4bbdee6d353357087e3de66c7` |
+| Native patch manifest | `162de9762c070fd970731da030f03150b303ecf2f8886bd4f25ca357b9129f11` |
+| Native operation table | `44c139de5b211947857bcb4e70ac84a6b9f1adc23cc9b0fe2a520978a5282f5a` |
+| Reconstructed reference image | `2f3b1d95d05c997bb13d6a8e235327098e344b75b46d0432c4a3a7ecf289ab64` |
+| Constructor publisher stub | `f39f33838e0e7d3d276fbec03af0439c6c36a4807224ebe8cfc7ce14e70324ee` |
+
+The operation-table correction changes the inherited ID27 store at VA
+`0x0068E895` from `C7 46 14 07` to `C7 46 18 07`; only the displacement byte
+at file offset `0x28E897` changes within that inherited operation. Exact
+candidate verification checks the emitted reverse and forward mapper bytes,
+ID27's T2/local7 state, ID26 and stock mapper preservation, operation count,
+resource hashes, and unchanged J.0 plan. The corrected candidate is
+`READY_FOR_HUMAN_RUNTIME`, not runtime-qualified. Use
+[`root-cause/human-retest.md`](root-cause/human-retest.md); the previous
+stack-only candidate is not the candidate to test.

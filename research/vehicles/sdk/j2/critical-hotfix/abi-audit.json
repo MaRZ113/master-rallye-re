@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "phase": "R5V-J.2 critical Vehicle Select re-entry hotfix",
+  "retail_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "constructor": {
+    "name": "FUN_00480B60",
+    "entry_va": "0x00480B60",
+    "hook_va": "0x00481152",
+    "displaced": "PUSH 0x006b74f8",
+    "continuation_va": "0x00481157",
+    "local_broker_path_object": "S+0x14"
+  },
+  "native_helpers": {
+    "broker_path_init": {
+      "va": "0x004D0580",
+      "calling_convention": "thiscall",
+      "ecx": "Broker path object pointer",
+      "stack_arguments": 1,
+      "epilogue": "POP ESI; RET 4",
+      "stack_cleanup": 4
+    },
+    "broker_value_get": {
+      "va": "0x004D8EC0",
+      "epilogue": "POP EDI; POP ESI; POP EBX; ADD ESP,0x20; RET",
+      "stack_cleanup": 0
+    },
+    "broker_value_set": {
+      "va": "0x004D8000",
+      "calling_convention": "thiscall",
+      "ecx": "Broker value container",
+      "stack_arguments": ["path/index pointer", "value"],
+      "epilogue": "POP ESI; POP EBP; ADD ESP,0x24; RET 8",
+      "stack_cleanup": 8
+    }
+  },
+  "stub": {
+    "va": "0x0068EB40",
+    "size": 86,
+    "previous_failed_sha256": "f0485557df0654c21a48b0acfed4639e0bb36591b8f80f16963c315981e857e1",
+    "repaired_sha256": "f39f33838e0e7d3d276fbec03af0439c6c36a4807224ebe8cfc7ce14e70324ee",
+    "changes": [
+      {
+        "field": "YValue post-path-init object LEA",
+        "previous": "8D 4C 24 14",
+        "repaired": "8D 4C 24 18",
+        "effective_address": "S-4+0x18=S+0x14"
+      },
+      {
+        "field": "XValue post-path-init object LEA",
+        "previous": "8D 4C 24 14",
+        "repaired": "8D 4C 24 18",
+        "effective_address": "S-4+0x18=S+0x14"
+      }
+    ],
+    "pre-path-init_leas_unchanged": ["8D 4C 24 1C", "8D 4C 24 1C"],
+    "path_object_offsets": ["S+0x14", "S+0x14"],
+    "stack_before_replayed_push": "S",
+    "continuation_stack": "S-4",
+    "replayed_instruction": "PUSH 0x006b74f8",
+    "continuation_va": "0x00481157",
+    "verifier": "verify_republish_stub decodes actual emitted bytes and symbolically applies audited helper cleanup"
+  },
+  "candidate": {
+    "runtime_candidate_identity_sha256": "22c8f428b8e1508091e3b447b1f4d9c5851aca64ca4475b0d70abf9d9c545eb7",
+    "launcher_sha256": "4a91217c7fcb1e78f2165d12634ee7fd1746ae28a5855c9698f10b8904a0afd4",
+    "native_patch_manifest_sha256": "09d2852ff8c439bb102d5b6a351860101fc7094175ab79bd2faeefe79c9b891c",
+    "native_patch_operations_sha256": "aac0f887227c64ca4a591f542d9eda8a170b8b76f16687145c23e33664d57c17",
+    "reconstructed_reference_image_sha256": "a2170bdbdd1bc951862bc9fd6c93fc9a26d9eeba2b4b014810fc85474055dc2f",
+    "addon_plan_sha256": "357d3cf10f32b63af27d28c23a858197d7eedbd0d7ef79e4deb2a63a6b170989",
+    "operation_count": 248,
+    "resource_count": 243,
+    "runtime_qualified": false
+  },
+  "status": {
+    "previous_candidate": "FAILED_BY_HUMAN_RUNTIME",
+    "repaired_candidate": "READY_FOR_HUMAN_RUNTIME",
+    "human_hotfix_retest": "PENDING"
+  }
+}

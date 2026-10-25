@@ -1,0 +1,7 @@
+test_patch_plan_is_deterministic_and_preserves_identity_maps (tests.synthetic.test_j2_frontend_reentry.J2ReentryPatchPlanTests.test_patch_plan_is_deterministic_and_preserves_identity_maps) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 6.116s
+
+OK
+exit_code=0

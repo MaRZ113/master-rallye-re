@@ -61,6 +61,16 @@ test_force_report_failure_never_leaves_stale_sidecar (test_dx_revision_upgrade_c
 test_help_and_version_are_available_without_repository_import_path (test_dx_revision_upgrade_cli.DxRevisionUpgradeCliTests.test_help_and_version_are_available_without_repository_import_path) ... ok
 test_single_file_writes_valid_dx_and_machine_report (test_dx_revision_upgrade_cli.DxRevisionUpgradeCliTests.test_single_file_writes_valid_dx_and_machine_report) ... ok
 test_vehicle_directory_processes_only_dx_roles_and_emits_manifest (test_dx_revision_upgrade_cli.DxRevisionUpgradeCliTests.test_vehicle_directory_processes_only_dx_roles_and_emits_manifest) ... ok
+test_j1_parent_operations_and_j0_semantics_remain_unchanged (test_j2_frontend_reentry.J2ReentryPatchPlanTests.test_j1_parent_operations_and_j0_semantics_remain_unchanged) ... ok
+test_patch_plan_is_deterministic_and_preserves_identity_maps (test_j2_frontend_reentry.J2ReentryPatchPlanTests.test_patch_plan_is_deterministic_and_preserves_identity_maps) ... ok
+test_site_hook_uses_exact_stock_preimage_and_reaches_stub (test_j2_frontend_reentry.J2ReentryPatchPlanTests.test_site_hook_uses_exact_stock_preimage_and_reaches_stub) ... ok
+test_stub_is_in_executable_zero_fill_after_parent_payload (test_j2_frontend_reentry.J2ReentryPatchPlanTests.test_stub_is_in_executable_zero_fill_after_parent_payload) ... ok
+test_two_new_ops_do_not_mutate_physical_selection_or_commit_state (test_j2_frontend_reentry.J2ReentryPatchPlanTests.test_two_new_ops_do_not_mutate_physical_selection_or_commit_state) ... ok
+test_wrong_build_is_rejected_before_j2_derivation (test_j2_frontend_reentry.J2ReentryPatchPlanTests.test_wrong_build_is_rejected_before_j2_derivation) ... ok
+test_native_stub_only_republishes_xy_and_replays_vehicle_list (test_j2_frontend_reentry.VehicleSelectReentryModelTests.test_native_stub_only_republishes_xy_and_replays_vehicle_list) ... ok
+test_player_slots_map_independently_without_aliasing (test_j2_frontend_reentry.VehicleSelectReentryModelTests.test_player_slots_map_independently_without_aliasing) ... ok
+test_sparse_physical_id_restoration_yields_class_and_local_ordinal (test_j2_frontend_reentry.VehicleSelectReentryModelTests.test_sparse_physical_id_restoration_yields_class_and_local_ordinal) ... ok
+test_stock_class_switch_ordinals_remain_native (test_j2_frontend_reentry.VehicleSelectReentryModelTests.test_stock_class_switch_ordinals_remain_native) ... ok
 test_absent_global_table_at_eof_is_parseable (test_library.DxLibraryTests.test_absent_global_table_at_eof_is_parseable) ... ok
 test_ambiguous_sidecar_material_matching (test_library.DxLibraryTests.test_ambiguous_sidecar_material_matching) ... ok
 test_bounds_errors_are_section_specific (test_library.DxLibraryTests.test_bounds_errors_are_section_specific) ... ok
@@ -397,6 +407,6 @@ test_verify_detects_scene_tamper_and_extra_profile_file (test_vehicle_unlock_run
 test_wrong_executable_or_scene_hash_is_rejected (test_vehicle_unlock_runtime_package.VehicleUnlockRuntimePackageTests.test_wrong_executable_or_scene_hash_is_rejected) ... ok
 
 ----------------------------------------------------------------------
-Ran 397 tests in 23.549s
+Ran 407 tests in 29.088s
 
 OK

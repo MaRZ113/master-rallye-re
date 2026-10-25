@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "phase": "R5V-J.2",
+  "status": "FULL_PASS_CLOSED",
+  "owner_report": {
+    "source": "direct owner runtime confirmation in conversation",
+    "new_observatory_capture_supplied": false,
+    "id27_vehicle_select_reentry": "HUMAN_CONFIRMED_PASS",
+    "candidate_launcher_sha256": "1fb190ae85d2b7b119576a650e4723abb1130ef4bbdee6d353357087e3de66c7",
+    "note": "This is later human evidence for the exact existing candidate; generation-time manifests are unchanged."
+  },
+  "static_mapping": {
+    "status": "STATICALLY_VERIFIED",
+    "corrected_instruction": "C7 46 18 07",
+    "local_field_offset_formula": "0x14 + 4 * class_id",
+    "class_local_reverse_map_must_write_selected_class_field": true
+  },
+  "prior_runtime_capture_evidence": {
+    "capture_batch": "2026-10-09",
+    "verified_json_raw_pairs": 19,
+    "two_addon_splitscreen_id26_id27": "CONFIRMED_BY_RUNTIME",
+    "rallye_cup_stage_persistence": "CONFIRMED_BY_RUNTIME",
+    "master_rallye_fresh_process_persistence": "CONFIRMED_BY_RUNTIME",
+    "native_dump_hardened_variant": "CONFIRMED_BY_RUNTIME"
+  },
+  "stock_launch_without_loader": {
+    "status": "HUMAN_CONFIRMED_UNINSTRUMENTED",
+    "instrumented_capture": false
+  },
+  "preserved_identities": {
+    "j0_addon_plan_sha256": "357d3cf10f32b63af27d28c23a858197d7eedbd0d7ef79e4deb2a63a6b170989",
+    "native_patch_manifest_sha256": "162de9762c070fd970731da030f03150b303ecf2f8886bd4f25ca357b9129f11",
+    "native_operation_table_sha256": "44c139de5b211947857bcb4e70ac84a6b9f1adc23cc9b0fe2a520978a5282f5a",
+    "reconstructed_reference_image_sha256": "2f3b1d95d05c997bb13d6a8e235327098e344b75b46d0432c4a3a7ecf289ab64",
+    "j2_publication_stub_sha256": "f39f33838e0e7d3d276fbec03af0439c6c36a4807224ebe8cfc7ce14e70324ee",
+    "j1_parent_operation_count": 246,
+    "j1_parent_operation_table_sha256": "f4938b1a997364e371af6b1aee4798ca1865d67b22752bead9849c5d216a34ce",
+    "retail_executable_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4"
+  }
+}

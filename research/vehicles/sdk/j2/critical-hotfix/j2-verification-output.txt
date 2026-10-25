@@ -1,0 +1,49 @@
+{
+  "addon_plan_sha256": "357d3cf10f32b63af27d28c23a858197d7eedbd0d7ef79e4deb2a63a6b170989",
+  "hook_va": 4723026,
+  "j2_added_operations": [
+    "vehicle_select_republish_final_class_local_xy",
+    "vehicle_select_republish_stub"
+  ],
+  "native_operation_count": 248,
+  "native_patch_manifest_sha256": "09d2852ff8c439bb102d5b6a351860101fc7094175ab79bd2faeefe79c9b891c",
+  "native_patch_operations_sha256": "aac0f887227c64ca4a591f542d9eda8a170b8b76f16687145c23e33664d57c17",
+  "original_executable_written": false,
+  "physical_ids_or_commit_state_changed_by_reentry_hook": false,
+  "profile": "r5v-j2-vehicle-select-reentry-two-addon-retail-2001",
+  "reference_reconstruction_sha256": "a2170bdbdd1bc951862bc9fd6c93fc9a26d9eeba2b4b014810fc85474055dc2f",
+  "retail_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "retail_exe_size": 3121214,
+  "runtime_qualified": false,
+  "status": "PASS_STATIC_J2_REENTRY_BUNDLE",
+  "stub_abi_audit": {
+    "broker_path_object_offsets": [
+      20,
+      20
+    ],
+    "calls": [
+      "0x004d0580",
+      "0x004d8ec0",
+      "0x004d8000",
+      "0x004d0580",
+      "0x004d8ec0",
+      "0x004d8000"
+    ],
+    "continuation": "0x00481157",
+    "continuation_esp": -4,
+    "entry_esp_before_replayed_push": 0,
+    "initialized_paths": [
+      "UI/XYButton/YValue",
+      "UI/XYButton/XValue"
+    ],
+    "path_init_ret_cleanup": 4,
+    "replayed_push": "PUSH 0x006b74f8",
+    "status": "PASS_SYMBOLIC_STUB_ABI",
+    "value_get_ret_cleanup": 0,
+    "value_set_ret_cleanup": 8
+  },
+  "stub_sha256": "f39f33838e0e7d3d276fbec03af0439c6c36a4807224ebe8cfc7ce14e70324ee",
+  "stub_size": 86,
+  "stub_va": 6875968
+}
+exit_code=0

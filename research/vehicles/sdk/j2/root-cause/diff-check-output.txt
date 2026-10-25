@@ -1,0 +1,10 @@
+warning: in the working copy of 'README.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'research/vehicles/architecture.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'research/vehicles/sdk/frontend-lifecycle.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'research/vehicles/sdk/j2/README.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'research/vehicles/sdk/j2/bundle-audit.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'research/vehicles/sdk/j2/human-qualification-handoff.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'research/vehicles/sdk/j2/runtime-evidence.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'research/vehicles/sdk/j2/validation.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'research/vehicles/sdk/remaining-gates.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'research/vehicles/status.md', LF will be replaced by CRLF the next time Git touches it

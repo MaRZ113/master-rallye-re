@@ -1,96 +1,92 @@
-# R5V-J.2 remaining human runtime qualification
+# SUPERSEDED: stack-only candidate is crash-free but ID27 still restores as Navara.
+# Use root-cause/human-retest.md and the root-cause-candidate directory.
 
-Use the existing combined two-addon candidate. Do not build or install two
-separate profiles. The raw 2026-10-09 captures already prove that this bundle
-has materialized Mercedes ID26 and R5VQualifier ID27 in separate player/AI
-scenarios, but the combined lifecycle gates below remain open.
+# J.2 Vehicle Select re-entry human test — prior candidate
 
-## Exact candidate and preflight
+This is the remaining J.2 human gate. The 2026-10-09 capture archive already
+confirms the simultaneous ID26/ID27 SplitScreen state, Rallye Cup stage reuse,
+and Master Rallye fresh-process roster persistence. This candidate only adds
+the narrowly scoped Vehicle Select re-entry synchronization described in
+[`frontend-reentry-fix.md`](frontend-reentry-fix.md).
 
-From the `master-rallye-re-vehicles` checkout:
+## Candidate and preflight
+
+The candidate is under the canonical vehicle checkout's ignored research
+output. It uses the unchanged retail executable and the J.2-specific external
+launcher:
 
 ```powershell
 $exe = 'D:\Game\Master Rallye\MRallye.exe'
-$loader = '.research-output\vehicles\sdk\j1\launcher-release-final\mr-runtime-launcher.exe'
-$bundle = '.research-output\vehicles\sdk\j1\reference-runtime-final'
+$root = 'D:\Game\Master Rallye\master-rallye-re-vehicles'
+$candidate = Join-Path $root '.research-output\vehicles\sdk\j2-reentry\runtime-candidate'
+$loader = Join-Path $candidate 'mr-runtime-launcher.exe'
+$bundle = Join-Path $candidate 'bundle'
 
 Get-FileHash -Algorithm SHA256 $exe
+Get-FileHash -Algorithm SHA256 $loader
 & $loader --verify $exe $bundle
-if ($LASTEXITCODE -ne 0) { throw 'J.2 combined runtime bundle verification failed' }
+if ($LASTEXITCODE -ne 0) { throw 'J.2 candidate preflight failed; do not launch' }
 ```
 
-Expected retail EXE SHA256: `bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4`
-(3,121,214 bytes). Expected launcher SHA256:
-`9d4a98d01166362933974f8c376f3a42323feecfdfd021af7df0a3b1aceb31b5`.
-Expected addon plan SHA256:
-`357d3cf10f32b63af27d28c23a858197d7eedbd0d7ef79e4deb2a63a6b170989`.
-Expected native patch manifest SHA256:
-`78c1070f2e656677f02d22f5d4fdff457e43c7ba74c67bb4e5a5c1488ca53179`.
-Expected resource index SHA256:
-`2fc7121c3d4f66c407cedbcb47dc223c580301971e3d12d16aa197c7a70a3384`.
-The effective resource root is
-`.research-output\vehicles\sdk\j1\reference-runtime-final\resource-root`.
-Only after preflight reports 243 verified resources and 246 native patch
-operations should the integrated launch begin:
+Expected values:
+
+| Artifact | SHA256 / value |
+|---|---|
+| On-disk retail EXE | `bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4` (3,121,214 bytes) |
+| J.2 external launcher | `c10c27a72387004a3696a1eab3d25f24e777ea2c566bf0a5f642f68e1085765c` (141,312 bytes) |
+| J.0 two-addon semantic plan | `357d3cf10f32b63af27d28c23a858197d7eedbd0d7ef79e4deb2a63a6b170989` |
+| J.2 native patch manifest | `53c5b1deccfaee1e798a7ff271db8232028eab501060186b582b04974e41b489` |
+| J.2 native operation payload | `945012567528fbe1b2794ed48b6d17473bcca340cc4e35d60d41a0fdd1c4fd9e` |
+| Runtime resource index | `2fc7121c3d4f66c407cedbcb47dc223c580301971e3d12d16aa197c7a70a3384` |
+| Native reconstructed image (analysis only) | `aee7439cdc00897b23984042b26e566629156330f908e6c03533bfd1bfe6255e` |
+
+Preflight should report 243 verified resources and 248 native patch operations.
+The resource root is `bundle\resource-root`; the original EXE is never written.
+After the test, recheck the retail EXE SHA. Do not run if any expected identity
+or inventory check differs.
+
+## Test sequence
+
+Launch the candidate only after `--verify` passes:
 
 ```powershell
 & $loader --integrated $exe $bundle
 ```
 
-Do not alter the retail EXE or replace/overwrite stock files. Keep all game
-profile/save files external and preserve them after the test. Existing
-unqualified adjacent wrapper DLLs are fail-closed conflicts; do not bypass
-that refusal. After each test, verify the retail EXE SHA again.
+Use an isolated/test profile if available. Do not overwrite stock files or
+reuse a valuable save for failure testing. Keep the loader log separate from
+Observatory captures. For each capture, record active `PlayerID`, stored
+QuickRace Car0/Car1, `VehicleSelect/CarModel`, `selectedCar`, class, and
+`UI/XYButton/XValue`/`YValue` separately.
 
-## Required test order and captures
+1. **ID27 / T2:** select and commit R5VQualifier, complete a short race,
+   return through normal Results/frontend flow, and reopen player 0 Vehicle
+   Select without navigating. Capture `j2-reentry-id27`. Expected: physical
+   CarModel 27, T2/YValue 1, local XValue 7, and R5VQualifier identity.
+2. **ID26 / T1:** repeat the return/reopen test for Mercedes. Capture
+   `j2-reentry-id26`. Expected: physical CarModel 26, T1/YValue 0, local
+   XValue 7, and Mercedes identity.
+3. **Stock ID7:** deliberately choose Navara and repeat. Capture
+   `j2-reentry-stock-id7`. Expected: CarModel 7, T2/YValue 1, XValue 0, and
+   normal stock selection behavior.
+4. **SplitScreen independence:** where the native mode allows it, set player 0
+   to ID27 and player 1 to ID26, leave/reopen each selector, and verify each
+   follows its own stored vehicle and local ordinal. Capture
+   `j2-reentry-splitscreen`.
+5. **Locked ID27:** with the stock unlock predicate false, verify its locked
+   presentation remains locked and accept cannot commit it. This is a
+   regression check; do not infer commit from `selectedCar` alone.
 
-Use the same combined candidate, record the loader log separately from
-Observatory Broker captures, and write down the visible result. The archive
-labels below are proposed labels; the observer must verify the actual values.
+The expected class/local map is ID27 -> T2/local 7, ID26 -> T1/local 7, and
+ID7 -> T2/local 0. No physical ID should alias another. Stop on a wrong
+CarModel, wrong class/local value, failed lock, crash, missing resource,
+profile mutation, or EXE hash change. No further J.3 or ID28 work is in scope.
 
-1. **SplitScreen composition, if the stock mode permits the pairing.** Use
-   ID26/T1 and ID27/T2 as the two human vehicles. Verify independent controls,
-   cameras and rendering; capture `j2-splitscreen-dual-addon`. For each player,
-   verify its physical ID, class and `CarType`/`WheelType`. If stock mode rules
-   prevent the pairing, capture that state and report the limitation without
-   forcing invalid values.
-2. **Vehicle Select re-entry.** Run a race using ID27, return through the
-   normal results/frontend route, reopen Vehicle Select without navigating,
-   and capture `j2-reentry-id27`. Expected selected identity: ID27, T2 local
-   index 7, `R5V T2 QUALIFIER`. Repeat for ID26 (`j2-reentry-id26`, T1 local
-   index 7) and stock ID7 (`j2-reentry-stock-id7`). Distinguish stored
-   Quick Race `Car0`, displayed `CarModel`, `selectedCar`, and XYButton local
-   ordinal; `selectedCar` alone is not a commit oracle.
-3. **Rallye Cup persistence.** Start a genuinely new T2 Cup and continue until
-   ID27 is naturally selected. Save `j2-cup-id27-stage1`, finish and advance
-   one stage, then capture `j2-cup-id27-stage2`. Compare the complete physical
-   ID/class/DriverID roster. The roster must be reused, not rerolled.
-4. **Master Rallye persistence.** Start a genuinely new T2 competition and
-   continue until ID27 naturally appears. Capture `j2-master-id27-new`, allow
-   native save, close the process, start a fresh process through the same
-   verified bundle, resume and capture `j2-master-id27-resume`; advance a stage
-   and capture `j2-master-id27-next` if practical. Compare the native
-   `MasterRallye/CarN` and live `Race/CarN` identity including DriverID. Do not
-   use or mutate an older stock-only competition as the inclusion test.
-5. **Visual and removal controls.** Confirm both addon models/wheels, frontend
-   names, locked and unlocked presentation where available, Results identities,
-   Race Details, HUD and progress marker colors (Mercedes red, qualifier
-   magenta). Close the modded run, then start the unchanged EXE without the
-   launcher and verify stock startup; do not delete external profile data.
+## Evidence classification
 
-## Expected identity oracle
-
-| Vehicle | Physical ID / class | Runtime family | Race colour |
-|---|---|---|---|
-| Mercedes | 26 / T1 | `Mercedes` for CarType and WheelType | `[1,0,0,1]` |
-| R5VQualifier | 27 / T2 | `R5VQualifier` for CarType and WheelType | `[1,0,1,1]` |
-
-Results display names are `JEAN-PIERRE STRUGO` for ID26 and `R5V TEST DRIVER`
-for ID27; these do not set or replace native DriverID. A successful Broker
-capture proves state values, not visual artwork or gameplay quality.
-
-## Stop conditions
-
-Stop the affected test on a wrong physical ID/class/family, missing resource,
-crash, corrupt model, control/camera crossover, unexpected profile mutation,
-or failed hash/preflight. Do not continue into J.3 or ID28 qualification.
+The existing 19-pair archive is already verified and summarized in
+`runtime-evidence-2026-10-09.json`. It confirms the prior gameplay and
+persistence results; it does not itself test this newly built J.2 re-entry
+hook. A successful preflight is only package/static evidence. The human screen
+and in-game result plus Broker state are required before marking the re-entry
+fix runtime-confirmed or closing J.2.
