@@ -1,0 +1,89 @@
+[
+  {
+    "addon_id": "scale-t2-probe",
+    "ai_eligibility": {
+      "challenge": {
+        "enabled": false,
+        "reason": "Challenge rosters are authored and are not automatically modified."
+      },
+      "invitation": {
+        "enabled": false,
+        "reason": "V1 Invitation qualification is limited to an explicit ordinary T3 policy."
+      },
+      "master_rallye": {
+        "boundary": "new_competition",
+        "enabled": true,
+        "pool": "dynamic_class"
+      },
+      "practice": {
+        "enabled": false,
+        "reason": "No distinct stock Practice AI pool is qualified."
+      },
+      "quick_race": {
+        "boundary": "new_race",
+        "enabled": true,
+        "pool": "dynamic_class"
+      },
+      "rallye_cup": {
+        "boundary": "new_cup",
+        "enabled": true,
+        "pool": "dynamic_class"
+      }
+    },
+    "assets": {
+      "model_package_root": "DataGx/Vehicles/ScaleT2Probe",
+      "required_roles": [
+        "car.dx",
+        "complete.dx",
+        "wheel.dx"
+      ]
+    },
+    "audio": {
+      "policy": "stock_profile",
+      "stock_audio_profile_id": 7
+    },
+    "class_local_index": 8,
+    "frontend": {
+      "combined": "SDK T2 CAPACITY PROBE",
+      "manufacturer": "SDK",
+      "model": "T2 CAPACITY PROBE",
+      "smallcarsheet": {
+        "policy": "stock_frame",
+        "frame": 13
+      },
+      "stats": [
+        7,
+        6,
+        6,
+        5
+      ],
+      "vehicle_select_art": {
+        "policy": "stock_frame",
+        "frame": 23
+      }
+    },
+    "identity": {
+      "model_family": "ScaleT2Probe",
+      "physics_family": "Vehicles/ScaleT2Probe",
+      "runtime_family": "ScaleT2Probe",
+      "wheel_family": "ScaleT2Probe"
+    },
+    "physical_id": 28,
+    "race_colour_rgba": [
+      1.0,
+      0.5,
+      0.0,
+      1.0
+    ],
+    "race_colour_rgba_f32le_hex": "0000803f0000003f000000000000803f",
+    "results": {
+      "display_name": "SDK CAPACITY TEST",
+      "policy": "fixed"
+    },
+    "unlock": {
+      "policy": "mirror_stock_unlock",
+      "stock_vehicle_id": 10
+    },
+    "vehicle_class": "T2"
+  }
+]

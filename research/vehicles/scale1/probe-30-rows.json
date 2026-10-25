@@ -1,0 +1,176 @@
+[
+  {
+    "addon_id": "capacity-probe-0",
+    "ai_eligibility": {
+      "challenge": {
+        "enabled": false,
+        "reason": "Challenge rosters are authored and are not automatically modified."
+      },
+      "invitation": {
+        "enabled": false,
+        "reason": "V1 Invitation qualification is limited to an explicit ordinary T3 policy."
+      },
+      "master_rallye": {
+        "boundary": "new_competition",
+        "enabled": true,
+        "pool": "dynamic_class"
+      },
+      "practice": {
+        "enabled": false,
+        "reason": "No distinct stock Practice AI pool is qualified."
+      },
+      "quick_race": {
+        "boundary": "new_race",
+        "enabled": true,
+        "pool": "dynamic_class"
+      },
+      "rallye_cup": {
+        "boundary": "new_cup",
+        "enabled": true,
+        "pool": "dynamic_class"
+      }
+    },
+    "assets": {
+      "model_package_root": "DataGx/Vehicles/ScaleProbe0",
+      "required_roles": [
+        "car.dx",
+        "complete.dx",
+        "wheel.dx"
+      ]
+    },
+    "audio": {
+      "policy": "stock_profile",
+      "stock_audio_profile_id": 7
+    },
+    "class_local_index": 8,
+    "frontend": {
+      "combined": "SDK PROBE 0",
+      "manufacturer": "SDK",
+      "model": "PROBE 0",
+      "smallcarsheet": {
+        "frame": 13,
+        "policy": "stock_frame"
+      },
+      "stats": [
+        7,
+        6,
+        6,
+        5
+      ],
+      "vehicle_select_art": {
+        "frame": 23,
+        "policy": "stock_frame"
+      }
+    },
+    "identity": {
+      "model_family": "ScaleProbe0",
+      "physics_family": "Vehicles/ScaleProbe0",
+      "runtime_family": "ScaleProbe0",
+      "wheel_family": "ScaleProbe0"
+    },
+    "physical_id": 28,
+    "race_colour_rgba": [
+      1.0,
+      0.5,
+      0.0,
+      1.0
+    ],
+    "race_colour_rgba_f32le_hex": "0000803f0000003f000000000000803f",
+    "results": {
+      "display_name": "SDK PROBE 0",
+      "policy": "fixed"
+    },
+    "unlock": {
+      "policy": "mirror_stock_unlock",
+      "stock_vehicle_id": 10
+    },
+    "vehicle_class": "T2"
+  },
+  {
+    "addon_id": "capacity-probe-1",
+    "ai_eligibility": {
+      "challenge": {
+        "enabled": false,
+        "reason": "Challenge rosters are authored and are not automatically modified."
+      },
+      "invitation": {
+        "enabled": false,
+        "reason": "V1 Invitation qualification is limited to an explicit ordinary T3 policy."
+      },
+      "master_rallye": {
+        "boundary": "new_competition",
+        "enabled": true,
+        "pool": "dynamic_class"
+      },
+      "practice": {
+        "enabled": false,
+        "reason": "No distinct stock Practice AI pool is qualified."
+      },
+      "quick_race": {
+        "boundary": "new_race",
+        "enabled": true,
+        "pool": "dynamic_class"
+      },
+      "rallye_cup": {
+        "boundary": "new_cup",
+        "enabled": true,
+        "pool": "dynamic_class"
+      }
+    },
+    "assets": {
+      "model_package_root": "DataGx/Vehicles/ScaleProbe1",
+      "required_roles": [
+        "car.dx",
+        "complete.dx",
+        "wheel.dx"
+      ]
+    },
+    "audio": {
+      "policy": "stock_profile",
+      "stock_audio_profile_id": 7
+    },
+    "class_local_index": 9,
+    "frontend": {
+      "combined": "SDK PROBE 1",
+      "manufacturer": "SDK",
+      "model": "PROBE 1",
+      "smallcarsheet": {
+        "frame": 13,
+        "policy": "stock_frame"
+      },
+      "stats": [
+        7,
+        6,
+        6,
+        5
+      ],
+      "vehicle_select_art": {
+        "frame": 23,
+        "policy": "stock_frame"
+      }
+    },
+    "identity": {
+      "model_family": "ScaleProbe1",
+      "physics_family": "Vehicles/ScaleProbe1",
+      "runtime_family": "ScaleProbe1",
+      "wheel_family": "ScaleProbe1"
+    },
+    "physical_id": 29,
+    "race_colour_rgba": [
+      1.0,
+      0.5,
+      0.0,
+      1.0
+    ],
+    "race_colour_rgba_f32le_hex": "0000803f0000003f000000000000803f",
+    "results": {
+      "display_name": "SDK PROBE 1",
+      "policy": "fixed"
+    },
+    "unlock": {
+      "policy": "mirror_stock_unlock",
+      "stock_vehicle_id": 10
+    },
+    "vehicle_class": "T2"
+  }
+]
