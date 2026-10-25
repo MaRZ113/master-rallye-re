@@ -8,6 +8,7 @@ import hashlib
 import json
 import math
 import os
+import re
 from pathlib import Path
 import shutil
 import struct
@@ -164,7 +165,7 @@ class WorkshopProject:
               'inputs':{name:sha(raw) for name,raw in files.items()},'edits':{},'history':[],
               'author_sources':author_sources,
               'extensions':{key:[] for key in EXTENSIONS},'build_settings':{},'last_build':None,
-              'limitations':'D3D9 diagnostic preview; texture edits are whole-image overrides, not semantic base-paint recoloring'}
+              'limitations':'D3D9 diagnostic preview; paint needs explicit hash-qualified masks; shared image replacement affects every declared owner; no automatic semantic classification or skeletal authoring'}
         if imported_edits:
             folder=output/'overrides';folder.mkdir()
             for name,raw in imported_edits.items():
@@ -194,17 +195,147 @@ class WorkshopProject:
             if sha(Path(path).read_bytes())!=expected:raise ValueError('Original author input changed: '+path)
         for name,expected in self.data['inputs'].items():
             if sha(_owned(self.baseline,name).read_bytes())!=expected:raise ValueError('Workshop baseline changed: '+name)
+        for region in self.data.get('paint_regions',{}).values():
+            digest=region['mask_sha256']
+            if not isinstance(digest,str) or not re.fullmatch('[0-9a-f]{64}',digest) or region['texture']not in self.data['inputs'] or region['source_sha256']!=self.data['inputs'][region['texture']]:raise ValueError('Invalid paint region identity')
+            if sha((self.root/'paint-masks'/(digest+'.png')).read_bytes())!=digest:raise ValueError('Paint mask changed')
+        if self.data.get('mechanical_input_sha256') and sha((self.root/'original-mechanical.json').read_bytes())!=self.data['mechanical_input_sha256']:raise ValueError('Mechanical baseline changed')
+        if self.data.get('shadow_input_sha256') and sha((self.root/'original-shadow.json').read_bytes())!=self.data['shadow_input_sha256']:raise ValueError('Shadow baseline changed')
 
     def _record(self):
         self.data['history'].append(self._state())
         self.data['history']=self.data['history'][-30:]
         self.data['redo']=[]
 
-    def _state(self):return json.loads(json.dumps({'__workshop_state__':1,'textures':self.data['edits'],'surfaces':self.data.get('surfaces',{})}))
+    def _state(self):return json.loads(json.dumps({'__workshop_state__':1,'textures':self.data['edits'],'surfaces':self.data.get('surfaces',{}),
+        **{k:self.data.get(k,{}) for k in ('appearance_profiles','crew','paint_regions','color_presets')},'appearance':self.data.get('appearance','Source Fidelity')}))
 
     def _load_state(self,state):
-        if state.get('__workshop_state__')==1:self.data['edits']=state['textures'];self.data['surfaces']=state['surfaces']
+        if state.get('__workshop_state__')==1:
+            self.data['edits']=state['textures'];self.data['surfaces']=state['surfaces']
+            for key in ('appearance_profiles','crew','paint_regions','color_presets'):self.data[key]=state.get(key,{})
+            self.data['appearance']=state.get('appearance','Source Fidelity')
         else:self.data['edits']=state;self.data['surfaces']={}
+
+    def switch_appearance(self,name):
+        if name not in ('Source Fidelity','Classic MR Style','Custom'):raise ValueError('Unknown appearance profile')
+        self._record();profiles=self.data.setdefault('appearance_profiles',{})
+        profiles[self.data.get('appearance','Source Fidelity')]={'textures':self.data['edits'],'surfaces':self.data.get('surfaces',{})}
+        target=json.loads(json.dumps(profiles.get(name,{'textures':{},'surfaces':{}})))
+        self.data['edits']=target['textures'];self.data['surfaces']=target['surfaces'];self.data['appearance']=name
+        self.materialize();self.save()
+
+    def register_paint_region(self,name,texture,mask_path,evidence):
+        from master_rallye.paint_authoring import masked_paint
+        if not isinstance(name,str) or not name.strip() or len(name)>80:raise ValueError('Choose a short region name')
+        raw=_owned(self.baseline,texture).read_bytes();mask=Path(mask_path).read_bytes()
+        _,audit=masked_paint(raw,mask,[255,255,255],source_sha256=self.data['inputs'][texture],evidence=evidence)
+        usage=self.texture_usage(texture)
+        if usage and not audit['nonzero_alpha_selected_texels'] and all(any(parse_dx_bytes((self.assets/use['model']).read_bytes()).physical_draws[use['draw']].flags_0x20[:2]) for use in usage):raise ValueError('Mask selects only invisible alpha texels in a blend/cutout overlay. Qualify the underlying opaque paint pass instead.')
+        existing=self.data.get('paint_regions',{}).get(name)
+        if existing and (existing['texture']!=texture or existing['mask_sha256']!=sha(mask)):raise ValueError('Use a new region name for a different mask or texture; existing paint recipes stay pinned')
+        folder=self.root/'paint-masks';folder.mkdir(exist_ok=True);(folder/(sha(mask)+'.png')).write_bytes(mask)
+        self._record();self.data.setdefault('paint_regions',{})[name]={'texture':texture,'source_sha256':sha(raw),'mask_sha256':sha(mask),'evidence':evidence,'audit':audit}
+        self.save();return audit
+
+    def paint_region(self,name,color):
+        from master_rallye.paint_authoring import masked_paint
+        region=self.data.get('paint_regions',{})[name];texture=region['texture']
+        mask=(self.root/'paint-masks'/(region['mask_sha256']+'.png')).read_bytes()
+        if sha(mask)!=region['mask_sha256']:raise ValueError('Paint mask changed')
+        previous=self.data['edits'].get(texture)
+        if previous and previous['operation']!='qualified-masked-paint':raise ValueError('Restore this texture before painting; another texture edit owns its pixels')
+        layers=dict(previous.get('paint_layers',{})) if previous else {};layers[name]=color
+        raw=_owned(self.baseline,texture).read_bytes();audits=[]
+        for key,value in layers.items():
+            r=self.data['paint_regions'][key];image=(self.root/'paint-masks'/(r['mask_sha256']+'.png')).read_bytes()
+            if sha(image)!=r['mask_sha256']:raise ValueError('Paint mask changed')
+            raw,audit=masked_paint(raw,image,value,source_sha256=sha(raw),evidence=r['evidence']);audits.append(audit)
+        self._record();self._apply(texture,raw[20:],{'operation':'qualified-masked-paint','paint_layers':layers,'audits':audits,'alpha':'preserved'})
+        return audit
+
+    def save_color_preset(self,name,color):
+        if not isinstance(name,str) or not name.strip() or len(name)>80:raise ValueError('Choose a short preset name')
+        if len(color)!=3 or any(type(v)is not int or not 0<=v<=255 for v in color):raise ValueError('Invalid color')
+        self._record();self.data.setdefault('color_presets',{})[name]=list(color);self.save()
+
+    @staticmethod
+    def stock_materials(folder):
+        """Local stock reference catalogue; parsing is not vehicle registration."""
+        from master_rallye.assets import AssetResolver
+        folder=plain_tree(folder);result=[]
+        for f in sorted(folder.glob('*.dx')):
+            m=parse_dx_bytes(f.read_bytes())
+            if not m.diagnostics.validated:raise ValueError('Invalid reference DX')
+            for d in m.physical_draws:
+                slots=[]
+                for slot in d.texture_slots:
+                    p=AssetResolver(folder).resolve_texture(slot.value)
+                    if p:
+                        raw=p.read_bytes();t=parse_dxt_bytes(raw)
+                        slots.append({'slot':slot.slot,'stem':slot.value,'path':str(p),'sha256':sha(raw),'width':t.width,'height':t.height,'alpha_range':[min(t.bgra[3::4]),max(t.bgra[3::4])]})
+                result.append({'model':f.name,'source_sha256':sha(f.read_bytes()),'draw':d.draw_index,'textures':slots,'semantics':MaterialSemantics.from_draw(d).to_dict(),
+                               'uv_warning':'No automatic UV adaptation. Compare layout, repeats, seams and alpha before assignment.'})
+        return result
+
+    def use_stock_texture(self,model,draw_id,slot,reference,*,allow_shared=False,resample_environment=False):
+        """Replace a private owned slot image, then use Binding v2 to validate it.
+
+        Shared atlases require explicit acknowledgement. New retail resources
+        are never added to the retail tree or silently substituted by name.
+        """
+        from master_rallye.texture_binding import binding_compatibility
+        from master_rallye.assets import AssetResolver
+        if type(slot)is not int or slot not in (0,1):raise ValueError('Only qualified existing slots 0/1')
+        self.verify_inputs();m=parse_dx_bytes(_owned(self.assets,model).read_bytes())
+        if type(draw_id)is not int or not 0<=draw_id<len(m.physical_draws):raise ValueError('Unknown draw')
+        stem=m.physical_draws[draw_id].texture_slots[slot].value
+        target=AssetResolver(self.assets).resolve_texture(stem)
+        if target is None or target.name not in self.data['inputs']:raise ValueError('Target slot has no owned image')
+        source=plain_tree(reference['path']);raw=source.read_bytes()
+        if sha(raw)!=reference['sha256']:raise ValueError('Stock reference changed')
+        a=parse_dxt_bytes(raw);b=self.texture(target.name)
+        adaptation='none; source and target dimensions match'
+        if (a.width,a.height)!=(b.width,b.height):
+            if slot!=1 or not resample_environment:raise ValueError('Diffuse transfer requires matching dimensions; opaque environment resizing requires explicit opt-in')
+            from PIL import Image
+            import io
+            image=Image.frombytes('RGBA',(a.width,a.height),a.bgra,'raw','BGRA')
+            image=image.convert('RGBa').resize((b.width,b.height),Image.Resampling.LANCZOS).convert('RGBA')
+            pixels=image.tobytes('raw','BGRA')
+            raw=b.header[:8]+struct.pack('<I',zlib.crc32(pixels)&0xffffffff)+b.header[12:]+pixels
+            adaptation=f'Explicit premultiplied-alpha environment-only LANCZOS resize {a.width}x{a.height} to {b.width}x{b.height}; native UVs unchanged'
+            a=parse_dxt_bytes(raw)
+        usage=self.texture_usage(target.name)
+        if len(usage)>1 and not allow_shared:raise ValueError('Shared target texture affects '+str(len(usage))+' slots; explicit acknowledgement required')
+        def provider(value):return raw if value==stem else self.binding_texture(value)
+        for use in usage:
+            model_bytes=_owned(self.assets,use['model']).read_bytes();parsed=parse_dx_bytes(model_bytes)
+            binding_compatibility(parsed,use['draw'],use['slot'],stem,provider)
+        self._record();self._apply(target.name,a.bgra,{'operation':'local-stock-reference','source_sha256':reference['sha256'],'source_path':str(source),'source_slot':reference['slot'],'adaptation':adaptation,'scope':'all declared uses of this owned texture','uv':'unchanged; visual compatibility requires owner inspection'})
+
+    def register_crew(self,model,definition):
+        return self.register_crew_models({model:definition})
+
+    def register_crew_models(self,definitions):
+        from master_rallye.crew_authoring import apply_crew_fit
+        if not definitions:raise ValueError('Empty crew preset')
+        for model,definition in definitions.items():
+            if model not in ('car.dx','complete.dx'):raise ValueError('Crew requires race or frontend body')
+            raw=_owned(self.baseline,model).read_bytes()
+            if definition['model_sha256']!=sha(raw):raise ValueError('Crew preset belongs to another model revision')
+            apply_crew_fit(raw,definition,{},source_sha256=sha(raw))
+        self._record()
+        for model,definition in definitions.items():self.data.setdefault('crew',{})[model]={'definition':json.loads(json.dumps(definition)),'placements':{}}
+        self.materialize();self.save()
+
+    def fit_crew(self,model,person,placement):
+        from master_rallye.crew_authoring import apply_crew_fit
+        entry=self.data.get('crew',{}).get(model)
+        if not entry:raise ValueError('Import a source-qualified crew preset for this model first')
+        placements={**entry['placements'],person:placement};raw=_owned(self.baseline,model).read_bytes()
+        _,report=apply_crew_fit(raw,entry['definition'],placements,source_sha256=sha(raw))
+        self._record();entry['placements']=placements;self.materialize();self.save();return report
 
     def edit_surface(self,model,draw_id,*,rgb=None,disable_reflection=None,reflection_strength=None):
         from master_rallye.surface_authoring import apply_surface_edits
@@ -307,6 +438,13 @@ class WorkshopProject:
             raw=_owned(self.baseline,model).read_bytes()
             output=apply_surface_edits(raw,list(edits.values()),source_sha256=self.data['inputs'][model],texture_provider=self.binding_texture).data
             write_resource(_owned(self.assets,model),output)
+        from master_rallye.crew_authoring import apply_crew_fit
+        crew_layers={}
+        for model,entry in self.data.get('crew',{}).items():
+            if model not in ('car.dx','complete.dx') or entry['definition']['model_sha256']!=self.data['inputs'][model]:raise ValueError('Crew definition baseline changed')
+            raw=_owned(self.assets,model).read_bytes()
+            layer={'source_sha256':sha(raw),**entry};output,_=apply_crew_fit(raw,entry['definition'],entry['placements'],source_sha256=sha(raw))
+            crew_layers[model]=layer;write_resource(_owned(self.assets,model),output)
         if self.data['kind']=='stock':
             meta=json.loads((self.working/'stock-project.json').read_text())
             for rel in meta['original_sha256']:
@@ -322,11 +460,42 @@ class WorkshopProject:
                 donor=_owned(original.source_vehicle_dir,name).read_bytes()
                 spec.setdefault('texture_replacements',{}).pop(name,None)
                 spec.setdefault('texture_edits',{})[name]={'source_sha256':sha(donor),'png':str(png),'refresh_crc32':True}
+            for model,layer in crew_layers.items():
+                entry=spec.setdefault('resources',{}).setdefault(model,{'source_sha256':sha((original.source_vehicle_dir/model).read_bytes())})
+                if 'crew_layer' in entry:raise ValueError('Author already owns a crew layer; merge in the source project first')
+                entry['crew_layer']=layer
+            mechanical=self.working/'mechanical-attachments.json'
+            if mechanical.exists():
+                immutable=self.root/'original-mechanical.json'
+                if not immutable.exists():
+                    initial=mechanical.read_bytes();definition=json.loads(initial)['definition']
+                    if definition['source_sha256']!=self.data['inputs']['car.dx']:raise ValueError('Mechanical baseline does not match imported car')
+                    immutable.write_bytes(initial);self.data['mechanical_input_sha256']=sha(initial);self.save()
+                from master_rallye.addon_sdk.visual_fitment import rebase_unchanged_mechanics
+                profile=json.loads(immutable.read_text())
+                profile['definition']=rebase_unchanged_mechanics((self.baseline/'car.dx').read_bytes(),(self.assets/'car.dx').read_bytes(),profile['definition'])
+                write_json(mechanical,profile)
+            shadow=self.working/'shadow-profile.json'
+            if shadow.exists():
+                immutable=self.root/'original-shadow.json'
+                if not immutable.exists():
+                    initial=shadow.read_bytes();immutable.write_bytes(initial);self.data['shadow_input_sha256']=sha(initial);self.save()
+                before=(self.baseline/'car.dx').read_bytes();after=(self.assets/'car.dx').read_bytes()
+                if mechanical.exists():
+                    from master_rallye.addon_sdk.mechanical_attachments import build_mechanical_resources
+                    wheel=(self.baseline/'wheel.dx').read_bytes();template=(original.source_vehicle_dir/'car.dx').read_bytes()
+                    old=json.loads((self.root/'original-mechanical.json').read_text())
+                    before=build_mechanical_resources(before,wheel,old['definition'],stock_brake_template=template)[0]['car.dx']
+                    after=build_mechanical_resources(after,wheel,profile['definition'],stock_brake_template=template)[0]['car.dx']
+                from master_rallye.addon_sdk.vehicle_shadow import rebase_unchanged_footprint
+                write_json(shadow,rebase_unchanged_footprint(before,after,json.loads(immutable.read_text())))
             write_json(self.working/'vehicle-project.json',spec)
 
     def restore(self,name=None):
         self._record()
-        if name is None:self.data['edits']={};self.data['surfaces']={}
+        if name is None:
+            self.data['edits']={};self.data['surfaces']={}
+            for entry in self.data.get('crew',{}).values():entry['placements']={}
         else:self.data['edits'].pop(name,None)
         self.materialize();self.save()
 
@@ -390,7 +559,7 @@ class WorkshopProject:
                 for name,edit in spec.get('texture_edits',{}).items():
                     image=author.resolve(edit['png']);destination=textures/(name+'.png');shutil.copyfile(image,destination);edit['png']=str(destination)
                 write_json(snapshot/'vehicle-project.json',spec)
-            write_json(output/'workshop-edit-ledger.json',{'project':str(self.root),'inputs':self.data['inputs'],'edits':self.data['edits'],'surfaces':self.data.get('surfaces',{}),'settings':settings})
+            write_json(output/'workshop-edit-ledger.json',{'project':str(self.root),'inputs':self.data['inputs'],'edits':self.data['edits'],'surfaces':self.data.get('surfaces',{}),'crew':self.data.get('crew',{}),'appearance':self.data.get('appearance','Source Fidelity'),'settings':settings})
             if self.data['kind']=='stock':
                 report=stock_project.build(snapshot,output/'stock-overrides')
                 roster.setdefault('stock_resource_projects',[]).append(str(snapshot))

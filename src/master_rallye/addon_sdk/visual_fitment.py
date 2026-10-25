@@ -115,6 +115,30 @@ def diagnose_mechanics(raw: bytes, definition: Mapping) -> dict:
             'boundary': 'declared rest-frame hubs only; no contact solve, equilibrium, jounce, steering or spin'}
 
 
+def rebase_unchanged_mechanics(before, after, definition):
+    """Re-pin an unchanged selected assembly after unrelated authoring edits.
+
+    This does not relax the exact hash check in the attachment builder. Every
+    selected position/normal/colour/UV/index/material and collision byte must
+    still equal the qualified input; the returned profile pins the new file.
+    """
+    import copy,struct
+    a,groups=_selection(before,definition);b=parse_dx_bytes(after)
+    if not b.diagnostics.validated or a.vertex_count!=b.vertex_count or a.local_indices!=b.local_indices or len(a.physical_draws)!=len(b.physical_draws) or len(a.uv_sets)!=len(b.uv_sets):raise ValueError('Mechanical rebase requires unchanged topology')
+    if before[a.collision.offset:a.collision.unparsed_offset]!=after[b.collision.offset:b.collision.unparsed_offset]:raise ValueError('Mechanical rebase collision changed')
+    def floats(q):return struct.pack('<'+'f'*len(q),*q)
+    for group,_,_,_,ids in groups:
+        for index in group['draw_indices']:
+            x,y=a.physical_draws[index],b.physical_draws[index]
+            if before[x.offset:x.offset+x.own_size]!=after[y.offset:y.offset+y.own_size]:raise ValueError('Mechanical rebase selected record changed')
+            if (x.tag,x.control_words,x.group_label,x.vertex_base,x.local_vertex_max,x.index_start,x.index_count,x.flags_0x20,x.unknown_0x24,x.texture_tuple)!=(y.tag,y.control_words,y.group_label,y.vertex_base,y.local_vertex_max,y.index_start,y.index_count,y.flags_0x20,y.unknown_0x24,y.texture_tuple):raise ValueError('Mechanical rebase selected draw changed')
+        for i in ids:
+            if floats(a.vertices.positions[i])!=floats(b.vertices.positions[i]) or floats(a.vertices.normals[i])!=floats(b.vertices.normals[i]) or a.vertices.colors[i*4:i*4+4]!=b.vertices.colors[i*4:i*4+4] or any(floats(x.values[i])!=floats(y.values[i])for x,y in zip(a.uv_sets,b.uv_sets)):raise ValueError('Mechanical rebase selected vertex changed')
+    result=copy.deepcopy(definition);result['source_sha256']=hashlib.sha256(after).hexdigest()
+    _selection(after,result)
+    return result
+
+
 def translate_mechanics(raw: bytes, definition: Mapping) -> tuple[bytes, dict]:
     """Translate selected mechanics only, preserving all other DX payload bytes."""
     model, groups = _selection(raw, definition)

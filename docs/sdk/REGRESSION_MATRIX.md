@@ -100,3 +100,26 @@ PASS. Gameplay remains an owner test. See VSDK4A2_RESULTS.md.
 Earlier equal-name-length/dimension/alpha restrictions describe the superseded
 V-SDK4C writer. Later tests retain rejection of unknown shader/stage activation,
 paths, aliased descriptors and switch-owned uncoordinated light/glass edits.
+
+
+## V-SDK4B — current evidence
+
+Private root `.research-output/vehicles/vsdk4b/`. This table supersedes older
+PENDING entries only where the supplied owner v4.7 explicitly accepts Subaru
+glass / Pajero appearance. New appearance candidates remain gameplay-pending.
+
+| Check | Evidence | Result / boundary |
+| --- | --- | --- |
+| Paint/profile/crew Core | test_appearance_authoring; tests-final.txt | 837 tests / 1 optional skip; masks/alpha/rows/pins, profiles/reopen/history, batch crew transactions and exact shared compiler PASS |
+| Dependency continuation | visual_fitment / vehicle_shadow tests | Reject selected mechanics or footprint changes; only exact unchanged ownership re-pinned |
+| Actual Windows appearance | gui-final/validation.json | Two real GUI/GPU edited candidates, named colours, history, save/reopen PASS |
+| Classic MR Style | style-gui/validation.json | Actual native picker/browser/complete impact dialog, environment adaptation and isolated build PASS |
+| Old binding/stock restore | regression-binding/gui-validation.json | Pajero/stock actions and zero-edit restored stock build PASS |
+| Texture inspection | zoom-windows/validation.json | 56 embedded/detached captures, seven scales, alpha/RGBA/pixel/anchor/source-byte guards PASS |
+| Native controls | native-controls-lancer.json; native-controls-stock.json | Actual pick/focus/orbit/pan/bookmarks/reload/culling and material-mode controls PASS |
+| Resource preservation | preservation.json | Original EXE/DLL, frozen families, physics/audio/UI/wheels/mechanics and shadow parameters PASS |
+| Owner gameplay | VSDK4B_RESULTS.md checklist | PENDING for new colour/reference/crew edits; offline evidence is not gameplay |
+
+Scope limits: partial explicitly masked paint regions, civilian-style colour
+exercise on a stock rally vehicle, existing static crew only, envelope diagnostics
+rather than triangle collision, no global texture matching or diffuse UV repair.

@@ -128,3 +128,13 @@ def matches_binding(bound, resource_name, native_values):
     """Portable reference for the exact native wrapper admission checks."""
     return (resource_name.replace('\\', '/').lower() == bound['model_resource'] and
             bytes(native_values) == bytes.fromhex(bound['native_bounds_values_hex']))
+
+
+def rebase_unchanged_footprint(before,after,profile):
+    """Re-pin unrelated appearance edits without changing shadow behaviour."""
+    validate_profile(profile)
+    if hashlib.sha256(before).hexdigest()!=profile['source_model_sha256']:raise ValueError('Shadow baseline model mismatch')
+    a,b=parse_dx_bytes(before),parse_dx_bytes(after)
+    if not a.diagnostics.validated or not b.diagnostics.validated or _xz_bounds(a.vertices.positions)!=_xz_bounds(b.vertices.positions):raise ValueError('Shadow rebase changes body footprint')
+    if a.collision.spatial_bounds_1339.raw!=b.collision.spatial_bounds_1339.raw:raise ValueError('Shadow rebase changes native bounds')
+    return {**profile,'source_model_sha256':hashlib.sha256(after).hexdigest()}

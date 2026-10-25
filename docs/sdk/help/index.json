@@ -4,5 +4,7 @@
   {"id":"materials","title":"Surfaces and texture bindings"},
   {"id":"textures","title":"Texture Studio"},
   {"id":"build","title":"Build, validation and recovery"},
-  {"id":"glass","title":"Glass damage evidence"}
+  {"id":"glass","title":"Glass damage evidence"},
+  {"id":"appearance","title":"Paint, appearance profiles and Classic MR Style"},
+  {"id":"crew","title":"Qualified stock crew rest-pose fitting"}
 ]

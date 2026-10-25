@@ -107,3 +107,20 @@ private game resources and captures excluded. Prior history preserved.
 Review archives: `.research-output/vehicles/vsdk4c1/review/` contains a clean
 source/documentation/test review tree and a separate changed-files archive, each
 with SHA256 manifests. Actual game tests remain pending. No push performed.
+
+## V-SDK4B — 26 October 2026
+
+Validated phase: three reversible appearance snapshots, qualified paint masks and
+named colours, local-stock browser/shared-impact transfer using Binding v2,
+existing stock crew qualification/rest-pose editing, matched GPU comparisons,
+offline Help, unchanged mechanics/shadow source-pin continuation, and bounded
+Windows new-project publication retry. Original EXE/DLL/retail/frozen resources
+preserved. Owner v4.7 acceptance applies only to prior Subaru glass/Pajero scope.
+
+837 tests / 1 optional skip PASS. Actual Windows addon/stock/Classic builds,
+save/reopen/history, zero-edit stock restore, 56 zoom captures and native controls
+PASS. Private evidence root: `.research-output/vehicles/vsdk4b/`.
+New gameplay remains pending; no FPS/gameplay claim from previews or package checks.
+
+The following evidence-index entry records the resolved phase commit; no prior
+commit is rewritten. No proprietary resource/capture is staged. No push.

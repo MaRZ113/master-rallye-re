@@ -1,6 +1,19 @@
 # Rally Workshop capability inventory
 
-Current update: V-SDK4C.1, 26 October2026. See [phase results](VSDK4C1_RESULTS.md).
+Current update: V-SDK4B, 26 October2026. See [phase results](VSDK4B_RESULTS.md).
+
+| V-SDK4B capability | Implemented boundary |
+| --- | --- |
+| Appearance profiles | Three editable per-project snapshots; source bytes immutable; switch/save/reopen/history/restore |
+| Qualified paint | Exact-size hash-pinned masks and named RGB presets; source luminance and alpha preserved; no automatic logo classifier |
+| Classic MR Style | Explicit local stock catalogue and native Binding v2; full shared-owner impact; mixed opacity rejected; environment-only opt-in resize |
+| Crew Inspector | Existing source-qualified MR crew, component identity, bounded XYZ/yaw, compare/reset/build; no new rigs or animation claims |
+| Comparison/help | Matched fixed GPU views, difference, edited resources, delayed hints and offline F1 topics |
+| Ownership continuation | Exact unchanged mechanics and shadow footprint checks before dependent model-hash rebinding; no physics/hub/shadow tuning |
+| Evidence | 837 tests / 1 optional skip; Windows addon/stock/Classic builds, history and original invariants; see VSDK4B_RESULTS.md and REGRESSION_MATRIX.md |
+
+## Historical V-SDK4C.1 inventory
+
 These current entries supersede historical restrictions below. Gameplay remains
 an explicit owner acceptance gate, separate from Windows/offline validation.
 
@@ -13,7 +26,7 @@ an explicit owner acceptance gate, separate from Windows/offline validation.
 | GT4 cull-disabled surfaces | Opt-in explicit reverse geometry and normals; default unchanged; no global MR culling change |
 | GT4 layered frame material | Explicit source selection; unity-opacity footprint plus alpha-only/environment correspondence; translucent residual preserved |
 | Headlamp housing | Owner-approved actual-aperture contour loft; explicit MR approximation, no AABB protruding walls |
-| Subaru broken glass | UV-only continuation of repaired V-SDK4C model, adapted repeating MR art; four logical zones unchanged; actual collision routing pending |
+| Subaru broken glass | UV-only continuation of repaired V-SDK4C model, adapted repeating MR art; four logical zones unchanged; owner accepted in supplied Master Plan v4.7, scoped to tested Subaru candidate |
 | Regression | 822 tests / 1 optional skip; Windows addon/stock builds, history/zero-edit restore, 128 final matrix captures, native CPU replay and sealed candidates PASS |
 
 ## Historical V-SDK3.1 / V-SDK4A audit

@@ -181,6 +181,17 @@ def _shadow_artifacts(root,family,model_data,retail_data_sma):
     return {'shadow-profile.json':canonical_json(profile)},bound
 
 
+def _publish_new_project(stage,output):
+    """Bounded Windows sharing-lock retry; never replace an existing project."""
+    import time
+    for attempt in range(10):
+        if output.exists():raise FileExistsError('project output already exists: '+str(output))
+        try:os.replace(stage,output);return
+        except PermissionError as error:
+            if os.name!='nt' or getattr(error,'winerror',None)not in (5,32,33) or attempt==9:raise
+            time.sleep(.05*(attempt+1))
+
+
 def _mechanical_artifacts(root,family,resources,retail_data_sma,*,donor_family):
     path=_absolute_without_links(root/'mechanical-attachments.json','mechanical attachment profile')
     if not path.exists():return resources,None
@@ -310,7 +321,7 @@ native target profile has a generated and verified runtime integration.
 Only physical IDs 26/T1 and 27/T2 are currently runtime-qualified.
 """
         (stage / "README.md").write_text(readme, encoding="utf-8", newline="\n")
-        os.replace(stage, output)
+        _publish_new_project(stage, output)
     except Exception:
         shutil.rmtree(stage, ignore_errors=True)
         raise

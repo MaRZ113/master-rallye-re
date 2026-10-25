@@ -1,12 +1,12 @@
 # Master Rallye Vehicle SDK — Master Plan / Rally Workshop
 
-**Working baseline:** 25 October 2026 (revision 4.5: V-SDK4C.1 owner culling evidence, Previewer shortcut discoverability and stock-MR glass-adaptation clarification)
+**Working baseline:** 26 October 2026 (revision 4.7: V-SDK4C.1 owner gameplay acceptance, V-SDK4B handoff, and explicit Audio Studio qualification; historical sections retained)
 **Repository:** `master-rallye-re-vehicles` · **branch:** `research/vehicles`  
 **Purpose:** single living specification for development, review, acceptance and public beta planning.  
 **Status disclaimer:** this document summarizes previous source-review discussions and reported gameplay tests. It is **not** a new repository or binary audit; verify each item against the current checkout before implementation. Update the ledger after every development phase.
 
 
-> **CURRENT DECISION — 2026-10-25 / revision 4.5:** The newest implementation/evidence status is in sections 17–18, which supersede outdated 'not started' or 'read-only' statuses in historical tables below. Keep older milestone notes for auditability. The next milestone is **V-SDK4C.1: material semantics, usable texture rebinding, visibility/culling, reflection strength and glass gameplay qualification**, followed by V-SDK4B Paint/Classic MR Style and crew fitment. Do not conflate D3D9 Previewer evidence with actual D3D8 gameplay.
+> **CURRENT DECISION — 2026-10-26 / revision 4.7:** The owner reports successful in-game tests of the V-SDK4C.1 fixes: Subaru glass now breaks correctly, and Pajero's visual corrections are accepted. This supersedes the pending owner gate in sections 19–20 without erasing those earlier reports. **V-SDK4B Paint Studio / Classic MR Style / Crew Fitment is the next active milestone.** Full Audio Studio remains a required product feature and gets an explicit four-layer user-replacement acceptance gate below. No D3D9 preview or automated test alone is proof of native gameplay parity.
 
 
 ## 0. Product contract
@@ -576,3 +576,119 @@ qualification remains pending; do not promote offline evidence to acceptance.
 See VSDK4C1_RESULTS.md and COMMIT_LEDGER.md for scope, limits and reproducibility.
 Existing private resources remain local; no old runtimes were removed after the
 owner changed the cleanup instruction. No Paint Studio/crew phase started.
+
+
+## 20. V-SDK4C.1 source-review acceptance and V-SDK4B handoff — 26 October 2026 (revision 4.6)
+
+**Evidence tiers:** This is an independent source-only review, not a Windows gameplay or D3D8 result.
+Review ZIP `rally-workshop-vsdk4c1-source-review.zip` contains 975 manifest-listed files, all
+matching SHA256; 418 `.py` files parse. Independent focused Linux tests: 38/38 pass
+(`test_gt4_layered`, `test_visibility_keepout`, `test_glass_authoring`,
+`test_surface_authoring`, `test_texture_binding`, `test_workshop`). The author records
+822 passing / 1 skipped Windows tests; the source-only Linux archive cannot reproduce
+the complete Windows checkout (MSVC x86, private research artifacts, excluded Blender
+add-on sources). Do not convert this limitation into a game-regression claim.
+
+**Implemented and review-accepted (source/offline only):** safe length-prefixed
+texture-binding record rebuild on qualified existing diffuse/environment stages;
+source-aware alpha compatibility; searchable picker; source-relative opaque reflection
+weight and diagnostic mask; D3D9 F1/F3 control visibility; source `cull=false`
+backface reconstruction and headlamp contour housing on the Pajero; source-qualified
+opaque Nikon trim split; UV-only stock-MR crack pattern continuation on the
+existing four-zone Subaru glass candidate. Save/Undo/Redo/Restore and baseline
+source pinning remain required. See `docs/sdk/VSDK4C1_RESULTS.md`.
+
+**Do not silently treat as gameplay-qualified:** author-supplied isolated Pajero
+and Subaru test candidates remain separate. Pajero must be checked intact/damaged
+for the Nikon-side solidity/reflections, backfaces, bullbar, mudflaps, headlamps
+and brake lights under native D3D8. Subaru must be checked under individual
+front/rear/left/right impacts against stock Navara and across race re-entry.
+Native support remains **four logical zones**, not one controller per physical pane.
+Combined 30-car roster requires a new independent acceptance pass after candidate
+integration.
+
+**Next bounded milestone, owner-approved order: V-SDK4B — Paint Studio, Classic MR
+Style and Crew Fitment.** Begin this stage after recording the V-SDK4C.1 verdict
+and retaining the isolated gameplay candidates. Do not start Blender Bridge or
+wholesale body scaling during V-SDK4B.
+
+- Build a reusable **Style Profile** layered over the imported project's immutable
+  originals: Source Fidelity, Classic MR Style, Custom. Preserve baseline
+  shaders, damage groups and source provenance. Switching presets must be reversible.
+- **Paint/Recolor:** semantic coverage masks based on qualified geometry, UV and
+  texture analysis. Preserve baked livery, logos, racing numbers, lamps, glass,
+  tires and cockpit. Support native-material colour where valid and mask-aware
+  texture edits otherwise; refuse unsafe global tint as selective painting.
+  Support civilian cars with a verified paint region, not an invented universal shader.
+- **Classic MR Style:** select existing resources from the user's local retail
+  installation, inspect UV and alpha/material compatibility, preview alternatives,
+  opt into per-surface assignments and optional explicit re-UV/texture adaptation.
+  No legal/proprietary textures or audio embedded in source archives or releases.
+- **Crew Fitment:** bring the qualified driver/co-driver insertion/reuse workflow
+  from Subaru/Lancer into GUI; qualified seat anchors, preview with occupants,
+  XYZ translation/rotation/size controls and visibility/conflict checks. Keep
+  native gameplay poses, animations, deformation and camera separate from an
+  unverified pure-preview adjustment.
+- **Comparison:** synchronised Original / Modified source geometry and material
+  views; clearly label D3D9 approximation. Record provenance, project layers
+  and undo/redo/restore. Highlight changes and data dependencies.
+- **Validation:** stock zero-edit, one imported car style + paint change, one
+  qualified stock reference and one crew adjustment through Studio, actual build
+  candidate for owner verification, protected glass/brakes/reflections/damage,
+  baseline UI/audio/physics/camera, PERF2 and 30-car roster invariants.
+- **Deliverables:** Studio GUI and shared Core, full real Windows evidence, user
+  acceptance checklist, source-only review archive, updated MASTER_PLAN /
+  CAPABILITIES / REGRESSION_MATRIX / COMMIT_LEDGER / offline F1 Help, and a scoped
+  local phase commit after testing. No push or public release.
+
+**Longer-term untouched roadmap:** V-SDK5 Blender round-trip, precise geometry
+scaling/stock size comparisons, V-SDK6 Physics/Audio/Camera Studio with user presets,
+V-SDK7 Fleet Builder, format adapters, installation/restore and public beta QA.
+
+
+## 21. Owner gameplay acceptance and explicit Audio Studio commitment — 26 October 2026 (revision 4.7)
+
+### V-SDK4C.1 final owner verdict
+
+- The owner reports **all their intended Windows/gameplay acceptance checks passed**; Subaru now shows functioning breakable glass and Pajero's appearance is considered fully polished.
+- Update the per-car evidence ledger to **OWNER GAMEPLAY-VERIFIED for the specifically observed glass/visual defects** after recording the exact candidate hashes/IDs and conditions from the owner's local checkout. The user's sign-off is genuine gameplay evidence, but do not expand it into claims about unobserved damage transitions, unlimited roster capacity, or all GT4 source versions.
+- **Close the V-SDK4C.1 owner gate.** Preserve the source-only and Windows test caveats in earlier sections as historical evidence, and retain isolated candidate records.
+- The next implementation milestone is **V-SDK4B — Paint Studio, Classic MR Style and Crew Fitment** as scoped in section 20. Keep it bounded: mask-aware paint, style profiles, local stock material matching, crew/co-driver fitment, build/restore, regression and a local validated phase commit.
+
+### Audio Studio is a release-blocking capability, not a vague future idea
+
+The owner particularly wants to import or assign **a distinct engine sound plus independently replaceable transmission whine, turbo spool and blow-off valve (BOV)**, and then hear those four independent layers in the actual game. This expands the existing V-SDK6 Audio Studio requirements in section 11; do not overwrite or postpone them silently.
+
+**Existing baseline:** the project already has qualified custom engine playback (including user-provided GT4 Beta content in private local studies), and independent synthetic/SDK-authored whine, spool and BOV layers in an existing Lancer candidate; native per-CarID audio work must be reused, not reimplemented blindly. The exact legal status of every sample/preset must be verified before redistribution. The owner has not yet approved a new fourth vehicle or an exact GT audio donor/source.
+
+**Minimum Audio Studio vertical slice:**
+
+1. Vehicle Library → Audio Studio: distinct slots for **Engine**, **Transmission Whine**, **Turbo Spool** and **BOV**. Distinguish continuous loops from one-shot events. Show current source/provenance and active per-CarID profile.
+2. Each slot: **Import/Assign Existing**, **Audition**, **Mute/Solo**, **Replace**, **Reset to Default** and **Undo/Redo**. External audio is read from user-owned local files, with original assets kept immutable.
+3. A user-facing import pipeline with explicit *actually tested* accepted file types and sample rates, decoding, conversion, clipping/DC-offset checks, channel layout and target-format diagnostics. WAV PCM is a safe initial target; do not claim arbitrary GT proprietary sound formats are accepted until a decoder is qualified.
+4. Engine loop points and pitch/RPM response; whine speed/load/gear response; spool boost/load response; BOV throttle-lift/shift triggers; per-layer gain/envelopes. All trigger semantics must derive from observed project/native behavior and identify previews/approximations separately.
+5. Named reusable presets with **file hashes/paths (portable handling), source provenance, levels, response curves, triggers and event cooldowns**, and per-vehicle overrides. Missing files must show an error and preserve a predictable default; no silent global sound substitution.
+6. Interactive audition plus an *isolated real-game candidate* exercising all four replaced layers. Test idle, rising/falling RPM, up/down shifts, turbo transitions, throttle lift, race re-entry, simultaneous AI vehicles, per-CarID isolation and release of voices/resources.
+7. Prove restoration is exact for the original profile and that changing one layer does not change the other three or other cars. Keep the existing SDK-generated sounds available as defaults if distribution rights are cleared; user-supplied extracted proprietary audio stays local.
+
+**Test-car selection:** use an already imported and qualified car with four-layer plumbing (initially Lancer Evo IV) for the first audio substitution proof to minimize unrelated geometry/physics risk. A **new, characteristically sounding imported vehicle** is an excellent second acceptance scenario and product demonstration, but only after the format adapter and candidate are qualified; do not declare or bundle a specific donor/source without local evidence.
+
+**Schedule flexibility:** V-SDK6 remains the canonical Physics/Audio/Camera Studio milestone. Because the owner is keen to exercise sound replacement, the Audio Studio vertical slice may be **advanced immediately after accepted V-SDK4B**, ahead of V-SDK5 Blender Bridge, with a separate bounded phase, without deleting/renumbering the rest of the roadmap. The owner should explicitly choose the order at that handoff.
+
+**Audio acceptance gate:** A user can replace engine/whine/spool/BOV independently, audition them, save a preset, build and verify them in-game on a specific CarID, restore all originals, and observe no sound leakage to other cars or race re-entry crash.
+
+## Repository implementation ledger — V-SDK4B, 26 October 2026
+
+V-SDK4B implemented editable Source Fidelity / Classic MR Style / Custom
+appearance snapshots, explicit hash-pinned paint masks and named colours,
+local-stock material references with shared-owner impact and Binding v2 checks,
+qualified existing stock crew rest-pose authoring, matched GPU comparisons and
+updated offline Help. See VSDK4B_RESULTS.md, CAPABILITIES.md and
+REGRESSION_MATRIX.md for exact limitations, private evidence and owner checklist.
+
+The owner acceptance recorded in supplied v4.7 closes the prior Subaru native
+broken-glass and Pajero appearance gates only for those tested candidates.
+New V-SDK4B appearance/crew candidates are OFFLINE validated; actual gameplay
+of these edits is a separate owner gate. No broader capacity/version acceptance
+is inferred. No future Audio/Physics/Camera GUI, Blender/scale or Fleet milestone
+is started by completing this phase. Local phase commits are authorized; no push.

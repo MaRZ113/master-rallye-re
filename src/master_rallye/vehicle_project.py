@@ -51,7 +51,7 @@ class VehicleProject:
             raise ValueError("duplicate texture edit/replacement names")
         allowed_resource = {"source_sha256", "candidate", "topology_candidate", "scene_candidate", "native_brake_scene_candidate",
                             "attributes", "surface_edits", "surface_source_sha256", "surface_layers", "collision_scale", "collision_center",
-                            "collision_translation"}
+                            "collision_translation", "crew_layer"}
         for role, edit in resources.items():
             if set(edit) - allowed_resource:
                 raise ValueError(f"{role}: unsupported edit keys {sorted(set(edit) - allowed_resource)}")
@@ -154,6 +154,7 @@ def _compile_resource(project: VehicleProject, role: str, spec: dict) -> tuple[b
         if path.name in project.texture_edits:return _compile_texture(project,path.name,project.texture_edits[path.name])[0]
         if path.name in project.texture_replacements:
             entry=project.texture_replacements[path.name]
+            entry=project.texture_replacements[path.name]
             if _sha(path.read_bytes())!=entry['source_sha256']:raise ValueError('Binding texture source changed')
             return project.resolve(entry['candidate']).read_bytes()
         return path.read_bytes()
@@ -240,6 +241,11 @@ def _compile_resource(project: VehicleProject, role: str, spec: dict) -> tuple[b
             if not isinstance(layer,dict) or set(layer)!={'source_sha256','edits'}:raise ValueError('Invalid surface layer')
             surface=apply_surface_edits(data,layer['edits'],source_sha256=layer['source_sha256'],texture_provider=binding_texture)
             data=surface.data;detail['surface_layers'].append(surface.to_dict())
+    if 'crew_layer' in spec:
+        from .crew_authoring import apply_crew_fit
+        layer=spec['crew_layer']
+        if set(layer)!={'source_sha256','definition','placements'}:raise ValueError('Invalid crew layer')
+        data,detail['crew_fit']=apply_crew_fit(data,layer['definition'],layer['placements'],source_sha256=layer['source_sha256'])
     final = parse_dx_bytes(data)
     if not final.diagnostics.validated or final.collision.spatial_bounds_1339 is None:
         raise ValueError(f"{role}: compiled DX failed final validation")
