@@ -205,6 +205,7 @@ ReflectionPilot::ReflectionPilot(bool supported, const std::wstring& ini) noexce
         ::gfx2::ps2port::config::read_string(L"ReflectionCaptureTiming",L"auto",timing,16,ini.c_str());
         capture_.configure(ps2diag::parse_timing(std::wstring_view(timing)),
             ::gfx2::ps2port::config::read_int(L"ReflectionStageDiag",0,ini.c_str()) == 1);
+        capture_.exclude_car(::gfx2::ps2port::config::read_int(L"ReflectionExcludeCar",1,ini.c_str()) != 0);
         if (verified_asset_) capture_.set_static_pixels(pixels_);
         const int debug = verified_asset_ ? ::gfx2::ps2port::config::read_int(L"ReflectionDebug",0,ini.c_str()) : 0;
         if (debug == 1) {
@@ -319,7 +320,8 @@ std::string ReflectionPilot::status_json() const {
         ",\"late_ok\":" + std::to_string(c.late_ok) + ",\"failed\":" + std::to_string(c.failed) + ",\"probes\":" + std::to_string(c.probes) +
         ",\"probes_incomplete\":" + std::to_string(c.probes_incomplete) + ",\"stage_reports\":" + std::to_string(c.stage_reports) +
         ",\"readback_failed\":" + std::to_string(c.readback_failed) + ",\"late_latched_races\":" + std::to_string(c.late_latched_races) +
-        ",\"resolve_latch_cleared\":" + std::to_string(c.resolve_latch_cleared) +
+        ",\"resolve_latch_cleared\":" + std::to_string(c.resolve_latch_cleared) + ",\"exclude_car\":" + (capture_.excludes_car() ? "true" : "false") +
+        ",\"car_excluded\":" + std::to_string(c.car_excluded) + ",\"car_not_excluded\":" + std::to_string(c.car_not_excluded) +
         ",\"last_failure\":" + ps2diag::quote(c.last_failure ? c.last_failure : "") + "}}";
 }
 

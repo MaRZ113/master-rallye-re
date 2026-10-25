@@ -375,6 +375,12 @@ public:
         if (incomplete_ >= kNeed) { decided_ = true; late_latched_ = true; }
         else if (complete_ >= kNeed || sampled_ >= kSamples) decided_ = true;
     }
+    // The capture about to run is a stage report capture (the draw order is logged only for those frames).
+    bool stage_next() const noexcept {
+        if (!stage_diag_ || !race_ || stages_ >= kStageAt.size() || session_stages_ >= kSessionStageCap) return false;
+        for (unsigned at : kStageAt) if (captures_ + 1 == at) return true;
+        return false;
+    }
     bool stage_due() noexcept {
         if (!stage_diag_ || !race_ || stages_ >= kStageAt.size() || session_stages_ >= kSessionStageCap) return false;
         for (unsigned at : kStageAt) if (captures_ == at) { ++stages_; ++session_stages_; return true; }

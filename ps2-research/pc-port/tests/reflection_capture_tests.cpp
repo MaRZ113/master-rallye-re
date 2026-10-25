@@ -90,7 +90,7 @@ struct Native final:MockDeviceBase {
     DWORD vertex=0x152,pixel=17;
     D3DCAPS8 caps{};
     int gets=0,sets=0,fail_get=0,fail_set=0,fail_set_again=0;
-    int copies=0,draws=0,creates=0,callback_writes=0;
+    int copies=0,draws=0,fans=0,creates=0,callback_writes=0;
     int successful_creates=0;
     int null_create=0;
     // COURSE-RENDER-FIX1 readbacks: image surfaces filled from a synthetic frame (empty ground = bottom third black).
@@ -163,6 +163,9 @@ struct Native final:MockDeviceBase {
             CHECK(copied.surface.desc.Format==back.desc.Format&&copied.surface.desc.MultiSampleType==D3DMULTISAMPLE_NONE);}
         ++copies;return copy_hr;}
     HRESULT STDMETHODCALLTYPE DrawPrimitiveUP(D3DPRIMITIVETYPE p,UINT n,const void* data,UINT bytes) override{
+        if(p==D3DPT_TRIANGLEFAN){   // car exclusion: refills of the hull on the 64x64 target
+            CHECK(n>=2&&bytes==28&&z==nullptr&&data&&target==(mixed_target?mixed_target:&mixed.surface)&&viewport.Width==64&&viewport.Height==64);++fans;
+            if(stream)stream->Release();stream=nullptr;stride=0;return draw_hr;}
         CHECK(p==D3DPT_TRIANGLESTRIP&&n==2&&bytes==28&&z==nullptr&&data);CHECK(draws%3==0?target==&ps2frame.surface&&viewport.Width==640&&viewport.Height==448:target==(mixed_target?mixed_target:&mixed.surface)&&viewport.Width==64&&viewport.Height==64);++draws;
         if(stream)stream->Release();stream=nullptr;stride=0;return draw_hr;}
 };
@@ -356,6 +359,19 @@ void timing_gpu_tests(){
     {   // Stage report of an end-of-world capture.
         DeviceInspector inspector;Native n;MixedReflectionCapture c;c.set_inspector(&inspector);c.configure(CaptureTiming::Late,true);c.set_race(9);n.mixed_target=&n.late.surface;
         ReflectionStageReport r;CHECK(c.capture_late(n,&n.env,40,false)==S_OK&&c.take_stage_report(r)&&r.late&&r.frame==41&&r.valid);
+    }
+    {   // Car exclusion: the late capture refills the hull with the static term (two more private draws), once per published frame.
+        Native n;Original original(n);MixedReflectionCapture c;c.configure(CaptureTiming::Late,false);c.set_race(4);n.mixed_target=&n.late.surface;
+        CHECK(c.excludes_car());
+        CHECK(c.capture_late(n,&n.env,50,false)==S_OK&&c.counters().car_excluded==0&&c.counters().car_not_excluded==1);
+        const UINT plain=c.last_status().private_draws;original.check(n);
+        c.set_exclusion(51,{{20.f,20.f},{30.f,20.f},{30.f,34.f},{20.f,34.f}});
+        CHECK(c.capture_late(n,&n.env,51,false)==S_OK&&c.counters().car_excluded==1&&c.last_status().private_draws==plain+2&&n.fans==2);original.check(n);
+        CHECK(c.capture_late(n,&n.env,52,false)==S_OK&&c.counters().car_excluded==1&&c.counters().car_not_excluded==2&&c.last_status().private_draws==plain);   // mask belongs to frame 51
+        c.set_exclusion(53,{{20.f,20.f},{30.f,20.f},{30.f,34.f}});c.exclude_car(false);
+        CHECK(!c.excludes_car()&&c.capture_late(n,&n.env,53,false)==S_OK&&c.counters().car_excluded==1&&c.last_status().private_draws==plain);
+        c.exclude_car(true);c.set_exclusion(54,{{20.f,20.f},{30.f,20.f}});                                                                   // fewer than three points
+        CHECK(c.capture_late(n,&n.env,54,false)==S_OK&&c.counters().car_excluded==1&&c.last_status().private_draws==plain);original.check(n);
     }
 }
 int main(){layout_tests();transaction_tests();gpu_tests();timing_gpu_tests();if(failures)std::cerr<<failures<<" failures\n";return failures?1:0;}

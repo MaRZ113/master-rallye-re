@@ -1,6 +1,9 @@
 // COURSE-RENDER-FIX1 contracts of the portable diagnostics core (renderer/ps2_diag.hpp): PNG/JSON writers, image statistics,
 // draw ledger, capture-timing decision, per-race ledger, disable log and the capped stream.
 #include "ps2_diag.hpp"
+#include "reflection_exclusion.hpp"
+#include <cmath>
+#include <cstring>
 #include <cstdio>
 #include <filesystem>
 #include <fstream>
@@ -331,10 +334,62 @@ void stream_tests() {
     CHECK(write_file(dir / "b" / "x.bin", std::vector<uint8_t>{1, 2, 3}) && std::filesystem::file_size(dir / "b" / "x.bin") == 3);
     std::filesystem::remove_all(dir, error);
 }
+void exclusion_tests() {
+    // AABB of a vertex stream (stride 36, position first); non-finite positions invalidate.
+    std::vector<uint8_t> bytes(3 * 36, 0);
+    const float pts[3][3] = {{-1, 0, -2}, {1, 1.5f, 2}, {0, 0.5f, 0}};
+    for (int i = 0; i < 3; ++i) std::memcpy(bytes.data() + i * 36, pts[i], 12);
+    const Aabb box = aabb_from_vertices(bytes.data(), 3, 36);
+    CHECK(box.valid && box.lo[0] == -1 && box.hi[0] == 1 && box.lo[2] == -2 && box.hi[2] == 2 && box.hi[1] == 1.5f);
+    CHECK(std::fabs(box.diagonal() - std::sqrt(4.f + 2.25f + 16.f)) < 1e-4f);
+    const float nan = std::nanf(""); std::memcpy(bytes.data() + 36, &nan, 4);
+    CHECK(!aabb_from_vertices(bytes.data(), 3, 36).valid && !aabb_from_vertices(nullptr, 3, 36).valid && !aabb_from_vertices(bytes.data(), 0, 36).valid &&
+          !aabb_from_vertices(bytes.data(), 3, 8).valid);
+    // Projection: identity world/view, perspective looking down +Z, car box 4 m ahead.
+    const float identity[16] = {1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1};
+    float world[16]; std::memcpy(world, identity, sizeof(world)); world[14] = 10.f;   // 10 m in front
+    float projection[16] = {1,0,0,0, 0,1,0,0, 0,0,1,1, 0,0,0,0};                      // x/z, y/z (w = z)
+    Aabb car; car.valid = true; car.lo = {-1, -1, -2}; car.hi = {1, 1, 2};
+    std::array<Point2, 8> corners{};
+    CHECK(project_box(car, world, identity, projection, {0, 0, 640, 480}, corners));
+    // near face z = 8: x in [-1/8, 1/8]; far face z = 12: x in [-1/12, 1/12]; screen x = (x*0.5+0.5)*640
+    float minx = 1e9f, maxx = -1e9f, miny = 1e9f, maxy = -1e9f;
+    for (const auto& p : corners) { minx = std::min(minx, p.x); maxx = std::max(maxx, p.x); miny = std::min(miny, p.y); maxy = std::max(maxy, p.y); }
+    CHECK(std::fabs(minx - (0.5f - 0.0625f) * 640.f) < 0.01f && std::fabs(maxx - (0.5f + 0.0625f) * 640.f) < 0.01f);
+    CHECK(std::fabs(miny - (0.5f - 0.0625f) * 480.f) < 0.01f && std::fabs(maxy - (0.5f + 0.0625f) * 480.f) < 0.01f);
+    world[14] = 1.f;                                                                    // a corner behind the near plane
+    CHECK(!project_box(car, world, identity, projection, {0, 0, 640, 480}, corners));
+    CHECK(!project_box(Aabb{}, world, identity, projection, {0, 0, 640, 480}, corners));
+    // Convex hull of two boxes plus interior points.
+    CarSilhouette s; CHECK(s.empty());
+    std::array<Point2, 8> a{}, b{};
+    for (int i = 0; i < 8; ++i) { a[i] = {float(i & 1) * 10 + 100, float((i >> 1) & 1) * 10 + 100}; b[i] = {float(i & 1) * 10 + 105, float((i >> 1) & 1) * 10 + 105}; }
+    CHECK(s.add(a) && s.add(b) && s.boxes() == 2);
+    std::vector<Point2> hull; CHECK(s.hull(hull));
+    CHECK(hull.size() == 6 && std::fabs(polygon_area(hull) - 200.f) < 0.01f);       // 15x15 minus the two corner triangles of 12.5
+    CarSilhouette line; std::array<Point2, 8> c{}; for (int i = 0; i < 8; ++i) c[i] = {float(i), float(i)};
+    CHECK(line.add(c) && !line.hull(hull));                                            // collinear
+    CarSilhouette full; unsigned added = 0; while (full.add(a)) ++added;
+    CHECK(added == kMaxSilhouettePoints / 8 && full.rejected() == 1);
+    full.clear(); CHECK(full.empty() && full.boxes() == 0);
+    // Pixel hull -> 64x64 target: x scaled, y flipped; a hull of more than a third of the target is no car.
+    std::vector<Point2> px = {{320, 240}, {384, 240}, {384, 336}, {320, 336}}, env;
+    CHECK(hull_to_env(px, 640, 480, env) && env.size() == 4 && std::fabs(env[0].x - 32.f) < 1e-4f && std::fabs(env[0].y - 32.f) < 1e-4f &&
+          std::fabs(env[2].x - 38.4f) < 1e-3f && std::fabs(env[2].y - 19.2f) < 1e-3f);
+    std::vector<Point2> huge = {{0, 0}, {640, 0}, {640, 400}, {0, 400}};
+    CHECK(!hull_to_env(huge, 640, 480, env) && env.empty() && !hull_to_env(px, 0, 480, env));
+    // Stage logging: only the capture that will be reported.
+    TimingDecision d(CaptureTiming::Auto); d.configure(CaptureTiming::Auto, true); d.on_race(1);
+    CHECK(d.stage_next());                                  // capture 1
+    d.note_capture(); CHECK(d.stage_due() && d.stage_next());   // capture 2
+    d.note_capture(); CHECK(d.stage_due() && d.stage_next());   // capture 3
+    d.note_capture(); CHECK(d.stage_due() && !d.stage_next());  // capture 4 is not in the schedule
+    TimingDecision off(CaptureTiming::Auto); off.on_race(1); CHECK(!off.stage_next());
+}
 }
 
 int main() {
-    json_helper_tests(); png_tests(); image_tests(); draw_ledger_tests(); timing_tests(); ledger_tests(); stream_tests();
+    exclusion_tests(); json_helper_tests(); png_tests(); image_tests(); draw_ledger_tests(); timing_tests(); ledger_tests(); stream_tests();
     if (failures) std::cerr << failures << " failures\n";
     else std::cout << "ps2_diag contracts ok\n";
     return failures ? 1 : 0;

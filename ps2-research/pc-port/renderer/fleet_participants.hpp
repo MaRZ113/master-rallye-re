@@ -123,7 +123,7 @@ private:
     // Unique live egg registered under the pool id, with its en3d and current instance.
     static const char* egg_chain(RaceReadMemory& m,uint32_t base,uint32_t id,uint32_t& egg,uint32_t& en3d,uint32_t& instance) noexcept {
         uint32_t manager=0,registry=0,begin=0,count=0,bucket=0;
-        if(!pointer(m,base+kFleetEggManagerRva,manager)||!pointer(m,manager+0x1c,registry)||!vector(m,registry,32768,begin,count)||id>=count)return "egg_registry_unreadable";
+        if(!pointer(m,base+kFleetEggManagerRva,manager)||!pointer(m,manager+0x1c,registry)||!vector(m,registry,1u<<20,begin,count)||id>=count)return "egg_registry_unreadable";
         if(!pointer(m,begin+id*4,bucket)||!vector(m,bucket,64,begin,count))return "egg_registry_bucket_unreadable";
         if(count!=1)return "egg_name_not_unique";
         uint32_t name=0;uint8_t flags=0;

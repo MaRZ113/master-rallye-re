@@ -279,6 +279,10 @@ HRESULT MixedReflectionCapture::execute(IDirect3DDevice8& native,IDirect3DTextur
         transaction_.mark_up();hr=native.DrawPrimitiveUP(D3DPT_TRIANGLESTRIP,2,vertices.data(),sizeof(ReflectionCaptureVertex));++status_.private_draws;
         const HRESULT sync=transaction_.sync_up_stream(native);if(SUCCEEDED(hr)&&FAILED(sync))hr=sync;
     }
+    if(SUCCEEDED(hr)&&late&&!debug_pattern_){
+        if(exclude_car_&&exclusion_frame_==frame&&exclusion_.size()>=3){hr=draw_exclusion(native,env);if(SUCCEEDED(hr))++counters_.car_excluded;}
+        else ++counters_.car_not_excluded;
+    }
     const HRESULT restored=transaction_.restore(native);status_.restore_hr=restored;
     if(FAILED(restored))return fail("native_state_restore_failed",restored);
     if(FAILED(hr))return fail("private_composition_failed",hr);
@@ -292,6 +296,29 @@ HRESULT MixedReflectionCapture::execute(IDirect3DDevice8& native,IDirect3DTextur
     if(probe||stage)inspect(native,target,valid_frame,late,probe,stage);
     notify_end(S_OK,status_.reason);
     return S_OK;
+}
+// The hull is refilled with the whole static term (.625 replace, then .375 added), the weights of both passes together.
+HRESULT MixedReflectionCapture::draw_exclusion(IDirect3DDevice8& device,IDirect3DTexture8* env) noexcept {
+    std::vector<ReflectionCaptureVertex> v;
+    try{
+        float cx=0.f,cy=0.f;for(const auto& p:exclusion_){cx+=p.x;cy+=p.y;}
+        cx/=float(exclusion_.size());cy/=float(exclusion_.size());
+        const auto make=[](float x,float y,DWORD color){return ReflectionCaptureVertex{x-.5f,y-.5f,0.f,1.f,color,x/64.f,y/64.f};};
+        for(DWORD color:{0xffffffffu,0xff999999u}){
+            v.push_back(make(cx,cy,color));
+            for(const auto& p:exclusion_)v.push_back(make(p.x,p.y,color));
+            v.push_back(make(exclusion_.front().x,exclusion_.front().y,color));
+        }
+    }catch(...){return E_OUTOFMEMORY;}
+    const size_t fan=v.size()/2;
+    HRESULT hr=device.SetTexture(0,env);
+    for(int pass=0;pass<2&&SUCCEEDED(hr);++pass){   // replace with .625, then add .375
+        hr=device.SetRenderState(D3DRS_ALPHABLENDENABLE,pass?TRUE:FALSE);
+        if(FAILED(hr))break;
+        transaction_.mark_up();hr=device.DrawPrimitiveUP(D3DPT_TRIANGLEFAN,UINT(fan-2),v.data()+pass*fan,sizeof(ReflectionCaptureVertex));++status_.private_draws;
+        const HRESULT sync=transaction_.sync_up_stream(device);if(SUCCEEDED(hr)&&FAILED(sync))hr=sync;
+    }
+    return hr;
 }
 void MixedReflectionCapture::inspect(IDirect3DDevice8& native,IDirect3DSurface8* target,uint64_t frame,bool late,bool probe,bool stage) noexcept {
     if(!inspector_){++counters_.readback_failed;return;}

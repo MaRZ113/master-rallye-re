@@ -63,9 +63,33 @@ the frame at that moment; the sky changes only with the camera pitch.
 The reading is the proof: the measured quantity is the symptom itself (an empty ground in the captured frame).
 Not changed: brightness, car materials, UV, the 80/128 + 96/255 weights, the stage states.
 
-Limits (kept visible): a late capture contains the car itself (the PS2 capture does not) and lags the frame by one; the first
+Limits (kept visible): a late capture lags the frame by one (the car itself is removed, see "The car in its own reflection"); the first
 ~50 captures of a race on a converted course (about a second at the start line) are still in-frame until three samples agree;
 the capture point is a measured proxy for the PS2 order, not a reproduction of the PS2 display list.
+
+### The car in its own reflection (second run)
+
+The first run showed the reflections, and also the player car in them: the end-of-world capture sees the finished frame, the
+PS2 capture does not (it runs after the terrain and before the car). `ReflectionExcludeCar=1` (default) removes the car from the
+late capture:
+
+* the car draws are the draws that sample the environment target (stage 1 texture coordinates = camera space normal, the same
+  signature the fleet code already learns the environment from); their local vertex bounding boxes (read from the proxy's CPU
+  vertex mirror, cached per buffer/offset, boxes larger than 9 world units are not cars) are projected with the world, view,
+  projection and viewport of the draw; the convex hull of all projected corners of the frame is the car area
+  (`reflection_exclusion.hpp`, portable, `ps2_diag_tests`);
+* before the late capture of that frame the hull is converted to 64x64 target coordinates (x scaled, y flipped like the frame
+  term) and the capture refills it with the whole static term (.625 replace, then .375 added) after the frame pass, so the area
+  shows what the PS2 static environment would show there. A hull larger than a third of the screen, fewer than three points or a
+  frame without environment draws leaves the capture as it was (counted: `car_excluded` / `car_not_excluded` in the reflection
+  status);
+* the in-frame capture (stock courses) has no car in the buffer and is not touched; `ReflectionExcludeCar=0` restores the
+  finished frame as it is.
+
+Limits: the hull comes from bounding boxes, so it is a little larger than the car silhouette (the refill is the static term,
+which is what the surroundings of the car look like at 64x64); the mask belongs to the frame that is captured, the target is
+used by the next frame. Not verified without the game: where the mask lands on screen. The stage PNG (`ReflectionStageDiag=1`)
+shows the refilled target; `ReflectionDebug=2` shows it live.
 
 ### Diagnostics for the next run
 
@@ -73,7 +97,9 @@ the capture point is a measured proxy for the PS2 order, not a reproduction of t
 `ps2_reflection_stage` record and one PNG (`ps2diag-*/stage-r<race>-f<frame>-<inframe|late>.png`: source frame | PS2 frame |
 env target | env minus static term x2.7) with, per stage, the mean colour, the share of black pixels, 8 horizontal bands and a
 content hash, the MSAA/format data, the copy/restore HRESULTs and the env lookups per frame. `ps2_reflection_order` lists the
-indexed draws of the frame (count, triangles, per vertex format) before the capture and for the whole frame.
+indexed draws of the frame (count, triangles, per vertex format) before the capture and for the whole frame; it is written only
+for the captures that also get a stage report (the first run wrote it for every capture, about 8,500 records, and used up the
+4 MiB stream within the first minutes).
 `tools/analyze_race_lifecycle.py` prints both as tables.
 
 ## 2. Effects after repeated races
@@ -97,6 +123,30 @@ indexed draws of the frame (count, triangles, per vertex format) before the capt
 
 **The failure the owner saw is therefore not in this log and its cause is not established.** No effect was force-enabled and
 no global reset was added.
+
+### Cause found in the second run: the race observer gives up after about fifteen new courses
+
+The owner counted the loss: after about 15 loads of a not yet loaded course, the 16th race has no proxy effect at all (the
+reflection diagnostics freeze too), while the menu still shows them. The new logs show:
+
+* the baseline race epoch observer reads the game's memory: the string pool (id -> text), the broker registry (stride 0x1c)
+  and the RaceLimits owner registry. Each reader refuses a vector whose element count is above a hard bound of **32768**
+  (`vector(...)` in `race_epoch.cpp`: `return count<=limit`);
+* the game's string pool grows with every course that is loaded for the first time in a session (the scene ids in the
+  snapshots reached about 32,300 and 32,700 in the later races; repeating a course already loaded does not grow it). Once the
+  pool crosses the bound, `race_pool_text` fails, the HUD child request name is unreadable (`request_name_unreadable`),
+  the native HUD child request is not recognised, the job counts as failed and the observer is poisoned for the rest of the
+  session (`unmatched_execute_return`, `poisoned` is permanent);
+* every PS2 effect (grass, water, spline, fleet, reflection, HUD) depends on the race certificate, the menu layers do not:
+  exactly the symptom reported, and the reflection diagnostics freeze with the certificate.
+
+Fix: the three bounds are `kRaceRegistryLimit = 1u<<20` (patch 0001 on `race_epoch.cpp`) and the overlay's own egg registry
+reader (`fleet_participants.hpp`) uses the same value. The bound was an arbitrary sanity limit; the ranges are still
+validated (begin/end/capacity ordering, stride, `id < count`). Nothing else was changed: no effect is forced on, no reset.
+
+Not provable without the game: that the 16th, 20th and 30th new course now keep their effects (the plan below has 14
+entries; the owner's own sequence of new courses is the real test). The ids are read from the same pool; the fix removes the
+only bound found, and the analyzer reports any later loss with its reason.
 
 ### What the code audit found (and what was changed)
 
@@ -150,5 +200,8 @@ from "drawn but empty".
 * `ps2_reflection_pilot_tests`: ini keys, default `auto`, status record.
 * `tests/test_course_render_fix1.py`: patch hooks, absence of the session latches, disable log coverage, ini defaults, analyzer
   (healthy 14 races, an effect lost after race 6, disables, growth, generations), the recorded evidence.
+* `ps2_diag_tests` also covers the car mask (vertex boxes, projection, hull, hull -> target coordinates, size limit);
+  `ps2_reflection_capture_tests` the refill (two extra private draws on the 64x64 target, once per published frame, state
+  restored). `test_course_render_fix1.py` pins the raised registry bounds in the patch and in `fleet_participants.hpp`.
 * Not proven without the game: that `auto` switches SpainS2 and leaves stock courses alone, the visual result, the readback
   cost, and the cause of the effect loss the owner observed. `docs/course-render-fix1/runtime-ab.md` lists the checks.

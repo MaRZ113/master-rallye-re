@@ -20,13 +20,20 @@ afterwards.
    * Italy3: `world_incomplete:false`, `timing_now:"inframe"` throughout.
 5. A/B of the fix itself: `ReflectionCaptureTiming=inframe` reproduces the black ground on SpainS2 (the old behaviour),
    `late` gives the fixed look from the first frame.
+6. The car must not be in the target: in the `ReflectionDebug=2` view of SpainS2 the target shows ground and surroundings and
+   no car silhouette (a smooth static-term patch where the car is). `ReflectionExcludeCar=0` brings the car back in the
+   target (A/B). In `ps2diag-*.jsonl` the reflection status has `car_excluded` (grows every frame) and `car_not_excluded`
+   (small: frames without a car mask). If the patch is misplaced or too large, send the screenshot and the
+   `stage-*-late.png` of the run.
 
 ## B. Race cycles (about 25 minutes)
 
 1. `Diagnostics=1` (this switches `RaceLedger` on), `PS2Water=1`, `SplineObjects=1`, `GroundDetail=1`, `Grass=1`, `Shrubs=1`,
    `RaceFleet=1` as in your normal setup. `ReflectionStageDiag=0` for this run (less readback).
 2. Follow `race-cycle-plan.md` (14 entries, the same car, Esc -> Quit between entries, no game restart). If the effects
-   disappear, note the entry number where you first see it.
+   disappear, note the entry number where you first see it. The loss reported after about 15 NEW courses was the race
+   observer's 32768 bound on the game string pool (README, "Cause found in the second run"); go past 20 different courses in
+   one session (more than the plan, every course only needs to be loaded once) and check that the effects are still there.
 3. After the run:
 
        python tools/analyze_race_lifecycle.py --diag logs/ps2diag-<stamp>.jsonl --session logs/session-<stamp>.jsonl --md report.md --json report.json --min-races 12

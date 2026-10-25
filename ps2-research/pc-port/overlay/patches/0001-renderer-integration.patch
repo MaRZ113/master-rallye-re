@@ -606,6 +606,41 @@ diff --git a/modernization/renderer/src/race_epoch.cpp b/modernization/renderer/
   request_supported_hud=parent&&parent->executing&&supported_hud_name&&
    owner.initialized&&!owner.retired&&owner.execution_job_lifetime==parent->lifetime&&owner.race_generation==race_generation;
   if(!request_supported_hud){if(!next(race_generation))return;successful_generation=successful_race_generation=0;}
+@@ -204,12 +206,15 @@
+ }
+ namespace {
+ bool word(RaceReadMemory& m,uint32_t p,uint32_t& v) noexcept{return p&&m.read(p,&v,4);}
++// The game string pool grows with every course loaded in a session (scene ids above 32000 after about fifteen new courses); a 32768 bound
++// made the pool unreadable and poisoned the race certificate for the rest of the session.
++constexpr uint32_t kRaceRegistryLimit=1u<<20;
+ bool vector(RaceReadMemory& m,uint32_t p,uint32_t stride,uint32_t limit,uint32_t& begin,uint32_t& count) noexcept {
+  uint32_t end=0,capacity=0;if(!word(m,p+4,begin)||!word(m,p+8,end)||!word(m,p+12,capacity)||!begin||end<begin||capacity<end||(end-begin)%stride)return false;
+  count=(end-begin)/stride;return count<=limit;
+ }
+ bool pool(RaceReadMemory& m,uint32_t base,uint32_t& begin,uint32_t& count) noexcept {
+- uint32_t manager=0,v=0;return word(m,base+0x2f93d4,manager)&&word(m,manager+4,v)&&vector(m,v,4,32768,begin,count);
++ uint32_t manager=0,v=0;return word(m,base+0x2f93d4,manager)&&word(m,manager+4,v)&&vector(m,v,4,kRaceRegistryLimit,begin,count);
+ }
+ bool list_count(RaceReadMemory& m,uint32_t head,uint32_t actor,uint32_t& found) noexcept {
+  uint32_t node=0,previous=head;if(!word(m,head+4,node))return false;
+@@ -239,7 +244,7 @@
+ bool RaceReadMemory::resolve_id(uint32_t base,const char* key,uint32_t& id) noexcept {return race_pool_id(*this,base,key,id);}
+ RaceScalar race_broker_scalar(RaceReadMemory& m,uint32_t base,uint32_t id,uint32_t tag) noexcept {
+  RaceScalar r;uint32_t manager=0,begin=0,count=0,payload=0,native_id=0;
+- if(!word(m,base+0x2f9410,manager)||!vector(m,manager,0x1c,32768,begin,count)||id>=count)return r;
++ if(!word(m,base+0x2f9410,manager)||!vector(m,manager,0x1c,kRaceRegistryLimit,begin,count)||id>=count)return r;
+  uint32_t p=begin+id*0x1c;if(!word(m,p,native_id)||native_id!=id||!word(m,p+8,r.tag)||r.tag!=tag||!word(m,p+4,payload)||!payload)return r;
+  if(tag==0){uint8_t v=0;if(!m.read(payload,&v,1)||v>1)return r;r.value=v;}
+  else if(tag==2){if(!m.read(payload,&r.value,4))return r;}else return r;
+@@ -252,7 +257,7 @@
+  RaceOwnerRead r;r.actor=identity.actor;r.ai=identity.ai;
+  if(!r.actor||!r.ai||identity.retired||!identity.lifetime||!current_generation){r.reason="no_current_owner_lifetime";return r;}
+  uint32_t manager=0,registry=0,name=0,begin=0,count=0,bucket=0,id=0;
+- if(!word(m,base+0x2f96fc,manager)||!word(m,manager+0x1c,registry)||!m.resolve_id(base,"RaceLimits",id)||!word(m,r.actor+0x5c,name)||name!=id||!vector(m,registry,4,32768,begin,count)||id>=count||!word(m,begin+id*4,bucket)||!vector(m,bucket,4,64,begin,count)){r.reason="registry_read_or_name_failed";return r;}
++ if(!word(m,base+0x2f96fc,manager)||!word(m,manager+0x1c,registry)||!m.resolve_id(base,"RaceLimits",id)||!word(m,r.actor+0x5c,name)||name!=id||!vector(m,registry,4,kRaceRegistryLimit,begin,count)||id>=count||!word(m,begin+id*4,bucket)||!vector(m,bucket,4,64,begin,count)){r.reason="registry_read_or_name_failed";return r;}
+  r.registrations=count;if(count!=1){r.reason="nonunique_registration";return r;}
+  uint32_t registered=0;if(!word(m,begin,registered)||registered!=r.actor){r.reason="registered_owner_replaced";return r;}
+  uint8_t flags=0;if(!m.read(r.actor,&flags,1)){r.reason="flags_unreadable";return r;}r.retired=(flags&2)!=0;if(r.retired){r.reason="retirement_flag";return r;}
 diff --git a/modernization/renderer/src/race_observer.cpp b/modernization/renderer/src/race_observer.cpp
 --- a/modernization/renderer/src/race_observer.cpp
 +++ b/modernization/renderer/src/race_observer.cpp
@@ -813,7 +848,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
 + uint32_t pilot_ordinal=UINT32_MAX;
 + bool pixel_probe_target_started=false;
 + if(pilot_extension&&pilot_extension->pixel_probe_enabled())pilot_ordinal=pilot_extension->note_indexed_draw(pilot_frame);
-+ reflectionintegration::note_draw(*this,count);
++ reflectionintegration::note_draw(*this,count,min_index,vertices);
 + const auto brake_draw=lampintegration::draw(*this,type,min_index,vertices,start,count,pc);
 + if(brake_draw.handled){reflectionintegration::note_result(*this,ps2diag::Effect::Models,"brake_lamp","brake_lamp_failed",brake_draw.hr);trace.after(71,args,static_cast<uint32_t>(brake_draw.hr),pc);return brake_draw.hr;}
 + const auto water_draw=waterintegration::draw(*this,type,min_index,vertices,start,count,pc);

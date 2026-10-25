@@ -27,7 +27,7 @@ def load_tool(name):
 
 class SourceContracts(unittest.TestCase):
     def test_patch_hooks(self):
-        for token in ('reflectionintegration::note_draw(*this,count);', 'reflectionintegration::before_ui(*this,ui_callsite)',
+        for token in ('reflectionintegration::note_draw(*this,count,min_index,vertices);', 'reflectionintegration::before_ui(*this,ui_callsite)',
                       '#include "reflection_timing_native.hpp"', 'add_test(NAME ps2_diag_contracts COMMAND ps2_diag_tests)'):
             self.assertEqual(PATCH.count(token), 1, token)
         self.assertEqual(PATCH.count('reflectionintegration::note_result('), 8)
@@ -51,6 +51,36 @@ class SourceContracts(unittest.TestCase):
         # device-level failures still switch the layer off (and are logged by the disable log)
         self.assertIn('native_grass_preview_draw_failed', read('grass_native_integration.hpp'))
         self.assertIn('native_spline_objects_draw_failed', spline)
+
+    def test_race_observer_registries_are_not_bounded_by_the_string_pool_size(self):
+        # The game string pool grows with every course loaded in a session (scene ids above 32000 after about fifteen new
+        # courses). A 32768 bound made it unreadable, poisoned the race certificate permanently and switched every PS2 effect off.
+        self.assertEqual(PATCH.count('constexpr uint32_t kRaceRegistryLimit=1u<<20;'), 1)
+        self.assertEqual(PATCH.count('kRaceRegistryLimit,begin,count'), 3)
+        self.assertFalse([l for l in PATCH.splitlines() if l.startswith('+') and '32768,begin' in l])
+        participants = read('fleet_participants.hpp')
+        self.assertNotIn('32768', participants)
+        self.assertIn('vector(m,registry,1u<<20,begin,count)', participants)
+
+    def test_car_is_excluded_from_its_own_late_reflection(self):
+        exclusion = read('reflection_exclusion.hpp')
+        for line in exclusion.splitlines():
+            if line.startswith('#include'):
+                self.assertTrue(re.match(r'#include <[a-z_]+>$', line), line)
+        timing = read('reflection_timing_native.hpp')
+        self.assertIn('D3DTSS_TCI_CAMERASPACENORMAL', timing)          # the draws that sample the environment target
+        self.assertIn('publish_car_mask(d, *p, frame);', timing)
+        self.assertLess(timing.index('publish_car_mask(d, *p, frame);'), timing.index('capture.capture_late('))
+        capture = read('reflection_capture.cpp')
+        self.assertIn('draw_exclusion(native,env)', capture)
+        self.assertIn('late&&!debug_pattern_', capture)               # the in-frame capture (no car yet) is untouched
+        self.assertIn('L"ReflectionExcludeCar",1', read('reflection_pilot.cpp'))
+        self.assertIn('ReflectionExcludeCar=1', (PORT / 'PS2Port.ini.example').read_text(encoding='utf-8'))
+
+    def test_order_records_only_for_reported_captures(self):
+        timing = read('reflection_timing_native.hpp')
+        self.assertIn('decision().stage_next()', timing)
+        self.assertIn('bool stage_next() const noexcept', read('ps2_diag.hpp'))
 
     def test_every_disable_is_recorded(self):
         for name, token in (('reflection_pilot.hpp', '"reflection"'), ('grass_pilot.hpp', 'disable_log().note('),
