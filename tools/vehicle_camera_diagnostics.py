@@ -46,24 +46,7 @@ def extent_terms(minimum, maximum):
             'height_m': abs(maximum[1] - minimum[1])}
 
 
-def camera_settings(raw):
-    if len(raw) > 1024 * 1024 or b'<!' in raw:
-        raise ValueError('bounded plain Cameras XML required')
-    root = ET.fromstring(raw)
-    records = {}
-    for value in root.findall('./Broker/Value'):
-        name = value.get('Name')
-        if name not in ('Camera/Setup', 'Camera/SplitSetup'):
-            continue
-        if name in records:
-            raise ValueError('duplicate camera setup')
-        entries = value.findall('./gaCameraManagerParams/Value')
-        if len({v.get('Name') for v in entries}) != len(entries):
-            raise ValueError('duplicate camera setting')
-        records[name] = {v.get('Name'): {'type': v.get('Type'), 'value': v.get('Value')} for v in entries}
-    if not records:
-        raise ValueError('native camera setups absent')
-    return records
+from master_rallye.game_camera import camera_settings
 
 
 def inspect_model(path):

@@ -2,7 +2,8 @@
 
 Author-slot IDs are explicit inputs, never edited in frozen projects. Runtime
 rebinding changes CarID metadata only; resources retain their own namespaces.
-No game launch, executable disk patch, implicit probe/save migration or assets.
+No game launch or executable disk patch. Fresh runtime state is seeded from the
+owner's unchanged local PlayerState.xml; probe saves are never migrated.
 """
 from __future__ import annotations
 import argparse,copy,json,re,shutil,subprocess,sys,xml.etree.ElementTree as ET
@@ -239,7 +240,9 @@ def build(config,output):
         if isinstance(v,bytes):target.write_bytes(v)
         else:shutil.copyfile(v,target)
     exe=Path(config.get('retail_exe',ROOT.parent/'MRallye.exe')).resolve()
-    result=verify(bundle,ctx);result['launcher']=launcher.build_launcher(bundle=bundle,output=output/'launcher',retail_exe=exe,bundle_verifier=lambda:verify(bundle,ctx));result['preflight']={}
+    from master_rallye.addon_sdk.player_state import seed_player_state
+    seed=seed_player_state(exe.parent,bundle/'resource-root')
+    result=verify(bundle,ctx);result['player_state_seed']=seed;result['launcher']=launcher.build_launcher(bundle=bundle,output=output/'launcher',retail_exe=exe,bundle_verifier=lambda:verify(bundle,ctx));result['preflight']={}
     for mode in ('--verify','--verify-launch-environment','--self-test-native-allocation'):
         r=subprocess.run([str((output/'launcher/mr-runtime-launcher.exe').resolve()),mode,str(exe),str(bundle.resolve())],capture_output=True,text=True,timeout=45)
         result['preflight'][mode]={'exit':r.returncode,'stdout':r.stdout,'stderr':r.stderr}

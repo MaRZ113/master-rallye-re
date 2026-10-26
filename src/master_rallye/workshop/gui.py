@@ -627,6 +627,7 @@ class WorkshopApp(AppearancePanels, AudioPanels, VehiclePanels, ShadowPanels):
 
     def close(self):
         if self.busy:self.status.set('Operation still running. Close after it finishes.');return
+        self.close_camera_lab_preview()
         hwnd=self._viewer_window()
         if hwnd:
             import ctypes

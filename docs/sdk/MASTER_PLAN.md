@@ -1,18 +1,96 @@
-# Current milestone — Vehicle Fidelity completed offline
+# Implementation checkpoint — Game Camera Lab completed offline
 
-26 October 2026: see [Vehicle Fidelity results](VEHICLE_FIDELITY_RESULTS.md).
-Shadow Studio, MR tyre/glass pilot, source-paint policy and responsive action UI
-are implemented. Owner-approved Classic report ff0925d6... is built alongside
-Source Fidelity and Custom shadow. Three isolated 30-entry packages/preflights
-pass; 894 synthetic tests / two documented missing private-fixture skips.
-Actual Windows style/shadow/audio/paint/stock-reference/texture/DPI checks and
-native CPU replay pass. Gameplay/D3D8/mixed-monitor DPI remain owner gates.
-Unchanged Physics/Camera is not claimed as a newly rerun complete GUI build matrix.
-Prior history below is preserved. No push/publication or next milestone.
+26 October 2026. Shared native-informed static camera reconstruction, separate
+Gameplay/Free Previewer modes, source-pinned per-CarID extent editing and Race
+Progress Marker RGB authoring are implemented. Original follow updater AND
+matrix writer pass controlled CPU replay; final D3D8 projection and dynamic
+terrain/speed/history/smoothing remain approximate/unknown. No per-car global
+FOV/distance/smoothing authoring is claimed.
+
+Three isolated 30-entry Classic Lancer candidates change marker28, camera28,
+and optional Softened Whine28 independently, with zero sealed game-resource
+changes. Accepted source paint, tyre/glass corrections, frozen cars, physics,
+crew, wheel hubs, lights/damage, UI and Engine/Spool/BOV remain intact. Every
+fresh runtime now copies the owner's original PlayerState.xml byte-for-byte
+when available, using the existing mutable-state exception. No fabricated
+unlocks. Old verified runtime leaves moved to an owner-deletable quarantine.
+
+See GAME_CAMERA_LAB_RESULTS.md and research/vehicles/vsdk2/game-camera-lab.md.
+901 full synthetic tests / two existing private-fixture skips; actual Windows
+Camera/HUD, Material/Binding/stock builds, Physics/Camera/art, Audio, Paint/Crew,
+stock reference, texture zoom and native audio/roster regressions are recorded.
+Real gameplay camera/HUD and Whine listening remain separate owner gates.
+No next milestone, push, publication or release.
 
 ---
 
- Latest implementation checkpoint — Audio Import 2.0 + GT adapter
+# Master Rallye Vehicle SDK — Master Plan v5.8
+
+**Review checkpoint: 26 October 2026 — Vehicle Fidelity source accepted; Game Camera Lab next.**
+
+This is an additive decision update to v5.7. The complete previous plan follows unchanged. When an older historical roadmap conflicts with this checkpoint, the checkpoint is current. Do not mistake source/Windows qualification for gameplay verification.
+
+## Vehicle Fidelity: source-review results and owner feedback
+
+- Owner reports BOV and Spool sound ideal, authentic to the intended GT sound; Whine appears pitched too high and slightly too loud. Preferred balancing action: lower Whine pitch and gain via the existing per-vehicle Audio Studio; leave BOV and Spool unchanged until an A/B listening comparison shows otherwise. Do not globally change other vehicles or rewrite samples to address a per-preset mix.
+- Owner reports the latest model's appearance is an excellent match for Master Rallye. This is visual owner feedback, not blanket native qualification of each newly changed shadow, tyre and glass path.
+- Source archive `rally-workshop-fidelity-source-review.zip`: 1,038 entries, ZIP CRC clean, 1,036 SHA256 entries matched, 450 Python modules parsed. Changed-files archive: 26 entries including manifest and review metadata, 24/24 reviewed content entries match full source tree.
+- Local independent tests: 50/50 qualified focused synthetic tests passed using src/tools/tests PYTHONPATH. Separate original x86 camera tests could not be reproduced without Unicorn; they are not included in this clean focused count.
+- Codex fidelity report: 894 full synthetic Windows tests with **two optional skips**; these numbers are reported by the developer, not independently rerun. The source manifest names local commit `59becef67db940e0c9d300ae96b62c9ebdddc4b0`; `.git` history is not bundled in the ZIP.
+- Implemented and review-supported: Shadow Studio Original/Donor/Auto/Custom with source-pinned bounds and diagnostic overlays; qualified Lancer Classic tyre/glass optics and preservation rules; source-paint preservation option; responsive action rows and original pictographic icons, including Undo/Redo.
+- Fidelity report measurements for Source to approved Classic Lancer: Race 2649→2379 tris (119→111 draws), Frontend 6333→4563 (186→178), wheel 745→370 (16→16), 77→77 referenced textures, estimated native RGBA cache 12,199,936→11,508,736 bytes. The existing topology/wheel reduction was preserved from the previous phase; do not attribute it all to this last change.
+- Three isolated fidelity candidates: A Source/Original Shadow, B approved Classic/Auto Shadow, C same Classic/Custom Shadow. Auto versus Custom has **zero resource-byte changes by design** because the source-guarded external native shadow-bounds adapter uses a separate profile. Native D3D8 shadow rendering remains an owner gate; Previewer shadow guides are not terrain-projected game shadow evidence.
+- The approved Classic retains source paint to avoid abrupt flat-shading seams; stock-derived tyre/glass optical semantics are source-qualified approximations. Exact game appearance, damage and shadow remain independently testable.
+- No original MRall​​ye.exe, stock Data.sma, existing d3d8.dll, original GT/MR assets, or Randomizer changes are permitted. Private runtime/capture/audio payloads stay out of source-only deliverables. Completed validated phase local commits authorized; **no push, release, or publication**.
+
+## Next milestone: Game Camera Lab + HUD Progress Marker Tint
+
+**Main objective:** research and implement a source-qualified preview of how the game follows a car, without confusing it with the existing freely movable D3D9 camera. Integrate a small, real per-vehicle race-progress marker color authoring workflow.
+
+### Camera Track A — Native reconstruction
+
+- Inventory and cross-reference existing camera research, native hook for source-qualified CarID follow extents, bounds transformations, stock car behavior and replay/alternate paths. Identify exact matching-build code, source pointers and update stages for camera position, look-at/target, up-vector, FOV/projection, smoothing/inertia, terrain/speed effects and camera switches. Record proven versus inferred values.
+- Do not expose FOV, distance or smoothing as working game settings until the native ownership, safe authoring path, regression and game evidence exist. The existing follow half-length/height extents are not camera distance or height controls.
+- Keep original/donor/custom per-CarID baselines, reset to immutable original, isolated candidate builds, strict source hash and family guards, no effects on stock or other add-ons.
+
+### Camera Track B — Preview in the existing renderer
+
+- Add a clearly named **Gameplay Camera Preview** mode alongside free orbit. Reuse the existing D3D9 Previewer/model resources, stage vehicle plus wheel/ground guides, and render original versus edited at matched conditions.
+- Render using recovered native geometry/projection logic to the extent it is supported; display camera pose, target and FOV only when evidence permits, with explicit labels **Native-Qualified**, **Approximate**, or **Unknown**. If only follow bounds are known, show qualified bounds and an illustrative—not falsely exact—chase framing.
+- Support meaningful static snapshots and speed/terrain scenarios only when backed by evidence, with before/after and reset; provide calibration targets for D3D8 in-game screenshot comparison when the owner can test.
+- Do not confuse a Previewer camera bookmark with the actual in-game camera. Do not claim D3D9 preview parity without real-game comparisons.
+
+### HUD Track — Per-vehicle progress-bar marker tint
+
+- Previous source/runtime research proves the bottom progress-bar marker uses a shared `hud-template_003_000.dxt` (16×8) image frame; its visible tint comes from `Race/CarN/Colour`. `VehicleRecord` carries RGBA at offsets +0x24..+0x30, and prior owner-runtime ID25 red A/B confirmed independent marker coloring.
+- `addon.json` already has the typed/validated `race_colour_rgba` array ([0..1] floats). Implement a GUI control **Race Progress Marker Color** in Vehicle Identity & Presentation and a matching shared SDK Core service method. This is **not** a recolor of Vehicle Select, SmallCarSheet, Race Results, vehicle paint, or the generic shared HUD texture.
+- Add RGB picker, preset palette, precise hex and normalized-channel display; preserve alpha=1 by default until alpha authoring is independently qualified. Preview the actual white marker tinted over representative dark/light progress-bar backgrounds using user-owned local HUD art if available; otherwise label a synthetic reference clearly. Preview and game rendering must remain distinguishable.
+- Save, undo, redo, reset to donor/source, project reopening and actual native candidate emission; verify source guard, CarID mapping, no cross-vehicle/AI/stock leakage, generated record bytes, no unintended HUD XML modifications.
+
+### Whine feedback / optional small polish
+
+- In the existing per-car Audio Studio preset for Lancer, prepare **Original vs Softened Whine** profiles. Tune qualified gain and pitch conservatively, without touching successful Spool or BOV, preserving custom engine and GT audio sources. Prepare audition clips and exact WAV/profile differences where appropriate. Owner listening chooses preferred balance later; do not unilaterally change universal defaults.
+
+### Acceptance/deliverables
+
+- Native-camera research report with exact function ownership, verifiable field map, unknowns and ABI boundaries; qualified gameplay preview or conspicuously labeled approximate fallback; Windows captures with multiple modes and unchanged original/other-CarID behavior.
+- Reversible per-vehicle progress marker tint: real GUI picker, genuine runtime fields, screenshot preview, stock/source reset, isolated candidate and per-CarID color-isolation tests. Race HUD tint gameplay checks queued but nonblocking for source/offline completion.
+- Explicit optional Whine balancing candidate with preview; no new sound engine redesign.
+- Complete available regression suite, repeat shadow/Classic/audio/physics/art tests, direct source/resource diffs, updated CAPABILITIES, REGRESSION_MATRIX, offline F1 Help, COMMIT_LEDGER, and a source-only review ZIP. Include notes of unqualified native camera parameters.
+- Stop after this milestone for source/owner review. Do not start MR Heritage Garage, GT Garage Lab, Blender Bridge, new car import or automatic broad Classic generalization during this task.
+
+## Later milestones, retained
+
+- **MR Heritage Garage**: read-only Demo/retail/edition imports into independent CarID; verified Data.sma physics donors, new race glass/brake ON layers, original provenance and reversible builds.
+- **GT Garage Lab**: optional full user-supplied GT3 corpus scan, source colorways and Classic recipe generalization with regression samples; do not claim universal support from the current Lancer pilot.
+- **Model Studio & Blender Bridge**: editable geometry/UV, scale and fitment, persistent reimport, defect explanations (culling/alpha/reflection) and safe repair paths.
+- **Fleet Builder & release prep**: large catalog versus qualified simultaneously active roster, install/revert, dependencies, documentation, license/provenance and packaging.
+
+---
+
+# Preserved Master Plan v5.7
+
+# Latest implementation checkpoint — Audio Import 2.0 + GT adapter
 
 26 October 2026. Physics/Camera/Vehicle Presentation completed first in local
 commit `53fa708ed1e1a2290fe50ddc3a1286c1488faf28`. Audio Import 2.0 and the optional
@@ -1231,3 +1309,65 @@ Offer sorted issue families for importer improvements (e.g. culling, decal blend
 - **Later:** full GT multi-band engine proof of concept only when audio data and necessary native capabilities are actually qualified. Do not delay ordinary user sound imports on an unresolved GT mystery.
 - **Acceptance:** a user can select ordinary supported source audio, audition original and converted versions *before applying*, assign that sample to any of four layers with appropriate looping/triggering, adjust and build a reversible candidate. For GT source exploration, user can identify verified bank-to-car/sample relationships and see unknown areas honestly labeled. Audio remains private and source-only archives contain code and synthetic fixtures, not commercial game data.
 - Validated phases may be committed locally with documented test evidence. No push, release or publication without explicit separate authorization. Maintain `MASTER_PLAN.md`, `CAPABILITIES.md`, `REGRESSION_MATRIX.md`, `COMMIT_LEDGER.md`, and offline Help.
+
+
+---
+
+# October 26, 2026 — Master Plan v5.7: Audio Import acceptance, Vehicle Fidelity, Game Camera Lab
+
+**Source of truth / supersession.** This additive update follows the canonical source review at commit `1eeb45f584c5ef82be878e110a3e2c23d4d350c8`, preserving every earlier requirement, research hypothesis and previously accepted game test. Older schedule handoffs referring to Physics/Camera as "not started" or Audio Import 2.0 as "future" are superseded by the current status below. The working branch and local-Git-commit discipline continue; remote publication always requires separate authorization.
+
+## A. Reviewed status and evidence boundaries
+
+- **Physics & Camera Studio / Vehicle Identity & Presentation:** implemented and Windows/offline validated, `53fa708ed1e1a2290fe50ddc3a1286c1488faf28`. Native gameplay camera edit currently controls source-qualified *follow extents* (half-length and height), **not** camera position, distance, look-at, damping, FOV or replays. Vehicle labels/aliases and UI artwork have native build integration; 33 donor physics families qualified under existing schema. Owner game test of latest candidate still pending.
+- **Audio Import 2.0 / optional GT Sound Bank Lab:** source-review commit `1eeb45f584c5ef82be878e110a3e2c23d4d350c8`; 1026/1026 manifest file hashes, 443 syntactically correct Python files; changed-only source files 43/43 match; available synthetic test groups were independently run on the review machine (Audio Import 9, GT Lab 6, shadow 6, camera-profile 3). The author's Windows report states 894 tests OK with one optional skip. Do not conflate the latter with locally reproduced all-Windows validation.
+- Audio import supports source PCM WAV, optionally local ffmpeg/ffprobe for admitted MP3, FLAC, Ogg Vorbis/Opus and float or alternate PCM WAV; the reported source caps remain 64 MiB and 30 seconds, and current engine/native authored interval is 0.1–4 seconds. These are *current implementation bounds*, not an engine-wide theoretical limit. Source/converted playback occurs before Apply; all four output roles and source provenance remain independently reversible. Full GT engine multiband orchestration remains unsolved; one chosen band uses the MR native synthesis fallback.
+- Source-qualified private GT bank inspection has real RPM/event/record provenance; `turbine2` drivetrain evidence and separate `turbine`/`b_off` relationships do not constitute full acoustic playback parity. Missing `shift_change` program 15 and 14 unhandled INST entries remain explicit blockers.
+- **Audio audition warning:** the combined scripted near-listener four-layer candidate E reports **2747 clipped PCM samples** across test segments. Individual layer compile guards pass; owner should inspect actual gain/headroom and listen in-game. DirectSound/device settings and physical attenuation are not reproduced by the offline sum.
+- No new D3D8 gameplay qualification is inferred for the latest Audio/Camera/Classic candidates. Previously accepted Subaru glass and Pajero material/visibility gameplay observations remain accepted.
+
+## B. Next phase: Vehicle Fidelity (shadows + Classic MR rubber/glass + UI usability)
+
+### Shadow Studio / Auto Fit
+
+- Reuse `addon_sdk/vehicle_shadow.py`, `tools/vehicle_shadow_native.py` and existing hash-bound profiles, not a new unverified renderer. Expose **Auto Fit** from the exact Race body X/Z envelope and transparent-shadow texture alpha support; show physical units, source/candidate profile, computed footprint, margins, scale, offset and effective alpha threshold. Distinguish the body bbox from rendered footprint and from collision bounds.
+- Provide **manual width/length scales, X/Z offsets, margins, alpha threshold** with original/donor/current Reset, Undo/Redo/Restore and explicit Save/Build. Use source-qualified native shadow-only bounds dispatch; never rewrite collision or model spatial bounds in place or alter shared shadow textures.
+- Add Previewer **shadow-projection guides**, top-down overlay and Original/Modified comparison, clearly marked as D3D9 approximation. Test small passenger, long rally prototype and tall offroad fixtures; ensure source pin mismatch or absent qualified marker fails closed. Performance, menu UI and independent CarIDs must not regress.
+- Review earlier Evo shadow fitting provenance; do not assume a global shadow texture fits every vehicle or force identical offsets for different classes.
+
+### Complete Classic MR Style material semantics for tyre and glass
+
+- The qualified Lancer `classic_style.py` explicitly states that original **glass/rubber/light materials are retained**. Therefore current Classic is not yet a complete MR-material normalization stage. Diagnose relevant physical draws, native DX render flags, opacity/alpha-test, environment pass, normal/decal ownership and source GT texture provenance. Distinguish inherited GT *visual textures and source semantics* from actual executable "GT shaders" (MR renderer consumes native-converted DX semantics).
+- Introduce qualified, versioned **MR Tyre/Rubber** and **MR Glass** semantic transformations with local stock reference inspection, preview/compare and per-role Reset. For tyres, qualify opaque black sidewalls/tread, tint/diffuse, UV texture substitution and solid wheel inner recess without hiding brake/disc geometry. For glass, qualify optical appearance/alpha/environment and keep each of the four native logical damage-controller groups, Subaru-style crack adaptation, intact glass, lights and depth/sorting intact.
+- **Never** make every GT source surface opaque or remove alpha globally. Do not overwrite donor/project originals; unclassifiable material remains source faithful with a machine-readable warning. Check race `car.dx`, frontend `complete.dx`, standalone `wheel.dx` and assembled views, including near/far and direct/oblique camera angles. Keep generated Classic deterministic/idempotent with manual overrides and source SHA guards.
+- Follow-up broad Classic generalization and original GT3 colorway support remain in GT Garage Lab after this selected-vehicle material pilot; do not claim universal GT materials fixed from one car.
+
+### Readability / UI polish
+
+- Add meaningful icons to Undo, Redo, Save, Restore, Validate, Build, audio Play/Stop and camera controls, with readable accompanying text/tooltips and accessible keyboard accelerators. Use legally distributable original/icon-font-optional assets; do not embed proprietary fonts/assets.
+- Fix clipped labels/buttons at common Windows DPI/scaling and smaller app window sizes: responsive toolbar groups/overflow or wrapped action rows, resizable workspaces, minimum supported dimensions, visible scroll handling and persistent layout. No inert decorative icons; ensure actions, disabled states, shortcuts and offline F1 Help remain synchronized.
+- Do not initiate wholesale GUI toolkit replacement just to address these layout problems.
+
+**Vehicle Fidelity acceptance:** stable saved/restored shadow fitting, qualified MR-style tyre/glass appearance visibly different from Source Fidelity without damage/opacity regressions, actual isolated candidate, UI usable without clipped action labels, deterministic test evidence, and owner D3D8 checklist. Owner D3D8 may remain pending while independent next research continues.
+
+## C. Following phase: Game Camera Lab + Gameplay Camera Preview
+
+- First reverse source-version-matched native **camera pose pipeline**: update timing, active camera modes, player vehicle/model bounds, world/view/projection matrices, follow target and offset, jump/speed/reverse response, FOV and smoothing if independent controls truly exist. Capture exact offsets/functions/constants and compare multiple stock MR cars and known user-confirmed per-CarID follow-extents edits. Do not infer camera distance simply from modified model bounds.
+- Implement a **real 3D Gameplay Camera Preview** inside or alongside established D3D9 Previewer, with vehicle and ground reference, camera frustum/target guides, Source/Edited view switch, numerical profile inspector, saved test poses, motion playback/reference trajectory only when justified. Use an *approximation* label until full D3D8 camera matching is proven; do not call static manual orbit the game camera.
+- Treat default/stock and donor camera profiles as immutable provenance. Provide **Original / Donor / Custom**, one-action Reset and safe per-CarID binding. Expose FOV/smoothing/distance etc only after native semantics and safe source/CarID-bound patch paths are qualified. Unsupported controls must be read-only, not sliders to nowhere.
+- Deliver actual D3D8 screenshot matched-pose comparisons when owner can test; document projection/rendering differences and quantify camera-space error, not just one visually similar screenshot. Keep first prototype independently testable and nonblocking on owner timing.
+
+## D. Remaining product roadmap, preserved in full
+
+1. **MR Heritage Garage:** user-local Demo/retail edition import, independent new CarIDs, Data.sma qualified stock physics selection, preserved original looks, native glass and brake-lamp completion, identity/assets and full vehicle catalog separate from installed fleet. Retain 29/30 proven SCALE1 boundary unless expanded with new evidence.
+2. **GT Garage Lab:** real source-colorway pilot, qualified Classic material/general geometry/wheel/livery generalization and batch GT3 L0/L1/L2 compatibility audits, with explicit denominators, failures, resume/budgets and no mass in-game installation requirement.
+3. **Model Studio + Blender Bridge:** stable IDs, round-trip geometry/UV, normals/winding, culling, alpha and reflection diagnoses, collision/wheel/crew attachment preservation, scale/Fit original-versus-modified reference, targeted Model Doctor guidance (primarily for unfamiliar future imports).
+4. **Fleet Builder:** reversible multi-vehicle project/CarID management, conflict detection, game resource-bank/UI checksums, install/rollback, re-entry/AI/Results qualification, packaging and release notes.
+5. **Long-term audio:** optional verified GT multi-RPM orchestrator, further direct event-to-sample research, arbitrary qualified source input improvements beyond current 30s budget, tuned mixed headroom and stock audio support only if native evidence permits. Keep baseline MR single-loop as fallback.
+6. **Public beta:** F1/help and tutorial, meaningful UI and self-explanatory errors, catalog provenance, stock zero-edit passthrough, sustainable plugin/format adapters, regression matrix and source-only distribution. Monetization remains optional and never conditions access to code or copyrighted game assets.
+
+## E. Near-term owner checklists and regression gates
+
+- **Audio candidate**: source/native preview; engine RPM sweep, drive/coast Whine, load-driven Spool, release BOV, E headroom with actual in-game Engine/SFX volumes; stock/addon AI, Results and race re-entry. Log anything clipped or overbearing before rebalancing. Do not overwrite accepted baseline.
+- **Physics/Camera/Paint/Classic candidate**: validate separate builds, identity/art/results, per-CarID follow-extents isolation, physics only on intended family, Classic paint/tyre/glass vs Source Fidelity, no driver/crew, damage or shadow regressions. Missing gameplay checks remain explicit.
+- **All future source code phases**: isolated candidate and restore, unchanged original `MRallye.exe`, `d3d8.dll`, retail `Data.sma` and private game sources, source hash lock, native ABI/lifetime, no unrelated Randomizer changes, 29/30 previously verified roster expectations, PERF2 load speed, and prior Subaru/Lancer/Pajero fidelity. Local commits authorized for completed phases only, no push/publication/release without specific permission.

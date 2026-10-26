@@ -1,3 +1,16 @@
+# Game Camera Lab capabilities
+
+26 October 2026. See [results](GAME_CAMERA_LAB_RESULTS.md).
+
+Only half-length/height extent inputs are editable. Shared source FOV, distances,
+pitch flags and smoothing are read-only diagnostics. Camera eye/target/up and
+basis are CPU-qualified only for flat static first update; D3D9 projection and
+live dynamics are not gameplay parity. Marker authoring is addon-only; fixed
+original alpha and no shared HUD texture edits. Fresh-save seeding rejects
+malformed/linked inputs and never overwrites existing candidate state.
+
+---
+
 # Vehicle Fidelity capabilities
 
 26 October 2026: see [Vehicle Fidelity results](VEHICLE_FIDELITY_RESULTS.md).

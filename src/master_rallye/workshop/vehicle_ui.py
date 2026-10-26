@@ -5,8 +5,11 @@ import tkinter as tk
 from tkinter import ttk
 from .branding import apply_icon
 from .vehicle_authoring import typed
+from .marker_ui import MarkerPanels
+from .ui_actions import scroll_page
+from .camera_lab_ui import CameraLabPanels
 
-class VehiclePanels:
+class VehiclePanels(MarkerPanels,CameraLabPanels):
     def open_vehicle_studios(self):
         if not self.project:return
         if getattr(self,'vehicle_window',None) is not None and self.vehicle_window.winfo_exists():self.vehicle_window.lift();self.vehicle_loaded();return
@@ -30,6 +33,7 @@ class VehiclePanels:
         camera=ttk.Frame(tabs,padding=10);tabs.add(camera,text='Gameplay Camera');self.camera_tab=camera
         ttk.Label(camera,text='Experimental native follow extents — separate from Previewer orbit/pan/bookmarks.\nThese are model-bound extents, not direct camera height/distance.',wraplength=900).pack(fill='x')
         ttk.Button(camera,text='Inspect exact source and bounds',command=self.camera_load).pack(anchor='w',pady=6)
+        ttk.Button(camera,text='Open Game Camera Lab',command=self.open_camera_lab).pack(anchor='w',pady=4)
         self.camera_fields={}
         for key,label in [('car_id','Target physical CarID (must match this project)'),('half_length_m','Follow half-length (m)'),('height_m','Follow height extent (m)')]:
             row=ttk.Frame(camera);row.pack(fill='x',pady=5);ttk.Label(row,text=label,width=48).pack(side='left');v=tk.StringVar();self.camera_fields[key]=v;ttk.Entry(row,textvariable=v,width=15).pack(side='left')
@@ -40,12 +44,13 @@ class VehiclePanels:
         row=ttk.Frame(camera);row.pack(fill='x');ttk.Button(row,text='Apply follow extents',command=self.camera_apply).pack(side='left');ttk.Button(row,text='Reset camera override',command=lambda:self.vehicle_action('Restore camera',lambda:self.project.vehicle_reset('camera'))).pack(side='left')
         self.camera_info=None
 
-        details=ttk.Frame(tabs,padding=10);tabs.add(details,text='Vehicle Details / Aliases');self.details_tab=details
+        details,details_page=scroll_page(tabs,padding=10);tabs.add(details_page,text='Vehicle Details / Race HUD');self.details_tab=details_page
         self.details_fields={}
         for key,label in [('manufacturer','Manufacturer (32)'),('model','Model (64)'),('combined','Combined display name (96)'),('display_name','Race Results display name (64)'),('description','Project description (8192)')]:
             row=ttk.Frame(details);row.pack(fill='x',pady=3);ttk.Label(row,text=label,width=32).pack(side='left');v=tk.StringVar();self.details_fields[key]=v;ttk.Entry(row,textvariable=v).pack(fill='x',expand=True)
         ttk.Label(details,text='Printable ASCII for game names. Numbers above are conservative SDK authoring budgets, not proven native buffer limits. Description is project metadata.',wraplength=950).pack(fill='x')
         row=ttk.Frame(details);row.pack(fill='x',pady=6);ttk.Button(row,text='Apply display identity',command=self.details_apply).pack(side='left');ttk.Button(row,text='Restore display identity',command=lambda:self.vehicle_action('Restore names',lambda:self.project.vehicle_reset('details'))).pack(side='left')
+        self.marker_layout(details)
         self.identity_note=tk.StringVar();ttk.Label(details,textvariable=self.identity_note,wraplength=950).pack(fill='x',pady=5)
         self.alias_search=tk.StringVar();ttk.Entry(details,textvariable=self.alias_search).pack(fill='x');self.alias_search.trace_add('write',lambda *_:self.alias_fill())
         self.alias_tree=ttk.Treeview(details,columns=('alias',),show='tree headings',height=7);self.alias_tree.heading('#0',text='Original stable resource ID');self.alias_tree.heading('alias',text='Friendly name (metadata only)');self.alias_tree.pack(fill='both',expand=True);self.alias_tree.bind('<<TreeviewSelect>>',self.alias_selected)
@@ -76,7 +81,7 @@ class VehiclePanels:
         if p.data['kind']=='addon':
             addon=json.loads((p.working/'addon.json').read_text());self.identity_note.set('LOCKED native identity / families / namespaces:\n'+json.dumps({'addon_id':addon['addon_id'],'runtime_CarID':p.data['car_id'],'author_slot':addon['physical_id'],'identity':addon['identity'],'resource_root':addon['assets']['model_package_root']},ensure_ascii=False))
         else:self.identity_note.set('Stock identity is read-only. Friendly aliases and generated previews are metadata; original stock UI frame replacement is unsupported.')
-        self.alias_fill();self.physics_fill()
+        self.alias_fill();self.physics_fill();self.marker_refresh()
         signature=(str(p.root),tuple((k,v['sha256']) for k,v in state['art'].items()))
         if not self.pending_art and signature!=getattr(self,'shown_art',None):
             self.art_show(state['art'],applied=True);self.shown_art=signature
@@ -94,8 +99,8 @@ class VehiclePanels:
             camera=bool(p.data['car_id']) and QUALIFIED_STOCK.get(p.data['car_id'])==p.data['family']
         unsupported=set()
         if not physics:unsupported.update(('Inspect qualified sources','Copy selected reference group','Reset physics','Apply selected typed field'))
-        if not addon:unsupported.update(('Apply display identity','Restore display identity','Apply generated art to vehicle','Restore original vehicle art'))
-        if not camera:unsupported.update(('Inspect exact source and bounds','Apply follow extents','Reset camera override'))
+        if not addon:unsupported.update(('Apply display identity','Restore display identity','Apply generated art to vehicle','Restore original vehicle art','Apply marker color','Reset marker color','Pick marker RGB…','Preview marker tint'))
+        if not camera:unsupported.update(('Inspect exact source and bounds','Open Game Camera Lab','Apply follow extents','Reset camera override'))
         if not getattr(self,'camera_info',None):unsupported.add('Apply follow extents')
         if not getattr(self,'pending_art',{}):unsupported.add('Apply generated art to vehicle')
         def walk(widget):

@@ -1,3 +1,27 @@
+# Game Camera Lab regression matrix
+
+26 October 2026. See [results](GAME_CAMERA_LAB_RESULTS.md).
+
+| Check | Evidence | Boundary |
+|---|---|---|
+| Full synthetic suite | camera-lab/tests-release.log:901 /2 optional skips | Not game/device proof |
+| Original pose/basis and actual models | native-static-pose-matrix.json, real-projects.json |16 controlled cases +4 resource pairs; flat first update |
+| Shadow Studio | shadow-gui/validation.json, shadow-native-three-models.json | Real GUI and3×58 native cases; gameplay pending |
+| Delivered camera-only adapter | native-camera-guard.json |18 ABI/guard cases, live ownership pending |
+| Marker candidate emission | native-marker-roster.json | Exact CarID28 RGBA arguments, typed constructor seams mocked |
+| Camera/marker GUI | windows-release/windows-validation.json | Actual Save/history/reset/reopen/captures; D3D8 pending |
+| Independent candidates | candidate-differences.json, t/*/roster-validation.json |369 sealed resources identical; native data isolated |
+| Mutable save / sealed assets | save-integrity.json | Native verifier accepts save edit, rejects changed DXT |
+| Audio lifetime/ABI/stock/failures | native-engine/sfx/multi/failures.json | Original code + typed device/services, listening pending |
+| Windows existing modules | regressions/windows-regressions.json | Audio/Paint/Crew/stock-reference/25–400% texture viewer |
+| Material/binding/reflection/stock | ../gcm/gui-validation.json | Real GPU editing, isolated builds, zero-edit Restore |
+| Physics/camera/names/art | ../gcp/windows-validation.json | Real GUI/build and exact resource changes, no handling claim |
+
+Evidence root `.research-output/vehicles/camera-lab/` unless noted. Regression-only
+runtime leaves are moved to quarantine after validation; reports/sources retained.
+
+---
+
 # Vehicle Fidelity regression results
 
 26 October 2026: see [Vehicle Fidelity results](VEHICLE_FIDELITY_RESULTS.md).

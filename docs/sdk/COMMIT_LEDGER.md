@@ -1,3 +1,16 @@
+# Game Camera Lab local phase
+
+26 October 2026. See [results](GAME_CAMERA_LAB_RESULTS.md).
+
+Base: `59becef67db940e0c9d300ae96b62c9ebdddc4b0` (accepted Vehicle Fidelity).
+Scoped phase subject: `Game Camera Lab: static native framing and per-car HUD tint`.
+Exact validated source commit is recorded in the post-commit closeout below;
+no fabricated historical snapshots or history rewriting. Runtime save seeding,
+marker/camera/audio candidates, native evidence and tests are included. No
+proprietary resources/runtime/audio/captures staged; no push/publication.
+
+---
+
 # Vehicle Fidelity local phase commit
 
 26 October 2026: see [Vehicle Fidelity results](VEHICLE_FIDELITY_RESULTS.md).

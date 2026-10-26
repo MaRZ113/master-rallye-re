@@ -7,6 +7,7 @@ import copy,hashlib,json,math,re,shutil,uuid
 from pathlib import Path
 from master_rallye.addon_sdk.physics_profile import MEMBERS,compile_family,validate_player_defaults,POSITIVE,NONNEGATIVE
 from master_rallye.vehicle_config_analysis import parse_vehicle_config_bytes
+from .camera_lab import CameraLabAuthoring
 
 def sha(data):return hashlib.sha256(data).hexdigest()
 def typed(row):
@@ -45,7 +46,7 @@ def field_info(path,kind,member):
     return {'editable':editable,'units':unit,'bounds':guard,'group':('/'.join(path.split('/')[:2]) if path.startswith(('Suspension/','Player')) else path.split('/')[0]),
             'evidence':'Existing typed physics compiler; V-PHYS1/2 reader/consumer map. Initialization only, no live solver.'}
 
-class VehicleAuthoring:
+class VehicleAuthoring(CameraLabAuthoring):
     def vehicle_state(self):
         from .service import write_json
         if not self.data.get('vehicle_authoring'):
@@ -63,7 +64,11 @@ class VehicleAuthoring:
             self.save()
         for name,digest in self.data['vehicle_baseline_pins'].items():
             if sha((self.root/'author-baseline'/name).read_bytes())!=digest:raise ValueError('Vehicle author baseline changed: '+name)
-        return copy.deepcopy(self.data['vehicle_authoring'])
+        state=copy.deepcopy(self.data['vehicle_authoring'])
+        if 'race_marker'not in state:
+            base=self.root/'author-baseline/addon.json'
+            state['race_marker']=json.loads(base.read_text()).get('race_colour_rgba')if base.exists()else None
+        return state
 
     def _retail_members(self):
         """One exact-archive authority, reused from the existing project compiler."""
@@ -159,7 +164,7 @@ class VehicleAuthoring:
         family=json.loads((self.working/'addon.json').read_text())['identity']['runtime_family'] if self.data['kind']=='addon' else self.data['family']
         return {'source_model_sha256':sha(raw),'original':original,'current':(state['camera'] or {}).get('follow_extents',original),
                 'car_id':self.data['car_id'],'family':family,'minimum':bounds.minimum,'maximum':bounds.maximum,
-                'boundary':'Native follow extents only; not camera distance/position. FOV/smoothing/look-at/replay unsupported; Previewer orbit remains separate.'}
+                'boundary':'Only native follow extents are editable, not direct distance/position. FOV/smoothing/focus/replay authoring unsupported. Camera Lab static pose diagnostics and Free Inspection remain separate.'}
 
     def camera_update(self,half_length,height,car_id=None):
         from master_rallye.addon_sdk.camera_profile import bind_camera_profile
@@ -168,6 +173,9 @@ class VehicleAuthoring:
         profile={'version':1,'car_id':target,'policy':'native_follow_extents','runtime_family':info['family'],
                  'source_model_sha256':info['source_model_sha256'],'follow_extents':{'half_length_m':half_length,'height_m':height}}
         bind_camera_profile(profile,self.camera_source());state=self.vehicle_state();state['camera']=profile;self._vehicle_commit(state)
+
+    def camera_reset_original(self):
+        state=self.vehicle_state();state['camera']=None;self._vehicle_commit(state)
 
     def details_update(self,fields):
         from master_rallye.addon_sdk.manifest import _validate_one
@@ -178,6 +186,19 @@ class VehicleAuthoring:
             if not isinstance(value,str) or len(value)>limits[key] or (key!='description' and (not value.strip() or any(not 32<=ord(c)<=126 for c in value))):raise ValueError(key+': printable ASCII required within SDK character budget '+str(limits[key]))
         addon=json.loads((self.working/'addon.json').read_text());addon['frontend'].update({k:fields[k] for k in ('manufacturer','model','combined')});addon['results']['display_name']=fields['display_name'];addon['description']=fields['description'];_validate_one(addon)
         state=self.vehicle_state();state['details']=dict(fields);self._vehicle_commit(state)
+
+    def marker_inspect(self):
+        from .race_marker import colour_info
+        if self.data['kind']!='addon':raise ValueError('Marker authoring requires an independently registered addon CarID; stock registration is read-only')
+        state=self.vehicle_state();baseline=json.loads((self.root/'author-baseline/addon.json').read_text())['race_colour_rgba']
+        current=state['race_marker'];colour_info(current)
+        if current[3]!=baseline[3]:raise ValueError('Race marker alpha ownership changed')
+        return {'original':colour_info(baseline),'current':colour_info(current),'car_id':self.data['car_id'],'boundary':'VehicleRecord +24..+30 -> Race/CarN/Colour. Per-vehicle marker only; shared HUD image and body/UI art unchanged.'}
+
+    def marker_update(self,rgb):
+        from .race_marker import normalized_rgb
+        info=self.marker_inspect();state=self.vehicle_state();state['race_marker']=[*normalized_rgb(rgb),info['original']['rgba'][3]]
+        self._vehicle_commit(state);return self.marker_inspect()
 
     def alias_update(self,texture,label):
         if texture not in self.data['inputs'] or not texture.endswith('.dxt'):raise ValueError('Alias needs an owned texture ID')
@@ -205,13 +226,14 @@ class VehicleAuthoring:
         addon=json.loads((base/'addon.json').read_text()) if (base/'addon.json').exists() else {}
         defaults['details']={k:addon.get('frontend',{}).get(k,'') for k in ('manufacturer','model','combined')}
         defaults['details'].update(display_name=addon.get('results',{}).get('display_name',''),description=addon.get('description',''))
+        defaults['race_marker']=addon.get('race_colour_rgba')
         return defaults
 
     def vehicle_inherit(self,other):
         """Exact metadata replay for compatible new visual versions; report conflicts."""
         if not other.data.get('vehicle_authoring'):return {'applied':[],'conflicts':[]}
         source=other.vehicle_state();state=self.vehicle_state();report={'applied':[],'conflicts':[]}
-        state['physics']=source['physics'];state['details']=source['details']
+        state['physics']=source['physics'];state['details']=source['details'];state['race_marker']=source['race_marker']
         for name,alias in source['aliases'].items():
             if self.data['inputs'].get(name)==alias['source_sha256']:state['aliases'][name]=alias;report['applied'].append(name)
             else:report['conflicts'].append({'alias':name,'reason':'texture changed or omitted by this appearance version'})
@@ -231,6 +253,7 @@ class VehicleAuthoring:
             original=json.loads((base/'addon.json').read_text());addon=json.loads((author/'addon.json').read_text())
             for key in ('manufacturer','model','combined'):addon['frontend'][key]=original['frontend'][key]
             addon['results']['display_name']=original['results']['display_name'];addon['description']=original.get('description','')
+            addon['race_colour_rgba']=original['race_colour_rgba']
             write_json(author/'addon.json',addon)
 
     def vehicle_materialize(self):
@@ -244,6 +267,9 @@ class VehicleAuthoring:
         if self.data['kind']=='addon':
             addon=json.loads((self.working/'addon.json').read_text());original=json.loads((base/'addon.json').read_text());fields=state['details']
             addon['frontend'].update({k:fields[k] for k in ('manufacturer','model','combined')});addon['results']['display_name']=fields['display_name'];addon['description']=fields['description']
+            if state['race_marker'][3]!=original['race_colour_rgba'][3]:raise ValueError('Race marker alpha remains read-only')
+            from .race_marker import colour_info
+            colour_info(state['race_marker']);addon['race_colour_rgba']=state['race_marker']
             # Metadata-only aliases must not rewrite zero-edit author bytes.
             if addon==original:write_resource(self.working/'addon.json',(base/'addon.json').read_bytes())
             elif addon!=json.loads((self.working/'addon.json').read_text()):write_json(self.working/'addon.json',addon)
@@ -270,6 +296,7 @@ class VehicleAuthoring:
             for key in ('identity','physical_id','addon_id','vehicle_class','assets'):
                 if addon[key]!=original[key]:raise ValueError('Locked native identity changed: '+key)
             _validate_one(addon)
+            if addon['race_colour_rgba']!=state['race_marker']or state['race_marker'][3]!=original['race_colour_rgba'][3]:raise ValueError('Race marker state/alpha differs from authored ownership')
             if state['physics'] is not None:report['physics']=self.physics_compile()[1]
             _,ui=build_ui_assets(self.working,addon,Path(self.data['build_settings']['retail_sma']));report['ui']=ui
         if state['camera']:
@@ -280,13 +307,15 @@ class VehicleAuthoring:
 
     def camera_build_roster(self,roster,snapshot,build):
         from .service import write_json
-        if not self.data.get('vehicle_authoring',{}).get('camera'):return
-        profile=self.vehicle_state()['camera'];path=Path(snapshot)/'camera-profile.json';write_json(path,profile)
+        profile=self.vehicle_state()['camera']
         paths=[]
         for old in roster.get('camera_profiles',[]):
             existing=json.loads(Path(old).read_text())
-            if existing['car_id']!=profile['car_id']:paths.append(old)
-        roster['camera_profiles']=paths+[str(path)]
+            if existing['car_id']!=self.data['car_id']:paths.append(old)
+        if profile:
+            path=Path(snapshot)/'camera-profile.json';write_json(path,profile);paths.append(str(path))
+        if paths:roster['camera_profiles']=paths
+        else:roster.pop('camera_profiles',None)
 
     def art_generate(self,*,model='complete.dx',role=None,azimuth=None,elevation=None,padding=12):
         from .service import write_json

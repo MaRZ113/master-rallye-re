@@ -140,7 +140,7 @@ def stage_vehicle(source:Path, output:Path, *, profile:Path|None=None):
     if not profile and len(paths)==3:
         try:config=presentation_wheels(*(parse_dx(source.parent/n) for n in ('car.dx','complete.dx','wheel.dx')))
         except ValueError as exc:config={'provenance':f'automatic rest-pose assembly unavailable: {exc}'}
-    if set(config)-{'race_wheel_instances','provenance','mechanical_debug','attached_models','glass_states','shadow_debug'}:raise ValueError('unknown viewer profile field')
+    if set(config)-{'race_wheel_instances','provenance','mechanical_debug','attached_models','glass_states','shadow_debug','camera_debug'}:raise ValueError('unknown viewer profile field')
     glass_states=config.get('glass_states',{})
     if not isinstance(glass_states,dict) or any(k not in ('screenfront','screenrear','screenleft','screenright') or type(v)is not int or v not in (1,2) for k,v in glass_states.items()):raise ValueError('Glass diagnostics require named source groups and case 1 or 2')
     instances=config.get('race_wheel_instances',[])
@@ -255,6 +255,9 @@ def stage_vehicle(source:Path, output:Path, *, profile:Path|None=None):
         from .shadow_preview import shadow_guides
         ground=min(p[1] for p in points)-.02 if points else -.02
         draws.extend(shadow_guides(config['shadow_debug'],ground))
+    if 'camera_debug'in config:
+        from .camera_preview import camera_guides
+        draws.extend(camera_guides(config['camera_debug']))
     if not points:points=[p for p in m.vertices.positions]
     lo=[min(p[k] for p in points) for k in range(3)];hi=[max(p[k] for p in points) for k in range(3)]
     data=bytearray(struct.pack('<4sIII6f',b'MRPV',1,len(textures),len(draws),*lo,*hi))

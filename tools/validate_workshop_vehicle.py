@@ -12,7 +12,11 @@ from master_rallye.workshop.vehicle_authoring import sha
 from master_rallye.workshop.gui import WorkshopApp
 from validate_rally_workshop import screenshot
 
-def hashes(root):return {p.relative_to(root).as_posix():sha(p.read_bytes()) for p in root.rglob('*') if p.is_file()}
+def hashes(root):
+    # Mutable user state is separately validated; it is not a geometry/physics
+    # regression when a previous owner-tested runtime has saves/options backups.
+    state={'datagame/playerstate.xml','datagame/playerstate.xml#','datagame/options.xml','datagame/options.xml#'}if root.name=='resource-root'else set()
+    return {p.relative_to(root).as_posix():sha(p.read_bytes()) for p in root.rglob('*') if p.is_file()and p.relative_to(root).as_posix().casefold()not in state}
 
 def prepare(reference,out):
     base=WorkshopProject(reference);p=WorkshopProject.create(base.working,out);p.configure_build(base.data['build_settings']);p.audio_state();p.vehicle_state();return p
