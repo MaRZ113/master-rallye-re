@@ -1,4 +1,18 @@
-# Latest implementation checkpoint — Audio Import 2.0 + GT adapter
+# Current milestone — Vehicle Fidelity completed offline
+
+26 October 2026: see [Vehicle Fidelity results](VEHICLE_FIDELITY_RESULTS.md).
+Shadow Studio, MR tyre/glass pilot, source-paint policy and responsive action UI
+are implemented. Owner-approved Classic report ff0925d6... is built alongside
+Source Fidelity and Custom shadow. Three isolated 30-entry packages/preflights
+pass; 894 synthetic tests / two documented missing private-fixture skips.
+Actual Windows style/shadow/audio/paint/stock-reference/texture/DPI checks and
+native CPU replay pass. Gameplay/D3D8/mixed-monitor DPI remain owner gates.
+Unchanged Physics/Camera is not claimed as a newly rerun complete GUI build matrix.
+Prior history below is preserved. No push/publication or next milestone.
+
+---
+
+ Latest implementation checkpoint — Audio Import 2.0 + GT adapter
 
 26 October 2026. Physics/Camera/Vehicle Presentation completed first in local
 commit `53fa708ed1e1a2290fe50ddc3a1286c1488faf28`. Audio Import 2.0 and the optional

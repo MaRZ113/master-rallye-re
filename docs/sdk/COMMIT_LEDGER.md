@@ -1,4 +1,23 @@
-# Accumulated vehicles work — local phase commits
+# Vehicle Fidelity local phase commit
+
+26 October 2026: see [Vehicle Fidelity results](VEHICLE_FIDELITY_RESULTS.md).
+Shadow Studio, MR tyre/glass pilot, source-paint policy and responsive action UI
+are implemented. Owner-approved Classic report ff0925d6... is built alongside
+Source Fidelity and Custom shadow. Three isolated 30-entry packages/preflights
+pass; 894 synthetic tests / two documented missing private-fixture skips.
+Actual Windows style/shadow/audio/paint/stock-reference/texture/DPI checks and
+native CPU replay pass. Gameplay/D3D8/mixed-monitor DPI remain owner gates.
+Unchanged Physics/Camera is not claimed as a newly rerun complete GUI build matrix.
+Prior history below is preserved. No push/publication or next milestone.
+
+Scoped phase subject: `Vehicle Fidelity: Shadow Studio and source-preserving Classic materials`.
+Resolve the exact local commit with:
+`git log -1 --format=%H --fixed-strings --grep="Vehicle Fidelity: Shadow Studio and source-preserving Classic materials"`.
+Post-commit review/archive-manifest.json records the canonical Git-blob archives.
+
+---
+
+ Accumulated vehicles work — local phase commits
 
 ## V-SDK4C resolved phase commits (25 October 2026)
 

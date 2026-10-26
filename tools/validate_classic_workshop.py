@@ -17,6 +17,7 @@ from validate_rally_workshop import screenshot,descendants
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     for key in ('project','recipe','stock-root','viewer','output'):p.add_argument('--'+key,type=Path,required=True)
+    p.add_argument('--paint-mode',choices=['preserve_source','regenerate_fields'])
     a=p.parse_args();a.output.mkdir(parents=True,exist_ok=False);root=tk.Tk();app=WorkshopApp(root,a.output/'workspace',ROOT,a.viewer)
     result={'status':'RUNNING','actions':[],'boundary':'Actual Windows Tk/D3D9, no game launch or implicit owner approval'};errors=[];index=0;idle=0;last=time.monotonic();classic=None;before=None
     def record(action):result['actions'].append(action);write_json(a.output/'validation.json',result)
@@ -25,9 +26,11 @@ def main():
         nonlocal before
         project=WorkshopProject(a.project);before={n:(project.baseline/n).read_bytes()for n in('car.dx','complete.dx','wheel.dx')};app._opened(project)
     def generate():
+        if a.paint_mode:app.classic_paint_mode.set({'preserve_source':'Preserve source paint','regenerate_fields':'Regenerate qualified fields'}[a.paint_mode])
         with patch('master_rallye.workshop.appearance_ui.filedialog.askopenfilename',return_value=str(a.recipe)),patch('master_rallye.workshop.appearance_ui.filedialog.askdirectory',return_value=str(a.stock_root)),patch('master_rallye.workshop.appearance_ui.filedialog.asksaveasfilename',return_value=str(a.output/'versions')):button('Rebuild as Classic…')
     def generated():
         nonlocal classic
+        if a.paint_mode:assert json.loads((a.output/'versions/classic-report.json').read_text())['paint']['mode']==a.paint_mode
         classic=app.project;assert classic.data['classic_generation']['version_style']=='Classic MR Style';assert (classic.baseline/'car.dx').read_bytes()!=before['car.dx'];screenshot(root,a.output/'classic-gui.png');record('Actual Rebuild as Classic button generated independent versions and GPU preview')
         classic.undo();assert classic.data['appearance']=='Classic MR Style';classic.redo();assert classic.data['appearance']=='Classic MR Style';record('Undo/Redo of transferred layers retains the correct Classic baseline identity')
         button('Review / approve Classic report…');root.update();win=next(w for w in root.winfo_children()if isinstance(w,tk.Toplevel)and w.title().startswith('Classic conversion report'));screenshot(win,a.output/'report-pending-gui.png');win.destroy()

@@ -62,23 +62,32 @@ def _transfer_layers(parent,child,mapping):
         if not mask.exists():conflicts.append({'kind':'paint_region','name':name,'reason':'Qualified mask file unavailable'});continue
         child.register_paint_region(name,texture,mask,region['evidence']);applied.append({'kind':'paint_region','name':name})
     if parent.data.get('crew'):conflicts.append({'kind':'crew','reason':'Original exact-hash vertex selectors retained in source-manual-layers.json; requalification required for Classic topology'})
+    if parent.data.get('shadow'):conflicts.append({'kind':'shadow','reason':'Author controls retained in parent and source-manual-layers.json; inspect the new emitted body in Shadow Studio before reapplying. Original donor profile is separately rebased by the qualified footprint guard.'})
     child.materialize();child.save()
     return {'applied':applied,'conflicts':conflicts,'preserved_original':str(parent.root),'saved_layers':'source-manual-layers.json'}
 
 
-def rebuild_classic(parent,recipe_path,stock_root,output):
+def rebuild_classic(parent,recipe_path,stock_root,output,*,material_roles=None,paint_mode=None):
     """Create two buildable variants, leaving source and owner edits untouched."""
     parent.verify_inputs();origin=source_project(parent);output=plain_tree(output).resolve()
     if origin.data['kind']!='addon':raise ValueError('Classic conversion currently requires a qualified imported SDK addon')
     if output.exists():raise ValueError('Classic rebuild requires a fresh version folder')
     if output.is_relative_to(origin.root)or output.is_relative_to(parent.root):raise ValueError('Classic output must be outside existing source/Classic projects')
     recipe=json.loads(Path(recipe_path).read_text(encoding='utf-8'));stock_root=plain_tree(stock_root).resolve()
+    if paint_mode is not None:
+        if paint_mode not in ('preserve_source','regenerate_fields'):raise ValueError('Unknown Classic paint mode')
+        recipe['paint']['mode']=paint_mode
     import re
     for key in ('stock_wheel_family','stock_brake_family'):
         if not isinstance(recipe[key],str)or not re.fullmatch('[A-Za-z][A-Za-z0-9_-]{0,63}',recipe[key]):raise ValueError('Reference family must be a local MR family name')
+    if material_roles is not None:
+        if set(material_roles)!={'tyres','glass'} or any(type(v)is not bool for v in material_roles.values()):raise ValueError('Invalid Classic role selection')
+        for role,enabled in material_roles.items():
+            if role in recipe.get('semantic_materials',{}):recipe['semantic_materials'][role]['enabled']=enabled
     stock_wheel=(stock_root/recipe['stock_wheel_family']/'wheel.dx').read_bytes();stock_brake=(stock_root/recipe['stock_brake_family']/'car.dx').read_bytes()
     resources={n:(origin.baseline/n).read_bytes()for n in origin.data['inputs']}
-    converted,report,mapping=convert(resources,recipe,stock_wheel,stock_brake)
+    from ..classic_materials import references
+    converted,report,mapping=convert(resources,recipe,stock_wheel,stock_brake,references(recipe,stock_root))
     original_spec=json.loads((origin.root/'original-author.json').read_text())
     donor=VehicleProject.load(origin.working/'vehicle-project.json').source_vehicle_dir
     output.mkdir(parents=True)

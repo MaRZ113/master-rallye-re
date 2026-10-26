@@ -1,4 +1,18 @@
-# Rally Workshop capability inventory
+# Vehicle Fidelity capabilities
+
+26 October 2026: see [Vehicle Fidelity results](VEHICLE_FIDELITY_RESULTS.md).
+Shadow Studio, MR tyre/glass pilot, source-paint policy and responsive action UI
+are implemented. Owner-approved Classic report ff0925d6... is built alongside
+Source Fidelity and Custom shadow. Three isolated 30-entry packages/preflights
+pass; 894 synthetic tests / two documented missing private-fixture skips.
+Actual Windows style/shadow/audio/paint/stock-reference/texture/DPI checks and
+native CPU replay pass. Gameplay/D3D8/mixed-monitor DPI remain owner gates.
+Unchanged Physics/Camera is not claimed as a newly rerun complete GUI build matrix.
+Prior history below is preserved. No push/publication or next milestone.
+
+---
+
+ Rally Workshop capability inventory
 
 Current update: Audio Import 2.0 / optional GT Audio Source Adapter, 26 October 2026.
 See [audio results](AUDIO_IMPORT2_RESULTS.md) and the completed

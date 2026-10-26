@@ -1,0 +1,709 @@
+{
+  "limitations": [
+    "Pilot only, exact qualified source hashes. Other surfaces retained, no automatic global classification.",
+    "Source paint, baked shading and original red/charcoal field retained exactly. Classic removes only separately qualified dense sponsor overlays; the previous flat graphic is not reapplied.",
+    "Retained number1, Mitsubishi badges, window labels, roof rally plaque; no retained decal resized.",
+    "Body reduction only approved foglamp dust covers. No silhouette decimation. Wheel tyres, hubs and brake geometry unchanged.",
+    "D3D9 previews are diagnostics, owner D3D8 gameplay validation required.",
+    "Semantic material pilot: exact selected tyre/optical draws only. Stock material records, optical texel and tread samples are explicit MR approximations, not recovered GT shading. No new Lancer native broken-glass controllers are invented; existing Subaru zones remain separately regression tested.",
+    "Front windscreen shares the original banner atlas. Optical texels use exact stock MR RGB/opacity; banner RGB and original non-environment pass retained to avoid tinting opaque sponsors. Dedicated side/rear glass uses full native MR environment material.",
+    "Owner-requested source-paint mode: exact imported baked shading and source environment assignments retained independently from Classic decal omissions. Source red/charcoal field retained; it is not the previous regenerated flat graphic. No new exact GT renderer fidelity is claimed."
+  ],
+  "models": {
+    "car.dx": {
+      "omit_decal_draws": [
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        77
+      ],
+      "omitted_decal_roles": [
+        "Pringle/Eurotex/plate overlays",
+        "dense bumper/fender RalliArt/Michelin/Ohlins/PIAA sponsor atlas",
+        "small side sponsorship atlas"
+      ],
+      "paint_draws": [
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32
+      ],
+      "radial_covers": [
+        15,
+        16
+      ]
+    },
+    "complete.dx": {
+      "omit_decal_draws": [
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        81
+      ],
+      "omitted_decal_roles": [
+        "same explicitly matched exterior decal atlases as race"
+      ],
+      "paint_draws": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34
+      ],
+      "radial_covers": [
+        17,
+        18
+      ]
+    }
+  },
+  "name": "Lancer Classic: source paint, simplified decals, MR tyres and glass",
+  "paint": {
+    "base_rgb": [
+      168,
+      168,
+      168
+    ],
+    "environment_sha256": "8b8d253cf940e0460fbb11932e0ef1c08d41a68486c178bf63dc5a66cfe441e0",
+    "environment_texture": "whitepaint-tga.dxt",
+    "evidence": "Owner-requested preserve_source: original diffuse atlas and draw RGB/alpha/environment bindings remain byte-exact at the attribute/material level. Deprecated regeneration controls below apply only when explicitly selecting regenerate_fields; source paint and overlay selection are independent.",
+    "graphics": [
+      {
+        "name": "Characteristic diagonal red body field",
+        "polygon": [
+          [
+            404,
+            86
+          ],
+          [
+            453,
+            86
+          ],
+          [
+            551,
+            190
+          ],
+          [
+            551,
+            256
+          ],
+          [
+            491,
+            256
+          ],
+          [
+            491,
+            190
+          ],
+          [
+            400,
+            109
+          ]
+        ],
+        "rgb": [
+          168,
+          28,
+          20
+        ]
+      },
+      {
+        "name": "Clean charcoal diagonal companion stripe",
+        "polygon": [
+          [
+            378,
+            132
+          ],
+          [
+            402,
+            112
+          ],
+          [
+            492,
+            190
+          ],
+          [
+            492,
+            256
+          ],
+          [
+            466,
+            256
+          ],
+          [
+            466,
+            191
+          ]
+        ],
+        "rgb": [
+          55,
+          55,
+          55
+        ]
+      },
+      {
+        "name": "Clean black diagonal border",
+        "polygon": [
+          [
+            367,
+            145
+          ],
+          [
+            381,
+            133
+          ],
+          [
+            466,
+            191
+          ],
+          [
+            466,
+            256
+          ],
+          [
+            439,
+            256
+          ],
+          [
+            439,
+            191
+          ]
+        ],
+        "rgb": [
+          22,
+          22,
+          22
+        ]
+      },
+      {
+        "name": "Characteristic red upper belt",
+        "polygon": [
+          [
+            625,
+            162
+          ],
+          [
+            696,
+            162
+          ],
+          [
+            746,
+            152
+          ],
+          [
+            742,
+            157
+          ],
+          [
+            1024,
+            157
+          ],
+          [
+            1024,
+            173
+          ],
+          [
+            747,
+            173
+          ],
+          [
+            747,
+            185
+          ],
+          [
+            646,
+            185
+          ]
+        ],
+        "rgb": [
+          168,
+          28,
+          20
+        ]
+      },
+      {
+        "name": "Red pillar field",
+        "polygon": [
+          [
+            605,
+            184
+          ],
+          [
+            706,
+            184
+          ],
+          [
+            706,
+            256
+          ],
+          [
+            605,
+            256
+          ]
+        ],
+        "rgb": [
+          168,
+          28,
+          20
+        ]
+      }
+    ],
+    "opaque_size": [
+      512,
+      128
+    ],
+    "paint_reflection_alpha": 255,
+    "rectangles": [
+      [
+        0,
+        152,
+        1024,
+        256
+      ],
+      [
+        0,
+        90,
+        300,
+        150
+      ],
+      [
+        405,
+        90,
+        620,
+        150
+      ],
+      [
+        740,
+        90,
+        1024,
+        150
+      ]
+    ],
+    "reflection_strength": 0.06,
+    "source_sha256": "7c294974a032ce0b4bad7db922fb8bb6fceef8c17cee956a325b22c463fada4b",
+    "targets": {
+      "cutout": "classic-lancer-paint-cutout-tga",
+      "opaque": "classic-lancer-paint-opaque-tga"
+    },
+    "texture": "gt4-ad685e510aa08e4ace49-tga.dxt",
+    "mode": "preserve_source"
+  },
+  "source_models": {
+    "car.dx": "b1798279dfa54cb9ecb5276ee8fe199858b56f146ca15195390cd0584796ac2e",
+    "complete.dx": "3c9817b48e2a3fb89d1a25d8551cb55fa740c0f79a1a146b400426e444d2fad2",
+    "wheel.dx": "050b69e9b78d1e7f0684895469ad67bcb06342730dbdd424aeadc51beb56540f"
+  },
+  "stock_brake_family": "Navara",
+  "stock_brake_sha256": "2d3727f5bcd889ba38891276111c53f9c4d67cee1f5ece13de374a8235690655",
+  "stock_wheel_family": "Pajero",
+  "stock_wheel_sha256": "31db2076dcfbdb85714f650712d4e5f2e4efb6cc8b72b695a14588387142f877",
+  "version": 1,
+  "wheel": {
+    "backing_x_m": 0.06,
+    "embedded_groups": [
+      {
+        "draws": [
+          110,
+          111,
+          112,
+          113,
+          114,
+          115,
+          116,
+          117,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125
+        ],
+        "rotation_y": 3.141592653589793,
+        "translation": [
+          0.745,
+          0.18535,
+          1.255
+        ]
+      },
+      {
+        "draws": [
+          126,
+          127,
+          128,
+          129,
+          130,
+          131,
+          132,
+          133,
+          134,
+          135,
+          136,
+          137,
+          138,
+          139,
+          140,
+          141
+        ],
+        "rotation_y": 0,
+        "translation": [
+          -0.745,
+          0.18535,
+          1.255
+        ]
+      },
+      {
+        "draws": [
+          142,
+          143,
+          144,
+          145,
+          146,
+          147,
+          148,
+          149,
+          150,
+          151,
+          152,
+          153,
+          154,
+          155,
+          156,
+          157
+        ],
+        "rotation_y": 3.141592653589793,
+        "translation": [
+          0.745,
+          0.18535,
+          -1.255
+        ]
+      },
+      {
+        "draws": [
+          158,
+          159,
+          160,
+          161,
+          162,
+          163,
+          164,
+          165,
+          166,
+          167,
+          168,
+          169,
+          170,
+          171,
+          172,
+          173
+        ],
+        "rotation_y": 0,
+        "translation": [
+          -0.745,
+          0.18535,
+          -1.255
+        ]
+      }
+    ],
+    "face_center_depth_m": 0.006,
+    "face_uv_scale": 0.88,
+    "reference_face": 3,
+    "reference_shelf": 4,
+    "rim_draws": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "shelf_width_scale": 0.35,
+    "texture": "gt4-1805b093606a4125d6f7-tga.dxt"
+  },
+  "semantic_materials": {
+    "version": 1,
+    "references": {
+      "rubber_model": {
+        "path": "Pajero/wheel.dx",
+        "sha256": "31db2076dcfbdb85714f650712d4e5f2e4efb6cc8b72b695a14588387142f877"
+      },
+      "tread": {
+        "path": "Pajero/pstread-tga.dxt",
+        "sha256": "0c13529c677d52f34f72dfb36f51b134cf92e48e67f5fa228e4d6f52ed853705"
+      },
+      "rubber_env": {
+        "path": "Pajero/rubber-tga.dxt",
+        "sha256": "f95b5f1932dc01e2410176c624c07543b6442505c8e85e2f80099836cd3d9208"
+      },
+      "glass_model": {
+        "path": "Navara/car.dx",
+        "sha256": "2d3727f5bcd889ba38891276111c53f9c4d67cee1f5ece13de374a8235690655"
+      },
+      "windscreen": {
+        "path": "Navara/windscreen32-tga.dxt",
+        "sha256": "f8c343db0d8647c62248521800fc7fad2dfba029f055e9a04e14fdb47252a30d"
+      },
+      "glass_env": {
+        "path": "Navara/glass-tga.dxt",
+        "sha256": "f18690e02cad8d249db527ad546bac54db3343894aa136bc84bf0d9531fac71b"
+      },
+      "tyre_sidewall": {
+        "path": "Pajero/pswheel64-tga.dxt",
+        "sha256": "59a522439bc5b1809c42e9321c78ec66e4115730eebf7ef0fc4ec61f273380ed"
+      },
+      "tyre_inner": {
+        "path": "Pajero/black-tga.dxt",
+        "sha256": "c8af53e3c1ea06c42178b3e1988dff0b3c64f150b722cba6bdd0450dc1357f82"
+      }
+    },
+    "tyres": {
+      "enabled": true,
+      "texture": "gt4-446a53bf4c14c177b05f-tga.dxt",
+      "source_sha256": "6ee0b25a778567a6c2436882a4d185cb6edd9bc468a5ca8cd27fb7abd2b4f40d",
+      "reference_model": "rubber_model",
+      "reference_draw": 1,
+      "reference_diffuse": "tread",
+      "reference_environment": "rubber_env",
+      "tread_v_range": [
+        0.25,
+        0.5
+      ],
+      "draws": {
+        "wheel.dx": [
+          12,
+          13,
+          14,
+          15
+        ],
+        "complete.dx": [
+          122,
+          123,
+          124,
+          125,
+          138,
+          139,
+          140,
+          141,
+          154,
+          155,
+          156,
+          157,
+          170,
+          171,
+          172,
+          173
+        ]
+      },
+      "native_mapping": {
+        "sidewall_reference_draw": 0,
+        "sidewall_diffuse": "tyre_sidewall",
+        "inner_diffuse": "tyre_inner",
+        "tread_source_draws": [
+          12
+        ],
+        "sidewall_source_draws": [
+          14,
+          15
+        ],
+        "inner_backing_source_draws": [
+          13
+        ],
+        "embedded_groups": [
+          {
+            "draws": [
+              110,
+              111,
+              112,
+              113,
+              114,
+              115,
+              116,
+              117,
+              118,
+              119,
+              120,
+              121,
+              122,
+              123,
+              124,
+              125
+            ],
+            "rotation_y": 3.141592653589793,
+            "translation": [
+              0.745,
+              0.18535,
+              1.255
+            ]
+          },
+          {
+            "draws": [
+              126,
+              127,
+              128,
+              129,
+              130,
+              131,
+              132,
+              133,
+              134,
+              135,
+              136,
+              137,
+              138,
+              139,
+              140,
+              141
+            ],
+            "rotation_y": 0,
+            "translation": [
+              -0.745,
+              0.18535,
+              1.255
+            ]
+          },
+          {
+            "draws": [
+              142,
+              143,
+              144,
+              145,
+              146,
+              147,
+              148,
+              149,
+              150,
+              151,
+              152,
+              153,
+              154,
+              155,
+              156,
+              157
+            ],
+            "rotation_y": 3.141592653589793,
+            "translation": [
+              0.745,
+              0.18535,
+              -1.255
+            ]
+          },
+          {
+            "draws": [
+              158,
+              159,
+              160,
+              161,
+              162,
+              163,
+              164,
+              165,
+              166,
+              167,
+              168,
+              169,
+              170,
+              171,
+              172,
+              173
+            ],
+            "rotation_y": 0,
+            "translation": [
+              -0.745,
+              0.18535,
+              -1.255
+            ]
+          }
+        ]
+      }
+    },
+    "glass": {
+      "enabled": true,
+      "texture": "gt4-f7c30a9da66c6e4015a3-tga.dxt",
+      "source_sha256": "8113314d3e0e168a4f1b93d5f6ee0ccf6a18c469d046dc7d0b6c044c13631549",
+      "reference_model": "glass_model",
+      "reference_draw": 35,
+      "reference_diffuse": "windscreen",
+      "reference_environment": "glass_env",
+      "reference_rgb": [
+        63,
+        63,
+        63
+      ],
+      "reference_alpha": 63,
+      "vertex_rgb": 171,
+      "window_alpha_value": 209,
+      "draws": {
+        "car.dx": [
+          83
+        ],
+        "complete.dx": [
+          87
+        ]
+      },
+      "model_textures": {
+        "complete.dx": {
+          "texture": "gt4-8e78e07db93064491333-tga.dxt",
+          "sha256": "d7101db590765e6fc29256722d32ab5d4b0a6f9eb5b082c607385603f763c6db"
+        }
+      },
+      "additional_atlases": [
+        {
+          "texture": "gt4-1ce0d0486fe7162421fb-tga.dxt",
+          "source_sha256": "edc6d24dd7b43573514362441aa0149894ad734ed44faf3f7133cb678de6593e",
+          "draws": {
+            "car.dx": [
+              84
+            ],
+            "complete.dx": [
+              88
+            ]
+          },
+          "preserve_overlay_colour": true,
+          "optical_bgra": [
+            9,
+            9,
+            4,
+            209
+          ]
+        }
+      ],
+      "optical_sampling": "stock_connected_regions",
+      "optical_bgra": [
+        16,
+        16,
+        8,
+        209
+      ]
+    }
+  }
+}

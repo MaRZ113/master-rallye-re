@@ -90,8 +90,9 @@ from .audio import AudioAuthoring
 from .vehicle_authoring import VehicleAuthoring
 from .audio_import import AudioImportAuthoring
 from .gt_audio import GTAudioAuthoring
+from .shadow import ShadowAuthoring
 
-class WorkshopProject(AudioAuthoring,VehicleAuthoring,AudioImportAuthoring,GTAudioAuthoring):
+class WorkshopProject(AudioAuthoring,VehicleAuthoring,AudioImportAuthoring,GTAudioAuthoring,ShadowAuthoring):
     def __init__(self, root):
         self.root=plain_tree(root).resolve()
         self.data=json.loads((self.root/'workshop-project.json').read_text(encoding='utf-8'))
@@ -213,14 +214,14 @@ class WorkshopProject(AudioAuthoring,VehicleAuthoring,AudioImportAuthoring,GTAud
         self.data['redo']=[]
 
     def _state(self):return json.loads(json.dumps({'__workshop_state__':1,'textures':self.data['edits'],'surfaces':self.data.get('surfaces',{}),
-        **{k:self.data.get(k,{}) for k in ('appearance_profiles','crew','paint_regions','color_presets','audio','vehicle_authoring')},'appearance':self.data.get('appearance','Source Fidelity')}))
+        **{k:self.data.get(k,{}) for k in ('appearance_profiles','crew','paint_regions','color_presets','audio','vehicle_authoring','shadow')},'appearance':self.data.get('appearance','Source Fidelity')}))
 
     def _load_state(self,state):
         previous_audio=self.data.get('audio')
         previous_vehicle=self.data.get('vehicle_authoring')
         if state.get('__workshop_state__')==1:
             self.data['edits']=state['textures'];self.data['surfaces']=state['surfaces']
-            for key in ('appearance_profiles','crew','paint_regions','color_presets','audio','vehicle_authoring'):self.data[key]=state.get(key,{})
+            for key in ('appearance_profiles','crew','paint_regions','color_presets','audio','vehicle_authoring','shadow'):self.data[key]=state.get(key,{})
             self.data['appearance']=state.get('appearance','Source Fidelity')
         else:self.data['edits']=state;self.data['surfaces']={}
         if previous_audio and not self.data.get('audio'):
@@ -505,11 +506,12 @@ class WorkshopProject(AudioAuthoring,VehicleAuthoring,AudioImportAuthoring,GTAud
             write_json(self.working/'vehicle-project.json',spec)
         self.audio_materialize()
         self.vehicle_materialize()
+        self.shadow_materialize()
 
     def restore(self,name=None):
         self._record()
         if name is None:
-            self.data['edits']={};self.data['surfaces']={}
+            self.data['edits']={};self.data['surfaces']={};self.data['shadow']={}
             for entry in self.data.get('crew',{}).values():entry['placements']={}
             if self.data.get('audio'):
                 state=self.data['audio'];baseline=self.root/'audio-baseline.json'
@@ -544,6 +546,7 @@ class WorkshopProject(AudioAuthoring,VehicleAuthoring,AudioImportAuthoring,GTAud
     def validate(self):
         self.materialize()
         self.vehicle_validate()
+        if self.data.get('shadow_baseline') is not None or self.data.get('shadow'):self.shadow_calculate()
         for f in self.assets.iterdir():
             if f.suffix.lower()=='.dx' and not parse_dx_bytes(f.read_bytes()).diagnostics.validated:raise ValueError('Invalid DX: '+f.name)
             if f.suffix.lower()=='.dxt':parse_dxt_bytes(f.read_bytes())

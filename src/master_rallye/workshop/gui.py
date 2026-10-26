@@ -12,10 +12,12 @@ from tkinter import ttk, filedialog, messagebox
 
 from .service import WorkshopProject, write_json
 from .texture_view import TextureView
+from .ui_actions import scroll_page
 from .branding import apply_icon,taskbar_identity
 from .appearance_ui import AppearancePanels
 from .audio_ui import AudioPanels
 from .vehicle_ui import VehiclePanels
+from .shadow_ui import ShadowPanels
 from master_rallye.dxt import DxtTexture, encode_png, PNG_ROWS_PRESERVE_STORED
 from master_rallye.preview_scene import stage_vehicle
 from master_rallye.dx import parse_dx_bytes
@@ -32,7 +34,7 @@ def bmp_png(path):
     opaque=bytearray(b''.join(rows));opaque[3::4]=b'\xff'*(w*height)
     return encode_png(DxtTexture('GPU capture',1,0,w,height,bytes(opaque),b''),PNG_ROWS_PRESERVE_STORED)
 
-class WorkshopApp(AppearancePanels, AudioPanels, VehiclePanels):
+class WorkshopApp(AppearancePanels, AudioPanels, VehiclePanels, ShadowPanels):
     def __init__(self, root, workspace, sdk_root, viewer):
         apply_icon(root);self.root=root;self.workspace=Path(workspace).resolve();self.workspace.mkdir(parents=True,exist_ok=True)
         self.sdk_root=Path(sdk_root).resolve();self.viewer=Path(viewer).resolve();self.messages=queue.Queue();self.busy=False
@@ -41,6 +43,8 @@ class WorkshopApp(AppearancePanels, AudioPanels, VehiclePanels):
         self.variant=tk.StringVar(value='Frontend');self.texture_name=tk.StringVar();self.texture_details=tk.StringVar();self.gain=[tk.StringVar(value='1.0') for _ in range(3)]
         self.status=tk.StringVar(value='Open an SDK project or create a qualified stock project to begin.')
         self.name=tk.StringVar(value='RALLY WORKSHOP');self.context=tk.StringVar(value='No vehicle selected')
+        from .ui_actions import install
+        install(self)
         self._style();self._layout();self._load_library();self.root.after(100,self._poll)
         self._sync_controls()
         self.root.bind('<F1>',lambda e:self.show_help())
@@ -71,9 +75,10 @@ class WorkshopApp(AppearancePanels, AudioPanels, VehiclePanels):
         top=ttk.Frame(self.root,padding=10);top.pack(fill='x')
         ttk.Label(top,text='RALLY WORKSHOP',style='Header.TLabel').pack(side='left',padx=(0,24))
         self.buttons={}
-        for label,command in [('Open project',self.open_project),('Open DX family',self.open_family),('New stock',self.new_stock),('Save',self.save),('Validate',self.validate),('Build',self.build),('Restore all',lambda:self.restore(None)),('Help',self.show_help)]:
+        for label,command in [('Open project',self.open_project),('Open DX family',self.open_family),('New stock',self.new_stock),('Save',self.save),('Undo',self.undo),('Redo',self.redo),('Validate',self.validate),('Build',self.build),('Restore all',lambda:self.restore(None)),('Help',self.show_help)]:
             button=ttk.Button(top,text=label,command=command,style='Accent.TButton' if label=='Build' else 'TButton');button.pack(side='left',padx=3);self.buttons[label]=button
         ttk.Button(top,text='Vehicle Studios',command=self.open_vehicle_studios).pack(side='left',padx=3)
+        ttk.Button(top,text='Shadow Studio',command=self.open_shadow_studio).pack(side='left',padx=3)
         self.outer=ttk.Panedwindow(self.root,orient='vertical');self.outer.pack(fill='both',expand=True,padx=10)
         main=ttk.Panedwindow(self.outer,orient='horizontal');self.main_split=main;self.outer.add(main,weight=5)
         left=ttk.Frame(main,padding=8);main.add(left,weight=1)
@@ -98,7 +103,7 @@ class WorkshopApp(AppearancePanels, AudioPanels, VehiclePanels):
         ttk.Label(center,text='3D: LMB orbit / geometric pick · MMB pan · wheel zoom · F focus · Home reset\nF3 actual-data HUD · Ctrl1–6 save / Shift1–6 recall view · R reload\nD3D9 approximation: world lighting, ordering and native damage still require game tests.',wraplength=680).pack(anchor='w',pady=9)
         right=ttk.Frame(main,padding=8);main.add(right,weight=2)
         tabs=ttk.Notebook(right);tabs.pack(fill='both',expand=True)
-        materials=ttk.Frame(tabs,padding=6);tabs.add(materials,text='Inspect / Texture')
+        materials,materials_page=scroll_page(tabs,padding=6);tabs.add(materials_page,text='Inspect / Texture')
         self.draws=ttk.Treeview(materials,columns=('id','group'),show='tree headings',height=8,selectmode='browse');self.draws.heading('id',text='Draw');self.draws.heading('group',text='Group / native material')
         self.draws.column('#0',width=160);self.draws.column('id',width=45,stretch=False);self.draws.column('group',width=230);self.draws.pack(fill='both',expand=True);self.draws.bind('<<TreeviewSelect>>',self._draw_selected)
         self.inspector=tk.Text(materials,height=7,width=42,bg='#191d23',fg='#d5dae0',wrap='word',font=('Consolas',9),relief='flat');self.inspector.pack(fill='x',pady=6)
@@ -116,7 +121,7 @@ class WorkshopApp(AppearancePanels, AudioPanels, VehiclePanels):
         ttk.Label(materials,text='Opaque environment only. Preserves source mask; saturated weights cannot brighten further. Blended/cutout alpha is read-only.',wraplength=350).pack(fill='x')
         row=ttk.Frame(materials);row.pack(fill='x');ttk.Button(row,text='Restore surface',command=self.restore_surface).pack(side='left',fill='x',expand=True);ttk.Button(row,text='Redo',command=self.redo).pack(side='left',fill='x',expand=True)
         self.original_capture=tk.BooleanVar();ttk.Checkbutton(materials,text='Before current edits (this version)',variable=self.original_capture,command=self.refresh).pack(anchor='w')
-        texture_tab=ttk.Frame(tabs,padding=6);tabs.add(texture_tab,text='Texture Studio')
+        texture_tab,texture_tab_page=scroll_page(tabs,padding=6);tabs.add(texture_tab_page,text='Texture Studio')
         self.texture_box=ttk.Combobox(texture_tab,textvariable=self.texture_name,state='readonly');self.texture_box.pack(fill='x');self.texture_box.bind('<<ComboboxSelected>>',lambda e:self.show_texture())
         ttk.Label(texture_tab,textvariable=self.texture_details,wraplength=330).pack(anchor='w',pady=3)
         self.usage_tree=ttk.Treeview(texture_tab,columns=('model','draw','slot'),show='headings',height=4)
@@ -131,11 +136,11 @@ class WorkshopApp(AppearancePanels, AudioPanels, VehiclePanels):
         self.tint_button=ttk.Button(texture_tab,text='Apply texture multiplier',command=self.tint);self.tint_button.pack(fill='x')
         ttk.Button(texture_tab,text='Replace with same-size PNG…',command=self.replace_png).pack(fill='x',pady=4)
         row=ttk.Frame(texture_tab);row.pack(fill='x');ttk.Button(row,text='Undo',command=self.undo).pack(side='left',expand=True,fill='x');ttk.Button(row,text='Restore texture',command=lambda:self.restore(self.texture_name.get())).pack(side='left',expand=True,fill='x')
-        fit_tab=ttk.Frame(tabs,padding=8);tabs.add(fit_tab,text='Wheel Fitment')
+        fit_tab,fit_tab_page=scroll_page(tabs,padding=8);tabs.add(fit_tab_page,text='Wheel Fitment')
         self._fit_layout(fit_tab)
         self.appearance_layout(tabs)
         self.audio_layout(tabs)
-        settings=ttk.Frame(tabs,padding=9);tabs.add(settings,text='Build / Scope')
+        settings,settings_page=scroll_page(tabs,padding=9);tabs.add(settings_page,text='Build / Scope')
         ttk.Button(settings,text='Configure build inputs…',command=self.configure).pack(fill='x')
         ttk.Button(settings,text='Open last build folder',command=self.open_build_folder).pack(fill='x',pady=7)
         ttk.Label(settings,text='IMPLEMENTED\nNative model/draw/material inspection, selected-surface RGB and existing environment pass controls, texture impact warnings and PNG replacement, filtered RGBA/Alpha image views, preview wheel fitting, qualified masked paint, appearance snapshots, local stock references, existing stock crew fitting, four-layer Audio Studio, typed Physics, qualified follow-extents, names/aliases and Vehicle Art, Save, Undo/Redo/Restore, validation and isolated stock/addon builds.\n\nFUTURE — not editable in this milestone\nGeometry/Blender bridge, scale/fit, live physics simulation and unsupported FOV/replay authoring.\n\nExisting CLI profiles remain intact. Converted-family-only projects build resource packages, not new CarIDs.',wraplength=320).pack(anchor='w',pady=10)

@@ -138,7 +138,19 @@ def paint_texture(raw,rule):
     return outputs,{'operation':'regenerated clean paint fields and explicit characteristic livery polygons, not texture shrink alone','source':digest(raw),'qualified_rectangles':rule['rectangles'],'graphics':rule.get('graphics',[]),'protected_pixels':'all texels outside these explicit rectangles; cutout alpha exact','outputs':audit}
 
 
-def convert(resources,recipe,stock_wheel,stock_brake):
+def prepare_paint(resources,rule):
+    """Keep source shading independent from the Classic decal selection."""
+    mode=rule.get('mode','regenerate_fields')
+    if mode not in ('regenerate_fields','preserve_source'):raise ValueError('Unknown Classic paint mode')
+    raw=resources[rule['texture']]
+    if digest(raw)!=rule['source_sha256']:raise ValueError('Paint atlas changed')
+    if mode=='preserve_source':
+        return {},{'mode':mode,'source':digest(raw),'operation':'Preserve original imported paint RGB, baked shading, alpha and environment bindings. Simplify only separately qualified decal overlays. No new GT rendering claims.','outputs':[]}
+    generated,audit=paint_texture(raw,rule);audit['mode']=mode
+    return generated,audit
+
+
+def convert(resources,recipe,stock_wheel,stock_brake,material_references=None):
     """Pure deterministic stage. Input is the original qualified import only."""
     if recipe.get('version')!=1:raise ValueError('Unknown Classic recipe version')
     for name,h in recipe['source_models'].items():
@@ -149,10 +161,11 @@ def convert(resources,recipe,stock_wheel,stock_brake):
     output[wheel['texture']]=texture;output['wheel.dx']=rebuild_topology(resources['wheel.dx'],edits,bounds_mode='recompute').data
     embedded,evidence=map_embedded_wheels(resources['wheel.dx'],resources['complete.dx'],wheel['embedded_groups'],edits)
     audit['wheel']={**wreport,'instances':evidence};maps={}
-    generated,paudit=paint_texture(resources[recipe['paint']['texture']],recipe['paint'])
+    generated,paudit=prepare_paint(resources,recipe['paint'])
     audit['paint']=paudit
     env=recipe['paint']['environment_texture']
-    if digest(resources[env])!=recipe['paint']['environment_sha256']:raise ValueError('Qualified stock paint environment changed')
+    preserve_paint=paudit['mode']=='preserve_source'
+    if not preserve_paint and digest(resources[env])!=recipe['paint']['environment_sha256']:raise ValueError('Qualified stock paint environment changed')
     for role,raw in generated.items():output[recipe['paint']['targets'][role]+'.dxt']=raw
     for name,plan in recipe['models'].items():
         raw=resources[name];m=parse_dx_bytes(raw);g=source_geometry(m);changes=dict(embedded)if name=='complete.dx' else {};reports=[]
@@ -166,6 +179,7 @@ def convert(resources,recipe,stock_wheel,stock_brake):
         for i in plan['paint_draws']:
             d=m.physical_draws[i]
             if d.texture_tuple[0]+'.dxt'!=recipe['paint']['texture']:raise ValueError('Paint ownership differs from recipe')
+            if preserve_paint:continue
             role='cutout'if d.flags_0x20[0] else'opaque';target=recipe['paint']['targets'][role]
             slots={'0':target}
             if role=='opaque':slots['1']=env.removesuffix('.dxt')
@@ -177,6 +191,18 @@ def convert(resources,recipe,stock_wheel,stock_brake):
         output[name],maps[name]=prune_overlays(raw,plan['omit_decal_draws'],stock_brake)
         audit['geometry'][name]={'covers':reports,'omitted_ordinary_overlay_draws':plan['omit_decal_draws'],'omitted_decal_roles':plan['omitted_decal_roles'],'draw_map':maps[name]}
         audit['bindings'][name]=bindings
+    if recipe.get('semantic_materials'):
+        from .classic_materials import apply_materials
+        output,audit['semantic_materials']=apply_materials(output,original,recipe['semantic_materials'],material_references or {},maps)
+        audit['materials']='Versioned source-qualified paint, rim, rubber and optical glass recipe. Unknown surfaces and all native controller records retained; see semantic material boundaries.'
+    if preserve_paint:
+        for name,plan in recipe['models'].items():
+            old,new=parse_dx_bytes(original[name]),parse_dx_bytes(output[name]);a,b=source_geometry(old),source_geometry(new)
+            for i in plan['paint_draws']:
+                j=maps[name][i]
+                if draw_attributes(a[i])!=draw_attributes(b[j])or draw_material(old.physical_draws[i])!=draw_material(new.physical_draws[j]):raise ValueError('Classic changed protected source paint')
+        if output.get(recipe['paint']['texture'])!=original[recipe['paint']['texture']]:raise ValueError('Classic changed protected source paint atlas')
+        audit['paint']['source_draws_attributes_and_materials_exact']=True
     # Deliberate closure, not a copy of all source atlases/donor resources.
     required=set()
     for n in ('car.dx','complete.dx','wheel.dx'):

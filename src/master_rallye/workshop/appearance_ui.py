@@ -5,6 +5,7 @@ from pathlib import Path
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox, simpledialog
 from PIL import Image, ImageTk, ImageChops, ImageEnhance
+from .ui_actions import scroll_page
 from .branding import apply_icon
 from master_rallye.paint_authoring import COLOR_PRESETS
 
@@ -27,12 +28,17 @@ def hint(widget,text):
 
 class AppearancePanels:
     def appearance_layout(self,tabs):
-        paint=ttk.Frame(tabs,padding=8);tabs.add(paint,text='Paint / Style')
+        paint,paint_page=scroll_page(tabs,padding=8);tabs.add(paint_page,text='Paint / Style')
         self.appearance_name=tk.StringVar(value='Source Fidelity')
         box=ttk.Combobox(paint,textvariable=self.appearance_name,values=['Source Fidelity','Classic MR Style','Custom'],state='readonly');box.pack(fill='x')
         box.bind('<<ComboboxSelected>>',lambda e:self.appearance_switch())
         hint(box,'Qualified Classic versions are separate projects rebuilt from the immutable import. Custom appearance edits remain separate; no repeated lossy conversion.')
         ttk.Label(paint,text='Source Fidelity / qualified Classic conversion / Custom edits. Classic requires a source-qualified recipe, preview and explicit report approval before building.',wraplength=350).pack(fill='x',pady=6)
+        self.classic_roles={role:tk.BooleanVar(value=True) for role in ('tyres','glass')}
+        for role,var in self.classic_roles.items():ttk.Checkbutton(paint,text='Use qualified MR '+role+' (off = source role)',variable=var).pack(fill='x')
+        self.classic_paint_mode=tk.StringVar(value='Recipe default')
+        ttk.Label(paint,text='Classic paint / baked shading').pack(anchor='w')
+        ttk.Combobox(paint,textvariable=self.classic_paint_mode,values=['Recipe default','Preserve source paint','Regenerate qualified fields'],state='readonly').pack(fill='x')
         ttk.Button(paint,text='Rebuild as Classic…',command=self.rebuild_classic_version).pack(fill='x')
         ttk.Button(paint,text='Review / approve Classic report…',command=self.review_classic_report).pack(fill='x',pady=3)
         ttk.Button(paint,text='Matched Original / Modified / Difference',command=self.compare_appearance).pack(fill='x')
@@ -47,7 +53,7 @@ class AppearancePanels:
         ttk.Button(paint,text='Browse local stock materials…',command=self.browse_stock_materials).pack(fill='x',pady=8)
         self.appearance_edits=tk.Text(paint,height=8,width=40,bg='#191d23',fg='#d5dae0',wrap='word');self.appearance_edits.pack(fill='both',expand=True)
         ttk.Button(paint,text='Paint / style help',command=lambda:self.show_help('appearance')).pack(fill='x')
-        crew=ttk.Frame(tabs,padding=8);tabs.add(crew,text='Crew Inspector')
+        crew,crew_page=scroll_page(tabs,padding=8);tabs.add(crew_page,text='Crew Inspector')
         ttk.Label(crew,text='Existing qualified stock crew · rigid rest-pose correction\nNo skeleton or animation authoring.',wraplength=350).pack(fill='x')
         ttk.Button(crew,text='Import qualified crew preset…',command=self.import_crew_preset).pack(fill='x',pady=6)
         ttk.Button(crew,text='Qualify crew from conversion report…',command=self.qualify_crew_report).pack(fill='x')
@@ -97,10 +103,11 @@ class AppearancePanels:
         if not stock:return
         output=filedialog.asksaveasfilename(title='New Classic version folder (must not exist)',parent=self.root)
         if not output:return
-        parent=self.project
+        parent=self.project;roles={k:v.get() for k,v in self.classic_roles.items()}
+        paint_mode={'Recipe default':None,'Preserve source paint':'preserve_source','Regenerate qualified fields':'regenerate_fields'}[self.classic_paint_mode.get()]
         def build():
             from .classic import rebuild_classic
-            return rebuild_classic(parent,recipe,stock,output)
+            return rebuild_classic(parent,recipe,stock,output,material_roles=roles,paint_mode=paint_mode)
         def opened(result):
             classic,fidelity,report=result;self.add_library(fidelity);self._opened(classic)
             messagebox.showinfo('Classic conversion generated','Source Fidelity remains independent. Inspect the preview and conversion report. Classic builds remain blocked until you explicitly approve that exact report.\n\nManual override conflicts: '+str(len(report['manual_layers']['conflicts'])),parent=self.root)

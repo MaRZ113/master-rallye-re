@@ -1,4 +1,18 @@
-# Audio Import 2.0 / optional GT source adapter — 26 October 2026
+# Vehicle Fidelity regression results
+
+26 October 2026: see [Vehicle Fidelity results](VEHICLE_FIDELITY_RESULTS.md).
+Shadow Studio, MR tyre/glass pilot, source-paint policy and responsive action UI
+are implemented. Owner-approved Classic report ff0925d6... is built alongside
+Source Fidelity and Custom shadow. Three isolated 30-entry packages/preflights
+pass; 894 synthetic tests / two documented missing private-fixture skips.
+Actual Windows style/shadow/audio/paint/stock-reference/texture/DPI checks and
+native CPU replay pass. Gameplay/D3D8/mixed-monitor DPI remain owner gates.
+Unchanged Physics/Camera is not claimed as a newly rerun complete GUI build matrix.
+Prior history below is preserved. No push/publication or next milestone.
+
+---
+
+ Audio Import 2.0 / optional GT source adapter — 26 October 2026
 
 Evidence `.research-output/vehicles/audio-import2/`; details in
 [AUDIO_IMPORT2_RESULTS.md](AUDIO_IMPORT2_RESULTS.md). Gameplay listening pending.

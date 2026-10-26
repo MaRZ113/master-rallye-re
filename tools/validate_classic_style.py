@@ -20,7 +20,9 @@ def main():
     source=WorkshopProject(a.source);classic=WorkshopProject(a.classic);source.verify_inputs();classic.verify_inputs()
     recipe=json.loads(a.recipe.read_text());resources={n:(source.baseline/n).read_bytes()for n in source.data['inputs']}
     sw=(a.stock_root/recipe['stock_wheel_family']/'wheel.dx').read_bytes();sb=(a.stock_root/recipe['stock_brake_family']/'car.dx').read_bytes()
-    first,report,mapping=convert(resources,recipe,sw,sb);second,r2,map2=convert(resources,recipe,sw,sb)
+    from master_rallye.classic_materials import references
+    refs=references(recipe,a.stock_root)
+    first,report,mapping=convert(resources,recipe,sw,sb,refs);second,r2,map2=convert(resources,recipe,sw,sb,refs)
     assert first==second and json_bytes(report)==json_bytes(r2)and mapping==map2,'Non-deterministic conversion'
     assert all((classic.baseline/n).read_bytes()==raw for n,raw in first.items()),'Candidate differs from reproducible Core output'
     result={'status':'RUNNING','deterministic_all_output_bytes':True,'deterministic_report':True,'comparison':{'before':report['before'],'after':report['after']},'protected':{},'captures':[],'boundary':'Offline DX/DXT, original-instruction CPU replay and real Windows D3D9 captures. No D3D8 gameplay claim.'}
@@ -29,6 +31,11 @@ def main():
         assert old[x.trailing.offset:x.collision.unparsed_offset]==new[y.trailing.offset:y.collision.unparsed_offset],'Collision changed'
         changed=set(recipe['wheel']['rim_draws'])if model=='wheel.dx'else set(recipe['models'][model]['radial_covers'])|set(recipe['models'][model]['paint_draws'])
         if model=='complete.dx':changed.update(i for g in recipe['wheel']['embedded_groups']for i in g['draws'][:len(recipe['wheel']['rim_draws'])])
+        def semantic_owners(role):
+            if not isinstance(role,dict)or role.get('enabled',True)is not True:return
+            changed.update(role.get('draws',{}).get(model,[]))
+            for child in role.get('additional_atlases',[]):semantic_owners(child)
+        for role in recipe.get('semantic_materials',{}).values():semantic_owners(role)
         indices=mapping.get(model,{i:i for i in gx});unchanged=[]
         for i,j in indices.items():
             if i not in changed:
