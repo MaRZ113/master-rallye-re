@@ -18,6 +18,7 @@ from .appearance_ui import AppearancePanels
 from .audio_ui import AudioPanels
 from .vehicle_ui import VehiclePanels
 from .shadow_ui import ShadowPanels
+from .heritage_ui import HeritagePanels
 from master_rallye.dxt import DxtTexture, encode_png, PNG_ROWS_PRESERVE_STORED
 from master_rallye.preview_scene import stage_vehicle
 from master_rallye.dx import parse_dx_bytes
@@ -34,7 +35,7 @@ def bmp_png(path):
     opaque=bytearray(b''.join(rows));opaque[3::4]=b'\xff'*(w*height)
     return encode_png(DxtTexture('GPU capture',1,0,w,height,bytes(opaque),b''),PNG_ROWS_PRESERVE_STORED)
 
-class WorkshopApp(AppearancePanels, AudioPanels, VehiclePanels, ShadowPanels):
+class WorkshopApp(AppearancePanels, AudioPanels, VehiclePanels, ShadowPanels, HeritagePanels):
     def __init__(self, root, workspace, sdk_root, viewer):
         apply_icon(root);self.root=root;self.workspace=Path(workspace).resolve();self.workspace.mkdir(parents=True,exist_ok=True)
         self.sdk_root=Path(sdk_root).resolve();self.viewer=Path(viewer).resolve();self.messages=queue.Queue();self.busy=False
@@ -75,7 +76,7 @@ class WorkshopApp(AppearancePanels, AudioPanels, VehiclePanels, ShadowPanels):
         top=ttk.Frame(self.root,padding=10);top.pack(fill='x')
         ttk.Label(top,text='RALLY WORKSHOP',style='Header.TLabel').pack(side='left',padx=(0,24))
         self.buttons={}
-        for label,command in [('Open project',self.open_project),('Open DX family',self.open_family),('New stock',self.new_stock),('Save',self.save),('Undo',self.undo),('Redo',self.redo),('Validate',self.validate),('Build',self.build),('Restore all',lambda:self.restore(None)),('Help',self.show_help)]:
+        for label,command in [('Open project',self.open_project),('Open DX family',self.open_family),('New stock',self.new_stock),('Heritage Garage',self.open_heritage),('Save',self.save),('Undo',self.undo),('Redo',self.redo),('Validate',self.validate),('Build',self.build),('Restore all',lambda:self.restore(None)),('Help',self.show_help)]:
             button=ttk.Button(top,text=label,command=command,style='Accent.TButton' if label=='Build' else 'TButton');button.pack(side='left',padx=3);self.buttons[label]=button
         ttk.Button(top,text='Vehicle Studios',command=self.open_vehicle_studios).pack(side='left',padx=3)
         ttk.Button(top,text='Shadow Studio',command=self.open_shadow_studio).pack(side='left',padx=3)

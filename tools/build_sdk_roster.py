@@ -52,7 +52,7 @@ def load_author(project,build):
     plan=json.loads((build/'addon-plan.json').read_text());rows=plan.get('addons',[])
     if len(rows)!=1 or rows[0]['addon_id']!=manifest['addon_id']:raise ValueError('exactly one standalone author addon required')
     original=rows[0]
-    _,resources,report=legacy._load_project_build(manifest['addon_id'],manifest,manifest_raw,original,build)
+    _,resources,report=legacy._load_project_build(manifest['addon_id'],manifest,manifest_raw,original,build,allow_profile_donor=True)
     return original,resources,report
 
 def apply_base_glass_profiles(resources,base_rows,profiles):

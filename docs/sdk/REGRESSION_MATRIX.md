@@ -1,3 +1,31 @@
+# MR Heritage Garage regression matrix
+
+27 October 2026. See [results](HERITAGE_GARAGE_RESULTS.md).
+
+| Check | Result / private evidence | Boundary |
+|---|---|---|
+| Complete synthetic suite | tests-final.log:910 tests /2 existing optional skips | No private assets in fixtures |
+| Edition/source qualification | edition-catalog-qualified.json; source pins |33 Demo folders /26 retail families, not playable counts |
+| Native prefix/GXI mapping | direct upgrader, exact local GXI pairs, synthetic orientation/CRC tests | Unsupported revisions fail closed |
+| Source surfaces/collision | native-feature-validation.json | All1911 intact/off triangles; added40 alternative-state triangles |
+| Reindexed wheel rest pose | wheel-rest-pose.json |3 independent parts;8.94e-8m, not live suspension |
+| Studio Heritage workflow | windows/validation.json and actual captures | Inspect/Preview/Create/Configure/Validate/Build; history/reopen/Restore |
+| Determinism and build diffs | offline-acceptance.json |101 author files; two native derivations; zero sealed resource differences |
+| Roster and native package | final-roster-validation.json |313 resources;185 frozen resources, player/AI gameplay pending |
+| Original source/original game | offline-acceptance.json |60 Demo snapshot files, original EXE/DLL/SMAs, clean R-DEMO worktree |
+| Save seeding | offline-acceptance.json |Byte-identical root PlayerState copy, no fabricated unlocks |
+| Cross-module Windows suite | regressions/windows-regressions.json |Audio/Paint/Crew/reference/zoom/material/stock/Physics/Camera/art |
+| Native audio | native-engine/sfx/multi/failures.json |ABI, lifecycle, stock and failures; devices/inputs mocked |
+| Shadow arithmetic | shadow-native-three-models.json |4 models ×58 controlled native cases, no new gameplay claim |
+| Slot research | class-helper-emulation.json + ignored REA snapshot |Original12; hypothetical13/16; production count guard unchanged |
+
+Evidence root: `.research-output/vehicles/heritage/`. An initially mismatched
+Physics regression baseline was corrected to the same Source Fidelity/Pajero
+roster; the original failure remains recorded. Regression-only runtime leaves
+are quarantined after validation. Owner D3D8 checklist remains pending.
+
+---
+
 # Game Camera Lab regression matrix
 
 26 October 2026. See [results](GAME_CAMERA_LAB_RESULTS.md).

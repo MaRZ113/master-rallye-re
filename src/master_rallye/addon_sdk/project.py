@@ -337,6 +337,8 @@ def validate_project(project_root: Path, capabilities_path: Path, *,
     root = _absolute_without_links(Path(project_root), "project")
     if not root.is_dir():
         raise AddonValidationError(f"project directory is missing: {root}")
+    from .heritage_source import verify_author
+    verify_author(root)
     manifest_path = root / "addon.json"
     vehicle_path = root / "vehicle-project.json"
     _absolute_without_links(manifest_path, "addon manifest")

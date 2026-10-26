@@ -16,3 +16,6 @@ where = ["src"]
 
 [project.optional-dependencies]
 workshop = ["Pillow>=10", "numpy>=1.24", "unicorn==2.1.4"]
+
+[tool.setuptools.package-data]
+"master_rallye.addon_sdk" = ["heritage_qualified_sources.json"]

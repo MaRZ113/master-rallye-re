@@ -370,8 +370,27 @@ def _record_for_id27(row: dict[str, Any], profile: str) -> i0.registry.VehicleRe
     )
 
 
+def _verify_independent_donor(root,donor,family,profile):
+    """Recompute both exact retail member overlays before admitting a new donor.
+
+    This is initialization-resource qualification, not new handling gameplay
+    evidence. Legacy J.3-B retains its Navara-only default admission.
+    """
+    from master_rallye.addon_sdk.physics_profile import MEMBERS,compile_family,validate_player_defaults
+    from master_rallye.addon_sdk.project import read_sma_member
+    validate_profile(profile,donor_family=donor,runtime_family=family)
+    outputs={}
+    for member in MEMBERS:
+        raw=read_sma_member(PROJECT_ROOT.parent/'corpora/retail/Data.sma',member)
+        if _sha(raw)!=profile['source_sha256'][member]:raise CollectionRuntimeError('Independent donor retail source pin differs')
+        data,_=compile_family(raw,profile,donor_family=donor,runtime_family=family,source_label=member)
+        if data!=_under(root,member).read_bytes():raise CollectionRuntimeError('Independent donor overlay differs from exact retail recompilation')
+        outputs[member]=data
+    validate_player_defaults(outputs[MEMBERS[0]],outputs[MEMBERS[1]],family,profile.get('ride_height_reference_m'))
+
+
 def _load_project_build(addon_id: str, manifest: dict[str, Any], manifest_bytes: bytes,
-                        row: dict[str, Any], build_path: Path) -> tuple[Path, list[tuple[str, Path, str]], dict[str, Any]]:
+                        row: dict[str, Any], build_path: Path, *, allow_profile_donor: bool = False) -> tuple[Path, list[tuple[str, Path, str]], dict[str, Any]]:
     root = _safe_root(Path(build_path), f"{addon_id} project build")
     try:
         verified = verify_build(root)
@@ -402,7 +421,9 @@ def _load_project_build(addon_id: str, manifest: dict[str, Any], manifest_bytes:
         raise CollectionRuntimeError(f"{addon_id} has no exact-build validated DataGame physics-family overlay")
     donor = authoring.get("donor_family")
     if donor != "Navara":
-        raise CollectionRuntimeError("J.3-B first runtime profile is qualified for the Navara donor family only")
+        if not allow_profile_donor or physics.get('profile') is None:
+            raise CollectionRuntimeError("Non-Navara donors require the explicit roster path and a pinned independently compiled physics profile")
+        _verify_independent_donor(root,donor,row['identity']['runtime_family'],physics['profile'])
     if physics.get('profile') is not None:
         profile=validate_profile(physics['profile'],donor_family=donor,runtime_family=row['identity']['runtime_family'])
         if _under(root,'physics-profile.json').read_bytes()!=canonical_json(profile):

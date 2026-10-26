@@ -1,3 +1,22 @@
+# MR Heritage Garage capabilities
+
+27 October 2026. See [results](HERITAGE_GARAGE_RESULTS.md).
+
+Native PC Demo import over immutable snapshots; reviewed rev131→135 and
+rev135 passthrough; rev127 unsupported. Exact local DXT/GXI closure, preserved
+source crew/collision/materials, explicit native glass/brake recipes and
+independent retail-donor physics. Actual Heritage dialog generates own UI art
+and opens standard Library/Previewer/builds. Native mirrored/reindexed wheel
+rest-pose proof uses positions, UV and topology in multiple parts.
+
+Pilot: Demo Trooper9.3.1 / HeritageTrooper29, explicit T2 test class and Navara
+sound7 fallback. Isolated30 roster omits Pajero without editing its project.
+No original Demo audio identity, universal Cooker, GT conversion,31+ gameplay,
+new FOV modes or new physics tuning is claimed. See CLASS_SLOT_RESEARCH.md for
+separate publisher/navigation findings and future gates.
+
+---
+
 # Game Camera Lab capabilities
 
 26 October 2026. See [results](GAME_CAMERA_LAB_RESULTS.md).

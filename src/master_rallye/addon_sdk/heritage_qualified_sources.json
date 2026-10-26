@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "families": [
+    {
+      "edition": "demo-9.3.1",
+      "family": "Trooper",
+      "evidence": "master-rallye-re-rdemo a48afa147ef984e809f1f065299985aefaad6091 / research/r-bridge/r-bridge1-demo-retail-dx-compatibility.md shipped DX + GXM inventory; NOT regenerated Cooker outputs",
+      "files": {
+        "car.dx": "bf644c0530b3908789676564b4761cd670cc2bb187b084983d414bba458fa041",
+        "complete.dx": "fe4dfa6639c0ac2c9baf4e07428abe4ea3a528bb86b411a3034d74d4ce83a3a9",
+        "wheel.dx": "4611a14326b0413cab8bffc7a61e0c6ee710f69bb986f0cab83921193bf8505f",
+        "car.gxm": "5caed6da1213f17e2638d0ee47860cf521d4715475418e028bfd13f7c0e87642",
+        "complete.gxm": "122d84a45a6b2f81989e645c18ecfd7a32392bf029c7503698fb5fc900eb5c34",
+        "wheel.gxm": "ade8e42e4e1c4c946b2bf726c722494b31854ee0ebd2e16384db675a7595aa65"
+      }
+    }
+  ]
+}

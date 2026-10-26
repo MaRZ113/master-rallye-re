@@ -11,5 +11,6 @@
   {"id":"physics-camera","title":"Physics, gameplay camera, vehicle names and game artwork"},
   {"id":"audio-import","title":"Audio Import 2.0 and optional GT Sound Bank Lab sources"},
   {"id":"shadows","title":"Shadow Studio and Classic material qualification"},
-  {"id":"game-camera","title":"Game Camera Lab and Race Progress Marker"}
+  {"id":"game-camera","title":"Game Camera Lab and Race Progress Marker"},
+  {"id":"heritage","title":"MR Heritage Garage: native Demo sources and isolated rosters"}
 ]

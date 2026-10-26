@@ -78,10 +78,57 @@ def presentation_wheels(car,complete,wheel):
             if any(abs(q[k]-p[k]*scale[k]-shift[k])>2e-5 for p,q in zip(ps,target) for k in range(3)):break
             group.append({'translation':[round(shift[k]-delta[k],6) for k in range(3)],'rotation_y':0.,'scale':[round(v,6) for v in scale]})
         if len(group)==4:recovered.append(sorted(group,key=lambda v:tuple(round(x,3) for x in v['translation'])))
+    if not recovered:return _unordered_presentation_wheels(car,complete,wheel,delta,len(offsets))
     if len(recovered)<2 or any(abs(g[j][field][k]-recovered[0][j][field][k])>2e-5 for g in recovered for j in range(4) for field in ('translation','scale') for k in range(3)):
         raise ValueError('wheel parts do not prove four coherent transforms')
     return {'race_wheel_instances':recovered[0],
             'provenance':f'exact repeated frontend wheel vertices in {len(recovered)} independent parts; {len(offsets)} exact body translations; rest pose only, not race physics'}
+
+
+def _unordered_presentation_wheels(car,complete,wheel,delta,body_evidence):
+    """Qualified mirror/reindex fallback: exact positions, UV and topology.
+
+    Native cookers can reorder mirrored vertices and shade frontend colors
+    differently. No arch fitting, anchors, or normal/color changes are made.
+    At least two independent wheel parts must prove the same four transforms.
+    """
+    from collections import Counter
+    from .topology_writer import source_geometry
+    import itertools
+    cg,wg=source_geometry(complete),source_geometry(wheel);recovered=[];maximum=0.;work=0
+    if len(wheel.physical_draws)>64:raise ValueError('Unordered wheel proof exceeds bounded draw budget')
+    def midpoint(vs,k):return (min(v.position[k]for v in vs)+max(v.position[k]for v in vs))/2
+    def span(vs,k):return max(v.position[k]for v in vs)-min(v.position[k]for v in vs)
+    for index,a in enumerate(wheel.physical_draws):
+        p=wg[index];n=len(p.vertices)
+        if n>1024 or min(span(p.vertices,k)for k in range(3))<1e-7:continue
+        matches=[j for j,b in enumerate(complete.physical_draws)if b.texture_tuple==a.texture_tuple and b.triangle_count==4*a.triangle_count and b.local_vertex_max+1==4*n]
+        if len(matches)!=1:continue
+        work+=32*n*n
+        if work>8000000:raise ValueError('Unordered wheel proof exceeds bounded matching budget')
+        q=cg[matches[0]];group=[]
+        for chunk in range(4):
+            target=q.vertices[chunk*n:(chunk+1)*n];solutions=[]
+            for signs in itertools.product((-1,1),repeat=3):
+                scale=[signs[k]*span(target,k)/span(p.vertices,k)for k in range(3)]
+                if any(not .5<abs(v)<2 for v in scale):continue
+                shift=[midpoint(target,k)-scale[k]*midpoint(p.vertices,k)for k in range(3)];mapping={};used=set();error=0.
+                for vi,v in enumerate(p.vertices):
+                    possible=[(j,max(abs(u.position[k]-v.position[k]*scale[k]-shift[k])for k in range(3)))for j,u in enumerate(target)if j not in used and len(u.uvs)==len(v.uvs) and all(abs(x-y)<2e-5 for us,vs in zip(u.uvs,v.uvs)for x,y in zip(us,vs))]
+                    possible=[t for t in possible if t[1]<2e-5]
+                    if not possible:break
+                    j,err=min(possible,key=lambda t:t[1]);mapping[vi]=j;used.add(j);error=max(error,err)
+                if len(used)!=n:continue
+                want=Counter(tuple(sorted(mapping[v]for v in tri))for tri in p.triangles)
+                actual=Counter(tuple(sorted(v-chunk*n for v in tri))for tri in q.triangles if all(chunk*n<=v<(chunk+1)*n for v in tri))
+                if actual!=want:continue
+                solutions.append({'translation':[round(shift[k]-delta[k],6)for k in range(3)],'rotation_y':0.,'scale':[round(v,6)for v in scale]});maximum=max(maximum,error)
+            if len(solutions)!=1:break
+            group.append(solutions[0])
+        if len(group)==4:recovered.append(sorted(group,key=lambda v:tuple(round(x,3)for x in v['translation'])))
+    if len(recovered)<2 or any(abs(g[j][field][k]-recovered[0][j][field][k])>2e-5 for g in recovered for j in range(4)for field in ('translation','scale')for k in range(3)):
+        raise ValueError('wheel parts do not prove four coherent transforms')
+    return {'race_wheel_instances':recovered[0],'provenance':f'Exact mirrored/reindexed frontend positions, UV and triangle topology in {len(recovered)} independent parts; {body_evidence} exact body translations; max position error {maximum:.9g} m. Frontend colors/normals not assumed equal. Rest pose only, not race physics.'}
 
 
 def logical_cases(model):

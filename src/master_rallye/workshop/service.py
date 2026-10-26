@@ -197,6 +197,8 @@ class WorkshopProject(AudioAuthoring,VehicleAuthoring,AudioImportAuthoring,GTAud
         self.data['build_settings']=settings;self.save()
 
     def verify_inputs(self):
+        from master_rallye.addon_sdk.heritage_source import verify_author
+        verify_author(self.working)
         for path,expected in self.data.get('author_sources',{}).items():
             if sha(Path(path).read_bytes())!=expected:raise ValueError('Original author input changed: '+path)
         for name,expected in self.data['inputs'].items():

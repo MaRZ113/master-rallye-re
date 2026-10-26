@@ -1,3 +1,86 @@
+# Implementation checkpoint — MR Heritage Garage completed offline
+
+27 October 2026. Native Demo source adapter, edition catalog, Heritage Garage
+Studio workflow and an independent Demo9.3.1 Trooper candidate are implemented.
+The isolated30-entry roster selects HeritageTrooper29 instead of Pajero29,
+preserving Subaru27, Classic Lancer28 and previous projects/reservations.
+No GT Classic conversion, original Demo EXE execution or retail writes.
+
+910 synthetic tests / two existing optional private-fixture skips; actual Windows
+inspect/preview/create/configure/validate/build and history/reopen/Restore,
+repeatable source imports, sealed builds, native audio and cross-module GUI
+regressions pass. This new candidate still requires owner D3D8 gameplay testing.
+Prior Game Camera Lab camera/marker behavior is owner-confirmed; Camera2.0,
+Whine refinements and larger active rosters remain separate future work.
+
+Further class-slot research rechecks original publisher/navigation instructions
+and emulates13/16 UI keys in private CPU memory.30 remains the largest
+owner-qualified roster; no31+ candidate or safe universal maximum is claimed.
+
+See HERITAGE_GARAGE_RESULTS.md and CLASS_SLOT_RESEARCH.md. Private assets stay
+local; source review archives contain no game models, textures, audio or EXE/DLL.
+Local scoped commits only. No next milestone, push, publication or release.
+
+---
+
+# Master Rallye Vehicle SDK — Master Plan v5.9
+
+**Decision: Game Camera Lab reviewed; begin MR Heritage Garage.** 26 October 2026. This revision adds a current status and new phase acceptance criteria **without deleting or replacing the entire preceding v5.8 and older plans**. The prior canonical plan follows this new checkpoint verbatim.
+
+## 1. Current evidence checkpoint — Game Camera Lab
+
+- Source-only full review archive: 1,052 ZIP entries; 1,050 hash-manifest entries all matched; 461 Python sources passed syntax parsing. All 28 nonmanifest changed-files entries match the full archive.
+- Independent local synthetic run: **31 tests passed**, covering game camera lab, marker, player state, vehicle identity, camera profiles and Workshop regressions. A broader attempted run had two review-environment/import errors in legacy tests (`tests.helpers` and a direct native tool import), not a demonstrated game-camera regression. Codex reports **901 tests with two optional skips** on its full Windows tree; this full run was not reproduced here.
+- Stage commit declared: `7e0ed2ba29d3ba4b0d25aa5841c40768d5fc14eb`; ZIP lacks `.git`, so this is documented rather than independently verified Git metadata.
+- Camera research reconstructs the **flat, upright, pitch-disabled initial update** of one native Follow camera (eye, target, up), replaying original x86 code and the matrix-writer path. D3D9 gameplay-style pose viewing is **static and approximate**, not a verified D3D8 dynamic camera simulation.
+- Three source Follow presets (`FollowCamera 0/1/2`) and normal/split configuration are inspected read-only. **The owner's five in-game camera types need an exact type → constructor → parameter owner → runtime switch map**; they are not equivalent to the three Follow preset indices.
+- Current per-CarID authoring changes **follow half-length and height extent only**; native FOV, DistFront/Back/Up, pitch, smoothing and mode-specific state remain read-only or unqualified. Existing extents may influence multiple viewing modes if reused by camera construction; individual mode independence must be proved before controls are exposed.
+- Camera Lab launches a standalone D3D9 Previewer for a selected precomputed pose; **not a live, continuously synchronized editing viewport**. `G` switches between Free Inspection and static Gameplay-style pose when available.
+- Race progress marker tint authored via `race_colour_rgba`, original alpha retained, local qualified HUD image or labeled synthetic fallback, project history and isolated candidate emission. The owner confirms the marker and camera changes actually apply in the game. Native five-mode/FOV fidelity is not thereby established.
+- Lancer `Softened Whine` preset from current milestone lowered gain and response, but owner still reports pitch subjectively high; retain accepted original, prepare a further mild pitch-only comparison later without changing successful Spool/BOV.
+- Candidate A marker-only, B extent-only, C Whine-only kept separate. Owner game tests of those features noted; detailed stock/AI/camera-mode checks remain distinct validation gates.
+
+## 2. New immediate milestone — MR Heritage Garage: Demo Vehicle Pilot
+
+**Goal:** import an actual owner-supplied Master Rallye Demo/other-edition vehicle as a **new independent vehicle**, not a retail replacement. Reuse the separately maintained `master-rallye-re-rdemo` research worktree/branch and its Cooker evidence. That worktree's contents are **not present in the reviewed camera archives**; the main implementing agent must inspect its actual source, commits, documentation and source hashes before invoking or integrating it. Do not guess Cooker compatibility.
+
+**Track A — Source audit and edition catalog**
+- Locate the owner's read-only Demo and retail installations or unpacked archives and the correct Demo Cooker research; inventory exact builds, hashes, vehicle identities, DX/DXT/SMA, thumbnails, overlays, UI records, archive paths, animation/crew, audio and physics references.
+- Build a Demo↔retail vehicle crosswalk with absent/different/identical/unverified status; distinguish engine support from source-file availability. Select one actually qualified candidate absent from or materially different to retail; do not invent a model name if local evidence is insufficient.
+- Integrate only reviewed Cooker read paths or compatible outputs; preserve the independent branch, no blind merge or destructive copy.
+
+**Track B — Import as new car identity**
+- Copy-on-write immutable source baseline with version, hashes and provenance; choose available CarID within the currently qualified roster, namespace all dependent resources, generate distinct names, race HUD tint, select/menu/results images and thumbnails. Never replace a stock CarID or assume capacity >30 has been proved.
+- Reuse the known SDK Core and vehicle library/Previewer, native loading and build infrastructure; avoid writing separate Demo-only packers if existing qualified code can be adapted.
+- Include physics selection from qualified user-local retail `Data.sma` donor families with independent addon identity; check collision/visual wheelbase/radii/ride, camera extents and shadows. Preserve Demo semantics where qualified. Stock physics is not presumed portable without matching structures.
+- Preserve existing Demo glass zones, lamps, damage and crew if working; add missing verified MR glass-control/damaged-texture and rear-brake ON support only where necessary. Never conflate rear brake lamp state with rotor glow. Avoid global alpha/culling patches.
+- Preserve or explicitly qualify engine and supplementary audio sources; absent/unsupported source mappings require warnings and opt-in donor selection, not silent replacements.
+
+**Track C — Validation and deliverables**
+- At least one actual qualified Demo model parsed, visually staged, converted and compiled into an **isolated** independently identified 30-entry-or-fewer candidate (subject to local roster allocation) with reproducible manifest/sha checks, exact resource differences and zero stock mutation.
+- Unit/synthetic, original-loader compatible parser checks, GUI/Previewer capture reports, integrity/restore, repeated candidate build, AI/roster initialization and first gameplay launch checklist. No claims of successful in-game Demo play without owner validation. If private source corpus missing, finish useful adapter/library/fixture validation, report precise dependency and do not fabricate a successful candidate.
+- Document per-feature PASS/WARN/FAIL/UNTESTED and source build identity; no bundles of copyrighted Demo/MR files in source-only review deliverables.
+- Preserve original `MRallye.exe`, `d3d8.dll`, stock retail/Demo sources, existing Audio/Camera/Physics/Classic work, PERF2 and working stock/addon records. Randomizer remains separate. Local validated commits authorized; no push/publish/release.
+
+## 3. Required dedicated follow-up — Gameplay Camera 2.0
+
+This remains a high-priority feature but **is not a hidden second major task inside Heritage Pilot**.
+
+- Enumerate **all five owner-observed in-game camera modes**, map mode-switch dispatch and exact FOV/projection owner, whether each has vehicle-local or shared parameters, and identify which actually use the common follow extent initializer. Inventory normal/split/replay modes separately.
+- Prove a per-CarID / per-mode native override of FOV and, where safe, distance/height/target/smoothing without leaking to other camera types or vehicles, and always support original/donor/custom reset. Do not expose speculative native sliders.
+- Upgrade Game Camera Lab to a genuine **live preview editing workflow**: persistent D3D9 viewport process, responsive bidirectional settings transport (e.g. defined local IPC), mouse/on-screen manipulators for qualified eye/target/frustum inputs, visible current mode and FOV, before/after synchronized comparison, preview-only changes clearly marked, Apply/Reset and source hash guards.
+- Calibrate static and dynamic camera outputs against owner-provided fixed-condition D3D8 screenshots/videos. Dynamic behavior without sufficient evidence remains labeled approximate.
+- Independently validate five camera-mode isolation, stock/addon source guard, undo/reopen and no cross-CarID leakage. Do not globally edit `Cameras.xml` to simulate per-car control.
+
+## 4. Queued usability/audio follow-up
+
+- Optional new `Lancer — Lower Pitch Whine` A/B preset; adjust tone gently, preserve already liked Spool, BOV and engine and accepted original preset. Compare game hearing, not just numerical gain.
+- Continue original source-colorways, GT Garage Lab corpus validation, generalized Classic MR conversion, Model Studio/Blender Bridge + Model Doctor, and Fleet Builder on the existing roadmap. Do not drop those features when prioritizing Demo restoration.
+
+---
+
+# Historical and retained Master Plan — v5.8 and earlier
+
 # Implementation checkpoint — Game Camera Lab completed offline
 
 26 October 2026. Shared native-informed static camera reconstruction, separate
