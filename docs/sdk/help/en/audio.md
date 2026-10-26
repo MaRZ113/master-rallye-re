@@ -4,6 +4,12 @@ Open a **qualified addon project** with an existing `audio-profile.json`, then
 choose **Audio**. Stock projects retain native audio passthrough; this milestone
 does not create arbitrary stock sound overrides or invent missing response presets.
 
+**Audio Import 2.0…** adds ordinary WAV/optional FLAC/MP3/Ogg source conversion,
+original-versus-native review, loop controls and explicit assignment. **Find Sounds
+for This Vehicle…** is the separate optional GT bank adapter. See the offline
+topic **Audio Import 2.0 and optional GT Sound Bank Lab sources**. Existing controls
+and the direct PCM WAV workflow below remain available.
+
 ## Four independent layers
 
 Choose Engine, Transmission Whine, Turbo Spool or BOV. Engine/Whine/Spool are

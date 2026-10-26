@@ -235,3 +235,38 @@ follow-up bookkeeping commit is fabricated.
 - Gameplay, DirectSound listening, actual dynamic camera and earlier Classic A/B
   remain PENDING OWNER. No push/publication. v5.6 audio integration is a separate
   subsequent phase; independent GT Lab worktree is preserved.
+
+
+Resolved Physics/Camera milestone: `53fa708ed1e1a2290fe50ddc3a1286c1488faf28`.
+Canonical review contains994 source entries /426 Python parses, source archive
+SHA256 `7339be6ddcaa5d298a4a0096def7ba56ff9cc3a33e7e3592b9086d16e7898466`.
+
+## Audio Import 2.0 and optional GT Sound Lab adapter — 26 October 2026
+
+This scoped validated local phase commit contains the implementation and this
+entry; exact ID is in the post-commit private archive manifest, resolvable with
+`git log -1 --format=%H --fixed-strings --grep="Audio Import 2.0 and optional GT Sound Lab adapter"`.
+No prior history or independent Lab branch was amended, reset or merged blindly.
+
+- Shared reviewed ordinary import, optional local media decoding, exact native
+  conversion/loop/gain review and assignment; current vehicle/foreign-preview
+  guards, per-layer origins, presets/history/visual-version compatibility.
+- Read-only Lab integration from `1dc5b16f44aa327345a8e4529b5b10414bd09e74`;
+ 30 synthetic research tests repeated. No package initializer shims copied;
+  identical gt4_spec/source retained; shared audio decoder/test change reviewed.
+- Live Lancer22601/source chain/alternate banks, GT3b_off native leaf,24 INST /
+ 107 entries/14 explicit unsupported, missing shift_change program15 preserved.
+- 894 full Windows tests /one optional skip; six local media variants; actual
+  Tk import/catalog/RPM/event/source/native preview/preset/reopen/Validate/Build;
+  five isolated builds with1/1/1/1/4 WAV differences and unchanged native hooks.
+- Complete Windows Material/stock, legacy Audio, Physics/Camera, Paint/Crew,
+  Classic, stock-reference and texture zoom regressions repeated. Native voice
+  owner/ABI/stock/re-entry/RX/RW/three allocation-failure checks pass.
+- Cross-module and source-version origins retained;736 accepted resources,
+  protected originals and independent Lab worktree unchanged. No proprietary
+  content in source-only Git-blob review archives; no push/publication.
+- Near-listener combined audition clipping remains visible, not normalized away.
+  Real gameplay/DirectSound listening and exact GT mixing remain pending owner
+  gates. No native multi-band player, new vehicle, Blender Bridge or expansion.
+- Evidence `.research-output/vehicles/audio-import2/`; see AUDIO_IMPORT2_RESULTS.md
+  and post-commit `review/archive-manifest.json` for exact source archive hashes.

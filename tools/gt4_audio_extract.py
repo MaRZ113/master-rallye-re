@@ -19,6 +19,14 @@ from master_rallye.addon_sdk.gt4_spec import DatabaseTable, label_id
 MAX_BANK = 16 * 1024 * 1024
 COEFFICIENTS = ((0, 0), (60, 0), (115, -52), (98, -55), (122, -60))
 QUALIFIED_CORE_SHA256 = '962523fb4156aefa4e7d255c4937825614e0b99a9a48e94f1c9fcbe7c586c5c0'
+PITCH_INSTRUCTION_DIGESTS = {
+    0x532a84: '8438f65f79fc3043f2ed41874989f4b35506bcc31775c2f149f1e323d57652a6',
+    0x532a88: '30470d9582a220fe59fc4d58bb5eddff7ac10f4987daf35a0cd5b97339cbf4a3',
+    0x532a8c: '682d19029201c9c327186d0f98f3898b4856fd885e8de7f790aacf3e19353673',
+    0x532a98: '4eb4f89bfab87a5e5230c6c1e5942924f24052691b4d59df3814ae07afc2e6c8',
+    0x532b80: 'f7b8687d21de4a0dd001fada67c7670e7dffd6e2625c1330e529581fe63b5208',
+    0x538100: 'c7683bf7b3526313ef19885b2946b74f4d75abc680e92b9d8cb7c1ee6739bc3d',
+}
 
 
 def sha256(raw):
@@ -37,16 +45,13 @@ def pitch_core_evidence(path):
     phoff = struct.unpack_from('<I', raw, 28)[0]
     count = struct.unpack_from('<H', raw, 44)[0]
     segments = [struct.unpack_from('<8I', raw, phoff + i * 32) for i in range(count)]
-    expected = {0x532a84: '0800a38c', 0x532a88: '0000a284',
-                0x532a8c: '18186600', 0x532a98: '1b006200',
-                0x532b80: '06002585', 0x538100: '9400a294'}
     checks = []
-    for address, encoded in expected.items():
+    for address, digest in PITCH_INSTRUCTION_DIGESTS.items():
         matches = [raw[p[1] + address - p[2]:p[1] + address - p[2] + 4]
                    for p in segments if p[0] == 1 and p[2] <= address and address + 4 <= p[2] + p[4]]
-        if len(matches) != 1 or matches[0].hex() != encoded:
+        if len(matches) != 1 or sha256(matches[0]) != digest:
             raise ValueError('GT4 pitch evidence byte mismatch at ' + hex(address))
-        checks.append({'address': hex(address), 'bytes': encoded})
+        checks.append({'address': hex(address), 'bytes_count': 4, 'sha256': digest})
     return {'core_sha256': QUALIFIED_CORE_SHA256, 'instructions': checks,
             'rule': 'SPU pitch = entry_u32_at_8 * requested_RPM / entry_i16_at_0; wave rate at anchor = 48000 * pitch / 4096',
             'boundary': 'Supplied reconstructed CORE / Online-US identity; not independently paired Beta runtime proof. 48kHz SPU2 nominal clock, no doppler/global pitch. WAV integer rate is rounded.'}
@@ -131,9 +136,11 @@ def parse_engn(raw):
                             'words_u16': list(words[:6]), 'body_offset': offset})
     if any(raw[j] for j in range(48, hsize) if j not in occupied):
         raise ValueError('unexplained ENGN header bytes')
-    offsets = sorted(e['body_offset'] for e in entries)
-    if len(set(offsets)) != len(offsets) or offsets[0] != 0:
-        raise ValueError('duplicate/unaccounted ENGN body ranges')
+    # Several original banks deliberately reuse one recording with different
+    # reference RPM/pitch/gain records. Keep every band and share its span.
+    offsets = sorted(set(e['body_offset'] for e in entries))
+    if offsets[0] != 0:
+        raise ValueError('unaccounted ENGN body prefix')
     ends = dict(zip(offsets, offsets[1:] + [ssize]))
     for entry in entries:
         begin = entry['body_offset']
@@ -141,7 +148,9 @@ def parse_engn(raw):
         decoded = decode_spu(data)
         entry.update(encoded_bytes=len(data), encoded_sha256=sha256(data),
                      samples=len(decoded['samples']), loop_start_sample=decoded['loop_start_sample'],
-                     loop_end_sample=decoded['loop_end_sample'])
+                     loop_end_sample=decoded['loop_end_sample'],
+                     shared_sample_entries=[{'table': other['table'], 'index': other['index']}
+                                            for other in entries if other is not entry and other['body_offset'] == begin])
     return {'status': 'ENGN_STRUCTURAL_AND_CODEC_VALID', 'sha256': sha256(raw),
             'bytes': len(raw), 'header_bytes': hsize, 'body_bytes': ssize,
             'header_words_40_44': list(struct.unpack_from('<2I', raw, 40)), 'entries': entries,

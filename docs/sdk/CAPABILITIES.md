@@ -1,8 +1,19 @@
 # Rally Workshop capability inventory
 
-Current update: Physics & Camera Studio / Vehicle Identity, 26 October 2026.
-See [results and exact boundaries](PHYSICS_CAMERA_RESULTS.md). Audio Import 2.0
-and optional GT Sound Bank Lab integration are the next independent milestone.
+Current update: Audio Import 2.0 / optional GT Audio Source Adapter, 26 October 2026.
+See [audio results](AUDIO_IMPORT2_RESULTS.md) and the completed
+[Physics/Camera milestone](PHYSICS_CAMERA_RESULTS.md). New gameplay/listening is pending.
+
+| Audio Import 2.0 / GT source capability | Implemented boundary |
+| --- | --- |
+| Ordinary import | Existing PCM WAV decoder; optional local ffmpeg/ffprobe for qualified FLAC, MP3, Ogg Vorbis/Opus and additional PCM/float WAV. No GT ownership dependency. Source ≤30 s/64 MiB; native interval 0.1–4 s |
+| Pre-Apply review | Decoded source excerpt vs exact existing-compiler native WAV, waveform/Play/Stop, trim/forward-loop/gain/DC/crossfade, hashes/levels/seam/saturation diagnostics. Settings revisions invalidate stale results; clipping rejects conversion |
+| Layer/preset ownership | Four qualified independent layer sources; shared PCM retains per-layer origins; existing response controls, native IDs/namespace, history/reopen, named/rebound/visual-version presets preserved |
+| Optional GT source adapter | Read-only Lab catalog/source parsing, exact IDs and verified GT4 model-code joins, shared IDs/tuning variants, record/RPM/loop/source hashes, explicit sample/rate/target assignment. GT3 short mesh-code association unsupported |
+| Event evidence | Qualified GT3 native leaf and GT4 comparative anchor pitch; static turbine2/turbine/b_off routes. GT4 drivetrain consumer evidence retained; acoustic identity, exact Beta/CORE pairing and original runtime envelopes remain unqualified |
+| Unsupported records | Missing GT4 shift_change program15 and fourteen unsupported INST entries explicitly refused; no replacement/synthesis. GT engine remains a selected single-loop MR adaptation, not multi-band playback |
+| Qualification | 894 tests / one optional skip; real Windows import/source/preset/build, six local media variants, 24 INST/107 entries, five independent 1/1/1/1/4 WAV builds with unchanged native patch bytes; original/stock/SDK regressions preserved |
+| Native boundary | Existing DSP/hooks/voice lifetime and stock passthrough unchanged. Offline near-listener sums can clip; DirectSound, game timing, real loudness and listening remain owner gates |
 
 | Physics / Camera / Presentation | Implemented boundary |
 | --- | --- |

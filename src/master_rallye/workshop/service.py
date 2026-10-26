@@ -88,8 +88,10 @@ def declared_resource_identity(folder):
 
 from .audio import AudioAuthoring
 from .vehicle_authoring import VehicleAuthoring
+from .audio_import import AudioImportAuthoring
+from .gt_audio import GTAudioAuthoring
 
-class WorkshopProject(AudioAuthoring,VehicleAuthoring):
+class WorkshopProject(AudioAuthoring,VehicleAuthoring,AudioImportAuthoring,GTAudioAuthoring):
     def __init__(self, root):
         self.root=plain_tree(root).resolve()
         self.data=json.loads((self.root/'workshop-project.json').read_text(encoding='utf-8'))
@@ -513,6 +515,7 @@ class WorkshopProject(AudioAuthoring,VehicleAuthoring):
                 state=self.data['audio'];baseline=self.root/'audio-baseline.json'
                 if sha(baseline.read_bytes())!=state['baseline_sha256']:raise ValueError('Audio baseline changed')
                 state['profile']=json.loads(baseline.read_text());state['enabled']={k:True for k in ('engine','transmission_whine','turbo_spool','bov_release') if k in state['profile']}
+                state.pop('layer_imports',None)
             if self.data.get('vehicle_authoring'):self.data['vehicle_authoring']=self.vehicle_defaults()
         else:self.data['edits'].pop(name,None)
         self.materialize();self.save()

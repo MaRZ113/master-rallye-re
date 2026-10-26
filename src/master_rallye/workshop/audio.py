@@ -31,6 +31,10 @@ def sources(profile):
         if layer in profile:
             yield layer, profile[layer] if layer == 'engine' else profile[layer]['source']
 
+def import_record(state,layer,digest):
+    record=state.get('layer_imports',{}).get(layer,{})
+    return record if record.get('sha256')==digest else state['imports'].get(digest,{})
+
 class AudioAuthoring:
     def audio_state(self):
         if self.data['kind'] != 'addon': raise ValueError('Audio authoring requires a qualified SDK addon project')
@@ -108,7 +112,7 @@ class AudioAuthoring:
             if key != 'bov_release' and abs(samples[source['trim_frames'][0]]-samples[source['trim_frames'][1]-1]) > 2048 and not source['crossfade_frames']:
                 warnings.append('Loop endpoint jump exceeds 2048 PCM16 units; audition or use crossfade')
             layers[key] = {'enabled':state['enabled'].get(key,True), 'source':source,
-                'provenance':state['imports'].get(source['source_sha256'],{}),
+                'provenance':import_record(state,key,source['source_sha256']),
                 'source_format':fmt,'seconds':len(samples)/fmt['sample_rate'],
                 'playback':'one-shot' if key == 'bov_release' else 'continuous',
                 'compiled':detail,'warnings':warnings}
@@ -130,6 +134,7 @@ class AudioAuthoring:
             if layer == 'engine' and not enabled: raise ValueError('Engine disable is audition-only; native engine replacement cannot be muted by this schema')
             state['enabled'][layer] = enabled
         if source is not None:
+            if state.get('layer_imports',{}).get(layer,{}).get('sha256')!=source.get('source_sha256'):state.get('layer_imports',{}).pop(layer,None)
             if layer == 'engine': profile[layer] = copy.deepcopy(source)
             else: profile[layer]['source'] = copy.deepcopy(source)
         if response is not None:
@@ -155,26 +160,35 @@ class AudioAuthoring:
             state['profile'][layer]['provenance'] = 'User-supplied local PCM WAV; identity not independently attributed: '+Path(path).name
         state['imports'][digest] = {'original_path':str(Path(path).resolve()),'name':Path(path).name,
                                     'sha256':digest,'format':fmt,'rights':'Private user-supplied input; no redistribution implied'}
+        state.get('layer_imports',{}).pop(layer,None)
         self._audio_commit(state)
         return self.audio_inspect()
 
     def audio_assign(self, layer, other_layer):
         state = self.audio_state()
+        if layer not in LAYERS or layer not in state['profile']:raise ValueError('Choose a layer with qualified response defaults')
         available = dict(sources(state['profile']))
         if other_layer in available:source=available[other_layer]
         else:
             catalog=self.audio_catalog()
             if other_layer not in catalog:raise ValueError('Choose an existing pinned project source')
             source=catalog[other_layer]['source']
-        self.audio_update(layer,source=source)
+        if layer=='engine':state['profile'][layer]=copy.deepcopy(source)
+        else:state['profile'][layer]['source']=copy.deepcopy(source)
+        record=import_record(state,other_layer,source['source_sha256'])
+        if other_layer not in available and len(record.get('origins',[]))>1:record={**record,'name':'Shared PCM — '+str(len(record['origins']))+' source associations','gt_source':None,'association_selection':'No unique original bank chosen by this PCM-hash assignment; inspect origins'}
+        state.get('layer_imports',{}).pop(layer,None)
+        if record:state.setdefault('layer_imports',{})[layer]=copy.deepcopy(record)
+        if layer!='engine':state['profile'][layer]['provenance']='Assigned pinned source: '+record.get('name',source['source_sha256'])+'; source associations and full provenance in project diagnostics'
+        self._audio_commit(state)
 
     def audio_catalog(self):
         state=self.audio_state();catalog={}
         baseline=json.loads((self.root/'audio-baseline.json').read_text())
         for profile in (baseline,*(p['profile'] for p in state['presets'].values()),state['profile']):
             for layer,source in sources(profile):
-                digest=source['source_sha256'];catalog[digest]={'source':copy.deepcopy(source),
-                    'name':state['imports'].get(digest,{}).get('name',Path(source['source_path']).name),'last_role':layer}
+                digest=source['source_sha256'];record=state['imports'].get(digest,{});count=len(record.get('origins',[]));catalog[digest]={'source':copy.deepcopy(source),
+                    'name':'Shared PCM — '+str(count)+' source associations' if count>1 else record.get('name',Path(source['source_path']).name),'last_role':layer}
         return catalog
 
     def audio_reset(self, layer=None):
@@ -183,7 +197,9 @@ class AudioAuthoring:
         default = json.loads(baseline.read_text())
         if layer is None:
             state['profile'] = default; state['enabled'] = {k:True for k in LAYERS if k in default}
+            state.pop('layer_imports',None)
         else:
+            state.get('layer_imports',{}).pop(layer,None)
             if layer not in LAYERS: raise ValueError('Unknown layer')
             if layer in default: state['profile'][layer] = default[layer]; state['enabled'][layer] = True
             else: state['profile'].pop(layer,None); state['enabled'].pop(layer,None)
@@ -209,7 +225,7 @@ class AudioAuthoring:
         if not isinstance(name,str) or not name.strip() or len(name)>80: raise ValueError('Use a preset name of 1..80 characters')
         state = self.audio_state(); self.audio_compile(state)
         if name not in state['presets'] and len(state['presets'])>=64:raise ValueError('Project audio preset limit: 64')
-        state['presets'][name] = {k:copy.deepcopy(state[k]) for k in ('profile','enabled','imports')}
+        state['presets'][name] = {k:copy.deepcopy(state[k]) for k in ('profile','enabled','imports','layer_imports') if k in state}
         self._audio_commit(state)
 
     def audio_load_preset(self,name):
@@ -222,7 +238,7 @@ class AudioAuthoring:
             return self.audio_transfer(WorkshopProject(donor),original)
         preset=copy.deepcopy(state['presets'][name])
         for key in ('physical_car_id','namespace'):preset['profile'][key]=state['profile'][key]
-        state.update(preset);self._audio_commit(state)
+        state.pop('layer_imports',None);state.update(preset);self._audio_commit(state)
 
     def audio_available_presets(self):
         """Discover sibling-version presets without editing that version's state."""
@@ -244,7 +260,7 @@ class AudioAuthoring:
             self._audio_pin(other.root/'audio-sources'/(source['source_sha256']+'.wav'),source['source_sha256'])
         for key in ('physical_car_id','namespace'):preset['profile'][key]=state['profile'][key]
         preset['imports']['preset_origin']={'project':str(other.root),'preset':name,'rebinding':'Explicit destination CarID/namespace; no native allocation identifiers'}
-        state.update(preset);state['presets'][name]=copy.deepcopy(preset);self._audio_commit(state)
+        state.pop('layer_imports',None);state.update(preset);state['presets'][name]=copy.deepcopy(preset);self._audio_commit(state)
 
     def audio_inherit(self, other):
         """Carry audio authoring across newly generated visual versions only."""

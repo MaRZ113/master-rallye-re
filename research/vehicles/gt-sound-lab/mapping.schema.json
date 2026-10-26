@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:gt-sound-bank-lab:catalog:1",
+  "title": "Private GT Sound Bank Lab catalog",
+  "type": "object",
+  "required": ["schema", "game", "vehicles", "banks", "boundary"],
+  "properties": {
+    "schema": {"const": "gt-sound-bank-lab/1"},
+    "game": {"enum": ["gt3", "gt4"]},
+    "vehicles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["vehicle_id", "sound_id", "banks"],
+        "properties": {
+          "vehicle_id": {"type": "string"},
+          "sound_id": {"type": "integer"},
+          "banks": {"type": "array", "items": {"type": "string"}},
+          "model_codes": {"type": "array", "items": {"type": "string"}},
+          "selected_tuning_bank": {"type": ["string", "null"]},
+          "default_native_bank_candidate": {
+            "type": "object",
+            "required": ["status", "runtime_confirmed"],
+            "properties": {"runtime_confirmed": {"const": false}}
+          }
+        }
+      }
+    },
+    "banks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["bank_id"],
+        "properties": {"bank_id": {"type": "string"}, "inspection": {"type": "object"}}
+      }
+    },
+    "boundary": {"type": "string"}
+  }
+}

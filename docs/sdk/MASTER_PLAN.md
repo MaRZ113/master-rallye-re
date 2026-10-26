@@ -1,3 +1,32 @@
+# Latest implementation checkpoint — Audio Import 2.0 + GT adapter
+
+26 October 2026. Physics/Camera/Vehicle Presentation completed first in local
+commit `53fa708ed1e1a2290fe50ddc3a1286c1488faf28`. Audio Import 2.0 and the optional
+GT Audio Source Adapter are now implemented and Windows/offline validated.
+Ordinary local import remains independent of GT ownership; qualified PCM and
+optional local FFmpeg decoding feed the original native-resource compiler.
+
+The independent GT Sound Lab worktree remains clean at `1dc5b16`; actual package
+initializers and identical shared GT4 geometry/database modules were preserved.
+Catalog/bank/loop/RPM/pitch/event evidence survives explicit source-to-layer
+assignment and presets. Missing program15 / fourteen unsupported INST entries
+remain errors; no automatic replacement or full GT multi-band player is claimed.
+
+See AUDIO_IMPORT2_RESULTS.md, CAPABILITIES.md and REGRESSION_MATRIX.md. Full suite:
+894 tests / one optional skip. Five isolated builds change only 1/1/1/1/4 named
+WAVs with unchanged native patch bytes; Windows GUI and complete SDK regressions
+pass. Source, Core, parser and conversion hashes remain private provenance.
+Original EXE/DLL/retail assets, frozen cars and Lab tree are unchanged.
+
+Gameplay/DirectSound listening, prior Classic A/B and dynamic follow-camera
+checks remain owner gates. This milestone stops for review; do not automatically
+start Heritage Garage, GT corpus/model work, Blender Bridge, Fleet Builder or
+native multi-band audio. The user v5.6 plan and earlier checkpoints below are
+preserved historical specification; this checkpoint overrides their stale NEXT
+labels. No push, publication or release.
+
+---
+
 # Implementation checkpoint — Physics & Camera Studio completed offline
 
 26 October 2026. The scoped Physics / Camera / Vehicle Identity / Vehicle Art

@@ -1,3 +1,26 @@
+# Audio Import 2.0 / optional GT source adapter — 26 October 2026
+
+Evidence `.research-output/vehicles/audio-import2/`; details in
+[AUDIO_IMPORT2_RESULTS.md](AUDIO_IMPORT2_RESULTS.md). Gameplay listening pending.
+
+| Check | Evidence/result | Boundary |
+| --- | --- | --- |
+| Full checkout | 894 tests, one optional fixture skip; reviewed Lab30 plus new import/ownership/origin tests | No GT/MR assets in synthetic fixtures |
+| Ordinary decoder | WAV, FLAC, MP3, Vorbis, Opus, float WAV96k stereo; installed FFmpeg8.0.1; originals unchanged | Optional external decoding, 30 s/64 MiB guards; native interval0.1–4 s |
+| Pre-Apply review | Real Windows waveform/source/native playback, gain invalidation, stale worker-result rejection, exact compiler/hash checks | Windows playback calls, not game listening |
+| Per-layer ownership | Real Engine/Whine/Spool/BOV assignment and preset/reopen/reset; disabled layer replacement preserves disable state | Existing qualified response defaults required |
+| Source association | Live mits0015/ENGINE1605/Sound22601, shared11 rows; alternate tuning selection and eight RPM bands | Default turbo3 candidate is static, historical build pairing unresolved |
+| GT3 source |244 CAR /1215 member catalog and qualified b_off native leaf route | No sb0097 CAR inference or full repeated span audit |
+| INST/unsupported |24 banks/107 records/93 PCM/14 unsupported; missing shift_change program15 refuses | No silent synthesis/replacement; no exact acoustic identity claim |
+| Isolated A–E |1/1/1/1/4 named WAV differences; sealed native validation and identical patch bytes | No model/UI/physics/camera/other-vehicle changes |
+| Native safety | Original engine ABI, two interleaved owners, stock fallback, re-entry, RX/RW and three allocation failures | Broker/device calls mocked, gameplay pending |
+| Cross-module/versions | Physics/camera/names/aliases/art intact; RPM edit retains GT preset; Source/Classic layer origins preserved | No baked source author defaults |
+| Windows preservation | Repeated Material/stock builds, legacy Audio, full Physics/Camera, Paint/Crew, Classic, stock browser,56 texture zoom captures | D3D9/offline, not D3D8 |
+| Protected inputs |736 accepted resource hashes; EXE/DLL/retail/installed SMA and clean independent Lab worktree | Private assets excluded from source archive |
+| Mix diagnostics | Scripted near-listener all-layer audition reports2747 clipped samples | No hidden normalization; not proof of actual game clipping or loudness |
+
+---
+
 # Physics & Camera / Vehicle Presentation — 26 October 2026
 
 Private evidence root: `.research-output/vehicles/pcstudio/`. See

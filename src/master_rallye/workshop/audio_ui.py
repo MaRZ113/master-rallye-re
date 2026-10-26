@@ -5,7 +5,7 @@ import uuid
 from pathlib import Path
 import tkinter as tk
 from tkinter import ttk, filedialog, simpledialog
-from .audio import LAYERS, LABELS
+from .audio import LAYERS, LABELS, import_record
 from master_rallye.addon_sdk.audio_profile import RESPONSE_BOUNDS
 
 def wav_import_options(parent,path):
@@ -68,6 +68,8 @@ class AudioPanels:
         row=ttk.Frame(f);row.pack(fill='x')
         ttk.Button(row,text='Import Local WAV…',command=self.audio_import_dialog).pack(side='left')
         ttk.Button(row,text='Assign Existing…',command=self.audio_assign_dialog).pack(side='left')
+        ttk.Button(f,text='Import Audio 2.0…',command=self.audio_import2_dialog).pack(fill='x')
+        ttk.Button(f,text='Find Sounds for This Vehicle… (optional GT)',command=self.audio_gt_dialog).pack(fill='x')
         self.audio_enabled=tk.BooleanVar(value=True)
         self.audio_enable_button=ttk.Checkbutton(f,text='Enable in candidate (engine always active)',variable=self.audio_enabled)
         self.audio_enable_button.pack(anchor='w')
@@ -115,11 +117,11 @@ class AudioPanels:
             state=self.project.audio_state();key=self.audio_layer.get();profile=state['profile']
             if key not in profile:raise ValueError('Layer absent: import a compatible response preset first')
             source=profile[key] if key=='engine' else profile[key]['source']
-            title=state['imports'].get(source['source_sha256'],{}).get('name',Path(source['source_path']).name)
+            title=import_record(state,key,source['source_sha256']).get('name',Path(source['source_path']).name)
             from .audio import read_wav
             _,_,fmt=read_wav(self.project.root/'audio-sources'/(source['source_sha256']+'.wav'))
             format_text=f"{fmt['channels']} ch · {fmt['bits_per_sample']} bit · {fmt['sample_rate']} Hz · {fmt['frames']/fmt['sample_rate']:.3f} s → mono PCM16 48000 Hz"
-            self.audio_source.set(title+' · '+('one-shot' if key=='bov_release' else 'continuous')+'\n'+format_text+'\nSHA256 '+source['source_sha256'][:16]+'… (full hashes / levels: Diagnostics)\n'+('Native stock synthesis profile '+str(profile['stock_audio_profile_id'])+'; source attribution: profile notes / Diagnostics' if key=='engine' else profile[key]['provenance']))
+            self.audio_source.set(title+' · '+('one-shot' if key=='bov_release' else 'continuous')+'\n'+format_text+'\nSHA256 '+source['source_sha256'][:16]+'… (full hashes / levels: Diagnostics)\n'+('Native stock synthesis profile '+str(profile['stock_audio_profile_id'])+'; active source attribution: import Diagnostics; profile notes may describe the original baseline' if key=='engine' else profile[key]['provenance']))
             self.audio_enabled.set(state['enabled'].get(key,True));self.audio_enable_button.configure(state='disabled' if key=='engine' else 'normal')
             entries={'gain_db':(source['gain_db'],(-36,12)),'trim_start':(source['trim_frames'][0],(0,2000000)),
                      'trim_end':(source['trim_frames'][1],(1,2000000)),'crossfade_frames':(source['crossfade_frames'],(0,4096)),
@@ -136,13 +138,24 @@ class AudioPanels:
                 if bounds is None:ttk.Checkbutton(frame,variable=var).pack(anchor='w')
                 else:ttk.Spinbox(frame,textvariable=var,from_=bounds[0],to=bounds[1],increment=1 if name in ('trim_start','trim_end','crossfade_frames','stock_audio_profile_id') else .1,width=14).pack(fill='x')
             available=self.project.audio_available_presets();self.audio_preset_box['values']=list(available)
-            self.audio_status.set('Presets: '+(', '.join(available) or '(none)')+'\nPCM WAV only. Estimated spool/load; no physical boost sensor. Spool disable mutes sound, retaining BOV estimator. Gameplay listening pending.')
+            self.audio_status.set('Presets: '+(', '.join(available) or '(none)')+'\nNative sources: PCM WAV. Audio Import 2.0 optionally decodes local media; GT is optional. Estimated spool/load, no physical boost sensor. Spool disable retains BOV estimator. Gameplay listening pending.')
         except Exception as exc:
             self.audio_source.set('');self.audio_status.set(str(exc))
 
     def audio_action(self,label,work):
         if not self.project or self.busy:return
         self.run(label,work,lambda _:self.audio_loaded())
+
+    def audio_import2_dialog(self):
+        if not self.project or self.busy:return
+        from .audio_import_ui import AudioImportWindow
+        path=filedialog.askopenfilename(parent=self.root,filetypes=[('Local supported audio','*.wav *.flac *.mp3 *.ogg')])
+        if path:self.audio_import2_window=AudioImportWindow(self,path)
+
+    def audio_gt_dialog(self):
+        if not self.project or self.busy:return
+        from .gt_audio_ui import GTSoundWindow
+        self.gt_sound_window=GTSoundWindow(self)
 
     def audio_apply(self):
         if not self.project or self.busy:return
