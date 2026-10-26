@@ -167,3 +167,9 @@ no historical snapshot, amend, rebase or remote push is used.
 
 See VSDK4B1_RESULTS.md and REGRESSION_MATRIX.md for scope and failed intermediate
 diagnostics (brightness drafts, locked old viewer, long MSVC output path).
+
+Resolved implementation commit:
+`e51d1d603d5adc00b7c12919ae980a4e561aed15`.
+Final pre-commit complete-checkout run: 846 tests in 34.743 seconds,
+OK (1 optional private-fixture skip). Existing wheel-helper AST, 21 retail
+reference families and frozen Subaru hashes also rechecked unchanged.

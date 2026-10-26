@@ -747,3 +747,5 @@ After V-SDK4B.1 owner review, generalize qualified transformations to other impo
 Implemented a bounded, exact-source Classic Lancer conversion: approved cover topology reduction, regenerated characteristic red/charcoal livery, stock-derived opaque recessed rim, measured material/texture normalization and independent source/Classic versions. CLI initialization and Studio Rebuild call the same Core; explicit report approval gates builds. Manual layers remain versioned with conflicts, and rebuilding resolves the immutable original. See VSDK4B1_RESULTS.md, CAPABILITIES.md and REGRESSION_MATRIX.md for measured counts, private Windows evidence and exact limitations.
 
 The owner approved the final appearance/report before the isolated Classic build. This closes only that preview/build-input gate; actual D3D8 gameplay is pending. Stop V-SDK4B.1 for owner review. Do not automatically generalize recipes, start Blender Bridge or Audio Studio. Prior Audio Studio and remaining roadmap obligations remain unchanged. Local phase commits authorized; no push or publication.
+
+Validated local implementation: `e51d1d603d5adc00b7c12919ae980a4e561aed15`.
