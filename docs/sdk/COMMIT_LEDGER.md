@@ -173,3 +173,27 @@ Resolved implementation commit:
 Final pre-commit complete-checkout run: 846 tests in 34.743 seconds,
 OK (1 optional private-fixture skip). Existing wheel-helper AST, 21 retail
 reference families and frozen Subaru hashes also rechecked unchanged.
+
+
+## V-SDK4D — Audio Studio Foundation (26 October 2026)
+
+Completed scoped implementation; resolved local commit ID is recorded in the
+follow-up ledger entry below, without amending earlier history.
+
+- Shared Core/Studio/CLI: four pinned PCM source layers, qualified response
+  parameters, assignment/import diagnostics, named/rebound/versioned presets,
+  Save/Undo/Redo/Restore/Validate/Build and original DSP/continuous response audition.
+- Final complete Windows checkout: **854 tests, OK, 1 optional fixture skip**,
+  49.541 seconds (`vsdk4d/tests-release.log`). Actual Windows Audio dialogs,
+  five auditions, material/stock builds, Paint/Crew, Classic navigation/approval,
+  stock references and 56 texture zoom captures pass.
+- Five qualified 30-entry Lancer candidate builds: exact game resource changes
+  1/1/1/1/4 WAVs. Native patch operation bytes unchanged in all five experiments;
+  369 Source Fidelity + 367 Classic accepted resource hashes rechecked intact.
+- Native engine/owner/ABI/stock passthrough/reentry tests and all three optional
+  voice allocation failures pass; no native sound hook or DSP rewrite.
+- Original EXE/DLL and pinned retail corpus SMA hashes match. Private MR/GT
+  assets excluded from source archives. No push, publication, game listening,
+  new capacity, fourth car, physics tuning or Blender Bridge work.
+- Evidence and source-only archives: `.research-output/vehicles/vsdk4d/`;
+  see `validation-final.json`, `VSDK4D_RESULTS.md` and `review/archive-manifest.json`.

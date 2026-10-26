@@ -85,11 +85,14 @@ def rebuild_classic(parent,recipe_path,stock_root,output):
     write_json(output/'recipe.json',recipe)
     # Source Fidelity is the original import, with its own editable author copy.
     author=output/'source-author';shutil.copytree(origin.working,author)
+    origin.audio_restore_author_baseline(author)
     write_json(author/'vehicle-project.json',original_spec)
     for immutable,name in [('original-mechanical.json','mechanical-attachments.json'),('original-shadow.json','shadow-profile.json')]:
         if (origin.root/immutable).exists():shutil.copyfile(origin.root/immutable,author/name)
     fidelity=WorkshopProject.create(author,output/'source-fidelity')
+    fidelity.audio_inherit(parent)
     author=output/'classic-author';shutil.copytree(origin.working,author)
+    origin.audio_restore_author_baseline(author)
     generated=output/'generated';generated.mkdir()
     for name,raw in converted.items():(generated/name).write_bytes(raw)
     # Retain the read-only donor grammar as validation templates, separate from
@@ -126,6 +129,7 @@ def rebuild_classic(parent,recipe_path,stock_root,output):
     classic=WorkshopProject.create(author,output/'classic')
     # New versions remain editable, but old lossy output never becomes a source.
     classic.data['appearance']='Classic MR Style'
+    classic.audio_inherit(parent)
     report['manual_layers']=_transfer_layers(parent,classic,mapping)
     report['protected_author_files']={f.name:digest(f.read_bytes())for f in author.iterdir()if f.is_file()and f.name in('addon.json','physics-profile.json','audio-profile.json','ui-assets.json','camera-profile.json')}
     report_path=output/'classic-report.json';report_path.write_bytes(json_bytes(report))

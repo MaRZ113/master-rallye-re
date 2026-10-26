@@ -148,3 +148,27 @@ final Previewer/report permits building; it is not gameplay acceptance.
 The first long-name build hit MSVC FTK1011; unchanged source/build logic passed
 with short `sf` /`cl` output names. An old locked Previewer remains untouched;
 tests use the actual hash-named new executable from application-build.json.
+
+
+## V-SDK4D — Audio Studio acceptance
+
+Evidence root `.research-output/vehicles/vsdk4d/`; see VSDK4D_RESULTS.md.
+
+| Check | Evidence | Boundary |
+|---|---|---|
+| Four source replacements, responses, presets, Undo/Redo/Restore and reopen | `win-release/windows-validation.json`, actual import/picker/panel/audition captures | Windows Tk/native DSP; listening pending |
+| A/B/C/D single-layer and E combined candidate isolation | `t/matrix.json`, five `t/*/roster-validation.json` | Exact WAV-only resource-root differences; no live race |
+| Engine source CarID/stock passthrough | `native-engine-28.json` | Original x86 instructions + typed seam stubs |
+| SFX ABI/protected memory, stock optional ownership, gain curve, lifecycle and map stress | `native-sfx.json` | 28 replay cases, 10001 gain cases, original DS COM paths with device mocks |
+| Multi-owner SFX/BOV isolation, survivor, cleanup, reentry | `native-multi.json` | 24 voices freed; no device/player/AI gameplay claim |
+| Engine/Whine/Spool/BOV/mix/coast/neutral signal reports | `audition-final/*.json` | All seven zero mixed clipping; scripted load, not actual throttle/boost |
+| Scoped materials/binding/reflection and stock restoration builds | `reg/gui-validation.json` | Actual Windows actions and sealed addon/stock candidates |
+| Paint/Crew | `paint-reg2/validation.json` | Actual GUI/GPU in private clones |
+| Source/Classic rebuild, approval gate and navigation | `style-reg/validation.json` | Actual Windows, no new owner approval inferred |
+| Texture viewer | `zoom-reg/validation.json` | Embedded/detached, 25–400%, RGB/RGBA/Alpha, pixel mode and pan/anchor |
+| Local stock reference browser/binding impact | `reference-reg/validation.json` | Actual GUI/GPU, no additional runtime copies |
+| Existing game/roster/retail protection | `preservation.json` | Original EXE/DLL, accepted sf/cl manifests, original author and resource hashes |
+| Full qualified checkout tests | `tests-release.log` | Synthetic/CPU tests; optional fixture skip explicitly counted |
+
+Source Fidelity vs Classic gameplay and new audio listening remain separately
+PENDING_OWNER. No V4E/Blender Bridge work or capacity expansion.

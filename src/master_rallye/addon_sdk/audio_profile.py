@@ -12,6 +12,13 @@ from .manifest import AddonValidationError
 NAMESPACE = re.compile(r'^[a-z][a-z0-9_]{1,31}$')
 MAX_SOURCE_BYTES = 8 * 1024 * 1024
 RATE = 48000
+RESPONSE_BOUNDS = {
+    'transmission_whine':{'reference_rpm':(500,20000),'pitch_min':(.125,1),'pitch_max':(1,2),
+                         'gain_drive':(0,1),'gain_coast':(0,1),'fade_in_rpm':(100,5000)},
+    'turbo_spool':{'reference_rpm':(500,20000),'pitch_min':(.125,1),'pitch_max':(1,2),'gain':(0,1),
+                  'fade_in_rpm':(100,5000),'load_threshold':(0,.95),'spool_up_seconds':(.02,5),'spool_down_seconds':(.02,5)},
+    'bov_release':{'release_rate_threshold':(.1,100),'boost_threshold':(.05,1),'gain':(0,1),
+                   'pitch_variation':(0,.25),'retrigger_seconds':(.1,5),'release_decay_seconds':(.02,5),'min_rpm':(500,10000)}}
 
 def _fail(message):
     raise AddonValidationError(message)
@@ -50,10 +57,7 @@ def validate_profile(profile):
         temporary={k:v for k,v in profile.items() if k not in ('transmission_whine','turbo_spool','bov_release')}
         temporary['engine']=whine['source'];validate_profile(temporary)
         response=whine['response']
-        bounds={'reference_rpm':(500,20000),'pitch_min':(.125,1),'pitch_max':(1,2),
-                'gain_drive':(0,1),'gain_coast':(0,1),'fade_in_rpm':(100,5000)}
-        if layer=='turbo_spool':bounds={'reference_rpm':(500,20000),'pitch_min':(.125,1),'pitch_max':(1,2),'gain':(0,1),'fade_in_rpm':(100,5000),'load_threshold':(0,.95),'spool_up_seconds':(.02,5),'spool_down_seconds':(.02,5)}
-        if layer=='bov_release':bounds={'release_rate_threshold':(.1,100),'boost_threshold':(.05,1),'gain':(0,1),'pitch_variation':(0,.25),'retrigger_seconds':(.1,5),'release_decay_seconds':(.02,5),'min_rpm':(500,10000)}
+        bounds=RESPONSE_BOUNDS[layer]
         required=set(bounds)|({'mute_neutral'} if layer!='bov_release' else set())
         allowed=required|({'mute_neutral'} if layer=='bov_release' else set())
         if not isinstance(response,dict) or not required<=set(response)<=allowed: _fail('invalid audio layer response keys')

@@ -1,6 +1,6 @@
 # Rally Workshop capability inventory
 
-Current update: V-SDK4B.1, 26 October2026. See [Classic pilot results](VSDK4B1_RESULTS.md).
+Current update: V-SDK4D, 26 October 2026. See [Audio Studio results](VSDK4D_RESULTS.md) and [preserved Classic pilot](VSDK4B1_RESULTS.md).
 
 | V-SDK4B.1 capability | Implemented boundary |
 | --- | --- |
@@ -120,3 +120,21 @@ read-only. Native per-draw persistence, Undo/Redo/Restore, shared compiler and
 isolated stock/addon builds verified in Windows. Offline searchable Help, F1
 and Material/Texture context help implemented. See VSDK4A2_RESULTS.md.
 
+
+## V-SDK4D Audio Studio
+
+Four independent editable source layers for qualified custom-audio addons. Shared
+Core GUI/CLI import/assignment, existing WAV compiler and native audio architecture;
+source/output hashes, PCM metadata, peak/RMS, loop warnings and clipping rejection.
+Named presets with explicit CarID/namespace rebind, source pins, Source/Classic
+version persistence, Save/Undo/Redo/Restore/Validate/isolated Build. Native x86
+engine DSP plus continuous authored supplemental response audition: Mute/Solo,
+RPM steps, drive/coast/neutral, spool/release/BOV, WAV and event diagnostics.
+
+Lancer A–E builds change exactly the selected 1/1/1/1/4 WAVs. Real Windows dialogs,
+controls, GPU regressions and native CPU lifecycle/isolation replay pass. Stock
+audio authoring, arbitrary GT multi-bank playback and MP3/OGG/FLAC are unsupported.
+Engine disabling is audition-only. Spool disable keeps its estimator with zero
+audible gain. No physical boost/throttle sensor is claimed. DirectSound/spatial
+mixing and actual gameplay listening remain owner tests. No native hook rewrite,
+physics/camera/visual changes or roster expansion.

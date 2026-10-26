@@ -86,7 +86,9 @@ def declared_resource_identity(folder):
             return match[0]['addon_id'],match[0]['physical_id']
     return folder.name,None
 
-class WorkshopProject:
+from .audio import AudioAuthoring
+
+class WorkshopProject(AudioAuthoring):
     def __init__(self, root):
         self.root=plain_tree(root).resolve()
         self.data=json.loads((self.root/'workshop-project.json').read_text(encoding='utf-8'))
@@ -208,14 +210,20 @@ class WorkshopProject:
         self.data['redo']=[]
 
     def _state(self):return json.loads(json.dumps({'__workshop_state__':1,'textures':self.data['edits'],'surfaces':self.data.get('surfaces',{}),
-        **{k:self.data.get(k,{}) for k in ('appearance_profiles','crew','paint_regions','color_presets')},'appearance':self.data.get('appearance','Source Fidelity')}))
+        **{k:self.data.get(k,{}) for k in ('appearance_profiles','crew','paint_regions','color_presets','audio')},'appearance':self.data.get('appearance','Source Fidelity')}))
 
     def _load_state(self,state):
+        previous_audio=self.data.get('audio')
         if state.get('__workshop_state__')==1:
             self.data['edits']=state['textures'];self.data['surfaces']=state['surfaces']
-            for key in ('appearance_profiles','crew','paint_regions','color_presets'):self.data[key]=state.get(key,{})
+            for key in ('appearance_profiles','crew','paint_regions','color_presets','audio'):self.data[key]=state.get(key,{})
             self.data['appearance']=state.get('appearance','Source Fidelity')
         else:self.data['edits']=state;self.data['surfaces']={}
+        if previous_audio and not self.data.get('audio'):
+            baseline=self.root/'audio-baseline.json'
+            if sha(baseline.read_bytes())!=previous_audio['baseline_sha256']:raise ValueError('Audio baseline changed')
+            profile=json.loads(baseline.read_text())
+            self.data['audio']={**previous_audio,'profile':profile,'enabled':{k:True for k in ('engine','transmission_whine','turbo_spool','bov_release') if k in profile}}
 
     def switch_appearance(self,name):
         if name not in ('Source Fidelity','Classic MR Style','Custom'):raise ValueError('Unknown appearance profile')
@@ -490,12 +498,17 @@ class WorkshopProject:
                 from master_rallye.addon_sdk.vehicle_shadow import rebase_unchanged_footprint
                 write_json(shadow,rebase_unchanged_footprint(before,after,json.loads(immutable.read_text())))
             write_json(self.working/'vehicle-project.json',spec)
+        self.audio_materialize()
 
     def restore(self,name=None):
         self._record()
         if name is None:
             self.data['edits']={};self.data['surfaces']={}
             for entry in self.data.get('crew',{}).values():entry['placements']={}
+            if self.data.get('audio'):
+                state=self.data['audio'];baseline=self.root/'audio-baseline.json'
+                if sha(baseline.read_bytes())!=state['baseline_sha256']:raise ValueError('Audio baseline changed')
+                state['profile']=json.loads(baseline.read_text());state['enabled']={k:True for k in ('engine','transmission_whine','turbo_spool','bov_release') if k in state['profile']}
         else:self.data['edits'].pop(name,None)
         self.materialize();self.save()
 

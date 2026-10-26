@@ -14,6 +14,7 @@ from .service import WorkshopProject, write_json
 from .texture_view import TextureView
 from .branding import apply_icon,taskbar_identity
 from .appearance_ui import AppearancePanels
+from .audio_ui import AudioPanels
 from master_rallye.dxt import DxtTexture, encode_png, PNG_ROWS_PRESERVE_STORED
 from master_rallye.preview_scene import stage_vehicle
 from master_rallye.dx import parse_dx_bytes
@@ -30,7 +31,7 @@ def bmp_png(path):
     opaque=bytearray(b''.join(rows));opaque[3::4]=b'\xff'*(w*height)
     return encode_png(DxtTexture('GPU capture',1,0,w,height,bytes(opaque),b''),PNG_ROWS_PRESERVE_STORED)
 
-class WorkshopApp(AppearancePanels):
+class WorkshopApp(AppearancePanels, AudioPanels):
     def __init__(self, root, workspace, sdk_root, viewer):
         apply_icon(root);self.root=root;self.workspace=Path(workspace).resolve();self.workspace.mkdir(parents=True,exist_ok=True)
         self.sdk_root=Path(sdk_root).resolve();self.viewer=Path(viewer).resolve();self.messages=queue.Queue();self.busy=False
@@ -131,10 +132,11 @@ class WorkshopApp(AppearancePanels):
         fit_tab=ttk.Frame(tabs,padding=8);tabs.add(fit_tab,text='Wheel Fitment')
         self._fit_layout(fit_tab)
         self.appearance_layout(tabs)
+        self.audio_layout(tabs)
         settings=ttk.Frame(tabs,padding=9);tabs.add(settings,text='Build / Scope')
         ttk.Button(settings,text='Configure build inputs…',command=self.configure).pack(fill='x')
         ttk.Button(settings,text='Open last build folder',command=self.open_build_folder).pack(fill='x',pady=7)
-        ttk.Label(settings,text='IMPLEMENTED\nNative model/draw/material inspection, selected-surface RGB and existing environment pass controls, texture impact warnings and PNG replacement, filtered RGBA/Alpha image views, preview wheel fitting, qualified masked paint, appearance snapshots, local stock references, existing stock crew fitting, Save, Undo/Redo/Restore, validation and isolated stock/addon builds.\n\nFUTURE — not editable in this milestone\nGeometry/Blender bridge, scale/fit, Physics/Audio/Camera Studio.\n\nExisting CLI profiles remain intact. Converted-family-only projects build resource packages, not new CarIDs.',wraplength=320).pack(anchor='w',pady=10)
+        ttk.Label(settings,text='IMPLEMENTED\nNative model/draw/material inspection, selected-surface RGB and existing environment pass controls, texture impact warnings and PNG replacement, filtered RGBA/Alpha image views, preview wheel fitting, qualified masked paint, appearance snapshots, local stock references, existing stock crew fitting, four-layer Audio Studio, Save, Undo/Redo/Restore, validation and isolated stock/addon builds.\n\nFUTURE — not editable in this milestone\nGeometry/Blender bridge, scale/fit, Physics/Camera Studio.\n\nExisting CLI profiles remain intact. Converted-family-only projects build resource packages, not new CarIDs.',wraplength=320).pack(anchor='w',pady=10)
         bottom=ttk.Frame(self.outer,padding=7);self.outer.add(bottom,weight=1)
         ttk.Label(bottom,text='DIAGNOSTICS / BUILD LOG / PROVENANCE').pack(anchor='w')
         self.log=tk.Text(bottom,height=8,bg='#15191f',fg='#c5ccd6',font=('Consolas',9),wrap='word',relief='flat');self.log.pack(fill='both',expand=True)
@@ -170,6 +172,7 @@ class WorkshopApp(AppearancePanels):
             self.surface_button.state(['!disabled'] if not self.busy and caps.get('diffuse_rgb_editable') else ['disabled'])
             self.reflection_button.state(['!disabled'] if not self.busy and caps.get('reflection_disable_editable') else ['disabled'])
             self.strength_button.state(['!disabled'] if not self.busy and caps.get('reflection_strength_editable') else ['disabled'])
+        self.audio_sync()
 
     def add_library(self,project,save=True):
         key=str(project.root)
@@ -310,7 +313,7 @@ class WorkshopApp(AppearancePanels):
         if self.texture_name.get() not in names:self.texture_name.set(names[0] if names else '')
         image=tk.PhotoImage(data=png);factor=max(1,(image.width()+max(500,self.capture.winfo_width())-1)//max(500,self.capture.winfo_width()),(image.height()+max(350,self.capture.winfo_height())-1)//max(350,self.capture.winfo_height()));image=image.subsample(factor)
         self.photos=[image];self.capture.configure(image=image,text='');self.show_texture()
-        self._fit_loaded();self.appearance_loaded()
+        self._fit_loaded();self.appearance_loaded();self.audio_loaded()
         if self.variant.get()=='Wheel' and abs(info['wheel_outside_camera']['mean_axial_vote'])<=.2:self.log.insert('end','Wheel outside direction is ambiguous: generic camera retained; inspect both sides.\n')
         self._inspect(f"Source: {info['source']}\n{info['preview']}\nEdits: {len(self.project.data['edits'])}\nNative alpha/flags are shown without inventing material classifications.")
         if selected and self.draws.exists(selected[0]):self.draws.selection_set(selected[0])

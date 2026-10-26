@@ -1,12 +1,12 @@
 # Master Rallye Vehicle SDK — Master Plan / Rally Workshop
 
-**Working baseline:** 26 October 2026 (revision 4.8: qualified V-SDK4B.1 Classic Lancer pilot; owner gameplay review pending; historical sections retained)
-**Repository:** `master-rallye-re-vehicles` · **branch:** `research/vehicles`  
-**Purpose:** single living specification for development, review, acceptance and public beta planning.  
+**Working baseline:** 26 October 2026 (revision 5.0: V-SDK4D Audio Studio remains next; owner-approved GT3 compatibility corpus, source colorway research and cross-vehicle Classic MR generalization added as V-SDK4E. Historical sections intentionally retained.)
+**Repository:** `master-rallye-re-vehicles` · **branch:** `research/vehicles`
+**Purpose:** single living specification for development, review, acceptance and public beta planning.
 **Status disclaimer:** this document summarizes previous source-review discussions and reported gameplay tests. It is **not** a new repository or binary audit; verify each item against the current checkout before implementation. Update the ledger after every development phase.
 
 
-> **HISTORICAL DECISION — 2026-10-26 / revision 4.7:** The owner reports successful in-game tests of the V-SDK4C.1 fixes: Subaru glass now breaks correctly, and Pajero's visual corrections are accepted. This supersedes the pending owner gate in sections 19–20 without erasing those earlier reports. **V-SDK4B Paint Studio / Classic MR Style / Crew Fitment is the next active milestone.** Full Audio Studio remains a required product feature and gets an explicit four-layer user-replacement acceptance gate below. No D3D9 preview or automated test alone is proof of native gameplay parity.
+> **CURRENT DECISION — 2026-10-26 / revision 4.7:** The owner reports successful in-game tests of the V-SDK4C.1 fixes: Subaru glass now breaks correctly, and Pajero's visual corrections are accepted. This supersedes the pending owner gate in sections 19–20 without erasing those earlier reports. **V-SDK4B Paint Studio / Classic MR Style / Crew Fitment is the next active milestone.** Full Audio Studio remains a required product feature and gets an explicit four-layer user-replacement acceptance gate below. No D3D9 preview or automated test alone is proof of native gameplay parity.
 
 
 ## 0. Product contract
@@ -693,6 +693,7 @@ of these edits is a separate owner gate. No broader capacity/version acceptance
 is inferred. No future Audio/Physics/Camera GUI, Blender/scale or Fleet milestone
 is started by completing this phase. Local phase commits are authorized; no push.
 
+---
 
 # Owner design decision — 26 October 2026 — Master Plan v4.8
 
@@ -742,10 +743,133 @@ If safe topology/wheel edits are limited by fixed-draw DX writer requirements, p
 After V-SDK4B.1 owner review, generalize qualified transformations to other import classes (Subaru and Pajero as regression controls), add adjustable `Classic intensity`/decal-preservation choices and a useful interactive style recipe editor. **Do not label incomplete geometric/style conversion as one-click Authentic MR.** Carry over V-SDK5 Blender round-trip and scaling, standalone Audio Studio with independent user-replaceable Engine, Whine, Turbo Spool and BOV layers (with test/audition/loop/RPM/gain/presets), and full remaining Physics/Camera/Fleet roadmap. Audio is a priority, not forgotten, but outside the narrow V-SDK4B.1 scope. Each accepted phase gets a local commit; do not push or publish without explicit authorization. Private MR/GT art/audio remain local to user-owned installations.
 
 
-## Repository V-SDK4B.1 implementation ledger
+---
 
-Implemented a bounded, exact-source Classic Lancer conversion: approved cover topology reduction, regenerated characteristic red/charcoal livery, stock-derived opaque recessed rim, measured material/texture normalization and independent source/Classic versions. CLI initialization and Studio Rebuild call the same Core; explicit report approval gates builds. Manual layers remain versioned with conflicts, and rebuilding resolves the immutable original. See VSDK4B1_RESULTS.md, CAPABILITIES.md and REGRESSION_MATRIX.md for measured counts, private Windows evidence and exact limitations.
+# Owner handoff — 26 October 2026 — Master Plan v4.9 (V-SDK4B.1 review, Audio Studio next)
 
-The owner approved the final appearance/report before the isolated Classic build. This closes only that preview/build-input gate; actual D3D8 gameplay is pending. Stop V-SDK4B.1 for owner review. Do not automatically generalize recipes, start Blender Bridge or Audio Studio. Prior Audio Studio and remaining roadmap obligations remain unchanged. Local phase commits authorized; no push or publication.
+> **Supersedes the older “V-SDK4B.1 next” wording in v4.8.** Historical sections are retained intentionally. The next active implementation milestone is **V-SDK4D — Audio Studio Foundation**; V-SDK4B.1 is offline-validated and awaiting its separate owner D3D8 gameplay test, which is explicitly **non-blocking** for beginning V-SDK4D.
 
-Validated local implementation: `e51d1d603d5adc00b7c12919ae980a4e561aed15`.
+## V-SDK4B.1 evidence ledger
+
+Artifacts inspected: `rally-workshop-vsdk4b1-source-review.zip` and `rally-workshop-vsdk4b1-changed-files.zip`. Full source archive has 978 entries (976 SHA256-manifest matches); changed-files archive has 28 entries (26 SHA256-manifest matches), and all 26 changed content files match the full archive byte-for-byte. All 416 Python files in the full archive parse. Independent Python synthetic tests for Classic, audio profile/integration, Workshop and turbo audio: **37 PASS**, after setting project `src`, `tools` and `tests/synthetic` on the Python path. Codex's Windows report claims **846 tests PASS / 1 optional skip**, not reproduced by this review. Both archives omit `.git`, private runtime candidates, private GT/MR assets, original EXE/DLL, and real-game evidence. Repository metadata records phase commit `e51d1d603d5adc00b7c12919ae980a4e561aed15`; independently verify in original checkout when needed.
+
+`docs/sdk/VSDK4B1_RESULTS.md` documents the hash-qualified V-LANCER6 Classic recipe and these measured resource changes:
+
+- Actual packaged race `car.dx`: **2625/107 triangles/draws → 2355/99**.
+- Frontend `complete.dx`: **6333/186 → 4563/178**.
+- `wheel.dx`: **745/16 → 370/16**; draw grammar preserved.
+- Referenced texture resources **77 → 75**; native RGBA estimate **12,199,936 → 12,019,712 bytes** (~1.48% reduction). Do not market this as a major memory or FPS improvement.
+- Deliberately simplified specified protective covers (48→16 triangles per affected draw), qualified sponsor overlay removal, rebuilt red/charcoal paint fields, retained signature numbers/marks, solid recessed Subaru-derived wheel backing, guarded opaque MR paint environment, protected cutout alpha.
+- Stock MR class ranges were measured (IDs 0–20), but these are style references rather than engine limits. In particular, Classic Lancer Frontend triangles still exceed ordinary measured stock Frontend ranges; **one qualified Classic pilot is not universal full automatic MR-style conversion**.
+- Immutable source → separate Classic output, deterministic report, explicit SHA256 approval before build, preserved Source Fidelity, qualified manual-layer replay and visible conflicts on topology/atlas changes.
+- Source Fidelity and Classic 30-roster candidates exist as *alternative isolated builds* for CarID28, **not** simultaneous duplicate CarIDs. Preserved other vehicle resources, physics/audio/UI identity, stock resources and native runtime plan are offline-verified. No new game capacity claim.
+
+**Status:** V-SDK4B.1 implementation **offline ACCEPTED for continuation**, D3D8 owner test **PENDING / non-blocking**. Keep a short deferred A/B acceptance checklist: launch `sf` then `cl` isolated candidates; compare body/livery/reflections/wheels all sides, brakes/glass/damage/crew, race/re-entry/Results/AI, menu loading. Preserve exact candidate paths and hashes from the owner's private checkout; do not infer archive-contained runtime files.
+
+## Next active milestone — V-SDK4D: Audio Studio Foundation
+
+The priority now is a **functional audio authoring UI** leveraging existing qualified independent per-CarID sound infrastructure, not adding a fourth vehicle or redesigning native sound systems. Existing `src/master_rallye/addon_sdk/audio_profile.py` already validates and compiles `audio-profile.json` v1 with engine plus optional `transmission_whine`, `turbo_spool`, `bov_release`; current native response logic has load/gear/RPM approximations. Existing tools include `vehicle_audio_import.py`, `vehicle_audio_audition.py`, `vehicle_audio_layers.py`, per-profile validation and native candidate builders. Existing Lancer was gameplay-heard earlier; new per-layer substitution and Audio Studio must still be tested per candidate. Preserve and integrate these functions through a shared SDK service; no duplicate CLI-incompatible GUI encoding.
+
+**Required four slots:** Engine (native `wsDsFxRevs` source waveform), Transmission Whine (continuous native SFX), Turbo Spool (load/pressure proxy), BOV (release-triggered one-shot). Preserve correct event differences and guard syntax, source provenance, local hashes, per-CarID ownership, mute/solo, source diagnostics, bounds, reset, undo/redo, build/restore.
+
+**Core vertical slice**:
+1. Workshop Vehicle Library → Audio Studio for a qualified addon (pilot **Lancer Evo IV / CarID28**). Show current audio profile, four independently editable layers with source/provenance, active state, qualified response fields, loop/crossfade/trim controls only where supported.
+2. **Import Local WAV / Assign Existing / Remove or Disable / Reset Layer**. Prefer explicitly tested RIFF PCM formats within existing decoder guards; never claim support for arbitrary GT3/GT4 proprietary banks or other compressed formats without a verified adapter. Convert to engine/SFX native mono PCM16/48k where the compiler actually does so, with warnings for DC, clipping, invalid/oversize sources, loop seams and gain.
+3. **Per-layer audition**, mute/solo, RPM/load/shift/lift scripted preview and combined mix with audio measurements. The existing original-instruction Unicorn engine DSP audition is an offline diagnostic; native DirectSound device, event timing and in-race perceived loudness remain a distinct human listening gate. Do not pretend preview equals gameplay.
+4. **Named audio presets** and per-car profile overrides with immutable source hash, relative private source reference or workspace-managed copy, authoring settings, provenance and controlled file-path portability. Preserve original synthetic whine/spool/BOV defaults if usage rights are confirmed. Import/export **metadata-only presets** freely; do not bundle private game-owned audio.
+5. Isolated source-only/no-source A/B/C/D resource builds (engine-only change, whine-only, spool-only, BOV-only, then all four) using **existing Lancer**. Prove each independent layer change leaves other layer bytes, other CarID profiles, physics/material/glass/roster and normal game build identities unchanged. Ensure the build candidate is sealed, predictable and reversible.
+6. Regression for audio allocation/lifetime: race enter/exit, multiple AI users, Results, optional source failure, mute/resume, BOV cooldown, resource namespacing, no global sound overwrite. Validate exact runtime constraints; avoid reintroducing past ECX sound-hook lifecycle fault.
+7. Update GUI F1/Help, `CAPABILITIES.md`, `REGRESSION_MATRIX.md`, `COMMIT_LEDGER.md`, CLI examples and Master Plan. Commit completed/validated V-SDK4D **locally** only; no push/release without separate authorization.
+
+**Explicit boundaries:** No speculative physical boost sensor, throttle-perfect signal, original GT audio decoder, new multi-bank engine playback, universal source bank import or unsupported stock audio overwrite. The v1 audio profile guards currently restrict the custom engine to qualified addon CarIDs; UI must show stock cars as unsupported/read-only unless native evidence expands support. Do not edit original `MRallye.exe`, `d3d8.dll`, retail files, frozen vehicle candidates or Randomizer. Do not ship private GT/MR audio.
+
+**V-SDK4D acceptance:** Within Rally Workshop, using the **existing Lancer**, I can safely set a custom source for each Engine/Whine/Spool/BOV layer, audition one or all, customize qualified response parameters, save/load a preset, undo/reset, validate and build isolated candidates. The actual-game audio A/B and per-CarID behavior will receive owner listening confirmation later. Do not block next development on unavailable gameplay time; mark **OFFLINE / WINDOWS / OWNER GAME** separately.
+
+## After V-SDK4D
+
+Return to **V-SDK5 Model Studio / Blender round-trip / proportion and scaling comparisons**, followed by remaining Physics and Camera Studio, format adapters, fleet/install, public-beta QA. Keep **V-SDK4B.2 Classic generalization / interactive recipe editor** in the backlog, not silently declared complete. The owner wants a future distinctive-sounding **fourth test car**, but that is an independent vehicle-import decision once Audio Studio has a stable baseline; don't start a new import without chosen, permitted source materials. Maintain the mandatory glass/damage, native lights, wheel/crew fitment, source/Classic style, PERF2, 30-entry composition, stock copy-on-write and full regression matrix.
+
+
+---
+
+# Owner expansion — 26 October 2026 — Master Plan v5.0: GT3 Compatibility Lab, Colorways & Generalized Classic MR Style
+
+## Decision and phase boundary
+
+**Owner request:** Generalize the currently Lancer-specific Classic MR Style recipe to other GT-derived vehicles; test real source-car color variations using a qualified source that contains at least two usable stock colorways; run broad compatibility analysis of **all GT3 cars available in the owner's lawful local source corpus** without having to add every vehicle to the Master Rallye game. The aim is to discover conversion failures and incomplete coverage before public beta.
+
+**Execution order:** Preserve active **V-SDK4D Audio Studio** (four independent Engine, Whine, Turbo Spool, BOV slots) and its narrow Lancer acceptance. After Audio Studio, start a separately budgeted **V-SDK4E Compatibility & Classic Generalization** series, before or as a prerequisite of larger Blender/Fleet work. Do not mix new GT3-car imports into V-SDK4D. Defer Lancer Classic D3D8 owner A/B as a non-blocking acceptance gate. The V-SDK4B.1 Lancer pilot is **offline-qualified for one hashed source recipe only**, not proven universal or gameplay-verified.
+
+## V-SDK4E.0 — Source corpus inventory and coverage baseline
+
+1. Inventory local, user-provided GT3 (and optionally GT4 comparison) input trees without copying proprietary content into source archives. Identify exact game/build/version/region/profile only when discoverable. Work with incomplete data without inventing vehicle totals.
+2. Distinguish **catalog entries**, **unique model data**, **color/livery variants**, **wheel variants**, **LOD versions** and **licensed/source availability**. Do not assume one catalog ID equals one unique 3D mesh or one paint color.
+3. Build a deterministic manifest (relative private input references, hashes, parser profile, classification, optional colorway and LOD inventory), with a scan resume/checkpoint mode and a lightweight resource-budget mode. Original asset files remain read-only.
+4. Automatically group representative fixtures by evidence-backed source traits: road versus rally, open cockpit versus closed cabin, high-detail or unusual wheels, multiple body colors/liveries, unusual glass/alpha, decals, reflective split/islands, alternate geometry and possible damage-control constraints.
+5. Maintain capabilities by **format version, vehicle source and subsystem**. Unsupported data receives a concrete explanation, never a false green PASS.
+
+## V-SDK4E.1 — Genuine source colorway pilot
+
+- Select **one source GT3 vehicle for which two or more actual color configurations are locally verified**, not a guessed GT3 model. If none is available, report the blocker and test with a qualified GT4 source rather than claiming GT3 proof.
+- Research whether variants are alternate textures, livery/atlas sets, material-color records, material IDs or geometry-linked state. A user-authored recolor is **not** automatically proof that native source colorway selection is supported.
+- Import source variants **A and B** through the same adapter, preserving body/material/decal associations, texture ownership, provenance and deterministic builds. Verify that wheels, glass, lamps, UV and unrelated assets are identical unless source evidence says otherwise.
+- Expose `Source Colorway` (original GT palette/livery selection) **separately** from `Studio Custom Paint` and `Classic MR Style`. Do not flatten these into one RGB slider.
+- Build and GPU-preview at least two variants offline, compare fixed-camera captures and resource manifests, reopen/save/restore, and explain any colorway state that cannot be reproduced in MR without a manual paint authoring workaround.
+
+## V-SDK4E.2 — Reusable Classic MR Style pipeline
+
+- Decompose the source-hash-pinned V-SDK4B.1 Lancer pilot into **reusable, evidence-gated stages**: semantic asset classification → MR class/style reference → protected topology simplification → livery simplification/mask planning → wheel reconstruction/lip/solid inner backing → MR-native material and reflection normalization → atlas/texture budget → validation/build/report.
+- Use **separate GT3 and GT4 source adapters** and semantic intermediate contracts. Do not make the GT3 pipeline secretly depend on `mits0015` or GT4-only attributes, nor silently rewrite a GT3 asset as a GT4 profile.
+- Classify mesh/material/texture roles explicitly: painted panels, trim, decals, glass/damage panes, lamps/brake glow, driver/co-driver, tires, rims, brakes, shadow/collision and environment passes. Ambiguous roles are held at Source Fidelity with a warning instead of destructively simplified.
+- Geometry budgets must be **measured stock MR ranges**, segmented by vehicle class/role, not arbitrary hard polygon caps. Preserve silhouette, UV seams, glass/lighting/damage/control draws and culling. Report triangles/draws before/after per subsystem.
+- For classic wheels, preserve proper outward facing orientation, side symmetry, rim lip and opaque recessed interiors without globally forcing alpha opaque or losing genuine reflections; leave explicit manual wheel-fit corrections available.
+- Simplified liveries must select protected numbers/marks and use qualified semantic masks/texture adaptation. Blind blurring or downscaling original GT atlases is not a Classic conversion.
+- Non-destructive `Immutable source + source colorway + style recipe + user overrides → sealed candidate` with stable IDs, change-provenance and explicit replay/conflict handling. Reapplying the same recipe to the same source must be deterministic and idempotent from the immutable baseline.
+- Pilot beyond Lancer: **at least one non-Lancer GT3 representative** (Subaru as preserved regression, plus another available and structurally distinct GT3 input if qualified), and where useful Pajero as a GT4 regression. Do not change frozen gameplay-accepted sources as the test output.
+
+## V-SDK4E.3 — GT3 Compatibility Lab: wide offline matrix
+
+The **goal is breadth of diagnosis**, not installation of the entire catalog into MR.
+
+Three progressively expensive levels, each separately counted in reports:
+
+1. **L0 Inventory / Decode:** For every discoverable car and variant in the lawful local GT3 corpus, report parser availability, expected geometry/wheels/texture/colorway/LOD records, source hash, missing input and parser errors. No GPU or game required.
+2. **L1 Conversion / Structural Validation:** For every uniquely decodable model within budgets, dry-run the canonical converter and optionally Classic recipe, emitting **temporary isolated output**. Verify DX/DXT structure, material/texture links, vertex and draw ownership, winding, UV bounds, alpha/culling, wheel dimensions, potentially dangerous per-car controls, resource and memory budgets. Do not install results into the game. Record clear failure categories and reproducible fixture IDs.
+3. **L2 Visual / Targeted Runtime:** Generate deterministic Previewer fixed-angle captures for a stratified, manageable set of distinct complex cases (not necessarily every color or duplicate mesh). Select a smaller representative group for actual Master Rallye candidates / future owner D3D8 tests. Clearly distinguish D3D9 approximation from game proof.
+
+Run the suite in **streaming/checkpointed batches** with bounded RAM/disk/CPU/time; support cancellation, retry, `--resume`, deduplication by source content, and extraction of diagnostics without retaining full proprietary rendered art in source-only archives. Prefer low-cost structural passes before costly rendering or gameplay.
+
+Use one per-car/variant evidence row containing: `source profile; source ID; model/variant/LOD hash; discoverability; L0; L1; L2; Classic feasibility; source colorways; geometry; wheel/culling; materials/reflections; alpha/glass/damage; textures/UV; memory; errors; status; evidence path`. Status vocabulary **PASS / WARN / FAIL / UNSUPPORTED / NOT TESTED / MISSING INPUT** plus evidence tier. Do not aggregate a missing resource into a successful pass.
+
+Offer sorted issue families for importer improvements (e.g. culling, decal blend, shared atlas, wheel side orientation, transparent pane, missing headlights, unsupported LOD). Fix underlying **generic importer behavior** before writing per-car exceptions. Record exception provenance and regression fixtures when exceptions are unavoidable. Re-run a representative baseline including accepted Subaru, Lancer, Pajero and stock MR editing after converter changes.
+
+**Honest coverage claims:** `all GT3 cars tested` may only be used once the corpus version/region and denominator are documented and the specified L0/L1 levels truly covered each available entry; otherwise state `N scanned / M unique models / K converted / P visual-inspected / Q game-tested`, with exact exclusions and reasons. Never equate catalog-wide offline conversion to native D3D8 playability.
+
+## V-SDK4E owner acceptance and constraints
+
+- The user can choose among at least two **verified real source colorways** of one qualified car and distinguish source palette, custom paint and Classic style.
+- Classic MR Style is a reusable semantic pipeline demonstrated beyond a Lancer-specific hash recipe, with demonstrably distinct simplified geometry, livery/paint, MR material roles and solid recessed wheels where safe. Unsupported parts are reported as fallbacks.
+- Compatibility Lab produces a reproducible corpus-wide matrix and categorized failures without installing hundreds of cars into Master Rallye.
+- Existing V-SDK4D audio authoring, per-CarID sound isolation, native glass damage, Pajero polished geometry, Subaru integrity, PERF2 frontend loading, 29/30 verified SCALE1 roster, stock copy-on-write, camera and UI editing continue to pass regressions. No unqualified max-car-count or universal GT3 compatibility claim.
+- Nothing modifies original `MRallye.exe`, original retail files, existing `d3d8.dll`, unrelated Randomizer or frozen source models. GT3/GT4/MR assets remain private, local and excluded from released artifacts. Only owner-authorized scoped local Git commits; no remote push, release or publication.
+- Each bounded subphase delivers a real implementation, quantitative coverage report, test/fixture summary, `CAPABILITIES.md`, `REGRESSION_MATRIX.md`, `COMMIT_LEDGER.md`, offline Help updates and source-only review archive. Leave owner gameplay checks open if unavailable instead of blocking independent development.
+
+## Schedule handoff
+
+**Now:** V-SDK4D Audio Studio on qualified Lancer.
+**Next:** V-SDK4E.0/.1 corpus inventory plus a true source-colorway pilot.
+**Then:** V-SDK4E.2/.3 semantic Classic MR Style generalization and checkpointed GT3 Compatibility Lab.
+**Subsequently:** V-SDK5 Blender Bridge / scaling, remaining Physics and Camera Studio, Fleet Builder, public-beta QA. Keep future audio-based fourth-car demonstration separate from the corpus scan; do not silently add all discovered cars to the game.
+
+
+## V-SDK4D implementation ledger — 26 October 2026
+
+Audio Studio Foundation is implemented in the shared project service, Studio and CLI.
+Four independent PCM sources, qualified response controls, import diagnostics, named
+presets, style-version transfer, native DSP/response audition and reversible builds
+are Windows/offline qualified on Lancer CarID28. Five isolated 30-entry roster
+candidates change exactly 1/1/1/1/4 WAVs; all other game resources match Source Fidelity.
+See VSDK4D_RESULTS.md, CAPABILITIES.md, REGRESSION_MATRIX.md and COMMIT_LEDGER.md.
+Actual D3D8 audio listening remains pending, as does V4B.1 visual A/B. Neither was
+claimed from offline evidence. Stop here for owner/source review; V4E and Blender
+Bridge have not begun. Historical planned wording above remains provenance.
