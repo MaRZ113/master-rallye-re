@@ -1,3 +1,39 @@
+# MR Heritage Garage — validated local phase
+
+- Implementation and evidence: `7412f1571270cc8539810978a7126604cc5502ff`.
+- Parent preserved: `0650f66` (Game Camera Lab closeout). No history rewriting.
+- Full final Windows checkout:910 tests, two existing optional private-fixture
+  skips,52.677s (`heritage/validated-phase-tests.log`). Nine new generated-fixture
+  tests cover native states, GXI mapping, source pins, reindexed wheels and
+  independently recompiled retail-donor physics.
+- Actual Windows Heritage Inspect/Preview/Create/Configure/Validate/Build,
+  Physics history/reopen/Restore and qualified ISUZU identity editing pass.
+  Two source imports reproduce101 files; repeated derivations and sealed-resource
+  comparisons pass. Final candidate: CarID29 / T2 local9 in isolated30 roster.
+- Existing Audio/Paint/Crew/reference/25–400% texture/material/binding/reflection/
+  stock zero-edit and Physics/Camera/art Windows regressions pass. The first
+  Physics harness used a mismatched roster baseline; corrected matching-baseline
+  rerun passes, with negative evidence retained.
+- Native audio lifetime/register/stock/failure/multi-owner checks and4×58 shadow
+  replay cases pass. None is a gameplay or actual DirectSound/device claim.
+- Class publisher/navigation REA evidence and controlled13/16-key experiments
+  are research only. Production29/30 limits remain; no31+ gameplay claim.
+- Original EXE/DLL/SMAs,60 Demo source files and clean independent R-DEMO HEAD
+  `a48afa147ef984e809f1f065299985aefaad6091` remain unchanged. Final PlayerState
+  seed is byte-identical to the owner's root save.
+- Eight temporary runtime leaves (3,092,013,618 bytes) moved, not deleted, to
+  `.research-output/runtime-quarantine/2026-10-27/heritage`. Sources, reports,
+  launchers and the final owner candidate remain. Moving within a drive does
+  not itself reclaim disk space; the owner can delete this quarantine later.
+- Canonical source-only and changed-file review archive hashes are recorded in
+  private `heritage/review/archive-manifest.json` after this closeout commit.
+  No game assets, audio, captures, EXE/DLL or runtime are in those archives.
+- New Trooper D3D8 selection/player/AI/damage/glass/brake/sound/Results/re-entry
+  remain PENDING_OWNER. Previous camera/marker and SCALE1 owner evidence is
+  preserved separately. No push, publication, release or next milestone.
+
+---
+
 # Game Camera Lab validated source commit
 
 - Implementation: `7e0ed2ba29d3ba4b0d25aa5841c40768d5fc14eb` — Game Camera Lab: static native framing and per-car HUD tint.
