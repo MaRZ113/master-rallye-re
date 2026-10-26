@@ -197,3 +197,15 @@ follow-up ledger entry below, without amending earlier history.
   new capacity, fourth car, physics tuning or Blender Bridge work.
 - Evidence and source-only archives: `.research-output/vehicles/vsdk4d/`;
   see `validation-final.json`, `VSDK4D_RESULTS.md` and `review/archive-manifest.json`.
+
+Resolved V-SDK4D implementation commit:
+`4d38299362fdd6d2518829d8824ebda5b33ca5d4`.
+
+Final Windows application uses unchanged Previewer SHA256
+`f4c34943c2a8932ae70ff65034196f7bdde9fe3c8958a2ceba766e21b938c61b`.
+`win-release/windows-validation.json` passes without the ignored research Python
+dependency path; Unicorn2.1.4 is an explicit Workshop optional dependency.
+Canonical Git-blob source/changed-file review archives and per-entry hashes are
+generated under `vsdk4d/review/` after this ledger resolution. They include source,
+documentation, tests and public original Workshop artwork only; no private WAV,
+models, textures, captures, executable, DLL or candidate runtime.
