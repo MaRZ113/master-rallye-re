@@ -109,14 +109,18 @@ class Gt4AudioExtractTests(unittest.TestCase):
             raw = bytearray(0x6400); raw[:4] = b'\x7fELF'
             struct.pack_into('<I', raw, 28, 52); struct.pack_into('<H', raw, 44, 1)
             struct.pack_into('<8I', raw, 52, 1, 0x100, 0x532000, 0, 0x6300, 0x6300, 7, 4)
-            for address, value in {0x532a84:'0800a38c',0x532a88:'0000a284',0x532a8c:'18186600',
-                                   0x532a98:'1b006200',0x532b80:'06002585',0x538100:'9400a294'}.items():
-                raw[0x100 + address - 0x532000:0x104 + address - 0x532000] = bytes.fromhex(value)
+            synthetic_digests = {}
+            for i, address in enumerate(audio.PITCH_INSTRUCTION_DIGESTS):
+                value = struct.pack('<I', 0x11223300 + i)
+                raw[0x100 + address - 0x532000:0x104 + address - 0x532000] = value
+                synthetic_digests[address] = audio.sha256(value)
             core.write_bytes(raw)
             with self.assertRaisesRegex(ValueError, 'CORE hash'): audio.pitch_core_evidence(core)
             original = audio.QUALIFIED_CORE_SHA256
+            original_digests = audio.PITCH_INSTRUCTION_DIGESTS
             try:
                 audio.QUALIFIED_CORE_SHA256 = audio.sha256(raw)
+                audio.PITCH_INSTRUCTION_DIGESTS = synthetic_digests
                 source = bytearray(bank()); struct.pack_into('<I', source, 56, 1024)
                 (p/'source.engn').write_bytes(source)
                 report = audio.extract(p/'source.engn', p/'decoded', pitch_core=core)
@@ -127,6 +131,7 @@ class Gt4AudioExtractTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, 'byte mismatch'): audio.pitch_core_evidence(core)
             finally:
                 audio.QUALIFIED_CORE_SHA256 = original
+                audio.PITCH_INSTRUCTION_DIGESTS = original_digests
 
 
 if __name__ == '__main__': unittest.main()
