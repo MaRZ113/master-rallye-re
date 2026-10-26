@@ -19,7 +19,7 @@ def build(output=None):
     shutil.copytree(ROOT/'docs/sdk/help',output/'docs/sdk/help',dirs_exist_ok=True)
     workspace=output.parent/(output.name+'-workspace')
     (output/'Launch-Rally-Workshop.cmd').write_text('@echo off\ncd /d "'+str(ROOT)+'"\n"'+str(interpreter)+'" "'+str(ROOT/'tools/rally_workshop.py')+'" --workspace "'+str(workspace)+'" --viewer "'+str(executable)+'"\n')
-    report={'status':'BUILT_WINDOWS_APPLICATION','viewer_path':str(executable),'viewer_sha256':hashlib.sha256(executable.read_bytes()).hexdigest(),'launcher':str(output/'Launch-Rally-Workshop.cmd'),'assets_bundled':False,'requirements':'Windows, Python with Tk and Pillow; MSVC/CMake for native builds'}
+    report={'status':'BUILT_WINDOWS_APPLICATION','viewer_path':str(executable),'viewer_sha256':hashlib.sha256(executable.read_bytes()).hexdigest(),'launcher':str(output/'Launch-Rally-Workshop.cmd'),'assets_bundled':False,'requirements':'Windows, Python with Tk/Pillow; NumPy for Classic geometry qualification (pip install -e .[workshop]); MSVC/CMake for native builds'}
     (output/'application-build.json').write_text(json.dumps(report,indent=2)+'\n');return report
 
 if __name__=='__main__':

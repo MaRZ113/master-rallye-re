@@ -1,6 +1,19 @@
 # Rally Workshop capability inventory
 
-Current update: V-SDK4B, 26 October2026. See [phase results](VSDK4B_RESULTS.md).
+Current update: V-SDK4B.1, 26 October2026. See [Classic pilot results](VSDK4B1_RESULTS.md).
+
+| V-SDK4B.1 capability | Implemented boundary |
+| --- | --- |
+| Authentic Classic stage | Exact-hash Lancer pilot: approved radial cover reduction, explicit regenerated livery, stock-derived opaque recessed wheel and qualified MR paint material adaptation |
+| Source integrity / version graph | Independent Source Fidelity and Classic projects; rebuilding always resolves the immutable import; no repeated lossy pass |
+| Import / rebuild | CLI initialization style flag and real Studio Rebuild as Classic entry call the same Core stage |
+| Build approval | Generated report and GPU preview before exact-report SHA approval; pending or changed report rejects Classic builds |
+| Manual layers | Exact-compatible active texture/surface overrides reapply; incompatible selectors/atlases are conflicts; all old snapshots and parent remain available |
+| Texture plan | Separate opaque/cutout paint, exact cutout alpha, retained decal dimensions, measured closure/cache budget; no universal atlas repacker |
+| Evidence | 846 tests /1 optional skip; Windows Core/GUI/GPU, sealed alternate candidates and native CPU damage replay; gameplay pending |
+| Generalization boundary | Explicit user-editable recipe; stock references private/local; unknown surfaces retained; no automatic all-car decimation/logo recognition |
+
+## Historical V-SDK4B foundation
 
 | V-SDK4B capability | Implemented boundary |
 | --- | --- |

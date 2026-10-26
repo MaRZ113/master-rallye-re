@@ -15,4 +15,4 @@ package-dir = {"" = "src"}
 where = ["src"]
 
 [project.optional-dependencies]
-workshop = ["Pillow>=10"]
+workshop = ["Pillow>=10", "numpy>=1.24"]

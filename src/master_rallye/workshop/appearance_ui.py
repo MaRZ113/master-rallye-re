@@ -31,8 +31,10 @@ class AppearancePanels:
         self.appearance_name=tk.StringVar(value='Source Fidelity')
         box=ttk.Combobox(paint,textvariable=self.appearance_name,values=['Source Fidelity','Classic MR Style','Custom'],state='readonly');box.pack(fill='x')
         box.bind('<<ComboboxSelected>>',lambda e:self.appearance_switch())
-        hint(box,'Switching saves this appearance snapshot. Original input bytes remain immutable. Crew corrections are separate from appearance profiles.')
-        ttk.Label(paint,text='Three independent, editable snapshots. Classic starts from source; apply explicit qualified stock references or material controls. No automatic name matching.',wraplength=350).pack(fill='x',pady=6)
+        hint(box,'Qualified Classic versions are separate projects rebuilt from the immutable import. Custom appearance edits remain separate; no repeated lossy conversion.')
+        ttk.Label(paint,text='Source Fidelity / qualified Classic conversion / Custom edits. Classic requires a source-qualified recipe, preview and explicit report approval before building.',wraplength=350).pack(fill='x',pady=6)
+        ttk.Button(paint,text='Rebuild as Classic…',command=self.rebuild_classic_version).pack(fill='x')
+        ttk.Button(paint,text='Review / approve Classic report…',command=self.review_classic_report).pack(fill='x',pady=3)
         ttk.Button(paint,text='Matched Original / Modified / Difference',command=self.compare_appearance).pack(fill='x')
         self.paint_region_name=tk.StringVar();self.region_box=ttk.Combobox(paint,textvariable=self.paint_region_name,state='readonly');self.region_box.pack(fill='x',pady=8)
         ttk.Button(paint,text='Import qualified paint mask…',command=self.import_paint_mask).pack(fill='x')
@@ -65,7 +67,8 @@ class AppearancePanels:
         regions=list(p.data.get('paint_regions',{}));self.region_box['values']=regions
         if self.paint_region_name.get()not in regions:self.paint_region_name.set(regions[0]if regions else '')
         self.color_box['values']=list({**COLOR_PRESETS,**p.data.get('color_presets',{})})
-        self.appearance_edits.delete('1.0','end');self.appearance_edits.insert('end',json.dumps({'textures':{n:e['operation']for n,e in p.data['edits'].items()},'surfaces':p.data.get('surfaces',{})},indent=2))
+        generation=p.data.get('classic_generation',{});status='Qualified immutable-source Classic version'if generation.get('version_style')=='Classic MR Style'else'Original Source Fidelity; independent Classic version available'if generation else'Manual appearance snapshots only; Rebuild as Classic generates a qualified conversion'
+        self.appearance_edits.delete('1.0','end');self.appearance_edits.insert('end',json.dumps({'conversion':status,'textures':{n:e['operation']for n,e in p.data['edits'].items()},'surfaces':p.data.get('surfaces',{})},indent=2))
         model={'Race':'car.dx','Frontend':'complete.dx','Wheel':'wheel.dx'}[self.variant.get()]
         people=list(p.data.get('crew',{}).get(model,{}).get('definition',{}).get('people',{}));self.crew_box['values']=people
         if self.crew_name.get()not in people:self.crew_name.set(people[0]if people else '')
@@ -75,7 +78,48 @@ class AppearancePanels:
         if self.project and not self.busy:self.run(label,operation,lambda _:self.refresh())
 
     def appearance_switch(self):
-        if self.project:self.appearance_action('Switch appearance snapshot',lambda:self.project.switch_appearance(self.appearance_name.get()))
+        if not self.project:return
+        name=self.appearance_name.get();links=self.project.data.get('style_versions',{})
+        if name in links:
+            from .service import WorkshopProject
+            if Path(links[name])!=self.project.root:self._opened(WorkshopProject(links[name]))
+            elif self.project.data.get('appearance')!=name:self.appearance_action('Restore this version edit layer',lambda:self.project.switch_appearance(name))
+            return
+        if name=='Classic MR Style':
+            self.appearance_name.set(self.project.data.get('appearance','Source Fidelity'));self.rebuild_classic_version();return
+        self.appearance_action('Switch custom appearance snapshot',lambda:self.project.switch_appearance(name))
+
+    def rebuild_classic_version(self):
+        if not self.project or self.busy:return
+        recipe=filedialog.askopenfilename(title='Qualified Classic conversion recipe (exact source hashes)',filetypes=[('JSON','*.json')],parent=self.root)
+        if not recipe:return
+        stock=filedialog.askdirectory(title='Local read-only stock DataGx/Vehicles reference folder',parent=self.root)
+        if not stock:return
+        output=filedialog.asksaveasfilename(title='New Classic version folder (must not exist)',parent=self.root)
+        if not output:return
+        parent=self.project
+        def build():
+            from .classic import rebuild_classic
+            return rebuild_classic(parent,recipe,stock,output)
+        def opened(result):
+            classic,fidelity,report=result;self.add_library(fidelity);self._opened(classic)
+            messagebox.showinfo('Classic conversion generated','Source Fidelity remains independent. Inspect the preview and conversion report. Classic builds remain blocked until you explicitly approve that exact report.\n\nManual override conflicts: '+str(len(report['manual_layers']['conflicts'])),parent=self.root)
+        self.run('Rebuild Classic from immutable import',build,opened)
+
+    def review_classic_report(self):
+        if not self.project:return
+        g=self.project.data.get('classic_generation')
+        if not g:messagebox.showinfo('Classic report','Generate a qualified Classic version first.',parent=self.root);return
+        report=Path(g['report']).read_text(encoding='utf-8');win=tk.Toplevel(self.root);apply_icon(win);win.title('Classic conversion report — review before build');win.geometry('1000x750')
+        text=tk.Text(win,wrap='word');text.pack(fill='both',expand=True);text.insert('1.0',report);text.configure(state='disabled')
+        project=self.project
+        def accept():
+            if not messagebox.askyesno('Approve this Classic build input?','I reviewed this conversion report, the preview and its omissions/approximations. Allow this exact Classic version as a build input?',parent=win):return
+            from .classic import approve_classic
+            try:approve_classic(project,g['report_sha256'])
+            except ValueError as exc:messagebox.showerror('Report changed',str(exc),parent=win);return
+            win.destroy();self.status.set('Exact Classic report approved for builds.')
+        ttk.Button(win,text='Approve this exact report for builds',command=accept).pack(pady=8)
 
     def import_paint_mask(self):
         if not self.project:return
@@ -155,7 +199,8 @@ class AppearancePanels:
         if not self.project or self.busy:return
         project=self.project;variant=self.variant.get();assembled=self.assembled.get()
         def render():
-            _,before=self._render(project,variant,assembled=assembled,original=True)
+            from .classic import source_project
+            _,before=self._render(source_project(project),variant,assembled=assembled,original=True)
             _,after=self._render(project,variant,assembled=assembled,original=False)
             return before,after
         def show(pair):

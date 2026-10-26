@@ -112,7 +112,7 @@ class WorkshopApp(AppearancePanels):
         self.strength_button=ttk.Button(strength_row,text='Apply weight',command=self.edit_reflection_strength);self.strength_button.pack(side='left')
         ttk.Label(materials,text='Opaque environment only. Preserves source mask; saturated weights cannot brighten further. Blended/cutout alpha is read-only.',wraplength=350).pack(fill='x')
         row=ttk.Frame(materials);row.pack(fill='x');ttk.Button(row,text='Restore surface',command=self.restore_surface).pack(side='left',fill='x',expand=True);ttk.Button(row,text='Redo',command=self.redo).pack(side='left',fill='x',expand=True)
-        self.original_capture=tk.BooleanVar();ttk.Checkbutton(materials,text='Before / original GPU view',variable=self.original_capture,command=self.refresh).pack(anchor='w')
+        self.original_capture=tk.BooleanVar();ttk.Checkbutton(materials,text='Before current edits (this version)',variable=self.original_capture,command=self.refresh).pack(anchor='w')
         texture_tab=ttk.Frame(tabs,padding=6);tabs.add(texture_tab,text='Texture Studio')
         self.texture_box=ttk.Combobox(texture_tab,textvariable=self.texture_name,state='readonly');self.texture_box.pack(fill='x');self.texture_box.bind('<<ComboboxSelected>>',lambda e:self.show_texture())
         ttk.Label(texture_tab,textvariable=self.texture_details,wraplength=330).pack(anchor='w',pady=3)
@@ -177,7 +177,7 @@ class WorkshopApp(AppearancePanels):
             self.library[key]=project
             kind=project.data['kind'];group='group:'+kind
             if not self.library_tree.exists(group):self.library_tree.insert('', 'end',iid=group,text={'stock':'Stock vehicles','addon':'Imported addons','family':'Converted families'}[kind],open=True)
-            self.library_tree.insert(group, 'end',iid=key,text=f"{project.data['identity']}  · {kind}")
+            self.library_tree.insert(group, 'end',iid=key,text=f"{project.data['identity']}  · {kind} · {project.data.get('appearance','Source Fidelity')}")
         if save:write_json(self.workspace/'library.json',list(self.library))
         return key
 

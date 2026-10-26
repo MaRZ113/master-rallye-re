@@ -535,6 +535,8 @@ class WorkshopProject:
         return {'status':'PASS','kind':self.data['kind'],'edits':len(self.data['edits']),'sdk':result,'runtime_qualified':False}
 
     def build(self,output,*,sdk_root,log=lambda message:None):
+        from .classic import require_classic_approval
+        require_classic_approval(self)
         self.validate();output=Path(output).resolve()
         if output.exists():raise ValueError('Choose a fresh build directory')
         if output.is_relative_to(self.root) and not output.is_relative_to(self.root/'builds'):raise ValueError('Build output must not overwrite project state')

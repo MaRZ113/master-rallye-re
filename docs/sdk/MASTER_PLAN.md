@@ -1,12 +1,12 @@
 # Master Rallye Vehicle SDK — Master Plan / Rally Workshop
 
-**Working baseline:** 26 October 2026 (revision 4.7: V-SDK4C.1 owner gameplay acceptance, V-SDK4B handoff, and explicit Audio Studio qualification; historical sections retained)
+**Working baseline:** 26 October 2026 (revision 4.8: qualified V-SDK4B.1 Classic Lancer pilot; owner gameplay review pending; historical sections retained)
 **Repository:** `master-rallye-re-vehicles` · **branch:** `research/vehicles`  
 **Purpose:** single living specification for development, review, acceptance and public beta planning.  
 **Status disclaimer:** this document summarizes previous source-review discussions and reported gameplay tests. It is **not** a new repository or binary audit; verify each item against the current checkout before implementation. Update the ledger after every development phase.
 
 
-> **CURRENT DECISION — 2026-10-26 / revision 4.7:** The owner reports successful in-game tests of the V-SDK4C.1 fixes: Subaru glass now breaks correctly, and Pajero's visual corrections are accepted. This supersedes the pending owner gate in sections 19–20 without erasing those earlier reports. **V-SDK4B Paint Studio / Classic MR Style / Crew Fitment is the next active milestone.** Full Audio Studio remains a required product feature and gets an explicit four-layer user-replacement acceptance gate below. No D3D9 preview or automated test alone is proof of native gameplay parity.
+> **HISTORICAL DECISION — 2026-10-26 / revision 4.7:** The owner reports successful in-game tests of the V-SDK4C.1 fixes: Subaru glass now breaks correctly, and Pajero's visual corrections are accepted. This supersedes the pending owner gate in sections 19–20 without erasing those earlier reports. **V-SDK4B Paint Studio / Classic MR Style / Crew Fitment is the next active milestone.** Full Audio Studio remains a required product feature and gets an explicit four-layer user-replacement acceptance gate below. No D3D9 preview or automated test alone is proof of native gameplay parity.
 
 
 ## 0. Product contract
@@ -692,3 +692,58 @@ New V-SDK4B appearance/crew candidates are OFFLINE validated; actual gameplay
 of these edits is a separate owner gate. No broader capacity/version acceptance
 is inferred. No future Audio/Physics/Camera GUI, Blender/scale or Fleet milestone
 is started by completing this phase. Local phase commits are authorized; no push.
+
+
+# Owner design decision — 26 October 2026 — Master Plan v4.8
+
+## V-SDK4B acceptance scope and limitation
+
+Owner reports Paint Studio works. Source-review V-SDK4B confirms editable Source Fidelity / Classic MR Style / Custom snapshots, exact mask-pinned paint, local stock materials and explicit assignment, qualified crew rest-pose editing, and matched native D3D9 comparison. However, **Classic MR Style is currently a manually authored appearance recipe**, initialized from the original; **it is not yet a distinct automatic MR aesthetic conversion**. Neither polygon reduction, simplified liveries, optimized atlas topology, nor Subaru-like solid/recessed MR wheel construction is provided by switching profiles. Mark the UI capability honestly until implemented.
+
+Review artifacts: `rally-workshop-vsdk4b-source-review.zip` (966 entries, 964 manifest-verified, 406 Python parses) and `rally-workshop-vsdk4b-changed-files.zip` (22 entries, 20 manifest-verified, 12 Python parses). Independently checked synthetic tests: 15 appearance, 6 texture quality and 11 Workshop tests PASS. Codex reports full Windows 837 PASS / 1 optional skip with private runtime evidence; that Windows run was not independently reproduced. Local V-SDK4B implementation commit is recorded in review ledger as `de1cd394294ee1b2fce381d70913fa07f8ff4748`; bundled archives lack `.git` for independent history verification. New V-SDK4B game candidates remain owner-gameplay-pending. No unrelated native gameplay qualification is inferred.
+
+## The real meaning of Classic MR Style
+
+An **opt-in, provenance-preserving, rebuildable conversion recipe** to make imported vehicles plausibly belong to *Master Rallye 2001*, inspired by the frozen successful Subaru rather than a blanket texture-resolution reduction. *Source Fidelity* remains untouched. *Custom* contains user-specific layers. All three use a common, explicit asset graph with original inputs immutable.
+
+Target qualities, qualified separately:
+
+1. **Body shape and geometry:** deliberate simplification toward a measured class-appropriate stock MR polygon/silhouette envelope; preserve distinguishing shape, arches, windows and wheel apertures. Measure class-specific original MR `car.dx`, `complete.dx` and `wheel.dx` distributions first. No invented universal 1,000-/2,000-triangle target. Retain damage/glass groups, lights, crew, wheel hubs, mirror/culling, attachments, UV and collision validity; never confuse visual simplification with a gameplay physics change.
+2. **Paint and livery:** clean main paint color, only selected signature decals/sponsor/number details, optional more/less sponsor density. Classify direct paint, separately layered decals and decals baked into shared atlases. Reassign/paint/mask and regenerate clean diffuse maps **only when verified**. Never remove decals by blurring; never claim automatic text/logo detection without evidence. When ownership is ambiguous, offer an editable manual mask and clear preview.
+3. **Wheel archetype:** visual opaque dark recessed inner backing/spoke gaps, retained tire, correct lip/rim profile and wheel-face orientation, per-side consistency, no fake transparency holes. Reuse source-qualified routines from Subaru V-MESH wheel work; do not apply a global alpha override because alpha may control reflections or transparency elsewhere. Preserve tyre/hub, brake glow and damage expectations.
+4. **Materials and reflections:** native MR-compatible diffuse/reflective/black/rubber/glass/lamp/cockpit families. Reflections must have qualified masks, strength, matching draw ownership and no accidental window opacity. Existing local stock textures are reference material *from the user's own installed copy*, not a global substitute for mismatched UVs; permit repacking/new simple generated textures as appropriate.
+5. **Texture layout and performance:** reduce needless source detail, avoid excessive atlases and shared alpha ownership, pack by semantic role, regenerate UV when qualified, track memory and upload/build constraints; protect intentionally retained text and visible logos. 'Fewer atlases' is a quality/budget goal, not permission to merge glass, body, decal and effect into unsafe shared surfaces. Preserve PERF2 bulk file reader behavior and native cache headroom.
+6. **Rest-pose context:** preserve already qualified driver/co-driver fitment; display a report on passenger/window interpenetrations. Full arbitrary character rigging and gameplay camera/physics-scale coupling are not part of this style milestone.
+
+## WHEN to apply style: a single reproducible build graph
+
+**Recommended default: user selects Classic MR Style at import/project setup, before the first game build/installation**, because geometric/atlas changes are most reliable while source semantics and original GT model data are still available. This must *not* edit installed retail assets or modify a frozen current candidate.
+
+**Also support later conversion:** open an existing SDK-authored imported car, choose `Rebuild as Classic`, restore a pinned pristine source-import baseline, regenerate a separate Classic candidate and review a diff, then opt in to build. Do **not** decimate or downsample an already-decimated Classic output again. If source provenance is unavailable, report it and offer only verified manual retrofits; do not pretend full conversion succeeded.
+
+Dataflow: `local source inputs (immutable) -> source geometry/material semantic manifest -> style analysis/report -> author-accepted Classic recipe -> deterministic staged geometry/texture/material/wheel outputs -> visual Previewer A/B and diagnostics -> validations -> isolated Build -> optional Test/Install`. Manual author edits are separately versioned/reapplied as layers where source lineage remains compatible; conflicts must prompt remapping, not overwrite user work. Source Fidelity and Classic coexist. Keep CLI and UI on identical reusable Core APIs.
+
+## V-SDK4B.1 — next bounded milestone: prove an actual Classic Style conversion
+
+**Do not request a general universal one-click GT3/GT4 remaster in one run.** Prove on one qualified already-imported GT4 model (recommended **Lancer Evo IV**), comparing against stock MR classes and the frozen Subaru's visual principles. Existing Lancer game features remain qualified independently; do not change unrelated physics, custom audio, brake glow, cameras, deformation or mechanics. Deliver:
+
+- A reproducible stock-MR class baseline report (triangle/draw/texture counts, wheel appearance, material/alpha/reflection role categories); note reference samples, no arbitrary hard caps.
+- A semantic mapping of one selected Lancer's body, decal, wheel, glass and special draws; rejected/ambiguous surfaces and source hashes.
+- A source-to-Classic recipe that actually removes/retargets chosen excess livery, assigns a clean primary color, simplifies at least one qualified **noncritical** geometric region with measured before/after triangle counts, and creates an MR-style wheel with an opaque recessed backing without fake black/transparent gaps.
+- Qualified material normalization, atlas/memory report and preservation of window damage, light/glow, collision, driver, wheel hubs, physics and camera.
+- Fixed-camera Original/Classic screenshots for all sides and wheel closeups, wireframe/reference silhouette and material-debug comparisons; Previewer evidence remains D3D9 approximation.
+- Project profile persistence, no-op/rebuild determinism, intermediate output report, preview, undo/restore and isolated build from original pinned source, never from previous Classic result. A practical `Choose at import` path and `Rebuild existing car as Classic` path share the same backend; if adding full import UI is too wide, expose the exact project initialization flag and an honest GUI entry point to that backend.
+- Explicit owner gameplay checklist and frozen Subaru/Pajero/Lancer regression comparison; dedicated owner D3D8 acceptance remains pending until tested.
+
+If safe topology/wheel edits are limited by fixed-draw DX writer requirements, preserve draw grammar and document the exact boundary. Do not silently erase special buffers, damage/glass/light state, or collision. If a selective transformation is unsafe, keep the component as source fidelity and report its status.
+
+## Subsequent milestones and preserved obligations
+
+After V-SDK4B.1 owner review, generalize qualified transformations to other import classes (Subaru and Pajero as regression controls), add adjustable `Classic intensity`/decal-preservation choices and a useful interactive style recipe editor. **Do not label incomplete geometric/style conversion as one-click Authentic MR.** Carry over V-SDK5 Blender round-trip and scaling, standalone Audio Studio with independent user-replaceable Engine, Whine, Turbo Spool and BOV layers (with test/audition/loop/RPM/gain/presets), and full remaining Physics/Camera/Fleet roadmap. Audio is a priority, not forgotten, but outside the narrow V-SDK4B.1 scope. Each accepted phase gets a local commit; do not push or publish without explicit authorization. Private MR/GT art/audio remain local to user-owned installations.
+
+
+## Repository V-SDK4B.1 implementation ledger
+
+Implemented a bounded, exact-source Classic Lancer conversion: approved cover topology reduction, regenerated characteristic red/charcoal livery, stock-derived opaque recessed rim, measured material/texture normalization and independent source/Classic versions. CLI initialization and Studio Rebuild call the same Core; explicit report approval gates builds. Manual layers remain versioned with conflicts, and rebuilding resolves the immutable original. See VSDK4B1_RESULTS.md, CAPABILITIES.md and REGRESSION_MATRIX.md for measured counts, private Windows evidence and exact limitations.
+
+The owner approved the final appearance/report before the isolated Classic build. This closes only that preview/build-input gate; actual D3D8 gameplay is pending. Stop V-SDK4B.1 for owner review. Do not automatically generalize recipes, start Blender Bridge or Audio Studio. Prior Audio Studio and remaining roadmap obligations remain unchanged. Local phase commits authorized; no push or publication.

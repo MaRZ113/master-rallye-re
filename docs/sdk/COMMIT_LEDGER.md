@@ -141,3 +141,29 @@ Runtime resource audit: Custom Lancer 2 DX +1 DXT; Classic Lancer 2 DX +1 DXT;
 stock Megane 1 DXT only. All other roster resource hashes and plan identities
 unchanged; physics/audio semantics and mechanics/shadow settings unchanged.
 Source archive and package checks are not new gameplay acceptance.
+
+## V-SDK4B.1 — authentic Classic pilot (26 October 2026)
+
+Local implementation/evidence commit is recorded below after validation. Prior
+`de1cd394294ee1b2fce381d70913fa07f8ff4748` and `b6add8f` history is preserved;
+no historical snapshot, amend, rebase or remote push is used.
+
+- Shared immutable-source conversion, approved radial cover simplification,
+  regenerated red/charcoal livery, opaque stock-profile wheel, source-calibrated
+  MR paint/reflection adaptation and explicit referenced texture closure.
+- Studio/CLI independent source/Classic versions, exact-report approval gate,
+  compatible manual-layer continuation and explicit conflicts; no lossy chaining.
+- 846 complete-checkout tests, 1 optional skip; real Windows Classic workflow,
+  stock/addon targeted builds and zero-edit restore, Paint/Crew, local reference
+  browser/impact, texture zoom and native controls; native CPU damage replay PASS.
+- Alternate qualified 30-entry `sf` /`cl` bundles; only 12 Lancer-family resource
+  paths differ, physics/audio/UI/other vehicles and original EXE/DLL preserved.
+- Owner approved final Previewer/report SHA256
+  `95d662ca5ca566f5a0c31a9572b8f390ce7e7562beb36e1b398a39fc99201b55`
+  before the Classic build. D3D8 gameplay remains pending.
+- Source-only review and changed-file archives are under
+  `.research-output/vehicles/vsdk4b1/review/`, with per-entry/archive hashes;
+  proprietary models, images, audio, runtime assets and captures are excluded.
+
+See VSDK4B1_RESULTS.md and REGRESSION_MATRIX.md for scope and failed intermediate
+diagnostics (brightness drafts, locked old viewer, long MSVC output path).

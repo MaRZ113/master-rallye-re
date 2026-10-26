@@ -123,3 +123,28 @@ glass / Pajero appearance. New appearance candidates remain gameplay-pending.
 Scope limits: partial explicitly masked paint regions, civilian-style colour
 exercise on a stock rally vehicle, existing static crew only, envelope diagnostics
 rather than triangle collision, no global texture matching or diffuse UV repair.
+
+## V-SDK4B.1 — actual Classic pilot
+
+Private evidence: `.research-output/vehicles/vsdk4b1/`. Owner approval of the
+final Previewer/report permits building; it is not gameplay acceptance.
+
+| Check | Evidence | Result / boundary |
+| --- | --- | --- |
+| Full complete-checkout suite | regression-final.log; test_classic_style.py | 846 tests, 1 optional skip; previous Subaru/Pajero/SDK paths retained |
+| Stock ranges / frozen reference | stock-reference.json; references/ | 21 read-only ordinary stock families, per-class ranges; frozen Subaru data; real native diagnostic views |
+| Body / rim / livery | qualification-final/validation.json | Exact contour, 48→16 covers, 537→162 rim, explicit regenerated red/charcoal livery; fixed slots; no global decimator |
+| Determinism / source restoration | qualification-final/validation.json; windows-classic-final2/validation.json | Two byte-identical Core runs/reports; independent source baseline and GUI dropdown/reopen |
+| Ownership / alpha / lights | qualification-final/validation.json | Every unaffected draw, tyre, collision, logical lamp case and protected cutout alpha preserved |
+| Original damage instructions | qualification-final/validation.json native_damage | 0 split position groups; 0 protected alpha losses with bridge, 41 without; same native positions/RGB/ABI; offline CPU only |
+| Actual new Studio workflow | windows-classic-final2/ | Real Rebuild button, native GPU comparison, report dialog, pending-build gate, independent versions |
+| Existing GUI build / restore | w/gui-validation.json | Real targeted addon/stock edit, binding, reflection, Undo/Redo and zero-edit restored stock candidates |
+| Paint / crew | paint-win/validation.json | Actual Windows paint masks, names, crew correction, save/reopen, builds and history |
+| Manual reference catalogue | reference-gui02/validation.json | Custom reference layer, actual picker/browser/impact warning and matched GPU views; no implicit Classic conversion |
+| Texture / native controls | zoom-windows/validation.json; references/controls-*.json | Seven scales, RGB/RGBA/Alpha, pixel/anchor/pan; actual native pick/focus/presets/reload/culling controls |
+| Isolated bundles | roster-sf-validation.json; roster-cl-validation.json; preservation.json | Qualified 30-entry composition; only 12 Lancer-family paths differ; physics/audio/UI/other vehicles exact |
+| Owner gameplay | VSDK4B1_RESULTS.md | PENDING: D3D8 brightness/reflections/damage/brakes, AI, re-entry and live loading |
+
+The first long-name build hit MSVC FTK1011; unchanged source/build logic passed
+with short `sf` /`cl` output names. An old locked Previewer remains untouched;
+tests use the actual hash-named new executable from application-build.json.
