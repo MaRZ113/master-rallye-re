@@ -1,6 +1,7 @@
 # Game Camera Lab, Race Progress Marker and private runtime state
 
-26 October 2026. Branch `research/vehicles`, starting source milestone
+26 October 2026. Validated implementation `7e0ed2ba29d3ba4b0d25aa5841c40768d5fc14eb`.
+Branch `research/vehicles`, starting source milestone
 `59becef67db940e0c9d300ae96b62c9ebdddc4b0`. No game launch, original EXE/DLL/retail
 write, new capacity expansion, visual recipe rebuild or physics tuning.
 

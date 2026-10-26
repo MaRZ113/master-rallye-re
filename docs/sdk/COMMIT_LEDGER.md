@@ -1,3 +1,29 @@
+# Game Camera Lab validated source commit
+
+- Implementation: `7e0ed2ba29d3ba4b0d25aa5841c40768d5fc14eb` — Game Camera Lab: static native framing and per-car HUD tint.
+- Parent: `59becef67db940e0c9d300ae96b62c9ebdddc4b0` (preserved, no rewrite).
+- Final synthetic run:901 tests /2 pre-existing private-fixture skips,53.692s.
+- Original updater+matrix16 cases; actual source parameter sets24 controlled
+  cases; delivered camera guard18; emitted marker registration and roster/AI
+  mapping checks. All are CPU/offline evidence, not gameplay.
+- Actual Windows Camera/HUD, standalone owned-viewer lifecycle, Material/Binding/
+  reflection/stock zero-edit builds, Physics/Camera/art, Audio, Paint/Crew,
+  stock reference, texture zoom and Shadow Studio pass. Shadow3×58 native cases.
+- Engine124/SFX28/gain10001/multi-owner24-voice cleanup and3 allocation failures
+  repeated. Optional Whine sources unchanged; only response fields authored.
+- Three isolated candidates,369 sealed resource hashes unchanged; original
+  PlayerState copied exactly; mutable save acceptance and DXT tamper rejection.
+- Viewer SHA256: `220e2d3c00236d4c26509d8fb333d75b52c79cde397aa7638643c83eb69bc83a`.
+- Five old +four regression-only runtime leaves moved to owner quarantine;
+  no deletion, private sources and current candidate runtime leaves retained.
+- Exact source-only review/changed-file archive hashes are in private post-commit
+  `camera-lab/review/archive-manifest.json`. Canonical Git blobs only, no assets.
+- Real D3D8 camera dynamics/projection/HUD and audio listening PENDING_OWNER.
+  No next milestone or push/publication. This closeout records the source ID;
+  it does not fabricate a historical snapshot or rewrite implementation history.
+
+---
+
 # Game Camera Lab local phase
 
 26 October 2026. See [results](GAME_CAMERA_LAB_RESULTS.md).
