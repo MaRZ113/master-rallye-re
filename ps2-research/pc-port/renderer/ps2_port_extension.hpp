@@ -28,6 +28,7 @@ class ReflectionPilot;
 class CourseObjectsPilot;
 class GrassPilot;
 class SplineObjectsPilot;
+class PS2BirdsPilot;
 class PS2WaterPilot;
 class VehiclePartitionPilot;
 class XtrailFidelity;
@@ -333,6 +334,8 @@ public:
     std::array<GrassPilot*,2> ground_details() noexcept {return {grass_.get(),shrubs_.get()};}
     // COURSE-ALIVE1: moving PS2 gaEntitySpline objects (SplineObjects=1).
     SplineObjectsPilot* spline_objects() noexcept { return spline_objects_.get(); }
+    // COURSE-ALIVE2: PS2 BirdManager (PS2Birds=1).
+    PS2BirdsPilot* birds() noexcept { return birds_.get(); }
     // COURSE-WATER1: PS2 water on the native course water draws (PS2Water=1).
     PS2WaterPilot* water() noexcept { return water_.get(); }
     PS2ColorGrade& color_grade() noexcept { return color_; }
@@ -430,6 +433,7 @@ private:
     std::unique_ptr<GrassPilot> grass_;
     std::unique_ptr<GrassPilot> shrubs_;
     std::unique_ptr<SplineObjectsPilot> spline_objects_;
+    std::unique_ptr<PS2BirdsPilot> birds_;
     std::unique_ptr<PS2WaterPilot> water_;
     PS2ColorGrade color_;
     PS2OutputFilter output_;

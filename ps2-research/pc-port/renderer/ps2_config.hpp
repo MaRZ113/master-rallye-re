@@ -41,6 +41,7 @@ inline const wchar_t* v2_key(const wchar_t* legacy) noexcept {
         {L"GrassDiagnostics", L"Diagnostics"},
         {L"ShrubsDiagnostics", L"Diagnostics"},
         {L"SplineObjectsDiagnostics", L"Diagnostics"},
+        {L"PS2BirdsDiagnostics", L"Diagnostics"},
         {L"RacePS2FleetCapture", L"Diagnostics"},
         {L"RacePS2FleetDamageCapture", L"Diagnostics"},
         {L"RacePS2DamageCapture", L"Diagnostics"},

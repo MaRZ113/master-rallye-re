@@ -1,0 +1,1111 @@
+{
+ "schema_version": 1,
+ "phase": "COURSE-ALIVE2",
+ "asset": "PS2Birds.ps2bird",
+ "asset_sha256": "f37cebd6821b83fc8137c070ba8537d59221a5323be76b13e6340ade0b158c8c",
+ "bank": {
+  "psb": "\\TNG\\DATAPSM\\MISC\\ANIMALS\\BURDYBROWN.PSB",
+  "psb_sha256": "38aa140093718b2cbb1e652d96219bd81737c40baca4a7d308235dbcbdf7de1d",
+  "gxi": "\\TNG\\DATAPSM\\MISC\\ANIMALS\\BURDYBROWN_000.GXI",
+  "gxi_sha256": "d9e7d619822c0811c45295df8f1a25e1822b533c0f698050d2eafad81963ba98",
+  "frames": [
+   {
+    "key": 0,
+    "cell": 3,
+    "u0": 0.75,
+    "v0": 0.75,
+    "local_bounds": [
+     -8,
+     -3,
+     8,
+     13
+    ]
+   },
+   {
+    "key": 1,
+    "cell": 2,
+    "u0": 0.5,
+    "v0": 0.75,
+    "local_bounds": [
+     -8,
+     -12,
+     8,
+     4
+    ]
+   },
+   {
+    "key": 2,
+    "cell": 1,
+    "u0": 0.25,
+    "v0": 0.75,
+    "local_bounds": [
+     -7,
+     -12,
+     9,
+     4
+    ]
+   },
+   {
+    "key": 3,
+    "cell": 0,
+    "u0": 0.0,
+    "v0": 0.75,
+    "local_bounds": [
+     -8,
+     -11,
+     8,
+     5
+    ]
+   }
+  ],
+  "gxi_alpha_nonzero_pixels": 176
+ },
+ "courses_total": 36,
+ "courses_with_open_gate": 10,
+ "courses": [
+  {
+   "name": "France1",
+   "id": "RaceTest/France1",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\FRANCE1.XML",
+   "ps2_xml_sha256": "fc7c3e5aec9f0aa753be0bbabd158da826b8331f5e6327949c96066352c4c437",
+   "pc_dx_path": "DataGx/Course/France1/france1.dx",
+   "retail_pc_dx_sha256": "a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5",
+   "min_fly": 200.0,
+   "max_fly": 800.0,
+   "min_mil": 200.0,
+   "max_mil": 850.0,
+   "rnd_fly": 10,
+   "rnd_mil": 10,
+   "references": {
+    "milling": "MillList",
+    "flight": "FlightList"
+   },
+   "flight_present": true,
+   "mill_present": true,
+   "mill_points": 6,
+   "bird_brown_authored": [
+    "True",
+    "True"
+   ],
+   "egg": "birds",
+   "flight_points": 10,
+   "update_gate": "OPEN",
+   "ps2_birds": "flying birds spawn"
+  },
+  {
+   "name": "France2",
+   "id": "RaceTest/France2",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\FRANCE2.XML",
+   "ps2_xml_sha256": "73994778517d708c542cec93fadbc80d9f243986a80e98445f7a401ef61ffc99",
+   "pc_dx_path": "DataGx/Course/France2/france2.dx",
+   "retail_pc_dx_sha256": "fe9085d681994329c0fbdb3570f5153cc2240028a5644acd3fe12dcddb9e2d4e",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "min_mil": 100.0,
+   "max_mil": 1000.0,
+   "rnd_fly": 10,
+   "rnd_mil": 10,
+   "references": {
+    "milling": "MillList",
+    "flight": "FlightList"
+   },
+   "flight_present": true,
+   "mill_present": false,
+   "mill_points": 0,
+   "bird_brown_authored": [
+    "False",
+    "True"
+   ],
+   "egg": "birds",
+   "flight_points": 15,
+   "update_gate": "CLOSED_NO_LOCAL_MILLLIST",
+   "ps2_birds": "no birds (manager update never passes its list gate)"
+  },
+  {
+   "name": "FranceM",
+   "id": "RaceTest/FranceM",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\FRANCEM.XML",
+   "ps2_xml_sha256": "b9d4d752f181b0915b1fa82a4eebc48d25dbb1287a92007bf0a8968aae77c780",
+   "pc_dx_path": "DataGx/Course/France_M/francem.dx",
+   "retail_pc_dx_sha256": "50e76cf51d279531f9e5188145657aaa12bed30d8f88d27e7614eec0a97b56ce",
+   "min_fly": 100.0,
+   "max_fly": 900.0,
+   "min_mil": 200.0,
+   "max_mil": 800.0,
+   "rnd_fly": 10,
+   "rnd_mil": 10,
+   "references": {
+    "milling": "MillList",
+    "flight": "FlightList"
+   },
+   "flight_present": true,
+   "mill_present": false,
+   "mill_points": 0,
+   "bird_brown_authored": [
+    "True",
+    "True"
+   ],
+   "egg": "birds",
+   "flight_points": 29,
+   "update_gate": "CLOSED_NO_LOCAL_MILLLIST",
+   "ps2_birds": "no birds (manager update never passes its list gate)"
+  },
+  {
+   "name": "FranceS1",
+   "id": "RaceTest/FranceS1",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\FRANCES1.XML",
+   "ps2_xml_sha256": "961d479907fd1ae23efa090a86e73f99d08397db6f1f7971a0f792aff7408f0a",
+   "pc_dx_path": "DataGx/Course/France_S1/frances1.dx",
+   "retail_pc_dx_sha256": "19d1c7073f610fe050f281c07188f52b263a430332c5a3519013a1ee1568b2d4",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "min_mil": 200.0,
+   "max_mil": 900.0,
+   "rnd_fly": 10,
+   "rnd_mil": 10,
+   "references": {
+    "milling": "MillList",
+    "flight": "FlightList"
+   },
+   "flight_present": true,
+   "mill_present": false,
+   "mill_points": 0,
+   "bird_brown_authored": [
+    "False",
+    "True"
+   ],
+   "egg": "birds",
+   "flight_points": 28,
+   "update_gate": "CLOSED_NO_LOCAL_MILLLIST",
+   "ps2_birds": "no birds (manager update never passes its list gate)"
+  },
+  {
+   "name": "FranceS2",
+   "id": "RaceTest/FranceS2",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\FRANCES2.XML",
+   "ps2_xml_sha256": "61f18daf5146c79f21334708a195fe72f0f79cfc4e8282e3fb95ac9d20c64c1e",
+   "pc_dx_path": "DataGx/Course/France_S2/frances2.dx",
+   "retail_pc_dx_sha256": "26664bd12844fd179ac0ef61379f65a301f2da7b0c234d671b670407ee396809",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "min_mil": 200.0,
+   "max_mil": 800.0,
+   "rnd_fly": 10,
+   "rnd_mil": 10,
+   "references": {
+    "milling": "MillList",
+    "flight": "FlightList"
+   },
+   "flight_present": true,
+   "mill_present": false,
+   "mill_points": 0,
+   "bird_brown_authored": [
+    "True",
+    "True"
+   ],
+   "egg": "birds",
+   "flight_points": 5,
+   "update_gate": "CLOSED_NO_LOCAL_MILLLIST",
+   "ps2_birds": "no birds (manager update never passes its list gate)"
+  },
+  {
+   "name": "FranceW",
+   "id": "RaceTest/FranceW",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\FRANCEW.XML",
+   "ps2_xml_sha256": "6584be244c0081dff1b11ae41f4a30da1905adcd99d753e5a921c2c1f27e1bef",
+   "pc_dx_path": "DataGx/Course/France_W/francew.dx",
+   "retail_pc_dx_sha256": "8c5392b7583760828ae1a4d5780aa67f3612fd7a13dfaba9fe540a2300f46f88",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "min_mil": 200.0,
+   "max_mil": 900.0,
+   "rnd_fly": 10,
+   "rnd_mil": 10,
+   "references": {
+    "milling": "MillList",
+    "flight": "FlightList"
+   },
+   "flight_present": true,
+   "mill_present": false,
+   "mill_points": 0,
+   "bird_brown_authored": [
+    "True",
+    "True"
+   ],
+   "egg": "birds",
+   "flight_points": 34,
+   "update_gate": "CLOSED_NO_LOCAL_MILLLIST",
+   "ps2_birds": "no birds (manager update never passes its list gate)"
+  },
+  {
+   "name": "FranceWFlip",
+   "id": "RaceTest/FranceWFlip",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\FRANCEWFLIP.XML",
+   "ps2_xml_sha256": "6615efe8ff52dacb7b0312576e27f1404a7ba37edb90d388c8c833876ec772ee",
+   "pc_dx_path": "DataGx/Course/France_W_flip/FranceW_flip.dx",
+   "retail_pc_dx_sha256": "9ed7bfdf16eef35ce3e46aeb38ed87b980005dab11639c6dd116421997368779",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "min_mil": 200.0,
+   "max_mil": 900.0,
+   "rnd_fly": 10,
+   "rnd_mil": 10,
+   "references": {
+    "milling": "MillList",
+    "flight": "FlightList"
+   },
+   "flight_present": true,
+   "mill_present": false,
+   "mill_points": 0,
+   "bird_brown_authored": [
+    "True",
+    "True"
+   ],
+   "egg": "birds",
+   "flight_points": 23,
+   "update_gate": "CLOSED_NO_LOCAL_MILLLIST",
+   "ps2_birds": "no birds (manager update never passes its list gate)"
+  },
+  {
+   "name": "Italy1",
+   "id": "RaceTest/Italy1",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\ITALY1.XML",
+   "ps2_xml_sha256": "f089fdb13a2647255212ddb9737f0ca6fd4f70a31791b54afe3c7f8634a82ed7",
+   "pc_dx_path": "DataGx/Course/Italy1/track01.dx",
+   "retail_pc_dx_sha256": "971b44ab0f1543e457245731789dad2439259b37d206b6ca588f0130d84911e2",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "min_mil": 200.0,
+   "max_mil": 800.0,
+   "rnd_fly": 10,
+   "rnd_mil": 10,
+   "references": {
+    "milling": "MillList",
+    "flight": "FlightList"
+   },
+   "flight_present": true,
+   "mill_present": false,
+   "mill_points": 0,
+   "bird_brown_authored": [
+    "False",
+    "True"
+   ],
+   "egg": "birds",
+   "flight_points": 13,
+   "update_gate": "CLOSED_NO_LOCAL_MILLLIST",
+   "ps2_birds": "no birds (manager update never passes its list gate)"
+  },
+  {
+   "name": "Italy2",
+   "id": "RaceTest/Italy2",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML",
+   "ps2_xml_sha256": "56ef29e13f9cc3f64fb1d2d31b0cc293d3ccd08deed8e88e2a78752b90574c69",
+   "pc_dx_path": "DataGx/Course/Italy2/italy2.dx",
+   "retail_pc_dx_sha256": "0614f6c933f751d07be0fb7ea5b97d1099ebf6873120b93c506922efc38f8a31",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "min_mil": 200.0,
+   "max_mil": 800.0,
+   "rnd_fly": 10,
+   "rnd_mil": 10,
+   "references": {
+    "milling": "MillList",
+    "flight": "FlightList"
+   },
+   "flight_present": true,
+   "mill_present": true,
+   "mill_points": 7,
+   "bird_brown_authored": [
+    "True",
+    "True"
+   ],
+   "egg": "birds",
+   "flight_points": 3,
+   "update_gate": "OPEN",
+   "ps2_birds": "flying birds spawn"
+  },
+  {
+   "name": "Italy3",
+   "id": "RaceTest/Italy3",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\ITALY3.XML",
+   "ps2_xml_sha256": "4906b90b90560a73df3b73ed11b5fd536accbdd1a02d1f599531c694902a5cee",
+   "pc_dx_path": "DataGx/Course/Italy3/italy3.dx",
+   "retail_pc_dx_sha256": "4c97fc6faf743adb2c356da8c04851cd25fe91e5951be536b673c589819d3daa",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "min_mil": 100.0,
+   "max_mil": 900.0,
+   "rnd_fly": 10,
+   "rnd_mil": 10,
+   "references": {
+    "milling": "MillList",
+    "flight": "FlightList"
+   },
+   "flight_present": true,
+   "mill_present": true,
+   "mill_points": 8,
+   "bird_brown_authored": [
+    "False",
+    "True"
+   ],
+   "egg": "birds",
+   "flight_points": 20,
+   "update_gate": "OPEN",
+   "ps2_birds": "flying birds spawn"
+  },
+  {
+   "name": "ItalyM1",
+   "id": "RaceTest/ItalyM1",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\ITALYM1.XML",
+   "ps2_xml_sha256": "d6e818e132d2061577c7b43c2bd42d3bc8fac66b28e195de2e71957cdcadb85a",
+   "pc_dx_path": "DataGx/Course/Italy_M1/italy_m1.dx",
+   "retail_pc_dx_sha256": "7e7c3bef5f1beb44b9840ce9688a496166a368e2884d09e1c262098a9d723d9f",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "min_mil": 200.0,
+   "max_mil": 900.0,
+   "rnd_fly": 10,
+   "rnd_mil": 10,
+   "references": {
+    "milling": "MillList",
+    "flight": "FlightList"
+   },
+   "flight_present": true,
+   "mill_present": false,
+   "mill_points": 0,
+   "bird_brown_authored": [
+    "True",
+    "True"
+   ],
+   "egg": "birds",
+   "flight_points": 12,
+   "update_gate": "CLOSED_NO_LOCAL_MILLLIST",
+   "ps2_birds": "no birds (manager update never passes its list gate)"
+  },
+  {
+   "name": "ItalyM1Flip",
+   "id": "RaceTest/ItalyM1Flip",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\ITALYM1FLIP.XML",
+   "ps2_xml_sha256": "83402e92b8092edb7c82e6b6dc9b4bd0490d9547a8882a864cfaa127094315ad",
+   "pc_dx_path": "DataGx/Course/Italy_M1_flip/italy_m1_flip.dx",
+   "retail_pc_dx_sha256": "d1cd24612c31fa39a0de79313257cb4017605ac4b4cc3c484e661c2b65db8935",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "min_mil": 200.0,
+   "max_mil": 900.0,
+   "rnd_fly": 10,
+   "rnd_mil": 10,
+   "references": {
+    "milling": "MillList",
+    "flight": "FlightList"
+   },
+   "flight_present": true,
+   "mill_present": false,
+   "mill_points": 0,
+   "bird_brown_authored": [
+    "True",
+    "True"
+   ],
+   "egg": "birds",
+   "flight_points": 22,
+   "update_gate": "CLOSED_NO_LOCAL_MILLLIST",
+   "ps2_birds": "no birds (manager update never passes its list gate)"
+  },
+  {
+   "name": "ItalyM2",
+   "id": "RaceTest/ItalyM2",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\ITALYM2.XML",
+   "ps2_xml_sha256": "133f3872bc08251fdc7d6f1f275421b5ac7f00ee601d739589034a7f46681ec3",
+   "pc_dx_path": "DataGx/Course/Italy_M2/italy_m2.dx",
+   "retail_pc_dx_sha256": "f2ce72188a183c3a5a267c5bfbc7eebb3a8992b357d09eca51b9047a60893291",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "min_mil": 200.0,
+   "max_mil": 900.0,
+   "rnd_fly": 10,
+   "rnd_mil": 10,
+   "references": {
+    "milling": "MillList",
+    "flight": "FlightList"
+   },
+   "flight_present": true,
+   "mill_present": true,
+   "mill_points": 5,
+   "bird_brown_authored": [
+    "False",
+    "True"
+   ],
+   "egg": "birds",
+   "flight_points": 20,
+   "update_gate": "OPEN",
+   "ps2_birds": "flying birds spawn"
+  },
+  {
+   "name": "ItalyS1",
+   "id": "RaceTest/ItalyS1",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML",
+   "ps2_xml_sha256": "56603a9b51f509032a3f15953f161eeaa25044b2c00b5988a73e0c2cbc9c9a92",
+   "pc_dx_path": "DataGx/Course/Italy_S1/italy_s1.dx",
+   "retail_pc_dx_sha256": "5cd86704667cbdc95d4a3b1ff1444c885431fcdd0313cc0f15eca980e3965e8a",
+   "min_fly": 100.0,
+   "max_fly": 900.0,
+   "min_mil": 200.0,
+   "max_mil": 900.0,
+   "rnd_fly": 10,
+   "rnd_mil": 10,
+   "references": {
+    "milling": "MillList",
+    "flight": "FlightList"
+   },
+   "flight_present": true,
+   "mill_present": false,
+   "mill_points": 0,
+   "bird_brown_authored": [
+    "True",
+    "True"
+   ],
+   "egg": "birds",
+   "flight_points": 14,
+   "update_gate": "CLOSED_NO_LOCAL_MILLLIST",
+   "ps2_birds": "no birds (manager update never passes its list gate)"
+  },
+  {
+   "name": "ItalyS2",
+   "id": "RaceTest/ItalyS2",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\ITALYS2.XML",
+   "ps2_xml_sha256": "e43d3a14d063814590a582e5d968b6f04c7b68d75e5e4b3c8240c2c822161957",
+   "pc_dx_path": "DataGx/Course/Italy_S2/italy_s2.dx",
+   "retail_pc_dx_sha256": "c3f3d6b7fc579d17852afae66dcb915562741657cfbf0d84a78cdf15c525b4cf",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "min_mil": 100.0,
+   "max_mil": 900.0,
+   "rnd_fly": 10,
+   "rnd_mil": 10,
+   "references": {
+    "milling": "MillList",
+    "flight": "FlightList"
+   },
+   "flight_present": true,
+   "mill_present": false,
+   "mill_points": 0,
+   "bird_brown_authored": [
+    "True",
+    "True"
+   ],
+   "egg": "birds",
+   "flight_points": 11,
+   "update_gate": "CLOSED_NO_LOCAL_MILLLIST",
+   "ps2_birds": "no birds (manager update never passes its list gate)"
+  },
+  {
+   "name": "ItalyS3",
+   "id": "RaceTest/ItalyS3",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\ITALYS3.XML",
+   "ps2_xml_sha256": "d5e5d88c50cd641b97058dd74dcb07ab9b349c49bcf7f9bab59cd70a27ad4ff8",
+   "pc_dx_path": "DataGx/Course/Italy_S3/italy_s3.dx",
+   "retail_pc_dx_sha256": "fccd6344d5c9c4bd1d3b25c2d1d4da6375e049e7d5a188e0c9f7c6cf194940df",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "min_mil": 200.0,
+   "max_mil": 900.0,
+   "rnd_fly": 10,
+   "rnd_mil": 10,
+   "references": {
+    "milling": "MillList",
+    "flight": "FlightList"
+   },
+   "flight_present": true,
+   "mill_present": false,
+   "mill_points": 0,
+   "bird_brown_authored": [
+    "False",
+    "True"
+   ],
+   "egg": "birds",
+   "flight_points": 20,
+   "update_gate": "CLOSED_NO_LOCAL_MILLLIST",
+   "ps2_birds": "no birds (manager update never passes its list gate)"
+  },
+  {
+   "name": "ItalyS3Flip",
+   "id": "RaceTest/ItalyS3Flip",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\ITALYS3FLIP.XML",
+   "ps2_xml_sha256": "ba5fae57e1b1cb0ed46b4b75ed6609d078ef5632384ce5da4ab06ccb1e3e338d",
+   "pc_dx_path": "DataGx/Course/Italy_S3_flip/Italy_S3_flip.dx",
+   "retail_pc_dx_sha256": "f6c534feae3498b2943663573001a87f5096af060bd7cda4c9e2a3a14bf7644a",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "min_mil": 200.0,
+   "max_mil": 900.0,
+   "rnd_fly": 10,
+   "rnd_mil": 10,
+   "references": {
+    "milling": "MillList",
+    "flight": "FlightList"
+   },
+   "flight_present": true,
+   "mill_present": true,
+   "mill_points": 4,
+   "bird_brown_authored": [
+    "True",
+    "True"
+   ],
+   "egg": "birds",
+   "flight_points": 18,
+   "update_gate": "OPEN",
+   "ps2_birds": "flying birds spawn"
+  },
+  {
+   "name": "ItalyS4",
+   "id": "RaceTest/ItalyS4",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML",
+   "ps2_xml_sha256": "2d7249f24e6556c13be8f38027b1df22bd1e49d94b81ccfabbb6f61420a13e1a",
+   "pc_dx_path": "DataGx/Course/Italy_S4/italy_s4.dx",
+   "retail_pc_dx_sha256": "bde1528ff5cdd7c4d831f6b31b4065170b98de06ab06db26f29ccfd38920aba9",
+   "min_fly": 100.0,
+   "max_fly": 900.0,
+   "min_mil": 100.0,
+   "max_mil": 1000.0,
+   "rnd_fly": 10,
+   "rnd_mil": 10,
+   "references": {
+    "milling": "MillList",
+    "flight": "FlightList"
+   },
+   "flight_present": true,
+   "mill_present": true,
+   "mill_points": 12,
+   "bird_brown_authored": [
+    "True",
+    "True"
+   ],
+   "egg": "birds",
+   "flight_points": 6,
+   "update_gate": "OPEN",
+   "ps2_birds": "flying birds spawn"
+  },
+  {
+   "name": "ItalyW1",
+   "id": "RaceTest/ItalyW1",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML",
+   "ps2_xml_sha256": "d9461c464e967d52773aeaf691520d6ef0b130f062d8b9590d17bd9fc0110af0",
+   "pc_dx_path": "DataGx/Course/Italy_W1/italy_w1.dx",
+   "retail_pc_dx_sha256": "fcad9da53b7d436d79e9d9322276e98aa5039376e091a487b85d30ac1b3ae7d2",
+   "min_fly": 100.0,
+   "max_fly": 900.0,
+   "min_mil": 200.0,
+   "max_mil": 800.0,
+   "rnd_fly": 10,
+   "rnd_mil": 10,
+   "references": {
+    "milling": "MillList",
+    "flight": "FlightList"
+   },
+   "flight_present": true,
+   "mill_present": false,
+   "mill_points": 0,
+   "bird_brown_authored": [
+    "False",
+    "True"
+   ],
+   "egg": "birds",
+   "flight_points": 19,
+   "update_gate": "CLOSED_NO_LOCAL_MILLLIST",
+   "ps2_birds": "no birds (manager update never passes its list gate)"
+  },
+  {
+   "name": "ItalyW2",
+   "id": "RaceTest/ItalyW2",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML",
+   "ps2_xml_sha256": "e910034391104ec29c6456a4e13cc6c697b614b06b245a53d85be1d2c2011126",
+   "pc_dx_path": "DataGx/Course/Italy_W2/italy_w2.dx",
+   "retail_pc_dx_sha256": "c66e8f0cff376b0f535c0cdc4fcd0bf53ad46d157b5aab4ca2648cf9cb9998d7",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "min_mil": 200.0,
+   "max_mil": 900.0,
+   "rnd_fly": 10,
+   "rnd_mil": 10,
+   "references": {
+    "milling": "MillList",
+    "flight": "FlightList"
+   },
+   "flight_present": true,
+   "mill_present": false,
+   "mill_points": 0,
+   "bird_brown_authored": [
+    "False",
+    "True"
+   ],
+   "egg": "birds",
+   "flight_points": 17,
+   "update_gate": "CLOSED_NO_LOCAL_MILLLIST",
+   "ps2_birds": "no birds (manager update never passes its list gate)"
+  },
+  {
+   "name": "Spain1",
+   "id": "RaceTest/Spain1",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\SPAIN1.XML",
+   "ps2_xml_sha256": "08ad416db70206e2e33cc4d45d5bb8193f49c6daec1cdca2f1d5e669e05091ab",
+   "pc_dx_path": "DataGx/Course/Spain1/spain1.dx",
+   "retail_pc_dx_sha256": "847c4074e9d1af1d89d484e7332a69b5601920a0ab3b14c082d69060b24db4aa",
+   "min_fly": 100.0,
+   "max_fly": 900.0,
+   "min_mil": 200.0,
+   "max_mil": 800.0,
+   "rnd_fly": 10,
+   "rnd_mil": 10,
+   "references": {
+    "milling": "MillList",
+    "flight": "FlightList"
+   },
+   "flight_present": true,
+   "mill_present": false,
+   "mill_points": 0,
+   "bird_brown_authored": [
+    "False",
+    "True"
+   ],
+   "egg": "birds",
+   "flight_points": 19,
+   "update_gate": "CLOSED_NO_LOCAL_MILLLIST",
+   "ps2_birds": "no birds (manager update never passes its list gate)"
+  },
+  {
+   "name": "Spain2",
+   "id": "RaceTest/Spain2",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\SPAIN2.XML",
+   "ps2_xml_sha256": "6a064bdcf407ab026d5f9640f6ce33cc8c59c6272ba3afabdb6128dec3256016",
+   "pc_dx_path": "DataGx/Course/Spain2/spain2.dx",
+   "retail_pc_dx_sha256": "a427351031cdb8936033176c7793982860cd5214f60e7bd2a99bf0d49d0d1f9c",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "min_mil": 200.0,
+   "max_mil": 900.0,
+   "rnd_fly": 10,
+   "rnd_mil": 10,
+   "references": {
+    "milling": "MillList",
+    "flight": "FlightList"
+   },
+   "flight_present": true,
+   "mill_present": false,
+   "mill_points": 0,
+   "bird_brown_authored": [
+    "False",
+    "True"
+   ],
+   "egg": "birds",
+   "flight_points": 25,
+   "update_gate": "CLOSED_NO_LOCAL_MILLLIST",
+   "ps2_birds": "no birds (manager update never passes its list gate)"
+  },
+  {
+   "name": "SpainM",
+   "id": "RaceTest/SpainM",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\SPAINM.XML",
+   "ps2_xml_sha256": "1f6e7e4c90c13e6326e7e20dacc9aafcf2b5aa9cc7837507965b5eddf3f88aa5",
+   "pc_dx_path": "DataGx/Course/Spain_M/spain_m.dx",
+   "retail_pc_dx_sha256": "77b5124f2bdc777252c93412e06c0728f05483df6898feb7420e668feb591b1f",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "min_mil": 200.0,
+   "max_mil": 900.0,
+   "rnd_fly": 10,
+   "rnd_mil": 10,
+   "references": {
+    "milling": "MillList",
+    "flight": "FlightList"
+   },
+   "flight_present": true,
+   "mill_present": false,
+   "mill_points": 0,
+   "bird_brown_authored": [
+    "False",
+    "True"
+   ],
+   "egg": "birds",
+   "flight_points": 12,
+   "update_gate": "CLOSED_NO_LOCAL_MILLLIST",
+   "ps2_birds": "no birds (manager update never passes its list gate)"
+  },
+  {
+   "name": "SpainS1",
+   "id": "RaceTest/SpainS1",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\SPAINS1.XML",
+   "ps2_xml_sha256": "949ac964982b8175bc7ab022af3efa4ccae04436bc93c0fe0f4157e231ecfb9d",
+   "pc_dx_path": "DataGx/Course/Spain_S1/spain_s1.dx",
+   "retail_pc_dx_sha256": "8e547d6732b57e75a6eb2ab45a3cb471bd9683796ceef60b4c1870aef029095a",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "min_mil": 100.0,
+   "max_mil": 900.0,
+   "rnd_fly": 10,
+   "rnd_mil": 10,
+   "references": {
+    "milling": "MillList",
+    "flight": "FlightList"
+   },
+   "flight_present": true,
+   "mill_present": false,
+   "mill_points": 0,
+   "bird_brown_authored": [
+    "False",
+    "True"
+   ],
+   "egg": "birds",
+   "flight_points": 9,
+   "update_gate": "CLOSED_NO_LOCAL_MILLLIST",
+   "ps2_birds": "no birds (manager update never passes its list gate)"
+  },
+  {
+   "name": "SpainS1Flip",
+   "id": "RaceTest/SpainS1Flip",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\SPAINS1FLIP.XML",
+   "ps2_xml_sha256": "dd6322e62c41ffb2b044e4874ac1808bafba2d83527bc15079e4c4ad9d086418",
+   "pc_dx_path": "DataGx/Course/Spain_S1_flip/Spain_S1_flip.dx",
+   "retail_pc_dx_sha256": "199cf8d8bc05ffd68ed04c58435cceb2dc2712dfc4ecda4ab564a7eb974c7136",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "min_mil": 200.0,
+   "max_mil": 900.0,
+   "rnd_fly": 10,
+   "rnd_mil": 10,
+   "references": {
+    "milling": "MillList",
+    "flight": "FlightList"
+   },
+   "flight_present": true,
+   "mill_present": false,
+   "mill_points": 0,
+   "bird_brown_authored": [
+    "True",
+    "True"
+   ],
+   "egg": "birds",
+   "flight_points": 29,
+   "update_gate": "CLOSED_NO_LOCAL_MILLLIST",
+   "ps2_birds": "no birds (manager update never passes its list gate)"
+  },
+  {
+   "name": "SpainS2",
+   "id": "RaceTest/SpainS2",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\SPAINS2.XML",
+   "ps2_xml_sha256": "a86028f610083c4769a9c0826106eafa17087cd06dcd34bd7c676779db4d2b45",
+   "pc_dx_path": "DataGx/Course/Spain_S2/spain_s2.dx",
+   "retail_pc_dx_sha256": "37a8be02cd18c1ad2a3f72043924103ed8279d4b2d3237f54a23f8143301986b",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "min_mil": 200.0,
+   "max_mil": 900.0,
+   "rnd_fly": 10,
+   "rnd_mil": 10,
+   "references": {
+    "milling": "MillList",
+    "flight": "FlightList"
+   },
+   "flight_present": true,
+   "mill_present": true,
+   "mill_points": 4,
+   "bird_brown_authored": [
+    "False",
+    "True"
+   ],
+   "egg": "birds",
+   "flight_points": 7,
+   "update_gate": "OPEN",
+   "ps2_birds": "flying birds spawn"
+  },
+  {
+   "name": "SpainW",
+   "id": "RaceTest/SpainW",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\SPAINW.XML",
+   "ps2_xml_sha256": "fc439bc40aaa64bb257c870220154082fcbd2a4751a72f53380e87cd5ba984ca",
+   "pc_dx_path": "DataGx/Course/Spain_W/spain_w.dx",
+   "retail_pc_dx_sha256": "109644f89549d35dcdac92d63881815010266e2a2d1dc6e89d112e02cdb63424",
+   "min_fly": 100.0,
+   "max_fly": 900.0,
+   "min_mil": 200.0,
+   "max_mil": 800.0,
+   "rnd_fly": 10,
+   "rnd_mil": 10,
+   "references": {
+    "milling": "MillList",
+    "flight": "FlightList"
+   },
+   "flight_present": true,
+   "mill_present": true,
+   "mill_points": 3,
+   "bird_brown_authored": [
+    "False",
+    "True"
+   ],
+   "egg": "birds",
+   "flight_points": 3,
+   "update_gate": "OPEN",
+   "ps2_birds": "flying birds spawn"
+  },
+  {
+   "name": "SpainWFlip",
+   "id": "RaceTest/SpainWFlip",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\SPAINWFLIP.XML",
+   "ps2_xml_sha256": "3f608f088959a055dafae017800fa5fc73d00bbb44f99340848b66338a188203",
+   "pc_dx_path": "DataGx/Course/Spain_W_flip/Spain_W_flip.dx",
+   "retail_pc_dx_sha256": "74132a218e36a09543fee55993a99575155461fb249a9dd4795d5d3764fe1729",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "min_mil": 200.0,
+   "max_mil": 900.0,
+   "rnd_fly": 10,
+   "rnd_mil": 10,
+   "references": {
+    "milling": "MillList",
+    "flight": "FlightList"
+   },
+   "flight_present": true,
+   "mill_present": false,
+   "mill_points": 0,
+   "bird_brown_authored": [
+    "True",
+    "True"
+   ],
+   "egg": "birds",
+   "flight_points": 16,
+   "update_gate": "CLOSED_NO_LOCAL_MILLLIST",
+   "ps2_birds": "no birds (manager update never passes its list gate)"
+  },
+  {
+   "name": "Turkey1",
+   "id": "RaceTest/Turkey1",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\TURKEY1.XML",
+   "ps2_xml_sha256": "dca7c2e5887e346312681cb7a3fc2451b9febe03e5361ffef39437604a12ee03",
+   "pc_dx_path": "DataGx/Course/Turkey1/turkey1.dx",
+   "retail_pc_dx_sha256": "653da3a7b2191ff3f3aaaff8dac4d38286e4c281d2cb4ae34f3e47258a81fecb",
+   "min_fly": 100.0,
+   "max_fly": 900.0,
+   "min_mil": 200.0,
+   "max_mil": 800.0,
+   "rnd_fly": 10,
+   "rnd_mil": 10,
+   "references": {
+    "milling": "MillList",
+    "flight": "FlightList"
+   },
+   "flight_present": true,
+   "mill_present": false,
+   "mill_points": 0,
+   "bird_brown_authored": [
+    "False",
+    "True"
+   ],
+   "egg": "birds",
+   "flight_points": 12,
+   "update_gate": "CLOSED_NO_LOCAL_MILLLIST",
+   "ps2_birds": "no birds (manager update never passes its list gate)"
+  },
+  {
+   "name": "Turkey2",
+   "id": "RaceTest/Turkey2",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\TURKEY2.XML",
+   "ps2_xml_sha256": "31f5b0fa50367ebf40fb2c7b333913a3c791085d9965112a633df46b33b3ed81",
+   "pc_dx_path": "DataGx/Course/Turkey2/turkey2.dx",
+   "retail_pc_dx_sha256": "0c238c152543a37f4b9c2a5f9e4573b70b868d263762679612031216d19e1194",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "min_mil": 200.0,
+   "max_mil": 900.0,
+   "rnd_fly": 10,
+   "rnd_mil": 10,
+   "references": {
+    "milling": "MillList",
+    "flight": "FlightList"
+   },
+   "flight_present": true,
+   "mill_present": false,
+   "mill_points": 0,
+   "bird_brown_authored": [
+    "True",
+    "True"
+   ],
+   "egg": "birds",
+   "flight_points": 11,
+   "update_gate": "CLOSED_NO_LOCAL_MILLLIST",
+   "ps2_birds": "no birds (manager update never passes its list gate)"
+  },
+  {
+   "name": "Turkey3",
+   "id": "RaceTest/Turkey3",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML",
+   "ps2_xml_sha256": "7c1c274cd8403bc7fcc2b5e2e8a13e57dccc44dade53a1be57d631ea073e51ce",
+   "pc_dx_path": "DataGx/Course/Turkey3/turkey3.dx",
+   "retail_pc_dx_sha256": "724a69da708a124f7dbfd666b7ad8d391bcaf22ff94bd2c91143e305749cf7f8",
+   "min_fly": 100.0,
+   "max_fly": 900.0,
+   "min_mil": 200.0,
+   "max_mil": 800.0,
+   "rnd_fly": 10,
+   "rnd_mil": 10,
+   "references": {
+    "milling": "MillList",
+    "flight": "FlightList"
+   },
+   "flight_present": true,
+   "mill_present": false,
+   "mill_points": 0,
+   "bird_brown_authored": [
+    "True",
+    "True"
+   ],
+   "egg": "birds",
+   "flight_points": 12,
+   "update_gate": "CLOSED_NO_LOCAL_MILLLIST",
+   "ps2_birds": "no birds (manager update never passes its list gate)"
+  },
+  {
+   "name": "TurkeyM",
+   "id": "RaceTest/TurkeyM",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\TURKEYM.XML",
+   "ps2_xml_sha256": "4d66a1bc7b3564e255402372f25decc7a1d38e3321b29549486e38f824f93fd6",
+   "pc_dx_path": "DataGx/Course/Turkey_m/turkey_m.dx",
+   "retail_pc_dx_sha256": "f304938bbf4f93b45333fa7fa0661d05217a51f43e26403bf981aa2721b0a2f9",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "min_mil": 200.0,
+   "max_mil": 900.0,
+   "rnd_fly": 10,
+   "rnd_mil": 10,
+   "references": {
+    "milling": "MillList",
+    "flight": "FlightList"
+   },
+   "flight_present": true,
+   "mill_present": true,
+   "mill_points": 3,
+   "bird_brown_authored": [
+    "False",
+    "True"
+   ],
+   "egg": "birds",
+   "flight_points": 12,
+   "update_gate": "OPEN",
+   "ps2_birds": "flying birds spawn"
+  },
+  {
+   "name": "TurkeyS1",
+   "id": "RaceTest/TurkeyS1",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS1.XML",
+   "ps2_xml_sha256": "194c09b97a02efd9c5b30e3a370e403632adfa879199696612c1ad7728456e64",
+   "pc_dx_path": "DataGx/Course/Turkey_s1/turkey_s1.dx",
+   "retail_pc_dx_sha256": "fbf4e3c2358b5ed41c55be9d0f781793388d67783d9ca44e152337ac621065c0",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "min_mil": 200.0,
+   "max_mil": 900.0,
+   "rnd_fly": 10,
+   "rnd_mil": 10,
+   "references": {
+    "milling": "MillList",
+    "flight": "FlightList"
+   },
+   "flight_present": true,
+   "mill_present": true,
+   "mill_points": 3,
+   "bird_brown_authored": [
+    "False",
+    "True"
+   ],
+   "egg": "birds",
+   "flight_points": 6,
+   "update_gate": "OPEN",
+   "ps2_birds": "flying birds spawn"
+  },
+  {
+   "name": "TurkeyS2",
+   "id": "RaceTest/TurkeyS2",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS2.XML",
+   "ps2_xml_sha256": "a9bd520ddb28d3f4e913eb32dc613fe1424c860773e305b32efcae9ac74277eb",
+   "pc_dx_path": "DataGx/Course/Turkey_s2/turkey_s2.dx",
+   "retail_pc_dx_sha256": "de286e3fde3378133c9f43117c3564480dd12cce5f369ed6dd17ee9b595cbde5",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "min_mil": 200.0,
+   "max_mil": 900.0,
+   "rnd_fly": 10,
+   "rnd_mil": 10,
+   "references": {
+    "milling": "MillList",
+    "flight": "FlightList"
+   },
+   "flight_present": true,
+   "mill_present": false,
+   "mill_points": 0,
+   "bird_brown_authored": [
+    "True",
+    "True"
+   ],
+   "egg": "birds",
+   "flight_points": 9,
+   "update_gate": "CLOSED_NO_LOCAL_MILLLIST",
+   "ps2_birds": "no birds (manager update never passes its list gate)"
+  },
+  {
+   "name": "TurkeyS2Flip",
+   "id": "RaceTest/TurkeyS2Flip",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS2FLIP.XML",
+   "ps2_xml_sha256": "6861e2da78032e13430ab7fde238f68405882787836edba558bdfe3f2fc78734",
+   "pc_dx_path": "DataGx/Course/Turkey_s2_flip/turkey_s2_flip.dx",
+   "retail_pc_dx_sha256": "d4ac39f98215d38df18a976f27f9ddc4dc233c89d95e1940348ae3b5ff5f3ddd",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "min_mil": 200.0,
+   "max_mil": 900.0,
+   "rnd_fly": 10,
+   "rnd_mil": 10,
+   "references": {
+    "milling": "MillList",
+    "flight": "FlightList"
+   },
+   "flight_present": true,
+   "mill_present": false,
+   "mill_points": 0,
+   "bird_brown_authored": [
+    "True",
+    "True"
+   ],
+   "egg": "birds",
+   "flight_points": 11,
+   "update_gate": "CLOSED_NO_LOCAL_MILLLIST",
+   "ps2_birds": "no birds (manager update never passes its list gate)"
+  },
+  {
+   "name": "TurkeyW",
+   "id": "RaceTest/TurkeyW",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\TURKEYW.XML",
+   "ps2_xml_sha256": "d3f6ca2853a3cfe448edd06e86ff0cae4184812bc6259b256fbabe50dd940f90",
+   "pc_dx_path": "DataGx/Course/Turkey_w/turkey_w.dx",
+   "retail_pc_dx_sha256": "d180cb0e0ea801438a39e54a5d683472d3ded30ff09db0a6ffd987d06d5f2a00",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "min_mil": 200.0,
+   "max_mil": 900.0,
+   "rnd_fly": 10,
+   "rnd_mil": 10,
+   "references": {
+    "milling": "MillList",
+    "flight": "FlightList"
+   },
+   "flight_present": true,
+   "mill_present": false,
+   "mill_points": 0,
+   "bird_brown_authored": [
+    "True",
+    "True"
+   ],
+   "egg": "birds",
+   "flight_points": 10,
+   "update_gate": "CLOSED_NO_LOCAL_MILLLIST",
+   "ps2_birds": "no birds (manager update never passes its list gate)"
+  }
+ ]
+}

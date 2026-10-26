@@ -1,0 +1,677 @@
+{
+ "schema_version": 1,
+ "phase": "COURSE-ALIVE2",
+ "asset_sha256": "f37cebd6821b83fc8137c070ba8537d59221a5323be76b13e6340ade0b158c8c",
+ "overall": "PASS",
+ "checks": {
+  "asset_deterministic_and_pinned": {
+   "status": "PASS",
+   "sha256": "f37cebd6821b83fc8137c070ba8537d59221a5323be76b13e6340ade0b158c8c",
+   "bytes": 17520
+  },
+  "configuration_36_courses": {
+   "status": "PASS",
+   "courses": 36,
+   "open_gate": 10,
+   "open": [
+    "France1",
+    "Italy2",
+    "Italy3",
+    "ItalyM2",
+    "ItalyS3Flip",
+    "ItalyS4",
+    "SpainS2",
+    "SpainW",
+    "TurkeyM",
+    "TurkeyS1"
+   ]
+  },
+  "resources_burdy_bank": {
+   "status": "PASS",
+   "cells_equal_gxi": true,
+   "opaque_texels": 176,
+   "gxi_opaque": 176,
+   "frame_cells": [
+    3,
+    2,
+    1,
+    0
+   ],
+   "psb_sha256": "38aa140093718b2cbb1e652d96219bd81737c40baca4a7d308235dbcbdf7de1d",
+   "gxi_sha256": "d9e7d619822c0811c45295df8f1a25e1822b533c0f698050d2eafad81963ba98"
+  },
+  "cpp_equals_reference": {
+   "status": "PASS",
+   "courses": 36,
+   "ticks_per_course": 18000,
+   "compared_ticks": 648000,
+   "compared_world_vertices": 3748764,
+   "mismatches": 0,
+   "first": []
+  },
+  "lifecycle_restart_and_closed_gate": {
+   "status": "PASS",
+   "restart_identical": true,
+   "closed_gate_no_rng_no_birds": true,
+   "open_case": "France1",
+   "closed_case": "France2"
+  }
+ },
+ "courses": [
+  {
+   "course": "France1",
+   "flight_points": 10,
+   "mill_list": true,
+   "update_gate": "open",
+   "min_fly": 200.0,
+   "max_fly": 800.0,
+   "rnd_fly": 10,
+   "equal_to_ps2_xml": true
+  },
+  {
+   "course": "France2",
+   "flight_points": 15,
+   "mill_list": false,
+   "update_gate": "closed",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "rnd_fly": 10,
+   "equal_to_ps2_xml": true
+  },
+  {
+   "course": "FranceM",
+   "flight_points": 29,
+   "mill_list": false,
+   "update_gate": "closed",
+   "min_fly": 100.0,
+   "max_fly": 900.0,
+   "rnd_fly": 10,
+   "equal_to_ps2_xml": true
+  },
+  {
+   "course": "FranceS1",
+   "flight_points": 28,
+   "mill_list": false,
+   "update_gate": "closed",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "rnd_fly": 10,
+   "equal_to_ps2_xml": true
+  },
+  {
+   "course": "FranceS2",
+   "flight_points": 5,
+   "mill_list": false,
+   "update_gate": "closed",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "rnd_fly": 10,
+   "equal_to_ps2_xml": true
+  },
+  {
+   "course": "FranceW",
+   "flight_points": 34,
+   "mill_list": false,
+   "update_gate": "closed",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "rnd_fly": 10,
+   "equal_to_ps2_xml": true
+  },
+  {
+   "course": "FranceWFlip",
+   "flight_points": 23,
+   "mill_list": false,
+   "update_gate": "closed",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "rnd_fly": 10,
+   "equal_to_ps2_xml": true
+  },
+  {
+   "course": "Italy1",
+   "flight_points": 13,
+   "mill_list": false,
+   "update_gate": "closed",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "rnd_fly": 10,
+   "equal_to_ps2_xml": true
+  },
+  {
+   "course": "Italy2",
+   "flight_points": 3,
+   "mill_list": true,
+   "update_gate": "open",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "rnd_fly": 10,
+   "equal_to_ps2_xml": true
+  },
+  {
+   "course": "Italy3",
+   "flight_points": 20,
+   "mill_list": true,
+   "update_gate": "open",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "rnd_fly": 10,
+   "equal_to_ps2_xml": true
+  },
+  {
+   "course": "ItalyM1",
+   "flight_points": 12,
+   "mill_list": false,
+   "update_gate": "closed",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "rnd_fly": 10,
+   "equal_to_ps2_xml": true
+  },
+  {
+   "course": "ItalyM1Flip",
+   "flight_points": 22,
+   "mill_list": false,
+   "update_gate": "closed",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "rnd_fly": 10,
+   "equal_to_ps2_xml": true
+  },
+  {
+   "course": "ItalyM2",
+   "flight_points": 20,
+   "mill_list": true,
+   "update_gate": "open",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "rnd_fly": 10,
+   "equal_to_ps2_xml": true
+  },
+  {
+   "course": "ItalyS1",
+   "flight_points": 14,
+   "mill_list": false,
+   "update_gate": "closed",
+   "min_fly": 100.0,
+   "max_fly": 900.0,
+   "rnd_fly": 10,
+   "equal_to_ps2_xml": true
+  },
+  {
+   "course": "ItalyS2",
+   "flight_points": 11,
+   "mill_list": false,
+   "update_gate": "closed",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "rnd_fly": 10,
+   "equal_to_ps2_xml": true
+  },
+  {
+   "course": "ItalyS3",
+   "flight_points": 20,
+   "mill_list": false,
+   "update_gate": "closed",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "rnd_fly": 10,
+   "equal_to_ps2_xml": true
+  },
+  {
+   "course": "ItalyS3Flip",
+   "flight_points": 18,
+   "mill_list": true,
+   "update_gate": "open",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "rnd_fly": 10,
+   "equal_to_ps2_xml": true
+  },
+  {
+   "course": "ItalyS4",
+   "flight_points": 6,
+   "mill_list": true,
+   "update_gate": "open",
+   "min_fly": 100.0,
+   "max_fly": 900.0,
+   "rnd_fly": 10,
+   "equal_to_ps2_xml": true
+  },
+  {
+   "course": "ItalyW1",
+   "flight_points": 19,
+   "mill_list": false,
+   "update_gate": "closed",
+   "min_fly": 100.0,
+   "max_fly": 900.0,
+   "rnd_fly": 10,
+   "equal_to_ps2_xml": true
+  },
+  {
+   "course": "ItalyW2",
+   "flight_points": 17,
+   "mill_list": false,
+   "update_gate": "closed",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "rnd_fly": 10,
+   "equal_to_ps2_xml": true
+  },
+  {
+   "course": "Spain1",
+   "flight_points": 19,
+   "mill_list": false,
+   "update_gate": "closed",
+   "min_fly": 100.0,
+   "max_fly": 900.0,
+   "rnd_fly": 10,
+   "equal_to_ps2_xml": true
+  },
+  {
+   "course": "Spain2",
+   "flight_points": 25,
+   "mill_list": false,
+   "update_gate": "closed",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "rnd_fly": 10,
+   "equal_to_ps2_xml": true
+  },
+  {
+   "course": "SpainM",
+   "flight_points": 12,
+   "mill_list": false,
+   "update_gate": "closed",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "rnd_fly": 10,
+   "equal_to_ps2_xml": true
+  },
+  {
+   "course": "SpainS1",
+   "flight_points": 9,
+   "mill_list": false,
+   "update_gate": "closed",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "rnd_fly": 10,
+   "equal_to_ps2_xml": true
+  },
+  {
+   "course": "SpainS1Flip",
+   "flight_points": 29,
+   "mill_list": false,
+   "update_gate": "closed",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "rnd_fly": 10,
+   "equal_to_ps2_xml": true
+  },
+  {
+   "course": "SpainS2",
+   "flight_points": 7,
+   "mill_list": true,
+   "update_gate": "open",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "rnd_fly": 10,
+   "equal_to_ps2_xml": true
+  },
+  {
+   "course": "SpainW",
+   "flight_points": 3,
+   "mill_list": true,
+   "update_gate": "open",
+   "min_fly": 100.0,
+   "max_fly": 900.0,
+   "rnd_fly": 10,
+   "equal_to_ps2_xml": true
+  },
+  {
+   "course": "SpainWFlip",
+   "flight_points": 16,
+   "mill_list": false,
+   "update_gate": "closed",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "rnd_fly": 10,
+   "equal_to_ps2_xml": true
+  },
+  {
+   "course": "Turkey1",
+   "flight_points": 12,
+   "mill_list": false,
+   "update_gate": "closed",
+   "min_fly": 100.0,
+   "max_fly": 900.0,
+   "rnd_fly": 10,
+   "equal_to_ps2_xml": true
+  },
+  {
+   "course": "Turkey2",
+   "flight_points": 11,
+   "mill_list": false,
+   "update_gate": "closed",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "rnd_fly": 10,
+   "equal_to_ps2_xml": true
+  },
+  {
+   "course": "Turkey3",
+   "flight_points": 12,
+   "mill_list": false,
+   "update_gate": "closed",
+   "min_fly": 100.0,
+   "max_fly": 900.0,
+   "rnd_fly": 10,
+   "equal_to_ps2_xml": true
+  },
+  {
+   "course": "TurkeyM",
+   "flight_points": 12,
+   "mill_list": true,
+   "update_gate": "open",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "rnd_fly": 10,
+   "equal_to_ps2_xml": true
+  },
+  {
+   "course": "TurkeyS1",
+   "flight_points": 6,
+   "mill_list": true,
+   "update_gate": "open",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "rnd_fly": 10,
+   "equal_to_ps2_xml": true
+  },
+  {
+   "course": "TurkeyS2",
+   "flight_points": 9,
+   "mill_list": false,
+   "update_gate": "closed",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "rnd_fly": 10,
+   "equal_to_ps2_xml": true
+  },
+  {
+   "course": "TurkeyS2Flip",
+   "flight_points": 11,
+   "mill_list": false,
+   "update_gate": "closed",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "rnd_fly": 10,
+   "equal_to_ps2_xml": true
+  },
+  {
+   "course": "TurkeyW",
+   "flight_points": 10,
+   "mill_list": false,
+   "update_gate": "closed",
+   "min_fly": 100.0,
+   "max_fly": 800.0,
+   "rnd_fly": 10,
+   "equal_to_ps2_xml": true
+  }
+ ],
+ "synthetic_camera_statistics": {
+  "France1": {
+   "first_flying_tick": 405,
+   "first_flying_seconds": 13.5,
+   "peak_flying": 13,
+   "ticks_with_birds": 12931,
+   "rng_calls": 124717
+  },
+  "France2": {
+   "first_flying_tick": null,
+   "first_flying_seconds": null,
+   "peak_flying": 0,
+   "ticks_with_birds": 0,
+   "rng_calls": 0
+  },
+  "FranceM": {
+   "first_flying_tick": null,
+   "first_flying_seconds": null,
+   "peak_flying": 0,
+   "ticks_with_birds": 0,
+   "rng_calls": 0
+  },
+  "FranceS1": {
+   "first_flying_tick": null,
+   "first_flying_seconds": null,
+   "peak_flying": 0,
+   "ticks_with_birds": 0,
+   "rng_calls": 0
+  },
+  "FranceS2": {
+   "first_flying_tick": null,
+   "first_flying_seconds": null,
+   "peak_flying": 0,
+   "ticks_with_birds": 0,
+   "rng_calls": 0
+  },
+  "FranceW": {
+   "first_flying_tick": null,
+   "first_flying_seconds": null,
+   "peak_flying": 0,
+   "ticks_with_birds": 0,
+   "rng_calls": 0
+  },
+  "FranceWFlip": {
+   "first_flying_tick": null,
+   "first_flying_seconds": null,
+   "peak_flying": 0,
+   "ticks_with_birds": 0,
+   "rng_calls": 0
+  },
+  "Italy1": {
+   "first_flying_tick": null,
+   "first_flying_seconds": null,
+   "peak_flying": 0,
+   "ticks_with_birds": 0,
+   "rng_calls": 0
+  },
+  "Italy2": {
+   "first_flying_tick": 405,
+   "first_flying_seconds": 13.5,
+   "peak_flying": 14,
+   "ticks_with_birds": 12956,
+   "rng_calls": 124017
+  },
+  "Italy3": {
+   "first_flying_tick": 405,
+   "first_flying_seconds": 13.5,
+   "peak_flying": 16,
+   "ticks_with_birds": 11324,
+   "rng_calls": 117404
+  },
+  "ItalyM1": {
+   "first_flying_tick": null,
+   "first_flying_seconds": null,
+   "peak_flying": 0,
+   "ticks_with_birds": 0,
+   "rng_calls": 0
+  },
+  "ItalyM1Flip": {
+   "first_flying_tick": null,
+   "first_flying_seconds": null,
+   "peak_flying": 0,
+   "ticks_with_birds": 0,
+   "rng_calls": 0
+  },
+  "ItalyM2": {
+   "first_flying_tick": 405,
+   "first_flying_seconds": 13.5,
+   "peak_flying": 14,
+   "ticks_with_birds": 14539,
+   "rng_calls": 117078
+  },
+  "ItalyS1": {
+   "first_flying_tick": null,
+   "first_flying_seconds": null,
+   "peak_flying": 0,
+   "ticks_with_birds": 0,
+   "rng_calls": 0
+  },
+  "ItalyS2": {
+   "first_flying_tick": null,
+   "first_flying_seconds": null,
+   "peak_flying": 0,
+   "ticks_with_birds": 0,
+   "rng_calls": 0
+  },
+  "ItalyS3": {
+   "first_flying_tick": null,
+   "first_flying_seconds": null,
+   "peak_flying": 0,
+   "ticks_with_birds": 0,
+   "rng_calls": 0
+  },
+  "ItalyS3Flip": {
+   "first_flying_tick": 405,
+   "first_flying_seconds": 13.5,
+   "peak_flying": 16,
+   "ticks_with_birds": 11838,
+   "rng_calls": 146033
+  },
+  "ItalyS4": {
+   "first_flying_tick": 405,
+   "first_flying_seconds": 13.5,
+   "peak_flying": 13,
+   "ticks_with_birds": 11699,
+   "rng_calls": 102663
+  },
+  "ItalyW1": {
+   "first_flying_tick": null,
+   "first_flying_seconds": null,
+   "peak_flying": 0,
+   "ticks_with_birds": 0,
+   "rng_calls": 0
+  },
+  "ItalyW2": {
+   "first_flying_tick": null,
+   "first_flying_seconds": null,
+   "peak_flying": 0,
+   "ticks_with_birds": 0,
+   "rng_calls": 0
+  },
+  "Spain1": {
+   "first_flying_tick": null,
+   "first_flying_seconds": null,
+   "peak_flying": 0,
+   "ticks_with_birds": 0,
+   "rng_calls": 0
+  },
+  "Spain2": {
+   "first_flying_tick": null,
+   "first_flying_seconds": null,
+   "peak_flying": 0,
+   "ticks_with_birds": 0,
+   "rng_calls": 0
+  },
+  "SpainM": {
+   "first_flying_tick": null,
+   "first_flying_seconds": null,
+   "peak_flying": 0,
+   "ticks_with_birds": 0,
+   "rng_calls": 0
+  },
+  "SpainS1": {
+   "first_flying_tick": null,
+   "first_flying_seconds": null,
+   "peak_flying": 0,
+   "ticks_with_birds": 0,
+   "rng_calls": 0
+  },
+  "SpainS1Flip": {
+   "first_flying_tick": null,
+   "first_flying_seconds": null,
+   "peak_flying": 0,
+   "ticks_with_birds": 0,
+   "rng_calls": 0
+  },
+  "SpainS2": {
+   "first_flying_tick": 405,
+   "first_flying_seconds": 13.5,
+   "peak_flying": 15,
+   "ticks_with_birds": 12870,
+   "rng_calls": 116966
+  },
+  "SpainW": {
+   "first_flying_tick": 1526,
+   "first_flying_seconds": 50.9,
+   "peak_flying": 15,
+   "ticks_with_birds": 10563,
+   "rng_calls": 98525
+  },
+  "SpainWFlip": {
+   "first_flying_tick": null,
+   "first_flying_seconds": null,
+   "peak_flying": 0,
+   "ticks_with_birds": 0,
+   "rng_calls": 0
+  },
+  "Turkey1": {
+   "first_flying_tick": null,
+   "first_flying_seconds": null,
+   "peak_flying": 0,
+   "ticks_with_birds": 0,
+   "rng_calls": 0
+  },
+  "Turkey2": {
+   "first_flying_tick": null,
+   "first_flying_seconds": null,
+   "peak_flying": 0,
+   "ticks_with_birds": 0,
+   "rng_calls": 0
+  },
+  "Turkey3": {
+   "first_flying_tick": null,
+   "first_flying_seconds": null,
+   "peak_flying": 0,
+   "ticks_with_birds": 0,
+   "rng_calls": 0
+  },
+  "TurkeyM": {
+   "first_flying_tick": 405,
+   "first_flying_seconds": 13.5,
+   "peak_flying": 11,
+   "ticks_with_birds": 11802,
+   "rng_calls": 107622
+  },
+  "TurkeyS1": {
+   "first_flying_tick": 405,
+   "first_flying_seconds": 13.5,
+   "peak_flying": 12,
+   "ticks_with_birds": 11276,
+   "rng_calls": 109418
+  },
+  "TurkeyS2": {
+   "first_flying_tick": null,
+   "first_flying_seconds": null,
+   "peak_flying": 0,
+   "ticks_with_birds": 0,
+   "rng_calls": 0
+  },
+  "TurkeyS2Flip": {
+   "first_flying_tick": null,
+   "first_flying_seconds": null,
+   "peak_flying": 0,
+   "ticks_with_birds": 0,
+   "rng_calls": 0
+  },
+  "TurkeyW": {
+   "first_flying_tick": null,
+   "first_flying_seconds": null,
+   "peak_flying": 0,
+   "ticks_with_birds": 0,
+   "rng_calls": 0
+  }
+ },
+ "note": "statistics come from a synthetic camera path along each FlightList and a fixed RNG seed; they are not a recorded PS2 race"
+}

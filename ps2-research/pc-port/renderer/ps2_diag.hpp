@@ -415,11 +415,11 @@ inline constexpr const char* model_gate_name(unsigned gate) noexcept {
 // ---- per-race effect ledger --------------------------------------------------------------------------------------------
 
 enum class Effect : uint8_t {
-    ReflectionCapture, ReflectionBody, Fleet, FleetWheels, Grass, Shrubs, GroundDetail, Water, Spline, Hud, PostFx, Models, Count
+    ReflectionCapture, ReflectionBody, Fleet, FleetWheels, Grass, Shrubs, GroundDetail, Water, Spline, Hud, PostFx, Models, Birds, Count
 };
 inline constexpr const char* effect_name(Effect e) noexcept {
     constexpr const char* names[] = {"reflection_capture", "reflection_body", "fleet", "fleet_wheels", "grass", "shrubs",
-                                     "ground_detail", "water", "spline", "hud", "postfx", "models"};
+                                     "ground_detail", "water", "spline", "hud", "postfx", "models", "birds"};
     return static_cast<size_t>(e) < std::size(names) ? names[static_cast<size_t>(e)] : "unknown";
 }
 // Outcome counters keyed by string literal; the number of distinct outcomes per effect is bounded.

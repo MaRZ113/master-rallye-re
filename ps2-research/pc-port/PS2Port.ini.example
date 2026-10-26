@@ -124,6 +124,16 @@ SplineObjects=0
 ; SplineObjectsAsset: packed models and routes (default <GrassAssetDirectory>/PS2SplineObjects.ps2spl).
 ; SplineObjectsStockCourses: 1 = also on the stock PC course geometry (DIAGNOSTIC: routes are PS2-authored). Keep 0.
 SplineObjectsStockCourses=0
+; PS2Birds: 1 = the PS2 birds (gaAnimals_BirdManager): PS2 spawn, flight, wing animation and sprite drawing
+;   with every course's own PS2 settings. Like on the PS2, birds fly only on the 10 courses whose scene has both the
+;   FlightList and the MillList (France1, Italy2, Italy3, ItalyM2, ItalyS3Flip, ItalyS4, SpainS2, SpainW, TurkeyM,
+;   TurkeyS1); the first burst can come about 11 s after the start at the earliest. Only on PS2 course packages. 0 = none.
+PS2Birds=0
+; PS2BirdsAsset: packed Burdy bank and course settings (default <GrassAssetDirectory>/PS2Birds.ps2bird).
+; PS2BirdsIgnoreListGate: 1 = DIAGNOSTIC, also run the manager on the 26 courses without a MillList (not PS2). Keep 0.
+PS2BirdsIgnoreListGate=0
+; PS2BirdsStockCourses: 1 = DIAGNOSTIC, also on the stock PC course geometry. Keep 0.
+PS2BirdsStockCourses=0
 ; PS2Water: 1 = PS2 water, puddles and waterfalls (two PS2 passes, PS2 transparency, wave and reflection UV) on every
 ;   course water draw whose geometry is in the asset (36 PS2 course packages, and stock PC draws that equal the PS2
 ;   surfaces). Replaces the PC water draw; supersedes CourseObjects on the same course. 0 = Stock.

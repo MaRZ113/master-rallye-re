@@ -55,9 +55,9 @@ Proposed as one small component of its own (no dependency on the modernization p
    - inputs: the route, `Max Speed/Const Speed`, `Use Closed Loop`, `Rest Time`, `Banking` and the trigger distances;
    - the evaluator: the PS2 Catmull-Rom, clock and banking rules, already written down and checked offline in `ambient1/` (`spline-algorithm.md`, `transform-pipeline.md`);
    - this needs the PC Egg/entity matrix offsets and a per-tick hook in `MRallye.exe` (not reversed yet).
-2. **Birds (W5b).**
-   - available: the flight equation, the RNG order and the animation keys from `ambient2/`;
-   - missing: the PS2 sprite banks still need conversion into PC images, and a PC sprite/quad draw path has to be found or added.
+2. **Birds (W5b).** Done in COURSE-ALIVE2 (`../pc-port/docs/course-alive2/README.md`): the PS2 manager, RNG, flight, wing
+   animation, Burdy sprite bank and mode8 sprite state, drawn by the PS2 port proxy. The PS2 runs its manager only when the
+   course scene has both FlightList and MillList (10 courses); ground (Miller) birds are dead code in the PS2 ELF.
 3. **Physical props (W6).**
    - the PC physics manager must accept new bodies;
    - the existing `gaAiHayBale` path crashes in the stock contact code (`0x006363C0` -> `0x004FFDE0`, NULL pooled contact record), so the

@@ -7,6 +7,7 @@
 #include "course_objects.hpp"
 #include "grass_pilot.hpp"
 #include "spline_objects.hpp"
+#include "ps2_birds_pilot.hpp"
 #include "ps2_water_pilot.hpp"
 #include "vehicle_partition.hpp"
 #include "xtrail_fidelity.hpp"
@@ -244,6 +245,7 @@ PS2PortExtension::PS2PortExtension(bool exact_build, const std::string& exe_sha,
         grass_ = std::make_unique<GrassPilot>(build_valid_, ini);
         shrubs_ = std::make_unique<GrassPilot>(build_valid_, ini,GroundDetailKind::Shrubs);
         spline_objects_ = std::make_unique<SplineObjectsPilot>(build_valid_, ini);
+        birds_ = std::make_unique<PS2BirdsPilot>(build_valid_, ini);
         // COURSE-WATER1 (docs/course-water1): PS2Water=1 replaces matched native water draws by the PS2 passes.
         water_ = std::make_unique<PS2WaterPilot>(build_valid_, ini);
         color_.configure(read_ps2_color_config(ini.c_str()));
@@ -267,7 +269,8 @@ bool PS2PortExtension::buffer_mirroring_required() const noexcept { return activ
 bool PS2PortExtension::analysis_enabled() const noexcept { return active() || pixel_probe_enabled() ||
     (!disabled_ && ((course_objects_ && course_objects_->identity_requested()) ||
                   (grass_ && grass_->identity_requested()) || (shrubs_ && shrubs_->identity_requested()) ||
-                  (spline_objects_ && spline_objects_->identity_requested()) || (water_ && water_->identity_requested()))); }
+                  (spline_objects_ && spline_objects_->identity_requested()) || (water_ && water_->identity_requested()) ||
+                  (birds_ && birds_->identity_requested()))); }
 
 void PS2PortExtension::fleet_before_reset() noexcept {
     for (auto& m : fleet_race_) if (m) m->reset();
@@ -286,6 +289,7 @@ bool PS2PortExtension::native_states_pending() const noexcept {
         (grass_ && (grass_->blocked() || grass_->transaction.has_pending())) ||
         (shrubs_ && (shrubs_->blocked() || shrubs_->transaction.has_pending())) ||
         (spline_objects_ && (spline_objects_->blocked() || spline_objects_->transaction.has_pending())) ||
+        (birds_ && (birds_->blocked() || birds_->transaction.has_pending())) ||
         (water_ && (water_->blocked() || water_->transaction.pending())) ||
         color_.pending() || output_.pending() || blur_.pending() || (ground_ && ground_->transaction.pending()) ||
         (hud_damage_ && hud_damage_->layer.pending()) || (hud_map_ && hud_map_->layer.pending()) ||
@@ -309,7 +313,7 @@ std::string PS2PortExtension::status_json() const {
         ",\"resources\":{\"tracked\":" + std::to_string(ledger_tracked_) + ",\"serial\":" + std::to_string(ledger_serial_) + "}";
     if (reflection_) out += ",\"reflection\":" + reflection_->status_json();
     out += ",\"grass\":" + pilot_state(grass_.get()) + ",\"shrubs\":" + pilot_state(shrubs_.get()) +
-        ",\"spline\":" + pilot_state(spline_objects_.get()) + ",\"water\":" + pilot_state(water_.get()) +
+        ",\"spline\":" + pilot_state(spline_objects_.get()) + ",\"water\":" + pilot_state(water_.get()) + ",\"birds\":" + pilot_state(birds_.get()) +
         ",\"course_objects\":" + pilot_state(course_objects_.get());
     if (ground_) out += std::string(",\"ground_detail\":{\"requested\":") + (ground_->requested() ? "true" : "false") + ",\"passes\":" + std::to_string(ground_->passes()) + "}";
     out += ",\"disables\":{\"total\":" + std::to_string(ps2diag::disable_log().total()) + ",\"recent\":" + ps2diag::disable_log().recent_json() + "}";
@@ -1189,6 +1193,7 @@ void PS2PortExtension::disable(const char* reason) noexcept {
     if (grass_) grass_->disable(reason);
     if (shrubs_) shrubs_->disable(reason);
     if (spline_objects_) spline_objects_->disable(reason);
+    if (birds_) birds_->disable(reason);
     if (water_) water_->disable(reason);
 }
 

@@ -42,10 +42,10 @@
   },
   "patches": {
     "0001-renderer-integration.patch": {
-      "sha256": "5e3e9ac9fe19c70bb8ae4e65e2ac92e78ff9f004cc2f34a9e8640aa680f478a8"
+      "sha256": "815e4959010e907efa784ec048015706c78d38e4db7e331764ec171ee1e2a5fb"
     },
     "0002-interface-generator.patch": {
-      "sha256": "d3d301848c8917271b8a47b6978cb8d73bdc645d5a514a2b3cdb8559b2621167"
+      "sha256": "cfe8f7cf6c56241d48d14535d6fd06f35a4ad263c5f40e2adfc4906eec6e5232"
     }
   },
   "generated_outputs": {
@@ -60,7 +60,7 @@
       "data/interface-map.json": "1e966cceaabfaf8a2897359180e7319dbfe6afeef16510f3058a2456e4991369",
       "include/wrappers.hpp": "85ef4dc9413ec9590253f9dc65c30582dccb95e8a9405846b8ae17e32404c7e5",
       "include/method_names.hpp": "c1a9e331bffb14365807b1f94f700a7acf839de91af27038b64b4374d1e6ab84",
-      "src/forwarders.cpp": "adf799c835963c8d483b4219a9512033623a11440411d28b9d24905e525dcb2d",
+      "src/forwarders.cpp": "bf09e6b2ed705912e2a7f48692e1ab8714148804a0f3db74f2fc055d0a73e2b7",
       "tests/mock_interfaces.hpp": "9062667d68b59dc580e102505bcd4c2da8e66b93e11d6ff210b046c0952062f9"
     }
   },

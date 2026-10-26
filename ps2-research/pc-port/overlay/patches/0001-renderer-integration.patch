@@ -17,14 +17,14 @@ diff --git a/modernization/renderer/CMakeLists.txt b/modernization/renderer/CMak
 +  message(FATAL_ERROR "MRR_ENABLE_PS2_PORT requires -DMRR_PS2_PORT_ROOT=<staged pc-port root>")
 + endif()
 + target_sources(proxy_core PRIVATE "${MRR_PS2_PORT_ROOT}/renderer/ps2_port_extension.cpp" "${MRR_PS2_PORT_ROOT}/renderer/reflection_pilot.cpp" "${MRR_PS2_PORT_ROOT}/renderer/reflection_capture.cpp"
-+    "${MRR_PS2_PORT_ROOT}/renderer/frontend_model.cpp" "${MRR_PS2_PORT_ROOT}/renderer/brake_glow.cpp" "${MRR_PS2_PORT_ROOT}/renderer/xtrail_glass.cpp" "${MRR_PS2_PORT_ROOT}/renderer/xtrail_fidelity.cpp" "${MRR_PS2_PORT_ROOT}/renderer/vehicle_partition.cpp" "${MRR_PS2_PORT_ROOT}/renderer/course_objects.cpp" "${MRR_PS2_PORT_ROOT}/renderer/grass_pilot.cpp" "${MRR_PS2_PORT_ROOT}/renderer/spline_objects.cpp")
++    "${MRR_PS2_PORT_ROOT}/renderer/frontend_model.cpp" "${MRR_PS2_PORT_ROOT}/renderer/brake_glow.cpp" "${MRR_PS2_PORT_ROOT}/renderer/xtrail_glass.cpp" "${MRR_PS2_PORT_ROOT}/renderer/xtrail_fidelity.cpp" "${MRR_PS2_PORT_ROOT}/renderer/vehicle_partition.cpp" "${MRR_PS2_PORT_ROOT}/renderer/course_objects.cpp" "${MRR_PS2_PORT_ROOT}/renderer/grass_pilot.cpp" "${MRR_PS2_PORT_ROOT}/renderer/spline_objects.cpp" "${MRR_PS2_PORT_ROOT}/renderer/ps2_birds_pilot.cpp")
 + target_include_directories(proxy_core PRIVATE "${MRR_PS2_PORT_ROOT}/renderer")
 + target_compile_definitions(proxy_core PUBLIC MRR_ENABLE_PS2_PORT=1)
 +endif()
  target_compile_options(proxy_core PRIVATE /W4 /permissive- /fp:strict /EHsc /Zi)
  target_link_libraries(proxy_core PUBLIC bcrypt user32)
  add_library(d3d8 SHARED src/dllmain.cpp src/real_d3d8.cpp exports.def)
-@@ -115,4 +125,95 @@
+@@ -115,4 +125,100 @@
   target_include_directories(physics_transaction_abi_tests PRIVATE include vendor/d3d8)
   target_compile_options(physics_transaction_abi_tests PRIVATE /W4 /fp:strict /EHsc)
   add_test(NAME physics_transaction_abi_contracts COMMAND physics_transaction_abi_tests)
@@ -82,6 +82,11 @@ diff --git a/modernization/renderer/CMakeLists.txt b/modernization/renderer/CMak
 +  target_link_libraries(ps2_spline_objects_tests PRIVATE proxy_core)
 +  target_compile_options(ps2_spline_objects_tests PRIVATE /W4 /fp:strict /EHsc)
 +  add_test(NAME ps2_spline_objects_contracts COMMAND ps2_spline_objects_tests)
++  add_executable(ps2_birds_tests "${MRR_PS2_PORT_ROOT}/tests/ps2_birds_tests.cpp")
++  target_include_directories(ps2_birds_tests PRIVATE tests include vendor/d3d8 "${MRR_PS2_PORT_ROOT}/renderer")
++  target_link_libraries(ps2_birds_tests PRIVATE proxy_core)
++  target_compile_options(ps2_birds_tests PRIVATE /W4 /fp:strict /EHsc)
++  add_test(NAME ps2_birds_contracts COMMAND ps2_birds_tests)
 +  add_executable(ps2_color_tests "${MRR_PS2_PORT_ROOT}/tests/ps2_color_tests.cpp")
 +  target_include_directories(ps2_color_tests PRIVATE include tests vendor/d3d8 "${MRR_PS2_PORT_ROOT}/renderer")
 +  target_link_libraries(ps2_color_tests PRIVATE proxy_core)
@@ -181,7 +186,7 @@ diff --git a/modernization/renderer/src/buffer_provenance.cpp b/modernization/re
 diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/src/forwarders.cpp
 --- a/modernization/renderer/src/forwarders.cpp
 +++ b/modernization/renderer/src/forwarders.cpp
-@@ -3,6 +3,12 @@
+@@ -3,6 +3,13 @@
  #include "provenance.hpp"
  #include "buffer_provenance.hpp"
  #include <intrin.h>
@@ -190,11 +195,12 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
 +#include "course_objects.hpp"
 +#include "grass_pilot.hpp"
 +#include "spline_objects.hpp"
++#include "ps2_birds_pilot.hpp"
 +#endif
  namespace gfx2 {
  HRESULT STDMETHODCALLTYPE Root8::RegisterSoftwareDevice(void * pInitializeFunction) {
   return real_->RegisterSoftwareDevice(pInitializeFunction);
-@@ -198,7 +204,7 @@
+@@ -198,7 +205,7 @@
   trace.before(23, args, pc);
   HRESULT result = real_->CreateVertexBuffer(Length, Usage, FVF, Pool, ppVertexBuffer);
   trace.after(23, args, static_cast<uint32_t>(result), pc);
@@ -203,7 +209,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   return result;
  }
  HRESULT STDMETHODCALLTYPE Device8::CreateIndexBuffer(UINT Length,DWORD Usage,D3DFORMAT Format,D3DPOOL Pool,IDirect3DIndexBuffer8 ** ppIndexBuffer) {
-@@ -208,7 +214,7 @@
+@@ -208,7 +215,7 @@
   trace.before(24, args, pc);
   HRESULT result = real_->CreateIndexBuffer(Length, Usage, Format, Pool, ppIndexBuffer);
   trace.after(24, args, static_cast<uint32_t>(result), pc);
@@ -212,7 +218,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   return result;
  }
  HRESULT STDMETHODCALLTYPE Device8::CreateRenderTarget(UINT Width,UINT Height,D3DFORMAT Format,D3DMULTISAMPLE_TYPE MultiSample,WINBOOL Lockable,IDirect3DSurface8 ** ppSurface) {
-@@ -269,6 +275,15 @@
+@@ -269,6 +276,16 @@
   auto guard = trace.guard();
   const auto args = pack(pRenderTarget, pNewZStencil);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -224,11 +230,12 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
 + if(ps2_port_&&ps2_port_->course_objects())ps2_port_->course_objects()->proof.invalidate_depth();
 + if(ps2_port_)for(auto* detail:ps2_port_->ground_details())if(detail)detail->proof.invalidate_depth();
 + if(ps2_port_&&ps2_port_->spline_objects())ps2_port_->spline_objects()->proof.invalidate_depth();
++ if(ps2_port_&&ps2_port_->birds())ps2_port_->birds()->proof.invalidate_depth();
 +#endif
   trace.before(31, args, pc);
   HRESULT result = real_->SetRenderTarget(pRenderTarget, pNewZStencil);
   trace.after(31, args, static_cast<uint32_t>(result), pc);
-@@ -278,6 +293,9 @@
+@@ -278,6 +295,9 @@
   auto guard = trace.guard();
   const auto args = pack(ppRenderTarget);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -238,7 +245,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(32, args, pc);
   HRESULT result = real_->GetRenderTarget(ppRenderTarget);
   trace.after(32, args, static_cast<uint32_t>(result), pc);
-@@ -287,6 +305,9 @@
+@@ -287,6 +307,9 @@
   auto guard = trace.guard();
   const auto args = pack(ppZStencilSurface);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -248,7 +255,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(33, args, pc);
   HRESULT result = real_->GetDepthStencilSurface(ppZStencilSurface);
   trace.after(33, args, static_cast<uint32_t>(result), pc);
-@@ -296,6 +317,15 @@
+@@ -296,6 +319,16 @@
   auto guard = trace.guard();
   const auto args = pack();
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -260,11 +267,12 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
 + if(ps2_port_&&ps2_port_->course_objects())ps2_port_->course_objects()->proof.clear();
 + if(ps2_port_)for(auto* detail:ps2_port_->ground_details())if(detail)detail->proof.clear();
 + if(ps2_port_&&ps2_port_->spline_objects())ps2_port_->spline_objects()->proof.clear();
++ if(ps2_port_&&ps2_port_->birds())ps2_port_->birds()->proof.clear();
 +#endif
   trace.before(34, args, pc);
   HRESULT result = real_->BeginScene();
   if(SUCCEEDED(result))trace.scene_active=true;
-@@ -306,6 +336,15 @@
+@@ -306,6 +339,16 @@
   auto guard = trace.guard();
   const auto args = pack();
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -276,11 +284,12 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
 + if(ps2_port_&&ps2_port_->course_objects())ps2_port_->course_objects()->proof.clear();
 + if(ps2_port_)for(auto* detail:ps2_port_->ground_details())if(detail)detail->proof.clear();
 + if(ps2_port_&&ps2_port_->spline_objects())ps2_port_->spline_objects()->proof.clear();
++ if(ps2_port_&&ps2_port_->birds())ps2_port_->birds()->proof.clear();
 +#endif
   trace.before(35, args, pc);
   HRESULT result = real_->EndScene();
   trace.scene_active=false;
-@@ -316,6 +355,15 @@
+@@ -316,6 +359,16 @@
   auto guard = trace.guard();
   const auto args = pack(rect_count, rects, flags, color, z, stencil);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -292,11 +301,12 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
 + if((flags&D3DCLEAR_ZBUFFER)&&ps2_port_&&ps2_port_->course_objects())ps2_port_->course_objects()->proof.invalidate_depth();
 + if((flags&D3DCLEAR_ZBUFFER)&&ps2_port_)for(auto* detail:ps2_port_->ground_details())if(detail)detail->proof.invalidate_depth();
 + if((flags&D3DCLEAR_ZBUFFER)&&ps2_port_&&ps2_port_->spline_objects())ps2_port_->spline_objects()->proof.invalidate_depth();
++ if((flags&D3DCLEAR_ZBUFFER)&&ps2_port_&&ps2_port_->birds())ps2_port_->birds()->proof.invalidate_depth();
 +#endif
   trace.before(36, args, pc);
   HRESULT result = real_->Clear(rect_count, rects, flags, color, z, stencil);
   trace.after(36, args, static_cast<uint32_t>(result), pc);
-@@ -325,6 +373,10 @@
+@@ -325,6 +378,10 @@
   auto guard = trace.guard();
   const auto args = pack(state, matrix);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -307,7 +317,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(39, args, pc);
   if(state==D3DTS_PROJECTION){HRESULT safe=stock_for_unmapped("MultiplyTransform_PROJECTION");if(FAILED(safe)){trace.after(39,args,static_cast<uint32_t>(safe),pc);return safe;}}
   HRESULT result = real_->MultiplyTransform(state, matrix);
-@@ -407,6 +459,10 @@
+@@ -407,6 +464,10 @@
   auto guard = trace.guard();
   const auto args = pack(State, Value);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -318,7 +328,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(50, args, pc);
   HRESULT result = real_->SetRenderState(State, Value);
   trace.after(50, args, static_cast<uint32_t>(result), pc);
-@@ -416,6 +472,10 @@
+@@ -416,6 +477,10 @@
   auto guard = trace.guard();
   const auto args = pack(State, pValue);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -329,7 +339,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(51, args, pc);
   HRESULT result = real_->GetRenderState(State, pValue);
   trace.after(51, args, static_cast<uint32_t>(result), pc);
-@@ -505,6 +565,10 @@
+@@ -505,6 +570,10 @@
   auto guard = trace.guard();
   const auto args = pack(Stage, ppTexture);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -340,7 +350,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(60, args, pc);
   HRESULT result = real_->GetTexture(Stage, ppTexture);
   trace.after(60, args, static_cast<uint32_t>(result), pc);
-@@ -514,6 +578,10 @@
+@@ -514,6 +583,10 @@
   auto guard = trace.guard();
   const auto args = pack(Stage, pTexture);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -351,7 +361,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(61, args, pc);
   HRESULT result = real_->SetTexture(Stage, pTexture);
   trace.after(61, args, static_cast<uint32_t>(result), pc);
-@@ -523,6 +591,9 @@
+@@ -523,6 +596,9 @@
   auto guard = trace.guard();
   const auto args = pack(pNumPasses);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -361,7 +371,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(64, args, pc);
   HRESULT result = real_->ValidateDevice(pNumPasses);
   trace.after(64, args, static_cast<uint32_t>(result), pc);
-@@ -619,6 +690,10 @@
+@@ -619,6 +695,10 @@
   auto guard = trace.guard();
   const auto args = pack(Handle);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -372,7 +382,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(76, args, pc);
   HRESULT result = real_->SetVertexShader(Handle);
   trace.after(76, args, static_cast<uint32_t>(result), pc);
-@@ -628,6 +703,10 @@
+@@ -628,6 +708,10 @@
   auto guard = trace.guard();
   const auto args = pack(pHandle);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -383,7 +393,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(77, args, pc);
   HRESULT result = real_->GetVertexShader(pHandle);
   trace.after(77, args, static_cast<uint32_t>(result), pc);
-@@ -637,6 +716,10 @@
+@@ -637,6 +721,10 @@
   auto guard = trace.guard();
   const auto args = pack(Handle);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -394,7 +404,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(78, args, pc);
   HRESULT result = real_->DeleteVertexShader(Handle);
   trace.after(78, args, static_cast<uint32_t>(result), pc);
-@@ -681,6 +764,10 @@
+@@ -681,6 +769,10 @@
  HRESULT STDMETHODCALLTYPE Device8::SetStreamSource(UINT StreamNumber,IDirect3DVertexBuffer8 * pStreamData,UINT Stride) {
   auto guard = trace.guard();
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -405,7 +415,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   auto* native_buffer=unwrap_vertex_buffer(pStreamData);
   const auto native_args = pack(StreamNumber, native_buffer, Stride);
   trace.before(83, native_args, pc);
-@@ -692,11 +779,15 @@
+@@ -692,11 +784,15 @@
  HRESULT STDMETHODCALLTYPE Device8::GetStreamSource(UINT StreamNumber,IDirect3DVertexBuffer8 ** ppStreamData,UINT * pStride) {
   auto guard = trace.guard();
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -422,7 +432,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   return result;
  }
  HRESULT STDMETHODCALLTYPE Device8::SetIndices(IDirect3DIndexBuffer8 * pIndexData,UINT BaseVertexIndex) {
-@@ -717,7 +808,7 @@
+@@ -717,7 +813,7 @@
   trace.before(86, args, pc);
   HRESULT result = real_->GetIndices(ppIndexData, pBaseVertexIndex);
   trace.after(86, args, static_cast<uint32_t>(result), pc);
@@ -431,7 +441,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   return result;
  }
  HRESULT STDMETHODCALLTYPE Device8::CreatePixelShader(const DWORD *byte_code, DWORD *shader) {
-@@ -733,6 +824,10 @@
+@@ -733,6 +829,10 @@
   auto guard = trace.guard();
   const auto args = pack(Handle);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -442,7 +452,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(88, args, pc);
   HRESULT result = real_->SetPixelShader(Handle);
   trace.after(88, args, static_cast<uint32_t>(result), pc);
-@@ -742,6 +837,10 @@
+@@ -742,6 +842,10 @@
   auto guard = trace.guard();
   const auto args = pack(pHandle);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -453,7 +463,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(89, args, pc);
   HRESULT result = real_->GetPixelShader(pHandle);
   trace.after(89, args, static_cast<uint32_t>(result), pc);
-@@ -751,6 +850,10 @@
+@@ -751,6 +855,10 @@
   auto guard = trace.guard();
   const auto args = pack(Handle);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -656,7 +666,7 @@ diff --git a/modernization/renderer/src/race_observer.cpp b/modernization/render
 diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/renderer/src/visual_wrappers.cpp
 --- a/modernization/renderer/src/visual_wrappers.cpp
 +++ b/modernization/renderer/src/visual_wrappers.cpp
-@@ -3,6 +3,26 @@
+@@ -3,6 +3,27 @@
  #include "camera_probe.hpp"
  #include <intrin.h>
  #include <cstring>
@@ -673,6 +683,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
 +#include "frontend_model_native.hpp"
 +#include "grass_native_integration.hpp"
 +#include "spline_objects_native_integration.hpp"
++#include "ps2_birds_native_integration.hpp"
 +#include "ps2_water_native.hpp"
 +#include "reflection_timing_native.hpp"
 +#include "course_objects_native_integration.hpp"
@@ -683,7 +694,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
  namespace gfx2 {
  namespace {
  bool site(uintptr_t pc,uint32_t& rva) noexcept {
-@@ -11,8 +31,76 @@
+@@ -11,8 +32,76 @@
   auto base=reinterpret_cast<uintptr_t>(module);if(pc<base||pc-base>UINT32_MAX)return false;rva=static_cast<uint32_t>(pc-base);return true;
  }
  }
@@ -760,7 +771,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
   DWORD effective=visuals.filter(stage,type,value);
   if(effective!=value&&type==D3DTSS_MINFILTER){
    auto& max=trace.effective_shadow.tss[0][D3DTSS_MAXANISOTROPY];
-@@ -29,6 +117,9 @@
+@@ -29,6 +118,9 @@
  }
  HRESULT STDMETHODCALLTYPE Device8::GetTextureStageState(DWORD stage,D3DTEXTURESTAGESTATETYPE type,DWORD* value){
   auto guard=trace.guard();auto args=pack(stage,type,value);auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(62,args,pc);
@@ -770,7 +781,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
   HRESULT hr=real_->GetTextureStageState(stage,type,value);DWORD native_value=0;bool virtualized=false;
   if(SUCCEEDED(hr)&&stage<8&&type<64&&safe_copy(&native_value,value,4)){
    const auto& logical=trace.shadow.tss[stage][type];const auto& native=trace.effective_shadow.tss[stage][type];
-@@ -41,7 +132,7 @@
+@@ -41,7 +133,7 @@
   return set_transform_at(type,input,reinterpret_cast<uintptr_t>(_ReturnAddress()));
  }
  HRESULT Device8::set_transform_at(D3DTRANSFORMSTATETYPE type,const D3DMATRIX* input,uintptr_t pc){
@@ -779,7 +790,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
   D3DMATRIX changed{};uint32_t rva=0;bool exe=site(pc,rva);int observed_scene_family=-1;float cinematic_vfov=0;D3DMATRIX source_projection{};
   bool cinematic_projection=type==D3DTS_PROJECTION&&safe_copy(&source_projection,input,sizeof(source_projection))&&game_fov.cinematic_projection_vfov(source_projection,exe,rva,cinematic_vfov);
   float applied_vfov=cinematic_projection?cinematic_vfov:visuals.effective.vfov;
-@@ -64,6 +155,11 @@
+@@ -64,6 +156,12 @@
   trace.culling=game_fov.status();
   const D3DMATRIX* forwarded=(rewritten||ui_rewritten||preview_rewritten)?&changed:input;auto native=pack(type,forwarded);
  HRESULT hr=real_->SetTransform(type,forwarded);if(rewritten&&type==D3DTS_PROJECTION)game_fov.projection_applied(applied_vfov,SUCCEEDED(hr));if(FAILED(hr)&&(rewritten||ui_rewritten||preview_rewritten)){trace.after(37,native,static_cast<uint32_t>(hr),pc,&native,rewritten?2:preview_rewritten?64:32,false,true);if(rewritten){game_fov.disable("native_projection_rejected");visuals.effective.fov=false;}if(preview_rewritten){quality->preview_capability.status="UNSUPPORTED";quality->preview_capability.reason="native_preview_projection_rejected";}if(ui_rewritten){quality->config.interface_mode="Stock";ui_margins.disable("native_ui_projection_rejected");}native=args;hr=real_->SetTransform(type,input);rewritten=ui_rewritten=preview_rewritten=false;}if(SUCCEEDED(hr)&&quality&&type==D3DTS_PROJECTION)quality->ui_projection_live=ui_rewritten;trace.after(37,args,static_cast<uint32_t>(hr),pc,&native,rewritten?2:ui_rewritten?32:preview_rewritten?64:0);
@@ -787,11 +798,12 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
 + courseintegration::observe_transform(*this,type,exe,rva,hr);
 + grassintegration::observe_transform(*this,type,exe,rva,hr);
 + splineintegration::observe_transform(*this,type,exe,rva,hr);
++ birdsintegration::observe_transform(*this,type,exe,rva,hr);
 +#endif
   if(SUCCEEDED(hr)&&observed_scene_family>=0)ui_margins.scene_context(observed_scene_family==1);
   if(SUCCEEDED(hr)&&type==D3DTS_VIEW&&exe&&rva==GAMEPLAY_VIEW_RETURN_RVA){D3DMATRIX stock{};if(safe_copy(&stock,input,sizeof(stock)))game_fov.stock_view(stock);}
   if(type==D3DTS_VIEW&&exe){
-@@ -106,6 +202,9 @@
+@@ -106,6 +204,9 @@
  }
  HRESULT STDMETHODCALLTYPE Device8::GetTransform(D3DTRANSFORMSTATETYPE type,D3DMATRIX* out){
   auto guard=trace.guard();auto args=pack(type,out);auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(38,args,pc);
@@ -801,7 +813,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
   HRESULT hr=real_->GetTransform(type,out);D3DMATRIX native_value{};bool virtualized=false;
   if(SUCCEEDED(hr)&&type<512&&safe_copy(&native_value,out,sizeof(native_value))){
    const auto& logical=trace.shadow.matrices[type];const auto& native=trace.effective_shadow.matrices[type];
-@@ -185,9 +284,21 @@
+@@ -185,9 +286,22 @@
    game_fov.clean_view_disarm_count(),game_fov.clean_view_last_disarm_reason(),clean_scope_id!=0,
    game_fov.clean_view_context_trace_frame(),game_fov.clean_view_context_scheduler_generation(),clean_admission.frame);
   skip=skip||suppress_clean_view||suppress_global_hud;
@@ -809,6 +821,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
 + {HRESULT extra=courseintegration::before_ui(*this,ui_callsite,!clean_scope_invalidated&&clean_scope_id&&ui_margins.consumer_hook_intact());if(FAILED(extra))return extra;}
 + {HRESULT extra=grassintegration::before_ui(*this,ui_callsite,!clean_scope_invalidated&&clean_scope_id&&ui_margins.consumer_hook_intact());if(FAILED(extra))return extra;}
 + {HRESULT extra=splineintegration::before_ui(*this,ui_callsite,!clean_scope_invalidated&&clean_scope_id&&ui_margins.consumer_hook_intact());if(FAILED(extra))return extra;}
++ {HRESULT extra=birdsintegration::before_ui(*this,ui_callsite,!clean_scope_invalidated&&clean_scope_id&&ui_margins.consumer_hook_intact());if(FAILED(extra))return extra;}
 + {HRESULT extra=reflectionintegration::before_ui(*this,ui_callsite);if(FAILED(extra))return extra;}
 +#endif
   const auto& view=trace.effective_shadow.matrices[D3DTS_VIEW];D3DMATRIX identity{};identity._11=identity._22=identity._33=identity._44=1;
@@ -824,7 +837,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
   UiOwnershipDrawState ownership_state{};
   const auto& fvf=trace.shadow.bindings.vertex_shader;ownership_state.fvf_known=fvf.known;ownership_state.fvf=fvf.value;
   const auto& texture0=trace.shadow.bindings.textures[0];ownership_state.texture0_known=texture0.known;ownership_state.texture0=texture0.value;
-@@ -198,9 +309,12 @@
+@@ -198,9 +312,12 @@
   for(unsigned i=0;i<UI_OWNERSHIP_STAGE_FIELD_COUNT;++i){unsigned stage=i<3?0u:1u;const auto& state=trace.shadow.tss[stage][stage_keys[i]];ownership_state.stage_known[i]=state.known?1u:0u;ownership_state.stage_values[i]=state.value;}
   uint64_t race_generation=0;const bool race_generation_known=game_fov.race_lifecycle_generation(race_generation);
   ui_margins.observe_ownership_draw(trace.frame_number(),race_generation_known,race_generation,rva,type,count,ownership_state,!skip,skip,hr);
@@ -838,7 +851,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
   return draw_indexed_at(type,min_index,vertices,start,count,reinterpret_cast<uintptr_t>(_ReturnAddress()));
  }
  HRESULT Device8::draw_indexed_at(D3DPRIMITIVETYPE type,UINT min_index,UINT vertices,UINT start,UINT count,uintptr_t pc){
-@@ -210,13 +324,111 @@
+@@ -210,13 +327,114 @@
   if(visuals.effective.foliage_diagnostics&&trace.enabled&&trace.control.active)
    trace.foliage_result(probe_foliage(*real_,trace.resources,args,trace.frame_number(),trace.foliage_budget,this));
   HRESULT hr;
@@ -852,9 +865,9 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
 + const auto brake_draw=lampintegration::draw(*this,type,min_index,vertices,start,count,pc);
 + if(brake_draw.handled){reflectionintegration::note_result(*this,ps2diag::Effect::Models,"brake_lamp","brake_lamp_failed",brake_draw.hr);trace.after(71,args,static_cast<uint32_t>(brake_draw.hr),pc);return brake_draw.hr;}
 + const auto water_draw=waterintegration::draw(*this,type,min_index,vertices,start,count,pc);
-+ if(water_draw.handled){trace.after(71,args,static_cast<uint32_t>(water_draw.hr),pc,nullptr,256,true);if(count)courseintegration::observe_world_draw(*this,water_draw.hr);if(count)grassintegration::observe_world_draw(*this,water_draw.hr);if(count)splineintegration::observe_world_draw(*this,water_draw.hr);return water_draw.hr;}
++ if(water_draw.handled){trace.after(71,args,static_cast<uint32_t>(water_draw.hr),pc,nullptr,256,true);if(count)courseintegration::observe_world_draw(*this,water_draw.hr);if(count)grassintegration::observe_world_draw(*this,water_draw.hr);if(count)splineintegration::observe_world_draw(*this,water_draw.hr);if(count)birdsintegration::observe_world_draw(*this,water_draw.hr);return water_draw.hr;}
 + const auto ground_draw=groundintegration::draw(*this,type,min_index,vertices,start,count,pc);
-+ if(ground_draw.handled){trace.after(71,args,static_cast<uint32_t>(ground_draw.hr),pc,nullptr,256,true);if(count)courseintegration::observe_world_draw(*this,ground_draw.hr);if(count)grassintegration::observe_world_draw(*this,ground_draw.hr);if(count)splineintegration::observe_world_draw(*this,ground_draw.hr);return ground_draw.hr;}
++ if(ground_draw.handled){trace.after(71,args,static_cast<uint32_t>(ground_draw.hr),pc,nullptr,256,true);if(count)courseintegration::observe_world_draw(*this,ground_draw.hr);if(count)grassintegration::observe_world_draw(*this,ground_draw.hr);if(count)splineintegration::observe_world_draw(*this,ground_draw.hr);if(count)birdsintegration::observe_world_draw(*this,ground_draw.hr);return ground_draw.hr;}
 + const auto glass_draw=xtrailintegration::glass_draw(*this,classification,type,min_index,vertices,start,count,pc);
 + if(glass_draw.handled){reflectionintegration::note_result(*this,ps2diag::Effect::Models,"xtrail_glass","xtrail_glass_failed",glass_draw.hr);trace.after(71,args,static_cast<uint32_t>(glass_draw.hr),pc);return glass_draw.hr;}
 + const auto race_draw=frontendmodelintegration::draw_race(*this,type,min_index,vertices,start,count,pc);
@@ -879,6 +892,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
 +  if(count)courseintegration::observe_world_draw(*this,vehicle_draw.hr);
 +  if(count)grassintegration::observe_world_draw(*this,vehicle_draw.hr);
 +  if(count)splineintegration::observe_world_draw(*this,vehicle_draw.hr);
++  if(count)birdsintegration::observe_world_draw(*this,vehicle_draw.hr);
 +  return vehicle_draw.hr;
 + }
 +
@@ -934,6 +948,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
 + if(count)courseintegration::observe_world_draw(*this,hr);
 + if(count)grassintegration::observe_world_draw(*this,hr);
 + if(count)splineintegration::observe_world_draw(*this,hr);
++ if(count)birdsintegration::observe_world_draw(*this,hr);
 +#endif
   return hr;
  }
@@ -945,6 +960,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
 + HRESULT objects=courseintegration::repair(*this);if(FAILED(objects))return objects;
 + HRESULT grass=grassintegration::repair(*this);if(FAILED(grass))return grass;
 + HRESULT splines=splineintegration::repair(*this);if(FAILED(splines))return splines;
++ HRESULT birds=birdsintegration::repair(*this);if(FAILED(birds))return birds;
 + HRESULT water=waterintegration::repair(*this);if(FAILED(water))return water;
 +#endif
   HRESULT world=ui_margins.repair_world(*real_,trace,0);if(FAILED(world))return world;
@@ -953,7 +969,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
 diff --git a/modernization/renderer/src/wrappers.cpp b/modernization/renderer/src/wrappers.cpp
 --- a/modernization/renderer/src/wrappers.cpp
 +++ b/modernization/renderer/src/wrappers.cpp
-@@ -7,14 +7,34 @@
+@@ -7,14 +7,35 @@
  #include "physics_probe.hpp"
  #include "crash_log.hpp"
  #include "broker_null_guard.hpp"
@@ -965,6 +981,7 @@ diff --git a/modernization/renderer/src/wrappers.cpp b/modernization/renderer/sr
 +#include "reflection_native_integration.hpp"
 +#include "grass_native_integration.hpp"
 +#include "spline_objects_native_integration.hpp"
++#include "ps2_birds_native_integration.hpp"
 +#include "course_objects_native_integration.hpp"
 +#include "ps2_water_native.hpp"
 +#endif
@@ -989,7 +1006,7 @@ diff --git a/modernization/renderer/src/wrappers.cpp b/modernization/renderer/sr
     try{s.write("{\"type\":\"unknown_query_interface\",\"interface\":\"root\",\"raw_escape_possible\":true,\"foliage_provenance_disabled\":true}");}catch(...){}
    }
   }return hr;
-@@ -41,6 +61,39 @@
+@@ -41,6 +62,43 @@
   return hr;
  }
  Device8::Device8(IDirect3DDevice8* p,Root8* parent,std::unique_ptr<QualityPipeline> policy) noexcept:quality(std::move(policy)),real_(p),parent_(parent){parent_->AddRef();try{auto& s=session();D3DCAPS8 caps{};HRESULT hr=D3DERR_NOTAVAILABLE;if(s.visual_config.anisotropy)hr=real_->GetDeviceCaps(&caps);visuals.configure(s.visual_config,s.target,SUCCEEDED(hr)?&caps:nullptr,hr);
@@ -1012,6 +1029,10 @@ diff --git a/modernization/renderer/src/wrappers.cpp b/modernization/renderer/sr
 +  auto& splines=*ps2_port_->spline_objects();splines.initialize(*real_);
 +  try{s.write("{\"type\":\"ps2_spline_objects_config\",\"requested_mode\":1,\"effective_mode\":"+std::string(splines.active()?"1":"0")+",\"courses\":"+std::to_string(splines.asset().courses.size())+",\"objects\":"+std::to_string(splines.asset().objects.size())+",\"status\":"+quote(splines.reason())+",\"asset_sha256\":"+quote(ps2port::kSplineObjectsArtifactSha)+"}");}catch(...){}
 + }
++ if(ps2_port_&&ps2_port_->birds()&&ps2_port_->birds()->requested()){
++  auto& birds=*ps2_port_->birds();birds.initialize(*real_);
++  try{s.write("{\"type\":\"ps2_birds_config\",\"requested_mode\":1,\"effective_mode\":"+std::string(birds.active()?"1":"0")+",\"courses\":"+std::to_string(birds.asset().courses.size())+",\"ignore_list_gate_diagnostic\":"+std::string(birds.ignore_gate()?"true":"false")+",\"status\":"+quote(birds.reason())+",\"asset_sha256\":"+quote(ps2port::kPS2BirdsArtifactSha)+"}");}catch(...){}
++ }
 + if(ps2_port_&&ps2_port_->water()&&ps2_port_->water()->requested()){
 +  auto& water=*ps2_port_->water();water.initialize(*real_);
 +  try{s.write("{\"type\":\"ps2_water_config\",\"requested_mode\":1,\"effective_mode\":"+std::string(water.active()?"1":"0")+",\"courses\":"+std::to_string(water.asset().courses.size())+",\"keys\":"+std::to_string(water.asset().keys.size())+",\"status\":"+quote(water.reason())+",\"asset_sha256\":"+quote(ps2port::kPS2WaterArtifactSha)+"}");}catch(...){}
@@ -1029,7 +1050,7 @@ diff --git a/modernization/renderer/src/wrappers.cpp b/modernization/renderer/sr
   visuals.effective.fov=s.visual_config.fov&&s.compatibility.fov.supported();visuals.effective.fov_reason=s.compatibility.fov.reason;
   visuals.effective.reflection_mode=s.compatibility.vehicle.supported()?s.visual_config.reflection_mode:"Stock";visuals.effective.reflection_reason=s.compatibility.vehicle.reason;
   if(!quality){quality=std::make_unique<QualityPipeline>();quality->configure(s.visual_config,s.compatibility.ui.supported(),0,D3DDEVTYPE_HAL,nullptr);}
-@@ -48,6 +101,10 @@
+@@ -48,6 +106,10 @@
   const auto flight_config=parse_free_camera_config(s.visual_config.raw_fields);
   const bool hud_feature_requested=s.target&&s.visual_config.version_ok&&s.visual_config.hud_toggle_valid&&
    (s.visual_config.hud_toggle_enabled||s.visual_config.hud_hidden_at_startup);
@@ -1040,7 +1061,7 @@ diff --git a/modernization/renderer/src/wrappers.cpp b/modernization/renderer/sr
   install_crash_log(s.config_path);
   auto physics_settings=forward_free_camera_teleport_settings(
    read_physics_probe_settings(s.config_path),flight_config);
-@@ -57,7 +114,7 @@
+@@ -57,7 +119,7 @@
   // Reuse the already verified DrawTextPacket consumer hook for exact-retail
   // F10 ownership observation. It is pass-through unless PreserveMargins is
   // independently selected; no additional game patch site is introduced.
@@ -1049,7 +1070,7 @@ diff --git a/modernization/renderer/src/wrappers.cpp b/modernization/renderer/sr
      !ui_margins.install(s.compatibility.margins.supported()||s.target,true)&&preserve_margins_requested){
    quality->config.interface_mode="Stock";quality->config.interface_reason=ui_margins.reason;
   }
-@@ -72,10 +129,50 @@
+@@ -72,10 +134,52 @@
   if(!s.foliage_provenance_available.load(std::memory_order_relaxed))visuals.effective.foliage_diagnostics=false;
   if(quality->valid){visuals.effective.display_mode=quality->display;visuals.effective.display_reason=quality->display_reason;visuals.effective.aa_mode=quality->effective.MultiSampleType==D3DMULTISAMPLE_NONE?"Stock":"MSAA";visuals.effective.aa_reason=quality->aa_reason;}
   if(quality->valid)ui_margins.dimensions(quality->effective.BackBufferWidth,quality->effective.BackBufferHeight);
@@ -1074,6 +1095,7 @@ diff --git a/modernization/renderer/src/wrappers.cpp b/modernization/renderer/sr
 +  if(ps2_port_->course_objects()){courseintegration::repair(*this);ps2_port_->course_objects()->before_reset();}
 +  grassintegration::repair(*this);for(auto* detail:ps2_port_->ground_details())if(detail)detail->before_reset();
 +  if(ps2_port_->spline_objects()){splineintegration::repair(*this);ps2_port_->spline_objects()->before_reset();}
++  if(ps2_port_->birds()){birdsintegration::repair(*this);ps2_port_->birds()->before_reset();}
 +  if(ps2_port_->water()){waterintegration::repair(*this);ps2_port_->water()->before_reset();}
 +  ps2_port_->pixel_probe_before_reset();
 +  ps2_port_->present_before_reset();
@@ -1089,6 +1111,7 @@ diff --git a/modernization/renderer/src/wrappers.cpp b/modernization/renderer/sr
 +  if(ps2_port_->course_objects())ps2_port_->course_objects()->after_reset(*real_,native_reset_called,successful);
 +  for(auto* detail:ps2_port_->ground_details())if(detail)detail->after_reset(*real_,native_reset_called,successful);
 +  if(ps2_port_->spline_objects())ps2_port_->spline_objects()->after_reset(*real_,native_reset_called,successful);
++  if(ps2_port_->birds())ps2_port_->birds()->after_reset(*real_,native_reset_called,successful);
 +  if(ps2_port_->water())ps2_port_->water()->after_reset(*real_,native_reset_called,successful);
 +  ps2_port_->pixel_probe_after_reset(*real_,native_reset_called,successful);
 + }
@@ -1102,7 +1125,7 @@ diff --git a/modernization/renderer/src/wrappers.cpp b/modernization/renderer/sr
   std::lock_guard<std::recursive_mutex> l(buffer_mutex_);auto i=buffer_proxies_.find(raw);if(i!=buffer_proxies_.end()&&i->second&&i->second->kind()==BufferKind::Vertex){auto* p=static_cast<VertexBufferProxy*>(i->second->proxy_pointer());if(p->core().generation()!=trace.resources.generation(reinterpret_cast<uintptr_t>(raw))){invalidate_buffer_shadow(raw,"buffer_generation_changed_raw_escape");return raw;}p->AddRef();raw->Release();return p;}
   if(buffer_proxies_.size()>=8192){invalidate_buffer_shadow(raw,"buffer_proxy_count_limit_raw_escape");return raw;}
   auto* p=new(std::nothrow)VertexBufferProxy(this,raw,trace.resources.generation(reinterpret_cast<uintptr_t>(raw)));
-@@ -84,7 +181,7 @@
+@@ -84,7 +188,7 @@
   return static_cast<IDirect3DVertexBuffer8*>(p);
  }
  IDirect3DIndexBuffer8* Device8::wrap_index_buffer(IDirect3DIndexBuffer8* raw) noexcept {
@@ -1111,7 +1134,7 @@ diff --git a/modernization/renderer/src/wrappers.cpp b/modernization/renderer/sr
   std::lock_guard<std::recursive_mutex> l(buffer_mutex_);auto i=buffer_proxies_.find(raw);if(i!=buffer_proxies_.end()&&i->second&&i->second->kind()==BufferKind::Index){auto* p=static_cast<IndexBufferProxy*>(i->second->proxy_pointer());if(p->core().generation()!=trace.resources.generation(reinterpret_cast<uintptr_t>(raw))){invalidate_buffer_shadow(raw,"buffer_generation_changed_raw_escape");return raw;}p->AddRef();raw->Release();return p;}
   if(buffer_proxies_.size()>=8192){invalidate_buffer_shadow(raw,"buffer_proxy_count_limit_raw_escape");return raw;}
   auto* p=new(std::nothrow)IndexBufferProxy(this,raw,trace.resources.generation(reinterpret_cast<uintptr_t>(raw)));
-@@ -141,17 +238,52 @@
+@@ -141,17 +245,52 @@
   try{out.assign(mirror.data.begin()+static_cast<size_t>(offset),mirror.data.begin()+static_cast<size_t>(end));return true;}catch(...){out.clear();return false;}
  }
  void Device8::invalidate_buffer_shadow(void* raw,const char* reason) noexcept {std::lock_guard<std::recursive_mutex> l(buffer_mutex_);auto i=buffer_mirrors_.find(raw);if(i==buffer_mirrors_.end()||!i->second)return;auto& mirror=*i->second;std::lock_guard<std::mutex> m(mirror.mutex);mirror.poisoned=true;mirror.initialized.clear();if(mirror.revision!=UINT64_MAX)++mirror.revision;try{mirror.poison_reason=reason?reason:"external_gpu_write";}catch(...){mirror.poison_reason.clear();}}
@@ -1166,7 +1189,7 @@ diff --git a/modernization/renderer/src/wrappers.cpp b/modernization/renderer/sr
   }trace.after(0,args,static_cast<uint32_t>(hr),pc);return hr;
  }
  ULONG STDMETHODCALLTYPE Device8::AddRef(){
-@@ -162,7 +294,15 @@
+@@ -162,7 +301,16 @@
   ULONG n;bool last;
   {
    auto observer=trace.guard();auto args=pack();auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(2,args,pc);
@@ -1177,6 +1200,7 @@ diff --git a/modernization/renderer/src/wrappers.cpp b/modernization/renderer/sr
 +   if(last&&ps2_port_&&ps2_port_->course_objects())ps2_port_->course_objects()->shutdown();
 +   if(last&&ps2_port_)for(auto* detail:ps2_port_->ground_details())if(detail)detail->shutdown();
 +   if(last&&ps2_port_&&ps2_port_->spline_objects())ps2_port_->spline_objects()->shutdown();
++   if(last&&ps2_port_&&ps2_port_->birds())ps2_port_->birds()->shutdown();
 +   if(last&&ps2_port_&&ps2_port_->water())ps2_port_->water()->shutdown();
 +#endif
 +   n=real_->Release();if(last)parent_->devices.erase(real_);}
