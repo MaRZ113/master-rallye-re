@@ -1,3 +1,28 @@
+# Physics & Camera / Vehicle Presentation — 26 October 2026
+
+Private evidence root: `.research-output/vehicles/pcstudio/`. See
+[implementation/results](PHYSICS_CAMERA_RESULTS.md). Existing phase evidence
+below remains historical. Actual new-candidate D3D8 gameplay is pending.
+
+| Check | Result / evidence | Boundary |
+| --- | --- | --- |
+| Complete Windows checkout | 862 tests / one optional skip, 47.458 s; eight new generated-fixture tests | Optional absent fixture not converted into a pass |
+| Physics GUI | 173 typed rows, 33 source families; mass/RPM/reference group edit, reject guards, history and reopen | Initialization profiles, not live simulation; no stock physics authoring |
+| Physics isolation | 1320→1386 kg; only LancerEvo4/Chassis/TotalMass differs in vehicles.xml | Deliberate mass demonstration, not fitment/handling retuning |
+| Camera GUI/build | Exact CarID28/family/car SHA, source/extents overlay, Reset/Undo/Redo; zero game-resource changes | Follow extents, no direct distance/FOV/replay controls |
+| Native camera | 18 original-x86 target/model/stock/unknown-slot/missing-Broker cases | Typed services stubbed; no dynamic game camera proof |
+| Names and aliases | Native display literals/Results; two real shared atlas aliases; search/history/reopen | Native filenames/IDs/families fixed; ASCII SDK budgets, unknown screen-width limits |
+| Art | Both native dimensions, frontend/race presentation, deterministic rerender, independent role Apply, full input pins, exact composer output | Approximate CPU diffuse; stock bank-frame replacement unsupported |
+| Combined GUI Build | Exactly vehicles.xml + Lancer carsheet033/smallcarsheet031 frames changed | Models/audio/other vehicle resources byte-identical; owner gameplay pending |
+| Save/recovery/versions | Scoped and global Restore/Undo, reopening, real Source/Classic layers, customized audio preset retained | New camera/art require source requalification; no lossy output reused as import |
+| Material / stock regression | Actual Windows selected RGB, Binding v2, reflection, addon/stock candidates and zero stock overrides after Restore | D3D9 and package validation, not D3D8 |
+| Audio regression | Four source imports, presets, five auditions; engine/owner/reentry/stock passthrough and three allocation-failure native replays | DirectSound device and listening pending |
+| Appearance regression | Paint/Crew, stock material browser, Classic GUI and 30 diagnostic captures, deterministic conversion/native damage | No new Classic approval or visual tuning |
+| Texture Viewer | 4 images × 7 zooms × 2 windows; BGRA/PNG unchanged | Display-only captures |
+| Preservation | 736 accepted Source/Classic resources, previous five audio candidates, EXE/DLL/retail/installed SMA hashes rechecked | Private sealed resources excluded from archive |
+
+---
+
 # V-SDK3.1 / V-SDK4A regression and acceptance matrix
 
 Evidence root: `.research-output/vehicles/vsdk3/`. Private captures/candidates

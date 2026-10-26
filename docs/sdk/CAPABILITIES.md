@@ -1,6 +1,19 @@
 # Rally Workshop capability inventory
 
-Current update: V-SDK4D, 26 October 2026. See [Audio Studio results](VSDK4D_RESULTS.md) and [preserved Classic pilot](VSDK4B1_RESULTS.md).
+Current update: Physics & Camera Studio / Vehicle Identity, 26 October 2026.
+See [results and exact boundaries](PHYSICS_CAMERA_RESULTS.md). Audio Import 2.0
+and optional GT Sound Bank Lab integration are the next independent milestone.
+
+| Physics / Camera / Presentation | Implemented boundary |
+| --- | --- |
+| Physics Studio | Searchable grouped typed addon initialization editor; 173 Lancer rows, 33 schema-qualified retail reference families; source/current/reference, units/guards/pins, compatible group copy, independent family; no live solver or stock physics editor |
+| Gameplay Camera | Source-qualified CarID/family/model-SHA follow half-length and height extents, source/changed Z/Y diagram, reset/history/build; separate from orbit/UI cameras; no FOV/smoothing/replay or CarID0 support |
+| Vehicle Details | Addon manufacturer/model/combined/Results ASCII labels and project description; conservative SDK text budgets; native IDs, families, namespaces and stock labels locked |
+| Friendly texture aliases | Metadata-only, source-hash association, search alias/native, original-resource inspection, history/reopen and compatible version replay; shared atlas roles remain explicit |
+| Generate Vehicle Art | Existing bounded CPU DX/DXT renderer plus mr-native-v1; frontend or qualified assembled race rest pose; yaw/pitch/padding; independent 128×128 / 32×16 generation, compare, explicit Apply, pinned inputs and exact single-pass native bank compilation |
+| Build/recovery | Shared Core/GUI/CLI, Save/Undo/Redo/Restore/Validate/isolated Build; separate physics-only, camera-only and combined candidates; no installed-resource edits |
+| Cross-module | Original models and all four audio layers/presets retained; new visual versions replay authoring layers without baking them into Restore defaults; camera/art requalification conflicts reported |
+| Qualification | 862 tests / 1 optional skip; actual Windows GUI, D3D9 regression, native x86 camera/name/audio checks and exact resource differences. New candidate gameplay remains pending |
 
 | V-SDK4B.1 capability | Implemented boundary |
 | --- | --- |

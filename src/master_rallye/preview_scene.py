@@ -18,6 +18,21 @@ from .addon_sdk.texture_budget import RETAIL_TEXTURE_CACHE_BYTES,DEFAULT_VEHICLE
 
 MAX_SCENE_BYTES=256*1024*1024
 
+def preview_transform(transform):
+    """Shared explicit presentation-instance transform (never physics fitting)."""
+    if not transform:return (lambda v,position=False:v),[1.,1.,1.]
+    if not {'translation','rotation_y'}<=set(transform) or set(transform)-{'translation','rotation_y','scale'}:raise ValueError('unsupported wheel transform')
+    tr=transform['translation'];angle=float(transform['rotation_y']);scale=transform.get('scale',[1.,1.,1.])
+    if len(scale)!=3 or not all(math.isfinite(v) and .1<=abs(v)<=10 for v in scale):raise ValueError('invalid visual wheel scale')
+    if len(tr)!=3 or not all(math.isfinite(v) and abs(v)<100 for v in [*tr,angle]):raise ValueError('invalid wheel transform')
+    ca,sa=math.cos(angle),math.sin(angle)
+    def vec(v,position=False):
+        x,y,z=(v[k]*(scale[k] if position else 1/scale[k]) for k in range(3));out=(ca*x+sa*z,y,-sa*x+ca*z)
+        if not position:
+            length=math.sqrt(sum(n*n for n in out));out=tuple(n/length for n in out) if length else (0.,1.,0.)
+        return tuple(out[k]+(tr[k] if position else 0) for k in range(3))
+    return vec,scale
+
 
 def preview_bgra(texture):
     """GPU cache convention: retain rows, unlike an upright PNG export.
@@ -181,19 +196,7 @@ def stage_vehicle(source:Path, output:Path, *, profile:Path|None=None):
         if model_kind==3 and instances:transforms=[None]+instances
         for instance_no,transform in enumerate(transforms):
             target_model=1 if instance_no or model_kind==4 else model_kind
-            if transform:
-                if not {'translation','rotation_y'}<=set(transform) or set(transform)-{'translation','rotation_y','scale'}:raise ValueError('unsupported wheel transform')
-                tr=transform['translation'];angle=float(transform['rotation_y'])
-                scale=transform.get('scale',[1.,1.,1.])
-                if len(scale)!=3 or not all(math.isfinite(v) and .1<=abs(v)<=10 for v in scale):raise ValueError('invalid visual wheel scale')
-                if len(tr)!=3 or not all(math.isfinite(v) and abs(v)<100 for v in [*tr,angle]):raise ValueError('invalid wheel transform')
-                ca,sa=math.cos(angle),math.sin(angle)
-            def vec(v,position=False):
-                if not transform:return v
-                x,y,z=(v[k]*(scale[k] if position else 1/scale[k]) for k in range(3));out=(ca*x+sa*z,y,-sa*x+ca*z)
-                if not position:
-                    length=math.sqrt(sum(n*n for n in out));out=tuple(n/length for n in out) if length else (0.,1.,0.)
-                return tuple(out[k]+(tr[k] if position else 0) for k in range(3))
+            vec,scale=preview_transform(transform)
             for d in m.physical_draws:
                 if d.index_count==0:continue
                 if d.draw_index in selected_glass and cases[d.draw_index][1]!=selected_glass[d.draw_index]:continue

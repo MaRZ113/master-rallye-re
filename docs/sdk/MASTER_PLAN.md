@@ -1,3 +1,280 @@
+# Implementation checkpoint — Physics & Camera Studio completed offline
+
+26 October 2026. The scoped Physics / Camera / Vehicle Identity / Vehicle Art
+implementation is complete. Shared Core, Windows GUI, typed independent physics,
+source-qualified follow extents, display labels, hash-associated aliases and
+explicitly applied MR-style artwork are functional. Full suite: 862 tests,
+one optional skip. Three isolated candidate paths and exact differences are
+recorded in PHYSICS_CAMERA_RESULTS.md and REGRESSION_MATRIX.md. Native/device
+and D3D8 owner tests remain pending; no gameplay qualification is claimed.
+
+The owner's v5.6 handoff is preserved below. Audio Import 2.0 and optional GT
+Audio Source Adapter are next, in a separate validated local phase. Independent
+Lab worktree/provenance and real package initializers must be preserved. Its
+reported private corpus results are not yet revalidated by this main checkout.
+
+---
+
+# Master Plan v5.6 — GT Sound Bank Lab handoff accepted for integration planning
+
+**Date:** 26 October 2026. **Current active main-agent work:** Physics & Camera Studio + Vehicle Identity & Presentation. **Independent research result:** GT Sound Bank Lab has completed a source-only handoff and synthetic validation. The Audio Import 2.0 milestone remains next for the main agent; GT sound-bank integration is an additive source adapter, not a prerequisite for arbitrary user-file import. Original game playback parity remains unproven.
+
+## GT Sound Bank Lab — source-review checkpoint
+
+Reviewed archive: `GT-Sound-Bank-Lab-source-20261026-final.zip`. Archive CRC clean; **33/33** content files match `source-manifest.json` (34 ZIP entries including the manifest); all **18 Python files parse** and independently **30/30 synthetic tests pass** in the isolated package. The researcher reports additional corpus/native verification using the private GT source files, which are **not** in the source-only archive and thus cannot be independently replayed from it. No live GT3/GT4 game/PCSX2 audio capture or listening test is claimed. The independent worktree and main Codex workspace remain separate; no merge or push evidenced by the ZIP.
+
+### Qualified source-chain and bank findings (researcher-reported corpus analysis)
+
+- **GT3:** US CAR244, ENGINE235, referenced sound numbers118; EU244 and JP242 CAR rows in other regional DBs. **1,215 banks**, **8,554 entries**, **8,501 bank-local spans** structurally audited. GT3 native CODE/GTSE routes `b_off`, `turbine`, `turbine2` into specific original INST voices; leaf pitch words are source-derived. Original event labels are not independently verified real-world acoustic descriptions. Short mesh code `sb0097` is not proven to join directly to a CAR row; do not invent that association.
+- **GT4 Beta extracted corpus:** 723 GENERIC_CAR labels, 384 sound numbers, **3,572 numerical banks** fully decoded (21,439 band records and 21,433 bank-local spans). Default parts mapping requires DEFAULT_PARTS muffler key **+152** (not +136); category and turbo eligibility select `normal0..3` or `turbo0..3` under the supplied CORE. Lancer `mits0015` → `lancer_evo4_wrc_97` → ENGINE row1605 → Sound ID22601, **shared by 11 ENGINE rows**. Static default-part interpretation selects `turbo3`; available asset pairing with supplied Online-US CORE remains comparative, not proven historical playback.
+- **Playback architecture:** GT4 supplied CORE loads **base engine**, **tuned engine/normal/turbo**, and **roadnoiz.es** as separate control streams. RPM banks mix up to two neighboring entries. GT4 native `turbine2` event has a continuous source-sample path tied to drivetrain/gear and speed controls (substantially stronger evidence than filename-only guessing); `turbine` has a separate controlled stream; `b_off` is an event-triggered one-shot. The full BOV state producer/trigger thresholds remain unproven. `shift_change` has a named token but is missing direct program15 in the sampled Beta race2 bank.
+- **GT4 INST/JAM:** original native address shift is 3 (8-byte address units) for supplied main race banks, correcting an earlier *16-byte* interpretation. 24 INST banks, 107 entries, 93 supported for PCM export and 14 explicitly unsupported due to unresolved loop/SSA policies. Never guess or silently substitute absent programs or unsupported entries.
+- **Source-only explorer:** `tools/gt_sound_lab.py`, `gt_sound_lab_server.py`, `gt_sound_lab.html`, `gt3_sound_lab.py`, `gt_sound_jam.py`, native verification tools, JSON schema and PowerShell startup. Provides private GT3/GT4 catalogs, source-qualified bank lookup, RPM/loop inspection, comparison and explicit mono PCM WAV audition/export with source/rate provenance. Local loopback browser; original inputs read-only; no assets, extracted audio, executables, native dumps or catalogs in distributable archive.
+
+### Main Codex integration rules after Physics & Camera
+
+1. Complete Physics & Camera Studio and Vehicle Presentation as already scoped. Do not redirect active worktree mid-milestone.
+2. Implement **Audio Import 2.0** independently: friendly source file import (qualified decoder adapters), preview before apply, per-layer assign/loop/trigger treatment, gain/clipping, safe conversion and reversal for Engine/Whine/Spool/BOV. Do not require GT original-bank solution for user-owned WAV/FLAC/MP3/Ogg import.
+3. Add an **optional GT Audio Source Adapter** consuming machine-readable lab records and private local source folders: `Find sounds for this car` → bank variants → entry / RPM / loop / evidence → audition → explicit source-to-layer selection → Audio Studio conversion → isolated build. Distinguish candidate default, statically source-associated, dynamic runtime-qualified and user-chosen sounds. Never identify `turbine2` as an acoustic transmission recording with certainty until listening/gameplay validation.
+4. For Engine, initially permit an explicit source band as **single-loop MR approximation**; show all available original RPM bands as inspectable. Genuine GT multi-band engine mixing requires a separate source-qualified native/ABI/AI/reentry/performance implementation before it can be advertised.
+5. **Integration caution:** the source-only ZIP includes **generated minimal `src/master_rallye/__init__.py` and `src/master_rallye/addon_sdk/__init__.py` shims**, not the original Workshop package files. **Do not copy those shims over the main repository's package initializers.** Review/merge shared files `gt4_spec.py`, `gt4_source.py`, `gt4_audio_extract.py` and tests deliberately. Use a separate adapter layer instead of overwriting active main-Codex changes.
+6. Preserve source build SHA256, bank hash, sample-offset semantics (GT3 compressed member offsets versus bank-decoded sample offsets), sample ID, explicit rate provenance and unsupported statuses in project metadata. Private generated catalogs and extracted samples must stay ignored/local. Provide error messages for missing banks, unsupported entries and ambiguous model-code associations; do not guess replacements.
+7. Add regression against existing Lancer ID28 audio, stock vehicle passthrough, AI/CarID isolation, lossless reversibility, native sound-hook safety, candidate diffs, CPU/memory budgets and real-game listening later. Label researcher-reported private corpus runs separately from locally reproducible synthetic tests. Local validated commits permitted; no push/publication.
+
+### Outstanding research, deliberately nonblocking
+
+- Matching GT4 Beta assets to the supplied Online-US CORE during actual gameplay; full gain envelopes, source controls, spatial/Doppler/ADSR/LFO and actual audible mix.
+- GT4 BOV event producer and thresholds; the missing `shift_change` program15; fourteen unsupported JAM entries; sequence-mode dispatch.
+- GT3 full in-race sound triggers and exact mesh short-code ↔ CAR label links (including `sb0097`); runtime/PCSX2 listening tests for any claimed acoustic identity.
+- Multi-RPM GT engine playback in Master Rallye beyond today's qualified single-loop synthesis; do not change stock audio paths or the original executable/d3d8.dll without established safety boundary.
+
+---
+
+# Master Plan v5.4 — Audio Studio accepted offline; Physics, Camera & Vehicle Presentation next
+
+**Date:** 26 October 2026. **Decision:** V-SDK4D Audio Studio is implemented and source/offline validated; D3D8 listening and V-SDK4B.1 Classic-Lancer gameplay A/B remain nonblocking owner gates. The next active milestone is **Physics & Camera Studio + Vehicle Identity & Presentation**. Keep older numbered V-SDK history below intact as historical planning; this decision overrides stale “Audio Studio next” and “GT Garage Lab immediately next” schedules wherever they occur in older sections. The user-facing milestone name is preferred over increasing numeric suffixes.
+
+## V-SDK4D final status — evidence and boundaries
+
+- Archive `rally-workshop-vsdk4d-source-review.zip`: 989 ZIP entries, valid CRC; 987 SHA256 manifest matches; 421 Python files parse; independent targeted Python tests **44/44 PASS** (31 audio/profile/integration/candidate and 13 Workshop tests) in a non-Windows environment. The complete Windows suite **854 PASS / one optional skip** and real Tk/dialog/build evidence are reported by Codex, not independently repeated here.
+- Implemented shared authoring layer `src/master_rallye/workshop/audio.py`, user GUI `audio_ui.py`, CLI and offline Help; Engine, Transmission Whine, Turbo Spool, BOV; qualified PCM WAV import (original untouched, private SHA256-pinned copies), source assignment, response/bounds, audition with x86 original DSP + authored supplementary simulation, Mute/Solo, presets, Undo/Redo/Restore and isolated build.
+- Five isolated Lancer experiments A–E reportedly change precisely **1/1/1/1/4 named WAV resource paths**, with unaffected models, camera, physics, UI and rest of fleet. This is resource-level evidence, not proof of actual DirectSound playback quality.
+- Preserve the original native sound implementation and previous ECX/register/lifetime protections. **Stock/family-only audio authoring unsupported**; native engine cannot be disabled via candidates; “disable spool” retains silent native spool voice and estimator for BOV; provenance and supported PCM limits must be stated honestly.
+- Native engine/AI reentry, SFX failures and real game mix remain separately evidenced. Game listening on A–E and Classic Lancer Source/Classic gameplay comparison are **PENDING, NONBLOCKING**. Local implementation commit reported in archive `COMMIT_LEDGER.md` as `4d38299362fdd6d2518829d8824ebda5b33ca5d4`; ZIP does not independently prove Git history. No push/publication authorized.
+
+## NEXT — Physics & Camera Studio + Vehicle Identity & Presentation
+
+**Goal:** the first complete GUI journey to edit a qualified addon’s real physics values and experimental per-CarID camera follow extents, give it a readable in-game name, label project textures, generate vehicle select and race-results art, and build/restore an isolated candidate. Use shared SDK Core, not GUI-specific parsers. When gameplay proof is unavailable, keep the gate pending and continue after qualified offline tests.
+
+### A. Physics Studio (native initialization profiles, not an invented solver)
+
+- Reuse `addon_sdk/physics_profile.py`, `addon_sdk/project.py`, existing `physics-profile.json`, stock donor clone, and exact hash-qualified local retail `Data.sma` members `DataGame/vehicles.xml` and `DataGame/Modifications.xml`. Never patch retail Data.sma or originals.
+- Expose searchable, grouped qualified typed fields: dimensions, mass/inertia, powertrain/torque/RPM, drive type, steering, brake balance, suspension, dampers, wheel/tyre relationships and qualified per-player modifications. Show units, stock donor/source values, current overrides, bounds and provenance. Any path not covered by the backend schema remains read-only.
+- Offer donor/source library (qualified stock family templates from exact retail corpus), presets, before/after diff and explicit copy-on-write family identity. **Do not copy an entire stock file blindly**; preserve namespace, wheelbase/track/radius, collision/hubs and actual ride-height distinctions. No speculative automatic balancing.
+- Make at least one clearly observable physics edit on existing Lancer and show that only that vehicle’s typed override/resources change. Preserve audio across preset and project edits. Test reset, Undo/Redo, Save, reload, Validate, Build, Restore, zero-change equality and resource diffs. Provide future gameplay checklist for acceleration, grip, braking, reverse, collisions and AI.
+- Display which properties affect **game initialization**, which are **preview-only**, and which require separate native research; physics sliders must not fake real-time vehicle motion simulation.
+
+### B. Camera Studio (strict per-CarID capability boundary)
+
+- Distinguish **in-game follow-camera** from independent **3D Previewer orbit/pan/bookmarks**. Existing `addon_sdk/camera_profile.py` qualifies only hash-pinned per-CarID **follow-extents** (`half_length_m`, `height_m`) bound to observed DX collision bounds and runtime families; per-CarID field isolation has prior owner evidence on Lancer and Megane.
+- Provide numeric controls and a diagnostic overlay/gizmo (source bounds, edited bounds), alongside source/model hashes, target CarID, reset, before/after and warnings when a bounds edit may affect visual camera framing. Do not claim that these numbers directly mean “camera distance” or “camera height”.
+- Enforce current guardrails: verified qualifying model hashes and CarIDs only; CarID0 and unqualified cameras read-only, with clear reason. Do not silently mutate overall model scale, damage/collision or wheel fitment when editing follow-camera extents. Unsupported FOV, smoothing, focus, rear/replay modes remain read-only future work.
+- Validate actual isolated candidate output and source-dependent patch selection; test **targeted CarID only**, multiple candidate composition, stock passthrough, re-entry and no other vehicle effects. Game D3D8 approval remains owner task.
+
+### C. Vehicle Identity (user-friendly vs native identity)
+
+- Provide editable manufacturer, model, full display name, and qualified race-results display name where SDK/native contracts permit. Display immutable/internal addon_id, runtime family, physical CarID, registry identity and resource namespaces separately.
+- Tie edits to `addon.json`/existing manifest profiles without breaking physically assigned CarIDs or locally qualified runtime names; respect ASCII/name-buffer/font constraints and provide a character budget/preview. If a name is locked by a hashed runtime identity profile, show the blocker rather than changing identity quietly.
+- Add reliable metadata-level **Friendly Name** for textures/materials (e.g., `Body Paint`, `Wheel Rim`, `Rear Lamp`) with stable resource IDs and contextual draw associations. Do not rename referenced on-disk `.dxt` files as if this were only a label; implement actual native resource renaming only in a later qualified writer pass, with full dependency rebinding.
+- Make display labels searchable and persistent across project reopen, style versions and compatible conversion rebuilds. Preserve semantic aliases where identifiers remain stable and explicitly mark conflicts otherwise.
+
+### D. Generate Vehicle Art — reuse existing MR generator
+
+- Reuse `addon_sdk/ui_preview.py`, `ui_assets.py` and `tools/generate_vehicle_ui_previews.py`; do not author a second icon converter. Produce **Vehicle Select 128×128** and **Race Results 32×16** from a qualified source DX, both locally previewable. Keep `mr-native-v1` style/presentation and allow controlled orientation, framing, brightness where the renderer supports it; preserve source image provenance.
+- Provide **Generate Vehicle Art**, separate rerender for each image, before/after, preview, explicit Apply, Undo/Restore. Generated PNGs must be project-owned and original source model remains immutable. Make generation from Frontend / Race variants explicit.
+- Validate native texture/bank append-only limits, frame refs, DXT word0x08 CRC, cross-addon name/slot conflicts and that only intended UI resources changed. No private stock art in source distribution; use user’s local retail assets as templates.
+- Clearly separate “preview generated” from “in-game icon actually installed” and show game-validation status.
+
+### E. Regression, shipping and scope
+
+- Preserve V-SDK4D four-layer Audio Studio and presets, Source/Classic Lancer separation, Subaru glass, Pajero visuals, wheel assembly and brake lights, true texture rebinding and reflection, Paint/Crew, stock copy-on-write, PERF2 bulk DXT loading and SCALE1 qualified 29/30 roster without claiming wider capacity.
+- Use only local reversible candidate output; no on-disk modifications of `MRallye.exe`, original `Data.sma`, `d3d8.dll` or original game resources. Keep Randomizer unrelated. Private MR/GT resources and audio never enter source-only review archive.
+- Implement/validate the full functional UI, not empty tabs. Use real Windows GUI evidence and owner checklist, focused and full automated tests, exact changed-resource/diff manifests, offline F1 Help. Complete bounded milestone, record one scoped local Git commit and result reports. **No push, releases or publication** without separate permission.
+- Do not start MR Heritage Garage, entire GT3 corpus audit, Blender Bridge or Fleet Builder in this pass. Preserve their detailed historical requirements below, including later native MR Demo imports, physical stock profiles and AI/roster integration.
+
+**Acceptance:** In one open Rally Workshop project I can inspect a verified Lancer, edit an allowed physics parameter and an eligible gameplay-follow extent, set a supported display label and friendly texture aliases, generate both MR-native UI images, compare and persist changes, validate/build isolated resources, Undo/Redo/Restore, and see an accurate summary of what changed and what still requires owner gameplay validation.
+
+---
+
+# Master Plan v5.3 — Vehicle Identity & Presentation in Physics & Camera Studio
+
+**Date:** 26 October 2026. **Decision:** extend the upcoming **Physics & Camera Studio** pass with a bounded, real **Vehicle Identity & Presentation** workspace: editable vehicle display names, understandable texture aliases, and a one-click native-style vehicle icon/thumbnail generator. Preserve every requirement and historical decision in v5.2 and earlier. This is **planned work**, not a claim that a full GUI identity editor exists. The currently assigned **Sound Studio** remains first.
+
+## 1. Reuse the existing qualified MR UI asset pipeline
+
+- The source-reviewed SDK already contains `src/master_rallye/addon_sdk/ui_assets.py`, the `mr-native-v1` composer in `ui_preview.py`, and vehicle UI icon tools. It already supports bounded project-frame bank extension for **Vehicle Select CarSheet (128×128)** and **Race Results SmallCarSheet (32×16)**, using local owner-provided retail templates and validated manifests. **Reuse this pipeline**, and distinguish generating artwork from installing game UI bank frames. Do not create a second incompatible generator.
+- Add an obvious **Generate Vehicle Art…** action within Studio; let the user generate **both** Vehicle Select and Results imagery from qualified race/frontend views, preview each at native resolution and as an enlarged nearest-neighbor inspection, adjust framing/background/lighting if supported, and regenerate either independently.
+- Allow the user to choose/correct source variant, yaw and pitch, bounds/padding and original-MR presentation recipe. Match stock MR silhouette placement and alpha conventions; preserve exact role-specific output dimensions, source hashes and generated PNGs. Where automated alpha/background segmentation is unreliable, request explicit manual refinement instead of publishing a bad artifact silently.
+- Use project-local deterministic recipes, metadata and owner-provided stock references. Save generated artifacts as overrides, support preview → accept → Save/Validate/Build → Undo/Restore, and report conflicts/capacity failures if the proper native frame cannot be added. Do not bundle original game imagery or GT source assets publicly.
+- Scope is **vehicle-selection artwork and small results thumbnails**, not a redesign of the Rally Workshop `.ico` application icon, which already has separate branding.
+
+## 2. Three kinds of names, each with explicit semantics
+
+1. **Human-readable vehicle identity:** manufacturer, model, combined Vehicle Select name, Results label, optional Studio-only title/nickname, source/edition and display catalog grouping. Expose existing verified `addon.json` fields (`frontend.manufacturer`, `frontend.model`, `frontend.combined`, `results.display_name`) through GUI, keeping them synchronized only where the native UI semantics actually require it. Respect observed ASCII, NUL and UI width/presentation limitations; show a live preview and meaningful errors. For stock copy-on-write, do not rename retail IDs or mutate original game resources.
+2. **Texture/resource friendly labels:** let the user give a texture a human-readable **alias**, e.g. `Body Paint`, `Front Glass`, `Left Door Decal`, while continuing to show the original internal filename, hash, atlas role and draw usage. Aliases are editable metadata and do not change game resource identities, material references, source provenance or build stability. Support search and sorting by friendly label **and** original name. A single shared atlas may have several different semantic usages: never claim that one alias defines all its surfaces.
+3. **Actual internal resource rename:** a different, higher-risk explicit action if a qualified authoring need exists. It must safely update **all** references across DX draws/materials, project manifests, bindings, generated resources and UI banks where relevant, detect collisions case-insensitively and native length/character constraints, and support exact undo/restore. It must not silently rename opaque imported IDs or hashes. If full-safe rename is not proven, expose aliases only and mark native rename unsupported.
+
+## 3. Integration with the Physics & Camera milestone
+
+- Place the identity/presentation tools in a compact **Vehicle Details** / **Presentation** area, leaving Physics and in-game Camera as separate functional panels.
+- Maintain the distinction between **D3D9 Previewer navigation** and **actual per-CarID native game cameras**; UI icon camera/framing is a third independent concept.
+- Generate artwork for both addon and qualified Demo-as-new-CarID heritage projects where the existing native packaging permits it. Treat stock edits as copy-on-write and distinguish previewable from installable states.
+- Expose validation status prominently: artwork generated vs UI bank frame built vs actual D3D8 game qualification. Preserve current roster and per-CarID isolation.
+
+## 4. Acceptance and regression criteria
+
+- Rename the Studio display title and qualified native addon manufacturer/model/Results labels; reopen the project and rebuild without changing CarID, slot ownership or other vehicles.
+- Set readable aliases for several `.dxt` files, show their real native names alongside them, and prove alias-only edits produce **byte-identical DX/DXT and compiled game resources**.
+- Generate, visually inspect and separately regenerate native-compatible CarSheet and SmallCarSheet outputs from an existing qualified vehicle; verify their 128×128 and 32×16 dimensions, alpha bounds, manifest hashes, deterministic reruns, source fidelity and original bank-frame preservation.
+- Validate fully reversible UI asset/frame construction for an addon and one safely qualified stock/heritage path, documenting where unsupported. Confirm no generated thumbnail accidentally changes appearance, physics, game camera, audio or damage assets.
+- Update Rally Workshop F1 Help, `MASTER_PLAN`, `CAPABILITIES`, `REGRESSION_MATRIX`, and the commit ledger. Make one validated **local** milestone commit; **no push or public release** without permission. Keep original `MRallye.exe`, `d3d8.dll`, retail assets and Randomizer untouched.
+
+## 5. Execution order and boundaries
+
+1. Finish and review **Sound Studio**, already assigned.
+2. Execute **Physics & Camera Studio**, with **Vehicle Identity & Presentation** integrated as a scoped product deliverable.
+3. Continue **MR Heritage Garage**, **GT Garage Lab**, **Model Studio/Blender Bridge**, and **Fleet Builder** as previously scheduled. Do not prematurely bundle all of their features into the Physics & Camera milestone.
+
+---
+
+## Preserved v5.2 and previous master-plan history
+
+# Master Plan v5.2 — MR Heritage Garage: Demo and cross-edition Master Rallye vehicle restoration
+
+**Date:** 26 October 2026. **Decision:** expand the product contract to encompass original Master Rallye vehicles from owner-provided Demo and other qualified releases as **new, independent playable car entries**, not merely editing existing retail IDs. Preserve all v5.1 and earlier requirements below. This is a **planned feature, not a newly validated implementation**. The exact structure and version compatibility of `Data.sma` have **not been reverified in this revision**; inspect real, user-supplied files before describing physics extraction as functional.
+
+## 1. Product goal and prioritization
+
+**MR Heritage Garage** is a first-class source family alongside GT3/GT4 and user-authored assets. The long-term goal is a library of all verifiably recovered and legally usable Master Rallye vehicle variants, with distinct source provenance (Demo, retail, version/build) and a safe optional installation into spare CarIDs. The vehicle library can contain more entries than are simultaneously installable in the game's proven roster; **SCALE1 validated 29–30 entries in specific test conditions, not an unlimited capacity guarantee**.
+
+- **Sound Studio** remains the currently assigned phase, with a four-layer audio editor on existing Lancer.
+- **Physics & Camera Studio** remains an early priority; its Physics Studio should supply shared parameter/preset infrastructure to Heritage Garage. If archive research uncovers critical prerequisites, the small heritage import research pass can run before the full Physics GUI milestone, but do not conflate either with completed features.
+- **MR Heritage Garage** becomes a prominent early integration milestone **before broad GT Garage Lab/Classic generalization and public beta**, because native MR source vehicles and physics provide valuable baseline test data.
+- **GT Garage Lab** continues systematic GT3 source audit, source colorways, incompatibility repairs and Classic MR generalization, based on qualified reference data.
+- **Model Studio + Blender Bridge** follows with reusable geometry correction/validation tools; **Model Doctor** remains an explanatory diagnostic/UI layer, not a substitute for fixing known GT3 import defects centrally.
+- **Fleet Builder** remains essential to install, select, remove and restore combinations safely.
+
+Use friendly names in conversation, Studio and README; preserve historical `V-SDK...` stage identifiers in Git and previous documentation. Do not silently rename previously completed phases.
+
+## 2. Data sources and archive provenance
+
+- Require owners to select **their own local Demo and retail Master Rallye installations/archives**. Record source path, file hashes, edition/build fingerprints, archive entries, variant and extraction provenance without copying original archives into public project artifacts.
+- **Inventory before conversion:** enumerate Demo versus retail car names/resources, class, model `car.dx` / `complete.dx` / `wheel.dx`, associated DXT, material and alpha variants, source CarID references, sound/UI assets, crew, light/glass/collision/control records, and physics candidates. Detect identical vs differing resources by content hash rather than filename assumptions.
+- **Data.sma research:** first determine the actual archive structure and its physics entries (if present) in each supplied build. Map template files/records to game vehicle identities and physical parameter families; verify the native loader and field semantics with existing qualified stock and Lancer physics instrumentation. Do not assume every `Data.sma` entry is a complete, independently portable physics profile.
+- Distinguish **unavailable source**, **unreadable format**, **source-version mismatch**, **candidate builds**, **Previewer pass**, and **confirmed native game pass**. Never advertise blanket Demo-compatibility from one model.
+- Keep source assets read-only and private; public releases contain SDK code, manifests, schema/tests, and originally authored or permitted demo fixtures, **not redistributed MR Demo/retail models, audio or textures**.
+
+## 3. Two different operations in the library
+
+1. **Edit Existing MR Vehicle** (already supported as qualified copy-on-write work for selected retail CarIDs). Preserve its original identity/roster slot and zero-edit passthrough.
+2. **Import MR Vehicle As Addon** (new Heritage flow). Choose a local Demo/other-edition car, allocate a **new, unique** CarID/slot under the existing capacity constraints, namespace model/textures/physics/sounds/UI resources, provide clear configuration and produce an isolated reversible roster candidate. No mutation of the source Demo, retail installation, original `MRallye.exe`, or existing graphics `d3d8.dll`. Do not overwrite a retail car because of an old source CarID conflict.
+
+The same qualified vehicle editor and Studio viewport should operate on both types; they have distinct validation, source ownership and install behavior. Catalog/storage capacity must be decoupled from active roster capacity.
+
+## 4. Physics template browser based on verified stock `Data.sma` records
+
+- Add **Choose Physics Template**: list verified stock physics profiles by source edition, native identity, class/type, provenance and parameter coverage. Display source stock baseline vs editable values; preview/diff/reset, save a versioned per-new-CarID copy, and build safely using existing physics-profile/native mapping mechanisms.
+- Require explicit warnings for donor wheelbase/track/ride/collision/wheel radii/camera mismatch, and an edit/fit workflow where supported. Never silently alias multiple addon CarIDs to one writable stock physics record, or carry over wrong registry names (previous Lancer bug).
+- Permit user tuning with the future **Physics Studio**, preserving base donor bytes/semantics; game result remains subject to gameplay handling tests and AI validation. Do not claim arbitrary physics fields or formats are editable until verified.
+
+## 5. Optional native-features completion for Demo models
+
+- **Glass damage:** inventory source pane geometry and native controller/control-case ownership. For missing qualified features, use stock MR local crack textures and the already game-accepted four-logical-zone authoring approach as a candidate, mapping front/rear/left/right only where geometry/engine support exists. Do not promise independent breakage of every physical window beyond native evidence; test one-zone impact isolation and lights surviving damage.
+- **Rear brake lights / Brake Glow:** independently inspect lamp/off + lamp/braking ON native passes/draws and source placement. Author a real MR-compatible *rear lamp braking emissive/glow ON state* where missing, using source-qualified mesh/UV and native switch logic. Keep it distinct from brake disc heating/glow; do not conflate the two systems. Test rear lamps by braking and reset; protect texture alpha, headlamps and culling.
+- **Lighting, crew and native damage:** confirm working headlights, taillights, driver/co-driver, geometry deformation and transparent materials. Present these as optional specific authoring tasks with per-car evidence and safe fallbacks, not automatic guaranteed fixes.
+- Maintain original source appearance as a non-destructive baseline, and enable the separate Classic MR Style profile where required without unknowingly double-processing native MR vehicles.
+
+## 6. Heritage project workflow in Rally Workshop
+
+**Vehicle Library → Import → Master Rallye (Demo / Other Edition) → Source Audit → Preview → Map Missing Dependencies → Choose New Slot → Choose Stock Physics Template → Complete Glass/Brake-Lamp Features (if qualified) → Validate → Build & Test → Add to Fleet.**
+
+- Show a side-by-side edition comparison with provenance, optional UI CarSheet generated using existing MR-style tools, and clear source-version compatibility messages.
+- Create a versioned, reusable *heritage project* that preserves an immutable input manifest and editable overlay. Reopen, compare, undo/redo, restore and rebuild without rereading/repacking original retail archives unless requested.
+- Report all active roster conflicts and preserve stock save/unlock, AI, Results and repeated race loading; protect PERF2 cache performance and the already qualified combined-car composition hooks.
+
+## 7. Qualification ladder and definition of success
+
+**Heritage L0 — Inventory:** identify at least two distinct local MR edition/build inputs and produce an exact table of differences, or clearly report if only one edition is supplied; inventory `Data.sma` record types without making unproven physics claims.
+
+**Heritage L1 — Independent addon:** source-qualified Demo car opens in Raw/Assembled/Frontend Previewer, imports to its **own new CarID** without overwriting stock, and produces a validated isolated candidate; chosen stock physics template is demonstrably bound to the correct addon namespace.
+
+**Heritage L2 — Native feature authoring:** add or repair at least one actual glass-zone/state and one independent rear brake-lamp ON behavior on the qualified candidate where source features require it. Demonstrate deterministic reversible resource differences, preserved other cars and detailed diagnostics.
+
+**Heritage Game qualification (owner):** actual Master Rallye selects and races the new entry; source/modified views, glass states, braking lamps, physical handling, AI, frontend, Results and re-entry verified. No offline test substitutes for this native qualification; do not block unrelated SDK phases while awaiting owner game testing.
+
+Start with **one user-supplied Demo vehicle that is absent or materially different from the target retail roster**, not a speculative mass migration. Maintain a growing catalogue of Demo and other-edition entries with PASS/WARN/FAIL/NOT TESTED and evidence/hash per source build. Do not declare every known MR vehicle restored until individual evidence exists.
+
+## 8. Required regression gates and engineering constraints
+
+Retain the accepted Subaru native four-zone glass, Pajero native culling/material/reflection fixes, standalone Previewer wheel assembly, 30-entry SCALE1 test evidence, Source Fidelity/Classic Lancer split, PERF2, four-layer audio profiles, CarID isolation, stock edit copy-on-write, current Camera profile experimental bounds and private asset restrictions. Validate combined candidates only when actually assembled/tested; prior independent test results are not transitive.
+
+For each completed, qualified phase, record source fingerprints, reports and **one scoped local Git commit**. Previous commits remain unchanged. **No push, public release or publication** without owner permission. Preserve unrelated Randomizer source and original game's executable, retail archives and `d3d8.dll` unchanged.
+
+---
+
+# Master Plan v5.1 — Owner clarification: readable milestones, Blender Repair Guide, Physics & Camera Studio
+
+**Date:** 26 October 2026. **Decision status:** product roadmap clarification; not an implementation claim. This handoff supersedes the *scheduling order* of v5.0 wherever inconsistent; the original v5.0 requirements and evidence ledger remain below intact. The latest inspected code baseline is the V-SDK4B.1 source-review archive; no V-SDK4D implementation or later UI is assumed available.
+
+## A. Human-readable phase names
+
+Use names in the GUI, release notes, README and owner summaries; preserve existing `V-SDK...` IDs for historical traceability, research folders, regression cases and Git commit subjects:
+
+| Friendly project name | Historical/internal milestone | Product goal |
+|---|---|---|
+| **Sound Studio** | V-SDK4D | Four editable audio layers (Engine, Whine, Spool, BOV), audition, presets, build |
+| **Physics & Camera Studio** | New early editor milestone (do not overwrite prior IDs) | Native-qualified per-car physics editor and bounded experimental follow-camera settings |
+| **GT Garage Lab** | V-SDK4E corpus and colorway work | Real source colorways, batch source audit, compatibility diagnostics and reusable Classic recipes |
+| **Model Studio + Blender Bridge** | V-SDK5 | Round-trip geometry/UV/materials, scale/fit, source-preserving diff, guided repairs |
+| **Fleet Builder** | V-SDK7 | Install/build/rollback, multi-car validation, release preparation |
+
+Never rename old committed stage identifiers or fake past history. All feature status documentation must continue to distinguish game-verified, offline-verified, implemented-but-unqualified, researched and planned.
+
+## B. Current reality: physics and gameplay camera authoring
+
+In latest reviewed V-SDK4B.1 sources, `src/master_rallye/workshop/gui.py` exposes material, texture, wheel preview fitment, appearance/paint/crew, build/scope, but **no dedicated Physics or Camera Studio tabs**. `docs/sdk/CAPABILITIES.md` states existing `physics_profile`, `audio_profile`, `camera_profile` and native adapters are preserved in authoring/build, while dedicated GUI editing is deferred. `docs/sdk/RALLY_WORKSHOP.md` likewise states stock physics/audio authoring and Camera Studio UI are deferred.
+
+**Physics (existing Core, not Studio GUI):** `addon_sdk/physics_profile.py` supports typed, family-scoped source-pinned `physics-profile.json` edits for known native families and qualified field types, with restrictions and validation. Prior Lancer physics has owner gameplay evidence; that does not imply all stock cars or arbitrary parameters can be safely changed. The planned Physics Studio must enumerate qualified editable fields from authoritative schema, show units/source defaults and per-CarID namespace, validate bounds and cross-parameter dependencies, and provide save/preset/diff/undo/rebuild. Keep preview wheel fitment distinct from *actual physical wheel positions/tyre/suspension/collision*.
+
+**Gameplay camera (existing experimental Core, not Studio GUI):** `addon_sdk/camera_profile.py` has `diagnostic_only` comparison and an explicitly gated `native_follow_extents` binding of `height_m` and `half_length_m`, source-hash-pinned to a qualified `car.dx`. Owner earlier observed visible per-CarID camera changes for two cars. **FOV, smoothing, independent chase-offset editing, replay/front/other camera modes are not proven supported by this profile.** Camera Studio may initially expose those two qualified follow-extent parameters with exact limitations, preview bounds and before/after, while advanced camera tuning remains research-gated. Do not confuse D3D9 Previewer orbit/navigation with in-game camera edits.
+
+**Roadmap priority:** Complete active Sound Studio first, then a *bounded* Physics & Camera Studio vertical slice rather than defer both until the end. Its acceptance requires an addon physics edit plus a qualified per-CarID follow-extent camera edit through GUI, source/target provenance, validate/build/revert and no unrelated vehicle leakage; stock and advanced camera fields remain read-only if unqualified. Subsequent GT Garage Lab and Model Studio order can follow practical dependencies: corpus inventory/colorway pilot first; Model Studio guided repair tools may be developed ahead of the exhaustive wide visual campaign; re-run Compatibility Lab after generic fixes. No phase may falsely advertise complete full-game camera authoring.
+
+## C. Blender Bridge must include **Model Doctor** and guided repair
+
+Model Studio is not finished merely by exporting OBJ/GLB and reading it back. Provide beginner-friendly **Inspect → Diagnose → Explain → Fix/Export Blender → Reimport → Compare → Validate/Build** as an end-to-end workflow. Every warning links to a relevant focused offline Help page, identifies source model/draw/material/texture and affected visual region, and distinguishes definite native incompatibility from approximate Previewer heuristics.
+
+Mandatory diagnostic categories, each with source evidence, severity, conservative suggested fix, and regression fixture:
+
+- **Backface culling and normals:** reversed triangle winding, mirrored transforms/negative determinant, truly single-sided mudflaps/guards/headlamp backing, missing back surfaces. Preview both sides, show face normals/winding and CW/CCW/NONE diagnostic, advise Blender normal reorientation or intentional rear faces/verified native double-sided semantics. Do NOT globally disable culling or duplicate all triangles.
+- **Alpha and transparency:** distinguish diffuse alpha, vertex alpha/reflection weight, cutout/alpha test, blend, depth test/write and sorting, decal vs glass vs opaque paint. Display texture alpha and native material fields; repairs must preserve glass damage, reflective coverage and decal depth. Do NOT globally force alpha to 255.
+- **UV/atlas/texture binding:** missing/incorrect texture, inverted UV, seam/disconnected island, shared atlas/decal ownership, source colorway, unsupported or oversize resources. Recommend targeted re-UV, assignment via existing Texture Binding v2, mask-aware paint and appropriate material conversion.
+- **Wheels and physical fitment:** inward-facing rims, missing opaque recess/lip, reflected left/right instances, hub positions, visual radius versus physics/collision. Separate preview pose from game physics.
+- **Native glass/damage, lights and crew:** source-qualified damage controllers/zones, two-sided glass, intact/cracked UV, lamp/brake glow, attachment bones/crew seat rest pose. Preserve native runtime ownership and animation rather than guess.
+- **Topology/geometry budget:** nonmanifold or degenerate triangles, detached floating parts, excessive per-draw triangles, LOD, collision hull and scale. Distinguish recommendation based on measured MR ranges from real engine limits.
+- **Environment/material intensity:** qualified reflection mask/weight, no universal shader strength without native evidence.
+
+**Blender Bridge round trip:** Maintain stable object/draw/material IDs in a companion manifest, import/export axis/handedness/unit transforms, deterministic normals and winding, retained UV/material/texture references, cautious topology-diff and changed-draw revalidation, mapping conflicts requiring explicit human choice, and immutable source baseline. No silent loss of glass controllers, damage, collision, wheel/lights or author paint layers. Provide reproducible examples showing fixes for a backface and an incorrect alpha/depth surface. Blender add-on is optional; an intermediary asset format with manifests is permitted if native `.dx` round-trip is not yet verified, clearly labeled.
+
+## D. Scope/priority after this update
+
+**Active now:** Sound Studio / Audio Studio on existing Lancer; no owner D3D8 test needed to proceed with offline work.
+**Next preferred:** bounded Physics & Camera Studio GUI using existing SDK Core and experimental camera follow extents; qualified fields only.
+**Then:** GT Garage Lab source inventory plus verified real source colorway pilot; Model Studio & Blender Bridge with Model Doctor; comprehensive Classic generalization and GT3 scan/visual regression can be ordered against available source data and fixes.
+**Later:** Fleet Builder and distribution QA. Preserve accepted Subaru glass, Pajero culling/materials, Lancer Classic pilot, 30-roster SCALE1 behavior, PERF2, Audio per-CarID, stock copy-on-write, private asset rules and existing original EXE/DLL protections. Local phase commits are authorized, but no push, publication or release without new permission.
+
+---
+
 # Master Rallye Vehicle SDK — Master Plan / Rally Workshop
 
 **Working baseline:** 26 October 2026 (revision 5.0: V-SDK4D Audio Studio remains next; owner-approved GT3 compatibility corpus, source colorway research and cross-vehicle Classic MR generalization added as V-SDK4E. Historical sections intentionally retained.)
@@ -861,15 +1138,53 @@ Offer sorted issue families for importer improvements (e.g. culling, decal blend
 **Then:** V-SDK4E.2/.3 semantic Classic MR Style generalization and checkpointed GT3 Compatibility Lab.
 **Subsequently:** V-SDK5 Blender Bridge / scaling, remaining Physics and Camera Studio, Fleet Builder, public-beta QA. Keep future audio-based fourth-car demonstration separate from the corpus scan; do not silently add all discovered cars to the game.
 
+---
 
-## V-SDK4D implementation ledger — 26 October 2026
+# October 26, 2026 — Master Plan v5.5 addendum: Open Audio Import + GT Sound Bank Lab
 
-Audio Studio Foundation is implemented in the shared project service, Studio and CLI.
-Four independent PCM sources, qualified response controls, import diagnostics, named
-presets, style-version transfer, native DSP/response audition and reversible builds
-are Windows/offline qualified on Lancer CarID28. Five isolated 30-entry roster
-candidates change exactly 1/1/1/1/4 WAVs; all other game resources match Source Fidelity.
-See VSDK4D_RESULTS.md, CAPABILITIES.md, REGRESSION_MATRIX.md and COMMIT_LEDGER.md.
-Actual D3D8 audio listening remains pending, as does V4B.1 visual A/B. Neither was
-claimed from offline evidence. Stop here for owner/source review; V4E and Blender
-Bridge have not begun. Historical planned wording above remains provenance.
+**Priority update and source-of-truth precedence.** This addendum supersedes earlier statements suggesting that the existing narrow PCM guards or currently qualified Lancer audio are long-term product limitations. They are **current implementation bounds**. It does not supersede the native/runtime evidence boundaries or requirements to protect user assets, stock installations, and project reversibility. Active main-agent implementation remains **Physics & Camera Studio + Vehicle Identity & Presentation**. A separate GT Audio Research agent may work in parallel in an isolated worktree. The main agent shall integrate a more capable Audio Studio in the next bounded audio-improvement milestone once current work is safely checkpointed, independently of whether GT orchestration research is complete.
+
+## Verified baseline from V-SDK4D source
+
+- `src/master_rallye/addon_sdk/audio_profile.py`: one mono source through MR's `wsDsFxRevs` engine synthesis; stock tables preserved. **This does not reproduce GT4's original multiband engine orchestra.** Source WAV guards are SDK checks, explicitly not native engine maxima.
+- `decode_pcm`: RIFF PCM only, mono/stereo, 8/16/24/32-bit integer, 11,025–48,000 Hz, 8 MiB file limit and 2,000,000 PCM frame limit. Non-PCM WAV, float WAV/WAVE_EXTENSIBLE, FLAC, MP3, Ogg/Vorbis and others have no qualified frontend importer. Existing trimmed continuous engine loop is bounded to 0.1–4 seconds; optional layers currently reuse several engine-source validations even when their playback semantics differ.
+- `src/master_rallye/workshop/audio_ui.py`: a local `Import Local WAV…` file chooser, followed by trim/crossfade/gain dialog; existing separate Audition/Mix. There is **no pre-commit source/converted A/B playback in the import dialog**.
+- Four current slots are independent: engine, transmission whine, turbo spool and BOV; whine/spool are continuous, BOV is a one-shot. Per-CarID isolation, source provenance, reversible presets and isolated builds have already been developed. Do not discard these.
+- GT4 research `research/vehicles/vaudio1/gt4-source.md`: Lancer's source-car row maps through DefaultParts and Engine into **Sound ID 22601**, shared by other Engine rows. This bank has multiple RPM entries and source normal/turbo directory variants; the qualified current MR import uses **a single selected engine band**. Original GT4 loading, pitch, crossfade and gain clues exist, but historical build pairing and complete runtime mix are not fully qualified.
+- GT3/GT4 events `b_off`, `turbine`, `turbine2`, `shift_change` are known from inventories. Event labels **do not establish actual sample/bank/program identity**. Original sustained transmission whine has not been authenticated. Never repurpose an unrelated event because of its name.
+
+## Track 1 — Main-agent Audio Import 2.0 (independent of GT discovery)
+
+1. **Choose nearly any ordinary user-supplied audio file without preparing PCM manually.** Support an extensible, safe, explicit decoder-adapter interface; target common RIFF PCM/float/WAVE_EXTENSIBLE, FLAC, Ogg/Vorbis and MP3 using verified local decode backends, dependency checks and transparent messages when an adapter is unavailable. Detect signatures, not only extensions. Reject malicious/malformed/decompression-bomb sources safely. Do not assert support until implemented and tested. Proprietary GT files enter through separate source adapters, not by pretending that arbitrary bytes are audio.
+2. Retain originals unchanged and pinned by SHA256; convert decoded samples to qualified native output using deterministic controlled channel mixing, resampling and sample-rate/bit-depth conversion. Make length/cap limits **layer-appropriate**, allow long source files via streamed and bounded decoding, then derive smaller engine loops or one-shots as necessary. Keep final native resource budgets and explicit per-layer constraints. Do not remove all resource guards in pursuit of universality.
+3. **Preview before import:** in the chooser/import dialog provide Source Play, Converted Play, A/B, Loop Preview where appropriate, waveform and selection/loop marker, Stop, gain/peak/clipping/loop seam warnings, and audible audition of the *selected destination layer* under a simple scripted RPM/load/gear event. Apply only after user approval. Clear distinction between approximate offline preview and actual DirectSound gameplay.
+4. Allow assigning **any already imported compatible sound** to Engine, Whine, Spool or BOV, regardless of its previous source/role, with explicit layer semantics (looped vs triggered) and support for source-specific suggested trims and controls. User must not have to generate a special 4-second WAV. Keep per-layer source hashing, presets, Undo/Redo/Restore, CarID isolation and native build integrity.
+5. Provide automatic loop detection/selection candidates, silence trim, DC removal, click-safe crossfade, loudness/gain and clipping diagnostics. Do not claim automatic musical/acoustic correctness. Expose manual override and audition; do not silently stretch one-shot BOV sounds into continuous loops or invert trigger ownership.
+6. Make a clear status vocabulary `Decoded`, `Converted`, `Native buildable`, `Auditioned`, `Gameplay tested`, and distinct failure reasons. No blanket hard-lock from first-stage input format checks; retain actual native constraints.
+7. Test source-only synthetic fixtures covering common codecs and difficult inputs, import-dialog preview, multiple source lengths, conversion determinism, four destination layers, presets, missing adapters, immutable originals, candidate-diff isolation and audio resource memory budgets. Avoid adding third-party binaries/licenses without review.
+
+## Track 2 — Independent GT Sound Bank Lab research
+
+**Goal:** source-verified vehicle→bank→sample→RPM band/event and activation map for lawful user-local GT3 and GT4 source trees. Investigation is research-only until qualified; no private sample or original game content bundled, published or copied into general source archive.
+
+1. Inventory exact user-local GT3/GT4 source builds/volumes, table layouts, car identifiers, sound banks, container formats, metadata, sample counts and hashes; report missing/inaccessible prerequisites separately. Preserve user files read-only.
+2. GT4: reproduce and generalize the known car→DefaultParts→Engine→`soundNum` association (Lancer 22601 is the oracle); map shared sound IDs, engine/normal/turbo bank variants, possible tuning profile selection, RPM windows, base pitch, gain and crossfades; qualify sample duration, loop flags and required decode provenance. Do not assume path `turbo*` is an isolated spool/BOV sample.
+3. GT3: expand the present RoFS `sound/se.inf` GTSE event inventory and five known INST banks into source-qualified container/dispatch evidence; trace runtime event token→bank/program/split/sample/pitch/gain where matching executable evidence is available. Unknown mapping remains UNKNOWN, not a guessed match.
+4. Both: trace `b_off`, `turbine`, `turbine2`, `shift_change` event dispatch and actual triggering rules; distinguish one-shot effects, synthesized behavior, engine bands and any true transmission whine. Separate source data facts, comparative external implementation hints and matching-build native evidence.
+5. Deliver a private sound-bank explorer/index and source-only code that reports car identity, sound ID, sample table, RPM ranges, loop points, and playable auditions of explicitly decoded samples with confidence annotations. Never claim a GT sample's acoustic role solely from filename, numeric ID or subjective timbre.
+6. Contribute a **candidate mapping contract** consumable by Audio Studio: source game/build hash, car ID/name, bank path/hash, program/split/entry, validated playback rate, loop region, inferred/verified role, confidence, conversion method and user acceptance. Prototype `Find sounds for this car` with explicit recommendations; uncertain suggestions stay manual.
+7. Run synthetic tests and replay known Lancer reference mappings. Use dedicated scratch/worktree and written handoff. Give a precise blocker report and next experiment if an event dispatch relationship remains unproven rather than fabricating a 'complete orchestra'. Do not modify the main agent's live files or merge without review.
+
+## Future research dependent on runtime evidence
+
+- To reconstruct GT's **full multi-RPM-layer engine orchestra**, investigate a source-adaptive multi-band engine runtime or source-aware offline simplification. The existing MR `wsDsFxRevs` single-loop path remains a working fallback. Exact GT playback may be impossible without further verified runtime extension. Each approach must state real differences and costs; native hooks require isolated ABI/lifetime/race-reentry/performance qualification.
+- Support AI and multi-car simultaneous audio, race re-entry, Results and no cross-CarID sound leakage. Preserve existing proven native sound hook register/lifecycle fixes. No original EXE or d3d8.dll on-disk modification.
+
+## Work order, naming and acceptance
+
+- **Now — Main agent:** complete Physics & Camera Studio and Vehicle Identity as previously scoped; update existing audio requirements in the capability ledger so `PCM WAV only` is shown as *current adapter coverage*, not a permanent limitation.
+- **Now — Separate agent:** GT Sound Bank Lab research in a separate worktree or separate notes, with read-only original game sources. Deliver evidence and a handoff contract, not unreviewed changes to the main branch.
+- **Next audio enhancement — Main agent:** Audio Import 2.0, pre-commit audition and arbitrary compatible source-to-layer assignment independently of source game; integrate the GT adapter afterward when the independent research delivers evidence.
+- **Later:** full GT multi-band engine proof of concept only when audio data and necessary native capabilities are actually qualified. Do not delay ordinary user sound imports on an unresolved GT mystery.
+- **Acceptance:** a user can select ordinary supported source audio, audition original and converted versions *before applying*, assign that sample to any of four layers with appropriate looping/triggering, adjust and build a reversible candidate. For GT source exploration, user can identify verified bank-to-car/sample relationships and see unknown areas honestly labeled. Audio remains private and source-only archives contain code and synthetic fixtures, not commercial game data.
+- Validated phases may be committed locally with documented test evidence. No push, release or publication without explicit separate authorization. Maintain `MASTER_PLAN.md`, `CAPABILITIES.md`, `REGRESSION_MATRIX.md`, `COMMIT_LEDGER.md`, and offline Help.

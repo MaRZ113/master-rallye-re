@@ -209,3 +209,29 @@ Canonical Git-blob source/changed-file review archives and per-entry hashes are
 generated under `vsdk4d/review/` after this ledger resolution. They include source,
 documentation, tests and public original Workshop artwork only; no private WAV,
 models, textures, captures, executable, DLL or candidate runtime.
+
+
+## Physics Camera and Vehicle Presentation Studio — 26 October 2026
+
+One scoped validated local milestone commit contains this entry and the actual
+shared Core/GUI/CLI changes. Its exact ID is recorded in the post-commit private
+archive manifest; resolve it without rewriting history using:
+`git log -1 --format=%H --fixed-strings --grep="Physics Camera and Vehicle Presentation Studio"`.
+A commit cannot contain its own resulting hash; no historical snapshot or
+follow-up bookkeeping commit is fabricated.
+
+- Typed addon physics/reference group editor, qualified CarID/family/SHA camera
+  extents and diagram, display names, metadata aliases and reviewed native art.
+- Shared history/materialization/build/version integration; unchanged native
+  hook implementations; frontend/race renderer reuses exact Previewer transforms.
+- 862 full Windows tests / one optional skip; actual Windows GUI and three
+  controlled candidates; new resource differences precisely 1 / 0 / 3.
+- Native 18-case camera, 22 literal name paths, audio owner/ABI/reentry/three
+  optional allocation failures; cross-module source/preset and version transfer.
+- Repeated Material/stock builds, Audio, Paint/Crew, Classic and texture zoom
+  regressions; 736 accepted resource hashes and protected originals unchanged.
+- Evidence `.research-output/vehicles/pcstudio/`, detailed PHYSICS_CAMERA_RESULTS.md,
+  source-only Git-blob review archives under its `review/` folder.
+- Gameplay, DirectSound listening, actual dynamic camera and earlier Classic A/B
+  remain PENDING OWNER. No push/publication. v5.6 audio integration is a separate
+  subsequent phase; independent GT Lab worktree is preserved.

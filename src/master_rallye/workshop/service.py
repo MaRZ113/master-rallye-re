@@ -87,8 +87,9 @@ def declared_resource_identity(folder):
     return folder.name,None
 
 from .audio import AudioAuthoring
+from .vehicle_authoring import VehicleAuthoring
 
-class WorkshopProject(AudioAuthoring):
+class WorkshopProject(AudioAuthoring,VehicleAuthoring):
     def __init__(self, root):
         self.root=plain_tree(root).resolve()
         self.data=json.loads((self.root/'workshop-project.json').read_text(encoding='utf-8'))
@@ -210,13 +211,14 @@ class WorkshopProject(AudioAuthoring):
         self.data['redo']=[]
 
     def _state(self):return json.loads(json.dumps({'__workshop_state__':1,'textures':self.data['edits'],'surfaces':self.data.get('surfaces',{}),
-        **{k:self.data.get(k,{}) for k in ('appearance_profiles','crew','paint_regions','color_presets','audio')},'appearance':self.data.get('appearance','Source Fidelity')}))
+        **{k:self.data.get(k,{}) for k in ('appearance_profiles','crew','paint_regions','color_presets','audio','vehicle_authoring')},'appearance':self.data.get('appearance','Source Fidelity')}))
 
     def _load_state(self,state):
         previous_audio=self.data.get('audio')
+        previous_vehicle=self.data.get('vehicle_authoring')
         if state.get('__workshop_state__')==1:
             self.data['edits']=state['textures'];self.data['surfaces']=state['surfaces']
-            for key in ('appearance_profiles','crew','paint_regions','color_presets','audio'):self.data[key]=state.get(key,{})
+            for key in ('appearance_profiles','crew','paint_regions','color_presets','audio','vehicle_authoring'):self.data[key]=state.get(key,{})
             self.data['appearance']=state.get('appearance','Source Fidelity')
         else:self.data['edits']=state;self.data['surfaces']={}
         if previous_audio and not self.data.get('audio'):
@@ -224,6 +226,7 @@ class WorkshopProject(AudioAuthoring):
             if sha(baseline.read_bytes())!=previous_audio['baseline_sha256']:raise ValueError('Audio baseline changed')
             profile=json.loads(baseline.read_text())
             self.data['audio']={**previous_audio,'profile':profile,'enabled':{k:True for k in ('engine','transmission_whine','turbo_spool','bov_release') if k in profile}}
+        if previous_vehicle and not self.data.get('vehicle_authoring'):self.data['vehicle_authoring']=self.vehicle_defaults()
 
     def switch_appearance(self,name):
         if name not in ('Source Fidelity','Classic MR Style','Custom'):raise ValueError('Unknown appearance profile')
@@ -499,6 +502,7 @@ class WorkshopProject(AudioAuthoring):
                 write_json(shadow,rebase_unchanged_footprint(before,after,json.loads(immutable.read_text())))
             write_json(self.working/'vehicle-project.json',spec)
         self.audio_materialize()
+        self.vehicle_materialize()
 
     def restore(self,name=None):
         self._record()
@@ -509,6 +513,7 @@ class WorkshopProject(AudioAuthoring):
                 state=self.data['audio'];baseline=self.root/'audio-baseline.json'
                 if sha(baseline.read_bytes())!=state['baseline_sha256']:raise ValueError('Audio baseline changed')
                 state['profile']=json.loads(baseline.read_text());state['enabled']={k:True for k in ('engine','transmission_whine','turbo_spool','bov_release') if k in state['profile']}
+            if self.data.get('vehicle_authoring'):self.data['vehicle_authoring']=self.vehicle_defaults()
         else:self.data['edits'].pop(name,None)
         self.materialize();self.save()
 
@@ -535,6 +540,7 @@ class WorkshopProject(AudioAuthoring):
 
     def validate(self):
         self.materialize()
+        self.vehicle_validate()
         for f in self.assets.iterdir():
             if f.suffix.lower()=='.dx' and not parse_dx_bytes(f.read_bytes()).diagnostics.validated:raise ValueError('Invalid DX: '+f.name)
             if f.suffix.lower()=='.dxt':parse_dxt_bytes(f.read_bytes())
@@ -574,7 +580,7 @@ class WorkshopProject(AudioAuthoring):
                 for name,edit in spec.get('texture_edits',{}).items():
                     image=author.resolve(edit['png']);destination=textures/(name+'.png');shutil.copyfile(image,destination);edit['png']=str(destination)
                 write_json(snapshot/'vehicle-project.json',spec)
-            write_json(output/'workshop-edit-ledger.json',{'project':str(self.root),'inputs':self.data['inputs'],'edits':self.data['edits'],'surfaces':self.data.get('surfaces',{}),'crew':self.data.get('crew',{}),'appearance':self.data.get('appearance','Source Fidelity'),'settings':settings})
+            write_json(output/'workshop-edit-ledger.json',{'project':str(self.root),'inputs':self.data['inputs'],'edits':self.data['edits'],'surfaces':self.data.get('surfaces',{}),'crew':self.data.get('crew',{}),'audio':self.data.get('audio',{}),'vehicle_authoring':self.data.get('vehicle_authoring',{}),'appearance':self.data.get('appearance','Source Fidelity'),'settings':settings})
             if self.data['kind']=='stock':
                 report=stock_project.build(snapshot,output/'stock-overrides')
                 roster.setdefault('stock_resource_projects',[]).append(str(snapshot))
@@ -589,6 +595,7 @@ class WorkshopProject(AudioAuthoring):
                     if identity==self.data['identity']:matches.append(entry)
                 if len(matches)!=1:raise ValueError('This roster does not contain exactly one replaceable author entry; frozen base addons need a qualified author entry')
                 matches[0].update(project=str(snapshot),build=str(output/'author-build'))
+            self.camera_build_roster(roster,snapshot,output/'author-build')
             log('Building isolated runtime candidate and launcher preflights...')
             write_json(output/'roster.json',roster);report=roster_build(roster,output/'candidate')
         self.data['last_build']=str(output);self.save();return report

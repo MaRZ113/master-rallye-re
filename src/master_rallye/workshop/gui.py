@@ -15,6 +15,7 @@ from .texture_view import TextureView
 from .branding import apply_icon,taskbar_identity
 from .appearance_ui import AppearancePanels
 from .audio_ui import AudioPanels
+from .vehicle_ui import VehiclePanels
 from master_rallye.dxt import DxtTexture, encode_png, PNG_ROWS_PRESERVE_STORED
 from master_rallye.preview_scene import stage_vehicle
 from master_rallye.dx import parse_dx_bytes
@@ -31,7 +32,7 @@ def bmp_png(path):
     opaque=bytearray(b''.join(rows));opaque[3::4]=b'\xff'*(w*height)
     return encode_png(DxtTexture('GPU capture',1,0,w,height,bytes(opaque),b''),PNG_ROWS_PRESERVE_STORED)
 
-class WorkshopApp(AppearancePanels, AudioPanels):
+class WorkshopApp(AppearancePanels, AudioPanels, VehiclePanels):
     def __init__(self, root, workspace, sdk_root, viewer):
         apply_icon(root);self.root=root;self.workspace=Path(workspace).resolve();self.workspace.mkdir(parents=True,exist_ok=True)
         self.sdk_root=Path(sdk_root).resolve();self.viewer=Path(viewer).resolve();self.messages=queue.Queue();self.busy=False
@@ -72,6 +73,7 @@ class WorkshopApp(AppearancePanels, AudioPanels):
         self.buttons={}
         for label,command in [('Open project',self.open_project),('Open DX family',self.open_family),('New stock',self.new_stock),('Save',self.save),('Validate',self.validate),('Build',self.build),('Restore all',lambda:self.restore(None)),('Help',self.show_help)]:
             button=ttk.Button(top,text=label,command=command,style='Accent.TButton' if label=='Build' else 'TButton');button.pack(side='left',padx=3);self.buttons[label]=button
+        ttk.Button(top,text='Vehicle Studios',command=self.open_vehicle_studios).pack(side='left',padx=3)
         self.outer=ttk.Panedwindow(self.root,orient='vertical');self.outer.pack(fill='both',expand=True,padx=10)
         main=ttk.Panedwindow(self.outer,orient='horizontal');self.main_split=main;self.outer.add(main,weight=5)
         left=ttk.Frame(main,padding=8);main.add(left,weight=1)
@@ -136,7 +138,7 @@ class WorkshopApp(AppearancePanels, AudioPanels):
         settings=ttk.Frame(tabs,padding=9);tabs.add(settings,text='Build / Scope')
         ttk.Button(settings,text='Configure build inputs…',command=self.configure).pack(fill='x')
         ttk.Button(settings,text='Open last build folder',command=self.open_build_folder).pack(fill='x',pady=7)
-        ttk.Label(settings,text='IMPLEMENTED\nNative model/draw/material inspection, selected-surface RGB and existing environment pass controls, texture impact warnings and PNG replacement, filtered RGBA/Alpha image views, preview wheel fitting, qualified masked paint, appearance snapshots, local stock references, existing stock crew fitting, four-layer Audio Studio, Save, Undo/Redo/Restore, validation and isolated stock/addon builds.\n\nFUTURE — not editable in this milestone\nGeometry/Blender bridge, scale/fit, Physics/Camera Studio.\n\nExisting CLI profiles remain intact. Converted-family-only projects build resource packages, not new CarIDs.',wraplength=320).pack(anchor='w',pady=10)
+        ttk.Label(settings,text='IMPLEMENTED\nNative model/draw/material inspection, selected-surface RGB and existing environment pass controls, texture impact warnings and PNG replacement, filtered RGBA/Alpha image views, preview wheel fitting, qualified masked paint, appearance snapshots, local stock references, existing stock crew fitting, four-layer Audio Studio, typed Physics, qualified follow-extents, names/aliases and Vehicle Art, Save, Undo/Redo/Restore, validation and isolated stock/addon builds.\n\nFUTURE — not editable in this milestone\nGeometry/Blender bridge, scale/fit, live physics simulation and unsupported FOV/replay authoring.\n\nExisting CLI profiles remain intact. Converted-family-only projects build resource packages, not new CarIDs.',wraplength=320).pack(anchor='w',pady=10)
         bottom=ttk.Frame(self.outer,padding=7);self.outer.add(bottom,weight=1)
         ttk.Label(bottom,text='DIAGNOSTICS / BUILD LOG / PROVENANCE').pack(anchor='w')
         self.log=tk.Text(bottom,height=8,bg='#15191f',fg='#c5ccd6',font=('Consolas',9),wrap='word',relief='flat');self.log.pack(fill='both',expand=True)
@@ -157,7 +159,7 @@ class WorkshopApp(AppearancePanels, AudioPanels):
                     text=str(child['text']);disabled=self.busy or ((text in actions or text in {'Apply selected-surface RGB','Restore surface','Redo'}) and self.project is None)
                     if self.project and text=='Undo':disabled=disabled or not self.project.data['history']
                     if self.project and text=='Restore texture':disabled=disabled or self.texture_name.get() not in self.project.data['edits']
-                    if self.project and text=='Restore all':disabled=disabled or not (self.project.data['edits'] or any(self.project.data.get('surfaces',{}).values()))
+                    if self.project and text=='Restore all':disabled=disabled or not (self.project.data['edits'] or any(self.project.data.get('surfaces',{}).values()) or self.project.data.get('crew') or self.project.data.get('audio') or self.project.data.get('vehicle_authoring'))
                     if self.project and text=='Redo':disabled=disabled or not self.project.data.get('redo')
                     if self.project and text=='Configure build inputs…':disabled=disabled or self.project.data['kind']=='family'
                     child.state(['disabled'] if disabled else ['!disabled'])
@@ -173,6 +175,7 @@ class WorkshopApp(AppearancePanels, AudioPanels):
             self.reflection_button.state(['!disabled'] if not self.busy and caps.get('reflection_disable_editable') else ['disabled'])
             self.strength_button.state(['!disabled'] if not self.busy and caps.get('reflection_strength_editable') else ['disabled'])
         self.audio_sync()
+        self.vehicle_sync()
 
     def add_library(self,project,save=True):
         key=str(project.root)
@@ -313,7 +316,7 @@ class WorkshopApp(AppearancePanels, AudioPanels):
         if self.texture_name.get() not in names:self.texture_name.set(names[0] if names else '')
         image=tk.PhotoImage(data=png);factor=max(1,(image.width()+max(500,self.capture.winfo_width())-1)//max(500,self.capture.winfo_width()),(image.height()+max(350,self.capture.winfo_height())-1)//max(350,self.capture.winfo_height()));image=image.subsample(factor)
         self.photos=[image];self.capture.configure(image=image,text='');self.show_texture()
-        self._fit_loaded();self.appearance_loaded();self.audio_loaded()
+        self._fit_loaded();self.appearance_loaded();self.audio_loaded();self.vehicle_loaded()
         if self.variant.get()=='Wheel' and abs(info['wheel_outside_camera']['mean_axial_vote'])<=.2:self.log.insert('end','Wheel outside direction is ambiguous: generic camera retained; inspect both sides.\n')
         self._inspect(f"Source: {info['source']}\n{info['preview']}\nEdits: {len(self.project.data['edits'])}\nNative alpha/flags are shown without inventing material classifications.")
         if selected and self.draws.exists(selected[0]):self.draws.selection_set(selected[0])
@@ -402,7 +405,8 @@ class WorkshopApp(AppearancePanels, AudioPanels):
             usage=self.project.texture_usage(self.texture_name.get())
             self.usage_tree.delete(*self.usage_tree.get_children())
             for u in usage:self.usage_tree.insert('', 'end',values=(u['model'],u['draw'],u['slot']))
-            self.texture_details.set(f'{len(usage)} draw/slot references · {texture.width} × {texture.height} · FEED BGRA · {len(texture.bgra):,} bytes\n'+('Edited override' if self.texture_name.get() in self.project.data['edits'] else 'Original input'))
+            alias=self.project.data.get('vehicle_authoring',{}).get('aliases',{}).get(self.texture_name.get(),{}).get('label','')
+            self.texture_details.set((alias+' · '+self.texture_name.get()+'\n' if alias else '')+f'{len(usage)} draw/slot references · {texture.width} × {texture.height} · FEED BGRA · {len(texture.bgra):,} bytes\n'+('Edited override' if self.texture_name.get() in self.project.data['edits'] else 'Original input'))
         except Exception as e:self.texture_details.set(str(e))
         self._sync_controls()
 
@@ -544,7 +548,7 @@ class WorkshopApp(AppearancePanels, AudioPanels):
         if self.project:self.project.save();self.status.set('Project saved; original source untouched.')
 
     def undo(self):
-        if self.project:self.run('Undo texture edit',self.project.undo,lambda _:self.refresh())
+        if self.project:self.run('Undo project edit',self.project.undo,lambda _:self.refresh())
 
     def restore(self,name):
         if self.project:self.run('Restore original texture state',lambda:self.project.restore(name),lambda _:self.refresh())

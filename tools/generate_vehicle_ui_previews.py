@@ -31,16 +31,38 @@ def frame_camera(points,camera,W,H,padding=12):
     if bounds[0]<padding-1e-6 or bounds[1]<padding-1e-6 or bounds[2]>W-padding+1e-6 or bounds[3]>H-padding+1e-6:raise ValueError('source projection clips viewport')
     return bounds
 
-def render_sources(family,out):
+def render_sources(family,out,*,roles=None,azimuth=None,elevation=None,padding=12,model_name='complete.dx',wheel_profile=None):
+    if roles is not None and (not roles or len(set(roles))!=len(roles) or set(roles)-set(PROFILES)):raise ValueError('unknown preview roles')
+    if type(padding)is not int or not 1<=padding<=64:raise ValueError('preview padding must be 1..64 pixels')
+    for value,low,high in ((azimuth,-360,360),(elevation,-85,85)):
+        if value is not None and (type(value)not in(int,float) or not math.isfinite(value) or not low<=value<=high):raise ValueError('UI camera outside supported bounds')
     if out.exists():raise ValueError('output exists')
-    model=parse_dx_bytes((family/'complete.dx').read_bytes())
+    if model_name not in ('car.dx','complete.dx'):raise ValueError('unsupported preview model')
+    model=parse_dx_bytes((family/model_name).read_bytes())
     if len(model.vertices.positions)>200000 or sum(d.triangle_count for d in model.physical_draws)>100000:raise ValueError('preview model exceeds offline budget')
-    out.mkdir(parents=True);items=raster.load_dx_family(family);geoms=source_geometry(model)
+    out.mkdir(parents=True);items=raster.load_dx_family(family,model_name);geoms=source_geometry(model)
     if not model.diagnostics.validated:raise ValueError('invalid source DX')
+    if model_name=='car.dx':
+        from master_rallye.preview_scene import preview_transform
+        config=wheel_profile or {};instances=config.get('race_wheel_instances',[])
+        if len(instances)!=4 or not config.get('provenance'):raise ValueError('Race artwork requires four source-qualified presentation wheel instances')
+        wheel=parse_dx_bytes((family/'wheel.dx').read_bytes());wheel_geoms=source_geometry(wheel);wheel_items=raster.load_dx_family(family,'wheel.dx')
+        if not wheel.diagnostics.validated:raise ValueError('invalid wheel DX')
+        if len(model.vertices.positions)+4*len(wheel.vertices.positions)>200000 or sum(d.triangle_count for d in model.physical_draws)+4*sum(d.triangle_count for d in wheel.physical_draws)>100000:raise ValueError('assembled preview exceeds offline budget')
+        for instance in instances:
+            vec,scale=preview_transform(instance)
+            for index,item in enumerate(wheel_items):
+                g=wheel_geoms[index];vertices=tuple(dataclasses.replace(v,position=vec(v.position,True),normal=vec(v.normal)) for v in g.vertices)
+                triangles=tuple((a,c,b) if math.prod(scale)<0 else (a,b,c) for a,b,c in g.triangles)
+                new=dataclasses.replace(g,vertices=vertices,triangles=triangles);tris=[]
+                for ids in triangles:tris.append(tuple(vertices[i].position for i in ids)+tuple(vertices[i].uvs[0] if vertices[i].uvs else (0.,0.) for i in ids)+tuple(tuple(vertices[i].color[:3]) for i in ids))
+                geoms[len(items)]=new;items.append(dataclasses.replace(item,tris=tris))
     points=[v.position for g in geoms.values() for v in g.vertices];centre=tuple((min(p[k] for p in points)+max(p[k] for p in points))/2 for k in range(3));reports={}
     for role,profile in PROFILES.items():
-        camera=raster.Camera(*profile['camera'],1,centre,profile['distance'])
-        W,H=512,320;projection_bounds=frame_camera(points,camera,W,H);lit=[];mask=[]
+        if roles is not None and role not in roles:continue
+        angles=(profile['camera'][0] if azimuth is None else azimuth,profile['camera'][1] if elevation is None else elevation)
+        camera=raster.Camera(*angles,1,centre,profile['distance'])
+        W,H=512,320;projection_bounds=frame_camera(points,camera,W,H,padding);lit=[];mask=[]
         light=(.50,.75,.45) if role=='vehicle_select_art' else (-.5,.8,.3);length=math.sqrt(sum(x*x for x in light));light=tuple(x/length for x in light)
         for d,item in enumerate(items):
             g=geoms[d];tris=[];white=[]
@@ -59,7 +81,7 @@ def render_sources(family,out):
         rgb=raster.render(lit,camera,W,H,bg=(0,0,0));alpha=raster.render(mask,camera,W,H,bg=(0,0,0));rgba=bytearray()
         for i in range(W*H):
             a=alpha[3*i];rgba.extend([min(255,round(c*255/a)) if a else 0 for c in rgb[3*i:3*i+3]]+[a])
-        (out/(role+'.png')).write_bytes(gtmat.png_from_rgba(W,H,rgba));reports[role]={'camera_azimuth':camera.az,'camera_elevation':camera.el,'distance_m':camera.distance,'projection':'perspective' if camera.distance else 'orthographic','source_size':[W,H],'projection_bounds':projection_bounds,'viewport_padding':12,'image_plane_offset':list(camera.offset),'lighting':'fixed diffuse approximation; no environment reflection','profile':'mr-native-v1'}
+        (out/(role+'.png')).write_bytes(gtmat.png_from_rgba(W,H,rgba));reports[role]={'camera_azimuth':camera.az,'camera_elevation':camera.el,'distance_m':camera.distance,'projection':'perspective' if camera.distance else 'orthographic','source_size':[W,H],'projection_bounds':projection_bounds,'viewport_padding':padding,'image_plane_offset':list(camera.offset),'lighting':'fixed diffuse approximation; no environment reflection','profile':'mr-native-v1','source_model':model_name,'wheel_provenance':(wheel_profile or {}).get('provenance','embedded frontend geometry')}
     (out/'render.json').write_text(json.dumps(reports,indent=2));return reports
 
 if __name__=='__main__':

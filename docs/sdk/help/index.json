@@ -7,5 +7,6 @@
   {"id":"glass","title":"Glass damage evidence"},
   {"id":"appearance","title":"Paint, appearance profiles and Classic MR Style"},
   {"id":"crew","title":"Qualified stock crew rest-pose fitting"},
-  {"id":"audio","title":"Audio Studio: sources, presets, audition and isolation"}
+  {"id":"audio","title":"Audio Studio: sources, presets, audition and isolation"},
+  {"id":"physics-camera","title":"Physics, gameplay camera, vehicle names and game artwork"}
 ]
