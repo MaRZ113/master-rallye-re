@@ -1,5 +1,7 @@
 # Gameplay Camera 2.0 — validated local phase
 
+Implementation commit: `3919a7ea5ba935b6e50aa03ae2a6971c04837a45`.
+
 27 October 2026. Parent `ebcb28d9ad683d92aae94f9ba48426ffeef7b083` preserved.
 This phase implements source-mapped3 Follow +2 Fixed views, guarded per-CarID/
 per-mode FOV/Follow parameters, same-process live D3D9 drafts, explicit Apply/
