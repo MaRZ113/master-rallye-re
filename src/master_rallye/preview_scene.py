@@ -43,7 +43,7 @@ def preview_bgra(texture):
     return texture.bgra
 
 
-def presentation_wheels(car,complete,wheel):
+def presentation_wheels(car,complete,wheel,*,diagnostics=False):
     """Recover only exact repeated wheel geometry from a frontend rest pose.
 
     No arch fitting, donor draw IDs or physics parameters. A transform must
@@ -78,10 +78,13 @@ def presentation_wheels(car,complete,wheel):
             if any(abs(q[k]-p[k]*scale[k]-shift[k])>2e-5 for p,q in zip(ps,target) for k in range(3)):break
             group.append({'translation':[round(shift[k]-delta[k],6) for k in range(3)],'rotation_y':0.,'scale':[round(v,6) for v in scale]})
         if len(group)==4:recovered.append(sorted(group,key=lambda v:tuple(round(x,3) for x in v['translation'])))
-    if not recovered:return _unordered_presentation_wheels(car,complete,wheel,delta,len(offsets))
+    if not recovered:
+        result=_unordered_presentation_wheels(car,complete,wheel,delta,len(offsets))
+        if diagnostics:result['body_translation']=list(delta)
+        return result
     if len(recovered)<2 or any(abs(g[j][field][k]-recovered[0][j][field][k])>2e-5 for g in recovered for j in range(4) for field in ('translation','scale') for k in range(3)):
         raise ValueError('wheel parts do not prove four coherent transforms')
-    return {'race_wheel_instances':recovered[0],
+    return {**({'body_translation':list(delta)}if diagnostics else{}),'race_wheel_instances':recovered[0],
             'provenance':f'exact repeated frontend wheel vertices in {len(recovered)} independent parts; {len(offsets)} exact body translations; rest pose only, not race physics'}
 
 
@@ -187,7 +190,8 @@ def stage_vehicle(source:Path, output:Path, *, profile:Path|None=None):
     if not profile and len(paths)==3:
         try:config=presentation_wheels(*(parse_dx(source.parent/n) for n in ('car.dx','complete.dx','wheel.dx')))
         except ValueError as exc:config={'provenance':f'automatic rest-pose assembly unavailable: {exc}'}
-    if set(config)-{'race_wheel_instances','provenance','mechanical_debug','attached_models','glass_states','shadow_debug','camera_debug'}:raise ValueError('unknown viewer profile field')
+    if set(config)-{'race_wheel_instances','provenance','mechanical_debug','attached_models','glass_states','shadow_debug','camera_debug','native_frontend_presentation'}:raise ValueError('unknown viewer profile field')
+    if 'native_frontend_presentation'in config and(type(config['native_frontend_presentation'])is not int or config['native_frontend_presentation']!=1):raise ValueError('Unsupported frontend scene version')
     glass_states=config.get('glass_states',{})
     if not isinstance(glass_states,dict) or any(k not in ('screenfront','screenrear','screenleft','screenright') or type(v)is not int or v not in (1,2) for k,v in glass_states.items()):raise ValueError('Glass diagnostics require named source groups and case 1 or 2')
     instances=config.get('race_wheel_instances',[])
@@ -244,6 +248,9 @@ def stage_vehicle(source:Path, output:Path, *, profile:Path|None=None):
         for instance_no,transform in enumerate(transforms):
             target_model=1 if instance_no or model_kind==4 else model_kind
             vec,scale=preview_transform(transform)
+            if target_model==2 and config.get('native_frontend_presentation'):
+                from .frontend_presentation import scene_transform
+                vec=scene_transform
             for d in m.physical_draws:
                 if d.index_count==0:continue
                 if d.draw_index in selected_glass and cases[d.draw_index][1]!=selected_glass[d.draw_index]:continue

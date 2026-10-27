@@ -1,3 +1,17 @@
+# Vehicle Presentation checks
+
+| Check | Evidence under `.research-output/vehicles/presentation/` | Boundary |
+|---|---|---|
+| Full synthetic suite | phase-tests-final-state.log:923 tests,2 prior fixture skips | Current Windows checkout |
+| Actual Studio | windows-delivery/validation.json | Tk/D3D9; not D3D8 |
+| Original/static target ABI | native-delivered.json | Actual original + generated x86, typed service seams |
+| Results identity | results-native.json | Delivered string consumer, record unchanged |
+| Separate name/framing builds | candidate-differences.json; n/f-validation.json |313 immutable resources identical, save separate |
+| Same-config determinism | candidate-differences.json | Metadata/payload/image reproducible |
+| Materials/audio/physics/art | regressions/; native-*.json | Full qualified Windows tools and native audio CPU checks |
+| Native presentation | Owner checklist in VEHICLE_PRESENTATION_RESULTS.md | PENDING_OWNER |
+
+---
 # Gameplay Camera 2.0 checks
 
 | Check | Evidence | Boundary |
@@ -28,7 +42,7 @@ a distinct owner gameplay gate.
 | Native prefix/GXI mapping | direct upgrader, exact local GXI pairs, synthetic orientation/CRC tests | Unsupported revisions fail closed |
 | Source surfaces/collision | native-feature-validation.json | All1911 intact/off triangles; added40 alternative-state triangles |
 | Reindexed wheel rest pose | wheel-rest-pose.json |3 independent parts;8.94e-8m, not live suspension |
-| Studio Heritage workflow | windows/validation.json and actual captures | Inspect/Preview/Create/Configure/Validate/Build; history/reopen/Restore |
+| Studio Heritage workflow | windows-delivery/validation.json and actual captures | Inspect/Preview/Create/Configure/Validate/Build; history/reopen/Restore |
 | Determinism and build diffs | offline-acceptance.json |101 author files; two native derivations; zero sealed resource differences |
 | Roster and native package | final-roster-validation.json |313 resources;185 frozen resources, player/AI gameplay pending |
 | Original source/original game | offline-acceptance.json |60 Demo snapshot files, original EXE/DLL/SMAs, clean R-DEMO worktree |
@@ -188,7 +202,7 @@ Do not mark native gameplay acceptance from the GUI harness or GPU smoke output.
 
 ## V-SDK4A.1
 
-805 tests/one skip in the complete Windows checkout; texture_viewer test checks exact1:1, global fractional mapping, alpha-edge contamination, source immutability, output budget and icon sizes. Private `vsdk4a1/zoom-windows/validation.json` records seven zooms/two windows/four source classes and56 actual captures. `vsdk4a1/ui-controls-final.json` exercises existing four-family GUI features. Original/current image comparison remains distinct from gameplay material qualification.
+805 tests/one skip in the complete Windows checkout; texture_viewer test checks exact1:1, global fractional mapping, alpha-edge contamination, source immutability, output budget and icon sizes. Private `vsdk4a1/zoom-windows-delivery/validation.json` records seven zooms/two windows/four source classes and56 actual captures. `vsdk4a1/ui-controls-final.json` exercises existing four-family GUI features. Original/current image comparison remains distinct from gameplay material qualification.
 # V-SDK4C material/Help regression
 
 ## Release evidence
@@ -220,7 +234,7 @@ PASS. Gameplay remains an owner test. See VSDK4A2_RESULTS.md.
 | Native viewer build and controls | application-build.json; stock/addon-controls.json | MSVC build; real key events, cull state and label roundtrips PASS |
 | Binding v2 | test_texture_binding; gui-binding/gui-validation.json | Variable names/resolution, alpha/state guards, structural receipts; actual stock/addon save/reopen/build/history PASS |
 | Reflection strength | test_surface_authoring; gui-reflection/gui-validation.json | Opaque source-relative weight, texture invariance, stock/addon visible GPU change and zero-edit restore PASS |
-| 2D viewer preservation | zoom-windows/validation.json | 56 fresh Windows captures, exact source bytes, seven scales and both windows PASS |
+| 2D viewer preservation | zoom-windows-delivery/validation.json | 56 fresh Windows captures, exact source bytes, seven scales and both windows PASS |
 | Picker raster | picker-full-preview.png; picker-preview-evidence.json | Actual mapped Tk popup with rendered image, counts and compact list PASS |
 | GT4 source/determinism | pajero-final-source-validation.json | Original relocated Beta hashes, reconstruction/rebuild/DX/DXT semantics PASS |
 | Culling/housing/material views | pajero-final-visibility/validation.json | 64 fixed-camera CW/CCW/NONE/mask/env captures; GPU inspection only |
@@ -248,7 +262,7 @@ glass / Pajero appearance. New appearance candidates remain gameplay-pending.
 | Actual Windows appearance | gui-final/validation.json | Two real GUI/GPU edited candidates, named colours, history, save/reopen PASS |
 | Classic MR Style | style-gui/validation.json | Actual native picker/browser/complete impact dialog, environment adaptation and isolated build PASS |
 | Old binding/stock restore | regression-binding/gui-validation.json | Pajero/stock actions and zero-edit restored stock build PASS |
-| Texture inspection | zoom-windows/validation.json | 56 embedded/detached captures, seven scales, alpha/RGBA/pixel/anchor/source-byte guards PASS |
+| Texture inspection | zoom-windows-delivery/validation.json | 56 embedded/detached captures, seven scales, alpha/RGBA/pixel/anchor/source-byte guards PASS |
 | Native controls | native-controls-lancer.json; native-controls-stock.json | Actual pick/focus/orbit/pan/bookmarks/reload/culling and material-mode controls PASS |
 | Resource preservation | preservation.json | Original EXE/DLL, frozen families, physics/audio/UI/wheels/mechanics and shadow parameters PASS |
 | Owner gameplay | VSDK4B_RESULTS.md checklist | PENDING for new colour/reference/crew edits; offline evidence is not gameplay |
@@ -274,7 +288,7 @@ final Previewer/report permits building; it is not gameplay acceptance.
 | Existing GUI build / restore | w/gui-validation.json | Real targeted addon/stock edit, binding, reflection, Undo/Redo and zero-edit restored stock candidates |
 | Paint / crew | paint-win/validation.json | Actual Windows paint masks, names, crew correction, save/reopen, builds and history |
 | Manual reference catalogue | reference-gui02/validation.json | Custom reference layer, actual picker/browser/impact warning and matched GPU views; no implicit Classic conversion |
-| Texture / native controls | zoom-windows/validation.json; references/controls-*.json | Seven scales, RGB/RGBA/Alpha, pixel/anchor/pan; actual native pick/focus/presets/reload/culling controls |
+| Texture / native controls | zoom-windows-delivery/validation.json; references/controls-*.json | Seven scales, RGB/RGBA/Alpha, pixel/anchor/pan; actual native pick/focus/presets/reload/culling controls |
 | Isolated bundles | roster-sf-validation.json; roster-cl-validation.json; preservation.json | Qualified 30-entry composition; only 12 Lancer-family paths differ; physics/audio/UI/other vehicles exact |
 | Owner gameplay | VSDK4B1_RESULTS.md | PENDING: D3D8 brightness/reflections/damage/brakes, AI, re-entry and live loading |
 

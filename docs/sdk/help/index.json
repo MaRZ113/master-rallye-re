@@ -1,16 +1,62 @@
 [
-  {"id":"start","title":"Projects, saving and safety"},
-  {"id":"viewport","title":"3D viewport and diagnostics"},
-  {"id":"materials","title":"Surfaces and texture bindings"},
-  {"id":"textures","title":"Texture Studio"},
-  {"id":"build","title":"Build, validation and recovery"},
-  {"id":"glass","title":"Glass damage evidence"},
-  {"id":"appearance","title":"Paint, appearance profiles and Classic MR Style"},
-  {"id":"crew","title":"Qualified stock crew rest-pose fitting"},
-  {"id":"audio","title":"Audio Studio: sources, presets, audition and isolation"},
-  {"id":"physics-camera","title":"Physics, gameplay camera, vehicle names and game artwork"},
-  {"id":"audio-import","title":"Audio Import 2.0 and optional GT Sound Bank Lab sources"},
-  {"id":"shadows","title":"Shadow Studio and Classic material qualification"},
-  {"id":"game-camera","title":"Game Camera Lab and Race Progress Marker"},
-  {"id":"heritage","title":"MR Heritage Garage: native Demo sources and isolated rosters"}
+  {
+    "id": "start",
+    "title": "Projects, saving and safety"
+  },
+  {
+    "id": "viewport",
+    "title": "3D viewport and diagnostics"
+  },
+  {
+    "id": "materials",
+    "title": "Surfaces and texture bindings"
+  },
+  {
+    "id": "textures",
+    "title": "Texture Studio"
+  },
+  {
+    "id": "build",
+    "title": "Build, validation and recovery"
+  },
+  {
+    "id": "glass",
+    "title": "Glass damage evidence"
+  },
+  {
+    "id": "appearance",
+    "title": "Paint, appearance profiles and Classic MR Style"
+  },
+  {
+    "id": "crew",
+    "title": "Qualified stock crew rest-pose fitting"
+  },
+  {
+    "id": "audio",
+    "title": "Audio Studio: sources, presets, audition and isolation"
+  },
+  {
+    "id": "physics-camera",
+    "title": "Physics, gameplay camera, vehicle names and game artwork"
+  },
+  {
+    "id": "audio-import",
+    "title": "Audio Import 2.0 and optional GT Sound Bank Lab sources"
+  },
+  {
+    "id": "shadows",
+    "title": "Shadow Studio and Classic material qualification"
+  },
+  {
+    "id": "game-camera",
+    "title": "Game Camera Lab and Race Progress Marker"
+  },
+  {
+    "id": "heritage",
+    "title": "MR Heritage Garage: native Demo sources and isolated rosters"
+  },
+  {
+    "id": "presentation",
+    "title": "Results Names and Frontend Presentation"
+  }
 ]

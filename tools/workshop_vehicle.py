@@ -14,13 +14,19 @@ def main():
         p=sub.add_parser(command);p.add_argument('--mode',type=int,choices=range(5),default=0);p.add_argument('--split',action='store_true')
         if command=='set-camera-mode':p.add_argument('fields',type=json.loads,help='Qualified JSON fields; {} resets selected mode')
         if command=='export-game-camera':p.add_argument('--view',choices=['original','donor','modified'],default='modified')
+    for command in ('frontend','set-frontend','export-frontend'):
+        p=sub.add_parser(command)
+        if command=='set-frontend':p.add_argument('offset',type=float)
+        if command=='export-frontend':p.add_argument('--view',choices=['original','modified','stock NewRav'],default='modified')
+    sub.add_parser('auto-frame-frontend')
+    p=sub.add_parser('results-name');p.add_argument('name')
     p=sub.add_parser('details')
     for k in ('manufacturer','model','combined','display-name','description'):p.add_argument('--'+k)
     p=sub.add_parser('alias');p.add_argument('texture');p.add_argument('label')
     p=sub.add_parser('search-textures');p.add_argument('query',nargs='?',default='')
     p=sub.add_parser('generate-art');p.add_argument('--model',choices=['car.dx','complete.dx'],default='complete.dx');p.add_argument('--role',choices=['vehicle_select_art','smallcarsheet']);p.add_argument('--azimuth',type=float);p.add_argument('--elevation',type=float);p.add_argument('--padding',type=int,default=12)
     p=sub.add_parser('apply-art');p.add_argument('report',type=Path,help='Explicitly accept a reviewed project-owned generation.json')
-    p=sub.add_parser('restore');p.add_argument('--section',choices=['physics','camera','details','aliases','art'])
+    p=sub.add_parser('restore');p.add_argument('--section',choices=['physics','camera','frontend','details','aliases','art'])
     sub.add_parser('validate');sub.add_parser('undo');sub.add_parser('redo')
     p=sub.add_parser('build');p.add_argument('output',type=Path)
     a=parser.parse_args();project=WorkshopProject(a.project);result=None
@@ -32,6 +38,11 @@ def main():
     elif a.action=='game-camera':result=project.camera_lab_inspect(mode=a.mode,split=a.split)
     elif a.action=='set-camera-mode':project.camera_mode_update(a.mode,a.fields);result=project.camera_lab_inspect(mode=a.mode,split=a.split)
     elif a.action=='export-game-camera':result=project.camera_lab_export(mode=a.mode,split=a.split,view=a.view)
+    elif a.action=='frontend':result=project.frontend_inspect()
+    elif a.action=='set-frontend':project.frontend_update(a.offset);result=project.frontend_inspect()
+    elif a.action=='auto-frame-frontend':result={'draft_offset_m':project.frontend_auto_frame(),'saved':False}
+    elif a.action=='export-frontend':result=project.frontend_export(view=a.view)
+    elif a.action=='results-name':project.results_name_update(a.name);result=project.results_name_preview()
     elif a.action=='details':
         fields=project.vehicle_state()['details'];updates={k:getattr(a,k) for k in fields if getattr(a,k) is not None}
         if updates:fields.update(updates);project.details_update(fields)

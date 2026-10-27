@@ -8,6 +8,7 @@ from pathlib import Path
 from master_rallye.addon_sdk.physics_profile import MEMBERS,compile_family,validate_player_defaults,POSITIVE,NONNEGATIVE
 from master_rallye.vehicle_config_analysis import parse_vehicle_config_bytes
 from .camera_lab import CameraLabAuthoring
+from .frontend_authoring import FrontendAuthoring
 
 def sha(data):return hashlib.sha256(data).hexdigest()
 def typed(row):
@@ -46,7 +47,7 @@ def field_info(path,kind,member):
     return {'editable':editable,'units':unit,'bounds':guard,'group':('/'.join(path.split('/')[:2]) if path.startswith(('Suspension/','Player')) else path.split('/')[0]),
             'evidence':'Existing typed physics compiler; V-PHYS1/2 reader/consumer map. Initialization only, no live solver.'}
 
-class VehicleAuthoring(CameraLabAuthoring):
+class VehicleAuthoring(CameraLabAuthoring,FrontendAuthoring):
     def vehicle_state(self):
         from .service import write_json
         if not self.data.get('vehicle_authoring'):
@@ -136,14 +137,14 @@ class VehicleAuthoring(CameraLabAuthoring):
         self.physics_compile(state['physics']);state['physics']['notes']+='\nExplicit stock reference '+family+' group '+group+' (fitment/count arrays retained).'
         self._vehicle_commit(state);return {'copied':copied,'retained':retained,'source':family,'pins':info['pins']}
 
-    def camera_source(self):
+    def native_model_resources(self):
         """Reuse SDK resource transforms, then pin exact output checked again by roster."""
         from master_rallye.addon_sdk.project import _mechanical_artifacts,_apply_visual_fitment
         from master_rallye.vehicle_project import VehicleProject
         if self.data['kind']=='stock':
             from master_rallye.addon_sdk.stock_project import QUALIFIED_STOCK
             if not self.data['car_id'] or QUALIFIED_STOCK.get(self.data['car_id'])!=self.data['family']:raise ValueError('Stock camera CarID/family is not qualified; CarID0 is read-only')
-            return (self.assets/'car.dx').read_bytes()
+            return {n:(self.assets/n).read_bytes()for n in ('car.dx','complete.dx','wheel.dx')}
         if self.data['kind']!='addon':raise ValueError('Camera requires a qualified addon or stock copy-on-write project')
         state=self.vehicle_state();p=state['physics'];s=self.data['build_settings'];author=VehicleProject.load(self.working/'vehicle-project.json')
         resources={n:(self.assets/n).read_bytes() for n in ('car.dx','complete.dx','wheel.dx')}
@@ -153,7 +154,10 @@ class VehicleAuthoring(CameraLabAuthoring):
         family=json.loads((self.working/'addon.json').read_text())['identity']['runtime_family']
         resources,_=_mechanical_artifacts(self.working,family,resources,Path(s['retail_sma']),donor_family=author.vehicle_name)
         resources,_=_apply_visual_fitment(self.working,resources)
-        return resources['car.dx']
+        return resources
+
+    def camera_source(self):
+        return self.native_model_resources()['car.dx']
 
     def camera_inspect(self):
         from master_rallye.dx import parse_dx_bytes
@@ -188,6 +192,33 @@ class VehicleAuthoring(CameraLabAuthoring):
             if not isinstance(value,str) or len(value)>limits[key] or (key!='description' and (not value.strip() or any(not 32<=ord(c)<=126 for c in value))):raise ValueError(key+': printable ASCII required within SDK character budget '+str(limits[key]))
         addon=json.loads((self.working/'addon.json').read_text());addon['frontend'].update({k:fields[k] for k in ('manufacturer','model','combined')});addon['results']['display_name']=fields['display_name'];addon['description']=fields['description'];_validate_one(addon)
         state=self.vehicle_state();state['details']=dict(fields);self._vehicle_commit(state)
+
+    def results_name_update(self,value):
+        fields=copy.deepcopy(self.vehicle_state()['details']);fields['display_name']=value;self.details_update(fields)
+
+    def results_name_reset(self):
+        self.results_name_update(self.vehicle_defaults()['details']['display_name'])
+
+    def results_name_preview(self):
+        """Reuse the actual UI frame converter, without regenerating vehicle art."""
+        if self.data['kind']!='addon':raise ValueError('Stock Results registration is read-only')
+        from master_rallye.addon_sdk.ui_assets import build_ui_assets,BANKS
+        from master_rallye.addon_sdk.project import read_sma_member
+        from master_rallye.dxt import parse_dxt_bytes,encode_png
+        addon=json.loads((self.working/'addon.json').read_text());role=addon['frontend']['smallcarsheet'];retail=Path(self.data['build_settings']['retail_sma'])
+        key=(sha((self.working/'ui-assets.json').read_bytes())if (self.working/'ui-assets.json').exists()else'',str(retail),retail.stat().st_mtime_ns,json.dumps(role,sort_keys=True))
+        cached=getattr(self,'_results_icon_cache',None)
+        if not cached or cached[0]!=key:
+            if role['policy']=='project_frame':
+                assets,report=build_ui_assets(self.working,addon,retail);entry=report['roles']['smallcarsheet'];raw=assets[entry['frame_path']]
+            else:
+                prefix=BANKS['smallcarsheet'][0];path=f'{prefix}_{role["frame"]:03d}_000.dxt';raw=read_sma_member(retail,path);entry={'frame_path':path}
+            texture=parse_dxt_bytes(raw)
+            if (texture.width,texture.height)!=(32,16):raise ValueError('Results icon must be the qualified32×16 frame')
+            folder=self.root/'preview/results';folder.mkdir(parents=True,exist_ok=True);path=folder/'smallcarsheet.png';path.write_bytes(encode_png(texture))
+            cached=(key,{'png':str(path),'frame':role['frame'],'resource_sha256':sha(raw),'dimensions':[32,16],'source':entry['frame_path']});self._results_icon_cache=cached
+        return {**cached[1],'original':self.vehicle_defaults()['details']['display_name'],'current':self.vehicle_state()['details']['display_name'],
+                'scope':'Fixed per-vehicle Results presentation label in the existing native path; no DriverID/AI change. Human/network name branches remain native.'}
 
     def marker_inspect(self):
         from .race_marker import colour_info
@@ -229,6 +260,7 @@ class VehicleAuthoring(CameraLabAuthoring):
         defaults['details']={k:addon.get('frontend',{}).get(k,'') for k in ('manufacturer','model','combined')}
         defaults['details'].update(display_name=addon.get('results',{}).get('display_name',''),description=addon.get('description',''))
         defaults['race_marker']=addon.get('race_colour_rgba')
+        defaults['frontend']=None
         return defaults
 
     def vehicle_inherit(self,other):
@@ -240,6 +272,7 @@ class VehicleAuthoring(CameraLabAuthoring):
             if self.data['inputs'].get(name)==alias['source_sha256']:state['aliases'][name]=alias;report['applied'].append(name)
             else:report['conflicts'].append({'alias':name,'reason':'texture changed or omitted by this appearance version'})
         if source['camera']:report['conflicts'].append({'camera':'Requalify source-model hash for new visual version'})
+        if source.get('frontend'):report['conflicts'].append({'frontend':'Requalify complete-model hash for new visual version'})
         if source['art']:report['conflicts'].append({'art':'Regenerate for new source geometry; original pins retained in source project'})
         self._vehicle_commit(state);return report
 
@@ -305,6 +338,10 @@ class VehicleAuthoring(CameraLabAuthoring):
             from master_rallye.addon_sdk.camera_profile import bind_camera_profile
             if state['camera']['car_id']!=self.data['car_id']:raise ValueError('Camera target changed from project identity')
             report['camera']=bind_camera_profile(state['camera'],self.camera_source())
+        if state.get('frontend'):
+            from master_rallye.frontend_presentation import bind_profile
+            if state['frontend']['car_id']!=self.data['car_id']:raise ValueError('Frontend target differs from project')
+            report['frontend']=bind_profile(state['frontend'],self.frontend_source())
         return report
 
     def camera_build_roster(self,roster,snapshot,build):

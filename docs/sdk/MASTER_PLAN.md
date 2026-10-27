@@ -2,6 +2,10 @@
 
 **27 October 2026 — owner-confirmed Heritage Isuzu race closeout; upcoming Vehicle Presentation Polish.** This is a non-destructive update to the existing v6.0 roadmap. **Gameplay Camera 2.0 remains in progress at the main Codex**, and this addendum does not interrupt or alter that active work. The complete earlier plan follows unchanged below.
 
+**Current implementation status:** Camera2.0 and the bounded Vehicle Presentation
+Polish are now implemented and validated offline/Windows. The original owner
+roadmap text below is retained as received; final status is appended at the end.
+
 ## Owner's new in-game acceptance evidence — Isuzu Trooper Demo 9.3.1
 
 The owner provided three original game screenshots: Isuzu Trooper Vehicle Select, Isuzu as `DEMO TROOPER` in the Race Time/Results list, and a stock Reece Pickup (RAV4 comparison) Vehicle Select framing reference. The owner explicitly confirms the following for the Heritage Trooper test roster: vehicle appears in game with source wheel placement, usable native physics, working brake lamps, breakable glass, sound, menu/Results icons, stable race completion and return to the menu. These items are now **OWNER_CONFIRMED_GAMEPLAY** for this tested candidate, not merely source/offline qualifications. No automatic inference about untested split-screen, campaign, all race types, the alternative Pajero roster, unlimited capacity or other Demo cars. Keep independent Pajero and Isuzu configurations separate at CarID29.
@@ -1536,3 +1540,18 @@ has a neutral rest-pose floor/grid and height reference. See
 behavior remains pending owner; the full separate Heritage Trooper acceptance
 reported with v6.1 is confirmed and preserved. After validation/commit of this
 camera phase, proceed only to the requested bounded Vehicle Presentation Polish.
+
+
+## Implementation status — Vehicle Presentation Polish, 27 October 2026
+
+Gameplay Camera2.0 completed and committed first (3919a7e / fc3c97d).
+Results naming reuses the qualified fixed display path, adds actual icon preview
+and targeted history/Restore. Frontend Presentation is a separate addon-scoped
+private camera-target adapter, not model or gameplay physics translation.
+Trooper/NewRav/Lancer source measurements, stock-like vertical matching, live
+D3D9 drafts, source/reference comparisons and isolated name/framing candidates
+are implemented. Stock reference remains read-only; unsupported frontend
+FOV/distance/scale controls are not advertised. Exact capability boundaries,
+source addresses, regressions and owner checklist: VEHICLE_PRESENTATION_RESULTS.md.
+Accepted Heritage gameplay remains owner-confirmed. New camera/presentation
+D3D8 behavior remains pending; stop here for review, no subsequent imports.

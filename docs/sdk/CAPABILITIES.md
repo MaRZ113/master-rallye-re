@@ -1,3 +1,14 @@
+# Vehicle Presentation Polish
+
+Fixed Driver / Results Name with actual32×16 icon row, targeted history/reset;
+unique-addon frontend private-target framing, stock NewRav baseline draft,
+source/modified/reference D3D9 views, projection/clip guides, Save/reopen/build.
+No mesh/physics/gameplay camera changes. Manual frontend vertical correction
+only; stock framing, distance/scale/FOV authoring unsupported. Panel guides are
+illustrative. Native D3D8 owner testing remains pending. See
+VEHICLE_PRESENTATION_RESULTS.md for the exact matrix and source evidence.
+
+---
 # Gameplay Camera 2.0
 
 Five source-mapped views (3 Follow /2 Fixed), source FOV/aspect arithmetic and

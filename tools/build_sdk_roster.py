@@ -74,7 +74,7 @@ def apply_base_glass_profiles(resources,base_rows,profiles):
 
 
 def derive(config):
-    if not isinstance(config,dict) or not {'sdk_roster_version','base_runtime','projects'}<=set(config) or set(config)-{'sdk_roster_version','base_runtime','projects','reservations','retail_exe','frontend_profiler','frontend_bulk_read','stock_resource_projects','camera_profiles','base_glass_profiles'} or type(config.get('sdk_roster_version')) is not int or config['sdk_roster_version']!=1:raise ValueError('unsupported SDK roster declaration')
+    if not isinstance(config,dict) or not {'sdk_roster_version','base_runtime','projects'}<=set(config) or set(config)-{'sdk_roster_version','base_runtime','projects','reservations','retail_exe','frontend_profiler','frontend_bulk_read','stock_resource_projects','camera_profiles','frontend_profiles','base_glass_profiles'} or type(config.get('sdk_roster_version')) is not int or config['sdk_roster_version']!=1:raise ValueError('unsupported SDK roster declaration')
     if type(config.get('frontend_profiler',False)) is not bool:raise ValueError('frontend_profiler must be an explicit boolean')
     if type(config.get('frontend_bulk_read',False)) is not bool:raise ValueError('frontend_bulk_read must be an explicit boolean')
     inputs=config.get('projects')
@@ -191,6 +191,21 @@ def derive(config):
             camera_bindings.append(bind_camera_profile(cp,model))
         image,blob,camera=append_camera(source,image,blob,damage.PAYLOAD_VA,camera_bindings,ALLOCATION)
         ops+=camera['operations'];bindings['camera']={k:v for k,v in camera.items() if k!='operations'}
+    frontend_inputs=config.get('frontend_profiles',[])
+    if not isinstance(frontend_inputs,list)or any(not isinstance(p,str)or not p for p in frontend_inputs):raise ValueError('frontend_profiles must contain explicit paths')
+    if frontend_inputs:
+        from master_rallye.frontend_presentation import bind_profile
+        from vehicle_frontend_native import append_frontend
+        identities={r['physical_id']:r['identity']['runtime_family']for r in all_rows}
+        frontend_bindings=[]
+        for path in frontend_inputs:
+            fp=json.loads(Path(path).read_text());family=fp.get('runtime_family')
+            if identities.get(fp.get('car_id'))!=family:raise ValueError('Frontend identity is not a unique addon roster resource')
+            rel='DataGx/Vehicles/'+family+'/complete.dx'
+            if rel not in output:raise ValueError('Frontend complete resource missing')
+            frontend_bindings.append(bind_profile(fp,probe.value(output[rel])))
+        image,blob,frontend=append_frontend(source,image,blob,damage.PAYLOAD_VA,frontend_bindings,ALLOCATION)
+        ops+=frontend['operations'];bindings['frontend_presentation']={k:v for k,v in frontend.items()if k!='operations'}
     if len(blob)>ALLOCATION or len(writable)>1:raise ValueError('bounded combined native allocation exhausted')
     for i,a in enumerate(ops):
         span=(a['file_offset'],a['file_offset']+len(bytes.fromhex(a['original_bytes'])))

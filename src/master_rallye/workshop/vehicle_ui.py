@@ -8,8 +8,10 @@ from .vehicle_authoring import typed
 from .marker_ui import MarkerPanels
 from .ui_actions import scroll_page
 from .camera_lab_ui import CameraLabPanels
+from .results_ui import ResultsPanels
+from .frontend_ui import FrontendPanels
 
-class VehiclePanels(MarkerPanels,CameraLabPanels):
+class VehiclePanels(MarkerPanels,CameraLabPanels,ResultsPanels,FrontendPanels):
     def open_vehicle_studios(self):
         if not self.project:return
         if getattr(self,'vehicle_window',None) is not None and self.vehicle_window.winfo_exists():self.vehicle_window.lift();self.vehicle_loaded();return
@@ -40,23 +42,26 @@ class VehiclePanels(MarkerPanels,CameraLabPanels):
         self.camera_canvas=tk.Canvas(camera,height=250,bg='#1a1e24',highlightthickness=0);self.camera_canvas.pack(fill='both',expand=True,pady=10)
         for v in self.camera_fields.values():v.trace_add('write',lambda *_:self.camera_overlay())
         self.camera_note=tk.StringVar(value='Load qualified model first. Unsupported CarIDs fail closed.');ttk.Label(camera,textvariable=self.camera_note,wraplength=950).pack(fill='x')
-        ttk.Label(camera,text='READ ONLY / unsupported: FOV, smoothing, look-at offsets, replay/rear camera controls.\nNo geometry, suspension, collision, audio or Previewer camera changes.',wraplength=900).pack(fill='x',pady=8)
+        ttk.Label(camera,text='Open Game Camera Lab for five source-mapped views, live FOV and Follow framing.\nSmoothing, pitch/terrain dynamics and independent replay/rear controls remain read-only.',wraplength=900).pack(fill='x',pady=8)
         row=ttk.Frame(camera);row.pack(fill='x');ttk.Button(row,text='Apply follow extents',command=self.camera_apply).pack(side='left');ttk.Button(row,text='Reset camera override',command=lambda:self.vehicle_action('Restore camera',lambda:self.project.vehicle_reset('camera'))).pack(side='left')
         self.camera_info=None
 
         details,details_page=scroll_page(tabs,padding=10);tabs.add(details_page,text='Vehicle Details / Race HUD');self.details_tab=details_page
         self.details_fields={}
-        for key,label in [('manufacturer','Manufacturer (32)'),('model','Model (64)'),('combined','Combined display name (96)'),('display_name','Race Results display name (64)'),('description','Project description (8192)')]:
+        for key,label in [('manufacturer','Manufacturer (32)'),('model','Model (64)'),('combined','Combined display name (96)'),('display_name','Driver / Results Name (64)'),('description','Project description (8192)')]:
             row=ttk.Frame(details);row.pack(fill='x',pady=3);ttk.Label(row,text=label,width=32).pack(side='left');v=tk.StringVar();self.details_fields[key]=v;ttk.Entry(row,textvariable=v).pack(fill='x',expand=True)
         ttk.Label(details,text='Printable ASCII for game names. Numbers above are conservative SDK authoring budgets, not proven native buffer limits. Description is project metadata.',wraplength=950).pack(fill='x')
         row=ttk.Frame(details);row.pack(fill='x',pady=6);ttk.Button(row,text='Apply display identity',command=self.details_apply).pack(side='left');ttk.Button(row,text='Restore display identity',command=lambda:self.vehicle_action('Restore names',lambda:self.project.vehicle_reset('details'))).pack(side='left')
-        self.marker_layout(details)
+        self.results_layout(details);self.marker_layout(details)
         self.identity_note=tk.StringVar();ttk.Label(details,textvariable=self.identity_note,wraplength=950).pack(fill='x',pady=5)
         self.alias_search=tk.StringVar();ttk.Entry(details,textvariable=self.alias_search).pack(fill='x');self.alias_search.trace_add('write',lambda *_:self.alias_fill())
         self.alias_tree=ttk.Treeview(details,columns=('alias',),show='tree headings',height=7);self.alias_tree.heading('#0',text='Original stable resource ID');self.alias_tree.heading('alias',text='Friendly name (metadata only)');self.alias_tree.pack(fill='both',expand=True);self.alias_tree.bind('<<TreeviewSelect>>',self.alias_selected)
         row=ttk.Frame(details);row.pack(fill='x');self.alias_name=tk.StringVar();ttk.Entry(row,textvariable=self.alias_name).pack(side='left',fill='x',expand=True);ttk.Button(row,text='Save friendly name',command=self.alias_apply).pack(side='left');ttk.Button(row,text='Inspect original texture',command=self.alias_inspect).pack(side='left')
         ttk.Label(details,text='Search by alias or original name. Shared atlas usages remain independent; alias does not rename files or change DX bindings.').pack(fill='x')
 
+        frontend=ttk.Frame(tabs,padding=10);tabs.add(frontend,text='Frontend Presentation');self.frontend_tab=frontend
+        ttk.Label(frontend,text='Large rotating VehicleSelect model. Separate from gameplay cameras, vehicle-selection thumbnails and Results icons.\nOriginal / Modified / stock NewRav comparison, live vertical framing, source baseline matching, history and isolated builds.\nNative authoring currently requires a uniquely registered addon resource. Stock NewRav is a read-only reference.\nD3D9 previews approximate materials; panel guides are illustrative; actual D3D8 presentation requires owner verification.',wraplength=920).pack(fill='x')
+        ttk.Button(frontend,text='Open Frontend Presentation',command=self.open_frontend_presentation).pack(anchor='w',pady=12)
         art=ttk.Frame(tabs,padding=10);tabs.add(art,text='Generate Vehicle Art');self.art_tab=art
         self.art_role=tk.StringVar(value='both');ttk.Combobox(art,textvariable=self.art_role,values=['both','vehicle_select_art','smallcarsheet'],state='readonly').pack(fill='x')
         self.art_model=tk.StringVar(value='complete.dx');ttk.Combobox(art,textvariable=self.art_model,values=['complete.dx','car.dx'],state='readonly').pack(fill='x',pady=4)
@@ -81,7 +86,7 @@ class VehiclePanels(MarkerPanels,CameraLabPanels):
         if p.data['kind']=='addon':
             addon=json.loads((p.working/'addon.json').read_text());self.identity_note.set('LOCKED native identity / families / namespaces:\n'+json.dumps({'addon_id':addon['addon_id'],'runtime_CarID':p.data['car_id'],'author_slot':addon['physical_id'],'identity':addon['identity'],'resource_root':addon['assets']['model_package_root']},ensure_ascii=False))
         else:self.identity_note.set('Stock identity is read-only. Friendly aliases and generated previews are metadata; original stock UI frame replacement is unsupported.')
-        self.alias_fill();self.physics_fill();self.marker_refresh()
+        self.alias_fill();self.physics_fill();self.marker_refresh();self.results_refresh()
         signature=(str(p.root),tuple((k,v['sha256']) for k,v in state['art'].items()))
         if not self.pending_art and signature!=getattr(self,'shown_art',None):
             self.art_show(state['art'],applied=True);self.shown_art=signature

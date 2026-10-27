@@ -604,6 +604,7 @@ class WorkshopProject(AudioAuthoring,VehicleAuthoring,AudioImportAuthoring,GTAud
                 if len(matches)!=1:raise ValueError('This roster does not contain exactly one replaceable author entry; frozen base addons need a qualified author entry')
                 matches[0].update(project=str(snapshot),build=str(output/'author-build'))
             self.camera_build_roster(roster,snapshot,output/'author-build')
+            self.frontend_build_roster(roster,snapshot)
             log('Building isolated runtime candidate and launcher preflights...')
             write_json(output/'roster.json',roster);report=roster_build(roster,output/'candidate')
         self.data['last_build']=str(output);self.save();return report

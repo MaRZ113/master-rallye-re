@@ -105,3 +105,7 @@ is untouched. Compare separate physics-only, camera-only and combined candidates
 Offline/native CPU and Windows Previewer evidence cannot prove actual race
 handling, chase dynamics, UI text fit, AI lifetime or sound playback. Test those
 in the game later, including exit/re-entry, Results and unrelated stock/addon cars.
+
+
+Results Names and the separate Frontend Presentation editor are documented in
+the Results Names and Frontend Presentation help topic. They do not tune physics.

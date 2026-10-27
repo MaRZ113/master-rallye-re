@@ -1,3 +1,30 @@
+# Vehicle Presentation Polish — validated local phase
+
+27 October2026. Parent `fc3c97d` preserved. Implementation commit is recorded in
+the following ledger checkpoint; no history rewriting and no remote publication.
+
+- Fixed Driver / Results Name reuses addon.results, actual32×16 icon and native
+  Results consumer. Targeted history/reset; DriverID/CarID/model untouched.
+- Unique-addon frontend private target correction at52A7BC; source pose/resource/
+  hash/bounds gate, no model/physics/global camera edits. NewRav lower baseline,
+  live D3D9 original/modified/reference comparison and clipping/panel guides.
+- `presentation/phase-tests-final-state.log`:923 tests,2 existing fixture skips,
+  62.872s PASS. Native original+delivered13 cases; Results3 DriverID cases;
+  combined Camera2/native frontend payload replay passes.
+- Actual Windows delivery GUI and six qualified module regressions pass; five
+  Camera2 modes/live history pass again. Native engine/SFX/multi-owner/allocation
+  failure checks pass. New D3D8 presentation remains PENDING_OWNER.
+- Two deterministic candidates preserve313 immutable resources; root player save
+  seeded unchanged. Original EXE/DLL/corpora retail SMA pins match. Root Data.sma
+  differs from prior Camera2 observation and currently matches retail; attribution
+  is not established and is recorded separately, not labeled unchanged.
+- Six temporary runtime leaves moved only to ignored quarantine (2,326,491,527B;
+  0 physical bytes freed). Current/accepted candidates and source trees retained.
+- See VEHICLE_PRESENTATION_RESULTS.md and private `presentation/` evidence.
+  Source-only full-tree/changed-file archives are generated from committed Git
+  blobs after the checkpoint; their manifest records exact revisions and hashes.
+
+---
 # Gameplay Camera 2.0 — validated local phase
 
 Implementation commit: `3919a7ea5ba935b6e50aa03ae2a6971c04837a45`.

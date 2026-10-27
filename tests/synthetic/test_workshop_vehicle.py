@@ -17,6 +17,14 @@ def project(root):
     p=WorkshopProject.create(author,root/'workshop');p.data['car_id']=28;p.save();return p,raw
 
 class VehicleWorkshopTests(unittest.TestCase):
+    def test_frontend_reset_clears_stale_source_binding(self):
+        with tempfile.TemporaryDirectory()as td:
+            p,_=project(Path(td));before=p.vehicle_state();p.data['vehicle_authoring']['frontend']={'source_model_sha256':'stale'}
+            with patch.object(p,'frontend_inspect',side_effect=AssertionError('Reset must not require the stale source')):
+                p.frontend_update(0.)
+            after=p.vehicle_state();self.assertIsNone(after.pop('frontend'));self.assertEqual(after,before)
+            with self.assertRaises(ValueError):p.frontend_update(float('nan'))
+
     def test_physics_typed_validation_history_audio_isolation(self):
         with tempfile.TemporaryDirectory() as td:
             p,members=project(Path(td));p.vehicle_state();before=(p.working/'addon.json').read_bytes();geometry={x:x.read_bytes() for x in p.assets.iterdir()}
@@ -41,6 +49,18 @@ class VehicleWorkshopTests(unittest.TestCase):
             for value in ('bad\0name','bad\nname','Мицубиси','x'*97):
                 wrong=copy.deepcopy(fields);wrong['combined']=value
                 with self.assertRaises(ValueError):p.details_update(wrong)
+
+    def test_results_name_targeted_history_and_restore(self):
+        with tempfile.TemporaryDirectory() as td:
+            p,_=project(Path(td));before=p.vehicle_state();original=json.loads((p.working/'addon.json').read_text())
+            p.results_name_update('CREW TEST');state=p.vehicle_state();self.assertEqual(state['details']['display_name'],'CREW TEST')
+            for key in state:
+                if key!='details':self.assertEqual(state[key],before[key])
+            after=json.loads((p.working/'addon.json').read_text());expected=copy.deepcopy(original);expected['results']['display_name']='CREW TEST';self.assertEqual(after,expected)
+            self.assertEqual(WorkshopProject(p.root).vehicle_state(),state);p.undo();self.assertEqual(p.vehicle_state(),before);p.redo();self.assertEqual(p.vehicle_state(),state)
+            p.results_name_reset();self.assertEqual(p.vehicle_state()['details']['display_name'],before['details']['display_name'])
+            for bad in ('', 'bad\nname','x'*65,'Иван'):
+                with self.assertRaises(ValueError):p.results_name_update(bad)
 
     def test_aliases_metadata_only_search_reopen_restore_and_source_drift(self):
         with tempfile.TemporaryDirectory() as td:
