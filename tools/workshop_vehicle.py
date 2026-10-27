@@ -10,6 +10,10 @@ def main():
     p=sub.add_parser('set-physics');p.add_argument('member',choices=['DataGame/vehicles.xml','DataGame/Modifications.xml']);p.add_argument('field');p.add_argument('value',type=json.loads,help='Typed scalar, bool, vector or quoted string')
     p=sub.add_parser('copy-reference');p.add_argument('family');p.add_argument('group')
     sub.add_parser('camera');p=sub.add_parser('set-camera');p.add_argument('half_length',type=float);p.add_argument('height',type=float);p.add_argument('--car-id',type=int)
+    for command in ('game-camera','set-camera-mode','export-game-camera'):
+        p=sub.add_parser(command);p.add_argument('--mode',type=int,choices=range(5),default=0);p.add_argument('--split',action='store_true')
+        if command=='set-camera-mode':p.add_argument('fields',type=json.loads,help='Qualified JSON fields; {} resets selected mode')
+        if command=='export-game-camera':p.add_argument('--view',choices=['original','donor','modified'],default='modified')
     p=sub.add_parser('details')
     for k in ('manufacturer','model','combined','display-name','description'):p.add_argument('--'+k)
     p=sub.add_parser('alias');p.add_argument('texture');p.add_argument('label')
@@ -25,6 +29,9 @@ def main():
     elif a.action=='copy-reference':result=project.physics_copy_reference(a.family,a.group)
     elif a.action=='camera':result=project.camera_inspect()
     elif a.action=='set-camera':project.camera_update(a.half_length,a.height,a.car_id)
+    elif a.action=='game-camera':result=project.camera_lab_inspect(mode=a.mode,split=a.split)
+    elif a.action=='set-camera-mode':project.camera_mode_update(a.mode,a.fields);result=project.camera_lab_inspect(mode=a.mode,split=a.split)
+    elif a.action=='export-game-camera':result=project.camera_lab_export(mode=a.mode,split=a.split,view=a.view)
     elif a.action=='details':
         fields=project.vehicle_state()['details'];updates={k:getattr(a,k) for k in fields if getattr(a,k) is not None}
         if updates:fields.update(updates);project.details_update(fields)

@@ -304,7 +304,7 @@ def stage_vehicle(source:Path, output:Path, *, profile:Path|None=None):
         draws.extend(shadow_guides(config['shadow_debug'],ground))
     if 'camera_debug'in config:
         from .camera_preview import camera_guides
-        draws.extend(camera_guides(config['camera_debug']))
+        draws.extend(camera_guides(config['camera_debug'],min(p[1]for p in points)-.02 if points else -.02))
     if not points:points=[p for p in m.vertices.positions]
     lo=[min(p[k] for p in points) for k in range(3)];hi=[max(p[k] for p in points) for k in range(3)]
     data=bytearray(struct.pack('<4sIII6f',b'MRPV',1,len(textures),len(draws),*lo,*hi))

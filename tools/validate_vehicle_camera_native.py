@@ -23,6 +23,7 @@ def validate(exe, binding, *, delivered=None):
             import patch_vehicle_registry_id26 as reg
             pe=reg.parse_pe(exe)
             for op in report['operations']:
+                if op['name']!='physical_car_camera_extents':continue
                 # Exact virtual callsites were already independently qualified.
                 va=next(c for c in (0x52c652,0x52c65e,0x52c677) if reg.va_to_file_offset(pe,c,5)==op['file_offset'])
                 u.mem_write(va,bytes.fromhex(op['replacement_bytes']))

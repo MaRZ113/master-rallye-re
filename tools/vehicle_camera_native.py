@@ -12,7 +12,7 @@ BROKER=0x4ada50
 CAR_ID=0x4ac660
 
 
-def make_wrapper(base_va, profiles):
+def make_wrapper(base_va, profiles, *, selector=False):
     c=registry._CodeImage(base_va)
     emit=lambda x:c.emit(bytes.fromhex(x))
     c.label('entry');emit('9c60')
@@ -52,12 +52,60 @@ def make_wrapper(base_va, profiles):
     c.jump('fallback')
     c.label('broker_null');emit('83c404');c.jump('fallback')
     for i,p in enumerate(profiles):
-        c.label('selected'+str(i));emit('619d');c.jump('bounds'+str(i))
-    c.label('fallback');emit('619d');c.jump(NATIVE)
+        c.label('selected'+str(i))
+        if selector:
+            # An allowed different model must not borrow this ID's parameters,
+            # even when two source models happen to have identical bounds.
+            emit('8bf5');c.mov_eax_literal('model_name'+str(i));emit('8bd8 b9');c.emit(struct.pack('<I',len(p['model_resource'])+1))
+            c.label('selected_char'+str(i));emit('8a06 3c5c');c.jne('selected_slash'+str(i));emit('b02f')
+            c.label('selected_slash'+str(i));emit('3c41');c.emit(bytes.fromhex('0f82'));c.rel32.append((len(c.code),len(c.code)+4,'selected_fold'+str(i)));c.emit(b'\0'*4)
+            emit('3c5a');c.ja('selected_fold'+str(i));emit('0c20');c.label('selected_fold'+str(i));emit('3a03');c.jne('fallback');emit('46 43 49');c.jne('selected_char'+str(i))
+            # Reuse the exact owner/model gate, and additionally pin all bounds.
+            emit('8b4c2418');c.call(NATIVE);emit('85c0');c.je('fallback')
+            for off in range(0,44,4):
+                emit('8178');c.emit(bytes([off]));c.emit(bytes.fromhex(p['native_bounds_values_hex'])[off:off+4]);c.jne('fallback')
+            emit('c744241c');c.emit(struct.pack('<I',i+1));emit('619dc3')
+        else:emit('619d');c.jump('bounds'+str(i))
+    c.label('fallback')
+    if selector:emit('c744241c00000000619dc3')
+    else:emit('619d');c.jump(NATIVE)
     for i,p in enumerate(profiles):
         c.label('model_name'+str(i));c.emit(p['model_resource'].encode('ascii')+b'\0')
     # Forward labels are resolved after the bounded wrappers are appended.
     return c
+
+
+def make_parameter_wrapper(base_va,profiles,kind):
+    """Wrap original record copy; modify only its private object/out-FOV values.
+
+    EDI=target, ESI=manager at the two exact 004B82A0 copy calls. No pointers
+    survive this invocation. Overrides intentionally apply to normal AND split.
+    """
+    c=registry._CodeImage(base_va);emit=lambda s:c.emit(bytes.fromhex(s))
+    original=0x4b98e0 if kind=='follow'else 0x4b99c0;argc=4 if kind=='follow'else 3
+    emit('55 8bec')
+    for off in reversed(range(8,8+argc*4,4)):emit('ff75');c.emit(bytes([off]))
+    c.call(original);emit('9c60')
+    # Ordinary player cycle only. Alternate manager cycles are not authored.
+    emit('80be e6010000 00');c.jne('done');emit('80be e7010000 00');c.jne('done')
+    emit('85ff');c.je('done');emit('8b4f50 85c9');c.je('done');c.call('owner_gate')
+    for i,p in enumerate(profiles):
+        emit('3d');c.emit(struct.pack('<I',i+1));c.je('vehicle'+str(i))
+    c.jump('done')
+    for i,p in enumerate(profiles):
+        c.label('vehicle'+str(i))
+        for mode,values in p['profile'].get('mode_overrides',{}).items():
+            if not mode.startswith(kind):continue
+            label=f'next_{i}_{mode}';emit('837d0c');c.emit(bytes([int(mode[-1])])) ;c.jne(label)
+            for name,value in values.items():
+                if name=='FOV':emit('8b5510 c702');c.emit(struct.pack('<f',value))
+                else:
+                    emit('8b5508 c742');c.emit(bytes([{'Dist Front':0x48,'Dist Back':0x4c,'Dist Up':0x50}[name]]));c.emit(struct.pack('<f',value))
+            c.jump('done');c.label(label)
+        c.jump('done')
+    c.label('done');emit('619d5d c2');c.emit(struct.pack('<H',argc*4))
+    c.label('owner_gate');gate=make_wrapper(base_va+len(c.code),profiles,selector=True);c.emit(gate.build())
+    return c.build()
 
 
 def make_payload(base_va, profiles):
@@ -88,4 +136,14 @@ def append_camera(source,image,blob,payload_va,profiles,allocation_size):
     for call,off,expected in offsets:
         after=b'\xe8'+struct.pack('<i',entry-call-5);result[off:off+5]=after
         ops.append({'name':'physical_car_camera_extents','file_offset':off,'original_bytes':expected.hex(),'replacement_bytes':after.hex()})
-    return bytes(result),combined,{'entry_va':entry,'operations':ops,'bindings':profiles,'scope':'follow initializer only; current CarN physical CarID plus source model/bounds guards','runtime_qualified':False,'writable_ranges':[]}
+    if any(p['profile'].get('mode_overrides')for p in profiles):
+        for kind,call,target in [('follow',0x4b83a0,0x4b98e0),('fixed',0x4b83f3,0x4b99c0)]:
+            # Sites verified from original assembly; fail closed if source differs.
+            off=registry.va_to_file_offset(pe,call,5);expected=b'\xe8'+struct.pack('<i',target-call-5)
+            if source[off:off+5]!=expected or result[off:off+5]!=expected:raise ValueError('camera parameter-copy preimage differs: '+kind)
+            combined+=b'\x90'*(-len(combined)%16);at=payload_va+len(combined)
+            combined+=make_parameter_wrapper(at,profiles,kind)
+            after=b'\xe8'+struct.pack('<i',at-call-5);result[off:off+5]=after
+            ops.append({'name':'physical_car_'+kind+'_parameters','file_offset':off,'original_bytes':expected.hex(),'replacement_bytes':after.hex()})
+        if len(combined)>allocation_size:raise ValueError('camera parameter adapter exceeds allocation')
+    return bytes(result),combined,{'entry_va':entry,'operations':ops,'bindings':profiles,'scope':'Follow extents; optional per-mode parameter copies (normal AND split). Current CarN physical CarID plus exact source model/bounds guards; no cached owners or global XML writes.','runtime_qualified':False,'writable_ranges':[]}

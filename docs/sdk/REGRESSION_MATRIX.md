@@ -1,3 +1,22 @@
+# Gameplay Camera 2.0 checks
+
+| Check | Evidence | Boundary |
+|---|---|---|
+| Full suite | camera2/phase-tests.log:916 tests /2 pre-existing optional skips | Windows Python checkout |
+| Source dispatcher/projection | Original4B8170,4F2350,5D681F instructions | Source-matched CPU, not live game |
+| Mode isolation/ABI | native-delivered.json:80 delivered-payload cases | Name/Broker/bounds typed seams |
+| Five vehicles | native-model-matrix.json:5×80 parameter +5×6 Fixed cases;25 GPU views | Pajero/Trooper separate29 rosters |
+| Live GUI | windows-phase/validation.json; source/modified, numeric/drag/wheel, same PID, captures/history/reopen | Actual Tk/D3D9 |
+| Accepted resource preservation | candidate-differences.json:313 immutable matches; prefix129440 bytes identical | Fresh root save separately accounted |
+| Determinism/originals | preservation.json | Exact EXE/DLL/SMA hashes; repeated same-config derivations |
+| Other modules | regressions/windows-regressions.json plus Physics/Camera matched-baseline result | Actual Windows tools; D3D8 new cameras pending |
+
+Prior Heritage Trooper gameplay gates are now owner-confirmed (v6.1): geometry,
+wheels, physics, lamps/glass, audio, art, finish and re-entry. Camera2.0 remains
+a distinct owner gameplay gate.
+
+---
+
 # MR Heritage Garage regression matrix
 
 27 October 2026. See [results](HERITAGE_GARAGE_RESULTS.md).

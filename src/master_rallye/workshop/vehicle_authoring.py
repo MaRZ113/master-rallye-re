@@ -164,7 +164,7 @@ class VehicleAuthoring(CameraLabAuthoring):
         family=json.loads((self.working/'addon.json').read_text())['identity']['runtime_family'] if self.data['kind']=='addon' else self.data['family']
         return {'source_model_sha256':sha(raw),'original':original,'current':(state['camera'] or {}).get('follow_extents',original),
                 'car_id':self.data['car_id'],'family':family,'minimum':bounds.minimum,'maximum':bounds.maximum,
-                'boundary':'Only native follow extents are editable, not direct distance/position. FOV/smoothing/focus/replay authoring unsupported. Camera Lab static pose diagnostics and Free Inspection remain separate.'}
+                'boundary':'Qualified mode FOV / Follow Front, Back, Up and separate model extent inputs. Normal and split share each mode override. Smoothing, terrain/pitch and alternate/replay authoring remain unsupported. Static previews and free inspection are separate.'}
 
     def camera_update(self,half_length,height,car_id=None):
         from master_rallye.addon_sdk.camera_profile import bind_camera_profile
@@ -172,6 +172,8 @@ class VehicleAuthoring(CameraLabAuthoring):
         if target!=self.data['car_id']:raise ValueError('Camera target must match this qualified project CarID')
         profile={'version':1,'car_id':target,'policy':'native_follow_extents','runtime_family':info['family'],
                  'source_model_sha256':info['source_model_sha256'],'follow_extents':{'half_length_m':half_length,'height_m':height}}
+        previous=self.vehicle_state()['camera']or{}
+        if previous.get('mode_overrides'):profile['mode_overrides']=copy.deepcopy(previous['mode_overrides'])
         bind_camera_profile(profile,self.camera_source());state=self.vehicle_state();state['camera']=profile;self._vehicle_commit(state)
 
     def camera_reset_original(self):

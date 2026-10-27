@@ -1,3 +1,34 @@
+# Gameplay Camera 2.0 — validated local phase
+
+27 October 2026. Parent `ebcb28d9ad683d92aae94f9ba48426ffeef7b083` preserved.
+This phase implements source-mapped3 Follow +2 Fixed views, guarded per-CarID/
+per-mode FOV/Follow parameters, same-process live D3D9 drafts, explicit Apply/
+Cancel/reset/history, unsaved framing correction and rest-pose ground reference.
+Native copy, dispatcher, aspect and LH projection are original x86 CPU evidence;
+new D3D8 lifecycle/visual equivalence remains PENDING_OWNER.
+
+- `camera2/phase-tests.log`:916 tests,2 existing optional private-fixture skips,
+  64.720s. Actual `windows-phase/validation.json` live Tk/D3D9 workflow passes,
+  including selected-mode reset, save/reopen, Undo/Redo, original read-only,
+  drag/wheel, five modes in one process, captures and close/reopen.
+- `native-delivered.json`:80 delivered parameter-copy/owner/ABI cases; original
+  mode cycle and four projection cases. `native-model-matrix.json`:5×80 parameter
+  and5×6 Fixed source replays;25 GPU vehicle/mode captures. Old Lab/marker native
+  viewer event regression passes. No merged Pajero/Trooper CarID29 roster.
+- Qualified Audio/Paint/Crew/stock-reference/texture-zoom/material-binding-stock
+  and matched-baseline Physics/Camera/art Windows regressions pass. Original
+  engine/SFX/multi-owner/optional-failure CPU checks repeat successfully.
+- Final `camera2/t/b/candidate`:313 immutable resources match accepted Heritage,
+  native payload129440→131378 bytes with byte-identical prefix. Root PlayerState
+  seed preserved; played reference save/backup differences reported separately.
+  Repeated derivations, source pins and original EXE/DLL/SMA hashes pass.
+- Full Heritage Trooper gameplay acceptance is now owner-confirmed by v6.1;
+  this does not qualify the new camera changes. No push/publication.
+- Canonical source-only and changed-file archive identities are recorded in
+  private `camera2/review/archive-manifest.json` after the local phase commit.
+
+---
+
 # MR Heritage Garage — validated local phase
 
 - Implementation and evidence: `7412f1571270cc8539810978a7126604cc5502ff`.

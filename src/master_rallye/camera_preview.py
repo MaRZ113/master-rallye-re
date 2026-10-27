@@ -2,7 +2,7 @@
 import math,struct
 
 
-def camera_guides(report):
+def camera_guides(report,ground=-.02):
     if set(report)!={'original','modified'}:raise ValueError('Invalid camera guide roles')
     output=[]
     def line(name,a,b,color):
@@ -32,6 +32,9 @@ def camera_guides(report):
         height=math.tan(math.radians(fov/1.5)/2)*1.5;width=height*1.5
         corners=[[eye[i]+forward[i]*1.5+right[i]*sx*width+up[i]*sy*height for i in range(3)]for sx,sy in [(-1,-1),(1,-1),(1,1),(-1,1)]]
         for i,p in enumerate(corners):line(role+':frustum',eye,p,color);line(role+':frustum',p,corners[(i+1)%4],color)
-    for x in range(-8,9):line('ground',[x,-.02,-8],[x,-.02,16],b'\x50\x48\x40\xff')
-    for z in range(-8,17):line('ground',[-8,-.02,z],[8,-.02,z],b'\x50\x48\x40\xff')
+    if not math.isfinite(ground)or abs(ground)>200:raise ValueError('Invalid illustrative ground height')
+    floor=b''.join(struct.pack('<6f4s2f',x,ground-.005,z,0,1,0,b'\x61\x5b\x56\xff',0,0)for x,z in [(-80,-80),(-80,80),(80,80),(80,-80)])
+    output.append(('diagnostic:camera:floor',1,-1,-1,0,0,0,0,[0,ground,0],floor,[0,1,2,0,2,3,2,1,0,3,2,0]))
+    for x in range(-20,21):line('ground',[x,ground,-20],[x,ground,60],b'\xa0\x98\x88\xff')
+    for z in range(-20,61):line('ground',[-20,ground,z],[20,ground,z],b'\xa0\x98\x88\xff')
     return output

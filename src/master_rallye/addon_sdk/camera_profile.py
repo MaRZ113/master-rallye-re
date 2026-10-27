@@ -1,6 +1,16 @@
 """Camera-only extent calibration contract. Runtime adapter is intentionally gated."""
 import math
 
+
+def validate_mode_fields(mode,fields):
+    if mode not in ('follow0','follow1','follow2','fixed0','fixed1'):raise ValueError('Unsupported camera mode override')
+    limits={'FOV':(20.,140.)}
+    if mode.startswith('follow'):limits.update({'Dist Front':(.1,50.),'Dist Back':(.1,30.),'Dist Up':(-5.,10.)})
+    if not isinstance(fields,dict)or not fields or set(fields)-set(limits):raise ValueError('Unsupported camera parameter override')
+    for name,value in fields.items():
+        if type(value)not in (int,float)or not math.isfinite(value)or not limits[name][0]<=value<=limits[name][1]:raise ValueError('Camera parameter outside SDK authoring safety bounds')
+    return fields
+
 def validate_camera_profile(profile):
     if set(profile)!={'version','car_id','policy','follow_extents'}: raise ValueError('unknown/missing camera profile fields')
     if profile['version']!=1 or type(profile['car_id']) is not int or not 0<=profile['car_id']<=29: raise ValueError('unsupported version/CarID')
@@ -25,11 +35,15 @@ def bind_camera_profile(profile, model_data):
     from master_rallye.bounds import parse_bounds1339
     from .vehicle_shadow import runtime_bounds
     required={'version','car_id','policy','runtime_family','source_model_sha256','follow_extents'}
-    if set(profile)!=required or type(profile['version']) is not int or profile['version']!=1 or profile['policy']!='native_follow_extents':raise ValueError('unsupported native camera profile')
+    if set(profile)-{'mode_overrides'}!=required or type(profile['version']) is not int or profile['version']!=1 or profile['policy']!='native_follow_extents':raise ValueError('unsupported native camera profile')
+    modes=profile.get('mode_overrides',{})
+    if not isinstance(modes,dict)or set(modes)-{'follow0','follow1','follow2','fixed0','fixed1'}:raise ValueError('Unsupported camera mode override')
+    for mode,fields in modes.items():
+        validate_mode_fields(mode,fields)
     if profile['car_id']==0:raise ValueError('CarID0 camera override requires separate missing-key qualification')
     family=profile['runtime_family']
     if not isinstance(family,str) or not re.fullmatch('[A-Za-z][A-Za-z0-9_-]{0,62}',family):raise ValueError('invalid camera runtime family')
-    validate_camera_profile({k:('diagnostic_only' if k=='policy' else v) for k,v in profile.items() if k not in ('runtime_family','source_model_sha256')})
+    validate_camera_profile({k:('diagnostic_only' if k=='policy' else v) for k,v in profile.items() if k not in ('runtime_family','source_model_sha256','mode_overrides')})
     if hashlib.sha256(model_data).hexdigest()!=profile['source_model_sha256']:raise ValueError('camera source model hash mismatch')
     model=parse_dx_bytes(model_data)
     if not model.diagnostics.validated:raise ValueError('camera source model invalid')

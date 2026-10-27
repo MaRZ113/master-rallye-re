@@ -1,3 +1,16 @@
+# Gameplay Camera 2.0
+
+Five source-mapped views (3 Follow /2 Fixed), source FOV/aspect arithmetic and
+guarded per-CarID/per-mode FOV + Follow Front/Back/Up authoring. Normal AND split
+share overrides. Live D3D9 numeric/viewport edits, comparison, source reset,
+Apply/Cancel, Save/reopen/history, current frustum and aspect, rest-pose ground
+and height reference. Explicit unsaved auto-framing removes lower cropping.
+Fixed offsets/pitch/smoothing/replay remain read-only; actual D3D8 parity pending.
+All prior modules preserved; accepted Heritage full owner test is recorded.
+See GAMEPLAY_CAMERA2_RESULTS.md.
+
+---
+
 # MR Heritage Garage capabilities
 
 27 October 2026. See [results](HERITAGE_GARAGE_RESULTS.md).

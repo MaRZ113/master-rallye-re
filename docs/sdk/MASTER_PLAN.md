@@ -1,25 +1,36 @@
-# Implementation checkpoint — MR Heritage Garage completed offline
+# Master Rallye Vehicle SDK — Master Plan v6.1
 
-27 October 2026. Native Demo source adapter, edition catalog, Heritage Garage
-Studio workflow and an independent Demo9.3.1 Trooper candidate are implemented.
-The isolated30-entry roster selects HeritageTrooper29 instead of Pajero29,
-preserving Subaru27, Classic Lancer28 and previous projects/reservations.
-No GT Classic conversion, original Demo EXE execution or retail writes.
+**27 October 2026 — owner-confirmed Heritage Isuzu race closeout; upcoming Vehicle Presentation Polish.** This is a non-destructive update to the existing v6.0 roadmap. **Gameplay Camera 2.0 remains in progress at the main Codex**, and this addendum does not interrupt or alter that active work. The complete earlier plan follows unchanged below.
 
-910 synthetic tests / two existing optional private-fixture skips; actual Windows
-inspect/preview/create/configure/validate/build and history/reopen/Restore,
-repeatable source imports, sealed builds, native audio and cross-module GUI
-regressions pass. This new candidate still requires owner D3D8 gameplay testing.
-Prior Game Camera Lab camera/marker behavior is owner-confirmed; Camera2.0,
-Whine refinements and larger active rosters remain separate future work.
+## Owner's new in-game acceptance evidence — Isuzu Trooper Demo 9.3.1
 
-Further class-slot research rechecks original publisher/navigation instructions
-and emulates13/16 UI keys in private CPU memory.30 remains the largest
-owner-qualified roster; no31+ candidate or safe universal maximum is claimed.
+The owner provided three original game screenshots: Isuzu Trooper Vehicle Select, Isuzu as `DEMO TROOPER` in the Race Time/Results list, and a stock Reece Pickup (RAV4 comparison) Vehicle Select framing reference. The owner explicitly confirms the following for the Heritage Trooper test roster: vehicle appears in game with source wheel placement, usable native physics, working brake lamps, breakable glass, sound, menu/Results icons, stable race completion and return to the menu. These items are now **OWNER_CONFIRMED_GAMEPLAY** for this tested candidate, not merely source/offline qualifications. No automatic inference about untested split-screen, campaign, all race types, the alternative Pajero roster, unlimited capacity or other Demo cars. Keep independent Pajero and Isuzu configurations separate at CarID29.
 
-See HERITAGE_GARAGE_RESULTS.md and CLASS_SLOT_RESEARCH.md. Private assets stay
-local; source review archives contain no game models, textures, audio or EXE/DLL.
-Local scoped commits only. No next milestone, push, publication or release.
+## A. Results driver/participant name — existing capability, UI clarity
+
+**Already present:** `Vehicle Details / Race HUD` in `src/master_rallye/workshop/vehicle_ui.py` exposes `Race Results display name (64)`; `src/master_rallye/workshop/vehicle_authoring.py::details_update` updates `addon.json -> results.display_name`, validates printable ASCII length <=64, and persists it through project authoring. `addon_sdk/manifest.py` requires `{policy: fixed, display_name: nonempty ASCII}`. The Results screenshot shows `DEMO TROOPER`, consistent with the configured fixed display name. The editor therefore does NOT need a second duplicate Results naming pipeline to satisfy the basic user request.
+
+**Next UI polish:** rename/explain the field as **Driver / Results Name** or **Results Participant Name (fixed per vehicle)**; optionally add distinct project metadata `Driver Name`, `Co-driver Name`, `Crew / Source`, and a Results-row mock preview. Provide safe autofill `Use Driver Name for Results`, without silently overwriting the vehicle model/manufacturer fields or actual native DriverID. Build, reopen and reset should verify the fixed participant label changes in the isolated candidate. Note: this is a vehicle-bound display override, **not** a change to AI driver identity, original competition driver selection, player names or localization behavior. A future true per-participant/dynamic naming policy requires separate native research, not a misleading claim.
+
+## B. Frontend 3D vehicle framing — new separate editor
+
+The owner's screenshots show the **large live 3D model in Vehicle Select** sits noticeably too low for Trooper and several imported cars relative to the selected stock Reece Pickup/RAV4 reference: Isuzu's tyres extend below the lower panel baseline, while the reference vehicle sits visibly higher within its scene. This is NOT the separately generated 128x128 car-sheet thumbnail, NOT the 32x16 Results icon and NOT the gameplay Follow camera. The source scene uses `DataScene/FrontendScreens/VehicleSelect.xml` with a selected `CarModel`, `gaFrontendCarMoverAI`/spinner scene logic, and a distinct frontend presentation camera (see `research/r5v_a/frontend-vehicle-selection.md` and `research/vehicles/vsdk1/camera.md`). The precise error source is **unresolved**: possible frontend camera pose/target, presentation animation/transform, mesh origin/pivot, physical bounds or vehicle-specific calibration. Do not infer that the physics ride-height or stock body/wheel geometry is wrong.
+
+Implement **Frontend Presentation / Menu Framing** after the current Camera 2.0 milestone, ideally as a small independent Vehicle Presentation Polish pass before broader Demo import. Required features:
+
+1. Inventory and source-qualify the retail/frontend presentation path: selected CarID -> `complete.dx` (with integrated frontend wheels) -> presentation mover/spinner -> position/pivot -> frontend camera/projection. Verify whether pose and offsets are global, per-CarID, scene object, model transform or model-origin data. Do not confuse frontend with gameplay camera presets.
+2. Calibrate at least three source-qualified examples: accepted Heritage Trooper, a stock Reece Pickup/RAV4 reference and one GT addon (Lancer or Subaru), with same display resolution/aspect, animation phase and UI scene. Measure projected bounding boxes, lower tyre baseline, visual center and margins in actual game screenshots. Check different viewport aspect ratios and low/high vehicle sizes.
+3. Introduce a **Frontend Menu Preview** in Rally Workshop showing `complete.dx`, wheels and accurate overlay guides for original-style Vehicle Select content area, baseline and clipping. Distinguish renderer approximation from exact D3D8 frontend parity. Offer **Auto Frame / Manual Offset / Reset Original**, with live vertical offset and optional horizontal/framing scale adjustments only if proven compatible and safely scoped. Support before/after images and source reference comparison.
+4. Author a qualified **presentation-only** per-vehicle correction: no change to race model `car.dx`, hub transforms, physics ride height, suspension, collision, shadow, damage, crew or source geometry. Avoid globally moving stock vehicles, blindly shifting vertices, altering shared frontend camera for every vehicle or mutating original scene files. If per-vehicle native isolation is not proven, return a source-qualified research blocker and preview-only capability rather than a hack.
+5. Integrate with existing project authoring, independent candidates, Save/Undo/Redo/Restore, front-end menu re-entry, source hashes and QA. Validate stock zero-edit unchanged and Trooper correct race/world rest pose. Provide user owner checklist and exact resource/native-diff reports.
+6. Do not assume that regenerating car-sheet artwork raises the actual big 3D Vehicle Select model. Those are separate channels.
+
+## Sequencing and governance
+
+- **Now:** Codex continues and completes Gameplay Camera 2.0 (five player-selected views, research-backed FOV ownership, real live D3D9 editing). Do not interrupt this phase.
+- **Next small bounded pass:** **Vehicle Presentation Polish — Driver/Results label UX + Frontend Model Framing**. Reuse existing fixed Results display-name implementation; spend implementation effort on the true frontend 3D framing issue.
+- **Then:** Resume **MR Heritage Garage breadth** with additional Demo vehicles and safe alternative roster mapping; preserve accepted Isuzu and Pajero pilots. Continue **GT Garage Lab, Classic universalization, Blender Bridge and Fleet Builder** as in v6.0.
+- Preserve source-only private-asset policy, local validated commits, no push/release or retail EXE/DLL/original archive changes. Do not claim game visual parity until owner compares isolated candidate in D3D8.
 
 ---
 
@@ -1454,3 +1465,74 @@ Offer sorted issue families for importer improvements (e.g. culling, decal blend
 - **Audio candidate**: source/native preview; engine RPM sweep, drive/coast Whine, load-driven Spool, release BOV, E headroom with actual in-game Engine/SFX volumes; stock/addon AI, Results and race re-entry. Log anything clipped or overbearing before rebalancing. Do not overwrite accepted baseline.
 - **Physics/Camera/Paint/Classic candidate**: validate separate builds, identity/art/results, per-CarID follow-extents isolation, physics only on intended family, Classic paint/tyre/glass vs Source Fidelity, no driver/crew, damage or shadow regressions. Missing gameplay checks remain explicit.
 - **All future source code phases**: isolated candidate and restore, unchanged original `MRallye.exe`, `d3d8.dll`, retail `Data.sma` and private game sources, source hash lock, native ABI/lifetime, no unrelated Randomizer changes, 29/30 previously verified roster expectations, PERF2 load speed, and prior Subaru/Lancer/Pajero fidelity. Local commits authorized for completed phases only, no push/publication/release without specific permission.
+
+---
+
+# 27 October 2026 — Master Plan v6.0: Heritage Trooper closeout and Gameplay Camera 2.0
+
+## Source-review baseline and owner evidence
+
+The reviewed scope is `rally-workshop-heritage-source-review.zip` and its matching `rally-workshop-heritage-changed-files.zip` delivered 27 October 2026. Source manifest: 1062/1062 SHA256 files matched in a 1064-entry ZIP; 469 Python files parsed; the 24 changed payload files matched the complete source archive byte-for-byte. Independent targeted reviewer replay: 47 PASS across Heritage, Camera, Workshop, Audio Workshop and presentation-related tests. Broader test selections encountered the missing `tests.helpers` private/legacy fixture, which is not treated as a Heritage failure. Codex's reported Windows/full synthetic suite: 910 tests, two optional skips; independent complete Windows replay not performed here. REVIEW.json declares phase commit `7412f1571270cc8539810978a7126604cc5502ff`; absent `.git` history within source-only ZIP, this is report evidence, not independent Git verification.
+
+The owner confirms **Isuzu Trooper appears in-game with its original correct wheel placement**. Count this as owner-supplied gameplay evidence for vehicle availability and visible wheel alignment, not as a full D3D8 race lifecycle/damage/audio/AI/results/re-entry pass. Detailed native glass, brake and collision behaviors for this exact candidate need explicit verification as described in `docs/sdk/HERITAGE_GARAGE_RESULTS.md`.
+
+This is the first genuinely imported Demo 9.3.1 Trooper in an independent `HeritageTrooper` project, runtime CarID29 / T2 local9, with an isolated 30-record roster keeping Mercedes26, Subaru27, Classic Lancer28 and omitting Pajero's installed slot only in this candidate. The separate Pajero project and builds are retained. Original geometry, driver/copilot, source wheel transforms and collision remain; native MR donor physics `Vehicles/Trooper` is cloned into `Vehicles/HeritageTrooper` with explicit source provenance; Navara stock audio profile7 is an acknowledged donor fallback, not recovered Demo engine audio. Source glass logic has qualified front/left/right triangles, no fabricated transparent rear pane; brake-light states are bounded to native lens draws. All authoring is read-only toward Demo/retail assets; no 31-slot gameplay claim.
+
+The separate `master-rallye-re-rdemo` investigation was reused after inspecting branch `research/r-demo-pipeline` at recorded HEAD `a48afa147ef984e809f1f065299985aefaad6091`, not wholesale merged. Inventory covers 33 Demo family directories, including alpha/duplicates, and 26 retail model families: demo 8.4.1 has 14 directory families and zero stageable under current rev127 policy; 9.3.1 has 13 with five structurally stageable; 9.10.0 has six with five structurally stageable. These are not guaranteed unique or playable-car counts. Rev131→135 upgrades are qualified, rev135 passthrough is qualified and rev127 remains deliberately unsupported until researched, not solved by changing a version word. Original Trooper files match known R-BRIDGE hashes; generated Cooker caches must not be confused with shipped source models.
+
+Native class-slot research identifies a 12-position UI-key publisher comparison, separate class-count handling and other unqualified resource/AI/save boundaries. Owner-confirmed active fleet is still 30, not 36. Hypothetical 13/16 publisher CPU tests and T1/T2 spare arithmetic do not authorize an automatic capacity increase. Do not enable >30 by default until separately tested and specifically requested.
+
+## Next active milestone: Gameplay Camera 2.0 (five real camera views, FOV and live authoring)
+
+The pilot Heritage Garage objective is achieved. Return to the owner-requested camera extension before the next mass Demo/GT work. Keep the next milestone bounded: investigate and implement the qualified parts of *five actual switchable in-race views* and live edits in the D3D9 Previewer; determine safe FOV authoring; do not invent five independent sets of controls from three XML Follow profiles or claim a fully native simulator from a static preview.
+
+### A. Source-qualified five-view camera research
+
+1. Reuse `docs/sdk/GAME_CAMERA_LAB_RESULTS.md`, `research/vehicles/vsdk2/game-camera-lab.md`, the exact retail matching-build EXE evidence and tools for native CPU replay. Map the player's five visible in-race camera choices to actual native camera object class, mode switch dispatcher, camera manager index, source XML `Cameras.xml` presets, split variants and renderer camera/FOV assignment. Explicitly distinguish five UI/player camera modes from three Follow XML profiles and their split variants; map rear/replay/special cameras separately if present.
+2. Trace mode initialization, per-frame update/lifetime, eye-target-up, camera world/view/projection math, aspect-ratio behavior, FOV copy/conversion, distance/height/focus/pitch, temporal smoothing and speed/terrain branches. For each, identify source/version hashes, instruction/data addresses, records, guarded owners and evidence grade. An unknown value remains read-only; no speculative native hooks or silent global camera change.
+3. Determine whether FOV is global shared configuration, per-mode/per-instance, per-vehicle or renderer-wide; if it is shared, prove safe vehicle+camera mode isolation before adding authoring. A globally applied FOV change must never be presented as independent per-CarID/per-mode authoring. Compare normal, split, reverse, replay, race re-entry and AI camera owners where relevant.
+
+### B. Live D3D9 Gameplay Camera Preview and direct manipulation
+
+1. Evolve the existing Previewer, not a second renderer. Users should select the source-identified camera mode, view the real assembled model, ground/wheels/driver, switch Original/Modified, and *drag* qualified camera eye/target handles, or interact with qualified FOV controls with immediate visible results **without restarting the viewer or rebuilding resources**. An explicit Apply persists changes; Cancel/Restore reverts preview-only changes. Keyboard entry, numeric fields and wheel/scrub should stay synchronized with viewport, with reasonable throttling and robust process/session cleanup.
+2. Support viewport aspect ratio, projected camera frustum/target overlay, editable vs read-only indicators, original/current numerical inspector, screenshot A/B and saved reproducible camera state. Do not silently alter physics, shadow, collision, source mesh or other cars while adjusting preview. If the mathematical model only covers first-frame flat static Follow, label the simulated view accordingly; more modes require actual reconstruction before claiming parity.
+3. Provide Original / Donor / Custom for each *qualified independent camera scope*; one-click Reset with undo/redo/history, reopening and deterministic native candidate compilation. If native ownership is shared, visibly show that scope and warn about cross-mode coupling. Restore must never overwrite camera presets of unrelated vehicles.
+4. Reuse the already working Race Progress Marker color; do not regenerate or rewrite the common icon texture. Preserve accepted Lancer Softened Whine and the accepted Spool/BOV. A separate future Lower Pitch Whine preset can be tested without replacing accepted sources or interrupting this milestone.
+
+### C. Isolation and test qualification
+
+- Deliver an evidence table for all five visible camera modes: source identification, original parameter owners, supported live Previewer calculations and genuinely safe native editable fields. No arbitrary fake FOV/distance/smoothing sliders.
+- Provide at least one real controlled per-CarID/per-mode FOV or other extra-camera native experiment **if research proves isolation and ABI safety**. Otherwise deliver the fully functional read-only or approximate live viewer and a clear bounded blocker; do not claim independent authoring success without the native proof.
+- Include frame-by-frame controlled native x86 playback or source-matched trace tests where possible, with D3D8 owner screenshot comparisons at fixed window aspect ratios and source model. State numeric projection/pose deviations and unknown dynamic terms rather than just a visual impression.
+- Test cameras of one qualified original retail car, Lancer, Subaru, Pajero and Heritage Isuzu in independent source/roster configurations. Avoid transposing Pajero and Isuzu into the same CarID29 simultaneously. Verify owner binding and lifecycle for scene switches, Alt+Tab, menu re-entry, split-screen, owner teardown, failed resource loading and stock fallback.
+- Protect retail MRallye.exe, data archives and original D3D8 DLL. Source-only ZIP must not include private model, audio, textures or runtime candidates. Local validated commit authorized; no push, publication, release or unrelated Randomizer modifications. Update capabilities, regression matrix, help, commit ledger and Master Plan.
+
+### Acceptance gate
+
+The Workshop selects the source-mapped real camera mode, opens a *responsive live 3D view*, permits qualified camera changes and compare/reset directly in that view, and builds an isolated reversible candidate whose written camera scope is fully explained and tested. Five camera modes and FOV are explicit research targets; do not assert five independent editable sets unless real native evidence supports it. D3D8 gameplay parity is owner-confirmed only where actually tested.
+
+## Immediate owner Trooper verification (nonblocking for Camera 2.0)
+
+The owner has confirmed Trooper appears and correct original wheel fitment. When convenient, verify actual race suspension/grounding, intact and cracked front/left/right glass, brake ON/OFF confined to lenses, deformation/collision, audio donor, new AI roster, stage completion/Results/re-entry. Distinguish confirmed items from pending in the acceptance ledger. Test the new Heritage roster separately from accepted Pajero roster; preserve both.
+
+## Subsequent milestones after Gameplay Camera 2.0
+
+1. **MR Heritage Garage — catalog breadth and independent fleet slots:** create additional 9.3.1/9.10.0 vehicles through the reviewed adapter; add qualified rev127 8.4.1 only after real revision research; donor physics/art/audio/light/glass ownership and source-family identity are explicit. 31/32 roster research is an independent gated capacity experiment, not an assumption.
+2. **GT Garage Lab:** GT3 breadth L0/L1/L2, exact source colorways, semantic Classic MR Style generalized beyond Lancer, transparent documented failures, limited game installs.
+3. **Model Studio + Blender Bridge:** source-preserving round trip, stable mesh IDs, normals/winding/culling, UV/alpha/material repair, collision, scale/fitment, future Model Doctor.
+4. **Fleet Builder:** project collection, configurable alternative rosters, safe slot allocation, conflict detection, installs and rollback. Preserve all historic accepted Isuzu, Subaru, Lancer and Pajero projects.
+5. Optional audio Lower Pitch Whine A/B, original GT multi-RPM research, longer input support and release-quality QA remain visible future work; preserve accepted BOV and Spool source/gain unless separately tested.
+
+
+## Implementation status — Gameplay Camera 2.0, 27 October 2026
+
+Source-qualified three Follow + two Fixed cycle, per-object FOV/aspect ownership,
+per-CarID/per-mode guarded copy overrides and continuously running D3D9 camera
+drafts are implemented. Normal/split override scope is explicitly shared. Fixed
+position, dynamics and replay controls remain read-only. Owner-requested lower
+clipping correction is an explicit unsaved Follow framing draft; the bonnet view
+has a neutral rest-pose floor/grid and height reference. See
+`GAMEPLAY_CAMERA2_RESULTS.md` and current regression evidence. All new D3D8 camera
+behavior remains pending owner; the full separate Heritage Trooper acceptance
+reported with v6.1 is confirmed and preserved. After validation/commit of this
+camera phase, proceed only to the requested bounded Vehicle Presentation Polish.
