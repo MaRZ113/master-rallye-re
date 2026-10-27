@@ -1,7 +1,8 @@
 # Vehicle Presentation Polish — validated local phase
 
-27 October2026. Parent `fc3c97d` preserved. Implementation commit is recorded in
-the following ledger checkpoint; no history rewriting and no remote publication.
+27 October2026. Parent `fc3c97d` preserved. Implementation commit: `5d389f1e1ae997c9a0a18926efb67b6c7bfb0a79`.
+This ledger-only checkpoint records its validated result; no history rewriting
+and no remote publication.
 
 - Fixed Driver / Results Name reuses addon.results, actual32×16 icon and native
   Results consumer. Targeted history/reset; DriverID/CarID/model untouched.
