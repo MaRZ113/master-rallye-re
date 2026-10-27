@@ -31,6 +31,7 @@ FILES = {
     "observatory_build_profiles.py": "tools/runtime/observatory_build_profiles.py",
     "observatory_profile_resolver.py": "tools/runtime/observatory_profile_resolver.py",
     "observatory_compatibility.py": "tools/runtime/observatory_compatibility.py",
+    "observatory_locator.py": "tools/runtime/observatory_locator.py",
     "data/broker-families.json": "tools/runtime/data/broker-families.json",
     "data/registry-profiles.json": "tools/runtime/data/registry-profiles.json",
     "README.md": "docs/releases/observatory-quickstart.md",
@@ -53,6 +54,7 @@ LOCAL_PATH_PATTERNS = (
 LOCAL_MODULES = {
     "mr_observe", "broker_observatory", "dev_command_trigger", "observatory_version",
     "observatory_build_profiles", "observatory_profile_resolver", "observatory_compatibility",
+    "observatory_locator",
 }
 
 

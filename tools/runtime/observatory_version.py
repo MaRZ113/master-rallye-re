@@ -1,5 +1,5 @@
 """Canonical public tool identity; snapshot schema is versioned separately."""
 
-VERSION = "0.2.3-beta"
+VERSION = "0.3.0-beta"
 TOOL_NAME = "Master Rallye Observatory"
 PYTHON_REQUIREMENT = ">=3.11"

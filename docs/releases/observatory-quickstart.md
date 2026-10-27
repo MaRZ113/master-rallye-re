@@ -12,7 +12,11 @@ Read-only runtime inspection for Master Rallye's internal Broker state.
 
 ### Modified executables
 
-Known on-disk builds are identified exactly. Other retail-derived builds are accepted for passive reads only when their PE layout and required Broker structures pass Observatory's structural check. Native Dump is gated separately against the active process image. For R5V-J.1, Status distinguishes the pristine stock EXE on disk from its approved NULL-safe walker installed in memory; the Results safety indicator is enabled only after both exact trampoline targets and bytes, the complete walker hash, mapped PE identity, and unchanged Broker/Dump code anchors pass. Incompatible or unrecognized variants are rejected without connecting.
+Known on-disk builds are identified exactly. Any other retail-family build is located from its code: Observatory finds the Debug sink, Broker Editor Dump route, Dump walker and the Broker Editor opener by byte signatures and the references between them, so moved code, grown sections, localized builds and renamed executables connect. Each action is enabled only when the code it uses was found, and it is re-checked in the running process before use.
+
+Run `MRallye-Observatory.cmd resolve "<game-folder>\MRallye.exe"` to see what was located, which addresses moved and why anything is missing.
+
+If the Dump walker is not a recognized stock or hardened variant, Observatory asks before sending native Dump (`--allow-unknown-walker` skips the question for scripted use). For R5V-J.1, Status distinguishes the pristine stock EXE on disk from its approved NULL-safe walker installed in memory.
 
 ## What it does
 
@@ -27,7 +31,7 @@ Observatory reads the game's existing Debug text buffer and stores each checked 
 
 ## Compatibility
 
-Exact known builds are verified by SHA256. Modified retail-derived executables are supported only when the required Broker-read structures pass the built-in fail-closed audit. Optional actions remain separately gated by their own evidence. No arbitrary-build override is available.
+Exact known builds are verified by SHA256. Modified retail-family executables are supported when their Broker/Debug code can be located; each optional action is gated by the code it needs. Demo builds are not supported.
 
 ## Known limitations
 
@@ -40,13 +44,14 @@ Exact known builds are verified by SHA256. Modified retail-derived executables a
 
 - **Game not found:** start Master Rallye and run the launcher again. If several copies are open, close extras or use `--pid`.
 - **Developer menu unavailable:** verify `Menues/Enabled=True` in your own `DataGame/dev.xml`, then restart the game.
-- **Compatibility check failed:** Observatory did not connect. Use a supported retail-derived build; there is no bypass switch.
+- **Compatibility check failed:** Observatory did not connect. Run `resolve` on the executable; it lists every item it could not locate and why.
+- **Unknown Dump walker:** answer `y` only on a disposable install during an active race, or use passive `recover`.
 - **Capture timed out:** wait for the game to finish processing, then use the passive recovery option only if a complete Dump may already exist. Observatory will not resend the command automatically.
 - **Cannot write output:** extract Observatory to a folder where your account can create files.
 
 ## Technical details
 
-The launcher runs the included `mr_observe.py`. By default it discovers a running `MRallye.exe`; advanced users can select an executable explicitly with `MRallye-Observatory.cmd --exe "<game-folder>\MRallye.exe"`. Runtime data and the exact-hash compatibility cache remain inside the extracted Observatory folder.
+The launcher runs the included `mr_observe.py`. By default it discovers a running `MRallye*.exe` (or the configured executable name); advanced users can select an executable explicitly with `MRallye-Observatory.cmd --exe "<game-folder>\MRallye.exe"`. Runtime data and the exact-hash compatibility cache remain inside the extracted Observatory folder.
 
 The process access is limited to querying and reading. Observatory does not call WriteProcessMemory, inject code, attach a debugger, suspend the game, or patch executable bytes. The reviewed native UI commands open the Broker Editor and request the game's original Debug→Dump command.
 

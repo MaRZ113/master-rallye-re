@@ -15,6 +15,11 @@ from observatory_build_profiles import (
     match_profile,
 )
 import observatory_compatibility as compatibility
+import observatory_locator as locator
+
+# Located profiles resolve every address from code (observatory_locator). Their
+# origin is distinct from committed exact and fixed-VA audited profiles.
+LOCATED_ORIGIN = "locally_located"
 
 
 def _from_audit(audit: dict[str, Any], *, exact: ObservatoryBuildProfile | None = None
@@ -68,6 +73,63 @@ def _from_audit(audit: dict[str, Any], *, exact: ObservatoryBuildProfile | None 
     )
 
 
+def locate_image(image: "locator.MappedImage", pe: dict[str, Any]) -> "locator.LocatedLayout":
+    """Locate the Broker/Debug layout and classify the walker in ``image``."""
+    layout = locator.locate(image)
+
+    def hardened(img, walker_rva):
+        if img.image_base + walker_rva != locator.RETAIL_REFERENCE["native_dump_walker"]:
+            return None
+        read_va = lambda va, size: img.bytes_at(va - img.image_base, size)
+        section = lambda va, size: img.section_name(va - img.image_base, size)
+        return compatibility.classify_hardened_walker(read_va, pe, section)
+
+    locator.classify_walker(image, layout, hardened)
+    return layout
+
+
+def locate_executable(data: bytes) -> tuple[dict[str, Any], "locator.MappedImage", "locator.LocatedLayout"]:
+    pe = compatibility.pe_layout(data)
+    image = locator.MappedImage.from_pe(data, pe)
+    return pe, image, locate_image(image, pe)
+
+
+def _from_layout(data: bytes, pe: dict[str, Any], image: "locator.MappedImage",
+                 layout: "locator.LocatedLayout",
+                 exact: ObservatoryBuildProfile | None = None) -> ObservatoryBuildProfile:
+    caps = layout.capabilities()
+    if not caps["broker_read"]:
+        problems = "; ".join(f"{k}: {v}" for k, v in sorted(layout.problems.items()))
+        raise ValueError("Broker/Debug layout could not be located: " + (problems or "no Debug sink"))
+    image_hash = compatibility.digest(data)
+    caps["legacy_loading_attract_present"] = None
+    tools = tuple(name for name, capability in (
+        ("broker-editor", "open_broker_editor"), ("flow-builder", "flow_builder"))
+        if caps.get(capability))
+    variant = caps["native_dump_walker_variant"]
+    return ObservatoryBuildProfile(
+        id=exact.id if exact else "local-located-" + image_hash[:12],
+        display_name=(exact.display_name if exact else
+                      f"Master Rallye (located layout, walker {variant})"),
+        sha256=image_hash,
+        file_size=len(data),
+        active_log_sink_rva=layout.rva("debug_sink_global"),
+        debug_sink_vtable_rva=layout.rva("debug_sink_vtable"),
+        evidence="LOCATED_BY_SIGNATURE",
+        tools=tools,
+        profile_origin=LOCATED_ORIGIN,
+        exact_profile_id=exact.id if exact else None,
+        compatibility_family="retail-broker-located",
+        vehicle_registry_profile=exact.vehicle_registry_profile if exact else "unknown",
+        audit_version=locator.LOCATOR_VERSION,
+        audit_fingerprint=compatibility.digest(repr(sorted(layout.items.items())).encode()),
+        capabilities=caps,
+        runtime_anchors=tuple(locator.fingerprints(image, layout)),
+        pe_identity={key: pe.get(key) for key in ("machine", "image_base", "size_of_image", "entry_rva")},
+        located_layout=dict(layout.items),
+    )
+
+
 def resolve_executable_profile(path: Path, *, cache_root: Path | None = None,
                                write_local_profile: bool = True) -> ObservatoryBuildProfile:
     """Verify the current file and resolve one immutable profile object.
@@ -77,8 +139,8 @@ def resolve_executable_profile(path: Path, *, cache_root: Path | None = None,
     or cache alone; every call reads and re-audits current bytes.
     """
     path = Path(path)
-    if path.name.casefold() != "mrallye.exe" or not path.is_file():
-        raise ValueError("Expected a readable MRallye.exe file")
+    if path.suffix.casefold() != ".exe" or not path.is_file():
+        raise ValueError("Expected a readable Master Rallye .exe file")
     data = path.read_bytes()
     image_hash = compatibility.digest(data)
     size = len(data)
@@ -95,8 +157,23 @@ def resolve_executable_profile(path: Path, *, cache_root: Path | None = None,
         )
         # The two historical exact Observatory profiles are not both present
         # in the R-OBS2 profile list. Preserve their exact committed route.
-        return _from_audit(resolved, exact=exact)
-    except ValueError:
+        profile = _from_audit(resolved, exact=exact)
+        if profile.supports("native_dump") or exact is not None:
+            return profile
+        # Fixed-VA audit admitted passive read only; the locator may still
+        # prove the Dump route (e.g. an unrecognized walker patch).
+        try:
+            return _from_layout(data, *locate_executable(data))
+        except ValueError:
+            return profile
+    except ValueError as audit_error:
+        if exact is None:
+            # Shifted code, grown sections, other retail-family builds: find
+            # every address from code instead of the fixed retail VAs.
+            try:
+                return _from_layout(data, *locate_executable(data))
+            except ValueError as exc:
+                raise ValueError(f"{audit_error}; locator: {exc}") from exc
         if exact is not None:
             # Exact profiles remain valid even when an unrelated family anchor
             # (such as Attract or resource loading) is outside this audit.

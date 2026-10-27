@@ -301,6 +301,43 @@ def _semantic_trampoline_variant_matches(data, pe, anchor, variant):
     )
 
 
+def classify_hardened_walker(read_va, pe, section_for_range=None):
+    """Recognize an audited hardened walker at the retail VA, any EXE identity.
+
+    The variants themselves (exact R-AI1 bytes, or the semantic two-stub NULL
+    guard) are what make Results Dump safe; the surrounding executable may be
+    any mod. Returns None when the walker is not one of them.
+    """
+    anchor = next((row for row in definitions()["anchors"]
+                   if row.get("name") == "native_dump_walker"), None)
+    if anchor is None:
+        return None
+    if section_for_range is None:
+        section_for_range = lambda va, length: _section_for_file_backed_range(pe, va, length)["name"]
+    try:
+        walker = read_va(anchor["va"], anchor["length"])
+    except Exception:
+        return None
+    observed = digest(walker)
+    for variant in anchor.get("approved_variants", []):
+        if observed == variant.get("sha256"):
+            return {"variant": variant["id"], "post_results_safe": True, "hardened": True,
+                    "walker_sha256": observed, "verified_trampolines": []}
+    for variant in anchor.get("semantic_variants", []):
+        try:
+            matched = _semantic_trampoline_variant_matches_reader(
+                read_va, section_for_range, pe, anchor, variant)
+        except Exception:
+            matched = False
+        if matched:
+            hooks = [{"name": h["name"], "target_va": f"0x{h['stub_va']:08X}",
+                      "length": h["stub_length"], "sha256": h["sha256"]}
+                     for h in variant.get("hooks", [])]
+            return {"variant": variant["id"], "post_results_safe": True, "hardened": True,
+                    "walker_sha256": observed, "verified_trampolines": hooks}
+    return None
+
+
 def classify_native_dump_walker(read_va, pe, *, profile_sha256, profile_size,
                                 disk_sha256, disk_size, section_for_range=None):
     """Classify only the exact stock or audited J.1 live walker variants.

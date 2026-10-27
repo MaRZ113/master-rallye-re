@@ -23,6 +23,7 @@ from typing import Any, Sequence
 from observatory_version import VERSION
 from observatory_build_profiles import RETAIL_PRISTINE, ObservatoryBuildProfile, match_profile
 import observatory_compatibility as compatibility
+import observatory_locator as locator
 
 
 RETAIL_SHA256 = RETAIL_PRISTINE.sha256  # compatibility aliases; not selection gates
@@ -771,17 +772,21 @@ def _module_info(kernel32: Any, pid: int, ctypes: Any) -> tuple[int, int, Path]:
         entry_pointer = ctypes.cast(ctypes.byref(entry), ctypes.c_void_p)
         if not kernel32.Module32FirstW(snapshot, entry_pointer):
             raise ObservatoryError(f"Module enumeration returned no entries for PID {pid}")
+        first = True
         while True:
-            if entry.th32ProcessID == pid and entry.szModule.casefold() == "mrallye.exe":
+            # The first module of a process snapshot is its main image, whatever
+            # the executable is called (MRallye_merc.exe, renamed mod copies).
+            if entry.th32ProcessID == pid and (first or entry.szModule.casefold() == "mrallye.exe"):
                 base = int(entry.modBaseAddr or 0)
                 if base == 0:
                     break
                 return base, int(entry.modBaseSize), Path(entry.szExePath)
+            first = False
             if not kernel32.Module32NextW(snapshot, entry_pointer):
                 break
     finally:
         kernel32.CloseHandle(snapshot)
-    raise ObservatoryError("Verified process has no MRallye.exe main module")
+    raise ObservatoryError("Verified process has no main executable module")
 
 
 def _module_base(kernel32: Any, pid: int, ctypes: Any) -> int:
@@ -881,6 +886,82 @@ def _anchors_for_capability(profile: ObservatoryBuildProfile, capability: str) -
     if not names or not names.issubset(by_name):
         return ()
     return tuple(by_name[name] for name in sorted(names))
+
+
+class UnknownWalkerError(ObservatoryError):
+    """Native Dump route is located, but its walker is not a known variant."""
+
+
+# Session policy for native Dump with an unrecognized walker (set by the
+# frontend after explicit confirmation or --allow-unknown-walker).
+NATIVE_DUMP_POLICY = {"allow_unknown_walker": False}
+
+_LOCATED_REQUIREMENTS = {
+    "broker_read": ("debug_sink_global", "debug_sink_vtable"),
+    "native_dump": ("debug_sink_global", "debug_sink_vtable", "broker_editor_dump_route",
+                    "broker_singleton_accessor", "native_dump_walker"),
+    "open_broker_editor": ("main_command_dispatch", "broker_editor_opener", "broker_editor_dump_route"),
+    "flow_builder": ("main_command_dispatch", "flow_builder_opener"),
+}
+
+
+def _uses_live_locator(profile: ObservatoryBuildProfile, capability: str) -> bool:
+    if profile.profile_origin == "locally_located":
+        return True
+    # Exact pristine keeps its J.1-pinned fixed-VA path. Every other build's
+    # native Dump is judged by the walker that is actually mapped.
+    return capability == "native_dump" and (
+        profile.sha256 != RETAIL_SHA256 or profile.file_size != RETAIL_SIZE)
+
+
+def _verify_live_located(kernel32: Any, process: Any, module_base: int, ctypes: Any,
+                         profile: ObservatoryBuildProfile, capability: str,
+                         pe: dict[str, Any]) -> dict[str, Any]:
+    """Re-locate the layout in process memory and check it against the profile."""
+    def read_rva(rva: int, length: int) -> bytes:
+        return _read_remote(kernel32, process, module_base + rva, length, ctypes)
+
+    from observatory_profile_resolver import locate_image
+    live = locator.MappedImage.from_reader(read_rva, pe, module_base=module_base)
+    layout = locate_image(live, pe)
+    expected = dict(profile.located_layout)
+    if not expected:
+        expected = {"debug_sink_global": profile.active_log_sink_rva,
+                    "debug_sink_vtable": profile.debug_sink_vtable_rva}
+    verified = []
+    for name in _LOCATED_REQUIREMENTS.get(capability, ()):
+        actual = layout.rva(name)
+        if actual is None:
+            raise ObservatoryError(f"Live {capability}: {name} not found in process memory "
+                                   f"({layout.problems.get(name, 'not located')})")
+        if name in expected and expected[name] != actual:
+            raise ObservatoryError(f"Live {capability}: {name} moved from RVA 0x{expected[name]:X} "
+                                   f"to 0x{actual:X} after profile resolution")
+        verified.append(name)
+    report: dict[str, Any] = {"verified_anchors": verified, "live_layout": layout.report(module_base)}
+    if capability == "native_dump":
+        walker = layout.walker
+        variant = walker.get("variant", "unknown")
+        if variant == "unknown":
+            if not NATIVE_DUMP_POLICY["allow_unknown_walker"]:
+                raise UnknownWalkerError(
+                    "Native Dump walker is not a recognized stock or hardened variant. "
+                    "It may crash on NULL StringList after Results. Confirm to continue "
+                    "(interactive prompt or --allow-unknown-walker).")
+            verification = "unknown_walker_confirmed"
+        else:
+            verification = "verified"
+        verified.append(f"native_dump_walker:{variant}")
+        report.update({
+            "effective_broker_dump_variant": ("native_hardened" if walker.get("hardened") else
+                                              "native_stock" if variant.startswith("native_stock") else "unknown"),
+            "native_dump_post_results_safe": walker.get("post_results_safe"),
+            "native_dump_verification": verification,
+            "native_dump_walker_variant": variant,
+            "native_dump_walker_sha256": walker.get("walker_sha256"),
+            "verified_trampolines": walker.get("verified_trampolines", []),
+        })
+    return report
 
 
 def _verify_remote_anchors(kernel32: Any, process: Any, module_base: int, ctypes: Any,
@@ -1003,12 +1084,24 @@ def _verify_live_capability_open(kernel32: Any, process: Any, pid: int,
                                  disk_bytes: bytes | None = None) -> dict[str, Any]:
     if not profile.supports(capability):
         raise ObservatoryError(f"Capability {capability} is not statically audited for this build")
-    if image_path.name.casefold() != "mrallye.exe" or not image_path.is_file():
-        raise ObservatoryError(f"PID {pid} image is not a readable MRallye.exe")
+    if not image_path.is_file():
+        raise ObservatoryError(f"PID {pid} image is not readable: {image_path}")
     disk_bytes = image_path.read_bytes() if disk_bytes is None else disk_bytes
     image_hash = hashlib.sha256(disk_bytes).hexdigest()
     if image_hash != profile.sha256 or len(disk_bytes) != profile.file_size:
         raise ObservatoryError("Live process executable changed after profile resolution")
+    if _uses_live_locator(profile, capability):
+        try:
+            pe = compatibility.pe_layout(disk_bytes)
+        except ValueError as exc:
+            raise ObservatoryError(f"Executable PE layout is invalid: {exc}") from exc
+        module_base, module_size, module_path = _module_info(kernel32, pid, ctypes)
+        _verify_mapped_image(kernel32, process, ctypes, image_path, module_path,
+                             module_base, module_size, disk_bytes, pe)
+        report = _verify_live_located(kernel32, process, module_base, ctypes, profile, capability, pe)
+        report.update({"capability": capability, "module_base": module_base, "module_size": module_size,
+                       "disk_sha256": image_hash, "disk_size": len(disk_bytes)})
+        return report
     if capability == "native_dump":
         try:
             compatibility.validate_pristine_runtime_identity(
@@ -1092,8 +1185,6 @@ def capture_debug_buffer(pid: int, profile: ObservatoryBuildProfile | None = Non
 
     process, image_path = _process_image_path(kernel32, pid, ctypes)
     try:
-        if image_path.name.casefold() != "mrallye.exe":
-            raise ObservatoryError(f"PID {pid} image is not MRallye.exe: {image_path}")
         if not image_path.is_file():
             raise ObservatoryError(f"Process image path is no longer readable: {image_path}")
         disk_bytes = image_path.read_bytes()

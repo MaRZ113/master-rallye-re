@@ -63,7 +63,7 @@ class PublicUXTests(unittest.TestCase):
                 observe.verify_executable(path)
         with contextlib.redirect_stderr(io.StringIO()) as out:
             observe.report_error(caught.exception)
-        self.assertIn("does not match a supported Broker layout", out.getvalue())
+        self.assertIn("could not be located", out.getvalue())
         self.assertIn("did not connect", out.getvalue())
         self.assertNotIn(core.RETAIL_SHA256, out.getvalue())
         with patch.object(observe, "VERBOSE", True), contextlib.redirect_stderr(io.StringIO()) as detail:

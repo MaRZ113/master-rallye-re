@@ -42,6 +42,10 @@ SMTO_ABORTIFHUNG = 0x0002
 ERROR_TIMEOUT = 1460
 PROCESS_QUERY_LIMITED_INFORMATION = 0x1000
 MF_BYPOSITION = 0x0400
+MAIN_TITLE_PREFIX = "Master Rallye"
+# Native main menu: Game -> Reset (0x32) / separator / Exit (0x2F).
+MAIN_MENU_COMMAND_IDS = (0x32, 0x2F)
+BROKER_DUMP_COMMAND_ID = 2
 
 
 @dataclass(frozen=True)
@@ -199,9 +203,38 @@ def validate_retail_main_owner(read, base: int, hwnd: int) -> bool:
         return False
 
 
+def _sole_visible_main(pid: int, hwnd: int) -> bool:
+    """True when ``hwnd`` is the process's only visible titled top-level window."""
+    import ctypes
+    from ctypes import wintypes
+    user32 = ctypes.WinDLL("user32", use_last_error=True)
+    _configure_user32(user32, ctypes)
+    found: list[int] = []
+    callback_type = getattr(ctypes, "WINFUNCTYPE", ctypes.CFUNCTYPE)(wintypes.BOOL, wintypes.HWND, wintypes.LPARAM)
+
+    @callback_type
+    def callback(candidate, _lparam):
+        owner = wintypes.DWORD()
+        user32.GetWindowThreadProcessId(candidate, ctypes.byref(owner))
+        if owner.value == pid and user32.IsWindowVisible(candidate):
+            title = ctypes.create_unicode_buffer(512)
+            user32.GetWindowTextW(candidate, title, len(title))
+            if title.value.startswith(MAIN_TITLE_PREFIX):
+                found.append(int(candidate))
+        return True
+
+    user32.EnumWindows(callback, 0)
+    return found == [int(hwnd)]
+
+
 def _verified_menu_less_main(pid: int, hwnd: int, profile) -> bool:
-    if profile.sha256 != RETAIL_SHA256 or not profile.supports("open_broker_editor"):
+    if not profile.supports("open_broker_editor"):
         return False
+    if profile.sha256 != RETAIL_SHA256:
+        # The 0x27 -> Broker opener route itself is located and re-verified in
+        # live memory before the command; the recipient only has to be the
+        # process's main window, which the menu-less renderer leaves unlabeled.
+        return _sole_visible_main(pid, hwnd)
     import ctypes
     import broker_observatory as core
     kernel = ctypes.WinDLL("kernel32", use_last_error=True)
@@ -242,8 +275,8 @@ def sha256_file(path: Path) -> str:
 
 
 def verified_profile(path: Path | None, expected_profile: object | None = None):
-    if path is None or path.name.casefold() != "mrallye.exe":
-        raise RuntimeError("Tool owner is not a known MRallye.exe build.")
+    if path is None or path.suffix.casefold() != ".exe":
+        raise RuntimeError("Tool owner is not a Master Rallye executable.")
     if expected_profile is not None:
         if (not path.is_file() or sha256_file(path) != expected_profile.sha256
                 or path.stat().st_size != expected_profile.file_size):
@@ -251,6 +284,11 @@ def verified_profile(path: Path | None, expected_profile: object | None = None):
         return expected_profile
     try:
         return profile_for_file(path)
+    except ValueError:
+        pass
+    try:
+        from observatory_profile_resolver import resolve_executable_profile
+        return resolve_executable_profile(path, write_local_profile=False)
     except ValueError as exc:
         raise RuntimeError(str(exc)) from exc
 
@@ -272,6 +310,8 @@ def _configure_user32(user32: object, ctypes: object) -> None:
     user32.GetMenuItemCount.restype = ctypes.c_int
     user32.GetSubMenu.argtypes = [wintypes.HMENU, ctypes.c_int]
     user32.GetSubMenu.restype = wintypes.HMENU
+    user32.GetMenuItemID.argtypes = [wintypes.HMENU, ctypes.c_int]
+    user32.GetMenuItemID.restype = wintypes.UINT
     user32.GetMenuStringW.argtypes = [
         wintypes.HMENU,
         wintypes.UINT,
@@ -318,20 +358,31 @@ def _configure_kernel32(kernel32: object, ctypes: object) -> None:
     kernel32.CloseHandle.restype = wintypes.BOOL
 
 
+def _menu_command_ids(user32: object, menu: int, depth: int = 0) -> set[int]:
+    """Every command ID reachable in ``menu`` (submenus up to two levels)."""
+    ids: set[int] = set()
+    count = user32.GetMenuItemCount(menu)
+    for position in range(max(0, count)):
+        submenu = user32.GetSubMenu(menu, position)
+        if submenu:
+            if depth < 2:
+                ids |= _menu_command_ids(user32, submenu, depth + 1)
+            continue
+        item = user32.GetMenuItemID(menu, position)
+        if item not in (0, 0xFFFFFFFF):
+            ids.add(int(item))
+    return ids
+
+
 def _has_expected_main_menu(user32: object, hwnd: int) -> bool:
-    """Require the recovered Game → Reset / Exit menu signature."""
+    """Require the native Game menu's Reset (0x32) and Exit (0x2F) command IDs.
+
+    IDs, not labels: localized builds and mods that add items keep the IDs.
+    """
     menu = user32.GetMenu(hwnd)
     if not menu or user32.GetMenuItemCount(menu) < 1:
         return False
-    root_text = _menu_text(user32, menu, 0).replace("&", "").strip().casefold()
-    if root_text != "game":
-        return False
-    submenu = user32.GetSubMenu(menu, 0)
-    if not submenu or user32.GetMenuItemCount(submenu) != 3:
-        return False
-    first = _menu_text(user32, submenu, 0).replace("&", "").casefold()
-    last = _menu_text(user32, submenu, 2).replace("&", "").strip().casefold()
-    return first.startswith("reset") and last == "exit"
+    return set(MAIN_MENU_COMMAND_IDS) <= _menu_command_ids(user32, menu)
 
 
 def _image_for_pid(kernel32: object, pid: int) -> Path | None:
@@ -386,7 +437,7 @@ def find_retail_main_windows(profile_by_pid: dict[int, object] | None = None) ->
             return True
         title_buffer = ctypes.create_unicode_buffer(512)
         user32.GetWindowTextW(hwnd_value, title_buffer, len(title_buffer))
-        if title_buffer.value != "Master Rallye":
+        if not title_buffer.value.startswith(MAIN_TITLE_PREFIX):
             return True
         if not _has_expected_main_menu(user32, hwnd_value):
             try:
@@ -432,7 +483,7 @@ def send_tool_command(target: TargetWindow, tool: str) -> OpenDispatch:
         raise RuntimeError("Target HWND changed process identity.")
     title = ctypes.create_unicode_buffer(512)
     user32.GetWindowTextW(target.hwnd, title, len(title))
-    if title.value != target.title or title.value != "Master Rallye":
+    if title.value != target.title or not title.value.startswith(MAIN_TITLE_PREFIX):
         raise RuntimeError("Target main-window title changed identity.")
     image_path = _image_for_pid(kernel32, target.pid)
     profile = verified_profile(image_path, target.profile)
@@ -510,16 +561,19 @@ def find_tool_windows(pid: int, tool: str, resolved_profile: object | None = Non
 
 
 def _has_broker_menu(user32: object, hwnd: int) -> bool:
+    """Broker Editor: a top-level submenu holding the Dump item with local ID 2."""
     menu = user32.GetMenu(hwnd)
-    if not menu or user32.GetMenuItemCount(menu) != 6:
+    if not menu or user32.GetMenuItemCount(menu) < 2:
         return False
-    titles = [_menu_text(user32, menu, i).replace("&", "").casefold() for i in range(6)]
-    if titles != ["file", "edit", "branch", "view", "debug", "help"]:
-        return False
-    debug = user32.GetSubMenu(menu, 4)
-    return bool(debug and user32.GetMenuItemCount(debug) == 1
-                and _menu_text(user32, debug, 0).replace("&", "").casefold() == "dump"
-                and user32.GetMenuItemID(debug, 0) == 2)
+    for position in range(user32.GetMenuItemCount(menu)):
+        submenu = user32.GetSubMenu(menu, position)
+        if not submenu:
+            continue
+        for item in range(user32.GetMenuItemCount(submenu)):
+            if (user32.GetMenuItemID(submenu, item) == BROKER_DUMP_COMMAND_ID
+                    and "dump" in _menu_text(user32, submenu, item).replace("&", "").casefold()):
+                return True
+    return False
 
 
 def send_broker_dump(target: TargetWindow) -> DumpDispatchOutcome:

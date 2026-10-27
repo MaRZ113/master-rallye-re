@@ -40,14 +40,46 @@ class DeveloperCommandTriggerTests(unittest.TestCase):
             def GetMenuItemCount(self, menu):
                 return 1 if menu == 10 else 3
 
-            def GetSubMenu(self, _menu, _position):
-                return 20
+            def GetSubMenu(self, menu, _position):
+                return 20 if menu == 10 else 0
 
             def GetMenuStringW(self, menu, position, buffer, _length, _flags):
                 buffer.value = self.labels.get((menu, position), "")
                 return len(buffer.value)
 
+            def GetMenuItemID(self, menu, position):
+                return {(20, 0): 0x32, (20, 1): 0, (20, 2): 0x2F}.get((menu, position), 0xFFFFFFFF)
+
         self.assertTrue(trigger._has_expected_main_menu(FakeUser32(), 0x123456))
+
+    def test_main_window_signature_uses_command_ids_not_labels(self):
+        class LocalizedUser32:
+            labels = {(10, 0): "&Gra", (10, 1): "&Mod", (20, 0): "&Reset", (20, 3): "&Wyjscie"}
+
+            def GetMenu(self, _hwnd):
+                return 10
+
+            def GetMenuItemCount(self, menu):
+                return 2 if menu == 10 else 4
+
+            def GetSubMenu(self, menu, position):
+                return (20 if position == 0 else 30) if menu == 10 else 0
+
+            def GetMenuStringW(self, menu, position, buffer, _length, _flags):
+                buffer.value = self.labels.get((menu, position), "")
+                return len(buffer.value)
+
+            def GetMenuItemID(self, menu, position):
+                ids = {(20, 0): 0x32, (20, 1): 0x99, (20, 2): 0, (20, 3): 0x2F}
+                return ids.get((menu, position), 0xFFFFFFFF)
+
+        self.assertTrue(trigger._has_expected_main_menu(LocalizedUser32(), 0x123456))
+
+        class MissingExit(LocalizedUser32):
+            def GetMenuItemID(self, menu, position):
+                return 0x32 if (menu, position) == (20, 0) else 0xFFFFFFFF
+
+        self.assertFalse(trigger._has_expected_main_menu(MissingExit(), 0x123456))
 
     def test_main_window_signature_rejects_an_editor_menu(self):
         class FakeUser32:

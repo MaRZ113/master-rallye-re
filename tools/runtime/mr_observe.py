@@ -43,6 +43,14 @@ DEFAULT_CAPTURE_ROOT = DATA_ROOT / "captures" if PORTABLE else DATA_ROOT / "brok
 DEFAULT_CONFIG = DATA_ROOT / "config.json" if PORTABLE else DATA_ROOT / "runtime-config.json"
 VERBOSE = False
 DEBUG = False
+# Executable basenames discovered as game processes besides mrallye*.exe
+# (e.g. the configured copy was renamed); filled from config/--exe.
+EXTRA_PROCESS_NAMES: set[str] = set()
+
+
+def is_game_process_name(name: str) -> bool:
+    folded = name.casefold()
+    return (folded.startswith("mrallye") and folded.endswith(".exe")) or folded in EXTRA_PROCESS_NAMES
 
 
 def data_boundary() -> Path:
@@ -119,13 +127,13 @@ class ProcessCandidate:
 
 
 def verify_executable(path: Path):
-    if path.name.casefold() != "mrallye.exe" or not path.is_file():
-        raise UserError("MRallye.exe was not found. Select the installed retail MRallye.exe.", str(path))
+    if path.suffix.casefold() != ".exe" or not path.is_file():
+        raise UserError("Game executable was not found. Select the Master Rallye .exe.", str(path))
     try:
         cache_root = DATA_ROOT / "build-profiles"
         return resolve_executable_profile(path, cache_root=cache_root)
     except ValueError as exc:
-        raise UserError("This executable does not match a supported Broker layout. Observatory did not connect.",
+        raise UserError("Broker/Debug code could not be located in this executable; Observatory did not connect. Run 'resolve PATH' for details.",
                         f"Known exact profiles: {', '.join(p.id + ': ' + p.sha256 for p in PROFILES)}\nSelected: {path}\n{exc}") from exc
 
 
@@ -159,7 +167,7 @@ def discover_processes() -> tuple[list[ProcessCandidate], list[str]]:
         entry.dwSize = ctypes.sizeof(entry)
         ok = kernel32.Process32FirstW(handle, ctypes.byref(entry))
         while ok:
-            if entry.szExeFile.casefold() == "mrallye.exe":
+            if is_game_process_name(entry.szExeFile):
                 pid = int(entry.th32ProcessID)
                 path = commands._image_for_pid(kernel32, pid)
                 try:
@@ -361,6 +369,8 @@ def capture_fresh(process: ProcessCandidate, *, manual: bool = False,
     ensure_fn = ensure_fn or ensure_tool
     dump_fn = dump_fn or commands.send_broker_dump
     broker = ensure_fn(process, "broker-editor")
+    if not manual:
+        confirm_unknown_walker(process, input_fn)
     baseline, _ = read_fn(process.pid)
     dispatch = None
     if manual:
@@ -396,6 +406,93 @@ def capture_fresh(process: ProcessCandidate, *, manual: bool = False,
         time.sleep(0.1)
     error = commands.ERROR_TIMEOUT if dispatch == commands.DumpDispatchOutcome.TIMEOUT_COMPLETION_UNCERTAIN else 0
     raise core.ObservatoryError(f"Fresh Dump capture timed out: {problem}; dispatch={dispatch}, Win32 error={error}; no automatic retry command was sent.")
+
+
+def confirm_unknown_walker(process: ProcessCandidate, input_fn: Callable[[str], str] | None) -> None:
+    """Ask once per session before a Dump through an unrecognized walker."""
+    if core.NATIVE_DUMP_POLICY["allow_unknown_walker"] or process.profile.sha256 == core.RETAIL_SHA256:
+        return
+    try:
+        core.verify_live_capability_report(process.pid, process.profile, "native_dump")
+        return
+    except core.UnknownWalkerError as exc:
+        warning = str(exc)
+    except (OSError, core.ObservatoryError):
+        return  # The dispatcher re-verifies and reports the real problem.
+    if input_fn is None:
+        raise core.ObservatoryError(warning + " Non-interactive run: pass --allow-unknown-walker.")
+    print(warning)
+    print("Use a disposable install; capture during an active race, not after Results.")
+    if input_fn("Send native Dump anyway? [y/N]: ").strip().casefold() != "y":
+        raise core.ObservatoryError("Native Dump cancelled; nothing was sent. 'recover' still reads passively.")
+    core.NATIVE_DUMP_POLICY["allow_unknown_walker"] = True
+
+
+def resolve_report(path: Path | None, pid: int | None) -> dict[str, Any]:
+    """Locator evidence for an executable or a running process (read-only)."""
+    from observatory_profile_resolver import locate_executable
+    if path is None:
+        if pid is None:
+            raise core.ObservatoryError("Use resolve --exe PATH or resolve --pid PID.")
+        candidates, rejected = discover_processes()
+        match = [c for c in candidates if c.pid == pid]
+        if not match:
+            raise core.ObservatoryError(f"PID {pid} is not a resolvable game process.\n" + "\n".join(rejected))
+        path = match[0].image_path
+    data = Path(path).read_bytes()
+    pe, image, layout = locate_executable(data)
+    report: dict[str, Any] = {"exe": str(path), "sha256": core.sha256_bytes(data), "size": len(data),
+                              "disk": layout.report(pe["image_base"])}
+    try:
+        profile = resolve_executable_profile(Path(path), write_local_profile=False)
+        report["profile"] = {"id": profile.id, "classification": profile.build_classification,
+                             "origin": profile.profile_origin, "tools": list(profile.tools),
+                             "capabilities": dict(profile.capabilities)}
+    except ValueError as exc:
+        report["profile"] = {"error": str(exc)}
+    if pid is not None and report["profile"].get("id"):
+        live = {}
+        for capability in ("broker_read", "native_dump", "open_broker_editor"):
+            try:
+                result = core.verify_live_capability_report(pid, profile, capability)
+                live[capability] = {k: v for k, v in result.items() if k != "live_layout"}
+                if "live_layout" in result:
+                    report["live"] = result["live_layout"]
+            except (OSError, core.ObservatoryError) as exc:
+                live[capability] = {"error": str(exc)}
+        report["live_capabilities"] = live
+    return report
+
+
+def print_resolve(report: dict[str, Any]) -> None:
+    print(f"Executable: {report['exe']}")
+    print(f"SHA256: {report['sha256']}  size: {report['size']}")
+    profile = report["profile"]
+    if "error" in profile:
+        print(f"Profile: REJECTED - {profile['error']}")
+    else:
+        print(f"Profile: {profile['id']} ({profile['classification']}, {profile['origin']})")
+        caps = profile["capabilities"]
+        for label, key in (("Broker read", "broker_read"), ("Native Dump", "native_dump"),
+                           ("Open Broker Editor", "open_broker_editor"), ("Flow Builder", "flow_builder")):
+            print(f"  {label}: {'yes' if caps.get(key) else 'no'}")
+        walker = report["disk"]["walker"]
+        variant = caps.get("native_dump_walker_variant") or (
+            caps.get("broker_dump_variant") if caps.get("broker_dump_variant") not in (None, "unknown")
+            else walker.get("variant", "unknown"))
+        safe = caps.get("post_results_native_dump_safe", walker.get("post_results_safe"))
+        print(f"  Dump walker: {variant}; Results Dump safe: {safe}")
+        if variant == "unknown" and caps.get("native_dump"):
+            print("  Native Dump will ask for confirmation (or pass --allow-unknown-walker).")
+    disk = report["disk"]
+    print("Located (disk):")
+    for name, item in disk["items"].items():
+        moved = " (relocated)" if item["relocated"] else ""
+        print(f"  {name:32} {item['va']}{moved}")
+    for name, problem in disk["problems"].items():
+        print(f"  {name:32} MISSING: {problem}")
+    for capability, result in report.get("live_capabilities", {}).items():
+        print(f"Live {capability}: {result.get('error') or 'verified ' + ', '.join(result.get('verified_anchors', []))}")
 
 
 def capture_recovery(process: ProcessCandidate, *,
@@ -651,8 +748,13 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--install-root", type=Path)
     parser.add_argument("--capture-root", type=Path)
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
+    parser.add_argument("--allow-unknown-walker", action="store_true",
+                        help="allow native Dump when the Dump walker is not a recognized variant")
     sub = parser.add_subparsers(dest="command")
     sub.add_parser("status")
+    resolve = sub.add_parser("resolve", help="show located Broker/Debug addresses and capabilities (read-only)")
+    resolve.add_argument("target", nargs="?", help="game .exe path or running PID (default: configured exe)")
+    resolve.add_argument("--json", action="store_true")
     config = sub.add_parser("config", help="show/change/clear/reset local installation settings")
     config.add_argument("action", choices=("show", "set", "clear", "reset"), nargs="?", default="show")
     config.add_argument("exe", type=Path, nargs="?")
@@ -727,6 +829,19 @@ def execute(args, root: Path, config: dict[str, str], input_fn=None) -> int:
             print_diff(result, left, right)
         return 0
     exe = args.exe or (Path(config["retail_exe"]) if "retail_exe" in config else None)
+    if exe is not None:
+        EXTRA_PROCESS_NAMES.add(exe.name.casefold())
+    if command == "resolve":
+        target, pid = getattr(args, "target", None), args.pid
+        if target is not None and target.isdigit():
+            target, pid = None, int(target)
+        path = Path(target) if target else args.exe or (exe if pid is None else None)
+        report = resolve_report(path, pid)
+        if args.json:
+            print(json.dumps(report, ensure_ascii=True, indent=2))
+        else:
+            print_resolve(report)
+        return 0
     install = args.install_root or (Path(config["install_root"]) if "install_root" in config else None)
     if command == "setup-launcher":
         setup_launcher(args.output, exe)
@@ -747,13 +862,13 @@ def execute(args, root: Path, config: dict[str, str], input_fn=None) -> int:
                 and candidate.sha256 == requested_profile.sha256)
         ]
         if not candidates:
-            rejected = [*rejected, f"No running MRallye.exe matches the selected path and resolved profile: {args.exe}"]
+            rejected = [*rejected, f"No running game process matches the selected path and resolved profile: {args.exe}"]
     process = select_process(candidates, args.pid, input_fn)
     if command == "status":
         status(root, process, rejected, detailed=bool(args.verbose or args.debug))
         return 0
     if process is None:
-        raise UserError("Master Rallye was not found. Launch pristine retail, then try again or select an installation with config set.", "\n".join(rejected))
+        raise UserError("Master Rallye was not found. Launch the game, then try again or select an installation with config set.", "\n".join(rejected))
     if command in commands.TOOL_COMMANDS:
         ensure_tool(process, command)
         return 0
@@ -896,6 +1011,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     DEBUG = args.debug
     VERBOSE = args.verbose or DEBUG
+    core.NATIVE_DUMP_POLICY["allow_unknown_walker"] = bool(args.allow_unknown_walker)
     try:
         if args.command == "config" and args.action == "reset":
             return config_action(args, {})

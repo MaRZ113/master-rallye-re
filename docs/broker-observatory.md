@@ -12,9 +12,10 @@ python tools/runtime/mr_observe.py
 launcher в репозитории использует `py -3`, Python-скрипт можно запустить через
 свой обычный `python`. Сторонняя terminal UI библиотека не нужна.
 
-Используйте **disposable retail install** с pristine EXE. Программа сама находит
-MRallye, проверяет размер и SHA256. При одном подходящем процессе PID вводить
-не нужно; при нескольких появится выбор. Demo и изменённые EXE отклоняются.
+Используйте **disposable install**. Программа сама находит процесс `MRallye*.exe`,
+определяет сборку по SHA256, а для модифицированных EXE находит Broker/Debug код
+сигнатурами (см. «Модифицированные EXE»). При одном подходящем процессе PID
+вводить не нужно; при нескольких появится выбор. Demo-сборки не поддерживаются.
 Если игра не запущена: `[C]` запоминает путь к копии retail, `[L]` запускает её,
 `[W]` повторяет проверку после ручного запуска. Игра не запускается сама при
 открытии меню Observatory. Путь хранится в игнорируемом
@@ -113,6 +114,46 @@ research-output/general-re/broker-observatory/captures/
 Ранние пары прямо в корне captures также учитываются без переписывания.
 Жёсткое завершение процесса может оставить orphan/reservation — они исключены
 из истории. Два файла не являются одной атомарной операцией ОС.
+
+## Модифицированные EXE (0.3.0)
+
+Exact pristine и widescreen-freeze идут прежним подтверждённым путём. Любая
+другая retail-family сборка **локализуется по коду** (`observatory_locator.py`):
+сигнатуры с wildcard на адресах плюс цепочка xref.
+
+| Что нужно | Как находится |
+|---|---|
+| Debug sink global | логгер `mov esi,[sink]` … `call [edx+4]` |
+| Debug sink vtable | конструктор sink (`[esi]=vtable`, буфер 0x800, +0x24/+0x28/+0x2C) |
+| Dump route | Broker dispatcher `cmp eax,0Ah` → таблица → case 2 |
+| accessor / manager global | `call` из case 2 → `mov eax,[manager]` |
+| Dump walker | второй `call` из case 2 |
+| Broker opener | главный switch `cmp esi,58h` → byte/jump таблицы → case `0x27` → `call opener` (член `+0x10`) |
+| Flow Builder opener | тот же switch, case `0x30` (член `+0x08`) |
+
+Каждая возможность включается только при наличии своих элементов и перед
+использованием **повторно локализуется в памяти процесса**: RVA должны совпасть с
+профилем, разрешённым с диска. Main window ищется по ID команд меню Game
+(Reset `0x32`, Exit `0x2F`), не по английским подписям. Без меню located-сборка
+принимает единственное видимое окно процесса с заголовком `Master Rallye`.
+Broker Editor определяется по подменю, где есть Dump с локальным ID 2. Имя EXE
+любое (`MRallye*.exe` или настроенный файл).
+
+Обходчик Dump классифицируется так: stock, relocated stock (идентичность с
+маскированием адресов), audited hardened (R-AI1, two-stub, J.1) или unknown.
+**Unknown** спрашивает подтверждение один раз за сессию; для скриптов есть флаг
+`--allow-unknown-walker`. В capture это записывается как
+`native_dump_verification=unknown_walker_confirmed`.
+
+```powershell
+python tools/runtime/mr_observe.py resolve "D:\Game\Master Rallye\MRallye_invitation5.exe"
+python tools/runtime/mr_observe.py resolve 12345
+python tools/runtime/mr_observe.py --allow-unknown-walker capture race
+```
+
+`resolve` выводит найденные адреса, отметку relocated, причину для каждого
+ненайденного элемента и capabilities. С PID он дополнительно проверяет каждую
+возможность в живой памяти.
 
 ## Короткие команды
 

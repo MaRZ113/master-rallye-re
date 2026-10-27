@@ -26,12 +26,16 @@ class ObservatoryBuildProfile:
     local_profile_cache: str | None = None
     cache_reused: bool = False
     pe_identity: dict[str, Any] = field(default_factory=dict)
+    # RVA of every located item, for profiles resolved by observatory_locator.
+    located_layout: dict[str, int] = field(default_factory=dict)
 
     @property
     def build_classification(self) -> str:
         """Return the user-facing trust class derived from verified evidence."""
         if self.profile_origin == "committed_exact":
             return "exact"
+        if self.profile_origin == "locally_located":
+            return "located-hardened" if self.capabilities.get("hardened_dump") else "located"
         if self.capabilities.get("hardened_dump"):
             return "hardened"
         if self.capabilities.get("broker_read"):
