@@ -1,3 +1,32 @@
+# Source Garage — validated local research phase,28 October2026
+
+Parent `b9a24f7aadef6683a79a2d37bc03dea92a198706` preserved. This scoped commit
+contains the audit and this ledger entry; resolve its exact ID with
+`git log -1 --format=%H --fixed-strings --grep="feat(research): qualify Source Garage donor formats and tools"`.
+Post-commit source-review archive metadata records the same exact revision.
+
+-16 actual external source roots;38762 file hashes/45961878729 bytes; exact
+  edition/region unknowns and local patch provenance retained. Tool authors,
+  version/build claims, licenses and actual source tests remain separate.
+- Representative bounded Evo1/2, Screamer, VR2 and partial SR2 structures and
+  private inspected diagnostics; no complete assembly/render parity claim.
+  Paris Pajero TC metadata and Michelin RAV4/Megane catalog/PDI checked early;
+  separate DiRT dictionaries and one Revo archive/texture probe recorded.
+-50 focused tests PASS; complete installed-runtime synthetic/CPU suite1017
+  tests/2 pre-existing private-fixture skips. Bundled-runtime missing-Unicorn
+  attempt preserved as superseded environment evidence.
+- Independent full path/size coverage matches16/16; six protected MR files and
+  seventeen representative donor files retain exact hashes. Existing accepted
+  implementations/projects and alternative CarID29 rosters are unchanged.
+- Proposed Universal Vehicle Scene and bounded Evo2 4Runner next adapter only.
+  No first importer, MR build/launch, roster expansion or proprietary asset
+  commit. Source-only committed-text review/changed ZIPs exclude private outputs.
+- Audit stops for owner review. No push, publication, release or unrelated merge.
+
+See [SOURCE_GARAGE_RESULTS.md](SOURCE_GARAGE_RESULTS.md) for exact evidence paths.
+
+---
+
 # GT Garage Lab — validated integrated phase, 28 October2026
 
 Parent `9416ddbc976da283964ab0ea621884b1789e0fe4` preserved. The phase combines

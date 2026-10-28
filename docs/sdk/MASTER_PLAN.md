@@ -1,3 +1,25 @@
+# Master Plan v6.6 — Source Garage audit checkpoint
+
+28 October2026. Actual clean baseline `b9a24f7` / `research/vehicles` matches the
+attached handoff. Attached v6.6 was reconciled with the actual GT Garage and
+automatic-import results; historical plans below are preserved.
+
+Source Garage cross-game format/tool audit is delivered for review:16 actual
+source roots,38762 hashed files, five representative PC structural probes,
+historical Paris-Dakar/Michelin probes, separate DiRT2007/DiRT2 dictionaries and
+one Revo archive/texture test. See [SOURCE_GARAGE_RESULTS.md](SOURCE_GARAGE_RESULTS.md)
+and its matrix/tool/corpus/interface links for exact qualification boundaries.
+50 focused tests pass; full synthetic/CPU suite1017 tests/2 existing skips.
+
+Proposed first new adapter: Evo2 Toyota4Runner SR5 Sport Package2WD, subject to
+review. Paris-Dakar Pajero provenance and Michelin RAV4/Megane remain independent
+high-interest research tracks. No first importer has started. Universal Vehicle
+Scene is a proposal; current GT compiler/Classic gates are not universal support.
+**Stop for audit review before adapter implementation.** Existing accepted cars,
+alternative CarID29 rosters,30-entry limit and original assets remain preserved.
+
+---
+
 # Master Rallye Vehicle SDK — Master Plan v6.1
 
 **27 October 2026 — owner-confirmed Heritage Isuzu race closeout; upcoming Vehicle Presentation Polish.** This is a non-destructive update to the existing v6.0 roadmap. **Gameplay Camera 2.0 remains in progress at the main Codex**, and this addendum does not interrupt or alter that active work. The complete earlier plan follows unchanged below.

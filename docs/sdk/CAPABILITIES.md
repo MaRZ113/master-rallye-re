@@ -1,3 +1,20 @@
+# Source Garage — research capabilities only
+
+28 October2026. Configurable external read-only root census, exact source/tool
+identities, bounded POD/SMF, Screamer DAT, VR2 source-tool and partial SR2 probes,
+Michelin PDI/catalog, Paris TC metadata, distinct PSSG dictionaries and Revo DDS
+inspection. Five private geometry diagnostics are inspected with explicit
+assembly/material/renderer limitations. No new Workshop source adapter, complete
+textured source renderer, MR-native import or gameplay support is introduced.
+
+See [Source Garage results](SOURCE_GARAGE_RESULTS.md),
+[format matrix](DONOR_FORMAT_MATRIX.md) and
+[Universal Vehicle Scene proposal](UNIVERSAL_VEHICLE_SCENE_PROPOSAL.md).
+First proposed Evo2 4Runner adapter waits for review; Classic v2 still has its
+existing GT3/GT4 source gate. Existing accepted pipelines/candidates remain intact.
+
+---
+
 # GT Garage Lab foundation
 
 Read-only bounded/resumable GT3 VOL inventory and exact catalog/member/color

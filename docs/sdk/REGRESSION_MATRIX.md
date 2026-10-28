@@ -1,3 +1,24 @@
+# Source Garage research checks —28 October2026
+
+Private evidence `.research-output/vehicles/source-garage/`; no new MR import.
+
+| Check | Result / evidence | Boundary |
+|---|---|---|
+| Complete local census |16 roots,38762 hashes,45961878729 bytes; pinned external corpus | Local collection, not pristine retail authentication |
+| Independent enumeration |census-coverage-validation.json;16/16 exact path/size sets | Does not repeat all original SHA reads |
+| Focused parser/path/budget tests |focused-tests.log;50 PASS | Synthetic fixtures, plus actual source smokes separately |
+| Complete synthetic/CPU suite |full-synthetic-validated.log;1017 tests,2 existing private-fixture skips | Python3.15,62.148s; no gameplay |
+| Initial environment attempt |full-synthetic-tests.log;missing Unicorn | Superseded by installed-runtime complete PASS |
+| Five structural sources |DONOR_SMOKE_RESULTS.md;Evo1/Evo2/Screamer/VR2/SR2 | L1 WARN; L2 diagnostic only |
+| Historical/source priorities |priority-probe-validated.json;11 original hashes unchanged | TC metadata, Michelin directory/catalog and PSSG dictionary only |
+| Revo selected archive |revo/205-t16-gravel-final/report.json |9 valid members/one individual DDS; no model reconstruction |
+| Protected MR + donor sample content |preservation-validated.json;23/23 match |6 protected MR files+17 selected donor files |
+| Existing GT/Heritage/authoring code |No existing implementation files changed; complete suite PASS | No new MR GUI/runtime parity claim |
+| Source-only handoff |review/archive-manifest.json, generated after local commit | Member SHA/ZIP CRC/Python AST, excludes donor bytes |
+| New donor gameplay / importer |NOT TESTED / NOT IMPLEMENTED | Audit review stop gate |
+
+---
+
 # GT Garage Lab checks
 
 Private evidence root `.research-output/vehicles/gt-garage/`.

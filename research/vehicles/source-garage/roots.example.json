@@ -1,0 +1,22 @@
+{
+  "schema": "source-garage-roots/1",
+  "base": "E:/RallyWorkshop_Sources/sources",
+  "games": [
+    {"id":"paris-dakar-2001","title":"Paris-Dakar Rally (2001)","path":"Paris-Dakar Rally","personal_priority":"historical-high; Pajero V60 and Evolution V20"},
+    {"id":"michelin-rally-masters","title":"Michelin Rally Masters","path":"Michelin Rally Masters","personal_priority":"personal-high; Toyota RAV4 and Renault Megane Maxi"},
+    {"id":"4x4-evolution","title":"4x4 Evolution (2000)","path":"4x4 Evo","personal_priority":"technical-opportunity"},
+    {"id":"4x4-evolution-2","title":"4x4 Evolution 2 (2001)","path":"4x4 Evo 2","personal_priority":"technical-opportunity"},
+    {"id":"screamer-4x4","title":"Screamer 4x4 (2000)","path":"Screamer 4x4","personal_priority":"technical-opportunity"},
+    {"id":"v-rally-2","title":"V-Rally 2","path":"V-Rally 2/V-Rally2 Expert Edition","personal_priority":"technical-opportunity"},
+    {"id":"dakar-2","title":"Dakar 2: The World's Ultimate Rally (2003)","path":"Dakar 2","personal_priority":"rally-raid"},
+    {"id":"rcx","title":"Rally Championship Xtreme (2001)","path":"Rally Championship Xtreme","personal_priority":"rally"},
+    {"id":"cmr-3","title":"Colin McRae Rally 3","path":"Colin McRae Rally 3","personal_priority":"rally"},
+    {"id":"cmr-04","title":"Colin McRae Rally 04","path":"Colin McRae Rally 04","personal_priority":"rally"},
+    {"id":"cmr-2005","title":"Colin McRae Rally 2005","path":"Colin McRae Rally 2005","personal_priority":"rally"},
+    {"id":"v-rally-3","title":"V-Rally 3","path":"VRally3","personal_priority":"rally"},
+    {"id":"sega-rally-2","title":"Sega Rally 2 Championship","path":"Sega Rally Championship 2","personal_priority":"rally"},
+    {"id":"sega-rally-revo","title":"Sega Rally Revo","path":"Sega Rally","personal_priority":"rally"},
+    {"id":"dirt-2007","title":"Colin McRae: DiRT (2007)","path":"DiRT","personal_priority":"high-special-vehicles"},
+    {"id":"dirt-2","title":"Colin McRae: DiRT 2 (2009)","path":"Dirt 2","personal_priority":"special-vehicles"}
+  ]
+}

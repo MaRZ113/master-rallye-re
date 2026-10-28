@@ -1,0 +1,590 @@
+{
+  "schema": "rally-workshop-donor-tool-audit/1",
+  "research_date": "2026-10-28",
+  "scope": "Read-only source and documentation research; no donor asset redistribution",
+  "local_tools": [
+    {
+      "id": "pypod",
+      "local_root": "E:/RallyWorkshop_Sources/tools/PyPOD-main",
+      "declared_version": "1.1",
+      "author": "Johnny Shumway (JShum00)",
+      "license_finding": "MIT",
+      "upstream_url": "https://github.com/JShum00/PyPOD",
+      "git_commit": "NOT_ESTABLISHED_FOR_LOCAL_UNPACKED_COPY",
+      "execution": "NOT_EXECUTED_BY_TOOL_AUDIT",
+      "files": [
+        {
+          "relative_path": "Constants.py",
+          "size": 713,
+          "sha256": "c091e388acb8c046252c3da0f7543ac9aa83dd357cb2e8d61990728ca3795de4"
+        },
+        {
+          "relative_path": "LICENSE",
+          "size": 1071,
+          "sha256": "34146d68faf2657bb0328e7a981977c35d129fdbee4cbda82d5817848cb738bb"
+        },
+        {
+          "relative_path": "POD_Handling.py",
+          "size": 5616,
+          "sha256": "63120f9687c6d653baf7ee4166f4b5e60cf37676a4b23ee4a273138cd313f7c5"
+        },
+        {
+          "relative_path": "PyPOD.py",
+          "size": 5770,
+          "sha256": "2c0bbad2b446cc8a507c3d2fcfd04f428e937eba2ac0fed59dc3fc092574c961"
+        },
+        {
+          "relative_path": "README.md",
+          "size": 3989,
+          "sha256": "7be19bde33918f55ac192f42ce58af4b1cce383ea0941ccf02fcee6c8587bd06"
+        }
+      ]
+    },
+    {
+      "id": "smf_current",
+      "local_root": "E:/RallyWorkshop_Sources/tools/SMFImportExport-main",
+      "declared_version": "1.1.1",
+      "author": "Dummiesman",
+      "license_finding": "CC-BY-NC-SA-3.0",
+      "upstream_url": "https://github.com/Dummiesman/SMFImportExport",
+      "git_commit": "NOT_ESTABLISHED_FOR_LOCAL_UNPACKED_COPY",
+      "execution": "NOT_EXECUTED_BY_TOOL_AUDIT",
+      "files": [
+        {
+          "relative_path": "io_scene_smf/__init__.py",
+          "size": 3890,
+          "sha256": "7f16fb532e55cdccc3162dd5e034b402d97740d0595c0f924b6706ecbf77da1b"
+        },
+        {
+          "relative_path": "io_scene_smf/common_helpers.py",
+          "size": 4280,
+          "sha256": "20a4970038227da9dce8a33488796f0619c51286c5856a50b7826f48f1daf676"
+        },
+        {
+          "relative_path": "io_scene_smf/export_smf.py",
+          "size": 5080,
+          "sha256": "b86c54601a2f8e878f71f6496b3a8de1d082aaf723be60b289afaa0983c9594c"
+        },
+        {
+          "relative_path": "io_scene_smf/import_smf.py",
+          "size": 5518,
+          "sha256": "edb5e8dd8af7ae5bf9a3cfa783b499e0c79329cf6c27234ba8916da2e5e5331a"
+        },
+        {
+          "relative_path": "io_scene_smf/import_tex.py",
+          "size": 3881,
+          "sha256": "e8341c1a27f32e23453d69e952186b60bfdc31756a24e23417cb624072cdf874"
+        },
+        {
+          "relative_path": "README.md",
+          "size": 1685,
+          "sha256": "9f8498f78bfe213294831dea6ca53d01552f1c0f7fec6d0eea0662aee9ace4f9"
+        }
+      ]
+    },
+    {
+      "id": "smf_legacy",
+      "local_root": "E:/RallyWorkshop_Sources/tools/io_scene_smf",
+      "declared_version": "0.0.2",
+      "author": "Dummiesman",
+      "license_finding": "CC-BY-NC-SA-3.0",
+      "upstream_url": "https://github.com/Dummiesman/SMFImportExport",
+      "git_commit": "NOT_ESTABLISHED_FOR_LOCAL_UNPACKED_COPY",
+      "execution": "NOT_EXECUTED_BY_TOOL_AUDIT",
+      "files": [
+        {
+          "relative_path": "__init__.py",
+          "size": 3890,
+          "sha256": "b1eefa89f0f1fc9f30ac382c3ca001fd5c09f4d2bca8fb8d9e1f4f4245a33636"
+        },
+        {
+          "relative_path": "common_helpers.py",
+          "size": 5583,
+          "sha256": "88d9fc97b6f7f4c4e987bc48a53fae20fb9f2bcaba16d627448d960b5fee35f3"
+        },
+        {
+          "relative_path": "export_smf.py",
+          "size": 5086,
+          "sha256": "754b005384b5b257fe537fb663e1bbc6f6d97aa91db85fb27173ee006e7e2335"
+        },
+        {
+          "relative_path": "import_smf.py",
+          "size": 5514,
+          "sha256": "55f55f3228463e37095501d59c15e500ed2b31169c762aa3fd882f27a30d0f71"
+        },
+        {
+          "relative_path": "import_tex.py",
+          "size": 3881,
+          "sha256": "e8341c1a27f32e23453d69e952186b60bfdc31756a24e23417cb624072cdf874"
+        }
+      ]
+    },
+    {
+      "id": "vr2",
+      "local_root": "E:/RallyWorkshop_Sources/tools/VR2_Asset_Explorer_v0.6.11_source",
+      "declared_version": "0.6.11",
+      "author": "Timo 'dr_vannacut' Borg",
+      "license_finding": "NO_EXPLICIT_GRANT_FOUND",
+      "upstream_url": "https://vannacut.com/2026/08/12/v-rally-2-pc-psx-reverse-engineering-pak-exporter/",
+      "git_commit": "NOT_ESTABLISHED_FOR_LOCAL_UNPACKED_COPY",
+      "execution": "NOT_EXECUTED_BY_TOOL_AUDIT",
+      "files": [
+        {
+          "relative_path": "vr2_asset_explorer/app.py",
+          "size": 127,
+          "sha256": "be7c146e58f757dc4968eb954367848c9631ffa3a6784a772a2c5c48762acb49"
+        },
+        {
+          "relative_path": "vr2_asset_explorer/backend/__init__.py",
+          "size": 96,
+          "sha256": "d5907d57c21121b255fdb91b80397814a6e7b9846625ace4fa1aed2a08eaf023"
+        },
+        {
+          "relative_path": "vr2_asset_explorer/backend/vr2geo_indexed.py",
+          "size": 15725,
+          "sha256": "c0ac1a5bfdc63612770a405b30517795b625510b924cc25bd01caff05bdac52e"
+        },
+        {
+          "relative_path": "vr2_asset_explorer/backend/vr2pak.py",
+          "size": 11402,
+          "sha256": "0735dda51c40ae9a01faed37f3a1e6e3bec72d0a529a2878a8291252ccedf47a"
+        },
+        {
+          "relative_path": "vr2_asset_explorer/backend/vr2psxgeo.py",
+          "size": 22397,
+          "sha256": "988639c8c8537de31d5a66944ebebc87dba38dcbb505623e10d4025a6043099e"
+        },
+        {
+          "relative_path": "vr2_asset_explorer/backend/vr2psxtex.py",
+          "size": 19561,
+          "sha256": "1a207922127aca16f93cb8caabaa1d4aad32369fcb9aae0b42a2ca4abe4c1697"
+        },
+        {
+          "relative_path": "vr2_asset_explorer/backend/vr2psxtrack.py",
+          "size": 37490,
+          "sha256": "eb613d1a9781ee7109fb951ad0246e1d36b1850bed17b4c92fc078b880b22398"
+        },
+        {
+          "relative_path": "vr2_asset_explorer/backend/vr2snd.py",
+          "size": 9596,
+          "sha256": "0d01aae9c68d7aa844b3cc8c9444152bf17d74a42fd87b4dab2e8360543ff4a7"
+        },
+        {
+          "relative_path": "vr2_asset_explorer/backend/vr2tex.py",
+          "size": 13422,
+          "sha256": "f24df8cd8a834f75ed4f0210226da34baf5f6ad09705415519c4060fa2d81e8b"
+        },
+        {
+          "relative_path": "vr2_asset_explorer/backend/vr2track.py",
+          "size": 31591,
+          "sha256": "acb4b57fcc7c67b9eeab5fe27812ca47291b64e6d5cdbc719cbf122137232d2d"
+        },
+        {
+          "relative_path": "vr2_asset_explorer/backend/vr2zap.py",
+          "size": 3593,
+          "sha256": "6b57ead74a4d16ca15290a3e6fcbb39a0ecf7d5598dbed5af55634bea3504cc2"
+        },
+        {
+          "relative_path": "vr2_asset_explorer/docs/CHANGELOG.md",
+          "size": 15478,
+          "sha256": "d84fb7e559ea1136155ea1aeb65cda46acf049ea167ed7a660c9022a78c27782"
+        },
+        {
+          "relative_path": "vr2_asset_explorer/docs/DOCUMENTATION.md",
+          "size": 19286,
+          "sha256": "190b242a8db5b592824f09809c62cf525d8b71f9bc80ba757d18770cb6d74a45"
+        },
+        {
+          "relative_path": "vr2_asset_explorer/docs/FORMAT_BASE.md",
+          "size": 7396,
+          "sha256": "9abd3141dd3899facea058370ece3d590786c0cfa43846a574d4eb44ce7186bd"
+        },
+        {
+          "relative_path": "vr2_asset_explorer/docs/FORMAT_PSX.md",
+          "size": 12912,
+          "sha256": "c273c5204f7fdda5aed8e79d0450ec4e923f17ff6ac8eeadf4e95e0af1a1ee51"
+        },
+        {
+          "relative_path": "vr2_asset_explorer/docs/FORMAT_TRACK.md",
+          "size": 6567,
+          "sha256": "bc06a0eeddececf8aac345218ec8f2e23e922800341b5192a0d8facabc44c757"
+        },
+        {
+          "relative_path": "vr2_asset_explorer/docs/FORMAT_V2.md",
+          "size": 3070,
+          "sha256": "688f5d99c97caef6e45a2645343c04477dba8bc57bf4a4d5020bef583112f726"
+        },
+        {
+          "relative_path": "vr2_asset_explorer/docs/VALIDATION.md",
+          "size": 20535,
+          "sha256": "9345e14d627f431c4988c51b36ebf7a86380d9558553e828b81df2d4df21841f"
+        },
+        {
+          "relative_path": "vr2_asset_explorer/README.md",
+          "size": 8378,
+          "sha256": "b8ef1b3fd2312980575bd59c872ad96a049a1f0d34fb40142f28d2f573082d48"
+        },
+        {
+          "relative_path": "vr2_asset_explorer/requirements-build.txt",
+          "size": 37,
+          "sha256": "2facc5af695d84bfa62a6a5306c9fc219b45178f77120b327b2a71615a17231a"
+        },
+        {
+          "relative_path": "vr2_asset_explorer/requirements.txt",
+          "size": 25,
+          "sha256": "998f65ea99cae41f8b76758926f297d656988e2f45221a3dee50eebb3cc5c951"
+        },
+        {
+          "relative_path": "vr2_asset_explorer/tests/test_core.py",
+          "size": 35398,
+          "sha256": "ed34d5288bb75f5b3ebdaad17d9ad7a0170d2c52ff0135676a56c7c22f061907"
+        },
+        {
+          "relative_path": "vr2_asset_explorer/vr2explorer/__init__.py",
+          "size": 70,
+          "sha256": "fc5261917ba6b102a506e390b6886a65fbb4aa7bbe2396baaadd50686f559f05"
+        },
+        {
+          "relative_path": "vr2_asset_explorer/vr2explorer/asset_index.py",
+          "size": 23796,
+          "sha256": "dd53a6d9ca3b22c749a39474febf9d933c0a50689ac83184f698f31725697506"
+        },
+        {
+          "relative_path": "vr2_asset_explorer/vr2explorer/discovery.py",
+          "size": 11442,
+          "sha256": "169a80c35fefbc95210c6119ec8fd69de527ddc1c0adec09184b4047ea592825"
+        },
+        {
+          "relative_path": "vr2_asset_explorer/vr2explorer/operations.py",
+          "size": 30377,
+          "sha256": "6c19039dfcc8a947bfb5abd8087ceec6e7b8adf257c14a1f95c5430059fc17ec"
+        },
+        {
+          "relative_path": "vr2_asset_explorer/vr2explorer/ui.py",
+          "size": 60236,
+          "sha256": "0d107cb9ac0572e8925b9ba5f88d5c283933d5f6df675958b03c6061872151d2"
+        }
+      ]
+    },
+    {
+      "id": "sr2tools",
+      "local_root": "E:/RallyWorkshop_Sources/tools/SR2Tools-master",
+      "declared_version": "sr2mdl 0.0.6 / changelog 0.6",
+      "author": "Spreit, chmcl95",
+      "license_finding": "NO_EXPLICIT_GRANT_FOUND",
+      "upstream_url": "https://github.com/Spreit/SR2Tools",
+      "git_commit": "NOT_ESTABLISHED_FOR_LOCAL_UNPACKED_COPY",
+      "execution": "NOT_EXECUTED_BY_TOOL_AUDIT",
+      "files": [
+        {
+          "relative_path": "batch BINDATA conversion.py",
+          "size": 1771,
+          "sha256": "6e95b72aa4d0f41b61fd1338d8e9d7b245f549906f3bc9fbdc04a6ef1f039a01"
+        },
+        {
+          "relative_path": "bin_files_tool.py",
+          "size": 7551,
+          "sha256": "de51cb48345745da777a0548f88caa5c0aa60b821aeb05dcbcdf5d878d1d9186"
+        },
+        {
+          "relative_path": "bmp_handler.py",
+          "size": 7123,
+          "sha256": "2b132cbd52b7dc98c335b8b5f4047ab1d6c603b94b9f577808fbe103990c5142"
+        },
+        {
+          "relative_path": "bmp_png_conversion.py",
+          "size": 4616,
+          "sha256": "2c86ddf1dbe39d9f9966384e511ab6eaa053ad3d9aa650b6052ce94932e856f2"
+        },
+        {
+          "relative_path": "Changelog.txt",
+          "size": 1746,
+          "sha256": "a1347adcce2bd9cf1267aacead152bf8207e753d996f3718d6a0b8c75d6977b2"
+        },
+        {
+          "relative_path": "color_conversion.py",
+          "size": 4803,
+          "sha256": "0ab8669a1003cace7c88a13aafc78eae0ba13c17de6dfc6dcce513be2afc5966"
+        },
+        {
+          "relative_path": "Documentation/Folder behavior.txt",
+          "size": 1486,
+          "sha256": "72bc2255cf1e13282b309534d203e7caf6a97dcce9a04c31f605599377263f87"
+        },
+        {
+          "relative_path": "Documentation/Sega Rally 2 File Formats.md",
+          "size": 10017,
+          "sha256": "11960f5074bee4d9885cdedb23532aa8d70ccaae5dd5402771ba19cf97932483"
+        },
+        {
+          "relative_path": "exe_dll_patcher.py",
+          "size": 2609,
+          "sha256": "02534167ad963b953f1bb74a36e54562ac68dd4f5de799f57c0d5c7fdc25b5e0"
+        },
+        {
+          "relative_path": "GUI_Run.py",
+          "size": 421,
+          "sha256": "f7a97d99d0060ea07be594969ab7c4e4ca79fb76bd01bad41c91994c6a4c2695"
+        },
+        {
+          "relative_path": "GUIbackend/file_helpers.py",
+          "size": 782,
+          "sha256": "396a8a6e640abd2fb2b2162e5e179fd408b6f0abe30480db70887f2c32fb5bb5"
+        },
+        {
+          "relative_path": "GUIbackend/SARCTab.py",
+          "size": 4376,
+          "sha256": "f83adf65b704b3875dc35d82bb4bcb5bd8c91e48e2a73293ffa5add7c8b0f795"
+        },
+        {
+          "relative_path": "GUIbackend/TextureTab.py",
+          "size": 15866,
+          "sha256": "6308e99ca678412e028a9a45b69dd4ac795b6b5f01d55c533b98dde60c53811f"
+        },
+        {
+          "relative_path": "README.md",
+          "size": 88,
+          "sha256": "31eea1c51c0f0b16f100acc501b538e3822a26a638bf53019e60134c446ac8fc"
+        },
+        {
+          "relative_path": "SARCextractor.py",
+          "size": 2522,
+          "sha256": "8dc6efa5756d74a9c992038e6f4ada68add95e9a4b2844a977830ce96792860c"
+        },
+        {
+          "relative_path": "sr2mdl.py",
+          "size": 47756,
+          "sha256": "b287877a2a2917387485d59dab706877fb623883c11bde9686f84e2df18543e4"
+        },
+        {
+          "relative_path": "texture_classes.py",
+          "size": 26984,
+          "sha256": "b974126c1d88b38ae6197c4d89a7484ca2da81853f74846ce5ac71b78a3c0071"
+        },
+        {
+          "relative_path": "texture_tool.py",
+          "size": 11584,
+          "sha256": "79d87d6ff179b81b9e7e5d2fc598ebf08a35049909a727a0b1f4c8bbbd6b8fd3"
+        },
+        {
+          "relative_path": "unyakuza.py",
+          "size": 1585,
+          "sha256": "50153c70eb7f300a873a9e50291e1c2cb8735e94fb21a6c82535468a6275285b"
+        }
+      ]
+    },
+    {
+      "id": "z3d",
+      "local_root": "E:/RallyWorkshop_Sources/tools/Z3D_1x_Import-main",
+      "declared_version": "0.0.1",
+      "author": "Dummiesman",
+      "license_finding": "CC-BY-NC-SA-3.0",
+      "upstream_url": "https://github.com/Dummiesman/Z3D_1x_Import",
+      "git_commit": "NOT_ESTABLISHED_FOR_LOCAL_UNPACKED_COPY",
+      "execution": "NOT_EXECUTED_BY_TOOL_AUDIT",
+      "files": [
+        {
+          "relative_path": "io_scene_z3d1/__init__.py",
+          "size": 2083,
+          "sha256": "fa1e769ea81f38b484ba62810fd2e79dd4119bb7731235ce46e7900db83de3e1"
+        },
+        {
+          "relative_path": "io_scene_z3d1/import_z3d1.py",
+          "size": 22517,
+          "sha256": "732e71900ddd624a2fee1c1b3725344f496a7790f223d66cdd0b6ba979b59aa7"
+        },
+        {
+          "relative_path": "io_scene_z3d1/z3d1_chunkflags.py",
+          "size": 571,
+          "sha256": "86f086468ea79b9a4194a09af59bb4d36fd8a05996a52a48d98e902374d85c6e"
+        },
+        {
+          "relative_path": "io_scene_z3d1/z3d1_chunktypes.py",
+          "size": 596,
+          "sha256": "a0fbde0887539a7529e59cbb6fa5170a1cf33d0649f05148e5bfb402578c437f"
+        },
+        {
+          "relative_path": "io_scene_z3d1/z3d1_classes.py",
+          "size": 4222,
+          "sha256": "cb30fa41d313dcad4ecda88108f0e86a354c9c0637d9dcba55f9d2bb768d19ae"
+        },
+        {
+          "relative_path": "io_scene_z3d1/z3d1_flags.py",
+          "size": 231,
+          "sha256": "a4c8b42d7bb95b98aaf7e5ad94665d664bf472746c65256ddf6953d456e4928e"
+        },
+        {
+          "relative_path": "README.md",
+          "size": 403,
+          "sha256": "23b4561a6bbf27699de289e3b09cdd66e2f93cefc21f575012696119965a67ea"
+        }
+      ]
+    },
+    {
+      "id": "iripper",
+      "local_root": "E:/RallyWorkshop_Sources/tools/cmr3_cmr04_cmr2005_iripper19",
+      "declared_version": "1.9 (2006-02-24)",
+      "author": "David Skotnicki / Racer_S",
+      "license_finding": "FREE_OF_CHARGE_NO_SOURCE_LICENSE",
+      "upstream_url": "http://www.tocaedit.com",
+      "git_commit": "NOT_ESTABLISHED_FOR_LOCAL_UNPACKED_COPY",
+      "execution": "NOT_EXECUTED_BY_TOOL_AUDIT",
+      "files": [
+        {
+          "relative_path": "iRipper.exe",
+          "size": 1646592,
+          "sha256": "747a5624b0eb511a6b5c45a9d315f2f235cb5a732c7350ef925c9fafc6738a4b"
+        },
+        {
+          "relative_path": "ReadMe.txt",
+          "size": 6424,
+          "sha256": "24a03186eaa3a3e03f23060e4f3ec71db79a570ef4205f990031ca278932508c"
+        }
+      ]
+    },
+    {
+      "id": "triraw",
+      "local_root": "E:/RallyWorkshop_Sources/tools/triraw",
+      "declared_version": "BETA (2023-01-07)",
+      "author": "Dummiesman",
+      "license_finding": "NO_EXPLICIT_GRANT_FOUND",
+      "upstream_url": "https://4x4evolution.net/doku.php?id=start",
+      "git_commit": "NOT_ESTABLISHED_FOR_LOCAL_UNPACKED_COPY",
+      "execution": "NOT_EXECUTED_BY_TOOL_AUDIT",
+      "files": [
+        {
+          "relative_path": "triraw - readme.txt",
+          "size": 262,
+          "sha256": "02c98b6cb688729ad6841ca1bbb70df2d20774d82a1ac397125e97a868b67c92"
+        },
+        {
+          "relative_path": "triraw.exe",
+          "size": 54272,
+          "sha256": "baba23beb0c49c03df9cca2f40a3af3a1d16a88996389d4be3a04bb64e366f33"
+        }
+      ]
+    },
+    {
+      "id": "niceslice",
+      "local_root": "E:/RallyWorkshop_Sources/tools/NiceSlice_005",
+      "declared_version": "0.5 public ALPHA",
+      "author": "UNKNOWN_FROM_LOCAL_PACKAGE",
+      "license_finding": "NO_EXPLICIT_GRANT_FOUND",
+      "upstream_url": "https://4x4evolution.net/doku.php?id=start",
+      "git_commit": "NOT_ESTABLISHED_FOR_LOCAL_UNPACKED_COPY",
+      "execution": "NOT_EXECUTED_BY_TOOL_AUDIT",
+      "files": [
+        {
+          "relative_path": "NiceSlice_005.exe",
+          "size": 71680,
+          "sha256": "61d4dbf28921483101e49cc6f381164b63ecdad2f22d4c09983227478a32e93d"
+        },
+        {
+          "relative_path": "Readme.txt",
+          "size": 2050,
+          "sha256": "da3ae94e9248e58633cac05c29cf04a16a21455e3826ab72235bd96d593aba0f"
+        }
+      ]
+    },
+    {
+      "id": "durik_screamer",
+      "local_root": "E:/RallyWorkshop_Sources/tools/research-pinned/durik-62f052",
+      "declared_version": "62f052895bbddba980e215e1a9b20052f6821ce7",
+      "author": "Durik256",
+      "license_finding": "NO_EXPLICIT_GRANT_FOUND",
+      "upstream_url": "https://github.com/Durik256/Noesis-Plugins/tree/62f052895bbddba980e215e1a9b20052f6821ce7",
+      "git_commit": "NOT_ESTABLISHED_FOR_LOCAL_UNPACKED_COPY",
+      "execution": "NOT_EXECUTED_BY_TOOL_AUDIT",
+      "files": [
+        {
+          "relative_path": "fmt_4x4.py",
+          "size": 3380,
+          "sha256": "32fc1bc6a47583a28f28130a7ac100d364ee7ee090285b9673d5cad7fb055ad7"
+        },
+        {
+          "relative_path": "fmt_cod.py",
+          "size": 955,
+          "sha256": "17b4392aa6194d1b24e48b10416b82e4923e2748c8e1669a45037140432bdcb4"
+        },
+        {
+          "relative_path": "tex_tex_32a.py",
+          "size": 1288,
+          "sha256": "6d3194af6028a218046cfa5dc938c9b902624fef1e86b0bf496a61ba43b02257"
+        }
+      ]
+    }
+  ],
+  "local_tool_archives": [
+    {
+      "name": "cmr3_cmr04_cmr2005_iripper19.zip",
+      "size": 766121,
+      "sha256": "8fddaacd4a2f6a5feff296f9a1427a525342d09cc754a4dea08d0ed338268674"
+    },
+    {
+      "name": "io_scene_smf.zip",
+      "size": 8267,
+      "sha256": "32fbc7ecf111708e0ad2dbc36ec8725a670b37f0cf960a974c3a1d1df1ce3b4e"
+    },
+    {
+      "name": "NiceSlice_005.rar",
+      "size": 21993,
+      "sha256": "35dd53a8c12ab614ebf9ec2972dacd1a416040e0ccb5586195c185c648722218"
+    },
+    {
+      "name": "PyPOD-main.zip",
+      "size": 8144579,
+      "sha256": "983cb6df50e1b9c15111f5945e003bdac61d1c29d89996a3f369df7937450210"
+    },
+    {
+      "name": "SMFImportExport-main.zip",
+      "size": 10494,
+      "sha256": "e899b85ea6390cd95576bcadd93fb0c69a4bdedce6be7f32ca4b34d9be5c36ad"
+    },
+    {
+      "name": "triraw.zip",
+      "size": 34960,
+      "sha256": "066c42065b8685a24ad5f19aea7328178631e8b69962466b18b98ffbdb385e97"
+    },
+    {
+      "name": "VR2_Asset_Explorer_v0.6.11_source.zip",
+      "size": 130263,
+      "sha256": "1eb4a458a066f801fa34e9676c6b6f17566c5411ee38d560cab7763dadbd0fe0"
+    },
+    {
+      "name": "Z3D_1x_Import-main.zip",
+      "size": 10400,
+      "sha256": "d13bd80b7fb20cd97d0cbe093ee1acae825a7bf6e4c6bcff5d0e74e14fed8b97"
+    }
+  ],
+  "remote_source_snapshots": [
+    {
+      "repository": "https://github.com/wattostudios/GameExtractor",
+      "commit": "1d3201e2fff3ba3a7fd0f72b12cb9d0738a89e6a",
+      "license": "GPL-2.0-or-later per inspected headers",
+      "files": [
+        "src/org/watto/ge/plugin/archive/Plugin_PDT_PDI1.java",
+        "src/org/watto/ge/plugin/archive/Plugin_COD_UNIQUE.java",
+        "src/org/watto/ge/plugin/archive/Plugin_SBF_SBZ1.java",
+        "src/org/watto/ge/plugin/viewer/Viewer_SBF_SBZ1_MESH.java"
+      ],
+      "execution": "NOT_EXECUTED"
+    },
+    {
+      "repository": "https://github.com/EgoEngineModding/Ego-Engine-Modding",
+      "commit": "f3fe9ee0f6e8379c64bc4a29e1d1b586bba5d1c1",
+      "license": "MIT",
+      "files": [
+        "src/EgoEngineLibrary/Formats/Pssg/DirtCarExteriorPssgGltfConverter.cs",
+        "src/EgoEngineLibrary/Formats/Pssg/CarExteriorPssgGltfConverter.cs"
+      ],
+      "execution": "NOT_EXECUTED"
+    }
+  ],
+  "unretrieved_source": [
+    {
+      "url": "https://aluigi.altervista.org/bms/sega_rally_2007.bms",
+      "result": "HTTP403",
+      "implication": "Version, bytes and license not verified; use primary independent GameExtractor implementation as evidence"
+    }
+  ]
+}
