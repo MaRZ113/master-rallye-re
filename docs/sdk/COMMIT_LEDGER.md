@@ -1,3 +1,28 @@
+# Paris-Dakar Source Lab and bounded Michelin research —29 October2026
+
+Clean starting research/vehicles at ec8779615d7eb5f9ad653b7badaa4e9209450782.
+Resolve the local scoped revision with:
+`git log -1 --format=%H --fixed-strings --grep="feat(research): recover Paris-Dakar source scenes and Michelin payloads"`.
+
+- Independent bounded read-only TC/Gex/PC TIM decoder and three qualified UVSv1
+  scenes: both original Pajeros and one unrelated Nissan Patrol. Static original
+  EXE evidence, exact resource offsets/hashes, original channels/mips and poses.
+- Reuse existing D3D9/Source Garage; explicit optional culling, no new native
+  compiler; disable Evo2 detail/native actions on unrelated neutral scenes.
+- Bounded independent Michelin TEA/LZSS payload proof and structural XOBJ/TGA
+  recovery. No fully assembled Michelin preview or native vehicle claim.
+- Actual local historical comparison, exact metadata manifests, explicit
+  unresolved material/suspension/history boundaries. Complete Masterv7.0 and
+  earlier implementation history preserved; append research checkpoint only.
+-50 focused /1132 full Windows tests,2 pre-existing skips;36 real final GPU
+  views,3 actual Tk scene openings, three deterministic repeated scene builds,
+  source preservation and4610 prior accepted/original hash/mtime checks.
+- Source-only full/changed review archives use this commit versus ec87796;
+  private source assets/executables/images remain excluded. No push, release,
+  installation, native candidate, CarID or roster-capacity change.
+
+---
+
 # 4Runner v7.0 stabilization —28 October2026
 
 Parent450eb5d08dcc4a73d104357fd250b64e35dc92d1, clean research/vehicles.

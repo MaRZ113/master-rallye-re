@@ -1,0 +1,1937 @@
+{
+  "schema": "paris-dakar-qualified-corpus/1",
+  "date": "2026-10-29",
+  "base_commit": "ec8779615d7eb5f9ad653b7badaa4e9209450782",
+  "executable": {
+    "bytes": 1925177,
+    "mtime_ns": 998627984000000000,
+    "sha256": "94008b8708ddaf918397b56c2e194086ed9b088a7ec0e7e185effdebd51d1482"
+  },
+  "vehicles": [
+    {
+      "catalog": "Data/NissanPatrol.tc",
+      "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765",
+      "scene_sha256": "45b73ff8e6551cfc0b2b0ea6e9fba604d49b22d1661320c182b0030144fc39ac",
+      "manifest_sha256": "fb53afeca40b78ed8ca6dcbb87262ebb9ff80119804c217582db6f3c62297e92",
+      "counts": {
+        "meshes": 24,
+        "nodes": 11,
+        "texture_bytes": 12697604,
+        "triangles": 2074,
+        "vertices": 3622
+      },
+      "resources": [
+        {
+          "bytes": 8515,
+          "directory_index": 0,
+          "member": "Description",
+          "offset": 2048,
+          "sha256": "f30d528220cb2d03f7883225a2b0ab02cb7f0cca34922485eb41940d7f2d2942",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 104440,
+          "directory_index": 1,
+          "member": "MainBody",
+          "offset": 12288,
+          "sha256": "3963b5a47458462bd55692e4bc2fe9529a1aa04611570b3818109627d609d025",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 3416,
+          "directory_index": 2,
+          "member": "MainBody_Shadow",
+          "offset": 116736,
+          "sha256": "34be88ad356b9324698e60e284cbcfb6c33e7c4a1e84a8ab9f0e382650902034",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 7004,
+          "directory_index": 3,
+          "member": "BackBumper",
+          "offset": 120832,
+          "sha256": "92b0fd4c95be99cb34014cf692135376d9d6652644841c7d04074a62d7b57e26",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 7664,
+          "directory_index": 4,
+          "member": "FrontBumper",
+          "offset": 129024,
+          "sha256": "9fca8d2811919754e29de384da1e6056d59d26843e67f02e537f54f3f222de51",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 2780,
+          "directory_index": 5,
+          "member": "Bonnet",
+          "offset": 137216,
+          "sha256": "464c116dc642f629394163937bf00e611b2f58b0d4328e73be781e87cc0a9b2e",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 1180,
+          "directory_index": 6,
+          "member": "BackDoorL",
+          "offset": 141312,
+          "sha256": "6740fbc000f03af69a12b2cbc8eb18bd0ed000944a0df7d24334b62382fb325f",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 1560,
+          "directory_index": 7,
+          "member": "BackDoorL_shadow",
+          "offset": 143360,
+          "sha256": "a74dc45c6cf69bb7798c0b883e0bf0fc19919da4460795bdcc7eed4dccfa664c",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 1180,
+          "directory_index": 8,
+          "member": "BackDoorR",
+          "offset": 145408,
+          "sha256": "be4a43faae8508c6ab3c613984679a58974b2b4cda451d017e276e4fe990aec0",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 1560,
+          "directory_index": 9,
+          "member": "BackDoorR_Shadow",
+          "offset": 147456,
+          "sha256": "6d26b16ab84af3cc52b7c8b9dded0291c492e764689021c352b210d18ec1a746",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 5916,
+          "directory_index": 10,
+          "member": "WheelFL",
+          "offset": 149504,
+          "sha256": "9dcf6c451c8491a85c1f36bf323115b80be53bae188c41f2ef7bc3b2f4e7eea2",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 1848,
+          "directory_index": 11,
+          "member": "WheelFL_Shadow",
+          "offset": 155648,
+          "sha256": "0f16a3362982608571048b83a7de9a431d302d95f33968ba665c9b3285ce6ef6",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 12,
+          "member": "Patrol1A1_a0a",
+          "offset": 157696,
+          "sha256": "69d2d2a8bf442737b4c5549a53440c208d8bfd9241c5790c1c218311cb6536b6",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 13,
+          "member": "Patrol1A2_a0a",
+          "offset": 247808,
+          "sha256": "ae94d9204dfc4d40348436396aa33baf6a714a0e31fc3599edf27ebda2aaa62d",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 14,
+          "member": "Patrol6A1_a0a",
+          "offset": 337920,
+          "sha256": "78b464d24fa4975910cbe37aa5bf04134c1c3223b3907f9fe718ab37919fbea1",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 15,
+          "member": "Patrol6A2_a0a",
+          "offset": 428032,
+          "sha256": "85401785d179de9c681409e5b21da32abde52989ba2c0f184fb0de1c1370488d",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 16,
+          "member": "Patrol7A1_a0a",
+          "offset": 518144,
+          "sha256": "32c64b6a5f6cc4dd9459ecfb46830c6cb8bafdd1ac088e959b6245a3ab9b3613",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 17,
+          "member": "Patrol7A2_a0a",
+          "offset": 608256,
+          "sha256": "a54cdee9acc421795be38406fc0401799a0eba3f623e7c5d77e8beba22cab621",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 18,
+          "member": "Patrol2A1_a0a",
+          "offset": 698368,
+          "sha256": "45079f2ed2d271dfa9a82fe43877409ebbd812d5726c2d82646a53e2b19affc8",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 19,
+          "member": "Patrol2A2_a0a",
+          "offset": 788480,
+          "sha256": "1ef0b0d11a26a574a470387b28d4618c8d2cc95717847b8cca8268528f54c053",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 20,
+          "member": "Patrol2B1_a0a",
+          "offset": 878592,
+          "sha256": "4cdf9d20d8f30026dec686744912b2279b2fe2263dc428c7d9cd252e2d02558b",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 21,
+          "member": "Patrol2B2_a0a",
+          "offset": 968704,
+          "sha256": "72038c0b29980998ed370ac90f918e0e5ddfcd98cc86ed8307cf8355e22e76bb",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 22,
+          "member": "Patrol2C1_a0a",
+          "offset": 1058816,
+          "sha256": "2b5ddaa15aa99c84ff3d33d104afdf8177c80315371c493369f30e776c7cd97c",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 23,
+          "member": "Patrol2C2_a0a",
+          "offset": 1148928,
+          "sha256": "9e95236208e8d8944e30e03bae9f8cfec048fccacec2eeda2f05235d0722b803",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 24,
+          "member": "Patrol2D1_a0a",
+          "offset": 1239040,
+          "sha256": "446bee020f53a1743b7988da5352a5dfddf9934b94bb9804c49aabac7ef94334",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 25,
+          "member": "Patrol2D2_a0a",
+          "offset": 1329152,
+          "sha256": "d1930424592d816aff0d2e1ee9672a9fb26abcd0b86b09755bcdc94227a678d9",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 26,
+          "member": "Patrol2E1_a0a",
+          "offset": 1419264,
+          "sha256": "67b79bfd21d91ce53338ba6cb20abc7847b9b5ad84a402c66b8e448c5d5e178b",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 27,
+          "member": "Patrol2E2_a0a",
+          "offset": 1509376,
+          "sha256": "6ccc5b474fbb816988e101e1aa9e54b62bbfbcc9082d307ee4c8a3a81da5ab0c",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 28,
+          "member": "Patrol3A1_a0a",
+          "offset": 1599488,
+          "sha256": "0dd4aff5112b48407edf4317e78ecc00de3a41970fd43e945b902a6be2736d31",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 29,
+          "member": "Patrol3A2_a0a",
+          "offset": 1689600,
+          "sha256": "2f6fb43099e61cb1e377c62e141fda31fa0da2c0fef90f680cfd4b087ac47c0f",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 30,
+          "member": "Patrol3B1_a0a",
+          "offset": 1779712,
+          "sha256": "2440fde106f411200ac64f69ac9285605024265f714b9cbd9d304628daed59c3",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 31,
+          "member": "Patrol3B2_a0a",
+          "offset": 1869824,
+          "sha256": "15bb99849e33f4d0f6987a608829a8c55816eff917b13b8e15cdb5488448e49f",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 32,
+          "member": "Patrol3C1_a0a",
+          "offset": 1959936,
+          "sha256": "fc9e6aaf0183eccd77ab46fa8b6f6ee759bfae33fa7ed361a989ebc9ebf3d6fe",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 33,
+          "member": "Patrol3C2_a0a",
+          "offset": 2050048,
+          "sha256": "4f268bc1dd2a6d18d879e27bd811be419243026291561d66f0b4591ced103f68",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 34,
+          "member": "Patrol3D1_a0a",
+          "offset": 2140160,
+          "sha256": "df87e420b113209650c1fccabb10dd8c43104efb9aa98b13e25604f5ba5252f1",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 35,
+          "member": "Patrol3D2_a0a",
+          "offset": 2230272,
+          "sha256": "bb6d1902d596812f1bd1d9db281fda2f5ceadc65ea9cf04e1680de1788a5c67b",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 36,
+          "member": "Patrol3E1_a0a",
+          "offset": 2320384,
+          "sha256": "799d409b937967a0af67bfba9206bbac4122ce8cf0859612ea6a0aebf2132d1a",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 37,
+          "member": "Patrol3E2_a0a",
+          "offset": 2410496,
+          "sha256": "35f6b627eff0adbf617108377da46b31a3a20d0a79a028c63c69dd03c4b361b5",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 38,
+          "member": "Patrol4A1_a0a",
+          "offset": 2500608,
+          "sha256": "1a45e45b8f40c3d2a50fdac0bd8bddabeebfef5de0844b46da123495f4431951",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 39,
+          "member": "Patrol4A2_a0a",
+          "offset": 2590720,
+          "sha256": "66a4d2f8d2206e2cd52397d6de135cfa57bb5663b68b800fbd285d6c99a9cac8",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 40,
+          "member": "Patrol4B1_a0a",
+          "offset": 2680832,
+          "sha256": "3c654e77d12ad51a22d6ef9f4e3200efa0eae12df2dc22abb4da143c794bc85b",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 41,
+          "member": "Patrol4B2_a0a",
+          "offset": 2770944,
+          "sha256": "87cdb80f79f93ecdba85f66f89fb8ded7180a973323e1736ad09f086ff542c14",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 42,
+          "member": "Patrol4C1_a0a",
+          "offset": 2861056,
+          "sha256": "d640586bf36db38e0c992add2acedae429f21fb6776d5bbe65dbf93a59f0763b",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 43,
+          "member": "Patrol4C2_a0a",
+          "offset": 2951168,
+          "sha256": "f1543be2c4702e9e7012222553f6f29d74a91f868a9af7a13dc4cd3d32e6128a",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 44,
+          "member": "Patrol4D1_a0a",
+          "offset": 3041280,
+          "sha256": "fe31be70c7cc55ad6a49e1a04fdaff3172d9a6c649f938bf37001aa945b55ff7",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 45,
+          "member": "Patrol4D2_a0a",
+          "offset": 3131392,
+          "sha256": "f36db03c0c1448d4b058a1381e12275676867002682460c9d2e6919a3403cd3f",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 46,
+          "member": "Patrol4E1_a0a",
+          "offset": 3221504,
+          "sha256": "2eee04ab51011e359506d1e4d15f3ceba3f76b69a1a74e18c5a6c15862babcea",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 47,
+          "member": "Patrol4E2_a0a",
+          "offset": 3311616,
+          "sha256": "69e221393fb62b69e81807d5bf0b37fdf973b2a64b7c88161fdfe0b237eebb7a",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 48,
+          "member": "Patrol5A1_a0a",
+          "offset": 3401728,
+          "sha256": "b7d57961c057df1ef92c71098bbcc829daad087061900e863672c8931713bf65",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 49,
+          "member": "Patrol5A2_a0a",
+          "offset": 3491840,
+          "sha256": "dcf29a0154bf98d1742afc9025216ed25ecdaf04f6142df189355043356c404f",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 50,
+          "member": "Patrol5B1_a0a",
+          "offset": 3581952,
+          "sha256": "95a73a5307a3eb4536f263aec8ca52244fb74b75d88aea5b5d03dd8439b9fd96",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 51,
+          "member": "Patrol5B2_a0a",
+          "offset": 3672064,
+          "sha256": "8b39887520306fd1773fbec9465ed0bc157f319d60f3003ffd83303b73de3032",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 52,
+          "member": "Patrol5C1_a0a",
+          "offset": 3762176,
+          "sha256": "7c091525492af10dd43c110f7e161273199f3282819489b14ca53c122defe553",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 53,
+          "member": "Patrol5C2_a0a",
+          "offset": 3852288,
+          "sha256": "9734670b9efc16115f708ab0a8e3d30e2c1550bac19a9e45bdf8e82d86bf733a",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 54,
+          "member": "Patrol5D1_a0a",
+          "offset": 3942400,
+          "sha256": "0b0836f3f6af655e465cdc9ba970743cf7da2239798f55323df72ac0b9b49b0d",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 55,
+          "member": "Patrol5D2_a0a",
+          "offset": 4032512,
+          "sha256": "eb28cec10547b37bd792266ec4ebb6a861348d07038088b3471a41297a285646",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 56,
+          "member": "Patrol5E1_a0a",
+          "offset": 4122624,
+          "sha256": "626ff62db5c6f91e2f0b1d2922ead437c19603b26257f7d11c09053766b24abb",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 57,
+          "member": "Patrol5E2_a0a",
+          "offset": 4212736,
+          "sha256": "6f43b40dafffd3a3b969081d0926ebdfc9391d3f670e0e41de4e90070fa4bc1d",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 22804,
+          "directory_index": 58,
+          "member": "PatrolW1_c0a",
+          "offset": 4302848,
+          "sha256": "2457d02e02385235eb360dc9707c047a7997dff1476d453d0448a98129e3f0ce",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 22804,
+          "directory_index": 59,
+          "member": "PatrolW2_c0a",
+          "offset": 4327424,
+          "sha256": "565d8a4e189bb71e3e8bd326a55663acf08402a9f3e23fac359097cdf337e183",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 22804,
+          "directory_index": 60,
+          "member": "PatrolW3_c0a",
+          "offset": 4352000,
+          "sha256": "5540145516ea66d5ec7a8b72b93d4605e8ab9f4b8374887451fe93d953cf0dab",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 22804,
+          "directory_index": 61,
+          "member": "PatrolW4_c0a",
+          "offset": 4376576,
+          "sha256": "cd7d2e4832c501d9e9008bc80e55f5991448cea9654d09858d8cbe9e4345dfbe",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 11924,
+          "directory_index": 62,
+          "member": "LightsREAR1_a0a",
+          "offset": 4401152,
+          "sha256": "890c243e7380ea047d2648b85f0be2b83fe1688d91fe8bea041e8cad8c42dd19",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 11924,
+          "directory_index": 63,
+          "member": "LightsREAR2_a0a",
+          "offset": 4413440,
+          "sha256": "4e14c2f846c9ec7286982fc54f128c5d8a538569a15aecd38837dd0ec73c7ddf",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 11924,
+          "directory_index": 64,
+          "member": "LightsREAR3_a0a",
+          "offset": 4425728,
+          "sha256": "6b7dfc16759b67b5e4bd5e92fa33030455158b7a7d716eada6ef81cf74277fe3",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 11924,
+          "directory_index": 65,
+          "member": "LightsREAR4_a0a",
+          "offset": 4438016,
+          "sha256": "c5e937267b512573b4c79ff9df46df15db5982b52e039104602ed515562c1f61",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 22804,
+          "directory_index": 66,
+          "member": "Patrolwheel1_a0a",
+          "offset": 4450304,
+          "sha256": "445d97ba2b1e4cb3f4cccf5627f314b10a0dcd19180f4506388b42fc3f6f3a91",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 22804,
+          "directory_index": 67,
+          "member": "Patrolwheel2_a0a",
+          "offset": 4474880,
+          "sha256": "bf0d1a3011cdb61e42dc97c90f07dd424428c63edaa650f80f3fda7599acb0cc",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 22804,
+          "directory_index": 68,
+          "member": "Patrolwheel3_a0a",
+          "offset": 4499456,
+          "sha256": "2f2f53cc04b92136ff5c8fbdae5165e059e6679cf8e1f7e387995ca6b8807249",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 6484,
+          "directory_index": 69,
+          "member": "BigTREAD1_a0a",
+          "offset": 4524032,
+          "sha256": "0f600446116b993eb4efb29573e4537c8cac2efdb222edad829ad257cb7abf9b",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 6484,
+          "directory_index": 70,
+          "member": "BigTREAD2_a0a",
+          "offset": 4532224,
+          "sha256": "ab31a26465e71a542e4d7f105a7f5508f61b3421853ecf6252ecb5cbb8369388",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        },
+        {
+          "bytes": 6484,
+          "directory_index": 71,
+          "member": "BigTREAD3_a0a",
+          "offset": 4540416,
+          "sha256": "5fda363bb228368798a5d64646c9b4e3feb38f4a9cee89917aa31020e3e69cec",
+          "tc_sha256": "acdb8fc6ae19e6c4dce83e60b35bc86885389f4d3cf89812dce609c40801b765"
+        }
+      ],
+      "measurements": {
+        "assembly_source_bounds": [
+          [
+            -1.056488037109375,
+            0.16850200295448303,
+            -2.389594998140335
+          ],
+          [
+            1.0638920068740845,
+            1.883223056793213,
+            2.12559299724102
+          ]
+        ],
+        "assembly_source_size": [
+          2.1203800439834595,
+          1.7147210538387299,
+          4.515187995381355
+        ],
+        "front_track_attach": 1.64632,
+        "pose": "static original attach datum; suspension solver/options/gravity settling NOT TESTED",
+        "rear_track_attach": 1.677183,
+        "suspension_original": [
+          {
+            "Lower Limit": 0.4,
+            "Radius": 0.408248,
+            "Rest Position": 0.46,
+            "Upper Limit": 0.0,
+            "attach_point": [
+              -0.823927,
+              0.602212,
+              1.45093
+            ],
+            "offset": 353
+          },
+          {
+            "Lower Limit": 0.4,
+            "Radius": 0.408248,
+            "Rest Position": 0.46,
+            "Upper Limit": 0.0,
+            "attach_point": [
+              0.822393,
+              0.602212,
+              1.45093
+            ],
+            "offset": 642
+          },
+          {
+            "Lower Limit": 0.4,
+            "Radius": 0.408248,
+            "Rest Position": 0.46,
+            "Upper Limit": 0.0,
+            "attach_point": [
+              -0.839358,
+              0.602212,
+              -1.52267
+            ],
+            "offset": 930
+          },
+          {
+            "Lower Limit": 0.4,
+            "Radius": 0.408248,
+            "Rest Position": 0.46,
+            "Upper Limit": 0.0,
+            "attach_point": [
+              0.837825,
+              0.602212,
+              -1.52267
+            ],
+            "offset": 1220
+          }
+        ],
+        "units": "original numerical units; metre interpretation plausible, physical scale not independently qualified",
+        "wheel_geometry_bounds": [
+          -0.15303200483322144,
+          -0.4030649960041046,
+          -0.41343000531196594,
+          0.15303200483322144,
+          0.4030649960041046,
+          0.41343000531196594
+        ],
+        "wheelbase_attach": 2.9736,
+        "wheel_radial_max": 0.4134307095305184
+      },
+      "static_winding": {
+        "degenerate": 0,
+        "negative": 8,
+        "positive": 2066
+      }
+    },
+    {
+      "catalog": "Data/PajeroRED.tc",
+      "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d",
+      "scene_sha256": "c88d594f645ae2e461656232657aee8331558f6f0c6763d6f616f3782a6b6a51",
+      "manifest_sha256": "654532ffe68f9ff5bbf9a5e9ba89561362dac4773c336ab4b3eacf17f06528c9",
+      "counts": {
+        "meshes": 21,
+        "nodes": 10,
+        "texture_bytes": 11583492,
+        "triangles": 1956,
+        "vertices": 3415
+      },
+      "resources": [
+        {
+          "bytes": 7986,
+          "directory_index": 0,
+          "member": "Description",
+          "offset": 2048,
+          "sha256": "a94bda41d33651c553ffef728a32dffbac9ff68ba01c5d215940b33648cae267",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 94876,
+          "directory_index": 1,
+          "member": "MainBody",
+          "offset": 10240,
+          "sha256": "fa4cd2220158f6c5282304a4c611b3e48adda6c33b4633e8537477878a6be11a",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 3416,
+          "directory_index": 2,
+          "member": "MainBody_Shadow",
+          "offset": 106496,
+          "sha256": "601db8bdcccb0f905b82a2d77fa75d7e1f8e090639dd763b3036789ad4141617",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 7440,
+          "directory_index": 3,
+          "member": "BackBumper",
+          "offset": 110592,
+          "sha256": "a8520e3ffe17bc94744b9d492c0aa69af3cc828ec70e76b5657c2e822d2f9be2",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 6288,
+          "directory_index": 4,
+          "member": "FrontBumper",
+          "offset": 118784,
+          "sha256": "e58bf323ea41f39add91cddd40ecb831b7bff0ceb81ed58288fb386c75ef9d1f",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 5296,
+          "directory_index": 5,
+          "member": "Bonnet",
+          "offset": 126976,
+          "sha256": "e246d8d32cd0a9f33d4501b41797d819cde92288ec210a4acffa93b8246865db",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 5788,
+          "directory_index": 6,
+          "member": "BackDoorR",
+          "offset": 133120,
+          "sha256": "c20f8124fd2b5557a57d9fce7d5ae86c0515a83e7ed38f2672cef6fdd290ef75",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 5116,
+          "directory_index": 7,
+          "member": "WheelFL",
+          "offset": 139264,
+          "sha256": "e32743d44f2cad444c1f82e4a5bb592d6ce4b7d9c5e99cae267858d61318ae8d",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 1848,
+          "directory_index": 8,
+          "member": "WheelFL_Shadow",
+          "offset": 145408,
+          "sha256": "0f16a3362982608571048b83a7de9a431d302d95f33968ba665c9b3285ce6ef6",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 9,
+          "member": "RPajero1A1_a0a",
+          "offset": 147456,
+          "sha256": "3e8bc84c2aa165f1f43c839475973a3dd61c031e8740d88c99cb48c3f6cdad01",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 10,
+          "member": "RPajero1A2_a0a",
+          "offset": 237568,
+          "sha256": "90d3d58f234b4fee69af45817fd3c85ec7fa6c02c63d859cc2f2099899b17a2d",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 11,
+          "member": "RPajero2A1_a0a",
+          "offset": 327680,
+          "sha256": "58fee3a3c73b48015b5c914113f18f6107c539c7e7f1d9404e97cac7d75d18c0",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 12,
+          "member": "RPajero2A2_a0a",
+          "offset": 417792,
+          "sha256": "180e282ed6f44114657204dcbc9edc491bcce81e760867bd2277bbb12800860c",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 13,
+          "member": "RPajero2B1_a0a",
+          "offset": 507904,
+          "sha256": "74559a65cae9baadb53ac1a4a416ef6cc27a5e729302e7754a99fa8e6d4353b8",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 14,
+          "member": "RPajero2B2_a0a",
+          "offset": 598016,
+          "sha256": "9009a97d7a123e5beec0a17ef432cfb441717e4948e86423c241df8b3e4ce9fa",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 15,
+          "member": "RPajero2C1_a0a",
+          "offset": 688128,
+          "sha256": "b916059fe422d461a1e44ce01222cfde738a7801392a1fa83bf32de6711a7f7d",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 16,
+          "member": "RPajero2C2_a0a",
+          "offset": 778240,
+          "sha256": "1a058f1e9be99698593291f48bca0fc80fb4292930bc92e717072b83bcb29194",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 17,
+          "member": "RPajero2D1_a0a",
+          "offset": 868352,
+          "sha256": "bf4b30498a78940e6185602c17cccf4c3458f8aa18506a6eec96188a57c7a0b9",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 18,
+          "member": "RPajero2D2_a0a",
+          "offset": 958464,
+          "sha256": "37bcb8d9096723492acb139b1b22ea3ac202c217b5895b718d33d981b4b5bbff",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 19,
+          "member": "RPajero2E1_a0a",
+          "offset": 1048576,
+          "sha256": "ac506198a486c3414bd0effebf04aa3458a32fd154a075f3b9525dfa8a780601",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 20,
+          "member": "RPajero2E2_a0a",
+          "offset": 1138688,
+          "sha256": "4a8ea99c9a99a902c3eaf292d5e31cc918fe1996d727aef3e15bfcda932198d9",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 21,
+          "member": "RPajero3A1_a0a",
+          "offset": 1228800,
+          "sha256": "cba044b3f31e3d7b916d9966dea7541f81760f152c4b955e65855d5373865a67",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 22,
+          "member": "RPajero3A2_a0a",
+          "offset": 1318912,
+          "sha256": "9fd88aabf380ad4b1139e4d5ed528e9c4a79f4c10f5bb7af1805c55a9ed9b665",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 23,
+          "member": "RPajero3B1_a0a",
+          "offset": 1409024,
+          "sha256": "70adcca16347bc1617222a3cb7c39316741c3f0b9b8c51c84fda38145e523524",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 24,
+          "member": "RPajero3B2_a0a",
+          "offset": 1499136,
+          "sha256": "b21d59199a8a3bc46b801023460e96346b52afa6b9cd10360fbe4218bfbe9e1b",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 25,
+          "member": "RPajero3C1_a0a",
+          "offset": 1589248,
+          "sha256": "9da4a057ac41d9a8550e366ef174ee607fce4f25b51e6d3d0e319c8636f9809f",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 26,
+          "member": "RPajero3C2_a0a",
+          "offset": 1679360,
+          "sha256": "8cfa5b77c080d04ccba525351d191ff7dcd215e937ec7c254c69d693e5fd1830",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 27,
+          "member": "RPajero3D1_a0a",
+          "offset": 1769472,
+          "sha256": "e115485acead4ba4742b450720f4ea46268cfa6df79fcc2fc9b22b70df2a6ec4",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 28,
+          "member": "RPajero3D2_a0a",
+          "offset": 1859584,
+          "sha256": "6b2204eae278a19909f0634a674124105a37b0056f8abaa99abcb49f56f77fef",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 29,
+          "member": "RPajero3E1_a0a",
+          "offset": 1949696,
+          "sha256": "aa87495002d6f1052c209282798d8083bc927f0403a318f7dd02a1ee3edb3862",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 30,
+          "member": "RPajero3E2_a0a",
+          "offset": 2039808,
+          "sha256": "dd0cbfbff19f3871b6147e1b02823f52408458b4f97348b67430233d26b36306",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 31,
+          "member": "RPajero4A1_a0a",
+          "offset": 2129920,
+          "sha256": "70909a04a6e2c4283e3aa87bc3e06e3b5509b3b1205fc9cc4938c0313829fb6a",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 32,
+          "member": "RPajero4A2_a0a",
+          "offset": 2220032,
+          "sha256": "b669964199e8f77e855304a6c5c8f28b9e87ba0381aca57ea9d8f553420beeac",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 33,
+          "member": "RPajero4B1_a0a",
+          "offset": 2310144,
+          "sha256": "cad1f2442010e7a0c32c03b9544bc127abe016f11ada140c0b1444963b0fc691",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 34,
+          "member": "RPajero4B2_a0a",
+          "offset": 2400256,
+          "sha256": "79d9310b0df6bfdea27e677c86a11f09d86d57edd6684e5a1ee4954c8ce58bf3",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 35,
+          "member": "RPajero4C1_a0a",
+          "offset": 2490368,
+          "sha256": "5fb917e506a6e507d8e3d02d7acec2e3bfe6da10cd58f80f12175901f2b33906",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 36,
+          "member": "RPajero4C2_a0a",
+          "offset": 2580480,
+          "sha256": "4ccaf85e93250dd057ede73aba6761b381984d340bdcf55308682ba44e9f27a2",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 37,
+          "member": "RPajero4D1_a0a",
+          "offset": 2670592,
+          "sha256": "9e21bc4c8e4d2359aa94417876a5052274c3e848d522f71cca2b8c49f5f70678",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 38,
+          "member": "RPajero4D2_a0a",
+          "offset": 2760704,
+          "sha256": "2d6f4cf3b32b92250cee13295eb82f0650a160de149cb1f69243248640f9afab",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 39,
+          "member": "RPajero4E1_a0a",
+          "offset": 2850816,
+          "sha256": "26fed8c89140a717c58e9a6b86f19a47381cecd9a990737c513aff466f540f89",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 40,
+          "member": "RPajero4E2_a0a",
+          "offset": 2940928,
+          "sha256": "c52d43bb2e1951fe0a487e0b9a02104f25c5ce568c43efdeb6d54779b98b4040",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 41,
+          "member": "RPajero5A1_a0a",
+          "offset": 3031040,
+          "sha256": "951feb3b5d1701fd213c6655cd47d03bbdaeb6646ef35b8e2ea653f9bbfeeab7",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 42,
+          "member": "RPajero5A2_a0a",
+          "offset": 3121152,
+          "sha256": "b750aa7405d45036aa24ffe85b6ba10c5d2ef08b8cdede701336736e3fc30170",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 43,
+          "member": "RPajero5B1_a0a",
+          "offset": 3211264,
+          "sha256": "1a87701a97bcdded1feb914dfeb326854940b463fe7ed1367ce8d7287b6f9e82",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 44,
+          "member": "RPajero5B2_a0a",
+          "offset": 3301376,
+          "sha256": "864a8dbbd755cb8008b7a92bf363250486f153e043811a2da1918a4355365078",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 45,
+          "member": "RPajero5C1_a0a",
+          "offset": 3391488,
+          "sha256": "6c964170feecea904a0b9889b1002e5b663b0acc9affaf3f166a509b57741df7",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 46,
+          "member": "RPajero5C2_a0a",
+          "offset": 3481600,
+          "sha256": "c461b2760bdd0688bf6586b2ad2e441ba044dd2a9d22bb3e9a27a7b33b5190d1",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 47,
+          "member": "RPajero5D1_a0a",
+          "offset": 3571712,
+          "sha256": "70dbea8352ae6b679ca570d3cad47ac70cba5d44fa8f368459eacc8efac54df7",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 48,
+          "member": "RPajero5D2_a0a",
+          "offset": 3661824,
+          "sha256": "a782641b52113a4d5498f33f8bde83fb7b3db2a39d0e4ff5b56649e9ef9e25a2",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 49,
+          "member": "RPajero5E1_a0a",
+          "offset": 3751936,
+          "sha256": "90f68fff8122ba985f379363468dbe6a9ad5478f106d279b9b9f71244fd5e900",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 50,
+          "member": "RPajero5E2_a0a",
+          "offset": 3842048,
+          "sha256": "781ceabc654f3331655439a28c3b87a5bade4b72f34a52a0b3eed822c17519f6",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 22804,
+          "directory_index": 51,
+          "member": "SPajeroW1_c0a",
+          "offset": 3932160,
+          "sha256": "1bc0b1206d86c581906d292ce69e5c0a90200648588188730710d11a8b27aad4",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 22804,
+          "directory_index": 52,
+          "member": "SPajeroW2_c0a",
+          "offset": 3956736,
+          "sha256": "173f5d4f43cefad0be70bdeffc75193b545f92750dbab87f969e909e007482d7",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 22804,
+          "directory_index": 53,
+          "member": "SPajeroW3_c0a",
+          "offset": 3981312,
+          "sha256": "6bc781db8be9a806014693470845aa3e68e4333ae8ed56872a477bc4cf13a0ed",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 22804,
+          "directory_index": 54,
+          "member": "SPajeroW4_c0a",
+          "offset": 4005888,
+          "sha256": "945527aa35dcf3c6a927f479cbad8286cf1d4845a0b9b1995e27c28f302bbc5b",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 6484,
+          "directory_index": 55,
+          "member": "SPajeroL1_a0a",
+          "offset": 4030464,
+          "sha256": "e4e64ee312b35a97d06b1cb36c28f298eae69cfaa7577bf570412e740a08550c",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 6484,
+          "directory_index": 56,
+          "member": "SPajeroL2_a0a",
+          "offset": 4038656,
+          "sha256": "a8b63e67cda8d6ea66ed7734654ec7b0812f0a8777f314b6364ad83079057d5c",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 6484,
+          "directory_index": 57,
+          "member": "SPajeroL3_a0a",
+          "offset": 4046848,
+          "sha256": "ca7cba2c6fa32c230e3ef1e656e06a0f5c3564452e03ed5101cc7102094d2f1c",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 6484,
+          "directory_index": 58,
+          "member": "SPajeroL4_a0a",
+          "offset": 4055040,
+          "sha256": "d9a080413fe80c100ebf1219c76a592149fdf0d6f00817ba227b05d703c59a94",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 22804,
+          "directory_index": 59,
+          "member": "PAJwheel1_a0a",
+          "offset": 4063232,
+          "sha256": "058c7dc6948e21e1d8a87afa860170783a100a64839874501f7ba32d2f73fb22",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 22804,
+          "directory_index": 60,
+          "member": "PAJwheel2_a0a",
+          "offset": 4087808,
+          "sha256": "61e1885a2a641c6ff9c832459c9c0cb0940ee0c4475999de5906d2b116649dcf",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 22804,
+          "directory_index": 61,
+          "member": "PAJwheel3_a0a",
+          "offset": 4112384,
+          "sha256": "c45bae51418e929e21b93055feac0610791293b9a30d0b3a1b1b6178322dc61f",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 6484,
+          "directory_index": 62,
+          "member": "BigTREAD1_a0a",
+          "offset": 4136960,
+          "sha256": "0f600446116b993eb4efb29573e4537c8cac2efdb222edad829ad257cb7abf9b",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 6484,
+          "directory_index": 63,
+          "member": "BigTREAD2_a0a",
+          "offset": 4145152,
+          "sha256": "ab31a26465e71a542e4d7f105a7f5508f61b3421853ecf6252ecb5cbb8369388",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        },
+        {
+          "bytes": 6484,
+          "directory_index": 64,
+          "member": "BigTREAD3_a0a",
+          "offset": 4153344,
+          "sha256": "5fda363bb228368798a5d64646c9b4e3feb38f4a9cee89917aa31020e3e69cec",
+          "tc_sha256": "38b1d5ba438b3b384e029ab4feb395907ea7f6436e27dc40efa0ed0e53964d7d"
+        }
+      ],
+      "measurements": {
+        "assembly_source_bounds": [
+          [
+            -1.0726189613342285,
+            0.19774200473403936,
+            -2.196106987581253
+          ],
+          [
+            1.0726189613342285,
+            1.8790069818496704,
+            1.8983039996337892
+          ]
+        ],
+        "assembly_source_size": [
+          2.145237922668457,
+          1.6812649771156312,
+          4.094410987215042
+        ],
+        "front_track_attach": 1.6221510000000001,
+        "pose": "static original attach datum; suspension solver/options/gravity settling NOT TESTED",
+        "rear_track_attach": 1.746405,
+        "suspension_original": [
+          {
+            "Lower Limit": 0.4,
+            "Radius": 0.390497,
+            "Rest Position": 0.46,
+            "Upper Limit": 0.0,
+            "attach_point": [
+              -0.81336,
+              0.583281,
+              1.26911
+            ],
+            "offset": 353
+          },
+          {
+            "Lower Limit": 0.4,
+            "Radius": 0.390497,
+            "Rest Position": 0.46,
+            "Upper Limit": 0.0,
+            "attach_point": [
+              0.808791,
+              0.583281,
+              1.26911
+            ],
+            "offset": 641
+          },
+          {
+            "Lower Limit": 0.4,
+            "Radius": 0.390497,
+            "Rest Position": 0.46,
+            "Upper Limit": 0.0,
+            "attach_point": [
+              -0.875487,
+              0.583281,
+              -1.25867
+            ],
+            "offset": 929
+          },
+          {
+            "Lower Limit": 0.4,
+            "Radius": 0.390497,
+            "Rest Position": 0.46,
+            "Upper Limit": 0.0,
+            "attach_point": [
+              0.870918,
+              0.583281,
+              -1.25867
+            ],
+            "offset": 1219
+          }
+        ],
+        "units": "original numerical units; metre interpretation plausible, physical scale not independently qualified",
+        "wheel_geometry_bounds": [
+          -0.15410099923610687,
+          -0.3855389952659607,
+          -0.3954539895057678,
+          0.15410099923610687,
+          0.3855389952659607,
+          0.3954539895057678
+        ],
+        "wheelbase_attach": 2.52778,
+        "wheel_radial_max": 0.3954547772537115
+      },
+      "static_winding": {
+        "degenerate": 0,
+        "negative": 0,
+        "positive": 1956
+      }
+    },
+    {
+      "catalog": "Data/PajeroSilver.tc",
+      "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae",
+      "scene_sha256": "9d3edfe6b4a5187a44946784c6fb1f836eed1ec311c6f8c42f0bf388108342c9",
+      "manifest_sha256": "1a682cdc18ebb1bbf293ad488d325bd21e164cc94ea07eedf8c892dde4ff5ee4",
+      "counts": {
+        "meshes": 21,
+        "nodes": 10,
+        "texture_bytes": 11583492,
+        "triangles": 2002,
+        "vertices": 3454
+      },
+      "resources": [
+        {
+          "bytes": 7996,
+          "directory_index": 0,
+          "member": "Description",
+          "offset": 2048,
+          "sha256": "562d2127c60336d581bc5b40ea3b5c26643329430d4324fd484aa53ffffa2ddc",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 96700,
+          "directory_index": 1,
+          "member": "MainBody",
+          "offset": 10240,
+          "sha256": "a1b5aab508ba60d7dbde857ee8e7c9ec83df95d4cdf486e09f1fdc61756a250a",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 3416,
+          "directory_index": 2,
+          "member": "MainBody_Shadow",
+          "offset": 108544,
+          "sha256": "288b3c4d382318093438a3c58f364b07b55b278dc169ef445b7daf14362d4472",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 5968,
+          "directory_index": 3,
+          "member": "BackBumper",
+          "offset": 112640,
+          "sha256": "2dccffb8ecc946eb979dda3ce473949d83bd4a596df4afb43b7cca7352aaf17a",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 5680,
+          "directory_index": 4,
+          "member": "FrontBumper",
+          "offset": 118784,
+          "sha256": "76e8f66ddea702ef68beba7c6553a5e7ad73f27a21cad66c355893fdbec1f2a7",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 7056,
+          "directory_index": 5,
+          "member": "Bonnet",
+          "offset": 124928,
+          "sha256": "b588789f8eff6d6dac3ad4a27190ff961f7e7709c6f9514f25efe0cc83ad426c",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 5788,
+          "directory_index": 6,
+          "member": "BackDoorR",
+          "offset": 133120,
+          "sha256": "2efb35bc139b47b77af197f5d3d5cba7b5e37c176ac31f9f9b012127b3269317",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 5116,
+          "directory_index": 7,
+          "member": "WheelFL",
+          "offset": 139264,
+          "sha256": "cfa773203a22fcb517992784abe0e2c44f42c45e931592edf264a49f0a0f080b",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 1848,
+          "directory_index": 8,
+          "member": "WheelFL_Shadow",
+          "offset": 145408,
+          "sha256": "0f16a3362982608571048b83a7de9a431d302d95f33968ba665c9b3285ce6ef6",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 22804,
+          "directory_index": 9,
+          "member": "SPajeroW1_c0a",
+          "offset": 147456,
+          "sha256": "1bc0b1206d86c581906d292ce69e5c0a90200648588188730710d11a8b27aad4",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 22804,
+          "directory_index": 10,
+          "member": "SPajeroW2_c0a",
+          "offset": 172032,
+          "sha256": "173f5d4f43cefad0be70bdeffc75193b545f92750dbab87f969e909e007482d7",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 22804,
+          "directory_index": 11,
+          "member": "SPajeroW3_c0a",
+          "offset": 196608,
+          "sha256": "6bc781db8be9a806014693470845aa3e68e4333ae8ed56872a477bc4cf13a0ed",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 22804,
+          "directory_index": 12,
+          "member": "SPajeroW4_c0a",
+          "offset": 221184,
+          "sha256": "945527aa35dcf3c6a927f479cbad8286cf1d4845a0b9b1995e27c28f302bbc5b",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 13,
+          "member": "SPajero1A1_a0a",
+          "offset": 245760,
+          "sha256": "9ee35036b3d2265f4235567fabc886e6ea9c13a2af0e099b01fa07e13d4133e3",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 14,
+          "member": "SPajero1A2_a0a",
+          "offset": 335872,
+          "sha256": "8087e1c45c84db66e39b3bbd564273ef3ca69d14f06c5575f6effb4089cddf10",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 15,
+          "member": "SPajero2A1_a0a",
+          "offset": 425984,
+          "sha256": "8a8f144fea829c557ae73d11df4f6fb25b09ee159126e4c395f63554ad59bf0d",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 16,
+          "member": "SPajero2A2_a0a",
+          "offset": 516096,
+          "sha256": "b0f0216b676e4f24d49ff89b09e3e1be9099ad9962dc296ede12d3693973117c",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 17,
+          "member": "SPajero2B1_a0a",
+          "offset": 606208,
+          "sha256": "154c87098389343b854d8515f70c39d1ec795dc10233817201981183c9d0f498",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 18,
+          "member": "SPajero2B2_a0a",
+          "offset": 696320,
+          "sha256": "6a35f1ba305ec946892b34f101c6a66c25caa68ed8fdce9b39690e41df2bbc09",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 19,
+          "member": "SPajero2C1_a0a",
+          "offset": 786432,
+          "sha256": "bca7332e042c2bfc49ae89274014cfc6b6bf737af91605dc927c26fe4258a357",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 20,
+          "member": "SPajero2C2_a0a",
+          "offset": 876544,
+          "sha256": "692f8d2c4c09f381950ecaba53ae439addbd55b19744a959995dd93d47ef0534",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 21,
+          "member": "SPajero2D1_a0a",
+          "offset": 966656,
+          "sha256": "e23bb9e41582968243eb87422124b4dec7ab1d97f60e86fa578682d3205d232f",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 22,
+          "member": "SPajero2D2_a0a",
+          "offset": 1056768,
+          "sha256": "78d7f61b14d44e026e399ab92a182a0cb0e17f9de63d78ee340ed8b882b546d3",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 23,
+          "member": "SPajero2E1_a0a",
+          "offset": 1146880,
+          "sha256": "4181ef814b4113e5e9ae45b3c627ed3bb9b038427f21e2653acc07dd523bd1b7",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 24,
+          "member": "SPajero2E2_a0a",
+          "offset": 1236992,
+          "sha256": "17192f2735c409f63ee54568b71ca920f861fa63750a651ece469db4854e9358",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 25,
+          "member": "SPajero3A1_a0a",
+          "offset": 1327104,
+          "sha256": "a984fd06b8662268ef8d960ef4db282a1c67526716eb5eaf755695f8f4ca3ebb",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 26,
+          "member": "SPajero3A2_a0a",
+          "offset": 1417216,
+          "sha256": "a9c16bbf70e56f7bbbec1731631db5be90bd2e0aca4fd2869035b5301aa2c29f",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 27,
+          "member": "SPajero3B1_a0a",
+          "offset": 1507328,
+          "sha256": "ff2edd633d0e3139794df6680e60a9f022435927463bbca1d374b4eec2c978b5",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 28,
+          "member": "SPajero3B2_a0a",
+          "offset": 1597440,
+          "sha256": "87e24b77c46d4a9cb4e37502aa06fe93b480d80d4185cc22fde5309e9404a0ad",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 29,
+          "member": "SPajero3C1_a0a",
+          "offset": 1687552,
+          "sha256": "aadd3e21cc5fc309b39b1e5e33ed4cdf5ef98c3de927aa36c0462e6345d890a1",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 30,
+          "member": "SPajero3C2_a0a",
+          "offset": 1777664,
+          "sha256": "c8f362bf20d963b73b04523b26ff9c6ba6c4d9c3a759b9151ac046cb2a097d24",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 31,
+          "member": "SPajero3D1_a0a",
+          "offset": 1867776,
+          "sha256": "428a2cac51068c69b02e681709451143eb12b2a0dbfee5b4f0e96d0f9bdaee85",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 32,
+          "member": "SPajero3D2_a0a",
+          "offset": 1957888,
+          "sha256": "5111f95e5c2198655e01e86d0668fb059ffc200c2a568af627127f20d18a5505",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 33,
+          "member": "SPajero3E1_a0a",
+          "offset": 2048000,
+          "sha256": "6795a2aa47add920cb993da960af0dba0927de3425ecd5d7a86379c136a82157",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 34,
+          "member": "SPajero3E2_a0a",
+          "offset": 2138112,
+          "sha256": "87d6869c9fe4631a723446d58955c51208f854faeb379d84232fb130c87b82aa",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 35,
+          "member": "SPajero4A1_a0a",
+          "offset": 2228224,
+          "sha256": "d3e0b143a1c6eac3a796ed7d78c4800332a8ef6c14ddf92b5adf2fa09913f4fb",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 36,
+          "member": "SPajero4A2_a0a",
+          "offset": 2318336,
+          "sha256": "a0419d6d3a58b6b0d401b32c9841da1b6b81e0650cb3ca5debb719fe4eb53ced",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 37,
+          "member": "SPajero4B1_a0a",
+          "offset": 2408448,
+          "sha256": "b1497cbbaa2bcd3a803d9c560079ec603e50855c170274df1edee3aaaf4f9512",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 38,
+          "member": "SPajero4B2_a0a",
+          "offset": 2498560,
+          "sha256": "5cafad969c43c0c5ddd614dbc14e03715332559338a88f7a66d23eecea359739",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 39,
+          "member": "SPajero4C1_a0a",
+          "offset": 2588672,
+          "sha256": "3b2867e8952c0c4891fb87c4101961f96731cf1b87e06cfa7bb71028147df4fb",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 40,
+          "member": "SPajero4C2_a0a",
+          "offset": 2678784,
+          "sha256": "90cdf9809de7d7361ffba11591d94cdc478bdc980108c633491513c96d72cece",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 41,
+          "member": "SPajero4D1_a0a",
+          "offset": 2768896,
+          "sha256": "ae6d3ac9520b847a4a5f8a8563cc769dbd35be5ba87e0e62b4160c89c20597ed",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 42,
+          "member": "SPajero4D2_a0a",
+          "offset": 2859008,
+          "sha256": "67d30cd4aa1fa42c1276e84ac5e643efac8ce8fadbd767747bdcf1d267f853ca",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 43,
+          "member": "SPajero4E1_a0a",
+          "offset": 2949120,
+          "sha256": "79880e4e7caa3f4d568b745b17e731548922e571b4cce95b7246100dbad8a983",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 44,
+          "member": "SPajero4E2_a0a",
+          "offset": 3039232,
+          "sha256": "4e947c9afd71cfff7eee760d6c0da6dbaad8945e8eecaca976d6c6581f2b434e",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 45,
+          "member": "SPajero5A1_a0a",
+          "offset": 3129344,
+          "sha256": "c505cff383be6cd49d95e2b9fc01a0c7eeedf56d7b748339e8f98c2c89b63caf",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 46,
+          "member": "SPajero5A2_a0a",
+          "offset": 3219456,
+          "sha256": "80dd5a16e2eb7751c6d3144ef5fda8fbd81676a6e84cd667c475770c24d99dec",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 47,
+          "member": "SPajero5B1_a0a",
+          "offset": 3309568,
+          "sha256": "2b78022f7d1eeed38c881fdebdabeda8fdef3da710f784bb922238ee01f85d08",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 48,
+          "member": "SPajero5B2_a0a",
+          "offset": 3399680,
+          "sha256": "57a86a88637bb7793eb53cb5fe816ce8f498b19258a03099f3b2ddd0082156ef",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 49,
+          "member": "SPajero5C1_a0a",
+          "offset": 3489792,
+          "sha256": "fab9fad1aa059620108261f1c53155c4ef5418b4246117574ac310a5e839f112",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 50,
+          "member": "SPajero5C2_a0a",
+          "offset": 3579904,
+          "sha256": "eefedc922874487eaee6eaba85b710bd7c3513107a285461c8277fcebb471175",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 51,
+          "member": "SPajero5D1_a0a",
+          "offset": 3670016,
+          "sha256": "a86fe6739ef61eff800c2a1bd5fa4582792bf9caa83d17d037778ba3693d4047",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 52,
+          "member": "SPajero5D2_a0a",
+          "offset": 3760128,
+          "sha256": "e4ac46f4de0d1368367c1a67007fd143d3ece02430aeb6256861464c161296cf",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 53,
+          "member": "SPajero5E1_a0a",
+          "offset": 3850240,
+          "sha256": "800061f9d21ad2eab4e3ee53dad30e83130cf9568a7803836521b99c5b33f545",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 88084,
+          "directory_index": 54,
+          "member": "SPajero5E2_a0a",
+          "offset": 3940352,
+          "sha256": "1a63274e104295be984d30daa87a7bc0207246f67e1e2a87bca2ac42271b2135",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 6484,
+          "directory_index": 55,
+          "member": "SPajeroL1_a0a",
+          "offset": 4030464,
+          "sha256": "e4e64ee312b35a97d06b1cb36c28f298eae69cfaa7577bf570412e740a08550c",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 6484,
+          "directory_index": 56,
+          "member": "SPajeroL2_a0a",
+          "offset": 4038656,
+          "sha256": "a8b63e67cda8d6ea66ed7734654ec7b0812f0a8777f314b6364ad83079057d5c",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 6484,
+          "directory_index": 57,
+          "member": "SPajeroL3_a0a",
+          "offset": 4046848,
+          "sha256": "ca7cba2c6fa32c230e3ef1e656e06a0f5c3564452e03ed5101cc7102094d2f1c",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 6484,
+          "directory_index": 58,
+          "member": "SPajeroL4_a0a",
+          "offset": 4055040,
+          "sha256": "d9a080413fe80c100ebf1219c76a592149fdf0d6f00817ba227b05d703c59a94",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 22804,
+          "directory_index": 59,
+          "member": "PAJwheel1_a0a",
+          "offset": 4063232,
+          "sha256": "058c7dc6948e21e1d8a87afa860170783a100a64839874501f7ba32d2f73fb22",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 22804,
+          "directory_index": 60,
+          "member": "PAJwheel2_a0a",
+          "offset": 4087808,
+          "sha256": "61e1885a2a641c6ff9c832459c9c0cb0940ee0c4475999de5906d2b116649dcf",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 22804,
+          "directory_index": 61,
+          "member": "PAJwheel3_a0a",
+          "offset": 4112384,
+          "sha256": "c45bae51418e929e21b93055feac0610791293b9a30d0b3a1b1b6178322dc61f",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 6484,
+          "directory_index": 62,
+          "member": "BigTREAD1_a0a",
+          "offset": 4136960,
+          "sha256": "0f600446116b993eb4efb29573e4537c8cac2efdb222edad829ad257cb7abf9b",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 6484,
+          "directory_index": 63,
+          "member": "BigTREAD2_a0a",
+          "offset": 4145152,
+          "sha256": "ab31a26465e71a542e4d7f105a7f5508f61b3421853ecf6252ecb5cbb8369388",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        },
+        {
+          "bytes": 6484,
+          "directory_index": 64,
+          "member": "BigTREAD3_a0a",
+          "offset": 4153344,
+          "sha256": "5fda363bb228368798a5d64646c9b4e3feb38f4a9cee89917aa31020e3e69cec",
+          "tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae"
+        }
+      ],
+      "measurements": {
+        "assembly_source_bounds": [
+          [
+            -1.0376019477844238,
+            0.20342100473403935,
+            -2.106674003787041
+          ],
+          [
+            1.0420500040054321,
+            1.9342620372772217,
+            1.9877409972858429
+          ]
+        ],
+        "assembly_source_size": [
+          2.079651951789856,
+          1.7308410325431822,
+          4.094415001072884
+        ],
+        "front_track_attach": 1.6221510000000001,
+        "pose": "static original attach datum; suspension solver/options/gravity settling NOT TESTED",
+        "rear_track_attach": 1.746406,
+        "suspension_original": [
+          {
+            "Lower Limit": 0.4,
+            "Radius": 0.390497,
+            "Rest Position": 0.46,
+            "Upper Limit": 0.0,
+            "attach_point": [
+              -0.812208,
+              0.58896,
+              1.26829
+            ],
+            "offset": 353
+          },
+          {
+            "Lower Limit": 0.4,
+            "Radius": 0.390497,
+            "Rest Position": 0.46,
+            "Upper Limit": 0.0,
+            "attach_point": [
+              0.809943,
+              0.58896,
+              1.26829
+            ],
+            "offset": 641
+          },
+          {
+            "Lower Limit": 0.4,
+            "Radius": 0.390497,
+            "Rest Position": 0.46,
+            "Upper Limit": 0.0,
+            "attach_point": [
+              -0.874336,
+              0.58896,
+              -1.25949
+            ],
+            "offset": 928
+          },
+          {
+            "Lower Limit": 0.4,
+            "Radius": 0.390497,
+            "Rest Position": 0.46,
+            "Upper Limit": 0.0,
+            "attach_point": [
+              0.87207,
+              0.58896,
+              -1.25949
+            ],
+            "offset": 1217
+          }
+        ],
+        "units": "original numerical units; metre interpretation plausible, physical scale not independently qualified",
+        "wheel_geometry_bounds": [
+          -0.15410099923610687,
+          -0.3855389952659607,
+          -0.3954539895057678,
+          0.15410099923610687,
+          0.3855389952659607,
+          0.3954539895057678
+        ],
+        "wheelbase_attach": 2.52778,
+        "wheel_radial_max": 0.395454214190487
+      },
+      "static_winding": {
+        "degenerate": 0,
+        "negative": 0,
+        "positive": 2002
+      }
+    }
+  ]
+}

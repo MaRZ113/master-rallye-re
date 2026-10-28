@@ -1,3 +1,20 @@
+# Current focused source follow-up —29 October2026
+
+The phase-1 matrix below is preserved as historical audit evidence. Its opaque
+Paris-Dakar/Michelin decoder boundaries are superseded only for the explicitly
+qualified resources in this focused follow-up:
+
+| Source | Priority | Current local technical readiness |
+|---|---|---|
+|Paris-Dakar PajeroRED/PajeroSilver|Historical HIGH|L0/L1 source decode PASS; UVSv1+actual textured neutralD3D9 L2WARN; material/runtime pose/parity unknown. Patrol validates decoder generalization.|
+|Michelin RAV4/ID25 and Megane F2/ID6|Personal HIGH|38 exact payloads,8XOBJ structures,20TGA decoded; complete assembly/alternate vertices unresolved, L2 NOT TESTED.|
+
+See PARIS_DAKAR_SOURCE_REPORT.md and MICHELIN_SOURCE_REPORT.md. No fleet or
+native imports started. Prior first-pilot choice and all earlier work remain
+recorded below.
+
+---
+
 # Source Garage — donor format/readiness matrix
 
 28 October2026, `research/vehicles`, inspected clean baseline `b9a24f7`.

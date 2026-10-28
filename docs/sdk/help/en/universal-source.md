@@ -1,3 +1,25 @@
+# Paris-Dakar neutral source research
+
+Paris-Dakar PajeroRED, PajeroSilver and the validation Nissan Patrol are neutral
+source scenes. Create them with tools/paris_dakar_source_lab.py using your local
+installation, then choose Source Garage → Reopen source scene and scene.json.
+The final private pilot scenes are beneath
+.research-output/vehicles/paris-dakar-source/validated/<vehicle>/scene/.
+
+Preview/Open neutral3D use original meshes, UVs and palette samples. The scene
+records CW exterior culling as a neutral viewing choice; source/normalized
+coordinates, original materials and unresolved fields remain inspectable.
+The four wheels use original source attachment datums and side rotations;
+this is not a recovered gravity-settled suspension pose. No MR native authoring
+or installation is enabled for these research scenes. Evo2 detail choices are
+unavailable when the donor has no qualified alternate wheel resources.
+
+Michelin decoded textures/structural geometry are private research outputs;
+complete car assembly is not yet qualified. See PARIS_DAKAR_SOURCE_REPORT.md
+and MICHELIN_SOURCE_REPORT.md for exact commands and evidence limits.
+
+---
+
 # Universal source scenes and the first 4Runner native pilot
 
 Source Garage retains the qualified original Evo2 4Runner scene. Its neutral

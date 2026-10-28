@@ -277,12 +277,21 @@ def stage_source_scene(scene: dict, output: Path, *, scene_root: Path,
     return report
 
 
-def viewer_command(viewer: Path, scene_path: Path, *, view="isometric", capture: Path | None = None, provenance="", basis="normalized") -> list[str]:
+def preview_cull(scene: dict) -> str:
+    value = scene.get("metadata", {}).get("neutral_preview", {}).get("cull", "none")
+    if value not in ("none", "cw", "ccw"):
+        raise ValueError("Unknown neutral culling interpretation")
+    return value
+
+
+def viewer_command(viewer: Path, scene_path: Path, *, view="isometric", capture: Path | None = None, provenance="", basis="normalized", cull="none") -> list[str]:
     if view not in VIEWS:
         raise ValueError("Unknown neutral fixed view")
     if basis not in ("source", "normalized"):
         raise ValueError("Unknown source coordinate basis")
-    command = [str(viewer), "--scene", str(scene_path), "--neutral-source", "--workshop", "--cull", "none",
+    if cull not in ("none", "cw", "ccw"):
+        raise ValueError("Unknown neutral culling interpretation")
+    command = [str(viewer), "--scene", str(scene_path), "--neutral-source", "--workshop", "--cull", cull,
                "--depth-write", "shader", "--orthographic", "--fixed-view", view, "--source-front",
                "positive-z" if basis == "source" else "negative-z", "--provenance", provenance]
     if capture is not None:
@@ -290,7 +299,7 @@ def viewer_command(viewer: Path, scene_path: Path, *, view="isometric", capture:
     return command
 
 
-def capture_views(viewer: Path, scene_path: Path, output: Path, *, provenance="", basis="normalized") -> dict:
+def capture_views(viewer: Path, scene_path: Path, output: Path, *, provenance="", basis="normalized", cull="none") -> dict:
     """Capture six actual D3D9 views; this is a preview qualification only."""
     output = Path(output)
     _unlinked(output)
@@ -299,7 +308,7 @@ def capture_views(viewer: Path, scene_path: Path, output: Path, *, provenance=""
     flags = getattr(subprocess, "CREATE_NO_WINDOW", 0)
     for view in VIEWS:
         path = output / (view + ".bmp")
-        subprocess.run(viewer_command(viewer, scene_path, view=view, capture=path, provenance=provenance, basis=basis),
+        subprocess.run(viewer_command(viewer, scene_path, view=view, capture=path, provenance=provenance, basis=basis, cull=cull),
                        check=True, timeout=45, creationflags=flags, startupinfo=capture_startup_info())
         if not path.is_file() or path.stat().st_size < 54:
             raise ValueError("D3D9 capture did not produce a valid-sized BMP")
@@ -308,7 +317,7 @@ def capture_views(viewer: Path, scene_path: Path, output: Path, *, provenance=""
             image.convert("RGB").save(path.with_suffix(".png"))
         paths[view] = str(path.with_suffix(".png"))
     report = {"schema": "source-scene-captures/1", "renderer": "D3D9 neutral orthographic approximation",
-              "views": paths, "scene_sha256": hashlib.sha256(Path(scene_path).read_bytes()).hexdigest(),
+              "views": paths, "cull": cull, "scene_sha256": hashlib.sha256(Path(scene_path).read_bytes()).hexdigest(),
               "qualification": "Captures require visual inspection; no source-game parity or MR gameplay claim"}
     (output / "captures.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     return report

@@ -1,3 +1,29 @@
+# Paris-Dakar Source Lab —29 October2026
+
+Qualified read-only TC/Gex/PC TIM decoding reconstructs original PajeroRED,
+PajeroSilver and one Nissan Patrol into existing Universal Vehicle Scenev1.
+Source geometry, UVs/normals/material IDs, original RGBA palette channels,
+four mip planes and exact component/resource provenance are retained privately.
+Four original wheels are instanced using source attachment records and native
+side0/pi rotation; static datum is not gravity-settled runtime suspension.
+
+Existing Source Garage reopens these scenes and renders neutral D3D9 with an
+explicit culling interpretation. Non-Evo2 scenes have no Evo2 wheel-detail
+choice and cannot open4Runner native creation. Evo2 defaults, source adapter,
+bridge, accepted native projects and Studios are preserved.
+
+Michelin research now decodes38 original PDO payloads:8XOBJ geometry records,
+20TGA images,8alternate vertex streams and2PTOCs. Complete Michelin vehicle
+assembly, wheel placement and renderer behavior remain unresolved. Historical
+Silver/MR frontal resemblance is visual evidence; shared geometry unproven.
+
+See PARIS_DAKAR_SOURCE_REPORT.md, PARIS_DAKAR_TC_FORMAT.md,
+PARIS_DAKAR_PAJERO_COMPARISON.md and MICHELIN_SOURCE_REPORT.md. No native donor
+import, CarID/roster change or donor-game renderer parity claim. Prior phase
+capabilities below remain historical records.
+
+---
+
 # 4Runner Stable quality gate — Master Plan v7.0
 
 28 October2026. Owner accepts improved side glass and lower brake lights;

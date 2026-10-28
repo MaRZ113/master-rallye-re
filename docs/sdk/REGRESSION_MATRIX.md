@@ -1,3 +1,25 @@
+# Paris-Dakar Source Lab —29 October2026
+
+| Validation | Result / evidence | Boundary |
+|---|---|---|
+| Focused source/UVS/shared preview tests |50 PASS, including13 new PD and12Michelin | Synthetic fixtures separate from actual source |
+| Full available Windows suite |1132 tests,2 existing optional skips | No D3D8 gameplay claim |
+| Three actual TC resource sets |65/65/72 complete records,8/8/11Gex,56/56/60PC TIM | Qualified exact source hashes only |
+| Repeated UVS extraction / reopen |Three manifest pairs identical; all source arrays/provenance bound | No implicit native conversion |
+| Source/normalized GPU geometry |Exact mirrorZ position round-trip, original winding/normal fields | Physical units/runtime suspension unqualified |
+| Real D3D9/Tk |36 final six-view/basis images,3 real Source Garage windows; material/part diagnostics | CW exterior, opposite/no-cull diagnostics separate |
+| Normal/winding consistency |RED1956 positive;Silver2002positive;Patrol2066positive/8negative | Eight original Patrol disagreements retained WARN |
+| Michelin originals |38 complete decoded spans,8structuralXOBJ,20TGA;47 repeat files identical | Assembly/alternate vertex ownership unresolved |
+| Historical evidence |Actual owner-local images;25 original reference files unchanged; no exact texture match | No shared-mesh or pipeline proof |
+| Preservation |4610 earlier protected files exact SHA/size/mtime; original donors exact | Current proxy33917452...960ea1 preserved |
+
+Private evidence: `.research-output/vehicles/paris-dakar-source/validated/`,
+`focused-tests.log`, `full-tests-delivery.log`, `preservation.json`, Michelin and
+historical subdirectories. Source-only archives contain no private resources.
+See PARIS_DAKAR_SOURCE_REPORT.md. Earlier matrices below are retained verbatim.
+
+---
+
 # 4Runner Stable quality gate — Master Plan v7.0
 
 28 October2026. Owner accepts improved side glass and lower brake lights;

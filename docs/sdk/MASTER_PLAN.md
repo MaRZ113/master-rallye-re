@@ -2332,3 +2332,34 @@ unique earlier repository checkpoints are retained above. Current proxy
 baseline33917452...960ea1 is preserved; historical mismatch is not restored.
 See FOUR_RUNNER_STABILIZATION_RESULTS.md. Stop after one-car stabilization;
 no other donor/fleet/Blender/capacity/push/release work.
+
+
+---
+
+## v7.0 research checkpoint: Paris-Dakar Source Lab —29 October2026
+
+Owner-authorized next source milestone after4Runner stabilization; clean
+research/vehicles ec87796. Both original Pajeros and one Nissan Patrol decoded
+through bounded TC/Gex/PC TIM readers to existing Universal Vehicle Scenev1.
+Original meshes, UVs/normals/material IDs, palette/alpha/mips, resource provenance,
+part positions and shared wheel assembly preserved. Existing D3D9 Source Garage
+opens all three; explicit CW exterior rendering,36 fixed/basis views, actual Tk,
+deterministic repeat manifests and50 focused/1132 full Windows tests(2 skips).
+No original or accepted project changed;4610 earlier protected files exact.
+
+Michelin bounded secondary pass recovers38payloads,8XOBJ structural models,
+20TGA images,8alternate vertex streams and2PTOCs. Complete assembly and alternate
+vertex ownership unresolved. Source catalog remains RAV4/25 and Megane F2/6,
+not an unsupported Maxi identification. Historical Silver/front screenshot
+resemblance is strong visual evidence; exact MR asset lineage, V60/V20 and
+prerelease capture build remain unresolved. Full source reports and manifest
+are in PARIS_DAKAR_SOURCE_REPORT.md, PARIS_DAKAR_TC_FORMAT.md,
+PARIS_DAKAR_PAJERO_COMPARISON.md, PARIS_DAKAR_SOURCE_MANIFEST.json and
+MICHELIN_SOURCE_REPORT.md.
+
+PajeroSilver is the recommended next reviewed source target. Original runtime
+material dispatch and suspension pose/options need separate qualification before
+any MR authoring. This checkpoint stops at neutral source research: no new native
+candidate, CarID, roster expansion, fleet, Blender Bridge, push or release.
+The complete retained Masterv7.0 prefix and every previous checkpoint remain
+verbatim; this appended result does not replace earlier plans with a summary.

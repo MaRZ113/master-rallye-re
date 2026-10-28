@@ -10,12 +10,16 @@ import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
 
 from .branding import apply_icon
-from master_rallye.source_scene_preview import capture_startup_info, capture_views, stage_source_scene, viewer_command, VIEWS
+from master_rallye.source_scene_preview import capture_startup_info, capture_views, stage_source_scene, viewer_command, preview_cull, VIEWS
 
 MATERIAL_MODES = {"Source RGB / default coverage": "original", "Explicit opacity interpretation": "interpreted",
                   "Material ID colors (diagnostic)": "material_ids"}
 VISIBILITY_MODES = {"Selected stock configuration": "selected", "Original source visibility flags": "source",
                     "All retained parts (diagnostic)": "all"}
+
+
+def native_creation_available(scene):
+    return bool(scene and scene.get('metadata', {}).get('source_adapter') == 'evo2-4runner/1')
 
 
 def load_source_project(path: Path):
@@ -68,7 +72,7 @@ class SourceGarageWindow:
     def __init__(self, app):
         self.app = app
         self.window = tk.Toplevel(app.root); apply_icon(self.window)
-        self.window.title("Rally Workshop — Source Garage / Evo2 pilot")
+        self.window.title("Rally Workshop — Source Garage")
         self.window.geometry("1160x850"); self.window.minsize(960, 680)
         self.window.protocol("WM_DELETE_WINDOW", self.close)
         self.scene = None; self.scene_root = None; self.process = None; self.photos = []
@@ -101,7 +105,8 @@ class SourceGarageWindow:
         self.action_buttons["Create 4Runner Stable…"] = ttk.Button(authoring, text="Create 4Runner Stable…", command=self.create_mr_dialog)
         self.action_buttons["Create 4Runner Stable…"].pack(side="left")
         ttk.Button(authoring, text="Source / MR Help", command=lambda:self.app.show_help('universal-source')).pack(side="left", padx=8)
-        ttk.Label(self.window, text="Toyota 4Runner SR5 Sport Package 2WD · catalog T4RSR52 · neutral D3D9 approximation · unspecified TIFF channel is not assumed alpha",
+        self.identity = tk.StringVar(value="Toyota 4Runner SR5 Sport Package 2WD · catalog T4RSR52 · neutral D3D9 approximation · unspecified TIFF channel is not assumed alpha")
+        ttk.Label(self.window, textvariable=self.identity,
                   padding=(10, 0)).pack(fill="x")
         options = ttk.Frame(self.window, padding=8); options.pack(fill="x")
         for label, variable, choices, width in (("Coordinates", self.basis, ("normalized", "source"), 13),
@@ -114,8 +119,10 @@ class SourceGarageWindow:
         wheelbar = ttk.Frame(self.window, padding=(8, 0, 8, 5)); wheelbar.pack(fill="x")
         ttk.Label(wheelbar, text="Original wheel detail").pack(side="left", padx=5)
         wheelbox = ttk.Combobox(wheelbar, textvariable=self.wheel_detail, values=("08", "12", "16"), state="readonly", width=5)
+        self.wheelbox = wheelbox
         wheelbox.pack(side="left"); wheelbox.bind("<<ComboboxSelected>>", self._wheel_changed)
-        ttk.Label(wheelbar, text="16 = explicit high-detail inspection; original six wheel meshes stay retained. Static zero-angle pose.").pack(side="left", padx=8)
+        self.wheel_hint = tk.StringVar(value="16 = explicit high-detail inspection; original six wheel meshes stay retained. Static zero-angle pose.")
+        ttk.Label(wheelbar, textvariable=self.wheel_hint).pack(side="left", padx=8)
         split = ttk.Panedwindow(self.window, orient="horizontal"); split.pack(fill="both", expand=True, padx=8)
         self.window.after(100, lambda: split.sashpos(0, max(410, self.window.winfo_width() * 43 // 100)))
         left = ttk.Frame(split); right = ttk.Frame(split); split.add(left, weight=2); split.add(right, weight=3)
@@ -143,6 +150,8 @@ class SourceGarageWindow:
     def _controls(self):
         for label in ("Preview", "Open neutral 3D", "Capture six views", "Save preview choices", "Create 4Runner Stable…"):
             self.action_buttons[label].state(["!disabled"] if self.scene is not None else ["disabled"])
+        if self.scene is not None and not native_creation_available(self.scene):
+            self.action_buttons["Create 4Runner Stable…"].state(["disabled"])
 
     def _run(self, title, work, done):
         if self.app.busy:
@@ -154,6 +163,8 @@ class SourceGarageWindow:
 
     def create_mr_dialog(self):
         if self.scene is None or self.app.busy:return
+        if not native_creation_available(self.scene):
+            self.status.set('This source is research-only; no qualified native MR conversion profile.');return
         if getattr(self,'mr_dialog',None) is not None and self.mr_dialog.winfo_exists():
             self.mr_dialog.lift();return
         dialog=tk.Toplevel(self.window);apply_icon(dialog);dialog.title('Create independent 4Runner Stable project')
@@ -222,7 +233,7 @@ class SourceGarageWindow:
     def create(self):
         from master_rallye.source_adapters.evo2 import create_scene
         source = Path(self.source.get())
-        detail = self.wheel_detail.get()
+        detail = self.wheel_detail.get() or "16"
         target = self.app.workspace / "source-garage" / uuid.uuid4().hex[:16]
         def work():
             report = create_scene(source, target, wheel_detail=detail)
@@ -266,6 +277,13 @@ class SourceGarageWindow:
         self.image_source = None; self.photos = []
         self.image.configure(image="", text="Scene reopened. Choose Preview to render current choices.")
         self.wheel_detail.set(settings.get("wheel_detail", scene.get("selection", {}).get("wheel_detail", "16")))
+        has_wheel_variants = bool(scene.get("wheel_variants"))
+        self.wheelbox.configure(state="readonly" if has_wheel_variants else "disabled")
+        if not has_wheel_variants:self.wheel_detail.set("")
+        self.wheel_hint.set("16 = explicit high-detail inspection; original six wheel meshes stay retained. Static zero-angle pose."
+                            if has_wheel_variants else "Original source wheel assembly; no qualified alternate detail selection. Static inspection pose.")
+        self.identity.set(scene.get("metadata", {}).get("display_name", "Source vehicle") +
+                          " · neutral D3D9 · original source and rendering interpretations remain separate")
         self._populate()
         self.show({"scene": str(self.scene_root / "scene.json"), "metadata": self.scene.get("metadata"),
                    "coordinate_system": self.scene["coordinate_system"], "unknown_semantics": self.scene.get("unknown_semantics")})
@@ -324,7 +342,7 @@ class SourceGarageWindow:
     def settings(self):
         return {"schema": "source-preview-choices/1", "basis": self.basis.get(), "material_mode": self.material_mode.get(),
                 "visibility": self.visibility.get(), "view": self.view.get(), "opacity_overrides": self.opacity_overrides,
-                "wheel_detail": self.wheel_detail.get()}
+                "wheel_detail": self.wheel_detail.get() if self.scene and self.scene.get("wheel_variants") else None}
 
     def save_choices(self):
         if self.scene_root is None:
@@ -375,7 +393,7 @@ class SourceGarageWindow:
             report = stage_source_scene(scene, target / "preview.mrpv", **options)
             capture = target / (view + ".bmp")
             subprocess.run(viewer_command(self.app.viewer, target / "preview.mrpv", view=view, capture=capture,
-                                          provenance=report["display_name"], basis=report["basis"]), check=True, timeout=45,
+                                          provenance=report["display_name"], basis=report["basis"], cull=preview_cull(scene)), check=True, timeout=45,
                            creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0), startupinfo=capture_startup_info())
             return target / "preview.mrpv", capture, report
         def done(value):
@@ -394,7 +412,7 @@ class SourceGarageWindow:
             path, report = value
             if self.process is not None and self.process.poll() is None:
                 self.process.terminate()
-            self.process = subprocess.Popen(viewer_command(self.app.viewer, path, view=view, provenance=report["display_name"], basis=report["basis"]))
+            self.process = subprocess.Popen(viewer_command(self.app.viewer, path, view=view, provenance=report["display_name"], basis=report["basis"], cull=preview_cull(scene)))
             self.preview_path = path
             self.status.set("Neutral 3D viewport: orbit/pan/zoom, geometry picking, layer isolation, source material diagnostics. No MR compilation.")
         self._run("Stage interactive neutral preview", work, done)
@@ -405,7 +423,7 @@ class SourceGarageWindow:
         scene, target, options = self._request()
         def work():
             report = stage_source_scene(scene, target / "capture.mrpv", **options)
-            result = capture_views(self.app.viewer, target / "capture.mrpv", target / "views", provenance=report["display_name"], basis=report["basis"])
+            result = capture_views(self.app.viewer, target / "capture.mrpv", target / "views", provenance=report["display_name"], basis=report["basis"], cull=preview_cull(scene))
             return target, result
         def done(value):
             target, report = value; self._display(report["views"]["isometric"]); self.show(report)
