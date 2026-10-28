@@ -3,7 +3,7 @@
 Parent `9416ddbc976da283964ab0ea621884b1789e0fe4` preserved. The phase combines
 the existing uncommitted Garage work and independently authored automatic GT3/
 Heritage importer, following an explicit synchronization audit rather than
-reconstructing fictional historical commits. Local commit identity is recorded
+reconstructing fictional historical commits. Implementation commit: `138df440709d1876080e852987da45a25267e3c7`. Local commit identity is recorded
 in the subsequent ledger checkpoint and review metadata; no remote publication.
 
 - Complete bounded GT3 inventory:574 members,572 structural PASS,2 empty inputs;
