@@ -116,7 +116,7 @@ def _physics(retail_sma,scene):
         'notes':'Independent clean-retail Terrano SUV family. Measured TRK axle spans and documented TRK wheel radius override dimensions. Original TRUCK/T4RSR52.TRK lines91/92 faxle.torque_pct=0.000000 and93/94 raxle.torque_pct=1.000000 qualify rear-wheel drive: authored MR Engine/DriveType=1 via qualified Physics Studio0AWD/1RWD/2FWD mapping, not Evo2 drive_type enum. Per-family reference +0.18288m reproduces literal source hubY=-0.18288 by qualified native Y=-RideHeight (004407FC..004408C0), preserving menu/base Terrano ride setting0. Terrano mass, spring/damper/other engine/tyre values retained; Evo2 catalog mass and solver values have no qualified unit/solver mapping. No gameplay settlement claim.'}
 
 
-def create_pilot(scene_path,donor_dir,retail_sma,output,*,retail_root=None,base_roster=None,profile=None,render_ui=None,build=True):
+def create_pilot(scene_path,donor_dir,retail_sma,output,*,retail_root=None,base_roster=None,profile=None,render_ui=None,build=True,visual_options=None):
     path=Path(scene_path).absolute();donor=Path(donor_dir).absolute();retail_sma=Path(retail_sma).absolute()
     retail_root=Path(retail_root or retail_sma.parent/'Data.sma_unpacked').absolute()
     scene=uvs.load_scene(path)
@@ -137,6 +137,8 @@ def create_pilot(scene_path,donor_dir,retail_sma,output,*,retail_root=None,base_
                 raise ValueError('Donor loose resource differs from exact clean retail SMA: '+item.name)
     admitted=pilot_profile(path)
     selected=copy.deepcopy(profile)if profile else admitted
+    from .fourrunner_visual_kit import options
+    visual_options=options(visual_options)
     result=compile_scene(path,selected)
     output.mkdir(parents=True)
     copied=_copy_scene(path,output/'inputs/source-scene')
@@ -149,9 +151,10 @@ def create_pilot(scene_path,donor_dir,retail_sma,output,*,retail_root=None,base_
         (baseline/('wheel-'+slot+'.dx')).write_bytes(write_scene_dx((donor/'wheel.dx').read_bytes(),parts))
     _json(output/'conversion-report.json',result['report'])
     candidate=output/'converted';shutil.copytree(baseline,candidate/'assets')
-    adaptations=_enhance(candidate/'assets',result,retail_root,output)
+    adaptations=_enhance(candidate/'assets',result,retail_root,output,retail_sma=retail_sma,visual_options=visual_options)
     _json(output/'native-adaptations.json',adaptations)
-    identity={'addon':{'name':NAME,'family':FAMILY,'manufacturer':'TOYOTA','model':'4RUNNER SR5'}}
+    display_name='Toyota 4Runner Evo2 MR Adapted'if any(visual_options.values())else NAME
+    identity={'addon':{'name':display_name,'family':FAMILY,'manufacturer':'TOYOTA','model':'4RUNNER SR5'}}
     import math
     slots=('front_left','front_right','rear_left','rear_right')
     preview={'race_wheel_instances':[{'translation':result['report']['hubs'][slot]['derived_hub_mr'],
@@ -178,7 +181,7 @@ def create_pilot(scene_path,donor_dir,retail_sma,output,*,retail_root=None,base_
         resources.append({'name':target.name,'path':str(target),'sha256':uvs.sha(raw)})
     physics=_physics(retail_sma,scene)
     physics['collision_fit']={'source_sha256':uvs.sha((candidate/'assets/car.dx').read_bytes()),
-        'core_draw_indices':[0],'padding_m':[0.,0.,0.],
+        'core_draw_indices':adaptations['collision_core_draw_indices'],'padding_m':[0.,0.,0.],
         'evidence':'Explicit source Body structural shell, excluding windows/roof accessories/wheels/crew; affine fit of clean Terrano hull retains topology. Common source-to-MR and axle-centering Z datum already applied; no additional vertical shift or runtime contact qualification.'}
     from .addon_sdk.physics_collision import fit_collision
     _,collision_report=fit_collision((candidate/'assets/car.dx').read_bytes(),physics['collision_fit'])
@@ -236,45 +239,20 @@ def _configure(workshop,base_roster,output,retail_sma,retail_root):
     workshop.configure_build({'roster_candidate':str(roster),'retail_sma':str(retail_sma),'retail_root':str(retail_root)})
 
 
-def _enhance(assets,result,retail_root,output):
+def _enhance(assets,result,retail_root,output,*,retail_sma=None,visual_options=None):
     """Explicit native adaptations, always separate from SourceBaseline."""
     from dataclasses import replace
-    from .scene_dx_writer import ScenePart
-    from .topology_writer import DrawGeometry
-    from .glass_authoring import subset
     from .addon_sdk.crew import fit_crew
-    from .addon_sdk.auto_features import derive,procedural_cracks
+    from .addon_sdk.auto_features import procedural_cracks
     from .addon_sdk.native_states import author_states
-    from .dx import parse_dx_bytes
-    def merge(parts):
-        vertices=[];triangles=[]
-        for part in parts:
-            start=len(vertices);vertices.extend(part.geometry.vertices)
-            triangles.extend(tuple(start+i for i in tri)for tri in part.geometry.triangles)
-        return replace(parts[0],geometry=DrawGeometry(tuple(vertices),tuple(triangles)))
-    # Source-specific conservative selections are pinned by the source scene
-    # hash in source-profile.json. Roof/headliner/door-interior stay opaque.
-    selections={
-        'screenfront':{'node-mesh-010':list(range(7,19)),'node-mesh-011':list(range(16,32))},
-        'screenleft':{'node-mesh-010':list(range(21,26)),'node-mesh-011':list(range(2,10))},
-        'screenright':{'node-mesh-010':list(range(2,7)),'node-mesh-011':list(range(38,46))}}
-    parts=[];pane_parts={};pane_records={};all_selected={}
-    for label,records in selections.items():
-        chosen=[]
-        for node,ids in records.items():
-            draw=next(row['draw_index']for row in result['report']['body_draws']if row['node_id']==node)
-            original=result['body_parts'][draw]
-            if max(ids)>=len(original.geometry.triangles):raise ValueError('Pinned pane topology changed')
-            g=subset(original.geometry,ids)
-            g=replace(g,vertices=tuple(replace(v,color=v.color[:3]+bytes([89]))for v in g.vertices))
-            chosen.append(replace(original,geometry=g,alpha=True,alpha_test=False,environment=False))
-            all_selected.setdefault(draw,set()).update(ids)
-        pane_parts[label]=merge(chosen);pane_records[label]=records
-    for index,part in enumerate(result['body_parts']):
-        ids=sorted(set(range(len(part.geometry.triangles)))-all_selected.get(index,set()))
-        if ids:parts.append(replace(part,geometry=subset(part.geometry,ids)))
-    pane_indices={}
-    for label,part in pane_parts.items():pane_indices[label]=len(parts);parts.append(part)
+    from .fourrunner_semantics import author_apertures
+    parts,pane_indices,lamp_index,pane_records,semantic_report=author_apertures(result)
+    _json(output/'semantic-apertures.json',semantic_report)
+    from .fourrunner_visual_kit import apply
+    parts,core_indices,visual_report=apply(parts,result,retail_root,retail_sma,assets,visual_options,semantic_report)
+    _json(output/'mr-visual-kit.json',visual_report)
+    ordinary=[i for i in range(len(parts))if i not in {*pane_indices.values(),lamp_index}]
+    native_core_indices=[ordinary.index(i)for i in core_indices]
     # Static MR crew adaptation uses the original Navara selected seated pair.
     # The source head marker is a reference, not proof of a skeletal mapping.
     config=json.loads((ROOT/'src/master_rallye/addon_sdk/presets/navara_crew.json').read_text())
@@ -285,19 +263,20 @@ def _enhance(assets,result,retail_root,output):
     donor=retail_root/'DataGx/Vehicles/Terrano'
     raw=write_scene_dx((donor/'car.dx').read_bytes(),parts)
     textures={p.name.lower():p.read_bytes()for p in assets.glob('*.dxt')}
-    recipe,generated,brake_report=derive(raw,textures,glass=False,brake=True)
-    # Independently exact source LightBL/BR/RL/RR corner matches qualify these
-    # rear Body lens surfaces. Redness alone also found two unrelated surfaces;
-    # intersect the generic selector with this explicit source footprint.
-    rear_footprint={176,177,178,179,254,255,256,257,258,323,324,325,304,291,596,595}
-    lamp=recipe.get('brake')
-    if lamp:
-        if lamp['source_draw']!=0:raise ValueError('Reviewed rear lens Body draw changed')
-        lamp['triangles']=sorted(set(lamp['triangles']) & rear_footprint)
-        if not lamp['triangles']:raise ValueError('No rear lens survived exact source footprint qualification')
-        lamp['evidence']='Explicit MR brake adaptation: source LightBL/BR/RL/RR exact corner matches to Body rear lamp footprint intersect rear-facing red source UV texels. Source tail/reverse role is not asserted as source brake behavior.'
-        brake_report['brake_triangles']=len(lamp['triangles'])
-        brake_report['evidence'].append({'kind':'brake','source':'exact original rear light auxiliary-to-Body face corner correspondence','allowed_source_body_triangles':sorted(rear_footprint),'selected':lamp['triangles']})
+    recipe={'source_sha256':uvs.sha(raw)}
+    # Explicit lens-only draw is independent of subsequent body partition IDs.
+    # Generic texture generation is reused; geometry ownership is never inferred
+    # from red corner samples after a topology edit.
+    from .addon_sdk.auto_features import lamp_textures
+    from .dxt import parse_dxt_bytes
+    lit,glow,_=lamp_textures(parse_dxt_bytes(textures[parts[lamp_index].textures[0].lower()+'.dxt']))
+    lit_name='mr-4runner-stop-lit-tga';glow_name='mr-4runner-stop-glow-tga'
+    generated={lit_name+'.dxt':lit,glow_name+'.dxt':glow}
+    recipe['brake']={'source_draw':lamp_index,'triangles':list(range(len(parts[lamp_index].geometry.triangles))),
+        'lit_texture':lit_name,'glow_texture':glow_name,
+        'evidence':'Explicit original rear lens atlas apertures clipped within exact source auxiliary footprint; see semantic-apertures.json barycentric source triangle ledger. No paint/bumper or clear reverse/indicator area is a brake surface.'}
+    brake_report={'brake_triangles':len(recipe['brake']['triangles']),
+        'evidence':[recipe['brake']['evidence']],'warnings':['MR brake adaptation; original Evo2 runtime light behavior not recovered.']}
     # Each pane contains BOTH original face layers where supplied; no roof or
     # lower door sheet is made translucent, and no absent rear pane is invented.
     crack='mr-4runner-authored-cracks-tga';(assets/(crack+'.dxt')).write_bytes(procedural_cracks())
@@ -313,10 +292,11 @@ def _enhance(assets,result,retail_root,output):
     _json(output/'native-state-recipe.json',recipe)
     _json(output/'crew-recipe.json',config)
     return {'status':'PASS_NATIVE_AUTHORING_GAMEPLAY_PENDING','source_baseline_unchanged':True,
-        'materials':'Only explicitly selected front/side pane triangles use vertex alpha89/255. Roof/headliner/lower door remain opaque; no automatic source bump/reflection/extra-channel alpha.',
-        'pane_source_triangle_ids':pane_records,'glass_damage':native_report,
+        'collision_core_draw_indices':native_core_indices,'visual_kit':visual_report,
+        'materials':'Explicit source-atlas apertures partition side glass from opaque rubber/door/pillars. Accepted windshield unchanged. Vertex alpha89/255 is authored MR glass, never source TIFF alpha.',
+        'pane_source_triangle_ids':pane_records,'semantic_apertures':str(output/'semantic-apertures.json'),'glass_damage':native_report,
         'glass_boundary':'Source GlassI/E have no rear vehicle window; rear damage UNSUPPORTED pending Body atlas/geometry qualification. Side selection is a bounded MR pane interpretation, not source damage semantics.',
-        'brake':brake_report,'brake_boundary':'Existing rear-tail normal/position/red-UV selector only; explicit authored lit/glow lens. Headlights excluded. See exact native-state-recipe.json source triangle IDs.',
+        'brake':brake_report,'brake_boundary':'Lens-only convex UV masks within original rear auxiliary footprint, with barycentric source IDs in semantic-apertures.json. Headlights, bumper, paint and clear indicator/reverse areas excluded.',
         'crew':{'source':'clean retail Navara','source_sha256':config['source_sha256'],'records':crew_records,'placement':'Explicit rigid MR seated pair adaptation; source driver head marker used only as lateral reference. No source crew/animation claim.'},
         'wheel':'Four exact side-specific native wheel resources retained; per-wheel rolling selector qualification pending.',
         'gameplay':'NOT TESTED'}

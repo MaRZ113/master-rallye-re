@@ -174,16 +174,25 @@ class SourceGarageWindow:
                 if path:self.mr_fields[k].set(path)
             ttk.Button(row,text='Choose…',command=browse).pack(side='left',padx=5)
         ttk.Label(dialog,wraplength=830,padding=12,text='One qualified 4Runner Source Fidelity import. Creates private source, authoring and Workshop copies; preserves the neutral scene. The selected roster is copied into an independent CarID29 alternative. MR donor systems are adaptations. Gameplay remains pending owner testing.').pack(fill='x')
+        visual=ttk.LabelFrame(dialog,text='Optional MR visual adaptations (original source baseline is preserved)',padding=8)
+        visual.pack(fill='x',padx=10)
+        labels={'paint_reflection':'Subtle opaque paint reflections','mirror_insets':'Reflective mirror insets',
+                'cabin':'MR Navara steering wheel / minimal dashboard / dark cabin',
+                'rear_glazing':'Static rear glazing with dark backing (no rear damage zone)',
+                'underbody_frame':'Body-fixed underbody frame (no moving axles or physics edits)'}
+        self.mr_visual_options={key:tk.BooleanVar(value=False)for key in labels}
+        for key,label in labels.items():ttk.Checkbutton(visual,text=label,variable=self.mr_visual_options[key]).pack(anchor='w')
         def create():
             values={key:Path(value.get())for key,value in self.mr_fields.items()}
             if any(not value.get().strip()for value in self.mr_fields.values()):
                 messagebox.showerror('MR Source Fidelity','Supply all four qualified input paths.',parent=dialog);return
             scene_path=self.scene_root/'scene.json'
+            visual_options={key:value.get()for key,value in self.mr_visual_options.items()}
             target=self.app.workspace/'universal-imports'/uuid.uuid4().hex[:16]
             def work():
                 from master_rallye.source_garage_pilot import create_pilot
                 return create_pilot(scene_path,values['donor_dir'],values['retail_sma'],target,
-                                    retail_root=values['retail_root'],base_roster=values['base_roster'],build=False)
+                                    retail_root=values['retail_root'],base_roster=values['base_roster'],build=False,visual_options=visual_options)
             def done(report):
                 from .service import WorkshopProject
                 if dialog.winfo_exists():dialog.destroy()

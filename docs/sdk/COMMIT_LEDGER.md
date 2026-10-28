@@ -1,3 +1,35 @@
+# 4Runner visual polish and Universal Bridge hardening — 28 October 2026
+
+Parent `77bbe6f696bf8c882637ba7dd21c2ac15ee8a534`. Scoped local commit only;
+resolve exact revision with `git log -1 --format=%H --fixed-strings
+--grep="fix(sdk): bound 4Runner glass and lamps with source semantic apertures"`.
+Post-commit archive manifest pins the actual new bridge revision, not the older
+neutral-adapter `c5bd91fc` archive.
+
+- Generic bounded convex semantic partition with composed barycentric source
+  ledgers; reviewed pane/lens policy. Accepted windshield preserved; both rear
+  lower lens clusters bounded, no painted bumper triangle.
+- Five independent default-off MR visual options: opaque paint reflections,
+  mirror cap insets, original Navara controls/dark backing, static rear glass,
+  safe body-fixed frame. Existing native compiler/states and Studios reused.
+-1102 full Windows tests PASS,2 existing skips;35 focused tests;42 D3D9
+  comparisons; actual Tk create/open/provenance; Studio/reopen/Undo/Redo/Restore;
+  six paint/mirror control checks; deterministic complete native resource
+  regeneration, exact wheels/physics/fitted collision/windshield and launcher
+  preflight conservation. No new D3D8 qualification claim.
+- Owner confirms prior D3D8 loads/drives/body deformation/breakable glass.
+  Original693-file accepted pilot hash/mtime snapshot retained; historical
+ 2493-file input snapshot reviewed, with installed d3d8.dll difference recorded
+  explicitly rather than overwritten. This task does not install a proxy.
+- Complete historical Master Plan bytes retained with an appended checkpoint.
+  Referenced v6.9 attachment absent; current plan is not silently summarized.
+  Source-only review/changed archives exclude all proprietary model/texture/
+  audio/native binary/preview assets. No push/publish/release.
+
+See [visual results](FOUR_RUNNER_VISUAL_POLISH_RESULTS.md).
+
+---
+
 # First Universal Scene → MR pilot, 28 October 2026
 
 Parent `c5bd91fc5dcb81e6e10c44ebbd9c0a6073b129ed` preserved. This scoped commit

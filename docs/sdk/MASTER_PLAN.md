@@ -2167,3 +2167,40 @@ FOUR_RUNNER_OWNER_CHECKLIST.md and the current regression matrix/Help.
 **Stop after this one owner-testable native pilot for review.** No Classic
 4Runner, bulk Evo2 import, Paris-Dakar/Michelin campaign, Blender Bridge,
 roster expansion, push, publication or release is started here.
+
+
+---
+
+## Visual polish checkpoint — Toyota 4Runner, 28 October 2026
+
+This is an appended implementation checkpoint; all retained v6.8 attachment
+bytes and prior historical sections are preserved. The pasted task mentions
+v6.9 but no v6.9 file was supplied; no missing plan is invented or substituted.
+
+The owner confirms previous 4Runner D3D8 loading, driving, body deformation and
+breakable glass. Earlier blanket pending statements are historical. Finish,
+Results, menu re-entry and the new visual variant remain unqualified.
+
+Implemented bounded source-atlas pane/lens partitions with exact composable
+barycentric provenance; side glass no longer covers painted doors/pillars and
+omitted upper faces are handled. The accepted intact/broken windshield stays
+identical. Rear lower red lens geometry replaces the broad red-corner triangle
+heuristic; original Body292 completes the opposite rear surface. No bumper,
+clear indicator/reverse area or headlight inherits brake state.
+
+Optional MR kit choices are independently selectable at creation: conservative
+paint reflections, original mirror-cap insets, Navara steering/dashboard and
+dark backing, static rear glazing, and body-fixed structural frame. All off by
+default. No full moving axle reconstruction or original Evo2 renderer fidelity
+is claimed. No changes to source arrays, wheel geometry/hubs, physics values,
+ride height, fitted collision or30-entry alternative roster capacity.
+
+1102 complete Windows tests PASS,2 existing skips;42 real comparison images,
+actual Tk/D3D9 creation, Studio reversibility, exact wheel/physics/collision and
+windshield conservation, deterministic full real DX/DXT regeneration and
+launcher preflights are recorded in the phase reports. New D3D8 visual checks
+remain for the owner. Original accepted pilot remains available unchanged.
+See FOUR_RUNNER_VISUAL_POLISH_RESULTS.md and current capability/regression notes.
+
+Stop after this one-car visual milestone: no fleet, other donor campaign,
+Blender Bridge, capacity experiment, push, publication or release.

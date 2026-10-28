@@ -27,6 +27,7 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     for name in ('scene','donor','retail-sma','retail-root','base-roster','viewer','output'):
         parser.add_argument('--'+name,type=Path,required=True)
+    parser.add_argument('--mr-visual-kit',action='store_true')
     args=parser.parse_args();scene=load_scene(args.scene)
     output=output_directory(args.output,[args.scene.parent,args.donor,args.retail_sma.parent,args.retail_root,
         scene['source']['root'],*scene['source'].get('protected_roots',[])])
@@ -63,12 +64,16 @@ def main():
             window._open(args.scene);window.create_mr_dialog()
             values={'donor_dir':args.donor,'retail_sma':args.retail_sma,'retail_root':args.retail_root,'base_roster':args.base_roster}
             for key,value in values.items():window.mr_fields[key].set(str(value))
+            if args.mr_visual_kit:
+                for value in window.mr_visual_options.values():value.set(True)
             screenshot(window.mr_dialog,output/'create-dialog.png')
             window.mr_create_button.invoke();settle()
             project=app.project
             if project is None or project.data['kind']!='addon' or project.data.get('car_id')!=29:
                 raise AssertionError('Real Source Garage creation did not open its isolated addon')
             project.verify_inputs();app.validate();settle()
+            visual=json.loads(Path(project.data['source_baseline']['native_adaptations']).read_text())['visual_kit']['options']
+            if args.mr_visual_kit and not all(visual.values()):raise AssertionError('GUI visual choices did not reach the authoring service')
             drive=next(row['value']for row in project.physics_inspect()['rows']
                        if row['member']=='DataGame/vehicles.xml'and row['path']=='Engine/DriveType')
             if drive!=1:raise AssertionError('Qualified 2WD source did not receive the explicit MR RWD adaptation')
@@ -90,11 +95,17 @@ def main():
             report={'schema':'universal-workshop-windows/1','status':'PASS','project':str(project.root),
                     'source_garage_create_dialog':True,'actual_create_validate_open':True,'source_provenance_dialog':True,
                     'car_id':project.data['car_id'],'mr_drive_type':drive,'viewer_sha256':hashlib.sha256(args.viewer.read_bytes()).hexdigest(),
-                    'captures':[p.name for p in sorted(output.glob('*.png'))],'errors':errors,
+                    'captures':[p.name for p in sorted(output.glob('*.png'))],'errors':errors,'mr_visual_options':visual,
                     'boundary':'Actual Tk and D3D9 only; source-game renderer and D3D8 gameplay NOT TESTED'}
-            (output/'validation.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
+            (output/'validation.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2),flush=True)
     finally:
-        app.close()
+        print('WINDOWS_UI_CLOSING',flush=True)
+        # Enter the real event loop for teardown, as the application does.
+        # Calling destroy after a long series of synchronous GPU captures
+        # leaves Tk callback/variable cleanup outside its running main loop.
+        root.after_idle(app.close)
+        root.mainloop()
+        print('WINDOWS_UI_CLOSED',flush=True)
 
 
 if __name__=='__main__':main()

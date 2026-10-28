@@ -56,3 +56,29 @@ texture mapping; glass damage; rear brake ON/OFF; camera reset; audio; collision
 crew, shadow and AI; finish/results name; return to menu and race re-entry.
 Record failures with candidate identity and a screenshot/log. Review this one
 pilot before converting more vehicles or beginning a Classic profile.
+
+
+## 4Runner glass/lamp correction and optional MR visual kit
+
+Create MR always uses bounded source-qualified side-window and rear-lens masks.
+The accepted windshield stays unchanged. A source TIFF extra sample is still
+not interpreted as alpha. This corrects glass-on-door/opaque remnants and the
+rear bumper/partial-lamp artifact without changing source geometry positions.
+
+Five independent creation checkboxes are off by default: subtle opaque paint
+reflection; reflective mirror inset; MR Navara controls/dark backing; static
+rear glazing; body-fixed underbody frame. Rear glass has no invented damage
+zone. Frame crossmembers are not moving axles or physics suspension.
+
+Original diffuse/dark rear treatment: leave options off. To remove structural
+kit choices, create another independent variant from the immutable scene with
+the relevant choices unchecked; opening the supplied Fixed project also gives
+that treatment. The original neutral scene and accepted playable pilot stay
+available. Restore resets edits to the selected variant baseline; it does not
+switch structural variants. Material Studio can change/disable opaque paint or
+mirror reflection strength with Undo/Redo, independently of glass transparency.
+
+Owner confirmed the previous pilot loads/drives/deforms/breaks glass in D3D8.
+New visual candidates still require owner testing. Compare side apertures,
+OFF/ON lower rear lenses, intact/broken glass, cabin/steering and frame clearance;
+finish/Results and menu re-entry remain separate qualifications.

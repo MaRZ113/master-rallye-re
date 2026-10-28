@@ -1,3 +1,35 @@
+# Visual polish owner check — current candidates
+
+Previous native pilot: owner-confirmed loading/driving, body deformation and
+breakable glass. This does not certify every item in the historical list below.
+The new `4runner-polish/fixed-final` and `adapted-final` candidates remain
+**PENDING OWNER D3D8 TEST**; each is its own30-entry alternative CarID29 roster.
+
+1. Compare both front side panes against window rubber, B/A pillars and painted
+   door: no transparent door strip, dark upper triangle or depth flicker.
+2. Confirm accepted windshield intact/damaged appearance and left/right damage
+   still work. Original rear glass remains dark in Fixed; Adapted rear panes
+   are static glazing with backing, without invented damage zones.
+3. Brake OFF/ON from rear and both rear quarters: both lower red sections light
+   fully; no bumper red triangle, headlamp/tyre/clear-indicator changes.
+4. Adapted only: restrained paint, reflective rear-facing mirror inset with
+   opaque housing, steering relative to unchanged hands and minimal dashboard.
+   Check dark rear backing does not protrude or reveal empty sky gaps.
+5. Adapted only: body-fixed frame clearance during steering and suspension
+   travel. It is not an animated axle. Record wheel/contact/culling defects;
+   do not solve them with a silent global ride-height or wheel-position change.
+6. Finish/Results, return to menu/re-entry, camera reset, audio/AI and old accepted
+   vehicle regressions remain separate checks. Include selected variant/path,
+   screenshots and renderer log with observations.
+
+Open/launch shortcuts are in `.research-output/vehicles/4runner-polish/`.
+Original accepted `cross-game-4runner/pilot-delivery` is unchanged for rollback.
+
+---
+
+Historical first-pilot checklist (its old blanket pending status is superseded
+by the limited owner confirmation above):
+
 # Toyota 4Runner — short D3D8 owner checklist
 
 Candidate: `.research-output/vehicles/cross-game-4runner/pilot-delivery/`.

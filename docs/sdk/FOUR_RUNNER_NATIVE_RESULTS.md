@@ -1,3 +1,7 @@
+Owner update: previous pilot now confirms D3D8 loads/drives/body deformation/breakable glass. New visual variants and finish/re-entry remain pending. See FOUR_RUNNER_VISUAL_POLISH_RESULTS.md.
+
+---
+
 # Toyota 4Runner — first Universal Scene to MR pilot
 
 28 October 2026. `research/vehicles`, parent

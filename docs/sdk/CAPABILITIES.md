@@ -1,3 +1,36 @@
+# 4Runner visual polish checkpoint — 28 October 2026
+
+The previous native pilot is now **owner-confirmed in D3D8 for loading,
+driving, body deformation and breakable glass**. Finish/results/re-entry and
+the new visual variants remain pending owner testing.
+
+Corrected front side glass by source-atlas aperture clipping of both original
+layers, preserving the accepted intact/broken windshield exactly. Corrected
+both rear lower red lens footprints, including missing Body292, with native
+OFF/ON geometry confined to the lens; no bumper/headlamp/paint glow. Common
+bounded convex semantic partitions preserve UV/normal/colour interpolation,
+winding and composable source-triangle barycentric provenance.
+
+Source Garage Create MR now offers independent optional MR paint reflections,
+mirror insets, Navara steering/dashboard, static rear glazing/dark backing and
+body-fixed underbody frame. All options default off; structural variants are
+independent outputs with immutable Source Fidelity/UVS baselines. The frame is
+not a moving axle/suspension reconstruction. No wheel, hub, ride height, physics
+value, fitted collision, source asset or roster-capacity change.
+
+Full available Windows suite: **1102 tests, 2 existing skips**. Real D3D9
+original/fixed/adapted comparison:42 images. Actual Tk creation/provenance and
+D3D9 paths, Studio reopen/Undo/Redo/Restore, paint/mirror strength/disable and
+byte-identical real DX/DXT regeneration validated separately. Native candidate
+launcher preflights PASS; new D3D8 visuals remain **PENDING OWNER**.
+
+Private delivery: `.research-output/vehicles/4runner-polish/`, independent
+`fixed-final` and `adapted-final` projects/candidates. Original accepted pilot
+remains unchanged. See [visual diagnosis/results](FOUR_RUNNER_VISUAL_POLISH_RESULTS.md)
+and [owner checklist](FOUR_RUNNER_OWNER_CHECKLIST.md).
+
+---
+
 # First Universal Scene → MR Source Fidelity pilot
 
 28 October 2026. Generic `universal-scene-mr-profile/1` bridge to existing MR
