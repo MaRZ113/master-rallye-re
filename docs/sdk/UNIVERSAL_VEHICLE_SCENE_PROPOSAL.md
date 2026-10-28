@@ -1,4 +1,14 @@
-# Universal Vehicle Scene — interface proposal
+# Implemented subset checkpoint — 28 October 2026
+
+The owner has accepted the audit and authorized one Evo2 pilot. The proposal
+below is retained as historical design input. Its minimal implemented subset is
+now `universal-vehicle-scene/1`; see [versioned contract](UNIVERSAL_VEHICLE_SCENE_V1.md)
+and [qualified pilot results](EVO2_SOURCE_ADAPTER_RESULTS.md). This does not
+implement every proposed feature or migrate existing GT/Heritage adapters.
+
+---
+
+# Universal Vehicle Scene — historical interface proposal
 
 28 October 2026. **PROPOSAL / NOT IMPLEMENTED.** Source Garage research,
 `research/vehicles`, inspected baseline `b9a24f7` (implementation `138df440`).

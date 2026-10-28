@@ -1,4 +1,19 @@
-# Source Garage: real-file smoke results
+# Evo2 TIFF correction and later pilot checkpoint — 28 October 2026
+
+The phase-1 report below is preserved as historical evidence. Its Evo2 diffuse
+row describes Pillow's converted output (alpha 255), not the complete original
+TIFF channel layout. Original ART/4RunnerSR5.TIF stores two 8-bit samples with
+palette photometric and ExtraSamples=0 (unspecified). Pillow P-to-RGBA discarded
+the second sample; opaque output does not establish source alpha semantics.
+The later bounded pilot preserves both samples, original 16-bit palette and
+entire TIFF, plus bump/other raw channels and malformed tail-IFD warnings.
+See [static evidence](EVO2_SOURCE_SEMANTICS.md) and
+[adapter results](EVO2_SOURCE_ADAPTER_RESULTS.md). The historical audit's L2
+diagnostics remain distinct from the later assembled textured D3D9 preview.
+
+---
+
+# Source Garage: historical real-file smoke results
 
 Date: 2026-10-28. Scope: private donor inspection, no MR-native authoring,
 adapter integration, game launch, accepted project change or gameplay claim.

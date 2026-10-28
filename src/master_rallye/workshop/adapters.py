@@ -5,6 +5,7 @@ FORMATS = (
     {'id':'png-rgba8','status':'OFFLINE-VERIFIED','gui':'same-dimension replacement','backend':'master_rallye.texture_authoring.decode_rgba_png','limits':'qualified existing PNG decoder only; unsupported encodings rejected'},
     {'id':'gt3-qualified-source','status':'CLI-ONLY','gui':'open existing converted SDK project','backend':'tools/vmesh_gt3_to_dx.py','limits':'optional local GT tooling and tested source profiles; no bundled GT resources'},
     {'id':'gt4-beta-modelset2','status':'CLI-ONLY','gui':'open existing converted SDK project','backend':'addon_sdk.gt4_scene / tools/build_gt4_vehicle.py','limits':'qualified Beta profiles, explicit unknown-pass fallbacks; not every GT4 release'},
+    {'id':'evo2-qualified-source-scene','status':'SOURCE-SCENE-ONLY','gui':'Source Garage: inspect/create/reopen neutral scene and D3D9 preview','backend':'source_adapters.evo2 / universal_vehicle_scene / source_scene_preview','limits':'exact qualified Toyota 4Runner catalog/POD/EXE hashes; original wheel geometry and static source placements; no MR authoring or source-game shader parity'},
     {'id':'blender-roundtrip','status':'PLANNED','gui':'not editable','backend':None,'limits':'stable-ID topology round-trip not qualified'},
 )
 

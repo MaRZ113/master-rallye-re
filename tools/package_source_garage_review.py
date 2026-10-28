@@ -18,8 +18,8 @@ def git(*args):
 
 
 def package(baseline: str, revision: str, output: Path):
-    allowed=(ROOT/'.research-output/vehicles/source-garage').resolve()
-    if output.resolve()!=allowed and allowed not in output.resolve().parents:
+    allowed_roots=[(ROOT/'.research-output/vehicles'/name).resolve()for name in ('source-garage','source-garage-evo2')]
+    if not any(output.resolve()==allowed or allowed in output.resolve().parents for allowed in allowed_roots):
         raise ValueError('output must stay in ignored repository source-garage evidence')
     revision=git('rev-parse','--verify',revision+'^{commit}').decode().strip()
     baseline=git('rev-parse','--verify',baseline+'^{commit}').decode().strip()
@@ -32,7 +32,7 @@ def package(baseline: str, revision: str, output: Path):
             if info.is_dir(): continue
             p=PurePosixPath(info.filename)
             if p.is_absolute() or '..' in p.parts: raise ValueError('unsafe archive path')
-            if p.suffix.lower() not in SOURCE_EXTENSIONS and p.name!='.gitignore':
+            if p.suffix.lower() not in SOURCE_EXTENSIONS and p.name not in ('.gitignore','.gitattributes'):
                 excluded.append(info.filename); continue
             # symlinks are never copied as apparent source text.
             if (info.external_attr >> 16) & 0o170000 == 0o120000: raise ValueError('symlink source rejected')

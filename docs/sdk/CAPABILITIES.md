@@ -1,4 +1,24 @@
-# Source Garage — research capabilities only
+# Evo2 Source Garage — qualified 4Runner scene and preview
+
+28 October 2026. One hash-qualified `TRUCK/T4RSR52.TRK` adapter now recovers
+original body geometry, all six wheel-detail/side variants, four source hubs,
+materials, UVs and complete raw TIFF channels into Universal Vehicle Scene v1.
+Workshop Source Garage supports Inspect/Create/Reopen, original/normalized
+coordinates, stock/source/all-object diagnostics, material diagnostics, native
+D3D9 interaction and six textured assembled views. Original arrays and exact
+resource snapshots remain separate from derived preview transforms/opacity.
+
+L0 PASS; L1 WARN; L2 WARN with actual Windows assembly preview inspected.
+Unspecified TIFF channels, native alpha/reflections/lighting, auxiliary passes
+and settled suspension remain unresolved. No MR conversion/CarID/roster support
+is implied. See [pilot results](EVO2_SOURCE_ADAPTER_RESULTS.md),
+[UVS v1](UNIVERSAL_VEHICLE_SCENE_V1.md) and
+[original source evidence](EVO2_SOURCE_SEMANTICS.md). Complete Windows regression:
+1057 tests, 2 pre-existing fixture skips; accepted projects unchanged.
+
+---
+
+# Source Garage — historical phase-1 research capabilities
 
 28 October2026. Configurable external read-only root census, exact source/tool
 identities, bounded POD/SMF, Screamer DAT, VR2 source-tool and partial SR2 probes,

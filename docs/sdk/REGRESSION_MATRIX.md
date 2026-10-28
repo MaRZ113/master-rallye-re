@@ -1,4 +1,28 @@
-# Source Garage research checks —28 October2026
+# Evo2 source-scene pilot checks — 28 October 2026
+
+Private evidence `.research-output/vehicles/source-garage-evo2/`.
+
+| Check | Result / evidence | Boundary |
+|---|---|---|
+| Complete Master Plan reconciliation | Exact 290052-byte v6.7 prefix/retained file, all old Git blocks once; v6.3–v6.5 restored | Full history, not replacement summaries |
+| New focused suite | focused-final.log; 40 tests PASS | Synthetic corruption/path/budget/channel/scene and preview assertions |
+| Complete Windows synthetic/CPU suite | full-regression-final.log; **1057 tests in 62.698s, OK, 2 existing private-fixture skips** | Installed Python 3.15; no source-game/MR gameplay |
+| Exact actual-source reconstruction | scene-final-create.json; 43 meshes, 38 nodes, all six original wheel variants, four source hubs | One pinned Evo2 catalog/build; native dynamic pose NOT TESTED |
+| Deterministic complete project | determinism-final.json; 59/59 files byte-identical, 7822135 bytes | Same source/config/implementation; code identities retained |
+| Original / normalized comparison | Original arrays unchanged; inverse error <8.9e-16 source units; actual GPU staging error <1.78e-7 m | Derived RH normalization and viewer float32 only |
+| Native build/package | workshop-build.log; PASS | Existing viewer architecture, opt-in neutral mode |
+| Existing MR viewer GPU checks | old-viewer-regression/validation.json; PASS | Culling, handedness, texture rows, transparency-depth stress; no MR runtime claim |
+| Real Windows UI and GPU | windows-delivery/validation.json; Inspect/Create/Capture/Reopen PASS; 19 draws/41 tree rows | Input scene unchanged, MR project remains None |
+| Original wheel choice | Real UI switch detail16/08: 648/136 instanced wheel vertices | Distinct L/R source meshes, no inferred diameter/fit |
+| Six fixed views / coordinate / opacity diagnostics | windows-delivery/{six-views,source-basis-views,explicit-glass-views}; visually inspected | Neutral D3D9 approximation; native glass/settled stance unqualified |
+| Accepted author projects / original MR files | preservation-final.json; 2432/2432 identical across six originals and 90 project roots | Generated logs/captures excluded; all protected input rows compared |
+| Donor immutability | Same report; exact TRUCK.POD and 4x42.exe SHA256 unchanged | Original executable inspected statically, never executed |
+| Source-only handoff | review/archive-manifest.json after local commit | Committed text only; donor snapshots/textures/previews/binaries excluded |
+| MR conversion / gameplay | NOT IMPLEMENTED / NOT TESTED | Stop for review after source scene and preview |
+
+---
+
+# Source Garage research checks — historical phase 1, 28 October 2026
 
 Private evidence `.research-output/vehicles/source-garage/`; no new MR import.
 

@@ -1,24 +1,95 @@
-# Master Plan v6.6 — Source Garage audit checkpoint
+# Master Rallye Vehicle SDK — Master Plan v6.7
 
-28 October2026. Actual clean baseline `b9a24f7` / `research/vehicles` matches the
-attached handoff. Attached v6.6 was reconciled with the actual GT Garage and
-automatic-import results; historical plans below are preserved.
+**28 October 2026 — independent Source Garage phase-1 audit review, next bounded adapter qualification.** This update prepends a new checkpoint and preserves the entire previously authored v6.6 document **byte-for-byte below**. The changed-files archive's `docs/sdk/MASTER_PLAN.md` was separately observed to omit the v6.3–v6.5 addenda: restore those historical sections in the main repository rather than replacing them with a short status note.
 
-Source Garage cross-game format/tool audit is delivered for review:16 actual
-source roots,38762 hashed files, five representative PC structural probes,
-historical Paris-Dakar/Michelin probes, separate DiRT2007/DiRT2 dictionaries and
-one Revo archive/texture test. See [SOURCE_GARAGE_RESULTS.md](SOURCE_GARAGE_RESULTS.md)
-and its matrix/tool/corpus/interface links for exact qualification boundaries.
-50 focused tests pass; full synthetic/CPU suite1017 tests/2 existing skips.
+## Source Garage phase-1 evidence
 
-Proposed first new adapter: Evo2 Toyota4Runner SR5 Sport Package2WD, subject to
-review. Paris-Dakar Pajero provenance and Michelin RAV4/Megane remain independent
-high-interest research tracks. No first importer has started. Universal Vehicle
-Scene is a proposal; current GT compiler/Classic gates are not universal support.
-**Stop for audit review before adapter implementation.** Existing accepted cars,
-alternative CarID29 rosters,30-entry limit and original assets remain preserved.
+- Input reviewed: `changed-files.zip`, **26 entries** including 25 SHA256-pinned changes and one review manifest; ZIP CRC PASS, **25/25** SHA256 PASS, **9/9** Python AST PASS. Independently ran **50/50** supplied synthetic Source Garage tests. No full-source review ZIP, original donor games or private evidence were supplied for this review, so byte-level 16-game revalidation and the full Windows suite were **not independently rerun**.
+- Research agent reports read-only inventory of **16** local donor roots, **38,762** files and **45,961,878,729** bytes; an external 11,047,585-byte full inventory SHA256 is recorded, but its content is not attached. The agent reports **1,017 complete synthetic/CPU tests, two skips** and unchanged protected assets; those claims are attributed to the agent's private evidence.
+- Five PC representative structural/visual **diagnostic** probes: 4x4 Evo1/Evo2, Screamer 4x4, V-Rally 2 and Sega Rally 2. No source-game renderer parity and no new Master Rallye gameplay tests. Additional Revo SBF archive/DDS and DiRT1/DiRT2 PSSG dictionary probes do **not** qualify assembled vehicle import.
+- **Paris-Dakar Rally (2001):** actual `PajeroRED.tc` and `PajeroSilver.tc` exist with `RallyCar 1.00`, `ArchList` and `Gex#MainBody.x` string observations. No verified mesh decode, Pajero V60/V20 identity mapping or direct connection to prerelease MR models.
+- **Michelin Rally Masters:** static `Cars.BIN` plus script associations link `Toyota RAV 4` ID25 to `Car25A.PDO` and `Renault Megane F2` ID6 to `Car06A.PDO`. Five PDI1 directories were structurally validated; XO, `_VERTEX.BIN`, INDEX.TOC and TGA entries are *undecoded* payloads. Do not claim Mégane Maxi mesh confirmed or source model rendered. Retain personal priority high.
+- **DiRT 2007 versus DiRT 2:** distinct PSSG type dictionaries are confirmed, with ambiguous duplicate attribute identifier in the early Neon example. No glTF car export or original shader equivalence qualified. Community tool availability is not a tested importer.
+- **Universal Vehicle Scene** is currently a proposal, not an implemented universal source adapter. Current GT3/GT4 Classic v2 gates, accepted Heritage native MR passthrough and sound systems remain separate.
+
+## Proposed next phase — 4x4 Evo2 Toyota 4Runner source adapter pilot
+
+**After owner approval**, implement one conservative, deterministic read-only source adapter and fully assembled vehicle inspection for **4x4 Evolution 2, Toyota 4Runner SR5 Sport Package 2WD (2000)**, joined through `TRUCK/T4RSR52.TRK`.
+
+1. Pin and validate the exact user-local `TRUCK.POD` and read selected POD2 members with bounded ranges and paths. This is a modified installation with TRIHook; do not present the content as untouched publisher retail.
+2. Decode source body `MODELS/4RUNNERSR5.SMF`, material/UV streams and `ART/4RUNNERSR5.TIF`; preserve **33 objects, 2,089 vertices and 1,967 triangles** according to the original agent probe, along with original indices and evidence. Six wheel model variants (`08/12/16`, left/right) and all four source TRK wheel placements must be reconstructable. Validate actual components against source files; counts are not proof of successful assembly.
+3. Determine coordinate axes, units, wheel rest pose and hierarchy with independent evidence. Existing Blender tool feet-to-metres convention is a hypothesis until source confirmation. A source TIFF alpha255 channel does **not** qualify glass opacity, lamp states or native MR materials.
+4. Implement the minimal versioned Universal Vehicle Scene contract for this one format, including provenance/unknowns and private bounded sidecars. Save immutable source values and reversible derived transforms; do not silently normalize or delete ambiguous parts.
+5. Produce an **assembled textured L2 diagnostic preview**, origin/axis/wheel fitment measurements, material/UV inspection and fixed-angle images, with documented renderer differences and source source-version hashes. Preserve unknowns, damaged-state, equipment, alternate source bodies/LODs/colorways as unresolved where not evidenced.
+6. Test corrupted/oversized containers, missing members, transformed wheel variants, invalid UV/material references, source immutability and determinism. Re-run targeted and full available Windows regression suites. No external game or legacy binary execution without explicit approval.
+7. Stop at a reviewed **neutral scene + preview**. Only after a new authoring approval should the neutral scene be mapped into a separate Master Rallye addon candidate and existing Classic MR Style transformations. Do not create a CarID, overwrite stock files or change accepted projects in this pilot.
+
+### Historical research tracks preserved
+
+- Paris-Dakar Pajero: bounded TC section/table/mesh decoding and two-file geometry comparison are a *separately authorized* research task; do not silently start a large RE campaign.
+- Michelin RAV4/Mégane: next technical blocker is bounded wrapper TEA/LZSS8 decoding followed by XO/vertex/material research. Keep the catalog join and original F2 label. Do not claim finished or distribute source assets.
+- Screamer Pajero remains second technical pilot option if Evo2 body/wheel binding blocks; V-Rally 2 and Sega Rally 2 remain diagnostic follow-ups, DiRT remains longer-horizon.
+
+## Project protections and acceptance levels
+
+- Current accepted native MR, GT and Heritage Subaru/Lancer/Pajero/Trooper projects remain immutable; Clio game testing is pending; accepted alternative CarID29 rosters remain mutually exclusive; **30 active entries** is the currently qualified limit.
+- Never edit original `MRallye.exe`, clean `Data.sma`, existing `d3d8.dll`, original donor installations or unrelated Randomizer code. No bundled proprietary game source assets or unreviewed third-party scripts in distributable source archives. Observe licences and protect path/input budgets.
+- Keep `L0` container discovery, `L1` structural assembly, `L2` human-inspected 3D preview, and owner-confirmed D3D8 gameplay evidence separately labelled. New donor gameplay is currently **NOT TESTED**.
+- Local scoped commits permitted after verified tests. Do **not** push, publish, release or merge unrelated branches without explicit owner approval.
 
 ---
+
+## Previous Master Plan v6.6 — preserved verbatim
+
+# Master Rallye Vehicle SDK — Master Plan v6.6
+
+**28 October 2026 — GT Garage Lab source-review closeout and Source Garage new-chat handoff.**
+
+This is a non-destructive continuation of the complete v6.5 plan below. Prior roadmap, protected inputs, user-approved builds, and all earlier research remain intact.
+
+## Current verified status — GT Garage Lab
+
+- Supplied source-review ZIP: **1,253 source members**, manifest SHA256 **1,253/1,253**; changed ZIP: **68 members**, all byte-identical to the full ZIP and their own manifest. Zip CRC passed; Python AST **546/546**. No bundled `.dx`, `.dxt`, `.sma`, `.wav`, `.exe` or private extracted game resources detected. These are archive and syntax checks, not a full runtime or code-security audit.
+- Independent Linux-targeted synthetic validation: **76 tests ran, 75 PASS and one skip**, no failures. The Codex report claims **967 tests with 2 optional skips** on Windows; that full result was not reproduced here.
+- Review metadata: source snapshot commit `b9a24f7aadef6683a79a2d37bc03dea92a198706`; implementation commit `138df440709d1876080e852987da45a25267e3c7`; baseline `9416ddbc976da283964ab0ea621884b1789e0fe4`. Review ZIP has no `.git`; metadata is not an independently verified Git history.
+- GT3 L0 local US `SCUS_971.02` result as reported by Codex: 5,333 RoFS entries, 574 day/night members, 572 structurally parsed, 2 empty/MISSING INPUT (`ho0100`), 562 unique model hashes. US/EU/JP catalog entries 244/244/242; exact source associations 244/231/242, including 13 EU source references missing in the examined US volume. These counts are **not playable-car claims** and private source corpus was not independently rerun in this review.
+- Parallel automatic source-profile work reports **257 derived profiles / 287 GT3 day models**, 30 unresolved. Standard profile mode uses qualified approximations: donor scaling, MR rubber/crew and inferred glass/brake; Full mode preserves more GT imagery. Derived/compiled does not mean visually or in-game qualified.
+- True original colorway source selection is implemented using GT3 carcolor IDs/records, not RGB tint. Non-Lancer pilot: **Renault Clio V6 `re0011`**, four authentic source choices: Iceberg Silver, Illiad Blue, Mars Red, Nocturne. Independent Source Fidelity and Classic pipelines exist; user edits persist separately per original-color project.
+- Classic v2 is explicitly opt-in, semantic-role and hash guarded, preserves unclassified surfaces; v1 Lancer reproduction is retained. Clio includes separate MR-like rims, rubber and glass, corrected presentation hubs and reflections. **No generic automatic vehicle-wide polygon reduction or sponsor removal is proven.** CLUT, VU lighting, source rig and some effects remain unresolved, with L1/L2/owner gate differences preserved.
+- The isolated Clio Source Fidelity and approved Classic candidates use an **alternative 30-slot** roster (Subaru27, Lancer28, Clio29). They cannot be simultaneously installed as CarID29 with accepted Pajero or Heritage Isuzu projects. According to source reports, candidate resource differences are Clio-only. Owner D3D8 gameplay for Clio is still **NOT TESTED**.
+- Preserve accepted prior Isuzu owner gameplay evidence, Subaru/Lancer/Pajero accepted changes, clean retail `Data.sma` SHA256 `03c2b52d451b378c7ec634132ebfab706616e33c57fea2985b83db66d3fd4b2f` and protected MRallye.exe/d3d8.dll originals.
+
+See `docs/sdk/GT_GARAGE_RESULTS.md`, `docs/sdk/AUTO_IMPORT_RESULTS.md`, `research/vehicles/gt-garage/SYNCHRONIZATION-2026-10-28.md` from the reviewed source tree for exact evidence and limitations.
+
+## Next active milestone — Source Garage (new Codex chat)
+
+**Purpose:** Research donor-game formats, tools, source editions and model readiness before writing the first new importer. This is **not** a command to import every vehicle, add new game slots, or start a DiRT converter.
+
+### Donor game scope
+
+1. Paris-Dakar Rally (2001): Pajero V60 and Evolution V20 historical lead; model identity with prerelease Master Rallye remains an unproven hypothesis.
+2. Michelin Rally Masters: Toyota RAV4 and Renault Mégane Maxi; personally important elevated research priority, not an implied easy or first implementation.
+3. V-Rally 2; 4x4 Evolution 1 & 2; Screamer 4x4: potentially easier technical probes with existing tools, subject to local validation.
+4. Sega Rally 2 Championship and Sega Rally Revo; Rally Championship Xtreme; V-Rally 3: independent format/tool audits.
+5. Colin McRae Rally 3, 04 and 2005; Dakar 2: The World's Ultimate Rally (verify platform-specific game files).
+6. Colin McRae: DiRT (2007) and DiRT 2 (2009): late-era special vehicles, with first DiRT/Neon independently qualified rather than assumed equivalent to later EGO/PSSG.
+
+### Required Source Garage process
+
+- Audit only locally user-provided game installations/images and independently verify exact editions/platforms, archive signatures, hashes, model files, texture paths and source asset licenses. Configure **external paths**, not gigabytes of bundled files or guessed absolute locations. Inventory missing inputs explicitly.
+- Research and verify community extractors, QuickBMS/Noesis/Blender tools and their exact versions, capabilities and licenses. Avoid running unknown legacy binary tools blindly; prefer source review and bounded reproducible tests. Link legitimate research/documentation only; do not download or redistribute proprietary game assets.
+- Test separable gates: container opened → vehicle located → geometry/UV/materials → textures → wheel transforms → LODs → frontend preview. Record per-build L0/L1/L2 results as PASS/WARN/FAIL/UNSUPPORTED/NOT TESTED/MISSING INPUT with logs and hashes; **never equate archive extraction with 3D reconstruction or D3D9 preview with D3D8 gameplay**.
+- Produce a tool/format matrix and prioritized importer decision based on **two independent axes**: owner `personal_priority` and evidence-backed `technical_readiness`. Paris-Dakar and Michelin are both high-interest; first implementation may rationally use a simpler source.
+- Reuse a future source adapter interface feeding the common geometry/material/texture/wheel scene into existing MR authoring and Classic stages. Do not mutate frozen GT or Heritage candidates or overwrite package initializers/old branches.
+- Maintain source-only outputs, ignored private extracted directories, immutable source handling, scoped local commits after validation, and no push/publication/branch merge without user permission.
+
+### Source Garage phase deliverables
+
+`DONOR_FORMAT_MATRIX.md`, `DONOR_TOOL_AUDIT.md`, `DONOR_CORPUS_MANIFEST.json` (no proprietary bytes), `DONOR_FIRST_PILOT_DECISION.md`, selective read-only smoke-test scripts and evidence, explicit unknowns, updated existing SDK plan/capability/test ledger, and a small new-chat continuation summary. Stop after audit for review before starting first cross-game adapter.
+
+---
+
+## Full prior Master Plan v6.5 (preserved verbatim)
 
 # Master Rallye Vehicle SDK — Master Plan v6.1
 
@@ -1634,6 +1705,248 @@ The next phase should create a real **reuse-first** conversion system and a meas
 - **Stop for review after the qualified generalization/colorway/corpus-foundation milestone** rather than simultaneously starting Blender Bridge, Fleet Builder, a broad GT4 port, or mass Demo imports. GT3 catalog-wide L1/L2 work remains the next bounded phase if not completed safely during the initial milestone.
 
 
+---
+
+# Master Plan v6.3 Addendum — Cross-Game Rally & Off-Road Heritage (2026-10-28)
+
+## A. Product direction: curated rally-raid history, not wholesale GT imports
+
+**Strategic change approved for planning:** Master Rallye Vehicle SDK / Rally Workshop should evolve from a primarily Gran Turismo donor pipeline into a **game-agnostic, user-owned-source vehicle restoration workshop** centered on Master Rallye's original identity: turn-of-the-millennium off-road, rally-raid, expedition SUVs, trucks, buggies and historic rally/rallycross/hill-climb specials. GT3/GT4 retain their importance as the first, proven donor adapter and a compatibility stress-test corpus, **not** a commitment to import every available GT vehicle into the game.
+
+The central experience remains the original 2001 Master Rallye. Curate historical/editorial vehicle collections rather than silently treating different model years as original MR content. Classify vehicles as: **original MR heritage / historically plausible period addition / later-era bonus / experimental non-four-wheel**. A car's existence in a community vehicle list does not prove the user owns its source file, that the 3D asset can be extracted, that it matches a pre-release MR asset, or that it can safely drive in MR.
+
+**Maintain active Codex work:** complete the current bounded GT Garage Lab generalization/source-colorway/corpus work under v6.2 first, since its common semantic model, preview, classifier, validation and non-destructive Classic conversion will be reused by every donor format. Do not interrupt an active validated phase to begin unrelated reverse engineering.
+
+## B. Donor game candidates — owner-curated research queue
+
+| Donor | High-value candidates / role | Priority and technical qualification |
+|---|---|---|
+| **Paris-Dakar Rally (2001)** | Pajero V60 and Pajero Evolution V20 (as identified by the owner), Nissan Patrol, Mega Désert, Toyota Hilux, Mitsubishi L-200, 2000 Schlesser Mégane, Ford Ranger, Jeep Wrangler and buggies | **P0 — forensic pilot.** Compare 3D geometry, UV, texture paint, proportions and materials of both Pajeros to MR's pre-release screenshot/icon evidence; never claim identical original meshes until established. PC source preferred when actually available. First isolated non-GT donor candidate after assessment. |
+| **4x4 Evo 1/2** | Diverse 2000–2002 civilian U.S./Japanese SUVs/pickups including Toyota, Nissan, Mitsubishi, Dodge, Chevrolet, Ford and Jeep | **P1 — breadth + configurable civilian/rally styling.** Many trims and variants; deduplicate actual model/mesh hashes, not catalog names. Create user-selectable stock civil, period rally and custom paint profiles, without inventing original game liveries. |
+| **Screamer 4x4** | Mercedes-Benz Unimog, Toyota Hilux/Land Cruiser, Land-Rover Defender, Jeep, Pajero, Rába truck | **P1 — structurally different class pilot.** Unimog is a valuable heavy-utility contrast to original MR KamAZ. Validate physical dimensions, hubs, tyre radii, gearing and center of mass; source licensing and extraction as normal. |
+| **Colin McRae Rally 04/2005 (and 3 where unique)** | Ford Transit Rally Van, Citroën 2CV, Land-Rover Freelander, VW New Beetle RSi, Mitsubishi Pajero, Nissan Pickup, MG ZR, Fiat Punto/Puma S1600, Rally 037 | **P1/P2 — period rally culture.** Verify actual playable model vs decorative traffic, versions and source format; first source audit before committing to candidate. Potential MR design lineage comparisons are hypotheses until supported by source evidence. |
+| **Dakar 2 (2003)** | Tatra 815, MAN F90, Hino Ranger, Nissan Pickup D22, alternate Dakar SUVs and trucks | **P2 — console format research, not early importer dependency.** Inspect source/platform build boundaries and tool availability first; PS2/GameCube/Xbox archive, geometry and texture encodings may differ. Focus on trucks/pickup unique to this donor. |
+| **DiRT (2007)** | Race Touareg, Desert Warrior, Pajero Evolution, BMW X3 CC, Fenomenon Stratos, Pikes Peak specials, CORR buggies, Kenworth/Freightliner, KamAZ and others | **P2 — high-value later-era premium collection.** Its later-generation assets require validated simplification of poly counts, LOD, shader materials, normal maps and texture sizes for MR's 2001 renderer. Not all vehicles are period-authentic; label accordingly. |
+| **DiRT 2 (2009)** | 1993 Pajero T3, optionally Hummer H3 and distinctive off-road vehicles | **P3 — selective bonus**, not blanket roster import. |
+
+IGCD/community catalogs and period game announcements are **leads** only; source-qualified local asset IDs and direct model review decide implementation. Some named variants may require correction after actual file examination. Preserve edition/platform provenance.
+
+## C. Architecture: Cross-Game Source Adapters
+
+Keep **GT Garage Lab** as a source-specific research and validation module. Build a higher-level, donor-agnostic **Source Garage** architecture on top of common Vehicle SDK Core:
+
+`User-local source game/build → read-only source adapter → normalized semantic vehicle scene (geometry, materials, UV, hierarchy, wheels, crew, glass, lamps, original paint variants, physics/audio provenance) → Source Fidelity / optional Classic MR Style / custom authoring → validation → isolated MR candidate`.
+
+Each adapter must declare exact supported editions, executable/archive/source hashes where necessary, decompression/mesh/texture capabilities, missing components and uncertainty. Never globally misinterpret a source-specific alpha channel or culling mode. Unknowns remain explicit. Preserve original donor geometry and materials in the project; generate separate native-compatible derivatives. Private licensed game content remains user-local and **must not** be distributed with the SDK or source-only review bundles. Any public release needs an independent rights review.
+
+**Cross-game feature adaptation** uses existing studio layers: Physics donor/authoring from qualified MR sources, qualified gameplay camera, wheel fitment, crew, native glass damage, lamps/brake ON, shadow auto-fit, named Results drivers, frontend framing, icon generation, Race HUD color, Audio Studio, user colorways. Missing source features must be declared and added through reversible overlays only when MR adapter support is established.
+
+**Fleet/catalog distinction:** catalog can list many locally discovered candidates, but the active build remains restricted to the qualified roster capacity (currently 30 in the known configuration). Do not invent stable 31+ capacity. Preserve alternative Isuzu/Pajero CarID29 build variants.
+
+## D. First staged cross-game milestone after GT generalized foundation
+
+**Step 1 — Source Archive & Model-Lineage Forensics:** select **Paris-Dakar Rally (2001)** as first new donor. Verify an owner-local source build, extract a read-only vehicle/texture inventory, identify both reported Pajero variants. Compare against original MR pre-release icon/screenshot evidence using fixed-angle outlines, geometric features, UV seams, wheel locations, texture patterns and hashes if file formats permit. Classify `visually similar`, `probable related asset`, or `direct asset match` with stated evidence, not enthusiasm.
+
+**Step 2 — First PC donor adapter:** deliver minimum independently testable Paris-Dakar source adapter and local preview of one qualified vehicle. If Pajero files cannot be extracted or recognized, report blockers and choose another confirmed car from that owned source (not a fabricated placeholder). Add synthetic regression fixtures without private meshes.
+
+**Step 3 — one isolated MR candidate:** import one qualified unique donor candidate as an alternative addon, with wheel/crew/physics/audio/glass/light/shadow/camera/identity/Results/menus checked using the established pipelines, and owner D3D8 validation distinctly marked. Source Fidelity first; Classic as a separate opt-in conversion after semantics are verified.
+
+**Step 4 — donor matrix:** count actual local, supported, converted and D3D8-verified assets separately. Choose the next adapter based on highest benefit-to-cost ratio: 4x4 Evo 1/2 (civil SUVs), Screamer 4x4 (Unimog/heavy vehicle), or Colin McRae 04/2005 (period rally oddities). Defer Dakar 2 console reverse engineering and high-fidelity DiRT until PC adapters are proven.
+
+## E. Vehicles on two wheels — separate engine feasibility study
+
+Motorcycles and quads from Dakar titles are compelling, but MR's already qualified vehicle/physics systems are designed around four-wheel cars. A visually convincing motorcycle model in the existing car slot would **not** establish two-wheel stability, steering/leaning, contact dynamics, collisions, animations or appropriate AI. Do not promise a bike class, force two invisible wheels, or put motorcycle implementation into the initial donor-import milestone. Create a separate feasibility note only after the four-wheel cross-game importer is proven.
+
+## F. Regression, provenance and workflow rules
+
+- Preserve the previous **v6.2 GT universalization milestone** unchanged until independently reviewed; its output is infrastructure for cross-game compatibility, not a product commitment to mass GT installs.
+- Keep the original game, clean Data.sma, d3d8.dll and all accepted standalone addon projects unchanged; isolated builds, deterministic manifests, compare/report/restore as before.
+- Document owner-provided vehicles and external game rosters as research candidates; never convert community screenshots alone into claims of file-level compatibility or material equivalence.
+- Main Codex receives this new scope **after** current work is reviewed. Proposed next milestone name: **Rally Archive — Paris-Dakar Source Pilot**. No automatic implementation, Git push, release, copyrighted asset packaging or parallel unrelated reverse engineering.
+
+---
+
+# v6.4 Addendum — Cross-Game Source Recon / Donor Tool Audit (2026-10-28)
+
+## Decision and sequencing
+
+The owner proposes a single **private, user-managed source collection** for the potential donor games, followed by an **audit of existing community tools and actual supported game revisions**. Adopt this as the next bounded milestone **after the currently active GT Garage Lab work**, not an immediate mass importer. Keep the new collection outside `master-rallye-re-vehicles` and all distributable archives. Link to user-owned installations or maintain immutable local working copies; neither sources nor their extracted proprietary assets enter Git.
+
+### Sample private layout (paths illustrative, not assumed to exist)
+
+```text
+D:\RallyWorkshopSources\
+  sources\
+    4x4-evolution-pc\
+    4x4-evolution-2-pc\
+    screamer-4x4-pc\
+    paris-dakar-rally-2001-pc\
+    colin-mcrae-rally-3-pc\
+    colin-mcrae-rally-04-pc\
+    colin-mcrae-rally-2005-pc\
+    dirt-2007-pc\
+    dirt-2-2009-pc\
+    dakar-2-2003-ps2-or-gamecube\
+  manifests\
+  extracted-private\
+  previews-private\
+  researched-tools\
+  reports\
+```
+
+Game entries without an owner-local source are `MISSING INPUT`, never simulated. Console editions require platform-specific inventories. Use absolute configured source paths rather than assuming a drive letter. Use read-only source access, hash inventories, detect revisions, bound scan/extract size, preserve source provenance, and never execute newly downloaded legacy tools without independent provenance/security review.
+
+## Preliminary outside-tool survey: leads, not verified on owner source files
+
+| Source family | Tool/evidence found | Remaining work | Starting readiness |
+|---|---|---|---|
+| 4x4 Evolution 1/2 (PC) | 4x4 Evolution Revival Project documents POD utilities, Blender SMF importer/exporter, Z3D importer, RAW texture converters | Validate specific game edition, genuine car mesh, transforms, color variants, texture/alpha, wheel hubs, LOD and hierarchy | **Best established community workflow** |
+| Screamer 4x4 (PC) | ResHax identifies `.cod` archive, `.dat` separate vehicle geometry, `.tex/.32/.32a` textures; QuickBMS and Noesis scripts/plugins are linked | Verify scripts work for owner's edition; preserve normals, material ownership, wheel transforms and texture binding | **Strong exploratory candidate** |
+| Colin McRae Rally 3 / 2005 (PC) | RallyGamer documents iRipper for `.BIG` packages | Package extraction is not proof of usable mesh exporter; identify actual geometry and texture formats | **Archive path exists** |
+| Colin McRae Rally 04 (PC) | Xentax historical jRipper support listing and RallyGamer community information | Confirm reliable tool availability, car mesh extraction and format version; do not assume iRipper works identically | **Needs version audit** |
+| Paris-Dakar Rally (2001 PC) | Vehicle lists confirm interest, but no sufficiently verified model-specific extractor found in this survey | Identify actual packaging, mesh/textures first; compare both Pajeros to historical MR evidence only once decoded | **Priority forensic target; format unknown** |
+| Dakar 2 (PS2/GameCube) | Platform-level disc extraction and historical GameCube SBB discussion exist | Game-specific car model decoder not established; GameCube `GBA.SBB` is **not evidence of a car archive** | **Research-heavy** |
+| DiRT (2007 PC) | Original game uses early Neon technology; later EGO/PSSG tools are not proof of support for 2007 assets | Verify 2007 file signatures and one material+mesh open/export on the actual source before committing | **High-value, high-risk** |
+| DiRT 2 (2009 PC) | Later EGO-era PSSG tools and community documents offer plausible starting points | Validate exact local build and complete mesh+material extraction; avoid extrapolating from DiRT 3 or Rally | **Provisional** |
+
+External research pointers for the investigator (recheck availability/security and actual supported versions):
+- 4x4 Evolution Revival Project: https://www.4x4evolution.net/doku.php?id=modding_tools
+- Screamer research and links: https://reshax.com/topic/633-screamer-4x4/
+- Colin McRae 2005 tools: https://www.rallygamer.com/downloads/cmr2005/tools/tools-and-hints
+- Colin McRae 3 tools: https://www.rallygamer.com/downloads/cmr3/tools/tools-and-hints
+- Later EGO/PSSG context: https://ego.fandom.com/wiki/Utilities
+- 2007 Neon background: https://mcvuk.com/development-news/special-report-neon-a-codemasters-and-sonys-illuminating-next-gen-engine/
+
+## Source Intake report contract
+
+Produce `DONOR_FORMAT_MATRIX.md`, `DONOR_TOOL_AUDIT.md`, `DONOR_CORPUS_MANIFEST.json` (private path redaction for publishable reports), and `DONOR_FIRST_PILOT_DECISION.md` with machine-readable per-file scan data kept private. Required columns per exact local build:
+
+- `source_game`, `platform`, `edition_region_build`, `source_hash`, `available/missing`;
+- `container_format`, `mesh_format`, `texture_format`, `audio_format`, `texture_variants`, `vehicle_catalog_mapping`;
+- `candidate_tool`, provenance, license, executable/source-only and security checks;
+- `open/read`, `extract`, `view`, `export`, `retain_materials`, `retain_uv`, `retain_wheels`, `retain_lod`, `repeatability` with evidence status per feature;
+- `gaps`, needed native reverse engineering, estimated adaptation complexity, first compelling candidate;
+- `L0 inventory`, `L1 verified one vehicle`, `L2 preview` and *separate* owner D3D8 gameplay testing.
+
+Explicitly distinguish community claims and generic tools from successfully tested support of these particular user-owned game revisions. A successful archive unpack is not a successful 3D/UV/material conversion.
+
+## Pilot selection and limits
+
+First perform metadata/format detection for every **available** source; use targeted reference-vehicle extraction on multiple donor families as the realistic gate. Selection criterion: **verified source ownership and extraction, completeness (mesh+textures+wheels+materials), perceived value to MR, complexity**, in that order. Prioritize **Paris-Dakar** as the historical/forensic target, but use **4x4 Evo or Screamer** as an alternative first end-to-end proof if their tooling is demonstrably ready sooner. Do not decide from catalog names alone. Keep DiRT as a separate challenging asset-upgrade test; first prove original Neon geometry/material reading before authoring Classic simplification. Keep motorcycles outside the initial scope.
+
+The next milestone is a *source/tool audit plus one or more read-only extraction smoke tests*, **not** mass conversion, installation, runtime hooking, or an unbounded reverse-engineering commitment. No undocumented merge or Git push. After review select a bounded donor adapter pilot.
+
+
+---
+
+# v6.5 Addendum — Source Garage: Four Additional Game Families (2026-10-28)
+
+**Nature of change:** expansion of the *future* read-only source/tool audit only. This is NOT a change of the currently active GT Garage Lab milestone, NOT an order to import these vehicles immediately, and NOT a change to the previously selected Paris-Dakar historical research objective. The owner particularly values Michelin Rally Masters as a childhood game: move it into an **early, elevated research lane**, but not above Paris-Dakar or ahead of an already active task. Previous v6.4 plan and safety/provenance/approval constraints remain in force.
+
+## New donor candidates and owner-supplied highlights
+
+| New donor / exact version to verify | Owner-selected vehicle interests | Preliminary external tool evidence (NOT tested on owner files) | Priority within Source Garage |
+|---|---|---|---|
+| **Rally Championship Xtreme** (2001 PC; investigate relationship/build labels with *Rally Championship 2002*) | 1998 Nissan Micra Kit Car, 1997 Honda Civic | PCGamingWiki documents installed `Data/` directory and settings, but no confirmed original-car 3D importer found in this survey. These cars appear in IGCD's *Rally Championship 2002 (2001)* list; edition/alias must be verified from owner source. | Medium, early file-signature audit |
+| **Michelin Rally Masters: Race of Champions** (2000 PC; PlayStation is a separate format) | **Toyota RAV4** (owner suggests XA10, generation to be confirmed), **1997 Renault Mégane Maxi**; compare *visual style* to the MR Schlesser, never assume shared source geometry | IGCD confirms both cars. Contemporary setup discussions confirm a local `Rally/Data/RallyMasters.DTA` file; its proprietary contents and whether it carries usable vehicle meshes are **not yet proven**. No independently verified complete car extractor identified. | **Raised: early priority forensic lane immediately behind Paris-Dakar, alongside easier tool-backed probes** |
+| **Sega Rally Revo / Sega Rally (2007)** (PC prioritized; PS3/360/PSP separate) | 1986 Lancia ECV, Peugeot 206 RCC, 1988 Peugeot 405 Turbo 16 Rally Raid, MINI Cooper S, 2005 Mitsubishi Concept-X, Ford RS200E, RUF Rt 12 | ZenHAX records `sega_rally_2007.bms` for SBF, reported successful texture extraction, and **incomplete car geometry capture** in a 2016 experiment. Steam PC depots list vehicle model/texture `.sbf` resources. Extracting SBF does NOT establish complete car geometry import. | Medium-high future exceptional-cars lane |
+| **Sega Rally 2 Championship** (PC / Dreamcast / arcade formats must be separated) | Historical rally lineup; identify edition-specific standout cars during audit | `Spreit/SR2Tools` repository documents Python modding tools for Sega Rally 2. Public reversing index lists SAR extraction, texture tools and `sr2mdl`. Precise supported platform and vehicle completeness still require testing. | Medium; tool-verification pilot |
+| **V-Rally 2** (1999 PC and PlayStation first; Dreamcast independent) | 1997 Seat Ibiza Kit Car Evo 2, Alpine A110, Fiat 131 Abarth, Renault 8 Gordini, plus Rally favorites | **Strong verified community-research lead:** `VR2 Asset Explorer 0.6.11` (Aug 2026) documents PC/PSX PAK, car inventory, textures, geometry and read-only export. The author explicitly lists remaining unknowns and platform limits. | **Elevated technical quick-win candidate** |
+| **V-Rally 3** (2002 PC / console, version-qualified) | 2001 Seat Córdoba WRC and distinctive 1600/Kit Cars | IGCD identifies Córdoba and other playables. No source-qualified universal car extractor verified in this survey; do not assume V-Rally 2 PAK tool supports V-Rally 3. | Medium, independent format audit |
+
+## Cross-game identification and provenance cautions
+
+- *Rally Championship Xtreme* and *Rally Championship 2002* may denote region/build naming around the 2001 Warthog/Actualize release. Match executable/product metadata and actual vehicle folders before treating them as one proven binary format; the IGCD Honda Civic/Micra entries currently come from the *Rally Championship 2002 (2001)* listing.
+- The owner's Michelin RAV4 XA10 generation and the MR Schlesser/Mégane Maxi visual comparison are **research hypotheses**. The donor game's nameplate and in-game model/texture provenance must be recorded before claims of identity or reuse.
+- V-Rally 2 and V-Rally 3 are different source adapters until an actual matching format is demonstrated; differences among PC/PSX/Dreamcast/Xbox/PS2/GameCube builds matter.
+- For Sega Rally Revo, **SBF archive extraction/texture extraction is not full car geometry extraction**. Extract mesh+UV+materials+wheels and verify model topology before declaring it 'ready to import'. Treat Sega Rally 2 separately from Revo and Sega Rally 3.
+- An IGCD catalog entry is evidence for a *candidate game vehicle*, not proof that its unique playable model, all colorways, crew or high-res geometry exist in the owner's edition. Inventory the original user-local files.
+- Cross-game visual similarities never by themselves establish common 3D source assets. Track source game, edition, exact file hashes, model hierarchy, materials and variants.
+
+## Add directories to the private configurable source intake
+
+Under the existing `sources/` collection, include (only if the owner has those legitimate local installations):
+
+```text
+rally-championship-xtreme-pc/
+michelin-rally-masters-pc/
+sega-rally-revo-2007-pc/
+sega-rally-2-pc-or-dreamcast/
+v-rally-2-pc-or-psx/
+v-rally-3-pc-or-console/
+```
+
+No installation present => `MISSING INPUT`. No automatic downloads of copyrighted game assets or execution of untrusted third-party binaries. The initial audit can use read-only header inspection and well-reviewed open-source scripts.
+
+## Updated audit order (priority is not implementation scheduling)
+
+1. **Paris-Dakar 2001** remains first *historical* investigation because of the missing/pre-release Pajero connection. No change to GT Garage Lab in progress.
+2. **Michelin Rally Masters** moves to an **early parallel forensic slot** directly behind Paris-Dakar for its owner significance. Attempt DTA signature/TOC inventory, vehicle name mapping, textures and one Mégane Maxi/RAV4 model before proposing a decoder; unknowns remain reportable.
+3. **V-Rally 2**, **4x4 Evo 1/2**, **Screamer 4x4** are top candidates for the *first tool-backed end-to-end reconstruction* depending on actual local source and successful geometry+texture+wheel tests; do not equate emotional rank with format readiness.
+4. **Sega Rally Revo** and **Sega Rally 2** each receive an archive/file-format smoke test and separate platform-qualified mesh study. Revo's 2007 complexity does not disqualify historic unicorns, but the case must be resource-budgeted.
+5. **Rally Championship Xtreme** and **V-Rally 3** receive first-pass signatures and a tool search; escalate only with actual compatible extraction evidence. Existing Colin McRae / Dakar 2 / DiRT tracks remain preserved unchanged.
+
+Additional acceptance fields in `DONOR_FORMAT_MATRIX.md`: exact title alias, build region, platform, community-tool source/commit/hash/license, container recognition, source-to-car mapping, geometry+UV+materials+textures+wheel pivots, car color variants, preservation of game-owned resources, L0/L1/L2 evidence, no-asset-publication readiness. Add `personal_priority` separately from `technical_readiness`, never combine them into a misleading single 'compatibility' score.
+
+## Preliminary research references (verify exact releases and availability)
+
+- Michelin IGCD vehicle list (RAV4 and 1997 Mégane Maxi): https://www.igcd.net/game.php?id=10000157
+- Michelin file existence/compatibility discussion (`RallyMasters.DTA`): https://sourceforge.net/p/dxwnd/discussion/general/thread/e0af89e66d/
+- Rally Championship Xtreme PC data layout: https://www.pcgamingwiki.com/wiki/Rally_Championship_Xtreme
+- Rally Championship 2002 IGCD vehicle list: https://www.igcd.net/game.php?id=10000059
+- Sega Rally Revo IGCD: https://www.igcd.net/game.php?id=10000103
+- Sega Rally Revo SBF research / BMS: https://zenhax.com/viewtopic.php@t=1862.html
+- Sega Rally Revo Steam PC file list: https://steamdb.info/depot/4792/
+- Sega Rally 2 SR2Tools: https://github.com/Spreit/SR2Tools
+- V-Rally 2 2026 VR2 Asset Explorer reference: https://vannacut.com/2026/08/12/v-rally-2-pc-psx-reverse-engineering-pak-exporter/
+- V-Rally 2 IGCD: https://www.igcd.net/game.php?id=10000008
+- V-Rally 3 IGCD: https://www.igcd.net/game.php?id=403646
+
+**Next action:** when the main Codex finishes its active GT Garage Lab milestone, give it this *scope extension* alongside the existing v6.4 Source Garage audit instructions. Research and choose; do not automatically implement/import all candidates, expand the native roster, or distribute proprietary assets. Follow established local-commit/no-push rules.
+
+
+---
+
+# Repository implementation checkpoints retained from f2714b1
+
+The following two repository-only checkpoints are retained verbatim from the
+baseline Git blob, with its LF bytes. The complete shared history appears once
+in the attached v6.7 plan above. These checkpoints record earlier evidence and
+review gates; the current owner request authorizes the bounded Evo2 neutral-scene
+pilot. Historical task text is not independent authorization for other work.
+See [MASTER_PLAN_RECONCILIATION.md](MASTER_PLAN_RECONCILIATION.md) for exact
+attachment, shared-history and section-preservation checks. Paris-Dakar and
+Michelin personal/historical priorities remain in the retained roadmap.
+
+## Repository Source Garage audit checkpoint (historical status)
+
+# Master Plan v6.6 — Source Garage audit checkpoint
+
+28 October2026. Actual clean baseline `b9a24f7` / `research/vehicles` matches the
+attached handoff. Attached v6.6 was reconciled with the actual GT Garage and
+automatic-import results; historical plans below are preserved.
+
+Source Garage cross-game format/tool audit is delivered for review:16 actual
+source roots,38762 hashed files, five representative PC structural probes,
+historical Paris-Dakar/Michelin probes, separate DiRT2007/DiRT2 dictionaries and
+one Revo archive/texture test. See [SOURCE_GARAGE_RESULTS.md](SOURCE_GARAGE_RESULTS.md)
+and its matrix/tool/corpus/interface links for exact qualification boundaries.
+50 focused tests pass; full synthetic/CPU suite1017 tests/2 existing skips.
+
+Proposed first new adapter: Evo2 Toyota4Runner SR5 Sport Package2WD, subject to
+review. Paris-Dakar Pajero provenance and Michelin RAV4/Megane remain independent
+high-interest research tracks. No first importer has started. Universal Vehicle
+Scene is a proposal; current GT compiler/Classic gates are not universal support.
+**Stop for audit review before adapter implementation.** Existing accepted cars,
+alternative CarID29 rosters,30-entry limit and original assets remain preserved.
+
+---
+
+
+---
+
+## Repository GT Garage implementation checkpoint (historical status)
+
 ## Implementation status — GT Garage Lab, 28 October 2026
 
 Read-only corpus coverage, exact model/color joins, bounded source adapters and
@@ -1648,3 +1961,45 @@ rig/lighting and donor fitting remain explicit. No bulk installs or new native
 capacity claims. See GT_GARAGE_RESULTS.md, SYNCHRONIZATION-2026-10-28.md and the
 current regression matrix. Preserve v1 Lancer, automatic-import work and all
 accepted cars; no Blender/Fleet phase begins here.
+
+
+---
+
+## Implementation status — Evo2 source scene pilot, 28 October 2026
+
+The owner accepted Source Garage phase 1 and authorized one bounded adapter:
+4x4 Evolution 2 Toyota 4Runner SR5 Sport Package 2WD (2000), original catalog
+TRUCK/T4RSR52.TRK. The historical audit stop gate above is fulfilled for this
+pilot only; all earlier plans and repository checkpoints remain retained.
+
+Implemented: hash-qualified read-only POD2/SMF/TRK/TIFF reconstruction, minimal
+Universal Vehicle Scene v1, original body and all six L/R wheel detail variants,
+four literal source placement records, exact resource provenance and complete
+raw TIFF channel/palette preservation. Source values, derived transforms and
+preview interpretations remain distinct. Workshop Source Garage provides real
+assembled textured D3D9 inspection and six fixed views without MR authoring.
+
+40 new focused tests PASS; complete Windows synthetic/CPU suite 1057 tests,
+2 existing fixture skips. Native build, existing viewer GPU smoke and actual
+Tk Inspect/Create/Capture/Reopen PASS. Two independent 59-file scene outputs
+are byte-identical. Six original MR files plus 2426 accepted-project files
+retain exact hashes; donor POD and executable are unchanged.
+
+L0 PASS; L1 WARN; L2 WARN with neutral assembly preview inspected. Unspecified
+TIFF channels, original alpha/reflection/lighting, dynamic auxiliary passes and
+settled suspension remain unresolved. Static hub wheelbase 8.88ft differs from
+catalog 8.78ft; preserve both. No source-game renderer or MR gameplay parity is
+claimed. See EVO2_SOURCE_ADAPTER_RESULTS.md, EVO2_SOURCE_SEMANTICS.md and
+UNIVERSAL_VEHICLE_SCENE_V1.md for exact boundaries and private evidence paths.
+
+The complete v6.7 attachment is retained byte-for-byte as this plan's prefix
+and in docs/sdk/retained/. Full v6.3-v6.5 history and all repository-only blocks
+are preserved; see MASTER_PLAN_RECONCILIATION.md. Attached historical directions
+do not expand the current owner's explicit scope.
+
+Paris-Dakar Pajero provenance and Michelin RAV4/Megane remain high priorities,
+with their identity/inner-payload uncertainties unchanged. Existing accepted
+Lancer, Subaru, Pajero, Trooper/Heritage and Clio projects, isolated CarID29
+alternatives and the 30-entry limit remain preserved. No push or publication.
+**Stop for review after source scene and preview; no MR conversion, CarID,
+compiler, bulk import, Blender Bridge or additional adapter begins here.**

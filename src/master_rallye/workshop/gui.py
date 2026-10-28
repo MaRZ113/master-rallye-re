@@ -88,6 +88,7 @@ class WorkshopApp(AppearancePanels, AudioPanels, VehiclePanels, ShadowPanels, He
         self.library_tree.bind('<<TreeviewSelect>>',self._library_selected)
         ttk.Button(left,text='Remove from library',command=self.remove_library).pack(fill='x',pady=5)
         ttk.Button(left,text='GT Garage Lab',command=self.open_garage).pack(fill='x',pady=3)
+        ttk.Button(left,text='Source Garage',command=self.open_source_garage).pack(fill='x',pady=3)
         center=ttk.Frame(main,padding=9);main.add(center,weight=4)
         ttk.Label(center,textvariable=self.name,style='Header.TLabel').pack(anchor='w')
         ttk.Label(center,textvariable=self.context,wraplength=650).pack(anchor='w',pady=5)
@@ -632,10 +633,16 @@ class WorkshopApp(AppearancePanels, AudioPanels, VehiclePanels, ShadowPanels, He
         if getattr(self,'garage_window',None)and self.garage_window.window.winfo_exists():self.garage_window.window.lift();return
         self.garage_window=GarageWindow(self.root,self.sdk_root,on_open=self._opened)
 
+    def open_source_garage(self):
+        from .source_garage_ui import SourceGarageWindow
+        if getattr(self,'source_garage_window',None)and self.source_garage_window.window.winfo_exists():self.source_garage_window.window.lift();return
+        self.source_garage_window=SourceGarageWindow(self)
+
     def close(self):
         if self.busy:self.status.set('Operation still running. Close after it finishes.');return
         self.close_camera_lab_preview()
         if getattr(self,'garage_window',None)and self.garage_window.window.winfo_exists():self.garage_window.close()
+        if getattr(self,'source_garage_window',None)and self.source_garage_window.window.winfo_exists():self.source_garage_window.close()
         hwnd=self._viewer_window()
         if hwnd:
             import ctypes
@@ -649,9 +656,18 @@ def main():
     default_viewer=root_path/'.research-output/rally-workshop/bin/mr-vehicle-previewer.exe'
     manifest=root_path/'.research-output/rally-workshop/application-build.json'
     if manifest.is_file():default_viewer=Path(json.loads(manifest.read_text()).get('viewer_path',default_viewer))
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--workspace',type=Path,default=root_path/'.research-output/rally-workshop-workspace');p.add_argument('--viewer',type=Path,default=default_viewer);p.add_argument('--project',type=Path);a=p.parse_args()
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--workspace',type=Path,default=root_path/'.research-output/rally-workshop-workspace');p.add_argument('--viewer',type=Path,default=default_viewer);p.add_argument('--project',type=Path)
+    p.add_argument('--source-scene',type=Path,help='Open a validated neutral source scene in the separate Source Garage')
+    a=p.parse_args()
+    if a.project and a.source_scene:p.error('choose an MR project or a neutral source scene')
     if not a.viewer.is_file():raise RuntimeError('Build Rally Workshop first: python tools/build_rally_workshop.py')
     taskbar_identity();root=tk.Tk();app=WorkshopApp(root,a.workspace,root_path,a.viewer)
-    if a.project:app._opened(WorkshopProject(a.project))
+    if a.source_scene:
+        def open_source():
+            try:
+                app.open_source_garage();app.source_garage_window._open(a.source_scene);app.source_garage_window.preview()
+            except (ValueError,OSError,KeyError)as error:messagebox.showerror('Source Garage',str(error),parent=root)
+        root.after(250,open_source)
+    elif a.project:app._opened(WorkshopProject(a.project))
     elif app.library:root.after(250,lambda:app.library_tree.selection_set(next(iter(app.library))))
     root.mainloop()

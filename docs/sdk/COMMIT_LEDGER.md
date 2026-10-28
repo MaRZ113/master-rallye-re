@@ -1,3 +1,33 @@
+# Evo2 source scene — validated bounded pilot, 28 October 2026
+
+Parent `f2714b1d50c5af18bdc4081010317fe3e4632922` preserved. This scoped commit
+contains the implementation and this ledger; resolve its exact identity with
+`git log -1 --format=%H --fixed-strings --grep="feat(sdk): add qualified Evo2 4Runner source scene and preview"`.
+Post-commit review/archive-manifest.json records that exact revision.
+
+- Complete v6.7 attachment retained byte-for-byte, v6.3–v6.5 restored, all
+  repository-only historical blocks retained once; no silent plan truncation.
+- One original-catalog/hash-qualified POD2/SMF/TRK/TIFF adapter and minimal UVS
+  v1. Original body/UV/normals/materials, six original wheel variants, four
+  original placements, TIFF samples/palettes and exact resource provenance.
+- Actual Workshop Inspect/Create/Reopen/Capture and textured D3D9 assembled
+  source preview. Neutral source scene has no MR authoring or CarID dependency.
+- 40 focused tests PASS; complete Windows synthetic/CPU suite 1057 tests,
+  2 existing optional private-fixture skips. Native build and old/new viewer
+  GPU checks PASS. Independent 59-file scene generations byte-identical.
+- 2432 protected original/accepted-project files retain exact hashes; donor
+  POD/EXE unchanged. No accepted car, donor installation or Randomizer change.
+- Unspecified TIFF alpha, native rendering/lighting/reflection, auxiliary
+  passes, settled suspension and gameplay remain unresolved or NOT TESTED.
+- Source-only and changed-file archives include complete plans and code;
+  exclude private donor bytes/texture/model/previews. No third-party code vendored.
+- Stop before MR conversion, further adapters, roster/Blender work. Paris-Dakar
+  and Michelin priorities retained. No push, publication or unrelated merge.
+
+See [EVO2_SOURCE_ADAPTER_RESULTS.md](EVO2_SOURCE_ADAPTER_RESULTS.md).
+
+---
+
 # Source Garage — validated local research phase,28 October2026
 
 Parent `b9a24f7aadef6683a79a2d37bc03dea92a198706` preserved. This scoped commit

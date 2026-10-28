@@ -1,0 +1,3 @@
+# Preserve the retained owner attachment and its exact MASTER_PLAN prefix.
+/docs/sdk/MASTER_PLAN.md text eol=lf
+/docs/sdk/retained/master_rallye_vehicle_sdk_master_plan_v6_7.md text eol=lf
