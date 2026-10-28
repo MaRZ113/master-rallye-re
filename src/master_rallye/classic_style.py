@@ -152,6 +152,9 @@ def prepare_paint(resources,rule):
 
 def convert(resources,recipe,stock_wheel,stock_brake,material_references=None):
     """Pure deterministic stage. Input is the original qualified import only."""
+    if recipe.get('version')==2:
+        from .classic_pipeline import convert as semantic_convert
+        return semantic_convert(resources,recipe,stock_wheel,stock_brake,material_references)
     if recipe.get('version')!=1:raise ValueError('Unknown Classic recipe version')
     for name,h in recipe['source_models'].items():
         if digest(resources[name])!=h:raise ValueError('Classic requires immutable source-import baseline: '+name)

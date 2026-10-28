@@ -1,3 +1,27 @@
+# GT Garage Lab checks
+
+Private evidence root `.research-output/vehicles/gt-garage/`.
+
+| Check | Evidence | Boundary |
+|---|---|---|
+| Complete source corpus | inventory-v6.json | 574 inspected;572 structural PASS,2 empty MISSING INPUT |
+| Representative issue clusters | qualification-02.json | Clio L1 WARN/L2 CAPTURED; three CLUT cases UNSUPPORTED |
+| Exact colorway / determinism | clamp-colourway-validation.json |89 files byte-identical; silver/blue geometry unchanged |
+| Synchronized automatic importer | sync-20261028/ | Shared implementation preserved; no rollback |
+| Wheel UV prerequisite | wheel-uv-validation.json in sync evidence | Legacy no-UV image requests rejected; UV face retained |
+| Automatic native state → Classic | test_garage_auto_sync.py | Controller type and exact no-op resources preserved |
+| Actual catalog/create/color/history | windows-create-01/windows-validation.json | Windows Tk and real CLI/Core workers PASS |
+| Existing source project workflow | windows-sync-02/windows-validation.json | Reopen, original Blue, Undo/Redo/Restore PASS |
+| Classic exact report gate | windows-classic-01/validation.json | No implicit approval; independent Source Fidelity |
+| Lancer frozen Classic | regressions-02/lancer-classic10.json |81 converted resources byte-identical |
+| Isolated source roster | t/s2/candidate/validation.json; t/c2/candidate/validation.json | Subaru27/Lancer28/Clio29; launcher preflight, not gameplay |
+| Complete synthetic tests after UV fix | tests-final.txt |967 tests,2 existing optional fixture skips |
+| Owner feedback / Classic determinism | qualification-classic-03; qualified-determinism.json | Bonnet coverage, measured hubs, windscreen-only banner, two identical Core rebuilds |
+| Windows and native regressions | regressions-02 | Physics/Camera, Audio, Paint/Crew, texture, engine/multi-owner CPU; Heritage7 Validate |
+| Candidate isolation | candidate-differences.json |20 Clio-only paths differ, stock/frozen resources and save preserved |
+| New Clio gameplay | GT_GARAGE_RESULTS.md checklist | PENDING_OWNER |
+
+---
 # Vehicle Presentation checks
 
 | Check | Evidence under `.research-output/vehicles/presentation/` | Boundary |

@@ -16,6 +16,23 @@ from .dxt import parse_dxt_bytes,encode_dxt_pixels,PNG_ROWS_PRESERVE_STORED
 def sha(raw):return hashlib.sha256(raw).hexdigest()
 
 
+def optical_coordinates(component,width,height,source_resources,rule):
+    """Explicit orientation of qualified optical islands; source UVs stay intact.
+
+    An atlas can serve windows with different UV directions, so this is a
+    profile setting rather than a global image flip or an automatic guess.
+    """
+    xs=[i%width for i in component];ys=[i//width for i in component]
+    x0,x1=min(xs),max(xs);y0,y1=min(ys),max(ys)
+    axis=rule.get('optical_reference_axis','v');flip=rule.get('optical_reference_flip_v',False)
+    if axis not in ('u','v')or type(flip)is not bool:raise ValueError('Invalid qualified optical orientation')
+    for i,x,y in zip(component,xs,ys):
+        u=(x-x0)/max(1,x1-x0);v=(y-y0)/max(1,y1-y0)
+        if axis=='u':u,v=v,u
+        if flip:v=1-v
+        yield i,u,v
+
+
 def references(recipe, stock_root):
     from pathlib import Path
     result={}
@@ -145,7 +162,9 @@ def apply_materials(resources, source_resources, plan, refs, maps):
         else:
             alpha=rule['window_alpha_value']
             if type(alpha)is not int or not 1<=alpha<255:raise ValueError('Explicit glass opacity-owner byte required')
-            if set(texture.bgra[3::4])!={alpha,255}:raise ValueError('Mixed or changed glass atlas requires requalification')
+            if set(texture.bgra[3::4])!={alpha,255} and not rule.get('qualified_mixed_optical_mask'):raise ValueError('Mixed or changed glass atlas requires requalification')
+            if rule.get('qualified_mixed_optical_mask'):
+                if rule['qualified_mixed_optical_mask'] is not True or not rule.get('optical_bgra')or not isinstance(rule.get('mask_evidence'),str)or not rule['mask_evidence'].strip():raise ValueError('Mixed glass requires an exact optical mask and evidence')
             if len(rule['reference_rgb'])!=3 or any(type(v)is not int or not 0<=v<=255 for v in rule['reference_rgb']):raise ValueError('Invalid stock glass tint')
             # Only qualified optical texels; opaque border pixels stay exact.
             target_alpha=rule['reference_alpha']
@@ -177,13 +196,14 @@ def apply_materials(resources, source_resources, plan, refs, maps):
                         if y+1<texture.height:neighbours.append(i+texture.width)
                         for n in neighbours:
                             if not visited[n] and mask[n]:visited[n]=1;queue.append(n)
-                    xs=[i%texture.width for i in component];ys=[i//texture.width for i in component];x0,x1=min(xs),max(xs);y0,y1=min(ys),max(ys)
-                    for i,x,y in zip(component,xs,ys):
-                        rx=min(diffuse_ref.width-1,int((x-x0)/max(1,x1-x0)*(diffuse_ref.width-1)))
-                        ry=min(diffuse_ref.height-1,int((y-y0)/max(1,y1-y0)*(diffuse_ref.height-1)))
+                    rect=rule.get('optical_reference_rect',[0,0,diffuse_ref.width,diffuse_ref.height])
+                    if len(rect)!=4 or any(type(v)is not int for v in rect)or not 0<=rect[0]<rect[2]<=diffuse_ref.width or not 0<=rect[1]<rect[3]<=diffuse_ref.height:raise ValueError('Invalid optical reference rectangle')
+                    for i,u,v in optical_coordinates(component,texture.width,texture.height,source_resources,rule):
+                        rx=rect[0]+int(u*(rect[2]-rect[0]-1))
+                        ry=rect[1]+int(v*(rect[3]-rect[1]-1))
                         j=(ry*diffuse_ref.width+rx)*4;pixels[i*4:i*4+4]=diffuse_ref.bgra[j:j+4]
                 boundary='Source-qualified optical alpha regions sampled from original stock windscreen texture, with original UVs and opaque labels/frames retained. Native zones unchanged; no new Lancer broken controllers.'
-            if rule.get('optical_sampling')!='stock_connected_regions':boundary='Only source-qualified uniform optical texels replaced by explicit stock glass RGB/alpha; other pixels and existing native zones remain exact. Lancer has no qualified broken-glass controllers.'
+            if rule.get('optical_sampling')!='stock_connected_regions':boundary='Only source-qualified uniform optical texels replaced by explicit stock glass RGB/alpha; other pixels and existing native zones remain exact. No new broken-glass controllers are created.'
             if rule.get('preserve_overlay_colour'):boundary+=' Mixed front banner retains source vertex RGB and non-environment pass; no independent reflection mask is claimed.'
         # Author buffer is stored/native BGRA; the shared encoder accepts RGBA.
         # Keep orientation explicit and verify every output native texel.

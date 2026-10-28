@@ -47,6 +47,21 @@ def draws(alphas):
 
 
 class MaterialPipelineTests(unittest.TestCase):
+    def test_paint_partitions_compose_with_clamp_refinement_and_wheel_policy(self):
+        from master_rallye.source_scene_compile import compile_draws
+        base,env=draws([65]*16);base['packet']=0
+        base['texture']['registers'].update(wrap_s=1,wrap_t=1)
+        for d in env:d['packet']=0;d['source_shape']=8
+        policy={'paint_surfaces':[{'shape':7,'packets':[0],'role':'synthetic paint'}],'clip_clamp_geometry':True,'qualified_environment':True}
+        environment=struct.pack('<5I',0xfeed,1,0,1,1)+b'\x80\x80\x80\xff'
+        with tempfile.TemporaryDirectory()as t:
+            parts,audit=compile_draws([base,*env],Path(t),environment_reference=environment,material_policy=policy)
+            self.assertTrue(parts)
+            self.assertTrue(any('partition_uv_ownership'in(a.get('clamp_geometry')or{})for a in audit))
+            wheel=copy.deepcopy(base);wheel['component']='wheel'
+            parts,audit=compile_draws([wheel],Path(t),environment_reference=environment,material_policy=policy)
+            self.assertTrue(parts)
+
     def test_material_policy_rejects_ambiguous_configuration(self):
         import sys
         sys.path.insert(0,str(Path(__file__).resolve().parents[2]/'tools'))

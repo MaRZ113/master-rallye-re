@@ -8,9 +8,13 @@ import argparse,json,subprocess,sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 COMMANDS={
+    'gt-garage':('gt_garage.py',),
+    'gt-source-project':('gt_source_project.py',),
     'stock-project':('stock_vehicle_project.py',),
     'create':('mrtool.py','addon','init'),
     'import-gt4':('build_gt4_vehicle.py',),
+    'import-gt3':('build_gt3_vehicle.py',),
+    'auto-import-gt3':('gt_auto_import.py',),
     'author-gt4':('prepare_gt4_addon.py',),
     'validate':('mrtool.py','addon','project-validate'),
     'build-project':('mrtool.py','addon','project-build'),

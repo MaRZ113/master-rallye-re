@@ -35,7 +35,7 @@ def read(path,limit=64*1024*1024,*,allow_empty=False):
     return raw
 
 
-def edition(root, *, family=None):
+def edition(root, *, family=None, allow_unqualified=False):
     root=_absolute_without_links(Path(root),'edition root');raw=read(root/'MRallye.exe',16*1024*1024);digest=sha(raw)
     identity={'edition':EDITIONS.get(digest,'UNQUALIFIED_EXECUTABLE'),'exe_sha256':digest,'exe_bytes':len(raw),'root':str(root),'executable_qualified':digest in EDITIONS,'identity_evidence':('Owner confirmed original corpora EXE on 2026-10-27' if digest in ('2d4a3b02d3cdb740dfdf3c11002c0026837dc19ba8e5211ad9763b35eb06e15a','611526d30be94879012efe54c56ceff428cb4d20a4bd49173370a4ebfe31a728') else 'Historical exact-build fingerprint; original EXE never executed by this adapter')}
     if family is not None and digest not in EDITIONS:
@@ -45,16 +45,66 @@ def edition(root, *, family=None):
         for fixture in fixtures['families']:
             folder=root/'DataGx/Vehicles'/family
             if fixture['family'].casefold()==family.casefold() and all(sha(read(folder/name))==value for name,value in fixture['files'].items()):matches.append(fixture)
-        if len(matches)!=1:raise ValueError('Unqualified source edition/assets; original source fingerprint required')
+        if len(matches)!=1:
+            # Modified/unknown executables are common in the owner's corpora.
+            # The EXE is never executed; assets are still parsed and validated.
+            if not allow_unqualified:raise ValueError('Unqualified source edition/assets; original source fingerprint required')
+            identity.update(edition='unqualified-edition',warning='EXE/assets not fingerprinted; imported by explicit opt-in. Model/texture parsing and conservation checks still apply.')
+            return identity
         identity.update(edition=matches[0]['edition'],asset_qualification=matches[0],warning='EXE differs from original; never executed. Model/source bytes independently match historical shipped source fingerprints. Texture files recorded locally; not authenticated by EXE hash.')
     return identity
+
+
+def repair_global_indices(raw):
+    """Rewrite the stored global index table from the local draw indices.
+
+    Some shipped/re-baked Demo models carry a stale global table (one moved
+    triangle, or a different order). The renderer draws the local indices;
+    the global table is rebuilt from them, vertices/attributes untouched.
+    """
+    m=parse_dx_bytes(raw);t=m.global_index_table
+    if t is None or t.count!=len(m.local_indices):raise ValueError('global index table cannot be rebuilt')
+    expected=[0]*t.count
+    for d in m.physical_draws:expected[d.index_start:d.index_start+d.index_count]=m.draw_global_indices(d)
+    changed=sum(a!=b for a,b in zip(expected,t.indices))
+    data=bytearray(raw);struct.pack_into(f'<{t.count}I',data,t.data_offset,*expected)
+    return bytes(data),changed
+
+
+def normalize_false_blend(raw,textures,*,opaque_alpha=250,tolerance=.01):
+    """Opaque-textured draws flagged alpha-blend become ordinary opaque draws.
+
+    Some Demo bakes (841 WildCat body) set the blend flag on body materials
+    whose diffuse alpha is fully opaque; MR then sorts them as transparency
+    without depth writes and the body shows through. Only the blend byte is
+    changed, and only when <= `tolerance` of texels are below `opaque_alpha`.
+    Glass/lamps with real alpha are untouched.
+    """
+    m=parse_dx_bytes(raw);data=bytearray(raw);changed=[]
+    for d in m.physical_draws:
+        if d.tag!=2 or not d.flags_0x20[0] or d.flags_0x20[1]:continue
+        stem=d.texture_tuple[0].casefold();blob=textures.get(stem+'.dxt')
+        if blob is None or stem=='null':continue
+        alpha=parse_dxt_bytes(blob).bgra[3::4]
+        if sum(a<opaque_alpha for a in alpha)>tolerance*len(alpha):continue
+        data[d.core_offset+0x20]=0;changed.append({'draw':d.draw_index,'texture':d.texture_tuple[0],'triangles':d.triangle_count})
+    if changed and not parse_dx_bytes(bytes(data)).diagnostics.validated:raise ValueError('false-blend normalization broke the model')
+    return bytes(data),changed
 
 
 def compatible_model(raw,name):
     if len(raw)<8:raise ValueError('Truncated DX')
     revision=struct.unpack_from('<I',raw,4)[0]
     if revision==131:return upgrade_dx_131_to_135_with_report(raw,name)
-    if revision==135:return raw,{'status':'EXISTING_REV135_PASSTHROUGH','source_sha256':sha(raw),'output_sha256':sha(raw),'validation':validate_existing_rev135(raw,name)}
+    if revision==135:
+        try:
+            if not parse_dx_bytes(raw).diagnostics.validated:raise ValueError('stored global index table differs')
+            return raw,{'status':'EXISTING_REV135_PASSTHROUGH','source_sha256':sha(raw),'output_sha256':sha(raw),'validation':validate_existing_rev135(raw,name)}
+        except (ValueError,MasterRallyeError) as exc:
+            repaired,changed=repair_global_indices(raw)
+            if not parse_dx_bytes(repaired).diagnostics.validated:raise
+            return repaired,{'status':'REV135_GLOBAL_INDEX_TABLE_REBUILT','source_sha256':sha(raw),'output_sha256':sha(repaired),'changed_global_positions':changed,'reason':str(exc),
+                'validation':validate_existing_rev135(repaired,name),'boundary':'Global table rebuilt from local draw indices; positions/normals/UV/colours/local indices/collision unchanged.'}
     raise ValueError(f'Unsupported vehicle DX revision {revision}; no guessed conversion')
 
 
@@ -91,7 +141,15 @@ def inspect_family(folder):
         elif gxi:
             raw=encode_gxi_as_observed_dxt(parse_gxi_bytes(read(gxi['path'])));t=parse_dxt_bytes(raw)
             textures[stem]={'source':gxi,'dimensions':[t.width,t.height],'policy':'OBSERVED_GXI_TO_DXT','output_sha256':sha(raw)}
-        else:problems.append('Missing exact local texture '+stem)
+        else:
+            # Shipped Demo families sometimes reference a texture that only a
+            # sibling family carries. Borrow an exact sibling file, else a
+            # neutral placeholder; both are recorded instead of failing.
+            sibling=next((f for f in sorted(folder.parent.glob('*/'+name+'.dxt'))+sorted(folder.parent.glob('*/'+name+'.gxi'))if f.is_file()),None)
+            if sibling is not None:
+                raw=read(sibling);t=parse_dxt_bytes(raw)if sibling.suffix.casefold()=='.dxt'else parse_dxt_bytes(encode_gxi_as_observed_dxt(parse_gxi_bytes(raw)))
+                textures[stem]={'source':{'path':str(sibling),'bytes':len(raw),'sha256':sha(raw)},'dimensions':[t.width,t.height],'policy':'SIBLING_FAMILY_DXT'if sibling.suffix.casefold()=='.dxt'else'SIBLING_FAMILY_GXI','warning':'Texture borrowed from sibling family '+sibling.parent.name}
+            else:textures[stem]={'source':None,'dimensions':[4,4],'policy':'NEUTRAL_PLACEHOLDER','warning':'Missing texture replaced by neutral grey placeholder'}
     return {'family':folder.name,'folder':str(folder),'source_mesh_names':meshes,'files':files,'models':models,'textures':textures,'problems':problems,'qualified_for_staging':not problems and set(models)==set(ROLES),'features':{'crew':'Inspect source sidecars and crew material/geometry; no automatic character inference','glass':[g for m in models.values()for g in m['groups']if g.startswith('screen')],'brake_switch':any('blight'in m['groups']for m in models.values()),'audio':'Executable per-CarID association not inferred from folder name','physics':'Named XML references inventoried separately; not silently copied from Demo'}}
 
 
@@ -100,7 +158,13 @@ def inventory(root,*,retail=False):
     identity={'edition':'retail-unpacked','root':str(root),'exe_sha256':None}if retail else edition(root)
     vehicles=root/'DataGx/Vehicles'
     if not vehicles.is_dir():raise ValueError('Expected user-local DataGx/Vehicles')
-    identity['vehicles']=[inspect_family(f)for f in sorted(vehicles.iterdir())if f.is_dir()]
+    # Nested collections (e.g. DataGx/Vehicles/841/<family>) are inspected too.
+    folders=[]
+    for f in sorted(vehicles.iterdir()):
+        if not f.is_dir():continue
+        nested=[g for g in sorted(f.iterdir())if g.is_dir()and (g/'car.dx').is_file()]
+        folders+=nested if nested and not (f/'car.dx').is_file()else [f]
+    identity['vehicles']=[{**inspect_family(f),'collection':f.parent.name if f.parent!=vehicles else None}for f in folders]
     extras={}
     for area,pattern in [('DataGame','*.xml'),('DataGx/Frontend','*'),('DataScene/FrontendScreens','VehicleSelect*'),('DataAudio/Vehicles','*')]:
         base=root/area
@@ -149,16 +213,30 @@ def _stage_resources(report,baseline,converted):
     for role in ROLES:
         raw,detail=compatible_model((baseline/role).read_bytes(),str(Path(report['folder'])/role));(converted/role).write_bytes(raw);conversions[role]=detail
     for stem,item in report['textures'].items():
-        raw=(baseline/Path(item['source']['path']).name.casefold()).read_bytes()
-        if item['policy']=='OBSERVED_GXI_TO_DXT':raw=encode_gxi_as_observed_dxt(parse_gxi_bytes(raw))
+        if item['policy']=='NEUTRAL_PLACEHOLDER':
+            import zlib
+            px=bytes([128,128,128,255])*16;raw=struct.pack('<5I',0xfeed,1,zlib.crc32(px)&0xffffffff,4,4)+px
+        elif item['policy'].startswith('SIBLING_FAMILY'):
+            raw=read(item['source']['path'])
+            if sha(raw)!=item['source']['sha256']:raise ValueError('Heritage sibling texture changed: '+stem)
+            if item['policy']=='SIBLING_FAMILY_GXI':raw=encode_gxi_as_observed_dxt(parse_gxi_bytes(raw))
+        else:
+            raw=(baseline/Path(item['source']['path']).name.casefold()).read_bytes()
+            if item['policy']=='OBSERVED_GXI_TO_DXT':raw=encode_gxi_as_observed_dxt(parse_gxi_bytes(raw))
         (converted/(stem+'.dxt')).write_bytes(raw)
+    textures={f.name.casefold():f.read_bytes()for f in converted.glob('*.dxt')}
+    for role in ROLES:
+        fixed,changed=normalize_false_blend((converted/role).read_bytes(),textures)
+        if changed:
+            (converted/role).write_bytes(fixed)
+            conversions[role]={**conversions[role],'false_blend_normalized':changed,'output_sha256':sha(fixed)}
     return pins,conversions
 
 
-def stage_family(root,family,output):
-    identity=edition(root,family=family)
+def stage_family(root,family,output,*,family_folder=None):
+    identity=edition(root,family=family,allow_unqualified=True)
     if not isinstance(family,str)or not re.fullmatch('[A-Za-z][A-Za-z0-9_]{0,39}',family):raise ValueError('Unsafe native family')
-    report=inspect_family(Path(root)/'DataGx/Vehicles'/family)
+    report=inspect_family(Path(family_folder)if family_folder else Path(root)/'DataGx/Vehicles'/family)
     if not report['qualified_for_staging']:raise ValueError('Unqualified source family: '+str(report['problems']))
     output=_absolute_without_links(Path(output),'Heritage preview')
     if output.exists():raise ValueError('Heritage preview output exists')
@@ -167,17 +245,34 @@ def stage_family(root,family,output):
     (output/'native-source.json').write_bytes(canonical_json(result));return result
 
 
-def create_author(root,family,output,*,name,runtime_family,physics_donor,stock_audio_profile_id,vehicle_class='T2',retail_sma=None):
+def retail_physics_family(family,retail_sma):
+    """Exact case-insensitive retail vehicles.xml family for a Demo family."""
+    from .project import read_sma_member
+    text=read_sma_member(Path(retail_sma),'DataGame/vehicles.xml').decode('utf-8-sig','replace')
+    names={n.casefold():n for n in re.findall(r'Name="Vehicles/([A-Za-z][A-Za-z0-9_]{0,39})/',text)}
+    match=names.get(family.casefold())
+    if match is None:raise ValueError(f'No retail physics family named {family}; pass an explicit physics donor')
+    return match
+
+
+def create_author(root,family,output,*,name,runtime_family,physics_donor,stock_audio_profile_id,vehicle_class='T2',retail_sma=None,features='auto',allow_unqualified_edition=True,family_folder=None):
     """Immutable edition snapshot + compatible native source + normal SDK project.
 
     Class/audio/donor are EXPLICIT inputs. No source slot or audio association is
     invented. This does not change any installed/previously reserved roster.
+    `features='auto'` (standard) derives brake glow + breakable glass from the
+    original sidecars; `None` keeps the plain native import (full/manual mode).
+    `family_folder` admits nested layouts (e.g. DataGx/Vehicles/841/Forester);
+    `physics_donor='auto'` uses the same-named retail physics family.
     """
-    identity=edition(root,family=family)
+    if physics_donor=='auto':
+        if retail_sma is None:raise ValueError('Automatic physics donor needs the retail Data.sma')
+        physics_donor=retail_physics_family(family,retail_sma)
+    identity=edition(root,family=family,allow_unqualified=allow_unqualified_edition)
     for value in (family,physics_donor):
         if not isinstance(value,str)or not re.fullmatch('[A-Za-z][A-Za-z0-9_]{0,39}',value):raise ValueError('Unsafe native family')
     if type(stock_audio_profile_id)is not int or not 0<=stock_audio_profile_id<=24:raise ValueError('Explicit tuned retail audio profile0..24 required')
-    source=Path(root)/'DataGx/Vehicles'/family;report=inspect_family(source)
+    source=Path(family_folder)if family_folder else Path(root)/'DataGx/Vehicles'/family;report=inspect_family(source)
     if not report['qualified_for_staging']:raise ValueError('Unqualified native source: '+str(report['problems']))
     physics=None
     if retail_sma is not None:
@@ -185,6 +280,17 @@ def create_author(root,family,output,*,name,runtime_family,physics_donor,stock_a
         from .physics_profile import MEMBERS,compile_family,validate_player_defaults
         members={n:read_sma_member(Path(retail_sma),n)for n in MEMBERS}
         physics={'profile_version':1,'donor_family':physics_donor,'runtime_family':runtime_family,'source_sha256':{n:sha(b)for n,b in members.items()},'overrides':{},'notes':'Exact independent retail '+physics_donor+' donor defaults; no Demo tuning inference or visual fitment offsets.'}
+        # Some retail families reference development tyre tables that do not
+        # exist (Megane: FrontTest/RearTest). Use the shipped harddirt table,
+        # as the sibling Megane2 does, and record the substitution.
+        import xml.etree.ElementTree as ET
+        tree=ET.fromstring(members[MEMBERS[0]]);prefixes={n.get('Name','').split('/')[2].rstrip('0123456789')for n in tree.iter('Value')if n.get('Name','').startswith('Vehicles/Tyres/')}
+        fixes={}
+        for axle in ('Front','Rear'):
+            row=next((n for n in tree.iter('Value')if n.get('Name','').casefold()==f'vehicles/{physics_donor}/suspension/{axle}/tyretype'.casefold()),None)
+            if row is not None and row.get('Value')not in prefixes:fixes[f'Suspension/{axle}/TyreType']='harddirt'
+        if fixes:
+            physics['overrides']={MEMBERS[0]:fixes};physics['notes']+=' Unresolved retail tyre tables '+', '.join(sorted(fixes))+' substituted with harddirt.'
         compiled={n:compile_family(b,physics,donor_family=physics_donor,runtime_family=runtime_family,source_label=n)[0]for n,b in members.items()}
         validate_player_defaults(compiled[MEMBERS[0]],compiled[MEMBERS[1]],runtime_family)
     output=_absolute_without_links(Path(output),'Heritage project')
@@ -216,6 +322,11 @@ def create_author(root,family,output,*,name,runtime_family,physics_donor,stock_a
         'Use editable physics-profile.json and reversible Workshop overlays. Audio is an explicit retail donor fallback.\n'
         'Native feature recipes, intact attribute conservation and source hashes are recorded separately.\n'
         'See docs/sdk/help/en/heritage.md for reproduction and owner gameplay checks.\n',encoding='utf-8')
+    if features=='auto':
+        provenance['auto_features']=auto_features(output,source,retail_sma=retail_sma)
+        stored=json.loads((output/'heritage-import.json').read_text());stored['auto_features_report']={k:v for k,v in provenance['auto_features'].items()if k!='audit'}
+        (output/'heritage-import.json').write_bytes(canonical_json(stored))
+    elif features is not None:raise ValueError("features must be 'auto' or None")
     return provenance
 
 
@@ -236,6 +347,59 @@ def verify_author(root):
         if sha(read(root/'assets/source'/donor/name))!=digest:raise ValueError('Immutable compatible Heritage baseline changed: '+name)
     if 'native_features'in report and sha(read(root/'native-feature-profile.json'))!=report['native_features']['profile_sha256']:raise ValueError('Native feature recipe changed; rebuild from the immutable source')
     return {'status':'PASS_IMMUTABLE_HERITAGE_SOURCE','edition':report['source']['edition'],'family':report['family'],'files':len(report['immutable_source_sha256'])}
+
+
+def _cracked_texture(source,retail_sma=None,explicit=None):
+    """Stock cracked windscreen: explicit file, retail Navara, family copy, procedural."""
+    candidates=[Path(explicit)]if explicit else []
+    if retail_sma is not None:
+        base=Path(retail_sma).parent
+        candidates+=[base/'Data.sma_unpacked/DataGx/Vehicles/Navara/windscreenc32-tga.dxt',base/'DataGx/Vehicles/Navara/windscreenc32-tga.dxt']
+    candidates+=sorted(Path(source).glob('windscreenc*-tga.dxt'))
+    for path in candidates:
+        if path.is_file():
+            raw=read(path);parse_dxt_bytes(raw);return raw,str(path)
+    from .auto_features import procedural_cracks
+    return procedural_cracks(),'procedural fallback (no stock cracked texture found)'
+
+
+def auto_features(root,source_family,*,retail_sma=None,cracked_texture=None,glass=True,brake=True):
+    """Standard Heritage mode: derive and apply brake glow + breakable glass.
+
+    Mesh evidence comes from the original car.txt/car.gxm sidecars; the
+    resulting recipe is written next to the project and applied through the
+    same conserving `apply_features` path as a hand-written recipe.
+    """
+    from .auto_features import derive
+    root=Path(root);source_family=Path(source_family);report=json.loads(read(root/'heritage-import.json'))
+    target=root/'assets/source'/report['physics_donor'];raw=(target/'car.dx').read_bytes()
+    textures={f.name.casefold():f.read_bytes()for f in target.iterdir()if f.suffix.casefold()=='.dxt'}
+    gxm=source_family/'car.gxm';text=None;sidecar=None
+    if gxm.is_file():
+        # car.txt, else any sidecar (e.g. Trooper.txt) whose mesh span equals
+        # the car.gxm record count; wheel/frontend/complete sidecars differ.
+        from .auto_features import sidecar_meshes,gxm_triangles
+        records=len(gxm_triangles(read(gxm)))
+        for path in [source_family/'car.txt']+sorted(p for p in source_family.glob('*.txt')if p.name.casefold()!='car.txt'):
+            if not path.is_file():continue
+            candidate=read(path,allow_empty=True).decode('utf-8','replace');meshes=sidecar_meshes(candidate)
+            if meshes and max(i+n for _,_,i,n in meshes)==records:text,sidecar=candidate,path.name;break
+    states,extra,detail=derive(raw,textures,sidecar_text=text,gxm_raw=read(gxm)if text else None,glass=glass,brake=brake)
+    detail['sidecar']=sidecar
+    if not states.get('panes')and not states.get('brake'):return {'status':'NO_FEATURES_FOUND',**detail}
+    folder=root/'native-features';folder.mkdir(exist_ok=True);files={}
+    if states.get('panes'):
+        crack,origin=_cracked_texture(source_family,retail_sma,cracked_texture);extra['mr-auto-cracked-tga.dxt']=crack;detail['cracked_texture']=origin
+    for name,data in extra.items():(folder/name).write_bytes(data);files[name]={'path':str(folder/name),'sha256':sha(data)}
+    profile={'version':1,'additional_textures':files,'states':states,
+        'evidence':'Automatic native MR feature recipe (auto_features). '+'; '.join(f"{e['kind']}: {e['source']}" for e in detail['evidence'])+'. Intact geometry/material/collision conservation is verified by author_states.'}
+    path=root/'native-feature-auto.json';path.write_bytes(canonical_json(profile))
+    try:result=apply_features(root,path)
+    except ValueError as exc:
+        # A source outside the repackable material grammar keeps its original
+        # intact model; the project remains valid without automatic features.
+        return {'status':'AUTO_FEATURES_SKIPPED','reason':str(exc),**detail}
+    return {'status':'PASS_AUTO_FEATURES',**detail,'audit':result}
 
 
 def apply_features(root,profile_path):

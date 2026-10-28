@@ -112,6 +112,18 @@ class FidelityTests(unittest.TestCase):
         self.assertEqual(t.bgra[4:12],res['base.dxt'][24:32])
         self.assertEqual(m.vertices.colors,parse_dx_bytes(res['car.dx']).vertices.colors)
 
+    def test_glass_reference_orientation_and_side_crop_are_explicit(self):
+        from master_rallye.classic_materials import optical_coordinates
+        res,refs,plan=self.rules('glass');rule=plan['glass']
+        rule.update(optical_reference_axis='u',optical_reference_flip_v=True)
+        coordinates=list(optical_coordinates([0,1,2,3],2,2,res,rule))
+        self.assertEqual([v for i,u,v in coordinates],[1.,0.,1.,0.])
+        rule.update(optical_reference_axis='v',optical_reference_flip_v=False,optical_sampling='stock_connected_regions',optical_reference_rect=[0,0,2,1],preserve_overlay_colour=True)
+        out,_=apply_materials(res,res,plan,refs,{})
+        self.assertEqual(parse_dx_bytes(res['car.dx']).vertices,parse_dx_bytes(out['car.dx']).vertices)
+        rule['optical_reference_rect']=[0,0,3,1]
+        with self.assertRaisesRegex(ValueError,'reference rectangle'):apply_materials(res,res,plan,refs,{})
+
     def test_semantic_roles_reset_and_changed_or_mixed_sources_refuse(self):
         res,refs,plan=self.rules('glass');plan['glass']['enabled']=False
         self.assertEqual(apply_materials(res,res,plan,refs,{})[0],res)
@@ -121,6 +133,18 @@ class FidelityTests(unittest.TestCase):
         with self.assertRaises(ValueError):apply_materials(res,res,plan,refs,{})
         plan['glass']['window_alpha_value']=209;plan['glass']['reference_alpha']=64
         with self.assertRaises(ValueError):apply_materials(res,res,plan,refs,{})
+
+    def test_qualified_mixed_optical_mask_preserves_every_unselected_texel(self):
+        res,refs,plan=self.rules('glass')
+        res['base.dxt']=texture([(12,20,25,209),(4,4,0,245),(126,126,126,253),(8,8,8,0)])
+        rule=plan['glass'];rule['source_sha256']=sha(res['base.dxt'])
+        with self.assertRaisesRegex(ValueError,'requalification'):apply_materials(res,res,plan,refs,{})
+        rule.update(qualified_mixed_optical_mask=True,optical_bgra=[12,20,25,209],mask_evidence='Synthetic exact palette record and selected draw proof')
+        out,_=apply_materials(res,res,plan,refs,{})
+        m=parse_dx_bytes(out['car.dx']);t=parse_dxt_bytes(out[m.physical_draws[0].texture_tuple[0]+'.dxt'])
+        self.assertEqual(t.bgra[:4],bytes([63]*4));self.assertEqual(t.bgra[4:],res['base.dxt'][24:])
+        rule.pop('mask_evidence')
+        with self.assertRaisesRegex(ValueError,'evidence'):apply_materials(res,res,plan,refs,{})
 
     def test_stock_material_reference_path_and_hash_guard(self):
         with tempfile.TemporaryDirectory()as td:

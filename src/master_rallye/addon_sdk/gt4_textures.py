@@ -36,7 +36,7 @@ def address_indexed(bp,bw,x,y,bits):
 
 
 class TextureSet:
-    def __init__(self,data,offset):
+    def __init__(self,data,offset,*,clut_variation=None):
         r=Reader(data);self.source_offset=offset
         if r.get('4s',offset)[0]!=b'Tex1':raise ValueError('expected Tex1')
         size=r.get('I',offset+12)[0]
@@ -50,7 +50,17 @@ class TextureSet:
         self.data=r.get(f'{size}s',offset)[0];r=Reader(self.data)
         n,nt,map_at,transfers_at,patches_at=r.get('HHIII',20)
         if n>4096 or nt>4096:raise ValueError('Tex1 table budget')
-        if patches_at and r.get('I',patches_at)[0]:raise ValueError('Tex1 CLUT variation patches not yet admitted')
+        patches=[]
+        if patches_at and r.get('I',patches_at)[0]:
+            # GT3 ModelSet1 explicitly selects a source CLUT set. Existing GT4
+            # callers retain their conservative rejection unless opting in.
+            count=r.get('I',patches_at)[0]
+            if clut_variation is None:raise ValueError('Tex1 CLUT variation requires explicit selection')
+            if type(clut_variation)is not int or not 0<=clut_variation<count<=256:raise ValueError('Tex1 CLUT variation bounds')
+            at=r.get('I',patches_at+4+4*clut_variation)[0];np=r.get('I',at)[0]
+            if np>1024:raise ValueError('Tex1 CLUT patch budget')
+            patches=list(r.get('I'*np,at+4))
+        elif clut_variation not in (None,0):raise ValueError('Tex1 has no requested colourway')
         self.registers=[];self.transfers=[];self.memory=bytearray(4*1024*1024);self.written=bytearray(len(self.memory));self.cache={}
         for i in range(n):
             tex0,tex1,mip1,mip2,clamp=r.get('5Q',map_at+40*i)
@@ -61,6 +71,13 @@ class TextureSet:
                 'cpsm':tex0>>51&15,'csm':tex0>>55&1,'csa':tex0>>56&31,
                 'wrap_s':clamp&3,'wrap_t':clamp>>2&3,'min_u':clamp>>4&1023,
                 'max_u':clamp>>14&1023,'min_v':clamp>>24&1023,'max_v':clamp>>34&1023})
+        seen=set()
+        for word in patches:
+            index=word>>23
+            if index>=n or index in seen:raise ValueError('Tex1 CLUT duplicate/outside texture')
+            seen.add(index);t=self.registers[index]
+            t.update(csa=word&31,cbp=word>>5&16383,cpsm=word>>19&15)
+            t['tex0']=(t['tex0']&~((16383<<37)|(15<<51)|(31<<56)))|(t['cbp']<<37)|(t['cpsm']<<51)|(t['csa']<<56)
         for i in range(nt):
             off,bp,bw,fmt,w,h=r.get('IHBBHH',transfers_at+12*i)
             if fmt not in (0,1):raise ValueError(f'unsupported GS transfer PSM {fmt}')

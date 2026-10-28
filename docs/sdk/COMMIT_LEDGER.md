@@ -1,3 +1,31 @@
+# GT Garage Lab — validated integrated phase, 28 October2026
+
+Parent `9416ddbc976da283964ab0ea621884b1789e0fe4` preserved. The phase combines
+the existing uncommitted Garage work and independently authored automatic GT3/
+Heritage importer, following an explicit synchronization audit rather than
+reconstructing fictional historical commits. Local commit identity is recorded
+in the subsequent ledger checkpoint and review metadata; no remote publication.
+
+- Complete bounded GT3 inventory:574 members,572 structural PASS,2 empty inputs;
+  exact catalog and original color joins, shared automatic profile creation.
+- Independent source colors/history; semantic Classic v2 and original v1 output
+  preserved. Approved UV prerequisite enforced on legacy profiles as well.
+- Owner feedback: measured Clio presentation hubs, source-qualified bonnet
+  paint/Clamp partition composition, explicit windscreen orientation and
+  banner-free side/rear glass. No physics or native camera changes.
+- Owner explicitly approved exact Classic report c38d712cef80cfc5a43b30f187afe0152478d1dac7617e87a5501e3e85ffcf61.
+  Two isolated candidates pass package/launcher preflights; only20 Clio paths
+  differ. Current root save copied unchanged; original EXE/DLL/Data.sma exact.
+- 967 complete Windows synthetic/CPU tests,2 pre-existing optional fixture skips;
+  actual GT Garage create/color/history, Classic, Physics/Camera, Audio,
+  Paint/Crew and texture-window regressions PASS. Native engine/multi-owner
+  replay and all seven Demo841 project validations PASS. Lancer81 resources
+  reproduce byte-for-byte. No D3D8 gameplay claim.
+- Source-only review/full changed-files archives exclude private inputs,
+  generated models/textures/audio, native dumps and runtime trees. No initializer
+  shims replace Workshop packages. No push, Blender/Fleet or slot expansion.
+
+---
 # Vehicle Presentation Polish — validated local phase
 
 27 October2026. Parent `fc3c97d` preserved. Implementation commit: `5d389f1e1ae997c9a0a18926efb67b6c7bfb0a79`.

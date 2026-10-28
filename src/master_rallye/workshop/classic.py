@@ -76,7 +76,9 @@ def rebuild_classic(parent,recipe_path,stock_root,output,*,material_roles=None,p
     recipe=json.loads(Path(recipe_path).read_text(encoding='utf-8'));stock_root=plain_tree(stock_root).resolve()
     if paint_mode is not None:
         if paint_mode not in ('preserve_source','regenerate_fields'):raise ValueError('Unknown Classic paint mode')
-        recipe['paint']['mode']=paint_mode
+        if recipe.get('version')==2:
+            if paint_mode!='preserve_source':raise ValueError('Semantic recipe preserves its source colorway; use a separate qualified Paint layer')
+        else:recipe['paint']['mode']=paint_mode
     import re
     for key in ('stock_wheel_family','stock_brake_family'):
         if not isinstance(recipe[key],str)or not re.fullmatch('[A-Za-z][A-Za-z0-9_-]{0,63}',recipe[key]):raise ValueError('Reference family must be a local MR family name')
@@ -124,7 +126,7 @@ def rebuild_classic(parent,recipe_path,stock_root,output,*,material_roles=None,p
     for n,v in converted.items():
         if n.endswith('.dxt'):(source/n).write_bytes(v)
     spec=copy.deepcopy(original_spec);spec['source_vehicle_dir']=str(source);spec['texture_edits']={};spec['texture_replacements']={}
-    spec['resources']={n:{'source_sha256':digest((source/n).read_bytes()),'native_brake_scene_candidate'if n=='car.dx'else'scene_candidate':str(generated/n)}for n in('car.dx','complete.dx','wheel.dx')}
+    spec['resources']={n:{'source_sha256':digest((source/n).read_bytes()),next((k for k in ('native_brake_scene_candidate','native_state_scene_candidate')if n=='car.dx'and k in original_spec['resources'].get(n,{})),'scene_candidate'):str(generated/n)}for n in('car.dx','complete.dx','wheel.dx')}
     write_json(author/'vehicle-project.json',spec)
     if (origin.root/'original-mechanical.json').exists():
         from ..addon_sdk.mechanical_attachments import build_mechanical_resources

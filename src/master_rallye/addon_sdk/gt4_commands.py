@@ -65,7 +65,7 @@ def command_graph(data,start,end,*,budget=8192):
             'policy':'control-flow graph only; callbacks, VM and matrix effects retain original operands'}
 
 
-def binding_trace(graph,*,lod=0,callbacks=None):
+def binding_trace(graph,*,lod=0,callbacks=None,extra_state_opcodes=()):
     """Trace one explicit path and retain per-draw state and transform commands.
 
     Unknown callbacks stop the trace instead of choosing a visually convenient
@@ -86,7 +86,7 @@ def binding_trace(graph,*,lod=0,callbacks=None):
             if not matrix_stack:raise ValueError('matrix stack underflow')
             transforms=matrix_stack.pop()
         elif op in range(14,23) or op in (67,72,76,84,85,89,90):transforms.append(n)
-        elif op in range(23,40) or op in (41,42,45,46,47,78,79,82,83,86,87,88):state.append(n)
+        elif op in range(23,40) or op in (41,42,45,46,47,78,79,82,83,86,87,88) or op in extra_state_opcodes:state.append(n)
         if op==7:
             if not 0<=lod<len(n['branch_targets']):raise ValueError('LOD outside source branches')
             at=n['branch_targets'][lod]

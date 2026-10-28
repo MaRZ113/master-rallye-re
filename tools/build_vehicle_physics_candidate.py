@@ -30,7 +30,7 @@ def build(project,profile_path,output,*,retail_data_sma,retail_data_root,retail_
     source=Path(spec['source_vehicle_dir'])
     if not source.is_absolute():spec['source_vehicle_dir']=str((project/source).resolve())
     for resource in spec.get('resources',{}).values():
-        for key in ('scene_candidate','native_brake_scene_candidate'):
+        for key in ('scene_candidate','native_brake_scene_candidate','native_state_scene_candidate'):
             if key in resource and not Path(resource[key]).is_absolute():resource[key]=str((project/resource[key]).resolve())
     (target/'vehicle-project.json').write_bytes(canonical_json(spec))
     if profile is not None:(target/'physics-profile.json').write_bytes(canonical_json(profile))

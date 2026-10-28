@@ -12,7 +12,7 @@ class HeritagePanels:
         w=tk.Toplevel(self.root);apply_icon(w);w.title('Rally Workshop — MR Heritage Garage');w.geometry('1000x720');self.heritage_window=w
         source=tk.StringVar();family=tk.StringVar();name=tk.StringVar(value='MR Demo Heritage');runtime=tk.StringVar(value='HeritageVehicle');donor=tk.StringVar(value='Trooper');audio=tk.StringVar(value='7');features=tk.StringVar();retail_sma=tk.StringVar(value=str(self.sdk_root.parent/'corpora/retail/Data.sma') if hasattr(self,'sdk_root') else '');rows={}
         self.heritage_fields={'source':source,'family':family,'name':name,'runtime_family':runtime,'physics_donor':donor,'audio':audio,'features':features,'retail_sma':retail_sma}
-        for key,label in [('source','Read-only Demo installation'),('family','Source native vehicle family'),('name','Independent addon display identity'),('runtime_family','Unique runtime namespace'),('physics_donor','Exact retail physics family (explicit)'),('audio','Tuned retail sound profile0–24 (explicit)'),('retail_sma','Original retail Data.sma for editable physics'),('features','Optional source-pinned native features JSON')]:
+        for key,label in [('source','Read-only Demo installation'),('family','Source native vehicle family'),('name','Independent addon display identity'),('runtime_family','Unique runtime namespace'),('physics_donor','Exact retail physics family (explicit)'),('audio','Tuned retail sound profile0–24 (explicit)'),('retail_sma','Original retail Data.sma for editable physics'),('features','Native features JSON (empty = automatic brake glow + breakable glass)')]:
             row=ttk.Frame(w,padding=5);row.pack(fill='x');ttk.Label(row,text=label,width=43).pack(side='left')
             if key=='family':box=ttk.Combobox(row,textvariable=family,state='readonly');box.pack(side='left',fill='x',expand=True)
             else:ttk.Entry(row,textvariable=self.heritage_fields[key]).pack(side='left',fill='x',expand=True)
@@ -53,7 +53,7 @@ class HeritagePanels:
             from .service import WorkshopProject
             values={k:v.get()for k,v in self.heritage_fields.items()};folder=self._new_project();author=folder.with_name(folder.name+'-heritage-author')
             def work():
-                create_author(values['source'],values['family'],author,name=values['name'],runtime_family=values['runtime_family'],physics_donor=values['physics_donor'],stock_audio_profile_id=int(values['audio']),retail_sma=values['retail_sma'])
+                create_author(values['source'],values['family'],author,name=values['name'],runtime_family=values['runtime_family'],physics_donor=values['physics_donor'],stock_audio_profile_id=int(values['audio']),retail_sma=values['retail_sma'],features=None if values['features'] else 'auto')
                 if values['features']:apply_features(author,values['features'])
                 return WorkshopProject.create(author,folder)
             def done(project):

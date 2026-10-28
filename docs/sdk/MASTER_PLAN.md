@@ -1555,3 +1555,74 @@ FOV/distance/scale controls are not advertised. Exact capability boundaries,
 source addresses, regressions and owner checklist: VEHICLE_PRESENTATION_RESULTS.md.
 Accepted Heritage gameplay remains owner-confirmed. New camera/presentation
 D3D8 behavior remains pending; stop here for review, no subsequent imports.
+
+
+---
+
+# 27 October 2026 — Master Plan v6.2: Vehicle Presentation review and GT Garage Lab activation
+
+## A. Source and owner evidence
+
+- Review sources: `rally-workshop-presentation-source-review.zip` (1,079 ZIP entries, no CRC errors; 1,077/1,077 manifest SHA256 matches; 481/481 Python AST parses) and `rally-workshop-presentation-changed-files.zip` (26 entries including manifest and metadata; 24/24 changed source/document/test files match the full archive byte-for-byte). Both archives contain no `.git` history; `REVIEW.json` declares final revision `9416ddbc976da283964ab0ea621884b1789e0fe4`, scoped phase commit `5d389f1e1ae997c9a0a18926efb67b6c7bfb0a79`. These identities are metadata claims, not independently inspected commits.
+- Independent reviewer targeted Python regression: **98 tests PASS** covering frontend presentation, camera mode authoring, camera profiles/replay, vehicle authoring, Heritage source, Classic style, Fidelity, Shadow Studio, Workshop audio, Paint/Crew, Workshop and vehicle selection UI. The reported **923 Windows tests / two optional fixture skips** come from the implementation report, not an independently repeated full Windows run.
+- Implemented Results/Driver field is the **fixed per-vehicle `results.display_name`**, 64 printable ASCII, with real existing 32x16 resource in an illustrative GUI Results-row preview, Apply, Undo/Redo and Restore. Not an AI DriverID or participant/crew runtime identity editor. Owner confirms the name is editable; final native Results name behavior for a new custom value remains separately owner-testable.
+- Frontend Presentation reuses source-qualified VehicleSelect camera and `gaFrontendCarMoverAI` path. The reference model is original **stock NewRav**. At 640x480, reported model bottoms were Trooper 432.96px, stock NewRav 401.09px, Lancer 412.27px, from exact source projection. Trooper Auto Frame chooses `+0.453632 m` as **private frontend camera target correction**; model vertices, wheels, collision, physics and in-race cameras do not move. This is vertical-baseline matching, not proven dynamic native panel fitting. Large VehicleSelect correction is unique-resource/scene/source-bound and reversible; stock comparison stays read-only. User confirms updated preview looks good; D3D8 presentation build parity remains a separate owner verification until observed.
+- Previous Camera 2.0 has five actual player-selectable types mapped to **three Follow + two Fixed**. Source-qualified normal/split scope is shared for the chosen mode. Follow supports qualified FOV and Dist Front/Back/Up, Fixed supports FOV; pitch/smoothing/speed response, fixed geometry and replay remain read-only pending research. D3D9 live viewport and guarded native candidate exist. User reports improved camera appearance/editability, but untested native mode/split/lifecycle behaviors must not be overclaimed.
+- The owner deliberately replaced the root `Data.sma` that had old track-build contents with an original clean retail archive. The phase records a current root hash beginning `03c2b52d...`, matching its retail baseline; previously recorded root hash began `7cc2be10...`. Treat this as an **explained external change**, not as a developer-phase write or a failure to preserve the build's sealed 313 vehicle resources. Keep before/after hashes, manifest provenance and owner attribution. Never replace or rewrite original game corpora as a repair strategy.
+- Accepted full Heritage Trooper owner game results remain: model/wheel alignment, physics, sound, brake ON/OFF, broken glass, UI imagery, race completion/Results and menu re-entry. Trooper and Pajero are **alternative** CarID29 30-slot rosters; do not install concurrently in the same CarID. Other frozen accepted cars and Audio Studio remain unchanged.
+
+## B. Immediate next user-facing milestone — GT Garage Lab: Classic MR Generalization and True Colorways
+
+The next phase should create a real **reuse-first** conversion system and a measured GT3 corpus baseline, not manually install the entire GT3 catalog. Activate the previously deferred v5.0 GT compatibility obligations. Provide user-facing naming, not new opaque phase suffixes.
+
+### Workstream 1: Read-only GT3 source corpus and deterministic compatibility baseline
+
+1. Locate the actual owner-local, read-only GT3 sources (and optional separate GT4 comparison sources); verify build/region/version and source hashes before interpreting model IDs. If sources are missing, record `MISSING INPUT`, never synthesize a catalog.
+2. Enumerate source vehicle records versus **unique model hashes**, LODs, wheel assets, materials, texture atlases, colorways and decodable variants. Do not equate vehicle database entries with unique complete 3D assets or count variant colors as wholly separate models.
+3. Implement resumable, bounded `L0` scan for **every available catalog entry** and selectively representative `L1` dry-run conversion; store per-entry `PASS/WARN/FAIL/UNSUPPORTED/NOT TESTED/MISSING INPUT` and exact causes. Limit CPU/RAM/disk; hash-based deduplication, crash isolation, cancellation, repeatable reports and `--resume` are required. No bulk runtime candidates.
+4. Create private scan outputs, a source-only compatibility schema/report generator, issue-family clusters and fixtures with proprietary content excluded. A coverage percentage must name its exact denominator and evidence level.
+
+### Workstream 2: genuine source colorway selection
+
+1. Find at least one **actually evidenced** GT3 car with two original color/livery choices (if none in local GT3 sources, report that and use a source-qualified GT4 comparator). Trace whether variants are textures, materials, palettes, database attributes or geometry associations.
+2. Reuse existing model and texture import pipelines. Separate **Source Colorway A/B**, **Custom Paint** and **Classic MR Style** as independent non-destructive project choices. Source identity, hashes, material/UV ownership and untouched regions remain explicit.
+3. Render two controlled before/after Previewer comparisons, show changed resource summaries, persist a project, reopen/undo/redo/restore, build only a small optional isolated candidate if qualified. Never present RGB tinting alone as source colorway support.
+
+### Workstream 3: generalize authentic Classic MR Style beyond one Lancer hash
+
+1. Audit `src/master_rallye/classic_style.py`, `classic_geometry.py`, `classic_wheels.py`, `classic_materials.py`, `tools/classic_vehicle.py`, `tools/vmesh_gt3_to_dx.py`, Lancer frozen recipes, Subaru glass/wheels, Pajero GT4 culling and texture fixes, stock MR class references. Preserve the current Lancer recipe as a **regression oracle**, not the universal recipe or an output overwrite target.
+2. Introduce explicit source adapters (GT3 and separate GT4), a stable semantic intermediate model and qualified per-role classification for body panels/paint, decals, wheels/tyres, rim backs, glass/damage groups, lamps/brake ON-OFF, crew, collision/shadow, environment/reflection and UV/texture ownership. A source-only label never proves an opaque/alpha native material role.
+3. Implement a **deterministic, recipe-compiled Classic** transform: source identity + selected original colorway + class/style preset + semantic role approvals + optional user overrides → immutable Source Fidelity and reversible Classic outputs. Make generic geometry simplification, clean-livery planning, solid recessed wheel design, native MR rubber/glass material mapping, source-color preservation and budget reporting reusable across classes. Each destructive operation must be source-scoped, explicable and individually reversible.
+4. Preserve original mirrored wheel orientations, source hub transforms, DX/UV atlas seams, alpha coverage versus reflection alpha, correct culling/winding, native glass break/damage zones, brake lamps, driver/co-driver, collisions, physics and audio. Refuse unsafe edits on ambiguous draws; keep the original Source Fidelity with a human-readable diagnostic.
+5. Demonstrate at least **two distinct source archetypes**, including an actually available non-Lancer GT3 model. Frozen Subaru can be read-only regression input; do not overwrite its gameplay-accepted candidate. Use stock MR style samples as calibrated appearance references, not uncontrolled native-file copying.
+6. Build an isolated A/B for one newly qualified car, unless verified gameplay constraints make an offline result the only safe output. Compare geometry/draw counts, materials, UV, tyre/glass, lights, texture budgets, wheel baseline, deterministic rebuild and fixed D3D9 views. No general compatibility claim from one or two passes.
+
+### Workstream 4: batch diagnostic path and future expansion
+
+- After the generalized pilot works, execute `L1` for each **unique decodable GT3 model within stated budgets**, with resumable run logs and categorized exceptions. Plan `L2` D3D9 captures for a stratified group representing complex glass, backface culling, many colorways, unusual wheels, decals and high-detail geometry. In-game D3D8 testing is a smaller owner-selected group; count it independently.
+- Every reproduced failure should add a small synthetic/metadata-only regression fixture and classify its cause before any vehicle-specific workaround. Build a prioritized issue list for the GT source adapters, style compiler and later Blender Bridge / Model Doctor. The first pass may deliver L0 coverage and representative L1 and L2; do not report full L1 coverage until it actually completes.
+- Future MR Heritage batches are separate: rev127 Demo 8.4.1 and fleet expansion beyond confirmed 30 slots require independent native qualification. Original MR models should not be forced through GT Classic automatically.
+
+## C. Deliverable and safety gates
+
+- Working GT Garage Lab read-only corpus scanner with resumable manifest and explicit supported formats; true original source-colorway selection on one confirmed car; generalized semantic Classic Style on multiple model archetypes; reproducible preview/compare; source-only issue matrix, regression tests, GUI/workshop integration where qualified, and Help updates.
+- Source-only and changed-files archives; report actual synthetic, Windows Previewer and owner game evidence independently. Provide SHA-pinned conversion recipes, package/resource diff reports and no false all-GT3-playable claims.
+- Preserve Gameplay Camera2.0, frontend framing, Results names, Heritage Isuzu, Lancer/Subaru/Pajero baselines, qualified native glass, shadows, brakes, audio/presets, painting, Physics Studio, generated art, Race HUD marker and stock copy-on-write.
+- Treat user local GT/MR game assets, model variants, textures and audio as **private**; no bundling in source-only archives. Never alter original MRallye.exe, original clean `Data.sma`, other archives, existing d3d8.dll, or Randomizer. Limit owner-authorized local commits to tested work; no push/merge/publication without separate request.
+- **Stop for review after the qualified generalization/colorway/corpus-foundation milestone** rather than simultaneously starting Blender Bridge, Fleet Builder, a broad GT4 port, or mass Demo imports. GT3 catalog-wide L1/L2 work remains the next bounded phase if not completed safely during the initial milestone.
+
+
+## Implementation status — GT Garage Lab, 28 October 2026
+
+Read-only corpus coverage, exact model/color joins, bounded source adapters and
+shared automatic profile integration are implemented. GUI/CLI original-color
+versions preserve independent manual histories. The approved UV prerequisite
+rejects face images on no-UV wheel texgen packets, including old profiles.
+Clio is the owner-approved GT3 pilot; original silver/blue and semantic Classic
+wheel/rubber/glass comparisons exist. Source Fidelity has an isolated30-slot
+owner-test candidate. The corrected Classic report c38d712c was explicitly approved and its isolated
+candidate built. This is not gameplay acceptance. Representative CLUT limitations, unknown native GT3
+rig/lighting and donor fitting remain explicit. No bulk installs or new native
+capacity claims. See GT_GARAGE_RESULTS.md, SYNCHRONIZATION-2026-10-28.md and the
+current regression matrix. Preserve v1 Lancer, automatic-import work and all
+accepted cars; no Blender/Fleet phase begins here.

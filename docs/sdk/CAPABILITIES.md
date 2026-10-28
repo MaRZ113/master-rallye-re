@@ -1,3 +1,17 @@
+# GT Garage Lab foundation
+
+Read-only bounded/resumable GT3 VOL inventory and exact catalog/member/color
+associations; separate ModelSet1 adapter over shared VIF/GS and MR compilation.
+Actual source palette/material colorways, independent editable versions and
+source selection history. GUI Create from selected and CLI use the same
+automatic profile service. External wheel image assignment requires original
+finite UVs, including old profiles. Approved Clamp subdivision retains source
+resolution with bounded derived geometry. Semantic Classic v2 preserves unknown
+roles and v1 Lancer output; Clio wheel/rubber/glass pilot is independently built after exact owner approval;
+future Classic generations retain the same approval gate. L0 inventory, representative L1, D3D9 captures and gameplay
+remain distinct. See GT_GARAGE_RESULTS.md and AUTO_IMPORT_RESULTS.md for limits.
+
+---
 # Vehicle Presentation Polish
 
 Fixed Driver / Results Name with actual32×16 icon row, targeted history/reset;

@@ -77,7 +77,7 @@ def vif(data,start,end):
         out.append(entry)
     return out
 
-def shape_geometry(shape):
+def shape_geometry(shape,*,uv_mask=None):
     """Recover packet-local strips; never join attribute arrays across packets."""
     vertices=[];triangles=[];packets=[]
     for packet in shape['packets']:
@@ -93,7 +93,7 @@ def shape_geometry(shape):
             if c['format'][0]==0:return [tuple(struct.unpack('<f',struct.pack('<i',v))[0] for v in row) for row in c['values']]
             if c['format'][0]==1:return [tuple(v/4096 for v in row) for row in c['values']]
             raise ValueError('position/UV format unsupported')
-        positions=floats(p);tex=unpack_uv(cmds,len(positions)) if uv else [];ns=unpack_normals(cmds,normals) if normals else []
+        positions=floats(p);tex=unpack_uv(cmds,len(positions),initial_mask=uv_mask) if uv else [];ns=unpack_normals(cmds,normals) if normals else []
         if any(not all(math.isfinite(v) for v in normal) for normal in ns):raise ValueError('nonfinite source normal')
         if tex and len(tex)!=len(positions):raise ValueError('packet UV cardinality mismatch')
         if ns and len(ns)!=len(positions):raise ValueError('packet normal cardinality mismatch')
@@ -156,7 +156,7 @@ def unpack_normals(commands,normal):
     return result
 
 
-def unpack_uv(commands, vertex_count):
+def unpack_uv(commands, vertex_count,*,initial_mask=None):
     """Decode packet-local UV uploads, including signed delta V2-8/V2-16.
 
     STMOD(1/2) adds ROW; mode 2 also writes the sum back to ROW. USN is
@@ -166,15 +166,16 @@ def unpack_uv(commands, vertex_count):
     PCSX2 Vif_Unpack implementation; 12-bit UV scaling is the existing GT
     packet convention. This does not decode the VU normal-lighting program.
     """
-    mode=0;row=None;result=[None]*vertex_count;cycle=(1,1)
+    mode=0;row=None;result=[None]*vertex_count;cycle=(1,1);mask=initial_mask
     for c in commands:
         op=c['opcode'];address=c['address']
         if op==1:cycle=(address&255,(address>>8)&255)
         elif op==5:mode=address&3
         elif op==0x30:row=list(c['register_words'])
+        elif op==0x20:mask=c['register_words'][0]
         elif 0x40<=address&0x3ff<0x40+vertex_count and c.get('format',[0,0])[1]==2:
             if cycle[0]!=cycle[1]:raise ValueError('non-contiguous UV cycle unsupported')
-            if op&0x10:raise ValueError('masked UV upload unsupported')
+            if op&0x10 and (mask is None or any((mask>>(8*r+2*a))&3 for r in range(4)for a in (0,1))):raise ValueError('masked UV XY replacement or unknown initial mask unsupported')
             kind=c['format'][0];start=(address&0x3ff)-0x40
             if start+len(c['values'])>vertex_count:raise ValueError('UV upload exceeds vertex array')
             if kind==0 and mode:raise ValueError('float UV with ROW arithmetic unsupported')

@@ -43,13 +43,13 @@ def main():
         for name in p.data['inputs']:assert (q.assets/name).read_bytes()==(p.assets/name).read_bytes()
         record('saved/reopened exact compiled resources')
     def crew():
-        tab('Crew Inspector');app.crew_name.set('driver');app.crew_selected();app.crew_values['vertical'].set('-.015');button('Apply crew correction')
+        tab('Crew Inspector');app.crew_name.set('driver');app.crew_selected();app.crew_values['vertical'].set(str(float(app.crew_values['vertical'].get())-.015));button('Apply crew correction')
     def crew_check():
-        p=app.project;assert (p.assets/'complete.dx').read_bytes()!=baselines['addon']['complete.dx'];assert (p.assets/'wheel.dx').read_bytes()==baselines['addon']['wheel.dx'];p.validate();screenshot(root,a.output/'crew-correction-gui.png');record('compiled driver -15 mm; wheel unchanged')
+        p=app.project;assert (p.assets/'complete.dx').read_bytes()!=baselines['addon']['complete.dx'];assert (p.assets/'wheel.dx').read_bytes()==baselines['addon']['wheel.dx'];p.validate();screenshot(root,a.output/'crew-correction-gui.png');record('compiled driver additional -15 mm; wheel unchanged')
         # Model variants have independent corrections; apply the same intentional edit to race.
         app.variant.set('Race');app.refresh()
     def crew_race():
-        tab('Crew Inspector');app.crew_name.set('driver');app.crew_selected();app.crew_values['vertical'].set('-.015');button('Apply crew correction')
+        tab('Crew Inspector');app.crew_name.set('driver');app.crew_selected();app.crew_values['vertical'].set(str(float(app.crew_values['vertical'].get())-.015));button('Apply crew correction')
     def compare():tab('Paint / Style');button('Matched Original / Modified / Difference')
     def comparison_check():
         assert (app.project.root/'preview/comparison-before.png').read_bytes()!=(app.project.root/'preview/comparison-after.png').read_bytes()

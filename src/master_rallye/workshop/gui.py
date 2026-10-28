@@ -87,6 +87,7 @@ class WorkshopApp(AppearancePanels, AudioPanels, VehiclePanels, ShadowPanels, He
         self.library_tree=ttk.Treeview(left,show='tree',selectmode='browse');self.library_tree.pack(fill='both',expand=True)
         self.library_tree.bind('<<TreeviewSelect>>',self._library_selected)
         ttk.Button(left,text='Remove from library',command=self.remove_library).pack(fill='x',pady=5)
+        ttk.Button(left,text='GT Garage Lab',command=self.open_garage).pack(fill='x',pady=3)
         center=ttk.Frame(main,padding=9);main.add(center,weight=4)
         ttk.Label(center,textvariable=self.name,style='Header.TLabel').pack(anchor='w')
         ttk.Label(center,textvariable=self.context,wraplength=650).pack(anchor='w',pady=5)
@@ -626,9 +627,15 @@ class WorkshopApp(AppearancePanels, AudioPanels, VehiclePanels, ShadowPanels, He
         self.process=subprocess.Popen([str(self.viewer),'--scene',str(scene),'--source',str(project.assets/model),'--python',sys.executable,'--exporter',str(self.sdk_root/'tools/preview_vehicle.py'),'--model',self.variant.get().lower(),'--zoom','.68','--workshop','--vehicle-id',str(project.data['car_id'] if project.data['car_id'] is not None else -1),'--provenance',project.data['source'],'--selection-file',str(project.root/'preview/selection.txt'),'--bookmark-file',str(project.root/'preview/bookmarks'),'--profile',str(project.preview_profile_path())]+([] if self.assembled.get() else ['--raw-race']))
         self.status.set('Interactive native Previewer opened. F1 shows all controls.')
 
+    def open_garage(self):
+        from .garage_view import GarageWindow
+        if getattr(self,'garage_window',None)and self.garage_window.window.winfo_exists():self.garage_window.window.lift();return
+        self.garage_window=GarageWindow(self.root,self.sdk_root,on_open=self._opened)
+
     def close(self):
         if self.busy:self.status.set('Operation still running. Close after it finishes.');return
         self.close_camera_lab_preview()
+        if getattr(self,'garage_window',None)and self.garage_window.window.winfo_exists():self.garage_window.close()
         hwnd=self._viewer_window()
         if hwnd:
             import ctypes

@@ -49,7 +49,7 @@ class VehicleProject:
         texture_names = list(spec.get("texture_edits", {})) + list(spec.get("texture_replacements", {}))
         if len({name.casefold() for name in texture_names}) != len(texture_names):
             raise ValueError("duplicate texture edit/replacement names")
-        allowed_resource = {"source_sha256", "candidate", "topology_candidate", "scene_candidate", "native_brake_scene_candidate",
+        allowed_resource = {"source_sha256", "candidate", "topology_candidate", "scene_candidate", "native_brake_scene_candidate", "native_state_scene_candidate",
                             "attributes", "surface_edits", "surface_source_sha256", "surface_layers", "collision_scale", "collision_center",
                             "collision_translation", "crew_layer"}
         for role, edit in resources.items():
@@ -163,7 +163,7 @@ def _compile_resource(project: VehicleProject, role: str, spec: dict) -> tuple[b
     expected = spec.get("source_sha256")
     if expected != _sha(source):
         raise ValueError(f"{role}: source SHA-256 mismatch")
-    operations = [key for key in ("candidate", "topology_candidate", "scene_candidate", "native_brake_scene_candidate", "attributes") if key in spec]
+    operations = [key for key in ("candidate", "topology_candidate", "scene_candidate", "native_brake_scene_candidate", "native_state_scene_candidate", "attributes") if key in spec]
     if len(operations) > 1:
         raise ValueError(f"{role}: candidate operations cannot be combined")
     data = source
@@ -174,6 +174,12 @@ def _compile_resource(project: VehicleProject, role: str, spec: dict) -> tuple[b
         if candidate==path.resolve() or role!='car.dx':raise ValueError('native brake scene requires a separate race resource')
         if any(key.startswith('collision_') for key in spec):raise ValueError('native brake scene preserves donor collision')
         data=candidate.read_bytes();detail['imported_scene']=validate_brake_scene(source,data)
+    elif 'native_state_scene_candidate' in spec:
+        from .addon_sdk.native_states import validate_state_scene
+        candidate=project.resolve(spec['native_state_scene_candidate'])
+        if candidate==path.resolve() or role!='car.dx':raise ValueError('native state scene requires a separate race resource')
+        if any(key.startswith('collision_') for key in spec):raise ValueError('native state scene preserves donor collision')
+        data=candidate.read_bytes();detail['imported_scene']=validate_state_scene(source,data)
     elif 'scene_candidate' in spec:
         from .scene_dx_writer import validate_scene_dx
         candidate=project.resolve(spec['scene_candidate'])

@@ -29,8 +29,11 @@ def main():
     for model in ('car.dx','complete.dx','wheel.dx'):
         old,new=resources[model],first[model];x,y=parse_dx_bytes(old),parse_dx_bytes(new);gx,gy=source_geometry(x),source_geometry(y)
         assert old[x.trailing.offset:x.collision.unparsed_offset]==new[y.trailing.offset:y.collision.unparsed_offset],'Collision changed'
-        changed=set(recipe['wheel']['rim_draws'])if model=='wheel.dx'else set(recipe['models'][model]['radial_covers'])|set(recipe['models'][model]['paint_draws'])
-        if model=='complete.dx':changed.update(i for g in recipe['wheel']['embedded_groups']for i in g['draws'][:len(recipe['wheel']['rim_draws'])])
+        if recipe.get('version')==2:
+            changed={step['draw']for step in recipe.get('geometry',[])if step['resource']==model}
+            if model=='wheel.dx':changed.update(recipe.get('wheel',{}).get('rim_draws',[]))
+        else:changed=set(recipe['wheel']['rim_draws'])if model=='wheel.dx'else set(recipe['models'][model]['radial_covers'])|set(recipe['models'][model]['paint_draws'])
+        if model=='complete.dx'and recipe.get('wheel'):changed.update(g['draws'][i]for g in recipe['wheel']['embedded_groups']for i in recipe['wheel']['rim_draws'])
         def semantic_owners(role):
             if not isinstance(role,dict)or role.get('enabled',True)is not True:return
             changed.update(role.get('draws',{}).get(model,[]))
@@ -45,7 +48,8 @@ def main():
         cases,_=logical_cases(x);other,_=logical_cases(y)
         assert {indices[i]:v for i,v in cases.items()}==other,'Controller cases changed'
         result['protected'][model]={'unchanged_draws':unchanged,'collision_preserved':True,'logical_switches_preserved':True,'shader_alpha_states_preserved':all(tuple(x.physical_draws[i].flags_0x20)==tuple(y.physical_draws[j].flags_0x20)for i,j in indices.items())}
-    result['native_brakes']=validate_brake_scene(sb,first['car.dx'])
+    brake_groups=[g for g in parse_dx_bytes(first['car.dx']).draw_groups if g.root.group_label=='blight']
+    result['native_brakes']=validate_brake_scene(sb,first['car.dx'])if brake_groups else {'status':'NOT PRESENT','boundary':'Source pilot has no native brake controller; automatic importer native features are qualified separately.'}
     assert classic.validate()['status']=='PASS';assert source.validate()['status']=='PASS'
     if a.exe:
         from validate_vehicle_damage_native import validate

@@ -60,7 +60,7 @@ def _compiled_addon(project):
     resources.update(result['compiled'])
     for role in ('car.dx','complete.dx','wheel.dx'):
         spec=author.resources.get(role,{})
-        for key in ('scene_candidate','native_brake_scene_candidate'):
+        for key in ('scene_candidate','native_brake_scene_candidate','native_state_scene_candidate'):
             if key in spec:
                 profile=author.resolve(spec[key]).parent/'preview-profile.json'
                 if profile.is_file() and 'preview-profile.json' not in resources:resources['preview-profile.json']=profile.read_bytes()
@@ -132,7 +132,7 @@ class WorkshopProject(AudioAuthoring,VehicleAuthoring,AudioImportAuthoring,GTAud
             original=VehicleProject.load(source_project/'vehicle-project.json')
             spec['source_vehicle_dir']=str(original.source_vehicle_dir)
             for edit in spec['resources'].values():
-                for key in ('candidate','topology_candidate','scene_candidate','native_brake_scene_candidate'):
+                for key in ('candidate','topology_candidate','scene_candidate','native_brake_scene_candidate','native_state_scene_candidate'):
                     if key in edit:edit[key]=str(original.resolve(edit[key]))
             for category,key in (('texture_edits','png'),('texture_replacements','candidate')):
                 for edit in spec.get(category,{}).values():edit[key]=str(original.resolve(edit[key]))
@@ -142,7 +142,7 @@ class WorkshopProject(AudioAuthoring,VehicleAuthoring,AudioImportAuthoring,GTAud
             files=_compiled_addon(output/'working')
             paths=[f for f in original.source_vehicle_dir.iterdir() if f.is_file() and f.suffix.lower() in ('.dx','.dxt')]
             for edit in spec['resources'].values():
-                paths.extend(Path(edit[key]) for key in ('candidate','topology_candidate','scene_candidate','native_brake_scene_candidate') if key in edit)
+                paths.extend(Path(edit[key]) for key in ('candidate','topology_candidate','scene_candidate','native_brake_scene_candidate','native_state_scene_candidate') if key in edit)
             for category,key in (('texture_edits','png'),('texture_replacements','candidate')):
                 paths.extend(Path(edit[key]) for edit in spec.get(category,{}).values())
             author_sources={str(f):sha(f.read_bytes()) for f in paths}

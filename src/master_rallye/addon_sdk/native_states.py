@@ -87,3 +87,25 @@ def author_states(raw,profile):
     output=wrap_states(raw,body+special);new=parse_dx_bytes(output)
     if raw[m.trailing.offset:m.collision.unparsed_offset]!=output[new.trailing.offset:new.collision.unparsed_offset]:raise ValueError('Native feature adaptation changed collision')
     return output,{'status':'PASS_SOURCE_OFF_STATE_EQUIVALENCE','source_sha256':profile['source_sha256'],'output_sha256':hashlib.sha256(output).hexdigest(),'original_triangles':m.triangle_count,'serialized_alternative_triangles':new.triangle_count,'collision_preserved':True,'intact_off_geometry_normals_uv_materials_identical':True,'states':reports,'runtime_qualified':False}
+
+
+def validate_state_scene(template,data):
+    """Admit a writer scene wrapped by `wrap_states` (blight + glass zones).
+
+    Control prefixes are stripped and the flat scene is validated with the
+    shared imported-scene rules; logical cases must decode. Collision and
+    suffix bytes are checked by the flat validator against the template.
+    """
+    from ..scene_dx_writer import validate_scene_dx
+    from ..preview_scene import logical_cases
+    m=parse_dx_bytes(data)
+    if not m.diagnostics.validated:raise ValueError('invalid native state scene')
+    labels=[g.root.group_label for g in m.draw_groups if g.root.tag==7]
+    if not labels or len(set(labels))!=len(labels) or set(labels)-{'blight','screenfront','screenrear','screenleft','screenright'}:raise ValueError('unqualified native state labels')
+    records=[]
+    for d in m.physical_draws:
+        if d.tag not in (2,7,8):raise ValueError('unexpected native scene control')
+        records.append(data[d.core_offset:d.offset+d.own_size])
+    flat=data[:m.draw_table_offset]+struct.pack('<2I',1,len(records))+b''.join(records)+data[m.global_index_table.preamble_offset:]
+    result=validate_scene_dx(template,flat,allow_unlit=True);logical_cases(m)
+    return {**result,'grammar':'native state scene','labels':sorted(labels),'runtime_qualified':False}

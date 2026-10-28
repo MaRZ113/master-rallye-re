@@ -10,7 +10,7 @@ def main():
     p=argparse.ArgumentParser(description=__doc__);sub=p.add_subparsers(dest='operation',required=True)
     for command in ('init','rebuild'):
         a=sub.add_parser(command);a.add_argument('--project',type=Path,required=True);a.add_argument('--output',type=Path,required=True)
-        a.add_argument('--style',choices=['Source Fidelity','Classic MR Style'],default='Classic MR Style');a.add_argument('--recipe',type=Path,default=ROOT/'research/vehicles/vsdk4b1/lancer-classic-profile.json');a.add_argument('--stock-root',type=Path)
+        a.add_argument('--style',choices=['Source Fidelity','Classic MR Style'],default='Classic MR Style');a.add_argument('--recipe',type=Path,help='Explicit source-qualified Classic recipe; no vehicle-specific default');a.add_argument('--stock-root',type=Path)
         a.add_argument('--paint-mode',choices=['preserve_source','regenerate_fields'],help='Override recipe paint policy; decal selection remains independent')
     a=sub.add_parser('approve');a.add_argument('--project',type=Path,required=True);a.add_argument('--report-sha256',required=True)
     a=p.parse_args()
@@ -28,6 +28,7 @@ def main():
         origin=source_project(project);result=WorkshopProject.create(origin.data['source'],a.output)
         print(json.dumps({'project':str(result.root),'style':'Source Fidelity'},indent=2));return
     if a.stock_root is None:p.error('--stock-root must point to local DataGx/Vehicles')
+    if a.recipe is None:p.error('--recipe must name an explicit source-qualified Classic plan')
     c,s,r=rebuild_classic(project,a.recipe,a.stock_root,a.output,paint_mode=a.paint_mode)
     print(json.dumps({'classic':str(c.root),'source_fidelity':str(s.root),'report':c.data['classic_generation'],'before':r['before'],'after':r['after'],'manual_layers':r['manual_layers'],'build':'PENDING_OWNER_REPORT_APPROVAL'},indent=2))
 

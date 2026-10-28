@@ -48,9 +48,15 @@ def inventory(path):
 def read_member(path,member):
     rows=inventory(path);matches=[r for r in rows if r['path']==member]
     if len(matches)!=1:raise ValueError('GT3 member absent or ambiguous')
-    row=matches[0]
+    return read_indexed_member(path,matches[0],len(rows))
+
+def read_indexed_member(path,row,inventory_count):
+    """Read a row from this module's validated inventory; reuse one directory walk."""
+    if any(type(row[k])is not int or row[k]<0 for k in ('offset','size','uncompressed_size')):raise ValueError('invalid GT3 member span')
     if row['size']>64*1024*1024 or row['uncompressed_size']>64*1024*1024:raise ValueError('UI member too large')
+    if row['offset']+row['size']>path.stat().st_size:raise ValueError('GT3 member outside volume')
     with path.open('rb') as f:f.seek(row['offset']);raw=f.read(row['size'])
+    if len(raw)!=row['size']:raise ValueError('short GT3 member read')
     if row['compressed']:
         if raw[:2]==b'\x1f\x8b':decoder=zlib.decompressobj(31);payload=raw
         elif raw[:4]==bytes.fromhex('c5eef7ff'):decoder=zlib.decompressobj(-15);payload=raw[8:]
@@ -58,7 +64,7 @@ def read_member(path,member):
         data=decoder.decompress(payload,row['uncompressed_size']+1)
         if not decoder.eof or len(data)!=row['uncompressed_size']:raise ValueError('GT3 member decoded size mismatch')
     else:data=raw
-    return data,{**row,'stored_sha256':sha(raw),'decoded_sha256':sha(data),'inventory_count':len(rows)}
+    return data,{**row,'stored_sha256':sha(raw),'decoded_sha256':sha(data),'inventory_count':inventory_count}
 
 def named_texture(data,name):
     if data[:8]!=b'IMGS\0\0\0\0' or len(data)<16:raise ValueError('not an admitted GT3 IMGS bank')
