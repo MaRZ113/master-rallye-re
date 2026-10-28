@@ -2003,3 +2003,167 @@ Lancer, Subaru, Pajero, Trooper/Heritage and Clio projects, isolated CarID29
 alternatives and the 30-entry limit remain preserved. No push or publication.
 **Stop for review after source scene and preview; no MR conversion, CarID,
 compiler, bulk import, Blender Bridge or additional adapter begins here.**
+
+
+---
+
+# Master Plan v6.8 — Evo2 4Runner review and first MR-native Cross-Game pilot
+
+**28 October 2026.** This checkpoint is appended to the complete current repository
+Master Plan (including the exact retained v6.7 history, repository-only
+checkpoints and accepted Evo2 source-scene implementation). All prior research
+and approvals remain preserved. This is a planning decision following the owner's
+neutral-scene screenshot and independent source-only ZIP review, not a claim of
+new gameplay or new implemented features.
+
+## Reviewed implementation and evidence boundaries
+
+- Reviewed user-provided `changed-files.zip`: 28 members, ZIP CRC PASS;
+  `SOURCE_REVIEW_MANIFEST.json` lists **27/27** matching SHA256 files;
+  **14/14** Python AST files parse successfully. Manifest revision
+  `c5bd91fc5dcb81e6e10c44ebbd9c0a6073b129ed`, baseline
+  `f2714b1d50c5af18bdc4081010317fe3e4632922`; no `.git` history in
+  the changed-only archive, so commit existence is manifest-reported.
+- Independently ran **30/30 synthetic tests** for POD2/SMF/TRK/TIFF source
+  parsing and Universal Vehicle Scene validation/persistence. Ten additional
+  preview tests could not be imported from this changed-only archive because
+  `master_rallye.workshop.branding` belongs to the unchanged codebase and was
+  omitted. This is not evidence of a product regression and does not qualify
+  those ten tests as passed. Developer's full Windows run is **1,057 tests,
+  two skips** (reported only, not independently reproduced), with Windows
+  D3D9/Tk native captures and preserved asset checks in private evidence.
+- Qualified exact source: 4x4 Evolution 2 Toyota 4Runner SR5 Sport Package
+  2WD 2000, `TRUCK/T4RSR52.TRK`, body `MODELS/4RUNNERSR5.SMF`;
+  33 body objects, 43 total mesh records, 38 nodes, 2,773 total triangles,
+  14 textures and 6 original L/R wheel-detail resources. Original four TRK
+  wheel positions retained, normalised from feet with a documented axis
+  reflection. Original stock BODY mask selects 11 components at detail 2;
+  light/axle auxiliary passes remain separate and unresolved.
+- Critical source-faithfulness caveats: static high-detail wheel pose is not
+  verified gravity-settled running-game suspension. Source TRK catalog
+  wheelbase 8.78 ft differs from 8.88 ft of literal hub positions, and both
+  are preserved. `ART/4RunnerSR5.TIF` contains an unspecified extra channel;
+  neutral opaque coverage is a preview choice, not recovered source alpha.
+  Bump shading, native source reflections, nine color transformations,
+  animations/dynamic lighting, and settled suspension remain unqualified.
+  No original Evo2 game-runtime visual comparison or MR gameplay test.
+- Source adapter **L0 PASS, L1 WARN, L2 WARN** (assembled neutral D3D9 model).
+  Source Fidelity baseline and immutable private sidecars are preserved. No
+  MR native car or roster entry has yet been created for this 4Runner.
+- Master Plan documentation restoration is described in
+  `MASTER_PLAN_RECONCILIATION.md`, with retained v6.7 attachment byte-for-byte.
+
+## Next approved planning target — Cross-Game 4Runner: first playable MR pilot
+
+The next bounded deliverable, upon owner's forwarding of a new Codex prompt,
+should **reuse the Universal Vehicle Scene v1 as an immutable source** and
+implement a reusable, qualified bridge into the existing MR addon build
+pipeline. This should not be a one-off Evo2-to-DX script disguised as a
+universal importer. The bridge must preserve mesh IDs, origin and transforms,
+UV/material/texture bindings, unit and handedness conversion, LOD/equipment
+semantics, source color provenance and every unresolved source field.
+
+1. Establish stock-MR class/scale/style references and compare against the
+   neutral source body, static hub centers, wheels, rider/crew envelope,
+   collision and rendering constraints. Explicitly **separate source static
+   ride pose** from proposed MR physics suspension; no blind 1.05 multiplier,
+   global body translation or automatic hub adjustment. Provide measured
+   L1/L2 comparisons and adjustable, reversible authoring decisions.
+2. Build a qualified **Source Fidelity** MR vehicle using the user-owned
+   Evo2 source scene. Use correct body/complete/wheel resource partitioning,
+   texture bindings, culling/winding, UVs, opaque tyres and safe fallback
+   transparency/reflection. Unknown bump/extra TIFF channels must not be
+   interpreted as alpha without evidence. Reuse existing MR material,
+   geometry, shadow, glass/damage and brake-light authoring services where
+   the donor model and native contracts permit.
+3. For glass, headlamps, brake-lamp ON/OFF, crew, collision and damage,
+   distinguish actual source-supported assets from manually authored MR
+   enhancements. Do not claim original Evo2 runtime semantic fidelity when
+   creating new MR features. Keep unsupported roles explicit and prevent
+   unsafe auto assignment. Preserve exact source resource sidecars.
+4. Choose a **verified MR donor physics family** suited to a four-wheel SUV,
+   including wheelbase/track/radius/chassis baseline; create independent
+   copy-on-write physics, camera, sound and frontend profiles. Vehicle identity
+   and Driver/Results name, vehicle art, Race HUD marker, shadow and frontend
+   auto-framing should use the existing Studio modules.
+5. Use a **separate alternative 30-entry roster**, allocating a qualified
+   addon CarID only after conflict analysis. Existing CarID29 alternatives
+   include Pajero, Demo Trooper and Clio; these must never be installed
+   simultaneously into one slot or deleted. Do not claim 31+ roster capacity.
+6. Produce deterministic isolated **Validate → Build → Restore** candidates
+   with exact differences, original/target model A/B D3D9 captures, source
+   hashes, full available Windows regression and a short owner D3D8 gameplay
+   checklist for menu, spawn, wheel stance, suspension, textures, alpha,
+   glass damage, brake lights, AI, results and race re-entry.
+7. Stop after **one Source Fidelity gameplay candidate** and separate review.
+   A new Classic MR Style 4Runner profile, all nine original colorways, a
+   broader Evo2 fleet, Paris-Dakar/Michelin adapters, Blender Bridge and
+   additional CarID capacity are separate future milestones. If authentic
+   stance, native integrity or camera/runtime constraints cannot be solved
+   safely, deliver a well-evidenced partial implementation and explicit
+   blockers rather than faking a passed game build.
+
+## User visual review and additional follow-ups
+
+The user's neutral 4Runner image has a credible textured body, roof rack,
+original wheel equipment and an unusually high body/wheel gap. This gap is
+an **inspection question**, not proof of a transform bug: the current viewer
+shows source static, non-settled pose. The glass looks near-black and is
+currently a deliberately neutral opaque interpretation. Compare source-game
+screenshots (when available) and actual MR materials before tuning.
+
+Upon successful 4Runner native pilot, continue high-priority **Paris-Dakar 2001
+PajeroRED/PajeroSilver** archive/geometry research and **Michelin Rally Masters
+Toyota RAV4 `Car25A.PDO` / Renault Mégane `Car06A.PDO`** inner-payload
+reconstruction; keep cross-game Universal Vehicle Scene shared. Build the
+broader donor compatibility matrix and eventually Blender Bridge, Model Doctor
+and Fleet Builder separately. Do not erase accepted original vehicles,
+private resources, or the clean retail Data.sma; never push/publish without
+explicit permission.
+
+
+---
+
+## Implementation status — first Universal Scene to MR 4Runner pilot, 28 October 2026
+
+The owner approved the accepted Evo2 neutral scene for one Source Fidelity
+MR-native integration. The complete303112-byte v6.8 attachment is retained as
+this plan's exact prefix and in docs/sdk/retained/; no older history/checkpoint
+was replaced. Earlier source-only stop gates are historical and fulfilled for
+this newly authorized one-car conversion, not permission for a fleet.
+
+Implemented reusable universal-scene-mr-profile/1 bridge to common ScenePart,
+DX/DXT and addon services; no separate Evo2 compiler. Original UVS/source
+adapter and six L/R wheel resources remain immutable. Four exact side-specific
+rolling resources use the original native wheel entities/spin/controllers
+through a bounded selector, composed with accepted Lancer mechanics.
+
+One independent Toyota4Runner Source Fidelity Workshop author project and
+isolated30-entry alternative CarID29 candidate are delivered. Clean retail
+Terrano physics receives measured hubs/radius and source torque-backed MR RWD;
+MR Navara audio/crew, source-mapped front/side glass, six rear-only brake lens
+triangles, editable Shadow Auto Fit, identity/art/Results/marker and frontend
+Auto Frame are explicit MR adaptations. No vertical stance correction or1.05
+multiplier; common Z datum-0.10668m is reversible. Rear glass damage, native
+source alpha/reflections/bump/animations and settled suspension remain unknown.
+
+38 new focused tests PASS; complete qualified Windows suite1095 tests,
+2 existing fixture skips. Actual Tk/D3D9 create/open/validate/provenance,
+Studio persistence/Undo/Redo/Restore and source/native capture review PASS.
+Deterministic10 SourceBaseline and21 enhanced DX/DXT files; four original
+wheel resources differ by at most1.60e-8m after serialized native rest-basis
+composition. Controlled original-x86 selector/lifecycle/mechanics replay PASS.
+Candidate304resources/260operations and allthree launcher preflights PASS.
+All2493 protected original/accepted/source input hashes are unchanged.
+
+Final private delivery: .research-output/vehicles/cross-game-4runner/pilot-delivery.
+D3D8 selection, actual model loading, race contact/animation, glass/lights/audio,
+AI, finish/Results and menu re-entry remain NOT TESTED / PENDING OWNER. Existing
+owner-confirmed Heritage Trooper gameplay and all accepted other projects are
+preserved; old historical pending notes do not revoke the owner's acceptance.
+See FOUR_RUNNER_NATIVE_RESULTS.md, FOUR_RUNNER_STANCE_AND_MATERIAL_DECISIONS.md,
+FOUR_RUNNER_OWNER_CHECKLIST.md and the current regression matrix/Help.
+
+**Stop after this one owner-testable native pilot for review.** No Classic
+4Runner, bulk Evo2 import, Paris-Dakar/Michelin campaign, Blender Bridge,
+roster expansion, push, publication or release is started here.

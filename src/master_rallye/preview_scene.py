@@ -190,7 +190,7 @@ def stage_vehicle(source:Path, output:Path, *, profile:Path|None=None):
     if not profile and len(paths)==3:
         try:config=presentation_wheels(*(parse_dx(source.parent/n) for n in ('car.dx','complete.dx','wheel.dx')))
         except ValueError as exc:config={'provenance':f'automatic rest-pose assembly unavailable: {exc}'}
-    if set(config)-{'race_wheel_instances','provenance','mechanical_debug','attached_models','glass_states','shadow_debug','camera_debug','native_frontend_presentation'}:raise ValueError('unknown viewer profile field')
+    if set(config)-{'race_wheel_instances','race_wheel_resources','provenance','mechanical_debug','attached_models','glass_states','shadow_debug','camera_debug','native_frontend_presentation'}:raise ValueError('unknown viewer profile field')
     if 'native_frontend_presentation'in config and(type(config['native_frontend_presentation'])is not int or config['native_frontend_presentation']!=1):raise ValueError('Unsupported frontend scene version')
     glass_states=config.get('glass_states',{})
     if not isinstance(glass_states,dict) or any(k not in ('screenfront','screenrear','screenleft','screenright') or type(v)is not int or v not in (1,2) for k,v in glass_states.items()):raise ValueError('Glass diagnostics require named source groups and case 1 or 2')
@@ -207,6 +207,17 @@ def stage_vehicle(source:Path, output:Path, *, profile:Path|None=None):
         path=source.parent/item['resource']
         if path in attached or len(attached)>=16:raise ValueError('duplicate or excessive attached preview models')
         attached[path]=instances[item['wheel_index']];paths.append(path)
+    wheel_resources=config.get('race_wheel_resources',[])
+    if not isinstance(wheel_resources,list)or (wheel_resources and(len(wheel_resources)!=4 or len(instances)!=4)):
+        raise ValueError('per-wheel resources require four explicit native rest instances')
+    if wheel_resources:
+        seen_wheels=set()
+        for name,transform in zip(wheel_resources,instances):
+            if not isinstance(name,str)or Path(name).name!=name or not name.endswith('.dx')or not name.isascii()or not all(c.isalnum()or c in '_-.'for c in name)or name.casefold()in ('car.dx','complete.dx','wheel.dx'):
+                raise ValueError('invalid separate wheel preview resource')
+            path=source.parent/name
+            if name.casefold()in seen_wheels or path in attached:raise ValueError('duplicate separate wheel preview resource')
+            seen_wheels.add(name.casefold());attached[path]=transform;paths.append(path)
     embedded=False
     if (source.parent/'car.dx').exists() and (source.parent/'wheel.dx').exists():
         try:
@@ -244,7 +255,7 @@ def stage_vehicle(source:Path, output:Path, *, profile:Path|None=None):
         transforms=[None]
         if path in attached:model_kind=4;transforms=[attached[path]]
         # Race rest-pose instances are explicit, never synthesized from physics.
-        if model_kind==3 and instances:transforms=[None]+instances
+        if model_kind==3 and instances and not wheel_resources:transforms=[None]+instances
         for instance_no,transform in enumerate(transforms):
             target_model=1 if instance_no or model_kind==4 else model_kind
             vec,scale=preview_transform(transform)

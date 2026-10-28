@@ -1,3 +1,27 @@
+# First Universal Scene → MR Source Fidelity pilot
+
+28 October 2026. Generic `universal-scene-mr-profile/1` bridge to existing MR
+ScenePart/DX/DXT/addon services; one qualified Evo2 Toyota4Runner author project
+and isolated30-entry candidate. Original UVS v1, source adapter, six wheel
+variants and immutable baselines remain preserved. Four exact side-specific
+native rolling resources retain original wheel textures through a scoped native
+selector; accepted Lancer mechanics remain composed and byte-verified.
+
+Clean retail Terrano-derived physics with measured hubs/radii and source-backed
+MR RWD; MR audio/crew, front/side glass damage, six rear-only brake triangles,
+editable Shadow Auto Fit, identity/art/Results/marker and frontend Auto Frame.
+No vertical stance correction or inferred TIFF alpha. Rear damage, source
+reflections/bump/animations and settled suspension remain unqualified.
+
+Actual Tk create/open/validate/provenance and D3D9 captures PASS; complete
+Windows regression **1095 tests, 2 pre-existing skips**. Launcher/CPU evidence
+is separate from **D3D8 gameplay PENDING OWNER**. See
+[native pilot results](FOUR_RUNNER_NATIVE_RESULTS.md),
+[stance/material decisions](FOUR_RUNNER_STANCE_AND_MATERIAL_DECISIONS.md) and
+[owner checklist](FOUR_RUNNER_OWNER_CHECKLIST.md). Stop after this one candidate.
+
+---
+
 # Evo2 Source Garage — qualified 4Runner scene and preview
 
 28 October 2026. One hash-qualified `TRUCK/T4RSR52.TRK` adapter now recovers

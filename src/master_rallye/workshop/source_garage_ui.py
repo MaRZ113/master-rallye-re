@@ -97,6 +97,10 @@ class SourceGarageWindow:
                               ("Save preview choices", self.save_choices)):
             button = ttk.Button(actions, text=label, command=method); button.pack(side="left", padx=3)
             self.action_buttons[label] = button
+        authoring = ttk.Frame(self.window, padding=(8, 0, 8, 8)); authoring.pack(fill="x")
+        self.action_buttons["Create MR Source Fidelity…"] = ttk.Button(authoring, text="Create MR Source Fidelity…", command=self.create_mr_dialog)
+        self.action_buttons["Create MR Source Fidelity…"].pack(side="left")
+        ttk.Button(authoring, text="Source / MR Help", command=lambda:self.app.show_help('universal-source')).pack(side="left", padx=8)
         ttk.Label(self.window, text="Toyota 4Runner SR5 Sport Package 2WD · catalog T4RSR52 · neutral D3D9 approximation · unspecified TIFF channel is not assumed alpha",
                   padding=(10, 0)).pack(fill="x")
         options = ttk.Frame(self.window, padding=8); options.pack(fill="x")
@@ -137,7 +141,7 @@ class SourceGarageWindow:
         self._controls()
 
     def _controls(self):
-        for label in ("Preview", "Open neutral 3D", "Capture six views", "Save preview choices"):
+        for label in ("Preview", "Open neutral 3D", "Capture six views", "Save preview choices", "Create MR Source Fidelity…"):
             self.action_buttons[label].state(["!disabled"] if self.scene is not None else ["disabled"])
 
     def _run(self, title, work, done):
@@ -147,6 +151,47 @@ class SourceGarageWindow:
             if self.window.winfo_exists():
                 done(value); self._controls()
         self.app.run(title, work, finish)
+
+    def create_mr_dialog(self):
+        if self.scene is None or self.app.busy:return
+        if getattr(self,'mr_dialog',None) is not None and self.mr_dialog.winfo_exists():
+            self.mr_dialog.lift();return
+        dialog=tk.Toplevel(self.window);apply_icon(dialog);dialog.title('Create independent MR Source Fidelity project')
+        self.mr_dialog=dialog
+        retail=self.app.sdk_root.parent/'corpora/retail'
+        defaults={'donor_dir':retail/'Data.sma_unpacked/DataGx/Vehicles/Terrano',
+                  'retail_sma':retail/'Data.sma','retail_root':retail/'Data.sma_unpacked',
+                  'base_roster':self.app.sdk_root/'.research-output/vehicles/heritage/roster'}
+        self.mr_fields={key:tk.StringVar(value=str(value) if value.exists() else '')for key,value in defaults.items()}
+        for key,label in (('donor_dir','Qualified retail SUV model folder'),('retail_sma','Clean retail Data.sma'),
+                          ('retail_root','Unpacked clean retail resource root'),('base_roster','Qualified base roster folder (copied)')):
+            row=ttk.Frame(dialog,padding=6);row.pack(fill='x')
+            ttk.Label(row,text=label,width=39).pack(side='left')
+            ttk.Entry(row,textvariable=self.mr_fields[key],width=70).pack(side='left',fill='x',expand=True)
+            def browse(k=key):
+                path=(filedialog.askopenfilename(parent=dialog,title='Clean retail Data.sma',filetypes=[('Master Rallye archive','*.sma')])
+                      if k=='retail_sma' else filedialog.askdirectory(parent=dialog,title='Select '+k.replace('_',' ')))
+                if path:self.mr_fields[k].set(path)
+            ttk.Button(row,text='Choose…',command=browse).pack(side='left',padx=5)
+        ttk.Label(dialog,wraplength=830,padding=12,text='One qualified 4Runner Source Fidelity import. Creates private source, authoring and Workshop copies; preserves the neutral scene. The selected roster is copied into an independent CarID29 alternative. MR donor systems are adaptations. Gameplay remains pending owner testing.').pack(fill='x')
+        def create():
+            values={key:Path(value.get())for key,value in self.mr_fields.items()}
+            if any(not value.get().strip()for value in self.mr_fields.values()):
+                messagebox.showerror('MR Source Fidelity','Supply all four qualified input paths.',parent=dialog);return
+            scene_path=self.scene_root/'scene.json'
+            target=self.app.workspace/'universal-imports'/uuid.uuid4().hex[:16]
+            def work():
+                from master_rallye.source_garage_pilot import create_pilot
+                return create_pilot(scene_path,values['donor_dir'],values['retail_sma'],target,
+                                    retail_root=values['retail_root'],base_roster=values['base_roster'],build=False)
+            def done(report):
+                from .service import WorkshopProject
+                if dialog.winfo_exists():dialog.destroy()
+                self.show(report);self.app._opened(WorkshopProject(Path(report['workshop'])))
+                self.status.set('Independent MR Source Fidelity project created. Use Workshop Validate / Build; original neutral source is unchanged.')
+            self._run('Create independent MR Source Fidelity addon',work,done)
+        self.mr_create_button=ttk.Button(dialog,text='Create Source Fidelity project',command=create)
+        self.mr_create_button.pack(pady=12)
 
     def show(self, value):
         self.details.delete("1.0", "end")

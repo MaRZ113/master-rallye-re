@@ -1,3 +1,29 @@
+# Universal Scene → MR 4Runner pilot — 28 October 2026
+
+Private evidence `.research-output/vehicles/cross-game-4runner/`;
+final owner package `pilot-delivery/`, gameplay PENDING OWNER.
+
+| Check | Result / evidence | Boundary |
+|---|---|---|
+| Complete plan/history | Exact303112-byte retained v6.8 prefix, SHA3de8dd74…5058; all previous plan/checkpoints retained | Later implementation status appended only |
+| New focused tests | focused-delivery.log;38 tests PASS | Generic bridge, native wheel selector, sealed resources, pilot/RWD/collision, immutable provenance |
+| Full qualified Windows regression | **full-windows-delivery.log;1095 tests in65.413s, OK,2 pre-existing optional fixture skips** | Installed Python3.15/Unicorn; synthetic/CPU, not game qualification |
+| Source adapter/UVS compatibility | Original modules unchanged; all old source/preview tests included in full suite | Same pinned source scene/source hashes |
+| Deterministic DX/DXT | determinism/validation.json +pilot-delivery/rwd-correction-proof.json;10 SourceBaseline and21 enhanced resources exact | Repeated geometry/material compilation; no proprietary bytes in review ZIPs |
+| Actual serialized source wheels | pilot-delivery/wheel-resource-equivalence.json;4 resources, position error≤1.60e-8m, exact side texture/triangle associations | Native static rest basis; live spinning model load remains owner check |
+| Native wheel selector / Lancer composition | ../evo2-native-v68/native-wheels-replay.json;16 original-x86 cases, failure/lifecycle and existing mechanics replay PASS | Same native wheel entity/spin controller; CPU services partly stubbed |
+| Sealed model/resource isolation | resource-differences.json;4 shared resources changed,21 added,30 previous29-alternative resources omitted | Accepted26/27/28 model/textures28/42/84 files byte-identical; previous author projects preserved |
+| RWD correction | pilot-delivery/rwd-correction-proof.json; only new-family Engine/DriveType0→1 in one sealed XML resource | Source front torque0/rear1 evidence; no raw enum equivalence assumed |
+| Real Windows UI / renderer | windows-delivery/validation.json; Source Garage dialog→create/open/Validate/provenance PASS; RWD=1 | Actual Tk/D3D9, six views plus wheel interiors; no D3D8 claim |
+| Studio persistence / reversibility | studio-delivery/validation.json; material/crew exact Undo/Redo, collision/Shadow/frontend, Camera2reset, Results/marker/reopen/Restore PASS | Fresh private copy;63 source author/baseline files unchanged |
+| Material and native state separation | pilot-delivery/native-state-recipe.json; six qualified rear triangles; front/side glass cases; OFF equivalence PASS | Rear pane damage UNSUPPORTED; extra TIFF sample never alpha |
+| Native build/preflights | pilot-delivery/pilot-report.json;304 resources,260 operations, verify/environment/native-allocation PASS | game_launched=false, runtime_qualified=false |
+| Original/accepted preservation | preservation-final.json;2493/2493 exact hashes unchanged | Six original MR files,90 prior author roots,59-file neutral scene, donor POD/EXE |
+| Source-only archives | review/archive-manifest.json after local commit | Complete retained plans; text-only committed files, SHA/CRC/AST checked |
+| D3D8 owner gameplay | FOUR_RUNNER_OWNER_CHECKLIST.md | NOT TESTED: menu/spawn/contact/AI/damage/results/re-entry |
+
+---
+
 # Evo2 source-scene pilot checks — 28 October 2026
 
 Private evidence `.research-output/vehicles/source-garage-evo2/`.

@@ -1,3 +1,39 @@
+# First Universal Scene → MR pilot, 28 October 2026
+
+Parent `c5bd91fc5dcb81e6e10c44ebbd9c0a6073b129ed` preserved. This scoped commit
+contains the implementation and ledger. Resolve its exact ID using
+`git log -1 --format=%H --fixed-strings --grep="feat(sdk): bridge Universal Scene to isolated 4Runner native pilot"`.
+Post-commit review/archive-manifest.json records that exact revision.
+
+- Complete attached v6.8 retained byte-for-byte with all old plan history;
+  no accepted source adapter/UVS v1 reimplementation or source asset mutation.
+- Generic source-hash/profile-driven ScenePart bridge into existing native
+  writer and addon compiler, explicit reversible transforms/material decisions.
+- One qualified Source Fidelity 4Runner project, immutable original and MR
+  source baselines, exact four rolling side resources and safe native selector.
+  Original native wheel ownership/spin retained; verified Lancer mechanics chain.
+- Clean retail Terrano-derived independent physics, measured hubs/radii, source
+  torque-backed MR RWD; explicit MR Navara audio/crew. Front/side glass and six
+  rear lens brake-state triangles, Shadow/Identity/Results/art/marker/frontend.
+  Rear damage and source rendering/dynamics remain unqualified.
+-38 focused new tests PASS; full Windows suite1095 tests,2 existing skips.
+  Actual Tk/D3D9 create/validate/provenance, Studio persistence/Undo/Redo/Restore,
+  deterministic10+21 DX/DXT files and controlled original-x86 wheel replay PASS.
+- Isolated30-entry alternative29 candidate:304 resources/260 operations and
+  three launcher preflights PASS. All2493 protected input files unchanged;
+  exact accepted26–28 model/texture hashes preserved. No original installed
+  game, source installation, accepted project or Randomizer replacement.
+- Fix combined collision/appearance/Shadow rebase with unchanged-core proof;
+  short owned CMake scratch fixes deep Windows launcher build paths.
+- Source-only/changed archives exclude private model/texture/audio/preview and
+  native binary evidence. No third-party implementation vendored.
+- **D3D8 gameplay PENDING OWNER.** Stop after this one candidate; no Classic,
+  fleet, other donor campaign, capacity experiment, push or publication.
+
+See [FOUR_RUNNER_NATIVE_RESULTS.md](FOUR_RUNNER_NATIVE_RESULTS.md).
+
+---
+
 # Evo2 source scene — validated bounded pilot, 28 October 2026
 
 Parent `f2714b1d50c5af18bdc4081010317fe3e4632922` preserved. This scoped commit

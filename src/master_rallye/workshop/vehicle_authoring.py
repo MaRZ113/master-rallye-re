@@ -137,6 +137,16 @@ class VehicleAuthoring(CameraLabAuthoring,FrontendAuthoring):
         self.physics_compile(state['physics']);state['physics']['notes']+='\nExplicit stock reference '+family+' group '+group+' (fitment/count arrays retained).'
         self._vehicle_commit(state);return {'copied':copied,'retained':retained,'source':family,'pins':info['pins']}
 
+    def collision_definition(self,raw,profile):
+        """Rebind only a proven unchanged structural shell to appearance edits."""
+        if not profile or not profile.get('collision_fit'):return None
+        from master_rallye.addon_sdk.physics_collision import rebase_unchanged_core
+        baseline=json.loads((self.root/'author-baseline/physics-profile.json').read_text())
+        definition=baseline.get('collision_fit')
+        if not definition or {k:v for k,v in definition.items()if k!='source_sha256'}!={k:v for k,v in profile['collision_fit'].items()if k!='source_sha256'}:
+            raise ValueError('Collision fitting definition differs from immutable author baseline')
+        return rebase_unchanged_core((self.baseline/'car.dx').read_bytes(),raw,definition)
+
     def native_model_resources(self):
         """Reuse SDK resource transforms, then pin exact output checked again by roster."""
         from master_rallye.addon_sdk.project import _mechanical_artifacts,_apply_visual_fitment
@@ -150,7 +160,7 @@ class VehicleAuthoring(CameraLabAuthoring,FrontendAuthoring):
         resources={n:(self.assets/n).read_bytes() for n in ('car.dx','complete.dx','wheel.dx')}
         if p and p.get('collision_fit'):
             from master_rallye.addon_sdk.physics_collision import fit_collision
-            resources['car.dx'],_=fit_collision(resources['car.dx'],p['collision_fit'])
+            resources['car.dx'],_=fit_collision(resources['car.dx'],self.collision_definition(resources['car.dx'],p))
         family=json.loads((self.working/'addon.json').read_text())['identity']['runtime_family']
         resources,_=_mechanical_artifacts(self.working,family,resources,Path(s['retail_sma']),donor_family=author.vehicle_name)
         resources,_=_apply_visual_fitment(self.working,resources)
@@ -297,8 +307,11 @@ class VehicleAuthoring(CameraLabAuthoring,FrontendAuthoring):
         state=self.vehicle_state();base=self.root/'author-baseline'
         if state['physics'] is not None:
             target=self.working/'physics-profile.json';original=json.loads((base/'physics-profile.json').read_text())
-            if state['physics']==original:write_resource(target,(base/'physics-profile.json').read_bytes())
-            elif json.loads(target.read_text())!=state['physics']:write_json(target,state['physics'])
+            physics=copy.deepcopy(state['physics'])
+            if physics.get('collision_fit'):
+                physics['collision_fit']=self.collision_definition((self.assets/'car.dx').read_bytes(),physics)
+            if physics==original:write_resource(target,(base/'physics-profile.json').read_bytes())
+            elif json.loads(target.read_text())!=physics:write_json(target,physics)
         if self.data['kind']=='addon':
             addon=json.loads((self.working/'addon.json').read_text());original=json.loads((base/'addon.json').read_text());fields=state['details']
             addon['frontend'].update({k:fields[k] for k in ('manufacturer','model','combined')});addon['results']['display_name']=fields['display_name'];addon['description']=fields['description']

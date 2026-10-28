@@ -10,6 +10,36 @@ from ..collision_scale import scale_dx_collision
 from ..collision_writer import patch_dx_collision_translation
 from ..bounds import compute_bounds1339,replace_bounds1339
 
+
+def rebase_unchanged_core(before,after,definition):
+    """Re-pin appearance/crew edits only when collision and core are identical.
+
+    Original whole-file qualification remains mandatory. A replacement body,
+    altered core indices/positions, or changed collision cannot authorize a fit.
+    """
+    import copy
+    if hashlib.sha256(before).hexdigest()!=definition['source_sha256']:
+        raise ValueError('collision rebase baseline hash differs')
+    from ..errors import MasterRallyeError
+    try:old,new=parse_dx_bytes(before),parse_dx_bytes(after)
+    except MasterRallyeError as error:raise ValueError('collision rebase requires validated models')from error
+    if not old.diagnostics.validated or not new.diagnostics.validated:
+        raise ValueError('collision rebase requires validated models')
+    if before[old.trailing.offset:old.collision.unparsed_offset]!=after[new.trailing.offset:new.collision.unparsed_offset]:
+        raise ValueError('collision rebase changed native collision')
+    def selected(model):
+        records=[]
+        for index in definition['core_draw_indices']:
+            matches=[d for d in model.physical_draws if d.draw_index==index and d.tag==2]
+            if len(matches)!=1:raise ValueError('collision rebase core draw changed')
+            draw=matches[0]
+            ids=model.draw_global_indices(draw)
+            records.append(tuple(model.vertices.positions[i]for i in ids))
+        return records
+    if selected(old)!=selected(new):raise ValueError('collision rebase changed selected core geometry')
+    result=copy.deepcopy(definition);result['source_sha256']=hashlib.sha256(after).hexdigest()
+    return result
+
 def fit_collision(raw,definition):
     if hashlib.sha256(raw).hexdigest()!=definition['source_sha256']:raise ValueError('collision fitting source hash differs')
     model=parse_dx_bytes(raw);hull=model.collision.convex_hull

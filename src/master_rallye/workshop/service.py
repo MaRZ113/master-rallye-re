@@ -199,6 +199,12 @@ class WorkshopProject(AudioAuthoring,VehicleAuthoring,AudioImportAuthoring,GTAud
     def verify_inputs(self):
         from master_rallye.addon_sdk.heritage_source import verify_author
         verify_author(self.working)
+        if 'universal_source' in self.data:
+            from .universal_source import verify_source
+            verify_source(self.data['universal_source'])
+        if 'source_baseline' in self.data:
+            from .universal_source import verify_baseline
+            verify_baseline(self.data['source_baseline'])
         for path,expected in self.data.get('author_sources',{}).items():
             if sha(Path(path).read_bytes())!=expected:raise ValueError('Original author input changed: '+path)
         for name,expected in self.data['inputs'].items():
@@ -497,6 +503,11 @@ class WorkshopProject(AudioAuthoring,VehicleAuthoring,AudioImportAuthoring,GTAud
                 if not immutable.exists():
                     initial=shadow.read_bytes();immutable.write_bytes(initial);self.data['shadow_input_sha256']=sha(initial);self.save()
                 before=(self.baseline/'car.dx').read_bytes();after=(self.assets/'car.dx').read_bytes()
+                physics=self.vehicle_state()['physics']
+                if physics and physics.get('collision_fit'):
+                    from master_rallye.addon_sdk.physics_collision import fit_collision
+                    before=fit_collision(before,self.collision_definition(before,physics))[0]
+                    after=fit_collision(after,self.collision_definition(after,physics))[0]
                 if mechanical.exists():
                     from master_rallye.addon_sdk.mechanical_attachments import build_mechanical_resources
                     wheel=(self.baseline/'wheel.dx').read_bytes();template=(original.source_vehicle_dir/'car.dx').read_bytes()

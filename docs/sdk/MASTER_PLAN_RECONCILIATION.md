@@ -98,3 +98,16 @@ No product tests were needed for this document-only correction. No other source
 code, donor installation, original MR resource or accepted vehicle was changed
 by reconciliation. Later pilot implementation and its tests are documented
 separately; the results above must not be presented as a new full-suite run.
+
+
+## v6.8 retention checkpoint — first native 4Runner pilot
+
+The complete owner v6.8 attachment is303112 bytes, SHA256
+`3de8dd7460d54f95f31e57d84504a8787fa13b4669f060d187266ae4b9805058`.
+It contains the entire295599-byte current repository plan once at offset0,
+then adds the v6.8 planning section. Its exact bytes are retained in
+`retained/master_rallye_vehicle_sdk_master_plan_v6_8.md` and as the complete
+prefix of MASTER_PLAN.md. The current native-pilot implementation checkpoint
+is appended after that prefix. Both retained versions have explicit LF rules
+in .gitattributes, preventing Windows checkout normalization from changing
+attachment hashes. Historical v6.3-v6.5 and repository checkpoints remain full.

@@ -89,6 +89,7 @@ class WorkshopApp(AppearancePanels, AudioPanels, VehiclePanels, ShadowPanels, He
         ttk.Button(left,text='Remove from library',command=self.remove_library).pack(fill='x',pady=5)
         ttk.Button(left,text='GT Garage Lab',command=self.open_garage).pack(fill='x',pady=3)
         ttk.Button(left,text='Source Garage',command=self.open_source_garage).pack(fill='x',pady=3)
+        ttk.Button(left,text='Source provenance',command=self.show_source_provenance).pack(fill='x',pady=3)
         center=ttk.Frame(main,padding=9);main.add(center,weight=4)
         ttk.Label(center,textvariable=self.name,style='Header.TLabel').pack(anchor='w')
         ttk.Label(center,textvariable=self.context,wraplength=650).pack(anchor='w',pady=5)
@@ -637,6 +638,21 @@ class WorkshopApp(AppearancePanels, AudioPanels, VehiclePanels, ShadowPanels, He
         from .source_garage_ui import SourceGarageWindow
         if getattr(self,'source_garage_window',None)and self.source_garage_window.window.winfo_exists():self.source_garage_window.window.lift();return
         self.source_garage_window=SourceGarageWindow(self)
+
+    def show_source_provenance(self):
+        if self.busy:return
+        if not self.project or 'universal_source' not in self.project.data:
+            self.status.set('This project has no Universal Vehicle Scene source association.');return
+        from .universal_source import inspect_source
+        record=self.project.data['universal_source']
+        def done(info):
+            window=tk.Toplevel(self.root);apply_icon(window);window.title('Immutable source provenance');window.geometry('920x700')
+            text=tk.Text(window,wrap='word');text.pack(fill='both',expand=True)
+            text.insert('end',json.dumps(info,indent=2,ensure_ascii=False));text.configure(state='disabled')
+            def open_neutral():
+                self.open_source_garage();self.source_garage_window._open(Path(record['scene_path']))
+            ttk.Button(window,text='Open original neutral source scene',command=open_neutral).pack(pady=8)
+        self.run('Verify immutable source provenance',lambda:inspect_source(record),done)
 
     def close(self):
         if self.busy:self.status.set('Operation still running. Close after it finishes.');return

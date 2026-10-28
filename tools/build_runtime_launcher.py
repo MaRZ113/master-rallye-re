@@ -99,11 +99,16 @@ def build_launcher(*, bundle: Path, output: Path = DEFAULT_OUTPUT,
         raise LauncherBuildError("bundle is not a statically verified, unqualified runtime candidate")
     output.parent.mkdir(parents=True, exist_ok=True)
     stage = Path(tempfile.mkdtemp(prefix=f".{output.name}.building-", dir=output.parent))
+    # MSVC/CMake's nested TryCompile paths exceed MAX_PATH in ordinary deep
+    # Workshop projects. Keep compiler scratch short; publish atomically into
+    # the original fresh output tree after successful validation.
+    scratch = tempfile.TemporaryDirectory(prefix='mrl-')
     try:
-        include_dir = stage / "generated"
+        include_dir = Path(scratch.name) / "generated"
         include_dir.mkdir()
         (include_dir / "trusted_profile.hpp").write_bytes(_header(profile, patch_manifest))
-        build_dir = stage / "cmake-build"
+        shutil.copytree(include_dir, stage / 'generated')
+        build_dir = Path(scratch.name) / "build"
         configure = ["cmake", "-S", str(PROJECT_ROOT / "runtime_launcher"), "-B", str(build_dir),
                      "-G", generator, "-A", "x64", f"-DPROFILE_INCLUDE_DIR={include_dir}"]
         subprocess.run(configure, check=True)
@@ -136,11 +141,12 @@ def build_launcher(*, bundle: Path, output: Path = DEFAULT_OUTPUT,
         }
         (stage / "launcher-build.json").write_text(
             json.dumps(metadata, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-        shutil.rmtree(build_dir)
         os.replace(stage, output)
     except Exception:
         shutil.rmtree(stage, ignore_errors=True)
         raise
+    finally:
+        scratch.cleanup()
     return json.loads((output / "launcher-build.json").read_text(encoding="utf-8"))
 
 

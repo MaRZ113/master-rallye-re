@@ -73,8 +73,43 @@ def apply_base_glass_profiles(resources,base_rows,profiles):
     return reports
 
 
+def qualified_wheel_profiles(profiles, resources, rows):
+    """Bind optional rolling wheel selectors to sealed addon-owned DX resources."""
+    if not isinstance(profiles,list) or len(profiles)>8:
+        raise ValueError('wheel_profiles must be a bounded explicit list')
+    families={row['identity']['runtime_family'].casefold():row for row in rows}
+    lookup={name.casefold():name for name in resources};seen=set();result=[]
+    for profile in profiles:
+        if not isinstance(profile,dict) or set(profile)!={'runtime_family','resource_keys','resource_sha256'}:
+            raise ValueError('wheel profile requires family, four resource keys and hashes')
+        family=profile['runtime_family']
+        if not isinstance(family,str)or family.casefold()not in families or family.casefold()in seen:
+            raise ValueError('wheel profile must target one declared addon family')
+        row=families[family.casefold()];keys=profile['resource_keys'];pins=profile['resource_sha256']
+        if not isinstance(keys,list)or len(keys)!=4 or not all(isinstance(k,str)for k in keys)or len({k.casefold()for k in keys})!=4:
+            raise ValueError('four distinct addon wheel resource keys required')
+        if not isinstance(pins,list)or len(pins)!=4 or any(not isinstance(p,str)or not re.fullmatch('[0-9a-f]{64}',p)for p in pins):
+            raise ValueError('four wheel resource SHA256 pins required')
+        prefix='vehicles/'+family+'/'
+        for key,pin in zip(keys,pins):
+            if not key.casefold().startswith(prefix.casefold())or not re.fullmatch('[A-Za-z0-9_-]{1,64}',key[len(prefix):]):
+                raise ValueError('wheel resource must stay in its addon family')
+            role=key[len(prefix):]+'.dx'
+            if role.casefold()in ('car.dx','complete.dx','wheel.dx')or role not in row['assets']['required_roles']:
+                raise ValueError('wheel selector must name an explicit separate required DX role')
+            name=lookup.get(('DataGx/'+key+'.dx').casefold())
+            if name is None or probe.sha(probe.value(resources[name]))!=pin:
+                raise ValueError('wheel resource missing or differs from its exact pin')
+            from master_rallye.dx import parse_dx_bytes
+            model=parse_dx_bytes(probe.value(resources[name]))
+            if not model.diagnostics.validated or any(d.tag!=2 for d in model.physical_draws):
+                raise ValueError('wheel selector requires validated ordinary rolling geometry')
+        seen.add(family.casefold());result.append({'runtime_family':family,'resource_keys':keys[:]})
+    return result
+
+
 def derive(config):
-    if not isinstance(config,dict) or not {'sdk_roster_version','base_runtime','projects'}<=set(config) or set(config)-{'sdk_roster_version','base_runtime','projects','reservations','retail_exe','frontend_profiler','frontend_bulk_read','stock_resource_projects','camera_profiles','frontend_profiles','base_glass_profiles'} or type(config.get('sdk_roster_version')) is not int or config['sdk_roster_version']!=1:raise ValueError('unsupported SDK roster declaration')
+    if not isinstance(config,dict) or not {'sdk_roster_version','base_runtime','projects'}<=set(config) or set(config)-{'sdk_roster_version','base_runtime','projects','reservations','retail_exe','frontend_profiler','frontend_bulk_read','stock_resource_projects','camera_profiles','frontend_profiles','base_glass_profiles','wheel_profiles'} or type(config.get('sdk_roster_version')) is not int or config['sdk_roster_version']!=1:raise ValueError('unsupported SDK roster declaration')
     if type(config.get('frontend_profiler',False)) is not bool:raise ValueError('frontend_profiler must be an explicit boolean')
     if type(config.get('frontend_bulk_read',False)) is not bool:raise ValueError('frontend_bulk_read must be an explicit boolean')
     inputs=config.get('projects')
@@ -151,6 +186,17 @@ def derive(config):
         if report:
             ops+=report['operations'];bindings[name]={k:v for k,v in report.items() if k!='operations'}
             writable+=report.get('writable_ranges',[])
+    rolling_wheels=qualified_wheel_profiles(config.get('wheel_profiles',[]),output,all_rows)
+    if rolling_wheels:
+        from vehicle_wheels_native import append_wheels
+        image,blob,report=append_wheels(source,image,blob,damage.PAYLOAD_VA,rolling_wheels,ALLOCATION,mechanics_report=bindings.get('mechanics'))
+        for operation in report['operations']:
+            displaced=[old for old in ops if old['file_offset']==operation['file_offset']]
+            if displaced:
+                if len(displaced)!=1 or displaced[0]['replacement_bytes']!=operation['displaced_bytes'] or displaced[0]['original_bytes']!=operation['original_bytes']:
+                    raise ValueError('wheel selector displaced an unverified native operation')
+                ops=[old for old in ops if old['file_offset']!=operation['file_offset']]
+        ops+=report['operations'];bindings['rolling_wheels']={k:v for k,v in report.items()if k!='operations'}
     blob+=b'\x90'*((-len(blob))%16);capacity_offset=len(blob)
     image,cap=capacity.extend_image(source,image,rows,storage='private_allocation',payload_va=damage.PAYLOAD_VA+capacity_offset)
     blob+=bytes.fromhex(cap.pop('private_payload_hex'));ops+=cap['operations'];bindings['capacity']=cap
