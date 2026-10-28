@@ -1,3 +1,7 @@
+Current owner review: optional Visual Polish kit rejected in D3D8. Stable preserves accepted glass/lower lamps; new candidates await owner testing. This report is historical. See FOUR_RUNNER_STABILIZATION_RESULTS.md.
+
+---
+
 # Toyota 4Runner visual polish and bridge hardening
 
 28 October 2026. Parent: `77bbe6f696bf8c882637ba7dd21c2ac15ee8a534` on

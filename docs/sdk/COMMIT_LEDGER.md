@@ -1,3 +1,28 @@
+# 4Runner v7.0 stabilization —28 October2026
+
+Parent450eb5d08dcc4a73d104357fd250b64e35dc92d1, clean research/vehicles.
+Resolve the scoped local revision using:
+`git log -1 --format=%H --fixed-strings --grep="fix(sdk): stabilize 4Runner and gate rejected visual experiments"`.
+
+- Preserve all accepted side/windshield/lower-brake mechanisms and exact
+  fixed-final native assembly. Refuse five owner-rejected options before IO;
+  disable creation choices, no cuboid/duplicate wheel/frame/reflection fragments.
+- Restore complete supplied v7.0 prefix/retained attachment, missing v6.9 and
+  all unique4895 bytes of old repository checkpoints verbatim.
+- Separate default-off upper brake strip,4 triangles on Body595/596, existing
+  blight; no combined preset, new native compiler or invented source lamp state.
+-59 focused/1107 full Windows tests(2 skips),45 D3D9 comparisons including15
+  pixel-exact Stable views; actual Tk/Studio/Undo/Redo/Restore, exact wheels/
+  physics/collision/glass/lower lamps and deterministic regeneration.
+- Freeze original playable/fixed/adapted and4610 protected file snapshots,
+  current proxy hash captured before implementation; no originals installed.
+  New Stable/upper candidates remain PENDING OWNER D3D8 qualification.
+- Reverify450eb5d review archives; new source-only full/changed packages pin
+  this revision and exclude proprietary assets. No push/publish/release,
+  other donor or capacity expansion. See FOUR_RUNNER_STABILIZATION_RESULTS.md.
+
+---
+
 # 4Runner visual polish and Universal Bridge hardening — 28 October 2026
 
 Parent `77bbe6f696bf8c882637ba7dd21c2ac15ee8a534`. Scoped local commit only;

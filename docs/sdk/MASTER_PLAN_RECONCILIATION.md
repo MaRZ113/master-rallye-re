@@ -111,3 +111,8 @@ prefix of MASTER_PLAN.md. The current native-pilot implementation checkpoint
 is appended after that prefix. Both retained versions have explicit LF rules
 in .gitattributes, preventing Windows checkout normalization from changing
 attachment hashes. Historical v6.3-v6.5 and repository checkpoints remain full.
+
+
+## Complete v7.0 reconciliation, 28 October2026
+
+The complete322686-byte supplied v7.0 is retained byte-for-byte in retained/master_rallye_vehicle_sdk_master_plan_v7_0.md and forms the canonical plan prefix. It includes the complete303112-byte v6.8 plus missing v6.9 and v7.0 owner reviews. The4895-byte unique old repository implementation suffix is appended verbatim as historical checkpoints; no history is summarized or discarded. Machine proof is in vehicles/4runner-stable/master-plan-reconciliation.json under ignored private evidence.

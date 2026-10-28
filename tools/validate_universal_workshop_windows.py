@@ -28,7 +28,10 @@ def main():
     for name in ('scene','donor','retail-sma','retail-root','base-roster','viewer','output'):
         parser.add_argument('--'+name,type=Path,required=True)
     parser.add_argument('--mr-visual-kit',action='store_true')
-    args=parser.parse_args();scene=load_scene(args.scene)
+    parser.add_argument('--upper-brake-lamp',action='store_true')
+    args=parser.parse_args()
+    if args.mr_visual_kit:parser.error('Rejected legacy kit; validate Stable or its separate upper lamp test variant.')
+    scene=load_scene(args.scene)
     output=output_directory(args.output,[args.scene.parent,args.donor,args.retail_sma.parent,args.retail_root,
         scene['source']['root'],*scene['source'].get('protected_roots',[])])
     output.mkdir(parents=True);errors=[];root=tk.Tk()
@@ -64,8 +67,8 @@ def main():
             window._open(args.scene);window.create_mr_dialog()
             values={'donor_dir':args.donor,'retail_sma':args.retail_sma,'retail_root':args.retail_root,'base_roster':args.base_roster}
             for key,value in values.items():window.mr_fields[key].set(str(value))
-            if args.mr_visual_kit:
-                for value in window.mr_visual_options.values():value.set(True)
+            assert not any(value.get()for value in window.mr_visual_options.values())
+            window.mr_upper_brake.set(args.upper_brake_lamp)
             screenshot(window.mr_dialog,output/'create-dialog.png')
             window.mr_create_button.invoke();settle()
             project=app.project
@@ -73,7 +76,7 @@ def main():
                 raise AssertionError('Real Source Garage creation did not open its isolated addon')
             project.verify_inputs();app.validate();settle()
             visual=json.loads(Path(project.data['source_baseline']['native_adaptations']).read_text())['visual_kit']['options']
-            if args.mr_visual_kit and not all(visual.values()):raise AssertionError('GUI visual choices did not reach the authoring service')
+            if any(visual.values()):raise AssertionError('Rejected visual option enabled')
             drive=next(row['value']for row in project.physics_inspect()['rows']
                        if row['member']=='DataGame/vehicles.xml'and row['path']=='Engine/DriveType')
             if drive!=1:raise AssertionError('Qualified 2WD source did not receive the explicit MR RWD adaptation')

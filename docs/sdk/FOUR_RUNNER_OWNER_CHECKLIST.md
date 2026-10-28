@@ -1,3 +1,28 @@
+# Current stabilization owner checklist
+
+NEW4Runner Stable and separate Upper Brake Test are PENDING OWNER D3D8 TEST.
+Owner accepts side glass/lower brake/windshield findings; the prior tested
+path/manifest was not supplied, so no blanket preset approval is inferred.
+
+1. Launch4runner-stable/Launch-Stable.cmd first. Compare both mirrors, original
+   paint and dark rear windows; no reflective fragments, black box, added3D
+   wheel or disconnected beams. All five old options are off.
+2. Confirm front/left/right intact/broken glass, accepted windshield and both
+   lower brake OFF/ON sections; original wheels/driving/body deformation,
+   sound/camera and frontend should remain normal.
+3. Only after Stable, launch the independent Launch-Upper-Brake-Test.cmd.
+   Compare the upper center strip OFF/ON and ensure no roof/hatch/bumper spill;
+   lower lamps unchanged. No other visual experiment is combined with this test.
+4. Finish/Results and menu return/re-entry remain separate checks. Report exact
+   launcher/candidate path with screenshots/logs if any regression occurs.
+
+Original playable, fixed-final and rejected adapted-final are unchanged for
+rollback/comparison. See FOUR_RUNNER_STABILIZATION_RESULTS.md.
+
+---
+
+Historical checklists follow; optional-kit instructions are superseded:
+
 # Visual polish owner check — current candidates
 
 Previous native pilot: owner-confirmed loading/driving, body deformation and

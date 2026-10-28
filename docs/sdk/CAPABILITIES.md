@@ -1,3 +1,26 @@
+# 4Runner Stable quality gate — Master Plan v7.0
+
+28 October2026. Owner accepts improved side glass and lower brake lights;
+windshield/playability/deformation/glass damage are preserved. The five optional
+Visual Polish features are REJECTED IN D3D8, disabled in creation UI and refused
+by generation. Historical success notes below describe earlier static/D3D9
+checks, not owner acceptance of the adapted appearance.
+
+New Stable preserves the entire fixed-final21-file native assembly exactly.
+45 D3D9 comparisons; all15 Stable views match fixed-final pixel for pixel.
+59 focused tests and1107 full Windows tests PASS(2 existing skips). Actual
+Tk/Studio, Undo/Redo/Restore/reopen, deterministic regeneration, exact wheels/
+physics/collision/glass/lower lamps and launcher preflights PASS. Owner D3D8
+approval of the NEW Stable candidate remains PENDING.
+
+Only a separate default-off upper brake strip test is delivered: original
+Body595/596,4 bounded triangles, existing blight binding, lower lamps unchanged.
+It also awaits owner testing. All five other experiments are deferred; no
+combined MR Adapted preset. Full v7.0 and unique old history retained verbatim.
+See [stabilization results](FOUR_RUNNER_STABILIZATION_RESULTS.md).
+
+---
+
 # 4Runner visual polish checkpoint — 28 October 2026
 
 The previous native pilot is now **owner-confirmed in D3D8 for loading,

@@ -17,7 +17,7 @@ from .scene_dx_writer import write_scene_dx
 
 ROOT=Path(__file__).resolve().parents[2]
 FAMILY='Evo2FourRunner'
-NAME='Toyota 4Runner Evo2 Source Fidelity'
+NAME='Toyota 4Runner Stable'
 CATALOG='TRUCK/T4RSR52.TRK'
 POD_SHA256='5669509d709193621802a43c2c63b32e537fcf93ea3fd5d94af8c66947be6a41'
 BODY_SHA256='a7f71e0ae1cae2fb64438ce8614bf7db47eb9dfc813d926388da4dfef7b6a11e'
@@ -116,7 +116,10 @@ def _physics(retail_sma,scene):
         'notes':'Independent clean-retail Terrano SUV family. Measured TRK axle spans and documented TRK wheel radius override dimensions. Original TRUCK/T4RSR52.TRK lines91/92 faxle.torque_pct=0.000000 and93/94 raxle.torque_pct=1.000000 qualify rear-wheel drive: authored MR Engine/DriveType=1 via qualified Physics Studio0AWD/1RWD/2FWD mapping, not Evo2 drive_type enum. Per-family reference +0.18288m reproduces literal source hubY=-0.18288 by qualified native Y=-RideHeight (004407FC..004408C0), preserving menu/base Terrano ride setting0. Terrano mass, spring/damper/other engine/tyre values retained; Evo2 catalog mass and solver values have no qualified unit/solver mapping. No gameplay settlement claim.'}
 
 
-def create_pilot(scene_path,donor_dir,retail_sma,output,*,retail_root=None,base_roster=None,profile=None,render_ui=None,build=True,visual_options=None):
+def create_pilot(scene_path,donor_dir,retail_sma,output,*,retail_root=None,base_roster=None,profile=None,render_ui=None,build=True,visual_options=None,upper_brake_lamp=False):
+    from .fourrunner_visual_kit import options
+    visual_options=options(visual_options)
+    if type(upper_brake_lamp)is not bool:raise ValueError('Upper brake lamp requires an explicit boolean')
     path=Path(scene_path).absolute();donor=Path(donor_dir).absolute();retail_sma=Path(retail_sma).absolute()
     retail_root=Path(retail_root or retail_sma.parent/'Data.sma_unpacked').absolute()
     scene=uvs.load_scene(path)
@@ -137,8 +140,6 @@ def create_pilot(scene_path,donor_dir,retail_sma,output,*,retail_root=None,base_
                 raise ValueError('Donor loose resource differs from exact clean retail SMA: '+item.name)
     admitted=pilot_profile(path)
     selected=copy.deepcopy(profile)if profile else admitted
-    from .fourrunner_visual_kit import options
-    visual_options=options(visual_options)
     result=compile_scene(path,selected)
     output.mkdir(parents=True)
     copied=_copy_scene(path,output/'inputs/source-scene')
@@ -151,9 +152,9 @@ def create_pilot(scene_path,donor_dir,retail_sma,output,*,retail_root=None,base_
         (baseline/('wheel-'+slot+'.dx')).write_bytes(write_scene_dx((donor/'wheel.dx').read_bytes(),parts))
     _json(output/'conversion-report.json',result['report'])
     candidate=output/'converted';shutil.copytree(baseline,candidate/'assets')
-    adaptations=_enhance(candidate/'assets',result,retail_root,output,retail_sma=retail_sma,visual_options=visual_options)
+    adaptations=_enhance(candidate/'assets',result,retail_root,output,retail_sma=retail_sma,visual_options=visual_options,upper_brake_lamp=upper_brake_lamp)
     _json(output/'native-adaptations.json',adaptations)
-    display_name='Toyota 4Runner Evo2 MR Adapted'if any(visual_options.values())else NAME
+    display_name=NAME+' + Upper Brake Test'if upper_brake_lamp else NAME
     identity={'addon':{'name':display_name,'family':FAMILY,'manufacturer':'TOYOTA','model':'4RUNNER SR5'}}
     import math
     slots=('front_left','front_right','rear_left','rear_right')
@@ -206,7 +207,7 @@ def create_pilot(scene_path,donor_dir,retail_sma,output,*,retail_root=None,base_
         ledger={'outputs':{model:{'sha256':uvs.sha(raw)}},'conversion':{model:adaptations['crew']['records']}}
         definitions[model]=qualify_converted_crew(raw,ledger,model)
     workshop.register_crew_models(definitions)
-    report={'status':'PASS_AUTHORING_GAMEPLAY_PENDING','output':str(output),'author':str(author),'workshop':str(workshop.root),
+    report={'status':'PASS_AUTHORING_GAMEPLAY_PENDING','variant':'Stable + Upper Brake Test'if upper_brake_lamp else '4Runner Stable','owner_approval':'PENDING_NEW_CANDIDATE_TEST','output':str(output),'author':str(author),'workshop':str(workshop.root),
         'source_scene':str(copied),'conversion_report':str(output/'conversion-report.json'),'native_adaptations':str(output/'native-adaptations.json'),
         'gameplay':'NOT TESTED','runtime_single_wheel_safe':False,'roster_limit':30}
     if base_roster:
@@ -239,7 +240,7 @@ def _configure(workshop,base_roster,output,retail_sma,retail_root):
     workshop.configure_build({'roster_candidate':str(roster),'retail_sma':str(retail_sma),'retail_root':str(retail_root)})
 
 
-def _enhance(assets,result,retail_root,output,*,retail_sma=None,visual_options=None):
+def _enhance(assets,result,retail_root,output,*,retail_sma=None,visual_options=None,upper_brake_lamp=False):
     """Explicit native adaptations, always separate from SourceBaseline."""
     from dataclasses import replace
     from .addon_sdk.crew import fit_crew
@@ -248,6 +249,9 @@ def _enhance(assets,result,retail_root,output,*,retail_sma=None,visual_options=N
     from .fourrunner_semantics import author_apertures
     parts,pane_indices,lamp_index,pane_records,semantic_report=author_apertures(result)
     _json(output/'semantic-apertures.json',semantic_report)
+    from .fourrunner_upper_lamp import author
+    parts,upper_report=author(parts,lamp_index,semantic_report,enabled=upper_brake_lamp)
+    _json(output/'upper-brake-lamp.json',upper_report)
     from .fourrunner_visual_kit import apply
     parts,core_indices,visual_report=apply(parts,result,retail_root,retail_sma,assets,visual_options,semantic_report)
     _json(output/'mr-visual-kit.json',visual_report)
@@ -292,6 +296,7 @@ def _enhance(assets,result,retail_root,output,*,retail_sma=None,visual_options=N
     _json(output/'native-state-recipe.json',recipe)
     _json(output/'crew-recipe.json',config)
     return {'status':'PASS_NATIVE_AUTHORING_GAMEPLAY_PENDING','source_baseline_unchanged':True,
+        'upper_brake_lamp':upper_report,
         'collision_core_draw_indices':native_core_indices,'visual_kit':visual_report,
         'materials':'Explicit source-atlas apertures partition side glass from opaque rubber/door/pillars. Accepted windshield unchanged. Vertex alpha89/255 is authored MR glass, never source TIFF alpha.',
         'pane_source_triangle_ids':pane_records,'semantic_apertures':str(output/'semantic-apertures.json'),'glass_damage':native_report,

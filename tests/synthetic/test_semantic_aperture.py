@@ -4,7 +4,7 @@ import math
 import unittest
 from unittest.mock import patch
 from master_rallye.semantic_aperture import partition,compose_ledger
-from master_rallye.fourrunner_visual_kit import box,options,apply
+from master_rallye.fourrunner_visual_kit import options,apply,OPTIONS
 from master_rallye.topology_writer import CompiledVertex,DrawGeometry
 
 
@@ -60,13 +60,10 @@ class SemanticApertureTests(unittest.TestCase):
             for i,w in zip(tri,row['barycentric']):
                 for k in range(3):self.assertAlmostEqual(a2.vertices[i].position[k],sum(w[j]*self.g.vertices[j].position[k]for j in range(3)))
 
-    def test_structure_is_closed_outward_and_has_no_blend_or_environment(self):
-        part=box((-.1,-.2,-.3),(.1,.2,.3),'dark');g=part.geometry
-        self.assertEqual(len(g.triangles),12);self.assertFalse(part.alpha);self.assertFalse(part.environment)
-        for a,b,c in g.triangles:
-            p,q,r=[g.vertices[i].position for i in (a,b,c)];u=[q[k]-p[k]for k in range(3)];v=[r[k]-p[k]for k in range(3)]
-            n=(u[1]*v[2]-u[2]*v[1],u[2]*v[0]-u[0]*v[2],u[0]*v[1]-u[1]*v[0])
-            self.assertGreater(sum(n[k]*g.vertices[a].normal[k]for k in range(3)),0.)
+    def test_each_owner_rejected_option_fails_before_any_asset_access(self):
+        for key in OPTIONS:
+            with self.subTest(option=key),self.assertRaisesRegex(ValueError,'Owner-rejected D3D8'):
+                apply([],{},None,None,None,{key:True},{})
 
     def test_optional_kit_off_changes_nothing_and_unknown_options_fail_closed(self):
         self.assertFalse(any(options(None).values()))

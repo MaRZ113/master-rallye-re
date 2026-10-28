@@ -1,3 +1,7 @@
+Current owner review: optional Visual Polish kit rejected in D3D8. Stable preserves accepted glass/lower lamps; new candidates await owner testing. This report is historical. See FOUR_RUNNER_STABILIZATION_RESULTS.md.
+
+---
+
 Owner update: previous pilot now confirms D3D8 loads/drives/body deformation/breakable glass. New visual variants and finish/re-entry remain pending. See FOUR_RUNNER_VISUAL_POLISH_RESULTS.md.
 
 ---

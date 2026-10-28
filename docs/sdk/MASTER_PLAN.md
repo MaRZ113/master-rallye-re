@@ -2124,6 +2124,114 @@ explicit permission.
 
 ---
 
+# Master Plan v6.9 — Cross-Game 4Runner: owner gameplay findings and Native Visual Fidelity
+
+**Checkpoint:** 28 October 2026. Previous v6.8 retained exactly above. This addendum records the owner's actual in-game 4x4 Evolution 2 Toyota 4Runner test. It is a planning and screenshot review, not an independent audit of the newest native bridge source. The uploaded `changed-files.zip` contains the earlier neutral-scene adapter commit `c5bd91fc5dcb81e6e10c44ebbd9c0a6073b129ed` (the earlier L2 scene milestone), **not** the new Universal Scene → Master Rallye build changes. Do not assert this review has independently verified that later implementation.
+
+## Owner-tested 4Runner status
+
+- **Observed in actual Master Rallye D3D8 gameplay:** the Toyota 4Runner loads as a playable car, drives (with unusual tall-body/large-wheel handling), supports body deformation and breakable glass. Source visuals remain recognizable, and original source wheel design is present. This establishes an owner-tested first cross-game playable candidate, but is not proof of all gameplay qualification dimensions.
+- **Not yet individually confirmed in this report:** exact CarID, source checksums and build isolation for the latest bridge revision, Race Results/reentry, AI, comprehensive frontend UI, audio, all glazing zones, all tail-light states, or long-duration stability. Obtain the actual latest native-bridge source-only review/changed-files manifests before attributing implementation details or claiming full regression.
+- **Owner-provided evidence:** seven in-game screenshots show body-side glazing/door issues, brake lamp triangulation, reflections/mirrors, interior crew posture, tyres/suspension and an existing Master Rallye undercarriage reference. Preserve these private screenshots separately from redistributable source files if they contain proprietary assets.
+
+## Visual defect matrix: preserve source fidelity, fix qualified MR adaptation
+
+| ID | Observed issue | Investigation / targeted acceptance | Priority |
+|---|---|---|---|
+| `4R-LAMP-01` | Brake light illuminates only a sharp triangular part of the rear lamp; a separate little red triangle appears beneath the lamp on body/bumpers. | Inspect brake ON/OFF native draw ownership, triangle indices, winding, exact texture UVs, mirrored L/R faces and overlay geometry. Do not solve by an indiscriminate emissive global tint. Both rear lamps must have geometrically bounded ON coverage with zero leaks and unchanged OFF glass. | High |
+| `4R-GLASS-01` | Front door/window appears to extend transparency onto the painted door/part of body; an extraneous opaque triangular original-glass fragment remains. Windshield already looks acceptable. | For each affected source part (especially GlassI/GlassE and shared body materials), inspect mesh faces and source-vs-converted UV/alpha/depth. Split and classify selected geometry along actual window boundaries rather than making entire body draws translucent. Remove duplicate or incorrectly classified overlays without harming A/B/C pillar opacity. Preserve accepted windshield behavior and native damaged-glass zones. | High |
+| `4R-GLASS-02` | Rear side and rear hatch windows remain very dark/opaque by source appearance. | Offer *Source Fidelity* as immutable baseline and optional *MR-style Full Glazing* overlay where geometry and window masks qualify. Use conservative alpha, reflections and dark cabin backing; do not make an unmodelled interior an empty transparent hole. Damage behavior must be explicit per qualified native zone; do not promise independently crackable every pane. | Medium |
+| `4R-REFL-01` | Body has little/no environmental reflection; side mirrors look flat, some faces look like opaque beige patches. | Reuse qualified MR material/environment-pass mechanisms, separate opaque body reflection strength from actual glass alpha. For mirrors distinguish shell, thickness and reflective inset; verify whether missing geometry, UV or material is the root cause before writing surfaces. Avoid glossy all-over appearance. | High |
+| `4R-CABIN-01` | Crew hands float because the vehicle lacks a steering wheel/dashboard/interior. | Add a minimal, clearly labeled MR-style cabin presentation option with steering wheel, simple dashboard and dark backing/seat silhouettes. Validate wheel axis, crew hand pose and cockpit viewpoint. Do not fabricate original 4x4 Evo interiors or replace existing crew skeleton. | Medium |
+| `4R-SUSP-01` | Wheels visually float with no rods, axle or braces visible; source model may intentionally omit the parts. | Optional **visual-only** underbody supports using original MR-class examples: appropriate rods/axle sections, not physics-bearing components. Preserve wheel hubs, track, travel and collisions; test steering/suspension motion, culling and clearance. Do not freeze a fake solid suspension mesh across dynamically moving hubs. | Medium |
+| `4R-RIDE-01` | Source vehicle has high stance/large tyres and distinctive handling. | Treat as a separate optional Physics Studio and qualified ride-height task only if the owner wants it. Do not alter race physics to solve a presentation defect or assume source static hub pose equals gravity-settled pose. | Deferred |
+
+## Next bounded milestone: **4Runner Native Fidelity Polish**
+
+**Stage A: audit and save checkpoint.** First request/read the latest cross-game native bridge source archive and source hash manifests if not available; do not treat the older neutral adapter package as the new build. Snapshot one immutable playable candidate and all source/target resource hashes. Annotate screenshot observations by physical mesh/draw/texture/UV IDs, visible lights, intact/broken glass, source fidelity vs MR adaptation. Reuse Material Studio, Texture Binding v2, Glass/Light editor, stock materials, Previewer and native rendering logic rather than hardcoded per-car surface patches.
+
+**Stage B: high-priority correctness fixes.** 1) exact rear lamp ON/OFF polygon geometry and UV coverage with no escaped red triangles; 2) door glass transparency bounded by actual apertures with no opaque leftover fragment; 3) sensible stock-MR reflection for body plus proper mirror shell/inset. Keep the functioning windshield and all existing working damage, physics, camera, wheels and roster behavior.
+
+**Stage C: optional coherent style completion.** Add separate reversible presets for rear glazing, minimal cabin/steering controls, and underbody suspension *visuals*. Do not misrepresent added geometry as sourced from 4x4 Evo 2. If uncertain, leave an explicit warning and expose a direct Previewer adjustment instead of a destructive auto-fix.
+
+**Stage D: reusable architecture.** Move repeatable mechanisms into `Universal Scene → MR` semantic roles and qualified project overlays: `window_aperture`/`glass_pane`, `lamp_emissive_on/off`, `mirror_shell`/`mirror_inset`, `body_env`, `crew_controls`, `suspension_visual`. Identifiers, geometry mappings and per-surface flags must be stable and source-provenanced. Unknown parts default to unchanged and are logged.
+
+## Required verification
+
+1. Visual A/B in D3D9 and owner D3D8 gameplay: fixed angles showing both tail lamps OFF/ON, all window borders intact/cracked, original vs qualified reflection and mirror appearance, front crew from inside/outside, and four-wheel underside views.
+2. No red illumination outside lamp apertures, no large transparent body-paint patch, no extra opaque triangular window surface, no reflection/alpha cross-contamination.
+3. Preserve source-provenance 4Runner baseline and deterministic Validate/Build/Restore; explicit exact resource-difference reports. Materials do not alter physics. Cabin/suspension visual additions do not modify collision, hubs, suspension travel or camera.
+4. Regression: Lancer, Subaru, Pajero, Demo Trooper, GT3 Clio, accepted source/Classic profiles, original retail passthrough; alternative CarID29 projects never simultaneously installed.
+5. Native Owner Game qualification remains separate from automated and D3D9 results. Current user's observed **load/driving/body and glass damage** counts as passed; other aspects require direct checks.
+6. Keep private source/game assets out of distributable ZIPs. Original `MRallye.exe`, retail `Data.sma`, game donor data, existing `d3d8.dll`, and unrelated Randomizer files remain untouched; local scoped commits only, never push/publish without permission.
+
+## After this milestone
+
+When native 4Runner appearance and common semantic corrections are validated, resume **Paris-Dakar Rally (2001)** research (`PajeroRED.tc`, `PajeroSilver.tc`) and **Michelin Rally Masters** (`Car25A.PDO` Toyota RAV4 and `Car06A.PDO` Renault Mégane) with the strengthened shared scene-to-MR bridge. Do not automatically launch a full new-game source decoder, another mass importer, speculative roster expansion, or Blender Bridge as part of the focused 4Runner visual-fix milestone.
+
+
+---
+
+# Master Plan v7.0 — 4Runner D3D8 visual regression review and stabilization
+
+**Checkpoint:** 28 October 2026. This version retains the complete provided v6.9 plan above (without replacing previous project history) and reconciles the reviewed final Visual Polish source archives. The prior Codex phase did not receive v6.9 and appended its work to a retained v6.8; reconcile this exact v6.9/v7.0 history into the repository without dropping any existing unique research records. All source ZIP assets reviewed here are source-only; actual gameplay observations come from owner screenshots, not automated tests.
+
+## Latest reviewed source package and evidence
+
+- Full `source-review.zip`: 1,316 members (1,315 hash-manifest entries), 1,315/1,315 SHA256 PASS, CRC PASS, 584 Python syntax parses PASS.
+- `changed-files.zip`: 20 members (19 hash-manifest entries), 19/19 SHA256 PASS, CRC PASS; all 19 changed entries identical to the full archive; 10 Python parses PASS.
+- Exact manifest revision `450eb5d08dcc4a73d104357fd250b64e35dc92d1`, parent `77bbe6f696bf8c882637ba7dd21c2ac15ee8a534`. The source-only review cannot independently inspect the .git DAG.
+- Independent Linux/Python targeted tests: 54/54 PASS across `test_semantic_aperture`, `test_source_garage_pilot`, `test_workshop_universal_source`, `test_evo2_source_adapter`, `test_source_scene_preview`, `test_visual_fitment`. Windows full 1,102 PASS / 2 skips and 42 D3D9 comparison captures are **Codex-reported** and were not reproduced in the present environment. No newly revised D3D8 candidate has automated gameplay qualification.
+- Owner directly reports D3D8 improvement in side-front glass and brake ON/OFF illumination, but rejects the newly authored optional paint reflections, mirror faces, rear glass/backing, duplicate cockpit wheel and disconnected fixed frame. The existing front windshield remains accepted. New third/high brake lamp remains a requested future feature, not a verified implementation.
+- The report notes a historically protected `d3d8.dll` snapshot mismatch (2,492/2,493 match). Codex says this task did not modify the DLL. Treat it as a provenance/integrity follow-up: compare an owner-approved current proxy baseline and log the hash, without overwriting or restoring it automatically.
+
+## Diagnosed failures in actual D3D8 rendering
+
+| Subsystem | Reviewed code mechanism | Owner observation | Stabilization decision |
+|---|---|---|---|
+| Correct front side panes | `fourrunner_semantics.author_apertures`, source-plane polygon intersection, outside opaque conservation | Front side windows now good | **Preserve verified fix**, avoid unrelated global alpha/mesh changes |
+| Lower rear brake lights | Reviewed atlas-island geometry masks, `Body292`, native OFF/ON states | Rear brake light regions now illuminate correctly | **Preserve verified fix**; investigate separate high-center lamp as future optional qualified geometry |
+| Body reflections | `fourrunner_visual_kit.apply`, `paint_reflection`: four partial UV-atlas rectangles, removes qualifying full triangles from original draw and adds env-selected geometry at intensity46/255 | Visually torn and spotty patches instead of coherent paint | **Disable by default; reject current option as production quality**. Review exact base/env pass ownership, opaque-alpha behavior and coherent complete paint surfaces, not simply raise reflection strength |
+| Mirror insets | Selects three triangles53–55 per source mirror node; changes texture/environment/alpha | Mirror geometry looks flat and torn, previous appearance regresses | **Disable by default; restore original side mirror source meshes**. Investigate normals, material boundaries, thickness, winding, culling and native draw order before any new reflective treatment |
+| Rear glazing | Cuts three UV polygons from Body diffuse and makes them translucent; creates opaque dark cuboid interior backing | Wrong apertures, visible black protrusion/box, missing clean rear-view glazing | **Disable rear glazing and remove dark cuboid from default**. Prefer original dark rear glass unless a D3D8-qualified aperture+interior solution exists; no invented rear damage controller |
+| Cabin | Appends Navara steering wheel triangles100–117, dashboard selection and backing while original source dash texture still depicts a steering wheel | Two visible steering wheels | **Select one wheel only**. Restore prior cabin default now; future 3D wheel must be paired with removal or remapping of the baked texture and verified driver hand geometry |
+| Underbody frame | Four body-fixed black beams that intentionally stop short of wheel envelopes; no moving axle solver | Appears unconnected to wheels | **Disable by default**. Either develop truly qualified moving/connected visual supports using MR animation, or retain source underbody; do not fake rods to wheels or edit hubs/physics |
+
+## Immediate next bounded phase: `4Runner Stabilization — Quality Gate`
+
+**Primary goal:** user-accepted, clean D3D8 appearance with the previously successful front glass and rear lamps retained. Prefer one credible stable vehicle to several broken optional enhancements. This is a regression-fix phase, **not** a new game donor or automatic all-purpose Model Doctor milestone.
+
+1. **Freeze owner-approved baseline:** preserve previous working pilot, the new `fixed-final` all-options-off candidate and current `adapted-final` as immutable named comparison states. Confirm the actual user-tested candidate path and manifest (do not infer from screenshot or commit alone). Never overwrite alternative CarID29 roster projects (Pajero, Heritage Trooper, GT3 Clio, 4Runner).
+2. **Deliver safe default:** build a new `4Runner Stable` variant with the corrected front side apertures and corrected lower rear brake lights but all five optional visual-kit flags OFF. Keep the accepted windshield, intact/broken native glass, drive physics, wheels, crew, sound, camera, frontend and damage unchanged. Run D3D8 targeted owner A/B first. If a supposedly safe variant still exhibits a regression, bisect native draw/material changes rather than proceeding.
+3. **Fix by independent opt-in gates:** first coherent body paint reflections without tearing; then true mirror shell/inset; then optional rear glazing (only if correctly bounded without protruding black box), then optional single-wheel dashboard, then suspension visuals. Each independently enabled candidate must be testable in D3D8 before merging it into a combined preset. It is acceptable to defer or omit a feature rather than ship an artifact.
+4. **Technical acceptance for reflection:** diagnose whether selective draw removal, coverage, winding, alpha roles or environment/blend state causes patchiness. Preserve the complete diffuse base and apply environment as a qualified extra pass only if native semantics support it. Prefer coherent surface ownership to UV-only whole-triangle filtering. Never enable generic global alpha/two-sided fixes.
+5. **Mirrors:** start by restoring source shell and mounts; don't split three disconnected triangles as a finished reflective mirror. Require closed-looking geometry and valid normal/culling behavior from all user viewpoints. Conservative stock material is preferable to broken reflective insets.
+6. **Rear windows:** use original opaque/dark glass as stable fallback. Do not cut body atlas polygons based solely on 2D masks unless 3D window aperture geometry, backing visibility, render order and damage grouping are qualified. Never extend transparency over paint/window frame.
+7. **Cabin and frame:** no duplicate 2D/3D steering wheel. If proper artwork remapping cannot be proven, omit newly attached steering. Static black bars do not count as wheel attachments; obtain real wheel/suspension-part binding or omit. Neither fix may change collision, hub rest locations, physics or accepted crew geometry.
+8. **High brake lamp:** investigate the real source rear upper brake strip and exact MR light state dispatch. Add only if independently qualified, properly bounded and reversible. Existing lower lamps should never regress for this optional addition.
+9. **Test gates:** exact model/texture source provenance and byte-hash manifests; lossless original source scene; topology/UV/material ownership checks; 360-degree D3D9 captures with both mirror sides, all body panels and undercarriage; isolated full D3D8 user check for each optional pass (including glass intact/broken and lamp OFF/ON); race Results/reentry separately. Log pass/fail by option; never promote D3D9 static PASS to D3D8 pass. Source-only review and changed-files archives; focused+full Windows regression; protected-files checks including approved proxy baseline.
+10. **Project docs:** reconcile canonical `docs/sdk/MASTER_PLAN.md` with this complete v7.0 source, preserve all old history, update capabilities/regression matrix/commit ledger/help and disclose rejected adapted candidate. Local scoped validated Git commits authorized. No push, release, publishing, unrelated branch merge or modification to installed originals/proxy.
+
+**Success criterion:** The stable 4Runner in actual Master Rallye retains the newly correct side glass and brake lights, has no body reflection fragments, torn mirrors, visible black box, wrong rear glass cuts, duplicate steering or unconnected decorative frame. Source dark rear glass and simple original chassis are acceptable. Individually validated optional features may be promoted later. The existing source-to-MR bridge and other vehicle projects remain intact.
+
+## Continuing roadmap after stable D3D8 qualification
+
+- **Historical Archive:** Paris-Dakar Rally 2001 `PajeroRED.tc` / `PajeroSilver.tc`, plus Michelin Rally Masters RAV4 `Car25A.PDO` and Mégane `Car06A.PDO` as high-priority source decoding and original-model identity research. Do not overclaim shared original Master Rallye Pajero geometry.
+- **Cross-game adapter refinement:** use stable source semantic evidence, not per-model guessed atlas rectangles or renderer-specific hacks, to improve universal transforms/material authoring; expand to more donor formats after this car is qualified.
+- **Model Studio / Blender Bridge:** offer future safe user-authored mesh and material fixes with original-vs-modified comparison, culling, alpha, UV and topology repair. A Model Doctor may explain such defects after real systemic bugs have been resolved.
+- **Fleet Builder and expanded MR Heritage catalog:** remain on roadmap. Verified 30-entry roster capacity is not a proof of unlimited active vehicles. Proprietary donor assets remain user-local.
+
+
+---
+
+# Retained repository implementation checkpoints (historical)
+
+These exact prior implementation records supplement the complete v7.0 plan above.
+Their earlier missing-v6.9 and pending statements describe the previous phase; the v7.0 owner review supersedes them.
+
+
+---
+
 ## Implementation status — first Universal Scene to MR 4Runner pilot, 28 October 2026
 
 The owner approved the accepted Evo2 neutral scene for one Source Fidelity
@@ -2204,3 +2312,23 @@ See FOUR_RUNNER_VISUAL_POLISH_RESULTS.md and current capability/regression notes
 
 Stop after this one-car visual milestone: no fleet, other donor campaign,
 Blender Bridge, capacity experiment, push, publication or release.
+
+
+---
+
+## v7.0 implementation checkpoint:4Runner Stable
+
+Owner D3D8 accepts side glass/lower brake fixes and rejects all five optional
+Visual Polish experiments. Stable generation refuses those flags and retains
+all21 fixed-final model/texture outputs exactly. Original mirrors/paint/dark
+rear glazing/cockpit/crew/simple underbody are preserved. Native windshield,
+glass damage and lower lamps are unchanged.45 D3D9 comparisons,59 focused and
+1107 full Windows tests(2 skips), actual Tk/Studio and launcher preflights pass.
+A separate default-off upper brake test uses4 clipped triangles on original
+Body595/596 with the existing blight controller. No combined adapted preset.
+Both NEW candidates remain pending owner D3D8 approval; prior tested path is
+UNKNOWN. Full v7.0 attachment is the exact canonical prefix; all4895 bytes of
+unique earlier repository checkpoints are retained above. Current proxy
+baseline33917452...960ea1 is preserved; historical mismatch is not restored.
+See FOUR_RUNNER_STABILIZATION_RESULTS.md. Stop after one-car stabilization;
+no other donor/fleet/Blender/capacity/push/release work.

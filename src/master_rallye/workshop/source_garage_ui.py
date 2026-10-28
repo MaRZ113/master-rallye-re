@@ -98,8 +98,8 @@ class SourceGarageWindow:
             button = ttk.Button(actions, text=label, command=method); button.pack(side="left", padx=3)
             self.action_buttons[label] = button
         authoring = ttk.Frame(self.window, padding=(8, 0, 8, 8)); authoring.pack(fill="x")
-        self.action_buttons["Create MR Source Fidelity…"] = ttk.Button(authoring, text="Create MR Source Fidelity…", command=self.create_mr_dialog)
-        self.action_buttons["Create MR Source Fidelity…"].pack(side="left")
+        self.action_buttons["Create 4Runner Stable…"] = ttk.Button(authoring, text="Create 4Runner Stable…", command=self.create_mr_dialog)
+        self.action_buttons["Create 4Runner Stable…"].pack(side="left")
         ttk.Button(authoring, text="Source / MR Help", command=lambda:self.app.show_help('universal-source')).pack(side="left", padx=8)
         ttk.Label(self.window, text="Toyota 4Runner SR5 Sport Package 2WD · catalog T4RSR52 · neutral D3D9 approximation · unspecified TIFF channel is not assumed alpha",
                   padding=(10, 0)).pack(fill="x")
@@ -141,7 +141,7 @@ class SourceGarageWindow:
         self._controls()
 
     def _controls(self):
-        for label in ("Preview", "Open neutral 3D", "Capture six views", "Save preview choices", "Create MR Source Fidelity…"):
+        for label in ("Preview", "Open neutral 3D", "Capture six views", "Save preview choices", "Create 4Runner Stable…"):
             self.action_buttons[label].state(["!disabled"] if self.scene is not None else ["disabled"])
 
     def _run(self, title, work, done):
@@ -156,7 +156,7 @@ class SourceGarageWindow:
         if self.scene is None or self.app.busy:return
         if getattr(self,'mr_dialog',None) is not None and self.mr_dialog.winfo_exists():
             self.mr_dialog.lift();return
-        dialog=tk.Toplevel(self.window);apply_icon(dialog);dialog.title('Create independent MR Source Fidelity project')
+        dialog=tk.Toplevel(self.window);apply_icon(dialog);dialog.title('Create independent 4Runner Stable project')
         self.mr_dialog=dialog
         retail=self.app.sdk_root.parent/'corpora/retail'
         defaults={'donor_dir':retail/'Data.sma_unpacked/DataGx/Vehicles/Terrano',
@@ -173,33 +173,36 @@ class SourceGarageWindow:
                       if k=='retail_sma' else filedialog.askdirectory(parent=dialog,title='Select '+k.replace('_',' ')))
                 if path:self.mr_fields[k].set(path)
             ttk.Button(row,text='Choose…',command=browse).pack(side='left',padx=5)
-        ttk.Label(dialog,wraplength=830,padding=12,text='One qualified 4Runner Source Fidelity import. Creates private source, authoring and Workshop copies; preserves the neutral scene. The selected roster is copied into an independent CarID29 alternative. MR donor systems are adaptations. Gameplay remains pending owner testing.').pack(fill='x')
-        visual=ttk.LabelFrame(dialog,text='Optional MR visual adaptations (original source baseline is preserved)',padding=8)
+        ttk.Label(dialog,wraplength=830,padding=12,text='4Runner Stable: accepted side glass and lower brake fixes, original dark rear glazing, mirrors, paint and crew. Creates private source, authoring and Workshop copies; preserves the neutral scene. The selected roster is copied into an independent CarID29 alternative. MR donor systems are adaptations. Gameplay remains pending owner testing.').pack(fill='x')
+        visual=ttk.LabelFrame(dialog,text='Rejected Visual Polish experiments — disabled after owner D3D8 review',padding=8)
         visual.pack(fill='x',padx=10)
         labels={'paint_reflection':'Subtle opaque paint reflections','mirror_insets':'Reflective mirror insets',
                 'cabin':'MR Navara steering wheel / minimal dashboard / dark cabin',
                 'rear_glazing':'Static rear glazing with dark backing (no rear damage zone)',
                 'underbody_frame':'Body-fixed underbody frame (no moving axles or physics edits)'}
         self.mr_visual_options={key:tk.BooleanVar(value=False)for key in labels}
-        for key,label in labels.items():ttk.Checkbutton(visual,text=label,variable=self.mr_visual_options[key]).pack(anchor='w')
+        for key,label in labels.items():ttk.Checkbutton(visual,text=label,variable=self.mr_visual_options[key],state='disabled').pack(anchor='w')
+        self.mr_upper_brake=tk.BooleanVar(value=False)
+        ttk.Checkbutton(dialog,text='Upper center brake strip: independent test variant (D3D8 owner test pending)',variable=self.mr_upper_brake).pack(anchor='w',padx=12,pady=5)
         def create():
             values={key:Path(value.get())for key,value in self.mr_fields.items()}
             if any(not value.get().strip()for value in self.mr_fields.values()):
                 messagebox.showerror('MR Source Fidelity','Supply all four qualified input paths.',parent=dialog);return
             scene_path=self.scene_root/'scene.json'
             visual_options={key:value.get()for key,value in self.mr_visual_options.items()}
+            upper_brake=self.mr_upper_brake.get()
             target=self.app.workspace/'universal-imports'/uuid.uuid4().hex[:16]
             def work():
                 from master_rallye.source_garage_pilot import create_pilot
                 return create_pilot(scene_path,values['donor_dir'],values['retail_sma'],target,
-                                    retail_root=values['retail_root'],base_roster=values['base_roster'],build=False,visual_options=visual_options)
+                                    retail_root=values['retail_root'],base_roster=values['base_roster'],build=False,visual_options=visual_options,upper_brake_lamp=upper_brake)
             def done(report):
                 from .service import WorkshopProject
                 if dialog.winfo_exists():dialog.destroy()
                 self.show(report);self.app._opened(WorkshopProject(Path(report['workshop'])))
                 self.status.set('Independent MR Source Fidelity project created. Use Workshop Validate / Build; original neutral source is unchanged.')
             self._run('Create independent MR Source Fidelity addon',work,done)
-        self.mr_create_button=ttk.Button(dialog,text='Create Source Fidelity project',command=create)
+        self.mr_create_button=ttk.Button(dialog,text='Create 4Runner Stable project',command=create)
         self.mr_create_button.pack(pady=12)
 
     def show(self, value):

@@ -58,27 +58,22 @@ Record failures with candidate identity and a screenshot/log. Review this one
 pilot before converting more vehicles or beginning a Classic profile.
 
 
-## 4Runner glass/lamp correction and optional MR visual kit
+## 4Runner Stable after owner D3D8 review
 
-Create MR always uses bounded source-qualified side-window and rear-lens masks.
-The accepted windshield stays unchanged. A source TIFF extra sample is still
-not interpreted as alpha. This corrects glass-on-door/opaque remnants and the
-rear bumper/partial-lamp artifact without changing source geometry positions.
+Stable retains accepted front side panes, windshield and lower rear brakes.
+All five old Visual Polish options are disabled and refused by generation:
+paint patches, mirror caps, cabin wheel/backing, rear glazing and disconnected
+frame were rejected by the owner in D3D8. Original paint/mirrors, dark rear
+windows, source cockpit/crew and simple underbody are retained. An old adapted
+project remains historical comparison, not a qualified preset. Create Stable.
 
-Five independent creation checkboxes are off by default: subtle opaque paint
-reflection; reflective mirror inset; MR Navara controls/dark backing; static
-rear glazing; body-fixed underbody frame. Rear glass has no invented damage
-zone. Frame crossmembers are not moving axles or physics suspension.
+The upper center brake checkbox creates a separate default-off test variant on
+original high rear geometry with the existing brake controller. It enables no
+rejected kit. Test Stable first, then upper OFF/ON alone. Neither NEW candidate
+is automatically owner-approved.
 
-Original diffuse/dark rear treatment: leave options off. To remove structural
-kit choices, create another independent variant from the immutable scene with
-the relevant choices unchecked; opening the supplied Fixed project also gives
-that treatment. The original neutral scene and accepted playable pilot stay
-available. Restore resets edits to the selected variant baseline; it does not
-switch structural variants. Material Studio can change/disable opaque paint or
-mirror reflection strength with Undo/Redo, independently of glass transparency.
-
-Owner confirmed the previous pilot loads/drives/deforms/breaks glass in D3D8.
-New visual candidates still require owner testing. Compare side apertures,
-OFF/ON lower rear lenses, intact/broken glass, cabin/steering and frame clearance;
-finish/Results and menu re-entry remain separate qualifications.
+Supported Studios, source provenance and Undo/Redo/Restore remain available.
+Restore resets the chosen project's baseline; it does not turn a historical
+all-on project into Stable. Use the new Stable project for this rollback.
+Immutable scene, native physics/wheels/hubs/sound/camera/collision stay unchanged.
+Finish/Results/re-entry remain separate owner qualifications.
