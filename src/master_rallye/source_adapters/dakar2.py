@@ -8,7 +8,7 @@ import hashlib
 import struct
 from .. import universal_vehicle_scene as uvs
 from .dakar2_disc import FileReader,xdvdfs
-from .dakar2_formats import RBB,sbb_entries,hierarchy,xmd_meshes,xtx_texture,digest
+from .dakar2_formats import RBB,sbb_entries,hierarchy,xmd_meshes,xtx_texture,digest,compact_transform
 
 VERSION='dakar2-xbox-source/1'
 PINS={'default.xbe':'715db4e407b38c0a6d14ea0ee9d08ebc524b9ece92ceeaa70b5fb81a5ec32378',
@@ -19,7 +19,7 @@ VEHICLES={'PAJERO':{'vehicle_resource':6,'hierarchy_resource':48,'prefix':'PAJ_'
           'HINO':{'vehicle_resource':18,'hierarchy_resource':72,'prefix':'HINO_'}}
 NORMALIZATION=[1.,0.,0.,0.,0.,1.,0.,0.,0.,0.,-1.,0.,0.,0.,0.,1.]
 
-def create_scene(image,output,vehicle='PAJERO',*,partition=0x18300000):
+def create_scene(image,output,vehicle='PAJERO',*,partition=0x18300000,qualified_rotations=False):
     if vehicle not in VEHICLES:raise ValueError('unqualified Dakar2 source vehicle')
     image=Path(image).absolute();uvs.unlinked(image);output=Path(output).absolute()
     protected=[image.parent,image.parent.parent]
@@ -44,7 +44,7 @@ def create_scene(image,output,vehicle='PAJERO',*,partition=0x18300000):
     vehicle_row=main.resources[selection['vehicle_resource']]
     if vehicle_row['type']!='VEH' or main.reference(vehicle_row['offset']+4)['id']!=selection['hierarchy_resource']:
         raise ValueError('VEH→HIR ownership mismatch')
-    bones=hierarchy(main,selection['hierarchy_resource'])
+    bones=hierarchy(main,selection['hierarchy_resource'],qualified_rotations=qualified_rotations)
     if selection['prefix']and not all(n['name'].startswith(selection['prefix'])for n in bones):raise ValueError('unexpected source hierarchy identity')
     member=next((r for r in catalog if r['name']==vehicle+'_HI_0_0.LOD'),None)
     if member is None:raise ValueError('missing original HI_0_0 resource')
@@ -89,13 +89,12 @@ def create_scene(image,output,vehicle='PAJERO',*,partition=0x18300000):
                     'streams':stream_records,'normal_encoding':'signed11/11/10 compressed vector; original words retained',
                     'color_policy':'original BGRA stream retained; vertex lighting/color multiplication not applied by neutral preview',
                     'secondary_uv':'original stream10 retained, not discarded or substituted for UV0'}})
-        matrix=uvs.IDENTITY[:]
-        for k,value in enumerate(bone['translation']):matrix[k*4+3]=value
+        matrix=compact_transform(bone['original_basis_translation'])
         is_wheel=bone['name'].endswith('_WHEEL')
         nodes.append({'id':'node-%03d'%ordinal,'name':bone['name'],'parent_id':None if bone['parent']==-1 else'node-%03d'%bone['parent'],
             'mesh_ids':mesh_ids,'visible':True,'source_visible':True,'role':'wheel'if is_wheel else'body',
             'local_transform':matrix,'source_local_transform':matrix[:],'source_transform_record':bone,
-            'transform_evidence':'Original HIR 0xd4 records, parent/sibling/child links and identity rest bases; local XYZ translations retained. Equipment/runtime visibility unresolved.'})
+            'transform_evidence':'Original HIR 0xd4 records; native46da0 basis copy and88eb0 D3D matrix upload: transpose original row-vector basis for UVS column vectors. Local translation retained; runtime visibility unresolved.'})
     scene={'schema':uvs.SCHEMA,'metadata':{'adapter':VERSION,'display_name':'Dakar 2 Xbox '+vehicle,
         'qualification':'L1 structural recovery; L2 WARN: mixed source strip facing/culling unresolved; original local rest assembly, runtime equipment not qualified',
         'neutral_preview':{'cull':'cw','evidence':'CW is a bounded exterior inspection policy, not source cull qualification. Source index strips retained exactly; paired CW/CCW and explicit two-sided diagnostics required.'},

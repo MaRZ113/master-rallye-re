@@ -218,13 +218,19 @@ def stage_source_scene(scene: dict, output: Path, *, scene_root: Path,
             if material_mode == "material_ids":
                 token = hashlib.sha256(material["id"].encode()).digest()
                 color[:3] = [80 + c % 176 for c in token[:3]]
+            colors = mesh.get('preview_colors_bgra')
+            if colors is not None and (not isinstance(colors,list) or len(colors)!=len(positions) or
+                any(not isinstance(c,list) or len(c)!=4 or any(type(v)is not int or not 0<=v<=255 for v in c) for c in colors)):
+                raise ValueError('Invalid explicit source vertex colors')
             vertices, transformed = bytearray(), []
-            for p, n, uv in zip(positions, normals, uvs):
+            for ordinal, (p, n, uv) in enumerate(zip(positions, normals, uvs)):
                 p = _point(matrix, _finite(p, 3, "source position"))
                 n = _normal(matrix, _finite(n, 3, "source normal"))
                 uv = _finite(uv, 2, "source UV")
                 transformed.append(p); points.append(p)
-                vertices.extend(struct.pack("<6f4B2f", *p, *n, color[2], color[1], color[0], color[3], *uv))
+                bgra = colors[ordinal][:] if colors is not None and material_mode!='material_ids' else [color[2],color[1],color[0],color[3]]
+                if colors is not None and material_mode!='material_ids': bgra[3] = round(bgra[3]*opacity)
+                vertices.extend(struct.pack("<6f4B2f", *p, *n, *bgra, *uv))
             indices = []
             mirrored = _det(matrix) < 0
             for tri in triangles:
@@ -235,16 +241,27 @@ def stage_source_scene(scene: dict, output: Path, *, scene_root: Path,
             base = texture_ids[texture_id] if texture_id is not None and material_mode != "material_ids" else -1
             alpha = int(transparent == "1" or opacity < 1)
             name = f"source:{node_id}:{mesh_id}:{mesh.get('name', mesh_id)}"
-            draws.append((name, base, alpha, centre, bytes(vertices), indices))
+            state = material.get('source_render_state')
+            if state is not None:
+                if (state.get('schema')!='dakar2-render-research/1' or state.get('cull') not in ('none','cw','ccw') or
+                    type(state.get('depth_write'))is not bool or type(state.get('blend'))is not bool or
+                    state.get('draw_pass') not in (0,1) or type(state.get('draw_order'))is not int):
+                    raise ValueError('Invalid explicit source draw state')
+            draws.append((name, base, alpha, centre, bytes(vertices), indices, state))
             diagnostics.append({"node": node_id, "mesh": mesh_id, "material": material["id"], "role": node.get("role"),
                                 "source_member": mesh.get("source"), "source_material": material,
                                 "transform_determinant": _det(matrix), "winding_reversed": mirrored,
                                 "preview_opacity": opacity, "vertices": len(positions), "triangles": len(triangles)})
+            diagnostics[-1]['source_render_state'] = state
     if not points or not draws:
         raise ValueError("No visible source geometry for this selection")
     lo = [min(p[k] for p in points) for k in range(3)]
     hi = [max(p[k] for p in points) for k in range(3)]
-    data = bytearray(struct.pack("<4sIII6f", b"MRPV", 1, len(texture_rows), len(draws), *lo, *hi))
+    extended = any(d[-1] is not None for d in draws)
+    if extended:
+        if any(d[-1]is None for d in draws): raise ValueError('Partial source state scene unsupported')
+        draws.sort(key=lambda d:(d[-1]['draw_pass'],d[-1]['draw_order']))
+    data = bytearray(struct.pack("<4sIII6f", b"MRPV", 2 if extended else 1, len(texture_rows), len(draws), *lo, *hi))
 
     def string(value):
         raw = value.encode("utf-8")
@@ -254,9 +271,11 @@ def stage_source_scene(scene: dict, output: Path, *, scene_root: Path,
 
     for name, w, h, pixels in texture_rows:
         data.extend(string(name) + struct.pack("<II", w, h) + pixels)
-    for name, base, alpha, centre, vertices, indices in draws:
-        data.extend(string(name) + struct.pack("<Iii4I3fII", 0, base, -1, alpha, 0, 0, 0, *centre, len(vertices) // 36, len(indices))
-                    + vertices + struct.pack(f"<{len(indices)}I", *indices))
+    for name, base, alpha, centre, vertices, indices, state in draws:
+        data.extend(string(name) + struct.pack("<Iii4I3fII", 0, base, -1, alpha, 0, 0, 0, *centre, len(vertices) // 36, len(indices)))
+        if extended:
+            data.extend(struct.pack('<III', {'none':1,'cw':2,'ccw':3}[state['cull']],int(state['depth_write']),int(state['blend'])))
+        data.extend(vertices + struct.pack(f"<{len(indices)}I", *indices))
         if len(data) > MAX_SCENE:
             raise ValueError("Neutral source preview exceeds byte budget")
     protected_files = [root / "scene.json", root / "manifest.json", *[root / t["rgba_path"] for t in textures.values()]]
@@ -279,7 +298,7 @@ def stage_source_scene(scene: dict, output: Path, *, scene_root: Path,
 
 def preview_cull(scene: dict) -> str:
     value = scene.get("metadata", {}).get("neutral_preview", {}).get("cull", "none")
-    if value not in ("none", "cw", "ccw"):
+    if value not in ("none", "cw", "ccw", "source"):
         raise ValueError("Unknown neutral culling interpretation")
     return value
 
@@ -289,11 +308,12 @@ def viewer_command(viewer: Path, scene_path: Path, *, view="isometric", capture:
         raise ValueError("Unknown neutral fixed view")
     if basis not in ("source", "normalized"):
         raise ValueError("Unknown source coordinate basis")
-    if cull not in ("none", "cw", "ccw"):
+    if cull not in ("none", "cw", "ccw", "source"):
         raise ValueError("Unknown neutral culling interpretation")
-    command = [str(viewer), "--scene", str(scene_path), "--neutral-source", "--workshop", "--cull", cull,
+    command = [str(viewer), "--scene", str(scene_path), "--neutral-source", "--workshop", "--cull", 'cw' if cull=='source' else cull,
                "--depth-write", "shader", "--orthographic", "--fixed-view", view, "--source-front",
                "positive-z" if basis == "source" else "negative-z", "--provenance", provenance]
+    if cull=='source': command.append('--source-states')
     if capture is not None:
         command.extend(("--capture", str(capture)))
     return command

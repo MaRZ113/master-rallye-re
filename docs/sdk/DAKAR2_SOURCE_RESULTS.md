@@ -61,3 +61,7 @@ Source-only and changed-files review archives are generated from committed text 
 ## Review boundary
 
 Before native import: qualify original culling/mixed facing, shader stage/alpha/vertex colors and active equipment/LOD policy. Nissan rotation needs original transform evidence. Initial L1 recovery and attractive no-cull diagnostics do not authorize an MR conversion. Stop here for review.
+
+## v7.4 follow-up
+
+The original L1 results above remain historical and immutable. New derived source-state previews, native matrix/cull/depth/pass evidence and qualified Nissan rigid-basis recovery are documented in [DAKAR2_RENDERER_RESULTS.md](DAKAR2_RENDERER_RESULTS.md). [DAKAR2_LOST_VEHICLE_COMPARISON.md](DAKAR2_LOST_VEHICLE_COMPARISON.md) adds measured PC RED/Silver versus Xbox comparisons. L2 still WARN; GC/PS2 boundaries and no-native-import scope remain.

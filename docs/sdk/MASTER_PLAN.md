@@ -2525,3 +2525,57 @@ Blender Bridge, push or release.
 All three owner-local platforms inventoried. Xbox selected from original loader evidence. Pajero and Hino reconstructed into Universal Vehicle Scene v1; L1 structural recovery passes, L2 remains WARN for mixed facing/culling and incomplete material stages. See DAKAR2_PLATFORM_AUDIT.md, DAKAR2_FORMAT_REPORT.md and DAKAR2_SOURCE_RESULTS.md. No new MR CarID, native candidate or physics tuning.
 
 Owner launched Paris-Dakar Silver #271 in MR and reports overly stiff suspension. Separate reversible Physics Studio follow-up; no values changed during Dakar 2 research. Race completion, Results, damage and re-entry are not inferred from launch.
+
+
+---
+
+# Master Rallye Vehicle SDK — Master Plan v7.4
+
+**Review date:** 29 October 2026. **Checkpoint:** Dakar 2 Xbox source-recovery reviewed. This section is appended to the complete repository Master Plan, preserving v7.3 and the recorded Silver implementation checkpoint. This does not replace prior requirements.
+
+## 1. Evidence and review boundary
+
+- Received full source-only ZIP (1,353 entries; 1,352/1,352 SHA256 matches) and changed-files ZIP (21 entries; 20/20 SHA256 matches); all 20 changed nonmanifest members exactly match the full archive. Archive CRC PASS. All 605 Python files parsed successfully.
+- Independent local focused unittest run against five suites: **56 tests, 54 PASS / 2 SKIP / 0 FAIL**. Two optional tests require Python 3.14+ stdlib `compression.zstd`, unavailable in review Python 3.13.5. Codex reports **1,152 Windows tests with two optional skips**; that full run, source-original reconstructions and D3D9 renderer captures were not reproduced independently here.
+- Local source-only archive declares revision `423e8b714042db7a722e60bd2d6e98625614c3e9` based on `75c9138ca4b28e5af982534c0d131f5bcb25c5ce`. `.git` history is absent from ZIP, so actual commit ancestry is not independently verified.
+- The retained v7.3 file is byte-identical to the provided v7.3 attachment. The current in-repository MASTER_PLAN.md contains that history with additional implementation/source checkpoints.
+- Xbox/GC/PS2 exact source identities, source hashes, per-platform file manifests and code qualification are in `DAKAR2_PLATFORM_AUDIT.md` and `DAKAR2_CORPUS_MANIFEST.json`. No original game files or private geometry in source-only reviews.
+
+## 2. Xbox source recovery accepted at L1, not complete L2
+
+- Xbox USA source selected from real code and format evidence: x86/XBE Xbox D3D8, custom endian-aware `ALL.RBB` / `ALL.SBB`, HIR hierarchy, XMD model/streams, XTX BC1/BC3 textures, exact source 16-bit triangle-strip preservation, node transforms, and retained private original compressed mips and opaque bytes.
+- **Mitsubishi Pajero:** 42 nodes, 56 meshes, 3,689 vertices, 4,154 triangles; 11 textures; 266 original streams conserved.
+- **Hino:** 39 nodes, 47 meshes, 4,417 vertices, 4,676 triangles; 13 textures; 235 original streams conserved. An independent non-Pajero truck successfully exercises shared decoder logic.
+- Both scenes reopened in Source Garage and received 36 D3D9 diagnostic views per Codex; original-game/emulator appearance not verified. L0 PASS, L1 PASS, **L2 WARN**: source-dependent CW/CCW mixed facing, culling, per-submesh shader/vertex-color/UV1/secondary texture stages and alpha not yet reconstructed; no-cull is a diagnostic, never an MR-safe permanent repair.
+- Nissan Pickup resource is located but current source base contains a non-identity transform whose matrix interpretation is not qualified. Strict fail-closed is correct. Source model labels do not themselves establish exact Nissan D22 generation.
+- Xbox and other console versions have common 76 resource types/244 named members in indexed banks but different payload layouts. GameCube: FST/RVZ/PowerPC discovery, no GX model recovery; PS2: extracted file and EE entry discovery, no VU/GS model recovery. Keep Xbox primary, do not automatically transfer its decoder to GC/PS2.
+
+## 3. Comparison to Paris-Dakar PC and prerelease Master Rallye
+
+- The owner's qualitative side-by-side observation is that the Dakar 2 Xbox vehicles, including familiar Pajero variants, can differ from the older Paris-Dakar PC models in body proportions and look closer in some respects to prerelease MR promotional screenshots. This is a **valuable research hypothesis** but the reviewed source archives do not include a coordinate-normalized quantitative comparison against the recovered Paris-Dakar RED/Silver assets or prerelease MR model geometry.
+- Next create repeatable orthographic side/front/rear/top comparisons with matching wheelbase/ground scale, source rest/posed alignment, and clear labeling of different games/builds. Measure wheelbase/track/roof/windshield/A/B/C-pillar/hood, grille/bumper/wheel arches, spoiler/body appendages and mesh topology where available. Apply no nonuniform scaling to force visual agreement.
+- Correct evidence categories: source byte/topology identity where applicable; verified near geometrical similarity; stylistic similarity; unverified. Promotional images alone cannot prove shared source assets or exact original MR identity.
+- Prior source-qualified Paris-Dakar Pajero Silver #271 playable launch with owner-reported overly stiff suspension remains a **separate** reversible physics issue. Do not change or overwrite it during Xbox L2 research.
+
+## 4. Next scoped milestone — Dakar 2 Xbox Renderer Fidelity & Lost-Vehicle Comparison
+
+1. Recover original Xbox native renderer cull state per draw/submesh, including strip direction, intended front face, negative determinant, and device-state transitions. Avoid globally disabling culling or flipping all strips.
+2. Reproduce additional original material states: vertex color, UV1, secondary texture stages, blending/alpha-test/opacity, wheel interiors and lamps. Preserve exact original streams, original compressed textures and source provenance. Distinguish verified shader behavior from approximations.
+3. Build a source-faithful L2 Pajero and Hino view; compare with reference original Dakar 2 emulator/game captures only where legitimately supplied or user-observed. Produce fixed-angle CW/CCW/no-cull diagnostic sheets and corrected views. Qualify final L2 only where the gaps are genuinely closed.
+4. Quantify cross-game geometry against recovered Paris-Dakar RED/Silver and the user's MR prerelease screenshots. Establish *what* differs, not just that it differs. Record explicit identity ambiguity and model/version selection.
+5. Inspect alternate source LOD/parts/equipment policies; recover Nissan's nonidentity local transform only on native evidence. Do not silently turn unresolved rotations into new geometry.
+6. Extend read-only Source Garage integration, source-only tests, deterministic regeneration, archive/path safety and regression protection. Prioritize existing shared Universal Vehicle Scene, not a separate native MR compiler.
+7. **Stop after L2/reference research** and ask owner to pick the first game candidate: Pajero for historical comparison, Hino for first heavy truck experiment, or Nissan Pickup if qualified. Do not automatically build a new MR CarID or replace the independent Paris-Dakar Silver.
+
+## 5. Remaining larger roadmap
+
+- Dakar 2 native candidate through shared scene-to-MR bridge after qualified render/material/wheel/variant gates and owner approval; maintain independent alternative roster within validated 30-car configuration.
+- MR Lost Vehicles research: Citroën ZX Rallye Raid #206 (Grand Tour Racing '98 lead), silver Ford Ranger #205 livery, ambiguous prerelease silver SUV, early red/white Pajero variants. Preserve uncertainty.
+- Michelin Rally Masters RAV4 / Mégane source completion remains a high-personal-priority track.
+- 4Runner optional geometry fixes deferred to user-controlled Model Studio + Blender Bridge; stable front glass/brake-lights baseline preserved.
+- Cross-game extensible adapters, original source colorways, Physics/Camera/Audio/Shadow/Material/Frontend Studios, Fleet Builder, and strict local private source asset / no-push requirements remain unchanged.
+
+
+## Implementation checkpoint - Dakar 2 renderer and historical comparison
+
+Preserved L1 originals. Added explicit derived per-draw state preview and original color data, source-pass order/depth evidence; culling NONE is a static default-context inference, not a global polygon repair. Full shader/runtime parity remains WARN. Nissan rigid nonidentity basis now supported behind explicit qualification from native46da0/88eb0 matrix copy/upload. PC RED/Silver/Xbox comparisons use uniform wheelbase normalization only. See DAKAR2_RENDERER_RESULTS.md and DAKAR2_LOST_VEHICLE_COMPARISON.md. No MR import, new CarID, physics tuning or publication.

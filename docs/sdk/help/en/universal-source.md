@@ -130,3 +130,9 @@ tests; see docs/sdk/PARIS_DAKAR_SILVER_OWNER_CHECKLIST.md. Stop after this pilot
 Use `tools/dakar2_source_lab.py recover` with qualified owner-local Xbox ISO and PAJERO or HINO, then reopen `scene.json` here with its sidecars. Sources remain read-only; a fresh output directory is required. Exact revision/commands are in `docs/sdk/DAKAR2_SOURCE_RESULTS.md`.
 
 Source Garage inspects the recovered rest assembly and launches neutral D3D9 preview. Native Create is unavailable: no Dakar 2 MR policy is qualified. Provenance retains material/pose unknowns. CW/CCW expose unresolved facing; optional two-sided images are diagnostics only. Pajero wheel shader/alpha remains incomplete. GameCube/PS2 inventories do not imply mesh support. These previews do not qualify original-game rendering or gameplay.
+
+## Dakar 2 source renderer research — v7.4
+
+Reopen `.research-output/vehicles/dakar2-fidelity/final/PAJERO/scene/scene.json` (or HINO / NISSAN). Build the current application first with `python tools/build_rally_workshop.py`; derived source-state scenes require the updated previewer (MRPV v2). Original L1 scenes and older MRPV v1 native previews remain supported.
+
+Source-state rendering applies explicit static source evidence for cull/depth/pass order and original colors. This is an approximation: full Xbox shader/UV1/secondary texture stages and actual runtime visibility remain WARN. Separate CW/CCW/NONE captures remain diagnostics. No native Create is enabled for these sources. The old Nissan gate is lifted only by the explicit qualified rigid-basis path, not a guessed transform. Comparison sheets use identical camera and uniform wheelbase scale; perspective prerelease images cannot prove an exact mesh match. See DAKAR2_RENDERER_RESULTS.md and DAKAR2_LOST_VEHICLE_COMPARISON.md.

@@ -79,7 +79,22 @@ def sbb_entries(data,endian='<'):
             'warnings':['declared size exceeds allocation by%d; no over-read'%(declared-allocated)]if declared>allocated else[]})
     return rows
 
-def hierarchy(rbb,index):
+def compact_transform(values):
+    """Native46da0 copies basis9;88eb0 uploads it as D3D row vectors.
+
+    UVS uses column vectors, hence transpose the basis, retain translation.
+    Only rigid orthonormal bases are qualified; scale/shear stay unsupported.
+    """
+    if len(values)!=12 or any(not math.isfinite(v) for v in values):raise ValueError('HIR affine values')
+    b=values[:9]
+    for r in range(3):
+        for c in range(3):
+            if abs(sum(b[r*3+k]*b[c*3+k]for k in range(3))-(r==c))>1e-5:
+                raise ValueError('HIR scale/shear basis UNSUPPORTED')
+    return [b[0],b[3],b[6],values[9],b[1],b[4],b[7],values[10],b[2],b[5],b[8],values[11],0.,0.,0.,1.]
+
+
+def hierarchy(rbb,index,*,qualified_rotations=False):
     row=rbb.resources[index]
     if row['type']!='HIR':raise ValueError('HIR resource required')
     root=row['offset'];count=rbb.u(root+4)
@@ -94,7 +109,8 @@ def hierarchy(rbb,index):
         if any(v< -1 or v>=count for v in(parent,sibling,child))or parent==i:raise ValueError('HIR linkage')
         # Source stores 3 basis vectors followed by translation. First qualified
         # vehicles use identity bases; any different basis needs a new review.
-        if matrix[:9]!=[1.,0.,0.,0.,1.,0.,0.,0.,1.]:raise ValueError('HIR rotated rest basis UNSUPPORTED')
+        if matrix[:9]!=[1.,0.,0.,0.,1.,0.,0.,0.,1.] and not qualified_rotations:raise ValueError('HIR rotated rest basis UNSUPPORTED')
+        compact_transform(matrix)
         nodes.append({'id':i,'name':name,'offset':at,'parent':parent,'sibling':sibling,'first_child':child,
             'original_basis_translation':matrix,'raw_record_sha256':digest(rbb.slice(at,0xd4)),
             'flags':rbb.u(at+0x64),'translation':matrix[9:]})
@@ -149,7 +165,7 @@ def xmd_meshes(rbb,index):
         uv=[list(v)for v in struct.iter_unpack('<2f',streams[9]['raw'])]
         if any(not math.isfinite(v)or abs(v)>1e8 for row in positions+uv for v in row):raise ValueError('XMD nonfinite coordinate')
         texture_refs=[]
-        for j in range(3):
+        for j in range(4):
             field=at+0x10+j*4
             if field in rbb.external:texture_refs.append(rbb.reference(field))
             elif rbb.u(field)==0:texture_refs.append(None)

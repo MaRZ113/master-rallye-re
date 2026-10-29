@@ -533,3 +533,21 @@ PENDING_OWNER. No V4E/Blender Bridge work or capacity expansion.
 | Silver #271 owner status | Launched; stiff suspension separate, no tuning here |
 
 See DAKAR2_SOURCE_RESULTS.md. CW/CCW/no-cull are distinct diagnostics; no-cull never promotes fidelity to PASS.
+
+## Dakar 2 renderer fidelity / lost-vehicle comparison — 29 October 2026
+
+| Check | Result / evidence boundary |
+|---|---|
+| Original source streams and L1 projects | Conserved; derived scenes retain exact original sidecars and mesh arrays |
+| Native cull/depth/pass state | Static original evidence; default context inferred, runtime NOT TESTED |
+| Pajero/Hino/Nissan D3D9 | Source-state views plus CW/CCW/NONE diagnostics; L2 WARN full shader/runtime effects |
+| Nissan nonidentity basis | PASS native compact row-vector copy/upload evidence; transpose to UVS. Scale/shear rejected; default gate retained |
+| UVS deterministic reopen | All three scene/manifest repeat hashes match; original sidecars exact |
+| Real Tk Source Garage | Three scenes reopen/preview; no errors, native Create disabled |
+| Focused tests | 70 PASS, including six new source-free renderer/matrix tests |
+| Full Windows suite | 1158 tests OK; two pre-existing optional fixture skips |
+| Historical comparison | Uniform WB scale/shared camera; no exact MR geometry supplied, no identity claim |
+| Preservation | 10167-file before/after protection audit, private preservation-validation.json |
+| MR native/gameplay/physics | OUT OF SCOPE; no CarID or tuning; Silver stiffness separate |
+
+Exact private logs and boundaries: DAKAR2_RENDERER_RESULTS.md. Missing original Xbox runtime references and prerelease MR meshes are not fabricated.

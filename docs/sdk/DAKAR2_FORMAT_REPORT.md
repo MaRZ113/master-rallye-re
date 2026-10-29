@@ -55,3 +55,7 @@ Pajero's alpha preview exposes pale inner wheel/overlay surfaces. Vertex colors,
 ## Bounds and failure policy
 
 Read spans max 256 MiB; filesystem depth/count/aggregate directory bytes bounded. RVZ SHA1 headers, range overlap, decompression window/output checked; no full-disc unbounded decompression. Only observed GC/Zstandard layout supported. RBB single-block/count/relocation/XOR/payload ranges checked; SBB overlap/path traversal rejected. XMD limits: 65536 vertices/submesh, 1M vertices and 3M indices/model before unpack. Nonfinite coordinates, unknown bases/declarations and invalid references fail closed. Existing UVS validates immutable snapshots, serialization, texture/output budgets and fresh contained output. Adapter has no MR authoring, CarID, physics or roster dependency.
+
+## v7.4 follow-up
+
+The original L1 results above remain historical and immutable. New derived source-state previews, native matrix/cull/depth/pass evidence and qualified Nissan rigid-basis recovery are documented in [DAKAR2_RENDERER_RESULTS.md](DAKAR2_RENDERER_RESULTS.md). [DAKAR2_LOST_VEHICLE_COMPARISON.md](DAKAR2_LOST_VEHICLE_COMPARISON.md) adds measured PC RED/Silver versus Xbox comparisons. L2 still WARN; GC/PS2 boundaries and no-native-import scope remain.

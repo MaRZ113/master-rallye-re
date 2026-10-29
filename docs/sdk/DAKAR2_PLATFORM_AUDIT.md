@@ -50,3 +50,7 @@ The [GBA.SBB research post](https://gbatemp.net/threads/question-about-the-sbb-f
 ## Stop boundary
 
 No MR CarID, addon, roster edit, native compilation or physics tuning. Silver #271 owner launch and stiff suspension are a separate reversible Physics Studio follow-up; launch does not prove race completion, Results, damage or re-entry. No push/publication.
+
+## v7.4 follow-up
+
+The original L1 results above remain historical and immutable. New derived source-state previews, native matrix/cull/depth/pass evidence and qualified Nissan rigid-basis recovery are documented in [DAKAR2_RENDERER_RESULTS.md](DAKAR2_RENDERER_RESULTS.md). [DAKAR2_LOST_VEHICLE_COMPARISON.md](DAKAR2_LOST_VEHICLE_COMPARISON.md) adds measured PC RED/Silver versus Xbox comparisons. L2 still WARN; GC/PS2 boundaries and no-native-import scope remain.
