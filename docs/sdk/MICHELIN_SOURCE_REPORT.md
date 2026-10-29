@@ -217,3 +217,7 @@ source-coordinate evidence. Only after those checks should a small normalized
 scene and neutral textured vehicle preview be proposed. RAV4 remains personally
 important; the current advance does not change the historical priority of
 Paris-Dakar or start a second large reverse-engineering campaign.
+
+## v7.6 follow-up — neutral assemblies recovered
+
+The preceding report is retained as the historical structural milestone. Native EXE tracing now qualifies PTOC LOD records, external damage targets and original backups, material/texture dispatch, native indexed coverage, shared Tarmac wheels and initial catalog hubs. Reopenable RAV4 and Megane F2 neutral static assemblies and independent body LODs now exist through UVS v1/D3D9. L2 WARN preserves original renderer and moving-wheel/settlement boundaries. See MICHELIN_ASSEMBLY_RESULTS.md / MICHELIN_ASSEMBLY_PROVENANCE.json; no native MR import.

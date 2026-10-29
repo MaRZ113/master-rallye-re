@@ -567,3 +567,22 @@ Exact private logs and boundaries: DAKAR2_RENDERER_RESULTS.md. Missing original 
 | Native/gameplay/physics | NOT CREATED / OUT OF SCOPE |
 
 Evidence and reproducible commands: LOST_PAJERO_TEXTURE_RESULTS.md. Proprietary previews and textures remain private.
+
+## Michelin source assembly and bounded Pajero probe — 29 October2026
+
+| Check | Result / boundary |
+|---|---|
+| Exact inputs / native analysis | Pinned two PDOs, EXE, catalog and two selected wheel banks; REA Ghidra12.1.4, original instruction byte verification |
+| PTOC / vertex sources | Source-qualified LOD chains and external damage targets; originals separately preserved |
+| RAV4 / Megane F2 static assembly | L1 PASS selected body/four original wheels and initial catalog hub formula; L2 WARN |
+| Source material dispatch | Native1-based handles, source RGB, original UVs; native magenta/index0 coverage, black opaque |
+| Renderer boundary | Glass opaque neutral, original side matrices/steering/spin/settlement/filtering not claimed |
+| Repeat/reopen | Ten scenes/manifests and MRPVs identical; original sidecars hash-exact |
+| D3D9 / real GUI | Six assembly/LOD views plus wheel isolation; both real Tk reopen/render, native Create disabled |
+| Focused tests |38 PASS including12 new synthetic cases |
+| Full Windows |1178 tests OK; two existing optional fixture skips |
+| Preservation |11500 protected files /15448297600 bytes, zero changed/missing |
+| Optional Pajero | Original spare node030 mesh instance, authored rear pose WARN; exact restore; no wheel-backing/cull repair |
+| MR native / gameplay | NOT CREATED / NOT TESTED; no CarID or physics edits |
+
+See MICHELIN_ASSEMBLY_RESULTS.md and PAJERO_SPARE_PROBE_RESULTS.md. Private exact logs remain under michelin-assembly.

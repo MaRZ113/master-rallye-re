@@ -141,3 +141,11 @@ Source-state rendering applies explicit static source evidence for cull/depth/pa
 Original red MR Pajero textures survive in clean retail resources, with older TXT material references. They do not establish that the current DX meshes use that livery or that Xbox UVs match. See LOST_PAJERO_TEXTURE_RESULTS.md.
 
 Private A/C source scenes and six-view sheets are under `.research-output/vehicles/lost-pajero-livery/review-ready/`. Open `C/scene/scene.json` through Source Garage: C is a partial original-MR203 badge experiment, with unresolved badge orientation defects on both side views. Other panels keep Xbox artwork. It is not a restored full livery. Native Create remains unavailable. Original source geometry/UVs/alpha stay immutable; the standalone overlay history supports Undo, Redo, Restore and reopening. No new MR project or gameplay qualification is included.
+
+## Michelin RAV4 and Megane F2 — v7.6
+
+Use Reopen source scene with `.research-output/vehicles/michelin-assembly/final/Car25A/assembly/scene/scene.json` or `Car06A`. Each contains original body LOD0 and four original catalog-selected wheels in an explicit static inspection pose. Native initial hub positions are retained separately from original catalog values. Source and normalized bases remain selectable. LOD0..3 folders reopen independently; do not combine the four bodies. Native Create stays disabled.
+
+Original palettes and textures remain intact. The neutral renderer uses source-qualified index0 coverage for the magenta-marked wheel textures; black is not transparency. Glass is still neutral opaque, original wheel side/spin/steer/settled poses and complete lighting/filtering remain WARN. These are neutral source vehicles, not playable MR imports. CLI reproduction and source hashes: MICHELIN_ASSEMBLY_RESULTS.md.
+
+Optional Pajero source/derived spare projects are in `.research-output/vehicles/michelin-assembly/pajero-final/`. The rear spare is an authored instance of original geometry, not recovered MR equipment; wheel-backing remains deferred. Restore by reopening A. Old red-livery atlas experiments are closed.

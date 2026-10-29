@@ -1,0 +1,558 @@
+{
+  "schema": "michelin-assembly-provenance/1",
+  "baseline": "60ef21ce6e9828a635c4b15652e3e0d5f357c7ee",
+  "vehicles": [
+    {
+      "catalog": "Car25A.PDO",
+      "display_name": "Toyota RAV 4 \u2014 original static assembly / L2 WARN",
+      "source_hashes": {
+        "Data/Objects/Car25A.PDO": "bbbc58fe11456369231e595444d43377f94cc3f19af2e2057a4ec68a07802593",
+        "Data/Objects/Tarmac_t0004.pdo": "51a4958b2a5d8b8eff55a9455b1ac439e3ed970add60606f26e49391e8d9cf33",
+        "RallyMasters.EXE": "71c6c36505102e75518a7f6843bbc8355f205e439086e389ec877225e3e0a8ae",
+        "Server/Data/Cars.BIN": "bb52e07b8287e28003be86ebb4fc700277b14a6af93cea823dd6dc7535bc730b"
+      },
+      "scene_sha256": "7ab8b1525fb078aee8fcd524a3d8b3816670668708102e9a4a36ec257074f27c",
+      "members": [
+        {
+          "member": "body/CAR25A_0.XO",
+          "bytes": 80788,
+          "sha256": "9e84cead4d277a3d0e5e9a564414c8e1e1a47f56137d4c6edf2a80e013aa3373"
+        },
+        {
+          "member": "body/CAR25A_1.XO",
+          "bytes": 80788,
+          "sha256": "9e84cead4d277a3d0e5e9a564414c8e1e1a47f56137d4c6edf2a80e013aa3373"
+        },
+        {
+          "member": "body/CAR25A_2.XO",
+          "bytes": 39295,
+          "sha256": "a68383b523249e73887cd12f6e1bb9743cbfdc06c31c2f5827f3ea01b90a1e4f"
+        },
+        {
+          "member": "body/CAR25A_3.XO",
+          "bytes": 39295,
+          "sha256": "6218474f4556ee45b6d4f7cc076d7d75d6dcd29c9876ed386ef84e5cd0b7af8f"
+        },
+        {
+          "member": "body/CAR25A_BACK.TGA",
+          "bytes": 33554,
+          "sha256": "715d2709ed93cc9608f0bc4fbc700d239da7a3f1f3ae2479fc0192f0c184dc49"
+        },
+        {
+          "member": "body/CAR25A_FRONT.TGA",
+          "bytes": 66322,
+          "sha256": "ccfbbf3e1a08e815f4cb14a9d14a0774efe5c3a345a4f6e079c50daeaba61986"
+        },
+        {
+          "member": "body/CAR25A_LEFT.TGA",
+          "bytes": 33554,
+          "sha256": "086e94c0da119d4916d5f4beee33b5f9067f76c396e56d21ca42b488c3181df2"
+        },
+        {
+          "member": "body/CAR25A_RIGHT.TGA",
+          "bytes": 33554,
+          "sha256": "8b841f4bdcb711aa8fd8888f411a45a80b1088e9b488a32d1ad1a26b263e4276"
+        },
+        {
+          "member": "body/CAR25A_TOP.TGA",
+          "bytes": 33554,
+          "sha256": "ce5855f9a644670f3a8258ad806c06e2ffbac2c5454e9b12c369a5c2e7e1ff8b"
+        },
+        {
+          "member": "body/CAR25_0_VERTEX.BIN",
+          "bytes": 4008,
+          "sha256": "ab1a47f7101e641cc2bbd2f5049929eba5d349c60429f07f433a79eaa6f3db56"
+        },
+        {
+          "member": "body/CAR25_1_VERTEX.BIN",
+          "bytes": 4008,
+          "sha256": "ab1a47f7101e641cc2bbd2f5049929eba5d349c60429f07f433a79eaa6f3db56"
+        },
+        {
+          "member": "body/CAR25_2_VERTEX.BIN",
+          "bytes": 2016,
+          "sha256": "5e3eae27127f327e108fd29605b33a73105a1ad10f49e5f901305f59718601a4"
+        },
+        {
+          "member": "body/CAR25_3_VERTEX.BIN",
+          "bytes": 2016,
+          "sha256": "5e3eae27127f327e108fd29605b33a73105a1ad10f49e5f901305f59718601a4"
+        },
+        {
+          "member": "body/CHASSI1.TGA",
+          "bytes": 8978,
+          "sha256": "5477d3d8926d84bb08546a4fe7907f8315c9c7da55c6b4066a4ad4d29201ef4e"
+        },
+        {
+          "member": "body/HJALMTEST2.TGA",
+          "bytes": 4882,
+          "sha256": "aea52f96a2eeeeffa8318972d9fd809d87bd8828a8ae09813abfc194f157c18f"
+        },
+        {
+          "member": "body/INDEX.TOC",
+          "bytes": 282,
+          "sha256": "060e3e2e692153d006e0abdd8003b8fcf4b56107e240b018fa73825e5b0e6e5c"
+        },
+        {
+          "member": "body/KROPPTEST1.TGA",
+          "bytes": 4882,
+          "sha256": "a30e2171fc2a81dc9b0d626fbd20818a186dc62f79db1ae2a661466b2c90edf8"
+        },
+        {
+          "member": "body/STOLPAR.TGA",
+          "bytes": 1810,
+          "sha256": "db3b3bc87e0308f9e264d4aa8849868119f1357e05bdee33469fb463e5c31c67"
+        },
+        {
+          "member": "wheel/BRAKEDISC.TGA",
+          "bytes": 4498,
+          "sha256": "411f90f9eff41e07764a1c25f09a7f26ad04f9f2cf0c2654240d9254222d6cbb"
+        },
+        {
+          "member": "wheel/INDEX.TOC",
+          "bytes": 228,
+          "sha256": "2bfe8e4ac5fc326308eb7cb2c7a2e36583871e51cf49afa5a1878c285dd458e8"
+        },
+        {
+          "member": "wheel/INNERRIM.TGA",
+          "bytes": 1810,
+          "sha256": "8b191451f07861499163d799ef3c6fda64e5786ae4072138ef8dac80b4eaaeda"
+        },
+        {
+          "member": "wheel/PIRELLITARMAC.TGA",
+          "bytes": 2706,
+          "sha256": "79f8efd11e96aa72cd570f5e5219f47475a063207eb6b60980a170b9f5172d32"
+        },
+        {
+          "member": "wheel/T0004.TGA",
+          "bytes": 17170,
+          "sha256": "939ffe33b5130690a50dce5d6963cb1ba1bf0152b0f018dce5df7bce0e096189"
+        },
+        {
+          "member": "wheel/TARMAC_T0004_0.XO",
+          "bytes": 18879,
+          "sha256": "5b333e459a5252658c2a9fef85e1d89d8f5a53abe4a721f542619e75de442283"
+        },
+        {
+          "member": "wheel/TARMAC_T0004_1.XO",
+          "bytes": 9274,
+          "sha256": "96eb91cd73dda2ab21df101bbd39996ed5db05dcab2321008eb68c44512a94b6"
+        },
+        {
+          "member": "wheel/TARMAC_T0004_2.XO",
+          "bytes": 2962,
+          "sha256": "b8f18c5683ea059e91d940f39b5a42672055bb50ce4a600b44cd1ed1bdb22248"
+        },
+        {
+          "member": "Cars.BIN",
+          "bytes": 38592,
+          "sha256": "bb52e07b8287e28003be86ebb4fc700277b14a6af93cea823dd6dc7535bc730b"
+        }
+      ],
+      "wheel_selection": {
+        "archive": "Tarmac_t0004.pdo",
+        "boundary": "Explicit Tarmac choice; initial unsprung positions, NOT running settled suspension",
+        "evidence": "405b10-405b63 catalog+(road+16)*20+choice*4; 4890e0 +1d0 XYZ and Y-radius",
+        "hubs": [
+          {
+            "initial_hub_xyz": [
+              -0.699999988079071,
+              -0.16074495017528534,
+              1.0059596300125122
+            ],
+            "offset": 29408,
+            "original_xyz": [
+              -0.699999988079071,
+              0.17925505340099335,
+              1.0059596300125122
+            ]
+          },
+          {
+            "initial_hub_xyz": [
+              0.699999988079071,
+              -0.16074495017528534,
+              1.0059596300125122
+            ],
+            "offset": 29420,
+            "original_xyz": [
+              0.699999988079071,
+              0.17925505340099335,
+              1.0059596300125122
+            ]
+          },
+          {
+            "initial_hub_xyz": [
+              0.699999988079071,
+              -0.17000000178813934,
+              -1.4079797267913818
+            ],
+            "offset": 29432,
+            "original_xyz": [
+              0.699999988079071,
+              0.17000000178813934,
+              -1.4079797267913818
+            ]
+          },
+          {
+            "initial_hub_xyz": [
+              -0.699999988079071,
+              -0.17000000178813934,
+              -1.4079797267913818
+            ],
+            "offset": 29444,
+            "original_xyz": [
+              -0.699999988079071,
+              0.17000000178813934,
+              -1.4079797267913818
+            ]
+          }
+        ],
+        "initial_radius": 0.3400000035762787,
+        "record_offset": 28944,
+        "tyre_id": 4,
+        "tyre_offset": 29264
+      },
+      "counts": {
+        "unique_meshes": 15,
+        "nodes": 5,
+        "unique_triangles": 804,
+        "instanced_triangles": 1260
+      },
+      "lods": [
+        {
+          "offset": 62,
+          "type": 3,
+          "distance": 0.0,
+          "name": "car25A_0.xo"
+        },
+        {
+          "offset": 116,
+          "type": 3,
+          "distance": 15.0,
+          "name": "car25A_1.xo"
+        },
+        {
+          "offset": 170,
+          "type": 3,
+          "distance": 30.0,
+          "name": "car25A_2.xo"
+        },
+        {
+          "offset": 224,
+          "type": 3,
+          "distance": 50.0,
+          "name": "car25A_3.xo"
+        }
+      ],
+      "external_role": "Damage target: native 4856c0; XO backup restored by 48b9b0",
+      "coordinate_system": {
+        "evidence": [
+          "Exact source geometry; +Y roof, +Z FRONT-panel geometry; reflection is reversible viewer normalization only"
+        ],
+        "interpretation_status": "Inspection front -Z from source FRONT/BACK panel placement; physical units/game handedness unqualified",
+        "source_to_normalized": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "catalog": "Car06A.PDO",
+      "display_name": "Renault Megane F2 \u2014 original static assembly / L2 WARN",
+      "source_hashes": {
+        "Data/Objects/Car06A.PDO": "f0a9400812814620832b4a3fe98a024318de72b929ba225a90c4a57e342e1a5b",
+        "Data/Objects/Tarmac_t0022.pdo": "649edf6cb2c989f86fd721456c9a79fdc3650946771cf31637e76900b7c5d6f8",
+        "RallyMasters.EXE": "71c6c36505102e75518a7f6843bbc8355f205e439086e389ec877225e3e0a8ae",
+        "Server/Data/Cars.BIN": "bb52e07b8287e28003be86ebb4fc700277b14a6af93cea823dd6dc7535bc730b"
+      },
+      "scene_sha256": "3b229c81d304c520be0d6e3fa50d51d442c6c363d8b04d24a20a4d395701ba4e",
+      "members": [
+        {
+          "member": "body/AVGASROR.TGA",
+          "bytes": 1810,
+          "sha256": "02663f14c24929a45f3570999e35bba3e371d62ccbaf96e2d7f918cd970017b2"
+        },
+        {
+          "member": "body/CAR06A_0.XO",
+          "bytes": 114018,
+          "sha256": "ed24860ea4b5b5939de869b361a6275ee89d5eaeb06d651fe294527030aee1e0"
+        },
+        {
+          "member": "body/CAR06A_1.XO",
+          "bytes": 97674,
+          "sha256": "081d2b100cc60474516b8157b6c493a8c6b02acf8f997d660028edefee591022"
+        },
+        {
+          "member": "body/CAR06A_2.XO",
+          "bytes": 41359,
+          "sha256": "4d2fe77dd85c887c502513cc4ecceaddfdb193faeac83826106fe138a0ab9ce3"
+        },
+        {
+          "member": "body/CAR06A_3.XO",
+          "bytes": 22495,
+          "sha256": "f107b7cf20d5d27862690b2ecdcb7fa06660a2df6632d3a1f486ee8f629192eb"
+        },
+        {
+          "member": "body/CAR06SKINABACK.TGA",
+          "bytes": 17170,
+          "sha256": "6a367261000c2127375a09a1f67c0430fd8ef7af31fe6f0f8f3b2f5f721f4499"
+        },
+        {
+          "member": "body/CAR06SKINAFRONT.TGA",
+          "bytes": 66348,
+          "sha256": "7cbb1d8911a30d15ce543ad454169ae2a8afd440b68500311cab050f4b8b43fa"
+        },
+        {
+          "member": "body/CAR06SKINALEFT.TGA",
+          "bytes": 33554,
+          "sha256": "9da51df18d26cb6ea6435592196e661cd76ae7819bd0727c25eb30b350e5af59"
+        },
+        {
+          "member": "body/CAR06SKINARIGHT.TGA",
+          "bytes": 33554,
+          "sha256": "f82224895ea52b66ab58670ef83a5b8df7a2f4cd9474015a061fa3e856f3e5d9"
+        },
+        {
+          "member": "body/CAR06SKINASPOIL.TGA",
+          "bytes": 4882,
+          "sha256": "8e9980b6827f7df551b7ba8a896914a45ee00f235c4a450722aef2e3a816024d"
+        },
+        {
+          "member": "body/CAR06SKINATOP.TGA",
+          "bytes": 33580,
+          "sha256": "d67d3fd5f74f5fca4d14c7b44554bbe88d7e280d4815d325dd195498f98b29f7"
+        },
+        {
+          "member": "body/CAR06_0_VERTEX.BIN",
+          "bytes": 5484,
+          "sha256": "0435532d3a4b005808fa06bea6abf9f189fabb337751a22320f1974b92235d0d"
+        },
+        {
+          "member": "body/CAR06_1_VERTEX.BIN",
+          "bytes": 4836,
+          "sha256": "f4255b05e945fb1479004567d32963ed98451cb2faeec49f3854f89a9112443d"
+        },
+        {
+          "member": "body/CAR06_2_VERTEX.BIN",
+          "bytes": 2136,
+          "sha256": "5f30d034dcb3e6513fa15920f2adafc3263d6bb6e6b09bba0fec0605758fa154"
+        },
+        {
+          "member": "body/CAR06_3_VERTEX.BIN",
+          "bytes": 1284,
+          "sha256": "77459c79a6c51d43326795297321fdadcf5bbb6354bc97015c5fdb5b5b7d9a04"
+        },
+        {
+          "member": "body/CHASSI1.TGA",
+          "bytes": 8978,
+          "sha256": "5477d3d8926d84bb08546a4fe7907f8315c9c7da55c6b4066a4ad4d29201ef4e"
+        },
+        {
+          "member": "body/HJALMTEST2.TGA",
+          "bytes": 4882,
+          "sha256": "aea52f96a2eeeeffa8318972d9fd809d87bd8828a8ae09813abfc194f157c18f"
+        },
+        {
+          "member": "body/INDEX.TOC",
+          "bytes": 282,
+          "sha256": "1e5414e034e375efa1695d92df3e9b0c773c26aeba7d6782758f554e2fa67c93"
+        },
+        {
+          "member": "body/KROPPTEST1.TGA",
+          "bytes": 4882,
+          "sha256": "a30e2171fc2a81dc9b0d626fbd20818a186dc62f79db1ae2a661466b2c90edf8"
+        },
+        {
+          "member": "body/STOLPAR.TGA",
+          "bytes": 1810,
+          "sha256": "db3b3bc87e0308f9e264d4aa8849868119f1357e05bdee33469fb463e5c31c67"
+        },
+        {
+          "member": "wheel/BRAKEDISC.TGA",
+          "bytes": 4498,
+          "sha256": "411f90f9eff41e07764a1c25f09a7f26ad04f9f2cf0c2654240d9254222d6cbb"
+        },
+        {
+          "member": "wheel/INDEX.TOC",
+          "bytes": 228,
+          "sha256": "cd55b05090046b8fe6d07ef4649a7fa1d4c128123f80450bb0ecdd1872dc6dd7"
+        },
+        {
+          "member": "wheel/INNERRIMBLA.TGA",
+          "bytes": 1426,
+          "sha256": "d109360fdf100472ee62a3d4f1b19563415ecdd8d0156b3674f162e7d877fdbe"
+        },
+        {
+          "member": "wheel/PIRELLITARMAC.TGA",
+          "bytes": 2706,
+          "sha256": "79f8efd11e96aa72cd570f5e5219f47475a063207eb6b60980a170b9f5172d32"
+        },
+        {
+          "member": "wheel/T0022.TGA",
+          "bytes": 17170,
+          "sha256": "820d681b55b200cb0a4c4bf6a355ded8a9dc4b3c62a9e456ef3ec7fb085d9782"
+        },
+        {
+          "member": "wheel/T0022_X.TGA",
+          "bytes": 17170,
+          "sha256": "989ae4ce1c0bd6beb5b72f19b1ac74b64866e29c8bd8e5f22305fe09face3c99"
+        },
+        {
+          "member": "wheel/TARMAC_T0022_0.XO",
+          "bytes": 18882,
+          "sha256": "6b65af800b4ecd5fd6ddcd030ef11098e1f7b255131eccbf92d3f80740f062da"
+        },
+        {
+          "member": "wheel/TARMAC_T0022_1.XO",
+          "bytes": 14316,
+          "sha256": "ba5ab00039d129fe9a1d9d6512ee082da81e9ead789c55e7d42266a38d60f7ce"
+        },
+        {
+          "member": "wheel/TARMAC_T0022_2.XO",
+          "bytes": 2962,
+          "sha256": "299616b89f58178884492274ff183f210fcab8809d488a7ed5085ad00355010f"
+        },
+        {
+          "member": "Cars.BIN",
+          "bytes": 38592,
+          "sha256": "bb52e07b8287e28003be86ebb4fc700277b14a6af93cea823dd6dc7535bc730b"
+        }
+      ],
+      "wheel_selection": {
+        "archive": "Tarmac_t0022.pdo",
+        "boundary": "Explicit Tarmac choice; initial unsprung positions, NOT running settled suspension",
+        "evidence": "405b10-405b63 catalog+(road+16)*20+choice*4; 4890e0 +1d0 XYZ and Y-radius",
+        "hubs": [
+          {
+            "initial_hub_xyz": [
+              -0.7799999713897705,
+              -0.0949999988079071,
+              0.9682132601737976
+            ],
+            "offset": 464,
+            "original_xyz": [
+              -0.7799999713897705,
+              0.24500000476837158,
+              0.9682132601737976
+            ]
+          },
+          {
+            "initial_hub_xyz": [
+              0.7799999713897705,
+              -0.0949999988079071,
+              0.9682132601737976
+            ],
+            "offset": 476,
+            "original_xyz": [
+              0.7799999713897705,
+              0.24500000476837158,
+              0.9682132601737976
+            ]
+          },
+          {
+            "initial_hub_xyz": [
+              0.7799999713897705,
+              -0.0949999988079071,
+              -1.4300000667572021
+            ],
+            "offset": 488,
+            "original_xyz": [
+              0.7799999713897705,
+              0.24500000476837158,
+              -1.4300000667572021
+            ]
+          },
+          {
+            "initial_hub_xyz": [
+              -0.7799999713897705,
+              -0.0949999988079071,
+              -1.4300000667572021
+            ],
+            "offset": 500,
+            "original_xyz": [
+              -0.7799999713897705,
+              0.24500000476837158,
+              -1.4300000667572021
+            ]
+          }
+        ],
+        "initial_radius": 0.3400000035762787,
+        "record_offset": 0,
+        "tyre_id": 22,
+        "tyre_offset": 320
+      },
+      "counts": {
+        "unique_meshes": 17,
+        "nodes": 5,
+        "unique_triangles": 1060,
+        "instanced_triangles": 1516
+      },
+      "lods": [
+        {
+          "offset": 62,
+          "type": 3,
+          "distance": 0.0,
+          "name": "car06A_0.xo"
+        },
+        {
+          "offset": 116,
+          "type": 3,
+          "distance": 15.0,
+          "name": "car06A_1.xo"
+        },
+        {
+          "offset": 170,
+          "type": 3,
+          "distance": 30.0,
+          "name": "car06A_2.xo"
+        },
+        {
+          "offset": 224,
+          "type": 3,
+          "distance": 50.0,
+          "name": "car06A_3.xo"
+        }
+      ],
+      "external_role": "Damage target: native 4856c0; XO backup restored by 48b9b0",
+      "coordinate_system": {
+        "evidence": [
+          "Exact source geometry; +Y roof, +Z FRONT-panel geometry; reflection is reversible viewer normalization only"
+        ],
+        "interpretation_status": "Inspection front -Z from source FRONT/BACK panel placement; physical units/game handedness unqualified",
+        "source_to_normalized": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    }
+  ],
+  "renderer": "L2 WARN; static neutral assembly; no original runtime/gameplay claim"
+}
