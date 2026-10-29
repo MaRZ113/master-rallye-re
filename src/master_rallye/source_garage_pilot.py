@@ -221,7 +221,7 @@ def create_pilot(scene_path,donor_dir,retail_sma,output,*,retail_root=None,base_
     return report
 
 
-def _configure(workshop,base_roster,output,retail_sma,retail_root):
+def _configure(workshop,base_roster,output,retail_sma,retail_root,*,runtime_family=FAMILY):
     from .addon_sdk.project import build_project
     config_path=base_roster/'roster-config.json'if base_roster.is_dir()else base_roster
     uvs.unlinked(config_path);config=json.loads(uvs.read_bounded(config_path,1024*1024))
@@ -232,8 +232,8 @@ def _configure(workshop,base_roster,output,retail_sma,retail_root):
         if row['physical_id']==29:row.update(project=str(author),build=str(author_build))
     source=json.loads((author/'vehicle-project.json').read_text())['source_vehicle_dir'];source=Path(source)
     if not source.is_absolute():source=(author/source).resolve()
-    config['wheel_profiles']=[p for p in config.get('wheel_profiles',[])if p['runtime_family']!=FAMILY]+[{
-        'runtime_family':FAMILY,'resource_keys':['Vehicles/'+FAMILY+'/wheel-source'+str(i)for i in range(4)],
+    config['wheel_profiles']=[p for p in config.get('wheel_profiles',[])if p['runtime_family']!=runtime_family]+[{
+        'runtime_family':runtime_family,'resource_keys':['Vehicles/'+runtime_family+'/wheel-source'+str(i)for i in range(4)],
         'resource_sha256':[uvs.sha((source/('wheel-source'+str(i)+'.dx')).read_bytes())for i in range(4)]}]
     # Only this alternative identity is rebound; original config remains untouched.
     roster=output/'roster';roster.mkdir();_json(roster/'roster-config.json',config)

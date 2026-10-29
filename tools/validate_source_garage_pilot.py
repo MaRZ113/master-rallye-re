@@ -28,7 +28,8 @@ def validate(source,output):
     project.data['universal_source']=copy.deepcopy(original.data['universal_source'])
     project.data['source_baseline']=copy.deepcopy(original.data['source_baseline']);project.save()
     project.configure_build(copy.deepcopy(original.data['build_settings']))
-    project.register_crew_models({name:copy.deepcopy(value['definition'])for name,value in original.data['crew'].items()})
+    has_crew=bool(original.data.get('crew'))
+    if has_crew:project.register_crew_models({name:copy.deepcopy(value['definition'])for name,value in original.data['crew'].items()})
     def resources():return {p.name:sha(p.read_bytes())for p in project.assets.iterdir()if p.is_file()}
     initial=resources();project.shadow_update('auto')
     body_before=(project.assets/'car.dx').read_bytes()
@@ -38,18 +39,20 @@ def validate(source,output):
     project.undo();assert(project.assets/'car.dx').read_bytes()==body_before
     project.redo();assert(project.assets/'car.dx').read_bytes()==tinted
     placement={'lateral':.02,'vertical':0.,'longitudinal':0.,'yaw_degrees':0.}
-    crew=project.fit_crew('car.dx','driver',placement)
-    moved=(project.assets/'car.dx').read_bytes();assert moved!=tinted
+    crew=project.fit_crew('car.dx','driver',placement)if has_crew else {'status':'UNSUPPORTED','reason':'Source static crew has no qualified independent rigid-edit mapping'}
+    moved=(project.assets/'car.dx').read_bytes()
+    if has_crew:assert moved!=tinted
     project.native_model_resources();project.shadow_calculate();project.frontend_auto_frame()
-    project.undo();assert(project.assets/'car.dx').read_bytes()==tinted
-    project.redo();assert(project.assets/'car.dx').read_bytes()==moved
-    project.marker_update('#204080');project.results_name_update('TOYOTA 4RUNNER TEST')
+    if has_crew:
+        project.undo();assert(project.assets/'car.dx').read_bytes()==tinted
+        project.redo();assert(project.assets/'car.dx').read_bytes()==moved
+    project.marker_update('#204080');project.results_name_update('SOURCE PILOT TEST')
     project.camera_mode_update(2,{'FOV':75.})
     project.camera_mode_update(2,{})
     project.shadow_reset('original');project.shadow_update('auto')
     project.save();reopened=WorkshopProject(project.root)
-    assert reopened.data['crew']['car.dx']['placements']['driver']==placement
-    assert reopened.vehicle_state()['details']['display_name']=='TOYOTA 4RUNNER TEST'
+    if has_crew:assert reopened.data['crew']['car.dx']['placements']['driver']==placement
+    assert reopened.vehicle_state()['details']['display_name']=='SOURCE PILOT TEST'
     assert reopened.vehicle_state()['race_marker'][:3]==[32/255,64/255,128/255]
     reopened.verify_inputs();reopened.validate()
     project=reopened;project.restore();assert resources()==initial
@@ -59,7 +62,7 @@ def validate(source,output):
     for name,expected in immutable.items():
         p=Path(name);assert(sha(p.read_bytes()),p.stat().st_mtime_ns)==expected
     result={'status':'PASS_OWNER_LOCAL_STUDIO_SMOKE','project':str(project.root),'checks':[
-        'surface edit + exact Undo/Redo','crew rigid edit + exact Undo/Redo','collision-fit source rebase',
+        'surface edit + exact Undo/Redo','crew rigid edit + exact Undo/Redo'if has_crew else'no invented crew mapping; independent crew edit UNSUPPORTED','collision-fit source rebase',
         'Shadow AutoFit + Original reset','frontend AutoFrame after overlays','Results and marker persistence',
         'GameplayCamera2 override reset','reopen and validation','Restore exact baseline resources + Undo/Redo',
         'original author/baseline hashes and mtimes unchanged'],

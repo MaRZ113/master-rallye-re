@@ -2363,3 +2363,73 @@ any MR authoring. This checkpoint stops at neutral source research: no new nativ
 candidate, CarID, roster expansion, fleet, Blender Bridge, push or release.
 The complete retained Masterv7.0 prefix and every previous checkpoint remain
 verbatim; this appended result does not replace earlier plans with a summary.
+
+
+---
+
+## v7.1 review addendum — Paris-Dakar source recovery and next MR import gate (29 October 2026)
+
+### Owner visual review and historical classification
+
+The owner inspected the recovered, textured side-by-side images of the original Paris-Dakar `PajeroRED.tc` number 256 and `PajeroSilver.tc` number 271, together with two older Master Rallye promotional screenshots. The visible cabin occupants, livery and proportional details are promising. The owner notes that they do **not** look like exact one-to-one copies of the early MR models. Maintain this distinction: the RED vehicle differs from the red promotional model in front treatment and rear equipment, while Silver has a strong frontal resemblance to the white/silver promotional vehicle. Historical vehicle naming and exact asset provenance are still unqualified. No recovered image is evidence of an MR-native gameplay import.
+
+### Independent source-only package review
+
+- Uploaded `source-review.zip`: 1334 entries, valid CRC, all 1333 payload SHA256 values match the supplied manifest, all 595 Python modules pass AST parsing.
+- Uploaded `changed-files.zip`: 23 entries, valid CRC, all 22 payload SHA256 values match; its 22 changed payloads are byte-identical to the corresponding full review archive entries. All 11 changed Python modules pass AST parsing.
+- Independent Linux focused synthetic and compatibility run: `tests.synthetic.test_paris_dakar_source`, `test_michelin_research`, `test_universal_vehicle_scene`, `test_evo2_source_adapter`, `test_universal_scene_bridge`: **68 tests PASS, 0 failures**.
+- The Codex report says the full available Windows suite passed 1132 tests with 2 optional skips, and 36 source-geometry D3D9 images plus 3 Workshop screenshots were produced. These original Windows outputs and proprietary game source files are not in the source-only ZIP and were **not independently executed or rerendered here**.
+- The repo Master Plan in the full archive starts with the exact bytes of the previously provided canonical v7.0 file and appends the source-lab checkpoint. Previous 4Runner stabilization remains preserved. Local scoped commit reported in both manifests: `3bbe991d34f75d470188c4480143f8e9b6f666b3`; a source-only ZIP contains no `.git` history to independently establish authorship.
+
+### Recovered source facts
+
+- Verified read-only local Paris-Dakar original targets: `Data/PajeroRED.tc`, `Data/PajeroSilver.tc` and `Data/NissanPatrol.tc`, with source-qualified hashes. They use the supported TC `DEAFBEEF` structure, `Gex#` resource geometry and PC TIM-like indexed RGBA palettes with four original mip planes. The `.x` suffix inside `Gex#MainBody.x` is **not** a DirectX XOF model. The decoder intentionally does not generalize to other unverified TC signatures.
+- Both Pajeros contain 65 TC entries and 8 Gex members; their original main-body triangle counts are 1376 (RED) and 1446 (Silver). Whole unique resource totals are 1956 and 2002 triangles; separate original wheel instances and static source attachment data are preserved. Third-source NissanPatrol tests reusable decoding without proving all Paris-Dakar vehicles supported.
+- Preview uses explicit CW exterior culling, source palette channels and static original attach points. This is a neutral source reconstruction, not exact Paris-Dakar runtime alpha, material, suspension physics, lighting, lamp/glass damage or split-mode proof.
+- Historical tests found no exact whole-image RGB match between 56 decoded image resources for each Paris-Dakar Pajero and 41 retail MR Pajero textures, including row-inversion checks. This does not settle derivative ancestry. The white/red car-sheet 022 appears byte-identical in local retail and demo 9.10.0 resources, but its corresponding separate 3D mesh is not qualified.
+- Michelin has advanced to a genuine structural decoder: 38 selected PDI1 payloads (8 XOBJ meshes, 8 alternate `_VERTEX.BIN` streams, 20 indexed TGAs, 2 PTOCs) from the source-qualified local RAV4 Car25A and Mégane F2 Car06A. Wheel/hub placement, alternate pose ownership, exact runtime materials and neutral full-vehicle assembly remain unresolved. Do not call the Mégane F2 a verified Mégane Maxi model without further evidence.
+
+### Decision: one PajeroSilver native pilot, only after this source review
+
+The next bounded *proposed* milestone is a separate, isolated **PajeroSilver Paris-Dakar → Master Rallye Source Fidelity pilot** using the already qualified Universal Vehicle Scene → MR bridge. It is an independent adaptation of an original Paris-Dakar source asset, **not** an alleged exact recovery of a missing prerelease MR model. RED remains a second source variant and Nissan Patrol a structural regression; no bulk fleet installation.
+
+Gate the pilot on (1) qualified source-material and palette transparency handling; (2) original runtime wheel pose/options versus the neutral attach point, and native MR wheel/hub/physics mapping; (3) source crew, lamps and glass identification without invented independent original behavior; (4) exact original rear/front source textures and trim preserving stock 2001-era look; (5) one reversible isolated alternative CarID29/30-car roster (do not overwrite existing accepted projects); and (6) independent valid frontend, results name, UI art, brake lights, damage, sound, camera and shadow bindings using explicit **MR donor** choices. Gameplay evidence remains pending until the owner tests the isolated D3D8 candidate.
+
+Preserve 4Runner Stable and previous successful Native MR features; no experimental reflected mesh, mirror patch, rear blackout box, duplicate wheel or body-fixed suspension visual kit. Do not edit original game files or distribute donor proprietary assets. Local commits after tests, no push/publication. Stop after a single playable candidate for the owner's review.
+
+### Roadmap remains intact
+
+After first Silver pilot review, evaluate whether to import RED separately, or resume Michelin assembly and Paris-Dakar wider catalog; historical MR geometry provenance stays a parallel research question, and Blender Bridge is the future safe manual editing path.
+
+
+## Implementation checkpoint — Paris-Dakar Silver native pilot, 29 October 2026
+
+Direct owner authorization selects original retail MR Pajero as donor. The entire
+attached Master Plan v7.1 is retained verbatim above and in retained/; its SHA256
+is 96ba80d25b4e7057faceb0cc6e1e577dccbc83448fdc38c6d78349e0cc9ad619
+(336909 bytes). The previous committed MASTER_PLAN.md is an exact prefix of that
+attachment. No earlier section, accepted project or roadmap decision was removed.
+
+One source-hash-qualified Silver #271 scene now uses the common Universal Scene
+bridge and existing native SDK/Workshop/roster services. Independent PDSilver
+family clones clean retail Pajero physics/audio; original body, source static
+crew, equipment, texture RGBA and four exact source wheel instances retained.
+Common origin rebase maps static source attachments to MR datum without lowering
+body relative to wheels; numeric scale, symmetric axle residual and unqualified
+source gravity settlement are explicit. Headlight alpha overlays remain outside
+glass damage; source pane triangles and rear red-lens UV cuts alone receive
+existing MR controllers. Rear glass damage and original reflection/animation
+parity remain unsupported. No rejected 4Runner visual kit or invented crew added.
+
+Private CarID29 alternative remains within 30 cars. Native build, resource and
+environment verification/allocation self-test pass without launching the game.
+Focused50 / full Windows1139 tests pass (two optional fixture skips); source and
+accepted assets are separately protected. Actual Tk/Studio, deterministic binary
+conservation and D3D9 evidence are recorded in PARIS_DAKAR_SILVER_NATIVE_RESULTS.md
+and the private paris-dakar-silver-native evidence root. Owner D3D8 gameplay,
+finish/Results, return/re-entry, suspension and effects remain NOT TESTED.
+
+Stop for this single-candidate review. RED/Patrol remain source regressions;
+Michelin research and historical MR lineage remain high priorities, not started
+as a parallel campaign. No original installation edits, fleet, new capacity,
+Blender Bridge, push or release.

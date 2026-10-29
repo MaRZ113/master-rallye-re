@@ -630,3 +630,19 @@ No prior history or independent Lab branch was amended, reset or merged blindly.
   gates. No native multi-band player, new vehicle, Blender Bridge or expansion.
 - Evidence `.research-output/vehicles/audio-import2/`; see AUDIO_IMPORT2_RESULTS.md
   and post-commit `review/archive-manifest.json` for exact source archive hashes.
+
+
+## Paris-Dakar Silver #271 native pilot — 29 October 2026
+
+This scoped local commit follows 3bbe991d34f75d470188c4480143f8e9b6f666b3. Resolve
+the exact commit using `git log -1 --format=%H --fixed-strings --grep="feat(sdk): add isolated Paris-Dakar Silver native pilot"`; post-commit review manifests
+pin full/changed source archive contents. No push, merge or publication.
+
+Common Universal Scene bridge/SDK, exact Silver policy, retail Pajero donor,
+original source crew/wheels/RGBA and explicit static-origin interpretation;
+source-owned panes/headlight overlays/red lamp cuts; independent PDSilver/CarID29
+30-car alternative, native states and standard Studios. Focused50/full Windows1139
+(two optional skips), native package/Studio/Tk/D3D9/conservation checks and
+protected7599-file audit. Complete v7.1 attachment retained verbatim, previous
+Master is its exact prefix; source-only archive checks retain both full files.
+See PARIS_DAKAR_SILVER_NATIVE_RESULTS.md. Owner D3D8 qualification pending.

@@ -1,0 +1,227 @@
+{
+  "schema": "paris-dakar-silver-native-summary/1",
+  "source_scene_sha256": "9d3edfe6b4a5187a44946784c6fb1f836eed1ec311c6f8c42f0bf388108342c9",
+  "source_tc_sha256": "fe5b111f88309fa8167d9df8a996a8d478c912a2a189126d5534bad3f14a82ae",
+  "source_catalog": "Data/PajeroSilver.tc",
+  "native_family": "PDSilver",
+  "car_id": 29,
+  "roster_limit": 30,
+  "donor": "retail MR Pajero",
+  "stock_audio_profile": 1,
+  "source_scene_immutable": true,
+  "gameplay": "NOT TESTED",
+  "native_build_status": "PASS_STATIC_COLLECTION_RUNTIME_BUNDLE",
+  "native_sealed_resources": 299,
+  "mutable_player_state_extra_file": true,
+  "output_hashes": {
+    "converted/assets/car.dx": {
+      "bytes": 190955,
+      "sha256": "b99bc28e8195c0a7ed691f4e4aa1da6b8fc0081a0cd8b3ff29a84259b73091f9"
+    },
+    "converted/assets/complete.dx": {
+      "bytes": 195884,
+      "sha256": "bbe50bf5611a98828365505865f0f2d4c5c8798090605a1db4cab541af71dc8e"
+    },
+    "converted/assets/wheel.dx": {
+      "bytes": 6200,
+      "sha256": "846cef95942ef822a13bd65ca47536fd2a4635c40331d5901763bd15b9ee38a3"
+    },
+    "conversion-report.json": {
+      "bytes": 141938,
+      "sha256": "430891159ddd0889eaed141e1062b8de118ff05f582a01ee63ad55e4b69f8ffa"
+    },
+    "source-profile.json": {
+      "bytes": 8995,
+      "sha256": "61883d2db977ef2a9b69533429b9a8cf0577902eade883086371abb564e1527c"
+    },
+    "native-adaptations.json": {
+      "bytes": 1946,
+      "sha256": "048410d6ebc3c1aaa46f9b2d00cd8d87654d7ade7c7dc1871b95ce8faf45d64f"
+    },
+    "semantic-partition.json": {
+      "bytes": 31964,
+      "sha256": "b8a9d7fcd7cc055c902cb43ddd511a8d3763a2b23cbf04dc99e8f3e01855b409"
+    },
+    "native-state-recipe.json": {
+      "bytes": 908,
+      "sha256": "614cc97745f3683234dd93446b78ed43296972cc236fc620b748bda359f9568a"
+    },
+    "collision-fit-report.json": {
+      "bytes": 1125,
+      "sha256": "994f9d45df00bff4ab88b58c735ded9fdc0ef565a5b533a3cd3f3ea610d2b2e2"
+    },
+    "converted/assets/wheel-source0.dx": {
+      "bytes": 6200,
+      "sha256": "c0bbf8f8d4fc58ee3e380c1797655687f4eb81af583d56a9f987048ab1143072"
+    },
+    "converted/assets/wheel-source1.dx": {
+      "bytes": 6200,
+      "sha256": "846cef95942ef822a13bd65ca47536fd2a4635c40331d5901763bd15b9ee38a3"
+    },
+    "converted/assets/wheel-source2.dx": {
+      "bytes": 6200,
+      "sha256": "c0bbf8f8d4fc58ee3e380c1797655687f4eb81af583d56a9f987048ab1143072"
+    },
+    "converted/assets/wheel-source3.dx": {
+      "bytes": 6200,
+      "sha256": "846cef95942ef822a13bd65ca47536fd2a4635c40331d5901763bd15b9ee38a3"
+    }
+  },
+  "rgba_conservation": {
+    "tex-0009": {
+      "channels": "all original RGBA samples exact, stored rows preserved",
+      "dxt_sha256": "c37946d87778612487ff96c9229db39328437896aee4eb7db522ed44304d505d",
+      "rgba_sha256": "6a827f6ffe6a939ac2f2f4ea43687ebd0293fa3b2bbff9d1f230869cece61121"
+    },
+    "tex-0013": {
+      "channels": "all original RGBA samples exact, stored rows preserved",
+      "dxt_sha256": "6615fb2235aac9a39dd0289cf9db7ebab71a541387d24320f32027eb39e8dfb9",
+      "rgba_sha256": "e12423869d966119958f1cc9cca12be0a3929861ff904bb97f7e5697e33383a9"
+    },
+    "tex-0014": {
+      "channels": "all original RGBA samples exact, stored rows preserved",
+      "dxt_sha256": "3666642c2310701e3544ec8dac43638e69e220584222ddd7e8f071513f66d479",
+      "rgba_sha256": "de0a419d8cee92b2906d32652d57e6d445572d90c8d3f7512af4c22e0e6905aa"
+    },
+    "tex-0055": {
+      "channels": "all original RGBA samples exact, stored rows preserved",
+      "dxt_sha256": "e29188ec624a41163d090acf6ef7b78f2a1cdfc9d3fedb2ce3739a47a89ae2dc",
+      "rgba_sha256": "b22a949eb3ba14f7d350504d5f84f38b27e654c150113c686c3d2f8cd782f9f7"
+    },
+    "tex-0059": {
+      "channels": "all original RGBA samples exact, stored rows preserved",
+      "dxt_sha256": "fbdce7128da415742d1291c08b0527e11ceaf6513a02624458b5645f3f6b82f2",
+      "rgba_sha256": "86ab3fd6c1afaa8e703b1af1a88472e3dff23971b2d898e65362ffabfc4f51b0"
+    },
+    "tex-0062": {
+      "channels": "all original RGBA samples exact, stored rows preserved",
+      "dxt_sha256": "2e57fea1e4eb4d273d4adeb6f73ef6dda847ee04bc83f6dfa1c1bc339fb26ef6",
+      "rgba_sha256": "c19cabd1e0738091474dfb6c8931081ba97ac377f1e22578c0f4c1da2be98fe3"
+    }
+  },
+  "wheel_qualification": {
+    "front_left": {
+      "resource_sha256": "c0bbf8f8d4fc58ee3e380c1797655687f4eb81af583d56a9f987048ab1143072",
+      "max_rest_pose_vertex_normal_error": 2.9467226991819473e-08,
+      "visual_radius": 0.395454214190487,
+      "native_hub": [
+        0.8110755,
+        -0.05,
+        1.26389
+      ],
+      "source_hub_before_fit": [
+        0.81107525,
+        -0.04999999999999993,
+        1.26389
+      ],
+      "fit_delta": [
+        2.499999999239222e-07,
+        -6.938893903907228e-17,
+        0.0
+      ]
+    },
+    "front_right": {
+      "resource_sha256": "846cef95942ef822a13bd65ca47536fd2a4635c40331d5901763bd15b9ee38a3",
+      "max_rest_pose_vertex_normal_error": 2.9467226991819473e-08,
+      "visual_radius": 0.395454214190487,
+      "native_hub": [
+        -0.8110755,
+        -0.05,
+        1.26389
+      ],
+      "source_hub_before_fit": [
+        -0.81107575,
+        -0.04999999999999993,
+        1.26389
+      ],
+      "fit_delta": [
+        2.500000000349445e-07,
+        -6.938893903907228e-17,
+        0.0
+      ]
+    },
+    "rear_left": {
+      "resource_sha256": "c0bbf8f8d4fc58ee3e380c1797655687f4eb81af583d56a9f987048ab1143072",
+      "max_rest_pose_vertex_normal_error": 2.9467226991819473e-08,
+      "visual_radius": 0.395454214190487,
+      "native_hub": [
+        0.873203,
+        -0.05,
+        -1.26389
+      ],
+      "source_hub_before_fit": [
+        0.87320325,
+        -0.04999999999999993,
+        -1.26389
+      ],
+      "fit_delta": [
+        -2.500000000349445e-07,
+        -6.938893903907228e-17,
+        0.0
+      ]
+    },
+    "rear_right": {
+      "resource_sha256": "846cef95942ef822a13bd65ca47536fd2a4635c40331d5901763bd15b9ee38a3",
+      "max_rest_pose_vertex_normal_error": 2.9467226991819473e-08,
+      "visual_radius": 0.395454214190487,
+      "native_hub": [
+        -0.873203,
+        -0.05,
+        -1.26389
+      ],
+      "source_hub_before_fit": [
+        -0.87320275,
+        -0.04999999999999993,
+        -1.26389
+      ],
+      "fit_delta": [
+        -2.499999999239222e-07,
+        -6.938893903907228e-17,
+        0.0
+      ]
+    }
+  },
+  "authoring_transform": [
+    1.0,
+    0.0,
+    0.0,
+    -0.00113275,
+    0.0,
+    1.0,
+    0.0,
+    -0.63896,
+    0.0,
+    0.0,
+    1.0,
+    -0.0044,
+    0.0,
+    0.0,
+    0.0,
+    1.0
+  ],
+  "transform_evidence": "Source +X right/+Y up/+Z front; normalized mirrorZ; MR +X left/+Y up/+Z front. Author numeric 1 source unit=1 MR metre (source physical units unproven). Common datum X=-.00113275,Y=-.63896,Z=-.0044 rebases source attachmentY=.58896 to native Pajero Y=-RideHeight=-.05 and centers axles. Body/hub relationships retained, not gravity settlement or body lowering.",
+  "native_launcher_preflight": {
+    "--self-test-native-allocation": 0,
+    "--verify": 0,
+    "--verify-launch-environment": 0
+  },
+  "changes_against_base": {
+    "added": 109,
+    "changed": 5,
+    "removed": 0,
+    "stock_model_replacements": []
+  },
+  "tests": {
+    "focused": 50,
+    "windows_total": 1139,
+    "optional_skips": 2,
+    "protected_files": 7599
+  },
+  "limitations": [
+    "D3D8 driving/finish/reentry pending owner",
+    "source physical units and gravity-settled suspension not independently qualified",
+    "source reflection, alpha-test threshold and full shader parity unresolved",
+    "source animation and independent crew editing unsupported",
+    "rear glass damage unsupported"
+  ]
+}

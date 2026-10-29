@@ -389,3 +389,17 @@ Engine disabling is audition-only. Spool disable keeps its estimator with zero
 audible gain. No physical boost/throttle sensor is claimed. DirectSound/spatial
 mixing and actual gameplay listening remain owner tests. No native hook rewrite,
 physics/camera/visual changes or roster expansion.
+
+
+## Paris-Dakar Silver #271 native pilot — 29 October 2026
+
+IMPLEMENTED: exact accepted UVS v1 → shared native bridge/SDK, independent retail
+MR Pajero donor family PDSilver, original static crew/body/equipment, lossless six
+RGBA diffuse arrays and four original wheel resources. Source Garage exact-Silver
+creation, provenance, supported Studios/history, native glass front/sides and
+red-lens-only brakes, AutoFit shadow, identity/art/Results/frontend and isolated
+CarID29/30-entry candidate. Static build/conservation/Windows validation PASS;
+actual D3D8 gameplay NOT TESTED. No rear pane damage, source renderer/animation/
+settled suspension parity or independent source crew rig claimed. See
+PARIS_DAKAR_SILVER_NATIVE_RESULTS.md and owner checklist. Existing sources and
+accepted projects stay intact; no broader PD catalog or fleet support inferred.

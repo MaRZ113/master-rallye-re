@@ -1,4 +1,4 @@
-"""Separate neutral source-scene workspace; no native MR build actions."""
+"""Neutral source inspection with explicit hash-qualified native pilot actions."""
 from __future__ import annotations
 
 import copy
@@ -19,7 +19,14 @@ VISIBILITY_MODES = {"Selected stock configuration": "selected", "Original source
 
 
 def native_creation_available(scene):
-    return bool(scene and scene.get('metadata', {}).get('source_adapter') == 'evo2-4runner/1')
+    return bool(scene and (scene.get('metadata', {}).get('source_adapter') == 'evo2-4runner/1' or silver_creation_available(scene)))
+
+
+def silver_creation_available(scene):
+    from master_rallye.paris_dakar_silver_pilot import TC_SHA256
+    return bool(scene and scene.get('metadata',{}).get('adapter')=='paris-dakar-source/1'
+                and scene.get('source',{}).get('catalog')=='Data/PajeroSilver.tc'
+                and scene['source'].get('container_sha256')==TC_SHA256)
 
 
 def load_source_project(path: Path):
@@ -148,6 +155,7 @@ class SourceGarageWindow:
         self._controls()
 
     def _controls(self):
+        self.action_buttons["Create 4Runner Stable…"].configure(text='Create Pajero Silver…'if silver_creation_available(self.scene)else'Create 4Runner Stable…')
         for label in ("Preview", "Open neutral 3D", "Capture six views", "Save preview choices", "Create 4Runner Stable…"):
             self.action_buttons[label].state(["!disabled"] if self.scene is not None else ["disabled"])
         if self.scene is not None and not native_creation_available(self.scene):
@@ -165,6 +173,8 @@ class SourceGarageWindow:
         if self.scene is None or self.app.busy:return
         if not native_creation_available(self.scene):
             self.status.set('This source is research-only; no qualified native MR conversion profile.');return
+        if silver_creation_available(self.scene):
+            self.create_silver_dialog();return
         if getattr(self,'mr_dialog',None) is not None and self.mr_dialog.winfo_exists():
             self.mr_dialog.lift();return
         dialog=tk.Toplevel(self.window);apply_icon(dialog);dialog.title('Create independent 4Runner Stable project')
@@ -214,6 +224,45 @@ class SourceGarageWindow:
                 self.status.set('Independent MR Source Fidelity project created. Use Workshop Validate / Build; original neutral source is unchanged.')
             self._run('Create independent MR Source Fidelity addon',work,done)
         self.mr_create_button=ttk.Button(dialog,text='Create 4Runner Stable project',command=create)
+        self.mr_create_button.pack(pady=12)
+
+    def create_silver_dialog(self):
+        """Only the reviewed Silver policy; exact scene hash checked by service."""
+        if getattr(self,'mr_dialog',None)is not None and self.mr_dialog.winfo_exists():
+            self.mr_dialog.lift();return
+        dialog=tk.Toplevel(self.window);apply_icon(dialog);dialog.title('Create independent Paris-Dakar Pajero Silver')
+        self.mr_dialog=dialog
+        retail=self.app.sdk_root.parent/'corpora/retail'
+        defaults={'donor_dir':retail/'Data.sma_unpacked/DataGx/Vehicles/Pajero',
+                  'retail_sma':retail/'Data.sma','retail_root':retail/'Data.sma_unpacked',
+                  'base_roster':self.app.sdk_root/'.research-output/vehicles/heritage/roster'}
+        fields={key:tk.StringVar(value=str(value)if value.exists()else'')for key,value in defaults.items()}
+        self.mr_fields=fields
+        for key,value in fields.items():
+            row=ttk.Frame(dialog,padding=6);row.pack(fill='x')
+            ttk.Label(row,text=key.replace('_',' '),width=20).pack(side='left')
+            ttk.Entry(row,textvariable=value,width=85).pack(side='left',fill='x',expand=True)
+            def browse(k=key):
+                selected=(filedialog.askopenfilename(parent=dialog,filetypes=[('Master Rallye archive','*.sma')])if k=='retail_sma'else filedialog.askdirectory(parent=dialog))
+                if selected:fields[k].set(selected)
+            ttk.Button(row,text='Choose…',command=browse).pack(side='left')
+        ttk.Label(dialog,padding=12,wraplength=790,text='Silver #271 Source Fidelity: exact immutable scene; original body, static crew and four wheels. Independent retail MR Pajero physics/audio, authored glass/brake/shadow states. The base roster is copied into a private CarID29 alternative within 30 entries. Source reflection and suspension-settlement parity are unresolved. Owner D3D8 testing remains pending.').pack(fill='x')
+        def create():
+            if any(not v.get().strip()for v in fields.values()):
+                messagebox.showerror('Pajero Silver','Supply all four qualified input paths.',parent=dialog);return
+            values={k:Path(v.get())for k,v in fields.items()};scene_path=self.scene_root/'scene.json'
+            target=self.app.workspace/'universal-imports'/uuid.uuid4().hex[:16]
+            def work():
+                from master_rallye.paris_dakar_silver_pilot import create_pilot
+                return create_pilot(scene_path,values['donor_dir'],values['retail_sma'],target,
+                                    retail_root=values['retail_root'],base_roster=values['base_roster'],build=False)
+            def done(report):
+                from .service import WorkshopProject
+                if dialog.winfo_exists():dialog.destroy()
+                self.show(report);self.app._opened(WorkshopProject(Path(report['workshop'])))
+                self.status.set('Independent Pajero Silver project created; Validate / Build in Workshop. Gameplay pending owner testing.')
+            self._run('Create independent Pajero Silver',work,done)
+        self.mr_create_button=ttk.Button(dialog,text='Create Pajero Silver project',command=create)
         self.mr_create_button.pack(pady=12)
 
     def show(self, value):

@@ -99,3 +99,28 @@ Restore resets the chosen project's baseline; it does not turn a historical
 all-on project into Stable. Use the new Stable project for this rollback.
 Immutable scene, native physics/wheels/hubs/sound/camera/collision stay unchanged.
 Finish/Results/re-entry remain separate owner qualifications.
+
+
+## Paris-Dakar Pajero Silver #271
+
+Reopen the exact accepted Silver Universal Vehicle Scene in Source Garage, then
+choose **Create Pajero Silver…**. Supply clean retail Pajero resources/Data.sma,
+unpacked retail root and the qualified base roster. This creates independent
+private authoring/Workshop copies; it never overwrites the original scene or
+accepted projects. Only the reviewed Silver catalog/hash is admitted. RED and
+Patrol have no native creation policy.
+
+The prepared owner project is Paris-Dakar Pajero Silver #271 in the local library.
+Source provenance shows original hashes/scene and recorded unknowns. Standard
+Physics, Camera, Audio, Material, Shadow, presentation and history tools remain
+available. Physics/audio are MR Pajero adaptations, not recovered Dakar behavior.
+Original static crew is retained; independent crew fitment has no qualified map.
+Glass supports windshield/front sides only; rear damage is unsupported. Headlight
+alpha stays separate from glass damage; brakes affect original red lens regions.
+
+Build creates a private CarID29 alternative within the existing 30-entry roster.
+Other CarID29 projects remain separate configurations. Source rest attachments
+are retained relative to body through a common origin rebase; original gravity
+settlement and renderer parity are unqualified. Source reflections/animation are
+not invented. Native D3D8 driving, damage, Results and menu re-entry require owner
+tests; see docs/sdk/PARIS_DAKAR_SILVER_OWNER_CHECKLIST.md. Stop after this pilot.

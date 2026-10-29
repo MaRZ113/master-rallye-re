@@ -32,6 +32,9 @@ def main():
     args=parser.parse_args()
     if args.mr_visual_kit:parser.error('Rejected legacy kit; validate Stable or its separate upper lamp test variant.')
     scene=load_scene(args.scene)
+    from master_rallye.workshop.source_garage_ui import silver_creation_available
+    silver=silver_creation_available(scene)
+    if silver and args.upper_brake_lamp:parser.error('Upper brake experiment is not a Silver option')
     output=output_directory(args.output,[args.scene.parent,args.donor,args.retail_sma.parent,args.retail_root,
         scene['source']['root'],*scene['source'].get('protected_roots',[])])
     output.mkdir(parents=True);errors=[];root=tk.Tk()
@@ -67,19 +70,21 @@ def main():
             window._open(args.scene);window.create_mr_dialog()
             values={'donor_dir':args.donor,'retail_sma':args.retail_sma,'retail_root':args.retail_root,'base_roster':args.base_roster}
             for key,value in values.items():window.mr_fields[key].set(str(value))
-            assert not any(value.get()for value in window.mr_visual_options.values())
-            window.mr_upper_brake.set(args.upper_brake_lamp)
+            if not silver:
+                assert not any(value.get()for value in window.mr_visual_options.values())
+                window.mr_upper_brake.set(args.upper_brake_lamp)
             screenshot(window.mr_dialog,output/'create-dialog.png')
             window.mr_create_button.invoke();settle()
             project=app.project
             if project is None or project.data['kind']!='addon' or project.data.get('car_id')!=29:
                 raise AssertionError('Real Source Garage creation did not open its isolated addon')
             project.verify_inputs();app.validate();settle()
-            visual=json.loads(Path(project.data['source_baseline']['native_adaptations']).read_text())['visual_kit']['options']
+            adaptations=json.loads(Path(project.data['source_baseline']['native_adaptations']).read_text())
+            visual={}if silver else adaptations['visual_kit']['options']
             if any(visual.values()):raise AssertionError('Rejected visual option enabled')
             drive=next(row['value']for row in project.physics_inspect()['rows']
                        if row['member']=='DataGame/vehicles.xml'and row['path']=='Engine/DriveType')
-            if drive!=1:raise AssertionError('Qualified 2WD source did not receive the explicit MR RWD adaptation')
+            if drive!=(0 if silver else 1):raise AssertionError('Independent donor drive policy differs from the reviewed pilot')
             screenshot(root,output/'workshop-opened.png')
             app.show_source_provenance();settle()
             provenance=next(w for w in root.winfo_children()if isinstance(w,tk.Toplevel)and w.title()=='Immutable source provenance')

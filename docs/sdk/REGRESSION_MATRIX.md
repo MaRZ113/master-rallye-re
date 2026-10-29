@@ -492,3 +492,27 @@ Evidence root `.research-output/vehicles/vsdk4d/`; see VSDK4D_RESULTS.md.
 
 Source Fidelity vs Classic gameplay and new audio listening remain separately
 PENDING_OWNER. No V4E/Blender Bridge work or capacity expansion.
+
+
+## Paris-Dakar Silver native pilot — 29 October 2026
+
+- Focused50 PASS: Silver admission, headlight alpha and pane ownership, repeated-V
+  red-lens clipping/area/barycentric conservation, datum/physics and source guards,
+  existing shared bridge/aperture/source regressions.
+- Full Windows1139 tests OK; two pre-existing optional fixture skips (J.1/J.2
+  bundle, final-pass private vehicle). No failures.
+- Owner-local conservation: exact baseline/adapted DX/DXT regeneration, six RGBA
+  arrays, four native wheel rest transforms/UVs/winding, render arrays unchanged
+  by collision fit, immutable scene reopen;299 sealed resources plus copied
+  mutable PlayerState.109 added /5 changed /0 removed against base runtime; no
+  stock model replacements.
+- Studio disposable copy: edit/collision rebase, exact Undo/Redo/Restore, camera
+  reset, shadow/frontframe, Results/marker, save/reopen/validate PASS. Static source
+  crew cannot be independently fitted; explicitly UNSUPPORTED.
+- Tk project/source-provenance/Silver dialog and native D3D9 multi-view, brake
+  and wheel diagnostics; native launcher verify/environment/allocation tests.
+- Protected7599 original/accepted files checked by SHA256,size,mtime in private
+  preservation report. D3D8 gameplay/contacts/damage/animation/finish/re-entry
+  remain NOT TESTED and require the owner checklist.
+- Private evidence: .research-output/vehicles/paris-dakar-silver-native/. Full
+  original Masterv7.1 retained exactly (336909 bytes, SHA25696ba80d25b4e7057faceb0cc6e1e577dccbc83448fdc38c6d78349e0cc9ad619).
