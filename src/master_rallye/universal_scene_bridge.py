@@ -56,7 +56,7 @@ def _rgba(value,label):
 def _profile(profile,scene,scene_hash):
     required={'schema','source_scene_sha256','normalized_to_mr','authoring_transform','transform_evidence',
               'body_node_ids','wheel_slots','canonical_wheel_slot','materials','texture_row_policy','uv_v_policy'}
-    optional={'hub_overrides','hub_evidence'}
+    optional={'hub_overrides','hub_evidence','wheel_local_transforms','wheel_transform_evidence'}
     if not isinstance(profile,dict)or set(profile)-required-optional or not required<=set(profile)or profile['schema']!=SCHEMA:
         raise ValueError('unsupported neutral scene MR profile')
     if profile['source_scene_sha256']!=scene_hash:raise ValueError('immutable source scene/profile hash mismatch')
@@ -72,6 +72,14 @@ def _profile(profile,scene,scene_hash):
         raise ValueError('explicit wheel node instances required')
     if len(set(wheels.values()))!=len(wheels)or set(body)&set(wheels.values()):raise ValueError('body/wheel source instances overlap')
     if profile['canonical_wheel_slot']not in wheels:raise ValueError('explicit canonical wheel slot required')
+    rotations=profile.get('wheel_local_transforms',{})
+    if not isinstance(rotations,dict)or set(rotations)-set(wheels):raise ValueError('wheel transform has no selected source slot')
+    for rotation in rotations.values():
+        uvs.matrix(rotation);_nonempty(profile.get('wheel_transform_evidence'),'wheel local rotation')
+        if any(abs(rotation[i])>1e-9 for i in (3,7,11))or abs(uvs.determinant(rotation)-1)>1e-6:
+            raise ValueError('wheel authoring transform must be a proper rotation without hub translation')
+        if any(abs(sum(rotation[4*k+i]*rotation[4*k+j]for k in range(3))-(i==j))>1e-6 for i in range(3)for j in range(3)):
+            raise ValueError('wheel authoring transform must not scale or shear original geometry')
     overrides=profile.get('hub_overrides',{})
     if not isinstance(overrides,dict):raise ValueError('explicit derived hub override map required')
     for slot,point in overrides.items():
@@ -82,11 +90,12 @@ def _profile(profile,scene,scene_hash):
     source_materials={row['id']for row in scene['materials']}
     for key,rule in mats.items():
         if key not in source_materials or not isinstance(rule,dict):raise ValueError('unknown source material approval')
-        keys={'mode','interpretation','role','evidence','vertex_rgba','alpha_override','allow_alpha_flatten','alpha_ref','environment_reference'}
+        keys={'mode','interpretation','role','evidence','vertex_rgba','alpha_override','allow_alpha_flatten','alpha_ref','environment_reference','preserve_source_colors'}
         if set(rule)-keys or rule.get('mode')not in ('opaque','alpha_blend','alpha_test')or rule.get('interpretation')not in ('mr_authoring','source_qualified'):
             raise ValueError('unsupported MR material interpretation')
         _nonempty(rule.get('role'),'material role');_nonempty(rule.get('evidence'),'material')
         _rgba(rule.get('vertex_rgba',[255]*4),'vertex')
+        if 'preserve_source_colors'in rule and type(rule['preserve_source_colors'])is not bool:raise ValueError('source color policy must be boolean')
         if 'allow_alpha_flatten'in rule and type(rule['allow_alpha_flatten'])is not bool:raise ValueError('alpha flatten policy must be boolean')
         if 'alpha_override'in rule:
             if rule['interpretation']!='mr_authoring'or type(rule['alpha_override'])is not int or not 0<=rule['alpha_override']<=255:
@@ -196,7 +205,14 @@ def compile_scene(scene_path,profile,*,references=None):
                 # Scene writer stores float32; reject overflow before caller writes.
                 try:struct.pack('<8f',*position,*normal,*target_uv)
                 except (OverflowError,struct.error)as error:raise ValueError('native float32 geometry overflow')from error
-                compiled.append(CompiledVertex(position,normal,bytes((b,g,r,a)),(target_uv,),parent_source_vertex_id=source_index))
+                color=bytes((b,g,r,a))
+                if rule.get('preserve_source_colors',False):
+                    colors=mesh.get('preview_colors_bgra')
+                    if not isinstance(colors,list)or len(colors)!=len(mesh['positions']):raise ValueError('explicit source colors missing')
+                    c=colors[source_index]
+                    if not isinstance(c,list)or len(c)!=4 or any(type(v)is not int or not 0<=v<=255 for v in c):raise ValueError('invalid source BGRA color')
+                    color=bytes(round(v*multiplier/255)for v,multiplier in zip(c,(b,g,r,a)))
+                compiled.append(CompiledVertex(position,normal,color,(target_uv,),parent_source_vertex_id=source_index))
             faces=tuple(tuple(remap[face[i]]for i in ((0,2,1)if mirrored else(0,1,2)))for face in triangles)
             part=ScenePart(DrawGeometry(tuple(compiled),faces),native_texture,
                            alpha=rule['mode']in('alpha_blend','alpha_test'),alpha_test=rule['mode']=='alpha_test',
@@ -217,7 +233,8 @@ def compile_scene(scene_path,profile,*,references=None):
     for slot,key in profile['wheel_slots'].items():
         original_matrix=uvs.multiply(fit_basis,world[key]);source_hub=uvs.transform_point(original_matrix,[0.,0.,0.])
         fitted_hub=profile.get('hub_overrides',{}).get(slot,source_hub)
-        matrix=original_matrix[:]
+        rotation=profile.get('wheel_local_transforms',{}).get(slot)
+        matrix=uvs.multiply(original_matrix,rotation)if rotation is not None else original_matrix[:]
         for axis in range(3):matrix[4*axis+3]+=fitted_hub[axis]-source_hub[axis]
         parts,maps=parts_for(key,matrix,'wheel_instance',slot);complete_parts.extend(parts);complete_maps.extend(maps)
         local=matrix[:]
@@ -229,6 +246,9 @@ def compile_scene(scene_path,profile,*,references=None):
                           'fit_delta_mr':[fitted_hub[i]-source_hub[i]for i in range(3)],
                           'source_transform_record':copy.deepcopy(nodes[key].get('source_transform_record')),
                           'source_local_transform':copy.deepcopy(nodes[key].get('source_local_transform'))}
+        if rotation is not None:
+            hub_report[slot]['authored_local_rotation']=list(rotation)
+            hub_report[slot]['wheel_transform_evidence']=profile['wheel_transform_evidence']
     if not body_parts or not complete_parts or len(complete_parts)>MAX_DRAWS:raise ValueError('native draw count budget/empty body')
     for records in (body_maps,complete_maps,*wheel_maps.values()):
         for index,record in enumerate(records):record['draw_index']=index

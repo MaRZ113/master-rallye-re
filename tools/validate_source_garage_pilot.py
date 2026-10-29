@@ -14,7 +14,7 @@ from master_rallye.universal_vehicle_scene import sha,canonical,unlinked,output_
 from master_rallye.workshop.service import WorkshopProject
 
 
-def validate(source,output):
+def validate(source,output,*,surface_draw=0):
     source=Path(source).absolute();output=Path(output).absolute();unlinked(output)
     if output.exists()or output.is_relative_to(source):raise ValueError('Fresh validation output outside input required')
     original=WorkshopProject(source);original.verify_inputs()
@@ -33,7 +33,7 @@ def validate(source,output):
     def resources():return {p.name:sha(p.read_bytes())for p in project.assets.iterdir()if p.is_file()}
     initial=resources();project.shadow_update('auto')
     body_before=(project.assets/'car.dx').read_bytes()
-    project.edit_surface('car.dx',0,rgb=[.8,1.,1.])
+    project.edit_surface('car.dx',surface_draw,rgb=[.8,1.,1.])
     tinted=(project.assets/'car.dx').read_bytes();assert tinted!=body_before
     fitted_before=project.native_model_resources()['car.dx'];project.shadow_calculate();project.frontend_auto_frame()
     project.undo();assert(project.assets/'car.dx').read_bytes()==body_before
@@ -72,7 +72,8 @@ def validate(source,output):
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--workshop',type=Path,required=True);parser.add_argument('--output',type=Path,required=True)
-    args=parser.parse_args();print(json.dumps(validate(args.workshop,args.output),indent=2))
+    parser.add_argument('--surface-draw',type=int,default=0,help='Nonblack opaque draw for the reversible tint probe')
+    args=parser.parse_args();print(json.dumps(validate(args.workshop,args.output,surface_draw=args.surface_draw),indent=2))
 
 
 if __name__=='__main__':main()

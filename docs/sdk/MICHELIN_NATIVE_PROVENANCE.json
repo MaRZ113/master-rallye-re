@@ -1,0 +1,424 @@
+{
+  "schema": "michelin-native-provenance/1",
+  "baseline": "0c67f98b2c4afa7b89507c4e8dd8b98b799ea5e9",
+  "source_scenes": {
+    "RAV4": "7ab8b1525fb078aee8fcd524a3d8b3816670668708102e9a4a36ec257074f27c",
+    "MeganeF2": "3b229c81d304c520be0d6e3fa50d51d442c6c363d8b04d24a20a4d395701ba4e"
+  },
+  "private_root": ".research-output\\vehicles\\michelin-native",
+  "native_project": "D:\\Game\\Master Rallye\\master-rallye-re-vehicles\\.research-output\\vehicles\\michelin-native\\final-pilot\\workshop",
+  "native_runtime_qualification": "NOT TESTED",
+  "source_L2": "WARN",
+  "native_family": "MichelinRav4",
+  "car_id": 29,
+  "roster_capacity": 30,
+  "native_resources": {
+    "adapted/car.dx": "fa6d2d17ff631b0fc814601130b13e89c47b25381766c7b4614e91b129a7acbe",
+    "adapted/complete.dx": "a8a84b4a75c896302b86330775d463e2b965b6e4ce12c7b2b325826117852531",
+    "adapted/mr-michelin-rav4-cracks-tga.dxt": "e793c2bdb11b0f698cb15332b7f5920e964741c82d1011ffaf2f0ba6dbe280c4",
+    "adapted/mr-michelin-rav4-stop-glow-tga.dxt": "41f68925d62ca35b6e9debc189aeb6d8ba096da00f8ba3e92914c6c6583f2afd",
+    "adapted/mr-michelin-rav4-stop-lit-tga.dxt": "c9d757e804fbf8587f8e48d97b30ad7769a9329f7f6385404946bf80a215cdb4",
+    "baseline/car.dx": "6b340fd5ea9b1fbaadab30ed32fcf2c2376e8ab80c95651b7e2f56d731c33af1",
+    "baseline/complete.dx": "d771e73f5ead36a5dd4fe0543c79a8be896b9a9d6aef966a65f4e5c012eead07",
+    "baseline/wheel.dx": "e9592c631bcd16cccf217b7e86d478c73dcb54a97408710c25e903e0f227cce6",
+    "uvs-0553676a3f44ea101f4f5418-tga.dxt": "0553676a3f44ea101f4f5418b88de6ca1e2e1aefa75bc1209487c55ebbe80f3b",
+    "uvs-10e00f7631a24c0a87b04b26-tga.dxt": "10e00f7631a24c0a87b04b262d8f734f30a51fccb4735f6c550e4c05a7c5d670",
+    "uvs-11afced07807c9d305452d85-tga.dxt": "11afced07807c9d305452d85bcca0802e2adecf00509b208540b47ab60c1470d",
+    "uvs-173611ca14e2fb217bc38482-tga.dxt": "173611ca14e2fb217bc38482a702e6704ee98a9892ebf4157c97cde7d13cec94",
+    "uvs-42bea2dde1eeae9e3e076833-tga.dxt": "42bea2dde1eeae9e3e076833ee998112e571703ca5f20afd1c90fab741f8ab4e",
+    "uvs-4357d52d71b8081defff3dd6-tga.dxt": "4357d52d71b8081defff3dd69932c7ccdc954dcb2f82cb2d6306e3d83856d3da",
+    "uvs-497351ec0e4786088f778bae-tga.dxt": "497351ec0e4786088f778baef712cbbaf5013d866d6228f8f28bcbe7a9b41306",
+    "uvs-4aa2131bb336d25008eb6eef-tga.dxt": "4aa2131bb336d25008eb6eef354856191778272cc3a14c3b36dcfda289ef5371",
+    "uvs-52b7c072860aaaaeda1f4995-tga.dxt": "52b7c072860aaaaeda1f4995ff2d9f002d215c3d003b7b93ef8cf8e27aae3e3b",
+    "uvs-75822781e966db423d2f144d-tga.dxt": "75822781e966db423d2f144d7360c06b1c0c086f3e4a5e046f0ef265557c4d90",
+    "uvs-a716feffc2675478c0de2953-tga.dxt": "a716feffc2675478c0de29538c9346cfd7468b72e7af8d74c701ee83f28ba979",
+    "uvs-aad725e80b0dc3dccfaee4c2-tga.dxt": "aad725e80b0dc3dccfaee4c295f5dfbd0f0d70eeba047bcb0efda7e5eab6222f",
+    "uvs-cf06cc2d094c47f65eb0f87d-tga.dxt": "cf06cc2d094c47f65eb0f87d8f986462767c95feab8658fedb502139e039427d",
+    "uvs-fc8f3a44fcd6bef313b1a491-tga.dxt": "fc8f3a44fcd6bef313b1a491fabf74830446647d6ad6e1abeff5d26b90a0de0c"
+  },
+  "wheel_measurements": {
+    "front_left": {
+      "geometry_radius": 0.38000017404556297,
+      "hub": {
+        "authored_local_rotation": [
+          -1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "derived_hub_mr": [
+          0.7823529196239263,
+          -0.05000000000000002,
+          1.3489660969660622
+        ],
+        "fit_delta_mr": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "source_hub_mr": [
+          0.7823529196239263,
+          -0.05000000000000002,
+          1.3489660969660622
+        ],
+        "source_local_transform": null,
+        "source_node_id": "wheel-0",
+        "source_to_mr_before_hub_fit": [
+          -1.117647047067596,
+          0.0,
+          0.0,
+          0.7823529196239263,
+          0.0,
+          1.117647047067596,
+          0.0,
+          -0.05000000000000002,
+          0.0,
+          0.0,
+          1.117647047067596,
+          1.3489660969660622,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "source_transform_record": {
+          "initial_hub_xyz": [
+            -0.699999988079071,
+            -0.16074495017528534,
+            1.0059596300125122
+          ],
+          "offset": 29408,
+          "original_xyz": [
+            -0.699999988079071,
+            0.17925505340099335,
+            1.0059596300125122
+          ]
+        },
+        "source_world_transform": [
+          1.0,
+          0.0,
+          0.0,
+          -0.699999988079071,
+          0.0,
+          1.0,
+          0.0,
+          -0.16074495017528534,
+          0.0,
+          0.0,
+          1.0,
+          1.0059596300125122,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "wheel_transform_evidence": "Source rim material lies on +X (T0004 front x=.059986..125550, dark back x=-.125550). Proper Ypi rotates source-X hubs outward; source+X hubs retain identity. MR native left-side Ypi subsequently compensated in local resources. Original moving Michelin matrices remain WARN."
+      },
+      "max_rest_pose_vertex_normal_error": 2.9223461872618373e-08,
+      "resource_sha256": "b3e56a41f89ed902b5d11328322d0a88c82c7b440f9e813c767c357fa6aef93a"
+    },
+    "front_right": {
+      "geometry_radius": 0.38000017404556297,
+      "hub": {
+        "derived_hub_mr": [
+          -0.7823529196239263,
+          -0.05000000000000002,
+          1.3489660969660622
+        ],
+        "fit_delta_mr": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "source_hub_mr": [
+          -0.7823529196239263,
+          -0.05000000000000002,
+          1.3489660969660622
+        ],
+        "source_local_transform": null,
+        "source_node_id": "wheel-1",
+        "source_to_mr_before_hub_fit": [
+          -1.117647047067596,
+          0.0,
+          0.0,
+          -0.7823529196239263,
+          0.0,
+          1.117647047067596,
+          0.0,
+          -0.05000000000000002,
+          0.0,
+          0.0,
+          1.117647047067596,
+          1.3489660969660622,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "source_transform_record": {
+          "initial_hub_xyz": [
+            0.699999988079071,
+            -0.16074495017528534,
+            1.0059596300125122
+          ],
+          "offset": 29420,
+          "original_xyz": [
+            0.699999988079071,
+            0.17925505340099335,
+            1.0059596300125122
+          ]
+        },
+        "source_world_transform": [
+          1.0,
+          0.0,
+          0.0,
+          0.699999988079071,
+          0.0,
+          1.0,
+          0.0,
+          -0.16074495017528534,
+          0.0,
+          0.0,
+          1.0,
+          1.0059596300125122,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "max_rest_pose_vertex_normal_error": 2.9223461872618373e-08,
+      "resource_sha256": "e9592c631bcd16cccf217b7e86d478c73dcb54a97408710c25e903e0f227cce6"
+    },
+    "rear_left": {
+      "geometry_radius": 0.38000017404556297,
+      "hub": {
+        "authored_local_rotation": [
+          -1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "derived_hub_mr": [
+          0.7823529196239263,
+          -0.06034388110556449,
+          -1.3489660969660622
+        ],
+        "fit_delta_mr": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "source_hub_mr": [
+          0.7823529196239263,
+          -0.06034388110556449,
+          -1.3489660969660622
+        ],
+        "source_local_transform": null,
+        "source_node_id": "wheel-3",
+        "source_to_mr_before_hub_fit": [
+          -1.117647047067596,
+          0.0,
+          0.0,
+          0.7823529196239263,
+          0.0,
+          1.117647047067596,
+          0.0,
+          -0.06034388110556449,
+          0.0,
+          0.0,
+          1.117647047067596,
+          -1.3489660969660622,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "source_transform_record": {
+          "initial_hub_xyz": [
+            -0.699999988079071,
+            -0.17000000178813934,
+            -1.4079797267913818
+          ],
+          "offset": 29444,
+          "original_xyz": [
+            -0.699999988079071,
+            0.17000000178813934,
+            -1.4079797267913818
+          ]
+        },
+        "source_world_transform": [
+          1.0,
+          0.0,
+          0.0,
+          -0.699999988079071,
+          0.0,
+          1.0,
+          0.0,
+          -0.17000000178813934,
+          0.0,
+          0.0,
+          1.0,
+          -1.4079797267913818,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "wheel_transform_evidence": "Source rim material lies on +X (T0004 front x=.059986..125550, dark back x=-.125550). Proper Ypi rotates source-X hubs outward; source+X hubs retain identity. MR native left-side Ypi subsequently compensated in local resources. Original moving Michelin matrices remain WARN."
+      },
+      "max_rest_pose_vertex_normal_error": 2.9223461872618373e-08,
+      "resource_sha256": "b3e56a41f89ed902b5d11328322d0a88c82c7b440f9e813c767c357fa6aef93a"
+    },
+    "rear_right": {
+      "geometry_radius": 0.38000017404556297,
+      "hub": {
+        "derived_hub_mr": [
+          -0.7823529196239263,
+          -0.06034388110556449,
+          -1.3489660969660622
+        ],
+        "fit_delta_mr": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "source_hub_mr": [
+          -0.7823529196239263,
+          -0.06034388110556449,
+          -1.3489660969660622
+        ],
+        "source_local_transform": null,
+        "source_node_id": "wheel-2",
+        "source_to_mr_before_hub_fit": [
+          -1.117647047067596,
+          0.0,
+          0.0,
+          -0.7823529196239263,
+          0.0,
+          1.117647047067596,
+          0.0,
+          -0.06034388110556449,
+          0.0,
+          0.0,
+          1.117647047067596,
+          -1.3489660969660622,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "source_transform_record": {
+          "initial_hub_xyz": [
+            0.699999988079071,
+            -0.17000000178813934,
+            -1.4079797267913818
+          ],
+          "offset": 29432,
+          "original_xyz": [
+            0.699999988079071,
+            0.17000000178813934,
+            -1.4079797267913818
+          ]
+        },
+        "source_world_transform": [
+          1.0,
+          0.0,
+          0.0,
+          0.699999988079071,
+          0.0,
+          1.0,
+          0.0,
+          -0.17000000178813934,
+          0.0,
+          0.0,
+          1.0,
+          -1.4079797267913818,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "max_rest_pose_vertex_normal_error": 2.9223461872618373e-08,
+      "resource_sha256": "e9592c631bcd16cccf217b7e86d478c73dcb54a97408710c25e903e0f227cce6"
+    }
+  },
+  "max_source_roundtrip_error": 4.440892098500626e-16,
+  "bounded_glass_triangles": 34,
+  "bounded_rear_lens_pixels": 520,
+  "sealed_resource_count": 307,
+  "stock_model_replacements": [],
+  "launcher": {
+    "addon_plan_sha256": "4cd7f75c686b428ca4c2af1dac41f169671a8925c44c4b71cb5a5c25707dfc28",
+    "architecture": "x64 launcher / x86 target process",
+    "artifact_kind": "native external runtime launcher build",
+    "bundle_profile": "sdk-multi-addon-roster",
+    "bundle_verified_status": "PASS_STATIC_COLLECTION_RUNTIME_BUNDLE",
+    "generator": "Visual Studio 18 2026",
+    "launcher_sha256": "db6ed58dc66c28f8bebffc433dde1b53e03c1240c47b0e84b883da1779d85316",
+    "launcher_size": 152576,
+    "native_patch_manifest_sha256": "4fc739ff6123467abb09b07aabcaf7e5bf90177b87e82fa64683cd530094e34e",
+    "resource_index_sha256": "6789b67963c7c7b68d85de0a8aeda4174364bd19f9781843d360a200f8f8049b",
+    "resource_manifest_sha256": "9c8749b98523b0617b7bc7ee73bb7e1df8f6315ccc8429e66585200ad5434d2d",
+    "retail_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "runtime_qualified": false,
+    "schema_version": 1,
+    "status": "STATIC_BUILD_ONLY_NOT_RUNTIME_QUALIFIED"
+  },
+  "preservation": {
+    "status": "PASS",
+    "files": 12435,
+    "bytes_hashed": 15478342050,
+    "new_scene_member_checks": 935,
+    "changed": [],
+    "missing": [],
+    "prior_baseline": ".research-output/vehicles/lost-pajero-livery/preservation-before.json"
+  },
+  "tests": {
+    "focused": 45,
+    "full_windows": 1186,
+    "optional_skips": 2
+  },
+  "material_boundaries": [
+    "Original corner colors and UVs preserved",
+    "MR alpha96 on bounded original panes, not recovered source blend",
+    "MR alpha-test128 on native-qualified indexed coverage",
+    "Native MR brake ON/OFF restricted to original red rear lens samples",
+    "Reflections disabled",
+    "Original damage targets kept separate; existing MR damage CPU replay only"
+  ],
+  "distribution": "Metadata only; original/adapted models, pixels, audio and executable payloads remain private",
+  "repeat_build": {
+    "status": "PASS",
+    "resource_root_files": 308,
+    "identical_resource_names_and_sha256": true,
+    "first": ".research-output\\vehicles\\michelin-native\\final-pilot\\builds\\source-fidelity",
+    "second": ".research-output\\vehicles\\michelin-native\\final-pilot\\builds\\repeat-validation",
+    "gameplay": "NOT TESTED"
+  }
+}

@@ -165,6 +165,38 @@ class UniversalSceneBridgeTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'texture budget'):self.compile()
         self.assertEqual(set(self.base.iterdir()),before)
 
+    def test_evidenced_local_wheel_rotation_preserves_hubs_and_other_wheels(self):
+        original=self.compile()
+        turn=[-1.,0,0,0,0,1.,0,0,0,0,-1.,0,0,0,0,1.]
+        self.profile.update(wheel_local_transforms={'front-left':turn},wheel_transform_evidence='synthetic rim-side evidence')
+        rotated=self.compile()
+        for slot in self.profile['wheel_slots']:
+            self.assertEqual(original['report']['hubs'][slot]['derived_hub_mr'],rotated['report']['hubs'][slot]['derived_hub_mr'])
+            if slot!='front-left':self.assertEqual(original['wheel_parts_by_slot'][slot],rotated['wheel_parts_by_slot'][slot])
+        before=original['wheel_parts_by_slot']['front-left'][0].geometry
+        after=rotated['wheel_parts_by_slot']['front-left'][0].geometry
+        self.assertEqual(before.triangles,after.triangles)
+        self.assertAlmostEqual(after.vertices[1].position[0],-before.vertices[1].position[0])
+        self.assertEqual(before.vertices[1].uvs,after.vertices[1].uvs)
+
+    def test_local_wheel_rotation_rejects_unevidenced_translation_scale_reflection_and_wrong_slot(self):
+        for field,value in ((3,1.),(0,2.),(0,-1.),(1,.2)):
+            rotation=uvs.IDENTITY[:];rotation[field]=value
+            p=copy.deepcopy(self.profile);p.update(wheel_local_transforms={'front-left':rotation},wheel_transform_evidence='test')
+            with self.assertRaises(ValueError):self.compile(p)
+        self.profile['wheel_local_transforms']={'front-left':uvs.IDENTITY[:]}
+        with self.assertRaises(ValueError):self.compile()
+        self.profile.update(wheel_local_transforms={'absent':uvs.IDENTITY[:]},wheel_transform_evidence='test')
+        with self.assertRaises(ValueError):self.compile()
+
+    def test_source_corner_color_preservation_is_explicit_and_bounded(self):
+        for mesh in self.scene['meshes']:mesh['preview_colors_bgra']=[[11,22,33,255]]*len(mesh['positions'])
+        self.save();self.profile['materials']['material'].update(preserve_source_colors=True,vertex_rgba=[255,255,255,128])
+        self.assertEqual(self.compile()['body_parts'][0].geometry.vertices[0].color,bytes((11,22,33,128)))
+        for bad in (None,[[256,0,0,255]]*3,[[1,2,3,4]],[[1.,2,3,4]]*3):
+            self.scene['meshes'][0]['preview_colors_bgra']=bad;self.save()
+            with self.assertRaises(ValueError):self.compile()
+
     def test_common_scene_dx_writer_accepts_all_three_outputs_and_retains_collision(self):
         template,_=native_template();result=self.compile()
         for key in ('body_parts','complete_parts','wheel_parts'):

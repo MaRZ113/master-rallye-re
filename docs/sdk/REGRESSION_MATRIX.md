@@ -586,3 +586,24 @@ Evidence and reproducible commands: LOST_PAJERO_TEXTURE_RESULTS.md. Proprietary 
 | MR native / gameplay | NOT CREATED / NOT TESTED; no CarID or physics edits |
 
 See MICHELIN_ASSEMBLY_RESULTS.md and PAJERO_SPARE_PROBE_RESULTS.md. Private exact logs remain under michelin-assembly.
+
+
+## Michelin fidelity / RAV4 native pilot — 30 October2026
+
+| Check | Result / boundary |
+|---|---|
+| Original scenes / raw source | Pinned RAV4/Megane hashes unchanged; original LODs and damage targets preserved |
+| Wheel / coordinate bridge | Proper evidenced per-slot rotations, source colors, inverse winding/normals/UV conservation PASS; original moving matrices/units WARN |
+| RAV4 geometry/material conservation | Source inverse position error4.440892098500626e-16; original RGBA exact; native wheel rest geometry error<1e-6 |
+| Glass / brake ownership |34 original pane triangles,4 existing MR labels;12 rear triangles/520 lens pixels, outside mask unchanged; offline PASS |
+| Native damage CPU | Original MR instruction replay PASS; matching deformation/RGB/ABI, no split coincident groups, alpha loss4→0 via existing adapter; not live gameplay |
+| MR resources / isolation | Shared compiler and SDK;307 sealed resources plus copied mutable player state,30 entries/alternative29, zero stock model replacements |
+| Studios / real Windows | Separate-copy Undo/Redo/Restore, Camera2.0 reset, shadow/AutoFrame/Results/marker/reopen PASS; real Tk provenance and both source scenes reopen |
+| D3D9 | Both neutral originals/derived wheel rest poses,6 CW views, wheel/cull diagnostics, native race/frontend and brake OFF/ON; L2 WARN retained |
+| Focused |45 tests OK, including8 new shared-bridge/pilot synthetic cases |
+| Full Windows |1186 tests OK,2 existing optional skips; full-windows-qualified.log |
+| Protection |12435 files /15478342050 bytes hashed;935 accepted Michelin/Pajero scene member checks added, zero changed/missing |
+| Owner D3D8 | NOT TESTED: selection, motion/travel/physics, damage/brakes, sound, Results, menu and re-entry pending |
+| Megane F2 | Neutral scene preserved, model-specific native plan; no CarID or native promotion |
+
+Detailed qualification/outcomes: MICHELIN_FIDELITY_QUALIFICATION.md. Exact metadata: MICHELIN_NATIVE_PROVENANCE.json; private resource differences in michelin-native/conservation/validation.json. No Silver tuning, accepted project edits, fleet import or publication.

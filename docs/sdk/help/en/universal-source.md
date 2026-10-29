@@ -149,3 +149,12 @@ Use Reopen source scene with `.research-output/vehicles/michelin-assembly/final/
 Original palettes and textures remain intact. The neutral renderer uses source-qualified index0 coverage for the magenta-marked wheel textures; black is not transparency. Glass is still neutral opaque, original wheel side/spin/steer/settled poses and complete lighting/filtering remain WARN. These are neutral source vehicles, not playable MR imports. CLI reproduction and source hashes: MICHELIN_ASSEMBLY_RESULTS.md.
 
 Optional Pajero source/derived spare projects are in `.research-output/vehicles/michelin-assembly/pajero-final/`. The rear spare is an authored instance of original geometry, not recovered MR equipment; wheel-backing remains deferred. Restore by reopening A. Old red-livery atlas experiments are closed.
+
+
+## Qualified Michelin RAV4 pilot — v7.7
+
+Open the private `.research-output/vehicles/michelin-native/final-pilot/workshop` project with Open project or `python tools/rally_workshop.py --project <folder>`. It exposes ordinary supported MR Studios and isolated builds. Exact-scene creation/reproduction is through `tools/create_michelin_rav4_pilot.py`, not generic Create for arbitrary Michelin cars; complete arguments and source evidence are in MICHELIN_RAV4_NATIVE_RESULTS.md.
+
+Original Source Garage RAV4/Megane scenes still reopen independently with opaque source glass and L2 WARN. The native RAV4 has original geometry/livery, measured proper wheel rotations and a separate uniform MR scale, bounded MR pane/brake recipes, Forester physics/audio and original static Michelin crew. Extra crew fitting is unsupported. Source Fidelity baseline and originals are immutable; ordinary edits have Undo/Redo/Restore. Reflections start disabled. Never use external Michelin damage targets as intact positions.
+
+Build/launch the independent candidate using its own Launch-SDK-Roster.cmd. It occupies alternative CarID29 in30 entries and does not replace accepted Silver/Trooper/Clio configurations. Actual driving, wheel motion, glass damage, brake timing, Results and race re-entry remain owner tests: MICHELIN_RAV4_OWNER_CHECKLIST.md. Megane F2 is a neutral follow-up, not a renamed Maxi or approved MR import.
