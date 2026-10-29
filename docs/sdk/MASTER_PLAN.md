@@ -1,3 +1,45 @@
+# Master Rallye Vehicle SDK — Master Plan v7.2
+
+**29 October 2026 — prerelease Master Rallye lost-vehicle visual evidence checkpoint.** This v7.2 checkpoint is appended in front of the intact v7.1 plan. The v7.1 content below is preserved byte-for-byte; this update changes historical research priorities only and does not interrupt the active Paris-Dakar Pajero Silver native pilot.
+
+## New first-party screenshot references (owner supplied)
+
+The owner supplied eight image files in this conversation, including screenshots from early Master Rallye promotional/game builds and a separately reconstructed neutral-source preview of Paris-Dakar Pajero Silver. Keep the evidence as *image comparisons*, not certified recoveries of native MR mesh or evidence of exact derivative lineage. Local paths are review inputs and should not automatically be committed or redistributed.
+
+| Historical candidate | Source images | Visible evidence | Current status | Next safe research |
+|---|---|---|---|---|
+| Red Citroën ZX Rallye Raid, race #206 | `302-.jpg`, `302.jpg`, `m_rallye_09.jpg` | Low red wide-bodied rally-raid silhouette, prominent rear wing, CITROËN hood/door branding, white striping and number on side. This is distinct from Pajero models. | PRERELEASE SCREENSHOT ONLY: genuine native mesh not located; exact 1995 Evo variant not established from image alone. | Highest historical rarity priority. Search all owner's actual MR Demo/Retail build archives, unused car sheets, frontends, strings, DX/DXT and source-revision records for matching geometry/livery. Use feature-by-feature reference comparison. If absent, list external donor candidates as *proxies*, not recovered original. An independent IGCD listing reports a 1994 ZX Rallye Raid in a game titled Dakar 2005, but no equivalence to MR #206 is proven. |
+| Silver Ford Ranger, race #205 | `mr8.jpg` | Silver/light-gray pickup with dark graphic stripes, race number #205, visible distinct bumper/bed details. Owner states a blue Ranger exists in released MR. | POTENTIAL RETAIL REPAINT, NOT YET VERIFIED ONE-TO-ONE ASSET EQUIVALENCE. | Inspect qualified retail Ranger source, source texture atlas and matching promotional texture mapping. Compare mesh dimensions/topology, visible attachments and UV positions; if equivalent, produce reversible heritage colorway, not another CarID or a destructive replacement. Preserve blue release livery. |
+| Boxy silver SUV, identity unresolved | `m_rallye_09.jpg` (circled foreground vehicle) | Relatively upright windscreen, slab-sided body, rounded-looking headlamp(s), flared arches, silver front bumper. Significantly distinct from the long modern silver Paris-Dakar #271 preview. | UNIDENTIFIED: 1992 Pajero is a hypothesis, not a confirmed identification. | Inspect original higher-resolution frame(s), other angles, legacy game catalog and local early build records. Compare Pajero first/second generations, other period off-roaders and available demo family names; do not assign make/model/year in registry until corroborated. |
+| Early MR red/white/silver Pajero-like prototypes | `353.jpg`, `mr2.jpg`, `mr_1m.jpg`, plus prior screenshots | Rear-mounted spare and a more angular/tall rear silhouette; these differ visibly from the Paris-Dakar Pajero Silver #271's rear hatch and livery. | VISUAL SIMILARITY, NO EXACT ASSET MATCH. | Maintain separate forensic dossiers for the MR promotional vehicles and the authentic decoded Paris-Dakar `PajeroRED.tc` #256 / `PajeroSilver.tc` #271. Avoid interpreting the latter as recovered cut MR cars. |
+| Paris-Dakar Pajero Silver #271 | `image.png` from owner | Source-faithful textured 3D scene with distinctive white/yellow/black paint and full original rear-lamp/hatch arrangement. | SOURCE DECODED; native MR pilot is actively being finished by Codex. | Finish current isolated import and owner D3D8 checks before any new historic reconstruction work. |
+
+## Historical asset-evidence criteria
+
+Keep three separate labels in catalog and project UI:
+
+1. **Recovered MR original** — exact MR-owned source resource or matching original geometry proven by hashes/topology/UV; exceptional claim requiring direct asset evidence.
+2. **Reconstructed historical appearance** — derived from stock MR vehicle and period screenshot colors/materials, or geometry faithfully hand-adapted later; distinguish artwork reconstruction from game-original asset.
+3. **Guest donor reconstruction** — a real model extracted from another game and adapted to MR, even when visually similar to early MR publicity.
+
+Never claim a model is playable simply because it appears in a promotional screenshot; do not infer a lost retail asset exists from a frontend thumbnail alone. All private source/preview and later donor assets remain outside distributable source-only archives.
+
+## Bounded follow-on after Pajero Silver pilot
+
+**MR Lost Vehicles Forensics — short research phase, NOT immediate import:**
+
+- Freeze Silver native candidate/owner game results and preserve all accepted alternate CarID29 rosters, stock vehicles and clean Data.sma.
+- First deliver an inventory/cross-build search for Citroën ZX #206 across the owner's retail release, Demo 8.4.1, Demo 9.3.1 and Demo 9.10.0, including inner archive file names, orphan car-family folders, texture atlas fingerprints, unused frontend entries, binary registrations and old Cooker/re-rdemo research.
+- Compare Ford Ranger release model and the silver #205 on consistent fixed-angle screenshots. If verified to be a pure livery variant, implement as a reversible *source-colorway* over the existing retail Ranger; do not spend a new CarID or claim exact paint if only screenshot reconstruction is possible.
+- Isolate mystery silver SUV as **Unknown MR Prerelease SUV A** until the evidence resolves marque/model/year; collect more photos and check early demos/asset lists.
+- Maintain a source-qualified side-by-side atlas of MR promo vehicles vs Paris-Dakar #256/#271. The original Paris-Dakar models should remain their own game-donor records, not falsely relabeled as lost MR originals.
+- If no native ZX exists, prioritize a feasibility study for source-built or licensed/locally sourced donor reconstruction through a future Blender Bridge, with truthful provenance; no unauthorized public distribution.
+- Deliver `MR_LOST_VEHICLES_CATALOG.md`, `MR_PRERELEASE_SCREENSHOT_ATLAS.md`, source hash/search manifest, an uncertainty report and a bounded next candidate proposal. Explicitly defer a new CarID, speculative 3D reconstruction and publication to separate approval.
+
+**Existing roadmap retained:** finish Paris-Dakar Silver; Michelin source reconstruction and broader donor-game pipeline; GT3 mass compatibility; Blender Bridge/Model Studio; Fleet Builder. A historical-livery project can occur independently once verified without disrupting the native addon roadmap.
+
+---
+
 # Master Rallye Vehicle SDK — Master Plan v6.7
 
 **28 October 2026 — independent Source Garage phase-1 audit review, next bounded adapter qualification.** This update prepends a new checkpoint and preserves the entire previously authored v6.6 document **byte-for-byte below**. The changed-files archive's `docs/sdk/MASTER_PLAN.md` was separately observed to omit the v6.3–v6.5 addenda: restore those historical sections in the main repository rather than replacing them with a short status note.
@@ -2402,6 +2444,49 @@ Preserve 4Runner Stable and previous successful Native MR features; no experimen
 After first Silver pilot review, evaluate whether to import RED separately, or resume Michelin assembly and Paris-Dakar wider catalog; historical MR geometry provenance stays a parallel research question, and Blender Bridge is the future safe manual editing path.
 
 
+---
+
+## v7.3 — Silver #271 native pilot review and Dakar 2 platform choice (29 October 2026)
+
+### Silver owner gameplay report and review evidence
+
+The owner confirms that the Paris-Dakar Pajero Silver #271 candidate starts in retail Master Rallye and reports suspension feeling too stiff. This is direct owner feedback, not a broad verified pass for all damage, results, AI or re-entry behaviors. The source-only pilot review archive reports local code revision `75c9138ca4b28e5af982534c0d131f5bcb25c5ce`; independent archive checks: 1342 ZIP members, 1341/1341 SHA256 manifest entries, 599/599 Python AST parses; changed-files archive 20/20 identical to corresponding full-source members. Independently executed 48 relevant Python unit tests PASS; the developer's separate Windows suite reports 1139 tests with two optional skips and cannot be independently repeated without original private inputs.
+
+The native candidate is isolated at alternative physical CarID29, using the original immutable Paris-Dakar Silver model/scene and a cloned independent `PDSilver` physics family. Source report `PARIS_DAKAR_SILVER_NATIVE_RESULTS.md` confirms retail MR Pajero donor physics mass 1500 kg, AWD, springs/dampers/ride height unmodified, adjusted dimensions/wheelbase/tracks/radii. Original source mass 2150 kg and source suspension numerical parameters are preserved as evidence rather than directly copied across two different solvers. Stiffness is an owner-observed tuning issue. Maintain accepted candidate; offer optional separate soft suspension test preset, changing and validating spring/damper/travel parameters in the qualified Physics Studio and preserving original donor values. Do not apply donor-game physics raw. Owner tests still needed for glass damage, brakes, camera, roster/results/re-entry.
+
+### Dakar 2 platform selection — provisional, source-independent research judgment
+
+**Provisional first-choice platform: original Xbox**; **second-choice: GameCube**; **third-choice: PS2** for initial file-format and native code reverse engineering. This is a cost/risk hypothesis based on platform tooling, NOT evidence of Dakar 2-specific model decoder or of identical model/asset content across platforms. The three retail ports are documented by contemporary reviews and release catalogs, but no verified Dakar 2 model exporter for these builds is yet available.
+
+- Xbox: XDVDFS extraction via locally reviewed xdvdfs/extract-xiso, `default.xbe` 32-bit x86 research using existing Ghidra/REA methods, Xbox-native Direct3D8/DXT-family concepts closer to MR's Windows/D3D research and the workshop pipeline. Caveat: NV2A's version of D3D8 includes console-specific push buffers, vertex formats, swizzled/tiled texture layouts and custom engine containers; XBE cannot be treated as a stock Windows PE or the asset files assumed to be normal DDS.
+- GameCube: filesystem export via Dolphin, executable `main.dol` and GX display-list/CMPR/palette formats with different data endianness and TEV materials; plenty of open platform-level documentation, but dedicated decode implementation likely required. Public community investigation mentions game-specific `GBA.SBB`, which contains Game Boy Advance mini-game resources, not evidence about vehicle meshes. This port may win if actual filenames, source tables or mesh containers turn out simpler than on Xbox.
+- PS2: ISO9660 inspection is straightforward, but EE/VU/VIF/GIF and GS textures/CLUT/swizzling and potential custom microprograms create added complexity for exact geometry extraction. Nonetheless it may be the correct primary source if its genuine car assets are clearest; no assumptions before byte inspection.
+
+### Bounded next audit and go/no-go gate
+
+1. Obtain user-owned original source discs/extractions, record region, edition, main executable signature, hash, file counts and architecture. Read-only. Never obtain/bundle proprietary copies in source archives.
+2. Probe Xbox first, GC and PS2 to a bounded L0 stage (disc filesystem, container signatures, file name/resource index evidence, one selected Pajero and its textures/hubs). Never rate a platform based on console graphics power alone.
+3. Attempt L1 one-car reconstruction on whichever platform yields the clearest verifiable asset path. Confirm geometry, indices, UVs, color textures, wheels, LODs and transforms. Separate source-faithful recovery from MR material authoring.
+4. Stop after a qualified neutral Universal Vehicle Scene and D3D9 L2 preview, or report a reproducible decoder blocker. No new CarID, fleet installs or motorcycle physics in this phase.
+5. Preserve current Silver and 4Runner stable, all accepted MR/GT/Demo projects, and original `MRallye.exe`, clean `Data.sma`, `d3d8.dll`, donor sources and Randomizer. Scope commits locally; no push/publication.
+
+### Further sources for tool audit
+
+- https://xemu.app/docs/disc-images/ (Xbox disc handling)
+- https://github.com/sp00nznet/xboxrecomp/blob/main/docs/pipeline/01-xbe-parsing.md (original Xbox executable structure)
+- https://github.com/sp00nznet/xboxrecomp/blob/main/docs/technical/d3d-translation.md (Xbox D3D8 limitations)
+- https://github.com/dolphin-emu/dolphin/blob/master/Source/Core/VideoCommon/TextureDecoder.h (GX texture enum)
+- https://gbatemp.net/threads/question-about-the-sbb-file-format-in-dakar-2-used-by-acclaim.431274/ (Dakar 2 GameCube GBA.SBB observation)
+- https://www.gamespot.com/reviews/dakar-2-review/1900-6072905/ (original three-platform and roster overview)
+
+The previous v7.2 document is preserved exactly as this file's prefix. This addendum is advisory planning and independent review, not an implementation or emulator-based test of Dakar 2.
+
+
+## Preserved repository implementation checkpoint after v7.1
+
+This older implementation record is retained verbatim; later owner observations supersede its pending status.
+
+
 ## Implementation checkpoint — Paris-Dakar Silver native pilot, 29 October 2026
 
 Direct owner authorization selects original retail MR Pajero as donor. The entire
@@ -2433,3 +2518,10 @@ Stop for this single-candidate review. RED/Patrol remain source regressions;
 Michelin research and historical MR lineage remain high priorities, not started
 as a parallel campaign. No original installation edits, fleet, new capacity,
 Blender Bridge, push or release.
+
+
+## Dakar 2 source checkpoint - 29 October 2026
+
+All three owner-local platforms inventoried. Xbox selected from original loader evidence. Pajero and Hino reconstructed into Universal Vehicle Scene v1; L1 structural recovery passes, L2 remains WARN for mixed facing/culling and incomplete material stages. See DAKAR2_PLATFORM_AUDIT.md, DAKAR2_FORMAT_REPORT.md and DAKAR2_SOURCE_RESULTS.md. No new MR CarID, native candidate or physics tuning.
+
+Owner launched Paris-Dakar Silver #271 in MR and reports overly stiff suspension. Separate reversible Physics Studio follow-up; no values changed during Dakar 2 research. Race completion, Results, damage and re-entry are not inferred from launch.

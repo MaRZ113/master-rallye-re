@@ -516,3 +516,20 @@ PENDING_OWNER. No V4E/Blender Bridge work or capacity expansion.
   remain NOT TESTED and require the owner checklist.
 - Private evidence: .research-output/vehicles/paris-dakar-silver-native/. Full
   original Masterv7.1 retained exactly (336909 bytes, SHA25696ba80d25b4e7057faceb0cc6e1e577dccbc83448fdc38c6d78349e0cc9ad619).
+
+## Dakar 2 source milestone — 29 October 2026
+
+| Check | Status / boundary |
+|---|---|
+| Three actual corpora | PASS filesystem/hash/container metadata; PS2 original ISO MISSING INPUT |
+| Xbox loader/buffers | PASS build-specific static evidence, not original runtime |
+| GC GX / PS2 VU/VIF/GS | NOT TESTED / UNSUPPORTED by new model decoder |
+| Pajero + Hino UVS | PASS L1; 266/235 original streams exact, byte-identical repeats/reopen |
+| D3D9 / Source Garage | PASS execution/reopen/captures; L2 WARN culling/material stages |
+| Focused tests | 54 PASS, including 13 new source-free tests |
+| Full Windows suite | 1152 tests OK; 2 pre-existing optional fixture skips |
+| Protected originals/projects | 8895-file SHA256 audit; private preservation-validation.json |
+| Dakar 2 MR/gameplay | NOT TESTED; no CarID/candidate |
+| Silver #271 owner status | Launched; stiff suspension separate, no tuning here |
+
+See DAKAR2_SOURCE_RESULTS.md. CW/CCW/no-cull are distinct diagnostics; no-cull never promotes fidelity to PASS.

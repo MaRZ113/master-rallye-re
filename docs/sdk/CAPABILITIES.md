@@ -403,3 +403,9 @@ actual D3D8 gameplay NOT TESTED. No rear pane damage, source renderer/animation/
 settled suspension parity or independent source crew rig claimed. See
 PARIS_DAKAR_SILVER_NATIVE_RESULTS.md and owner checklist. Existing sources and
 accepted projects stay intact; no broader PD catalog or fleet support inferred.
+
+## Dakar 2 source lab — v7.3 checkpoint
+
+Read-only Xbox XDVDFS, GC RVZ/FST and PS2 extracted-tree inventories with exact hashes and cross-platform RBB/SBB indexing. Exact Xbox subset reconstructs Pajero and Hino into UVS v1: body, original wheels/rest hierarchy, UVs, packed normal/color sidecars and BC1/BC3 textures. L1 structural recovery passes; L2 WARN for mixed facing/culling and incomplete material stages. No GC/PS2 model decoder or Dakar 2 native authoring policy. Source Garage reopens scenes; native Create remains disabled. See DAKAR2_SOURCE_RESULTS.md.
+
+Silver #271 owner reports MR launch and overly stiff suspension. Separate reversible Physics Studio follow-up; no tuning in this milestone and no complete gameplay pass inferred.

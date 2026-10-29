@@ -106,3 +106,7 @@ in MR. No source audio has been claimed to be a complete original vehicle mix.
 
 This phase ends at the audit. Original games and accepted Workshop projects,
 alternative CarID29 rosters and the known30-entry limit remain intact.
+
+## Dakar 2 follow-up — 29 October 2026, Master Plan v7.3
+
+This newer checkpoint supersedes Dakar 2 readiness in the historical phase-1 rows without rewriting that audit. Actual Xbox USA ISO, GameCube GPDE51 RVZ and PS2 SLES_508.79 extraction now inventoried with full hashes. All share RBB/SBB resource families but use different payload layouts. Xbox selected from original native loader/declaration evidence: Pajero and Hino recovered into UVS v1, L1 PASS; L2 WARN for culling/mixed facing and incomplete shader stages. GC/PS2 remain container-only. PS2 original ISO MISSING INPUT. Personal priority remains Pajero, independently of readiness. No new MR import. See DAKAR2_PLATFORM_AUDIT.md, DAKAR2_FORMAT_REPORT.md and DAKAR2_SOURCE_RESULTS.md; exact corpus is DAKAR2_CORPUS_MANIFEST.json.

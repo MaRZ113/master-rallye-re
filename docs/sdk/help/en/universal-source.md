@@ -124,3 +124,9 @@ are retained relative to body through a common origin rebase; original gravity
 settlement and renderer parity are unqualified. Source reflections/animation are
 not invented. Native D3D8 driving, damage, Results and menu re-entry require owner
 tests; see docs/sdk/PARIS_DAKAR_SILVER_OWNER_CHECKLIST.md. Stop after this pilot.
+
+## Dakar 2 initial source research
+
+Use `tools/dakar2_source_lab.py recover` with qualified owner-local Xbox ISO and PAJERO or HINO, then reopen `scene.json` here with its sidecars. Sources remain read-only; a fresh output directory is required. Exact revision/commands are in `docs/sdk/DAKAR2_SOURCE_RESULTS.md`.
+
+Source Garage inspects the recovered rest assembly and launches neutral D3D9 preview. Native Create is unavailable: no Dakar 2 MR policy is qualified. Provenance retains material/pose unknowns. CW/CCW expose unresolved facing; optional two-sided images are diagnostics only. Pajero wheel shader/alpha remains incomplete. GameCube/PS2 inventories do not imply mesh support. These previews do not qualify original-game rendering or gameplay.

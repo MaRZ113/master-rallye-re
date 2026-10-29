@@ -172,3 +172,7 @@ before implementation.
 
 Links are research provenance. Third-party authors' results are not this
 repository's local acceptance evidence.
+
+## Dakar 2 follow-up — 29 October 2026
+
+The phase-1 no-decoder finding is historical. New original project source readers qualify the exact Xbox RBB/SBB/HIR/XMD/XTX subset against native x86 loading and D3D8 declarations. Existing UVS v1/D3D9 preview reused; no third-party importer implementation vendored. Pajero/Hino L1 passes, L2 WARN culling and complete shader stages. GC RVZ/FST and PS2 extraction audit do not qualify their mesh pipelines. REA XBE/raw-x86 admission was unavailable; installed Ghidra 12.1.4 used directly, PS2 entry independently cross-checked with Rabbitizer. Full build boundaries, tools, license/use notes, source URLs and unresolved issues: DAKAR2_PLATFORM_AUDIT.md and DAKAR2_FORMAT_REPORT.md.

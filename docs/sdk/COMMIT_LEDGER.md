@@ -646,3 +646,9 @@ source-owned panes/headlight overlays/red lamp cuts; independent PDSilver/CarID2
 protected7599-file audit. Complete v7.1 attachment retained verbatim, previous
 Master is its exact prefix; source-only archive checks retain both full files.
 See PARIS_DAKAR_SILVER_NATIVE_RESULTS.md. Owner D3D8 qualification pending.
+
+## Dakar 2 platform audit and initial recovery — 29 October 2026
+
+Baseline `75c9138ca4b28e5af982534c0d131f5bcb25c5ce`, initially clean `research/vehicles`. Resolve scoped revision with `git log -1 --format=%H --fixed-strings --grep="feat(research): audit Dakar2 platforms and recover Xbox source scenes"`; review manifest pins archive members. No push/publication.
+
+Three owner-local corpora fully inventoried. Original Xbox loader/declarations drive bounded RBB/SBB/HIR/XMD/XTX reconstruction into UVS v1. Pajero/Hino L1 passes, 266/235 exact streams, identical repeats, 36 D3D9 captures and Source Garage reopen. L2 WARN: mixed facing/culling and complete shader stages unresolved; no guessed triangle repair. GC/PS2 mesh decoding and Nissan rotation unsupported. Focused54/full Windows1152 (two optional skips), protected8895-file audit. Complete v7.3 plus previous implementation checkpoint preserved. Source-only Git-blob archives exclude donor payloads. No MR CarID/addon/physics changes. Silver launch/stiffness recorded separately. See DAKAR2_SOURCE_RESULTS.md.
