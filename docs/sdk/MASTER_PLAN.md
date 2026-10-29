@@ -2576,6 +2576,53 @@ Owner launched Paris-Dakar Silver #271 in MR and reports overly stiff suspension
 - Cross-game extensible adapters, original source colorways, Physics/Camera/Audio/Shadow/Material/Frontend Studios, Fleet Builder, and strict local private source asset / no-push requirements remain unchanged.
 
 
+---
+
+## V7.5 — Dakar 2 Xbox fidelity review and MR prerelease red Pajero texture pilot (2026-10-29)
+
+### Review and evidence
+
+The supplied `source-review.zip` revision `483f03d78c03f74841a123c944028938426115bb`, baseline `423e8b714042db7a722e60bd2d6e98625614c3e9`, contains 1,360 ZIP entries / 1,359 hash-manifested members; all manifest SHA256 checks passed. The `changed-files.zip` contains 21 hash-manifested members; all match the full archive (plus its manifest). All 609 Python files parsed. An independent Linux focused unittest run completed 70 tests with 68 PASS, 2 SKIP, 0 FAIL. Codex reports a full Windows regression of 1,158 tests with two pre-existing skips, plus deterministic scene/candidate and protected-file audits; that Windows report was not independently rerun here. Proprietary donor scenes, GPU screenshots and original Xbox runtime evidence were not part of the source-only package.
+
+New qualified code includes per-draw Dakar2 source-state transport in `MRPV v2` (backward-compatible with v1), original vertex BGRA colors, inferred source culling/depth/blend/order, and an explicitly qualified rigid-basis Nissan transform path. Recovered neutral scenes: Xbox Pajero 4,154 triangles / 56 meshes / 42 nodes; Hino 4,676 triangles / 47 meshes / 39 nodes; Nissan Pickup 4,065 triangles / 51 meshes / 39 nodes. Nissan D22 model-year identity is not proven. Full Xbox shader/alpha-test/UV1/runtime-equipment and animated-source parity remain **L2 WARN**, even though D3D9 previews are improved.
+
+Measured source-rest comparison of PC Paris-Dakar RED #256, PC Silver #271 and Xbox Dakar2 Pajero #205 used the original immutable scenes, wheelbase-normalized uniform transforms and consistent cameras. Xbox vs PC source wheelbase 2.612777 vs 2.527780 (raw units, physical meters not proven); front tracks 1.710450 vs 1.622151 and rear tracks 1.751960 vs ~1.746405. The shorter relative Xbox rear overhang and different normalized source body width demonstrate substantially different assembled geometry. Zero identical six-decimal wheelbase-normalized sampled body vertices and zero common position-array hashes were found between Xbox and either PC scene. Such negative evidence does not establish distinct historical authorship or rule out a shared development ancestor. No authenticated prerelease MR mesh match exists.
+
+Historical comparison: PC Silver retains a closer frontal design to the photographed white/silver `mr4_paj.jpg` (round lamps housed in rectangles, wide low intake). Xbox Pajero is a promising *red prerelease appearance* donor because of its boxy cabin and front treatment, but its current central rear spare/taillight configuration does not reproduce the red historical rear reference (`m_rallye_07.jpg`). The exact MR prerelease livery and model lineage remain unverified.
+
+### New owner-supplied research lead: stock MR red Pajero textures
+
+The owner reports that original Retail Master Rallye Pajero resources retain textures resembling the red promotional Pajero. **This observation has not yet been verified by content extraction in the supplied review archives.** Treat it as a targeted local-asset archaeology task, not as proof of an exact donor UV mapping or a lost original model. Never alter or distribute the user's original Retail archives or texture data.
+
+### Next milestone: MR Lost Pajero — Stock Texture Forensics & Reversible Livery Pilot
+
+1. **Pin the baseline:** await/report any still-running Dakar2 work; inspect branch/status. Preserve the complete L1/L2 Xbox Pajero scene, PC RED/Silver scenes, existing accepted MR addons and `d3d8.dll`. No cross-project merges, unrelated changes or 31-car capacity tests.
+2. **Find verified original MR source textures:** scan owner-local qualified Retail/Demo Pajero texture/material references read-only; record hashes, dimensions, formats, paths and source-bank/draw identifiers. Distinguish retail-active textures, unused payloads, pre-release icon images, and texture fragments. Present original RGBA atlases privately with provenance and *do not fabricate* a lost-red map if no suitable assets exist.
+3. **Separate models and images:** keep original MR red texture/livery, historical screenshot, and Xbox Dakar2 geometry as three independently identified sources. Check whether a seemingly red stock resource belongs to a different surface, stock Pajero, frontend model or UI-only icon.
+4. **Qualify UV correspondence:** compare original MR source draw/mesh material+UV mapping and the source Xbox Pajero's UV0/UV1/vertex colors/texture stages. Check atlas layout, seams, mirrored faces, scale and orientation. Never assume identical UV topology across games or replace all `.dxt` references with one image.
+5. **Make a controlled, *private* A/B experiment:** immutable Xbox-original preview; direct MR-texture reassignment only if UV mapping evidence supports it; explicitly tagged *UV-transferred* derived preview if a mapping must be authored. Show front/rear/left/right/top/isometric and UV overlays; list exact face/texture coverage, omissions, cutout risk, residual original paints and known shader approximation. Use a non-destructive project overlay and Undo/Redo/Restore.
+6. **Prioritize authentic matching:** restore real red promotional paint coverage/decals only where supported by the actual MR local textures or source screenshots. Do not recreate trademarked art from memory or label a manually authored approximation as an original lost MR asset. Preserve source geometry, headlights, glass, wheels, crew, bumper and equipment.
+7. **Acceptance gate:** succeed even if the honest output is 'incompatible UVs; manual Blender UV/livery adaptation needed'. A compelling neutral scene does not make a playable MR candidate. Only separately propose native MR CarID build after owner reviews the private preview; do not override any existing accepted roster.
+8. **Tests/reports:** source hash/preservation, dimension/format decoding, map ownership/coverage, transform and UV validation, deterministic previews, project isolation, no stock modification, and representative regression. Deliver source-only archives, manifest, and a precise owner A/B preview review checklist. Full Windows suite when available; original D3D8 game test only after a separately approved native candidate.
+
+### Deferred priorities, unchanged
+
+- Paris-Dakar Silver #271: user launched and reported overly stiff suspension. Keep a reversible independent Physics Studio preset; no unrelated physics adjustment during livery research.
+- Hino truck and Nissan Pickup from Xbox Dakar2 are qualified neutral-research candidates, not game-ready vehicles; no full fleet import.
+- Michelin Rally Masters RAV4/Mégane remains a high-personal-priority source research milestone.
+- Historic MR Citroën ZX #206 and silver Ranger #205 remain forensic cases, not recovered retail geometries.
+- All GT Garage, Demo Heritage, Blender Bridge/Model Doctor, Fleet Builder, user-modifiable audio, Camera/Physics/Material Studios and copyright/provenance constraints remain active.
+
+
+## Preserved repository v7.4 implementation checkpoint
+
+
+
 ## Implementation checkpoint - Dakar 2 renderer and historical comparison
 
 Preserved L1 originals. Added explicit derived per-draw state preview and original color data, source-pass order/depth evidence; culling NONE is a static default-context inference, not a global polygon repair. Full shader/runtime parity remains WARN. Nissan rigid nonidentity basis now supported behind explicit qualification from native46da0/88eb0 matrix copy/upload. PC RED/Silver/Xbox comparisons use uniform wheelbase normalization only. See DAKAR2_RENDERER_RESULTS.md and DAKAR2_LOST_VEHICLE_COMPARISON.md. No MR import, new CarID, physics tuning or publication.
+
+
+## v7.5 texture forensics implementation checkpoint
+
+Original retail Pajero red textures verified byte-for-byte against clean SMA; old TXT material associations survive but do not establish current DX use or original lost mesh UVs. Whole-atlas direct Xbox reassignment is unsupported. Immutable original A and a separate C partial original-MR203 badge atlas experiment are available; C is not a full red promotional livery. Geometry/UVs/alpha and accepted projects remain unchanged. See LOST_PAJERO_TEXTURE_RESULTS.md and LOST_PAJERO_TEXTURE_INVENTORY.json. No MR CarID, native candidate or physics changes.

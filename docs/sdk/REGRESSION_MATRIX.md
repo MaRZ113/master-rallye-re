@@ -551,3 +551,19 @@ See DAKAR2_SOURCE_RESULTS.md. CW/CCW/no-cull are distinct diagnostics; no-cull n
 | MR native/gameplay/physics | OUT OF SCOPE; no CarID or tuning; Silver stiffness separate |
 
 Exact private logs and boundaries: DAKAR2_RENDERER_RESULTS.md. Missing original Xbox runtime references and prerelease MR meshes are not fabricated.
+# Lost Pajero texture forensics — 29 October 2026
+
+| Check | Result / boundary |
+|---|---|
+| Retail archive ownership | PASS: 47 family files byte-exact against clean SMA; 41 texture records |
+| Direct MR/Xbox UV correspondence | UNSUPPORTED; original red TXT lacks UV arrays |
+| A/C conservation | PASS: geometry, UVs, normals, nodes, original sidecars and alpha exact |
+| C interpretation | WARN: partial MR203 badge only; both side badge orientations unresolved |
+| Reversible overlay | PASS: deterministic C, Undo/Restore preview byte-identical A, Redo/reopen |
+| D3D9 and real Source Garage | Six A/C views; real GUI reopen; native Create disabled; L2 WARN |
+| Focused validation | 78 PASS, including eight new synthetic tests |
+| Full Windows suite | 1166 tests OK, two optional skips; initial transient compiler WinError5 retained, isolated and full reruns pass |
+| Protected originals/projects | PASS: 11500 files, 15448297600 bytes hashed, zero changed/missing |
+| Native/gameplay/physics | NOT CREATED / OUT OF SCOPE |
+
+Evidence and reproducible commands: LOST_PAJERO_TEXTURE_RESULTS.md. Proprietary previews and textures remain private.

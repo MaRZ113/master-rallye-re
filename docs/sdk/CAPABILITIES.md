@@ -413,3 +413,8 @@ Silver #271 owner reports MR launch and overly stiff suspension. Separate revers
 ## Dakar 2 renderer/historical checkpoint — v7.4
 
 Derived source-state UVS inspection preserves accepted L1 originals. MRPV v2 carries explicit per-draw cull/depth/blend with v1 compatibility, original BGRA colors and native pass order. Default Xbox cull NONE is statically inferred from actual scene/vehicle state paths, not a global polygon repair. Pajero/Hino previews improve; full shader/UV1/secondary stages/runtime remain L2 WARN. Nissan compact rigid basis is qualified from native copy/upload, behind explicit rotation qualification; no D22 identity upgrade. 39 named variant members indexed, active equipment/LOD unresolved. PC RED/Silver/Xbox measured comparisons use uniform wheelbase normalization and shared cameras. See DAKAR2_RENDERER_RESULTS.md and DAKAR2_LOST_VEHICLE_COMPARISON.md. No new MR import or Silver physics tuning.
+# Lost Pajero texture forensics — v7.5
+
+Read-only clean-retail SMA verification identifies 41 Pajero textures in 47 family files: 33 DX-referenced, six TXT-only, two unreferenced within inspected family bindings. Five surviving red/art resources have original TXT ownership but no current DX binding. Exact metadata: LOST_PAJERO_TEXTURE_INVENTORY.json.
+
+Neutral A preserves Xbox source; direct MR atlas assignment B is UNSUPPORTED. Private C transfers only original MR203 badge pixels through an explicit reversible derived atlas, without geometry/UV/alpha changes. Both side captures retain incorrect badge orientation/legibility; WARN. This is not a full livery restoration. Source renderer stays L2 WARN; native Create remains disabled. No CarID, native project or physics changes. See LOST_PAJERO_TEXTURE_RESULTS.md.
