@@ -31,3 +31,12 @@ Protection uses `tools/verify_source_garage_preservation.py` with the historical
 ## Next owner-tested vehicle
 
 Finish the already delivered RAV4 owner checklist first. Incorporate actual steering/travel/glass/brake/Results findings through its reversible native project. Then Mégane F2 is the next bounded import: original geometry/UVs/tyre selection and generic compiler are ready, but its own67-face window candidate set, rear lamps, native controller/collision/physics policy still need qualification. Do not rename it Maxi without evidence. Dakar2 is not the next native choice while shader/material and native assembly policy remain BLOCKED. No fleet, new donor, Blender Bridge or roster expansion follows automatically.
+
+
+## Cross-game material fidelity checkpoint — v8.0, 30 October 2026
+
+The v1 contracts remain backward compatible. Source shader declarations/hashes produce a required `source_shader` feature; `omit_for_mr` cannot waive it. A UV alias or an inactive fourth stage is not proof that active additive stages are redundant. Dakar2 typed decoder/evaluator records original inputs, constant mappings, active modes, per-drawbindings and exact blockers. No new compiler or silent diffuse fallback.
+
+Opt-in per-material `transparent_edge_padding={radius,evidence}` accepts1..32 and unchanged binary source coverage, preserving all nonzero-alpha pixels. Default profiles are unchanged. Common native-state authoring optionally uses explicit `masked_overlay`, retaining the diffuse surface in both brake cases plus masked emission/glow inON. Source-specific lens contracts bind scene/atlas hashes, sourcefaces and concave UV contours; they cannot classify arbitrary red paint or migrate Toyota faceIDs toRenault. Intact/off surface conservation and collision are verified by the writer; enclosing derivation separately verifies alpha masks. These overlays are explicit native render passes, not new source geometry.
+
+Capture helpers can explicitly select race/frontend/wheel. Native brake tests must selectrace, since the default frontend has no race switch. Final affected RAV4 images were regenerated.89focused/1240full Windows tests pass (2optional skips); accepted sourcebaselines remain exact. Shader parity, nativephysics and ownergameplay levels remain separate. See the three engine reports and CROSS_GAME_MATERIAL_PROVENANCE.json.

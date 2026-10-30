@@ -622,8 +622,28 @@ Detailed qualification/outcomes: MICHELIN_FIDELITY_QUALIFICATION.md. Exact metad
 | Original Evo2 code | Exact EXE SHA,3 PE instruction samples and float64 HSV constants verified; full TIFF-plane/source-renderer interpretation still WARN |
 | Actual Windows GUI/GPU | Hidden Tk open/worker/report for7 scenes, zero errors, no focus activation; seven six-view/close-up/material sets,3 typed-UV before/after and fresh Michelin MR-rest views |
 | Focused |72 tests OK; source-free adversarial and source/pilot regressions |
-| Full Windows |1204 tests OK,2 existing optional skips;final log full-windows-final.log |
+| Full Windows |1204 tests OK,2 existing optional skips;final log full-windows-delivery.log |
 | Protected originals/candidates |12742 files /15853855826 bytes, including307 sealed RAV4 resources; zero changed/missing; mutable owner state not reset |
 | Native/gameplay boundary | Generic dry-run L3 WARN; Dakar2 L3 BLOCKED; no new slot/candidate, L4 NOT TESTED by this stage |
 
 Exact metadata: SOURCE_GARAGE_CORPUS_PROVENANCE.json; native/source unknowns: SOURCE_GARAGE_QUALIFICATION_MATRIX.md. Owner RAV4 gameplay remains pending feedback; Silver stiffness unchanged. No new donor, fleet, art, Blender Bridge, capacity experiment, push or publication.
+
+
+## Cross-game material fidelity checkpoint — v8.0, 30 October 2026
+
+| Validation | Actual result |
+|---|---|
+|Focused material/bridge/coverage tests|89 PASS|
+|Full available Windows synthetic suite|1240 tests OK,2 existing optional skips,77.518s; full-windows-delivery.log|
+|Dakar2 original XBE and materials|154 draws independently qualified;132 exact UV aliases; decoded active stages retained; L3 BLOCKED, no unsafe native fixture|
+|Evo2 original CPU colors|9×512² original pre-gloss outputs match independent composition, auxiliary high byte exact; original TIFF/catalog/cache rechecked; deterministic reopening|
+|RAV4 wheels|2419 zero-alpha RGB texels padded; opaque pixels/alpha/UV/geometry unchanged; D3D9 reproduces/removes fringe|
+|RAV4 lamps|336 explicit lens pixels,10 UV-owned source faces; zero uncovered lens pixels/alpha outside mask; underlying body diffuse retained|
+|RAV4 OFF/glass/collision|Intact and broken-glass surface multisets and collision/bounds exact across A/B/C/D|
+|RAV4 candidate preflights|All4 separate trusted indices; launcher verify/environment/native allocation PASS; exact resource changes0/1/3/4|
+|Seven-case corpus|L0/L1 PASS,L2 WARN;4 native geometry dryruns WARN,3 Dakar BLOCKED; accepted9 DX/23 DXT exact|
+|Actual Windows GUI|7 hidden source open/worker/report paths and original Evo2 color derivation/reopen PASS; no foreground activation|
+|Protected source/native assets|12742 files/15853855826bytes,including307 accepted RAV4 sealed resources: zero changed/missing|
+|Owner evidence|Baseline RAV4 loads/drives/damages/glass confirmed; corrected B/C/D and full race/Results pending|
+
+Private currentroot `.research-output/vehicles/cross-game-materials/`; source-only metadata CROSS_GAME_MATERIAL_PROVENANCE.json. Final native screenshots explicitly select race: `final-views`/`six-views-final`, not prior frontend diagnostics. Source-renderer L2 is not promoted by native compiler or screenshots.

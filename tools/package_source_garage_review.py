@@ -18,7 +18,7 @@ def git(*args):
 
 
 def package(baseline: str, revision: str, output: Path):
-    allowed_roots=[(ROOT/'.research-output/vehicles'/name).resolve()for name in ('source-garage','source-garage-evo2','cross-game-4runner','4runner-polish','4runner-stable','paris-dakar-source','paris-dakar-silver-native','dakar2-source','dakar2-fidelity','lost-pajero-livery','michelin-assembly','michelin-native','source-garage-hardening')]
+    allowed_roots=[(ROOT/'.research-output/vehicles'/name).resolve()for name in ('source-garage','source-garage-evo2','cross-game-4runner','4runner-polish','4runner-stable','paris-dakar-source','paris-dakar-silver-native','dakar2-source','dakar2-fidelity','lost-pajero-livery','michelin-assembly','michelin-native','source-garage-hardening','cross-game-materials')]
     if not any(output.resolve()==allowed or allowed in output.resolve().parents for allowed in allowed_roots):
         raise ValueError('output must stay in ignored repository source-garage evidence')
     revision=git('rev-parse','--verify',revision+'^{commit}').decode().strip()

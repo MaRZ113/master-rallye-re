@@ -165,3 +165,23 @@ Build/launch the independent candidate using its own Launch-SDK-Roster.cmd. It o
 Reopen a source scene, then choose Qualification preflight. This read-only report shows source integrity/structure, retained unknowns and extra UV/texture stages. Without an explicit native authoring profile, L3 is BLOCKED; a valid neutral preview is not a native candidate. CLI source_garage_preflight.py can also inspect an explicit profile/ownership contract in a fresh output folder.
 
 Extra UV/stages require an evidenced disposition; identical UV aliases do not reproduce source shaders. Role contracts prevent mixed body/glass/frame ownership and fragmented reflective material coverage. Shared partitioning preserves exact geometry and material flags; existing native glass/lamp services still require explicit authoring. Missing roles remain unknown rather than guessed. Nothing in this report edits originals or the currently tested RAV4. L2 remains WARN for the present donor renderers, and D3D8 owner results remain separate. See SOURCE_GARAGE_QUALIFICATION_MATRIX.md and UNIVERSAL_NATIVE_BRIDGE_QUALIFICATION.md.
+
+
+## v8.0 material/color and RAV4 comparisons
+
+Evo2: reopen its original source scene, choose one of9 original colors and
+Create separate color scene. Original CPU pre-gloss RGB is reconstructed using
+your qualified local EXE in an isolated CPU; it does not launch the donor game.
+Base TIFF/planes/palette stay retained. GPU gloss/high-byte behavior remains WARN.
+The new scene is source-only and cannot silently replace accepted MR paint.
+
+Dakar2: material preflight retains required secondary stages and original shader
+dependencies. UV equality does not approve diffuse-only native conversion.
+Current Pajero/Nissan/Hino material L3 remains BLOCKED; no native Create enabled.
+
+RAV4: owner has confirmed baseline loading/driving/body damage/glass. Private
+cross-game-materials/rav4-comparisons A/B/C/D are independent comparison launches,
+not edits to the accepted project. B fixes rim transparent RGB only; C revises
+bounded red lenses; D combines offline-qualified fixes. Compare A→B and A→C
+before judgingD. All corrected D3D8, full race/Results remain owner tests. See
+MICHELIN_RAV4_VISUAL_MICROFIX.md. Return toA for rollback. No roster expansion.

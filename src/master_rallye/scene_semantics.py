@@ -32,6 +32,13 @@ def features(scene,selected_meshes=None):
                          'native_support':'UNSUPPORTED','source_preserved':True})
     for mat in scene['materials']:
         if mat['id']not in used_materials:continue
+        shader=mat.get('source_render_state',{}).get('pixel_definition_sha256')
+        declarations=[raw['declaration']for raw in mat['raw_fields']if isinstance(raw,dict)and 'declaration'in raw]
+        if shader or declarations:
+            if shader:u._hash(shader)
+            rows.append({'id':'material:'+mat['id']+':source-shader','scope':mat['id'],
+                         'kind':'source_shader','native_support':'BLOCKED',
+                         'source_shader_sha256':shader,'source_declarations':declarations,'source_preserved':True})
         stages={}
         for raw in mat['raw_fields']:
             if isinstance(raw,dict):
@@ -64,6 +71,8 @@ def feature_policy(scene,policy,selected_meshes=None,*,require_bump=False):
         if not isinstance(approval,dict)or set(approval)!={'disposition','evidence','impact'}:
             raise ValueError('source feature disposition/evidence/impact required')
         text(approval['evidence'],'source feature');text(approval['impact'],'source fidelity impact')
+        if row['kind']=='source_shader':
+            raise ValueError('required source shader semantics cannot be waived by feature omission: '+row['id'])
         if approval['disposition']=='alias_uv0':
             mesh=next((m for m in scene['meshes']if m['id']==row['scope']),None)
             channel=row['id'].rsplit(':uv',1)[-1]

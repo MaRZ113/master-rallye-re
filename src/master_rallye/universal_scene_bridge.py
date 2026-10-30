@@ -90,10 +90,17 @@ def _profile(profile,scene,scene_hash):
     source_materials={row['id']for row in scene['materials']}
     for key,rule in mats.items():
         if key not in source_materials or not isinstance(rule,dict):raise ValueError('unknown source material approval')
-        keys={'mode','interpretation','role','evidence','vertex_rgba','alpha_override','allow_alpha_flatten','alpha_ref','environment_reference','preserve_source_colors'}
+        keys={'mode','interpretation','role','evidence','vertex_rgba','alpha_override','allow_alpha_flatten','alpha_ref','environment_reference','preserve_source_colors','transparent_edge_padding'}
         if set(rule)-keys or rule.get('mode')not in ('opaque','alpha_blend','alpha_test')or rule.get('interpretation')not in ('mr_authoring','source_qualified'):
             raise ValueError('unsupported MR material interpretation')
         _nonempty(rule.get('role'),'material role');_nonempty(rule.get('evidence'),'material')
+        if 'transparent_edge_padding' in rule:
+            padding=rule['transparent_edge_padding']
+            if not isinstance(padding,dict) or set(padding)!={'radius','evidence'} or type(padding['radius'])is not int or not 1<=padding['radius']<=32:
+                raise ValueError('bounded transparent edge padding policy required')
+            _nonempty(padding['evidence'],'transparent edge derivation')
+            if rule['mode']!='alpha_test' or rule.get('alpha_override')is not None:
+                raise ValueError('edge padding requires unchanged source cutout coverage')
         _rgba(rule.get('vertex_rgba',[255]*4),'vertex')
         if 'preserve_source_colors'in rule and type(rule['preserve_source_colors'])is not bool:raise ValueError('source color policy must be boolean')
         if 'allow_alpha_flatten'in rule and type(rule['allow_alpha_flatten'])is not bool:raise ValueError('alpha flatten policy must be boolean')
@@ -117,6 +124,10 @@ def _texture(tex,rule,root):
     if 'alpha_override'in rule:pixels[3::4]=bytes([rule['alpha_override']])*(len(pixels)//4)
     if mode=='opaque':pixels[3::4]=b'\xff'*(len(pixels)//4)
     elif mode=='alpha_test':pixels[3::4]=bytes(255 if v>=rule['alpha_ref']else 0 for v in pixels[3::4])
+    if 'transparent_edge_padding' in rule:
+        if bytes(pixels[3::4])!=raw[3::4]:raise ValueError('edge padding must preserve original alpha coverage')
+        from .material_derivation import transparent_edge_padding
+        pixels=transparent_edge_padding(pixels,tex['width'],tex['height'],radius=rule['transparent_edge_padding']['radius'])[0]
     return pixels
 
 

@@ -53,6 +53,22 @@ def read_first_draw(path):
 
 
 class SourceScenePreviewTests(unittest.TestCase):
+    def test_native_capture_explicitly_selects_race_instead_of_default_frontend(self):
+        from unittest.mock import patch
+        from PIL import Image
+        from master_rallye.source_scene_preview import capture_views
+        with tempfile.TemporaryDirectory()as tmp:
+            root=Path(tmp);scene=root/'x.mrpv';scene.write_bytes(b'synthetic')
+            commands=[]
+            def fake_run(command,**kwargs):
+                commands.append(command)
+                Image.new('RGB',(8,8)).save(command[command.index('--capture')+1])
+            with patch('master_rallye.source_scene_preview.subprocess.run',side_effect=fake_run):
+                report=capture_views(Path('viewer.exe'),scene,root/'captures',model='race')
+            self.assertEqual(report['model'],'race')
+            self.assertEqual(len(commands),6)
+            self.assertTrue(all(c[c.index('--model')+1]=='race'for c in commands))
+
     def test_normalized_parent_transform_winding_normals_and_raw_rgba(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp); project, scene = scene_fixture(root); before = copy.deepcopy(scene)

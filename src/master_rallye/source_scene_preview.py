@@ -319,16 +319,19 @@ def viewer_command(viewer: Path, scene_path: Path, *, view="isometric", capture:
     return command
 
 
-def capture_views(viewer: Path, scene_path: Path, output: Path, *, provenance="", basis="normalized", cull="none") -> dict:
+def capture_views(viewer: Path, scene_path: Path, output: Path, *, provenance="", basis="normalized", cull="none", model=None) -> dict:
     """Capture six actual D3D9 views; this is a preview qualification only."""
     output = Path(output)
+    if model not in (None,'race','frontend','wheel'):raise ValueError('Unknown capture model')
     _unlinked(output)
     output.mkdir(parents=True, exist_ok=False)
     paths = {}
     flags = getattr(subprocess, "CREATE_NO_WINDOW", 0)
     for view in VIEWS:
         path = output / (view + ".bmp")
-        subprocess.run(viewer_command(viewer, scene_path, view=view, capture=path, provenance=provenance, basis=basis, cull=cull),
+        command=viewer_command(viewer, scene_path, view=view, capture=path, provenance=provenance, basis=basis, cull=cull)
+        if model is not None:command+=['--model',model]
+        subprocess.run(command,
                        check=True, timeout=45, creationflags=flags, startupinfo=capture_startup_info())
         if not path.is_file() or path.stat().st_size < 54:
             raise ValueError("D3D9 capture did not produce a valid-sized BMP")
@@ -338,6 +341,6 @@ def capture_views(viewer: Path, scene_path: Path, output: Path, *, provenance=""
         paths[view] = str(path.with_suffix(".png"))
     report = {"schema": "source-scene-captures/1", "renderer": "D3D9 neutral orthographic approximation",
               "views": paths, "cull": cull, "scene_sha256": hashlib.sha256(Path(scene_path).read_bytes()).hexdigest(),
-              "qualification": "Captures require visual inspection; no source-game parity or MR gameplay claim"}
+              "model":model,"qualification": "Captures require visual inspection; no source-game parity or MR gameplay claim"}
     (output / "captures.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     return report

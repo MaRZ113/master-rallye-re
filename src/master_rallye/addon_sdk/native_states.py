@@ -65,12 +65,19 @@ def author_states(raw,profile):
         special.append((label,[intact],[broken]));off_parts.append(intact);reports[label]={'source_draw':index,'triangles':ids,'broken_uv':'Explicit planar native MR approximation'}
     lamp=profile.get('brake')
     if lamp:
-        if set(lamp)!={'source_draw','triangles','lit_texture','glow_texture','evidence'}or not isinstance(lamp['evidence'],str)or not lamp['evidence'].strip():raise ValueError('Native lamp source evidence required')
+        required={'source_draw','triangles','lit_texture','glow_texture','evidence'}
+        if not required<=set(lamp) or set(lamp)-required-{'mode'} or not isinstance(lamp['evidence'],str)or not lamp['evidence'].strip():raise ValueError('Native lamp source evidence required')
+        mode=lamp.get('mode','replace')
+        if mode not in ('replace','masked_overlay'):raise ValueError('Unknown native lamp rendering mode')
         index=lamp['source_draw'];ids=lamp['triangles'];part(index,ids);allocated=allocations.setdefault(index,[])
         if not ids or len(ids)!=len(set(ids))or any(type(i)is not int or not 0<=i<len(geometry[index].triangles)for i in ids)or set(allocated)&set(ids):raise ValueError('Invalid native lamp selection')
         allocated+=ids;off=part(index,ids);lit=replace(off,textures=(lamp['lit_texture'],'Null','Null'),environment=False,diffuse=False)
         glow=replace(lit,textures=(lamp['glow_texture'],'Null','Null'),alpha=True,alpha_test=False)
-        special.append(('blight',[off],[lit,glow]));off_parts.append(off);reports['blight']={'source_draw':index,'triangles':ids,'evidence':lamp['evidence'],'halo':'Source lens geometry only; no enlargement/body spill'}
+        # Explicit masked overlay keeps the underlying original surface lit by
+        # the ordinary body pipeline, including large triangles shared by a
+        # lens and painted panel. Only the derived atlas coverage emits light.
+        on=[lit,glow] if mode=='replace' else [off,replace(lit,alpha=True,alpha_test=True),glow]
+        special.append(('blight',[off],on));off_parts.append(off);reports['blight']={'source_draw':index,'triangles':ids,'evidence':lamp['evidence'],'mode':mode,'halo':'Source lens geometry only; no enlargement/body spill'}
     body=[]
     for index in range(len(m.physical_draws)):
         remaining=sorted(set(range(len(geometry[index].triangles)))-set(allocations.get(index,[])))

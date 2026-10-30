@@ -79,3 +79,81 @@ These source-specific rows reference the exact identities above. Existing native
 | R01 Silver suspension, P2 native tuning | Owner launched Silver and reports stiffness | No physics/profile changes in this stage |WARN retained separate reversible Physics Studio task |
 
 No remaining source renderer WARN is deleted. See SOURCE_GARAGE_WARN_RESOLUTION.md for changes and UNIVERSAL_NATIVE_BRIDGE_QUALIFICATION.md for reproducible usage, exact evidence and next recommendation.
+
+
+## Cross-game material fidelity checkpoint — v8.0, 30 October 2026
+
+Baseline `e7353076512431b5ec71456bde9c2d203eb77336` was verified as clean
+`research/vehicles`. The complete attached v8.0 reconciles the prior Master by
+insertions only: v7.8 owner feedback and v7.9/v8.0 history are retained without
+deleting any earlier line. The live user request controls this milestone.
+
+Dakar2 now has an original-byte-qualified60-word NV2A combiner decoder/evaluator
+and154 per-draw material reports across Pajero56/Nissan51/Hino47. Multi-map RGB
+is `T0.rgb*V0.rgb + T1.a*clamp(T2.rgb*C0(stage1).a)` with saturation, alphaT0.a;
+simple materials multiplyT0 by vertex-programV0. All132 present UV1 arrays still
+alias UV0, but original stage coordinate generation, V0 lighting, effective
+mapped constant and conditional coverage remain required. **Material L3 stays
+BLOCKED**, with no fake diffuse-only fixture. Source declarations/shader hashes
+are a non-omittable shared bridge requirement, even if a caller waives stage
+bindings. Hino truck physics/collision/suspension remain independent blockers.
+See DAKAR2_NATIVE_MATERIAL_QUALIFICATION.md.
+
+Evo2 original TIFF loader byte routing and isolated original x86 pre-gloss
+consumer establish sample0 palette indices and sample1 recolor/high-byte control.
+Auxiliary<=128 retains RGB;255 selects adjusted palette;129..254 blends using
+float32(auxiliary-128)/127 and native truncation. Exact original HSV helpers and
+nine TRK records reconstruct9 separate, deterministic reopenable source scenes;
+original TIFF/planes/palette/catalog are rechecked. The high byte is retained,
+never called ordinary opacity. Optional bump/gloss/GPU effects stay WARN.
+Source Garage offers separate original-color scenes; their native Create is
+disabled. Accepted4Runner is unchanged. See EVO2_TIFF_COLOR_SEMANTICS.md.
+
+RAV4 owner-confirmed loading/appearance/driving/body damage/breakable glass is
+historical partial L4 evidence. Race completion/Results remain unconfirmed.
+New isolated A/B/C/D copies preserve the original candidate. Wheel-onlyB changes
+2419 zero-alpha RGB texels in the one indexed rim map; visible pixels/coverage,
+UV, geometry and native state remain exact. Lamp-onlyC uses336 explicit lens
+texels and10 source faces, retaining ordinary diffuse surfaces under masked
+emission/glow; no white body lighting loss. Both intact OFF and broken-glass
+surface multisets and collision/bounds suffix are exact. D combines independent
+offline checks. All four launcher verify/environment/allocation checks pass.
+Final explicit race D3D9 views show the wheel fringe removed inB/D and revised
+bounded lamps. **Corrected D3D8 remains OWNER PENDING.** No existing project was
+modified. See MICHELIN_RAV4_VISUAL_MICROFIX.md for launch paths/checklist.
+
+Fresh7-case preflight: L0/L1 PASS, L2 WARN; generic native geometry WARN for
+Evo2/RAV4/Megane/Silver; Dakar2 BLOCKED. Generic preflight L4 NOT TESTED means no
+new owner run in this stage, not cancellation of historical owner evidence.
+Three accepted source-baseline DX each for Evo2/RAV4/Silver and23 DXT remain
+exact. Mégane is still a readiness reference, not a new native vehicle.
+
+Validation:89 focused tests PASS; full available Windows suite1240 tests OK,
+2 existing optional skips,77.518s. Seven actual hidden Tk open/worker/preflight
+dialogs and Evo2 color-worker derivation/reopen pass without focus activation.
+Protection:12742 files/15853855826 bytes, including307 sealed accepted RAV4
+resources, zero changed/missing. Mutable owner state outside the index was not
+reset. Private `.research-output/vehicles/cross-game-materials/` holds corpus,
+native shader evidence, color scenes, A/B/C/D, final GPU evidence and logs.
+Metadata-only CROSS_GAME_MATERIAL_PROVENANCE.json separates levels and evidence.
+
+No original EXE/SMA/DLL/disc/install, accepted project, Randomizer, roster or
+alternativeCarID29 was changed. No push/publication, new playable Dakar/Megane,
+new CarID, donor, fleet, Blender Bridge, historical livery or physics tuning.
+Stop here for review and owner RAV4 comparison.
+
+
+### Current level interpretation (supersedes older pending-feedback wording)
+
+| Vehicle | L0/L1 | L2 | L3 | L4 |
+|---|---|---|---|---|
+|Evo2 4Runner|PASS|WARN GPU/gloss|Historical accepted native, unchanged; new colors source-only|Historical owner gameplay; no new run|
+|Dakar2 Pajero|PASS|WARN|BLOCKED decoded shader dependencies|NOT TESTED|
+|Dakar2 Nissan|PASS rigid source basis|WARN|BLOCKED independently checked materials|NOT TESTED|
+|Dakar2 Hino|PASS|WARN|BLOCKED materials; truck systems separate|NOT TESTED|
+|Michelin RAV4|PASS|WARN original renderer|Existing native; B/C/D offline validated visual alternatives|Owner partial baseline PASS; corrected variants PENDING|
+|Michelin Megane F2|PASS|WARN|Geometry-only WARN; model-specific native systems unqualified|NOT TESTED|
+|PC Paris-Dakar Silver|PASS|WARN|Existing accepted native unchanged|Historical owner launch; stiffness separate|
+
+No dry-run compiler result promotes a complete native vehicle or new gameplay
+approval. Shader/auxiliary/lamp ownership boundaries above remain explicit.

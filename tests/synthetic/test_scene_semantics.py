@@ -10,6 +10,16 @@ from tests.synthetic import test_universal_scene_bridge as bridge_fixture
 
 
 class SceneSemanticsTests(unittest.TestCase):
+    def test_required_shader_cannot_be_waived_by_diffuse_only_omission(self):
+        self.scene['materials'][0]['source_render_state']={'pixel_definition_sha256':'c'*64}
+        rows=sem.features(self.scene)
+        shader=next(r for r in rows if r['kind']=='source_shader')
+        policy={shader['id']:{'disposition':'omit_for_mr','evidence':'Deliberate attempted blanket shader loss','impact':'Required additive and alpha lost'}}
+        with self.assertRaisesRegex(ValueError,'cannot be waived'):sem.feature_policy(self.scene,policy)
+        self.scene['materials'][0].pop('source_render_state')
+        self.scene['materials'][0]['raw_fields']=[{'declaration':8}]
+        with self.assertRaisesRegex(ValueError,'cannot be waived'):sem.feature_policy(self.scene,policy)
+
     def setUp(self):
         self.tmp=tempfile.TemporaryDirectory();self.addCleanup(self.tmp.cleanup)
         self.base=Path(self.tmp.name);self.original=self.base/'original';self.original.mkdir()

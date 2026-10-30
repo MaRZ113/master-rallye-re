@@ -33,7 +33,16 @@ def run(output,viewer):
             assert not dialog.winfo_ismapped() # hidden parent prevents activation
             dialog.destroy();assert u.sha(path.read_bytes())==digest
             checks.append({'vehicle':name,'source_scene_sha256':digest,'actual_open_worker_dialog':True})
+        evo_path=ROOT/CORPUS['Evo2-4Runner'][0]
+        garage._open(evo_path);settle();garage.source_color.set('4')
+        garage.derive_evo2_color();settle()
+        derived=garage.scene_root/'scene.json';reopened=u.load_scene(derived)
+        assert reopened['metadata']['source_color_experiment']['source_color_index']==3
+        assert str(garage.color_button['state'])!='disabled'
+        assert garage.action_buttons['Create 4Runner Stable…'].instate(['disabled'])
+        assert u.sha(evo_path.read_bytes())==checks[0]['source_scene_sha256']
         result={'schema':'source-qualification-windows/1','status':'PASS_ACTUAL_HIDDEN_TK','vehicles':checks,'errors':errors,
+                'evo2_original_color_worker_reopened':str(derived),'derived_native_creation_disabled':True,
                 'foreground_activation':False,'gui_screenshot':'NOT CAPTURED; keep owner game focus','gameplay':'NOT TESTED'}
         (output/'validation.json').write_bytes(u.canonical(result));return result
     finally:root.destroy()

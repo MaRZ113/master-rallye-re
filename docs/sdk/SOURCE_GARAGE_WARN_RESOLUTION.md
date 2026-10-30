@@ -31,3 +31,10 @@ Fresh native geometry fixtures are private, without CarID/physics/controllers/ru
 The actual Tk window/worker/report flow reopens all seven originals with zero callback errors. It runs hidden, with no foreground activation over the owner's running game; therefore no new GUI screenshot is claimed. D3D9 GPU images are actual separate captures. Original-game runtime fidelity and D3D8 driving are not asserted.
 
 Full regression, protected-file counts and committed metadata are recorded in REGRESSION_MATRIX.md / SOURCE_GARAGE_CORPUS_PROVENANCE.json. Existing Studio Undo/Redo/Restore and native damage tests remain in the suite; this read-only audit makes no edits requiring new owner-project history. Source restoration is reopening the original; every derived typed-UV project is separate. Original RAV4 native resources and sealed candidate are protection inputs while the owner tests; mutable owner saves/options are not reset.
+
+
+## Cross-game material fidelity checkpoint — v8.0, 30 October 2026
+
+Resolved: required original shader behavior cannot be waived through blanket stage omission; Evo2 TIFF plane routing and original pre-gloss nine-color arithmetic are reproducible in code; RAV4 transparent-rim RGB fringe and incomplete UV/face lamp ownership have isolated fixes. D3D9 reproduces/removes thefringe, and exact lenscoverage/masked native states retain bodylighting. Source/defaultaccepted projects remain unchanged.
+
+Still bounded: Dakar2 coordinate generation/V0/effectiveconstant/conditionalcoverage keep all3 materials L3 BLOCKED; original Evo2 bump/gloss/GPU highbyte remainsWARN; original Michelin L2WARN; corrected RAV4 D3D8 remainsownerpending. Historical owner RAV4 loading/driving/bodydamage/glass confirmation is retained, without inventing fullrace/Results. Evidence/code/tests and finalcaptures are in DAKAR2_NATIVE_MATERIAL_QUALIFICATION.md, EVO2_TIFF_COLOR_SEMANTICS.md, MICHELIN_RAV4_VISUAL_MICROFIX.md and CROSS_GAME_MATERIAL_PROVENANCE.json.89focused/1240Windows tests OK (2skips),12742protectedfiles unchanged.

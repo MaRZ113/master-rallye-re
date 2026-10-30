@@ -19,7 +19,7 @@ VISIBILITY_MODES = {"Selected stock configuration": "selected", "Original source
 
 
 def native_creation_available(scene):
-    return bool(scene and (scene.get('metadata', {}).get('source_adapter') == 'evo2-4runner/1' or silver_creation_available(scene)))
+    return bool(scene and not scene.get('metadata',{}).get('source_color_experiment') and (scene.get('metadata', {}).get('source_adapter') == 'evo2-4runner/1' or silver_creation_available(scene)))
 
 
 def silver_creation_available(scene):
@@ -113,6 +113,13 @@ class SourceGarageWindow:
         self.action_buttons["Create 4Runner Stable…"].pack(side="left")
         ttk.Button(authoring, text="Source / MR Help", command=lambda:self.app.show_help('universal-source')).pack(side="left", padx=8)
         ttk.Button(authoring, text="Qualification preflight", command=self.qualification).pack(side="left", padx=8)
+        colorbar=ttk.Frame(self.window,padding=(8,0,8,4));colorbar.pack(fill='x')
+        ttk.Label(colorbar,text='Evo2 original color').pack(side='left')
+        self.source_color=tk.StringVar(value='1')
+        ttk.Combobox(colorbar,textvariable=self.source_color,values=tuple(str(i)for i in range(1,10)),state='readonly',width=4).pack(side='left',padx=5)
+        self.color_button=ttk.Button(colorbar,text='Create separate color scene',command=self.derive_evo2_color)
+        self.color_button.pack(side='left')
+        ttk.Label(colorbar,text='Original CPU pre-gloss color; GPU effects remain WARN').pack(side='left',padx=8)
         self.identity = tk.StringVar(value="Toyota 4Runner SR5 Sport Package 2WD · catalog T4RSR52 · neutral D3D9 approximation · unspecified TIFF channel is not assumed alpha")
         ttk.Label(self.window, textvariable=self.identity,
                   padding=(10, 0)).pack(fill="x")
@@ -156,6 +163,7 @@ class SourceGarageWindow:
         self._controls()
 
     def _controls(self):
+        self.color_button.state(['!disabled']if self.scene is not None and self.scene.get('metadata',{}).get('source_adapter')=='evo2-4runner/1'else['disabled'])
         self.action_buttons["Create 4Runner Stable…"].configure(text='Create Pajero Silver…'if silver_creation_available(self.scene)else'Create 4Runner Stable…')
         for label in ("Preview", "Open neutral 3D", "Capture six views", "Save preview choices", "Create 4Runner Stable…"):
             self.action_buttons[label].state(["!disabled"] if self.scene is not None else ["disabled"])
@@ -182,6 +190,21 @@ class SourceGarageWindow:
             text.insert('1.0',json.dumps(report,indent=2,ensure_ascii=False));text.configure(state='disabled')
         path=self.scene_root/'scene.json'
         self.app.run('Read-only source qualification',lambda:preflight(path),show)
+
+    def derive_evo2_color(self):
+        if self.scene is None or self.app.busy:return
+        from master_rallye.source_adapters.evo2_color import derive_scene
+        from master_rallye.universal_vehicle_scene import read_bounded
+        if self.scene.get('metadata',{}).get('source_adapter')!='evo2-4runner/1':
+            self.status.set('Reopen the qualified Evo2 source scene.');return
+        index=int(self.source_color.get())-1
+        source=self.scene_root/'scene.json'
+        executable=Path(self.scene['source']['root'])/'4x42.exe'
+        output=self.app.sdk_root/'.research-output/vehicles/cross-game-materials/evo2/gui-colors'/uuid.uuid4().hex
+        def work():
+            derive_scene(source,output,read_bounded(executable,16*1024*1024),index)
+            return output/'scene.json'
+        self._run('Deriving original Evo2 CPU color in a separate scene',work,self._open)
 
     def create_mr_dialog(self):
         if self.scene is None or self.app.busy:return

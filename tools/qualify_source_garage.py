@@ -124,13 +124,14 @@ def run(output,viewer=None):
                 if mode=='material_ids':stage_source_scene(scene,folder/'materials.mrpv',scene_root=path.parent,material_mode=mode);preview_file=folder/'materials.mrpv'
                 bmp=folder/(label+'.bmp');command=viewer_command(viewer,preview_file,cull=cull,view=view,capture=bmp,provenance='Diagnostic; original source geometry retained')
                 if label=='window-closeup':command+=['--zoom','.65']
-                subprocess.run(command,check=True,timeout=45)
+                from master_rallye.source_scene_preview import capture_startup_info
+                subprocess.run(command,check=True,timeout=45,startupinfo=capture_startup_info(),creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
                 with Image.open(bmp)as im:im.save(bmp.with_suffix('.png'))
         if inventory(path.parent)!=before[name]:raise ValueError('Protected original scene changed: '+name)
         row['source_files_unchanged']=len(before[name]);(folder/'preflight.json').write_bytes(u.canonical(row))
     result={'schema':'source-garage-corpus-qualification/1','baseline':'c557ed626722aa709384d150647dafd574c45f0a','vehicles':rows,
             'original_scene_files_checked':sum(len(x)for x in before.values()),'new_runtime_slots':0,'gameplay':'NOT TESTED',
-            'owner_report_boundary':'Evo2 4Runner owner-demonstrated playable; Silver owner-launched with stiff suspension. RAV4 testing pending. No new L4 result inferred here.'}
+            'owner_report_boundary':'Historical owner evidence: Evo2 4Runner playable; Silver launched with stiff suspension; RAV4 loads/drives/body damage/glass pass with wheel fringe and rear lamp defects. Full RAV4 race/Results and corrected candidates remain owner-pending. No new L4 result inferred here.'}
     (output/'qualification.json').write_bytes(u.canonical(result));return result
 
 

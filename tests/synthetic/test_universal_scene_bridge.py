@@ -49,6 +49,20 @@ class UniversalSceneBridgeTests(unittest.TestCase):
     def compile(self,profile=None,**kwargs):
         return bridge.compile_scene(self.path/'scene.json',self.profile if profile is None else profile,**kwargs)
 
+    def test_opt_in_edge_padding_is_hash_traced_and_preserves_alpha_and_geometry(self):
+        raw=bytes((100,100,100,255,255,0,255,0))*2
+        self.assets['textures/pixel.rgba']=raw;self.scene['textures'][0]['rgba_sha256']=uvs.sha(raw)
+        self.save();rule=self.profile['materials']['material'];rule.update(mode='alpha_test',alpha_ref=128)
+        original=self.compile()
+        rule['transparent_edge_padding']={'radius':2,'evidence':'Synthetic indexed wheel cutout filtered RGB regression'}
+        padded=self.compile();tex=parse_dxt_bytes(next(iter(padded['textures'].values())))
+        self.assertEqual(tex.bgra[3::4],raw[3::4]);self.assertEqual(tex.bgra[4:7],bytes((100,100,100)))
+        self.assertEqual([p.geometry for p in original['body_parts']],[p.geometry for p in padded['body_parts']])
+        self.assertEqual((self.path/'textures/pixel.rgba').read_bytes(),raw)
+        self.assertEqual(padded,self.compile())
+        rule['mode']='opaque'
+        with self.assertRaises(ValueError):self.compile()
+
     def test_compilation_is_pure_deterministic_and_preserves_source_ids_unknowns(self):
         before={p.relative_to(self.path):(p.read_bytes(),p.stat().st_mtime_ns)for p in self.path.rglob('*')if p.is_file()}
         profile_before=copy.deepcopy(self.profile);first=self.compile();second=self.compile()

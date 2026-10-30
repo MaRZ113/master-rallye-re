@@ -2727,7 +2727,181 @@ Michelin model LOD/damage research remains independently interesting, as do Daka
 
 The complete attached v7.7 and prior historical prefix above remain intact. Michelin fidelity matrix now separates original-game L2 WARN from bounded MR adaptations. Immutable RAV4/Megane source scenes remain unchanged; explicit local wheel basis and original corner-color support extend the shared bridge. One independent MichelinRav4 CarID29 alternative uses the existing30-entry roster, original source body/wheels/livery, bounded panes/brakes, separate Forester physics/audio and existing Camera2.0/Shadow/identity/presentation. No duplicate importer or source physics emulation. Deterministic source/native conservation, actual Tk/D3D9, Studio history and original MR damage-instruction CPU replay pass. Owner D3D8 selection/driving/damage/Results/menu qualification remains NOT TESTED. Megane F2 remains neutral with a model-specific readiness plan; no native promotion before RAV4 feedback. See MICHELIN_FIDELITY_QUALIFICATION.md, MICHELIN_RAV4_NATIVE_RESULTS.md and MICHELIN_RAV4_OWNER_CHECKLIST.md. No accepted projects, original installations, Silver suspension, fleet imports or publication changed.
 
+## Master Plan v7.8 — Michelin RAV4 first owner gameplay feedback and two focused visual defects (30 October 2026)
+
+**Source of truth:** Complete previous `docs/sdk/MASTER_PLAN.md` from the locally supplied source-only review ZIP is retained byte-for-byte above. This appendix reflects *new owner D3D8 observations*, separate from previously reported Codex Windows/D3D9 tests. Revision in both ZIP manifests: `c557ed626722aa709384d150647dafd574c45f0a`. It is not a new repository commit.
+
+### Owner gameplay status and preserve list
+
+The **Michelin Toyota RAV4 Car25A** candidate has now been launched by the owner in actual Master Rallye D3D8. Owner reports the model is convincingly correct, drives naturally, body damage works, and glass breaks correctly. Remaining confirmed visual defects: (1) a narrow bright pink/magenta outline visible at oblique angles around open spokes of the original wheels; (2) incomplete, sharply clipped or discontinuous illumination of a rear brake lamp, with screenshots showing a suspicious red patch/triangle near the rear corner. Neither defect authorizes replacing the source mesh, tyres, livery, damage or glass mechanisms. Full race completion, results and all other checklist items are **not specifically confirmed** by this new report. Current source-game Michelin L2 WARN remains distinct from owner native functionality.
+
+### Review evidence and exact conversion boundary
+
+- The full `source-review.zip` contained 1,388 entries; CRC clean; all 1,387 manifest-listed files match SHA256; all 624 Python sources parse. `changed-files.zip` contained 22 entries; all 21 changed source entries byte-match the full archive. Both point to revision `c557ed626722aa709384d150647dafd574c45f0a` (manifest-reported).
+- Independent source-free Michelin and UVS/texture/native tests ran: 70 tests, **67 PASS / 3 SKIP / 0 FAIL** with `PYTHONPATH=src:tests/synthetic`, excluding the Unicorn-dependent native wheel CPU replay test because the review environment has no `unicorn` package. The isolated 45-test Michelin + UVS subset passed 45/45. Codex-reported full Windows run: **1,186 tests OK, 2 optional skips**, not independently rerun. The private original Michelin textures, generated native candidate and proprietary binaries are excluded from the source-only ZIP.
+- Original Michelin indexed TGA palette entry 0 is a source-qualified magenta/index0 coverage sentinel; `texture_preview` preserves original RGB (including magenta) while assigning alpha=0 to index0. The MR bridge uses `alpha_test` and binary threshold 128 but currently preserves transparent pixel RGB. The native `.dxt` wrapper in this SDK is a 20-byte header plus **uncompressed BGRA**, not a block-DXT compressed texture. The observed pink contour therefore calls for source/derived pixel inspection and sampling/alpha-test diagnosis, not an unsupported diagnosis of DXT block artifacts.
+- `src/master_rallye/michelin_native_pilot.py` pins rear lamp geometry to **12 source triangles** (`LAMP_IDS = 57..62 + 84..89`) on `body-texture-007`, plus two texture rectangles `[(43,55,57,80),(198,55,212,80)]` on a 256×128 atlas. `lamp_maps` additionally requires red-channel dominance (`r>1.3*g`, `r>1.3*b`, `r>30`), yielding a reported 520 allowed texels. Offline tests prove boundedness, **not** full coverage of real lamp UV polygons or owner D3D8 illumination. The discontinuous appearance must be diagnosed by exact triangle→UV→texel ownership and OFF/ON/Glow isolation; do not broaden masks or grow glow geometry blindly.
+
+### Immediate next milestone — Michelin RAV4 Visual Defect Microfix
+
+1. Preserve and reproducibly rebuild the currently playable candidate as a frozen baseline, retaining CarID29 alternative isolation and the 30-entry roster boundary. Keep all stock and accepted project files, damage/glass/physics/identity/audio/camera settings unchanged.
+2. **Wheel rim pink contour:** identify the exact Michelin `Tarmac_t0004.pdo` texture and original palette0/coverage; inspect original decoded RGBA, derived native BGRA and D3D8 sampling. Produce per-pixel boundary diagnostics. If confirmed as filtered magenta RGB in transparent texels, create an optional derived-wheel-only edge-color bleed/padding method that changes RGB **only where alpha=0**, preserves alpha coverage and all visible source pixels, and never modifies the original palette/TGA/UV/mesh. Qualify real game appearance from frontal/oblique angles and during wheel rotation. If sampler state is the true cause, correct the qualified native state instead of recoloring.
+3. **Brake lamp clipping:** map exact source lamp triangles and real UV contours; compare clean OFF, ON and glow separately per side. Distinguish an originally painted red patch from actual brake-light leakage. Correct full intended lens illumination while preserving intact OFF appearance, no exterior body/bumper glow, and left/right symmetry. Avoid previous 4Runner-style triangle leakage and maintain the original actual source texture and draw provenance.
+4. **Regression requirements:** Add synthetic edge-alpha/transparent-RGB tests and geometric UV/texel coverage tests that FAIL on the current problematic conditions and pass on the corrections. Save separate candidate A (current) / B (only wheel) / C (only lamp) and, after independent D3D8 owner testing, combined D. Preserve original source snapshots and candidate rollback.
+5. Only after owner approves the visual microfix, reuse the qualified shared *mechanisms* for Renault Mégane F2; never copy Toyota-specific triangle IDs, lamp rectangles, glass groups, donor physics or wheel bank to Renault. Source Fidelity Michelin L2 WARN may remain bounded; don't artificially promote full source-runtime parity.
+
+### Deferred and unchanged
+
+The older 4x4 Evolution 2 and Dakar 2 Xbox original-renderer WARN and their source-qualification matrix remain important. Xbox Pajero/Hino/Nissan, Michelin Mégane, exterior spare-wheel variant, prototype MR livery, Paris-Dakar Silver suspension tuning and future Blender Bridge remain future separate milestones. Do not start new donor-game research or fleet/roster expansion. Source-only scoped local commits are allowed after validations; no pushes/publication/releases.
 
 ## Source Garage hardening implementation checkpoint — 30 October2026
 
 The full v7.7/history above remains intact; the new owner request is retained at retained/source_garage_hardening_request.md. Existing Evo2/Dakar2 Xbox/Michelin adapters are consolidated through shared raw-stream/UV/color validation, evidence-bound semantic roles/partitioning and explicit native feature-loss preflight. Seven exact source scenes are regression cases;132 actual Dakar2 UV1 streams are exact UV0 aliases, while secondary shader/material/native assembly policies remain BLOCKED. Original renderers remain L2 WARN. Evo2/RAV4/Silver source-baseline DX/DXT are unchanged; Mégane remains a geometry-only follow-up after RAV4 owner findings. Current RAV4 native candidate is protected while the owner tests. No new CarID, fleet, donor, Blender Bridge, physics/roster expansion or publication. See SOURCE_GARAGE_QUALIFICATION_MATRIX.md, SOURCE_GARAGE_WARN_RESOLUTION.md and UNIVERSAL_NATIVE_BRIDGE_QUALIFICATION.md for actual status and evidence.
+
+
+---
+
+# Master Rallye Vehicle SDK — Master Plan v7.9
+
+**30 October 2026 — Source Garage Hardening review; reconciliation of parallel RAV4 v7.8 feedback and Codex hardening revision.**
+
+This is a reviewed continuity document, not a modification of the user's active local Git branch, a gameplay approval, or a report of a newly built candidate. It preserves full previous v7.8 history, appends the actual Codex hardening checkpoint from the latest source-review archive, and records independent review findings. The working repository must reconcile these documentation branches before the next local commit.
+
+## 1. Reviewed commit and tests
+
+- Source-only archive manifest revision `e7353076512431b5ec71456bde9c2d203eb77336` over baseline `c557ed626722aa709384d150647dafd574c45f0a`; revision identities are from the manifest and not independently authenticated against Git.
+- Full `source-review.zip`: 1,400 ZIP records; CRC clean, 1,399/1,399 SHA256 members exact; 631/631 Python AST parse. Changed-files: 31/31 SHA256 members exact, 30 corresponding non-manifest entries match the full archive.
+- Independently ran 120 focused tests: 120 passed, 2 skipped, 67 subtests passed. Attempted full local `tests/synthetic`; it did not complete within the environment's time limit. Codex reports a separate Windows full suite of 1,204 passed / 2 skipped, 72 focused tests and private GPU/UI evidence; not independently replayed here.
+- Source-only packages intentionally omit the donor models/textures, original game executables and private visual captures; therefore original-source playback, exact native Windows SDK builds, and new D3D8 gameplay cannot be independently claimed.
+
+## 2. Confirmed shared fixes and limits
+
+- Raw source streams are now independently bound to stream hashes, strides and vertex counts, rejecting substitution by recomputing transport manifests. Additional typed UV and per-corner colors are validated. Extra texture stages/UV cannot silently disappear: explicit source-feature policy or refusal is required.
+- Evidence-bound semantic contracts identify mesh/material/source-face ownership without painting body panels transparent, fragmenting reflection material groups, duplicating geometry or inventing damage controllers. Common partition maintains complete original surfaces, with unknown classifications retained.
+- Qualified MR wheel-controller profiles explicitly require FL/FR/RL/RR; geometrically present extra wheels do not imply new runtime capacity. Shared source/native preflight checks position, normals, UV, winding, repeat determinism and source immutability. It is an offline compiler gate, not physics/collision/D3D8 certification.
+- Seven source cases: Evo2 4Runner, Michelin RAV4/Mégane, Dakar2 Xbox Pajero/Hino/Nissan and PC Paris-Dakar Silver. Exact accepted geometry output and texture bytes remain unchanged: three accepted DX per Evo2/RAV4/Silver reference plus 23 DXT across the cases.
+- 132 present Dakar2 Xbox UV1 channels (Pajero 42, Hino 47, Nissan 43) are exactly equal to UV0 in the selected corpus, but this does NOT resolve secondary textures, Xbox combiner semantics, alpha activation or native material policy.
+- Evo2 original nine TRK color records, 360/100 HSV divisor constants and separate color planes have new original EXE evidence. TIFF second-plane interpretation and complete original output remain WARN, not proven alpha.
+
+## 3. Remaining priorities after hardening
+
+**Immediate P1 — RAV4 owner visual microfix and project reconciliation.** The latest hardening tree is based on the previous RAV4 pilot and does NOT contain the separate complete v7.8 owner-feedback section. Incorporate v7.8 into the repository Master Plan and preserve the live RAV4 microfix branch/work, if any, without an unrequested merge. Owner confirmed in-game driving, body/glass damage and mostly correct appearance, but reported pink cutout fringe at wheel spokes and incompletely lit rear lamps. Verify pixel alpha/RGB filtering in derived wheel textures and source-face-to-lens coverage; only owner D3D8 comparisons can approve corrections.
+
+**P1 — Michelin Mégane native readiness.** Its geometry/UV/wheels compile as an offline fixture, not a complete native MR candidate. Individually qualify the original 67 flagged potential window faces, rear lamp material/UV boundaries, wheel side mapping, explicit MR physics/collision/crew/presentation/engine build. Never copy RAV4 polygon/atlas IDs or auto-promote a candidate without owner verification.
+
+**P1 — Dakar2 Xbox material and assembly policy.** This remains L3 BLOCKED for Pajero/Hino/Nissan. Investigate the game's four texture binding fields, actual per-draw alpha and secondary combiner behavior using original XBE and GPU evidence. Create *bounded, per-material* MR interpretations or explicit audited omissions, not a blanket global diffuse-only waiver; then verify windows, body, wheel interiors, lamps and equipment as native geometry/draw fixtures before a gameplay slot. Hino additionally needs qualified truck collision/physics/wheel runtime architecture, not SUV assumptions.
+
+**P2 — Evo2 Source Fidelity.** Clarify TIFF two-plane palette/color/alpha association and auxiliary Light*/Axler handling when original executable evidence permits. Keep 4Runner's accepted static/MR gameplay untouched and leave full bump/reflection/active suspension source parity bounded WARN where unavailable. Never revive the rejected optional reflection/glazing/duplicate wheel/frame enhancements.
+
+**P2 — Source rendering fidelity.** Xbox shaders/samplers/runtime equipment, Michelin original dynamic damage/LOD/settlement and Evo2 original materials may remain exact, visible WARN if unrelated to safe MR native authoring. No forced status promotion to PASS.
+
+**P3 / deferred**: Historical external Pajero spare overlay is independently reversible, not original Xbox-equipment; three authentic spares are internal in source cage. Unqualified wheel-backing caps, handcrafted beta livery, Blender Bridge and optional visual suspension are future user-authoring work, not native-import blockers. PC Silver stiffness remains a separate optional Physics Studio adjustment.
+
+## 4. Qualification and stopping gates
+
+- For each donor, track L0 file/source integrity, L1 structures, L2 original source rendering, L3 MR native build/collision/roles, and L4 actual owner D3D8 race checks independently. A passing source compiler is L3 WARN at best without controllers/physics/collision/roster integration.
+- Run semantic/material preflight on Michelin RAV4 and Mégane and Evo2, then native fixtures against accepted references; extend Dakar2 only with explicit verified per-material policy. Add adversarial tests that reproduce previous gameplay-reported wheel halos, lamp leakage and wrong material ownership.
+- Reconcile latest user feedback with hardening reports: current corpus's `L4 NOT TESTED` denotes no *new* owner gameplay test in this hardening stage and must not negate already documented owner 4Runner, Silver and RAV4 driving experiences.
+- Maintain source-only packages and provenance, original installations/read-only assets, original MR executables/SMA/DLL, accepted projects/Randomizer and the established 30-entry roster boundary. No unauthorized push, publication, cross-branch merge, source donor asset distribution or new-car runtime installation.
+- Next priority is first to finish RAV4 visual approval and to qualify Mégane as the next *separate* native candidate; Xbox Pajero native material policy is the main remaining universal donor blocker. Do not start new games or chase full original engine emulation.
+
+
+---
+
+# Master Rallye Vehicle SDK — Master Plan v8.0
+
+**30 October 2026 — proposed combined qualification milestone: Dakar 2 Xbox materials + 4x4 Evo 2 TIFF/color semantics + Michelin RAV4 visual microfix.** This document is a planning checkpoint authored from the owner's new instruction and previously reviewed v7.9 source reports. It does not represent implemented code, a new commit, or fresh gameplay verification. All prior v7.9 content is preserved byte-for-byte above.
+
+## Decision and ordering
+
+No new source game or vehicle fleet will be researched until the existing donor materials/native bridge are hardened. Combine the previously separate work items into one explicitly partitioned implementation milestone, with **Dakar2 Xbox native material readiness as P1 / first priority**, followed by **Evo2 dual-sample TIFF and nine-color source-material research**, and **RAV4 two-defect visual microfix** in independent reversible branches/candidates. All contribute to a single source-qualified material feature policy, provenance, visual coverage diagnostics and regression suite; do not combine unrelated patches into one vehicle-specific workaround.
+
+### A. Dakar2 Xbox — L3 BLOCKED material translation
+
+- Original source shader at `default.xbe` and recovered four texture bindings at the original loader path must be investigated with verified per-draw evidence: stage samplers and coordinates, UV1 usage (132/132 present arrays alias UV0 in selected Pajero/Hino/Nissan), combiners, vertex colors, alpha-test activation/reference, blend/depth/cull, texture addressing, equipment/LOD and missing wheel interior semantics.
+- Preserve exact original Xbox source meshes/textures and L2 WARN for incomplete original runtime parity. Design explicit per-material interpretations for MR native body, glass, lamps, mirrors, wheel/tyre/interior, cab, and equipment, with no blanket secondary-stage discard and no opaque-body alpha leak. A narrowly evidence-qualified omission may be represented as a declared WARN, never as source-fidelity PASS.
+- Validate independent material, geometry and authoring preflight fixtures for **Pajero, Nissan Pickup and Hino**. Hino truck physics/collision/axle issues remain separately BLOCKED until qualified, even if material policy is solved. No new CarID, roster change or native gameplay installation here.
+
+### B. 4x4 Evo2 — TIFF second sample, colors and material pipeline
+
+- Verify exact `4x42.exe` loader path around `005d7980` and `004273d0`, nine original TRK HSV color records and 360/100/100 float64 divisor constants, including true consumer linkage from TIFF two 8-bit samples/ExtraSamples0 to final color/material outputs.
+- Do **not** interpret ExtraSamples0 as generic alpha or synthesize original alpha from a convenience decoder; compare source-preserving plane values, palette lookup and real source/runtime color selections. If full semantics are not proved, preserve raw planes and bounded WARN, with no automatic effect on accepted 4Runner.
+- Source original bump, reflection, auxiliary Light*/Axler and suspension passes remain qualified independently; do not revive rejected 4Runner rear glazing, fragmented reflections, duplicate wheel or disconnected underbody frame.
+
+### C. Michelin RAV4 — two scoped gameplay defects
+
+- Owner D3D8 confirmed driving/body/glass damage, with **magenta edge halos around open wheel spokes** and **incomplete/fragmented rear brake illumination**. Verify original index0/magenta coverage vs derived uncompressed BGRA `.dxt`, sampler/filter/alpha-test treatment, and geometry-to-UV-to-lamp-mask coverage; avoid unsupported DXT block-compression claims.
+- Create isolated baseline (A), wheel-only (B), lamp-only (C), and combined (D) candidates after independent qualification. Preserve original pixels/alpha/UVs and OFF appearance; don't fix lamps by glowing unrelated red body surfaces. An actual RAV4 D3D8 comparison is required before accepting either microfix as L4 PASS.
+- Keep Renault Mégane F2 as separate L3 readiness reference (its 67 flagged glass faces and different lamp/physics authoring remain UNQUALIFIED); no copy of RAV4 face IDs, texture rectangles, donor setup or new native Mégane build during this combined milestone.
+
+## Shared acceptance and tests
+
+1. Reconcile current Git history with this full v8.0 Master Plan and retain prior v7.8 owner feedback plus v7.9 Hardening checkpoint, without unauthorized branch merge or overwriting in-flight user work.
+2. Extend existing `scene_semantics`, `source_qualification`, `universal_scene_bridge` feature policies only when source-evidence-backed. Explicitly distinguish original source material semantics, conservative MR translation and omitted effects. Retain L0/L1/L2/L3/L4 and P0–P3 independently; never convert BLOCKED to PASS through a label change.
+3. Add synthetic negative tests and original-source regression for palette/second-plane ambiguity, partial multi-stage loss, transparent body/frame ownership, alpha fringe at wheel cutouts, complete rear lens coverage/no glow spill, stage combiners, source hash and UV/face conservation, deterministic output and rollback.
+4. Retest seven established scenes: Evo2 4Runner, Dakar2 Xbox Pajero/Hino/Nissan, Michelin RAV4/Mégane, PC Paris-Dakar Silver, alongside all accepted vehicle build references. Protect original MRall​ye.exe, retail Data.sma, installed d3d8.dll, donor installations, Randomizer and known 30-entry roster/alternative CarID29.
+5. Deliver updated `SOURCE_GARAGE_QUALIFICATION_MATRIX.md`, a per-stage Xbox material evidence/policy report, Evo2 dual-plane decoder/color report, RAV4 wheel/lamp coverage report, independent preview comparisons, preflight traces, focused/full Windows regressions, source-only archives, Help/CAPABILITIES/REGRESSION_MATRIX/COMMIT_LEDGER and an owner D3D8 checklist. Local validated commits only; no pushes or publication. Stop for owner review when qualified fixes and explicit remaining blockers are documented; no new game or CarID.
+
+**Success:** Dakar2 material BLOCKED conditions are resolved with verified per-material MR conversions or exposed as exact reproducible blockers; Evo2 second-plane semantics are genuinely proven or honestly bounded without fake alpha; RAV4 has two isolated user-testable visual fixes; previously accepted gameplay and resources remain unchanged. Full Xbox/4x4 Evo/Michelin original-engine shader emulation is not a requirement for safe MR import.
+
+
+## Cross-game material fidelity checkpoint — v8.0, 30 October 2026
+
+Baseline `e7353076512431b5ec71456bde9c2d203eb77336` was verified as clean
+`research/vehicles`. The complete attached v8.0 reconciles the prior Master by
+insertions only: v7.8 owner feedback and v7.9/v8.0 history are retained without
+deleting any earlier line. The live user request controls this milestone.
+
+Dakar2 now has an original-byte-qualified60-word NV2A combiner decoder/evaluator
+and154 per-draw material reports across Pajero56/Nissan51/Hino47. Multi-map RGB
+is `T0.rgb*V0.rgb + T1.a*clamp(T2.rgb*C0(stage1).a)` with saturation, alphaT0.a;
+simple materials multiplyT0 by vertex-programV0. All132 present UV1 arrays still
+alias UV0, but original stage coordinate generation, V0 lighting, effective
+mapped constant and conditional coverage remain required. **Material L3 stays
+BLOCKED**, with no fake diffuse-only fixture. Source declarations/shader hashes
+are a non-omittable shared bridge requirement, even if a caller waives stage
+bindings. Hino truck physics/collision/suspension remain independent blockers.
+See DAKAR2_NATIVE_MATERIAL_QUALIFICATION.md.
+
+Evo2 original TIFF loader byte routing and isolated original x86 pre-gloss
+consumer establish sample0 palette indices and sample1 recolor/high-byte control.
+Auxiliary<=128 retains RGB;255 selects adjusted palette;129..254 blends using
+float32(auxiliary-128)/127 and native truncation. Exact original HSV helpers and
+nine TRK records reconstruct9 separate, deterministic reopenable source scenes;
+original TIFF/planes/palette/catalog are rechecked. The high byte is retained,
+never called ordinary opacity. Optional bump/gloss/GPU effects stay WARN.
+Source Garage offers separate original-color scenes; their native Create is
+disabled. Accepted4Runner is unchanged. See EVO2_TIFF_COLOR_SEMANTICS.md.
+
+RAV4 owner-confirmed loading/appearance/driving/body damage/breakable glass is
+historical partial L4 evidence. Race completion/Results remain unconfirmed.
+New isolated A/B/C/D copies preserve the original candidate. Wheel-onlyB changes
+2419 zero-alpha RGB texels in the one indexed rim map; visible pixels/coverage,
+UV, geometry and native state remain exact. Lamp-onlyC uses336 explicit lens
+texels and10 source faces, retaining ordinary diffuse surfaces under masked
+emission/glow; no white body lighting loss. Both intact OFF and broken-glass
+surface multisets and collision/bounds suffix are exact. D combines independent
+offline checks. All four launcher verify/environment/allocation checks pass.
+Final explicit race D3D9 views show the wheel fringe removed inB/D and revised
+bounded lamps. **Corrected D3D8 remains OWNER PENDING.** No existing project was
+modified. See MICHELIN_RAV4_VISUAL_MICROFIX.md for launch paths/checklist.
+
+Fresh7-case preflight: L0/L1 PASS, L2 WARN; generic native geometry WARN for
+Evo2/RAV4/Megane/Silver; Dakar2 BLOCKED. Generic preflight L4 NOT TESTED means no
+new owner run in this stage, not cancellation of historical owner evidence.
+Three accepted source-baseline DX each for Evo2/RAV4/Silver and23 DXT remain
+exact. Mégane is still a readiness reference, not a new native vehicle.
+
+Validation:89 focused tests PASS; full available Windows suite1240 tests OK,
+2 existing optional skips,77.518s. Seven actual hidden Tk open/worker/preflight
+dialogs and Evo2 color-worker derivation/reopen pass without focus activation.
+Protection:12742 files/15853855826 bytes, including307 sealed accepted RAV4
+resources, zero changed/missing. Mutable owner state outside the index was not
+reset. Private `.research-output/vehicles/cross-game-materials/` holds corpus,
+native shader evidence, color scenes, A/B/C/D, final GPU evidence and logs.
+Metadata-only CROSS_GAME_MATERIAL_PROVENANCE.json separates levels and evidence.
+
+No original EXE/SMA/DLL/disc/install, accepted project, Randomizer, roster or
+alternativeCarID29 was changed. No push/publication, new playable Dakar/Megane,
+new CarID, donor, fleet, Blender Bridge, historical livery or physics tuning.
+Stop here for review and owner RAV4 comparison.

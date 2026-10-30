@@ -30,6 +30,22 @@ TEXTURES={'body-tga.dxt':texture([(90,90,90,255)]),'lamp-tga.dxt':texture([(200,
 
 
 class AutoFeatureTests(unittest.TestCase):
+    def test_masked_lamp_retains_diffuse_body_in_both_states(self):
+        raw=model();states,_,_=af.derive(raw,TEXTURES)
+        states['brake']['mode']='masked_overlay'
+        data,report=author_states(raw,states);parsed=parse_dx_bytes(data)
+        self.assertTrue(report['intact_off_geometry_normals_uv_materials_identical'])
+        cases,_=logical_cases(parsed)
+        off=[d for d in parsed.physical_draws if cases.get(d.draw_index)==(1,1)]
+        on=[d for d in parsed.physical_draws if cases.get(d.draw_index)==(1,2)]
+        self.assertEqual(len(off),1);self.assertEqual(len(on),3)
+        self.assertEqual(off[0].texture_tuple,on[0].texture_tuple)
+        self.assertEqual(off[0].flags_0x20,on[0].flags_0x20)
+        self.assertEqual(tuple(on[1].flags_0x20)[:2],(1,1))
+        self.assertEqual(data,author_states(raw,states)[0])
+        states['brake']['mode']='guess'
+        with self.assertRaises(ValueError):author_states(raw,states)
+
     def test_sidecar_mesh_names_and_patterns(self):
         text='moMesh(Name [glass $glass] Index 4 Size 6)\nmoMesh(Name [blight $perspex] Index 10 Size 2)\nmoMesh(Name [blcase $perspex] Index 12 Size 2)'
         meshes=af.sidecar_meshes(text)
