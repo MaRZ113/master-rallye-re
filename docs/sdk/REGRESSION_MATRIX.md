@@ -607,3 +607,23 @@ See MICHELIN_ASSEMBLY_RESULTS.md and PAJERO_SPARE_PROBE_RESULTS.md. Private exac
 | Megane F2 | Neutral scene preserved, model-specific native plan; no CarID or native promotion |
 
 Detailed qualification/outcomes: MICHELIN_FIDELITY_QUALIFICATION.md. Exact metadata: MICHELIN_NATIVE_PROVENANCE.json; private resource differences in michelin-native/conservation/validation.json. No Silver tuning, accepted project edits, fleet import or publication.
+
+
+## Source Garage hardening — 30 October2026
+
+| Check | Result / boundary |
+|---|---|
+| Seven original scenes | Evo2 4Runner, Michelin RAV4/Megane, Dakar2 Pajero/Hino/Nissan, PC Silver; exact source identity/structure PASS, L2 WARN |
+| Common hostile-data gates | Raw stream source hash/stride/count, corner colors/secondary UVs, implicit UV/stage loss, overlap/alpha/reflection roles and conservative partition PASS |
+| UV1 original data |132 present streams =42 Pajero+47 Hino+43 Nissan; every stream exactly aliases UV0. Original/typed MRPVs and3 D3D9 isometrics identical; no shader-equivalence claim |
+| Native geometry conservation | Four explicit-profile cases, inverse position max1.7763568394002505e-15; normal max2.220446049250313e-16, UV/winding and repeats PASS |
+| Accepted native source-baseline | Evo2/RAV4/Silver3 DX each +23 emitted DXT total byte-identical; accepted native outputs untouched |
+| RAV4 semantic contract |804 unique source triangles accounted;1260 instanced triangles split into32 ordinary native parts, no new alpha/controllers/overlays |
+| Original Evo2 code | Exact EXE SHA,3 PE instruction samples and float64 HSV constants verified; full TIFF-plane/source-renderer interpretation still WARN |
+| Actual Windows GUI/GPU | Hidden Tk open/worker/report for7 scenes, zero errors, no focus activation; seven six-view/close-up/material sets,3 typed-UV before/after and fresh Michelin MR-rest views |
+| Focused |72 tests OK; source-free adversarial and source/pilot regressions |
+| Full Windows |1204 tests OK,2 existing optional skips;final log full-windows-final.log |
+| Protected originals/candidates |12742 files /15853855826 bytes, including307 sealed RAV4 resources; zero changed/missing; mutable owner state not reset |
+| Native/gameplay boundary | Generic dry-run L3 WARN; Dakar2 L3 BLOCKED; no new slot/candidate, L4 NOT TESTED by this stage |
+
+Exact metadata: SOURCE_GARAGE_CORPUS_PROVENANCE.json; native/source unknowns: SOURCE_GARAGE_QUALIFICATION_MATRIX.md. Owner RAV4 gameplay remains pending feedback; Silver stiffness unchanged. No new donor, fleet, art, Blender Bridge, capacity experiment, push or publication.

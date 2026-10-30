@@ -56,7 +56,7 @@ def _rgba(value,label):
 def _profile(profile,scene,scene_hash):
     required={'schema','source_scene_sha256','normalized_to_mr','authoring_transform','transform_evidence',
               'body_node_ids','wheel_slots','canonical_wheel_slot','materials','texture_row_policy','uv_v_policy'}
-    optional={'hub_overrides','hub_evidence','wheel_local_transforms','wheel_transform_evidence'}
+    optional={'hub_overrides','hub_evidence','wheel_local_transforms','wheel_transform_evidence','source_feature_policy','semantics'}
     if not isinstance(profile,dict)or set(profile)-required-optional or not required<=set(profile)or profile['schema']!=SCHEMA:
         raise ValueError('unsupported neutral scene MR profile')
     if profile['source_scene_sha256']!=scene_hash:raise ValueError('immutable source scene/profile hash mismatch')
@@ -143,6 +143,14 @@ def compile_scene(scene_path,profile,*,references=None):
     scene=uvs.load_scene(path);source_hash=uvs.sha(raw)
     if uvs.canonical(scene)!=raw:raise ValueError('canonical immutable scene serialization required')
     nodes=_profile(profile,scene,source_hash)
+    from . import scene_semantics
+    selected_nodes={*profile['body_node_ids'],*profile['wheel_slots'].values()}
+    selected_meshes={mid for key in selected_nodes for mid in nodes[key]['mesh_ids']}
+    feature_audit=scene_semantics.feature_policy(scene,profile.get('source_feature_policy',{}),selected_meshes,require_bump='semantics'in profile)
+    semantics_audit=scene_semantics.validate(scene,profile['semantics'],source_hash)if 'semantics'in profile else None
+    if semantics_audit is None and any(rule.get('environment_reference')is not None for rule in profile['materials'].values()):
+        raise ValueError('native reflection requires complete source material ownership contract')
+    if semantics_audit is not None:scene_semantics.native_roles(scene,profile,profile['semantics'])
     meshes={row['id']:row for row in scene['meshes']};materials={row['id']:row for row in scene['materials']}
     textures={row['id']:row for row in scene['textures']};references=references or {}
     world={};visibility={}
@@ -269,6 +277,8 @@ def compile_scene(scene_path,profile,*,references=None):
                            'native controllers, damage, shadows and collision are authored by existing SDK services',
                            'source animation frames retained in immutable neutral scene; selected static positions compiled']}
     if uvs.sha(uvs.read_bounded(path,uvs.MAX_JSON_BYTES))!=source_hash:raise ValueError('immutable scene changed during compilation')
+    if feature_audit:report['source_feature_dispositions']=feature_audit
+    if semantics_audit is not None:report['semantic_ownership']=semantics_audit
     canonical=profile['canonical_wheel_slot']
     return {'body_parts':body_parts,'complete_parts':complete_parts,'wheel_parts_by_slot':wheel_parts_by_slot,
             'wheel_parts':wheel_parts_by_slot[canonical],'textures':output_textures,'report':report}

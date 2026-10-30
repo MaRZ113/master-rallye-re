@@ -145,6 +145,10 @@ class UniversalSceneBridgeTests(unittest.TestCase):
     def test_environment_reference_is_explicit_native_and_hash_pinned(self):
         blob=struct.pack('<5I',0xfeed,1,0,1,1)+bytes((3,2,1,255))
         self.profile['materials']['material']['environment_reference']={'key':'stock','sha256':uvs.sha(blob)}
+        with self.assertRaisesRegex(ValueError,'ownership contract'):self.compile()
+        self.profile['semantics']={'schema':'universal-vehicle-semantics/1','source_scene_sha256':self.profile['source_scene_sha256'],
+            'claims':[{'mesh_id':m['id'],'material_id':'material','triangles':'all','role':'reflective_paint','interpretation':'mr_authoring',
+                       'evidence':'Synthetic complete original material coverage'}for m in self.scene['meshes']]}
         with self.assertRaisesRegex(ValueError,'reference hash'):self.compile()
         result=self.compile(references={'stock':blob});self.assertTrue(result['body_parts'][0].environment)
         self.assertIn(blob,result['textures'].values())
@@ -194,8 +198,9 @@ class UniversalSceneBridgeTests(unittest.TestCase):
         self.save();self.profile['materials']['material'].update(preserve_source_colors=True,vertex_rgba=[255,255,255,128])
         self.assertEqual(self.compile()['body_parts'][0].geometry.vertices[0].color,bytes((11,22,33,128)))
         for bad in (None,[[256,0,0,255]]*3,[[1,2,3,4]],[[1.,2,3,4]]*3):
-            self.scene['meshes'][0]['preview_colors_bgra']=bad;self.save()
-            with self.assertRaises(ValueError):self.compile()
+            self.scene['meshes'][0]['preview_colors_bgra']=bad
+            with self.assertRaises(ValueError):
+                self.save();self.compile()
 
     def test_common_scene_dx_writer_accepts_all_three_outputs_and_retains_collision(self):
         template,_=native_template();result=self.compile()

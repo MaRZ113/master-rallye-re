@@ -158,3 +158,10 @@ Open the private `.research-output/vehicles/michelin-native/final-pilot/workshop
 Original Source Garage RAV4/Megane scenes still reopen independently with opaque source glass and L2 WARN. The native RAV4 has original geometry/livery, measured proper wheel rotations and a separate uniform MR scale, bounded MR pane/brake recipes, Forester physics/audio and original static Michelin crew. Extra crew fitting is unsupported. Source Fidelity baseline and originals are immutable; ordinary edits have Undo/Redo/Restore. Reflections start disabled. Never use external Michelin damage targets as intact positions.
 
 Build/launch the independent candidate using its own Launch-SDK-Roster.cmd. It occupies alternative CarID29 in30 entries and does not replace accepted Silver/Trooper/Clio configurations. Actual driving, wheel motion, glass damage, brake timing, Results and race re-entry remain owner tests: MICHELIN_RAV4_OWNER_CHECKLIST.md. Megane F2 is a neutral follow-up, not a renamed Maxi or approved MR import.
+
+
+## Source Garage qualification preflight
+
+Reopen a source scene, then choose Qualification preflight. This read-only report shows source integrity/structure, retained unknowns and extra UV/texture stages. Without an explicit native authoring profile, L3 is BLOCKED; a valid neutral preview is not a native candidate. CLI source_garage_preflight.py can also inspect an explicit profile/ownership contract in a fresh output folder.
+
+Extra UV/stages require an evidenced disposition; identical UV aliases do not reproduce source shaders. Role contracts prevent mixed body/glass/frame ownership and fragmented reflective material coverage. Shared partitioning preserves exact geometry and material flags; existing native glass/lamp services still require explicit authoring. Missing roles remain unknown rather than guessed. Nothing in this report edits originals or the currently tested RAV4. L2 remains WARN for the present donor renderers, and D3D8 owner results remain separate. See SOURCE_GARAGE_QUALIFICATION_MATRIX.md and UNIVERSAL_NATIVE_BRIDGE_QUALIFICATION.md.

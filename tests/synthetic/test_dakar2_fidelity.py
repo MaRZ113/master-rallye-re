@@ -11,6 +11,23 @@ from tests.synthetic.test_source_scene_preview import scene_fixture
 
 
 class FidelityTests(unittest.TestCase):
+    def test_typed_uv1_exposure_preserves_original_geometry_and_raw_streams(self):
+        from tests.synthetic.test_universal_vehicle_scene import fixture
+        from master_rallye.source_adapters.dakar2_fidelity import expose_uv1
+        with tempfile.TemporaryDirectory()as tmp:
+            root=Path(tmp);source=root/'original';source.mkdir();scene,assets=fixture(source)
+            scene['metadata']['adapter']='dakar2-xbox-source/1'
+            raw=struct.pack('<6f',0,0,1,0,0,1);assets['streams/uv1.bin']=raw
+            scene['meshes'][0]['source']['streams']={'10':{'path':'streams/uv1.bin','sha256':u.sha(raw),'stride':8}}
+            saved=u.save_scene(scene,root/'scene',assets);original=(root/'scene/scene.json').read_bytes()
+            a=expose_uv1(root/'scene/scene.json',root/'derived');b=expose_uv1(root/'scene/scene.json',root/'repeat')
+            self.assertEqual(a['scene_sha256'],b['scene_sha256']);self.assertEqual(a['exact_uv0_aliases'],1)
+            reopened=u.load_scene(root/'derived/scene.json');mesh=reopened['meshes'][0]
+            self.assertEqual(mesh['uvs'],mesh['uv_channels']['1']['values'])
+            self.assertEqual(mesh['positions'],scene['meshes'][0]['positions'])
+            self.assertEqual((root/'derived/streams/uv1.bin').read_bytes(),raw)
+            self.assertEqual((root/'scene/scene.json').read_bytes(),original)
+
     def test_original_row_vector_rotation_transposes_to_uvs(self):
         m=compact_transform([1,0,0,0,0,-1,0,1,0,2,3,4])
         self.assertEqual(u.transform_point(m,[0,1,0]),[2,3,3])

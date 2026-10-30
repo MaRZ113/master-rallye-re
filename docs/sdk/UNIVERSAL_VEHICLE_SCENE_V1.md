@@ -56,3 +56,8 @@ their own fields rather than inventing universal meanings for every flag.
 Other sources, a richer rig/LOD model, conversion policies, semantic edits and
 MR authoring remain separately reviewed work. See EVO2_SOURCE_ADAPTER_RESULTS.md
 for actual-file qualification and Windows preview evidence.
+
+
+## Backwards-compatible hardening extension — 30 October2026
+
+Existing UVS v1 serialized scenes and MRPV v1/v2 remain unchanged. Optional mesh uv_channels1..3 retain float2 values/evidence with exact vertex association; uvs stays UV0. Per-corner BGRA is checked at save/reopen, and every declared raw source stream is independently bound by path/stride/count/hash to the manifest. Original values, UVs, palettes/extra samples, transforms, streams and unknowns remain immutable. External semantic contracts and explicit native loss policies are described in UNIVERSAL_NATIVE_BRIDGE_QUALIFICATION.md; they do not add source-derived CarIDs/physics or infer alpha/damage from names. Typed Dakar2 UV1 exposure creates separate projects, preserving132 exact UV0 aliases and all original source sidecars.

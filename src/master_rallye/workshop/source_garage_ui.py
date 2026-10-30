@@ -112,6 +112,7 @@ class SourceGarageWindow:
         self.action_buttons["Create 4Runner Stable…"] = ttk.Button(authoring, text="Create 4Runner Stable…", command=self.create_mr_dialog)
         self.action_buttons["Create 4Runner Stable…"].pack(side="left")
         ttk.Button(authoring, text="Source / MR Help", command=lambda:self.app.show_help('universal-source')).pack(side="left", padx=8)
+        ttk.Button(authoring, text="Qualification preflight", command=self.qualification).pack(side="left", padx=8)
         self.identity = tk.StringVar(value="Toyota 4Runner SR5 Sport Package 2WD · catalog T4RSR52 · neutral D3D9 approximation · unspecified TIFF channel is not assumed alpha")
         ttk.Label(self.window, textvariable=self.identity,
                   padding=(10, 0)).pack(fill="x")
@@ -168,6 +169,19 @@ class SourceGarageWindow:
             if self.window.winfo_exists():
                 done(value); self._controls()
         self.app.run(title, work, finish)
+
+    def qualification(self):
+        if self.scene_root is None or self.app.busy:
+            self.status.set('Reopen a source scene before qualification.');return
+        from master_rallye.source_qualification import preflight
+        def show(report):
+            dialog=tk.Toplevel(self.window);dialog.title('Source qualification — no native authoring policy selected')
+            dialog.transient(self.window)
+            dialog.geometry('950x700')
+            text=tk.Text(dialog,wrap='word');text.pack(fill='both',expand=True)
+            text.insert('1.0',json.dumps(report,indent=2,ensure_ascii=False));text.configure(state='disabled')
+        path=self.scene_root/'scene.json'
+        self.app.run('Read-only source qualification',lambda:preflight(path),show)
 
     def create_mr_dialog(self):
         if self.scene is None or self.app.busy:return

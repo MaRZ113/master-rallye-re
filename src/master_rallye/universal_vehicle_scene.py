@@ -177,6 +177,18 @@ def _bindings(scene):
                 expected=by_member.get(relative_name(claim.get('member')).casefold())
                 if expected is None or any(claim.get(key)!=expected[key]for key in ('snapshot_path','bytes','sha256')):
                     raise ValueError('texture source provenance is not bound to original resource')
+    # Raw vertex streams are independent source claims, not arbitrary manifest
+    # attachments. Rewriting a manifest must not silently change their identity.
+    for mesh in scene['meshes']:
+        streams=mesh['source'].get('streams',{})
+        if not isinstance(streams,dict)or len(streams)>32:raise ValueError('vertex stream table budget')
+        for slot,stream in streams.items():
+            if not isinstance(stream,dict):raise ValueError('vertex stream record required')
+            path=relative_name(stream.get('path'));_hash(stream.get('sha256'))
+            stride=stream.get('stride')
+            if type(stride)is not int or not 1<=stride<=256:raise ValueError('vertex stream stride budget')
+            size=len(mesh['positions'])*stride;_size(size)
+            result.append((path,size,stream['sha256']))
     return result
 
 
@@ -221,6 +233,20 @@ def validate_scene(scene: dict) -> dict:
         for row in ps:vector(row,3)
         for row in ns:vector(row,3)
         for row in uv:vector(row,2)
+        colors=mesh.get('preview_colors_bgra')
+        if colors is not None:
+            if not isinstance(colors,list)or len(colors)!=len(ps):raise ValueError('source corner colors count mismatch')
+            for color in colors:
+                if not isinstance(color,list)or len(color)!=4 or any(type(v)is not int or not 0<=v<=255 for v in color):
+                    raise ValueError('invalid source BGRA colors')
+        channels=mesh.get('uv_channels',{})
+        if not isinstance(channels,dict)or set(channels)-{'1','2','3'}:raise ValueError('secondary UV channel budget')
+        for channel in channels.values():
+            if not isinstance(channel,dict)or not isinstance(channel.get('evidence'),str)or not channel['evidence'].strip():
+                raise ValueError('secondary UV channel evidence required')
+            values=channel.get('values')
+            if not isinstance(values,list)or len(values)!=len(ps):raise ValueError('secondary UV association mismatch')
+            for row in values:vector(row,2)
         for face in tri:
             if not isinstance(face,list) or len(face)!=3 or any(not isinstance(i,int) or isinstance(i,bool) or not 0<=i<len(ps) for i in face):
                 raise ValueError('invalid geometry/UV vertex index')

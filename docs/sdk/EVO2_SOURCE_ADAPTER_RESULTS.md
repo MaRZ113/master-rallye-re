@@ -179,3 +179,8 @@ No parallel format campaign was started. Accepted Lancer, Subaru, Pajero,
 Trooper/Heritage and Clio projects, isolated CarID29 alternatives, the 30-entry
 roster boundary and original MR files are preserved. No push/publication/release.
 **Stop here for review before any MR conversion or additional donor adapter.**
+
+
+## Later hardening checkpoint — 30 October2026
+
+Original pilot results above remain historical. The common UVS contract now validates raw streams, colors and optional secondary UV data; the shared bridge has explicit loss policies and bounded semantic ownership/partition operations. Evo2's accepted native source-baseline resources reproduce exactly. Original TIFF secondary-sample, shader/color output, auxiliary dynamic passes and settlement limitations remain visible; no accepted4Runner change. Current outcomes and native/reference boundaries: SOURCE_GARAGE_QUALIFICATION_MATRIX.md.

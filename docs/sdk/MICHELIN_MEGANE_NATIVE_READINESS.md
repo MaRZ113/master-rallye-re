@@ -15,3 +15,8 @@ Shared qualifying path is ready for intact geometry/UV/color preservation, expli
 | External damage targets | Preserve separately; use existing MR native damage only after validating its own resource/alpha ownership |
 
 Next native milestone starts **after RAV4 owner gameplay findings**: settle steering/spin/travel, material and native glass behavior, then implement an exact Mégane-specific authoring recipe over the same bridge. Choose its own donor physics/audio, pane mapping, collision and namespace; generate a separate30-entry configuration and repeat source conservation, CPU damage replay, studios, D3D9/launcher checks and owner gameplay gate. No fleet importer or roster expansion is justified.
+
+
+## Common hardening checkpoint
+
+A deterministic geometry/material-only native fixture passes shared inverse-position/normal/UV/winding checks with1516 instanced triangles. It creates no registry entry, CarID, native physics/controllers or playable package. Generic semantic contracts/partitioning are available for its own bounded panes/lamps after RAV4 feedback; the RAV4 face recipe is not reused automatically. Original runtime and full native readiness remain WARN/BLOCKED as recorded in SOURCE_GARAGE_QUALIFICATION_MATRIX.md.

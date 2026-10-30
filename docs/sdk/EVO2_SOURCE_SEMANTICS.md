@@ -200,3 +200,8 @@ slots, static high-detail transforms and stock BODY mask. Still unqualified:
 original running-game graphics/LOD selection, complete axle/light/damage passes,
 settled suspension state, native shader appearance, model colors in original
 runtime and any MR gameplay. No original file was modified or executed.
+
+
+## Source Garage hardening follow-up — 30 October2026
+
+Current original observations above remain intact. New exact4x42.exe analysis follows005d7980→004273d0 for the nine TRK HSV color records; float64 divisors360/100/100 and three code samples are checked against original PE mappings/bytes. A dual-plane consumer and recolor/high-byte branches are observed, but the complete TIFF second-plane association and renderer semantics remain WARN. Never convert unspecified ExtraSamples0 to ordinary alpha. No nine-color renderer parity, bump/reflection, dynamic Light*/Axler pass or settled-pose qualification is claimed. Six source views and diagnostics were refreshed. Accepted4Runner source-baseline3 DX/3 emitted DXT bytes are identical; six original L/R detail resources and high-detail exclusion of the1.05 low-detail factor remain. No source or accepted vehicle edit. See SOURCE_GARAGE_QUALIFICATION_MATRIX.md / SOURCE_GARAGE_WARN_RESOLUTION.md.

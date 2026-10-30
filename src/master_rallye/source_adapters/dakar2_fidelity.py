@@ -14,6 +14,31 @@ from .dakar2_formats import RBB, digest, sbb_entries
 VERSION = 'dakar2-render-research/1'
 
 
+def expose_uv1(source,output):
+    """Expose an already retained source stream as typed UVS, without shader guesses."""
+    source=Path(source);scene=uvs.load_scene(source)
+    if scene['metadata'].get('adapter')!='dakar2-xbox-source/1':raise ValueError('Qualified Dakar2 source scene required')
+    original=deepcopy(scene);manifest=uvs.load_json(uvs.read_bounded(source.parent/'manifest.json',2*1024*1024))
+    assets={name:uvs.read_bounded(source.parent/name,uvs.MAX_OUTPUT_BYTES)for name in manifest['files']if name!='scene.json'}
+    aliases=0;count=0
+    for mesh in scene['meshes']:
+        stream=mesh['source'].get('streams',{}).get('10')
+        if stream is None:continue
+        raw=assets[stream['path']]
+        if stream['stride']!=8 or len(raw)!=8*len(mesh['positions'])or uvs.sha(raw)!=stream['sha256']:
+            raise ValueError('Original UV1 stream association mismatch')
+        values=[list(v)for v in struct.iter_unpack('<2f',raw)]
+        mesh['uv_channels']={'1':{'values':values,'evidence':'Exact original XMD stream10 float2, original bytes/hash retained; shader use remains unknown'}}
+        aliases+=values==mesh['uvs'];count+=1
+    scene['metadata']['typed_uv1_research']={'source_scene_sha256':digest(source.read_bytes()),'meshes':count,
+        'exact_uv0_aliases':aliases,'source_shader_equivalence':False}
+    for before,after in zip(original['meshes'],scene['meshes']):
+        for key in ('positions','normals','uvs','triangles','source','preview_colors_bgra'):
+            if before.get(key)!=after.get(key):raise ValueError('UV1 exposure changed original source geometry/streams')
+    result=uvs.save_scene(scene,output,assets)
+    return {**result,'uv1_meshes':count,'exact_uv0_aliases':aliases,'source_shader_equivalence':False}
+
+
 def executable_evidence(image):
     reader = FileReader(image)
     row = next(r for r in xdvdfs(reader, 0x18300000) if r['path'].lower() == 'default.xbe')
