@@ -1,0 +1,248 @@
+{
+  "baseline": "5ef073c44008b83f63cb767a00671aee0175cabd",
+  "branch": "research/vehicles",
+  "controlled_programs": {
+    "0x192588/directional0": {
+      "instructions": 410,
+      "native_linker_matches": true,
+      "program_sha256": "8ce9ae2858cbbfd58a7f4b7b6bdb460a5a920a268825efa6555b2d501b082601"
+    },
+    "0x192588/fog-and-texture-transforms": {
+      "instructions": 502,
+      "native_linker_matches": true,
+      "program_sha256": "7907d0d5a397e691c1734a285f78769d634af70105f158522b3180170fb7dd1c"
+    },
+    "0x192588/point0": {
+      "instructions": 405,
+      "native_linker_matches": true,
+      "program_sha256": "575b1eab560d8cf973c18640adccd228bb896022f36bb8e1a55796ecfa01214d"
+    },
+    "0x192588/unlit": {
+      "instructions": 258,
+      "native_linker_matches": true,
+      "program_sha256": "afd84357cc24d54a6f6c9f33d802af1f6ef7c7d6cb782482ec406e53fbdd3c3e"
+    },
+    "0x192850/directional0": {
+      "instructions": 474,
+      "native_linker_matches": true,
+      "program_sha256": "26486e5519e6638e26876b88e1a0d05263950f2aa8aee33a005b36cb02f632e1"
+    },
+    "0x192850/fog-and-texture-transforms": {
+      "instructions": 566,
+      "native_linker_matches": true,
+      "program_sha256": "49f2d7785b3009235e7973b990b81fe254634464f3aa0d5454706923fb711587"
+    },
+    "0x192850/point0": {
+      "instructions": 469,
+      "native_linker_matches": true,
+      "program_sha256": "9bd2ebf22b1169251f62636f0ac3bcfc1b7b184d30146ba5fc0491dfc86f4d85"
+    },
+    "0x192850/unlit": {
+      "instructions": 322,
+      "native_linker_matches": true,
+      "program_sha256": "fc5146dffb944374d257d96d57dde1647d8c8fe486f5ea87cf4fd008ddf55ee8"
+    }
+  },
+  "d3d9": {
+    "captures": 18,
+    "scope": "Unchanged first-stage neutral approximation; no new source shader fidelity claim",
+    "viewer_sha256": "0572f7abf4fe6f060e42ea65f92d8369ca0dbc7a8ce7e94fbf994d769dc3075c"
+  },
+  "determinism": {
+    "files": [
+      "vertex-evidence.json",
+      "summary.json",
+      "PAJERO_HI_0_0.LOD/per-draw-qualification.json",
+      "PAJERO_HI_0_0.LOD/controlled-coverage.json",
+      "PAJERO_HI_0_0.LOD/controlled-stage-points.json",
+      "PAJERO_HI_0_0.LOD/controlled-stage-points.png",
+      "NISSAN_HI_0_0.LOD/per-draw-qualification.json",
+      "NISSAN_HI_0_0.LOD/controlled-coverage.json",
+      "NISSAN_HI_0_0.LOD/controlled-stage-points.json",
+      "NISSAN_HI_0_0.LOD/controlled-stage-points.png",
+      "HINO_HI_0_0.LOD/per-draw-qualification.json",
+      "HINO_HI_0_0.LOD/controlled-coverage.json",
+      "HINO_HI_0_0.LOD/controlled-stage-points.json",
+      "HINO_HI_0_0.LOD/controlled-stage-points.png"
+    ],
+    "identical": true,
+    "statistics": [
+      {
+        "changed": 64,
+        "maximum_rgb_delta": 0.1696119893555269,
+        "samples": 168,
+        "vehicle": "PAJERO"
+      },
+      {
+        "changed": 81,
+        "maximum_rgb_delta": 0.22583621683967706,
+        "samples": 153,
+        "vehicle": "NISSAN"
+      },
+      {
+        "changed": 84,
+        "maximum_rgb_delta": 0.14645136485966936,
+        "samples": 141,
+        "vehicle": "HINO"
+      }
+    ]
+  },
+  "discarded_required_effects": [],
+  "focused": {
+    "log": "focused-final.log",
+    "status": "PASS",
+    "tests": 78
+  },
+  "full_windows": {
+    "log": "full-windows-final.log",
+    "seconds": 66.985,
+    "skipped": 2,
+    "status": "PASS",
+    "tests": 1259
+  },
+  "initial_constant65": {
+    "constant_index": 65,
+    "hardware_index": 161,
+    "values": [
+      0.0,
+      0.5,
+      1.0,
+      2.0
+    ]
+  },
+  "initial_pixel_constant_alpha": {
+    "scope": "original shader upload only; effective later runtime state unverified",
+    "value": "89/255"
+  },
+  "levels": {
+    "L0": "PASS",
+    "L1": "PASS",
+    "L2": "WARN",
+    "L3": "BLOCKED",
+    "L4": "NOT TESTED"
+  },
+  "matrix_probe_instructions": 1375,
+  "native_fixtures": 0,
+  "new_carids": 0,
+  "no_binary_payloads_in_this_metadata": true,
+  "original_xbe_sha256": "715db4e407b38c0a6d14ea0ee9d08ebc524b9ece92ceeaa70b5fb81a5ec32378",
+  "preservation": {
+    "bytes_hashed": 15853855826,
+    "changed": [],
+    "files": 12742,
+    "missing": [],
+    "mutable_owner_runtime_state": "Outside sealed index; owner gameplay saves/options are not reset or overwritten",
+    "schema": "source-garage-preservation/1",
+    "sealed_runtime_resources": 307,
+    "status": "PASS"
+  },
+  "private_root": ".research-output/vehicles/dakar2-material-closure",
+  "runtime": "MISSING INPUT: owner Xbox graphics/state capture in inspected roots",
+  "schema": "dakar2-material-closure-delivery/1",
+  "selected_preservation": {
+    "changed": [],
+    "files": 3667,
+    "missing": [],
+    "roots": [
+      ".research-output/vehicles/dakar2-fidelity/final",
+      ".research-output/vehicles/cross-game-materials/rav4-comparisons",
+      ".research-output/vehicles/cross-game-materials/evo2/final-colors"
+    ],
+    "status": "PASS"
+  },
+  "seven_case_levels": {
+    "Dakar2-Hino": {
+      "L0": "PASS",
+      "L1": "PASS",
+      "L2": "WARN",
+      "L3": "BLOCKED",
+      "L4": "NOT TESTED"
+    },
+    "Dakar2-Nissan": {
+      "L0": "PASS",
+      "L1": "PASS",
+      "L2": "WARN",
+      "L3": "BLOCKED",
+      "L4": "NOT TESTED"
+    },
+    "Dakar2-Pajero": {
+      "L0": "PASS",
+      "L1": "PASS",
+      "L2": "WARN",
+      "L3": "BLOCKED",
+      "L4": "NOT TESTED"
+    },
+    "Evo2-4Runner": {
+      "L0": "PASS",
+      "L1": "PASS",
+      "L2": "WARN",
+      "L3": "WARN",
+      "L4": "NOT TESTED"
+    },
+    "Michelin-MeganeF2": {
+      "L0": "PASS",
+      "L1": "PASS",
+      "L2": "WARN",
+      "L3": "WARN",
+      "L4": "NOT TESTED"
+    },
+    "Michelin-RAV4": {
+      "L0": "PASS",
+      "L1": "PASS",
+      "L2": "WARN",
+      "L3": "WARN",
+      "L4": "NOT TESTED"
+    },
+    "PC-Silver": {
+      "L0": "PASS",
+      "L1": "PASS",
+      "L2": "WARN",
+      "L3": "WARN",
+      "L4": "NOT TESTED"
+    }
+  },
+  "source_mutated": false,
+  "source_shader_omission_permissions": [],
+  "vehicles": [
+    {
+      "L0": "PASS",
+      "L1": "PASS",
+      "L2": "WARN",
+      "L3": "BLOCKED",
+      "L4": "NOT TESTED",
+      "draws": 56,
+      "qualification_sha256": "f881327e07b41a8166474ad763156a04d995181e1ac70ed34a5868324daa403b",
+      "simple_draws": 14,
+      "source_catalog": "PAJERO_HI_0_0.LOD",
+      "source_scene_sha256": "fb9a91ee48b1fa762115945085e1804dd2cdb791dde08c61bb018b45cecbd8ad",
+      "triangles": 4154
+    },
+    {
+      "L0": "PASS",
+      "L1": "PASS",
+      "L2": "WARN",
+      "L3": "BLOCKED",
+      "L4": "NOT TESTED",
+      "draws": 51,
+      "qualification_sha256": "477e239e2a0d80b81d1b2f2a229304d9c9f33e31b6de5d5274b5360b1857964d",
+      "simple_draws": 8,
+      "source_catalog": "NISSAN_HI_0_0.LOD",
+      "source_scene_sha256": "86538fef9cbc1a6c086688a0e705d86cc631279911bfdc7547fefa4ad1d07924",
+      "triangles": 4065
+    },
+    {
+      "L0": "PASS",
+      "L1": "PASS",
+      "L2": "WARN",
+      "L3": "BLOCKED",
+      "L4": "NOT TESTED",
+      "draws": 47,
+      "qualification_sha256": "76b1fedf92a8440c3da9ee38ac131b18feb1d5f5129b5299b6899b6ecc61230f",
+      "simple_draws": 0,
+      "source_catalog": "HINO_HI_0_0.LOD",
+      "source_scene_sha256": "0b623459170abb36d6fc022b6faf924937434cf64228fe951e4c21657ed4db67",
+      "triangles": 4676
+    }
+  ],
+  "vertex_evidence_sha256": "20b9a457b03f46e087b0831994fcc034763dd4bddc8d105bd342fe30a8adbd88"
+}

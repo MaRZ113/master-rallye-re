@@ -2905,3 +2905,49 @@ No original EXE/SMA/DLL/disc/install, accepted project, Randomizer, roster or
 alternativeCarID29 was changed. No push/publication, new playable Dakar/Megane,
 new CarID, donor, fleet, Blender Bridge, historical livery or physics tuning.
 Stop here for review and owner RAV4 comparison.
+
+
+---
+
+# Master Plan v8.1 — 30 October 2026 — Cross-game materials review, Dakar2 shader dependency, RAV4 owner comparison
+
+This checkpoint appends to the complete committed v8.0 repository plan without rewriting or removing its research history. Exact source-review revision from `SOURCE_REVIEW_MANIFEST.json`: `5ef073c44008b83f63cb767a00671aee0175cabd`, parent/baseline `e7353076512431b5ec71456bde9c2d203eb77336`. The user's latest observation: the corrected Michelin RAV4 D3D9 preview now appears normal; actual D3D8 comparison remains pending. The user is concerned that all three Xbox Dakar2 cars remain blocked from native translation.
+
+## Independent source-only audit
+
+- `source-review.zip`: 1,418 entries, CRC clean; 1,417 SHA256 manifest entries validated; 644 Python files parse. `changed-files.zip`: 40 entries, 39 non-manifest entries byte-identical to the complete ZIP; 39 SHA256 entries valid.
+- Independent local Python tests from the extracted source-only tree: 32 tests (31 PASS, 1 SKIP) for new Dakar2 materials, Evo2 color, texture derivation and lamp coverage; an additional 79 tests (77 PASS, 2 SKIP) for adapter, renderer, Michelin and UVS modules. These source-only checks are not a reproduction of original game execution.
+- Codex reports 1,240 Windows tests successful with two optional skips, seven hidden GUI checks and preservation of 12,742 protected files (15,853,855,826 bytes), including the 307 sealed RAV4 resources. Those Windows and private source-backed checks were not independently reproduced in this review.
+
+## Real delivered achievements
+
+- Dakar2 Xbox original XBE-backed 60-DWORD NV2A combiner decoding and exact per-draw binding audit. Simple declaration: RGB=T0.rgb×V0.rgb, alpha=T0.a×V0.a. Three-map declaration: RGB=clamp(T0.rgb×V0.rgb + T1.a×clamp(T2.rgb×C0(stage1).a)), alpha=T0.a. T1 alpha is a required mask. All 132 present UV1 arrays equal UV0 in the selected source corpus, but this does not qualify vertex-program-generated sampling coordinates. Original material L3 remains BLOCKED for Pajero (42/56 three-map draws), Nissan (43/51) and Hino (47/47). No native game import or fixture was made by omitting these active stages.
+- Evo2 original two-sample palette TIFF: the second sample is a recolor-control/high-byte input, not ordinary transparency. Original executable pre-bump/pre-gloss color consumer replay and independent arithmetic reconstruct all nine TRK color configurations. Auxiliary <=128 uses original RGB; 129..254 blends (aux−128)/127; 255 uses recolored RGB. Original high-byte GPU use, bump/gloss and full runtime fidelity remain WARN. The accepted original MR 4Runner is unchanged.
+- Michelin RAV4: opt-in wheel alpha-edge RGB padding changes exactly 2,419 zero-alpha texels in one derived wheel texture while preserving nonzero-alpha RGB, all alpha bytes, UV and geometry. Masked rear-lamp overlays use 336 explicit lens texels and 10 source faces, preserving original opaque diffuse surfaces. A (baseline), B (wheel), C (lamp), D (combined) remain isolated reversible CarID29 alternative builds. Owner reports preview is now visually correct; corrected D3D8 gameplay is NOT TESTED by owner yet. Full race/Results not owner-confirmed.
+
+## Next phase: Dakar2 vertex-program and runtime-constant closure (narrow, evidence-first)
+
+Do not schedule another large generic hardening or new donor. Work specifically on the original selected Dakar2 vertex-program inputs, shader-generated coordinates, lighting V0, effective per-draw mapped constant0 (embedded alpha 89/255 alone is not enough), conditional alpha-test state, and material-role ownership. Trace the original XBE calls and, where available, compare controlled original Xbox runtime captures to the neutral D3D9 renderer. Preserve data provenance, shader hashes and unknown states. Do not assume PS2 PCSX2 captures prove the Xbox shaders exactly.
+
+Build an independently validated source-faithful material compositor or narrowly qualified MR-compatible multi-pass/derived-texture interpretation only when it preserves required stage contributions and alpha coverage. If T2 is view/normal-dependent or V0 carries dynamic lighting, avoid a false permanent texture bake; keep dynamic effects separate or retain BLOCKED with a concise source-specific evidence gap. Require minimum representative samples on Pajero, Nissan and Hino; transparent windows/lamps, wheels, paint/decal and equipment material roles independently validated. No silent diffuse-only fallback, unverifiable constants, altered source meshes/UV or unsupported native overlays. Material L3 clearance must be per-draw and per-vehicle; truck native wheel/physics/collision remain separate even if Hino material L3 is resolved.
+
+A later, separately accepted candidate may use the proven common UVS→MR bridge, preserving the original 30-entry boundary and accepted roster alternatives. Do not assign new CarIDs or overwrite qualified vehicles during this research stage.
+
+## Immediate owner's checks and scheduling
+
+1. Test Michelin RAV4 variants B and C independently against A in original MR D3D8, wheel oblique and spinning, rear brake OFF/ON including movement and changing camera. If both pass, test D for regression; do not claim fixed gameplay solely from D3D9 preview. Explicitly check depth flicker from same-plane lamp overlays.
+2. Preserve Evo2 nine source-color variants as optional read-only derived scenes; do not change the accepted 4Runner. Defer original bump/gloss GPU semantics unless needed for a concrete import blocker.
+3. After the narrow Dakar2 material blocker is qualified, select a first Xbox Pajero native candidate. Hino heavy-truck controllers and Michelin Mégane-specific glass/lamps/physics require independent qualification. Preserve the historical internal Pajero spare-wheel nodes and separate externally mounted prerelease-inspired variant without asserting source accuracy.
+
+## Preservation and acceptance
+
+Maintain complete source and historical documentation. No new donor research, full remaster, automatic roster expansion, altered original MR executable/Data.sma/d3d8.dll or donor game installations, unauthorized publication or pushes. Any remaining WARN must name its tested boundary; L2 WARN may coexist with safe material-level L3 PASS only with explicit evidence and no lost required source effect. Owner D3D8 gameplay is a distinct L4 gate.
+
+
+## Dakar2 final material-blocker investigation — v8.1, 30 October 2026
+
+Original CPU fragment selection/linking and typed vertex outputs are now recovered, with an independent byte-exact linker comparison across eight explicit contexts. Original c65 initialization is [0,0.5,1,2]; asymmetric original matrix-upload probes distinguish world c6..9 from WVP c14..17. Base T0/T1 use v9/v10; T2 is generated from transformed position and normal. V0 RGB includes original light/ambient fragments and source v3; V0 alpha is source v3 alpha. Do not equate either output with a raw source stream without its selected context.
+
+Original HIR-kind/LOD conditional cutout, post-node reset and source wrap addressing are implemented and tested. Original pixel upload proves initial89/255; effective every-draw constants/lighting/texture-matrix flags remain uncaptured. Native opaque environment helpers do not yet prove an equivalent independent T1 mask/T0 alpha/T2 coordinate contract. All154 draw groups remain independently L3 BLOCKED;22 simple groups have narrower lighting/coverage/native-proof gaps,132 groups additionally require the generated secondary contribution. No native fixtures/CarIDs or material omission approvals.
+
+See DAKAR2_VERTEX_PROGRAM_RESULTS.md, DAKAR2_COVERAGE_EVIDENCE.md and DAKAR2_MATERIAL_CLOSURE_PROVENANCE.json. New source-free tests and a1259-test Windows run (2 existing optional skips) pass. Private original-stream point diagnostics and18 unchanged single-stage D3D9 source views remain L2 WARN; no corrected shader/runtime parity is claimed. Seven-case source/native preflight is unchanged. RAV4 A/B/C/D, Evo2 colors and accepted projects are preserved; corrected RAV4 D3D8 still awaits owner comparison.

@@ -218,3 +218,53 @@ def native_requirements(scene,evidence):
              'source_uv_data_alias_is_shader_equivalence':False,
              'native_disposition':'BLOCKED','allow_omit_for_mr':False,'evidence':row['pointwise_rule'],
              'blockers':list(row['blockers'])}for row in report['draws']]
+
+
+def qualify_closure(scene,evidence,coverage,vertex):
+    """Refine historical blockers without approving absent runtime inputs.
+
+    Coverage is explicitly context-bound. A CPU-composed program is not proof
+    that every original draw selected that context. No omission consent or
+    native fixture can be obtained by supplying a plausible diagnostic state.
+    """
+    report=qualify_scene(scene,evidence)
+    if (vertex.get('schema')!='dakar2-vertex-evidence/1'or vertex.get('xbe_sha256')!=PINS['default.xbe']or
+            not vertex.get('native_linkers_match')or not vertex.get('matrix_uploads_verified')):
+        raise ValueError('Qualified original vertex evidence required')
+    if coverage.get('source_catalog')!=report['source_catalog']or coverage.get('runtime_evidence')!='NOT TESTED':
+        raise ValueError('Explicit source-bound controlled coverage required')
+    coverage_rows=coverage.get('draws',[]);by_mesh={r['mesh_id']:r for r in coverage_rows}
+    if len(by_mesh)!=len(coverage_rows)or set(by_mesh)!={r['mesh_id']for r in report['draws']}:
+        raise ValueError('Exact independent draw coverage required')
+    for row in report['draws']:
+        cov=by_mesh[row['mesh_id']]
+        if cov['material_id']!=row['material_id']:raise ValueError('Coverage material ownership mismatch')
+        multi=len([s for s in row['texture_stages']if s['mode']!='NONE'])>1
+        for stage in row['texture_stages']:
+            if stage['mode']=='NONE':continue
+            stage['coordinate_selection']=(
+                'base MOV output T0=v9; optional post-fragment DP4(v9,c18..21)'if stage['stage']==0 else
+                'base MOV output T1=v10; optional post-fragment DP4(v10,c22..25)'if stage['stage']==1 else
+                'base normal/position-generated T2, c6..8 and c65; not raw UV0/UV1; optional post-fragment remains context-bound')
+        row['controlled_alpha']={k:cov[k]for k in('source_kind','source_lod_flags','draw_pass','explicit_cutout','enabled','comparison','reference')}
+        row['coverage_context']={k:coverage[k]for k in('entry_alpha_enabled','effective_reference_supplied')}
+        row['coverage_runtime_verified']=False
+        row['vertex_output_evidence']='Base and controlled linked fragments recovered; selected runtime lighting/fog/texture-matrix context not captured'
+        row['native_options']={
+            'A_static_composite':'BLOCKED: V0 lighting/context is not a source texture'+('; T2 uses position/normal/world-dependent coordinates, not UV0'if multi else''),
+            'B_native_passes':('BLOCKED: independent T1 alpha mask, T0 output alpha and T2 coordinate contract have no proven shared MR equivalent'if multi else
+                               'BLOCKED: native lighting/coverage equivalence for the selected original draw has not been demonstrated'),
+            'C_bounded_limit':'Retain source-only L2 WARN and L3 BLOCKED; no diffuse-only fidelity approval'}
+        row['blockers']=['Effective original lighting/light slots, accumulator initialization, selected texture-matrix flags and draw matrices are not runtime-captured',
+                         'Controlled alpha schedule does not prove every original draw entry/visibility context; glass/lamp function cannot be inferred from texel alpha']
+        if multi:row['blockers'] += [
+            'Required T2 world/normal coordinate contribution and independent T1 alpha mask have no validated equivalent native MR pass',
+            'C0 stage1 alpha is 89/255 at original shader upload; no exhaustive proof against later constant/state overrides']
+        row['native_fixture_allowed']=False
+    report['schema']='dakar2-material-closure/1'
+    report['vertex_evidence_sha256']=u.sha(u.canonical(vertex))
+    report['resolved_static_evidence']=['selected base/linker instructions','c65 initializer and matrix register ownership',
+                                       'V0 lighting fragment arithmetic','base T0/T1 and generated T2 arithmetic',
+                                       'node-specific alpha schedule','source wrap addressing','initial pixel constant upload']
+    report['runtime']='MISSING INPUT: original Xbox state/PGRAPH capture'
+    return report

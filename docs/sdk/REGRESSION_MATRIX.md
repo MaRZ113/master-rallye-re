@@ -647,3 +647,24 @@ Exact metadata: SOURCE_GARAGE_CORPUS_PROVENANCE.json; native/source unknowns: SO
 |Owner evidence|Baseline RAV4 loads/drives/damages/glass confirmed; corrected B/C/D and full race/Results pending|
 
 Private currentroot `.research-output/vehicles/cross-game-materials/`; source-only metadata CROSS_GAME_MATERIAL_PROVENANCE.json. Final native screenshots explicitly select race: `final-views`/`six-views-final`, not prior frontend diagnostics. Source-renderer L2 is not promoted by native compiler or screenshots.
+
+## Dakar2 final material-blocker investigation — v8.1
+
+| Validation | Actual result |
+|---|---|
+| Focused vertex/coverage/material/source/bridge/preview |78 PASS, including19 new source-free tests|
+| Full available Windows suite |1259 tests OK;2 existing optional skips; final log in dakar2-material-closure|
+| Original fragment composition |8 explicit contexts, original CPU selector/linker equals independent concatenation; no game/GPU launched|
+| Original constant/matrix ownership |c65=[0,.5,1,2];1375 original CPU instructions; all asymmetric W/V/P uploads equal independent calculation|
+| Initial pixel constant/alpha CPU probes |Both definitions187 instructions/240 bytes each; initial89/255. Alpha schedule687 instructions each at explicit100 and10 references|
+| Three independent per-draw reports |Pajero56/4154 triangles, Nissan51/4065, Hino47/4676; all source bindings and original coverage retained; L3 BLOCKED|
+| Determinism |14 report/diagnostic files byte-identical in independent fresh runs|
+| Controlled secondary contribution |462 source-vertex samples in two supplied world contexts; RGB changes in64/81/84 Pajero/Nissan/Hino samples; not original runtime or a bake authorization|
+| D3D9 |18 fresh six-view source captures; inspected vehicle overviews; unchanged first-stage approximation, L2 WARN|
+| Seven-case corpus |L0/L1 PASS,L2 WARN;4 existing geometry-only dryruns WARN,3 Dakar material BLOCKED; no new L4 evidence|
+| Historical asset protection |12742 files/15853855826 bytes,including307 sealed RAV4 resources: zero changed/missing|
+| Additional v8.0 output protection |3667 files across Dakar source scenes,RAV4 A/B/C/D,Evo2 nine colors: zero changed/missing|
+| Master history |All2907 previous normalized lines are exact prefix of complete attachedv8.1; attachment retained byte-for-byte; implementation checkpoint appended|
+| Native proof/gameplay |No qualified Dakar native fixture, newCarID, installation or gameplay claim; exact remaining shader/runtime/native-pass dependency documented|
+
+Source-only metadata: DAKAR2_MATERIAL_CLOSURE_PROVENANCE.json. Original Xbox runtime/PGRAPH evidence is MISSING INPUT in inspected local roots. Synthetic point samples and original CPU replay cannot promote L2/L3/L4. RAV4 corrected D3D8 remains owner-pending; Evo2 GPU/bump/gloss remains WARN. See DAKAR2_VERTEX_PROGRAM_RESULTS.md and DAKAR2_COVERAGE_EVIDENCE.md.

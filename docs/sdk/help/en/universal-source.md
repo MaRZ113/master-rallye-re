@@ -185,3 +185,10 @@ not edits to the accepted project. B fixes rim transparent RGB only; C revises
 bounded red lenses; D combines offline-qualified fixes. Compare A→B and A→C
 before judgingD. All corrected D3D8, full race/Results remain owner tests. See
 MICHELIN_RAV4_VISUAL_MICROFIX.md. Return toA for rollback. No roster expansion.
+
+
+## Dakar2 material investigation — v8.1
+
+Pajero/Nissan/Hino remain source-only, L2 WARN and material L3 BLOCKED. The original vertex programs use lighting-dependent color and generated secondary coordinates; identical UV arrays do not remove the mask/map contribution. New CPU probes expose the exact dependency, coverage and initial constants without changing your source scenes. Existing neutral D3D9 views still approximate the first texture stage. No native Create, installation or CarID is enabled by these diagnostics.
+
+Private dakar2-material-closure/qualification-run1 contains per-draw reports, original-stream point diagnostics and six D3D9 views per car. Point-sample composite colors are controlled arithmetic examples, not original Xbox screenshots or native materials. See DAKAR2_VERTEX_PROGRAM_RESULTS.md for the precise missing state and native-pass limitation. RAV4 comparison builds and Evo2 nine-color scenes are unchanged.

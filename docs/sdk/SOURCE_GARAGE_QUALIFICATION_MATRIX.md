@@ -157,3 +157,12 @@ Stop here for review and owner RAV4 comparison.
 
 No dry-run compiler result promotes a complete native vehicle or new gameplay
 approval. Shader/auxiliary/lamp ownership boundaries above remain explicit.
+
+
+## Dakar2 final material-blocker investigation — v8.1, 30 October 2026
+
+Original CPU fragment selection/linking and typed vertex outputs are now recovered, with an independent byte-exact linker comparison across eight explicit contexts. Original c65 initialization is [0,0.5,1,2]; asymmetric original matrix-upload probes distinguish world c6..9 from WVP c14..17. Base T0/T1 use v9/v10; T2 is generated from transformed position and normal. V0 RGB includes original light/ambient fragments and source v3; V0 alpha is source v3 alpha. Do not equate either output with a raw source stream without its selected context.
+
+Original HIR-kind/LOD conditional cutout, post-node reset and source wrap addressing are implemented and tested. Original pixel upload proves initial89/255; effective every-draw constants/lighting/texture-matrix flags remain uncaptured. Native opaque environment helpers do not yet prove an equivalent independent T1 mask/T0 alpha/T2 coordinate contract. All154 draw groups remain independently L3 BLOCKED;22 simple groups have narrower lighting/coverage/native-proof gaps,132 groups additionally require the generated secondary contribution. No native fixtures/CarIDs or material omission approvals.
+
+See DAKAR2_VERTEX_PROGRAM_RESULTS.md, DAKAR2_COVERAGE_EVIDENCE.md and DAKAR2_MATERIAL_CLOSURE_PROVENANCE.json. New source-free tests and a1259-test Windows run (2 existing optional skips) pass. Private original-stream point diagnostics and18 unchanged single-stage D3D9 source views remain L2 WARN; no corrected shader/runtime parity is claimed. Seven-case source/native preflight is unchanged. RAV4 A/B/C/D, Evo2 colors and accepted projects are preserved; corrected RAV4 D3D8 still awaits owner comparison.
