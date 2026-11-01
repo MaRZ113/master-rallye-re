@@ -668,3 +668,23 @@ Private currentroot `.research-output/vehicles/cross-game-materials/`; source-on
 | Native proof/gameplay |No qualified Dakar native fixture, newCarID, installation or gameplay claim; exact remaining shader/runtime/native-pass dependency documented|
 
 Source-only metadata: DAKAR2_MATERIAL_CLOSURE_PROVENANCE.json. Original Xbox runtime/PGRAPH evidence is MISSING INPUT in inspected local roots. Synthetic point samples and original CPU replay cannot promote L2/L3/L4. RAV4 corrected D3D8 remains owner-pending; Evo2 GPU/bump/gloss remains WARN. See DAKAR2_VERTEX_PROGRAM_RESULTS.md and DAKAR2_COVERAGE_EVIDENCE.md.
+
+
+## Workshop2 first vertical slice — 1 November2026
+
+| Check | Evidence |
+|---|---|
+| Focused iteration |22 cache/Source Garage tests; later21 final editable/cache/migration safety tests; passed|
+| Fast smoke |42 at early contract checkpoint; no full-suite substitution claimed|
+| Integration |115 tests OK,5.440s; explicit12 selected modules|
+| Full Windows |1279 tests OK,2 existing optional fixture skips,107.307s; run once at milestone boundary|
+| Final narrow guards after full run |Source Fidelity redo rollback, stale camera/native-fixture results, preview invalidation and no cache-directory write into protected source, and allocation budgets before expensive copies; targeted and actual Qt probes pass|
+| Actual Tk |Cold/warm source open and preview, Force Refresh preserving choices, safe cancel and obsolete-result rejection|
+| Actual Qt/D3D9 |Pajero and GT-derived Clio snapshot; vertex+face/mesh edits, stock material/environment/Glow, save/reopen, Undo/Redo, deterministic fixtures, native OFF/ON, resize and persistent cache; windows-final4 current|
+| Genuine process restart |Fresh PID hit prepared geometry+image cache in0.181s after separately verified project load|
+| Baseline native resources |Seven-case preflight preserves Evo2/RAV4/Silver9 DX and23 DXT reference resources exactly; strict Dakar source L3 remains BLOCKED|
+| Accepted source/native protection |12742 files/15853855826bytes including307 sealed RAV4 resources, zero changed/missing|
+| Additional source/candidate outputs |Separate3667-file RAV4A/B/C/D,Evo2-color,Dakar snapshot audit: zero changed/missing; selected-preservation.json|
+| Engine/runtime |No original-game launch, newCarID, roster/class change, installed DLL or original EXE/archive change; no new L4 claim|
+
+Full tier timings identify repeated audio fixture work as the slowest tests; no tests were deleted, parallelized without isolation or weakened. Final small guards were covered by focused tests instead of rerunning the entire suite. The owner's15-second path was not reproduced; reported timing scopes separate constructor/load/stage/render/cache and concurrent-load versus idle runs. Native geometry fixtures do not certify playable vehicle systems.

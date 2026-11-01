@@ -8,8 +8,12 @@ Measured on this Windows host, application-cold (not a flushed OS disk cache): o
 
 Backend Pajero/RAV4 warm prepared+image paths measured0.169/0.102s. Camera changes hit geometry but render a new image. A new cache object hits persistent entries. Geometry edits miss the affected layers. Tests cover material/texture invalidation, corrupt cache, cancellation, LRU and source containment.
 
-Qt and GT/native preview measurements and exact validation status are in WORKSHOP2_QT_RESULTS.md and private windows-final2/validation.json. The native Clio cold path remains substantially slower than its warm path; it is not reported as sub-second.
+Qt and GT/native preview measurements and exact validation status are in WORKSHOP2_QT_RESULTS.md and private windows-final4/validation.json (with separately labelled idle checkpoint measurements). The native Clio cold path remains substantially slower than its warm path; it is not reported as sub-second.
 
 Test runner: `python tools/workshop_tests.py focused --changed src/master_rallye/workshop/preview_cache.py`; `smoke`, `integration`, `full` are explicit tiers. Focused accepts explicit modules and refuses unknown dependency mappings rather than guessing coverage. JSON reports include selected and omitted modules, failures/skips and20 slowest tests. Do not run full after every UI patch. Run relevant integration for shared contracts, full once at milestone completion. No tests removed or native validators disabled. Tests are serial unless isolation is established; no speculative parallel test runner was added.
 
 Remaining: original archive decoding is still performed by existing adapters when creating a genuinely new source scene; there is no fabricated persistent parsed-donor cache. Raw library startup with the owner's complete saved library and cold reboot I/O are not fully profiled. Interactive D3D9 embedding/IPC and all Studio migrations remain separate work. The main gain verified here is avoiding repeat validation/staging/capture work on unchanged Source Garage models.
+
+The existing owner library was also read without saving:12 WorkshopProject constructors completed in0.970s total, zero failures. This is constructor/library metadata timing, not complete per-project resource validation or GUI rendering.
+
+A genuinely fresh Python process reused both persisted Pajero geometry and image entries in0.181s after verified project opening; source reopening time is explicitly excluded from that cache-only number. WORKSHOP2_PROVENANCE.json pins the validation boundaries and measurements.

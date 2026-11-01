@@ -83,6 +83,9 @@ class EditableTests(unittest.TestCase):
                      {'op':'uv','mesh':self.mid,'index':0,'value':[.2,.4]}])
         after=p.evaluate();p.undo();self.assertEqual(p.evaluate(),before);p.redo();self.assertEqual(p.evaluate(),after)
         p.undo();p.edit({'op':'vertex','mesh':self.mid,'index':0,'value':[5,6,7]});self.assertEqual(len(p.document['operations']),1)
+        p.restore();p.document['mode']='Source Fidelity'
+        with self.assertRaisesRegex(ValueError,'derived workflow'):p.redo()
+        self.assertEqual(p.document['cursor'],0)
 
     def test_partial_reflection_splits_only_receiving_derived_group(self):
         p=self.project;p.edit({'op':'add_face','mesh':self.mid,'vertices':[0,2,1]});face=p.evaluate()['meshes'][0]['face_ids'][0]
@@ -96,6 +99,13 @@ class EditableTests(unittest.TestCase):
         self.project.edit({'op':'material','mesh':self.mid,'rule':{'mode':'opaque','role':'opaque_body','evidence':'Explicit test adaptation'}})
         self.source.write_bytes(self.before+b' ')
         with self.assertRaisesRegex(ValueError,'parent changed'):build_fixture(self.project,self.root/'new',native_template()[0],scale=1)
+
+    def test_new_component_budget_is_checked_before_copying_large_arrays(self):
+        geometry={'positions':[[0,0,0]]*u.MAX_VERTICES,'normals':[[0,1,0]]*u.MAX_VERTICES,
+                  'uvs':[[0,0]]*u.MAX_VERTICES,'triangles':[[0,1,2]],'material_id':'material'}
+        before=copy.deepcopy(self.project.document)
+        with self.assertRaisesRegex(ValueError,'allocation budget'):self.project.edit({'op':'add_mesh','geometry':geometry})
+        self.assertEqual(self.project.document,before)
 
     def test_copy_native_reference_rejects_missing_draw_and_pins_supported_state(self):
         from master_rallye.dx import parse_dx_bytes

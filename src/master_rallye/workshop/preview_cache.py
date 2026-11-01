@@ -84,7 +84,7 @@ class PreviewCache:
     def __init__(self,root,*,max_bytes=512*1024*1024):
         self.root=Path(root).absolute();u.unlinked(self.root)
         if type(max_bytes)is not int or not 1024<=max_bytes<=16*1024**3:raise ValueError('Bounded cache quota required')
-        self.max_bytes=max_bytes;self.root.mkdir(parents=True,exist_ok=True);self.lock=threading.RLock()
+        self.max_bytes=max_bytes;self.lock=threading.RLock()
         self.stats={'hits':0,'misses':0,'recovered':0}
 
     def _entry(self,key):
@@ -113,6 +113,7 @@ class PreviewCache:
 
     def get(self,key,build,*,refresh=False,task=None):
         task=task or Task();path=self._entry(key)
+        task.check();self.root.mkdir(parents=True,exist_ok=True)
         with self.lock,self._process_lock(task):
             task.check()
             if path.exists():
@@ -177,6 +178,7 @@ class PreviewCache:
 
     def cleanup(self,*,keep=None):
         entries=[];total=0
+        if not self.root.exists():return
         for path in self.root.iterdir():
             if path.is_dir()and path.name.startswith('.pending-'):
                 u.unlinked(path)

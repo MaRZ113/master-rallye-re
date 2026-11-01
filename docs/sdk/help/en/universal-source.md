@@ -192,3 +192,12 @@ MICHELIN_RAV4_VISUAL_MICROFIX.md. Return toA for rollback. No roster expansion.
 Pajero/Nissan/Hino remain source-only, L2 WARN and material L3 BLOCKED. The original vertex programs use lighting-dependent color and generated secondary coordinates; identical UV arrays do not remove the mask/map contribution. New CPU probes expose the exact dependency, coverage and initial constants without changing your source scenes. Existing neutral D3D9 views still approximate the first texture stage. No native Create, installation or CarID is enabled by these diagnostics.
 
 Private dakar2-material-closure/qualification-run1 contains per-draw reports, original-stream point diagnostics and six D3D9 views per car. Point-sample composite colors are controlled arithmetic examples, not original Xbox screenshots or native materials. See DAKAR2_VERTEX_PROGRAM_RESULTS.md for the precise missing state and native-pass limitation. RAV4 comparison builds and Evo2 nine-color scenes are unchanged.
+
+
+## Workshop2 editable pilot
+
+Launch tools/Launch-RallyWorkshop2.cmd for the optional Qt Widgets editor; legacy Rally Workshop remains available. Open source selects an immutable scene.json. Choose MR Classic or User Customized to edit a separate journal. Select a mesh and stable face IDs; use Geometry and Material/Glow panels, Undo/Redo, Save/Reopen. Source Fidelity stays immutable. Compatibility → Snapshot native family migrates an already converted family privately, retaining the exact original family and explicit wheel-profile provenance.
+
+Preview is a cached neutral geometry view. Build fixture asks for a qualified native DX template, explicit scale and coordinate-frame choice; it writes a fresh isolated DX/DXT set. Then Preview built native materials shows the compiled material/Glow OFF/ON result. A changed journal cannot preview a stale fixture. These files are not an installed vehicle: collision fit, native controllers/physics, CarID and D3D8 gameplay are separate. Use the existing accepted projects for their established native Studios.
+
+Source Garage now reuses prepared geometry/captures; camera edits reuse geometry, material/geometry changes invalidate affected output, and Force Refresh verifies the parent again. Progress shows actual stages and elapsed time; Cancel discards obsolete work safely. Cache statistics are available. No cache result bypasses native-build hash checks. See WORKSHOP2_QT_RESULTS.md for optional environment setup and current limits.

@@ -1,0 +1,5 @@
+# Optional Widgets pilot, validated in an isolated Windows Python3.11 environment.
+# Not required by the legacy Tk application or source-only SDK.
+PySide6-Essentials==6.12.0
+shiboken6==6.12.0
+Pillow==13.0.0

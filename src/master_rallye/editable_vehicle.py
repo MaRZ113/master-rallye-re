@@ -39,6 +39,7 @@ def _initial(source):
 def _apply(scene,op,ordinal):
     name=op.get('op');meshes={m['id']:m for m in scene['meshes']};nodes={n['id']:n for n in scene['nodes']}
     mid=op.get('mesh');mesh=meshes.get(mid);prefix='authored-'+str(ordinal)
+    nv=sum(len(m['positions'])for m in scene['meshes']);nt=sum(len(m['triangles'])for m in scene['meshes'])
     if name in('vertex','uv','normal','add_vertex','delete_vertex','add_face','delete_faces','duplicate','split','material','reset_material','glow','orient_winding','flip_faces')and mesh is None:
         raise ValueError('Edit references missing mesh')
     if name in('vertex','normal','uv'):
@@ -115,6 +116,7 @@ def _apply(scene,op,ordinal):
         effects=scene.setdefault('authored_effects',{})
         for face in op['faces']:effects.pop(face,None)
     elif name=='duplicate':
+        if nv+len(mesh['positions'])>u.MAX_VERTICES or nt+len(mesh['triangles'])>u.MAX_TRIANGLES:raise ValueError('Derived geometry allocation budget')
         part=copy.deepcopy(mesh);part['id']=prefix+'-mesh';part['name']=op.get('name',part['id']);part['face_ids']=[prefix+':face:'+str(i)for i in range(len(part['triangles']))]
         part['source']={'user_created':True,'duplicated_from':mid};scene['meshes'].append(part)
         owners=[n for n in scene['nodes']if mid in n['mesh_ids']]
@@ -123,6 +125,8 @@ def _apply(scene,op,ordinal):
         node=copy.deepcopy(owners[0]);node.update(id=prefix+'-node',name=part['name'],mesh_ids=[part['id']],role='equipment')
         scene['nodes'].append(node)
     elif name=='add_mesh':
+        geometry=op['geometry']
+        if nv+len(geometry['positions'])>u.MAX_VERTICES or nt+len(geometry['triangles'])>u.MAX_TRIANGLES:raise ValueError('Derived geometry allocation budget')
         part=copy.deepcopy(op['geometry']);part['id']=prefix+'-mesh';part['source']={'user_created':True};part['face_ids']=[prefix+':face:'+str(i)for i in range(len(part['triangles']))]
         if part['material_id']not in {m['id']for m in scene['materials']}:raise ValueError('New component needs an existing material assignment')
         matrix=op.get('matrix',u.IDENTITY[:]);u.matrix(matrix)
@@ -155,6 +159,10 @@ def _apply(scene,op,ordinal):
     for node in scene['nodes']:node['mesh_ids']=[m for m in node['mesh_ids']if m not in empty]
     valid_faces={face for m in scene['meshes']for face in m['face_ids']}
     scene['authored_effects']={f:e for f,e in scene.get('authored_effects',{}).items()if f in valid_faces}
+    if (sum(len(m['positions'])for m in scene['meshes'])>u.MAX_VERTICES or
+            sum(len(m['triangles'])for m in scene['meshes'])>u.MAX_TRIANGLES or
+            len(scene['meshes'])>4096 or len(scene['nodes'])>4096 or len(scene['materials'])>4096):
+        raise ValueError('Derived scene allocation budget')
 
 
 class EditableVehicle:
@@ -209,7 +217,12 @@ class EditableVehicle:
         except Exception:self.document=previous;raise
 
     def undo(self):self.document['cursor']=max([0,*[x for x in self.document['transactions']if x<self.document['cursor']]])
-    def redo(self):self.document['cursor']=min([len(self.document['operations']),*[x for x in self.document['transactions']if x>self.document['cursor']]])
+    def redo(self):
+        target=min([len(self.document['operations']),*[x for x in self.document['transactions']if x>self.document['cursor']]])
+        if self.document['mode']=='Source Fidelity'and target:raise ValueError('Choose a derived workflow before redoing edits')
+        previous=self.document['cursor'];self.document['cursor']=target
+        try:self.evaluate()
+        except Exception:self.document['cursor']=previous;raise
     def restore(self):self.document['cursor']=0
 
     def save(self,path):

@@ -15,11 +15,15 @@ from .preview_scene import presentation_wheels
 
 def snapshot(root,output):
     root=Path(root).absolute();u.unlinked(root)
-    blobs={};models={}
+    blobs={};models={};input_bytes=0
     for name in('car.dx','complete.dx','wheel.dx'):
-        raw=u.read_bounded(root/name,64*1024*1024);model=parse_dx_bytes(raw)
+        raw=u.read_bounded(root/name,64*1024*1024);input_bytes+=len(raw)
+        if input_bytes>u.MAX_OUTPUT_BYTES:raise ValueError('Native migration input byte budget')
+        model=parse_dx_bytes(raw)
         if not model.diagnostics.validated:raise ValueError('Invalid native family geometry')
         if any(d.tag!=2 or len(d.texture_tuple)!=3 for d in model.physical_draws):raise ValueError('Flattening existing native controllers is not an editable migration')
+        if (len(model.physical_draws)>1024 or sum(d.local_vertex_max+1 for d in model.physical_draws)>u.MAX_VERTICES or
+                sum(d.triangle_count for d in model.physical_draws)>u.MAX_TRIANGLES):raise ValueError('Native migration geometry allocation budget')
         blobs[name]=raw;models[name]=model
     profile=root/'preview-profile.json';profile_blob=None
     if profile.is_file():
@@ -30,8 +34,11 @@ def snapshot(root,output):
         for instance in instances:preview_transform(instance)
         transforms={'race_wheel_instances':instances,'provenance':'Existing explicit MR preview-profile authoring reference sha256='+u.sha(profile_blob)+'; not newly recovered donor hubs'}
     else:transforms=presentation_wheels(models['car.dx'],models['complete.dx'],models['wheel.dx'])
-    assets={};resources=[];textures={};materials=[];meshes=[];body=[];wheel=[]
+    assets={};resources=[];textures={};materials=[];meshes=[];body=[];wheel=[];stored_bytes=0;decoded_bytes=0
     def original(name,raw):
+        nonlocal stored_bytes
+        stored_bytes+=len(raw)
+        if stored_bytes>u.MAX_OUTPUT_BYTES:raise ValueError('Native snapshot byte budget')
         path='original/'+name;assets[path]=raw
         resources.append({'member':name,'snapshot_path':path,'bytes':len(raw),'sha256':u.sha(raw)})
     for name,raw in blobs.items():original(name,raw)
@@ -45,6 +52,8 @@ def snapshot(root,output):
             if Path(diffuse).name!=diffuse or '/'in diffuse or '\\'in diffuse or ':'in diffuse:raise ValueError('Unsafe native texture binding')
             if diffuse not in textures:
                 raw=u.read_bounded(root/(diffuse+'.dxt'),u.MAX_TEXTURE_BYTES);texture=parse_dxt_bytes(raw);original(diffuse+'.dxt',raw)
+                decoded_bytes+=len(texture.bgra);stored_bytes+=len(texture.bgra)
+                if decoded_bytes>u.MAX_TEXTURE_BYTES or stored_bytes>u.MAX_OUTPUT_BYTES or len(textures)>=256:raise ValueError('Native texture migration allocation budget')
                 rgba=bytearray(texture.bgra);rgba[0::4],rgba[2::4]=rgba[2::4],rgba[0::4];path='textures/'+diffuse+'.rgba';assets[path]=bytes(rgba)
                 textures[diffuse]={'id':diffuse,'width':texture.width,'height':texture.height,'rgba_path':path,'rgba_sha256':u.sha(rgba),
                                    'source_channels':{'mode':'Native MR BGRA converted losslessly to RGBA; stored rows preserved'}}

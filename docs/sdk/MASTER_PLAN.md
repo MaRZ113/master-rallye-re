@@ -23,7 +23,7 @@ The visual objective of **MR Classic** is organic integration with stock Master 
 | Dakar 2 Xbox | Pajero, Nissan Pickup and Hino source models decoded and previewed. Original multistage shader semantics partly recovered. **Strict shader-equivalent native materials remain blocked**; do not let this automatically prohibit an explicitly adapted MR Classic project. |
 | Michelin Rally Masters | RAV4 and Mégane F2 neutral scenes recovered. RAV4 runs in MR with working handling/body/glass damage (owner report); wheel-edge and brake-lens fixes exist as isolated candidates, **D3D8 owner verification pending**. Mégane native import is not owner-qualified. |
 | Vehicle capacity | **30 active vehicles, 8/10/12 by class, are qualified**, not a proven engine maximum. Alternative CarID29 candidates remain mutually exclusive. Class expansion and extra color selection require real research. |
-| Workshop UI | Legacy Tk remains supported. Source Garage has dependency-aware preview caching and asynchronous open/render with safe cancel. An optional PySide6 Widgets editing pilot is being qualified; the remaining Studios have not been migrated. The reported15-second delay was not reproduced on the measured Pajero workload. |
+| Workshop UI | Legacy Tk remains supported. Source Garage has dependency-aware preview caching and asynchronous open/render with safe cancel. An optional PySide6 Widgets editing pilot is validated on Dakar2 Pajero and a GT-derived native snapshot; the remaining Studios have not been migrated. The reported15-second delay was not reproduced on the measured Pajero workload. |
 
 Source-only review archives and automated tests do not prove original-game rendering parity or actual D3D8 gameplay. Use the detailed reports for evidence and exact build hashes; this plan deliberately omits historical test counts and commit-by-commit narratives.
 
@@ -51,7 +51,7 @@ Implemented backend: versioned source-memory/staged-preview/image caches, manife
 ### B. Change UI direction: investigate Qt 6 / PySide6
 
 - **Do not spend another major phase reskinning every Tk window.** Treat Tk as the supported legacy UI during migration.
-- Prototype a **Qt 6 / PySide6 Widgets vertical slice** with vehicle library, D3D9 viewer, selectable mesh, material inspector, dark design system, progress indicator and edit/save/reopen. Do not add QML before the Widgets prototype proves insufficient.
+- The optional **Qt 6 / PySide6 Widgets vertical slice** implements library, mesh/face inspector, dark controls, progress, editable journals and separate neutral/native D3D9 captures. See WORKSHOP2_QT_RESULTS.md. QML and embedded D3D9 are not introduced; keep the external viewer boundary explicit.
 - Preserve working Python backends. First validate integration of the existing native Windows D3D9 viewer: embedding or coordinated external window, focus, input, resize, high-DPI, device loss and lifetime. **Do not assume embedding is trivial.**
 - Benchmark startup/memory and verify packaging/deployment and Qt licensing obligations before committing to the migration.
 - If the pilot succeeds, migrate Studio-by-Studio using shared panels/widgets and one design system; retire Tk views only when replacement workflows pass acceptance. If embedding is fragile, use an explicit preview-window boundary instead of delaying the entire editor.
@@ -65,7 +65,7 @@ Implemented backend: versioned source-memory/staged-preview/image caches, manife
 
 ## 5. Next priority: make editing and MR Classic genuinely usable
 
-- The versioned editable derived-scene journal is implemented above immutable UVS, with stable face IDs, transactions, undo/redo/restore, save/reopen, geometry/material edits and common-bridge native fixtures. Qualify the usable Qt pilot next; legacy native-project migration remains explicit, not an automatic rewrite. See EDITABLE_VEHICLE_SCENE_ARCHITECTURE.md.
+- The versioned editable derived-scene journal is implemented above immutable UVS, with stable face IDs, transactions, undo/redo/restore, save/reopen, geometry/material edits and common-bridge native fixtures. The Qt pilot now demonstrates editing/material references/Glow/save/reopen and deterministic fixtures; legacy native-project migration remains explicit, not an automatic rewrite. See EDITABLE_VEHICLE_SCENE_ARCHITECTURE.md.
 - Provide working UI controls to select faces/meshes, move/add/delete geometry, duplicate parts, adjust UVs and create or move a rear spare/wheel backing; these must survive compilation.
 - Implement shared **Material & Glow Studio**: copy a stock MR material/effect onto selected *derived* faces; change opaque/cutout/glass/tyre/rim/reflection/Glow roles; edit brake OFF/ON separately; inspect exact output coverage; revert independently. Original MR glow and reflection behavior is a reference, not an unchangeable source hash gate.
 - Split native material/draw groups where needed for intentional edits. Preserve the opaque base and correct window/paint boundaries. Disallow truly invalid MR output, not artistic deviation.

@@ -1,0 +1,377 @@
+{
+  "accepted_native_exact": {
+    "Evo2-4Runner": true,
+    "Michelin-RAV4": true,
+    "PC-Silver": true
+  },
+  "baseline": "bfd13741da01dfe71755add6b8c56f7a0a8c2d7f",
+  "contracts_commit": "d45421983406a548c11abec2d3ec82b38f8ebd64",
+  "final_focused": {
+    "schema": "workshop-test-tier/1",
+    "tier": "focused",
+    "selected_modules": [
+      "test_editable_vehicle",
+      "test_native_family_scene",
+      "test_preview_cache"
+    ],
+    "run": 21,
+    "failed": 0,
+    "errors": 0,
+    "skipped": [],
+    "seconds": 1.897637800022494,
+    "status": "PASS"
+  },
+  "final_guards": {
+    "camera_change_cancels_stale_result": true,
+    "edit_invalidates_interactive_preview": true,
+    "obsolete_native_fixture_rejected": true,
+    "source_fidelity_redo_cannot_corrupt_cursor": true,
+    "toolbar_reports_error": true
+  },
+  "fresh_process_cache": {
+    "image_hit": true,
+    "new_process": true,
+    "pid": 12576,
+    "seconds_excluding_verified_project_open": 0.1814802999724634,
+    "stage_hit": true
+  },
+  "full_windows": {
+    "errors": 0,
+    "failed": 0,
+    "run": 1279,
+    "seconds": 107.30723590002162,
+    "skipped": [
+      {
+        "reason": "exact retail executable or verified J.1 bundle is unavailable",
+        "test": "setUpClass (test_j2_frontend_reentry.J2ReentryPatchPlanTests)"
+      },
+      {
+        "reason": "private vehicle fixture unavailable",
+        "test": "test_vmesh412_runtime.FinalPassTests.test_stock_profile_preserves_tyre_and_refuses_second_pass"
+      }
+    ],
+    "status": "PASS"
+  },
+  "integration": {
+    "errors": 0,
+    "failed": 0,
+    "run": 115,
+    "seconds": 5.440157699980773,
+    "status": "PASS"
+  },
+  "new_carids": 0,
+  "original_shader_fidelity_promoted": false,
+  "preservation": {
+    "bytes_hashed": 15853855826,
+    "changed": [],
+    "files": 12742,
+    "missing": [],
+    "mutable_owner_runtime_state": "Outside sealed index; owner gameplay saves/options are not reset or overwritten",
+    "schema": "source-garage-preservation/1",
+    "sealed_runtime_resources": 307,
+    "status": "PASS"
+  },
+  "private_root": ".research-output/vehicles/workshop2",
+  "qt": {
+    "embedding": "External viewer boundary; no embedding/high-DPI device-loss equivalence claimed",
+    "native_boundary": "Derived geometry/material fixtures only; no CarID, physics, fitted collision or game installation",
+    "qt_import_and_application_startup_seconds": 0.18997370003489777,
+    "qt_version": "6.12.0",
+    "schema": "workshop2-windows-acceptance/1",
+    "status": "PASS_ACTUAL_QT_AND_D3D9",
+    "vehicles": [
+      {
+        "cache": {
+          "hits": 2,
+          "misses": 0,
+          "recovered": 0
+        },
+        "gameplay": "NOT TESTED",
+        "native_deterministic": true,
+        "native_files": {
+          "authored-glow-white-tga.dxt": "11afced07807c9d305452d85bcca0802e2adecf00509b208540b47ab60c1470d",
+          "car.dx": "9706af03bb85e093fbf43555cd539d10b247fd8f37e2d24dd676dc32512c056b",
+          "complete.dx": "cac1f6556840af8c4dc3b4095b08fb507b29183530bc06e8761f6bfd4d2a512c",
+          "uvs-2c11cde05c1edf1b6ed34287-tga.dxt": "2c11cde05c1edf1b6ed34287f7cfd295c2ec152d3c0d8d910496282fd25b3a2a",
+          "uvs-a5eefaebfc1aeaa199891e9b-tga.dxt": "a5eefaebfc1aeaa199891e9b8d534442e5c06dff30ce0a0b66ec71575dd0cf7b",
+          "uvs-b1af1b4f319f3c341eca1096-tga.dxt": "b1af1b4f319f3c341eca109660c22246b493d15297ed44808b4dcd08c618271c",
+          "uvs-c1346c99b2871f1150fa6645-tga.dxt": "c1346c99b2871f1150fa66450368e5b4b97a7df3469e2eea110913d06721ee35",
+          "uvs-dbf7d023ec5c65b264498a9f-tga.dxt": "dbf7d023ec5c65b264498a9f3954468b426c7298f25996ae1305f735207b1808",
+          "uvs-e5fea9ce4c8a2877a4879b83-tga.dxt": "e5fea9ce4c8a2877a4879b830b4125cac3c11b0b2beea216186ec0cae00fa140",
+          "uvs-env-4d0264cbed42fea2c2abf80a-tga.dxt": "4d0264cbed42fea2c2abf80ad2841b8405875cd8c5607aebacfe83992f4873db",
+          "wheel.dx": "87fd8eafcffe27cef6ca482729d327bc63cc9ff88c86f5a249e32c8dd3d8dcf2"
+        },
+        "source": "D:\\Game\\Master Rallye\\master-rallye-re-vehicles\\.research-output\\vehicles\\dakar2-fidelity\\final\\PAJERO\\scene\\scene.json",
+        "source_sha256": "fb9a91ee48b1fa762115945085e1804dd2cdb791dde08c61bb018b45cecbd8ad",
+        "source_tree_unchanged": true,
+        "stable_save_reopen_undo": true,
+        "timings": [
+          {
+            "seconds": 1.3622689999756403,
+            "stage": "cold open",
+            "status": "Opened; edits stay in a separate journal"
+          },
+          {
+            "seconds": 0.44903690001228824,
+            "stage": "warm reopen",
+            "status": "Opened; edits stay in a separate journal"
+          },
+          {
+            "seconds": 0.8436100000399165,
+            "stage": "cold preview",
+            "status": "Geometry cache False · image cache False · 0.80s · neutral D3D9 approximation"
+          },
+          {
+            "seconds": 0.3281711000017822,
+            "stage": "warm preview",
+            "status": "Geometry cache True · image cache True · 0.25s · neutral D3D9 approximation"
+          },
+          {
+            "seconds": 0.9945708999875933,
+            "stage": "native OFF",
+            "status": "Native MR material preview · brake False · cache False · D3D8 NOT TESTED"
+          },
+          {
+            "seconds": 0.3207006999873556,
+            "stage": "native ON",
+            "status": "Native MR material preview · brake True · cache False · D3D8 NOT TESTED"
+          },
+          {
+            "seconds": 0.28711730003124103,
+            "stage": "persistent preview",
+            "status": "Geometry cache True · image cache True · 0.24s · neutral D3D9 approximation"
+          }
+        ]
+      },
+      {
+        "cache": {
+          "hits": 2,
+          "misses": 0,
+          "recovered": 0
+        },
+        "gameplay": "NOT TESTED",
+        "native_deterministic": true,
+        "native_files": {
+          "authored-glow-white-tga.dxt": "11afced07807c9d305452d85bcca0802e2adecf00509b208540b47ab60c1470d",
+          "car.dx": "765ab3123e4e5d51b89a5d2116c5c1606ea4182d09b6ec7d965f3f40e1cd551d",
+          "complete.dx": "6cdf68433b46985c9b5c7c2cb5345df13e88030ea302047d1c941cf037145a71",
+          "uvs-03ddb37dd15f2afa39cf8af4-tga.dxt": "03ddb37dd15f2afa39cf8af4f85474bad578cd955add35cb37cf88714d587e4d",
+          "uvs-06f65904c6b69f9fbebbac4d-tga.dxt": "06f65904c6b69f9fbebbac4de90eb743fe8c867fbb1e56e5d481ee10954d46ac",
+          "uvs-07200db2f3838b66090719ea-tga.dxt": "07200db2f3838b66090719eaf4f61e6bedec76e0636cd5a6ec06144b1696791d",
+          "uvs-0861afc7cee97b36d075044f-tga.dxt": "0861afc7cee97b36d075044f805961e41f7c312a05e09be9789e4f93396f75f2",
+          "uvs-09702ba717df7b5477fcc243-tga.dxt": "09702ba717df7b5477fcc24366b83f264e8f9053ef87af752a11275fd1739fdc",
+          "uvs-14546345f56a4c94c2b277ef-tga.dxt": "14546345f56a4c94c2b277efe9302f3f90af49c2bfcab00d1c362d46e621ac06",
+          "uvs-152a7210095c6c96b638138b-tga.dxt": "152a7210095c6c96b638138b56812788d2db6166b38ac755dfea489aed43b132",
+          "uvs-16002668df4857aa3adb85e6-tga.dxt": "16002668df4857aa3adb85e6e6d6f73c130cbeed69af12aab41717f627c30570",
+          "uvs-1a056d3d8d636ef2793b8637-tga.dxt": "1a056d3d8d636ef2793b8637e5266e0bc16f9a9cc6145cac9366f45e1da27635",
+          "uvs-1dc1c4395d2340891f9319cf-tga.dxt": "1dc1c4395d2340891f9319cf7fb351f29ebd468b320ab032a93c5ae52b2abc32",
+          "uvs-1dddf86a2f6e6b7e3616c6d3-tga.dxt": "1dddf86a2f6e6b7e3616c6d3ee10d4b85b802ad9282250ddf45eb6330d7130f0",
+          "uvs-2049656bfafc0009450f891f-tga.dxt": "2049656bfafc0009450f891f4d57147c1f35f7ca5b1db21ca01cc50bf0ebddb0",
+          "uvs-21a99f7ef91e679b62b1c96b-tga.dxt": "21a99f7ef91e679b62b1c96b9b5cb2861f40610e7a356540d28d9651f0878bf3",
+          "uvs-261f024e107fa9a2ebd22bb5-tga.dxt": "261f024e107fa9a2ebd22bb5ba3f224ca5abfc91cfef297a0df41b7a2898683a",
+          "uvs-28a06f47a3748e8d593634ae-tga.dxt": "28a06f47a3748e8d593634ae09110dede5eeca7764842fc1069ecb23d4aec29f",
+          "uvs-2ec77650cc994874548202dd-tga.dxt": "2ec77650cc994874548202dd1bf56a5f638471d8b989d2e0fe938066c4fa2538",
+          "uvs-34b38416f289edb94df4b8a8-tga.dxt": "34b38416f289edb94df4b8a800ceb7981b2ea87c6c69adf8ef7119f5514fb19b",
+          "uvs-43fbbb80b563574e8a736ad0-tga.dxt": "43fbbb80b563574e8a736ad0deee488dd3dfea7729dc6c85419e3638cfdfa8a1",
+          "uvs-45617e60462e082b8110a5ba-tga.dxt": "45617e60462e082b8110a5bae19df62e907f065c8a02ccc5e5c42bc602d408fb",
+          "uvs-45ed3fb9fbedf1f9562c58b8-tga.dxt": "45ed3fb9fbedf1f9562c58b88b278200646ecbf976bfd9ba2d37e914edea4678",
+          "uvs-485cda6f86e0f681ac7f9637-tga.dxt": "485cda6f86e0f681ac7f9637fd2d6de8b3a760751eaf42faf87648add1f19e59",
+          "uvs-4868463c477ec682d7995c4e-tga.dxt": "4868463c477ec682d7995c4e40f65f9cd3824da2c6e51123627850ffe19aad20",
+          "uvs-49bdbd3672643be4f9f738da-tga.dxt": "49bdbd3672643be4f9f738da854392866a71380b1e1a746ea512e0092649a3e7",
+          "uvs-4c20250479d9dd66524be54d-tga.dxt": "4c20250479d9dd66524be54df03a9208f109e27772fb4cb23065a3a086741922",
+          "uvs-4e543db5c03a986cf519c431-tga.dxt": "4e543db5c03a986cf519c43158d26992f22d552a4c707919a8e4813212e5c894",
+          "uvs-5355c5ecf736da7f7e29f26d-tga.dxt": "5355c5ecf736da7f7e29f26d0678bdbcaed0491a7a7237ea8227eef9c9341b14",
+          "uvs-54b65017cbf1e271e8c30aad-tga.dxt": "54b65017cbf1e271e8c30aad082eb9c2080767247c8804cd3cdb4046d6b02cbb",
+          "uvs-5848a02c8763f888351f3f9a-tga.dxt": "5848a02c8763f888351f3f9a7f24efa56882795e82448d1b423efc9209f6fc33",
+          "uvs-59a316df42c29ce01edb1b67-tga.dxt": "59a316df42c29ce01edb1b67607ca1c58ae36b9b6ab3bea67441945b9a452d41",
+          "uvs-5ba8e64af2c7f665d6cc0a0c-tga.dxt": "5ba8e64af2c7f665d6cc0a0cdc787bfb6b57663e4719564105377ffe165bf1eb",
+          "uvs-5c0a1bbb645e2ca7c1e8f286-tga.dxt": "5c0a1bbb645e2ca7c1e8f2867ccac67ee5d48e2c51e978f31b4f09007c8b0715",
+          "uvs-5fed1c1a31a24bd701204ecc-tga.dxt": "5fed1c1a31a24bd701204ecce34be1e4ca260c49730c64c483d4d3857c143ae4",
+          "uvs-60a1ef671164572d20ff6ec6-tga.dxt": "60a1ef671164572d20ff6ec66a571d1df95f1ab50919a5ab740d90739976a7ba",
+          "uvs-63dd104768e5ea2ef84a6cf1-tga.dxt": "63dd104768e5ea2ef84a6cf1db377864f3cd8feedfed3321528d7267e8d4b3eb",
+          "uvs-641311fa0c06a6c8a3878880-tga.dxt": "641311fa0c06a6c8a38788804e1a9252bda56bacdf3dec1b1250813c1f624d89",
+          "uvs-64f52995926b11e6c4b4381f-tga.dxt": "64f52995926b11e6c4b4381f5976bc4e7b0e1b70b007aa571d6f27f18f50a9ad",
+          "uvs-67c8ef52dbb363c1e53f3d9e-tga.dxt": "67c8ef52dbb363c1e53f3d9ebbbd07933ab074ddb2ff1ea41456659add6e05c6",
+          "uvs-69436e8f57c3024be44cead0-tga.dxt": "69436e8f57c3024be44cead03c18d4ba54aa31fd0d16ba894c3cf2f800920b58",
+          "uvs-69d2da396320f00ee371eec4-tga.dxt": "69d2da396320f00ee371eec41447b3a8b11cfbdfba09c443ccc1cc6fade93577",
+          "uvs-6cbeda87b5bac2c6d8bc4fbc-tga.dxt": "6cbeda87b5bac2c6d8bc4fbc4d59eb866a78adeb2ed6bacb3b50796d0b56e18d",
+          "uvs-6e6d02739b1b908ddefb9abf-tga.dxt": "6e6d02739b1b908ddefb9abf63602a4bcf240369695f057678134a1999a11f9b",
+          "uvs-6f7876d5b07ef97b0ae93d84-tga.dxt": "6f7876d5b07ef97b0ae93d84b75581f4d4782713f9dbb3fa2e62f9ffc6274060",
+          "uvs-70188dd155fe0841fd75dab8-tga.dxt": "70188dd155fe0841fd75dab8ef565134194759d8db23ef08fe8a09591fce9138",
+          "uvs-825f9967b4970fd30617ca2a-tga.dxt": "825f9967b4970fd30617ca2a2a24854c4bb51f4792997dec001ec939d349d810",
+          "uvs-85e60329999a900abfa19f66-tga.dxt": "85e60329999a900abfa19f66edc642b37d90756a1a6a42dec40d4771ffddd8e4",
+          "uvs-8717264919e3b9d2f08e93f6-tga.dxt": "8717264919e3b9d2f08e93f6533f821d8cb9a06dbbbbdcad1b7e92a8f5bdddd6",
+          "uvs-871a7923868bd09ec35ed4e0-tga.dxt": "871a7923868bd09ec35ed4e0c8dbeb6b247328e1ff8f11f683ff95065f24d2a7",
+          "uvs-877bced3da5727327e6a7a19-tga.dxt": "877bced3da5727327e6a7a19a19287b5b32111a763c3882b0a6e7a3462d151be",
+          "uvs-8ef33c51df97fcf37e5a7683-tga.dxt": "8ef33c51df97fcf37e5a76832fc782bf5c91eae9e7dbc77008a48f4f03578a60",
+          "uvs-929a998153c261af13fde8c2-tga.dxt": "929a998153c261af13fde8c2098015bddac65dd827be2996620c64fd3ec18aea",
+          "uvs-9451cdeecc94d24e9b7ca840-tga.dxt": "9451cdeecc94d24e9b7ca840a79561896035154717da233450b040b61e367a49",
+          "uvs-97dc72cb65e7b88707f307bd-tga.dxt": "97dc72cb65e7b88707f307bd9fb8e7575649edc6238fcaa913e75dc65d02d992",
+          "uvs-9a0af512002501be8a56bace-tga.dxt": "9a0af512002501be8a56bacec1dfa5d0682c9baadeb9e1bef29a73df459cc722",
+          "uvs-a2aa2ad4935c76c7b725e938-tga.dxt": "a2aa2ad4935c76c7b725e938f72972b8a7d32f60e4ecce46bf52d8e412393c86",
+          "uvs-a5e25a66b19aa2c0b081e265-tga.dxt": "a5e25a66b19aa2c0b081e26575075022c23762991f02cccc08bd8ad0b0501881",
+          "uvs-ae45ab5358f892d42b0a0700-tga.dxt": "ae45ab5358f892d42b0a070046f9f32c33a14e82131500fc627c30f2bfdb1f42",
+          "uvs-aee30d3286474840def9a24f-tga.dxt": "aee30d3286474840def9a24f26f49fad7fe829efe9d547f9e08a331af90b7ac3",
+          "uvs-b11dc9280a8bb0d82eff3acb-tga.dxt": "b11dc9280a8bb0d82eff3acbae4036b53c1b51691edf6a1408edd7a8b749aea9",
+          "uvs-bc9f7bcfb8a90014678e219c-tga.dxt": "bc9f7bcfb8a90014678e219c68a6b635d4027917219b6de25967586efeb8abfe",
+          "uvs-bde957f9728363b78291ffc4-tga.dxt": "bde957f9728363b78291ffc4666fdfb329042810e5e71dcbcfd7960bec816d0e",
+          "uvs-c3e460c30e1ab0340a581a72-tga.dxt": "c3e460c30e1ab0340a581a7248f0eb46813ef1f35c074c11c8227f8ffef4c5a8",
+          "uvs-c4a95d6420922d21445e9b8e-tga.dxt": "c4a95d6420922d21445e9b8e671d1bcaa72692f6c34956b84f75767de59856fd",
+          "uvs-d2e3c534376bcf3cffd15f6c-tga.dxt": "d2e3c534376bcf3cffd15f6cd25b15d70f75dc3202fef5ac5f9669698b674354",
+          "uvs-d3ab74cbfeec5f21e8ca378f-tga.dxt": "d3ab74cbfeec5f21e8ca378f9307734d1b46c531a1b52bfecdfe4d77732d9743",
+          "uvs-d490759cb11af393a0a6d1f1-tga.dxt": "d490759cb11af393a0a6d1f1ddbf671fbf8be291473109865624b17fecd84db7",
+          "uvs-d7a7813d17a99ad45382cda9-tga.dxt": "d7a7813d17a99ad45382cda9e6cd0f19996ab8bdbdd6cca7a43d3cef9087577d",
+          "uvs-d98e261d22f641a96e7b4fa7-tga.dxt": "d98e261d22f641a96e7b4fa74f91f472f19293d437deff2b0b285b09465fc948",
+          "uvs-da26750dd7116cba19f5f5d9-tga.dxt": "da26750dd7116cba19f5f5d92a248fe8ebe04869f2259c9ac863d781e38cfec1",
+          "uvs-db2fa14db2f564e2cce5ed0e-tga.dxt": "db2fa14db2f564e2cce5ed0e1b9f8bfc3a13153b8eb44f4e585f0c05baddc40f",
+          "uvs-dc2e0f6b6e3427f6919d9059-tga.dxt": "dc2e0f6b6e3427f6919d90594b9c073c109e749c7c3ad1ad732e121fcaa4e094",
+          "uvs-e0a6a5a123d0eced04320128-tga.dxt": "e0a6a5a123d0eced0432012884be41045b0eb445f3decd904f8404d5b1d93286",
+          "uvs-e2677438f2ce36ced770ae20-tga.dxt": "e2677438f2ce36ced770ae20ccf868df02ec308124d7ba9da17528204b287fc1",
+          "uvs-e394756a518be3376eca8644-tga.dxt": "e394756a518be3376eca8644d881d009fc5934b3f559d7833ad8ff6f22e21bf4",
+          "uvs-e5919048647e33446f090417-tga.dxt": "e5919048647e33446f090417ec00672e208baf92352ef0b81aa6a19f1037dd98",
+          "uvs-e962e02e0adae9accec7894a-tga.dxt": "e962e02e0adae9accec7894a493dc6cd85f9bc4967098bd8dd6bddd9cd18a3f8",
+          "uvs-eb85c9010bc548c45fe9d428-tga.dxt": "eb85c9010bc548c45fe9d428496250a37c7a584d4ee96978c56cdc92db2a6c25",
+          "uvs-eeba6df53f5196d0bc8f39d2-tga.dxt": "eeba6df53f5196d0bc8f39d22368d96d98f79305bb0e1eeccf4f4b4729a264cb",
+          "uvs-env-4d0264cbed42fea2c2abf80a-tga.dxt": "4d0264cbed42fea2c2abf80ad2841b8405875cd8c5607aebacfe83992f4873db",
+          "uvs-f3b570ec3e0c532c66dfc390-tga.dxt": "f3b570ec3e0c532c66dfc39095af1462fe851ff6c3751ce5ec6065b3360e147b",
+          "uvs-f8c3710f86a9e453e4efe499-tga.dxt": "f8c3710f86a9e453e4efe499b20fa236db07e51e918292c61431aa53823d7294",
+          "uvs-f920c56b25299f2148f7374f-tga.dxt": "f920c56b25299f2148f7374fd228a2000d803feb0165124125466381b8297a73",
+          "uvs-f975143462816eae50aadbb3-tga.dxt": "f975143462816eae50aadbb3fd747ebe5a682db4e85c51f3501512aba13a9a31",
+          "uvs-fac9fecb4669c00746213130-tga.dxt": "fac9fecb4669c0074621313084628e786fbfd8547026519db77238238f41de1f",
+          "wheel.dx": "3fe326652b3dd624c1b0c2f897a9f5ca2aa7c79e3b1bdf26941565310d59b468"
+        },
+        "source": "D:\\Game\\Master Rallye\\master-rallye-re-vehicles\\.research-output\\vehicles\\workshop2\\gt-clio-snapshot\\scene.json",
+        "source_sha256": "579bfaf989c88b596763907b4b989575012e43fd5af39c0980c03b29d2834a83",
+        "source_tree_unchanged": true,
+        "stable_save_reopen_undo": true,
+        "timings": [
+          {
+            "seconds": 0.9939836999983527,
+            "stage": "cold open",
+            "status": "Opened; edits stay in a separate journal"
+          },
+          {
+            "seconds": 0.4307068000198342,
+            "stage": "warm reopen",
+            "status": "Opened; edits stay in a separate journal"
+          },
+          {
+            "seconds": 1.0674399000126868,
+            "stage": "cold preview",
+            "status": "Geometry cache False · image cache False · 1.02s · neutral D3D9 approximation"
+          },
+          {
+            "seconds": 0.30222980002872646,
+            "stage": "warm preview",
+            "status": "Geometry cache True · image cache True · 0.22s · neutral D3D9 approximation"
+          },
+          {
+            "seconds": 6.244125499972142,
+            "stage": "native OFF",
+            "status": "Native MR material preview · brake False · cache False · D3D8 NOT TESTED"
+          },
+          {
+            "seconds": 0.6257870999979787,
+            "stage": "native ON",
+            "status": "Native MR material preview · brake True · cache False · D3D8 NOT TESTED"
+          },
+          {
+            "seconds": 0.2536530999932438,
+            "stage": "persistent preview",
+            "status": "Geometry cache True · image cache True · 0.21s · neutral D3D9 approximation"
+          }
+        ]
+      }
+    ]
+  },
+  "qt_startup_memory": {
+    "editor_distribution_boundary": "Private venv size; not a compact in-game mod or a production bundled installer",
+    "embedding": "Not attempted; external viewer boundary",
+    "empty_editor": {
+      "peak_working_set_bytes": 63909888,
+      "working_set_bytes": 63909888
+    },
+    "installed_optional_environment_bytes": 264807235,
+    "qt": "6.12.0",
+    "startup_import_and_window_seconds": 0.34324479999486357
+  },
+  "remaining": [
+    "Advanced texture/emissive-mask painting",
+    "Full Studio migration and native project promotion",
+    "D3D9 embedding/picking/DPI/device-loss qualification",
+    "Compact DLL bootstrap/overlay launch prototype",
+    "31/32 and additional-class experiments",
+    "In-game color preset button"
+  ],
+  "runtime_launches": 0,
+  "schema": "workshop2-editor-increment/1",
+  "scope": "First performance/contract/Widgets authoring vertical slice; not completion of all deployment/capacity/painting requirements",
+  "seven_case_source_levels": {
+    "Dakar2-Hino": {
+      "L0": "PASS",
+      "L1": "PASS",
+      "L2": "WARN",
+      "L3": "BLOCKED",
+      "L4": "NOT TESTED"
+    },
+    "Dakar2-Nissan": {
+      "L0": "PASS",
+      "L1": "PASS",
+      "L2": "WARN",
+      "L3": "BLOCKED",
+      "L4": "NOT TESTED"
+    },
+    "Dakar2-Pajero": {
+      "L0": "PASS",
+      "L1": "PASS",
+      "L2": "WARN",
+      "L3": "BLOCKED",
+      "L4": "NOT TESTED"
+    },
+    "Evo2-4Runner": {
+      "L0": "PASS",
+      "L1": "PASS",
+      "L2": "WARN",
+      "L3": "WARN",
+      "L4": "NOT TESTED"
+    },
+    "Michelin-MeganeF2": {
+      "L0": "PASS",
+      "L1": "PASS",
+      "L2": "WARN",
+      "L3": "WARN",
+      "L4": "NOT TESTED"
+    },
+    "Michelin-RAV4": {
+      "L0": "PASS",
+      "L1": "PASS",
+      "L2": "WARN",
+      "L3": "WARN",
+      "L4": "NOT TESTED"
+    },
+    "PC-Silver": {
+      "L0": "PASS",
+      "L1": "PASS",
+      "L2": "WARN",
+      "L3": "WARN",
+      "L4": "NOT TESTED"
+    }
+  },
+  "test_policy": "One full milestone run; final narrow redo/cancel/stale-fixture, lazy cache-containment and allocation guards checked with 21 focused tests plus actual Qt guard probes, not a second full run",
+  "workflows": [
+    "Source Fidelity",
+    "MR Classic",
+    "User Customized"
+  ],
+  "selected_output_preservation": {
+    "files": 3667,
+    "changed": [],
+    "missing": [],
+    "status": "PASS",
+    "scope": [
+      ".research-output/vehicles/dakar2-fidelity/final",
+      ".research-output/vehicles/cross-game-materials/rav4-comparisons",
+      ".research-output/vehicles/cross-game-materials/evo2/final-colors"
+    ]
+  }
+}

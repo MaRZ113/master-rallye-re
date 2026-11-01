@@ -64,6 +64,7 @@ class CacheTests(unittest.TestCase):
             with self.assertRaises(ValueError):PreviewCache(root/'cache').get('../bad',lambda p,t:{})
             with self.assertRaisesRegex(ValueError,'protected source'):
                 stage(PreviewCache(project/'cache'),scene,{'scene_root':project})
+            self.assertFalse((project/'cache').exists())
 
 
 if __name__=='__main__':unittest.main()
