@@ -1,0 +1,49 @@
+{
+  "schema": "v-def2.1-delivery/1",
+  "baseline_commit": "3565e820c0c7a269c1480509f4cfa938ad1c1681",
+  "private_root": ".research-output/vehicles/v-def2/physics-identity",
+  "private_report_hashes": {
+    "physics-and-resource-proof.json": {
+      "sha256": "017d90f558dd270481f9c218c5aa4a25744ff44f9c3ffe514cd2c44b9a3c2b2e",
+      "bytes": 12528
+    },
+    "release-validation.json": {
+      "sha256": "49500e0a76e1aadfd4c3c8c2b7c29c9c7b6b3deb104d0d6ddec7330ad3914709",
+      "bytes": 60835
+    },
+    "delivery-validation.json": {
+      "sha256": "531622e4ea744c165df8ad257f73a160b24733bc6cd240b90d041127d3b52de5",
+      "bytes": 60974
+    },
+    "historical-evidence.json": {
+      "sha256": "7518852f5abff4e6dc25264c995d31daeae8f92215bd52b350e460cbe941e2b4",
+      "bytes": 726357
+    },
+    "historical-evidence-repeat.json": {
+      "sha256": "7518852f5abff4e6dc25264c995d31daeae8f92215bd52b350e460cbe941e2b4",
+      "bytes": 726357
+    },
+    "focused-delivery.json": {
+      "sha256": "97344aceade49ba3d0cd33b30c9fc83ff706885961be06ff2b934e64e5cf0726",
+      "bytes": 8692
+    },
+    "workshop-edit-validation.json": {
+      "sha256": "646751f109d074a5df0f742a2847d1d477ae51bbf5b3500bb59d2e94e6aaa88d",
+      "bytes": 517
+    },
+    "launcher-validation.json": {
+      "sha256": "1e8c5f0e9af6ceba9337a1a7d44358b45e3af2bc55199ad87d54b0ea16532ff1",
+      "bytes": 1602
+    },
+    "current-proxy-validation.json": {
+      "sha256": "fe00ffdf46338cf6e8a9b8ea79d008d495f6b261e1c007f45b5fa559d2e7205b",
+      "bytes": 514
+    },
+    "protected-after.json": {
+      "sha256": "9352bec0f1120c31f1c6e1e8874205c3d71a7b83d10d0c6523bef97bfc3b5146",
+      "bytes": 694
+    }
+  },
+  "owner_evidence": "Previous RAV4 visual/integration accepted; new retail physics/contact/Results label and lifecycle PENDING OWNER",
+  "original_assets_in_source_archive": false
+}

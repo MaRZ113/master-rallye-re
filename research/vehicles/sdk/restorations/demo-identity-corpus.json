@@ -1,0 +1,49 @@
+{
+  "sources": {
+    "pc841": {
+      "path": "D:\\Game\\Master Rallye\\corpora\\demo-8.4.1\\MRallye.exe",
+      "sha256": "2d4a3b02d3cdb740dfdf3c11002c0026837dc19ba8e5211ad9763b35eb06e15a",
+      "registration": [
+        4487280,
+        4488367,
+        4488976,
+        36,
+        26
+      ],
+      "scene_root": "D:\\Game\\Master Rallye\\corpora\\demo-8.4.1"
+    },
+    "pc931": {
+      "path": "D:\\Game\\Master Rallye\\corpora\\demo-9.3.1\\MRallye.exe",
+      "sha256": "611526d30be94879012efe54c56ceff428cb4d20a4bd49173370a4ebfe31a728",
+      "registration": [
+        4510560,
+        4511689,
+        4513536,
+        36,
+        27
+      ],
+      "scene_root": "D:\\Game\\Master Rallye\\corpora\\demo-9.3.1"
+    },
+    "retail": {
+      "path": "D:\\Game\\Master Rallye\\corpora\\retail\\MRallye.exe",
+      "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "registration": [
+        4558448,
+        4561100,
+        4563120,
+        52,
+        25
+      ]
+    },
+    "ps2": {
+      "path": "D:\\Game\\Master Rallye PS2\\SLES_509.06",
+      "sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+      "registration": {
+        "begin": 1142664,
+        "end": 1145584,
+        "string_call": 1909848,
+        "record_call": 1148472
+      }
+    }
+  }
+}

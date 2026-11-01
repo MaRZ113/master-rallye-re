@@ -793,3 +793,30 @@ Resolve final scoped revision using `git log -1 --format=%H --fixed-strings --gr
 ## Proxy SHA startup hotfix — 1 November 2026
 
 Removed the adjacent d3d8.dll SHA allowlist at owner request. Regular-file/link checks and read-only handle pinning remain; EXE, package resources and native patch guards are unchanged. Rebuilt the V-DEF2 owner RAV4 launcher against its existing trusted profile. Focused runtime tests and launch-environment preflight pass; this is not gameplay validation. Original launcher retained beside the updated CMD path for rollback.
+
+## V-DEF2.1 — independent retail RAV4 physics and historical identity/color audit
+
+Resolve revision with `git log -1 --format=%H --fixed-strings --grep="fix(definitive): clone retail RAV4 physics and audit demo identities"`.
+Owner accepts prior RAV4 visuals/integration, rejects hybrid physics. Existing
+manifest restoration now selects a complete Newrav clone,147 vehicle/26 setup
+fields, no overrides;121 historical rows remain inactive/pinned. The source
+2.553561m versus retail2.45m wheelbase difference remains explicit WARN, with no
+geometry/body/hub fit.258 DX/DXT remain byte-identical;380/381 loose resources
+unchanged, only the independent DefRav4 family in vehicles.xml differs.
+
+Read-only original PC/PS2 registration/localization/frontend/Results audit,
+29 recovered PS2 RGBA records,771 Rabbitizer R5900 word checks and an eight-case
+historical matrix. PC Demo12-driver category57 is never equated to later car
+IDs. Rav4 original driver/color stay UNKNOWN; editable DANIEL NEBOT is explicitly
+REAL_FALLBACK with contemporary Toyota/Dakar2003 credentials. PS2/retail Reece
+belongs to Newrav/Pickup, not retired Rav4. No accepted Forester marker change.
+
+86 focused tests PASS, two actual Workshop builds deterministic,32-record ABI
+emulation, original/accepted preservation, Results-name edit/Undo/Redo/Restore/
+reopen and all three native launcher preflights pass. No full-suite rerun is
+claimed for this focused revision. New physics/contact/Results/race lifecycle
+remain owner D3D8 tests. See V_DEF2_1_RAV4_RESULTS.md and the private proof reports.
+Source-only review/changed-files archives exclude original assets and raw
+Ghidra/instruction payloads. No new slot, next car, installation, push or release.
+The installed proxy changed externally during validation; it was left in place
+and the current build passes launch-environment checks without a SHA gate.

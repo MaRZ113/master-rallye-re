@@ -199,37 +199,72 @@
         "presentation": "source-pixels-v1",
         "association": "Original named Toyota_RAV4 XML points to menu frame5. Small bank frame5 is visually matching artwork, not an independently decoded runtime ID. Artwork shows historical green/white livery, source body remains white/blue; stale artwork is not repainted."
       }
+    },
+    "driver_assignment": {
+      "value": "DANIEL NEBOT",
+      "kind": "REAL_FALLBACK",
+      "credentials": "Verified Toyota driver, Dakar2003 car280, within the requested1996-2003 period. Contemporary Nissan event report establishes Toyota and driver; a secondary vehicle catalog identifies RAV4. No association with original MR #263 or its driver is claimed.",
+      "sources": [
+        {
+          "title": "Nissan stage ten report, January2003",
+          "url": "https://au.motorsport.com/dakar/news/dakar-nissan-stage-ten-report/1013503/"
+        },
+        {
+          "title": "Le Monde,14January2003, Toyota driven by Daniel Nebot",
+          "url": "https://www.lemonde.fr/archives/article/2003/01/14/accident-mortel-et-explosion-d-une-mine-sur-le-dakar_4270403_1819218.html"
+        },
+        {
+          "title": "Secondary car catalog, Dakar2003 ToyotaRAV4 #280; catalog support only",
+          "url": "https://www.webcarstory.com/champ.php?ch=299&resultats=2"
+        }
+      ]
+    },
+    "race_marker": {
+      "value": [
+        0.25,
+        0.55,
+        0.85,
+        1.0
+      ],
+      "status": "UNKNOWN",
+      "kind": "SDK_FALLBACK",
+      "evidence": "Existing SDK T2 default retained explicitly. Neither PC Demo initialized registry contains a qualified RGBA field; PS2/retail Newrav marker is not transferred to retired Rav4."
     }
   },
   "physics": {
-    "mode": "historical-compatible",
+    "mode": "retail",
     "input": "physics",
     "source_family": "Rav4",
     "donor_family": "Newrav",
-    "source_only": {
-      "Engine/TorqueEntries": "Original 8-point curve preserved in source evidence; retail-compatible6-point curve retained as a complete group",
-      "Engine/TorqueEntry0": "Original 8-point curve preserved in source evidence; retail-compatible6-point curve retained as a complete group",
-      "Engine/TorqueEntry1": "Original 8-point curve preserved in source evidence; retail-compatible6-point curve retained as a complete group",
-      "Engine/TorqueEntry2": "Original 8-point curve preserved in source evidence; retail-compatible6-point curve retained as a complete group",
-      "Engine/TorqueEntry3": "Original 8-point curve preserved in source evidence; retail-compatible6-point curve retained as a complete group",
-      "Engine/TorqueEntry4": "Original 8-point curve preserved in source evidence; retail-compatible6-point curve retained as a complete group",
-      "Engine/TorqueEntry5": "Original 8-point curve preserved in source evidence; retail-compatible6-point curve retained as a complete group",
-      "Engine/TorqueEntry6": "Original 8-point curve preserved in source evidence; retail-compatible6-point curve retained as a complete group",
-      "Engine/TorqueEntry7": "Original 8-point curve preserved in source evidence; retail-compatible6-point curve retained as a complete group",
-      "Suspension/Front/SuspAppPointOffset": "Original vector suspension application point has no qualified direct retail scalar mapping",
-      "Suspension/Rear/SuspAppPointOffset": "Original vector suspension application point has no qualified direct retail scalar mapping",
-      "DamageParams/EngineThreshold": "Old damage thresholds/multipliers are not assumed equivalent to retail damage mechanisms",
-      "DamageParams/SteeringThreshold": "Old damage thresholds/multipliers are not assumed equivalent to retail damage mechanisms",
-      "DamageParams/TyreThreshold": "Old damage thresholds/multipliers are not assumed equivalent to retail damage mechanisms",
-      "DamageParams/SuspensionThreshold": "Old damage thresholds/multipliers are not assumed equivalent to retail damage mechanisms",
-      "DamageParams/EngineMultiplier": "Old damage thresholds/multipliers are not assumed equivalent to retail damage mechanisms",
-      "DamageParams/SteeringMultiplier": "Old damage thresholds/multipliers are not assumed equivalent to retail damage mechanisms",
-      "DamageParams/TyreMultiplier": "Old damage thresholds/multipliers are not assumed equivalent to retail damage mechanisms",
-      "DamageParams/SuspensionMultiplier": "Old damage thresholds/multipliers are not assumed equivalent to retail damage mechanisms",
-      "Suspension/Front/TyreType": "Original Slicks table retained as evidence; owner selected explicit retail tyre fallback after Forester wear findings",
-      "Suspension/Rear/TyreType": "Original Slicks table retained as evidence; owner selected explicit retail tyre fallback after Forester wear findings"
+    "reason": "V-DEF2.1 owner request: complete independent retail Newrav clone. All Demo8.4.1 rows retained as inactive evidence; no hybrid values, geometry offsets or speculative suspension tuning.",
+    "previous_policy": {
+      "mode": "historical-compatible",
+      "source_only": {
+        "Engine/TorqueEntries": "Original 8-point curve preserved in source evidence; retail-compatible6-point curve retained as a complete group",
+        "Engine/TorqueEntry0": "Original 8-point curve preserved in source evidence; retail-compatible6-point curve retained as a complete group",
+        "Engine/TorqueEntry1": "Original 8-point curve preserved in source evidence; retail-compatible6-point curve retained as a complete group",
+        "Engine/TorqueEntry2": "Original 8-point curve preserved in source evidence; retail-compatible6-point curve retained as a complete group",
+        "Engine/TorqueEntry3": "Original 8-point curve preserved in source evidence; retail-compatible6-point curve retained as a complete group",
+        "Engine/TorqueEntry4": "Original 8-point curve preserved in source evidence; retail-compatible6-point curve retained as a complete group",
+        "Engine/TorqueEntry5": "Original 8-point curve preserved in source evidence; retail-compatible6-point curve retained as a complete group",
+        "Engine/TorqueEntry6": "Original 8-point curve preserved in source evidence; retail-compatible6-point curve retained as a complete group",
+        "Engine/TorqueEntry7": "Original 8-point curve preserved in source evidence; retail-compatible6-point curve retained as a complete group",
+        "Suspension/Front/SuspAppPointOffset": "Original vector suspension application point has no qualified direct retail scalar mapping",
+        "Suspension/Rear/SuspAppPointOffset": "Original vector suspension application point has no qualified direct retail scalar mapping",
+        "DamageParams/EngineThreshold": "Old damage thresholds/multipliers are not assumed equivalent to retail damage mechanisms",
+        "DamageParams/SteeringThreshold": "Old damage thresholds/multipliers are not assumed equivalent to retail damage mechanisms",
+        "DamageParams/TyreThreshold": "Old damage thresholds/multipliers are not assumed equivalent to retail damage mechanisms",
+        "DamageParams/SuspensionThreshold": "Old damage thresholds/multipliers are not assumed equivalent to retail damage mechanisms",
+        "DamageParams/EngineMultiplier": "Old damage thresholds/multipliers are not assumed equivalent to retail damage mechanisms",
+        "DamageParams/SteeringMultiplier": "Old damage thresholds/multipliers are not assumed equivalent to retail damage mechanisms",
+        "DamageParams/TyreMultiplier": "Old damage thresholds/multipliers are not assumed equivalent to retail damage mechanisms",
+        "DamageParams/SuspensionMultiplier": "Old damage thresholds/multipliers are not assumed equivalent to retail damage mechanisms",
+        "Suspension/Front/TyreType": "Original Slicks table retained as evidence; owner selected explicit retail tyre fallback after Forester wear findings",
+        "Suspension/Rear/TyreType": "Original Slicks table retained as evidence; owner selected explicit retail tyre fallback after Forester wear findings"
+      },
+      "reason": "Owner selected compatible Demo fields plus explicitly marked retail substitutions. Named family is from8.4.1; no9.3.1 runtime binding is claimed."
     },
-    "reason": "Owner selected compatible Demo fields plus explicitly marked retail substitutions. Named family is from8.4.1; no9.3.1 runtime binding is claimed."
+    "require_exact_clone": true
   },
   "features": {
     "states": {
@@ -386,5 +421,5 @@
       "Generated source-matching CarSheet and independent side-view HUD icon"
     ]
   },
-  "notes": "Authentic Rav4 Demo9.3.1 geometry/textures; independent native adaptation via common manifest workflow. Original inputs immutable. Demo8.4.1 compatible physics, explicit retail substitutes. Driver unresolved; no Newrav/Michelin identity substitution. Original-artwork candidates were rejected as mismatched; CarSheet and side HUD are generated through Workshop. Neutral frontend stats are SDK placeholders, not recovered historical ratings."
+  "notes": "Authentic Rav4 Demo9.3.1 geometry/textures; independent native adaptation via common manifest workflow. Original inputs immutable. Complete independent retail Newrav physics; historical Demo8.4.1 values retained as inactive research evidence. Original driver UNKNOWN. Results uses editable REAL_FALLBACK DANIEL NEBOT (Toyota/Dakar2003), not an original game identity. Race marker is the explicit SDK fallback; no Newrav/Michelin identity substitution. Original-artwork candidates were rejected as mismatched; CarSheet and side HUD are generated through Workshop. Neutral frontend stats are SDK placeholders, not recovered historical ratings."
 }

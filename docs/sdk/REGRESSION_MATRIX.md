@@ -1,4 +1,15 @@
-# V-DEF2 reusable restoration and Demo RAV4 —1 November2026
+# V-DEF2.1 retail physics and historical identity
+
+| Scope | Verified evidence | Boundary |
+|---|---|---|
+| Retail clone |147 vehicle /26 setup fields equal clean Newrav;96 prior hybrid fields replaced | Handling/contact pending owner; no hidden geometry fit |
+| Original preservation |121 historical rows inactive;258 DX/DXT unchanged;380/381 prior resource entries exact | Only DefRav4 physics family in vehicles.xml changes; fixed Results name changes native extension separately |
+| Registration / identity |26 PC841,27 PC931,25 explicit retail,29 PS2 initializers; exact localized references and eight shortlist cases | PC Demo category57 is not a vehicle-ID table; no Reece transfer to Rav4 |
+| Source marker |29 PS2 RGBA recovered;771 original words checked with explicit R5900 decoding |23/25 retail markers from narrow reader; unqualified Bruno/Icecream excluded; source offsets differ |
+| Workshop / native | Two actual builds deterministic; existing32-record ABI emulation and launcher checks pass | No new capacity, new car or D3D8 gameplay claim |
+| Focused regression | 86 PASS in private focused-delivery.json | Previous full suite is historical, not rerun for this scoped change |
+
+# Historical V-DEF2 reusable restoration and Demo RAV4 —1 November2026
 
 | Scope | Verified evidence | Boundary |
 |---|---|---|

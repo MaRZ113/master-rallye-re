@@ -9,6 +9,7 @@ from . import heritage_source as heritage
 from .project import read_sma_member
 from .physics_profile import MEMBERS
 from .historical_physics import source_family_profile
+from .demo_identity import selected_identity
 from .ui_assets import parse_bank,fit_rgba
 from ..dxt import parse_dxt_bytes,decode_rgba_pixels
 from ..dx import parse_dx_bytes
@@ -114,6 +115,41 @@ def verify_inputs(m,roots):
     return source,inputs,pins,evidence
 
 
+def restoration_physics(policy,profile,inputs,members,*,runtime_family):
+    """Keep inactive historical records separate from the active retail clone."""
+    donor=policy['donor_family']
+    if policy['mode']=='historical-compatible':
+        return source_family_profile(inputs[policy['input']],members,source_family=policy['source_family'],donor_family=donor,runtime_family=runtime_family,source_only=policy['source_only'])
+    if policy['mode']!='retail':raise ValueError('Unknown restoration physics policy')
+    required={'profile_version','donor_family','runtime_family','source_sha256','overrides','notes'}
+    if policy.get('require_exact_clone') and (any(profile['overrides'].values())or set(profile)-required):
+        raise ValueError('Exact retail clone cannot contain physics or tyre overrides')
+    report={'policy':'Independent unmodified retail clone','overrides':profile['overrides'],'notes':policy['reason']}
+    if 'input'in policy:
+        raw=inputs[policy['input']];prefix='Vehicles/'+policy['source_family']+'/'
+        rows=[dict(v.attrib)for v in ET.fromstring(raw).iter('Value')if v.get('Name','').startswith(prefix)]
+        if not rows:raise ValueError('Historical physics evidence family is absent')
+        report['inactive_historical_evidence']={'sha256':sha(raw),'family':policy['source_family'],'row_count':len(rows),'rows':rows,'applied':False}
+    return profile,report
+
+
+def verify_retail_clone(original,compiled,*,donor_family,runtime_family):
+    """Compare every original attribute after only the owned family rename."""
+    def rows(raw,family):
+        prefix='Vehicles/'+family+'/'
+        values=[v for v in ET.fromstring(raw).iter('Value')if v.get('Name','').startswith(prefix)]
+        result={v.get('Name')[len(prefix):]:{k:value for k,value in v.attrib.items()if k!='Name'}for v in values}
+        if not result or len(result)!=len(values):raise ValueError('Missing or duplicate retail clone rows')
+        return result
+    report={}
+    for member in MEMBERS:
+        source=rows(original[member],donor_family);target=rows(compiled[member],runtime_family)
+        if source!=target:raise ValueError('Compiled retail clone differs: '+member)
+        if rows(compiled[member],donor_family)!=source:raise ValueError('Original retail donor changed: '+member)
+        report[member]={'identical_family_rows':len(source),'differences':[]}
+    return report
+
+
 def prepare(manifest,roots,roster_config,output,*,sdk_root,build=True):
     from ..workshop.service import WorkshopProject
     m=validate_manifest(copy.deepcopy(manifest));source,inputs,pins,evidence=verify_inputs(m,roots)
@@ -135,10 +171,7 @@ def prepare(manifest,roots,roster_config,output,*,sdk_root,build=True):
     heritage.create_author(Path(roots['demo']),m['source_family'],project,name=m['name'],runtime_family=m['runtime_family'],physics_donor=donor,
         stock_audio_profile_id=m['runtime']['audio_profile'],vehicle_class=m['vehicle_class'],retail_sma=sma,features=None,family_folder=source)
     members={n:read_sma_member(sma,n)for n in MEMBERS};pp=m['physics'];profile=json.loads((project/'physics-profile.json').read_text())
-    if pp['mode']=='historical-compatible':
-        profile,physics=source_family_profile(inputs[pp['input']],members,source_family=pp['source_family'],donor_family=donor,runtime_family=m['runtime_family'],source_only=pp['source_only'])
-    elif pp['mode']=='retail':physics={'policy':'Independent unmodified retail clone','overrides':profile['overrides'],'notes':pp['reason']}
-    else:raise ValueError('Unknown restoration physics policy')
+    profile,physics=restoration_physics(pp,profile,inputs,members,runtime_family=m['runtime_family'])
     write(project/'physics-profile.json',profile);write(output/'physics-preservation.json',physics)
     assets=project/'assets/source'/donor;car=(assets/'car.dx').read_bytes();model=parse_dx_bytes(car);features=copy.deepcopy(m['features'])
     if features['states']['source_sha256']!=sha(car):raise ValueError('Feature selection belongs to a different source')
@@ -190,8 +223,10 @@ def prepare(manifest,roots,roster_config,output,*,sdk_root,build=True):
         path=project/'ui'/(role+'.png');Image.frombytes('RGBA',size,pixels).save(path);ui['icons'][role]={'png':'ui/'+path.name,'sha256':sha(path.read_bytes()),'presentation':item['presentation']}
         art.append({'role':role,'original_texture_sha256':sha(inputs[item['texture']]),'bank_sha256':sha(inputs[item['bank']]),**item})
     write(project/'ui-assets.json',ui)
-    identity=m['identity'];addon=json.loads((project/'addon.json').read_text());addon['addon_id']=m['id'];addon['frontend'].update(identity['frontend']);addon['results']['display_name']=identity['driver']['value']or identity['frontend']['combined'];addon['description']=m['notes'];write(project/'addon.json',addon)
-    write(output/'identity-evidence.json',{'bindings':evidence,'artwork':art,'driver':identity['driver'],'frontend':identity['frontend']})
+    identity=m['identity'];addon=json.loads((project/'addon.json').read_text());selected=selected_identity(identity,addon['race_colour_rgba'])
+    addon['addon_id']=m['id'];addon['frontend'].update(identity['frontend']);addon['results']['display_name']=selected['driver']['value'];addon['race_colour_rgba']=selected['race_marker']['value'];addon['description']=m['notes'];write(project/'addon.json',addon)
+    identity_report={'bindings':evidence,'artwork':art,'driver':identity['driver'],'frontend':identity['frontend'],'selected':selected}
+    write(output/'identity-evidence.json',identity_report);write(project/'historical-identity.json',identity_report)
     config['experimental_record_count']=slot+1;config['projects'].append({'project':str(project.absolute()),'build':str(output/'not-built'),'physical_id':slot})
     plan=output/'runtime-plan';plan.mkdir();write(plan/'roster-config.json',config)
     workshop=WorkshopProject.create(project,output/'workshop',kind='addon');workshop.configure_build({'roster_candidate':str(plan.absolute()),'retail_sma':str(sma),'retail_root':str(resolve(roots,'retail','Data.sma_unpacked'))})

@@ -1,0 +1,2932 @@
+{
+  "schema": "demo-driver-marker-matrix/1",
+  "source_hashes": {
+    "pc841": {
+      "sha256": "2d4a3b02d3cdb740dfdf3c11002c0026837dc19ba8e5211ad9763b35eb06e15a",
+      "size": 2084926
+    },
+    "pc931": {
+      "sha256": "611526d30be94879012efe54c56ceff428cb4d20a4bd49173370a4ebfe31a728",
+      "size": 2637886
+    },
+    "retail": {
+      "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "size": 3121214
+    },
+    "ps2": {
+      "sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+      "size": 3739852
+    }
+  },
+  "private_full_evidence_sha256": "7518852f5abff4e6dc25264c995d31daeae8f92215bd52b350e460cbe941e2b4",
+  "r5900_check": {
+    "instructions": 771,
+    "decoder": "Rabbitizer1.16.2 / InstrCategory.R5900",
+    "program": "Ghidra12.1.4 Emotion Engine Reloaded r5900:LE:32:default",
+    "registry_va": "0x116f88",
+    "constructor_va": "0x118638",
+    "source_rgba_offsets": [
+      "0x20",
+      "0x24",
+      "0x28",
+      "0x2c"
+    ],
+    "retail_rgba_offsets": [
+      "0x24",
+      "0x28",
+      "0x2c",
+      "0x30"
+    ],
+    "boundary": "Source field offsets differ; values feed existing race_colour_rgba, never raw PS2 records."
+  },
+  "rows": [
+    {
+      "vehicle": "Forester (canonical9.3.1)",
+      "original_demo_driver_status": "PROVEN",
+      "interpretation": "Accepted exact PS2 Forester registration/localization and owner-confirmed Darren; retail Forester is WOOLDAND, not this car.",
+      "sources": {
+        "pc841": [],
+        "pc931": [
+          {
+            "id": 8,
+            "family": "Forester",
+            "call_va": "0x44d4cd",
+            "catalog_model": {
+              "status": "UNKNOWN",
+              "value": null,
+              "alternatives": [
+                "FORESTER",
+                "MEGANE 2001"
+              ],
+              "records": [
+                {
+                  "file_offset": 2519968,
+                  "category": 52,
+                  "index": 8,
+                  "pointer": 6742220,
+                  "text": "MEGANE 2001"
+                },
+                {
+                  "file_offset": 2520100,
+                  "category": 52,
+                  "index": 8,
+                  "pointer": 6742120,
+                  "text": "FORESTER"
+                },
+                {
+                  "file_offset": 2529544,
+                  "category": 52,
+                  "index": 8,
+                  "pointer": 6742120,
+                  "text": "FORESTER"
+                }
+              ]
+            },
+            "catalog_combined": {
+              "status": "PROVEN",
+              "value": "SUBARU FORESTER",
+              "alternatives": [
+                "SUBARU FORESTER"
+              ],
+              "records": [
+                {
+                  "file_offset": 2520436,
+                  "category": 53,
+                  "index": 8,
+                  "pointer": 6741852,
+                  "text": "SUBARU FORESTER"
+                },
+                {
+                  "file_offset": 2529868,
+                  "category": 53,
+                  "index": 8,
+                  "pointer": 6741852,
+                  "text": "SUBARU FORESTER"
+                }
+              ]
+            },
+            "marker": {
+              "status": "UNKNOWN",
+              "rgba": null,
+              "rgba_bits": null
+            },
+            "category57_lookup": {
+              "status": "PROVEN",
+              "value": "VLADIMIR STRAKHOV",
+              "alternatives": [
+                "VLADIMIR STRAKHOV"
+              ],
+              "records": [
+                {
+                  "file_offset": 2521132,
+                  "category": 57,
+                  "index": 8,
+                  "pointer": 6740560,
+                  "text": "VLADIMIR STRAKHOV"
+                },
+                {
+                  "file_offset": 2530588,
+                  "category": 57,
+                  "index": 8,
+                  "pointer": 6740560,
+                  "text": "VLADIMIR STRAKHOV"
+                }
+              ]
+            },
+            "category57_semantics": "Separate driver-index list; NOT a vehicle binding"
+          }
+        ],
+        "retail": [
+          {
+            "id": 8,
+            "family": "Forester",
+            "call_va": "0x459222",
+            "catalog_model": {
+              "status": "PROVEN",
+              "value": "WOOLDAND",
+              "alternatives": [
+                "WOOLDAND"
+              ],
+              "records": [
+                {
+                  "file_offset": 2857224,
+                  "category": 52,
+                  "index": 8,
+                  "pointer": 7211968,
+                  "text": "WOOLDAND"
+                },
+                {
+                  "file_offset": 2871696,
+                  "category": 52,
+                  "index": 8,
+                  "pointer": 7211968,
+                  "text": "WOOLDAND"
+                },
+                {
+                  "file_offset": 2886168,
+                  "category": 52,
+                  "index": 8,
+                  "pointer": 7211968,
+                  "text": "WOOLDAND"
+                },
+                {
+                  "file_offset": 2900640,
+                  "category": 52,
+                  "index": 8,
+                  "pointer": 7211968,
+                  "text": "WOOLDAND"
+                },
+                {
+                  "file_offset": 2915040,
+                  "category": 52,
+                  "index": 8,
+                  "pointer": 7211968,
+                  "text": "WOOLDAND"
+                },
+                {
+                  "file_offset": 2929416,
+                  "category": 52,
+                  "index": 8,
+                  "pointer": 7211968,
+                  "text": "WOOLDAND"
+                }
+              ]
+            },
+            "catalog_combined": {
+              "status": "PROVEN",
+              "value": "SUBPELKA WOOLDAND",
+              "alternatives": [
+                "SUBPELKA WOOLDAND"
+              ],
+              "records": [
+                {
+                  "file_offset": 2857536,
+                  "category": 53,
+                  "index": 8,
+                  "pointer": 7211624,
+                  "text": "SUBPELKA WOOLDAND"
+                },
+                {
+                  "file_offset": 2872008,
+                  "category": 53,
+                  "index": 8,
+                  "pointer": 7211624,
+                  "text": "SUBPELKA WOOLDAND"
+                },
+                {
+                  "file_offset": 2886480,
+                  "category": 53,
+                  "index": 8,
+                  "pointer": 7211624,
+                  "text": "SUBPELKA WOOLDAND"
+                },
+                {
+                  "file_offset": 2900952,
+                  "category": 53,
+                  "index": 8,
+                  "pointer": 7211624,
+                  "text": "SUBPELKA WOOLDAND"
+                },
+                {
+                  "file_offset": 2915352,
+                  "category": 53,
+                  "index": 8,
+                  "pointer": 7211624,
+                  "text": "SUBPELKA WOOLDAND"
+                },
+                {
+                  "file_offset": 2929728,
+                  "category": 53,
+                  "index": 8,
+                  "pointer": 7211624,
+                  "text": "SUBPELKA WOOLDAND"
+                }
+              ]
+            },
+            "marker": {
+              "status": "PROVEN",
+              "rgba": [
+                0.8943396210670471,
+                0.9283018708229065,
+                0.9358490705490112,
+                1.0
+              ],
+              "rgba_bits": [
+                "3f64f371",
+                "3f6da531",
+                "3f6f93ce",
+                "3f800000"
+              ]
+            },
+            "category57_lookup": {
+              "status": "UNKNOWN",
+              "value": null,
+              "alternatives": [
+                "CALLUM MITCHELL",
+                "JEAN-MICHEL MUIRRE"
+              ],
+              "records": [
+                {
+                  "file_offset": 2858496,
+                  "category": 57,
+                  "index": 8,
+                  "pointer": 7209640,
+                  "text": "CALLUM MITCHELL"
+                },
+                {
+                  "file_offset": 2872968,
+                  "category": 57,
+                  "index": 8,
+                  "pointer": 7209640,
+                  "text": "CALLUM MITCHELL"
+                },
+                {
+                  "file_offset": 2887440,
+                  "category": 57,
+                  "index": 8,
+                  "pointer": 7209640,
+                  "text": "CALLUM MITCHELL"
+                },
+                {
+                  "file_offset": 2901912,
+                  "category": 57,
+                  "index": 8,
+                  "pointer": 7209640,
+                  "text": "CALLUM MITCHELL"
+                },
+                {
+                  "file_offset": 2916312,
+                  "category": 57,
+                  "index": 8,
+                  "pointer": 7209640,
+                  "text": "CALLUM MITCHELL"
+                },
+                {
+                  "file_offset": 2930688,
+                  "category": 57,
+                  "index": 8,
+                  "pointer": 7209756,
+                  "text": "JEAN-MICHEL MUIRRE"
+                }
+              ]
+            },
+            "category57_semantics": "Original vehicle-indexed table; conflicting localized alternatives remain UNKNOWN"
+          }
+        ],
+        "ps2": [
+          {
+            "id": 8,
+            "family": "Forester",
+            "call_va": "0x117388",
+            "catalog_model": {
+              "status": "PROVEN",
+              "value": "FORESTER",
+              "alternatives": [
+                "FORESTER"
+              ],
+              "records": [
+                {
+                  "file_offset": 3215932,
+                  "category": 52,
+                  "index": 8,
+                  "pointer": 4534512,
+                  "text": "FORESTER"
+                },
+                {
+                  "file_offset": 3231788,
+                  "category": 52,
+                  "index": 8,
+                  "pointer": 4534512,
+                  "text": "FORESTER"
+                },
+                {
+                  "file_offset": 3247644,
+                  "category": 52,
+                  "index": 8,
+                  "pointer": 4534512,
+                  "text": "FORESTER"
+                },
+                {
+                  "file_offset": 3263500,
+                  "category": 52,
+                  "index": 8,
+                  "pointer": 4534512,
+                  "text": "FORESTER"
+                },
+                {
+                  "file_offset": 3279284,
+                  "category": 52,
+                  "index": 8,
+                  "pointer": 4534512,
+                  "text": "FORESTER"
+                },
+                {
+                  "file_offset": 3295068,
+                  "category": 52,
+                  "index": 8,
+                  "pointer": 4534512,
+                  "text": "FORESTER"
+                }
+              ]
+            },
+            "catalog_combined": {
+              "status": "PROVEN",
+              "value": "SUBARU FORESTER",
+              "alternatives": [
+                "SUBARU FORESTER"
+              ],
+              "records": [
+                {
+                  "file_offset": 3216280,
+                  "category": 53,
+                  "index": 8,
+                  "pointer": 4534936,
+                  "text": "SUBARU FORESTER"
+                },
+                {
+                  "file_offset": 3232136,
+                  "category": 53,
+                  "index": 8,
+                  "pointer": 4534936,
+                  "text": "SUBARU FORESTER"
+                },
+                {
+                  "file_offset": 3247992,
+                  "category": 53,
+                  "index": 8,
+                  "pointer": 4534936,
+                  "text": "SUBARU FORESTER"
+                },
+                {
+                  "file_offset": 3263848,
+                  "category": 53,
+                  "index": 8,
+                  "pointer": 4534936,
+                  "text": "SUBARU FORESTER"
+                },
+                {
+                  "file_offset": 3279632,
+                  "category": 53,
+                  "index": 8,
+                  "pointer": 4534936,
+                  "text": "SUBARU FORESTER"
+                },
+                {
+                  "file_offset": 3295416,
+                  "category": 53,
+                  "index": 8,
+                  "pointer": 4534936,
+                  "text": "SUBARU FORESTER"
+                }
+              ]
+            },
+            "marker": {
+              "status": "PROVEN",
+              "rgba": [
+                0.91796875,
+                0.29296875,
+                0.36328125,
+                1.0
+              ],
+              "rgba_bits": [
+                "3f6b0000",
+                "3e960000",
+                "3eba0000",
+                "3f800000"
+              ]
+            },
+            "category57_lookup": {
+              "status": "PROVEN",
+              "value": "DARREN SUTHERLAND",
+              "alternatives": [
+                "DARREN SUTHERLAND"
+              ],
+              "records": [
+                {
+                  "file_offset": 3217276,
+                  "category": 57,
+                  "index": 8,
+                  "pointer": 4537032,
+                  "text": "DARREN SUTHERLAND"
+                },
+                {
+                  "file_offset": 3233132,
+                  "category": 57,
+                  "index": 8,
+                  "pointer": 4537032,
+                  "text": "DARREN SUTHERLAND"
+                },
+                {
+                  "file_offset": 3248988,
+                  "category": 57,
+                  "index": 8,
+                  "pointer": 4537032,
+                  "text": "DARREN SUTHERLAND"
+                },
+                {
+                  "file_offset": 3264844,
+                  "category": 57,
+                  "index": 8,
+                  "pointer": 4537032,
+                  "text": "DARREN SUTHERLAND"
+                },
+                {
+                  "file_offset": 3280628,
+                  "category": 57,
+                  "index": 8,
+                  "pointer": 4537032,
+                  "text": "DARREN SUTHERLAND"
+                },
+                {
+                  "file_offset": 3296412,
+                  "category": 57,
+                  "index": 8,
+                  "pointer": 4537032,
+                  "text": "DARREN SUTHERLAND"
+                }
+              ]
+            },
+            "category57_semantics": "Original vehicle-indexed table; conflicting localized alternatives remain UNKNOWN"
+          }
+        ]
+      },
+      "fallback": null,
+      "active_change": "Only RAV4 candidate receives REAL_FALLBACK; all other assignments are audit proposals, not changes to accepted projects."
+    },
+    {
+      "vehicle": "Rav4 (canonical9.3.1)",
+      "original_demo_driver_status": "UNKNOWN",
+      "interpretation": "No qualified named Rav4 registration/driver pair in the inspected initializers. Empty/global names remain unresolved; old menu artwork/physics name does not supply a driver.",
+      "sources": {
+        "pc841": [],
+        "pc931": [],
+        "retail": [],
+        "ps2": []
+      },
+      "fallback": {
+        "value": "DANIEL NEBOT",
+        "kind": "REAL_FALLBACK",
+        "credentials": "Toyota driver, Dakar2003 #280, confirmed contemporary event report. RAV4 model identification is secondary catalog evidence; not the original MR #263 driver.",
+        "sources": [
+          "https://au.motorsport.com/dakar/news/dakar-nissan-stage-ten-report/1013503/",
+          "https://www.lemonde.fr/archives/article/2003/01/14/accident-mortel-et-explosion-d-une-mine-sur-le-dakar_4270403_1819218.html",
+          "https://www.webcarstory.com/champ.php?ch=299&resultats=2"
+        ]
+      },
+      "active_change": "Only RAV4 candidate receives REAL_FALLBACK; all other assignments are audit proposals, not changes to accepted projects."
+    },
+    {
+      "vehicle": "WildCat (early8.4.1)",
+      "original_demo_driver_status": "INFERRED",
+      "interpretation": "PC8.4.1 family has TOMCAT display identity; later PS2 Wildcat/Drew is authentic for that later catalog, not proof for this early geometry.",
+      "sources": {
+        "pc841": [
+          {
+            "id": 15,
+            "family": "Wildcat",
+            "call_va": "0x447b03",
+            "catalog_model": {
+              "status": "PROVEN",
+              "value": "TOMCAT",
+              "alternatives": [
+                "TOMCAT"
+              ],
+              "records": [
+                {
+                  "file_offset": 2001860,
+                  "category": 52,
+                  "index": 15,
+                  "pointer": 6200704,
+                  "text": "TOMCAT"
+                }
+              ]
+            },
+            "catalog_combined": {
+              "status": "PROVEN",
+              "value": "PRIVATEER TOMCAT",
+              "alternatives": [
+                "PRIVATEER TOMCAT"
+              ],
+              "records": [
+                {
+                  "file_offset": 2002172,
+                  "category": 53,
+                  "index": 15,
+                  "pointer": 6200328,
+                  "text": "PRIVATEER TOMCAT"
+                }
+              ]
+            },
+            "marker": {
+              "status": "UNKNOWN",
+              "rgba": null,
+              "rgba_bits": null
+            },
+            "category57_lookup": {
+              "status": "UNKNOWN",
+              "value": null,
+              "alternatives": [],
+              "records": []
+            },
+            "category57_semantics": "Separate driver-index list; NOT a vehicle binding"
+          }
+        ],
+        "pc931": [
+          {
+            "id": 15,
+            "family": "Wildcat",
+            "call_va": "0x44d5f3",
+            "catalog_model": {
+              "status": "UNKNOWN",
+              "value": null,
+              "alternatives": [
+                "TOMCAT",
+                "WILDCAT"
+              ],
+              "records": [
+                {
+                  "file_offset": 2520196,
+                  "category": 52,
+                  "index": 15,
+                  "pointer": 6742064,
+                  "text": "TOMCAT"
+                },
+                {
+                  "file_offset": 2529628,
+                  "category": 52,
+                  "index": 15,
+                  "pointer": 6742240,
+                  "text": "WILDCAT"
+                }
+              ]
+            },
+            "catalog_combined": {
+              "status": "UNKNOWN",
+              "value": null,
+              "alternatives": [
+                "BOWLER WILDCAT",
+                "PRIVATEER TOMCAT"
+              ],
+              "records": [
+                {
+                  "file_offset": 2520532,
+                  "category": 53,
+                  "index": 15,
+                  "pointer": 6741724,
+                  "text": "PRIVATEER TOMCAT"
+                },
+                {
+                  "file_offset": 2529952,
+                  "category": 53,
+                  "index": 15,
+                  "pointer": 6731996,
+                  "text": "BOWLER WILDCAT"
+                }
+              ]
+            },
+            "marker": {
+              "status": "UNKNOWN",
+              "rgba": null,
+              "rgba_bits": null
+            },
+            "category57_lookup": {
+              "status": "UNKNOWN",
+              "value": null,
+              "alternatives": [],
+              "records": []
+            },
+            "category57_semantics": "Separate driver-index list; NOT a vehicle binding"
+          }
+        ],
+        "retail": [
+          {
+            "id": 14,
+            "family": "Wildcat",
+            "call_va": "0x45949e",
+            "catalog_model": {
+              "status": "PROVEN",
+              "value": "WILDCAT",
+              "alternatives": [
+                "WILDCAT"
+              ],
+              "records": [
+                {
+                  "file_offset": 2857296,
+                  "category": 52,
+                  "index": 14,
+                  "pointer": 7211912,
+                  "text": "WILDCAT"
+                },
+                {
+                  "file_offset": 2871768,
+                  "category": 52,
+                  "index": 14,
+                  "pointer": 7211912,
+                  "text": "WILDCAT"
+                },
+                {
+                  "file_offset": 2886240,
+                  "category": 52,
+                  "index": 14,
+                  "pointer": 7211912,
+                  "text": "WILDCAT"
+                },
+                {
+                  "file_offset": 2900712,
+                  "category": 52,
+                  "index": 14,
+                  "pointer": 7211912,
+                  "text": "WILDCAT"
+                },
+                {
+                  "file_offset": 2915112,
+                  "category": 52,
+                  "index": 14,
+                  "pointer": 7211912,
+                  "text": "WILDCAT"
+                },
+                {
+                  "file_offset": 2929488,
+                  "category": 52,
+                  "index": 14,
+                  "pointer": 7211912,
+                  "text": "WILDCAT"
+                }
+              ]
+            },
+            "catalog_combined": {
+              "status": "PROVEN",
+              "value": "BOWLER WILDCAT",
+              "alternatives": [
+                "BOWLER WILDCAT"
+              ],
+              "records": [
+                {
+                  "file_offset": 2857608,
+                  "category": 53,
+                  "index": 14,
+                  "pointer": 7211524,
+                  "text": "BOWLER WILDCAT"
+                },
+                {
+                  "file_offset": 2872080,
+                  "category": 53,
+                  "index": 14,
+                  "pointer": 7211524,
+                  "text": "BOWLER WILDCAT"
+                },
+                {
+                  "file_offset": 2886552,
+                  "category": 53,
+                  "index": 14,
+                  "pointer": 7211524,
+                  "text": "BOWLER WILDCAT"
+                },
+                {
+                  "file_offset": 2901024,
+                  "category": 53,
+                  "index": 14,
+                  "pointer": 7211524,
+                  "text": "BOWLER WILDCAT"
+                },
+                {
+                  "file_offset": 2915424,
+                  "category": 53,
+                  "index": 14,
+                  "pointer": 7211524,
+                  "text": "BOWLER WILDCAT"
+                },
+                {
+                  "file_offset": 2929800,
+                  "category": 53,
+                  "index": 14,
+                  "pointer": 7211524,
+                  "text": "BOWLER WILDCAT"
+                }
+              ]
+            },
+            "marker": {
+              "status": "PROVEN",
+              "rgba": [
+                0.4528301954269409,
+                0.6264150738716125,
+                0.800000011920929,
+                1.0
+              ],
+              "rgba_bits": [
+                "3ee7d95c",
+                "3f205cbd",
+                "3f4ccccd",
+                "3f800000"
+              ]
+            },
+            "category57_lookup": {
+              "status": "PROVEN",
+              "value": "DREW BOWLER",
+              "alternatives": [
+                "DREW BOWLER"
+              ],
+              "records": [
+                {
+                  "file_offset": 2858568,
+                  "category": 57,
+                  "index": 14,
+                  "pointer": 7209552,
+                  "text": "DREW BOWLER"
+                },
+                {
+                  "file_offset": 2873040,
+                  "category": 57,
+                  "index": 14,
+                  "pointer": 7209552,
+                  "text": "DREW BOWLER"
+                },
+                {
+                  "file_offset": 2887512,
+                  "category": 57,
+                  "index": 14,
+                  "pointer": 7209552,
+                  "text": "DREW BOWLER"
+                },
+                {
+                  "file_offset": 2901984,
+                  "category": 57,
+                  "index": 14,
+                  "pointer": 7209552,
+                  "text": "DREW BOWLER"
+                },
+                {
+                  "file_offset": 2916384,
+                  "category": 57,
+                  "index": 14,
+                  "pointer": 7209552,
+                  "text": "DREW BOWLER"
+                },
+                {
+                  "file_offset": 2930760,
+                  "category": 57,
+                  "index": 14,
+                  "pointer": 7209552,
+                  "text": "DREW BOWLER"
+                }
+              ]
+            },
+            "category57_semantics": "Original vehicle-indexed table; conflicting localized alternatives remain UNKNOWN"
+          }
+        ],
+        "ps2": [
+          {
+            "id": 15,
+            "family": "Wildcat",
+            "call_va": "0x11760c",
+            "catalog_model": {
+              "status": "PROVEN",
+              "value": "WILDCAT",
+              "alternatives": [
+                "WILDCAT"
+              ],
+              "records": [
+                {
+                  "file_offset": 3216016,
+                  "category": 52,
+                  "index": 15,
+                  "pointer": 4534600,
+                  "text": "WILDCAT"
+                },
+                {
+                  "file_offset": 3231872,
+                  "category": 52,
+                  "index": 15,
+                  "pointer": 4534600,
+                  "text": "WILDCAT"
+                },
+                {
+                  "file_offset": 3247728,
+                  "category": 52,
+                  "index": 15,
+                  "pointer": 4534600,
+                  "text": "WILDCAT"
+                },
+                {
+                  "file_offset": 3263584,
+                  "category": 52,
+                  "index": 15,
+                  "pointer": 4534600,
+                  "text": "WILDCAT"
+                },
+                {
+                  "file_offset": 3279368,
+                  "category": 52,
+                  "index": 15,
+                  "pointer": 4534600,
+                  "text": "WILDCAT"
+                },
+                {
+                  "file_offset": 3295152,
+                  "category": 52,
+                  "index": 15,
+                  "pointer": 4534600,
+                  "text": "WILDCAT"
+                }
+              ]
+            },
+            "catalog_combined": {
+              "status": "PROVEN",
+              "value": "BOWLER WILDCAT",
+              "alternatives": [
+                "BOWLER WILDCAT"
+              ],
+              "records": [
+                {
+                  "file_offset": 3216364,
+                  "category": 53,
+                  "index": 15,
+                  "pointer": 4535064,
+                  "text": "BOWLER WILDCAT"
+                },
+                {
+                  "file_offset": 3232220,
+                  "category": 53,
+                  "index": 15,
+                  "pointer": 4535064,
+                  "text": "BOWLER WILDCAT"
+                },
+                {
+                  "file_offset": 3248076,
+                  "category": 53,
+                  "index": 15,
+                  "pointer": 4535064,
+                  "text": "BOWLER WILDCAT"
+                },
+                {
+                  "file_offset": 3263932,
+                  "category": 53,
+                  "index": 15,
+                  "pointer": 4535064,
+                  "text": "BOWLER WILDCAT"
+                },
+                {
+                  "file_offset": 3279716,
+                  "category": 53,
+                  "index": 15,
+                  "pointer": 4535064,
+                  "text": "BOWLER WILDCAT"
+                },
+                {
+                  "file_offset": 3295500,
+                  "category": 53,
+                  "index": 15,
+                  "pointer": 4535064,
+                  "text": "BOWLER WILDCAT"
+                }
+              ]
+            },
+            "marker": {
+              "status": "PROVEN",
+              "rgba": [
+                0.46875,
+                0.6484375,
+                0.828125,
+                1.0
+              ],
+              "rgba_bits": [
+                "3ef00000",
+                "3f260000",
+                "3f540000",
+                "3f800000"
+              ]
+            },
+            "category57_lookup": {
+              "status": "PROVEN",
+              "value": "DREW BOWLER",
+              "alternatives": [
+                "DREW BOWLER"
+              ],
+              "records": [
+                {
+                  "file_offset": 3217360,
+                  "category": 57,
+                  "index": 15,
+                  "pointer": 4537160,
+                  "text": "DREW BOWLER"
+                },
+                {
+                  "file_offset": 3233216,
+                  "category": 57,
+                  "index": 15,
+                  "pointer": 4537160,
+                  "text": "DREW BOWLER"
+                },
+                {
+                  "file_offset": 3249072,
+                  "category": 57,
+                  "index": 15,
+                  "pointer": 4537160,
+                  "text": "DREW BOWLER"
+                },
+                {
+                  "file_offset": 3264928,
+                  "category": 57,
+                  "index": 15,
+                  "pointer": 4537160,
+                  "text": "DREW BOWLER"
+                },
+                {
+                  "file_offset": 3280712,
+                  "category": 57,
+                  "index": 15,
+                  "pointer": 4537160,
+                  "text": "DREW BOWLER"
+                },
+                {
+                  "file_offset": 3296496,
+                  "category": 57,
+                  "index": 15,
+                  "pointer": 4537160,
+                  "text": "DREW BOWLER"
+                }
+              ]
+            },
+            "category57_semantics": "Original vehicle-indexed table; conflicting localized alternatives remain UNKNOWN"
+          }
+        ]
+      },
+      "fallback": {
+        "value": "HUGH HAINES",
+        "kind": "REAL_FALLBACK",
+        "credentials": "Historics Auctioneers describes off-road rally driver Hugh Haines as first registered owner of Wildcat200 #004 in May2001. This supports a period Bowler association, not a claim of a2001 Dakar result or exact early Wildcat100 identity.",
+        "sources": [
+          "https://www.classicdriver.com/de/car/bowler/wildcat-200/2001/863943"
+        ]
+      },
+      "active_change": "Only RAV4 candidate receives REAL_FALLBACK; all other assignments are audit proposals, not changes to accepted projects."
+    },
+    {
+      "vehicle": "NewRav (9.3.1)",
+      "original_demo_driver_status": "INFERRED",
+      "interpretation": "PS2 Newrav ID13 and retail ID12 directly bind Reece Russell; PC9.3.1 Newrav ID13 binds PICKUP/RAV4 PICKUP. Original PS2 name, inferred PC variant continuity.",
+      "sources": {
+        "pc841": [],
+        "pc931": [
+          {
+            "id": 13,
+            "family": "Newrav",
+            "call_va": "0x44d59f",
+            "catalog_model": {
+              "status": "UNKNOWN",
+              "value": null,
+              "alternatives": [
+                "PICKUP",
+                "RAV4 PICKUP"
+              ],
+              "records": [
+                {
+                  "file_offset": 2520160,
+                  "category": 52,
+                  "index": 13,
+                  "pointer": 6742092,
+                  "text": "RAV4 PICKUP"
+                },
+                {
+                  "file_offset": 2520172,
+                  "category": 52,
+                  "index": 13,
+                  "pointer": 6742084,
+                  "text": "PICKUP"
+                },
+                {
+                  "file_offset": 2529604,
+                  "category": 52,
+                  "index": 13,
+                  "pointer": 6742084,
+                  "text": "PICKUP"
+                }
+              ]
+            },
+            "catalog_combined": {
+              "status": "UNKNOWN",
+              "value": null,
+              "alternatives": [
+                "REEVES PICKUP",
+                "TOYOTA RAV4"
+              ],
+              "records": [
+                {
+                  "file_offset": 2520496,
+                  "category": 53,
+                  "index": 13,
+                  "pointer": 6741776,
+                  "text": "TOYOTA RAV4"
+                },
+                {
+                  "file_offset": 2520508,
+                  "category": 53,
+                  "index": 13,
+                  "pointer": 6741760,
+                  "text": "REEVES PICKUP"
+                },
+                {
+                  "file_offset": 2529928,
+                  "category": 53,
+                  "index": 13,
+                  "pointer": 6741760,
+                  "text": "REEVES PICKUP"
+                }
+              ]
+            },
+            "marker": {
+              "status": "UNKNOWN",
+              "rgba": null,
+              "rgba_bits": null
+            },
+            "category57_lookup": {
+              "status": "UNKNOWN",
+              "value": null,
+              "alternatives": [],
+              "records": []
+            },
+            "category57_semantics": "Separate driver-index list; NOT a vehicle binding"
+          }
+        ],
+        "retail": [
+          {
+            "id": 12,
+            "family": "Newrav",
+            "call_va": "0x4593ca",
+            "catalog_model": {
+              "status": "PROVEN",
+              "value": "PICKUP",
+              "alternatives": [
+                "PICKUP"
+              ],
+              "records": [
+                {
+                  "file_offset": 2857272,
+                  "category": 52,
+                  "index": 12,
+                  "pointer": 7211932,
+                  "text": "PICKUP"
+                },
+                {
+                  "file_offset": 2871744,
+                  "category": 52,
+                  "index": 12,
+                  "pointer": 7211932,
+                  "text": "PICKUP"
+                },
+                {
+                  "file_offset": 2886216,
+                  "category": 52,
+                  "index": 12,
+                  "pointer": 7211932,
+                  "text": "PICKUP"
+                },
+                {
+                  "file_offset": 2900688,
+                  "category": 52,
+                  "index": 12,
+                  "pointer": 7211932,
+                  "text": "PICKUP"
+                },
+                {
+                  "file_offset": 2915088,
+                  "category": 52,
+                  "index": 12,
+                  "pointer": 7211932,
+                  "text": "PICKUP"
+                },
+                {
+                  "file_offset": 2929464,
+                  "category": 52,
+                  "index": 12,
+                  "pointer": 7211932,
+                  "text": "PICKUP"
+                }
+              ]
+            },
+            "catalog_combined": {
+              "status": "PROVEN",
+              "value": "REECE PICKUP",
+              "alternatives": [
+                "REECE PICKUP"
+              ],
+              "records": [
+                {
+                  "file_offset": 2857584,
+                  "category": 53,
+                  "index": 12,
+                  "pointer": 7211556,
+                  "text": "REECE PICKUP"
+                },
+                {
+                  "file_offset": 2872056,
+                  "category": 53,
+                  "index": 12,
+                  "pointer": 7211556,
+                  "text": "REECE PICKUP"
+                },
+                {
+                  "file_offset": 2886528,
+                  "category": 53,
+                  "index": 12,
+                  "pointer": 7211556,
+                  "text": "REECE PICKUP"
+                },
+                {
+                  "file_offset": 2901000,
+                  "category": 53,
+                  "index": 12,
+                  "pointer": 7211556,
+                  "text": "REECE PICKUP"
+                },
+                {
+                  "file_offset": 2915400,
+                  "category": 53,
+                  "index": 12,
+                  "pointer": 7211556,
+                  "text": "REECE PICKUP"
+                },
+                {
+                  "file_offset": 2929776,
+                  "category": 53,
+                  "index": 12,
+                  "pointer": 7211556,
+                  "text": "REECE PICKUP"
+                }
+              ]
+            },
+            "marker": {
+              "status": "PROVEN",
+              "rgba": [
+                0.698113203048706,
+                0.13962264358997345,
+                0.16603773832321167,
+                1.0
+              ],
+              "rgba_bits": [
+                "3f32b78c",
+                "3e0ef93d",
+                "3e2a05cc",
+                "3f800000"
+              ]
+            },
+            "category57_lookup": {
+              "status": "PROVEN",
+              "value": "REECE RUSSELL",
+              "alternatives": [
+                "REECE RUSSELL"
+              ],
+              "records": [
+                {
+                  "file_offset": 2858544,
+                  "category": 57,
+                  "index": 12,
+                  "pointer": 7209576,
+                  "text": "REECE RUSSELL"
+                },
+                {
+                  "file_offset": 2873016,
+                  "category": 57,
+                  "index": 12,
+                  "pointer": 7209576,
+                  "text": "REECE RUSSELL"
+                },
+                {
+                  "file_offset": 2887488,
+                  "category": 57,
+                  "index": 12,
+                  "pointer": 7209576,
+                  "text": "REECE RUSSELL"
+                },
+                {
+                  "file_offset": 2901960,
+                  "category": 57,
+                  "index": 12,
+                  "pointer": 7209576,
+                  "text": "REECE RUSSELL"
+                },
+                {
+                  "file_offset": 2916360,
+                  "category": 57,
+                  "index": 12,
+                  "pointer": 7209576,
+                  "text": "REECE RUSSELL"
+                },
+                {
+                  "file_offset": 2930736,
+                  "category": 57,
+                  "index": 12,
+                  "pointer": 7209576,
+                  "text": "REECE RUSSELL"
+                }
+              ]
+            },
+            "category57_semantics": "Original vehicle-indexed table; conflicting localized alternatives remain UNKNOWN"
+          }
+        ],
+        "ps2": [
+          {
+            "id": 13,
+            "family": "Newrav",
+            "call_va": "0x11754c",
+            "catalog_model": {
+              "status": "PROVEN",
+              "value": "PICKUP",
+              "alternatives": [
+                "PICKUP"
+              ],
+              "records": [
+                {
+                  "file_offset": 3215992,
+                  "category": 52,
+                  "index": 13,
+                  "pointer": 4534576,
+                  "text": "PICKUP"
+                },
+                {
+                  "file_offset": 3231848,
+                  "category": 52,
+                  "index": 13,
+                  "pointer": 4534576,
+                  "text": "PICKUP"
+                },
+                {
+                  "file_offset": 3247704,
+                  "category": 52,
+                  "index": 13,
+                  "pointer": 4534576,
+                  "text": "PICKUP"
+                },
+                {
+                  "file_offset": 3263560,
+                  "category": 52,
+                  "index": 13,
+                  "pointer": 4534576,
+                  "text": "PICKUP"
+                },
+                {
+                  "file_offset": 3279344,
+                  "category": 52,
+                  "index": 13,
+                  "pointer": 4534576,
+                  "text": "PICKUP"
+                },
+                {
+                  "file_offset": 3295128,
+                  "category": 52,
+                  "index": 13,
+                  "pointer": 4534576,
+                  "text": "PICKUP"
+                }
+              ]
+            },
+            "catalog_combined": {
+              "status": "PROVEN",
+              "value": "REECE PICKUP",
+              "alternatives": [
+                "REECE PICKUP"
+              ],
+              "records": [
+                {
+                  "file_offset": 3216340,
+                  "category": 53,
+                  "index": 13,
+                  "pointer": 4535032,
+                  "text": "REECE PICKUP"
+                },
+                {
+                  "file_offset": 3232196,
+                  "category": 53,
+                  "index": 13,
+                  "pointer": 4535032,
+                  "text": "REECE PICKUP"
+                },
+                {
+                  "file_offset": 3248052,
+                  "category": 53,
+                  "index": 13,
+                  "pointer": 4535032,
+                  "text": "REECE PICKUP"
+                },
+                {
+                  "file_offset": 3263908,
+                  "category": 53,
+                  "index": 13,
+                  "pointer": 4535032,
+                  "text": "REECE PICKUP"
+                },
+                {
+                  "file_offset": 3279692,
+                  "category": 53,
+                  "index": 13,
+                  "pointer": 4535032,
+                  "text": "REECE PICKUP"
+                },
+                {
+                  "file_offset": 3295476,
+                  "category": 53,
+                  "index": 13,
+                  "pointer": 4535032,
+                  "text": "REECE PICKUP"
+                }
+              ]
+            },
+            "marker": {
+              "status": "PROVEN",
+              "rgba": [
+                0.72265625,
+                0.14453125,
+                0.171875,
+                1.0
+              ],
+              "rgba_bits": [
+                "3f390000",
+                "3e140000",
+                "3e300000",
+                "3f800000"
+              ]
+            },
+            "category57_lookup": {
+              "status": "PROVEN",
+              "value": "REECE RUSSELL",
+              "alternatives": [
+                "REECE RUSSELL"
+              ],
+              "records": [
+                {
+                  "file_offset": 3217336,
+                  "category": 57,
+                  "index": 13,
+                  "pointer": 4537128,
+                  "text": "REECE RUSSELL"
+                },
+                {
+                  "file_offset": 3233192,
+                  "category": 57,
+                  "index": 13,
+                  "pointer": 4537128,
+                  "text": "REECE RUSSELL"
+                },
+                {
+                  "file_offset": 3249048,
+                  "category": 57,
+                  "index": 13,
+                  "pointer": 4537128,
+                  "text": "REECE RUSSELL"
+                },
+                {
+                  "file_offset": 3264904,
+                  "category": 57,
+                  "index": 13,
+                  "pointer": 4537128,
+                  "text": "REECE RUSSELL"
+                },
+                {
+                  "file_offset": 3280688,
+                  "category": 57,
+                  "index": 13,
+                  "pointer": 4537128,
+                  "text": "REECE RUSSELL"
+                },
+                {
+                  "file_offset": 3296472,
+                  "category": 57,
+                  "index": 13,
+                  "pointer": 4537128,
+                  "text": "REECE RUSSELL"
+                }
+              ]
+            },
+            "category57_semantics": "Original vehicle-indexed table; conflicting localized alternatives remain UNKNOWN"
+          }
+        ]
+      },
+      "fallback": null,
+      "active_change": "Only RAV4 candidate receives REAL_FALLBACK; all other assignments are audit proposals, not changes to accepted projects."
+    },
+    {
+      "vehicle": "LandCruiser (early8.4.1)",
+      "original_demo_driver_status": "UNKNOWN",
+      "interpretation": "Later PS2/retail resource family is displayed as TOMMEK DIRTBEAST. Its PHILLIPE BETAILLE must not be promoted to the older Toyota as an original.",
+      "sources": {
+        "pc841": [
+          {
+            "id": 0,
+            "family": "Landcruiser",
+            "call_va": "0x447896",
+            "catalog_model": {
+              "status": "PROVEN",
+              "value": "LANDCRUISER",
+              "alternatives": [
+                "LANDCRUISER"
+              ],
+              "records": [
+                {
+                  "file_offset": 2001680,
+                  "category": 52,
+                  "index": 0,
+                  "pointer": 6200852,
+                  "text": "LANDCRUISER"
+                }
+              ]
+            },
+            "catalog_combined": {
+              "status": "PROVEN",
+              "value": "TOYOTA LANDCRUISER",
+              "alternatives": [
+                "TOYOTA LANDCRUISER"
+              ],
+              "records": [
+                {
+                  "file_offset": 2001992,
+                  "category": 53,
+                  "index": 0,
+                  "pointer": 6200588,
+                  "text": "TOYOTA LANDCRUISER"
+                }
+              ]
+            },
+            "marker": {
+              "status": "UNKNOWN",
+              "rgba": null,
+              "rgba_bits": null
+            },
+            "category57_lookup": {
+              "status": "PROVEN",
+              "value": "JEAN LOUIS SCHLESSER",
+              "alternatives": [
+                "JEAN LOUIS SCHLESSER"
+              ],
+              "records": [
+                {
+                  "file_offset": 2002736,
+                  "category": 57,
+                  "index": 0,
+                  "pointer": 6199484,
+                  "text": "JEAN LOUIS SCHLESSER"
+                }
+              ]
+            },
+            "category57_semantics": "Separate driver-index list; NOT a vehicle binding"
+          }
+        ],
+        "pc931": [
+          {
+            "id": 0,
+            "family": "Landcruiser",
+            "call_va": "0x44d386",
+            "catalog_model": {
+              "status": "PROVEN",
+              "value": "LANDCRUISER",
+              "alternatives": [
+                "LANDCRUISER"
+              ],
+              "records": [
+                {
+                  "file_offset": 2519872,
+                  "category": 52,
+                  "index": 0,
+                  "pointer": 6742300,
+                  "text": "LANDCRUISER"
+                },
+                {
+                  "file_offset": 2519992,
+                  "category": 52,
+                  "index": 0,
+                  "pointer": 6742300,
+                  "text": "LANDCRUISER"
+                },
+                {
+                  "file_offset": 2529448,
+                  "category": 52,
+                  "index": 0,
+                  "pointer": 6742300,
+                  "text": "LANDCRUISER"
+                }
+              ]
+            },
+            "catalog_combined": {
+              "status": "UNKNOWN",
+              "value": null,
+              "alternatives": [
+                "THE MITSUBISHI PAJERO IS A ......",
+                "TOYOTA LANDCRUISER"
+              ],
+              "records": [
+                {
+                  "file_offset": 2520328,
+                  "category": 53,
+                  "index": 0,
+                  "pointer": 6742016,
+                  "text": "TOYOTA LANDCRUISER"
+                },
+                {
+                  "file_offset": 2520664,
+                  "category": 53,
+                  "index": 0,
+                  "pointer": 6741496,
+                  "text": "THE MITSUBISHI PAJERO IS A ......"
+                },
+                {
+                  "file_offset": 2529772,
+                  "category": 53,
+                  "index": 0,
+                  "pointer": 6742016,
+                  "text": "TOYOTA LANDCRUISER"
+                }
+              ]
+            },
+            "marker": {
+              "status": "UNKNOWN",
+              "rgba": null,
+              "rgba_bits": null
+            },
+            "category57_lookup": {
+              "status": "PROVEN",
+              "value": "JEAN LOUIS SCHLESSER",
+              "alternatives": [
+                "JEAN LOUIS SCHLESSER"
+              ],
+              "records": [
+                {
+                  "file_offset": 2521036,
+                  "category": 57,
+                  "index": 0,
+                  "pointer": 6740688,
+                  "text": "JEAN LOUIS SCHLESSER"
+                },
+                {
+                  "file_offset": 2530492,
+                  "category": 57,
+                  "index": 0,
+                  "pointer": 6740688,
+                  "text": "JEAN LOUIS SCHLESSER"
+                }
+              ]
+            },
+            "category57_semantics": "Separate driver-index list; NOT a vehicle binding"
+          }
+        ],
+        "retail": [
+          {
+            "id": 0,
+            "family": "Landcruiser",
+            "call_va": "0x458ed8",
+            "catalog_model": {
+              "status": "PROVEN",
+              "value": "DIRTBEAST",
+              "alternatives": [
+                "DIRTBEAST"
+              ],
+              "records": [
+                {
+                  "file_offset": 2857128,
+                  "category": 52,
+                  "index": 0,
+                  "pointer": 7212048,
+                  "text": "DIRTBEAST"
+                },
+                {
+                  "file_offset": 2871600,
+                  "category": 52,
+                  "index": 0,
+                  "pointer": 7212048,
+                  "text": "DIRTBEAST"
+                },
+                {
+                  "file_offset": 2886072,
+                  "category": 52,
+                  "index": 0,
+                  "pointer": 7212048,
+                  "text": "DIRTBEAST"
+                },
+                {
+                  "file_offset": 2900544,
+                  "category": 52,
+                  "index": 0,
+                  "pointer": 7212048,
+                  "text": "DIRTBEAST"
+                },
+                {
+                  "file_offset": 2914944,
+                  "category": 52,
+                  "index": 0,
+                  "pointer": 7212048,
+                  "text": "DIRTBEAST"
+                },
+                {
+                  "file_offset": 2929320,
+                  "category": 52,
+                  "index": 0,
+                  "pointer": 7212048,
+                  "text": "DIRTBEAST"
+                }
+              ]
+            },
+            "catalog_combined": {
+              "status": "PROVEN",
+              "value": "TOMMEK DIRTBEAST",
+              "alternatives": [
+                "TOMMEK DIRTBEAST"
+              ],
+              "records": [
+                {
+                  "file_offset": 2857440,
+                  "category": 53,
+                  "index": 0,
+                  "pointer": 7211768,
+                  "text": "TOMMEK DIRTBEAST"
+                },
+                {
+                  "file_offset": 2871912,
+                  "category": 53,
+                  "index": 0,
+                  "pointer": 7211768,
+                  "text": "TOMMEK DIRTBEAST"
+                },
+                {
+                  "file_offset": 2886384,
+                  "category": 53,
+                  "index": 0,
+                  "pointer": 7211768,
+                  "text": "TOMMEK DIRTBEAST"
+                },
+                {
+                  "file_offset": 2900856,
+                  "category": 53,
+                  "index": 0,
+                  "pointer": 7211768,
+                  "text": "TOMMEK DIRTBEAST"
+                },
+                {
+                  "file_offset": 2915256,
+                  "category": 53,
+                  "index": 0,
+                  "pointer": 7211768,
+                  "text": "TOMMEK DIRTBEAST"
+                },
+                {
+                  "file_offset": 2929632,
+                  "category": 53,
+                  "index": 0,
+                  "pointer": 7211768,
+                  "text": "TOMMEK DIRTBEAST"
+                }
+              ]
+            },
+            "marker": {
+              "status": "PROVEN",
+              "rgba": [
+                0.08301886916160583,
+                0.41886791586875916,
+                0.2528301775455475,
+                1.0
+              ],
+              "rgba_bits": [
+                "3daa05cc",
+                "3ed675db",
+                "3e8172f5",
+                "3f800000"
+              ]
+            },
+            "category57_lookup": {
+              "status": "PROVEN",
+              "value": "PHILLIPE BETAILLE",
+              "alternatives": [
+                "PHILLIPE BETAILLE"
+              ],
+              "records": [
+                {
+                  "file_offset": 2858400,
+                  "category": 57,
+                  "index": 0,
+                  "pointer": 7209776,
+                  "text": "PHILLIPE BETAILLE"
+                },
+                {
+                  "file_offset": 2872872,
+                  "category": 57,
+                  "index": 0,
+                  "pointer": 7209776,
+                  "text": "PHILLIPE BETAILLE"
+                },
+                {
+                  "file_offset": 2887344,
+                  "category": 57,
+                  "index": 0,
+                  "pointer": 7209776,
+                  "text": "PHILLIPE BETAILLE"
+                },
+                {
+                  "file_offset": 2901816,
+                  "category": 57,
+                  "index": 0,
+                  "pointer": 7209776,
+                  "text": "PHILLIPE BETAILLE"
+                },
+                {
+                  "file_offset": 2916216,
+                  "category": 57,
+                  "index": 0,
+                  "pointer": 7209776,
+                  "text": "PHILLIPE BETAILLE"
+                },
+                {
+                  "file_offset": 2930592,
+                  "category": 57,
+                  "index": 0,
+                  "pointer": 7209776,
+                  "text": "PHILLIPE BETAILLE"
+                }
+              ]
+            },
+            "category57_semantics": "Original vehicle-indexed table; conflicting localized alternatives remain UNKNOWN"
+          }
+        ],
+        "ps2": [
+          {
+            "id": 0,
+            "family": "Landcruiser",
+            "call_va": "0x117034",
+            "catalog_model": {
+              "status": "PROVEN",
+              "value": "DIRTBEAST",
+              "alternatives": [
+                "DIRTBEAST"
+              ],
+              "records": [
+                {
+                  "file_offset": 3215836,
+                  "category": 52,
+                  "index": 0,
+                  "pointer": 4534424,
+                  "text": "DIRTBEAST"
+                },
+                {
+                  "file_offset": 3231692,
+                  "category": 52,
+                  "index": 0,
+                  "pointer": 4534424,
+                  "text": "DIRTBEAST"
+                },
+                {
+                  "file_offset": 3247548,
+                  "category": 52,
+                  "index": 0,
+                  "pointer": 4534424,
+                  "text": "DIRTBEAST"
+                },
+                {
+                  "file_offset": 3263404,
+                  "category": 52,
+                  "index": 0,
+                  "pointer": 4534424,
+                  "text": "DIRTBEAST"
+                },
+                {
+                  "file_offset": 3279188,
+                  "category": 52,
+                  "index": 0,
+                  "pointer": 4534424,
+                  "text": "DIRTBEAST"
+                },
+                {
+                  "file_offset": 3294972,
+                  "category": 52,
+                  "index": 0,
+                  "pointer": 4534424,
+                  "text": "DIRTBEAST"
+                }
+              ]
+            },
+            "catalog_combined": {
+              "status": "PROVEN",
+              "value": "TOMMEK DIRTBEAST",
+              "alternatives": [
+                "TOMMEK DIRTBEAST"
+              ],
+              "records": [
+                {
+                  "file_offset": 3216184,
+                  "category": 53,
+                  "index": 0,
+                  "pointer": 4534776,
+                  "text": "TOMMEK DIRTBEAST"
+                },
+                {
+                  "file_offset": 3232040,
+                  "category": 53,
+                  "index": 0,
+                  "pointer": 4534776,
+                  "text": "TOMMEK DIRTBEAST"
+                },
+                {
+                  "file_offset": 3247896,
+                  "category": 53,
+                  "index": 0,
+                  "pointer": 4534776,
+                  "text": "TOMMEK DIRTBEAST"
+                },
+                {
+                  "file_offset": 3263752,
+                  "category": 53,
+                  "index": 0,
+                  "pointer": 4534776,
+                  "text": "TOMMEK DIRTBEAST"
+                },
+                {
+                  "file_offset": 3279536,
+                  "category": 53,
+                  "index": 0,
+                  "pointer": 4534776,
+                  "text": "TOMMEK DIRTBEAST"
+                },
+                {
+                  "file_offset": 3295320,
+                  "category": 53,
+                  "index": 0,
+                  "pointer": 4534776,
+                  "text": "TOMMEK DIRTBEAST"
+                }
+              ]
+            },
+            "marker": {
+              "status": "PROVEN",
+              "rgba": [
+                0.0859375,
+                0.43359375,
+                0.26171875,
+                1.0
+              ],
+              "rgba_bits": [
+                "3db00000",
+                "3ede0000",
+                "3e860000",
+                "3f800000"
+              ]
+            },
+            "category57_lookup": {
+              "status": "PROVEN",
+              "value": "PHILLIPE BETAILLE",
+              "alternatives": [
+                "PHILLIPE BETAILLE"
+              ],
+              "records": [
+                {
+                  "file_offset": 3217180,
+                  "category": 57,
+                  "index": 0,
+                  "pointer": 4536888,
+                  "text": "PHILLIPE BETAILLE"
+                },
+                {
+                  "file_offset": 3233036,
+                  "category": 57,
+                  "index": 0,
+                  "pointer": 4536888,
+                  "text": "PHILLIPE BETAILLE"
+                },
+                {
+                  "file_offset": 3248892,
+                  "category": 57,
+                  "index": 0,
+                  "pointer": 4536888,
+                  "text": "PHILLIPE BETAILLE"
+                },
+                {
+                  "file_offset": 3264748,
+                  "category": 57,
+                  "index": 0,
+                  "pointer": 4536888,
+                  "text": "PHILLIPE BETAILLE"
+                },
+                {
+                  "file_offset": 3280532,
+                  "category": 57,
+                  "index": 0,
+                  "pointer": 4536888,
+                  "text": "PHILLIPE BETAILLE"
+                },
+                {
+                  "file_offset": 3296316,
+                  "category": 57,
+                  "index": 0,
+                  "pointer": 4536888,
+                  "text": "PHILLIPE BETAILLE"
+                }
+              ]
+            },
+            "category57_semantics": "Original vehicle-indexed table; conflicting localized alternatives remain UNKNOWN"
+          }
+        ]
+      },
+      "fallback": {
+        "value": "RONAN CHABOT",
+        "kind": "REAL_FALLBACK",
+        "credentials": "Toyota France reports eight Dakar starts2003-2010 in production Land Cruiser;2003 is within requested period. Not an original Demo name.",
+        "sources": [
+          "https://media.toyota.fr/toyota-france-competition-engage-un-hilux-sur-le-dakar-2016-avec-ronan-chabot-et-gilles-pillot/",
+          "https://www.toys-motors.fr/dakar"
+        ]
+      },
+      "active_change": "Only RAV4 candidate receives REAL_FALLBACK; all other assignments are audit proposals, not changes to accepted projects."
+    },
+    {
+      "vehicle": "megane (early8.4.1)",
+      "original_demo_driver_status": "INFERRED",
+      "interpretation": "Original PC/PS2 catalog has SCHLESSER MEGANE2001; PS2 and retail bind JEAN LOUIS SCHLESSER. Exact early PC driver dispatch remains unproven.",
+      "sources": {
+        "pc841": [
+          {
+            "id": 19,
+            "family": "Megane",
+            "call_va": "0x447bab",
+            "catalog_model": {
+              "status": "PROVEN",
+              "value": "MEGANE 2001",
+              "alternatives": [
+                "MEGANE 2001"
+              ],
+              "records": [
+                {
+                  "file_offset": 2001908,
+                  "category": 52,
+                  "index": 19,
+                  "pointer": 6200664,
+                  "text": "MEGANE 2001"
+                }
+              ]
+            },
+            "catalog_combined": {
+              "status": "PROVEN",
+              "value": "SCHLESSER MEGANE 2001",
+              "alternatives": [
+                "SCHLESSER MEGANE 2001"
+              ],
+              "records": [
+                {
+                  "file_offset": 2002220,
+                  "category": 53,
+                  "index": 19,
+                  "pointer": 6200244,
+                  "text": "SCHLESSER MEGANE 2001"
+                }
+              ]
+            },
+            "marker": {
+              "status": "UNKNOWN",
+              "rgba": null,
+              "rgba_bits": null
+            },
+            "category57_lookup": {
+              "status": "UNKNOWN",
+              "value": null,
+              "alternatives": [],
+              "records": []
+            },
+            "category57_semantics": "Separate driver-index list; NOT a vehicle binding"
+          }
+        ],
+        "pc931": [
+          {
+            "id": 19,
+            "family": "Megane",
+            "call_va": "0x44d69b",
+            "catalog_model": {
+              "status": "PROVEN",
+              "value": "MEGANE 2001",
+              "alternatives": [
+                "MEGANE 2001"
+              ],
+              "records": [
+                {
+                  "file_offset": 2520244,
+                  "category": 52,
+                  "index": 19,
+                  "pointer": 6742220,
+                  "text": "MEGANE 2001"
+                },
+                {
+                  "file_offset": 2529676,
+                  "category": 52,
+                  "index": 19,
+                  "pointer": 6742220,
+                  "text": "MEGANE 2001"
+                }
+              ]
+            },
+            "catalog_combined": {
+              "status": "PROVEN",
+              "value": "SCHLESSER MEGANE 2001",
+              "alternatives": [
+                "SCHLESSER MEGANE 2001"
+              ],
+              "records": [
+                {
+                  "file_offset": 2520580,
+                  "category": 53,
+                  "index": 19,
+                  "pointer": 6741640,
+                  "text": "SCHLESSER MEGANE 2001"
+                },
+                {
+                  "file_offset": 2530000,
+                  "category": 53,
+                  "index": 19,
+                  "pointer": 6741640,
+                  "text": "SCHLESSER MEGANE 2001"
+                }
+              ]
+            },
+            "marker": {
+              "status": "UNKNOWN",
+              "rgba": null,
+              "rgba_bits": null
+            },
+            "category57_lookup": {
+              "status": "UNKNOWN",
+              "value": null,
+              "alternatives": [],
+              "records": []
+            },
+            "category57_semantics": "Separate driver-index list; NOT a vehicle binding"
+          }
+        ],
+        "retail": [
+          {
+            "id": 18,
+            "family": "Megane",
+            "call_va": "0x459646",
+            "catalog_model": {
+              "status": "PROVEN",
+              "value": "MEGANE 2001",
+              "alternatives": [
+                "MEGANE 2001"
+              ],
+              "records": [
+                {
+                  "file_offset": 2857344,
+                  "category": 52,
+                  "index": 18,
+                  "pointer": 7211868,
+                  "text": "MEGANE 2001"
+                },
+                {
+                  "file_offset": 2871816,
+                  "category": 52,
+                  "index": 18,
+                  "pointer": 7211868,
+                  "text": "MEGANE 2001"
+                },
+                {
+                  "file_offset": 2886288,
+                  "category": 52,
+                  "index": 18,
+                  "pointer": 7211868,
+                  "text": "MEGANE 2001"
+                },
+                {
+                  "file_offset": 2900760,
+                  "category": 52,
+                  "index": 18,
+                  "pointer": 7211868,
+                  "text": "MEGANE 2001"
+                },
+                {
+                  "file_offset": 2915160,
+                  "category": 52,
+                  "index": 18,
+                  "pointer": 7211868,
+                  "text": "MEGANE 2001"
+                },
+                {
+                  "file_offset": 2929536,
+                  "category": 52,
+                  "index": 18,
+                  "pointer": 7211868,
+                  "text": "MEGANE 2001"
+                }
+              ]
+            },
+            "catalog_combined": {
+              "status": "PROVEN",
+              "value": "SCHLESSER MEGANE 2001",
+              "alternatives": [
+                "SCHLESSER MEGANE 2001"
+              ],
+              "records": [
+                {
+                  "file_offset": 2857656,
+                  "category": 53,
+                  "index": 18,
+                  "pointer": 7211440,
+                  "text": "SCHLESSER MEGANE 2001"
+                },
+                {
+                  "file_offset": 2872128,
+                  "category": 53,
+                  "index": 18,
+                  "pointer": 7211440,
+                  "text": "SCHLESSER MEGANE 2001"
+                },
+                {
+                  "file_offset": 2886600,
+                  "category": 53,
+                  "index": 18,
+                  "pointer": 7211440,
+                  "text": "SCHLESSER MEGANE 2001"
+                },
+                {
+                  "file_offset": 2901072,
+                  "category": 53,
+                  "index": 18,
+                  "pointer": 7211440,
+                  "text": "SCHLESSER MEGANE 2001"
+                },
+                {
+                  "file_offset": 2915472,
+                  "category": 53,
+                  "index": 18,
+                  "pointer": 7211440,
+                  "text": "SCHLESSER MEGANE 2001"
+                },
+                {
+                  "file_offset": 2929848,
+                  "category": 53,
+                  "index": 18,
+                  "pointer": 7211440,
+                  "text": "SCHLESSER MEGANE 2001"
+                }
+              ]
+            },
+            "marker": {
+              "status": "PROVEN",
+              "rgba": [
+                0.12830188870429993,
+                0.24528302252292633,
+                0.4830188751220703,
+                1.0
+              ],
+              "rgba_bits": [
+                "3e036192",
+                "3e7b2b79",
+                "3ef74e40",
+                "3f800000"
+              ]
+            },
+            "category57_lookup": {
+              "status": "PROVEN",
+              "value": "JEAN LOUIS SCHLESSER",
+              "alternatives": [
+                "JEAN LOUIS SCHLESSER"
+              ],
+              "records": [
+                {
+                  "file_offset": 2858616,
+                  "category": 57,
+                  "index": 18,
+                  "pointer": 7209476,
+                  "text": "JEAN LOUIS SCHLESSER"
+                },
+                {
+                  "file_offset": 2873088,
+                  "category": 57,
+                  "index": 18,
+                  "pointer": 7209476,
+                  "text": "JEAN LOUIS SCHLESSER"
+                },
+                {
+                  "file_offset": 2887560,
+                  "category": 57,
+                  "index": 18,
+                  "pointer": 7209476,
+                  "text": "JEAN LOUIS SCHLESSER"
+                },
+                {
+                  "file_offset": 2902032,
+                  "category": 57,
+                  "index": 18,
+                  "pointer": 7209476,
+                  "text": "JEAN LOUIS SCHLESSER"
+                },
+                {
+                  "file_offset": 2916432,
+                  "category": 57,
+                  "index": 18,
+                  "pointer": 7209476,
+                  "text": "JEAN LOUIS SCHLESSER"
+                },
+                {
+                  "file_offset": 2930808,
+                  "category": 57,
+                  "index": 18,
+                  "pointer": 7209476,
+                  "text": "JEAN LOUIS SCHLESSER"
+                }
+              ]
+            },
+            "category57_semantics": "Original vehicle-indexed table; conflicting localized alternatives remain UNKNOWN"
+          }
+        ],
+        "ps2": [
+          {
+            "id": 19,
+            "family": "Megane",
+            "call_va": "0x117784",
+            "catalog_model": {
+              "status": "PROVEN",
+              "value": "MEGANE 2001",
+              "alternatives": [
+                "MEGANE 2001"
+              ],
+              "records": [
+                {
+                  "file_offset": 3216064,
+                  "category": 52,
+                  "index": 19,
+                  "pointer": 4534640,
+                  "text": "MEGANE 2001"
+                },
+                {
+                  "file_offset": 3231920,
+                  "category": 52,
+                  "index": 19,
+                  "pointer": 4534640,
+                  "text": "MEGANE 2001"
+                },
+                {
+                  "file_offset": 3247776,
+                  "category": 52,
+                  "index": 19,
+                  "pointer": 4534640,
+                  "text": "MEGANE 2001"
+                },
+                {
+                  "file_offset": 3263632,
+                  "category": 52,
+                  "index": 19,
+                  "pointer": 4534640,
+                  "text": "MEGANE 2001"
+                },
+                {
+                  "file_offset": 3279416,
+                  "category": 52,
+                  "index": 19,
+                  "pointer": 4534640,
+                  "text": "MEGANE 2001"
+                },
+                {
+                  "file_offset": 3295200,
+                  "category": 52,
+                  "index": 19,
+                  "pointer": 4534640,
+                  "text": "MEGANE 2001"
+                }
+              ]
+            },
+            "catalog_combined": {
+              "status": "PROVEN",
+              "value": "SCHLESSER MEGANE 2001",
+              "alternatives": [
+                "SCHLESSER MEGANE 2001"
+              ],
+              "records": [
+                {
+                  "file_offset": 3216412,
+                  "category": 53,
+                  "index": 19,
+                  "pointer": 4535144,
+                  "text": "SCHLESSER MEGANE 2001"
+                },
+                {
+                  "file_offset": 3232268,
+                  "category": 53,
+                  "index": 19,
+                  "pointer": 4535144,
+                  "text": "SCHLESSER MEGANE 2001"
+                },
+                {
+                  "file_offset": 3248124,
+                  "category": 53,
+                  "index": 19,
+                  "pointer": 4535144,
+                  "text": "SCHLESSER MEGANE 2001"
+                },
+                {
+                  "file_offset": 3263980,
+                  "category": 53,
+                  "index": 19,
+                  "pointer": 4535144,
+                  "text": "SCHLESSER MEGANE 2001"
+                },
+                {
+                  "file_offset": 3279764,
+                  "category": 53,
+                  "index": 19,
+                  "pointer": 4535144,
+                  "text": "SCHLESSER MEGANE 2001"
+                },
+                {
+                  "file_offset": 3295548,
+                  "category": 53,
+                  "index": 19,
+                  "pointer": 4535144,
+                  "text": "SCHLESSER MEGANE 2001"
+                }
+              ]
+            },
+            "marker": {
+              "status": "PROVEN",
+              "rgba": [
+                0.1328125,
+                0.25390625,
+                0.5,
+                1.0
+              ],
+              "rgba_bits": [
+                "3e080000",
+                "3e820000",
+                "3f000000",
+                "3f800000"
+              ]
+            },
+            "category57_lookup": {
+              "status": "PROVEN",
+              "value": "JEAN LOUIS SCHLESSER",
+              "alternatives": [
+                "JEAN LOUIS SCHLESSER"
+              ],
+              "records": [
+                {
+                  "file_offset": 3217408,
+                  "category": 57,
+                  "index": 19,
+                  "pointer": 4537232,
+                  "text": "JEAN LOUIS SCHLESSER"
+                },
+                {
+                  "file_offset": 3233264,
+                  "category": 57,
+                  "index": 19,
+                  "pointer": 4537232,
+                  "text": "JEAN LOUIS SCHLESSER"
+                },
+                {
+                  "file_offset": 3249120,
+                  "category": 57,
+                  "index": 19,
+                  "pointer": 4537232,
+                  "text": "JEAN LOUIS SCHLESSER"
+                },
+                {
+                  "file_offset": 3264976,
+                  "category": 57,
+                  "index": 19,
+                  "pointer": 4537232,
+                  "text": "JEAN LOUIS SCHLESSER"
+                },
+                {
+                  "file_offset": 3280760,
+                  "category": 57,
+                  "index": 19,
+                  "pointer": 4537232,
+                  "text": "JEAN LOUIS SCHLESSER"
+                },
+                {
+                  "file_offset": 3296544,
+                  "category": 57,
+                  "index": 19,
+                  "pointer": 4537232,
+                  "text": "JEAN LOUIS SCHLESSER"
+                }
+              ]
+            },
+            "category57_semantics": "Original vehicle-indexed table; conflicting localized alternatives remain UNKNOWN"
+          }
+        ]
+      },
+      "fallback": null,
+      "active_change": "Only RAV4 candidate receives REAL_FALLBACK; all other assignments are audit proposals, not changes to accepted projects."
+    },
+    {
+      "vehicle": "Tata (9.3.1)",
+      "original_demo_driver_status": "INFERRED",
+      "interpretation": "PC9.3.1 Tata ID10 is SAFARI; PS2/retail Tata ID2 is SAFARI with TESSA BAMFORD. Source name is authentic, PC variant continuity is inferred.",
+      "sources": {
+        "pc841": [],
+        "pc931": [
+          {
+            "id": 10,
+            "family": "Tata",
+            "call_va": "0x44d521",
+            "catalog_model": {
+              "status": "PROVEN",
+              "value": "SAFARI",
+              "alternatives": [
+                "SAFARI"
+              ],
+              "records": [
+                {
+                  "file_offset": 2520124,
+                  "category": 52,
+                  "index": 10,
+                  "pointer": 6742112,
+                  "text": "SAFARI"
+                },
+                {
+                  "file_offset": 2529568,
+                  "category": 52,
+                  "index": 10,
+                  "pointer": 6742112,
+                  "text": "SAFARI"
+                }
+              ]
+            },
+            "catalog_combined": {
+              "status": "PROVEN",
+              "value": "TATA SAFARI",
+              "alternatives": [
+                "TATA SAFARI"
+              ],
+              "records": [
+                {
+                  "file_offset": 2520460,
+                  "category": 53,
+                  "index": 10,
+                  "pointer": 6741820,
+                  "text": "TATA SAFARI"
+                },
+                {
+                  "file_offset": 2529892,
+                  "category": 53,
+                  "index": 10,
+                  "pointer": 6741820,
+                  "text": "TATA SAFARI"
+                }
+              ]
+            },
+            "marker": {
+              "status": "UNKNOWN",
+              "rgba": null,
+              "rgba_bits": null
+            },
+            "category57_lookup": {
+              "status": "PROVEN",
+              "value": "PLAYER 1",
+              "alternatives": [
+                "PLAYER 1"
+              ],
+              "records": [
+                {
+                  "file_offset": 2521156,
+                  "category": 57,
+                  "index": 10,
+                  "pointer": 6740536,
+                  "text": "PLAYER 1"
+                },
+                {
+                  "file_offset": 2530612,
+                  "category": 57,
+                  "index": 10,
+                  "pointer": 6740536,
+                  "text": "PLAYER 1"
+                }
+              ]
+            },
+            "category57_semantics": "Separate driver-index list; NOT a vehicle binding"
+          }
+        ],
+        "retail": [
+          {
+            "id": 2,
+            "family": "Tata",
+            "call_va": "0x458fa6",
+            "catalog_model": {
+              "status": "PROVEN",
+              "value": "SAFARI",
+              "alternatives": [
+                "SAFARI"
+              ],
+              "records": [
+                {
+                  "file_offset": 2857152,
+                  "category": 52,
+                  "index": 2,
+                  "pointer": 7212032,
+                  "text": "SAFARI"
+                },
+                {
+                  "file_offset": 2871624,
+                  "category": 52,
+                  "index": 2,
+                  "pointer": 7212032,
+                  "text": "SAFARI"
+                },
+                {
+                  "file_offset": 2886096,
+                  "category": 52,
+                  "index": 2,
+                  "pointer": 7212032,
+                  "text": "SAFARI"
+                },
+                {
+                  "file_offset": 2900568,
+                  "category": 52,
+                  "index": 2,
+                  "pointer": 7212032,
+                  "text": "SAFARI"
+                },
+                {
+                  "file_offset": 2914968,
+                  "category": 52,
+                  "index": 2,
+                  "pointer": 7212032,
+                  "text": "SAFARI"
+                },
+                {
+                  "file_offset": 2929344,
+                  "category": 52,
+                  "index": 2,
+                  "pointer": 7212032,
+                  "text": "SAFARI"
+                }
+              ]
+            },
+            "catalog_combined": {
+              "status": "PROVEN",
+              "value": "TATA SAFARI",
+              "alternatives": [
+                "TATA SAFARI"
+              ],
+              "records": [
+                {
+                  "file_offset": 2857464,
+                  "category": 53,
+                  "index": 2,
+                  "pointer": 7211740,
+                  "text": "TATA SAFARI"
+                },
+                {
+                  "file_offset": 2871936,
+                  "category": 53,
+                  "index": 2,
+                  "pointer": 7211740,
+                  "text": "TATA SAFARI"
+                },
+                {
+                  "file_offset": 2886408,
+                  "category": 53,
+                  "index": 2,
+                  "pointer": 7211740,
+                  "text": "TATA SAFARI"
+                },
+                {
+                  "file_offset": 2900880,
+                  "category": 53,
+                  "index": 2,
+                  "pointer": 7211740,
+                  "text": "TATA SAFARI"
+                },
+                {
+                  "file_offset": 2915280,
+                  "category": 53,
+                  "index": 2,
+                  "pointer": 7211740,
+                  "text": "TATA SAFARI"
+                },
+                {
+                  "file_offset": 2929656,
+                  "category": 53,
+                  "index": 2,
+                  "pointer": 7211740,
+                  "text": "TATA SAFARI"
+                }
+              ]
+            },
+            "marker": {
+              "status": "PROVEN",
+              "rgba": [
+                0.8377358317375183,
+                0.845283031463623,
+                0.7245283126831055,
+                1.0
+              ],
+              "rgba_bits": [
+                "3f5675db",
+                "3f586478",
+                "3f397ab0",
+                "3f800000"
+              ]
+            },
+            "category57_lookup": {
+              "status": "PROVEN",
+              "value": "TESSA BAMFORD",
+              "alternatives": [
+                "TESSA BAMFORD"
+              ],
+              "records": [
+                {
+                  "file_offset": 2858424,
+                  "category": 57,
+                  "index": 2,
+                  "pointer": 7209740,
+                  "text": "TESSA BAMFORD"
+                },
+                {
+                  "file_offset": 2872896,
+                  "category": 57,
+                  "index": 2,
+                  "pointer": 7209740,
+                  "text": "TESSA BAMFORD"
+                },
+                {
+                  "file_offset": 2887368,
+                  "category": 57,
+                  "index": 2,
+                  "pointer": 7209740,
+                  "text": "TESSA BAMFORD"
+                },
+                {
+                  "file_offset": 2901840,
+                  "category": 57,
+                  "index": 2,
+                  "pointer": 7209740,
+                  "text": "TESSA BAMFORD"
+                },
+                {
+                  "file_offset": 2916240,
+                  "category": 57,
+                  "index": 2,
+                  "pointer": 7209740,
+                  "text": "TESSA BAMFORD"
+                },
+                {
+                  "file_offset": 2930616,
+                  "category": 57,
+                  "index": 2,
+                  "pointer": 7209740,
+                  "text": "TESSA BAMFORD"
+                }
+              ]
+            },
+            "category57_semantics": "Original vehicle-indexed table; conflicting localized alternatives remain UNKNOWN"
+          }
+        ],
+        "ps2": [
+          {
+            "id": 2,
+            "family": "Tata",
+            "call_va": "0x117120",
+            "catalog_model": {
+              "status": "PROVEN",
+              "value": "SAFARI",
+              "alternatives": [
+                "SAFARI"
+              ],
+              "records": [
+                {
+                  "file_offset": 3215860,
+                  "category": 52,
+                  "index": 2,
+                  "pointer": 4534448,
+                  "text": "SAFARI"
+                },
+                {
+                  "file_offset": 3231716,
+                  "category": 52,
+                  "index": 2,
+                  "pointer": 4534448,
+                  "text": "SAFARI"
+                },
+                {
+                  "file_offset": 3247572,
+                  "category": 52,
+                  "index": 2,
+                  "pointer": 4534448,
+                  "text": "SAFARI"
+                },
+                {
+                  "file_offset": 3263428,
+                  "category": 52,
+                  "index": 2,
+                  "pointer": 4534448,
+                  "text": "SAFARI"
+                },
+                {
+                  "file_offset": 3279212,
+                  "category": 52,
+                  "index": 2,
+                  "pointer": 4534448,
+                  "text": "SAFARI"
+                },
+                {
+                  "file_offset": 3294996,
+                  "category": 52,
+                  "index": 2,
+                  "pointer": 4534448,
+                  "text": "SAFARI"
+                }
+              ]
+            },
+            "catalog_combined": {
+              "status": "PROVEN",
+              "value": "TATA SAFARI",
+              "alternatives": [
+                "TATA SAFARI"
+              ],
+              "records": [
+                {
+                  "file_offset": 3216208,
+                  "category": 53,
+                  "index": 2,
+                  "pointer": 4534816,
+                  "text": "TATA SAFARI"
+                },
+                {
+                  "file_offset": 3232064,
+                  "category": 53,
+                  "index": 2,
+                  "pointer": 4534816,
+                  "text": "TATA SAFARI"
+                },
+                {
+                  "file_offset": 3247920,
+                  "category": 53,
+                  "index": 2,
+                  "pointer": 4534816,
+                  "text": "TATA SAFARI"
+                },
+                {
+                  "file_offset": 3263776,
+                  "category": 53,
+                  "index": 2,
+                  "pointer": 4534816,
+                  "text": "TATA SAFARI"
+                },
+                {
+                  "file_offset": 3279560,
+                  "category": 53,
+                  "index": 2,
+                  "pointer": 4534816,
+                  "text": "TATA SAFARI"
+                },
+                {
+                  "file_offset": 3295344,
+                  "category": 53,
+                  "index": 2,
+                  "pointer": 4534816,
+                  "text": "TATA SAFARI"
+                }
+              ]
+            },
+            "marker": {
+              "status": "PROVEN",
+              "rgba": [
+                0.8671875,
+                0.875,
+                0.75,
+                1.0
+              ],
+              "rgba_bits": [
+                "3f5e0000",
+                "3f600000",
+                "3f400000",
+                "3f800000"
+              ]
+            },
+            "category57_lookup": {
+              "status": "PROVEN",
+              "value": "TESSA BAMFORD",
+              "alternatives": [
+                "TESSA BAMFORD"
+              ],
+              "records": [
+                {
+                  "file_offset": 3217204,
+                  "category": 57,
+                  "index": 2,
+                  "pointer": 4536928,
+                  "text": "TESSA BAMFORD"
+                },
+                {
+                  "file_offset": 3233060,
+                  "category": 57,
+                  "index": 2,
+                  "pointer": 4536928,
+                  "text": "TESSA BAMFORD"
+                },
+                {
+                  "file_offset": 3248916,
+                  "category": 57,
+                  "index": 2,
+                  "pointer": 4536928,
+                  "text": "TESSA BAMFORD"
+                },
+                {
+                  "file_offset": 3264772,
+                  "category": 57,
+                  "index": 2,
+                  "pointer": 4536928,
+                  "text": "TESSA BAMFORD"
+                },
+                {
+                  "file_offset": 3280556,
+                  "category": 57,
+                  "index": 2,
+                  "pointer": 4536928,
+                  "text": "TESSA BAMFORD"
+                },
+                {
+                  "file_offset": 3296340,
+                  "category": 57,
+                  "index": 2,
+                  "pointer": 4536928,
+                  "text": "TESSA BAMFORD"
+                }
+              ]
+            },
+            "category57_semantics": "Original vehicle-indexed table; conflicting localized alternatives remain UNKNOWN"
+          }
+        ]
+      },
+      "fallback": null,
+      "active_change": "Only RAV4 candidate receives REAL_FALLBACK; all other assignments are audit proposals, not changes to accepted projects."
+    },
+    {
+      "vehicle": "Rav4Alpha (9.3.1 research only)",
+      "original_demo_driver_status": "UNKNOWN",
+      "interpretation": "Resource alias/geometry name is not a driver registry entry. No Newrav driver or marker is transferred.",
+      "sources": {
+        "pc841": [],
+        "pc931": [],
+        "retail": [],
+        "ps2": []
+      },
+      "fallback": {
+        "value": "DANIEL NEBOT",
+        "kind": "REAL_FALLBACK",
+        "credentials": "Toyota driver, Dakar2003 #280, confirmed contemporary event report. RAV4 model identification is secondary catalog evidence; not the original MR #263 driver.",
+        "sources": [
+          "https://au.motorsport.com/dakar/news/dakar-nissan-stage-ten-report/1013503/",
+          "https://www.lemonde.fr/archives/article/2003/01/14/accident-mortel-et-explosion-d-une-mine-sur-le-dakar_4270403_1819218.html",
+          "https://www.webcarstory.com/champ.php?ch=299&resultats=2"
+        ]
+      },
+      "active_change": "Only RAV4 candidate receives REAL_FALLBACK; all other assignments are audit proposals, not changes to accepted projects."
+    }
+  ],
+  "source_scope": "Source-authentic PS2/retail strings are PROVEN on those builds. INFERRED is explicitly cross-build continuity, not ORIGINAL PC dispatch. PC Demo category57 is NOT indexed by vehicle ID. Missing original identities remain stored separately from REAL_FALLBACK.",
+  "scene_limitations": {
+    "pc841": [
+      {
+        "path": "DataScene/old/Default.xml",
+        "error": "not well-formed (invalid token): line 90, column 13"
+      },
+      {
+        "path": "DataScene/old/SceneBug2.xml",
+        "error": "not well-formed (invalid token): line 18, column 13"
+      }
+    ],
+    "pc931": []
+  }
+}

@@ -70,6 +70,24 @@ future review order. Nov Wildcat points to Simmbugghini resources; the authentic
 runtime identity, installation or gameplay qualification was performed.
 
 
+## Current V-DEF2.1 RAV4
+
+The owner accepts RAV4 visual restoration. Open the private
+`vehicles/v-def2/physics-identity/release/Open-Restoration-Workshop.cmd`, or run
+`release/workshop/builds/first/candidate/Launch-SDK-Roster.cmd` from that root.
+This revision uses a complete independent retail Newrav physics clone; all
+historical Demo parameters remain inactive research evidence. It does not
+silently align geometry: source wheelbase2.553561m versus physics2.45m remains
+a known WARN. Test handling, tyre wear, suspension/contact and race lifecycle.
+
+The editable Driver / Results Name is DANIEL NEBOT, explicitly REAL_FALLBACK,
+not an original game identity. Use the existing Details field and Apply Results
+Name, Undo, Redo or Restore. Restore returns to the labelled fallback baseline;
+it does not fabricate an original name. The original UNKNOWN and source URLs
+remain in historical-identity.json. Marker editing uses the existing RGB
+controls; RAV4's blue marker is still an explicit SDK fallback. See
+`V_DEF2_1_RAV4_RESULTS.md` and `DEMO_DRIVER_COLOUR_EVIDENCE.md`.
+
 ## V-DEF1 canonical Forester
 
 **Current owner revision:** open

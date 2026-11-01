@@ -1,4 +1,23 @@
-# V-DEF2 reusable Demo restoration —1 November2026
+# V-DEF2.1 RAV4 retail physics and historical identity
+
+RAV4 visual restoration/integration is owner accepted. The isolated follow-up
+uses a full independent retail Newrav clone with no hybrid overrides; all121
+historical rows remain inactive evidence.147 vehicle and26 setup fields match
+the clean retail donor. The remaining source2.553561m versus physics2.45m
+wheelbase discrepancy is explicit, with no body/wheel geometry adjustment.
+
+Shared restoration separates original identities from editable REAL_FALLBACK
+assignments, preserves credentials/URLs and gives a subsequently proven original
+precedence. RAV4 uses DANIEL NEBOT; the original name and blue marker provenance
+remain UNKNOWN. A bounded read-only PC/PS2 table audit recovers29 PS2 markers,
+independently checks771 R5900 words and records eight shortlist cases. Existing
+Workshop name/marker controls and native RGBA emission are reused.
+
+See `V_DEF2_1_RAV4_RESULTS.md` and `DEMO_DRIVER_COLOUR_EVIDENCE.md`.
+The new physics/name candidate is pending owner D3D8 testing. Accepted Forester,
+RAV4 visual resources and the existing roster are preserved.
+
+# Historical V-DEF2 reusable Demo restoration —1 November2026
 
 Shared `addon_sdk.demo_restoration` + `tools/restore_demo_vehicle.py` consume
 per-car manifests for source integrity, strict cache repair, original identity

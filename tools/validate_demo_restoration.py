@@ -2,7 +2,9 @@
 from pathlib import Path
 import argparse,json,hashlib,sys,xml.etree.ElementTree as ET
 ROOT=Path(__file__).resolve().parents[1];sys.path[:0]=[str(ROOT/'src'),str(ROOT/'tools')]
-from master_rallye.addon_sdk.demo_restoration import verify_inputs,off_geometry
+from master_rallye.addon_sdk.demo_restoration import verify_inputs,off_geometry,verify_retail_clone,resolve
+from master_rallye.addon_sdk.project import read_sma_member
+from master_rallye.addon_sdk.physics_profile import MEMBERS
 from master_rallye.addon_sdk.heritage_source import compatible_model,verify_author
 from master_rallye.addon_sdk.ui_assets import BANKS,parse_bank
 from master_rallye.preview_scene import presentation_wheels
@@ -41,6 +43,9 @@ def run(restoration,roots,previous,output,*,repeat=False,emulate=False):
     wheels=presentation_wheels(*models,diagnostics=True)
     result.update(manifest_id=m['id'],original_source_pins=len(pins),accepted_resource_count=len(kept),accepted_physics_rows=old_values,original_off_geometry=a,derived_off_geometry=b,wheels=wheels,
                   source_physics=json.loads((restoration/'physics-preservation.json').read_text()),identity=json.loads((restoration/'identity-evidence.json').read_text()),owner_gameplay='PENDING')
+    if m['physics'].get('require_exact_clone'):
+        sma=resolve(roots,'retail','Data.sma')
+        result['retail_clone']=verify_retail_clone({n:read_sma_member(sma,n)for n in MEMBERS},{n:(new/n).read_bytes()for n in MEMBERS},donor_family=m['physics']['donor_family'],runtime_family=m['runtime_family'])
     if emulate:
         sys.path.insert(0,str(ROOT/'.research-output/vehicles/v-def1/python-deps'))
         from validate_sdk_capacity_emulation import validate as emulation
