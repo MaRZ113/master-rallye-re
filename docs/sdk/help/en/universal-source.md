@@ -201,3 +201,8 @@ Launch tools/Launch-RallyWorkshop2.cmd for the optional Qt Widgets editor; legac
 Preview is a cached neutral geometry view. Build fixture asks for a qualified native DX template, explicit scale and coordinate-frame choice; it writes a fresh isolated DX/DXT set. Then Preview built native materials shows the compiled material/Glow OFF/ON result. A changed journal cannot preview a stale fixture. These files are not an installed vehicle: collision fit, native controllers/physics, CarID and D3D8 gameplay are separate. Use the existing accepted projects for their established native Studios.
 
 Source Garage now reuses prepared geometry/captures; camera edits reuse geometry, material/geometry changes invalidate affected output, and Force Refresh verifies the parent again. Progress shows actual stages and elapsed time; Cancel discards obsolete work safely. Cache statistics are available. No cache result bypasses native-build hash checks. See WORKSHOP2_QT_RESULTS.md for optional environment setup and current limits.
+
+
+## Loose-resource draft
+
+In Build / Scope select **Prepare loose-resource draft**, choose an existing SDK runtime bundle, the original retail Data.sma and retail game root. The private build folder contains a manifest and loose files for inspection. Existing loose-file conflicts and shared configuration are identified. This is not a DLL or installer and must not be installed as a playable mod. The existing CMD candidate build remains available.

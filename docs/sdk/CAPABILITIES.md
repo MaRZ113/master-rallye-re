@@ -457,3 +457,8 @@ Optional editable-vehicle-project/1 journals separate Source Fidelity from MR Cl
 The optional PySide6 Widgets pilot demonstrates actual geometry/material/stock-reference/environment/Glow authoring and deterministic native fixtures on Dakar2 Pajero and a GT-derived Clio native snapshot. No source-original GT equivalence, new CarID, physics/controller/collision fit or gameplay is inferred. Legacy Tk and accepted native projects remain unchanged. Strict Dakar2 source L3 remains BLOCKED; derived material fixtures are a distinct authoring result.
 
 Source Garage and the pilot now use versioned memory/disk preview caches, real stage/elapsed feedback, cancellation, stale-result guards and Force Refresh. Warm tested previews are sub-second on this machine; first native Clio staging remains slower. Explicit focused/smoke/integration/full test tiers avoid repeated full runs. See WORKSHOP2_PERFORMANCE_RESULTS.md, WORKSHOP2_QT_RESULTS.md, EDITABLE_VEHICLE_SCENE_ARCHITECTURE.md and WORKSHOP2_PROVENANCE.json. Full1279 tests OK with2 prior skips;115 integration tests; final20 focused safety tests and actual Windows Qt/D3D9 probes. DLL deployment/capacity/classes/in-game paint and advanced mask painting remain next work, not completed features.
+
+
+## Definitive loose-resource draft
+
+Workshop Build / Scope prepares a private, deterministic loose-resource draft from an indexed SDK bundle and a selected retail SMA/root; it reports shared configuration and existing loose-file conflicts and excludes options and PlayerState. It does not install files, compile a DLL or establish game compatibility. Native loose-first/archive fallback has static retail evidence; per-version loading and runtime qualification remain open. See DLL_EXTERNAL_RESOURCE_DEPLOYMENT.md.

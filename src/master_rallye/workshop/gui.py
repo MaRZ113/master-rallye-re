@@ -146,6 +146,7 @@ class WorkshopApp(AppearancePanels, AudioPanels, VehiclePanels, ShadowPanels, He
         self.audio_layout(tabs)
         settings,settings_page=scroll_page(tabs,padding=9);tabs.add(settings_page,text='Build / Scope')
         ttk.Button(settings,text='Configure build inputs…',command=self.configure).pack(fill='x')
+        ttk.Button(settings,text='Prepare loose-resource draft…',command=self.loose_package).pack(fill='x',pady=4)
         ttk.Button(settings,text='Open last build folder',command=self.open_build_folder).pack(fill='x',pady=7)
         ttk.Label(settings,text='IMPLEMENTED\nNative model/draw/material inspection, selected-surface RGB and existing environment pass controls, texture impact warnings and PNG replacement, filtered RGBA/Alpha image views, preview wheel fitting, qualified masked paint, appearance snapshots, local stock references, existing stock crew fitting, four-layer Audio Studio, typed Physics, qualified follow-extents, names/aliases and Vehicle Art, Save, Undo/Redo/Restore, validation and isolated stock/addon builds.\n\nFUTURE — not editable in this milestone\nGeometry/Blender bridge, scale/fit, live physics simulation and unsupported FOV/replay authoring.\n\nExisting CLI profiles remain intact. Converted-family-only projects build resource packages, not new CarIDs.',wraplength=320).pack(anchor='w',pady=10)
         bottom=ttk.Frame(self.outer,padding=7);self.outer.add(bottom,weight=1)
@@ -588,6 +589,21 @@ class WorkshopApp(AppearancePanels, AudioPanels, VehiclePanels, ShadowPanels, He
         # Keep the proven launcher API intact and use a short owned SDK job root.
         project=self.project;output=self.sdk_root/'.research-output/workshop-builds'/uuid.uuid4().hex[:12]
         self.run('Build isolated candidate',lambda:project.build(output,sdk_root=self.sdk_root,log=lambda s:self.messages.put(('log',s,None,''))),lambda r:self.log.insert('end',f'Build saved: {output}\n'+json.dumps(r,indent=2,default=str)+'\n'))
+
+    def loose_package(self):
+        """Create an explicitly non-installable resource draft, never a fake DLL."""
+        if self.busy:return
+        bundle=filedialog.askdirectory(parent=self.root,title='Select an SDK runtime resource bundle')
+        if not bundle:return
+        archive=filedialog.askopenfilename(parent=self.root,title='Select original retail Data.sma',filetypes=[('Master Rallye archive','*.sma')])
+        if not archive:return
+        retail=filedialog.askdirectory(parent=self.root,title='Select original retail game root')
+        if not retail:return
+        import uuid
+        from .loose_package import prepare
+        base=self.sdk_root/'.research-output/workshop-builds';output=base/('loose-'+uuid.uuid4().hex[:12])
+        self.run('Prepare loose-resource draft',lambda:prepare(bundle,archive,retail,output,allowed_output_root=base),
+                 lambda report:self.log.insert('end',f'Draft saved: {output}\nNo DLL or installer; not game-ready.\n'+json.dumps(report,indent=2)+'\n'))
 
     def open_build_folder(self):
         if self.project and self.project.data.get('last_build'):
