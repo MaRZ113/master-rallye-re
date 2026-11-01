@@ -8,6 +8,8 @@
 #include "grass_pilot.hpp"
 #include "spline_objects.hpp"
 #include "ps2_birds_pilot.hpp"
+#include "collision_debug_pilot.hpp"
+#include "retail_layout.hpp"
 #include "ps2_water_pilot.hpp"
 #include "vehicle_partition.hpp"
 #include "xtrail_fidelity.hpp"
@@ -182,10 +184,34 @@ bool is_france1_bush01_geometry(std::string_view sha256) noexcept {
     return true;
 }
 
+// BASELINE-ALL-RACES: route the baseline certificate/HUD context consumers through the PS2 normalising certifier.
+void PS2PortExtension::configure_baseline_race_modes(bool enabled) noexcept {
+    baseline_all_race_modes_ = enabled;
+    baseline_certificate_override = enabled ? +[](uintptr_t camera) noexcept -> RaceCertificate { return ps2_race_certificate(camera); } : nullptr;
+    baseline_hud_override = enabled ? +[]() noexcept -> RaceHudContext { return ps2_race_hud_context(); } : nullptr;
+}
+
 PS2PortExtension::PS2PortExtension(bool exact_build, const std::string& exe_sha,
                                    const std::wstring& renderer_ini) noexcept {
-    build_valid_ = exact_build && same_sha(exe_sha, TARGET_EXE_SHA);
+    // RETAIL-DERIVATIVE1: an accepted in-place mod of the retail EXE (retail_layout.hpp) runs CollisionDebug only,
+    // unless RetailDerivativeEffects=1 also asks for every other PS2 feature.
+    const bool retail = same_sha(exe_sha, TARGET_EXE_SHA);
+    retail_derivative_ = exact_build && !retail && ::gfx2::ps2port::retail_derivative().accepted;
+    build_valid_ = exact_build && (retail || retail_derivative_);
     if (!build_valid_) { config_reason_ = "unsupported_build_stock"; return; }
+    if (retail_derivative_) try {
+        const auto ini = port_ini_path(renderer_ini);
+        if (::gfx2::ps2port::config::read_int(L"RetailDerivativeEffects", 0, ini.c_str()) != 1) {
+            diagnostics_ = ::gfx2::ps2port::config::read_int(L"Diagnostics", 0, ini.c_str()) == 1;
+            // The race certificate is a reader the overlay needs. New courses run as Invitation/Challenge races, and only
+            // the overlay is active here, so every race mode is certified (PS2RaceAllModes is implied).
+            ps2_race_certifier().configure(true, ::gfx2::ps2port::config::read_int(L"PS2SplitScreen", 0, ini.c_str()) == 1);
+            configure_baseline_race_modes(::gfx2::ps2port::config::read_int(L"BaselineAllRaceModes", 1, ini.c_str()) == 1);
+            collision_debug_ = std::make_unique<CollisionDebugPilot>(true, ini);
+            config_reason_ = "retail_derivative_collision_debug_only";
+            return;
+        }
+    } catch (...) { config_reason_ = "configuration_error_stock"; return; }
     try {
         const auto ini = port_ini_path(renderer_ini);
         const UINT mode = ::gfx2::ps2port::config::read_int(L"FoliageMode", 0, ini.c_str());
@@ -211,8 +237,12 @@ PS2PortExtension::PS2PortExtension(bool exact_build, const std::string& exe_sha,
             for (auto& m : frontend_extra_) m = std::make_unique<FrontendModel>(build_valid_, ini);
         // PS2RaceAllModes=1 (docs/race-modes1): Master Rallye, Rallye Cup, Challenge, Invitation and replay certificates.
         // PS2SplitScreen=1 (docs/split-screen1): two-player split-screen races (two cameras, two local drivers).
-        ps2_race_certifier().configure(::gfx2::ps2port::config::read_int(L"PS2RaceAllModes", 0, ini.c_str()) == 1,
+        // BaselineAllRaceModes=1 (docs/collision-debug1): the baseline free camera, Clean View and HUD hide also accept
+        // every race mode with opponents; it implies PS2RaceAllModes.
+        const bool baseline_all = ::gfx2::ps2port::config::read_int(L"BaselineAllRaceModes", 0, ini.c_str()) == 1;
+        ps2_race_certifier().configure(baseline_all || ::gfx2::ps2port::config::read_int(L"PS2RaceAllModes", 0, ini.c_str()) == 1,
                                        ::gfx2::ps2port::config::read_int(L"PS2SplitScreen", 0, ini.c_str()) == 1);
+        configure_baseline_race_modes(baseline_all);
         // PS2FleetAllCars=1 (docs/fleet-all-cars): one race/wheel parent per non-local participant.
         fleet_all_cars_ = ::gfx2::ps2port::config::read_int(L"PS2FleetAllCars", 0, ini.c_str()) == 1 && race_model_->car_fleet_enabled();
         if (fleet_all_cars_) for (unsigned i = 0; i < fleet_race_.size(); ++i) {
@@ -248,6 +278,8 @@ PS2PortExtension::PS2PortExtension(bool exact_build, const std::string& exe_sha,
         birds_ = std::make_unique<PS2BirdsPilot>(build_valid_, ini);
         // COURSE-WATER1 (docs/course-water1): PS2Water=1 replaces matched native water draws by the PS2 passes.
         water_ = std::make_unique<PS2WaterPilot>(build_valid_, ini);
+        // COLLISION-DEBUG1 (docs/collision-debug1): CollisionDebug=1 draws the course collision surface (tag1400).
+        collision_debug_ = std::make_unique<CollisionDebugPilot>(build_valid_, ini);
         color_.configure(read_ps2_color_config(ini.c_str()));
         output_.configure(::gfx2::ps2port::config::read_int(L"PS2Output", 0, ini.c_str()) == 1);
         if (::gfx2::ps2port::config::read_int(L"PS2MotionBlur", 0, ini.c_str()) == 1) { wchar_t blur[32]{}; ::gfx2::ps2port::config::read_string(L"PS2MotionBlurStrength", L"0.195", blur, 32, ini.c_str()); blur_.configure(parse_motion_blur_strength(blur)); }
@@ -290,13 +322,14 @@ bool PS2PortExtension::native_states_pending() const noexcept {
         (shrubs_ && (shrubs_->blocked() || shrubs_->transaction.has_pending())) ||
         (spline_objects_ && (spline_objects_->blocked() || spline_objects_->transaction.has_pending())) ||
         (birds_ && (birds_->blocked() || birds_->transaction.has_pending())) ||
+        (collision_debug_ && (collision_debug_->blocked() || collision_debug_->transaction.has_pending() || collision_debug_->legend_layer.pending())) ||
         (water_ && (water_->blocked() || water_->transaction.pending())) ||
         color_.pending() || output_.pending() || blur_.pending() || (ground_ && ground_->transaction.pending()) ||
         (hud_damage_ && hud_damage_->layer.pending()) || (hud_map_ && hud_map_->layer.pending()) ||
         (hud_timediffs_ && hud_timediffs_->layer.pending()) || (hud_template_ && hud_template_->layer.pending());
 }
 
-PS2PortExtension::~PS2PortExtension() { ledger_finish("shutdown"); pixel_probe_release(); }
+PS2PortExtension::~PS2PortExtension() { configure_baseline_race_modes(false); ledger_finish("shutdown"); pixel_probe_release(); }
 
 // ---- COURSE-RENDER-FIX1 ledger ----------------------------------------------------------------------------------------
 
@@ -662,12 +695,24 @@ std::string PS2PortExtension::color_present(IDirect3DDevice8& device, bool scene
                 back->Release();
             }
         }
+        // COLLISION-DEBUG1: the collision legend of this frame, last, over the HUD and every post pass.
+        if (collision_debug_ && collision_debug_->legend_ready()) {
+            const HRESULT hr = collision_debug_->draw_legend(device, scene_active, stateblock_recording);
+            if (const char* changed = collision_debug_->take_legend_log(hr)) {
+                if (!notes.empty()) notes += "\n";
+                notes += std::string("{\"type\":\"collision_debug_legend\",\"reason\":\"") + changed + "\",\"hr\":" +
+                    std::to_string(static_cast<unsigned long>(hr)) + "}";
+            }
+        }
     } catch (...) {}
     return notes;
 }
 
 bool PS2PortExtension::reflection_view_requested() const noexcept {
     return reflection_ && reflection_->debug_view();
+}
+bool PS2PortExtension::collision_legend_requested() const noexcept {
+    return collision_debug_ && collision_debug_->requested() && collision_debug_->legend_enabled();
 }
 
 const char* PS2PortExtension::mode_name() const noexcept {
@@ -1194,6 +1239,7 @@ void PS2PortExtension::disable(const char* reason) noexcept {
     if (shrubs_) shrubs_->disable(reason);
     if (spline_objects_) spline_objects_->disable(reason);
     if (birds_) birds_->disable(reason);
+    if (collision_debug_) collision_debug_->disable(reason);
     if (water_) water_->disable(reason);
 }
 

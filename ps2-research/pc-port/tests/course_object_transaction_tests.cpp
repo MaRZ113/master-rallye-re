@@ -222,7 +222,14 @@ void grass_material_policy(){
  Native invalid;Initial before(invalid);CourseObjectTransaction tx;CHECK(SUCCEEDED(tx.capture(invalid)));
  CHECK(FAILED(tx.apply(invalid,&invalid.replacement,matrix(7),matrix(8),writer,CourseObjectMaterialState{2,1,1})));
  CHECK(FAILED(tx.apply(invalid,&invalid.replacement,matrix(7),matrix(8),writer,CourseObjectMaterialState{0,99,1})));
+ // COLLISION-DEBUG1: only LESSEQUAL (default) or ALWAYS depth functions.
+ CHECK(FAILED(tx.apply(invalid,&invalid.replacement,matrix(7),matrix(8),writer,CourseObjectMaterialState{FALSE,1,1,TRUE,FALSE,D3DCMP_GREATER})));
  CHECK(invalid.writes==0&&before.matches(invalid));
+ const CourseObjectMaterialState xray{FALSE,D3DTADDRESS_CLAMP,D3DTADDRESS_CLAMP,TRUE,FALSE,D3DCMP_ALWAYS};
+ Native x;Initial xbefore(x);CourseObjectTransaction xt;CHECK(SUCCEEDED(xt.capture(x)));
+ CHECK(SUCCEEDED(xt.apply(x,&x.replacement,matrix(7),matrix(8),writer,xray)));
+ CHECK(x.rs[D3DRS_ZFUNC]==D3DCMP_ALWAYS&&x.rs[D3DRS_ZENABLE]==D3DZB_TRUE);
+ CHECK(SUCCEEDED(xt.restore(x,writer))&&xbefore.matches(x));
 }
 }
 bool same_viewport(const D3DVIEWPORT8& a,const D3DVIEWPORT8& b){return !std::memcmp(&a,&b,sizeof(a));}

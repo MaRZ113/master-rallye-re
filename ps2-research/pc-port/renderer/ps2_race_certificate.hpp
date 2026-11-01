@@ -312,27 +312,39 @@ public:
     }
 };
 
+// BASELINE-ALL-RACES (race_observer.cpp, patch 0001): live_race_certificate/live_race_hud_context may forward to the
+// functions below for the baseline consumers; the PS2 certifier always reads the strict baseline functions.
+}  // namespace gfx2::ps2port
+namespace gfx2 {
+RaceCertificate live_race_certificate_strict(uintptr_t expected_camera) noexcept;
+RaceHudContext live_race_hud_context_strict() noexcept;
+namespace ps2port {
+extern RaceCertificate (*baseline_certificate_override)(uintptr_t) noexcept;
+extern RaceHudContext (*baseline_hud_override)() noexcept;
+}
+}  // namespace gfx2
+namespace gfx2::ps2port {
 // Render-thread singletons used by every PS2 path in place of the baseline calls.
 inline Ps2RaceCertifier& ps2_race_certifier() noexcept {static Ps2RaceCertifier state;return state;}
 inline Ps2LiveRaceMemory& ps2_live_race_memory() noexcept {static Ps2LiveRaceMemory memory;return memory;}
 inline Ps2RaceCertificate ps2_race_certificate(uintptr_t camera) noexcept {
     perf::Timer timer(perf::RaceCertificate);
-    const auto base=live_race_certificate(camera);
+    const auto base=live_race_certificate_strict(camera);
     if(reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))!=0x400000||camera>UINT32_MAX){
         Ps2RaceCertificate out;static_cast<RaceCertificate&>(out)=base;out.mode=base.valid?Ps2RaceMode::Race:Ps2RaceMode::None;return out;}
     // live_race_certificate passed its thread check whenever classify() proceeds, so the snapshot call is safe.
     return ps2_race_certifier().certificate(base,ps2_live_race_memory(),0x400000,static_cast<uint32_t>(camera),
-        []() noexcept {return live_race_hud_context();},
+        []() noexcept {return live_race_hud_context_strict();},
         []() noexcept {try{return race_epoch_capture_json(0,0);}catch(...){return std::string();}});
 }
 inline RaceHudContext ps2_race_hud_context() noexcept {
     perf::Timer timer(perf::HudContext);
-    const auto base=live_race_hud_context();
+    const auto base=live_race_hud_context_strict();
     const bool participant_stage=base.reason&&!std::strcmp(base.reason,kParticipantStateReason);
     const bool type_stage=base.reason&&ps2_race_certifier().normalising()&&!std::strcmp(base.reason,kUnsupportedTypeReason);
     if(base.valid||(!participant_stage&&!type_stage)||reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))!=0x400000)return base;
     // Only reached after the baseline HUD path passed its render-thread check.
-    const auto any_camera=live_race_certificate(0);
+    const auto any_camera=live_race_certificate_strict(0);
     uint32_t scene_manager=0,countdown=0;
     const bool countdown_active=hud_live_read(0x400000+0x2f9aa0,&scene_manager,4)&&scene_manager&&hud_live_read(scene_manager+12,&countdown,4)&&countdown>0;
     return ps2_race_certifier().hud(base,any_camera,ps2_live_race_memory(),0x400000,read_pause_menu_state_readonly(),countdown_active);

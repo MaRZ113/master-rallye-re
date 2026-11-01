@@ -1,0 +1,1209 @@
+{
+  "schema": "collision-debug1-corpus-v1",
+  "asset": "CourseCollision.mrcoll",
+  "asset_sha256": "5e9426549fa10fd93791cfe4b2813aa27a8be54785a192930466e85520bebbdc",
+  "asset_bytes": 35146786,
+  "races": 37,
+  "course_dx": 36,
+  "triangles_total": 967735,
+  "record_contract": "every record: |n|=1, n.v+d=0 (<=0.05) and material index in range, or a degenerate triangle (doubled area <= 1e-3) with an all-NaN plane (19 records, not drawn)",
+  "winding": "n along cross(v1-v0,v2-v0) except 0 records (listed per course)",
+  "courses": [
+    {
+      "race_id": "RaceTest/France1",
+      "dx_path": "DataGx/Course/france1/france1.dx",
+      "dx_sha256": "a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5",
+      "tag1400_offset": 11435057,
+      "triangles": 27719,
+      "vertices": 14636,
+      "materials": 17,
+      "cell": 20.0,
+      "grid": [
+        167,
+        105
+      ],
+      "surface_triangles": {
+        "grass": 9934,
+        "gravel": 4335,
+        "harddirt": 6753,
+        "mud": 924,
+        "none": 381,
+        "tarmac": 2187,
+        "water": 3205
+      },
+      "reversed_winding_records": [],
+      "degenerate_nan_plane_records": [],
+      "digest": "dfbd1fe4db29d708fd2e9cc58079bc8cd3f0f72d7da8c5cc3fcf372702c81c6a"
+    },
+    {
+      "race_id": "RaceTest/France2",
+      "dx_path": "DataGx/Course/france2/france2.dx",
+      "dx_sha256": "fe9085d681994329c0fbdb3570f5153cc2240028a5644acd3fe12dcddb9e2d4e",
+      "tag1400_offset": 12375225,
+      "triangles": 21615,
+      "vertices": 11597,
+      "materials": 15,
+      "cell": 20.0,
+      "grid": [
+        126,
+        90
+      ],
+      "surface_triangles": {
+        "grass": 4715,
+        "gravel": 4540,
+        "harddirt": 4168,
+        "mud": 317,
+        "tarmac": 3838,
+        "water": 4037
+      },
+      "reversed_winding_records": [],
+      "degenerate_nan_plane_records": [],
+      "digest": "96e6613bc8233683ebe4fc4dddc5fe6ef3ef0f67b3c232ec29d488843bf0b740"
+    },
+    {
+      "race_id": "RaceTest/FranceM",
+      "dx_path": "DataGx/Course/france_m/francem.dx",
+      "dx_sha256": "50e76cf51d279531f9e5188145657aaa12bed30d8f88d27e7614eec0a97b56ce",
+      "tag1400_offset": 13138528,
+      "triangles": 29354,
+      "vertices": 15824,
+      "materials": 17,
+      "cell": 20.0,
+      "grid": [
+        263,
+        76
+      ],
+      "surface_triangles": {
+        "grass": 8503,
+        "gravel": 4870,
+        "harddirt": 6451,
+        "mud": 812,
+        "none": 381,
+        "tarmac": 3281,
+        "water": 5056
+      },
+      "reversed_winding_records": [],
+      "degenerate_nan_plane_records": [],
+      "digest": "e009ebc9017f0b5570bf874486f3b577499e21695cbf7365d0dbcb0da52f5dda"
+    },
+    {
+      "race_id": "RaceTest/FranceS1",
+      "dx_path": "DataGx/Course/france_s1/frances1.dx",
+      "dx_sha256": "19d1c7073f610fe050f281c07188f52b263a430332c5a3519013a1ee1568b2d4",
+      "tag1400_offset": 12569368,
+      "triangles": 23991,
+      "vertices": 12829,
+      "materials": 17,
+      "cell": 20.0,
+      "grid": [
+        216,
+        89
+      ],
+      "surface_triangles": {
+        "grass": 7305,
+        "gravel": 4486,
+        "harddirt": 5602,
+        "mud": 800,
+        "none": 381,
+        "tarmac": 2294,
+        "water": 3123
+      },
+      "reversed_winding_records": [],
+      "degenerate_nan_plane_records": [],
+      "digest": "7c36fe027b0a6cf0924802fc64520611e7facd302dc2634f8443551d0fc371b8"
+    },
+    {
+      "race_id": "RaceTest/FranceS2",
+      "dx_path": "DataGx/Course/france_s2/frances2.dx",
+      "dx_sha256": "26664bd12844fd179ac0ef61379f65a301f2da7b0c234d671b670407ee396809",
+      "tag1400_offset": 12292704,
+      "triangles": 28806,
+      "vertices": 15268,
+      "materials": 17,
+      "cell": 20.0,
+      "grid": [
+        263,
+        106
+      ],
+      "surface_triangles": {
+        "grass": 8729,
+        "gravel": 4808,
+        "harddirt": 6133,
+        "mud": 662,
+        "tarmac": 4149,
+        "water": 4325
+      },
+      "reversed_winding_records": [],
+      "degenerate_nan_plane_records": [],
+      "digest": "9e116535a6ee9e0ab1788d70a69898cd77c6b39160929cf93fcc03e6f761c0ae"
+    },
+    {
+      "race_id": "RaceTest/FranceW",
+      "dx_path": "DataGx/Course/france_w/francew.dx",
+      "dx_sha256": "8c5392b7583760828ae1a4d5780aa67f3612fd7a13dfaba9fe540a2300f46f88",
+      "tag1400_offset": 13002791,
+      "triangles": 27757,
+      "vertices": 14520,
+      "materials": 17,
+      "cell": 20.0,
+      "grid": [
+        256,
+        90
+      ],
+      "surface_triangles": {
+        "grass": 9422,
+        "gravel": 5373,
+        "harddirt": 6403,
+        "mud": 767,
+        "tarmac": 3400,
+        "water": 2392
+      },
+      "reversed_winding_records": [],
+      "degenerate_nan_plane_records": [],
+      "digest": "a584cd98ad9c99139764cb0f6232353eb054c9f10dc46aa71be866fba302559e"
+    },
+    {
+      "race_id": "RaceTest/FranceWFlip",
+      "dx_path": "DataGx/Course/france_w_flip/francew_flip.dx",
+      "dx_sha256": "9ed7bfdf16eef35ce3e46aeb38ed87b980005dab11639c6dd116421997368779",
+      "tag1400_offset": 13000376,
+      "triangles": 27757,
+      "vertices": 14520,
+      "materials": 17,
+      "cell": 20.0,
+      "grid": [
+        256,
+        90
+      ],
+      "surface_triangles": {
+        "grass": 9422,
+        "gravel": 5373,
+        "harddirt": 6403,
+        "mud": 767,
+        "tarmac": 3400,
+        "water": 2392
+      },
+      "reversed_winding_records": [],
+      "degenerate_nan_plane_records": [],
+      "digest": "18e25860cbd68ac0cb69e2b011afecc35851be7d3732b73573fbb9f4ef8e9ee8"
+    },
+    {
+      "race_id": "RaceTest/Italy1",
+      "dx_path": "DataGx/Course/italy1/track01.dx",
+      "dx_sha256": "971b44ab0f1543e457245731789dad2439259b37d206b6ca588f0130d84911e2",
+      "tag1400_offset": 8589085,
+      "triangles": 22909,
+      "vertices": 11720,
+      "materials": 21,
+      "cell": 20.0,
+      "grid": [
+        97,
+        107
+      ],
+      "surface_triangles": {
+        "grass": 8181,
+        "gravel": 7645,
+        "harddirt": 6460,
+        "tarmac": 623
+      },
+      "reversed_winding_records": [],
+      "degenerate_nan_plane_records": [],
+      "digest": "0f2a7680c4daed9e3e98a2bfd19ef9062d12aeb7ed2c6c2f1455a5132e5075d8"
+    },
+    {
+      "race_id": "RaceTest/Italy2",
+      "dx_path": "DataGx/Course/italy2/italy2.dx",
+      "dx_sha256": "0614f6c933f751d07be0fb7ea5b97d1099ebf6873120b93c506922efc38f8a31",
+      "tag1400_offset": 8278578,
+      "triangles": 22126,
+      "vertices": 11566,
+      "materials": 19,
+      "cell": 20.0,
+      "grid": [
+        128,
+        108
+      ],
+      "surface_triangles": {
+        "grass": 7724,
+        "gravel": 4528,
+        "harddirt": 7961,
+        "mud": 360,
+        "water": 1553
+      },
+      "reversed_winding_records": [],
+      "degenerate_nan_plane_records": [],
+      "digest": "98374a95dff14144d55b096f8b60f2626f8909faca87457ce2fe44d7f15a84ca"
+    },
+    {
+      "race_id": "RaceTest/Italy3",
+      "dx_path": "DataGx/Course/italy3/italy3.dx",
+      "dx_sha256": "4c97fc6faf743adb2c356da8c04851cd25fe91e5951be536b673c589819d3daa",
+      "tag1400_offset": 11027012,
+      "triangles": 24121,
+      "vertices": 12701,
+      "materials": 26,
+      "cell": 20.0,
+      "grid": [
+        137,
+        138
+      ],
+      "surface_triangles": {
+        "grass": 11208,
+        "gravel": 4373,
+        "harddirt": 4408,
+        "mud": 239,
+        "tarmac": 60,
+        "water": 3833
+      },
+      "reversed_winding_records": [],
+      "degenerate_nan_plane_records": [],
+      "digest": "cbcde91a2215efd256f0542e5390b29a72010d21ceb25d527630354bd71fad19"
+    },
+    {
+      "race_id": "RaceTest/ItalyM1",
+      "dx_path": "DataGx/Course/italy_m1/italy_m1.dx",
+      "dx_sha256": "7e7c3bef5f1beb44b9840ce9688a496166a368e2884d09e1c262098a9d723d9f",
+      "tag1400_offset": 10024601,
+      "triangles": 25311,
+      "vertices": 13083,
+      "materials": 25,
+      "cell": 20.0,
+      "grid": [
+        209,
+        111
+      ],
+      "surface_triangles": {
+        "grass": 8839,
+        "gravel": 7264,
+        "harddirt": 8161,
+        "mud": 200,
+        "tarmac": 623,
+        "water": 224
+      },
+      "reversed_winding_records": [],
+      "degenerate_nan_plane_records": [],
+      "digest": "dc90e9c5e506d8b7b500707983015b2c962437cfa3d7696c858d682bea226773"
+    },
+    {
+      "race_id": "RaceTest/ItalyM1Flip",
+      "dx_path": "DataGx/Course/italy_m1_flip/italy_m1_flip.dx",
+      "dx_sha256": "d1cd24612c31fa39a0de79313257cb4017605ac4b4cc3c484e661c2b65db8935",
+      "tag1400_offset": 10024580,
+      "triangles": 25311,
+      "vertices": 13083,
+      "materials": 25,
+      "cell": 20.0,
+      "grid": [
+        209,
+        111
+      ],
+      "surface_triangles": {
+        "grass": 8839,
+        "gravel": 7264,
+        "harddirt": 8161,
+        "mud": 200,
+        "tarmac": 623,
+        "water": 224
+      },
+      "reversed_winding_records": [],
+      "degenerate_nan_plane_records": [],
+      "digest": "a1f39daf03c68f3f0c2cd3924d1608bfe985d1a6bbb661db0eab02cd15ed930d"
+    },
+    {
+      "race_id": "RaceTest/ItalyM2",
+      "dx_path": "DataGx/Course/italy_m2/italy_m2.dx",
+      "dx_sha256": "f2ce72188a183c3a5a267c5bfbc7eebb3a8992b357d09eca51b9047a60893291",
+      "tag1400_offset": 11833223,
+      "triangles": 28229,
+      "vertices": 14754,
+      "materials": 26,
+      "cell": 20.0,
+      "grid": [
+        254,
+        108
+      ],
+      "surface_triangles": {
+        "grass": 12038,
+        "gravel": 5766,
+        "harddirt": 7724,
+        "mud": 199,
+        "tarmac": 60,
+        "water": 2442
+      },
+      "reversed_winding_records": [],
+      "degenerate_nan_plane_records": [],
+      "digest": "bbea7c76605c4ce772e2444de0e303c651756592ad005d740ad480fcade6aec0"
+    },
+    {
+      "race_id": "RaceTest/ItalyS1",
+      "dx_path": "DataGx/Course/italy_s1/italy_s1.dx",
+      "dx_sha256": "5cd86704667cbdc95d4a3b1ff1444c885431fcdd0313cc0f15eca980e3965e8a",
+      "tag1400_offset": 8734599,
+      "triangles": 22530,
+      "vertices": 11766,
+      "materials": 26,
+      "cell": 20.0,
+      "grid": [
+        188,
+        128
+      ],
+      "surface_triangles": {
+        "grass": 7809,
+        "gravel": 5184,
+        "harddirt": 7493,
+        "mud": 160,
+        "tarmac": 555,
+        "water": 1329
+      },
+      "reversed_winding_records": [],
+      "degenerate_nan_plane_records": [],
+      "digest": "6a52a8cab8b3ef0d33bcdea01c6dd707787979a274027e9f796407438b87f65d"
+    },
+    {
+      "race_id": "RaceTest/ItalyS2",
+      "dx_path": "DataGx/Course/italy_s2/italy_s2.dx",
+      "dx_sha256": "c3f3d6b7fc579d17852afae66dcb915562741657cfbf0d84a78cdf15c525b4cf",
+      "tag1400_offset": 10001851,
+      "triangles": 28117,
+      "vertices": 14548,
+      "materials": 21,
+      "cell": 20.0,
+      "grid": [
+        216,
+        105
+      ],
+      "surface_triangles": {
+        "grass": 10497,
+        "gravel": 7881,
+        "harddirt": 9007,
+        "mud": 200,
+        "tarmac": 308,
+        "water": 224
+      },
+      "reversed_winding_records": [],
+      "degenerate_nan_plane_records": [],
+      "digest": "261e5fec1b5a7f3aaa20032a8e247e7297e9ac373d4f234c7a6d79a09658e73f"
+    },
+    {
+      "race_id": "RaceTest/ItalyS3",
+      "dx_path": "DataGx/Course/italy_s3/italy_s3.dx",
+      "dx_sha256": "fccd6344d5c9c4bd1d3b25c2d1d4da6375e049e7d5a188e0c9f7c6cf194940df",
+      "tag1400_offset": 10996427,
+      "triangles": 24248,
+      "vertices": 12649,
+      "materials": 25,
+      "cell": 20.0,
+      "grid": [
+        214,
+        147
+      ],
+      "surface_triangles": {
+        "grass": 10164,
+        "gravel": 5188,
+        "harddirt": 6619,
+        "mud": 438,
+        "water": 1839
+      },
+      "reversed_winding_records": [],
+      "degenerate_nan_plane_records": [],
+      "digest": "dc21684312ddaf85a61add73c49687ad27bb9977d1db8958cc1805ac55edff65"
+    },
+    {
+      "race_id": "RaceTest/ItalyS3Flip",
+      "dx_path": "DataGx/Course/italy_s3_flip/italy_s3_flip.dx",
+      "dx_sha256": "f6c534feae3498b2943663573001a87f5096af060bd7cda4c9e2a3a14bf7644a",
+      "tag1400_offset": 11038750,
+      "triangles": 24248,
+      "vertices": 12649,
+      "materials": 25,
+      "cell": 20.0,
+      "grid": [
+        214,
+        147
+      ],
+      "surface_triangles": {
+        "grass": 10164,
+        "gravel": 5188,
+        "harddirt": 6619,
+        "mud": 438,
+        "water": 1839
+      },
+      "reversed_winding_records": [],
+      "degenerate_nan_plane_records": [],
+      "digest": "d44d99dcfaf8b6dd0379f5e767889cf5c9f9d0b861bd484a02ca1ee51f0bbc80"
+    },
+    {
+      "race_id": "RaceTest/ItalyS4",
+      "dx_path": "DataGx/Course/italy_s4/italy_s4.dx",
+      "dx_sha256": "bde1528ff5cdd7c4d831f6b31b4065170b98de06ab06db26f29ccfd38920aba9",
+      "tag1400_offset": 12663518,
+      "triangles": 29398,
+      "vertices": 15528,
+      "materials": 27,
+      "cell": 20.0,
+      "grid": [
+        254,
+        103
+      ],
+      "surface_triangles": {
+        "grass": 12203,
+        "gravel": 5191,
+        "harddirt": 7872,
+        "mud": 301,
+        "tarmac": 60,
+        "water": 3771
+      },
+      "reversed_winding_records": [],
+      "degenerate_nan_plane_records": [],
+      "digest": "7a886d89df00898667e4a4e0f9d636ff3917bc193790876ecad7295e28bcefcf"
+    },
+    {
+      "race_id": "RaceTest/ItalyW1",
+      "dx_path": "DataGx/Course/italy_w1/italy_w1.dx",
+      "dx_sha256": "fcad9da53b7d436d79e9d9322276e98aa5039376e091a487b85d30ac1b3ae7d2",
+      "tag1400_offset": 9741818,
+      "triangles": 26768,
+      "vertices": 14020,
+      "materials": 22,
+      "cell": 20.0,
+      "grid": [
+        214,
+        123
+      ],
+      "surface_triangles": {
+        "grass": 10006,
+        "gravel": 6599,
+        "harddirt": 8380,
+        "mud": 160,
+        "tarmac": 294,
+        "water": 1329
+      },
+      "reversed_winding_records": [],
+      "degenerate_nan_plane_records": [],
+      "digest": "7df61c4290ee7249aeaefbd99ef1d5aca233f57bfabd8ec7130c329926d9ce38"
+    },
+    {
+      "race_id": "RaceTest/ItalyW2",
+      "dx_path": "DataGx/Course/italy_w2/italy_w2.dx",
+      "dx_sha256": "c66e8f0cff376b0f535c0cdc4fcd0bf53ad46d157b5aab4ca2648cf9cb9998d7",
+      "tag1400_offset": 12640215,
+      "triangles": 29898,
+      "vertices": 15712,
+      "materials": 26,
+      "cell": 20.0,
+      "grid": [
+        254,
+        142
+      ],
+      "surface_triangles": {
+        "grass": 12304,
+        "gravel": 5442,
+        "harddirt": 8444,
+        "mud": 540,
+        "water": 3168
+      },
+      "reversed_winding_records": [],
+      "degenerate_nan_plane_records": [],
+      "digest": "5141b6f71159469d8ff7482a10da7805929f28b318c3623688f9e4dcd744463e"
+    },
+    {
+      "race_id": "RaceTest/Spain1",
+      "dx_path": "DataGx/Course/spain1/spain1.dx",
+      "dx_sha256": "847c4074e9d1af1d89d484e7332a69b5601920a0ab3b14c082d69060b24db4aa",
+      "tag1400_offset": 5908307,
+      "triangles": 23241,
+      "vertices": 11981,
+      "materials": 10,
+      "cell": 20.0,
+      "grid": [
+        90,
+        99
+      ],
+      "surface_triangles": {
+        "grass": 7033,
+        "gravel": 6092,
+        "harddirt": 7240,
+        "none": 192,
+        "tarmac": 883,
+        "water": 1801
+      },
+      "reversed_winding_records": [],
+      "degenerate_nan_plane_records": [
+        {
+          "record": 4520,
+          "doubled_area": 0.0
+        },
+        {
+          "record": 4799,
+          "doubled_area": 0.0
+        },
+        {
+          "record": 4913,
+          "doubled_area": 0.0
+        }
+      ],
+      "digest": "49d0a4ccdcbdb1a72fdfbbf73ed829eee227768129fe88472383e1c64a523cfc"
+    },
+    {
+      "race_id": "RaceTest/Spain2",
+      "dx_path": "DataGx/Course/spain2/spain2.dx",
+      "dx_sha256": "a427351031cdb8936033176c7793982860cd5214f60e7bd2a99bf0d49d0d1f9c",
+      "tag1400_offset": 8845728,
+      "triangles": 22781,
+      "vertices": 11691,
+      "materials": 11,
+      "cell": 20.0,
+      "grid": [
+        97,
+        99
+      ],
+      "surface_triangles": {
+        "grass": 6027,
+        "gravel": 5305,
+        "harddirt": 6944,
+        "mud": 867,
+        "none": 97,
+        "tarmac": 2650,
+        "water": 891
+      },
+      "reversed_winding_records": [],
+      "degenerate_nan_plane_records": [],
+      "digest": "696a914dff45b1c458ada8240ab83ee5d3e3bf32244091e4642c570d63c1907c"
+    },
+    {
+      "race_id": "RaceTest/SpainM",
+      "dx_path": "DataGx/Course/spain_m/spain_m.dx",
+      "dx_sha256": "77b5124f2bdc777252c93412e06c0728f05483df6898feb7420e668feb591b1f",
+      "tag1400_offset": 8205401,
+      "triangles": 25930,
+      "vertices": 13498,
+      "materials": 10,
+      "cell": 20.0,
+      "grid": [
+        130,
+        103
+      ],
+      "surface_triangles": {
+        "grass": 8871,
+        "gravel": 5159,
+        "harddirt": 8734,
+        "none": 96,
+        "tarmac": 1269,
+        "water": 1801
+      },
+      "reversed_winding_records": [],
+      "degenerate_nan_plane_records": [
+        {
+          "record": 14917,
+          "doubled_area": 0.0
+        },
+        {
+          "record": 14972,
+          "doubled_area": 0.0
+        },
+        {
+          "record": 15446,
+          "doubled_area": 0.0
+        }
+      ],
+      "digest": "6a7633663979dc590c62af447d4794183228c5296c04da7ecbf528387e8aafb6"
+    },
+    {
+      "race_id": "RaceTest/SpainS1",
+      "dx_path": "DataGx/Course/spain_s1/spain_s1.dx",
+      "dx_sha256": "8e547d6732b57e75a6eb2ab45a3cb471bd9683796ceef60b4c1870aef029095a",
+      "tag1400_offset": 8771548,
+      "triangles": 27988,
+      "vertices": 14380,
+      "materials": 9,
+      "cell": 20.0,
+      "grid": [
+        167,
+        103
+      ],
+      "surface_triangles": {
+        "grass": 10507,
+        "gravel": 5409,
+        "harddirt": 10191,
+        "tarmac": 738,
+        "water": 1143
+      },
+      "reversed_winding_records": [],
+      "degenerate_nan_plane_records": [
+        {
+          "record": 16339,
+          "doubled_area": 0.0
+        },
+        {
+          "record": 16598,
+          "doubled_area": 0.0
+        },
+        {
+          "record": 16674,
+          "doubled_area": 0.0
+        }
+      ],
+      "digest": "d3bbd24dfb4dcb7110d873d20ab6f7efcec8240063c1897aa2df97672316f660"
+    },
+    {
+      "race_id": "RaceTest/SpainS1Flip",
+      "dx_path": "DataGx/Course/spain_s1_flip/spain_s1_flip.dx",
+      "dx_sha256": "199cf8d8bc05ffd68ed04c58435cceb2dc2712dfc4ecda4ab564a7eb974c7136",
+      "tag1400_offset": 8770141,
+      "triangles": 27988,
+      "vertices": 14380,
+      "materials": 9,
+      "cell": 20.0,
+      "grid": [
+        167,
+        103
+      ],
+      "surface_triangles": {
+        "grass": 10507,
+        "gravel": 5409,
+        "harddirt": 10191,
+        "tarmac": 738,
+        "water": 1143
+      },
+      "reversed_winding_records": [],
+      "degenerate_nan_plane_records": [
+        {
+          "record": 16260,
+          "doubled_area": 0.0
+        },
+        {
+          "record": 16411,
+          "doubled_area": 0.0
+        },
+        {
+          "record": 16659,
+          "doubled_area": 0.0
+        }
+      ],
+      "digest": "d1880887b6fc0e193b28de64d70e484283d742392696bfdda177d79851f87f74"
+    },
+    {
+      "race_id": "RaceTest/SpainS2",
+      "dx_path": "DataGx/Course/spain_s2/spain_s2.dx",
+      "dx_sha256": "37a8be02cd18c1ad2a3f72043924103ed8279d4b2d3237f54a23f8143301986b",
+      "tag1400_offset": 8561653,
+      "triangles": 27623,
+      "vertices": 14309,
+      "materials": 14,
+      "cell": 20.0,
+      "grid": [
+        167,
+        96
+      ],
+      "surface_triangles": {
+        "grass": 6220,
+        "gravel": 7926,
+        "harddirt": 7058,
+        "mud": 867,
+        "none": 193,
+        "tarmac": 3529,
+        "water": 1830
+      },
+      "reversed_winding_records": [],
+      "degenerate_nan_plane_records": [],
+      "digest": "31881ed9d9cba0b4eabac4c4f860fcb2e83c35735161c10504c327f39771d975"
+    },
+    {
+      "race_id": "RaceTest/SpainW",
+      "dx_path": "DataGx/Course/spain_w/spain_w.dx",
+      "dx_sha256": "109644f89549d35dcdac92d63881815010266e2a2d1dc6e89d112e02cdb63424",
+      "tag1400_offset": 9325020,
+      "triangles": 30274,
+      "vertices": 15623,
+      "materials": 13,
+      "cell": 20.0,
+      "grid": [
+        167,
+        99
+      ],
+      "surface_triangles": {
+        "grass": 8937,
+        "gravel": 7311,
+        "harddirt": 8234,
+        "mud": 867,
+        "none": 97,
+        "tarmac": 2794,
+        "water": 2034
+      },
+      "reversed_winding_records": [],
+      "degenerate_nan_plane_records": [
+        {
+          "record": 17996,
+          "doubled_area": 0.0
+        },
+        {
+          "record": 18437,
+          "doubled_area": 0.0
+        },
+        {
+          "record": 18519,
+          "doubled_area": 0.0
+        }
+      ],
+      "digest": "ae55a939daefbc6b7b6b779e1b967c4c6aa020a43a6fa7d40dc19009e76a877f"
+    },
+    {
+      "race_id": "RaceTest/SpainWFlip",
+      "dx_path": "DataGx/Course/spain_w_flip/spain_w_flip.dx",
+      "dx_sha256": "74132a218e36a09543fee55993a99575155461fb249a9dd4795d5d3764fe1729",
+      "tag1400_offset": 9325032,
+      "triangles": 30274,
+      "vertices": 15623,
+      "materials": 13,
+      "cell": 20.0,
+      "grid": [
+        167,
+        99
+      ],
+      "surface_triangles": {
+        "grass": 8937,
+        "gravel": 7311,
+        "harddirt": 8234,
+        "mud": 867,
+        "none": 97,
+        "tarmac": 2794,
+        "water": 2034
+      },
+      "reversed_winding_records": [],
+      "degenerate_nan_plane_records": [
+        {
+          "record": 17954,
+          "doubled_area": 0.0
+        },
+        {
+          "record": 18008,
+          "doubled_area": 0.0
+        },
+        {
+          "record": 18551,
+          "doubled_area": 0.0
+        }
+      ],
+      "digest": "c09c2ed10f40136e7e09ff8b6cbf807c35543c5a0c8fec57b26d2585a2214ff0"
+    },
+    {
+      "race_id": "RaceTest/TestFrance1",
+      "dx_path": "DataGx/Course/france1/france1.dx",
+      "dx_sha256": "a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5",
+      "tag1400_offset": 11435057,
+      "triangles": 27719,
+      "vertices": 14636,
+      "materials": 17,
+      "cell": 20.0,
+      "grid": [
+        167,
+        105
+      ],
+      "surface_triangles": {
+        "grass": 9934,
+        "gravel": 4335,
+        "harddirt": 6753,
+        "mud": 924,
+        "none": 381,
+        "tarmac": 2187,
+        "water": 3205
+      },
+      "reversed_winding_records": [],
+      "degenerate_nan_plane_records": [],
+      "digest": "dfbd1fe4db29d708fd2e9cc58079bc8cd3f0f72d7da8c5cc3fcf372702c81c6a"
+    },
+    {
+      "race_id": "RaceTest/Turkey1",
+      "dx_path": "DataGx/Course/turkey1/turkey1.dx",
+      "dx_sha256": "653da3a7b2191ff3f3aaaff8dac4d38286e4c281d2cb4ae34f3e47258a81fecb",
+      "tag1400_offset": 8861914,
+      "triangles": 28265,
+      "vertices": 14543,
+      "materials": 36,
+      "cell": 20.0,
+      "grid": [
+        86,
+        99
+      ],
+      "surface_triangles": {
+        "gravel": 15388,
+        "harddirt": 11808,
+        "mud": 1069
+      },
+      "reversed_winding_records": [],
+      "degenerate_nan_plane_records": [],
+      "digest": "b4b331d18d52395de9a32184ced2a82d6053e35a4bd11938b31f178597aa16f1"
+    },
+    {
+      "race_id": "RaceTest/Turkey2",
+      "dx_path": "DataGx/Course/turkey2/turkey2.dx",
+      "dx_sha256": "0c238c152543a37f4b9c2a5f9e4573b70b868d263762679612031216d19e1194",
+      "tag1400_offset": 9158685,
+      "triangles": 22712,
+      "vertices": 11772,
+      "materials": 27,
+      "cell": 20.0,
+      "grid": [
+        102,
+        87
+      ],
+      "surface_triangles": {
+        "grass": 4364,
+        "gravel": 9145,
+        "harddirt": 6862,
+        "tarmac": 618,
+        "water": 1723
+      },
+      "reversed_winding_records": [],
+      "degenerate_nan_plane_records": [],
+      "digest": "acd3f5d1f6cec3585be5558939f50247716060140db1f6cfa92c3eb9ecea81ba"
+    },
+    {
+      "race_id": "RaceTest/Turkey3",
+      "dx_path": "DataGx/Course/turkey3/turkey3.dx",
+      "dx_sha256": "724a69da708a124f7dbfd666b7ad8d391bcaf22ff94bd2c91143e305749cf7f8",
+      "tag1400_offset": 8145973,
+      "triangles": 26767,
+      "vertices": 13701,
+      "materials": 25,
+      "cell": 20.0,
+      "grid": [
+        103,
+        99
+      ],
+      "surface_triangles": {
+        "grass": 6066,
+        "gravel": 10059,
+        "harddirt": 10526,
+        "tarmac": 116
+      },
+      "reversed_winding_records": [],
+      "degenerate_nan_plane_records": [
+        {
+          "record": 6193,
+          "doubled_area": 0.0
+        }
+      ],
+      "digest": "12cbc555aad0fd8cb4784e96723e82bd14aeb9af81cad8beb3ab376dd926eae8"
+    },
+    {
+      "race_id": "RaceTest/TurkeyM",
+      "dx_path": "DataGx/Course/turkey_m/turkey_m.dx",
+      "dx_sha256": "f304938bbf4f93b45333fa7fa0661d05217a51f43e26403bf981aa2721b0a2f9",
+      "tag1400_offset": 12302754,
+      "triangles": 35714,
+      "vertices": 18474,
+      "materials": 53,
+      "cell": 20.0,
+      "grid": [
+        169,
+        120
+      ],
+      "surface_triangles": {
+        "grass": 3237,
+        "gravel": 19392,
+        "harddirt": 11519,
+        "mud": 496,
+        "tarmac": 268,
+        "water": 802
+      },
+      "reversed_winding_records": [],
+      "degenerate_nan_plane_records": [],
+      "digest": "78f1370d95ed05fd055997e8751627812025bfc8f05ee850b5a79c4a9a62f864"
+    },
+    {
+      "race_id": "RaceTest/TurkeyS1",
+      "dx_path": "DataGx/Course/turkey_s1/turkey_s1.dx",
+      "dx_sha256": "fbf4e3c2358b5ed41c55be9d0f781793388d67783d9ca44e152337ac621065c0",
+      "tag1400_offset": 11160465,
+      "triangles": 32137,
+      "vertices": 16628,
+      "materials": 36,
+      "cell": 20.0,
+      "grid": [
+        199,
+        116
+      ],
+      "surface_triangles": {
+        "grass": 7442,
+        "gravel": 10763,
+        "harddirt": 11929,
+        "tarmac": 718,
+        "water": 1285
+      },
+      "reversed_winding_records": [],
+      "degenerate_nan_plane_records": [],
+      "digest": "99e60632751f7fc420baa3ae59e47fe9c5f746a70e24c41ab37cc82ea0ff79f4"
+    },
+    {
+      "race_id": "RaceTest/TurkeyS2",
+      "dx_path": "DataGx/Course/turkey_s2/turkey_s2.dx",
+      "dx_sha256": "de286e3fde3378133c9f43117c3564480dd12cce5f369ed6dd17ee9b595cbde5",
+      "tag1400_offset": 10771578,
+      "triangles": 30636,
+      "vertices": 15793,
+      "materials": 36,
+      "cell": 20.0,
+      "grid": [
+        198,
+        86
+      ],
+      "surface_triangles": {
+        "grass": 6474,
+        "gravel": 11167,
+        "harddirt": 11941,
+        "tarmac": 252,
+        "water": 802
+      },
+      "reversed_winding_records": [],
+      "degenerate_nan_plane_records": [],
+      "digest": "c6b530aa38ebc3d3301d91949edfc951a502891f58733599df0136914d10e890"
+    },
+    {
+      "race_id": "RaceTest/TurkeyS2Flip",
+      "dx_path": "DataGx/Course/turkey_s2_flip/turkey_s2_flip.dx",
+      "dx_sha256": "d4ac39f98215d38df18a976f27f9ddc4dc233c89d95e1940348ae3b5ff5f3ddd",
+      "tag1400_offset": 10769195,
+      "triangles": 30636,
+      "vertices": 15793,
+      "materials": 36,
+      "cell": 20.0,
+      "grid": [
+        198,
+        86
+      ],
+      "surface_triangles": {
+        "grass": 6474,
+        "gravel": 11167,
+        "harddirt": 11941,
+        "tarmac": 252,
+        "water": 802
+      },
+      "reversed_winding_records": [],
+      "degenerate_nan_plane_records": [],
+      "digest": "2d5587de4ee91f0f07a2648b9e933093d67ef16d3adc7b07fb23f7d111fdc55d"
+    },
+    {
+      "race_id": "RaceTest/TurkeyW",
+      "dx_path": "DataGx/Course/turkey_w/turkey_w.dx",
+      "dx_sha256": "d180cb0e0ea801438a39e54a5d683472d3ded30ff09db0a6ffd987d06d5f2a00",
+      "tag1400_offset": 8828647,
+      "triangles": 24556,
+      "vertices": 12750,
+      "materials": 35,
+      "cell": 20.0,
+      "grid": [
+        160,
+        122
+      ],
+      "surface_triangles": {
+        "grass": 2582,
+        "gravel": 8466,
+        "harddirt": 11049,
+        "mud": 780,
+        "tarmac": 394,
+        "water": 1285
+      },
+      "reversed_winding_records": [],
+      "degenerate_nan_plane_records": [],
+      "digest": "3d512d8c47726166dc1ca225550464b51242ddb17f6abac91de16d375794c17d"
+    }
+  ],
+  "verify": {
+    "cpp_raw_search_equal": 36,
+    "cpp_raw_search_mismatch": [],
+    "cpp_asset_equal": 37,
+    "cpp_asset_mismatch": [],
+    "loose_course_dx": [
+      {
+        "path": "DataGx/Course/invfrance/france1.dx",
+        "result": 0,
+        "tag1400_offset": 11435057,
+        "triangles": 27719,
+        "vertices": 14636,
+        "edges": 42366,
+        "digest": "dfbd1fe4db29d708fd2e9cc58079bc8cd3f0f72d7da8c5cc3fcf372702c81c6a"
+      },
+      {
+        "path": "DataGx/Course/invfrance/france2.dx",
+        "result": 0,
+        "tag1400_offset": 12375225,
+        "triangles": 21615,
+        "vertices": 11597,
+        "edges": 33211,
+        "digest": "96e6613bc8233683ebe4fc4dddc5fe6ef3ef0f67b3c232ec29d488843bf0b740"
+      },
+      {
+        "path": "DataGx/Course/invfrance/francem.dx",
+        "result": 0,
+        "tag1400_offset": 13138528,
+        "triangles": 29354,
+        "vertices": 15824,
+        "edges": 45183,
+        "digest": "e009ebc9017f0b5570bf874486f3b577499e21695cbf7365d0dbcb0da52f5dda"
+      },
+      {
+        "path": "DataGx/Course/invfrance/frances2.dx",
+        "result": 0,
+        "tag1400_offset": 12292704,
+        "triangles": 28806,
+        "vertices": 15268,
+        "edges": 44073,
+        "digest": "9e116535a6ee9e0ab1788d70a69898cd77c6b39160929cf93fcc03e6f761c0ae"
+      },
+      {
+        "path": "DataGx/Course/invfrance/francew.dx",
+        "result": 0,
+        "tag1400_offset": 13002791,
+        "triangles": 27757,
+        "vertices": 14520,
+        "edges": 42279,
+        "digest": "a584cd98ad9c99139764cb0f6232353eb054c9f10dc46aa71be866fba302559e"
+      },
+      {
+        "path": "DataGx/Course/invitaly/italy2.dx",
+        "result": 0,
+        "tag1400_offset": 8278578,
+        "triangles": 22126,
+        "vertices": 11566,
+        "edges": 33695,
+        "digest": "98374a95dff14144d55b096f8b60f2626f8909faca87457ce2fe44d7f15a84ca"
+      },
+      {
+        "path": "DataGx/Course/invitaly/italy3.dx",
+        "result": 0,
+        "tag1400_offset": 11027012,
+        "triangles": 24121,
+        "vertices": 12701,
+        "edges": 36815,
+        "digest": "cbcde91a2215efd256f0542e5390b29a72010d21ceb25d527630354bd71fad19"
+      },
+      {
+        "path": "DataGx/Course/invitaly/italy_m2.dx",
+        "result": 0,
+        "tag1400_offset": 11833223,
+        "triangles": 28229,
+        "vertices": 14754,
+        "edges": 42977,
+        "digest": "bbea7c76605c4ce772e2444de0e303c651756592ad005d740ad480fcade6aec0"
+      },
+      {
+        "path": "DataGx/Course/invitaly/italy_s3.dx",
+        "result": 0,
+        "tag1400_offset": 10996427,
+        "triangles": 24248,
+        "vertices": 12649,
+        "edges": 36896,
+        "digest": "dc21684312ddaf85a61add73c49687ad27bb9977d1db8958cc1805ac55edff65"
+      },
+      {
+        "path": "DataGx/Course/invitaly/italy_s4.dx",
+        "result": 0,
+        "tag1400_offset": 12663518,
+        "triangles": 29398,
+        "vertices": 15528,
+        "edges": 44922,
+        "digest": "7a886d89df00898667e4a4e0f9d636ff3917bc193790876ecad7295e28bcefcf"
+      },
+      {
+        "path": "DataGx/Course/invitaly/italy_w1.dx",
+        "result": 0,
+        "tag1400_offset": 9741818,
+        "triangles": 26768,
+        "vertices": 14020,
+        "edges": 40789,
+        "digest": "7df61c4290ee7249aeaefbd99ef1d5aca233f57bfabd8ec7130c329926d9ce38"
+      },
+      {
+        "path": "DataGx/Course/invitaly/italy_w2.dx",
+        "result": 0,
+        "tag1400_offset": 12640215,
+        "triangles": 29898,
+        "vertices": 15712,
+        "edges": 45611,
+        "digest": "5141b6f71159469d8ff7482a10da7805929f28b318c3623688f9e4dcd744463e"
+      },
+      {
+        "path": "DataGx/Course/invspain/spain2.dx",
+        "result": 0,
+        "tag1400_offset": 8845728,
+        "triangles": 22781,
+        "vertices": 11691,
+        "edges": 34472,
+        "digest": "696a914dff45b1c458ada8240ab83ee5d3e3bf32244091e4642c570d63c1907c"
+      },
+      {
+        "path": "DataGx/Course/invspain/spain_m.dx",
+        "result": 0,
+        "tag1400_offset": 8205401,
+        "triangles": 25930,
+        "vertices": 13498,
+        "edges": 39419,
+        "digest": "6a7633663979dc590c62af447d4794183228c5296c04da7ecbf528387e8aafb6"
+      },
+      {
+        "path": "DataGx/Course/invspain/spain_s1.dx",
+        "result": 0,
+        "tag1400_offset": 8771548,
+        "triangles": 27988,
+        "vertices": 14380,
+        "edges": 42362,
+        "digest": "d3bbd24dfb4dcb7110d873d20ab6f7efcec8240063c1897aa2df97672316f660"
+      },
+      {
+        "path": "DataGx/Course/invspain/spain_w.dx",
+        "result": 0,
+        "tag1400_offset": 9325020,
+        "triangles": 30274,
+        "vertices": 15623,
+        "edges": 45891,
+        "digest": "ae55a939daefbc6b7b6b779e1b967c4c6aa020a43a6fa7d40dc19009e76a877f"
+      },
+      {
+        "path": "DataGx/Course/invspaingx/invspaingx.dx",
+        "result": 0,
+        "tag1400_offset": 11123218,
+        "triangles": 44143,
+        "vertices": 22678,
+        "edges": 66822,
+        "digest": "1d84a3bd19df4923207d5417bc0069ac5b70bcc59f09b8da1850587260c1a69a"
+      },
+      {
+        "path": "DataGx/Course/invturkey/turkey1.dx",
+        "result": 0,
+        "tag1400_offset": 8861914,
+        "triangles": 28265,
+        "vertices": 14543,
+        "edges": 42810,
+        "digest": "b4b331d18d52395de9a32184ced2a82d6053e35a4bd11938b31f178597aa16f1"
+      },
+      {
+        "path": "DataGx/Course/invturkey/turkey_m.dx",
+        "result": 0,
+        "tag1400_offset": 12302754,
+        "triangles": 35714,
+        "vertices": 18474,
+        "edges": 54190,
+        "digest": "78f1370d95ed05fd055997e8751627812025bfc8f05ee850b5a79c4a9a62f864"
+      },
+      {
+        "path": "DataGx/Course/invturkey/turkey_s2.dx",
+        "result": 0,
+        "tag1400_offset": 10771578,
+        "triangles": 30636,
+        "vertices": 15793,
+        "edges": 46427,
+        "digest": "c6b530aa38ebc3d3301d91949edfc951a502891f58733599df0136914d10e890"
+      },
+      {
+        "path": "DataGx/Course/invturkey/turkey_w.dx",
+        "result": 0,
+        "tag1400_offset": 8828647,
+        "triangles": 24556,
+        "vertices": 12750,
+        "edges": 37307,
+        "digest": "3d512d8c47726166dc1ca225550464b51242ddb17f6abac91de16d375794c17d"
+      }
+    ]
+  }
+}

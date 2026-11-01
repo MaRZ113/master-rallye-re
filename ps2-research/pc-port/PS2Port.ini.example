@@ -141,6 +141,46 @@ PS2Water=0
 ; PS2WaterAsset: default <GrassAssetDirectory>/PS2Water.ps2wtr.
 
 ; --- Diagnostics ---------------------------------------------------------------
+; CollisionDebug: 1 = DIAGNOSTIC overlay of the course collision surface (course DX tag1400 triangles with their
+;   $surfacetype) in races, single camera. CollisionDebugKey cycles the overlay, Shift+key goes back:
+;   OFF -> SURFACE (fill by surface type) -> WIRE -> X-RAY (wire through walls) -> SLOPE (steepness bands)
+;   -> FACING (front/solid side cyan, back red: one-sided walls) -> SOLID (opaque shaded, holes show the scene).
+;   Loose course DX are read in place; retail courses need CollisionDebugAsset. 0 = Stock (nothing loaded).
+CollisionDebug=0
+; CollisionDebugKey: F1..F24, INSERT, HOME, END, PAGEUP, PAGEDOWN, PAUSE, SCROLLLOCK or a virtual-key number (F10 is
+;   reserved). CollisionDebugMode: overlay at start (OFF, SURFACE, WIRE, X-RAY, SLOPE, FACING, SOLID or 0..6).
+CollisionDebugKey=F11
+CollisionDebugMode=SURFACE
+; CollisionDebugRange: metres around the camera (10..20000). CollisionDebugDepthPull: fraction of the camera distance
+;   the overlay is moved toward the camera against depth fighting (0..0.1). CollisionDebugLegend: 1 = legend top left.
+CollisionDebugRange=500
+CollisionDebugDepthPull=0.003
+CollisionDebugLegend=1
+; CollisionDebugLegendPosition: TOPCENTER (two compact lines), TOPLEFT, TOPRIGHT or BOTTOMCENTER. The legend is drawn
+;   at Present, over the game HUD.
+CollisionDebugLegendPosition=TOPCENTER
+; Sources per landscape: loose DataGx DX first, else Data.sma (CollisionDebugArchive, default Data.sma; read-only,
+;   CRC-checked), else CollisionDebugAsset (surface only). Objects (banners, posts, rails, bridge ends) come from the
+;   course BSP (tag100): white "OBJECT" in every mode; mode 7 OBJECTS shows only them. The legend's yellow line gives
+;   the player car position (Car0) and the collision surface under it.
+; CollisionDebugCars: 1 = with every collision mode, the collision hull (car.dx tag101 convex hull) of every race car
+;   at its pose, drawn through the body (player car yellow, others orange). 0 = none.
+CollisionDebugCars=1
+; CollisionDebugMarkersKey: race markers of the race XML (RaceLine, L/R inner/outer limits, start/finish areas,
+;   cameras): lines between markers, a post and a direction tick at each. Key cycles OFF -> ON -> X-RAY.
+CollisionDebugMarkersKey=F12
+; CollisionDebugAsset: optional, retail surface only (default <GrassAssetDirectory>/CourseCollision.mrcoll).
+; BaselineAllRaceModes: 1 = the free camera, Clean View and HUD hide also work in races with opponents and in every
+;   race mode (Invitation, Challenge, Rallye Cup): their race certificate comes from the PS2 normalising certifier
+;   (implies PS2RaceAllModes). Default 0; on a RETAIL_DERIVATIVE EXE the default is 1.
+BaselineAllRaceModes=0
+; Joined/new courses: every "course\<dir>\<name>" landscape of the loose race XML is loaded with its en3d Matrix.
+; RetailDerivativeBuilds: 1 = also accept in-place mods of the retail MRallye.exe (invitation entries, cooked course
+;   builds: same size, image base and section table, at most 64 changed 4 KiB pages). The session log then says
+;   "build":"RETAIL_DERIVATIVE" plus a retail_derivative record with the changed pages. On such an EXE only
+;   CollisionDebug runs (every race mode certified) unless RetailDerivativeEffects=1 (all PS2 features, unverified).
+RetailDerivativeBuilds=0
+RetailDerivativeEffects=0
 ; Diagnostics: 1 = feature records in MRRRenderer/logs and F10 race-fleet sidecars.
 Diagnostics=0
 ; RaceLedger (COURSE-RENDER-FIX1): 1 = one summary record per race (course, race/owner generation, per-effect outcome counters,

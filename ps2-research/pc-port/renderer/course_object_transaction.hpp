@@ -73,6 +73,8 @@ struct CourseObjectMaterialState {
     DWORD address_v=D3DTADDRESS_WRAP;
     DWORD alpha_blend=TRUE;
     DWORD fog=FALSE;
+    // COLLISION-DEBUG1: depth function (LESSEQUAL, or ALWAYS for the x-ray overlay and its legend).
+    DWORD z_func=D3DCMP_LESSEQUAL;
 };
 
 class CourseObjectTransaction {
@@ -191,6 +193,7 @@ public:
         // A split pass applies its viewport first; only pending fixed states forbid an overlapping apply.
         if(!captured_||pending_||!texture||!finite(view)||!finite(projection)||
            material.z_write>TRUE||material.alpha_blend>TRUE||material.fog>TRUE||
+           (material.z_func!=D3DCMP_LESSEQUAL&&material.z_func!=D3DCMP_ALWAYS)||
            !valid_address(material.address_u)||!valid_address(material.address_v)){
             last_failure=E_INVALIDARG;return last_failure;
         }
@@ -201,6 +204,7 @@ public:
             if(op.kind==CourseObjectStateKind::Render&&op.key==D3DRS_ZWRITEENABLE)desired.scalar=material.z_write;
             if(op.kind==CourseObjectStateKind::Render&&op.key==D3DRS_ALPHABLENDENABLE)desired.scalar=material.alpha_blend;
             if(op.kind==CourseObjectStateKind::Render&&op.key==D3DRS_FOGENABLE)desired.scalar=material.fog;
+            if(op.kind==CourseObjectStateKind::Render&&op.key==D3DRS_ZFUNC)desired.scalar=material.z_func;
             if(op.kind==CourseObjectStateKind::Stage&&op.key==D3DTSS_ADDRESSU)desired.scalar=material.address_u;
             if(op.kind==CourseObjectStateKind::Stage&&op.key==D3DTSS_ADDRESSV)desired.scalar=material.address_v;
             bool changed=saved_[i].scalar!=desired.scalar;

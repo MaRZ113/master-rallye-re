@@ -2,6 +2,8 @@
 #include "frontend_model.hpp"
 #include "ps2_perf_timing.hpp"
 #include "ps2_config.hpp"
+#include "retail_layout.hpp"
+#include "ps2_race_certificate.hpp"
 #include "provenance.hpp"
 
 #include <algorithm>
@@ -529,7 +531,52 @@ void race_ledger_contracts() {
     cleanup(dir);
 }
 
+// RETAIL-DERIVATIVE1: an accepted in-place mod runs CollisionDebug only; an unaccepted foreign EXE stays Stock.
+void retail_derivative_contract() {
+    const auto dir = temp_dir();
+    CHECK(!dir.empty());
+    CHECK(write_config(dir, L"[PS2Port]\r\nCollisionDebug=1\r\nReflection=1\r\nDiagnostics=1\r\n"));
+    const std::string mod(64, 'a');
+    auto& state = gfx2::ps2port::retail_derivative();
+    const auto saved = state;
+    state.accepted = false;
+    gfx2::ps2port::PS2PortExtension foreign(true, mod, renderer_ini(dir));
+    CHECK(!foreign.collision_debug() && std::string(foreign.config_reason()) == "unsupported_build_stock");
+    state.accepted = true;
+    gfx2::ps2port::PS2PortExtension derived(true, mod, renderer_ini(dir));
+    CHECK(derived.retail_derivative_build() && derived.collision_debug() && !derived.reflection() && !derived.water());
+    CHECK(std::string(derived.config_reason()) == "retail_derivative_collision_debug_only" && derived.diagnostics());
+    CHECK(!derived.requested() && !derived.native_states_pending());
+    gfx2::ps2port::PS2PortExtension retail(true, gfx2::TARGET_SHA, renderer_ini(dir));
+    CHECK(!retail.retail_derivative_build() && retail.collision_debug() && retail.reflection());
+    state = saved;
+    cleanup(dir);
+}
+
+// BASELINE-ALL-RACES: BaselineAllRaceModes=1 routes the baseline certificate/HUD context through the PS2 certifier
+// while the extension lives; default 0 on the retail EXE leaves the baseline functions untouched.
+void baseline_all_race_modes_contract() {
+    const auto dir = temp_dir();
+    CHECK(!dir.empty());
+    CHECK(write_config(dir, L"[PS2Port]\r\nDiagnostics=0\r\n"));
+    {
+        gfx2::ps2port::PS2PortExtension plain(true, gfx2::TARGET_SHA, renderer_ini(dir));
+        CHECK(!plain.baseline_all_race_modes() && !gfx2::ps2port::baseline_certificate_override && !gfx2::ps2port::baseline_hud_override);
+    }
+    CHECK(write_config(dir, L"[PS2Port]\r\nBaselineAllRaceModes=1\r\n"));
+    {
+        gfx2::ps2port::PS2PortExtension all(true, gfx2::TARGET_SHA, renderer_ini(dir));
+        CHECK(all.baseline_all_race_modes() && gfx2::ps2port::baseline_certificate_override && gfx2::ps2port::baseline_hud_override);
+        CHECK(gfx2::ps2port::ps2_race_certifier().all_modes());
+    }
+    CHECK(!gfx2::ps2port::baseline_certificate_override && !gfx2::ps2port::baseline_hud_override);
+    gfx2::ps2port::ps2_race_certifier().configure(false, false);
+    cleanup(dir);
+}
+
 int main() {
+    baseline_all_race_modes_contract();
+    retail_derivative_contract();
     race_ledger_contracts();
     mode_and_mirror_policy();
     pixel_probe_configuration_and_format_contract();

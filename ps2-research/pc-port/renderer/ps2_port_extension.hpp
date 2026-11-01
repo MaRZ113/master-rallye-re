@@ -30,6 +30,7 @@ class GrassPilot;
 class SplineObjectsPilot;
 class PS2BirdsPilot;
 class PS2WaterPilot;
+class CollisionDebugPilot;
 class VehiclePartitionPilot;
 class XtrailFidelity;
 class FrontendModel;
@@ -338,12 +339,19 @@ public:
     PS2BirdsPilot* birds() noexcept { return birds_.get(); }
     // COURSE-WATER1: PS2 water on the native course water draws (PS2Water=1).
     PS2WaterPilot* water() noexcept { return water_.get(); }
+    // RETAIL-DERIVATIVE1: true when the running EXE is an accepted in-place mod of the retail EXE.
+    bool retail_derivative_build() const noexcept { return retail_derivative_; }
+    bool baseline_all_race_modes() const noexcept { return baseline_all_race_modes_; }
+    void configure_baseline_race_modes(bool enabled) noexcept;
+    // COLLISION-DEBUG1: course collision overlay (CollisionDebug=1), hotkey-cycled modes.
+    CollisionDebugPilot* collision_debug() noexcept { return collision_debug_.get(); }
     PS2ColorGrade& color_grade() noexcept { return color_; }
     PS2OutputFilter& output_filter() noexcept { return output_; }
     // Present-time passes (PS2Color, PS2Output) share one hook.
     PS2MotionBlur& motion_blur() noexcept { return blur_; }
-    bool present_pass_requested() const noexcept { return ledger_enabled_ || color_.enabled() || output_.enabled() || blur_.enabled() || reflection_view_requested() || (hud_damage_ && hud_damage_->requested()) || (hud_map_ && hud_map_->requested()) || hud_eggs_requested() || (hud_timediffs_ && hud_timediffs_->requested()); }
+    bool present_pass_requested() const noexcept { return collision_legend_requested() || ledger_enabled_ || color_.enabled() || output_.enabled() || blur_.enabled() || reflection_view_requested() || (hud_damage_ && hud_damage_->requested()) || (hud_map_ && hud_map_->requested()) || hud_eggs_requested() || (hud_timediffs_ && hud_timediffs_->requested()); }
     bool reflection_view_requested() const noexcept;
+    bool collision_legend_requested() const noexcept;
     void present_before_reset() noexcept { color_.before_reset(); output_.before_reset(); blur_.before_reset(); fleet_before_reset(); }
     GroundDetail* ground_detail() noexcept { return ground_.get(); }
     PS2HudDamage* hud_damage() noexcept { return hud_damage_.get(); }
@@ -435,6 +443,7 @@ private:
     std::unique_ptr<SplineObjectsPilot> spline_objects_;
     std::unique_ptr<PS2BirdsPilot> birds_;
     std::unique_ptr<PS2WaterPilot> water_;
+    std::unique_ptr<CollisionDebugPilot> collision_debug_;
     PS2ColorGrade color_;
     PS2OutputFilter output_;
     PS2MotionBlur blur_;
@@ -476,6 +485,8 @@ private:
     uint64_t ledger_serial_ = 0, ledger_frame_ = 0;
     PilotMode mode_ = PilotMode::Stock;
     bool build_valid_ = false;
+    bool retail_derivative_ = false;
+    bool baseline_all_race_modes_ = false;
     bool disabled_ = false;
     bool diagnostics_ = false;
     bool frontend_geometry_diagnostics_ = false;
