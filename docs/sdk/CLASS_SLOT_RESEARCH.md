@@ -1,5 +1,18 @@
 # Further vehicle class-slot capacity — Heritage research
 
+## V-DEF2 status —1 November2026
+
+Owner now accepts the corrected Forester31-record CMD configuration, ID30/T2
+local10. Its accepted build is unchanged. The new isolated RAV4 candidate uses
+ID31/T2 local11, counts8/12/12, explicitly named32-record profile and the same
+SCALE1 emitter. The audited12-position T2 publisher guard is not expanded.
+All32 mappings/initializers/pool helpers are emulated, but RAV4 actual selection,
+race/AI/Results/save/re-entry remains pending owner. Neither this nor Forester
+acceptance establishes a universal engine maximum or32-entry gameplay PASS.
+No33+, class expansion or further imports are authorized by this result.
+
+The earlier qualification snapshots below remain historical evidence.
+
 27 October 2026. This is an evidence update, not a capacity increase in the
 Heritage candidate. The owner-confirmed SCALE1 maximum remains30 active records
 with class counts8/10/12. No universal engine maximum is established.

@@ -1,4 +1,22 @@
-# V-DEF1 owner corrections —1 November2026
+# V-DEF2 reusable Demo restoration —1 November2026
+
+Shared `addon_sdk.demo_restoration` + `tools/restore_demo_vehicle.py` consume
+per-car manifests for source integrity, strict cache repair, original identity
+evidence, native panes/lamp references, frontend origin and physics policy.
+Forester's owner-confirmed corrected build is preserved; fresh generic resources
+match it except the two current-owner PlayerState seed copies.
+
+Canonical Demo Rav4 has a private Workshop/CMD candidate on independent ID31,
+T2 local11, explicit32-record profile.100 Demo8.4.1 fields are mapped;21 old
+fields remain source-only with owner-approved retail substitutions. All14
+separate original glass faces partition6/4/4;8 exact original blight faces bound
+the retail ON-core/halo adaptation. No rear zone is invented. Generated CarSheet
+and SIDE HUD artwork use distinct Workshop cameras; rejected historical images
+remain research only. Original driver remains unresolved, Results uses car name.
+Offline native/source qualification is not RAV4 gameplay success.
+See `V_DEF2_RAV4_RESULTS.md` and `V_DEF2_RAV4_OWNER_TEST.md`.
+
+# Historical V-DEF1 owner corrections —1 November2026
 
 Current candidate: `vehicles/v-def1/owner-fixes/release` under `.research-output`.
 Generic native reference effects now optionally transfer the donor ON core,

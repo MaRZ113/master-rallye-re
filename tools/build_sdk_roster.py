@@ -26,6 +26,7 @@ from master_rallye.addon_sdk.manifest import canonical_json
 
 PROFILE='sdk-multi-addon-roster'
 EXPERIMENTAL_31_PROFILE='sdk-multi-addon-roster-experimental-31'
+EXPERIMENTAL_32_PROFILE='sdk-multi-addon-roster-experimental-32'
 ALLOCATION=262144
 
 def append_owned_family(base,source,family):
@@ -115,9 +116,9 @@ def derive(config):
     if type(config.get('frontend_bulk_read',False)) is not bool:raise ValueError('frontend_bulk_read must be an explicit boolean')
     inputs=config.get('projects')
     experimental=config.get('experimental_record_count')
-    if experimental is not None and (type(experimental)is not int or experimental!=31):raise ValueError('Only an explicit experimental 31-record layout is admitted')
-    if not isinstance(inputs,list) or len(inputs) not in ((3,)if experimental==31 else (1,2)):raise ValueError('only previously demonstrated 29/30 layouts admitted; 31 requires explicit experimental_record_count')
-    profile_name=EXPERIMENTAL_31_PROFILE if experimental==31 else PROFILE
+    if experimental is not None and (type(experimental)is not int or experimental not in(31,32)):raise ValueError('Only explicit experimental 31/32-record layouts are admitted')
+    if not isinstance(inputs,list) or len(inputs) not in ((experimental-28,)if experimental is not None else(1,2)):raise ValueError('29/30 layouts are ordinary; 31/32 require explicit experimental_record_count and matching projects')
+    profile_name={31:EXPERIMENTAL_31_PROFILE,32:EXPERIMENTAL_32_PROFILE}.get(experimental,PROFILE)
     base=Path(config['base_runtime']);source=Path(config.get('retail_exe',ROOT.parent/'MRallye.exe')).read_bytes()
     profile,image,base_rows,assets=probe.verified_base(base,source)
     plan=json.loads((base/'addon-plan.json').read_text());base_plan=copy.deepcopy(plan)
@@ -283,10 +284,10 @@ def derive(config):
         physical_slots_runtime_qualified=[26,27],experimental_physical_slots=[r['physical_id'] for r in rows],unresolved_runtime_gates=['Exact combined imported roster player/AI, finishing, Results and re-entry','Simultaneous independent physics/audio/damage/light behavior','No migration of experimental probe saves or other candidate state'])
     audit={'runtime_qualified':False,'capacity_mechanism':'SCALE1 29/30 user gameplay confirmed; this combined candidate not gameplay tested','author_slot_rebindings':[{'addon_id':r['addon_id'],'author_id':a['original']['physical_id'],'runtime_id':r['physical_id']} for r,a in zip(rows,authors)],'bindings':bindings,'native_hook_count':len(ops),'resource_ownership':ownership,'ui_frames':ui_report,'source_reports':reports,'base_plan_sha256':probe.sha(canonical_json(base_plan))}
     if glass_reports:audit['base_glass_profiles']=glass_reports
-    if experimental==31:
-        audit['capacity_mechanism']='Explicit 31-record T2 append experiment using the existing SCALE1 emitter; owner gameplay NOT TESTED'
+    if experimental in(31,32):
+        audit['capacity_mechanism']=f'Explicit {experimental}-record T2 append experiment using the existing SCALE1 emitter; no new native hooks or larger publisher'
         audit['owner_qualified_record_count']=30
-        profile['unresolved_runtime_gates'].insert(0,'31st independent record / T2 local10 selection, AI, race, Results, save and re-entry NOT TESTED')
+        profile['unresolved_runtime_gates'].insert(0,f'{experimental}th record / T2 local{experimental-21} selection, AI, race, Results, save and re-entry requires owner review for this exact candidate')
     files={'addon-plan.json':plan_raw,'native-patch-manifest.json':pm,'native-patch-ops.rvp':rvp,'native-extension.bin':blob,'runtime-profile.json':canonical_json(profile),'resource-manifest.json':rm,'resource-index.tsv':index,'roster-reservations.json':canonical_json(lock),'sdk-roster-audit.json':canonical_json(audit),'runtime-artifact.json':canonical_json({'profile':profile_name,'runtime_qualified':False,'resource_manifest_sha256':probe.sha(rm)})}
     return {'resources':output,'files':files,'profile':profile,'image':image,'capacity':cap,'rows':rows,'audit':audit}
 

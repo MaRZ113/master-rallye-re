@@ -10,21 +10,10 @@ from master_rallye.dx import parse_dx_bytes
 from master_rallye.topology_writer import source_geometry
 from master_rallye.preview_scene import logical_cases,presentation_wheels
 from master_rallye.workshop.service import WorkshopProject
-from master_rallye.demo_vehicle_audit import surfaces
 from master_rallye.addon_sdk.heritage_source import compatible_model
 
 
-def off_geometry(raw):
-    m=parse_dx_bytes(raw);geometries=source_geometry(m);cases,_=logical_cases(m)
-    points=[];normals=[];colors=b'';uv=[];triangles=[];materials=[]
-    for d in m.physical_draws:
-        if d.draw_index in cases and cases[d.draw_index][1]!=1:continue
-        g=geometries[d.draw_index];base=len(points)
-        points.extend(v.position for v in g.vertices);normals.extend(v.normal for v in g.vertices);colors+=b''.join(v.color for v in g.vertices);uv.extend(v.uvs[0]for v in g.vertices)
-        triangles.extend(tuple(base+i for i in t)for t in g.triangles)
-        materials.extend([repr((d.texture_tuple,list(d.flags_0x20),d.unknown_0x24)).encode()]*len(g.triangles))
-    result=surfaces(points,normals,colors,[uv],triangles,materials)
-    return {k:v for k,v in result.items()if not k.startswith('_')}
+from master_rallye.addon_sdk.demo_restoration import off_geometry
 
 
 def run(restoration,accepted_config,retail,output,*,repeat=False,emulate=False):

@@ -1,4 +1,24 @@
-# V-DEF1 owner corrections —1 November2026
+# V-DEF2 reusable restoration and Demo RAV4 —1 November2026
+
+Baseline f0668154f28a9340a7bb301b6a1227b2484a13a2, clean research/vehicles.
+Owner accepts corrected Forester as fully tested. Resolve this scoped revision
+with `git log -1 --format=%H --fixed-strings --grep="feat(definitive): add manifest restoration and Demo RAV4 CMD pilot"`.
+Common manifest workflow replaces Forester-specific orchestration; per-car
+manifests retain hashes/geometry/identity/physics/resource mappings. Accepted
+Forester build is untouched; generic reproduction matches non-seed resources.
+Canonical9.3.1 RAV4 uses100 compatible8.4.1 physics fields plus21 documented
+retail substitutions,3 native glass zones and independently fitted ON core/halo.
+Owner rejected mismatched art: Workshop-generated CarSheet/SIDE HUD; driver
+unresolved, no invented Results name. Explicit independent32-record candidate
+uses existing SCALE1 logic, last audited T2 publisher slot. No new runtime hooks.
+Two source-qualified local renderer hashes (collision-debug1/2) are admitted by
+the existing launcher after external proxy updates; installed wrappers untouched.
+1323 full tests PASS,2 prior skips;66 final focused tests cover final path/alias
+guards.258 DX/DXT reproduce;340 prior resources and original XML/UI rows remain.
+32 native mappings/pools/initializers/name/audio helpers emulated; no gameplay
+claim. Stop at private owner-candidate and checklist. No push/publication/imports.
+
+# Historical V-DEF1 owner corrections —1 November2026
 
 Baseline `ce0cd68929aca4a0c0048b74aff367a5fe000461`,clean research/vehicles.
 Resolve scoped commit with `git log -1 --format=%H --fixed-strings --grep="fix(definitive): correct Forester retail physics lights and presentation"`.

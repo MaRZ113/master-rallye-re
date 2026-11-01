@@ -1,5 +1,10 @@
 # V-DEF1 — Forester owner corrections
 
+**Owner acceptance recorded in V-DEF2 (1 November2026):** corrected Forester is
+reported fully working and tested. f066815's owner-fixes/release is the accepted
+reference; pending gates below describe the earlier delivery snapshot. A fresh
+generic manifest build reproduces its non-seed resources without modifying it.
+
 1 November2026. Baseline ce0cd68929aca4a0c0048b74aff367a5fe000461 on
 research/vehicles. Owner screenshots demonstrate selection and race entry.
 The owner separately confirms **Darren Sutherland displays correctly in race**.

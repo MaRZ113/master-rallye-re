@@ -1,0 +1,126 @@
+{
+  "schema": "vdef2-restoration-provenance/1",
+  "baseline_commit": "f0668154f28a9340a7bb301b6a1227b2484a13a2",
+  "branch": "research/vehicles",
+  "current_candidate": "D:\\Game\\Master Rallye\\master-rallye-re-vehicles\\.research-output\\vehicles\\v-def2\\owner-candidate\\workshop\\builds\\first\\candidate",
+  "current_workshop": "D:\\Game\\Master Rallye\\master-rallye-re-vehicles\\.research-output\\vehicles\\v-def2\\owner-candidate\\workshop",
+  "owner_confirmed_forester": {
+    "status": "OWNER_ACCEPTED",
+    "source": "Owner: Forester now fully working and tested; use V-DEF1 as reference",
+    "scope": "f066815 corrected private31-record Forester candidate; no universal capacity or other-model proof"
+  },
+  "rav4_gameplay": "PENDING_OWNER",
+  "driver": "UNRESOLVED; Results shows vehicle identity, not an invented name",
+  "artwork": "Workshop-generated after owner rejected mismatched historical icon candidates",
+  "icons": [
+    {
+      "role": "CarSheet",
+      "path": "D:\\Game\\Master Rallye\\master-rallye-re-vehicles\\.research-output\\vehicles\\v-def2\\owner-candidate\\workshop\\builds\\first\\candidate\\runtime\\resource-root\\DataGx\\Frontend\\VehicleSelect\\carsheet_036_000.dxt",
+      "sha256": "5fb32f11008f7e9b86b439b07801c029f6bdb18f2c297c9cb5ad79f97b54201e",
+      "native_size": [
+        128,
+        128
+      ]
+    },
+    {
+      "role": "HUD side icon",
+      "path": "D:\\Game\\Master Rallye\\master-rallye-re-vehicles\\.research-output\\vehicles\\v-def2\\owner-candidate\\workshop\\builds\\first\\candidate\\runtime\\resource-root\\DataGx\\Frontend\\RaceResults\\smallcarsheet_034_000.dxt",
+      "sha256": "bc0b957adf803a09e68a4e540ed414a53f0c1710981614405f7c612ef2035c9c",
+      "native_size": [
+        32,
+        16
+      ]
+    }
+  ],
+  "protection": {
+    "accepted_forester_sealed_resources_verified": 345,
+    "canonical_source_pins_verified": 72,
+    "proxy_sha256": "2d80609fbf546f9abbd71789d04d88f7e37aafcbf3be5f682e7156e7118fb4ff",
+    "local_proxy_artifact": "D:\\Game\\Master Rallye\\master-rallye-re-general\\ps2-research\\pc-port\\dist\\collision-debug2\\d3d8.dll",
+    "local_sha256sums": "D:\\Game\\Master Rallye\\master-rallye-re-general\\ps2-research\\pc-port\\dist\\collision-debug2\\SHA256SUMS.txt",
+    "original_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "native_proxy_installed_or_modified": false,
+    "game_launched": false,
+    "forester_generic_equivalence": {
+      "original_files": 347,
+      "reproduced_files": 346,
+      "differences": [
+        "DataGame/PlayerState.xml",
+        "DataGame/PlayerState.xml#"
+      ],
+      "status": "PASS",
+      "seed_differences": [
+        "DataGame/PlayerState.xml",
+        "DataGame/PlayerState.xml#"
+      ],
+      "non_seed_differences": [],
+      "boundary": "PlayerState seeds are freshly copied from current owner state; accepted candidate and original save untouched"
+    }
+  },
+  "artifacts": {
+    "final-guard-focused.json": {
+      "sha256": "07ef8c456c60819e59699813aad3b8d4ba40840fd9509805e116ac9d1aca4cb6",
+      "bytes": 8682
+    },
+    "delivery-full-regression.json": {
+      "sha256": "4cf7eb9df0463aa84a361b71fa01c7d3869d2553c5ccde341b8169cc749f26e7",
+      "bytes": 9164
+    },
+    "owner-validation.json": {
+      "sha256": "8e33c37ce5d502078cc457a98f2f6d02ff238029640768719b7a9b5264a17cf4",
+      "bytes": 55441
+    },
+    "gui-validation.json": {
+      "sha256": "aca62501da09da2a5543267a66b8a9c86b3812d123e9cfce515c45f5d3104b32",
+      "bytes": 232
+    },
+    "final-previews/capture-report.json": {
+      "sha256": "9b10309c3aafbc35b3bcb07622dda42f29c26b917b76f3733227b6c132802d37",
+      "bytes": 11215
+    },
+    "forester-equivalence.json": {
+      "sha256": "98fad57c60fac036da70ab923a66da33eb6b0b7e4af09efb07ae626190856086",
+      "bytes": 428
+    },
+    "protection.json": {
+      "sha256": "fcad6cb0fa9ad8fa075fb4f8e815129affbea76110215581ac83be58321e363d",
+      "bytes": 1124
+    },
+    "owner-candidate/source-authoring-qualification.json": {
+      "sha256": "3bdf787a692c14caa5af6c12f0e1f9d2aae79b46a7be525b88146f1c53305cdd",
+      "bytes": 17138
+    },
+    "owner-candidate/physics-preservation.json": {
+      "sha256": "a8f5932d486f22ac5b7f12c352018bcad30e2c9aafe4b9b7b579e5c80f4e1199",
+      "bytes": 21819
+    },
+    "owner-candidate/native-features.json": {
+      "sha256": "e7c50f5b653ccc6ddad495afca92b74fa441a34772106823a72d8e86e19af19e",
+      "bytes": 4468
+    },
+    "owner-candidate/frontend-frame.json": {
+      "sha256": "ba5e99837064199282e6203fa74ade9974519e22c2851c9059c3286272ecda3f",
+      "bytes": 1009
+    },
+    "owner-candidate/identity-evidence.json": {
+      "sha256": "29e9b7eb44514b49dcdc45dc98c020b1f4c0597045190aa7dc6f9719635fb7eb",
+      "bytes": 9994
+    },
+    "owner-candidate/restoration-manifest.json": {
+      "sha256": "5daad5d8bf28b7a8466e554a4b23f5be8918c5b55dac5f243a40dcfe8b4685ed",
+      "bytes": 19522
+    },
+    "owner-candidate/author/ui-generated/render.json": {
+      "sha256": "a715d2f801f0d83fb487d6653905b4b37a4e8470c9d187fd8c264eaf9ea45476",
+      "bytes": 1259
+    },
+    "owner-candidate/workshop/builds/first/candidate/validation.json": {
+      "sha256": "db89907c9e899f279e782b93665c2fd8f386414871f67ef42a43e1a1788da9d0",
+      "bytes": 3108
+    },
+    "owner-candidate/workshop/builds/first/candidate/runtime/runtime-profile.json": {
+      "sha256": "77f415bdba22923cc227c6b3426329331d78f67f1ac0da3b8656f1ccb75658a0",
+      "bytes": 3245
+    }
+  }
+}

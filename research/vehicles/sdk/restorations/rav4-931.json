@@ -1,0 +1,390 @@
+{
+  "version": 1,
+  "id": "demo-rav4-9-3-1",
+  "name": "Demo Rav4 9.3.1",
+  "source_family": "Rav4",
+  "runtime_family": "DefRav4",
+  "vehicle_class": "T2",
+  "source": {
+    "root": "pcg",
+    "directory": "Rav4",
+    "files": {
+      "black-tga.dxt": "c8af53e3c1ea06c42178b3e1988dff0b3c64f150b722cba6bdd0450dc1357f82",
+      "Black-tga.gxi": "f1e8c064908150ef3a0b354bfa2ae6de8493d2b43b895fb803987dc23cdac8a8",
+      "car.dx": "75d3a6a37bbeb046408959ddc4e57e31663f6c95fcb39290f01980640e2f0545",
+      "car.gxm": "45686e0ffeb0867a42dc9dbfa99bb6588171a29abbb81b112144b58e3c5c63e1",
+      "car.txt": "b3a94337afd6740ee7a79ccddf13a7338745335afca032683019b6dcf86699d1",
+      "chair2-tga.dxt": "3d5eab847f8053023132cc461a0f6aaeebc8379dd00b002a3d050e624a433ef4",
+      "Chair2-tga.gxi": "51dc32346d79ae24b3e6b84087fedfed39278c643b40a7c1db483ed0b4ef7c41",
+      "chrome-tga.dxt": "658946001e0c91939421a40e5ac86a91297d93fc5abc1927bf8ae77a4e89012b",
+      "Chrome-tga.gxi": "1e008b385558738cc16d13dd518a6b5f95743470e9b1207a2f438df6b382673a",
+      "complete.dx": "c45d5da6559c2ab71690105172110ace8a4435227fcd523cd4cb68c2c4e50188",
+      "complete.gxm": "10918c43191de673d1333a51d9a3aa611ed1f37d55f59c286c34b24805e6a6ff",
+      "complete.txt": "e0de99d780ce9c86f86dbddf043d11060f6ecdc7c202897d76306e9a17064481",
+      "dcambell-tga.dxt": "0c8d56d72d5bf83b1530a6e9ccba63efe6bd9b7e0d7c5172b212672c038b2c62",
+      "Dcambell-tga.gxi": "c7d7a6c76c8edad32f30443b10d138845780c3be2f54d0f0a350e1c1ce6df4dc",
+      "doorbit16-tga.dxt": "9bf0df78dc736e0b487cef2bbb6a57eba37209accf0eca116228e7c3ef8f90e0",
+      "Doorbit16-tga.gxi": "0a41a7554d9c80837d611f1ff00813173ca507f56a000d8890e9f21a6df339e9",
+      "drichard-tga.dxt": "ebc196b631941ce570f78180aee4bef81a5a5d822a86a0ed370bc814fd02774b",
+      "Drichard-tga.gxi": "615eff1d205969e0863fdc24a98f7ef72d9b0e37fe4b702159b8f362de8cae10",
+      "glass-tga.dxt": "f18690e02cad8d249db527ad546bac54db3343894aa136bc84bf0d9531fac71b",
+      "Glass-tga.gxi": "c008c15cc655242e4577d353b39f6d970d8f4d8143807021077a36b9757daab7",
+      "greys16-tga.dxt": "5b890f048b35d0c22c5b46b21d04cb0e03f9e264709fc2ce306c6d8bae7f0bd9",
+      "Greys16-tga.gxi": "4558449db9765a200f525917df68155b1519c7d7945a581d4886b127cba5f23e",
+      "mastersticker-tga.dxt": "742ce384222f823f594e6e10a8e014d269f143b5d16a6b88c88378f95d223b46",
+      "Mastersticker-tga.gxi": "c84d5963880cb25459e8d983eb1ff7b894b78bdf725e68af66f5e17e324b3961",
+      "mich64-tga.dxt": "575175ad03a268d9079cdf3b225a6f5753ecd4e3230df83cfaaa45fbec355c44",
+      "Mich64-tga.gxi": "0358e73785f553e4a8ac5bee774bf0ac6fc845b4039218dd9fe5b73a44e9ad99",
+      "perspex-tga.dxt": "29fddb30997bda1b38b006ffac98fd26a0671d94e8a6c4a86708c0f11f7f8fc0",
+      "Perspex-tga.gxi": "29d88105c57405541d3a4f31eda6726fb70b3ddc9ea680820053190a42faf9aa",
+      "ravback1-tga.dxt": "80ce6562ef93243ff23e16eed546dcbe1b5f820831e7d7d3d591986416e56c52",
+      "Ravback1-tga.gxi": "eb87a4d9c8e571867fa6c649b17a9a4c44ef32da1d3b5a83fe2097b6b49324a8",
+      "ravback2-tga.dxt": "54b7c09b8a1c62d61ff6c39aaa0b4838c713bc9853c919b31c71aab96f0795c3",
+      "Ravback2-tga.gxi": "f65741fa0eab654e4a23fceb4801db891454499e5fef5b9a2cb3e4e009f264cc",
+      "ravbump32-tga.dxt": "13580f77fb799ab50535eed2b254c5343043f4b6fdf95b633e23c77a29550d84",
+      "Ravbump32-tga.gxi": "fc619e1873d7f969a16d7d6809c7d866dfbc5e2e2d0d12b6d1da96fcf213528f",
+      "ravlights64-tga.dxt": "efa681938d2a2950f68790a57ca7a85fa53adcfb4ec6c94f9a07400c64828ac2",
+      "Ravlights64-tga.gxi": "52ead119f9f51acfcc804187f60e5fcb1039796a5c1f7a1b29f3bfcdb5957bfd",
+      "ravside2128-tga.dxt": "16e7f8c528477599ec41c5cf3f0a155b3e49fa8426773d31a5065b347ae169d8",
+      "Ravside2128-tga.gxi": "eccd00727a8494ae1d2685e389128fff937b2f2c52499ce7bd5d36d6ee7ae414",
+      "ravsideb128-tga.dxt": "32bbedb12fba33d14634d195fb42ef449ec9ee7a3e47c2a06115704690e41758",
+      "Ravsideb128-tga.gxi": "260fda58ebdc4733eb956b396a24bdc0b406381e6f9f1062206227965caae2d3",
+      "ravwheelrim-tga.dxt": "2e4c88ed0c7f2bdce6ac01cc28e25ad02ecabdfdc9766e59341e60c1e8a1f24b",
+      "Ravwheelrim-tga.gxi": "f554e7432ad759282a991f2386a8d00a4cc9e7074236a2b723e69a2d1672ce7a",
+      "rhelmet32-tga.dxt": "93040d34ed180772d8bad3d0f6225b451e83347e59ac0505a47e4bdcb439cc80",
+      "Rhelmet32-tga.gxi": "99eb2496f4334eeb5ee9377cb1db294608404c9d39d562e6221e0e49a4bf989d",
+      "rubber-tga.dxt": "f95b5f1932dc01e2410176c624c07543b6442505c8e85e2f80099836cd3d9208",
+      "Rubber-tga.gxi": "afba5c39287f33d6ab32576eddbe80e15717385e524b3380d8f6daabcfe1a899",
+      "rvtread-tga.dxt": "0c13529c677d52f34f72dfb36f51b134cf92e48e67f5fa228e4d6f52ed853705",
+      "Rvtread-tga.gxi": "fde8b876ae40a8ec57d13dd1a171c951f56dea595d4da3815abe238aa11ff22e",
+      "rvw64-tga.dxt": "4c4baca97b439bf53162bb13b25cba6c6161749335210d2a2552cade7052581b",
+      "Rvw64-tga.gxi": "358836f3c076d9de9d27df09719a47482dec71a8a8bc934a6621ace9542d41ec",
+      "rvw643-tga.dxt": "aaae214381fc7cf2a364d4c9e00dd468ec65a7cd084185a44e12849dbf4e42fc",
+      "Rvw643-tga.gxi": "258c665963d18b8786bd3b56e694a25435ffa18dc767d75088e1cd4d5d1791f0",
+      "underdash-tga.dxt": "3907f4f828999cdcc9ac3e6608582ba3588a610c9e042c4c98e7ef03c98ccb27",
+      "Underdash-tga.gxi": "6f3d214c9c57fa73a02fcebcc803b583da7e34b049c5ca204861bccbe666e33d",
+      "wheel.dx": "6cb4f708a52dc25b37470697e63a06d0a2781c2bbc71fd622af5a2a3b8c292ea",
+      "wheel.gxm": "76d49405f13f54db66ef9d6bff8c123d994dbe75f41ff34cfc0ce9f4e6a6f155",
+      "wheel.txt": "d308b61e776947179fe5677b17fefa450235ecfcf918dfd1d07a6204caeb788b",
+      "whitepaint-tga.dxt": "8b8d253cf940e0460fbb11932e0ef1c08d41a68486c178bf63dc5a66cfe441e0",
+      "Whitepaint-tga.gxi": "d29fcd558301ae264ee188e06c9c687a6695ca6012e91a4ce0c34c15cd82f2df",
+      "whitesuit32-tga.dxt": "6970fe173313c5449c10042ace0d5e115d73066a6474e8ae57fd7cde80a04c67",
+      "Whitesuit32-tga.gxi": "a89f0992daf547dde36d42e709c75f7c196e930df73dd955bf65cb125df340e4",
+      "windscreen32-tga.dxt": "149aaca75c11ff403c36f6ba22586a28a5cd553af4adaf6dc45afde39014e0be",
+      "Windscreen32-tga.gxi": "564a69f427fe4d61df65bd0898385d710c7a0e86107d7fceb4aacc1eb8e56c47"
+    }
+  },
+  "inputs": {
+    "original_car.gxm": {
+      "root": "demo",
+      "path": "DataGx/Vehicles/Rav4/car.gxm",
+      "sha256": "45686e0ffeb0867a42dc9dbfa99bb6588171a29abbb81b112144b58e3c5c63e1"
+    },
+    "original_complete.gxm": {
+      "root": "demo",
+      "path": "DataGx/Vehicles/Rav4/complete.gxm",
+      "sha256": "10918c43191de673d1333a51d9a3aa611ed1f37d55f59c286c34b24805e6a6ff"
+    },
+    "original_wheel.gxm": {
+      "root": "demo",
+      "path": "DataGx/Vehicles/Rav4/wheel.gxm",
+      "sha256": "76d49405f13f54db66ef9d6bff8c123d994dbe75f41ff34cfc0ce9f4e6a6f155"
+    },
+    "physics": {
+      "root": "legacy",
+      "path": "DataGame/vehicles.xml",
+      "sha256": "bd3efca271e27f4d00cc4f5846c4aa0bf74836dac223bc64339d28a05a65f4f7"
+    },
+    "menu_scene": {
+      "root": "legacy",
+      "path": "DataScene/FrontendScreens/change/DemoVehicleSelect.xml",
+      "sha256": "624e1405f8ac065c3c4a4ba44de9e92ad18be87616eee0bc204880188a2a82c5"
+    },
+    "vehicle_select_art": {
+      "root": "legacy",
+      "path": "DataGx/Frontend/VehicleSelect/carsheet_005_000.dxt",
+      "sha256": "370007a674232cb2bb6fdab6fc00c2beef5247f7fbfcdbaeae5d4d3e1f73d65d"
+    },
+    "vehicle_select_art_bank": {
+      "root": "legacy",
+      "path": "DataGx/Frontend/VehicleSelect/carsheet.dxb",
+      "sha256": "34defc7a2f86d153ab9eeb6bf09256c77b12ddfe5f2969fd0529b62ca7843a5a"
+    },
+    "smallcarsheet": {
+      "root": "demo",
+      "path": "DataGx/Frontend/RaceResults/smallcarsheet_005_000.dxt",
+      "sha256": "3512282590f52851e9cc1fa17fac871c8cd450767726c5630898551dca31b77f"
+    },
+    "smallcarsheet_bank": {
+      "root": "demo",
+      "path": "DataGx/Frontend/RaceResults/smallcarsheet.dxb",
+      "sha256": "a46ab28020a4dd08da893c25a366fc7556b81d0a793cbded770f9638eade9d6c"
+    }
+  },
+  "original_geometry": {
+    "car.gxm": "original_car.gxm",
+    "complete.gxm": "original_complete.gxm",
+    "wheel.gxm": "original_wheel.gxm"
+  },
+  "identity": {
+    "frontend": {
+      "manufacturer": "TOYOTA",
+      "model": "RAV4",
+      "combined": "TOYOTA RAV4",
+      "stats": [
+        5,
+        5,
+        5,
+        5
+      ]
+    },
+    "driver": {
+      "value": null,
+      "status": "UNRESOLVED",
+      "evidence": "No original driver association for retired Rav4 found. PS2 REECE RUSSELL and later RAV4 PICKUP belong to Newrav; not transferred. Results deliberately uses vehicle name, not an invented driver."
+    },
+    "bindings": [
+      {
+        "kind": "xml",
+        "input": "menu_scene",
+        "egg": "Toyota_RAV4",
+        "values": {
+          "en2d Model Name": "frontend\\vehicleselect\\carsheet",
+          "en2d Image Bank Index": "5"
+        }
+      }
+    ],
+    "artwork": {
+      "vehicle_select_art": {
+        "policy": "workshop-generated",
+        "native_size": [
+          128,
+          128
+        ],
+        "presentation": "mr-native-v1",
+        "association": "Owner requested generated artwork because recovered historical images do not match this white/blue vehicle. Separate role-specific cameras, authentic source geometry and textures; not original Demo art."
+      },
+      "smallcarsheet": {
+        "policy": "workshop-generated",
+        "native_size": [
+          32,
+          16
+        ],
+        "presentation": "mr-native-v1",
+        "association": "Owner requested generated artwork because recovered historical images do not match this white/blue vehicle. Separate role-specific cameras, authentic source geometry and textures; not original Demo art."
+      }
+    },
+    "historical_artwork_candidates": {
+      "vehicle_select_art": {
+        "texture": "vehicle_select_art",
+        "bank": "vehicle_select_art_bank",
+        "frame": 5,
+        "native_size": [
+          128,
+          128
+        ],
+        "policy": "exact",
+        "presentation": "mr-native-v1",
+        "association": "Original named Toyota_RAV4 XML points to menu frame5. Small bank frame5 is visually matching artwork, not an independently decoded runtime ID. Artwork shows historical green/white livery, source body remains white/blue; stale artwork is not repainted."
+      },
+      "smallcarsheet": {
+        "texture": "smallcarsheet",
+        "bank": "smallcarsheet_bank",
+        "frame": 5,
+        "native_size": [
+          32,
+          16
+        ],
+        "policy": "bounded-resample",
+        "presentation": "source-pixels-v1",
+        "association": "Original named Toyota_RAV4 XML points to menu frame5. Small bank frame5 is visually matching artwork, not an independently decoded runtime ID. Artwork shows historical green/white livery, source body remains white/blue; stale artwork is not repainted."
+      }
+    }
+  },
+  "physics": {
+    "mode": "historical-compatible",
+    "input": "physics",
+    "source_family": "Rav4",
+    "donor_family": "Newrav",
+    "source_only": {
+      "Engine/TorqueEntries": "Original 8-point curve preserved in source evidence; retail-compatible6-point curve retained as a complete group",
+      "Engine/TorqueEntry0": "Original 8-point curve preserved in source evidence; retail-compatible6-point curve retained as a complete group",
+      "Engine/TorqueEntry1": "Original 8-point curve preserved in source evidence; retail-compatible6-point curve retained as a complete group",
+      "Engine/TorqueEntry2": "Original 8-point curve preserved in source evidence; retail-compatible6-point curve retained as a complete group",
+      "Engine/TorqueEntry3": "Original 8-point curve preserved in source evidence; retail-compatible6-point curve retained as a complete group",
+      "Engine/TorqueEntry4": "Original 8-point curve preserved in source evidence; retail-compatible6-point curve retained as a complete group",
+      "Engine/TorqueEntry5": "Original 8-point curve preserved in source evidence; retail-compatible6-point curve retained as a complete group",
+      "Engine/TorqueEntry6": "Original 8-point curve preserved in source evidence; retail-compatible6-point curve retained as a complete group",
+      "Engine/TorqueEntry7": "Original 8-point curve preserved in source evidence; retail-compatible6-point curve retained as a complete group",
+      "Suspension/Front/SuspAppPointOffset": "Original vector suspension application point has no qualified direct retail scalar mapping",
+      "Suspension/Rear/SuspAppPointOffset": "Original vector suspension application point has no qualified direct retail scalar mapping",
+      "DamageParams/EngineThreshold": "Old damage thresholds/multipliers are not assumed equivalent to retail damage mechanisms",
+      "DamageParams/SteeringThreshold": "Old damage thresholds/multipliers are not assumed equivalent to retail damage mechanisms",
+      "DamageParams/TyreThreshold": "Old damage thresholds/multipliers are not assumed equivalent to retail damage mechanisms",
+      "DamageParams/SuspensionThreshold": "Old damage thresholds/multipliers are not assumed equivalent to retail damage mechanisms",
+      "DamageParams/EngineMultiplier": "Old damage thresholds/multipliers are not assumed equivalent to retail damage mechanisms",
+      "DamageParams/SteeringMultiplier": "Old damage thresholds/multipliers are not assumed equivalent to retail damage mechanisms",
+      "DamageParams/TyreMultiplier": "Old damage thresholds/multipliers are not assumed equivalent to retail damage mechanisms",
+      "DamageParams/SuspensionMultiplier": "Old damage thresholds/multipliers are not assumed equivalent to retail damage mechanisms",
+      "Suspension/Front/TyreType": "Original Slicks table retained as evidence; owner selected explicit retail tyre fallback after Forester wear findings",
+      "Suspension/Rear/TyreType": "Original Slicks table retained as evidence; owner selected explicit retail tyre fallback after Forester wear findings"
+    },
+    "reason": "Owner selected compatible Demo fields plus explicitly marked retail substitutions. Named family is from8.4.1; no9.3.1 runtime binding is claimed."
+  },
+  "features": {
+    "states": {
+      "source_sha256": "e14931f2dde6c97f8d2b2fefe0e5b5c3e7a0735c91ec4c362b02f6e876b62b31",
+      "panes": [
+        {
+          "label": "screenfront",
+          "source_draw": 23,
+          "triangles": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "broken_uv_axes": [
+            0,
+            1
+          ],
+          "broken_texture": "placeholder"
+        },
+        {
+          "label": "screenleft",
+          "source_draw": 23,
+          "triangles": [
+            6,
+            7,
+            8,
+            9
+          ],
+          "broken_uv_axes": [
+            2,
+            1
+          ],
+          "broken_texture": "placeholder"
+        },
+        {
+          "label": "screenright",
+          "source_draw": 23,
+          "triangles": [
+            10,
+            11,
+            12,
+            13
+          ],
+          "broken_uv_axes": [
+            2,
+            1
+          ],
+          "broken_texture": "placeholder"
+        }
+      ],
+      "brake": {
+        "source_draw": 7,
+        "triangles": [
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58
+        ],
+        "lit_texture": "placeholder",
+        "glow_texture": "placeholder",
+        "evidence": "Exact car.gxm/car.txt blight mesh,8 face matches, no nearest fallback; full separate14-face windscreen material owns only front/side glazing"
+      }
+    },
+    "selectors": [
+      {
+        "draw": 7,
+        "textures": [
+          "ravlights64-tga",
+          "perspex-tga",
+          "Null"
+        ],
+        "triangle_count": 87
+      },
+      {
+        "draw": 23,
+        "textures": [
+          "windscreen32-tga",
+          "glass-tga",
+          "Null"
+        ],
+        "triangle_count": 14
+      }
+    ],
+    "texture_references": {
+      "breaklightson-tga": "breaklightson-tga",
+      "breaklightsonglow-tga": "breaklightsonglow-tga",
+      "perspex-tga": "perspex-tga",
+      "windscreenc32-tga": "windscreenc32-tga"
+    },
+    "texture_aliases": {
+      "breaklightson-tga": "mr-ref-2834811f44-breaklightson-tga",
+      "breaklightsonglow-tga": "mr-ref-2fa12d4801-breaklightsonglow-tga",
+      "perspex-tga": "mr-ref-29fddb3099-perspex-tga",
+      "windscreenc32-tga": "mr-ref-a9484463b4-windscreenc32-tga"
+    },
+    "cracked_stem": "windscreenc32-tga",
+    "on_stem": "breaklightson-tga",
+    "glow_stem": "breaklightsonglow-tga",
+    "evidence": "Exact separate source glass material and explicit original lamp faces; no nearest glass-face inference. Retail Forester native ON core/halo is independently fitted, not claimed original Demo behavior."
+  },
+  "references": {
+    "brake_model": {
+      "member": "DataGx/Vehicles/Forester/car.dx",
+      "sha256": "670ef07dc312aefa5628fe24c08aa696ee147043cfecdf2aadaf01e012c8b5fc"
+    },
+    "breaklightson-tga": {
+      "member": "DataGx/Vehicles/Forester/breaklightson-tga.dxt",
+      "sha256": "2834811f44891251575ed28d7ddd4c21c5e21a76802fada85c49fc8c90bee92f"
+    },
+    "breaklightsonglow-tga": {
+      "member": "DataGx/Vehicles/Forester/breaklightsonglow-tga.dxt",
+      "sha256": "2fa12d48010bf763215d5bd02e35244da148dbb8bfa2da98d8da8dd651b654e3"
+    },
+    "perspex-tga": {
+      "member": "DataGx/Vehicles/Forester/perspex-tga.dxt",
+      "sha256": "29fddb30997bda1b38b006ffac98fd26a0671d94e8a6c4a86708c0f11f7f8fc0"
+    },
+    "windscreenc32-tga": {
+      "member": "DataGx/Vehicles/Forester/windscreenc32-tga.dxt",
+      "sha256": "a9484463b4156b42861b1dcfd0dd9cbf1c5ad46359917aefcedbaadc977e53bb"
+    },
+    "frame_car.dx": {
+      "member": "DataGx/Vehicles/Forester/car.dx",
+      "sha256": "670ef07dc312aefa5628fe24c08aa696ee147043cfecdf2aadaf01e012c8b5fc"
+    },
+    "frame_complete.dx": {
+      "member": "DataGx/Vehicles/Forester/complete.dx",
+      "sha256": "a38566e0d653c586fc53594de2276e8c3f50d882126f26ee5792d74794cd3ca1"
+    },
+    "frame_wheel.dx": {
+      "member": "DataGx/Vehicles/Forester/wheel.dx",
+      "sha256": "ce2b6557cbd8975ec14d1c20a4d3df902512a3433c713dc3822f09bfd35ca01c"
+    }
+  },
+  "frontend_reference": {
+    "car.dx": "frame_car.dx",
+    "complete.dx": "frame_complete.dx",
+    "wheel.dx": "frame_wheel.dx"
+  },
+  "runtime": {
+    "physical_id": 31,
+    "audio_profile": 13,
+    "owner_gates": [
+      "New exact candidate selection/race/AI/Results/save/reentry",
+      "Native glass events, rear ON/OFF/core/halo angles",
+      "Tyre wear/suspension/handling",
+      "Generated source-matching CarSheet and independent side-view HUD icon"
+    ]
+  },
+  "notes": "Authentic Rav4 Demo9.3.1 geometry/textures; independent native adaptation via common manifest workflow. Original inputs immutable. Demo8.4.1 compatible physics, explicit retail substitutes. Driver unresolved; no Newrav/Michelin identity substitution. Original-artwork candidates were rejected as mismatched; CarSheet and side HUD are generated through Workshop. Neutral frontend stats are SDK placeholders, not recovered historical ratings."
+}

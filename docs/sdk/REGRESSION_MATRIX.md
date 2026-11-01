@@ -1,4 +1,19 @@
-# V-DEF1 owner corrections —1 November2026
+# V-DEF2 reusable restoration and Demo RAV4 —1 November2026
+
+| Scope | Verified evidence | Boundary |
+|---|---|---|
+| Forester reference | Owner confirms corrected vehicle fully working/tested; generic reproduction preserves all non-seed resources | Owner acceptance applies to Forester, not new RAV4/32-record lifecycle |
+| RAV4 source | Canonical9.3.1 GXM equality, strict cache-only repair,72 pinned source inputs | Original source files unchanged |
+| Geometry |1902 OFF triangles and position/normal/colour/UV/material fingerprints exact; source wheels/hubs independently proven | Complete-only retail-frame Y shift; settled suspension pending |
+| Glass/lamps | Entire separate14-face glass draw partitioned6/4/4, avoiding3 ambiguous heuristic matches;8 exact source blight faces; original retail ON4tri/halo16tri separately fitted | Original Demo runtime effects not recovered; D3D8 event/angle tests pending |
+| Physics |121 historical8.4.1 Rav4 rows retained;100 mapped;21 explicit source-only/retail substitutions | No9.3.1 original solver or Newrav geometry association asserted |
+| Artwork/driver | Two generated Workshop views, preserved white/blue livery; mismatched historical icons rejected | No invented original icon or driver. Results deliberately shows vehicle name |
+| Independent slot | ID31/T2 local11,8/12/12;32 mappings and5-member T2 pool helpers emulated; all3 launcher preflights | No GPU/race/AI/save lifecycle emulation or engine maximum claim |
+| Reproduction |258 DX/DXT byte-identical across actual builds;340 prior resources and6078/962 physics rows preserved | PlayerState seeds copy current owner state, not previous sealed saves |
+| Workshop open/render | Actual hidden Windows Tk open and native D3D9 refresh,ID31 | Not every Studio operation or owner gameplay |
+| Regression | Full1323 PASS,2 pre-existing skips;66 focused cover final nested manifest/path guards | Full suite precedes the final alias/role rejection guard; final focused and actual manifest verification cover it |
+
+# Historical V-DEF1 owner corrections —1 November2026
 
 | Scope | Current evidence | Boundary |
 |---|---|---|

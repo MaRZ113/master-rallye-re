@@ -11,6 +11,8 @@ SMOKE=('test_preview_cache','test_editable_vehicle','test_source_scene_preview',
 INTEGRATION=(*SMOKE,'test_native_family_scene','test_scene_semantics','test_universal_vehicle_scene','test_workshop_universal_source',
              'test_workshop','test_workshop_stabilization','test_dakar2_materials','test_material_derivation')
 DEPENDENCIES={
+    'demo_restoration':('test_demo_restoration','test_definitive_restoration','test_heritage_source','test_physics_profile','test_addon_ui_assets'),
+    'restore_demo_vehicle':('test_demo_restoration','test_heritage_source','test_sdk_roster'),
     'preview_cache':('test_preview_cache','test_source_scene_preview','test_workshop_universal_source'),
     'source_garage_ui':('test_preview_cache','test_source_scene_preview','test_workshop_universal_source'),
     'editable_vehicle':('test_editable_vehicle','test_scene_semantics','test_universal_scene_bridge'),

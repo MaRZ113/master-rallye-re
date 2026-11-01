@@ -1,0 +1,365 @@
+{
+  "version": 1,
+  "id": "demo-forester-9-3-1",
+  "name": "Demo Forester 9.3.1",
+  "source_family": "Forester",
+  "runtime_family": "DefForester",
+  "vehicle_class": "T2",
+  "source": {
+    "root": "pcg",
+    "directory": "Forester",
+    "files": {
+      "black-tga.dxt": "c8af53e3c1ea06c42178b3e1988dff0b3c64f150b722cba6bdd0450dc1357f82",
+      "Black-tga.gxi": "f1e8c064908150ef3a0b354bfa2ae6de8493d2b43b895fb803987dc23cdac8a8",
+      "car.dx": "fbe8d15af205a3cbe95773d5241372352729f7fbcef21e61386123209a80a423",
+      "car.gxm": "3d27573a2358f379de1c1914fb6a17ac525a5a709bd62ab824736d05ac4c2535",
+      "car.txt": "4f526b6d7a78cf1e90b37906f7f5bffdb0b331b58d1cf28a3d8def1f0cb4bc8b",
+      "chair2-tga.dxt": "3d5eab847f8053023132cc461a0f6aaeebc8379dd00b002a3d050e624a433ef4",
+      "Chair2-tga.gxi": "51dc32346d79ae24b3e6b84087fedfed39278c643b40a7c1db483ed0b4ef7c41",
+      "chrome-tga.dxt": "658946001e0c91939421a40e5ac86a91297d93fc5abc1927bf8ae77a4e89012b",
+      "Chrome-tga.gxi": "1e008b385558738cc16d13dd518a6b5f95743470e9b1207a2f438df6b382673a",
+      "complete.dx": "72a3b98f616d55e66e43bf0bbc2702bdb5ff464406ae7e14338cc3c4a5a4ee15",
+      "complete.gxm": "3fa2cff8c100b66236b1f076c164a402ac199fe3502838e0bc18be8a381b790f",
+      "complete.txt": "e4be47ef34ea7969c76f5e5a9601e1a7fb70e5c6ea194da38170ac109800f5c7",
+      "dcambell-tga.dxt": "0c8d56d72d5bf83b1530a6e9ccba63efe6bd9b7e0d7c5172b212672c038b2c62",
+      "Dcambell-tga.gxi": "c7d7a6c76c8edad32f30443b10d138845780c3be2f54d0f0a350e1c1ce6df4dc",
+      "drichard-tga.dxt": "ebc196b631941ce570f78180aee4bef81a5a5d822a86a0ed370bc814fd02774b",
+      "Drichard-tga.gxi": "615eff1d205969e0863fdc24a98f7ef72d9b0e37fe4b702159b8f362de8cae10",
+      "fhelmet32-tga.dxt": "5d36a03db3bf0f735463eb860238c0ec84c6566fbfcd23239b678d4082275ef3",
+      "Fhelmet32-tga.gxi": "c1e9a035e6db6f6ba3c6fb9ff10a1c5fa6664a899f55e1d9cf3f97a123072f44",
+      "Forester.txt": "554575f222305c8995a1e642bfb3042f9310ee49b2c22cbe977d91defe485945",
+      "ForesterWheel.txt": "32a819422ea5f81c8a9cbba69d89df2d0e770eba4f73196a0606affb2a89a6c4",
+      "forestgrill64-tga.dxt": "59d818a65ef3bf28f5906bee0b7f00ad1fee0babf7502240172b733e344bcfaf",
+      "Forestgrill64-tga.gxi": "34d29fe59ed5546f8b5b8525cebedef6eb92b3e3368d6c52c850bba671dc48cb",
+      "forestside128-tga.dxt": "bb23f387accae3383b361aaca9cb03186cb57648d749fc7acb4d771a497fa2d5",
+      "Forestside128-tga.gxi": "924b21fc59e5718aa2394499ef8fbb230154df28f630d26e537348371eafff27",
+      "foresttread-tga.dxt": "0c13529c677d52f34f72dfb36f51b134cf92e48e67f5fa228e4d6f52ed853705",
+      "Foresttread-tga.gxi": "fde8b876ae40a8ec57d13dd1a171c951f56dea595d4da3815abe238aa11ff22e",
+      "forestwheel64-tga.dxt": "661f7799d84a15392ca68788f186a3dab22245728e24dd5d5ec9bdd2e36ed62f",
+      "Forestwheel64-tga.gxi": "d725a27b54d677a79d98dbe1aba08d4d3bf8fb665ec4516484687384d5400ef2",
+      "forestwheel643-tga.dxt": "aaae214381fc7cf2a364d4c9e00dd468ec65a7cd084185a44e12849dbf4e42fc",
+      "Forestwheel643-tga.gxi": "258c665963d18b8786bd3b56e694a25435ffa18dc767d75088e1cd4d5d1791f0",
+      "fwheelrim-tga.dxt": "ac684d16fc81ba2be607e4e2e1527adc1865e2d96c0516dd2aad4d81ae8cb0a3",
+      "Fwheelrim-tga.gxi": "612329a357b74f1c0d02b599f533be8f5bea36bc8be48c29c34a33cf80cc14e0",
+      "glass-tga.dxt": "f18690e02cad8d249db527ad546bac54db3343894aa136bc84bf0d9531fac71b",
+      "Glass-tga.gxi": "c008c15cc655242e4577d353b39f6d970d8f4d8143807021077a36b9757daab7",
+      "lights64-tga.dxt": "ad5a11540f01f5746b9a0835ddc082f70cf2cac32ca97f8ae17d6c8e7e1a84de",
+      "Lights64-tga.gxi": "b56e1ac3cdf099cb6d26e14425636dd4e6a832c275722f289fc6fb493d52e5f9",
+      "Mastersticker-tga.gxi": "e5f6f30b97785083b8220772606a2c692a886109c4b4f7711efb07fee886c389",
+      "mastersticker216-tga.dxt": "2e0dcb3125f51cbbd566de32e6ae4f077c2d99c402870979b1f329f034702c62",
+      "Mastersticker216-tga.gxi": "cf8ac060a2b4173f941672c453a8786a2e79da525356e04791abc00108c0592b",
+      "perspex-tga.dxt": "29fddb30997bda1b38b006ffac98fd26a0671d94e8a6c4a86708c0f11f7f8fc0",
+      "Perspex-tga.gxi": "29d88105c57405541d3a4f31eda6726fb70b3ddc9ea680820053190a42faf9aa",
+      "rear128-tga.dxt": "fe9c1b99bf7d84027eb40ca1a989e1220d799de042ec18e21a18404df339d1d3",
+      "Rear128-tga.gxi": "88d80bc37f7405f9611f0de359e7a8b4d903147c671c37b934ca08cab5bfccf4",
+      "rubber-tga.dxt": "f95b5f1932dc01e2410176c624c07543b6442505c8e85e2f80099836cd3d9208",
+      "Rubber-tga.gxi": "afba5c39287f33d6ab32576eddbe80e15717385e524b3380d8f6daabcfe1a899",
+      "shade16-tga.dxt": "507f1a0fcd36c5e79a8e764008d54501f29288e6065dded46c0c0b95c8676649",
+      "Shade16-tga.gxi": "2941826a6e7e2953861bf04586743c3dd8b242ae64b1a9b82363912265e6d50d",
+      "underdash-tga.dxt": "8826a163eab3403e64657a0b34eb0ace5b25dbf212368886b85573884d3e1e53",
+      "Underdash-tga.gxi": "c27508562beaa668046c08581d83b4af0e2518401817d5dbf66f8eca83498e3c",
+      "wheel.dx": "191009bd708ed20fd0d46c00572e8d8ba833ff5cff5c5f8f92b6772bd1d9a328",
+      "wheel.gxm": "2f1542430065108649a4629f613493de85332e15a7755dda96ce66d79ea3e48d",
+      "whitepaint-tga.dxt": "8b8d253cf940e0460fbb11932e0ef1c08d41a68486c178bf63dc5a66cfe441e0",
+      "Whitepaint-tga.gxi": "d29fcd558301ae264ee188e06c9c687a6695ca6012e91a4ce0c34c15cd82f2df",
+      "whitesuit-tga.dxt": "6970fe173313c5449c10042ace0d5e115d73066a6474e8ae57fd7cde80a04c67",
+      "Whitesuit-tga.gxi": "a89f0992daf547dde36d42e709c75f7c196e930df73dd955bf65cb125df340e4",
+      "windscreen32-tga.dxt": "f8c343db0d8647c62248521800fc7fad2dfba029f055e9a04e14fdb47252a30d",
+      "Windscreen32-tga.gxi": "92364dae392cc6bc4e8cba5cc5cc5c826e3ed812699f713ebe2dfafdadfe96cb"
+    }
+  },
+  "inputs": {
+    "original_car.gxm": {
+      "root": "demo",
+      "path": "DataGx/Vehicles/Forester/car.gxm",
+      "sha256": "3d27573a2358f379de1c1914fb6a17ac525a5a709bd62ab824736d05ac4c2535"
+    },
+    "original_complete.gxm": {
+      "root": "demo",
+      "path": "DataGx/Vehicles/Forester/comlplete.gxm",
+      "sha256": "3fa2cff8c100b66236b1f076c164a402ac199fe3502838e0bc18be8a381b790f"
+    },
+    "original_wheel.gxm": {
+      "root": "demo",
+      "path": "DataGx/Vehicles/Forester/wheel.gxm",
+      "sha256": "2f1542430065108649a4629f613493de85332e15a7755dda96ce66d79ea3e48d"
+    },
+    "ps2": {
+      "root": "ps2",
+      "path": "SLES_509.06",
+      "sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2"
+    },
+    "menu_scene": {
+      "root": "demo",
+      "path": "DataScene/FrontendScreens/Wjd/VehicleSelect.xml",
+      "sha256": "c0be053b124b099400e1b2755b9223c9e0526dc43d74bc2f2f0d82315e99721a"
+    },
+    "vehicle_select_art": {
+      "root": "demo",
+      "path": "DataGx/Frontend/VehicleSelect/carsheet_001_000.dxt",
+      "sha256": "a53ea63ab7fde1adc98445058cc91c3f65096b34b61b292d1150d2a096804048"
+    },
+    "vehicle_select_art_bank": {
+      "root": "demo",
+      "path": "DataGx/Frontend/VehicleSelect/carsheet.dxb",
+      "sha256": "12f6b78cba60db20070c9d38b23b6bc4e8cc99474e5ab3832dfeab6bb7b82bcc"
+    },
+    "smallcarsheet": {
+      "root": "later",
+      "path": "DataGx/Frontend/RaceResults/smallcarsheet_004_000.dxt",
+      "sha256": "bfd1cc08cd67a637487210077b35698ecf6130ceb6f8dafd1eb6fe5027afb958"
+    },
+    "smallcarsheet_bank": {
+      "root": "later",
+      "path": "DataGx/Frontend/RaceResults/smallcarsheet.dxb",
+      "sha256": "23d8f5eb1d3319f6688368b9a73b2b7571bce26b0275d8f9f5b9f1dac99c7b7a"
+    }
+  },
+  "original_geometry": {
+    "car.gxm": "original_car.gxm",
+    "complete.gxm": "original_complete.gxm",
+    "wheel.gxm": "original_wheel.gxm"
+  },
+  "identity": {
+    "frontend": {
+      "manufacturer": "SUBARU",
+      "model": "FORESTER",
+      "combined": "SUBARU FORESTER",
+      "stats": [
+        6,
+        7,
+        5,
+        4
+      ]
+    },
+    "driver": {
+      "value": "DARREN SUTHERLAND",
+      "status": "OWNER_CONFIRMED_IN_RACE",
+      "evidence": "PS2 category57/index8 and owner confirmation"
+    },
+    "bindings": [
+      {
+        "kind": "localized",
+        "input": "ps2",
+        "pointer": 4534512,
+        "category": 52,
+        "index": 8,
+        "count": 6,
+        "string_offset": 3490032,
+        "text": "FORESTER"
+      },
+      {
+        "kind": "localized",
+        "input": "ps2",
+        "pointer": 4537032,
+        "category": 57,
+        "index": 8,
+        "count": 6,
+        "string_offset": 3492552,
+        "text": "DARREN SUTHERLAND"
+      },
+      {
+        "kind": "xml",
+        "input": "menu_scene",
+        "egg": "T2_Car2",
+        "values": {
+          "en2d Model Name": "frontend\\vehicleselect\\carsheet",
+          "en2d Image Bank Index": "1"
+        }
+      }
+    ],
+    "artwork": {
+      "vehicle_select_art": {
+        "texture": "vehicle_select_art",
+        "bank": "vehicle_select_art_bank",
+        "frame": 1,
+        "native_size": [
+          128,
+          128
+        ],
+        "policy": "exact",
+        "presentation": "mr-native-v1",
+        "association": "Qualified V-DEF1 original art/side mini binding"
+      },
+      "smallcarsheet": {
+        "texture": "smallcarsheet",
+        "bank": "smallcarsheet_bank",
+        "frame": 4,
+        "native_size": [
+          32,
+          16
+        ],
+        "policy": "exact",
+        "presentation": "source-pixels-v1",
+        "association": "Qualified V-DEF1 original art/side mini binding"
+      }
+    }
+  },
+  "physics": {
+    "mode": "retail",
+    "donor_family": "Forester",
+    "reason": "Owner accepted retail Forester physics after excessive Demo tyre wear; historical parameters remain V-DEF1 evidence"
+  },
+  "features": {
+    "states": {
+      "source_sha256": "9ae8ba697502344972cfe1402a2bfe04e954f15217201be6a362bf474d6ba6fa",
+      "panes": [
+        {
+          "label": "screenfront",
+          "source_draw": 14,
+          "triangles": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "broken_uv_axes": [
+            0,
+            1
+          ],
+          "broken_texture": "mr-auto-cracked-tga"
+        },
+        {
+          "label": "screenleft",
+          "source_draw": 14,
+          "triangles": [
+            11,
+            12,
+            13,
+            14,
+            15
+          ],
+          "broken_uv_axes": [
+            2,
+            1
+          ],
+          "broken_texture": "mr-auto-cracked-tga"
+        },
+        {
+          "label": "screenright",
+          "source_draw": 14,
+          "triangles": [
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "broken_uv_axes": [
+            2,
+            1
+          ],
+          "broken_texture": "mr-auto-cracked-tga"
+        }
+      ],
+      "brake": {
+        "source_draw": 1,
+        "triangles": [
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          81,
+          82
+        ],
+        "lit_texture": "mr-auto-stop-lit-7dea3c77d5b6-tga",
+        "glow_texture": "mr-auto-stop-glow-7dea3c77d5b6-tga",
+        "evidence": "Automatic: car.txt mesh names + car.gxm records; 12 lens triangles in draw 1; 232 red source texels drive lit/glow."
+      }
+    },
+    "selectors": [
+      {
+        "draw": 1,
+        "textures": [
+          "lights64-tga",
+          "perspex-tga",
+          "Null"
+        ],
+        "triangle_count": 160
+      },
+      {
+        "draw": 14,
+        "textures": [
+          "windscreen32-tga",
+          "glass-tga",
+          "Null"
+        ],
+        "triangle_count": 16
+      }
+    ],
+    "texture_references": {
+      "breaklightson-tga": "breaklightson-tga",
+      "breaklightsonglow-tga": "breaklightsonglow-tga",
+      "perspex-tga": "perspex-tga",
+      "windscreenc32-tga": "windscreenc32-tga"
+    },
+    "texture_aliases": {
+      "breaklightson-tga": "mr-ref-2834811f44-breaklightson-tga",
+      "breaklightsonglow-tga": "mr-ref-2fa12d4801-breaklightsonglow-tga",
+      "perspex-tga": "mr-ref-29fddb3099-perspex-tga",
+      "windscreenc32-tga": "mr-auto-cracked-tga"
+    },
+    "cracked_stem": "windscreenc32-tga",
+    "on_stem": "breaklightson-tga",
+    "glow_stem": "breaklightsonglow-tga",
+    "evidence": "Exact separate source glass material and explicit original lamp faces; no nearest glass-face inference. Retail Forester native ON core/halo is independently fitted, not claimed original Demo behavior."
+  },
+  "references": {
+    "brake_model": {
+      "member": "DataGx/Vehicles/Forester/car.dx",
+      "sha256": "670ef07dc312aefa5628fe24c08aa696ee147043cfecdf2aadaf01e012c8b5fc"
+    },
+    "breaklightson-tga": {
+      "member": "DataGx/Vehicles/Forester/breaklightson-tga.dxt",
+      "sha256": "2834811f44891251575ed28d7ddd4c21c5e21a76802fada85c49fc8c90bee92f"
+    },
+    "breaklightsonglow-tga": {
+      "member": "DataGx/Vehicles/Forester/breaklightsonglow-tga.dxt",
+      "sha256": "2fa12d48010bf763215d5bd02e35244da148dbb8bfa2da98d8da8dd651b654e3"
+    },
+    "perspex-tga": {
+      "member": "DataGx/Vehicles/Forester/perspex-tga.dxt",
+      "sha256": "29fddb30997bda1b38b006ffac98fd26a0671d94e8a6c4a86708c0f11f7f8fc0"
+    },
+    "windscreenc32-tga": {
+      "member": "DataGx/Vehicles/Forester/windscreenc32-tga.dxt",
+      "sha256": "a9484463b4156b42861b1dcfd0dd9cbf1c5ad46359917aefcedbaadc977e53bb"
+    },
+    "frame_car.dx": {
+      "member": "DataGx/Vehicles/Forester/car.dx",
+      "sha256": "670ef07dc312aefa5628fe24c08aa696ee147043cfecdf2aadaf01e012c8b5fc"
+    },
+    "frame_complete.dx": {
+      "member": "DataGx/Vehicles/Forester/complete.dx",
+      "sha256": "a38566e0d653c586fc53594de2276e8c3f50d882126f26ee5792d74794cd3ca1"
+    },
+    "frame_wheel.dx": {
+      "member": "DataGx/Vehicles/Forester/wheel.dx",
+      "sha256": "ce2b6557cbd8975ec14d1c20a4d3df902512a3433c713dc3822f09bfd35ca01c"
+    }
+  },
+  "frontend_reference": {
+    "car.dx": "frame_car.dx",
+    "complete.dx": "frame_complete.dx",
+    "wheel.dx": "frame_wheel.dx"
+  },
+  "runtime": {
+    "physical_id": 30,
+    "audio_profile": 8,
+    "owner_gates": [
+      "New exact candidate selection/race/AI/Results/save/reentry",
+      "Native glass events, rear ON/OFF/core/halo angles",
+      "Tyre wear/suspension/handling",
+      "Owner-confirmed baseline retained"
+    ]
+  },
+  "notes": "Authentic Forester Demo9.3.1 geometry/textures; independent native adaptation via common manifest workflow. Original inputs immutable. Owner-confirmed Forester reference."
+}

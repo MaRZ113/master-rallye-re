@@ -1,5 +1,9 @@
 # V-DEF1 — owner D3D8 test
 
+**Completed:** the owner reports the corrected Forester fully working/tested.
+Retain this checklist as V-DEF1 history. The new active test is
+`V_DEF2_RAV4_OWNER_TEST.md`; do not treat Forester's acceptance as RAV4 success.
+
 Private candidate:
 `.research-output/vehicles/v-def1/owner-fixes/release/workshop/builds/first/candidate/Launch-SDK-Roster.cmd`
 

@@ -469,6 +469,8 @@ HANDLE OpenPinnedGraphicsProxy(const fs::path& path) {
             "eb7ea3d9501b514bff668f1e75e86041906c5fe4e8afa89f06d658751429aaf4", // pc-port baseline Release
             "235aae55e077fca1e5b5208d4ac158b1a00dd80041fa5885bd06890a041b1eb8", // pc-port ps2-enabled Release
             "339174529605b6b4602715470ac67e0bf39d7f95197b0d07fe2dbd048a960ea1", // renderer .build-msvc Release
+            "c21343e4dc1887be8369b7245fa1c146943a19e96ae2c2b5602588be7acad3d0", // pc-port dist/collision-debug1, exact local build + SHA256SUMS (V-DEF2)
+            "2d80609fbf546f9abbd71789d04d88f7e37aafcbf3be5f682e7156e7118fb4ff", // pc-port dist/collision-debug2, exact local build + SHA256SUMS (V-DEF2)
             "f84fd763dcf26ab2d79c254cfe49f1b4deb19f8b6378882971a08659d2318b77"  // renderer .build-msvc-hudperf Release
         };
         const bool approved = std::any_of(std::begin(kApprovedProxyHashes), std::end(kApprovedProxyHashes),

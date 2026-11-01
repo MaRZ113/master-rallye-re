@@ -52,7 +52,7 @@ def _header(profile: dict[str, Any], patch_manifest: dict[str, Any]) -> bytes:
         large_damage=(allocation==131072 and profile.get('profile')=='sdk-native-damage-coverage-alpha'
                       and type(extension.get('size')) is int and extension['size']>65536)
         roster=profile.get('sdk_roster_layout',{})
-        admitted_counts={'sdk-multi-addon-roster':(29,30),'sdk-multi-addon-roster-experimental-31':(31,)}
+        admitted_counts={'sdk-multi-addon-roster':(29,30),'sdk-multi-addon-roster-experimental-31':(31,),'sdk-multi-addon-roster-experimental-32':(32,)}
         combined=(allocation==262144 and profile.get('profile')in admitted_counts
                   and isinstance(roster,dict) and set(roster)=={'record_count','addon_ids'}
                   and type(roster['record_count']) is int and roster['record_count'] in admitted_counts.get(profile.get('profile'),())

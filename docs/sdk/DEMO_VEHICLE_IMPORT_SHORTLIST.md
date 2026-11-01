@@ -1,5 +1,13 @@
 # Definitive Demo vehicle shortlist
 
+**V-DEF2 update,1 November2026:** corrected Forester is owner accepted. Canonical
+Rav4 now has a manifest-driven independent CMD candidate, ID31/T2 local11;
+source/automated/native-helper validation passes, owner gameplay pending.
+See `V_DEF2_RAV4_RESULTS.md`. Historical unmatched icon candidates are not used;
+Workshop generates matching CarSheet/SIDE HUD art. Driver remains unresolved.
+No next shortlist vehicle is started before owner RAV4 review. The original
+audit evidence/ranking below remains retained.
+
 Audit recommendation,1 November2026. **No import or extra runtime slot is
 allocated by this list.** Uniqueness and technical readiness are independent.
 Complete native inputs do not imply qualified glass/brakes, registration or gameplay.

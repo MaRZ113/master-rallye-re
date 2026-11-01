@@ -1,5 +1,24 @@
 # MR Heritage Garage
 
+## Reusable Demo restoration (V-DEF2)
+
+Use `tools/restore_demo_vehicle.py` with a per-car manifest under
+`research/vehicles/sdk/restorations`, a private roots configuration and the
+previous frozen roster. Source hashes, geometry/face selections, identity,
+artwork and physics policy belong in the manifest, not another converter.
+Original sources and existing author/build directories cannot be output targets.
+
+Forester's corrected V-DEF1 build is now owner accepted. The new Demo RAV4 is
+available at private `vehicles/v-def2/owner-candidate/Open-Restoration-Workshop.cmd`
+under `.research-output`, with a separate CMD launcher inside its first build.
+Its CarSheet and SIDE HUD icon are generated from the authentic white/blue
+model through Workshop; mismatched historical images were rejected.100 compatible
+Demo physics fields and21 explicit retail substitutions are documented. Driver
+unknown: Results uses the car name, not a fabricated person. RAV4 ID31 and the
+32-record candidate remain owner-test pending. See `V_DEF2_RAV4_OWNER_TEST.md`.
+
+Earlier V-DEF1 examples below describe their original historical delivery.
+
 Heritage Garage imports native PC Master Rallye resources, independently from the GT3/GT4 adapters. It does not apply Classic MR Style or execute a Demo cooker.
 
 ## Workflow

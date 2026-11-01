@@ -1,5 +1,9 @@
 # V-DEF1 — canonical Demo Forester restoration
 
+**Accepted reference:** during V-DEF2 the owner confirmed the corrected Forester
+fully working and tested. The owner-fixes/release build is preserved. Earlier
+NOT TESTED wording below is historical, not the current owner status.
+
 **Current owner revision:** `V_DEF1_FORESTER_OWNER_REVISION.md` supersedes the
 first candidate's Demo physics, derived menu mini icon, brightened-atlas lamp
 ON core and zero-height complete frame. Current private root is
