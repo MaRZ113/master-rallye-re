@@ -744,26 +744,44 @@ inline bool parse_vehicle_hull(const uint8_t* data,size_t size,Hull& out,size_t*
     if(found!=1)return false;
     out=std::move(best);return true;
 }
-// Vehicle pose from gaVehicleOutputData: rows +0xbc (x), +0xcc (y), +0xdc (z = the forward the GPS reads), +0xec
-// (position, the field every reader uses). The 3x3 part is used only when it is orthonormal; otherwise the pose is the
-// yaw of the forward XZ vector with world up (`exact=false`).
-struct VehiclePose { std::array<float,12> rows{}; bool exact=false; };
-inline bool vehicle_pose(const float* m16,VehiclePose& out) noexcept {
+// Vehicle pose = the render instance's world matrix: the shared model emitter 0x576970 passes instance+0x44 (the egg's
+// en3d+0x74 instance) to 0x561a40, which sets it with IDirect3DDevice8::SetTransform(D3DTS_WORLD) (vtable +0x94,
+// state 0x100). So the hull is drawn in exactly the space the car.dx body is drawn in (tag101 and the render vertices
+// share the car.dx local space, docs/vehicle-bounds.md). D3D row vectors: p' = p*M.
+struct VehiclePose { std::array<float,12> rows{}; };
+inline bool pose_from_world(const float* m16,VehiclePose& out) noexcept {
     for(int i=0;i<16;++i)if(!std::isfinite(m16[i]))return false;
-    const float* r[3]={m16,m16+4,m16+8};
-    bool ortho=true;
-    for(int i=0;i<3&&ortho;++i)for(int j=0;j<3;++j){float d=r[i][0]*r[j][0]+r[i][1]*r[j][1]+r[i][2]*r[j][2];if(std::fabs(d-(i==j?1.f:0.f))>2e-3f){ortho=false;break;}}
-    if(ortho){for(int i=0;i<3;++i)for(int k=0;k<3;++k)out.rows[i*3+k]=r[i][k];out.exact=true;}
-    else{
-        float fx=m16[8],fz=m16[10];const float l=std::sqrt(fx*fx+fz*fz);if(!(l>1e-4f))return false;fx/=l;fz/=l;
-        out.rows={fz,0,-fx, 0,1,0, fx,0,fz};out.exact=false;
-    }
+    if(std::fabs(m16[3])>1e-4f||std::fabs(m16[7])>1e-4f||std::fabs(m16[11])>1e-4f||std::fabs(m16[15]-1.f)>1e-4f)return false;  // affine
+    for(int r=0;r<3;++r){const float l=std::sqrt(m16[r*4]*m16[r*4]+m16[r*4+1]*m16[r*4+1]+m16[r*4+2]*m16[r*4+2]);if(!(l>1e-3f&&l<1e3f))return false;}
+    for(int r=0;r<3;++r)for(int k=0;k<3;++k)out.rows[r*3+k]=m16[r*4+k];
     out.rows[9]=m16[12];out.rows[10]=m16[13];out.rows[11]=m16[14];
     return true;
 }
 inline void pose_point(const VehiclePose& p,const float* l,float* w) noexcept {
     for(int k=0;k<3;++k)w[k]=l[0]*p.rows[k]+l[1]*p.rows[3+k]+l[2]*p.rows[6+k]+p.rows[9+k];
 }
+// Wheel collision: wheel.dx ends with tag102 (u32 102, f32 a, f32 b; 0.4/0.2 on all 25 retail wheels) right before
+// the final tag1339 block. Drawn as a cylinder of radius a and width b around the wheel's local X axis (the thin axis of
+// every retail wheel mesh, +-0.147). The radius/width reading of a/b is an inference from the data, not traced code.
+struct WheelCylinder { float radius=0,width=0; };
+inline bool parse_wheel_cylinder(const uint8_t* data,size_t size,WheelCylinder& out) noexcept {
+    if(size<56||detail::u32(data+size-44)!=1339||detail::u32(data+size-56)!=102)return false;
+    const float a=detail::f32(data+size-52),b=detail::f32(data+size-48);
+    if(!std::isfinite(a)||!std::isfinite(b)||!(a>0.01f&&a<5.f)||!(b>0.f&&b<5.f))return false;
+    out={a,b};return true;
+}
+inline void cylinder_lines(const WheelCylinder& c,const VehiclePose& pose,uint32_t color,std::vector<Vertex>& out,int segments=16) {
+    auto put=[&](const float* l0,const float* l1){Vertex a{},b{};float w[3];pose_point(pose,l0,w);a={w[0],w[1],w[2],color,0,0};
+        pose_point(pose,l1,w);b={w[0],w[1],w[2],color,0,0};out.push_back(a);out.push_back(b);};
+    const float h=c.width*.5f;
+    for(int i=0;i<segments;++i){
+        const float t0=6.2831853f*float(i)/float(segments),t1=6.2831853f*float(i+1)/float(segments);
+        const float y0=c.radius*std::cos(t0),z0=c.radius*std::sin(t0),y1=c.radius*std::cos(t1),z1=c.radius*std::sin(t1);
+        for(float x:{-h,h}){const float p[3]={x,y0,z0},q[3]={x,y1,z1};put(p,q);}
+        if(i%2==0){const float p[3]={-h,y0,z0},q[3]={h,y0,z0};put(p,q);}
+    }
+}
+inline constexpr uint32_t kWheelRgb=argb(0,90,255,140);
 inline constexpr uint32_t kHullRgb=argb(0,255,90,40),kHullLocalRgb=argb(0,255,220,0);
 inline void hull_lines(const Hull& h,const VehiclePose& pose,uint32_t color,std::vector<Vertex>& out) {
     for(size_t e=0;e+1<h.edges.size();e+=2){

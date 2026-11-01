@@ -13,6 +13,7 @@
 #include <memory>
 #include <unordered_map>
 #include <atomic>
+#include <filesystem>
 #include <cstdint>
 #include <thread>
 #include <string>
@@ -68,13 +69,19 @@ class CollisionDebugPilot {
     const char* load_landscape(const std::string& dx_path,colldebug::Mesh& out,CollisionLandscape& info);
     const char* parse_landscape(const std::vector<uint8_t>& bytes,colldebug::Mesh& out,CollisionLandscape& info,const char* ok);
     // Data.sma (retail courses and race XML), opened on the first course selection.
-    sma::Archive sma_;bool sma_tried_=false;std::wstring archive_path_;double load_ms_=0;
+    // Game file roots (working directory, then the proxy folder), each with its own Data.sma.
+    struct GameRoot { std::filesystem::path folder; std::unique_ptr<sma::Archive> archive; };
+    std::vector<GameRoot> roots_;bool roots_ready_=false;std::wstring archive_path_;double load_ms_=0;std::string missing_cars_;
+    void ensure_roots() noexcept;
+    bool read_game_file(const std::string& rel,std::vector<uint8_t>& out,std::string& where,uint64_t limit) const;
     // Background load (BSP faces take 1..2 s per landscape): one worker at a time, applied on the render thread.
     std::thread worker_;std::atomic<bool> job_done_{false};bool loading_=false;CourseLoad job_;
     void load_course(const std::string& id,CourseLoad& r) noexcept;
     // Race markers and vehicle hulls (round 4).
     std::vector<colldebug::MarkerList> markers_;uint8_t markers_mode_=0;UINT markers_key_=0x7B;std::string markers_key_name_="F12";bool markers_key_down_=false;
     bool cars_=true,hull_log_pending_=false;std::unordered_map<std::string,std::unique_ptr<colldebug::Hull>> hulls_;
+    std::unordered_map<std::string,std::unique_ptr<colldebug::WheelCylinder>> wheels_;
+    uint8_t cars_mode_=0;UINT cars_key_=0x78;std::string cars_key_name_="F9";bool cars_key_down_=false;
     void apply_load() noexcept;
 public:
     CollisionProof proof;
@@ -101,13 +108,18 @@ public:
     const std::string& race_xml()const noexcept{return race_xml_;}
     const std::vector<CollisionLandscape>& landscapes()const noexcept{return landscapes_;}
     const char* course_reason()const noexcept{return course_reason_;}
-    bool archive_open()const noexcept{return sma_.is_open();}
+    bool archive_open()const noexcept;
+    const std::string& missing_cars()const noexcept{return missing_cars_;}
+    std::string roots_text()const{std::string s;for(const auto& r:roots_){if(!s.empty())s+=";";s+=r.folder.string();}return s;}
     bool loading()const noexcept{return loading_;}
     const std::vector<colldebug::MarkerList>& markers()const noexcept{return markers_;}
     uint8_t markers_mode()const noexcept{return markers_mode_;}
     const std::string& markers_key_name()const noexcept{return markers_key_name_;}
     bool cars_enabled()const noexcept{return cars_;}
     const colldebug::Hull* hull(const std::string& folder) noexcept;
+    const colldebug::WheelCylinder* wheel(const std::string& folder) noexcept;
+    uint8_t cars_mode()const noexcept{return cars_?cars_mode_:uint8_t(0);}
+    const std::string& cars_key_name()const noexcept{return cars_key_name_;}
     bool take_hull_log() noexcept {const bool v=hull_log_pending_;hull_log_pending_=false;return v;}
     size_t hulls_loaded()const noexcept{size_t n=0;for(const auto& h:hulls_)n+=h.second!=nullptr;return n;}
     size_t hulls_failed()const noexcept{size_t n=0;for(const auto& h:hulls_)n+=h.second==nullptr;return n;}

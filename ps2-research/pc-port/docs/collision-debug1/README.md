@@ -214,6 +214,55 @@ L-INNER cyan, L-OUTER blue, R-INNER orange, R-OUTER red, StartArea green, Finish
 only), other lists a stable hash colour. Range = max(200 m, 2 x CollisionDebugRange). The legend lists each marker list
 with its marker count, also while the collision overlay is OFF; long legends wrap at 90% of the screen width.
 
+
+## Round 5: vehicle collision on its own key, render-instance pose, wheel cylinders
+
+User test of round 4 (screenshot, Simmbugghini): the hull is too high, and the car does not touch the wall where the
+hull crosses it, so the drawn placement was wrong; wheel collision missing; the hull jittered. Round 4 placed the hull
+with the gaVehicleOutputData block at +0xbc; its position (+0xec) is about 0.7 m above the ground (screenshot: car Y
+29.23, ground 28.50), close to the hull centre height in car.dx (0.5..0.7 m), i.e. the physics position is the body
+centre, not the car.dx origin, so the hull was lifted by that offset.
+
+**Pose = the render instance world matrix (new RE).** The shared model emitter 0x576970 receives the instance
+(en3d+0x74, the instance the FLEET-ALL-CARS1 chain already proves per participant) and calls
+`0x561a40(instance+0x44, ...)`, which copies the 4x4 to the device cache and calls `IDirect3DDevice8::SetTransform`
+(vtable +0x94) with state 0x100 = D3DTS_WORLD. So `instance+0x44` is exactly the world matrix the car body is drawn
+with, and each wheel egg's instance holds its wheel's matrix. The overlay reads them at the pre-UI boundary of the same
+frame (after the car draws): the hull sits on the drawn body without lag. tag101 and the render vertices share the
+car.dx local space (docs/vehicle-bounds.md), and R4C/R4G runtime tests moved and widened wall contact through tag101.
+
+**Wheels.** wheel.dx ends with tag102 `(0.4, 0.2)` right before tag1339 on 25/25 retail wheels; every wheel mesh is
+thin along local X (+-0.147) with radius 0.39. Drawn as a cylinder of radius 0.4 and width 0.2 around local X (green).
+The radius/width reading is an inference from the data.
+
+**Own key.** `CollisionDebugCarsKey` (default F9; F8 is the free camera key): OFF -> ON (through the body) -> depth
+tested; independent of the collision mode. The round 4 vehicle-output pose reader and its YAW fallback are removed.
+
+
+## Round 6: vehicles of any resource root, effects after the opponents finish
+
+User test of round 5: vehicle collision correct. Two issues: the new vehicles of the vehicles SDK candidate
+(`master-rallye-re-vehicles/.research-output/vehicles/v-def3/delivery/workshop/builds/first/candidate`) get no hull,
+and every proxy effect stops after all opponents finish.
+
+**Any vehicle, any launcher.** The session log said `collision_debug_hulls ... "loaded":2,"failed":2`: the two new cars
+(DefForester, DefRav4, ...) were not found. Their car.dx/wheel.dx parse with the same rules (7/7 car.dx tag101, 7/7
+wheel.dx tag102 at the tail). The SDK launcher (`runtime_launcher/src/main.cpp`) starts the retail MRallye.exe with
+`CreateProcessW(..., workingDirectory = <bundle>/resource-root)`; the game opens its relative `DataGx/...` paths there
+(that folder has its own Data.sma and loose DataGx), while the proxy looked only next to its PS2Port.ini. Every game
+file the overlay reads (race XML, course DX, car.dx, wheel.dx) now resolves like the game: the process working
+directory first (loose file, then that folder's Data.sma), then the proxy folder (loose, Data.sma). The hull log adds
+`missing_car_dx` and `game_roots`.
+
+**Effects after the opponents finish (new finding).** The baseline certificate needs every participant RaceState in
+{0, 2}; a finished car is 3. RACE-FINISH1's PS2 finished phase accepted 3 only when the local driver had finished as
+well (`ps2_local_participant_not_finished`). In a race where every AI finishes first the states are e.g. [3,3,3,2]: the
+certificate was refused and every effect that follows it (PS2 features, and with BaselineAllRaceModes the free
+camera, Clean View and HUD hide; the collision overlay) went Stock until the next race. The finished phase now accepts
+the local driver in 0/2/3 as long as every participant is in 0/2/3 (the startup state 1 stays refused); covered by
+`ps2_race_certificate_contracts.hpp`. With BaselineAllRaceModes=0 the baseline free camera / HUD hide still follow the
+strict baseline rule.
+
 ## Limits
 
 - BSP faces are cell fragments (no polygon merge). Wheel collision (wheel.dx) is not drawn.

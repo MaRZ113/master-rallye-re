@@ -92,6 +92,11 @@ void race_certificate_finished_tests(){
     CHECK(r.valid&&r.mode==Ps2RaceMode::Finished&&!std::strcmp(r.reason,kPs2FinishedReason)&&r.race_generation==22&&r.owner_lifetime==4&&
           r.actor==CertWorld::actor&&r.ai==CertWorld::ai&&r.camera==CertWorld::camera&&!std::strcmp(r.course_id.data(),"RaceTest/France1")&&r.participant_count==4);
     CHECK(snapshots==0&&huds==0);                                                                        // course from the valid certificate
+    // Opponents finished first while the local driver (participant 0) is still racing: still certified.
+    w.state(0,2);r=c.certificate(finished,w.m,w.base,CertWorld::camera,hud,snap);
+    CHECK(r.valid&&r.mode==Ps2RaceMode::Finished&&r.participant_count==4);
+    w.state(0,1);CHECK(!c.certificate(finished,w.m,w.base,CertWorld::camera,hud,snap).valid);              // local startup transition
+    w.state(0,3);
     CHECK(!c.certificate(finished,w.m,w.base,0x6000,hud,snap).valid);                                   // camera identity
     w.m.u32(0x91000+16,2);CHECK(!c.certificate(finished,w.m,w.base,CertWorld::camera,hud,snap).valid);w.m.u32(0x91000+16,1);
     w.state(3,7);CHECK(!c.certificate(finished,w.m,w.base,CertWorld::camera,hud,snap).valid);w.state(3,2);  // unknown other state

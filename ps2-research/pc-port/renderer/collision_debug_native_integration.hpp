@@ -37,28 +37,6 @@ inline void observe_transform(Device8& d,D3DTRANSFORMSTATETYPE type,bool exe,uin
     if(is_projection&&courseintegration::perspective(native)){proof.projection=native;proof.projection_site=true;}
 }
 
-// Broker "Car<N>" -> gaVehicleOutputData -> vehicle (the chain of the spline observer and the HUD feeds); the pose is the
-// 4x4 block at +0xbc (rows x, y, forward +0xdc, position +0xec), validated by colldebug::vehicle_pose.
-class VehicleMatrixReader {
-    uint64_t generation_=0;std::array<uint32_t,ps2port::kFleetMaxCars> ids_{};std::array<bool,ps2port::kFleetMaxCars> ok_{};
-public:
-    bool read(RaceReadMemory& m,uint32_t base,uint64_t race,uint32_t index,float* m16) noexcept {
-        if(!race||index>=ids_.size())return false;
-        if(race!=generation_){generation_=race;for(uint32_t i=0;i<ids_.size();++i){char key[16];std::snprintf(key,sizeof(key),"Car%u",i);ok_[i]=m.resolve_id(base,key,ids_[i]);}}
-        if(!ok_[index])return false;
-        uint32_t manager=0,begin=0,end=0,native=0,payload=0,tag=0,type=0,vehicle=0;
-        auto word=[&](uint32_t a,uint32_t& v){return !(a&3)&&m.read(a,&v,4);};
-        auto pointer=[&](uint32_t a,uint32_t& v){return word(a,v)&&v>=0x10000&&v<=0x7ffffffc&&!(v&3);};
-        const uint32_t id=ids_[index];
-        if(!pointer(base+ps2port::kHudBrokerRva,manager)||!pointer(manager+4,begin)||!word(manager+8,end)||end<begin||(end-begin)%0x1c||id>=(end-begin)/0x1c)return false;
-        const uint32_t record=begin+id*0x1c;char name[32]{};
-        if(!word(record,native)||native!=id||!word(record+8,tag)||tag!=ps2port::kHudBrokerObjectTag||!pointer(record+4,payload)||
-           !word(payload+4,type)||!race_pool_text(m,base,type,name,sizeof(name))||std::strcmp(name,"gaVehicleOutputData")||!pointer(payload+8,vehicle))return false;
-        return m.read(vehicle+0xbc,m16,64);
-    }
-};
-inline VehicleMatrixReader& vehicle_reader() noexcept {static VehicleMatrixReader r;return r;}
-
 inline std::string course_record(const ps2port::CollisionDebugPilot& p,const char* course,uint64_t race) {
     const auto& m=p.mesh();
     std::string s="{\"type\":\"collision_debug_course\",\"course\":"+quote(std::string(course))+",\"race_generation\":"+std::to_string(race)+
@@ -106,7 +84,7 @@ inline HRESULT before_ui(Device8& d,bool ui_callsite) noexcept {
     if(!p->consume_boundary(frame,reset))return S_OK;
     if(p->poll_hotkey()||p->take_mode_log())try{session().write("{\"type\":\"collision_debug_mode\",\"frame\":"+std::to_string(frame)+
         ",\"mode\":"+std::to_string(static_cast<uint32_t>(p->mode()))+",\"name\":"+quote(colldebug::mode_name(p->mode()))+"}");}catch(...){}
-    if(p->mode()==colldebug::Mode::Off&&!p->markers_mode())return S_OK;
+    if(p->mode()==colldebug::Mode::Off&&!p->markers_mode()&&!p->cars_mode())return S_OK;
     auto gate=[&](const char* reason){if(p->claim_log(false))try{session().write("{\"type\":\"collision_debug_gate\",\"reason\":"+quote(reason)+
         ",\"frame\":"+std::to_string(frame)+"}");}catch(...){}return S_OK;};
     bool single=false;const auto cert=courseintegration::certificate(d,single);
@@ -131,30 +109,34 @@ inline HRESULT before_ui(Device8& d,bool ui_callsite) noexcept {
     ps2port::CourseObjectMaterialState wire{FALSE,D3DTADDRESS_CLAMP,D3DTADDRESS_CLAMP,TRUE,FALSE,static_cast<DWORD>(b.lines_depth_test?D3DCMP_LESSEQUAL:D3DCMP_ALWAYS)};
     // Vehicle collision hulls (with every collision mode) and race markers (own key), drawn as lines.
     std::vector<colldebug::Vertex> hull_lines,marker_lines;std::vector<uint32_t> marker_counts;
-    uint32_t hulls_drawn=0,hulls_participants=0,hulls_exact=0;const char* hull_reason="off";
+    // Pose = the render instance world matrix (instance+0x44, the matrix 0x561a40 sets as D3DTS_WORLD for the body and
+    // each wheel), read after the car draws of this frame: the hull sits exactly on the drawn body.
+    uint32_t hulls_drawn=0,hulls_participants=0,wheels_drawn=0;const char* hull_reason="off";
     ps2port::HudLiveMemory hull_memory;
-    if(p->mode()!=colldebug::Mode::Off&&p->cars_enabled())try{
+    if(p->cars_mode())try{
         const auto table=p->participants.resolve(hull_memory,0x400000,cert,1);
         hull_reason=table.reason;hulls_participants=table.count;
         for(uint32_t i=0;i<table.count&&i<table.cars.size();++i){
             const auto& car=table.cars[i];if(!car.valid)continue;
-            const auto* h=p->hull(std::string(car.folder.data()));if(!h)continue;
-            float m16[16];colldebug::VehiclePose pose;
-            if(!vehicle_reader().read(hull_memory,0x400000,cert.race_generation,i,m16)||!colldebug::vehicle_pose(m16,pose))continue;
-            colldebug::hull_lines(*h,pose,colldebug::with_alpha(car.player_type==1?colldebug::kHullLocalRgb:colldebug::kHullRgb,0xf0),hull_lines);
-            ++hulls_drawn;hulls_exact+=pose.exact;
+            const std::string folder(car.folder.data());float m16[16];colldebug::VehiclePose pose;
+            if(const auto* h=p->hull(folder))
+                if(hull_memory.read(car.instance+0x44,m16,64)&&colldebug::pose_from_world(m16,pose)){
+                    colldebug::hull_lines(*h,pose,colldebug::with_alpha(car.player_type==1?colldebug::kHullLocalRgb:colldebug::kHullRgb,0xf0),hull_lines);++hulls_drawn;}
+            if(const auto* w=p->wheel(folder))
+                for(unsigned k=0;k<4;++k)if((car.wheel_mask&(1u<<k))&&hull_memory.read(car.wheel_instance[k]+0x44,m16,64)&&colldebug::pose_from_world(m16,pose)){
+                    colldebug::cylinder_lines(*w,pose,colldebug::with_alpha(colldebug::kWheelRgb,0xf0),hull_lines);++wheels_drawn;}
         }
     }catch(...){hull_lines.clear();}
     if(p->markers_mode())try{colldebug::marker_lines(p->markers(),cam,std::max(200.f,p->settings().range*2.f),marker_lines,marker_counts);}catch(...){marker_lines.clear();}
     if(p->take_hull_log())try{session().write("{\"type\":\"collision_debug_hulls\",\"participants\":"+std::to_string(hulls_participants)+",\"drawn\":"+std::to_string(hulls_drawn)+
-        ",\"exact_matrix\":"+std::to_string(hulls_exact)+",\"loaded\":"+std::to_string(p->hulls_loaded())+",\"failed\":"+std::to_string(p->hulls_failed())+",\"reason\":"+quote(hull_reason)+"}");}catch(...){}
+        ",\"wheels\":"+std::to_string(wheels_drawn)+",\"loaded\":"+std::to_string(p->hulls_loaded())+",\"failed\":"+std::to_string(p->hulls_failed())+",\"missing_car_dx\":"+quote(p->missing_cars())+",\"game_roots\":"+quote(p->roots_text())+",\"reason\":"+quote(hull_reason)+"}");}catch(...){}
     hr=draw_pass(d,*p,D3DPT_TRIANGLELIST,b.fill,proof.view,proof.projection,fill,writer,tris);
     if(SUCCEEDED(hr)&&p->active())hr=draw_pass(d,*p,D3DPT_LINELIST,b.lines,proof.view,proof.projection,wire,writer,lines);
     // Hulls through the car body (depth ALWAYS), markers depth tested unless the marker X-RAY state is selected.
     const ps2port::CourseObjectMaterialState over{FALSE,D3DTADDRESS_CLAMP,D3DTADDRESS_CLAMP,TRUE,FALSE,D3DCMP_ALWAYS};
     const ps2port::CourseObjectMaterialState tested{FALSE,D3DTADDRESS_CLAMP,D3DTADDRESS_CLAMP,TRUE,FALSE,D3DCMP_LESSEQUAL};
     UINT hull_prims=0,marker_prims=0;
-    if(SUCCEEDED(hr)&&p->active())hr=draw_pass(d,*p,D3DPT_LINELIST,hull_lines,proof.view,proof.projection,over,writer,hull_prims);
+    if(SUCCEEDED(hr)&&p->active())hr=draw_pass(d,*p,D3DPT_LINELIST,hull_lines,proof.view,proof.projection,p->cars_mode()==1?over:tested,writer,hull_prims);
     if(SUCCEEDED(hr)&&p->active())hr=draw_pass(d,*p,D3DPT_LINELIST,marker_lines,proof.view,proof.projection,p->markers_mode()==2?over:tested,writer,marker_prims);
     if(SUCCEEDED(hr)&&p->active()&&p->legend_enabled()){
         // Drawn by the next Present over the finished frame (HUD included): PS2PortExtension::color_present.
@@ -172,8 +154,10 @@ inline HRESULT before_ui(Device8& d,bool ui_callsite) noexcept {
             for(auto& c:info)c=static_cast<char>(c>='a'&&c<='z'?c-'a'+'A':c=='_'?' ':c);
         }
         std::vector<std::pair<std::string,uint32_t>> extra;
-        if(p->mode()!=colldebug::Mode::Off&&p->cars_enabled())
-            extra.emplace_back("CAR HULL "+std::to_string(hulls_drawn)+"/"+std::to_string(hulls_participants)+(hulls_drawn&&hulls_exact<hulls_drawn?" YAW":""),colldebug::kHullRgb);
+        if(p->cars_mode()){
+            extra.emplace_back("CAR HULL "+std::to_string(hulls_drawn)+"/"+std::to_string(hulls_participants)+(p->cars_mode()==2?" DEPTH (":" (")+p->cars_key_name()+")",colldebug::kHullRgb);
+            extra.emplace_back("WHEELS "+std::to_string(wheels_drawn),colldebug::kWheelRgb);
+        }
         if(p->markers_mode()){
             extra.emplace_back(std::string(p->markers_mode()==2?"MARKERS X-RAY (":"MARKERS (")+p->markers_key_name()+")",colldebug::argb(0,90,90,90));
             const auto& lists=p->markers();

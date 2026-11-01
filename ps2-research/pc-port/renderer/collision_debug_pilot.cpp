@@ -56,6 +56,10 @@ CollisionDebugPilot::CollisionDebugPilot(bool supported,const std::wstring& ini)
         if(!markers_key_||markers_key_==key_){markers_key_=markers_key_==key_?0:VK_F12;markers_key_name_=markers_key_?"F12":"NONE";}
         for(auto& c:markers_key_name_)if(c>='a'&&c<='z')c=static_cast<char>(c-'a'+'A');
         cars_=config::read_int(L"CollisionDebugCars",1,ini.c_str())==1;
+        config::read_string(L"CollisionDebugCarsKey",L"F9",text,64,ini.c_str());
+        cars_key_=collision_debug_key(text);cars_key_name_=narrow(text);
+        if(!cars_key_||cars_key_==key_||cars_key_==markers_key_){cars_key_=0;cars_key_name_="NONE";}
+        for(auto& c:cars_key_name_)if(c>='a'&&c<='z')c=static_cast<char>(c-'a'+'A');
         config::read_string(L"CollisionDebugMode",L"SURFACE",text,64,ini.c_str());
         colldebug::Mode mode{};if(colldebug::parse_mode(narrow(text).c_str(),mode))mode_=mode;
         config::read_string(L"CollisionDebugRange",L"500",text,64,ini.c_str());
@@ -106,28 +110,80 @@ bool CollisionDebugPilot::poll_hotkey() noexcept {
     const bool pressed=down&&!key_down_;key_down_=down;
     const bool markers_down=markers_key_&&(GetAsyncKeyState(static_cast<int>(markers_key_))&0x8000)!=0;
     const bool markers_pressed=markers_down&&!markers_key_down_;markers_key_down_=markers_down;
-    if(!pressed&&!markers_pressed)return false;
+    const bool cars_down=cars_&&cars_key_&&(GetAsyncKeyState(static_cast<int>(cars_key_))&0x8000)!=0;
+    const bool cars_pressed=cars_down&&!cars_key_down_;cars_key_down_=cars_down;
+    if(!pressed&&!markers_pressed&&!cars_pressed)return false;
     DWORD pid=0;GetWindowThreadProcessId(GetForegroundWindow(),&pid);
     if(pid!=GetCurrentProcessId())return false;
     const bool back=(GetAsyncKeyState(VK_SHIFT)&0x8000)!=0;
     if(pressed)mode_=colldebug::next_mode(mode_,back);
     // Markers: OFF -> ON (depth tested) -> X-RAY -> OFF.
     if(markers_pressed)markers_mode_=static_cast<uint8_t>(back?(markers_mode_+2)%3:(markers_mode_+1)%3);
+    // Vehicle collision: OFF -> ON (through the body) -> depth tested -> OFF.
+    if(cars_pressed)cars_mode_=static_cast<uint8_t>(back?(cars_mode_+2)%3:(cars_mode_+1)%3);
     mode_log_pending_=true;logged_draw_=false;
     return true;
 }
 
-// Vehicle collision hull of vehicles/<folder>/car (loose DataGx/Vehicles/<folder>/car.dx, else Data.sma), cached.
+// Game file roots, in the order the game itself resolves them: the process working directory first (the game opens
+// relative "DataGx/..." paths; launchers such as the vehicles SDK runtime start MRallye.exe with their own resource
+// root as working directory), then the proxy folder. In each root a loose file wins over that root's Data.sma.
+// Opened once on the render thread before any worker starts; read-only afterwards.
+void CollisionDebugPilot::ensure_roots() noexcept {
+    if(roots_ready_)return;roots_ready_=true;
+    try{
+        std::vector<std::filesystem::path> folders;
+        wchar_t cwd[32768]{};const DWORD n=GetCurrentDirectoryW(32768,cwd);
+        if(n&&n<32768)folders.emplace_back(cwd);
+        folders.emplace_back(game_root_);
+        for(const auto& f:folders){
+            std::error_code error;const auto canon=std::filesystem::weakly_canonical(f,error);
+            bool seen=false;for(const auto& r:roots_)if(std::filesystem::equivalent(r.folder,canon,error))seen=true;
+            if(seen)continue;
+            GameRoot r;r.folder=canon;
+            std::filesystem::path archive(archive_path_);
+            if(archive.is_relative()||archive.parent_path()==std::filesystem::path(game_root_))archive=canon/archive.filename();
+            r.archive=std::make_unique<sma::Archive>();r.archive->open(archive.wstring());
+            roots_.push_back(std::move(r));
+        }
+    }catch(...){}
+}
+bool CollisionDebugPilot::archive_open() const noexcept {for(const auto& r:roots_)if(r.archive&&r.archive->is_open())return true;return false;}
+// Reads a game file: loose in root 0, Data.sma of root 0, loose in root 1, ... `where` names the source.
+bool CollisionDebugPilot::read_game_file(const std::string& rel,std::vector<uint8_t>& out,std::string& where,uint64_t limit) const {
+    out.clear();
+    for(size_t i=0;i<roots_.size();++i){
+        const auto& r=roots_[i];std::error_code error;const auto loose=r.folder/std::filesystem::path(rel);
+        if(std::filesystem::is_regular_file(loose,error)&&read_file(loose,out,limit)){where=i==0&&roots_.size()>1?"LOOSE CWD":"LOOSE";return true;}
+        if(r.archive&&r.archive->is_open()&&r.archive->read(rel,out,limit)){where=i==0&&roots_.size()>1?"SMA CWD":"DATA.SMA";return true;}
+    }
+    out.clear();return false;
+}
+
+// Wheel collision cylinder of vehicles/<folder>/wheel (tag102 of wheel.dx), cached.
+const colldebug::WheelCylinder* CollisionDebugPilot::wheel(const std::string& folder) noexcept {
+    try{
+        ensure_roots();
+        std::string key=folder;for(auto& c:key)c=static_cast<char>(c>='A'&&c<='Z'?c-'A'+'a':c);
+        const auto it=wheels_.find(key);if(it!=wheels_.end())return it->second.get();
+        std::unique_ptr<colldebug::WheelCylinder> w;std::vector<uint8_t> bytes;std::string where;
+        if(read_game_file("DataGx/Vehicles/"+folder+"/wheel.dx",bytes,where,64ull*1024*1024)){
+            auto c=std::make_unique<colldebug::WheelCylinder>();if(colldebug::parse_wheel_cylinder(bytes.data(),bytes.size(),*c))w=std::move(c);}
+        auto* raw=w.get();wheels_.emplace(key,std::move(w));hull_log_pending_=true;
+        return raw;
+    }catch(...){return nullptr;}
+}
+
+// Vehicle collision hull of vehicles/<folder>/car (car.dx from the game roots), cached.
 const colldebug::Hull* CollisionDebugPilot::hull(const std::string& folder) noexcept {
     try{
+        ensure_roots();
         std::string key=folder;for(auto& c:key)c=static_cast<char>(c>='A'&&c<='Z'?c-'A'+'a':c);
         const auto it=hulls_.find(key);if(it!=hulls_.end())return it->second.get();
-        std::unique_ptr<colldebug::Hull> h;std::vector<uint8_t> bytes;
-        const std::string path="DataGx/Vehicles/"+folder+"/car.dx";
-        const auto loose=std::filesystem::path(game_root_)/std::filesystem::path(path);std::error_code error;
-        bool ok=std::filesystem::is_regular_file(loose,error)?read_file(loose,bytes,64ull*1024*1024):false;
-        if(!ok){if(!sma_tried_){sma_tried_=true;sma_.open(archive_path_);}ok=sma_.is_open()&&sma_.read(path,bytes,64ull*1024*1024);}
-        if(ok){auto parsed=std::make_unique<colldebug::Hull>();if(colldebug::parse_vehicle_hull(bytes.data(),bytes.size(),*parsed))h=std::move(parsed);}
+        std::unique_ptr<colldebug::Hull> h;std::vector<uint8_t> bytes;std::string where;
+        if(read_game_file("DataGx/Vehicles/"+folder+"/car.dx",bytes,where,64ull*1024*1024)){
+            auto parsed=std::make_unique<colldebug::Hull>();if(colldebug::parse_vehicle_hull(bytes.data(),bytes.size(),*parsed))h=std::move(parsed);}
+        else missing_cars_+=(missing_cars_.empty()?"":",")+folder;
         auto* raw=h.get();hulls_.emplace(key,std::move(h));hull_log_pending_=true;
         return raw;
     }catch(...){return nullptr;}
@@ -144,51 +200,38 @@ const char* CollisionDebugPilot::parse_landscape(const std::vector<uint8_t>& byt
 }
 
 const char* CollisionDebugPilot::load_landscape(const std::string& dx_path,colldebug::Mesh& out,CollisionLandscape& info) {
-    // 1. Loose file (what the game loads first): converted, new and joined courses.
-    const auto dx=std::filesystem::path(game_root_)/std::filesystem::path(dx_path);std::error_code error;
-    std::vector<uint8_t> bytes;
-    if(std::filesystem::is_regular_file(dx,error)){
-        if(!read_file(dx,bytes,512ull*1024*1024))return "loose_course_dx_unreadable";
-        info.sha=sha256_bytes(bytes.data(),bytes.size());info.source="LOOSE DX";
-        return parse_landscape(bytes,out,info,"loose_course_dx_parsed");
+    // 1. The game roots (loose file, then Data.sma; working directory first).
+    std::vector<uint8_t> bytes;std::string where;
+    if(read_game_file(dx_path,bytes,where,512ull*1024*1024)){
+        info.sha=sha256_bytes(bytes.data(),bytes.size());
+        info.source=where.rfind("LOOSE",0)==0?"LOOSE DX":where;
+        return parse_landscape(bytes,out,info,where.rfind("LOOSE",0)==0?"loose_course_dx_parsed":"data_sma_course_dx_parsed");
     }
-    // 2. Data.sma (retail courses): the same DX bytes, CRC-checked.
-    if(sma_.is_open()&&sma_.read(dx_path,bytes)){
-        info.sha=sha256_bytes(bytes.data(),bytes.size());info.source="DATA.SMA";
-        return parse_landscape(bytes,out,info,"data_sma_course_dx_parsed");
-    }
-    // 3. Optional pinned asset: surface only (no BSP objects).
+    // 2. Optional pinned asset: surface only (no BSP objects).
     const colldebug::AssetEntry* entry=nullptr;
     for(const auto& e:asset_index_)if(colldebug::same_path(e.dx_path,dx_path)){entry=&e;break;}
-    if(!entry)return sma_.is_open()?"course_dx_not_loose_and_not_in_data_sma":"course_dx_not_loose_and_no_data_sma";
+    if(!entry)return archive_open()?"course_dx_not_in_any_game_root":"course_dx_not_loose_and_no_data_sma";
     if(!colldebug::decode_asset_mesh(asset_bytes_.data(),asset_bytes_.size(),*entry,out)){out.clear();return "asset_course_rejected";}
     info.sha=hex(entry->dx_sha);info.source="ASSET";return "retail_asset_surface_only";
 }
 
 // Worker thread: resolves the race landscapes and builds the merged mesh (tag1400 + BSP objects). Reads only the
-// archive index, the asset bytes and files; writes only `r`.
+// archive indexes, the asset bytes and files; writes only `r`.
 void CollisionDebugPilot::load_course(const std::string& id,CourseLoad& r) noexcept {
     try{
-        const std::filesystem::path root(game_root_);std::error_code error;
         LARGE_INTEGER t0{},t1{},freq{};QueryPerformanceCounter(&t0);
-        // 1. Landscapes of the race: a loose race XML wins (it is what the game loads), else Data.sma, else the asset
-        //    table (retail: one landscape, identity). Joined courses place several landscapes with their en3d Matrix.
-        std::vector<colldebug::LandscapeRef> refs;std::vector<uint8_t> bytes;
-        const auto xml=root/"DataScene"/(id+".xml");
-        if(std::filesystem::is_regular_file(xml,error)){
-            r.race_xml="loose";
-            if(read_file(xml,bytes,64ull*1024*1024)){const std::string_view text(reinterpret_cast<const char*>(bytes.data()),bytes.size());
-                refs=colldebug::landscape_refs(text);r.markers=colldebug::marker_lists(text);}
-            if(refs.empty()){r.reason="loose_race_xml_has_no_landscape";return;}
-        }else if(sma_.is_open()&&sma_.read("DataScene/"+id+".xml",bytes,64ull*1024*1024)){
-            r.race_xml="data_sma";
-            {const std::string_view text(reinterpret_cast<const char*>(bytes.data()),bytes.size());
-                refs=colldebug::landscape_refs(text);r.markers=colldebug::marker_lists(text);}
-            if(refs.empty()){r.reason="data_sma_race_xml_has_no_landscape";return;}
+        // 1. Landscapes of the race (race XML from the game roots, else the asset table: retail, one landscape).
+        //    Joined courses place several landscapes with their en3d Matrix.
+        std::vector<colldebug::LandscapeRef> refs;std::vector<uint8_t> bytes;std::string where;
+        if(read_game_file("DataScene/"+id+".xml",bytes,where,64ull*1024*1024)){
+            r.race_xml=where;
+            const std::string_view text(reinterpret_cast<const char*>(bytes.data()),bytes.size());
+            refs=colldebug::landscape_refs(text);r.markers=colldebug::marker_lists(text);
+            if(refs.empty()){r.reason="race_xml_has_no_landscape";return;}
         }else{
             for(const auto& e:asset_index_)if(colldebug::same_path(e.race_id,id)){colldebug::LandscapeRef l;l.dx_path=e.dx_path;refs.push_back(l);break;}
             r.race_xml=refs.empty()?"none":"asset";
-            if(refs.empty()){r.reason=sma_.is_open()?"race_xml_not_loose_and_not_in_data_sma":"race_xml_not_loose_and_no_data_sma";return;}
+            if(refs.empty()){r.reason=archive_open()?"race_xml_not_in_any_game_root":"race_xml_not_loose_and_no_data_sma";return;}
         }
         // 2. Every landscape: loose DX, else Data.sma, else the asset; placed with its matrix and merged. A landscape that
         //    fails is reported and the others are still drawn.
@@ -232,7 +275,7 @@ bool CollisionDebugPilot::select_course(std::string_view id,uint64_t race) noexc
     course_race_=race;course_ok_=false;logged_draw_=false;
     try{
         course_id_=std::string(id);mesh_.clear();landscapes_.clear();markers_.clear();source_="none";race_xml_="none";course_reason_="loading";
-        if(!sma_tried_){sma_tried_=true;sma_.open(archive_path_);}
+        ensure_roots();
         loading_=true;job_done_.store(false);
         try{worker_=std::thread([this,key=course_id_]{load_course(key,job_);job_done_.store(true,std::memory_order_release);});}
         catch(...){load_course(course_id_,job_);job_done_.store(true);}   // no thread: load here

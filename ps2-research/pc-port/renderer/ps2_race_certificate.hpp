@@ -194,7 +194,9 @@ public:
                 const auto type=race_broker_scalar(m,image,id,2);if(!type.present){c.reason="ps2_player_type_unreadable";return c;}
                 const auto state=c.owner.participant_states[i];
                 // Split screen: either driver may finish first; both keep the other-participant phases 0/2/3.
-                if(type.value==1&&!c.normalised.split){++locals;c.local=i;if(state!=3){c.reason="ps2_local_participant_not_finished";return c;}}
+                // COLLISION-DEBUG1 round 6: the local driver may still be racing (0/2) while opponents have finished (3):
+                // races where every AI finishes first used to lose their certificate (and every effect) here.
+                if(type.value==1&&!c.normalised.split){++locals;c.local=i;if(state!=0&&state!=2&&state!=3){c.reason="ps2_local_participant_state_unsupported";return c;}}
                 else {if(type.value==1){++locals;c.local=i;}if(state!=0&&state!=2&&state!=3){c.reason="ps2_participant_state_not_finished_phase";return c;}}
             }
             if(locals!=expected_locals){c.reason=c.normalised.split?"ps2_split_local_players_unproven":"ps2_single_local_participant_unproven";return c;}

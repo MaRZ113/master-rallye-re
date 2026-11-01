@@ -310,10 +310,22 @@ void hulls_and_markers(){
     auto bad=dx;bad[bad.size()-44]=0;CHECK(!parse_vehicle_hull(bad.data(),bad.size(),h));   // no tag102/1339 after it
     // pose: orthonormal block used as is; a skewed one falls back to the forward yaw
     float m[16]={0,0,-1,0, 0,1,0,0, 1,0,0,0, 10,2,3,1};VehiclePose pose;
-    CHECK(vehicle_pose(m,pose)&&pose.exact);
+    CHECK(pose_from_world(m,pose));
     const float local[3]={0,0,2};float w[3];pose_point(pose,local,w);CHECK(w[0]==12.f&&w[1]==2.f&&w[2]==3.f);
-    float skew[16]={2,0,0,0, 0,1,0,0, 0,0,3,0, 0,0,0,1};CHECK(vehicle_pose(skew,pose)&&!pose.exact&&pose.rows[8]==1.f&&pose.rows[0]==1.f);
-    float nan[16]={};nan[0]=std::numeric_limits<float>::quiet_NaN();CHECK(!vehicle_pose(nan,pose));
+    // the render matrix is taken as drawn (a scale is kept); a projective or degenerate matrix is refused
+    float scaled[16]={2,0,0,0, 0,1,0,0, 0,0,3,0, 0,0,0,1};CHECK(pose_from_world(scaled,pose)&&pose.rows[0]==2.f&&pose.rows[8]==3.f);
+    float projective[16]={1,0,0,0, 0,1,0,0, 0,0,1,1, 0,0,0,0};CHECK(!pose_from_world(projective,pose));
+    float flat[16]={0,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1};CHECK(!pose_from_world(flat,pose));
+    CHECK(pose_from_world(m,pose));
+    float nan[16]={};nan[0]=std::numeric_limits<float>::quiet_NaN();CHECK(!pose_from_world(nan,pose));
+    // wheel.dx tail: tag102 (radius 0.4, width 0.2) right before tag1339
+    std::vector<uint8_t> wheel(100,0);put32(wheel,102);putf(wheel,.4f);putf(wheel,.2f);put32(wheel,1339);for(int i=0;i<10;++i)putf(wheel,0.f);
+    WheelCylinder cyl;CHECK(parse_wheel_cylinder(wheel.data(),wheel.size(),cyl)&&cyl.radius==.4f&&cyl.width==.2f);
+    auto nowheel=wheel;nowheel[nowheel.size()-56]=7;CHECK(!parse_wheel_cylinder(nowheel.data(),nowheel.size(),cyl));
+    std::vector<Vertex> cl;float id[16]={1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1};CHECK(pose_from_world(id,pose));
+    cylinder_lines(cyl,pose,0xffffffffu,cl,16);CHECK(cl.size()==2*(16*2+8));
+    for(const auto& v:cl){CHECK(std::fabs(std::fabs(v.x)-.1f)<1e-6f);CHECK(std::fabs(std::sqrt(v.y*v.y+v.z*v.z)-.4f)<1e-5f);}
+    CHECK(pose_from_world(m,pose));
     std::vector<Vertex> lines;hull_lines(h,pose,0xffffffffu,lines);CHECK(lines.size()==24);
     // markers
     const std::string xml="<MarkerLists>\n<List Name=\"RaceLine\">\n<Marker No=\"0\">\n<Value Name=\"Marker Type\" Type=\"String\" Value=\"markers\\green_marker\"/>\n"

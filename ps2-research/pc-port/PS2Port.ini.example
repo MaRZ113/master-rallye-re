@@ -163,9 +163,11 @@ CollisionDebugLegendPosition=TOPCENTER
 ;   CRC-checked), else CollisionDebugAsset (surface only). Objects (banners, posts, rails, bridge ends) come from the
 ;   course BSP (tag100): white "OBJECT" in every mode; mode 7 OBJECTS shows only them. The legend's yellow line gives
 ;   the player car position (Car0) and the collision surface under it.
-; CollisionDebugCars: 1 = with every collision mode, the collision hull (car.dx tag101 convex hull) of every race car
-;   at its pose, drawn through the body (player car yellow, others orange). 0 = none.
+; CollisionDebugCars: 1 = vehicle collision on CollisionDebugCarsKey (default F9: OFF -> ON through the body -> depth
+;   tested): the car.dx tag101 convex hull of every race car (player yellow, others orange) and the wheel.dx tag102
+;   cylinder of every wheel (green), at the matrices the game draws them with. 0 = feature off.
 CollisionDebugCars=1
+CollisionDebugCarsKey=F9
 ; CollisionDebugMarkersKey: race markers of the race XML (RaceLine, L/R inner/outer limits, start/finish areas,
 ;   cameras): lines between markers, a post and a direction tick at each. Key cycles OFF -> ON -> X-RAY.
 CollisionDebugMarkersKey=F12
