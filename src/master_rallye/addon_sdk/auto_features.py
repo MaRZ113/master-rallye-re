@@ -139,7 +139,9 @@ def zone_glass(points_by_tri):
     zones=defaultdict(list)
     for key,pts in points_by_tri.items():
         n=_normal(pts);cx=sum(p[0]for p in pts)/3
-        lateral=abs(cx)>=.72*width and abs(n[2])<.9
+        # A wide windshield still belongs to screenfront at its outer corners.
+        # Source face orientation must outrank lateral position there.
+        lateral=abs(cx)>=.72*width and abs(n[0])>abs(n[2])
         if not lateral and abs(n[2])>=abs(n[0])*.75 and abs(n[2])>.2:zone='screenfront'if n[2]>0 else'screenrear'
         else:zone='screenright'if (n[0] if abs(n[0])>.15 else cx)>0 else'screenleft'
         zones[zone].append(key)

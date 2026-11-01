@@ -67,3 +67,15 @@ A private code allocation solves code storage, not all these consumers. No
 unlimited count, safe36, ready T3 expansion or new engine maximum is claimed.
 
 The original executable and qualified30-entry infrastructure remain untouched.
+
+
+## V-DEF1 bounded31-record candidate —1 November2026
+
+The first explicit31-record test is now built through the existing SCALE1 emitter
+and Workshop CMD workflow: ID30,T2 local10,counts8/11/12. Previous IDs/resources
+are preserved; all31 forward/reverse maps,initializer/name/audio ABI and T2 AI
+pool transitions pass actual emitted-code emulation with native calls mocked.
+The profile is named`sdk-multi-addon-roster-experimental-31` and requires an
+explicit configuration opt-in. Default29/30 guards remain. Owner-qualified
+capacity remains30 until a complete D3D8 lifecycle/save/AI review. No32/36 or
+class expansion is inferred. See V_DEF1_FORESTER_RESTORATION.md.

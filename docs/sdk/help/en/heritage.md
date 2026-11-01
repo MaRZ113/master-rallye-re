@@ -49,3 +49,24 @@ Forester9.3.1, cooked PCG Rav4 9.3.1, early WildCat8.4.1 and original9.3.1 NewRa
 future review order. Nov Wildcat points to Simmbugghini resources; the authentic
 9.3.1 Wildcat and full NewRav/Tata DX sets are in the original corpus. No new
 runtime identity, installation or gameplay qualification was performed.
+
+
+## V-DEF1 canonical Forester
+
+The selected main PCG Forester now has a persistent Workshop restoration and
+CMD test candidate. See`V_DEF1_FORESTER_RESTORATION.md` and its owner checklist.
+The old alternate Original/car.dx is not used. Original Demo artwork/geometry,
+source-valued physics and PS2-qualified Darren Sutherland identity are retained;
+WOOLDAND is the technical glass/glow/solver/audio donor. Front and both side
+panes are qualified; no separate rear pane is invented. Native glow is separate
+source-pinned donor geometry with measured per-lamp fitting.
+
+ID30/T2 local10 belongs only to the explicit experimental31-record profile.
+Do not replace CarID29 or treat package/emulator checks as owner gameplay.
+Open`release-candidate/Open-Forester-Workshop.cmd` under private`vehicles/v-def1`,then use the
+existing Configure/Validate/Build controls. Original30-entry projects remain
+unchanged. Actual race,damage,Results and re-entry require owner verification.
+
+The Forester physics profile owns DefForesterTyre tables:24 original source
+coefficients plus36 explicit retail solver defaults. Shared stock tables are
+preserved; changing this profile does not globally retune other vehicles.

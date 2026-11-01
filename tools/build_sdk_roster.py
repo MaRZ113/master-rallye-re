@@ -1,4 +1,4 @@
-"""Compose independently validated author projects into the qualified 29/30 roster.
+"""Compose validated projects into 29/30 rosters or an explicit 31-record test.
 
 Author-slot IDs are explicit inputs, never edited in frozen projects. Runtime
 rebinding changes CarID metadata only; resources retain their own namespaces.
@@ -25,6 +25,7 @@ from master_rallye.addon_sdk.ui_assets import BANKS
 from master_rallye.addon_sdk.manifest import canonical_json
 
 PROFILE='sdk-multi-addon-roster'
+EXPERIMENTAL_31_PROFILE='sdk-multi-addon-roster-experimental-31'
 ALLOCATION=262144
 
 def append_owned_family(base,source,family):
@@ -109,11 +110,14 @@ def qualified_wheel_profiles(profiles, resources, rows):
 
 
 def derive(config):
-    if not isinstance(config,dict) or not {'sdk_roster_version','base_runtime','projects'}<=set(config) or set(config)-{'sdk_roster_version','base_runtime','projects','reservations','retail_exe','frontend_profiler','frontend_bulk_read','stock_resource_projects','camera_profiles','frontend_profiles','base_glass_profiles','wheel_profiles'} or type(config.get('sdk_roster_version')) is not int or config['sdk_roster_version']!=1:raise ValueError('unsupported SDK roster declaration')
+    if not isinstance(config,dict) or not {'sdk_roster_version','base_runtime','projects'}<=set(config) or set(config)-{'sdk_roster_version','base_runtime','projects','reservations','retail_exe','frontend_profiler','frontend_bulk_read','stock_resource_projects','camera_profiles','frontend_profiles','base_glass_profiles','wheel_profiles','experimental_record_count'} or type(config.get('sdk_roster_version')) is not int or config['sdk_roster_version']!=1:raise ValueError('unsupported SDK roster declaration')
     if type(config.get('frontend_profiler',False)) is not bool:raise ValueError('frontend_profiler must be an explicit boolean')
     if type(config.get('frontend_bulk_read',False)) is not bool:raise ValueError('frontend_bulk_read must be an explicit boolean')
     inputs=config.get('projects')
-    if not isinstance(inputs,list) or len(inputs) not in (1,2):raise ValueError('only previously demonstrated 29/30 layouts admitted')
+    experimental=config.get('experimental_record_count')
+    if experimental is not None and (type(experimental)is not int or experimental!=31):raise ValueError('Only an explicit experimental 31-record layout is admitted')
+    if not isinstance(inputs,list) or len(inputs) not in ((3,)if experimental==31 else (1,2)):raise ValueError('only previously demonstrated 29/30 layouts admitted; 31 requires explicit experimental_record_count')
+    profile_name=EXPERIMENTAL_31_PROFILE if experimental==31 else PROFILE
     base=Path(config['base_runtime']);source=Path(config.get('retail_exe',ROOT.parent/'MRallye.exe')).read_bytes()
     profile,image,base_rows,assets=probe.verified_base(base,source)
     plan=json.loads((base/'addon-plan.json').read_text());base_plan=copy.deepcopy(plan)
@@ -122,7 +126,7 @@ def derive(config):
         if set(entry)!={'project','build','physical_id'}:raise ValueError('invalid roster project input')
         original,resources,report=load_author(Path(entry['project']),Path(entry['build']))
         row=copy.deepcopy(original);row.update(physical_id=entry['physical_id'],class_local_index=8+len(rows))
-        if row['vehicle_class']!='T2' or row['physical_id']!=28+len(rows):raise ValueError('new runtime projects must append ID28/29 T2 local8/9')
+        if row['vehicle_class']!='T2' or row['physical_id']!=28+len(rows):raise ValueError('new runtime projects must append contiguous T2 IDs28+ / local8+')
         if report.get('audio_profile'):
             report=copy.deepcopy(report);report['audio_profile']['physical_car_id']=row['physical_id']
         rows.append(row);authors.append({'input':entry,'original':original,'resources':resources,'report':report})
@@ -147,6 +151,9 @@ def derive(config):
         value=probe.value(output[path])
         for row,author in zip(rows,authors):
             value=append_owned_family(value,(Path(author['input']['build'])/path).read_bytes(),row['identity']['runtime_family'])
+            if path=='DataGame/vehicles.xml'and author['report'].get('physics_profile',{}).get('owned_tyres'):
+                from master_rallye.addon_sdk.physics_profile import publish_owned_tyres
+                value=publish_owned_tyres(value,(Path(author['input']['build'])/path).read_bytes(),author['report']['physics_profile'])
         output[path]=value
     for role,(prefix,count,template,size) in BANKS.items():
         contributions=[]
@@ -267,16 +274,20 @@ def derive(config):
     plan['evidence_boundary'].update(resolved_addon_ids_runtime_qualified=False,experimental_addon_ids=[r['physical_id'] for r in rows])
     plan_raw=canonical_json(plan);plan_sha=probe.sha(plan_raw)
     extension={'operations':ops,'bindings':bindings,'allocation_size':ALLOCATION,'payload_va':damage.PAYLOAD_VA,'payload_size':len(blob),'runtime_qualified':False}
-    pm,rvp=probe.patch_artifacts(source,image,base_rows,image,extension,plan_sha,json.loads((base/'native-patch-manifest.json').read_text()),profile_name=PROFILE,provenance_layer='V-SDK1',extension_key='sdk_roster_extension',derivation='verified frozen Subaru plus source-validated independent projects and composed native hooks')
+    pm,rvp=probe.patch_artifacts(source,image,base_rows,image,extension,plan_sha,json.loads((base/'native-patch-manifest.json').read_text()),profile_name=profile_name,provenance_layer='V-SDK1',extension_key='sdk_roster_extension',derivation='verified frozen Subaru plus source-validated independent projects and composed native hooks')
     resource_rows=[{'path':p,'size':len(v) if isinstance(v,bytes) else v.stat().st_size,'sha256':probe.sha(v) if isinstance(v,bytes) else runtime.sha256_file(v),'role':'sdk-roster-resource','owner':ownership.get(p,'frozen-base-or-explicit-shared-composition')} for p,v in sorted(output.items())]
     index=runtime._resource_index(resource_rows);rm=canonical_json({'schema_version':1,'resources':resource_rows,'resource_count':len(resource_rows),'index_sha256':probe.sha(index),'runtime_state_paths':sorted(runtime.RUNTIME_STATE_PATHS),'addon_plan_sha256':plan_sha})
-    profile.update(profile=PROFILE,status='READY_FOR_HUMAN_RUNTIME',addon_plan_sha256=plan_sha,native_patch_manifest_sha256=probe.sha(pm),native_patch_operations_sha256=probe.sha(rvp),resource_manifest_sha256=probe.sha(rm),resource_index_sha256=probe.sha(index),resource_count=len(resource_rows),reconstructed_reference_file_sha256=probe.sha(image),runtime_qualified=False,identity_runtime_qualified=False,
+    profile.update(profile=profile_name,status='READY_FOR_HUMAN_RUNTIME',addon_plan_sha256=plan_sha,native_patch_manifest_sha256=probe.sha(pm),native_patch_operations_sha256=probe.sha(rvp),resource_manifest_sha256=probe.sha(rm),resource_index_sha256=probe.sha(index),resource_count=len(resource_rows),reconstructed_reference_file_sha256=probe.sha(image),runtime_qualified=False,identity_runtime_qualified=False,
         native_extension={'address':damage.PAYLOAD_VA,'size':len(blob),'sha256':probe.sha(blob),'allocation_size':ALLOCATION,**({'writable_ranges':writable} if writable else {})},
         sdk_roster_layout={'record_count':28+len(rows),'addon_ids':list(range(26,28+len(rows)))},
         physical_slots_runtime_qualified=[26,27],experimental_physical_slots=[r['physical_id'] for r in rows],unresolved_runtime_gates=['Exact combined imported roster player/AI, finishing, Results and re-entry','Simultaneous independent physics/audio/damage/light behavior','No migration of experimental probe saves or other candidate state'])
     audit={'runtime_qualified':False,'capacity_mechanism':'SCALE1 29/30 user gameplay confirmed; this combined candidate not gameplay tested','author_slot_rebindings':[{'addon_id':r['addon_id'],'author_id':a['original']['physical_id'],'runtime_id':r['physical_id']} for r,a in zip(rows,authors)],'bindings':bindings,'native_hook_count':len(ops),'resource_ownership':ownership,'ui_frames':ui_report,'source_reports':reports,'base_plan_sha256':probe.sha(canonical_json(base_plan))}
     if glass_reports:audit['base_glass_profiles']=glass_reports
-    files={'addon-plan.json':plan_raw,'native-patch-manifest.json':pm,'native-patch-ops.rvp':rvp,'native-extension.bin':blob,'runtime-profile.json':canonical_json(profile),'resource-manifest.json':rm,'resource-index.tsv':index,'roster-reservations.json':canonical_json(lock),'sdk-roster-audit.json':canonical_json(audit),'runtime-artifact.json':canonical_json({'profile':PROFILE,'runtime_qualified':False,'resource_manifest_sha256':probe.sha(rm)})}
+    if experimental==31:
+        audit['capacity_mechanism']='Explicit 31-record T2 append experiment using the existing SCALE1 emitter; owner gameplay NOT TESTED'
+        audit['owner_qualified_record_count']=30
+        profile['unresolved_runtime_gates'].insert(0,'31st independent record / T2 local10 selection, AI, race, Results, save and re-entry NOT TESTED')
+    files={'addon-plan.json':plan_raw,'native-patch-manifest.json':pm,'native-patch-ops.rvp':rvp,'native-extension.bin':blob,'runtime-profile.json':canonical_json(profile),'resource-manifest.json':rm,'resource-index.tsv':index,'roster-reservations.json':canonical_json(lock),'sdk-roster-audit.json':canonical_json(audit),'runtime-artifact.json':canonical_json({'profile':profile_name,'runtime_qualified':False,'resource_manifest_sha256':probe.sha(rm)})}
     return {'resources':output,'files':files,'profile':profile,'image':image,'capacity':cap,'rows':rows,'audit':audit}
 
 def verify(bundle,context):

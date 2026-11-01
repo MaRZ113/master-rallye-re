@@ -1,3 +1,29 @@
+# V-DEF1 Forester —1 November2026
+
+Owned DefForesterTyre preserves24 Demo coefficients (five differ from retail),
+with36 retail-only tyre fields retained explicitly. Original shared tables are
+unchanged. The final common physics change is covered by1312 full/52 focused
+passing tests (two optional full-suite skips).
+
+| Check | Result | Boundary |
+|---|---|---|
+| Canonical source | Strict oriented order-divergence proof for car/complete/wheel; only5449/6644/675 cache entries repaired in copies | Original input hashes unchanged |
+| Native OFF |1864 triangles; source/restored geometry,UV,normal/color/material fingerprints identical | Alternate glass/ON/halo triangles separate |
+| Glass zoning regression | Wide windshield corner fixture reproduces prior side-zone defect; now6/5/5 source panes | Rear pane unsupported,not invented |
+| Retail glow reference | Actual16-triangle donor halo,exact UV/color/material; bounded per-side uniform fitting | Actual angular appearance/brightness pending owner |
+| Historical physics |150 source rows represented:137 base +13 per player;10 retail-only defaults explicit | Retail solver equivalence to older solver not claimed |
+| Identity/art | Original XML T2_Car2/frame1 +DXB; PC52/53 index8; PS2 model/driver triples index8 | Results32x16 icon derived from authentic CarSheet |
+| Native31 helpers | All31 forward/reverse mappings; T2 pools27/28/29/30; names/unlock/audio ABI | Unicorn/native calls mocked; no full race |
+| Runtime bundle |345 files,259 operations;3 launcher preflights PASS | Experimental31 profile; no game launched |
+| Reproduction |222 DX/DXT identical across two Workshop builds | Metadata paths may differ |
+| Accepted roster |308 resources unchanged; previous UI records and physics values preserved | New combined31 lifecycle pending |
+| Windows UI/preview | Actual hidden Tk open and native refresh;31 D3D9 views | Not interactive usability/D3D8 gameplay |
+| Focused /full |52 focused PASS;1312 full PASS,2 optional skips | Existing fixture-dependent skips retained |
+| Preservation |11500 historical files/15.45GB unchanged;5296 audit files unchanged |34 external Nov Wildcat differences retained as legacy baseline FAIL |
+
+Private evidence:`.research-output/vehicles/v-def1/`; repository provenance:
+V_DEF1_FORESTER_PROVENANCE.json. Source-only archives exclude private resources.
+
 # Complete Demo audit regression boundary —1 November2026
 
 | Check | Actual evidence | Boundary |

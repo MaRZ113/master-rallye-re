@@ -22,7 +22,11 @@ for axle in ('Front','Rear'):
 
 def validate_profile(profile,*,donor_family,runtime_family):
     required={'profile_version','donor_family','runtime_family','source_sha256','overrides','notes'}
-    if not isinstance(profile,dict) or not required<=set(profile) or set(profile)-required-{'ride_height_reference_m','ride_height_reference_binding','collision_fit'}:raise AddonValidationError('physics profile keys/version are invalid')
+    if not isinstance(profile,dict) or not required<=set(profile) or set(profile)-required-{'ride_height_reference_m','ride_height_reference_binding','collision_fit','owned_tyres'}:raise AddonValidationError('physics profile keys/version are invalid')
+    if 'owned_tyres'in profile:
+        t=profile['owned_tyres']
+        if not isinstance(t,dict)or set(t)!={'donor_prefix','runtime_prefix','overrides'}or any(not isinstance(t[k],str)or not FAMILY.fullmatch(t[k])for k in ('donor_prefix','runtime_prefix'))or t['donor_prefix'].casefold()==t['runtime_prefix'].casefold():raise AddonValidationError('invalid owned tyre profile')
+        if not isinstance(t['overrides'],dict)or not 1<=len(t['overrides'])<=128 or any(not re.fullmatch(r'[0-5]/[A-Za-z][A-Za-z0-9]*',k)for k in t['overrides']):raise AddonValidationError('invalid owned tyre fields')
     if type(profile['profile_version']) is not int or profile['profile_version']!=1:raise AddonValidationError('unsupported physics profile version')
     for value in (donor_family,runtime_family):
         if not isinstance(value,str) or not FAMILY.fullmatch(value):raise AddonValidationError('invalid physics family')
@@ -172,6 +176,44 @@ def validate_player_defaults(vehicles,modifications,family,reference=None):
 def compile_family(data,profile,*,donor_family,runtime_family,source_label):
     validate_profile(profile,donor_family=donor_family,runtime_family=runtime_family)
     if hashlib.sha256(data).hexdigest()!=profile['source_sha256'].get(source_label):raise AddonValidationError('physics retail member SHA256 mismatch')
+    if source_label==MEMBERS[0]and 'owned_tyres'in profile:data=clone_owned_tyres(data,profile['owned_tyres'])
     cloned,report=clone_vehicle_family_xml(data,donor_family=donor_family,runtime_family=runtime_family,source_label=source_label)
     output,delta=apply_profile(cloned,profile,donor_family=donor_family,runtime_family=runtime_family,source_label=source_label)
     return output,{**report,**delta}
+
+
+def _tyre_rows(raw,prefix):
+    pattern=re.compile(r'^Vehicles/Tyres/'+re.escape(prefix)+r'([0-5]/[A-Za-z][A-Za-z0-9]*)$')
+    pairs=[(m.group(1),dict(n.attrib))for n in ET.fromstring(raw).iter('Value')if(m:=pattern.fullmatch(n.get('Name','')))]
+    if len(pairs)!=len(dict(pairs)):raise AddonValidationError('duplicate tyre field')
+    return dict(pairs)
+
+
+def _append_tyre_rows(base,rows,prefix):
+    if _tyre_rows(base,prefix):raise AddonValidationError('owned tyre namespace collision')
+    if not rows or len(rows)>128 or base.count(b'</Broker>')!=1:raise AddonValidationError('unsupported owned tyre serialization')
+    newline=b'\r\n'if b'\r\n'in base else b'\n';lines=[]
+    for name,row in sorted(rows.items()):
+        node=ET.Element('Value',row);node.set('Name','Vehicles/Tyres/'+prefix+name)
+        lines.append(ET.tostring(node,encoding='utf-8'))
+    block=newline+newline.join(lines)+newline;output=base.replace(b'</Broker>',block+b'</Broker>',1)
+    if output.replace(block,b'',1)!=base:raise AddonValidationError('tyre append changed base bytes')
+    return output
+
+
+def clone_owned_tyres(data,definition):
+    donor=_tyre_rows(data,definition['donor_prefix']);owned={k:dict(v)for k,v in donor.items()}
+    if not owned:raise AddonValidationError('missing donor tyre table')
+    for name,value in definition['overrides'].items():
+        if name not in owned:raise AddonValidationError('unknown source tyre field '+name)
+        owned[name]['Value']=_encode(value,owned[name]['Type'])
+    return _append_tyre_rows(data,owned,definition['runtime_prefix'])
+
+
+def publish_owned_tyres(base,compiled,profile):
+    """Publish only the separately validated project's named tyre clone."""
+    if 'owned_tyres'not in profile:return base
+    t=profile['owned_tyres'];rows=_tyre_rows(compiled,t['runtime_prefix'])
+    expected=clone_owned_tyres(base,t)
+    if rows!=_tyre_rows(expected,t['runtime_prefix']):raise AddonValidationError('owned tyre compilation differs from typed declaration')
+    return _append_tyre_rows(base,rows,t['runtime_prefix'])

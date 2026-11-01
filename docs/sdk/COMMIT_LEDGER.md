@@ -1,3 +1,27 @@
+# V-DEF1 canonical Demo Forester restoration —1 November2026
+
+Owned DefForesterTyre preserves24 Demo coefficients (five differ from retail),
+with36 retail-only tyre fields retained explicitly. Original shared tables are
+unchanged. The final common physics change is covered by1312 full/52 focused
+passing tests (two optional full-suite skips).
+
+Clean baseline`000521f4cf25bd78fac10c66a8cd2792af8fc649`,research/vehicles.
+Resolve this scoped implementation with:
+`git log -1 --format=%H --fixed-strings --grep="feat(definitive): restore canonical Demo Forester CMD pilot"`.
+
+Reuse Heritage and actual Workshop build services. Add optional strict cache-order
+repair proof,generic native brake-halo reference,source-valued historical physics,
+and separately gated31-record CMD packaging. Fix wide windshield corner zoning;
+keep accepted assets/29-30 defaults intact. Verify authentic Demo CarSheet and
+PS2 Darren Sutherland association. Source/owner details in V_DEF1_FORESTER_RESTORATION.md.
+
+52 focused and1312 full tests pass(2 optional skips); real Tk/native preview,
+31 D3D9 captures,31 CPU helper mappings,three launcher preflights and deterministic
+222 DX/DXT resources pass.308 previous roster resources preserved;11500-file
+historical check passes.34 unrelated Nov Wildcat source differences are reported
+without rollback; the old audit's raw FAIL is retained. No D3D8 gameplay PASS,
+DLL/bootstrap/mod installation,publication,push or unrelated merges.
+
 # Complete Demo vehicle audit —1 November2026
 
 Clean baseline `7530c525006a6e5778f5dbec40872859c68d96fe`, `research/vehicles`.

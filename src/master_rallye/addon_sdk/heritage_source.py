@@ -55,17 +55,28 @@ def edition(root, *, family=None, allow_unqualified=False):
     return identity
 
 
-def repair_global_indices(raw):
+def repair_global_indices(raw,*,require_order_equivalence=False):
     """Rewrite the stored global index table from the local draw indices.
 
     Some shipped/re-baked Demo models carry a stale global table (one moved
     triangle, or a different order). The renderer draws the local indices;
     the global table is rebuilt from them, vertices/attributes untouched.
     """
+    # Keep the historical explicit local-authoritative repair available. A
+    # restoration can additionally require proof of pure ordering divergence.
+    if require_order_equivalence:
+        try:validate_existing_rev135(raw,'global-cache repair input')
+        except MasterRallyeError as exc:raise ValueError(str(exc))from exc
     m=parse_dx_bytes(raw);t=m.global_index_table
     if t is None or t.count!=len(m.local_indices):raise ValueError('global index table cannot be rebuilt')
-    expected=[0]*t.count
-    for d in m.physical_draws:expected[d.index_start:d.index_start+d.index_count]=m.draw_global_indices(d)
+    expected=[None]*t.count
+    for d in m.physical_draws:
+        values=m.draw_global_indices(d)
+        for slot,value in enumerate(values,d.index_start):
+            if not 0<=slot<t.count:raise ValueError('global cache draw range outside table')
+            if expected[slot] is not None and expected[slot]!=value:raise ValueError('ambiguous overlapping global cache ownership')
+            expected[slot]=value
+    if any(v is None for v in expected):raise ValueError('unowned global cache positions')
     changed=sum(a!=b for a,b in zip(expected,t.indices))
     data=bytearray(raw);struct.pack_into(f'<{t.count}I',data,t.data_offset,*expected)
     return bytes(data),changed
@@ -422,7 +433,8 @@ def auto_features(root,source_family,*,retail_sma=None,cracked_texture=None,glas
 def apply_features(root,profile_path):
     """Explicit native feature overlay, using a pinned Core state recipe."""
     root=Path(root);verify_author(root);report=json.loads(read(root/'heritage-import.json'));profile_raw=read(profile_path,1024*1024);profile=json.loads(profile_raw)
-    if set(profile)!={'version','additional_textures','states','evidence'}or profile['version']!=1 or not isinstance(profile['evidence'],str)or not profile['evidence'].strip():raise ValueError('Invalid Heritage native feature recipe')
+    required={'version','additional_textures','states','evidence'}
+    if not required<=set(profile)or set(profile)-required-{'brake_glow_reference'}or profile['version']!=1 or not isinstance(profile['evidence'],str)or not profile['evidence'].strip():raise ValueError('Invalid Heritage native feature recipe')
     target=root/'assets/source'/report['physics_donor'];extra={}
     for name,item in profile['additional_textures'].items():
         if not re.fullmatch(r'[A-Za-z0-9_-]+\.dxt',name)or set(item)!={'path','sha256'}:raise ValueError('Unsafe native feature texture')
@@ -431,7 +443,16 @@ def apply_features(root,profile_path):
         if (target/name).exists():raise ValueError('Native feature must not replace source textures')
         extra[name]=raw
     from .native_states import author_states
-    data,detail=author_states((target/'car.dx').read_bytes(),profile['states'])
+    source=(target/'car.dx').read_bytes();glow=None;glow_report=None
+    if 'brake_glow_reference'in profile:
+        reference=profile['brake_glow_reference']
+        if set(reference)!={'path','sha256','texture_aliases'}:raise ValueError('Invalid native glow reference')
+        donor=read(reference['path'])
+        if sha(donor)!=reference['sha256']:raise ValueError('Native glow donor changed')
+        from .native_effect_reference import reference_brake_glow
+        glow,glow_report=reference_brake_glow(source,donor,profile['states']['brake'],texture_aliases=reference['texture_aliases'])
+    data,detail=author_states(source,profile['states'],brake_glow=glow,brake_material=glow_report['lit_material']if glow_report else None)
+    if glow_report is not None:detail['native_glow_reference']=glow_report
     references={n.casefold()+'.dxt' for d in parse_dx_bytes(data).physical_draws for n in d.texture_tuple if n.casefold()!='null'}
     available={f.name.casefold() for f in target.iterdir() if f.is_file()}|{n.casefold() for n in extra}
     if references-available:raise ValueError('Missing native feature textures: '+str(sorted(references-available)))

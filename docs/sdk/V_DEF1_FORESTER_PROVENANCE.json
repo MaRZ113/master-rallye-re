@@ -1,0 +1,541 @@
+{
+  "schema": "vdef1-forester-provenance/1",
+  "baseline": "000521f4cf25bd78fac10c66a8cd2792af8fc649",
+  "branch": "research/vehicles",
+  "private_root": "D:\\Game\\Master Rallye\\master-rallye-re-vehicles\\.research-output\\vehicles\\v-def1",
+  "identity": {
+    "demo_exe_sha256": "611526d30be94879012efe54c56ceff428cb4d20a4bd49173370a4ebfe31a728",
+    "ps2_elf_sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+    "demo_localized_model": [
+      {
+        "file_offset": 2520100,
+        "category": 52,
+        "index": 8,
+        "pointer": 6742120
+      },
+      {
+        "file_offset": 2529544,
+        "category": 52,
+        "index": 8,
+        "pointer": 6742120
+      }
+    ],
+    "demo_localized_combined": [
+      {
+        "file_offset": 2520436,
+        "category": 53,
+        "index": 8,
+        "pointer": 6741852
+      },
+      {
+        "file_offset": 2529868,
+        "category": 53,
+        "index": 8,
+        "pointer": 6741852
+      }
+    ],
+    "ps2_localized_model": [
+      {
+        "file_offset": 3215932,
+        "category": 52,
+        "index": 8,
+        "pointer": 4534512
+      },
+      {
+        "file_offset": 3231788,
+        "category": 52,
+        "index": 8,
+        "pointer": 4534512
+      },
+      {
+        "file_offset": 3247644,
+        "category": 52,
+        "index": 8,
+        "pointer": 4534512
+      },
+      {
+        "file_offset": 3263500,
+        "category": 52,
+        "index": 8,
+        "pointer": 4534512
+      },
+      {
+        "file_offset": 3279284,
+        "category": 52,
+        "index": 8,
+        "pointer": 4534512
+      },
+      {
+        "file_offset": 3295068,
+        "category": 52,
+        "index": 8,
+        "pointer": 4534512
+      }
+    ],
+    "ps2_localized_driver": [
+      {
+        "file_offset": 3217276,
+        "category": 57,
+        "index": 8,
+        "pointer": 4537032
+      },
+      {
+        "file_offset": 3233132,
+        "category": 57,
+        "index": 8,
+        "pointer": 4537032
+      },
+      {
+        "file_offset": 3248988,
+        "category": 57,
+        "index": 8,
+        "pointer": 4537032
+      },
+      {
+        "file_offset": 3264844,
+        "category": 57,
+        "index": 8,
+        "pointer": 4537032
+      },
+      {
+        "file_offset": 3280628,
+        "category": 57,
+        "index": 8,
+        "pointer": 4537032
+      },
+      {
+        "file_offset": 3296412,
+        "category": 57,
+        "index": 8,
+        "pointer": 4537032
+      }
+    ],
+    "vehicle": "SUBARU FORESTER",
+    "driver": "DARREN SUTHERLAND",
+    "widget": "T2_Car2",
+    "class_local_index": 1,
+    "original_id": 8,
+    "frame": 1,
+    "frame_texture": "carsheet_001_000",
+    "scene_sha256": "c0be053b124b099400e1b2755b9223c9e0526dc43d74bc2f2f0d82315e99721a",
+    "bank_sha256": "12f6b78cba60db20070c9d38b23b6bc4e8cc99474e5ab3832dfeab6bb7b82bcc",
+    "boundary": "Original localized data records and XML/image-bank bindings; no PS2 instruction or runtime emulation claim. Driver attribution is PS2 evidence, not a newly found PC driver literal.",
+    "icon_source_sha256": "a53ea63ab7fde1adc98445058cc91c3f65096b34b61b292d1150d2a096804048",
+    "results_icon": "Derived 32x16 fit of the authentic Demo CarSheet, not a recovered distinct Results frame"
+  },
+  "source_files": {
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\black-tga.dxt": "c8af53e3c1ea06c42178b3e1988dff0b3c64f150b722cba6bdd0450dc1357f82",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\Black-tga.gxi": "f1e8c064908150ef3a0b354bfa2ae6de8493d2b43b895fb803987dc23cdac8a8",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\car.dx": "fbe8d15af205a3cbe95773d5241372352729f7fbcef21e61386123209a80a423",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\car.gxm": "3d27573a2358f379de1c1914fb6a17ac525a5a709bd62ab824736d05ac4c2535",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\car.txt": "4f526b6d7a78cf1e90b37906f7f5bffdb0b331b58d1cf28a3d8def1f0cb4bc8b",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\chair2-tga.dxt": "3d5eab847f8053023132cc461a0f6aaeebc8379dd00b002a3d050e624a433ef4",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\Chair2-tga.gxi": "51dc32346d79ae24b3e6b84087fedfed39278c643b40a7c1db483ed0b4ef7c41",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\chrome-tga.dxt": "658946001e0c91939421a40e5ac86a91297d93fc5abc1927bf8ae77a4e89012b",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\Chrome-tga.gxi": "1e008b385558738cc16d13dd518a6b5f95743470e9b1207a2f438df6b382673a",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\complete.dx": "72a3b98f616d55e66e43bf0bbc2702bdb5ff464406ae7e14338cc3c4a5a4ee15",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\complete.gxm": "3fa2cff8c100b66236b1f076c164a402ac199fe3502838e0bc18be8a381b790f",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\complete.txt": "e4be47ef34ea7969c76f5e5a9601e1a7fb70e5c6ea194da38170ac109800f5c7",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\dcambell-tga.dxt": "0c8d56d72d5bf83b1530a6e9ccba63efe6bd9b7e0d7c5172b212672c038b2c62",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\Dcambell-tga.gxi": "c7d7a6c76c8edad32f30443b10d138845780c3be2f54d0f0a350e1c1ce6df4dc",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\drichard-tga.dxt": "ebc196b631941ce570f78180aee4bef81a5a5d822a86a0ed370bc814fd02774b",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\Drichard-tga.gxi": "615eff1d205969e0863fdc24a98f7ef72d9b0e37fe4b702159b8f362de8cae10",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\fhelmet32-tga.dxt": "5d36a03db3bf0f735463eb860238c0ec84c6566fbfcd23239b678d4082275ef3",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\Fhelmet32-tga.gxi": "c1e9a035e6db6f6ba3c6fb9ff10a1c5fa6664a899f55e1d9cf3f97a123072f44",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\Forester.txt": "554575f222305c8995a1e642bfb3042f9310ee49b2c22cbe977d91defe485945",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\ForesterWheel.txt": "32a819422ea5f81c8a9cbba69d89df2d0e770eba4f73196a0606affb2a89a6c4",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\forestgrill64-tga.dxt": "59d818a65ef3bf28f5906bee0b7f00ad1fee0babf7502240172b733e344bcfaf",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\Forestgrill64-tga.gxi": "34d29fe59ed5546f8b5b8525cebedef6eb92b3e3368d6c52c850bba671dc48cb",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\forestside128-tga.dxt": "bb23f387accae3383b361aaca9cb03186cb57648d749fc7acb4d771a497fa2d5",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\Forestside128-tga.gxi": "924b21fc59e5718aa2394499ef8fbb230154df28f630d26e537348371eafff27",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\foresttread-tga.dxt": "0c13529c677d52f34f72dfb36f51b134cf92e48e67f5fa228e4d6f52ed853705",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\Foresttread-tga.gxi": "fde8b876ae40a8ec57d13dd1a171c951f56dea595d4da3815abe238aa11ff22e",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\forestwheel64-tga.dxt": "661f7799d84a15392ca68788f186a3dab22245728e24dd5d5ec9bdd2e36ed62f",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\Forestwheel64-tga.gxi": "d725a27b54d677a79d98dbe1aba08d4d3bf8fb665ec4516484687384d5400ef2",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\forestwheel643-tga.dxt": "aaae214381fc7cf2a364d4c9e00dd468ec65a7cd084185a44e12849dbf4e42fc",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\Forestwheel643-tga.gxi": "258c665963d18b8786bd3b56e694a25435ffa18dc767d75088e1cd4d5d1791f0",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\fwheelrim-tga.dxt": "ac684d16fc81ba2be607e4e2e1527adc1865e2d96c0516dd2aad4d81ae8cb0a3",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\Fwheelrim-tga.gxi": "612329a357b74f1c0d02b599f533be8f5bea36bc8be48c29c34a33cf80cc14e0",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\glass-tga.dxt": "f18690e02cad8d249db527ad546bac54db3343894aa136bc84bf0d9531fac71b",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\Glass-tga.gxi": "c008c15cc655242e4577d353b39f6d970d8f4d8143807021077a36b9757daab7",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\lights64-tga.dxt": "ad5a11540f01f5746b9a0835ddc082f70cf2cac32ca97f8ae17d6c8e7e1a84de",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\Lights64-tga.gxi": "b56e1ac3cdf099cb6d26e14425636dd4e6a832c275722f289fc6fb493d52e5f9",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\Mastersticker-tga.gxi": "e5f6f30b97785083b8220772606a2c692a886109c4b4f7711efb07fee886c389",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\mastersticker216-tga.dxt": "2e0dcb3125f51cbbd566de32e6ae4f077c2d99c402870979b1f329f034702c62",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\Mastersticker216-tga.gxi": "cf8ac060a2b4173f941672c453a8786a2e79da525356e04791abc00108c0592b",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\perspex-tga.dxt": "29fddb30997bda1b38b006ffac98fd26a0671d94e8a6c4a86708c0f11f7f8fc0",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\Perspex-tga.gxi": "29d88105c57405541d3a4f31eda6726fb70b3ddc9ea680820053190a42faf9aa",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\rear128-tga.dxt": "fe9c1b99bf7d84027eb40ca1a989e1220d799de042ec18e21a18404df339d1d3",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\Rear128-tga.gxi": "88d80bc37f7405f9611f0de359e7a8b4d903147c671c37b934ca08cab5bfccf4",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\rubber-tga.dxt": "f95b5f1932dc01e2410176c624c07543b6442505c8e85e2f80099836cd3d9208",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\Rubber-tga.gxi": "afba5c39287f33d6ab32576eddbe80e15717385e524b3380d8f6daabcfe1a899",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\shade16-tga.dxt": "507f1a0fcd36c5e79a8e764008d54501f29288e6065dded46c0c0b95c8676649",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\Shade16-tga.gxi": "2941826a6e7e2953861bf04586743c3dd8b242ae64b1a9b82363912265e6d50d",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\underdash-tga.dxt": "8826a163eab3403e64657a0b34eb0ace5b25dbf212368886b85573884d3e1e53",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\Underdash-tga.gxi": "c27508562beaa668046c08581d83b4af0e2518401817d5dbf66f8eca83498e3c",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\wheel.dx": "191009bd708ed20fd0d46c00572e8d8ba833ff5cff5c5f8f92b6772bd1d9a328",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\wheel.gxm": "2f1542430065108649a4629f613493de85332e15a7755dda96ce66d79ea3e48d",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\whitepaint-tga.dxt": "8b8d253cf940e0460fbb11932e0ef1c08d41a68486c178bf63dc5a66cfe441e0",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\Whitepaint-tga.gxi": "d29fcd558301ae264ee188e06c9c687a6695ca6012e91a4ce0c34c15cd82f2df",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\whitesuit-tga.dxt": "6970fe173313c5449c10042ace0d5e115d73066a6474e8ae57fd7cde80a04c67",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\Whitesuit-tga.gxi": "a89f0992daf547dde36d42e709c75f7c196e930df73dd955bf65cb125df340e4",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\windscreen32-tga.dxt": "f8c343db0d8647c62248521800fc7fad2dfba029f055e9a04e14fdb47252a30d",
+    "D:\\Game\\Master Rallye PCG104AXMAS01\\DataGx\\Vehicles\\Forester\\Windscreen32-tga.gxi": "92364dae392cc6bc4e8cba5cc5cc5c826e3ed812699f713ebe2dfafdadfe96cb"
+  },
+  "source_changes": [],
+  "authoring_cache": {
+    "car.dx": {
+      "source_sha256": "fbe8d15af205a3cbe95773d5241372352729f7fbcef21e61386123209a80a423",
+      "authoring_sha256": "9ae8ba697502344972cfe1402a2bfe04e954f15217201be6a362bf474d6ba6fa",
+      "cache_positions_changed": 5449,
+      "preserved_fingerprints": {
+        "surface_sha256": "552b6ec2f43ea5e8b9eed19361f3bddcfd8b8aecb9e0f5e7970bbff5f6e8988d",
+        "uv_surface_sha256": "6a7218f4c44b6db68a018f231541360bb41147a308395a20aa6f57c61c1741a8",
+        "normal_color_surface_sha256": "98d5f07d81619b1b6e370ed3b477fc898585d6cbedb8b765ee453526394e606b",
+        "material_surface_sha256": "74a3a676783fbe6abd73d6ad98e22fa67517002280e4a18cfdab80fa1636d63f",
+        "draw_state_sha256": "19628f18b6bb820e8fbed277e6a3face025f281caba18ba38a57e0ced93db982",
+        "collision_sha256": "9033a8e69a56a2abcac6b3d253e32515aa068956e8dd3b752c8bf17f95e8b693"
+      }
+    },
+    "complete.dx": {
+      "source_sha256": "72a3b98f616d55e66e43bf0bbc2702bdb5ff464406ae7e14338cc3c4a5a4ee15",
+      "authoring_sha256": "9eb3eaa5fc47ee0f2cde5e5609cab5049212151129b55fffc5bf21010a744f9a",
+      "cache_positions_changed": 6644,
+      "preserved_fingerprints": {
+        "surface_sha256": "65d79ccdb016e33e2b05ac27f2bdcb03c986b7ccf6a7f085dbaffc6d1663f454",
+        "uv_surface_sha256": "e05850c18a787c72f9a56d295ba588b5e56123aa67040f52084ad20ea4f8f0e7",
+        "normal_color_surface_sha256": "7efb41bfe03a72a158737e618a63434c25cfddda6a5b60f073f128fa89a69385",
+        "material_surface_sha256": "e05d335b37f0939cdd132aa0922f0837ac0d78df30c7ee85763b7fecda4ff6e0",
+        "draw_state_sha256": "92480ce83f4c47dee59652dcf82e1d0a61aafe6912f70423d93123352e968b2a",
+        "collision_sha256": "c75ae2a2004e1d46637fcb8c6b56facb0dcf93a62ceaa559920a5638a1cdab64"
+      }
+    },
+    "wheel.dx": {
+      "source_sha256": "191009bd708ed20fd0d46c00572e8d8ba833ff5cff5c5f8f92b6772bd1d9a328",
+      "authoring_sha256": "f132e77d2df7c3d52fefa0850173bc9709de6f113309cd32c7b2b701a37f814c",
+      "cache_positions_changed": 675,
+      "preserved_fingerprints": {
+        "surface_sha256": "a169a8ff5c9111b2376c1e3c3f11f380a86f077d4e922c31aa4185e695e73112",
+        "uv_surface_sha256": "590d8d01dd1e2d3e596c56e23b2db5cf09b7814c22079e3de5f3984921df205c",
+        "normal_color_surface_sha256": "5903cfde0c9a6ff210960e7ddc8974ab5424601d7932e9e4f833215c2099f63c",
+        "material_surface_sha256": "6cc89ab0a99c8e19d25ceb3424c468392ea1d1e7981f91d3139e9b7b846b05a6",
+        "draw_state_sha256": "2e2c9f8bf494f4793a176b7311f22b25de1edb79990fb77e06054f8ac725804e",
+        "collision_sha256": "c88fe7e4b59155fcad17129622803f1f89aeabb01e891aff7d2715fe384f7a7d"
+      }
+    }
+  },
+  "source_physics": {
+    "source_sha256": "d32c9ec40cb4d29b8c2e7c12ab401518e025973c6a8bcd4aa255f6fe2402b55a",
+    "original_family": "Forester",
+    "source_row_count": 150,
+    "base_rows_transferred": 137,
+    "player_setup_rows": 26,
+    "retail_only_fields": {
+      "Chassis/MinAerodynamicDownForceSpeed": {
+        "Name": "Vehicles/Forester/Chassis/MinAerodynamicDownForceSpeed",
+        "Type": "Float",
+        "Value": "0.00000",
+        "SaveOptions": "False",
+        "SavePlayerState": "False"
+      },
+      "Chassis/MaxAerodynamicDownForceSpeed": {
+        "Name": "Vehicles/Forester/Chassis/MaxAerodynamicDownForceSpeed",
+        "Type": "Float",
+        "Value": "40.00000",
+        "SaveOptions": "False",
+        "SavePlayerState": "False"
+      },
+      "Chassis/AerodynamicDownForceCoeff": {
+        "Name": "Vehicles/Forester/Chassis/AerodynamicDownForceCoeff",
+        "Type": "Float",
+        "Value": "0.65000",
+        "SaveOptions": "False",
+        "SavePlayerState": "False"
+      },
+      "Suspension/Front/SuspAppPointOffsetVert": {
+        "Name": "Vehicles/Forester/Suspension/Front/SuspAppPointOffsetVert",
+        "Type": "Float",
+        "Value": "0.50000",
+        "SaveOptions": "False",
+        "SavePlayerState": "False"
+      },
+      "Suspension/Rear/SuspAppPointOffsetVert": {
+        "Name": "Vehicles/Forester/Suspension/Rear/SuspAppPointOffsetVert",
+        "Type": "Float",
+        "Value": "0.50000",
+        "SaveOptions": "False",
+        "SavePlayerState": "False"
+      },
+      "DamageParams/GearThresholdDamageSpeed": {
+        "Name": "Vehicles/Forester/DamageParams/GearThresholdDamageSpeed",
+        "Type": "Float",
+        "Value": "1500.00000",
+        "SaveOptions": "False",
+        "SavePlayerState": "False"
+      },
+      "DamageParams/GearThresholdDamageScore": {
+        "Name": "Vehicles/Forester/DamageParams/GearThresholdDamageScore",
+        "Type": "Float",
+        "Value": "4500.00000",
+        "SaveOptions": "False",
+        "SavePlayerState": "False"
+      },
+      "DamageParams/GearDamageResetScore": {
+        "Name": "Vehicles/Forester/DamageParams/GearDamageResetScore",
+        "Type": "Float",
+        "Value": "0.00000",
+        "SaveOptions": "False",
+        "SavePlayerState": "False"
+      },
+      "DamageParams/GearDamageStrength": {
+        "Name": "Vehicles/Forester/DamageParams/GearDamageStrength",
+        "Type": "Float",
+        "Value": "1.00000",
+        "SaveOptions": "False",
+        "SavePlayerState": "False"
+      },
+      "DamageParams/MaxGearDamage": {
+        "Name": "Vehicles/Forester/DamageParams/MaxGearDamage",
+        "Type": "Float",
+        "Value": "2.00000",
+        "SaveOptions": "False",
+        "SavePlayerState": "False"
+      }
+    },
+    "unmapped": [],
+    "owned_tyres": {
+      "source_prefix": "harddirt",
+      "runtime_prefix": "DefForesterTyre",
+      "source_rows": 24,
+      "retail_only_rows": 36,
+      "different_source_fields": [
+        "0/CorneringCoeff",
+        "0/CorneringCoeffGradient",
+        "0/LongitudinalStiffness",
+        "1/PeakMu",
+        "1/ScaleFactor"
+      ],
+      "boundary": "Source tyre coefficients in an owned clone; additional retail solver fields inherited explicitly, stock tables untouched."
+    },
+    "boundary": "Source parameter preservation in retail solver; suspension, collision and complete gameplay remain owner-test gates."
+  },
+  "runtime": {
+    "profile": "sdk-multi-addon-roster-experimental-31",
+    "physical_id": 30,
+    "class": "T2",
+    "class_local_index": 10,
+    "record_count": 31,
+    "classes": {
+      "T1": 8,
+      "T2": 11,
+      "T3": 12
+    },
+    "owner_qualified_record_count": 30,
+    "owner_gameplay": "NOT TESTED",
+    "resources": 345,
+    "operations": 259,
+    "payload_bytes": 183248,
+    "allocation_bytes": 262144
+  },
+  "validation": {
+    "full": {
+      "status": "PASS",
+      "run": 1312,
+      "failed": 0,
+      "errors": 0,
+      "skipped": [
+        {
+          "test": "setUpClass (test_j2_frontend_reentry.J2ReentryPatchPlanTests)",
+          "reason": "exact retail executable or verified J.1 bundle is unavailable"
+        },
+        {
+          "test": "test_vmesh412_runtime.FinalPassTests.test_stock_profile_preserves_tyre_and_refuses_second_pass",
+          "reason": "private vehicle fixture unavailable"
+        }
+      ],
+      "seconds": 76.85734729998512
+    },
+    "focused": 52,
+    "historical_preservation": {
+      "bytes_hashed": 15448297600,
+      "changed": [],
+      "files": 11500,
+      "missing": [],
+      "mutable_owner_runtime_state": "Outside sealed index; owner gameplay saves/options are not reset or overwritten",
+      "schema": "source-garage-preservation/1",
+      "sealed_runtime_resources": 0,
+      "status": "PASS"
+    },
+    "audit_scope": {
+      "status": "PASS_TARGET_AND_ACCEPTED_WITH_EXPLICIT_EXTERNAL_BASELINE_DRIFT",
+      "legacy_manifest_status": "FAIL",
+      "old_manifest_files": 5330,
+      "external_drift_prefix": "D:\\Game\\Master Rallye Nov 2001\\DataGx\\Vehicles\\Wildcat\\",
+      "external_drift_files": [
+        "D:\\Game\\Master Rallye Nov 2001\\DataGx\\Vehicles\\Wildcat\\Mastersticker-tga.gxi",
+        "D:\\Game\\Master Rallye Nov 2001\\DataGx\\Vehicles\\Wildcat\\car.dx",
+        "D:\\Game\\Master Rallye Nov 2001\\DataGx\\Vehicles\\Wildcat\\car.gxm",
+        "D:\\Game\\Master Rallye Nov 2001\\DataGx\\Vehicles\\Wildcat\\car.txt",
+        "D:\\Game\\Master Rallye Nov 2001\\DataGx\\Vehicles\\Wildcat\\complete.dx",
+        "D:\\Game\\Master Rallye Nov 2001\\DataGx\\Vehicles\\Wildcat\\complete.gxm",
+        "D:\\Game\\Master Rallye Nov 2001\\DataGx\\Vehicles\\Wildcat\\complete.txt",
+        "D:\\Game\\Master Rallye Nov 2001\\DataGx\\Vehicles\\Wildcat\\wheel.dx",
+        "D:\\Game\\Master Rallye Nov 2001\\DataGx\\Vehicles\\Wildcat\\wheel.gxm",
+        "D:\\Game\\Master Rallye Nov 2001\\DataGx\\Vehicles\\Wildcat\\wheel.txt",
+        "D:\\Game\\Master Rallye Nov 2001\\DataGx\\Vehicles\\Wildcat\\Mnet1-tga.gxi",
+        "D:\\Game\\Master Rallye Nov 2001\\DataGx\\Vehicles\\Wildcat\\Sgrate32-tga.gxi",
+        "D:\\Game\\Master Rallye Nov 2001\\DataGx\\Vehicles\\Wildcat\\SimmWheel.txt",
+        "D:\\Game\\Master Rallye Nov 2001\\DataGx\\Vehicles\\Wildcat\\Simmblight32-tga.gxi",
+        "D:\\Game\\Master Rallye Nov 2001\\DataGx\\Vehicles\\Wildcat\\Simmhelmet32-tga.gxi",
+        "D:\\Game\\Master Rallye Nov 2001\\DataGx\\Vehicles\\Wildcat\\Simmlight32-tga.gxi",
+        "D:\\Game\\Master Rallye Nov 2001\\DataGx\\Vehicles\\Wildcat\\Simms128-tga.gxi",
+        "D:\\Game\\Master Rallye Nov 2001\\DataGx\\Vehicles\\Wildcat\\Simmwheel64-tga.gxi",
+        "D:\\Game\\Master Rallye Nov 2001\\DataGx\\Vehicles\\Wildcat\\Simmwheel643-tga.gxi",
+        "D:\\Game\\Master Rallye Nov 2001\\DataGx\\Vehicles\\Wildcat\\Simmwheelrim-tga.gxi",
+        "D:\\Game\\Master Rallye Nov 2001\\DataGx\\Vehicles\\Wildcat\\Slogo128-tga.gxi",
+        "D:\\Game\\Master Rallye Nov 2001\\DataGx\\Vehicles\\Wildcat\\Swshade16-tga.gxi",
+        "D:\\Game\\Master Rallye Nov 2001\\DataGx\\Vehicles\\Wildcat\\mastersticker-tga.dxt",
+        "D:\\Game\\Master Rallye Nov 2001\\DataGx\\Vehicles\\Wildcat\\mnet1-tga.dxt",
+        "D:\\Game\\Master Rallye Nov 2001\\DataGx\\Vehicles\\Wildcat\\sgrate32-tga.dxt",
+        "D:\\Game\\Master Rallye Nov 2001\\DataGx\\Vehicles\\Wildcat\\simmblight32-tga.dxt",
+        "D:\\Game\\Master Rallye Nov 2001\\DataGx\\Vehicles\\Wildcat\\simmhelmet32-tga.dxt",
+        "D:\\Game\\Master Rallye Nov 2001\\DataGx\\Vehicles\\Wildcat\\simmlight32-tga.dxt",
+        "D:\\Game\\Master Rallye Nov 2001\\DataGx\\Vehicles\\Wildcat\\simms128-tga.dxt",
+        "D:\\Game\\Master Rallye Nov 2001\\DataGx\\Vehicles\\Wildcat\\simmwheel64-tga.dxt",
+        "D:\\Game\\Master Rallye Nov 2001\\DataGx\\Vehicles\\Wildcat\\simmwheel643-tga.dxt",
+        "D:\\Game\\Master Rallye Nov 2001\\DataGx\\Vehicles\\Wildcat\\simmwheelrim-tga.dxt",
+        "D:\\Game\\Master Rallye Nov 2001\\DataGx\\Vehicles\\Wildcat\\slogo128-tga.dxt",
+        "D:\\Game\\Master Rallye Nov 2001\\DataGx\\Vehicles\\Wildcat\\swshade16-tga.dxt"
+      ],
+      "outside_external_prefix_changed_or_missing": [],
+      "verified_unchanged_files": 5296,
+      "current_external_car_gxm_sha256": "4b739b19f8ec4f1ff859832939d9a1d7b906037e1ba1e2ba19f30d291daba74a",
+      "current_external_car_matches": [
+        "pcg-rebaked/Original/Wildcat",
+        "shipped931/Wildcat",
+        "shipped910/Wildcat"
+      ],
+      "boundary": "External collection changes relative to earlier Demo audit; restoration never writes this tree. No rollback or overwrite performed. Keep raw failed comparison report."
+    },
+    "gui": {
+      "status": "PASS_HIDDEN_WINDOWS_TK_OPEN_AND_D3D9_REFRESH",
+      "identity": "demo-forester-9-3-1",
+      "car_id": 30,
+      "ui_status": "Inspect and render real MR resources \u2014 complete",
+      "seconds": 2.141376700019464,
+      "boundary": "Real Tk/native preview; no D3D8 gameplay."
+    }
+  },
+  "evidence": {
+    "release-candidate/identity-evidence.json": {
+      "sha256": "d6bdf6ccfaf6645d3445b855d09216d6d61f3bfb66dd32a02efcd77678392692",
+      "bytes": 2916
+    },
+    "release-candidate/source-authoring-qualification.json": {
+      "sha256": "d8ea61ddcdfefbecd99c90ca0ef7bc0a601b7a72f529839e453c0b9a3d2fc384",
+      "bytes": 12908
+    },
+    "release-candidate/native-features.json": {
+      "sha256": "f864f1bf8914ec0f608d22763516b8c86b1e9f7814dd21546aab76265b1f9cc5",
+      "bytes": 5723
+    },
+    "release-candidate/physics-preservation.json": {
+      "sha256": "e7d92833f85a946518b738b62b7743c6f9aa5eb7c880de6c67c3e3f7dfe5d7d5",
+      "bytes": 3297
+    },
+    "release-candidate/restoration-result.json": {
+      "sha256": "5275f996e2c00b456fd8f2cf4e9060ce309d734d5489d6fda97be8f2f665bf24",
+      "bytes": 19967
+    },
+    "release-validation.json": {
+      "sha256": "5eac1a90620b67d94c8901481dee4ed89cd8671956ef7bcbc129cf0e88fe2a0e",
+      "bytes": 26489
+    },
+    "owned-tyres-validation.json": {
+      "sha256": "5f0c4c4af1ea8452004773e5cb3dd468ded56bc88c5c213df30308a90ffdbaff",
+      "bytes": 3661
+    },
+    "tyre-reference-comparison.json": {
+      "sha256": "e6426f4b6afe87de7444ed996a67116dc3d408d12ac8759f911f9e699a383df8",
+      "bytes": 2722
+    },
+    "release-gui-validation.json": {
+      "sha256": "c27b13f28c276f149489e03ecae562f3bf0c1012a370631b5fc8dcbf97c809bc",
+      "bytes": 286
+    },
+    "release-previews/capture-report.json": {
+      "sha256": "32209a43cb285cc44b2d6956e9fa16cf742e5144f5914494405d6c6a73f34123",
+      "bytes": 12319
+    },
+    "release-previews/comparison.png": {
+      "sha256": "68d22f67f1a764600a6ce74af4e78bb75c8277f7e768f733dd9977ad0fc056ba",
+      "bytes": 467199
+    },
+    "full-regression-with-tyres.json": {
+      "sha256": "8417df4a3d6ba30adf5dcd50363a691729dc7b04b7b8d26c4d3f073bf9ea1fd0",
+      "bytes": 9107
+    },
+    "final-focused.json": {
+      "sha256": "fce2be96f1a5e78f6468b1850c841b3019e63bdc9f210a7accc055a79a31064a",
+      "bytes": 8613
+    },
+    "historical-preservation/validation.json": {
+      "sha256": "04e5985bafd85cba66125824bbc51f85b1ae7f5ad95564054b9c9b71e391d276",
+      "bytes": 266
+    },
+    "audit-preservation/validation.json": {
+      "sha256": "ac78bfc0f4f325b7aa8612cd42424db90c5f7293cb94dfc945ea6da700bfcf84",
+      "bytes": 2965
+    },
+    "preservation-scope.json": {
+      "sha256": "f3b9a979c51ce11ff5cadbdad23350c1ffec649bdfb0e58a7a0053e3676bfcdd",
+      "bytes": 3701
+    },
+    "release-candidate/workshop/builds/first/candidate/runtime/runtime-profile.json": {
+      "sha256": "d02d85c93cdea2ffd7f2509edaf8a261633ea6609104bf17156531ea1a49bb9c",
+      "bytes": 3203
+    },
+    "release-candidate/workshop/builds/first/candidate/runtime/resource-manifest.json": {
+      "sha256": "4f4608b46c0fb140a98008337d5a3cfdda852ef5d7754355b927954b0e776bbb",
+      "bytes": 93634
+    },
+    "release-candidate/workshop/builds/first/candidate/runtime/native-patch-manifest.json": {
+      "sha256": "0d6c7ccfb0385ac09e1681615f0c5ed8bc117cfea393949a7e4dfd229b4c4156",
+      "bytes": 243066
+    },
+    "release-candidate/workshop/builds/first/candidate/runtime/roster-reservations.json": {
+      "sha256": "9192ab56366b54d769922e9be74a587b03da49da3733332a8d366420f9bec952",
+      "bytes": 741
+    },
+    "release-candidate/workshop/builds/first/candidate/runtime/addon-plan.json": {
+      "sha256": "901fd2f466884438d61a1d88c16b87168fa71fd401198eee7d1ad4068947de47",
+      "bytes": 15596
+    },
+    "release-candidate/workshop/builds/first/candidate/validation.json": {
+      "sha256": "0ca695632d27550d4a7bc06d0793466517b073aafa48727ff14fde5cd82416df",
+      "bytes": 3108
+    }
+  },
+  "native_research": {
+    "scratch": "vehicles_scratch/vdef1",
+    "provider": "REA/Ghidra12.1.4 PC x86",
+    "exe_sha256": "611526d30be94879012efe54c56ceff428cb4d20a4bd49173370a4ebfe31a728",
+    "registry_evidence": "ev_a84ea130b2215f0abb3ca521fbbf04564f147f9fc0f394e2c2d783507a580cbd",
+    "bytes_evidence": "ev_2191e51857eb71ebada37f659916468b9de72f8c7590aa3dc41897f886038d7a",
+    "PS2": "Original ELF localized triples only; no R5900 instruction/runtime equivalence claimed"
+  },
+  "boundaries": [
+    "31st independent record and T2 local10 lifecycle",
+    "player/AI, Results, saves and re-entry",
+    "damage triggers, glow and lamp visibility in D3D8",
+    "source parameters in retail solver",
+    "No separate source rear glass surface; no invented rear damage zone",
+    "Broken glass UV/normals approximate retail appearance; original intact pane attributes preserved",
+    "Randomizer coexistence not newly tested; existing CMD environment rules apply",
+    "Original executable,archive,proxy and accepted builds not modified.",
+    "34 unrelated Nov Wildcat files drift from previous Demo audit; raw FAIL retained, no rollback.",
+    "No private donor payload or preview in source review archives."
+  ],
+  "current_candidate": "D:\\Game\\Master Rallye\\master-rallye-re-vehicles\\.research-output\\vehicles\\v-def1\\release-candidate\\workshop\\builds\\first\\candidate",
+  "current_workshop": "D:\\Game\\Master Rallye\\master-rallye-re-vehicles\\.research-output\\vehicles\\v-def1\\release-candidate\\workshop"
+}

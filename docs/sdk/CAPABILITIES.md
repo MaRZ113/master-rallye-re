@@ -1,3 +1,21 @@
+# V-DEF1 — canonical Demo Forester (1 November2026)
+
+Owned DefForesterTyre preserves24 Demo coefficients (five differ from retail),
+with36 retail-only tyre fields retained explicitly. Original shared tables are
+unchanged. The final common physics change is covered by1312 full/52 focused
+passing tests (two optional full-suite skips).
+
+Canonical9.3.1 rebaked Forester is authorable via strict optional cache-order
+proof and unchanged source fingerprints. Generic native effect-reference and
+historical-MR-physics helpers restore qualified glass/WOOLDAND halo and original
+source parameter values through Heritage/Workshop. Original Demo CarSheet and
+PS2 Darren Sutherland table binding are verified. Separate ID30/T2 local10 is
+built only with the explicit experimental31-record profile; owner-qualified
+capacity remains30. Two real Workshop builds,hidden Tk/native refresh,31 D3D9
+captures and emitted-helper emulation pass; D3D8 gameplay remains NOT TESTED.
+See V_DEF1_FORESTER_RESTORATION.md and V_DEF1_FORESTER_OWNER_TEST.md. No DLL,
+installation,Randomizer changes or accepted resource replacement is introduced.
+
 # Complete Demo audit —1 November2026
 
 Read-only recursive census and decoded geometry/UV/material comparisons now cover

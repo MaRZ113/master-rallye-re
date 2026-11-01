@@ -39,7 +39,7 @@ def wrap_states(template,items):
     return data
 
 
-def author_states(raw,profile):
+def author_states(raw,profile,*,brake_glow=None,brake_material=None):
     if not isinstance(profile,dict) or 'source_sha256'not in profile or set(profile)-{'source_sha256','panes','brake'}:raise ValueError('Unknown native state recipe keys')
     if hashlib.sha256(raw).hexdigest()!=profile['source_sha256']:raise ValueError('Native feature source SHA256 mismatch')
     m=parse_dx_bytes(raw);geometry=source_geometry(m)
@@ -64,6 +64,7 @@ def author_states(raw,profile):
         allocated+=ids;intact=part(index,ids);broken=replace(intact,geometry=subset(geometry[index],ids,pane['broken_uv_axes']),textures=(pane['broken_texture'],intact.textures[1],'Null'))
         special.append((label,[intact],[broken]));off_parts.append(intact);reports[label]={'source_draw':index,'triangles':ids,'broken_uv':'Explicit planar native MR approximation'}
     lamp=profile.get('brake')
+    if brake_glow is not None and (not lamp or not isinstance(brake_glow,ScenePart) or not brake_glow.alpha or brake_glow.diffuse):raise ValueError('Reference glow requires an explicit brake and alpha/unlit ScenePart')
     if lamp:
         required={'source_draw','triangles','lit_texture','glow_texture','evidence'}
         if not required<=set(lamp) or set(lamp)-required-{'mode'} or not isinstance(lamp['evidence'],str)or not lamp['evidence'].strip():raise ValueError('Native lamp source evidence required')
@@ -72,12 +73,16 @@ def author_states(raw,profile):
         index=lamp['source_draw'];ids=lamp['triangles'];part(index,ids);allocated=allocations.setdefault(index,[])
         if not ids or len(ids)!=len(set(ids))or any(type(i)is not int or not 0<=i<len(geometry[index].triangles)for i in ids)or set(allocated)&set(ids):raise ValueError('Invalid native lamp selection')
         allocated+=ids;off=part(index,ids);lit=replace(off,textures=(lamp['lit_texture'],'Null','Null'),environment=False,diffuse=False)
-        glow=replace(lit,textures=(lamp['glow_texture'],'Null','Null'),alpha=True,alpha_test=False)
+        if brake_material is not None:
+            if set(brake_material)!={'alpha','alpha_test','environment','diffuse','secondary_texture'}or any(type(brake_material[k])is not bool for k in ('alpha','alpha_test','environment','diffuse')):raise ValueError('Invalid native reference lamp material')
+            lit=replace(lit,textures=(lamp['lit_texture'],brake_material['secondary_texture'],'Null'),**{k:brake_material[k]for k in ('alpha','alpha_test','environment','diffuse')})
+        glow=brake_glow if brake_glow is not None else replace(lit,textures=(lamp['glow_texture'],'Null','Null'),alpha=True,alpha_test=False)
         # Explicit masked overlay keeps the underlying original surface lit by
         # the ordinary body pipeline, including large triangles shared by a
         # lens and painted panel. Only the derived atlas coverage emits light.
         on=[lit,glow] if mode=='replace' else [off,replace(lit,alpha=True,alpha_test=True),glow]
         special.append(('blight',[off],on));off_parts.append(off);reports['blight']={'source_draw':index,'triangles':ids,'evidence':lamp['evidence'],'mode':mode,'halo':'Source lens geometry only; no enlargement/body spill'}
+        if brake_glow is not None:reports['blight']['halo']='Explicit source-pinned native donor glow geometry, independently fitted to the two selected lenses'
     body=[]
     for index in range(len(m.physical_draws)):
         remaining=sorted(set(range(len(geometry[index].triangles)))-set(allocations.get(index,[])))

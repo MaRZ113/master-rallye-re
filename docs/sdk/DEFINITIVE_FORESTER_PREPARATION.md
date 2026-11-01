@@ -1,6 +1,6 @@
 # Definitive Edition — independent Forester preparation
 
-**Status: inventory and registration research; no new vehicle candidate.** User identifies demo/PS2 `FORESTER` driver as Darren Sutherland; original data-to-driver binding is not yet verified. Retail PC registry ID8 is named `Forester`, display `SUBPELKA WOOLDAND`, class T2; it is a distinct reference and must not be conflated with the demo/PS2 family. See `research/r5v_a/final-vehicle-registry.md`.
+**Historical preparation snapshot; superseded by [V-DEF1 restoration](V_DEF1_FORESTER_RESTORATION.md).** The original findings below are retained as pre-pilot history, not current unresolved status. User identifies demo/PS2 `FORESTER` driver as Darren Sutherland; original data-to-driver binding is not yet verified. Retail PC registry ID8 is named `Forester`, display `SUBPELKA WOOLDAND`, class T2; it is a distinct reference and must not be conflated with the demo/PS2 family. See `research/r5v_a/final-vehicle-registry.md`.
 
 The actual local demo 9.3.1 `DataGx/Vehicles/Forester` has 56 files: two DX, 23 DXT, 24 GXI, three GXM and four TXT. Important source hashes:
 

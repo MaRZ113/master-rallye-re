@@ -13,3 +13,11 @@ gameplay, damage, AI, performance or audio lifecycle.
 If validation fails, retain its exact error. Restore the selected edit or Undo,
 then validate again. Do not bypass source hashes or copy unrelated runtime assets.
 Private game resources are not included in source review archives.
+
+
+V-DEF1 adds a separately named experimental31-record profile for one independent
+Forester test. It requires explicit`experimental_record_count:31` and three
+contiguous appended T2 author entries; ordinary29/30 builds retain their guards.
+The resulting CMD candidate is ready for owner testing,not gameplay-qualified
+or DLL-installable. Keep its saves and resources isolated and follow
+`V_DEF1_FORESTER_OWNER_TEST.md`.
