@@ -92,3 +92,21 @@ The profile is named`sdk-multi-addon-roster-experimental-31` and requires an
 explicit configuration opt-in. Default29/30 guards remain. Owner-qualified
 capacity remains30 until a complete D3D8 lifecycle/save/AI review. No32/36 or
 class expansion is inferred. See V_DEF1_FORESTER_RESTORATION.md.
+
+
+## V-DEF3 — current33-record offline qualification
+
+The earlier30/31-record snapshots above are historical. Owner now accepts
+Forester30/RAV4 31 (retail Newrav physics) in the32-record reference. A separate
+explicit33 profile implements8/12/13, full bidirectional selection permutation,
+original13-key publisher proof, allocated widgets and isolated canary32. It does
+not renumber existing vehicles or add the canary to T3 AI. The hidden ID25 widget
+is recovered from the pinned parent archive where an old loose overlay omitted
+it. Storage is512KiB only for this profile; existing29–32 gates are unchanged.
+
+Original-source geometry and gameplay systems are preserved.1336 Windows tests
+(two existing optional skips), native helper/resource checks, two deterministic
+Workshop builds and launcher preflights pass.33-record gameplay, save lifecycle,
+Randomizer coexistence and T3 AI additions are not confirmed. Original Demo8.4.1
+name is PROVEN TOMCAT / PRIVATEER TOMCAT; no full restoration yet. See
+[V-DEF3 results](V_DEF3_ROSTER_ORDER_RESULTS.md) for exact consumers and tests.

@@ -61,7 +61,7 @@ def emit_audio_lookup(code, rows, parent):
     code.emit(bytes.fromhex('c20400'))
 
 
-def payload(image, pe, rows, va):
+def payload(image, pe, rows, va, selection_layout=None):
     code = registry._CodeImage(va)
     rows = sorted(rows, key=lambda r:r['physical_id'])
     profiles = [_profile(r) for r in rows]
@@ -70,18 +70,22 @@ def payload(image, pe, rows, va):
     for n,p in enumerate(profiles):
         registry._emit_record_initializer(code, p, 4 + p.slot_id * 52, f'name{n}')
     code.emit(bytes.fromhex('8bc65ec3'))
+    mappings = [(p.slot_id,p.vehicle_class,p.local_index) for p in profiles]
+    if selection_layout is not None:
+        mappings = [(physical,c,local) for c,cls in enumerate(('T1','T2','T3'))
+                    for local,physical in enumerate(selection_layout['class_to_physical_ids'][cls])]
     code.label('forward')
-    for n,p in enumerate(profiles):
-        code.emit(b'\x83\x79\x10' + bytes([p.vehicle_class])); code.jne(f'f{n}')
-        code.emit(b'\x83\x79' + bytes([0x14+4*p.vehicle_class,p.local_index])); code.jne(f'f{n}')
-        code.emit(b'\xb8'+struct.pack('<I',p.slot_id)+b'\xc3'); code.label(f'f{n}')
+    for n,(physical,cls,local) in enumerate(mappings):
+        code.emit(b'\x83\x79\x10' + bytes([cls])); code.jne(f'f{n}')
+        code.emit(b'\x83\x79' + bytes([0x14+4*cls,local])); code.jne(f'f{n}')
+        code.emit(b'\xb8'+struct.pack('<I',physical)+b'\xc3'); code.label(f'f{n}')
     code.jump(branch_target(image,pe,i0.FORWARD_CLASS_HOOK_VA,0xe9))
     code.label('reverse')
-    for n,p in enumerate(profiles):
-        code.emit(b'\x81\x7c\x24\x04'+struct.pack('<I',p.slot_id)); code.jne(f'r{n}')
+    for n,(physical,cls,local) in enumerate(mappings):
+        code.emit(b'\x81\x7c\x24\x04'+struct.pack('<I',physical)); code.jne(f'r{n}')
         code.emit(bytes.fromhex('568bf1'))
-        code.emit(b'\xc7\x46\x10'+struct.pack('<I',p.vehicle_class))
-        code.emit(b'\xc7\x46'+bytes([0x14+4*p.vehicle_class])+struct.pack('<I',p.local_index))
+        code.emit(b'\xc7\x46\x10'+struct.pack('<I',cls))
+        code.emit(b'\xc7\x46'+bytes([0x14+4*cls])+struct.pack('<I',local))
         code.jump(0x00481e89); code.label(f'r{n}')
     code.jump(branch_target(image,pe,i0.REVERSE_CLASS_HOOK_VA,0xe9))
     # Each bridge extends all existing identities, with the original helper as
@@ -153,7 +157,7 @@ def payload(image, pe, rows, va):
     return code.build(), {k:va+v for k,v in code.labels.items()}, hooks
 
 
-def extend_image(source, image, rows, *, base_count=28, storage='existing_cave', payload_va=0x10000000):
+def extend_image(source, image, rows, *, base_count=28, storage='existing_cave', payload_va=0x10000000, selection_order=None, allocation_size=262144):
     """Build one reversible extension; no source/frozen image is modified."""
     if i0.sha256(source)!=i0.RETAIL_SHA256 or len(image)!=len(source):
         raise ValueError('unsupported retail identity/image size')
@@ -161,15 +165,22 @@ def extend_image(source, image, rows, *, base_count=28, storage='existing_cave',
     pe=registry.parse_pe(source); rows=sorted(rows,key=lambda r:r['physical_id'])
     if not rows or [r['physical_id'] for r in rows]!=list(range(base_count,base_count+len(rows))):
         raise ValueError('native extension requires contiguous appended global records')
+    from master_rallye.addon_sdk.roster_layout import resolve_layout
+    selection_layout=resolve_layout(rows,selection_order)
+    # The 13th widget requires an explicit complete map; legacy candidates
+    # retain the original publisher and native mapping chain byte-for-byte.
+    expanded=any(len(ids)>12 for ids in selection_layout['canonical'].values())
+    if expanded and selection_order is None:raise ValueError('Thirteen-position profile requires explicit selection_order')
     classes={'T1':8,'T2':8,'T3':12}
     for r in rows:
         c=r['vehicle_class']
-        if r['class_local_index']!=classes[c] or classes[c]>=12:
-            raise ValueError('class slot must append within the audited twelve-position publisher')
+        if r['class_local_index']!=classes[c] or classes[c]>=13:
+            raise ValueError('class slot must append within the bounded thirteen-position profile')
         if c!='T2' and any(v['enabled'] for v in r['ai_eligibility'].values()):
             raise ValueError('new AI pool routes currently qualified for T2 loop structure only')
         classes[c]+=1
     count=base_count+len(rows)
+    if allocation_size!=262144 and not (allocation_size==524288 and count==33 and selection_order is not None):raise ValueError('Unqualified roster storage budget')
     if count>=128:raise ValueError('current lifecycle/initializer signed imm8 encoding bound exceeded')
     ops=[]
     def patch(name,va,expected,replacement):
@@ -189,19 +200,25 @@ def extend_image(source, image, rows, *, base_count=28, storage='existing_cave',
     # G.1 constructor capacity stub has MOV [ESI+20],8 / [ESI+24],8.
     for c,va in [('T1',0x68e638),('T2',0x68e63f)]:
         if classes[c]!=8:patch('capacity_'+c,va,bytes([8]),bytes([classes[c]]))
+    if classes['T3']!=12:patch('capacity_T3',0x480a65,b'\x0c',bytes([classes['T3']]))
+    if expanded:
+        off=registry.va_to_file_offset(pe,0x4819a4,5)
+        if image[off:off+5]!=bytes.fromhex('83fe0c7cb1'):raise ValueError('publisher instruction signature changed')
+        patch('position_publisher_13',0x4819a6,b'\x0c',b'\x0d')
     # Select only untouched bytes inside the already admitted code-cave page.
     chosen=None
     if storage=='private_allocation':
         # Fixed, independently reserved x86 address. The launcher fails before
         # resume if unavailable; no guessed relocation or fallback address.
-        if type(payload_va) is not int or payload_va%16 or not 0x10000000<=payload_va<0x10040000:
+        if type(payload_va) is not int or payload_va%16 or not 0x10000000<=payload_va<0x10000000+allocation_size:
             raise ValueError('capacity payload must be aligned within the bounded shared allocation')
-        va=payload_va;blob,entries,hooks=payload(image,pe,rows,va)
+        va=payload_va;blob,entries,hooks=payload(image,pe,rows,va,selection_layout if selection_order is not None else None)
         if len(blob)>65536:raise ValueError('private native payload budget exceeded')
+        if payload_va+len(blob)>0x10000000+allocation_size:raise ValueError('capacity helper exceeds shared allocation')
         chosen=(va,blob,entries,hooks)
     elif storage=='existing_cave':
         for va in range(0x68e800,0x68f000,16):
-            blob,entries,hooks=payload(image,pe,rows,va)
+            blob,entries,hooks=payload(image,pe,rows,va,selection_layout if selection_order is not None else None)
             if va+len(blob)>0x68f000:break
             off=registry.va_to_file_offset(pe,va,len(blob))
             if image[off:off+len(blob)]==bytes(len(blob)):
@@ -217,5 +234,6 @@ def extend_image(source, image, rows, *, base_count=28, storage='existing_cave',
     result=i0._apply_layer(image,ops)
     report={'operations':ops,'entries':entries,'payload_va':va,'payload_size':len(blob),
             'layout':layout,'classes':classes,'runtime_qualified':False,'storage':storage}
+    if selection_order is not None:report['selection_layout']=selection_layout
     if storage=='private_allocation':report['private_payload_hex']=blob.hex()
     return result,report

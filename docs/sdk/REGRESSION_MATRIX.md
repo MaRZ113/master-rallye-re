@@ -776,3 +776,21 @@ Full tier timings identify repeated audio fixture work as the slowest tests; no 
 Full Windows tier: 1284 tests, two optional fixture skips, PASS at the audit checkpoint. Seven focused composition tests subsequently pass for partial/touching ranges, changed executable hashes, source-plan mismatch, changed preimages, empty plans and ambiguous/moved PE section mapping. The exact local J.2/F3 plan audit detects two Challenge conflicts. No DLL integration, live game test, new capacity, source fallback or owner gameplay claim. See DLL_EXTERNAL_RESOURCE_DEPLOYMENT.md and DEFINITIVE_FORESTER_PREPARATION.md.
 
 Subsequent Workshop loose-resource draft: full Windows tier 1292 tests, two optional fixture skips, PASS; final focused 24 tests across draft, editable options, existing Workshop and plan-composition logic pass. Tk button exercised against local J.2 bundle, resulting manifest identical to direct API output. Source archive/loose precedence is original static evidence; package loading, runtime DLL and owner gameplay remain NOT TESTED. Package is deliberately marked non-installable.
+
+
+## V-DEF3 roster expansion/order —1 November2026
+
+| Check | Result / boundary |
+|---|---|
+| Original source | REA x86 retail mappings/details/navigation/constructor, original physical-ID AI loops and Broker CarID getter; static evidence only |
+| Native33 |33 inverse/forward maps; five initializers/marker bits;55 literal-name and99 single-getter audio checks; Results/unlock and existing T2 AI chains PASS with native-call mocks |
+| Frontend13 | Actual candidate publisher13 keys;33 right-navigation cases and8/12/13 native count bytes PASS; all32 prior widget owners preserved |
+| Accepted resources |376 nonshared files exact; original physics values/UI-bank records retained;1085 protected original/accepted file pins unchanged |
+| Determinism | Two actual Workshop builds:416 resource files,293 DX/DXT, native extension and RVP exact |
+| Launcher | Three Windows preflights exit0;33-only512-KiB allocation, RW/NX data and occupied-address refusal PASS; no game launch |
+| Focused |45 tests PASS, including seven new synthetic cases; final canonical/null-order API correction covered after full run |
+| Full Windows |1336 tests,0 failures/errors,2 pre-existing optional private-fixture skips,99.980s PASS |
+| Owner D3D8 | PENDING for configured33 package, Results/re-entry/save/AI/Randomizer; prior Forester and retail-physics RAV4 owner acceptance recorded separately |
+
+See V_DEF3_ROSTER_ORDER_RESULTS.md and source-only V_DEF3_PROVENANCE.json.
+No new playable Demo restoration or original-file write is inferred.

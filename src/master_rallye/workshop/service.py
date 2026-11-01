@@ -196,6 +196,54 @@ class WorkshopProject(AudioAuthoring,VehicleAuthoring,AudioImportAuthoring,GTAud
             self.data['car_id']=matches[0]['physical_id']
         self.data['build_settings']=settings;self.save()
 
+    def roster_configuration(self):
+        """Editable class/order declaration; the selected input is read-only."""
+        path=Path(self.data['build_settings']['roster_candidate'])/'roster-config.json'
+        config=json.loads(path.read_text())
+        return {'selection_order':config.get('selection_order'),
+                'class_assignments':{str(row['physical_id']):row.get('vehicle_class',
+                    json.loads((Path(row['project'])/'addon.json').read_text())['vehicle_class'])
+                    for row in config['projects']}}
+
+    def configure_roster(self, selection_order, class_assignments=None):
+        """Copy-on-write roster settings, preserving stable reservation ownership."""
+        import copy
+        from master_rallye.addon_sdk.roster_layout import resolve_layout
+        from master_rallye.addon_sdk.collection import reserve_roster
+        old=Path(self.data['build_settings']['roster_candidate'])/'roster-config.json'
+        config=json.loads(old.read_text());rows=[];counts={'T1':8,'T2':8,'T3':12}
+        assignments={} if class_assignments is None else class_assignments
+        if not isinstance(assignments,dict):raise ValueError('Class assignments must be an ID-to-class object')
+        known={str(entry['physical_id']) for entry in config['projects']}
+        if set(assignments)-known:raise ValueError('Class assignment must name an existing addon physical ID')
+        for entry in sorted(config['projects'],key=lambda r:r['physical_id']):
+            row=json.loads((Path(entry['project'])/'addon.json').read_text())
+            cls=assignments.get(str(entry['physical_id']),entry.get('vehicle_class',row['vehicle_class']))
+            if cls not in counts:raise ValueError('Unknown roster class')
+            if cls!='T2' and any(v['enabled'] for v in row['ai_eligibility'].values()):raise ValueError('Non-T2 AI class reassignment is not qualified')
+            entry['vehicle_class']=cls
+            row.update(physical_id=entry['physical_id'],vehicle_class=cls,class_local_index=counts[cls]);counts[cls]+=1;rows.append(row)
+        resolve_layout(rows,selection_order)
+        if config.get('reservations'):
+            previous=json.loads(Path(config['reservations']).read_text())
+            base=[{'addon_id':'reserved-base-'+str(i),'physical_id':i,'vehicle_class':c,'class_local_index':n}
+                  for i,c,n in ((26,'T1',7),(27,'T2',7))]
+            # Use original reservation identities for the frozen base records.
+            for row in base:
+                match=next((r for r in previous['reservations'] if r['physical_id']==row['physical_id']),None)
+                if match:row['addon_id']=match['addon_id']
+            all_rows=base+rows
+            reserve_roster([{k:r[k]for k in ('addon_id','physical_id','vehicle_class')}for r in all_rows],
+                slots=[{k:r[k]for k in ('physical_id','vehicle_class','class_local_index')}for r in all_rows],previous=previous)
+        if selection_order is None:
+            if config.get('experimental_record_count')==33:raise ValueError('33-record trial requires a complete selection order')
+            config.pop('selection_order',None)
+        else:config['selection_order']=copy.deepcopy(selection_order)
+        folder=self.root/'roster-configurations'/uuid.uuid4().hex
+        write_json(folder/'roster-config.json',config)
+        self.configure_build({**self.data['build_settings'],'roster_candidate':str(folder)})
+        return self.roster_configuration()
+
     def verify_inputs(self):
         from master_rallye.addon_sdk.heritage_source import verify_author
         verify_author(self.working)

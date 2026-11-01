@@ -21,3 +21,27 @@ contiguous appended T2 author entries; ordinary29/30 builds retain their guards.
 The resulting CMD candidate is ready for owner testing,not gameplay-qualified
 or DLL-installable. Keep its saves and resources isolated and follow
 `V_DEF1_FORESTER_OWNER_TEST.md`.
+
+
+## Vehicle order and class assignment
+
+In the legacy Workshop, **Configure → Configure vehicle order and classes**
+opens the reusable roster declaration. `selection_order` is a complete object
+of T1/T2/T3 physical-ID arrays. Reorder within each class without changing CarIDs,
+resource/UI frames, physics or identities. Use `null` for canonical append order
+on existing29–32 profiles. Save creates a private project-owned configuration;
+the selected accepted roster is read-only. Return to its existing path in
+Configure to roll back.
+
+`class_assignments` maps existing addon physical IDs to T1/T2/T3. It does not
+allocate a new car. Reservation conflicts are rejected; new non-T2 AI routes
+must be disabled until independently qualified. A33-record13-position trial
+requires a complete order and the explicit33 profile; it is not unrestricted
+capacity. The author compiler and CMD packaging path are reused.
+
+Configured-order packages refuse active saved championships. Test only fresh
+competitions and disposable candidate saves; do not copy trial state back to
+retail. V-DEF3's SDK SLOT32 vehicle is a technical retail Wildcat clone, not the
+restored Demo TOMCAT. See `docs/sdk/V_DEF3_ROSTER_ORDER_RESULTS.md` for the private
+CMD and owner selection/Results/re-entry/save checklist. Offline PASS is not
+D3D8 gameplay qualification.

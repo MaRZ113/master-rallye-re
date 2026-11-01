@@ -542,3 +542,21 @@ Source Garage and the pilot now use versioned memory/disk preview caches, real s
 ## Definitive loose-resource draft
 
 Workshop Build / Scope prepares a private, deterministic loose-resource draft from an indexed SDK bundle and a selected retail SMA/root; it reports shared configuration and existing loose-file conflicts and excludes options and PlayerState. It does not install files, compile a DLL or establish game compatibility. Native loose-first/archive fallback has static retail evidence; per-version loading and runtime qualification remain open. See DLL_EXTERNAL_RESOURCE_DEPLOYMENT.md.
+
+
+## V-DEF3 — configurable physical-ID order and bounded33 trial
+
+Owner accepts Demo Forester30 and Demo RAV4 31 with retail Newrav physics.
+Common roster builder and Workshop Configure now expose complete per-class
+selection permutations and explicit addon runtime class assignments. Physical
+IDs, reservation append ownership, UI frames, family resources, Results, audio,
+physics and race-marker values stay independent of selection position.
+
+The private33-record8/12/13 profile adds a labelled retail Wildcat capacity probe
+at32, not a restored Demo car. Thirteen widgets/position keys,33 native maps,
+ABI/AI dispatch and deterministic two-build preservation pass offline. Explicit
+33-only512-KiB storage is validated by remote allocation preflight; older profile
+bounds remain. New T3 AI, arbitrary EXE layouts, active championship migration,
+capacity beyond33 and full Demo TOMCAT restoration are unsupported. D3D8 owner
+selection/race/Results/save/Randomizer tests are pending. See
+[V-DEF3 results](V_DEF3_ROSTER_ORDER_RESULTS.md).

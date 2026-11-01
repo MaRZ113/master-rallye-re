@@ -27,6 +27,7 @@ from master_rallye.addon_sdk.manifest import canonical_json
 PROFILE='sdk-multi-addon-roster'
 EXPERIMENTAL_31_PROFILE='sdk-multi-addon-roster-experimental-31'
 EXPERIMENTAL_32_PROFILE='sdk-multi-addon-roster-experimental-32'
+EXPERIMENTAL_33_PROFILE='sdk-multi-addon-roster-experimental-33'
 ALLOCATION=262144
 
 def append_owned_family(base,source,family):
@@ -111,23 +112,29 @@ def qualified_wheel_profiles(profiles, resources, rows):
 
 
 def derive(config):
-    if not isinstance(config,dict) or not {'sdk_roster_version','base_runtime','projects'}<=set(config) or set(config)-{'sdk_roster_version','base_runtime','projects','reservations','retail_exe','frontend_profiler','frontend_bulk_read','stock_resource_projects','camera_profiles','frontend_profiles','base_glass_profiles','wheel_profiles','experimental_record_count'} or type(config.get('sdk_roster_version')) is not int or config['sdk_roster_version']!=1:raise ValueError('unsupported SDK roster declaration')
+    if not isinstance(config,dict) or not {'sdk_roster_version','base_runtime','projects'}<=set(config) or set(config)-{'sdk_roster_version','base_runtime','projects','reservations','retail_exe','frontend_profiler','frontend_bulk_read','stock_resource_projects','camera_profiles','frontend_profiles','base_glass_profiles','wheel_profiles','experimental_record_count','selection_order'} or type(config.get('sdk_roster_version')) is not int or config['sdk_roster_version']!=1:raise ValueError('unsupported SDK roster declaration')
     if type(config.get('frontend_profiler',False)) is not bool:raise ValueError('frontend_profiler must be an explicit boolean')
     if type(config.get('frontend_bulk_read',False)) is not bool:raise ValueError('frontend_bulk_read must be an explicit boolean')
     inputs=config.get('projects')
     experimental=config.get('experimental_record_count')
-    if experimental is not None and (type(experimental)is not int or experimental not in(31,32)):raise ValueError('Only explicit experimental 31/32-record layouts are admitted')
-    if not isinstance(inputs,list) or len(inputs) not in ((experimental-28,)if experimental is not None else(1,2)):raise ValueError('29/30 layouts are ordinary; 31/32 require explicit experimental_record_count and matching projects')
-    profile_name={31:EXPERIMENTAL_31_PROFILE,32:EXPERIMENTAL_32_PROFILE}.get(experimental,PROFILE)
+    if experimental is not None and (type(experimental)is not int or experimental not in(31,32,33)):raise ValueError('Only explicit experimental 31/32/33-record layouts are admitted')
+    if not isinstance(inputs,list) or len(inputs) not in ((experimental-28,)if experimental is not None else(1,2)):raise ValueError('29/30 layouts are ordinary; 31/32/33 require explicit experimental_record_count and matching projects')
+    if experimental==33 and config.get('selection_order') is None:raise ValueError('33-record profile requires explicit selection_order')
+    allocation=524288 if experimental==33 else ALLOCATION
+    profile_name={31:EXPERIMENTAL_31_PROFILE,32:EXPERIMENTAL_32_PROFILE,33:EXPERIMENTAL_33_PROFILE}.get(experimental,PROFILE)
     base=Path(config['base_runtime']);source=Path(config.get('retail_exe',ROOT.parent/'MRallye.exe')).read_bytes()
     profile,image,base_rows,assets=probe.verified_base(base,source)
     plan=json.loads((base/'addon-plan.json').read_text());base_plan=copy.deepcopy(plan)
-    rows=[];authors=[]
+    rows=[];authors=[];class_counts={'T1':8,'T2':8,'T3':12}
     for entry in sorted(inputs,key=lambda x:x['physical_id']):
-        if set(entry)!={'project','build','physical_id'}:raise ValueError('invalid roster project input')
+        if not {'project','build','physical_id'}<=set(entry) or set(entry)-{'project','build','physical_id','vehicle_class'}:raise ValueError('invalid roster project input')
         original,resources,report=load_author(Path(entry['project']),Path(entry['build']))
-        row=copy.deepcopy(original);row.update(physical_id=entry['physical_id'],class_local_index=8+len(rows))
-        if row['vehicle_class']!='T2' or row['physical_id']!=28+len(rows):raise ValueError('new runtime projects must append contiguous T2 IDs28+ / local8+')
+        cls=entry.get('vehicle_class',original['vehicle_class'])
+        if cls not in class_counts:raise ValueError('unsupported runtime vehicle class')
+        row=copy.deepcopy(original);row.update(physical_id=entry['physical_id'],vehicle_class=cls,class_local_index=class_counts[cls])
+        if type(row['physical_id']) is not int or row['physical_id']!=28+len(rows):raise ValueError('new runtime projects must append contiguous physical IDs28+')
+        if cls!='T2' and any(v['enabled'] for v in row['ai_eligibility'].values()):raise ValueError('Class assignment requires disabled unqualified non-T2 AI pools')
+        class_counts[cls]+=1
         if report.get('audio_profile'):
             report=copy.deepcopy(report);report['audio_profile']['physical_car_id']=row['physical_id']
         rows.append(row);authors.append({'input':entry,'original':original,'resources':resources,'report':report})
@@ -140,6 +147,9 @@ def derive(config):
     previous=json.loads(Path(config['reservations']).read_text()) if config.get('reservations') else None
     lock,active=reserve_roster(requests,slots=slots,previous=previous)
     if [r['physical_id'] for r in active]!=list(range(26,28+len(rows))):raise ValueError('reserved roster differs from selected layout')
+    from master_rallye.addon_sdk.roster_layout import resolve_layout
+    from roster_scene_layout import reorder_scene
+    selection_layout=resolve_layout(rows,config.get('selection_order'))
     output=dict(assets);owned={p.casefold():p for p in output};ownership={};ui_report={}
     glass_reports=apply_base_glass_profiles(output,plan['addons'],config.get('base_glass_profiles',{}))
     for item in glass_reports:ownership[item['path']]='explicit-glass-profile:'+item['addon_id']
@@ -169,7 +179,15 @@ def derive(config):
             output[p]=b;owned[p.casefold()]=p
         for row in rows:row['frontend'][role]={'policy':'project_frame','frame':assigned[row['addon_id']]}
         ui_report[role]=assigned
-    scene='DataScene/FrontendScreens/VehicleSelect.xml';output[scene]=probe.scene_append(probe.value(output[scene]),rows)
+    scene='DataScene/FrontendScreens/VehicleSelect.xml'
+    if config.get('selection_order') is not None:
+        from master_rallye.addon_sdk.roster_layout import BASE
+        from roster_scene_layout import restore_archived_widgets
+        from master_rallye.addon_sdk.project import read_sma_member
+        output[scene],restored=restore_archived_widgets(probe.value(output[scene]),read_sma_member(Path(output['Data.sma']),scene),BASE)
+        ui_report['restored_parent_widgets']=restored
+    output[scene]=probe.scene_append(probe.value(output[scene]),rows)
+    if config.get('selection_order') is not None:output[scene]=reorder_scene(output[scene],selection_layout)
     stock_projects=config.get('stock_resource_projects',[])
     if not isinstance(stock_projects,list) or any(not isinstance(p,str) or not p for p in stock_projects):raise ValueError('stock_resource_projects must contain explicit project paths')
     if stock_projects:
@@ -181,7 +199,7 @@ def derive(config):
     # A single native damage dispatcher, a single set of each hook and one
     # sealed allocation. Capacity payload is appended at its own aligned VA.
     models=[probe.value(output[r['assets']['model_package_root']+'/car.dx']) for r in rows]
-    image,ext=damage.extend_models(source,image,models);blob=bytes.fromhex(ext.pop('private_payload_hex'));ops=list(ext['operations']);bindings={'damage':{k:v for k,v in ext.items() if k!='operations'}}
+    image,ext=damage.extend_models(source,image,models,max_payload=allocation);blob=bytes.fromhex(ext.pop('private_payload_hex'));ops=list(ext['operations']);bindings={'damage':{k:v for k,v in ext.items() if k!='operations'}}
     reports=[a['report'] for a in authors]
     native_profiles=[('physics',physics.append_reference,[r['physics_profile'] for r in reports if r.get('physics_profile')]),
         ('engine_audio',audio.append_audio,[r['audio_profile'] for r in reports if r.get('audio_profile')]),
@@ -190,14 +208,14 @@ def derive(config):
         ('mechanics',mechanics.append_mechanics,[r['mechanical_attachments']['native_profile'] for r in reports if r.get('mechanical_attachments')])]
     writable=[]
     for name,append,profiles in native_profiles:
-        image,blob,report=append(source,image,blob,damage.PAYLOAD_VA,profiles,ALLOCATION)
+        image,blob,report=append(source,image,blob,damage.PAYLOAD_VA,profiles,allocation)
         if report:
             ops+=report['operations'];bindings[name]={k:v for k,v in report.items() if k!='operations'}
             writable+=report.get('writable_ranges',[])
     rolling_wheels=qualified_wheel_profiles(config.get('wheel_profiles',[]),output,all_rows)
     if rolling_wheels:
         from vehicle_wheels_native import append_wheels
-        image,blob,report=append_wheels(source,image,blob,damage.PAYLOAD_VA,rolling_wheels,ALLOCATION,mechanics_report=bindings.get('mechanics'))
+        image,blob,report=append_wheels(source,image,blob,damage.PAYLOAD_VA,rolling_wheels,allocation,mechanics_report=bindings.get('mechanics'))
         for operation in report['operations']:
             displaced=[old for old in ops if old['file_offset']==operation['file_offset']]
             if displaced:
@@ -206,7 +224,7 @@ def derive(config):
                 ops=[old for old in ops if old['file_offset']!=operation['file_offset']]
         ops+=report['operations'];bindings['rolling_wheels']={k:v for k,v in report.items()if k!='operations'}
     blob+=b'\x90'*((-len(blob))%16);capacity_offset=len(blob)
-    image,cap=capacity.extend_image(source,image,rows,storage='private_allocation',payload_va=damage.PAYLOAD_VA+capacity_offset)
+    image,cap=capacity.extend_image(source,image,rows,storage='private_allocation',payload_va=damage.PAYLOAD_VA+capacity_offset,selection_order=config.get('selection_order'),allocation_size=allocation)
     blob+=bytes.fromhex(cap.pop('private_payload_hex'));ops+=cap['operations'];bindings['capacity']=cap
     if config.get('frontend_profiler',False):
         from vehicle_frontend_perf_native import append_frontend_perf
@@ -215,11 +233,11 @@ def derive(config):
         # The audio appender owns its map/slots at the front of one RW/NX page.
         # Reserve the last512B only after checking its actual emitted layout.
         state_va=damage.PAYLOAD_VA+writable[0]['offset']+3584
-        image,blob,perf=append_frontend_perf(source,image,blob,damage.PAYLOAD_VA,ALLOCATION,state_va=state_va,state_size=512,audio_state=state)
+        image,blob,perf=append_frontend_perf(source,image,blob,damage.PAYLOAD_VA,allocation,state_va=state_va,state_size=512,audio_state=state)
         ops+=perf['operations'];bindings['frontend_profiler']={k:v for k,v in perf.items() if k!='operations'}
     if config.get('frontend_bulk_read',False):
         from vehicle_dxt_bulk_native import append_dxt_bulk
-        image,blob,bulk=append_dxt_bulk(source,image,blob,damage.PAYLOAD_VA,ALLOCATION)
+        image,blob,bulk=append_dxt_bulk(source,image,blob,damage.PAYLOAD_VA,allocation)
         ops+=bulk['operations'];bindings['frontend_bulk_read']={k:v for k,v in bulk.items() if k!='operations'}
     camera_inputs=config.get('camera_profiles',[])
     if not isinstance(camera_inputs,list) or any(not isinstance(p,str) or not p for p in camera_inputs):raise ValueError('camera_profiles must contain explicit profile paths')
@@ -243,7 +261,7 @@ def derive(config):
                 if len(matching)!=1:raise ValueError('stock camera needs exactly one validated zero-edit/resource project')
                 model=matching[0]
             camera_bindings.append(bind_camera_profile(cp,model))
-        image,blob,camera=append_camera(source,image,blob,damage.PAYLOAD_VA,camera_bindings,ALLOCATION)
+        image,blob,camera=append_camera(source,image,blob,damage.PAYLOAD_VA,camera_bindings,allocation)
         ops+=camera['operations'];bindings['camera']={k:v for k,v in camera.items() if k!='operations'}
     frontend_inputs=config.get('frontend_profiles',[])
     if not isinstance(frontend_inputs,list)or any(not isinstance(p,str)or not p for p in frontend_inputs):raise ValueError('frontend_profiles must contain explicit paths')
@@ -258,9 +276,9 @@ def derive(config):
             rel='DataGx/Vehicles/'+family+'/complete.dx'
             if rel not in output:raise ValueError('Frontend complete resource missing')
             frontend_bindings.append(bind_profile(fp,probe.value(output[rel])))
-        image,blob,frontend=append_frontend(source,image,blob,damage.PAYLOAD_VA,frontend_bindings,ALLOCATION)
+        image,blob,frontend=append_frontend(source,image,blob,damage.PAYLOAD_VA,frontend_bindings,allocation)
         ops+=frontend['operations'];bindings['frontend_presentation']={k:v for k,v in frontend.items()if k!='operations'}
-    if len(blob)>ALLOCATION or len(writable)>1:raise ValueError('bounded combined native allocation exhausted')
+    if len(blob)>allocation or len(writable)>1:raise ValueError('bounded combined native allocation exhausted')
     for i,a in enumerate(ops):
         span=(a['file_offset'],a['file_offset']+len(bytes.fromhex(a['original_bytes'])))
         for b in ops[:i]:
@@ -268,26 +286,32 @@ def derive(config):
             if max(span[0],other[0])<min(span[1],other[1]):raise ValueError('native hook ownership collision')
     plan['addons']=sorted(all_rows,key=lambda x:x['physical_id'])
     for row in rows:
-        plan['class_mapping']['class_to_physical_ids']['T2'].append(row['physical_id'])
-        plan['class_mapping']['physical_id_to_class_local'][str(row['physical_id'])]={'vehicle_class':'T2','class_local_index':row['class_local_index']}
+        cls=row['vehicle_class']
+        plan['class_mapping']['class_to_physical_ids'][cls].append(row['physical_id'])
+        plan['class_mapping']['physical_id_to_class_local'][str(row['physical_id'])]={'vehicle_class':cls,'class_local_index':row['class_local_index']}
+    if config.get('selection_order') is not None:
+        plan['selection_layout']=selection_layout
+        plan['class_mapping']['ordering_policy']='CONFIGURED_CLASS_PERMUTATION_PHYSICAL_IDS_UNCHANGED'
+        for key in ('class_to_physical_ids','physical_id_to_class_local'):plan['class_mapping'][key]=selection_layout[key]
     plan['registry_layout'].update(record_count=cap['layout']['record_count'],race_test_base=cap['layout']['racetest_base'],allocation_size=cap['layout']['allocation_size'])
     plan['build_target'].update(profile_id=PROFILE,runtime_deployment='EXTERNAL_SUSPENDED_PROCESS_CANDIDATE')
     plan['evidence_boundary'].update(resolved_addon_ids_runtime_qualified=False,experimental_addon_ids=[r['physical_id'] for r in rows])
     plan_raw=canonical_json(plan);plan_sha=probe.sha(plan_raw)
-    extension={'operations':ops,'bindings':bindings,'allocation_size':ALLOCATION,'payload_va':damage.PAYLOAD_VA,'payload_size':len(blob),'runtime_qualified':False}
+    extension={'operations':ops,'bindings':bindings,'allocation_size':allocation,'payload_va':damage.PAYLOAD_VA,'payload_size':len(blob),'runtime_qualified':False}
     pm,rvp=probe.patch_artifacts(source,image,base_rows,image,extension,plan_sha,json.loads((base/'native-patch-manifest.json').read_text()),profile_name=profile_name,provenance_layer='V-SDK1',extension_key='sdk_roster_extension',derivation='verified frozen Subaru plus source-validated independent projects and composed native hooks')
     resource_rows=[{'path':p,'size':len(v) if isinstance(v,bytes) else v.stat().st_size,'sha256':probe.sha(v) if isinstance(v,bytes) else runtime.sha256_file(v),'role':'sdk-roster-resource','owner':ownership.get(p,'frozen-base-or-explicit-shared-composition')} for p,v in sorted(output.items())]
     index=runtime._resource_index(resource_rows);rm=canonical_json({'schema_version':1,'resources':resource_rows,'resource_count':len(resource_rows),'index_sha256':probe.sha(index),'runtime_state_paths':sorted(runtime.RUNTIME_STATE_PATHS),'addon_plan_sha256':plan_sha})
     profile.update(profile=profile_name,status='READY_FOR_HUMAN_RUNTIME',addon_plan_sha256=plan_sha,native_patch_manifest_sha256=probe.sha(pm),native_patch_operations_sha256=probe.sha(rvp),resource_manifest_sha256=probe.sha(rm),resource_index_sha256=probe.sha(index),resource_count=len(resource_rows),reconstructed_reference_file_sha256=probe.sha(image),runtime_qualified=False,identity_runtime_qualified=False,
-        native_extension={'address':damage.PAYLOAD_VA,'size':len(blob),'sha256':probe.sha(blob),'allocation_size':ALLOCATION,**({'writable_ranges':writable} if writable else {})},
+        native_extension={'address':damage.PAYLOAD_VA,'size':len(blob),'sha256':probe.sha(blob),'allocation_size':allocation,**({'writable_ranges':writable} if writable else {})},
         sdk_roster_layout={'record_count':28+len(rows),'addon_ids':list(range(26,28+len(rows)))},
         physical_slots_runtime_qualified=[26,27],experimental_physical_slots=[r['physical_id'] for r in rows],unresolved_runtime_gates=['Exact combined imported roster player/AI, finishing, Results and re-entry','Simultaneous independent physics/audio/damage/light behavior','No migration of experimental probe saves or other candidate state'])
     audit={'runtime_qualified':False,'capacity_mechanism':'SCALE1 29/30 user gameplay confirmed; this combined candidate not gameplay tested','author_slot_rebindings':[{'addon_id':r['addon_id'],'author_id':a['original']['physical_id'],'runtime_id':r['physical_id']} for r,a in zip(rows,authors)],'bindings':bindings,'native_hook_count':len(ops),'resource_ownership':ownership,'ui_frames':ui_report,'source_reports':reports,'base_plan_sha256':probe.sha(canonical_json(base_plan))}
     if glass_reports:audit['base_glass_profiles']=glass_reports
-    if experimental in(31,32):
-        audit['capacity_mechanism']=f'Explicit {experimental}-record T2 append experiment using the existing SCALE1 emitter; no new native hooks or larger publisher'
-        audit['owner_qualified_record_count']=30
-        profile['unresolved_runtime_gates'].insert(0,f'{experimental}th record / T2 local{experimental-21} selection, AI, race, Results, save and re-entry requires owner review for this exact candidate')
+    if experimental in(31,32,33):
+        audit['capacity_mechanism']=f'Explicit {experimental}-record append profile; canonical reservations separate from configured selection maps'
+        audit['owner_qualified_record_count']=32
+        profile['unresolved_runtime_gates'].insert(0,f'{experimental}-record configured ordering, selection, AI, race, Results, save and re-entry requires owner review for this exact candidate')
+    if config.get('selection_order') is not None:audit['selection_layout']=selection_layout
     files={'addon-plan.json':plan_raw,'native-patch-manifest.json':pm,'native-patch-ops.rvp':rvp,'native-extension.bin':blob,'runtime-profile.json':canonical_json(profile),'resource-manifest.json':rm,'resource-index.tsv':index,'roster-reservations.json':canonical_json(lock),'sdk-roster-audit.json':canonical_json(audit),'runtime-artifact.json':canonical_json({'profile':profile_name,'runtime_qualified':False,'resource_manifest_sha256':probe.sha(rm)})}
     return {'resources':output,'files':files,'profile':profile,'image':image,'capacity':cap,'rows':rows,'audit':audit}
 
@@ -306,6 +330,12 @@ def verify(bundle,context):
 def build(config,output):
     output=runtime._under_research_output(output)
     if output.exists():raise ValueError('candidate output already exists')
+    exe=Path(config.get('retail_exe',ROOT.parent/'MRallye.exe')).resolve()
+    trial_save=None
+    if config.get('selection_order') is not None or config.get('experimental_record_count')==33:
+        from master_rallye.addon_sdk.roster_layout import validate_trial_save
+        state=exe.parent/'DataGame/PlayerState.xml'
+        if state.is_file():trial_save=validate_trial_save(state.read_bytes())
     ctx=derive(config);bundle=output/'runtime';bundle.mkdir(parents=True)
     for p,b in ctx['files'].items():(bundle/p).write_bytes(b)
     for p,v in ctx['resources'].items():
@@ -316,6 +346,7 @@ def build(config,output):
     from master_rallye.addon_sdk.player_state import seed_player_state
     seed=seed_player_state(exe.parent,bundle/'resource-root')
     result=verify(bundle,ctx);result['player_state_seed']=seed;result['launcher']=launcher.build_launcher(bundle=bundle,output=output/'launcher',retail_exe=exe,bundle_verifier=lambda:verify(bundle,ctx));result['preflight']={}
+    if trial_save:result['trial_save_policy']=trial_save
     for mode in ('--verify','--verify-launch-environment','--self-test-native-allocation'):
         r=subprocess.run([str((output/'launcher/mr-runtime-launcher.exe').resolve()),mode,str(exe),str(bundle.resolve())],capture_output=True,text=True,timeout=45)
         result['preflight'][mode]={'exit':r.returncode,'stdout':r.stdout,'stderr':r.stderr}

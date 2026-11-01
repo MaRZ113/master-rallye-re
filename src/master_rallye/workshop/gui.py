@@ -581,6 +581,21 @@ class WorkshopApp(AppearancePanels, AudioPanels, VehiclePanels, ShadowPanels, He
             except Exception as e:messagebox.showerror('Build inputs',str(e),parent=dialog);return
             dialog.destroy();self.status.set('Build settings saved. Original runtime files remain unchanged.')
         ttk.Button(dialog,text='Save build inputs',command=save).pack(pady=10)
+        def roster():
+            editor=tk.Toplevel(dialog);editor.title('Roster — physical IDs, selection order and class')
+            text=tk.Text(editor,width=90,height=28);text.pack(fill='both',expand=True)
+            text.insert('1.0',json.dumps(self.project.roster_configuration(),indent=2))
+            ttk.Label(editor,text='Complete T1/T2/T3 ID arrays; null keeps append order. Saves a private configuration copy.').pack()
+            def apply():
+                try:
+                    value=json.loads(text.get('1.0','end'))
+                    if set(value)!={'selection_order','class_assignments'}:raise ValueError('Expected selection_order and class_assignments')
+                    self.project.configure_roster(**value)
+                    fields['roster_candidate'].set(self.project.data['build_settings']['roster_candidate'])
+                except Exception as exc:messagebox.showerror('Roster',str(exc),parent=editor);return
+                editor.destroy()
+            ttk.Button(editor,text='Save private roster configuration',command=apply).pack()
+        ttk.Button(dialog,text='Configure vehicle order and classes…',command=roster).pack(pady=5)
 
     def build(self):
         if not self.project:return

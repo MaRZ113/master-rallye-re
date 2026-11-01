@@ -70,12 +70,13 @@ def extend_image(source,base_image,model_data):
     return bytes(image),report
 
 
-def payload_models(models, *, payload_va=PAYLOAD_VA):
+def payload_models(models, *, payload_va=PAYLOAD_VA, max_payload=262144):
     """One deformation call, then full source identities for independent models.
 
     A singleton at the historic address retains the exact legacy byte stream.
     The 256-KiB limit is an explicit SDK storage budget, not an engine limit.
     """
+    if max_payload not in (262144,524288):raise ValueError('unqualified damage storage budget')
     models=list(models)
     if not 1<=len(models)<=16:raise ValueError('damage model count outside bounded profile')
     if len({hashlib.sha256(data).digest() for data in models})!=len(models):
@@ -120,21 +121,21 @@ def payload_models(models, *, payload_va=PAYLOAD_VA):
         code.label('uvs'+str(i));code.emit(uv)
         code.label('mask'+str(i));code.emit(bytes.fromhex(policy['mask_hex']));code.align(4)
     result=code.build()
-    if len(result)>262144:raise ValueError('multi-model damage identity exceeds bounded 256-KiB extension budget')
-    allocation=65536 if len(result)<=65536 else 131072 if len(result)<=131072 else 262144
+    if len(result)>max_payload:raise ValueError('multi-model damage identity exceeds bounded extension budget')
+    allocation=next(n for n in (65536,131072,262144,524288) if len(result)<=n)
     return result,{'schema_version':1,'payload_va':payload_va,'payload_size':len(result),'allocation_size':allocation,
         'code_size':code_size,'models':[policy for _,policy,_,_ in qualified],
         'entries':{'entry':payload_va},'identity':'full source XYZ and UV byte equality plus vector lengths; first unique match only',
         'native_deformation_calls_per_dispatch':1,'runtime_qualified':False}
 
 
-def extend_models(source,base_image,models, *, payload_va=PAYLOAD_VA):
+def extend_models(source,base_image,models, *, payload_va=PAYLOAD_VA, max_payload=262144):
     """Compose once against the original damage call; never chain deformers."""
     if hashlib.sha256(source).hexdigest()!=RETAIL_SHA256 or len(source)!=len(base_image):raise ValueError('unqualified retail source')
     pe=registry.parse_pe(source);off=registry.va_to_file_offset(pe,DAMAGE_CALL_VA,5)
     expected=b'\xe8'+struct.pack('<i',DAMAGE_NATIVE_VA-DAMAGE_CALL_VA-5)
     if source[off:off+5]!=expected or base_image[off:off+5]!=expected:raise ValueError('native damage call preimage changed')
-    blob,report=payload_models(models,payload_va=payload_va);image=bytearray(base_image)
+    blob,report=payload_models(models,payload_va=payload_va,max_payload=max_payload);image=bytearray(base_image)
     after=b'\xe8'+struct.pack('<i',payload_va-DAMAGE_CALL_VA-5);image[off:off+5]=after
     report['operations']=[{'name':'coverage_alpha_after_native_damage','file_offset':off,'original_bytes':expected.hex(),'replacement_bytes':after.hex()}]
     report['private_payload_hex']=blob.hex()

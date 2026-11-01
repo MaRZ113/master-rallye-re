@@ -32,7 +32,9 @@ def validate(source,image,report,rows,*,shared_payload=None):
         u.emu_start(start,stop,count=20000)
         if u.reg_read(EIP)!=stop:raise ValueError('helper did not reach its expected return/continuation')
     mapping=[]
-    for c,ids in enumerate([list(range(7))+[26]+[r['physical_id'] for r in rows if r['vehicle_class']=='T1'],list(range(7,14))+[27]+[r['physical_id'] for r in rows if r['vehicle_class']=='T2'],list(range(14,26))]):
+    default=[list(range(7))+[26]+[r['physical_id'] for r in rows if r['vehicle_class']=='T1'],list(range(7,14))+[27]+[r['physical_id'] for r in rows if r['vehicle_class']=='T2'],list(range(14,26))+[r['physical_id'] for r in rows if r['vehicle_class']=='T3']]
+    selected=report.get('selection_layout',{}).get('class_to_physical_ids')
+    for c,ids in enumerate([selected[k] for k in ('T1','T2','T3')] if selected else default):
         for local,id_ in enumerate(ids):
             u=machine();u.mem_write(0x2000010,struct.pack('<I',c));u.mem_write(0x2000014+4*c,struct.pack('<I',local))
             run(u,0x481e20)

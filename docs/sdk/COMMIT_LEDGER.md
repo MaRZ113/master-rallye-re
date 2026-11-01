@@ -820,3 +820,27 @@ Source-only review/changed-files archives exclude original assets and raw
 Ghidra/instruction payloads. No new slot, next car, installation, push or release.
 The installed proxy changed externally during validation; it was left in place
 and the current build passes launch-environment checks without a SHA gate.
+
+
+## V-DEF3 — configurable roster order and33-record offline trial
+
+Resolve scoped revision using `git log -1 --format=%H --fixed-strings --grep="feat(definitive): qualify configurable roster order and T3 slot13"`.
+Starting checkout b0173e698d4921ab319855ccc976e503cb59609d was clean. Owner accepts
+Forester and RAV4 with retail Newrav physics; accepted snapshots remain pinned.
+
+Shared canonical-reservation/selection permutation contract, explicit addon
+class assignment, copy-on-write Workshop Configure UI, general class widgets,
+full native forward/reverse maps, signature-bound13-position publication and
+33-only bounded512-KiB storage. Recover omitted hidden-ID25 widget from the
+pinned parent archive. Independent retail Wildcat probe32 prepares T3 slot13
+without restoring the next Demo model. Original8.4.1 tables prove TOMCAT /
+PRIVATEER TOMCAT, distinct from a guessed folder-derived identity.
+
+1336 full Windows tests PASS with2 old optional skips; final45 focused tests;
+all33 native helper maps,99 audio probes, source-qualified UI/resources and
+1085 protected pins pass. Two Workshop builds retain416 exact resources and
+native extension/RVP. Three launcher preflights pass without launching the game.
+Active championship migration is refused; owner D3D8/save/Results/AI/Randomizer
+qualification remains pending. No original EXE/archive/wrapper/accepted project
+change, push or publication. See V_DEF3_ROSTER_ORDER_RESULTS.md and provenance.
+Source-only review and changed-files ZIPs contain no private canary/source assets.

@@ -1,0 +1,198 @@
+{
+  "schema": "v-def3-roster-order/1",
+  "baseline_commit": "b0173e698d4921ab319855ccc976e503cb59609d",
+  "native_source_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "profile": "sdk-multi-addon-roster-experimental-33",
+  "record_count": 33,
+  "class_counts": {
+    "T1": 8,
+    "T2": 12,
+    "T3": 13
+  },
+  "selection_order": {
+    "T1": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      26
+    ],
+    "T2": [
+      7,
+      8,
+      30,
+      9,
+      10,
+      11,
+      12,
+      31,
+      13,
+      27,
+      28,
+      29
+    ],
+    "T3": [
+      14,
+      32,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25
+    ]
+  },
+  "physical_identity_policy": "Existing physical IDs0..31 unchanged; ID32 is technical retail Wildcat clone, NOT Demo restoration",
+  "owner_accepted_baseline": [
+    "Demo Forester ID30",
+    "Demo RAV4 ID31 with retail Newrav physics"
+  ],
+  "historical_demo841": {
+    "exe_sha256": "2d4a3b02d3cdb740dfdf3c11002c0026837dc19ba8e5211ad9763b35eb06e15a",
+    "registration": {
+      "id": 15,
+      "family": "Wildcat",
+      "class": 1,
+      "stats": [
+        7,
+        6,
+        8,
+        8
+      ],
+      "smallcarsheet": 0,
+      "record_index": 15,
+      "call_va": 4487939
+    },
+    "localized": {
+      "52": {
+        "status": "PROVEN",
+        "value": "TOMCAT",
+        "alternatives": [
+          "TOMCAT"
+        ],
+        "records": [
+          {
+            "file_offset": 2001860,
+            "category": 52,
+            "index": 15,
+            "pointer": 6200704,
+            "text": "TOMCAT"
+          }
+        ]
+      },
+      "53": {
+        "status": "PROVEN",
+        "value": "PRIVATEER TOMCAT",
+        "alternatives": [
+          "PRIVATEER TOMCAT"
+        ],
+        "records": [
+          {
+            "file_offset": 2002172,
+            "category": 53,
+            "index": 15,
+            "pointer": 6200328,
+            "text": "PRIVATEER TOMCAT"
+          }
+        ]
+      }
+    },
+    "class_note": "Original numeric field1 retained as evidence; target T3 is an explicit new retail layout choice."
+  },
+  "validation": {
+    "status": "PASS_OFFLINE_ROSTER_ORDER_PILOT",
+    "mapping_records": 33,
+    "display_checks": 55,
+    "audio_checks": 99,
+    "existing_widget_ownership": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      26,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      27,
+      28,
+      29,
+      30,
+      31,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25
+    ],
+    "accepted_resources_unchanged": 376,
+    "protected_inputs_unchanged": 1085,
+    "launcher_preflight_exit_codes": {
+      "--self-test-native-allocation": 0,
+      "--verify": 0,
+      "--verify-launch-environment": 0
+    },
+    "determinism": {
+      "status": "PASS_TWO_ACTUAL_WORKSHOP_BUILDS",
+      "resource_files_identical": 416,
+      "dx_dxt_identical": 293,
+      "native_extension_identical": true,
+      "native_patch_operations_identical": true,
+      "owner_gameplay": "PENDING"
+    },
+    "full_windows": {
+      "run": 1336,
+      "failed": 0,
+      "errors": 0,
+      "skipped": [
+        {
+          "test": "setUpClass (test_j2_frontend_reentry.J2ReentryPatchPlanTests)",
+          "reason": "exact retail executable or verified J.1 bundle is unavailable"
+        },
+        {
+          "test": "test_vmesh412_runtime.FinalPassTests.test_stock_profile_preserves_tyre_and_refuses_second_pass",
+          "reason": "private vehicle fixture unavailable"
+        }
+      ],
+      "status": "PASS"
+    },
+    "final_focused_tests": 45
+  },
+  "private_evidence": {
+    "candidate": ".research-output/vehicles/v-def3/delivery/workshop/builds/first/candidate",
+    "native_extension_sha256": "f2164e841d2ce92ac7f3b359689e2caf1ffdb0062df7fe448f4ec6b11888b3a9",
+    "native_patch_ops_sha256": "b052e640c3ca151178ea38a031579553a35133db4d0e8f6683db7da8f84306d1",
+    "validation_report_sha256": "33174367855bc78ae1e3d71d31d686bfa13ecba4baca709eadcf2ecd3938159f",
+    "static_rea": "vehicles_scratch/vdef3/rea-evidence.json",
+    "validation_report": ".research-output/vehicles/v-def3/qualified-delivery.json"
+  },
+  "new_runtime_evidence": "NONE; owner D3D8 selection/race/Results/re-entry/save/Randomizer tests pending",
+  "unsupported": [
+    "Automatic migration of in-progress championships",
+    "New T3 AI pool registration",
+    "Other executable layouts without a validated native adapter",
+    "More than33 records or13 class positions",
+    "Full Demo TOMCAT restoration"
+  ]
+}
