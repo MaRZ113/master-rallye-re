@@ -18,6 +18,8 @@ class VehiclePanels(MarkerPanels,CameraLabPanels,ResultsPanels,FrontendPanels):
         w=tk.Toplevel(self.root);self.vehicle_window=w;apply_icon(w);w.title('Rally Workshop — Physics / Camera / Vehicle Details');w.geometry('1020x820')
         bar=ttk.Frame(w,padding=8);bar.pack(fill='x');self.vehicle_header=tk.StringVar();ttk.Label(bar,textvariable=self.vehicle_header).pack(side='left')
         for title,command in [('Save',self.save),('Undo',self.undo),('Redo',self.redo),('Validate',self.validate),('Build',self.build),('Help',lambda:self.show_help('physics-camera'))]:ttk.Button(bar,text=title,command=command).pack(side='right')
+        from .setup_ui import open_setup_authoring
+        ttk.Button(bar,text='In-game Setup pilot',command=lambda:open_setup_authoring(w,self.sdk_root)).pack(side='right')
         tabs=ttk.Notebook(w);tabs.pack(fill='both',expand=True,padx=8,pady=5);self.vehicle_tabs=tabs
         physics=ttk.Frame(tabs,padding=8);tabs.add(physics,text='Physics Studio');self.physics_tab=physics
         row=ttk.Frame(physics);row.pack(fill='x');self.phys_reference=tk.StringVar();self.phys_reference_box=ttk.Combobox(row,textvariable=self.phys_reference,state='readonly',width=20);self.phys_reference_box.pack(side='left')

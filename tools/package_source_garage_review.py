@@ -10,7 +10,7 @@ import subprocess
 import zipfile
 
 ROOT=Path(__file__).resolve().parents[1]
-SOURCE_EXTENSIONS={'.py','.md','.json','.txt','.java','.ps1','.cpp','.c','.html','.cmd','.sha256','.svg','.toml','.tsv','.in','.gitignore'}
+SOURCE_EXTENSIONS={'.py','.md','.json','.txt','.java','.ps1','.cpp','.c','.h','.hpp','.cmake','.html','.cmd','.sha256','.svg','.toml','.tsv','.in','.gitignore'}
 
 
 def git(*args):
@@ -18,7 +18,7 @@ def git(*args):
 
 
 def package(baseline: str, revision: str, output: Path):
-    allowed_roots=[(ROOT/'.research-output/vehicles'/name).resolve()for name in ('source-garage','source-garage-evo2','cross-game-4runner','4runner-polish','4runner-stable','paris-dakar-source','paris-dakar-silver-native','dakar2-source','dakar2-fidelity','lost-pajero-livery','michelin-assembly','michelin-native','source-garage-hardening','cross-game-materials','dakar2-material-closure','workshop2','definitive-runtime','demo-audit','v-def1','v-def2','v-def3','v-def4','v-def4-1')]
+    allowed_roots=[(ROOT/'.research-output/vehicles'/name).resolve()for name in ('source-garage','source-garage-evo2','cross-game-4runner','4runner-polish','4runner-stable','paris-dakar-source','paris-dakar-silver-native','dakar2-source','dakar2-fidelity','lost-pajero-livery','michelin-assembly','michelin-native','source-garage-hardening','cross-game-materials','dakar2-material-closure','workshop2','definitive-runtime','demo-audit','v-def1','v-def2','v-def3','v-def4','v-def4-1','v-set1')]
     if not any(output.resolve()==allowed or allowed in output.resolve().parents for allowed in allowed_roots):
         raise ValueError('output must stay in ignored repository source-garage evidence')
     revision=git('rev-parse','--verify',revision+'^{commit}').decode().strip()

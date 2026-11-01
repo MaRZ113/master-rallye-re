@@ -4,8 +4,10 @@
 
 The owner accepts Forester30, retail-Newrav-physics RAV4 31, TOMCAT32 visual
 restoration and the 33-record 8/12/13 order. The old TOMCAT hybrid handling was
-rejected. This revision is a new **offline-qualified candidate, owner test
-pending**. No game was launched during implementation.
+rejected. The owner subsequently reports **all V-DEF4.1 runtime tests successful**:
+this candidate is now **USER_RUNTIME_CONFIRMED**. No game was launched by the
+implementation agent; this is owner evidence, not new automated telemetry.
+Known separate Randomizer F3 conflicts are not reclassified by that report.
 
 Private launch:
 `.research-output/vehicles/v-def4-1/delivery-final/32/workshop/builds/first/candidate/Launch-SDK-Roster.cmd`.

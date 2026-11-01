@@ -1,0 +1,124 @@
+{
+  "schema": "v-set1-provenance/1",
+  "starting_commit": "86dc80b7f632a7431ea4cfc814cc269ae4400cab",
+  "branch": "research/vehicles",
+  "owner_previous_baseline": "V-DEF4.1 USER_RUNTIME_CONFIRMED by owner handoff",
+  "new_gameplay": "PENDING_OWNER",
+  "identity": {
+    "schema": "vehicle-setup-pilot/1",
+    "identity": "mr-seatbuggy-ps2-v1",
+    "family": "SeatBuggy",
+    "car_id": 21,
+    "ps2_family": "SEATBUGGY",
+    "livery_default": "PS2 original",
+    "livery_alternative": "PC sponsor panels (reconstructed)",
+    "paint_textures": [
+      "seat07-tga.gxi",
+      "seat02-tga.gxi"
+    ],
+    "diagnostic_textures": [
+      "seat06-tga.gxi"
+    ],
+    "stock_tyre": "native-default",
+    "alternative_tyre": "gravel",
+    "default_livery": 0,
+    "default_tyre": 0,
+    "scope": "Quick Race, human player 1; immutable original assets",
+    "historical_boundary": "Alternative preserves source PC sponsor pixels on individually witnessed PS2 panels. It is not a recovered second shipped PS2 livery. seat06 and all other maps remain original PS2."
+  },
+  "contract_sha256": "a8d6097da36efc64e6c9bedfd0fe9b58ab493a444103e890d97ceebcb2d4c92b",
+  "native_adapter": {
+    "status": "PASS_STATIC_ADAPTER",
+    "apis": [
+      "key",
+      "broker",
+      "name_set",
+      "int_get",
+      "bool_get",
+      "players",
+      "car_get",
+      "race",
+      "race_type"
+    ],
+    "tick_slot": 6884208,
+    "qualification": "Original bytes/address mapping only; no gameplay proof"
+  },
+  "native_proof": {
+    "launch": "D:\\Game\\Master Rallye\\master-rallye-re-vehicles\\.research-output\\vehicles\\v-set1\\pilot-01\\delivery-final\\Launch-V-SET1.cmd",
+    "baseline_verification": "RESOURCE_ROOT_VERIFIED files=414 index=0a53affeb9e1c703cc38e454c5cb843adb6c8bdfdf82252705f8c5bc95840772\nRUNTIME_BUNDLE_VERIFIED patch_operations=264 plan_sha256=295cfc06b9c7f18ee9d8bdb6e612e09b1dad06750e121258a1e8acc4baebe0b5\nGRAPHICS_PROXY_PINNED hash_gate=disabled\nLAUNCH_ENVIRONMENT_VERIFIED graphics_proxy=pinned-d3d8\n",
+    "original_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "host_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "private_proxy_sha256": "2dbdc97c1e46469537ef203dea4d16d38896f90bbf84a0639eefc902908f4316",
+    "immutable_hardlinks": 424,
+    "independent_mutable_copies": [
+      "D:\\Game\\Master Rallye\\master-rallye-re-vehicles\\.research-output\\vehicles\\v-def4-1\\delivery-final\\32\\workshop\\builds\\first\\candidate\\runtime\\resource-root\\DataGame\\options.xml",
+      "D:\\Game\\Master Rallye\\master-rallye-re-vehicles\\.research-output\\vehicles\\v-def4-1\\delivery-final\\32\\workshop\\builds\\first\\candidate\\runtime\\resource-root\\DataGame\\PlayerState.xml"
+    ],
+    "installed_files_written": [],
+    "new_car_ids": [],
+    "owner_gameplay": "NOT_TESTED"
+  },
+  "validation": {
+    "focused": {
+      "run": 66,
+      "failed": 0,
+      "errors": 0
+    },
+    "full": {
+      "run": 1388,
+      "failed": 0,
+      "errors": 0,
+      "skipped": [
+        {
+          "test": "setUpClass (test_j2_frontend_reentry.J2ReentryPatchPlanTests)",
+          "reason": "exact retail executable or verified J.1 bundle is unavailable"
+        },
+        {
+          "test": "test_vmesh412_runtime.FinalPassTests.test_stock_profile_preserves_tyre_and_refuses_second_pass",
+          "reason": "private vehicle fixture unavailable"
+        }
+      ],
+      "seconds": 98.88770389999263,
+      "status": "PASS"
+    },
+    "renderer": {
+      "run": 44,
+      "failed": 0,
+      "report": "pilot-01/ctest-owner-final.log"
+    },
+    "own_dialog": "PASS actual Win32 dialog, mock game backend; native-dialog-test-final",
+    "workshop": "PASS mapped standalone panel and actual Vehicle Studios toolbar invocation",
+    "protected_files": {
+      "checked": 1160,
+      "matched": 1160
+    },
+    "deterministic_files": {
+      "VSETAssets": 3,
+      "setup-contract": 20,
+      "independent_generations_equal": true
+    }
+  },
+  "livery_coverage": [
+    {
+      "index": 2,
+      "source": "\\TNG\\DATAPSM\\COMMONTEXTURES\\SEAT07-TGA.GXI",
+      "changed_rgb_pixels": 3344,
+      "total_pixels": 16384,
+      "alpha_changed": false
+    },
+    {
+      "index": 4,
+      "source": "\\TNG\\DATAPSM\\COMMONTEXTURES\\SEAT02-TGA.GXI",
+      "changed_rgb_pixels": 0,
+      "total_pixels": 4096,
+      "alpha_changed": false
+    }
+  ],
+  "limitations": [
+    "Owned modal, windowed Quick Race player1 only; F6 keyboard entry",
+    "Original complete second PS2 skin unlocated; reconstructed partial PC sponsor panels only",
+    "Original-game tire consumption, Results, re-entry, controller and save behavior owner-pending",
+    "No new CarID, full fleet import or generic installed DLL loader",
+    "Known Randomizer F3 conflicts remain outside this private host composition"
+  ]
+}

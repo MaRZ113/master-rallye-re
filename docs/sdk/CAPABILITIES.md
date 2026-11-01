@@ -1,3 +1,16 @@
+# V-SET1 — Windowed in-process setup pilot
+
+Owner reports all V-DEF4.1 runtime tests successful. That accepted33-car baseline
+is preserved. Existing SeatBuggy21 now has an isolated Quick Race setup candidate:
+F6 on Gearbox, two scoped livery choices, native Stock or original gravel,
+Apply/Defaults/Cancel and versioned per-car persistence. The second appearance
+is explicitly reconstructed PC sponsor panels, not an original complete PS2 skin.
+Shared typed source/stage/alpha contracts, native preimage adapters and asynchronous
+Workshop recipe/package authoring are implemented. Private host only; installed
+Proxy untouched. Windowed modal fallback and keyboard entry; no new MR frontend
+scene. All new game behavior/controller hardware remain PENDING_OWNER.
+See V_SET1_PILOT.md.
+
 # V-DEF2.1 RAV4 retail physics and historical identity
 
 RAV4 visual restoration/integration is owner accepted. The isolated follow-up

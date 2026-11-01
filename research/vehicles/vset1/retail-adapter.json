@@ -1,0 +1,59 @@
+{
+  "schema": "vehicle-setup-native-adapter/1",
+  "image_base": "0x400000",
+  "apis": {
+    "key": {
+      "va": "0x4d0580",
+      "bytes": "8b442404568bf150"
+    },
+    "broker": {
+      "va": "0x4d8ec0",
+      "bytes": "a110946f0083ec20"
+    },
+    "name_set": {
+      "va": "0x4d85f0",
+      "bytes": "83ec248b44242855"
+    },
+    "int_get": {
+      "va": "0x4d6760",
+      "bytes": "8b44240483ec2055"
+    },
+    "bool_get": {
+      "va": "0x4d6520",
+      "bytes": "8b44240483ec2055"
+    },
+    "players": {
+      "va": "0x4b0af0",
+      "bytes": "6aff68bbb9680064"
+    },
+    "car_get": {
+      "va": "0x4b0630",
+      "bytes": "8b44240456578bf1"
+    },
+    "race": {
+      "va": "0x4ada50",
+      "bytes": "6aff68abb7680064"
+    },
+    "race_type": {
+      "va": "0x4abe90",
+      "bytes": "518b41108d4c2400"
+    }
+  },
+  "menu": {
+    "vtable": "0x690b60",
+    "tick_offset": 16,
+    "tick": "0x483d20",
+    "init_offset": 20,
+    "init": "0x4839d0"
+  },
+  "publishers": {
+    "front": {
+      "call": "0x493935",
+      "target": "0x496d20"
+    },
+    "rear": {
+      "call": "0x493942",
+      "target": "0x498090"
+    }
+  }
+}

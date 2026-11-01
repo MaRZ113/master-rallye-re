@@ -1,3 +1,18 @@
+# V-SET1 — In-process setup candidate —2 November2026
+
+Starting revision86dc80b7f632a7431ea4cfc814cc269ae4400cab, research/vehicles.
+Resolve this scoped local commit with `git log -1 --format=%H --fixed-strings
+--grep="feat(setup): add isolated SeatBuggy livery and tire pilot"`.
+Owner confirms V-DEF4.1 runtime success. Add shared versioned setup/source/adapter
+contracts, private renderer integration and asynchronous Workshop package authoring.
+Original SeatBuggy21, Stock passthrough and complete retail gravel; second livery
+is explicitly partial reconstructed PC sponsor panels. Native Tick/Init roles
+and before-creation writers verified separately; no EXE-SHA allowlist.
+66 focused Python, full1388 run/2 skips,44 renderer CTests, own Win32 modal and
+Tk toolbar smoke pass.1160 protected files unchanged; original33-car sealed
+resources/plan retained. New D3D8 gameplay is owner-pending. No new ID, installed
+Proxy modification, Randomizer merge, push or release. See V_SET1_PILOT.md.
+
 # V-DEF2 reusable restoration and Demo RAV4 —1 November2026
 
 Baseline f0668154f28a9340a7bb301b6a1227b2484a13a2, clean research/vehicles.

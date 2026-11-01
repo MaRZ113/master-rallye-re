@@ -1,3 +1,19 @@
+# V-SET1 — Current qualification
+
+| Scope | Evidence | Boundary |
+|---|---|---|
+| V-DEF4.1 baseline | Owner reports all runtime tests successful | Separate known F3 conflicts remain uncomposed |
+| Setup authoring/core |66 focused tests PASS; actual Tk panel and toolbar smoke | Compiled package descriptor, not general arbitrary live-package loader |
+| Full Python |1388 run,0 failures/errors,2 explicit private-fixture skips | Does not certify in-game behavior |
+| Private renderer |44/44 CTest PASS; actual own Win32 dialog confirm/cancel/default/persistence PASS | Mock engine backend; hardware controller/game pending |
+| Presets | Exact original Stock passthrough/gravel60 fields; alpha-preserving two-panel RGB transfer | Partial RECONSTRUCTED livery; no full PS2 skin parity |
+| Preservation |1160/1160 prior protected files match;414 resource/264 patch plan unchanged | New private DLL/host; no installed mod writes |
+| Runtime | CMD launch-environment preflight PASS | SeatBuggy selection, tire forces, Results/re-entry/save/relaunch PENDING_OWNER |
+
+See V_SET1_PILOT.md and private v-set1 validation reports. Two full-suite skips:
+J.2 reentry requires an unavailable private verified bundle; vmesh412 requires an
+unavailable private vehicle fixture. Existing tests were not deleted.
+
 # V-DEF2.1 retail physics and historical identity
 
 | Scope | Verified evidence | Boundary |

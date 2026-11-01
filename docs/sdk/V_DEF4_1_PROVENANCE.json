@@ -3,7 +3,7 @@
   "starting_commit": "e4c73491945095c48b43b519fc05651c79eaeac5",
   "branch": "research/vehicles",
   "owner_previous_baseline": "Forester/RAV4 accepted; TOMCAT visuals/order accepted, hybrid handling rejected",
-  "new_gameplay": "PENDING_OWNER",
+  "new_gameplay": "USER_RUNTIME_CONFIRMED",
   "candidate": "D:\\Game\\Master Rallye\\master-rallye-re-vehicles\\.research-output\\vehicles\\v-def4-1\\delivery-final\\32\\workshop\\builds\\first\\candidate",
   "launch": "D:\\Game\\Master Rallye\\master-rallye-re-vehicles\\.research-output\\vehicles\\v-def4-1\\delivery-final\\Launch-V-DEF4.1.cmd",
   "scope": "No new vehicles, physical IDs, participant capacity, DLL install, Randomizer merge, tyre menu or publication",
@@ -594,5 +594,6 @@
     "path": ".research-output/vehicles/v-def4-1/common-author-smoke/restoration-result.json",
     "scope": "Same generic restoration pipeline with per-role rendering, full clone, colour policy and deferred runtime T3 Invitation; no separate compiler"
   },
-  "ui_runtime_class_ownership": "Current configured roster overrides stale historical class metadata; tested independent per-mode controls."
+  "ui_runtime_class_ownership": "Current configured roster overrides stale historical class metadata; tested independent per-mode controls.",
+  "owner_confirmation": "Owner handoff: all runtime tests successful; proceed to V-SET1. No independent new game telemetry or F3 coexistence claim."
 }

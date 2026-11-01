@@ -1,0 +1,17 @@
+{
+  "schema": "vehicle-setup-pilot/1",
+  "identity": "mr-seatbuggy-ps2-v1",
+  "family": "SeatBuggy",
+  "car_id": 21,
+  "ps2_family": "SEATBUGGY",
+  "livery_default": "PS2 original",
+  "livery_alternative": "PC sponsor panels (reconstructed)",
+  "paint_textures": ["seat07-tga.gxi", "seat02-tga.gxi"],
+  "diagnostic_textures": ["seat06-tga.gxi"],
+  "stock_tyre": "native-default",
+  "alternative_tyre": "gravel",
+  "default_livery": 0,
+  "default_tyre": 0,
+  "scope": "Quick Race, human player 1; immutable original assets",
+  "historical_boundary": "Alternative preserves source PC sponsor pixels on individually witnessed PS2 panels. It is not a recovered second shipped PS2 livery. seat06 and all other maps remain original PS2."
+}

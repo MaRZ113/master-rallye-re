@@ -85,3 +85,24 @@ Challenge/Practice excluded. Physical CarIDs are independent of display order.
 Existing saved participants are not rewritten. Use disposable candidate saves for
 owner tests and observe known Randomizer F3 Challenge conflicts. No DLL installer
 or tyre setup screen is required or introduced here.
+
+
+## In-game Setup pilot (V-SET1)
+
+V-DEF4.1 above is now owner-confirmed. Vehicle Studios → In-game Setup pilot
+opens separate package authoring, without editing the open vehicle. Select the
+qualified PS2 assets, retail unpacked folder, accepted renderer sources, accepted
+CMD candidate and original game root. Save/load an independent setup recipe;
+build creates a fresh private host and keeps all installed files unchanged.
+
+Launch its CMD in windowed mode. Select SCHLESSER BUGGY 1997 in single-player
+Quick Race; on Vehicle Setup/Gearbox press F6. Choose original PS2 or reconstructed
+PC sponsor panels, Stock or retail gravel. Apply persists; Defaults is a draft
+until Apply; Cancel retains previous choices. Stock passes native selectors
+through unchanged. Controller POV/button support requires owner testing; keyboard
+F6 entry is required. This is an owned modal, not a new fullscreen MR screen.
+
+Do not edit linked runtime resources. Use only the generated CMD; disable through
+Enabled=0 in the private host/VSET1.ini, preserving the package marker. Saved
+championships are not rewritten. New in-game behavior is pending owner validation.
+See V_SET1_PILOT.md for scope, source boundaries and the exact checklist.
