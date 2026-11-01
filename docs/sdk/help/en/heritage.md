@@ -53,6 +53,15 @@ runtime identity, installation or gameplay qualification was performed.
 
 ## V-DEF1 canonical Forester
 
+**Current owner revision:** open
+`vehicles/v-def1/owner-fixes/release/Open-Forester-Workshop.cmd` under the private
+`.research-output` root. It uses an independent retail Forester physics clone,
+the original Demo9.10 side mini icon, donor white ON core/halo and measured
+complete-only menu lift. Previous release-candidate remains rollback evidence.
+Darren is owner-confirmed in race; corrected visual/tyre behaviors need retest.
+See `V_DEF1_FORESTER_OWNER_REVISION.md`. The paragraphs below describe the
+historical first candidate and its deliberately retained source research.
+
 The selected main PCG Forester now has a persistent Workshop restoration and
 CMD test candidate. See`V_DEF1_FORESTER_RESTORATION.md` and its owner checklist.
 The old alternate Original/car.dx is not used. Original Demo artwork/geometry,

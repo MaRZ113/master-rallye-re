@@ -64,6 +64,37 @@ def run(restoration,accepted_config,retail,output,*,repeat=False,emulate=False):
         if before[key]!=after[key]:raise ValueError('Original OFF geometry or material semantics changed: '+key)
     result.update(accepted_30_roster_resources_unchanged=len(unchanged),compiled_model_bytes_preserved=resource_equal,donor_states=states,donor_glass=glass,
                   source_wheel_measurements=presentation_wheels(*models),off_geometry={'source':before,'restored':after,'donor':off_geometry(raw)},owner_gameplay='NOT TESTED')
+    restoration_report=json.loads((restoration/'restoration-result.json').read_text())
+    if restoration_report.get('retail_corrections'):
+        from master_rallye.dxt import parse_dxt_bytes,decode_rgba_pixels
+        profile=json.loads((restoration/'author/physics-profile.json').read_text())
+        if profile['overrides']or profile.get('owned_tyres')or profile['donor_family']!='Forester':raise ValueError('Corrected candidate must use exact retail physics')
+        counts={}
+        for name in ('DataGame/vehicles.xml','DataGame/Modifications.xml'):
+            values={v.get('Name'):dict(v.attrib)for v in ET.fromstring((new/name).read_bytes()).iter('Value')}
+            donor={k:v for k,v in values.items()if k.startswith('Vehicles/Forester/')}
+            dedicated={k:v for k,v in values.items()if k.startswith('Vehicles/DefForester/')}
+            for k,v in donor.items():
+                nk=k.replace('Vehicles/Forester/','Vehicles/DefForester/',1);expected={**v,'Name':nk}
+                if dedicated.get(nk)!=expected:raise ValueError('Retail clone field differs: '+k)
+            if len(dedicated)!=len(donor)or any(k.startswith('Vehicles/Tyres/DefForesterTyre')for k in values):raise ValueError('Demo physics leaked into corrected package')
+            counts[name]=len(dedicated)
+        identity=restoration_report['identity'];mini=identity['original_mini_icon']
+        source_icon=Path(mini['path']).read_bytes()
+        if hashlib.sha256(source_icon).hexdigest()!=mini['sha256']:raise ValueError('Original mini icon changed')
+        bank=parse_bank((new/'DataGx/Frontend/RaceResults/smallcarsheet.dxb').read_bytes());icon=new/('DataGx/Frontend/RaceResults/'+bank['names'][-1]+'.dxt')
+        if decode_rgba_pixels(parse_dxt_bytes(icon.read_bytes()))!=decode_rgba_pixels(parse_dxt_bytes(source_icon)):raise ValueError('Original mini icon pixels changed')
+        from master_rallye.frontend_presentation import align_complete_rest_frame,measure
+        baseline=restoration/'author/native-import';original_resources={n:compatible_model((baseline/n).read_bytes(),n)[0]for n in ('car.dx','complete.dx','wheel.dx')}
+        reference={n:(retail/('DataGx/Vehicles/Forester/'+n)).read_bytes()for n in original_resources}
+        expected_complete,frame=align_complete_rest_frame(original_resources,reference)
+        if expected_complete!=(target/'complete.dx').read_bytes():raise ValueError('Frontend-only rebase differs from measured reference')
+        for path,digest in restoration_report['source_pins'].items():
+            if hashlib.sha256(Path(path).read_bytes()).hexdigest()!=digest:raise ValueError('Immutable canonical input changed')
+        result['owner_corrections']={'retail_clone_fields':counts,'mini_source':mini,'mini_native_rgba_exact':True,'frontend_frame':frame,
+            'frontend_before':measure(original_resources['complete.dx']),'frontend_after':measure(expected_complete),'frontend_reference':measure(reference['complete.dx']),
+            'original_input_pins_verified':len(restoration_report['source_pins']),'driver_identity':'Owner confirmed Darren Sutherland in race; unchanged',
+            'boundary':'Corrected lamp/tyre wear/mini/menu D3D8 retest pending; no race-completion claim'}
     if emulate:
         from validate_sdk_capacity_emulation import validate as validate_emission
         context=derive(config);original_exe=Path(config.get('retail_exe',ROOT.parent/'MRallye.exe')).read_bytes()

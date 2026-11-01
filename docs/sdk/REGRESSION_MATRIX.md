@@ -1,4 +1,16 @@
-# V-DEF1 Forester —1 November2026
+# V-DEF1 owner corrections —1 November2026
+
+| Scope | Current evidence | Boundary |
+|---|---|---|
+| Owner baseline | Selection/race screenshots; Darren explicitly confirmed in race | No full-race/Results success inferred |
+| Retail physics |147 vehicle +26 modification fields exactly cloned from retail Forester; no owned Demo tyres | Corrected wear/handling pending owner |
+| Lamps | Original donor ON4tri +halo16tri with shared per-side uniform fit; original OFF12tri underneath | D3D9 white core verified; D3D8 angles pending |
+| Mini icon | Original Demo9.10 frame4,32x16; native output RGBA exact | Original9.3 frame1 is64x32 three-quarter art; HUD retest pending |
+| Frontend | Source origin0 vs retail+0.38971442Y; only complete Y/bounds change | Race hubs/geometry unchanged; menu retest pending |
+| Regression |54 focused;1315 full PASS,2 pre-existing skips | Offline tests are not gameplay |
+| Determinism/preservation |222 DX/DXT identical;308 accepted resources unchanged;345 previous candidate resources reverified;58 original pins exact | Candidate-only PlayerState defaults switch with retail physics; no original saves edited |
+
+# Historical first V-DEF1 candidate (superseded, retained)
 
 Owned DefForesterTyre preserves24 Demo coefficients (five differ from retail),
 with36 retail-only tyre fields retained explicitly. Original shared tables are

@@ -443,15 +443,18 @@ def apply_features(root,profile_path):
         if (target/name).exists():raise ValueError('Native feature must not replace source textures')
         extra[name]=raw
     from .native_states import author_states
-    source=(target/'car.dx').read_bytes();glow=None;glow_report=None
+    source=(target/'car.dx').read_bytes();glow=None;glow_report=None;lit=None
     if 'brake_glow_reference'in profile:
         reference=profile['brake_glow_reference']
-        if set(reference)!={'path','sha256','texture_aliases'}:raise ValueError('Invalid native glow reference')
+        if not {'path','sha256','texture_aliases'}<=set(reference)or set(reference)-{'path','sha256','texture_aliases','include_on_core'}or type(reference.get('include_on_core',False))is not bool:raise ValueError('Invalid native glow reference')
         donor=read(reference['path'])
         if sha(donor)!=reference['sha256']:raise ValueError('Native glow donor changed')
         from .native_effect_reference import reference_brake_glow
         glow,glow_report=reference_brake_glow(source,donor,profile['states']['brake'],texture_aliases=reference['texture_aliases'])
-    data,detail=author_states(source,profile['states'],brake_glow=glow,brake_material=glow_report['lit_material']if glow_report else None)
+        if reference.get('include_on_core'):
+            from .native_effect_reference import reference_brake_lit
+            lit=reference_brake_lit(donor,glow_report,texture_aliases=reference['texture_aliases'])
+    data,detail=author_states(source,profile['states'],brake_glow=glow,brake_material=glow_report['lit_material']if glow_report else None,brake_lit=lit)
     if glow_report is not None:detail['native_glow_reference']=glow_report
     references={n.casefold()+'.dxt' for d in parse_dx_bytes(data).physical_draws for n in d.texture_tuple if n.casefold()!='null'}
     available={f.name.casefold() for f in target.iterdir() if f.is_file()}|{n.casefold() for n in extra}

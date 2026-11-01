@@ -1,4 +1,18 @@
-# V-DEF1 — canonical Demo Forester (1 November2026)
+# V-DEF1 owner corrections —1 November2026
+
+Current candidate: `vehicles/v-def1/owner-fixes/release` under `.research-output`.
+Generic native reference effects now optionally transfer the donor ON core,
+its original texture/UV/material and paired halo; source OFF lenses remain.
+Exact-pixel UI packaging preserves original Demo9.10 side mini artwork without
+tone/crop/rescale. A qualified car/complete/wheel pair can rebase frontend-only
+Y to the retail reference frame, with exact non-position/bounds conservation.
+Forester uses a dedicated unmodified RETAIL physics clone after owner feedback;
+historical Demo profiles remain evidence, not active tuning. Darren is owner
+confirmed in race.54 focused/1315 full tests PASS,2 existing skips; corrected
+D3D8 lamps, tyre wear, mini and menu height still require owner retest.
+See `V_DEF1_FORESTER_OWNER_REVISION.md` and its pinned JSON evidence.
+
+# Historical V-DEF1 first candidate (superseded by owner corrections)
 
 Owned DefForesterTyre preserves24 Demo coefficients (five differ from retail),
 with36 retail-only tyre fields retained explicitly. Original shared tables are

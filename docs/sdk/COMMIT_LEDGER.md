@@ -1,4 +1,21 @@
-# V-DEF1 canonical Demo Forester restoration —1 November2026
+# V-DEF1 owner corrections —1 November2026
+
+Baseline `ce0cd68929aca4a0c0048b74aff367a5fe000461`,clean research/vehicles.
+Resolve scoped commit with `git log -1 --format=%H --fixed-strings --grep="fix(definitive): correct Forester retail physics lights and presentation"`.
+Reuse Heritage/Workshop/CMD. Original retail ON core/texture complements the
+already qualified halo; immutable source OFF lens retained. Original Demo9.10
+smallcarsheet4 replaces menu-derived mini art. Qualified complete-only rest
+frame rebase is+0.38971442Y. Owner requested exact retail Forester physics after
+Demo tyre wear; historical source-valued profiles preserved outside active build.
+Owner confirms Darren in race and explains intentional Wildcat collection edit.
+54 focused/1315 full tests pass,2 existing skips;222 repeated DX/DXT exact,
+308 accepted resources unchanged.9 exact package resource differences reported,
+345 previous candidate resources reverified,58 original pins exact.40 D3D9
+captures include source/donor states and fixed-camera previous/current views.
+No new hooks/IDs, original file changes, gameplay PASS, push or publication.
+See `V_DEF1_FORESTER_OWNER_REVISION.md` /JSON; private owner-fixes/release candidate.
+
+# Historical V-DEF1 canonical restoration —1 November2026
 
 Owned DefForesterTyre preserves24 Demo coefficients (five differ from retail),
 with36 retail-only tyre fields retained explicitly. Original shared tables are

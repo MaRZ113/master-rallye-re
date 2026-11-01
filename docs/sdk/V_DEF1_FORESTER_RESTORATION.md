@@ -1,5 +1,13 @@
 # V-DEF1 — canonical Demo Forester restoration
 
+**Current owner revision:** `V_DEF1_FORESTER_OWNER_REVISION.md` supersedes the
+first candidate's Demo physics, derived menu mini icon, brightened-atlas lamp
+ON core and zero-height complete frame. Current private root is
+`vehicles/v-def1/owner-fixes/release` under `.research-output`.
+Owner has shown selection/race entry and confirmed Darren in race. Full race,
+Results/re-entry and the corrected candidate remain pending. Original findings
+below and the initial provenance JSON are historical evidence, kept intact.
+
 1 November 2026. Baseline `000521f4cf25bd78fac10c66a8cd2792af8fc649`, clean
 `research/vehicles`. **Private CMD candidate built through Rally Workshop;
 owner D3D8 gameplay NOT TESTED.** DLL/bootstrap work is unchanged.

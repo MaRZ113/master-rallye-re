@@ -537,5 +537,7 @@
     "No private donor payload or preview in source review archives."
   ],
   "current_candidate": "D:\\Game\\Master Rallye\\master-rallye-re-vehicles\\.research-output\\vehicles\\v-def1\\release-candidate\\workshop\\builds\\first\\candidate",
-  "current_workshop": "D:\\Game\\Master Rallye\\master-rallye-re-vehicles\\.research-output\\vehicles\\v-def1\\release-candidate\\workshop"
+  "current_workshop": "D:\\Game\\Master Rallye\\master-rallye-re-vehicles\\.research-output\\vehicles\\v-def1\\release-candidate\\workshop",
+  "record_status": "HISTORICAL_FIRST_DELIVERY",
+  "superseded_by": "V_DEF1_FORESTER_OWNER_REVISION.json"
 }

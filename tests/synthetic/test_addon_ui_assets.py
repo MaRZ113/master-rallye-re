@@ -78,6 +78,16 @@ class UiAssetTests(unittest.TestCase):
     def test_stock_policy_needs_no_sidecar(self):
         self.assertEqual(build_ui_assets(Path('does-not-exist'),{'frontend':{r:{'policy':'stock_frame'} for r in BANKS}},None),({},None))
 
+    def test_original_small_icon_pixels_bypass_tone_crop_and_rescale(self):
+        with tempfile.TemporaryDirectory()as temp:
+            root,addon,sma,cfg=self.fixture(Path(temp));pixels=b''.join(bytes((i%256,(i*3)%256,12,(i*7)%256))for i in range(512))
+            png=gtmat.png_from_rgba(32,16,pixels);(root/'ui/mini.png').write_bytes(png)
+            cfg['icons']['smallcarsheet']={'png':'ui/mini.png','sha256':sha(png),'presentation':'source-pixels-v1'}
+            (root/'ui-assets.json').write_text(json.dumps(cfg));assets,report=build_ui_assets(root,addon,sma)
+            self.assertEqual(decode_rgba_pixels(parse_dxt_bytes(assets[report['roles']['smallcarsheet']['frame_path']])),pixels)
+            cfg['icons']['vehicle_select_art']['presentation']='source-pixels-v1';(root/'ui-assets.json').write_text(json.dumps(cfg))
+            with self.assertRaisesRegex(AddonValidationError,'exactly match'):build_ui_assets(root,addon,sma)
+
     def test_manifest_project_frame_and_abi_range(self):
         manifests,_=load_manifests([ROOT/'research/vehicles/sdk/examples/glacier-sprint-t2.json'])
         caps,_=load_capabilities(ROOT/'research/vehicles/sdk/capabilities/retail-2001.json')

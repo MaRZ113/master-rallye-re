@@ -1,0 +1,106 @@
+{
+  "schema": "vdef1-owner-revision-evidence/1",
+  "baseline_commit": "ce0cd68929aca4a0c0048b74aff367a5fe000461",
+  "private_candidate": "D:\\Game\\Master Rallye\\master-rallye-re-vehicles\\.research-output\\vehicles\\v-def1\\owner-fixes\\release\\workshop\\builds\\first\\candidate",
+  "owner_evidence": {
+    "vehicle_selection_and_race_entry": "Confirmed by supplied D3D8 screenshots",
+    "driver_Darren_Sutherland": "Explicitly confirmed by owner in race",
+    "full_race_results_reentry": "Not yet confirmed",
+    "Wildcat_collection_edit": "Owner confirms intentional replacement of misleading Simmbugghini files with original Demo9.3.1 Wildcat; retain legacy snapshot, no rollback"
+  },
+  "resource_differences": [
+    {
+      "path": "DataGame/Modifications.xml",
+      "before": "56908cd0cc97c75d7adb94cef0a2508ab97b5539bf4c58b24a71c48c41f5f6e4",
+      "after": "8b513bdf29fe0d75826e09fa520cf325f350f80d213b580c5e9a02b70de4bf5f"
+    },
+    {
+      "path": "DataGame/PlayerState.xml",
+      "before": "6983dca8a9e4beece74add71e99809b3c3d17acd0972e751a1a89d2fd7113d48",
+      "after": "65ab0e9d5d59418d22c0885c75cff484b9f5d0df5baab9dc48ce516ed0e78791"
+    },
+    {
+      "path": "DataGame/PlayerState.xml#",
+      "before": "f43b5ff3e41beb81cdc8f39dc60cec404ffaba553ca346413c6fad2a68a14ff1",
+      "after": null
+    },
+    {
+      "path": "DataGame/vehicles.xml",
+      "before": "93d4de7fe661fdcefbac7c40bd9b099ed76f3c2ae4b7b0e2f2ded5a9e55cb912",
+      "after": "bc3a90331915194795e485c9c74e48cddc7560f84e4f01e7bc80b51ad6fbc1d0"
+    },
+    {
+      "path": "DataGx/Frontend/RaceResults/smallcarsheet_033_000.dxt",
+      "before": "91c4da5c6e8a0d72b658883affa028fcf73a6461f72de4ce83697a0e569ad1ad",
+      "after": "bfd1cc08cd67a637487210077b35698ecf6130ceb6f8dafd1eb6fe5027afb958"
+    },
+    {
+      "path": "DataGx/Vehicles/DefForester/car.dx",
+      "before": "0e2780cfeccb02e4d8cb3208b387b295d66b75f520504c304a12171859a0a03b",
+      "after": "12661c6644e609b0995fdc3e50b91344354890e4eac3c1ed3f8c9539d1e44d8f"
+    },
+    {
+      "path": "DataGx/Vehicles/DefForester/complete.dx",
+      "before": "9eb3eaa5fc47ee0f2cde5e5609cab5049212151129b55fffc5bf21010a744f9a",
+      "after": "49c2828c9f41e9a31f654d4c7b508ae9dc78d2bf4437ebf7feb945f9db39adef"
+    },
+    {
+      "path": "DataGx/Vehicles/DefForester/mr-auto-stop-lit-7dea3c77d5b6-tga.dxt",
+      "before": "a99e85e35027ec9830662e1eba3fec879390248f06962672d80d317f1ae2c00d",
+      "after": null
+    },
+    {
+      "path": "DataGx/Vehicles/DefForester/mr-ref-2834811f44-breaklightson-tga.dxt",
+      "before": null,
+      "after": "2834811f44891251575ed28d7ddd4c21c5e21a76802fada85c49fc8c90bee92f"
+    }
+  ],
+  "previous_candidate_sealed_resources_verified": 345,
+  "source_pins_verified": 58,
+  "artifacts": {
+    "focused-verified.json": {
+      "sha256": "2b6f7763b9971b39ac63bb8d8742c1d80213c990c5841af4fc92c040bc8e4eec",
+      "bytes": 8637
+    },
+    "full-regression.json": {
+      "sha256": "44b205107bc6b4f16cf4423738e8293905e3d1585089dc6611d33fe7a3b7fb0c",
+      "bytes": 9100
+    },
+    "corrected-validation.json": {
+      "sha256": "98ae3891d0af4a35af28222fa68cdddbadd3af5f9092d26dbc67e734c8681347",
+      "bytes": 30779
+    },
+    "package-validation.json": {
+      "sha256": "ac8303c188e24ec3a8db41ae7ab90e8b93a776e72b0e4d56b80783ad64071c69",
+      "bytes": 11194
+    },
+    "resource-difference-report.json": {
+      "sha256": "3624d4ae968e7cc2ec6942f4643c783190552f2fc5ebc863edf748eaf7147360",
+      "bytes": 7158
+    },
+    "release/frontend-frame.json": {
+      "sha256": "d72cb82e9882f151444e0c0f185cc3f1a85ef4ef5a4d6bf04d332fd59f25efc3",
+      "bytes": 1009
+    },
+    "release/identity-evidence.json": {
+      "sha256": "ce7240c39de5bbc72f1cc8ffe6e521a99b1b918ca8923d5ebbaaeef03eef63ca",
+      "bytes": 3478
+    },
+    "release/native-features.json": {
+      "sha256": "a021fad8d707912b8a2bea7a6c727405fccd5ddbf06449be9b55dc213160019b",
+      "bytes": 5886
+    },
+    "release/physics-preservation.json": {
+      "sha256": "9576e9e436dc9d99376e4f32f3211c75ba3f6efa727fc4cc0f7c9efab7702dc1",
+      "bytes": 445
+    },
+    "previews/capture-report.json": {
+      "sha256": "15e4d884dcf3b9f0560b3b2a62e7c2ac93e0e14f9aa25c1b46006f699a269fc2",
+      "bytes": 12473
+    },
+    "final-comparison/capture-report.json": {
+      "sha256": "4b90de829beaf734281aa7359169fd2aa5ace8eda5bc457f8991e920de1f1ac1",
+      "bytes": 5599
+    }
+  }
+}

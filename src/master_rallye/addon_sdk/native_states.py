@@ -39,7 +39,7 @@ def wrap_states(template,items):
     return data
 
 
-def author_states(raw,profile,*,brake_glow=None,brake_material=None):
+def author_states(raw,profile,*,brake_glow=None,brake_material=None,brake_lit=None):
     if not isinstance(profile,dict) or 'source_sha256'not in profile or set(profile)-{'source_sha256','panes','brake'}:raise ValueError('Unknown native state recipe keys')
     if hashlib.sha256(raw).hexdigest()!=profile['source_sha256']:raise ValueError('Native feature source SHA256 mismatch')
     m=parse_dx_bytes(raw);geometry=source_geometry(m)
@@ -64,6 +64,7 @@ def author_states(raw,profile,*,brake_glow=None,brake_material=None):
         allocated+=ids;intact=part(index,ids);broken=replace(intact,geometry=subset(geometry[index],ids,pane['broken_uv_axes']),textures=(pane['broken_texture'],intact.textures[1],'Null'))
         special.append((label,[intact],[broken]));off_parts.append(intact);reports[label]={'source_draw':index,'triangles':ids,'broken_uv':'Explicit planar native MR approximation'}
     lamp=profile.get('brake')
+    if brake_lit is not None and (not lamp or not isinstance(brake_lit,ScenePart)or brake_lit.alpha or brake_lit.diffuse or brake_glow is None):raise ValueError('Native ON core requires an opaque/unlit reference part and paired halo')
     if brake_glow is not None and (not lamp or not isinstance(brake_glow,ScenePart) or not brake_glow.alpha or brake_glow.diffuse):raise ValueError('Reference glow requires an explicit brake and alpha/unlit ScenePart')
     if lamp:
         required={'source_draw','triangles','lit_texture','glow_texture','evidence'}
@@ -81,8 +82,10 @@ def author_states(raw,profile,*,brake_glow=None,brake_material=None):
         # the ordinary body pipeline, including large triangles shared by a
         # lens and painted panel. Only the derived atlas coverage emits light.
         on=[lit,glow] if mode=='replace' else [off,replace(lit,alpha=True,alpha_test=True),glow]
+        if brake_lit is not None:on=[off,brake_lit,glow]
         special.append(('blight',[off],on));off_parts.append(off);reports['blight']={'source_draw':index,'triangles':ids,'evidence':lamp['evidence'],'mode':mode,'halo':'Source lens geometry only; no enlargement/body spill'}
         if brake_glow is not None:reports['blight']['halo']='Explicit source-pinned native donor glow geometry, independently fitted to the two selected lenses'
+        if brake_lit is not None:reports['blight']['on_core']='Original donor ON geometry/UV/material/texture; same per-side fit as halo; source OFF lens retained underneath'
     body=[]
     for index in range(len(m.physical_draws)):
         remaining=sorted(set(range(len(geometry[index].triangles)))-set(allocations.get(index,[])))

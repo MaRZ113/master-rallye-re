@@ -41,18 +41,29 @@ Source-only review archives and automated tests do not prove original-game rende
 The complete Demo audit is retained in `DEMO_VEHICLE_AUDIT_RESULTS.md` and its
 matrix/shortlist. The first authorized restoration now has a persistent Workshop
 project and isolated CMD candidate: canonical9.3.1 Demo Forester geometry,
-authenticated original CarSheet,PS2-qualified Darren Sutherland,independent
-source-valued physics with independently owned tyre tables and bounded native glass/WOOLDAND halo adaptations.
+authenticated original CarSheet and separate Demo9.10.0 side mini icon,
+owner-confirmed Darren Sutherland, independent RETAIL Forester physics and
+bounded native glass/WOOLDAND ON-core/halo adaptations. Demo physics remains
+historical evidence after the owner reported excessive tyre wear. The complete
+model alone is rebased upward by the measured retail rest-frame difference
+0.38971442m; race geometry and original source files remain unchanged.
 See `V_DEF1_FORESTER_RESTORATION.md` and `V_DEF1_FORESTER_OWNER_TEST.md`.
+Current private candidate: `vehicles/v-def1/owner-fixes/release` under
+`.research-output`; previous `release-candidate` remains available for rollback.
 
 **Owner-qualified capacity remains30 (8/10/12).** A separately gated31-record
 candidate appends ID30/T2 local10 (8/11/12); automated checks and CPU helper
-emulation pass, but actual selection,race,AI,damage,Results,saves and re-entry
-remain pending. Existing IDs,accepted projects and originals are unchanged.
+emulation pass. Owner screenshots confirm selection/race entry, and the owner
+explicitly confirms the race driver name. Full race completion, Results, AI,
+saves/re-entry and the FOUR corrected behaviors remain unverified. Existing
+IDs,accepted projects and originals are unchanged.
 No rear glass zone was invented; broken UV/shading and halo fit are explicit
 adaptations. Incorporate owner feedback before promoting this layout or another
 restoration. The unrelated Nov Wildcat collection drift detected against the
-prior audit is preserved,not rolled back. DLL packaging remains separate.
+prior audit is preserved,not rolled back: the owner confirmed intentional
+replacement of misleading Simmbugghini files with original9.3.1 Wildcat.
+54 focused and1315 full Windows tests pass (2 existing skips);222 DX/DXT repeat
+exactly and308 previous roster resources remain unchanged. DLL stays separate.
 
 ## 3B. Deferred priority: Definitive Edition vehicle runtime
 

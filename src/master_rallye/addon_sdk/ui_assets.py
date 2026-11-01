@@ -110,7 +110,7 @@ def build_ui_assets(root,addon,data_sma):
         for role in sorted(selected):
             prefix,count,template,size=BANKS[role];item=config['icons'][role]
             if not isinstance(item,dict) or not {'png','sha256'}<=set(item) or set(item)-{'png','sha256','presentation'} or not isinstance(item['png'],str) or not isinstance(item['sha256'],str):raise AddonValidationError('UI icon needs png and sha256')
-            if item.get('presentation','legacy') not in ('legacy','mr-native-v1'):raise AddonValidationError('unsupported UI presentation profile')
+            if item.get('presentation','legacy') not in ('legacy','mr-native-v1','source-pixels-v1'):raise AddonValidationError('unsupported UI presentation profile')
             relative=PurePosixPath(item['png'])
             if relative.is_absolute() or any(part in ('.','..') or ':' in part or '\\' in part for part in relative.parts):
                 raise AddonValidationError('UI PNG must be a safe path inside project')
@@ -136,6 +136,9 @@ def build_ui_assets(root,addon,data_sma):
             if item.get('presentation')=='mr-native-v1':
                 from .ui_preview import compose_preview
                 rgba,style=compose_preview(image,role)
+            elif item.get('presentation')=='source-pixels-v1':
+                if image[:2]!=size:raise AddonValidationError('source-pixels icon must exactly match native dimensions')
+                rgba=image[2]
             else:rgba=fit_rgba(image,*size,padding=1,target_bounds=bounds)
             frame_path=prefix.rsplit('/',1)[0]+'/'+name+'.dxt'
             pixels=bytearray(encode_dxt_pixels(tex,rgba,*size))

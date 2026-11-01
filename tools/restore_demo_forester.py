@@ -55,7 +55,7 @@ def identity_evidence(demo,ps2):
             'boundary':'Original localized data records and XML/image-bank bindings; no PS2 instruction or runtime emulation claim. Driver attribution is PS2 evidence, not a newly found PC driver literal.'}
 
 
-def prepare(demo,rebaked,retail_sma,ps2,roster_config,output):
+def prepare(demo,rebaked,retail_sma,ps2,roster_config,output,*,retail_corrections=False,mini_icon=None):
     output=output_directory(output,[demo,rebaked,retail_sma,ps2,roster_config])
     if not output.is_relative_to((ROOT/'.research-output').absolute()):raise ValueError('Private repository output required')
     output.mkdir(parents=True);identity=identity_evidence(demo,ps2);write(output/'identity-evidence.json',identity)
@@ -83,6 +83,13 @@ def prepare(demo,rebaked,retail_sma,ps2,roster_config,output):
         physics_donor='Forester',stock_audio_profile_id=8,vehicle_class='T2',retail_sma=retail_sma,features=None,family_folder=rebaked)
     members={n:read_sma_member(retail_sma,n)for n in MEMBERS};source=(demo/'DataGame/vehicles.xml').read_bytes()
     physics,report=source_family_profile(source,members,source_family='Forester',donor_family='Forester',runtime_family='DefForester')
+    if retail_corrections:
+        # create_author already made an independent, unmodified retail clone.
+        # Keep the historical profile as evidence only, never feed its tyre
+        # coefficients to the corrected candidate's retail solver.
+        write(output/'historical-physics-reference.json',{'profile':physics,'report':report})
+        physics=json.loads((project/'physics-profile.json').read_text())
+        report={'policy':'Exact independent retail Forester/WOOLDAND clone','source_sha256':physics['source_sha256'],'overrides':physics['overrides'],'owned_tyres':None,'owner_reason':'Demo physics/tyre wear is unsuitable for retail; owner requested retail defaults'}
     write(project/'physics-profile.json',physics);write(output/'physics-preservation.json',report)
     ev=project/'source-evidence';ev.mkdir();(ev/'demo-vehicles.xml').write_bytes(source)
     assets=project/'assets/source/Forester';textures={p.name.casefold():p.read_bytes()for p in assets.glob('*.dxt')}
@@ -91,14 +98,21 @@ def prepare(demo,rebaked,retail_sma,ps2,roster_config,output):
     feature=project/'native-features';feature.mkdir();donor=read_sma_member(retail_sma,'DataGx/Vehicles/Forester/car.dx');(feature/'technical-donor.dx').write_bytes(donor)
     extra['mr-auto-cracked-tga.dxt']=read_sma_member(retail_sma,'DataGx/Vehicles/Forester/windscreenc32-tga.dxt')
     aliases={}
-    for stem in ('breaklightsonglow-tga','perspex-tga'):
+    for stem in (('breaklightsonglow-tga','perspex-tga','breaklightson-tga')if retail_corrections else('breaklightsonglow-tga','perspex-tga')):
         blob=read_sma_member(retail_sma,'DataGx/Vehicles/Forester/'+stem+'.dxt');alias='mr-ref-'+sha(blob)[:10]+'-'+stem;aliases[stem]=alias;extra[alias+'.dxt']=blob
     additions={}
     for name,blob in extra.items():
         path=feature/name;path.write_bytes(blob);additions[name]={'path':str(path.absolute()),'sha256':sha(blob)}
     recipe={'version':1,'additional_textures':additions,'states':states,'evidence':'Exact Demo GXM/TXT pane/lamp ownership; retail WOOLDAND native blight glow topology/UV/material copied with independent measured uniform per-lens fitting. Rear pane absent; no body cutout.',
             'brake_glow_reference':{'path':str((feature/'technical-donor.dx').absolute()),'sha256':sha(donor),'texture_aliases':aliases}}
+    if retail_corrections:recipe['brake_glow_reference']['include_on_core']=True
     write(feature/'recipe.json',recipe);audit=heritage.apply_features(project,feature/'recipe.json');write(output/'native-features.json',{'ownership':detail,'authoring':audit})
+    if retail_corrections:
+        from master_rallye.frontend_presentation import align_complete_rest_frame
+        resources={n:(assets/n).read_bytes()for n in heritage.ROLES};reference={n:read_sma_member(retail_sma,'DataGx/Vehicles/Forester/'+n)for n in heritage.ROLES}
+        aligned,framing=align_complete_rest_frame(resources,reference)
+        (assets/'complete.dx').write_bytes(aligned);write(output/'frontend-frame.json',framing)
+        provenance=json.loads((project/'heritage-import.json').read_text());provenance['frontend_frame']=framing;provenance['resource_pins']={p.name:sha(p.read_bytes())for p in assets.iterdir()if p.is_file()};write(project/'heritage-import.json',provenance)
     addon=json.loads((project/'addon.json').read_text());addon['frontend'].update(manufacturer='SUBARU',model='FORESTER',combined='SUBARU FORESTER',stats=[6,7,5,4]);addon['results']['display_name']='DARREN SUTHERLAND'
     addon['description']='Authentic Demo9.3.1 geometry/artwork/physical values; PS2-qualified Darren Sutherland; retail MR solver/glass/glow/audio adaptations. Independent experimental ID30.';write(project/'addon.json',addon)
     from PIL import Image
@@ -106,8 +120,21 @@ def prepare(demo,rebaked,retail_sma,ps2,roster_config,output):
     rgba=Image.frombytes('RGBA',(texture.width,texture.height),texture.bgra,'raw','BGRA').transpose(Image.Transpose.FLIP_TOP_BOTTOM);rgba.save(project/'ui/vehicle_select_art.png')
     w,h,pixels=32,16,None;pixels=fit_rgba((rgba.width,rgba.height,rgba.tobytes()),w,h);Image.frombytes('RGBA',(w,h),pixels).save(project/'ui/smallcarsheet.png')
     ui=json.loads((project/'ui-assets.json').read_text())
+    if retail_corrections:
+        from master_rallye.dxt import decode_rgba_pixels
+        if mini_icon is None:raise ValueError('Corrected candidate requires an explicit qualified Demo mini icon')
+        mini=Path(mini_icon);mt=parse_dxt_bytes(mini.read_bytes())
+        bank=mini.parent/'smallcarsheet.dxb';mb=parse_bank(bank.read_bytes())
+        if mini.stem not in mb['names']:raise ValueError('Mini icon is not referenced by its original Demo bank')
+        if (mt.width,mt.height)!=(32,16):raise ValueError('Original Demo mini icon dimensions differ')
+        Image.frombytes('RGBA',(32,16),decode_rgba_pixels(mt)).save(project/'ui/smallcarsheet.png')
+        ui['icons']['smallcarsheet']['presentation']='source-pixels-v1'
+        identity['original_mini_icon']={'path':str(mini),'sha256':sha(mini.read_bytes()),'bank_sha256':sha(bank.read_bytes()),'frame':mb['names'].index(mini.stem),'association':'Original Demo9.10.0 smallcarsheet frame4, visually inspected pink Forester SIDE artwork. Demo9.3.1 frame1 is a separate 64x32 three-quarter icon, not selected. No claim of identical original registry IDs.'}
+        addon['description']='Authentic Demo9.3.1 geometry/CarSheet, original Demo9.10.0 side mini icon, PS2-qualified Darren; independent retail Forester physics, native glass and complete donor ON core/halo. Frontend-only measured rest-frame rebase. ID30.';write(project/'addon.json',addon)
     for role in ('vehicle_select_art','smallcarsheet'):ui['icons'][role]['sha256']=sha((project/'ui'/(role+'.png')).read_bytes())
     write(project/'ui-assets.json',ui);identity['icon_source_sha256']=sha(icon.read_bytes());identity['results_icon']='Derived 32x16 fit of the authentic Demo CarSheet, not a recovered distinct Results frame';write(output/'identity-evidence.json',identity)
+    if retail_corrections:
+        identity['results_icon']='Authentic original Demo9.10.0 smallcarsheet frame4; exact RGBA, no menu image resize or tone adjustment';write(output/'identity-evidence.json',identity)
     config=json.loads(roster_config.read_text())
     if [r['physical_id']for r in config['projects']]!=[28,29]:raise ValueError('An existing 30-entry roster is required without replacing its projects')
     config.update(experimental_record_count=31);config['projects'].append({'project':str(project.absolute()),'build':str(output/'not-built'),'physical_id':30})
@@ -117,7 +144,7 @@ def prepare(demo,rebaked,retail_sma,ps2,roster_config,output):
     changed=[name for name,pin in pins.items()if sha(Path(name).read_bytes())!=pin]
     write(output/'restoration-result.json',{'status':'READY_FOR_OWNER_TEST','runtime_qualified':False,'workshop':str(workshop.root),'candidate':str(output/'workshop/builds/first/candidate'),
           'source_pins':pins,'source_changes':changed,'physics':report,'identity':identity,'build':result,
-          'unverified':['31st independent record and T2 local10 lifecycle','player/AI, Results, saves and re-entry','damage triggers, glow and lamp visibility in D3D8','source parameters in retail solver','No separate source rear glass surface; no invented rear damage zone','Broken glass UV/normals approximate retail appearance; original intact pane attributes preserved','Randomizer coexistence not newly tested; existing CMD environment rules apply']})
+          'retail_corrections':retail_corrections,'unverified':['31st independent record complete lifecycle','Results driver identity and full race completion','corrected glow core, retail tyre wear, mini icon and frontend height in D3D8','No separate source rear glass surface; no invented rear damage zone','Broken glass UV/normals approximate retail appearance; original intact pane attributes preserved','Randomizer coexistence not newly tested; existing CMD environment rules apply']})
     if changed:raise ValueError('Immutable source changed')
     (output/'Open-Forester-Workshop.cmd').write_text('@echo off\n"'+sys.executable+'" "'+str(ROOT/'tools/rally_workshop.py')+'" --project "%~dp0workshop" --workspace "%~dp0workshop-workspace"\nif errorlevel 1 pause\n')
     return workshop
@@ -126,4 +153,6 @@ def prepare(demo,rebaked,retail_sma,ps2,roster_config,output):
 if __name__=='__main__':
     a=argparse.ArgumentParser(description=__doc__)
     for name in ('demo','rebaked','retail-sma','ps2','roster-config','output'):a.add_argument('--'+name,required=True,type=Path)
-    x=a.parse_args();prepare(x.demo,x.rebaked,x.retail_sma,x.ps2,x.roster_config,x.output)
+    a.add_argument('--retail-corrections',action='store_true',help='Owner revision: retail physics, original mini icon, reference ON core and frontend frame')
+    a.add_argument('--mini-icon',type=Path,help='Explicit original Demo side-view smallcarsheet texture (with original bank beside it)')
+    x=a.parse_args();prepare(x.demo,x.rebaked,x.retail_sma,x.ps2,x.roster_config,x.output,retail_corrections=x.retail_corrections,mini_icon=x.mini_icon)

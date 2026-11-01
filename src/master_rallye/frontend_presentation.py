@@ -88,3 +88,37 @@ def wheel_baseline(resources):
     for inst in proof['race_wheel_instances']:
         vec,_=preview_transform(inst);points.extend(vec(wheel.vertices.positions[i],True)[1]+delta[1]for i in used)
     return {'minimum_y_m':min(points),'provenance':proof['provenance'],'body_translation':delta,'boundary':'Source frontend rest pose only; not suspension travel or gameplay ground contact'}
+
+
+def align_complete_rest_frame(resources,reference):
+    """Derive a frontend-only rigid Y rebase from proven car/complete pairs.
+
+    This corrects a different authoring origin, not a camera or physics value.
+    Both assemblies must independently prove their body and four wheel frames.
+    Original inputs, car.dx and wheel.dx remain immutable.
+    """
+    from .dx import parse_dx_bytes
+    from .preview_scene import presentation_wheels
+    from .bounds import compute_bounds1339,replace_bounds1339
+    def proof(values):
+        return presentation_wheels(*(parse_dx_bytes(values[n])for n in('car.dx','complete.dx','wheel.dx')),diagnostics=True)
+    a,b=proof(resources),proof(reference)
+    delta=b['body_translation'][1]-a['body_translation'][1]
+    if any(abs(p['body_translation'][k])>1e-5 for p in (a,b)for k in (0,2))or not math.isfinite(delta)or abs(delta)>1.5:raise ValueError('Unsupported complete rest-frame difference')
+    raw=resources['complete.dx'];m=parse_dx_bytes(raw)
+    if not m.diagnostics.validated or m.collision.unparsed_offset+44!=len(raw):raise ValueError('Complete alignment requires valid terminal bounds1339')
+    patched=bytearray(raw);allowed=set()
+    for i,(x,y,z)in enumerate(m.vertices.positions):
+        off=m.vertices.position_offset+i*m.vertices.position_stride+4
+        struct.pack_into('<f',patched,off,y+delta);allowed.update(range(off,off+4))
+    p=parse_dx_bytes(bytes(patched));bounds=compute_bounds1339(p.vertices.positions,p.collision.convex_hull,offset=p.collision.unparsed_offset)
+    data=replace_bounds1339(bytes(patched),bounds,footer_offset=p.collision.unparsed_offset)
+    allowed.update(range(p.collision.unparsed_offset,len(data)))
+    if len(data)!=len(raw)or any(x!=y and i not in allowed for i,(x,y)in enumerate(zip(raw,data))):raise ValueError('Complete alignment changed non-position/bounds bytes')
+    after={**resources,'complete.dx':data};c=proof(after)
+    if abs(c['body_translation'][1]-b['body_translation'][1])>1e-5 or c['race_wheel_instances']!=a['race_wheel_instances']:raise ValueError('Complete rebase changed race wheel frames')
+    return data,{'source_sha256':hashlib.sha256(raw).hexdigest(),'output_sha256':hashlib.sha256(data).hexdigest(),
+                 'reference_sha256':{n:hashlib.sha256(v).hexdigest()for n,v in reference.items()},
+                 'source_body_translation':a['body_translation'],'reference_body_translation':b['body_translation'],
+                 'translation_m':[0.,delta,0.],'preserved':['X/Z positions','normals','UVs','colours','indices','materials','collision','race geometry','race wheel hubs'],
+                 'boundary':'Frontend origin only; source rest pose asymmetry and race suspension unchanged; D3D8 menu verification pending'}

@@ -2,7 +2,7 @@ import copy,struct,unittest
 from dataclasses import replace
 from master_rallye.addon_sdk.auto_features import zone_glass
 from master_rallye.addon_sdk.heritage_source import repair_global_indices
-from master_rallye.addon_sdk.native_effect_reference import reference_brake_glow
+from master_rallye.addon_sdk.native_effect_reference import reference_brake_glow,reference_brake_lit
 from master_rallye.addon_sdk.native_states import wrap_states,author_states
 from master_rallye.addon_sdk.historical_physics import source_family_profile
 from master_rallye.scene_dx_writer import ScenePart,write_scene_dx
@@ -56,6 +56,27 @@ class DefinitiveRestorationTests(unittest.TestCase):
         self.assertEqual(result,author_states(source,profile,brake_glow=glow,brake_material=report['lit_material'])[0])
         with self.assertRaises(ValueError):reference_brake_glow(source,source,selection)
         with self.assertRaises(ValueError):reference_brake_glow(source,donor,{'source_draw':0,'triangles':[0,0]})
+
+    def test_reference_on_core_retains_white_hot_texture_and_source_off_lens(self):
+        from master_rallye.preview_scene import logical_cases
+        geometry=lamps();off=ScenePart(geometry,('off','perspex','Null'),environment=True)
+        on=replace(off,textures=('white-hot-on','perspex','Null'),diffuse=False)
+        halo=replace(on,textures=('glow','perspex','Null'),alpha=True,geometry=lamps(1.8))
+        donor=wrap_states(fixture(),[('blight',[off],[on,halo])]);source=write_scene_dx(fixture(),[off]);sel={'source_draw':0,'triangles':[0,1,2,3]}
+        glow,report=reference_brake_glow(source,donor,sel);core=reference_brake_lit(donor,report,texture_aliases={'white-hot-on':'owned-on'})
+        from master_rallye.topology_writer import source_geometry
+        original=source_geometry(parse_dx_bytes(donor))[report['donor_lit_draw']]
+        self.assertEqual(core.textures,('owned-on','perspex','Null'))
+        self.assertEqual(core.geometry.triangles,original.triangles)
+        self.assertEqual([(v.position,v.normal,v.color,v.uvs)for v in core.geometry.vertices],[(v.position,v.normal,v.color,v.uvs)for v in original.vertices])
+        self.assertFalse(core.diffuse);self.assertFalse(core.alpha)
+        profile={'source_sha256':__import__('hashlib').sha256(source).hexdigest(),'brake':{**sel,'lit_texture':'wrong-brightened-atlas','glow_texture':'unused','evidence':'native reference'}}
+        result,_=author_states(source,profile,brake_glow=glow,brake_lit=core)
+        m=parse_dx_bytes(result);cases,_=logical_cases(m);draws=[d for d in m.physical_draws if cases.get(d.draw_index)==(1,2)]
+        self.assertEqual([d.texture_tuple[0]for d in draws],['off','owned-on','glow'])
+        self.assertEqual([d.triangle_count for d in draws],[4,4,4])
+        with self.assertRaisesRegex(ValueError,'donor changed'):reference_brake_lit(source,report)
+        with self.assertRaises(ValueError):author_states(source,profile,brake_glow=glow,brake_lit=replace(core,alpha=True))
 
     def test_original_physics_values_are_typed_and_donor_only_fields_explicit(self):
         resources,_=physics_fixture();source=resources['DataGame/vehicles.xml'].replace(b'Value="1000"',b'Value="1340"')

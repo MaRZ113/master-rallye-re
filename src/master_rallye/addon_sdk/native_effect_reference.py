@@ -71,5 +71,29 @@ def reference_brake_glow(source,donor,selection,*,texture_aliases=None):
                    bool(halo.flags_0x20[0]),bool(halo.flags_0x20[1]),bool(halo.unknown_0x24&4),bool(halo.flags_0x20[2]))
     return part,{'donor_sha256':hashlib.sha256(donor).hexdigest(),'donor_off_draw':off[0].draw_index,'donor_glow_draw':halo.draw_index,
                  'donor_textures':list(halo.texture_tuple),'output_textures':list(textures),'triangles':len(triangles),'fits':measurements,
+                 'donor_lit_draw':lit[0].draw_index,
                  'lit_material':{'alpha':bool(lit[0].flags_0x20[0]),'alpha_test':bool(lit[0].flags_0x20[1]),'environment':bool(lit[0].unknown_0x24&4),'diffuse':bool(lit[0].flags_0x20[2]),'secondary_texture':aliases.get(lit[0].texture_tuple[1],lit[0].texture_tuple[1])},
                  'preserved':['glow topology','UV','normal','vertex color','material flags'],'boundary':'Explicit uniform lens-fit MR adaptation; not original donor-game or source vehicle glow equivalence.'}
+
+
+def reference_brake_lit(donor,report,*,texture_aliases=None):
+    """Transfer the actual ON core with the halo's SAME qualified per-side fit.
+
+    Keep the source OFF lens below this separate native core. A brightened
+    source atlas cannot reproduce a donor ON texture's white hot centre.
+    """
+    if hashlib.sha256(donor).hexdigest()!=report['donor_sha256']:raise ValueError('Reference lamp donor changed')
+    model=parse_dx_bytes(donor);draw=model.physical_draws[report['donor_lit_draw']]
+    cases,_=logical_cases(model)
+    if cases.get(draw.draw_index)!=(1,2)or draw.flags_0x20[0]or draw.flags_0x20[2]:raise ValueError('Reference ON core must be opaque/unlit')
+    parts=_components(source_geometry(model)[draw.draw_index]);parts.sort(key=lambda g:sum(v.position[0]for v in g.vertices)/len(g.vertices))
+    if len(parts)!=2 or len(report['fits'])!=2:raise ValueError('Ambiguous reference ON core components')
+    vertices=[];triangles=[]
+    for part,fit in zip(parts,report['fits']):
+        scale=fit['uniform_scale'];a,b=fit['source_anchor'],fit['donor_anchor'];start=len(vertices)
+        if not .25<=scale<=4:raise ValueError('Reference core fit outside budget')
+        vertices.extend(replace(v,position=tuple(a[k]+scale*(v.position[k]-b[k])for k in range(3)))for v in part.vertices)
+        triangles.extend(tuple(start+i for i in t)for t in part.triangles)
+    aliases=texture_aliases or {}
+    return ScenePart(DrawGeometry(tuple(vertices),tuple(triangles)),tuple(aliases.get(n,n)for n in draw.texture_tuple),
+                     bool(draw.flags_0x20[0]),bool(draw.flags_0x20[1]),bool(draw.unknown_0x24&4),bool(draw.flags_0x20[2]))
