@@ -11,6 +11,8 @@ SMOKE=('test_preview_cache','test_editable_vehicle','test_source_scene_preview',
 INTEGRATION=(*SMOKE,'test_native_family_scene','test_scene_semantics','test_universal_vehicle_scene','test_workshop_universal_source',
              'test_workshop','test_workshop_stabilization','test_dakar2_materials','test_material_derivation')
 DEPENDENCIES={
+    'audit_demo_frontend_stats':('test_vdef4','test_demo_identity'),
+    'compare_workshop_icons':('test_vdef4','test_vmesh413_ui'),
     'roster_layout':('test_roster_layout','test_sdk_roster','test_sdk_capacity'),
     'roster_scene_layout':('test_roster_layout','test_sdk_roster'),
     'sdk_capacity_native':('test_roster_layout','test_sdk_capacity','test_sdk_roster'),

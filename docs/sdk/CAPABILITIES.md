@@ -560,3 +560,24 @@ bounds remain. New T3 AI, arbitrary EXE layouts, active championship migration,
 capacity beyond33 and full Demo TOMCAT restoration are unsupported. D3D8 owner
 selection/race/Results/save/Randomizer tests are pending. See
 [V-DEF3 results](V_DEF3_ROSTER_ORDER_RESULTS.md).
+
+
+## V-DEF4 TOMCAT, catalog ratings and icon lighting
+
+V-DEF3 ordering/33-record capacity is now owner accepted in-game. One separate
+TOMCAT32 CMD candidate replaces the technical canary with the authentic early
+8.4.1 blue body, source wheels/UV/textures, original CarSheet, matching separate
+HUD art, three breakable-glass zones and source-owned lamps with retail-native
+ON/core/glow.100 compatible historical physics fields are retained in an owned
+retail Wildcat schema;121 original fields and21 explicit exclusions are kept.
+New TOMCAT gameplay/handling/events and T3 AI inclusion are not owner-qualified.
+
+The reusable restoration path supports an explicitly named same-slot canary
+replacement and exact-source cache repair without changing generic writer gates.
+Historical frontend ratings are source-evidenced in per-car manifests and
+editable in Workshop independently of physics. RAV4/Alpha unknown values are
+not borrowed from Newrav. The generated-icon v2 studio style adds full/HUD
+highlights and a separate three-quarter mini camera; original images and ordinary
+3D source materials remain untouched. Generate/Apply/native UI/history/Restore
+are verified on a separate project. See V_DEF4_TOMCAT_RESULTS.md and
+DEMO_FRONTEND_STATS.md. No next import, new slot, installation or publication.

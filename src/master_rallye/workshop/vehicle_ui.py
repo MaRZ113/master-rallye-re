@@ -53,6 +53,12 @@ class VehiclePanels(MarkerPanels,CameraLabPanels,ResultsPanels,FrontendPanels):
         ttk.Label(details,text='Printable ASCII for game names. Numbers above are conservative SDK authoring budgets, not proven native buffer limits. Description is project metadata.',wraplength=950).pack(fill='x')
         row=ttk.Frame(details);row.pack(fill='x',pady=6);ttk.Button(row,text='Apply display identity',command=self.details_apply).pack(side='left');ttk.Button(row,text='Restore display identity',command=lambda:self.vehicle_action('Restore names',lambda:self.project.vehicle_reset('details'))).pack(side='left')
         self.results_layout(details);self.marker_layout(details)
+        row=ttk.Frame(details);row.pack(fill='x',pady=6);self.frontend_stats_vars=[]
+        for label in ('Speed','Acceleration','Handling','Endurance'):
+            ttk.Label(row,text=label).pack(side='left');value=tk.IntVar();self.frontend_stats_vars.append(value);ttk.Spinbox(row,from_=0,to=10,textvariable=value,width=3).pack(side='left')
+        ttk.Button(row,text='Apply ratings (no physics change)',command=lambda:self.vehicle_action('Edit frontend ratings',lambda:self.project.frontend_stats_update([v.get()for v in self.frontend_stats_vars]))).pack(side='left')
+        ttk.Button(row,text='Restore baseline ratings',command=lambda:self.vehicle_action('Restore ratings',lambda:self.project.vehicle_reset('frontend_stats'))).pack(side='left')
+        self.stats_note=tk.StringVar();ttk.Label(details,textvariable=self.stats_note,wraplength=950).pack(fill='x')
         self.identity_note=tk.StringVar();ttk.Label(details,textvariable=self.identity_note,wraplength=950).pack(fill='x',pady=5)
         self.alias_search=tk.StringVar();ttk.Entry(details,textvariable=self.alias_search).pack(fill='x');self.alias_search.trace_add('write',lambda *_:self.alias_fill())
         self.alias_tree=ttk.Treeview(details,columns=('alias',),show='tree headings',height=7);self.alias_tree.heading('#0',text='Original stable resource ID');self.alias_tree.heading('alias',text='Friendly name (metadata only)');self.alias_tree.pack(fill='both',expand=True);self.alias_tree.bind('<<TreeviewSelect>>',self.alias_selected)
@@ -70,7 +76,7 @@ class VehiclePanels(MarkerPanels,CameraLabPanels,ResultsPanels,FrontendPanels):
             row=ttk.Frame(art);row.pack(fill='x',pady=4);ttk.Label(row,text=label,width=58).pack(side='left');v=tk.StringVar(value=default);self.art_angles[key]=v;ttk.Entry(row,textvariable=v,width=12).pack(side='left')
         row=ttk.Frame(art);row.pack(fill='x',pady=8);ttk.Button(row,text='Generate preview (not applied)',command=self.art_generate_ui).pack(side='left');ttk.Button(row,text='Apply generated art to vehicle',command=self.art_apply_ui).pack(side='left');ttk.Button(row,text='Restore original vehicle art',command=lambda:self.vehicle_action('Restore UI art',lambda:self.project.vehicle_reset('art'))).pack(side='left')
         self.art_preview=ttk.Frame(art);self.art_preview.pack(fill='both',expand=True);self.art_images=[];self.pending_art={}
-        self.art_note=tk.StringVar(value='Frontend contains qualified wheels. CPU diffuse renderer / mr-native-v1 composition; no game-reflection parity. Generate → compare → explicit Apply → Build.');ttk.Label(art,textvariable=self.art_note,wraplength=950).pack(fill='x',pady=8)
+        self.art_note=tk.StringVar(value='UI-only studio lighting / softbox reflections / mr-native-v2. Original textures and geometry unchanged; no game-reflection parity. Generate → compare → explicit Apply → Build.');ttk.Label(art,textvariable=self.art_note,wraplength=950).pack(fill='x',pady=8)
         self.vehicle_status=tk.StringVar();ttk.Label(w,textvariable=self.vehicle_status,padding=10,wraplength=990).pack(fill='x')
         self.vehicle_loaded()
 
@@ -83,6 +89,8 @@ class VehiclePanels(MarkerPanels,CameraLabPanels,ResultsPanels,FrontendPanels):
             for v in self.camera_fields.values():v.set('')
             for w in self.art_preview.winfo_children():w.destroy()
         for key,v in self.details_fields.items():v.set(state['details'][key])
+        for variable,value in zip(self.frontend_stats_vars,state['frontend_stats']):variable.set(value)
+        self.stats_note.set('Frontend ratings: '+self.project.frontend_stats_inspect()['kind']+'; original evidence retained separately; no physics effect.')
         if p.data['kind']=='addon':
             addon=json.loads((p.working/'addon.json').read_text());self.identity_note.set('LOCKED native identity / families / namespaces:\n'+json.dumps({'addon_id':addon['addon_id'],'runtime_CarID':p.data['car_id'],'author_slot':addon['physical_id'],'identity':addon['identity'],'resource_root':addon['assets']['model_package_root']},ensure_ascii=False))
         else:self.identity_note.set('Stock identity is read-only. Friendly aliases and generated previews are metadata; original stock UI frame replacement is unsupported.')

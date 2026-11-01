@@ -844,3 +844,32 @@ Active championship migration is refused; owner D3D8/save/Results/AI/Randomizer
 qualification remains pending. No original EXE/archive/wrapper/accepted project
 change, push or publication. See V_DEF3_ROSTER_ORDER_RESULTS.md and provenance.
 Source-only review and changed-files ZIPs contain no private canary/source assets.
+
+
+## V-DEF4 — original TOMCAT32 and historical frontend ratings
+
+Resolve scoped revision with `git log -1 --format=%H --fixed-strings --grep="feat(definitive): restore early Tomcat and qualify frontend ratings"`.
+Clean research/vehicles starts at acdf8ed. Owner accepts V-DEF3 in-game ordering.
+Same-slot, explicitly named canary replacement through the existing common
+manifest/Heritage/Workshop pipeline; original8.4.1 GXM identity and rebaked local
+streams, source-pinned cache repair, native glass and retail Wildcat ON/core/glow.
+No generic writer validation relaxation or second compiler.100 compatible old
+physics fields,121 immutable originals and21 explicit retail compatibility
+exclusions; meaningful remaining geometry/solver WARN retained.
+
+Original CarSheet, separate matching historical HUD, original TOMCAT identity,
+editable Hugh Haines REAL_FALLBACK with period manufacturer evidence. Eight-case
+original841/931 frontend stats audit reuses audit_demo_identity.py. Verified
+manifest ratings and Workshop display-only edits/history retain source evidence;
+retired Rav4 and Alpha remain UNKNOWN. Future Forester defaults corrected without
+rewriting its accepted build. UI-only v2 studio fill/reflection and independent
+mini-camera, original-art opt-in preservation and same-car comparison tooling.
+
+1341-test full Windows checkpoint PASS (2 prior optional skips), final48 focused;
+33-record native helper/ratings checks, three Windows preflights,291 deterministic
+DX/DXT,414 exact first/final resources and native payload/RVP.1759 protected pins
+unchanged; live root proxy and PlayerState changed during work and were observed,
+not written or restored. Current proxy passes hash-gate-disabled preflight.
+Owner TOMCAT gameplay remains PENDING. No next import, new slot, DLL install,
+push or publication. Source-only review/changed-files archives exclude private
+models/textures/executable payloads. See V_DEF4_TOMCAT_RESULTS.md and provenance.

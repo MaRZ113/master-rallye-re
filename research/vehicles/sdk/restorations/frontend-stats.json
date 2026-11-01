@@ -1,0 +1,905 @@
+{
+  "schema": "demo-frontend-stats/1",
+  "field_order": [
+    "Speed",
+    "Acceleration",
+    "Handling",
+    "Endurance"
+  ],
+  "boundary": "Original catalog display ratings, not measured performance or physics edits. No cross-family RAV4/Newrav transfer.",
+  "sources": {
+    "pc841": {
+      "sha256": "2d4a3b02d3cdb740dfdf3c11002c0026837dc19ba8e5211ad9763b35eb06e15a",
+      "registration_range": [
+        4487280,
+        4488367,
+        4488976,
+        36,
+        26
+      ],
+      "records": 26
+    },
+    "pc931": {
+      "sha256": "611526d30be94879012efe54c56ceff428cb4d20a4bd49173370a4ebfe31a728",
+      "registration_range": [
+        4510560,
+        4511689,
+        4513536,
+        36,
+        27
+      ],
+      "records": 27
+    }
+  },
+  "vehicles": {
+    "Forester": {
+      "pc841": {
+        "status": "PROVEN",
+        "value": [
+          6,
+          7,
+          5,
+          4
+        ],
+        "record": {
+          "id": 8,
+          "family": null,
+          "class": 1,
+          "stats": [
+            6,
+            7,
+            5,
+            4
+          ],
+          "smallcarsheet": 0,
+          "record_index": 8,
+          "call_va": 4487645
+        },
+        "localized": {
+          "52": {
+            "status": "PROVEN",
+            "value": "FORESTER",
+            "alternatives": [
+              "FORESTER"
+            ],
+            "records": [
+              {
+                "file_offset": 2001776,
+                "category": 52,
+                "index": 8,
+                "pointer": 6200772,
+                "text": "FORESTER"
+              }
+            ]
+          },
+          "53": {
+            "status": "PROVEN",
+            "value": "SUBARU FORESTER",
+            "alternatives": [
+              "SUBARU FORESTER"
+            ],
+            "records": [
+              {
+                "file_offset": 2002088,
+                "category": 53,
+                "index": 8,
+                "pointer": 6200440,
+                "text": "SUBARU FORESTER"
+              }
+            ]
+          }
+        },
+        "association": "exact localized catalog identity; model-family string is not resolved from file-backed bytes",
+        "source_sha256": "2d4a3b02d3cdb740dfdf3c11002c0026837dc19ba8e5211ad9763b35eb06e15a"
+      },
+      "pc931": {
+        "status": "PROVEN",
+        "value": [
+          6,
+          7,
+          5,
+          4
+        ],
+        "record": {
+          "id": 8,
+          "family": "Forester",
+          "class": 1,
+          "stats": [
+            6,
+            7,
+            5,
+            4
+          ],
+          "smallcarsheet": 0,
+          "record_index": 8,
+          "call_va": 4510925
+        },
+        "localized": {
+          "52": {
+            "status": "UNKNOWN",
+            "value": null,
+            "alternatives": [
+              "FORESTER",
+              "MEGANE 2001"
+            ],
+            "records": [
+              {
+                "file_offset": 2519968,
+                "category": 52,
+                "index": 8,
+                "pointer": 6742220,
+                "text": "MEGANE 2001"
+              },
+              {
+                "file_offset": 2520100,
+                "category": 52,
+                "index": 8,
+                "pointer": 6742120,
+                "text": "FORESTER"
+              },
+              {
+                "file_offset": 2529544,
+                "category": 52,
+                "index": 8,
+                "pointer": 6742120,
+                "text": "FORESTER"
+              }
+            ]
+          },
+          "53": {
+            "status": "PROVEN",
+            "value": "SUBARU FORESTER",
+            "alternatives": [
+              "SUBARU FORESTER"
+            ],
+            "records": [
+              {
+                "file_offset": 2520436,
+                "category": 53,
+                "index": 8,
+                "pointer": 6741852,
+                "text": "SUBARU FORESTER"
+              },
+              {
+                "file_offset": 2529868,
+                "category": 53,
+                "index": 8,
+                "pointer": 6741852,
+                "text": "SUBARU FORESTER"
+              }
+            ]
+          }
+        },
+        "association": "named family",
+        "source_sha256": "611526d30be94879012efe54c56ceff428cb4d20a4bd49173370a4ebfe31a728"
+      }
+    },
+    "Rav4": {
+      "pc841": {
+        "status": "UNKNOWN",
+        "value": null,
+        "reason": "No unique original named registration; do not substitute another vehicle or Alpha variant"
+      },
+      "pc931": {
+        "status": "UNKNOWN",
+        "value": null,
+        "reason": "No unique original named registration; do not substitute another vehicle or Alpha variant"
+      }
+    },
+    "Tomcat": {
+      "pc841": {
+        "status": "PROVEN",
+        "value": [
+          7,
+          6,
+          8,
+          8
+        ],
+        "record": {
+          "id": 15,
+          "family": "Wildcat",
+          "class": 1,
+          "stats": [
+            7,
+            6,
+            8,
+            8
+          ],
+          "smallcarsheet": 0,
+          "record_index": 15,
+          "call_va": 4487939
+        },
+        "localized": {
+          "52": {
+            "status": "PROVEN",
+            "value": "TOMCAT",
+            "alternatives": [
+              "TOMCAT"
+            ],
+            "records": [
+              {
+                "file_offset": 2001860,
+                "category": 52,
+                "index": 15,
+                "pointer": 6200704,
+                "text": "TOMCAT"
+              }
+            ]
+          },
+          "53": {
+            "status": "PROVEN",
+            "value": "PRIVATEER TOMCAT",
+            "alternatives": [
+              "PRIVATEER TOMCAT"
+            ],
+            "records": [
+              {
+                "file_offset": 2002172,
+                "category": 53,
+                "index": 15,
+                "pointer": 6200328,
+                "text": "PRIVATEER TOMCAT"
+              }
+            ]
+          }
+        },
+        "association": "named family",
+        "source_sha256": "2d4a3b02d3cdb740dfdf3c11002c0026837dc19ba8e5211ad9763b35eb06e15a"
+      },
+      "pc931": {
+        "status": "PROVEN",
+        "value": [
+          7,
+          6,
+          8,
+          8
+        ],
+        "record": {
+          "id": 15,
+          "family": "Wildcat",
+          "class": 1,
+          "stats": [
+            7,
+            6,
+            8,
+            8
+          ],
+          "smallcarsheet": 0,
+          "record_index": 15,
+          "call_va": 4511219
+        },
+        "localized": {
+          "52": {
+            "status": "UNKNOWN",
+            "value": null,
+            "alternatives": [
+              "TOMCAT",
+              "WILDCAT"
+            ],
+            "records": [
+              {
+                "file_offset": 2520196,
+                "category": 52,
+                "index": 15,
+                "pointer": 6742064,
+                "text": "TOMCAT"
+              },
+              {
+                "file_offset": 2529628,
+                "category": 52,
+                "index": 15,
+                "pointer": 6742240,
+                "text": "WILDCAT"
+              }
+            ]
+          },
+          "53": {
+            "status": "UNKNOWN",
+            "value": null,
+            "alternatives": [
+              "BOWLER WILDCAT",
+              "PRIVATEER TOMCAT"
+            ],
+            "records": [
+              {
+                "file_offset": 2520532,
+                "category": 53,
+                "index": 15,
+                "pointer": 6741724,
+                "text": "PRIVATEER TOMCAT"
+              },
+              {
+                "file_offset": 2529952,
+                "category": 53,
+                "index": 15,
+                "pointer": 6731996,
+                "text": "BOWLER WILDCAT"
+              }
+            ]
+          }
+        },
+        "association": "named family",
+        "source_sha256": "611526d30be94879012efe54c56ceff428cb4d20a4bd49173370a4ebfe31a728"
+      }
+    },
+    "Newrav": {
+      "pc841": {
+        "status": "PROVEN",
+        "value": [
+          7,
+          7,
+          6,
+          4
+        ],
+        "record": {
+          "id": 13,
+          "family": null,
+          "class": 1,
+          "stats": [
+            7,
+            7,
+            6,
+            4
+          ],
+          "smallcarsheet": 0,
+          "record_index": 13,
+          "call_va": 4487855
+        },
+        "localized": {
+          "52": {
+            "status": "PROVEN",
+            "value": "RAV4 PICKUP",
+            "alternatives": [
+              "RAV4 PICKUP"
+            ],
+            "records": [
+              {
+                "file_offset": 2001836,
+                "category": 52,
+                "index": 13,
+                "pointer": 6200724,
+                "text": "RAV4 PICKUP"
+              }
+            ]
+          },
+          "53": {
+            "status": "PROVEN",
+            "value": "TOYOTA RAV4",
+            "alternatives": [
+              "TOYOTA RAV4"
+            ],
+            "records": [
+              {
+                "file_offset": 2002148,
+                "category": 53,
+                "index": 13,
+                "pointer": 6200364,
+                "text": "TOYOTA RAV4"
+              }
+            ]
+          }
+        },
+        "association": "exact localized catalog identity; model-family string is not resolved from file-backed bytes",
+        "source_sha256": "2d4a3b02d3cdb740dfdf3c11002c0026837dc19ba8e5211ad9763b35eb06e15a"
+      },
+      "pc931": {
+        "status": "PROVEN",
+        "value": [
+          7,
+          7,
+          6,
+          4
+        ],
+        "record": {
+          "id": 13,
+          "family": "Newrav",
+          "class": 1,
+          "stats": [
+            7,
+            7,
+            6,
+            4
+          ],
+          "smallcarsheet": 0,
+          "record_index": 13,
+          "call_va": 4511135
+        },
+        "localized": {
+          "52": {
+            "status": "UNKNOWN",
+            "value": null,
+            "alternatives": [
+              "PICKUP",
+              "RAV4 PICKUP"
+            ],
+            "records": [
+              {
+                "file_offset": 2520160,
+                "category": 52,
+                "index": 13,
+                "pointer": 6742092,
+                "text": "RAV4 PICKUP"
+              },
+              {
+                "file_offset": 2520172,
+                "category": 52,
+                "index": 13,
+                "pointer": 6742084,
+                "text": "PICKUP"
+              },
+              {
+                "file_offset": 2529604,
+                "category": 52,
+                "index": 13,
+                "pointer": 6742084,
+                "text": "PICKUP"
+              }
+            ]
+          },
+          "53": {
+            "status": "UNKNOWN",
+            "value": null,
+            "alternatives": [
+              "REEVES PICKUP",
+              "TOYOTA RAV4"
+            ],
+            "records": [
+              {
+                "file_offset": 2520496,
+                "category": 53,
+                "index": 13,
+                "pointer": 6741776,
+                "text": "TOYOTA RAV4"
+              },
+              {
+                "file_offset": 2520508,
+                "category": 53,
+                "index": 13,
+                "pointer": 6741760,
+                "text": "REEVES PICKUP"
+              },
+              {
+                "file_offset": 2529928,
+                "category": 53,
+                "index": 13,
+                "pointer": 6741760,
+                "text": "REEVES PICKUP"
+              }
+            ]
+          }
+        },
+        "association": "named family",
+        "source_sha256": "611526d30be94879012efe54c56ceff428cb4d20a4bd49173370a4ebfe31a728"
+      }
+    },
+    "Landcruiser": {
+      "pc841": {
+        "status": "PROVEN",
+        "value": [
+          4,
+          2,
+          4,
+          6
+        ],
+        "record": {
+          "id": 0,
+          "family": "Landcruiser",
+          "class": 0,
+          "stats": [
+            4,
+            2,
+            4,
+            6
+          ],
+          "smallcarsheet": 0,
+          "record_index": 0,
+          "call_va": 4487318
+        },
+        "localized": {
+          "52": {
+            "status": "PROVEN",
+            "value": "LANDCRUISER",
+            "alternatives": [
+              "LANDCRUISER"
+            ],
+            "records": [
+              {
+                "file_offset": 2001680,
+                "category": 52,
+                "index": 0,
+                "pointer": 6200852,
+                "text": "LANDCRUISER"
+              }
+            ]
+          },
+          "53": {
+            "status": "PROVEN",
+            "value": "TOYOTA LANDCRUISER",
+            "alternatives": [
+              "TOYOTA LANDCRUISER"
+            ],
+            "records": [
+              {
+                "file_offset": 2001992,
+                "category": 53,
+                "index": 0,
+                "pointer": 6200588,
+                "text": "TOYOTA LANDCRUISER"
+              }
+            ]
+          }
+        },
+        "association": "named family",
+        "source_sha256": "2d4a3b02d3cdb740dfdf3c11002c0026837dc19ba8e5211ad9763b35eb06e15a"
+      },
+      "pc931": {
+        "status": "PROVEN",
+        "value": [
+          4,
+          2,
+          4,
+          6
+        ],
+        "record": {
+          "id": 0,
+          "family": "Landcruiser",
+          "class": 0,
+          "stats": [
+            4,
+            2,
+            4,
+            6
+          ],
+          "smallcarsheet": 0,
+          "record_index": 0,
+          "call_va": 4510598
+        },
+        "localized": {
+          "52": {
+            "status": "PROVEN",
+            "value": "LANDCRUISER",
+            "alternatives": [
+              "LANDCRUISER"
+            ],
+            "records": [
+              {
+                "file_offset": 2519872,
+                "category": 52,
+                "index": 0,
+                "pointer": 6742300,
+                "text": "LANDCRUISER"
+              },
+              {
+                "file_offset": 2519992,
+                "category": 52,
+                "index": 0,
+                "pointer": 6742300,
+                "text": "LANDCRUISER"
+              },
+              {
+                "file_offset": 2529448,
+                "category": 52,
+                "index": 0,
+                "pointer": 6742300,
+                "text": "LANDCRUISER"
+              }
+            ]
+          },
+          "53": {
+            "status": "UNKNOWN",
+            "value": null,
+            "alternatives": [
+              "THE MITSUBISHI PAJERO IS A ......",
+              "TOYOTA LANDCRUISER"
+            ],
+            "records": [
+              {
+                "file_offset": 2520328,
+                "category": 53,
+                "index": 0,
+                "pointer": 6742016,
+                "text": "TOYOTA LANDCRUISER"
+              },
+              {
+                "file_offset": 2520664,
+                "category": 53,
+                "index": 0,
+                "pointer": 6741496,
+                "text": "THE MITSUBISHI PAJERO IS A ......"
+              },
+              {
+                "file_offset": 2529772,
+                "category": 53,
+                "index": 0,
+                "pointer": 6742016,
+                "text": "TOYOTA LANDCRUISER"
+              }
+            ]
+          }
+        },
+        "association": "named family",
+        "source_sha256": "611526d30be94879012efe54c56ceff428cb4d20a4bd49173370a4ebfe31a728"
+      }
+    },
+    "Megane": {
+      "pc841": {
+        "status": "PROVEN",
+        "value": [
+          9,
+          9,
+          8,
+          7
+        ],
+        "record": {
+          "id": 19,
+          "family": "Megane",
+          "class": 2,
+          "stats": [
+            9,
+            9,
+            8,
+            7
+          ],
+          "smallcarsheet": 0,
+          "record_index": 19,
+          "call_va": 4488107
+        },
+        "localized": {
+          "52": {
+            "status": "PROVEN",
+            "value": "MEGANE 2001",
+            "alternatives": [
+              "MEGANE 2001"
+            ],
+            "records": [
+              {
+                "file_offset": 2001908,
+                "category": 52,
+                "index": 19,
+                "pointer": 6200664,
+                "text": "MEGANE 2001"
+              }
+            ]
+          },
+          "53": {
+            "status": "PROVEN",
+            "value": "SCHLESSER MEGANE 2001",
+            "alternatives": [
+              "SCHLESSER MEGANE 2001"
+            ],
+            "records": [
+              {
+                "file_offset": 2002220,
+                "category": 53,
+                "index": 19,
+                "pointer": 6200244,
+                "text": "SCHLESSER MEGANE 2001"
+              }
+            ]
+          }
+        },
+        "association": "named family",
+        "source_sha256": "2d4a3b02d3cdb740dfdf3c11002c0026837dc19ba8e5211ad9763b35eb06e15a"
+      },
+      "pc931": {
+        "status": "PROVEN",
+        "value": [
+          9,
+          9,
+          8,
+          7
+        ],
+        "record": {
+          "id": 19,
+          "family": "Megane",
+          "class": 2,
+          "stats": [
+            9,
+            9,
+            8,
+            7
+          ],
+          "smallcarsheet": 0,
+          "record_index": 19,
+          "call_va": 4511387
+        },
+        "localized": {
+          "52": {
+            "status": "PROVEN",
+            "value": "MEGANE 2001",
+            "alternatives": [
+              "MEGANE 2001"
+            ],
+            "records": [
+              {
+                "file_offset": 2520244,
+                "category": 52,
+                "index": 19,
+                "pointer": 6742220,
+                "text": "MEGANE 2001"
+              },
+              {
+                "file_offset": 2529676,
+                "category": 52,
+                "index": 19,
+                "pointer": 6742220,
+                "text": "MEGANE 2001"
+              }
+            ]
+          },
+          "53": {
+            "status": "PROVEN",
+            "value": "SCHLESSER MEGANE 2001",
+            "alternatives": [
+              "SCHLESSER MEGANE 2001"
+            ],
+            "records": [
+              {
+                "file_offset": 2520580,
+                "category": 53,
+                "index": 19,
+                "pointer": 6741640,
+                "text": "SCHLESSER MEGANE 2001"
+              },
+              {
+                "file_offset": 2530000,
+                "category": 53,
+                "index": 19,
+                "pointer": 6741640,
+                "text": "SCHLESSER MEGANE 2001"
+              }
+            ]
+          }
+        },
+        "association": "named family",
+        "source_sha256": "611526d30be94879012efe54c56ceff428cb4d20a4bd49173370a4ebfe31a728"
+      }
+    },
+    "Tata": {
+      "pc841": {
+        "status": "PROVEN",
+        "value": [
+          7,
+          4,
+          4,
+          7
+        ],
+        "record": {
+          "id": 10,
+          "family": null,
+          "class": 1,
+          "stats": [
+            7,
+            4,
+            4,
+            7
+          ],
+          "smallcarsheet": 0,
+          "record_index": 10,
+          "call_va": 4487729
+        },
+        "localized": {
+          "52": {
+            "status": "PROVEN",
+            "value": "SAFARI",
+            "alternatives": [
+              "SAFARI"
+            ],
+            "records": [
+              {
+                "file_offset": 2001800,
+                "category": 52,
+                "index": 10,
+                "pointer": 6200752,
+                "text": "SAFARI"
+              }
+            ]
+          },
+          "53": {
+            "status": "PROVEN",
+            "value": "TATA SAFARI",
+            "alternatives": [
+              "TATA SAFARI"
+            ],
+            "records": [
+              {
+                "file_offset": 2002112,
+                "category": 53,
+                "index": 10,
+                "pointer": 6200408,
+                "text": "TATA SAFARI"
+              }
+            ]
+          }
+        },
+        "association": "exact localized catalog identity; model-family string is not resolved from file-backed bytes",
+        "source_sha256": "2d4a3b02d3cdb740dfdf3c11002c0026837dc19ba8e5211ad9763b35eb06e15a"
+      },
+      "pc931": {
+        "status": "PROVEN",
+        "value": [
+          7,
+          4,
+          4,
+          7
+        ],
+        "record": {
+          "id": 10,
+          "family": "Tata",
+          "class": 1,
+          "stats": [
+            7,
+            4,
+            4,
+            7
+          ],
+          "smallcarsheet": 0,
+          "record_index": 10,
+          "call_va": 4511009
+        },
+        "localized": {
+          "52": {
+            "status": "PROVEN",
+            "value": "SAFARI",
+            "alternatives": [
+              "SAFARI"
+            ],
+            "records": [
+              {
+                "file_offset": 2520124,
+                "category": 52,
+                "index": 10,
+                "pointer": 6742112,
+                "text": "SAFARI"
+              },
+              {
+                "file_offset": 2529568,
+                "category": 52,
+                "index": 10,
+                "pointer": 6742112,
+                "text": "SAFARI"
+              }
+            ]
+          },
+          "53": {
+            "status": "PROVEN",
+            "value": "TATA SAFARI",
+            "alternatives": [
+              "TATA SAFARI"
+            ],
+            "records": [
+              {
+                "file_offset": 2520460,
+                "category": 53,
+                "index": 10,
+                "pointer": 6741820,
+                "text": "TATA SAFARI"
+              },
+              {
+                "file_offset": 2529892,
+                "category": 53,
+                "index": 10,
+                "pointer": 6741820,
+                "text": "TATA SAFARI"
+              }
+            ]
+          }
+        },
+        "association": "named family",
+        "source_sha256": "611526d30be94879012efe54c56ceff428cb4d20a4bd49173370a4ebfe31a728"
+      }
+    },
+    "Rav4Alpha": {
+      "pc841": {
+        "status": "UNKNOWN",
+        "value": null,
+        "reason": "No unique original named registration; do not substitute another vehicle or Alpha variant"
+      },
+      "pc931": {
+        "status": "UNKNOWN",
+        "value": null,
+        "reason": "No unique original named registration; do not substitute another vehicle or Alpha variant"
+      }
+    }
+  }
+}

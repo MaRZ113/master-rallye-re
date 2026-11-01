@@ -69,6 +69,9 @@ class VehicleAuthoring(CameraLabAuthoring,FrontendAuthoring):
         if 'race_marker'not in state:
             base=self.root/'author-baseline/addon.json'
             state['race_marker']=json.loads(base.read_text()).get('race_colour_rgba')if base.exists()else None
+        if 'frontend_stats'not in state:
+            base=self.root/'author-baseline/addon.json'
+            state['frontend_stats']=json.loads(base.read_text()).get('frontend',{}).get('stats',[])if base.exists()else []
         return state
 
     def _retail_members(self):
@@ -206,6 +209,18 @@ class VehicleAuthoring(CameraLabAuthoring,FrontendAuthoring):
     def results_name_update(self,value):
         fields=copy.deepcopy(self.vehicle_state()['details']);fields['display_name']=value;self.details_update(fields)
 
+    def frontend_stats_update(self,values):
+        if self.data['kind']!='addon':raise ValueError('Stock frontend ratings are read-only')
+        if not isinstance(values,list)or len(values)!=4 or any(type(v)is not int or not 0<=v<=10 for v in values):raise ValueError('Four integer frontend ratings0..10 required')
+        state=self.vehicle_state();state['frontend_stats']=values[:];self._vehicle_commit(state)
+
+    def frontend_stats_inspect(self):
+        values=self.vehicle_state()['frontend_stats'];path=self.working/'historical-identity.json'
+        evidence=json.loads(path.read_text()).get('frontend_stats',{'status':'UNKNOWN'})if path.exists()else {'status':'UNKNOWN'}
+        kind=('ORIGINAL_CATALOG'if evidence.get('status')=='PROVEN'and values==evidence.get('value')else
+              'CUSTOM'if values!=self.vehicle_defaults()['frontend_stats']else'SDK_PLACEHOLDER')
+        return {'values':values,'kind':kind,'source_evidence':evidence,'physics_changed':False}
+
     def results_name_reset(self):
         self.results_name_update(self.vehicle_defaults()['details']['display_name'])
 
@@ -270,6 +285,7 @@ class VehicleAuthoring(CameraLabAuthoring,FrontendAuthoring):
         defaults['details']={k:addon.get('frontend',{}).get(k,'') for k in ('manufacturer','model','combined')}
         defaults['details'].update(display_name=addon.get('results',{}).get('display_name',''),description=addon.get('description',''))
         defaults['race_marker']=addon.get('race_colour_rgba')
+        defaults['frontend_stats']=addon.get('frontend',{}).get('stats',[])
         defaults['frontend']=None
         return defaults
 
@@ -315,6 +331,7 @@ class VehicleAuthoring(CameraLabAuthoring,FrontendAuthoring):
         if self.data['kind']=='addon':
             addon=json.loads((self.working/'addon.json').read_text());original=json.loads((base/'addon.json').read_text());fields=state['details']
             addon['frontend'].update({k:fields[k] for k in ('manufacturer','model','combined')});addon['results']['display_name']=fields['display_name'];addon['description']=fields['description']
+            addon['frontend']['stats']=state['frontend_stats'][:]
             if state['race_marker'][3]!=original['race_colour_rgba'][3]:raise ValueError('Race marker alpha remains read-only')
             from .race_marker import colour_info
             colour_info(state['race_marker']);addon['race_colour_rgba']=state['race_marker']
@@ -327,7 +344,7 @@ class VehicleAuthoring(CameraLabAuthoring,FrontendAuthoring):
                     digest=entry['input_sha256'];raw=(self.root/'art-pins'/(digest+'.png')).read_bytes()
                     if sha(raw)!=digest:raise ValueError('Applied vehicle art changed')
                     rel='workshop-art/'+digest+'.png';target=plain_tree(self.working/rel);target.parent.mkdir(exist_ok=True);write_resource(target,raw)
-                    ui['icons'][role]={'png':rel,'sha256':digest,'presentation':'mr-native-v1'}
+                    ui['icons'][role]={'png':rel,'sha256':digest,'presentation':entry.get('profile','mr-native-v1')}
                 path=self.working/'ui-assets.json'
                 if not state['art']:write_resource(path,(base/'ui-assets.json').read_bytes())
                 elif json.loads(path.read_text())!=ui:write_json(path,ui)
@@ -380,7 +397,7 @@ class VehicleAuthoring(CameraLabAuthoring,FrontendAuthoring):
         render_inputs=self.art_input_pins()
         report=render_sources(self.assets,out,roles=[role] if role else None,azimuth=azimuth,elevation=elevation,padding=padding,model_name=model,wheel_profile=self.preview_profile() if model=='car.dx' else None)
         for key in report:
-            image=decode_rgba_png((out/(key+'.png')).read_bytes());raw,style=compose_preview(image,key)
+            image=decode_rgba_png((out/(key+'.png')).read_bytes());raw,style=compose_preview(image,key,style=report[key].get('profile','mr-native-v1'))
             size=(128,128) if key=='vehicle_select_art' else (32,16);path=out/(key+'-native.png');path.write_bytes(gtmat.png_from_rgba(*size,raw))
             source=out/(key+'.png')
             report[key].update(png=str(path),sha256=sha(path.read_bytes()),source_png=str(source),input_sha256=sha(source.read_bytes()),composition=style,source_model_sha256=sha((self.assets/model).read_bytes()),render_input_sha256=render_inputs)
@@ -406,7 +423,7 @@ class VehicleAuthoring(CameraLabAuthoring,FrontendAuthoring):
             source=plain_tree(entry['source_png'])
             if not source.resolve().is_relative_to((self.root/'generated-art').resolve()):raise ValueError('Art source outside owned generation')
             input_raw=source.read_bytes()
-            if sha(input_raw)!=entry['input_sha256'] or compose_preview(decode_rgba_png(input_raw),role)[0]!=decode_rgba_png(raw)[2]:raise ValueError('Generated preview does not match canonical single-pass composition')
+            if sha(input_raw)!=entry['input_sha256'] or compose_preview(decode_rgba_png(input_raw),role,style=entry.get('profile','mr-native-v1'))[0]!=decode_rgba_png(raw)[2]:raise ValueError('Generated preview does not match canonical single-pass composition')
             write_resource(pins/(sha(input_raw)+'.png'),input_raw);state['art'][role]=copy.deepcopy(entry)
         self._vehicle_commit(state)
 

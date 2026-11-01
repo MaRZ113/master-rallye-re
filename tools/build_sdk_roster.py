@@ -309,7 +309,8 @@ def derive(config):
     if glass_reports:audit['base_glass_profiles']=glass_reports
     if experimental in(31,32,33):
         audit['capacity_mechanism']=f'Explicit {experimental}-record append profile; canonical reservations separate from configured selection maps'
-        audit['owner_qualified_record_count']=32
+        audit['owner_qualified_record_count']=33
+        audit['owner_qualification_boundary']='V-DEF3 ordering/capacity accepted; this exact generated vehicle combination still requires owner review'
         profile['unresolved_runtime_gates'].insert(0,f'{experimental}-record configured ordering, selection, AI, race, Results, save and re-entry requires owner review for this exact candidate')
     if config.get('selection_order') is not None:audit['selection_layout']=selection_layout
     files={'addon-plan.json':plan_raw,'native-patch-manifest.json':pm,'native-patch-ops.rvp':rvp,'native-extension.bin':blob,'runtime-profile.json':canonical_json(profile),'resource-manifest.json':rm,'resource-index.tsv':index,'roster-reservations.json':canonical_json(lock),'sdk-roster-audit.json':canonical_json(audit),'runtime-artifact.json':canonical_json({'profile':profile_name,'runtime_qualified':False,'resource_manifest_sha256':probe.sha(rm)})}

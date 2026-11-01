@@ -31,7 +31,23 @@ def frame_camera(points,camera,W,H,padding=12):
     if bounds[0]<padding-1e-6 or bounds[1]<padding-1e-6 or bounds[2]>W-padding+1e-6 or bounds[3]>H-padding+1e-6:raise ValueError('source projection clips viewport')
     return bounds
 
-def render_sources(family,out,*,roles=None,azimuth=None,elevation=None,padding=12,model_name='complete.dx',wheel_profile=None):
+def icon_highlight(normal,camera,eligible):
+    """UI studio softboxes only; no claim of original engine env-map parity."""
+    if not eligible:return (0.,0.,0.)
+    length=math.sqrt(sum(v*v for v in normal))
+    if length<1e-8:return (0.,0.,0.)
+    n=tuple(v/length for v in normal)
+    az,el=math.radians(camera.az),math.radians(camera.el)
+    view=(math.sin(az)*math.cos(el),math.sin(el),math.cos(az)*math.cos(el))
+    dot=sum(a*b for a,b in zip(n,view));ref=tuple(2*dot*a-b for a,b in zip(n,view))
+    card=max(0.,1.-abs(ref[1]-.20)/.50)**2
+    sky=max(0.,ref[1])*.20
+    strength=min(85.,65.*card+30.*sky+10.*(1.-min(1.,abs(dot)))**3)
+    return (strength*.94,strength*.98,strength)
+
+
+def render_sources(family,out,*,roles=None,azimuth=None,elevation=None,padding=12,model_name='complete.dx',wheel_profile=None,style='mr-native-v2'):
+    if style not in ('mr-native-v1','mr-native-v2'):raise ValueError('unknown icon style')
     if roles is not None and (not roles or len(set(roles))!=len(roles) or set(roles)-set(PROFILES)):raise ValueError('unknown preview roles')
     if type(padding)is not int or not 1<=padding<=64:raise ValueError('preview padding must be 1..64 pixels')
     for value,low,high in ((azimuth,-360,360),(elevation,-85,85)):
@@ -60,28 +76,34 @@ def render_sources(family,out,*,roles=None,azimuth=None,elevation=None,padding=1
     points=[v.position for g in geoms.values() for v in g.vertices];centre=tuple((min(p[k] for p in points)+max(p[k] for p in points))/2 for k in range(3));reports={}
     for role,profile in PROFILES.items():
         if roles is not None and role not in roles:continue
+        profile=dict(profile)
+        if style=='mr-native-v2' and role=='smallcarsheet':profile['camera']=(130.,8.)
         angles=(profile['camera'][0] if azimuth is None else azimuth,profile['camera'][1] if elevation is None else elevation)
         camera=raster.Camera(*angles,1,centre,profile['distance'])
         W,H=512,320;projection_bounds=frame_camera(points,camera,W,H,padding);lit=[];mask=[]
         light=(.50,.75,.45) if role=='vehicle_select_art' else (-.5,.8,.3);length=math.sqrt(sum(x*x for x in light));light=tuple(x/length for x in light)
         for d,item in enumerate(items):
-            g=geoms[d];tris=[];white=[]
+            g=geoms[d];tris=[];white=[];highlights=[]
+            slots=' '.join(model.physical_draws[d].texture_tuple).casefold() if d<len(model.physical_draws) else ''
+            reflective=any(stem in slots for stem in ('whitepaint','chrome','glass','perspex'))
             for t,ids in zip(item.tris,g.triangles):
                 colors=[]
                 for idx in ids:
                     v=g.vertices[idx];strength=profile['ambient']+profile['key']*max(0,sum(a*b for a,b in zip(v.normal,light)))
+                    if style=='mr-native-v2':strength=.62+.66*max(0,sum(a*b for a,b in zip(v.normal,light)))+.16*max(0.,v.normal[1])
                     colors.append(tuple(min(255,round(c*strength)) for c in v.color[:3]))
                 tris.append((*t[:6],*colors));white.append((*t[:6],(255,255,255),(255,255,255),(255,255,255)))
+                highlights.append(tuple(icon_highlight(g.vertices[idx].normal,camera,reflective)for idx in ids))
             texture=item.texture
             if texture:
                 w,h,p=texture;p=bytearray(p)
                 for i in range(0,len(p),4):p[i:i+3]=b'\xff\xff\xff'
                 texture=(w,h,bytes(p))
-            lit.append(dataclasses.replace(item,tris=tris));mask.append(dataclasses.replace(item,tris=white,texture=texture))
+            lit.append(dataclasses.replace(item,tris=tris,highlights=highlights if style=='mr-native-v2' else None));mask.append(dataclasses.replace(item,tris=white,texture=texture))
         rgb=raster.render(lit,camera,W,H,bg=(0,0,0));alpha=raster.render(mask,camera,W,H,bg=(0,0,0));rgba=bytearray()
         for i in range(W*H):
             a=alpha[3*i];rgba.extend([min(255,round(c*255/a)) if a else 0 for c in rgb[3*i:3*i+3]]+[a])
-        (out/(role+'.png')).write_bytes(gtmat.png_from_rgba(W,H,rgba));reports[role]={'camera_azimuth':camera.az,'camera_elevation':camera.el,'distance_m':camera.distance,'projection':'perspective' if camera.distance else 'orthographic','source_size':[W,H],'projection_bounds':projection_bounds,'viewport_padding':padding,'image_plane_offset':list(camera.offset),'lighting':'fixed diffuse approximation; no environment reflection','profile':'mr-native-v1','source_model':model_name,'wheel_provenance':(wheel_profile or {}).get('provenance','embedded frontend geometry')}
+        (out/(role+'.png')).write_bytes(gtmat.png_from_rgba(W,H,rgba));reports[role]={'camera_azimuth':camera.az,'camera_elevation':camera.el,'distance_m':camera.distance,'projection':'perspective' if camera.distance else 'orthographic','source_size':[W,H],'projection_bounds':projection_bounds,'viewport_padding':padding,'image_plane_offset':list(camera.offset),'lighting':'UI-only studio diffuse/softbox reflection approximation' if style=='mr-native-v2' else 'fixed diffuse approximation; no environment reflection','profile':style,'source_model':model_name,'wheel_provenance':(wheel_profile or {}).get('provenance','embedded frontend geometry')}
     (out/'render.json').write_text(json.dumps(reports,indent=2));return reports
 
 if __name__=='__main__':

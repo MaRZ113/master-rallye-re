@@ -45,3 +45,28 @@ retail. V-DEF3's SDK SLOT32 vehicle is a technical retail Wildcat clone, not the
 restored Demo TOMCAT. See `docs/sdk/V_DEF3_ROSTER_ORDER_RESULTS.md` for the private
 CMD and owner selection/Results/re-entry/save checklist. Offline PASS is not
 D3D8 gameplay qualification.
+
+
+## Historical ratings and brighter generated icons
+
+Vehicle Details now exposes Speed, Acceleration, Handling and Endurance as four
+integer display ratings0–10. They affect only native frontend records. The
+inspector labels ORIGINAL_CATALOG, CUSTOM or SDK_PLACEHOLDER and retains the
+original evidence. Undo/Redo and Restore baseline ratings do not retune physics.
+See docs/sdk/DEMO_FRONTEND_STATS.md; missing retired RAV4/Alpha values are not
+inferred from Newrav.
+
+Generate vehicle art uses mr-native-v2: brighter studio fill/softbox highlights
+for complete eligible source material groups, with a separate three-quarter
+orthographic miniature view. The large rotating frontend and ordinary 3D source
+preview are unchanged. Generated highlights approximate icon presentation;
+they are not recovered original MR reflection/shader behavior. Source textures,
+models and original artwork remain intact. Existing explicit v1 recipes still
+compile. Compare generated images before Apply; applying to a derived project
+supports normal history, Restore and deterministic native UI compilation.
+
+The TOMCAT pilot uses recovered original blue CarSheet/HUD artwork rather than
+replacing authentic images with generated ones. Accepted RAV4/Forester files
+remain untouched. Private v1/v2 and same-car original-art comparisons are linked
+from docs/sdk/V_DEF4_TOMCAT_RESULTS.md. Launch only the final isolated CMD for
+owner D3D8 testing; no automatic new AI entry or full-game success is claimed.

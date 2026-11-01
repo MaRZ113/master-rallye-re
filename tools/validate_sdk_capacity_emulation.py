@@ -80,6 +80,7 @@ def validate(source,image,report,rows,*,shared_payload=None):
     if len(initialized)!=len(rows):raise ValueError('initializer missed a row')
     for got,row in zip(initialized,rows):
         if got['destination']!=0x2000000+4+row['physical_id']*52 or got['arguments'][0]!=row['physical_id']:raise ValueError('initializer record destination/ID mismatch')
+        if got['arguments'][2:6]!=row['frontend']['stats']:raise ValueError('native frontend stats differ from the selected author values')
         colour=struct.pack('<4I',*got['arguments'][-4:]).hex()
         if colour!=row['race_colour_rgba_f32le_hex']:raise ValueError('initializer per-CarID race marker RGBA mismatch')
         got['race_colour_rgba_f32le_hex']=colour

@@ -193,6 +193,87 @@
         "presentation": "source-pixels-v1",
         "association": "Qualified V-DEF1 original art/side mini binding"
       }
+    },
+    "frontend_stats": {
+      "status": "PROVEN",
+      "value": [
+        6,
+        7,
+        5,
+        4
+      ],
+      "record": {
+        "id": 8,
+        "family": "Forester",
+        "class": 1,
+        "stats": [
+          6,
+          7,
+          5,
+          4
+        ],
+        "smallcarsheet": 0,
+        "record_index": 8,
+        "call_va": 4510925
+      },
+      "localized": {
+        "52": {
+          "status": "UNKNOWN",
+          "value": null,
+          "alternatives": [
+            "FORESTER",
+            "MEGANE 2001"
+          ],
+          "records": [
+            {
+              "file_offset": 2519968,
+              "category": 52,
+              "index": 8,
+              "pointer": 6742220,
+              "text": "MEGANE 2001"
+            },
+            {
+              "file_offset": 2520100,
+              "category": 52,
+              "index": 8,
+              "pointer": 6742120,
+              "text": "FORESTER"
+            },
+            {
+              "file_offset": 2529544,
+              "category": 52,
+              "index": 8,
+              "pointer": 6742120,
+              "text": "FORESTER"
+            }
+          ]
+        },
+        "53": {
+          "status": "PROVEN",
+          "value": "SUBARU FORESTER",
+          "alternatives": [
+            "SUBARU FORESTER"
+          ],
+          "records": [
+            {
+              "file_offset": 2520436,
+              "category": 53,
+              "index": 8,
+              "pointer": 6741852,
+              "text": "SUBARU FORESTER"
+            },
+            {
+              "file_offset": 2529868,
+              "category": 53,
+              "index": 8,
+              "pointer": 6741852,
+              "text": "SUBARU FORESTER"
+            }
+          ]
+        }
+      },
+      "association": "named family",
+      "source_sha256": "611526d30be94879012efe54c56ceff428cb4d20a4bd49173370a4ebfe31a728"
     }
   },
   "physics": {

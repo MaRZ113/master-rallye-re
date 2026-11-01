@@ -1,0 +1,778 @@
+{
+  "schema": "v-def4-tomcat/1",
+  "baseline_commit": "acdf8edc8af57ad1cf896033fe9c337d8e4b2014",
+  "owner_baseline": "V-DEF3 custom ordering accepted in-game, no bugs reported; Forester and retail-physics RAV4 accepted",
+  "source_identity": {
+    "edition": "8.4.1",
+    "family": "WildCat",
+    "display": "PRIVATEER TOMCAT",
+    "model_source": "PCG rebake with car/complete/wheel GXM byte-identical to original shipped8.4.1",
+    "shipped_gxm_sha256": {
+      "car.gxm": "85bc71eb312b15b4cfe3cee7a14f15c5bc1b4b3a89d3df8750cb859713436ed0",
+      "complete.gxm": "00e70316ecbc44d413c3634c2bc8742c2be0066f515b23abb7b35d8c6390ef6e",
+      "wheel.gxm": "61746ca0af2fc83fe3113e101e974429cd7e630513fae0d1e0a2d3f569512022"
+    },
+    "native_source_pins": {
+      "black-tga.dxt": "c8af53e3c1ea06c42178b3e1988dff0b3c64f150b722cba6bdd0450dc1357f82",
+      "Black-tga.gxi": "f1e8c064908150ef3a0b354bfa2ae6de8493d2b43b895fb803987dc23cdac8a8",
+      "car.dx": "d9ce9d56d93a11e01c172ac50808a9a9de24757390ded395030a2d61f7208836",
+      "car.gxm": "85bc71eb312b15b4cfe3cee7a14f15c5bc1b4b3a89d3df8750cb859713436ed0",
+      "car.txt": "9b8d43088a92cecc9da4574114db046eebf33a1fae0789b8d71e1f8f612f6674",
+      "cata128-tga.dxt": "62c151d8e7c8af3506ce77f8a1f19394a34fc48e3586016c2a4d20b783ae69b6",
+      "Cata128-tga.gxi": "880498f806661c3a8c2726d4bc4f63430b481ef52560d83564de7b62a278cb68",
+      "catflag16-tga.dxt": "e310bf906d00998bc61039c7e6dcd3a51e84e087763b8eea7edf9fd84d76111e",
+      "Catflag16-tga.gxi": "4acd9b0a55f060cb2bc79f48b8424f715bb451695bd075a388fbfa55e142e7b0",
+      "catlight64-tga.dxt": "97c34404d1a9a098ddf708e5426c4b216a57114d8553f45d33d7deda51351169",
+      "Catlight64-tga.gxi": "ce10c2ab3c34d86f60134c8b40960abbd430e4ba6cfccc0c1a6581d6424cd6f6",
+      "cattread-tga.dxt": "0c13529c677d52f34f72dfb36f51b134cf92e48e67f5fa228e4d6f52ed853705",
+      "Cattread-tga.gxi": "fde8b876ae40a8ec57d13dd1a171c951f56dea595d4da3815abe238aa11ff22e",
+      "catwheel64-tga.dxt": "8e316a8d3e33a0bc2eb2d22482c13a4a3ce1a82c0bd90d25a47f1466d2ad1a83",
+      "Catwheel64-tga.gxi": "3d9aa66f996ba7bd5059e562e405d9f801b12f4066b44399cd0fcf9620073a1c",
+      "catwheel643-tga.dxt": "aaae214381fc7cf2a364d4c9e00dd468ec65a7cd084185a44e12849dbf4e42fc",
+      "Catwheel643-tga.gxi": "258c665963d18b8786bd3b56e694a25435ffa18dc767d75088e1cd4d5d1791f0",
+      "catwrim-tga.dxt": "85592f7f66ad0ffee8067e1f0dc3db1f497423934f2fc54acfddac26e07bf696",
+      "Catwrim-tga.gxi": "debca865bb1fdd9df98c921d599fc4636bedc85c8fdd262c0e90b7c2c740955a",
+      "cdoor128-tga.dxt": "ead8ca135eb737d2769bfdcb0a9c6014dbc80563518b54cc52055a34a1fdba4c",
+      "Cdoor128-tga.gxi": "29f0c46ca058821a5b924ba7d2a9b05fdde8aa5f06d82762741333cd516ffa92",
+      "chair2-tga.dxt": "3d5eab847f8053023132cc461a0f6aaeebc8379dd00b002a3d050e624a433ef4",
+      "Chair2-tga.gxi": "51dc32346d79ae24b3e6b84087fedfed39278c643b40a7c1db483ed0b4ef7c41",
+      "chelmet32-tga.dxt": "6c055a07173b6b58d75627542471dc56740b72dd2633d3f57942eb52105241db",
+      "Chelmet32-tga.gxi": "c4e90a92c10c18b37fa63b6bca3ede4f2846578358ac83c4682ae8bab95f0fe3",
+      "chrome-tga.dxt": "658946001e0c91939421a40e5ac86a91297d93fc5abc1927bf8ae77a4e89012b",
+      "Chrome-tga.gxi": "1e008b385558738cc16d13dd518a6b5f95743470e9b1207a2f438df6b382673a",
+      "complete.dx": "0648430f2705b93031987f383f294fab8dd9cbd42d5df68fdaea7648e0a262e9",
+      "complete.gxm": "00e70316ecbc44d413c3634c2bc8742c2be0066f515b23abb7b35d8c6390ef6e",
+      "complete.txt": "562d4f0ff06d3aa1fb3f3ad9f324155206723e070ac4900a62ae540038b80945",
+      "dcambell-tga.dxt": "0c8d56d72d5bf83b1530a6e9ccba63efe6bd9b7e0d7c5172b212672c038b2c62",
+      "Dcambell-tga.gxi": "c7d7a6c76c8edad32f30443b10d138845780c3be2f54d0f0a350e1c1ce6df4dc",
+      "drichard-tga.dxt": "ebc196b631941ce570f78180aee4bef81a5a5d822a86a0ed370bc814fd02774b",
+      "Drichard-tga.gxi": "615eff1d205969e0863fdc24a98f7ef72d9b0e37fe4b702159b8f362de8cae10",
+      "glass-tga.dxt": "f18690e02cad8d249db527ad546bac54db3343894aa136bc84bf0d9531fac71b",
+      "Glass-tga.gxi": "c008c15cc655242e4577d353b39f6d970d8f4d8143807021077a36b9757daab7",
+      "mastersticker-tga.dxt": "578c024800378d18679cfc71422f4302dbc4f3b3f7827f320728336ab1860eee",
+      "Mastersticker-tga.gxi": "edd6a350bc851fe74127f6d8441ad108b320dcfc61d981ef234186be340059fd",
+      "perspex-tga.dxt": "29fddb30997bda1b38b006ffac98fd26a0671d94e8a6c4a86708c0f11f7f8fc0",
+      "Perspex-tga.gxi": "29d88105c57405541d3a4f31eda6726fb70b3ddc9ea680820053190a42faf9aa",
+      "rubber-tga.dxt": "f95b5f1932dc01e2410176c624c07543b6442505c8e85e2f80099836cd3d9208",
+      "Rubber-tga.gxi": "afba5c39287f33d6ab32576eddbe80e15717385e524b3380d8f6daabcfe1a899",
+      "sus32a-tga.dxt": "fb5c5a8cc924f778c36a92892bc7949690d864be2cb32970c225e089c6f4210a",
+      "Sus32a-tga.gxi": "41324f99298461f71c896a62f21afbda901ddc56701a941a24f7e9ac54c68ba2",
+      "sus32b-tga.dxt": "605aeb4d23112a0a74fabc532a5d63a818e94160651cc63b0fc5969391cb375a",
+      "Sus32b-tga.gxi": "03177b52cb95b898979a6b5cba50750af79d6fe1e415ff82f5c8cceead797b89",
+      "underdash-tga.dxt": "d2eda2c6196d9d50448f90828450d81c4f6dc1d8041b7c0ae04ddbbcb81f8a9f",
+      "Underdash-tga.gxi": "c8e3578ac885531aad2dc8c56ba2b5edcdf35237b325a09452626b6ae436ded5",
+      "wheel.dx": "27a05b94c80c9c8df5f9c01b0402b3abe0acfa4816a13e4090f2a10a1d35b67a",
+      "wheel.gxm": "61746ca0af2fc83fe3113e101e974429cd7e630513fae0d1e0a2d3f569512022",
+      "wheel.txt": "b43d370d6411492710f8b7269fbe93643cc57a106e428ffce7cd265014b3e931",
+      "whitepaint-tga.dxt": "8b8d253cf940e0460fbb11932e0ef1c08d41a68486c178bf63dc5a66cfe441e0",
+      "Whitepaint-tga.gxi": "d29fcd558301ae264ee188e06c9c687a6695ca6012e91a4ce0c34c15cd82f2df",
+      "whitesuit32-tga.dxt": "6970fe173313c5449c10042ace0d5e115d73066a6474e8ae57fd7cde80a04c67",
+      "Whitesuit32-tga.gxi": "a89f0992daf547dde36d42e709c75f7c196e930df73dd955bf65cb125df340e4",
+      "windscreen32-tga.dxt": "149aaca75c11ff403c36f6ba22586a28a5cd553af4adaf6dc45afde39014e0be",
+      "Windscreen32-tga.gxi": "564a69f427fe4d61df65bd0898385d710c7a0e86107d7fceb4aacc1eb8e56c47"
+    },
+    "body_source_triangles": 1651,
+    "native_intact_geometry_preserved": true,
+    "collision_preserved": true,
+    "cache_repairs": {
+      "car.dx": {
+        "source_sha256": "d9ce9d56d93a11e01c172ac50808a9a9de24757390ded395030a2d61f7208836",
+        "authoring_sha256": "469fc55e80f5703dad999011587e5e725ea4bcbfcfde5026f6ad3ab5894881be",
+        "cache_positions_changed": 4793,
+        "input_validation": {
+          "status": "EXPLICIT_SOURCE_PINNED_CACHE_REPAIR",
+          "reason": "Explicit immutable rebake local-index authority. Only global cache is rebuilt; all local draw geometry/UV/material/collision fingerprints must remain equal. Source GXM is byte-identical to shipped8.4.1; full GXM-to-bake parity is not claimed.",
+          "output_validation": {
+            "status": "VALID",
+            "policy": "EXISTING_REV135_STRUCTURAL",
+            "revision": 135,
+            "draw_count": 17,
+            "vertex_count": 2215,
+            "triangle_count": 1651,
+            "collision_tags": [
+              101
+            ],
+            "collision_tail": "marker-1339-validated",
+            "parser_warnings": [],
+            "collision_errors": [],
+            "collision_warnings": [],
+            "global_index_validation": {
+              "sequence_equal": true,
+              "ordering_divergence": false,
+              "oriented_triangle_sets_equal_per_draw": true,
+              "mismatched_index_positions": 0,
+              "first_mismatch_position": null,
+              "expected_parser_order_error": null,
+              "per_draw": [
+                {
+                  "draw_index": 0,
+                  "index_start": 0,
+                  "index_count": 912,
+                  "triangle_count": 304,
+                  "oriented_triangle_multiset_equal": true
+                },
+                {
+                  "draw_index": 1,
+                  "index_start": 912,
+                  "index_count": 144,
+                  "triangle_count": 48,
+                  "oriented_triangle_multiset_equal": true
+                },
+                {
+                  "draw_index": 2,
+                  "index_start": 1056,
+                  "index_count": 198,
+                  "triangle_count": 66,
+                  "oriented_triangle_multiset_equal": true
+                },
+                {
+                  "draw_index": 3,
+                  "index_start": 1254,
+                  "index_count": 54,
+                  "triangle_count": 18,
+                  "oriented_triangle_multiset_equal": true
+                },
+                {
+                  "draw_index": 4,
+                  "index_start": 1308,
+                  "index_count": 48,
+                  "triangle_count": 16,
+                  "oriented_triangle_multiset_equal": true
+                },
+                {
+                  "draw_index": 5,
+                  "index_start": 1356,
+                  "index_count": 162,
+                  "triangle_count": 54,
+                  "oriented_triangle_multiset_equal": true
+                },
+                {
+                  "draw_index": 6,
+                  "index_start": 1518,
+                  "index_count": 600,
+                  "triangle_count": 200,
+                  "oriented_triangle_multiset_equal": true
+                },
+                {
+                  "draw_index": 7,
+                  "index_start": 2118,
+                  "index_count": 87,
+                  "triangle_count": 29,
+                  "oriented_triangle_multiset_equal": true
+                },
+                {
+                  "draw_index": 8,
+                  "index_start": 2205,
+                  "index_count": 114,
+                  "triangle_count": 38,
+                  "oriented_triangle_multiset_equal": true
+                },
+                {
+                  "draw_index": 9,
+                  "index_start": 2319,
+                  "index_count": 444,
+                  "triangle_count": 148,
+                  "oriented_triangle_multiset_equal": true
+                },
+                {
+                  "draw_index": 10,
+                  "index_start": 2763,
+                  "index_count": 87,
+                  "triangle_count": 29,
+                  "oriented_triangle_multiset_equal": true
+                },
+                {
+                  "draw_index": 11,
+                  "index_start": 2850,
+                  "index_count": 48,
+                  "triangle_count": 16,
+                  "oriented_triangle_multiset_equal": true
+                },
+                {
+                  "draw_index": 12,
+                  "index_start": 2898,
+                  "index_count": 600,
+                  "triangle_count": 200,
+                  "oriented_triangle_multiset_equal": true
+                },
+                {
+                  "draw_index": 13,
+                  "index_start": 3498,
+                  "index_count": 927,
+                  "triangle_count": 309,
+                  "oriented_triangle_multiset_equal": true
+                },
+                {
+                  "draw_index": 14,
+                  "index_start": 4425,
+                  "index_count": 444,
+                  "triangle_count": 148,
+                  "oriented_triangle_multiset_equal": true
+                },
+                {
+                  "draw_index": 15,
+                  "index_start": 4869,
+                  "index_count": 36,
+                  "triangle_count": 12,
+                  "oriented_triangle_multiset_equal": true
+                },
+                {
+                  "draw_index": 16,
+                  "index_start": 4905,
+                  "index_count": 48,
+                  "triangle_count": 16,
+                  "oriented_triangle_multiset_equal": true
+                }
+              ]
+            },
+            "parser_errors": []
+          }
+        },
+        "fingerprints": {
+          "surface_sha256": "2d137f7ebd0152176d64574c0586071372c840bbd9737091427ea8098624667a",
+          "uv_surface_sha256": "b30d5c7c28db6906c5d13ad9b23d9f72150eceee8a3f1c6a69a98cd623238e7a",
+          "normal_color_surface_sha256": "3d5692ee2aa9a9737b9a946c3162ae5c8cc814ca7b97d76deccac0807f7fc255",
+          "material_surface_sha256": "8e253a30857aefbb557632355a043cf7478c1f1dcdcb8c664f8be33f1a2f8bf0",
+          "draw_state_sha256": "855f2bc986bb3ec3f0ba29936921821ebd074505ddf2af03143c2b1d7613f7e5",
+          "collision_sha256": "bb0f8dac67bbfe4c43f156c12808357b7407fcfbd0450857bce082c81b207a6e"
+        }
+      },
+      "complete.dx": {
+        "source_sha256": "0648430f2705b93031987f383f294fab8dd9cbd42d5df68fdaea7648e0a262e9",
+        "authoring_sha256": "bf1f00f4793bdf664e6d058136c0454de00e6d26d708b8df134d7a35a3514726",
+        "cache_positions_changed": 5982,
+        "input_validation": {
+          "status": "EXPLICIT_SOURCE_PINNED_CACHE_REPAIR",
+          "reason": "Explicit immutable rebake local-index authority. Only global cache is rebuilt; all local draw geometry/UV/material/collision fingerprints must remain equal. Source GXM is byte-identical to shipped8.4.1; full GXM-to-bake parity is not claimed.",
+          "output_validation": {
+            "status": "VALID",
+            "policy": "EXISTING_REV135_STRUCTURAL",
+            "revision": 135,
+            "draw_count": 17,
+            "vertex_count": 2405,
+            "triangle_count": 2115,
+            "collision_tags": [
+              102
+            ],
+            "collision_tail": "marker-1339-validated",
+            "parser_warnings": [],
+            "collision_errors": [],
+            "collision_warnings": [],
+            "global_index_validation": {
+              "sequence_equal": true,
+              "ordering_divergence": false,
+              "oriented_triangle_sets_equal_per_draw": true,
+              "mismatched_index_positions": 0,
+              "first_mismatch_position": null,
+              "expected_parser_order_error": null,
+              "per_draw": [
+                {
+                  "draw_index": 0,
+                  "index_start": 0,
+                  "index_count": 756,
+                  "triangle_count": 252,
+                  "oriented_triangle_multiset_equal": true
+                },
+                {
+                  "draw_index": 1,
+                  "index_start": 756,
+                  "index_count": 144,
+                  "triangle_count": 48,
+                  "oriented_triangle_multiset_equal": true
+                },
+                {
+                  "draw_index": 2,
+                  "index_start": 900,
+                  "index_count": 198,
+                  "triangle_count": 66,
+                  "oriented_triangle_multiset_equal": true
+                },
+                {
+                  "draw_index": 3,
+                  "index_start": 1098,
+                  "index_count": 54,
+                  "triangle_count": 18,
+                  "oriented_triangle_multiset_equal": true
+                },
+                {
+                  "draw_index": 4,
+                  "index_start": 1152,
+                  "index_count": 48,
+                  "triangle_count": 16,
+                  "oriented_triangle_multiset_equal": true
+                },
+                {
+                  "draw_index": 5,
+                  "index_start": 1200,
+                  "index_count": 18,
+                  "triangle_count": 6,
+                  "oriented_triangle_multiset_equal": true
+                },
+                {
+                  "draw_index": 6,
+                  "index_start": 1218,
+                  "index_count": 48,
+                  "triangle_count": 16,
+                  "oriented_triangle_multiset_equal": true
+                },
+                {
+                  "draw_index": 7,
+                  "index_start": 1266,
+                  "index_count": 864,
+                  "triangle_count": 288,
+                  "oriented_triangle_multiset_equal": true
+                },
+                {
+                  "draw_index": 8,
+                  "index_start": 2130,
+                  "index_count": 432,
+                  "triangle_count": 144,
+                  "oriented_triangle_multiset_equal": true
+                },
+                {
+                  "draw_index": 9,
+                  "index_start": 2562,
+                  "index_count": 648,
+                  "triangle_count": 216,
+                  "oriented_triangle_multiset_equal": true
+                },
+                {
+                  "draw_index": 10,
+                  "index_start": 3210,
+                  "index_count": 216,
+                  "triangle_count": 72,
+                  "oriented_triangle_multiset_equal": true
+                },
+                {
+                  "draw_index": 11,
+                  "index_start": 3426,
+                  "index_count": 864,
+                  "triangle_count": 288,
+                  "oriented_triangle_multiset_equal": true
+                },
+                {
+                  "draw_index": 12,
+                  "index_start": 4290,
+                  "index_count": 600,
+                  "triangle_count": 200,
+                  "oriented_triangle_multiset_equal": true
+                },
+                {
+                  "draw_index": 13,
+                  "index_start": 4890,
+                  "index_count": 927,
+                  "triangle_count": 309,
+                  "oriented_triangle_multiset_equal": true
+                },
+                {
+                  "draw_index": 14,
+                  "index_start": 5817,
+                  "index_count": 444,
+                  "triangle_count": 148,
+                  "oriented_triangle_multiset_equal": true
+                },
+                {
+                  "draw_index": 15,
+                  "index_start": 6261,
+                  "index_count": 36,
+                  "triangle_count": 12,
+                  "oriented_triangle_multiset_equal": true
+                },
+                {
+                  "draw_index": 16,
+                  "index_start": 6297,
+                  "index_count": 48,
+                  "triangle_count": 16,
+                  "oriented_triangle_multiset_equal": true
+                }
+              ]
+            },
+            "parser_errors": []
+          }
+        },
+        "fingerprints": {
+          "surface_sha256": "5186d3401b9c49cba24df6f6124d7a0bb4e69336eed6f2930ab755b4f58ad1f9",
+          "uv_surface_sha256": "84464b6e54c32bce8b73352c95d47f13bd4b424eb5a404c67bc9ef3b6e0015d2",
+          "normal_color_surface_sha256": "f83535be341b7eb0944bccdd86d4e2fc8769b24124b13989af3a19f50e9a32b0",
+          "material_surface_sha256": "5f5606dedd0e7534654ffa4aa9314a450477ab77b24e0459d0a9298be0ba84bb",
+          "draw_state_sha256": "6b388ed7462455ddaceddb47d3117dcaec5175660065a7c961110394d8ad6c54",
+          "collision_sha256": "db5937db79fa18017501155f7cc5c0cb43f67d7308b6384b1a6ac3cac1888f9a"
+        }
+      },
+      "wheel.dx": {
+        "source_sha256": "27a05b94c80c9c8df5f9c01b0402b3abe0acfa4816a13e4090f2a10a1d35b67a",
+        "authoring_sha256": "f142bd7bf979d788805676426c432fc19677aebb485ef82f46477bb66fd9d85e",
+        "cache_positions_changed": 675,
+        "input_validation": {
+          "status": "EXPLICIT_SOURCE_PINNED_CACHE_REPAIR",
+          "reason": "Explicit immutable rebake local-index authority. Only global cache is rebuilt; all local draw geometry/UV/material/collision fingerprints must remain equal. Source GXM is byte-identical to shipped8.4.1; full GXM-to-bake parity is not claimed.",
+          "output_validation": {
+            "status": "VALID",
+            "policy": "EXISTING_REV135_STRUCTURAL",
+            "revision": 135,
+            "draw_count": 5,
+            "vertex_count": 220,
+            "triangle_count": 252,
+            "collision_tags": [
+              102
+            ],
+            "collision_tail": "marker-1339-validated",
+            "parser_warnings": [],
+            "collision_errors": [],
+            "collision_warnings": [],
+            "global_index_validation": {
+              "sequence_equal": true,
+              "ordering_divergence": false,
+              "oriented_triangle_sets_equal_per_draw": true,
+              "mismatched_index_positions": 0,
+              "first_mismatch_position": null,
+              "expected_parser_order_error": null,
+              "per_draw": [
+                {
+                  "draw_index": 0,
+                  "index_start": 0,
+                  "index_count": 216,
+                  "triangle_count": 72,
+                  "oriented_triangle_multiset_equal": true
+                },
+                {
+                  "draw_index": 1,
+                  "index_start": 216,
+                  "index_count": 108,
+                  "triangle_count": 36,
+                  "oriented_triangle_multiset_equal": true
+                },
+                {
+                  "draw_index": 2,
+                  "index_start": 324,
+                  "index_count": 162,
+                  "triangle_count": 54,
+                  "oriented_triangle_multiset_equal": true
+                },
+                {
+                  "draw_index": 3,
+                  "index_start": 486,
+                  "index_count": 54,
+                  "triangle_count": 18,
+                  "oriented_triangle_multiset_equal": true
+                },
+                {
+                  "draw_index": 4,
+                  "index_start": 540,
+                  "index_count": 216,
+                  "triangle_count": 72,
+                  "oriented_triangle_multiset_equal": true
+                }
+              ]
+            },
+            "parser_errors": []
+          }
+        },
+        "fingerprints": {
+          "surface_sha256": "a169a8ff5c9111b2376c1e3c3f11f380a86f077d4e922c31aa4185e695e73112",
+          "uv_surface_sha256": "590d8d01dd1e2d3e596c56e23b2db5cf09b7814c22079e3de5f3984921df205c",
+          "normal_color_surface_sha256": "5903cfde0c9a6ff210960e7ddc8974ab5424601d7932e9e4f833215c2099f63c",
+          "material_surface_sha256": "342ba892c36e08ddf1546fd20938f7cd35788699f9eb60f741aa5949644a75c4",
+          "draw_state_sha256": "b10b1ab55aeb4349ec8643dd8788ee2c20a4c7a0764ebf94b84085b7496677c6",
+          "collision_sha256": "c88fe7e4b59155fcad17129622803f1f89aeabb01e891aff7d2715fe384f7a7d"
+        }
+      }
+    },
+    "gxm_whole_model_parity": "Not claimed: legacy bake/GXM topology and transformations are retained as a bounded research boundary; selected pane/lamp matches are exact"
+  },
+  "runtime": {
+    "physical_id": 32,
+    "class": "T3",
+    "count": 33,
+    "classes": [
+      8,
+      12,
+      13
+    ],
+    "replaces": "technical roster-t3-slot32-probe only",
+    "AI": "New T3 dynamic pool insertion not qualified; disabled, previous AI unchanged",
+    "source_vs_native_class": "Original catalog numeric class1; target retail T3/class2 is owner-directed adaptation",
+    "frontend_stats": [
+      7,
+      6,
+      8,
+      8
+    ]
+  },
+  "identity": {
+    "artwork": [
+      {
+        "role": "vehicle_select_art",
+        "original_texture_sha256": "5af0747daacf86105e952c5946eee4b708e34c6eda178ff92f6e2a8350244a9e",
+        "bank_sha256": "34defc7a2f86d153ab9eeb6bf09256c77b12ddfe5f2969fd0529b62ca7843a5a",
+        "policy": "exact",
+        "native_size": [
+          128,
+          128
+        ],
+        "texture": "vehicle_select_art",
+        "bank": "vehicle_select_art_bank",
+        "frame": 6,
+        "presentation": "source-pixels-v1",
+        "association": "Original8.4.1 named Bowler_Wildcat widget/frame6; original blue artwork retained exactly."
+      },
+      {
+        "role": "smallcarsheet",
+        "original_texture_sha256": "f109f56b5836a3ff7558853f555850bfb19c91c07709ed53d83525c19ce0b92a",
+        "bank_sha256": "a46ab28020a4dd08da893c25a366fc7556b81d0a793cbded770f9638eade9d6c",
+        "policy": "bounded-resample",
+        "native_size": [
+          32,
+          16
+        ],
+        "texture": "smallcarsheet",
+        "bank": "smallcarsheet_bank",
+        "frame": 6,
+        "presentation": "source-pixels-v1",
+        "association": "Original9.3.1 blue Wildcat HUD image, visually matching early source body/livery. Catalog-to-HUD runtime binding unproven; no invented artwork."
+      }
+    ],
+    "driver": {
+      "value": null,
+      "status": "UNKNOWN",
+      "evidence": "PC841 category57 is not car-indexed; PS2/retail DREW BOWLER belongs to later Wildcat geometry. Earlier source assignment remains unproven after existing original PC/PS2/retail audit."
+    },
+    "driver_assignment": {
+      "value": "HUGH HAINES",
+      "kind": "REAL_FALLBACK",
+      "credentials": "Off-road rally owner-driver of Bowler Wildcat200 #004 from May2001, documented by Historics. Period/manufacturer association only, not an original MR identity or exact early Tomcat chassis match. Later2006 wins are not evidence for earlier event results.",
+      "sources": [
+        {
+          "title": "Historics Auctioneers original lot168",
+          "url": "https://www.historics.co.uk/auction/lot/lot-168---2001-bowler-wildcat-200/?lot=5339&sd=1"
+        }
+      ]
+    },
+    "frontend_stats_evidence": {
+      "status": "PROVEN",
+      "value": [
+        7,
+        6,
+        8,
+        8
+      ],
+      "record": {
+        "id": 15,
+        "family": "Wildcat",
+        "class": 1,
+        "stats": [
+          7,
+          6,
+          8,
+          8
+        ],
+        "smallcarsheet": 0,
+        "record_index": 15,
+        "call_va": 4487939
+      },
+      "localized": {
+        "52": {
+          "status": "PROVEN",
+          "value": "TOMCAT",
+          "alternatives": [
+            "TOMCAT"
+          ],
+          "records": [
+            {
+              "file_offset": 2001860,
+              "category": 52,
+              "index": 15,
+              "pointer": 6200704,
+              "text": "TOMCAT"
+            }
+          ]
+        },
+        "53": {
+          "status": "PROVEN",
+          "value": "PRIVATEER TOMCAT",
+          "alternatives": [
+            "PRIVATEER TOMCAT"
+          ],
+          "records": [
+            {
+              "file_offset": 2002172,
+              "category": 53,
+              "index": 15,
+              "pointer": 6200328,
+              "text": "PRIVATEER TOMCAT"
+            }
+          ]
+        }
+      },
+      "association": "named family",
+      "source_sha256": "2d4a3b02d3cdb740dfdf3c11002c0026837dc19ba8e5211ad9763b35eb06e15a"
+    }
+  },
+  "physics": {
+    "policy": "100 compatible original8.4.1 fields in independent retail Wildcat schema",
+    "original_rows": 121,
+    "applied_fields": 100,
+    "explicit_source_only_fields": 21,
+    "source_original_immutable": true,
+    "mass_kg": 1200.0,
+    "physics_wheelbase_m": 2.77,
+    "source_render_wheelbase_m": 2.809745,
+    "wheelbase_difference_m": 0.039745,
+    "physics_track_m": 1.66,
+    "source_track_m": 1.640126,
+    "physics_radius_m": 0.38,
+    "mesh_radius_y_m": 0.3845731019973755,
+    "mesh_radius_z_m": 0.39050576090812683,
+    "boundary": "No geometry/hub/suspension-fit adjustment. Historical solver equivalence and handling/wear require owner test."
+  },
+  "native_features": {
+    "glass_zones": [
+      "screenfront",
+      "screenleft",
+      "screenright"
+    ],
+    "brake": "Original8-face blight owner; original Wildcat ON core/glow fitted per lens; source OFF intact",
+    "reference": "Retail Wildcat technical resources, not a replacement body",
+    "frontend_frame": {
+      "source_sha256": "d7265ce60f72b3be8280295faf923f1194ac6649d333a5e220e5ed6c62905ac2",
+      "output_sha256": "a9c2e36c0f3d2dba264da6be4cc729a8032d901ea2f04ed5b0f2cc2411a7473b",
+      "reference_sha256": {
+        "car.dx": "ccbcb74985d5b21a594b471eb42d242b5eb5809d8646e57ece08b4a1cd6614cd",
+        "complete.dx": "296ce5390834c2f2a0c6ffb0e230e12160f70f679542b157187a266450a74328",
+        "wheel.dx": "a627f60b382f7f00ba577c532377ff078b59ab8a488f89daa53c34ca3cdb2af4"
+      },
+      "source_body_translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "reference_body_translation": [
+        0.0,
+        0.4957417845726013,
+        0.0
+      ],
+      "translation_m": [
+        0.0,
+        0.4957417845726013,
+        0.0
+      ],
+      "preserved": [
+        "X/Z positions",
+        "normals",
+        "UVs",
+        "colours",
+        "indices",
+        "materials",
+        "collision",
+        "race geometry",
+        "race wheel hubs"
+      ],
+      "boundary": "Frontend origin only; source rest pose asymmetry and race suspension unchanged; D3D8 menu verification pending"
+    }
+  },
+  "validation": {
+    "owner_gameplay": "PENDING",
+    "focused": {
+      "run": 48,
+      "status": "PASS",
+      "failed": 0,
+      "errors": 0
+    },
+    "full_windows_checkpoint": {
+      "run": 1341,
+      "status": "PASS",
+      "failed": 0,
+      "errors": 0,
+      "skipped": [
+        {
+          "test": "setUpClass (test_j2_frontend_reentry.J2ReentryPatchPlanTests)",
+          "reason": "exact retail executable or verified J.1 bundle is unavailable"
+        },
+        {
+          "test": "test_vmesh412_runtime.FinalPassTests.test_stock_profile_preserves_tyre_and_refuses_second_pass",
+          "reason": "private vehicle fixture unavailable"
+        }
+      ],
+      "seconds": 85.01953049999429
+    },
+    "native_mapping_records": 33,
+    "native_stats_assertions": true,
+    "previous_nonshared_resources_exact": 376,
+    "previous_physics_rows": {
+      "DataGame/vehicles.xml": 6225,
+      "DataGame/Modifications.xml": 988
+    },
+    "determinism": {
+      "identical_dx_dxt": 291,
+      "different": [],
+      "builds": 2
+    },
+    "first_final_resources_identical": 414,
+    "native_first_final_identical": {
+      "native-extension.bin": true,
+      "native-patch-ops.rvp": true
+    },
+    "protected_unchanged": 1759,
+    "external_live_file_changes": [
+      {
+        "path": "D:\\Game\\Master Rallye\\d3d8.dll",
+        "before_sha256": "eab47f8ef84f1c64b0661308468809ee16c5fe50f94bee5bc11c8b0925c00ff0",
+        "current_sha256": "86eaefb641cc38e9e40c7dd7c7143640284f288a12a42ee0d35b63a2c6ee3cda",
+        "current_bytes": 6840320,
+        "last_write_utc": "2026-11-01T09:22:06.903736+00:00",
+        "action": "Observed only; no restore or write by this task"
+      },
+      {
+        "path": "D:\\Game\\Master Rallye\\DataGame\\PlayerState.xml",
+        "before_sha256": "c21294a5716f30c546bec1c77b30143de8c3e8954efc3c131e62985c11466026",
+        "current_sha256": "1fa214cdec62eda5b4faa8b8a68774164218fd4a883c69d0affc546aff3cbb5a",
+        "current_bytes": 167309,
+        "last_write_utc": "2026-11-01T09:25:04.695634+00:00",
+        "action": "Observed only; no restore or write by this task"
+      }
+    ],
+    "current_proxy_preflight_exit": 0,
+    "identity_source_recheck": {
+      "pc841": {
+        "sha256": "2d4a3b02d3cdb740dfdf3c11002c0026837dc19ba8e5211ad9763b35eb06e15a",
+        "size": 2084926,
+        "status": "UNCHANGED_QUALIFIED_ORIGINAL"
+      },
+      "pc931": {
+        "sha256": "611526d30be94879012efe54c56ceff428cb4d20a4bd49173370a4ebfe31a728",
+        "size": 2637886,
+        "status": "UNCHANGED_QUALIFIED_ORIGINAL"
+      },
+      "retail": {
+        "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+        "size": 3121214,
+        "status": "UNCHANGED_QUALIFIED_ORIGINAL"
+      },
+      "ps2": {
+        "sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+        "size": 3739852,
+        "status": "UNCHANGED_QUALIFIED_ORIGINAL"
+      }
+    }
+  },
+  "icons": {
+    "profile": "mr-native-v2",
+    "scope": "Generated VehicleSelect/HUD images only; ordinary source/native scene materials unchanged",
+    "HUD_camera_degrees": [
+      130,
+      8
+    ],
+    "original_artwork_preserved": true,
+    "applied_to_accepted_RAV4": false,
+    "workflow_evidence": ".research-output/vehicles/v-def4/ui-service-delivery.json"
+  },
+  "private_artifacts": {
+    "candidate": ".research-output/vehicles/v-def4/delivery/workshop/builds/final/candidate",
+    "owner_launch": ".research-output/vehicles/v-def4/delivery/workshop/builds/final/candidate/Launch-SDK-Roster.cmd",
+    "native_extension_sha256": "e7f562725319e0034918b16b2057b59a5e90397da9fee4c7349caf1dd4ae0f81",
+    "rvp_sha256": "7e8c573bbf78bd02a60edb808e74011ee02bd453b968ca8666e63f6e3d2bf949",
+    "D3D9": ".research-output/vehicles/v-def4/d3d9-comparison/comparison.png",
+    "icons": ".research-output/vehicles/v-def4/icons-source-delivery/comparison.png"
+  },
+  "stop_boundary": "TOMCAT candidate and shortlist stats audit only. No new CarID, next restoration, push or publication."
+}

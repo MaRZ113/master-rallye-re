@@ -794,3 +794,26 @@ Subsequent Workshop loose-resource draft: full Windows tier 1292 tests, two opti
 
 See V_DEF3_ROSTER_ORDER_RESULTS.md and source-only V_DEF3_PROVENANCE.json.
 No new playable Demo restoration or original-file write is inferred.
+
+
+## V-DEF4 — early TOMCAT and frontend ratings
+
+| Check | Evidence / boundary |
+|---|---|
+| Accepted baseline | Owner accepts V-DEF3 ordering in-game, reporting no bugs; new TOMCAT is still pending |
+| Source | Three GXM byte matches to shipped8.4.1; exact per-file cache-repair input/output pins, local surface/UV/material/collision invariants; no claim of full GXM/cooker parity |
+| Native body |1651 original intact triangles retained; exact OFF geometry/materials and collision; three4-face glass zones,8 original lamp faces, fitted native ON core/glow |
+| Physics |100 compatible original fields;121 source rows retained;21 explicit old-schema/tyre substitutions; no speculative wheel/hub fit |
+| Ordering/identity | All33 mappings, native frontend stats7/6/8/8, initializer/RGBA/name/Results/unlock and99 audio probes; existing T2 AI chains PASS with native-call mocks |
+| Existing assets |376 nonshared accepted resources,6225/988 existing physics/setup rows and previous UI-bank records retained |
+| Determinism | Two builds:291 DX/DXT exact; first/final414 resources, native extension and RVP exact |
+| Original preservation |1759 unchanged protected pins; live proxy and PlayerState changed externally, observed/not restored; current proxy preflight PASS, SHA gate remains disabled |
+| Ratings | Eight targets, original841/931 instruction/localization evidence, UNKNOWN retired RAV4/Alpha retained; Workshop rating history changes no physics |
+| Icon v2 | Source-only synthetic guards, real same-car v1/v2/original images; role-specific camera/lighting, native UI composition, Apply/Undo/Redo/Restore/reopen PASS on a private copy |
+| Full Windows checkpoint |1341 tests,0 failures/errors,2 existing optional private-fixture skips,85.020s PASS |
+| Final focused |48 tests PASS, including six new tests and late narrow rating/provenance/mini-camera guards |
+| D3D9 | Source/restored/retail six views, frontend, manually selected lamp ON and broken panes; actual game triggers remain untested |
+| Owner D3D8 | New TOMCAT selection, race/Results/reentry, wear/suspension, glass/brakes, saves and Randomizer coexistence PENDING |
+
+Private reports: vehicles/v-def4 under .research-output; source-only summary
+V_DEF4_PROVENANCE.json. Tests do not promote the new model to gameplay PASS.

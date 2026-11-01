@@ -68,12 +68,18 @@ def validate_manifest(m):
     if not re.fullmatch('[a-z0-9][a-z0-9.-]{1,63}',m['id']):raise ValueError('Invalid restoration identity')
     for k in ('source_family','runtime_family'):
         if not re.fullmatch('[A-Za-z][A-Za-z0-9_]{0,39}',m[k]):raise ValueError('Invalid native restoration family')
-    if m['vehicle_class']!='T2'or m['runtime']['physical_id']not in(30,31)or type(m['runtime']['physical_id'])is not int:raise ValueError('Restoration needs an explicitly bounded independent T2 slot')
+    if (m['vehicle_class'],m['runtime']['physical_id'])not in (('T2',30),('T2',31),('T3',32))or type(m['runtime']['physical_id'])is not int:raise ValueError('Restoration needs an explicitly bounded independent slot')
     if not isinstance(m['source']['files'],dict)or not 3<=len(m['source']['files'])<=512 or not 1<=len(m['inputs'])<=128:raise ValueError('Restoration input budget')
     if set(m['original_geometry'])!={'car.gxm','complete.gxm','wheel.gxm'}or not set(heritage.ROLES)<=set(m['source']['files']):raise ValueError('All original and rebaked model roles are required')
     aliases=m['features']['texture_aliases']
     if not isinstance(aliases,dict)or not aliases or any(not isinstance(v,str)or not re.fullmatch('[A-Za-z0-9_-]{1,96}',v)or v.casefold()=='null'for v in aliases.values())or len({v.casefold()for v in aliases.values()})!=len(aliases):raise ValueError('Unsafe or colliding restoration texture aliases')
     if set(m['identity']['artwork'])!={'vehicle_select_art','smallcarsheet'}:raise ValueError('Exactly two known artwork roles are required')
+    evidence=m['identity'].get('frontend_stats')
+    if evidence and evidence.get('status')=='PROVEN':
+        value=evidence.get('value')
+        if (not isinstance(value,list)or len(value)!=4 or any(type(v)is not int or not 0<=v<=10 for v in value)
+                or value!=m['identity']['frontend']['stats']or evidence.get('record',{}).get('stats')!=value
+                or not re.fullmatch('[0-9a-f]{64}',evidence.get('source_sha256',''))):raise ValueError('Historical frontend stats differ from qualified source evidence')
     for role,item in m['identity']['artwork'].items():
         if item['policy']not in('exact','bounded-resample','workshop-generated')or item['native_size']!=([128,128]if role=='vehicle_select_art'else[32,16]):raise ValueError('Unsupported artwork role dimensions or policy')
     for name,digest in m['source']['files'].items():
@@ -150,26 +156,48 @@ def verify_retail_clone(original,compiled,*,donor_family,runtime_family):
     return report
 
 
+def qualify_rebaked_model(raw,name,rule=None):
+    """Exact optional cache repair; all local render/collision streams conserved."""
+    if rule is None:
+        validation=validate_existing_rev135(raw,name);fixed,count=heritage.repair_global_indices(raw,require_order_equivalence=True)
+    else:
+        # An explicit, exact-source cache repair is different from weakening
+        # the generic writer's oriented-triangle validation. Local draw
+        # indices/attributes/collision must remain unchanged below.
+        if set(rule)!={'source_sha256','authoring_sha256','reason'}or sha(raw)!=rule['source_sha256']or not rule['reason']:raise ValueError('Unqualified source cache repair')
+        fixed,count=heritage.repair_global_indices(raw)
+        if sha(fixed)!=rule['authoring_sha256']:raise ValueError('Unexpected cache repair output')
+        validation={'status':'EXPLICIT_SOURCE_PINNED_CACHE_REPAIR','reason':rule['reason'],'output_validation':validate_existing_rev135(fixed,name)}
+    a,b=dx_evidence(raw,name),dx_evidence(fixed,name);keys=('surface_sha256','uv_surface_sha256','normal_color_surface_sha256','material_surface_sha256','draw_state_sha256','collision_sha256')
+    if any(a[k]!=b[k]for k in keys):raise ValueError('Cache repair changed authentic source streams')
+    return fixed,{'source_sha256':sha(raw),'authoring_sha256':sha(fixed),'cache_positions_changed':count,'input_validation':validation,'fingerprints':{k:a[k]for k in keys}}
+
+
 def prepare(manifest,roots,roster_config,output,*,sdk_root,build=True):
     from ..workshop.service import WorkshopProject
     m=validate_manifest(copy.deepcopy(manifest));source,inputs,pins,evidence=verify_inputs(m,roots)
-    config=json.loads(Path(roster_config).read_text());slot=m['runtime']['physical_id'];expected=list(range(28,slot))
-    if [r['physical_id']for r in config['projects']]!=expected:raise ValueError('Preserve the exact previous independent roster before append')
+    config=json.loads(Path(roster_config).read_text());previous_projects=copy.deepcopy(config['projects']);slot=m['runtime']['physical_id'];expected=list(range(28,slot))
+    replacement=m['runtime'].get('replace_addon_id')
+    if replacement:
+        if [r['physical_id']for r in config['projects']]!=expected+[slot]:raise ValueError('Replacement must preserve every earlier physical ID')
+        target=config['projects'][-1]
+        previous=json.loads((Path(target['project'])/'addon.json').read_text())
+        if previous['addon_id']!=replacement:raise ValueError('Explicit replacement addon identity differs')
+        config['projects']=config['projects'][:-1]
+    elif [r['physical_id']for r in config['projects']]!=expected:raise ValueError('Preserve the exact previous independent roster before append')
     protected=[source,Path(roster_config),*[Path(p)for p in pins],*[Path(p)for p in roots.values()]]
-    protected.extend(Path(entry[key])for entry in config['projects']for key in('project','build'))
+    protected.extend(Path(entry[key])for entry in previous_projects for key in('project','build'))
     output=output_directory(Path(output),protected)
     if not output.is_relative_to((Path(sdk_root)/'.research-output').absolute()):raise ValueError('Restoration outputs must remain private')
     output.mkdir(parents=True);write(output/'restoration-manifest.json',m)
     qualification={}
     for name in heritage.ROLES:
-        raw=(source/name).read_bytes();validation=validate_existing_rev135(raw,name);fixed,count=heritage.repair_global_indices(raw,require_order_equivalence=True)
-        a,b=dx_evidence(raw,name),dx_evidence(fixed,name);keys=('surface_sha256','uv_surface_sha256','normal_color_surface_sha256','material_surface_sha256','draw_state_sha256','collision_sha256')
-        if any(a[k]!=b[k]for k in keys):raise ValueError('Cache repair changed authentic source streams')
-        qualification[name]={'source_sha256':sha(raw),'authoring_sha256':sha(fixed),'cache_positions_changed':count,'input_validation':validation,'fingerprints':{k:a[k]for k in keys}}
+        raw=(source/name).read_bytes()
+        _,qualification[name]=qualify_rebaked_model(raw,name,m['source'].get('cache_repairs',{}).get(name))
     write(output/'source-authoring-qualification.json',qualification)
     sma=resolve(roots,'retail','Data.sma');donor=m['physics']['donor_family'];project=output/'author'
     heritage.create_author(Path(roots['demo']),m['source_family'],project,name=m['name'],runtime_family=m['runtime_family'],physics_donor=donor,
-        stock_audio_profile_id=m['runtime']['audio_profile'],vehicle_class=m['vehicle_class'],retail_sma=sma,features=None,family_folder=source)
+        stock_audio_profile_id=m['runtime']['audio_profile'],vehicle_class='T2'if m['vehicle_class']=='T3'else m['vehicle_class'],retail_sma=sma,features=None,family_folder=source)
     members={n:read_sma_member(sma,n)for n in MEMBERS};pp=m['physics'];profile=json.loads((project/'physics-profile.json').read_text())
     profile,physics=restoration_physics(pp,profile,inputs,members,runtime_family=m['runtime_family'])
     write(project/'physics-profile.json',profile);write(output/'physics-preservation.json',physics)
@@ -204,11 +232,13 @@ def prepare(manifest,roots,roster_config,output,*,sdk_root,build=True):
     generated=[role for role,item in m['identity']['artwork'].items()if item['policy']=='workshop-generated']
     if generated:
         from generate_vehicle_ui_previews import render_sources
-        render_sources(assets,project/'ui-generated',roles=generated)
+        styles={m['identity']['artwork'][role].get('presentation','mr-native-v1')for role in generated}
+        if len(styles)!=1:raise ValueError('Generated artwork roles must share an explicit renderer style')
+        render_sources(assets,project/'ui-generated',roles=generated,style=next(iter(styles)))
     for role,item in m['identity']['artwork'].items():
         if item['policy']=='workshop-generated':
             path=project/'ui'/(role+'.png');path.write_bytes((project/'ui-generated'/path.name).read_bytes())
-            ui['icons'][role]={'png':'ui/'+path.name,'sha256':sha(path.read_bytes()),'presentation':'mr-native-v1'}
+            ui['icons'][role]={'png':'ui/'+path.name,'sha256':sha(path.read_bytes()),'presentation':item.get('presentation','mr-native-v1')}
             art.append({'role':role,**item,'png_sha256':sha(path.read_bytes()),'render':json.loads((project/'ui-generated/render.json').read_text())[role],
                         'source_resources':{p.name:sha(p.read_bytes())for p in assets.iterdir()if p.suffix.casefold()in('.dx','.dxt')}})
             continue
@@ -225,9 +255,14 @@ def prepare(manifest,roots,roster_config,output,*,sdk_root,build=True):
     write(project/'ui-assets.json',ui)
     identity=m['identity'];addon=json.loads((project/'addon.json').read_text());selected=selected_identity(identity,addon['race_colour_rgba'])
     addon['addon_id']=m['id'];addon['frontend'].update(identity['frontend']);addon['results']['display_name']=selected['driver']['value'];addon['race_colour_rgba']=selected['race_marker']['value'];addon['description']=m['notes'];write(project/'addon.json',addon)
+    if m['vehicle_class']!='T2':
+        if m['runtime'].get('ai_policy')!='disabled':raise ValueError('Non-T2 restoration AI needs separate qualification')
+        addon['ai_eligibility']={mode:{'enabled':False,'reason':'New non-T2 AI insertion not qualified; independent selectable restoration.'}for mode in addon['ai_eligibility']}
+        write(project/'addon.json',addon)
     identity_report={'bindings':evidence,'artwork':art,'driver':identity['driver'],'frontend':identity['frontend'],'selected':selected}
+    if 'frontend_stats'in identity:identity_report['frontend_stats']=identity['frontend_stats']
     write(output/'identity-evidence.json',identity_report);write(project/'historical-identity.json',identity_report)
-    config['experimental_record_count']=slot+1;config['projects'].append({'project':str(project.absolute()),'build':str(output/'not-built'),'physical_id':slot})
+    config['experimental_record_count']=slot+1;config['projects'].append({'project':str(project.absolute()),'build':str(output/'not-built'),'physical_id':slot,**({'vehicle_class':m['vehicle_class']}if m['vehicle_class']!='T2'else{})})
     plan=output/'runtime-plan';plan.mkdir();write(plan/'roster-config.json',config)
     workshop=WorkshopProject.create(project,output/'workshop',kind='addon');workshop.configure_build({'roster_candidate':str(plan.absolute()),'retail_sma':str(sma),'retail_root':str(resolve(roots,'retail','Data.sma_unpacked'))})
     result=workshop.build(output/'workshop/builds/first',sdk_root=Path(sdk_root),log=lambda s:print(s,flush=True))if build else None

@@ -30,6 +30,7 @@ class DrawItem:
     alpha_test: bool = False
     address_modes: tuple = (0,0)    # 0 repeat, 1/2 clamp to supplied raster
     alpha_ref: int = 128
+    highlights: list | None = None  # optional UI-only per-triangle RGB additions
 
 
 @dataclass
@@ -118,7 +119,7 @@ def render(items: list[DrawItem], cam: Camera, W=640, H=300, bg=(196, 200, 204),
     ordered = [i for i in items if not i.blend] + [i for i in items if i.blend]
     for item in ordered:
         tex = item.texture
-        for t in item.tris:
+        for triangle_index,t in enumerate(item.tris):
             a, b, c = (_project(t[k], cam, W, H) for k in range(3))
             area = (b[0] - a[0]) * (c[1] - a[1]) - (c[0] - a[0]) * (b[1] - a[1])
             if abs(area) < 1e-9 or (cull and area * cull < 0):
@@ -168,7 +169,10 @@ def render(items: list[DrawItem], cam: Camera, W=640, H=300, bg=(196, 200, 204),
                     cr = (w0 * col[0][0] + w1 * col[1][0] + w2 * col[2][0]) / 255.0
                     cg = (w0 * col[0][1] + w1 * col[1][1] + w2 * col[2][1]) / 255.0
                     cb = (w0 * col[0][2] + w1 * col[1][2] + w2 * col[2][2]) / 255.0
-                    r, g, bl = r * cr, g * cg, bl * cb
+                    highlight=(0.,0.,0.) if item.highlights is None else tuple(
+                        sum(weight*item.highlights[triangle_index][corner][channel]
+                            for corner,weight in enumerate((w0,w1,w2))) for channel in range(3))
+                    r, g, bl = (min(255.,max(0.,value+extra)) for value,extra in zip((r*cr,g*cg,bl*cb),highlight))
                     if item.blend:
                         if al < 4:
                             continue

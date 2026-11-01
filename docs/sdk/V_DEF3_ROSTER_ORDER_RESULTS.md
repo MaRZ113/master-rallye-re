@@ -1,5 +1,7 @@
 # V-DEF3 — configurable roster order and 33-record trial
 
+**Subsequent owner review:** custom ordering was tested and accepted in-game without reported bugs. This original offline-delivery snapshot is retained as history. V-DEF4 replaces only the technical probe with TOMCAT and requires a new owner vehicle test; see V_DEF4_TOMCAT_RESULTS.md.
+
 ## Result and boundary
 
 The common SDK/Workshop builder now produces an isolated **33-record, 8/12/13**

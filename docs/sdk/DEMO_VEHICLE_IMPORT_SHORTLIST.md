@@ -1,5 +1,7 @@
 # Definitive Demo vehicle shortlist
 
+**Current V-DEF4:** owner accepts Forester, retail-physics RAV4 and33-record custom ordering. Early PRIVATEER TOMCAT32 now has a separate owner-test CMD candidate; no next restoration begins until its findings are reviewed. Historical ratings are in DEMO_FRONTEND_STATS.md. The dated snapshots below preserve earlier audit evidence.
+
 **Current V-DEF2.1:** Forester remains owner accepted. RAV4 visuals/integration
 are now owner accepted; the hybrid handling is rejected. A separate complete
 retail Newrav physics candidate is prepared, with explicit remaining wheel-fit

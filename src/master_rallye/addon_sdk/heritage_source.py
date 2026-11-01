@@ -327,7 +327,7 @@ def create_author(root,family,output,*,name,runtime_family,physics_donor,stock_a
     pins,conversions=_stage_resources(report,baseline,converted)
     from generate_vehicle_ui_previews import render_sources
     render_sources(converted,output/'ui')
-    icons={role:{'png':'ui/'+role+'.png','sha256':sha((output/'ui'/(role+'.png')).read_bytes()),'presentation':'mr-native-v1'}for role in ('vehicle_select_art','smallcarsheet')}
+    icons={role:{'png':'ui/'+role+'.png','sha256':sha((output/'ui'/(role+'.png')).read_bytes()),'presentation':'mr-native-v2'}for role in ('vehicle_select_art','smallcarsheet')}
     (output/'ui-assets.json').write_bytes(canonical_json({'version':1,'icons':icons}))
     addon=json.loads((output/'addon.json').read_text());addon['audio']['stock_audio_profile_id']=stock_audio_profile_id
     addon['frontend'].update(manufacturer='MR DEMO',model=name.upper(),combined='MR DEMO '+name.upper())

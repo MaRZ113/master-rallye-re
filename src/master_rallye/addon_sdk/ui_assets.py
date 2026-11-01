@@ -110,7 +110,7 @@ def build_ui_assets(root,addon,data_sma):
         for role in sorted(selected):
             prefix,count,template,size=BANKS[role];item=config['icons'][role]
             if not isinstance(item,dict) or not {'png','sha256'}<=set(item) or set(item)-{'png','sha256','presentation'} or not isinstance(item['png'],str) or not isinstance(item['sha256'],str):raise AddonValidationError('UI icon needs png and sha256')
-            if item.get('presentation','legacy') not in ('legacy','mr-native-v1','source-pixels-v1'):raise AddonValidationError('unsupported UI presentation profile')
+            if item.get('presentation','legacy') not in ('legacy','mr-native-v1','mr-native-v2','source-pixels-v1'):raise AddonValidationError('unsupported UI presentation profile')
             relative=PurePosixPath(item['png'])
             if relative.is_absolute() or any(part in ('.','..') or ':' in part or '\\' in part for part in relative.parts):
                 raise AddonValidationError('UI PNG must be a safe path inside project')
@@ -133,9 +133,9 @@ def build_ui_assets(root,addon,data_sma):
             # Retain native DXB rects and align pixels to the donor artwork region.
             bounds=alpha_bounds((*size,decode_rgba_pixels(tex))) if role=='vehicle_select_art' else None
             style=None
-            if item.get('presentation')=='mr-native-v1':
+            if item.get('presentation') in ('mr-native-v1','mr-native-v2'):
                 from .ui_preview import compose_preview
-                rgba,style=compose_preview(image,role)
+                rgba,style=compose_preview(image,role,style=item['presentation'])
             elif item.get('presentation')=='source-pixels-v1':
                 if image[:2]!=size:raise AddonValidationError('source-pixels icon must exactly match native dimensions')
                 rgba=image[2]
@@ -152,7 +152,7 @@ def build_ui_assets(root,addon,data_sma):
             if bounds:report['roles'][role]['alignment']={'method':'stock template alpha bounds','target_bounds':list(bounds),'output_bounds':list(alpha_bounds((*size,rgba)))}
             if style:
                 report['roles'][role]['presentation']=style
-                report['roles'][role]['alignment']={'method':'mr-native-v1 grounded role composition','output_bounds':style['bounds']}
+                report['roles'][role]['alignment']={'method':style['profile']+' grounded role composition','output_bounds':style['bounds']}
     return assets,report
 
 def verify_ui_resources(root,row,archive):

@@ -11,7 +11,7 @@ PROFILES={
  'smallcarsheet':{'size':(32,16),'area':(0,0,32,15),'baseline':15,'p90':203.,'camera':(-90.,0.),'distance':None,'ambient':.70,'key':.55},
 }
 
-def compose_preview(image,role):
+def compose_preview(image,role,*,style='mr-native-v1'):
     """Role-specific tone, premultiplied reduction and grounded composition.
 
     Source viewpoint cannot be reconstructed from a single supplied PNG. Use
@@ -19,7 +19,9 @@ def compose_preview(image,role):
     """
     from .ui_assets import fit_rgba,alpha_bounds
     if role not in PROFILES:raise AddonValidationError('unknown preview role')
-    profile=PROFILES[role];w,h,px=image
+    if style not in ('mr-native-v1','mr-native-v2'):raise AddonValidationError('unknown icon lighting style')
+    profile=dict(PROFILES[role]);w,h,px=image
+    if style=='mr-native-v2':profile['p90']=190. if role=='vehicle_select_art' else 220.
     if not 0<w<=4096 or not 0<h<=4096 or len(px)!=4*w*h:raise AddonValidationError('invalid preview input')
     luminance=sorted(.2126*px[i]+.7152*px[i+1]+.0722*px[i+2] for i in range(0,len(px),4) if px[i+3]>200)
     if not luminance:raise AddonValidationError('preview requires an opaque vehicle silhouette')
@@ -40,5 +42,5 @@ def compose_preview(image,role):
         dest=y+shift
         if 0<=dest<height:out[dest*width*4:(dest+1)*width*4]=rgba[y*width*4:(y+1)*width*4]
     final=bytes(out)
-    return final,{'profile':'mr-native-v1','role':role,'source_p90':p90,'exposure':exposure,'target_p90':profile['p90'],
+    return final,{'profile':style,'role':role,'source_p90':p90,'exposure':exposure,'target_p90':profile['p90'],
         'bounds':list(alpha_bounds((width,height,final))),'baseline':profile['baseline'],'viewpoint_policy':'model renderer profile or caller-provided PNG viewpoint; no 2D camera reconstruction','filter':'premultiplied area; no sharpening halos'}

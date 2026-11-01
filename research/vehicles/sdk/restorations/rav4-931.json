@@ -229,6 +229,12 @@
       "status": "UNKNOWN",
       "kind": "SDK_FALLBACK",
       "evidence": "Existing SDK T2 default retained explicitly. Neither PC Demo initialized registry contains a qualified RGBA field; PS2/retail Newrav marker is not transferred to retired Rav4."
+    },
+    "frontend_stats": {
+      "status": "UNKNOWN",
+      "value": null,
+      "kind": "SDK_PLACEHOLDER",
+      "reason": "No original named retired Rav4 record in841/931; Newrav13 is a different vehicle. Existing5/5/5/5 retained explicitly."
     }
   },
   "physics": {
