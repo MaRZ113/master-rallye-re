@@ -464,19 +464,9 @@ HANDLE OpenPinnedGraphicsProxy(const fs::path& path) {
         BY_HANDLE_FILE_INFORMATION info{};
         if (!GetFileInformationByHandle(file, &info) || (info.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
             Fail("cannot identify adjacent graphics proxy file handle");
-        const auto hash = HashHandle(file);
-        static constexpr const char* kApprovedProxyHashes[] = {
-            "eb7ea3d9501b514bff668f1e75e86041906c5fe4e8afa89f06d658751429aaf4", // pc-port baseline Release
-            "235aae55e077fca1e5b5208d4ac158b1a00dd80041fa5885bd06890a041b1eb8", // pc-port ps2-enabled Release
-            "339174529605b6b4602715470ac67e0bf39d7f95197b0d07fe2dbd048a960ea1", // renderer .build-msvc Release
-            "c21343e4dc1887be8369b7245fa1c146943a19e96ae2c2b5602588be7acad3d0", // pc-port dist/collision-debug1, exact local build + SHA256SUMS (V-DEF2)
-            "2d80609fbf546f9abbd71789d04d88f7e37aafcbf3be5f682e7156e7118fb4ff", // pc-port dist/collision-debug2, exact local build + SHA256SUMS (V-DEF2)
-            "f84fd763dcf26ab2d79c254cfe49f1b4deb19f8b6378882971a08659d2318b77"  // renderer .build-msvc-hudperf Release
-        };
-        const bool approved = std::any_of(std::begin(kApprovedProxyHashes), std::end(kApprovedProxyHashes),
-            [&](const char* expected) { return hash == expected; });
-        if (!approved) Fail("adjacent d3d8.dll SHA256 is not an audited graphics proxy");
-        std::cout << "APPROVED_GRAPHICS_PROXY sha256=" << hash << "\n";
+        // Proxy builds may change independently of the vehicle SDK. Pin the file,
+        // but do not gate startup on its SHA or a build allowlist.
+        std::cout << "GRAPHICS_PROXY_PINNED hash_gate=disabled\n";
         return file;
     } catch (...) {
         CloseHandle(file);
@@ -847,7 +837,7 @@ void VerifyLaunchEnvironment(const fs::path& exePath) {
             Fail("pinned executable SHA256 mismatch");
         pinnedGraphicsProxy = VerifyAdjacentWrappers(exePath);
         std::cout << "LAUNCH_ENVIRONMENT_VERIFIED graphics_proxy="
-                  << (pinnedGraphicsProxy == INVALID_HANDLE_VALUE ? "absent" : "approved-d3d8") << "\n";
+                  << (pinnedGraphicsProxy == INVALID_HANDLE_VALUE ? "absent" : "pinned-d3d8") << "\n";
     } catch (...) {
         if (pinnedGraphicsProxy != INVALID_HANDLE_VALUE) CloseHandle(pinnedGraphicsProxy);
         CloseHandle(pinnedExe);

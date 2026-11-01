@@ -178,23 +178,21 @@ class AddonRuntimeCompilerTests(unittest.TestCase):
         self.assertIn("--verify-launch-environment", source)
         self.assertFalse(self.manifest.get("runtime_installable", False))
 
-    def test_launcher_allows_only_audited_adjacent_d3d8_proxies(self) -> None:
+    def test_launcher_pins_adjacent_d3d8_without_hash_gate(self) -> None:
         source = (ROOT / "runtime_launcher/src/main.cpp").read_text(encoding="utf-8")
-        expected = {
-            "eb7ea3d9501b514bff668f1e75e86041906c5fe4e8afa89f06d658751429aaf4",
-            "235aae55e077fca1e5b5208d4ac158b1a00dd80041fa5885bd06890a041b1eb8",
-            "339174529605b6b4602715470ac67e0bf39d7f95197b0d07fe2dbd048a960ea1",
-            "f84fd763dcf26ab2d79c254cfe49f1b4deb19f8b6378882971a08659d2318b77",
-        }
         self.assertIn("OpenPinnedGraphicsProxy", source)
         self.assertIn("FILE_SHARE_READ", source)
         self.assertIn("VerifyAdjacentWrappers", source)
         self.assertIn("L\"d3d9.dll\"", source)
         self.assertIn("L\"dinput8.dll\"", source)
         self.assertNotIn("L\"d3d8.dll\"", source[source.index("static constexpr const wchar_t* names[]"):source.index("HANDLE VerifyAdjacentWrappers")])
-        for digest in expected:
-            self.assertIn(digest, source)
-        self.assertIn("adjacent d3d8.dll SHA256 is not an audited graphics proxy", source)
+        proxy = source[source.index("HANDLE OpenPinnedGraphicsProxy"):source.index("std::string HashHandle(HANDLE file) {")]
+        self.assertNotIn("HashHandle(file)", proxy)
+        self.assertNotIn("kApprovedProxyHashes", source)
+        self.assertNotIn("SHA256 is not an audited graphics proxy", source)
+        self.assertIn("FILE_ATTRIBUTE_REPARSE_POINT", proxy)
+        self.assertIn("FILE_SHARE_READ", proxy)
+        self.assertIn("GRAPHICS_PROXY_PINNED hash_gate=disabled", proxy)
         self.assertIn("LAUNCH_ENVIRONMENT_VERIFIED graphics_proxy=", source)
         self.assertIn("if (plan) {\n        try {\n            pinnedGraphicsProxy = VerifyAdjacentWrappers(exePath);", source)
 
