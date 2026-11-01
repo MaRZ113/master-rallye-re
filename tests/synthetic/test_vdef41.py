@@ -97,6 +97,17 @@ class MarkerColourTests(unittest.TestCase):
 
 
 class PhysicsAndAITests(unittest.TestCase):
+    def test_ai_class_comes_from_current_roster_not_stale_heritage_metadata(self):
+        from tests.synthetic.test_workshop_vehicle import project
+        with tempfile.TemporaryDirectory()as folder:
+            root=Path(folder);p,_=project(root);plan=root/'plan';plan.mkdir()
+            (p.working/'historical-identity.json').write_text(json.dumps({'runtime_class':'T2'}))
+            config={'projects':[{'physical_id':28,'vehicle_class':'T3','project':str(root/'author')}]}
+            (plan/'roster-config.json').write_text(json.dumps(config));p.data['build_settings']['roster_candidate']=str(plan)
+            self.assertEqual(p.ai_inspect()['vehicle_class'],'T3');self.assertIn('invitation',p.ai_inspect()['supported_modes'])
+            config['projects'][0]['vehicle_class']='T1';(plan/'roster-config.json').write_text(json.dumps(config))
+            self.assertEqual(p.ai_inspect()['vehicle_class'],'T1');self.assertNotIn('invitation',p.ai_inspect()['supported_modes'])
+
     def test_full_retail_clone_cannot_admit_historical_overrides(self):
         from tests.synthetic.test_physics_profile import fixture as physics
         members,profile=physics();policy={'mode':'retail','require_exact_clone':True,'donor_family':'Navara','reason':'owner clone'}

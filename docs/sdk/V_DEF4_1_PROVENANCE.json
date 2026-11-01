@@ -541,14 +541,6 @@
     "gameplay": "PENDING_OWNER"
   },
   "tests": {
-    "focused-delivery.json": {
-      "run": 88,
-      "failed": 0,
-      "errors": 0,
-      "skipped": [],
-      "seconds": 3.3410906000062823,
-      "status": "PASS"
-    },
     "full-windows.json": {
       "run": 1353,
       "failed": 0,
@@ -565,6 +557,14 @@
       ],
       "seconds": 93.53269269998418,
       "status": "PASS"
+    },
+    "focused-release.json": {
+      "run": 89,
+      "failed": 0,
+      "errors": 0,
+      "skipped": [],
+      "seconds": 3.4610512999934144,
+      "status": "PASS"
     }
   },
   "report_pins": {
@@ -578,7 +578,9 @@
     "windows-marker-panel.json": "7ff75415cfb82ca21a18b01b0649c1ec2bf36213cc5802cc6ea831ec3fe94bf3",
     "native-t1-synthetic-roster.json": "c20fd97b1a18b8d846b2eb5bff9c8b38e7ef31d65fb5795432efcfcbd258be85",
     "original-smallcarsheets.json": "01d7339aa7bb1a92c4f986a445ddc6559f03bd5270b9cb52368248e43b4e6cc5",
-    "tyre-schema.json": "e87ad43e79211a1983dbbf5f74fcd7b2207b2256b4050baa472f982f4eb4a52d"
+    "tyre-schema.json": "e87ad43e79211a1983dbbf5f74fcd7b2207b2256b4050baa472f982f4eb4a52d",
+    "focused-release.json": "35e7a6bf02c6267580313e375a6806d67acf7a653569e2e1366ca6b6adc9efd9",
+    "windows-marker-final.json": "3baf75ab0fd3582db8a05d97b826a698f7a984de6cefa5fe1e1e2e0d46af8abc"
   },
   "native_artifact_pins": {
     "native-extension.bin": "94ed6af4a25a99a690d288b891aad29b7d54aa1e0bc5bd90c3b3516e87685004",
@@ -591,5 +593,6 @@
     "status": "PASS_AUTHOR_ONLY",
     "path": ".research-output/vehicles/v-def4-1/common-author-smoke/restoration-result.json",
     "scope": "Same generic restoration pipeline with per-role rendering, full clone, colour policy and deferred runtime T3 Invitation; no separate compiler"
-  }
+  },
+  "ui_runtime_class_ownership": "Current configured roster overrides stale historical class metadata; tested independent per-mode controls."
 }

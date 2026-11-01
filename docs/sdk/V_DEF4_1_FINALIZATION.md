@@ -144,7 +144,9 @@ shuffle, class/DriverID publication and Results. Custom menu indices are never
 AI IDs. Workshop exposes per-mode flags. Explicit runtime-class/AI declarations
 in the common roster builder permit a qualified T3 policy even while the asset
 author uses its existing technical T2 compiler slot; standalone T2 Invitation
-eligibility is not falsely enabled. No second compiler or registry is introduced.
+eligibility is not falsely enabled. The current configured roster owns class
+availability, overriding stale heritage metadata. No second compiler or registry
+is introduced.
 
 39 actual original-loop/exclusion cases pass for the three-vehicle candidate.
 A noninstalled T1-assignment test exercises the same common mechanism in42 cases.
@@ -170,11 +172,11 @@ smallcarsheet_035_000.dxt; the other412 indexed resources match V-DEF4 exactly.
 All1160 protected original/accepted-build pins are unchanged. Full Windows
 checkpoint:1353 tests, no failures/errors,2 existing optional fixture skips.
 Late policy/material ownership/reset refinements have an additional focused run;
-88 tests PASS; see current provenance. Actual Windows Tk marker controls, swatches,
+89 tests PASS; see current provenance. Actual Windows Tk marker controls, swatches,
 RGBA Apply, preview, Undo/Redo/Restore are exercised on an independent copy.
 
 Current private reports: `qualification-final.json`, `determinism-final.json`,
-`focused-delivery.json`, `full-windows.json`, `protected-after.json`,
+`focused-release.json`, `full-windows.json`, `protected-after.json`,
 `persistence-consumers.json`, `randomizer-comparison-final.json` under
 `.research-output/vehicles/v-def4-1`. Preflights never launch the game.
 

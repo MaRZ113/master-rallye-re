@@ -36,6 +36,17 @@ class MarkerAuthoring:
         # Runtime class can differ from the technical author slot.
         history=self.working/'historical-identity.json'
         if history.exists():cls=json.loads(history.read_text()).get('runtime_class',cls)
+        configured=self.data.get('build_settings',{}).get('roster_candidate')
+        if configured:
+            from pathlib import Path
+            path=Path(configured)/'roster-config.json'
+            if path.exists():
+                matches=[r for r in json.loads(path.read_text())['projects']if r['physical_id']==self.data['car_id']]
+                if len(matches)!=1:raise ValueError('Ambiguous runtime AI class ownership')
+                row=matches[0]
+                if json.loads((Path(row['project'])/'addon.json').read_text())['addon_id']!=self.data['identity']:raise ValueError('Runtime AI class belongs to another author')
+                cls=row.get('vehicle_class',addon['vehicle_class'])
+        if cls not in SUPPORTED:raise ValueError('Unsupported runtime AI class')
         return {'vehicle_class':cls,'supported_modes':list(SUPPORTED[cls]),'eligibility':copy.deepcopy(self.vehicle_state()['ai_eligibility']),
                 'boundary':'New native roster creation only; no saved participants rewritten. D3D8 owner confirmation pending.'}
 

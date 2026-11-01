@@ -902,3 +902,9 @@ No new CarID, participant increase, playable import, runtime tyre switching or
 Randomizer merge. Full1353-test checkpoint PASS plus current focused validation;
 real Tk, original-x86 helpers, resource/physics isolation and deterministic builds.
 Detailed results/provenance and owner checklist: V_DEF4_1_FINALIZATION.md.
+
+
+V-DEF4.1 final UI guard: derive AI class from the current configured physical
+roster entry, ahead of historical metadata. Source-free class-reassignment test
+and real Windows Tk Cup/Invitation controls/Undo PASS; final89 focused tests.
+Candidate runtime/resource bytes are unchanged by this authoring-only correction.
