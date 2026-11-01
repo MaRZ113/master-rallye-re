@@ -16,7 +16,8 @@ DEPENDENCIES={
     'editable_vehicle':('test_editable_vehicle','test_scene_semantics','test_universal_scene_bridge'),
     'native_family_scene':('test_native_family_scene','test_editable_vehicle','test_universal_scene_bridge'),
     'universal_scene_bridge':('test_universal_scene_bridge','test_scene_semantics','test_workshop_universal_source'),
-    'qt_editor':('test_editable_vehicle','test_preview_cache')}
+    'qt_editor':('test_editable_vehicle','test_preview_cache'),
+    'audit_runtime_composition':('test_runtime_composition_audit',)}
 
 
 class TimedResult(unittest.TextTestResult):

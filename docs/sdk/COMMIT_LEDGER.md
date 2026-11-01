@@ -1,3 +1,7 @@
+# Definitive runtime foundation audit — 1 November 2026
+
+Starting revision `5d38db3`, branch `research/vehicles`. Read-only J.2/F3 plan composition audit, original PE imports, bounded version inventory and Forester preparation. Two Challenge operation overlaps prevent treating the existing plans as composable. Added tested read-only PE/preimage overlap analyzer; whole-file executable SHA identifies builds but is not its host allowlist. Full Windows tier 1284 tests with two optional skips; final seven focused tests pass. No installable DLL, loader fallback, new CarID, game launch or owner qualification is claimed. See DLL_EXTERNAL_RESOURCE_DEPLOYMENT.md and DEFINITIVE_FORESTER_PREPARATION.md. No changes to rmod1, original game files or accepted projects.
+
 # Paris-Dakar Source Lab and bounded Michelin research —29 October2026
 
 Clean starting research/vehicles at ec8779615d7eb5f9ad653b7badaa4e9209450782.

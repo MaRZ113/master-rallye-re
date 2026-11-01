@@ -36,7 +36,15 @@ Source-only review archives and automated tests do not prove original-game rende
 5. **Compact installed mods:** target a small, compatible runtime DLL plus external resources and manifest, using existing reversible runtime/overlay research. The **editor's** distribution size is a separate concern from the **in-game mod's** footprint. No ordinary-user dependence on a full duplicate game installation.
 6. **No unnecessary feature/research expansion:** improve the existing garage and conversion workflow before adding more donor games.
 
-## 4. Current priority: Workshop usability and architecture
+## 3A. Current priority: Definitive Edition vehicle runtime
+
+Follow `MASTER_RALLYE_DEFINITIVE_ROADMAP.md` for the product direction. First qualify a small external-resource vehicle runtime that starts with compatible game versions, preserves installed wrappers and coexists with Randomizer. SHA is diagnostic evidence, not a universal executable allowlist: select version-specific profiles using verified PE layout, relevant code/data invariants and hook preimages. Reuse J.1/J.2 and the J.3 compiler. Prove an original-game resource load and retail fallback before calling it installable; installation, shutdown and conflicts must fail safely. The current plan comparison finds two Randomizer F3/J.2 Challenge instruction overlaps; composition and initialization timing remain unresolved. See DLL_EXTERNAL_RESOURCE_DEPLOYMENT.md.
+
+Prepare an independent demo/PS2 `FORESTER` (driver identity reported by owner: Darren Sutherland), distinct from retail `WOOLDAND`. One additional independent record and a T2 position are required beyond the accepted 30-entry roster; mapping, resources and all runtime consumers need qualification. Do not reuse CarID29. Source inventory, original icon mapping, independent physics, retail glass and glow behavior must be evidenced before a candidate is promoted.
+
+The editor work below remains supported and resumes after this runtime foundation; current Workshop functionality must not regress.
+
+## 4. Workshop usability and architecture — subsequent priority
 
 ### A. Measure and fix responsiveness first
 

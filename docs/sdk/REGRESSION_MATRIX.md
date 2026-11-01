@@ -688,3 +688,7 @@ Source-only metadata: DAKAR2_MATERIAL_CLOSURE_PROVENANCE.json. Original Xbox run
 | Engine/runtime |No original-game launch, newCarID, roster/class change, installed DLL or original EXE/archive change; no new L4 claim|
 
 Full tier timings identify repeated audio fixture work as the slowest tests; no tests were deleted, parallelized without isolation or weakened. Final small guards were covered by focused tests instead of rerunning the entire suite. The owner's15-second path was not reproduced; reported timing scopes separate constructor/load/stage/render/cache and concurrent-load versus idle runs. Native geometry fixtures do not certify playable vehicle systems.
+
+## Definitive runtime audit — 1 November 2026
+
+Full Windows tier: 1284 tests, two optional fixture skips, PASS at the audit checkpoint. Seven focused composition tests subsequently pass for partial/touching ranges, changed executable hashes, source-plan mismatch, changed preimages, empty plans and ambiguous/moved PE section mapping. The exact local J.2/F3 plan audit detects two Challenge conflicts. No DLL integration, live game test, new capacity, source fallback or owner gameplay claim. See DLL_EXTERNAL_RESOURCE_DEPLOYMENT.md and DEFINITIVE_FORESTER_PREPARATION.md.
