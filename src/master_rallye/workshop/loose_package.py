@@ -121,6 +121,11 @@ def prepare(bundle, retail_sma, retail_root, output, *, allowed_output_root):
     # Verify all indexed sources, including ones later omitted as unchanged.
     for name, digest, size in entries.values():
         path = unlinked(resource_root.joinpath(*PurePosixPath(name).parts))
+        if name.casefold() == 'datagame/options.xml':
+            options = bounded_read(path, 64 * 1024)
+            if not options:
+                raise ValueError('editable options must not be empty')
+            continue
         h = hashlib.sha256()
         if not path.is_file() or path.stat().st_size != size:
             raise ValueError('indexed resource missing or changed: ' + name)

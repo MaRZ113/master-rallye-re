@@ -69,6 +69,14 @@ class LoosePackageTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'changed|mismatch'): self.run_prepare()
         self.assertFalse((self.root / 'private/draft').exists())
 
+    def test_user_edited_options_are_not_sealed_or_exported(self):
+        self.asset('DataGame/options.xml', b'changed by owner')
+        result = self.run_prepare('owner')
+        self.assertNotIn('DataGame/options.xml', [row['path'] for row in result['resources']])
+        self.assertEqual((self.assets / 'DataGame/options.xml').read_bytes(), b'changed by owner')
+        self.asset('DataGame/options.xml', b'')
+        with self.assertRaisesRegex(ValueError, 'options'): self.run_prepare('empty')
+
     def test_removed_archive_member_rejected(self):
         self.write_zip(self.assets / 'Data.sma', {'DataGame/dev.xml': b'base'})
         self.index()
