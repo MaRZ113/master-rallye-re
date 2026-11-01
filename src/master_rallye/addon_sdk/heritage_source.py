@@ -108,6 +108,20 @@ def compatible_model(raw,name):
     raise ValueError(f'Unsupported vehicle DX revision {revision}; no guessed conversion')
 
 
+def family_folders(vehicles):
+    """Discover every resource-bearing directory without following links."""
+    import os
+    vehicles=_absolute_without_links(Path(vehicles),'vehicle tree');folders=[]
+    for directory,children,names in os.walk(vehicles,followlinks=False):
+        parent=_absolute_without_links(Path(directory),'vehicle directory')
+        for name in children:
+            _absolute_without_links(parent/name,'vehicle child')
+        children.sort()
+        if any(Path(name).suffix.casefold() in ('.dx','.gxm','.gxi','.dxt') for name in names):folders.append(parent)
+        if len(folders)>4096:raise ValueError('Heritage family directory budget exceeded')
+    return sorted(folders)
+
+
 def inspect_family(folder):
     folder=_absolute_without_links(Path(folder),'vehicle family')
     if not folder.is_dir():raise ValueError('Native vehicle family missing')
@@ -133,23 +147,27 @@ def inspect_family(folder):
         except (ValueError,MasterRallyeError,struct.error)as exc:problems.append(role+': '+str(exc))
     textures={}
     for stem in sorted(references):
-        name=stem.casefold();dxt=files.get(name+'.dxt');gxi=files.get(name+'.gxi')
-        if dxt:
-            raw=read(dxt['path']);t=parse_dxt_bytes(raw);mode='UNCHANGED_DXT';pair=None
-            if gxi:pair=encode_gxi_as_observed_dxt(parse_gxi_bytes(read(gxi['path'])))==raw
-            textures[stem]={'source':dxt,'dimensions':[t.width,t.height],'policy':mode,'gxi_pair_byte_identical':pair}
-        elif gxi:
-            raw=encode_gxi_as_observed_dxt(parse_gxi_bytes(read(gxi['path'])));t=parse_dxt_bytes(raw)
-            textures[stem]={'source':gxi,'dimensions':[t.width,t.height],'policy':'OBSERVED_GXI_TO_DXT','output_sha256':sha(raw)}
-        else:
-            # Shipped Demo families sometimes reference a texture that only a
-            # sibling family carries. Borrow an exact sibling file, else a
-            # neutral placeholder; both are recorded instead of failing.
-            sibling=next((f for f in sorted(folder.parent.glob('*/'+name+'.dxt'))+sorted(folder.parent.glob('*/'+name+'.gxi'))if f.is_file()),None)
-            if sibling is not None:
-                raw=read(sibling);t=parse_dxt_bytes(raw)if sibling.suffix.casefold()=='.dxt'else parse_dxt_bytes(encode_gxi_as_observed_dxt(parse_gxi_bytes(raw)))
-                textures[stem]={'source':{'path':str(sibling),'bytes':len(raw),'sha256':sha(raw)},'dimensions':[t.width,t.height],'policy':'SIBLING_FAMILY_DXT'if sibling.suffix.casefold()=='.dxt'else'SIBLING_FAMILY_GXI','warning':'Texture borrowed from sibling family '+sibling.parent.name}
-            else:textures[stem]={'source':None,'dimensions':[4,4],'policy':'NEUTRAL_PLACEHOLDER','warning':'Missing texture replaced by neutral grey placeholder'}
+        try:
+            name=stem.casefold();dxt=files.get(name+'.dxt');gxi=files.get(name+'.gxi')
+            if dxt:
+                raw=read(dxt['path']);t=parse_dxt_bytes(raw);mode='UNCHANGED_DXT';pair=None
+                if gxi:pair=encode_gxi_as_observed_dxt(parse_gxi_bytes(read(gxi['path'])))==raw
+                textures[stem]={'source':dxt,'dimensions':[t.width,t.height],'policy':mode,'gxi_pair_byte_identical':pair}
+            elif gxi:
+                raw=encode_gxi_as_observed_dxt(parse_gxi_bytes(read(gxi['path'])));t=parse_dxt_bytes(raw)
+                textures[stem]={'source':gxi,'dimensions':[t.width,t.height],'policy':'OBSERVED_GXI_TO_DXT','output_sha256':sha(raw)}
+            else:
+                # Shipped Demo families sometimes reference a texture that only a
+                # sibling family carries. Borrow an exact sibling file, else a
+                # neutral placeholder; both are recorded instead of failing.
+                sibling=next((f for f in sorted(folder.parent.glob('*/'+name+'.dxt'))+sorted(folder.parent.glob('*/'+name+'.gxi'))if f.is_file()),None)
+                if sibling is not None:
+                    raw=read(sibling);t=parse_dxt_bytes(raw)if sibling.suffix.casefold()=='.dxt'else parse_dxt_bytes(encode_gxi_as_observed_dxt(parse_gxi_bytes(raw)))
+                    textures[stem]={'source':{'path':str(sibling),'bytes':len(raw),'sha256':sha(raw)},'dimensions':[t.width,t.height],'policy':'SIBLING_FAMILY_DXT'if sibling.suffix.casefold()=='.dxt'else'SIBLING_FAMILY_GXI','warning':'Texture borrowed from sibling family '+sibling.parent.name}
+                else:textures[stem]={'source':None,'dimensions':[4,4],'policy':'NEUTRAL_PLACEHOLDER','warning':'Missing texture replaced by neutral grey placeholder'}
+        except (ValueError,MasterRallyeError,struct.error) as exc:
+            problems.append('texture '+stem+': '+str(exc))
+            textures[stem]={'source':None,'policy':'INVALID_TEXTURE','error':str(exc)}
     return {'family':folder.name,'folder':str(folder),'source_mesh_names':meshes,'files':files,'models':models,'textures':textures,'problems':problems,'qualified_for_staging':not problems and set(models)==set(ROLES),'features':{'crew':'Inspect source sidecars and crew material/geometry; no automatic character inference','glass':[g for m in models.values()for g in m['groups']if g.startswith('screen')],'brake_switch':any('blight'in m['groups']for m in models.values()),'audio':'Executable per-CarID association not inferred from folder name','physics':'Named XML references inventoried separately; not silently copied from Demo'}}
 
 
@@ -158,12 +176,7 @@ def inventory(root,*,retail=False):
     identity={'edition':'retail-unpacked','root':str(root),'exe_sha256':None}if retail else edition(root)
     vehicles=root/'DataGx/Vehicles'
     if not vehicles.is_dir():raise ValueError('Expected user-local DataGx/Vehicles')
-    # Nested collections (e.g. DataGx/Vehicles/841/<family>) are inspected too.
-    folders=[]
-    for f in sorted(vehicles.iterdir()):
-        if not f.is_dir():continue
-        nested=[g for g in sorted(f.iterdir())if g.is_dir()and (g/'car.dx').is_file()]
-        folders+=nested if nested and not (f/'car.dx').is_file()else [f]
+    folders=family_folders(vehicles)
     identity['vehicles']=[{**inspect_family(f),'collection':f.parent.name if f.parent!=vehicles else None}for f in folders]
     extras={}
     for area,pattern in [('DataGame','*.xml'),('DataGx/Frontend','*'),('DataScene/FrontendScreens','VehicleSelect*'),('DataAudio/Vehicles','*')]:
@@ -198,8 +211,12 @@ def compare_editions(catalogs,retail):
             elif set(vehicle['models'])!=set(ROLES)or set(other['models'])!=set(ROLES):status='UNQUALIFIED'
             else:status='SAME_MODEL_BYTES'if all(vehicle['models'][n]['converted_sha256']==other['models'][n]['converted_sha256']for n in ROLES)else'DIFFERENT_NATIVE_MODELS'
             if other is not None and status=='SAME_MODEL_BYTES':
-                at={n.casefold():t['source']['sha256']for n,t in vehicle['textures'].items()};bt={n.casefold():t['source']['sha256']for n,t in other['textures'].items()}
-                status='SHARED_MODELS_AND_TEXTURES'if at==bt else'SHARED_MODELS_DIFFERENT_TEXTURES'
+                def signatures(textures):
+                    return {n.casefold():t['source']['sha256']for n,t in textures.items()if t.get('source') is not None}
+                at=signatures(vehicle['textures']);bt=signatures(other['textures'])
+                unresolved=any(t.get('source') is None or t.get('policy','').startswith('SIBLING_')for v in (vehicle,other)for t in v['textures'].values())
+                status=('SHARED_MODELS_TEXTURES_UNRESOLVED'if unresolved else
+                        'SHARED_MODELS_AND_TEXTURES'if at==bt else'SHARED_MODELS_DIFFERENT_TEXTURES')
             result.append({'edition':catalog['edition'],'family':vehicle['family'],'classification':status,'qualified_for_staging':vehicle['qualified_for_staging']})
     return result
 

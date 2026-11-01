@@ -1,3 +1,18 @@
+# Complete Demo vehicle audit —1 November2026
+
+Clean baseline `7530c525006a6e5778f5dbec40872859c68d96fe`, `research/vehicles`.
+Resolve the scoped delivery revision with:
+`git log -1 --format=%H --fixed-strings --grep="feat(research): audit complete Demo vehicle collection"`.
+
+Recursive source/retail/accepted census, canonical surface/UV/material comparison,
+original-GXM-linked cooker differences, native state inventory, private neutral
+D3D9 contact sheets and prioritized import shortlist. Fix Heritage null/invalid
+texture handling, deep discovery and collision comparison's absent optional
+oracle import.1303 full tests OK/2 optional skips; final62 focused tests OK.
+Source and historical asset hash checks pass. No CarID, install, Cooker execution,
+physics, roster or DLL/bootstrap edits. Source-only review archives exclude private
+models/textures/images. See DEMO_VEHICLE_AUDIT_RESULTS.md.
+
 # Workshop loose-resource draft — 1 November 2026
 
 Baseline `9adb295`; native retail loose-first/archived-fallback static evidence found in existing r-exe1 research. Add a private deterministic loose draft builder and actual Tk entry without altering CMD builds. Local J.2 fixture stages 131 files/3,384,419 bytes, flags shared configuration and copies no archive. Real Tk action and direct API produce identical manifests; full1292 tests pass and the final24 focused tests pass with two optional skips. The output explicitly remains `BLOCKED_NO_DLL_BOOTSTRAP`, not a DLL candidate or installation. J.2/F3 overlap replay confirmed in source, no composed hooks or other retail version adapters claimed. Demo/retail Forester values compared and source-owned light/glass names inventoried; no new native vehicle or gameplay. See DLL_EXTERNAL_RESOURCE_DEPLOYMENT.md.

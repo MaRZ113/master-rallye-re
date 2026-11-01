@@ -1,3 +1,14 @@
+# Complete Demo audit —1 November2026
+
+Read-only recursive census and decoded geometry/UV/material comparisons now cover
+101 snapshots/429 models, original8.4.1/9.3.1/9.10 corpora,26 authenticated retail
+families and9 accepted SDK references. Nested/GXM-only and zipped snapshots,
+texture gaps, native controller/collision states and physics XML references stay
+explicit. Heritage missing/malformed-texture comparison and optional-oracle
+collision comparison defects are fixed.31 private D3D9 source-complete render
+sets exist; no new gameplay, Cooker, CarID or DLL capability is claimed.
+See DEMO_VEHICLE_AUDIT_RESULTS.md and DEMO_VEHICLE_IMPORT_SHORTLIST.md.
+
 # Paris-Dakar Source Lab —29 October2026
 
 Qualified read-only TC/Gex/PC TIM decoding reconstructs original PajeroRED,

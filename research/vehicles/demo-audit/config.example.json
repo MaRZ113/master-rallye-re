@@ -1,0 +1,30 @@
+{
+  "sources": [
+    {
+      "label": "pcg-rebaked",
+      "root": "D:/Game/Master Rallye PCG104AXMAS01",
+      "provenance": "Owner identifies root families as 8.4.1 rebaked with 9.10 Cooker; nested Original contains unchanged 9.10 models. Verify against original corpora."
+    },
+    {
+      "label": "nov-local",
+      "root": "D:/Game/Master Rallye Nov 2001",
+      "provenance": "Owner local 9.3.1 installation; cooking and modifications checked against original corpus."
+    },
+    {
+      "label": "shipped841",
+      "root": "D:\\Game\\Master Rallye\\corpora\\demo-8.4.1",
+      "provenance": "Original uncooked corpus 8.4.1"
+    },
+    {
+      "label": "shipped931",
+      "root": "D:\\Game\\Master Rallye\\corpora\\demo-9.3.1",
+      "provenance": "Original uncooked corpus 9.3.1"
+    },
+    {
+      "label": "shipped910",
+      "root": "D:\\Game\\Master Rallye\\corpora\\demo-9.10.0",
+      "provenance": "Original 9.10.0 corpus; later source/cooker comparison reference"
+    }
+  ],
+  "accepted": []
+}

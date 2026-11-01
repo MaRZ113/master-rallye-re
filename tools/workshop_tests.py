@@ -18,7 +18,12 @@ DEPENDENCIES={
     'universal_scene_bridge':('test_universal_scene_bridge','test_scene_semantics','test_workshop_universal_source'),
     'qt_editor':('test_editable_vehicle','test_preview_cache'),
     'audit_runtime_composition':('test_runtime_composition_audit',),
-    'loose_package':('test_loose_package',)}
+    'loose_package':('test_loose_package',),
+    'collision_comparison':('test_demo_vehicle_audit','test_dx_revision_upgrade'),
+    'demo_dx':('test_demo_vehicle_audit','test_dx_revision_upgrade','test_dx_revision_upgrade_cli'),
+    'demo_vehicle_audit':('test_demo_vehicle_audit','test_heritage_source'),
+    'audit_demo_vehicles':('test_demo_vehicle_audit','test_heritage_source'),
+    'heritage_source':('test_heritage_source','test_demo_vehicle_audit','test_auto_features')}
 
 
 class TimedResult(unittest.TextTestResult):

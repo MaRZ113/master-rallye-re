@@ -36,13 +36,28 @@ Source-only review archives and automated tests do not prove original-game rende
 5. **Compact installed mods:** target a small, compatible runtime DLL plus external resources and manifest, using existing reversible runtime/overlay research. The **editor's** distribution size is a separate concern from the **in-game mod's** footprint. No ordinary-user dependence on a full duplicate game installation.
 6. **No unnecessary feature/research expansion:** improve the existing garage and conversion workflow before adding more donor games.
 
-## 3A. Current priority: Definitive Edition vehicle runtime
+## 3A. Current priority: review the completed Demo vehicle audit
+
+The complete read-only Demo8.4.1/9.3.1 audit is delivered in
+`DEMO_VEHICLE_AUDIT_RESULTS.md`, `DEMO_VEHICLE_COMPARISON_MATRIX.md` and
+`DEMO_VEHICLE_IMPORT_SHORTLIST.md`:101 family snapshots/429 model files,
+including original corpora, later9.10 references,26 authenticated retail
+families and9 accepted SDK references. First future recommendations are
+**Forester9.3.1, cooked Rav4 9.3.1, early WildCat8.4.1 and original9.3.1 NewRav**. Names and
+raw byte differences are not identity: retain the documented Mercedes aliases,
+local Nov Wildcat/Simmbugghini correspondence and ambiguous alternate Forester
+bake. Missing mastersticker133-tga stays explicit. No new IDs, cooking,
+installation, physics retune or runtime changes were made. Review the shortlist
+before another import; native glass/glow, independent registration and owner
+D3D8 validation remain separate gates.
+
+## 3B. Deferred priority: Definitive Edition vehicle runtime
 
 Follow `MASTER_RALLYE_DEFINITIVE_ROADMAP.md` for the product direction. First qualify a small external-resource vehicle runtime that starts with compatible game versions, preserves installed wrappers and coexists with Randomizer. SHA is diagnostic evidence, not a universal executable allowlist: select version-specific profiles using verified PE layout, relevant code/data invariants and hook preimages. Reuse J.1/J.2 and the J.3 compiler. Retail EXE evidence supports loose-first resource reads and archive fallback; Workshop can prepare a non-installable resource draft from an existing bundle. Prove the complete original-game resource and startup path before calling it installable; installation, shutdown and conflicts must fail safely. Two Randomizer F3/J.2 Challenge instruction overlaps, a general loading seam, initialization timing and adapters for other retail variants remain unresolved. See DLL_EXTERNAL_RESOURCE_DEPLOYMENT.md.
 
 Prepare an independent demo/PS2 `FORESTER` (driver identity reported by owner: Darren Sutherland), distinct from retail `WOOLDAND`. One additional independent record and a T2 position are required beyond the accepted 30-entry roster; mapping, resources and all runtime consumers need qualification. Do not reuse CarID29. Source inventory, original icon mapping, independent physics, retail glass and glow behavior must be evidenced before a candidate is promoted.
 
-The editor work below remains supported and resumes after this runtime foundation; current Workshop functionality must not regress.
+The editor work below remains supported and resumes after the separately reviewed runtime foundation; current Workshop functionality must not regress.
 
 ## 4. Workshop usability and architecture — subsequent priority
 

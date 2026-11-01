@@ -126,10 +126,8 @@ def _geometry(first, second) -> dict:
 
 
 def _representation(first, second) -> dict:
-    # These secondary-hull comparisons belong to the optional source-oracle
-    # analysis. Keep the rev131 parser/converter usable without importing that
-    # separate GXM reconstruction toolchain.
-    from .collision_oracle_analysis import compare_core_topology, compare_secondary_descriptors
+    # Pure parser comparisons must not import the optional original-cooker oracle.
+    from .collision_comparison import compare_core_topology, compare_secondary_descriptors
 
     secondary = compare_secondary_descriptors(first.face_descriptors, second.face_descriptors)
     core_topology = compare_core_topology(first, second)

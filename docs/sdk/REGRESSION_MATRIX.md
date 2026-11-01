@@ -1,3 +1,21 @@
+# Complete Demo audit regression boundary —1 November2026
+
+| Check | Actual evidence | Boundary |
+|---|---|---|
+| Recursive census |101 snapshots/429 model files;66 source rows incl. archive | Not101 different cars |
+| Retail provenance |26 families individually matched to configured clean archive | Neither demo path assumed retail |
+| Decoded comparison | Reorder/cyclic corners, winding, UV/material ownership, duplicate faces, global-cache isolation | GXM positional and legacy draw WARN retained |
+| Cooker comparison |83 same-GXM pairs;73 direct comparisons/10 missing |47 structurally-different verdicts do not imply new body geometry |
+| Catalog defects | Missing/malformed texture, GXI path/Null normalization, pure collision helpers | No neutral/borrowed texture promoted to fidelity PASS |
+| Static controls |248 DX entries/206 unique blobs | No newly confirmed damage/glow playback |
+| Neutral D3D9 |31 real3-view sets +1 exact-input reuse;2 missing | No original-game parity or race assembly claim |
+| Preservation |5330 current sourcefiles;11500 historical files unchanged | Original assets, accepted projects and runtime untouched |
+| Full Windows |1303 tests OK,2 optional skips, before final collision-helper extraction | One milestone full run |
+| Final focused |62 tests OK after helper extraction | Audit,Heritage,revision upgrade,auto features |
+
+Evidence: `.research-output/vehicles/demo-audit/`; metadata pointer and hashes:
+DEMO_VEHICLE_AUDIT_PROVENANCE.json. No original game was launched.
+
 # Paris-Dakar Source Lab —29 October2026
 
 | Validation | Result / evidence | Boundary |

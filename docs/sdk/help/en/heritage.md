@@ -33,3 +33,19 @@ python tools/vehicle_heritage.py create --source <demo-root> --family Trooper --
 ```
 
 The last command creates an author project, not a game installation. Open it in Workshop and configure its matching isolated roster. All copied MR assets remain private. Archives for source review contain code, documentation, tests and hashes only.
+
+
+## Complete Demo collection audit
+
+Before adding a historical vehicle, consult `DEMO_VEHICLE_AUDIT_RESULTS.md`,
+`DEMO_VEHICLE_COMPARISON_MATRIX.md` and `DEMO_VEHICLE_IMPORT_SHORTLIST.md` in
+`docs/sdk`. The audit distinguishes shipped originals, owner-local rebakes,
+renamed aliases and accepted imports using decoded surfaces/UV/materials.
+Nested and GXM-only folders are included. Missing textures remain unresolved in
+catalog comparison; malformed textures block staging. Existing staging fallback
+behavior remains explicitly reported and is not source-fidelity qualification.
+
+Forester9.3.1, cooked PCG Rav4 9.3.1, early WildCat8.4.1 and original9.3.1 NewRav are the recommended
+future review order. Nov Wildcat points to Simmbugghini resources; the authentic
+9.3.1 Wildcat and full NewRav/Tata DX sets are in the original corpus. No new
+runtime identity, installation or gameplay qualification was performed.
