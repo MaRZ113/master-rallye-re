@@ -229,17 +229,19 @@ def prepare(manifest,roots,roster_config,output,*,sdk_root,build=True):
     heritage_meta=json.loads((project/'heritage-import.json').read_text());heritage_meta['frontend_frame']=framing;heritage_meta['restoration_manifest_sha256']=sha(json.dumps(m,sort_keys=True).encode());heritage_meta['resource_pins']={p.name:sha(p.read_bytes())for p in assets.iterdir()if p.is_file()};write(project/'heritage-import.json',heritage_meta)
     from PIL import Image
     ui=json.loads((project/'ui-assets.json').read_text());art=[]
-    generated=[role for role,item in m['identity']['artwork'].items()if item['policy']=='workshop-generated']
-    if generated:
-        from generate_vehicle_ui_previews import render_sources
-        styles={m['identity']['artwork'][role].get('presentation','mr-native-v1')for role in generated}
-        if len(styles)!=1:raise ValueError('Generated artwork roles must share an explicit renderer style')
-        render_sources(assets,project/'ui-generated',roles=generated,style=next(iter(styles)))
+    generated={}
+    from generate_vehicle_ui_previews import render_sources
     for role,item in m['identity']['artwork'].items():
         if item['policy']=='workshop-generated':
-            path=project/'ui'/(role+'.png');path.write_bytes((project/'ui-generated'/path.name).read_bytes())
+            settings=item.get('rendering',{})
+            if set(settings)-{'azimuth','elevation','padding'}:raise ValueError('Unsupported artwork rendering setting')
+            folder=project/'ui-generated'/role
+            generated[role]=render_sources(assets,folder,roles=[role],style=item.get('presentation','mr-native-v2'),**settings)[role]
+    for role,item in m['identity']['artwork'].items():
+        if item['policy']=='workshop-generated':
+            path=project/'ui'/(role+'.png');path.write_bytes((project/'ui-generated'/role/path.name).read_bytes())
             ui['icons'][role]={'png':'ui/'+path.name,'sha256':sha(path.read_bytes()),'presentation':item.get('presentation','mr-native-v1')}
-            art.append({'role':role,**item,'png_sha256':sha(path.read_bytes()),'render':json.loads((project/'ui-generated/render.json').read_text())[role],
+            art.append({'role':role,**item,'png_sha256':sha(path.read_bytes()),'render':generated[role],
                         'source_resources':{p.name:sha(p.read_bytes())for p in assets.iterdir()if p.suffix.casefold()in('.dx','.dxt')}})
             continue
         bank=parse_bank(inputs[item['bank']]);name=bank['names'][item['frame']]
@@ -255,16 +257,27 @@ def prepare(manifest,roots,roster_config,output,*,sdk_root,build=True):
     write(project/'ui-assets.json',ui)
     identity=m['identity'];addon=json.loads((project/'addon.json').read_text());selected=selected_identity(identity,addon['race_colour_rgba'])
     addon['addon_id']=m['id'];addon['frontend'].update(identity['frontend']);addon['results']['display_name']=selected['driver']['value'];addon['race_colour_rgba']=selected['race_marker']['value'];addon['description']=m['notes'];write(project/'addon.json',addon)
-    if m['vehicle_class']!='T2':
-        if m['runtime'].get('ai_policy')!='disabled':raise ValueError('Non-T2 restoration AI needs separate qualification')
-        addon['ai_eligibility']={mode:{'enabled':False,'reason':'New non-T2 AI insertion not qualified; independent selectable restoration.'}for mode in addon['ai_eligibility']}
-        write(project/'addon.json',addon)
-    identity_report={'bindings':evidence,'artwork':art,'driver':identity['driver'],'frontend':identity['frontend'],'selected':selected}
+    ai_policy=m['runtime'].get('ai_policy')
+    if isinstance(ai_policy,dict):
+        from sdk_addon_ai import validate_eligibility
+        validate_eligibility(m['vehicle_class'],ai_policy);addon['ai_eligibility']=copy.deepcopy(ai_policy)
+    elif m['vehicle_class']!='T2':
+        if ai_policy!='disabled':raise ValueError('Non-T2 restoration requires an explicit qualified AI policy')
+        addon['ai_eligibility']={mode:{'enabled':False,'reason':'Explicit disabled restoration AI policy.'}for mode in addon['ai_eligibility']}
+    policy=identity.get('race_marker_policy')
+    if policy:
+        write(project/'race-marker.json',{'version':1,'historical':identity.get('race_marker'),'policy':policy,'selected_rgba':addon['race_colour_rgba']})
+    if m['vehicle_class']=='T3'and addon['vehicle_class']!='T3'and addon['ai_eligibility']['invitation']['enabled']:
+        write(project/'native-ai.json',{'version':1,'eligibility':copy.deepcopy(addon['ai_eligibility'])})
+        addon['ai_eligibility']['invitation']={'enabled':False,'reason':'Explicit runtime T3-only policy; technical author slot unchanged.'}
+    write(project/'addon.json',addon)
+    identity_report={'runtime_class':m['vehicle_class'],'bindings':evidence,'artwork':art,'driver':identity['driver'],'frontend':identity['frontend'],'selected':selected}
     if 'frontend_stats'in identity:identity_report['frontend_stats']=identity['frontend_stats']
     write(output/'identity-evidence.json',identity_report);write(project/'historical-identity.json',identity_report)
     config['experimental_record_count']=slot+1;config['projects'].append({'project':str(project.absolute()),'build':str(output/'not-built'),'physical_id':slot,**({'vehicle_class':m['vehicle_class']}if m['vehicle_class']!='T2'else{})})
     plan=output/'runtime-plan';plan.mkdir();write(plan/'roster-config.json',config)
     workshop=WorkshopProject.create(project,output/'workshop',kind='addon');workshop.configure_build({'roster_candidate':str(plan.absolute()),'retail_sma':str(sma),'retail_root':str(resolve(roots,'retail','Data.sma_unpacked'))})
+    if policy:workshop.marker_select(policy['mode'],contrast=policy.get('contrast',False))
     result=workshop.build(output/'workshop/builds/first',sdk_root=Path(sdk_root),log=lambda s:print(s,flush=True))if build else None
     if any(sha(heritage.read(Path(p)))!=d for p,d in pins.items()):raise ValueError('Original source changed during restoration')
     write(output/'restoration-result.json',{'status':'READY_FOR_OWNER_TEST'if build else'AUTHORING_ONLY','runtime_qualified':False,'manifest_id':m['id'],'source_pins':pins,'physics':physics,'identity':identity,'build':result,'native_reference_sha256':{k:sha(v)for k,v in refs.items()},'candidate':str(output/'workshop/builds/first/candidate'),'unverified':m['runtime']['owner_gates']})

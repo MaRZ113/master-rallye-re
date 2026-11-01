@@ -56,6 +56,39 @@ def validate(source,image,report,rows,*,shared_payload=None):
         expected=[27]+[r['physical_id'] for r in rows if r['vehicle_class']=='T2' and r['ai_eligibility'][mode]['enabled']]
         if seen!=expected or u.reg_read(ESI)!=14:raise ValueError('AI append chain failed: '+mode)
         pools[mode]=seen
+    # Execute original class-loop instruction bodies, including BOTH player
+    # exclusions. Only the container insertion call is mocked (not the body).
+    from sdk_addon_ai import T3
+    real_pools=[]
+    routes=[('T2',mode,reentry,exit_,list(range(7,14))+[27])for mode,_,reentry,exit_ in
+        [('quick_race',0,native.i0.QUICKRACE_T2_REENTRY_VA,native.i0.QUICKRACE_T2_EXIT_VA),
+         ('rallye_cup',0,native.i0.CUP_T2_REENTRY_VA,native.i0.CUP_T2_EXIT_VA),
+         ('master_rallye',0,native.i0.MASTER_T2_REENTRY_VA,native.i0.MASTER_T2_EXIT_VA)]]
+    from sdk_addon_ai import T1
+    routes += [('T1',mode,reentry,exit_,list(range(7))+[26])for mode,_,reentry,exit_ in T1
+               if any(r['vehicle_class']=='T1'and r['ai_eligibility'][mode]['enabled']for r in rows)]
+    routes += [('T3',mode,reentry,exit_,list(range(14,21)))for mode,_,reentry,exit_,_ in T3
+               if any(r['vehicle_class']=='T3'and r['ai_eligibility'][mode]['enabled']for r in rows)]
+    for cls,mode,reentry,exit_,stock in routes:
+        new=[r['physical_id']for r in rows if r['vehicle_class']==cls and r['ai_eligibility'][mode]['enabled']]
+        ids=stock+new
+        for first,second in [(-1,-1)]+[(i,-1)for i in new]+[(stock[0],i)for i in new]:
+            u=machine();seen=[];sp=u.reg_read(ESP)
+            u.reg_write(ESI,stock[0]);u.reg_write(EBP,first);u.reg_write(EDI,second)
+            def native_pool_hook(uc,at,size,user):
+                if at in (0x4ada50,0x4abe90):
+                    ptr=uc.reg_read(ESP);ret=struct.unpack('<I',uc.mem_read(ptr,4))[0]
+                    uc.reg_write(EAX,(8 if mode=='invitation'else 6)if at==0x4abe90 else 0x2001000)
+                    uc.reg_write(ECX,0xbad00001);uc.reg_write(EDX,0xbad00002);uc.reg_write(ESP,ptr+4);uc.reg_write(EIP,ret)
+                elif at in (0x411c90,0x414920):
+                    seen.append(uc.reg_read(ESI));ptr=uc.reg_read(ESP);ret=struct.unpack('<I',uc.mem_read(ptr,4))[0]
+                    uc.reg_write(ESP,ptr+(16 if at==0x411c90 else 12));uc.reg_write(EIP,ret)
+                elif at==exit_:uc.emu_stop()
+            u.hook_add(UC_HOOK_CODE,native_pool_hook);u.emu_start(reentry,0,count=12000)
+            expected=[i for i in ids if i not in(first,second)]
+            if seen!=expected or len(seen)!=len(set(seen)) or u.reg_read(ESP)!=sp or u.reg_read(EIP)!=exit_:
+                raise ValueError('Original native AI exclusion/body failed: '+str((cls,mode,first,second,seen,expected)))
+            real_pools.append({'class':cls,'mode':mode,'excluded_players':[first,second],'physical_ids':seen,'stack_preserved':True})
     # Full emitted initializer with native call ABI mocks: preserve old record
     # region, verify new record destination/stack arguments, return pointer.
     u=machine();pe=native.registry.parse_pe(source)
@@ -146,7 +179,7 @@ def validate(source,image,report,rows,*,shared_payload=None):
     code_end=min(v for k,v in report['entries'].items() if k.startswith('name'))
     code=read_at(report['payload_va'],code_end-report['payload_va']);ins=list(Cs(CS_ARCH_X86,CS_MODE_32).disasm(code,report['payload_va']))
     if sum(i.size for i in ins)!=len(code):raise ValueError('generated payload has undecodable instructions')
-    return {'status':'PASS_EMITTED_HELPERS_WITH_NATIVE_CALL_MOCKS','mapping':mapping,'pools':pools,'initializers':initialized,
+    return {'status':'PASS_EMITTED_HELPERS_WITH_NATIVE_CALL_MOCKS','mapping':mapping,'pools':pools,'original_loop_exclusions':real_pools,'initializers':initialized,
             'instructions_decoded':len(ins),'display_literal_checks':display_checks,'results_unlock_audio_abi_ids':state_checks,'audio_single_lookup_checks':audio_checks,'runtime_qualified':False,'limitations':['Unicorn CPU helpers, not the native game lifecycle','Broker, allocator, string, audio getter, unlock oracle and native loop append body are mocked; getter clobbers ECX/EDX','No GPU, collision, gameplay, campaign save or Results lifecycle proof']}
 
 

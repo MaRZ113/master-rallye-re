@@ -24,4 +24,4 @@ def tinted_marker(image,rgba):
     from PIL import Image
     colour_info(rgba)
     source=image.convert('RGBA');channels=source.split()
-    return Image.merge('RGBA',[channels[i].point(lambda p,g=rgba[i]:round(p*g))for i in range(3)]+[channels[3]])
+    return Image.merge('RGBA',[channels[i].point(lambda p,g=rgba[i]:round(p*g))for i in range(3)]+[channels[3].point(lambda p:round(p*rgba[3]))])

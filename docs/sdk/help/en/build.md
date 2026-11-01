@@ -65,8 +65,23 @@ models and original artwork remain intact. Existing explicit v1 recipes still
 compile. Compare generated images before Apply; applying to a derived project
 supports normal history, Restore and deterministic native UI compilation.
 
-The TOMCAT pilot uses recovered original blue CarSheet/HUD artwork rather than
-replacing authentic images with generated ones. Accepted RAV4/Forester files
-remain untouched. Private v1/v2 and same-car original-art comparisons are linked
-from docs/sdk/V_DEF4_TOMCAT_RESULTS.md. Launch only the final isolated CMD for
-owner D3D8 testing; no automatic new AI entry or full-game success is claimed.
+V-DEF4.1 keeps TOMCAT's authentic historical Vehicle Select CarSheet. Its separate
+race smallcarsheet is RECONSTRUCTED as a flat side32×16 mr-native-v2 image; the
+old isometric image remains in heritage storage. Other accepted artwork stays
+unchanged. See docs/sdk/V_DEF4_1_FINALIZATION.md for the current CMD and checklist.
+
+In Vehicle Details / Race HUD, choose HISTORICAL, AUTO_DOMINANT, AUTO_AVERAGE or
+MANUAL. Recalculate reads exterior model materials and area-weighted UV texture
+usage; it shows dominant/average and several livery swatches, confidence and
+limitations. It does not replace a manual choice. Select a swatch or type HEX/RGBA
+to enter MANUAL, then Apply. Optional contrast gently lifts a dark automatic/manual
+choice; HISTORICAL retains original floats. Preview uses the local shared HUD
+image without changing it. Verified-history reset is available only with genuine
+source evidence. Source policy/result survive build, history and reopening.
+
+Native addon AI flags apply only to new mode-owned rosters. T1/T2/T3 support
+Quick Race, Cup and Master Rallye; ordinary T3 also supports Invitation. Leave
+Challenge/Practice excluded. Physical CarIDs are independent of display order.
+Existing saved participants are not rewritten. Use disposable candidate saves for
+owner tests and observe known Randomizer F3 Challenge conflicts. No DLL installer
+or tyre setup screen is required or introduced here.

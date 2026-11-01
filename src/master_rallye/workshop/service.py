@@ -642,7 +642,7 @@ class WorkshopProject(AudioAuthoring,VehicleAuthoring,AudioImportAuthoring,GTAud
             # A later GUI Restore must not change this build's source recipe.
             if self.data['kind']=='addon':
                 spec=json.loads((snapshot/'vehicle-project.json').read_text())
-                textures=snapshot/'workshop-textures';textures.mkdir()
+                textures=snapshot/'workshop-textures';textures.mkdir(exist_ok=True)
                 author=VehicleProject.load(self.working/'vehicle-project.json')
                 for name,edit in spec.get('texture_edits',{}).items():
                     image=author.resolve(edit['png']);destination=textures/(name+'.png');shutil.copyfile(image,destination);edit['png']=str(destination)
@@ -662,6 +662,8 @@ class WorkshopProject(AudioAuthoring,VehicleAuthoring,AudioImportAuthoring,GTAud
                     if identity==self.data['identity']:matches.append(entry)
                 if len(matches)!=1:raise ValueError('This roster does not contain exactly one replaceable author entry; frozen base addons need a qualified author entry')
                 matches[0].update(project=str(snapshot),build=str(output/'author-build'))
+                if self.data.get('vehicle_authoring'):
+                    matches[0]['ai_eligibility']=self.vehicle_state()['ai_eligibility']
             self.camera_build_roster(roster,snapshot,output/'author-build')
             self.frontend_build_roster(roster,snapshot)
             log('Building isolated runtime candidate and launcher preflights...')

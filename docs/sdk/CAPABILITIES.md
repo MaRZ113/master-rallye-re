@@ -581,3 +581,16 @@ highlights and the flat side orthographic mini camera; original images and ordin
 3D source materials remain untouched. Generate/Apply/native UI/history/Restore
 are verified on a separate project. See V_DEF4_TOMCAT_RESULTS.md and
 DEMO_FRONTEND_STATS.md. No next import, new slot, installation or publication.
+
+
+## V-DEF4.1 — restored demo finalization
+
+Owner accepts Forester30/RAV4 31 and TOMCAT32 visual integration/order. New private
+candidate: complete independent retail Wildcat physics for TOMCAT, authentic menu
+art preserved, RECONSTRUCTED flat HUD art. Shared marker policies use exterior
+UV/area-weighted OKLab suggestions, exact historical RGBA where verified, editable
+manual RGBA and persistence/history. Original RAV4/TOMCAT colours stay UNKNOWN.
+Native addon pools support T1/T2/T3 Quick/Cup/Master, ordinary T3 Invitation with
+separate mode gates, preserved participant/DriverID/save boundaries. Challenge
+and Practice are not arbitrary opponent pools. Offline/Tk/native replay PASS;
+new owner D3D8 AI/handling/Results/save tests pending. See V_DEF4_1_FINALIZATION.md.

@@ -1,0 +1,595 @@
+{
+  "schema": "v-def4.1-provenance/1",
+  "starting_commit": "e4c73491945095c48b43b519fc05651c79eaeac5",
+  "branch": "research/vehicles",
+  "owner_previous_baseline": "Forester/RAV4 accepted; TOMCAT visuals/order accepted, hybrid handling rejected",
+  "new_gameplay": "PENDING_OWNER",
+  "candidate": "D:\\Game\\Master Rallye\\master-rallye-re-vehicles\\.research-output\\vehicles\\v-def4-1\\delivery-final\\32\\workshop\\builds\\first\\candidate",
+  "launch": "D:\\Game\\Master Rallye\\master-rallye-re-vehicles\\.research-output\\vehicles\\v-def4-1\\delivery-final\\Launch-V-DEF4.1.cmd",
+  "scope": "No new vehicles, physical IDs, participant capacity, DLL install, Randomizer merge, tyre menu or publication",
+  "physics": {
+    "donor": "retail Wildcat",
+    "runtime_family": "DefTomcat",
+    "clone": {
+      "DataGame/vehicles.xml": {
+        "identical_family_rows": 147,
+        "differences": []
+      },
+      "DataGame/Modifications.xml": {
+        "identical_family_rows": 26,
+        "differences": []
+      }
+    },
+    "original_841_rows": 121,
+    "hybrid_rows_changed": {
+      "DataGame/vehicles.xml": 96,
+      "DataGame/Modifications.xml": 0
+    },
+    "changed_fields": {
+      "DataGame/vehicles.xml": [
+        "Vehicles/DefTomcat/Dimensions/Length",
+        "Vehicles/DefTomcat/Dimensions/Width",
+        "Vehicles/DefTomcat/Dimensions/Height",
+        "Vehicles/DefTomcat/Dimensions/WheelBase",
+        "Vehicles/DefTomcat/Dimensions/TrackWidthFront",
+        "Vehicles/DefTomcat/Dimensions/TrackWidthRear",
+        "Vehicles/DefTomcat/Dimensions/WheelRadiusFront",
+        "Vehicles/DefTomcat/Dimensions/WheelRadiusRear",
+        "Vehicles/DefTomcat/Chassis/TotalMass",
+        "Vehicles/DefTomcat/Chassis/MomentOfInertia",
+        "Vehicles/DefTomcat/Chassis/CentreOfGravity",
+        "Vehicles/DefTomcat/Chassis/HandBrakeTorque",
+        "Vehicles/DefTomcat/Chassis/BrakeTorqueFront",
+        "Vehicles/DefTomcat/Chassis/BrakeTorqueRear",
+        "Vehicles/DefTomcat/Chassis/RollingDrag",
+        "Vehicles/DefTomcat/Chassis/DragCoeff",
+        "Vehicles/DefTomcat/Chassis/AerodynamicDragCoeff",
+        "Vehicles/DefTomcat/Chassis/Restitution",
+        "Vehicles/DefTomcat/Chassis/SlidingFriction",
+        "Vehicles/DefTomcat/Chassis/Gravity",
+        "Vehicles/DefTomcat/Steering/MinSpeed",
+        "Vehicles/DefTomcat/Steering/MaxSpeed",
+        "Vehicles/DefTomcat/Steering/SteerScale",
+        "Vehicles/DefTomcat/Steering/MaxSteer",
+        "Vehicles/DefTomcat/Steering/SteerOffset",
+        "Vehicles/DefTomcat/Engine/DriveShaftInertia",
+        "Vehicles/DefTomcat/Engine/EngineInertia",
+        "Vehicles/DefTomcat/Engine/RevLimit",
+        "Vehicles/DefTomcat/Engine/IdleRevs",
+        "Vehicles/DefTomcat/Engine/GearRatioDiff",
+        "Vehicles/DefTomcat/Engine/PeakTorque",
+        "Vehicles/DefTomcat/Engine/CentreLSDBias",
+        "Vehicles/DefTomcat/Engine/FrontLSDBias",
+        "Vehicles/DefTomcat/Engine/RearLSDBias",
+        "Vehicles/DefTomcat/Engine/BrakeBias",
+        "Vehicles/DefTomcat/Engine/Gear0",
+        "Vehicles/DefTomcat/Engine/Gear1",
+        "Vehicles/DefTomcat/Engine/Gear2",
+        "Vehicles/DefTomcat/Engine/Gear3",
+        "Vehicles/DefTomcat/Engine/Gear4",
+        "Vehicles/DefTomcat/Engine/Gear5",
+        "Vehicles/DefTomcat/Engine/Gear6",
+        "Vehicles/DefTomcat/Engine/ChangeUpRevs0",
+        "Vehicles/DefTomcat/Engine/ChangeUpRevs1",
+        "Vehicles/DefTomcat/Engine/ChangeUpRevs2",
+        "Vehicles/DefTomcat/Engine/ChangeUpRevs3",
+        "Vehicles/DefTomcat/Engine/ChangeUpRevs4",
+        "Vehicles/DefTomcat/Engine/ChangeUpRevs5",
+        "Vehicles/DefTomcat/Engine/ChangeUpRevs6",
+        "Vehicles/DefTomcat/Engine/ChangeDownRevs0",
+        "Vehicles/DefTomcat/Engine/ChangeDownRevs1",
+        "Vehicles/DefTomcat/Engine/ChangeDownRevs2",
+        "Vehicles/DefTomcat/Engine/ChangeDownRevs3",
+        "Vehicles/DefTomcat/Engine/ChangeDownRevs4",
+        "Vehicles/DefTomcat/Engine/ChangeDownRevs5",
+        "Vehicles/DefTomcat/Engine/ChangeDownRevs6",
+        "Vehicles/DefTomcat/Engine/EngineDamping",
+        "Vehicles/DefTomcat/Engine/ClutchSwitchTime",
+        "Vehicles/DefTomcat/Suspension/Front/UnsprungMass",
+        "Vehicles/DefTomcat/Suspension/Front/WheelMOI",
+        "Vehicles/DefTomcat/Suspension/Front/AntiDiveCoeff",
+        "Vehicles/DefTomcat/Suspension/Front/MaxBounce",
+        "Vehicles/DefTomcat/Suspension/Front/MaxDroop",
+        "Vehicles/DefTomcat/Suspension/Front/SpringArmRatio",
+        "Vehicles/DefTomcat/Suspension/Front/DamperArmRatio",
+        "Vehicles/DefTomcat/Suspension/Front/ToeVsLong",
+        "Vehicles/DefTomcat/Suspension/Front/SteerVsLat",
+        "Vehicles/DefTomcat/Suspension/Front/SteerVsMoment",
+        "Vehicles/DefTomcat/Suspension/Front/ToeVsJounce",
+        "Vehicles/DefTomcat/Suspension/Front/CamverVsJounce",
+        "Vehicles/DefTomcat/Suspension/Front/RideHeight",
+        "Vehicles/DefTomcat/Suspension/Front/SpringRate",
+        "Vehicles/DefTomcat/Suspension/Front/DamperRate",
+        "Vehicles/DefTomcat/Suspension/Front/AuxRollStiffness",
+        "Vehicles/DefTomcat/Suspension/Front/ToeIn",
+        "Vehicles/DefTomcat/Suspension/Front/Camber",
+        "Vehicles/DefTomcat/Suspension/Front/WheelDamping",
+        "Vehicles/DefTomcat/Suspension/Rear/UnsprungMass",
+        "Vehicles/DefTomcat/Suspension/Rear/WheelMOI",
+        "Vehicles/DefTomcat/Suspension/Rear/AntiDiveCoeff",
+        "Vehicles/DefTomcat/Suspension/Rear/MaxBounce",
+        "Vehicles/DefTomcat/Suspension/Rear/MaxDroop",
+        "Vehicles/DefTomcat/Suspension/Rear/SpringArmRatio",
+        "Vehicles/DefTomcat/Suspension/Rear/DamperArmRatio",
+        "Vehicles/DefTomcat/Suspension/Rear/ToeVsLong",
+        "Vehicles/DefTomcat/Suspension/Rear/SteerVsLat",
+        "Vehicles/DefTomcat/Suspension/Rear/SteerVsMoment",
+        "Vehicles/DefTomcat/Suspension/Rear/ToeVsJounce",
+        "Vehicles/DefTomcat/Suspension/Rear/CamverVsJounce",
+        "Vehicles/DefTomcat/Suspension/Rear/RideHeight",
+        "Vehicles/DefTomcat/Suspension/Rear/SpringRate",
+        "Vehicles/DefTomcat/Suspension/Rear/DamperRate",
+        "Vehicles/DefTomcat/Suspension/Rear/AuxRollStiffness",
+        "Vehicles/DefTomcat/Suspension/Rear/ToeIn",
+        "Vehicles/DefTomcat/Suspension/Rear/Camber",
+        "Vehicles/DefTomcat/Suspension/Rear/WheelDamping"
+      ],
+      "DataGame/Modifications.xml": []
+    },
+    "mesh_changes": false,
+    "wheelbase_visual_m": 2.809745,
+    "track_visual_approx_m": 1.640126,
+    "radial_bound_visual_m": 0.39050578003331765,
+    "physics_dimensions": {
+      "Length": "3.50000",
+      "Width": "2.00000",
+      "Height": "1.50000",
+      "WheelBase": "2.77000",
+      "TrackWidthFront": "1.66000",
+      "TrackWidthRear": "1.66000",
+      "WheelRadiusFront": "0.38000",
+      "WheelRadiusRear": "0.38000"
+    }
+  },
+  "artwork": {
+    "menu": "HISTORICAL exact unchanged",
+    "hud": "RECONSTRUCTED mr-native-v2, flat orthographic -90/0 degrees, padding12,32x16",
+    "original_isometric_archive": "D:\\Game\\Master Rallye\\master-rallye-re-vehicles\\.research-output\\vehicles\\v-def4-1\\delivery-final\\32\\heritage-private.zip",
+    "source_inventory": "No841 SmallCarSheet;20 original931 textures inspected; matching blue frame6 is isometric; no source-qualified flat TOMCAT identified"
+  },
+  "markers": {
+    "30": {
+      "historical": {
+        "status": "PROVEN",
+        "value": [
+          0.91796875,
+          0.29296875,
+          0.36328125,
+          1.0
+        ],
+        "bits": [
+          "3f6b0000",
+          "3e960000",
+          "3eba0000",
+          "3f800000"
+        ],
+        "source_version": "PS2 SLES_509.06",
+        "source_sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+        "evidence": "Original PS2 registration Forester ID8; same qualified Demo/PS2 Forester identity/body/art family. Cross-platform original colour, not a recovered PC931 RGBA record."
+      },
+      "policy": {
+        "mode": "HISTORICAL",
+        "contrast": false,
+        "analysis_settings": {
+          "paint_textures": [
+            "rear128-tga",
+            "forestside128-tga"
+          ]
+        }
+      },
+      "rgba": [
+        0.91796875,
+        0.29296875,
+        0.36328125,
+        1.0
+      ],
+      "f32le_hex": "00006b3f0000963e0000ba3e0000803f",
+      "analysis_method": "EXPLICIT_MATERIALS_UV_AREA",
+      "confidence": "MEDIUM",
+      "swatches": [
+        {
+          "rgb": [
+            0.60453903,
+            0.11055441,
+            0.20792084
+          ],
+          "weight": 0.55860226
+        },
+        {
+          "rgb": [
+            0.50688379,
+            0.09240965,
+            0.17032786
+          ],
+          "weight": 0.12334204
+        },
+        {
+          "rgb": [
+            0.81024605,
+            0.49083746,
+            0.10335619
+          ],
+          "weight": 0.08738818
+        },
+        {
+          "rgb": [
+            0.35912354,
+            0.0762935,
+            0.14150291
+          ],
+          "weight": 0.03515267
+        },
+        {
+          "rgb": [
+            0.42328616,
+            0.07795964,
+            0.14335875
+          ],
+          "weight": 0.03091747
+        },
+        {
+          "rgb": [
+            0.62724034,
+            0.17596515,
+            0.2081837
+          ],
+          "weight": 0.02220235
+        }
+      ]
+    },
+    "31": {
+      "historical": {
+        "status": "UNKNOWN",
+        "value": null,
+        "evidence": "Retired Demo Rav4 absent from named931/PS2 table; Newrav is a distinct vehicle."
+      },
+      "policy": {
+        "mode": "AUTO_DOMINANT",
+        "contrast": false,
+        "analysis_settings": {
+          "paint_textures": [
+            "ravsideb128-tga",
+            "ravside2128-tga"
+          ]
+        }
+      },
+      "rgba": [
+        0.73809357,
+        0.7610589,
+        0.77628647,
+        1.0
+      ],
+      "f32le_hex": "b3f33c3fc2d4423fb6ba463f0000803f",
+      "analysis_method": "EXPLICIT_MATERIALS_UV_AREA",
+      "confidence": "MEDIUM",
+      "swatches": [
+        {
+          "rgb": [
+            0.73809357,
+            0.7610589,
+            0.77628647
+          ],
+          "weight": 0.48043077
+        },
+        {
+          "rgb": [
+            0.00855497,
+            0.46759919,
+            0.61865786
+          ],
+          "weight": 0.21747881
+        },
+        {
+          "rgb": [
+            0.98028307,
+            0.98089456,
+            0.98213947
+          ],
+          "weight": 0.06415997
+        },
+        {
+          "rgb": [
+            0.20320919,
+            0.2038913,
+            0.20382633
+          ],
+          "weight": 0.04085546
+        },
+        {
+          "rgb": [
+            0.5330964,
+            0.54749713,
+            0.55820008
+          ],
+          "weight": 0.03230471
+        },
+        {
+          "rgb": [
+            0.34816652,
+            0.36205944,
+            0.37072718
+          ],
+          "weight": 0.02675
+        }
+      ]
+    },
+    "32": {
+      "historical": {
+        "status": "UNKNOWN",
+        "value": null,
+        "evidence": "PC841 stride36 has no RGBA. Later PS2 Wildcat ID15 has exact colour but early841 identity association is unproven."
+      },
+      "policy": {
+        "mode": "AUTO_DOMINANT",
+        "contrast": false,
+        "analysis_settings": {
+          "paint_textures": [
+            "cata128-tga",
+            "cdoor128-tga"
+          ]
+        }
+      },
+      "rgba": [
+        0.07369291,
+        0.1826875,
+        0.44711275,
+        1.0
+      ],
+      "f32le_hex": "4fec963d6f123b3ef6ebe43e0000803f",
+      "analysis_method": "EXPLICIT_MATERIALS_UV_AREA",
+      "confidence": "MEDIUM",
+      "swatches": [
+        {
+          "rgb": [
+            0.07369291,
+            0.1826875,
+            0.44711275
+          ],
+          "weight": 0.634089
+        },
+        {
+          "rgb": [
+            0.99222538,
+            0.81027972,
+            0.4089253
+          ],
+          "weight": 0.03945309
+        },
+        {
+          "rgb": [
+            0.42520044,
+            0.4562393,
+            0.45750159
+          ],
+          "weight": 0.03173128
+        },
+        {
+          "rgb": [
+            0.94100446,
+            0.95907703,
+            0.94936699
+          ],
+          "weight": 0.02929407
+        },
+        {
+          "rgb": [
+            0.33371492,
+            0.36769042,
+            0.38039905
+          ],
+          "weight": 0.02170807
+        },
+        {
+          "rgb": [
+            0.17925211,
+            0.21175791,
+            0.23793972
+          ],
+          "weight": 0.02124487
+        }
+      ]
+    }
+  },
+  "ai": {
+    "30": {
+      "vehicle_class": "T2",
+      "supported_modes": [
+        "quick_race",
+        "rallye_cup",
+        "master_rallye"
+      ],
+      "eligibility": {
+        "challenge": {
+          "enabled": false,
+          "reason": "Explicit author exclusion; restricted/unqualified modes remain disabled."
+        },
+        "invitation": {
+          "enabled": false,
+          "reason": "Explicit author exclusion; restricted/unqualified modes remain disabled."
+        },
+        "master_rallye": {
+          "enabled": true,
+          "boundary": "new_competition",
+          "pool": "dynamic_class"
+        },
+        "practice": {
+          "enabled": false,
+          "reason": "Explicit author exclusion; restricted/unqualified modes remain disabled."
+        },
+        "quick_race": {
+          "enabled": true,
+          "boundary": "new_race",
+          "pool": "dynamic_class"
+        },
+        "rallye_cup": {
+          "enabled": true,
+          "boundary": "new_cup",
+          "pool": "dynamic_class"
+        }
+      },
+      "boundary": "New native roster creation only; no saved participants rewritten. D3D8 owner confirmation pending."
+    },
+    "31": {
+      "vehicle_class": "T2",
+      "supported_modes": [
+        "quick_race",
+        "rallye_cup",
+        "master_rallye"
+      ],
+      "eligibility": {
+        "challenge": {
+          "enabled": false,
+          "reason": "Explicit author exclusion; restricted/unqualified modes remain disabled."
+        },
+        "invitation": {
+          "enabled": false,
+          "reason": "Explicit author exclusion; restricted/unqualified modes remain disabled."
+        },
+        "master_rallye": {
+          "enabled": true,
+          "boundary": "new_competition",
+          "pool": "dynamic_class"
+        },
+        "practice": {
+          "enabled": false,
+          "reason": "Explicit author exclusion; restricted/unqualified modes remain disabled."
+        },
+        "quick_race": {
+          "enabled": true,
+          "boundary": "new_race",
+          "pool": "dynamic_class"
+        },
+        "rallye_cup": {
+          "enabled": true,
+          "boundary": "new_cup",
+          "pool": "dynamic_class"
+        }
+      },
+      "boundary": "New native roster creation only; no saved participants rewritten. D3D8 owner confirmation pending."
+    },
+    "32": {
+      "vehicle_class": "T3",
+      "supported_modes": [
+        "quick_race",
+        "rallye_cup",
+        "invitation",
+        "master_rallye"
+      ],
+      "eligibility": {
+        "challenge": {
+          "enabled": false,
+          "reason": "Explicit author exclusion; restricted/unqualified modes remain disabled."
+        },
+        "invitation": {
+          "enabled": true,
+          "boundary": "new_invitation",
+          "pool": "ordinary_t3"
+        },
+        "master_rallye": {
+          "enabled": true,
+          "boundary": "new_competition",
+          "pool": "dynamic_class"
+        },
+        "practice": {
+          "enabled": false,
+          "reason": "Explicit author exclusion; restricted/unqualified modes remain disabled."
+        },
+        "quick_race": {
+          "enabled": true,
+          "boundary": "new_race",
+          "pool": "dynamic_class"
+        },
+        "rallye_cup": {
+          "enabled": true,
+          "boundary": "new_cup",
+          "pool": "dynamic_class"
+        }
+      },
+      "boundary": "New native roster creation only; no saved participants rewritten. D3D8 owner confirmation pending."
+    }
+  },
+  "native_validation": {
+    "loop_exclusion_cases": 39,
+    "independent_t1_cases": 42,
+    "native_marker_cases": 6,
+    "native_calls_mocked": true,
+    "source_identities_and_menu_mapping": "all33 emitted mappings checked"
+  },
+  "resource_differences": [
+    {
+      "path": "DataGame/vehicles.xml",
+      "before_sha256": "c8af5743ae50b650c0751b34fcfc62dc2f4f3a2acfc5573cac17e18ba5305487",
+      "after_sha256": "04090d0ce412a1dc8b0e2372629039fd22e0f931bde1e6072470d30629fe7773"
+    },
+    {
+      "path": "DataGx/Frontend/RaceResults/smallcarsheet_035_000.dxt",
+      "before_sha256": "9288c97a69f1c08ed5c54a00bbe1ad887e426339e22fc8d70499ad739ccfdd90",
+      "after_sha256": "8b7871957b2bcddfd86234775dd8fdcc866276359c41c1f09522182355c11540"
+    }
+  ],
+  "identical_resources": 412,
+  "preservation": {
+    "pins": 1160,
+    "unchanged": 1160,
+    "differences": []
+  },
+  "determinism": {
+    "status": "PASS_TWO_WORKSHOP_BUILDS",
+    "identical_resources": 414,
+    "identical_dx_dxt": 291,
+    "native_extension_and_operations": "IDENTICAL",
+    "gameplay": "PENDING_OWNER"
+  },
+  "tests": {
+    "focused-delivery.json": {
+      "run": 88,
+      "failed": 0,
+      "errors": 0,
+      "skipped": [],
+      "seconds": 3.3410906000062823,
+      "status": "PASS"
+    },
+    "full-windows.json": {
+      "run": 1353,
+      "failed": 0,
+      "errors": 0,
+      "skipped": [
+        {
+          "test": "setUpClass (test_j2_frontend_reentry.J2ReentryPatchPlanTests)",
+          "reason": "exact retail executable or verified J.1 bundle is unavailable"
+        },
+        {
+          "test": "test_vmesh412_runtime.FinalPassTests.test_stock_profile_preserves_tyre_and_refuses_second_pass",
+          "reason": "private vehicle fixture unavailable"
+        }
+      ],
+      "seconds": 93.53269269998418,
+      "status": "PASS"
+    }
+  },
+  "report_pins": {
+    "qualification-final.json": "0756dc0922db05d1acea5187c3ce96f80483b9365a7620e31b2b589419ef7738",
+    "determinism-final.json": "aaa6f47c51f31d1916502756284380a84603cd378ea2ce8d18c892df2aa87f9a",
+    "focused-delivery.json": "c8a62a65ce720fa033ca068bf000e4480ef08919371a0d315f72c5562ffc3dcc",
+    "full-windows.json": "55bf126720af48aed3b84c803d8e184c5d88a73c3d54eed66521b6ee1826f257",
+    "protected-after.json": "fdec590d10cfdb69fffee58e2634c3b5a9ca6989fe52611b021b7d8a18a3462f",
+    "persistence-consumers.json": "a4a8346eb922522c0ec8419861a2b86976d293bc630e755e49791026670b8ce7",
+    "randomizer-comparison-final.json": "e3d25d6b3531eb3e5e39f88277e1f918ca2cc7ef4f6dade963437080a0ac0516",
+    "windows-marker-panel.json": "7ff75415cfb82ca21a18b01b0649c1ec2bf36213cc5802cc6ea831ec3fe94bf3",
+    "native-t1-synthetic-roster.json": "c20fd97b1a18b8d846b2eb5bff9c8b38e7ef31d65fb5795432efcfcbd258be85",
+    "original-smallcarsheets.json": "01d7339aa7bb1a92c4f986a445ddc6559f03bd5270b9cb52368248e43b4e6cc5",
+    "tyre-schema.json": "e87ad43e79211a1983dbbf5f74fcd7b2207b2256b4050baa472f982f4eb4a52d"
+  },
+  "native_artifact_pins": {
+    "native-extension.bin": "94ed6af4a25a99a690d288b891aad29b7d54aa1e0bc5bd90c3b3516e87685004",
+    "native-patch-ops.rvp": "bee0d6f4d6f6b703ee8e193290cac18518e72e69a86074ae6e8fcd978833b941",
+    "addon-plan.json": "295cfc06b9c7f18ee9d8bdb6e612e09b1dad06750e121258a1e8acc4baebe0b5"
+  },
+  "compatibility": "Original retail adapter/preimages only. New live AI, save/Results and Randomizer coexistence remain owner tests. Known F3 Challenge conflicts retained; v13 no declared byte overlap.",
+  "future_tyre_presets": "Design only; no runtime/frontend implementation",
+  "common_author_smoke": {
+    "status": "PASS_AUTHOR_ONLY",
+    "path": ".research-output/vehicles/v-def4-1/common-author-smoke/restoration-result.json",
+    "scope": "Same generic restoration pipeline with per-role rendering, full clone, colour policy and deferred runtime T3 Invitation; no separate compiler"
+  }
+}

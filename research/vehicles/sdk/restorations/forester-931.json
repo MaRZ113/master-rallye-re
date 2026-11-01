@@ -274,6 +274,34 @@
       },
       "association": "named family",
       "source_sha256": "611526d30be94879012efe54c56ceff428cb4d20a4bd49173370a4ebfe31a728"
+    },
+    "race_marker_policy": {
+      "mode": "HISTORICAL",
+      "contrast": false,
+      "analysis_settings": {
+        "paint_textures": [
+          "rear128-tga",
+          "forestside128-tga"
+        ]
+      }
+    },
+    "race_marker": {
+      "status": "PROVEN",
+      "value": [
+        0.91796875,
+        0.29296875,
+        0.36328125,
+        1.0
+      ],
+      "bits": [
+        "3f6b0000",
+        "3e960000",
+        "3eba0000",
+        "3f800000"
+      ],
+      "source_version": "PS2 SLES_509.06",
+      "source_sha256": "b15a80c516986bfd7f9fcfcfa2ec5fbf37643778c6363dde460006d7001a78f2",
+      "evidence": "Original PS2 registration Forester ID8; same qualified Demo/PS2 Forester identity/body/art family. Cross-platform original colour, not a recovered PC931 RGBA record."
     }
   },
   "physics": {

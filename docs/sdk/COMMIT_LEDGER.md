@@ -881,3 +881,24 @@ Restored generated HUD icons to the existing flat side orthographic view
 icon camera. Current 48 focused tests and private Generate/Apply/native UI/
 Undo/Redo/Restore/reopen checks PASS; regenerated both same-car comparisons
 retain exact v1/v2 alpha masks. Original TOMCAT artwork/candidate unchanged.
+
+
+### V-DEF4.1 — finalize restored demo physics, HUD, colours and native AI
+
+Owner confirms TOMCAT visual/game integration; its hybrid handling is superseded
+by the common exact retail Wildcat clone. Preserve all121 old fields and accepted
+builds. Keep historical CarSheet, archive isometric HUD and derive flat32×16 HUD
+through existing mr-native-v2. Shared per-role recipes remain independent.
+
+Add exterior-material/UV/area colour analysis, deterministic OKLab swatches,
+linear-light average, verified historical/automatic/manual policies, provenance,
+optional contrast, live stock-marker tint and normal Workshop history. Original
+PS2 Forester RGBA is exact; early TOMCAT/retired RAV4 remain UNKNOWN originals.
+
+Extend common native T1/T3 pool routes, separately gate Cup/Invitation with the
+original Race/Type getter, preserve original exclusions and save/DriverID paths.
+Keep technical author slots separate from explicit runtime class/AI declarations.
+No new CarID, participant increase, playable import, runtime tyre switching or
+Randomizer merge. Full1353-test checkpoint PASS plus current focused validation;
+real Tk, original-x86 helpers, resource/physics isolation and deterministic builds.
+Detailed results/provenance and owner checklist: V_DEF4_1_FINALIZATION.md.

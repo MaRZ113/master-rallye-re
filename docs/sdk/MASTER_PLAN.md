@@ -22,7 +22,7 @@ The visual objective of **MR Classic** is organic integration with stock Master 
 | PC Paris-Dakar Rally | RED and Silver Pajero source scenes decoded. Silver has run in MR; owner reported stiff suspension. The models are not proven to be the missing original MR promo assets. |
 | Dakar 2 Xbox | Pajero, Nissan Pickup and Hino source models decoded and previewed. Original multistage shader semantics partly recovered. **Strict shader-equivalent native materials remain blocked**; do not let this automatically prohibit an explicitly adapted MR Classic project. |
 | Michelin Rally Masters | RAV4 and Mégane F2 neutral scenes recovered. RAV4 runs in MR with working handling/body/glass damage (owner report); wheel-edge and brake-lens fixes exist as isolated candidates, **D3D8 owner verification pending**. Mégane native import is not owner-qualified. |
-| Vehicle capacity | Owner accepts V-DEF3 custom ordering and33-record8/12/13 operation in-game. A separate TOMCAT32 restoration candidate is pending owner gameplay; accepted Forester/RAV4 builds and alternative CarID29 configurations remain independent. No unlimited capacity claim. |
+| Vehicle capacity | Owner accepts V-DEF3 custom ordering and33-record8/12/13 operation in-game. TOMCAT32 visual integration is owner-accepted; V-DEF4.1 replaces its rejected hybrid physics and adds independently testable HUD/AI/marker updates. Accepted builds and alternative CarID29 configurations remain independent. No unlimited capacity claim. |
 | Workshop UI | Legacy Tk remains supported. Source Garage has dependency-aware preview caching and asynchronous open/render with safe cancel. An optional PySide6 Widgets editing pilot is validated on Dakar2 Pajero and a GT-derived native snapshot; the remaining Studios have not been migrated. The reported15-second delay was not reproduced on the measured Pajero workload. |
 
 Source-only review archives and automated tests do not prove original-game rendering parity or actual D3D8 gameplay. Use the detailed reports for evidence and exact build hashes; this plan deliberately omits historical test counts and commit-by-commit narratives.
@@ -36,81 +36,44 @@ Source-only review archives and automated tests do not prove original-game rende
 5. **Compact installed mods:** target a small, compatible runtime DLL plus external resources and manifest, using existing reversible runtime/overlay research. The **editor's** distribution size is a separate concern from the **in-game mod's** footprint. No ordinary-user dependence on a full duplicate game installation.
 6. **No unnecessary feature/research expansion:** improve the existing garage and conversion workflow before adding more donor games.
 
-## 3A. Current priority: V-DEF4 PRIVATEER TOMCAT owner test
+## 3A. Current priority: V-DEF4.1 owner qualification
 
-The owner accepts V-DEF3 custom ordering in-game, reporting no bugs. Keep
-Forester30 beside WOOLDAND8, RAV4 31 beside Newrav12 and T3 slot32 beside
-Wildcat14.33 records (8/12/13) are the accepted bounded layout, not an engine
-maximum. Preserve the accepted Forester and retail-Newrav-physics RAV4 references.
+Forester30, retail-Newrav-physics RAV4 31 and TOMCAT32 retain the accepted
+33-record8/12/13 registrations and custom ordering beside WOOLDAND8, Newrav12
+and Wildcat14. The owner accepts their visual/game integration. TOMCAT's hybrid
+handling was rejected; its replacement is the complete independent retail
+Wildcat clone, with no historical overrides or geometric concealment. Original
+121 Demo physics rows remain inactive evidence. Wheel/contact differences and
+new handling still need the exact candidate's owner test.
 
-V-DEF4 replaces only the technical32 probe with original early8.4.1 blue WildCat,
-identified from original tables as PRIVATEER TOMCAT. Original three-role GXM bytes
-are authenticated; source-pinned local-index cache repair conserves all cooked
-render/collision streams without weakening generic writer validation. Full legacy
-GXM/cooker parity remains a separate bounded issue. No later retail replacement
-body or speculative mesh edits are used.
+Preserve all accepted geometry, textures, wheels, native glass and lamp/core/glow
+states, drivers/fallback labels, frontend stats and historical CarSheets. TOMCAT
+uses a separate RECONSTRUCTED flat side HUD icon; retain its isometric historical
+art in the heritage archive. The two artwork roles have independent recipes.
 
-One private CMD candidate is built through the same manifest/Heritage/Workshop
-services: original CarSheet, separate source-matching HUD art, three native glass
-zones, original lamp ownership with fitted retail Wildcat ON/core/glow, and100
-compatible old physics fields in an independent retail schema. All121 original
-rows and21 explicit compatibility substitutions remain documented. Handling,
-wear, native events, race/Results and save/re-entry require owner testing for
-this exact TOMCAT. New T3 AI insertion is not inferred from selection capacity.
+The common marker workflow supports verified HISTORICAL, AUTO_DOMINANT,
+AUTO_AVERAGE and MANUAL, exterior UV/area analysis, perceptual swatches,
+optional contrast, RGBA preview/history and source-policy persistence. Apply
+PS2 Forester's exact verified colour with its cross-platform association;
+retired RAV4 and early TOMCAT originals remain UNKNOWN, using labelled automatic
+paint suggestions. Never substitute later Newrav/Wildcat colour evidence.
 
-Original early driver remains UNKNOWN. Editable HUGH HAINES is a documented
-period/manufacturer REAL_FALLBACK, not an original game assignment. The earlier
-RAV4/Daniel Nebot and other historical identity/color evidence remain preserved.
+Reusable native addon AI covers Quick Race, new Rallye Cup and new Master Rallye
+class pools, plus ordinary T3 addons in Invitation. Keep T1/T2 out of the normal
+T3-only Invitation, Challenge authored and Practice without invented opponents.
+Keep physical IDs separate from menu indices and retain native exclusions,
+DriverID, participant limits, Results and persistence. Cup/Invitation settings
+are independent despite the shared generator. New per-vehicle/gameplay findings
+remain owner tests; previous H.2 runtime precedents do not certify this candidate.
 
-The eight-target frontend rating audit reuses original8.4.1/9.3.1 registration
-instructions and localization. TOMCAT uses7/6/8/8; future Forester manifests use
-6/7/5/4. Retired RAV4/Alpha ratings remain UNKNOWN, with clearly labelled SDK
-placeholders. Workshop rating edits change display records only, never physics.
-Frozen accepted builds are not silently rebuilt to update manifest defaults.
+The Windows/offline build, source/resource preservation and repeatability reports
+are in V_DEF4_1_FINALIZATION.md and V_DEF4_1_PROVENANCE.json. Randomizer v13 plan
+nonoverlap is not runtime coexistence; the known F3 Challenge conflicts remain
+uncomposed. No installed DLL, EXE, retail SMA or independent mod is changed.
 
-Generated full/HUD icons now have an optional/reversible mr-native-v2 studio
-lighting/reflection style and the preserved flat side orthographic mini camera. Ordinary
-3D scene materials, source assets and recovered original artwork are unchanged.
-Regenerate/compare/apply through Workshop; existing RAV4 icons remain accepted
-until explicitly applied in a derived project.
-
-**Stop for owner review** after the TOMCAT CMD candidate, source/native tests,
-original-versus-restored comparisons and ratings audit. Do not begin Newrav,
-another Demo import, extra capacity, new AI pool work, fleet research or DLL
-installation. See `V_DEF4_TOMCAT_RESULTS.md`, `DEMO_FRONTEND_STATS.md` and
-`V_DEF4_PROVENANCE.json` for exact evidence, private paths and owner checklist.
-
-### Historical V-DEF1 implementation/qualification snapshot
-
-The paragraphs below retain the state recorded before full owner acceptance;
-the acceptance above supersedes their old pending status, not their evidence.
-
-The complete Demo audit is retained in `DEMO_VEHICLE_AUDIT_RESULTS.md` and its
-matrix/shortlist. The first authorized restoration now has a persistent Workshop
-project and isolated CMD candidate: canonical9.3.1 Demo Forester geometry,
-authenticated original CarSheet and separate Demo9.10.0 side mini icon,
-owner-confirmed Darren Sutherland, independent RETAIL Forester physics and
-bounded native glass/WOOLDAND ON-core/halo adaptations. Demo physics remains
-historical evidence after the owner reported excessive tyre wear. The complete
-model alone is rebased upward by the measured retail rest-frame difference
-0.38971442m; race geometry and original source files remain unchanged.
-See `V_DEF1_FORESTER_RESTORATION.md` and `V_DEF1_FORESTER_OWNER_TEST.md`.
-Current private candidate: `vehicles/v-def1/owner-fixes/release` under
-`.research-output`; previous `release-candidate` remains available for rollback.
-
-**Owner-qualified capacity remains30 (8/10/12).** A separately gated31-record
-candidate appends ID30/T2 local10 (8/11/12); automated checks and CPU helper
-emulation pass. Owner screenshots confirm selection/race entry, and the owner
-explicitly confirms the race driver name. Full race completion, Results, AI,
-saves/re-entry and the FOUR corrected behaviors remain unverified. Existing
-IDs,accepted projects and originals are unchanged.
-No rear glass zone was invented; broken UV/shading and halo fit are explicit
-adaptations. Incorporate owner feedback before promoting this layout or another
-restoration. The unrelated Nov Wildcat collection drift detected against the
-prior audit is preserved,not rolled back: the owner confirmed intentional
-replacement of misleading Simmbugghini files with original9.3.1 Wildcat.
-54 focused and1315 full Windows tests pass (2 existing skips);222 DX/DXT repeat
-exactly and308 previous roster resources remain unchanged. DLL stays separate.
+Stop after the isolated CMD candidate and owner checklist. Future tyre presets
+have a separate design note only; no setup menu, live switching, new vehicle,
+CarID, class/participant expansion or DLL-loader dependency is introduced.
 
 ## 3B. Deferred priority: Definitive Edition vehicle runtime
 

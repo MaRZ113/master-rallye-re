@@ -235,6 +235,16 @@
       "value": null,
       "kind": "SDK_PLACEHOLDER",
       "reason": "No original named retired Rav4 record in841/931; Newrav13 is a different vehicle. Existing5/5/5/5 retained explicitly."
+    },
+    "race_marker_policy": {
+      "mode": "AUTO_DOMINANT",
+      "contrast": false,
+      "analysis_settings": {
+        "paint_textures": [
+          "ravsideb128-tga",
+          "ravside2128-tga"
+        ]
+      }
     }
   },
   "physics": {

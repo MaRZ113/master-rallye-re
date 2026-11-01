@@ -249,7 +249,7 @@
         "association": "Original8.4.1 named Bowler_Wildcat widget/frame6; original blue artwork retained exactly."
       },
       "smallcarsheet": {
-        "policy": "bounded-resample",
+        "policy": "workshop-generated",
         "native_size": [
           32,
           16
@@ -257,40 +257,45 @@
         "texture": "smallcarsheet",
         "bank": "smallcarsheet_bank",
         "frame": 6,
-        "presentation": "source-pixels-v1",
-        "association": "Original9.3.1 blue Wildcat HUD image, visually matching early source body/livery. Catalog-to-HUD runtime binding unproven; no invented artwork."
+        "presentation": "mr-native-v2",
+        "association": "Independent flat side HUD reconstruction. Original9.3.1 isometric image retained as heritage evidence, not reused as a flat HUD icon.",
+        "status": "RECONSTRUCTED",
+        "rendering": {
+          "azimuth": -90.0,
+          "elevation": 0.0,
+          "padding": 12
+        }
+      }
+    },
+    "race_marker": {
+      "value": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "status": "UNKNOWN",
+      "kind": "SDK_FALLBACK",
+      "evidence": "841 record stride36 has no RGBA; PS2 Wildcat colour is not proven for the early841 variant."
+    },
+    "race_marker_policy": {
+      "mode": "AUTO_DOMINANT",
+      "contrast": false,
+      "analysis_settings": {
+        "paint_textures": [
+          "cata128-tga",
+          "cdoor128-tga"
+        ]
       }
     }
   },
   "physics": {
-    "mode": "historical-compatible",
+    "mode": "retail",
     "input": "physics",
     "source_family": "Wildcat",
     "donor_family": "Wildcat",
-    "source_only": {
-      "Engine/TorqueEntries": "Original 8-point curve preserved in source evidence; retail-compatible6-point curve retained as a complete group",
-      "Engine/TorqueEntry0": "Original 8-point curve preserved in source evidence; retail-compatible6-point curve retained as a complete group",
-      "Engine/TorqueEntry1": "Original 8-point curve preserved in source evidence; retail-compatible6-point curve retained as a complete group",
-      "Engine/TorqueEntry2": "Original 8-point curve preserved in source evidence; retail-compatible6-point curve retained as a complete group",
-      "Engine/TorqueEntry3": "Original 8-point curve preserved in source evidence; retail-compatible6-point curve retained as a complete group",
-      "Engine/TorqueEntry4": "Original 8-point curve preserved in source evidence; retail-compatible6-point curve retained as a complete group",
-      "Engine/TorqueEntry5": "Original 8-point curve preserved in source evidence; retail-compatible6-point curve retained as a complete group",
-      "Engine/TorqueEntry6": "Original 8-point curve preserved in source evidence; retail-compatible6-point curve retained as a complete group",
-      "Engine/TorqueEntry7": "Original 8-point curve preserved in source evidence; retail-compatible6-point curve retained as a complete group",
-      "Suspension/Front/SuspAppPointOffset": "Original vector suspension application point has no qualified direct retail scalar mapping",
-      "Suspension/Rear/SuspAppPointOffset": "Original vector suspension application point has no qualified direct retail scalar mapping",
-      "DamageParams/EngineThreshold": "Old damage thresholds/multipliers are not assumed equivalent to retail damage mechanisms",
-      "DamageParams/SteeringThreshold": "Old damage thresholds/multipliers are not assumed equivalent to retail damage mechanisms",
-      "DamageParams/TyreThreshold": "Old damage thresholds/multipliers are not assumed equivalent to retail damage mechanisms",
-      "DamageParams/SuspensionThreshold": "Old damage thresholds/multipliers are not assumed equivalent to retail damage mechanisms",
-      "DamageParams/EngineMultiplier": "Old damage thresholds/multipliers are not assumed equivalent to retail damage mechanisms",
-      "DamageParams/SteeringMultiplier": "Old damage thresholds/multipliers are not assumed equivalent to retail damage mechanisms",
-      "DamageParams/TyreMultiplier": "Old damage thresholds/multipliers are not assumed equivalent to retail damage mechanisms",
-      "DamageParams/SuspensionMultiplier": "Old damage thresholds/multipliers are not assumed equivalent to retail damage mechanisms",
-      "Suspension/Front/TyreType": "Original Slicks table retained as evidence; owner selected explicit retail tyre fallback after Forester wear findings",
-      "Suspension/Rear/TyreType": "Original Slicks table retained as evidence; owner selected explicit retail tyre fallback after Forester wear findings"
-    },
-    "reason": "Preserve original compatible8.4.1 fields in an independent retail schema. Incompatible old torque-curve/damage/application-point fields and tyre solver remain explicit retail substitutions; original rows are kept immutable."
+    "require_exact_clone": true,
+    "reason": "V-DEF4.1 owner finding: replace hybrid completely with independent full retail Wildcat base and driving setup. All121 original8.4.1 rows remain inactive historical evidence; no geometry, hub or contact fit."
   },
   "features": {
     "states": {
@@ -438,13 +443,42 @@
   "runtime": {
     "physical_id": 32,
     "audio_profile": 14,
-    "replace_addon_id": "roster-t3-slot32-probe",
-    "ai_policy": "disabled",
+    "replace_addon_id": "demo-tomcat-8-4-1",
+    "ai_policy": {
+      "quick_race": {
+        "enabled": true,
+        "boundary": "new_race",
+        "pool": "dynamic_class"
+      },
+      "rallye_cup": {
+        "enabled": true,
+        "boundary": "new_cup",
+        "pool": "dynamic_class"
+      },
+      "master_rallye": {
+        "enabled": true,
+        "boundary": "new_competition",
+        "pool": "dynamic_class"
+      },
+      "invitation": {
+        "enabled": true,
+        "boundary": "new_invitation",
+        "pool": "ordinary_t3"
+      },
+      "challenge": {
+        "enabled": false,
+        "reason": "Challenge remains an authored event roster, not an arbitrary addon pool."
+      },
+      "practice": {
+        "enabled": false,
+        "reason": "No independent native Practice opponent generator is qualified."
+      }
+    },
     "owner_gates": [
-      "Native T3 slot32 selection, full race, Results, reentry and disposable save",
-      "Original glass events, lens ON/OFF/core/glow appearance",
-      "Historical-compatible physics in retail solver, wheel/contact and tyre wear"
+      "Full retail Wildcat handling/tyre wear/contact appearance",
+      "Flat HUD icon and per-car marker",
+      "Native Quick Race/Master Rallye AI, Results and disposable save/resume"
     ]
   },
-  "notes": "Original early8.4.1 GXM identity and rebaked geometry, not later retail Wildcat. Retail Wildcat technical native controls/audio/reference only. Historical display stats7/6/8/8. HUGH HAINES is editable REAL_FALLBACK; original early PC driver UNKNOWN."
+  "notes": "Original early8.4.1 geometry and artwork; owner-accepted visual restoration. V-DEF4.1 uses the complete independent retail Wildcat physics clone and a RECONSTRUCTED flat HUD icon. Original121 physics rows and isometric art remain inactive evidence. HUGH HAINES remains editable REAL_FALLBACK; original early driver UNKNOWN."
 }

@@ -3,7 +3,7 @@
 Returns bytes/operations for the external suspended-process launcher only.
 No executable is written. Stock and existing addon routes are fallbacks.
 The audited twelve-position frontend publisher is a profile bound, not an
-engine-wide maximum. AI pool extension is limited to native T2 loop owners.
+engine-wide maximum. AI pool extensions use evidence-bound per-class original loop owners.
 """
 from __future__ import annotations
 from dataclasses import replace
@@ -145,6 +145,8 @@ def payload(image, pe, rows, va, selection_layout=None):
         i0._comparison_bytes(code,'esi',pool[-1]+1); code.jne(label+'_old')
         code.emit(b'\xbe\x0e\x00\x00\x00'); code.jump(exit_); code.label(label+'_old')
         code.jump(branch_target(image,pe,hook,0xe9)); hooks.append((hook,label,0xe9))
+    import sdk_addon_ai
+    sdk_addon_ai.emit(code,rows,image,pe,__import__('sys').modules[__name__],hooks)
     for n,(p,r) in enumerate(zip(profiles,rows)):
         fields={'name':p.internal_name,'manufacturer':p.display_manufacturer,'model':p.display_model,
                 'combined':p.display_quickrace,'results':r['results']['display_name']}
@@ -176,8 +178,8 @@ def extend_image(source, image, rows, *, base_count=28, storage='existing_cave',
         c=r['vehicle_class']
         if r['class_local_index']!=classes[c] or classes[c]>=13:
             raise ValueError('class slot must append within the bounded thirteen-position profile')
-        if c!='T2' and any(v['enabled'] for v in r['ai_eligibility'].values()):
-            raise ValueError('new AI pool routes currently qualified for T2 loop structure only')
+        from sdk_addon_ai import validate_eligibility
+        validate_eligibility(c,r['ai_eligibility'])
         classes[c]+=1
     count=base_count+len(rows)
     if allocation_size!=262144 and not (allocation_size==524288 and count==33 and selection_order is not None):raise ValueError('Unqualified roster storage budget')
@@ -227,9 +229,10 @@ def extend_image(source, image, rows, *, base_count=28, storage='existing_cave',
     if chosen is None:raise ValueError(f'current external code-cave capacity exhausted ({len(blob)} bytes required); not an engine roster limit')
     va,blob,entries,hooks=chosen
     if storage=='existing_cave':patch('roster_payload',va,bytes(len(blob)),blob)
-    for hook,label,opcode in hooks:
-        off=registry.va_to_file_offset(pe,hook,5)
-        patch('hook_'+label,hook,image[off:off+5],i0._rel32(hook,entries[label],opcode))
+    for route in hooks:
+        hook,label,opcode=route[:3];size=route[3]if len(route)==4 else 5
+        off=registry.va_to_file_offset(pe,hook,size)
+        patch('hook_'+label,hook,image[off:off+size],i0._rel32(hook,entries[label],opcode)+b'\x90'*(size-5))
     # J.2 already maps the full cave page. No new PE layout or on-disk EXE.
     result=i0._apply_layer(image,ops)
     report={'operations':ops,'entries':entries,'payload_va':va,'payload_size':len(blob),

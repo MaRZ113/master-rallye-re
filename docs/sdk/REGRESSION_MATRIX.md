@@ -817,3 +817,20 @@ No new playable Demo restoration or original-file write is inferred.
 
 Private reports: vehicles/v-def4 under .research-output; source-only summary
 V_DEF4_PROVENANCE.json. Tests do not promote the new model to gameplay PASS.
+
+
+## V-DEF4.1 — material-aware marker / full physics / mode AI
+
+| Check | Current boundary |
+|---|---|
+| TOMCAT clone |147 retail vehicle +26 setup rows exact after family rename;121 inactive841 rows preserved;96 former hybrid fields replaced |
+| Asset isolation |Only vehicles.xml and TOMCAT HUD frame change;412 other indexed resources exact;1160 protected original/accepted pins unchanged |
+| Native marker |Exact initializer float words and six original-x86 ordinary/competition publication replays PASS; live new HUD colours owner pending |
+| Colour analysis |UV area weights, transparent/misleading atlas exclusion, multicolour OKLab swatches, manual immutability, AUTO source refresh, historical reset/history/reopen |
+| UI |Actual Windows Tk panel, swatches, marker preview, RGBA Apply/Undo/Redo/Restore on a private copy |
+| AI |39 original loop/exclusion cases for T2/T3 and42 in a separate noninstalled T1 fixture; Cup/Invitation-only/both mode gates preserve stack/registers |
+| Persistence |Original Master resume/stage and Cup stage byte ranges exact; new live save/resume owner pending |
+| Full checkpoint |1353 Windows tests,0 failures/errors,2 prior optional skips; late scoped changes covered by final focused report |
+| Randomizer |F3 Challenge two conflicts retained; v13 no declared byte overlap; no live coexistence claim |
+
+Current counts/hashes and private report locations: V_DEF4_1_PROVENANCE.json.

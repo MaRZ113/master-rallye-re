@@ -127,13 +127,15 @@ def derive(config):
     plan=json.loads((base/'addon-plan.json').read_text());base_plan=copy.deepcopy(plan)
     rows=[];authors=[];class_counts={'T1':8,'T2':8,'T3':12}
     for entry in sorted(inputs,key=lambda x:x['physical_id']):
-        if not {'project','build','physical_id'}<=set(entry) or set(entry)-{'project','build','physical_id','vehicle_class'}:raise ValueError('invalid roster project input')
+        if not {'project','build','physical_id'}<=set(entry) or set(entry)-{'project','build','physical_id','vehicle_class','ai_eligibility'}:raise ValueError('invalid roster project input')
         original,resources,report=load_author(Path(entry['project']),Path(entry['build']))
         cls=entry.get('vehicle_class',original['vehicle_class'])
         if cls not in class_counts:raise ValueError('unsupported runtime vehicle class')
         row=copy.deepcopy(original);row.update(physical_id=entry['physical_id'],vehicle_class=cls,class_local_index=class_counts[cls])
         if type(row['physical_id']) is not int or row['physical_id']!=28+len(rows):raise ValueError('new runtime projects must append contiguous physical IDs28+')
-        if cls!='T2' and any(v['enabled'] for v in row['ai_eligibility'].values()):raise ValueError('Class assignment requires disabled unqualified non-T2 AI pools')
+        if 'ai_eligibility'in entry:row['ai_eligibility']=copy.deepcopy(entry['ai_eligibility'])
+        from sdk_addon_ai import validate_eligibility
+        validate_eligibility(cls,row['ai_eligibility'])
         class_counts[cls]+=1
         if report.get('audio_profile'):
             report=copy.deepcopy(report);report['audio_profile']['physical_car_id']=row['physical_id']

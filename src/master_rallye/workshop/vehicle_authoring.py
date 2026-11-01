@@ -9,6 +9,7 @@ from master_rallye.addon_sdk.physics_profile import MEMBERS,compile_family,valid
 from master_rallye.vehicle_config_analysis import parse_vehicle_config_bytes
 from .camera_lab import CameraLabAuthoring
 from .frontend_authoring import FrontendAuthoring
+from .marker_authoring import MarkerAuthoring
 
 def sha(data):return hashlib.sha256(data).hexdigest()
 def typed(row):
@@ -47,12 +48,12 @@ def field_info(path,kind,member):
     return {'editable':editable,'units':unit,'bounds':guard,'group':('/'.join(path.split('/')[:2]) if path.startswith(('Suspension/','Player')) else path.split('/')[0]),
             'evidence':'Existing typed physics compiler; V-PHYS1/2 reader/consumer map. Initialization only, no live solver.'}
 
-class VehicleAuthoring(CameraLabAuthoring,FrontendAuthoring):
+class VehicleAuthoring(CameraLabAuthoring,FrontendAuthoring,MarkerAuthoring):
     def vehicle_state(self):
         from .service import write_json
         if not self.data.get('vehicle_authoring'):
             base=self.root/'author-baseline';base.mkdir(exist_ok=True);pins={}
-            for name in ('addon.json','physics-profile.json','ui-assets.json','camera-profile.json'):
+            for name in ('addon.json','physics-profile.json','ui-assets.json','camera-profile.json','race-marker.json','native-ai.json'):
                 source=self.working/name;dest=base/name
                 if source.exists():
                     if not dest.exists():shutil.copyfile(source,dest)
@@ -72,6 +73,12 @@ class VehicleAuthoring(CameraLabAuthoring,FrontendAuthoring):
         if 'frontend_stats'not in state:
             base=self.root/'author-baseline/addon.json'
             state['frontend_stats']=json.loads(base.read_text()).get('frontend',{}).get('stats',[])if base.exists()else []
+        addon_path=self.root/'author-baseline/addon.json'
+        if 'ai_eligibility'not in state:
+            ai=self.root/'author-baseline/native-ai.json'
+            state['ai_eligibility']=json.loads(ai.read_text())['eligibility']if ai.exists()else json.loads(addon_path.read_text()).get('ai_eligibility',{})if addon_path.exists()else{}
+        if 'marker_policy'not in state:
+            path=self.root/'author-baseline/race-marker.json';state['marker_policy']=json.loads(path.read_text())if path.exists()else None
         return state
 
     def _retail_members(self):
@@ -250,13 +257,11 @@ class VehicleAuthoring(CameraLabAuthoring,FrontendAuthoring):
         if self.data['kind']!='addon':raise ValueError('Marker authoring requires an independently registered addon CarID; stock registration is read-only')
         state=self.vehicle_state();baseline=json.loads((self.root/'author-baseline/addon.json').read_text())['race_colour_rgba']
         current=state['race_marker'];colour_info(current)
-        if current[3]!=baseline[3]:raise ValueError('Race marker alpha ownership changed')
-        return {'original':colour_info(baseline),'current':colour_info(current),'car_id':self.data['car_id'],'boundary':'VehicleRecord +24..+30 -> Race/CarN/Colour. Per-vehicle marker only; shared HUD image and body/UI art unchanged.'}
+        return {'policy':state.get('marker_policy'),'original':colour_info(baseline),'current':colour_info(current),'car_id':self.data['car_id'],'boundary':'VehicleRecord +24..+30 -> Race/CarN/Colour. Per-vehicle marker only; shared HUD image and body/UI art unchanged.'}
 
     def marker_update(self,rgb):
         from .race_marker import normalized_rgb
-        info=self.marker_inspect();state=self.vehicle_state();state['race_marker']=[*normalized_rgb(rgb),info['original']['rgba'][3]]
-        self._vehicle_commit(state);return self.marker_inspect()
+        info=self.marker_inspect();return self.marker_select('MANUAL',manual=[*normalized_rgb(rgb),info['current']['rgba'][3]])
 
     def alias_update(self,texture,label):
         if texture not in self.data['inputs'] or not texture.endswith('.dxt'):raise ValueError('Alias needs an owned texture ID')
@@ -274,6 +279,7 @@ class VehicleAuthoring(CameraLabAuthoring,FrontendAuthoring):
         state=self.vehicle_state();defaults=self.vehicle_defaults()
         if section is not None and section not in defaults:raise ValueError('Unknown authoring section')
         for key in ([section] if section else defaults):state[key]=defaults[key]
+        if section=='race_marker':state['marker_policy']=defaults['marker_policy']
         self._vehicle_commit(state)
 
     def vehicle_defaults(self):
@@ -286,6 +292,8 @@ class VehicleAuthoring(CameraLabAuthoring,FrontendAuthoring):
         defaults['details'].update(display_name=addon.get('results',{}).get('display_name',''),description=addon.get('description',''))
         defaults['race_marker']=addon.get('race_colour_rgba')
         defaults['frontend_stats']=addon.get('frontend',{}).get('stats',[])
+        defaults['ai_eligibility']=json.loads((base/'native-ai.json').read_text())['eligibility']if (base/'native-ai.json').exists()else addon.get('ai_eligibility',{})
+        path=base/'race-marker.json';defaults['marker_policy']=json.loads(path.read_text())if path.exists()else None
         defaults['frontend']=None
         return defaults
 
@@ -293,7 +301,7 @@ class VehicleAuthoring(CameraLabAuthoring,FrontendAuthoring):
         """Exact metadata replay for compatible new visual versions; report conflicts."""
         if not other.data.get('vehicle_authoring'):return {'applied':[],'conflicts':[]}
         source=other.vehicle_state();state=self.vehicle_state();report={'applied':[],'conflicts':[]}
-        state['physics']=source['physics'];state['details']=source['details'];state['race_marker']=source['race_marker']
+        state['physics']=source['physics'];state['details']=source['details'];state['race_marker']=source['race_marker'];state['marker_policy']=source.get('marker_policy');state['ai_eligibility']=source['ai_eligibility']
         for name,alias in source['aliases'].items():
             if self.data['inputs'].get(name)==alias['source_sha256']:state['aliases'][name]=alias;report['applied'].append(name)
             else:report['conflicts'].append({'alias':name,'reason':'texture changed or omitted by this appearance version'})
@@ -308,7 +316,7 @@ class VehicleAuthoring(CameraLabAuthoring,FrontendAuthoring):
         from .service import write_json
         self.vehicle_defaults() # Check immutable author pins first.
         base=self.root/'author-baseline';author=Path(author)
-        for name in ('physics-profile.json','ui-assets.json','camera-profile.json'):
+        for name in ('physics-profile.json','ui-assets.json','camera-profile.json','race-marker.json','native-ai.json'):
             if name in self.data['vehicle_baseline_pins']:shutil.copyfile(base/name,author/name)
         if (base/'addon.json').exists():
             original=json.loads((base/'addon.json').read_text());addon=json.loads((author/'addon.json').read_text())
@@ -321,6 +329,17 @@ class VehicleAuthoring(CameraLabAuthoring,FrontendAuthoring):
         from .service import write_json,write_resource,plain_tree
         if not self.data.get('vehicle_authoring'):return
         state=self.vehicle_state();base=self.root/'author-baseline'
+        marker=state.get('marker_policy')
+        if marker and marker.get('policy',{}).get('mode','').startswith('AUTO_'):
+            from ..addon_sdk.marker_colour import analyze,select
+            pins=marker.get('analysis',{}).get('source_pins',{})
+            if not pins or any(not (self.assets/name).is_file()or sha((self.assets/name).read_bytes())!=pin for name,pin in pins.items()):
+                marker['analysis']=analyze(self.assets,**marker['policy'].get('analysis_settings',{}));state['race_marker']=select(marker['policy'],marker['analysis'],marker.get('historical'));marker['selected_rgba']=state['race_marker'];self.data['vehicle_authoring']=copy.deepcopy(state)
+        if marker and marker.get('policy',{}).get('mode')in ('HISTORICAL','MANUAL'):
+            from ..addon_sdk.marker_colour import select
+            selected=select(marker['policy'],historical=marker.get('historical'))
+            if selected!=state['race_marker']:
+                state['race_marker']=selected;marker['selected_rgba']=selected;self.data['vehicle_authoring']=copy.deepcopy(state)
         if state['physics'] is not None:
             target=self.working/'physics-profile.json';original=json.loads((base/'physics-profile.json').read_text())
             physics=copy.deepcopy(state['physics'])
@@ -332,7 +351,17 @@ class VehicleAuthoring(CameraLabAuthoring,FrontendAuthoring):
             addon=json.loads((self.working/'addon.json').read_text());original=json.loads((base/'addon.json').read_text());fields=state['details']
             addon['frontend'].update({k:fields[k] for k in ('manufacturer','model','combined')});addon['results']['display_name']=fields['display_name'];addon['description']=fields['description']
             addon['frontend']['stats']=state['frontend_stats'][:]
-            if state['race_marker'][3]!=original['race_colour_rgba'][3]:raise ValueError('Race marker alpha remains read-only')
+            addon['ai_eligibility']=copy.deepcopy(state['ai_eligibility'])
+            if original['vehicle_class']!='T3'and state['ai_eligibility'].get('invitation',{}).get('enabled'):
+                addon['ai_eligibility']['invitation']={'enabled':False,'reason':'Invitation belongs to the explicit runtime T3 class; technical author slot remains unchanged.'}
+            if state['ai_eligibility']!=original['ai_eligibility']or (self.working/'native-ai.json').exists():
+                write_json(self.working/'native-ai.json',{'version':1,'eligibility':state['ai_eligibility']})
+            if state.get('marker_policy'):
+                write_json(self.working/'race-marker.json',state['marker_policy'])
+                manifest=self.working/'restoration-manifest.json'
+                if manifest.exists():
+                    restoration=json.loads(manifest.read_text());restoration['identity']['race_marker_policy']=state['marker_policy']['policy'];restoration['identity']['selected_race_marker_rgba']=state['race_marker'];write_json(manifest,restoration)
+            elif (self.working/'race-marker.json').exists():(self.working/'race-marker.json').unlink()
             from .race_marker import colour_info
             colour_info(state['race_marker']);addon['race_colour_rgba']=state['race_marker']
             # Metadata-only aliases must not rewrite zero-edit author bytes.
@@ -361,7 +390,7 @@ class VehicleAuthoring(CameraLabAuthoring,FrontendAuthoring):
             for key in ('identity','physical_id','addon_id','vehicle_class','assets'):
                 if addon[key]!=original[key]:raise ValueError('Locked native identity changed: '+key)
             _validate_one(addon)
-            if addon['race_colour_rgba']!=state['race_marker']or state['race_marker'][3]!=original['race_colour_rgba'][3]:raise ValueError('Race marker state/alpha differs from authored ownership')
+            if addon['race_colour_rgba']!=state['race_marker']:raise ValueError('Race marker differs from authored ownership')
             if state['physics'] is not None:report['physics']=self.physics_compile()[1]
             _,ui=build_ui_assets(self.working,addon,Path(self.data['build_settings']['retail_sma']));report['ui']=ui
         if state['camera']:
