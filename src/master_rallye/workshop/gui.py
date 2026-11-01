@@ -681,7 +681,7 @@ def main():
     if a.source_scene:
         def open_source():
             try:
-                app.open_source_garage();app.source_garage_window._open(a.source_scene);app.source_garage_window.preview()
+                app.open_source_garage();app.source_garage_window.open_path(a.source_scene,preview=True)
             except (ValueError,OSError,KeyError)as error:messagebox.showerror('Source Garage',str(error),parent=root)
         root.after(250,open_source)
     elif a.project:app._opened(WorkshopProject(a.project))

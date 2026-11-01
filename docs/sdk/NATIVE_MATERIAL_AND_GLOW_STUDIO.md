@@ -1,0 +1,11 @@
+# Native Material and Glow Studio — initial Widgets slice
+
+Changed: the optional Qt inspector selects meshes and stable face IDs, assigns opaque/cutout/glass/tyre/rim/equipment/paint roles, copies the supported settings of a chosen native DX draw, pins an environment DXT, resets original source material, changes RGBA/opacity and authors exact-face constant-color Glow. The stock material copy preserves the vehicle livery unless texture assignment is explicitly requested; unknown native state records are not blindly copied.
+
+Reflection assignments split mixed source groups into complete derived groups. No fragmented source UV-box inference or global two-sided rendering. Source Pajero's mixed winding is a real conversion boundary: a separate explicit journal operation can orient derived faces to vertex normals. It is not an automatic decoder repair; ambiguous faces stay unchanged, original indices/normals stay immutable, and manual face/normal editing remains necessary where source normals are unsuitable.
+
+Generic Glow and brake switching are separate triggers. Both preserve ordinary diffuse base. Constant-color Glow uses the exact selected triangles and an unlit native ScenePart; brake uses the existing blight OFF/ON wrapper, with its17-draw case bound unchanged. No lamp triangles, damage zones or source audio are invented. Deleting faces invalidates their effects rather than illuminating a new ordinal. Sources and accepted RAV4 recipes remain unchanged.
+
+Use `Preview` for neutral derived geometry, then Build fixture with an explicit native DX template and scale. `Preview built native materials` shows real DX/DXT through the existing D3D9 native path, with Brake OFF/ON separately. This is offline MR approximation, not source-game shader parity or D3D8 proof. Template collision is copied, not fitted to the new car. No CarID or playable vehicle is installed.
+
+Remaining: textured emissive-mask painting/brush UI, copying arbitrary stock Glow controllers, advanced draw ordering, live material edits without a fixture rebuild, per-source glass damage authoring, advanced native response parameters and existing Studio integration are not complete. Current plain-color face Glow is not a substitute for those capabilities. Native and neutral previews are deliberately distinct.

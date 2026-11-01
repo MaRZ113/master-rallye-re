@@ -5,6 +5,8 @@ import copy
 import json
 import subprocess
 import uuid
+import queue
+import time
 from pathlib import Path
 import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
@@ -29,12 +31,12 @@ def silver_creation_available(scene):
                 and scene['source'].get('container_sha256')==TC_SHA256)
 
 
-def load_source_project(path: Path):
+def load_source_project(path: Path, *, refresh=False, task=None):
     """Reopen through the common validator, not through an MR Workshop project."""
-    from master_rallye.universal_vehicle_scene import load_scene
+    from .preview_cache import SCENES
     path = Path(path)
     scene_path = path / "scene.json" if path.is_dir() else path
-    scene = load_scene(scene_path)
+    scene, _ = SCENES.load(scene_path,refresh=refresh,task=task)
     if scene.get("schema") != "universal-vehicle-scene/1":
         raise ValueError("Universal Vehicle Scene v1 required")
     return scene_path.parent, scene
@@ -84,6 +86,10 @@ class SourceGarageWindow:
         self.window.protocol("WM_DELETE_WINDOW", self.close)
         self.scene = None; self.scene_root = None; self.process = None; self.photos = []
         self.preview_path = None; self.opacity_overrides = {}; self.selected_material = None
+        from .preview_cache import PreviewCache
+        self.cache=PreviewCache(app.workspace/'preview-cache-v1')
+        self.request_generation=0;self.task=None;self.progress_messages=queue.Queue()
+        self.task_started=0;self.task_label='';self.closed=False
         self.source = tk.StringVar()
         default = Path("E:/RallyWorkshop_Sources/sources/4x4 Evo 2")
         if default.is_dir():
@@ -111,6 +117,8 @@ class SourceGarageWindow:
         authoring = ttk.Frame(self.window, padding=(8, 0, 8, 8)); authoring.pack(fill="x")
         self.action_buttons["Create 4Runner Stable…"] = ttk.Button(authoring, text="Create 4Runner Stable…", command=self.create_mr_dialog)
         self.action_buttons["Create 4Runner Stable…"].pack(side="left")
+        ttk.Button(authoring,text='Force Refresh',command=self.force_refresh).pack(side='left',padx=5)
+        ttk.Button(authoring,text='Cache statistics',command=lambda:self.show(self.cache.stats)).pack(side='left')
         ttk.Button(authoring, text="Source / MR Help", command=lambda:self.app.show_help('universal-source')).pack(side="left", padx=8)
         ttk.Button(authoring, text="Qualification preflight", command=self.qualification).pack(side="left", padx=8)
         colorbar=ttk.Frame(self.window,padding=(8,0,8,4));colorbar.pack(fill='x')
@@ -159,7 +167,12 @@ class SourceGarageWindow:
         self.image.pack(fill="both", expand=True)
         self.image_source = None
         self.image.bind("<Configure>", self._fit_image)
+        feedback=ttk.Frame(self.window,padding=(8,3));feedback.pack(fill='x')
+        self.progress=ttk.Progressbar(feedback,mode='indeterminate',length=180);self.progress.pack(side='left')
+        self.cancel_button=ttk.Button(feedback,text='Cancel preview/open',command=self.cancel_task);self.cancel_button.pack(side='left',padx=6)
+        self.cancel_button.state(['disabled'])
         ttk.Label(self.window, textvariable=self.status, wraplength=1100, padding=8).pack(fill="x")
+        self.window.after(100,self._progress_tick)
         self._controls()
 
     def _controls(self):
@@ -177,6 +190,50 @@ class SourceGarageWindow:
             if self.window.winfo_exists():
                 done(value); self._controls()
         self.app.run(title, work, finish)
+
+    def _cached_run(self,title,work,done):
+        if self.app.busy:return
+        from .preview_cache import Task,Cancelled
+        self.request_generation+=1;generation=self.request_generation
+        task=Task(lambda label:self.progress_messages.put((generation,label)))
+        self.task=task;self.task_started=time.monotonic();self.task_label=title
+        self.progress.start(15);self.cancel_button.state(['!disabled']);self.status.set(title+'…')
+        def worker():
+            try:return ('ok',work(task))
+            except Cancelled:return ('cancelled',None)
+            except Exception as error:return ('error',str(error))
+        def finish(value):
+            if self.closed:return
+            if self.task is task:
+                self.progress.stop();self.cancel_button.state(['disabled']);self.task=None
+            if generation!=self.request_generation:return
+            if task.cancelled.is_set()or value[0]=='cancelled':self.status.set('Cancelled safely. Original scene is unchanged.');return
+            if value[0]=='error':
+                self.status.set('Failed: '+value[1]+'. Retry or Force Refresh.');return
+            done(value[1]);self._controls()
+        self.app.run(title,worker,finish)
+        # Legacy app.run disables every Tk button, including this safe cancel.
+        # Re-enable only this task's cancellation control on the main thread.
+        self.cancel_button.state(['!disabled'])
+
+    def _progress_tick(self):
+        if self.closed:return
+        try:
+            while True:
+                generation,label=self.progress_messages.get_nowait()
+                if generation==self.request_generation:self.task_label=label
+        except queue.Empty:pass
+        if self.task:self.status.set(self.task_label+f' · {time.monotonic()-self.task_started:.1f}s')
+        self.window.after(100,self._progress_tick)
+
+    def cancel_task(self):
+        if self.task:self.task.cancelled.set();self.status.set('Cancelling at safe boundary…')
+
+    def force_refresh(self):
+        if self.scene_root is None or self.app.busy:return
+        path=self.scene_root/'scene.json';settings=copy.deepcopy(self.settings())
+        def done(value):self._accept_open(*value);self.preview(refresh=True)
+        self._cached_run('Force verify original source',lambda task:(*load_source_project(path,refresh=True,task=task),settings),done)
 
     def qualification(self):
         if self.scene_root is None or self.app.busy:
@@ -334,14 +391,20 @@ class SourceGarageWindow:
         selected = filedialog.askopenfilename(parent=self.window, title="Reopen Universal Vehicle Scene",
                                               filetypes=[("Neutral source scene", "scene.json"), ("JSON", "*.json")])
         if selected:
-            try:
-                self._open(Path(selected))
-            except (ValueError, OSError, KeyError) as exc:
-                messagebox.showerror("Source Garage", str(exc), parent=self.window)
+            self.open_path(Path(selected))
+
+    def open_path(self,path,*,preview=False):
+        def done(value):
+            self._accept_open(*value)
+            if preview:self.preview()
+        self._cached_run('Opening source scene',lambda task:self._load_open(Path(path),task=task),done)
 
     def _open(self, path):
+        self._accept_open(*self._load_open(path))
+
+    def _load_open(self,path,*,task=None):
         from master_rallye.universal_vehicle_scene import read_bounded
-        scene_root, scene = load_source_project(path)
+        scene_root, scene = load_source_project(path,task=task)
         choices = scene_root / "source-preview-choices.json"
         settings = {}
         if choices.is_file():
@@ -349,6 +412,11 @@ class SourceGarageWindow:
             if settings.get("schema") != "source-preview-choices/1":
                 raise ValueError("Unsupported source preview choices")
             preview_configuration(scene, settings)
+        return scene_root,scene,settings
+
+    def _accept_open(self,scene_root,scene,settings):
+        self.request_generation+=1
+        if settings:
             if settings.get("basis") in ("source", "normalized"):
                 self.basis.set(settings["basis"])
             if settings.get("material_mode") in MATERIAL_MODES:
@@ -391,6 +459,7 @@ class SourceGarageWindow:
                                  values=(node.get("role", ""), node["visible"], mesh["material_id"]))
 
     def _mark_preview_pending(self, event=None):
+        self.request_generation+=1;self.cancel_task()
         if self.scene is not None:
             self.image_source = None; self.photos = []
             self.image.configure(image="", text="Preview choices changed. Choose Preview or reopen neutral 3D.")
@@ -471,29 +540,28 @@ class SourceGarageWindow:
         photo = ImageTk.PhotoImage(image, master=self.window)
         self.photos = [photo]; self.image.configure(image=photo, text="")
 
-    def preview(self):
+    def preview(self, *, refresh=False):
         if self.scene is None:
             return
         scene, target, options = self._request(); view = self.view.get()
-        def work():
-            report = stage_source_scene(scene, target / "preview.mrpv", **options)
-            capture = target / (view + ".bmp")
-            subprocess.run(viewer_command(self.app.viewer, target / "preview.mrpv", view=view, capture=capture,
-                                          provenance=report["display_name"], basis=report["basis"], cull=preview_cull(scene)), check=True, timeout=45,
-                           creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0), startupinfo=capture_startup_info())
-            return target / "preview.mrpv", capture, report
+        from .preview_cache import stage,render
+        def work(task):
+            path,report,stage_hit=stage(self.cache,scene,options,task=task,refresh=refresh)
+            capture,image_hit=render(self.cache,self.app.viewer,path,report,view=view,cull=preview_cull(scene),task=task,refresh=refresh)
+            return path,capture,report,stage_hit,image_hit
         def done(value):
-            self.preview_path, capture, report = value; self._display(capture)
-            self.status.set(f"D3D9 {view} · {report['basis']} coordinates · {report['material_mode']} · {report['visibility']} parts. Source-game parity unqualified.")
-        self._run("Render neutral source scene", work, done)
+            self.preview_path, capture, report,stage_hit,image_hit = value; self._display(capture)
+            self.status.set(f"D3D9 {view} · geometry {'cache hit'if stage_hit else'prepared'} · image {'cache hit'if image_hit else'rendered'} · {time.monotonic()-self.task_started:.2f}s · source fidelity WARN")
+        self._cached_run("Render neutral source scene", work, done)
 
     def interactive(self):
         if self.scene is None:
             return
         scene, target, options = self._request(); view = self.view.get()
-        def work():
-            report = stage_source_scene(scene, target / "interactive.mrpv", **options)
-            return target / "interactive.mrpv", report
+        from .preview_cache import stage
+        def work(task):
+            path,report,_=stage(self.cache,scene,options,task=task)
+            return path,report
         def done(value):
             path, report = value
             if self.process is not None and self.process.poll() is None:
@@ -501,22 +569,32 @@ class SourceGarageWindow:
             self.process = subprocess.Popen(viewer_command(self.app.viewer, path, view=view, provenance=report["display_name"], basis=report["basis"], cull=preview_cull(scene)))
             self.preview_path = path
             self.status.set("Neutral 3D viewport: orbit/pan/zoom, geometry picking, layer isolation, source material diagnostics. No MR compilation.")
-        self._run("Stage interactive neutral preview", work, done)
+        self._cached_run("Stage interactive neutral preview", work, done)
 
     def capture(self):
         if self.scene is None:
             return
         scene, target, options = self._request()
-        def work():
-            report = stage_source_scene(scene, target / "capture.mrpv", **options)
-            result = capture_views(self.app.viewer, target / "capture.mrpv", target / "views", provenance=report["display_name"], basis=report["basis"], cull=preview_cull(scene))
-            return target, result
+        from .preview_cache import stage,render
+        def work(task):
+            from PIL import Image
+            path,report,_=stage(self.cache,scene,options,task=task);views={}
+            target.mkdir(parents=True)
+            for index,view in enumerate(VIEWS):
+                task.stage(f'Capture {view} ({index+1}/{len(VIEWS)})')
+                capture,_=render(self.cache,self.app.viewer,path,report,view=view,cull=preview_cull(scene),task=task)
+                destination=target/(view+'.png')
+                with Image.open(capture)as image:image.save(destination)
+                views[view]=str(destination)
+            result={'views':views,'scene':str(path),'qualification':'D3D9 neutral approximation; no source-runtime parity'}
+            (target/'captures.json').write_text(json.dumps(result,indent=2),encoding='utf-8');return target,result
         def done(value):
             target, report = value; self._display(report["views"]["isometric"]); self.show(report)
             self.status.set(f"Six D3D9 orthographic captures saved; showing isometric: {target / 'views'}. Static source wheel pose; no settled-suspension or source-game parity claim.")
-        self._run("Capture neutral source scene from six views", work, done)
+        self._cached_run("Capture neutral source scene from six views", work, done)
 
     def close(self):
+        self.closed=True;self.cancel_task();self.request_generation+=1
         if self.process is not None and self.process.poll() is None:
             self.process.terminate()
         self.window.destroy()
