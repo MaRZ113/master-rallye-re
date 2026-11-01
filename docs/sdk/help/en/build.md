@@ -57,7 +57,7 @@ See docs/sdk/DEMO_FRONTEND_STATS.md; missing retired RAV4/Alpha values are not
 inferred from Newrav.
 
 Generate vehicle art uses mr-native-v2: brighter studio fill/softbox highlights
-for complete eligible source material groups, with a separate three-quarter
+for complete eligible source material groups, with the preserved flat side
 orthographic miniature view. The large rotating frontend and ordinary 3D source
 preview are unchanged. Generated highlights approximate icon presentation;
 they are not recovered original MR reflection/shader behavior. Source textures,

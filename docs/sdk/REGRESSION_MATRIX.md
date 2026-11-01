@@ -809,7 +809,7 @@ No new playable Demo restoration or original-file write is inferred.
 | Determinism | Two builds:291 DX/DXT exact; first/final414 resources, native extension and RVP exact |
 | Original preservation |1759 unchanged protected pins; live proxy and PlayerState changed externally, observed/not restored; current proxy preflight PASS, SHA gate remains disabled |
 | Ratings | Eight targets, original841/931 instruction/localization evidence, UNKNOWN retired RAV4/Alpha retained; Workshop rating history changes no physics |
-| Icon v2 | Source-only synthetic guards, real same-car v1/v2/original images; role-specific camera/lighting, native UI composition, Apply/Undo/Redo/Restore/reopen PASS on a private copy |
+| Icon v2 | Source-only synthetic guards, real same-car v1/v2/original images; preserved flat side HUD/full-icon cameras and v2 lighting, native UI composition, Apply/Undo/Redo/Restore/reopen PASS on a private copy |
 | Full Windows checkpoint |1341 tests,0 failures/errors,2 existing optional private-fixture skips,85.020s PASS |
 | Final focused |48 tests PASS, including six new tests and late narrow rating/provenance/mini-camera guards |
 | D3D9 | Source/restored/retail six views, frontend, manually selected lamp ON and broken panes; actual game triggers remain untested |

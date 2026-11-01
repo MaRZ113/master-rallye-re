@@ -577,7 +577,7 @@ replacement and exact-source cache repair without changing generic writer gates.
 Historical frontend ratings are source-evidenced in per-car manifests and
 editable in Workshop independently of physics. RAV4/Alpha unknown values are
 not borrowed from Newrav. The generated-icon v2 studio style adds full/HUD
-highlights and a separate three-quarter mini camera; original images and ordinary
+highlights and the flat side orthographic mini camera; original images and ordinary
 3D source materials remain untouched. Generate/Apply/native UI/history/Restore
 are verified on a separate project. See V_DEF4_TOMCAT_RESULTS.md and
 DEMO_FRONTEND_STATS.md. No next import, new slot, installation or publication.

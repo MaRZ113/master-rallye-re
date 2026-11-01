@@ -69,7 +69,7 @@ placeholders. Workshop rating edits change display records only, never physics.
 Frozen accepted builds are not silently rebuilt to update manifest defaults.
 
 Generated full/HUD icons now have an optional/reversible mr-native-v2 studio
-lighting/reflection style and an independent three-quarter mini camera. Ordinary
+lighting/reflection style and the preserved flat side orthographic mini camera. Ordinary
 3D scene materials, source assets and recovered original artwork are unchanged.
 Regenerate/compare/apply through Workshop; existing RAV4 icons remain accepted
 until explicitly applied in a derived project.

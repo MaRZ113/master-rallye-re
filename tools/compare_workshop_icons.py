@@ -34,7 +34,7 @@ def compare(family,output,references=None):
         same_camera=all(records['mr-native-v1',role]['render'][k]==records['mr-native-v2',role]['render'][k]for k in ('camera_azimuth','camera_elevation'))
         if same_camera and a[3::4]!=b[3::4]:raise ValueError('Icon lighting changed coverage at the same camera')
         coverage[role]={'same_camera':same_camera,'alpha_identical':a[3::4]==b[3::4],
-                        'policy':'Independent alpha-only render; v2 HUD uses the original-art-style three-quarter camera'}
+                        'policy':'Independent alpha-only render; v1/v2 preserve flat side orthographic HUD and full-icon cameras'}
     if any(hashlib.sha256((family/n).read_bytes()).hexdigest()!=pin for n,pin in pins.items()):raise ValueError('Source icon resource changed')
     sheet.save(output/'comparison.png')
     report={'source_pins':pins,'coverage':coverage,'records':{style+'/'+role:value for (style,role),value in records.items()},

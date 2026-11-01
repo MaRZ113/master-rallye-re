@@ -759,12 +759,12 @@
     "profile": "mr-native-v2",
     "scope": "Generated VehicleSelect/HUD images only; ordinary source/native scene materials unchanged",
     "HUD_camera_degrees": [
-      130,
-      8
+      -90,
+      0
     ],
     "original_artwork_preserved": true,
     "applied_to_accepted_RAV4": false,
-    "workflow_evidence": ".research-output/vehicles/v-def4/ui-service-delivery.json"
+    "workflow_evidence": ".research-output/vehicles/v-def4/ui-service-side.json"
   },
   "private_artifacts": {
     "candidate": ".research-output/vehicles/v-def4/delivery/workshop/builds/final/candidate",
@@ -772,7 +772,7 @@
     "native_extension_sha256": "e7f562725319e0034918b16b2057b59a5e90397da9fee4c7349caf1dd4ae0f81",
     "rvp_sha256": "7e8c573bbf78bd02a60edb808e74011ee02bd453b968ca8666e63f6e3d2bf949",
     "D3D9": ".research-output/vehicles/v-def4/d3d9-comparison/comparison.png",
-    "icons": ".research-output/vehicles/v-def4/icons-source-delivery/comparison.png"
+    "icons": ".research-output/vehicles/v-def4/icons-side-source/comparison.png"
   },
   "stop_boundary": "TOMCAT candidate and shortlist stats audit only. No new CarID, next restoration, push or publication."
 }

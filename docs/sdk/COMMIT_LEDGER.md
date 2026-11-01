@@ -863,7 +863,7 @@ original841/931 frontend stats audit reuses audit_demo_identity.py. Verified
 manifest ratings and Workshop display-only edits/history retain source evidence;
 retired Rav4 and Alpha remain UNKNOWN. Future Forester defaults corrected without
 rewriting its accepted build. UI-only v2 studio fill/reflection and independent
-mini-camera, original-art opt-in preservation and same-car comparison tooling.
+flat side mini-camera, original-art opt-in preservation and same-car comparison tooling.
 
 1341-test full Windows checkpoint PASS (2 prior optional skips), final48 focused;
 33-record native helper/ratings checks, three Windows preflights,291 deterministic
@@ -873,3 +873,11 @@ not written or restored. Current proxy passes hash-gate-disabled preflight.
 Owner TOMCAT gameplay remains PENDING. No next import, new slot, DLL install,
 push or publication. Source-only review/changed-files archives exclude private
 models/textures/executable payloads. See V_DEF4_TOMCAT_RESULTS.md and provenance.
+
+### V-DEF4 owner camera correction
+
+Restored generated HUD icons to the existing flat side orthographic view
+(-90 degrees, 0 elevation). Retained v2 brightness/highlights and unchanged full
+icon camera. Current 48 focused tests and private Generate/Apply/native UI/
+Undo/Redo/Restore/reopen checks PASS; regenerated both same-car comparisons
+retain exact v1/v2 alpha masks. Original TOMCAT artwork/candidate unchanged.

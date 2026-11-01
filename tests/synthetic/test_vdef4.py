@@ -66,14 +66,14 @@ class TomcatTests(unittest.TestCase):
             self.assertEqual(a[3::4],b[3::4]);self.assertEqual(old['profile'],'mr-native-v1');self.assertEqual(new['profile'],'mr-native-v2')
             self.assertGreaterEqual(new['target_p90'],old['target_p90'])
 
-    def test_v2_hud_has_its_own_three_quarter_camera(self):
+    def test_v2_hud_preserves_flat_side_camera(self):
         from tools.generate_vehicle_ui_previews import render_sources
         from tests.synthetic.test_heritage_source import fixture
         with tempfile.TemporaryDirectory()as folder:
             root=Path(folder);(root/'complete.dx').write_bytes(fixture())
             report=render_sources(root,root/'icons')
             hud=report['smallcarsheet'];menu=report['vehicle_select_art']
-            self.assertEqual((hud['camera_azimuth'],hud['camera_elevation']),(130.,8.))
+            self.assertEqual((hud['camera_azimuth'],hud['camera_elevation']),(-90.,0.))
             self.assertNotEqual(hud['camera_azimuth'],menu['camera_azimuth'])
             self.assertEqual(hud['projection'],'orthographic')
 

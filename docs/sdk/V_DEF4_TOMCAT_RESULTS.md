@@ -110,22 +110,21 @@ separate and source-corrupting/mismatched PROVEN manifest values are rejected.
 
 `mr-native-v2` is confined to generated full/mini UI images. It adds brighter
 studio fill, normal/view-dependent softbox highlights for complete supported
-material groups and a separate three-quarter orthographic HUD camera130°/8°.
+material groups and the original flat side orthographic HUD camera−90°/0°.
 Full-icon framing stays independent. Source textures, geometry and ordinary
 D3D9 material previews are unchanged. This is authored icon lighting, not exact
 original MR reflection emulation. Explicit v1 generation/composition remains.
 
 Same-car comparison against original blue artwork:
-`.research-output/vehicles/v-def4/icons-source-delivery/comparison.png`.
+`.research-output/vehicles/v-def4/icons-side-source/comparison.png`.
 RAV4 v1/v2 comparison:
-`.research-output/vehicles/v-def4/icons-rav-delivery/comparison.png`.
+`.research-output/vehicles/v-def4/icons-side-rav/comparison.png`.
 These are private renders; no AI-created or repainted assets were used.
 
 Generate → Apply → native UI compilation → Undo/Redo → Restore → reopen was
 tested on an independent Workshop copy. The style survives persistence and
-single-pass composition; opaque source geometry is never modified. At unchanged
-camera the independent alpha mask is exact. The new HUD pose intentionally has
-a different projected silhouette. Existing accepted RAV4 icons are not silently
+single-pass composition; opaque source geometry is never modified. Both UI roles retain their original camera poses and exact independent alpha
+masks. The HUD remains a flat side view, as requested by the owner. Existing accepted RAV4 icons are not silently
 rebuilt; regenerate/apply in a derived Workshop project to opt in. TOMCAT uses its
 recovered original artwork rather than replacing it with a generated approximation.
 
@@ -133,7 +132,7 @@ recovered original artwork rather than replacing it with a generated approximati
 
 * Full Windows checkpoint:1341 tests,0 failures/errors,2 existing optional
   private-fixture skips,85.020s. Final narrow rating/provenance/HUD-camera changes
-  additionally pass48 focused tests, including six new source-free cases.
+  additionally pass48 focused tests (current focused-side.json), including six new source-free cases.
 * All33 native forward/reverse records and source marker bytes,55 name checks,
   Results/unlock,99 single-getter audio probes and existing T2 AI chains pass
   x86 emulation with native calls mocked. Native display stats are asserted

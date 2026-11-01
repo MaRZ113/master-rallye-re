@@ -77,7 +77,6 @@ def render_sources(family,out,*,roles=None,azimuth=None,elevation=None,padding=1
     for role,profile in PROFILES.items():
         if roles is not None and role not in roles:continue
         profile=dict(profile)
-        if style=='mr-native-v2' and role=='smallcarsheet':profile['camera']=(130.,8.)
         angles=(profile['camera'][0] if azimuth is None else azimuth,profile['camera'][1] if elevation is None else elevation)
         camera=raster.Camera(*angles,1,centre,profile['distance'])
         W,H=512,320;projection_bounds=frame_camera(points,camera,W,H,padding);lit=[];mask=[]
