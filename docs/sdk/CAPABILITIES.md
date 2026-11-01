@@ -1,5 +1,7 @@
 # V-SET1 — Windowed in-process setup pilot
 
+V-SET1.1 corrects premature race-state gating in the frontend dialog. Original frontend mode/split/player/selection fields admit setup before race state exists; strict prepared-race gates still protect Car0 tire writes. Owner confirmation of the fix is pending.
+
 Owner reports all V-DEF4.1 runtime tests successful. That accepted33-car baseline
 is preserved. Existing SeatBuggy21 now has an isolated Quick Race setup candidate:
 F6 on Gearbox, two scoped livery choices, native Stock or original gravel,

@@ -1,5 +1,7 @@
 # V-SET1 — Current qualification
 
+V-SET1.1: native regression reproduces old rejection (exit23, race values0). Corrected own Win32 dialog confirms in frontend context; tire gate stays false.32 focused Python and44 renderer tests pass. Full1388 below is the prior checkpoint. New D3D8 confirmation pending.
+
 | Scope | Evidence | Boundary |
 |---|---|---|
 | V-DEF4.1 baseline | Owner reports all runtime tests successful | Separate known F3 conflicts remain uncomposed |

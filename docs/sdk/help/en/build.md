@@ -106,3 +106,7 @@ Do not edit linked runtime resources. Use only the generated CMD; disable throug
 Enabled=0 in the private host/VSET1.ini, preserving the package marker. Saved
 championships are not rewritten. New in-game behavior is pending owner validation.
 See V_SET1_PILOT.md for scope, source boundaries and the exact checklist.
+
+V-SET1.1 fixes an erroneous Quick Race rejection before race state is published.
+Use the new scope-fix CMD; the previous launcher redirects automatically.
+If refused, host/vset1-runtime.log now records the exact SCOPE values.

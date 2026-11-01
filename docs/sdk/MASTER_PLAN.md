@@ -51,6 +51,9 @@ existing PS2 SeatBuggy / CarID21. F6 on the original Gearbox page opens an owned
 in-process setup dialog with livery/tire choices, Apply, Defaults, Cancel and
 independent sidecar persistence. It is not a new MR-rendered fullscreen screen;
 controller hardware and all original-game behavior remain owner tests.
+V-SET1.1 fixes premature race-state gating: setup uses original frontend
+mode/split/player/selection fields; tire publication still requires prepared
+single-human Quick Race Car0. See V_SET1_PILOT.md.
 
 The two visual choices are PS2 original and **RECONSTRUCTED PC sponsor panels**.
 Only two UV-witnessed maps receive authentic PC RGB; original PS2 alpha,

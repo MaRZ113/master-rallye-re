@@ -14,7 +14,38 @@ single-player Quick Race only. There are no new vehicles or IDs. The accepted
 unchanged. Other cars use their accepted native rendering and Stock physics.
 
 Private launcher, relative to this checkout:
-`.research-output/vehicles/v-set1/pilot-01/delivery-final/Launch-V-SET1.cmd`.
+`.research-output/vehicles/v-set1/scope-fix/delivery/Launch-V-SET1.cmd`.
+
+
+### V-SET1.1 — frontend scope correction
+
+The owner screenshot confirms Gearbox/F6 is hooked, but the first build wrongly
+refuses Quick Race setup. It required already-published race state in a frontend
+dialog. Retained runtime evidence in research/vehicles/sdk/j2/runtime-evidence-
+2026-10-09.json shows Quick Race menus with Race/Type0, becoming2 after race
+preparation. This is historical evidence, not a fresh snapshot of this failure.
+The process exited before attempted read-only inspection; no live values were
+obtained and no process memory was written.
+
+Original executable0x4addb0 reads Frontend/InQuickRaceMode;0x4ae2d0 reads
+Frontend/SplitScreen. Original setup0x44c780 reads Frontend/CarSetup/PlayerID.
+The corrected dialog uses these frontend fields and Frontend/QuickRace/Car0,
+without requiring Race/Type or Race/NumPlayers before race preparation.
+The old0x4b0630 getter builds RaceData/CompetitorN/CarID, so it is no longer a
+selected-menu-car test. Paint accepts scoped frontend or prepared-race context.
+Tire publication still requires Race/Type2, one player, Race/Car0/CarID matching
+the package, human PlayerType1, exact Vehicles/Car0, no replay/attract. Opening
+setup cannot apply tire overrides. F6 writes exact context fields as SCOPE in
+the private log. Other frontend modes, split screen and other cars are rejected.
+
+The regression failed with exit23 on the original code. The corrected own Win32
+dialog confirms while Race/Type and NumPlayers are0; the tire gate stays false.
+Wrong frontend mode, split and other-car gates are tested.32 focused Python and
+44/44 renderer tests pass. The broader1388-test run below is the prior checkpoint,
+not repeated for this scoped native fix. Original-game fix is PENDING_OWNER.
+A fresh private host preserves the old DLL; the previous CMD redirects to the
+correction. Existing private settings are copied; installed and accepted files
+remain unchanged.
 
 ## Menu and deployment
 

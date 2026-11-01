@@ -1,3 +1,14 @@
+# V-SET1.1 — Setup lifecycle scope —2 November2026
+
+Baseline a0f0f71013049724ddfebdc24bfec0448bdd540b. Owner screenshot confirms
+Gearbox hook active but wrong Quick Race rejection. Separate frontend selection
+from prepared race participant state. Reuse original mode/split/player/Car0
+fields, retain strict tire guards, log exact SCOPE. Old RaceData getter no longer
+stands in for frontend selection. Native regression old exit23; own corrected
+dialog confirms under race values0.32 focused Python/44 renderer tests pass.
+Fresh private host, original prototype preserved, prior CMD redirects. No
+installed or accepted vehicle changes. Actual fix owner-pending. See V_SET1_PILOT.md.
+
 # V-SET1 — In-process setup candidate —2 November2026
 
 Starting revision86dc80b7f632a7431ea4cfc814cc269ae4400cab, research/vehicles.

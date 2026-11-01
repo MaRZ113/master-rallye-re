@@ -120,5 +120,37 @@
     "Original-game tire consumption, Results, re-entry, controller and save behavior owner-pending",
     "No new CarID, full fleet import or generic installed DLL loader",
     "Known Randomizer F3 conflicts remain outside this private host composition"
-  ]
+  ],
+  "scope_fix": {
+    "version": "V-SET1.1",
+    "reason": "Owner Gearbox/F6 screenshot rejected valid Quick Race; frontend used prepared-race fields",
+    "regression_before_exit": 23,
+    "own_dialog_after": "PASS with Race/Type0 and Race/NumPlayers0",
+    "frontend_fields": [
+      "Frontend/InQuickRaceMode",
+      "Frontend/SplitScreen",
+      "Frontend/QuickRace/Car0",
+      "Frontend/CarSetup/PlayerID"
+    ],
+    "tire_fields": "Exact prepared human Race/Car0, Type2, NumPlayers1; no replay/attract",
+    "python_focused": 32,
+    "renderer_ctest": 44,
+    "full_suite": "Prior V-SET1 checkpoint retained; not repeated",
+    "owner_gameplay": "PENDING_OWNER",
+    "native_proof": {
+      "launch": "D:\\Game\\Master Rallye\\master-rallye-re-vehicles\\.research-output\\vehicles\\v-set1\\scope-fix\\delivery\\Launch-V-SET1.cmd",
+      "baseline_verification": "RESOURCE_ROOT_VERIFIED files=414 index=0a53affeb9e1c703cc38e454c5cb843adb6c8bdfdf82252705f8c5bc95840772\nRUNTIME_BUNDLE_VERIFIED patch_operations=264 plan_sha256=295cfc06b9c7f18ee9d8bdb6e612e09b1dad06750e121258a1e8acc4baebe0b5\nGRAPHICS_PROXY_PINNED hash_gate=disabled\nLAUNCH_ENVIRONMENT_VERIFIED graphics_proxy=pinned-d3d8\n",
+      "original_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "host_exe_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+      "private_proxy_sha256": "d0a387ff32afe60426b5656b2db294509b46263ef4c9d2d2702391856026ad3d",
+      "immutable_hardlinks": 424,
+      "independent_mutable_copies": [
+        "D:\\Game\\Master Rallye\\master-rallye-re-vehicles\\.research-output\\vehicles\\v-def4-1\\delivery-final\\32\\workshop\\builds\\first\\candidate\\runtime\\resource-root\\DataGame\\options.xml",
+        "D:\\Game\\Master Rallye\\master-rallye-re-vehicles\\.research-output\\vehicles\\v-def4-1\\delivery-final\\32\\workshop\\builds\\first\\candidate\\runtime\\resource-root\\DataGame\\PlayerState.xml"
+      ],
+      "installed_files_written": [],
+      "new_car_ids": [],
+      "owner_gameplay": "NOT_TESTED"
+    }
+  }
 }

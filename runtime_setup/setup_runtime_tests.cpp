@@ -9,8 +9,17 @@ int wmain(int argc,wchar_t** argv){
  std::filesystem::create_directories(mrsetup::root);
  mrsetup::owner=CreateWindowW(L"STATIC",L"V-SET1 modal UI test host",WS_OVERLAPPEDWINDOW,0,0,600,400,nullptr,nullptr,nullptr,nullptr);
  if(!mrsetup::owner)return 4;
- mrsetup::ready=true;mrsetup::test_action=1;mrsetup::open();
+ mrsetup::ready=true;
+ // A menu exists before Race/Type and Race/NumPlayers are published.
+ mrsetup::test_mode=0;mrsetup::test_players=0;
+ if(!mrsetup::visual_scope())return 23;
+ if(mrsetup::race_scope())return 24;
+ mrsetup::test_frontend_quick=false;if(mrsetup::frontend_scope())return 25;mrsetup::test_frontend_quick=true;
+ mrsetup::test_split=true;if(mrsetup::frontend_scope())return 26;mrsetup::test_split=false;
+ mrsetup::test_frontend_car=-1;if(mrsetup::frontend_scope())return 27;mrsetup::test_frontend_car=mrsetup::package::car_id;
+ mrsetup::test_action=1;mrsetup::open();
  if(mrsetup::selected_livery!=1||mrsetup::selected_tyre!=1)return 5;
+ mrsetup::test_mode=2;mrsetup::test_players=1;
  struct Prefix {uint32_t header;const char* data;uint32_t length,capacity;};
  char player[]="Vehicles/Car0",ai[]="Vehicles/Car1";Prefix p{0,player,13,31},other{0,ai,13,31};
  auto reject=[&](Prefix* prefix){auto calls=mrsetup::test_original_calls;mrsetup::test_writes.clear();mrsetup::front(nullptr,nullptr,prefix,nullptr);mrsetup::rear(nullptr,nullptr,prefix,nullptr);return mrsetup::test_writes.empty()&&mrsetup::test_original_calls==calls+2;};

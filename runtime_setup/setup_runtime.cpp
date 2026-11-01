@@ -40,6 +40,8 @@ void set_name(const char* key,const char* value){auto k=name(key),v=name(value);
 #ifdef MRSETUP_TEST
 int test_car=package::car_id,test_mode=2,test_players=1,test_player_type=1,test_original_calls=0;
 bool test_attract=false,test_replay=false;
+bool test_frontend_quick=true,test_split=false;
+int test_frontend_car=package::car_id,test_setup_player=0;
 std::vector<std::pair<std::string,std::string>> test_writes;
 int car(){return test_car;} int mode(){return test_mode;}
 int test_action=0;
@@ -48,8 +50,21 @@ int car(){auto* p=function<void*(__cdecl*)()>(adapter::players)();return functio
 int mode(){auto* p=function<void*(__cdecl*)()>(adapter::race)();return function<int(__thiscall*)(void*)>(adapter::race_type)(p);}
 #endif
 #ifdef MRSETUP_TEST
-int integer(const char* path){return !std::strcmp(path,"Race/NumPlayers")?test_players:test_player_type;}
-bool boolean(const char* path){return !std::strcmp(path,"Race/AttractMode")?test_attract:test_replay;}
+int integer(const char* path){
+ if(!std::strcmp(path,"Race/NumPlayers"))return test_players;
+ if(!std::strcmp(path,"Race/Car0/PlayerType"))return test_player_type;
+ if(!std::strcmp(path,"Race/Car0/CarID"))return test_car;
+ if(!std::strcmp(path,"Frontend/QuickRace/Car0"))return test_frontend_car;
+ if(!std::strcmp(path,"Frontend/CarSetup/PlayerID"))return test_setup_player;
+ return 0;
+}
+bool boolean(const char* path){
+ if(!std::strcmp(path,"Race/AttractMode"))return test_attract;
+ if(!std::strcmp(path,"Race/PlaybackReplay"))return test_replay;
+ if(!std::strcmp(path,"Frontend/InQuickRaceMode"))return test_frontend_quick;
+ if(!std::strcmp(path,"Frontend/SplitScreen"))return test_split;
+ return false;
+}
 void original_writer(uintptr_t,void*,void*,void*){++test_original_calls;}
 void write_tyre(const char* key){test_writes.emplace_back(key,package::alternative_tyre);}
 #else
@@ -59,8 +74,11 @@ void original_writer(uintptr_t address,void* self,void* prefix,void* data){funct
 void write_tyre(const char* key){set_name(key,package::alternative_tyre);}
 #endif
 bool player_prefix(void* value){char* p=nullptr;char s[32]{};return value&&copy(&p,static_cast<char*>(value)+4,4)&&p&&copy(s,p,sizeof(s))&&!std::strcmp(s,"Vehicles/Car0");}
-bool visual_scope(){return ready&&mode()==2&&car()==package::car_id&&integer("Race/NumPlayers")==1&&!boolean("Race/AttractMode")&&!boolean("Race/PlaybackReplay");}
-bool applies(void* prefix){return ready&&selected_tyre==1&&player_prefix(prefix)&&visual_scope()&&integer("Race/Car0/PlayerType")==1;}
+bool frontend_scope(){return ready&&boolean("Frontend/InQuickRaceMode")&&!boolean("Frontend/SplitScreen")&&integer("Frontend/QuickRace/Car0")==package::car_id&&!boolean("Race/AttractMode")&&!boolean("Race/PlaybackReplay");}
+bool race_scope(){return ready&&mode()==2&&integer("Race/Car0/CarID")==package::car_id&&integer("Race/NumPlayers")==1&&!boolean("Race/AttractMode")&&!boolean("Race/PlaybackReplay");}
+bool visual_scope(){return frontend_scope()||race_scope();}
+bool applies(void* prefix){return ready&&selected_tyre==1&&player_prefix(prefix)&&race_scope()&&integer("Race/Car0/PlayerType")==1;}
+void log_scope(){char text[512]{};std::snprintf(text,sizeof(text),"SCOPE frontendQuick=%u split=%u selectedCar=%d setupPlayer=%d raceType=%d racePlayers=%d raceCar0=%d attract=%u replay=%u",boolean("Frontend/InQuickRaceMode"),boolean("Frontend/SplitScreen"),integer("Frontend/QuickRace/Car0"),integer("Frontend/CarSetup/PlayerID"),mode(),integer("Race/NumPlayers"),integer("Race/Car0/CarID"),boolean("Race/AttractMode"),boolean("Race/PlaybackReplay"));log(text);}
 void __fastcall front(void* self,void*,void* prefix,void* data){
  original_writer(adapter::front_target,self,prefix,data);
  if(applies(prefix)){write_tyre("Vehicles/Car0/Suspension/Front/TyreType");log("APPLIED front Car0 alternative; source family unchanged");}
@@ -142,7 +160,8 @@ INT_PTR CALLBACK dialog(HWND w,UINT msg,WPARAM wp,LPARAM){
 }
 void open(){
  if(opened||!owner||!ready)return;
- if(!visual_scope()){MessageBoxA(owner,"This pilot supports the configured car in single-player Quick Race only (not replay or split screen).","Vehicle Setup",MB_OK);return;}
+ log_scope();
+ if(!frontend_scope()||integer("Frontend/CarSetup/PlayerID")!=0){MessageBoxA(owner,"Select the configured vehicle for player 1 in single-player Quick Race. See vset1-runtime.log for the exact context.","Vehicle Setup",MB_OK);return;}
  opened=true;
  struct Template {DLGTEMPLATE header;WORD menu,cls,title;};
  Template t{};t.header.style=WS_POPUP|WS_CAPTION|WS_SYSMENU|DS_MODALFRAME;t.header.cx=305;t.header.cy=140;
@@ -172,7 +191,7 @@ bool install(){
  for(unsigned i=0;i<2;++i){unsigned char b[5]={0xe8};auto displacement=int32_t(reinterpret_cast<uintptr_t>(hooks[i])-sites[i]-5);std::memcpy(b+1,&displacement,4);if(!patch((void*)sites[i],b,5)){for(unsigned j=0;j<=i;++j)patch((void*)sites[j],original[j],5);failure="Writer hook transaction failed";return false;}}
  tick=function<Tick>(observed);auto replacement=&menu_tick;
  if(!patch((void*)adapter::menu_tick_slot,&replacement,4)){patch((void*)adapter::menu_tick_slot,&observed,4);for(unsigned j=0;j<2;++j)patch((void*)sites[j],original[j],5);failure="Menu hook failed; rollback attempted";return false;}
- log("READY F6 from native Vehicle Setup gearbox page; windowed pilot");return true;
+ log("READY V-SET1.1 frontend/race scope separation; F6 Gearbox; windowed pilot");return true;
 }
 }
 void frame(IDirect3DDevice8& device)noexcept{try{if(attempted)return;attempted=true;if(!package_present())return;auto config=config_path();root=config.parent_path();if(!safe_ini(config)){log("DISABLED unsafe or oversized VSET1.ini");return;}if(GetPrivateProfileIntW(L"VehicleSetup",L"Enabled",0,config.c_str())!=1){log("DISABLED no hooks installed; native Stock fleet fallback");return;}D3DDEVICE_CREATION_PARAMETERS cp{};if(FAILED(device.GetCreationParameters(&cp)))return;owner=cp.hFocusWindow;if(!(GetWindowLongW(owner,GWL_STYLE)&WS_CAPTION)){failure="Windowed pilot requires a captioned game window";log(failure.c_str());return;}ready=install();if(!ready){log(failure.c_str());MessageBoxA(owner,failure.c_str(),"V-SET1 disabled - native Stock retained",MB_OK|MB_ICONERROR);}}catch(...){ready=false;}}
