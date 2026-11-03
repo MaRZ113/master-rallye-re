@@ -9,6 +9,7 @@
 #include "spline_objects.hpp"
 #include "ps2_birds_pilot.hpp"
 #include "collision_debug_pilot.hpp"
+#include "rigid_props.hpp"
 #include "retail_layout.hpp"
 #include "ps2_water_pilot.hpp"
 #include "vehicle_partition.hpp"
@@ -280,6 +281,8 @@ PS2PortExtension::PS2PortExtension(bool exact_build, const std::string& exe_sha,
         water_ = std::make_unique<PS2WaterPilot>(build_valid_, ini);
         // COLLISION-DEBUG1 (docs/collision-debug1): CollisionDebug=1 draws the course collision surface (tag1400).
         collision_debug_ = std::make_unique<CollisionDebugPilot>(build_valid_, ini);
+        // COURSE-ALIVE3 (docs/course-alive3): RigidProps=1 simulates and draws the PS2 hay bales and tumbleweeds.
+        rigid_props_ = std::make_unique<RigidPropsPilot>(build_valid_, ini);
         color_.configure(read_ps2_color_config(ini.c_str()));
         output_.configure(::gfx2::ps2port::config::read_int(L"PS2Output", 0, ini.c_str()) == 1);
         if (::gfx2::ps2port::config::read_int(L"PS2MotionBlur", 0, ini.c_str()) == 1) { wchar_t blur[32]{}; ::gfx2::ps2port::config::read_string(L"PS2MotionBlurStrength", L"0.195", blur, 32, ini.c_str()); blur_.configure(parse_motion_blur_strength(blur)); }
@@ -302,7 +305,7 @@ bool PS2PortExtension::analysis_enabled() const noexcept { return active() || pi
     (!disabled_ && ((course_objects_ && course_objects_->identity_requested()) ||
                   (grass_ && grass_->identity_requested()) || (shrubs_ && shrubs_->identity_requested()) ||
                   (spline_objects_ && spline_objects_->identity_requested()) || (water_ && water_->identity_requested()) ||
-                  (birds_ && birds_->identity_requested()))); }
+                  (birds_ && birds_->identity_requested()) || (rigid_props_ && rigid_props_->identity_requested()))); }
 
 void PS2PortExtension::fleet_before_reset() noexcept {
     for (auto& m : fleet_race_) if (m) m->reset();
@@ -322,6 +325,7 @@ bool PS2PortExtension::native_states_pending() const noexcept {
         (shrubs_ && (shrubs_->blocked() || shrubs_->transaction.has_pending())) ||
         (spline_objects_ && (spline_objects_->blocked() || spline_objects_->transaction.has_pending())) ||
         (birds_ && (birds_->blocked() || birds_->transaction.has_pending())) ||
+        (rigid_props_ && (rigid_props_->blocked() || rigid_props_->transaction.has_pending())) ||
         (collision_debug_ && (collision_debug_->blocked() || collision_debug_->transaction.has_pending() || collision_debug_->legend_layer.pending())) ||
         (water_ && (water_->blocked() || water_->transaction.pending())) ||
         color_.pending() || output_.pending() || blur_.pending() || (ground_ && ground_->transaction.pending()) ||
@@ -346,7 +350,7 @@ std::string PS2PortExtension::status_json() const {
         ",\"resources\":{\"tracked\":" + std::to_string(ledger_tracked_) + ",\"serial\":" + std::to_string(ledger_serial_) + "}";
     if (reflection_) out += ",\"reflection\":" + reflection_->status_json();
     out += ",\"grass\":" + pilot_state(grass_.get()) + ",\"shrubs\":" + pilot_state(shrubs_.get()) +
-        ",\"spline\":" + pilot_state(spline_objects_.get()) + ",\"water\":" + pilot_state(water_.get()) + ",\"birds\":" + pilot_state(birds_.get()) +
+        ",\"spline\":" + pilot_state(spline_objects_.get()) + ",\"water\":" + pilot_state(water_.get()) + ",\"birds\":" + pilot_state(birds_.get()) + ",\"rigid_props\":" + pilot_state(rigid_props_.get()) +
         ",\"course_objects\":" + pilot_state(course_objects_.get());
     if (ground_) out += std::string(",\"ground_detail\":{\"requested\":") + (ground_->requested() ? "true" : "false") + ",\"passes\":" + std::to_string(ground_->passes()) + "}";
     out += ",\"disables\":{\"total\":" + std::to_string(ps2diag::disable_log().total()) + ",\"recent\":" + ps2diag::disable_log().recent_json() + "}";
@@ -1239,6 +1243,7 @@ void PS2PortExtension::disable(const char* reason) noexcept {
     if (shrubs_) shrubs_->disable(reason);
     if (spline_objects_) spline_objects_->disable(reason);
     if (birds_) birds_->disable(reason);
+    if (rigid_props_) rigid_props_->disable(reason);
     if (collision_debug_) collision_debug_->disable(reason);
     if (water_) water_->disable(reason);
 }

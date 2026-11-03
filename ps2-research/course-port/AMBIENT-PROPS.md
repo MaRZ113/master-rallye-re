@@ -58,7 +58,10 @@ Proposed as one small component of its own (no dependency on the modernization p
 2. **Birds (W5b).** Done in COURSE-ALIVE2 (`../pc-port/docs/course-alive2/README.md`): the PS2 manager, RNG, flight, wing
    animation, Burdy sprite bank and mode8 sprite state, drawn by the PS2 port proxy. The PS2 runs its manager only when the
    course scene has both FlightList and MillList (10 courses); ground (Miller) birds are dead code in the PS2 ELF.
-3. **Physical props (W6).**
+3. **Physical props (W6).** Done in COURSE-ALIVE3 (`../pc-port/docs/course-alive3/README.md`) without the native path below: the
+   PS2 port proxy simulates the 83 props (RIGID1 contract plus its own contact solver) against the course tag1400 and the car hulls,
+   and draws them (hay opaque, tumbleweed treeblend). The native notes stay for a future two-way coupling (car slowed by a bale).
+   Original notes:
    - the PC physics manager must accept new bodies;
    - the existing `gaAiHayBale` path crashes in the stock contact code (`0x006363C0` -> `0x004FFDE0`, NULL pooled contact record), so the
      contact pool contract is the first thing to reverse;

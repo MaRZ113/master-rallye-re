@@ -31,6 +31,7 @@ class SplineObjectsPilot;
 class PS2BirdsPilot;
 class PS2WaterPilot;
 class CollisionDebugPilot;
+class RigidPropsPilot;
 class VehiclePartitionPilot;
 class XtrailFidelity;
 class FrontendModel;
@@ -345,6 +346,8 @@ public:
     void configure_baseline_race_modes(bool enabled) noexcept;
     // COLLISION-DEBUG1: course collision overlay (CollisionDebug=1), hotkey-cycled modes.
     CollisionDebugPilot* collision_debug() noexcept { return collision_debug_.get(); }
+    // COURSE-ALIVE3: PS2 gaAiRigidBody hay bales and tumbleweeds (RigidProps=1).
+    RigidPropsPilot* rigid_props() noexcept { return rigid_props_.get(); }
     PS2ColorGrade& color_grade() noexcept { return color_; }
     PS2OutputFilter& output_filter() noexcept { return output_; }
     // Present-time passes (PS2Color, PS2Output) share one hook.
@@ -444,6 +447,7 @@ private:
     std::unique_ptr<PS2BirdsPilot> birds_;
     std::unique_ptr<PS2WaterPilot> water_;
     std::unique_ptr<CollisionDebugPilot> collision_debug_;
+    std::unique_ptr<RigidPropsPilot> rigid_props_;
     PS2ColorGrade color_;
     PS2OutputFilter output_;
     PS2MotionBlur blur_;

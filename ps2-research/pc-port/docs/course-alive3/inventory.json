@@ -1,0 +1,1411 @@
+{
+ "schema_version": 1,
+ "phase": "COURSE-ALIVE3",
+ "asset": "PS2RigidProps.ps2rgd",
+ "asset_sha256": "98846199fad8be4bbf29a1f6c4c9e9833e71af52ee126bf867a03174db2d12ba",
+ "courses": 9,
+ "props": 83,
+ "models": {
+  "haybale": {
+   "material": "object (opaque)",
+   "ps2_triangles": 60,
+   "dx_triangles_per_draw": [
+    120
+   ],
+   "two_sided_copies": true,
+   "visual_radius": 1.2186,
+   "textures": [
+    {
+     "file": "hay-tga.dxt",
+     "ps2_texture": "hay-tga",
+     "pc_source": "DataGx\\Course\\Italy2\\hay-tga.dxt"
+    }
+   ],
+   "hull": {
+    "psm": "\\TNG\\DATAPSM\\MISC\\HAYBALE\\HAYBALE.PSM",
+    "psm_sha256": "cd6da2625e707387c8b18e02f42fcf655d5135fa8e9986cb8894bf10734447cb",
+    "tag101_sha256": "50422dda4860405a66305a48741bb6c4e179b4b346b8f0b4ff56376ada5f927f",
+    "representation": "B geometry_a",
+    "points": 16,
+    "triangles": 28,
+    "planes": 10,
+    "radius": 1.2863,
+    "base_scalar": 1.540600061416626,
+    "representation_a_vertices": 8
+   },
+   "source_sha256": {
+    "hay-tga.dxt": "5cc1b2782de0b5e518f2e7fb9d424a601fc9eb982fc84d74aa7c0c120088e3b4",
+    "haybale.dx": "20682eb19effbc1be2667ab68d5733f7bbdd1284706c02daab321905243e3cf0"
+   }
+  },
+  "tumblweed": {
+   "material": "treeblend (source alpha blend, no depth write)",
+   "ps2_triangles": 48,
+   "dx_triangles_per_draw": [
+    96
+   ],
+   "two_sided_copies": true,
+   "visual_radius": 1.3988,
+   "textures": [
+    {
+     "file": "shr-tga.dxt",
+     "ps2_texture": "shrubtrig2-tga",
+     "pc_source": "DataGx\\Course\\Turkey1\\shrubtrig2-tga.dxt"
+    }
+   ],
+   "hull": {
+    "psm": "\\TNG\\DATAPSM\\MISC\\OBJECTS\\TUMBLEWEED\\TUMBLWEED.PSM",
+    "psm_sha256": "eb959250d0bdb6fa051fb69f4a852c4789be200613eb8e90678d36a48ab54bf4",
+    "tag101_sha256": "27cb1089bf997a0b20d6a4f98fee9827a9089972ff6e891fce5cf34e41e01d48",
+    "representation": "B geometry_a",
+    "points": 26,
+    "triangles": 48,
+    "planes": 32,
+    "radius": 0.6751,
+    "base_scalar": 1.0692750215530396,
+    "representation_a_vertices": 8
+   },
+   "source_sha256": {
+    "shr-tga.dxt": "3c7ad1b4aab9c48256f536354585a71d8060f4fb16bb59bbe09783fe368ac2ed",
+    "tumblweed.dx": "92cb5c975efa1d0f4d6ac2d5bc3b0acbc146751379260407c6edad1fa2ab9efd"
+   }
+  }
+ },
+ "by_course": [
+  {
+   "course": "Italy2",
+   "course_id": "RaceTest/Italy2",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML",
+   "ps2_xml_sha256": "56ef29e13f9cc3f64fb1d2d31b0cc293d3ccd08deed8e88e2a78752b90574c69",
+   "pc_dx_path": "DataGx/Course/Italy2/italy2.dx",
+   "retail_pc_dx_sha256": "0614f6c933f751d07be0fb7ea5b97d1099ebf6873120b93c506922efc38f8a31",
+   "props": [
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML:list:12:egg:4:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      562.0,
+      447.0,
+      562.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": false,
+     "matrix_sha256": "05af65cdf5401a77203962682123bbe32782ec2d71350ec0cf0b274ce6613829"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML:list:12:egg:5:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      562.0,
+      447.0,
+      562.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": false,
+     "matrix_sha256": "019fe9a38fd0656a625b860caa630e569d263ca7e0df8664815571b2702d268c"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML:list:12:egg:6:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      562.0,
+      447.0,
+      562.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": false,
+     "matrix_sha256": "fe12a5df052cf3e3aa68753374ed98b37a30bcdd9d10319d18cf01b079128393"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML:list:12:egg:7:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      562.0,
+      447.0,
+      562.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": false,
+     "matrix_sha256": "06fcac1563a6d753edfe0bf6fe2eefca8aecdbf5049690d667b98cab0e482e07"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML:list:12:egg:8:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      562.0,
+      447.0,
+      562.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": false,
+     "matrix_sha256": "faee4bcd4f810b7dc8c51bfd370382236b2fcb669dcff7282f342714c57beb0d"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML:list:12:egg:9:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      562.0,
+      447.0,
+      562.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": false,
+     "matrix_sha256": "e9cf70fa005d46b01482554bb89b02cfd7a3425604d33f81a4efb14453534ffb"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML:list:12:egg:10:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      562.0,
+      447.0,
+      562.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": false,
+     "matrix_sha256": "df4445dc72498da54248f87fcbc4d2277a772caae3a5043c9e9aa0f411106bff"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML:list:12:egg:11:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      562.0,
+      447.0,
+      562.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": false,
+     "matrix_sha256": "090b75bea62361c1119aa4e15ba22a7d09328be6b8f9f8042bc9a8c3b17aa732"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML:list:12:egg:12:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      562.0,
+      447.0,
+      562.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": false,
+     "matrix_sha256": "2e3da6703e5c918f63ed23a0ebb5ec45fb79b622e9a7bfb7b9fa863d1ce603d1"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML:list:12:egg:13:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      562.0,
+      447.0,
+      562.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": false,
+     "matrix_sha256": "959be5d6708116c5ea89f82548681c4a8f9898521abdeb616561947aaf0e32c5"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALY2.XML:list:12:egg:14:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      562.0,
+      447.0,
+      562.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": false,
+     "matrix_sha256": "80b9e85b302e08b151b7b92c1a8ec486f8dd9e73b0429e4b986a0477fa6d9815"
+    }
+   ]
+  },
+  {
+   "course": "ItalyS1",
+   "course_id": "RaceTest/ItalyS1",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML",
+   "ps2_xml_sha256": "56603a9b51f509032a3f15953f161eeaa25044b2c00b5988a73e0c2cbc9c9a92",
+   "pc_dx_path": "DataGx/Course/Italy_S1/italy_s1.dx",
+   "retail_pc_dx_sha256": "5cd86704667cbdc95d4a3b1ff1444c885431fcdd0313cc0f15eca980e3965e8a",
+   "props": [
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML:list:3:egg:2:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      565.0,
+      447.0,
+      565.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "0d74a563d15424383cd5aa96bedf1da6eec4aff20ce3b88211ec1202b77688f3"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML:list:3:egg:3:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      565.0,
+      447.0,
+      565.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "67f28435f1fbe67d338a8876e985496e69f3d345e6c2be8dbf4f47cdb42215f3"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML:list:3:egg:4:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      565.0,
+      447.0,
+      565.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "1cd5a9bf054831c124a7eecb191501d9619cde1973b619b8725854ae0805b2d7"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML:list:3:egg:5:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      565.0,
+      447.0,
+      565.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "a9ee5f846e50396ae40bc05760231328fe5fdf1cf4a8a7114dd13770897fbc60"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML:list:3:egg:6:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      565.0,
+      447.0,
+      565.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "5bf3dcb11e72de0b4372906ae193745af5bbca951939fde33338e560d6d9c292"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML:list:3:egg:7:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      565.0,
+      447.0,
+      565.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "744ea1caee2b075ee53b62f0030e6a3784333441ce1eb51f7a1a48ff274689d8"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML:list:3:egg:8:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      565.0,
+      447.0,
+      565.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "7bfe2f1c2cc1929d66fd2d3a41aeb97405c22dadf0a296d4d317cc7b3225a539"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML:list:3:egg:9:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      565.0,
+      447.0,
+      565.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "d9fce10ee79adbf823e380dfab359fd2696d3ca4967891f5427d8801c8f21a8b"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML:list:3:egg:10:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      565.0,
+      447.0,
+      565.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "0b71802ad05853a73e8bd4a0dcaf56d87ac2525170c30886d935d344c3cb35fc"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML:list:3:egg:11:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      565.0,
+      447.0,
+      565.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "94155185dbdb71a083bdd02cf2bd9598e6529b5902a9d9a162c374ccc29c4e5c"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML:list:3:egg:12:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      565.0,
+      447.0,
+      565.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "dd0fb345b5083d423aa719953d5c0c23f90647f6549e3a8aa8f5ba5b24abc928"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML:list:3:egg:13:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      565.0,
+      447.0,
+      565.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "e7d2e32d873b77134fef405aa222f03d4f435e88dd8dc31f12d0af5fc6160721"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML:list:3:egg:14:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      565.0,
+      447.0,
+      565.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "d92809b3a5e56d9709200ef6e5a18581af3973c2cecfb981647667f2ae6893e0"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS1.XML:list:3:egg:15:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      565.0,
+      447.0,
+      565.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "0d74a563d15424383cd5aa96bedf1da6eec4aff20ce3b88211ec1202b77688f3"
+    }
+   ]
+  },
+  {
+   "course": "ItalyS4",
+   "course_id": "RaceTest/ItalyS4",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML",
+   "ps2_xml_sha256": "2d7249f24e6556c13be8f38027b1df22bd1e49d94b81ccfabbb6f61420a13e1a",
+   "pc_dx_path": "DataGx/Course/Italy_S4/italy_s4.dx",
+   "retail_pc_dx_sha256": "bde1528ff5cdd7c4d831f6b31b4065170b98de06ab06db26f29ccfd38920aba9",
+   "props": [
+    {
+     "egg": "haybale0",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML:list:3:egg:2:ai:0",
+     "family": "haybale",
+     "model": "misc\\objects\\haybales\\haybale",
+     "mass": 500.0,
+     "moi": [
+      562.0,
+      447.0,
+      562.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "92a9aa18f5cd6a65b5f14557a4e009974cc038154e6e71605dd49305e0341a75"
+    },
+    {
+     "egg": "haybale0",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML:list:3:egg:3:ai:0",
+     "family": "haybale",
+     "model": "misc\\objects\\haybales\\haybale",
+     "mass": 500.0,
+     "moi": [
+      562.0,
+      447.0,
+      562.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "6fa729e8daf1051d11e23f21071523d3a8c4e72d2f9af20a7ee2e5712edd6036"
+    },
+    {
+     "egg": "haybale0",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML:list:3:egg:4:ai:0",
+     "family": "haybale",
+     "model": "misc\\objects\\haybales\\haybale",
+     "mass": 500.0,
+     "moi": [
+      562.0,
+      447.0,
+      562.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "ae4cfcff057dd7d1ee4342531aa1391a0d7d71a348c32f791cfd778ab4eed521"
+    },
+    {
+     "egg": "haybale0",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML:list:3:egg:5:ai:0",
+     "family": "haybale",
+     "model": "misc\\objects\\haybales\\haybale",
+     "mass": 500.0,
+     "moi": [
+      562.0,
+      447.0,
+      562.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "5bc4604e87d405bf0c02c571e214f361e5618fd3b9eb2116720d2210234b68b9"
+    },
+    {
+     "egg": "haybale0",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML:list:3:egg:6:ai:0",
+     "family": "haybale",
+     "model": "misc\\objects\\haybales\\haybale",
+     "mass": 500.0,
+     "moi": [
+      562.0,
+      447.0,
+      562.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "56818046c78c5ef86e58e5db73289bbc512019d030e9f657251c65b444c3ada8"
+    },
+    {
+     "egg": "haybale0",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML:list:3:egg:7:ai:0",
+     "family": "haybale",
+     "model": "misc\\objects\\haybales\\haybale",
+     "mass": 500.0,
+     "moi": [
+      562.0,
+      447.0,
+      562.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "ff64b314d679b653a1c651a8e55f48d5e5e4857cc8725160545371368e7d272f"
+    },
+    {
+     "egg": "haybale0",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML:list:3:egg:8:ai:0",
+     "family": "haybale",
+     "model": "misc\\objects\\haybales\\haybale",
+     "mass": 500.0,
+     "moi": [
+      562.0,
+      447.0,
+      562.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "521cfa6fe7ec9ddbf974c51d12df8d3cbec990c5b99449dc5b7f60aa915569c6"
+    },
+    {
+     "egg": "haybale0",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML:list:3:egg:9:ai:0",
+     "family": "haybale",
+     "model": "misc\\objects\\haybales\\haybale",
+     "mass": 500.0,
+     "moi": [
+      562.0,
+      447.0,
+      562.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "4fcc9078f1280205ef7112311667cc392bd8a98e44faac339d8f436dc6724b66"
+    },
+    {
+     "egg": "haybale0",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML:list:3:egg:10:ai:0",
+     "family": "haybale",
+     "model": "misc\\objects\\haybales\\haybale",
+     "mass": 500.0,
+     "moi": [
+      562.0,
+      447.0,
+      562.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "8e42d86adf4c3b455885b0ffb6f5c9282f203b533aeff68fa1f87017520ab54a"
+    },
+    {
+     "egg": "haybale0",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYS4.XML:list:3:egg:11:ai:0",
+     "family": "haybale",
+     "model": "misc\\objects\\haybales\\haybale",
+     "mass": 500.0,
+     "moi": [
+      562.0,
+      447.0,
+      562.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "e4003b7aeef66771b82d706e3241187051b13749464e50160773b296f3686436"
+    }
+   ]
+  },
+  {
+   "course": "ItalyW1",
+   "course_id": "RaceTest/ItalyW1",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML",
+   "ps2_xml_sha256": "d9461c464e967d52773aeaf691520d6ef0b130f062d8b9590d17bd9fc0110af0",
+   "pc_dx_path": "DataGx/Course/Italy_W1/italy_w1.dx",
+   "retail_pc_dx_sha256": "fcad9da53b7d436d79e9d9322276e98aa5039376e091a487b85d30ac1b3ae7d2",
+   "props": [
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML:list:12:egg:1:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      565.0,
+      447.0,
+      565.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "d65dc0b01b3b7252b24cb8c4c9ff8d2d3f4724e5467cf5264386f17a3b1a544c"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML:list:12:egg:2:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      565.0,
+      447.0,
+      565.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "f6cda8c8753c235fc011e877489e70325b84c443e47f4077b2ca7b7f60c93966"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML:list:12:egg:3:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      565.0,
+      447.0,
+      565.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "ede37f2927c6476cf82b389c177f095b88f610355c5c6ecb46207366155d5a3a"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML:list:12:egg:4:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      565.0,
+      447.0,
+      565.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "7fbde76da90b29169a8d8ac80b3ec8d2b6058d114458b614758f5194abb9c59e"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML:list:12:egg:5:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      565.0,
+      447.0,
+      565.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "3fda19a476e794b4253985a319a05d456cf685e6435f181471291bc705fe3400"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML:list:12:egg:6:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      565.0,
+      447.0,
+      565.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "543f9ef6a0a53ba78a750f5b6cf7d1cd3fdd1a26870354a54df982c02d271d56"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML:list:12:egg:7:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      565.0,
+      447.0,
+      565.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "6b8abc3eae4a1195746a07e263ba4670fe1cb12610b7bc0328bd49567dca3679"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML:list:12:egg:8:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      565.0,
+      447.0,
+      565.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "939dd34c8eadb82da971840460ef43637fc71fc02b78c356090388d39c5e6bf8"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML:list:12:egg:9:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      565.0,
+      447.0,
+      565.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "d4bae19d09a9fe682491178789e547a9232608485b4ec5a57ce0036de0c032c2"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW1.XML:list:12:egg:10:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      565.0,
+      447.0,
+      565.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "48599654ce1f91c25f8214e1e97d394fd4f6d38e91c7fd605ec8263d42474a52"
+    }
+   ]
+  },
+  {
+   "course": "ItalyW2",
+   "course_id": "RaceTest/ItalyW2",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML",
+   "ps2_xml_sha256": "e910034391104ec29c6456a4e13cc6c697b614b06b245a53d85be1d2c2011126",
+   "pc_dx_path": "DataGx/Course/Italy_W2/italy_w2.dx",
+   "retail_pc_dx_sha256": "c66e8f0cff376b0f535c0cdc4fcd0bf53ad46d157b5aab4ca2648cf9cb9998d7",
+   "props": [
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML:list:11:egg:2:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      565.0,
+      447.0,
+      565.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "79cbd59b2c3651562288082657497bc371d9574349179a1888755593a8687421"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML:list:11:egg:3:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      565.0,
+      447.0,
+      565.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "29bd51ec0a8d8c2575d029aedfbbf71bd218877b681159fb4d9b5c7c0e11993a"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML:list:11:egg:4:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      565.0,
+      447.0,
+      565.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "b94c94b5369f3598ed922451f756bc52e1351c8818795b1ed3994264547183d7"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML:list:11:egg:5:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      565.0,
+      447.0,
+      565.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "7e9835e894586900ad1bf9b8268a9ae4ba2b1c0457e34bffb20881d08a9081d5"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML:list:11:egg:6:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      565.0,
+      447.0,
+      565.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "3a78d03afce41c89c39bb5a48833417fe8e71264c417b26c0e25683b9b396ddc"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML:list:11:egg:7:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      565.0,
+      447.0,
+      565.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "9d371696d04a5403b148a7f2023bde2521861270be758ec5e085cc130dcf85ae"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML:list:11:egg:8:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      565.0,
+      447.0,
+      565.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "0a0d222c5c6d365868e38825f24def70424b3ebba2df12a8afabb68d2c1b42a4"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML:list:11:egg:9:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      565.0,
+      447.0,
+      565.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "7166e1a48543b9d55d18eac96ce7c6f66befddc5c97cd5d5fb657053fca01525"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML:list:11:egg:10:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      565.0,
+      447.0,
+      565.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "c2956f0ec706886ff1e7a7dd0283e544af2badb48aa917fee004a2ce31df602f"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML:list:11:egg:11:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      565.0,
+      447.0,
+      565.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "2722ba2a6f7db9b1f9d1f98208d94cd12b65a715fc50129787184088616cd687"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML:list:11:egg:12:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      565.0,
+      447.0,
+      565.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "4b5bdcb3ccd06f634d8b5803b8d50b45d6a1f49e9808b1f956f0db39a9b7897e"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML:list:11:egg:13:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      565.0,
+      447.0,
+      565.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "f68538d3e5d07091d13a99c8856d9a13443c697b4895aacb4c022be196ebd59e"
+    },
+    {
+     "egg": "haybale",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\ITALYW2.XML:list:11:egg:14:ai:0",
+     "family": "haybale",
+     "model": "misc\\haybale\\haybale",
+     "mass": 500.0,
+     "moi": [
+      565.0,
+      447.0,
+      565.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "17ae5a0b60629bb5dfaaec90ea88d2785a96e329ef01b7ab888835028f7662f8"
+    }
+   ]
+  },
+  {
+   "course": "Turkey1",
+   "course_id": "RaceTest/Turkey1",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\TURKEY1.XML",
+   "ps2_xml_sha256": "dca7c2e5887e346312681cb7a3fc2451b9febe03e5361ffef39437604a12ee03",
+   "pc_dx_path": "DataGx/Course/Turkey1/turkey1.dx",
+   "retail_pc_dx_sha256": "653da3a7b2191ff3f3aaaff8dac4d38286e4c281d2cb4ae34f3e47258a81fecb",
+   "props": [
+    {
+     "egg": "tumbleweed",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEY1.XML:list:11:egg:4:ai:0",
+     "family": "tumblweed",
+     "model": "misc\\objects\\tumbleweed\\tumblweed",
+     "mass": 5.0,
+     "moi": [
+      2.0,
+      2.0,
+      2.0
+     ],
+     "trigger_distance": 15.0,
+     "casts_shadow": true,
+     "matrix_sha256": "b49960f9840ab6965b5558768f591c20cafc6cb9f964a13d8ce009fd45e8f2a4"
+    },
+    {
+     "egg": "tumbleweed",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEY1.XML:list:11:egg:5:ai:0",
+     "family": "tumblweed",
+     "model": "misc\\objects\\tumbleweed\\tumblweed",
+     "mass": 5.0,
+     "moi": [
+      2.0,
+      2.0,
+      2.0
+     ],
+     "trigger_distance": 15.0,
+     "casts_shadow": true,
+     "matrix_sha256": "f2c863a7924cc8c1b716775d11d9e0e6b6b260089a6d53a7c4663244250102c6"
+    },
+    {
+     "egg": "tumbleweed",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEY1.XML:list:11:egg:6:ai:0",
+     "family": "tumblweed",
+     "model": "misc\\objects\\tumbleweed\\tumblweed",
+     "mass": 5.0,
+     "moi": [
+      2.0,
+      2.0,
+      2.0
+     ],
+     "trigger_distance": 15.0,
+     "casts_shadow": true,
+     "matrix_sha256": "c57d5b49c29647a6de370b3c571d818ca27036628999c0bedb8f7f262b3c09a3"
+    },
+    {
+     "egg": "tumbleweed",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEY1.XML:list:11:egg:7:ai:0",
+     "family": "tumblweed",
+     "model": "misc\\objects\\tumbleweed\\tumblweed",
+     "mass": 5.0,
+     "moi": [
+      2.0,
+      2.0,
+      2.0
+     ],
+     "trigger_distance": 15.0,
+     "casts_shadow": true,
+     "matrix_sha256": "986058c9737149a64b27b1b163ec21aca4b187068de2124eccbb40a8dda4a946"
+    },
+    {
+     "egg": "tumbleweed",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEY1.XML:list:11:egg:8:ai:0",
+     "family": "tumblweed",
+     "model": "misc\\objects\\tumbleweed\\tumblweed",
+     "mass": 5.0,
+     "moi": [
+      2.0,
+      2.0,
+      2.0
+     ],
+     "trigger_distance": 15.0,
+     "casts_shadow": true,
+     "matrix_sha256": "fd3aa160404a4ec9a105ecc14e189220234dd2e0295ba4d4f53f4605292a68df"
+    },
+    {
+     "egg": "tumbleweed",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEY1.XML:list:11:egg:9:ai:0",
+     "family": "tumblweed",
+     "model": "misc\\objects\\tumbleweed\\tumblweed",
+     "mass": 5.0,
+     "moi": [
+      2.0,
+      2.0,
+      2.0
+     ],
+     "trigger_distance": 15.0,
+     "casts_shadow": true,
+     "matrix_sha256": "7b69329959586151e1f203d52f6af00c035143cb19a2dc32c339c0132ca4ed22"
+    },
+    {
+     "egg": "tumbleweed",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEY1.XML:list:11:egg:10:ai:0",
+     "family": "tumblweed",
+     "model": "misc\\objects\\tumbleweed\\tumblweed",
+     "mass": 5.0,
+     "moi": [
+      2.0,
+      2.0,
+      2.0
+     ],
+     "trigger_distance": 15.0,
+     "casts_shadow": true,
+     "matrix_sha256": "9f6b032b9918d892a874f70c2f80e65b8f2f29c984f5686c4299a836b7a32705"
+    }
+   ]
+  },
+  {
+   "course": "Turkey3",
+   "course_id": "RaceTest/Turkey3",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML",
+   "ps2_xml_sha256": "7c1c274cd8403bc7fcc2b5e2e8a13e57dccc44dade53a1be57d631ea073e51ce",
+   "pc_dx_path": "DataGx/Course/Turkey3/turkey3.dx",
+   "retail_pc_dx_sha256": "724a69da708a124f7dbfd666b7ad8d391bcaf22ff94bd2c91143e305749cf7f8",
+   "props": [
+    {
+     "egg": "tumbleweed",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML:list:11:egg:13:ai:0",
+     "family": "tumblweed",
+     "model": "misc\\objects\\tumbleweed\\tumblweed",
+     "mass": 5.0,
+     "moi": [
+      2.0,
+      2.0,
+      2.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "dbb65381027ae9e1c0d3f76271b1a7bd5eca952dfc03e2094ac290686e99f7dc"
+    },
+    {
+     "egg": "tumbleweed",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML:list:11:egg:14:ai:0",
+     "family": "tumblweed",
+     "model": "misc\\objects\\tumbleweed\\tumblweed",
+     "mass": 5.0,
+     "moi": [
+      2.0,
+      2.0,
+      2.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "0b41798c45bd3dbc73b69c54e08ca0391ba6b5323dcef6b435868ecdae4b8d5f"
+    },
+    {
+     "egg": "tumbleweed",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML:list:11:egg:15:ai:0",
+     "family": "tumblweed",
+     "model": "misc\\objects\\tumbleweed\\tumblweed",
+     "mass": 5.0,
+     "moi": [
+      2.0,
+      2.0,
+      2.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "77bc28679ca93e4fabc6e4876e63e233c486e491b572167d06f41fa073e9f9fc"
+    },
+    {
+     "egg": "tumbleweed",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML:list:11:egg:16:ai:0",
+     "family": "tumblweed",
+     "model": "misc\\objects\\tumbleweed\\tumblweed",
+     "mass": 5.0,
+     "moi": [
+      2.0,
+      2.0,
+      2.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "eb99a544f7a612ed5906077db1cf4c02bf2eb13cb0d60a5ef8900a233c494295"
+    },
+    {
+     "egg": "tumbleweed",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML:list:11:egg:17:ai:0",
+     "family": "tumblweed",
+     "model": "misc\\objects\\tumbleweed\\tumblweed",
+     "mass": 5.0,
+     "moi": [
+      2.0,
+      2.0,
+      2.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "87ed492b5e3f59a502599648c32f7c81ee36c684c6f6cd05c2f3e0e36697d2cf"
+    },
+    {
+     "egg": "tumbleweed",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEY3.XML:list:11:egg:18:ai:0",
+     "family": "tumblweed",
+     "model": "misc\\objects\\tumbleweed\\tumblweed",
+     "mass": 5.0,
+     "moi": [
+      2.0,
+      2.0,
+      2.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "6e8349e7d0fe082a50a033f5a5f5caff481f91d500f3982f0189b0c3673b3d9f"
+    }
+   ]
+  },
+  {
+   "course": "TurkeyM",
+   "course_id": "RaceTest/TurkeyM",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\TURKEYM.XML",
+   "ps2_xml_sha256": "4d66a1bc7b3564e255402372f25decc7a1d38e3321b29549486e38f824f93fd6",
+   "pc_dx_path": "DataGx/Course/Turkey_m/turkey_m.dx",
+   "retail_pc_dx_sha256": "f304938bbf4f93b45333fa7fa0661d05217a51f43e26403bf981aa2721b0a2f9",
+   "props": [
+    {
+     "egg": "tumbleweed",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEYM.XML:list:11:egg:3:ai:0",
+     "family": "tumblweed",
+     "model": "misc\\objects\\tumbleweed\\tumblweed",
+     "mass": 5.0,
+     "moi": [
+      2.0,
+      2.0,
+      2.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "18152210dfee266962c54ed8531479796c0c6b1a8f1d7c263b348e67e212db5c"
+    },
+    {
+     "egg": "tumbleweed",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEYM.XML:list:11:egg:4:ai:0",
+     "family": "tumblweed",
+     "model": "misc\\objects\\tumbleweed\\tumblweed",
+     "mass": 5.0,
+     "moi": [
+      2.0,
+      2.0,
+      2.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "c91f35957fd0f2e90a0322b5d14d7b82591000a1f41977000b6723515e5e9d64"
+    },
+    {
+     "egg": "tumbleweed",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEYM.XML:list:11:egg:5:ai:0",
+     "family": "tumblweed",
+     "model": "misc\\objects\\tumbleweed\\tumblweed",
+     "mass": 5.0,
+     "moi": [
+      2.0,
+      2.0,
+      2.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "67ba96dd46cd6e0780c1e788ba94cd04f7ab8950dd830010fc80b174d22eb507"
+    },
+    {
+     "egg": "tumbleweed",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEYM.XML:list:11:egg:6:ai:0",
+     "family": "tumblweed",
+     "model": "misc\\objects\\tumbleweed\\tumblweed",
+     "mass": 5.0,
+     "moi": [
+      2.0,
+      2.0,
+      2.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "334fadeea0511979e6851a7fd1ddea3224a8a8112c11511cd0f6ad36e0f44ad9"
+    },
+    {
+     "egg": "tumbleweed",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEYM.XML:list:11:egg:7:ai:0",
+     "family": "tumblweed",
+     "model": "misc\\objects\\tumbleweed\\tumblweed",
+     "mass": 5.0,
+     "moi": [
+      2.0,
+      2.0,
+      2.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "024f9800f982e74f04bf5ad98618b5be582c8722d440673a43b49795e2463840"
+    },
+    {
+     "egg": "tumbleweed",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEYM.XML:list:11:egg:8:ai:0",
+     "family": "tumblweed",
+     "model": "misc\\objects\\tumbleweed\\tumblweed",
+     "mass": 5.0,
+     "moi": [
+      2.0,
+      2.0,
+      2.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "6cba1d4bceb01c93d436397727c8c4f44e568d4df2c3e88dd9790d249d1a7798"
+    },
+    {
+     "egg": "tumbleweed",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEYM.XML:list:11:egg:9:ai:0",
+     "family": "tumblweed",
+     "model": "misc\\objects\\tumbleweed\\tumblweed",
+     "mass": 5.0,
+     "moi": [
+      2.0,
+      2.0,
+      2.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "59ed965d625a6f4fdb11fc89dcb6117e1939ccbf19c7c8f35d4f06350799e5b6"
+    },
+    {
+     "egg": "tumbleweed",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEYM.XML:list:11:egg:10:ai:0",
+     "family": "tumblweed",
+     "model": "misc\\objects\\tumbleweed\\tumblweed",
+     "mass": 5.0,
+     "moi": [
+      2.0,
+      2.0,
+      2.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "fbec6951989ea0c6f5a51ee675f97940ea8ca92209f7f36b92807cd6d8e32007"
+    },
+    {
+     "egg": "tumbleweed",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEYM.XML:list:11:egg:11:ai:0",
+     "family": "tumblweed",
+     "model": "misc\\objects\\tumbleweed\\tumblweed",
+     "mass": 5.0,
+     "moi": [
+      2.0,
+      2.0,
+      2.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "4291d2865c34baa4680548e6dc84d71d0505285270c187d9ce0fe54ca07aa80b"
+    }
+   ]
+  },
+  {
+   "course": "TurkeyS2Flip",
+   "course_id": "RaceTest/TurkeyS2Flip",
+   "ps2_xml": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS2FLIP.XML",
+   "ps2_xml_sha256": "6861e2da78032e13430ab7fde238f68405882787836edba558bdfe3f2fc78734",
+   "pc_dx_path": "DataGx/Course/Turkey_s2_flip/turkey_s2_flip.dx",
+   "retail_pc_dx_sha256": "d4ac39f98215d38df18a976f27f9ddc4dc233c89d95e1940348ae3b5ff5f3ddd",
+   "props": [
+    {
+     "egg": "tumbleweed",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS2FLIP.XML:list:12:egg:7:ai:0",
+     "family": "tumblweed",
+     "model": "misc\\objects\\tumbleweed\\tumblweed",
+     "mass": 5.0,
+     "moi": [
+      2.0,
+      2.0,
+      2.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "998cf2b4ee0c4753b58856eb77cba5030af89131a16c06cac297836eb5cb77dc"
+    },
+    {
+     "egg": "tumbleweed",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS2FLIP.XML:list:12:egg:8:ai:0",
+     "family": "tumblweed",
+     "model": "misc\\objects\\tumbleweed\\tumblweed",
+     "mass": 5.0,
+     "moi": [
+      2.0,
+      2.0,
+      2.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "26434727f050fc1a152b6e9c4bdd030c7613d3c4700e0ab38644a007d7327c92"
+    },
+    {
+     "egg": "tumbleweed",
+     "source_id": "\\TNG\\DATASCENE\\RACETEST\\TURKEYS2FLIP.XML:list:12:egg:9:ai:0",
+     "family": "tumblweed",
+     "model": "misc\\objects\\tumbleweed\\tumblweed",
+     "mass": 5.0,
+     "moi": [
+      2.0,
+      2.0,
+      2.0
+     ],
+     "trigger_distance": 5.0,
+     "casts_shadow": true,
+     "matrix_sha256": "874627f2a1efde75888f902730646bd5c6382064108793f4a120fc1c561a31d2"
+    }
+   ]
+  }
+ ]
+}

@@ -75,6 +75,9 @@ struct CourseObjectMaterialState {
     DWORD fog=FALSE;
     // COLLISION-DEBUG1: depth function (LESSEQUAL, or ALWAYS for the x-ray overlay and its legend).
     DWORD z_func=D3DCMP_LESSEQUAL;
+    // COURSE-ALIVE3: blend factors (default = the fixed preview SRCALPHA/INVSRCALPHA; ONE/ONE for an additive pass).
+    DWORD src_blend=D3DBLEND_SRCALPHA;
+    DWORD dest_blend=D3DBLEND_INVSRCALPHA;
 };
 
 class CourseObjectTransaction {
@@ -194,6 +197,8 @@ public:
         if(!captured_||pending_||!texture||!finite(view)||!finite(projection)||
            material.z_write>TRUE||material.alpha_blend>TRUE||material.fog>TRUE||
            (material.z_func!=D3DCMP_LESSEQUAL&&material.z_func!=D3DCMP_ALWAYS)||
+           (material.src_blend!=D3DBLEND_SRCALPHA&&material.src_blend!=D3DBLEND_ONE)||
+           (material.dest_blend!=D3DBLEND_INVSRCALPHA&&material.dest_blend!=D3DBLEND_ONE)||
            !valid_address(material.address_u)||!valid_address(material.address_v)){
             last_failure=E_INVALIDARG;return last_failure;
         }
@@ -205,6 +210,8 @@ public:
             if(op.kind==CourseObjectStateKind::Render&&op.key==D3DRS_ALPHABLENDENABLE)desired.scalar=material.alpha_blend;
             if(op.kind==CourseObjectStateKind::Render&&op.key==D3DRS_FOGENABLE)desired.scalar=material.fog;
             if(op.kind==CourseObjectStateKind::Render&&op.key==D3DRS_ZFUNC)desired.scalar=material.z_func;
+            if(op.kind==CourseObjectStateKind::Render&&op.key==D3DRS_SRCBLEND)desired.scalar=material.src_blend;
+            if(op.kind==CourseObjectStateKind::Render&&op.key==D3DRS_DESTBLEND)desired.scalar=material.dest_blend;
             if(op.kind==CourseObjectStateKind::Stage&&op.key==D3DTSS_ADDRESSU)desired.scalar=material.address_u;
             if(op.kind==CourseObjectStateKind::Stage&&op.key==D3DTSS_ADDRESSV)desired.scalar=material.address_v;
             bool changed=saved_[i].scalar!=desired.scalar;
