@@ -32,6 +32,9 @@ ReflectionStageDiag=0
 ReflectionWorldFirst=1
 ; ReflectionSourceGXI: PS2 static environment texture.
 ReflectionSourceGXI=PS2Grass/PS2EnvSource64x64.gxi
+; SourceReflectionVFlip: 1 = with Reflection=0 reverse only the generated environment V of the PS2 vehicle models
+;   (secondary environment map, v' = 1 - v); UV0 and the textures stay. Ignored with Reflection=4. 0 = as is.
+SourceReflectionVFlip=0
 
 ; --- Vehicles ------------------------------------------------------------------
 ; RaceFleet: 1 = PS2 CAR models for every race car (wheels, crew, lamps, damage continuity), 0 = Stock.

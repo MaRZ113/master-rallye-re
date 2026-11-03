@@ -2,6 +2,12 @@
 #include "ps2_port_extension.hpp"
 #include "state_tracker.hpp"
 namespace gfx2::ps2port {
+// SourceReflectionVFlip=1 (A/B probe): with Reflection=0 the generated environment V of the PS2 vehicle models'
+// secondary layer (D3DTS_TEXTURE1) is reversed: v' = 1 - v. UV0 and source bytes never change; with an enhanced
+// reflection mode (Reflection=4) the existing orientation stays and the switch is ignored.
+template<class Matrix>Matrix source_environment_matrix(const Matrix& source,bool requested,unsigned reflection_mode)noexcept{
+ auto result=source;if(requested&&reflection_mode==0){for(unsigned i=0;i<4;++i)result.m[i][1]=-source.m[i][1];result.m[3][1]+=1.f;}return result;
+}
 struct FrontendOp {bool render;DWORD stage,key;};
 inline constexpr FrontendOp kFrontendOps[]={
  {true,0,D3DRS_ALPHATESTENABLE},{true,0,D3DRS_ALPHABLENDENABLE},{true,0,D3DRS_SRCBLEND},{true,0,D3DRS_DESTBLEND},{true,0,D3DRS_ZWRITEENABLE},{true,0,D3DRS_CULLMODE},
@@ -9,7 +15,7 @@ inline constexpr FrontendOp kFrontendOps[]={
  {false,1,D3DTSS_COLOROP},{false,1,D3DTSS_COLORARG1},{false,1,D3DTSS_COLORARG2},{false,1,D3DTSS_ALPHAOP},{false,1,D3DTSS_ALPHAARG1},{false,1,D3DTSS_ALPHAARG2},{false,1,D3DTSS_TEXCOORDINDEX},{false,1,D3DTSS_TEXTURETRANSFORMFLAGS},{false,1,D3DTSS_ADDRESSU},{false,1,D3DTSS_ADDRESSV},{false,1,D3DTSS_MINFILTER},{false,1,D3DTSS_MAGFILTER},{false,1,D3DTSS_MIPFILTER},{false,2,D3DTSS_COLOROP}};
 class FrontendTransaction {
  // PS2 body environment layer: GS ALPHA ...29 = Cd+Cs (full addition, not weighted by base alpha).
- bool ps2_add_=false;public:void set_ps2_body_add(bool v)noexcept{ps2_add_=v;}private:
+ bool ps2_add_=false;bool source_flip_=false;public:void set_ps2_body_add(bool v)noexcept{ps2_add_=v;}void set_source_environment_flip(bool enabled,unsigned reflection_mode)noexcept{source_flip_=enabled&&reflection_mode==0;}private:
  std::array<DWORD,std::size(kFrontendOps)> values_{},current_{};IDirect3DBaseTexture8* current_textures_[2]{};DWORD current_vertex_=0,current_pixel_=0;D3DMATRIX current_matrix_{};IDirect3DBaseTexture8* textures_[2]{};IDirect3DVertexBuffer8* stream_=nullptr;UINT stride_=0;DWORD vertex_=0,pixel_=0;D3DMATRIX tex1_{};uint64_t pending_=0;bool captured_=false,factor_captured_=false;DWORD factor_=0,current_factor_=0;std::array<DWORD,2> weighted_values_{},weighted_current_{};bool weighted_captured_=false;
 public:
  ~FrontendTransaction(){release();}bool pending()const noexcept{return pending_!=0;}
@@ -27,7 +33,8 @@ public:
   for(unsigned i=0;i<2;++i){auto* t=i?secondary:primary;if(current_textures_[i]==t)continue;pending_|=uint64_t(1)<<(33+i);auto hr=n.SetTexture(i,t);writer(61,pack(i,t),hr);if(FAILED(hr))return hr;current_textures_[i]=t;}
   HRESULT hr=S_OK;if(current_vertex_!=0x152){pending_|=uint64_t(1)<<35;hr=n.SetVertexShader(0x152);writer(76,pack(DWORD(0x152)),hr);if(FAILED(hr))return hr;current_vertex_=0x152;}
   if(current_pixel_){pending_|=uint64_t(1)<<36;hr=n.SetPixelShader(0);writer(88,pack(DWORD(0)),hr);if(FAILED(hr))return hr;current_pixel_=0;}
-  if(shiny&&std::memcmp(&current_matrix_,&env,64)){pending_|=uint64_t(1)<<37;hr=n.SetTransform(D3DTS_TEXTURE1,&env);writer(37,pack(D3DTS_TEXTURE1,&env),hr);if(SUCCEEDED(hr))current_matrix_=env;}return hr;
+  const auto effective_env=source_environment_matrix(env,source_flip_,0);
+  if(shiny&&std::memcmp(&current_matrix_,&effective_env,64)){pending_|=uint64_t(1)<<37;hr=n.SetTransform(D3DTS_TEXTURE1,&effective_env);writer(37,pack(D3DTS_TEXTURE1,&effective_env),hr);if(SUCCEEDED(hr))current_matrix_=effective_env;}return hr;
  }
  void before_up()noexcept{pending_|=uint64_t(1)<<38;}
  template<class W>HRESULT restore(IDirect3DDevice8& n,W&& writer)noexcept{HRESULT result=S_OK;for(int i=41;i>=0;--i){if(!(pending_&(uint64_t(1)<<i)))continue;HRESULT hr=E_FAIL;
