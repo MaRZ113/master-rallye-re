@@ -53,7 +53,7 @@ struct FrontendRecord {uintptr_t mesh=0;DrawSnapshot geometry;bool valid=false;}
 struct WheelOwnerState {FrontendOwner owner{};std::array<FrontendRecord,4> records{};uint64_t frame=UINT64_MAX,drawn_frame=UINT64_MAX,blocked_frame=UINT64_MAX;uint32_t seen=0;bool certified=false;D3DMATRIX world{};};
 struct FleetWheelOwnerState {FrontendOwner owner{};std::array<FrontendRecord,16> records{};uint64_t frame=UINT64_MAX,drawn_frame=UINT64_MAX,blocked_frame=UINT64_MAX;uint32_t seen=0;bool certified=false;D3DMATRIX world{},view{},projection{};D3DVIEWPORT8 viewport{};uintptr_t target=0;};
 class FrontendModel {
- const FleetProfile* profile_=nullptr;const PS2ContentFix* content_fix_=nullptr;bool ps2_lighting_=false;bool flip_lamp_chrome_=false;std::wstring ini_;bool fleet_=false;bool car_fleet_=false;uint32_t car_failed_=0;unsigned car_index_=UINT_MAX;std::unique_ptr<FrontendModel> car_child_,car_wheel_;bool car_wheels_=false;const FleetProfile* car_wheel_failed_=nullptr;
+ const FleetProfile* profile_=nullptr;const PS2ContentFix* content_fix_=nullptr;bool ps2_lighting_=false;bool flip_lamp_chrome_=false;IDirect3DTexture8* static_env_=nullptr;std::wstring ini_;bool fleet_=false;bool car_fleet_=false;uint32_t car_failed_=0;unsigned car_index_=UINT_MAX;std::unique_ptr<FrontendModel> car_child_,car_wheel_;bool car_wheels_=false;const FleetProfile* car_wheel_failed_=nullptr;
  std::unique_ptr<FrontendModel> off_child_;const FleetProfile* off_failed_=nullptr;
  bool requested_=false,diagnostics_=false,disabled_=false,parts_=false,crew_=false;uint32_t logs_=0;
  float source_radius_sq_=0;FrontendAsset asset_;std::vector<IDirect3DTexture8*> textures_;std::vector<std::vector<FrontendVertex>> expanded_;
@@ -90,6 +90,9 @@ public:
  const std::vector<FrontendVertex>& race_vertices(unsigned root)const noexcept{if(deformation_ready_)for(unsigned i=0;i<13;++i)if(damage_source_draft::profiles[i].root==root)return deformed_[i];return race_base_vertices(root);}
  bool prepare_damage()noexcept;bool prepare_fleet_damage()noexcept;bool prepare_kia_damage()noexcept;const auto& fleet_vertices(unsigned i)const noexcept{return kia_deformed_.empty()?expanded_[i]:kia_deformed_[i];}
  IDirect3DTexture8* texture(uint32_t i)const noexcept{return i<textures_.size()?textures_[i]:nullptr;}
+ // Without Reflection=4 the meshes whose PS2 secondary is the live reflection target use the PS2 static environment map (the 80/128
+ // static term of the mixed target, without the framebuffer term) instead of the model's arbitrary placeholder maps; own = fallback.
+ IDirect3DTexture8* mixed_or(IDirect3DTexture8* own)const noexcept{return static_env_?static_env_:own;}
  bool prepare_headlight(const DrawSnapshot&,bool original,bool private_tree,unsigned part=0)noexcept;const std::vector<FrontendVertex>& headlight_vertices(unsigned part=0)const noexcept{return headlight_current_[part];}
  bool initialize(IDirect3DDevice8&)noexcept;void reset()noexcept;void invalidate()noexcept{kia_deformed_.clear();kia_revision_=UINT64_MAX;kia_damage.invalidate_current();fleet_damage.invalidate_current();for(auto& v:headlight_current_)v.clear();damage.invalidate_current();deformation_ready_=false;deformation_revision_=UINT64_MAX;trim17_native_runs.clear();kia_warmup={};wheel_owners={};fleet_wheel_owners={};environment_known=false;validated=false;parts_validated=0;certified=false;seen=0;records={};observed_frame=drawn_frame=UINT64_MAX;owner={};}
  void disable()noexcept{ps2diag::disable_log().note("model","draw_failed_or_exception");disabled_=true;invalidate();}

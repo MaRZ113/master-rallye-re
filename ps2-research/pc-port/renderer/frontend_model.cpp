@@ -24,6 +24,18 @@ namespace {
 // the other way round, so it is mirrored on upload and keeps its orientation under that switch (game test: Blazer lamps).
 constexpr char kLampChromeSha[]="7bc7aab42bff670d0f05aec5ca7c7fdae298fe1cdfea97ed56b0c80395ded745";
 bool lamp_chrome_map(const FrontendTexture& t)noexcept{try{return t.width==32&&t.height==32&&t.pixels.size()==1024&&sha256_bytes(t.pixels.data(),t.pixels.size()*4)==kLampChromeSha;}catch(...){return false;}}
+// PS2 static environment map (ReflectionSourceGXI, pinned) at the 80/128 weight of the mixed reflection target's static term.
+const std::vector<DWORD>& ps2_static_env(const std::wstring& ini)noexcept{
+ static std::vector<DWORD> pixels;static bool tried=false;
+ if(tried)return pixels;tried=true;
+ try{wchar_t name[32768]{};::gfx2::ps2port::config::read_string(L"ReflectionSourceGXI",L"PS2Grass/PS2EnvSource64x64.gxi",name,32768,ini.c_str());
+  auto path=std::filesystem::path(name);if(path.is_relative())path=std::filesystem::path(ini).parent_path()/path;
+  std::ifstream file(path,std::ios::binary);std::vector<uint8_t> bytes((std::istreambuf_iterator<char>(file)),{});
+  uint32_t magic=0;uint16_t w=0,h=0;if(bytes.size()!=16392)return pixels;std::memcpy(&magic,bytes.data(),4);std::memcpy(&w,bytes.data()+4,2);std::memcpy(&h,bytes.data()+6,2);
+  if(magic!=0x13039||w!=64||h!=64||sha256_bytes(bytes.data(),bytes.size())!="aa15159a5f3f668244dd3b1c5c7b8322d8f41ac626c3a1741222b797252ad1e4")return pixels;
+  pixels.resize(64*64);for(size_t i=0;i<pixels.size();++i){const auto* c=bytes.data()+8+4*i;auto s=[&](uint8_t v){return DWORD((unsigned(v)*80u+64u)/128u);};pixels[i]=0xff000000u|(s(c[0])<<16)|(s(c[1])<<8)|s(c[2]);}
+ }catch(...){pixels.clear();}
+ return pixels;}
 // Reads exactly `size` bytes and decodes them against the given pin.
 bool load_pinned(const std::filesystem::path& path,std::size_t size,FrontendAsset& out,unsigned role,const FleetProfile* profile,const char* sha=nullptr)noexcept{try{
  std::ifstream f(path,std::ios::binary|std::ios::ate);if(!f||f.tellg()!=std::streamoff(size))return false;std::vector<uint8_t> bytes(size);f.seekg(0);f.read(reinterpret_cast<char*>(bytes.data()),bytes.size());
@@ -54,6 +66,7 @@ bool FrontendModel::select_off(const FleetProfile& profile)noexcept{try{if(!car_
 bool FrontendModel::initialize(IDirect3DDevice8& n)noexcept{if(!requested())return false;if(textures_.size()==asset_.textures.size())return true;try{
  if(source_radius_sq_==0)for(const auto& v:asset_.vertices){const auto radius=v.xyz[0]*v.xyz[0]+v.xyz[1]*v.xyz[1]+v.xyz[2]*v.xyz[2];if(!std::isfinite(radius))return false;source_radius_sq_=std::max(source_radius_sq_,radius);}
  reset();textures_.resize(asset_.textures.size(),nullptr);for(size_t i=0;i<textures_.size();++i){const auto& t=asset_.textures[i];if(FAILED(n.CreateTexture(t.width,t.height,1,0,D3DFMT_A8R8G8B8,D3DPOOL_MANAGED,&textures_[i]))||!textures_[i]){reset();disable();return false;}D3DLOCKED_RECT l{};if(FAILED(textures_[i]->LockRect(0,&l,nullptr,0))){reset();disable();return false;}bool good=l.pBits&&l.Pitch>=int(t.width*4);const bool mirror=flip_lamp_chrome_&&lamp_chrome_map(t);if(good)for(UINT y=0;y<t.height;++y)std::memcpy(static_cast<uint8_t*>(l.pBits)+y*l.Pitch,t.pixels.data()+size_t(mirror?t.height-1-y:y)*t.width,t.width*4);auto hr=textures_[i]->UnlockRect(0);if(!good||FAILED(hr)){reset();disable();return false;}}
+ {const auto& env=ps2_static_env(ini_);if(env.size()==64*64&&SUCCEEDED(n.CreateTexture(64,64,1,0,D3DFMT_A8R8G8B8,D3DPOOL_MANAGED,&static_env_))&&static_env_){D3DLOCKED_RECT l{};bool ok=SUCCEEDED(static_env_->LockRect(0,&l,nullptr,0))&&l.pBits&&l.Pitch>=64*4;if(ok)for(UINT y=0;y<64;++y)std::memcpy(static_cast<uint8_t*>(l.pBits)+y*l.Pitch,env.data()+y*64,64*4);if(l.pBits)static_env_->UnlockRect(0);if(!ok){static_env_->Release();static_env_=nullptr;}}}
  return true;}catch(...){reset();disable();return false;}}
 bool FrontendModel::prepare_headlight(const DrawSnapshot& g,bool original,bool private_tree,unsigned part)noexcept{try{
  static constexpr unsigned vertices[]={22,30,18},faces[]={18,28,14},roots[]={19,5,11};if(part>=3||g.vertex_count!=vertices[part]||g.primitive_count!=faces[part]||asset_.meshes.size()!=20||expanded_.size()!=20)return false;
@@ -68,7 +81,7 @@ bool FrontendModel::prepare_headlight(const DrawSnapshot& g,bool original,bool p
  if(part==1)return build(front_lamp_5_damage_draft::mapping,front_lamp_5_damage_draft::candidates,front_lamp_5_damage_draft::ordered_xyz_sha256,front_lamp_5_damage_draft::ordered_uv_winding_sha256);
  return build(front_lamp_11_damage_draft::mapping,front_lamp_11_damage_draft::candidates,front_lamp_11_damage_draft::ordered_xyz_sha256,front_lamp_11_damage_draft::ordered_uv_winding_sha256);
  }catch(...){return false;}}
-void FrontendModel::reset()noexcept{if(states_pending())return;off_failed_=nullptr;if(off_child_)off_child_->reset();if(car_child_)car_child_->reset();if(car_wheel_)car_wheel_->reset();car_wheel_failed_=nullptr;car_failed_=0;fleet_probes={};fleet_probe_count=0;fleet_failed=0;transaction.release();environment_known=false;for(auto* t:textures_)if(t)t->Release();textures_.clear();invalidate();logs_=0;}
+void FrontendModel::reset()noexcept{if(states_pending())return;off_failed_=nullptr;if(off_child_)off_child_->reset();if(car_child_)car_child_->reset();if(car_wheel_)car_wheel_->reset();car_wheel_failed_=nullptr;car_failed_=0;fleet_probes={};fleet_probe_count=0;fleet_failed=0;transaction.release();environment_known=false;for(auto* t:textures_)if(t)t->Release();textures_.clear();if(static_env_)static_env_->Release();static_env_=nullptr;invalidate();logs_=0;}
 }
 
 
