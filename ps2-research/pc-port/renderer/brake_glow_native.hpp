@@ -24,7 +24,7 @@ inline xtrailintegration::Result draw(Device8& d,D3DPRIMITIVETYPE type,UINT min_
  frontendmodelintegration::FleetParticipantScope fleet_scope(d,pc);
  const auto fleet=draw_fleet_lamp(d,type,min_index,vertices,start,count,pc);if(fleet.handled)return fleet;
  auto* e=d.ps2_port();auto* p=e&&e->xtrail()?e->xtrail()->brake():nullptr;
- if(!p||!p->requested()||!e->reflection()||!e->reflection()->active()||e->reflection()->mode_value()!=4||type!=D3DPT_TRIANGLELIST||!d.trace.scene_active||GetCurrentThreadId()!=d.trace.render_thread_id()||d.trace.shadow.recording||d.trace.effective_shadow.recording)return {};
+ if(!p||!p->requested()||type!=D3DPT_TRIANGLELIST||!d.trace.scene_active||GetCurrentThreadId()!=d.trace.render_thread_id()||d.trace.shadow.recording||d.trace.effective_shadow.recording)return {};
  bool layout=false;for(const auto& profile:ps2port::kBrakeGlowProfiles)layout=layout||(profile.vertices==vertices&&profile.triangles==count);const bool kia_on=vertices==16&&count==12; if(!layout&&!kia_on)return {};
  if(pc!=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+SHARED_WORLD_RETURN_RVA)return {};
  bool committed=false;HRESULT submitted=E_FAIL;

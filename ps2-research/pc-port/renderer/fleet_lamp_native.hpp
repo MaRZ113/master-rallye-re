@@ -5,7 +5,7 @@ namespace gfx2::lampintegration {
 static_assert(std::size(ps2port::off_followup::profiles)<=std::tuple_size<decltype(ps2port::BrakeGlow::private_off_reference)>::value,"private OFF reference storage must cover every private OFF profile");
 inline xtrailintegration::Result draw_fleet_lamp(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UINT start,UINT count,uintptr_t pc)noexcept{
  auto* e=d.ps2_port();auto* p=e&&e->xtrail()?e->xtrail()->brake():nullptr;auto* parent=e?e->race_model():nullptr;auto* reflection=e?e->reflection():nullptr;
- if(!p||!p->requested()||!parent||!parent->car_fleet_enabled()||!reflection||!reflection->active()||reflection->mode_value()!=4||type!=D3DPT_TRIANGLELIST||!d.trace.scene_active||d.trace.shadow.recording||d.trace.effective_shadow.recording||GetCurrentThreadId()!=d.trace.render_thread_id()||pc!=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+SHARED_WORLD_RETURN_RVA)return {};
+ if(!p||!p->requested()||!parent||!parent->car_fleet_enabled()||type!=D3DPT_TRIANGLELIST||!d.trace.scene_active||d.trace.shadow.recording||d.trace.effective_shadow.recording||GetCurrentThreadId()!=d.trace.render_thread_id()||pc!=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+SHARED_WORLD_RETURN_RVA)return {};
  bool shape=false;for(const auto& a:ps2port::kFleetOnProfiles)shape=shape||(vertices==a.vertices&&count==a.triangles);for(const auto& a:ps2port::kBrakeGlowProfiles)shape=shape||(vertices==a.vertices&&count==a.triangles);for(const auto& a:ps2port::kFleetOffLampProfiles)shape=shape||(vertices==a.vertices&&count==a.triangles);for(const auto& a:ps2port::off_followup::profiles)shape=shape||(vertices==a.nativeVertices&&count==a.triangles);if(!shape)return {};
  bool committed=false;HRESULT submitted=E_PENDING;
  try{
