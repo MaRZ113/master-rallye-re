@@ -1,5 +1,11 @@
 # Yellow checkpoint barrels: separate mechanism
 
+> **RESOLVED 2026-11-03 (COURSE-ALIVE4, `../course-alive4/README.md`):** the owner is `gaRaceSplitTimeAI` itself. Its init
+> `181dd0` sets owner+0x24 = 1; the first update `181988` calls `1822c0`, which looks up the Eggs `"%s-%d"` (own Egg
+> name, 0..3), creates a `gaAiRigidBody` for each (`19fcd0`; Casts Shadow 1, Mass 500, Trigger 5, MOI 487.5/900/487.5),
+> forces the model `misc\objects\checkpoints\checkpoint` (`262f88`) and attaches it to AI slot 0 (`21e620`). The text
+> below is the earlier, superseded boundary.
+
 The user screenshot of PS2 Turkey3 confirms the visual appearance of yellow checkpoint barrels in that view (**USER_RUNTIME_OBSERVATION / SCREENSHOT_CORRELATION**). A screenshot cannot establish a rigid owner or a contact response.
 
 Existing CDELTA1 byte evidence selects `misc\objects\checkpoints\checkpoint` in 431 PS2 checkpoint-model Eggs across the paired 36 scenes. Every such Egg has `Hitable=True` and no non-Null authored AI owner; they are not `gaAiRigidBody` Eggs. Separate `gaRaceSplitTimeAI` model-less Eggs own gameplay split timing. PC selects `misc\checkpoints\checkpoint` in 440 paired visual references, also with `Hitable=True`, while the user reports different collision behavior. These are authored reference counts, not live simultaneous barrel counts.

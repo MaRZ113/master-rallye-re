@@ -10,6 +10,7 @@
 #include "ps2_birds_pilot.hpp"
 #include "collision_debug_pilot.hpp"
 #include "rigid_props.hpp"
+#include "ps2_audio_options.hpp"
 #include "retail_layout.hpp"
 #include "ps2_water_pilot.hpp"
 #include "vehicle_partition.hpp"
@@ -283,6 +284,8 @@ PS2PortExtension::PS2PortExtension(bool exact_build, const std::string& exe_sha,
         collision_debug_ = std::make_unique<CollisionDebugPilot>(build_valid_, ini);
         // COURSE-ALIVE3 (docs/course-alive3): RigidProps=1 simulates and draws the PS2 hay bales and tumbleweeds.
         rigid_props_ = std::make_unique<RigidPropsPilot>(build_valid_, ini);
+        // PS2-AUDIO1 (docs/course-alive4): PS2CheckpointSoundOff=1 / PS2FinishMusic=1, byte-verified code patches.
+        audio::configure(build_valid_, ini);
         color_.configure(read_ps2_color_config(ini.c_str()));
         output_.configure(::gfx2::ps2port::config::read_int(L"PS2Output", 0, ini.c_str()) == 1);
         if (::gfx2::ps2port::config::read_int(L"PS2MotionBlur", 0, ini.c_str()) == 1) { wchar_t blur[32]{}; ::gfx2::ps2port::config::read_string(L"PS2MotionBlurStrength", L"0.195", blur, 32, ini.c_str()); blur_.configure(parse_motion_blur_strength(blur)); }
@@ -351,7 +354,7 @@ std::string PS2PortExtension::status_json() const {
     if (reflection_) out += ",\"reflection\":" + reflection_->status_json();
     out += ",\"grass\":" + pilot_state(grass_.get()) + ",\"shrubs\":" + pilot_state(shrubs_.get()) +
         ",\"spline\":" + pilot_state(spline_objects_.get()) + ",\"water\":" + pilot_state(water_.get()) + ",\"birds\":" + pilot_state(birds_.get()) + ",\"rigid_props\":" + pilot_state(rigid_props_.get()) +
-        ",\"course_objects\":" + pilot_state(course_objects_.get());
+        ",\"course_objects\":" + pilot_state(course_objects_.get()) + ",\"audio\":" + audio::status_json();
     if (ground_) out += std::string(",\"ground_detail\":{\"requested\":") + (ground_->requested() ? "true" : "false") + ",\"passes\":" + std::to_string(ground_->passes()) + "}";
     out += ",\"disables\":{\"total\":" + std::to_string(ps2diag::disable_log().total()) + ",\"recent\":" + ps2diag::disable_log().recent_json() + "}";
     out += std::string(",\"models\":{\"frontend\":") + (frontend_model_ && frontend_model_->requested() ? "true" : "false") +

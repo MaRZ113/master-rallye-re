@@ -13,6 +13,10 @@
 //   MODULATE, fog, depth written); tumbleweed = treeblend (source alpha blend, no depth write).
 // * Course guard: only a loose course DX that is not the retail PC one (a PS2 course package): the props stand on the PS2
 //   terrain, and the PS2 packages hold no static copy of them (docs/course-alive3/README.md).
+// * COURSE-ALIVE4 (opt-in PS2CheckpointBarrels=1, docs/course-alive4): the 432 PS2 checkpoint barrels (12 per course on all
+//   36 courses). On the PS2 every gaRaceSplitTimeAI turns the Eggs "<its Egg>-0..3" into gaAiRigidBody props on its first
+//   update (1822c0: mass 500, MOI 487.5/900/487.5, barrel PSM); here they are props of the same World (flag bit 1), and the
+//   native PC checkpoint boards (Misc/Checkpoints/checkpoint.dx) of such a course are not drawn.
 #include "ps2_diag.hpp"
 #include "course_objects.hpp"
 #include "course_object_transaction.hpp"
@@ -32,10 +36,16 @@
 
 namespace gfx2::ps2port {
 
-inline constexpr char kRigidPropsArtifactSha[]="98846199fad8be4bbf29a1f6c4c9e9833e71af52ee126bf867a03174db2d12ba";
+inline constexpr char kRigidPropsArtifactSha[]="12750a3d8ea43976fd15555175b7a7b4094aa79bbe7acb42ffc4092ae3fa53da";
 inline constexpr size_t kRigidPropsMaximumAssetBytes=4u*1024u*1024u;
 inline constexpr size_t kRigidMaximumPropsPerCourse=32;
-inline constexpr uint32_t kRigidMaterialObject=0,kRigidMaterialTreeblend=1;
+inline constexpr uint32_t kRigidMaterialObject=0,kRigidMaterialTreeblend=1,kRigidMaterialMetal=2;   // metal: drawn as object
+inline constexpr uint32_t kRigidFlagShadow=1,kRigidFlagCheckpoint=2;
+// Native PC checkpoint boards (Misc/Checkpoints/checkpoint.dx): draw 0 = 48 triangles of i2a_planks2-tga, draw 1 = 4
+// triangles of stamp_01-tga; SHA-256 of the 128x128 A8R8G8B8 level 0 as uploaded (the DXT pixel bytes, GroundDetail rule).
+inline constexpr char kPcCheckpointPlanksSha[]="906be0d95d48376b1e3e595229f294c1f0d1ceef110a0c64247a176d4bf299bb";
+inline constexpr char kPcCheckpointStampSha[]="dbba864c047e577e77e15f583ace512c26f0c1136059a6ad5bbffbbada5ffc7a";
+inline constexpr UINT kPcCheckpointPlanksTriangles=48,kPcCheckpointStampTriangles=4;
 
 struct RigidTexture { uint32_t width=0,height=0; std::vector<DWORD> bgra; };
 struct RigidModelDraw { uint32_t texture=0,first=0,count=0; };
@@ -45,7 +55,7 @@ struct RigidModel {
     int32_t env=-1;                        // $shader(dull): CommonTextures/dull added by the mode-3 environment pass
     std::array<float,6> aabb{};            // model AABB min, max (the 332628 shadow box)
 };
-struct RigidPropDef { std::string egg; uint32_t model=0; bool casts_shadow=false; float mass=0; ps2rigid::V3 moi{}; float trigger=0; std::array<float,12> matrix{}; };
+struct RigidPropDef { std::string egg; uint32_t model=0; bool casts_shadow=false,checkpoint=false; float mass=0; ps2rigid::V3 moi{}; float trigger=0; std::array<float,12> matrix{}; };
 struct RigidCourseDef { std::string id,dx_path; std::array<uint8_t,32> retail_sha{}; uint32_t first=0,count=0; };
 struct RigidPropsAsset {
     std::vector<RigidTexture> textures;
@@ -85,19 +95,28 @@ struct RigidCarInput {
     uint32_t body=0; float mass=0; ps2rigid::V3 com{};
 };
 
+// Which props of a course take part: hay bales/tumbleweeds (RigidProps=1) and/or checkpoint barrels (PS2CheckpointBarrels=1).
+struct RigidSelection { bool props=true,barrels=true; };
+// Asset prop indices of a course that the selection admits, in asset order.
+std::vector<uint32_t> rigid_members(const RigidPropsAsset&,size_t course,RigidSelection) noexcept;
+
 // The per-race physics of one course. No D3D: tests drive it directly.
 class RigidCourseRuntime {
     const RigidPropsAsset* asset_=nullptr;
     const ps2rigid::Terrain* terrain_=nullptr;
     size_t course_=SIZE_MAX;uint64_t race_=0;
+    std::vector<uint32_t> members_;        // asset prop index of every body
+    size_t barrels_=0;
     ps2rigid::World world_;
     ps2rigid::TickClock clock_;
     struct CarTrack { ps2rigid::Pose pose; double time=0; bool have=false; };
     std::unordered_map<uint32_t,CarTrack> cars_;
     uint32_t car_wakes_=0;
 public:
-    bool start(const RigidPropsAsset&,size_t course,const ps2rigid::Terrain&,uint64_t race_generation) noexcept;
-    void stop() noexcept {asset_=nullptr;terrain_=nullptr;course_=SIZE_MAX;race_=0;world_.stop();clock_.reset();cars_.clear();car_wakes_=0;}
+    bool start(const RigidPropsAsset&,size_t course,const ps2rigid::Terrain&,uint64_t race_generation,RigidSelection={}) noexcept;
+    void stop() noexcept {asset_=nullptr;terrain_=nullptr;course_=SIZE_MAX;race_=0;members_.clear();barrels_=0;world_.stop();clock_.reset();cars_.clear();car_wakes_=0;}
+    const std::vector<uint32_t>& members() const noexcept {return members_;}
+    size_t barrels() const noexcept {return barrels_;}
     bool ready() const noexcept {return asset_&&course_!=SIZE_MAX&&world_.ready();}
     size_t course() const noexcept {return course_;}
     uint64_t race() const noexcept {return race_;}
@@ -119,6 +138,11 @@ public:
 class RigidPropsPilot {
     bool requested_=false,verified_=false,disabled_=false,suspended_=false,blocked_=false;
     bool diagnostics_=false,stock_courses_=false,logged_rejection_=false,logged_draw_=false,car_impulse_=true;
+    RigidSelection selection_{false,false};
+    // COURSE-ALIVE4: race generation whose World holds barrels (the native boards of that race are not drawn).
+    uint64_t barrel_race_=0;uint64_t boards_hidden_=0;bool logged_boards_=false;
+    struct BoardIdentity { uintptr_t texture=0; uint64_t generation=0; int kind=0; };   // 1 planks, 2 stamp, 0 other
+    std::array<BoardIdentity,16> boards_{};size_t next_board_=0;
     unsigned impulse_logs_=0;
     const char* reason_="stock_default";
     RigidPropsAsset asset_;
@@ -152,6 +176,14 @@ public:
     bool diagnostics()const noexcept{return diagnostics_;}
     // RigidPropsCarImpulse (default 1): props push back on the cars through the PC vehicle body momenta.
     bool car_impulse()const noexcept{return car_impulse_;}
+    RigidSelection selection()const noexcept{return selection_;}
+    bool barrels_requested()const noexcept{return selection_.barrels;}
+    // Barrels of race `race_generation` are simulated and drawn: its native checkpoint boards are to be hidden.
+    bool hide_boards(uint64_t race_generation)const noexcept{return active()&&race_generation&&barrel_race_==race_generation&&runtime_.ready()&&runtime_.barrels();}
+    // Stage-0 texture content of a native draw: 1 = PC checkpoint planks, 2 = PC checkpoint stamp, 0 = other (cached).
+    int board_texture(IDirect3DBaseTexture8*,uint64_t generation) noexcept;
+    uint64_t note_board_hidden() noexcept {return ++boards_hidden_;}
+    bool claim_board_log() noexcept {if(!diagnostics_||logged_boards_)return false;logged_boards_=true;return true;}
     const char* reason()const noexcept{return reason_;}
     const char* guard_reason()const noexcept{return guard_reason_;}
     const char* terrain_reason()const noexcept{return terrain_reason_;}

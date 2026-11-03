@@ -3,6 +3,7 @@
 // (an installed PS2 course package DX of a prop course) and MRR_RIGID_TEST_CAR_DX (a retail car.dx).
 #include "rigid_props.hpp"
 #include "provenance.hpp"
+#include "ps2_audio_options.hpp"
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -219,6 +220,37 @@ void asset_and_runtime(){
     c.rows[11]=2;c.body=0x5000;c.mass=1300;c.com={0,.5f,2};rt.cars({c},hulls,10.1,k);
     CHECK(k.size()==1&&approx(k[0].v[2],20,1e-2f)&&k[0].mass==1300.f&&k[0].body==0x5000);
     float e=0,mu=0,roll=0;rigid_material_coefficients(kRigidMaterialTreeblend,e,mu,roll);CHECK(e>.2f&&roll>0);
+    rigid_material_coefficients(kRigidMaterialMetal,e,mu,roll);CHECK(e>.2f&&mu>.3f&&roll>1.f);
+}
+// COURSE-ALIVE4: the barrel flag, the per-INI member selection and the PS2-AUDIO1 site rules.
+void checkpoint_and_audio(){
+    auto bytes=synthetic();RigidPropsAsset a;
+    const size_t flags=bytes.size()-72;   // flags word of the last (only) prop record
+    {auto b=bytes;b[flags]=3;CHECK(!decode_rigid_props_layout(b.data(),b.size(),a));}   // barrel flag on a non-checkpoint model
+    {auto b=bytes;b[flags]=4;CHECK(!decode_rigid_props_layout(b.data(),b.size(),a));}   // unknown flag
+    {auto b=bytes;std::memcpy(b.data()+44+2*24,"checkpoint\0\0\0\0\0",16);           // model name -> checkpoint
+     CHECK(!decode_rigid_props_layout(b.data(),b.size(),a));                            // ... without the flag: refused
+     b[flags]=3;CHECK(decode_rigid_props_layout(b.data(),b.size(),a)&&a.props[0].checkpoint&&a.props[0].casts_shadow);
+     CHECK(rigid_members(a,0,{true,true}).size()==1&&rigid_members(a,0,{true,false}).empty()&&rigid_members(a,0,{false,true}).size()==1);
+     ps2rigid::Terrain t;ground(t,-32,1000);RigidCourseRuntime rt;
+     CHECK(!rt.start(a,0,t,3,{true,false}));                                            // props only: nothing on this course
+     CHECK(rt.start(a,0,t,3,{false,true})&&rt.barrels()==1&&rt.members().size()==1&&rt.members()[0]==0);}
+    CHECK(decode_rigid_props_layout(bytes.data(),bytes.size(),a)&&!a.props[0].checkpoint);
+    CHECK(rigid_members(a,0,{false,true}).empty()&&rigid_members(a,0,{true,false}).size()==1&&rigid_members(a,5,{}).empty());
+    using namespace gfx2::ps2port::audio;
+    const uint8_t jz[2]={0x74,0x3d},jmp[2]={0xeb,0x3d},other[2]={0x75,0x3d};
+    CHECK(classify(kCheckpointSound,jz)==Site::Original&&classify(kCheckpointSound,jmp)==Site::Patched&&classify(kCheckpointSound,other)==Site::Mismatch);
+    const uint8_t mov[4]={0xc6,0x40,0x0e,0x01},nop[4]={0x90,0x90,0x90,0x90},jnz[2]={0x75,0x3c},bad[4]={0xc6,0x40,0x0e,0x00};
+    CHECK((group_ready<2>({&kFinishJingle,&kFinishFade},{mov,jnz})));
+    CHECK((group_ready<2>({&kFinishJingle,&kFinishFade},{nop,jnz})));                   // half patched before: completes
+    CHECK(!(group_ready<2>({&kFinishJingle,&kFinishFade},{bad,jnz})));                  // other code: nothing written
+    CHECK(!(group_ready<1>({&kFinishFade},{nullptr})));
+    {const uint8_t push[2]={0x68,0xe8},jmp39[2]={0xeb,0x39};
+     CHECK((group_ready<2>({&kCheckpointSound,&kSplitTimeSound},{jz,push})));
+     CHECK((group_ready<2>({&kCheckpointSound,&kSplitTimeSound},{jmp,jmp39})));          // re-run after an earlier proxy
+     CHECK(!(group_ready<2>({&kCheckpointSound,&kSplitTimeSound},{jz,jz})));
+     CHECK(kSplitTimeSound.va+2+kSplitTimeSound.replacement[1]==0x4a9169u);}
+    CHECK(kFinishJingle.va%4==0&&kCheckpointSound.original[1]==kCheckpointSound.replacement[1]&&kFinishFade.original[1]==kFinishFade.replacement[1]);
 }
 void two_way(){
     // A coupled 1300 kg car at 20 m/s into a 500 kg bale: the car slows down by about the momentum it gives the bale,
@@ -260,8 +292,9 @@ void private_inputs(){
     if(const char* path=std::getenv("MRR_RIGID_TEST_ASSET")){
         std::ifstream f(path,std::ios::binary);std::vector<uint8_t> b((std::istreambuf_iterator<char>(f)),{});
         RigidPropsAsset a;CHECK(decode_rigid_props_asset(b.data(),b.size(),gfx2::sha256_bytes(b.data(),b.size()),a));
-        CHECK(a.courses.size()==9&&a.props.size()==83&&a.models.size()==2);
-        size_t hay=0;for(const auto& p:a.props)hay+=a.models[p.model].name=="haybale";CHECK(hay==58);
+        CHECK(a.courses.size()==36&&a.props.size()==515&&a.models.size()==3);
+        size_t hay=0,barrels=0;for(const auto& p:a.props){hay+=a.models[p.model].name=="haybale";barrels+=p.checkpoint;}CHECK(hay==58&&barrels==432);
+        for(size_t i=0;i<a.courses.size();++i)CHECK(rigid_members(a,i,{false,true}).size()==12);
         std::cout<<"private asset: "<<a.props.size()<<" props\n";
         if(const char* dx=std::getenv("MRR_RIGID_TEST_COURSE_DX")){
             std::ifstream g(dx,std::ios::binary);std::vector<uint8_t> c((std::istreambuf_iterator<char>(g)),{});
@@ -315,7 +348,7 @@ void private_inputs(){
 } // namespace
 
 int main(){
-    math();hull_and_terrain();placement_and_settled();free_fall_rest_and_far();car_knocks_bale();asset_and_runtime();two_way();private_inputs();
+    math();hull_and_terrain();placement_and_settled();free_fall_rest_and_far();car_knocks_bale();asset_and_runtime();checkpoint_and_audio();two_way();private_inputs();
     if(failures){std::cerr<<failures<<" failures\n";return 1;}
     std::cout<<"rigid props contracts passed\n";return 0;
 }

@@ -960,7 +960,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
   return draw_indexed_at(type,min_index,vertices,start,count,reinterpret_cast<uintptr_t>(_ReturnAddress()));
  }
  HRESULT Device8::draw_indexed_at(D3DPRIMITIVETYPE type,UINT min_index,UINT vertices,UINT start,UINT count,uintptr_t pc){
-@@ -210,13 +333,116 @@
+@@ -210,13 +333,118 @@
   if(visuals.effective.foliage_diagnostics&&trace.enabled&&trace.control.active)
    trace.foliage_result(probe_foliage(*real_,trace.resources,args,trace.frame_number(),trace.foliage_budget,this));
   HRESULT hr;
@@ -975,6 +975,8 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
 + if(brake_draw.handled){reflectionintegration::note_result(*this,ps2diag::Effect::Models,"brake_lamp","brake_lamp_failed",brake_draw.hr);trace.after(71,args,static_cast<uint32_t>(brake_draw.hr),pc);return brake_draw.hr;}
 + const auto water_draw=waterintegration::draw(*this,type,min_index,vertices,start,count,pc);
 + if(water_draw.handled){trace.after(71,args,static_cast<uint32_t>(water_draw.hr),pc,nullptr,256,true);if(count)courseintegration::observe_world_draw(*this,water_draw.hr);if(count)grassintegration::observe_world_draw(*this,water_draw.hr);if(count)splineintegration::observe_world_draw(*this,water_draw.hr);if(count)birdsintegration::observe_world_draw(*this,water_draw.hr);return water_draw.hr;}
++ const auto checkpoint_board=rigidintegration::hide_checkpoint_board(*this,type,count);
++ if(checkpoint_board.handled){trace.after(71,args,static_cast<uint32_t>(checkpoint_board.hr),pc,nullptr,256,true);return checkpoint_board.hr;}
 + const auto ground_draw=groundintegration::draw(*this,type,min_index,vertices,start,count,pc);
 + if(ground_draw.handled){trace.after(71,args,static_cast<uint32_t>(ground_draw.hr),pc,nullptr,256,true);if(count)courseintegration::observe_world_draw(*this,ground_draw.hr);if(count)grassintegration::observe_world_draw(*this,ground_draw.hr);if(count)splineintegration::observe_world_draw(*this,ground_draw.hr);if(count)birdsintegration::observe_world_draw(*this,ground_draw.hr);return ground_draw.hr;}
 + const auto glass_draw=xtrailintegration::glass_draw(*this,classification,type,min_index,vertices,start,count,pc);

@@ -107,12 +107,41 @@ inline std::string state_record(const ps2port::RigidPropsPilot& p,uint64_t frame
     std::string s="{\"type\":\"ps2_rigid_props_state\",\"course\":"+quote(c.id)+",\"frame\":"+std::to_string(frame)+
         ",\"race_generation\":"+std::to_string(rt.race())+",\"ticks\":"+std::to_string(w.ticks())+",\"cars\":"+std::to_string(cars)+
         ",\"contacts\":"+std::to_string(w.last_contacts())+",\"car_contacts\":"+std::to_string(w.last_car_contacts())+",\"props\":[";
-    for(size_t i=0;i<w.bodies().size();++i){const auto& b=w.bodies()[i];char buf[256];
+    for(size_t i=0;i<w.bodies().size()&&i<rt.members().size();++i){const auto& b=w.bodies()[i];char buf[256];
         const char* state=b.state==ps2rigid::State::Active?"active":b.state==ps2rigid::State::Far?"far":"asleep";
         std::snprintf(buf,sizeof(buf),"%s{\"egg\":\"%s\",\"state\":\"%s\",\"near\":%s,\"wakes\":%u,\"lifted\":%.3f,\"position\":[%.3f,%.3f,%.3f],\"speed\":%.3f}",
-            i?",":"",a.props[c.first+i].egg.c_str(),state,b.in_view?"true":"false",unsigned(b.wakes),double(b.lifted),
+            i?",":"",a.props[rt.members()[i]].egg.c_str(),state,b.in_view?"true":"false",unsigned(b.wakes),double(b.lifted),
             double(b.x[0]),double(b.x[1]),double(b.x[2]),double(ps2rigid::length(b.v)));s+=buf;}
     return s+"]}";
+}
+// COURSE-ALIVE4: a native draw of the PC checkpoint boards (Misc/Checkpoints/checkpoint.dx, stage-0 texture content
+// i2a_planks2-tga with 48 triangles or stamp_01-tga with 4, non-identity WORLD = an Egg model) in a race whose PS2 barrels
+// are simulated and drawn is skipped: on the PS2 the checkpoint is the barrel. Anything else draws as before.
+struct BoardResult { bool handled=false; HRESULT hr=S_OK; };
+inline BoardResult hide_checkpoint_board(Device8& d,D3DPRIMITIVETYPE type,UINT count) noexcept {
+    auto* p=pilot(d);if(!p||!p->barrels_requested()||!p->active())return {};
+    if(type!=D3DPT_TRIANGLELIST||(count!=ps2port::kPcCheckpointPlanksTriangles&&count!=ps2port::kPcCheckpointStampTriangles))return {};
+    if(!d.trace.scene_active||d.trace.shadow.recording||d.trace.effective_shadow.recording||GetCurrentThreadId()!=d.trace.render_thread_id())return {};
+    bool single=false;const auto cert=courseintegration::certificate(d,single);
+    if(!single||!cert.valid||!p->hide_boards(cert.race_generation))return {};
+    auto& n=*d.native();
+    courseintegration::Ref<IDirect3DBaseTexture8> texture;
+    if(FAILED(n.GetTexture(0,&texture.p))||!texture.p)return {};
+    const auto id=reinterpret_cast<uintptr_t>(texture.p);
+    const auto& tracked=d.trace.effective_shadow.bindings.textures[0];
+    if(!tracked.known||tracked.value!=id)return {};
+    const int kind=p->board_texture(texture.p,d.trace.resources.generation(id));
+    if(!(kind==1&&count==ps2port::kPcCheckpointPlanksTriangles)&&!(kind==2&&count==ps2port::kPcCheckpointStampTriangles))return {};
+    // An Egg model has its own WORLD; an identity WORLD would be course geometry with the same texture.
+    D3DMATRIX world{};const auto& tw=d.trace.effective_shadow.matrices[D3DTS_WORLD];
+    if(tw.known)world=tw.value;else if(FAILED(n.GetTransform(D3DTS_WORLD,&world)))return {};
+    D3DMATRIX identity{};identity._11=identity._22=identity._33=identity._44=1.f;
+    if(!std::memcmp(&world,&identity,sizeof(identity)))return {};
+    const auto hidden=p->note_board_hidden();
+    if(auto* x=d.ps2_port())x->note(ps2diag::Effect::RigidProps,"checkpoint_board_hidden");
+    if(p->claim_board_log())try{session().write("{\"type\":\"ps2_checkpoint_board_hidden\",\"race_generation\":"+std::to_string(cert.race_generation)+
+        ",\"kind\":"+(kind==1?"\"planks\"":"\"stamp\"")+",\"hidden\":"+std::to_string(hidden)+",\"barrels\":"+std::to_string(p->runtime().barrels())+"}");}catch(...){}
+    return {true,S_OK};
 }
 inline HRESULT before_ui(Device8& d,bool ui_callsite) noexcept {
     auto* p=pilot(d);if(!p||!p->active()||!ui_callsite)return S_OK;

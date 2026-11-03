@@ -1,4 +1,5 @@
-"""COURSE-ALIVE3: private asset and inventory of the 83 PS2 gaAiRigidBody props (58 hay bales, 25 tumbleweeds, 9 courses).
+"""COURSE-ALIVE3: private asset and inventory of the 83 PS2 gaAiRigidBody props (58 hay bales, 25 tumbleweeds, 9 courses)
+and (COURSE-ALIVE4) the 432 PS2 checkpoint barrels of the 36 courses.
 
 Inputs (read only):
 - PS2 RaceTest XML of each course (TNG.PAK/TNG.000): every gaAiRigidBody Egg with its en3d Matrix, model and the four
@@ -9,7 +10,14 @@ Inputs (read only):
 - the PC visual models of course-port W5 (`course-port/build_objects.py convert()`): hay = the W5 hay bale, tumbleweed =
   the same conversion with its own PS2 texture `shrubtrig2-tga` (PC file of the same name), retail loader winding,
   two-sided copies;
-- the retail PC course DX of each course (only its SHA-256, so the runtime can refuse a stock PC course).
+- the retail PC course DX of each course (only its SHA-256, so the runtime can refuse a stock PC course);
+- COURSE-ALIVE4 checkpoint barrels: no authored owner. The first update of every gaRaceSplitTimeAI (181988 -> 1822c0,
+  pending flag +24 set by the init 181dd0) looks up the Eggs "%s-%d" (0x46fc10) of its own Egg name for 0..3, gives each
+  found Egg a new gaAiRigidBody (19fcd0) with Casts Shadow 1, Mass 500, Trigger Distance 5, MOI (487.5, 900, 487.5),
+  sets its model to misc\\objects\\checkpoints\\checkpoint (262f88, also where the Egg authored another model: SpainWFlip
+  SplitTime1-3 = nessie) and attaches the owner to AI slot 0 (21e620). Barrel = that PSM: meshes drum/top
+  $shader(metal) (3aeb00: mode 3 like dull, no vertex colour auxiliary, secondary = the mesh's second texture
+  aluminium), textures from the PS2 GXI (c-point-tga has no PC file), tag101 representation B hull.
 
 Output: `.assets/course/PS2RigidProps.ps2rgd` (ignored; contains PS2 coordinates) and
 `.assets/course/rigid-inventory-full.json` (ignored). `--inventory <path>` writes the coordinate-free inventory that is
@@ -32,6 +40,7 @@ RESEARCH = PORT.parent
 sys.path[:0] = [str(RESEARCH / 'course-port'), str(RESEARCH / 'tools'), str(RESEARCH / 'track-delta1'), str(RESEARCH.parent / 'src')]
 sys.dont_write_bytecode = True
 import build_objects  # noqa: E402
+import ps2_mesh  # noqa: E402
 import course_config as cc  # noqa: E402
 import rigid_runtime as rr  # noqa: E402
 import water_runtime as wr  # noqa: E402
@@ -56,13 +65,24 @@ PLANE = struct.Struct('<4f')               # outward unit normal n, d: n.p + d <
 COURSE = struct.Struct('<48s64s32s2I')     # course id, PC course DX path, retail PC DX SHA-256, first prop, count
 PROP = struct.Struct('<32s2I5f12f')        # egg, model, flags (bit0 Casts Shadow), mass, MOI xyz, Trigger Distance, matrix rows 0..3 xyz
 
-MATERIAL_OBJECT, MATERIAL_TREEBLEND = 0, 1
+MATERIAL_OBJECT, MATERIAL_TREEBLEND, MATERIAL_METAL = 0, 1, 2
+FLAG_SHADOW, FLAG_CHECKPOINT = 1, 2
 # PS2 model (lower case, backslashes) -> family. The two hay paths are byte-identical (rigid1/collision-shapes.md).
 FAMILIES = {
     r'misc\haybale\haybale': 'haybale',
     r'misc\objects\haybales\haybale': 'haybale',
     r'misc\objects\tumbleweed\tumblweed': 'tumblweed',
 }
+CHECKPOINT_PSM = r'\TNG\DATAPSM\MISC\OBJECTS\CHECKPOINTS\CHECKPOINT.PSM'
+CHECKPOINT_MODEL = r'misc\objects\checkpoints\checkpoint'
+# 1822c0 constants (lui/ori words at 1822c0..1823d8): +10 = 1, +14 = 0x43fa0000, +18 = 0x40a00000, MOI = (0x43f3c001,
+# 0x44610000, 0x43f3c001).
+CHECKPOINT_BODY = {'casts_shadow': True, 'mass': struct.unpack('<f', struct.pack('<I', 0x43fa0000))[0],
+                   'trigger_distance': struct.unpack('<f', struct.pack('<I', 0x40a00000))[0],
+                   'moi': [struct.unpack('<f', struct.pack('<I', w))[0] for w in (0x43f3c001, 0x44610000, 0x43f3c001)]}
+CHECKPOINT_TEXTURES = {'c-point-tga': r'\TNG\DATAPSM\COMMONTEXTURES\C-POINT-TGA.GXI',
+                       'top-tga': r'\TNG\DATAPSM\COMMONTEXTURES\TOP-TGA.GXI',
+                       'aluminium-tga': r'\TNG\DATAPSM\COMMONTEXTURES\ALUMINIUM-TGA.GXI'}
 MODEL_SPECS = {
     # $shader(dull) (setup 3aeb50): mode 3, auxiliary 328000 whose vertex callback 322400 overwrites every vertex colour
     # with (0x72, 0x72, 0x72, 0xFE) (cached x0.5 -> 57/128 on the GS), secondary CommonTextures/dull added through the
@@ -131,7 +151,87 @@ def hull_planes(points, triangles, tolerance=1e-4):
     return planes
 
 
-def hull(psm_path):
+def gxi_dxt_rows(path):
+    """GXI -> BGRA rows in the PC DXT order (bottom-up), as the PC game uploads its course textures; the PS2 UV is then
+    used as is (ps2_mesh.convert_gxi_rows; aluminium-tga: PC DXT rows == flipped GXI rows, exact)."""
+    payload = cc.read_ps2(path)
+    magic, w, h = struct.unpack_from('<IHH', payload, 0)
+    if magic != 0x13039 or len(payload) != 8 + 4 * w * h or w & (w - 1) or h & (h - 1):
+        raise ValueError(f'{path}: unsupported GXI')
+    return (w, h, ps2_mesh.convert_gxi_rows(payload[8:], w, h)), sha(payload)
+
+
+def tex_name(t):
+    return t['name'].replace('\\', '/').split('/')[-1].lower()
+
+
+def checkpoint_visual():
+    """The PS2 barrel PSM drawn directly: one draw per primary texture (drum c-point, top), PS2 strip triangles in PC
+    corner order, every triangle also reversed (objects without back-face culling), PSM prelight colours (metal has no
+    vertex colour auxiliary), PS2 UV; secondary aluminium = the environment layer of the model."""
+    payload = cc.read_ps2(CHECKPOINT_PSM)
+    scene = wr.decode_scene(payload, terminator=101)
+    draws, textures, tris = [], [], 0
+    for primary in ('c-point-tga', 'top-tga'):
+        meshes = [m for m in scene.meshes if m['textures'] and tex_name(m['textures'][0]) == primary]
+        if len(meshes) != 1 or '$shader(metal)' not in meshes[0]['material'].lower():
+            raise ValueError(f'checkpoint: one metal mesh with {primary} expected')
+        second = [tex_name(t) for t in meshes[0]['textures'][1:]]
+        if second != ['aluminium-tga']:
+            raise ValueError(f'checkpoint: secondary of {primary} is {second}')
+        verts, normals = [], []
+        for idx in ps2_mesh.mesh_triangles(scene, meshes[0]):
+            vs = [ps2_mesh.vertex(payload, i) for i in ps2_mesh.pc_order(payload, idx)]
+            tris += 1
+            for rev in (False, True):
+                for pos, nrm, col, uv in (reversed(vs) if rev else vs):
+                    verts.append((*pos, struct.unpack('<I', col)[0], uv[0], uv[1]))
+                    normals.append(tuple(-x for x in nrm) if rev else tuple(nrm))
+        tex, tex_sha = gxi_dxt_rows(CHECKPOINT_TEXTURES[primary])
+        draws.append({'texture_file': primary, 'texture': tex, 'vertices': verts, 'normals': normals})
+        textures.append({'file': primary, 'ps2_texture': primary, 'pc_source': f'PS2 {CHECKPOINT_TEXTURES[primary]} (sha256 {tex_sha})'})
+    if sum(len(m['strips']) > 0 for m in scene.meshes) != 2:
+        raise ValueError('checkpoint: unexpected extra meshes')
+    pos = [scene.position(i) for i in range(scene.vertex_count)]
+    env, env_sha = gxi_dxt_rows(CHECKPOINT_TEXTURES['aluminium-tga'])
+    return {'draws': draws, 'radius': max(math.sqrt(p[0] ** 2 + p[1] ** 2 + p[2] ** 2) for p in pos),
+            'aabb': [min(p[k] for p in pos) for k in range(3)] + [max(p[k] for p in pos) for k in range(3)],
+            'env': env, 'env_source': (CHECKPOINT_TEXTURES['aluminium-tga'], env_sha), 'vertex_color': None,
+            'ps2_triangles': tris, 'dx_triangles': [len(d['vertices']) // 3 for d in draws], 'two_sided_copies': True,
+            'textures': textures, 'sources': {'CHECKPOINT.PSM': sha(payload)}}
+
+
+def checkpoint_barrels(payload, source):
+    """1822c0: the Eggs "<split Egg>-0".."-3" of every gaRaceSplitTimeAI Egg, in scene order (21e9c0 finds by name)."""
+    import xml.etree.ElementTree as ET
+    import spline_runtime as srt
+    tree = ET.fromstring(payload)
+    eggs, splits = {}, []
+    for li, group in enumerate(tree.findall('EggLists_Version4/List')):
+        for ei, egg in enumerate(group.findall('Egg')):
+            eggs.setdefault(egg.get('Name'), (li, ei, egg))
+            if any(srt.value(srt.properties(ai), 'AI Name', 'String') == 'gaRaceSplitTimeAI' for ai in egg.findall('AI_List/AI')):
+                splits.append(egg.get('Name'))
+    out = []
+    for name in splits:
+        for i in range(4):
+            hit = eggs.get(f'{name}-{i}')
+            if hit is None:
+                continue                      # 3f9698 "Splitpoint marker %s not found": no barrel
+            li, ei, egg = hit
+            props = srt.properties(egg)
+            matrices = [x for x in props if x.get('Name') == 'en3d Matrix' and x.get('Type') == 'Matrix']
+            if not matrices:
+                raise ValueError(f'{source}/{name}-{i}: no en3d Matrix')
+            matrix = [rr.vector(matrices[0].get('Row%d' % k, '').split(), 4) for k in range(4)]
+            authored = srt.value(props, 'en3d Model Name', 'String')
+            out.append({'egg': f'{name}-{i}', 'source_id': f'{source}:list:{li}:egg:{ei}:split:{name}', 'family': 'checkpoint',
+                        'model': CHECKPOINT_MODEL, 'authored_model': authored, **CHECKPOINT_BODY, 'matrix': matrix,
+                        'matrix_sha256': sha(struct.pack('<16f', *(v for row in matrix for v in row)))})
+    return out
+
+
+def hull(psm_path, centre_tolerance=1e-3):
     payload = cc.read_ps2(psm_path)
     scene = wr.decode_scene(payload, terminator=101)
     col = parse_collision_sections(payload[scene.end:], base_offset=scene.end, source=psm_path, strict=True)
@@ -142,7 +242,7 @@ def hull(psm_path):
     points = [tuple(f32(x) for x in p) for p in rep.vertices]
     planes = hull_planes(points, rep.triangles)
     centre = h.base_geometry.vertices[0]
-    if max(abs(x) for x in centre) > 1e-3:
+    if max(abs(x) for x in centre) > centre_tolerance:
         raise ValueError(f'{psm_path}: base centre is not the model origin; the body centre of mass would need it')
     radius = max(math.sqrt(sum(x * x for x in p)) for p in points)
     return {'psm': psm_path, 'psm_sha256': sha(payload), 'tag101_sha256': h.sha256, 'points': points, 'planes': planes,
@@ -177,11 +277,14 @@ def collect():
     models = {}
     for family, s in MODEL_SPECS.items():
         models[family] = {'name': family, 'material': s['material'], **visual(family), 'hull': hull(s['psm'])}
+    # Barrel tag101 base centre (0, 0.0091, 0): 9 mm; the body centre stays the model origin as for the other families.
+    models['checkpoint'] = {'name': 'checkpoint', 'material': MATERIAL_METAL, **checkpoint_visual(), 'hull': hull(CHECKPOINT_PSM, 0.02)}
     courses = []
     for c in cc.courses():
         payload = cc.read_ps2(c.ps2_xml)
         case = rr.parse_authored(payload, c.ps2_xml)
-        if not case['records']:
+        barrels = checkpoint_barrels(payload, c.ps2_xml)
+        if not case['records'] and not barrels:
             continue
         props = []
         for r in case['records']:
@@ -200,6 +303,14 @@ def collect():
             props.append({'egg': r['egg'], 'source_id': r['source_id'], 'family': FAMILIES[model], 'model': r['model'],
                           'mass': res['mass'], 'moi': list(res['moi']), 'trigger_distance': res['trigger_distance'],
                           'casts_shadow': res['casts_shadow'], 'matrix': [list(row[:3]) for row in m], 'matrix_sha256': r['matrix_sha256']})
+        for b in barrels:
+            m = b['matrix']
+            for row in m[:3]:
+                if abs(math.sqrt(sum(x * x for x in row[:3])) - 1) > 2e-2:
+                    raise ValueError(f'{c.name}/{b["egg"]}: authored basis is not a rotation')
+            if [round(x, 6) for x in (m[0][3], m[1][3], m[2][3], m[3][3])] != [0, 0, 0, 1]:
+                raise ValueError(f'{c.name}/{b["egg"]}: authored matrix is not affine')
+            props.append({**b, 'matrix': [list(row[:3]) for row in m]})
         pc_dx = c.pc_dx.read_bytes()
         courses.append({'name': c.name, 'id': 'RaceTest/' + c.name, 'ps2_xml': c.ps2_xml, 'ps2_xml_sha256': case['decoded_sha256'],
                         'pc_dx_path': c.pc_dx.relative_to(cc.PC_ROOT).as_posix(), 'retail_pc_dx_sha256': sha(pc_dx), 'props': props})
@@ -257,7 +368,8 @@ def build_asset(models, courses):
         first += len(c['props'])
     for c in courses:
         for p in c['props']:
-            out += PROP.pack(fixed(p['egg'], 32), order.index(p['family']), 1 if p['casts_shadow'] else 0, p['mass'], *p['moi'],
+            flags = (FLAG_SHADOW if p['casts_shadow'] else 0) | (FLAG_CHECKPOINT if p['family'] == 'checkpoint' else 0)
+            out += PROP.pack(fixed(p['egg'], 32), order.index(p['family']), flags, p['mass'], *p['moi'],
                              p['trigger_distance'], *(x for row in p['matrix'] for x in row))
     return bytes(out)
 
@@ -268,6 +380,8 @@ def inventory(models, courses, asset_sha, coordinates):
         props = []
         for p in c['props']:
             row = {k: p[k] for k in ('egg', 'source_id', 'family', 'model', 'mass', 'moi', 'trigger_distance', 'casts_shadow', 'matrix_sha256')}
+            if p.get('authored_model') and p['authored_model'].replace('/', '\\').lower() != CHECKPOINT_MODEL:
+                row['authored_model'] = p['authored_model']
             if coordinates:
                 row['matrix'] = p['matrix']
             props.append(row)
@@ -276,7 +390,8 @@ def inventory(models, courses, asset_sha, coordinates):
     mods = {}
     for name, m in sorted(models.items()):
         h = m['hull']
-        mods[name] = {'material': 'treeblend (source alpha blend, no depth write)' if m['material'] else 'object (opaque)',
+        mods[name] = {'material': {MATERIAL_OBJECT: 'object (opaque)', MATERIAL_TREEBLEND: 'treeblend (source alpha blend, no depth write)',
+                                   MATERIAL_METAL: 'metal (opaque, mode-3 aluminium environment added)'}[m['material']],
                       'ps2_triangles': m['ps2_triangles'], 'dx_triangles_per_draw': m['dx_triangles'], 'two_sided_copies': m['two_sided_copies'],
                       'visual_radius': round(m['radius'], 4),
                       'textures': [{'file': t['file'], 'ps2_texture': t['ps2_texture'], 'pc_source': t['pc_source']} for t in m['textures']],
@@ -285,8 +400,9 @@ def inventory(models, courses, asset_sha, coordinates):
                                'planes': len(h['planes']), 'radius': round(h['radius'], 4), 'base_scalar': h['base_scalar'],
                                'representation_a_vertices': h['representation_a_vertices']},
                       'source_sha256': m['sources']}
-    return {'schema_version': 1, 'phase': 'COURSE-ALIVE3', 'asset': ASSET.name, 'asset_sha256': asset_sha,
-            'courses': len(rows), 'props': sum(len(r['props']) for r in rows), 'models': mods, 'by_course': rows}
+    return {'schema_version': 2, 'phase': 'COURSE-ALIVE3 + COURSE-ALIVE4', 'asset': ASSET.name, 'asset_sha256': asset_sha,
+            'courses': len(rows), 'props': sum(len(r['props']) for r in rows),
+            'checkpoint_barrels': sum(p['family'] == 'checkpoint' for r in rows for p in r['props']), 'models': mods, 'by_course': rows}
 
 
 def main():

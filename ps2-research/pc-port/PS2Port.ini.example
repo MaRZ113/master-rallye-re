@@ -140,6 +140,19 @@ PS2BirdsStockCourses=0
 PS2Water=0
 ; PS2WaterAsset: default <GrassAssetDirectory>/PS2Water.ps2wtr.
 
+; RigidProps: 1 = the PS2 hay bales and tumbleweeds as physical props (docs/course-alive3). 0 = Stock.
+RigidProps=0
+; PS2CheckpointBarrels: 1 = the PS2 checkpoint barrels (12 per course on the 36 PS2 course packages; on the PS2 every
+;   gaRaceSplitTimeAI makes its Eggs "<name>-0..3" gaAiRigidBody props) as physical props of the same World; the PC
+;   checkpoint boards of that race are not drawn (docs/course-alive4). Independent of RigidProps. 0 = Stock.
+PS2CheckpointBarrels=0
+; PS2CheckpointSoundOff: 1 = no sample when a checkpoint is passed (PS2; the CHECKPOINT text stays). Byte-verified code
+;   patch of MRallye.exe, other builds stay untouched. 0 = Stock.
+PS2CheckpointSoundOff=0
+; PS2FinishMusic: 1 = the race music keeps playing after the finish (PS2): no finish jingle, no fade-out. Byte-verified
+;   code patch of MRallye.exe. 0 = Stock.
+PS2FinishMusic=0
+
 ; --- Diagnostics ---------------------------------------------------------------
 ; CollisionDebug: 1 = DIAGNOSTIC overlay of the course collision surface (course DX tag1400 triangles with their
 ;   $surfacetype) in races, single camera. CollisionDebugKey cycles the overlay, Shift+key goes back:

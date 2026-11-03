@@ -71,10 +71,9 @@ tools `pc-port/tools/prepare_course_objects.py`, `prepare_grass_pilot.py`.
 
 ## 5. Not yet ported (candidates)
 
-Spline fleet and birds are the top two. Both are reversed offline but absent from PC XML. Next
+Spline fleet (COURSE-ALIVE1), birds (COURSE-ALIVE2) and the rigid hay bales/tumbleweeds (COURSE-ALIVE3, `pc-port/docs/course-alive3/`) are now ported by the proxy. Next
 research items named by the reports: runtime capture of spline owner (`ambient1/next.md`), VU1
-residency for grass (`grass1/next.md`). Unreversed: rigid-body physics for haybales/tumbleweeds,
-smoke-emitter binding, checkpoint knockability.
+residency for grass (`grass1/next.md`). Unreversed: smoke-emitter binding (`aiSpawnParticle`, also present in the PC EXE with other parameters). Checkpoint knockability: resolved and ported in COURSE-ALIVE4 (`pc-port/docs/course-alive4/`: `gaRaceSplitTimeAI` `1822c0` makes its Eggs `<name>-0..3` `gaAiRigidBody` barrels).
 
 ## 6. Outside this directory
 
