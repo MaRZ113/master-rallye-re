@@ -53,7 +53,7 @@ struct FrontendRecord {uintptr_t mesh=0;DrawSnapshot geometry;bool valid=false;}
 struct WheelOwnerState {FrontendOwner owner{};std::array<FrontendRecord,4> records{};uint64_t frame=UINT64_MAX,drawn_frame=UINT64_MAX,blocked_frame=UINT64_MAX;uint32_t seen=0;bool certified=false;D3DMATRIX world{};};
 struct FleetWheelOwnerState {FrontendOwner owner{};std::array<FrontendRecord,16> records{};uint64_t frame=UINT64_MAX,drawn_frame=UINT64_MAX,blocked_frame=UINT64_MAX;uint32_t seen=0;bool certified=false;D3DMATRIX world{},view{},projection{};D3DVIEWPORT8 viewport{};uintptr_t target=0;};
 class FrontendModel {
- const FleetProfile* profile_=nullptr;const PS2ContentFix* content_fix_=nullptr;bool ps2_lighting_=false;std::wstring ini_;bool fleet_=false;bool car_fleet_=false;uint32_t car_failed_=0;unsigned car_index_=UINT_MAX;std::unique_ptr<FrontendModel> car_child_,car_wheel_;bool car_wheels_=false;const FleetProfile* car_wheel_failed_=nullptr;
+ const FleetProfile* profile_=nullptr;const PS2ContentFix* content_fix_=nullptr;bool ps2_lighting_=false;bool flip_lamp_chrome_=false;std::wstring ini_;bool fleet_=false;bool car_fleet_=false;uint32_t car_failed_=0;unsigned car_index_=UINT_MAX;std::unique_ptr<FrontendModel> car_child_,car_wheel_;bool car_wheels_=false;const FleetProfile* car_wheel_failed_=nullptr;
  std::unique_ptr<FrontendModel> off_child_;const FleetProfile* off_failed_=nullptr;
  bool requested_=false,diagnostics_=false,disabled_=false,parts_=false,crew_=false;uint32_t logs_=0;
  float source_radius_sq_=0;FrontendAsset asset_;std::vector<IDirect3DTexture8*> textures_;std::vector<std::vector<FrontendVertex>> expanded_;
