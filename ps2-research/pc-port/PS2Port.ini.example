@@ -35,6 +35,11 @@ ReflectionSourceGXI=PS2Grass/PS2EnvSource64x64.gxi
 ; SourceReflectionVFlip: 1 = with Reflection=0 reverse only the generated environment V of the PS2 vehicle models
 ;   (secondary environment map, v' = 1 - v); UV0 and the textures stay. Ignored with Reflection=4. 0 = as is.
 SourceReflectionVFlip=0
+; PS2UniformReflection: 1 = without Reflection=4 the PS2 vehicle meshes whose original secondary is the live reflection target
+;   (body panels, lamps, rims) all use the PS2 static environment map (ReflectionSourceGXI): uniform but darker reflections.
+;   0 = the placeholder maps stored in the PS2 models. KNOWN LOOK: with 0 the ChevyBlazer body shows patchy reflections
+;   (different maps per panel, a visible seam on the tailgate); other cars look acceptable. Ignored with Reflection=4.
+PS2UniformReflection=0
 
 ; --- Vehicles ------------------------------------------------------------------
 ; RaceFleet: 1 = PS2 CAR models for every race car (wheels, crew, lamps, damage continuity), 0 = Stock.

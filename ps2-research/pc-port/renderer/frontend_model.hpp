@@ -90,8 +90,9 @@ public:
  const std::vector<FrontendVertex>& race_vertices(unsigned root)const noexcept{if(deformation_ready_)for(unsigned i=0;i<13;++i)if(damage_source_draft::profiles[i].root==root)return deformed_[i];return race_base_vertices(root);}
  bool prepare_damage()noexcept;bool prepare_fleet_damage()noexcept;bool prepare_kia_damage()noexcept;const auto& fleet_vertices(unsigned i)const noexcept{return kia_deformed_.empty()?expanded_[i]:kia_deformed_[i];}
  IDirect3DTexture8* texture(uint32_t i)const noexcept{return i<textures_.size()?textures_[i]:nullptr;}
- // Without Reflection=4 the meshes whose PS2 secondary is the live reflection target use the PS2 static environment map (the 80/128
- // static term of the mixed target, without the framebuffer term) instead of the model's arbitrary placeholder maps; own = fallback.
+ // PS2UniformReflection=1 (without Reflection=4): the meshes whose PS2 secondary is the live reflection target use the PS2 static
+ // environment map (the 80/128 static term of the mixed target, without the framebuffer term) instead of the model's placeholder
+ // maps; own = fallback (the default, also when the map is unavailable).
  IDirect3DTexture8* mixed_or(IDirect3DTexture8* own)const noexcept{return static_env_?static_env_:own;}
  bool prepare_headlight(const DrawSnapshot&,bool original,bool private_tree,unsigned part=0)noexcept;const std::vector<FrontendVertex>& headlight_vertices(unsigned part=0)const noexcept{return headlight_current_[part];}
  bool initialize(IDirect3DDevice8&)noexcept;void reset()noexcept;void invalidate()noexcept{kia_deformed_.clear();kia_revision_=UINT64_MAX;kia_damage.invalidate_current();fleet_damage.invalidate_current();for(auto& v:headlight_current_)v.clear();damage.invalidate_current();deformation_ready_=false;deformation_revision_=UINT64_MAX;trim17_native_runs.clear();kia_warmup={};wheel_owners={};fleet_wheel_owners={};environment_known=false;validated=false;parts_validated=0;certified=false;seen=0;records={};observed_frame=drawn_frame=UINT64_MAX;owner={};}
