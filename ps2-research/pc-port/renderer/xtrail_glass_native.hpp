@@ -1,8 +1,10 @@
 #pragma once
+#include "ps2_race_certificate.hpp"
 #include "xtrail_native_integration.hpp"
 #include "xtrail_glass_identity.hpp"
 namespace gfx2::xtrailintegration {
 inline Result glass_draw(Device8& d,const DrawClassification& c,D3DPRIMITIVETYPE type,UINT min_index,UINT vertices,UINT start,UINT count,uintptr_t pc)noexcept{
+    ps2port::perf::Timer perf_timer(ps2port::perf::XTrailGlass);
     auto* e=d.ps2_port();auto* p=e&&e->xtrail()?e->xtrail()->glass():nullptr;auto* reflection=e?e->reflection():nullptr;
     if(!p||!p->requested()||!reflection||!reflection->active()||reflection->mode_value()!=4||
        type!=D3DPT_TRIANGLELIST||count!=18||vertices!=22||!d.trace.scene_active||

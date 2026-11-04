@@ -235,7 +235,9 @@ PS2PortExtension::PS2PortExtension(bool exact_build, const std::string& exe_sha,
         wheel_model_=std::make_unique<FrontendModel>(build_valid_,ini,2);
         // PS2PerfTiming=1 (docs/perf2): per-category timing records every PS2PerfWindow frames.
         perf::configure(::gfx2::ps2port::config::read_int(L"PS2PerfTiming", 0, ini.c_str()) == 1,
-                        ::gfx2::ps2port::config::read_int(L"PS2PerfWindow", 300, ini.c_str()));
+                        ::gfx2::ps2port::config::read_int(L"PS2PerfWindow", 300, ini.c_str()),
+                        // FPS1 (docs/perf-fps1): DIAGNOSTIC A/B bypass key, virtual-key code (118 = F7).
+                        ::gfx2::ps2port::config::read_int(L"PS2PerfBypassKey", VK_F7, ini.c_str()));
         // PS2FrontendAllCars=1 (docs/race-modes1): one COMPLETE model per car shown at once (Challenge preview).
         if (::gfx2::ps2port::config::read_int(L"PS2FrontendAllCars", 0, ini.c_str()) == 1 && frontend_model_->fleet_enabled())
             for (auto& m : frontend_extra_) m = std::make_unique<FrontendModel>(build_valid_, ini);
@@ -462,6 +464,7 @@ void PS2PortExtension::ledger_race_frame(uint64_t frame, uint64_t generation, ui
 std::string PS2PortExtension::color_present(IDirect3DDevice8& device, bool scene_active,
                                             bool stateblock_recording) noexcept {
     if (!build_valid_ || disabled_ || !present_pass_requested()) return {};
+    perf::Timer perf_timer(perf::PresentPass);
     std::string notes;
     // One certified race HUD context per Present, shared by every pass below (it is not a cheap read).
     using HudContext = decltype(ps2port::ps2_race_hud_context());
@@ -687,6 +690,7 @@ std::string PS2PortExtension::color_present(IDirect3DDevice8& device, bool scene
                 ? float(double(now.QuadPart - blur_last_present_) / double(frequency.QuadPart)) : 1.f;
             blur_last_present_ = now.QuadPart;
             if (!hud.valid || hud.paused) { blur_.interrupt(); reason = "outside_race"; }
+            else if (perf::bypassed(perf::BypassPresent)) { blur_.interrupt(); reason = "perf_bypass"; }
             else { hr = blur_.apply(device, scene_active, stateblock_recording, dt); reason = blur_.status().reason; }
             note(ps2diag::Effect::PostFx, reason);
             if (reason != blur_logged_reason_) {

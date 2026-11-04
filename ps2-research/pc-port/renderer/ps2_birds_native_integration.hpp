@@ -1,4 +1,5 @@
 #pragma once
+#include "ps2_race_certificate.hpp"
 // COURSE-ALIVE2 native side: the PS2 birds are one private draw per atlas cell at the typed pre-UI boundary, after the
 // course, water and spline objects (the PS2 drains its en2d world sprites after the course geometry), with the same
 // world proof and fixed state transaction as the course objects, grass and spline objects. Single camera only.
@@ -74,6 +75,7 @@ inline std::string state_record(const ps2port::PS2BirdsPilot& p,uint64_t frame) 
     return s+"]}";
 }
 inline HRESULT before_ui(Device8& d,bool ui_callsite,bool ui_consumer) noexcept {
+    if(ps2port::perf::bypassed(ps2port::perf::BypassLive))return S_OK;ps2port::perf::Timer perf_timer(ps2port::perf::UiBirds);
     auto* p=pilot(d);if(!p||!p->active()||!ui_callsite)return S_OK;
     const ps2port::CourseBoundaryContext boundary{d.trace.frame_number(),d.trace.device_id(),
         d.ps2_port()->reset_generation(),GetCurrentThreadId()==d.trace.render_thread_id(),

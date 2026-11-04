@@ -23,6 +23,7 @@ inline HRESULT repair(Device8& d) noexcept {
 }
 struct Result{bool handled=false;HRESULT hr=S_OK;};
 inline Result draw(Device8& d,D3DPRIMITIVETYPE type,UINT min_index,UINT vertices,UINT start,UINT count,uintptr_t pc) noexcept {
+    ps2port::perf::Timer perf_timer(ps2port::perf::XTrail);
     auto* e=d.ps2_port();auto* p=e?e->xtrail():nullptr;auto* reflection=e?e->reflection():nullptr;
     if(!p||!p->requested()||!reflection||!reflection->active()||reflection->mode_value()!=4||
        d.visuals.effective.reflection_mode!="Stock"||

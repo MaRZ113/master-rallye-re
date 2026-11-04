@@ -1,4 +1,5 @@
 #pragma once
+#include "ps2_race_certificate.hpp"
 // COURSE-RENDER-FIX1 native side (docs/course-render-fix1): the per-frame hooks of the reflection capture timing, the stage
 // report writer and the per-race ledger. Compiled only into the staged baseline; included after reflection_native_integration.hpp.
 //  * note_draw      first line of draw_indexed_at: draw ledger (draw order of the frame), per-frame race bookkeeping
@@ -71,6 +72,7 @@ inline void frame_begin(Device8& d, ps2port::PS2PortExtension& x, ps2port::Refle
 
 // Every indexed draw (before the integrations see it). Cheap when neither the ledger nor the capture timing is in use.
 inline void note_draw(Device8& d, uint32_t triangles) noexcept {
+    ps2port::perf::Timer perf_timer(ps2port::perf::ReflectionNote);
     auto* x = d.ps2_port();
     if (!x) return;
     auto* p = x->reflection();
@@ -127,6 +129,7 @@ inline void flush_reports(Device8& d, ps2port::PS2PortExtension& x, ps2port::Ref
 
 // The typed pre-UI boundary of a frame (first UI draw): the course and every car of the frame are drawn.
 inline HRESULT before_ui(Device8& d, bool ui_callsite) noexcept {
+    ps2port::perf::Timer perf_timer(ps2port::perf::UiReflection);
     auto* x = d.ps2_port();
     if (!x || !ui_callsite) return S_OK;
     auto* p = x->reflection();

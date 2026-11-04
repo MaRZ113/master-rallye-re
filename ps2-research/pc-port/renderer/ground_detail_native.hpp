@@ -1,4 +1,5 @@
 #pragma once
+#include "ps2_race_certificate.hpp"
 // Native layer of GroundDetail (renderer/ground_detail.hpp). Compiled only into the staged baseline.
 // Admits a draw only when the complete PC `shader/base_noise` contract (585ac0) is live on the native
 // device and the stage1 texture is the exact PC noise-tga; anything else stays the original draw.
@@ -37,6 +38,7 @@ inline bool render(Device8& d,IDirect3DDevice8& n,D3DRENDERSTATETYPE k,DWORD exp
 }
 
 inline xtrailintegration::Result draw(Device8& d,D3DPRIMITIVETYPE type,UINT min_index,UINT vertices,UINT start,UINT count,uintptr_t pc) noexcept {
+    if(ps2port::perf::bypassed(ps2port::perf::BypassGround))return {};ps2port::perf::Timer perf_timer(ps2port::perf::Ground);
     auto* g=ground(d);if(!g)return {};
     if(const char* startup=g->take_startup_reason())log(d,*g,startup);
     if(!g->requested()||!count||!d.trace.scene_active||d.trace.shadow.recording||d.trace.effective_shadow.recording||

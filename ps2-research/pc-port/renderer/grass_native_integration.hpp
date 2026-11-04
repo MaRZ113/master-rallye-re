@@ -1,4 +1,5 @@
 #pragma once
+#include "ps2_race_certificate.hpp"
 // Source-derived ground detail preview. Admission and proof helpers are shared
 // with the existing object layer; grass owns independent proof and resources.
 #include "course_objects_native_integration.hpp"
@@ -165,6 +166,7 @@ inline void observe_world_draw(Device8& d,HRESULT hr) noexcept {
     for(auto* p:detail_pilots(d))observe_world_draw_one(d,p,hr);
 }
 inline HRESULT before_ui(Device8& d,bool ui_callsite,bool ui_consumer) noexcept {
+    if(ps2port::perf::bypassed(ps2port::perf::BypassGrass))return S_OK;ps2port::perf::Timer perf_timer(ps2port::perf::UiGrass);
     for(auto* p:detail_pilots(d)){const auto hr=before_ui_one(d,p,ui_callsite,ui_consumer);if(FAILED(hr))return hr;}return S_OK;
 }
 } // namespace gfx2::grassintegration

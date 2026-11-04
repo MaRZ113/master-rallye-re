@@ -1,4 +1,5 @@
 #pragma once
+#include "ps2_race_certificate.hpp"
 // Native layer of the PS2 HUD widgets (renderer/ps2_hud_damage.hpp, ps2_hud_map.hpp, ps2_hud_template.hpp,
 // ps2_hud_eggs.hpp). Compiled only into the staged baseline. A UI draw (MRallye.exe 0x56d7c4 caller) is taken over
 // only when its stage0 texture is one exact PC image owned by an enabled PS2 widget whose last Present had a live
@@ -35,6 +36,7 @@ inline bool placement(IDirect3DDevice8& n,ps2port::HudPlacement& p) noexcept {
 
 // Returns true when the PC draw is replaced (the caller must not forward it).
 inline bool capture_ui_draw(Device8& d,bool ui_callsite,D3DPRIMITIVETYPE type,UINT start,UINT count,uintptr_t entity) noexcept {
+    ps2port::perf::Timer perf_timer(ps2port::perf::HudCapture);
     auto* h=hud(d);auto* m=map(d);auto* port=d.ps2_port();
     auto* t=port?port->hud_template():nullptr;auto* td=port?port->hud_timediffs():nullptr;
     const bool damage=h&&h->requested()&&h->feed_ok(),gps=m&&m->requested()&&m->feed_ok();

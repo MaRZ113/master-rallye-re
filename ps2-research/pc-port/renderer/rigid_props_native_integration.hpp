@@ -1,4 +1,5 @@
 #pragma once
+#include "ps2_race_certificate.hpp"
 // COURSE-ALIVE3 native side: the PS2 rigid props are simulated once per frame at the typed pre-UI boundary (after the
 // course, water, spline objects and birds, before the collision overlay and the HUD) and drawn there with the verified
 // gameplay VIEW/PROJECTION of the frame, identity WORLD, the native depth buffer and course fog, through the fixed
@@ -144,6 +145,7 @@ inline BoardResult hide_checkpoint_board(Device8& d,D3DPRIMITIVETYPE type,UINT c
     return {true,S_OK};
 }
 inline HRESULT before_ui(Device8& d,bool ui_callsite) noexcept {
+    ps2port::perf::Timer perf_timer(ps2port::perf::UiRigid);
     auto* p=pilot(d);if(!p||!p->active()||!ui_callsite)return S_OK;
     if(GetCurrentThreadId()!=d.trace.render_thread_id()||!d.trace.scene_active||d.trace.shadow.recording||d.trace.effective_shadow.recording)return S_OK;
     const uint64_t frame=d.trace.frame_number(),reset=d.ps2_port()->reset_generation();

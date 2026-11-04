@@ -1,4 +1,5 @@
 #pragma once
+#include "ps2_race_certificate.hpp"
 // COURSE-ALIVE1 native side: the moving PS2 spline objects are one private draw per texture at the typed pre-UI
 // boundary, with the same world proof (gameplay VIEW/PROJECTION sites, a later native world draw, unchanged target,
 // depth and viewport) and the same fixed state transaction as the course objects and grass. Single camera only.
@@ -102,6 +103,7 @@ inline std::string pose_record(const ps2port::SplineObjectsPilot& p,uint64_t fra
     return s+"]}";
 }
 inline HRESULT before_ui(Device8& d,bool ui_callsite,bool ui_consumer) noexcept {
+    ps2port::perf::Timer perf_timer(ps2port::perf::UiSpline);
     auto* p=pilot(d);if(!p||!p->active()||!ui_callsite)return S_OK;
     const ps2port::CourseBoundaryContext boundary{d.trace.frame_number(),d.trace.device_id(),
         d.ps2_port()->reset_generation(),GetCurrentThreadId()==d.trace.render_thread_id(),

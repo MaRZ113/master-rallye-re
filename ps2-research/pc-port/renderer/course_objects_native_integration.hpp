@@ -119,6 +119,7 @@ inline void observe_world_draw(Device8& d,HRESULT hr)noexcept {
     proof.viewport=viewport;proof.target=target.p;target.p=nullptr;proof.depth=depth.p;depth.p=nullptr;proof.world_draw=true;
 }
 inline HRESULT before_ui(Device8& d,bool ui_callsite,bool ui_consumer)noexcept {
+    ps2port::perf::Timer perf_timer(ps2port::perf::UiCourse);
     auto* p=pilot(d);if(!p||!p->active()||!ui_callsite)return S_OK;
     const ps2port::CourseBoundaryContext boundary{d.trace.frame_number(),d.trace.device_id(),
         d.ps2_port()->reset_generation(),GetCurrentThreadId()==d.trace.render_thread_id(),

@@ -1,4 +1,5 @@
 #pragma once
+#include "ps2_race_certificate.hpp"
 // COLLISION-DEBUG1 native side: the course collision overlay at the typed pre-UI boundary (after the course, water,
 // spline objects and birds, before the HUD), single camera only. World pass = verified gameplay VIEW/PROJECTION of this
 // frame, identity WORLD, the fixed CourseObjectTransaction (white 1x1 texture x vertex colour, source-alpha blend, no
@@ -78,6 +79,7 @@ inline HRESULT draw_pass(Device8& d,ps2port::CollisionDebugPilot& p,D3DPRIMITIVE
 }
 
 inline HRESULT before_ui(Device8& d,bool ui_callsite) noexcept {
+    ps2port::perf::Timer perf_timer(ps2port::perf::UiCollision);
     auto* p=pilot(d);if(!p||!p->active()||!ui_callsite)return S_OK;
     if(GetCurrentThreadId()!=d.trace.render_thread_id()||!d.trace.scene_active||d.trace.shadow.recording||d.trace.effective_shadow.recording)return S_OK;
     const uint64_t frame=d.trace.frame_number(),reset=d.ps2_port()->reset_generation();

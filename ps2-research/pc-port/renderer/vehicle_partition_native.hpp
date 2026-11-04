@@ -1,4 +1,5 @@
 #pragma once
+#include "ps2_race_certificate.hpp"
 #include "reflection_native_integration.hpp"
 #include "vehicle_partition.hpp"
 
@@ -6,6 +7,7 @@ namespace gfx2::vehicleintegration {
 struct Result { bool handled=false; HRESULT hr=S_OK; };
 inline Result draw(Device8& d,const DrawClassification& c,D3DPRIMITIVETYPE type,
                    UINT min_index,UINT vertices,UINT start,UINT count,uintptr_t pc) noexcept {
+    ps2port::perf::Timer perf_timer(ps2port::perf::VehiclePartition);
     auto* e=d.ps2_port();
     auto* p=e?e->vehicle_partitions():nullptr;
     auto* reflection=e?e->reflection():nullptr;
