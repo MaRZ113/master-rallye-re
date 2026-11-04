@@ -249,7 +249,7 @@ public:
     struct MaterialCache {uintptr_t pointer=0;uint64_t generation=0;std::string sha;bool opaque=false;};
     std::array<MaterialCache,1024> material_cache{};size_t material_cache_next=0;
     float source_x=0,source_y=0,source_z=0,radius=12;
-    uint64_t sky_draws=0,world_draws=0,light_vertices=0;
+    uint64_t sky_draws=0,world_draws=0,light_vertices=0,proxy_layer_draws=0;
     uint64_t observed_race=UINT64_MAX,observed_reset=UINT64_MAX,last_fog_frame=UINT64_MAX;
     uint64_t sky_candidates=0,sky_matched=0,sky_rejected=0,world_rejected=0;
     DWORD last_fog=0;bool fog_seen=false;

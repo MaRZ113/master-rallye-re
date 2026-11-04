@@ -10,6 +10,7 @@
 // matrix 0x561a40 sets as D3DTS_WORLD for the body, COLLISION-DEBUG1 round 5), hull = car.dx tag101 representation B.
 #include "course_objects_native_integration.hpp"
 #include "rigid_props.hpp"
+#include "atmosphere_native.hpp"
 #include "fleet_participants.hpp"
 #include "ps2_hud_damage_feed.hpp"
 #include "ps2_birds_pilot.hpp"
@@ -217,6 +218,8 @@ inline HRESULT before_ui(Device8& d,bool ui_callsite) noexcept {
     float view16[16];for(int r=0;r<4;++r)for(int k=0;k<4;++k)view16[r*4+k]=proof.view.m[r][k];
     // No drop shadow: the owner checked on the PS2 that neither bales nor tumbleweeds cast one (shadow range 0).
     if(!p->runtime().build(in.camera,view16,0.f,batches)){p->proof.clear();return gate("world_vertices_nonfinite");}
+    // ATMOSPHERE2.5: lit like the course objects; additive environment and shadow passes keep their source colour.
+    for(auto& batch:batches)if(batch.pass!=ps2port::RigidPass::Env&&batch.pass!=ps2port::RigidPass::Shadow)atmosphereintegration::light_proxy_layer(d,batch.vertices,false);
     // Course fog as the game left it: linear vertex fog, or any table (pixel) fog mode. Without a fog source the
     // fixed-function vertex fog would read the missing specular alpha, so fog stays off then.
     bool fog=false;DWORD fog_vertex=0,fog_table=0,fog_enable=0;float fog_start=0,fog_end=0;

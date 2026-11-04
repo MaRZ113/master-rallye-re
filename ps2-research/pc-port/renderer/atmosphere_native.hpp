@@ -12,6 +12,27 @@ inline HRESULT repair(Device8& d) noexcept {
     if(p->sun.transaction.pending()){const auto hr=p->sun.transaction.restore(*d.native());if(FAILED(hr))return hr;}
     return atmosphere::restore_pending(*p,*d.native(),[&](uint32_t slot,const Args& args,HRESULT hr)noexcept{notify(d,slot,args,hr);});
 }
+// PS2 layers drawn by the proxy itself (source-point grass, rigid props) never
+// pass through the course resolver. Their private vertex copies get the same
+// world lighting just before submission. Grass sprites use the ground's up
+// normal (they sit on it); props use flat face normals oriented away from the
+// batch centre (barrels, bales and tumbleweeds are roughly convex).
+inline void light_proxy_layer(Device8& d,std::vector<ps2port::ObjectVertex>& v,bool upright)noexcept {
+    auto* p=pilot(d);if(!p||!p->enabled()||!p->world||!p->lighting.active()||v.size()<3)return;
+    try{
+        const auto& s=p->lighting;
+        if(upright){for(auto& x:v)x.color=atmosphere::scene_color(x.color,{0,1,0},s);++p->proxy_layer_draws;return;}
+        double c[3]{};for(const auto& x:v){c[0]+=x.x;c[1]+=x.y;c[2]+=x.z;}for(auto& k:c)k/=double(v.size());
+        for(size_t i=0;i+2<v.size();i+=3){auto& a=v[i];auto& b=v[i+1];auto& e=v[i+2];
+            const float u[3]{b.x-a.x,b.y-a.y,b.z-a.z},w[3]{e.x-a.x,e.y-a.y,e.z-a.z};
+            std::array<float,3> n{u[1]*w[2]-u[2]*w[1],u[2]*w[0]-u[0]*w[2],u[0]*w[1]-u[1]*w[0]};
+            const float len=std::sqrt(n[0]*n[0]+n[1]*n[1]+n[2]*n[2]);if(!std::isfinite(len)||len<1e-12f)n={0,1,0};else for(auto& k:n)k/=len;
+            const float out=(float((a.x+b.x+e.x)/3-c[0]))*n[0]+(float((a.y+b.y+e.y)/3-c[1]))*n[1]+(float((a.z+b.z+e.z)/3-c[2]))*n[2];
+            if(out<0)for(auto& k:n)k=-k;
+            for(auto* x:{&a,&b,&e})x->color=atmosphere::scene_color(x->color,n,s);}
+        ++p->proxy_layer_draws;
+    }catch(...){}
+}
 inline void log(Device8& d,const char* reason)noexcept {
     try{session().write("{\"type\":\"atmosphere_draw\",\"reason\":"+quote(std::string(reason))+",\"frame\":"+std::to_string(d.trace.frame_number())+"}");}catch(...){}
 }

@@ -6,6 +6,7 @@
 #include "course_objects_native_integration.hpp"
 #include "grass_pilot.hpp"
 #include "grass_split_native.hpp"
+#include "atmosphere_native.hpp"
 #include <vector>
 
 namespace gfx2::grassintegration {
@@ -118,6 +119,7 @@ inline HRESULT before_ui_one(Device8& d,ps2port::GrassPilot* p,bool ui_callsite,
         return S_OK;
     }
     if(vertices.empty()){if(auto* x=d.ps2_port())x->note(effect,"no_points_in_range");return S_OK;}
+    atmosphereintegration::light_proxy_layer(d,vertices,true);   // ATMOSPHERE2.5: same world lighting as the ground
     const auto writer=[&](uint32_t slot,const Args& args,HRESULT hr) noexcept {
         courseintegration::after_setter(d,slot,args,hr);
     };
