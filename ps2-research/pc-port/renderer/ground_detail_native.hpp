@@ -37,6 +37,14 @@ inline bool render(Device8& d,IDirect3DDevice8& n,D3DRENDERSTATETYPE k,DWORD exp
     DWORD v=0;return SUCCEEDED(n.GetRenderState(k,&v))&&v==expected;
 }
 
+// The course landscape is drawn with an identity WORLD; cars (race fleet, menu COMPLETE models) and Egg models share the
+// course draw loop 0x57707e but carry their own WORLD. FPS1.3: without this test ForestFix took the blended COMPLETE parts
+// (glass) of the menu car, so the frontend model never saw all its source draws and stayed PC.
+inline bool course_world(Device8& d) noexcept {
+    const auto& w=d.trace.effective_shadow.matrices[D3DTS_WORLD];if(!w.known)return false;
+    for(int r=0;r<4;++r)for(int c=0;c<4;++c)if(w.value.m[r][c]!=(r==c?1.f:0.f))return false;
+    return true;
+}
 // FPS1 ForestFix (docs/perf-fps1): the PC course loop draws the treeblend foliage cards alpha-blended with Z write and
 // no alpha test (F10 FranceS1: SRCALPHA/INVSRCALPHA, ZWRITE on, ALPHATEST off), so their transparent texels write depth
 // and cut out every later layer behind them. The PS2 treeblend mode (docs TREEBLEND1: mode 2, ABE1, ATE0, ZMSK1) blends
@@ -67,7 +75,7 @@ inline xtrailintegration::Result draw(Device8& d,D3DPRIMITIVETYPE type,UINT min_
     if((!g->requested()&&!g->forest_fix())||!count||!d.trace.scene_active||d.trace.shadow.recording||d.trace.effective_shadow.recording||
        GetCurrentThreadId()!=d.trace.render_thread_id())return {};
     auto& n=*d.native();
-    if(g->forest_fix()&&pc==reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+COURSE_DRAW_RETURN_RVA&&
+    if(g->forest_fix()&&pc==reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+COURSE_DRAW_RETURN_RVA&&course_world(d)&&
        render(d,n,D3DRS_ALPHABLENDENABLE,TRUE)&&render(d,n,D3DRS_ZWRITEENABLE,TRUE)&&render(d,n,D3DRS_ALPHATESTENABLE,FALSE)&&
        render(d,n,D3DRS_ZENABLE,D3DZB_TRUE)&&render(d,n,D3DRS_SRCBLEND,D3DBLEND_SRCALPHA)&&render(d,n,D3DRS_DESTBLEND,D3DBLEND_INVSRCALPHA))
         return forest(d,*g,n,type,min_index,vertices,start,count);
