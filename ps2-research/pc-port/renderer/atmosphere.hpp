@@ -245,7 +245,7 @@ public:
     uint64_t resolved_draws=0,resolver_skipped_draws=0;
     float sky_u_scale=1;std::array<uint64_t,5> category_draws{};uint64_t copied_bytes=0,scene_restore_count=0;
     uint64_t cpu_ticks=0,cpu_calls=0,perf_frame=0,perf_previous_ticks=0,perf_previous_calls=0;std::array<uint64_t,5> category_vertices{};
-    bool sun_disk=false,sun_halo=false,sun_flare=false,pc_water=false,pc_water_caps=false;SunFx sun;uint64_t pc_water_draws=0;
+    bool sun_disk=false,sun_halo=false,sun_flare=false,pc_water=false,pc_water_caps=false;SunFx sun;uint64_t pc_water_draws=0;SunStyle sun_style;
     struct MaterialCache {uintptr_t pointer=0;uint64_t generation=0;std::string sha;bool opaque=false;};
     std::array<MaterialCache,1024> material_cache{};size_t material_cache_next=0;
     float source_x=0,source_y=0,source_z=0,radius=12;
@@ -350,6 +350,7 @@ private:
         lighting=fresh;
         sky_u_scale=std::clamp(number(L"CustomSkyUScale",1),.1f,2.f);
         sun_disk=GetPrivateProfileIntW(L"Atmosphere",L"SunDisk",0,ini_.c_str())==1;sun_halo=GetPrivateProfileIntW(L"Atmosphere",L"SunHalo",0,ini_.c_str())==1;sun_flare=GetPrivateProfileIntW(L"Atmosphere",L"SunFlare",0,ini_.c_str())==1;
+        sun_style=read_sun_style(ini_);
     }
 public:
     ~Pilot(){pending.release();reset();}
