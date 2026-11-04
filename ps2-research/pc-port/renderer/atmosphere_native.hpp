@@ -383,6 +383,7 @@ inline HRESULT begin(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UIN
     auto* p=pilot(d);if(!p||!p->enabled()||(!p->custom()&&!p->world_route()&&!p->light_probe&&!p->sun_disk&&!p->sun_halo&&!p->sun_flare)||!count||type!=D3DPT_TRIANGLELIST||
         pc!=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+groundintegration::COURSE_DRAW_RETURN_RVA||
         !d.trace.scene_active||d.trace.shadow.recording||d.trace.effective_shadow.recording||GetCurrentThreadId()!=d.trace.render_thread_id())return S_OK;
+    if(!p->pending.any())p->poll_live(d.trace.frame_number());
     struct Timing {atmosphere::Pilot& p;LARGE_INTEGER start{};Timing(atmosphere::Pilot& x):p(x){QueryPerformanceCounter(&start);}~Timing(){LARGE_INTEGER end{};QueryPerformanceCounter(&end);p.cpu_ticks+=end.QuadPart-start.QuadPart;++p.cpu_calls;}} timer(*p);
     try {
         bool single=false;const auto cert=courseintegration::certificate(d,single);if(!single||!cert.valid)return reject(d,*p,"single_camera_race_certificate_missing");

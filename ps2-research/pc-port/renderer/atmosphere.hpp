@@ -285,20 +285,11 @@ public:
         world=GetPrivateProfileIntW(L"Atmosphere",L"WorldLighting",0,ini_.c_str())==1;
         light_probe=GetPrivateProfileIntW(L"Atmosphere",L"LightProbe",0,ini_.c_str())==1;
         scene_diagnostics=GetPrivateProfileIntW(L"Atmosphere",L"SceneDiagnostics",0,ini_.c_str())==1;
-        auto number=[&](const wchar_t* key,float fallback){wchar_t b[64]{};GetPrivateProfileStringW(L"Atmosphere",key,L"",b,64,ini_.c_str());wchar_t* end=nullptr;float v=std::wcstof(b,&end);return end!=b&&*end==0&&std::isfinite(v)?v:fallback;};
+        auto number=[&](const wchar_t* key,float fallback){return read_number(key,fallback);};
         auto setting=[&](const wchar_t* key,const wchar_t* fallback){wchar_t b[512]{};GetPrivateProfileStringW(L"Atmosphere",key,fallback,b,512,ini_.c_str());return std::wstring(b);};
-        const auto mode=setting(L"LightingPreset",L"GoldenHour");
-        lighting.mode=mode==L"GoldenHour"?Lighting::Mode::GoldenHour:mode==L"Day"?Lighting::Mode::Day:Lighting::Mode::Original;
-        if(lighting.mode==Lighting::Mode::Day){lighting.ambient={.9f,.94f,1.f};lighting.sun={.3f,.28f,.24f};lighting.ambient_strength=1;lighting.sun_strength=.35f;}
-        lighting.strength=std::clamp(number(L"LightingStrength",1),0.f,1.f);lighting.exposure=std::clamp(number(L"Exposure",1.05f),.25f,2.f);
-        lighting.world_brightness=std::clamp(number(L"WorldBrightness",1),.1f,1.5f);
-        lighting.prelight_contrast=std::clamp(number(L"PrelightContrast",1),0.f,1.f);
-        lighting.prelight_visibility=std::clamp(number(L"PrelightVisibility",0),0.f,1.f);
-        lighting.ambient_strength=std::clamp(number(L"AmbientStrength",lighting.ambient_strength),0.f,2.f);lighting.sun_strength=std::clamp(number(L"SunlightStrength",lighting.sun_strength),0.f,2.f);
-        const wchar_t* ambient_keys[]={L"AmbientR",L"AmbientG",L"AmbientB"};const wchar_t* sun_keys[]={L"SunlightR",L"SunlightG",L"SunlightB"};const wchar_t* dir_keys[]={L"SunDirX",L"SunDirY",L"SunDirZ"};
-        for(unsigned i=0;i<3;++i){lighting.ambient[i]=std::clamp(number(ambient_keys[i],lighting.ambient[i]),0.f,2.f);lighting.sun[i]=std::clamp(number(sun_keys[i],lighting.sun[i]),0.f,2.f);lighting.direction[i]=std::clamp(number(dir_keys[i],lighting.direction[i]),-1.f,1.f);}
-        lighting.fog_enabled=GetPrivateProfileIntW(L"Atmosphere",L"FogEnabled",0,ini_.c_str())==1;lighting.fog_strength=std::clamp(number(L"FogStrength",1),0.f,1.f);
-        const auto fog=setting(L"FogColor",L"0x98765d");wchar_t* fog_end=nullptr;const auto fog_value=std::wcstoul(fog.c_str(),&fog_end,0);if(fog_end!=fog.c_str()&&!*fog_end&&fog_value<=0xffffff)lighting.fog=0xff000000u|static_cast<DWORD>(fog_value);else lighting.fog_enabled=false;
+        read_tunables();
+        live_tuning=GetPrivateProfileIntW(L"Atmosphere",L"LiveTuning",0,ini_.c_str())==1;
+        if(live_tuning){std::error_code ec;ini_time_=std::filesystem::last_write_time(ini_,ec);}
         atlas_path=setting(L"SceneAtlas",L"Atmosphere/scene.atlas");if(atlas_path.is_relative())atlas_path=std::filesystem::path(ini_).parent_path()/atlas_path;
         universal=setting(L"SceneResolver",L"Universal")!=L"LegacyAtlas";
         auto_ground=GetPrivateProfileIntW(L"Atmosphere",L"AutoGround",1,ini_.c_str())==1;
@@ -309,8 +300,6 @@ public:
         body_path=setting(L"BodyMaterials",L"Atmosphere22/body.blm");if(body_path.is_relative())body_path=std::filesystem::path(ini_).parent_path()/body_path;
         body_tata=setting(L"BodyPrototype",L"Off")==L"TataBonnet";
         metadata_path=setting(L"LightingMetadata",L"Atmosphere21/materials.lsm");if(metadata_path.is_relative())metadata_path=std::filesystem::path(ini_).parent_path()/metadata_path;
-        sky_u_scale=std::clamp(number(L"CustomSkyUScale",1),.1f,2.f);
-        sun_disk=GetPrivateProfileIntW(L"Atmosphere",L"SunDisk",0,ini_.c_str())==1;sun_halo=GetPrivateProfileIntW(L"Atmosphere",L"SunHalo",0,ini_.c_str())==1;sun_flare=GetPrivateProfileIntW(L"Atmosphere",L"SunFlare",0,ini_.c_str())==1;
         pc_water=GetPrivateProfileIntW(L"Atmosphere",L"PCWaterAtmosphere",0,ini_.c_str())==1;
         source_x=number(L"LightX",0);source_y=number(L"LightY",0);source_z=number(L"LightZ",0);radius=std::clamp(number(L"LightRadius",12),.1f,100.f);
         wchar_t name[32768]{};GetPrivateProfileStringW(L"Atmosphere",L"CustomSet",L"",name,32768,ini_.c_str());
@@ -323,8 +312,46 @@ public:
             ",\"world_brightness\":"+std::to_string(lighting.world_brightness)+",\"scene_resolver\":"+quote(std::string(universal?"Universal":"LegacyAtlas"))+",\"auto_ground\":"+(auto_ground?"true":"false")+
             ",\"fog_enabled\":"+(lighting.fog_enabled?"true":"false")+",\"fog_color\":"+std::to_string(lighting.fog)+
             ",\"scene_atlas_sha256\":"+quote(std::string(kSceneAtlasSha))+",\"custom_sky_u_scale\":"+std::to_string(sky_u_scale)+
-            ",\"vehicle_direct_lighting\":"+quote(std::string(body_materials?"native_and_PS2_material_capabilities":body_tata?"opt_in_Tata_bonnet_only":"off"))+",\"sun_fx\":\"current_frame_gpu_depth_mask_or_suppressed\"}");
+            ",\"vehicle_direct_lighting\":"+quote(std::string(body_materials?"native_and_PS2_material_capabilities":body_tata?"opt_in_Tata_bonnet_only":"off"))+",\"sun_fx\":\"current_frame_gpu_depth_mask_or_suppressed\""+
+            ",\"live_tuning\":"+(live_tuning?"true":"false")+"}");
     }
+    // LiveTuning=1: values that only change colours/sun visuals are re-read when
+    // Atmosphere.ini is saved. Routes, paths, metadata and Enabled stay as loaded
+    // at process start, so a live edit can never widen admission.
+    bool live_tuning=false;uint64_t live_poll_frame=0,live_reloads=0;
+    bool poll_live(uint64_t frame)noexcept {
+        if(!enabled_||!live_tuning||frame<live_poll_frame+30)return false;live_poll_frame=frame;
+        try{std::error_code ec;const auto now=std::filesystem::last_write_time(ini_,ec);if(ec||now==ini_time_)return false;ini_time_=now;
+            read_tunables();resolver.clear();++live_reloads;
+            session().write("{\"type\":\"atmosphere_live_reload\",\"frame\":"+std::to_string(frame)+",\"reloads\":"+std::to_string(live_reloads)+
+                ",\"world_brightness\":"+std::to_string(lighting.world_brightness)+",\"sun_strength\":"+std::to_string(lighting.sun_strength)+
+                ",\"sun_dir\":["+std::to_string(lighting.direction[0])+","+std::to_string(lighting.direction[1])+","+std::to_string(lighting.direction[2])+"]}");
+            return true;
+        }catch(...){return false;}
+    }
+private:
+    std::filesystem::file_time_type ini_time_{};
+    float read_number(const wchar_t* key,float fallback)const{wchar_t b[64]{};GetPrivateProfileStringW(L"Atmosphere",key,L"",b,64,ini_.c_str());wchar_t* end=nullptr;float v=std::wcstof(b,&end);return end!=b&&*end==0&&std::isfinite(v)?v:fallback;}
+    void read_tunables(){
+        auto number=[&](const wchar_t* key,float fallback){return read_number(key,fallback);};
+        auto setting=[&](const wchar_t* key,const wchar_t* fallback){wchar_t b[512]{};GetPrivateProfileStringW(L"Atmosphere",key,fallback,b,512,ini_.c_str());return std::wstring(b);};
+        Lighting fresh;const auto mode=setting(L"LightingPreset",L"GoldenHour");
+        fresh.mode=mode==L"GoldenHour"?Lighting::Mode::GoldenHour:mode==L"Day"?Lighting::Mode::Day:Lighting::Mode::Original;
+        if(fresh.mode==Lighting::Mode::Day){fresh.ambient={.9f,.94f,1.f};fresh.sun={.3f,.28f,.24f};fresh.ambient_strength=1;fresh.sun_strength=.35f;}
+        fresh.strength=std::clamp(number(L"LightingStrength",1),0.f,1.f);fresh.exposure=std::clamp(number(L"Exposure",1.05f),.25f,2.f);
+        fresh.world_brightness=std::clamp(number(L"WorldBrightness",1),.1f,1.5f);
+        fresh.prelight_contrast=std::clamp(number(L"PrelightContrast",1),0.f,1.f);
+        fresh.prelight_visibility=std::clamp(number(L"PrelightVisibility",0),0.f,1.f);
+        fresh.ambient_strength=std::clamp(number(L"AmbientStrength",fresh.ambient_strength),0.f,2.f);fresh.sun_strength=std::clamp(number(L"SunlightStrength",fresh.sun_strength),0.f,2.f);
+        const wchar_t* ambient_keys[]={L"AmbientR",L"AmbientG",L"AmbientB"};const wchar_t* sun_keys[]={L"SunlightR",L"SunlightG",L"SunlightB"};const wchar_t* dir_keys[]={L"SunDirX",L"SunDirY",L"SunDirZ"};
+        for(unsigned i=0;i<3;++i){fresh.ambient[i]=std::clamp(number(ambient_keys[i],fresh.ambient[i]),0.f,2.f);fresh.sun[i]=std::clamp(number(sun_keys[i],fresh.sun[i]),0.f,2.f);fresh.direction[i]=std::clamp(number(dir_keys[i],fresh.direction[i]),-1.f,1.f);}
+        fresh.fog_enabled=GetPrivateProfileIntW(L"Atmosphere",L"FogEnabled",0,ini_.c_str())==1;fresh.fog_strength=std::clamp(number(L"FogStrength",1),0.f,1.f);
+        const auto fog=setting(L"FogColor",L"0x98765d");wchar_t* fog_end=nullptr;const auto fog_value=std::wcstoul(fog.c_str(),&fog_end,0);if(fog_end!=fog.c_str()&&!*fog_end&&fog_value<=0xffffff)fresh.fog=0xff000000u|static_cast<DWORD>(fog_value);else fresh.fog_enabled=false;
+        lighting=fresh;
+        sky_u_scale=std::clamp(number(L"CustomSkyUScale",1),.1f,2.f);
+        sun_disk=GetPrivateProfileIntW(L"Atmosphere",L"SunDisk",0,ini_.c_str())==1;sun_halo=GetPrivateProfileIntW(L"Atmosphere",L"SunHalo",0,ini_.c_str())==1;sun_flare=GetPrivateProfileIntW(L"Atmosphere",L"SunFlare",0,ini_.c_str())==1;
+    }
+public:
     ~Pilot(){pending.release();reset();}
     bool enabled()const noexcept{return enabled_;}
     bool custom()const noexcept{return enabled_&&!set_.empty()&&!custom_failed_;}
