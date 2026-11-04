@@ -50,6 +50,10 @@ inline bool write_renderer_v1_view(const std::wstring& ini, const std::wstring& 
     bool ok = put(L"Renderer", L"ConfigVersion", L"1", view);
     for (const wchar_t* s : {L"Display", L"HUD", L"FreeCamera", L"FreeCameraKeys", L"Compatibility", L"VehicleReflections"})
         ok = copy_section(s, ini, view) && ok;
+    // Always explicit: without HUD.HiddenAtStartup the v1 parser treats FreeCamera.CleanViewEnabled=1 as "hide the HUD at
+    // start" (legacy); the v1 MenuFreezeFix default is off, in v2 it is on unless the file says 0.
+    ok = put(L"HUD", L"HiddenAtStartup", get_int(L"HUD", L"HiddenAtStartup", 0, ini) == 1 ? L"1" : L"0", view) && ok;
+    ok = put(L"Compatibility", L"MenuFreezeFix", get_int(L"Compatibility", L"MenuFreezeFix", 1, ini) == 1 ? L"1" : L"0", view) && ok;
     // [Quality]: 0 = all Stock, 1 = Classic+ (MSAA 4x, AF 16x, widescreen HUD, 60 degree FOV), 2 = the values given.
     const int preset = get_int(L"Quality", L"Preset", 2, ini);
     int aa = get_int(L"Quality", L"AntiAliasing", 0, ini), af = get_int(L"Quality", L"Anisotropy", 0, ini);
