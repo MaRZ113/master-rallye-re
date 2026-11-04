@@ -129,6 +129,7 @@ inline void flush_reports(Device8& d, ps2port::PS2PortExtension& x, ps2port::Ref
 
 // The typed pre-UI boundary of a frame (first UI draw): the course and every car of the frame are drawn.
 inline HRESULT before_ui(Device8& d, bool ui_callsite) noexcept {
+    ps2port::note_render_frame(d.trace.device_id(), d.trace.frame_number());
     ps2port::perf::Timer perf_timer(ps2port::perf::UiReflection);
     auto* x = d.ps2_port();
     if (!x || !ui_callsite) return S_OK;

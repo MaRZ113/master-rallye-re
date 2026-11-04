@@ -1,4 +1,5 @@
 #pragma once
+#include "ps2_race_certificate.hpp"
 #include "frontend_model_native.hpp"
 #include "xtrail_native_integration.hpp"
 namespace gfx2::lampintegration {
@@ -20,6 +21,7 @@ inline xtrailintegration::Result draw_fleet_lamp(Device8&,D3DPRIMITIVETYPE,UINT,
 inline xtrailintegration::Result draw(Device8& d,D3DPRIMITIVETYPE type,UINT min_index,UINT vertices,UINT start,UINT count,uintptr_t pc)noexcept{
  // First PS2 entry of every indexed draw: frame boundary of the PERF2 timing window.
  ps2port::perf::frame(d.trace.device_id(),d.trace.frame_number(),[](const std::string& r){session().write(r);});
+ ps2port::note_render_frame(d.trace.device_id(),d.trace.frame_number());
  ps2port::perf::Timer perf_timer(ps2port::perf::LampEntry);
  frontendmodelintegration::FleetParticipantScope fleet_scope(d,pc);
  const auto fleet=draw_fleet_lamp(d,type,min_index,vertices,start,count,pc);if(fleet.handled)return fleet;

@@ -189,7 +189,7 @@ bool is_france1_bush01_geometry(std::string_view sha256) noexcept {
 // BASELINE-ALL-RACES: route the baseline certificate/HUD context consumers through the PS2 normalising certifier.
 void PS2PortExtension::configure_baseline_race_modes(bool enabled) noexcept {
     baseline_all_race_modes_ = enabled;
-    baseline_certificate_override = enabled ? +[](uintptr_t camera) noexcept -> RaceCertificate { return ps2_race_certificate(camera); } : nullptr;
+    baseline_certificate_override = enabled ? +[](uintptr_t camera) noexcept -> RaceCertificate { return baseline_frame_certificate(camera); } : nullptr;
     baseline_hud_override = enabled ? +[]() noexcept -> RaceHudContext { return ps2_race_hud_context(); } : nullptr;
 }
 

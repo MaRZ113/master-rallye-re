@@ -339,6 +339,24 @@ inline Ps2RaceCertificate ps2_race_certificate(uintptr_t camera) noexcept {
         []() noexcept {return live_race_hud_context_strict();},
         []() noexcept {try{return race_epoch_capture_json(0,0);}catch(...){return std::string();}});
 }
+// FPS1 (docs/perf-fps1): the render frame of the last PS2 entry (indexed draw or UI draw), published for the
+// baseline consumers, which have no Device8. Runtime 5084: the paused-Freecam clean-view admission asked
+// live_race_certificate once per UI draw (487/frame, 4.6 ms) through BASELINE-ALL-RACES.
+struct RenderFrameKey { uint64_t device=UINT64_MAX, frame=UINT64_MAX; };
+inline RenderFrameKey& render_frame_key() noexcept { static RenderFrameKey key; return key; }
+inline void note_render_frame(uint64_t device,uint64_t frame) noexcept { auto& k=render_frame_key(); k.device=device; k.frame=frame; }
+// One PS2 certificate per render frame and camera for the baseline consumers, as courseintegration::certificate
+// does for the PS2 paths (PERF2.1): the race-level proof cannot change during one frame. A frame that published no
+// key (no PS2 entry ran) re-reads after 50 ms.
+inline RaceCertificate baseline_frame_certificate(uintptr_t camera) noexcept {
+    perf::Timer timer(perf::BaselineCertificate);
+    struct Cache { uint64_t device=UINT64_MAX, frame=UINT64_MAX, tick=0; uintptr_t camera=0; bool filled=false; RaceCertificate value{}; };
+    static thread_local Cache cache;
+    const auto& k=render_frame_key(); const uint64_t tick=GetTickCount64();
+    if(!cache.filled||k.frame==UINT64_MAX||cache.device!=k.device||cache.frame!=k.frame||cache.camera!=camera||tick-cache.tick>50){
+        cache.value=ps2_race_certificate(camera); cache.device=k.device; cache.frame=k.frame; cache.camera=camera; cache.tick=tick; cache.filled=true;}
+    return cache.value;
+}
 inline RaceHudContext ps2_race_hud_context() noexcept {
     perf::Timer timer(perf::HudContext);
     const auto base=live_race_hud_context_strict();
