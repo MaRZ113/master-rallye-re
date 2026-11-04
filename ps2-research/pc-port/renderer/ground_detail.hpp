@@ -1,4 +1,5 @@
 #pragma once
+#include <algorithm>
 // Opt-in GroundDetail (default 0): the PS2 ground detail contract on PC `shader/base_noise` draws.
 //
 // PS2 ground (shader mode 4) = fog(texture x prelight) - CommonTextures/NOISE (second GS pass, DECAL,
@@ -66,7 +67,7 @@ inline std::string pc_noise_level0_sha(const BYTE* bits,INT pitch,D3DFORMAT form
 
 enum class GroundStateKind : uint8_t { Render, Stage, Texture };
 struct GroundStateOp { GroundStateKind kind; DWORD stage, key; };
-inline constexpr std::array<GroundStateOp,23> kGroundOps={{
+inline constexpr std::array<GroundStateOp,26> kGroundOps={{
     {GroundStateKind::Stage,1,D3DTSS_COLOROP},{GroundStateKind::Stage,1,D3DTSS_ALPHAOP},
     {GroundStateKind::Render,0,D3DRS_ALPHABLENDENABLE},{GroundStateKind::Render,0,D3DRS_SRCBLEND},
     {GroundStateKind::Render,0,D3DRS_DESTBLEND},{GroundStateKind::Render,0,D3DRS_BLENDOP},
@@ -79,10 +80,13 @@ inline constexpr std::array<GroundStateOp,23> kGroundOps={{
     {GroundStateKind::Stage,0,D3DTSS_MINFILTER},{GroundStateKind::Stage,0,D3DTSS_MIPFILTER},
     {GroundStateKind::Stage,0,D3DTSS_TEXTURETRANSFORMFLAGS},{GroundStateKind::Texture,0,0},
     {GroundStateKind::Texture,1,0},
+    {GroundStateKind::Render,0,D3DRS_ALPHATESTENABLE},{GroundStateKind::Render,0,D3DRS_ALPHAFUNC},{GroundStateKind::Render,0,D3DRS_ALPHAREF},
 }};
 inline constexpr size_t kGroundPass1Ops=2;  // stage1 COLOROP/ALPHAOP
 // FPS1 (docs/perf-fps1): GroundDetail=2 swaps the stage1 noise term in place (MODULATE2X PC noise -> SUBTRACT PS2 noise).
 inline constexpr size_t kGroundStage0TextureOp=21,kGroundStage1TextureOp=22;
+// FPS1 ForestFix: alpha test on the alpha-blended, Z-writing course draws (France1 forest cards).
+inline constexpr size_t kForestZWriteOp=6,kForestAlphaTestOp=23,kForestAlphaFuncOp=24,kForestAlphaRefOp=25;
 
 using GroundWriter=void(*)(void*,uint32_t,const Args&,HRESULT) noexcept;
 
@@ -162,6 +166,8 @@ struct GroundNoiseIdentity { uintptr_t texture=0; uint64_t generation=0; bool ma
 
 class GroundDetail {
     bool requested_=false,disabled_=false,diagnostics_=false,single_pass_=false;
+    int forest_=0;
+    DWORD forest_ref_=32;
     std::vector<DWORD> pixels_;
     IDirect3DTexture8* texture_=nullptr;
     std::array<GroundNoiseIdentity,8> identities_{};
@@ -176,6 +182,10 @@ public:
     GroundDetail(bool supported,const std::wstring& ini) noexcept {
         if(!supported)return;
         try{
+            // ForestFix is independent of GroundDetail: it needs no asset, only the native course draw.
+            // 1 = PS2 treeblend contract (blend on, depth write masked); 2 = alpha test at ForestFixAlphaRef, depth kept.
+            forest_=static_cast<int>(config::read_int(L"ForestFix",0,ini.c_str()));if(forest_!=1&&forest_!=2)forest_=0;
+            forest_ref_=DWORD(std::clamp(static_cast<int>(config::read_int(L"ForestFixAlphaRef",32,ini.c_str())),1,254));
             // 1 = PS2 contract (second unfogged subtract pass); 2 = FPS1 single pass (stage1 SUBTRACT, the noise is fogged).
             const int mode=config::read_int(L"GroundDetail",0,ini.c_str());if(mode!=1&&mode!=2)return;single_pass_=mode==2;
             diagnostics_=config::read_int(L"Diagnostics",0,ini.c_str())==1;
@@ -192,6 +202,8 @@ public:
     GroundDetail& operator=(const GroundDetail&)=delete;
     bool requested() const noexcept {return requested_&&!disabled_;}
     bool single_pass() const noexcept {return single_pass_;}
+    int forest_fix() const noexcept {return disabled_?0:forest_;}
+    DWORD forest_alpha_ref() const noexcept {return forest_ref_;}
     void disable() noexcept {ps2diag::disable_log().note("ground_detail","state_restore_or_texture_failure");disabled_=true;}
     uint64_t passes() const noexcept {return passes_;}
     // Device caps are checked once per native device.

@@ -37,13 +37,41 @@ inline bool render(Device8& d,IDirect3DDevice8& n,D3DRENDERSTATETYPE k,DWORD exp
     DWORD v=0;return SUCCEEDED(n.GetRenderState(k,&v))&&v==expected;
 }
 
+// FPS1 ForestFix (docs/perf-fps1): the PC course loop draws the treeblend foliage cards alpha-blended with Z write and
+// no alpha test (F10 FranceS1: SRCALPHA/INVSRCALPHA, ZWRITE on, ALPHATEST off), so their transparent texels write depth
+// and cut out every later layer behind them. The PS2 treeblend mode (docs TREEBLEND1: mode 2, ABE1, ATE0, ZMSK1) blends
+// with depth writes masked: ForestFix=1 does exactly that. ForestFix=2 keeps depth and drops texels at or below
+// ForestFixAlphaRef (default 32) instead. The sky (Z off) is never matched.
+inline xtrailintegration::Result forest(Device8& d,ps2port::GroundDetail& g,IDirect3DDevice8& n,D3DPRIMITIVETYPE type,UINT min_index,UINT vertices,UINT start,UINT count) noexcept {
+    auto& t=g.transaction;
+    t.set_writer(&d,[](void* o,uint32_t slot,const Args& a,HRESULT hr) noexcept {xtrailintegration::notify(*static_cast<Device8*>(o),slot,a,hr);});
+    HRESULT hr=t.capture(n,&d.trace.effective_shadow);if(FAILED(hr)){log(d,g,"forest_capture_failed",hr);return {};}
+    if(g.forest_fix()==1)hr=t.set(n,ps2port::kForestZWriteOp,FALSE);
+    else{
+        hr=t.set(n,ps2port::kForestAlphaTestOp,TRUE);
+        if(SUCCEEDED(hr))hr=t.set(n,ps2port::kForestAlphaFuncOp,D3DCMP_GREATER);
+        if(SUCCEEDED(hr))hr=t.set(n,ps2port::kForestAlphaRefOp,g.forest_alpha_ref());
+    }
+    if(FAILED(hr)){const HRESULT restored=t.restore(n);log(d,g,"forest_state_failed",hr);if(FAILED(restored)){g.disable();return {true,restored};}return {};}
+    const HRESULT drawn=n.DrawIndexedPrimitive(type,min_index,vertices,start,count);
+    const HRESULT restored=t.restore(n);
+    if(FAILED(restored)){g.disable();log(d,g,"forest_restore_failed",restored);return {true,restored};}
+    log(d,g,FAILED(drawn)?"forest_draw_failed":"forest_fix_applied",drawn);
+    return {true,drawn};
+}
+
 inline xtrailintegration::Result draw(Device8& d,D3DPRIMITIVETYPE type,UINT min_index,UINT vertices,UINT start,UINT count,uintptr_t pc) noexcept {
     if(ps2port::perf::bypassed(ps2port::perf::BypassGround))return {};ps2port::perf::Timer perf_timer(ps2port::perf::Ground);
     auto* g=ground(d);if(!g)return {};
     if(const char* startup=g->take_startup_reason())log(d,*g,startup);
-    if(!g->requested()||!count||!d.trace.scene_active||d.trace.shadow.recording||d.trace.effective_shadow.recording||
+    if((!g->requested()&&!g->forest_fix())||!count||!d.trace.scene_active||d.trace.shadow.recording||d.trace.effective_shadow.recording||
        GetCurrentThreadId()!=d.trace.render_thread_id())return {};
     auto& n=*d.native();
+    if(g->forest_fix()&&pc==reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+COURSE_DRAW_RETURN_RVA&&
+       render(d,n,D3DRS_ALPHABLENDENABLE,TRUE)&&render(d,n,D3DRS_ZWRITEENABLE,TRUE)&&render(d,n,D3DRS_ALPHATESTENABLE,FALSE)&&
+       render(d,n,D3DRS_ZENABLE,D3DZB_TRUE)&&render(d,n,D3DRS_SRCBLEND,D3DBLEND_SRCALPHA)&&render(d,n,D3DRS_DESTBLEND,D3DBLEND_INVSRCALPHA))
+        return forest(d,*g,n,type,min_index,vertices,start,count);
+    if(!g->requested())return {};
     // Cheap pre-filter: only the noise stage of base_noise uses MODULATE2X in stage1.
     if(!stage(d,n,1,D3DTSS_COLOROP,D3DTOP_MODULATE2X))return {};
     if(pc!=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+COURSE_DRAW_RETURN_RVA){log(d,*g,"modulate2x_outside_course_draw_loop");return {};}

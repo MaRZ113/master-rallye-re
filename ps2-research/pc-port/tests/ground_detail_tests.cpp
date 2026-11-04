@@ -1,4 +1,6 @@
 #include "ground_detail.hpp"
+#include <filesystem>
+#include <fstream>
 #include <array>
 #include <cstring>
 #include <iostream>
@@ -107,4 +109,22 @@ void transaction_tests(){
     {Native n;Original o(n);GroundDetailTransaction t;CHECK(t.capture(n)==S_OK);CHECK(t.set(n,kGroundOps.size(),1)==E_INVALIDARG);t.release();o.check(n);}
 }
 }
-int main(){asset_tests();identity_hash_tests();identify_tests();transaction_tests();if(failures)std::cerr<<failures<<" failures\n";return failures?1:0;}
+// FPS1: single-pass and ForestFix slots, config parsing (GroundDetail=2 without the asset stays off; ForestFix needs none).
+void fps1_tests(){
+    CHECK(kGroundOps.size()==26&&kGroundOps[kGroundStage1TextureOp].kind==GroundStateKind::Texture&&kGroundOps[kGroundStage1TextureOp].stage==1);
+    CHECK(kGroundOps[kForestAlphaTestOp].key==D3DRS_ALPHATESTENABLE&&kGroundOps[kForestAlphaFuncOp].key==D3DRS_ALPHAFUNC&&kGroundOps[kForestAlphaRefOp].key==D3DRS_ALPHAREF);
+    CHECK(kGroundOps[kForestZWriteOp].key==D3DRS_ZWRITEENABLE);
+    const auto dir=std::filesystem::temp_directory_path()/"mrr-fps1-ground";std::filesystem::create_directories(dir);const auto ini=(dir/"PS2Port.ini").wstring();
+    auto write=[&](std::initializer_list<const char*> lines){std::ofstream f(ini);f<<"[PS2Port]"<<std::endl;for(auto* l:lines)f<<l<<std::endl;};
+    write({"GroundDetail=2","ForestFix=2","ForestFixAlphaRef=900"});
+    {GroundDetail g(true,ini);CHECK(!g.requested()&&g.forest_fix()==2&&g.forest_alpha_ref()==254);}
+    write({"ForestFix=1"});
+    {GroundDetail g(true,ini);CHECK(g.forest_fix()==1&&!g.single_pass()&&g.forest_alpha_ref()==32);}
+    write({"GroundDetail=1","ForestFix=7"});
+    {GroundDetail g(true,ini);CHECK(!g.forest_fix()&&!g.single_pass());}
+    {GroundDetail g(false,ini);CHECK(!g.forest_fix());}
+    // Both texture slots are captured and released; restore returns every touched state.
+    {Native n;Original o(n);GroundDetailTransaction t;CHECK(t.capture(n)==S_OK);CHECK(t.set(n,kForestAlphaRefOp,32)==S_OK);CHECK(t.set(n,kForestZWriteOp,FALSE)==S_OK);CHECK(t.restore(n)==S_OK);o.check(n);}
+    std::error_code ec;std::filesystem::remove_all(dir,ec);
+}
+int main(){asset_tests();identity_hash_tests();identify_tests();transaction_tests();fps1_tests();if(failures)std::cerr<<failures<<" failures\n";return failures?1:0;}
