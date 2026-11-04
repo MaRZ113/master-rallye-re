@@ -19,13 +19,27 @@ Kia Sportage и X-Trail были пилотами до fleet-порта: под 
 Установленная игра продолжает работать без переименования файла: `PS2Vehicles\PS2KiaBrakeOn.gxi` подхватывается
 как запасной источник. Новые комплекты могут класть `PS2BrakeOn.gxi` (те же байты).
 
+## Шаг 2a (сделан, нужен прогон): фонари Kia — общий fleet-путь
+
+* Прогон шага 1 (сессии 656 / 32356 / 27212): без `PS2KiaBrakeOn.gxi` ядро фонаря становится PC **у всех машин**
+  (`original_ps2_lamp_asset_missing`, `required_ps2_texture_unavailable`), с ним — PS2 (`ON_CORE … healthy_exact_source`).
+  Файл общий, а не Kia-специфичный. Текстура 16×16 нарисована вручную (красная, центр 254/157/0), формулой не заменяется.
+* Убран пропуск `KiaSportage` в `fleet_lamp_native.hpp`; ON/glow/OFF Kia идут тем же путём, что у 24 других машин.
+* Удалена старая ветка draw в `brake_glow_native.hpp` (~45 строк, ворота `ps2_kia_lamp_gate` 1–19, F10 `kia_glow_source_capture`,
+  `kia_brake_continuity`). При включённом флоте она и так блокировала всё, кроме Kia, и работала только в гонке одной машиной.
+* `kia_lamp_continuity.hpp` → `lamp_continuity.hpp`; `KiaLampContext` → `LampOwnerContext`; удалены `exact_on`, `match`,
+  `KiaLampContinuity`, член `BrakeGlow::kia_lamps`. Хеш ядра Kia совпадает с fleet-профилем (`3bfdba62…`), fleet ещё сверяет геометрию.
+* Ожидаемые отличия в игре: у Kia теперь PS2-фонарь в выключенном состоянии (OFF, как у остальных); фонари Kia-соперников
+  тоже PS2 (раньше только Kia игрока в одиночной гонке). Записи логов: `fleet_lamp_continuity` с `"family":"KiaSportage"`.
+* Режим без флота (`RaceFleet = 0`) PS2-фонарей не имеет: PS2-геометрии фонарей нет в кадре.
+
 ## Шаг 2 (нужен A/B в игре): удаление дублей
 
 Рантайм-исключения, из-за которых живут старые пути:
 
 | Где | Исключение | Чем заменяется | Что удаляется |
 |---|---|---|---|
-| `fleet_lamp_native.hpp:18` | `KiaSportage` → «runtime-proven Kia route» | общий ON/glow/OFF fleet (профили Kia есть в `fleet_on/off/brake_glow` реестрах) | Kia-ветка `brake_glow_native.hpp` (`kia_gate`, `kia_candidate`, `kia_context`), `KiaLampContinuity`, `kia_lamp_continuity.hpp` (общий `NativeLampContinuity` остаётся) |
+| ~~`fleet_lamp_native.hpp:18`~~ (шаг 2a) | `KiaSportage` → «runtime-proven Kia route» | общий ON/glow/OFF fleet (профили Kia есть в `fleet_on/off/brake_glow` реестрах) | Kia-ветка `brake_glow_native.hpp` (`kia_gate`, `kia_candidate`, `kia_context`), `KiaLampContinuity`, `kia_lamp_continuity.hpp` (общий `NativeLampContinuity` остаётся) |
 | `fleet_wheel_native.hpp:15` | `KIASPORTAGE`, `XTRAIL`, `UFO` | `kPort3KiaSportageWheelProfile`, `kPort3XtrailWheelProfile` (ресурсы `port3-*-WHEEL-FLEET.ps2model` уже установлены) | `kia_wheel_native/loader/registry/warmup.hpp`, `KIASPORTAGE-WHEEL-FLEET.ps2model`; X-Trail-ветка `wheel_model_native.hpp` + `XTRAIL-WHEEL-DRAW.ps2model` |
 | `race_car_fleet_native.hpp:41/47/88/100` | `KIASPORTAGE` → `kia_damage` | `fleet_damage` (профиль KIASPORTAGE в `fleet_damage_registry.hpp` полный: 26 draw, candidates/mapping/static) | `kia_damage.hpp`, `kia_damage_registry.hpp` (122 КБ) |
 | `race_car_fleet_native.hpp:11/74/81` | `XTRAIL` исключён из fleet-кузова | `XTRAIL-CAR-FLEET.ps2model` есть, **но профиль damage X-Trail пустой** (`fleet_damage_registry.hpp:131`) — сначала сгенерировать | X-Trail-ветка `race_model`, `race_damage_registry.hpp`, `vehicle_partition_registry.hpp` (только Xtrail), `XTRAIL-CAR.ps2model` |
