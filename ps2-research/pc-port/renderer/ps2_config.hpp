@@ -4,7 +4,7 @@
 // the v2 key is absent, so old INIs and fixtures keep working while the documented INI stays short.
 // PS2Port.ini v3 (FPS1, ps2-research/pc-port/config): [General] ConfigVersion=3 switches to sectioned files. Keys lose the
 // "PS2" prefix, every on/off key is 0/1 (Reflection=1 means the historical 4, FrontendModel=1 the historical 2 with
-// PS2FrontendAllCars=1), research switches live in the optional PS2PortDiagnostics.ini beside it, and the asset paths
+// PS2FrontendAllCars=1), debug and research switches live in the optional RendererDiag.ini beside it, and the asset paths
 // are fixed defaults. Without ConfigVersion=3 the v2/legacy behaviour below is unchanged.
 #include <windows.h>
 #include <cwchar>
@@ -130,13 +130,13 @@ inline std::wstring file_stamp(const std::wstring& path) {
     return std::to_wstring(a.ftLastWriteTime.dwHighDateTime) + L"." + std::to_wstring(a.ftLastWriteTime.dwLowDateTime) + L"." +
            std::to_wstring(a.nFileSizeLow);
 }
-// PS2Port.ini first, then PS2PortDiagnostics.ini; parsed once per INI path and file version (write time and size).
+// PS2Port.ini first, then RendererDiag.ini; parsed once per INI path and file version (write time and size).
 inline const Files& files(const wchar_t* ini) {
     static std::mutex lock; static std::map<std::wstring, Files> cache;
     std::lock_guard<std::mutex> guard(lock);
     const std::wstring path = ini ? ini : L"";
     const auto slash = path.find_last_of(L"\\/");
-    const std::wstring diagnostics = (slash == std::wstring::npos ? std::wstring() : path.substr(0, slash + 1)) + L"PS2PortDiagnostics.ini";
+    const std::wstring diagnostics = (slash == std::wstring::npos ? std::wstring() : path.substr(0, slash + 1)) + L"RendererDiag.ini";
     const std::wstring key = path + L"|" + file_stamp(path) + L"|" + file_stamp(diagnostics);
     auto found = cache.find(key);
     if (found != cache.end()) return found->second;

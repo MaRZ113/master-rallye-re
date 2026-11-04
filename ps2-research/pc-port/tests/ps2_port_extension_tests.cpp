@@ -587,11 +587,11 @@ bool write_file(const std::wstring& path, const wchar_t* body) {
     CloseHandle(file); return okay;
 }
 
-// FPS1 config v3: sectioned PS2Port.ini without "PS2" prefixes, 0/1 values, PS2PortDiagnostics.ini and shipped defaults;
+// FPS1 config v3: sectioned PS2Port.ini without "PS2" prefixes, 0/1 values, RendererDiag.ini and shipped defaults;
 // a file without ConfigVersion=3 keeps the historical reading.
 void config_v3_contract() {
     namespace config = gfx2::ps2port::config;
-    const auto dir = temp_dir(); const auto ini = dir + L"\\PS2Port.ini", diag = dir + L"\\PS2PortDiagnostics.ini";
+    const auto dir = temp_dir(); const auto ini = dir + L"\\PS2Port.ini", diag = dir + L"\\RendererDiag.ini";
     CHECK(write_config(dir, L"[General]\r\nConfigVersion = 3\r\n[Vehicles]\r\nRaceFleet = 1\r\nFrontendModel = 1\r\n"
                             L"[Reflections]\r\nReflection = 1\r\n[Course]\r\nWater = 1\r\nGroundDetail = 2\r\n[Rules]\r\nResetTiming = 1\r\n"));
     CHECK(write_file(diag, L"[Diagnostics]\r\nPerfTiming = 1\r\nDiagnostics = 1\r\n[Tuning]\r\nMotionBlurStrength = 0.3\r\n"));
@@ -617,7 +617,7 @@ void config_v3_contract() {
     const auto mrr = renderer_ini(dir), view = dir + L"\\view.ini";
     CHECK(write_file(mrr, L"[General]\r\nConfigVersion = 2\r\n[Display]\r\nMode = 2\r\n[Quality]\r\nPreset = 2\r\nAntiAliasing = 8\r\n"
                           L"Anisotropy = 0\r\nWidescreen = 2\r\nGameplayFOV = 1\r\nVerticalFOVDegrees = 65\r\nShadows = 1\r\n"
-                          L"[FreeCamera]\r\nEnabled = 1\r\nToggleKey = F8\r\n[Diagnostics]\r\nTrace = 0\r\nCrashLog = 1\r\n"));
+                          L"[FreeCamera]\r\nEnabled = 1\r\nToggleKey = F8\r\nCleanViewEnabled = 1\r\n[Diagnostics]\r\nTrace = 0\r\nCrashLog = 1\r\n"));
     CHECK(gfx2::ps2port::write_renderer_v1_view(mrr, view));
     auto v1 = [&](const wchar_t* s, const wchar_t* k) { wchar_t b[64]{}; GetPrivateProfileStringW(s, k, L"?", b, 64, view.c_str()); return std::wstring(b); };
     CHECK(v1(L"Renderer", L"ConfigVersion") == L"1" && v1(L"Display", L"Mode") == L"2" && v1(L"FreeCamera", L"ToggleKey") == L"F8");
@@ -627,6 +627,8 @@ void config_v3_contract() {
     CHECK(v1(L"Trace", L"Enabled") == L"0" && v1(L"Trace", L"FrameSummaries") == L"0");
     const auto visual = gfx2::read_visual_config(view);
     CHECK(visual.version_ok && visual.fov && visual.shadow_off && !visual.anisotropy && visual.samples == 8 && visual.aa_mode == "MSAA");
+    // FPS1.5: a legacy CleanViewEnabled=1 no longer hides the HUD at start; MenuFreezeFix is on unless the v2 file says 0.
+    CHECK(v1(L"HUD", L"HiddenAtStartup") == L"0" && !visual.hud_hidden_at_startup && visual.menu_freeze);
     // Preset 1 (Classic+) ignores the individual values.
     CHECK(write_file(mrr, L"[General]\r\nConfigVersion = 2\r\n[Quality]\r\nPreset = 1\r\nAntiAliasing = 0\r\n"));
     CHECK(gfx2::ps2port::write_renderer_v1_view(mrr, view) && v1(L"AntiAliasing", L"Samples") == L"4" && v1(L"Filtering", L"MaxAnisotropy") == L"16");

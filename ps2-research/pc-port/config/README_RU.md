@@ -1,6 +1,6 @@
 # Конфиги (FPS1, нужен PS2-прокси с поддержкой v2/v3)
 
-Положить рядом с `d3d8.dll`: `MRRRenderer.ini`, `PS2Port.ini` и при необходимости `PS2PortDiagnostics.ini`.
+Положить рядом с `d3d8.dll`: `MRRRenderer.ini`, `PS2Port.ini` и при необходимости `RendererDiag.ini`.
 Старые файлы (без `[General] ConfigVersion`) читаются как раньше.
 
 ## MRRRenderer.ini (ConfigVersion = 2)
@@ -19,6 +19,8 @@
 * Все переключатели 0/1: `Reflection = 1` (раньше 4), `FrontendModel = 1` (раньше 2 + `PS2FrontendAllCars = 1`).
   Многозначные: `GroundDetail` 0/1/2, `ForestFix` 0/1/2.
 * Пути ассетов не пишутся: PS2Vehicles, PS2Grass, PS2Hud, Data.sma (`renderer/ps2_config.hpp`, `v3::default_value`).
-* `PS2PortDiagnostics.ini` — отладка, тонкая настройка, CollisionDebug и совместимость; без файла действуют умолчания
-  (ReflectionWorldFirst = 1, BaselineAllRaceModes = 1, RetailDerivativeBuilds = 1, остальное 0).
+* `RendererDiag.ini` — отладка, тонкая настройка, CollisionDebug и совместимость; без файла действуют умолчания
+  (ReflectionWorldFirst = 1, BaselineAllRaceModes = 1, RetailDerivativeBuilds = 1, CollisionDebugMode = OFF, остальное 0).
+* `BaselineAllRaceModes = 1` включает и `RaceAllModes` (FreeCam/скрытие HUD во всех режимах опираются на тот же сертификат).
+* `[HUD] HiddenAtStartup` всегда передаётся явно: прежний `CleanViewEnabled = 1` больше не прячет HUD при старте.
 * Убрано: CourseObjects (лужи Turkey3, уступают Water) и Foliage (bush01 France1, заменён ForestFix).
