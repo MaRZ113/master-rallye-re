@@ -5,6 +5,8 @@
 #include "retail_layout.hpp"
 #include "ps2_race_certificate.hpp"
 #include "provenance.hpp"
+#include "renderer_config_v2.hpp"
+#include "visual_policy.hpp"
 
 #include <algorithm>
 #include <array>
@@ -577,7 +579,64 @@ void baseline_all_race_modes_contract() {
     cleanup(dir);
 }
 
+bool write_file(const std::wstring& path, const wchar_t* body) {
+    HANDLE file = CreateFileW(path.c_str(), GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+    if (file == INVALID_HANDLE_VALUE) return false;
+    const size_t bytes = wcslen(body) * sizeof(wchar_t); DWORD written = 0;
+    const bool okay = WriteFile(file, body, static_cast<DWORD>(bytes), &written, nullptr) && written == bytes;
+    CloseHandle(file); return okay;
+}
+
+// FPS1 config v3: sectioned PS2Port.ini without "PS2" prefixes, 0/1 values, PS2PortDiagnostics.ini and shipped defaults;
+// a file without ConfigVersion=3 keeps the historical reading.
+void config_v3_contract() {
+    namespace config = gfx2::ps2port::config;
+    const auto dir = temp_dir(); const auto ini = dir + L"\\PS2Port.ini", diag = dir + L"\\PS2PortDiagnostics.ini";
+    CHECK(write_config(dir, L"[General]\r\nConfigVersion = 3\r\n[Vehicles]\r\nRaceFleet = 1\r\nFrontendModel = 1\r\n"
+                            L"[Reflections]\r\nReflection = 1\r\n[Course]\r\nWater = 1\r\nGroundDetail = 2\r\n[Rules]\r\nResetTiming = 1\r\n"));
+    CHECK(write_file(diag, L"[Diagnostics]\r\nPerfTiming = 1\r\nDiagnostics = 1\r\n[Tuning]\r\nMotionBlurStrength = 0.3\r\n"));
+    wchar_t text[64]{};
+    CHECK(config::is_v3(ini.c_str()));
+    CHECK(config::read_int(L"Reflection", 0, ini.c_str()) == 4);                 // 1 -> historical 4
+    CHECK(config::read_int(L"ReflectionMode", 0, ini.c_str()) == 4);             // v2 alias of Reflection
+    CHECK(config::read_int(L"FrontendModel", 0, ini.c_str()) == 2);              // 1 -> historical 2
+    CHECK(config::read_int(L"PS2FrontendAllCars", 0, ini.c_str()) == 1);         // folded into FrontendModel
+    CHECK(config::read_int(L"PS2Water", 0, ini.c_str()) == 1 && config::read_int(L"PS2ResetTiming", 0, ini.c_str()) == 1);
+    CHECK(config::read_int(L"GroundDetail", 0, ini.c_str()) == 2 && config::read_int(L"RaceModelMode", 0, ini.c_str()) == 1);
+    CHECK(config::read_int(L"PS2PerfTiming", 0, ini.c_str()) == 1 && config::read_int(L"VehicleModelDiagnostics", 0, ini.c_str()) == 1);
+    CHECK(config::read_string(L"PS2MotionBlurStrength", L"0.195", text, 64, ini.c_str()) == 3 && !wcscmp(text, L"0.3"));
+    CHECK(config::read_string(L"GrassAssetDirectory", L".", text, 64, ini.c_str()) && !wcscmp(text, L"PS2Grass"));  // shipped default
+    CHECK(config::read_int(L"BaselineAllRaceModes", 0, ini.c_str()) == 1 && config::read_int(L"PS2Birds", 0, ini.c_str()) == 0);
+    CHECK(config::present(L"Grass", ini.c_str()) == false && config::present(L"GroundDetail", ini.c_str()));
+    // Rewriting the file is seen (cache keyed by write time and size); a v2 file reads [PS2Port] as before.
+    CHECK(write_config(dir, L"[PS2Port]\r\nReflection=4\r\nPS2FrontendAllCars=0\r\nFrontendModel=2\r\n"));
+    CHECK(!config::is_v3(ini.c_str()) && config::read_int(L"Reflection", 0, ini.c_str()) == 4 &&
+          config::read_int(L"PS2FrontendAllCars", 1, ini.c_str()) == 0 && config::read_int(L"PS2PerfTiming", 0, ini.c_str()) == 0);
+    DeleteFileW(diag.c_str());
+    // MRRRenderer.ini v2 -> v1 view for the baseline visual and trace readers.
+    const auto mrr = renderer_ini(dir), view = dir + L"\\view.ini";
+    CHECK(write_file(mrr, L"[General]\r\nConfigVersion = 2\r\n[Display]\r\nMode = 2\r\n[Quality]\r\nPreset = 2\r\nAntiAliasing = 8\r\n"
+                          L"Anisotropy = 0\r\nWidescreen = 2\r\nGameplayFOV = 1\r\nVerticalFOVDegrees = 65\r\nShadows = 1\r\n"
+                          L"[FreeCamera]\r\nEnabled = 1\r\nToggleKey = F8\r\n[Diagnostics]\r\nTrace = 0\r\nCrashLog = 1\r\n"));
+    CHECK(gfx2::ps2port::write_renderer_v1_view(mrr, view));
+    auto v1 = [&](const wchar_t* s, const wchar_t* k) { wchar_t b[64]{}; GetPrivateProfileStringW(s, k, L"?", b, 64, view.c_str()); return std::wstring(b); };
+    CHECK(v1(L"Renderer", L"ConfigVersion") == L"1" && v1(L"Display", L"Mode") == L"2" && v1(L"FreeCamera", L"ToggleKey") == L"F8");
+    CHECK(v1(L"AntiAliasing", L"Mode") == L"1" && v1(L"AntiAliasing", L"Samples") == L"8");
+    CHECK(v1(L"Filtering", L"AnisotropicFiltering") == L"0" && v1(L"Widescreen", L"InterfaceMode") == L"2");
+    CHECK(v1(L"Camera", L"GameplayFOV") == L"1" && v1(L"Camera", L"VerticalFOVDegrees") == L"65" && v1(L"Shadows", L"Mode") == L"1");
+    CHECK(v1(L"Trace", L"Enabled") == L"0" && v1(L"Trace", L"FrameSummaries") == L"0");
+    const auto visual = gfx2::read_visual_config(view);
+    CHECK(visual.version_ok && visual.fov && visual.shadow_off && !visual.anisotropy && visual.samples == 8 && visual.aa_mode == "MSAA");
+    // Preset 1 (Classic+) ignores the individual values.
+    CHECK(write_file(mrr, L"[General]\r\nConfigVersion = 2\r\n[Quality]\r\nPreset = 1\r\nAntiAliasing = 0\r\n"));
+    CHECK(gfx2::ps2port::write_renderer_v1_view(mrr, view) && v1(L"AntiAliasing", L"Samples") == L"4" && v1(L"Filtering", L"MaxAnisotropy") == L"16");
+    DeleteFileW(view.c_str());
+    cleanup(dir);
+    std::cout << "FPS1 config v3/v2: PASS\n";
+}
+
 int main() {
+    config_v3_contract();
     baseline_all_race_modes_contract();
     retail_derivative_contract();
     race_ledger_contracts();

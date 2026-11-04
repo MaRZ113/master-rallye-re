@@ -498,12 +498,13 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
 diff --git a/modernization/renderer/src/provenance.cpp b/modernization/renderer/src/provenance.cpp
 --- a/modernization/renderer/src/provenance.cpp
 +++ b/modernization/renderer/src/provenance.cpp
-@@ -7,6 +7,9 @@
+@@ -7,6 +7,10 @@
  #include <cstdio>
  #include <cwchar>
  #include <climits>
 +#ifdef MRR_ENABLE_PS2_PORT
 +#include "retail_layout.hpp"
++#include "renderer_config_v2.hpp"
 +#endif
  namespace gfx2 {
  HMODULE proxy_module=nullptr;
@@ -537,7 +538,7 @@ diff --git a/modernization/renderer/src/provenance.cpp b/modernization/renderer/
  }
  Caller caller_info(uintptr_t pc){
   Caller c;c.address=pc;HMODULE m=nullptr;
-@@ -75,15 +85,26 @@
+@@ -75,15 +86,34 @@
   if(!InitializeCriticalSectionEx(&lock_,2000,0))throw std::bad_alloc();
   auto own=module_path(proxy_module),exe=module_path(nullptr);uint64_t exe_size=0;
   proxy_path=utf8(own);exe_path=utf8(exe);proxy_sha=sha256_file(own);exe_sha=sha256_file(exe,&exe_size);target=exe_sha==TARGET_SHA;
@@ -546,12 +547,22 @@ diff --git a/modernization/renderer/src/provenance.cpp b/modernization/renderer/
 + // and section table, at most 64 changed 4 KiB pages; ps2-research/pc-port/renderer/retail_layout.hpp) counts as the
 + // retail target. Every hook still verifies its own bytes; the PS2 extension runs only CollisionDebug on it.
 + if(!target){auto& derivative=ps2port::retail_derivative();const auto folder=own.substr(0,own.find_last_of(L"\\/"));
-+  if(GetPrivateProfileIntW(L"PS2Port",L"RetailDerivativeBuilds",0,(folder+L"\\PS2Port.ini").c_str())==1){
++  if(ps2port::config::read_int(L"RetailDerivativeBuilds",0,(folder+L"\\PS2Port.ini").c_str())==1){
 +   derivative.requested=true;ps2port::check_retail_derivative(exe,derivative);target=derivative.accepted;}}
 +#endif
   auto base=own.substr(0,own.find_last_of(L"\\/"));
-  auto ini=base+L"\\MRRRenderer.ini";config_path=ini;visual_config=read_visual_config(ini);
-  auto trace_config=read_trace_config(ini);enabled=trace_config.enabled;summaries=trace_config.summaries;
+- auto ini=base+L"\\MRRRenderer.ini";config_path=ini;visual_config=read_visual_config(ini);
+- auto trace_config=read_trace_config(ini);enabled=trace_config.enabled;summaries=trace_config.summaries;
++ auto ini=base+L"\\MRRRenderer.ini";config_path=ini;
++#ifdef MRR_ENABLE_PS2_PORT
++ // CONFIG-V2 (ps2-research/pc-port/renderer/renderer_config_v2.hpp): the visual and trace readers take the v1 view of a
++ // ConfigVersion=2 file; every other reader keeps config_path, whose sections are unchanged in v2.
++ const std::wstring settings=ps2port::renderer_ini_v1_view(ini,base);
++#else
++ const std::wstring& settings=ini;
++#endif
++ visual_config=read_visual_config(settings);
++ auto trace_config=read_trace_config(settings);enabled=trace_config.enabled;summaries=trace_config.summaries;
   CreateDirectoryW((base+L"\\MRRRenderer").c_str(),nullptr);directory=base+L"\\MRRRenderer\\logs";CreateDirectoryW(directory.c_str(),nullptr);
   SYSTEMTIME t;GetSystemTime(&t);wchar_t name[128];swprintf_s(name,L"\\session-%04u%02u%02u-%02u%02u%02u-%lu.jsonl",t.wYear,t.wMonth,t.wDay,t.wHour,t.wMinute,t.wSecond,GetCurrentProcessId());
   file_=CreateFileW((directory+name).c_str(),GENERIC_WRITE,FILE_SHARE_READ,nullptr,CREATE_NEW,FILE_ATTRIBUTE_NORMAL,nullptr);
