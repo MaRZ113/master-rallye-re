@@ -201,6 +201,8 @@ PS2PortExtension::PS2PortExtension(bool exact_build, const std::string& exe_sha,
     retail_derivative_ = exact_build && !retail && ::gfx2::ps2port::retail_derivative().accepted;
     build_valid_ = exact_build && (retail || retail_derivative_);
     if (!build_valid_) { config_reason_ = "unsupported_build_stock"; return; }
+    try { atmosphere_ = std::make_unique<atmosphere::Pilot>(build_valid_, renderer_ini); }
+    catch (...) { atmosphere_.reset(); }
     if (retail_derivative_) try {
         const auto ini = port_ini_path(renderer_ini);
         if (::gfx2::ps2port::config::read_int(L"RetailDerivativeEffects", 0, ini.c_str()) != 1) {
@@ -303,7 +305,7 @@ bool PS2PortExtension::requested() const noexcept {
     return mode_ != PilotMode::Stock || (reflection_ && reflection_->mirroring_required());
 }
 bool PS2PortExtension::active() const noexcept { return requested() && build_valid_ && !disabled_; }
-bool PS2PortExtension::buffer_mirroring_required() const noexcept { return active() || pixel_probe_enabled() || frontend_geometry_diagnostics() || (water_ && water_->identity_requested()) || (wheel_model_ && wheel_model_->requested()) || (race_model_ && race_model_->requested()) || (frontend_model_ && frontend_model_->requested()); }
+bool PS2PortExtension::buffer_mirroring_required() const noexcept { return (atmosphere_ && atmosphere_->enabled() && ((atmosphere_->world_route() || ((atmosphere_->body_tata||atmosphere_->body_materials) && atmosphere_->lighting.active())) || atmosphere_->light_probe || (atmosphere_->custom() && atmosphere_->sky_u_scale!=1))) || active() || pixel_probe_enabled() || frontend_geometry_diagnostics() || (water_ && water_->identity_requested()) || (wheel_model_ && wheel_model_->requested()) || (race_model_ && race_model_->requested()) || (frontend_model_ && frontend_model_->requested()); }
 bool PS2PortExtension::analysis_enabled() const noexcept { return active() || pixel_probe_enabled() ||
     (!disabled_ && ((course_objects_ && course_objects_->identity_requested()) ||
                   (grass_ && grass_->identity_requested()) || (shrubs_ && shrubs_->identity_requested()) ||
@@ -317,6 +319,7 @@ void PS2PortExtension::fleet_before_reset() noexcept {
 }
 
 bool PS2PortExtension::native_states_pending() const noexcept {
+    if (atmosphere_ && atmosphere_->pending.any()) return true;
     for (const auto& m : fleet_race_) if (m && m->states_pending()) return true;
     for (const auto& m : fleet_wheel_) if (m && m->transaction.pending()) return true;
     for (const auto& m : frontend_extra_) if (m && m->transaction.pending()) return true;
@@ -351,6 +354,11 @@ template<class P> std::string pilot_state(const P* pilot) {
 std::string PS2PortExtension::status_json() const {
     std::string out = std::string("{\"extension_disabled\":") + (disabled_ ? "true" : "false") + ",\"reset_generation\":" + std::to_string(reset_generation_) +
         ",\"resources\":{\"tracked\":" + std::to_string(ledger_tracked_) + ",\"serial\":" + std::to_string(ledger_serial_) + "}";
+    if (atmosphere_) out += std::string(",\"atmosphere\":{\"enabled\":") + (atmosphere_->enabled()?"true":"false") +
+        ",\"sky_draws\":" + std::to_string(atmosphere_->sky_draws) + ",\"terrain_draws\":" + std::to_string(atmosphere_->world_draws) +
+        ",\"light_vertices\":" + std::to_string(atmosphere_->light_vertices) + ",\"sky_candidates\":" + std::to_string(atmosphere_->sky_candidates) +
+        ",\"sky_identity_matched\":" + std::to_string(atmosphere_->sky_matched) + ",\"sky_rejected\":" + std::to_string(atmosphere_->sky_rejected) +
+        ",\"world_rejected\":" + std::to_string(atmosphere_->world_rejected) + ",\"sun_fx\":\"SUPPRESSED_NO_DEPTH_VISIBILITY_PROOF\"}";
     if (reflection_) out += ",\"reflection\":" + reflection_->status_json();
     out += ",\"grass\":" + pilot_state(grass_.get()) + ",\"shrubs\":" + pilot_state(shrubs_.get()) +
         ",\"spline\":" + pilot_state(spline_objects_.get()) + ",\"water\":" + pilot_state(water_.get()) + ",\"birds\":" + pilot_state(birds_.get()) + ",\"rigid_props\":" + pilot_state(rigid_props_.get()) +
@@ -1240,6 +1248,7 @@ std::string PS2PortExtension::pixel_probe_json() const noexcept {
 
 void PS2PortExtension::disable(const char* reason) noexcept {
     disabled_ = true;
+    if (atmosphere_) atmosphere_->disable();
     if (reflection_) reflection_->disable(reason);
     if (course_objects_) course_objects_->disable(reason);
     if (grass_) grass_->disable(reason);

@@ -38,11 +38,14 @@
     },
     "modernization/renderer/src/provenance.cpp": {
       "sha256": "63a18c78e69ac6563d6d8b143c8cab317893a598bc7d59ee2f27cdcc477c9b26"
+    },
+    "modernization/renderer/src/game_fov.cpp": {
+      "sha256": "7e7e8f85e02cbea8a637c8e1d83b4f3e490748eb7c8f185136df21541b1552a4"
     }
   },
   "patches": {
     "0001-renderer-integration.patch": {
-      "sha256": "f8a7c09a314f43f74e5977fef2d6a7c082066c19820ff807682cad733ee93acb"
+      "sha256": "170f8df4b43e7fc51e669d149762b672f645fe030baf49c896e82f0ea78e6a91"
     },
     "0002-interface-generator.patch": {
       "sha256": "cfe8f7cf6c56241d48d14535d6fd06f35a4ad263c5f40e2adfc4906eec6e5232"

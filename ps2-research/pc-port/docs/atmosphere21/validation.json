@@ -1,0 +1,217 @@
+{
+  "status": "RUNTIME_WORKING_VISUAL_CALIBRATION_PENDING",
+  "dll_sha256": "40e630dbee5163fbeea89de626cdee4e8b9b35a30d3d36b6961bd6c1cdd00885",
+  "baseline_dll_sha256": "eb7ea3d9501b514bff668f1e75e86041906c5fe4e8afa89f06d658751429aaf4",
+  "metadata_sha256": "12767fb38e51d26059aa3dc54e105af886b13d659869000dd7740766d2c0e5ab",
+  "metadata_bytes": 77338,
+  "material_records": 326,
+  "runtime_geometry_atlas_records": 0,
+  "tests": {
+    "baseline_ctest": "24/24 PASS",
+    "ps2_ctest": "46/46 PASS",
+    "python": "186/186 PASS"
+  },
+  "package_hash_count": 85,
+  "installation_verifier": {
+    "correct_package": "PASS under Windows PowerShell",
+    "mismatched_material_file": "EXPECTED_REJECTION_PASS"
+  },
+  "sdk": {
+    "standalone_packaged_export": "PASS",
+    "base_decode_roundtrip_append_new_course_tamper_rejection": "PASS",
+    "modified_layout_same_metadata": "BYTE_IDENTICAL_PASS"
+  },
+  "render_variant": {
+    "status": "OFFLINE_SDK_VALIDATED_RUNTIME_PENDING",
+    "source": "D:\\Game\\Master Rallye Atmo-copy\\DataGx\\Course\\France1\\france1.dx",
+    "source_sha256": "89b96c102c622065bf13bd3506cab55cfb6207d4768c447da76b726ecc5a76c7",
+    "variant_sha256": "f41fd9692249e87973c6dd6c0fb6aeaea7db2e5b50b2c72dffe67f60e921f941",
+    "changed_vertices": 1180,
+    "ranges": [
+      {
+        "material": "road-tga",
+        "start": 447,
+        "triangles": 8,
+        "edited_vertices": 12
+      },
+      {
+        "material": "road-tga",
+        "start": 1221,
+        "triangles": 16,
+        "edited_vertices": 21
+      },
+      {
+        "material": "road-tga",
+        "start": 6453,
+        "triangles": 8,
+        "edited_vertices": 12
+      },
+      {
+        "material": "road-tga",
+        "start": 11016,
+        "triangles": 2,
+        "edited_vertices": 6
+      },
+      {
+        "material": "road-tga",
+        "start": 16161,
+        "triangles": 59,
+        "edited_vertices": 62
+      },
+      {
+        "material": "road-tga",
+        "start": 23790,
+        "triangles": 104,
+        "edited_vertices": 102
+      },
+      {
+        "material": "road-tga",
+        "start": 28173,
+        "triangles": 8,
+        "edited_vertices": 9
+      },
+      {
+        "material": "road-tga",
+        "start": 32361,
+        "triangles": 28,
+        "edited_vertices": 27
+      },
+      {
+        "material": "road-tga",
+        "start": 36015,
+        "triangles": 32,
+        "edited_vertices": 43
+      },
+      {
+        "material": "road-tga",
+        "start": 46044,
+        "triangles": 20,
+        "edited_vertices": 21
+      },
+      {
+        "material": "road-tga",
+        "start": 63567,
+        "triangles": 52,
+        "edited_vertices": 53
+      },
+      {
+        "material": "road-tga",
+        "start": 80631,
+        "triangles": 11,
+        "edited_vertices": 12
+      },
+      {
+        "material": "road-tga",
+        "start": 87339,
+        "triangles": 61,
+        "edited_vertices": 72
+      },
+      {
+        "material": "road-tga",
+        "start": 91956,
+        "triangles": 44,
+        "edited_vertices": 47
+      },
+      {
+        "material": "road-tga",
+        "start": 99069,
+        "triangles": 74,
+        "edited_vertices": 80
+      },
+      {
+        "material": "road-tga",
+        "start": 111369,
+        "triangles": 8,
+        "edited_vertices": 14
+      },
+      {
+        "material": "road-tga",
+        "start": 118710,
+        "triangles": 16,
+        "edited_vertices": 15
+      },
+      {
+        "material": "road-tga",
+        "start": 130803,
+        "triangles": 12,
+        "edited_vertices": 15
+      },
+      {
+        "material": "road-tga",
+        "start": 141015,
+        "triangles": 52,
+        "edited_vertices": 55
+      },
+      {
+        "material": "road-tga",
+        "start": 145575,
+        "triangles": 109,
+        "edited_vertices": 102
+      },
+      {
+        "material": "road-tga",
+        "start": 157713,
+        "triangles": 145,
+        "edited_vertices": 135
+      },
+      {
+        "material": "road-tga",
+        "start": 163044,
+        "triangles": 77,
+        "edited_vertices": 103
+      },
+      {
+        "material": "road-tga",
+        "start": 171495,
+        "triangles": 149,
+        "edited_vertices": 162
+      }
+    ],
+    "changes": [
+      "UV0 u+0.125",
+      "Road RGB prelight x0.9; alpha preserved",
+      "Triangle order reversed inside original draw ranges"
+    ],
+    "preserved": [
+      "Vertex positions",
+      "Normals",
+      "Triangle multiset / physical geometry",
+      "Original draw counts and buffer ranges",
+      "Collision/BSP/route suffix bytes",
+      "Native material labels and textures"
+    ],
+    "metadata_regeneration_required": false,
+    "proxy_rebuild_required": false,
+    "scope": "Render configuration variation; not a new route or collision reconstruction"
+  },
+  "source_head": "9ff5d4868415d5fd8e13458a2e36bc935e34c29f",
+  "body_prototype": "IMPLEMENTED_OPT_IN_SINGLE_ORIGINAL_HEALTHY_TATA_BONNET_RUNTIME_PENDING",
+  "new_gameplay_evidence": [],
+  "runtime_required": [
+    "Baseline PC courses Original/GoldenHour France1 Turkey2 Turkey3",
+    "Loose PS2 courses Original/GoldenHour France1 Turkey2 Turkey3",
+    "Same-process Restart/menu re-entry/cache reset",
+    "Renderer PS2-on Reflection4 VehicleLighting1 restored effects",
+    "Modified France1 render configuration with same DLL/LSM1",
+    "No-metadata strict AutoGround",
+    "Optional Tata bonnet A/B",
+    "Reset/MSAA/FOV/FreeCam/Collision Debug/physical props",
+    "Cold process independent of Extra Options"
+  ],
+  "previous_gameplay_evidence": "ATMOSPHERE2 runtime-002/003 only; not confirmation for this DLL",
+  "package": "D:\\Game\\Master Rallye\\master-rallye-re-general\\.research-output\\atmosphere21\\candidate-runtime-001",
+  "deployment": "NOT_INSTALLED_BY_AGENT",
+  "source_integrity": "All build-report C++/hpp/Python test SHA match current source; frozen modernization/renderer unchanged",
+  "runtime_evidence_2026_11_04": {
+    "sessions": [
+      50280,
+      42324,
+      29412
+    ],
+    "exact_dll": "40e630dbee5163fbeea89de626cdee4e8b9b35a30d3d36b6961bd6c1cdd00885",
+    "complete_F10_captures": 6,
+    "confirmed": "Recorded Original and GoldenHour France1/Turkey2/Turkey3; long GoldenHour France1. Not all compatibility cases.",
+    "remaining": "seam same-point A/B, body, PS2-on, modified layout, FreeCam/HUD/collision/reset, FPS",
+    "report": ".research-output/atmosphere22/previous-runtime-evidence.json"
+  }
+}

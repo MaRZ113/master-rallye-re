@@ -1,0 +1,120 @@
+{
+  "atlas_sha256": "1c583e5c148fe01261cf208575e609d8148b20bc1219e03d46d505b9b8b62ef0",
+  "records": 1558,
+  "policy": {
+    "1": [
+      "road",
+      "road_dirt",
+      "f_roadfill",
+      "gravel",
+      "sandroad",
+      "sand_road",
+      "asphalt",
+      "dirt_left",
+      "dirt_right",
+      "grass_left",
+      "grass_right",
+      "f_grass_2_gravel_l",
+      "f_grass_2_gravel_r"
+    ],
+    "2": [
+      "grass",
+      "rock",
+      "rock01",
+      "rock02",
+      "rocks",
+      "grass_rock_lft",
+      "grass_rock_rht",
+      "grass-treedirt",
+      "treedirt",
+      "cliff",
+      "ground",
+      "sand",
+      "sand01",
+      "sand02",
+      "mud"
+    ],
+    "3": [
+      "pinetree",
+      "solidtree1",
+      "solidtree2",
+      "2dtree1",
+      "2dtree2",
+      "2dtree3",
+      "bush01",
+      "bark",
+      "treewall1",
+      "pinerowleft",
+      "pinerowright",
+      "tree",
+      "tree01",
+      "tree02",
+      "bush",
+      "palmtree"
+    ],
+    "4": [
+      "wall",
+      "wood_01",
+      "gate01",
+      "bridge",
+      "canalwall",
+      "castle01",
+      "castle02",
+      "castle03",
+      "church",
+      "f_conc",
+      "f_railmisc1",
+      "house",
+      "house01",
+      "house02",
+      "building",
+      "building01",
+      "stonewall",
+      "roof"
+    ]
+  },
+  "sources": [
+    {
+      "source_variant": 0,
+      "course": "France1",
+      "source": "D:\\Game\\Master Rallye\\Data.sma_unpacked\\DataGx\\Course\\France1\\france1.dx",
+      "source_sha256": "a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5",
+      "new_records": 757
+    },
+    {
+      "source_variant": 0,
+      "course": "Turkey2",
+      "source": "D:\\Game\\Master Rallye\\Data.sma_unpacked\\DataGx\\Course\\Turkey2\\turkey2.dx",
+      "source_sha256": "0c238c152543a37f4b9c2a5f9e4573b70b868d263762679612031216d19e1194",
+      "new_records": 205
+    },
+    {
+      "source_variant": 0,
+      "course": "Turkey3",
+      "source": "D:\\Game\\Master Rallye\\Data.sma_unpacked\\DataGx\\Course\\Turkey3\\turkey3.dx",
+      "source_sha256": "724a69da708a124f7dbfd666b7ad8d391bcaf22ff94bd2c91143e305749cf7f8",
+      "new_records": 3
+    },
+    {
+      "source_variant": 1,
+      "course": "France1",
+      "source": "D:\\Game\\Master Rallye Atmo-copy\\DataGx\\Course\\France1\\france1.dx",
+      "source_sha256": "89b96c102c622065bf13bd3506cab55cfb6207d4768c447da76b726ecc5a76c7",
+      "new_records": 483
+    },
+    {
+      "source_variant": 1,
+      "course": "Turkey2",
+      "source": "D:\\Game\\Master Rallye Atmo-copy\\DataGx\\Course\\Turkey2\\turkey2.dx",
+      "source_sha256": "42f6803fffac3db94d2584583a1acce38128765398a33ea1baf13ba247b60461",
+      "new_records": 94
+    },
+    {
+      "source_variant": 1,
+      "course": "Turkey3",
+      "source": "D:\\Game\\Master Rallye Atmo-copy\\DataGx\\Course\\Turkey3\\turkey3.dx",
+      "source_sha256": "42efdbcece1340d0ead30176f2489fc512a6e2af2f29559c62922aa2f3b330e7",
+      "new_records": 16
+    }
+  ]
+}

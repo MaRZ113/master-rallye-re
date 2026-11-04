@@ -1,0 +1,29 @@
+{
+  "status": "OFFLINE_VERIFIED_RUNTIME_PENDING",
+  "tests": {
+    "baseline_ctest": "24/24 PASS",
+    "ps2_ctest": "46/46 PASS",
+    "python": "186/186 PASS",
+    "sdk": "8/8 PASS",
+    "native_metadata": "89263 LNH1 / 17 BLM2 / 326 LSM1 PASS",
+    "d3d8_exposure": "ISOLATED_GPU_PASS_NOT_GAMEPLAY",
+    "restore_fault_injection": "8 slots failure and retry PASS",
+    "delivered_sdk": "3 exporters BYTE_IDENTICAL_PASS",
+    "package_verifier": "12 runtime files PASS",
+    "package_manifest": "104 file hashes PASS"
+  },
+  "runtime_003": "runtime-003-evidence.json",
+  "runtime_004": "NOT_RUN",
+  "sun": "OFF",
+  "baseline_dll_sha256": "eb7ea3d9501b514bff668f1e75e86041906c5fe4e8afa89f06d658751429aaf4",
+  "pending": [
+    "same-point body/world visuals",
+    "PS2 France1 Turkey2 Turkey3",
+    "PC Original GoldenHour",
+    "modified layout",
+    "FPS and QPC comparison",
+    "Restart Re-entry Reset",
+    "HUD FreeCam collision water physics standalone"
+  ],
+  "dll_sha256": "f0598ec236835f112b5e628baa37beec3ac55e410abf97eabe18841124ab288c"
+}

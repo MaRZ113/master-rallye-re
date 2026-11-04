@@ -1,0 +1,3044 @@
+{
+  "schema": 1,
+  "dll_sha256": "f2b51e0d41adeadf245bbd87c2e5f6362eb9b5324bfef5eae934bfdc0f9717ba",
+  "results": [
+    {
+      "preset": 0,
+      "status": "RUNTIME_CONFIRMED_RESOURCES_AND_FOG",
+      "session": {
+        "file": "session-20261103-080659-42880.jsonl",
+        "sha256": "3a34c8780508ad9a302439cd6ededaaea5ae0fe746a757b33c08f1f5c8254511",
+        "invalid_json": [],
+        "record_types": {
+          "session": 1,
+          "trace_config": 1,
+          "compatibility_capabilities": 1,
+          "renderer_config": 1,
+          "legacy_loading_attract_guard": 1,
+          "real_runtime": 1,
+          "Direct3DCreate8": 1,
+          "broker_null_guard": 2,
+          "menu_freeze_fix": 1,
+          "display_breadcrumb": 16,
+          "display_native_begin": 1,
+          "display_native_attempt": 1,
+          "atmosphere_sky_hook": 1,
+          "atmosphere_config": 1,
+          "ps2_grass_config": 2,
+          "physics_probe_config": 1,
+          "physics_probe_setup": 1,
+          "ui_ownership_probe_install": 1,
+          "hud_hide_config": 1,
+          "hud_hide_state": 11,
+          "quality_pipeline": 1,
+          "race_epoch_observer": 2,
+          "free_camera_config": 1,
+          "fov_culling_hook": 2,
+          "visual_device_config": 1,
+          "create_device": 1,
+          "resource_create": 885,
+          "display_cooperative_transition": 1,
+          "cooperative_level": 1,
+          "free_camera_state": 10,
+          "freecam_window_input": 10,
+          "race_epoch_snapshot": 10,
+          "frame_summary": 26,
+          "atmosphere_sky_selection": 4,
+          "atmosphere_sky_draw": 2,
+          "atmosphere_world_fog": 1,
+          "ps2_perf_timing": 3,
+          "ui_diagnostic_capture_start": 1,
+          "ui_ownership_capture_start": 1,
+          "camera_owner_observation": 1,
+          "ui_render_local": 64,
+          "ui_packet_lifetime": 34,
+          "capture_written": 1,
+          "ui_ownership_capture_end": 1,
+          "ui_group_candidates": 1,
+          "ui_diagnostic_capture_end": 1,
+          "device_release": 1,
+          "physics_probe_summary": 1,
+          "physics_probe_transaction_summary": 1,
+          "root_release": 1
+        },
+        "atmosphere_events": [
+          {
+            "line": 27,
+            "preceding_summary_frame": 0,
+            "record": {
+              "type": "atmosphere_sky_hook",
+              "reason": "installed_initial_device_before_scenes"
+            }
+          },
+          {
+            "line": 28,
+            "preceding_summary_frame": 0,
+            "record": {
+              "type": "atmosphere_config",
+              "enabled": true,
+              "world_lighting": false,
+              "light_probe": false,
+              "custom_set_requested": false,
+              "sun_fx": "disabled",
+              "selection_requires_typed_offline_fields": true
+            }
+          },
+          {
+            "line": 720,
+            "preceding_summary_frame": 300,
+            "record": {
+              "type": "atmosphere_sky_selection",
+              "requested": 0,
+              "original": 0,
+              "effective": 0,
+              "selected": 0,
+              "override": false,
+              "branch": "first_layer",
+              "reason": "native_null_false_source_with_typed_local_context",
+              "caller_va": 4919873,
+              "key": "CloudNumber",
+              "network_players": {
+                "id_found": true,
+                "id": 9439,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 0
+              },
+              "network_sync": {
+                "id_found": true,
+                "id": 10,
+                "present": false,
+                "unpublished": true,
+                "native_null": false,
+                "tag": 4294967295,
+                "value": null
+              },
+              "network_source": {
+                "id_found": true,
+                "id": 9271,
+                "present": false,
+                "unpublished": false,
+                "native_null": true,
+                "tag": 12,
+                "value": null
+              },
+              "local_players": {
+                "id_found": true,
+                "id": 9265,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 1
+              },
+              "race_type": {
+                "id_found": true,
+                "id": 9058,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 1
+              },
+              "playback_replay": {
+                "id_found": true,
+                "id": 333,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 0,
+                "value": 0
+              },
+              "race_generation": 6,
+              "request_generation": 6,
+              "scene_job": 6,
+              "scene_id": 9240,
+              "scene": "RaceTest/France1",
+              "native_ai": 521162176,
+              "native_ai_vtable": 6885520,
+              "native_egg": 44945984,
+              "layer": 0,
+              "owner": 0,
+              "owner_lifetime": 0,
+              "observer_same_thread": true,
+              "initializing_current_scene": true,
+              "thread": 47624
+            }
+          },
+          {
+            "line": 721,
+            "preceding_summary_frame": 300,
+            "record": {
+              "type": "atmosphere_sky_selection",
+              "requested": 0,
+              "original": 0,
+              "effective": 0,
+              "selected": 0,
+              "override": false,
+              "branch": "first_layer",
+              "reason": "native_null_false_source_with_typed_local_context",
+              "caller_va": 4919873,
+              "key": "CloudNumber",
+              "network_players": {
+                "id_found": true,
+                "id": 9439,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 0
+              },
+              "network_sync": {
+                "id_found": true,
+                "id": 10,
+                "present": false,
+                "unpublished": true,
+                "native_null": false,
+                "tag": 4294967295,
+                "value": null
+              },
+              "network_source": {
+                "id_found": true,
+                "id": 9271,
+                "present": false,
+                "unpublished": false,
+                "native_null": true,
+                "tag": 12,
+                "value": null
+              },
+              "local_players": {
+                "id_found": true,
+                "id": 9265,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 1
+              },
+              "race_type": {
+                "id_found": true,
+                "id": 9058,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 1
+              },
+              "playback_replay": {
+                "id_found": true,
+                "id": 333,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 0,
+                "value": 0
+              },
+              "race_generation": 6,
+              "request_generation": 6,
+              "scene_job": 6,
+              "scene_id": 9240,
+              "scene": "RaceTest/France1",
+              "native_ai": 521162176,
+              "native_ai_vtable": 6885520,
+              "native_egg": 44945984,
+              "layer": 0,
+              "owner": 0,
+              "owner_lifetime": 0,
+              "observer_same_thread": true,
+              "initializing_current_scene": true,
+              "thread": 47624
+            }
+          },
+          {
+            "line": 722,
+            "preceding_summary_frame": 300,
+            "record": {
+              "type": "atmosphere_sky_selection",
+              "requested": 0,
+              "original": 0,
+              "effective": 0,
+              "selected": 0,
+              "override": false,
+              "branch": "layer_used",
+              "reason": "native_layer_used_read",
+              "caller_va": 4920185,
+              "key": "CloudNumberUsed",
+              "network_players": {
+                "id_found": true,
+                "id": 9439,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 0
+              },
+              "network_sync": {
+                "id_found": true,
+                "id": 10,
+                "present": false,
+                "unpublished": true,
+                "native_null": false,
+                "tag": 4294967295,
+                "value": null
+              },
+              "network_source": {
+                "id_found": true,
+                "id": 9271,
+                "present": false,
+                "unpublished": false,
+                "native_null": true,
+                "tag": 12,
+                "value": null
+              },
+              "local_players": {
+                "id_found": true,
+                "id": 9265,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 1
+              },
+              "race_type": {
+                "id_found": true,
+                "id": 9058,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 1
+              },
+              "playback_replay": {
+                "id_found": true,
+                "id": 333,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 0,
+                "value": 0
+              },
+              "race_generation": 6,
+              "request_generation": 6,
+              "scene_job": 6,
+              "scene_id": 9240,
+              "scene": "RaceTest/France1",
+              "native_ai": 521161296,
+              "native_ai_vtable": 6885520,
+              "native_egg": 44946256,
+              "layer": 1,
+              "owner": 0,
+              "owner_lifetime": 0,
+              "observer_same_thread": true,
+              "initializing_current_scene": true,
+              "thread": 47624
+            }
+          },
+          {
+            "line": 723,
+            "preceding_summary_frame": 300,
+            "record": {
+              "type": "atmosphere_sky_selection",
+              "requested": 0,
+              "original": 0,
+              "effective": 0,
+              "selected": 0,
+              "override": false,
+              "branch": "layer_used",
+              "reason": "native_layer_used_read",
+              "caller_va": 4920185,
+              "key": "CloudNumberUsed",
+              "network_players": {
+                "id_found": true,
+                "id": 9439,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 0
+              },
+              "network_sync": {
+                "id_found": true,
+                "id": 10,
+                "present": false,
+                "unpublished": true,
+                "native_null": false,
+                "tag": 4294967295,
+                "value": null
+              },
+              "network_source": {
+                "id_found": true,
+                "id": 9271,
+                "present": false,
+                "unpublished": false,
+                "native_null": true,
+                "tag": 12,
+                "value": null
+              },
+              "local_players": {
+                "id_found": true,
+                "id": 9265,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 1
+              },
+              "race_type": {
+                "id_found": true,
+                "id": 9058,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 1
+              },
+              "playback_replay": {
+                "id_found": true,
+                "id": 333,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 0,
+                "value": 0
+              },
+              "race_generation": 6,
+              "request_generation": 6,
+              "scene_job": 6,
+              "scene_id": 9240,
+              "scene": "RaceTest/France1",
+              "native_ai": 521161296,
+              "native_ai_vtable": 6885520,
+              "native_egg": 44946256,
+              "layer": 1,
+              "owner": 0,
+              "owner_lifetime": 0,
+              "observer_same_thread": true,
+              "initializing_current_scene": true,
+              "thread": 47624
+            }
+          },
+          {
+            "line": 953,
+            "preceding_summary_frame": 300,
+            "record": {
+              "type": "atmosphere_sky_draw",
+              "observation_only": true,
+              "reason": "original_sky_content_matched",
+              "preset": 0,
+              "layer": 0,
+              "vertices": 134,
+              "triangles": 196,
+              "fvf": 258,
+              "texture_pointer": 505372944,
+              "texture_serial": 747,
+              "format": 21,
+              "width": 256,
+              "height": 256,
+              "bgra_sha256": "bee042f250e865b5eddb92ebcc4d71641670a7f3a4e07ef6d47b45e8d7679044",
+              "device": 1,
+              "frame": 359,
+              "reset_generation": 0,
+              "race_generation": 6,
+              "scene_job": 6,
+              "scene": "RaceTest/France1",
+              "owner": 44951288,
+              "owner_lifetime": 1
+            }
+          },
+          {
+            "line": 954,
+            "preceding_summary_frame": 300,
+            "record": {
+              "type": "atmosphere_sky_draw",
+              "observation_only": true,
+              "reason": "original_sky_content_matched",
+              "preset": 0,
+              "layer": 1,
+              "vertices": 114,
+              "triangles": 180,
+              "fvf": 258,
+              "texture_pointer": 505371600,
+              "texture_serial": 748,
+              "format": 21,
+              "width": 256,
+              "height": 256,
+              "bgra_sha256": "158e2b3cea6d800a4ec1272bc13bf76bcfe30036dff183bd598479a45f46c483",
+              "device": 1,
+              "frame": 359,
+              "reset_generation": 0,
+              "race_generation": 6,
+              "scene_job": 6,
+              "scene": "RaceTest/France1",
+              "owner": 44951288,
+              "owner_lifetime": 1
+            }
+          },
+          {
+            "line": 957,
+            "preceding_summary_frame": 300,
+            "record": {
+              "type": "atmosphere_world_fog",
+              "observation_only": true,
+              "fog_color": 4292729819,
+              "fvf": 578,
+              "vertices": 198,
+              "triangles": 187,
+              "device": 1,
+              "frame": 360,
+              "reset_generation": 0,
+              "race_generation": 6,
+              "scene_job": 6,
+              "scene": "RaceTest/France1",
+              "owner": 44951288,
+              "owner_lifetime": 1
+            }
+          }
+        ],
+        "textures_256": [
+          {
+            "line": 607,
+            "frame": 1,
+            "serial": 566,
+            "format": 22
+          },
+          {
+            "line": 608,
+            "frame": 1,
+            "serial": 567,
+            "format": 22
+          },
+          {
+            "line": 610,
+            "frame": 1,
+            "serial": 569,
+            "format": 22
+          },
+          {
+            "line": 611,
+            "frame": 1,
+            "serial": 570,
+            "format": 22
+          },
+          {
+            "line": 613,
+            "frame": 1,
+            "serial": 572,
+            "format": 22
+          },
+          {
+            "line": 614,
+            "frame": 1,
+            "serial": 573,
+            "format": 22
+          },
+          {
+            "line": 616,
+            "frame": 1,
+            "serial": 575,
+            "format": 22
+          },
+          {
+            "line": 617,
+            "frame": 1,
+            "serial": 576,
+            "format": 22
+          },
+          {
+            "line": 667,
+            "frame": 219,
+            "serial": 612,
+            "format": 22
+          },
+          {
+            "line": 668,
+            "frame": 219,
+            "serial": 613,
+            "format": 22
+          },
+          {
+            "line": 670,
+            "frame": 219,
+            "serial": 615,
+            "format": 22
+          },
+          {
+            "line": 671,
+            "frame": 219,
+            "serial": 616,
+            "format": 22
+          },
+          {
+            "line": 714,
+            "frame": 331,
+            "serial": 649,
+            "format": 22
+          },
+          {
+            "line": 715,
+            "frame": 331,
+            "serial": 650,
+            "format": 22
+          },
+          {
+            "line": 717,
+            "frame": 331,
+            "serial": 652,
+            "format": 22
+          },
+          {
+            "line": 718,
+            "frame": 331,
+            "serial": 653,
+            "format": 22
+          },
+          {
+            "line": 816,
+            "frame": 358,
+            "serial": 747,
+            "format": 21
+          },
+          {
+            "line": 817,
+            "frame": 358,
+            "serial": 748,
+            "format": 21
+          }
+        ]
+      },
+      "captures": [
+        {
+          "file": "frame-42880-d1-00000864.jsonl",
+          "sha256": "4b10f33542645dd5fb831f09167e761e66fb9ea7c8b69d2176fc57ed1b1bb34a",
+          "invalid_json": [],
+          "sky_draws": [
+            {
+              "vertices": 134,
+              "triangles": 196,
+              "texture": {
+                "pointer": 505372944,
+                "last_creation_serial": 747
+              }
+            },
+            {
+              "vertices": 114,
+              "triangles": 180,
+              "texture": {
+                "pointer": 505371600,
+                "last_creation_serial": 748
+              }
+            }
+          ],
+          "world_fog_colors": [
+            "0xFFDDDBDB"
+          ],
+          "lifecycle": {
+            "race_lifecycle_generation": 6,
+            "root_job_success": {
+              "lifetime": 6,
+              "parent_job_lifetime": 0,
+              "request_origin": 4496595,
+              "scene": "RaceTest/France1",
+              "source": "DataScene/RaceTest/France1.xml",
+              "flag21": 1,
+              "flag22": 1,
+              "manager_scene_after_commit": 9771,
+              "commit_seen": true,
+              "commit_success": true,
+              "terminal": true,
+              "failed": false
+            },
+            "context": {
+              "Race/Type": {
+                "present": true,
+                "tag": 2,
+                "value": 1
+              },
+              "Race/NumPlayers": {
+                "present": true,
+                "tag": 2,
+                "value": 1
+              },
+              "Race/NumNetworkPlayers": {
+                "present": true,
+                "tag": 2,
+                "value": 0
+              },
+              "Race/NetworkSyncActive": {
+                "present": true,
+                "tag": 0,
+                "value": 0
+              },
+              "Race/AttractMode": {
+                "present": true,
+                "tag": 0,
+                "value": 0
+              },
+              "Race/GhostPlayback": {
+                "present": true,
+                "tag": 0,
+                "value": 0
+              },
+              "Race/PlaybackReplay": {
+                "present": true,
+                "tag": 0,
+                "value": 0
+              },
+              "Race/FinishingType": {
+                "present": true,
+                "tag": 2,
+                "value": 0
+              },
+              "Race/NumCars": {
+                "present": true,
+                "tag": 2,
+                "value": 1
+              }
+            },
+            "live_certificate_valid": true
+          },
+          "end": {
+            "type": "frame_end",
+            "frame": 864,
+            "capture_id": "d1-f864",
+            "complete": true,
+            "reason": "present",
+            "truncated": false,
+            "dropped_records": 0,
+            "draw_records": 386
+          }
+        }
+      ]
+    },
+    {
+      "preset": 5,
+      "status": "RUNTIME_CONFIRMED_RESOURCES_AND_FOG",
+      "session": {
+        "file": "session-20261103-080728-35132.jsonl",
+        "sha256": "4ed08418ce48c5ede6bed5e6724d82f69ea9ee2a2d1222d607211eb55e65d055",
+        "invalid_json": [],
+        "record_types": {
+          "session": 1,
+          "trace_config": 1,
+          "compatibility_capabilities": 1,
+          "renderer_config": 1,
+          "legacy_loading_attract_guard": 1,
+          "real_runtime": 1,
+          "Direct3DCreate8": 1,
+          "broker_null_guard": 2,
+          "menu_freeze_fix": 1,
+          "display_breadcrumb": 16,
+          "display_native_begin": 1,
+          "display_native_attempt": 1,
+          "atmosphere_sky_hook": 1,
+          "atmosphere_config": 1,
+          "ps2_grass_config": 2,
+          "physics_probe_config": 1,
+          "physics_probe_setup": 1,
+          "ui_ownership_probe_install": 1,
+          "hud_hide_config": 1,
+          "hud_hide_state": 11,
+          "quality_pipeline": 1,
+          "race_epoch_observer": 2,
+          "free_camera_config": 1,
+          "fov_culling_hook": 2,
+          "visual_device_config": 1,
+          "create_device": 1,
+          "resource_create": 885,
+          "display_cooperative_transition": 1,
+          "cooperative_level": 1,
+          "free_camera_state": 10,
+          "freecam_window_input": 10,
+          "race_epoch_snapshot": 10,
+          "frame_summary": 25,
+          "atmosphere_sky_selection": 4,
+          "atmosphere_sky_draw": 2,
+          "atmosphere_world_fog": 1,
+          "ps2_perf_timing": 2,
+          "ui_diagnostic_capture_start": 1,
+          "ui_ownership_capture_start": 1,
+          "camera_owner_observation": 1,
+          "ui_render_local": 64,
+          "ui_packet_lifetime": 34,
+          "capture_written": 1,
+          "ui_ownership_capture_end": 1,
+          "ui_group_candidates": 1,
+          "ui_diagnostic_capture_end": 1,
+          "device_release": 1,
+          "physics_probe_summary": 1,
+          "physics_probe_transaction_summary": 1,
+          "root_release": 1
+        },
+        "atmosphere_events": [
+          {
+            "line": 27,
+            "preceding_summary_frame": 0,
+            "record": {
+              "type": "atmosphere_sky_hook",
+              "reason": "installed_initial_device_before_scenes"
+            }
+          },
+          {
+            "line": 28,
+            "preceding_summary_frame": 0,
+            "record": {
+              "type": "atmosphere_config",
+              "enabled": true,
+              "world_lighting": false,
+              "light_probe": false,
+              "custom_set_requested": false,
+              "sun_fx": "disabled",
+              "selection_requires_typed_offline_fields": true
+            }
+          },
+          {
+            "line": 720,
+            "preceding_summary_frame": 300,
+            "record": {
+              "type": "atmosphere_sky_selection",
+              "requested": 5,
+              "original": 0,
+              "effective": 5,
+              "selected": 5,
+              "override": true,
+              "branch": "first_layer",
+              "reason": "native_null_false_source_with_typed_local_context",
+              "caller_va": 4919873,
+              "key": "CloudNumber",
+              "network_players": {
+                "id_found": true,
+                "id": 9439,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 0
+              },
+              "network_sync": {
+                "id_found": true,
+                "id": 10,
+                "present": false,
+                "unpublished": true,
+                "native_null": false,
+                "tag": 4294967295,
+                "value": null
+              },
+              "network_source": {
+                "id_found": true,
+                "id": 9271,
+                "present": false,
+                "unpublished": false,
+                "native_null": true,
+                "tag": 12,
+                "value": null
+              },
+              "local_players": {
+                "id_found": true,
+                "id": 9265,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 1
+              },
+              "race_type": {
+                "id_found": true,
+                "id": 9058,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 1
+              },
+              "playback_replay": {
+                "id_found": true,
+                "id": 333,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 0,
+                "value": 0
+              },
+              "race_generation": 6,
+              "request_generation": 6,
+              "scene_job": 6,
+              "scene_id": 9240,
+              "scene": "RaceTest/France1",
+              "native_ai": 521772344,
+              "native_ai_vtable": 6885520,
+              "native_egg": 43845696,
+              "layer": 0,
+              "owner": 0,
+              "owner_lifetime": 0,
+              "observer_same_thread": true,
+              "initializing_current_scene": true,
+              "thread": 47128
+            }
+          },
+          {
+            "line": 721,
+            "preceding_summary_frame": 300,
+            "record": {
+              "type": "atmosphere_sky_selection",
+              "requested": 5,
+              "original": 0,
+              "effective": 5,
+              "selected": 5,
+              "override": true,
+              "branch": "first_layer",
+              "reason": "native_null_false_source_with_typed_local_context",
+              "caller_va": 4919873,
+              "key": "CloudNumber",
+              "network_players": {
+                "id_found": true,
+                "id": 9439,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 0
+              },
+              "network_sync": {
+                "id_found": true,
+                "id": 10,
+                "present": false,
+                "unpublished": true,
+                "native_null": false,
+                "tag": 4294967295,
+                "value": null
+              },
+              "network_source": {
+                "id_found": true,
+                "id": 9271,
+                "present": false,
+                "unpublished": false,
+                "native_null": true,
+                "tag": 12,
+                "value": null
+              },
+              "local_players": {
+                "id_found": true,
+                "id": 9265,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 1
+              },
+              "race_type": {
+                "id_found": true,
+                "id": 9058,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 1
+              },
+              "playback_replay": {
+                "id_found": true,
+                "id": 333,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 0,
+                "value": 0
+              },
+              "race_generation": 6,
+              "request_generation": 6,
+              "scene_job": 6,
+              "scene_id": 9240,
+              "scene": "RaceTest/France1",
+              "native_ai": 521772344,
+              "native_ai_vtable": 6885520,
+              "native_egg": 43845696,
+              "layer": 0,
+              "owner": 0,
+              "owner_lifetime": 0,
+              "observer_same_thread": true,
+              "initializing_current_scene": true,
+              "thread": 47128
+            }
+          },
+          {
+            "line": 722,
+            "preceding_summary_frame": 300,
+            "record": {
+              "type": "atmosphere_sky_selection",
+              "requested": 5,
+              "original": 5,
+              "effective": 5,
+              "selected": 5,
+              "override": false,
+              "branch": "layer_used",
+              "reason": "native_layer_used_read",
+              "caller_va": 4920185,
+              "key": "CloudNumberUsed",
+              "network_players": {
+                "id_found": true,
+                "id": 9439,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 0
+              },
+              "network_sync": {
+                "id_found": true,
+                "id": 10,
+                "present": false,
+                "unpublished": true,
+                "native_null": false,
+                "tag": 4294967295,
+                "value": null
+              },
+              "network_source": {
+                "id_found": true,
+                "id": 9271,
+                "present": false,
+                "unpublished": false,
+                "native_null": true,
+                "tag": 12,
+                "value": null
+              },
+              "local_players": {
+                "id_found": true,
+                "id": 9265,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 1
+              },
+              "race_type": {
+                "id_found": true,
+                "id": 9058,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 1
+              },
+              "playback_replay": {
+                "id_found": true,
+                "id": 333,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 0,
+                "value": 0
+              },
+              "race_generation": 6,
+              "request_generation": 6,
+              "scene_job": 6,
+              "scene_id": 9240,
+              "scene": "RaceTest/France1",
+              "native_ai": 521772080,
+              "native_ai_vtable": 6885520,
+              "native_egg": 43846376,
+              "layer": 1,
+              "owner": 0,
+              "owner_lifetime": 0,
+              "observer_same_thread": true,
+              "initializing_current_scene": true,
+              "thread": 47128
+            }
+          },
+          {
+            "line": 723,
+            "preceding_summary_frame": 300,
+            "record": {
+              "type": "atmosphere_sky_selection",
+              "requested": 5,
+              "original": 5,
+              "effective": 5,
+              "selected": 5,
+              "override": false,
+              "branch": "layer_used",
+              "reason": "native_layer_used_read",
+              "caller_va": 4920185,
+              "key": "CloudNumberUsed",
+              "network_players": {
+                "id_found": true,
+                "id": 9439,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 0
+              },
+              "network_sync": {
+                "id_found": true,
+                "id": 10,
+                "present": false,
+                "unpublished": true,
+                "native_null": false,
+                "tag": 4294967295,
+                "value": null
+              },
+              "network_source": {
+                "id_found": true,
+                "id": 9271,
+                "present": false,
+                "unpublished": false,
+                "native_null": true,
+                "tag": 12,
+                "value": null
+              },
+              "local_players": {
+                "id_found": true,
+                "id": 9265,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 1
+              },
+              "race_type": {
+                "id_found": true,
+                "id": 9058,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 1
+              },
+              "playback_replay": {
+                "id_found": true,
+                "id": 333,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 0,
+                "value": 0
+              },
+              "race_generation": 6,
+              "request_generation": 6,
+              "scene_job": 6,
+              "scene_id": 9240,
+              "scene": "RaceTest/France1",
+              "native_ai": 521772080,
+              "native_ai_vtable": 6885520,
+              "native_egg": 43846376,
+              "layer": 1,
+              "owner": 0,
+              "owner_lifetime": 0,
+              "observer_same_thread": true,
+              "initializing_current_scene": true,
+              "thread": 47128
+            }
+          },
+          {
+            "line": 953,
+            "preceding_summary_frame": 300,
+            "record": {
+              "type": "atmosphere_sky_draw",
+              "observation_only": true,
+              "reason": "original_sky_content_matched",
+              "preset": 5,
+              "layer": 0,
+              "vertices": 134,
+              "triangles": 196,
+              "fvf": 258,
+              "texture_pointer": 530013808,
+              "texture_serial": 747,
+              "format": 22,
+              "width": 256,
+              "height": 256,
+              "bgra_sha256": "1ac3362fb4114e12f0450f1fd16ae60719b1712bdb467298daf5ca6354fd6d13",
+              "device": 1,
+              "frame": 318,
+              "reset_generation": 0,
+              "race_generation": 6,
+              "scene_job": 6,
+              "scene": "RaceTest/France1",
+              "owner": 43834816,
+              "owner_lifetime": 1
+            }
+          },
+          {
+            "line": 954,
+            "preceding_summary_frame": 300,
+            "record": {
+              "type": "atmosphere_sky_draw",
+              "observation_only": true,
+              "reason": "original_sky_content_matched",
+              "preset": 5,
+              "layer": 1,
+              "vertices": 114,
+              "triangles": 180,
+              "fvf": 258,
+              "texture_pointer": 530009872,
+              "texture_serial": 748,
+              "format": 21,
+              "width": 256,
+              "height": 256,
+              "bgra_sha256": "7381409a1760b4cf844b2604f2a4d03d681da9497f0aa3b42347959d21f1f979",
+              "device": 1,
+              "frame": 318,
+              "reset_generation": 0,
+              "race_generation": 6,
+              "scene_job": 6,
+              "scene": "RaceTest/France1",
+              "owner": 43834816,
+              "owner_lifetime": 1
+            }
+          },
+          {
+            "line": 957,
+            "preceding_summary_frame": 300,
+            "record": {
+              "type": "atmosphere_world_fog",
+              "observation_only": true,
+              "fog_color": 4292931577,
+              "fvf": 578,
+              "vertices": 198,
+              "triangles": 187,
+              "device": 1,
+              "frame": 319,
+              "reset_generation": 0,
+              "race_generation": 6,
+              "scene_job": 6,
+              "scene": "RaceTest/France1",
+              "owner": 43834816,
+              "owner_lifetime": 1
+            }
+          }
+        ],
+        "textures_256": [
+          {
+            "line": 607,
+            "frame": 1,
+            "serial": 566,
+            "format": 22
+          },
+          {
+            "line": 608,
+            "frame": 1,
+            "serial": 567,
+            "format": 22
+          },
+          {
+            "line": 610,
+            "frame": 1,
+            "serial": 569,
+            "format": 22
+          },
+          {
+            "line": 611,
+            "frame": 1,
+            "serial": 570,
+            "format": 22
+          },
+          {
+            "line": 613,
+            "frame": 1,
+            "serial": 572,
+            "format": 22
+          },
+          {
+            "line": 614,
+            "frame": 1,
+            "serial": 573,
+            "format": 22
+          },
+          {
+            "line": 616,
+            "frame": 1,
+            "serial": 575,
+            "format": 22
+          },
+          {
+            "line": 617,
+            "frame": 1,
+            "serial": 576,
+            "format": 22
+          },
+          {
+            "line": 666,
+            "frame": 168,
+            "serial": 612,
+            "format": 22
+          },
+          {
+            "line": 667,
+            "frame": 168,
+            "serial": 613,
+            "format": 22
+          },
+          {
+            "line": 669,
+            "frame": 168,
+            "serial": 615,
+            "format": 22
+          },
+          {
+            "line": 670,
+            "frame": 168,
+            "serial": 616,
+            "format": 22
+          },
+          {
+            "line": 713,
+            "frame": 289,
+            "serial": 649,
+            "format": 22
+          },
+          {
+            "line": 714,
+            "frame": 289,
+            "serial": 650,
+            "format": 22
+          },
+          {
+            "line": 716,
+            "frame": 289,
+            "serial": 652,
+            "format": 22
+          },
+          {
+            "line": 717,
+            "frame": 289,
+            "serial": 653,
+            "format": 22
+          },
+          {
+            "line": 816,
+            "frame": 317,
+            "serial": 747,
+            "format": 22
+          },
+          {
+            "line": 817,
+            "frame": 317,
+            "serial": 748,
+            "format": 21
+          }
+        ]
+      },
+      "captures": [
+        {
+          "file": "frame-35132-d1-00000827.jsonl",
+          "sha256": "e28adfb2775b72fd23b2fd7df0321979b2c9e1c076a91934699e7237594f400f",
+          "invalid_json": [],
+          "sky_draws": [
+            {
+              "vertices": 134,
+              "triangles": 196,
+              "texture": {
+                "pointer": 530013808,
+                "last_creation_serial": 747
+              }
+            },
+            {
+              "vertices": 114,
+              "triangles": 180,
+              "texture": {
+                "pointer": 530009872,
+                "last_creation_serial": 748
+              }
+            }
+          ],
+          "world_fog_colors": [
+            "0xFFE0EFF9"
+          ],
+          "lifecycle": {
+            "race_lifecycle_generation": 6,
+            "root_job_success": {
+              "lifetime": 6,
+              "parent_job_lifetime": 0,
+              "request_origin": 4496595,
+              "scene": "RaceTest/France1",
+              "source": "DataScene/RaceTest/France1.xml",
+              "flag21": 1,
+              "flag22": 1,
+              "manager_scene_after_commit": 9771,
+              "commit_seen": true,
+              "commit_success": true,
+              "terminal": true,
+              "failed": false
+            },
+            "context": {
+              "Race/Type": {
+                "present": true,
+                "tag": 2,
+                "value": 1
+              },
+              "Race/NumPlayers": {
+                "present": true,
+                "tag": 2,
+                "value": 1
+              },
+              "Race/NumNetworkPlayers": {
+                "present": true,
+                "tag": 2,
+                "value": 0
+              },
+              "Race/NetworkSyncActive": {
+                "present": true,
+                "tag": 0,
+                "value": 0
+              },
+              "Race/AttractMode": {
+                "present": true,
+                "tag": 0,
+                "value": 0
+              },
+              "Race/GhostPlayback": {
+                "present": true,
+                "tag": 0,
+                "value": 0
+              },
+              "Race/PlaybackReplay": {
+                "present": true,
+                "tag": 0,
+                "value": 0
+              },
+              "Race/FinishingType": {
+                "present": true,
+                "tag": 2,
+                "value": 0
+              },
+              "Race/NumCars": {
+                "present": true,
+                "tag": 2,
+                "value": 1
+              }
+            },
+            "live_certificate_valid": true
+          },
+          "end": {
+            "type": "frame_end",
+            "frame": 827,
+            "capture_id": "d1-f827",
+            "complete": true,
+            "reason": "present",
+            "truncated": false,
+            "dropped_records": 0,
+            "draw_records": 386
+          }
+        }
+      ]
+    },
+    {
+      "preset": "Auto",
+      "status": "RUNTIME_CONFIRMED_NATIVE_SELECTION_AND_CYCLE",
+      "session": {
+        "file": "session-20261103-080757-26216.jsonl",
+        "sha256": "577001c05e053c1c2d01460696c6df3447b6bc859bfffdebbbae09ecd0e7b9cc",
+        "invalid_json": [],
+        "record_types": {
+          "session": 1,
+          "trace_config": 1,
+          "compatibility_capabilities": 1,
+          "renderer_config": 1,
+          "legacy_loading_attract_guard": 1,
+          "real_runtime": 1,
+          "Direct3DCreate8": 1,
+          "broker_null_guard": 2,
+          "menu_freeze_fix": 1,
+          "display_breadcrumb": 16,
+          "display_native_begin": 1,
+          "display_native_attempt": 1,
+          "atmosphere_sky_hook": 1,
+          "atmosphere_config": 1,
+          "ps2_grass_config": 2,
+          "physics_probe_config": 1,
+          "physics_probe_setup": 1,
+          "ui_ownership_probe_install": 1,
+          "hud_hide_config": 1,
+          "hud_hide_state": 19,
+          "quality_pipeline": 1,
+          "race_epoch_observer": 2,
+          "free_camera_config": 1,
+          "fov_culling_hook": 2,
+          "visual_device_config": 1,
+          "create_device": 1,
+          "resource_create": 887,
+          "display_cooperative_transition": 1,
+          "cooperative_level": 1,
+          "free_camera_state": 18,
+          "freecam_window_input": 18,
+          "race_epoch_snapshot": 18,
+          "frame_summary": 35,
+          "atmosphere_sky_selection": 8,
+          "atmosphere_sky_draw": 4,
+          "atmosphere_world_fog": 2,
+          "ps2_perf_timing": 4,
+          "ui_diagnostic_capture_start": 2,
+          "ui_ownership_capture_start": 2,
+          "camera_owner_observation": 2,
+          "ui_render_local": 128,
+          "ui_packet_lifetime": 68,
+          "capture_written": 2,
+          "ui_ownership_capture_end": 2,
+          "ui_group_candidates": 2,
+          "ui_diagnostic_capture_end": 2,
+          "device_release": 1,
+          "physics_probe_summary": 1,
+          "physics_probe_transaction_summary": 1,
+          "root_release": 1
+        },
+        "atmosphere_events": [
+          {
+            "line": 27,
+            "preceding_summary_frame": 0,
+            "record": {
+              "type": "atmosphere_sky_hook",
+              "reason": "installed_initial_device_before_scenes"
+            }
+          },
+          {
+            "line": 28,
+            "preceding_summary_frame": 0,
+            "record": {
+              "type": "atmosphere_config",
+              "enabled": true,
+              "world_lighting": false,
+              "light_probe": false,
+              "custom_set_requested": false,
+              "sun_fx": "disabled",
+              "selection_requires_typed_offline_fields": true
+            }
+          },
+          {
+            "line": 720,
+            "preceding_summary_frame": 300,
+            "record": {
+              "type": "atmosphere_sky_selection",
+              "requested": -1,
+              "original": 0,
+              "effective": 0,
+              "selected": 0,
+              "override": false,
+              "branch": "first_layer",
+              "reason": "auto_or_invalid_preset",
+              "caller_va": 4919873,
+              "key": "CloudNumber",
+              "network_players": {
+                "id_found": true,
+                "id": 9439,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 0
+              },
+              "network_sync": {
+                "id_found": true,
+                "id": 10,
+                "present": false,
+                "unpublished": true,
+                "native_null": false,
+                "tag": 4294967295,
+                "value": null
+              },
+              "network_source": {
+                "id_found": true,
+                "id": 9271,
+                "present": false,
+                "unpublished": false,
+                "native_null": true,
+                "tag": 12,
+                "value": null
+              },
+              "local_players": {
+                "id_found": true,
+                "id": 9265,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 1
+              },
+              "race_type": {
+                "id_found": true,
+                "id": 9058,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 1
+              },
+              "playback_replay": {
+                "id_found": true,
+                "id": 333,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 0,
+                "value": 0
+              },
+              "race_generation": 6,
+              "request_generation": 6,
+              "scene_job": 6,
+              "scene_id": 9240,
+              "scene": "RaceTest/France1",
+              "native_ai": 521287400,
+              "native_ai_vtable": 6885520,
+              "native_egg": 45351312,
+              "layer": 0,
+              "owner": 0,
+              "owner_lifetime": 0,
+              "observer_same_thread": true,
+              "initializing_current_scene": true,
+              "thread": 25464
+            }
+          },
+          {
+            "line": 721,
+            "preceding_summary_frame": 300,
+            "record": {
+              "type": "atmosphere_sky_selection",
+              "requested": -1,
+              "original": 0,
+              "effective": 0,
+              "selected": 0,
+              "override": false,
+              "branch": "first_layer",
+              "reason": "auto_or_invalid_preset",
+              "caller_va": 4919873,
+              "key": "CloudNumber",
+              "network_players": {
+                "id_found": true,
+                "id": 9439,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 0
+              },
+              "network_sync": {
+                "id_found": true,
+                "id": 10,
+                "present": false,
+                "unpublished": true,
+                "native_null": false,
+                "tag": 4294967295,
+                "value": null
+              },
+              "network_source": {
+                "id_found": true,
+                "id": 9271,
+                "present": false,
+                "unpublished": false,
+                "native_null": true,
+                "tag": 12,
+                "value": null
+              },
+              "local_players": {
+                "id_found": true,
+                "id": 9265,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 1
+              },
+              "race_type": {
+                "id_found": true,
+                "id": 9058,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 1
+              },
+              "playback_replay": {
+                "id_found": true,
+                "id": 333,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 0,
+                "value": 0
+              },
+              "race_generation": 6,
+              "request_generation": 6,
+              "scene_job": 6,
+              "scene_id": 9240,
+              "scene": "RaceTest/France1",
+              "native_ai": 521287400,
+              "native_ai_vtable": 6885520,
+              "native_egg": 45351312,
+              "layer": 0,
+              "owner": 0,
+              "owner_lifetime": 0,
+              "observer_same_thread": true,
+              "initializing_current_scene": true,
+              "thread": 25464
+            }
+          },
+          {
+            "line": 722,
+            "preceding_summary_frame": 300,
+            "record": {
+              "type": "atmosphere_sky_selection",
+              "requested": -1,
+              "original": 0,
+              "effective": 0,
+              "selected": 0,
+              "override": false,
+              "branch": "layer_used",
+              "reason": "native_layer_used_read",
+              "caller_va": 4920185,
+              "key": "CloudNumberUsed",
+              "network_players": {
+                "id_found": true,
+                "id": 9439,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 0
+              },
+              "network_sync": {
+                "id_found": true,
+                "id": 10,
+                "present": false,
+                "unpublished": true,
+                "native_null": false,
+                "tag": 4294967295,
+                "value": null
+              },
+              "network_source": {
+                "id_found": true,
+                "id": 9271,
+                "present": false,
+                "unpublished": false,
+                "native_null": true,
+                "tag": 12,
+                "value": null
+              },
+              "local_players": {
+                "id_found": true,
+                "id": 9265,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 1
+              },
+              "race_type": {
+                "id_found": true,
+                "id": 9058,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 1
+              },
+              "playback_replay": {
+                "id_found": true,
+                "id": 333,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 0,
+                "value": 0
+              },
+              "race_generation": 6,
+              "request_generation": 6,
+              "scene_job": 6,
+              "scene_id": 9240,
+              "scene": "RaceTest/France1",
+              "native_ai": 521288016,
+              "native_ai_vtable": 6885520,
+              "native_egg": 45349136,
+              "layer": 1,
+              "owner": 0,
+              "owner_lifetime": 0,
+              "observer_same_thread": true,
+              "initializing_current_scene": true,
+              "thread": 25464
+            }
+          },
+          {
+            "line": 723,
+            "preceding_summary_frame": 300,
+            "record": {
+              "type": "atmosphere_sky_selection",
+              "requested": -1,
+              "original": 0,
+              "effective": 0,
+              "selected": 0,
+              "override": false,
+              "branch": "layer_used",
+              "reason": "native_layer_used_read",
+              "caller_va": 4920185,
+              "key": "CloudNumberUsed",
+              "network_players": {
+                "id_found": true,
+                "id": 9439,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 0
+              },
+              "network_sync": {
+                "id_found": true,
+                "id": 10,
+                "present": false,
+                "unpublished": true,
+                "native_null": false,
+                "tag": 4294967295,
+                "value": null
+              },
+              "network_source": {
+                "id_found": true,
+                "id": 9271,
+                "present": false,
+                "unpublished": false,
+                "native_null": true,
+                "tag": 12,
+                "value": null
+              },
+              "local_players": {
+                "id_found": true,
+                "id": 9265,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 1
+              },
+              "race_type": {
+                "id_found": true,
+                "id": 9058,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 1
+              },
+              "playback_replay": {
+                "id_found": true,
+                "id": 333,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 0,
+                "value": 0
+              },
+              "race_generation": 6,
+              "request_generation": 6,
+              "scene_job": 6,
+              "scene_id": 9240,
+              "scene": "RaceTest/France1",
+              "native_ai": 521288016,
+              "native_ai_vtable": 6885520,
+              "native_egg": 45349136,
+              "layer": 1,
+              "owner": 0,
+              "owner_lifetime": 0,
+              "observer_same_thread": true,
+              "initializing_current_scene": true,
+              "thread": 25464
+            }
+          },
+          {
+            "line": 953,
+            "preceding_summary_frame": 300,
+            "record": {
+              "type": "atmosphere_sky_draw",
+              "observation_only": true,
+              "reason": "original_sky_content_matched",
+              "preset": 0,
+              "layer": 0,
+              "vertices": 134,
+              "triangles": 196,
+              "fvf": 258,
+              "texture_pointer": 530276784,
+              "texture_serial": 747,
+              "format": 21,
+              "width": 256,
+              "height": 256,
+              "bgra_sha256": "bee042f250e865b5eddb92ebcc4d71641670a7f3a4e07ef6d47b45e8d7679044",
+              "device": 1,
+              "frame": 349,
+              "reset_generation": 0,
+              "race_generation": 6,
+              "scene_job": 6,
+              "scene": "RaceTest/France1",
+              "owner": 45336624,
+              "owner_lifetime": 1
+            }
+          },
+          {
+            "line": 954,
+            "preceding_summary_frame": 300,
+            "record": {
+              "type": "atmosphere_sky_draw",
+              "observation_only": true,
+              "reason": "original_sky_content_matched",
+              "preset": 0,
+              "layer": 1,
+              "vertices": 114,
+              "triangles": 180,
+              "fvf": 258,
+              "texture_pointer": 530270992,
+              "texture_serial": 748,
+              "format": 21,
+              "width": 256,
+              "height": 256,
+              "bgra_sha256": "158e2b3cea6d800a4ec1272bc13bf76bcfe30036dff183bd598479a45f46c483",
+              "device": 1,
+              "frame": 349,
+              "reset_generation": 0,
+              "race_generation": 6,
+              "scene_job": 6,
+              "scene": "RaceTest/France1",
+              "owner": 45336624,
+              "owner_lifetime": 1
+            }
+          },
+          {
+            "line": 957,
+            "preceding_summary_frame": 300,
+            "record": {
+              "type": "atmosphere_world_fog",
+              "observation_only": true,
+              "fog_color": 4292729819,
+              "fvf": 578,
+              "vertices": 198,
+              "triangles": 187,
+              "device": 1,
+              "frame": 350,
+              "reset_generation": 0,
+              "race_generation": 6,
+              "scene_job": 6,
+              "scene": "RaceTest/France1",
+              "owner": 45336624,
+              "owner_lifetime": 1
+            }
+          },
+          {
+            "line": 1106,
+            "preceding_summary_frame": 1020,
+            "record": {
+              "type": "atmosphere_sky_selection",
+              "requested": -1,
+              "original": 1,
+              "effective": 1,
+              "selected": 1,
+              "override": false,
+              "branch": "first_layer",
+              "reason": "auto_or_invalid_preset",
+              "caller_va": 4919873,
+              "key": "CloudNumber",
+              "network_players": {
+                "id_found": true,
+                "id": 9439,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 0
+              },
+              "network_sync": {
+                "id_found": true,
+                "id": 10,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 0,
+                "value": 0
+              },
+              "network_source": {
+                "id_found": true,
+                "id": 9271,
+                "present": false,
+                "unpublished": false,
+                "native_null": true,
+                "tag": 12,
+                "value": null
+              },
+              "local_players": {
+                "id_found": true,
+                "id": 9265,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 1
+              },
+              "race_type": {
+                "id_found": true,
+                "id": 9058,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 1
+              },
+              "playback_replay": {
+                "id_found": true,
+                "id": 333,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 0,
+                "value": 0
+              },
+              "race_generation": 10,
+              "request_generation": 11,
+              "scene_job": 11,
+              "scene_id": 9240,
+              "scene": "RaceTest/France1",
+              "native_ai": 559067136,
+              "native_ai_vtable": 6885520,
+              "native_egg": 45349544,
+              "layer": 0,
+              "owner": 0,
+              "owner_lifetime": 0,
+              "observer_same_thread": true,
+              "initializing_current_scene": true,
+              "thread": 25464
+            }
+          },
+          {
+            "line": 1107,
+            "preceding_summary_frame": 1020,
+            "record": {
+              "type": "atmosphere_sky_selection",
+              "requested": -1,
+              "original": 1,
+              "effective": 1,
+              "selected": 1,
+              "override": false,
+              "branch": "first_layer",
+              "reason": "auto_or_invalid_preset",
+              "caller_va": 4919873,
+              "key": "CloudNumber",
+              "network_players": {
+                "id_found": true,
+                "id": 9439,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 0
+              },
+              "network_sync": {
+                "id_found": true,
+                "id": 10,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 0,
+                "value": 0
+              },
+              "network_source": {
+                "id_found": true,
+                "id": 9271,
+                "present": false,
+                "unpublished": false,
+                "native_null": true,
+                "tag": 12,
+                "value": null
+              },
+              "local_players": {
+                "id_found": true,
+                "id": 9265,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 1
+              },
+              "race_type": {
+                "id_found": true,
+                "id": 9058,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 1
+              },
+              "playback_replay": {
+                "id_found": true,
+                "id": 333,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 0,
+                "value": 0
+              },
+              "race_generation": 10,
+              "request_generation": 11,
+              "scene_job": 11,
+              "scene_id": 9240,
+              "scene": "RaceTest/France1",
+              "native_ai": 559067136,
+              "native_ai_vtable": 6885520,
+              "native_egg": 45349544,
+              "layer": 0,
+              "owner": 0,
+              "owner_lifetime": 0,
+              "observer_same_thread": true,
+              "initializing_current_scene": true,
+              "thread": 25464
+            }
+          },
+          {
+            "line": 1108,
+            "preceding_summary_frame": 1020,
+            "record": {
+              "type": "atmosphere_sky_selection",
+              "requested": -1,
+              "original": 1,
+              "effective": 1,
+              "selected": 1,
+              "override": false,
+              "branch": "layer_used",
+              "reason": "native_layer_used_read",
+              "caller_va": 4920185,
+              "key": "CloudNumberUsed",
+              "network_players": {
+                "id_found": true,
+                "id": 9439,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 0
+              },
+              "network_sync": {
+                "id_found": true,
+                "id": 10,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 0,
+                "value": 0
+              },
+              "network_source": {
+                "id_found": true,
+                "id": 9271,
+                "present": false,
+                "unpublished": false,
+                "native_null": true,
+                "tag": 12,
+                "value": null
+              },
+              "local_players": {
+                "id_found": true,
+                "id": 9265,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 1
+              },
+              "race_type": {
+                "id_found": true,
+                "id": 9058,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 1
+              },
+              "playback_replay": {
+                "id_found": true,
+                "id": 333,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 0,
+                "value": 0
+              },
+              "race_generation": 10,
+              "request_generation": 11,
+              "scene_job": 11,
+              "scene_id": 9240,
+              "scene": "RaceTest/France1",
+              "native_ai": 559067224,
+              "native_ai_vtable": 6885520,
+              "native_egg": 45350768,
+              "layer": 1,
+              "owner": 0,
+              "owner_lifetime": 0,
+              "observer_same_thread": true,
+              "initializing_current_scene": true,
+              "thread": 25464
+            }
+          },
+          {
+            "line": 1109,
+            "preceding_summary_frame": 1020,
+            "record": {
+              "type": "atmosphere_sky_selection",
+              "requested": -1,
+              "original": 1,
+              "effective": 1,
+              "selected": 1,
+              "override": false,
+              "branch": "layer_used",
+              "reason": "native_layer_used_read",
+              "caller_va": 4920185,
+              "key": "CloudNumberUsed",
+              "network_players": {
+                "id_found": true,
+                "id": 9439,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 0
+              },
+              "network_sync": {
+                "id_found": true,
+                "id": 10,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 0,
+                "value": 0
+              },
+              "network_source": {
+                "id_found": true,
+                "id": 9271,
+                "present": false,
+                "unpublished": false,
+                "native_null": true,
+                "tag": 12,
+                "value": null
+              },
+              "local_players": {
+                "id_found": true,
+                "id": 9265,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 1
+              },
+              "race_type": {
+                "id_found": true,
+                "id": 9058,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 2,
+                "value": 1
+              },
+              "playback_replay": {
+                "id_found": true,
+                "id": 333,
+                "present": true,
+                "unpublished": false,
+                "native_null": false,
+                "tag": 0,
+                "value": 0
+              },
+              "race_generation": 10,
+              "request_generation": 11,
+              "scene_job": 11,
+              "scene_id": 9240,
+              "scene": "RaceTest/France1",
+              "native_ai": 559067224,
+              "native_ai_vtable": 6885520,
+              "native_egg": 45350768,
+              "layer": 1,
+              "owner": 0,
+              "owner_lifetime": 0,
+              "observer_same_thread": true,
+              "initializing_current_scene": true,
+              "thread": 25464
+            }
+          },
+          {
+            "line": 1115,
+            "preceding_summary_frame": 1020,
+            "record": {
+              "type": "atmosphere_sky_draw",
+              "observation_only": true,
+              "reason": "original_sky_content_matched",
+              "preset": 1,
+              "layer": 0,
+              "vertices": 134,
+              "triangles": 196,
+              "fvf": 258,
+              "texture_pointer": 544332304,
+              "texture_serial": 886,
+              "format": 22,
+              "width": 256,
+              "height": 256,
+              "bgra_sha256": "c020e0ce7970e325030c19608ccbe77dca522531e1e711dfc4611fdf8c81e915",
+              "device": 1,
+              "frame": 1064,
+              "reset_generation": 0,
+              "race_generation": 10,
+              "scene_job": 11,
+              "scene": "RaceTest/France1",
+              "owner": 45338392,
+              "owner_lifetime": 2
+            }
+          },
+          {
+            "line": 1116,
+            "preceding_summary_frame": 1020,
+            "record": {
+              "type": "atmosphere_sky_draw",
+              "observation_only": true,
+              "reason": "original_sky_content_matched",
+              "preset": 1,
+              "layer": 1,
+              "vertices": 114,
+              "triangles": 180,
+              "fvf": 258,
+              "texture_pointer": 544334160,
+              "texture_serial": 887,
+              "format": 21,
+              "width": 256,
+              "height": 256,
+              "bgra_sha256": "6253e94c599caf91b854c7b0c68a152eaf7738797259407e706208c9066abd4a",
+              "device": 1,
+              "frame": 1064,
+              "reset_generation": 0,
+              "race_generation": 10,
+              "scene_job": 11,
+              "scene": "RaceTest/France1",
+              "owner": 45338392,
+              "owner_lifetime": 2
+            }
+          },
+          {
+            "line": 1117,
+            "preceding_summary_frame": 1020,
+            "record": {
+              "type": "atmosphere_world_fog",
+              "observation_only": true,
+              "fog_color": 4287736012,
+              "fvf": 578,
+              "vertices": 198,
+              "triangles": 187,
+              "device": 1,
+              "frame": 1064,
+              "reset_generation": 0,
+              "race_generation": 10,
+              "scene_job": 11,
+              "scene": "RaceTest/France1",
+              "owner": 45338392,
+              "owner_lifetime": 2
+            }
+          }
+        ],
+        "textures_256": [
+          {
+            "line": 607,
+            "frame": 1,
+            "serial": 566,
+            "format": 22
+          },
+          {
+            "line": 608,
+            "frame": 1,
+            "serial": 567,
+            "format": 22
+          },
+          {
+            "line": 610,
+            "frame": 1,
+            "serial": 569,
+            "format": 22
+          },
+          {
+            "line": 611,
+            "frame": 1,
+            "serial": 570,
+            "format": 22
+          },
+          {
+            "line": 613,
+            "frame": 1,
+            "serial": 572,
+            "format": 22
+          },
+          {
+            "line": 614,
+            "frame": 1,
+            "serial": 573,
+            "format": 22
+          },
+          {
+            "line": 616,
+            "frame": 1,
+            "serial": 575,
+            "format": 22
+          },
+          {
+            "line": 617,
+            "frame": 1,
+            "serial": 576,
+            "format": 22
+          },
+          {
+            "line": 667,
+            "frame": 217,
+            "serial": 612,
+            "format": 22
+          },
+          {
+            "line": 668,
+            "frame": 217,
+            "serial": 613,
+            "format": 22
+          },
+          {
+            "line": 670,
+            "frame": 217,
+            "serial": 615,
+            "format": 22
+          },
+          {
+            "line": 671,
+            "frame": 217,
+            "serial": 616,
+            "format": 22
+          },
+          {
+            "line": 714,
+            "frame": 320,
+            "serial": 649,
+            "format": 22
+          },
+          {
+            "line": 715,
+            "frame": 320,
+            "serial": 650,
+            "format": 22
+          },
+          {
+            "line": 717,
+            "frame": 320,
+            "serial": 652,
+            "format": 22
+          },
+          {
+            "line": 718,
+            "frame": 320,
+            "serial": 653,
+            "format": 22
+          },
+          {
+            "line": 816,
+            "frame": 348,
+            "serial": 747,
+            "format": 21
+          },
+          {
+            "line": 817,
+            "frame": 348,
+            "serial": 748,
+            "format": 21
+          },
+          {
+            "line": 1110,
+            "frame": 1061,
+            "serial": 886,
+            "format": 22
+          },
+          {
+            "line": 1111,
+            "frame": 1061,
+            "serial": 887,
+            "format": 21
+          }
+        ]
+      },
+      "captures": [
+        {
+          "file": "frame-26216-d1-00000838.jsonl",
+          "sha256": "2d9e86090c30331c21b093536dafda33c1ea5e50da7e6987f34fc740ca51d6f2",
+          "invalid_json": [],
+          "sky_draws": [
+            {
+              "vertices": 134,
+              "triangles": 196,
+              "texture": {
+                "pointer": 530276784,
+                "last_creation_serial": 747
+              }
+            },
+            {
+              "vertices": 114,
+              "triangles": 180,
+              "texture": {
+                "pointer": 530270992,
+                "last_creation_serial": 748
+              }
+            }
+          ],
+          "world_fog_colors": [
+            "0xFFDDDBDB"
+          ],
+          "lifecycle": {
+            "race_lifecycle_generation": 6,
+            "root_job_success": {
+              "lifetime": 6,
+              "parent_job_lifetime": 0,
+              "request_origin": 4496595,
+              "scene": "RaceTest/France1",
+              "source": "DataScene/RaceTest/France1.xml",
+              "flag21": 1,
+              "flag22": 1,
+              "manager_scene_after_commit": 9771,
+              "commit_seen": true,
+              "commit_success": true,
+              "terminal": true,
+              "failed": false
+            },
+            "context": {
+              "Race/Type": {
+                "present": true,
+                "tag": 2,
+                "value": 1
+              },
+              "Race/NumPlayers": {
+                "present": true,
+                "tag": 2,
+                "value": 1
+              },
+              "Race/NumNetworkPlayers": {
+                "present": true,
+                "tag": 2,
+                "value": 0
+              },
+              "Race/NetworkSyncActive": {
+                "present": true,
+                "tag": 0,
+                "value": 0
+              },
+              "Race/AttractMode": {
+                "present": true,
+                "tag": 0,
+                "value": 0
+              },
+              "Race/GhostPlayback": {
+                "present": true,
+                "tag": 0,
+                "value": 0
+              },
+              "Race/PlaybackReplay": {
+                "present": true,
+                "tag": 0,
+                "value": 0
+              },
+              "Race/FinishingType": {
+                "present": true,
+                "tag": 2,
+                "value": 0
+              },
+              "Race/NumCars": {
+                "present": true,
+                "tag": 2,
+                "value": 1
+              }
+            },
+            "live_certificate_valid": true
+          },
+          "end": {
+            "type": "frame_end",
+            "frame": 838,
+            "capture_id": "d1-f838",
+            "complete": true,
+            "reason": "present",
+            "truncated": false,
+            "dropped_records": 0,
+            "draw_records": 386
+          }
+        },
+        {
+          "file": "frame-26216-d1-00001498.jsonl",
+          "sha256": "73e6f93e8f2bb6e4b99b327272e5131134f6ffeb130ae1f885042d2a6c6fd249",
+          "invalid_json": [],
+          "sky_draws": [
+            {
+              "vertices": 134,
+              "triangles": 196,
+              "texture": {
+                "pointer": 544332304,
+                "last_creation_serial": 886
+              }
+            },
+            {
+              "vertices": 114,
+              "triangles": 180,
+              "texture": {
+                "pointer": 544334160,
+                "last_creation_serial": 887
+              }
+            }
+          ],
+          "world_fog_colors": [
+            "0xFF91A8CC"
+          ],
+          "lifecycle": {
+            "race_lifecycle_generation": 10,
+            "root_job_success": {
+              "lifetime": 11,
+              "parent_job_lifetime": 0,
+              "request_origin": 4496595,
+              "scene": "RaceTest/France1",
+              "source": "DataScene/RaceTest/France1.xml",
+              "flag21": 1,
+              "flag22": 1,
+              "manager_scene_after_commit": 9771,
+              "commit_seen": true,
+              "commit_success": true,
+              "terminal": true,
+              "failed": false
+            },
+            "context": {
+              "Race/Type": {
+                "present": true,
+                "tag": 2,
+                "value": 1
+              },
+              "Race/NumPlayers": {
+                "present": true,
+                "tag": 2,
+                "value": 1
+              },
+              "Race/NumNetworkPlayers": {
+                "present": true,
+                "tag": 2,
+                "value": 0
+              },
+              "Race/NetworkSyncActive": {
+                "present": true,
+                "tag": 0,
+                "value": 0
+              },
+              "Race/AttractMode": {
+                "present": true,
+                "tag": 0,
+                "value": 0
+              },
+              "Race/GhostPlayback": {
+                "present": true,
+                "tag": 0,
+                "value": 0
+              },
+              "Race/PlaybackReplay": {
+                "present": true,
+                "tag": 0,
+                "value": 0
+              },
+              "Race/FinishingType": {
+                "present": true,
+                "tag": 2,
+                "value": 0
+              },
+              "Race/NumCars": {
+                "present": true,
+                "tag": 2,
+                "value": 1
+              }
+            },
+            "live_certificate_valid": true
+          },
+          "end": {
+            "type": "frame_end",
+            "frame": 1498,
+            "capture_id": "d1-f1498",
+            "complete": true,
+            "reason": "present",
+            "truncated": false,
+            "dropped_records": 0,
+            "draw_records": 386
+          }
+        }
+      ]
+    },
+    {
+      "preset": "Disabled",
+      "status": "RUNTIME_CONFIRMED_NATIVE_TRACE_CONTROL",
+      "session": {
+        "file": "session-20261103-080945-51080.jsonl",
+        "sha256": "f4e6d5f351a60a4dfb66ddade5589f192bd4e2ab368dd60bc75fbecda138d478",
+        "invalid_json": [],
+        "record_types": {
+          "session": 1,
+          "trace_config": 1,
+          "compatibility_capabilities": 1,
+          "renderer_config": 1,
+          "legacy_loading_attract_guard": 1,
+          "real_runtime": 1,
+          "Direct3DCreate8": 1,
+          "broker_null_guard": 2,
+          "menu_freeze_fix": 1,
+          "display_breadcrumb": 16,
+          "display_native_begin": 1,
+          "display_native_attempt": 1,
+          "ps2_grass_config": 2,
+          "physics_probe_config": 1,
+          "physics_probe_setup": 1,
+          "ui_ownership_probe_install": 1,
+          "hud_hide_config": 1,
+          "hud_hide_state": 18,
+          "quality_pipeline": 1,
+          "race_epoch_observer": 2,
+          "free_camera_config": 1,
+          "fov_culling_hook": 2,
+          "visual_device_config": 1,
+          "create_device": 1,
+          "resource_create": 887,
+          "display_cooperative_transition": 1,
+          "cooperative_level": 1,
+          "free_camera_state": 17,
+          "freecam_window_input": 17,
+          "race_epoch_snapshot": 17,
+          "frame_summary": 25,
+          "ps2_perf_timing": 3,
+          "ui_diagnostic_capture_start": 2,
+          "ui_ownership_capture_start": 2,
+          "camera_owner_observation": 2,
+          "ui_render_local": 128,
+          "ui_packet_lifetime": 68,
+          "capture_written": 2,
+          "ui_ownership_capture_end": 2,
+          "ui_group_candidates": 2,
+          "ui_diagnostic_capture_end": 2,
+          "device_release": 1,
+          "physics_probe_summary": 1,
+          "physics_probe_transaction_summary": 1,
+          "root_release": 1
+        },
+        "atmosphere_events": [],
+        "textures_256": [
+          {
+            "line": 605,
+            "frame": 1,
+            "serial": 566,
+            "format": 22
+          },
+          {
+            "line": 606,
+            "frame": 1,
+            "serial": 567,
+            "format": 22
+          },
+          {
+            "line": 608,
+            "frame": 1,
+            "serial": 569,
+            "format": 22
+          },
+          {
+            "line": 609,
+            "frame": 1,
+            "serial": 570,
+            "format": 22
+          },
+          {
+            "line": 611,
+            "frame": 1,
+            "serial": 572,
+            "format": 22
+          },
+          {
+            "line": 612,
+            "frame": 1,
+            "serial": 573,
+            "format": 22
+          },
+          {
+            "line": 614,
+            "frame": 1,
+            "serial": 575,
+            "format": 22
+          },
+          {
+            "line": 615,
+            "frame": 1,
+            "serial": 576,
+            "format": 22
+          },
+          {
+            "line": 663,
+            "frame": 114,
+            "serial": 612,
+            "format": 22
+          },
+          {
+            "line": 664,
+            "frame": 114,
+            "serial": 613,
+            "format": 22
+          },
+          {
+            "line": 666,
+            "frame": 114,
+            "serial": 615,
+            "format": 22
+          },
+          {
+            "line": 667,
+            "frame": 114,
+            "serial": 616,
+            "format": 22
+          },
+          {
+            "line": 709,
+            "frame": 161,
+            "serial": 649,
+            "format": 22
+          },
+          {
+            "line": 710,
+            "frame": 161,
+            "serial": 650,
+            "format": 22
+          },
+          {
+            "line": 712,
+            "frame": 161,
+            "serial": 652,
+            "format": 22
+          },
+          {
+            "line": 713,
+            "frame": 161,
+            "serial": 653,
+            "format": 22
+          },
+          {
+            "line": 808,
+            "frame": 190,
+            "serial": 747,
+            "format": 21
+          },
+          {
+            "line": 809,
+            "frame": 190,
+            "serial": 748,
+            "format": 21
+          },
+          {
+            "line": 1091,
+            "frame": 777,
+            "serial": 886,
+            "format": 22
+          },
+          {
+            "line": 1092,
+            "frame": 777,
+            "serial": 887,
+            "format": 21
+          }
+        ]
+      },
+      "captures": [
+        {
+          "file": "frame-51080-d1-00000550.jsonl",
+          "sha256": "92daa2e8b65c02690a0e759d87608581223970b33cd2014e40d9a068c9973460",
+          "invalid_json": [],
+          "sky_draws": [
+            {
+              "vertices": 134,
+              "triangles": 196,
+              "texture": {
+                "pointer": 532444144,
+                "last_creation_serial": 747
+              }
+            },
+            {
+              "vertices": 114,
+              "triangles": 180,
+              "texture": {
+                "pointer": 532443888,
+                "last_creation_serial": 748
+              }
+            }
+          ],
+          "world_fog_colors": [
+            "0xFFDDDBDB"
+          ],
+          "lifecycle": {
+            "race_lifecycle_generation": 6,
+            "root_job_success": {
+              "lifetime": 6,
+              "parent_job_lifetime": 0,
+              "request_origin": 4496595,
+              "scene": "RaceTest/France1",
+              "source": "DataScene/RaceTest/France1.xml",
+              "flag21": 1,
+              "flag22": 1,
+              "manager_scene_after_commit": 9769,
+              "commit_seen": true,
+              "commit_success": true,
+              "terminal": true,
+              "failed": false
+            },
+            "context": {
+              "Race/Type": {
+                "present": true,
+                "tag": 2,
+                "value": 1
+              },
+              "Race/NumPlayers": {
+                "present": true,
+                "tag": 2,
+                "value": 1
+              },
+              "Race/NumNetworkPlayers": {
+                "present": true,
+                "tag": 2,
+                "value": 0
+              },
+              "Race/NetworkSyncActive": {
+                "present": true,
+                "tag": 0,
+                "value": 0
+              },
+              "Race/AttractMode": {
+                "present": true,
+                "tag": 0,
+                "value": 0
+              },
+              "Race/GhostPlayback": {
+                "present": true,
+                "tag": 0,
+                "value": 0
+              },
+              "Race/PlaybackReplay": {
+                "present": true,
+                "tag": 0,
+                "value": 0
+              },
+              "Race/FinishingType": {
+                "present": true,
+                "tag": 2,
+                "value": 0
+              },
+              "Race/NumCars": {
+                "present": true,
+                "tag": 2,
+                "value": 1
+              }
+            },
+            "live_certificate_valid": true
+          },
+          "end": {
+            "type": "frame_end",
+            "frame": 550,
+            "capture_id": "d1-f550",
+            "complete": true,
+            "reason": "present",
+            "truncated": false,
+            "dropped_records": 0,
+            "draw_records": 386
+          }
+        },
+        {
+          "file": "frame-51080-d1-00001189.jsonl",
+          "sha256": "fbdfbf6efded26b89f3bdd11013d93d1e63be5826e2e6fd3acf0fce84edd30f7",
+          "invalid_json": [],
+          "sky_draws": [
+            {
+              "vertices": 134,
+              "triangles": 196,
+              "texture": {
+                "pointer": 543536688,
+                "last_creation_serial": 886
+              }
+            },
+            {
+              "vertices": 114,
+              "triangles": 180,
+              "texture": {
+                "pointer": 543538800,
+                "last_creation_serial": 887
+              }
+            }
+          ],
+          "world_fog_colors": [
+            "0xFF91A8CC"
+          ],
+          "lifecycle": {
+            "race_lifecycle_generation": 10,
+            "root_job_success": {
+              "lifetime": 11,
+              "parent_job_lifetime": 0,
+              "request_origin": 4496595,
+              "scene": "RaceTest/France1",
+              "source": "DataScene/RaceTest/France1.xml",
+              "flag21": 1,
+              "flag22": 1,
+              "manager_scene_after_commit": 9769,
+              "commit_seen": true,
+              "commit_success": true,
+              "terminal": true,
+              "failed": false
+            },
+            "context": {
+              "Race/Type": {
+                "present": true,
+                "tag": 2,
+                "value": 1
+              },
+              "Race/NumPlayers": {
+                "present": true,
+                "tag": 2,
+                "value": 1
+              },
+              "Race/NumNetworkPlayers": {
+                "present": true,
+                "tag": 2,
+                "value": 0
+              },
+              "Race/NetworkSyncActive": {
+                "present": true,
+                "tag": 0,
+                "value": 0
+              },
+              "Race/AttractMode": {
+                "present": true,
+                "tag": 0,
+                "value": 0
+              },
+              "Race/GhostPlayback": {
+                "present": true,
+                "tag": 0,
+                "value": 0
+              },
+              "Race/PlaybackReplay": {
+                "present": true,
+                "tag": 0,
+                "value": 0
+              },
+              "Race/FinishingType": {
+                "present": true,
+                "tag": 2,
+                "value": 0
+              },
+              "Race/NumCars": {
+                "present": true,
+                "tag": 2,
+                "value": 1
+              }
+            },
+            "live_certificate_valid": true
+          },
+          "end": {
+            "type": "frame_end",
+            "frame": 1189,
+            "capture_id": "d1-f1189",
+            "complete": true,
+            "reason": "present",
+            "truncated": false,
+            "dropped_records": 0,
+            "draw_records": 386
+          }
+        }
+      ],
+      "scope": "No atmosphere hook/selection/draw events; native paired draws and 0->1 fog/serial sequence match Auto. Disabled has no added pixel hash observer."
+    }
+  ],
+  "Disabled": "RUNTIME_CONFIRMED_NATIVE_TRACE_CONTROL",
+  "screenshots": "NOT_SUPPLIED"
+}

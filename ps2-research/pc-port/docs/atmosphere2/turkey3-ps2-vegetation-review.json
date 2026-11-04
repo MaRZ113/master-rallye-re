@@ -1,0 +1,13 @@
+{
+  "status": "SOURCE_REVIEWED_RUNTIME_PENDING",
+  "material": "shrubtrig2-tga",
+  "course": "Turkey3",
+  "category": 3,
+  "records": 50,
+  "source_texture_sha256": "49daf514ced5dea522ab54609feb198c8faa4c27da7238595bc9b06abc39d34f",
+  "texture_bgra_sha256": "25c49c9a2a10b3650b2c639a6f23f6aa77d164060be49472734d0454093424bb",
+  "atlas_sha256": "bc2c213b4907c45c20968ff2c0471be0c52a19024610b99e15f39d9571a84e60",
+  "records_total": 4192,
+  "all_previous_records_preserved": 4142,
+  "atlas_reproduced_exactly": true
+}

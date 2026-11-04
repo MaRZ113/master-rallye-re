@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "status": "OFFLINE_MATERIAL_METADATA_RUNTIME_ADMISSION_REQUIRED",
+  "format": "LSM1",
+  "records": 326,
+  "metadata_sha256": "12767fb38e51d26059aa3dc54e105af886b13d659869000dd7740766d2c0e5ab",
+  "payload_sha256": "d3d73949d3c9fd83393d66a82b6206452421f5cd21d8fa607311611b1ac40054",
+  "per_object_geometry_hashes": false,
+  "normal_source": "runtime area-weighted triangle normals; not authored smoothing normals"
+}

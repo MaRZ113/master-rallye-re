@@ -1,0 +1,210 @@
+{
+  "schema": 1,
+  "cases": [
+    {
+      "id": "France1-sky0-cold-first-race",
+      "preset": 0,
+      "lifecycle": "cold-first-race",
+      "status": "RUNTIME_CONFIRMED_RESOURCES_AND_FOG",
+      "checks": [
+        "requested/effective",
+        "both-native-texture-hashes/serials",
+        "134+114-vertices",
+        "world-fog",
+        "same-scene/race",
+        "paired-screenshot"
+      ],
+      "session": "session-20261103-080659-42880.jsonl",
+      "captures": [
+        "frame-42880-d1-00000864.jsonl"
+      ],
+      "screenshot": "NOT_SUPPLIED"
+    },
+    {
+      "id": "France1-sky0-race-restart",
+      "preset": 0,
+      "lifecycle": "race-restart",
+      "status": "RUNTIME_PENDING",
+      "checks": [
+        "requested/effective",
+        "both-native-texture-hashes/serials",
+        "134+114-vertices",
+        "world-fog",
+        "same-scene/race",
+        "paired-screenshot"
+      ]
+    },
+    {
+      "id": "France1-sky0-menu-reenter",
+      "preset": 0,
+      "lifecycle": "menu-reenter",
+      "status": "RUNTIME_PENDING",
+      "checks": [
+        "requested/effective",
+        "both-native-texture-hashes/serials",
+        "134+114-vertices",
+        "world-fog",
+        "same-scene/race",
+        "paired-screenshot"
+      ]
+    },
+    {
+      "id": "France1-sky3-cold-first-race",
+      "preset": 3,
+      "lifecycle": "cold-first-race",
+      "status": "RUNTIME_CONFIRMED_RESOURCES_AND_FOG",
+      "checks": [
+        "requested/effective",
+        "both-native-texture-hashes/serials",
+        "134+114-vertices",
+        "world-fog",
+        "same-scene/race",
+        "paired-screenshot"
+      ],
+      "session": "session-20261103-080500-46188.jsonl",
+      "capture": "frame-46188-d1-00000556.jsonl",
+      "screenshot": "NOT_SUPPLIED"
+    },
+    {
+      "id": "France1-sky3-race-restart",
+      "preset": 3,
+      "lifecycle": "race-restart",
+      "status": "RUNTIME_CONFIRMED_RESOURCES_AND_FOG",
+      "checks": [
+        "requested/effective",
+        "both-native-texture-hashes/serials",
+        "134+114-vertices",
+        "world-fog",
+        "same-scene/race",
+        "paired-screenshot"
+      ],
+      "session": "session-20261103-080500-46188.jsonl",
+      "capture": "frame-46188-d1-00001132.jsonl",
+      "screenshot": "NOT_SUPPLIED"
+    },
+    {
+      "id": "France1-sky3-menu-reenter",
+      "preset": 3,
+      "lifecycle": "menu-reenter",
+      "status": "RUNTIME_CONFIRMED_RESOURCES_AND_FOG",
+      "checks": [
+        "requested/effective",
+        "both-native-texture-hashes/serials",
+        "134+114-vertices",
+        "world-fog",
+        "same-scene/race",
+        "paired-screenshot"
+      ],
+      "session": "session-20261103-080500-46188.jsonl",
+      "capture": "frame-46188-d1-00001757.jsonl",
+      "screenshot": "NOT_SUPPLIED"
+    },
+    {
+      "id": "France1-sky5-cold-first-race",
+      "preset": 5,
+      "lifecycle": "cold-first-race",
+      "status": "RUNTIME_CONFIRMED_RESOURCES_AND_FOG",
+      "checks": [
+        "requested/effective",
+        "both-native-texture-hashes/serials",
+        "134+114-vertices",
+        "world-fog",
+        "same-scene/race",
+        "paired-screenshot"
+      ],
+      "session": "session-20261103-080728-35132.jsonl",
+      "captures": [
+        "frame-35132-d1-00000827.jsonl"
+      ],
+      "screenshot": "NOT_SUPPLIED"
+    },
+    {
+      "id": "France1-sky5-race-restart",
+      "preset": 5,
+      "lifecycle": "race-restart",
+      "status": "RUNTIME_PENDING",
+      "checks": [
+        "requested/effective",
+        "both-native-texture-hashes/serials",
+        "134+114-vertices",
+        "world-fog",
+        "same-scene/race",
+        "paired-screenshot"
+      ]
+    },
+    {
+      "id": "France1-sky5-menu-reenter",
+      "preset": 5,
+      "lifecycle": "menu-reenter",
+      "status": "RUNTIME_PENDING",
+      "checks": [
+        "requested/effective",
+        "both-native-texture-hashes/serials",
+        "134+114-vertices",
+        "world-fog",
+        "same-scene/race",
+        "paired-screenshot"
+      ]
+    },
+    {
+      "id": "Auto-native-selection-and-cycle",
+      "status": "RUNTIME_CONFIRMED_NATIVE_SELECTION_AND_CYCLE",
+      "session": "session-20261103-080757-26216.jsonl",
+      "captures": [
+        "frame-26216-d1-00000838.jsonl",
+        "frame-26216-d1-00001498.jsonl"
+      ],
+      "screenshot": "NOT_SUPPLIED"
+    },
+    {
+      "id": "Disabled-Classic",
+      "status": "RUNTIME_CONFIRMED_NATIVE_TRACE_CONTROL",
+      "session": "session-20261103-080945-51080.jsonl",
+      "captures": [
+        "frame-51080-d1-00000550.jsonl",
+        "frame-51080-d1-00001189.jsonl"
+      ],
+      "pixel_comparison": "NOT_PERFORMED"
+    },
+    {
+      "id": "Replay-native-side-effects",
+      "status": "RUNTIME_PENDING"
+    },
+    {
+      "id": "MSAA-reset-resolution",
+      "status": "RUNTIME_PENDING"
+    },
+    {
+      "id": "FOV-FreeCam-HUD",
+      "status": "RUNTIME_PENDING"
+    },
+    {
+      "id": "RigidProps-CollisionDebug",
+      "status": "RUNTIME_PENDING"
+    },
+    {
+      "id": "WorldLighting-PS2Off",
+      "status": "RUNTIME_PENDING"
+    },
+    {
+      "id": "LightProbe-PS2Off",
+      "status": "RUNTIME_PENDING"
+    },
+    {
+      "id": "d3d8-without-dinput8",
+      "status": "RUNTIME_PENDING"
+    },
+    {
+      "id": "dinput8-without-d3d8",
+      "status": "RUNTIME_PENDING"
+    },
+    {
+      "id": "PS2-Reflection4-VehicleLighting1-UV",
+      "status": "RUNTIME_PENDING"
+    },
+    {
+      "id": "PS2-grass-water",
+      "status": "RUNTIME_PENDING"
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "schema": 1,
+  "date": "2026-11-03",
+  "status": "OFFLINE_VALIDATED_RUNTIME_PENDING",
+  "base_head": "9ff5d4868415d5fd8e13458a2e36bc935e34c29f",
+  "branch": "master",
+  "frozen_renderer_source_commit": "c357e8b780734b1505acb86f723a0e1b57f3c8a8",
+  "frozen_renderer_tree": "46663a8db86922443e74f4fb760b29b2d8ae6978",
+  "frozen_renderer_worktree_unchanged": true,
+  "baseline_dll_sha256": "eb7ea3d9501b514bff668f1e75e86041906c5fe4e8afa89f06d658751429aaf4",
+  "ps2_candidate_dll_sha256": "0fc2445097ce7de79bb405da489f8cda8c67ab13e5c4b440be23c6e8a5f44924",
+  "baseline_ctest": {
+    "passed": 24,
+    "total": 24
+  },
+  "ps2_ctest": {
+    "passed": 46,
+    "total": 46
+  },
+  "python_unittest": {
+    "passed": 175,
+    "total": 175,
+    "original_exe_selector_and_ret4_test": "PASS_WITH_EXPLICIT_MRR_ATMOSPHERE_EXE"
+  },
+  "native_sky_selected_model_hashes_match_prior_recon": true,
+  "sky_resources": 12,
+  "optional_corpus_gate_note": "A CTest pass does not upgrade absent optional inputs or gameplay to tested evidence. Inspect individual logs for NOT_PERFORMED gates.",
+  "build_report_sha256": "6e2139c348b78b1b1fc0f1d47fd6b841736b5eaa7f8e8f20099a84d2a5b95d90",
+  "integration_patch_sha256": {
+    "0001-renderer-integration.patch": "2151d6140701bcfbc90d98b22209e5e0537873419dae2f96bc822da689cf7fa0",
+    "0002-interface-generator.patch": "cfe8f7cf6c56241d48d14535d6fd06f35a4ad263c5f40e2adfc4906eec6e5232"
+  },
+  "road_gpu_probe": {
+    "status": "D3D8_OFFSCREEN_VALIDATED_NOT_GAMEPLAY",
+    "input": "one original France1 road draw",
+    "triangles": 58,
+    "radius": 81.4435,
+    "image_sha256_bgra_bottom_up": [
+      "5a9ec05f16f329aeb209d7a4463fa07ce5c58e8eacfd6c847a1f948592aa130f",
+      "c114a2da0026daeb754f3bf15b212e49d64d1dbde4dab18b0f21d4455aeceb23",
+      "32fa9d73e73e071f97813b7d3a875350a729ca88661ce2281f67fc980b25313e"
+    ],
+    "lit_vertex_submissions": [
+      0,
+      108,
+      72
+    ],
+    "limitations": "top-down diagnostic projection, no engine, fog, PS2 effects or shadows"
+  },
+  "private_artifacts": {
+    "candidate": "D:\\Game\\Master Rallye\\master-rallye-re-general\\.research-output\\atmosphere-phase1\\candidate-verified",
+    "catalog": "D:\\Game\\Master Rallye\\master-rallye-re-general\\.research-output\\atmosphere-phase1\\catalog\\index.html",
+    "road_images": "D:\\Game\\Master Rallye\\master-rallye-re-general\\.research-output\\atmosphere-phase1\\road-probe\\rendered",
+    "scratch": "D:\\Game\\Master Rallye\\master-rallye-re-general\\.research-output\\atmosphere-phase1\\scratch",
+    "build_console": "D:\\Game\\Master Rallye\\master-rallye-re-general\\.research-output\\atmosphere-phase1\\build-final-console-verified.log"
+  },
+  "installed_game_deployment": false,
+  "game_runtime_tested": false,
+  "sun_effects": "SUPPRESSED_NO_CURRENT_DEPTH_VISIBILITY_PROOF",
+  "remaining": [
+    "Two-course same-CloudNumber A/B screenshots and F10 traces",
+    "Native sky pass row/format/order/ownership confirmation",
+    "Complete world/vegetation/building/car lighting",
+    "Depth-backed disk/halo/flare",
+    "In-game movable source",
+    "Independent DLL / PS2 effect / reset / MSAA / camera matrix"
+  ],
+  "original_reference_current_hashes": {
+    "D:\\Game\\Master Rallye\\MRallye.exe": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "D:\\Game\\Master Rallye\\d3d8.dll": "04cec69842a8605f51ce430cf689eec8d71557adb8b1b5f66c381f4764a1df71",
+    "D:\\Game\\Master Rallye Pristine\\dinput8.dll": "52ee1332e7a587878ea846a19dd7fcd5ca4cdd41694355558ee47e72c9c77c36"
+  }
+}

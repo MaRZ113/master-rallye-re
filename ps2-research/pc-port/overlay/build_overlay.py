@@ -48,6 +48,7 @@ PATCH_PATHS = {
         "modernization/renderer/src/quality_wrappers.cpp",
         "modernization/renderer/src/race_epoch.cpp",
         "modernization/renderer/src/race_observer.cpp",
+        "modernization/renderer/src/game_fov.cpp",
         "modernization/renderer/src/visual_wrappers.cpp",
         "modernization/renderer/src/wrappers.cpp",
     },

@@ -1,0 +1,309 @@
+{
+  "status": "RUNTIME_PARTIAL_SKY_ADMITTED_WORLD_NOT_ACCEPTED",
+  "dll_sha256": "77ca7db6e2f9527cdd1d3805432ea6696615494098c9f4b41cb90bef4cb8c9b6",
+  "sessions": [
+    {
+      "file": "session-20261103-091657-50056.jsonl",
+      "sha256": "8fbbb2713a68aab0fc2e4f2211ecda284bdf26fc3773c657bf824ecda46808ea",
+      "records": {
+        "atmosphere_config": [
+          {
+            "type": "atmosphere_config",
+            "enabled": true,
+            "world_lighting": false,
+            "light_probe": false,
+            "custom_set_requested": false,
+            "lighting_preset": "Original",
+            "lighting_strength": 1.0,
+            "exposure": 1.05,
+            "fog_enabled": false,
+            "fog_color": 4288181853,
+            "scene_atlas_sha256": "c79c9c3a528ea717b56eb4219438a5dbe236cf3dc391f1660e1392b4ccff174c",
+            "custom_sky_u_scale": 1.0,
+            "vehicle_direct_lighting": "excluded_pending_owner_contract",
+            "sun_fx": "suppressed_without_current_frame_occlusion"
+          }
+        ],
+        "atmosphere_custom_sky_draw": [],
+        "atmosphere_scene_draw": [],
+        "atmosphere_scene_identity_rejected": [],
+        "atmosphere_admission_rejected": []
+      },
+      "cpu_window_count": 25,
+      "cpu_ms_per_frame": 0.0,
+      "last_cpu_window": {
+        "type": "atmosphere_cpu_window",
+        "frame": 3202,
+        "frames": 120,
+        "cpu_ms": 0.0,
+        "calls": 0,
+        "accepted_draws": 0,
+        "copied_bytes": 0,
+        "road_draws": 0,
+        "terrain_draws": 0,
+        "vegetation_draws": 0,
+        "static_object_draws": 0
+      }
+    },
+    {
+      "file": "session-20261103-091750-14884.jsonl",
+      "sha256": "975f80eae226c7299b6812483409d513ee814e0081894fefc65ec19af81fed00",
+      "records": {
+        "atmosphere_config": [
+          {
+            "type": "atmosphere_config",
+            "enabled": true,
+            "world_lighting": true,
+            "light_probe": false,
+            "custom_set_requested": true,
+            "lighting_preset": "GoldenHour",
+            "lighting_strength": 1.0,
+            "exposure": 1.05,
+            "fog_enabled": true,
+            "fog_color": 4288181853,
+            "scene_atlas_sha256": "c79c9c3a528ea717b56eb4219438a5dbe236cf3dc391f1660e1392b4ccff174c",
+            "custom_sky_u_scale": 0.5,
+            "vehicle_direct_lighting": "excluded_pending_owner_contract",
+            "sun_fx": "suppressed_without_current_frame_occlusion"
+          }
+        ],
+        "atmosphere_custom_sky_draw": [
+          {
+            "type": "atmosphere_custom_sky_draw",
+            "layer": 0,
+            "source_native_sha256": "9ac31c63dc0ff827a5fa65a88d0ab0ca36638ada382fcc0301121bf76bef34e3",
+            "custom_bgra_sha256": "5e5366068fd30ac4b79170ccbe4eeada735d91c4dcc31232b0c8043e138d788c",
+            "u_scale": 0.5,
+            "vertices": 134,
+            "triangles": 196,
+            "frame": 322,
+            "race_generation": 6
+          },
+          {
+            "type": "atmosphere_custom_sky_draw",
+            "layer": 1,
+            "source_native_sha256": "aced3edf44d7c3cbb05d03acc6403956e97d7212408ff702ceaad1d94da9086e",
+            "custom_bgra_sha256": "92bb033af39262d874e985d515a85a5e6ee35345605cc058dce2168ff716af64",
+            "u_scale": 1.0,
+            "vertices": 114,
+            "triangles": 180,
+            "frame": 322,
+            "race_generation": 6
+          }
+        ],
+        "atmosphere_scene_draw": [
+          {
+            "type": "atmosphere_scene_draw",
+            "course": "France1",
+            "material": "rock-tga",
+            "category": 2,
+            "geometry_sha256": "56e1f2b617291c8c7c25b00c70b8416a10edf4f4754d7ffea02b9a1823c8cd31",
+            "texture_sha256": "89c73740e09a9ccd2bc2ab1051354ce1c6072360ab0df89ed0147b684c9e66bc",
+            "source_normals": true,
+            "shared_buffer_mutated": false,
+            "changed_vertices": 3,
+            "frame": 4149,
+            "race_generation": 6,
+            "owner_lifetime": 1
+          }
+        ],
+        "atmosphere_scene_identity_rejected": [
+          {
+            "type": "atmosphere_scene_identity_rejected",
+            "geometry_sha256": "4134a2ef535c598dbbfcb22d3cfd97476b5f5e5b0cb91a5be93074f302666a9c",
+            "texture_sha256": "621e001ea7a6abdaae90125b5b1ca7a83c3cd3c8b7f0652324d2155f97e13a7c",
+            "course": "France1",
+            "vertices": 5,
+            "triangles": 6
+          }
+        ],
+        "atmosphere_admission_rejected": [
+          {
+            "type": "atmosphere_admission_rejected",
+            "reason": "single_camera_race_certificate_missing",
+            "frame": 128,
+            "race_generation": 4,
+            "reset_generation": 0
+          },
+          {
+            "type": "atmosphere_admission_rejected",
+            "reason": "single_camera_race_certificate_missing",
+            "frame": 282,
+            "race_generation": 6,
+            "reset_generation": 0
+          },
+          {
+            "type": "atmosphere_admission_rejected",
+            "reason": "source_scene_draw_identity_unknown",
+            "frame": 322,
+            "race_generation": 6,
+            "reset_generation": 0
+          },
+          {
+            "type": "atmosphere_admission_rejected",
+            "reason": "not_source_prelit_world_contract",
+            "frame": 322,
+            "race_generation": 6,
+            "reset_generation": 0
+          },
+          {
+            "type": "atmosphere_admission_rejected",
+            "reason": "source_static_course_world_not_identity",
+            "frame": 322,
+            "race_generation": 6,
+            "reset_generation": 0
+          }
+        ]
+      },
+      "cpu_window_count": 38,
+      "cpu_ms_per_frame": 0.7455716644936984,
+      "last_cpu_window": {
+        "type": "atmosphere_cpu_window",
+        "frame": 4602,
+        "frames": 120,
+        "cpu_ms": 78.9691,
+        "calls": 11923,
+        "accepted_draws": 321,
+        "copied_bytes": 11501216,
+        "road_draws": 0,
+        "terrain_draws": 321,
+        "vegetation_draws": 0,
+        "static_object_draws": 0
+      }
+    },
+    {
+      "file": "session-20261103-091900-34196.jsonl",
+      "sha256": "2b4dade467784aa878d81b672a77b122f3f3181e4bbb08e5c96b27e2fda9a327",
+      "records": {
+        "atmosphere_config": [
+          {
+            "type": "atmosphere_config",
+            "enabled": true,
+            "world_lighting": true,
+            "light_probe": false,
+            "custom_set_requested": true,
+            "lighting_preset": "GoldenHour",
+            "lighting_strength": 1.0,
+            "exposure": 1.05,
+            "fog_enabled": true,
+            "fog_color": 4284963688,
+            "scene_atlas_sha256": "c79c9c3a528ea717b56eb4219438a5dbe236cf3dc391f1660e1392b4ccff174c",
+            "custom_sky_u_scale": 0.5,
+            "vehicle_direct_lighting": "excluded_pending_owner_contract",
+            "sun_fx": "suppressed_without_current_frame_occlusion"
+          }
+        ],
+        "atmosphere_custom_sky_draw": [
+          {
+            "type": "atmosphere_custom_sky_draw",
+            "layer": 0,
+            "source_native_sha256": "9ac31c63dc0ff827a5fa65a88d0ab0ca36638ada382fcc0301121bf76bef34e3",
+            "custom_bgra_sha256": "5f297c47ba84966c276210d896980d47d8a7f6c0aa164e763f40dc5c809aaa8d",
+            "u_scale": 0.5,
+            "vertices": 134,
+            "triangles": 196,
+            "frame": 315,
+            "race_generation": 6
+          },
+          {
+            "type": "atmosphere_custom_sky_draw",
+            "layer": 1,
+            "source_native_sha256": "aced3edf44d7c3cbb05d03acc6403956e97d7212408ff702ceaad1d94da9086e",
+            "custom_bgra_sha256": "3dbbb0cad705f59df9d7327501a54c87b941df11ff02258e40f1f242dd82cd62",
+            "u_scale": 1.0,
+            "vertices": 114,
+            "triangles": 180,
+            "frame": 315,
+            "race_generation": 6
+          }
+        ],
+        "atmosphere_scene_draw": [
+          {
+            "type": "atmosphere_scene_draw",
+            "course": "France1",
+            "material": "rock-tga",
+            "category": 2,
+            "geometry_sha256": "56e1f2b617291c8c7c25b00c70b8416a10edf4f4754d7ffea02b9a1823c8cd31",
+            "texture_sha256": "89c73740e09a9ccd2bc2ab1051354ce1c6072360ab0df89ed0147b684c9e66bc",
+            "source_normals": true,
+            "shared_buffer_mutated": false,
+            "changed_vertices": 3,
+            "frame": 3821,
+            "race_generation": 6,
+            "owner_lifetime": 1
+          }
+        ],
+        "atmosphere_scene_identity_rejected": [
+          {
+            "type": "atmosphere_scene_identity_rejected",
+            "geometry_sha256": "4134a2ef535c598dbbfcb22d3cfd97476b5f5e5b0cb91a5be93074f302666a9c",
+            "texture_sha256": "621e001ea7a6abdaae90125b5b1ca7a83c3cd3c8b7f0652324d2155f97e13a7c",
+            "course": "France1",
+            "vertices": 5,
+            "triangles": 6
+          }
+        ],
+        "atmosphere_admission_rejected": [
+          {
+            "type": "atmosphere_admission_rejected",
+            "reason": "single_camera_race_certificate_missing",
+            "frame": 125,
+            "race_generation": 4,
+            "reset_generation": 0
+          },
+          {
+            "type": "atmosphere_admission_rejected",
+            "reason": "single_camera_race_certificate_missing",
+            "frame": 283,
+            "race_generation": 6,
+            "reset_generation": 0
+          },
+          {
+            "type": "atmosphere_admission_rejected",
+            "reason": "source_scene_draw_identity_unknown",
+            "frame": 315,
+            "race_generation": 6,
+            "reset_generation": 0
+          },
+          {
+            "type": "atmosphere_admission_rejected",
+            "reason": "not_source_prelit_world_contract",
+            "frame": 315,
+            "race_generation": 6,
+            "reset_generation": 0
+          },
+          {
+            "type": "atmosphere_admission_rejected",
+            "reason": "source_static_course_world_not_identity",
+            "frame": 315,
+            "race_generation": 6,
+            "reset_generation": 0
+          }
+        ]
+      },
+      "cpu_window_count": 47,
+      "cpu_ms_per_frame": 0.7630032729192329,
+      "last_cpu_window": {
+        "type": "atmosphere_cpu_window",
+        "frame": 5683,
+        "frames": 120,
+        "cpu_ms": 87.5082,
+        "calls": 13560,
+        "accepted_draws": 25,
+        "copied_bytes": 14388640,
+        "road_draws": 0,
+        "terrain_draws": 25,
+        "vegetation_draws": 0,
+        "static_object_draws": 0
+      }
+    }
+  ],
+  "conclusions": [
+    "Both source-derived sky layers admitted in both GoldenHour sessions.",
+    "World atlas full-record identity mostly fails; tiny rock match alone does not prove road/terrain/vegetation/static lighting.",
+    "F10 snapshots retain original world fog at the start.",
+    "Original mode recorded zero timed Atmosphere draw calls.",
+    "Restart/menu re-entry not confirmed: accepted sky records show only race generation 6.",
+    "Sun occlusion, body direct lighting, Turkey and PS2-on validation remain pending."
+  ]
+}

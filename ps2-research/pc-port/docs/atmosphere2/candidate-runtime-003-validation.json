@@ -1,0 +1,44 @@
+{
+  "status": "RUNTIME_TESTED_TURKEY2_FOUR_CATEGORIES_TURKEY3_THREE_CATEGORIES",
+  "dll_sha256": "f0563ed1656fe864b6c3403e7c15dc3dc5341f6c7cabadeda092796b76a02d1a",
+  "atlas_sha256": "78018804a8d522847020e651f498521b251ce0e13cc06bc0c88efdd6fe50bee0",
+  "records": 4142,
+  "baseline_dll_sha256": "eb7ea3d9501b514bff668f1e75e86041906c5fe4e8afa89f06d658751429aaf4",
+  "tests": {
+    "baseline_ctest": "24/24 PASS",
+    "ps2_ctest": "46/46 PASS",
+    "python": "181/181 PASS"
+  },
+  "prior_identities_preserved": 1558,
+  "reproduction": "All atlas bytes identical in independent generation",
+  "package_hashes": "33 files verified",
+  "runtime": "TESTED_EXACT_DLL_ATLAS_PAIR",
+  "package": ".research-output/atmosphere2/candidate-runtime-003",
+  "changes": [
+    "Turkey per-course material authoring policy and source atlas/hash",
+    "One policy regression test"
+  ],
+  "unchanged": [
+    "BL1 prefix",
+    "Sky assets/artistic profiles",
+    "Lighting CPU math/cache",
+    "Reflection mapping/timing",
+    "World admission and state restoration"
+  ],
+  "pending": [
+    "Turkey3 vegetation",
+    "France1 runtime-003 short regression",
+    "renderer PS2-on",
+    "Reset/MSAA/FOV/FreeCam",
+    "body direct lighting",
+    "sun occlusion"
+  ],
+  "runtime_report": "candidate-runtime-003-runtime.json",
+  "runtime_pass": [
+    "Both GT3 sky pairs on Turkey2/Turkey3",
+    "Turkey2 all four categories",
+    "Turkey3 road/terrain/static",
+    "Balanced fog sets/restores",
+    "Six complete F10, zero dropped records"
+  ]
+}

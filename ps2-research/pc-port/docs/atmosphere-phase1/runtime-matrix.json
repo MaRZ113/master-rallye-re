@@ -1,0 +1,334 @@
+{
+  "schema": 1,
+  "evidence": "PLANNED_GAME_ACCEPTANCE_NOT_RESULTS",
+  "reference_preset": 3,
+  "same_cloud_required": true,
+  "baseline_profile": "selector-only sky-3.ini",
+  "enhanced_profiles": [
+    "sunset-sky-only.ini",
+    "sunset-terrain.ini"
+  ],
+  "classic_identity_separate": true,
+  "capture_requirements": [
+    "same course/car/camera/point/quality",
+    "actual CloudNumberUsed or original sky texture identity in evidence",
+    "paired current F10 traces/screenshots",
+    "environment capture image",
+    "actual candidate DLL and INI hashes"
+  ],
+  "cases": [
+    {
+      "id": "Turkey3-preset-0",
+      "course": "Turkey3",
+      "car": "SeatBuggy",
+      "preset": 0,
+      "status": "RUNTIME_PENDING",
+      "checks": [
+        "native_used_and_layer_suffix",
+        "reload",
+        "reflection_capture_before_vehicle",
+        "frontend_unchanged"
+      ]
+    },
+    {
+      "id": "Turkey3-preset-1",
+      "course": "Turkey3",
+      "car": "SeatBuggy",
+      "preset": 1,
+      "status": "RUNTIME_PENDING",
+      "checks": [
+        "native_used_and_layer_suffix",
+        "reload",
+        "reflection_capture_before_vehicle",
+        "frontend_unchanged"
+      ]
+    },
+    {
+      "id": "Turkey3-preset-2",
+      "course": "Turkey3",
+      "car": "SeatBuggy",
+      "preset": 2,
+      "status": "RUNTIME_PENDING",
+      "checks": [
+        "native_used_and_layer_suffix",
+        "reload",
+        "reflection_capture_before_vehicle",
+        "frontend_unchanged"
+      ]
+    },
+    {
+      "id": "Turkey3-preset-3",
+      "course": "Turkey3",
+      "car": "SeatBuggy",
+      "preset": 3,
+      "status": "RUNTIME_PENDING",
+      "checks": [
+        "native_used_and_layer_suffix",
+        "reload",
+        "reflection_capture_before_vehicle",
+        "frontend_unchanged"
+      ]
+    },
+    {
+      "id": "Turkey3-preset-4",
+      "course": "Turkey3",
+      "car": "SeatBuggy",
+      "preset": 4,
+      "status": "RUNTIME_PENDING",
+      "checks": [
+        "native_used_and_layer_suffix",
+        "reload",
+        "reflection_capture_before_vehicle",
+        "frontend_unchanged"
+      ]
+    },
+    {
+      "id": "Turkey3-preset-5",
+      "course": "Turkey3",
+      "car": "SeatBuggy",
+      "preset": 5,
+      "status": "RUNTIME_PENDING",
+      "checks": [
+        "native_used_and_layer_suffix",
+        "reload",
+        "reflection_capture_before_vehicle",
+        "frontend_unchanged"
+      ]
+    },
+    {
+      "id": "Turkey3-classic-same-cloud-identity",
+      "course": "Turkey3",
+      "car": "SeatBuggy",
+      "preset": 3,
+      "status": "RUNTIME_PENDING"
+    },
+    {
+      "id": "Turkey3-custom-sky-only",
+      "course": "Turkey3",
+      "car": "SeatBuggy",
+      "preset": 3,
+      "status": "RUNTIME_PENDING"
+    },
+    {
+      "id": "Turkey3-sunset-terrain",
+      "course": "Turkey3",
+      "car": "SeatBuggy",
+      "preset": 3,
+      "status": "RUNTIME_PENDING"
+    },
+    {
+      "id": "Turkey3-light-probe-moving-source",
+      "course": "Turkey3",
+      "car": "SeatBuggy",
+      "preset": 3,
+      "status": "RUNTIME_PENDING"
+    },
+    {
+      "id": "Turkey3-ps2-effects-water-grass-glass-glow-hud",
+      "course": "Turkey3",
+      "car": "SeatBuggy",
+      "preset": 3,
+      "status": "RUNTIME_PENDING"
+    },
+    {
+      "id": "Turkey3-reflection4-vehiclelighting1",
+      "course": "Turkey3",
+      "car": "SeatBuggy",
+      "preset": 3,
+      "status": "RUNTIME_PENDING"
+    },
+    {
+      "id": "Turkey3-reset-resolution-msaa-camera",
+      "course": "Turkey3",
+      "car": "SeatBuggy",
+      "preset": 3,
+      "status": "RUNTIME_PENDING"
+    },
+    {
+      "id": "Turkey3-missing-custom-pair-fallback",
+      "course": "Turkey3",
+      "car": "SeatBuggy",
+      "preset": 3,
+      "status": "RUNTIME_PENDING"
+    },
+    {
+      "id": "Turkey3-replay-and-race-reentry",
+      "course": "Turkey3",
+      "car": "SeatBuggy",
+      "preset": 3,
+      "status": "RUNTIME_PENDING"
+    },
+    {
+      "id": "France1-preset-0",
+      "course": "France1",
+      "car": "SeatBuggy",
+      "preset": 0,
+      "status": "RUNTIME_PENDING",
+      "checks": [
+        "native_used_and_layer_suffix",
+        "reload",
+        "reflection_capture_before_vehicle",
+        "frontend_unchanged"
+      ]
+    },
+    {
+      "id": "France1-preset-1",
+      "course": "France1",
+      "car": "SeatBuggy",
+      "preset": 1,
+      "status": "RUNTIME_PENDING",
+      "checks": [
+        "native_used_and_layer_suffix",
+        "reload",
+        "reflection_capture_before_vehicle",
+        "frontend_unchanged"
+      ]
+    },
+    {
+      "id": "France1-preset-2",
+      "course": "France1",
+      "car": "SeatBuggy",
+      "preset": 2,
+      "status": "RUNTIME_PENDING",
+      "checks": [
+        "native_used_and_layer_suffix",
+        "reload",
+        "reflection_capture_before_vehicle",
+        "frontend_unchanged"
+      ]
+    },
+    {
+      "id": "France1-preset-3",
+      "course": "France1",
+      "car": "SeatBuggy",
+      "preset": 3,
+      "status": "RUNTIME_PENDING",
+      "checks": [
+        "native_used_and_layer_suffix",
+        "reload",
+        "reflection_capture_before_vehicle",
+        "frontend_unchanged"
+      ]
+    },
+    {
+      "id": "France1-preset-4",
+      "course": "France1",
+      "car": "SeatBuggy",
+      "preset": 4,
+      "status": "RUNTIME_PENDING",
+      "checks": [
+        "native_used_and_layer_suffix",
+        "reload",
+        "reflection_capture_before_vehicle",
+        "frontend_unchanged"
+      ]
+    },
+    {
+      "id": "France1-preset-5",
+      "course": "France1",
+      "car": "SeatBuggy",
+      "preset": 5,
+      "status": "RUNTIME_PENDING",
+      "checks": [
+        "native_used_and_layer_suffix",
+        "reload",
+        "reflection_capture_before_vehicle",
+        "frontend_unchanged"
+      ]
+    },
+    {
+      "id": "France1-classic-same-cloud-identity",
+      "course": "France1",
+      "car": "SeatBuggy",
+      "preset": 3,
+      "status": "RUNTIME_PENDING"
+    },
+    {
+      "id": "France1-custom-sky-only",
+      "course": "France1",
+      "car": "SeatBuggy",
+      "preset": 3,
+      "status": "RUNTIME_PENDING"
+    },
+    {
+      "id": "France1-sunset-terrain",
+      "course": "France1",
+      "car": "SeatBuggy",
+      "preset": 3,
+      "status": "RUNTIME_PENDING"
+    },
+    {
+      "id": "France1-light-probe-moving-source",
+      "course": "France1",
+      "car": "SeatBuggy",
+      "preset": 3,
+      "status": "RUNTIME_PENDING"
+    },
+    {
+      "id": "France1-ps2-effects-water-grass-glass-glow-hud",
+      "course": "France1",
+      "car": "SeatBuggy",
+      "preset": 3,
+      "status": "RUNTIME_PENDING"
+    },
+    {
+      "id": "France1-reflection4-vehiclelighting1",
+      "course": "France1",
+      "car": "SeatBuggy",
+      "preset": 3,
+      "status": "RUNTIME_PENDING"
+    },
+    {
+      "id": "France1-reset-resolution-msaa-camera",
+      "course": "France1",
+      "car": "SeatBuggy",
+      "preset": 3,
+      "status": "RUNTIME_PENDING"
+    },
+    {
+      "id": "France1-missing-custom-pair-fallback",
+      "course": "France1",
+      "car": "SeatBuggy",
+      "preset": 3,
+      "status": "RUNTIME_PENDING"
+    },
+    {
+      "id": "France1-replay-and-race-reentry",
+      "course": "France1",
+      "car": "SeatBuggy",
+      "preset": 3,
+      "status": "RUNTIME_PENDING"
+    },
+    {
+      "id": "d3d8-alone",
+      "status": "RUNTIME_PENDING",
+      "checks": [
+        "startup",
+        "race",
+        "reentry",
+        "shutdown"
+      ]
+    },
+    {
+      "id": "dinput8-alone",
+      "status": "RUNTIME_PENDING",
+      "checks": [
+        "startup",
+        "race",
+        "reentry",
+        "shutdown"
+      ]
+    },
+    {
+      "id": "both-independent-dlls",
+      "status": "RUNTIME_PENDING",
+      "checks": [
+        "startup",
+        "race",
+        "reentry",
+        "shutdown"
+      ]
+    }
+  ],
+  "full_night_gate": "BLOCKED_UNTIL_SUNSET_AND_COMPATIBILITY_RUNTIME_ACCEPTED"
+}

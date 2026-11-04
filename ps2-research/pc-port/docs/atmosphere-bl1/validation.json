@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "status": "OFFLINE_PASS_BL1_TARGETED_RUNTIME_PASS",
+  "head": "9ff5d4868415d5fd8e13458a2e36bc935e34c29f",
+  "frozen_renderer_tree": "46663a8db86922443e74f4fb760b29b2d8ae6978",
+  "baseline_dll_sha256": "eb7ea3d9501b514bff668f1e75e86041906c5fe4e8afa89f06d658751429aaf4",
+  "candidate_dll_sha256": "f2b51e0d41adeadf245bbd87c2e5f6362eb9b5324bfef5eae934bfdc0f9717ba",
+  "baseline_ctest": {
+    "passed": 24,
+    "total": 24
+  },
+  "ps2_ctest": {
+    "passed": 46,
+    "total": 46
+  },
+  "python_tests": {
+    "passed": 177,
+    "total": 177
+  },
+  "original_exe_binary_contract": "PASS (MRR_ATMOSPHERE_EXE set)",
+  "candidate_package": ".research-output/atmosphere-bl1/candidate-first-load-v2",
+  "root_cause_runtime": "CONFIRMED on diagnostic 2dbbc0b8 / PID29176",
+  "fix_runtime": "CLOUD3_FIRST_RESTART_MENU_CONFIRMED_RESOURCES_AND_FOG",
+  "world_light_runtime": "RUNTIME_PENDING",
+  "compatibility_runtime": "RUNTIME_PENDING",
+  "build_report_sha256": "1af934786d215990f5093194e0ce6042cde510655be2ea2524cdb53a92e789d3",
+  "patch_sha256": {
+    "0001-renderer-integration.patch": "3dbc73d580f077210a3ee56ac411a1542e834bdb9ad09925bbb5252de7c468fc",
+    "0002-interface-generator.patch": "cfe8f7cf6c56241d48d14535d6fd06f35a4ad263c5f40e2adfc4906eec6e5232"
+  },
+  "superseded_v1": "RUNTIME_FAILED_COLD_FIRST_LOAD",
+  "runtime_session": "session-20261103-080500-46188.jsonl",
+  "screenshots": "NOT_SUPPLIED",
+  "cold_presets_runtime": [
+    0,
+    3,
+    5
+  ],
+  "native_controls_runtime": [
+    "Auto original0->0 then1->1; actual original sky hashes/fog",
+    "Disabled no atmosphere hook/events; native draw/fog/serial sequence0->1"
+  ],
+  "runtime_sessions": [
+    "session-20261103-080500-46188.jsonl",
+    "session-20261103-080659-42880.jsonl",
+    "session-20261103-080728-35132.jsonl",
+    "session-20261103-080757-26216.jsonl",
+    "session-20261103-080945-51080.jsonl"
+  ],
+  "complete_f10_captures": 9,
+  "new_runtime_invalid_json": 0,
+  "new_runtime_dropped_records": 0,
+  "game_installation_final_state": {
+    "dll_sha256": "f2b51e0d41adeadf245bbd87c2e5f6362eb9b5324bfef5eae934bfdc0f9717ba",
+    "Enabled": 1,
+    "SkyPreset": 3,
+    "installed_by": "user during controlled test; agent did not deploy"
+  }
+}

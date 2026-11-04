@@ -12,6 +12,7 @@
 #include "sdk.hpp"
 #include "ps2_color.hpp"
 #include "ground_detail.hpp"
+#include "atmosphere.hpp"
 #include "ps2_output.hpp"
 #include "ps2_motion_blur.hpp"
 #include "ps2_hud_damage.hpp"
@@ -355,8 +356,9 @@ public:
     bool present_pass_requested() const noexcept { return collision_legend_requested() || ledger_enabled_ || color_.enabled() || output_.enabled() || blur_.enabled() || reflection_view_requested() || (hud_damage_ && hud_damage_->requested()) || (hud_map_ && hud_map_->requested()) || hud_eggs_requested() || (hud_timediffs_ && hud_timediffs_->requested()); }
     bool reflection_view_requested() const noexcept;
     bool collision_legend_requested() const noexcept;
-    void present_before_reset() noexcept { color_.before_reset(); output_.before_reset(); blur_.before_reset(); fleet_before_reset(); }
+    void present_before_reset() noexcept { if(atmosphere_)atmosphere_->reset(); color_.before_reset(); output_.before_reset(); blur_.before_reset(); fleet_before_reset(); }
     GroundDetail* ground_detail() noexcept { return ground_.get(); }
+    atmosphere::Pilot* atmosphere_pilot() noexcept { return atmosphere_.get(); }
     PS2HudDamage* hud_damage() noexcept { return hud_damage_.get(); }
     PS2HudMap* hud_map() noexcept { return hud_map_.get(); }
     PS2HudTemplate* hud_template() noexcept { return hud_template_.get(); }
@@ -455,6 +457,7 @@ private:
     long long blur_last_present_ = 0;
     const char* output_logged_reason_ = nullptr;
     std::unique_ptr<GroundDetail> ground_;
+    std::unique_ptr<atmosphere::Pilot> atmosphere_;
     std::unique_ptr<PS2HudDamage> hud_damage_;
     std::unique_ptr<PS2HudMap> hud_map_;
     std::unique_ptr<PS2HudTemplate> hud_template_;

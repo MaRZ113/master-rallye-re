@@ -1,0 +1,84 @@
+{
+  "status": "RUNTIME_REFUSED_NOT_WORKING",
+  "dll_sha256": "f2b51e0d41adeadf245bbd87c2e5f6362eb9b5324bfef5eae934bfdc0f9717ba",
+  "reason": "source_vertex_mirror_unavailable: previous code requests prefix before current draw rather than actual referenced range",
+  "sessions": [
+    {
+      "file": "session-20261103-083618-41472.jsonl",
+      "sha256": "4b202de9055ccc4c1ad77fea13bf3bf38f26539f159fe91c71bbd0d11c7ea1ae",
+      "events": [
+        {
+          "type": "atmosphere_sky_hook",
+          "reason": "installed_initial_device_before_scenes"
+        },
+        {
+          "type": "atmosphere_config",
+          "enabled": true,
+          "world_lighting": false,
+          "light_probe": false,
+          "custom_set_requested": false,
+          "sun_fx": "disabled",
+          "selection_requires_typed_offline_fields": true
+        }
+      ]
+    },
+    {
+      "file": "session-20261103-083656-24408.jsonl",
+      "sha256": "2208df456774ef3abff99bfb1ee79134c2a0427d04be61e2b04f6301bb9672f8",
+      "events": [
+        {
+          "type": "atmosphere_sky_hook",
+          "reason": "installed_initial_device_before_scenes"
+        },
+        {
+          "type": "atmosphere_config",
+          "enabled": true,
+          "world_lighting": true,
+          "light_probe": false,
+          "custom_set_requested": false,
+          "sun_fx": "disabled",
+          "selection_requires_typed_offline_fields": true
+        },
+        {
+          "type": "atmosphere_admission_rejected",
+          "reason": "single_camera_race_certificate_missing",
+          "frame": 93,
+          "race_generation": 4,
+          "reset_generation": 0
+        },
+        {
+          "type": "atmosphere_admission_rejected",
+          "reason": "single_camera_race_certificate_missing",
+          "frame": 215,
+          "race_generation": 6,
+          "reset_generation": 0
+        },
+        {
+          "type": "atmosphere_admission_rejected",
+          "reason": "not_opaque_prelit_base_noise_contract",
+          "frame": 257,
+          "race_generation": 6,
+          "reset_generation": 0
+        },
+        {
+          "type": "atmosphere_admission_rejected",
+          "reason": "source_vertex_mirror_unavailable",
+          "frame": 257,
+          "race_generation": 6,
+          "reset_generation": 0
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "C:\\Users\\MaRZ\\Documents\\ShareX\\Screenshots\\2026-11\\MRallye_ry55rqLUjE.jpg",
+      "sha256": "c92f7391903c617663c82a6a793219deb8d42d6536ed0ff574807470c8871b99"
+    },
+    {
+      "path": "C:\\Users\\MaRZ\\Documents\\ShareX\\Screenshots\\2026-11\\MRallye_B35ZtlLsT2.jpg",
+      "sha256": "2042f325bb348b65834e8b76dbd0a3d410c858cb12406f99e8b7cba6bbf3e721"
+    }
+  ],
+  "visual": "no admitted lighting change observed; near-identical terrain, consistent with rejection logs"
+}

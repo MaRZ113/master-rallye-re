@@ -1,0 +1,270 @@
+{
+  "schema": 1,
+  "status": "SOURCE_DECODED_DERIVED_PROJECTION_RUNTIME_PENDING",
+  "decoder": "E:\\Games\\GT_Model-Tools\\Exe\\GTPS2ModelTool-1.1.1-win-x64\\GTPS2ModelTool.exe",
+  "decoder_sha256": "c37405d818ee309db4e47a06997913c83779b527a6a50df9d22c1e127e4af5a6",
+  "courses": [
+    {
+      "course": "r_deepforest",
+      "source": "D:\\Game\\Master Rallye\\master-rallye-re-vehicles\\.research-output\\vehicles\\gt-import\\gt3-extract\\courses\\US\\r_deepforest.gz",
+      "compressed_sha256": "146f5a7935a9c01f78db6f39d160d41fb23154c6bc8b65accbd8ca751d5ccb2f",
+      "decompressed_sha256": "54f327e09ee36142ee1f2f8218c8e683b5f138b79d08c55d01f9cef2e38da178",
+      "sky_member_offset": 9232896,
+      "sky_member_end": 10291072,
+      "gtm1_sha256": "271f9e964f37f0b1ecae4261366314fc6eb4a36bbbf094b7d315f27e9d74b216",
+      "source_binding": "course header +0x54/+0x58; GTM1 BBox->SetTexTable->CallShape; VIF strip/UV/color validation",
+      "projection": "authored MR cylinder-compatible upper sky; not GT3 runtime parity",
+      "tex1_members": [
+        {
+          "offset_in_gtm1": 7936,
+          "size": 262256,
+          "sha256": "a2e16ef355162e00ceb13e5c09eef1bfe36510bbdacab1cfbfc58ddbd6b47f2b"
+        },
+        {
+          "offset_in_gtm1": 270208,
+          "size": 262256,
+          "sha256": "78ea4b749fef6b5c92438069d4fd89eb81469d3783e29b0c08f25da1cb21cf4c"
+        },
+        {
+          "offset_in_gtm1": 532480,
+          "size": 262256,
+          "sha256": "7c53c60fd86a6777cb333e9b6919c4b46fcaf02ee136341fad1315847ac6f163"
+        },
+        {
+          "offset_in_gtm1": 794752,
+          "size": 262256,
+          "sha256": "b401b39ae765015ee969b3bc4e01a200c43b9504d92b255f2b559eaa88d4bf83"
+        },
+        {
+          "offset_in_gtm1": 1057024,
+          "size": 1136,
+          "sha256": "a91f05fd4ccd4536cd6fe2a31fae9075bcc311842c0648c2598c39bed353d490"
+        }
+      ],
+      "textures": [
+        {
+          "index": 0,
+          "size": [
+            256,
+            256
+          ],
+          "rgba_sha256": "c1bdbcf47567815e7d59a48be9405eb7c9087bcb096e1d69f15992c0ea797e74"
+        },
+        {
+          "index": 1,
+          "size": [
+            256,
+            256
+          ],
+          "rgba_sha256": "9f0967f97b749c52b91e41492b24a7fd3114df4ca8d7a65ecc62e75174bffa1f"
+        },
+        {
+          "index": 2,
+          "size": [
+            256,
+            256
+          ],
+          "rgba_sha256": "59249ab48cd39a643f4685eae180b4c00e9e2cf2b5fbea87937372bc99cf35b0"
+        },
+        {
+          "index": 3,
+          "size": [
+            256,
+            256
+          ],
+          "rgba_sha256": "6f2d1e232470dec576c8903827e799ef427f75f856beb63157fa666036456df5"
+        },
+        {
+          "index": 4,
+          "size": [
+            16,
+            16
+          ],
+          "rgba_sha256": "b583cf1fc59cc47f0b3b57bfac6f4635575d0ffb05e7e546a15fad74ae3c7387"
+        }
+      ],
+      "ray_coverage": 1.0,
+      "source_triangles": 250,
+      "fog_rgb": [
+        152,
+        118,
+        93
+      ],
+      "custom_sky_u_scale": 0.5,
+      "resources": [
+        {
+          "name": "clouds",
+          "sha256": "a7e321952031ebd9dfca333d08b7f43b4769f389884b57f80ba9602036a2e301",
+          "alpha_sha256": "71189f7fb6aed638640078fba3a35fda6c39c8962e74dcc75935aac948da9063",
+          "native_alpha_sha256": "71189f7fb6aed638640078fba3a35fda6c39c8962e74dcc75935aac948da9063",
+          "horizontal_edge_delta_max": 0
+        },
+        {
+          "name": "layer",
+          "sha256": "36bef2e1664e972604a19c0186057a50159c092452a6993b2120957b5dcff4d2",
+          "alpha_sha256": "414db741c09338891e1e8c35bbf0601995bccf59961eb6fdb6fff0ddca02465d",
+          "native_alpha_sha256": "414db741c09338891e1e8c35bbf0601995bccf59961eb6fdb6fff0ddca02465d",
+          "horizontal_edge_delta_max": 0
+        }
+      ],
+      "layer_policy": "native-alpha-preserving palette haze; no duplicated GT3 silhouettes"
+    },
+    {
+      "course": "r_grandvalley",
+      "source": "D:\\Game\\Master Rallye\\master-rallye-re-vehicles\\.research-output\\vehicles\\gt-import\\gt3-extract\\courses\\US\\r_grandvalley.gz",
+      "compressed_sha256": "109d90c6568aa4df739a34045f40559ac3286cebf6cfb93359e0cf3bfd0bfdf0",
+      "decompressed_sha256": "d6f83d9bb52ef66afd0f010160b0f35a1e17d67461a2e666a8f1adbf41f1674f",
+      "sky_member_offset": 8074112,
+      "sky_member_end": 9208384,
+      "gtm1_sha256": "109e632930c5da65aed2b62cbd680c27ca534825de1fe8200c99acc1efb6e8eb",
+      "source_binding": "course header +0x54/+0x58; GTM1 BBox->SetTexTable->CallShape; VIF strip/UV/color validation",
+      "projection": "authored MR cylinder-compatible upper sky; not GT3 runtime parity",
+      "tex1_members": [
+        {
+          "offset_in_gtm1": 17984,
+          "size": 66672,
+          "sha256": "2c8f1e6255c82c86708d452d4fa6daa99a6e78fa2ddb333d45dfbad0d7cc59a4"
+        },
+        {
+          "offset_in_gtm1": 84672,
+          "size": 131184,
+          "sha256": "79323cd895eeda06e5d111d62d9005dc785a47b63d9f9bf0276299cfe3e994ab"
+        },
+        {
+          "offset_in_gtm1": 215872,
+          "size": 131184,
+          "sha256": "aff1623ed5ba2ba974eb633b52ea336035f4fb0f814814ac99508d6701ca2c61"
+        },
+        {
+          "offset_in_gtm1": 347072,
+          "size": 131184,
+          "sha256": "df4d8d70eec5acc0de2ceb06b1ff3d275c18f6853286856dbe7d6b24843df089"
+        },
+        {
+          "offset_in_gtm1": 478272,
+          "size": 131184,
+          "sha256": "048d8ff36124a7a90e7d62bcff5f6ee500f7644abf9a8fd012f8289aa93c3520"
+        },
+        {
+          "offset_in_gtm1": 609472,
+          "size": 131184,
+          "sha256": "463a74c1c9d5dc2d7bc91dfac07288e603ff1198c05f3bdf81a6330afb77c0cc"
+        },
+        {
+          "offset_in_gtm1": 740672,
+          "size": 131184,
+          "sha256": "af99822112c39c93b035d72de740288c0b970a45c4e893bc626fb1cebc1e3a85"
+        },
+        {
+          "offset_in_gtm1": 871872,
+          "size": 131184,
+          "sha256": "94a9f284b47a4d95da7ac19e214aede74c2022563a2884e2195a0c73fe3a75e3"
+        },
+        {
+          "offset_in_gtm1": 1003072,
+          "size": 131184,
+          "sha256": "e7aaf5a589414aec23c7d40a4048bb155ad4365cf6adb606e251cd25b27a2511"
+        }
+      ],
+      "textures": [
+        {
+          "index": 0,
+          "size": [
+            1,
+            1
+          ],
+          "rgba_sha256": "16f8139baa64c838da75c6356db4ec906d49900714f4a065a824f526f1cc8daf"
+        },
+        {
+          "index": 1,
+          "size": [
+            128,
+            256
+          ],
+          "rgba_sha256": "d46c25b32b7d7be99d79203f36fdf6d03a93d845078f479799cd60fbc4e4354f"
+        },
+        {
+          "index": 2,
+          "size": [
+            128,
+            256
+          ],
+          "rgba_sha256": "49fc4ebcc6794483c6975e9bf3dfaf411bcd681819247e713cdb2c614d59fe0a"
+        },
+        {
+          "index": 3,
+          "size": [
+            128,
+            256
+          ],
+          "rgba_sha256": "f250eabcec8442504b2ac0aca6cf20e8d8245e013fbc8c825790fbd27e4ad942"
+        },
+        {
+          "index": 4,
+          "size": [
+            128,
+            256
+          ],
+          "rgba_sha256": "c05ae5884c34edcd445e9d803bdcf0cc671582fab2af81f2bc0559949e8f9dd8"
+        },
+        {
+          "index": 5,
+          "size": [
+            128,
+            256
+          ],
+          "rgba_sha256": "cf9f2b013c8d77b61cf3ea843b6ad592137d23e895275612d485838ca93d9ed9"
+        },
+        {
+          "index": 6,
+          "size": [
+            128,
+            256
+          ],
+          "rgba_sha256": "88cebef3166b6e632b9de64610d6ccd546e55266ad9d2cee57c5e145e99e2ef8"
+        },
+        {
+          "index": 7,
+          "size": [
+            128,
+            256
+          ],
+          "rgba_sha256": "337cb47e26581e2d1627a492099287bab04b47e7edcb611bd44332eec96f9ff3"
+        },
+        {
+          "index": 8,
+          "size": [
+            128,
+            256
+          ],
+          "rgba_sha256": "b37111649befac80469ecc0674ca18c1c418a0de66c80cda54b5d6c654d566d2"
+        }
+      ],
+      "ray_coverage": 1.0,
+      "source_triangles": 496,
+      "fog_rgb": [
+        103,
+        91,
+        104
+      ],
+      "custom_sky_u_scale": 0.5,
+      "resources": [
+        {
+          "name": "clouds",
+          "sha256": "2b17d836744fab4f89d22aacb77b7f5d2b896303fd078bef9b0508f2f59223c7",
+          "alpha_sha256": "71189f7fb6aed638640078fba3a35fda6c39c8962e74dcc75935aac948da9063",
+          "native_alpha_sha256": "71189f7fb6aed638640078fba3a35fda6c39c8962e74dcc75935aac948da9063",
+          "horizontal_edge_delta_max": 0
+        },
+        {
+          "name": "layer",
+          "sha256": "c5b4dff1c53a5c5ad52f087bfd16cbef5dd1b32a396e8c39d34f03aa355ace50",
+          "alpha_sha256": "414db741c09338891e1e8c35bbf0601995bccf59961eb6fdb6fff0ddca02465d",
+          "native_alpha_sha256": "414db741c09338891e1e8c35bbf0601995bccf59961eb6fdb6fff0ddca02465d",
+          "horizontal_edge_delta_max": 0
+        }
+      ],
+      "layer_policy": "native-alpha-preserving palette haze; no duplicated GT3 silhouettes"
+    }
+  ]
+}

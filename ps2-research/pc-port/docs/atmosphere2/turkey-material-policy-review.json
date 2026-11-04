@@ -1,0 +1,195 @@
+{
+  "status": "SOURCE_AUTHORING_REVIEW_OFFLINE_RUNTIME_PENDING",
+  "atlas_sha256": "78018804a8d522847020e651f498521b251ce0e13cc06bc0c88efdd6fe50bee0",
+  "records": 4142,
+  "previous_identities_preserved": 1558,
+  "course_policy": {
+    "Turkey2": {
+      "1": [
+        "sandtrack_lft",
+        "sandtrack_rht",
+        "sandtrack",
+        "mudtar_road",
+        "mud_road",
+        "mud road tran",
+        "gravel_road",
+        "mud tran b",
+        "light brown gravel with track",
+        "light brown gravel with track b",
+        "new roadblend",
+        "end of tar",
+        "gravel dirt to road",
+        "gravel dirt to road 2"
+      ],
+      "2": [
+        "basegrass",
+        "dryland",
+        "neu rocky",
+        "basemud",
+        "neu grass to rock",
+        "neu grass to rock2",
+        "mud_to_grass",
+        "grass_to_mud",
+        "mud to ro1",
+        "mud to ro",
+        "light brown gravel",
+        "dirt_shrub_blend_rht",
+        "dirt_shrub_blend_lft",
+        "quad blend",
+        "new4way blend",
+        "dirt to gravel"
+      ],
+      "3": [
+        "green shrub",
+        "shrubtrig2",
+        "pinerow",
+        "plant1",
+        "plant2",
+        "plant3",
+        "plant4"
+      ],
+      "4": [
+        "new wall",
+        "concrete",
+        "i2a_planks2"
+      ]
+    },
+    "Turkey3": {
+      "1": [
+        "gravel_road",
+        "mud_road",
+        "bedroad",
+        "mud road tran",
+        "mud tran b",
+        "gravel dirt to road",
+        "gravel dirt to road 2"
+      ],
+      "2": [
+        "neu rocky",
+        "base1",
+        "basegravel",
+        "basemud",
+        "mud to ror",
+        "mud to ro1",
+        "mud to ro",
+        "grass to roc1",
+        "grass to roc2",
+        "grass to grav2",
+        "grass to grav",
+        "neubeddirt",
+        "bed to mud2",
+        "bed to wall",
+        "bedlef",
+        "neubedrig",
+        "mutlirgd",
+        "g to m2",
+        "bed to mud multi",
+        "grav to ro1",
+        "bed to wall2",
+        "bed to mud",
+        "bed to mud gravel",
+        "neu grass to rock",
+        "neu grass to rock2"
+      ],
+      "3": [
+        "shrub",
+        "shrub1",
+        "plant1",
+        "plant2",
+        "plant3",
+        "plant4"
+      ],
+      "4": [
+        "new wall",
+        "i2a_planks2",
+        "hut_01",
+        "fence_02"
+      ]
+    }
+  },
+  "source_summary": [
+    {
+      "course": "France1",
+      "variant": 0,
+      "source_sha256": "a6bfcef97684f41154596f91fdfaa9522a8fdf6b65d181f4d1ac327b9caf07d5",
+      "new_records_by_category": {
+        "1": 202,
+        "2": 217,
+        "4": 155,
+        "3": 183
+      }
+    },
+    {
+      "course": "Turkey2",
+      "variant": 0,
+      "source_sha256": "0c238c152543a37f4b9c2a5f9e4573b70b868d263762679612031216d19e1194",
+      "new_records_by_category": {
+        "2": 413,
+        "1": 138,
+        "4": 99,
+        "3": 203
+      }
+    },
+    {
+      "course": "Turkey3",
+      "variant": 0,
+      "source_sha256": "724a69da708a124f7dbfd666b7ad8d391bcaf22ff94bd2c91143e305749cf7f8",
+      "new_records_by_category": {
+        "2": 598,
+        "1": 102,
+        "3": 68,
+        "4": 45
+      }
+    },
+    {
+      "course": "France1",
+      "variant": 1,
+      "source_sha256": "89b96c102c622065bf13bd3506cab55cfb6207d4768c447da76b726ecc5a76c7",
+      "new_records_by_category": {
+        "2": 180,
+        "1": 134,
+        "3": 125,
+        "4": 44
+      }
+    },
+    {
+      "course": "Turkey2",
+      "variant": 1,
+      "source_sha256": "42f6803fffac3db94d2584583a1acce38128765398a33ea1baf13ba247b60461",
+      "new_records_by_category": {
+        "2": 330,
+        "3": 95,
+        "1": 103,
+        "4": 74
+      }
+    },
+    {
+      "course": "Turkey3",
+      "variant": 1,
+      "source_sha256": "42efdbcece1340d0ead30176f2489fc512a6e2af2f29559c62922aa2f3b330e7",
+      "new_records_by_category": {
+        "2": 479,
+        "1": 91,
+        "4": 56,
+        "3": 8
+      }
+    }
+  ],
+  "review_evidence": {
+    "classification": "Authored exact per-course allowlist, checked against original texture pixels and original DX bindings; categories are not recovered game source semantics.",
+    "images": {
+      "Turkey2": "072e844eda2854c1183d49c61870589260ae31cebf62036753eb71e4734edcf5",
+      "Turkey3": "437863ab7b5e4cdb0c4e9c1bb2db7670ae1ca7fc996c3627162e7be4bae7f676"
+    },
+    "source_texture_manifest_sha256": "12cc3630995524cfd66612d09f94ab7e7d2860d14872865852634cccaf53f134"
+  },
+  "live_admission": "Unchanged strict geometry/prelight/UV + original normals + texture SHA + current course owner + native fixed-function state.",
+  "excluded": [
+    "water",
+    "boat2",
+    "tred1",
+    "plating2/reflection secondary materials",
+    "unknown labels/transforms/special passes"
+  ],
+  "reproduction": "All 4142 records/atlas bytes reproduced exactly; all previous identities, categories and normals retained."
+}
