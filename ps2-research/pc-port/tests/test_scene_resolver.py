@@ -16,8 +16,11 @@ class MetadataContracts(unittest.TestCase):
   self.assertEqual(sdk.material_role('new tree',('tree-tga','Null','Null')),(3,sdk.PLAIN|sdk.ALPHA_TEST|sdk.TWO_SIDED))
   self.assertEqual(sdk.material_role('unfamiliar',('x','Null','Null')),(0,sdk.DENY))
   self.assertEqual(sdk.material_role('unfamiliar',('x','Null','Null'),'static'),(4,sdk.PLAIN))
-  for label in ['water','glass','glow-on','lamp','boat2','tyre','shadow']:
+  for label in ['water','glass','glow-on','lamp','tyre','shadow']:
    self.assertEqual(sdk.material_role(label,(label,'Null','Null'),'static'),(0,sdk.DENY))
+  # Static course boats (and Turkey3 rails on the boat atlas): Deny unless authored.
+  self.assertEqual(sdk.material_role('boat2',('boat2','Null','Null')),(0,sdk.DENY))
+  self.assertEqual(sdk.material_role('boat2',('boat2','Null','Null'),'static'),(4,sdk.PLAIN))
   self.assertEqual(sdk.material_role('metal',('base','reflection','Null'),'static'),(0,sdk.DENY))
  def test_metadata_is_material_scoped_without_geometry_records(self):
   row=dict(course='CustomLayout',material='NewRock',texture_sha256='a'*64,category=2,flags=1)

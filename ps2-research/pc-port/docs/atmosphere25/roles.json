@@ -25,6 +25,10 @@
     "fujitsu-tga": "signage",
     "bagoo-tga": "signage",
     "go-tga": "signage",
-    "newtex-tga": "static"
+    "newtex-tga": "static",
+    "boat1-tga": "static",
+    "boat2-tga": "static",
+    "boat3-tga": "static",
+    "boat4 copy-tga": "static"
   }
 }

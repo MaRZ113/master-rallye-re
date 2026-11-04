@@ -22,8 +22,12 @@ def material_role(name: str, textures: tuple[str, ...], explicit: str | None = N
     label = name.lower().removesuffix('-tga')
     # Exclusions outrank even author-supplied capabilities. Reflective secondary
     # resources and unsupported shader combinations cannot become a plain pass.
+    # 'boat' is not a hard exclusion: native course boats are static props (moving
+    # PS2 boats are proxy spline objects) and Turkey3 reuses the boat atlas for
+    # its bridge rails. Without an explicit role a boat material stays Deny,
+    # because no automatic category token matches it.
     excluded = ('water', 'glass', 'window', 'windscreen', 'windshield', 'perspex', 'glow', 'flare', 'lamp', 'headlight', 'taillight', 'shadow', 'decal',
-                'boat', 'wheel', 'tyre', 'tire', 'tred', 'reflection', 'chrome')
+                'wheel', 'tyre', 'tire', 'tred', 'reflection', 'chrome')
     if any(token in label for token in excluded) or len(textures) != 3 or textures[1] != 'Null' or textures[2] not in ('Null', 'noise-tga'):
         return 0, DENY
     if explicit is not None and explicit not in ROLES:
@@ -237,7 +241,17 @@ def export_lighting_metadata(sources: list[Path], courses: list[str], output: Pa
                     continue
                 tex = parse_dxt(texture)
                 capabilities = {material_role(name, contract, roles.get(course, {}).get(name)) for contract in contracts}
-                category, flags = capabilities.pop() if len(capabilities) == 1 else (0, DENY)
+                if len(capabilities) == 1:
+                    category, flags = capabilities.pop()
+                else:
+                    # One role used by plain AND noise passes (Turkey3 boat2 rails):
+                    # merge the pass flags; the runtime checks the flag per pass.
+                    categories = {c for c, _ in capabilities}
+                    if len(categories) == 1 and 0 not in categories and not any(f & DENY for _, f in capabilities):
+                        category = categories.pop(); flags = 0
+                        for _, f in capabilities: flags |= f
+                    else:
+                        category, flags = 0, DENY
                 inferred=None
                 # An exclusion can never be overridden by shape. Only otherwise
                 # unknown, plain bindings are considered by this SDK classifier.

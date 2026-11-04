@@ -24,6 +24,16 @@ atlas (caravan-tga is only its wooden/metal base).
 SunCore{R,G,B} SunGlow{R,G,B} SunBloom{R,G,B}`. Reference look: GT3 blue-Miata shots on the
 Deep Forest Reverse sky (user's ShareX `2026-11/Atmo/miot1..3.png`).
 
+## Runtime-004 follow-up
+- Bridge rails are `boat2-tga` (the boat atlas, ~100 m along the bridge); A/B pixels were identical,
+  i.e. never lit. `boat` is no longer a hard SDK exclusion (still Deny without a role); roles.json
+  sets the four Turkey3 boat materials static. A material bound by plain AND noise passes with one
+  category now merges the pass flags instead of becoming Deny (boat2: Noise|Plain).
+- PS2 source-point grass and rigid props (tumbleweeds, barrels, bales) are proxy draws; their private
+  vertices now get the same world lighting (grass: up normal; props: outward face normal). Their fog
+  colour is still the native one.
+- Sun: 72 soft spokes of pseudo-random length/strength + faint radial haze; optional
+  `SunRaysTexture=` sprite made with `tools/atmosphere_sun_sprite.py` (no GT3 asset shipped).
+
 ## Open
-Static Turkey3 boats (`boat*-tga`) stay native (SDK name exclusion outranks explicit roles).
 Only France1/Turkey2/Turkey3 have metadata. Fleet body materials only for Patrol/Tata.
