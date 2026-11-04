@@ -249,6 +249,15 @@ int main(){
     SceneMaterial paired_ground;paired_ground.category=2;paired_ground.flags=Noise;
     CHECK(light_geometry(mesh,24,7,4,2,&paired_ground,true,true,false,false,evening));
     CHECK(mesh.duplicate_faces==1&&mesh.opposite_faces==1);
+    {   // Paired thin static props mix sun- and shadow-side colour; leaves do not.
+        CHECK(mix_color(0xff646464,0xff000000,.5f)==0xff323232&&mix_color(0x80ffffff,0xff000000,1)==0x80ffffff);
+        SceneMaterial rail;rail.category=4;rail.flags=Plain|AlphaTest;
+        CHECK(light_geometry(mesh,24,7,4,2,&rail,false,true,false,false,evening));const auto rail_lit=mesh.lit;
+        CHECK(light_geometry(mesh,24,7,4,2,&leaves,false,false,true,false,evening));const auto leaf_lit=mesh.lit;
+        uint32_t r=0,l=0;std::memcpy(&r,rail_lit.data()+12,4);std::memcpy(&l,leaf_lit.data()+12,4);
+        CHECK(((r>>16)&255)<((l>>16)&255));                    // rail is no longer fully sun-lit
+        CHECK(light_geometry(mesh,24,7,4,2,&paired_ground,true,true,false,false,evening)); // restore for the order check below
+    }
     const auto paired_colors=mesh.lit;
     const uint16_t back_first[]={9,8,7,7,8,9};std::memcpy(mesh.index_bytes.data(),back_first,12);
     CHECK(light_geometry(mesh,24,7,4,2,&paired_ground,true,true,false,false,evening));

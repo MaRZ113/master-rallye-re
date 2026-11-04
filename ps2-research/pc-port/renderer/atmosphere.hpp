@@ -289,7 +289,7 @@ public:
         auto setting=[&](const wchar_t* key,const wchar_t* fallback){wchar_t b[512]{};GetPrivateProfileStringW(L"Atmosphere",key,fallback,b,512,ini_.c_str());return std::wstring(b);};
         read_tunables();
         live_tuning=GetPrivateProfileIntW(L"Atmosphere",L"LiveTuning",0,ini_.c_str())==1;
-        if(live_tuning){std::error_code ec;ini_time_=std::filesystem::last_write_time(ini_,ec);}
+        if(live_tuning)ini_content_=ini_content();
         atlas_path=setting(L"SceneAtlas",L"Atmosphere/scene.atlas");if(atlas_path.is_relative())atlas_path=std::filesystem::path(ini_).parent_path()/atlas_path;
         universal=setting(L"SceneResolver",L"Universal")!=L"LegacyAtlas";
         auto_ground=GetPrivateProfileIntW(L"Atmosphere",L"AutoGround",1,ini_.c_str())==1;
@@ -318,19 +318,25 @@ public:
     // LiveTuning=1: values that only change colours/sun visuals are re-read when
     // Atmosphere.ini is saved. Routes, paths, metadata and Enabled stay as loaded
     // at process start, so a live edit can never widen admission.
-    bool live_tuning=false;uint64_t live_poll_frame=0,live_reloads=0;
+    // Detection is by file CONTENT, not time: copying a profile over the file
+    // keeps the source's modification time. Ctrl+Alt+R forces a reload.
+    bool live_tuning=false,live_force=false,live_key_down=false;uint64_t live_poll_frame=0,live_reloads=0,live_key_frame=UINT64_MAX;
     bool poll_live(uint64_t frame)noexcept {
-        if(!enabled_||!live_tuning||frame<live_poll_frame+30)return false;live_poll_frame=frame;
-        try{std::error_code ec;const auto now=std::filesystem::last_write_time(ini_,ec);if(ec||now==ini_time_)return false;ini_time_=now;
+        if(!enabled_||!live_tuning)return false;
+        if(!live_force&&frame<live_poll_frame+30)return false;live_poll_frame=frame;
+        try{const auto content=ini_content();if(content.empty())return false;
+            if(!live_force&&content==ini_content_)return false;
+            const bool forced=live_force;live_force=false;ini_content_=content;
             read_tunables();resolver.clear();++live_reloads;
-            session().write("{\"type\":\"atmosphere_live_reload\",\"frame\":"+std::to_string(frame)+",\"reloads\":"+std::to_string(live_reloads)+
+            session().write("{\"type\":\"atmosphere_live_reload\",\"frame\":"+std::to_string(frame)+",\"reloads\":"+std::to_string(live_reloads)+",\"forced\":"+(forced?"true":"false")+
                 ",\"world_brightness\":"+std::to_string(lighting.world_brightness)+",\"sun_strength\":"+std::to_string(lighting.sun_strength)+
                 ",\"sun_dir\":["+std::to_string(lighting.direction[0])+","+std::to_string(lighting.direction[1])+","+std::to_string(lighting.direction[2])+"]}");
             return true;
         }catch(...){return false;}
     }
 private:
-    std::filesystem::file_time_type ini_time_{};
+    std::string ini_content_;
+    std::string ini_content()const{std::ifstream f(ini_,std::ios::binary);if(!f)return {};std::string s((std::istreambuf_iterator<char>(f)),std::istreambuf_iterator<char>());return s.size()>256*1024?std::string{}:s;}
     float read_number(const wchar_t* key,float fallback)const{wchar_t b[64]{};GetPrivateProfileStringW(L"Atmosphere",key,L"",b,64,ini_.c_str());wchar_t* end=nullptr;float v=std::wcstof(b,&end);return end!=b&&*end==0&&std::isfinite(v)?v:fallback;}
     void read_tunables(){
         auto number=[&](const wchar_t* key,float fallback){return read_number(key,fallback);};

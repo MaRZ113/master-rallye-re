@@ -74,6 +74,9 @@ inline void observe(Device8& d,D3DPRIMITIVETYPE type,UINT,UINT vertices,UINT,UIN
         pc!=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+groundintegration::COURSE_DRAW_RETURN_RVA)return;
     try {
         const auto frame=d.trace.frame_number();
+        if(p->live_tuning&&frame!=p->live_key_frame){p->live_key_frame=frame;DWORD pid=0;GetWindowThreadProcessId(GetForegroundWindow(),&pid);
+            const bool down=pid==GetCurrentProcessId()&&(GetAsyncKeyState(VK_CONTROL)&0x8000)&&(GetAsyncKeyState(VK_MENU)&0x8000)&&(GetAsyncKeyState('R')&0x8000);
+            if(down&&!p->live_key_down)p->live_force=true;p->live_key_down=down;}
         if(p->seam_debug&&frame!=p->seam_poll_frame){p->seam_poll_frame=frame;DWORD pid=0;GetWindowThreadProcessId(GetForegroundWindow(),&pid);
             const bool down=pid==GetCurrentProcessId()&&(GetAsyncKeyState(VK_CONTROL)&0x8000)&&(GetAsyncKeyState(VK_MENU)&0x8000)&&(GetAsyncKeyState('L')&0x8000);
             if(down&&!p->seam_key_down){p->world=!p->world;session().write("{\"type\":\"atmosphere_seam_toggle\",\"world_lighting\":"+std::string(p->world?"true":"false")+",\"sky_fog_unchanged\":true,\"frame\":"+std::to_string(frame)+"}");}p->seam_key_down=down;
@@ -316,7 +319,10 @@ inline HRESULT universal_draw(Device8& d,atmosphere::Pilot& p,UINT min,UINT vert
     if(material&&(material->flags&atmosphere::Deny)){seam_native(d,p,min,vertices,start,triangles,fvf,noise,opaque,alpha_test,material,course,texture_sha,"native_material_excluded");return fail("resolver_excluded_material");}
     // Instanced draws need an explicit material role: automatic ground is
     // only ever proven for the static identity-world terrain batches.
-    if(world&&!material)return fail("resolver_instanced_material_unknown");
+    if(world&&!material){
+        if(p.first_reason(("instanced_unknown_"+texture_sha).c_str()))session().write("{\"type\":\"atmosphere_instanced_material_unknown\",\"course\":"+quote(std::string(course))+
+            ",\"texture_sha256\":"+quote(texture_sha)+",\"vertices\":"+std::to_string(vertices)+",\"triangles\":"+std::to_string(triangles)+",\"frame\":"+std::to_string(d.trace.frame_number())+"}");
+        return fail("resolver_instanced_material_unknown");}
     if(world&&vertices>4096)return fail("resolver_instanced_range_too_large");
     if(!material&&(!p.auto_ground||!noise||!opaque||alpha_test)){seam_native(d,p,min,vertices,start,triangles,fvf,noise,opaque,alpha_test,material,course,texture_sha,"native_ambiguous_material");return fail("resolver_ambiguous_material");}
     if(!vertices||vertices>32768||!triangles||triangles>32768||FAILED(n.GetStreamSource(0,&saved.stream,&saved.stride))||!saved.stream||

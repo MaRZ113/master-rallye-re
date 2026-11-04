@@ -104,6 +104,15 @@ public:
     }
 };
 
+// Share of the sun-facing colour for paired front/back (orientation-ambiguous)
+// non-vegetation vertices; the rest is the shadow-side colour.
+inline constexpr float kPairedSunShare=.35f;
+inline uint32_t mix_color(uint32_t lit,uint32_t shade,float share)noexcept {
+    uint32_t out=lit&0xff000000u;
+    for(unsigned shift:{0u,8u,16u}){const float a=float((lit>>shift)&255),b=float((shade>>shift)&255);
+        out|=uint32_t(std::clamp(std::lround(a*share+b*(1-share)),0l,255l))<<shift;}
+    return out;
+}
 // Geometric normals are reconstructed once per changed vertex/index range.
 // They do not pretend to be the original authored smoothing normals. Index
 // winding is checked by source metadata; the proven native base_noise fallback
@@ -176,9 +185,15 @@ inline bool light_geometry(ResolvedGeometry& entry,unsigned stride,unsigned min,
             if(!hinted&&entry.opposite_faces){auto opposite=n;for(auto& x:opposite)x=-x;hinted=hints->resolve(course,texture,positions[i],opposite,n);}
             if(hinted)++entry.hinted;}
         entry.effective_normals[i]=n;
-        if(!environment&&((material&&(material->flags&TwoSided))||(entry.opposite_faces&&!hinted))){float dot=0;for(unsigned j=0;j<3;++j)dot+=n[j]*settings.direction[j];if(dot<0)for(float& x:n)x=-x;}
+        bool ambiguous=false;
+        if(!environment&&((material&&(material->flags&TwoSided))||(entry.opposite_faces&&!hinted))){float dot=0;for(unsigned j=0;j<3;++j)dot+=n[j]*settings.direction[j];if(dot<0)for(float& x:n)x=-x;
+            // Thin paired props (rails, fences, boards) share one colour for both
+            // faces: always using the sun-facing side made them glow against a
+            // backlit sunset. Vegetation keeps its translucent sun-facing look.
+            ambiguous=category!=3;}
         const unsigned color_offset=environment?24:12;
-        uint32_t original=0;std::memcpy(&original,entry.original.data()+i*stride+color_offset,4);const auto color=scene_color(original,n,settings);
+        uint32_t original=0;std::memcpy(&original,entry.original.data()+i*stride+color_offset,4);auto color=scene_color(original,n,settings);
+        if(ambiguous){auto away=n;for(auto& x:away)x=-x;color=mix_color(color,scene_color(original,away,settings),kPairedSunShare);}
         std::memcpy(entry.lit.data()+i*stride+color_offset,&color,4);entry.changed+=color!=original;
     }
     entry.category=category;entry.accepted=true;entry.reason=automatic?"native_opaque_base_noise_ground":"material_capability_and_live_geometry";return true;

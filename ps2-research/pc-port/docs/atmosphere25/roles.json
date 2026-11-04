@@ -1,0 +1,30 @@
+{
+  "France1": {
+    "masterlogo-tga": "signage",
+    "goodrich-tga": "signage",
+    "burago-tga": "signage",
+    "newbright-tga": "signage",
+    "fujitsu-tga": "signage",
+    "bagoo-tga": "signage",
+    "go-tga": "signage"
+  },
+  "Turkey2": {
+    "masterlogo-tga": "signage",
+    "goodrich-tga": "signage",
+    "burago-tga": "signage",
+    "newbright-tga": "signage",
+    "fujitsu-tga": "signage",
+    "bagoo-tga": "signage",
+    "go-tga": "signage"
+  },
+  "Turkey3": {
+    "masterlogo-tga": "signage",
+    "goodrich-tga": "signage",
+    "burago-tga": "signage",
+    "newbright-tga": "signage",
+    "fujitsu-tga": "signage",
+    "bagoo-tga": "signage",
+    "go-tga": "signage",
+    "newtex-tga": "static"
+  }
+}
