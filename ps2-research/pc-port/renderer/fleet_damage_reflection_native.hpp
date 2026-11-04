@@ -2,7 +2,7 @@
 
 // This route does not authorize a private PS2 body. It draws the real native
 // damaged record once, with Mode4 only on a wholly reflective source material.
-inline xtrailintegration::Result fleet_damage_reflection(Device8& d,ps2port::FrontendModel& parent,ps2port::FrontendModel& model,const ps2port::FleetRaceProfile& profile,const Context& owner,const D3DMATRIX& world,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UINT start,UINT count,uintptr_t pc) {
+inline dipintegration::Result fleet_damage_reflection(Device8& d,ps2port::FrontendModel& parent,ps2port::FrontendModel& model,const ps2port::FleetRaceProfile& profile,const Context& owner,const D3DMATRIX& world,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UINT start,UINT count,uintptr_t pc) {
  if(!owner.owner.private_tree||model.fleet_damage.eligible()||!model.fleet_damage.healthy_complete())return {};
  auto* e=d.ps2_port();auto* reflection=e?e->reflection():nullptr;if(!reflection||!reflection->active()||reflection->mode_value()!=4||!reflection->expanded())return {};
  ps2port::RaceDescriptors desc;desc.vd=owner.vd;std::copy(owner.id.begin(),owner.id.end(),desc.id.begin());D3DINDEXBUFFER_DESC format{};ps2integration::Ref<IDirect3DIndexBuffer8> ib;UINT base=0;if(FAILED(d.native()->GetIndices(&ib.value,&base))||!ib.value||base||FAILED(ib.value->GetDesc(&format)))return {};desc.id[4]=format.Format;

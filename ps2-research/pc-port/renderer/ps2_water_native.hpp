@@ -4,16 +4,16 @@
 // key is replaced by the PS2 passes of its matched water triangles (ps2_water_pilot.hpp). Compiled only into the staged
 // baseline. Anything unproved (no certificate, not a key, world matrix not identity, mirrors missing) stays the original
 // draw.
-#include "xtrail_native_integration.hpp"
+#include "dip_integration.hpp"
 #include "course_objects_native_integration.hpp"
 #include "ps2_water_pilot.hpp"
 #include <cstdio>
 
 namespace gfx2::waterintegration {
-using Result=xtrailintegration::Result;
+using Result=dipintegration::Result;
 inline ps2port::PS2WaterPilot* pilot(Device8& d) noexcept {return d.ps2_port()?d.ps2_port()->water():nullptr;}
 
-inline void writer(void* o,uint32_t slot,const Args& a,HRESULT hr) noexcept {xtrailintegration::notify(*static_cast<Device8*>(o),slot,a,hr);}
+inline void writer(void* o,uint32_t slot,const Args& a,HRESULT hr) noexcept {dipintegration::notify(*static_cast<Device8*>(o),slot,a,hr);}
 inline HRESULT repair(Device8& d) noexcept {
     auto* p=pilot(d);if(!p)return S_OK;if(p->blocked())return D3DERR_DEVICELOST;
     if(!p->transaction.pending())return S_OK;

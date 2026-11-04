@@ -100,8 +100,8 @@ struct Native:MockDeviceBase {
 };
 }
 int main(){
- CHECK(!xtrail_fidelity_opt_in(L"0",L"1",true));CHECK(!xtrail_fidelity_opt_in(L"1",L"2",true));
- CHECK(!xtrail_fidelity_opt_in(L"1",L"1",false));CHECK(xtrail_fidelity_opt_in(L"1",L"1",true));
+ CHECK(!feature_opt_in(L"0",L"1",true));CHECK(!feature_opt_in(L"1",L"2",true));
+ CHECK(!feature_opt_in(L"1",L"1",false));CHECK(feature_opt_in(L"1",L"1",true));
  XtrailFidelity stock(true,L"Z:\\nonexistent.ini");CHECK(!stock.requested());
  const auto notify=[](uint32_t,const Args&,HRESULT)noexcept{};
  {XtrailTransaction uncaptured;uncaptured.mark_up();CHECK(!uncaptured.pending());}

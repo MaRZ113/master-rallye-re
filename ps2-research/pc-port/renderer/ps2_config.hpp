@@ -93,7 +93,8 @@ inline const wchar_t* default_value(const std::wstring& historical) noexcept {
     static constexpr std::pair<const wchar_t*, const wchar_t*> table[] = {
         {L"RaceModelAssetDirectory", L"PS2Vehicles"}, {L"FrontendModelAssetDirectory", L"PS2Vehicles"},
         {L"GrassAssetDirectory", L"PS2Grass"}, {L"GroundDetailAsset", L"PS2Grass\\PS2GroundNoise.gxi"},
-        {L"BrakeGlowAsset", L"PS2Grass\\PS2BrakeGlow.gxi"}, {L"KiaBrakeOnAsset", L"PS2Vehicles\\PS2KiaBrakeOn.gxi"},
+        {L"BrakeGlowAsset", L"PS2Grass\\PS2BrakeGlow.gxi"}, {L"BrakeOnAsset", L"PS2Vehicles\\PS2BrakeOn.gxi"},
+        {L"KiaBrakeOnAsset", L"PS2Vehicles\\PS2KiaBrakeOn.gxi"},
         {L"ReflectionSourceGXI", L"PS2Grass\\PS2EnvSource64x64.gxi"}, {L"PS2HudAssetDir", L"PS2Hud"},
         {L"CollisionDebugArchive", L"Data.sma"}, {L"ReflectionWorldFirst", L"1"}, {L"BaselineAllRaceModes", L"1"},
         {L"RetailDerivativeBuilds", L"1"},

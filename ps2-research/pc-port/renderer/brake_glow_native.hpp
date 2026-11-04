@@ -1,6 +1,7 @@
 #pragma once
 #include "ps2_race_certificate.hpp"
 #include "frontend_model_native.hpp"
+#include "lamp_integration.hpp"
 #include "xtrail_native_integration.hpp"
 namespace gfx2::lampintegration {
 inline bool owned_lamp_context(Device8& d,const RaceCertificate& race,const ps2port::DrawSnapshot& g,const D3DMATRIX& world,uintptr_t texture,ps2port::KiaLampContext& c,unsigned& family)noexcept{
@@ -17,19 +18,19 @@ inline bool owned_lamp_context(Device8& d,const RaceCertificate& race,const ps2p
  c={d.trace.device_id(),race.race_generation,race.owner_lifetime,d.trace.resources.generation(texture),instance,packet,model,materials,token,texture,true,priv};return true;
 }
 inline bool kia_context(Device8& d,const RaceCertificate& race,const ps2port::DrawSnapshot& g,const D3DMATRIX& world,uintptr_t texture,ps2port::KiaLampContext& c)noexcept{unsigned family=UINT_MAX;if(!owned_lamp_context(d,race,g,world,texture,c,family)||std::strcmp(ps2port::kRaceFleetProfiles[family].ps2Family,"KIASPORTAGE"))return false;auto* body=d.ps2_port()->race_model()->car_child();return body&&body->certified&&body->drawn_frame==d.trace.frame_number()&&body->kia_damage.complete();}
-inline xtrailintegration::Result draw_fleet_lamp(Device8&,D3DPRIMITIVETYPE,UINT,UINT,UINT,UINT,uintptr_t)noexcept;
-inline xtrailintegration::Result draw(Device8& d,D3DPRIMITIVETYPE type,UINT min_index,UINT vertices,UINT start,UINT count,uintptr_t pc)noexcept{
+inline dipintegration::Result draw_fleet_lamp(Device8&,D3DPRIMITIVETYPE,UINT,UINT,UINT,UINT,uintptr_t)noexcept;
+inline dipintegration::Result draw(Device8& d,D3DPRIMITIVETYPE type,UINT min_index,UINT vertices,UINT start,UINT count,uintptr_t pc)noexcept{
  // First PS2 entry of every indexed draw: frame boundary of the PERF2 timing window.
  ps2port::perf::frame(d.trace.device_id(),d.trace.frame_number(),[](const std::string& r){session().write(r);});
  ps2port::note_render_frame(d.trace.device_id(),d.trace.frame_number());
  ps2port::perf::Timer perf_timer(ps2port::perf::LampEntry);
  frontendmodelintegration::FleetParticipantScope fleet_scope(d,pc);
  const auto fleet=draw_fleet_lamp(d,type,min_index,vertices,start,count,pc);if(fleet.handled)return fleet;
- auto* e=d.ps2_port();auto* p=e&&e->xtrail()?e->xtrail()->brake():nullptr;
+ auto* e=d.ps2_port();auto* p=e?e->brake_glow():nullptr;
  if(!p||!p->requested()||type!=D3DPT_TRIANGLELIST||!d.trace.scene_active||GetCurrentThreadId()!=d.trace.render_thread_id()||d.trace.shadow.recording||d.trace.effective_shadow.recording)return {};
  bool layout=false;for(const auto& profile:ps2port::kBrakeGlowProfiles)layout=layout||(profile.vertices==vertices&&profile.triangles==count);const bool kia_on=vertices==16&&count==12; if(!layout&&!kia_on)return {};
  // PS2-AUDIO/Kia diagnostics: the first early exit of each numbered gate for a Kia lamp candidate (ON core 16/12, glow 32/32) is logged once.
- auto kia_gate=[&](unsigned gate)noexcept->xtrailintegration::Result{if(kia_on||(vertices==32&&count==32)){static uint64_t seen=0;if(gate<64&&!(seen&(uint64_t(1)<<gate))){seen|=uint64_t(1)<<gate;try{session().write("{\"type\":\"ps2_kia_lamp_gate\",\"gate\":"+std::to_string(gate)+",\"layer\":"+(kia_on?"\"ON\"":"\"GLOW\"")+",\"frame\":"+std::to_string(d.trace.frame_number())+"}");}catch(...){}}}return {};};
+ auto kia_gate=[&](unsigned gate)noexcept->dipintegration::Result{if(kia_on||(vertices==32&&count==32)){static uint64_t seen=0;if(gate<64&&!(seen&(uint64_t(1)<<gate))){seen|=uint64_t(1)<<gate;try{session().write("{\"type\":\"ps2_kia_lamp_gate\",\"gate\":"+std::to_string(gate)+",\"layer\":"+(kia_on?"\"ON\"":"\"GLOW\"")+",\"frame\":"+std::to_string(d.trace.frame_number())+"}");}catch(...){}}}return {};};
  if(pc!=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+SHARED_WORLD_RETURN_RVA)return kia_gate(1);
  bool committed=false;HRESULT submitted=E_FAIL;
  try{
@@ -62,12 +63,12 @@ inline xtrailintegration::Result draw(Device8& d,D3DPRIMITIVETYPE type,UINT min_
   DWORD value=0;for(auto expected:std::array<std::pair<D3DRENDERSTATETYPE,DWORD>,6>{{{D3DRS_ALPHATESTENABLE,FALSE},{D3DRS_ALPHABLENDENABLE,kia_on?FALSE:TRUE},{D3DRS_SRCBLEND,D3DBLEND_SRCALPHA},{D3DRS_DESTBLEND,D3DBLEND_INVSRCALPHA},{D3DRS_ZWRITEENABLE,TRUE},{D3DRS_BLENDOP,D3DBLENDOP_ADD}}})if(FAILED(n.GetRenderState(expected.first,&value))||value!=expected.second){reason="native_state_contract_mismatch";log(false,E_PENDING,E_PENDING,E_PENDING);return kia_gate(13);}
   if(!courseintegration::native_dependencies(n)){reason="native_dependencies_rejected";log(false,E_PENDING,E_PENDING,E_PENDING);return kia_gate(14);}
   D3DCAPS8 caps{};if(FAILED(n.GetDeviceCaps(&caps))||!(caps.SrcBlendCaps&D3DPBLENDCAPS_ONE)||!(caps.DestBlendCaps&D3DPBLENDCAPS_ONE)||!(caps.TextureOpCaps&D3DTEXOPCAPS_SELECTARG1)){reason="device_caps_rejected";log(false,E_PENDING,E_PENDING,E_PENDING);return kia_gate(15);}
-  if(!(kia_on?p->initialize_kia_on(n):p->initialize(n))){reason="required_ps2_texture_unavailable";log(false,E_PENDING,E_PENDING,E_PENDING);return kia_gate(16);}
-  auto writer=[&](uint32_t slot,const Args& a,HRESULT h)noexcept{xtrailintegration::notify(d,slot,a,h);};auto& transaction=p->transaction;auto hr=transaction.capture(n);if(FAILED(hr)){reason="transaction_capture_failed";log(false,hr,E_PENDING,E_PENDING);return kia_gate(17);}
-  auto applied=kia_on?transaction.kia_lamp_on_pass(n,writer):transaction.emissive_pass(n,writer);if(SUCCEEDED(applied))applied=transaction.bind_primary(n,kia_on?p->kia_on_texture():p->texture(),writer);if(FAILED(applied)){reason="transaction_apply_failed";const auto restored=transaction.restore(n,writer);log(false,applied,E_PENDING,restored);if(FAILED(restored)){p->disable();return {true,restored};}return kia_gate(18);}
+  if(!(kia_on?p->initialize_brake_on(n):p->initialize(n))){reason="required_ps2_texture_unavailable";log(false,E_PENDING,E_PENDING,E_PENDING);return kia_gate(16);}
+  auto writer=[&](uint32_t slot,const Args& a,HRESULT h)noexcept{dipintegration::notify(d,slot,a,h);};auto& transaction=p->transaction;auto hr=transaction.capture(n);if(FAILED(hr)){reason="transaction_capture_failed";log(false,hr,E_PENDING,E_PENDING);return kia_gate(17);}
+  auto applied=kia_on?transaction.brake_on_pass(n,writer):transaction.emissive_pass(n,writer);if(SUCCEEDED(applied))applied=transaction.bind_primary(n,kia_on?p->brake_on_texture():p->texture(),writer);if(FAILED(applied)){reason="transaction_apply_failed";const auto restored=transaction.restore(n,writer);log(false,applied,E_PENDING,restored);if(FAILED(restored)){p->disable();return {true,restored};}return kia_gate(18);}
   if(kia_candidate){ps2port::KiaLampContext final;D3DMATRIX final_world{};const bool tokens=d.trace.resources.generation(g.vertex_resource)==g.vertex_generation&&d.trace.resources.generation(g.index_resource)==g.index_generation;std::vector<BYTE> empty;uint64_t vr=0,ir=0;const bool revisions=d.copy_buffer_shadow(vb.value,BufferKind::Vertex,g.vertex_generation,0,0,empty,vr)&&d.copy_buffer_shadow(ib.value,BufferKind::Index,g.index_generation,0,0,empty,ir)&&vr==g.vertex_revision&&ir==g.index_revision;if(!tokens||!revisions||FAILED(n.GetTransform(D3DTS_WORLD,&final_world))||std::memcmp(&world,&final_world,64)||!kia_context(d,certificate,g,world,texid,final)||!final.same_owner(kia)||final.material_vector!=kia.material_vector||final.material_token!=kia.material_token||final.texture_generation!=kia.texture_generation){const auto restored=transaction.restore(n,writer);reason="final_current_owner_or_resource_changed";log(false,E_PENDING,E_PENDING,restored);if(FAILED(restored)){p->disable();return {true,restored};}return kia_gate(19);}}
-  committed=true;const auto drawn=n.DrawIndexedPrimitive(type,min_index,vertices,start,count);submitted=drawn;xtrailintegration::notify(d,71,pack(type,min_index,vertices,start,count),drawn);const auto restored=transaction.restore(n,writer);if(FAILED(restored))p->disable();log(SUCCEEDED(drawn)&&SUCCEEDED(restored),applied,drawn,restored);return {true,FAILED(restored)?restored:drawn};
- }catch(...){const auto restored=xtrailintegration::repair(d);if(FAILED(restored)){p->disable();return {true,restored};}return committed?xtrailintegration::Result{true,submitted}:xtrailintegration::Result{};}
+  committed=true;const auto drawn=n.DrawIndexedPrimitive(type,min_index,vertices,start,count);submitted=drawn;dipintegration::notify(d,71,pack(type,min_index,vertices,start,count),drawn);const auto restored=transaction.restore(n,writer);if(FAILED(restored))p->disable();log(SUCCEEDED(drawn)&&SUCCEEDED(restored),applied,drawn,restored);return {true,FAILED(restored)?restored:drawn};
+ }catch(...){const auto restored=lampintegration::repair(d);if(FAILED(restored)){p->disable();return {true,restored};}return committed?dipintegration::Result{true,submitted}:dipintegration::Result{};}
 }
 }
 

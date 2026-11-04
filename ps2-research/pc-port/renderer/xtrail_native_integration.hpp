@@ -1,19 +1,16 @@
 #pragma once
-#include "reflection_native_integration.hpp"
+#include "dip_integration.hpp"
 #include "ps2_race_certificate.hpp"
 #include "xtrail_fidelity.hpp"
 #include "xtrail_decal_registry.hpp"
 #include "xtrail_glass.hpp"
-#include "brake_glow.hpp"
 #include "course_objects_native_integration.hpp"
 namespace gfx2::xtrailintegration {
-inline void notify(Device8& d,uint32_t slot,const Args& a,HRESULT hr) noexcept {
-    d.trace.after(slot,a,static_cast<uint32_t>(hr),0,&a,256,false,true);
-}
+using dipintegration::notify;
+using dipintegration::Result;
 inline HRESULT repair(Device8& d) noexcept {
     auto* p=d.ps2_port()?d.ps2_port()->xtrail():nullptr;if(!p)return S_OK;
     if(p->blocked())return D3DERR_DEVICELOST;
-    if(auto* brake=p->brake()){if(brake->blocked())return D3DERR_DEVICELOST;if(brake->transaction.pending()){auto hr=brake->transaction.restore(*d.native(),[&](uint32_t slot,const Args& a,HRESULT h)noexcept{notify(d,slot,a,h);});if(FAILED(hr))return hr;}}
     if(auto* glass=p->glass()){
         if(glass->blocked())return D3DERR_DEVICELOST;
         if(glass->transaction.pending()){const auto hr=glass->transaction.restore(*d.native(),[&](uint32_t slot,const Args& a,HRESULT h)noexcept{notify(d,slot,a,h);});if(FAILED(hr))return hr;}
@@ -21,7 +18,6 @@ inline HRESULT repair(Device8& d) noexcept {
     if(!p->transaction.pending())return S_OK;
     return p->transaction.restore(*d.native(),[&](uint32_t slot,const Args& a,HRESULT hr) noexcept {notify(d,slot,a,hr);});
 }
-struct Result{bool handled=false;HRESULT hr=S_OK;};
 inline Result draw(Device8& d,D3DPRIMITIVETYPE type,UINT min_index,UINT vertices,UINT start,UINT count,uintptr_t pc) noexcept {
     ps2port::perf::Timer perf_timer(ps2port::perf::XTrail);
     auto* e=d.ps2_port();auto* p=e?e->xtrail():nullptr;auto* reflection=e?e->reflection():nullptr;

@@ -3,7 +3,7 @@
 // Native layer of GroundDetail (renderer/ground_detail.hpp). Compiled only into the staged baseline.
 // Admits a draw only when the complete PC `shader/base_noise` contract (585ac0) is live on the native
 // device and the stage1 texture is the exact PC noise-tga; anything else stays the original draw.
-#include "xtrail_native_integration.hpp"
+#include "dip_integration.hpp"
 #include "ground_detail.hpp"
 
 namespace gfx2::groundintegration {
@@ -21,7 +21,7 @@ inline void log(Device8& d,ps2port::GroundDetail& g,const char* reason,HRESULT h
 
 inline HRESULT repair(Device8& d) noexcept {
     auto* g=ground(d);if(!g||!g->transaction.pending())return S_OK;
-    g->transaction.set_writer(&d,[](void* o,uint32_t slot,const Args& a,HRESULT hr) noexcept {xtrailintegration::notify(*static_cast<Device8*>(o),slot,a,hr);});
+    g->transaction.set_writer(&d,[](void* o,uint32_t slot,const Args& a,HRESULT hr) noexcept {dipintegration::notify(*static_cast<Device8*>(o),slot,a,hr);});
     return g->transaction.restore(*d.native());
 }
 
@@ -50,9 +50,9 @@ inline bool course_world(Device8& d) noexcept {
 // and cut out every later layer behind them. The PS2 treeblend mode (docs TREEBLEND1: mode 2, ABE1, ATE0, ZMSK1) blends
 // with depth writes masked: ForestFix=1 does exactly that. ForestFix=2 keeps depth and drops texels at or below
 // ForestFixAlphaRef (default 32) instead. The sky (Z off) is never matched.
-inline xtrailintegration::Result forest(Device8& d,ps2port::GroundDetail& g,IDirect3DDevice8& n,D3DPRIMITIVETYPE type,UINT min_index,UINT vertices,UINT start,UINT count) noexcept {
+inline dipintegration::Result forest(Device8& d,ps2port::GroundDetail& g,IDirect3DDevice8& n,D3DPRIMITIVETYPE type,UINT min_index,UINT vertices,UINT start,UINT count) noexcept {
     auto& t=g.transaction;
-    t.set_writer(&d,[](void* o,uint32_t slot,const Args& a,HRESULT hr) noexcept {xtrailintegration::notify(*static_cast<Device8*>(o),slot,a,hr);});
+    t.set_writer(&d,[](void* o,uint32_t slot,const Args& a,HRESULT hr) noexcept {dipintegration::notify(*static_cast<Device8*>(o),slot,a,hr);});
     HRESULT hr=t.capture(n,&d.trace.effective_shadow);if(FAILED(hr)){log(d,g,"forest_capture_failed",hr);return {};}
     if(g.forest_fix()==1)hr=t.set(n,ps2port::kForestZWriteOp,FALSE);
     else{
@@ -68,7 +68,7 @@ inline xtrailintegration::Result forest(Device8& d,ps2port::GroundDetail& g,IDir
     return {true,drawn};
 }
 
-inline xtrailintegration::Result draw(Device8& d,D3DPRIMITIVETYPE type,UINT min_index,UINT vertices,UINT start,UINT count,uintptr_t pc) noexcept {
+inline dipintegration::Result draw(Device8& d,D3DPRIMITIVETYPE type,UINT min_index,UINT vertices,UINT start,UINT count,uintptr_t pc) noexcept {
     if(ps2port::perf::bypassed(ps2port::perf::BypassGround))return {};ps2port::perf::Timer perf_timer(ps2port::perf::Ground);
     auto* g=ground(d);if(!g)return {};
     if(const char* startup=g->take_startup_reason())log(d,*g,startup);
@@ -102,7 +102,7 @@ inline xtrailintegration::Result draw(Device8& d,D3DPRIMITIVETYPE type,UINT min_
     if(!g->initialize(n)){log(d,*g,"ps2_noise_texture_create_failed");return {};}
 
     auto& t=g->transaction;
-    t.set_writer(&d,[](void* o,uint32_t slot,const Args& a,HRESULT hr) noexcept {xtrailintegration::notify(*static_cast<Device8*>(o),slot,a,hr);});
+    t.set_writer(&d,[](void* o,uint32_t slot,const Args& a,HRESULT hr) noexcept {dipintegration::notify(*static_cast<Device8*>(o),slot,a,hr);});
     HRESULT hr=t.capture(n,&d.trace.effective_shadow);if(FAILED(hr)){log(d,*g,"transaction_capture_failed",hr);return {};}
     DWORD uv=0,address_u=0,address_v=0;
     if(!stage_value(d,n,1,D3DTSS_TEXCOORDINDEX,uv)||!stage_value(d,n,1,D3DTSS_ADDRESSU,address_u)||

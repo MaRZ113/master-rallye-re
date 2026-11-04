@@ -35,6 +35,7 @@ class CollisionDebugPilot;
 class RigidPropsPilot;
 class VehiclePartitionPilot;
 class XtrailFidelity;
+class BrakeGlow;
 class FrontendModel;
 
 enum class PilotMode : uint8_t {
@@ -330,6 +331,8 @@ public:
     ReflectionPilot* reflection() noexcept { return reflection_.get(); }
     VehiclePartitionPilot* vehicle_partitions() noexcept { return vehicle_partitions_.get(); }
     XtrailFidelity* xtrail() noexcept {return xtrail_.get();}
+    // Brake lamps of every PS2 fleet car (glow halo, ON core, OFF continuity).
+    BrakeGlow* brake_glow() noexcept {return brake_glow_.get();}
     bool native_states_pending() const noexcept;
     CourseObjectsPilot* course_objects() noexcept { return course_objects_.get(); }
     GrassPilot* grass() noexcept { return grass_.get(); }
@@ -436,6 +439,7 @@ private:
     std::unique_ptr<ReflectionPilot> reflection_;
     std::unique_ptr<VehiclePartitionPilot> vehicle_partitions_;
     std::unique_ptr<XtrailFidelity> xtrail_;
+    std::unique_ptr<BrakeGlow> brake_glow_;
     std::unique_ptr<FrontendModel> frontend_model_;
     std::unique_ptr<FrontendModel> race_model_;
     std::unique_ptr<FrontendModel> wheel_model_;

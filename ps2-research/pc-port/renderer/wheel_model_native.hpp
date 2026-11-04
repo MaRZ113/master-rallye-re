@@ -3,7 +3,7 @@
 #include "fleet_wheel_native.hpp"
 #include "wheel_model_registry.hpp"
 namespace gfx2::frontendmodelintegration {
-inline xtrailintegration::Result draw_wheel(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UINT start,UINT count,uintptr_t pc)noexcept{
+inline dipintegration::Result draw_wheel(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UINT start,UINT count,uintptr_t pc)noexcept{
  ps2port::perf::Timer perf_timer(ps2port::perf::WheelEntry);
  frontendmodelintegration::FleetParticipantScope fleet_scope(d,pc);
  const auto expanded=draw_fleet_wheel(d,type,min,vertices,start,count,pc);if(expanded.handled)return expanded;
@@ -12,7 +12,7 @@ inline xtrailintegration::Result draw_wheel(Device8& d,D3DPRIMITIVETYPE type,UIN
  // PS2FleetAllCars: only a wheel egg of an X-Trail participant (never the 4 m chassis distance alone).
  if(ps2port::fleet_active.active&&(ps2port::fleet_active.role!=ps2port::FleetRole::Wheel||!ps2port::fleet_folder_matches(ps2port::fleet_active.folder.data(),"Xtrail")))return {};
  unsigned source=4;for(unsigned i=0;i<4;++i)if(ps2port::kWheelSources[i].vertices==vertices&&ps2port::kWheelSources[i].triangles==count)source=i;if(source==4)return {};
- unsigned gate=0;auto fallback=[&]()noexcept->xtrailintegration::Result{if(p->claim(1u<<(12+gate)))session().write("{\"type\":\"ps2_wheel_gate\",\"gate\":"+std::to_string(gate)+",\"frame\":"+std::to_string(d.trace.frame_number())+"}");return {};};
+ unsigned gate=0;auto fallback=[&]()noexcept->dipintegration::Result{if(p->claim(1u<<(12+gate)))session().write("{\"type\":\"ps2_wheel_gate\",\"gate\":"+std::to_string(gate)+",\"frame\":"+std::to_string(d.trace.frame_number())+"}");return {};};
  const auto fixed=repair(d);if(FAILED(fixed))return {true,fixed};bool committed=false;HRESULT submitted=E_FAIL;
  try{
  bool single=false;const auto cert=courseintegration::certificate(d,single);const auto frame=d.trace.frame_number();if(!ps2port::wheel_certificate_scope(ps2port::fleet_single_car_race(single,cert),chassis->certified&&chassis->drawn_frame==frame)||cert.race_generation!=chassis->race_generation||cert.owner_lifetime!=chassis->race_owner_lifetime)return fallback();
@@ -32,6 +32,6 @@ inline xtrailintegration::Result draw_wheel(Device8& d,D3DPRIMITIVETYPE type,UIN
  gate=7;auto writer=[&](uint32_t s,const Args& a,HRESULT h)noexcept{notify(d,s,a,h);};auto& t=p->transaction;auto hr=t.capture(n);if(FAILED(hr))return fallback();hr=t.material(n,m.mode,p->texture(m.texture[0]),secondary,chassis->environment,writer,source==1?D3DTADDRESS_WRAP:D3DTADDRESS_CLAMP);if(SUCCEEDED(hr)&&!(p->parts_validated&(1u<<source))){DWORD passes=0;hr=n.ValidateDevice(&passes);if(SUCCEEDED(hr)&&passes!=1)hr=D3DERR_CONFLICTINGTEXTUREFILTER;if(SUCCEEDED(hr))p->parts_validated|=1u<<source;}
  bool final_single=false;const auto current=courseintegration::certificate(d,final_single);bool tokens=true;for(const auto& r:w.records)tokens=tokens&&current_tokens(d,r);for(unsigned i=0;i<13;++i)tokens=tokens&&current_tokens(d,chassis->records[i]);Context final_owner;D3DMATRIX final_world{};if(FAILED(hr)||!tokens||!ps2port::wheel_certificate_scope(ps2port::fleet_single_car_race(final_single,current),chassis->certified&&chassis->drawn_frame==frame)||current.race_generation!=cert.race_generation||current.owner_lifetime!=cert.owner_lifetime||!race_context(caller_stack,pc,final_owner,4)||!(final_owner.owner==c.owner)||final_owner.mesh!=c.mesh||FAILED(n.GetTransform(D3DTS_WORLD,&final_world))||std::memcmp(&final_world,&world,64)){const auto restored=t.restore(n,writer);if(FAILED(restored)){p->disable();return {true,restored};}return fallback();}
  committed=true;t.before_up();const auto& data=p->expanded()[source];submitted=n.DrawPrimitiveUP(D3DPT_TRIANGLELIST,count,data.data(),36);writer(72,pack(D3DPT_TRIANGLELIST,count,data.data(),36),submitted);const auto restored=t.restore(n,writer);if(FAILED(submitted)||FAILED(restored))p->disable();if(p->claim(1u<<(20+slot*2+(source==3))))session().write("{\"type\":\"ps2_wheel_replacement\",\"slot\":"+std::to_string(slot)+",\"source_record\":"+std::to_string(source)+",\"private_faces\":"+std::to_string(count)+",\"source_geometry_verified\":true,\"native_wheel_world_preserved\":true,\"rubber_secondary_preserved\":"+(source==3?"false":"true")+",\"draw_hresult\":"+std::to_string(uint32_t(submitted))+",\"restore_hresult\":"+std::to_string(uint32_t(restored))+"}");return {true,submitted};
- }catch(...){p->disable();const auto h=repair(d);return committed?xtrailintegration::Result{true,submitted}:FAILED(h)?xtrailintegration::Result{true,h}:xtrailintegration::Result{};}
+ }catch(...){p->disable();const auto h=repair(d);return committed?dipintegration::Result{true,submitted}:FAILED(h)?dipintegration::Result{true,h}:dipintegration::Result{};}
 }
 }

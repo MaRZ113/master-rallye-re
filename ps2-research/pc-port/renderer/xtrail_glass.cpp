@@ -45,21 +45,10 @@ std::vector<XtrailDecalVertex> glass_vertices(const DrawSnapshot& g,const std::v
     std::vector<XtrailDecalVertex> out;out.reserve(54);const auto size=g.index_format==D3DFMT_INDEX16?2u:4u;
     for(unsigned i=0;i<54;++i){uint32_t at=0;std::memcpy(&at,g.index_bytes.data()+i*size,size);out.push_back(vertices[at-g.min_index]);}return out;
 }
-void GlassTransaction::release()noexcept{
-    if(texture_)texture_->Release();if(stream_)stream_->Release();if(indices_)indices_->Release();
-    texture_=nullptr;stream_=nullptr;indices_=nullptr;pending_=0;captured_=false;
-}
-HRESULT GlassTransaction::capture(IDirect3DDevice8& n)noexcept{
-    if(pending_)return D3DERR_INVALIDCALL;release();
-    for(size_t i=0;i<std::size(kGlassOps);++i){const auto& op=kGlassOps[i];const auto hr=op.render?n.GetRenderState(static_cast<D3DRENDERSTATETYPE>(op.key),&scalar_[i]):n.GetTextureStageState(op.stage,static_cast<D3DTEXTURESTAGESTATETYPE>(op.key),&scalar_[i]);if(FAILED(hr))return hr;}
-    auto hr=n.GetTexture(0,&texture_);if(SUCCEEDED(hr))hr=n.GetTransform(D3DTS_TEXTURE0,&tex0_);
-    if(SUCCEEDED(hr))hr=n.GetStreamSource(0,&stream_,&stride_);if(SUCCEEDED(hr))hr=n.GetIndices(&indices_,&base_);
-    if(FAILED(hr)||!stream_||!indices_){release();return FAILED(hr)?hr:E_POINTER;}captured_=true;return S_OK;
-}
 XtrailGlass::XtrailGlass(bool supported,const std::wstring& ini)noexcept{
     wchar_t mode[16]{},version[16]{};::gfx2::ps2port::config::read_string(L"XtrailGlassMode",L"0",mode,16,ini.c_str());
     ::gfx2::ps2port::config::read_string(L"XtrailGlassVersion",L"1",version,16,ini.c_str());
-    if(!xtrail_fidelity_opt_in(mode,version,supported))return;
+    if(!feature_opt_in(mode,version,supported))return;
     diagnostics_=::gfx2::ps2port::config::read_int(L"XtrailGlassDiagnostics",0,ini.c_str())==1;
     try{
         wchar_t filename[32768]{};::gfx2::ps2port::config::read_string(L"XtrailGlassAsset",L"XtrailHeadlight.ps2glass",filename,32768,ini.c_str());

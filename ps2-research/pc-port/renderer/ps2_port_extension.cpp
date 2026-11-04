@@ -15,6 +15,7 @@
 #include "ps2_water_pilot.hpp"
 #include "vehicle_partition.hpp"
 #include "xtrail_fidelity.hpp"
+#include "brake_glow.hpp"
 #include "frontend_model.hpp"
 
 #include "foliage_probe.hpp"
@@ -277,6 +278,7 @@ PS2PortExtension::PS2PortExtension(bool exact_build, const std::string& exe_sha,
         reflection_ = std::make_unique<ReflectionPilot>(build_valid_, ini);
         vehicle_partitions_ = std::make_unique<VehiclePartitionPilot>(build_valid_, ini);
         xtrail_ = std::make_unique<XtrailFidelity>(build_valid_,ini);
+        brake_glow_ = std::make_unique<BrakeGlow>(build_valid_,ini);
         course_objects_ = std::make_unique<CourseObjectsPilot>(build_valid_, ini);
         grass_ = std::make_unique<GrassPilot>(build_valid_, ini);
         shrubs_ = std::make_unique<GrassPilot>(build_valid_, ini,GroundDetailKind::Shrubs);
@@ -325,7 +327,7 @@ bool PS2PortExtension::native_states_pending() const noexcept {
     for (const auto& m : fleet_race_) if (m && m->states_pending()) return true;
     for (const auto& m : fleet_wheel_) if (m && m->transaction.pending()) return true;
     for (const auto& m : frontend_extra_) if (m && m->transaction.pending()) return true;
-    return (wheel_model_ && wheel_model_->transaction.pending()) || (race_model_ && race_model_->states_pending()) || (frontend_model_ && frontend_model_->transaction.pending()) || (xtrail_ && (xtrail_->blocked() || xtrail_->transaction.pending() || xtrail_->glass_pending())) ||
+    return (wheel_model_ && wheel_model_->transaction.pending()) || (race_model_ && race_model_->states_pending()) || (frontend_model_ && frontend_model_->transaction.pending()) || (xtrail_ && (xtrail_->blocked() || xtrail_->transaction.pending() || xtrail_->glass_pending())) || (brake_glow_ && (brake_glow_->blocked() || brake_glow_->transaction.pending())) ||
         (reflection_ && (reflection_->blocked() || reflection_->transaction().changed_mask ||
             reflection_->mixed_capture().pending())) ||
         (course_objects_ && (course_objects_->blocked() || course_objects_->transaction.has_pending())) ||

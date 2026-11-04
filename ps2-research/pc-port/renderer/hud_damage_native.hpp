@@ -9,7 +9,7 @@
 //     PROJECTION and viewport place the PS2 widget where the PC widget would be.
 //   PS2HudTemplate: hud-template images 0,2,4,5,6,8,9,10: the same draw is issued with the PS2 texture bound.
 // PS2HudHidePcOnly: a draw under a PC-only egg (exact name via the egg registry) is not forwarded.
-#include "xtrail_native_integration.hpp"
+#include "dip_integration.hpp"
 #include "ps2_hud_damage.hpp"
 #include "ps2_hud_map.hpp"
 #include "ps2_hud_template.hpp"

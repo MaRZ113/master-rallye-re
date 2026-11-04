@@ -2,7 +2,6 @@
 #include "ps2_config.hpp"
 #include "xtrail_decal_registry.hpp"
 #include "xtrail_glass.hpp"
-#include "brake_glow.hpp"
 #include "provenance.hpp"
 #include <algorithm>
 #include <cstring>
@@ -53,17 +52,16 @@ HRESULT XtrailTransaction::capture(IDirect3DDevice8& n) noexcept {
 }
 XtrailFidelity::XtrailFidelity(bool supported,const std::wstring& ini) noexcept {
     try{glass_=std::make_unique<XtrailGlass>(supported,ini);}catch(...){}
-    try{brake_=std::make_unique<BrakeGlow>(supported,ini);}catch(...){}
     wchar_t mode[32]{},version[32]{};
     ::gfx2::ps2port::config::read_string(L"XtrailFidelityMode",L"0",mode,32,ini.c_str());
     ::gfx2::ps2port::config::read_string(L"XtrailFidelityVersion",L"1",version,32,ini.c_str());
-    requested_=xtrail_fidelity_opt_in(mode,version,supported);
+    requested_=feature_opt_in(mode,version,supported);
     diagnostics_=::gfx2::ps2port::config::read_int(L"XtrailFidelityDiagnostics",0,ini.c_str())==1;
 }
 XtrailFidelity::~XtrailFidelity()=default;
-bool XtrailFidelity::glass_pending()const noexcept{return (glass_&&(glass_->blocked()||glass_->transaction.pending()))||(brake_&&(brake_->blocked()||brake_->transaction.pending()));}
-void XtrailFidelity::before_reset()noexcept{if(transaction.pending())blocked_=true;transaction.release();for(auto& c:cache_)c={};next_=0;if(glass_)glass_->before_reset();if(brake_)brake_->before_reset();}
-void XtrailFidelity::after_reset(bool called,bool successful)noexcept{if(called&&successful){blocked_=false;logged_=0;}if(glass_)glass_->after_reset(called,successful);if(brake_)brake_->after_reset(called,successful);}
+bool XtrailFidelity::glass_pending()const noexcept{return glass_&&(glass_->blocked()||glass_->transaction.pending());}
+void XtrailFidelity::before_reset()noexcept{if(transaction.pending())blocked_=true;transaction.release();for(auto& c:cache_)c={};next_=0;if(glass_)glass_->before_reset();}
+void XtrailFidelity::after_reset(bool called,bool successful)noexcept{if(called&&successful){blocked_=false;logged_=0;}if(glass_)glass_->after_reset(called,successful);}
 const std::vector<XtrailDecalVertex>* XtrailFidelity::prepare(const DrawSnapshot& g) noexcept {
     try{
         if(!g.supported_build||!g.complete_mirror_coverage||!g.device_id||!g.vertex_generation||!g.index_generation||
