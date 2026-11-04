@@ -3,11 +3,27 @@
 #include <map>
 #include <tuple>
 namespace gfx2::atmosphere {
-inline uint32_t body_color(uint32_t original,const std::array<float,3>& world_normal,const Lighting& lighting,bool replace_ps2_prepared) {
-    const auto base=replace_ps2_prepared?(original&0xff000000u)|0x00666666u:original;
-    return scene_color(base,world_normal,lighting);
+// Cars retain a sky-lit diffuse floor. World exposure is deliberately weaker
+// here: the track's baked visibility is not a second body shadow term.
+inline Lighting body_lighting(const Lighting& lighting) {
+    auto s=lighting;
+    s.world_brightness=.85f+.15f*std::clamp(lighting.world_brightness,0.f,1.f);
+    s.ambient_strength=std::max(s.ambient_strength,.95f);
+    for(unsigned i=0;i<3;++i)s.ambient[i]=std::max(s.ambient[i],std::array<float,3>{.62f,.70f,.88f}[i]);
+    s.sun_strength*=.65f;
+    s.prelight_contrast=1;s.prelight_visibility=0;
+    return s;
 }
-enum BodySurfaceRole : uint32_t {Paint=1,OpaqueTrim=2,OpaquePanel=3,OpaqueCover=4};
+inline uint32_t body_color(uint32_t original,const std::array<float,3>& world_normal,const Lighting& lighting,bool replace_ps2_prepared) {
+    if(!lighting.active())return original;
+    const auto base=replace_ps2_prepared?(original&0xff000000u)|0x00666666u:original;
+    return scene_color(base,world_normal,body_lighting(lighting));
+}
+inline uint32_t flat_body_color(uint32_t original,const Lighting& lighting) {
+    auto ambient=body_lighting(lighting);ambient.sun_strength=0;return scene_color(original,{0,1,0},ambient);
+}
+
+enum BodySurfaceRole : uint32_t {Paint=1,OpaqueTrim=2,OpaquePanel=3,OpaqueCover=4,OpaqueHelmet=5,OpaqueFlat=6};
 struct BodyCapability {std::string family,primary,secondary,ps2_texture;uint32_t role=Paint;};
 class BodyMaterials {
     std::vector<BodyCapability> rows_;
@@ -18,6 +34,8 @@ public:
         else if(role==OpaqueTrim){if(secondary!="perspex-tga")return false;}
         else if(role==OpaquePanel){if(secondary!="whitepaint-tga"&&secondary!="silverpaint-tga"&&secondary!="perspex-tga")return false;}
         else if(role==OpaqueCover){if(secondary!="perspex-tga"||(primary.find("wheelcover-tga")==std::string::npos&&primary.find("wheelcoverside-tga")==std::string::npos))return false;}
+        else if(role==OpaqueHelmet){if((secondary!="whitepaint-tga"&&secondary!="silverpaint-tga")||primary.find("helmet")==std::string::npos)return false;}
+        else if(role==OpaqueFlat){if(secondary!="null")return false;}
         else return false;
         // A primary's name is not its surface role: original Patrol paint
         // fenders use logowhite64/logoblue64. Only an explicit capability can
@@ -26,6 +44,7 @@ public:
             if(primary.find(excluded)!=std::string::npos){
                 if(role==OpaquePanel&&!std::strcmp(excluded,"sticker"))continue;
                 if(role==OpaqueCover&&!std::strcmp(excluded,"wheel"))continue;
+                if(role==OpaqueHelmet&&!std::strcmp(excluded,"helmet"))continue;
                 return false;
             }
         return true;

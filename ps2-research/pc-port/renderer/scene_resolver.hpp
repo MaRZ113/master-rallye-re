@@ -7,8 +7,16 @@
 #include <cctype>
 
 namespace gfx2::atmosphere {
-enum MaterialFlags : uint32_t {Noise=1,Plain=2,AlphaTest=4,TwoSided=8,Deny=16};
+enum MaterialFlags : uint32_t {Noise=1,Plain=2,AlphaTest=4,TwoSided=8,Deny=16,Environment=32,EnvironmentTexture=64};
 struct SceneMaterial {std::string course,name,texture;uint32_t category=0,flags=0;int32_t winding=-1;};
+// On a certified unblended, non-alpha-tested pass, texture alpha is unused
+// coverage data (often zero in opaque course assets). A known material role
+// can prove opacity from that pass. Unknown automatic ground retains its
+// conservative all-255 texture requirement; no shader exclusion is bypassed.
+inline bool source_opaque_pass(const SceneMaterial* m,bool texture_opaque,bool blended,bool alpha_test)noexcept{
+    return !blended&&(texture_opaque||(m&&m->category>=1&&m->category<=4&&!(m->flags&Deny)&&
+        (!alpha_test||(m->category==4&&(m->flags&AlphaTest)&&!(m->flags&Environment)))));
+}
 // Optional external material capabilities, never object/triangle identities.
 // Integrity is self-contained (not a DLL-compiled allowlist). Authoring an LSM1
 // file cannot bypass current race, pass, buffer, geometry or shader proofs.
@@ -34,8 +42,10 @@ public:
                 if(!text(64,m.course)||m.course.empty()||!std::all_of(m.course.begin(),m.course.end(),[](char c){return std::isalnum(static_cast<unsigned char>(c))||c=='_'||c=='-';})||
                    !text(96,m.name)||m.name.empty()||!text(65,m.texture)||m.texture.size()!=64||!std::all_of(m.texture.begin(),m.texture.end(),[](char c){return (c>='0'&&c<='9')||(c>='a'&&c<='f');})){reason="metadata_text_invalid";return false;}
                 std::memcpy(&m.category,p,4);std::memcpy(&m.flags,p+4,4);std::memcpy(&m.winding,p+8,4);
-                if(m.category>4||(m.flags&~31u)||(m.winding!=1&&m.winding!=-1)||(!m.category&&!(m.flags&Deny))||
-                   ((m.flags&AlphaTest)&&m.category!=3)||((m.flags&TwoSided)&&m.category!=3)||
+                if(m.category>4||(m.flags&~127u)||(m.winding!=1&&m.winding!=-1)||(!m.category&&!(m.flags&Deny))||
+                   ((m.flags&Environment)&&(m.category!=4||(m.flags&Deny)))||
+                   ((m.flags&EnvironmentTexture)&&(m.category!=0||m.flags!=(Deny|EnvironmentTexture)||(m.name!="aluminium-tga"&&m.name!="whitepaint-tga"&&m.name!="silverpaint-tga")))||
+                   ((m.flags&AlphaTest)&&m.category!=3&&(m.category!=4||(m.flags&Environment)))||((m.flags&TwoSided)&&m.category!=3)||
                    (!(m.flags&Deny)&&!(m.flags&(Noise|Plain)))){reason="metadata_capability_invalid";return false;}
                 auto key=std::make_pair(m.course,m.texture);auto old=parsed.find(key);
                 if(old!=parsed.end()&&(old->second.category!=m.category||old->second.flags!=m.flags||old->second.winding!=m.winding)){reason="metadata_ambiguous_texture";return false;}
@@ -93,12 +103,13 @@ public:
 // uses MR's CW front-face convention. Invalid/degenerate inputs fail closed.
 inline bool light_geometry(ResolvedGeometry& entry,unsigned stride,unsigned min,unsigned vertices,unsigned width,
                            const SceneMaterial* material,bool noise,bool opaque,bool alpha_test,
-                           bool auto_ground,const Lighting& settings,NormalHints* hints=nullptr,const char* course="",const std::string& texture="") {
+                           bool auto_ground,const Lighting& settings,NormalHints* hints=nullptr,const char* course="",const std::string& texture="",bool environment=false) {
     entry.accepted=false;entry.category=0;entry.changed=0;entry.lit.clear();entry.geometric_normals.clear();entry.effective_normals.clear();entry.used.clear();entry.hinted=0;entry.duplicate_faces=entry.opposite_faces=0;
     auto reject=[&](const char* why){entry.reason=why;return false;};
-    if(!vertices||vertices>32768||(stride!=24&&stride!=32)||(width!=2&&width!=4)||
+    if(!vertices||vertices>32768||(stride!=24&&stride!=32&&stride!=36)||(width!=2&&width!=4)||
        entry.original.size()!=uint64_t(vertices)*stride||entry.index_bytes.empty()||entry.index_bytes.size()%(width*3))return reject("resolver_geometry_layout");
     if(material&&(material->flags&Deny))return reject("material_explicitly_excluded");
+    if(environment!=bool(stride==36)|| (environment&&(!material||!(material->flags&Environment)||material->category!=4||noise||!opaque||alpha_test)))return reject("environment_material_contract");
     const bool automatic=!material;
     if(automatic&&(!auto_ground||!noise||!opaque||alpha_test))return reject("ambiguous_material_no_ground_contract");
     if(material&&(!(material->flags&(noise?Noise:Plain))||(alpha_test&&!(material->flags&AlphaTest))||(!opaque&&material->category!=3)))return reject("metadata_live_shader_mismatch");
@@ -106,7 +117,7 @@ inline bool light_geometry(ResolvedGeometry& entry,unsigned stride,unsigned min,
     std::vector<std::array<float,3>> positions(vertices);std::vector<std::array<double,3>> normals(vertices);std::vector<uint8_t> used(vertices);
     for(unsigned i=0;i<vertices;++i){const auto* v=entry.original.data()+i*stride;std::memcpy(positions[i].data(),v,12);
         for(float x:positions[i])if(!std::isfinite(x)||std::abs(x)>1e7f)return reject("resolver_nonfinite_position");
-        float uv[2]{};std::memcpy(uv,v+16,8);for(float x:uv)if(!std::isfinite(x)||std::abs(x)>1e7f)return reject("resolver_nonfinite_uv");}
+        float uv[2]{};std::memcpy(uv,v+(environment?28:16),8);for(float x:uv)if(!std::isfinite(x)||std::abs(x)>1e7f)return reject("resolver_nonfinite_uv");}
     // PS2 course buffers contain front/back triangles sharing the SAME vertex
     // indices. Summing both cancels normals and amplifies float residue. Dedup
     // only for shading; the submitted index stream and culling stay untouched.
@@ -136,16 +147,18 @@ inline bool light_geometry(ResolvedGeometry& entry,unsigned stride,unsigned min,
     for(unsigned i=0;i<vertices;++i)if(used[i]){const auto& sum=normals[i];const double length=std::sqrt(sum[0]*sum[0]+sum[1]*sum[1]+sum[2]*sum[2]);
         if(!std::isfinite(length)||length<1e-10){entry.lit.clear();return reject("resolver_cancelled_vertex_normal");}
         std::array<float,3> n{};for(unsigned k=0;k<3;++k)n[k]=float(sum[k]/length);
+        if(environment){std::memcpy(n.data(),entry.original.data()+i*stride+12,12);float norm=0;for(float x:n){if(!std::isfinite(x))return reject("environment_nonfinite_normal");norm+=x*x;}if(!std::isfinite(norm)||norm<1e-8f)return reject("environment_invalid_normal");for(float& x:n)x/=std::sqrt(norm);}
         entry.geometric_normals[i]=n;bool hinted=false;
-        if(hints&&category!=3){hinted=hints->resolve(course,texture,positions[i],n,n);
+        if(hints&&category!=3&&!environment){hinted=hints->resolve(course,texture,positions[i],n,n);
             // Paired front/back topology has no intrinsic signed orientation.
             // Authored hints may choose either side; admission is unchanged.
             if(!hinted&&entry.opposite_faces){auto opposite=n;for(auto& x:opposite)x=-x;hinted=hints->resolve(course,texture,positions[i],opposite,n);}
             if(hinted)++entry.hinted;}
         entry.effective_normals[i]=n;
-        if((material&&(material->flags&TwoSided))||(entry.opposite_faces&&!hinted)){float dot=0;for(unsigned j=0;j<3;++j)dot+=n[j]*settings.direction[j];if(dot<0)for(float& x:n)x=-x;}
-        uint32_t original=0;std::memcpy(&original,entry.original.data()+i*stride+12,4);const auto color=scene_color(original,n,settings);
-        std::memcpy(entry.lit.data()+i*stride+12,&color,4);entry.changed+=color!=original;
+        if(!environment&&((material&&(material->flags&TwoSided))||(entry.opposite_faces&&!hinted))){float dot=0;for(unsigned j=0;j<3;++j)dot+=n[j]*settings.direction[j];if(dot<0)for(float& x:n)x=-x;}
+        const unsigned color_offset=environment?24:12;
+        uint32_t original=0;std::memcpy(&original,entry.original.data()+i*stride+color_offset,4);const auto color=scene_color(original,n,settings);
+        std::memcpy(entry.lit.data()+i*stride+color_offset,&color,4);entry.changed+=color!=original;
     }
     entry.category=category;entry.accepted=true;entry.reason=automatic?"native_opaque_base_noise_ground":"material_capability_and_live_geometry";return true;
 }

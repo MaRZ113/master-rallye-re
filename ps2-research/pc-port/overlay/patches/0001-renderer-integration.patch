@@ -239,7 +239,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   return result;
  }
  HRESULT STDMETHODCALLTYPE Device8::CreateRenderTarget(UINT Width,UINT Height,D3DFORMAT Format,D3DMULTISAMPLE_TYPE MultiSample,WINBOOL Lockable,IDirect3DSurface8 ** ppSurface) {
-@@ -269,6 +276,16 @@
+@@ -269,6 +276,17 @@
   auto guard = trace.guard();
   const auto args = pack(pRenderTarget, pNewZStencil);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -252,11 +252,12 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
 + if(ps2_port_)for(auto* detail:ps2_port_->ground_details())if(detail)detail->proof.invalidate_depth();
 + if(ps2_port_&&ps2_port_->spline_objects())ps2_port_->spline_objects()->proof.invalidate_depth();
 + if(ps2_port_&&ps2_port_->birds())ps2_port_->birds()->proof.invalidate_depth();
++ if(ps2_port_&&ps2_port_->atmosphere_pilot())ps2_port_->atmosphere_pilot()->sun.clear();
 +#endif
   trace.before(31, args, pc);
   HRESULT result = real_->SetRenderTarget(pRenderTarget, pNewZStencil);
   trace.after(31, args, static_cast<uint32_t>(result), pc);
-@@ -278,6 +295,9 @@
+@@ -278,6 +296,9 @@
   auto guard = trace.guard();
   const auto args = pack(ppRenderTarget);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -266,7 +267,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(32, args, pc);
   HRESULT result = real_->GetRenderTarget(ppRenderTarget);
   trace.after(32, args, static_cast<uint32_t>(result), pc);
-@@ -287,6 +307,9 @@
+@@ -287,6 +308,9 @@
   auto guard = trace.guard();
   const auto args = pack(ppZStencilSurface);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -276,7 +277,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(33, args, pc);
   HRESULT result = real_->GetDepthStencilSurface(ppZStencilSurface);
   trace.after(33, args, static_cast<uint32_t>(result), pc);
-@@ -296,6 +319,16 @@
+@@ -296,6 +320,17 @@
   auto guard = trace.guard();
   const auto args = pack();
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -289,11 +290,12 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
 + if(ps2_port_)for(auto* detail:ps2_port_->ground_details())if(detail)detail->proof.clear();
 + if(ps2_port_&&ps2_port_->spline_objects())ps2_port_->spline_objects()->proof.clear();
 + if(ps2_port_&&ps2_port_->birds())ps2_port_->birds()->proof.clear();
++ if(ps2_port_&&ps2_port_->atmosphere_pilot())ps2_port_->atmosphere_pilot()->sun.clear();
 +#endif
   trace.before(34, args, pc);
   HRESULT result = real_->BeginScene();
   if(SUCCEEDED(result))trace.scene_active=true;
-@@ -306,6 +339,16 @@
+@@ -306,6 +341,17 @@
   auto guard = trace.guard();
   const auto args = pack();
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -306,11 +308,12 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
 + if(ps2_port_)for(auto* detail:ps2_port_->ground_details())if(detail)detail->proof.clear();
 + if(ps2_port_&&ps2_port_->spline_objects())ps2_port_->spline_objects()->proof.clear();
 + if(ps2_port_&&ps2_port_->birds())ps2_port_->birds()->proof.clear();
++ if(ps2_port_&&ps2_port_->atmosphere_pilot())ps2_port_->atmosphere_pilot()->sun.clear();
 +#endif
   trace.before(35, args, pc);
   HRESULT result = real_->EndScene();
   trace.scene_active=false;
-@@ -316,6 +359,16 @@
+@@ -316,6 +362,17 @@
   auto guard = trace.guard();
   const auto args = pack(rect_count, rects, flags, color, z, stencil);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -323,11 +326,12 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
 + if((flags&D3DCLEAR_ZBUFFER)&&ps2_port_)for(auto* detail:ps2_port_->ground_details())if(detail)detail->proof.invalidate_depth();
 + if((flags&D3DCLEAR_ZBUFFER)&&ps2_port_&&ps2_port_->spline_objects())ps2_port_->spline_objects()->proof.invalidate_depth();
 + if((flags&D3DCLEAR_ZBUFFER)&&ps2_port_&&ps2_port_->birds())ps2_port_->birds()->proof.invalidate_depth();
++ if((flags&D3DCLEAR_ZBUFFER)&&ps2_port_&&ps2_port_->atmosphere_pilot())ps2_port_->atmosphere_pilot()->sun.clear();
 +#endif
   trace.before(36, args, pc);
   HRESULT result = real_->Clear(rect_count, rects, flags, color, z, stencil);
   trace.after(36, args, static_cast<uint32_t>(result), pc);
-@@ -325,6 +378,10 @@
+@@ -325,6 +382,10 @@
   auto guard = trace.guard();
   const auto args = pack(state, matrix);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -338,7 +342,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(39, args, pc);
   if(state==D3DTS_PROJECTION){HRESULT safe=stock_for_unmapped("MultiplyTransform_PROJECTION");if(FAILED(safe)){trace.after(39,args,static_cast<uint32_t>(safe),pc);return safe;}}
   HRESULT result = real_->MultiplyTransform(state, matrix);
-@@ -407,6 +464,10 @@
+@@ -407,6 +468,10 @@
   auto guard = trace.guard();
   const auto args = pack(State, Value);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -349,7 +353,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(50, args, pc);
   HRESULT result = real_->SetRenderState(State, Value);
   trace.after(50, args, static_cast<uint32_t>(result), pc);
-@@ -416,6 +477,10 @@
+@@ -416,6 +481,10 @@
   auto guard = trace.guard();
   const auto args = pack(State, pValue);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -360,7 +364,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(51, args, pc);
   HRESULT result = real_->GetRenderState(State, pValue);
   trace.after(51, args, static_cast<uint32_t>(result), pc);
-@@ -505,6 +570,10 @@
+@@ -505,6 +574,10 @@
   auto guard = trace.guard();
   const auto args = pack(Stage, ppTexture);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -371,7 +375,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(60, args, pc);
   HRESULT result = real_->GetTexture(Stage, ppTexture);
   trace.after(60, args, static_cast<uint32_t>(result), pc);
-@@ -514,6 +583,10 @@
+@@ -514,6 +587,10 @@
   auto guard = trace.guard();
   const auto args = pack(Stage, pTexture);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -382,7 +386,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(61, args, pc);
   HRESULT result = real_->SetTexture(Stage, pTexture);
   trace.after(61, args, static_cast<uint32_t>(result), pc);
-@@ -523,6 +596,9 @@
+@@ -523,6 +600,9 @@
   auto guard = trace.guard();
   const auto args = pack(pNumPasses);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -392,7 +396,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(64, args, pc);
   HRESULT result = real_->ValidateDevice(pNumPasses);
   trace.after(64, args, static_cast<uint32_t>(result), pc);
-@@ -619,6 +695,10 @@
+@@ -619,6 +699,10 @@
   auto guard = trace.guard();
   const auto args = pack(Handle);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -403,7 +407,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(76, args, pc);
   HRESULT result = real_->SetVertexShader(Handle);
   trace.after(76, args, static_cast<uint32_t>(result), pc);
-@@ -628,6 +708,10 @@
+@@ -628,6 +712,10 @@
   auto guard = trace.guard();
   const auto args = pack(pHandle);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -414,7 +418,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(77, args, pc);
   HRESULT result = real_->GetVertexShader(pHandle);
   trace.after(77, args, static_cast<uint32_t>(result), pc);
-@@ -637,6 +721,10 @@
+@@ -637,6 +725,10 @@
   auto guard = trace.guard();
   const auto args = pack(Handle);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -425,7 +429,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(78, args, pc);
   HRESULT result = real_->DeleteVertexShader(Handle);
   trace.after(78, args, static_cast<uint32_t>(result), pc);
-@@ -681,6 +769,10 @@
+@@ -681,6 +773,10 @@
  HRESULT STDMETHODCALLTYPE Device8::SetStreamSource(UINT StreamNumber,IDirect3DVertexBuffer8 * pStreamData,UINT Stride) {
   auto guard = trace.guard();
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -436,7 +440,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   auto* native_buffer=unwrap_vertex_buffer(pStreamData);
   const auto native_args = pack(StreamNumber, native_buffer, Stride);
   trace.before(83, native_args, pc);
-@@ -692,11 +784,15 @@
+@@ -692,11 +788,15 @@
  HRESULT STDMETHODCALLTYPE Device8::GetStreamSource(UINT StreamNumber,IDirect3DVertexBuffer8 ** ppStreamData,UINT * pStride) {
   auto guard = trace.guard();
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -453,7 +457,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   return result;
  }
  HRESULT STDMETHODCALLTYPE Device8::SetIndices(IDirect3DIndexBuffer8 * pIndexData,UINT BaseVertexIndex) {
-@@ -717,7 +813,7 @@
+@@ -717,7 +817,7 @@
   trace.before(86, args, pc);
   HRESULT result = real_->GetIndices(ppIndexData, pBaseVertexIndex);
   trace.after(86, args, static_cast<uint32_t>(result), pc);
@@ -462,7 +466,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   return result;
  }
  HRESULT STDMETHODCALLTYPE Device8::CreatePixelShader(const DWORD *byte_code, DWORD *shader) {
-@@ -733,6 +829,10 @@
+@@ -733,6 +833,10 @@
   auto guard = trace.guard();
   const auto args = pack(Handle);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -473,7 +477,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(88, args, pc);
   HRESULT result = real_->SetPixelShader(Handle);
   trace.after(88, args, static_cast<uint32_t>(result), pc);
-@@ -742,6 +842,10 @@
+@@ -742,6 +846,10 @@
   auto guard = trace.guard();
   const auto args = pack(pHandle);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -484,7 +488,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(89, args, pc);
   HRESULT result = real_->GetPixelShader(pHandle);
   trace.after(89, args, static_cast<uint32_t>(result), pc);
-@@ -751,6 +855,10 @@
+@@ -751,6 +859,10 @@
   auto guard = trace.guard();
   const auto args = pack(Handle);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -509,7 +513,7 @@ diff --git a/modernization/renderer/src/provenance.cpp b/modernization/renderer/
  namespace gfx2 {
  HMODULE proxy_module=nullptr;
  std::wstring module_path(HMODULE m) {
-@@ -38,17 +41,24 @@
+@@ -38,17 +42,24 @@
   }catch(...){output.clear();}
   if(h)BCryptDestroyHash(h);if(a)BCryptCloseAlgorithmProvider(a,0);if(f!=INVALID_HANDLE_VALUE)CloseHandle(f);return output;
  }
@@ -650,7 +654,7 @@ diff --git a/modernization/renderer/src/quality_wrappers.cpp b/modernization/ren
   D3DVIEWPORT8 original{},changed{};bool rewrite=quality&&safe_copy(&original,input,sizeof(original))&&quality->viewport(original,changed)&&std::memcmp(&original,&changed,sizeof(original));
   const auto* forwarded=rewrite?&changed:input;auto native=pack(forwarded);HRESULT hr=real_->SetViewport(forwarded);
   if(FAILED(hr)&&rewrite){trace.after(40,native,static_cast<uint32_t>(hr),pc,&native,16,false,true);native=args;rewrite=false;hr=real_->SetViewport(input);}
-@@ -63,7 +98,11 @@
+@@ -63,7 +97,11 @@
   return hr;
  }
  HRESULT STDMETHODCALLTYPE Device8::GetViewport(D3DVIEWPORT8* out){
@@ -956,7 +960,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
   bool projection_attempted=type==D3DTS_PROJECTION&&exe&&rva==GAMEPLAY_PROJECTION_RETURN_RVA&&(visuals.effective.fov||cinematic_projection);
   if(quality&&quality->preview_capability.supported()&&type==D3DTS_PROJECTION&&exe&&rva==quality->preview_capability.candidate_rva){
    D3DMATRIX source{};if(safe_copy(&source,input,sizeof(source)))observed_scene_family=camera_scene_family(source);
-@@ -64,6 +163,14 @@ HRESULT Device8::set_transform_at(D3DTRANSFORMSTATETYPE type,const D3DMATRIX* in
+@@ -64,6 +163,15 @@ HRESULT Device8::set_transform_at(D3DTRANSFORMSTATETYPE type,const D3DMATRIX* in
   trace.culling=game_fov.status();
   const D3DMATRIX* forwarded=(rewritten||ui_rewritten||preview_rewritten)?&changed:input;auto native=pack(type,forwarded);
  HRESULT hr=real_->SetTransform(type,forwarded);if(rewritten&&type==D3DTS_PROJECTION)game_fov.projection_applied(applied_vfov,SUCCEEDED(hr));if(FAILED(hr)&&(rewritten||ui_rewritten||preview_rewritten)){trace.after(37,native,static_cast<uint32_t>(hr),pc,&native,rewritten?2:preview_rewritten?64:32,false,true);if(rewritten){game_fov.disable("native_projection_rejected");visuals.effective.fov=false;}if(preview_rewritten){quality->preview_capability.status="UNSUPPORTED";quality->preview_capability.reason="native_preview_projection_rejected";}if(ui_rewritten){quality->config.interface_mode="Stock";ui_margins.disable("native_ui_projection_rejected");}native=args;hr=real_->SetTransform(type,input);rewritten=ui_rewritten=preview_rewritten=false;}if(SUCCEEDED(hr)&&quality&&type==D3DTS_PROJECTION)quality->ui_projection_live=ui_rewritten;trace.after(37,args,static_cast<uint32_t>(hr),pc,&native,rewritten?2:ui_rewritten?32:preview_rewritten?64:0);
@@ -966,12 +970,13 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
 + splineintegration::observe_transform(*this,type,exe,rva,hr);
 + birdsintegration::observe_transform(*this,type,exe,rva,hr);
 + collisionintegration::observe_transform(*this,type,exe,rva,hr);
++ atmosphereintegration::sun_transform(*this,type,exe,rva);
 + rigidintegration::observe_transform(*this,type,exe,rva,hr);
 +#endif
   if(SUCCEEDED(hr)&&observed_scene_family>=0)ui_margins.scene_context(observed_scene_family==1);
   if(SUCCEEDED(hr)&&type==D3DTS_VIEW&&exe&&rva==GAMEPLAY_VIEW_RETURN_RVA){D3DMATRIX stock{};if(safe_copy(&stock,input,sizeof(stock)))game_fov.stock_view(stock);}
   if(type==D3DTS_VIEW&&exe){
-@@ -106,6 +213,9 @@ HRESULT hr=real_->SetTransform(type,forwarded);if(rewritten&&type==D3DTS_PROJECT
+@@ -106,6 +214,9 @@ HRESULT hr=real_->SetTransform(type,forwarded);if(rewritten&&type==D3DTS_PROJECT
  }
  HRESULT STDMETHODCALLTYPE Device8::GetTransform(D3DTRANSFORMSTATETYPE type,D3DMATRIX* out){
   auto guard=trace.guard();auto args=pack(type,out);auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(38,args,pc);
@@ -981,7 +986,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
   HRESULT hr=real_->GetTransform(type,out);D3DMATRIX native_value{};bool virtualized=false;
   if(SUCCEEDED(hr)&&type<512&&safe_copy(&native_value,out,sizeof(native_value))){
    const auto& logical=trace.shadow.matrices[type];const auto& native=trace.effective_shadow.matrices[type];
-@@ -185,9 +295,24 @@ HRESULT Device8::draw_primitive_at(D3DPRIMITIVETYPE type,UINT start,UINT count,u
+@@ -185,9 +296,25 @@ HRESULT Device8::draw_primitive_at(D3DPRIMITIVETYPE type,UINT start,UINT count,u
    game_fov.clean_view_disarm_count(),game_fov.clean_view_last_disarm_reason(),clean_scope_id!=0,
    game_fov.clean_view_context_trace_frame(),game_fov.clean_view_context_scheduler_generation(),clean_admission.frame);
   skip=skip||suppress_clean_view||suppress_global_hud;
@@ -992,6 +997,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
 + {HRESULT extra=birdsintegration::before_ui(*this,ui_callsite,!clean_scope_invalidated&&clean_scope_id&&ui_margins.consumer_hook_intact());if(FAILED(extra))return extra;}
 + {HRESULT extra=rigidintegration::before_ui(*this,ui_callsite);if(FAILED(extra))return extra;}
 + {HRESULT extra=reflectionintegration::before_ui(*this,ui_callsite);if(FAILED(extra))return extra;}
++ {HRESULT extra=atmosphereintegration::sun_before_ui(*this,ui_callsite);if(FAILED(extra))return extra;}
 + {HRESULT extra=collisionintegration::before_ui(*this,ui_callsite);if(FAILED(extra))return extra;}
 +#endif
   const auto& view=trace.effective_shadow.matrices[D3DTS_VIEW];D3DMATRIX identity{};identity._11=identity._22=identity._33=identity._44=1;
@@ -1007,7 +1013,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
   UiOwnershipDrawState ownership_state{};
   const auto& fvf=trace.shadow.bindings.vertex_shader;ownership_state.fvf_known=fvf.known;ownership_state.fvf=fvf.value;
   const auto& texture0=trace.shadow.bindings.textures[0];ownership_state.texture0_known=texture0.known;ownership_state.texture0=texture0.value;
-@@ -198,25 +323,155 @@ HRESULT Device8::draw_primitive_at(D3DPRIMITIVETYPE type,UINT start,UINT count,u
+@@ -198,25 +325,157 @@ HRESULT Device8::draw_primitive_at(D3DPRIMITIVETYPE type,UINT start,UINT count,u
   for(unsigned i=0;i<UI_OWNERSHIP_STAGE_FIELD_COUNT;++i){unsigned stage=i<3?0u:1u;const auto& state=trace.shadow.tss[stage][stage_keys[i]];ownership_state.stage_known[i]=state.known?1u:0u;ownership_state.stage_values[i]=state.value;}
   uint64_t race_generation=0;const bool race_generation_known=game_fov.race_lifecycle_generation(race_generation);
   ui_margins.observe_ownership_draw(trace.frame_number(),race_generation_known,race_generation,rva,type,count,ownership_state,!skip,skip,hr);
@@ -1074,6 +1080,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
 +  if(count)grassintegration::observe_world_draw(*this,vehicle_draw.hr);
 +  if(count)splineintegration::observe_world_draw(*this,vehicle_draw.hr);
 +  if(count)birdsintegration::observe_world_draw(*this,vehicle_draw.hr);
++  if(count)atmosphereintegration::sun_world(*this,vehicle_draw.hr,pc);
 +  return vehicle_draw.hr;
 + }
 +
@@ -1137,6 +1144,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
 + if(count)grassintegration::observe_world_draw(*this,hr);
 + if(count)splineintegration::observe_world_draw(*this,hr);
 + if(count)birdsintegration::observe_world_draw(*this,hr);
++ if(count)atmosphereintegration::sun_world(*this,hr,pc);
 +#endif
   return hr;
 +#ifdef MRR_ENABLE_PS2_PORT

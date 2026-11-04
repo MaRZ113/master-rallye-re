@@ -15,6 +15,31 @@ struct Native:MockDeviceBase {
     HRESULT STDMETHODCALLTYPE SetStreamSource(UINT,IDirect3DVertexBuffer8*,UINT)override{return result();}
     HRESULT STDMETHODCALLTYPE SetTexture(DWORD,IDirect3DBaseTexture8*)override{return result();}
 };
+struct SunSurface:IDirect3DSurface8 {
+    ULONG refs=1;
+    HRESULT STDMETHODCALLTYPE QueryInterface(REFIID,void** p)override{*p=this;AddRef();return S_OK;}
+    ULONG STDMETHODCALLTYPE AddRef()override{return ++refs;}
+    ULONG STDMETHODCALLTYPE Release()override{return --refs;}
+    HRESULT STDMETHODCALLTYPE GetDevice(IDirect3DDevice8**)override{return E_NOTIMPL;}
+    HRESULT STDMETHODCALLTYPE SetPrivateData(REFGUID,const void*,DWORD,DWORD)override{return E_NOTIMPL;}
+    HRESULT STDMETHODCALLTYPE GetPrivateData(REFGUID,void*,DWORD*)override{return E_NOTIMPL;}
+    HRESULT STDMETHODCALLTYPE FreePrivateData(REFGUID)override{return E_NOTIMPL;}
+    HRESULT STDMETHODCALLTYPE GetContainer(REFIID,void**)override{return E_NOTIMPL;}
+    HRESULT STDMETHODCALLTYPE GetDesc(D3DSURFACE_DESC*)override{return E_NOTIMPL;}
+    HRESULT STDMETHODCALLTYPE LockRect(D3DLOCKED_RECT*,const RECT*,DWORD)override{return E_NOTIMPL;}
+    HRESULT STDMETHODCALLTYPE UnlockRect()override{return E_NOTIMPL;}
+};
+struct SunNative:Native {
+    SunSurface target,depth;DWORD zwrite=TRUE;
+    HRESULT STDMETHODCALLTYPE GetRenderTarget(IDirect3DSurface8** p)override{*p=&target;target.AddRef();return S_OK;}
+    HRESULT STDMETHODCALLTYPE GetDepthStencilSurface(IDirect3DSurface8** p)override{*p=&depth;depth.AddRef();return S_OK;}
+    HRESULT STDMETHODCALLTYPE GetViewport(D3DVIEWPORT8* p)override{*p={0,0,800,600,0,1};return S_OK;}
+    HRESULT STDMETHODCALLTYPE GetStreamSource(UINT,IDirect3DVertexBuffer8** p,UINT* stride)override{*p=nullptr;*stride=0;return S_OK;}
+    HRESULT STDMETHODCALLTYPE GetRenderState(D3DRENDERSTATETYPE,DWORD* v)override{*v=zwrite;return S_OK;}
+    HRESULT STDMETHODCALLTYPE SetRenderState(D3DRENDERSTATETYPE,DWORD v)override{auto hr=result();if(SUCCEEDED(hr))zwrite=v;return hr;}
+    HRESULT STDMETHODCALLTYPE SetRenderTarget(IDirect3DSurface8*,IDirect3DSurface8*)override{return result();}
+    HRESULT STDMETHODCALLTYPE SetViewport(const D3DVIEWPORT8*)override{return result();}
+};
 struct Broker:RaceReadMemory {
     std::map<uint32_t,uint8_t> bytes;
     bool players_key=true,sync_key=true;
@@ -37,6 +62,35 @@ struct Broker:RaceReadMemory {
 };
 int main(){
     using namespace atmosphere;
+    D3DMATRIX sun_view{},sun_projection{};sun_view._11=sun_view._22=sun_view._33=sun_view._44=1;
+    sun_projection._11=sun_projection._22=1;sun_projection._33=1.01f;sun_projection._43=-1;sun_projection._34=1;
+    SunPosition sun_center,sun_translated;
+    CHECK(sun_position({0,0,1},sun_view,sun_projection,800,600,sun_center));CHECK(sun_center.x==400&&sun_center.y==300);
+    sun_view._41=100000;sun_view._42=-500;CHECK(sun_position({0,0,4},sun_view,sun_projection,800,600,sun_translated));
+    CHECK(sun_translated.x==sun_center.x&&sun_translated.radius==sun_center.radius);
+    CHECK(!sun_position({0,0,-1},sun_view,sun_projection,800,600,sun_translated));
+    CHECK(!sun_position({0,0,0},sun_view,sun_projection,800,600,sun_translated));
+    CHECK(!sun_position({10,0,1},sun_view,sun_projection,800,600,sun_translated));
+    CHECK(!sun_position({NAN,0,1},sun_view,sun_projection,800,600,sun_translated));
+    CHECK(!sun_position({0,0,1},sun_view,sun_view,800,600,sun_translated));
+    SunFx no_depth_sun;Native missing_depth;
+    CHECK(no_depth_sun.render(missing_depth,sun_center,true,true,true,nullptr,nullptr)==S_FALSE);CHECK(missing_depth.calls==0);
+    SunNative sun_restore;SunTransaction sun_transaction;
+    CHECK(sun_transaction.capture(sun_restore,nullptr,nullptr)==S_OK);
+    CHECK(sun_transaction.set(sun_restore,0,0,D3DRS_ZWRITEENABLE,FALSE)==S_OK);
+    sun_restore.fail=sun_restore.calls+1;CHECK(FAILED(sun_transaction.restore(sun_restore)));CHECK(sun_transaction.pending());
+    CHECK(sun_transaction.capture(sun_restore,nullptr,nullptr)==D3DERR_DEVICELOST);
+    sun_restore.fail=0;CHECK(sun_transaction.restore(sun_restore)==S_OK);CHECK(sun_restore.zwrite==TRUE);CHECK(!sun_transaction.pending());CHECK(sun_restore.target.refs==1&&sun_restore.depth.refs==1);
+    CHECK(sun_transaction.capture(sun_restore,nullptr,nullptr)==S_OK);D3DVIEWPORT8 sun_viewport{0,0,800,600,0,1};
+    CHECK(sun_transaction.target(sun_restore,&sun_restore.target,&sun_restore.depth,sun_viewport)==S_OK);
+    sun_restore.fail=sun_restore.calls+1;CHECK(FAILED(sun_transaction.restore(sun_restore)));CHECK(sun_transaction.pending());
+    sun_restore.fail=0;CHECK(sun_transaction.restore(sun_restore)==S_OK);CHECK(!sun_transaction.pending());
+    CHECK(pc_water_factor(Lighting{})==0xffffffff);
+    CHECK(pc_water_secondary("2cc07bb39117f1f0c102e6007a9dfb2245a7f6180a578352d6b7ba09b2f705f6"));
+    CHECK(!pc_water_secondary(std::string(64,'0')));
+    Lighting sunset_water;sunset_water.mode=Lighting::Mode::GoldenHour;sunset_water.world_brightness=.68f;
+    const auto water_factor=pc_water_factor(sunset_water);CHECK(water_factor>>24==255);CHECK((water_factor&255)>((water_factor>>16)&255));CHECK((water_factor&255)<255);
+    CHECK(pc_water_factor(sunset_water,0x7f123456)>>24==0x7f);
     CHECK(parse_preset(L"Auto")==-1&&parse_preset(nullptr)==-1);
     CHECK(parse_preset(L"0")==0&&parse_preset(L"5")==5);
     CHECK(parse_preset(L"6")==-1&&parse_preset(L"-1")==-1&&parse_preset(L"3x")==-1&&parse_preset(L" 3")==-1);
@@ -145,6 +199,14 @@ int main(){
     CHECK(!light_geometry(mesh,24,7,4,2,&water,true,true,false,true,evening));
     SceneMaterial leaves;leaves.category=3;leaves.flags=Plain|AlphaTest|TwoSided;
     CHECK(light_geometry(mesh,24,7,4,2,&leaves,false,false,true,false,evening));
+    SceneMaterial panel;panel.category=4;panel.flags=Plain|AlphaTest;
+    CHECK(source_opaque_pass(&panel,false,false,true));
+    CHECK(!source_opaque_pass(&panel,false,true,true));
+    CHECK(light_geometry(mesh,24,7,4,2,&panel,false,true,true,false,evening));
+    for(unsigned i=0;i<4;++i){CHECK(mesh.original[i*24+15]==mesh.lit[i*24+15]);
+        CHECK(!std::memcmp(mesh.original.data()+i*24+16,mesh.lit.data()+i*24+16,8));}
+    panel.flags=Plain;CHECK(!light_geometry(mesh,24,7,4,2,&panel,false,true,true,false,evening));
+    panel.flags=Plain|AlphaTest|Deny;CHECK(!source_opaque_pass(&panel,false,false,true));
     const uint16_t two_sided[]={7,8,9,9,8,7};mesh.index_bytes.resize(12);std::memcpy(mesh.index_bytes.data(),two_sided,12);
     CHECK(light_geometry(mesh,24,7,4,2,&leaves,false,false,true,false,evening));
     SceneMaterial paired_ground;paired_ground.category=2;paired_ground.flags=Noise;
@@ -208,7 +270,30 @@ int main(){
     // become the same colour for the same world normal, retaining source alpha.
     CHECK(body_color(0xfe303030,{0,1,0},evening,true)==body_color(0xfec0c0c0,{0,1,0},evening,true));
     CHECK((body_color(0x7f303030,{0,1,0},evening,true)>>24)==0x7f);
-    CHECK(body_color(gray,{0,1,0},evening,false)==scene_color(gray,{0,1,0},evening));
+    CHECK(body_color(gray,{0,1,0},evening,false)==scene_color(gray,{0,1,0},body_lighting(evening)));
+    CHECK(body_color(0x7f123456,{0,1,0},Lighting{},true)==0x7f123456);
+    auto dark_body=evening;dark_body.world_brightness=.3f;dark_body.direction={0,1,0};
+    const auto shadow_body=body_color(0x7f666666,{0,-1,0},dark_body,false);
+    CHECK((shadow_body&255)>45);CHECK((shadow_body&255)>((shadow_body>>16)&255));
+    CHECK((shadow_body>>24)==0x7f);CHECK((body_color(0x7f666666,{0,1,0},dark_body,false)&0xffffff)>(shadow_body&0xffffff));
+    CHECK((body_color(0x7f000000,{0,1,0},dark_body,false)&0xffffff)==0);
+    // Authored normal-bearing world metal: only explicit opaque environment
+    // capability can reach this layout; RGB only, normal/UV/alpha retained.
+    SceneMaterial metal;metal.category=4;metal.flags=Plain|Environment;
+    CHECK(source_opaque_pass(&metal,false,false,false));
+    CHECK(!source_opaque_pass(nullptr,false,false,false));
+    CHECK(!source_opaque_pass(&metal,false,true,false));
+    CHECK(!source_opaque_pass(&metal,false,false,true));
+    SceneMaterial excluded_surface;excluded_surface.flags=Deny;CHECK(!source_opaque_pass(&excluded_surface,false,false,false));
+    ResolvedGeometry metal_geometry;metal_geometry.original.resize(3*36);
+    const float metal_positions[3][3]={{0,0,0},{0,0,1},{1,0,0}};
+    for(unsigned i=0;i<3;++i){auto* v=metal_geometry.original.data()+36*i;std::memcpy(v,metal_positions[i],12);const float normal[3]={0,1,0};std::memcpy(v+12,normal,12);const uint32_t color=0x7f808080;std::memcpy(v+24,&color,4);}
+    const uint16_t metal_indices[3]={0,1,2};metal_geometry.index_bytes.resize(6);std::memcpy(metal_geometry.index_bytes.data(),metal_indices,6);
+    CHECK(light_geometry(metal_geometry,36,0,3,2,&metal,false,true,false,false,evening,nullptr,"","",true));
+    for(unsigned i=0;i<3;++i){CHECK(!std::memcmp(metal_geometry.original.data()+i*36,metal_geometry.lit.data()+i*36,24));CHECK(!std::memcmp(metal_geometry.original.data()+i*36+28,metal_geometry.lit.data()+i*36+28,8));CHECK(metal_geometry.lit[i*36+27]==0x7f);}
+    CHECK(!light_geometry(metal_geometry,36,0,3,2,nullptr,false,true,false,false,evening,nullptr,"","",true));
+    CHECK(!light_geometry(metal_geometry,36,0,3,2,&metal,false,true,true,false,evening,nullptr,"","",true));
+    metal.flags=Plain;CHECK(!light_geometry(metal_geometry,36,0,3,2,&metal,false,true,false,false,evening,nullptr,"","",true));
     auto reduced=scene;reduced.prelight_contrast=.35f;
     CHECK((scene_color(0x7f000000,{0,1,0},reduced)&0xffffff)==0);
     CHECK((scene_color(gray,{0,1,0},reduced)>>24)==0x7f);
@@ -222,6 +307,17 @@ int main(){
     CHECK(!BodyMaterials::safe("wheel-tga","perspex-tga",OpaqueCover));
     CHECK(!BodyMaterials::safe("wheelcover-tga","rubber-tga",OpaqueCover));
     CHECK(!BodyMaterials::safe("lampsticker-tga","perspex-tga",OpaquePanel));
+    CHECK(BodyMaterials::safe("pfgrill64-tga","null",OpaqueFlat));
+    CHECK(!BodyMaterials::safe("lamp-tga","null",OpaqueFlat));
+    CHECK(!BodyMaterials::safe("pfgrill64-tga","whitepaint-tga",OpaqueFlat));
+    auto flat_settings=evening;const auto flat_a=flat_body_color(0x7fa0a0a0,flat_settings);
+    flat_settings.direction={0,-1,0};CHECK(flat_a==flat_body_color(0x7fa0a0a0,flat_settings));
+    CHECK((flat_a>>24)==0x7f);
+    CHECK(BodyMaterials::safe("mhelmet32-tga","whitepaint-tga",OpaqueHelmet));
+    CHECK(!BodyMaterials::safe("mhelmet32-tga","whitepaint-tga",Paint));
+    CHECK(!BodyMaterials::safe("driverhelmet-tga","whitepaint-tga",OpaqueHelmet));
+    CHECK(!BodyMaterials::safe("helmetlamp-tga","whitepaint-tga",OpaqueHelmet));
+    CHECK(!BodyMaterials::safe("mhelmet32-tga","glass-tga",OpaqueHelmet));
     CHECK(BodyMaterials::safe("patrols128-tga","whitepaint-tga"));
     CHECK(!BodyMaterials::safe("wheel-tga","whitepaint-tga"));CHECK(!BodyMaterials::safe("body-tga","glass-tga"));
     CHECK(!BodyMaterials::safe("breaklightson-tga","whitepaint-tga"));

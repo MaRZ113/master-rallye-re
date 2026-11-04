@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "baseline_branch": "master",
+  "baseline_branch": "perf/ps2-fps1",
   "baseline_head": "c357e8b780734b1505acb86f723a0e1b57f3c8a8",
   "files": {
     "modernization/renderer/CMakeLists.txt": {
@@ -45,10 +45,10 @@
   },
   "patches": {
     "0001-renderer-integration.patch": {
-      "sha256": "ff2f5f0feace536ece87a15ff96ea9c94fc0eb4eba83cb2acf070e1d32c2c1a2"
+      "sha256": "01b9608f4e0b15e8bbbb785d4fa7a4c7d6433a4e586121fdaf39347b89cbeac3"
     },
     "0002-interface-generator.patch": {
-      "sha256": "cfe8f7cf6c56241d48d14535d6fd06f35a4ad263c5f40e2adfc4906eec6e5232"
+      "sha256": "07025bb7b9900eeb31a331a05cd4dbb0228a6ec9f04413ea96aaa6a7d774c877"
     }
   },
   "generated_outputs": {
@@ -63,7 +63,7 @@
       "data/interface-map.json": "1e966cceaabfaf8a2897359180e7319dbfe6afeef16510f3058a2456e4991369",
       "include/wrappers.hpp": "85ef4dc9413ec9590253f9dc65c30582dccb95e8a9405846b8ae17e32404c7e5",
       "include/method_names.hpp": "c1a9e331bffb14365807b1f94f700a7acf839de91af27038b64b4374d1e6ab84",
-      "src/forwarders.cpp": "bf09e6b2ed705912e2a7f48692e1ab8714148804a0f3db74f2fc055d0a73e2b7",
+      "src/forwarders.cpp": "7f83967b67a124eae462d043aef8d940e6d86befadc83cf0314422801b3e91f3",
       "tests/mock_interfaces.hpp": "9062667d68b59dc580e102505bcd4c2da8e66b93e11d6ff210b046c0952062f9"
     }
   },

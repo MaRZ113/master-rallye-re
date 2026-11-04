@@ -9,6 +9,8 @@
 #include "ground_detail.hpp"
 #include "atmosphere_scene.hpp"
 #include "scene_resolver.hpp"
+#include "atmosphere_sun.hpp"
+#include "atmosphere_water.hpp"
 #include <algorithm>
 #include <array>
 #include <cmath>
@@ -243,7 +245,7 @@ public:
     uint64_t resolved_draws=0,resolver_skipped_draws=0;
     float sky_u_scale=1;std::array<uint64_t,5> category_draws{};uint64_t copied_bytes=0,scene_restore_count=0;
     uint64_t cpu_ticks=0,cpu_calls=0,perf_frame=0,perf_previous_ticks=0,perf_previous_calls=0;std::array<uint64_t,5> category_vertices{};
-    bool sun_disk=false,sun_halo=false,sun_flare=false;
+    bool sun_disk=false,sun_halo=false,sun_flare=false,pc_water=false,pc_water_caps=false;SunFx sun;uint64_t pc_water_draws=0;
     struct MaterialCache {uintptr_t pointer=0;uint64_t generation=0;std::string sha;bool opaque=false;};
     std::array<MaterialCache,1024> material_cache{};size_t material_cache_next=0;
     float source_x=0,source_y=0,source_z=0,radius=12;
@@ -309,6 +311,7 @@ public:
         metadata_path=setting(L"LightingMetadata",L"Atmosphere21/materials.lsm");if(metadata_path.is_relative())metadata_path=std::filesystem::path(ini_).parent_path()/metadata_path;
         sky_u_scale=std::clamp(number(L"CustomSkyUScale",1),.1f,2.f);
         sun_disk=GetPrivateProfileIntW(L"Atmosphere",L"SunDisk",0,ini_.c_str())==1;sun_halo=GetPrivateProfileIntW(L"Atmosphere",L"SunHalo",0,ini_.c_str())==1;sun_flare=GetPrivateProfileIntW(L"Atmosphere",L"SunFlare",0,ini_.c_str())==1;
+        pc_water=GetPrivateProfileIntW(L"Atmosphere",L"PCWaterAtmosphere",0,ini_.c_str())==1;
         source_x=number(L"LightX",0);source_y=number(L"LightY",0);source_z=number(L"LightZ",0);radius=std::clamp(number(L"LightRadius",12),.1f,100.f);
         wchar_t name[32768]{};GetPrivateProfileStringW(L"Atmosphere",L"CustomSet",L"",name,32768,ini_.c_str());
         custom_base=GetPrivateProfileIntW(L"Atmosphere",L"CustomBase",3,ini_.c_str());
@@ -320,13 +323,13 @@ public:
             ",\"world_brightness\":"+std::to_string(lighting.world_brightness)+",\"scene_resolver\":"+quote(std::string(universal?"Universal":"LegacyAtlas"))+",\"auto_ground\":"+(auto_ground?"true":"false")+
             ",\"fog_enabled\":"+(lighting.fog_enabled?"true":"false")+",\"fog_color\":"+std::to_string(lighting.fog)+
             ",\"scene_atlas_sha256\":"+quote(std::string(kSceneAtlasSha))+",\"custom_sky_u_scale\":"+std::to_string(sky_u_scale)+
-            ",\"vehicle_direct_lighting\":"+quote(std::string(body_materials?"native_and_PS2_material_capabilities":body_tata?"opt_in_Tata_bonnet_only":"off"))+",\"sun_fx\":\"suppressed_without_current_frame_occlusion\"}");
+            ",\"vehicle_direct_lighting\":"+quote(std::string(body_materials?"native_and_PS2_material_capabilities":body_tata?"opt_in_Tata_bonnet_only":"off"))+",\"sun_fx\":\"current_frame_gpu_depth_mask_or_suppressed\"}");
     }
     ~Pilot(){pending.release();reset();}
     bool enabled()const noexcept{return enabled_;}
     bool custom()const noexcept{return enabled_&&!set_.empty()&&!custom_failed_;}
     void disable()noexcept{enabled_=false;}
-    void reset()noexcept{resolver.clear();body_texture_cache.clear();for(auto*& t:textures_){if(t)t->Release();t=nullptr;}if(scratch)scratch->Release();scratch=nullptr;scratch_size=0;custom_ready_=false;}
+    void reset()noexcept{sun.reset();resolver.clear();body_texture_cache.clear();for(auto*& t:textures_){if(t)t->Release();t=nullptr;}if(scratch)scratch->Release();scratch=nullptr;scratch_size=0;custom_ready_=false;}
     const Pixels& pixels(unsigned layer)const noexcept{return pixels_[layer];}
     bool load(IDirect3DDevice8& n) {
         if(custom_ready_)return true;if(!custom())return false;

@@ -14,7 +14,7 @@ class SourceContracts(unittest.TestCase):
  def test_bl1_selector_source_is_unchanged(self):
   b=(PORT/'renderer/atmosphere.hpp').read_bytes();prefix=b[:b.index(b'class Pilot')]
   for line in prefix.splitlines(keepends=True):
-   if b'atmosphere_scene.hpp' in line or b'scene_resolver.hpp' in line:prefix=prefix.replace(line,b'')
+   if any(name in line for name in (b'atmosphere_scene.hpp',b'scene_resolver.hpp',b'atmosphere_sun.hpp',b'atmosphere_water.hpp')):prefix=prefix.replace(line,b'')
   self.assertEqual(hashlib.sha256(prefix).hexdigest(),'4ff9e49cc354ecbbe14e47769228a74131af76c60cce91f58cf1b2a16e183214')
  @unittest.skipUnless(os.environ.get('MRR_ATMOSPHERE_GT3_COURSES'),'optional private GT3 source')
  def test_real_reverse_sky_bindings_and_vif_shapes(self):

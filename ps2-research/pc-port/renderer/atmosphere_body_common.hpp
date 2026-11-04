@@ -2,25 +2,11 @@
 #include "atmosphere_native.hpp"
 namespace gfx2::atmospherebody {
 struct Timing {atmosphere::Pilot& p;LARGE_INTEGER start{};Timing(atmosphere::Pilot& x):p(x){QueryPerformanceCounter(&start);}~Timing(){LARGE_INTEGER end{};QueryPerformanceCounter(&end);p.body_cpu_ticks+=end.QuadPart-start.QuadPart;++p.body_calls;}};
-// Apply an achromatic exposure AFTER the original reflection combine. Original
-// reflection texture, UV transform, alpha and capture remain unchanged. Every
-// modified state is retained in Pending until a successful restoration.
+// Diffuse exposure is already applied in body_color. Never multiply the final
+// reflection combine again: doing so crushes diffuse AND environment highlights.
+// Keep this hook shared by native and PS2 fleet paths without touching stages.
 inline HRESULT environment_exposure(Device8& d,atmosphere::Pilot& p) {
-    auto& n=*d.native();auto& saved=p.pending;if(saved.body_pending)return D3DERR_DEVICELOST;
-    const float gain=1+p.lighting.strength*(std::min(p.lighting.world_brightness,1.f)-1);
-    if(gain>=.999f)return S_OK;
-    constexpr D3DTEXTURESTAGESTATETYPE keys[]{D3DTSS_COLOROP,D3DTSS_COLORARG1,D3DTSS_COLORARG2,D3DTSS_ALPHAOP,D3DTSS_ALPHAARG1,D3DTSS_RESULTARG,D3DTSS_ALPHAARG2};
-    for(unsigned i=0;i<7;++i)if(FAILED(n.GetTextureStageState(2,keys[i],&saved.body_stage[i])))return D3DERR_INVALIDCALL;
-    DWORD next=0;if(saved.body_stage[0]!=D3DTOP_DISABLE||FAILED(n.GetTextureStageState(3,D3DTSS_COLOROP,&next))||next!=D3DTOP_DISABLE||FAILED(n.GetRenderState(D3DRS_TEXTUREFACTOR,&saved.body_factor)))return D3DERR_INVALIDCALL;
-    const DWORD v=DWORD(std::clamp(std::lround(gain*255),0l,255l));const DWORD factor=0xff000000u|(v<<16)|(v<<8)|v;
-    const DWORD values[]{D3DTOP_MODULATE,D3DTA_CURRENT,D3DTA_TFACTOR,D3DTOP_SELECTARG1,D3DTA_CURRENT,D3DTA_CURRENT,D3DTA_CURRENT};
-    // Enable COLOROP last so partially installed state is never submitted.
-    for(unsigned i: {7u,1u,2u,3u,4u,5u,6u,0u}){saved.body_pending|=1u<<i;
-        const auto hr=i==7?n.SetRenderState(D3DRS_TEXTUREFACTOR,factor):n.SetTextureStageState(2,keys[i],values[i]);
-        if(i==7)atmosphereintegration::notify(d,50,pack(D3DRS_TEXTUREFACTOR,factor),hr);else atmosphereintegration::notify(d,63,pack(2,keys[i],values[i]),hr);
-        if(FAILED(hr))return hr;
-    }
-    if(p.first_reason("body_environment_exposure_installed"))session().write("{\"type\":\"atmosphere_body_exposure\",\"frame\":"+std::to_string(d.trace.frame_number())+",\"gain\":"+std::to_string(gain)+",\"reflection_uv_changed\":false,\"alpha_preserved\":true,\"pending_restore_slots\":8}");
+    if(p.first_reason("body_environment_unscaled"))session().write("{\"type\":\"atmosphere_body_exposure\",\"frame\":"+std::to_string(d.trace.frame_number())+",\"gain\":1,\"policy\":\"diffuse_only_native_highlights\",\"reflection_uv_changed\":false,\"alpha_preserved\":true,\"pending_restore_slots\":0}");
     return S_OK;
 }
 inline bool shade(std::vector<uint8_t>& bytes,unsigned stride,unsigned color_offset,unsigned normal_offset,const D3DMATRIX& world,const atmosphere::Lighting& lighting,bool replace_ps2_prepared,uint64_t& changed) {

@@ -329,7 +329,7 @@ void PS2PortExtension::fleet_before_reset() noexcept {
 }
 
 bool PS2PortExtension::native_states_pending() const noexcept {
-    if (atmosphere_ && atmosphere_->pending.any()) return true;
+    if (atmosphere_ && (atmosphere_->pending.any() || atmosphere_->sun.transaction.pending())) return true;
     for (const auto& m : fleet_race_) if (m && m->states_pending()) return true;
     for (const auto& m : fleet_wheel_) if (m && m->transaction.pending()) return true;
     for (const auto& m : frontend_extra_) if (m && m->transaction.pending()) return true;

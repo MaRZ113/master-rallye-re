@@ -13,7 +13,8 @@ import re
 import struct
 import math
 
-NOISE, PLAIN, ALPHA_TEST, TWO_SIDED, DENY = 1, 2, 4, 8, 16
+NOISE, PLAIN, ALPHA_TEST, TWO_SIDED, DENY, ENVIRONMENT, ENV_TEXTURE = 1, 2, 4, 8, 16, 32, 64
+STATIC_ENVIRONMENTS = ('aluminium-tga','whitepaint-tga','silverpaint-tga')
 ROLES = {'road': 1, 'terrain': 2, 'vegetation': 3, 'static': 4, 'signage': 4, 'exclude': 0}
 
 
@@ -21,7 +22,7 @@ def material_role(name: str, textures: tuple[str, ...], explicit: str | None = N
     label = name.lower().removesuffix('-tga')
     # Exclusions outrank even author-supplied capabilities. Reflective secondary
     # resources and unsupported shader combinations cannot become a plain pass.
-    excluded = ('water', 'glass', 'glow', 'flare', 'lamp', 'headlight', 'taillight', 'shadow', 'decal',
+    excluded = ('water', 'glass', 'window', 'windscreen', 'windshield', 'perspex', 'glow', 'flare', 'lamp', 'headlight', 'taillight', 'shadow', 'decal',
                 'boat', 'wheel', 'tyre', 'tire', 'tred', 'reflection', 'chrome')
     if any(token in label for token in excluded) or len(textures) != 3 or textures[1] != 'Null' or textures[2] not in ('Null', 'noise-tga'):
         return 0, DENY
@@ -38,7 +39,7 @@ def material_role(name: str, textures: tuple[str, ...], explicit: str | None = N
         category = 1 if any(token in label for token in ('road', 'track', 'asphalt', 'tar_')) else 2
     elif any(token in label for token in ('tree', 'shrub', 'bush', 'bark', 'pinerow', 'plant')):
         category = 3
-    elif any(token in label for token in ('wall', 'wood', 'plank', 'concrete', 'bridge', 'hut', 'house', 'building', 'castle', 'church', 'gate', 'fence', 'brick', 'roof', 'tent', 'barn')):
+    elif any(token in label for token in ('wall', 'wood', 'plank', 'concrete', 'bridge', 'hut', 'house', 'building', 'castle', 'church', 'gate', 'fence', 'brick', 'roof', 'tent', 'barn', 'metal', 'caravan', 'container', 'gantry', 'scaffold')):
         category = 4
     else:
         return 0, DENY
@@ -46,6 +47,21 @@ def material_role(name: str, textures: tuple[str, ...], explicit: str | None = N
     if category == 3:
         flags |= ALPHA_TEST | TWO_SIDED
     return category, flags
+
+
+def static_plain_capability(name,contracts,explicit=None):
+    # A material capability grants only the opaque PLAIN pass. An aluminium
+    # secondary requires the separate environment capability and live contract.
+    # This helper grants only a verified static plain counterpart.
+    return explicit in (None,'static') and material_role(name,(name,'Null','Null'))==(4,PLAIN) and all(len(c)==3 and c[1] in ('Null','aluminium-tga') and c[2]=='Null' for c in contracts)
+
+
+def static_environment_capability(name, contracts, explicit=None):
+    # In a validated Course source, the exact aluminium shader binding is a
+    # material semantic, even if the author's diffuse label is just "top".
+    # Live admission still needs opaque identity-world geometry and normals,
+    # both texture identities, and the original reflection stage contract.
+    return explicit in (None,'static') and material_role(name,(name,'Null','Null'),'static')==(4,PLAIN) and all(len(c)==3 and c[1] in ('Null',*STATIC_ENVIRONMENTS) and c[2]=='Null' for c in contracts) and any(c[1] in STATIC_ENVIRONMENTS for c in contracts)
 
 
 def geometry_role(model, draws):
@@ -105,6 +121,28 @@ def fixed(value: str, size: int) -> bytes:
     return data + bytes(size - len(data))
 
 
+def orientation_votes(model, draw):
+    """Count unique surfaces; a proven front/back pair has native CW authority.
+
+    Opposite copies share vertex indices and authored normals. They cannot
+    vote against each other and make an opaque wall look ambiguous. Genuine
+    mixed orientation on unpaired surfaces still fails the existing policy.
+    """
+    signs={}
+    indices=model.local_indices[draw.index_start:draw.index_start+draw.index_count]
+    for j in range(0,len(indices),3):
+        vertices=tuple(draw.vertex_base+i for i in indices[j:j+3])
+        a,b,c=[model.vertices.positions[i] for i in vertices]
+        u=[b[k]-a[k] for k in range(3)];v=[c[k]-a[k] for k in range(3)]
+        cross=(u[1]*v[2]-u[2]*v[1],u[2]*v[0]-u[0]*v[2],u[0]*v[1]-u[1]*v[0])
+        normal=[sum(model.vertices.normals[i][k] for i in vertices) for k in range(3)]
+        dot=sum(x*y for x,y in zip(cross,normal))
+        if math.isfinite(dot) and abs(dot)>1e-5:signs.setdefault(tuple(sorted(vertices)),set()).add(int(dot>0))
+    votes=[0,0]
+    for candidates in signs.values():votes[0 if len(candidates)==2 else next(iter(candidates))]+=1
+    return votes
+
+
 def orientation_policy(category: int, flags: int, negative: int, positive: int,
                        authored_signage: bool = False) -> tuple[int, int, int]:
     """Separate material capability from source smoothing-normal orientation.
@@ -116,7 +154,7 @@ def orientation_policy(category: int, flags: int, negative: int, positive: int,
     Unsupported shaders/ambiguous roles retain DENY independently of this rule.
     """
     winding = 1 if positive > negative else -1
-    if category == 3 or (flags & NOISE and not flags & DENY) or (authored_signage and category in (2,4) and flags == PLAIN):
+    if category == 3 or (flags & (NOISE|ENVIRONMENT) and not flags & DENY) or (authored_signage and category in (2,4) and flags == PLAIN):
         winding = -1
     elif not flags & DENY and (not negative + positive or max(negative, positive) < .9 * (negative + positive)):
         category, flags = 0, DENY
@@ -147,9 +185,9 @@ def decode_metadata(data: bytes) -> list[dict]:
             if b'\0' not in field:raise ValueError('unterminated metadata text')
             value=field.split(b'\0')[0].decode('ascii');fixed(value,size);return value
         category,flags,winding=struct.unpack_from('<IIi',row,225)
-        course=text(0,64);digest=text(160,65)
+        course=text(0,64);digest=text(160,65);name=text(64,96)
         if not re.fullmatch(r'[A-Za-z0-9_-]{1,63}',course) or not re.fullmatch('[0-9a-f]{64}',digest):raise ValueError('metadata identity')
-        if category>4 or flags&~31 or winding not in (-1,1) or (not category and not flags&DENY) or ((flags&(ALPHA_TEST|TWO_SIDED)) and category!=3):raise ValueError('metadata capability')
+        if category>4 or flags&~127 or winding not in (-1,1) or (not category and not flags&DENY) or ((flags&TWO_SIDED) and category!=3) or ((flags&ALPHA_TEST) and category!=3 and (category!=4 or flags&ENVIRONMENT)) or (flags&ENVIRONMENT and (category!=4 or flags&DENY)) or (flags&ENV_TEXTURE and (category!=0 or flags!=(DENY|ENV_TEXTURE) or name not in STATIC_ENVIRONMENTS)):raise ValueError('metadata capability')
         result.append(dict(course=course,material=text(64,96),texture_sha256=digest,category=category,flags=flags,winding=winding))
     return result
 
@@ -188,15 +226,8 @@ def export_lighting_metadata(sources: list[Path], courses: list[str], output: Pa
                 if draw.index_count:
                     bindings[draw.texture_tuple[0]].add(tuple(draw.texture_tuple))
                     material_draws[draw.texture_tuple[0]].append(draw)
-                    indices=model.local_indices[draw.index_start:draw.index_start+draw.index_count]
-                    for j in range(0,len(indices),3):
-                        vertices=[draw.vertex_base+i for i in indices[j:j+3]]
-                        a,b,c=[model.vertices.positions[i] for i in vertices]
-                        u=[b[k]-a[k] for k in range(3)];v=[c[k]-a[k] for k in range(3)]
-                        cross=(u[1]*v[2]-u[2]*v[1],u[2]*v[0]-u[0]*v[2],u[0]*v[1]-u[1]*v[0])
-                        normal=[sum(model.vertices.normals[i][k] for i in vertices) for k in range(3)]
-                        dot=sum(x*y for x,y in zip(cross,normal))
-                        if math.isfinite(dot) and abs(dot)>1e-5:orientation[draw.texture_tuple[0]][int(dot>0)]+=1
+                    votes=orientation_votes(model,draw)
+                    for i in (0,1):orientation[draw.texture_tuple[0]][i]+=votes[i]
             report = {'course': course, 'source': str(path), 'source_sha256': hashlib.sha256(path.read_bytes()).hexdigest(), 'materials': []}
             for name, contracts in sorted(bindings.items()):
                 texture = folder / (name + '.dxt')
@@ -217,9 +248,18 @@ def export_lighting_metadata(sources: list[Path], courses: list[str], output: Pa
                         if len({c for c,f in qualified})==1 and all(not f&DENY for c,f in qualified):
                             category=next(iter(qualified))[0];flags=0
                             for _,f in qualified:flags|=f
+                if static_plain_capability(name,contracts,roles.get(course,{}).get(name)):category,flags=4,PLAIN
+                environment=static_environment_capability(name,contracts,roles.get(course,{}).get(name))
+                if environment:category,flags=4,PLAIN|ENVIRONMENT
                 negative,positive=orientation[name]
                 category,flags,winding=orientation_policy(category,flags,negative,positive,
                     roles.get(course, {}).get(name) == 'signage' or inferred in ('signage','terrain'))
+                # Coverage is independent of surface role: certified opaque
+                # static panels may share a texture with a native alpha-test
+                # subrange (railings, roof edges, boards). RGB-only lighting
+                # leaves texture/vertex alpha and the coverage test untouched.
+                if category == 4 and flags == PLAIN:
+                    flags |= ALPHA_TEST
                 opaque = bytearray(tex.bgra)
                 opaque[3::4] = bytes([255]) * (len(opaque) // 4)
                     # Topology is regenerated at runtime; orientation policy is
@@ -237,6 +277,20 @@ def export_lighting_metadata(sources: list[Path], courses: list[str], output: Pa
                         record.update(category=0, flags=DENY)
                     records[key] = record
                 report['materials'].append({'material': name, 'category': category, 'flags': flags, 'winding':winding,'geometry_inferred_role':inferred,'source_normal_orientation_votes':orientation[name], 'bindings': sorted(contracts), 'texture_file_sha256': hashlib.sha256(texture.read_bytes()).hexdigest()})
+            # Secondary identity is exported once per course, independent of
+            # objects/layout topology. It is never a diffuse admission record.
+            environment_names={c[1] for m in report['materials'] if m['flags']&ENVIRONMENT for c in m['bindings'] if c[1] in STATIC_ENVIRONMENTS}
+            for environment_name in sorted(environment_names):
+                secondary=next((root/course/(environment_name+'.dxt') for root in sources if (root/course/(environment_name+'.dxt')).exists()),None)
+                if secondary is None:raise ValueError('missing certified static environment secondary: '+environment_name)
+                tex=parse_dxt(secondary);opaque=bytearray(tex.bgra);opaque[3::4]=bytes([255])*(len(opaque)//4)
+                for pixels in (tex.bgra,bytes(opaque)):
+                    digest=hashlib.sha256(pixels).hexdigest();key=course,digest
+                    certificate=dict(course=course,material=environment_name,texture_sha256=digest,category=0,flags=DENY|ENV_TEXTURE,winding=-1)
+                    previous=records.get(key)
+                    if previous and previous['category']!=0:raise ValueError('environment/diffuse identity collision')
+                    records[key]=certificate
+                report.setdefault('environment_sources',[]).append({'path':str(secondary),'sha256':hashlib.sha256(secondary.read_bytes()).hexdigest()})
             evidence.append(report)
     data = encode_metadata(list(records.values()))
     result = {'schema': 1, 'status': 'OFFLINE_MATERIAL_METADATA_RUNTIME_ADMISSION_REQUIRED', 'format': 'LSM1', 'records': len(records),'base_records':base_records,
