@@ -146,11 +146,15 @@ inline const Files& files(const wchar_t* ini) {
     if (f.v3) { load_file(path, f.values); load_file(diagnostics, f.values); }
     return cache.emplace(key, std::move(f)).first->second;
 }
+// PAUSE-MENU1: v3 keys whose effect is always loaded while the race pause SETTINGS owns their on/off state
+// (pause_settings.hpp prepare); the file value is only the initial live state then.
+inline std::map<std::wstring, std::wstring>& forced() { static std::map<std::wstring, std::wstring> m; return m; }
 // The historical value of a historical key; false when neither file nor the shipped defaults have it.
 inline bool value(const wchar_t* legacy, const wchar_t* ini, std::wstring& out) {
     const Files& f = files(ini);
     const wchar_t* historical = v2_key(legacy) ? v2_key(legacy) : legacy;
     const Name n = name(historical);
+    if (auto fo = forced().find(n.key); fo != forced().end()) { out = fo->second; return true; }
     auto it = f.values.find(n.key);
     if (it == f.values.end()) it = f.values.find(historical);  // a historical name written into a v3 file
     if (it == f.values.end()) { if (const auto* d = default_value(historical)) { out = d; return true; } return false; }

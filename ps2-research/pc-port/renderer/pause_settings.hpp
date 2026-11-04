@@ -14,8 +14,10 @@
 //            authored Width 18 / Height 5) gets 2*visible_rows+1 tiles, 22 tiles wide in SETTINGS, and its corner moves
 //            down / left by the added tiles so the top edge and the centre stay where they were.
 // SETTINGS: CAMERA FOV (live through g_live_vfov, patch 0001; only with [Quality] GameplayFOV on) and on/off switches of
-// draw-time PS2 effects (live_settings.hpp; the same skip points as the F7 bypass). An effect that was off in PS2Port.ini
-// at start is not loaded; its switch only edits the INI and is marked "*" (after a restart).
+// draw-time PS2 effects (live_settings.hpp; the same skip points as the F7 bypass). prepare() runs before any pilot
+// reads its key: with a v3 PS2Port.ini all eight effects are loaded (config::v3::forced) and the file value is only
+// their initial live state, so every switch works in both directions without a restart. (A "*" in a pause string
+// greys the row natively - 0x455b44 - so labels never contain one.)
 // Saving: on leaving SETTINGS or closing the pause, MRRRenderer.ini [Quality] VerticalFOVDegrees ([Camera] for v1) and the
 // changed PS2Port.ini v3 keys ([Course] / [Picture]) are written with WritePrivateProfileString (one key each, comments stay).
 // Lists are built with the game's own allocator (0x5c1cb4) because Broker frees the previous list (strings, vector
@@ -46,13 +48,13 @@ inline constexpr int kFovMin=50,kFovMax=100,kFovStep=5;
 struct Toggle {
     const char* label; unsigned bit; const wchar_t* section; std::array<const wchar_t*,2> keys;
     std::array<int,2> on_value{1,1};     // the value written for ON (keeps GroundDetail 2 / ForestFix 2)
-    bool loaded=false;                   // >0 in PS2Port.ini at start (assets/state exist)
+    bool loaded=false;                   // the effect is loaded (live switchable)
     bool on=false,dirty=false;
 };
 inline std::vector<Toggle> default_toggles() {
     return {
         {"GRASS",live::Grass,L"Course",{L"Grass",L"Shrubs"}},
-        {"GROUND DETAIL",live::Ground,L"Course",{L"GroundDetail",nullptr}},
+        {"GROUND DETAIL",live::Ground,L"Course",{L"GroundDetail",nullptr},{2,0}},
         {"FOREST FIX",live::Forest,L"Course",{L"ForestFix",nullptr}},
         {"WATER",live::Water,L"Course",{L"Water",nullptr}},
         {"BIRDS",live::Birds,L"Course",{L"Birds",nullptr}},
@@ -76,7 +78,7 @@ struct Menu {
         std::vector<std::string> out;char text[48];
         if(configured>0.f) std::snprintf(text,sizeof(text),"CAMERA FOV %d",fov()); else std::snprintf(text,sizeof(text),"CAMERA FOV STOCK");
         out.emplace_back(text);
-        for(const auto& t:toggles){std::snprintf(text,sizeof(text),"%s %s%s",t.label,t.on?"ON":"OFF",t.loaded?"":" *");out.emplace_back(text);}
+        for(const auto& t:toggles){std::snprintf(text,sizeof(text),"%s %s",t.label,t.on?"ON":"OFF");out.emplace_back(text);}
         out.emplace_back("BACK");
         return out;
     }
@@ -141,7 +143,7 @@ inline std::array<uint8_t,5> call_bytes(uint32_t site,uint32_t target) noexcept 
 
 struct FrameCorner { void* box=nullptr; float* corner=nullptr; float x=0,y=0; bool searched=false; };
 struct State {
-    Menu menu; bool configured=false,installed=false; const char* reason="not_requested"; bool left=false,right=false;
+    Menu menu; bool prepared=false,wanted=false,configured=false,installed=false; const char* reason="not_requested"; bool left=false,right=false;
     std::wstring renderer_ini,port_ini; bool fov_dirty=false; int fov_saved=0;
     ULONGLONG last_input=0; int frame_height=0,frame_width=0; FrameCorner corner;
 };
@@ -305,22 +307,36 @@ inline bool write(uint32_t va,const std::array<uint8_t,5>& bytes) noexcept {
 }
 }  // namespace native
 
+// Once per process, from the PS2PortExtension constructor before any pilot is created: the initial state of every
+// switch from PS2Port.ini, then (v3 file only) every effect is forced to load with its ON value.
+inline void prepare(bool supported,const std::wstring& ini) noexcept {
+    auto& s=state();if(s.prepared)return;s.prepared=true;
+    try{
+        if(!supported||config::read_int(L"PauseSettings",0,ini.c_str())!=1)return;
+        s.wanted=true;
+        { auto dir=ini;const auto slash=dir.find_last_of(L"/\\");dir=slash==std::wstring::npos?std::wstring():dir.substr(0,slash+1);
+          const auto path=dir+L"MRRRenderer.ini";if(GetFileAttributesW(path.c_str())!=INVALID_FILE_ATTRIBUTES)s.renderer_ini=path; }
+        const bool v3=GetPrivateProfileIntW(L"General",L"ConfigVersion",0,ini.c_str())==3;
+        if(v3)s.port_ini=ini;   // switches are written back only into a v3 file (section/key names of the v3 template)
+        s.menu.toggles=default_toggles();
+        for(auto& t:s.menu.toggles){
+            int first=0;
+            for(size_t k=0;k<t.keys.size();++k)if(t.keys[k]){const int v=int(config::read_int(t.keys[k],0,ini.c_str()));
+                if(k==0){first=v;if(v>0)t.on_value[0]=v;}else t.on_value[k]=v;}   // secondary keys keep their value
+            t.on=first>0;t.loaded=v3||t.on;
+            if(v3)for(size_t k=0;k<t.keys.size();++k)if(t.keys[k])config::v3::forced()[t.keys[k]]=std::to_wstring(t.on_value[k]);
+        }
+        // Drop switches that cannot work (an off effect of a pre-v3 file is not loaded).
+        std::vector<Toggle> usable;for(auto& t:s.menu.toggles)if(t.loaded)usable.push_back(t);s.menu.toggles=std::move(usable);
+        live::off_bits().store(s.menu.live_off_bits(),std::memory_order_relaxed);
+    }catch(...){}
+}
 // Once per process, from the PS2PortExtension constructor (before any race, so the AI is not running).
 inline void configure(bool supported,const std::wstring& ini) noexcept {
     auto& s=state();if(s.configured)return;s.configured=true;
     try{
-        if(!supported||config::read_int(L"PauseSettings",0,ini.c_str())!=1)return;
+        prepare(supported,ini);if(!s.wanted)return;
         if(reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))!=kImageBase){s.reason="unexpected_image_base";ps2diag::disable_log().note("pause_settings",s.reason);return;}
-        { auto dir=ini;const auto slash=dir.find_last_of(L"/\\");dir=slash==std::wstring::npos?std::wstring():dir.substr(0,slash+1);
-          const auto path=dir+L"MRRRenderer.ini";if(GetFileAttributesW(path.c_str())!=INVALID_FILE_ATTRIBUTES)s.renderer_ini=path; }
-        // PS2Port.ini switches are written back only into a v3 file (section/key names of the v3 template).
-        if(GetPrivateProfileIntW(L"General",L"ConfigVersion",0,ini.c_str())==3)s.port_ini=ini;
-        s.menu.toggles=default_toggles();
-        for(auto& t:s.menu.toggles){
-            for(size_t k=0;k<t.keys.size();++k)if(t.keys[k]){const int v=int(config::read_int(t.keys[k],0,ini.c_str()));
-                if(k==0){t.loaded=v>0;if(v>0)t.on_value[0]=v;}else t.on_value[k]=v;}   // secondary keys keep their value
-            t.on=t.loaded;
-        }
         const std::array<std::pair<CallSite,uint32_t>,5> sites{{
             {kOpen,uint32_t(reinterpret_cast<uintptr_t>(&native::on_open))},{kInput,uint32_t(reinterpret_cast<uintptr_t>(&native::on_input))},
             {kAccept,uint32_t(reinterpret_cast<uintptr_t>(&native::on_accept))},{kBack,uint32_t(reinterpret_cast<uintptr_t>(&native::on_back))},

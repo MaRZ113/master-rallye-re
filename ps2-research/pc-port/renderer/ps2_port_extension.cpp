@@ -221,6 +221,8 @@ PS2PortExtension::PS2PortExtension(bool exact_build, const std::string& exe_sha,
     } catch (...) { config_reason_ = "configuration_error_stock"; return; }
     try {
         const auto ini = port_ini_path(renderer_ini);
+        // PAUSE-MENU1: before any pilot reads its key, so every pause SETTINGS effect is loaded (INI = initial state).
+        pause::prepare(build_valid_, ini);
         const UINT mode = ::gfx2::ps2port::config::read_int(L"FoliageMode", 0, ini.c_str());
         diagnostics_ = ::gfx2::ps2port::config::read_int(L"Diagnostics", 0, ini.c_str()) == 1;
         // COURSE-RENDER-FIX1: the per-race ledger follows Diagnostics unless RaceLedger says otherwise.

@@ -369,7 +369,7 @@ void pause_settings_menu(){
     CHECK((m.labels()==std::vector<std::string>{"CONTINUE","SETTINGS","QUIT"}));
     int next=-1;CHECK(m.accept(0,next)==Action::Native);CHECK(m.accept(2,next)==Action::NativeQuit);
     CHECK(m.accept(1,next)==Action::Stay&&next==0&&m.mode==Mode::Settings);
-    auto l=m.labels();CHECK(l.size()==10&&l[0]=="CAMERA FOV 75"&&l[1]=="GRASS ON"&&l[2]=="GROUND DETAIL OFF *"&&l[6]=="MOTION BLUR ON"&&l[9]=="BACK");
+    auto l=m.labels();CHECK(l.size()==10&&l[0]=="CAMERA FOV 75"&&l[1]=="GRASS ON"&&l[2]=="GROUND DETAIL OFF"&&l[2].find('*')==std::string::npos&&l[6]=="MOTION BLUR ON"&&l[9]=="BACK");
     CHECK(m.accept(0,next)==Action::Stay&&next==0&&m.fov()==80);
     m.live=100.f;CHECK(!m.step(+1,false)&&m.fov()==100);CHECK(m.step(+1,true)&&m.fov()==50);CHECK(!m.step(-1,false));
     CHECK(m.step(+1,false)&&m.fov()==55);m.live=77.f;CHECK(m.step(+1,false)&&m.fov()==80);
