@@ -1,4 +1,5 @@
 #pragma once
+#include "live_settings.hpp"
 #include "ps2_race_certificate.hpp"
 // COURSE-WATER1 native side (PS2Water=1): in draw_indexed_at, a native course draw that is exactly one PS2 water asset
 // key is replaced by the PS2 passes of its matched water triangles (ps2_water_pilot.hpp). Compiled only into the staged
@@ -121,7 +122,7 @@ inline HRESULT apply_pass(ps2port::PS2WaterPilot& p,IDirect3DDevice8& n,const ps
 }
 
 inline Result draw(Device8& d,D3DPRIMITIVETYPE type,UINT min_index,UINT vertices,UINT start,UINT count,uintptr_t pc) noexcept {
-    if(ps2port::perf::bypassed(ps2port::perf::BypassWater))return {};ps2port::perf::Timer perf_timer(ps2port::perf::Water);
+    if(ps2port::perf::bypassed(ps2port::perf::BypassWater)||ps2port::live::disabled(ps2port::live::Water))return {};ps2port::perf::Timer perf_timer(ps2port::perf::Water);
     auto* p=pilot(d);if(!p||!p->active())return {};
     if(type!=D3DPT_TRIANGLELIST||!count||!p->candidate(count)||!d.trace.scene_active||d.trace.shadow.recording||
        d.trace.effective_shadow.recording||GetCurrentThreadId()!=d.trace.render_thread_id())return {};

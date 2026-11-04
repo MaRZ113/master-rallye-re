@@ -1,4 +1,5 @@
 #pragma once
+#include "live_settings.hpp"
 #include "ps2_race_certificate.hpp"
 // Native layer of GroundDetail (renderer/ground_detail.hpp). Compiled only into the staged baseline.
 // Admits a draw only when the complete PC `shader/base_noise` contract (585ac0) is live on the native
@@ -72,14 +73,16 @@ inline dipintegration::Result draw(Device8& d,D3DPRIMITIVETYPE type,UINT min_ind
     if(ps2port::perf::bypassed(ps2port::perf::BypassGround))return {};ps2port::perf::Timer perf_timer(ps2port::perf::Ground);
     auto* g=ground(d);if(!g)return {};
     if(const char* startup=g->take_startup_reason())log(d,*g,startup);
-    if((!g->requested()&&!g->forest_fix())||!count||!d.trace.scene_active||d.trace.shadow.recording||d.trace.effective_shadow.recording||
+    // PAUSE-MENU1 live switches: ground noise and ForestFix independently.
+    const bool ground_on=g->requested()&&!ps2port::live::disabled(ps2port::live::Ground),forest_on=g->forest_fix()&&!ps2port::live::disabled(ps2port::live::Forest);
+    if((!ground_on&&!forest_on)||!count||!d.trace.scene_active||d.trace.shadow.recording||d.trace.effective_shadow.recording||
        GetCurrentThreadId()!=d.trace.render_thread_id())return {};
     auto& n=*d.native();
-    if(g->forest_fix()&&pc==reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+COURSE_DRAW_RETURN_RVA&&course_world(d)&&
+    if(forest_on&&pc==reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+COURSE_DRAW_RETURN_RVA&&course_world(d)&&
        render(d,n,D3DRS_ALPHABLENDENABLE,TRUE)&&render(d,n,D3DRS_ZWRITEENABLE,TRUE)&&render(d,n,D3DRS_ALPHATESTENABLE,FALSE)&&
        render(d,n,D3DRS_ZENABLE,D3DZB_TRUE)&&render(d,n,D3DRS_SRCBLEND,D3DBLEND_SRCALPHA)&&render(d,n,D3DRS_DESTBLEND,D3DBLEND_INVSRCALPHA))
         return forest(d,*g,n,type,min_index,vertices,start,count);
-    if(!g->requested())return {};
+    if(!ground_on)return {};
     // Cheap pre-filter: only the noise stage of base_noise uses MODULATE2X in stage1.
     if(!stage(d,n,1,D3DTSS_COLOROP,D3DTOP_MODULATE2X))return {};
     if(pc!=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+COURSE_DRAW_RETURN_RVA){log(d,*g,"modulate2x_outside_course_draw_loop");return {};}

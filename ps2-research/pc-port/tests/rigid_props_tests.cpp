@@ -355,21 +355,30 @@ void private_inputs(){
 
 void pause_settings_menu(){
     using namespace gfx2::ps2port::pause;
-    // CALL rel32 encoding of the four redirected sites (retail bytes).
+    // CALL rel32 encoding of the redirected sites (retail bytes).
     CHECK((call_bytes(0x455600,0x455210)==std::array<uint8_t,5>{0xe8,0x0b,0xfc,0xff,0xff}));
     CHECK((call_bytes(0x4551a7,0x455280)==std::array<uint8_t,5>{0xe8,0xd4,0x00,0x00,0x00}));
     CHECK((call_bytes(0x531105,0x531110)==std::array<uint8_t,5>{0xe8,0x06,0x00,0x00,0x00}));
-    CHECK(frame_tiles(2)==5&&frame_tiles(3)==7);CHECK(std::wstring(fov_section(2))==L"Quality"&&std::wstring(fov_section(0))==L"Camera");
+    CHECK(frame_tiles(2)==5&&frame_tiles(3)==7);CHECK(shown_rows(11,3)==3&&shown_rows(2,3)==2&&shown_rows(5,0)==5);
+    CHECK(std::wstring(fov_section(2))==L"Quality"&&std::wstring(fov_section(0))==L"Camera");
+    // Frame corner (y up): taller frames move down by the added tiles, wider ones left by half of them.
+    CHECK(frame_y(290.f,5)==290.f&&frame_y(290.f,7)==258.f&&frame_x(170.f,18)==170.f&&frame_x(170.f,22)==138.f);
     Menu m;CHECK(!m.usable());m.original={"CONTINUE","QUIT"};CHECK(m.usable());m.configured=75.f;
+    m.toggles=default_toggles();CHECK(m.toggles.size()==8);
+    m.toggles[0].loaded=m.toggles[0].on=true;m.toggles[5].loaded=m.toggles[5].on=true;
     CHECK((m.labels()==std::vector<std::string>{"CONTINUE","SETTINGS","QUIT"}));
     int next=-1;CHECK(m.accept(0,next)==Action::Native);CHECK(m.accept(2,next)==Action::NativeQuit);
     CHECK(m.accept(1,next)==Action::Stay&&next==0&&m.mode==Mode::Settings);
-    CHECK((m.labels()==std::vector<std::string>{"CAMERA FOV 75","BACK"}));
+    auto l=m.labels();CHECK(l.size()==10&&l[0]=="CAMERA FOV 75"&&l[1]=="GRASS ON"&&l[2]=="GROUND DETAIL OFF *"&&l[6]=="MOTION BLUR ON"&&l[9]=="BACK");
     CHECK(m.accept(0,next)==Action::Stay&&next==0&&m.fov()==80);
     m.live=100.f;CHECK(!m.step(+1,false)&&m.fov()==100);CHECK(m.step(+1,true)&&m.fov()==50);CHECK(!m.step(-1,false));
     CHECK(m.step(+1,false)&&m.fov()==55);m.live=77.f;CHECK(m.step(+1,false)&&m.fov()==80);
-    CHECK(m.back(next)&&next==1&&m.mode==Mode::Main);CHECK(!m.back(next));
-    CHECK(m.accept(1,next)==Action::Stay);CHECK(m.accept(1,next)==Action::Stay&&next==1&&m.mode==Mode::Main);
+    // Toggles: accept flips, Left = OFF, Right = ON; live bits only for effects loaded at start.
+    CHECK(m.accept(1,next)==Action::Stay&&next==1&&!m.toggles[0].on&&m.toggles[0].dirty);CHECK(m.live_off_bits()==gfx2::ps2port::live::Grass);
+    CHECK(!m.change(1,-1,false)&&m.change(1,+1,false)&&m.toggles[0].on&&m.live_off_bits()==0);
+    CHECK(m.change(2,+1,false)&&m.toggles[1].on&&m.live_off_bits()==0);   // not loaded: INI only
+    CHECK(m.accept(9,next)==Action::Stay&&next==1&&m.mode==Mode::Main);
+    CHECK(m.accept(1,next)==Action::Stay);CHECK(m.back(next)&&next==1&&m.mode==Mode::Main);CHECK(!m.back(next));
     Menu stock;stock.original={"A","B"};stock.mode=Mode::Settings;CHECK((stock.labels()[0]=="CAMERA FOV STOCK"));CHECK(!stock.step(+1,true));
 }
 int main(){

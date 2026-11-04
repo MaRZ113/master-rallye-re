@@ -12,6 +12,7 @@
 #include "rigid_props.hpp"
 #include "ps2_audio_options.hpp"
 #include "pause_settings.hpp"
+#include "live_settings.hpp"
 #include "retail_layout.hpp"
 #include "ps2_water_pilot.hpp"
 #include "vehicle_partition.hpp"
@@ -654,7 +655,7 @@ std::string PS2PortExtension::color_present(IDirect3DDevice8& device, bool scene
             }
         }
         // Tone curve first (colour of the PS2 scene), then the PS2 display filter over the result.
-        if (color_.enabled() && !(hud_damage_ && hud_damage_->layer.pending()) && !(hud_map_ && hud_map_->layer.pending()) &&
+        if (color_.enabled() && !live::disabled(live::Color) && !(hud_damage_ && hud_damage_->layer.pending()) && !(hud_map_ && hud_map_->layer.pending()) &&
             !(hud_timediffs_ && hud_timediffs_->layer.pending()) && !(hud_template_ && hud_template_->layer.pending())) {
             const HRESULT hr = color_.apply(device, scene_active, stateblock_recording);
             const auto& status = color_.status();
@@ -670,7 +671,7 @@ std::string PS2PortExtension::color_present(IDirect3DDevice8& device, bool scene
                 notes += text;
             }
         }
-        if (output_.enabled() && !color_.pending()) {
+        if (output_.enabled() && !live::disabled(live::Output) && !color_.pending()) {
             const HRESULT hr = output_.apply(device, scene_active, stateblock_recording);
             const auto& status = output_.status();
             note(ps2diag::Effect::PostFx, status.reason);
@@ -696,6 +697,7 @@ std::string PS2PortExtension::color_present(IDirect3DDevice8& device, bool scene
             blur_last_present_ = now.QuadPart;
             if (!hud.valid || hud.paused) { blur_.interrupt(); reason = "outside_race"; }
             else if (perf::bypassed(perf::BypassPresent)) { blur_.interrupt(); reason = "perf_bypass"; }
+            else if (live::disabled(live::Blur)) { blur_.interrupt(); reason = "pause_settings_off"; }
             else { hr = blur_.apply(device, scene_active, stateblock_recording, dt); reason = blur_.status().reason; }
             note(ps2diag::Effect::PostFx, reason);
             if (reason != blur_logged_reason_) {
