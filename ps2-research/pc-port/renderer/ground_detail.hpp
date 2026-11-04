@@ -66,7 +66,7 @@ inline std::string pc_noise_level0_sha(const BYTE* bits,INT pitch,D3DFORMAT form
 
 enum class GroundStateKind : uint8_t { Render, Stage, Texture };
 struct GroundStateOp { GroundStateKind kind; DWORD stage, key; };
-inline constexpr std::array<GroundStateOp,22> kGroundOps={{
+inline constexpr std::array<GroundStateOp,23> kGroundOps={{
     {GroundStateKind::Stage,1,D3DTSS_COLOROP},{GroundStateKind::Stage,1,D3DTSS_ALPHAOP},
     {GroundStateKind::Render,0,D3DRS_ALPHABLENDENABLE},{GroundStateKind::Render,0,D3DRS_SRCBLEND},
     {GroundStateKind::Render,0,D3DRS_DESTBLEND},{GroundStateKind::Render,0,D3DRS_BLENDOP},
@@ -78,8 +78,11 @@ inline constexpr std::array<GroundStateOp,22> kGroundOps={{
     {GroundStateKind::Stage,0,D3DTSS_ADDRESSV},{GroundStateKind::Stage,0,D3DTSS_MAGFILTER},
     {GroundStateKind::Stage,0,D3DTSS_MINFILTER},{GroundStateKind::Stage,0,D3DTSS_MIPFILTER},
     {GroundStateKind::Stage,0,D3DTSS_TEXTURETRANSFORMFLAGS},{GroundStateKind::Texture,0,0},
+    {GroundStateKind::Texture,1,0},
 }};
 inline constexpr size_t kGroundPass1Ops=2;  // stage1 COLOROP/ALPHAOP
+// FPS1 (docs/perf-fps1): GroundDetail=2 swaps the stage1 noise term in place (MODULATE2X PC noise -> SUBTRACT PS2 noise).
+inline constexpr size_t kGroundStage0TextureOp=21,kGroundStage1TextureOp=22;
 
 using GroundWriter=void(*)(void*,uint32_t,const Args&,HRESULT) noexcept;
 
@@ -125,7 +128,12 @@ public:
                 if(shadow&&op.stage<shadow->tss.size()&&op.key<shadow->tss[op.stage].size()&&shadow->tss[op.stage][op.key].known)v.scalar=shadow->tss[op.stage][op.key].value;
                 else hr=n.GetTextureStageState(op.stage,static_cast<D3DTEXTURESTAGESTATETYPE>(op.key),&v.scalar);
                 break;
-            case GroundStateKind::Texture:hr=n.GetTexture(op.stage,&v.texture);break;
+            case GroundStateKind::Texture:
+                // FPS1: the tracked binding replaces the native GetTexture (two per ground draw).
+                if(shadow&&op.stage<shadow->bindings.textures.size()&&shadow->bindings.textures[op.stage].known){
+                    v.texture=reinterpret_cast<IDirect3DBaseTexture8*>(shadow->bindings.textures[op.stage].value);if(v.texture)v.texture->AddRef();}
+                else hr=n.GetTexture(op.stage,&v.texture);
+                break;
             }
         }
         if(FAILED(hr)){release();return hr;}
@@ -153,7 +161,7 @@ public:
 struct GroundNoiseIdentity { uintptr_t texture=0; uint64_t generation=0; bool match=false; const char* reason=""; };
 
 class GroundDetail {
-    bool requested_=false,disabled_=false,diagnostics_=false;
+    bool requested_=false,disabled_=false,diagnostics_=false,single_pass_=false;
     std::vector<DWORD> pixels_;
     IDirect3DTexture8* texture_=nullptr;
     std::array<GroundNoiseIdentity,8> identities_{};
@@ -168,7 +176,8 @@ public:
     GroundDetail(bool supported,const std::wstring& ini) noexcept {
         if(!supported)return;
         try{
-            if(config::read_int(L"GroundDetail",0,ini.c_str())!=1)return;
+            // 1 = PS2 contract (second unfogged subtract pass); 2 = FPS1 single pass (stage1 SUBTRACT, the noise is fogged).
+            const int mode=config::read_int(L"GroundDetail",0,ini.c_str());if(mode!=1&&mode!=2)return;single_pass_=mode==2;
             diagnostics_=config::read_int(L"Diagnostics",0,ini.c_str())==1;
             wchar_t filename[32768]{};
             config::read_string(L"GroundDetailAsset",L"PS2Grass\\PS2GroundNoise.gxi",filename,32768,ini.c_str());
@@ -182,6 +191,7 @@ public:
     GroundDetail(const GroundDetail&)=delete;
     GroundDetail& operator=(const GroundDetail&)=delete;
     bool requested() const noexcept {return requested_&&!disabled_;}
+    bool single_pass() const noexcept {return single_pass_;}
     void disable() noexcept {ps2diag::disable_log().note("ground_detail","state_restore_or_texture_failure");disabled_=true;}
     uint64_t passes() const noexcept {return passes_;}
     // Device caps are checked once per native device.
@@ -189,7 +199,8 @@ public:
         if(caps_device_!=&n){
             D3DCAPS8 caps{};caps_device_=&n;
             caps_ok_=SUCCEEDED(n.GetDeviceCaps(&caps))&&(caps.PrimitiveMiscCaps&D3DPMISCCAPS_BLENDOP)&&(caps.SrcBlendCaps&D3DPBLENDCAPS_ONE)&&
-                (caps.DestBlendCaps&D3DPBLENDCAPS_ONE)&&(caps.TextureOpCaps&D3DTEXOPCAPS_SELECTARG1);
+                (caps.DestBlendCaps&D3DPBLENDCAPS_ONE)&&(caps.TextureOpCaps&D3DTEXOPCAPS_SELECTARG1)&&
+                (!single_pass_||(caps.TextureOpCaps&D3DTEXOPCAPS_SUBTRACT));
         }
         return caps_ok_;
     }

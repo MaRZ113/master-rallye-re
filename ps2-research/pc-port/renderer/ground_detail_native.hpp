@@ -71,6 +71,18 @@ inline xtrailintegration::Result draw(Device8& d,D3DPRIMITIVETYPE type,UINT min_
     DWORD uv=0,address_u=0,address_v=0;
     if(!stage_value(d,n,1,D3DTSS_TEXCOORDINDEX,uv)||!stage_value(d,n,1,D3DTSS_ADDRESSU,address_u)||
        !stage_value(d,n,1,D3DTSS_ADDRESSV,address_v)){t.release();log(d,*g,"stage1_sampler_read_failed");return {};}
+    if(g->single_pass()){
+        // GroundDetail=2: one draw, stage1 = CURRENT - PS2 noise on the PC noise UV/sampler. Unlike the PS2 the
+        // noise is fogged (it fades with distance); no extra draw and four state writes instead of ~40.
+        hr=t.set(n,0,D3DTOP_SUBTRACT);if(SUCCEEDED(hr))hr=t.set(n,ps2port::kGroundStage1TextureOp,0,g->texture());
+        if(FAILED(hr)){const HRESULT restored=t.restore(n);log(d,*g,"single_pass_state_failed",hr);if(FAILED(restored)){g->disable();return {true,restored};}return {};}
+        const HRESULT single=n.DrawIndexedPrimitive(type,min_index,vertices,start,count);
+        const HRESULT restored=t.restore(n);
+        if(FAILED(restored)){g->disable();log(d,*g,"restore_failed",restored);return {true,restored};}
+        if(FAILED(single)){log(d,*g,"single_pass_draw_failed",single);return {true,single};}
+        g->count_pass();log(d,*g,"ground_detail_single_pass_applied");
+        return {true,single};
+    }
     // Pass 1: the original draw without the PC noise term.
     hr=t.set(n,0,D3DTOP_DISABLE);if(SUCCEEDED(hr))hr=t.set(n,1,D3DTOP_DISABLE);
     if(FAILED(hr)){const HRESULT restored=t.restore(n);log(d,*g,"pass1_state_failed",hr);if(FAILED(restored)){g->disable();return {true,restored};}return {};}
@@ -83,7 +95,7 @@ inline xtrailintegration::Result draw(Device8& d,D3DPRIMITIVETYPE type,UINT min_
             {10,D3DTOP_SELECTARG1},{11,D3DTA_TEXTURE},{12,D3DTOP_SELECTARG1},{13,D3DTA_TEXTURE},{14,uv},{15,address_u},{16,address_v},
             {17,D3DTEXF_LINEAR},{18,D3DTEXF_LINEAR},{19,D3DTEXF_LINEAR},{20,D3DTTFF_DISABLE}}};
         for(const auto& [i,v]:pass2){second=t.set(n,i,v);if(FAILED(second))break;}
-        if(SUCCEEDED(second))second=t.set(n,21,0,g->texture());
+        if(SUCCEEDED(second))second=t.set(n,ps2port::kGroundStage0TextureOp,0,g->texture());
         if(SUCCEEDED(second))second=n.DrawIndexedPrimitive(type,min_index,vertices,start,count);
     }
     const HRESULT restored=t.restore(n);
