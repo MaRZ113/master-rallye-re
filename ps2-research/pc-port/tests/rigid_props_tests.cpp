@@ -251,6 +251,11 @@ void checkpoint_and_audio(){
      CHECK(!(group_ready<2>({&kCheckpointSound,&kSplitTimeSound},{jz,jz})));
      CHECK(kSplitTimeSound.va+2+kSplitTimeSound.replacement[1]==0x4a9169u);}
     CHECK(kFinishJingle.va%4==0&&kCheckpointSound.original[1]==kCheckpointSound.replacement[1]&&kFinishFade.original[1]==kFinishFade.replacement[1]);
+    // FPS1 PS2ResetTiming: retail bytes of MRallye.exe at 0x4cde6c / 0x4cd4ba, only the immediates change.
+    {const uint8_t cmp7[4]={0x83,0x3c,0x07,0x07},cmp0[4]={0x83,0x3c,0x07,0x00},mov5[4]={0xbf,0x05,0x00,0x00},mov2[4]={0xbf,0x02,0x00,0x00},cmp8[4]={0x83,0x3d,0x07,0x07};
+     CHECK((group_ready<2>({&kLimitSamples,&kResetTimer},{cmp7,mov5}))&&(group_ready<2>({&kLimitSamples,&kResetTimer},{cmp0,mov2})));
+     CHECK(!(group_ready<2>({&kLimitSamples,&kResetTimer},{cmp8,mov5})));
+     CHECK(kLimitSamples.va%4==0&&kLimitSamples.replacement[3]==0&&kResetTimer.replacement[1]==2);}
 }
 void two_way(){
     // A coupled 1300 kg car at 20 m/s into a 500 kg bale: the car slows down by about the momentum it gives the bale,

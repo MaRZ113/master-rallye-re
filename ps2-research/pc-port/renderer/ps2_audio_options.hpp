@@ -18,6 +18,13 @@
 //   becomes 4 NOPs, the fade's JNZ at 0x48a40a (75 3c) becomes JMP (eb 3c) to its FSTP ST0 (x87 stack stays balanced).
 //   The volume restore at the end (0x48a4c0.., the saved +0x38) then writes the unchanged value.
 //
+// * PS2ResetTiming=1 (FPS1, ps2-research/course-port/LOGIC-PORT.md) - the off-course reset as on the PS2. PC limits update
+//   0x4cd9b0 sets LimitState 2 only from the 8th consecutive outside sample (cmp dword [edi+eax],7 / jle at 0x4cde6c) and the
+//   reset manager 0x4ccaf0 then waits a reset timer of 5 (mov edi,5 at 0x4cd4ba). PS2: LimitState 2 at the first outside
+//   sample (FUN_001a6098) and reset timer 2 (FUN_001a5950). Patches: the compare immediate 07 -> 00 (the counter is
+//   incremented before the compare, so the first outside sample passes) and the timer immediate 05 -> 02. About 2 ticks
+//   instead of about 12 after crossing the border; the border itself comes from the course XML.
+//
 // Each patch is applied once, only when the image base is 0x400000 and the original bytes are at the site (retail
 // MRallye.exe and the derivative builds with the same code; anything else stays untouched and is reported). An opcode
 // change writes one byte (the split-time JMP two, at proxy start before any race); the NOP run is one aligned 4-byte write. The patches stay for the process lifetime.
@@ -42,6 +49,9 @@ inline constexpr BytePatch kCheckpointSound{"checkpoint_sound_jz",0x4a4d28,2,{0x
 inline constexpr BytePatch kSplitTimeSound{"split_time_sound_jmp",0x4a912e,2,{0x68,0xe8,0,0},{0xeb,0x39,0,0}};
 inline constexpr BytePatch kFinishJingle{"finish_jingle_start",0x48a394,4,{0xc6,0x40,0x0e,0x01},{0x90,0x90,0x90,0x90}};
 inline constexpr BytePatch kFinishFade{"finish_music_fade_jnz",0x48a40a,2,{0x75,0x3c,0,0},{0xeb,0x3c,0,0}};
+// Whole instructions are checked (cmp dword [edi+eax],imm8 / mov edi,imm32); only the immediate byte changes.
+inline constexpr BytePatch kLimitSamples{"limit_state_first_sample",0x4cde6c,4,{0x83,0x3c,0x07,0x07},{0x83,0x3c,0x07,0x00}};
+inline constexpr BytePatch kResetTimer{"reset_timer_2",0x4cd4ba,4,{0xbf,0x05,0x00,0x00},{0xbf,0x02,0x00,0x00}};
 
 enum class Site : uint8_t { Original, Patched, Mismatch };
 // Pure: the state of a site from its current bytes.
@@ -58,7 +68,7 @@ template<size_t N> inline bool group_ready(const std::array<const BytePatch*,N>&
 }
 
 struct Status { bool requested=false,applied=false; const char* reason="not_requested"; };
-struct State { Status checkpoint_sound, finish_music; bool configured=false; };
+struct State { Status checkpoint_sound, finish_music, reset_timing; bool configured=false; };
 inline State& state() noexcept { static State s; return s; }
 
 namespace detail {
@@ -101,6 +111,9 @@ inline void configure(bool supported,const std::wstring& ini) noexcept {
         const bool music=supported&&config::read_int(L"PS2FinishMusic",0,ini.c_str())==1;
         if(sound)st.checkpoint_sound=detail::apply(std::array<const BytePatch*,2>{&kCheckpointSound,&kSplitTimeSound});
         if(music)st.finish_music=detail::apply(std::array<const BytePatch*,2>{&kFinishJingle,&kFinishFade});
+        const bool reset=supported&&config::read_int(L"PS2ResetTiming",0,ini.c_str())==1;
+        if(reset)st.reset_timing=detail::apply(std::array<const BytePatch*,2>{&kLimitSamples,&kResetTimer});
+        if(reset&&!st.reset_timing.applied)ps2diag::disable_log().note("reset_timing",st.reset_timing.reason);
         if(sound&&!st.checkpoint_sound.applied)ps2diag::disable_log().note("checkpoint_sound_off",st.checkpoint_sound.reason);
         if(music&&!st.finish_music.applied)ps2diag::disable_log().note("finish_music",st.finish_music.reason);
     }catch(...){}
@@ -109,7 +122,7 @@ inline std::string status_json() {
     const auto& st=state();
     auto one=[](const Status& s){return std::string("{\"requested\":")+(s.requested?"true":"false")+",\"applied\":"+(s.applied?"true":"false")+
         ",\"reason\":"+ps2diag::quote(s.reason)+"}";};
-    return "{\"checkpoint_sound_off\":"+one(st.checkpoint_sound)+",\"finish_music\":"+one(st.finish_music)+"}";
+    return "{\"checkpoint_sound_off\":"+one(st.checkpoint_sound)+",\"finish_music\":"+one(st.finish_music)+",\"reset_timing\":"+one(st.reset_timing)+"}";
 }
 
 }  // namespace gfx2::ps2port::audio
