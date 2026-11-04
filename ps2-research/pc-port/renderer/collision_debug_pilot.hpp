@@ -54,7 +54,7 @@ class CollisionDebugPilot {
     std::wstring game_root_;
     colldebug::Mesh mesh_;
     colldebug::Settings settings_;
-    colldebug::Mode mode_=colldebug::Mode::Surface;
+    colldebug::Mode mode_=colldebug::Mode::Off;  // FPS1.5: starts hidden, the key shows it (as the car hulls)
     colldebug::LegendAnchor anchor_=colldebug::LegendAnchor::TopCenter;
     UINT key_=0x7A;std::string key_name_="F11";bool key_down_=false,mode_log_pending_=true;
     // Course selection cache (one resolution per race generation and course id).

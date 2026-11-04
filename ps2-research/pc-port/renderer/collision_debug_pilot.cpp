@@ -60,7 +60,7 @@ CollisionDebugPilot::CollisionDebugPilot(bool supported,const std::wstring& ini)
         cars_key_=collision_debug_key(text);cars_key_name_=narrow(text);
         if(!cars_key_||cars_key_==key_||cars_key_==markers_key_){cars_key_=0;cars_key_name_="NONE";}
         for(auto& c:cars_key_name_)if(c>='a'&&c<='z')c=static_cast<char>(c-'a'+'A');
-        config::read_string(L"CollisionDebugMode",L"SURFACE",text,64,ini.c_str());
+        config::read_string(L"CollisionDebugMode",L"OFF",text,64,ini.c_str());
         colldebug::Mode mode{};if(colldebug::parse_mode(narrow(text).c_str(),mode))mode_=mode;
         config::read_string(L"CollisionDebugRange",L"500",text,64,ini.c_str());
         const double range=std::wcstod(text,nullptr);if(range>=10&&range<=20000)settings_.range=static_cast<float>(range);
