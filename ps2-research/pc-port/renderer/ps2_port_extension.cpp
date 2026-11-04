@@ -11,6 +11,7 @@
 #include "collision_debug_pilot.hpp"
 #include "rigid_props.hpp"
 #include "ps2_audio_options.hpp"
+#include "pause_settings.hpp"
 #include "retail_layout.hpp"
 #include "ps2_water_pilot.hpp"
 #include "vehicle_partition.hpp"
@@ -292,6 +293,8 @@ PS2PortExtension::PS2PortExtension(bool exact_build, const std::string& exe_sha,
         rigid_props_ = std::make_unique<RigidPropsPilot>(build_valid_, ini);
         // PS2-AUDIO1 (docs/course-alive4): PS2CheckpointSoundOff=1 / PS2FinishMusic=1, byte-verified code patches.
         audio::configure(build_valid_, ini);
+        // PAUSE-MENU1 (docs/pause-menu1): SETTINGS submenu in the race pause (CAMERA FOV).
+        pause::configure(build_valid_, ini);
         color_.configure(read_ps2_color_config(ini.c_str()));
         output_.configure(::gfx2::ps2port::config::read_int(L"PS2Output", 0, ini.c_str()) == 1);
         if (::gfx2::ps2port::config::read_int(L"PS2MotionBlur", 0, ini.c_str()) == 1) { wchar_t blur[32]{}; ::gfx2::ps2port::config::read_string(L"PS2MotionBlurStrength", L"0.195", blur, 32, ini.c_str()); blur_.configure(parse_motion_blur_strength(blur)); }

@@ -1417,7 +1417,42 @@ diff --git a/modernization/renderer/src/wrappers.cpp b/modernization/renderer/sr
 diff --git a/modernization/renderer/src/game_fov.cpp b/modernization/renderer/src/game_fov.cpp
 --- a/modernization/renderer/src/game_fov.cpp
 +++ b/modernization/renderer/src/game_fov.cpp
-@@ -436,7 +436,7 @@
+@@ -11,7 +11,16 @@
+ #include <iomanip>
+ #include <intrin.h>
+ #include <cfenv>
++#include <atomic>
+ namespace gfx2 {
++#ifdef MRR_ENABLE_PS2_PORT
++// PAUSE-MENU1: live gameplay FOV from the race pause settings (ps2-research/pc-port/renderer/pause_settings.hpp).
++// 0 = the configured [Quality] VerticalFOVDegrees; the configured value is published for the menu label.
++std::atomic<float> g_live_vfov{0.f},g_configured_vfov{0.f};
++static float live_vfov(float configured) noexcept {g_configured_vfov.store(configured,std::memory_order_relaxed);const float v=g_live_vfov.load(std::memory_order_relaxed);return v>0.f?v:configured;}
++#else
++static float live_vfov(float configured) noexcept {return configured;}
++#endif
+ 
+ namespace {
+ // Development-only collision-probe teleport: Ctrl+Alt+1..9 relocates the human car to
+@@ -381,7 +390,7 @@ void GameFov::before_submit(unsigned index) noexcept {
+   const RaceScalar pause=read_pause_menu_state_readonly();f.pause_known=pause.present&&pause.tag==0;f.pause_enabled=f.pause_known&&pause.value!=0;
+   publish_physics_probe_pause_state(f.pause_known,f.pause_enabled,GetTickCount64());
+   auto input=f.input.sample(f.config,f.controller.active);
+-  input.inherited_vfov=fov_enabled_?vfov_:submission_.camera.source_angle/std::max(1.f,float(submission_.camera.width)/submission_.camera.height);
++  input.inherited_vfov=fov_enabled_?live_vfov(vfov_):submission_.camera.source_angle/std::max(1.f,float(submission_.camera.width)/submission_.camera.height);
+   bool visible=f.visible&&f.visible_certificate.camera==camera&&f.visible_certificate.owner_lifetime==f.certificate.owner_lifetime&&f.visible_certificate.race_generation==f.certificate.race_generation;
+   f.admission=evaluate_free_camera_admission(f.config.enabled,f.config.allow_unpaused,
+    f.certificate.valid,f.certificate.camera!=0,f.pause_known,f.pause_enabled,input.focused);
+@@ -416,7 +425,7 @@ void GameFov::before_submit(unsigned index) noexcept {
+   f.reason=flying?"freecam_active":!f.admission.admitted?f.admission.reason:visible?"ready_toggle_off":"awaiting_displayed_stock_view";
+   if(flying){effective_pose=&f.controller.pose;f.scope_certificate=f.certificate;f.pose_scope=true;}
+  }
+- if(fov_enabled_||effective_pose){float fov=fov_enabled_?vfov_:submission_.camera.source_angle/std::max(1.f,float(submission_.camera.width)/submission_.camera.height);
++ if(fov_enabled_||effective_pose){float fov=fov_enabled_?live_vfov(vfov_):submission_.camera.source_angle/std::max(1.f,float(submission_.camera.width)/submission_.camera.height);
+   if(effective_pose&&flight_&&flight_->config.cinematic_fov_enabled&&flight_->controller.current_vertical_fov()>0)fov=static_cast<float>(flight_->controller.current_vertical_fov());
+   if(flight_){flight_->projection_frustum_synchronized=false;flight_->projection_reason=effective_pose&&flight_->config.cinematic_fov_enabled?"awaiting_cinematic_projection":"awaiting_projection_call";}
+   if(!frame_.begin(reinterpret_cast<CameraFrame*>(camera),fov,effective_pose)){if(flight_){flight_->controller.cancel();flight_->input.set_cursor_capture(false);flight_->pose_scope=false;++flight_->failures;flight_->reason="effective_camera_ineligible_or_write_failed";flight_->projection_reason="frustum_scope_failed";if(!frame_.status.restored)flight_->admission={false,"none","scope_restoration_failed"};}if(!frame_.status.restored)disable("camera_restore_failed");}
+@@ -436,7 +445,7 @@ void GameFov::before_submit(unsigned index) noexcept {
     f.reported_valid=f.certificate.valid;f.reported_active=f.controller.active;f.reported_horizon_leveling=f.controller.horizon_leveling_active;f.reported_race=f.certificate.race_generation;f.reported_owner=f.certificate.owner_lifetime;f.reported_input_focused=f.input_focused;f.reported_toggle_pressed=f.toggle_pressed_focused;f.reported_toggle_edge=f.toggle_edge;f.reported_cursor_capture=f.input.cursor_capture_active();f.reported_speed_adjustments=f.controller.speed_adjustment_count();f.reported_clean_view_requested=f.clean_view_requested;f.reported_pause_known=f.pause_known;f.reported_pause_enabled=f.pause_enabled;f.reported_admission_accepted=f.admission.admitted;f.reported_admission_mode=f.admission.mode;f.reported_bookmark_slot=f.bookmark_current_slot;f.reported_bookmark_action_count=f.bookmark_action_count;f.reported_reason=f.reason;f.reported_foreground_hwnd=window_state.foreground_hwnd;f.reported_keyboard_focus_hwnd=window_state.keyboard_focus_hwnd;f.reported_wndproc_owned=window_state.wndproc_owned;f.reported_window_valid=window_state.window_valid;f.reported_minimized=window_state.minimized;
    try{if(transition)session().write("{\"type\":\"freecam_transition\",\"phase\":\"R-CAM1-LIVE\",\"event\":"+quote(transition)+",\"active\":"+(f.controller.active?"true":"false")+",\"allow_unpaused_configured\":"+(f.config.allow_unpaused?"true":"false")+",\"admission_mode\":"+quote(f.admission.mode)+",\"admission_accepted\":"+(f.admission.admitted?"true":"false")+",\"native_pause_known\":"+(f.pause_known?"true":"false")+",\"native_pause_enabled\":"+(f.pause_enabled?"true":"false")+",\"race_certificate_valid\":"+(f.certificate.valid?"true":"false")+",\"camera_owner_accepted\":"+(f.certificate.camera?"true":"false")+",\"input_focus_accepted\":"+(f.input_focused?"true":"false")+",\"camera_scope_active\":"+(frame_.status.synchronized&&!frame_.status.restored?"true":"false")+",\"camera_scope_restored\":"+(frame_.status.restored?"true":"false")+",\"race_generation\":"+std::to_string(f.certificate.race_generation)+",\"owner_lifetime\":"+std::to_string(f.certificate.owner_lifetime)+",\"reason\":"+quote(f.reason)+"}");
     session().write("{\"type\":\"free_camera_state\",\"phase\":\"R-CAM1-A3g\",\"state\":"+camera_json()+"}");

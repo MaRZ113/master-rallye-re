@@ -4,6 +4,7 @@
 #include "rigid_props.hpp"
 #include "provenance.hpp"
 #include "ps2_audio_options.hpp"
+#include "pause_settings.hpp"
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -352,8 +353,25 @@ void private_inputs(){
 }
 } // namespace
 
+void pause_settings_menu(){
+    using namespace gfx2::ps2port::pause;
+    // CALL rel32 encoding of the four redirected sites (retail bytes).
+    CHECK((call_bytes(0x455600,0x455210)==std::array<uint8_t,5>{0xe8,0x0b,0xfc,0xff,0xff}));
+    CHECK((call_bytes(0x4551a7,0x455280)==std::array<uint8_t,5>{0xe8,0xd4,0x00,0x00,0x00}));
+    Menu m;CHECK(!m.usable());m.original={"CONTINUE","QUIT"};CHECK(m.usable());m.configured=75.f;
+    CHECK((m.labels()==std::vector<std::string>{"CONTINUE","SETTINGS","QUIT"}));
+    int next=-1;CHECK(m.accept(0,next)==Action::Native);CHECK(m.accept(2,next)==Action::NativeQuit);
+    CHECK(m.accept(1,next)==Action::Stay&&next==0&&m.mode==Mode::Settings);
+    CHECK((m.labels()==std::vector<std::string>{"CAMERA FOV 75","BACK"}));
+    CHECK(m.accept(0,next)==Action::Stay&&next==0&&m.fov()==80);
+    m.live=100.f;CHECK(!m.step(+1,false)&&m.fov()==100);CHECK(m.step(+1,true)&&m.fov()==50);CHECK(!m.step(-1,false));
+    CHECK(m.step(+1,false)&&m.fov()==55);m.live=77.f;CHECK(m.step(+1,false)&&m.fov()==80);
+    CHECK(m.back(next)&&next==1&&m.mode==Mode::Main);CHECK(!m.back(next));
+    CHECK(m.accept(1,next)==Action::Stay);CHECK(m.accept(1,next)==Action::Stay&&next==1&&m.mode==Mode::Main);
+    Menu stock;stock.original={"A","B"};stock.mode=Mode::Settings;CHECK((stock.labels()[0]=="CAMERA FOV STOCK"));CHECK(!stock.step(+1,true));
+}
 int main(){
-    math();hull_and_terrain();placement_and_settled();free_fall_rest_and_far();car_knocks_bale();asset_and_runtime();checkpoint_and_audio();two_way();private_inputs();
+    math();hull_and_terrain();placement_and_settled();free_fall_rest_and_far();car_knocks_bale();asset_and_runtime();checkpoint_and_audio();two_way();private_inputs();pause_settings_menu();
     if(failures){std::cerr<<failures<<" failures\n";return 1;}
     std::cout<<"rigid props contracts passed\n";return 0;
 }
