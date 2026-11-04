@@ -5,6 +5,8 @@
 #include "state_tracker.hpp"
 #include "atmosphere_scene.hpp"
 #include <bitset>
+#include <filesystem>
+#include <fstream>
 
 namespace gfx2::atmosphere {
 template<class T> inline void sun_drop(T*& p)noexcept{if(p)p->Release();p=nullptr;}
@@ -14,10 +16,10 @@ template<class T> inline void sun_drop(T*& p)noexcept{if(p)p->Release();p=nullpt
 // resolution/FOV. Intensities are additive weights. All values are tunable
 // in Atmosphere.ini and re-read by LiveTuning.
 struct SunStyle {
-    float core_degrees=1.f,glow_degrees=6.f,bloom_degrees=22.f,ray_degrees=17.f;
-    float core=1.f,glow=1.05f,bloom=.5f,rays=.7f,flare=.35f;
-    unsigned ray_count=36;
-    std::array<float,3> core_rgb{1.f,.98f,.88f},glow_rgb{1.f,.82f,.45f},bloom_rgb{1.f,.6f,.22f};
+    float core_degrees=.9f,glow_degrees=9.f,bloom_degrees=28.f,ray_degrees=22.f;
+    float core=1.f,glow=.95f,bloom=.55f,rays=.45f,flare=.35f;
+    unsigned ray_count=72;std::wstring ray_texture;   // optional 256x256 BGRA sprite (SDK tools/atmosphere_sun_sprite.py)
+    std::array<float,3> core_rgb{1.f,.98f,.9f},glow_rgb{1.f,.8f,.4f},bloom_rgb{1.f,.6f,.26f};
 };
 inline SunStyle read_sun_style(const std::wstring& ini) {
     SunStyle s;
@@ -27,25 +29,30 @@ inline SunStyle read_sun_style(const std::wstring& ini) {
     s.bloom_degrees=number(L"SunBloomSize",s.bloom_degrees,.5f,60.f);s.ray_degrees=number(L"SunRaySize",s.ray_degrees,.5f,60.f);
     s.core=number(L"SunCoreIntensity",s.core,0.f,2.f);s.glow=number(L"SunGlowIntensity",s.glow,0.f,2.f);s.bloom=number(L"SunBloomIntensity",s.bloom,0.f,2.f);
     s.rays=number(L"SunRayIntensity",s.rays,0.f,2.f);s.flare=number(L"SunFlareIntensity",s.flare,0.f,2.f);
-    s.ray_count=2u*unsigned(std::lround(number(L"SunRays",float(s.ray_count),4.f,64.f)*.5f)); // even: alternating spokes stay seamless
+    s.ray_count=2u*unsigned(std::lround(number(L"SunRays",float(s.ray_count),4.f,128.f)*.5f)); // even: alternating spokes stay seamless
     const wchar_t* keys[3][3]={{L"SunCoreR",L"SunCoreG",L"SunCoreB"},{L"SunGlowR",L"SunGlowG",L"SunGlowB"},{L"SunBloomR",L"SunBloomG",L"SunBloomB"}};
     for(unsigned i=0;i<3;++i){s.core_rgb[i]=number(keys[0][i],s.core_rgb[i],0.f,1.f);s.glow_rgb[i]=number(keys[1][i],s.glow_rgb[i],0.f,1.f);s.bloom_rgb[i]=number(keys[2][i],s.bloom_rgb[i],0.f,1.f);}
+    wchar_t path[512]{};GetPrivateProfileStringW(L"Atmosphere",L"SunRaysTexture",L"",path,512,ini.c_str());
+    if(path[0]){std::filesystem::path p(path);if(p.is_relative())p=std::filesystem::path(ini).parent_path()/p;s.ray_texture=p.wstring();}
     return s;
 }
-// Starburst profile: ray_count thin spokes with alternating length, smooth
-// radial falloff; r and angle in sprite space (r=1 at the sprite edge).
+// Starburst profile: many soft spokes with pseudo-random length and strength
+// plus a faint radial haze (GT3 Miata reference: rays read as a warm fan, not
+// as evenly spaced lines). r and angle in sprite space (r=1 at the edge).
+inline float sun_ray_hash(unsigned k,float salt)noexcept{const float x=std::sin(float(k)*12.9898f+salt*78.233f)*43758.5453f;return x-std::floor(x);}
 inline float sun_ray_profile(float r,float angle,unsigned rays)noexcept {
     if(r>=1||r<=0||!rays)return 0;
     const float sector=6.2831853f/float(rays);const float k=std::floor(angle/sector+.5f);
     const float offset=std::abs(angle-k*sector)/sector;                  // 0 at the spoke centre, .5 between spokes
-    const float length=(int(k)&1)?.62f:1.f;if(r>=length)return 0;
-    const float width=std::exp(-offset*offset*160.f);                    // thin spoke (~2 px at 1080p)
-    const float fall=std::pow(1-r/length,1.6f);
-    return width*fall*std::clamp(r*12.f,0.f,1.f);                       // core region left to the disk
+    const unsigned spoke=unsigned(int(k)%int(rays)+int(rays))%rays;      // seamless at the 0/2pi wrap
+    const float length=.3f+.7f*std::pow(sun_ray_hash(spoke,1),.7f),strength=.3f+.7f*sun_ray_hash(spoke,2);
+    const float haze=.18f*std::pow(1-r,3.f);
+    const float spike=r<length?strength*std::exp(-offset*offset*30.f)*std::pow(1-r/length,2.2f):0.f;
+    return (spike+haze)*std::clamp(r*10.f,0.f,1.f);                      // core region left to the disk
 }
 struct SunPosition {float x=0,y=0,radius=0,edge=0,pixels_per_tan=0;
     float pixels(float degrees)const noexcept{return std::tan(degrees*.017453293f)*pixels_per_tan;}};
-inline bool sun_position(const std::array<float,3>& direction,const D3DMATRIX& view,const D3DMATRIX& projection,UINT width,UINT height,SunPosition& out,float core_degrees=1.f)noexcept {
+inline bool sun_position(const std::array<float,3>& direction,const D3DMATRIX& view,const D3DMATRIX& projection,UINT width,UINT height,SunPosition& out,float core_degrees=.9f)noexcept {
     out={};if(!width||!height)return false;
     const auto* v=&view._11;const auto* p=&projection._11;for(unsigned i=0;i<16;++i)if(!std::isfinite(v[i])||!std::isfinite(p[i]))return false;
     if(projection._11<=0||projection._22<=0||projection._34!=1||projection._44!=0)return false;
@@ -144,7 +151,7 @@ inline std::array<SunVertex,4> sun_rotated_quad(float x,float y,float radius,flo
 class SunFx {
     IDirect3DSurface8 *mask_=nullptr,*resolved_=nullptr;IDirect3DTexture8 *mask_texture_=nullptr,*disk_=nullptr,*halo_=nullptr,*ghost_=nullptr,*bloom_=nullptr,*rays_=nullptr;
     UINT width_=0,height_=0,tw_=0,th_=0;D3DFORMAT format_=D3DFMT_UNKNOWN;D3DMULTISAMPLE_TYPE msaa_=D3DMULTISAMPLE_NONE;
-    uint64_t latched_race_=UINT64_MAX,latched_reset_=UINT64_MAX;unsigned ray_count_=0;
+    uint64_t latched_race_=UINT64_MAX,latched_reset_=UINT64_MAX;unsigned ray_count_=0;std::wstring ray_file_;
 public:
     // Procedural sprite intensity, r=1 at the sprite edge. kind: 0 core,
     // 1 glow, 2 ghost, 3 bloom, 4 starburst.
@@ -186,15 +193,27 @@ private:
         if(FAILED(hr)||!mask_||!resolved_||!disk_||!halo_||!ghost_||!bloom_){resources();return E_FAIL;}return S_OK;
     }
     // The starburst depends on the (live-tunable) spoke count.
-    HRESULT ray_sprite(IDirect3DDevice8& n,unsigned rays){
-        if(rays_&&ray_count_==rays)return S_OK;sun_drop(rays_);ray_count_=0;
-        const auto hr=sprite(n,rays_,4,rays);if(FAILED(hr)||!rays_){sun_drop(rays_);return E_FAIL;}ray_count_=rays;return S_OK;
+    // Procedural spokes, or an author-supplied 256x256 BGRA sprite (same 20-byte
+    // header as the custom sky layers). An unreadable file falls back to procedural.
+    HRESULT ray_sprite(IDirect3DDevice8& n,unsigned rays,const std::wstring& file){
+        if(rays_&&ray_count_==rays&&ray_file_==file)return S_OK;sun_drop(rays_);ray_count_=0;ray_file_.clear();ray_from_file=false;
+        if(!file.empty())try{
+            std::ifstream f(std::filesystem::path(file),std::ios::binary|std::ios::ate);
+            if(f&&f.tellg()==std::streamoff(20+256*256*4)){f.seekg(0);std::vector<uint8_t> bytes(20+256*256*4);
+                uint32_t h[5]{};if(f.read(reinterpret_cast<char*>(bytes.data()),bytes.size())){std::memcpy(h,bytes.data(),20);
+                    if(h[0]==0xfeed&&h[3]==256&&h[4]==256&&SUCCEEDED(n.CreateTexture(256,256,1,0,D3DFMT_A8R8G8B8,D3DPOOL_MANAGED,&rays_))&&rays_){
+                        D3DLOCKED_RECT lock{};if(SUCCEEDED(rays_->LockRect(0,&lock,nullptr,0))&&lock.pBits&&lock.Pitch>=1024){
+                            for(unsigned y=0;y<256;++y)std::memcpy(static_cast<uint8_t*>(lock.pBits)+size_t(y)*lock.Pitch,bytes.data()+20+size_t(y)*1024,1024);
+                            if(SUCCEEDED(rays_->UnlockRect(0))){ray_count_=rays;ray_file_=file;ray_from_file=true;return S_OK;}}
+                        sun_drop(rays_);}}}
+        }catch(...){sun_drop(rays_);}
+        const auto hr=sprite(n,rays_,4,rays);if(FAILED(hr)||!rays_){sun_drop(rays_);return E_FAIL;}ray_count_=rays;ray_file_=file;return S_OK;
     }
 public:
-    SunProof proof;SunTransaction transaction;
+    SunProof proof;SunTransaction transaction;bool ray_from_file=false;
     uint64_t drawn_frame=UINT64_MAX,gate_frame=UINT64_MAX,unsafe_frame=UINT64_MAX,attempts=0,rendered=0,failures=0,cpu_ticks=0;const char* reason="not_requested";HRESULT last_hr=S_OK;
     ~SunFx(){resources();}
-    void resources()noexcept{sun_drop(mask_);sun_drop(resolved_);sun_drop(mask_texture_);sun_drop(disk_);sun_drop(halo_);sun_drop(ghost_);sun_drop(bloom_);sun_drop(rays_);ray_count_=0;width_=height_=tw_=th_=0;}
+    void resources()noexcept{sun_drop(mask_);sun_drop(resolved_);sun_drop(mask_texture_);sun_drop(disk_);sun_drop(halo_);sun_drop(ghost_);sun_drop(bloom_);sun_drop(rays_);ray_count_=0;ray_file_.clear();width_=height_=tw_=th_=0;}
     void clear()noexcept{proof.clear();}
     void reset()noexcept{proof.clear();transaction.release();resources();latched_race_=latched_reset_=UINT64_MAX;drawn_frame=UINT64_MAX;}
     HRESULT render(IDirect3DDevice8& n,const SunPosition& position,bool disk,bool halo,bool flare,void* context,SunWriter writer,const Lighting* lighting=nullptr,const SunStyle& style=SunStyle{}){
@@ -205,7 +224,7 @@ public:
         if(SUCCEEDED(hr)&&(desc.Width!=depth_desc.Width||desc.Height!=depth_desc.Height||desc.MultiSampleType!=depth_desc.MultiSampleType||
            (depth_desc.Format!=D3DFMT_D24S8&&depth_desc.Format!=D3DFMT_D24X8)))hr=E_FAIL;
         if(SUCCEEDED(hr))hr=allocate(n,desc);
-        if(SUCCEEDED(hr)&&halo&&style.rays>0)hr=ray_sprite(n,style.ray_count);
+        if(SUCCEEDED(hr)&&halo&&style.rays>0)hr=ray_sprite(n,style.ray_count,style.ray_texture);
         if(FAILED(hr)){reason="mask_allocation_or_depth_incompatible";last_hr=hr;latched_race_=proof.race;latched_reset_=proof.reset;++failures;return S_FALSE;}
         hr=transaction.capture(n,context,writer);if(FAILED(hr)){reason="state_capture_failed";last_hr=hr;return S_FALSE;}
         auto rs=[&](DWORD key,DWORD value){if(SUCCEEDED(hr))hr=transaction.set(n,0,0,key,value);};

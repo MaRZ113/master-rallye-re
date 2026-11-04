@@ -75,18 +75,19 @@ int main(){
     CHECK(!sun_position({0,0,1},sun_view,sun_view,800,600,sun_translated));
     {   // ATMOSPHERE2.5 sun style: angular sizes, no 32 px cap, procedural layers.
         CHECK(std::abs(sun_center.pixels_per_tan-300.f)<1e-3f);
-        CHECK(std::abs(sun_center.radius-std::tan(1.f*.017453293f)*300.f)<1e-3f);
+        CHECK(std::abs(sun_center.radius-std::tan(.9f*.017453293f)*300.f)<1e-3f);
         SunPosition wide;CHECK(sun_position({0,0,1},sun_view,sun_projection,3840,2160,wide,3.f));CHECK(wide.radius>32.f);
         CHECK(SunFx::sprite_intensity(0,0,0,0)==1.f&&SunFx::sprite_intensity(0,.99f,0,0)<.1f&&SunFx::sprite_intensity(0,1,0,0)==0);
         CHECK(SunFx::sprite_intensity(1,0,0,0)>.99f&&SunFx::sprite_intensity(3,0,0,0)==1.f&&SunFx::sprite_intensity(3,.999f,0,0)<.01f);
-        const float sector=6.2831853f/36.f;
-        CHECK(sun_ray_profile(.8f,0,36)>.0f);                    // long spoke (even index)
-        CHECK(sun_ray_profile(.8f,sector,36)==0);               // short spoke ends at .62
-        CHECK(sun_ray_profile(.4f,sector,36)>0);
-        CHECK(sun_ray_profile(.5f,sector*.5f,36)<1e-6f);        // between spokes
-        CHECK(sun_ray_profile(1.f,0,36)==0&&sun_ray_profile(.5f,0,0)==0);
+        const float sector=6.2831853f/72.f;
+        CHECK(sun_ray_profile(.2f,0,72)>sun_ray_profile(.2f,sector*.5f,72));   // spoke brighter than the gap
+        CHECK(sun_ray_profile(.5f,sector*.5f,72)>0);                          // faint haze between spokes
+        CHECK(sun_ray_profile(1.f,0,72)==0&&sun_ray_profile(.5f,0,0)==0&&sun_ray_profile(0,0,72)==0);
+        CHECK(std::abs(sun_ray_profile(.3f,6.2831853f-1e-4f,72)-sun_ray_profile(.3f,1e-4f,72))<.02f); // seamless wrap
+        float shortest=1,longest=0;for(unsigned k=0;k<72;++k){const float l=.3f+.7f*std::pow(sun_ray_hash(k,1),.7f);shortest=std::min(shortest,l);longest=std::max(longest,l);}
+        CHECK(shortest<.6f&&longest>.9f);                                    // irregular lengths, not a cartoon star
         const auto defaults=read_sun_style(L"Z:\\missing\\Atmosphere.ini");
-        CHECK(defaults.ray_count==36&&defaults.core_degrees==1.f&&defaults.glow_degrees>defaults.core_degrees&&defaults.ray_count%2==0);
+        CHECK(defaults.ray_count==72&&defaults.ray_texture.empty()&&defaults.core_degrees==.9f&&defaults.glow_degrees>defaults.core_degrees&&defaults.ray_count%2==0);
     }
     SunFx no_depth_sun;Native missing_depth;
     CHECK(no_depth_sun.render(missing_depth,sun_center,true,true,true,nullptr,nullptr)==S_FALSE);CHECK(missing_depth.calls==0);
