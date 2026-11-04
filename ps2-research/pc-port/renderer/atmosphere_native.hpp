@@ -83,7 +83,7 @@ inline void observe(Device8& d,D3DPRIMITIVETYPE type,UINT,UINT vertices,UINT,UIN
             const auto ranges=p->resolver.classified_ranges();
             if(p->universal)session().write("{\"type\":\"atmosphere_resolver_window\",\"frame\":"+std::to_string(frame)+",\"race_generation\":"+std::to_string(p->observed_race)+
                 ",\"cache_entries\":"+std::to_string(p->resolver.entries.size())+",\"cache_bytes\":"+std::to_string(p->resolver.bytes)+",\"cache_hits\":"+std::to_string(p->resolver.hits)+
-                ",\"cache_misses\":"+std::to_string(p->resolver.misses)+",\"changed_geometry_rebuilds\":"+std::to_string(p->resolver.rebuilds)+",\"content_comparisons\":"+std::to_string(p->resolver.content_checks)+
+                ",\"cache_misses\":"+std::to_string(p->resolver.misses)+",\"changed_geometry_rebuilds\":"+std::to_string(p->resolver.rebuilds)+",\"instanced_world_relights\":"+std::to_string(p->resolver.world_relights)+",\"content_comparisons\":"+std::to_string(p->resolver.content_checks)+
                 ",\"cache_resets\":"+std::to_string(p->resolver.cache_resets)+",\"normal_hint_matches\":"+std::to_string(p->normal_hints.matched)+",\"normal_hint_fallbacks\":"+std::to_string(p->normal_hints.fallback)+",\"body_cpu_ticks\":"+std::to_string(p->body_cpu_ticks)+",\"qpc_frequency\":"+std::to_string(frequency.QuadPart)+",\"body_calls\":"+std::to_string(p->body_calls)+",\"body_changed_vertices\":"+std::to_string(p->body_vertices)+",\"accepted_draws\":"+std::to_string(p->resolved_draws)+",\"skipped_draws\":"+std::to_string(p->resolver_skipped_draws)+",\"state_rejections\":"+std::to_string(p->world_rejected)+
                 ",\"cached_native_ranges\":"+std::to_string(ranges[0])+",\"cached_road_ranges\":"+std::to_string(ranges[1])+",\"cached_terrain_ranges\":"+std::to_string(ranges[2])+",\"cached_vegetation_ranges\":"+std::to_string(ranges[3])+",\"cached_static_ranges\":"+std::to_string(ranges[4])+"}");
             p->perf_frame=frame;p->perf_previous_ticks=p->cpu_ticks;p->perf_previous_calls=p->cpu_calls;}
@@ -281,7 +281,8 @@ inline void seam_native(Device8& d,atmosphere::Pilot& p,UINT min,UINT vertices,U
     }
 }
 inline HRESULT universal_draw(Device8& d,atmosphere::Pilot& p,UINT min,UINT vertices,UINT start,UINT triangles,
-                              DWORD fvf,bool noise,bool alpha_test,const char* course,uint64_t race,uint64_t owner,bool environment=false) {
+                              DWORD fvf,bool noise,bool alpha_test,const char* course,uint64_t race,uint64_t owner,bool environment=false,
+                              const std::array<float,16>* world=nullptr) {
     auto& n=*d.native();auto& saved=p.pending;
     auto fail=[&](const char* why){if(!saved.any())saved.release();++p.resolver_skipped_draws;return reject(d,p,why);};
     p.metadata.load(p.metadata_path);p.normal_hints.load(p.normals_path);
@@ -313,6 +314,10 @@ inline HRESULT universal_draw(Device8& d,atmosphere::Pilot& p,UINT min,UINT vert
            (certificate->name!="aluminium-tga"&&certificate->name!="whitepaint-tga"&&certificate->name!="silverpaint-tga"))return fail("resolver_environment_secondary_unproven");
     }
     if(material&&(material->flags&atmosphere::Deny)){seam_native(d,p,min,vertices,start,triangles,fvf,noise,opaque,alpha_test,material,course,texture_sha,"native_material_excluded");return fail("resolver_excluded_material");}
+    // Instanced draws need an explicit material role: automatic ground is
+    // only ever proven for the static identity-world terrain batches.
+    if(world&&!material)return fail("resolver_instanced_material_unknown");
+    if(world&&vertices>4096)return fail("resolver_instanced_range_too_large");
     if(!material&&(!p.auto_ground||!noise||!opaque||alpha_test)){seam_native(d,p,min,vertices,start,triangles,fvf,noise,opaque,alpha_test,material,course,texture_sha,"native_ambiguous_material");return fail("resolver_ambiguous_material");}
     if(!vertices||vertices>32768||!triangles||triangles>32768||FAILED(n.GetStreamSource(0,&saved.stream,&saved.stride))||!saved.stream||
        saved.stride!=(fvf==0x152?36u:fvf==0x142?24u:32u)||FAILED(n.GetIndices(&saved.indices,&saved.base))||!saved.indices)return fail("resolver_native_buffers");
@@ -352,9 +357,13 @@ inline HRESULT universal_draw(Device8& d,atmosphere::Pilot& p,UINT min,UINT vert
     if(fresh){++resolver.misses;found=resolver.entries.emplace(key,atmosphere::ResolvedGeometry{}).first;}
     else if(unchanged)++resolver.hits;else ++resolver.rebuilds;
     auto& entry=found->second;entry.last_frame=d.trace.frame_number();
+    // Same source range under another instance matrix: relight the cached
+    // original (bounded by the 4096-vertex instanced limit), no mirror re-read.
+    const bool relight=!unchanged||!entry.lit_for(world);
+    if(unchanged&&relight)++resolver.world_relights;
     if(!unchanged&&(resolver.bytes-entry.storage()>resolver.max_bytes||vs*4+is>resolver.max_bytes-(resolver.bytes-entry.storage())))return fail("resolver_cache_growth_native_fallback");
-    if(!unchanged){resolver.bytes-=entry.storage();entry.original=std::move(current_v);entry.index_bytes=std::move(current_i);entry.vertex_revision=vr;entry.index_revision=ir;
-        atmosphere::light_geometry(entry,saved.stride,min,vertices,width,material,noise,atmosphere::source_opaque_pass(material,opaque,false,alpha_test),alpha_test,p.auto_ground,p.lighting,&p.normal_hints,course,texture_sha,environment);resolver.bytes+=entry.storage();}
+    if(relight){resolver.bytes-=entry.storage();if(!unchanged){entry.original=std::move(current_v);entry.index_bytes=std::move(current_i);entry.vertex_revision=vr;entry.index_revision=ir;}
+        atmosphere::light_geometry(entry,saved.stride,min,vertices,width,material,noise,atmosphere::source_opaque_pass(material,opaque,false,alpha_test),alpha_test,p.auto_ground,p.lighting,&p.normal_hints,course,texture_sha,environment,world);resolver.bytes+=entry.storage();}
     if(!entry.accepted){++resolver.skipped;return fail(entry.reason);}
     if(p.lighting.fog_enabled&&FAILED(n.GetRenderState(D3DRS_FOGCOLOR,&saved.fog)))return fail("resolver_fog_capture_failed");
     seam_sample(d,p,entry,material,course,texture_sha,fvf,min,start,triangles,vg,ig);
@@ -415,9 +424,14 @@ inline HRESULT begin(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UIN
                !groundintegration::stage(d,n,1,D3DTSS_RESULTARG,D3DTA_CURRENT))return reject(d,*p,"world_environment_stage_contract");
         }else if(!groundintegration::stage(d,n,1,D3DTSS_COLOROP,D3DTOP_DISABLE))return reject(d,*p,"world_special_secondary_stage");
         D3DMATRIX world{},identity{};identity._11=identity._22=identity._33=identity._44=1;
-        if(FAILED(n.GetTransform(D3DTS_WORLD,&world))||std::memcmp(&world,&identity,64))return reject(d,*p,"source_static_course_world_not_identity");
+        if(FAILED(n.GetTransform(D3DTS_WORLD,&world)))return reject(d,*p,"source_world_transform_unavailable");
+        const bool identity_world=!std::memcmp(&world,&identity,64);
+        // Placed/instanced course props (checkpoint boards, signs) keep their
+        // native matrix; only the universal resolver lights them, in world space.
+        if(!identity_world&&!p->universal)return reject(d,*p,"source_static_course_world_not_identity");
         if(p->universal){const char* course=cert.course_id.data();if(!std::strncmp(course,"RaceTest/",9))course+=9;
-            return universal_draw(d,*p,min,vertices,start,count,fvf,noise,groundintegration::render(d,n,D3DRS_ALPHATESTENABLE,TRUE),course,cert.race_generation,cert.owner_lifetime,environment);}
+            std::array<float,16> instance{};std::memcpy(instance.data(),&world,64);
+            return universal_draw(d,*p,min,vertices,start,count,fvf,noise,groundintegration::render(d,n,D3DRS_ALPHATESTENABLE,TRUE),course,cert.race_generation,cert.owner_lifetime,environment,identity_world?nullptr:&instance);}
         if(!p->atlas.load(p->atlas_path))return reject(d,*p,p->atlas.reason);
         Geometry g;if(!geometry(d,*p,min,vertices,start,count,g))return fail("source_draw_vertex_or_index_range_unavailable");
         if(saved.stride!=(fvf==0x142?24u:32u))return fail("source_world_vertex_layout_mismatch");

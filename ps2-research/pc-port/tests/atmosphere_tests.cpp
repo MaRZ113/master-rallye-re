@@ -205,6 +205,28 @@ int main(){
     CHECK(light_geometry(mesh,24,7,4,2,&panel,false,true,true,false,evening));
     for(unsigned i=0;i<4;++i){CHECK(mesh.original[i*24+15]==mesh.lit[i*24+15]);
         CHECK(!std::memcmp(mesh.original.data()+i*24+16,mesh.lit.data()+i*24+16,8));}
+    {   // Instanced props: a translated WORLD lights like identity; a mirrored or
+        // rotated matrix turns the face; malformed matrices fail closed.
+        Lighting side=evening;side.direction={0,0,1};
+        ResolvedGeometry wall;wall.original.resize(3*24);const float upright[3][3]={{0,0,0},{0,1,0},{1,0,0}};
+        for(unsigned i=0;i<3;++i){std::memcpy(wall.original.data()+24*i,upright[i],12);std::memcpy(wall.original.data()+24*i+12,&gray,4);}
+        const uint16_t face[3]={0,1,2};wall.index_bytes.resize(6);std::memcpy(wall.index_bytes.data(),face,6);
+        SceneMaterial board;board.category=4;board.flags=Plain|AlphaTest;board.winding=-1;
+        CHECK(light_geometry(wall,24,0,3,2,&board,false,true,false,false,side)&&!wall.has_world);
+        const auto native=wall.lit;const auto native_normal=wall.effective_normals[0];
+        std::array<float,16> moved{1,0,0,0, 0,1,0,0, 0,0,1,0, 2805.6f,45.7f,-248.9f,1};
+        CHECK(light_geometry(wall,24,0,3,2,&board,false,true,false,false,side,nullptr,"",{},false,&moved));
+        CHECK(wall.lit==native&&wall.has_world&&wall.lit_for(&moved)&&!wall.lit_for(nullptr));
+        std::array<float,16> turned{-1,0,0,0, 0,1,0,0, 0,0,-1,0, 0,0,0,1};   // 180 degrees about Y
+        CHECK(light_geometry(wall,24,0,3,2,&board,false,true,false,false,side,nullptr,"",{},false,&turned)&&wall.lit!=native);
+        CHECK(std::abs(wall.effective_normals[0][2]+native_normal[2])<1e-5f&&std::abs(native_normal[2])>.99f);
+        std::array<float,16> mirror{-1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1};    // det<0 keeps the outward face
+        CHECK(light_geometry(wall,24,0,3,2,&board,false,true,false,false,side,nullptr,"",{},false,&mirror)&&wall.lit==native);
+        std::array<float,16> projective=moved;projective[3]=.5f;
+        CHECK(!light_geometry(wall,24,0,3,2,&board,false,true,false,false,side,nullptr,"",{},false,&projective));
+        std::array<float,16> flat{};flat[15]=1;
+        CHECK(!light_geometry(wall,24,0,3,2,&board,false,true,false,false,side,nullptr,"",{},false,&flat));
+    }
     panel.flags=Plain;CHECK(!light_geometry(mesh,24,7,4,2,&panel,false,true,true,false,evening));
     panel.flags=Plain|AlphaTest|Deny;CHECK(!source_opaque_pass(&panel,false,false,true));
     const uint16_t two_sided[]={7,8,9,9,8,7};mesh.index_bytes.resize(12);std::memcpy(mesh.index_bytes.data(),two_sided,12);

@@ -54,8 +54,11 @@ public:
             materials_=std::move(parsed);ready=true;reason="material_metadata_ready";return true;
         }catch(...){present=true;reason="metadata_exception";return false;}
     }
+    // Course records win; "Common" holds course-independent props (Misc/Checkpoints
+    // boards/banners) that every course draws through the same course path.
     const SceneMaterial* find(const char* course,const std::string& texture)const {
-        auto i=materials_.find({course,texture});return i==materials_.end()?nullptr:&i->second;
+        auto i=materials_.find({course,texture});if(i!=materials_.end())return &i->second;
+        i=materials_.find({std::string("Common"),texture});return i==materials_.end()?nullptr:&i->second;
     }
     size_t size()const noexcept{return materials_.size();}
 };
@@ -74,6 +77,10 @@ struct ResolvedGeometry {
     uint64_t vertex_revision=0,index_revision=0,changed=0,last_frame=0;
     std::vector<std::array<float,3>> geometric_normals,effective_normals;std::vector<uint8_t> used;uint64_t hinted=0,duplicate_faces=0,opposite_faces=0;
     uint32_t category=0;bool accepted=false;const char* reason="unclassified";
+    // Instanced props (checkpoint boards, placed objects) share one range under
+    // several WORLD matrices: the entry remembers the matrix it was lit with.
+    std::array<float,16> world{};bool has_world=false;
+    bool lit_for(const std::array<float,16>* w)const noexcept{return w?has_world&&world==*w:!has_world;}
     bool same_source(const uint8_t* v,size_t vn,const uint8_t* i,size_t in,uint64_t vr,uint64_t ir,bool& compared)const noexcept {
         compared=false;if(original.size()!=vn||index_bytes.size()!=in||!v||!i)return false;
         if(vertex_revision==vr&&index_revision==ir)return true;
@@ -87,7 +94,7 @@ struct ResolverKeyHash {size_t operator()(const ResolverKey& key)const noexcept 
 class SceneResolver {
 public:
     std::unordered_map<ResolverKey,ResolvedGeometry,ResolverKeyHash> entries;
-    uint64_t hits=0,misses=0,rebuilds=0,content_checks=0,skipped=0,accepted=0,cache_resets=0;
+    uint64_t hits=0,misses=0,rebuilds=0,content_checks=0,skipped=0,accepted=0,cache_resets=0,world_relights=0;
     size_t bytes=0;static constexpr size_t max_bytes=48*1024*1024,max_entries=2048;
     void clear()noexcept{entries.clear();bytes=0;++cache_resets;}
     bool room(size_t wanted)const noexcept{return entries.size()<max_entries&&wanted<=max_bytes-bytes;}
@@ -103,9 +110,18 @@ public:
 // uses MR's CW front-face convention. Invalid/degenerate inputs fail closed.
 inline bool light_geometry(ResolvedGeometry& entry,unsigned stride,unsigned min,unsigned vertices,unsigned width,
                            const SceneMaterial* material,bool noise,bool opaque,bool alpha_test,
-                           bool auto_ground,const Lighting& settings,NormalHints* hints=nullptr,const char* course="",const std::string& texture="",bool environment=false) {
+                           bool auto_ground,const Lighting& settings,NormalHints* hints=nullptr,const char* course="",const std::string& texture="",bool environment=false,
+                           const std::array<float,16>* world=nullptr) {
     entry.accepted=false;entry.category=0;entry.changed=0;entry.lit.clear();entry.geometric_normals.clear();entry.effective_normals.clear();entry.used.clear();entry.hinted=0;entry.duplicate_faces=entry.opposite_faces=0;
+    entry.has_world=world!=nullptr;entry.world=world?*world:std::array<float,16>{};
     auto reject=[&](const char* why){entry.reason=why;return false;};
+    float world_sign=1.f;
+    if(world){const auto& m=*world;for(float x:m)if(!std::isfinite(x))return reject("resolver_world_nonfinite");
+        if(m[3]!=0||m[7]!=0||m[11]!=0||m[15]!=1)return reject("resolver_world_not_affine");
+        const float det=m[0]*(m[5]*m[10]-m[6]*m[9])-m[1]*(m[4]*m[10]-m[6]*m[8])+m[2]*(m[4]*m[9]-m[5]*m[8]);
+        if(!std::isfinite(det)||std::abs(det)<1e-6f)return reject("resolver_world_singular");
+        // A mirroring instance flips the triangle winding in world space.
+        world_sign=det<0?-1.f:1.f;}
     if(!vertices||vertices>32768||(stride!=24&&stride!=32&&stride!=36)||(width!=2&&width!=4)||
        entry.original.size()!=uint64_t(vertices)*stride||entry.index_bytes.empty()||entry.index_bytes.size()%(width*3))return reject("resolver_geometry_layout");
     if(material&&(material->flags&Deny))return reject("material_explicitly_excluded");
@@ -113,9 +129,13 @@ inline bool light_geometry(ResolvedGeometry& entry,unsigned stride,unsigned min,
     const bool automatic=!material;
     if(automatic&&(!auto_ground||!noise||!opaque||alpha_test))return reject("ambiguous_material_no_ground_contract");
     if(material&&(!(material->flags&(noise?Noise:Plain))||(alpha_test&&!(material->flags&AlphaTest))||(!opaque&&material->category!=3)))return reject("metadata_live_shader_mismatch");
-    const unsigned category=material?material->category:2;const float sign=material?float(material->winding):-1.f;
+    const unsigned category=material?material->category:2;const float sign=(material?float(material->winding):-1.f)*world_sign;
     std::vector<std::array<float,3>> positions(vertices);std::vector<std::array<double,3>> normals(vertices);std::vector<uint8_t> used(vertices);
     for(unsigned i=0;i<vertices;++i){const auto* v=entry.original.data()+i*stride;std::memcpy(positions[i].data(),v,12);
+        // Row-vector D3D WORLD: lighting, hints and normals work in world space;
+        // the submitted vertex positions themselves are never rewritten.
+        if(world){const auto& m=*world;const auto p=positions[i];
+            for(unsigned k=0;k<3;++k)positions[i][k]=p[0]*m[k]+p[1]*m[4+k]+p[2]*m[8+k]+m[12+k];}
         for(float x:positions[i])if(!std::isfinite(x)||std::abs(x)>1e7f)return reject("resolver_nonfinite_position");
         float uv[2]{};std::memcpy(uv,v+(environment?28:16),8);for(float x:uv)if(!std::isfinite(x)||std::abs(x)>1e7f)return reject("resolver_nonfinite_uv");}
     // PS2 course buffers contain front/back triangles sharing the SAME vertex
@@ -147,7 +167,8 @@ inline bool light_geometry(ResolvedGeometry& entry,unsigned stride,unsigned min,
     for(unsigned i=0;i<vertices;++i)if(used[i]){const auto& sum=normals[i];const double length=std::sqrt(sum[0]*sum[0]+sum[1]*sum[1]+sum[2]*sum[2]);
         if(!std::isfinite(length)||length<1e-10){entry.lit.clear();return reject("resolver_cancelled_vertex_normal");}
         std::array<float,3> n{};for(unsigned k=0;k<3;++k)n[k]=float(sum[k]/length);
-        if(environment){std::memcpy(n.data(),entry.original.data()+i*stride+12,12);float norm=0;for(float x:n){if(!std::isfinite(x))return reject("environment_nonfinite_normal");norm+=x*x;}if(!std::isfinite(norm)||norm<1e-8f)return reject("environment_invalid_normal");for(float& x:n)x/=std::sqrt(norm);}
+        if(environment){std::memcpy(n.data(),entry.original.data()+i*stride+12,12);float norm=0;for(float x:n){if(!std::isfinite(x))return reject("environment_nonfinite_normal");norm+=x*x;}if(!std::isfinite(norm)||norm<1e-8f)return reject("environment_invalid_normal");for(float& x:n)x/=std::sqrt(norm);
+            if(world){const auto object=n;if(!transformed_normal(object,*world,n))return reject("environment_world_normal_invalid");}}
         entry.geometric_normals[i]=n;bool hinted=false;
         if(hints&&category!=3&&!environment){hinted=hints->resolve(course,texture,positions[i],n,n);
             // Paired front/back topology has no intrinsic signed orientation.

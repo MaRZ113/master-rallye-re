@@ -301,3 +301,48 @@ def export_lighting_metadata(sources: list[Path], courses: list[str], output: Pa
     (output / 'materials.lsm').write_bytes(data)
     (output / 'provenance.json').write_text(json.dumps(result, indent=2) + '\n', encoding='utf-8')
     return result
+
+
+# Course-independent props that every course draws through the native course
+# path with an instance WORLD matrix (Misc/Checkpoints boards and banners). The
+# runtime looks a texture up for the current course first, then for "Common".
+COMMON_COURSE = 'Common'
+COMMON_PROPS = {
+    'Misc/Checkpoints': ('i2a_planks2-tga', 'stamp_01-tga', 'masterlogo-tga'),
+}
+
+
+def add_common_records(base: bytes, data_root: Path) -> tuple[bytes, dict]:
+    """Return ``base`` plus static/signage "Common" records for COMMON_PROPS.
+
+    ``data_root`` is an unpacked DataGx directory. Records use the same runtime
+    identity as course materials (decoded BGRA level-0 pixels, raw and with
+    alpha forced to 255) and the plain static capability with native alpha-test
+    coverage; winding follows the MR course convention (-1). Existing course
+    records are never changed.
+    """
+    from .dxt import parse_dxt
+    records = {(r['course'], r['texture_sha256']): r for r in decode_metadata(base)}
+    report = []
+    for folder, names in COMMON_PROPS.items():
+        for name in names:
+            texture = data_root / folder / (name + '.dxt')
+            if not texture.exists():
+                raise ValueError(f'missing common prop texture {texture}')
+            tex = parse_dxt(texture)
+            opaque = bytearray(tex.bgra)
+            opaque[3::4] = bytes([255]) * (len(opaque) // 4)
+            for pixels in (tex.bgra, bytes(opaque)):
+                digest = hashlib.sha256(pixels).hexdigest()
+                key = COMMON_COURSE, digest
+                record = dict(course=COMMON_COURSE, material=name, texture_sha256=digest,
+                              category=ROLES['signage'], flags=PLAIN | ALPHA_TEST, winding=-1)
+                previous = records.get(key)
+                if previous and any(previous[k] != record[k] for k in ('category', 'flags', 'winding')):
+                    raise ValueError(f'common identity collision for {name}')
+                records[key] = record
+            report.append({'folder': folder, 'material': name,
+                           'texture_file_sha256': hashlib.sha256(texture.read_bytes()).hexdigest()})
+    data = encode_metadata(list(records.values()))
+    return data, {'common_course': COMMON_COURSE, 'records': len(records), 'materials': report,
+                  'metadata_sha256': hashlib.sha256(data).hexdigest()}

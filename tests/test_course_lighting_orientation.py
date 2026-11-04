@@ -73,6 +73,22 @@ class ScopedStaticPass(unittest.TestCase):
         self.assertFalse(lighting.static_plain_capability('unknown-tga',[('unknown-tga','aluminium-tga','Null')]))
         self.assertFalse(lighting.static_plain_capability('fencegate-tga',[('fencegate-tga','Null','Null')],'exclude'))
 
+    def test_common_props_are_course_independent_signage(self):
+        import sys
+        src=str(Path(__file__).parents[1]/'src')
+        if src not in sys.path:sys.path.insert(0,src)
+        from master_rallye import course_lighting as package
+        root=Path(r'D:/Game/Master Rallye/Data.sma_unpacked/DataGx')
+        if not (root/'Misc/Checkpoints/stamp_01-tga.dxt').exists():self.skipTest('private unpacked DataGx fixture')
+        base=package.encode_metadata([])
+        data,report=package.add_common_records(base,root)
+        rows=package.decode_metadata(data)
+        self.assertTrue(rows and all(r['course']=='Common' and r['category']==4 and r['flags']==package.PLAIN|package.ALPHA_TEST and r['winding']==-1 for r in rows))
+        self.assertEqual({m['material'] for m in report['materials']},{'i2a_planks2-tga','stamp_01-tga','masterlogo-tga'})
+        again,_=package.add_common_records(data,root)
+        self.assertEqual(again,data)
+
+
 if __name__=='__main__':unittest.main()
 
 class EnvironmentCapabilities(unittest.TestCase):
