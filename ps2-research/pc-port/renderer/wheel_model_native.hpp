@@ -1,5 +1,4 @@
 #pragma once
-#include "kia_wheel_native.hpp"
 #include "fleet_wheel_native.hpp"
 #include "wheel_model_registry.hpp"
 namespace gfx2::frontendmodelintegration {
@@ -7,7 +6,6 @@ inline dipintegration::Result draw_wheel(Device8& d,D3DPRIMITIVETYPE type,UINT m
  ps2port::perf::Timer perf_timer(ps2port::perf::WheelEntry);
  frontendmodelintegration::FleetParticipantScope fleet_scope(d,pc);
  const auto expanded=draw_fleet_wheel(d,type,min,vertices,start,count,pc);if(expanded.handled)return expanded;
- const auto fleet=draw_kia_wheel(d,type,min,vertices,start,count,pc);if(fleet.handled)return fleet;
  auto* e=d.ps2_port();auto* p=e?e->wheel_model():nullptr;auto* chassis=e?e->race_model():nullptr;if(!p||!p->requested()||!chassis||!chassis->requested()||type!=D3DPT_TRIANGLELIST||!d.trace.scene_active||GetCurrentThreadId()!=d.trace.render_thread_id()||d.trace.shadow.recording||d.trace.effective_shadow.recording)return {};
  // PS2FleetAllCars: only a wheel egg of an X-Trail participant (never the 4 m chassis distance alone).
  if(ps2port::fleet_active.active&&(ps2port::fleet_active.role!=ps2port::FleetRole::Wheel||!ps2port::fleet_folder_matches(ps2port::fleet_active.folder.data(),"Xtrail")))return {};

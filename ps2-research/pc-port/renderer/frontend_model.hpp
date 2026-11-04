@@ -8,7 +8,6 @@
 #include "model_probe.hpp"
 #include "fleet_car_probe.hpp"
 #include "fleet_damage_probe.hpp"
-#include "kia_wheel_warmup.hpp"
 #include "kia_damage.hpp"
 #include "fleet_damage.hpp"
 #include "race_damage.hpp"
@@ -64,7 +63,7 @@ class FrontendModel {
  std::array<std::vector<FrontendVertex>,13> deformed_;uint64_t deformation_revision_=UINT64_MAX;bool deformation_ready_=false;
  std::array<std::vector<FrontendVertex>,4> crew_vertices_;
 public:
- FleetDamageState fleet_damage;KiaDamageState kia_damage;KiaWheelWarmup kia_warmup;FleetDamageProbe fleet_damage_probe;ModelProbe damage_probe;FleetCarProbe fleet_probe;RaceDamageState damage;
+ FleetDamageState fleet_damage;KiaDamageState kia_damage;FleetDamageProbe fleet_damage_probe;ModelProbe damage_probe;FleetCarProbe fleet_probe;RaceDamageState damage;
  std::array<FrontendRecord,64> fleet_probes{};unsigned fleet_probe_count=0;uint32_t fleet_failed=0;
  std::vector<std::pair<unsigned,unsigned>> trim17_native_runs;std::array<WheelOwnerState,4> wheel_owners{};std::array<FleetWheelOwnerState,16> fleet_wheel_owners{};FrontendTransaction transaction;D3DMATRIX environment{};bool environment_known=false,validated=false;
  uint32_t car_source_logs=0;D3DMATRIX car_view{},car_projection{};D3DVIEWPORT8 car_viewport{};uintptr_t car_target=0;uint64_t car_fault_frame=UINT64_MAX,car_blocked_frame=UINT64_MAX;uint32_t parts_validated=0;uint64_t race_generation=0,race_owner_lifetime=0;FrontendOwner owner{};std::array<FrontendRecord,32> records{};uint32_t seen=0;uint64_t observed_frame=UINT64_MAX,drawn_frame=UINT64_MAX;D3DMATRIX drawn_world{};bool certified=false;
@@ -95,7 +94,7 @@ public:
  // maps; own = fallback (the default, also when the map is unavailable).
  IDirect3DTexture8* mixed_or(IDirect3DTexture8* own)const noexcept{return static_env_?static_env_:own;}
  bool prepare_headlight(const DrawSnapshot&,bool original,bool private_tree,unsigned part=0)noexcept;const std::vector<FrontendVertex>& headlight_vertices(unsigned part=0)const noexcept{return headlight_current_[part];}
- bool initialize(IDirect3DDevice8&)noexcept;void reset()noexcept;void invalidate()noexcept{kia_deformed_.clear();kia_revision_=UINT64_MAX;kia_damage.invalidate_current();fleet_damage.invalidate_current();for(auto& v:headlight_current_)v.clear();damage.invalidate_current();deformation_ready_=false;deformation_revision_=UINT64_MAX;trim17_native_runs.clear();kia_warmup={};wheel_owners={};fleet_wheel_owners={};environment_known=false;validated=false;parts_validated=0;certified=false;seen=0;records={};observed_frame=drawn_frame=UINT64_MAX;owner={};}
+ bool initialize(IDirect3DDevice8&)noexcept;void reset()noexcept;void invalidate()noexcept{kia_deformed_.clear();kia_revision_=UINT64_MAX;kia_damage.invalidate_current();fleet_damage.invalidate_current();for(auto& v:headlight_current_)v.clear();damage.invalidate_current();deformation_ready_=false;deformation_revision_=UINT64_MAX;trim17_native_runs.clear();wheel_owners={};fleet_wheel_owners={};environment_known=false;validated=false;parts_validated=0;certified=false;seen=0;records={};observed_frame=drawn_frame=UINT64_MAX;owner={};}
  void disable()noexcept{ps2diag::disable_log().note("model","draw_failed_or_exception");disabled_=true;invalidate();}
 };
 }
