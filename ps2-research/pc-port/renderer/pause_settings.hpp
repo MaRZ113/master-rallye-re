@@ -9,6 +9,10 @@
 //   0x4551d6 per-tick input                 -> keyboard Left/Right change the selected setting
 //   0x455600 accept                         -> SETTINGS opens the submenu, QUIT keeps working (index 2 -> native 1)
 //   0x45560c back                           -> leaves the submenu instead of closing the pause
+//   0x531105 enUITileBox draw (Width +0x18 / Height +0x1c are read every frame) -> while the pause ticks, the frame
+//            (the only enUITileBox of Hud0/Hud1, Width 18) gets 2*rows+1 tiles: 5 for the native 2 rows, 7 for 3.
+// The chosen FOV is written to MRRRenderer.ini ([Quality] VerticalFOVDegrees; [Camera] for a v1 file) when SETTINGS is
+// left or the pause closes, so it survives a restart (the renderer reads that file at start).
 // Lists are built with the game's own allocator (0x5c1cb4) because Broker frees the previous list (strings, vector
 // buffer, object; 0x4de1c0 type 9) with 0x5b4c00 when a new one is set; a pointer is never reused after it is handed over.
 // The FOV is applied live through g_live_vfov (patch 0001, game_fov.cpp); it only acts with [Quality] GameplayFOV on.
@@ -73,6 +77,12 @@ inline constexpr CallSite kOpen{"pause_show_open",0x4551a7,0x455280};
 inline constexpr CallSite kInput{"pause_input",0x4551d6,0x455570};
 inline constexpr CallSite kAccept{"pause_accept",0x455600,0x455210};
 inline constexpr CallSite kBack{"pause_back",0x45560c,0x455560};
+inline constexpr CallSite kTile{"tilebox_draw",0x531105,0x531110};
+inline constexpr uint32_t kTileWidth=0x18,kTileHeight=0x1c;
+// Pure: frame height in tiles for n rows (native: 2 rows in 5 tiles).
+inline constexpr int frame_tiles(size_t rows) noexcept { return int(rows)*2+1; }
+// Pure: the INI section of the gameplay FOV in MRRRenderer.ini.
+inline const wchar_t* fov_section(int config_version) noexcept { return config_version==2?L"Quality":L"Camera"; }
 inline constexpr uint32_t kImageBase=0x400000;
 inline constexpr uint32_t kGameNew=0x5c1cb4,kBrokerGet=0x4d8ec0,kSetList=0x4d8880,kSetInt=0x4d8000,kGetInt=0x4d6760,
     kGetList=0x4d6ea0,kUpdateText=0x4557b0;
@@ -83,7 +93,10 @@ inline std::array<uint8_t,5> call_bytes(uint32_t site,uint32_t target) noexcept 
     const uint32_t rel=target-(site+5);std::array<uint8_t,5> b{0xe8};std::memcpy(b.data()+1,&rel,4);return b;
 }
 
-struct State { Menu menu; bool configured=false,installed=false; const char* reason="not_requested"; bool left=false,right=false; };
+struct State {
+    Menu menu; bool configured=false,installed=false; const char* reason="not_requested"; bool left=false,right=false;
+    std::wstring renderer_ini; bool dirty=false; int saved=0; ULONGLONG last_input=0; int frame=0;
+};
 inline State& state() noexcept { static State s; return s; }
 
 namespace native {
@@ -128,7 +141,18 @@ inline bool show(void* ai,const Menu& menu,int idx) noexcept {
         return true;
     }catch(...){return false;}
 }
-inline void publish_fov(const Menu& m) noexcept { g_live_vfov.store(m.live,std::memory_order_relaxed); }
+inline void publish_fov(State& s) noexcept { g_live_vfov.store(s.menu.live,std::memory_order_relaxed);if(s.menu.live>0.f)s.dirty=true; }
+// Writes the chosen FOV into MRRRenderer.ini (only the one key; comments and the rest stay).
+inline void save(State& s) noexcept {
+    try{
+        if(!s.dirty||s.renderer_ini.empty()||s.menu.configured<=0.f)return;s.dirty=false;
+        const int v=s.menu.fov();if(v==s.saved)return;
+        const int version=int(GetPrivateProfileIntW(L"General",L"ConfigVersion",0,s.renderer_ini.c_str()));
+        const std::wstring value=std::to_wstring(v);
+        if(WritePrivateProfileStringW(fov_section(version),L"VerticalFOVDegrees",value.c_str(),s.renderer_ini.c_str()))s.saved=v;
+        else ps2diag::disable_log().note("pause_settings","renderer_ini_write_failed");
+    }catch(...){}
+}
 inline bool key_edge(int vk,bool& was) noexcept {
     const bool down=(GetAsyncKeyState(vk)&0x8000)!=0;const bool edge=down&&!was;was=down;return edge;
 }
@@ -151,24 +175,36 @@ inline void __fastcall on_input(void* ai,void*,int arg) {
     auto& s=state();
     const bool focus=game_has_focus();
     const bool l=focus&&key_edge(VK_LEFT,s.left),r=focus&&key_edge(VK_RIGHT,s.right);
-    if(s.menu.usable()&&s.menu.mode==Mode::Settings&&(l||r)&&index(ai)==0&&s.menu.step(r?+1:-1,false)){publish_fov(s.menu);show(ai,s.menu,0);}
+    if(s.menu.usable()&&s.menu.mode==Mode::Settings&&(l||r)&&index(ai)==0&&s.menu.step(r?+1:-1,false)){publish_fov(s);show(ai,s.menu,0);}
+    s.last_input=GetTickCount64();s.frame=s.menu.usable()?frame_tiles(s.menu.labels().size()):0;
     fn<AiInt>(kInput.target)(ai,arg);
 }
 inline void __fastcall on_accept(void* ai,void*) {
     auto& s=state();
     if(!s.menu.usable()){fn<AiVoid>(kAccept.target)(ai);return;}
     int next=0;const auto action=s.menu.accept(index(ai),next);
-    if(action==Action::Stay){publish_fov(s.menu);show(ai,s.menu,next);return;}
+    if(action==Action::Stay){publish_fov(s);if(s.menu.mode==Mode::Main)save(s);show(ai,s.menu,next);return;}
+    save(s);s.frame=0;
     if(action==Action::NativeQuit)fn<SetInt>(kSetInt)(broker(),handle(ai,kIndexHandle),1);   // native: 1 = QuitRace
     else fn<SetInt>(kSetInt)(broker(),handle(ai,kIndexHandle),0);
     fn<AiVoid>(kAccept.target)(ai);
 }
 inline void __fastcall on_back(void* ai,void*) {
     auto& s=state();int next=0;
-    if(s.menu.usable()&&s.menu.back(next)){show(ai,s.menu,next);return;}
+    if(s.menu.usable()&&s.menu.back(next)){save(s);show(ai,s.menu,next);return;}
+    save(s);s.frame=0;
     fn<AiVoid>(kBack.target)(ai);
 }
 
+// enUITileBox draw (thiscall, 1 argument). Only while the pause input ticked within the last 250 ms.
+inline void __fastcall on_tile(void* box,void*,int arg) {
+    auto& s=state();
+    if(s.frame>0&&GetTickCount64()-s.last_input<250){
+        auto* width=reinterpret_cast<int*>(static_cast<uint8_t*>(box)+kTileWidth);auto* height=reinterpret_cast<int*>(static_cast<uint8_t*>(box)+kTileHeight);
+        if(*width==18&&*height!=s.frame&&*height>=3&&*height<=15)*height=s.frame;
+    }
+    fn<AiInt>(kTile.target)(box,arg);
+}
 inline bool read(uint32_t va,uint8_t* out,size_t n) noexcept {
     __try{std::memcpy(out,reinterpret_cast<const void*>(static_cast<uintptr_t>(va)),n);return true;}
     __except(EXCEPTION_EXECUTE_HANDLER){return false;}
@@ -187,9 +223,12 @@ inline void configure(bool supported,const std::wstring& ini) noexcept {
     try{
         if(!supported||config::read_int(L"PauseSettings",0,ini.c_str())!=1)return;
         if(reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))!=kImageBase){s.reason="unexpected_image_base";ps2diag::disable_log().note("pause_settings",s.reason);return;}
-        const std::array<std::pair<CallSite,uint32_t>,4> sites{{
+        { auto dir=ini;const auto slash=dir.find_last_of(L"/\\");dir=slash==std::wstring::npos?std::wstring():dir.substr(0,slash+1);
+          const auto path=dir+L"MRRRenderer.ini";if(GetFileAttributesW(path.c_str())!=INVALID_FILE_ATTRIBUTES)s.renderer_ini=path; }
+        const std::array<std::pair<CallSite,uint32_t>,5> sites{{
             {kOpen,uint32_t(reinterpret_cast<uintptr_t>(&native::on_open))},{kInput,uint32_t(reinterpret_cast<uintptr_t>(&native::on_input))},
-            {kAccept,uint32_t(reinterpret_cast<uintptr_t>(&native::on_accept))},{kBack,uint32_t(reinterpret_cast<uintptr_t>(&native::on_back))}}};
+            {kAccept,uint32_t(reinterpret_cast<uintptr_t>(&native::on_accept))},{kBack,uint32_t(reinterpret_cast<uintptr_t>(&native::on_back))},
+            {kTile,uint32_t(reinterpret_cast<uintptr_t>(&native::on_tile))}}};
         for(const auto& [site,hook]:sites){std::array<uint8_t,5> seen{};
             if(!native::read(site.site,seen.data(),5)||seen!=call_bytes(site.site,site.target)){s.reason="original_call_mismatch_untouched";ps2diag::disable_log().note("pause_settings",s.reason);return;}}
         for(const auto& [site,hook]:sites)if(!native::write(site.site,call_bytes(site.site,hook))){s.reason="code_write_failed";ps2diag::disable_log().note("pause_settings",s.reason);return;}

@@ -358,6 +358,8 @@ void pause_settings_menu(){
     // CALL rel32 encoding of the four redirected sites (retail bytes).
     CHECK((call_bytes(0x455600,0x455210)==std::array<uint8_t,5>{0xe8,0x0b,0xfc,0xff,0xff}));
     CHECK((call_bytes(0x4551a7,0x455280)==std::array<uint8_t,5>{0xe8,0xd4,0x00,0x00,0x00}));
+    CHECK((call_bytes(0x531105,0x531110)==std::array<uint8_t,5>{0xe8,0x06,0x00,0x00,0x00}));
+    CHECK(frame_tiles(2)==5&&frame_tiles(3)==7);CHECK(std::wstring(fov_section(2))==L"Quality"&&std::wstring(fov_section(0))==L"Camera");
     Menu m;CHECK(!m.usable());m.original={"CONTINUE","QUIT"};CHECK(m.usable());m.configured=75.f;
     CHECK((m.labels()==std::vector<std::string>{"CONTINUE","SETTINGS","QUIT"}));
     int next=-1;CHECK(m.accept(0,next)==Action::Native);CHECK(m.accept(2,next)==Action::NativeQuit);

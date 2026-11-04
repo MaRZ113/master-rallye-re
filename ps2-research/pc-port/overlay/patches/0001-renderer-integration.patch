@@ -818,7 +818,7 @@ diff --git a/modernization/renderer/src/race_observer.cpp b/modernization/render
 diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/renderer/src/visual_wrappers.cpp
 --- a/modernization/renderer/src/visual_wrappers.cpp
 +++ b/modernization/renderer/src/visual_wrappers.cpp
-@@ -3,6 +3,31 @@
+@@ -3,7 +3,33 @@
  #include "camera_probe.hpp"
  #include <intrin.h>
  #include <cstring>
@@ -848,9 +848,11 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
 +#include "provenance.hpp"
 +#endif
  namespace gfx2 {
++float live_vfov(float configured) noexcept;   // game_fov.cpp (PAUSE-MENU1)
  namespace {
  bool site(uintptr_t pc,uint32_t& rva) noexcept {
-@@ -11,8 +36,76 @@
+  HMODULE module=nullptr;
+@@ -11,8 +37,76 @@ bool site(uintptr_t pc,uint32_t& rva) noexcept {
   auto base=reinterpret_cast<uintptr_t>(module);if(pc<base||pc-base>UINT32_MAX)return false;rva=static_cast<uint32_t>(pc-base);return true;
  }
  }
@@ -927,7 +929,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
   DWORD effective=visuals.filter(stage,type,value);
   if(effective!=value&&type==D3DTSS_MINFILTER){
    auto& max=trace.effective_shadow.tss[0][D3DTSS_MAXANISOTROPY];
-@@ -29,6 +122,9 @@
+@@ -29,6 +123,9 @@ HRESULT STDMETHODCALLTYPE Device8::SetTextureStageState(DWORD stage,D3DTEXTUREST
  }
  HRESULT STDMETHODCALLTYPE Device8::GetTextureStageState(DWORD stage,D3DTEXTURESTAGESTATETYPE type,DWORD* value){
   auto guard=trace.guard();auto args=pack(stage,type,value);auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(62,args,pc);
@@ -937,7 +939,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
   HRESULT hr=real_->GetTextureStageState(stage,type,value);DWORD native_value=0;bool virtualized=false;
   if(SUCCEEDED(hr)&&stage<8&&type<64&&safe_copy(&native_value,value,4)){
    const auto& logical=trace.shadow.tss[stage][type];const auto& native=trace.effective_shadow.tss[stage][type];
-@@ -41,7 +137,7 @@
+@@ -41,11 +138,13 @@ HRESULT STDMETHODCALLTYPE Device8::SetTransform(D3DTRANSFORMSTATETYPE type,const
   return set_transform_at(type,input,reinterpret_cast<uintptr_t>(_ReturnAddress()));
  }
  HRESULT Device8::set_transform_at(D3DTRANSFORMSTATETYPE type,const D3DMATRIX* input,uintptr_t pc){
@@ -945,8 +947,16 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
 + auto guard=trace.guard();HRESULT repair=repair_reflection();if(FAILED(repair))return repair;auto args=pack(type,input);trace.before(37,args,pc);
   D3DMATRIX changed{};uint32_t rva=0;bool exe=site(pc,rva);int observed_scene_family=-1;float cinematic_vfov=0;D3DMATRIX source_projection{};
   bool cinematic_projection=type==D3DTS_PROJECTION&&safe_copy(&source_projection,input,sizeof(source_projection))&&game_fov.cinematic_projection_vfov(source_projection,exe,rva,cinematic_vfov);
-  float applied_vfov=cinematic_projection?cinematic_vfov:visuals.effective.vfov;
-@@ -64,6 +160,14 @@
+- float applied_vfov=cinematic_projection?cinematic_vfov:visuals.effective.vfov;
+- bool rewritten=(visuals.effective.fov||cinematic_projection)&&visuals.projection(type,input,changed,exe,rva,cinematic_projection?cinematic_vfov:0.f);
++ // PAUSE-MENU1: the race pause CAMERA FOV (game_fov.cpp live_vfov); only with [Quality] GameplayFOV on.
++ const float pause_vfov=visuals.effective.fov?live_vfov(visuals.effective.vfov):0.f;
++ float applied_vfov=cinematic_projection?cinematic_vfov:pause_vfov>0.f?pause_vfov:visuals.effective.vfov;
++ bool rewritten=(visuals.effective.fov||cinematic_projection)&&visuals.projection(type,input,changed,exe,rva,cinematic_projection?cinematic_vfov:pause_vfov);
+  bool projection_attempted=type==D3DTS_PROJECTION&&exe&&rva==GAMEPLAY_PROJECTION_RETURN_RVA&&(visuals.effective.fov||cinematic_projection);
+  if(quality&&quality->preview_capability.supported()&&type==D3DTS_PROJECTION&&exe&&rva==quality->preview_capability.candidate_rva){
+   D3DMATRIX source{};if(safe_copy(&source,input,sizeof(source)))observed_scene_family=camera_scene_family(source);
+@@ -64,6 +163,14 @@ HRESULT Device8::set_transform_at(D3DTRANSFORMSTATETYPE type,const D3DMATRIX* in
   trace.culling=game_fov.status();
   const D3DMATRIX* forwarded=(rewritten||ui_rewritten||preview_rewritten)?&changed:input;auto native=pack(type,forwarded);
  HRESULT hr=real_->SetTransform(type,forwarded);if(rewritten&&type==D3DTS_PROJECTION)game_fov.projection_applied(applied_vfov,SUCCEEDED(hr));if(FAILED(hr)&&(rewritten||ui_rewritten||preview_rewritten)){trace.after(37,native,static_cast<uint32_t>(hr),pc,&native,rewritten?2:preview_rewritten?64:32,false,true);if(rewritten){game_fov.disable("native_projection_rejected");visuals.effective.fov=false;}if(preview_rewritten){quality->preview_capability.status="UNSUPPORTED";quality->preview_capability.reason="native_preview_projection_rejected";}if(ui_rewritten){quality->config.interface_mode="Stock";ui_margins.disable("native_ui_projection_rejected");}native=args;hr=real_->SetTransform(type,input);rewritten=ui_rewritten=preview_rewritten=false;}if(SUCCEEDED(hr)&&quality&&type==D3DTS_PROJECTION)quality->ui_projection_live=ui_rewritten;trace.after(37,args,static_cast<uint32_t>(hr),pc,&native,rewritten?2:ui_rewritten?32:preview_rewritten?64:0);
@@ -961,7 +971,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
   if(SUCCEEDED(hr)&&observed_scene_family>=0)ui_margins.scene_context(observed_scene_family==1);
   if(SUCCEEDED(hr)&&type==D3DTS_VIEW&&exe&&rva==GAMEPLAY_VIEW_RETURN_RVA){D3DMATRIX stock{};if(safe_copy(&stock,input,sizeof(stock)))game_fov.stock_view(stock);}
   if(type==D3DTS_VIEW&&exe){
-@@ -106,6 +210,9 @@
+@@ -106,6 +213,9 @@ HRESULT hr=real_->SetTransform(type,forwarded);if(rewritten&&type==D3DTS_PROJECT
  }
  HRESULT STDMETHODCALLTYPE Device8::GetTransform(D3DTRANSFORMSTATETYPE type,D3DMATRIX* out){
   auto guard=trace.guard();auto args=pack(type,out);auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(38,args,pc);
@@ -971,7 +981,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
   HRESULT hr=real_->GetTransform(type,out);D3DMATRIX native_value{};bool virtualized=false;
   if(SUCCEEDED(hr)&&type<512&&safe_copy(&native_value,out,sizeof(native_value))){
    const auto& logical=trace.shadow.matrices[type];const auto& native=trace.effective_shadow.matrices[type];
-@@ -185,9 +292,24 @@
+@@ -185,9 +295,24 @@ HRESULT Device8::draw_primitive_at(D3DPRIMITIVETYPE type,UINT start,UINT count,u
    game_fov.clean_view_disarm_count(),game_fov.clean_view_last_disarm_reason(),clean_scope_id!=0,
    game_fov.clean_view_context_trace_frame(),game_fov.clean_view_context_scheduler_generation(),clean_admission.frame);
   skip=skip||suppress_clean_view||suppress_global_hud;
@@ -997,7 +1007,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
   UiOwnershipDrawState ownership_state{};
   const auto& fvf=trace.shadow.bindings.vertex_shader;ownership_state.fvf_known=fvf.known;ownership_state.fvf=fvf.value;
   const auto& texture0=trace.shadow.bindings.textures[0];ownership_state.texture0_known=texture0.known;ownership_state.texture0=texture0.value;
-@@ -198,25 +320,155 @@
+@@ -198,25 +323,155 @@ HRESULT Device8::draw_primitive_at(D3DPRIMITIVETYPE type,UINT start,UINT count,u
   for(unsigned i=0;i<UI_OWNERSHIP_STAGE_FIELD_COUNT;++i){unsigned stage=i<3?0u:1u;const auto& state=trace.shadow.tss[stage][stage_keys[i]];ownership_state.stage_known[i]=state.known?1u:0u;ownership_state.stage_values[i]=state.value;}
   uint64_t race_generation=0;const bool race_generation_known=game_fov.race_lifecycle_generation(race_generation);
   ui_margins.observe_ownership_draw(trace.frame_number(),race_generation_known,race_generation,rva,type,count,ownership_state,!skip,skip,hr);
@@ -1427,9 +1437,9 @@ diff --git a/modernization/renderer/src/game_fov.cpp b/modernization/renderer/sr
 +// PAUSE-MENU1: live gameplay FOV from the race pause settings (ps2-research/pc-port/renderer/pause_settings.hpp).
 +// 0 = the configured [Quality] VerticalFOVDegrees; the configured value is published for the menu label.
 +std::atomic<float> g_live_vfov{0.f},g_configured_vfov{0.f};
-+static float live_vfov(float configured) noexcept {g_configured_vfov.store(configured,std::memory_order_relaxed);const float v=g_live_vfov.load(std::memory_order_relaxed);return v>0.f?v:configured;}
++float live_vfov(float configured) noexcept {g_configured_vfov.store(configured,std::memory_order_relaxed);const float v=g_live_vfov.load(std::memory_order_relaxed);return v>0.f?v:configured;}
 +#else
-+static float live_vfov(float configured) noexcept {return configured;}
++float live_vfov(float configured) noexcept {return configured;}
 +#endif
  
  namespace {
