@@ -142,7 +142,11 @@ inline void observe(Device8& d,D3DPRIMITIVETYPE type,UINT,UINT vertices,UINT,UIN
                     p->course_fog={frame,vertex,table,start,end,color};}}
         if(p->live_tuning&&frame!=p->live_key_frame){p->live_key_frame=frame;DWORD pid=0;GetWindowThreadProcessId(GetForegroundWindow(),&pid);
             const bool down=pid==GetCurrentProcessId()&&(GetAsyncKeyState(VK_CONTROL)&0x8000)&&(GetAsyncKeyState(VK_MENU)&0x8000)&&(GetAsyncKeyState('R')&0x8000);
-            if(down&&!p->live_key_down)p->live_force=true;p->live_key_down=down;}
+            if(down&&!p->live_key_down)p->live_force=true;p->live_key_down=down;
+            const bool dark=pid==GetCurrentProcessId()&&(GetAsyncKeyState(VK_CONTROL)&0x8000)&&(GetAsyncKeyState(VK_MENU)&0x8000)&&(GetAsyncKeyState('N')&0x8000);
+            if(dark&&!p->dark_key_down){p->dark_diagnostic=!p->dark_diagnostic;p->live_force=true;
+                session().write("{\"type\":\"atmosphere_dark_diagnostic\",\"enabled\":"+std::string(p->dark_diagnostic?"true":"false")+",\"frame\":"+std::to_string(frame)+"}");}
+            p->dark_key_down=dark;}
         if(!p->package_root.empty()&&p->metadata_poll_frame!=frame){p->metadata_poll_frame=frame;DWORD pid=0;GetWindowThreadProcessId(GetForegroundWindow(),&pid);
             const bool down=pid==GetCurrentProcessId()&&(GetAsyncKeyState(VK_CONTROL)&0x8000)&&(GetAsyncKeyState(VK_MENU)&0x8000)&&(GetAsyncKeyState('M')&0x8000);
             if(down&&!p->metadata_key_down)p->course_dirty=true;p->metadata_key_down=down;}

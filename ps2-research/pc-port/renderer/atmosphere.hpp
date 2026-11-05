@@ -369,6 +369,7 @@ public:
     // it cannot change its root or bypass live admission.
     // Detection is by file CONTENT, not time: copying a profile over the file
     // keeps the source's modification time. Ctrl+Alt+R forces a reload.
+    bool dark_diagnostic=false,dark_key_down=false;
     bool live_tuning=false,live_force=false,live_key_down=false;uint64_t live_poll_frame=0,live_reloads=0,live_key_frame=UINT64_MAX;
     bool poll_live(uint64_t frame)noexcept {
         if(!enabled_||!live_tuning)return false;
@@ -414,6 +415,9 @@ private:
         sun_disk=GetPrivateProfileIntW(L"Atmosphere",L"SunDisk",0,ini_.c_str())==1;sun_halo=GetPrivateProfileIntW(L"Atmosphere",L"SunHalo",0,ini_.c_str())==1;sun_flare=GetPrivateProfileIntW(L"Atmosphere",L"SunFlare",0,ini_.c_str())==1;
         sun_style=read_sun_style(ini_);
         regional_base=lighting;apply_regional_values();
+        // P0.3 dark diagnostic (Ctrl+Alt+N, LiveTuning): everything that follows
+        // the atmosphere goes near-black; whatever stays bright bypasses it.
+        if(dark_diagnostic){lighting.ambient_strength=.06f;lighting.sun_strength=0;lighting.fog=0xff05070cu;lighting.fog_enabled=true;lighting.fog_strength=1;lighting.rim=false;}
     }
 public:
     ~Pilot(){pending.release();reset();}
