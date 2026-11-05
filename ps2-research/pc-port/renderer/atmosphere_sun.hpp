@@ -20,6 +20,7 @@ struct SunStyle {
     float core=1.f,glow=.95f,bloom=.55f,rays=.45f,flare=.35f;
     unsigned ray_count=72;std::wstring ray_texture;   // optional 256x256 BGRA sprite (SDK tools/atmosphere_sun_sprite.py)
     std::array<float,3> core_rgb{1.f,.98f,.9f},glow_rgb{1.f,.8f,.4f},bloom_rgb{1.f,.6f,.26f};
+    float dither=0,vignette=0;bool soft_ghosts=false;
 };
 inline SunStyle read_sun_style(const std::wstring& ini) {
     SunStyle s;
@@ -30,6 +31,9 @@ inline SunStyle read_sun_style(const std::wstring& ini) {
     s.core=number(L"SunCoreIntensity",s.core,0.f,2.f);s.glow=number(L"SunGlowIntensity",s.glow,0.f,2.f);s.bloom=number(L"SunBloomIntensity",s.bloom,0.f,2.f);
     s.rays=number(L"SunRayIntensity",s.rays,0.f,2.f);s.flare=number(L"SunFlareIntensity",s.flare,0.f,2.f);
     s.ray_count=2u*unsigned(std::lround(number(L"SunRays",float(s.ray_count),4.f,128.f)*.5f)); // even: alternating spokes stay seamless
+    s.dither=GetPrivateProfileIntW(L"Atmosphere",L"SunHaloDither",0,ini.c_str())==1?number(L"SunDitherStrength",1,0,2):0;
+    s.soft_ghosts=GetPrivateProfileIntW(L"Atmosphere",L"LensSoftGhosts",0,ini.c_str())==1;
+    s.vignette=GetPrivateProfileIntW(L"Atmosphere",L"Vignette",0,ini.c_str())==1?number(L"VignetteStrength",.10f,0,.3f):0;
     const wchar_t* keys[3][3]={{L"SunCoreR",L"SunCoreG",L"SunCoreB"},{L"SunGlowR",L"SunGlowG",L"SunGlowB"},{L"SunBloomR",L"SunBloomG",L"SunBloomB"}};
     for(unsigned i=0;i<3;++i){s.core_rgb[i]=number(keys[0][i],s.core_rgb[i],0.f,1.f);s.glow_rgb[i]=number(keys[1][i],s.glow_rgb[i],0.f,1.f);s.bloom_rgb[i]=number(keys[2][i],s.bloom_rgb[i],0.f,1.f);}
     wchar_t path[512]{};GetPrivateProfileStringW(L"Atmosphere",L"SunRaysTexture",L"",path,512,ini.c_str());
@@ -125,6 +129,7 @@ public:
     HRESULT draw(IDirect3DDevice8& n,const void* vertices,unsigned stride)noexcept{
         stream_pending_=true;return n.DrawPrimitiveUP(D3DPT_TRIANGLESTRIP,2,vertices,stride);
     }
+    HRESULT triangles(IDirect3DDevice8& n,const void* vertices,unsigned stride,unsigned count)noexcept{stream_pending_=true;return n.DrawPrimitiveUP(D3DPT_TRIANGLELIST,count,vertices,stride);}
     HRESULT restore(IDirect3DDevice8& n)noexcept{
         HRESULT result=S_OK;auto check=[&](HRESULT hr,bool& bit){if(SUCCEEDED(hr))bit=false;else if(SUCCEEDED(result))result=hr;};
         if(target_pending_){auto hr=n.SetRenderTarget(target_,depth_);notify(31,pack(target_,depth_),hr);check(hr,target_pending_);}
@@ -135,6 +140,12 @@ public:
     }
 };
 struct SunVertex {float x,y,z,rhw;DWORD color;float u,v,mask_u,mask_v;};
+template<class Texture> inline HRESULT sun_upload_pixels(Texture& texture,const uint8_t* pixels,unsigned width,unsigned height){
+    D3DLOCKED_RECT lock{};const auto hr=texture.LockRect(0,&lock,nullptr,0);if(FAILED(hr))return hr;
+    const bool valid=pixels&&lock.pBits&&width&&height&&width<=4096&&height<=4096&&lock.Pitch>=INT(width*4);
+    if(valid)for(unsigned y=0;y<height;++y)std::memcpy(static_cast<uint8_t*>(lock.pBits)+size_t(y)*lock.Pitch,pixels+size_t(y)*width*4,width*4);
+    const auto unlocked=texture.UnlockRect(0);return !valid?E_FAIL:unlocked;
+}
 static_assert(sizeof(SunVertex)==36);
 inline std::array<SunVertex,4> sun_quad(float x,float y,float radius,DWORD color,float mu,float mv){
     const float far_depth=std::nextafter(1.f,0.f);
@@ -152,29 +163,30 @@ class SunFx {
     IDirect3DSurface8 *mask_=nullptr,*resolved_=nullptr;IDirect3DTexture8 *mask_texture_=nullptr,*disk_=nullptr,*halo_=nullptr,*ghost_=nullptr,*bloom_=nullptr,*rays_=nullptr;
     UINT width_=0,height_=0,tw_=0,th_=0;D3DFORMAT format_=D3DFMT_UNKNOWN;D3DMULTISAMPLE_TYPE msaa_=D3DMULTISAMPLE_NONE;
     uint64_t latched_race_=UINT64_MAX,latched_reset_=UINT64_MAX;unsigned ray_count_=0;std::wstring ray_file_;
+    float sprite_dither_=-1,sprite_bloom_dither_=-1;bool sprite_soft_=false;
 public:
     // Procedural sprite intensity, r=1 at the sprite edge. kind: 0 core,
     // 1 glow, 2 ghost, 3 bloom, 4 starburst.
-    static float sprite_intensity(unsigned kind,float dx,float dy,unsigned rays)noexcept {
+    static float sprite_intensity(unsigned kind,float dx,float dy,unsigned rays,bool soft=false)noexcept {
         const float r=std::sqrt(dx*dx+dy*dy);if(r>=1)return 0;
         switch(kind){
         case 0:return std::clamp((1-r)*7.f,0.f,1.f);                                  // hot disk, soft limb
         case 1:return std::max(0.f,std::exp(-r*r*4.5f)-std::exp(-4.5f))/(1-std::exp(-4.5f));
-        case 2:return std::max(0.f,1-std::abs(r-.65f)*8)*.5f+std::max(0.f,1-r)*.16f;
+        case 2:return soft?std::pow(std::max(0.f,1-r*r),2.f)*.22f+std::exp(-std::pow((r-.68f)/.17f,2.f))*.10f:std::max(0.f,1-std::abs(r-.65f)*8)*.5f+std::max(0.f,1-r)*.16f;
         case 3:return std::pow(1-r,2.4f);                                             // wide soft bloom
         case 4:return sun_ray_profile(r,std::atan2(dy,dx)+3.1415927f,rays);
         }return 0;
     }
 private:
-    HRESULT sprite(IDirect3DDevice8& n,IDirect3DTexture8*& texture,unsigned kind,unsigned rays=0){
-        const unsigned size=kind==4?256:128;
+    HRESULT sprite(IDirect3DDevice8& n,IDirect3DTexture8*& texture,unsigned kind,unsigned rays=0,float dither=0,bool soft=false){
+        const unsigned size=kind==4?256:((kind==1||kind==3)&&dither>0?512:128);
         auto hr=n.CreateTexture(size,size,1,0,D3DFMT_A8R8G8B8,D3DPOOL_MANAGED,&texture);if(FAILED(hr)||!texture)return E_FAIL;
         D3DLOCKED_RECT lock{};hr=texture->LockRect(0,&lock,nullptr,0);if(FAILED(hr))return hr;
         if(!lock.pBits||lock.Pitch<INT(size*4)){texture->UnlockRect(0);return E_FAIL;}
         const float half=size*.5f;
         for(unsigned y=0;y<size;++y)for(unsigned x=0;x<size;++x){
-            const float intensity=sprite_intensity(kind,(x+.5f-half)/half,(y+.5f-half)/half,rays);
-            DWORD c=DWORD(std::clamp(std::lround(intensity*255),0l,255l));c=0xff000000u|c<<16|c<<8|c;
+            const float intensity=sprite_intensity(kind,(x+.5f-half)/half,(y+.5f-half)/half,rays,soft);
+            DWORD c=sun_quantize(intensity,x,y,dither);c=0xff000000u|c<<16|c<<8|c;
             std::memcpy(static_cast<uint8_t*>(lock.pBits)+size_t(y)*lock.Pitch+x*4,&c,4);}
         return texture->UnlockRect(0);
     }
@@ -190,7 +202,7 @@ private:
         if(SUCCEEDED(hr))hr=n.CreateTexture(tw_,th_,1,D3DUSAGE_RENDERTARGET,format_,D3DPOOL_DEFAULT,&mask_texture_);
         if(SUCCEEDED(hr)&&mask_texture_)hr=mask_texture_->GetSurfaceLevel(0,&resolved_);
         if(SUCCEEDED(hr))hr=sprite(n,disk_,0);if(SUCCEEDED(hr))hr=sprite(n,halo_,1);if(SUCCEEDED(hr))hr=sprite(n,ghost_,2);if(SUCCEEDED(hr))hr=sprite(n,bloom_,3);
-        if(FAILED(hr)||!mask_||!resolved_||!disk_||!halo_||!ghost_||!bloom_){resources();return E_FAIL;}return S_OK;
+        if(FAILED(hr)||!mask_||!resolved_||!disk_||!halo_||!ghost_||!bloom_){resources();return E_FAIL;}sprite_dither_=sprite_bloom_dither_=0;sprite_soft_=false;return S_OK;
     }
     // The starburst depends on the (live-tunable) spoke count.
     // Procedural spokes, or an author-supplied 256x256 BGRA sprite (same 20-byte
@@ -202,9 +214,7 @@ private:
             if(f&&f.tellg()==std::streamoff(20+256*256*4)){f.seekg(0);std::vector<uint8_t> bytes(20+256*256*4);
                 uint32_t h[5]{};if(f.read(reinterpret_cast<char*>(bytes.data()),bytes.size())){std::memcpy(h,bytes.data(),20);
                     if(h[0]==0xfeed&&h[3]==256&&h[4]==256&&SUCCEEDED(n.CreateTexture(256,256,1,0,D3DFMT_A8R8G8B8,D3DPOOL_MANAGED,&rays_))&&rays_){
-                        D3DLOCKED_RECT lock{};if(SUCCEEDED(rays_->LockRect(0,&lock,nullptr,0))&&lock.pBits&&lock.Pitch>=1024){
-                            for(unsigned y=0;y<256;++y)std::memcpy(static_cast<uint8_t*>(lock.pBits)+size_t(y)*lock.Pitch,bytes.data()+20+size_t(y)*1024,1024);
-                            if(SUCCEEDED(rays_->UnlockRect(0))){ray_count_=rays;ray_file_=file;ray_from_file=true;return S_OK;}}
+                        if(SUCCEEDED(sun_upload_pixels(*rays_,bytes.data()+20,256,256))){ray_count_=rays;ray_file_=file;ray_from_file=true;return S_OK;}
                         sun_drop(rays_);}}}
         }catch(...){sun_drop(rays_);}
         const auto hr=sprite(n,rays_,4,rays);if(FAILED(hr)||!rays_){sun_drop(rays_);return E_FAIL;}ray_count_=rays;ray_file_=file;return S_OK;
@@ -213,9 +223,27 @@ public:
     SunProof proof;SunTransaction transaction;bool ray_from_file=false;
     uint64_t drawn_frame=UINT64_MAX,gate_frame=UINT64_MAX,unsafe_frame=UINT64_MAX,attempts=0,rendered=0,failures=0,cpu_ticks=0;const char* reason="not_requested";HRESULT last_hr=S_OK;
     ~SunFx(){resources();}
-    void resources()noexcept{sun_drop(mask_);sun_drop(resolved_);sun_drop(mask_texture_);sun_drop(disk_);sun_drop(halo_);sun_drop(ghost_);sun_drop(bloom_);sun_drop(rays_);ray_count_=0;ray_file_.clear();width_=height_=tw_=th_=0;}
+    void resources()noexcept{sun_drop(mask_);sun_drop(resolved_);sun_drop(mask_texture_);sun_drop(disk_);sun_drop(halo_);sun_drop(ghost_);sun_drop(bloom_);sun_drop(rays_);ray_count_=0;ray_file_.clear();sprite_dither_=sprite_bloom_dither_=-1;width_=height_=tw_=th_=0;}
     void clear()noexcept{proof.clear();}
     void reset()noexcept{proof.clear();transaction.release();resources();latched_race_=latched_reset_=UINT64_MAX;drawn_frame=UINT64_MAX;}
+    HRESULT vignette(IDirect3DDevice8& n,UINT width,UINT height,float strength,void* context,SunWriter writer){
+        if(!proof.world||!width||!height||!std::isfinite(strength)||strength<=0)return S_FALSE;
+        auto hr=transaction.capture(n,context,writer);if(FAILED(hr))return S_FALSE;
+        auto rs=[&](DWORD k,DWORD v){if(SUCCEEDED(hr))hr=transaction.set(n,0,0,k,v);};
+        auto ts=[&](unsigned stage,DWORD k,DWORD v){if(SUCCEEDED(hr))hr=transaction.set(n,1,stage,k,v);};
+        rs(D3DRS_ZENABLE,D3DZB_FALSE);rs(D3DRS_ZWRITEENABLE,FALSE);rs(D3DRS_ALPHATESTENABLE,FALSE);rs(D3DRS_ALPHABLENDENABLE,TRUE);
+        rs(D3DRS_SRCBLEND,D3DBLEND_SRCALPHA);rs(D3DRS_DESTBLEND,D3DBLEND_INVSRCALPHA);rs(D3DRS_BLENDOP,D3DBLENDOP_ADD);
+        rs(D3DRS_LIGHTING,FALSE);rs(D3DRS_FOGENABLE,FALSE);rs(D3DRS_STENCILENABLE,FALSE);rs(D3DRS_SPECULARENABLE,FALSE);
+        rs(D3DRS_CULLMODE,D3DCULL_NONE);rs(D3DRS_FILLMODE,D3DFILL_SOLID);rs(D3DRS_COLORWRITEENABLE,7);rs(D3DRS_CLIPPLANEENABLE,0);
+        if(SUCCEEDED(hr))hr=transaction.set(n,3,0,0,D3DFVF_XYZRHW|D3DFVF_DIFFUSE|D3DFVF_TEX2);if(SUCCEEDED(hr))hr=transaction.set(n,4,0,0,0);
+        for(unsigned i=0;i<2;++i)if(SUCCEEDED(hr))hr=transaction.set(n,2,i,0,0,nullptr);
+        ts(0,D3DTSS_COLOROP,D3DTOP_SELECTARG2);ts(0,D3DTSS_COLORARG2,D3DTA_DIFFUSE);ts(0,D3DTSS_ALPHAOP,D3DTOP_SELECTARG1);ts(0,D3DTSS_ALPHAARG1,D3DTA_DIFFUSE);
+        ts(0,D3DTSS_RESULTARG,D3DTA_CURRENT);ts(1,D3DTSS_COLOROP,D3DTOP_DISABLE);ts(1,D3DTSS_ALPHAOP,D3DTOP_DISABLE);ts(2,D3DTSS_COLOROP,D3DTOP_DISABLE);
+        std::array<SunVertex,192> vertices{};size_t at=0;const DWORD edge=DWORD(std::lround(std::clamp(strength,0.f,.3f)*255))<<24;
+        auto point=[&](unsigned index,float radius,DWORD color){const float angle=6.2831853f*float(index)/32;return SunVertex{width*.5f*(1+radius*std::cos(angle))-.5f,height*.5f*(1+radius*std::sin(angle))-.5f,0,1,color,0,0,0,0};};
+        for(unsigned i=0;i<32;++i){const auto a=point(i,.55f,0),b=point(i+1,.55f,0),c=point(i,1.5f,edge),d=point(i+1,1.5f,edge);for(const auto& p:{a,b,c,c,b,d})vertices[at++]=p;}
+        if(SUCCEEDED(hr))hr=transaction.triangles(n,vertices.data(),sizeof(SunVertex),64);const auto restored=transaction.restore(n);return FAILED(restored)?restored:FAILED(hr)?S_FALSE:S_OK;
+    }
     HRESULT render(IDirect3DDevice8& n,const SunPosition& position,bool disk,bool halo,bool flare,void* context,SunWriter writer,const Lighting* lighting=nullptr,const SunStyle& style=SunStyle{}){
         struct Timer{uint64_t& ticks;LARGE_INTEGER start{};Timer(uint64_t& t):ticks(t){QueryPerformanceCounter(&start);}~Timer(){LARGE_INTEGER end{};QueryPerformanceCounter(&end);ticks+=end.QuadPart-start.QuadPart;}}timer(cpu_ticks);
         if(!proof.world||!proof.target||!proof.depth||!(disk||halo||flare)||!std::isfinite(position.x)||!std::isfinite(position.y)||!std::isfinite(position.radius)||position.radius<=0){reason="missing_scene_proof";return S_FALSE;}
@@ -224,6 +252,11 @@ public:
         if(SUCCEEDED(hr)&&(desc.Width!=depth_desc.Width||desc.Height!=depth_desc.Height||desc.MultiSampleType!=depth_desc.MultiSampleType||
            (depth_desc.Format!=D3DFMT_D24S8&&depth_desc.Format!=D3DFMT_D24X8)))hr=E_FAIL;
         if(SUCCEEDED(hr))hr=allocate(n,desc);
+        const float halo_dither=sun_layer_dither(style.dither,style.glow*std::max({style.glow_rgb[0],style.glow_rgb[1],style.glow_rgb[2]}));
+        const float bloom_dither=sun_layer_dither(style.dither,style.bloom*std::max({style.bloom_rgb[0],style.bloom_rgb[1],style.bloom_rgb[2]}));
+        if(SUCCEEDED(hr)&&(sprite_dither_!=halo_dither||sprite_bloom_dither_!=bloom_dither||sprite_soft_!=style.soft_ghosts)){sun_drop(halo_);sun_drop(ghost_);sun_drop(bloom_);
+            hr=sprite(n,halo_,1,0,halo_dither);if(SUCCEEDED(hr))hr=sprite(n,bloom_,3,0,bloom_dither);if(SUCCEEDED(hr))hr=sprite(n,ghost_,2,0,0,style.soft_ghosts);
+            if(SUCCEEDED(hr)){sprite_dither_=halo_dither;sprite_bloom_dither_=bloom_dither;sprite_soft_=style.soft_ghosts;}else resources();}
         if(SUCCEEDED(hr)&&halo&&style.rays>0)hr=ray_sprite(n,style.ray_count,style.ray_texture);
         if(FAILED(hr)){reason="mask_allocation_or_depth_incompatible";last_hr=hr;latched_race_=proof.race;latched_reset_=proof.reset;++failures;return S_FALSE;}
         hr=transaction.capture(n,context,writer);if(FAILED(hr)){reason="state_capture_failed";last_hr=hr;return S_FALSE;}

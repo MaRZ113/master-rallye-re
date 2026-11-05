@@ -125,8 +125,9 @@ inline HRESULT before_ui_one(Device8& d,ps2port::GrassPilot* p,bool ui_callsite,
     };
     D3DMATRIX identity{};identity._11=identity._22=identity._33=identity._44=1.f;
     HRESULT captured=p->transaction.capture(n),applied=E_PENDING,draw=E_PENDING,restored=S_OK;
-    if(SUCCEEDED(captured))applied=p->transaction.apply(n,p->texture(),identity,proof.projection,writer,
-        ps2port::CourseObjectMaterialState{FALSE,D3DTADDRESS_CLAMP,D3DTADDRESS_CLAMP});
+    auto material=ps2port::CourseObjectMaterialState{FALSE,D3DTADDRESS_CLAMP,D3DTADDRESS_CLAMP};
+    atmosphereintegration::proxy_fog(d,material);
+    if(SUCCEEDED(captured))applied=p->transaction.apply(n,p->texture(),identity,proof.projection,writer,material);
     if(SUCCEEDED(applied)){
         p->transaction.mark_up_stream_changed();
         // Only the private sprite batch. Never submit it to application's draw tracker.

@@ -5,6 +5,7 @@
 // depth and viewport) and the same fixed state transaction as the course objects and grass. Single camera only.
 #include "course_objects_native_integration.hpp"
 #include "spline_objects.hpp"
+#include "atmosphere_native.hpp"
 #include "ps2_hud_damage_feed.hpp"
 #include <cstdio>
 #include <vector>
@@ -155,12 +156,20 @@ inline HRESULT before_ui(Device8& d,bool ui_callsite,bool ui_consumer) noexcept 
     const bool fog=native_course_fog(n);
     const auto writer=[&](uint32_t slot,const Args& args,HRESULT hr) noexcept {courseintegration::after_setter(d,slot,args,hr);};
     HRESULT captured=S_OK,applied=S_OK,draw=E_PENDING,restored=S_OK;UINT triangles=0,draws=0;
-    for(const auto& batch:batches){
+    auto* ap=atmosphereintegration::pilot(d);
+    const bool lit=ap&&ap->enabled()&&ap->world&&ap->lighting.active()&&ap->spline_atmosphere;
+    // Source spline package contains opaque texture*prelight, no emissive/environment passes.
+    // It has no authored normals: ambient only avoids invented moving face seams.
+    auto energy=lit?ap->lighting:atmosphere::Lighting{};energy.prelight_contrast=1;energy.prelight_visibility=0;
+    const DWORD gain=atmosphere::scene_color(0xffffffffu,{0,0,0},energy);
+    for(auto& batch:batches){
+        if(lit)for(auto& x:batch.vertices)x.color=atmosphere::environment_texel(x.color,gain);
         if(batch.vertices.empty())continue;
         captured=p->transaction.capture(n);if(FAILED(captured))break;
         // World identity (vertices are already world space), the verified gameplay view and projection.
-        applied=p->transaction.apply(n,p->texture(batch.texture),proof.view,proof.projection,writer,
-            ps2port::CourseObjectMaterialState{TRUE,D3DTADDRESS_WRAP,D3DTADDRESS_WRAP,FALSE,static_cast<DWORD>(fog?TRUE:FALSE)});
+        ps2port::CourseObjectMaterialState material{TRUE,D3DTADDRESS_WRAP,D3DTADDRESS_WRAP,FALSE,static_cast<DWORD>(fog?TRUE:FALSE)};
+        if(lit)atmosphereintegration::proxy_fog(d,material);
+        applied=p->transaction.apply(n,p->texture(batch.texture),proof.view,proof.projection,writer,material);
         if(SUCCEEDED(applied)){
             p->transaction.mark_up_stream_changed();
             // Private draw only; never fed into the application's draw tracker or classifier.
@@ -173,6 +182,7 @@ inline HRESULT before_ui(Device8& d,bool ui_callsite,bool ui_consumer) noexcept 
         p->transaction.release();
         if(FAILED(applied)||FAILED(draw))break;
     }
+    if(lit&&draws&&ap->first_reason("spline_atmosphere"))try{session().write("{\"type\":\"atmosphere_spline\",\"factor\":"+std::to_string(gain)+",\"normal_policy\":\"ambient_only_source_has_no_normals\"}");}catch(...){}
     if(auto* x=d.ps2_port())x->note(ps2diag::Effect::Spline,FAILED(restored)?"restore_failed":FAILED(draw)?"draw_failed":FAILED(applied)?"apply_failed":FAILED(captured)?"capture_failed":draws?"drawn":"nothing_visible");
     if(p->claim_log(true)||FAILED(restored))try{session().write("{\"type\":\"ps2_spline_objects_draw\",\"course\":"+quote(course.id)+
         ",\"frame\":"+std::to_string(a.frame)+",\"race_generation\":"+std::to_string(a.race)+",\"camera\":"+std::to_string(a.camera)+

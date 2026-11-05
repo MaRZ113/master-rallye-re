@@ -1,0 +1,9 @@
+# Вторичные эффекты
+
+IMPLEMENTED / OFFLINE_VALIDATED; RUNTIME_TESTED=false.
+
+* `Vignette=1`, `VignetteStrength=.10` (0–.30): одно до-HUD наложение 64 triangles / 1 DrawPrimitiveUP, без дополнительных текстур/RT. Допуск по текущему single-camera race/backbuffer/depth proof; без него эффект пропускается. Внутри центрального эллипса alpha=0, края мягко затемняются. Независим от флагов SunDisk/Halo/Flare, но использует общий безопасный scene proof. Все состояния и stream восстанавливаются. Не исключает отдельные прозрачные пиксели: это опциональное мягкое оформление мира, не bloom; HUD после эффекта защищён порядком.
+* `LensSoftGhosts=1`: более мягкий radial profile существующих lens ghosts. Требует SunFlare=1, сохраняет существующую привязку к screen sun position/камере и depth mask. Качество перегенерируется по изменению настройки, не покадрово. Никаких постоянных бликов на машине.
+* `BodyRim=1`, `BodyRimStrength=.08` (0–.25), `BodyRimPower=3` (1–8): только разрешённые Paint/OpaquePanel, world normal + направление к реальной камере + SunDir. Front-facing edge и sun-facing term; обратные/несолнечные normals дают ноль. Цвет берётся из sun RGB и добавляется в remaining RGB headroom, alpha/UV/environment не изменяются. Glass, tyres, chrome wheels, glow, helmets/interior/flat roles не получают rim. При недоказанном rigid VIEW rim пропускается, базовый Natural Lighting остаётся. Это vertex approximation, не pixel shader/PBR.
+
+Все параметры LiveTuning и по умолчанию выключены. У rim нет дополнительной классификации/поиска SHA на кадре; используется существующий material capability и private body copy, один VIEW read на разрешённый draw. Математические тесты проверяют сторону солнца/камеры и invalid inputs. GPU fixture проверяет виньетку/восстановление states и порядок защитного overlay; не доказывает реальный HUD/PS2 runtime. Полная оценка silhouette, tessellation и стоимости на машинах требует игры.

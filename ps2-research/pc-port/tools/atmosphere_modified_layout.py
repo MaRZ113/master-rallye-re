@@ -17,7 +17,9 @@ def main():
     parser.add_argument('--output',type=Path,required=True)
     args=parser.parse_args()
     if args.output.exists():raise ValueError('fresh output required')
-    sys.path.insert(0,str(Path(__file__).resolve().parents[3]/'src'))
+    for root in Path(__file__).resolve().parents:
+        if (root/'src/master_rallye').is_dir():
+            sys.path.insert(0,str(root/'src'));break
     from master_rallye.course_render_writer import CourseRender
     from master_rallye.dx_course import parse_course_dx_bytes
     source=args.source.read_bytes();render=CourseRender.from_bytes(source)

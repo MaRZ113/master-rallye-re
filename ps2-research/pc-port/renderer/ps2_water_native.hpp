@@ -8,6 +8,7 @@
 #include "dip_integration.hpp"
 #include "course_objects_native_integration.hpp"
 #include "ps2_water_pilot.hpp"
+#include "atmosphere_native.hpp"
 #include <cstdio>
 
 namespace gfx2::waterintegration {
@@ -161,6 +162,10 @@ inline Result draw(Device8& d,D3DPRIMITIVETYPE type,UINT min_index,UINT vertices
     auto& tr=p->transaction;tr.set_writer(&d,writer);
     HRESULT hr=tr.capture(n,&d.trace.effective_shadow);
     if(FAILED(hr)){log(d,*p,"transaction_capture_failed");return {};}
+    auto* atmosphere_pilot=atmosphereintegration::pilot(d);
+    const bool lit=atmosphere_pilot&&atmosphere_pilot->enabled()&&atmosphere_pilot->world&&
+        atmosphere_pilot->lighting.active()&&atmosphere_pilot->ps2_water_atmosphere;
+    const DWORD water_gain=lit?atmosphere::pc_water_factor(atmosphere_pilot->lighting):0xffffffffu;
     const auto& k=p->asset().keys[key];
     HRESULT drawn=S_OK;uint64_t passes=0;
     for(uint32_t i=0;i<k.parts&&SUCCEEDED(drawn);++i){
@@ -169,8 +174,18 @@ inline Result draw(Device8& d,D3DPRIMITIVETYPE type,UINT min_index,UINT vertices
         for(int pass=0;pass<2&&SUCCEEDED(drawn);++pass){
             drawn=apply_pass(*p,n,part,pass);
             if(FAILED(drawn))break;
+            if(lit&&ps2water::pass_material(part.mode,pass).fog){
+                using K=ps2port::WaterStateKind;const auto op=ps2port::water_op(K::Render,0,D3DRS_FOGCOLOR);
+                // Native PC-water fallback may already own a temporary fog override.
+                // Reuse its original value, not its transformed fog a second time.
+                const DWORD original_fog=atmosphere_pilot->pending.fog_changed?atmosphere_pilot->pending.fog:tr.saved(op);
+                drawn=tr.set(n,op,atmosphere::scene_fog(original_fog,atmosphere_pilot->lighting));
+                if(FAILED(drawn))break;
+            }
             tr.mark_up_stream_changed();
-            const auto& v=pass?p->second:p->first;
+            auto& v=pass?p->second:p->first;
+            // Fresh private vertices each draw: retain source alpha, UVs and both pass blend contracts.
+            if(lit)for(auto& x:v)x.color=atmosphere::environment_texel(x.color,water_gain);
             // Private draw; never fed into the application's draw tracker or classifier.
             drawn=n.DrawPrimitiveUP(D3DPT_TRIANGLELIST,static_cast<UINT>(v.size()/3),v.data(),sizeof(ps2water::PassVertex));
             if(SUCCEEDED(drawn))++passes;
@@ -185,6 +200,7 @@ inline Result draw(Device8& d,D3DPRIMITIVETYPE type,UINT min_index,UINT vertices
         return {};
     }
     p->count(passes);p->note_owned(course,cert.race_generation);
+    if(lit&&atmosphere_pilot->first_reason("ps2_water_atmosphere"))try{session().write("{\"type\":\"atmosphere_ps2_water\",\"factor\":"+std::to_string(water_gain)+",\"alpha_uv_blend_unchanged\":true}");}catch(...){}
     if(auto* x=d.ps2_port())x->note(ps2diag::Effect::Water,"replaced");
     if(p->claim_course_log(course))try{
         char buf[160];std::snprintf(buf,sizeof(buf),",\"triangles\":%u,\"parts\":%u,\"source\":%u,\"phase\":%.4f,\"counter\":%u,\"caller_rva\":%u",

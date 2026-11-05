@@ -17,7 +17,7 @@ struct CourseObjectStateOp {
     DWORD stage;
     DWORD preview;
 };
-inline constexpr std::array<CourseObjectStateOp, 34> kCourseObjectStateOps = {{
+inline constexpr std::array<CourseObjectStateOp, 35> kCourseObjectStateOps = {{
     {CourseObjectStateKind::Render,D3DRS_ZENABLE,0,D3DZB_TRUE},
     {CourseObjectStateKind::Render,D3DRS_ZWRITEENABLE,0,TRUE},
     {CourseObjectStateKind::Render,D3DRS_ZFUNC,0,D3DCMP_LESSEQUAL},
@@ -51,6 +51,7 @@ inline constexpr std::array<CourseObjectStateOp, 34> kCourseObjectStateOps = {{
     {CourseObjectStateKind::VertexShader,0,0,D3DFVF_XYZ|D3DFVF_DIFFUSE|D3DFVF_TEX1},
     {CourseObjectStateKind::PixelShader,0,0,0},
     {CourseObjectStateKind::Texture,0,0,0},
+    {CourseObjectStateKind::Render,D3DRS_FOGCOLOR,0,0},
     {CourseObjectStateKind::Stream,0,0,0},
 }};
 inline constexpr size_t kCourseObjectStreamSlot = kCourseObjectStateOps.size()-1;
@@ -78,6 +79,7 @@ struct CourseObjectMaterialState {
     // COURSE-ALIVE3: blend factors (default = the fixed preview SRCALPHA/INVSRCALPHA; ONE/ONE for an additive pass).
     DWORD src_blend=D3DBLEND_SRCALPHA;
     DWORD dest_blend=D3DBLEND_INVSRCALPHA;
+    bool override_fog_color=false;DWORD fog_color=0;
 };
 
 class CourseObjectTransaction {
@@ -214,6 +216,7 @@ public:
             if(op.kind==CourseObjectStateKind::Render&&op.key==D3DRS_DESTBLEND)desired.scalar=material.dest_blend;
             if(op.kind==CourseObjectStateKind::Stage&&op.key==D3DTSS_ADDRESSU)desired.scalar=material.address_u;
             if(op.kind==CourseObjectStateKind::Stage&&op.key==D3DTSS_ADDRESSV)desired.scalar=material.address_v;
+            if(op.kind==CourseObjectStateKind::Render&&op.key==D3DRS_FOGCOLOR)desired.scalar=material.override_fog_color?material.fog_color:saved_[i].scalar;
             bool changed=saved_[i].scalar!=desired.scalar;
             if(op.kind==CourseObjectStateKind::Matrix){
                 desired.matrix=op.key==D3DTS_WORLD?identity():op.key==D3DTS_VIEW?view:projection;

@@ -9,13 +9,20 @@
 namespace gfx2::atmosphere {
 enum MaterialFlags : uint32_t {Noise=1,Plain=2,AlphaTest=4,TwoSided=8,Deny=16,Environment=32,EnvironmentTexture=64};
 struct SceneMaterial {std::string course,name,texture;uint32_t category=0,flags=0;int32_t winding=-1;};
+// Scheduling only, never admission: the normal material/pass proofs still run.
+// ForestFix owns a blended course draw and returns before deferred lighting.
+// Keep that draw's original coverage fix, but prepare certified environment RGB
+// first, just as base_noise is prepared before GroundDetail's owned passes.
+inline bool world_lighting_before_replacement(uint32_t fvf,uint32_t stage1,bool forest)noexcept{
+    return ((fvf==0x142||fvf==0x242)&&stage1==D3DTOP_MODULATE2X)||(forest&&fvf==0x152);
+}
 // On a certified unblended, non-alpha-tested pass, texture alpha is unused
 // coverage data (often zero in opaque course assets). A known material role
 // can prove opacity from that pass. Unknown automatic ground retains its
 // conservative all-255 texture requirement; no shader exclusion is bypassed.
 inline bool source_opaque_pass(const SceneMaterial* m,bool texture_opaque,bool blended,bool alpha_test)noexcept{
     return !blended&&(texture_opaque||(m&&m->category>=1&&m->category<=4&&!(m->flags&Deny)&&
-        (!alpha_test||(m->category==4&&(m->flags&AlphaTest)&&!(m->flags&Environment)))));
+        (!alpha_test||(m->category==4&&(m->flags&AlphaTest)))));
 }
 // Optional external material capabilities, never object/triangle identities.
 // Integrity is self-contained (not a DLL-compiled allowlist). Authoring an LSM1
@@ -45,9 +52,9 @@ public:
                 if(m.category>4||(m.flags&~127u)||(m.winding!=1&&m.winding!=-1)||(!m.category&&!(m.flags&Deny))||
                    ((m.flags&Environment)&&(m.category!=4||(m.flags&Deny)))||
                    ((m.flags&EnvironmentTexture)&&(m.category!=0||m.flags!=(Deny|EnvironmentTexture)||(m.name!="aluminium-tga"&&m.name!="whitepaint-tga"&&m.name!="silverpaint-tga")))||
-                   ((m.flags&AlphaTest)&&m.category!=3&&(m.category!=4||(m.flags&Environment)))||((m.flags&TwoSided)&&m.category!=3)||
+                   ((m.flags&AlphaTest)&&m.category!=3&&m.category!=4)||((m.flags&TwoSided)&&m.category!=3)||
                    (!(m.flags&Deny)&&!(m.flags&(Noise|Plain)))){reason="metadata_capability_invalid";return false;}
-                auto key=std::make_pair(m.course,m.texture);auto old=parsed.find(key);
+                auto key=std::make_pair(canonical_course(m.course),m.texture);auto old=parsed.find(key);
                 if(old!=parsed.end()&&(old->second.category!=m.category||old->second.flags!=m.flags||old->second.winding!=m.winding)){reason="metadata_ambiguous_texture";return false;}
                 parsed[key]=std::move(m);
             }
@@ -57,9 +64,10 @@ public:
     // Course records win; "Common" holds course-independent props (Misc/Checkpoints
     // boards/banners) that every course draws through the same course path.
     const SceneMaterial* find(const char* course,const std::string& texture)const {
-        auto i=materials_.find({course,texture});if(i!=materials_.end())return &i->second;
-        i=materials_.find({std::string("Common"),texture});return i==materials_.end()?nullptr:&i->second;
+        auto i=materials_.find({canonical_course(course),texture});if(i!=materials_.end())return &i->second;
+        i=materials_.find({std::string("common"),texture});return i==materials_.end()?nullptr:&i->second;
     }
+    bool only_course(const std::string& course)const{const auto key=canonical_course(course);return !key.empty()&&std::all_of(materials_.begin(),materials_.end(),[&](const auto& r){return r.first.first==key;});}
     size_t size()const noexcept{return materials_.size();}
 };
 
@@ -134,7 +142,7 @@ inline bool light_geometry(ResolvedGeometry& entry,unsigned stride,unsigned min,
     if(!vertices||vertices>32768||(stride!=24&&stride!=32&&stride!=36)||(width!=2&&width!=4)||
        entry.original.size()!=uint64_t(vertices)*stride||entry.index_bytes.empty()||entry.index_bytes.size()%(width*3))return reject("resolver_geometry_layout");
     if(material&&(material->flags&Deny))return reject("material_explicitly_excluded");
-    if(environment!=bool(stride==36)|| (environment&&(!material||!(material->flags&Environment)||material->category!=4||noise||!opaque||alpha_test)))return reject("environment_material_contract");
+    if(environment!=bool(stride==36)|| (environment&&(!material||!(material->flags&Environment)||material->category!=4||noise||!opaque||(alpha_test&&!(material->flags&AlphaTest)))))return reject("environment_material_contract");
     const bool automatic=!material;
     if(automatic&&(!auto_ground||!noise||!opaque||alpha_test))return reject("ambiguous_material_no_ground_contract");
     if(material&&(!(material->flags&(noise?Noise:Plain))||(alpha_test&&!(material->flags&AlphaTest))||(!opaque&&material->category!=3)))return reject("metadata_live_shader_mismatch");

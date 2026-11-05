@@ -11,6 +11,8 @@
 #include "scene_resolver.hpp"
 #include "atmosphere_sun.hpp"
 #include "atmosphere_water.hpp"
+#include "atmosphere_capture.hpp"
+#include "atmosphere_regions.hpp"
 #include <algorithm>
 #include <array>
 #include <cmath>
@@ -139,8 +141,9 @@ inline int __cdecl sky_read(uint32_t caller,void* manager,uint32_t ai,uint32_t e
         auto& s=selection();wchar_t text[32]{};
         const bool enabled=s.enabled&&GetPrivateProfileIntW(L"Atmosphere",L"Enabled",0,s.ini.c_str())==1;
         GetPrivateProfileStringW(L"Atmosphere",L"SkyPreset",L"Auto",text,32,s.ini.c_str());
-        const int requested=parse_preset(text);ps2port::HudLiveMemory memory;
+        int requested=parse_preset(text);ps2port::HudLiveMemory memory;
         const auto life=lifecycle();uint32_t key_id=0,layer=UINT32_MAX,ai_vtable=0;char key_name[192]{};
+        if(enabled)requested=regional_sky_request(s.ini,life,requested); // ATMOSPHERE2.8: selection only; guards below remain authoritative.
         safe_copy(&key_id,key,4);race_pool_text(memory,0x400000,key_id,key_name,sizeof(key_name));
         safe_copy(&layer,reinterpret_cast<void*>(ai+12),4);safe_copy(&ai_vtable,reinterpret_cast<void*>(ai),4);
         const bool first=caller==kSkyReadSite+5;
@@ -234,8 +237,32 @@ public:
     bool world=false,light_probe=false,scene_diagnostics=false;unsigned custom_base=3;
     unsigned scene_diagnostic_count=0;
     Lighting lighting;SceneAtlas atlas;std::filesystem::path atlas_path;
+    Lighting regional_base;std::string regional_scene_input,regional_name;int regional_sky=-2;uint64_t regional_race=UINT64_MAX;
+    void apply_regional_values(){lighting=regional_base;regional_name=regional_catalog(ini_).apply(regional_scene_input,lighting,regional_sky);}
+    void regional_epoch(const Lifecycle& life){
+        if(!life.installed||!life.same_thread||!life.race||!life.scene||pending.any()||(regional_race==life.race&&regional_scene_input==life.scene_name.data()))return;
+        capture.cancel(world);regional_race=life.race;regional_scene_input=life.scene_name.data();apply_regional_values();resolver.clear();clear_environment();sun.clear();
+        const auto& catalog=regional_catalog(ini_);if(catalog.reason==std::string("regional_off"))return;
+        session().write("{\"type\":\"atmosphere_region\",\"scene\":"+quote(regional_scene_input)+",\"region\":"+quote(regional_name)+",\"catalog_sha256\":"+quote(catalog.sha)+
+            ",\"reason\":"+quote(std::string(catalog.reason))+",\"sky_preset\":"+std::to_string(regional_sky)+",\"race_generation\":"+std::to_string(life.race)+
+            ",\"world_brightness\":"+std::to_string(lighting.world_brightness)+",\"fog_color\":"+std::to_string(lighting.fog)+",\"environment_factor\":"+std::to_string(world_environment_factor(lighting))+"}");
+    }
     bool universal=true,auto_ground=true;LightingMetadata metadata;SceneResolver resolver;std::filesystem::path metadata_path;
-    bool body_tata=false;bool body_materials=false,seam_debug=false,body_debug=false;
+    std::filesystem::path package_root;std::string active_course,active_course_input;bool course_dirty=true,package_failed=false,metadata_key_down=false;uint64_t package_reloads=0,metadata_poll_frame=UINT64_MAX;
+    bool select_course(const char* id){
+        if(package_root.empty())return true;if(!course_dirty&&active_course_input==id)return !package_failed;const auto course=canonical_course(id);if(course.empty()||pending.any())return false;
+        if(course==active_course&&!course_dirty)return !package_failed;
+        resolver.clear();clear_environment();metadata=LightingMetadata{};normal_hints=NormalHints{};
+        active_course=course;active_course_input=id;course_dirty=false;++package_reloads;
+        const auto dir=package_root/course;metadata_path=dir/L"materials.lsm";normals_path=dir/L"normals.lnh";
+        metadata.load(metadata_path);normal_hints.load(normals_path);
+        package_failed=!metadata.ready||!metadata.only_course(course);
+        if(metadata.ready&&package_failed){metadata.ready=false;metadata.reason="course_package_scope_mismatch";}
+        if(normal_hints.ready&&!normal_hints.only_course(course)){normal_hints=NormalHints{};normal_hints.attempted=true;normal_hints.reason="normal_package_scope_mismatch";}
+        reason_count=0;return !package_failed;
+    }
+    CourseCapture capture;std::string draw_reason,draw_material,draw_texture;unsigned draw_category=0;bool draw_lit=false,draw_resolved=false;
+    bool native_wheel_lighting=true;unsigned wheel_caps=0;bool body_tata=false;bool body_materials=false,seam_debug=false,body_debug=false;
     BodyMaterials body_capabilities;std::map<std::pair<std::string,unsigned>,std::string> body_texture_cache;
     uint64_t body_cpu_ticks=0,body_calls=0,body_vertices=0;
     NormalHints normal_hints;std::filesystem::path normals_path,body_path;
@@ -243,8 +270,9 @@ public:
     uint64_t seam_frame=UINT64_MAX;unsigned seam_count=0;uint64_t body_debug_frame=UINT64_MAX;unsigned body_debug_count=0;
     bool world_route()const noexcept{return lighting.active()&&(world||lighting.fog_enabled);}
     uint64_t resolved_draws=0,resolver_skipped_draws=0;
-    float sky_u_scale=1;std::array<uint64_t,5> category_draws{};uint64_t copied_bytes=0,scene_restore_count=0;
+    float sky_u_scale=1,sky_haze=1;bool sky_projection=false;std::array<uint64_t,5> category_draws{};uint64_t copied_bytes=0,scene_restore_count=0;
     uint64_t cpu_ticks=0,cpu_calls=0,perf_frame=0,perf_previous_ticks=0,perf_previous_calls=0;std::array<uint64_t,5> category_vertices{};
+    bool ps2_water_atmosphere=false,spline_atmosphere=false;
     bool sun_disk=false,sun_halo=false,sun_flare=false,pc_water=false,pc_water_caps=false;SunFx sun;uint64_t pc_water_draws=0;SunStyle sun_style;
     struct MaterialCache {uintptr_t pointer=0;uint64_t generation=0;std::string sha;bool opaque=false;};
     std::array<MaterialCache,1024> material_cache{};size_t material_cache_next=0;
@@ -260,8 +288,8 @@ public:
         if(race==observed_race&&reset==observed_reset)return;
         // Resource serials are never re-used; reset still revokes hash evidence.
         if(reset!=observed_reset){for(auto& c:sky_cache)c={};sky_cache_next=0;for(auto& c:material_cache)c={};material_cache_next=0;}
-        observed_race=race;observed_reset=reset;reason_count=0;scene_diagnostic_count=0;fog_seen=false;last_fog_frame=UINT64_MAX;
-        resolver.clear();body_texture_cache.clear();
+        capture.cancel(world);observed_race=race;observed_reset=reset;reason_count=0;scene_diagnostic_count=0;fog_seen=false;last_fog_frame=UINT64_MAX;
+        resolver.clear();body_texture_cache.clear();clear_environment();course_dirty=true;
     }
     bool first_reason(const char* reason) {
         for(size_t i=0;i<reason_count;++i)if(reasons[i]==reason)return false;
@@ -269,13 +297,18 @@ public:
     }
     // A failed restoration is retained until repair succeeds. No subsequent
     // native draw/Reset may run with these outstanding changes.
+    struct EnvironmentCopy {uintptr_t source=0;uint64_t generation=0;DWORD factor=0;IDirect3DTexture8* texture=nullptr;};
+    std::array<EnvironmentCopy,4> environment_copies{};size_t environment_next=0;
+    uint64_t environment_hits=0,environment_builds=0;
+    void clear_environment()noexcept{for(auto& c:environment_copies){if(c.texture)c.texture->Release();c={};}environment_next=0;}
     struct Pending {
-        IDirect3DBaseTexture8* texture=nullptr;IDirect3DVertexBuffer8* stream=nullptr;
+        IDirect3DBaseTexture8* texture=nullptr;IDirect3DBaseTexture8* environment=nullptr;bool environment_changed=false;IDirect3DVertexBuffer8* stream=nullptr;
         IDirect3DIndexBuffer8* indices=nullptr;UINT stride=0,base=0;DWORD fog=0;
         DWORD body_factor=0;std::array<DWORD,7> body_stage{};uint32_t body_pending=0;
+        std::array<DWORD,5> sky_stage{};uint32_t sky_pending=0;DWORD sky_factor=0;
         bool texture_changed=false,stream_changed=false,indices_changed=false,fog_changed=false;
-        bool any()const noexcept{return texture_changed||stream_changed||indices_changed||fog_changed||body_pending;}
-        void release()noexcept{if(texture)texture->Release();if(stream)stream->Release();if(indices)indices->Release();texture=nullptr;stream=nullptr;indices=nullptr;}
+        bool any()const noexcept{return environment_changed||texture_changed||stream_changed||indices_changed||fog_changed||body_pending||sky_pending;}
+        void release()noexcept{if(environment)environment->Release();environment=nullptr;if(texture)texture->Release();if(stream)stream->Release();if(indices)indices->Release();texture=nullptr;stream=nullptr;indices=nullptr;}
     } pending;
     IDirect3DVertexBuffer8* scratch=nullptr;UINT scratch_size=0;
     Pilot(bool supported,const std::wstring& renderer_ini) {
@@ -300,6 +333,9 @@ public:
         body_path=setting(L"BodyMaterials",L"Atmosphere22/body.blm");if(body_path.is_relative())body_path=std::filesystem::path(ini_).parent_path()/body_path;
         body_tata=setting(L"BodyPrototype",L"Off")==L"TataBonnet";
         metadata_path=setting(L"LightingMetadata",L"Atmosphere21/materials.lsm");if(metadata_path.is_relative())metadata_path=std::filesystem::path(ini_).parent_path()/metadata_path;
+        package_root=setting(L"LightingPackageRoot",L"");if(!package_root.empty()&&package_root.is_relative())package_root=std::filesystem::path(ini_).parent_path()/package_root;
+        capture.enabled=GetPrivateProfileIntW(L"Atmosphere",L"CourseCapture",0,ini_.c_str())==1;
+
         pc_water=GetPrivateProfileIntW(L"Atmosphere",L"PCWaterAtmosphere",0,ini_.c_str())==1;
         source_x=number(L"LightX",0);source_y=number(L"LightY",0);source_z=number(L"LightZ",0);radius=std::clamp(number(L"LightRadius",12),.1f,100.f);
         wchar_t name[32768]{};GetPrivateProfileStringW(L"Atmosphere",L"CustomSet",L"",name,32768,ini_.c_str());
@@ -316,8 +352,9 @@ public:
             ",\"live_tuning\":"+(live_tuning?"true":"false")+"}");
     }
     // LiveTuning=1: values that only change colours/sun visuals are re-read when
-    // Atmosphere.ini is saved. Routes, paths, metadata and Enabled stay as loaded
-    // at process start, so a live edit can never widen admission.
+    // Atmosphere.ini is saved. Routes, paths and Enabled stay as loaded
+    // at process start. A forced reload reopens only the current course package;
+    // it cannot change its root or bypass live admission.
     // Detection is by file CONTENT, not time: copying a profile over the file
     // keeps the source's modification time. Ctrl+Alt+R forces a reload.
     bool live_tuning=false,live_force=false,live_key_down=false;uint64_t live_poll_frame=0,live_reloads=0,live_key_frame=UINT64_MAX;
@@ -327,7 +364,7 @@ public:
         try{const auto content=ini_content();if(content.empty())return false;
             if(!live_force&&content==ini_content_)return false;
             const bool forced=live_force;live_force=false;ini_content_=content;
-            read_tunables();resolver.clear();++live_reloads;
+            capture.cancel(world);read_tunables();resolver.clear();clear_environment();if(forced)course_dirty=true;++live_reloads;
             session().write("{\"type\":\"atmosphere_live_reload\",\"frame\":"+std::to_string(frame)+",\"reloads\":"+std::to_string(live_reloads)+",\"forced\":"+(forced?"true":"false")+
                 ",\"world_brightness\":"+std::to_string(lighting.world_brightness)+",\"sun_strength\":"+std::to_string(lighting.sun_strength)+
                 ",\"sun_dir\":["+std::to_string(lighting.direction[0])+","+std::to_string(lighting.direction[1])+","+std::to_string(lighting.direction[2])+"]}");
@@ -352,18 +389,26 @@ private:
         const wchar_t* ambient_keys[]={L"AmbientR",L"AmbientG",L"AmbientB"};const wchar_t* sun_keys[]={L"SunlightR",L"SunlightG",L"SunlightB"};const wchar_t* dir_keys[]={L"SunDirX",L"SunDirY",L"SunDirZ"};
         for(unsigned i=0;i<3;++i){fresh.ambient[i]=std::clamp(number(ambient_keys[i],fresh.ambient[i]),0.f,2.f);fresh.sun[i]=std::clamp(number(sun_keys[i],fresh.sun[i]),0.f,2.f);fresh.direction[i]=std::clamp(number(dir_keys[i],fresh.direction[i]),-1.f,1.f);}
         fresh.fog_enabled=GetPrivateProfileIntW(L"Atmosphere",L"FogEnabled",0,ini_.c_str())==1;fresh.fog_strength=std::clamp(number(L"FogStrength",1),0.f,1.f);
+        fresh.surface_tone=GetPrivateProfileIntW(L"Atmosphere",L"SurfaceTone",0,ini_.c_str())==1;
+        fresh.tone_contrast=std::clamp(number(L"ToneContrast",1),.5f,1.5f);fresh.tone_shoulder=std::clamp(number(L"ToneShoulder",0),0.f,3.f);
+        ps2_water_atmosphere=GetPrivateProfileIntW(L"Atmosphere",L"PS2WaterAtmosphere",0,ini_.c_str())==1;
+        spline_atmosphere=GetPrivateProfileIntW(L"Atmosphere",L"SplineAtmosphere",0,ini_.c_str())==1;
+        native_wheel_lighting=GetPrivateProfileIntW(L"Atmosphere",L"NativeWheelLighting",1,ini_.c_str())==1;
+        fresh.rim=GetPrivateProfileIntW(L"Atmosphere",L"BodyRim",0,ini_.c_str())==1;fresh.rim_strength=std::clamp(number(L"BodyRimStrength",.08f),0.f,.25f);fresh.rim_power=std::clamp(number(L"BodyRimPower",3),1.f,8.f);
         const auto fog=setting(L"FogColor",L"0x98765d");wchar_t* fog_end=nullptr;const auto fog_value=std::wcstoul(fog.c_str(),&fog_end,0);if(fog_end!=fog.c_str()&&!*fog_end&&fog_value<=0xffffff)fresh.fog=0xff000000u|static_cast<DWORD>(fog_value);else fresh.fog_enabled=false;
         lighting=fresh;
         sky_u_scale=std::clamp(number(L"CustomSkyUScale",1),.1f,2.f);
+        sky_projection=GetPrivateProfileIntW(L"Atmosphere",L"CustomSkyProjection",0,ini_.c_str())==1;sky_haze=std::clamp(number(L"CustomSkyHaze",1),0.f,1.f);
         sun_disk=GetPrivateProfileIntW(L"Atmosphere",L"SunDisk",0,ini_.c_str())==1;sun_halo=GetPrivateProfileIntW(L"Atmosphere",L"SunHalo",0,ini_.c_str())==1;sun_flare=GetPrivateProfileIntW(L"Atmosphere",L"SunFlare",0,ini_.c_str())==1;
         sun_style=read_sun_style(ini_);
+        regional_base=lighting;apply_regional_values();
     }
 public:
     ~Pilot(){pending.release();reset();}
     bool enabled()const noexcept{return enabled_;}
-    bool custom()const noexcept{return enabled_&&!set_.empty()&&!custom_failed_;}
+    bool custom()const noexcept{return enabled_&&!set_.empty()&&!custom_failed_&&(regional_sky==-2||regional_sky==int(custom_base));}
     void disable()noexcept{enabled_=false;}
-    void reset()noexcept{sun.reset();resolver.clear();body_texture_cache.clear();for(auto*& t:textures_){if(t)t->Release();t=nullptr;}if(scratch)scratch->Release();scratch=nullptr;scratch_size=0;custom_ready_=false;}
+    void reset()noexcept{capture.cancel(world);clear_environment();sun.reset();resolver.clear();body_texture_cache.clear();for(auto*& t:textures_){if(t)t->Release();t=nullptr;}if(scratch)scratch->Release();scratch=nullptr;scratch_size=0;custom_ready_=false;}
     const Pixels& pixels(unsigned layer)const noexcept{return pixels_[layer];}
     bool load(IDirect3DDevice8& n) {
         if(custom_ready_)return true;if(!custom())return false;
@@ -390,6 +435,10 @@ public:
 
 template<class Writer> inline HRESULT restore_pending(Pilot& p,IDirect3DDevice8& n,Writer&& notify) noexcept {
     auto& s=p.pending;HRESULT result=S_OK;
+    constexpr D3DTEXTURESTAGESTATETYPE sky_keys[]{D3DTSS_ADDRESSV,D3DTSS_ALPHAOP,D3DTSS_ALPHAARG1,D3DTSS_ALPHAARG2};
+    for(unsigned i=0;i<5;++i)if(s.sky_pending&(1u<<i)){const auto hr=i==4?n.SetRenderState(D3DRS_TEXTUREFACTOR,s.sky_factor):n.SetTextureStageState(0,sky_keys[i],s.sky_stage[i]);
+        if(i==4)notify(50,pack(D3DRS_TEXTUREFACTOR,s.sky_factor),hr);else notify(63,pack(0,sky_keys[i],s.sky_stage[i]),hr);
+        if(SUCCEEDED(hr))s.sky_pending&=~(1u<<i);else if(SUCCEEDED(result))result=hr;}
     constexpr D3DTEXTURESTAGESTATETYPE body_keys[]{D3DTSS_COLOROP,D3DTSS_COLORARG1,D3DTSS_COLORARG2,D3DTSS_ALPHAOP,D3DTSS_ALPHAARG1,D3DTSS_RESULTARG,D3DTSS_ALPHAARG2};
     for(unsigned i=0;i<8;++i)if(s.body_pending&(1u<<i)){const auto hr=i==7?n.SetRenderState(D3DRS_TEXTUREFACTOR,s.body_factor):n.SetTextureStageState(2,body_keys[i],s.body_stage[i]);
         if(i==7)notify(50,pack(D3DRS_TEXTUREFACTOR,s.body_factor),hr);else notify(63,pack(2,body_keys[i],s.body_stage[i]),hr);
@@ -398,7 +447,27 @@ template<class Writer> inline HRESULT restore_pending(Pilot& p,IDirect3DDevice8&
     if(s.fog_changed){auto a=pack(D3DRS_FOGCOLOR,s.fog);auto hr=n.SetRenderState(D3DRS_FOGCOLOR,s.fog);notify(50,a,hr);check(s.fog_changed,hr);}
     if(s.indices_changed){auto a=pack(s.indices,s.base);auto hr=n.SetIndices(s.indices,s.base);notify(85,a,hr);check(s.indices_changed,hr);}
     if(s.stream_changed){auto a=pack(0,s.stream,s.stride);auto hr=n.SetStreamSource(0,s.stream,s.stride);notify(83,a,hr);check(s.stream_changed,hr);}
+    if(s.environment_changed){auto a=pack(1,s.environment);auto hr=n.SetTexture(1,s.environment);notify(61,a,hr);check(s.environment_changed,hr);}
     if(s.texture_changed){auto a=pack(0,s.texture);auto hr=n.SetTexture(0,s.texture);notify(61,a,hr);check(s.texture_changed,hr);}
     if(!s.any())s.release();else p.disable();return result;
+}
+// Certified native wheels use XYZ/NORMAL/TEX1 with no diffuse channel. Apply
+// one final RGB energy term, preserving the original gloss combine and alpha.
+// Only the owner/material/descriptor-certified caller may request this path.
+template<class Writer> inline HRESULT native_wheel_energy(Pilot& p,IDirect3DDevice8& n,Writer&& notify){
+    if(p.pending.any())return D3DERR_DEVICELOST;
+    if(!p.wheel_caps){D3DCAPS8 caps{};p.wheel_caps=SUCCEEDED(n.GetDeviceCaps(&caps))&&caps.MaxTextureBlendStages>=3&&
+        (caps.TextureOpCaps&D3DTEXOPCAPS_MODULATE)&&(caps.TextureOpCaps&D3DTEXOPCAPS_SELECTARG1)?1:2;}
+    if(p.wheel_caps!=1)return S_FALSE;
+    auto& s=p.pending;constexpr D3DTEXTURESTAGESTATETYPE keys[]{D3DTSS_COLOROP,D3DTSS_COLORARG1,D3DTSS_COLORARG2,D3DTSS_ALPHAOP,D3DTSS_ALPHAARG1,D3DTSS_RESULTARG,D3DTSS_ALPHAARG2};
+    for(unsigned i=0;i<7;++i)if(FAILED(n.GetTextureStageState(2,keys[i],&s.body_stage[i])))return S_FALSE;
+    if(FAILED(n.GetRenderState(D3DRS_TEXTUREFACTOR,&s.body_factor)))return S_FALSE;
+    const DWORD values[]{D3DTOP_MODULATE,D3DTA_CURRENT,D3DTA_TFACTOR,D3DTOP_SELECTARG1,D3DTA_CURRENT,D3DTA_CURRENT,D3DTA_CURRENT};
+    const DWORD factor=flat_body_color(0xffffffffu,p.lighting);
+    for(unsigned i:{7u,1u,2u,3u,4u,5u,6u,0u}){s.body_pending|=1u<<i;
+        const auto hr=i==7?n.SetRenderState(D3DRS_TEXTUREFACTOR,factor):n.SetTextureStageState(2,keys[i],values[i]);
+        if(i==7)notify(50,pack(D3DRS_TEXTUREFACTOR,factor),hr);else notify(63,pack(2,keys[i],values[i]),hr);
+        if(FAILED(hr)){const auto restored=restore_pending(p,n,notify);return FAILED(restored)?restored:S_FALSE;}}
+    return S_OK;
 }
 } // namespace gfx2::atmosphere

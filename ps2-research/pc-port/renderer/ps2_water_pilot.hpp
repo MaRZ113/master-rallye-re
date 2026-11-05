@@ -31,7 +31,7 @@ inline constexpr char kPS2WaterArtifactSha[]="2480f84d3120716ba9244eeeee0677e8ec
 
 enum class WaterStateKind : uint8_t { Render, Stage, Texture, VertexShader, Stream };
 struct WaterStateOp { WaterStateKind kind; DWORD stage, key; };
-inline constexpr std::array<WaterStateOp,31> kWaterOps={{
+inline constexpr std::array<WaterStateOp,32> kWaterOps={{
     {WaterStateKind::Render,0,D3DRS_ALPHABLENDENABLE},{WaterStateKind::Render,0,D3DRS_SRCBLEND},
     {WaterStateKind::Render,0,D3DRS_DESTBLEND},{WaterStateKind::Render,0,D3DRS_BLENDOP},
     {WaterStateKind::Render,0,D3DRS_ZWRITEENABLE},{WaterStateKind::Render,0,D3DRS_ZFUNC},
@@ -46,6 +46,7 @@ inline constexpr std::array<WaterStateOp,31> kWaterOps={{
     {WaterStateKind::Stage,1,D3DTSS_COLOROP},{WaterStateKind::Stage,1,D3DTSS_ALPHAOP},
     {WaterStateKind::Texture,0,0},{WaterStateKind::VertexShader,0,0},{WaterStateKind::Stream,0,0},
     {WaterStateKind::Render,0,D3DRS_ZENABLE},
+    {WaterStateKind::Render,0,D3DRS_FOGCOLOR},
 }};
 inline constexpr size_t kWaterStreamOp=29;
 inline size_t water_op(WaterStateKind kind,DWORD stage,DWORD key) noexcept {

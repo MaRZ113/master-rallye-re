@@ -66,6 +66,32 @@ class PairedOrientation(unittest.TestCase):
         self.assertEqual(lighting.orientation_votes(model,S(vertex_base=0,index_start=0,index_count=3)),[0,1])
 
 class ScopedStaticPass(unittest.TestCase):
+    def test_fresh_detail_proof_replaces_stale_seed_but_not_source_conflicts(self):
+        row=dict(course='Custom',material='conc',texture_sha256='a'*64,category=4,flags=lighting.PLAIN|lighting.NOISE,winding=-1)
+        denied=dict(row,category=0,flags=lighting.DENY)
+        self.assertEqual(lighting.merge_source_material(row,denied,False,True),row)
+        for source_seen,detail in [(True,True),(False,False),(True,False)]:
+            self.assertEqual(lighting.merge_source_material(row,denied,source_seen,detail)['flags'],lighting.DENY)
+        for previous in [dict(denied,material='glass'),dict(denied,flags=lighting.DENY|lighting.ENV_TEXTURE),dict(row,category=2,flags=lighting.NOISE)]:
+            self.assertEqual(lighting.merge_source_material(row,previous,False,True)['flags'],lighting.DENY)
+        # A subsequent source conflict cannot be erased by a later good alias.
+        bad=lighting.merge_source_material(denied,row,True,False)
+        self.assertEqual(lighting.merge_source_material(row,bad,True,True)['flags'],lighting.DENY)
+
+    def test_static_detail_and_plain_share_one_material_role(self):
+        for name in ['f_conc-tga', 'cement-tga', 'new_bridge-tga', 'metal_panel-tga']:
+            contracts=[(name,'Null','Null'),(name,'Null','noise-tga')]
+            self.assertTrue(lighting.static_detail_capability(name,contracts))
+        self.assertTrue(lighting.static_detail_capability('custom', [('custom','Null','Null'),('custom','Null','noise-tga')], 'static'))
+
+    def test_detail_reconciliation_keeps_unknown_and_special_materials_closed(self):
+        for name in ['unknown', 'concentrate', 'water_conc', 'glass_wall', 'glow_panel', 'shadow_concrete']:
+            self.assertFalse(lighting.static_detail_capability(name,[(name,'Null','Null'),(name,'Null','noise-tga')]))
+        for contracts in [[('wall','Null','Null')], [('wall','Null','noise-tga')], [('wall','Null','Null'),('wall','aluminium-tga','Null')], [('wall','Null','Null'),('wall','Null','arbitrary')], [('wall','Null','Null'),('other','Null','noise-tga')]]:
+            self.assertFalse(lighting.static_detail_capability('wall',contracts))
+        for role in ['exclude', 'terrain', 'signage']:
+            self.assertFalse(lighting.static_detail_capability('wall',[('wall','Null','Null'),('wall','Null','noise-tga')],role))
+
     def test_static_plain_counterpart_does_not_authorize_other_shaders(self):
         self.assertTrue(lighting.static_plain_capability('fencegate-tga',[('fencegate-tga','Null','Null'),('fencegate-tga','aluminium-tga','Null')]))
         self.assertFalse(lighting.static_plain_capability('fencegate-tga',[('fencegate-tga','glass-tga','Null')]))
@@ -115,5 +141,26 @@ class StaticCoverageMetadata(unittest.TestCase):
     def test_static_cutout_capability_round_trip_and_rejections(self):
         row=dict(course='NewLayout',material='authored_panel',texture_sha256='1'*64,category=4,flags=lighting.PLAIN|lighting.ALPHA_TEST,winding=-1)
         self.assertEqual(lighting.decode_metadata(lighting.encode_metadata([row]))[0]['flags'],row['flags'])
-        for category,flags in [(4,lighting.PLAIN|lighting.ALPHA_TEST|lighting.ENVIRONMENT),(4,lighting.PLAIN|lighting.TWO_SIDED),(2,lighting.NOISE|lighting.ALPHA_TEST)]:
+        for category,flags in [(3,lighting.PLAIN|lighting.ALPHA_TEST|lighting.ENVIRONMENT),(4,lighting.PLAIN|lighting.TWO_SIDED),(2,lighting.NOISE|lighting.ALPHA_TEST)]:
             with self.assertRaises(ValueError):lighting.decode_metadata(lighting.encode_metadata([dict(row,category=category,flags=flags)]))
+
+class CoursePackages(unittest.TestCase):
+    def test_asset_names_do_not_have_to_match_course(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as d:
+            folder=Path(d)
+            for n in ['track01.dx','second.DX','texture.dxt']:(folder/n).write_bytes(b'')
+            self.assertEqual([p.name for p in lighting.course_model_paths(folder)],['second.DX','track01.dx'])
+    def test_combined_plain_cutout_and_environment_capabilities(self):
+        row=dict(course='Combined',material='staticmetal',texture_sha256='1'*64,category=4,flags=lighting.PLAIN|lighting.ALPHA_TEST|lighting.ENVIRONMENT,winding=-1)
+        self.assertEqual(lighting.decode_metadata(lighting.encode_metadata([row]))[0]['flags'],row['flags'])
+
+class InheritedMaterialRoles(unittest.TestCase):
+    def test_accepted_roles_survive_without_bypassing_explicit_exclusion(self):
+        rows=[dict(course='Turkey3',material='boat2-tga',category=4,flags=lighting.PLAIN|lighting.NOISE),dict(course='Common',material='board',category=4,flags=lighting.PLAIN)]
+        roles=lighting.inherit_base_roles(rows,{'Turkey3':{'board':'exclude'}},['Turkey3','NewLayout'])
+        self.assertEqual(roles['Turkey3']['boat2-tga'],'static');self.assertEqual(roles['Turkey3']['board'],'exclude');self.assertEqual(roles['NewLayout']['board'],'static')
+        self.assertEqual(lighting.material_role('glass',('glass','Null','Null'),'static'),(0,lighting.DENY))
+    def test_ambiguous_base_roles_are_not_inherited(self):
+        rows=[dict(course='Test',material='mixed',category=c,flags=lighting.PLAIN) for c in (2,4)]
+        self.assertNotIn('mixed',lighting.inherit_base_roles(rows,None,['Test'])['Test'])

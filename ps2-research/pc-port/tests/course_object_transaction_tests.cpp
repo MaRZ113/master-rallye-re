@@ -115,12 +115,12 @@ void default_and_capture(){
  auto writer=[](uint32_t,const Args&,HRESULT)noexcept{};
  CHECK(FAILED(t.apply(n,&n.replacement,matrix(7),matrix(8),writer)));CHECK(n.gets==0&&n.writes==0);
  CHECK(SUCCEEDED(t.restore(n,writer)));CHECK(n.writes==0);
- for(int failure=1;failure<=34;++failure){
+ for(int failure=1;failure<=35;++failure){
   Native x;Initial initial(x);CourseObjectTransaction tx;x.fail_get=failure;
   CHECK(FAILED(tx.capture(x)));CHECK(x.writes==0&&!tx.captured()&&!tx.has_pending());
   CHECK(initial.matches(x)&&x.original_texture.refs==1&&x.original_buffer.refs==1);
  }
- CHECK(SUCCEEDED(t.capture(n)));CHECK(n.gets==34&&n.writes==0);
+ CHECK(SUCCEEDED(t.capture(n)));CHECK(n.gets==35&&n.writes==0);
  CHECK(n.original_texture.refs==2&&n.original_buffer.refs==2);
  t.release();CHECK(n.original_texture.refs==1&&n.original_buffer.refs==1&&!t.captured());
 }
@@ -128,7 +128,7 @@ void preview_draw_restore(){
  Native n;Initial initial(n);CourseObjectTransaction t;std::vector<Record> log;
  auto writer=[&](uint32_t slot,const Args& args,HRESULT hr)noexcept{log.push_back({slot,args,hr});};
  CHECK(SUCCEEDED(t.capture(n)));CHECK(SUCCEEDED(t.apply(n,&n.replacement,matrix(7),matrix(8),writer)));
- CHECK(n.gets==34&&n.writes==33&&t.has_pending());
+ CHECK(n.gets==35&&n.writes==33&&t.has_pending());
  CHECK(n.vertex_shader==0x142&&n.pixel_shader==0&&n.texture==&n.replacement);
  CHECK(n.rs[D3DRS_ZENABLE]==D3DZB_TRUE&&n.rs[D3DRS_ZWRITEENABLE]==TRUE&&n.rs[D3DRS_ZFUNC]==D3DCMP_LESSEQUAL);
  CHECK(n.rs[D3DRS_ALPHATESTENABLE]==FALSE&&n.rs[D3DRS_ALPHABLENDENABLE]==TRUE);
@@ -304,6 +304,16 @@ void split_viewport_transaction(){
   CHECK(SUCCEEDED(t.restore(n,writer))&&n.viewport_gets==0&&n.viewport_writes==0);
  }
 }
-int main(){default_and_capture();preview_draw_restore();partial_apply();restore_retry();invalid_and_empty_binding();grass_material_policy();
+void atmosphere_fog_restore(){
+ auto writer=[](uint32_t,const Args&,HRESULT)noexcept{};
+ Native n;Initial initial(n);CourseObjectTransaction t;
+ CourseObjectMaterialState fog;fog.fog=TRUE;fog.override_fog_color=true;fog.fog_color=0xff98765d;
+ CHECK(SUCCEEDED(t.capture(n))&&SUCCEEDED(t.apply(n,&n.replacement,matrix(7),matrix(8),writer,fog)));
+ CHECK(n.rs[D3DRS_FOGENABLE]==TRUE&&n.rs[D3DRS_FOGCOLOR]==fog.fog_color);
+ // Fog colour is the first pending restore (the UP stream wasn't changed).
+ n.fail_set=n.writes+1;CHECK(FAILED(t.restore(n,writer))&&t.has_pending());
+ n.fail_set=0;CHECK(SUCCEEDED(t.restore(n,writer))&&initial.matches(n)&&!t.has_pending());
+}
+int main(){atmosphere_fog_restore();default_and_capture();preview_draw_restore();partial_apply();restore_retry();invalid_and_empty_binding();grass_material_policy();
  split_viewport_transaction();
  if(failures)std::cerr<<failures<<" failed checks\n";return failures?1:0;}

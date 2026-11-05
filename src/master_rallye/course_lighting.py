@@ -43,7 +43,7 @@ def material_role(name: str, textures: tuple[str, ...], explicit: str | None = N
         category = 1 if any(token in label for token in ('road', 'track', 'asphalt', 'tar_')) else 2
     elif any(token in label for token in ('tree', 'shrub', 'bush', 'bark', 'pinerow', 'plant')):
         category = 3
-    elif any(token in label for token in ('wall', 'wood', 'plank', 'concrete', 'bridge', 'hut', 'house', 'building', 'castle', 'church', 'gate', 'fence', 'brick', 'roof', 'tent', 'barn', 'metal', 'caravan', 'container', 'gantry', 'scaffold')):
+    elif 'conc' in re.split(r'[^a-z0-9]+', label) or any(token in label for token in ('wall', 'wood', 'plank', 'concrete', 'cement', 'bridge', 'hut', 'house', 'building', 'castle', 'church', 'gate', 'fence', 'brick', 'roof', 'tent', 'barn', 'metal', 'caravan', 'container', 'gantry', 'scaffold')):
         category = 4
     else:
         return 0, DENY
@@ -58,6 +58,38 @@ def static_plain_capability(name,contracts,explicit=None):
     # secondary requires the separate environment capability and live contract.
     # This helper grants only a verified static plain counterpart.
     return explicit in (None,'static') and material_role(name,(name,'Null','Null'))==(4,PLAIN) and all(len(c)==3 and c[1] in ('Null','aluminium-tga') and c[2]=='Null' for c in contracts)
+
+
+def static_detail_capability(name, contracts, explicit=None):
+    """Detail texture choice does not change a proven static surface's role.
+
+    Require the same diffuse, no environment/third-party secondary, and both
+    native plain and base_noise contracts. Unknown roles and exclusions retain
+    Deny; runtime still proves the current shader, coverage and geometry.
+    """
+    return (explicit in (None, 'static')
+            and material_role(name, (name, 'Null', 'Null'), explicit) == (4, PLAIN)
+            and all(len(c) == 3 and c[0] == name and c[1] == 'Null'
+                    and c[2] in ('Null', 'noise-tga') for c in contracts)
+            and any(c[2] == 'Null' for c in contracts)
+            and any(c[2] == 'noise-tga' for c in contracts))
+
+
+def merge_source_material(record, previous, source_seen, static_detail):
+    record = dict(record)
+    # Old base tables may have rejected a mixed plain/detail role before this
+    # contract existed. Fresh complete source evidence can replace that seed's
+    # rejection for the same label. Real source conflicts remain permanently
+    # closed; explicit author exclusions cannot produce static_detail=True.
+    if (previous and not source_seen and static_detail
+            and previous['material'] == record['material']
+            and previous['category'] == 0 and previous['flags'] == DENY):
+        previous = None
+    if previous and previous['category'] == record['category'] and previous['winding'] == record['winding'] and not (previous['flags'] | record['flags']) & DENY:
+        record['flags'] |= previous['flags']
+    elif previous and any(previous[k] != record[k] for k in ('category', 'flags', 'winding')):
+        record.update(category=0, flags=DENY)
+    return record
 
 
 def static_environment_capability(name, contracts, explicit=None):
@@ -191,8 +223,40 @@ def decode_metadata(data: bytes) -> list[dict]:
         category,flags,winding=struct.unpack_from('<IIi',row,225)
         course=text(0,64);digest=text(160,65);name=text(64,96)
         if not re.fullmatch(r'[A-Za-z0-9_-]{1,63}',course) or not re.fullmatch('[0-9a-f]{64}',digest):raise ValueError('metadata identity')
-        if category>4 or flags&~127 or winding not in (-1,1) or (not category and not flags&DENY) or ((flags&TWO_SIDED) and category!=3) or ((flags&ALPHA_TEST) and category!=3 and (category!=4 or flags&ENVIRONMENT)) or (flags&ENVIRONMENT and (category!=4 or flags&DENY)) or (flags&ENV_TEXTURE and (category!=0 or flags!=(DENY|ENV_TEXTURE) or name not in STATIC_ENVIRONMENTS)):raise ValueError('metadata capability')
+        if category>4 or flags&~127 or winding not in (-1,1) or (not category and not flags&DENY) or ((flags&TWO_SIDED) and category!=3) or ((flags&ALPHA_TEST) and category not in (3,4)) or (flags&ENVIRONMENT and (category!=4 or flags&DENY)) or (flags&ENV_TEXTURE and (category!=0 or flags!=(DENY|ENV_TEXTURE) or name not in STATIC_ENVIRONMENTS)):raise ValueError('metadata capability')
         result.append(dict(course=course,material=text(64,96),texture_sha256=digest,category=category,flags=flags,winding=winding))
+    return result
+
+
+def course_model_paths(folder: Path) -> list[Path]:
+    """All DX models in a validated layout folder, including Invitation bundles.
+
+    Source filenames are asset references, not necessarily the scene identifier.
+    No guessed per-course alias table is needed (Italy1/track01.dx, etc.).
+    """
+    return sorted((p for p in folder.iterdir() if p.is_file() and p.suffix.lower()=='.dx'),key=lambda p:p.name.casefold()) if folder.is_dir() else []
+
+
+def inherit_base_roles(base_rows, explicit, courses):
+    """Preserve authored material semantics; native exclusions still outrank them.
+
+    This transfers role labels, not object identities. Ambiguous roles are not
+    inherited, and caller-supplied exclusions/roles always take precedence.
+    """
+    result={k:dict(v) for k,v in (explicit or {}).items()}
+    by_scope=defaultdict(lambda:defaultdict(set))
+    for row in base_rows:
+        if row['category'] in (1,2,3,4) and not row['flags']&DENY:
+            by_scope[row['course'].casefold()][row['material']].add(row['category'])
+    names={1:'road',2:'terrain',3:'vegetation',4:'static'}
+    for course in courses:
+        roles=result.setdefault(course,{})
+        candidates={name:next(iter(categories)) for name,categories in by_scope['common'].items() if len(categories)==1}
+        for name,categories in by_scope[course.casefold()].items():
+            if len(categories)==1:candidates[name]=next(iter(categories))
+            else:candidates.pop(name,None)
+        for name,category in candidates.items():
+            if name not in roles:roles[name]=names[category]
     return result
 
 
@@ -210,102 +274,99 @@ def export_lighting_metadata(sources: list[Path], courses: list[str], output: Pa
         raise ValueError('fresh output directory required')
     records={(r['course'],r['texture_sha256']):r for r in decode_metadata(base)} if base else {}
     base_records=len(records)
+    source_keys=set()
     evidence=[]
-    roles = roles or {}
+    roles = inherit_base_roles(list(records.values()),roles,courses)
     for source in sources:
         for course in courses:
             if not re.fullmatch(r'[A-Za-z0-9_-]{1,63}', course):
                 raise ValueError('invalid course identifier')
             folder = source / course
-            path = folder / (course.lower() + '.dx')
-            if not path.exists():
-                continue
-            model = parse_course_dx(path)
-            if not model.course_render_validated:
-                raise ValueError(f'unvalidated source {path}')
-            bindings = defaultdict(set)
-            material_draws = defaultdict(list)
-            orientation = defaultdict(lambda: [0,0])
-            for draw in model.physical_draws:
-                if draw.index_count:
-                    bindings[draw.texture_tuple[0]].add(tuple(draw.texture_tuple))
-                    material_draws[draw.texture_tuple[0]].append(draw)
-                    votes=orientation_votes(model,draw)
-                    for i in (0,1):orientation[draw.texture_tuple[0]][i]+=votes[i]
-            report = {'course': course, 'source': str(path), 'source_sha256': hashlib.sha256(path.read_bytes()).hexdigest(), 'materials': []}
-            for name, contracts in sorted(bindings.items()):
-                texture = folder / (name + '.dxt')
-                if not texture.exists():
-                    texture = next((root / course / (name + '.dxt') for root in sources if (root / course / (name + '.dxt')).exists()), texture)
-                if not texture.exists():
-                    continue
-                tex = parse_dxt(texture)
-                capabilities = {material_role(name, contract, roles.get(course, {}).get(name)) for contract in contracts}
-                if len(capabilities) == 1:
-                    category, flags = capabilities.pop()
-                else:
-                    # One role used by plain AND noise passes (Turkey3 boat2 rails):
-                    # merge the pass flags; the runtime checks the flag per pass.
-                    categories = {c for c, _ in capabilities}
-                    if len(categories) == 1 and 0 not in categories and not any(f & DENY for _, f in capabilities):
-                        category = categories.pop(); flags = 0
-                        for _, f in capabilities: flags |= f
+            paths = course_model_paths(folder)
+            for path in paths:
+                model = parse_course_dx(path)
+                if not model.course_render_validated:
+                    raise ValueError(f'unvalidated source {path}')
+                bindings = defaultdict(set)
+                material_draws = defaultdict(list)
+                orientation = defaultdict(lambda: [0,0])
+                for draw in model.physical_draws:
+                    if draw.index_count:
+                        bindings[draw.texture_tuple[0]].add(tuple(draw.texture_tuple))
+                        material_draws[draw.texture_tuple[0]].append(draw)
+                        votes=orientation_votes(model,draw)
+                        for i in (0,1):orientation[draw.texture_tuple[0]][i]+=votes[i]
+                report = {'course': course, 'source': str(path), 'source_sha256': hashlib.sha256(path.read_bytes()).hexdigest(), 'materials': []}
+                for name, contracts in sorted(bindings.items()):
+                    texture = folder / (name + '.dxt')
+                    if not texture.exists():
+                        texture = next((root / course / (name + '.dxt') for root in sources if (root / course / (name + '.dxt')).exists()), texture)
+                    if not texture.exists():
+                        report['materials'].append({'material':name,'category':0,'flags':DENY,'winding':-1,'bindings':sorted(contracts),'texture_missing':True})
+                        continue
+                    tex = parse_dxt(texture)
+                    capabilities = {material_role(name, contract, roles.get(course, {}).get(name)) for contract in contracts}
+                    if len(capabilities) == 1:
+                        category, flags = capabilities.pop()
                     else:
-                        category, flags = 0, DENY
-                inferred=None
-                # An exclusion can never be overridden by shape. Only otherwise
-                # unknown, plain bindings are considered by this SDK classifier.
-                if category==0 and all(c[1]=='Null' and c[2] in ('Null','noise-tga') for c in contracts) and not any(t in name.lower() for t in ('water','glass','glow','lamp','shadow','decal','boat','wheel','tyre','tire','tred','reflection','chrome')) and roles.get(course,{}).get(name) is None:
-                    inferred=geometry_role(model,material_draws[name])
-                    if inferred:
-                        qualified={material_role(name,c,inferred) for c in contracts}
-                        if len({c for c,f in qualified})==1 and all(not f&DENY for c,f in qualified):
-                            category=next(iter(qualified))[0];flags=0
-                            for _,f in qualified:flags|=f
-                if static_plain_capability(name,contracts,roles.get(course,{}).get(name)):category,flags=4,PLAIN
-                environment=static_environment_capability(name,contracts,roles.get(course,{}).get(name))
-                if environment:category,flags=4,PLAIN|ENVIRONMENT
-                negative,positive=orientation[name]
-                category,flags,winding=orientation_policy(category,flags,negative,positive,
-                    roles.get(course, {}).get(name) == 'signage' or inferred in ('signage','terrain'))
-                # Coverage is independent of surface role: certified opaque
-                # static panels may share a texture with a native alpha-test
-                # subrange (railings, roof edges, boards). RGB-only lighting
-                # leaves texture/vertex alpha and the coverage test untouched.
-                if category == 4 and flags == PLAIN:
-                    flags |= ALPHA_TEST
-                opaque = bytearray(tex.bgra)
-                opaque[3::4] = bytes([255]) * (len(opaque) // 4)
-                    # Topology is regenerated at runtime; orientation policy is
-                    # inferred from the original authored normal array per material.
-                for pixels in (tex.bgra, bytes(opaque)):
-                    digest = hashlib.sha256(pixels).hexdigest()
-                    record = dict(course=course, material=name, texture_sha256=digest, category=category, flags=flags, winding=winding)
-                    key = course, digest
-                    previous = records.get(key)
-                    if previous and previous['category']==record['category'] and previous['winding']==record['winding'] and not (previous['flags']|record['flags'])&DENY:
-                        record['flags']|=previous['flags']
-                    elif previous and any(previous[k] != record[k] for k in ('category', 'flags', 'winding')):
-                        # Same pixels with different authored roles: permanently
-                        # exclude the content, including aliases in later sources.
-                        record.update(category=0, flags=DENY)
-                    records[key] = record
-                report['materials'].append({'material': name, 'category': category, 'flags': flags, 'winding':winding,'geometry_inferred_role':inferred,'source_normal_orientation_votes':orientation[name], 'bindings': sorted(contracts), 'texture_file_sha256': hashlib.sha256(texture.read_bytes()).hexdigest()})
-            # Secondary identity is exported once per course, independent of
-            # objects/layout topology. It is never a diffuse admission record.
-            environment_names={c[1] for m in report['materials'] if m['flags']&ENVIRONMENT for c in m['bindings'] if c[1] in STATIC_ENVIRONMENTS}
-            for environment_name in sorted(environment_names):
-                secondary=next((root/course/(environment_name+'.dxt') for root in sources if (root/course/(environment_name+'.dxt')).exists()),None)
-                if secondary is None:raise ValueError('missing certified static environment secondary: '+environment_name)
-                tex=parse_dxt(secondary);opaque=bytearray(tex.bgra);opaque[3::4]=bytes([255])*(len(opaque)//4)
-                for pixels in (tex.bgra,bytes(opaque)):
-                    digest=hashlib.sha256(pixels).hexdigest();key=course,digest
-                    certificate=dict(course=course,material=environment_name,texture_sha256=digest,category=0,flags=DENY|ENV_TEXTURE,winding=-1)
-                    previous=records.get(key)
-                    if previous and previous['category']!=0:raise ValueError('environment/diffuse identity collision')
-                    records[key]=certificate
-                report.setdefault('environment_sources',[]).append({'path':str(secondary),'sha256':hashlib.sha256(secondary.read_bytes()).hexdigest()})
-            evidence.append(report)
+                        # One role used by plain AND noise passes (Turkey3 boat2 rails):
+                        # merge the pass flags; the runtime checks the flag per pass.
+                        categories = {c for c, _ in capabilities}
+                        if len(categories) == 1 and 0 not in categories and not any(f & DENY for _, f in capabilities):
+                            category = categories.pop(); flags = 0
+                            for _, f in capabilities: flags |= f
+                        else:
+                            category, flags = 0, DENY
+                    inferred=None
+                    # An exclusion can never be overridden by shape. Only otherwise
+                    # unknown, plain bindings are considered by this SDK classifier.
+                    if category==0 and all(c[1]=='Null' and c[2] in ('Null','noise-tga') for c in contracts) and not any(t in name.lower() for t in ('water','glass','glow','lamp','shadow','decal','boat','wheel','tyre','tire','tred','reflection','chrome')) and roles.get(course,{}).get(name) is None:
+                        inferred=geometry_role(model,material_draws[name])
+                        if inferred:
+                            qualified={material_role(name,c,inferred) for c in contracts}
+                            if len({c for c,f in qualified})==1 and all(not f&DENY for c,f in qualified):
+                                category=next(iter(qualified))[0];flags=0
+                                for _,f in qualified:flags|=f
+                    if static_plain_capability(name,contracts,roles.get(course,{}).get(name)):category,flags=4,PLAIN
+                    static_detail=static_detail_capability(name,contracts,roles.get(course,{}).get(name))
+                    if static_detail:category,flags=4,PLAIN|NOISE
+                    environment=static_environment_capability(name,contracts,roles.get(course,{}).get(name))
+                    if environment:category,flags=4,PLAIN|ENVIRONMENT
+                    negative,positive=orientation[name]
+                    category,flags,winding=orientation_policy(category,flags,negative,positive,
+                        roles.get(course, {}).get(name) == 'signage' or inferred in ('signage','terrain'))
+                    # Coverage is independent of surface role: certified opaque
+                    # static panels may share a texture with a native alpha-test
+                    # subrange (railings, roof edges, boards). RGB-only lighting
+                    # leaves texture/vertex alpha and the coverage test untouched.
+                    if category == 4 and flags in (PLAIN, PLAIN | ENVIRONMENT):
+                        flags |= ALPHA_TEST
+                    opaque = bytearray(tex.bgra)
+                    opaque[3::4] = bytes([255]) * (len(opaque) // 4)
+                        # Topology is regenerated at runtime; orientation policy is
+                        # inferred from the original authored normal array per material.
+                    for pixels in (tex.bgra, bytes(opaque)):
+                        digest = hashlib.sha256(pixels).hexdigest()
+                        record = dict(course=course, material=name, texture_sha256=digest, category=category, flags=flags, winding=winding)
+                        key = course, digest
+                        records[key] = merge_source_material(record,records.get(key),key in source_keys,static_detail)
+                        source_keys.add(key)
+                    report['materials'].append({'material': name, 'category': category, 'flags': flags, 'winding':winding,'geometry_inferred_role':inferred,'source_normal_orientation_votes':orientation[name], 'bindings': sorted(contracts), 'texture_file_sha256': hashlib.sha256(texture.read_bytes()).hexdigest()})
+                # Secondary identity is exported once per course, independent of
+                # objects/layout topology. It is never a diffuse admission record.
+                environment_names={c[1] for m in report['materials'] if m['flags']&ENVIRONMENT for c in m['bindings'] if c[1] in STATIC_ENVIRONMENTS}
+                for environment_name in sorted(environment_names):
+                    secondary=next((root/course/(environment_name+'.dxt') for root in sources if (root/course/(environment_name+'.dxt')).exists()),None)
+                    if secondary is None:raise ValueError('missing certified static environment secondary: '+environment_name)
+                    tex=parse_dxt(secondary);opaque=bytearray(tex.bgra);opaque[3::4]=bytes([255])*(len(opaque)//4)
+                    for pixels in (tex.bgra,bytes(opaque)):
+                        digest=hashlib.sha256(pixels).hexdigest();key=course,digest
+                        certificate=dict(course=course,material=environment_name,texture_sha256=digest,category=0,flags=DENY|ENV_TEXTURE,winding=-1)
+                        previous=records.get(key)
+                        if previous and previous['category']!=0:raise ValueError('environment/diffuse identity collision')
+                        records[key]=certificate
+                    report.setdefault('environment_sources',[]).append({'path':str(secondary),'sha256':hashlib.sha256(secondary.read_bytes()).hexdigest()})
+                evidence.append(report)
     data = encode_metadata(list(records.values()))
     result = {'schema': 1, 'status': 'OFFLINE_MATERIAL_METADATA_RUNTIME_ADMISSION_REQUIRED', 'format': 'LSM1', 'records': len(records),'base_records':base_records,
               'metadata_sha256': hashlib.sha256(data).hexdigest(), 'payload_sha256': data[12:76].decode('ascii'),

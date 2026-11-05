@@ -8,10 +8,12 @@ import struct
 import sys
 
 def export(sources,courses,materials,output,base=None):
-    sys.path.insert(0,str(Path(__file__).resolve().parents[3]/'src'))
+    for root in Path(__file__).resolve().parents:
+        if (root/'src/master_rallye').is_dir():
+            sys.path.insert(0,str(root/'src'));break
     from master_rallye.dx_course import parse_course_dx
     from master_rallye.dxt import parse_dxt
-    from master_rallye.course_lighting import decode_metadata,fixed
+    from master_rallye.course_lighting import decode_metadata,fixed,course_model_paths
     capabilities={(r['course'],r['texture_sha256']):r for r in decode_metadata(materials.read_bytes()) if r['category'] in (1,2,4) and not r['flags']&16}
     rows=set();evidence=[]
     if base:
@@ -25,29 +27,28 @@ def export(sources,courses,materials,output,base=None):
             rows.add((row[:64].split(b'\0')[0].decode('ascii'),row[64:129].split(b'\0')[0].decode('ascii'),*(round(x,3) for x in values[:3]),*(round(x,5) for x in values[3:])))
     for root in sources:
         for course in courses:
-            path=root/course/(course.lower()+'.dx')
-            if not path.exists():continue
-            model=parse_course_dx(path)
-            if not model.course_render_validated:raise ValueError('unvalidated source')
-            textures={}
-            for draw in model.physical_draws:
-                name=draw.texture_tuple[0]
-                if name not in textures:
-                    texture=next((r/course/(name+'.dxt') for r in sources if (r/course/(name+'.dxt')).exists()),None)
-                    if not texture:textures[name]=[];continue
-                    t=parse_dxt(texture);opaque=bytearray(t.bgra);opaque[3::4]=bytes([255])*(len(opaque)//4)
-                    textures[name]=[s for s in sorted({hashlib.sha256(t.bgra).hexdigest(),hashlib.sha256(opaque).hexdigest()}) if (course,s) in capabilities]
-                if not textures[name]:continue
-                indices=model.local_indices[draw.index_start:draw.index_start+draw.index_count]
-                for index in set(indices):
-                    at=draw.vertex_base+index;p=model.vertices.positions[at];n=model.vertices.normals[at]
-                    length=math.sqrt(sum(x*x for x in n))
-                    if not .001<length<100 or not all(math.isfinite(x) and abs(x)<1e6 for x in p):continue
-                    # Deduplicate near-identical normals from PC/PS2 variants;
-                    # retain distinct authored hard-edge clusters at one point.
-                    p=tuple(round(x*1000)/1000 for x in p);n=tuple(round(x/length,5) for x in n)
-                    for digest in textures[name]:rows.add((course,digest,*p,*n))
-            evidence.append({'source':str(path),'sha256':hashlib.sha256(path.read_bytes()).hexdigest()})
+            for path in course_model_paths(root/course):
+                model=parse_course_dx(path)
+                if not model.course_render_validated:raise ValueError('unvalidated source')
+                textures={}
+                for draw in model.physical_draws:
+                    name=draw.texture_tuple[0]
+                    if name not in textures:
+                        texture=next((r/course/(name+'.dxt') for r in sources if (r/course/(name+'.dxt')).exists()),None)
+                        if not texture:textures[name]=[];continue
+                        t=parse_dxt(texture);opaque=bytearray(t.bgra);opaque[3::4]=bytes([255])*(len(opaque)//4)
+                        textures[name]=[s for s in sorted({hashlib.sha256(t.bgra).hexdigest(),hashlib.sha256(opaque).hexdigest()}) if (course,s) in capabilities]
+                    if not textures[name]:continue
+                    indices=model.local_indices[draw.index_start:draw.index_start+draw.index_count]
+                    for index in set(indices):
+                        at=draw.vertex_base+index;p=model.vertices.positions[at];n=model.vertices.normals[at]
+                        length=math.sqrt(sum(x*x for x in n))
+                        if not .001<length<100 or not all(math.isfinite(x) and abs(x)<1e6 for x in p):continue
+                        # Deduplicate near-identical normals from PC/PS2 variants;
+                        # retain distinct authored hard-edge clusters at one point.
+                        p=tuple(round(x*1000)/1000 for x in p);n=tuple(round(x/length,5) for x in n)
+                        for digest in textures[name]:rows.add((course,digest,*p,*n))
+                evidence.append({'source':str(path),'sha256':hashlib.sha256(path.read_bytes()).hexdigest()})
     # Material/UV boundaries must not split one authored smooth normal. Gather
     # stock variants once at export, preserving separate clusters beyond 14 deg.
     from collections import defaultdict

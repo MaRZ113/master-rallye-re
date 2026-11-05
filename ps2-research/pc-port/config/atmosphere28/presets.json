@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "status": "ART_CANDIDATES_GAMEPLAY_PENDING",
+  "regions": {
+    "Turkey": {
+      "intent": "Preserve accepted warm mineral landscape / low sun settings",
+      "stock_sky": 3,
+      "settings": {"SkyPreset": "3", "WorldBrightness": 0.68, "Exposure": 1, "AmbientStrength": 0.95, "AmbientR": 0.67, "AmbientG": 0.74, "AmbientB": 0.90, "SunlightStrength": 0.58, "SunlightR": 1.25, "SunlightG": 0.86, "SunlightB": 0.45, "SunDirX": -0.71, "SunDirY": 0.12, "SunDirZ": 0.69, "FogEnabled": 1, "FogStrength": 1, "FogColor": "0x98765d", "PrelightContrast": 1, "PrelightVisibility": 0}
+    },
+    "France": {
+      "intent": "Cooler wooded atmosphere, soft warm sun, restrained blue-gray haze",
+      "stock_sky": 1,
+      "settings": {"SkyPreset": "3", "WorldBrightness": 0.78, "Exposure": 1, "AmbientStrength": 0.93, "AmbientR": 0.72, "AmbientG": 0.80, "AmbientB": 0.95, "SunlightStrength": 0.52, "SunlightR": 1.14, "SunlightG": 0.98, "SunlightB": 0.76, "SunDirX": -0.42, "SunDirY": 0.23, "SunDirZ": 0.88, "FogEnabled": 1, "FogStrength": 0.65, "FogColor": "0x8798a4", "PrelightContrast": 1, "PrelightVisibility": 0}
+    },
+    "Italy": {
+      "intent": "Clearer alpine air, cool ambient and neutral warm highlights",
+      "stock_sky": 2,
+      "settings": {"SkyPreset": "3", "WorldBrightness": 0.80, "Exposure": 1, "AmbientStrength": 0.93, "AmbientR": 0.73, "AmbientG": 0.80, "AmbientB": 0.96, "SunlightStrength": 0.54, "SunlightR": 1.18, "SunlightG": 1.00, "SunlightB": 0.78, "SunDirX": 0.60, "SunDirY": 0.25, "SunDirZ": 0.76, "FogEnabled": 1, "FogStrength": 0.55, "FogColor": "0x929fa9", "PrelightContrast": 1, "PrelightVisibility": 0}
+    },
+    "Spain": {
+      "intent": "Dry ochre landscape, clearer amber horizon with cool readable shade",
+      "stock_sky": 0,
+      "settings": {"SkyPreset": "3", "WorldBrightness": 0.73, "Exposure": 1, "AmbientStrength": 0.95, "AmbientR": 0.70, "AmbientG": 0.76, "AmbientB": 0.90, "SunlightStrength": 0.57, "SunlightR": 1.24, "SunlightG": 0.95, "SunlightB": 0.66, "SunDirX": 0.80, "SunDirY": 0.19, "SunDirZ": -0.57, "FogEnabled": 1, "FogStrength": 0.70, "FogColor": "0xa18d72", "PrelightContrast": 1, "PrelightVisibility": 0}
+    }
+  }
+}

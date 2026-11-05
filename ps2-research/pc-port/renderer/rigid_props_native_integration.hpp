@@ -242,6 +242,7 @@ inline HRESULT before_ui(Device8& d,bool ui_callsite) noexcept {
         if(batch.pass==ps2port::RigidPass::Shadow)material=ps2port::CourseObjectMaterialState{FALSE,D3DTADDRESS_CLAMP,D3DTADDRESS_CLAMP,TRUE,fog_state};
         if(batch.pass==ps2port::RigidPass::Env){material=ps2port::CourseObjectMaterialState{FALSE,D3DTADDRESS_CLAMP,D3DTADDRESS_CLAMP,TRUE,FALSE};
             material.src_blend=D3DBLEND_ONE;material.dest_blend=D3DBLEND_ONE;}
+        if(batch.pass!=ps2port::RigidPass::Env&&batch.pass!=ps2port::RigidPass::Shadow)atmosphereintegration::proxy_fog(d,material);
         applied=p->transaction.apply(n,p->texture(batch.texture),proof.view,proof.projection,writer,material);
         if(SUCCEEDED(applied)){
             p->transaction.mark_up_stream_changed();

@@ -1,6 +1,7 @@
 #pragma once
 #include "provenance.hpp"
 #include "atmosphere_scene_registry.hpp"
+#include "atmosphere_art.hpp"
 #include <algorithm>
 #include <array>
 #include <cmath>
@@ -12,11 +13,18 @@
 #include <unordered_map>
 #include <vector>
 namespace gfx2::atmosphere {
+// Windows course asset identifiers are case-insensitive; keep one safe key.
+inline std::string canonical_course(const std::string& id){
+    if(id.empty()||id.size()>63)return {};std::string out;out.reserve(id.size());
+    for(unsigned char c:id){if(!((c>='a'&&c<='z')||(c>='A'&&c<='Z')||(c>='0'&&c<='9')||c=='_'||c=='-'))return {};
+        out.push_back(c>='A'&&c<='Z'?char(c+32):char(c));}return out;
+}
 struct Lighting {
     enum class Mode {Original,Day,GoldenHour};Mode mode=Mode::Original;
     float strength=1,exposure=1,ambient_strength=.8f,sun_strength=.95f,fog_strength=1,world_brightness=1,prelight_contrast=1,prelight_visibility=0;
     std::array<float,3> ambient{.62f,.70f,.88f},sun{1.4f,1.02f,.64f},direction{-.65f,.45f,.61f};
     bool fog_enabled=false;uint32_t fog=0xff98765d;
+    bool surface_tone=false,rim=false;float tone_contrast=1,tone_shoulder=0,rim_strength=0,rim_power=3;
     bool active()const noexcept{return mode!=Mode::Original&&strength>0;}
 };
 inline uint32_t scene_color(uint32_t color,std::array<float,3> normal,const Lighting& s)noexcept {
@@ -35,16 +43,38 @@ inline uint32_t scene_color(uint32_t color,std::array<float,3> normal,const Ligh
     const float target=.65f+(luminance-.65f)*s.prelight_contrast;
     const float coverage=std::clamp((luminance-.08f)/.25f,0.f,1.f);
     const float prelight_gain=luminance>1e-6f?1+coverage*(target/luminance-1):1;
-    uint32_t result=color&0xff000000;
+    uint32_t result=color&0xff000000;std::array<float,3> rgb{};float illumination=0;
     for(unsigned i=0;i<3;++i){const unsigned shift=(2-i)*8;const float old=float((color>>shift)&255);
         const float gain=(s.ambient[i]*s.ambient_strength+s.sun[i]*s.sun_strength*nl*visibility)*s.exposure*s.world_brightness;
-        const auto value=static_cast<uint32_t>(std::clamp(std::lround(old*(1+s.strength*(prelight_gain*gain-1))),0l,255l));result|=value<<shift;}
+        illumination+=gain*(i==0?.2126f:i==1?.7152f:.0722f);
+        rgb[i]=old*(1+s.strength*(prelight_gain*gain-1));}
+    // Curve lighting energy, never authored vertex RGB: material/texture
+    // compensation must keep the same gain on both sides of a seam.
+    if(s.surface_tone&&illumination>1e-6f){float mapped=std::max(0.f,(illumination-.65f)*s.tone_contrast+.65f);
+        if(mapped>1)mapped=1+(mapped-1)/(1+s.tone_shoulder*(mapped-1));
+        const float ratio=1+s.strength*(mapped/illumination-1);for(auto& c:rgb)c*=ratio;}
+    for(unsigned i=0;i<3;++i)result|=uint32_t(std::clamp(std::lround(rgb[i]),0l,255l))<<((2-i)*8);
     return result;
 }
 inline uint32_t scene_fog(uint32_t original,const Lighting& s)noexcept {
     if(!s.active()||!s.fog_enabled)return original;uint32_t out=original&0xff000000;
     const float a=std::clamp(s.strength*s.fog_strength,0.f,1.f);
     for(unsigned shift:{0u,8u,16u})out|=uint32_t(std::lround(float((original>>shift)&255)*(1-a)+float((s.fog>>shift)&255)*a))<<shift;
+    return out;
+}
+// Static course environment energy follows ambient exposure, with a square
+// root response so metallic highlights remain readable. Diffuse gets its own
+// directional light; this factor affects only the certified secondary texture.
+inline uint32_t world_environment_factor(const Lighting& s)noexcept {
+    if(!s.active())return 0xffffffffu;
+    auto energy=s;energy.prelight_contrast=1;energy.prelight_visibility=0;energy.surface_tone=false;
+    const auto ambient=scene_color(0xffffffffu,{0,0,0},energy);uint32_t out=0xff000000u;
+    for(unsigned shift:{0u,8u,16u})out|=uint32_t(std::lround(255*std::sqrt(float((ambient>>shift)&255)/255)))<<shift;
+    return out;
+}
+inline uint32_t environment_texel(uint32_t source,uint32_t factor)noexcept {
+    uint32_t out=source&0xff000000u;
+    for(unsigned shift:{0u,8u,16u})out|=((((source>>shift)&255)*((factor>>shift)&255)+127)/255)<<shift;
     return out;
 }
 // CPU results only. The caller must still prove the current geometry/material
@@ -57,7 +87,7 @@ struct SceneColors {
     bool matches(const std::vector<uint32_t>& current,size_t vertices,const Lighting& s)const noexcept {
         return ready&&colors.size()==vertices&&indices==current&&settings.mode==s.mode&&
             settings.strength==s.strength&&settings.exposure==s.exposure&&settings.ambient_strength==s.ambient_strength&&
-            settings.sun_strength==s.sun_strength&&settings.ambient==s.ambient&&settings.sun==s.sun&&settings.direction==s.direction&&settings.world_brightness==s.world_brightness&&settings.prelight_contrast==s.prelight_contrast&&settings.prelight_visibility==s.prelight_visibility;
+            settings.sun_strength==s.sun_strength&&settings.ambient==s.ambient&&settings.sun==s.sun&&settings.direction==s.direction&&settings.world_brightness==s.world_brightness&&settings.prelight_contrast==s.prelight_contrast&&settings.prelight_visibility==s.prelight_visibility&&settings.surface_tone==s.surface_tone&&settings.tone_contrast==s.tone_contrast&&settings.tone_shoulder==s.tone_shoulder;
     }
     bool bake(const std::vector<std::array<float,3>>& source,const std::vector<uint32_t>& current,
               const std::vector<uint32_t>& original,const Lighting& s) {

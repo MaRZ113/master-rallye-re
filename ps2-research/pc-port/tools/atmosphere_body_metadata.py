@@ -11,9 +11,9 @@ import struct
 
 def canonical(s):return s.lower().replace('\\','/').split('/')[-1]
 def safe(primary,secondary,role=1):
-    allowed=((role==6 and secondary=='null') or (role==1 and secondary in ('whitepaint-tga','silverpaint-tga')) or (role==2 and secondary=='perspex-tga') or (role==3 and secondary in ('whitepaint-tga','silverpaint-tga','perspex-tga')) or (role==5 and secondary in ('whitepaint-tga','silverpaint-tga') and 'helmet' in primary) or (role==4 and secondary=='perspex-tga' and any(t in primary for t in ('wheelcover-tga','wheelcoverside-tga'))))
-    exclusions=('glass','wheel','tread','tyre','tire','light','lamp','glow','brake','helmet','sticker','driver')
-    return allowed and not any(t in primary for t in exclusions if not (role==3 and t=='sticker') and not (role==4 and t=='wheel') and not (role==5 and t=='helmet'))
+    allowed=((role==11 and secondary=='glass-tga') or (role==6 and secondary=='null') or (role==1 and secondary in ('whitepaint-tga','silverpaint-tga')) or (role==2 and secondary=='perspex-tga') or (role==3 and secondary in ('whitepaint-tga','silverpaint-tga','perspex-tga')) or (role==5 and secondary in ('whitepaint-tga','silverpaint-tga') and 'helmet' in primary) or (role==4 and secondary=='perspex-tga' and any(t in primary for t in ('wheelcover-tga','wheelcoverside-tga'))) or (role==7 and secondary in ('null','perspex-tga')) or (role==8 and secondary in ('null','whitepaint-tga','silverpaint-tga')) or (role==9 and secondary=='rubber-tga') or (role==10 and secondary=='chrome-tga'))
+    exclusions=('glass','window','windscreen','windshield','emissive','wheel','tread','tyre','tire','light','lamp','glow','brake','helmet','sticker','driver')
+    return allowed and not any(t in primary for t in exclusions if not (role==11 and t in ('glass','window')) and not (role==3 and t=='sticker') and not (role==4 and t=='wheel') and not (role==5 and t=='helmet') and not (role==8 and t in ('helmet','driver')) and not (role in (9,10) and t in ('wheel','tread','tyre','tire')))
 def fixed(s,n):
     if not s or len(s)>=n or any(c not in 'abcdefghijklmnopqrstuvwxyz0123456789_-' for c in s):raise ValueError('unsafe text')
     return s.encode()+bytes(n-len(s))

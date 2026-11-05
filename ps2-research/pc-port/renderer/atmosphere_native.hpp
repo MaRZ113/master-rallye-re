@@ -12,6 +12,23 @@ inline HRESULT repair(Device8& d) noexcept {
     if(p->sun.transaction.pending()){const auto hr=p->sun.transaction.restore(*d.native());if(FAILED(hr))return hr;}
     return atmosphere::restore_pending(*p,*d.native(),[&](uint32_t slot,const Args& args,HRESULT hr)noexcept{notify(d,slot,args,hr);});
 }
+} // namespace gfx2::atmosphereintegration
+#include "atmosphere_capture_native.hpp"
+namespace gfx2::atmosphereintegration {
+// Use only native supported vertex/table fog; preserve density/range/modes.
+// The enclosing CourseObjectTransaction owns colour application and rollback.
+inline void proxy_fog(Device8& d,ps2port::CourseObjectMaterialState& material)noexcept {
+    DWORD vertex=0,table=0,start=0,end=0,color=0;auto& n=*d.native();
+    if(FAILED(n.GetRenderState(D3DRS_FOGVERTEXMODE,&vertex))||FAILED(n.GetRenderState(D3DRS_FOGTABLEMODE,&table))||
+       FAILED(n.GetRenderState(D3DRS_FOGSTART,&start))||FAILED(n.GetRenderState(D3DRS_FOGEND,&end)))return;
+    float near_fog=0,far_fog=0;std::memcpy(&near_fog,&start,4);std::memcpy(&far_fog,&end,4);
+    const bool valid=(vertex==D3DFOG_LINEAR&&table==D3DFOG_NONE&&std::isfinite(near_fog)&&std::isfinite(far_fog)&&near_fog>=0&&near_fog<far_fog)||
+        (table!=D3DFOG_NONE&&table<=D3DFOG_LINEAR);
+    auto* p=pilot(d);if(!valid||!p||!p->enabled()||!p->lighting.active()||!p->lighting.fog_enabled)return;
+    if(FAILED(n.GetRenderState(D3DRS_FOGCOLOR,&color)))return;
+    material.fog=TRUE;material.override_fog_color=true;material.fog_color=atmosphere::scene_fog(color,p->lighting);
+    try{if(p->first_reason("proxy_layer_fog"))session().write("{\"type\":\"atmosphere_proxy_fog\",\"original\":"+std::to_string(color)+",\"effective\":"+std::to_string(material.fog_color)+",\"range_modes_unchanged\":true}");}catch(...){}
+}
 // PS2 layers drawn by the proxy itself (source-point grass, rigid props) never
 // pass through the course resolver. Their private vertex copies get the same
 // world lighting just before submission. Grass sprites use the ground's up
@@ -38,10 +55,10 @@ inline void log(Device8& d,const char* reason)noexcept {
 }
 inline void sun_transform(Device8& d,D3DTRANSFORMSTATETYPE type,bool exe,uint32_t rva)noexcept{
     if(!exe||!((type==D3DTS_VIEW&&rva==GAMEPLAY_VIEW_RETURN_RVA)||(type==D3DTS_PROJECTION&&rva==GAMEPLAY_PROJECTION_RETURN_RVA)))return;
-    auto* p=pilot(d);if(p&&(p->sun_disk||p->sun_halo||p->sun_flare))p->sun.clear();
+    auto* p=pilot(d);if(p&&(p->sun_disk||p->sun_halo||p->sun_flare||p->sun_style.vignette>0))p->sun.clear();
 }
 inline void sun_world(Device8& d,HRESULT hr,uintptr_t pc)noexcept{
-    auto* p=pilot(d);if(!p||!p->enabled()||!(p->sun_disk||p->sun_halo||p->sun_flare)||FAILED(hr)||!d.trace.scene_active||
+    auto* p=pilot(d);if(!p||!p->enabled()||!(p->sun_disk||p->sun_halo||p->sun_flare||p->sun_style.vignette>0)||FAILED(hr)||!d.trace.scene_active||
         pc!=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+groundintegration::COURSE_DRAW_RETURN_RVA||
         GetCurrentThreadId()!=d.trace.render_thread_id())return;
     auto& proof=p->sun.proof;const auto frame=d.trace.frame_number();
@@ -67,7 +84,8 @@ inline void sun_world(Device8& d,HRESULT hr,uintptr_t pc)noexcept{
     proof.frame=frame;proof.race=cert.race_generation;proof.owner=cert.owner_lifetime;proof.camera=cert.camera;proof.reset=d.ps2_port()->reset_generation();proof.world=true;
 }
 inline HRESULT sun_before_ui(Device8& d,bool ui)noexcept{
-    auto* p=pilot(d);if(!ui||!p||!p->enabled()||!(p->sun_disk||p->sun_halo||p->sun_flare)||!d.trace.scene_active||
+    capture_boundary(d,ui);
+    auto* p=pilot(d);if(!ui||!p||!p->enabled()||!(p->sun_disk||p->sun_halo||p->sun_flare||p->sun_style.vignette>0)||!d.trace.scene_active||
        d.trace.shadow.recording||d.trace.effective_shadow.recording||GetCurrentThreadId()!=d.trace.render_thread_id())return S_OK;
     auto& sun=p->sun;const auto frame=d.trace.frame_number();if(sun.drawn_frame==frame)return S_OK;
     auto gate=[&](const char* reason){sun.reason=reason;if(p->first_reason(reason)||(d.trace.control.active&&sun.gate_frame!=frame))try{sun.gate_frame=frame;session().write("{\"type\":\"atmosphere_sun_gate\",\"frame\":"+std::to_string(frame)+",\"reason\":"+quote(std::string(reason))+",\"drawn\":false}");}catch(...){}return S_OK;};
@@ -79,6 +97,10 @@ inline HRESULT sun_before_ui(Device8& d,bool ui)noexcept{
     if(FAILED(n.GetRenderTarget(&target.p))||FAILED(n.GetDepthStencilSurface(&depth.p))||!courseintegration::same_identity(target.p,proof.target)||!courseintegration::same_identity(depth.p,proof.depth)||
        FAILED(target.p->GetDesc(&desc))||FAILED(n.GetViewport(&viewport))||viewport.X||viewport.Y||viewport.Width!=desc.Width||viewport.Height!=desc.Height||viewport.MinZ!=0||viewport.MaxZ!=1)return gate("sun_depth_or_viewport_changed");
     sun.drawn_frame=frame;
+    if(p->sun_style.vignette>0){const auto writer=[](void* context,uint32_t slot,const Args& args,HRESULT hr)noexcept{notify(*static_cast<Device8*>(context),slot,args,hr);};
+        const auto vr=sun.vignette(n,desc.Width,desc.Height,p->sun_style.vignette,&d,writer);if(FAILED(vr))return vr;
+        if(p->first_reason("art_vignette")||d.trace.control.active)session().write("{\"type\":\"atmosphere_art_overlay\",\"effect\":\"vignette\",\"before_hud\":true,\"requested_triangles\":64,\"new_render_targets\":0,\"hresult\":"+std::to_string(uint32_t(vr))+"}");}
+    if(!(p->sun_disk||p->sun_halo||p->sun_flare))return S_OK;
     atmosphere::SunPosition position;if(!atmosphere::sun_position(p->lighting.direction,proof.view,proof.projection,desc.Width,desc.Height,position,p->sun_style.core_degrees))return gate("sun_behind_camera_or_outside_view");
     try{
         const auto writer=[](void* context,uint32_t slot,const Args& args,HRESULT hr)noexcept{notify(*static_cast<Device8*>(context),slot,args,hr);};
@@ -98,6 +120,9 @@ inline void observe(Device8& d,D3DPRIMITIVETYPE type,UINT,UINT vertices,UINT,UIN
         if(p->live_tuning&&frame!=p->live_key_frame){p->live_key_frame=frame;DWORD pid=0;GetWindowThreadProcessId(GetForegroundWindow(),&pid);
             const bool down=pid==GetCurrentProcessId()&&(GetAsyncKeyState(VK_CONTROL)&0x8000)&&(GetAsyncKeyState(VK_MENU)&0x8000)&&(GetAsyncKeyState('R')&0x8000);
             if(down&&!p->live_key_down)p->live_force=true;p->live_key_down=down;}
+        if(!p->package_root.empty()&&p->metadata_poll_frame!=frame){p->metadata_poll_frame=frame;DWORD pid=0;GetWindowThreadProcessId(GetForegroundWindow(),&pid);
+            const bool down=pid==GetCurrentProcessId()&&(GetAsyncKeyState(VK_CONTROL)&0x8000)&&(GetAsyncKeyState(VK_MENU)&0x8000)&&(GetAsyncKeyState('M')&0x8000);
+            if(down&&!p->metadata_key_down)p->course_dirty=true;p->metadata_key_down=down;}
         if(p->seam_debug&&frame!=p->seam_poll_frame){p->seam_poll_frame=frame;DWORD pid=0;GetWindowThreadProcessId(GetForegroundWindow(),&pid);
             const bool down=pid==GetCurrentProcessId()&&(GetAsyncKeyState(VK_CONTROL)&0x8000)&&(GetAsyncKeyState(VK_MENU)&0x8000)&&(GetAsyncKeyState('L')&0x8000);
             if(down&&!p->seam_key_down){p->world=!p->world;session().write("{\"type\":\"atmosphere_seam_toggle\",\"world_lighting\":"+std::string(p->world?"true":"false")+",\"sky_fog_unchanged\":true,\"frame\":"+std::to_string(frame)+"}");}p->seam_key_down=down;
@@ -111,7 +136,7 @@ inline void observe(Device8& d,D3DPRIMITIVETYPE type,UINT,UINT vertices,UINT,UIN
                 ",\"cache_resets\":"+std::to_string(p->resolver.cache_resets)+",\"normal_hint_matches\":"+std::to_string(p->normal_hints.matched)+",\"normal_hint_fallbacks\":"+std::to_string(p->normal_hints.fallback)+",\"body_cpu_ticks\":"+std::to_string(p->body_cpu_ticks)+",\"qpc_frequency\":"+std::to_string(frequency.QuadPart)+",\"body_calls\":"+std::to_string(p->body_calls)+",\"body_changed_vertices\":"+std::to_string(p->body_vertices)+",\"accepted_draws\":"+std::to_string(p->resolved_draws)+",\"skipped_draws\":"+std::to_string(p->resolver_skipped_draws)+",\"state_rejections\":"+std::to_string(p->world_rejected)+
                 ",\"cached_native_ranges\":"+std::to_string(ranges[0])+",\"cached_road_ranges\":"+std::to_string(ranges[1])+",\"cached_terrain_ranges\":"+std::to_string(ranges[2])+",\"cached_vegetation_ranges\":"+std::to_string(ranges[3])+",\"cached_static_ranges\":"+std::to_string(ranges[4])+"}");
             p->perf_frame=frame;p->perf_previous_ticks=p->cpu_ticks;p->perf_previous_calls=p->cpu_calls;}
-        const auto life=atmosphere::lifecycle();const auto reset=d.ps2_port()->reset_generation();p->diagnostic_epoch(life.race,reset);
+        const auto life=atmosphere::lifecycle();const auto reset=d.ps2_port()->reset_generation();p->diagnostic_epoch(life.race,reset);p->regional_epoch(life);
         auto context=[&]() {return ",\"device\":"+std::to_string(d.trace.device_id())+",\"frame\":"+std::to_string(d.trace.frame_number())+
             ",\"reset_generation\":"+std::to_string(reset)+",\"race_generation\":"+std::to_string(life.race)+",\"scene_job\":"+std::to_string(life.job)+
             ",\"scene\":"+quote(std::string(life.scene_name.data()))+",\"owner\":"+std::to_string(life.actor)+",\"owner_lifetime\":"+std::to_string(life.owner_lifetime);};
@@ -148,7 +173,7 @@ inline void observe(Device8& d,D3DPRIMITIVETYPE type,UINT,UINT vertices,UINT,UIN
             }
             if(p->first_reason(("sky_serial_"+std::to_string(serial)).c_str())) {
                 session().write("{\"type\":\"atmosphere_sky_draw\",\"observation_only\":true,\"reason\":"+quote(std::string(cache->reason))+
-                    ",\"preset\":"+std::to_string(cache->preset)+",\"layer\":"+std::to_string(cache->layer)+",\"vertices\":"+std::to_string(vertices)+
+                    ",\"preset\":"+std::to_string(cache->preset)+",\"layer\":"+std::to_string(cache->layer)+",\"projection_fix\":"+std::to_string(p->sky_projection)+",\"haze_strength\":"+std::to_string(p->sky_haze)+",\"vertices\":"+std::to_string(vertices)+
                     ",\"triangles\":"+std::to_string(count)+",\"fvf\":"+std::to_string(fvf)+",\"texture_pointer\":"+std::to_string(pointer)+
                     ",\"texture_serial\":"+std::to_string(serial)+",\"format\":"+std::to_string(desc.Format)+",\"width\":"+std::to_string(desc.Width)+
                     ",\"height\":"+std::to_string(desc.Height)+",\"bgra_sha256\":"+quote(cache->sha)+context()+"}");
@@ -167,7 +192,7 @@ inline void observe(Device8& d,D3DPRIMITIVETYPE type,UINT,UINT vertices,UINT,UIN
 }
 inline HRESULT reject(Device8& d,atmosphere::Pilot& p,const char* reason)noexcept {
     ++p.world_rejected;
-    try{if(p.first_reason(reason))session().write("{\"type\":\"atmosphere_admission_rejected\",\"reason\":"+quote(std::string(reason))+
+    try{if(p.capture.stage)p.draw_reason=reason;if(p.first_reason(reason))session().write("{\"type\":\"atmosphere_admission_rejected\",\"reason\":"+quote(std::string(reason))+
         ",\"frame\":"+std::to_string(d.trace.frame_number())+",\"race_generation\":"+std::to_string(p.observed_race)+
         ",\"reset_generation\":"+std::to_string(p.observed_reset)+"}");}catch(...){}return S_OK;
 }
@@ -221,13 +246,41 @@ inline std::string material_sha(Device8& d,atmosphere::Pilot& p,IDirect3DBaseTex
     c.opaque=true;for(size_t i=3;i<pixels.size();i+=4)if(pixels[i]!=255){c.opaque=false;break;}
     c.sha=sha256_bytes(pixels.data(),pixels.size());return c.sha;
 }
+// Bounded private copies: no shared asset mutation, no per-frame pixel read.
+// Called only after primary and secondary material certificates are validated.
+inline IDirect3DTexture8* environment_copy(Device8& d,atmosphere::Pilot& p,IDirect3DBaseTexture8* source,uint64_t generation,DWORD factor){
+    const auto pointer=reinterpret_cast<uintptr_t>(source);
+    for(auto& c:p.environment_copies)if(c.source==pointer&&c.generation==generation&&c.factor==factor&&c.texture){++p.environment_hits;return c.texture;}
+    if(!source||source->GetType()!=D3DRTYPE_TEXTURE||!generation)return nullptr;
+    auto* texture=static_cast<IDirect3DTexture8*>(source);D3DSURFACE_DESC desc{};
+    if(FAILED(texture->GetLevelDesc(0,&desc))||!desc.Width||!desc.Height||desc.Width>512||desc.Height>512||desc.Pool==D3DPOOL_DEFAULT||
+       (desc.Format!=D3DFMT_A8R8G8B8&&desc.Format!=D3DFMT_X8R8G8B8))return nullptr;
+    courseintegration::Ref<IDirect3DTexture8> copy;
+    const UINT levels=texture->GetLevelCount();if(!levels||levels>10||FAILED(d.native()->CreateTexture(desc.Width,desc.Height,levels,0,desc.Format,D3DPOOL_MANAGED,&copy.p))||!copy.p)return nullptr;
+    for(UINT level=0;level<levels;++level){D3DSURFACE_DESC size{};if(FAILED(texture->GetLevelDesc(level,&size)))return nullptr;
+        D3DLOCKED_RECT input{},output{};if(FAILED(texture->LockRect(level,&input,nullptr,D3DLOCK_READONLY)))return nullptr;
+        const HRESULT locked=copy.p->LockRect(level,&output,nullptr,0);
+        const bool valid=SUCCEEDED(locked)&&input.pBits&&output.pBits&&input.Pitch>=INT(size.Width*4)&&output.Pitch>=INT(size.Width*4);
+        if(valid)for(UINT y=0;y<size.Height;++y)for(UINT x=0;x<size.Width;++x){uint32_t pixel=0;
+            std::memcpy(&pixel,static_cast<BYTE*>(input.pBits)+y*input.Pitch+x*4,4);pixel=atmosphere::environment_texel(pixel,factor);
+            std::memcpy(static_cast<BYTE*>(output.pBits)+y*output.Pitch+x*4,&pixel,4);}
+        const auto a=texture->UnlockRect(level);const auto b=SUCCEEDED(locked)?copy.p->UnlockRect(level):locked;
+        if(!valid||FAILED(a)||FAILED(b))return nullptr;
+    }
+    auto& c=p.environment_copies[p.environment_next++%p.environment_copies.size()];if(c.texture)c.texture->Release();
+    c={pointer,generation,factor,copy.p};copy.p=nullptr;++p.environment_builds;return c.texture;
+}
 inline bool defer_until_native_draw(Device8& d)noexcept {
     auto* p=pilot(d);if(!p||!p->enabled()||!p->universal||(!p->custom()&&!p->world_route()))return false;
     const auto& shadow=d.trace.effective_shadow;const auto& fvf=shadow.bindings.vertex_shader;const auto& op=shadow.tss[1][D3DTSS_COLOROP];
     // GroundDetail's proven base_noise path uses the same vertex geometry for
     // its existing two passes and does not infer owner/geometry from VB hashes.
-    // Everything else keeps its original VB through PS2 replacement preflight.
-    return !(fvf.known&&(fvf.value==0x142||fvf.value==0x242)&&op.known&&op.value==D3DTOP_MODULATE2X);
+    // ForestFix can also own a blended static environment draw. Prepare its
+    // certified private RGB before that early return; ForestFix keeps alpha,
+    // blending and its own depth correction. No material proof is bypassed.
+    auto* ground=groundintegration::ground(d);
+    const bool forest=ground&&ground->forest_fix()&&!ps2port::live::disabled(ps2port::live::Forest);
+    return !(fvf.known&&op.known&&atmosphere::world_lighting_before_replacement(fvf.value,op.value,forest));
 }
 inline HRESULT pc_water_draw(Device8& d,atmosphere::Pilot& p,DWORD fvf,bool& applied){
     applied=false;auto& n=*d.native();
@@ -309,6 +362,9 @@ inline HRESULT universal_draw(Device8& d,atmosphere::Pilot& p,UINT min,UINT vert
                               const std::array<float,16>* world=nullptr) {
     auto& n=*d.native();auto& saved=p.pending;
     auto fail=[&](const char* why){if(!saved.any())saved.release();++p.resolver_skipped_draws;return reject(d,p,why);};
+    const auto reloads=p.package_reloads;const bool selected=p.select_course(course);
+    if(reloads!=p.package_reloads)session().write("{\"type\":\"atmosphere_course_package\",\"course\":"+quote(p.active_course)+",\"reloads\":"+std::to_string(p.package_reloads)+",\"ready\":"+(selected?"true":"false")+",\"reason\":"+quote(std::string(p.metadata.reason))+",\"normal_records\":"+std::to_string(p.normal_hints.records)+"}");
+    if(!selected)return fail("course_package_missing_invalid_or_wrong_scope");
     p.metadata.load(p.metadata_path);p.normal_hints.load(p.normals_path);
     if(p.first_reason("normal_hints_status"))session().write("{\"type\":\"atmosphere_normal_hints\",\"reason\":"+quote(std::string(p.normal_hints.reason))+",\"records\":"+std::to_string(p.normal_hints.records)+"}");
     if(p.first_reason("resolver_metadata_status"))session().write("{\"type\":\"atmosphere_resolver_metadata\",\"ready\":"+std::string(p.metadata.ready?"true":"false")+
@@ -319,18 +375,19 @@ inline HRESULT universal_draw(Device8& d,atmosphere::Pilot& p,UINT min,UINT vert
     const auto texture_sha=material_sha(d,p,texture.p);if(texture_sha.empty())return fail("resolver_texture_identity_unavailable");
     bool opaque=false;for(const auto& c:p.material_cache)if(c.pointer==texture_pointer&&c.generation==texture_generation){opaque=c.opaque;break;}
     const auto* material=p.metadata.find(course,texture_sha);
+    if(p.capture.stage){p.draw_texture=texture_sha;p.draw_material=material?material->name:"automatic_ground";p.draw_category=material?material->category:2;}
     // Static cutouts use the observed native coverage contract only. Never
     // turn blended/glass/environment passes into an opaque surface.
     if(alpha_test&&material&&material->category==4&&
        (!groundintegration::render(d,n,D3DRS_ALPHAFUNC,D3DCMP_GREATER)||
         !groundintegration::render(d,n,D3DRS_ALPHAREF,128)))return fail("resolver_static_coverage_contract");
-    uint64_t secondary_generation=0;
+    uint64_t secondary_generation=0;courseintegration::Ref<IDirect3DBaseTexture8> environment_source;
     if(environment){
         // Opaque is a PASS property here: diffuse alpha is a gloss mask in
         // this certified combine. Requiring all texture alpha=255 incorrectly
-        // excludes metal fences. Blend/test are both proven disabled below.
-        if(!material||!(material->flags&atmosphere::Environment)||material->category!=4||alpha_test)return fail("resolver_environment_primary_unproven");
-        courseintegration::Ref<IDirect3DBaseTexture8> secondary;
+        // excludes metal fences. The native coverage/blend contract is retained.
+        if(!material||!(material->flags&atmosphere::Environment)||material->category!=4||(alpha_test&&!(material->flags&atmosphere::AlphaTest)))return fail("resolver_environment_primary_unproven");
+        auto& secondary=environment_source;
         if(FAILED(n.GetTexture(1,&secondary.p))||!secondary.p)return fail("resolver_environment_secondary_missing");
         secondary_generation=d.trace.resources.generation(reinterpret_cast<uintptr_t>(secondary.p));
         const auto secondary_sha=material_sha(d,p,secondary.p);const auto* certificate=p.metadata.find(course,secondary_sha);
@@ -393,11 +450,20 @@ inline HRESULT universal_draw(Device8& d,atmosphere::Pilot& p,UINT min,UINT vert
         atmosphere::light_geometry(entry,saved.stride,min,vertices,width,material,noise,atmosphere::source_opaque_pass(material,opaque,false,alpha_test),alpha_test,p.auto_ground,p.lighting,&p.normal_hints,course,texture_sha,environment,world);resolver.bytes+=entry.storage();}
     if(!entry.accepted){++resolver.skipped;return fail(entry.reason);}
     if(p.lighting.fog_enabled&&FAILED(n.GetRenderState(D3DRS_FOGCOLOR,&saved.fog)))return fail("resolver_fog_capture_failed");
+    if(environment&&p.world&&p.lighting.active()){
+        const auto factor=atmosphere::world_environment_factor(p.lighting);
+        if(factor!=0xffffffffu){auto* copy=environment_copy(d,p,environment_source.p,secondary_generation,factor);if(!copy)return fail("resolver_environment_copy_unavailable");
+            saved.environment=environment_source.p;environment_source.p=nullptr;saved.environment_changed=true;
+            const auto hr=n.SetTexture(1,copy);notify(d,61,pack(1,copy),hr);if(FAILED(hr))return repair(d);
+            if(p.first_reason("static_environment_energy")||d.trace.control.active)session().write("{\"type\":\"atmosphere_static_environment\",\"factor\":"+std::to_string(factor)+",\"builds\":"+std::to_string(p.environment_builds)+",\"hits\":"+std::to_string(p.environment_hits)+",\"alpha_uv_unchanged\":true}");
+        }
+    }
     seam_sample(d,p,entry,material,course,texture_sha,fvf,min,start,triangles,vg,ig);
     auto hr=upload(d,p,min,vertices,p.world?entry.lit:entry.original);if(FAILED(hr)){if(saved.any())return repair(d);return fail("resolver_private_upload_failed");}
     DWORD effective_fog=saved.fog;
     if(p.lighting.fog_enabled){saved.fog_changed=true;effective_fog=atmosphere::scene_fog(saved.fog,p.lighting);hr=n.SetRenderState(D3DRS_FOGCOLOR,effective_fog);notify(d,50,pack(D3DRS_FOGCOLOR,effective_fog),hr);}
     if(FAILED(hr))return repair(d);
+    if(p.capture.stage){p.draw_resolved=true;p.draw_lit=p.world;p.draw_reason=entry.reason;}
     ++resolver.accepted;++p.resolved_draws;++p.world_draws;++p.category_draws[entry.category];p.category_vertices[entry.category]+=entry.changed;
     if(p.first_reason(("resolver_material_"+texture_sha).c_str()))session().write("{\"type\":\"atmosphere_resolver_draw\",\"course\":"+quote(std::string(course))+
         ",\"material\":"+quote(material?material->name:std::string("automatic_ground"))+",\"reason\":"+quote(std::string(entry.reason))+",\"category\":"+std::to_string(entry.category)+
@@ -407,12 +473,13 @@ inline HRESULT universal_draw(Device8& d,atmosphere::Pilot& p,UINT min,UINT vert
     return S_OK;
 }
 inline HRESULT begin(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UINT start,UINT count,uintptr_t pc,const DrawClassification* classification=nullptr) noexcept {
-    auto* p=pilot(d);if(!p||!p->enabled()||(!p->custom()&&!p->world_route()&&!p->light_probe&&!p->sun_disk&&!p->sun_halo&&!p->sun_flare)||!count||type!=D3DPT_TRIANGLELIST||
+    auto* p=pilot(d);if(!p||!p->enabled()||(!p->custom()&&!p->world_route()&&!p->light_probe&&!p->sun_disk&&!p->sun_halo&&!p->sun_flare&&p->sun_style.vignette<=0)||!count||type!=D3DPT_TRIANGLELIST||
         pc!=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+groundintegration::COURSE_DRAW_RETURN_RVA||
         !d.trace.scene_active||d.trace.shadow.recording||d.trace.effective_shadow.recording||GetCurrentThreadId()!=d.trace.render_thread_id())return S_OK;
     if(!p->pending.any())p->poll_live(d.trace.frame_number());
     struct Timing {atmosphere::Pilot& p;LARGE_INTEGER start{};Timing(atmosphere::Pilot& x):p(x){QueryPerformanceCounter(&start);}~Timing(){LARGE_INTEGER end{};QueryPerformanceCounter(&end);p.cpu_ticks+=end.QuadPart-start.QuadPart;++p.cpu_calls;}} timer(*p);
     try {
+        CaptureDraw capture_draw(d,*p,min,vertices,start,count);
         bool single=false;const auto cert=courseintegration::certificate(d,single);if(!single||!cert.valid)return reject(d,*p,"single_camera_race_certificate_missing");
         auto& n=*d.native();courseintegration::Ref<IDirect3DSurface8> target,back;
         if(FAILED(n.GetRenderTarget(&target.p))||FAILED(n.GetBackBuffer(0,D3DBACKBUFFER_TYPE_MONO,&back.p))||!courseintegration::same_identity(target.p,back.p))return reject(d,*p,"native_target_not_backbuffer");
@@ -425,9 +492,18 @@ inline HRESULT begin(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UIN
             const atmosphere::Pilot::SkyCache* identity=nullptr;
             for(const auto& c:p->sky_cache)if(c.pointer==pointer&&c.generation==serial&&c.preset==int(p->custom_base)&&c.layer>=0){identity=&c;break;}
             if(!identity||!p->load(n))return S_OK;
-            if(identity->layer==0&&p->sky_u_scale!=1){Geometry g;if(!geometry(d,*p,min,vertices,start,count,g)||saved.stride!=20)return fail("custom_sky_source_range_unavailable");
-                for(unsigned i=0;i<vertices;++i){float u=0;std::memcpy(&u,g.bytes.data()+i*20+12,4);u*=p->sky_u_scale;std::memcpy(g.bytes.data()+i*20+12,&u,4);}
+            if((identity->layer==0&&p->sky_u_scale!=1)||p->sky_projection){Geometry g;if(!geometry(d,*p,min,vertices,start,count,g)||saved.stride!=20)return fail("custom_sky_source_range_unavailable");
+                std::array<float,16> w{},view{};if(p->sky_projection&&(FAILED(n.GetTransform(D3DTS_WORLD,reinterpret_cast<D3DMATRIX*>(w.data())))||FAILED(n.GetTransform(D3DTS_VIEW,reinterpret_cast<D3DMATRIX*>(view.data())))))return fail("custom_sky_view_unavailable");
+                for(unsigned i=0;i<vertices;++i){auto* vertex=g.bytes.data()+i*20;float u=0,v=0;std::memcpy(&u,vertex+12,4);std::memcpy(&v,vertex+16,4);if(identity->layer==0)u*=p->sky_u_scale;
+                    if(p->sky_projection){std::array<float,3> position{};std::memcpy(position.data(),vertex,12);if(!atmosphere::sky_panorama_v(w,view,position,v,v))return fail("custom_sky_nonrigid_projection_rejected");}
+                    std::memcpy(vertex+12,&u,4);std::memcpy(vertex+16,&v,4);}
                 const auto hr=upload(d,*p,min,vertices,g.bytes);if(FAILED(hr)){if(saved.any())return repair(d);return fail("custom_sky_private_uv_upload_failed");}}
+            constexpr D3DTEXTURESTAGESTATETYPE keys[]{D3DTSS_ADDRESSV,D3DTSS_ALPHAOP,D3DTSS_ALPHAARG1,D3DTSS_ALPHAARG2};
+            auto sky_stage=[&](unsigned i,DWORD value){auto hr=n.GetTextureStageState(0,keys[i],&saved.sky_stage[i]);if(FAILED(hr))return hr;saved.sky_pending|=1u<<i;hr=n.SetTextureStageState(0,keys[i],value);notify(d,63,pack(0,keys[i],value),hr);return hr;};
+            if(p->sky_projection&&FAILED(sky_stage(0,D3DTADDRESS_CLAMP)))return repair(d);
+            if(identity->layer==1&&p->sky_haze!=1){if(FAILED(n.GetRenderState(D3DRS_TEXTUREFACTOR,&saved.sky_factor)))return repair(d);saved.sky_pending|=16;
+                const DWORD factor=(DWORD(std::lround(p->sky_haze*255))<<24)|0xffffff;const auto hr=n.SetRenderState(D3DRS_TEXTUREFACTOR,factor);notify(d,50,pack(D3DRS_TEXTUREFACTOR,factor),hr);
+                if(FAILED(hr)||FAILED(sky_stage(1,D3DTOP_MODULATE))||FAILED(sky_stage(2,D3DTA_TEXTURE))||FAILED(sky_stage(3,D3DTA_TFACTOR)))return repair(d);}
             if(FAILED(n.GetTexture(0,&saved.texture))){if(saved.any())return repair(d);return fail("custom_sky_texture_capture_failed");}saved.texture_changed=true;
             const auto hr=n.SetTexture(0,p->texture(identity->layer));notify(d,61,pack(0,p->texture(identity->layer)),hr);
             if(FAILED(hr))return repair(d);
@@ -436,12 +512,14 @@ inline HRESULT begin(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UIN
         }
         bool water_applied=false;const auto water_status=pc_water_draw(d,*p,fvf,water_applied);if(FAILED(water_status)||water_applied)return water_status;
         const bool environment=p->universal&&fvf==0x152;
-        if((!p->world_route()&&!p->light_probe)||(fvf!=0x142&&fvf!=0x242&&!environment)||!groundintegration::render(d,n,D3DRS_ALPHABLENDENABLE,FALSE)||
+        if((!p->world_route()&&!p->light_probe)||(fvf!=0x142&&fvf!=0x242&&!environment)||(!groundintegration::render(d,n,D3DRS_ALPHABLENDENABLE,FALSE)&&
+             !(environment&&groundintegration::render(d,n,D3DRS_ALPHABLENDENABLE,TRUE)&&groundintegration::render(d,n,D3DRS_SRCBLEND,D3DBLEND_SRCALPHA)&&groundintegration::render(d,n,D3DRS_DESTBLEND,D3DBLEND_INVSRCALPHA)))||
             !groundintegration::render(d,n,D3DRS_ZENABLE,D3DZB_TRUE)||!groundintegration::render(d,n,D3DRS_ZWRITEENABLE,TRUE)||
             !groundintegration::render(d,n,D3DRS_BLENDOP,D3DBLENDOP_ADD)||!groundintegration::render(d,n,D3DRS_FOGENABLE,TRUE)||
             !groundintegration::stage(d,n,0,D3DTSS_COLOROP,D3DTOP_MODULATE)||!groundintegration::stage(d,n,0,D3DTSS_COLORARG1,D3DTA_TEXTURE)||
             !groundintegration::stage(d,n,0,D3DTSS_COLORARG2,D3DTA_DIFFUSE)||!groundintegration::stage(d,n,2,D3DTSS_COLOROP,D3DTOP_DISABLE))return reject(d,*p,"not_source_prelit_world_contract");
         if(p->universal&&classification&&(classification->semantic_source!=VehicleSemanticSource::None||strong_vehicle_proof(classification->transform)))return reject(d,*p,"resolver_known_vehicle_draw_excluded");
+        capture_observe(d,*p);
         const bool noise=groundintegration::stage(d,n,1,D3DTSS_COLOROP,D3DTOP_MODULATE2X);
         if(noise){courseintegration::Ref<IDirect3DBaseTexture8> t;if(!groundintegration::stage(d,n,1,D3DTSS_COLORARG1,D3DTA_CURRENT)||!groundintegration::stage(d,n,1,D3DTSS_COLORARG2,D3DTA_TEXTURE)||FAILED(n.GetTexture(1,&t.p)))return reject(d,*p,"base_noise_stage_mismatch");
             const auto id=p->pc_noise_identity.identify(t.p,d.trace.resources.generation(reinterpret_cast<uintptr_t>(t.p)));if(!id.match)return reject(d,*p,id.reason);}
@@ -449,6 +527,9 @@ inline HRESULT begin(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UIN
             if(!groundintegration::stage(d,n,1,D3DTSS_COLOROP,D3DTOP_MODULATEALPHA_ADDCOLOR)||
                !groundintegration::stage(d,n,1,D3DTSS_COLORARG1,D3DTA_CURRENT)||!groundintegration::stage(d,n,1,D3DTSS_COLORARG2,D3DTA_TEXTURE)||
                !groundintegration::stage(d,n,1,D3DTSS_TEXCOORDINDEX,D3DTSS_TCI_CAMERASPACENORMAL)||!groundintegration::stage(d,n,1,D3DTSS_TEXTURETRANSFORMFLAGS,D3DTTFF_COUNT2)||
+               !groundintegration::stage(d,n,0,D3DTSS_ALPHAOP,D3DTOP_MODULATE)||!groundintegration::stage(d,n,0,D3DTSS_ALPHAARG1,D3DTA_TEXTURE)||
+               !groundintegration::stage(d,n,0,D3DTSS_ALPHAARG2,D3DTA_DIFFUSE)||!groundintegration::stage(d,n,1,D3DTSS_ALPHAOP,D3DTOP_MODULATE)||
+               !groundintegration::stage(d,n,1,D3DTSS_ALPHAARG1,D3DTA_CURRENT)||!groundintegration::stage(d,n,1,D3DTSS_ALPHAARG2,D3DTA_TEXTURE)||
                !groundintegration::stage(d,n,1,D3DTSS_RESULTARG,D3DTA_CURRENT))return reject(d,*p,"world_environment_stage_contract");
         }else if(!groundintegration::stage(d,n,1,D3DTSS_COLOROP,D3DTOP_DISABLE))return reject(d,*p,"world_special_secondary_stage");
         D3DMATRIX world{},identity{};identity._11=identity._22=identity._33=identity._44=1;
@@ -457,7 +538,7 @@ inline HRESULT begin(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UIN
         // Placed/instanced course props (checkpoint boards, signs) keep their
         // native matrix; only the universal resolver lights them, in world space.
         if(!identity_world&&!p->universal)return reject(d,*p,"source_static_course_world_not_identity");
-        if(p->universal){const char* course=cert.course_id.data();if(!std::strncmp(course,"RaceTest/",9))course+=9;
+        if(p->universal){const char* course=cert.course_id.data();if(!_strnicmp(course,"RaceTest/",9))course+=9;
             std::array<float,16> instance{};std::memcpy(instance.data(),&world,64);
             return universal_draw(d,*p,min,vertices,start,count,fvf,noise,groundintegration::render(d,n,D3DRS_ALPHATESTENABLE,TRUE),course,cert.race_generation,cert.owner_lifetime,environment,identity_world?nullptr:&instance);}
         if(!p->atlas.load(p->atlas_path))return reject(d,*p,p->atlas.reason);
@@ -467,7 +548,7 @@ inline HRESULT begin(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UIN
         for(auto index:g.indices){const auto* v=g.bytes.data()+index*saved.stride;canonical.insert(canonical.end(),v,v+24);}
         const auto geometry_sha=sha256_bytes(canonical.data(),canonical.size());
         courseintegration::Ref<IDirect3DBaseTexture8> texture;if(FAILED(n.GetTexture(0,&texture.p)))return fail("source_diffuse_texture_missing");
-        const auto texture_sha=material_sha(d,*p,texture.p);const char* course=cert.course_id.data();if(!std::strncmp(course,"RaceTest/",9))course+=9;
+        const auto texture_sha=material_sha(d,*p,texture.p);const char* course=cert.course_id.data();if(!_strnicmp(course,"RaceTest/",9))course+=9;
         const auto* record=p->atlas.find(geometry_sha,course,texture_sha);
         // Opt-in, bounded read-only evidence for differences between original
         // source records and the game's submitted triangle batches. Never use
