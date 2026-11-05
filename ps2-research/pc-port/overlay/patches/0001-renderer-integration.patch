@@ -1,4 +1,5 @@
 diff --git a/modernization/renderer/CMakeLists.txt b/modernization/renderer/CMakeLists.txt
+index 4dbbc00..e7b3240 100644
 --- a/modernization/renderer/CMakeLists.txt
 +++ b/modernization/renderer/CMakeLists.txt
 @@ -1,5 +1,6 @@
@@ -8,7 +9,7 @@ diff --git a/modernization/renderer/CMakeLists.txt b/modernization/renderer/CMak
  if(NOT WIN32 OR NOT CMAKE_SIZEOF_VOID_P EQUAL 4)
   message(FATAL_ERROR "Configure a Windows x86/Win32 build")
  endif()
-@@ -11,6 +12,15 @@
+@@ -11,6 +12,15 @@ set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
  set(CORE src/forwarders.cpp src/wrappers.cpp src/state_tracker.cpp src/trace.cpp src/provenance.cpp src/guids.cpp src/visual_policy.cpp src/visual_wrappers.cpp src/vehicle_classifier.cpp src/vehicle_semantics.cpp src/reflection_scope.cpp src/game_fov.cpp src/free_camera.cpp src/camera_bookmarks.cpp src/clean_view.cpp src/hud_visibility.cpp src/camera_bridge.cpp src/camera_probe.cpp src/race_epoch.cpp src/race_bridges.cpp src/race_observer.cpp src/physics_probe_model.cpp src/physics_probe.cpp src/crash_log.cpp src/road_target_model.cpp src/road_teleport_model.cpp src/road_teleport_events.cpp src/quality.cpp src/quality_wrappers.cpp src/compatibility.cpp src/menu_freeze.cpp src/legacy_attract_guard.cpp src/broker_null_guard.cpp src/ui_margins.cpp src/foliage_probe.cpp src/buffer_provenance.cpp)
  add_library(proxy_core STATIC ${CORE})
  target_include_directories(proxy_core PUBLIC include vendor/d3d8)
@@ -24,11 +25,10 @@ diff --git a/modernization/renderer/CMakeLists.txt b/modernization/renderer/CMak
  target_compile_options(proxy_core PRIVATE /W4 /permissive- /fp:strict /EHsc /Zi)
  target_link_libraries(proxy_core PUBLIC bcrypt user32)
  add_library(d3d8 SHARED src/dllmain.cpp src/real_d3d8.cpp exports.def)
-@@ -115,4 +125,120 @@
+@@ -115,4 +125,120 @@ if(BUILD_TESTING)
   target_include_directories(physics_transaction_abi_tests PRIVATE include vendor/d3d8)
   target_compile_options(physics_transaction_abi_tests PRIVATE /W4 /fp:strict /EHsc)
   add_test(NAME physics_transaction_abi_contracts COMMAND physics_transaction_abi_tests)
--endif()
 + if(MRR_ENABLE_PS2_PORT)
 +  add_executable(ps2_frontend_model_tests "${MRR_PS2_PORT_ROOT}/tests/frontend_model_tests.cpp")
 +  target_link_libraries(ps2_frontend_model_tests PRIVATE proxy_core)
@@ -145,11 +145,12 @@ diff --git a/modernization/renderer/CMakeLists.txt b/modernization/renderer/CMak
 +  target_compile_options(atmosphere_gpu_probe PRIVATE /W4 /fp:strict /EHsc)
 +
 + endif()
-+endif()
+ endif()
 diff --git a/modernization/renderer/include/ui_margins.hpp b/modernization/renderer/include/ui_margins.hpp
+index 844f88d..36bec1d 100644
 --- a/modernization/renderer/include/ui_margins.hpp
 +++ b/modernization/renderer/include/ui_margins.hpp
-@@ -236,6 +236,8 @@
+@@ -236,6 +236,8 @@ public:
   bool enter_consume(uintptr_t entity) noexcept;
   void leave_consume() noexcept;
   bool consumer_hook_intact() const noexcept;
@@ -159,6 +160,7 @@ diff --git a/modernization/renderer/include/ui_margins.hpp b/modernization/rende
   void note_clean_view_draw(bool eligible,bool suppressed,bool requested,bool draw_requested,bool ui_callsite,bool scope_invalidated,
    const char* admission_reason,const char* scope_reason,bool context_valid,const char* context_reason,
 diff --git a/modernization/renderer/include/wrappers.hpp b/modernization/renderer/include/wrappers.hpp
+index 41bf620..8a30948 100644
 --- a/modernization/renderer/include/wrappers.hpp
 +++ b/modernization/renderer/include/wrappers.hpp
 @@ -15,6 +15,7 @@
@@ -169,7 +171,7 @@ diff --git a/modernization/renderer/include/wrappers.hpp b/modernization/rendere
  struct BufferMirror;
  enum class BufferKind;
  class Root8 final : public IDirect3D8 {
-@@ -61,6 +62,12 @@
+@@ -61,6 +62,12 @@ public:
   void note_stream_buffer_binding(UINT stream,void* raw,HRESULT result) noexcept;
   void note_index_buffer_binding(void* raw,HRESULT result) noexcept;
   bool reserve_buffer_copy_bytes(size_t bytes) noexcept;
@@ -182,7 +184,7 @@ diff --git a/modernization/renderer/include/wrappers.hpp b/modernization/rendere
   Trace trace;
   std::unique_ptr<QualityPipeline> quality;
   HRESULT set_transform_at(D3DTRANSFORMSTATETYPE type,const D3DMATRIX* input,uintptr_t pc);
-@@ -175,6 +182,9 @@
+@@ -175,6 +182,9 @@ public:
   __declspec(noinline) HRESULT STDMETHODCALLTYPE DeletePatch(UINT Handle) override;
  private:
   IDirect3DDevice8* real_; Root8* parent_; std::atomic<ULONG> refs_{1};
@@ -193,9 +195,10 @@ diff --git a/modernization/renderer/include/wrappers.hpp b/modernization/rendere
   std::unordered_map<void*,BufferProxyCore*> buffer_proxies_;
   std::unordered_map<void*,BufferProxyCore*> buffer_proxy_interfaces_;
 diff --git a/modernization/renderer/src/buffer_provenance.cpp b/modernization/renderer/src/buffer_provenance.cpp
+index bd8b11b..0033f69 100644
 --- a/modernization/renderer/src/buffer_provenance.cpp
 +++ b/modernization/renderer/src/buffer_provenance.cpp
-@@ -36,7 +36,7 @@
+@@ -36,7 +36,7 @@ BufferProxyCore::BufferProxyCore(Device8* owner, IUnknown* raw, void* proxy,
      registered_ = owner_->register_buffer_proxy(raw_pointer_, this);
      if (!registered_) return;
      if (!generation_ || !description.valid || !bytes_ ||
@@ -205,6 +208,7 @@ diff --git a/modernization/renderer/src/buffer_provenance.cpp b/modernization/re
      }
      mirror_ = owner_->open_buffer_mirror(raw_pointer_, kind_, generation_, bytes_, usage_, pool_);
 diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/src/forwarders.cpp
+index eaea20d..aea65f1 100644
 --- a/modernization/renderer/src/forwarders.cpp
 +++ b/modernization/renderer/src/forwarders.cpp
 @@ -3,6 +3,13 @@
@@ -221,7 +225,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
  namespace gfx2 {
  HRESULT STDMETHODCALLTYPE Root8::RegisterSoftwareDevice(void * pInitializeFunction) {
   return real_->RegisterSoftwareDevice(pInitializeFunction);
-@@ -198,7 +205,7 @@
+@@ -198,7 +205,7 @@ HRESULT STDMETHODCALLTYPE Device8::CreateVertexBuffer(UINT Length,DWORD Usage,DW
   trace.before(23, args, pc);
   HRESULT result = real_->CreateVertexBuffer(Length, Usage, FVF, Pool, ppVertexBuffer);
   trace.after(23, args, static_cast<uint32_t>(result), pc);
@@ -230,7 +234,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   return result;
  }
  HRESULT STDMETHODCALLTYPE Device8::CreateIndexBuffer(UINT Length,DWORD Usage,D3DFORMAT Format,D3DPOOL Pool,IDirect3DIndexBuffer8 ** ppIndexBuffer) {
-@@ -208,7 +215,7 @@
+@@ -208,7 +215,7 @@ HRESULT STDMETHODCALLTYPE Device8::CreateIndexBuffer(UINT Length,DWORD Usage,D3D
   trace.before(24, args, pc);
   HRESULT result = real_->CreateIndexBuffer(Length, Usage, Format, Pool, ppIndexBuffer);
   trace.after(24, args, static_cast<uint32_t>(result), pc);
@@ -239,7 +243,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   return result;
  }
  HRESULT STDMETHODCALLTYPE Device8::CreateRenderTarget(UINT Width,UINT Height,D3DFORMAT Format,D3DMULTISAMPLE_TYPE MultiSample,WINBOOL Lockable,IDirect3DSurface8 ** ppSurface) {
-@@ -269,6 +276,17 @@
+@@ -269,6 +276,17 @@ HRESULT STDMETHODCALLTYPE Device8::SetRenderTarget(IDirect3DSurface8 * pRenderTa
   auto guard = trace.guard();
   const auto args = pack(pRenderTarget, pNewZStencil);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -257,7 +261,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(31, args, pc);
   HRESULT result = real_->SetRenderTarget(pRenderTarget, pNewZStencil);
   trace.after(31, args, static_cast<uint32_t>(result), pc);
-@@ -278,6 +296,9 @@
+@@ -278,6 +296,9 @@ HRESULT STDMETHODCALLTYPE Device8::GetRenderTarget(IDirect3DSurface8 ** ppRender
   auto guard = trace.guard();
   const auto args = pack(ppRenderTarget);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -267,7 +271,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(32, args, pc);
   HRESULT result = real_->GetRenderTarget(ppRenderTarget);
   trace.after(32, args, static_cast<uint32_t>(result), pc);
-@@ -287,6 +308,9 @@
+@@ -287,6 +308,9 @@ HRESULT STDMETHODCALLTYPE Device8::GetDepthStencilSurface(IDirect3DSurface8 ** p
   auto guard = trace.guard();
   const auto args = pack(ppZStencilSurface);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -277,7 +281,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(33, args, pc);
   HRESULT result = real_->GetDepthStencilSurface(ppZStencilSurface);
   trace.after(33, args, static_cast<uint32_t>(result), pc);
-@@ -296,6 +320,17 @@
+@@ -296,6 +320,17 @@ HRESULT STDMETHODCALLTYPE Device8::BeginScene() {
   auto guard = trace.guard();
   const auto args = pack();
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -295,7 +299,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(34, args, pc);
   HRESULT result = real_->BeginScene();
   if(SUCCEEDED(result))trace.scene_active=true;
-@@ -306,6 +341,17 @@
+@@ -306,6 +341,17 @@ HRESULT STDMETHODCALLTYPE Device8::EndScene() {
   auto guard = trace.guard();
   const auto args = pack();
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -313,7 +317,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(35, args, pc);
   HRESULT result = real_->EndScene();
   trace.scene_active=false;
-@@ -316,6 +362,17 @@
+@@ -316,6 +362,17 @@ HRESULT STDMETHODCALLTYPE Device8::Clear(DWORD rect_count, const D3DRECT *rects,
   auto guard = trace.guard();
   const auto args = pack(rect_count, rects, flags, color, z, stencil);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -331,7 +335,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(36, args, pc);
   HRESULT result = real_->Clear(rect_count, rects, flags, color, z, stencil);
   trace.after(36, args, static_cast<uint32_t>(result), pc);
-@@ -325,6 +382,10 @@
+@@ -325,6 +382,10 @@ HRESULT STDMETHODCALLTYPE Device8::MultiplyTransform(D3DTRANSFORMSTATETYPE state
   auto guard = trace.guard();
   const auto args = pack(state, matrix);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -342,7 +346,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(39, args, pc);
   if(state==D3DTS_PROJECTION){HRESULT safe=stock_for_unmapped("MultiplyTransform_PROJECTION");if(FAILED(safe)){trace.after(39,args,static_cast<uint32_t>(safe),pc);return safe;}}
   HRESULT result = real_->MultiplyTransform(state, matrix);
-@@ -407,6 +468,10 @@
+@@ -407,6 +468,10 @@ HRESULT STDMETHODCALLTYPE Device8::SetRenderState(D3DRENDERSTATETYPE State,DWORD
   auto guard = trace.guard();
   const auto args = pack(State, Value);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -353,7 +357,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(50, args, pc);
   HRESULT result = real_->SetRenderState(State, Value);
   trace.after(50, args, static_cast<uint32_t>(result), pc);
-@@ -416,6 +481,10 @@
+@@ -416,6 +481,10 @@ HRESULT STDMETHODCALLTYPE Device8::GetRenderState(D3DRENDERSTATETYPE State,DWORD
   auto guard = trace.guard();
   const auto args = pack(State, pValue);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -364,7 +368,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(51, args, pc);
   HRESULT result = real_->GetRenderState(State, pValue);
   trace.after(51, args, static_cast<uint32_t>(result), pc);
-@@ -505,6 +574,10 @@
+@@ -505,6 +574,10 @@ HRESULT STDMETHODCALLTYPE Device8::GetTexture(DWORD Stage,IDirect3DBaseTexture8
   auto guard = trace.guard();
   const auto args = pack(Stage, ppTexture);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -375,7 +379,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(60, args, pc);
   HRESULT result = real_->GetTexture(Stage, ppTexture);
   trace.after(60, args, static_cast<uint32_t>(result), pc);
-@@ -514,6 +587,10 @@
+@@ -514,6 +587,10 @@ HRESULT STDMETHODCALLTYPE Device8::SetTexture(DWORD Stage,IDirect3DBaseTexture8
   auto guard = trace.guard();
   const auto args = pack(Stage, pTexture);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -386,7 +390,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(61, args, pc);
   HRESULT result = real_->SetTexture(Stage, pTexture);
   trace.after(61, args, static_cast<uint32_t>(result), pc);
-@@ -523,6 +600,9 @@
+@@ -523,6 +600,9 @@ HRESULT STDMETHODCALLTYPE Device8::ValidateDevice(DWORD * pNumPasses) {
   auto guard = trace.guard();
   const auto args = pack(pNumPasses);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -396,7 +400,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(64, args, pc);
   HRESULT result = real_->ValidateDevice(pNumPasses);
   trace.after(64, args, static_cast<uint32_t>(result), pc);
-@@ -619,6 +699,10 @@
+@@ -619,6 +699,10 @@ HRESULT STDMETHODCALLTYPE Device8::SetVertexShader(DWORD Handle) {
   auto guard = trace.guard();
   const auto args = pack(Handle);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -407,7 +411,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(76, args, pc);
   HRESULT result = real_->SetVertexShader(Handle);
   trace.after(76, args, static_cast<uint32_t>(result), pc);
-@@ -628,6 +712,10 @@
+@@ -628,6 +712,10 @@ HRESULT STDMETHODCALLTYPE Device8::GetVertexShader(DWORD * pHandle) {
   auto guard = trace.guard();
   const auto args = pack(pHandle);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -418,7 +422,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(77, args, pc);
   HRESULT result = real_->GetVertexShader(pHandle);
   trace.after(77, args, static_cast<uint32_t>(result), pc);
-@@ -637,6 +725,10 @@
+@@ -637,6 +725,10 @@ HRESULT STDMETHODCALLTYPE Device8::DeleteVertexShader(DWORD Handle) {
   auto guard = trace.guard();
   const auto args = pack(Handle);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -429,7 +433,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(78, args, pc);
   HRESULT result = real_->DeleteVertexShader(Handle);
   trace.after(78, args, static_cast<uint32_t>(result), pc);
-@@ -681,6 +773,10 @@
+@@ -681,6 +773,10 @@ HRESULT STDMETHODCALLTYPE Device8::GetVertexShaderFunction(DWORD Handle,void * p
  HRESULT STDMETHODCALLTYPE Device8::SetStreamSource(UINT StreamNumber,IDirect3DVertexBuffer8 * pStreamData,UINT Stride) {
   auto guard = trace.guard();
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -440,7 +444,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   auto* native_buffer=unwrap_vertex_buffer(pStreamData);
   const auto native_args = pack(StreamNumber, native_buffer, Stride);
   trace.before(83, native_args, pc);
-@@ -692,11 +788,15 @@
+@@ -692,11 +788,15 @@ HRESULT STDMETHODCALLTYPE Device8::SetStreamSource(UINT StreamNumber,IDirect3DVe
  HRESULT STDMETHODCALLTYPE Device8::GetStreamSource(UINT StreamNumber,IDirect3DVertexBuffer8 ** ppStreamData,UINT * pStride) {
   auto guard = trace.guard();
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -457,7 +461,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   return result;
  }
  HRESULT STDMETHODCALLTYPE Device8::SetIndices(IDirect3DIndexBuffer8 * pIndexData,UINT BaseVertexIndex) {
-@@ -717,7 +817,7 @@
+@@ -717,7 +817,7 @@ HRESULT STDMETHODCALLTYPE Device8::GetIndices(IDirect3DIndexBuffer8 ** ppIndexDa
   trace.before(86, args, pc);
   HRESULT result = real_->GetIndices(ppIndexData, pBaseVertexIndex);
   trace.after(86, args, static_cast<uint32_t>(result), pc);
@@ -466,7 +470,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   return result;
  }
  HRESULT STDMETHODCALLTYPE Device8::CreatePixelShader(const DWORD *byte_code, DWORD *shader) {
-@@ -733,6 +833,10 @@
+@@ -733,6 +833,10 @@ HRESULT STDMETHODCALLTYPE Device8::SetPixelShader(DWORD Handle) {
   auto guard = trace.guard();
   const auto args = pack(Handle);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -477,7 +481,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(88, args, pc);
   HRESULT result = real_->SetPixelShader(Handle);
   trace.after(88, args, static_cast<uint32_t>(result), pc);
-@@ -742,6 +846,10 @@
+@@ -742,6 +846,10 @@ HRESULT STDMETHODCALLTYPE Device8::GetPixelShader(DWORD * pHandle) {
   auto guard = trace.guard();
   const auto args = pack(pHandle);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -488,7 +492,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   trace.before(89, args, pc);
   HRESULT result = real_->GetPixelShader(pHandle);
   trace.after(89, args, static_cast<uint32_t>(result), pc);
-@@ -751,6 +859,10 @@
+@@ -751,6 +859,10 @@ HRESULT STDMETHODCALLTYPE Device8::DeletePixelShader(DWORD Handle) {
   auto guard = trace.guard();
   const auto args = pack(Handle);
   const auto pc = reinterpret_cast<uintptr_t>(_ReturnAddress());
@@ -500,6 +504,7 @@ diff --git a/modernization/renderer/src/forwarders.cpp b/modernization/renderer/
   HRESULT result = real_->DeletePixelShader(Handle);
   trace.after(90, args, static_cast<uint32_t>(result), pc);
 diff --git a/modernization/renderer/src/provenance.cpp b/modernization/renderer/src/provenance.cpp
+index 0fe6d0d..d822169 100644
 --- a/modernization/renderer/src/provenance.cpp
 +++ b/modernization/renderer/src/provenance.cpp
 @@ -7,6 +7,10 @@
@@ -513,7 +518,7 @@ diff --git a/modernization/renderer/src/provenance.cpp b/modernization/renderer/
  namespace gfx2 {
  HMODULE proxy_module=nullptr;
  std::wstring module_path(HMODULE m) {
-@@ -38,17 +42,24 @@
+@@ -38,17 +42,24 @@ std::string sha256_file(const std::wstring& path,uint64_t* size) noexcept {
   }catch(...){output.clear();}
   if(h)BCryptDestroyHash(h);if(a)BCryptCloseAlgorithmProvider(a,0);if(f!=INVALID_HANDLE_VALUE)CloseHandle(f);return output;
  }
@@ -542,7 +547,7 @@ diff --git a/modernization/renderer/src/provenance.cpp b/modernization/renderer/
  }
  Caller caller_info(uintptr_t pc){
   Caller c;c.address=pc;HMODULE m=nullptr;
-@@ -75,15 +86,34 @@
+@@ -75,15 +86,34 @@ Session::Session(){
   if(!InitializeCriticalSectionEx(&lock_,2000,0))throw std::bad_alloc();
   auto own=module_path(proxy_module),exe=module_path(nullptr);uint64_t exe_size=0;
   proxy_path=utf8(own);exe_path=utf8(exe);proxy_sha=sha256_file(own);exe_sha=sha256_file(exe,&exe_size);target=exe_sha==TARGET_SHA;
@@ -582,6 +587,7 @@ diff --git a/modernization/renderer/src/provenance.cpp b/modernization/renderer/
   if(!compatibility.ui.supported()){effective.interface_mode="Stock";effective.interface_reason=compatibility.ui.reason;}
   if(!compatibility.freeze.supported()){effective.menu_freeze=false;effective.freeze_reason=compatibility.freeze.reason;}
 diff --git a/modernization/renderer/src/quality_wrappers.cpp b/modernization/renderer/src/quality_wrappers.cpp
+index 89bf414..171b853 100644
 --- a/modernization/renderer/src/quality_wrappers.cpp
 +++ b/modernization/renderer/src/quality_wrappers.cpp
 @@ -1,7 +1,14 @@
@@ -599,7 +605,7 @@ diff --git a/modernization/renderer/src/quality_wrappers.cpp b/modernization/ren
  namespace gfx2 {
  void Device8::quality_trace() noexcept {
   try{if(quality){trace.quality_metadata=quality->json();trace.ui_metadata=ui_margins.json();session().write("{\"type\":\"quality_pipeline\",\"descriptor\":"+trace.quality_metadata+",\"ui_margins\":"+trace.ui_metadata+"}");}}catch(...){}
-@@ -21,8 +28,16 @@
+@@ -21,8 +28,16 @@ HRESULT STDMETHODCALLTYPE Device8::Reset(D3DPRESENT_PARAMETERS* pp){
   trace.scene_active=false;hud_visibility.reset_context();
   D3DPRESENT_PARAMETERS requested{};bool requested_known=pp&&safe_copy(&requested,pp,sizeof(requested));uint64_t native_before=quality?quality->native_reset_calls:0;
   game_fov.cancel_lifecycle("device_reset_camera_scope_cancelled");const bool race_proof_preserved=race_observer_attached&&device_reset_race_observer();if(!ui_margins.finish_frame())stock_ui("ui_native_world_restore_failed");
@@ -616,7 +622,7 @@ diff --git a/modernization/renderer/src/quality_wrappers.cpp b/modernization/ren
   trace.after(14,args,static_cast<uint32_t>(hr),pc);
   try{session().write("{\"type\":\"reset_policy\",\"reset_request_source\":\"normal\",\"requested\":"+(requested_known?pp_json(requested):"null")+",\"effective\":"+(quality&&quality->valid?pp_json(quality->effective):"null")+",\"echo_equivalent\":false,\"completed_race_proof_preserved\":"+(race_proof_preserved?"true":"false")+",\"camera_scope_cancelled\":true,\"native_reset_called\":"+(!quality||quality->native_reset_calls>native_before?"true":"false")+",\"native_reset_attempts\":"+std::to_string(quality?quality->native_reset_calls-native_before:1)+",\"result\":"+std::to_string(static_cast<uint32_t>(hr))+"}");}catch(...){}
  
-@@ -32,6 +47,9 @@
+@@ -32,6 +47,9 @@ HRESULT STDMETHODCALLTYPE Device8::Reset(D3DPRESENT_PARAMETERS* pp){
  }
  HRESULT STDMETHODCALLTYPE Device8::Present(const RECT* source,const RECT* destination,HWND window,const RGNDATA* dirty){
   auto guard=trace.guard();const auto args=pack(source,destination,window,dirty);auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(15,args,pc);
@@ -626,7 +632,7 @@ diff --git a/modernization/renderer/src/quality_wrappers.cpp b/modernization/ren
   HWND hud_window=window;
   if(!hud_window&&quality)hud_window=quality->effective.hDeviceWindow?quality->effective.hDeviceWindow:quality->focus;
   const bool hud_focused=hud_window&&IsWindow(hud_window)&&!IsIconic(hud_window)&&GetForegroundWindow()==hud_window;
-@@ -44,10 +62,26 @@
+@@ -44,10 +62,26 @@ HRESULT STDMETHODCALLTYPE Device8::Present(const RECT* source,const RECT* destin
    quality->aa_hazard=true;try{session().write("{\"type\":\"msaa_present_hazard\",\"reason\":\"non_null_present_arguments_native_hresult_preserved\"}");}catch(...){}
   }
   if(quality){quality->free_camera_cursor=game_fov.free_camera_active();quality->cursor_tick();}
@@ -654,7 +660,7 @@ diff --git a/modernization/renderer/src/quality_wrappers.cpp b/modernization/ren
   D3DVIEWPORT8 original{},changed{};bool rewrite=quality&&safe_copy(&original,input,sizeof(original))&&quality->viewport(original,changed)&&std::memcmp(&original,&changed,sizeof(original));
   const auto* forwarded=rewrite?&changed:input;auto native=pack(forwarded);HRESULT hr=real_->SetViewport(forwarded);
   if(FAILED(hr)&&rewrite){trace.after(40,native,static_cast<uint32_t>(hr),pc,&native,16,false,true);native=args;rewrite=false;hr=real_->SetViewport(input);}
-@@ -63,7 +97,11 @@
+@@ -63,7 +97,11 @@ HRESULT STDMETHODCALLTYPE Device8::SetViewport(const D3DVIEWPORT8* input){
   return hr;
  }
  HRESULT STDMETHODCALLTYPE Device8::GetViewport(D3DVIEWPORT8* out){
@@ -668,9 +674,10 @@ diff --git a/modernization/renderer/src/quality_wrappers.cpp b/modernization/ren
   if(SUCCEEDED(hr)&&safe_copy(&native,out,sizeof(native))&&trace.shadow.bindings.viewport.known&&trace.effective_shadow.bindings.viewport.known&&std::memcmp(&trace.shadow.bindings.viewport.value,&trace.effective_shadow.bindings.viewport.value,sizeof(native)))virtualized=safe_copy(out,&trace.shadow.bindings.viewport.value,sizeof(native));
   auto effective=virtualized?pack(&native):args;trace.after(41,args,static_cast<uint32_t>(hr),pc,&effective,virtualized?16:0);return hr;
 diff --git a/modernization/renderer/src/race_epoch.cpp b/modernization/renderer/src/race_epoch.cpp
+index 68d958e..acfa7ed 100644
 --- a/modernization/renderer/src/race_epoch.cpp
 +++ b/modernization/renderer/src/race_epoch.cpp
-@@ -23,8 +23,10 @@
+@@ -23,8 +23,10 @@ bool race_hud_scene_proven_as(const RaceEpoch& e,bool attract) noexcept {
   const char* scene=attract?"Hud/AttractMode":"Hud/Hud0";const char* source=attract?"DataScene/Hud/AttractMode.xml":"DataScene/Hud/Hud0.xml";
   unsigned matching=0;
   for(size_t i=0;i<e.jobs_used;++i){const auto& job=e.jobs[i];if(job.race_generation!=e.race_generation||job.lifetime==root->lifetime)continue;
@@ -682,7 +689,7 @@ diff --git a/modernization/renderer/src/race_epoch.cpp b/modernization/renderer/
    ++matching;
   }
   return matching==1;
-@@ -61,7 +63,7 @@
+@@ -61,7 +63,7 @@ void RaceEpoch::request(uint32_t scene,const char* text,uint32_t origin) noexcep
   // distinct scene request; its separate runtime certificate requires the
   // committed Attract scene, typed AttractMode context, and this same owner ancestry.
   const bool supported_hud_name=text&&
@@ -691,7 +698,7 @@ diff --git a/modernization/renderer/src/race_epoch.cpp b/modernization/renderer/
   request_supported_hud=parent&&parent->executing&&supported_hud_name&&
    owner.initialized&&!owner.retired&&owner.execution_job_lifetime==parent->lifetime&&owner.race_generation==race_generation;
   if(!request_supported_hud){if(!next(race_generation))return;successful_generation=successful_race_generation=0;}
-@@ -204,12 +206,15 @@
+@@ -204,12 +206,15 @@ bool RaceEpoch::validate_thread(uint32_t expected,uint32_t actual) noexcept {
  }
  namespace {
  bool word(RaceReadMemory& m,uint32_t p,uint32_t& v) noexcept{return p&&m.read(p,&v,4);}
@@ -708,7 +715,7 @@ diff --git a/modernization/renderer/src/race_epoch.cpp b/modernization/renderer/
  }
  bool list_count(RaceReadMemory& m,uint32_t head,uint32_t actor,uint32_t& found) noexcept {
   uint32_t node=0,previous=head;if(!word(m,head+4,node))return false;
-@@ -239,7 +244,7 @@
+@@ -239,7 +244,7 @@ bool race_pool_id(RaceReadMemory& m,uint32_t base,const char* text,uint32_t& id)
  bool RaceReadMemory::resolve_id(uint32_t base,const char* key,uint32_t& id) noexcept {return race_pool_id(*this,base,key,id);}
  RaceScalar race_broker_scalar(RaceReadMemory& m,uint32_t base,uint32_t id,uint32_t tag) noexcept {
   RaceScalar r;uint32_t manager=0,begin=0,count=0,payload=0,native_id=0;
@@ -717,7 +724,7 @@ diff --git a/modernization/renderer/src/race_epoch.cpp b/modernization/renderer/
   uint32_t p=begin+id*0x1c;if(!word(m,p,native_id)||native_id!=id||!word(m,p+8,r.tag)||r.tag!=tag||!word(m,p+4,payload)||!payload)return r;
   if(tag==0){uint8_t v=0;if(!m.read(payload,&v,1)||v>1)return r;r.value=v;}
   else if(tag==2){if(!m.read(payload,&r.value,4))return r;}else return r;
-@@ -252,7 +257,7 @@
+@@ -252,7 +257,7 @@ RaceOwnerRead read_race_owner(RaceReadMemory& m,uint32_t base,const RaceOwner& i
   RaceOwnerRead r;r.actor=identity.actor;r.ai=identity.ai;
   if(!r.actor||!r.ai||identity.retired||!identity.lifetime||!current_generation){r.reason="no_current_owner_lifetime";return r;}
   uint32_t manager=0,registry=0,name=0,begin=0,count=0,bucket=0,id=0;
@@ -727,6 +734,7 @@ diff --git a/modernization/renderer/src/race_epoch.cpp b/modernization/renderer/
   uint32_t registered=0;if(!word(m,begin,registered)||registered!=r.actor){r.reason="registered_owner_replaced";return r;}
   uint8_t flags=0;if(!m.read(r.actor,&flags,1)){r.reason="flags_unreadable";return r;}r.retired=(flags&2)!=0;if(r.retired){r.reason="retirement_flag";return r;}
 diff --git a/modernization/renderer/src/race_observer.cpp b/modernization/renderer/src/race_observer.cpp
+index 7bcce06..685b1a9 100644
 --- a/modernization/renderer/src/race_observer.cpp
 +++ b/modernization/renderer/src/race_observer.cpp
 @@ -1,4 +1,7 @@
@@ -764,7 +772,7 @@ diff --git a/modernization/renderer/src/race_observer.cpp b/modernization/render
  namespace {
  class NativeMemory final:public PatchMemory,public RaceReadMemory {
  public:
-@@ -178,7 +201,7 @@
+@@ -178,7 +201,7 @@ void release_race_observer() noexcept {
   else observer.install_reason="remove_unsafe_thread_or_active_execution_pinned_passthrough";
   installation_record(); // Static forwarding originals and pinned code remain valid on failed removal.
  }
@@ -773,7 +781,7 @@ diff --git a/modernization/renderer/src/race_observer.cpp b/modernization/render
   RaceCertificate c;AcquireSRWLockExclusive(&observer.lock);
   auto& e=observer.epoch;c.race_generation=e.race_generation;c.owner_lifetime=e.owner.lifetime;c.actor=e.owner.actor;c.ai=e.owner.ai;
   if(!observer.enabled||!observer.installed)c.reason="observer_unavailable";
-@@ -203,7 +226,7 @@
+@@ -203,7 +226,7 @@ RaceCertificate live_race_certificate(uintptr_t expected_camera) noexcept {
   }
   ReleaseSRWLockExclusive(&observer.lock);return c;
  }
@@ -782,7 +790,7 @@ diff --git a/modernization/renderer/src/race_observer.cpp b/modernization/render
   RaceHudContext result;
   if(!observer.enabled||!observer.installed){result.reason="observer_unavailable";return result;}
   if(observer.base!=0x400000){result.reason="unsupported_image_base";return result;}
-@@ -221,7 +244,7 @@
+@@ -221,7 +244,7 @@ RaceHudContext live_race_hud_context() noexcept {
    else {
     uint32_t scene_countdown=0;const bool countdown_active=word(scene_manager+12,scene_countdown)&&scene_countdown>0;
     const bool attract_scene=!std::strcmp(committed_name,"Hud/AttractMode");
@@ -791,7 +799,7 @@ diff --git a/modernization/renderer/src/race_observer.cpp b/modernization/render
     if(!attract_scene&&!race_scene)result.reason="committed_scene_not_race_hud";
     else if(!e.correlated_owner_candidate()||!(attract_scene?race_attract_hud_scene_proven(e):race_hud_scene_proven(e)))
      result.reason=attract_scene?"attract_hud_lifecycle_not_proven":"race_hud_lifecycle_not_proven";
-@@ -291,7 +314,7 @@
+@@ -291,7 +314,7 @@ std::string race_epoch_capture_json(uint64_t device,uint64_t frame,bool input_ob
   RaceScalar pause_menu_enabled{};const char* pause_menu_status=!installed?"race_observer_not_installed":!same_thread?"wrong_thread":base!=0x400000?"unsupported_build":"key_not_read";
   if(installed&&same_thread&&base==0x400000){pause_menu_enabled=race_broker_bool(memory,base,"Race/PauseMenu/Enabled");pause_menu_status=pause_menu_enabled.present?"typed_bool_read_only":"missing_wrong_type_or_unreadable";}
   const auto context_check=check_race_context(context,owner);
@@ -800,11 +808,10 @@ diff --git a/modernization/renderer/src/race_observer.cpp b/modernization/render
   const RaceJob* root=e.lifetime(e.owner.execution_job_lifetime);const RaceJob* hud=nullptr;
   if(root)for(size_t i=0;i<e.jobs_used;++i)if(e.jobs[i].supported_hud&&e.jobs[i].parent_lifetime==root->lifetime){hud=&e.jobs[i];break;}
   auto write_job=[](std::ostringstream& out,const RaceJob* j){if(!j){out<<"null";return;}out<<"{\"lifetime\":"<<j->lifetime<<",\"parent_job_lifetime\":"<<j->parent_lifetime<<",\"request_origin\":"<<j->request_origin<<",\"scene\":"<<quote(j->scene_text.data())<<",\"source\":"<<quote(j->source_text.data())<<",\"flag21\":"<<static_cast<unsigned>(j->flag21)<<",\"flag22\":"<<static_cast<unsigned>(j->flag22)<<",\"manager_scene_after_commit\":"<<j->manager_scene_after_commit<<",\"commit_seen\":"<<(j->commit_seen?"true":"false")<<",\"commit_success\":"<<(j->commit_success?"true":"false")<<",\"terminal\":"<<(j->terminal?"true":"false")<<",\"failed\":"<<(j->failed?"true":"false")<<"}";};
-@@ -305,4 +328,17 @@
+@@ -305,4 +328,17 @@ std::string race_epoch_capture_json(uint64_t device,uint64_t frame,bool input_ob
   o<<"],\"input_observation\":";if(input_observed)o<<"{\"toggle_key_vk\":"<<toggle_key<<",\"focused\":"<<(toggle_focused?"true":"false")<<",\"toggle_pressed_while_focused\":"<<((toggle_focused&&toggle_pressed)?"true":"false")<<",\"controller_toggle_edge\":"<<(toggle_edge?"true":"false")<<"}";else o<<"null";
   o<<",\"free_camera\":"<<free_camera_snapshot_json()<<"}";return o.str();
  }
--}
 +#ifdef MRR_ENABLE_PS2_PORT
 +atmosphere::Lifecycle atmosphere::lifecycle() noexcept {
 + atmosphere::Lifecycle r;
@@ -818,8 +825,9 @@ diff --git a/modernization/renderer/src/race_observer.cpp b/modernization/render
 +}
 +#endif
 +
-+}
+ }
 diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/renderer/src/visual_wrappers.cpp
+index 1639252..c0cc5b0 100644
 --- a/modernization/renderer/src/visual_wrappers.cpp
 +++ b/modernization/renderer/src/visual_wrappers.cpp
 @@ -3,7 +3,33 @@
@@ -1173,6 +1181,7 @@ diff --git a/modernization/renderer/src/visual_wrappers.cpp b/modernization/rend
   if(!trace.reflection_restore_pending.known)return S_OK;
   auto args=pack(1,D3DTSS_TEXCOORDINDEX,trace.reflection_restore_pending.value);
 diff --git a/modernization/renderer/src/wrappers.cpp b/modernization/renderer/src/wrappers.cpp
+index 8327b6d..b1af496 100644
 --- a/modernization/renderer/src/wrappers.cpp
 +++ b/modernization/renderer/src/wrappers.cpp
 @@ -7,14 +7,38 @@
@@ -1215,7 +1224,7 @@ diff --git a/modernization/renderer/src/wrappers.cpp b/modernization/renderer/sr
     try{s.write("{\"type\":\"unknown_query_interface\",\"interface\":\"root\",\"raw_escape_possible\":true,\"foliage_provenance_disabled\":true}");}catch(...){}
    }
   }return hr;
-@@ -41,6 +65,51 @@
+@@ -41,6 +65,51 @@ HRESULT STDMETHODCALLTYPE Root8::CreateDevice(UINT a,D3DDEVTYPE t,HWND w,DWORD f
   return hr;
  }
  Device8::Device8(IDirect3DDevice8* p,Root8* parent,std::unique_ptr<QualityPipeline> policy) noexcept:quality(std::move(policy)),real_(p),parent_(parent){parent_->AddRef();try{auto& s=session();D3DCAPS8 caps{};HRESULT hr=D3DERR_NOTAVAILABLE;if(s.visual_config.anisotropy)hr=real_->GetDeviceCaps(&caps);visuals.configure(s.visual_config,s.target,SUCCEEDED(hr)?&caps:nullptr,hr);
@@ -1267,7 +1276,7 @@ diff --git a/modernization/renderer/src/wrappers.cpp b/modernization/renderer/sr
   visuals.effective.fov=s.visual_config.fov&&s.compatibility.fov.supported();visuals.effective.fov_reason=s.compatibility.fov.reason;
   visuals.effective.reflection_mode=s.compatibility.vehicle.supported()?s.visual_config.reflection_mode:"Stock";visuals.effective.reflection_reason=s.compatibility.vehicle.reason;
   if(!quality){quality=std::make_unique<QualityPipeline>();quality->configure(s.visual_config,s.compatibility.ui.supported(),0,D3DDEVTYPE_HAL,nullptr);}
-@@ -48,6 +117,10 @@
+@@ -48,6 +117,10 @@ Device8::Device8(IDirect3DDevice8* p,Root8* parent,std::unique_ptr<QualityPipeli
   const auto flight_config=parse_free_camera_config(s.visual_config.raw_fields);
   const bool hud_feature_requested=s.target&&s.visual_config.version_ok&&s.visual_config.hud_toggle_valid&&
    (s.visual_config.hud_toggle_enabled||s.visual_config.hud_hidden_at_startup);
@@ -1278,7 +1287,7 @@ diff --git a/modernization/renderer/src/wrappers.cpp b/modernization/renderer/sr
   install_crash_log(s.config_path);
   auto physics_settings=forward_free_camera_teleport_settings(
    read_physics_probe_settings(s.config_path),flight_config);
-@@ -57,7 +130,7 @@
+@@ -57,7 +130,7 @@ Device8::Device8(IDirect3DDevice8* p,Root8* parent,std::unique_ptr<QualityPipeli
   // Reuse the already verified DrawTextPacket consumer hook for exact-retail
   // F10 ownership observation. It is pass-through unless PreserveMargins is
   // independently selected; no additional game patch site is introduced.
@@ -1287,7 +1296,7 @@ diff --git a/modernization/renderer/src/wrappers.cpp b/modernization/renderer/sr
      !ui_margins.install(s.compatibility.margins.supported()||s.target,true)&&preserve_margins_requested){
    quality->config.interface_mode="Stock";quality->config.interface_reason=ui_margins.reason;
   }
-@@ -72,10 +145,58 @@
+@@ -72,10 +145,58 @@ Device8::Device8(IDirect3DDevice8* p,Root8* parent,std::unique_ptr<QualityPipeli
   if(!s.foliage_provenance_available.load(std::memory_order_relaxed))visuals.effective.foliage_diagnostics=false;
   if(quality->valid){visuals.effective.display_mode=quality->display;visuals.effective.display_reason=quality->display_reason;visuals.effective.aa_mode=quality->effective.MultiSampleType==D3DMULTISAMPLE_NONE?"Stock":"MSAA";visuals.effective.aa_reason=quality->aa_reason;}
   if(quality->valid)ui_margins.dimensions(quality->effective.BackBufferWidth,quality->effective.BackBufferHeight);
@@ -1348,7 +1357,7 @@ diff --git a/modernization/renderer/src/wrappers.cpp b/modernization/renderer/sr
   std::lock_guard<std::recursive_mutex> l(buffer_mutex_);auto i=buffer_proxies_.find(raw);if(i!=buffer_proxies_.end()&&i->second&&i->second->kind()==BufferKind::Vertex){auto* p=static_cast<VertexBufferProxy*>(i->second->proxy_pointer());if(p->core().generation()!=trace.resources.generation(reinterpret_cast<uintptr_t>(raw))){invalidate_buffer_shadow(raw,"buffer_generation_changed_raw_escape");return raw;}p->AddRef();raw->Release();return p;}
   if(buffer_proxies_.size()>=8192){invalidate_buffer_shadow(raw,"buffer_proxy_count_limit_raw_escape");return raw;}
   auto* p=new(std::nothrow)VertexBufferProxy(this,raw,trace.resources.generation(reinterpret_cast<uintptr_t>(raw)));
-@@ -84,7 +205,7 @@
+@@ -84,7 +205,7 @@ IDirect3DVertexBuffer8* Device8::wrap_vertex_buffer(IDirect3DVertexBuffer8* raw)
   return static_cast<IDirect3DVertexBuffer8*>(p);
  }
  IDirect3DIndexBuffer8* Device8::wrap_index_buffer(IDirect3DIndexBuffer8* raw) noexcept {
@@ -1357,7 +1366,7 @@ diff --git a/modernization/renderer/src/wrappers.cpp b/modernization/renderer/sr
   std::lock_guard<std::recursive_mutex> l(buffer_mutex_);auto i=buffer_proxies_.find(raw);if(i!=buffer_proxies_.end()&&i->second&&i->second->kind()==BufferKind::Index){auto* p=static_cast<IndexBufferProxy*>(i->second->proxy_pointer());if(p->core().generation()!=trace.resources.generation(reinterpret_cast<uintptr_t>(raw))){invalidate_buffer_shadow(raw,"buffer_generation_changed_raw_escape");return raw;}p->AddRef();raw->Release();return p;}
   if(buffer_proxies_.size()>=8192){invalidate_buffer_shadow(raw,"buffer_proxy_count_limit_raw_escape");return raw;}
   auto* p=new(std::nothrow)IndexBufferProxy(this,raw,trace.resources.generation(reinterpret_cast<uintptr_t>(raw)));
-@@ -141,17 +262,52 @@
+@@ -141,17 +262,52 @@ bool Device8::copy_buffer_shadow(void* raw,BufferKind kind,uint64_t gen,uint64_t
   try{out.assign(mirror.data.begin()+static_cast<size_t>(offset),mirror.data.begin()+static_cast<size_t>(end));return true;}catch(...){out.clear();return false;}
  }
  void Device8::invalidate_buffer_shadow(void* raw,const char* reason) noexcept {std::lock_guard<std::recursive_mutex> l(buffer_mutex_);auto i=buffer_mirrors_.find(raw);if(i==buffer_mirrors_.end()||!i->second)return;auto& mirror=*i->second;std::lock_guard<std::mutex> m(mirror.mutex);mirror.poisoned=true;mirror.initialized.clear();if(mirror.revision!=UINT64_MAX)++mirror.revision;try{mirror.poison_reason=reason?reason:"external_gpu_write";}catch(...){mirror.poison_reason.clear();}}
@@ -1412,7 +1421,7 @@ diff --git a/modernization/renderer/src/wrappers.cpp b/modernization/renderer/sr
   }trace.after(0,args,static_cast<uint32_t>(hr),pc);return hr;
  }
  ULONG STDMETHODCALLTYPE Device8::AddRef(){
-@@ -162,7 +318,18 @@
+@@ -162,7 +318,18 @@ ULONG STDMETHODCALLTYPE Device8::Release(){
   ULONG n;bool last;
   {
    auto observer=trace.guard();auto args=pack();auto pc=reinterpret_cast<uintptr_t>(_ReturnAddress());trace.before(2,args,pc);
@@ -1433,6 +1442,7 @@ diff --git a/modernization/renderer/src/wrappers.cpp b/modernization/renderer/sr
   }
   if(last){trace.shutdown(n);ui_margins.capture_window(false,trace.frame_number(),trace.device_id(),"device_release");delete this;}return n;
 diff --git a/modernization/renderer/src/game_fov.cpp b/modernization/renderer/src/game_fov.cpp
+index e08580a..d2d1abb 100644
 --- a/modernization/renderer/src/game_fov.cpp
 +++ b/modernization/renderer/src/game_fov.cpp
 @@ -11,7 +11,16 @@
@@ -1452,7 +1462,26 @@ diff --git a/modernization/renderer/src/game_fov.cpp b/modernization/renderer/sr
  
  namespace {
  // Development-only collision-probe teleport: Ctrl+Alt+1..9 relocates the human car to
-@@ -381,7 +390,7 @@ void GameFov::before_submit(unsigned index) noexcept {
+@@ -87,6 +96,8 @@ struct FlightState {
+  }
+ };
+ namespace {FlightState flight_state;}
++namespace {std::atomic<uint64_t> bookmark_notice_serial{0};CameraBookmarkNotice bookmark_notice_value;}
++CameraBookmarkNotice camera_bookmark_notice() noexcept {CameraBookmarkNotice n=bookmark_notice_value;n.serial=bookmark_notice_serial.load(std::memory_order_acquire);return n;}
+ 
+ namespace detail {uintptr_t original_submit=0;}
+ namespace {
+@@ -156,6 +167,9 @@ void load_course_bookmarks(FlightState& f) noexcept {
+  }catch(...){f.bookmark_path.clear();f.bookmarks=CameraBookmarkSet{};f.bookmark_storage=CameraBookmarkIo::path_unavailable;}
+ }
+ void bookmark_result(FlightState& f,const char* action,const char* result) noexcept {
++ {auto& n=bookmark_notice_value;n.slot=f.bookmark_current_slot;n.slots=static_cast<unsigned>(CAMERA_BOOKMARK_SLOT_COUNT);
++  n.present=n.slot>=1&&n.slot<=n.slots&&f.bookmarks.slots[n.slot-1].present;n.action=action?action:"";n.result=result?result:"";
++  bookmark_notice_serial.fetch_add(1,std::memory_order_release);}
+  f.bookmark_last_action=action?action:"unknown";f.bookmark_last_result=result?result:"unknown";
+  if(f.bookmark_action_count!=UINT64_MAX)++f.bookmark_action_count;
+  const char* event="bookmark_invalid";
+@@ -381,7 +395,7 @@ void GameFov::before_submit(unsigned index) noexcept {
    const RaceScalar pause=read_pause_menu_state_readonly();f.pause_known=pause.present&&pause.tag==0;f.pause_enabled=f.pause_known&&pause.value!=0;
    publish_physics_probe_pause_state(f.pause_known,f.pause_enabled,GetTickCount64());
    auto input=f.input.sample(f.config,f.controller.active);
@@ -1461,7 +1490,7 @@ diff --git a/modernization/renderer/src/game_fov.cpp b/modernization/renderer/sr
    bool visible=f.visible&&f.visible_certificate.camera==camera&&f.visible_certificate.owner_lifetime==f.certificate.owner_lifetime&&f.visible_certificate.race_generation==f.certificate.race_generation;
    f.admission=evaluate_free_camera_admission(f.config.enabled,f.config.allow_unpaused,
     f.certificate.valid,f.certificate.camera!=0,f.pause_known,f.pause_enabled,input.focused);
-@@ -416,7 +425,7 @@ void GameFov::before_submit(unsigned index) noexcept {
+@@ -416,7 +430,7 @@ void GameFov::before_submit(unsigned index) noexcept {
    f.reason=flying?"freecam_active":!f.admission.admitted?f.admission.reason:visible?"ready_toggle_off":"awaiting_displayed_stock_view";
    if(flying){effective_pose=&f.controller.pose;f.scope_certificate=f.certificate;f.pose_scope=true;}
   }
@@ -1470,7 +1499,7 @@ diff --git a/modernization/renderer/src/game_fov.cpp b/modernization/renderer/sr
    if(effective_pose&&flight_&&flight_->config.cinematic_fov_enabled&&flight_->controller.current_vertical_fov()>0)fov=static_cast<float>(flight_->controller.current_vertical_fov());
    if(flight_){flight_->projection_frustum_synchronized=false;flight_->projection_reason=effective_pose&&flight_->config.cinematic_fov_enabled?"awaiting_cinematic_projection":"awaiting_projection_call";}
    if(!frame_.begin(reinterpret_cast<CameraFrame*>(camera),fov,effective_pose)){if(flight_){flight_->controller.cancel();flight_->input.set_cursor_capture(false);flight_->pose_scope=false;++flight_->failures;flight_->reason="effective_camera_ineligible_or_write_failed";flight_->projection_reason="frustum_scope_failed";if(!frame_.status.restored)flight_->admission={false,"none","scope_restoration_failed"};}if(!frame_.status.restored)disable("camera_restore_failed");}
-@@ -436,7 +445,7 @@ void GameFov::before_submit(unsigned index) noexcept {
+@@ -436,7 +450,7 @@ void GameFov::before_submit(unsigned index) noexcept {
     f.reported_valid=f.certificate.valid;f.reported_active=f.controller.active;f.reported_horizon_leveling=f.controller.horizon_leveling_active;f.reported_race=f.certificate.race_generation;f.reported_owner=f.certificate.owner_lifetime;f.reported_input_focused=f.input_focused;f.reported_toggle_pressed=f.toggle_pressed_focused;f.reported_toggle_edge=f.toggle_edge;f.reported_cursor_capture=f.input.cursor_capture_active();f.reported_speed_adjustments=f.controller.speed_adjustment_count();f.reported_clean_view_requested=f.clean_view_requested;f.reported_pause_known=f.pause_known;f.reported_pause_enabled=f.pause_enabled;f.reported_admission_accepted=f.admission.admitted;f.reported_admission_mode=f.admission.mode;f.reported_bookmark_slot=f.bookmark_current_slot;f.reported_bookmark_action_count=f.bookmark_action_count;f.reported_reason=f.reason;f.reported_foreground_hwnd=window_state.foreground_hwnd;f.reported_keyboard_focus_hwnd=window_state.keyboard_focus_hwnd;f.reported_wndproc_owned=window_state.wndproc_owned;f.reported_window_valid=window_state.window_valid;f.reported_minimized=window_state.minimized;
    try{if(transition)session().write("{\"type\":\"freecam_transition\",\"phase\":\"R-CAM1-LIVE\",\"event\":"+quote(transition)+",\"active\":"+(f.controller.active?"true":"false")+",\"allow_unpaused_configured\":"+(f.config.allow_unpaused?"true":"false")+",\"admission_mode\":"+quote(f.admission.mode)+",\"admission_accepted\":"+(f.admission.admitted?"true":"false")+",\"native_pause_known\":"+(f.pause_known?"true":"false")+",\"native_pause_enabled\":"+(f.pause_enabled?"true":"false")+",\"race_certificate_valid\":"+(f.certificate.valid?"true":"false")+",\"camera_owner_accepted\":"+(f.certificate.camera?"true":"false")+",\"input_focus_accepted\":"+(f.input_focused?"true":"false")+",\"camera_scope_active\":"+(frame_.status.synchronized&&!frame_.status.restored?"true":"false")+",\"camera_scope_restored\":"+(frame_.status.restored?"true":"false")+",\"race_generation\":"+std::to_string(f.certificate.race_generation)+",\"owner_lifetime\":"+std::to_string(f.certificate.owner_lifetime)+",\"reason\":"+quote(f.reason)+"}");
     session().write("{\"type\":\"free_camera_state\",\"phase\":\"R-CAM1-A3g\",\"state\":"+camera_json()+"}");
@@ -1480,10 +1509,18 @@ diff --git a/modernization/renderer/src/game_fov.cpp b/modernization/renderer/sr
     // freecam state/input transition. This keeps F10 reserved and records the
     // root/HUD jobs, their copied flags and commit results, RaceState admission,
 diff --git a/modernization/renderer/include/free_camera.hpp b/modernization/renderer/include/free_camera.hpp
-index 36307ef..49d3d64 100644
+index 36307ef..ac2286a 100644
 --- a/modernization/renderer/include/free_camera.hpp
 +++ b/modernization/renderer/include/free_camera.hpp
-@@ -42,11 +42,12 @@ struct FreeCameraAdmission {bool admitted=false;const char* mode="none";const ch
+@@ -38,15 +38,20 @@ struct FlightBookmarkPose {
+  bool auto_level_horizon=true,cinematic_fov_enabled=true;
+ };
+ struct FlightInput {bool focused=false,toggle=false,speed_increase=false,speed_decrease=false,fov_decrease=false,fov_increase=false,roll_left=false,roll_right=false,roll_reset=false,clean_view_toggle=false,arm_road_teleport=false;bool save_camera_bookmark=false,load_camera_bookmark=false,next_camera_bookmark_slot=false;std::array<bool,8> keys{};float mouse_x=0,mouse_y=0;double seconds=0,inherited_vfov=0;int wheel_delta=0;};
++// Last FreeCam bookmark action (select/save/load) for an optional on-screen label.
++// action/result point at static strings; serial increases with every action.
++struct CameraBookmarkNotice {uint64_t serial=0;unsigned slot=0,slots=0;bool present=false;const char* action="";const char* result="";};
++CameraBookmarkNotice camera_bookmark_notice() noexcept;
+ struct FreeCameraAdmission {bool admitted=false;const char* mode="none";const char* reason="disabled";};
  inline FreeCameraAdmission evaluate_free_camera_admission(bool configured,bool allow_unpaused,
   bool live_race_certificate,bool camera_owner_valid,bool pause_known,bool paused,bool input_focus) noexcept {
   if(!configured)return {false,"none","disabled"};

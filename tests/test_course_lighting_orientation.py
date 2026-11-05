@@ -184,3 +184,12 @@ class Atmosphere5NameRoles(unittest.TestCase):
             self.assertEqual(plain(name),(4,lighting.PLAIN),name)
         for name in ('ravine-tga','temp-tga','ctyre-tga','s_light01-tga'):
             self.assertEqual(plain(name),(0,lighting.DENY),name)
+
+class CourseTyreRoles(unittest.TestCase):
+    def test_vehicle_words_need_explicit_static_role(self):
+        for name in ('ctyre-tga','tred1-tga','wheel-tga'):
+            self.assertEqual(lighting.material_role(name,(name,'Null','Null')),(0,lighting.DENY))
+            self.assertEqual(lighting.material_role(name,(name,'Null','Null'),'static'),(4,lighting.PLAIN))
+            self.assertEqual(lighting.material_role(name,(name,'Null','Null'),'signage'),(0,lighting.DENY))
+        self.assertFalse(lighting.static_environment_capability('wheel-tga',[('wheel-tga','aluminium-tga','Null')]))
+        self.assertEqual(lighting.material_role('glass-tga',('glass-tga','Null','Null'),'static'),(0,lighting.DENY))

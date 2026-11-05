@@ -49,7 +49,10 @@
     "planealpha-tga": "static",
     "newtex-tga": "static",
     "canyon_no_line-tga": "terrain",
-    "pavement-tga": "terrain"
+    "pavement-tga": "terrain",
+    "ctyre-tga": "static",
+    "tred1-tga": "static",
+    "wheel-tga": "static"
   },
   "France1": {
     "masterlogo-tga": "signage",

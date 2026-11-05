@@ -31,8 +31,13 @@ def material_role(name: str, textures: tuple[str, ...], explicit: str | None = N
     # its bridge rails. Without an explicit role a boat material stays Deny,
     # because no automatic category token matches it.
     excluded = ('water', 'glass', 'window', 'windscreen', 'windshield', 'perspex', 'glow', 'flare', 'lamp', 'headlight', 'taillight', 'shadow', 'decal',
-                'wheel', 'tyre', 'tire', 'tred', 'reflection', 'chrome')
+                'reflection', 'chrome')
+    # Vehicle-part words also name static course props (ctyre tyre stacks). Only
+    # an explicit author 'static' role may lift them; never inferred by name.
+    vehicle_words = ('wheel', 'tyre', 'tire', 'tred')
     if any(token in label for token in excluded) or len(textures) != 3 or textures[1] != 'Null' or textures[2] not in ('Null', 'noise-tga'):
+        return 0, DENY
+    if explicit != 'static' and any(token in label for token in vehicle_words):
         return 0, DENY
     if explicit is not None and explicit not in ROLES:
         raise ValueError(f'unknown lighting role {explicit!r}')
@@ -103,6 +108,7 @@ def static_environment_capability(name, contracts, explicit=None):
     # Live admission still needs opaque identity-world geometry and normals,
     # both texture identities, and the original reflection stage contract.
     allowed=STATIC_ENVIRONMENTS if explicit=='static' else tuple(e for e in STATIC_ENVIRONMENTS if e not in ROLE_ONLY_ENVIRONMENTS)
+    if explicit!='static' and any(t in name.lower() for t in ('wheel','tyre','tire','tred')):return False
     return explicit in (None,'static') and material_role(name,(name,'Null','Null'),'static')==(4,PLAIN) and all(len(c)==3 and c[1] in ('Null',*allowed) and c[2]=='Null' for c in contracts) and any(c[1] in allowed for c in contracts)
 
 

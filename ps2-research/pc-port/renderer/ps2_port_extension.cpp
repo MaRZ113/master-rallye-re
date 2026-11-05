@@ -206,6 +206,8 @@ PS2PortExtension::PS2PortExtension(bool exact_build, const std::string& exe_sha,
     if (!build_valid_) { config_reason_ = "unsupported_build_stock"; return; }
     try { atmosphere_ = std::make_unique<atmosphere::Pilot>(build_valid_, renderer_ini); }
     catch (...) { atmosphere_.reset(); }
+    try { bookmark_osd_.configure(::gfx2::ps2port::config::read_int(L"FreeCamBookmarkLabel", 1, port_ini_path(renderer_ini).c_str()) == 1); }
+    catch (...) { bookmark_osd_.configure(false); }
     if (retail_derivative_) try {
         const auto ini = port_ini_path(renderer_ini);
         if (::gfx2::ps2port::config::read_int(L"RetailDerivativeEffects", 0, ini.c_str()) != 1) {
@@ -343,6 +345,7 @@ bool PS2PortExtension::native_states_pending() const noexcept {
         (birds_ && (birds_->blocked() || birds_->transaction.has_pending())) ||
         (rigid_props_ && (rigid_props_->blocked() || rigid_props_->transaction.has_pending())) ||
         (collision_debug_ && (collision_debug_->blocked() || collision_debug_->transaction.has_pending() || collision_debug_->legend_layer.pending())) ||
+        bookmark_osd_.pending() ||
         (water_ && (water_->blocked() || water_->transaction.pending())) ||
         color_.pending() || output_.pending() || blur_.pending() || (ground_ && ground_->transaction.pending()) ||
         (hud_damage_ && hud_damage_->layer.pending()) || (hud_map_ && hud_map_->layer.pending()) ||
@@ -722,6 +725,11 @@ std::string PS2PortExtension::color_present(IDirect3DDevice8& device, bool scene
                         float(desc.Width / 2 - 128), 16.f, 256.f, scene_active, stateblock_recording);
                 back->Release();
             }
+        }
+        // FreeCam bookmark label: over the finished frame, before the collision legend.
+        if (bookmark_osd_.requested()) {
+            const HRESULT hr = bookmark_osd_.present(device, scene_active, stateblock_recording);
+            if (FAILED(hr)) { if (!notes.empty()) notes += "\n"; notes += "{\"type\":\"freecam_bookmark_label\",\"hr\":" + std::to_string(static_cast<long>(hr)) + "}"; }
         }
         // COLLISION-DEBUG1: the collision legend of this frame, last, over the HUD and every post pass.
         if (collision_debug_ && collision_debug_->legend_ready()) {
