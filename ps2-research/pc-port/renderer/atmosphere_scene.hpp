@@ -69,7 +69,10 @@ inline uint32_t world_environment_factor(const Lighting& s)noexcept {
     if(!s.active())return 0xffffffffu;
     auto energy=s;energy.prelight_contrast=1;energy.prelight_visibility=0;energy.surface_tone=false;
     const auto ambient=scene_color(0xffffffffu,{0,0,0},energy);uint32_t out=0xff000000u;
-    for(unsigned shift:{0u,8u,16u})out|=uint32_t(std::lround(255*std::sqrt(float((ambient>>shift)&255)/255)))<<shift;
+    // Night (AmbientStrength < .5): static reflections fade with the world;
+    // .5 and above keeps the accepted sqrt response unchanged.
+    const float night=std::clamp(s.ambient_strength/.5f,0.f,1.f);
+    for(unsigned shift:{0u,8u,16u})out|=uint32_t(std::lround(255*night*std::sqrt(float((ambient>>shift)&255)/255)))<<shift;
     return out;
 }
 inline uint32_t environment_texel(uint32_t source,uint32_t factor)noexcept {

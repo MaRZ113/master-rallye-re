@@ -220,6 +220,7 @@ inline HRESULT before_ui(Device8& d,bool ui_callsite) noexcept {
     if(!p->runtime().build(in.camera,view16,0.f,batches)){p->proof.clear();return gate("world_vertices_nonfinite");}
     // ATMOSPHERE2.5: lit like the course objects; additive environment and shadow passes keep their source colour.
     for(auto& batch:batches)if(batch.pass!=ps2port::RigidPass::Env&&batch.pass!=ps2port::RigidPass::Shadow)atmosphereintegration::light_proxy_layer(d,batch.vertices,false);
+        else if(batch.pass==ps2port::RigidPass::Env)atmosphereintegration::light_proxy_environment(d,batch.vertices);
     // Course fog as the game left it: linear vertex fog, or any table (pixel) fog mode. Without a fog source the
     // fixed-function vertex fog would read the missing specular alpha, so fog stays off then.
     bool fog=false;DWORD fog_vertex=0,fog_table=0,fog_enable=0;float fog_start=0,fog_end=0;

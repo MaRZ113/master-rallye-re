@@ -8,6 +8,7 @@ namespace gfx2::atmospherebody {
 inline HRESULT begin(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UINT start,UINT count,uintptr_t pc,bool& applied)noexcept {
     applied=false;
     try{const auto result=general(d,type,min,vertices,start,count,pc,applied);if(applied||FAILED(result))return result;}catch(...){return atmosphereintegration::repair(d);}
+    {const auto result=night_energy(d,min,vertices,start,count,pc,applied);if(applied||FAILED(result))return result;}
     auto* p=atmosphereintegration::pilot(d);
     if(!p||!p->enabled()||!p->body_tata||!p->lighting.active()||type!=D3DPT_TRIANGLELIST||vertices!=48||count!=55||
        pc!=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+0x17707e||!d.trace.scene_active||

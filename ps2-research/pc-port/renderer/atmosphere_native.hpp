@@ -62,6 +62,14 @@ inline void light_proxy_layer(Device8& d,std::vector<ps2port::ObjectVertex>& v,b
         ++p->proxy_layer_draws;
     }catch(...){}
 }
+// Additive environment layers of proxy-drawn props (PS2 bales, barrels):
+// texture*diffuse with white vertices; the world environment energy (night-
+// scaled) replaces the white so reflections fade with the world.
+inline void light_proxy_environment(Device8& d,std::vector<ps2port::ObjectVertex>& v)noexcept {
+    auto* p=pilot(d);if(!p||!p->enabled()||!p->world||!p->lighting.active())return;
+    const auto factor=atmosphere::world_environment_factor(p->lighting);
+    for(auto& x:v)x.color=atmosphere::environment_texel(x.color,factor);
+}
 inline void log(Device8& d,const char* reason)noexcept {
     try{session().write("{\"type\":\"atmosphere_draw\",\"reason\":"+quote(std::string(reason))+",\"frame\":"+std::to_string(d.trace.frame_number())+"}");}catch(...){}
 }

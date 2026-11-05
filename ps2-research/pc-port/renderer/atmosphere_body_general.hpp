@@ -2,6 +2,41 @@
 #include "atmosphere_body_common.hpp"
 #include "atmosphere_body_binding.hpp"
 namespace gfx2::atmospherebody {
+// Night only (AmbientStrength < .5): vehicle passes the body path does not
+// light (glass, lamp lenses, mirrors, reflection-only parts) keep full texture
+// brightness. Scale their final colour by the night body energy with one extra
+// TFACTOR stage (after the native stages; alpha, blend, UV untouched).
+// Emissive lamp layers (*lightson*, *glow*) are left bright on purpose.
+inline HRESULT night_energy(Device8& d,UINT,UINT,UINT,UINT count,uintptr_t pc,bool& applied)noexcept {
+    applied=false;auto* p=atmosphereintegration::pilot(d);
+    if(!p||!p->enabled()||!p->lighting.active()||p->lighting.ambient_strength>=.5f||!count||
+       pc!=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+0x17707e||!d.trace.scene_active||d.trace.shadow.recording||d.trace.effective_shadow.recording||GetCurrentThreadId()!=d.trace.render_thread_id())return S_OK;
+    try{
+        auto& n=*d.native();bool single=false;const auto cert=courseintegration::certificate(d,single);if(!single||!cert.valid)return S_OK;
+        DWORD fvf=0,pixel=1;if(FAILED(n.GetVertexShader(&fvf))||FAILED(n.GetPixelShader(&pixel))||pixel||!groundintegration::render(d,n,D3DRS_LIGHTING,FALSE))return S_OK;
+        frontendmodelintegration::Context owner;if(!frontendmodelintegration::fleet_owner(frontendmodelintegration::caller_stack,pc,owner))return S_OK;
+        const auto exe=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));atmosphere::NativeMaterialBinding binding;
+        if(!atmosphere::native_material_binding(exe,owner.mesh,frontendmodelintegration::word,binding))return S_OK;
+        for(const auto& raw:binding.names){std::string name=raw;for(auto& c:name)c=char(std::tolower(static_cast<unsigned char>(c)));
+            if(name.find("lightson")!=std::string::npos||name.find("glow")!=std::string::npos)return S_OK;}
+        DWORD op1=0,op2=0,op3=0;if(FAILED(n.GetTextureStageState(1,D3DTSS_COLOROP,&op1))||FAILED(n.GetTextureStageState(2,D3DTSS_COLOROP,&op2)))return S_OK;
+        const DWORD unit=op1==D3DTOP_DISABLE?1:op2==D3DTOP_DISABLE?2:0;if(!unit)return S_OK;
+        if(unit==2&&(FAILED(n.GetTextureStageState(3,D3DTSS_COLOROP,&op3))||op3!=D3DTOP_DISABLE))return S_OK;
+        if(!p->wheel_caps){D3DCAPS8 caps{};p->wheel_caps=SUCCEEDED(n.GetDeviceCaps(&caps))&&caps.MaxTextureBlendStages>=3&&(caps.TextureOpCaps&D3DTEXOPCAPS_MODULATE)&&(caps.TextureOpCaps&D3DTEXOPCAPS_SELECTARG1)?1:2;}
+        if(p->wheel_caps!=1)return S_OK;
+        auto& s=p->pending;if(s.any())return S_OK; // another atmosphere change owns this draw
+        constexpr D3DTEXTURESTAGESTATETYPE keys[]{D3DTSS_COLOROP,D3DTSS_COLORARG1,D3DTSS_COLORARG2,D3DTSS_ALPHAOP,D3DTSS_ALPHAARG1,D3DTSS_RESULTARG,D3DTSS_ALPHAARG2};
+        for(unsigned i=0;i<7;++i)if(FAILED(n.GetTextureStageState(unit,keys[i],&s.body_stage[i])))return S_OK;
+        if(FAILED(n.GetRenderState(D3DRS_TEXTUREFACTOR,&s.body_factor)))return S_OK;
+        s.body_unit=unit;const DWORD values[]{D3DTOP_MODULATE,D3DTA_CURRENT,D3DTA_TFACTOR,D3DTOP_SELECTARG1,D3DTA_CURRENT,D3DTA_CURRENT,D3DTA_CURRENT};
+        const DWORD factor=(s.body_factor&0xff000000u)|(atmosphere::flat_body_color(0xffffffffu,p->lighting)&0x00ffffffu);
+        for(unsigned i:{7u,1u,2u,3u,4u,5u,6u,0u}){s.body_pending|=1u<<i;const auto hr=i==7?n.SetRenderState(D3DRS_TEXTUREFACTOR,factor):n.SetTextureStageState(unit,keys[i],values[i]);
+            if(i==7)atmosphereintegration::notify(d,50,pack(D3DRS_TEXTUREFACTOR,factor),hr);else atmosphereintegration::notify(d,63,pack(unit,keys[i],values[i]),hr);if(FAILED(hr))return atmosphereintegration::repair(d);}
+        applied=true;
+        if(p->first_reason("vehicle_night_energy"))session().write("{\"type\":\"atmosphere_vehicle_night_energy\",\"factor\":"+std::to_string(factor)+",\"unit\":"+std::to_string(unit)+",\"material\":"+quote(binding.names[0])+"}");
+        return S_OK;
+    }catch(...){if(!p->pending.any())p->pending.release();return atmosphereintegration::repair(d);}
+}
 inline HRESULT general(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UINT start,UINT count,uintptr_t pc,bool& applied) {
     auto* p=atmosphereintegration::pilot(d);if(!p||!p->enabled()||!p->body_materials||!p->lighting.active()||!vertices||vertices>8192||!count||count>8192||type!=D3DPT_TRIANGLELIST||
        pc!=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+0x17707e||!d.trace.scene_active||d.trace.shadow.recording||d.trace.effective_shadow.recording||GetCurrentThreadId()!=d.trace.render_thread_id())return S_OK;
