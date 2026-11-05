@@ -173,3 +173,19 @@ DLL `b0b20ec01e5330ef45e8185f794436b333f74fc8d60a40ca9f4c87501c62c877`, CTest 24
 Пакеты `batch-006`: только Deny → Lit + сертификаты `rubber`/`whitepaint` (`package-diff-5.5.txt`).
 DLL `56052e0c7e168287dcb4df26d05d470c6c72f4a4ecad3a0105e76e7c4e65693c`, CTest 24/24 + 46/46, Python OK.
 Комплект: `.research-output/atmosphere5/candidate-5.5/Install-5.5.ps1` (игра должна быть закрыта; делает откат-копию).
+
+## 10. ATMOSPHERE5.6 — полный аудит (все трассы, кроме Invitation) и фаза без сертификата
+
+Прогон владельца на 5.4 (37 сцен): Lit 59–94% треугольников (`coverage-5.4-summary.json`). Без учёта
+дыр, закрытых в 5.5, и неба/воды/машин главный остаток — **draw'ы в кадрах без сертификата гонки**
+(`single_camera_race_certificate_missing`, на всех 35 трассах; в основном текстуры машин, но и трасса:
+деревья, сено, `ctyre`, `shrubtrig2`). FranceS2 30% Unsupported — то же самое + `f_conc` env (закрыт в 5.5).
+
+Проверка 5.5 по отдельному учёту (`coverage-5.5-summary.json`): ItalyM1 84.5 → 95.0%, FranceS1
+87.3 → 91.8%; остаток Turkey3/FranceS1 — почти целиком несертифицированные кадры.
+
+5.6: при `CoverageLedger=1` причина пишется как `certificate_missing:<фаза>:<причина>`
+(`replay`/`attract`/`countdown`/`paused`/`race` или `hud:<причина>`; `cameras_not_single`), фаза
+кэшируется на кадр. Рендер не меняется. Старые учёты 5.4/5.5 перенесены в `logs/coverage-5.4/`.
+
+DLL `108b9b69954f2e5139ab9fa727ebc86c8a0df6a0a87b82067a7e879e669b7795`, CTest 24/24 + 46/46. Откат: `rollback-56052e0c`.

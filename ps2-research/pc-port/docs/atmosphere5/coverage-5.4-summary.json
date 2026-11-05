@@ -1,0 +1,335 @@
+{
+  "schema": 1,
+  "ledgers": [
+    "coverage-13568.json",
+    "coverage-5760.json"
+  ],
+  "courses": {
+    "france1": {
+      "Lit": 86.03,
+      "Sky or unlit card": 4.75,
+      "Untouched": 4.73,
+      "Unsupported": 3.21,
+      "Shader mismatch": 0.57,
+      "Excluded": 0.45,
+      "Unclassified": 0.26
+    },
+    "france2": {
+      "Lit": 87.05,
+      "Sky or unlit card": 4.74,
+      "Untouched": 4.19,
+      "Unsupported": 2.56,
+      "Excluded": 0.91,
+      "Shader mismatch": 0.5,
+      "Unclassified": 0.05
+    },
+    "francem": {
+      "Lit": 85.59,
+      "Sky or unlit card": 5.93,
+      "Untouched": 4.81,
+      "Unsupported": 2.28,
+      "Excluded": 0.88,
+      "Shader mismatch": 0.48,
+      "Unclassified": 0.03
+    },
+    "frances1": {
+      "Lit": 87.28,
+      "Sky or unlit card": 5.31,
+      "Untouched": 3.31,
+      "Unsupported": 2.82,
+      "Excluded": 1.0,
+      "Shader mismatch": 0.27,
+      "Unclassified": 0.01
+    },
+    "frances2": {
+      "Lit": 59.16,
+      "Unsupported": 30.23,
+      "Untouched": 5.9,
+      "Sky or unlit card": 3.14,
+      "Excluded": 1.27,
+      "Shader mismatch": 0.27,
+      "Unclassified": 0.04
+    },
+    "francew": {
+      "Lit": 85.15,
+      "Unsupported": 4.86,
+      "Untouched": 4.16,
+      "Sky or unlit card": 4.07,
+      "Excluded": 1.49,
+      "Shader mismatch": 0.24,
+      "Unclassified": 0.03
+    },
+    "francewflip": {
+      "Lit": 81.8,
+      "Unsupported": 6.88,
+      "Untouched": 5.56,
+      "Sky or unlit card": 3.64,
+      "Excluded": 1.74,
+      "Shader mismatch": 0.33,
+      "Unclassified": 0.05
+    },
+    "italy1": {
+      "Lit": 90.8,
+      "Unsupported": 4.18,
+      "Sky or unlit card": 4.05,
+      "Excluded": 0.62,
+      "Shader mismatch": 0.33,
+      "Unclassified": 0.02
+    },
+    "italy2": {
+      "Lit": 74.4,
+      "Shader mismatch": 15.89,
+      "Sky or unlit card": 3.44,
+      "Unsupported": 3.41,
+      "Untouched": 2.33,
+      "Excluded": 0.52,
+      "Unclassified": 0.01
+    },
+    "italy3": {
+      "Lit": 83.63,
+      "Untouched": 7.95,
+      "Sky or unlit card": 4.21,
+      "Unsupported": 3.37,
+      "Excluded": 0.47,
+      "Shader mismatch": 0.36,
+      "Unclassified": 0.01
+    },
+    "italym1": {
+      "Lit": 84.49,
+      "Shader mismatch": 8.97,
+      "Sky or unlit card": 3.81,
+      "Unsupported": 1.63,
+      "Excluded": 0.81,
+      "Untouched": 0.26,
+      "Unclassified": 0.03
+    },
+    "italym1flip": {
+      "Lit": 77.66,
+      "Shader mismatch": 15.06,
+      "Sky or unlit card": 3.9,
+      "Unsupported": 2.0,
+      "Excluded": 1.04,
+      "Untouched": 0.32,
+      "Unclassified": 0.02
+    },
+    "italym2": {
+      "Lit": 80.99,
+      "Shader mismatch": 9.36,
+      "Sky or unlit card": 4.82,
+      "Untouched": 2.71,
+      "Unsupported": 1.65,
+      "Excluded": 0.45,
+      "Unclassified": 0.02
+    },
+    "italys1": {
+      "Lit": 84.84,
+      "Shader mismatch": 6.59,
+      "Sky or unlit card": 3.07,
+      "Unsupported": 2.57,
+      "Untouched": 2.54,
+      "Excluded": 0.38,
+      "Unclassified": 0.01
+    },
+    "italys2": {
+      "Lit": 83.46,
+      "Shader mismatch": 8.71,
+      "Sky or unlit card": 4.86,
+      "Unsupported": 2.28,
+      "Excluded": 0.58,
+      "Untouched": 0.06,
+      "Unclassified": 0.04
+    },
+    "italys3": {
+      "Lit": 72.05,
+      "Shader mismatch": 14.99,
+      "Sky or unlit card": 4.35,
+      "Excluded": 3.92,
+      "Untouched": 2.6,
+      "Unsupported": 1.99,
+      "Unclassified": 0.1
+    },
+    "italys3flip": {
+      "Lit": 76.22,
+      "Shader mismatch": 10.38,
+      "Unsupported": 4.38,
+      "Sky or unlit card": 4.26,
+      "Untouched": 4.22,
+      "Excluded": 0.53,
+      "Unclassified": 0.03
+    },
+    "italys4": {
+      "Lit": 75.32,
+      "Shader mismatch": 11.0,
+      "Untouched": 4.29,
+      "Sky or unlit card": 3.83,
+      "Excluded": 3.63,
+      "Unsupported": 1.89,
+      "Unclassified": 0.05
+    },
+    "italyw1": {
+      "Lit": 84.64,
+      "Shader mismatch": 7.0,
+      "Sky or unlit card": 4.48,
+      "Unsupported": 1.99,
+      "Untouched": 1.29,
+      "Excluded": 0.56,
+      "Unclassified": 0.03
+    },
+    "italyw2": {
+      "Lit": 82.08,
+      "Shader mismatch": 5.88,
+      "Untouched": 5.43,
+      "Sky or unlit card": 3.6,
+      "Unsupported": 2.12,
+      "Excluded": 0.85,
+      "Unclassified": 0.04
+    },
+    "spain1": {
+      "Lit": 90.5,
+      "Sky or unlit card": 3.23,
+      "Untouched": 2.71,
+      "Unsupported": 1.66,
+      "Shader mismatch": 1.0,
+      "Excluded": 0.88,
+      "Unclassified": 0.02
+    },
+    "spain2": {
+      "Lit": 94.24,
+      "Sky or unlit card": 2.86,
+      "Unsupported": 1.55,
+      "Untouched": 0.96,
+      "Shader mismatch": 0.19,
+      "Excluded": 0.18,
+      "Unclassified": 0.01
+    },
+    "spainm": {
+      "Lit": 93.38,
+      "Sky or unlit card": 3.57,
+      "Unsupported": 1.09,
+      "Untouched": 0.79,
+      "Excluded": 0.6,
+      "Shader mismatch": 0.51,
+      "Unclassified": 0.06
+    },
+    "spains1": {
+      "Lit": 92.37,
+      "Sky or unlit card": 3.65,
+      "Untouched": 1.84,
+      "Unsupported": 1.24,
+      "Shader mismatch": 0.58,
+      "Excluded": 0.32,
+      "Unclassified": 0.01
+    },
+    "spains1flip": {
+      "Lit": 91.24,
+      "Sky or unlit card": 3.68,
+      "Unsupported": 2.74,
+      "Untouched": 1.38,
+      "Excluded": 0.56,
+      "Shader mismatch": 0.36,
+      "Unclassified": 0.04
+    },
+    "spains2": {
+      "Lit": 91.58,
+      "Untouched": 2.86,
+      "Sky or unlit card": 2.84,
+      "Unsupported": 1.42,
+      "Shader mismatch": 0.65,
+      "Excluded": 0.62,
+      "Unclassified": 0.02
+    },
+    "spainw": {
+      "Lit": 90.05,
+      "Sky or unlit card": 3.62,
+      "Untouched": 3.44,
+      "Unsupported": 1.35,
+      "Excluded": 0.76,
+      "Shader mismatch": 0.74,
+      "Unclassified": 0.03
+    },
+    "spainwflip": {
+      "Lit": 90.42,
+      "Sky or unlit card": 3.8,
+      "Untouched": 3.39,
+      "Unsupported": 1.67,
+      "Excluded": 0.41,
+      "Shader mismatch": 0.3,
+      "Unclassified": 0.01
+    },
+    "turkey1": {
+      "Lit": 83.13,
+      "Sky or unlit card": 6.51,
+      "Unsupported": 5.13,
+      "Excluded": 3.76,
+      "Shader mismatch": 1.42,
+      "Unclassified": 0.05
+    },
+    "turkey2": {
+      "Lit": 84.55,
+      "Untouched": 3.67,
+      "Unsupported": 3.49,
+      "Excluded": 3.28,
+      "Shader mismatch": 2.77,
+      "Sky or unlit card": 2.18,
+      "Unclassified": 0.05
+    },
+    "turkey3": {
+      "Lit": 86.49,
+      "Sky or unlit card": 4.79,
+      "Excluded": 3.56,
+      "Unsupported": 2.5,
+      "Shader mismatch": 1.37,
+      "Untouched": 1.14,
+      "Unclassified": 0.15
+    },
+    "turkeym": {
+      "Lit": 86.27,
+      "Sky or unlit card": 5.44,
+      "Unsupported": 3.27,
+      "Excluded": 2.12,
+      "Untouched": 1.57,
+      "Shader mismatch": 1.31,
+      "Unclassified": 0.02
+    },
+    "turkeys1": {
+      "Lit": 84.83,
+      "Unsupported": 4.05,
+      "Sky or unlit card": 3.94,
+      "Untouched": 2.78,
+      "Shader mismatch": 2.29,
+      "Excluded": 2.07,
+      "Unclassified": 0.04
+    },
+    "turkeys2": {
+      "Lit": 86.55,
+      "Sky or unlit card": 4.07,
+      "Unsupported": 3.79,
+      "Excluded": 2.55,
+      "Untouched": 2.12,
+      "Shader mismatch": 0.91,
+      "Unclassified": 0.01
+    },
+    "turkeys2flip": {
+      "Lit": 85.66,
+      "Unsupported": 4.21,
+      "Sky or unlit card": 3.99,
+      "Excluded": 3.05,
+      "Untouched": 2.0,
+      "Shader mismatch": 1.08,
+      "Unclassified": 0.03
+    },
+    "turkeyw": {
+      "Lit": 87.99,
+      "Unsupported": 3.7,
+      "Sky or unlit card": 3.5,
+      "Untouched": 2.47,
+      "Shader mismatch": 1.51,
+      "Excluded": 0.81,
+      "Unclassified": 0.02
+    },
+    "unknown": {
+      "Unsupported": 99.99,
+      "Sky or unlit card": 0.01
+    }
+  }
+}

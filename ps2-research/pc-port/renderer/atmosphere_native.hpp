@@ -572,7 +572,17 @@ inline HRESULT begin(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UIN
     struct Timing {atmosphere::Pilot& p;LARGE_INTEGER start{};Timing(atmosphere::Pilot& x):p(x){QueryPerformanceCounter(&start);}~Timing(){LARGE_INTEGER end{};QueryPerformanceCounter(&end);p.cpu_ticks+=end.QuadPart-start.QuadPart;++p.cpu_calls;}} timer(*p);
     try {
         CaptureDraw capture_draw(d,*p,min,vertices,start,count);
-        bool single=false;const auto cert=courseintegration::certificate(d,single);if(!single||!cert.valid)return reject(d,*p,"single_camera_race_certificate_missing");
+        bool single=false;const auto cert=courseintegration::certificate(d,single);
+        if(!single||!cert.valid){
+            // Coverage ledger: name the game phase so uncertified frames can be
+            // targeted (replay, attract, countdown, finish...). Diagnostic only.
+            if(p->coverage.enabled)try{static thread_local uint64_t phase_frame=UINT64_MAX;static thread_local std::string phase;
+                if(phase_frame!=d.trace.frame_number()){phase_frame=d.trace.frame_number();const auto hud=ps2port::ps2_race_hud_context();
+                    phase=!hud.valid?std::string("hud:")+(hud.reason?hud.reason:"invalid"):
+                        std::string(hud.replay?"replay":hud.attract?"attract":hud.startup_countdown?"countdown":hud.paused?"paused":"race")+
+                        (!single?":cameras_not_single":std::string(":")+(cert.reason?cert.reason:"invalid"));}
+                reject(d,*p,"single_camera_race_certificate_missing");p->draw_reason="certificate_missing:"+phase;return S_OK;}catch(...){}
+            return reject(d,*p,"single_camera_race_certificate_missing");}
         auto& n=*d.native();courseintegration::Ref<IDirect3DSurface8> target,back;
         if(FAILED(n.GetRenderTarget(&target.p))||FAILED(n.GetBackBuffer(0,D3DBACKBUFFER_TYPE_MONO,&back.p))||!courseintegration::same_identity(target.p,back.p))return reject(d,*p,"native_target_not_backbuffer");
         DWORD fvf=0,ps=1;if(FAILED(n.GetVertexShader(&fvf))||FAILED(n.GetPixelShader(&ps))||ps||!groundintegration::render(d,n,D3DRS_LIGHTING,FALSE))return reject(d,*p,"fixed_function_shader_or_lighting_mismatch");

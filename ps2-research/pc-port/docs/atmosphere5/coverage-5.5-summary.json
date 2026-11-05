@@ -1,0 +1,36 @@
+{
+  "schema": 1,
+  "ledgers": [
+    "coverage-43320.json"
+  ],
+  "courses": {
+    "frances1": {
+      "Lit": 91.79,
+      "Sky or unlit card": 4.84,
+      "Unsupported": 2.23,
+      "Excluded": 0.72,
+      "Shader mismatch": 0.39,
+      "Unclassified": 0.03
+    },
+    "italym1": {
+      "Lit": 94.98,
+      "Sky or unlit card": 3.91,
+      "Excluded": 0.74,
+      "Shader mismatch": 0.35,
+      "Unclassified": 0.02,
+      "Unsupported": 0.0
+    },
+    "turkey3": {
+      "Lit": 77.61,
+      "Unsupported": 13.72,
+      "Sky or unlit card": 4.51,
+      "Excluded": 2.64,
+      "Shader mismatch": 1.46,
+      "Unclassified": 0.07
+    },
+    "unknown": {
+      "Unsupported": 99.97,
+      "Sky or unlit card": 0.03
+    }
+  }
+}
