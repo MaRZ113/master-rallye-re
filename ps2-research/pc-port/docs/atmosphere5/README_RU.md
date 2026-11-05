@@ -152,3 +152,24 @@ DLL `59b25879cc5f86d5585016396b93dfedcfc36bfccc76ddd50ac47683d4524a14`, CTest 24
   (старт, финиш, посёлки, вода, лес). Чем больше трасс, тем полнее карта для ночи.
 
 DLL `b0b20ec01e5330ef45e8185f794436b333f74fc8d60a40ca9f4c87501c62c877`, CTest 24/24 + 46/46. Откат: `rollback-59b25879`.
+
+## 9. ATMOSPHERE5.5 — первые выводы аудита (Challenge, 11 трасс)
+
+Отчёт: `.research-output/atmosphere5/coverage-report-challenge`. Освещено 72–93% треугольников.
+Крупнейшие дыры и что сделано:
+
+| Доля | Что | Причина | 5.5 |
+|---|---|---|---|
+| 25.8% | `gate01` (Италия), `wires` | карточки XYZ\|TEX1 без цвета вершин (FVF 0x102) | общий путь «unlit card»: стадия 1 × TFACTOR энергии тонкого объекта (`card_energy`), только для материала с ролью static/vegetation |
+| 25% | небо | — | исключено правильно |
+| 16% | `water`, `i2a_water` | на деле освещены адаптером PC-воды, учёт писал «Untouched» | учёт пишет `pc_water_energy` |
+| 5–7% | `f_conc`, `ctyre`, `wheel`, `tred1` на 0x152 | игра (PS2-порт раскладки Atmo-copy) рисует их с отражением: `rubber-tga`, `aluminium-tga`; f_conc = plain+noise+env | env-проход допускает статичную plain-роль при сертифицированной вторичке; `rubber-tga` как `glass-tga` (только явная роль); комбинированный флаг PLAIN\|NOISE\|ENV; SDK сертифицирует все статичные env-текстуры папки трассы |
+| 0.3% | `waterfall` blended 0x142 (SpainM/S2) | путь водопада принимал только 0x102 | принимает и 0x142 |
+| ~10% | разные (машины и трасса) | `single_camera_race_certificate_missing` — кадры без сертификата гонки | **открыто**: выяснить фазы (облёт перед стартом? повтор?) — ночью они будут неосвещены |
+
+Машины (`resolver_known_vehicle_draw_excluded`, колёса 0x112) — отдельная фаза 2.9/3.0.
+`automatic_ground` 0x152 с текстурой `36172fb4` — деталь машины в курсовом цикле, не трасса.
+
+Пакеты `batch-006`: только Deny → Lit + сертификаты `rubber`/`whitepaint` (`package-diff-5.5.txt`).
+DLL `56052e0c7e168287dcb4df26d05d470c6c72f4a4ecad3a0105e76e7c4e65693c`, CTest 24/24 + 46/46, Python OK.
+Комплект: `.research-output/atmosphere5/candidate-5.5/Install-5.5.ps1` (игра должна быть закрыта; делает откат-копию).

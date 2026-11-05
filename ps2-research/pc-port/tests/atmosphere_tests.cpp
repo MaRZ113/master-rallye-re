@@ -507,7 +507,10 @@ int main(){
     for(unsigned i=0;i<3;++i){CHECK(!std::memcmp(metal_geometry.original.data()+i*36,metal_geometry.lit.data()+i*36,24));CHECK(!std::memcmp(metal_geometry.original.data()+i*36+28,metal_geometry.lit.data()+i*36+28,8));CHECK(metal_geometry.lit[i*36+27]==0x7f);}
     CHECK(!light_geometry(metal_geometry,36,0,3,2,&metal,false,false,true,false,evening,nullptr,"","",true));
     metal.flags|=Deny;CHECK(!light_geometry(metal_geometry,36,0,3,2,&metal,false,true,true,false,evening,nullptr,"","",true));
-    metal.flags=Plain;CHECK(!light_geometry(metal_geometry,36,0,3,2,&metal,false,true,false,false,evening,nullptr,"","",true));
+    // ATMOSPHERE5.5: the game assigns reflection passes to plain static roles too;
+    // the certified secondary is proven by the caller. A detail-only role is not enough.
+    metal.flags=Plain;CHECK(light_geometry(metal_geometry,36,0,3,2,&metal,false,true,false,false,evening,nullptr,"","",true));
+    metal.flags=Noise;CHECK(!light_geometry(metal_geometry,36,0,3,2,&metal,false,true,false,false,evening,nullptr,"","",true));
     auto reduced=scene;reduced.prelight_contrast=.35f;
     CHECK((scene_color(0x7f000000,{0,1,0},reduced)&0xffffff)==0);
     CHECK((scene_color(gray,{0,1,0},reduced)>>24)==0x7f);

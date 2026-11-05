@@ -315,6 +315,7 @@ inline HRESULT pc_water_draw(Device8& d,atmosphere::Pilot& p,DWORD fvf,bool& app
         if(i==7)notify(d,50,pack(D3DRS_TEXTUREFACTOR,factor),hr);else notify(d,63,pack(2,keys[i],values[i]),hr);if(FAILED(hr)){p.pc_water=false;return repair(d);}}
     if(p.lighting.fog_enabled){saved.fog_changed=true;const auto fog=atmosphere::scene_fog(saved.fog,p.lighting);const auto hr=n.SetRenderState(D3DRS_FOGCOLOR,fog);notify(d,50,pack(D3DRS_FOGCOLOR,fog),hr);if(FAILED(hr))return repair(d);}
     applied=true;++p.pc_water_draws;
+    if(p.capture.stage||p.coverage.enabled){p.draw_resolved=true;p.draw_lit=true;p.draw_reason="pc_water_energy";}
     if(p.first_reason("pc_water_atmosphere")||d.trace.control.active)session().write("{\"type\":\"atmosphere_pc_water\",\"frame\":"+std::to_string(d.trace.frame_number())+",\"factor\":"+std::to_string(factor)+",\"draws\":"+std::to_string(p.pc_water_draws)+",\"alpha_uv_depth_unchanged\":true,\"path\":\"certified_native_base_water_fallback_only\"}");
     return S_OK;
 }
@@ -325,7 +326,7 @@ inline HRESULT pc_water_draw(Device8& d,atmosphere::Pilot& p,DWORD fvf,bool& app
 // Alpha, blending, UV and depth are untouched; states restore after the draw.
 inline HRESULT pc_waterfall_draw(Device8& d,atmosphere::Pilot& p,DWORD fvf,const char* course,bool& applied){
     applied=false;auto& n=*d.native();
-    if(!p.pc_water||!p.world||!p.lighting.active()||!p.universal||fvf!=0x102||
+    if(!p.world||!p.lighting.active()||!p.universal||(fvf!=0x102&&fvf!=0x142)||
        !groundintegration::render(d,n,D3DRS_FOGENABLE,TRUE)||!groundintegration::render(d,n,D3DRS_ZENABLE,D3DZB_TRUE)||
        !groundintegration::stage(d,n,0,D3DTSS_COLOROP,D3DTOP_MODULATE)||!groundintegration::stage(d,n,0,D3DTSS_COLORARG1,D3DTA_TEXTURE)||
        !groundintegration::stage(d,n,0,D3DTSS_RESULTARG,D3DTA_CURRENT)||!groundintegration::stage(d,n,1,D3DTSS_COLOROP,D3DTOP_DISABLE))return S_OK;
@@ -335,7 +336,13 @@ inline HRESULT pc_waterfall_draw(Device8& d,atmosphere::Pilot& p,DWORD fvf,const
     courseintegration::Ref<IDirect3DBaseTexture8> texture;if(FAILED(n.GetTexture(0,&texture.p))||!texture.p||!d.trace.resources.generation(reinterpret_cast<uintptr_t>(texture.p)))return S_OK;
     const auto sha=material_sha(d,p,texture.p);if(sha.empty())return S_OK;
     const auto* material=p.metadata.find(course,sha);
-    if(!material||material->name.find("waterfall")==std::string::npos)return S_OK;
+    // Waterfalls (Deny by the water word) take the PC-water energy, also as a
+    // blended 0x142 card (SpainM/S2). Other XYZ|TEX1 cards need an authored
+    // static/vegetation role and get the thin-prop card energy.
+    if(!material)return S_OK;
+    const bool waterfall=material->name.find("waterfall")!=std::string::npos;
+    if(waterfall&&!p.pc_water)return S_OK;
+    if(!waterfall&&(fvf!=0x102||(material->flags&atmosphere::Deny)||(material->category!=3&&material->category!=4)))return S_OK;
     auto& saved=p.pending;if(saved.any())return D3DERR_DEVICELOST;
     constexpr D3DTEXTURESTAGESTATETYPE keys[]{D3DTSS_COLOROP,D3DTSS_COLORARG1,D3DTSS_COLORARG2,D3DTSS_ALPHAOP,D3DTSS_ALPHAARG1,D3DTSS_RESULTARG,D3DTSS_ALPHAARG2};
     for(unsigned i=0;i<7;++i)if(FAILED(n.GetTextureStageState(1,keys[i],&saved.body_stage[i])))return S_OK;
@@ -343,12 +350,13 @@ inline HRESULT pc_waterfall_draw(Device8& d,atmosphere::Pilot& p,DWORD fvf,const
     if(p.lighting.fog_enabled&&FAILED(n.GetRenderState(D3DRS_FOGCOLOR,&saved.fog)))return S_OK;
     saved.body_unit=1;
     const DWORD values[]{D3DTOP_MODULATE,D3DTA_CURRENT,D3DTA_TFACTOR,D3DTOP_SELECTARG1,D3DTA_CURRENT,D3DTA_CURRENT,D3DTA_CURRENT};
-    const DWORD factor=atmosphere::pc_water_factor(p.lighting,saved.body_factor);
+    const DWORD factor=waterfall?atmosphere::pc_water_factor(p.lighting,saved.body_factor):((saved.body_factor&0xff000000u)|(atmosphere::card_energy(p.lighting)&0x00ffffffu));
     for(unsigned i:{7u,1u,2u,3u,4u,5u,6u,0u}){saved.body_pending|=1u<<i;const auto hr=i==7?n.SetRenderState(D3DRS_TEXTUREFACTOR,factor):n.SetTextureStageState(1,keys[i],values[i]);
         if(i==7)notify(d,50,pack(D3DRS_TEXTUREFACTOR,factor),hr);else notify(d,63,pack(1,keys[i],values[i]),hr);if(FAILED(hr))return repair(d);}
     if(p.lighting.fog_enabled){saved.fog_changed=true;const auto fog=atmosphere::scene_fog(saved.fog,p.lighting);const auto hr=n.SetRenderState(D3DRS_FOGCOLOR,fog);notify(d,50,pack(D3DRS_FOGCOLOR,fog),hr);if(FAILED(hr))return repair(d);}
     applied=true;++p.pc_water_draws;
-    if(p.first_reason("pc_waterfall_atmosphere")||d.trace.control.active)session().write("{\"type\":\"atmosphere_pc_waterfall\",\"frame\":"+std::to_string(d.trace.frame_number())+",\"material\":"+quote(material->name)+",\"factor\":"+std::to_string(factor)+",\"alpha_uv_depth_unchanged\":true}");
+    if(p.capture.stage||p.coverage.enabled){p.draw_resolved=true;p.draw_lit=true;p.draw_reason=waterfall?"pc_waterfall_energy":"unlit_card_energy";p.draw_material=material->name;p.draw_category=material->category;}
+    if(p.first_reason(waterfall?"pc_waterfall_atmosphere":"unlit_card_atmosphere")||d.trace.control.active)session().write("{\"type\":\"atmosphere_pc_waterfall\",\"frame\":"+std::to_string(d.trace.frame_number())+",\"material\":"+quote(material->name)+",\"factor\":"+std::to_string(factor)+",\"alpha_uv_depth_unchanged\":true}");
     return S_OK;
 }
 // P0.1 coverage ledger: one pending record per course-loop draw (opened in
@@ -465,13 +473,17 @@ inline HRESULT universal_draw(Device8& d,atmosphere::Pilot& p,UINT min,UINT vert
         // Opaque is a PASS property here: diffuse alpha is a gloss mask in
         // this certified combine. Requiring all texture alpha=255 incorrectly
         // excludes metal fences. The native coverage/blend contract is retained.
-        if(!material||!(material->flags&atmosphere::Environment)||material->category!=4||(alpha_test&&!(material->flags&atmosphere::AlphaTest)))return fail("resolver_environment_primary_unproven");
+        // The game also assigns a reflection pass to materials whose source
+        // shader binding is plain (TurkeyS1 tyre stacks, FranceW f_conc). A
+        // static plain role is enough when the live secondary is a certified
+        // static environment texture (checked below); no Deny material passes.
+        if(!material||(material->flags&atmosphere::Deny)||!(material->flags&(atmosphere::Environment|atmosphere::Plain))||material->category!=4||(alpha_test&&!(material->flags&atmosphere::AlphaTest)))return fail("resolver_environment_primary_unproven");
         auto& secondary=environment_source;
         if(FAILED(n.GetTexture(1,&secondary.p))||!secondary.p)return fail("resolver_environment_secondary_missing");
         secondary_generation=d.trace.resources.generation(reinterpret_cast<uintptr_t>(secondary.p));
         const auto secondary_sha=material_sha(d,p,secondary.p);const auto* certificate=p.metadata.find(course,secondary_sha);
         if(!secondary_generation||!certificate||certificate->flags!=(atmosphere::Deny|atmosphere::EnvironmentTexture)||
-           (certificate->name!="aluminium-tga"&&certificate->name!="whitepaint-tga"&&certificate->name!="silverpaint-tga"&&certificate->name!="glass-tga"))return fail("resolver_environment_secondary_unproven");
+           (certificate->name!="aluminium-tga"&&certificate->name!="whitepaint-tga"&&certificate->name!="silverpaint-tga"&&certificate->name!="glass-tga"&&certificate->name!="rubber-tga"))return fail("resolver_environment_secondary_unproven");
     }
     if(material&&(material->flags&atmosphere::Deny)){seam_native(d,p,min,vertices,start,triangles,fvf,noise,opaque,alpha_test,material,course,texture_sha,"native_material_excluded");return fail("resolver_excluded_material");}
     // Instanced draws need an explicit material role: automatic ground is

@@ -14,11 +14,11 @@ import struct
 import math
 
 NOISE, PLAIN, ALPHA_TEST, TWO_SIDED, DENY, ENVIRONMENT, ENV_TEXTURE = 1, 2, 4, 8, 16, 32, 64
-STATIC_ENVIRONMENTS = ('aluminium-tga','whitepaint-tga','silverpaint-tga','glass-tga')
+STATIC_ENVIRONMENTS = ('aluminium-tga','whitepaint-tga','silverpaint-tga','glass-tga','rubber-tga')
 # glass-tga is also the secondary of real course windows; it certifies a static
 # environment pass only for a material the author explicitly marked 'static'
 # (France1 marina_alphas chain-link/catwalk), never by name inference.
-ROLE_ONLY_ENVIRONMENTS = ('glass-tga',)
+ROLE_ONLY_ENVIRONMENTS = ('glass-tga','rubber-tga')  # rubber: PS2-port tyre stacks/wheels
 ROLES = {'road': 1, 'terrain': 2, 'vegetation': 3, 'static': 4, 'signage': 4, 'exclude': 0}
 
 
@@ -348,6 +348,14 @@ def export_lighting_metadata(sources: list[Path], courses: list[str], output: Pa
                     if static_detail:category,flags=4,PLAIN|NOISE
                     environment=static_environment_capability(name,contracts,roles.get(course,{}).get(name))
                     if environment:category,flags=4,PLAIN|ENVIRONMENT
+                    # PS2-port layouts draw one static surface as plain, detail
+                    # (noise) AND reflection passes (FranceW f_conc). Each pass is
+                    # proven separately; the flags only grant all three.
+                    if not static_detail and not environment:
+                        role=roles.get(course,{}).get(name)
+                        reflective=[c for c in contracts if len(c)==3 and c[1]!='Null'];base=[c for c in contracts if len(c)==3 and c[1]=='Null']
+                        if reflective and static_detail_capability(name,base,role) and static_environment_capability(name,reflective+[c for c in base if c[2]=='Null'],role):
+                            category,flags,static_detail=4,PLAIN|NOISE|ENVIRONMENT,True
                     negative,positive=orientation[name]
                     no_orientation_evidence=category!=0 and not flags&DENY and negative+positive==0
                     category,flags,winding=orientation_policy(category,flags,negative,positive,
@@ -381,6 +389,12 @@ def export_lighting_metadata(sources: list[Path], courses: list[str], output: Pa
                 # Secondary identity is exported once per course, independent of
                 # objects/layout topology. It is never a diffuse admission record.
                 environment_names={c[1] for m in report['materials'] if m['flags']&ENVIRONMENT for c in m['bindings'] if c[1] in STATIC_ENVIRONMENTS}
+                # The game also assigns its static environment textures to plain
+                # source materials at runtime (TurkeyS1 tyre stacks). Certify every
+                # non-role-only static environment texture present in the course
+                # folder; such a certificate is only ever a secondary identity.
+                present={e for e in STATIC_ENVIRONMENTS if e not in ROLE_ONLY_ENVIRONMENTS and any((root/course/(e+'.dxt')).exists() for root in sources)}
+                speculative=present-environment_names;environment_names|=present
                 for environment_name in sorted(environment_names):
                     secondary=next((root/course/(environment_name+'.dxt') for root in sources if (root/course/(environment_name+'.dxt')).exists()),None)
                     if secondary is None:raise ValueError('missing certified static environment secondary: '+environment_name)
@@ -389,7 +403,9 @@ def export_lighting_metadata(sources: list[Path], courses: list[str], output: Pa
                         digest=hashlib.sha256(pixels).hexdigest();key=course,digest
                         certificate=dict(course=course,material=environment_name,texture_sha256=digest,category=0,flags=DENY|ENV_TEXTURE,winding=-1)
                         previous=records.get(key)
-                        if previous and previous['category']!=0:raise ValueError('environment/diffuse identity collision')
+                        if previous and previous['category']!=0:
+                            if environment_name in speculative:continue
+                            raise ValueError('environment/diffuse identity collision')
                         records[key]=certificate
                     report.setdefault('environment_sources',[]).append({'path':str(secondary),'sha256':hashlib.sha256(secondary.read_bytes()).hexdigest()})
                 evidence.append(report)

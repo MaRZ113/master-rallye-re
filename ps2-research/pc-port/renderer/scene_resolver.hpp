@@ -53,7 +53,7 @@ public:
                 std::memcpy(&m.category,p,4);std::memcpy(&m.flags,p+4,4);std::memcpy(&m.winding,p+8,4);
                 if(m.category>4||(m.flags&~127u)||(m.winding!=1&&m.winding!=-1)||(!m.category&&!(m.flags&Deny))||
                    ((m.flags&Environment)&&(m.category!=4||(m.flags&Deny)))||
-                   ((m.flags&EnvironmentTexture)&&(m.category!=0||m.flags!=(Deny|EnvironmentTexture)||(m.name!="aluminium-tga"&&m.name!="whitepaint-tga"&&m.name!="silverpaint-tga"&&m.name!="glass-tga")))||
+                   ((m.flags&EnvironmentTexture)&&(m.category!=0||m.flags!=(Deny|EnvironmentTexture)||(m.name!="aluminium-tga"&&m.name!="whitepaint-tga"&&m.name!="silverpaint-tga"&&m.name!="glass-tga"&&m.name!="rubber-tga")))||
                    ((m.flags&AlphaTest)&&m.category!=3&&m.category!=4)||((m.flags&TwoSided)&&m.category!=3)||
                    (!(m.flags&Deny)&&!(m.flags&(Noise|Plain)))){reason="metadata_capability_invalid";return false;}
                 auto key=std::make_pair(canonical_course(m.course),m.texture);auto old=parsed.find(key);
@@ -123,6 +123,13 @@ inline uint32_t mix_color(uint32_t lit,uint32_t shade,float share)noexcept {
         out|=uint32_t(std::clamp(std::lround(a*share+b*(1-share)),0l,255l))<<shift;}
     return out;
 }
+// Unlit course cards (XYZ|TEX1, no diffuse: Italy gate01, wires) get one RGB
+// energy for the whole card, lit like a thin paired prop facing the sun.
+inline uint32_t card_energy(const Lighting& s)noexcept{
+    std::array<float,3> n{s.direction[0],0.f,s.direction[2]};if(n[0]*n[0]+n[2]*n[2]<1e-8f)n={1.f,0.f,0.f};
+    auto away=n;for(auto& x:away)x=-x;
+    return mix_color(scene_color(0xffffffffu,n,s),scene_color(0xffffffffu,away,s),kPairedSunShare);
+}
 // Geometric normals are reconstructed once per changed vertex/index range.
 // They do not pretend to be the original authored smoothing normals. Index
 // winding is checked by source metadata; the proven native base_noise fallback
@@ -144,7 +151,7 @@ inline bool light_geometry(ResolvedGeometry& entry,unsigned stride,unsigned min,
     if(!vertices||vertices>32768||(stride!=24&&stride!=32&&stride!=36)||(width!=2&&width!=4)||
        entry.original.size()!=uint64_t(vertices)*stride||entry.index_bytes.empty()||entry.index_bytes.size()%(width*3))return reject("resolver_geometry_layout");
     if(material&&(material->flags&Deny))return reject("material_explicitly_excluded");
-    if(environment!=bool(stride==36)|| (environment&&(!material||!(material->flags&Environment)||material->category!=4||noise||!opaque||(alpha_test&&!(material->flags&AlphaTest)))))return reject("environment_material_contract");
+    if(environment!=bool(stride==36)|| (environment&&(!material||(material->flags&Deny)||!(material->flags&(Environment|Plain))||material->category!=4||noise||!opaque||(alpha_test&&!(material->flags&AlphaTest)))))return reject("environment_material_contract");
     const bool automatic=!material;
     if(automatic&&(!auto_ground||!noise||!opaque||alpha_test))return reject("ambiguous_material_no_ground_contract");
     if(material&&(!(material->flags&(noise?Noise:Plain))||(alpha_test&&!(material->flags&AlphaTest))||(!opaque&&material->category!=3)))return reject("metadata_live_shader_mismatch");

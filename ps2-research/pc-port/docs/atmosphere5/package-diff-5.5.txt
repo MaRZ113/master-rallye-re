@@ -1,0 +1,7 @@
+missing packages: []
+10 ('ctyre-tga', (0, 16), (4, 38))
+9 ('f_conc-tga', (0, 16), (4, 35))
+10 ('rubber-tga', None, (0, 80))
+8 ('tred1-tga', (0, 16), (4, 38))
+8 ('wheel-tga', (0, 16), (4, 38))
+1 ('whitepaint-tga', None, (0, 80))
