@@ -378,6 +378,36 @@ inline HRESULT pc_waterfall_draw(Device8& d,atmosphere::Pilot& p,DWORD fvf,const
     if(p.first_reason(waterfall?"pc_waterfall_atmosphere":"unlit_card_atmosphere")||d.trace.control.active)session().write("{\"type\":\"atmosphere_pc_waterfall\",\"frame\":"+std::to_string(d.trace.frame_number())+",\"material\":"+quote(material->name)+",\"factor\":"+std::to_string(factor)+",\"alpha_uv_depth_unchanged\":true}");
     return S_OK;
 }
+// P0.2 lamp observer (see Pilot::LampSample). Reads only the proxy's CPU
+// mirror of the current vertex range (never locks GPU memory); a lamp whose
+// range is not mirrored is still counted, with the WORLD origin as position.
+inline void observe_lamp(Device8& d,atmosphere::Pilot& p,UINT min,UINT vertices,UINT triangles)noexcept{
+    try{
+        const auto frame=d.trace.frame_number();auto& b=p.lamps_building;
+        if(b.frame!=frame){
+            if(b.frame!=UINT64_MAX){p.lamps_last=std::move(b);
+                if(frame>=p.lamp_log_frame+120&&!p.lamps_last.samples.empty()){p.lamp_log_frame=frame;
+                    std::string o="{\"type\":\"atmosphere_lamps\",\"frame\":"+std::to_string(p.lamps_last.frame)+",\"lit_lamp_groups\":"+std::to_string(p.lamps_last.samples.size())+",\"samples\":[";
+                    for(size_t i=0;i<p.lamps_last.samples.size()&&i<8;++i){const auto& s=p.lamps_last.samples[i];if(i)o+=",";
+                        o+="{\"local\":["+std::to_string(s.local[0])+","+std::to_string(s.local[1])+","+std::to_string(s.local[2])+"],\"world\":["+
+                           std::to_string(s.position[0])+","+std::to_string(s.position[1])+","+std::to_string(s.position[2])+"],\"vertices\":"+std::to_string(s.vertices)+"}";}
+                    session().write(o+"]}");}}
+            b={};b.frame=frame;}
+        if(b.samples.size()>=64)return;
+        atmosphere::Pilot::LampSample s;s.vertices=vertices;s.triangles=triangles;auto& n=*d.native();
+        if(FAILED(n.GetTransform(D3DTS_WORLD,reinterpret_cast<D3DMATRIX*>(s.world.data()))))return;
+        courseintegration::Ref<IDirect3DVertexBuffer8> vb;UINT stride=0;courseintegration::Ref<IDirect3DIndexBuffer8> ib;UINT base=0;
+        if(SUCCEEDED(n.GetStreamSource(0,&vb.p,&stride))&&vb.p&&stride==20&&SUCCEEDED(n.GetIndices(&ib.p,&base))&&vertices&&vertices<=4096){
+            D3DVERTEXBUFFER_DESC vd{};const auto vg=d.trace.resources.generation(reinterpret_cast<uintptr_t>(vb.p));
+            if(vg&&SUCCEEDED(vb.p->GetDesc(&vd))){auto m=d.open_buffer_mirror(vb.p,BufferKind::Vertex,vg,vd.Size,vd.Usage,vd.Pool);
+                if(m){std::scoped_lock lock(m->mutex);const uint64_t off=(uint64_t(base)+min)*20,bytes=uint64_t(vertices)*20;
+                    if(m->available&&!m->poisoned&&off+bytes<=m->data.size()){double sum[3]{};
+                        for(UINT i=0;i<vertices;++i){float v[3];std::memcpy(v,m->data.data()+off+uint64_t(i)*20,12);for(int k=0;k<3;++k)sum[k]+=v[k];}
+                        for(int k=0;k<3;++k)s.local[k]=float(sum[k]/vertices);}}}}
+        const auto& w=s.world;for(int k=0;k<3;++k)s.position[k]=s.local[0]*w[k]+s.local[1]*w[4+k]+s.local[2]*w[8+k]+w[12+k];
+        b.samples.push_back(s);
+    }catch(...){}
+}
 // P0.1 coverage ledger: one pending record per course-loop draw (opened in
 // observe, verdict from the same reject/resolver fields as the F10 capture,
 // closed when the next draw is observed). Diagnostic only; no state changes.
@@ -620,7 +650,8 @@ inline HRESULT begin(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UIN
            groundintegration::render(d,n,D3DRS_ZENABLE,D3DZB_TRUE)&&groundintegration::render(d,n,D3DRS_ALPHATESTENABLE,FALSE)){
             if(FAILED(n.GetRenderState(D3DRS_ZWRITEENABLE,&saved.zwrite)))return reject(d,*p,"vehicle_glow_state_unavailable");
             saved.zwrite_changed=true;const auto hr=n.SetRenderState(D3DRS_ZWRITEENABLE,FALSE);notify(d,50,pack(D3DRS_ZWRITEENABLE,FALSE),hr);if(FAILED(hr))return repair(d);
-            ++p->vehicle_glow_draws;if(p->capture.stage||p->coverage.enabled){p->draw_resolved=true;p->draw_lit=false;p->draw_reason="vehicle_glow_zwrite_off";}
+            ++p->vehicle_glow_draws;observe_lamp(d,*p,min,vertices,count);
+            if(p->capture.stage||p->coverage.enabled){p->draw_resolved=true;p->draw_lit=false;p->draw_reason="vehicle_glow_zwrite_off";}
             if(p->first_reason("vehicle_glow_fix"))session().write("{\"type\":\"atmosphere_vehicle_glow_fix\",\"frame\":"+std::to_string(d.trace.frame_number())+",\"z_test_unchanged\":true,\"alpha_unchanged\":true}");
             return S_OK;}
         auto fail=[&](const char* reason){if(!saved.any())saved.release();return reject(d,*p,reason);};

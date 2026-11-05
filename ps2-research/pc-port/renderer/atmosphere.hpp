@@ -263,6 +263,12 @@ public:
     }
     CourseCoverage coverage;
     bool vehicle_glow_fix=false;uint64_t vehicle_glow_draws=0;
+    // P0.2 lamp observer: the game swaps a car's lamp layer to the glow-on card
+    // while it brakes. Each such draw this frame = one lit lamp group, with its
+    // car-local and world centre (night lights, tail-light ground glow).
+    struct LampSample{std::array<float,16> world{};std::array<float,3> local{},position{};unsigned vertices=0,triangles=0;};
+    struct LampFrame{uint64_t frame=UINT64_MAX;std::vector<LampSample> samples;};
+    LampFrame lamps_building,lamps_last;uint64_t lamp_log_frame=0;
     // Course fog as the world loop left it this frame (proxy layers drawn later reuse it).
     struct CourseFog{uint64_t frame=UINT64_MAX;DWORD vertex=0,table=0,start=0,end=0,color=0;} course_fog;
     CourseCapture capture;std::string draw_reason,draw_material,draw_texture;unsigned draw_category=0;bool draw_lit=false,draw_resolved=false;
