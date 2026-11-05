@@ -98,6 +98,10 @@ int main(){
     CHECK(world_lighting_before_replacement(0x152,D3DTOP_MODULATEALPHA_ADDCOLOR,true));
     CHECK(!world_lighting_before_replacement(0x152,D3DTOP_MODULATEALPHA_ADDCOLOR,false));
     CHECK(!world_lighting_before_replacement(0x142,D3DTOP_MODULATE,true));
+    CHECK(world_lighting_before_replacement(0x142,D3DTOP_DISABLE,true));
+    CHECK(!world_lighting_before_replacement(0x142,D3DTOP_DISABLE,false));
+    CHECK(world_lighting_before_replacement(0x102,D3DTOP_DISABLE,true));
+    CHECK(!world_lighting_before_replacement(0x102,D3DTOP_DISABLE,false));
     CHECK(!world_lighting_before_replacement(0x252,D3DTOP_ADD,true));
     CHECK(!world_lighting_before_replacement(0x104,D3DTOP_MODULATE,true));
     {

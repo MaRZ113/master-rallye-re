@@ -42,7 +42,14 @@
     "yaught-tga": "static",
     "marina_alphas-tga": "static",
     "white hotel-tga": "static",
-    "hotel- italia-tga": "static"
+    "hotel- italia-tga": "static",
+    "darkgreen-tga": "vegetation",
+    "lock-tga": "static",
+    "temp-tga": "static",
+    "planealpha-tga": "static",
+    "newtex-tga": "static",
+    "canyon_no_line-tga": "terrain",
+    "pavement-tga": "terrain"
   },
   "France1": {
     "masterlogo-tga": "signage",

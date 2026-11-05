@@ -314,6 +314,39 @@ inline HRESULT pc_water_draw(Device8& d,atmosphere::Pilot& p,DWORD fvf,bool& app
     if(p.first_reason("pc_water_atmosphere")||d.trace.control.active)session().write("{\"type\":\"atmosphere_pc_water\",\"frame\":"+std::to_string(d.trace.frame_number())+",\"factor\":"+std::to_string(factor)+",\"draws\":"+std::to_string(p.pc_water_draws)+",\"alpha_uv_depth_unchanged\":true,\"path\":\"certified_native_base_water_fallback_only\"}");
     return S_OK;
 }
+// PC waterfalls are unlit XYZ|TEX1 course cards (no diffuse, fogged, often
+// blended), so they kept full texture brightness against the darkened world.
+// Only a texture the active course package names as a waterfall material is
+// accepted; stage 1 (native DISABLE) multiplies RGB by the PC-water energy.
+// Alpha, blending, UV and depth are untouched; states restore after the draw.
+inline HRESULT pc_waterfall_draw(Device8& d,atmosphere::Pilot& p,DWORD fvf,const char* course,bool& applied){
+    applied=false;auto& n=*d.native();
+    if(!p.pc_water||!p.world||!p.lighting.active()||!p.universal||fvf!=0x102||
+       !groundintegration::render(d,n,D3DRS_FOGENABLE,TRUE)||!groundintegration::render(d,n,D3DRS_ZENABLE,D3DZB_TRUE)||
+       !groundintegration::stage(d,n,0,D3DTSS_COLOROP,D3DTOP_MODULATE)||!groundintegration::stage(d,n,0,D3DTSS_COLORARG1,D3DTA_TEXTURE)||
+       !groundintegration::stage(d,n,0,D3DTSS_RESULTARG,D3DTA_CURRENT)||!groundintegration::stage(d,n,1,D3DTSS_COLOROP,D3DTOP_DISABLE))return S_OK;
+    D3DMATRIX world{},identity{};identity._11=identity._22=identity._33=identity._44=1;
+    if(FAILED(n.GetTransform(D3DTS_WORLD,&world))||std::memcmp(&world,&identity,64))return S_OK;
+    if(!p.select_course(course))return S_OK;p.metadata.load(p.metadata_path);if(!p.metadata.ready)return S_OK;
+    courseintegration::Ref<IDirect3DBaseTexture8> texture;if(FAILED(n.GetTexture(0,&texture.p))||!texture.p||!d.trace.resources.generation(reinterpret_cast<uintptr_t>(texture.p)))return S_OK;
+    const auto sha=material_sha(d,p,texture.p);if(sha.empty())return S_OK;
+    const auto* material=p.metadata.find(course,sha);
+    if(!material||material->name.find("waterfall")==std::string::npos)return S_OK;
+    auto& saved=p.pending;if(saved.any())return D3DERR_DEVICELOST;
+    constexpr D3DTEXTURESTAGESTATETYPE keys[]{D3DTSS_COLOROP,D3DTSS_COLORARG1,D3DTSS_COLORARG2,D3DTSS_ALPHAOP,D3DTSS_ALPHAARG1,D3DTSS_RESULTARG,D3DTSS_ALPHAARG2};
+    for(unsigned i=0;i<7;++i)if(FAILED(n.GetTextureStageState(1,keys[i],&saved.body_stage[i])))return S_OK;
+    if(FAILED(n.GetRenderState(D3DRS_TEXTUREFACTOR,&saved.body_factor)))return S_OK;
+    if(p.lighting.fog_enabled&&FAILED(n.GetRenderState(D3DRS_FOGCOLOR,&saved.fog)))return S_OK;
+    saved.body_unit=1;
+    const DWORD values[]{D3DTOP_MODULATE,D3DTA_CURRENT,D3DTA_TFACTOR,D3DTOP_SELECTARG1,D3DTA_CURRENT,D3DTA_CURRENT,D3DTA_CURRENT};
+    const DWORD factor=atmosphere::pc_water_factor(p.lighting,saved.body_factor);
+    for(unsigned i:{7u,1u,2u,3u,4u,5u,6u,0u}){saved.body_pending|=1u<<i;const auto hr=i==7?n.SetRenderState(D3DRS_TEXTUREFACTOR,factor):n.SetTextureStageState(1,keys[i],values[i]);
+        if(i==7)notify(d,50,pack(D3DRS_TEXTUREFACTOR,factor),hr);else notify(d,63,pack(1,keys[i],values[i]),hr);if(FAILED(hr))return repair(d);}
+    if(p.lighting.fog_enabled){saved.fog_changed=true;const auto fog=atmosphere::scene_fog(saved.fog,p.lighting);const auto hr=n.SetRenderState(D3DRS_FOGCOLOR,fog);notify(d,50,pack(D3DRS_FOGCOLOR,fog),hr);if(FAILED(hr))return repair(d);}
+    applied=true;++p.pc_water_draws;
+    if(p.first_reason("pc_waterfall_atmosphere")||d.trace.control.active)session().write("{\"type\":\"atmosphere_pc_waterfall\",\"frame\":"+std::to_string(d.trace.frame_number())+",\"material\":"+quote(material->name)+",\"factor\":"+std::to_string(factor)+",\"alpha_uv_depth_unchanged\":true}");
+    return S_OK;
+}
 // F10 sidecars remain available even when the ordinary session log reaches
 // its fixed size limit. Debug writes are bounded and never run in normal mode.
 inline void debug_record(Device8& d,const std::string& record)noexcept {
@@ -359,7 +392,7 @@ inline void seam_native(Device8& d,atmosphere::Pilot& p,UINT min,UINT vertices,U
 }
 inline HRESULT universal_draw(Device8& d,atmosphere::Pilot& p,UINT min,UINT vertices,UINT start,UINT triangles,
                               DWORD fvf,bool noise,bool alpha_test,const char* course,uint64_t race,uint64_t owner,bool environment=false,
-                              const std::array<float,16>* world=nullptr) {
+                              const std::array<float,16>* world=nullptr,bool blended=false) {
     auto& n=*d.native();auto& saved=p.pending;
     auto fail=[&](const char* why){if(!saved.any())saved.release();++p.resolver_skipped_draws;return reject(d,p,why);};
     const auto reloads=p.package_reloads;const bool selected=p.select_course(course);
@@ -378,6 +411,11 @@ inline HRESULT universal_draw(Device8& d,atmosphere::Pilot& p,UINT min,UINT vert
     if(p.capture.stage){p.draw_texture=texture_sha;p.draw_material=material?material->name:"automatic_ground";p.draw_category=material?material->category:2;}
     // Static cutouts use the observed native coverage contract only. Never
     // turn blended/glass/environment passes into an opaque surface.
+    // Blended plain course cutouts (SRCALPHA/INVSRCALPHA, no alpha test): only
+    // an authored vegetation role or an alpha-tested static cutout role may be
+    // relit; RGB only, so native alpha, blending and depth stay untouched.
+    if(blended&&(!material||(material->flags&atmosphere::Deny)||!(material->flags&atmosphere::AlphaTest)||(material->category!=3&&material->category!=4)))return fail("resolver_blended_material_unproven");
+    const bool coverage=alpha_test||blended;
     if(alpha_test&&material&&material->category==4&&
        (!groundintegration::render(d,n,D3DRS_ALPHAFUNC,D3DCMP_GREATER)||
         !groundintegration::render(d,n,D3DRS_ALPHAREF,128)))return fail("resolver_static_coverage_contract");
@@ -416,7 +454,7 @@ inline HRESULT universal_draw(Device8& d,atmosphere::Pilot& p,UINT min,UINT vert
     if(FAILED(n.GetRenderState(D3DRS_CULLMODE,&cull))||(cull!=D3DCULL_NONE&&cull!=D3DCULL_CW&&cull!=D3DCULL_CCW))return fail("resolver_unknown_cull");
     if(!material&&cull!=D3DCULL_CCW)return fail("resolver_automatic_ground_front_face_unproven");
     if(!groundintegration::render(d,n,D3DRS_VERTEXBLEND,D3DVBF_DISABLE)||!groundintegration::render(d,n,D3DRS_INDEXEDVERTEXBLENDENABLE,FALSE))return fail("resolver_vertex_blending_excluded");
-    const atmosphere::ResolverKey key{vg,ig,texture_generation,vo,vs,io,is,saved.stride,min,uint64_t(noise)|(uint64_t(alpha_test)<<1)|(uint64_t(cull)<<2)|(uint64_t(environment)<<8),race,owner};
+    const atmosphere::ResolverKey key{vg,ig,texture_generation,vo,vs,io,is,saved.stride,min,uint64_t(noise)|(uint64_t(alpha_test)<<1)|(uint64_t(cull)<<2)|(uint64_t(environment)<<8)|(uint64_t(blended)<<9),race,owner};
     auto& resolver=p.resolver;auto found=resolver.entries.find(key);bool fresh=found==resolver.entries.end();
     if(fresh&&!resolver.room(size_t(vs*4+is)))return fail("resolver_cache_capacity_native_fallback");
     // Existing proxy provenance, not a READONLY GPU Lock. A missing, poisoned,
@@ -447,7 +485,7 @@ inline HRESULT universal_draw(Device8& d,atmosphere::Pilot& p,UINT min,UINT vert
     if(unchanged&&relight)++resolver.world_relights;
     if(!unchanged&&(resolver.bytes-entry.storage()>resolver.max_bytes||vs*4+is>resolver.max_bytes-(resolver.bytes-entry.storage())))return fail("resolver_cache_growth_native_fallback");
     if(relight){resolver.bytes-=entry.storage();if(!unchanged){entry.original=std::move(current_v);entry.index_bytes=std::move(current_i);entry.vertex_revision=vr;entry.index_revision=ir;}
-        atmosphere::light_geometry(entry,saved.stride,min,vertices,width,material,noise,atmosphere::source_opaque_pass(material,opaque,false,alpha_test),alpha_test,p.auto_ground,p.lighting,&p.normal_hints,course,texture_sha,environment,world);resolver.bytes+=entry.storage();}
+        atmosphere::light_geometry(entry,saved.stride,min,vertices,width,material,noise,atmosphere::source_opaque_pass(material,opaque,false,coverage),coverage,p.auto_ground,p.lighting,&p.normal_hints,course,texture_sha,environment,world);resolver.bytes+=entry.storage();}
     if(!entry.accepted){++resolver.skipped;return fail(entry.reason);}
     if(p.lighting.fog_enabled&&FAILED(n.GetRenderState(D3DRS_FOGCOLOR,&saved.fog)))return fail("resolver_fog_capture_failed");
     if(environment&&p.world&&p.lighting.active()){
@@ -511,9 +549,13 @@ inline HRESULT begin(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UIN
             if(p->first_reason(("custom_sky_layer_"+std::to_string(identity->layer)).c_str()))session().write("{\"type\":\"atmosphere_custom_sky_draw\",\"layer\":"+std::to_string(identity->layer)+",\"source_native_sha256\":"+quote(identity->sha)+",\"custom_bgra_sha256\":"+quote(sha256_bytes(p->pixels(identity->layer).bgra.data(),p->pixels(identity->layer).bgra.size()*4))+",\"u_scale\":"+std::to_string(identity->layer==0?p->sky_u_scale:1)+",\"vertices\":"+std::to_string(vertices)+",\"triangles\":"+std::to_string(count)+",\"frame\":"+std::to_string(d.trace.frame_number())+",\"race_generation\":"+std::to_string(cert.race_generation)+"}");return S_OK;
         }
         bool water_applied=false;const auto water_status=pc_water_draw(d,*p,fvf,water_applied);if(FAILED(water_status)||water_applied)return water_status;
+        {const char* course=cert.course_id.data();if(!_strnicmp(course,"RaceTest/",9))course+=9;
+         const auto fall_status=pc_waterfall_draw(d,*p,fvf,course,water_applied);if(FAILED(fall_status)||water_applied)return fall_status;}
         const bool environment=p->universal&&fvf==0x152;
+        const bool alpha_blend=groundintegration::render(d,n,D3DRS_ALPHABLENDENABLE,TRUE)&&groundintegration::render(d,n,D3DRS_SRCBLEND,D3DBLEND_SRCALPHA)&&groundintegration::render(d,n,D3DRS_DESTBLEND,D3DBLEND_INVSRCALPHA);
+        const bool blended_plain=p->universal&&fvf==0x142&&alpha_blend&&groundintegration::render(d,n,D3DRS_ALPHATESTENABLE,FALSE)&&groundintegration::stage(d,n,1,D3DTSS_COLOROP,D3DTOP_DISABLE);
         if((!p->world_route()&&!p->light_probe)||(fvf!=0x142&&fvf!=0x242&&!environment)||(!groundintegration::render(d,n,D3DRS_ALPHABLENDENABLE,FALSE)&&
-             !(environment&&groundintegration::render(d,n,D3DRS_ALPHABLENDENABLE,TRUE)&&groundintegration::render(d,n,D3DRS_SRCBLEND,D3DBLEND_SRCALPHA)&&groundintegration::render(d,n,D3DRS_DESTBLEND,D3DBLEND_INVSRCALPHA)))||
+             !((environment||blended_plain)&&alpha_blend))||
             !groundintegration::render(d,n,D3DRS_ZENABLE,D3DZB_TRUE)||!groundintegration::render(d,n,D3DRS_ZWRITEENABLE,TRUE)||
             !groundintegration::render(d,n,D3DRS_BLENDOP,D3DBLENDOP_ADD)||!groundintegration::render(d,n,D3DRS_FOGENABLE,TRUE)||
             !groundintegration::stage(d,n,0,D3DTSS_COLOROP,D3DTOP_MODULATE)||!groundintegration::stage(d,n,0,D3DTSS_COLORARG1,D3DTA_TEXTURE)||
@@ -540,7 +582,7 @@ inline HRESULT begin(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UIN
         if(!identity_world&&!p->universal)return reject(d,*p,"source_static_course_world_not_identity");
         if(p->universal){const char* course=cert.course_id.data();if(!_strnicmp(course,"RaceTest/",9))course+=9;
             std::array<float,16> instance{};std::memcpy(instance.data(),&world,64);
-            return universal_draw(d,*p,min,vertices,start,count,fvf,noise,groundintegration::render(d,n,D3DRS_ALPHATESTENABLE,TRUE),course,cert.race_generation,cert.owner_lifetime,environment,identity_world?nullptr:&instance);}
+            return universal_draw(d,*p,min,vertices,start,count,fvf,noise,groundintegration::render(d,n,D3DRS_ALPHATESTENABLE,TRUE),course,cert.race_generation,cert.owner_lifetime,environment,identity_world?nullptr:&instance,blended_plain&&!noise&&!environment);}
         if(!p->atlas.load(p->atlas_path))return reject(d,*p,p->atlas.reason);
         Geometry g;if(!geometry(d,*p,min,vertices,start,count,g))return fail("source_draw_vertex_or_index_range_unavailable");
         if(saved.stride!=(fvf==0x142?24u:32u))return fail("source_world_vertex_layout_mismatch");

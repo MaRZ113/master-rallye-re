@@ -14,7 +14,9 @@ struct SceneMaterial {std::string course,name,texture;uint32_t category=0,flags=
 // Keep that draw's original coverage fix, but prepare certified environment RGB
 // first, just as base_noise is prepared before GroundDetail's owned passes.
 inline bool world_lighting_before_replacement(uint32_t fvf,uint32_t stage1,bool forest)noexcept{
-    return ((fvf==0x142||fvf==0x242)&&stage1==D3DTOP_MODULATE2X)||(forest&&fvf==0x152);
+    // ForestFix also owns blended plain course cutouts (France1 rail signals):
+    // their certified private RGB must be prepared before its early return.
+    return ((fvf==0x142||fvf==0x242)&&stage1==D3DTOP_MODULATE2X)||(forest&&fvf==0x152)||(forest&&(fvf==0x142||fvf==0x102)&&stage1==D3DTOP_DISABLE);
 }
 // On a certified unblended, non-alpha-tested pass, texture alpha is unused
 // coverage data (often zero in opaque course assets). A known material role
@@ -194,7 +196,11 @@ inline bool light_geometry(ResolvedGeometry& entry,unsigned stride,unsigned min,
             if(hinted)++entry.hinted;}
         entry.effective_normals[i]=n;
         bool ambiguous=false;
-        if(!environment&&((material&&(material->flags&TwoSided))||(entry.opposite_faces&&!hinted))){float dot=0;for(unsigned j=0;j<3;++j)dot+=n[j]*settings.direction[j];if(dot<0)for(float& x:n)x=-x;
+        // Paired front/back faces share their vertices, so one colour serves
+        // both sides. An authored hint picks a side, but the viewer may see
+        // either: lighting it per side lit one fence and left its twin dark
+        // (Italy1 bridge). Paired geometry always uses the paired share.
+        if(!environment&&((material&&(material->flags&TwoSided))||entry.opposite_faces)){float dot=0;for(unsigned j=0;j<3;++j)dot+=n[j]*settings.direction[j];if(dot<0)for(float& x:n)x=-x;
             // Thin paired props (rails, fences, boards) share one colour for both
             // faces: always using the sun-facing side made them glow against a
             // backlit sunset. Vegetation keeps its translucent sun-facing look.

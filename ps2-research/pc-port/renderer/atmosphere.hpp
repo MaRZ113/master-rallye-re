@@ -304,7 +304,7 @@ public:
     struct Pending {
         IDirect3DBaseTexture8* texture=nullptr;IDirect3DBaseTexture8* environment=nullptr;bool environment_changed=false;IDirect3DVertexBuffer8* stream=nullptr;
         IDirect3DIndexBuffer8* indices=nullptr;UINT stride=0,base=0;DWORD fog=0;
-        DWORD body_factor=0;std::array<DWORD,7> body_stage{};uint32_t body_pending=0;
+        DWORD body_factor=0;std::array<DWORD,7> body_stage{};uint32_t body_pending=0;DWORD body_unit=2;
         std::array<DWORD,5> sky_stage{};uint32_t sky_pending=0;DWORD sky_factor=0;
         bool texture_changed=false,stream_changed=false,indices_changed=false,fog_changed=false;
         bool any()const noexcept{return environment_changed||texture_changed||stream_changed||indices_changed||fog_changed||body_pending||sky_pending;}
@@ -440,9 +440,10 @@ template<class Writer> inline HRESULT restore_pending(Pilot& p,IDirect3DDevice8&
         if(i==4)notify(50,pack(D3DRS_TEXTUREFACTOR,s.sky_factor),hr);else notify(63,pack(0,sky_keys[i],s.sky_stage[i]),hr);
         if(SUCCEEDED(hr))s.sky_pending&=~(1u<<i);else if(SUCCEEDED(result))result=hr;}
     constexpr D3DTEXTURESTAGESTATETYPE body_keys[]{D3DTSS_COLOROP,D3DTSS_COLORARG1,D3DTSS_COLORARG2,D3DTSS_ALPHAOP,D3DTSS_ALPHAARG1,D3DTSS_RESULTARG,D3DTSS_ALPHAARG2};
-    for(unsigned i=0;i<8;++i)if(s.body_pending&(1u<<i)){const auto hr=i==7?n.SetRenderState(D3DRS_TEXTUREFACTOR,s.body_factor):n.SetTextureStageState(2,body_keys[i],s.body_stage[i]);
-        if(i==7)notify(50,pack(D3DRS_TEXTUREFACTOR,s.body_factor),hr);else notify(63,pack(2,body_keys[i],s.body_stage[i]),hr);
+    for(unsigned i=0;i<8;++i)if(s.body_pending&(1u<<i)){const auto hr=i==7?n.SetRenderState(D3DRS_TEXTUREFACTOR,s.body_factor):n.SetTextureStageState(s.body_unit,body_keys[i],s.body_stage[i]);
+        if(i==7)notify(50,pack(D3DRS_TEXTUREFACTOR,s.body_factor),hr);else notify(63,pack(s.body_unit,body_keys[i],s.body_stage[i]),hr);
         if(SUCCEEDED(hr))s.body_pending&=~(1u<<i);else if(SUCCEEDED(result))result=hr;}
+    if(!s.body_pending)s.body_unit=2;
     auto check=[&](bool& pending,HRESULT hr){if(SUCCEEDED(hr))pending=false;else if(SUCCEEDED(result))result=hr;};
     if(s.fog_changed){auto a=pack(D3DRS_FOGCOLOR,s.fog);auto hr=n.SetRenderState(D3DRS_FOGCOLOR,s.fog);notify(50,a,hr);check(s.fog_changed,hr);}
     if(s.indices_changed){auto a=pack(s.indices,s.base);auto hr=n.SetIndices(s.indices,s.base);notify(85,a,hr);check(s.indices_changed,hr);}
