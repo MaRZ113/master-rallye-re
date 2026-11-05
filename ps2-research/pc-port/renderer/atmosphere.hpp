@@ -262,6 +262,8 @@ public:
         reason_count=0;return !package_failed;
     }
     CourseCoverage coverage;
+    // Course fog as the world loop left it this frame (proxy layers drawn later reuse it).
+    struct CourseFog{uint64_t frame=UINT64_MAX;DWORD vertex=0,table=0,start=0,end=0,color=0;} course_fog;
     CourseCapture capture;std::string draw_reason,draw_material,draw_texture;unsigned draw_category=0;bool draw_lit=false,draw_resolved=false;
     bool native_wheel_lighting=true;unsigned wheel_caps=0;bool body_tata=false;bool body_materials=false,seam_debug=false,body_debug=false;
     BodyMaterials body_capabilities;std::map<std::pair<std::string,unsigned>,std::string> body_texture_cache;

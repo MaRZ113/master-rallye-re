@@ -115,12 +115,12 @@ void default_and_capture(){
  auto writer=[](uint32_t,const Args&,HRESULT)noexcept{};
  CHECK(FAILED(t.apply(n,&n.replacement,matrix(7),matrix(8),writer)));CHECK(n.gets==0&&n.writes==0);
  CHECK(SUCCEEDED(t.restore(n,writer)));CHECK(n.writes==0);
- for(int failure=1;failure<=35;++failure){
+ for(int failure=1;failure<=39;++failure){
   Native x;Initial initial(x);CourseObjectTransaction tx;x.fail_get=failure;
   CHECK(FAILED(tx.capture(x)));CHECK(x.writes==0&&!tx.captured()&&!tx.has_pending());
   CHECK(initial.matches(x)&&x.original_texture.refs==1&&x.original_buffer.refs==1);
  }
- CHECK(SUCCEEDED(t.capture(n)));CHECK(n.gets==35&&n.writes==0);
+ CHECK(SUCCEEDED(t.capture(n)));CHECK(n.gets==39&&n.writes==0);
  CHECK(n.original_texture.refs==2&&n.original_buffer.refs==2);
  t.release();CHECK(n.original_texture.refs==1&&n.original_buffer.refs==1&&!t.captured());
 }
@@ -128,7 +128,7 @@ void preview_draw_restore(){
  Native n;Initial initial(n);CourseObjectTransaction t;std::vector<Record> log;
  auto writer=[&](uint32_t slot,const Args& args,HRESULT hr)noexcept{log.push_back({slot,args,hr});};
  CHECK(SUCCEEDED(t.capture(n)));CHECK(SUCCEEDED(t.apply(n,&n.replacement,matrix(7),matrix(8),writer)));
- CHECK(n.gets==35&&n.writes==33&&t.has_pending());
+ CHECK(n.gets==39&&n.writes==33&&t.has_pending());
  CHECK(n.vertex_shader==0x142&&n.pixel_shader==0&&n.texture==&n.replacement);
  CHECK(n.rs[D3DRS_ZENABLE]==D3DZB_TRUE&&n.rs[D3DRS_ZWRITEENABLE]==TRUE&&n.rs[D3DRS_ZFUNC]==D3DCMP_LESSEQUAL);
  CHECK(n.rs[D3DRS_ALPHATESTENABLE]==FALSE&&n.rs[D3DRS_ALPHABLENDENABLE]==TRUE);

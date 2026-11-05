@@ -17,7 +17,7 @@ struct CourseObjectStateOp {
     DWORD stage;
     DWORD preview;
 };
-inline constexpr std::array<CourseObjectStateOp, 35> kCourseObjectStateOps = {{
+inline constexpr std::array<CourseObjectStateOp, 39> kCourseObjectStateOps = {{
     {CourseObjectStateKind::Render,D3DRS_ZENABLE,0,D3DZB_TRUE},
     {CourseObjectStateKind::Render,D3DRS_ZWRITEENABLE,0,TRUE},
     {CourseObjectStateKind::Render,D3DRS_ZFUNC,0,D3DCMP_LESSEQUAL},
@@ -51,6 +51,13 @@ inline constexpr std::array<CourseObjectStateOp, 35> kCourseObjectStateOps = {{
     {CourseObjectStateKind::VertexShader,0,0,D3DFVF_XYZ|D3DFVF_DIFFUSE|D3DFVF_TEX1},
     {CourseObjectStateKind::PixelShader,0,0,0},
     {CourseObjectStateKind::Texture,0,0,0},
+    // ATMOSPHERE5.7: fog mode/range stay native unless a layer passes the
+    // course fog snapshot (spline objects are drawn after the world, when
+    // the game has already left the course fog state).
+    {CourseObjectStateKind::Render,D3DRS_FOGVERTEXMODE,0,0},
+    {CourseObjectStateKind::Render,D3DRS_FOGTABLEMODE,0,0},
+    {CourseObjectStateKind::Render,D3DRS_FOGSTART,0,0},
+    {CourseObjectStateKind::Render,D3DRS_FOGEND,0,0},
     {CourseObjectStateKind::Render,D3DRS_FOGCOLOR,0,0},
     {CourseObjectStateKind::Stream,0,0,0},
 }};
@@ -80,6 +87,7 @@ struct CourseObjectMaterialState {
     DWORD src_blend=D3DBLEND_SRCALPHA;
     DWORD dest_blend=D3DBLEND_INVSRCALPHA;
     bool override_fog_color=false;DWORD fog_color=0;
+    bool override_fog_range=false;DWORD fog_vertex_mode=0,fog_table_mode=0,fog_start=0,fog_end=0;
 };
 
 class CourseObjectTransaction {
@@ -217,6 +225,10 @@ public:
             if(op.kind==CourseObjectStateKind::Stage&&op.key==D3DTSS_ADDRESSU)desired.scalar=material.address_u;
             if(op.kind==CourseObjectStateKind::Stage&&op.key==D3DTSS_ADDRESSV)desired.scalar=material.address_v;
             if(op.kind==CourseObjectStateKind::Render&&op.key==D3DRS_FOGCOLOR)desired.scalar=material.override_fog_color?material.fog_color:saved_[i].scalar;
+            if(op.kind==CourseObjectStateKind::Render&&op.key==D3DRS_FOGVERTEXMODE)desired.scalar=material.override_fog_range?material.fog_vertex_mode:saved_[i].scalar;
+            if(op.kind==CourseObjectStateKind::Render&&op.key==D3DRS_FOGTABLEMODE)desired.scalar=material.override_fog_range?material.fog_table_mode:saved_[i].scalar;
+            if(op.kind==CourseObjectStateKind::Render&&op.key==D3DRS_FOGSTART)desired.scalar=material.override_fog_range?material.fog_start:saved_[i].scalar;
+            if(op.kind==CourseObjectStateKind::Render&&op.key==D3DRS_FOGEND)desired.scalar=material.override_fog_range?material.fog_end:saved_[i].scalar;
             bool changed=saved_[i].scalar!=desired.scalar;
             if(op.kind==CourseObjectStateKind::Matrix){
                 desired.matrix=op.key==D3DTS_WORLD?identity():op.key==D3DTS_VIEW?view:projection;

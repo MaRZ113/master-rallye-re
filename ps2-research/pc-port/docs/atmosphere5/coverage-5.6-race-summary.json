@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "ledgers": [
+    "coverage-12764.json"
+  ],
+  "courses": {
+    "francem": {
+      "Lit": 69.05,
+      "Excluded": 17.24,
+      "Shader mismatch": 9.5,
+      "Sky or unlit card": 4.12,
+      "Unclassified": 0.09,
+      "Unsupported": 0.0
+    },
+    "unknown": {
+      "Unsupported": 99.96,
+      "Sky or unlit card": 0.04
+    }
+  }
+}

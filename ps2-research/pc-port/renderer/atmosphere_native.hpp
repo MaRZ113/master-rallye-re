@@ -29,6 +29,17 @@ inline void proxy_fog(Device8& d,ps2port::CourseObjectMaterialState& material)no
     material.fog=TRUE;material.override_fog_color=true;material.fog_color=atmosphere::scene_fog(color,p->lighting);
     try{if(p->first_reason("proxy_layer_fog"))session().write("{\"type\":\"atmosphere_proxy_fog\",\"original\":"+std::to_string(color)+",\"effective\":"+std::to_string(material.fog_color)+",\"range_modes_unchanged\":true}");}catch(...){}
 }
+// Spline objects are drawn after the world, when the game has already left
+// the course fog state: reuse this frame's course fog snapshot (mode, range and
+// the atmosphere fog colour). Without a snapshot the native state is kept.
+inline bool course_fog_snapshot(Device8& d,ps2port::CourseObjectMaterialState& material)noexcept {
+    auto* p=pilot(d);if(!p||!p->enabled()||p->course_fog.frame!=d.trace.frame_number())return false;
+    const auto& f=p->course_fog;material.fog=TRUE;material.override_fog_range=true;
+    material.fog_vertex_mode=f.vertex;material.fog_table_mode=f.table;material.fog_start=f.start;material.fog_end=f.end;
+    material.override_fog_color=true;material.fog_color=p->lighting.active()&&p->lighting.fog_enabled?atmosphere::scene_fog(f.color,p->lighting):f.color;
+    try{if(p->first_reason("proxy_course_fog_snapshot"))session().write("{\"type\":\"atmosphere_proxy_fog_snapshot\",\"vertex_mode\":"+std::to_string(f.vertex)+",\"table_mode\":"+std::to_string(f.table)+",\"color\":"+std::to_string(material.fog_color)+"}");}catch(...){}
+    return true;
+}
 // PS2 layers drawn by the proxy itself (source-point grass, rigid props) never
 // pass through the course resolver. Their private vertex copies get the same
 // world lighting just before submission. Grass sprites use the ground's up
@@ -121,6 +132,13 @@ inline void observe(Device8& d,D3DPRIMITIVETYPE type,UINT,UINT vertices,UINT,UIN
     try {
         const auto frame=d.trace.frame_number();
         if(p->coverage.enabled){coverage_commit(d,*p);coverage_flush(d,*p,false);coverage_start(d,*p,count);}
+        if(p->course_fog.frame!=frame){auto& n=*d.native();DWORD enabled=FALSE,vertex=0,table=0,start=0,end=0,color=0;
+            if(SUCCEEDED(n.GetRenderState(D3DRS_FOGENABLE,&enabled))&&enabled&&SUCCEEDED(n.GetRenderState(D3DRS_FOGVERTEXMODE,&vertex))&&
+               SUCCEEDED(n.GetRenderState(D3DRS_FOGTABLEMODE,&table))&&SUCCEEDED(n.GetRenderState(D3DRS_FOGSTART,&start))&&
+               SUCCEEDED(n.GetRenderState(D3DRS_FOGEND,&end))&&SUCCEEDED(n.GetRenderState(D3DRS_FOGCOLOR,&color))){
+                float s=0,e=0;std::memcpy(&s,&start,4);std::memcpy(&e,&end,4);
+                if(((vertex==D3DFOG_LINEAR&&table==D3DFOG_NONE)||(table!=D3DFOG_NONE&&table<=D3DFOG_LINEAR))&&std::isfinite(s)&&std::isfinite(e)&&s>=0&&s<e)
+                    p->course_fog={frame,vertex,table,start,end,color};}}
         if(p->live_tuning&&frame!=p->live_key_frame){p->live_key_frame=frame;DWORD pid=0;GetWindowThreadProcessId(GetForegroundWindow(),&pid);
             const bool down=pid==GetCurrentProcessId()&&(GetAsyncKeyState(VK_CONTROL)&0x8000)&&(GetAsyncKeyState(VK_MENU)&0x8000)&&(GetAsyncKeyState('R')&0x8000);
             if(down&&!p->live_key_down)p->live_force=true;p->live_key_down=down;}

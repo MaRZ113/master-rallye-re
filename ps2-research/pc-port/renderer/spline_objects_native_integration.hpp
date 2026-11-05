@@ -169,6 +169,7 @@ inline HRESULT before_ui(Device8& d,bool ui_callsite,bool ui_consumer) noexcept 
         // World identity (vertices are already world space), the verified gameplay view and projection.
         ps2port::CourseObjectMaterialState material{TRUE,D3DTADDRESS_WRAP,D3DTADDRESS_WRAP,FALSE,static_cast<DWORD>(fog?TRUE:FALSE)};
         if(lit)atmosphereintegration::proxy_fog(d,material);
+        if(!fog)atmosphereintegration::course_fog_snapshot(d,material);
         applied=p->transaction.apply(n,p->texture(batch.texture),proof.view,proof.projection,writer,material);
         if(SUCCEEDED(applied)){
             p->transaction.mark_up_stream_changed();
