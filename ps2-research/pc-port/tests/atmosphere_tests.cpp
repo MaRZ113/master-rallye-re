@@ -228,6 +228,7 @@ int main(){
     Lighting sunset_water;sunset_water.mode=Lighting::Mode::GoldenHour;sunset_water.world_brightness=.68f;
     const auto water_factor=pc_water_factor(sunset_water);CHECK(water_factor>>24==255);CHECK((water_factor&255)>((water_factor>>16)&255));CHECK((water_factor&255)<255);
     CHECK(pc_water_factor(sunset_water,0x7f123456)>>24==0x7f);
+    {auto dark=sunset_water;dark.ambient_strength=.06f;const auto d=pc_water_factor(dark);CHECK((d&255)*4<(water_factor&255));} // ATMOSPHERE5.11 night water
     CHECK(parse_preset(L"Auto")==-1&&parse_preset(nullptr)==-1);
     CHECK(parse_preset(L"0")==0&&parse_preset(L"5")==5);
     CHECK(parse_preset(L"6")==-1&&parse_preset(L"-1")==-1&&parse_preset(L"3x")==-1&&parse_preset(L" 3")==-1);
@@ -471,6 +472,7 @@ int main(){
     CHECK(body_color(0xfe303030,{0,1,0},evening,true)==body_color(0xfec0c0c0,{0,1,0},evening,true));
     CHECK((body_color(0x7f303030,{0,1,0},evening,true)>>24)==0x7f);
     CHECK(body_color(gray,{0,1,0},evening,false)==scene_color(gray,{0,1,0},body_lighting(evening)));
+    {auto dark=evening;dark.ambient_strength=.06f;dark.sun_strength=0;CHECK(body_lighting(dark).ambient_strength<.1f);auto day=evening;day.ambient_strength=.6f;CHECK(body_lighting(day).ambient_strength>=.95f);}
     CHECK(body_color(0x7f123456,{0,1,0},Lighting{},true)==0x7f123456);
     auto dark_body=evening;dark_body.world_brightness=.3f;dark_body.direction={0,1,0};
     const auto shadow_body=body_color(0x7f666666,{0,-1,0},dark_body,false);

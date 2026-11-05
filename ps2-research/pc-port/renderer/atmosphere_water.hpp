@@ -12,7 +12,10 @@ inline DWORD pc_water_factor(const Lighting& s,DWORD original_factor=0xffffffffu
         // Sky ambient dominates water; a small fog contribution avoids the
         // unrelated bright blue surface under the retained sunset sky.
         const float fog_mix=s.fog_enabled?.2f:0.f;
-        const float gain=std::clamp((s.ambient[i]*(1-fog_mix)+fog*fog_mix)*s.world_brightness*s.exposure,0.f,1.f);
+        // Night/dark presets (AmbientStrength < .5) darken water with the world;
+        // .5 and above keeps the accepted sunset water unchanged.
+        const float night=std::clamp(s.ambient_strength/.5f,0.f,1.f);
+        const float gain=std::clamp((s.ambient[i]*(1-fog_mix)+fog*fog_mix)*s.world_brightness*s.exposure*night,0.f,1.f);
         const float effective=s.active()?1+std::clamp(s.strength,0.f,1.f)*(gain-1):1;
         out|=DWORD(std::clamp(std::lround(effective*255),0l,255l))<<shift;
     }return out;

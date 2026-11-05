@@ -9,8 +9,12 @@ namespace gfx2::atmosphere {
 inline Lighting body_lighting(const Lighting& lighting) {
     auto s=lighting;
     s.world_brightness=.85f+.15f*std::clamp(lighting.world_brightness,0.f,1.f);
-    s.ambient_strength=std::max(s.ambient_strength,.95f);
-    for(unsigned i=0;i<3;++i)s.ambient[i]=std::max(s.ambient[i],std::array<float,3>{.62f,.70f,.88f}[i]);
+    // The day floor keeps bodies from going coal-black under low-ambient day
+    // presets. Below AmbientStrength .5 (night/dark diagnostic) it fades out
+    // so cars darken with the world; .5 and above is unchanged.
+    const float day=std::clamp((lighting.ambient_strength-.2f)/.3f,0.f,1.f);
+    s.ambient_strength=std::max(s.ambient_strength,.95f*day+lighting.ambient_strength*(1-day));
+    for(unsigned i=0;i<3;++i){const float floor=std::array<float,3>{.62f,.70f,.88f}[i];s.ambient[i]=std::max(s.ambient[i],floor*day+s.ambient[i]*(1-day));}
     s.sun_strength*=.65f;
     s.prelight_contrast=1;s.prelight_visibility=0;
     return s;
