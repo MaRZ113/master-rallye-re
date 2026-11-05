@@ -3,6 +3,7 @@
 #include "ground_detail_native.hpp"
 #include "atmosphere.hpp"
 #include "buffer_provenance.hpp"
+#include "brake_glow.hpp"
 
 namespace gfx2::atmosphereintegration {
 inline atmosphere::Pilot* pilot(Device8& d)noexcept{return d.ps2_port()?d.ps2_port()->atmosphere_pilot():nullptr;}
@@ -605,6 +606,23 @@ inline HRESULT begin(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UIN
         if(FAILED(n.GetRenderTarget(&target.p))||FAILED(n.GetBackBuffer(0,D3DBACKBUFFER_TYPE_MONO,&back.p))||!courseintegration::same_identity(target.p,back.p))return reject(d,*p,"native_target_not_backbuffer");
         DWORD fvf=0,ps=1;if(FAILED(n.GetVertexShader(&fvf))||FAILED(n.GetPixelShader(&ps))||ps||!groundintegration::render(d,n,D3DRS_LIGHTING,FALSE))return reject(d,*p,"fixed_function_shader_or_lighting_mismatch");
         auto& saved=p->pending;if(saved.any())return D3DERR_DEVICELOST;
+        // P0.2 VehicleGlowFix: the PC glow-on layer of a proven vehicle is an
+        // XYZ|TEX1 card drawn SRCALPHA/INVSRCALPHA WITH depth writes and no
+        // alpha test, so its transparent texels write Z: rectangular edges and
+        // lamps/halos cutting into what is drawn later. Same contract as
+        // ForestFix=1: depth writes off for this draw only (test unchanged).
+        // Skipped when the PS2 BrakeGlow path owns lamp layers (it proves the
+        // native state itself).
+        if(p->vehicle_glow_fix&&fvf==0x102&&classification&&(classification->semantic_source!=VehicleSemanticSource::None||strong_vehicle_proof(classification->transform))&&
+           !(d.ps2_port()&&d.ps2_port()->brake_glow()&&d.ps2_port()->brake_glow()->requested())&&
+           groundintegration::render(d,n,D3DRS_ALPHABLENDENABLE,TRUE)&&groundintegration::render(d,n,D3DRS_SRCBLEND,D3DBLEND_SRCALPHA)&&
+           groundintegration::render(d,n,D3DRS_DESTBLEND,D3DBLEND_INVSRCALPHA)&&groundintegration::render(d,n,D3DRS_ZWRITEENABLE,TRUE)&&
+           groundintegration::render(d,n,D3DRS_ZENABLE,D3DZB_TRUE)&&groundintegration::render(d,n,D3DRS_ALPHATESTENABLE,FALSE)){
+            if(FAILED(n.GetRenderState(D3DRS_ZWRITEENABLE,&saved.zwrite)))return reject(d,*p,"vehicle_glow_state_unavailable");
+            saved.zwrite_changed=true;const auto hr=n.SetRenderState(D3DRS_ZWRITEENABLE,FALSE);notify(d,50,pack(D3DRS_ZWRITEENABLE,FALSE),hr);if(FAILED(hr))return repair(d);
+            ++p->vehicle_glow_draws;if(p->capture.stage||p->coverage.enabled){p->draw_resolved=true;p->draw_lit=false;p->draw_reason="vehicle_glow_zwrite_off";}
+            if(p->first_reason("vehicle_glow_fix"))session().write("{\"type\":\"atmosphere_vehicle_glow_fix\",\"frame\":"+std::to_string(d.trace.frame_number())+",\"z_test_unchanged\":true,\"alpha_unchanged\":true}");
+            return S_OK;}
         auto fail=[&](const char* reason){if(!saved.any())saved.release();return reject(d,*p,reason);};
         if(fvf==0x102&&p->custom()&&groundintegration::render(d,n,D3DRS_FOGENABLE,FALSE)){
             courseintegration::Ref<IDirect3DBaseTexture8> texture;if(FAILED(n.GetTexture(0,&texture.p))||!texture.p)return S_OK;

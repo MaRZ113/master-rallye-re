@@ -262,6 +262,7 @@ public:
         reason_count=0;return !package_failed;
     }
     CourseCoverage coverage;
+    bool vehicle_glow_fix=false;uint64_t vehicle_glow_draws=0;
     // Course fog as the world loop left it this frame (proxy layers drawn later reuse it).
     struct CourseFog{uint64_t frame=UINT64_MAX;DWORD vertex=0,table=0,start=0,end=0,color=0;} course_fog;
     CourseCapture capture;std::string draw_reason,draw_material,draw_texture;unsigned draw_category=0;bool draw_lit=false,draw_resolved=false;
@@ -309,8 +310,8 @@ public:
         IDirect3DIndexBuffer8* indices=nullptr;UINT stride=0,base=0;DWORD fog=0;
         DWORD body_factor=0;std::array<DWORD,7> body_stage{};uint32_t body_pending=0;DWORD body_unit=2;
         std::array<DWORD,5> sky_stage{};uint32_t sky_pending=0;DWORD sky_factor=0;
-        bool texture_changed=false,stream_changed=false,indices_changed=false,fog_changed=false;
-        bool any()const noexcept{return environment_changed||texture_changed||stream_changed||indices_changed||fog_changed||body_pending||sky_pending;}
+        bool texture_changed=false,stream_changed=false,indices_changed=false,fog_changed=false,zwrite_changed=false;DWORD zwrite=TRUE;
+        bool any()const noexcept{return environment_changed||texture_changed||stream_changed||indices_changed||fog_changed||zwrite_changed||body_pending||sky_pending;}
         void release()noexcept{if(environment)environment->Release();environment=nullptr;if(texture)texture->Release();if(stream)stream->Release();if(indices)indices->Release();texture=nullptr;stream=nullptr;indices=nullptr;}
     } pending;
     IDirect3DVertexBuffer8* scratch=nullptr;UINT scratch_size=0;
@@ -339,6 +340,7 @@ public:
         package_root=setting(L"LightingPackageRoot",L"");if(!package_root.empty()&&package_root.is_relative())package_root=std::filesystem::path(ini_).parent_path()/package_root;
         capture.enabled=GetPrivateProfileIntW(L"Atmosphere",L"CourseCapture",0,ini_.c_str())==1;
         coverage.enabled=GetPrivateProfileIntW(L"Atmosphere",L"CoverageLedger",0,ini_.c_str())==1;
+        vehicle_glow_fix=GetPrivateProfileIntW(L"Atmosphere",L"VehicleGlowFix",0,ini_.c_str())==1;
 
         pc_water=GetPrivateProfileIntW(L"Atmosphere",L"PCWaterAtmosphere",0,ini_.c_str())==1;
         source_x=number(L"LightX",0);source_y=number(L"LightY",0);source_z=number(L"LightZ",0);radius=std::clamp(number(L"LightRadius",12),.1f,100.f);
@@ -450,6 +452,7 @@ template<class Writer> inline HRESULT restore_pending(Pilot& p,IDirect3DDevice8&
     if(!s.body_pending)s.body_unit=2;
     auto check=[&](bool& pending,HRESULT hr){if(SUCCEEDED(hr))pending=false;else if(SUCCEEDED(result))result=hr;};
     if(s.fog_changed){auto a=pack(D3DRS_FOGCOLOR,s.fog);auto hr=n.SetRenderState(D3DRS_FOGCOLOR,s.fog);notify(50,a,hr);check(s.fog_changed,hr);}
+    if(s.zwrite_changed){auto a=pack(D3DRS_ZWRITEENABLE,s.zwrite);auto hr=n.SetRenderState(D3DRS_ZWRITEENABLE,s.zwrite);notify(50,a,hr);check(s.zwrite_changed,hr);}
     if(s.indices_changed){auto a=pack(s.indices,s.base);auto hr=n.SetIndices(s.indices,s.base);notify(85,a,hr);check(s.indices_changed,hr);}
     if(s.stream_changed){auto a=pack(0,s.stream,s.stride);auto hr=n.SetStreamSource(0,s.stream,s.stride);notify(83,a,hr);check(s.stream_changed,hr);}
     if(s.environment_changed){auto a=pack(1,s.environment);auto hr=n.SetTexture(1,s.environment);notify(61,a,hr);check(s.environment_changed,hr);}
