@@ -1479,3 +1479,92 @@ diff --git a/modernization/renderer/src/game_fov.cpp b/modernization/renderer/sr
     // Emit the full, bounded lifecycle certificate alongside each meaningful
     // freecam state/input transition. This keeps F10 reserved and records the
     // root/HUD jobs, their copied flags and commit results, RaceState admission,
+diff --git a/modernization/renderer/include/free_camera.hpp b/modernization/renderer/include/free_camera.hpp
+index 36307ef..49d3d64 100644
+--- a/modernization/renderer/include/free_camera.hpp
++++ b/modernization/renderer/include/free_camera.hpp
+@@ -42,11 +42,12 @@ struct FreeCameraAdmission {bool admitted=false;const char* mode="none";const ch
+ inline FreeCameraAdmission evaluate_free_camera_admission(bool configured,bool allow_unpaused,
+  bool live_race_certificate,bool camera_owner_valid,bool pause_known,bool paused,bool input_focus) noexcept {
+  if(!configured)return {false,"none","disabled"};
+- if(!input_focus)return {false,"none","window_focus_lost"};
+  if(!camera_owner_valid)return {false,"none","camera_owner_invalid"};
+  if(!live_race_certificate)return {false,"none","missing_race_certificate"};
+  if(!pause_known)return {false,"none","native_pause_unknown"};
+  if(!paused&&!allow_unpaused)return {false,"paused_only","paused_only_required"};
++ // Alt+Tab/minimize holds the free camera where it is; input is ignored until focus returns.
++ if(!input_focus)return {true,"focus_hold","window_focus_lost_hold"};
+  return {true,allow_unpaused?"live_allowed":"paused_only",paused?"admitted_paused":"admitted_running"};
+ }
+ struct FlightWindowSnapshot {
+diff --git a/modernization/renderer/src/free_camera.cpp b/modernization/renderer/src/free_camera.cpp
+index 67b22c6..3238516 100644
+--- a/modernization/renderer/src/free_camera.cpp
++++ b/modernization/renderer/src/free_camera.cpp
+@@ -181,7 +181,10 @@ bool FlightController::restore_bookmark(const FlightBookmarkPose& value,const Fr
+ }
+ bool FlightController::update(const FreeCameraConfig& c,const FlightInput& raw_input,bool certified,const std::array<float,16>* visible) noexcept {
+  last_toggle_edge=false;
+- if(!c.enabled||!certified||!raw_input.focused){cancel();toggle_down_=raw_input.toggle;return false;}
++ if(!c.enabled||!certified){cancel();toggle_down_=raw_input.toggle;return false;}
++ // Focus loss (Alt+Tab, minimize) no longer resets the camera: hold the pose,
++ // drop motion, and require a fresh toggle press after focus returns.
++ if(!raw_input.focused){toggle_down_=true;fov_down_down_=fov_up_down_=true;velocity_={};speed_up_down_=speed_down_down_=false;wheel_remainder_=0;suppress_next_motion_sample_=true;return active;}
+  FlightInput filtered=raw_input;
+  if(suppress_next_motion_sample_){suppress_next_motion_sample_=false;filtered.seconds=0;filtered.mouse_x=filtered.mouse_y=0;filtered.wheel_delta=0;
+   filtered.speed_increase=filtered.speed_decrease=filtered.fov_decrease=filtered.fov_increase=false;filtered.roll_left=filtered.roll_right=filtered.roll_reset=false;filtered.keys.fill(false);}
+diff --git a/modernization/renderer/tests/free_camera_tests.cpp b/modernization/renderer/tests/free_camera_tests.cpp
+index d156f86..7438e01 100644
+--- a/modernization/renderer/tests/free_camera_tests.cpp
++++ b/modernization/renderer/tests/free_camera_tests.cpp
+@@ -90,8 +90,9 @@ void controls(){
+  in.keys[0]=in.keys[3]=true;in.seconds=1;auto before=f.pose;CHECK(f.update(no_smoothing,in,true,&visible));double length=0;for(unsigned j=0;j<3;++j)length+=std::pow(f.pose[12+j]-before[12+j],2);CHECK(std::abs(std::sqrt(length)-2)<.00001); // 40m/s, bounded .05sec diagonal.
+  in.keys={};in.keys[4]=true;in.seconds=.01;before=f.pose;f.update(no_smoothing,in,true,&visible);CHECK(f.pose[12]==before[12]&&f.pose[14]==before[14]&&f.pose[13]>before[13]);
+  in.keys={};in.mouse_x=1000;in.mouse_y=-1000;for(unsigned n=0;n<100;++n)CHECK(f.update(c,in,true,&visible));CHECK(std::isfinite(f.pose[0])&&std::abs(f.pose[9])<1);
+- in={};in.focused=false;CHECK(!f.update(c,in,true,&visible)&&!f.active&&!f.last_toggle_edge);in.focused=true;in.toggle=true;CHECK(!f.update(c,in,true,&visible)&&!f.last_toggle_edge); // Held toggle through Alt+Tab requires release.
+- in.toggle=false;f.update(c,in,true,&visible);in.toggle=true;CHECK(f.update(c,in,true,&visible));CHECK(!f.update(c,in,false,&visible));
++ in={};auto held=f.pose;in.focused=false;in.mouse_x=500;CHECK(f.update(c,in,true,&visible)&&f.active&&f.pose==held&&!f.last_toggle_edge); // Alt+Tab holds the camera.
++ in={};in.focused=true;in.toggle=true;CHECK(f.update(c,in,true,&visible)&&f.active&&!f.last_toggle_edge);{double drift=0;for(unsigned j=12;j<15;++j)drift=std::max(drift,std::abs(double(f.pose[j])-held[j]));CHECK(drift<.001);} // Held toggle through Alt+Tab requires release.
++ in.toggle=false;f.update(c,in,true,&visible);in.toggle=true;CHECK(!f.update(c,in,true,&visible)&&!f.active);in.toggle=false;f.update(c,in,true,&visible);in.toggle=true;CHECK(f.update(c,in,true,&visible));CHECK(!f.update(c,in,false,&visible));
+  // Frontend/unknown certificate and malformed visible view never activate.
+  f.cancel();in.toggle=false;f.update(c,in,true,&visible);in.toggle=true;CHECK(!f.update(c,in,false,&visible));visible[0]=2;f.cancel();in.toggle=false;f.update(c,in,true,&visible);in.toggle=true;CHECK(!f.update(c,in,true,&visible));
+ }
+@@ -105,7 +106,8 @@ void admission(){
+  decision=evaluate_free_camera_admission(true,true,false,true,true,false,true);CHECK(!decision.admitted&&!std::strcmp(decision.reason,"missing_race_certificate"));
+  decision=evaluate_free_camera_admission(true,true,true,false,true,false,true);CHECK(!decision.admitted&&!std::strcmp(decision.reason,"camera_owner_invalid"));
+  decision=evaluate_free_camera_admission(true,true,true,true,false,false,true);CHECK(!decision.admitted&&!std::strcmp(decision.reason,"native_pause_unknown"));
+- decision=evaluate_free_camera_admission(true,true,true,true,true,false,false);CHECK(!decision.admitted&&!std::strcmp(decision.reason,"window_focus_lost"));
++ decision=evaluate_free_camera_admission(true,true,true,true,true,false,false);CHECK(decision.admitted&&!std::strcmp(decision.reason,"window_focus_lost_hold"));
++ decision=evaluate_free_camera_admission(true,false,true,true,true,false,false);CHECK(!decision.admitted);
+  decision=evaluate_free_camera_admission(false,true,true,true,true,false,true);CHECK(!decision.admitted&&!std::strcmp(decision.reason,"disabled"));
+ 
+  auto visible=identity();FlightController controller;FlightInput in;in.focused=true;
+@@ -178,7 +180,7 @@ void movement_and_speed(){
+  in.speed_increase=true;for(unsigned n=0;n<1600;++n){CHECK(f.update(c,in,true,&p));in.speed_increase=false;CHECK(f.update(c,in,true,&p));in.speed_increase=true;}CHECK(f.current_speed()==c.max_speed&&std::isfinite(f.current_speed()));
+  in.speed_increase=false;in.speed_decrease=true;for(unsigned n=0;n<2200;++n){CHECK(f.update(c,in,true,&p));in.speed_decrease=false;CHECK(f.update(c,in,true,&p));in.speed_decrease=true;}CHECK(f.current_speed()==c.min_speed&&std::isfinite(f.current_speed()));
+  // Focus/certificate loss clears momentum; a new activation starts at rest.
+- in={};in.focused=true;in.toggle=true;CHECK(!f.update(c,in,false,&p)&&!f.active&&f.velocity_magnitude()==0);in.toggle=false;CHECK(!f.update(c,in,true,&p));in.toggle=true;CHECK(f.update(c,in,true,&p));in={};in.focused=true;in.seconds=.05;CHECK(f.update(c,in,true,&p));in.keys[0]=true;CHECK(f.update(c,in,true,&p));CHECK(f.velocity_magnitude()>0);in.focused=false;CHECK(!f.update(c,in,true,&p)&&f.velocity_magnitude()==0&&!f.active);
++ in={};in.focused=true;in.toggle=true;CHECK(!f.update(c,in,false,&p)&&!f.active&&f.velocity_magnitude()==0);in.toggle=false;CHECK(!f.update(c,in,true,&p));in.toggle=true;CHECK(f.update(c,in,true,&p));in={};in.focused=true;in.seconds=.05;CHECK(f.update(c,in,true,&p));in.keys[0]=true;CHECK(f.update(c,in,true,&p));CHECK(f.velocity_magnitude()>0);in.focused=false;CHECK(f.update(c,in,true,&p)&&f.velocity_magnitude()==0&&f.active); // Alt+Tab stops motion but holds the camera.
+  // Instant mode retains the former displacement, normalized diagonals and bounded dt.
+  auto instant=parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.MovementSmoothSeconds","0"}});FlightController i;activate(i,instant,p);in={};in.focused=true;in.seconds=.05;CHECK(i.update(instant,in,true,&p));in.keys[0]=true;double z0=i.pose[14];CHECK(i.update(instant,in,true,&p));CHECK(std::abs((i.pose[14]-z0)+2)<.00001);in.keys={};in.keys[0]=in.keys[3]=true;z0=i.pose[14];double x0=i.pose[12];CHECK(i.update(instant,in,true,&p));CHECK(std::abs(std::hypot(i.pose[12]-x0,i.pose[14]-z0)-2)<.00001);
+  in.keys={};in.keys[4]=true;double y0=i.pose[13];CHECK(i.update(instant,in,true,&p));CHECK(i.pose[13]-y0==2);in.keys={};in.keys[0]=true;in.seconds=100;z0=i.pose[14];CHECK(i.update(instant,in,true,&p));CHECK(std::abs((i.pose[14]-z0)+2)<.00001);
+@@ -217,7 +219,7 @@ void cinematic_fov(){
+  auto inherit=parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.CinematicVerticalFOVDegrees","0"},{"FreeCamera.FOVSmoothSeconds","0"}});FlightController inherited;FlightInput inherit_input;inherit_input.focused=true;inherit_input.inherited_vfov=72;CHECK(!inherited.update(inherit,inherit_input,true,&p));inherit_input.toggle=true;CHECK(inherited.update(inherit,inherit_input,true,&p)&&inherited.current_vertical_fov()==72&&inherited.target_vertical_fov()==72); // Zero inherits without an activation snap.
+  auto instant=parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.InheritStockFOVOnToggle","0"},{"FreeCamera.CinematicVerticalFOVDegrees","60"},{"FreeCamera.FOVSmoothSeconds","0"}});FlightController instant_lens;inherit_input={};inherit_input.focused=true;inherit_input.inherited_vfov=72;CHECK(!instant_lens.update(instant,inherit_input,true,&p));inherit_input.toggle=true;CHECK(instant_lens.update(instant,inherit_input,true,&p)&&instant_lens.current_vertical_fov()==72);inherit_input.toggle=false;inherit_input.seconds=.01;CHECK(instant_lens.update(instant,inherit_input,true,&p)&&instant_lens.current_vertical_fov()==60);
+  auto no_lens=parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.CinematicFOVEnabled","0"}});FlightController native;activate(native,no_lens,p);in={};in.focused=true;in.inherited_vfov=72;in.seconds=.05;in.fov_decrease=true;CHECK(native.update(no_lens,in,true,&p)&&!native.fov_transition_active()&&native.current_vertical_fov()==0);
+- in.focused=false;CHECK(!f.update(c,in,true,&p)&&!f.active&&f.current_vertical_fov()==0);
++ {const double lens=f.current_vertical_fov();in.focused=false;CHECK(f.update(c,in,true,&p)&&f.active&&f.current_vertical_fov()==lens);}
+  auto corrected=parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.InheritStockFOVOnToggle","0"},{"FreeCamera.CinematicVerticalFOVDegrees","10"},{"FreeCamera.MinVerticalFOVDegrees","30"},{"FreeCamera.MaxVerticalFOVDegrees","110"}});
+  FlightController bounded;FlightInput bounded_input;bounded_input.focused=true;bounded_input.inherited_vfov=75;
+  CHECK(!bounded.update(corrected,bounded_input,true,&p));bounded_input.toggle=true;CHECK(bounded.update(corrected,bounded_input,true,&p));
+@@ -250,8 +252,8 @@ void manual_roll(){
+  in.mouse_x=in.mouse_y=0;in.keys[0]=true;double move_before=layering.pose[14];CHECK(layering.update(soft,in,true,&tilted)&&layering.pose[14]<move_before&&std::abs(layering.manual_roll_degrees-13.5)<.01);in.keys={};
+  auto native_roll_config=parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.AutoLevelHorizon","0"},{"FreeCamera.RollSmoothSeconds","0"}});auto native_rolled=rolled_pose(-.3,.25,9*pi/180);FlightController native_layer;activate(native_layer,native_roll_config,native_rolled);in={};in.focused=true;in.seconds=.05;in.roll_left=true;CHECK(native_layer.update(native_roll_config,in,true,&native_rolled));CHECK(std::abs(native_layer.manual_roll_degrees-2.25)<.001);for(unsigned j=0;j<3;++j)CHECK(std::abs(native_layer.pose[8+j]-native_rolled[8+j])<.0001); // Native roll remains in the base while the manual layer adds its offset.
+  auto vertical=rolled_pose(.2,pi/2,0);FlightController pole;activate(pole,soft,vertical);in={};in.focused=true;in.seconds=.05;in.roll_right=true;for(unsigned i=0;i<5;++i)CHECK(pole.update(soft,in,true,&vertical));CHECK(pole.orientation_valid&&std::abs(pole.manual_roll_target_degrees+11.25)<.01&&pole.manual_roll_degrees<0);for(float value:pole.pose)CHECK(std::isfinite(value));
+- // Configured bounds hold; reset and focus loss clear only controller-owned state. Re-toggle starts from stock pose.
+- auto bounded=parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.AutoLevelHorizon","0"},{"FreeCamera.RollSmoothSeconds","0"},{"FreeCamera.MaxRollDegrees","20"}});FlightController limit;activate(limit,bounded,p);in={};in.focused=true;in.seconds=.05;in.roll_left=true;for(unsigned i=0;i<80;++i)CHECK(limit.update(bounded,in,true,&p));CHECK(limit.manual_roll_target_degrees==20&&limit.manual_roll_degrees==20);in.toggle=true;CHECK(!limit.update(bounded,in,true,&p)&&limit.manual_roll_degrees==0);in.toggle=false;CHECK(!limit.update(bounded,in,true,&p));in.toggle=true;CHECK(limit.update(bounded,in,true,&p)&&limit.pose==p);in={};in.focused=false;CHECK(!limit.update(bounded,in,true,&p)&&!limit.active&&limit.manual_roll_degrees==0);
++ // Configured bounds hold; reset clears only controller-owned state; focus loss holds it. Re-toggle starts from stock pose.
++ auto bounded=parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.AutoLevelHorizon","0"},{"FreeCamera.RollSmoothSeconds","0"},{"FreeCamera.MaxRollDegrees","20"}});FlightController limit;activate(limit,bounded,p);in={};in.focused=true;in.seconds=.05;in.roll_left=true;for(unsigned i=0;i<80;++i)CHECK(limit.update(bounded,in,true,&p));CHECK(limit.manual_roll_target_degrees==20&&limit.manual_roll_degrees==20);in.toggle=true;CHECK(!limit.update(bounded,in,true,&p)&&limit.manual_roll_degrees==0);in.toggle=false;CHECK(!limit.update(bounded,in,true,&p));in.toggle=true;CHECK(limit.update(bounded,in,true,&p)&&limit.pose==p);in={};in.focused=false;CHECK(limit.update(bounded,in,true,&p)&&limit.active); // focus loss holds the camera
+  // The independent lens and roll controllers remain active together.
+  auto combo=parse_free_camera_config({{"FreeCamera.Enabled","1"},{"FreeCamera.InheritStockFOVOnToggle","0"},{"FreeCamera.CinematicVerticalFOVDegrees","60"},{"FreeCamera.AutoLevelHorizon","0"},{"FreeCamera.RollSmoothSeconds","0"}});FlightController both;FlightInput q;q.focused=true;q.inherited_vfov=70;CHECK(!both.update(combo,q,true,&p));q.toggle=true;CHECK(both.update(combo,q,true,&p));q.toggle=false;q.seconds=.05;q.roll_left=true;CHECK(both.update(combo,q,true,&p));CHECK(both.manual_roll_degrees>0&&both.current_vertical_fov()<70&&both.current_vertical_fov()>60);
+ }

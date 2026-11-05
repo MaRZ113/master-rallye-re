@@ -197,10 +197,12 @@ inline bool light_geometry(ResolvedGeometry& entry,unsigned stride,unsigned min,
         entry.effective_normals[i]=n;
         bool ambiguous=false;
         // Paired front/back faces share their vertices, so one colour serves
-        // both sides. An authored hint picks a side, but the viewer may see
-        // either: lighting it per side lit one fence and left its twin dark
-        // (Italy1 bridge). Paired geometry always uses the paired share.
-        if(!environment&&((material&&(material->flags&TwoSided))||entry.opposite_faces)){float dot=0;for(unsigned j=0;j<3;++j)dot+=n[j]*settings.direction[j];if(dot<0)for(float& x:n)x=-x;
+        // both sides. A hinted normal is trusted for solid surfaces (terrain,
+        // walls: ATMOSPHERE5.1 flattened them and opened seams), but a thin
+        // alpha-tested static cutout (fence, railing) is seen from either side:
+        // per-side lighting lit one Italy1 bridge fence and left its twin dark.
+        const bool thin_cutout=alpha_test&&category==4;
+        if(!environment&&((material&&(material->flags&TwoSided))||(entry.opposite_faces&&(!hinted||thin_cutout)))){float dot=0;for(unsigned j=0;j<3;++j)dot+=n[j]*settings.direction[j];if(dot<0)for(float& x:n)x=-x;
             // Thin paired props (rails, fences, boards) share one colour for both
             // faces: always using the sun-facing side made them glow against a
             // backlit sunset. Vegetation keeps its translucent sun-facing look.

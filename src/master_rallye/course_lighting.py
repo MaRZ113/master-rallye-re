@@ -281,6 +281,10 @@ def export_lighting_metadata(sources: list[Path], courses: list[str], output: Pa
     records={(r['course'],r['texture_sha256']):r for r in decode_metadata(base)} if base else {}
     base_records=len(records)
     source_keys=set()
+    # Combined/custom layouts (Inv*) reuse a material across several source
+    # models. A model whose geometry carries no authored orientation votes has
+    # no evidence either way; it must not veto a role proven by another model.
+    orientation_absent=set()
     evidence=[]
     roles = inherit_base_roles(list(records.values()),roles,courses)
     for source in sources:
@@ -339,6 +343,7 @@ def export_lighting_metadata(sources: list[Path], courses: list[str], output: Pa
                     environment=static_environment_capability(name,contracts,roles.get(course,{}).get(name))
                     if environment:category,flags=4,PLAIN|ENVIRONMENT
                     negative,positive=orientation[name]
+                    no_orientation_evidence=category!=0 and not flags&DENY and negative+positive==0
                     category,flags,winding=orientation_policy(category,flags,negative,positive,
                         roles.get(course, {}).get(name) == 'signage' or inferred in ('signage','terrain'))
                     # Coverage is independent of surface role: certified opaque
@@ -355,7 +360,16 @@ def export_lighting_metadata(sources: list[Path], courses: list[str], output: Pa
                         digest = hashlib.sha256(pixels).hexdigest()
                         record = dict(course=course, material=name, texture_sha256=digest, category=category, flags=flags, winding=winding)
                         key = course, digest
-                        records[key] = merge_source_material(record,records.get(key),key in source_keys,static_detail)
+                        absent=no_orientation_evidence and flags&DENY
+                        if absent and key in records and key not in orientation_absent:
+                            pass  # keep the role proven by an earlier model
+                        elif key in orientation_absent and not absent:
+                            records[key]=record;orientation_absent.discard(key)  # first real evidence wins over 'no evidence'
+                        elif key in orientation_absent:
+                            pass
+                        else:
+                            records[key] = merge_source_material(record,records.get(key),key in source_keys,static_detail)
+                            if absent:orientation_absent.add(key)
                         source_keys.add(key)
                     report['materials'].append({'material': name, 'category': category, 'flags': flags, 'winding':winding,'geometry_inferred_role':inferred,'source_normal_orientation_votes':orientation[name], 'bindings': sorted(contracts), 'texture_file_sha256': hashlib.sha256(texture.read_bytes()).hexdigest()})
                 # Secondary identity is exported once per course, independent of
