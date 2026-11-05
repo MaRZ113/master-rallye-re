@@ -261,6 +261,7 @@ public:
         if(normal_hints.ready&&!normal_hints.only_course(course)){normal_hints=NormalHints{};normal_hints.attempted=true;normal_hints.reason="normal_package_scope_mismatch";}
         reason_count=0;return !package_failed;
     }
+    CourseCoverage coverage;
     CourseCapture capture;std::string draw_reason,draw_material,draw_texture;unsigned draw_category=0;bool draw_lit=false,draw_resolved=false;
     bool native_wheel_lighting=true;unsigned wheel_caps=0;bool body_tata=false;bool body_materials=false,seam_debug=false,body_debug=false;
     BodyMaterials body_capabilities;std::map<std::pair<std::string,unsigned>,std::string> body_texture_cache;
@@ -335,6 +336,7 @@ public:
         metadata_path=setting(L"LightingMetadata",L"Atmosphere21/materials.lsm");if(metadata_path.is_relative())metadata_path=std::filesystem::path(ini_).parent_path()/metadata_path;
         package_root=setting(L"LightingPackageRoot",L"");if(!package_root.empty()&&package_root.is_relative())package_root=std::filesystem::path(ini_).parent_path()/package_root;
         capture.enabled=GetPrivateProfileIntW(L"Atmosphere",L"CourseCapture",0,ini_.c_str())==1;
+        coverage.enabled=GetPrivateProfileIntW(L"Atmosphere",L"CoverageLedger",0,ini_.c_str())==1;
 
         pc_water=GetPrivateProfileIntW(L"Atmosphere",L"PCWaterAtmosphere",0,ini_.c_str())==1;
         source_x=number(L"LightX",0);source_y=number(L"LightY",0);source_z=number(L"LightZ",0);radius=std::clamp(number(L"LightRadius",12),.1f,100.f);

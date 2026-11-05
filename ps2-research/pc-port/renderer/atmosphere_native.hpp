@@ -111,12 +111,16 @@ inline HRESULT sun_before_ui(Device8& d,bool ui)noexcept{
         return FAILED(hr)?hr:S_OK;
     }catch(...){sun.reason="sun_exception_suppressed";return repair(d);}
 }
+inline void coverage_commit(Device8& d,atmosphere::Pilot& p)noexcept;
+inline void coverage_flush(Device8& d,atmosphere::Pilot& p,bool force)noexcept;
+inline void coverage_start(Device8& d,atmosphere::Pilot& p,UINT count)noexcept;
 inline void observe(Device8& d,D3DPRIMITIVETYPE type,UINT,UINT vertices,UINT,UINT count,uintptr_t pc)noexcept {
     auto* p=pilot(d);if(!p||!p->enabled()||!count||type!=D3DPT_TRIANGLELIST||!d.trace.scene_active||
         d.trace.shadow.recording||d.trace.effective_shadow.recording||GetCurrentThreadId()!=d.trace.render_thread_id()||
         pc!=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+groundintegration::COURSE_DRAW_RETURN_RVA)return;
     try {
         const auto frame=d.trace.frame_number();
+        if(p->coverage.enabled){coverage_commit(d,*p);coverage_flush(d,*p,false);coverage_start(d,*p,count);}
         if(p->live_tuning&&frame!=p->live_key_frame){p->live_key_frame=frame;DWORD pid=0;GetWindowThreadProcessId(GetForegroundWindow(),&pid);
             const bool down=pid==GetCurrentProcessId()&&(GetAsyncKeyState(VK_CONTROL)&0x8000)&&(GetAsyncKeyState(VK_MENU)&0x8000)&&(GetAsyncKeyState('R')&0x8000);
             if(down&&!p->live_key_down)p->live_force=true;p->live_key_down=down;}
@@ -192,7 +196,7 @@ inline void observe(Device8& d,D3DPRIMITIVETYPE type,UINT,UINT vertices,UINT,UIN
 }
 inline HRESULT reject(Device8& d,atmosphere::Pilot& p,const char* reason)noexcept {
     ++p.world_rejected;
-    try{if(p.capture.stage)p.draw_reason=reason;if(p.first_reason(reason))session().write("{\"type\":\"atmosphere_admission_rejected\",\"reason\":"+quote(std::string(reason))+
+    try{if(p.capture.stage||p.coverage.enabled)p.draw_reason=reason;if(p.first_reason(reason))session().write("{\"type\":\"atmosphere_admission_rejected\",\"reason\":"+quote(std::string(reason))+
         ",\"frame\":"+std::to_string(d.trace.frame_number())+",\"race_generation\":"+std::to_string(p.observed_race)+
         ",\"reset_generation\":"+std::to_string(p.observed_reset)+"}");}catch(...){}return S_OK;
 }
@@ -347,6 +351,43 @@ inline HRESULT pc_waterfall_draw(Device8& d,atmosphere::Pilot& p,DWORD fvf,const
     if(p.first_reason("pc_waterfall_atmosphere")||d.trace.control.active)session().write("{\"type\":\"atmosphere_pc_waterfall\",\"frame\":"+std::to_string(d.trace.frame_number())+",\"material\":"+quote(material->name)+",\"factor\":"+std::to_string(factor)+",\"alpha_uv_depth_unchanged\":true}");
     return S_OK;
 }
+// P0.1 coverage ledger: one pending record per course-loop draw (opened in
+// observe, verdict from the same reject/resolver fields as the F10 capture,
+// closed when the next draw is observed). Diagnostic only; no state changes.
+inline void coverage_start(Device8& d,atmosphere::Pilot& p,UINT count)noexcept{
+    auto& c=p.coverage;c.pending=true;c.reached=false;c.frame=d.trace.frame_number();c.triangles=count;c.texture.clear();
+    DWORD fvf=0;d.native()->GetVertexShader(&fvf);c.fvf=fvf;
+    try{courseintegration::Ref<IDirect3DBaseTexture8> t;if(SUCCEEDED(d.native()->GetTexture(0,&t.p))&&t.p)c.texture=material_sha(d,p,t.p);}catch(...){}
+    if(c.texture.empty())c.texture="untextured_or_unhashable";
+    p.draw_reason.clear();p.draw_material.clear();p.draw_category=0;p.draw_lit=p.draw_resolved=false;
+}
+inline void coverage_commit(Device8& d,atmosphere::Pilot& p)noexcept{
+    auto& c=p.coverage;if(!c.enabled||!c.pending)return;c.pending=false;
+    try{
+        const std::string course=p.active_course.empty()?"unknown":p.active_course;const auto& r=p.draw_reason;
+        std::string verdict,reason=r;
+        if(!c.reached){verdict="Not reached";if(reason.empty())reason="replaced_or_deferred_before_atmosphere";}
+        else if(p.draw_resolved)verdict=p.draw_lit?"Lit":"Native control";
+        else if(r.empty())verdict=c.fvf==0x102?"Sky or unlit card":"Untouched";
+        else verdict=r.find("excluded")!=std::string::npos||r.find("vehicle")!=std::string::npos?"Excluded":
+            r.find("unknown")!=std::string::npos||r.find("ambiguous")!=std::string::npos?"Unclassified":
+            r.find("shader")!=std::string::npos||r.find("stage")!=std::string::npos||r.find("contract")!=std::string::npos?"Shader mismatch":"Unsupported";
+        std::string material=p.draw_material;uint32_t category=p.draw_category;
+        if(material.empty()&&p.metadata.ready&&course!="unknown"){if(const auto* m=p.metadata.find(course.c_str(),c.texture)){material=m->name;category=m->category;}}
+        c.add(course,material,verdict,reason,category);
+    }catch(...){c.overflow=true;}
+    (void)d;
+}
+inline void coverage_flush(Device8& d,atmosphere::Pilot& p,bool force)noexcept{
+    auto& c=p.coverage;const auto frame=d.trace.frame_number();
+    if(!c.enabled||!c.dirty||(!force&&frame-c.last_flush<900))return;c.last_flush=frame;c.dirty=false;
+    try{if(!session().enabled||session().directory.empty())return;
+        const auto path=std::filesystem::path(session().directory)/(L"coverage-"+std::to_wstring(GetCurrentProcessId())+L".json");
+        auto temporary=path;temporary+=L".tmp";
+        {std::ofstream f(temporary,std::ios::binary|std::ios::trunc);f<<c.serialize(frame);if(!f)return;}
+        std::error_code ec;std::filesystem::rename(temporary,path,ec);
+    }catch(...){}
+}
 // F10 sidecars remain available even when the ordinary session log reaches
 // its fixed size limit. Debug writes are bounded and never run in normal mode.
 inline void debug_record(Device8& d,const std::string& record)noexcept {
@@ -408,7 +449,7 @@ inline HRESULT universal_draw(Device8& d,atmosphere::Pilot& p,UINT min,UINT vert
     const auto texture_sha=material_sha(d,p,texture.p);if(texture_sha.empty())return fail("resolver_texture_identity_unavailable");
     bool opaque=false;for(const auto& c:p.material_cache)if(c.pointer==texture_pointer&&c.generation==texture_generation){opaque=c.opaque;break;}
     const auto* material=p.metadata.find(course,texture_sha);
-    if(p.capture.stage){p.draw_texture=texture_sha;p.draw_material=material?material->name:"automatic_ground";p.draw_category=material?material->category:2;}
+    if(p.capture.stage||p.coverage.enabled){p.draw_texture=texture_sha;p.draw_material=material?material->name:"automatic_ground";p.draw_category=material?material->category:2;}
     // Static cutouts use the observed native coverage contract only. Never
     // turn blended/glass/environment passes into an opaque surface.
     // Blended plain course cutouts (SRCALPHA/INVSRCALPHA, no alpha test): only
@@ -501,7 +542,7 @@ inline HRESULT universal_draw(Device8& d,atmosphere::Pilot& p,UINT min,UINT vert
     DWORD effective_fog=saved.fog;
     if(p.lighting.fog_enabled){saved.fog_changed=true;effective_fog=atmosphere::scene_fog(saved.fog,p.lighting);hr=n.SetRenderState(D3DRS_FOGCOLOR,effective_fog);notify(d,50,pack(D3DRS_FOGCOLOR,effective_fog),hr);}
     if(FAILED(hr))return repair(d);
-    if(p.capture.stage){p.draw_resolved=true;p.draw_lit=p.world;p.draw_reason=entry.reason;}
+    if(p.capture.stage||p.coverage.enabled){p.draw_resolved=true;p.draw_lit=p.world;p.draw_reason=entry.reason;}
     ++resolver.accepted;++p.resolved_draws;++p.world_draws;++p.category_draws[entry.category];p.category_vertices[entry.category]+=entry.changed;
     if(p.first_reason(("resolver_material_"+texture_sha).c_str()))session().write("{\"type\":\"atmosphere_resolver_draw\",\"course\":"+quote(std::string(course))+
         ",\"material\":"+quote(material?material->name:std::string("automatic_ground"))+",\"reason\":"+quote(std::string(entry.reason))+",\"category\":"+std::to_string(entry.category)+
@@ -515,6 +556,7 @@ inline HRESULT begin(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UIN
         pc!=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+groundintegration::COURSE_DRAW_RETURN_RVA||
         !d.trace.scene_active||d.trace.shadow.recording||d.trace.effective_shadow.recording||GetCurrentThreadId()!=d.trace.render_thread_id())return S_OK;
     if(!p->pending.any())p->poll_live(d.trace.frame_number());
+    if(p->coverage.pending)p->coverage.reached=true;
     struct Timing {atmosphere::Pilot& p;LARGE_INTEGER start{};Timing(atmosphere::Pilot& x):p(x){QueryPerformanceCounter(&start);}~Timing(){LARGE_INTEGER end{};QueryPerformanceCounter(&end);p.cpu_ticks+=end.QuadPart-start.QuadPart;++p.cpu_calls;}} timer(*p);
     try {
         CaptureDraw capture_draw(d,*p,min,vertices,start,count);

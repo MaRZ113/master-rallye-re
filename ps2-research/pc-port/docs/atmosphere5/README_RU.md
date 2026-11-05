@@ -137,3 +137,18 @@ DLL `e66504bfbdf6214edf6538a8e5e19557bd37504f1843f4ea9c45552fda701c0b`, CTest 24
 
 DLL `59b25879cc5f86d5585016396b93dfedcfc36bfccc76ddd50ac47683d4524a14`, CTest 24/24 + 46/46, Python 200 OK.
 Откат: `rollback-e66504bf`.
+
+## 8. ATMOSPHERE5.4 — P0.1 учёт покрытия (CoverageLedger)
+
+* `Atmosphere.ini` → `CoverageLedger=1` (диагностика, по умолчанию 0). Каждый draw курсового цикла,
+  который видит `observe()`, получает вердикт тем же путём, что F10-захват (reject/resolver), и
+  суммируется за всю сессию по трасса/текстура/FVF/вердикт/причина. Draw'ы, которые забрала другая
+  замена до атмосферы (ForestFix, PS2-вода), видны как **Not reached** — раньше их не было видно вовсе.
+  Файл `MRRRenderer\logs\coverage-<pid>.json` перезаписывается раз в ~900 кадров. Рендер не меняется.
+* Отчёт: `tools/course_coverage_report.py --logs <logs> --reports <batch>/reports --output <dir>`
+  → `index.html` (доли по вердиктам на трассу, неосвещённые материалы с миниатюрами),
+  `summary.json`, `unlit.csv`. Сессии объединяются.
+* Прогон владельца: на каждой трассе 20–30 с проехать или облететь FreeCam основные участки
+  (старт, финиш, посёлки, вода, лес). Чем больше трасс, тем полнее карта для ночи.
+
+DLL `b0b20ec01e5330ef45e8185f794436b333f74fc8d60a40ca9f4c87501c62c877`, CTest 24/24 + 46/46. Откат: `rollback-59b25879`.
