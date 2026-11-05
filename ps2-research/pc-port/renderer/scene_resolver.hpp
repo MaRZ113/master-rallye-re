@@ -51,7 +51,7 @@ public:
                 std::memcpy(&m.category,p,4);std::memcpy(&m.flags,p+4,4);std::memcpy(&m.winding,p+8,4);
                 if(m.category>4||(m.flags&~127u)||(m.winding!=1&&m.winding!=-1)||(!m.category&&!(m.flags&Deny))||
                    ((m.flags&Environment)&&(m.category!=4||(m.flags&Deny)))||
-                   ((m.flags&EnvironmentTexture)&&(m.category!=0||m.flags!=(Deny|EnvironmentTexture)||(m.name!="aluminium-tga"&&m.name!="whitepaint-tga"&&m.name!="silverpaint-tga")))||
+                   ((m.flags&EnvironmentTexture)&&(m.category!=0||m.flags!=(Deny|EnvironmentTexture)||(m.name!="aluminium-tga"&&m.name!="whitepaint-tga"&&m.name!="silverpaint-tga"&&m.name!="glass-tga")))||
                    ((m.flags&AlphaTest)&&m.category!=3&&m.category!=4)||((m.flags&TwoSided)&&m.category!=3)||
                    (!(m.flags&Deny)&&!(m.flags&(Noise|Plain)))){reason="metadata_capability_invalid";return false;}
                 auto key=std::make_pair(canonical_course(m.course),m.texture);auto old=parsed.find(key);

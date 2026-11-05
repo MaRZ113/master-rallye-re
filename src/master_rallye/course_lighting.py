@@ -14,7 +14,11 @@ import struct
 import math
 
 NOISE, PLAIN, ALPHA_TEST, TWO_SIDED, DENY, ENVIRONMENT, ENV_TEXTURE = 1, 2, 4, 8, 16, 32, 64
-STATIC_ENVIRONMENTS = ('aluminium-tga','whitepaint-tga','silverpaint-tga')
+STATIC_ENVIRONMENTS = ('aluminium-tga','whitepaint-tga','silverpaint-tga','glass-tga')
+# glass-tga is also the secondary of real course windows; it certifies a static
+# environment pass only for a material the author explicitly marked 'static'
+# (France1 marina_alphas chain-link/catwalk), never by name inference.
+ROLE_ONLY_ENVIRONMENTS = ('glass-tga',)
 ROLES = {'road': 1, 'terrain': 2, 'vegetation': 3, 'static': 4, 'signage': 4, 'exclude': 0}
 
 
@@ -41,9 +45,10 @@ def material_role(name: str, textures: tuple[str, ...], explicit: str | None = N
         category = ROLES[explicit]
     elif noise:
         category = 1 if any(token in label for token in ('road', 'track', 'asphalt', 'tar_')) else 2
-    elif any(token in label for token in ('tree', 'shrub', 'bush', 'bark', 'pinerow', 'plant')):
+    elif any(token in label for token in ('tree', 'shrub', 'bush', 'bark', 'pinerow', 'plant', 'pinus', 'conif', 'conni', 'hedge', 'vines', 'spruce', 'cypress', 'palm')):
         category = 3
-    elif 'conc' in re.split(r'[^a-z0-9]+', label) or any(token in label for token in ('wall', 'wood', 'plank', 'concrete', 'cement', 'bridge', 'hut', 'house', 'building', 'castle', 'church', 'gate', 'fence', 'brick', 'roof', 'tent', 'barn', 'metal', 'caravan', 'container', 'gantry', 'scaffold')):
+    elif 'conc' in re.split(r'[^a-z0-9]+', label) or any(token in label for token in ('wall', 'wood', 'plank', 'concrete', 'cement', 'bridge', 'hut', 'house', 'building', 'castle', 'church', 'gate', 'fence', 'brick', 'roof', 'tent', 'barn', 'metal', 'caravan', 'container', 'gantry', 'scaffold',
+                                                                                                'villa', 'village', 'hotel', 'shack', 'shelter', 'tower', 'balcony', 'pylon', 'railing', 'railling', 'crate')):
         category = 4
     else:
         return 0, DENY
@@ -97,7 +102,8 @@ def static_environment_capability(name, contracts, explicit=None):
     # material semantic, even if the author's diffuse label is just "top".
     # Live admission still needs opaque identity-world geometry and normals,
     # both texture identities, and the original reflection stage contract.
-    return explicit in (None,'static') and material_role(name,(name,'Null','Null'),'static')==(4,PLAIN) and all(len(c)==3 and c[1] in ('Null',*STATIC_ENVIRONMENTS) and c[2]=='Null' for c in contracts) and any(c[1] in STATIC_ENVIRONMENTS for c in contracts)
+    allowed=STATIC_ENVIRONMENTS if explicit=='static' else tuple(e for e in STATIC_ENVIRONMENTS if e not in ROLE_ONLY_ENVIRONMENTS)
+    return explicit in (None,'static') and material_role(name,(name,'Null','Null'),'static')==(4,PLAIN) and all(len(c)==3 and c[1] in ('Null',*allowed) and c[2]=='Null' for c in contracts) and any(c[1] in allowed for c in contracts)
 
 
 def geometry_role(model, draws):

@@ -112,7 +112,9 @@ def export_batch(sources,output,roles=None,base=None,courses=None,scene_roots=No
             retained_by_id={r['texture_sha256']:dict(r,course=course) for r in prior if r['course'].casefold()=='common'}
             retained_by_id.update({r['texture_sha256']:r for r in prior if r['course'].casefold()==course.casefold()})
             retained=list(retained_by_id.values())
-            meta=export_lighting_metadata(sources,[course],dest,roles,encode_metadata(retained) if retained else None)
+            # roles['*'] = shared author roles for every course; per-course entries win.
+            course_roles={course:{**roles.get('*',{}),**roles.get(course,{})}}
+            meta=export_lighting_metadata(sources,[course],dest,course_roles,encode_metadata(retained) if retained else None)
             normal_report=normals.export(sources,[course],dest/'materials.lsm',dest/'normal-export')
             (dest/'normal-export/normals.lnh').replace(dest/'normals.lnh')
             combined={}

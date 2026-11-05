@@ -120,9 +120,17 @@ if __name__=='__main__':unittest.main()
 class EnvironmentCapabilities(unittest.TestCase):
     def test_course_paint_environment_is_general_but_glass_and_glow_stay_closed(self):
         for secondary in lighting.STATIC_ENVIRONMENTS:
-            self.assertTrue(lighting.static_environment_capability('new_layout_prop',[('new_layout_prop',secondary,'Null')]))
+            inferred=secondary not in lighting.ROLE_ONLY_ENVIRONMENTS
+            self.assertEqual(lighting.static_environment_capability('new_layout_prop',[('new_layout_prop',secondary,'Null')]),inferred)
+            self.assertTrue(lighting.static_environment_capability('new_layout_prop',[('new_layout_prop',secondary,'Null')],'static'))
             for primary in ('glass','window','lamp','glow','wheel'):
                 self.assertFalse(lighting.static_environment_capability(primary,[(primary,secondary,'Null')]))
+    def test_glass_secondary_needs_explicit_static_role(self):
+        contracts=[('marina_alphas-tga','glass-tga','Null')]
+        self.assertFalse(lighting.static_environment_capability('marina_alphas-tga',contracts))
+        self.assertTrue(lighting.static_environment_capability('marina_alphas-tga',contracts,'static'))
+        self.assertFalse(lighting.static_environment_capability('marina_alphas-tga',contracts,'signage'))
+        self.assertFalse(lighting.static_environment_capability('window-tga',[('window-tga','glass-tga','Null')],'static'))
     def test_static_secondary_is_scoped_to_aluminium(self):
         for name in ('metalpanel-tga','caravan-tga','fencegate-tga'):
             self.assertTrue(lighting.static_environment_capability(name,[(name,'aluminium-tga','Null')]))
@@ -134,7 +142,9 @@ class EnvironmentCapabilities(unittest.TestCase):
     def test_environment_metadata_roundtrip_and_unsafe_certificate(self):
         row=dict(course='CustomLayout',material='aluminium-tga',texture_sha256='a'*64,category=0,flags=lighting.DENY|lighting.ENV_TEXTURE,winding=-1)
         self.assertEqual(lighting.decode_metadata(lighting.encode_metadata([row]))[0],row)
-        for changes in ({'category':4},{'material':'glass-tga'},{'flags':lighting.ENV_TEXTURE},{'flags':lighting.ENVIRONMENT|lighting.DENY}):
+        glass=dict(row,material='glass-tga')
+        self.assertEqual(lighting.decode_metadata(lighting.encode_metadata([glass]))[0],glass)
+        for changes in ({'category':4},{'material':'perspex-tga'},{'flags':lighting.ENV_TEXTURE},{'flags':lighting.ENVIRONMENT|lighting.DENY}):
             with self.assertRaises(ValueError):lighting.decode_metadata(lighting.encode_metadata([{**row,**changes}]))
 
 class StaticCoverageMetadata(unittest.TestCase):
@@ -164,3 +174,13 @@ class InheritedMaterialRoles(unittest.TestCase):
     def test_ambiguous_base_roles_are_not_inherited(self):
         rows=[dict(course='Test',material='mixed',category=c,flags=lighting.PLAIN) for c in (2,4)]
         self.assertNotIn('mixed',lighting.inherit_base_roles(rows,None,['Test'])['Test'])
+
+class Atmosphere5NameRoles(unittest.TestCase):
+    def test_italy_and_france_props_are_classified_by_name(self):
+        plain=lambda n:lighting.material_role(n,(n,'Null','Null'))
+        for name in ('pinus-tga','pinus2-tga','conniffer-tga','hedge-tga','vines1-tga'):
+            self.assertEqual(plain(name)[0],3,name)
+        for name in ('i_largevilla1-tga','village04-tga','shelter1-tga','railpylon-tga','raillings-tga','crate1-tga','turkshack01-tga','tower-tga','balcony-tga'):
+            self.assertEqual(plain(name),(4,lighting.PLAIN),name)
+        for name in ('ravine-tga','temp-tga','ctyre-tga','s_light01-tga'):
+            self.assertEqual(plain(name),(0,lighting.DENY),name)

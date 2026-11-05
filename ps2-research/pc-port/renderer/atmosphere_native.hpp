@@ -392,7 +392,7 @@ inline HRESULT universal_draw(Device8& d,atmosphere::Pilot& p,UINT min,UINT vert
         secondary_generation=d.trace.resources.generation(reinterpret_cast<uintptr_t>(secondary.p));
         const auto secondary_sha=material_sha(d,p,secondary.p);const auto* certificate=p.metadata.find(course,secondary_sha);
         if(!secondary_generation||!certificate||certificate->flags!=(atmosphere::Deny|atmosphere::EnvironmentTexture)||
-           (certificate->name!="aluminium-tga"&&certificate->name!="whitepaint-tga"&&certificate->name!="silverpaint-tga"))return fail("resolver_environment_secondary_unproven");
+           (certificate->name!="aluminium-tga"&&certificate->name!="whitepaint-tga"&&certificate->name!="silverpaint-tga"&&certificate->name!="glass-tga"))return fail("resolver_environment_secondary_unproven");
     }
     if(material&&(material->flags&atmosphere::Deny)){seam_native(d,p,min,vertices,start,triangles,fvf,noise,opaque,alpha_test,material,course,texture_sha,"native_material_excluded");return fail("resolver_excluded_material");}
     // Instanced draws need an explicit material role: automatic ground is
