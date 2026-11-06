@@ -112,8 +112,17 @@ inline bool headlight_projectors(Device8& d,atmosphere::Pilot& p,IDirect3DDevice
     if(lp.frame!=frame){
         lp.frame=frame;lp.count=0;lp.view_valid=false;const std::array<float,3> eye{inverse[12],inverse[13],inverse[14]};
         if(p.lamps_last.frame!=UINT64_MAX&&!p.lamps_last.samples.empty()){p.brake_local=p.lamps_last.samples[0].local;p.brake_local_valid=true;}
+        // 6.10: selected gear of every Car<N> (reverse lamps), matched to poses by world position.
+        std::array<ps2port::HudDamageFeedReader::CarGear,8> gears{};unsigned gear_count=0;
+        if(p.reverse_from_gear){bool single=false;const auto cert=courseintegration::certificate(d,single);
+            if(single&&cert.valid){if(cert.race_generation!=p.gear_generation){p.gear_generation=cert.race_generation;p.gear_trusted={};}
+                static ps2port::HudDamageFeedReader reader;ps2port::HudLiveMemory memory;
+                gear_count=reader.car_gears(memory,uint32_t(reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))),cert.race_generation,gears);
+                for(unsigned g=0;g<gears.size();++g)if(gears[g].ok&&gears[g].gear>=2)p.gear_trusted[g]=true;}}
         std::array<std::pair<float,unsigned>,8> order{};unsigned found=0;
-        for(unsigned i=0;i<p.car_poses.size();++i){const auto& c=p.car_poses[i];if(!c.instance||c.frame==UINT64_MAX||c.frame+2<frame||c.frame>frame)continue;
+        // 6.10: a body draw the observer missed (gate/LOD/state change) no longer drops the lamps at once:
+        // the pose is extrapolated for up to HeadlightPoseHold frames.
+        for(unsigned i=0;i<p.car_poses.size();++i){const auto& c=p.car_poses[i];if(!c.instance||c.frame==UINT64_MAX||c.frame+p.headlight_pose_hold<frame||c.frame>frame)continue;
             const float dx=c.m[12]-eye[0],dy=c.m[13]-eye[1],dz=c.m[14]-eye[2],dist=dx*dx+dy*dy+dz*dz;if(dist<=150.f*150.f)order[found++]={dist,i};}
         std::sort(order.begin(),order.begin()+found);
         for(unsigned k=0;k<found&&lp.count<std::min<unsigned>(style.cars,4);++k){auto& c=p.car_poses[order[k].second];auto& L=lp.cars[lp.count];L={};L.instance=c.instance;L.car=c.m;
@@ -123,7 +132,15 @@ inline bool headlight_projectors(Device8& d,atmosphere::Pilot& p,IDirect3DDevice
                 // stopped, off once the car moves forwards again.
                 if(along<-.025f)c.reverse_until=UINT64_MAX;else if(along>.02f)c.reverse_until=0;
                 if(c.frame<frame){const float t=float(frame-c.frame);for(unsigned i=12;i<15;++i)L.car[i]+=(c.m[i]-c.prev[i])*t;}}
+            if(c.frame<frame)++p.headlight_held;
+            if(c.lit_frame!=UINT64_MAX&&c.lit_frame+1<frame&&c.lit_frame+120>frame){++p.headlight_gaps;
+                if(p.headlight_gaps<=40)session().write("{\"type\":\"atmosphere_headlight_gap\",\"frame\":"+std::to_string(frame)+",\"car\":"+std::to_string(k)+",\"missing_frames\":"+std::to_string(frame-c.lit_frame-1)+",\"pose_age\":"+std::to_string(frame-c.frame)+",\"dist\":"+std::to_string(std::sqrt(order[k].first))+"}");}
+            c.lit_frame=frame;
             L.reversing=c.reverse_until&&frame<=c.reverse_until;
+            if(gear_count){unsigned best=8;float best_d=16.f;
+                for(unsigned g=0;g<gears.size();++g)if(gears[g].ok&&p.gear_trusted[g]){const float gx=gears[g].position[0]-L.car[12],gy=gears[g].position[1]-L.car[13],gz=gears[g].position[2]-L.car[14],dd=gx*gx+gy*gy+gz*gz;if(dd<best_d){best_d=dd;best=g;}}
+                if(best<8){L.reversing=gears[best].gear==0;c.reverse_until=0;++p.gear_matched;if(L.reversing)++p.gear_reverse;
+                    if(L.reversing&&p.first_reason("lamp_reverse_from_gear"))session().write("{\"type\":\"atmosphere_reverse_gear\",\"frame\":"+std::to_string(frame)+",\"car\":"+std::to_string(best)+",\"dist\":"+std::to_string(std::sqrt(best_d))+"}");}}
             if(k==0&&p.gear_probe){float along=0;if(c.prev_frame+1==c.frame){const auto f=atmosphere::normalized({c.m[8],c.m[9],c.m[10]});along=(c.m[12]-c.prev[12])*f[0]+(c.m[13]-c.prev[13])*f[1]+(c.m[14]-c.prev[14])*f[2];}gear_probe(d,p,frame,along,L.reversing);}
             L.head_frame=atmosphere::light_frame(L.car,style.head);L.head=L.head_frame.valid&&style.intensity>0;
             if(style.tail&&style.tail_intensity>0){L.rear_frame=atmosphere::light_frame(L.car,style.rear);L.rear=L.rear_frame.valid;}
@@ -206,7 +223,7 @@ inline HRESULT headlight_world(Device8& d,HRESULT draw_hr,uintptr_t pc)noexcept{
             session().write("{\"type\":\"atmosphere_headlight_caps\",\"supported\":"+std::string(p->headlight_caps==1?"true":"false")+"}");}
         ++p->headlight_candidates;
         if(frame>=p->headlight_log_frame+300){p->headlight_log_frame=frame;unsigned reversing=0,braking=0;for(unsigned i=0;i<p->lamp_projectors.count;++i){reversing+=p->lamp_projectors.cars[i].reversing;braking+=p->lamp_projectors.cars[i].brake;}
-            session().write("{\"type\":\"atmosphere_headlight_stats\",\"frame\":"+std::to_string(frame)+",\"candidates\":"+std::to_string(p->headlight_candidates)+",\"draws\":"+std::to_string(p->headlight_draws)+",\"culled\":"+std::to_string(p->headlight_culled)+",\"no_car_frames\":"+std::to_string(p->headlight_no_car)+",\"view_changes\":"+std::to_string(p->headlight_view_changes)+",\"off_target\":"+std::to_string(p->headlight_off_target)+",\"cars\":"+std::to_string(p->lamp_projectors.count)+",\"reversing\":"+std::to_string(reversing)+",\"braking\":"+std::to_string(braking)+",\"proxy_vertices\":"+std::to_string(p->proxy_headlight_vertices)+",\"lamp_points\":"+std::to_string(p->lamp_points.size())+"}");}
+            session().write("{\"type\":\"atmosphere_headlight_stats\",\"frame\":"+std::to_string(frame)+",\"candidates\":"+std::to_string(p->headlight_candidates)+",\"draws\":"+std::to_string(p->headlight_draws)+",\"culled\":"+std::to_string(p->headlight_culled)+",\"no_car_frames\":"+std::to_string(p->headlight_no_car)+",\"view_changes\":"+std::to_string(p->headlight_view_changes)+",\"off_target\":"+std::to_string(p->headlight_off_target)+",\"cars\":"+std::to_string(p->lamp_projectors.count)+",\"reversing\":"+std::to_string(reversing)+",\"braking\":"+std::to_string(braking)+",\"proxy_vertices\":"+std::to_string(p->proxy_headlight_vertices)+",\"lamp_points\":"+std::to_string(p->lamp_points.size())+",\"gear_matched\":"+std::to_string(p->gear_matched)+",\"gear_reverse\":"+std::to_string(p->gear_reverse)+",\"pose_held\":"+std::to_string(p->headlight_held)+",\"gaps\":"+std::to_string(p->headlight_gaps)+"}");}
         {courseintegration::Ref<IDirect3DSurface8> target,back;if(FAILED(n.GetRenderTarget(&target.p))||FAILED(n.GetBackBuffer(0,D3DBACKBUFFER_TYPE_MONO,&back.p))||!courseintegration::same_identity(target.p,back.p)){++p->headlight_off_target;return S_OK;}}
         if(p->headlight_caps!=1||FAILED(headlight_textures(n,*p))||!headlight_projectors(d,*p,n))return S_OK;
         DWORD fvf=0,pixel=1;if(FAILED(n.GetVertexShader(&fvf))||!type_supports_headlight(fvf)||FAILED(n.GetPixelShader(&pixel))||pixel)return S_OK;

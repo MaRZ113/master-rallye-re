@@ -276,7 +276,7 @@ public:
     // car poses seen by the body path, the per-frame lamp projectors.
     HeadlightStyle headlight_style;
     struct HeadlightCandidate {uint64_t frame=UINT64_MAX;UINT min=0,vertices=0,start=0,count=0;std::array<float,3> centre{};float radius=0;uintptr_t instance=0;} headlight_candidate;
-    struct CarPose {uintptr_t instance=0;Mat4 m{},prev{};uint64_t frame=UINT64_MAX,prev_frame=UINT64_MAX,reverse_until=0;};std::array<CarPose,8> car_poses{};
+    struct CarPose {uintptr_t instance=0;Mat4 m{},prev{};uint64_t frame=UINT64_MAX,prev_frame=UINT64_MAX,reverse_until=0,lit_frame=UINT64_MAX;};std::array<CarPose,8> car_poses{};
     void observe_car(uintptr_t instance,const Mat4& m,uint64_t frame)noexcept{
         CarPose* slot=nullptr;for(auto& c:car_poses)if(c.instance==instance){slot=&c;break;}
         if(!slot){for(auto& c:car_poses)if(!c.instance||c.frame==UINT64_MAX||frame>c.frame+120){slot=&c;break;}if(!slot)return;*slot={};slot->instance=instance;}
@@ -288,6 +288,11 @@ public:
     struct LampProjectors {uint64_t frame=UINT64_MAX;std::array<CarLamps,4> cars{};unsigned count=0;Mat4 view{};bool view_valid=false;
         const CarLamps* find(uintptr_t instance)const noexcept{for(unsigned i=0;i<count;++i)if(cars[i].instance==instance)return &cars[i];return nullptr;}} lamp_projectors;
     bool gear_probe=false;uint64_t gear_probe_frame=0; // 6.9 diagnostic: log the local car output object to find the gear field
+    // 6.10: reverse lamps follow the selected gear (gaVehicleOutputData vehicle+4 == 0) for every car whose
+    // gear was seen in a forward gear this race; others keep the 6.8 motion latch. Pose hold = frames a car
+    // keeps its lamps (extrapolated) when its body draw was not observed.
+    bool reverse_from_gear=true;unsigned headlight_pose_hold=12;uint64_t gear_generation=0;std::array<bool,8> gear_trusted{};
+    uint64_t gear_matched=0,gear_reverse=0,headlight_held=0,headlight_gaps=0;
     std::array<float,3> brake_local{};bool brake_local_valid=false;uint64_t proxy_headlight_vertices=0;
     // 6.6 lamp glints: world lamp centres collected from this frame's lit lamp lens draws.
     GlintStyle glint_style;struct LampPoint{std::array<float,3> world{},axis{};uintptr_t instance=0;bool front=false;};
@@ -384,6 +389,8 @@ public:
         coverage.enabled=GetPrivateProfileIntW(L"Atmosphere",L"CoverageLedger",0,ini_.c_str())==1;
         vehicle_glow_fix=GetPrivateProfileIntW(L"Atmosphere",L"VehicleGlowFix",0,ini_.c_str())==1;
         gear_probe=GetPrivateProfileIntW(L"Atmosphere",L"GearProbe",0,ini_.c_str())==1;
+        reverse_from_gear=GetPrivateProfileIntW(L"Atmosphere",L"ReverseFromGear",1,ini_.c_str())==1;
+        headlight_pose_hold=std::clamp<unsigned>(GetPrivateProfileIntW(L"Atmosphere",L"HeadlightPoseHold",12,ini_.c_str()),2u,60u);
 
         pc_water=GetPrivateProfileIntW(L"Atmosphere",L"PCWaterAtmosphere",0,ini_.c_str())==1;
         source_x=number(L"LightX",0);source_y=number(L"LightY",0);source_z=number(L"LightZ",0);radius=std::clamp(number(L"LightRadius",12),.1f,100.f);

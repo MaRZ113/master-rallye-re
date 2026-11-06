@@ -54,7 +54,29 @@ class HudDamageFeedReader {
         if(!m.resolve_id(base,car,car_id_)){id_reason_="car_key_missing";return false;}
         ids_ok_=true;id_reason_="ids_resolved";return true;
     }
+    // 6.10: every Car<N> (not only the local player) for lamp gear state.
+    uint64_t gear_generation_=0;unsigned gear_cars_=0;std::array<uint32_t,8> gear_ids_{},gear_types_{};
 public:
+    // 6.10 (from the 6.9 GearProbe run): gaVehicleOutputData vehicle block (payload+8)
+    //   +0x04 int32 selected gear: 0 = reverse, 1 = neutral (also shown mid-shift), 2.. = 1st..
+    //   +0xb0 float3 world position (same space as the D3D world matrices).
+    struct CarGear { bool ok=false; int gear=-1; std::array<float,3> position{}; };
+    unsigned car_gears(RaceReadMemory& m,uint32_t base,uint64_t race_generation,std::array<CarGear,8>& out) noexcept {
+        out={};if(!race_generation)return 0;
+        if(race_generation!=gear_generation_){gear_generation_=race_generation;gear_cars_=0;gear_types_={};
+            for(uint32_t i=0;i<8;++i){char key[16]{};std::snprintf(key,sizeof(key),"Car%u",i);if(!m.resolve_id(base,key,gear_ids_[i]))break;++gear_cars_;}}
+        uint32_t manager=0,begin=0,end=0;
+        if(!gear_cars_||!pointer(m,base+kHudBrokerRva,manager)||!pointer(m,manager+4,begin)||!word(m,manager+8,end)||end<begin||(end-begin)%0x1c)return 0;
+        const uint32_t records=(end-begin)/0x1c;unsigned found=0;
+        for(unsigned i=0;i<gear_cars_;++i){const auto id=gear_ids_[i];if(id>=records)continue;
+            const uint32_t record=begin+id*0x1c;uint32_t native_id=0,tag=0,payload=0,type=0,vehicle=0;
+            if(!word(m,record,native_id)||native_id!=id||!word(m,record+8,tag)||tag!=kHudBrokerObjectTag||!pointer(m,record+4,payload)||!word(m,payload+4,type))continue;
+            if(gear_types_[i]!=type){char name[32]{};if(!race_pool_text(m,base,type,name,sizeof(name))||std::strcmp(name,"gaVehicleOutputData"))continue;gear_types_[i]=type;}
+            int32_t gear=-1;float x=0,y=0,z=0;
+            if(!pointer(m,payload+8,vehicle)||!m.read(vehicle+4,&gear,4)||gear<0||gear>9||!real(m,vehicle+0xb0,x)||!real(m,vehicle+0xb4,y)||!real(m,vehicle+0xb8,z))continue;
+            out[i].ok=true;out[i].gear=gear;out[i].position={x,y,z};++found;}
+        return found;
+    }
     // 6.9 gear probe: the same validated path, returning the object pointers only.
     bool output_object(RaceReadMemory& m,uint32_t base,uint64_t race_generation,uint32_t& payload,uint32_t& vehicle,const char*& reason) noexcept {
         payload=vehicle=0;reason="no_race_generation";if(!race_generation)return false;
