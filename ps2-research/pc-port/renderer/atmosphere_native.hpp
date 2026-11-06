@@ -77,7 +77,109 @@ inline void sun_transform(Device8& d,D3DTRANSFORMSTATETYPE type,bool exe,uint32_
     if(!exe||!((type==D3DTS_VIEW&&rva==GAMEPLAY_VIEW_RETURN_RVA)||(type==D3DTS_PROJECTION&&rva==GAMEPLAY_PROJECTION_RETURN_RVA)))return;
     auto* p=pilot(d);if(p&&(p->sun_disk||p->sun_halo||p->sun_flare||p->sun_style.vignette>0))p->sun.clear();
 }
+// ===== ATMOSPHERE6.3 P2: projected headlights / tail-light ground glow =====
+inline bool type_supports_headlight(DWORD fvf)noexcept{return fvf==0x142||fvf==0x242||fvf==0x152;}
+inline HRESULT headlight_textures(IDirect3DDevice8& n,atmosphere::Pilot& p)noexcept{
+    if(p.headlight_cookie_texture&&p.tail_cookie_texture&&p.headlight_ramp_texture)return S_OK;
+    p.release_headlights();
+    auto make=[&](IDirect3DTexture8*& t,unsigned w,unsigned h,auto shade)->HRESULT{
+        auto hr=n.CreateTexture(w,h,1,0,D3DFMT_A8R8G8B8,D3DPOOL_MANAGED,&t);if(FAILED(hr)||!t)return E_FAIL;
+        D3DLOCKED_RECT l{};hr=t->LockRect(0,&l,nullptr,0);if(FAILED(hr)||!l.pBits){if(SUCCEEDED(hr))t->UnlockRect(0);return E_FAIL;}
+        for(unsigned y=0;y<h;++y)for(unsigned x=0;x<w;++x){const float v=std::clamp(shade((x+.5f)/w,(y+.5f)/h),0.f,1.f);const DWORD c=DWORD(std::lround(v*255));
+            const DWORD px=0xff000000u|c<<16|c<<8|c;std::memcpy(static_cast<uint8_t*>(l.pBits)+size_t(y)*l.Pitch+x*4,&px,4);}
+        return t->UnlockRect(0);};
+    HRESULT hr=make(p.headlight_cookie_texture,128,128,[](float u,float v){return atmosphere::headlight_cookie(u,v);});
+    if(SUCCEEDED(hr))hr=make(p.tail_cookie_texture,64,64,[](float u,float v){return atmosphere::tail_cookie(u,v);});
+    if(SUCCEEDED(hr))hr=make(p.headlight_ramp_texture,256,4,[](float u,float){return u<1.f/256?0.f:atmosphere::headlight_ramp(u);});
+    if(FAILED(hr))p.release_headlights();return hr;
+}
+// Per frame: the car nearest the camera (chase/bumper views), extrapolated to
+// this frame when its body was not drawn yet, plus the brake signal.
+inline bool headlight_projectors(Device8& d,atmosphere::Pilot& p,IDirect3DDevice8& n)noexcept{
+    const auto frame=d.trace.frame_number();auto& lp=p.lamp_projectors;if(lp.frame==frame)return lp.head||lp.rear;
+    lp={};lp.frame=frame;
+    D3DMATRIX view{};if(FAILED(n.GetTransform(D3DTS_VIEW,&view)))return false;atmosphere::Mat4 v{};std::memcpy(v.data(),&view,64);
+    atmosphere::Mat4 inverse{};std::array<float,3> eye{};if(!atmosphere::mat_inverse(v,inverse))return false;eye={inverse[12],inverse[13],inverse[14]};
+    const atmosphere::Pilot::CarPose* best=nullptr;float best_d=1e30f;
+    for(const auto& c:p.car_poses){if(!c.instance||c.frame==UINT64_MAX||c.frame+2<frame||c.frame>frame)continue;
+        const float dx=c.m[12]-eye[0],dy=c.m[13]-eye[1],dz=c.m[14]-eye[2],dist=dx*dx+dy*dy+dz*dz;if(dist<best_d){best_d=dist;best=&c;}}
+    if(!best||best_d>60.f*60.f)return false;
+    auto car=best->m;
+    if(best->frame<frame&&best->prev_frame+1==best->frame){const float k=float(frame-best->frame);for(unsigned i=12;i<15;++i)car[i]+=(best->m[i]-best->prev[i])*k;}
+    const auto& style=p.headlight_style;
+    lp.head_frame=atmosphere::light_frame(car,style.head);lp.head=lp.head_frame.valid&&style.intensity>0;
+    if(lp.head){lp.head_cookie=atmosphere::cookie_matrix(inverse,lp.head_frame,style.head);lp.head_ramp=atmosphere::ramp_matrix(inverse,lp.head_frame,style.head);}
+    if(style.tail&&style.tail_intensity>0){lp.rear_frame=atmosphere::light_frame(car,style.rear);lp.rear=lp.rear_frame.valid;
+        if(lp.rear){lp.rear_cookie=atmosphere::cookie_matrix(inverse,lp.rear_frame,style.rear);lp.rear_ramp=atmosphere::ramp_matrix(inverse,lp.rear_frame,style.rear);}}
+    // Brake: a glow-on lamp group of this car seen last frame (lamp observer).
+    if(p.lamps_last.frame!=UINT64_MAX&&p.lamps_last.frame+2>=frame)for(const auto& s:p.lamps_last.samples){
+        const float dx=s.world[12]-car[12],dy=s.world[13]-car[13],dz=s.world[14]-car[14];if(dx*dx+dy*dy+dz*dz<9.f){lp.brake=1;break;}}
+    return lp.head||lp.rear;
+}
+struct HeadlightPass {
+    struct Rs{DWORD key,old;};struct Ts{unsigned stage;DWORD key,old;};
+    std::vector<Rs> rs;std::vector<Ts> ts;IDirect3DBaseTexture8* texture[2]{};bool texture_set[2]{};D3DMATRIX transform[2]{};bool transform_set[2]{};
+    HRESULT set_rs(Device8& d,IDirect3DDevice8& n,DWORD key,DWORD value){for(const auto& r:rs)if(r.key==key){const auto hr=n.SetRenderState(D3DRENDERSTATETYPE(key),value);notify(d,50,pack(key,value),hr);return hr;}
+        Rs r{key,0};auto hr=n.GetRenderState(D3DRENDERSTATETYPE(key),&r.old);if(FAILED(hr))return hr;rs.push_back(r);hr=n.SetRenderState(D3DRENDERSTATETYPE(key),value);notify(d,50,pack(key,value),hr);return hr;}
+    HRESULT set_ts(Device8& d,IDirect3DDevice8& n,unsigned stage,DWORD key,DWORD value){for(const auto& t:ts)if(t.stage==stage&&t.key==key){const auto hr=n.SetTextureStageState(stage,D3DTEXTURESTAGESTATETYPE(key),value);notify(d,63,pack(stage,key,value),hr);return hr;}
+        Ts t{stage,key,0};auto hr=n.GetTextureStageState(stage,D3DTEXTURESTAGESTATETYPE(key),&t.old);if(FAILED(hr))return hr;ts.push_back(t);hr=n.SetTextureStageState(stage,D3DTEXTURESTAGESTATETYPE(key),value);notify(d,63,pack(stage,key,value),hr);return hr;}
+    HRESULT set_texture(Device8& d,IDirect3DDevice8& n,unsigned i,IDirect3DTexture8* t){if(!texture_set[i]){auto hr=n.GetTexture(i+1,&texture[i]);if(FAILED(hr))return hr;texture_set[i]=true;}
+        const auto hr=n.SetTexture(i+1,t);notify(d,61,pack(i+1,t),hr);return hr;}
+    HRESULT set_transform(Device8& d,IDirect3DDevice8& n,unsigned i,const atmosphere::Mat4& m){const auto type=D3DTRANSFORMSTATETYPE(D3DTS_TEXTURE1+i);
+        if(!transform_set[i]){auto hr=n.GetTransform(type,&transform[i]);if(FAILED(hr))return hr;transform_set[i]=true;}
+        D3DMATRIX x{};std::memcpy(&x,m.data(),64);const auto hr=n.SetTransform(type,&x);notify(d,37,pack(type,&x),hr);return hr;}
+    HRESULT restore(Device8& d,IDirect3DDevice8& n)noexcept{HRESULT result=S_OK;auto keep=[&](HRESULT hr){if(FAILED(hr)&&SUCCEEDED(result))result=hr;};
+        for(unsigned i=0;i<2;++i)if(transform_set[i]){const auto type=D3DTRANSFORMSTATETYPE(D3DTS_TEXTURE1+i);const auto hr=n.SetTransform(type,&transform[i]);notify(d,37,pack(type,&transform[i]),hr);keep(hr);transform_set[i]=false;}
+        for(unsigned i=0;i<2;++i)if(texture_set[i]){const auto hr=n.SetTexture(i+1,texture[i]);notify(d,61,pack(i+1,texture[i]),hr);keep(hr);if(texture[i])texture[i]->Release();texture[i]=nullptr;texture_set[i]=false;}
+        for(auto it=ts.rbegin();it!=ts.rend();++it){const auto hr=n.SetTextureStageState(it->stage,D3DTEXTURESTAGESTATETYPE(it->key),it->old);notify(d,63,pack(it->stage,it->key,it->old),hr);keep(hr);}ts.clear();
+        for(auto it=rs.rbegin();it!=rs.rend();++it){const auto hr=n.SetRenderState(D3DRENDERSTATETYPE(it->key),it->old);notify(d,50,pack(it->key,it->old),hr);keep(hr);}rs.clear();
+        return result;}
+    ~HeadlightPass(){for(auto*& t:texture)if(t){t->Release();t=nullptr;}}
+};
+inline HRESULT headlight_world(Device8& d,HRESULT draw_hr,uintptr_t pc)noexcept{
+    auto* p=pilot(d);if(!p||!p->enabled()||!p->headlight_style.enabled||FAILED(draw_hr)||!p->lighting.active()||
+       pc!=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+groundintegration::COURSE_DRAW_RETURN_RVA||!d.trace.scene_active||
+       d.trace.shadow.recording||d.trace.effective_shadow.recording||GetCurrentThreadId()!=d.trace.render_thread_id())return S_OK;
+    auto& c=p->headlight_candidate;const auto frame=d.trace.frame_number();if(c.frame!=frame)return S_OK;
+    const auto cand=c;c.frame=UINT64_MAX;   // consumed: exactly the draw that just ran
+    try{
+        auto& n=*d.native();
+        if(!p->headlight_caps){D3DCAPS8 caps{};p->headlight_caps=SUCCEEDED(n.GetDeviceCaps(&caps))&&caps.MaxTextureBlendStages>=4&&caps.MaxSimultaneousTextures>=3&&
+            (caps.TextureCaps&D3DPTEXTURECAPS_PROJECTED)&&(caps.TextureOpCaps&D3DTEXOPCAPS_MODULATE2X)&&(caps.DestBlendCaps&D3DPBLENDCAPS_ONE)?1:2;
+            session().write("{\"type\":\"atmosphere_headlight_caps\",\"supported\":"+std::string(p->headlight_caps==1?"true":"false")+"}");}
+        if(p->headlight_caps!=1||FAILED(headlight_textures(n,*p))||!headlight_projectors(d,*p,n))return S_OK;
+        DWORD fvf=0,pixel=1;if(FAILED(n.GetVertexShader(&fvf))||!type_supports_headlight(fvf)||FAILED(n.GetPixelShader(&pixel))||pixel)return S_OK;
+        const auto& lp=p->lamp_projectors;const auto& style=p->headlight_style;
+        struct Lamp{bool on;const atmosphere::LightFrame* f;const atmosphere::Projector* pr;const atmosphere::Mat4* cookie;const atmosphere::Mat4* ramp;IDirect3DTexture8* texture;std::array<float,3> rgb;float intensity;};
+        const Lamp lamps[2]{{lp.head,&lp.head_frame,&style.head,&lp.head_cookie,&lp.head_ramp,p->headlight_cookie_texture,style.rgb,style.intensity},
+                            {lp.rear,&lp.rear_frame,&style.rear,&lp.rear_cookie,&lp.rear_ramp,p->tail_cookie_texture,style.tail_rgb,style.tail_intensity*(lp.brake>0?style.tail_brake:1.f)}};
+        for(const auto& lamp:lamps){
+            if(!lamp.on)continue;
+            if(!atmosphere::light_reaches(*lamp.f,*lamp.pr,cand.centre,cand.radius)){++p->headlight_culled;continue;}
+            HeadlightPass pass;HRESULT hr=S_OK;
+            auto rs=[&](DWORD k,DWORD v){if(SUCCEEDED(hr))hr=pass.set_rs(d,n,k,v);};auto ts=[&](unsigned st,DWORD k,DWORD v){if(SUCCEEDED(hr))hr=pass.set_ts(d,n,st,k,v);};
+            DWORD factor=0xff000000u;for(unsigned i=0;i<3;++i)factor|=DWORD(std::clamp(std::lround(lamp.rgb[i]*lamp.intensity*.5f*255),0l,255l))<<((2-i)*8);
+            rs(D3DRS_ZWRITEENABLE,FALSE);rs(D3DRS_ZFUNC,D3DCMP_LESSEQUAL);rs(D3DRS_ALPHABLENDENABLE,TRUE);rs(D3DRS_SRCBLEND,D3DBLEND_SRCALPHA);rs(D3DRS_DESTBLEND,D3DBLEND_ONE);
+            rs(D3DRS_BLENDOP,D3DBLENDOP_ADD);rs(D3DRS_FOGCOLOR,0);rs(D3DRS_TEXTUREFACTOR,factor);rs(D3DRS_WRAP1,0);rs(D3DRS_WRAP2,0);rs(D3DRS_SPECULARENABLE,FALSE);
+            ts(0,D3DTSS_COLOROP,D3DTOP_MODULATE);ts(0,D3DTSS_COLORARG1,D3DTA_TEXTURE);ts(0,D3DTSS_COLORARG2,D3DTA_TFACTOR);ts(0,D3DTSS_ALPHAOP,D3DTOP_SELECTARG1);ts(0,D3DTSS_ALPHAARG1,D3DTA_TEXTURE);ts(0,D3DTSS_RESULTARG,D3DTA_CURRENT);
+            for(unsigned st=1;st<3;++st){ts(st,D3DTSS_COLOROP,st==1?D3DTOP_MODULATE:D3DTOP_MODULATE2X);ts(st,D3DTSS_COLORARG1,D3DTA_TEXTURE);ts(st,D3DTSS_COLORARG2,D3DTA_CURRENT);
+                ts(st,D3DTSS_ALPHAOP,D3DTOP_SELECTARG1);ts(st,D3DTSS_ALPHAARG1,D3DTA_CURRENT);ts(st,D3DTSS_RESULTARG,D3DTA_CURRENT);ts(st,D3DTSS_TEXCOORDINDEX,D3DTSS_TCI_CAMERASPACEPOSITION);
+                ts(st,D3DTSS_TEXTURETRANSFORMFLAGS,st==1?(D3DTTFF_COUNT3|D3DTTFF_PROJECTED):D3DTTFF_COUNT2);ts(st,D3DTSS_ADDRESSU,D3DTADDRESS_CLAMP);ts(st,D3DTSS_ADDRESSV,D3DTADDRESS_CLAMP);
+                ts(st,D3DTSS_MINFILTER,D3DTEXF_LINEAR);ts(st,D3DTSS_MAGFILTER,D3DTEXF_LINEAR);ts(st,D3DTSS_MIPFILTER,D3DTEXF_NONE);}
+            ts(3,D3DTSS_COLOROP,D3DTOP_DISABLE);ts(3,D3DTSS_ALPHAOP,D3DTOP_DISABLE);
+            if(SUCCEEDED(hr))hr=pass.set_texture(d,n,0,lamp.texture);if(SUCCEEDED(hr))hr=pass.set_texture(d,n,1,p->headlight_ramp_texture);
+            if(SUCCEEDED(hr))hr=pass.set_transform(d,n,0,*lamp.cookie);if(SUCCEEDED(hr))hr=pass.set_transform(d,n,1,*lamp.ramp);
+            if(SUCCEEDED(hr))hr=n.DrawIndexedPrimitive(D3DPT_TRIANGLELIST,cand.min,cand.vertices,cand.start,cand.count);
+            const auto restored=pass.restore(d,n);if(FAILED(restored))return repair(d);
+            if(SUCCEEDED(hr))++p->headlight_draws;
+            if(p->first_reason(lamp.texture==p->headlight_cookie_texture?"headlight_pass":"tail_light_pass")||(d.trace.control.active&&frame%60==0))
+                session().write("{\"type\":\"atmosphere_headlight\",\"lamp\":"+quote(std::string(lamp.texture==p->headlight_cookie_texture?"head":"tail"))+",\"frame\":"+std::to_string(frame)+",\"hresult\":"+std::to_string(uint32_t(hr))+",\"draws\":"+std::to_string(p->headlight_draws)+",\"culled\":"+std::to_string(p->headlight_culled)+",\"brake\":"+std::string(lp.brake>0?"true":"false")+",\"origin\":["+std::to_string(lamp.f->position[0])+","+std::to_string(lamp.f->position[1])+","+std::to_string(lamp.f->position[2])+"]}");
+        }
+        return S_OK;
+    }catch(...){return repair(d);}
+}
 inline void sun_world(Device8& d,HRESULT hr,uintptr_t pc)noexcept{
+    (void)headlight_world(d,hr,pc);
     auto* p=pilot(d);if(!p||!p->enabled()||!(p->sun_disk||p->sun_halo||p->sun_flare||p->sun_style.vignette>0||p->stars.count)||FAILED(hr)||!d.trace.scene_active||
         pc!=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+groundintegration::COURSE_DRAW_RETURN_RVA||
         GetCurrentThreadId()!=d.trace.render_thread_id())return;
@@ -671,6 +773,18 @@ inline HRESULT universal_draw(Device8& d,atmosphere::Pilot& p,UINT min,UINT vert
     if(p.lighting.fog_enabled){saved.fog_changed=true;effective_fog=atmosphere::scene_fog(saved.fog,p.lighting);hr=n.SetRenderState(D3DRS_FOGCOLOR,effective_fog);notify(d,50,pack(D3DRS_FOGCOLOR,effective_fog),hr);}
     if(FAILED(hr))return repair(d);
     if(p.capture.stage||p.coverage.enabled){p.draw_resolved=true;p.draw_lit=p.world;p.draw_reason=entry.reason;}
+    // 6.3 headlights: remember this lit draw (args + world bounds) for the
+    // light pass issued right after it in sun_world.
+    if(p.headlight_style.enabled&&(type_supports_headlight(fvf))){
+        if(!entry.has_bounds||entry.bounds_revision!=entry.vertex_revision){entry.has_bounds=false;
+            const size_t n_vertices=saved.stride?entry.original.size()/saved.stride:0;std::array<float,3> lo{1e30f,1e30f,1e30f},hi{-1e30f,-1e30f,-1e30f};
+            for(size_t i=0;i<n_vertices;++i){float v3[3];std::memcpy(v3,entry.original.data()+i*saved.stride,12);for(unsigned k=0;k<3;++k){lo[k]=std::min(lo[k],v3[k]);hi[k]=std::max(hi[k],v3[k]);}}
+            if(n_vertices&&std::isfinite(lo[0]+hi[0]+lo[1]+hi[1]+lo[2]+hi[2])){for(unsigned k=0;k<3;++k)entry.bounds[k]=(lo[k]+hi[k])*.5f;
+                entry.bounds[3]=.5f*std::sqrt((hi[0]-lo[0])*(hi[0]-lo[0])+(hi[1]-lo[1])*(hi[1]-lo[1])+(hi[2]-lo[2])*(hi[2]-lo[2]));entry.has_bounds=true;entry.bounds_revision=entry.vertex_revision;}}
+        if(entry.has_bounds){auto& c=p.headlight_candidate;c.frame=d.trace.frame_number();c.min=min;c.vertices=vertices;c.start=start;c.count=triangles;
+            const auto& b=entry.bounds;if(world){const auto& w=*world;for(unsigned k=0;k<3;++k)c.centre[k]=b[0]*w[k]+b[1]*w[4+k]+b[2]*w[8+k]+w[12+k];
+                const float scale=std::max({std::hypot(w[0],w[1],w[2]),std::hypot(w[4],w[5],w[6]),std::hypot(w[8],w[9],w[10])});c.radius=b[3]*scale;}
+            else{c.centre={b[0],b[1],b[2]};c.radius=b[3];}}}
     ++resolver.accepted;++p.resolved_draws;++p.world_draws;++p.category_draws[entry.category];p.category_vertices[entry.category]+=entry.changed;
     if(p.first_reason(("resolver_material_"+texture_sha).c_str()))session().write("{\"type\":\"atmosphere_resolver_draw\",\"course\":"+quote(std::string(course))+
         ",\"material\":"+quote(material?material->name:std::string("automatic_ground"))+",\"reason\":"+quote(std::string(entry.reason))+",\"category\":"+std::to_string(entry.category)+

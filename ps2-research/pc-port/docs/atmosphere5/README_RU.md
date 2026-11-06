@@ -359,3 +359,25 @@ DLL `2c770553290a2d5894dba1bf944f586f62b96736c8b0ea62c5f105c8ff72af75`, CTest 24
 
 DLL `dd54c333c24fac9d7319734742f426fa5803b6b8122928a5af102c48fbce6105`, CTest 24/24 + 46/46, Python 201 OK.
 Установлена в Atmo-copy (включает 6.1). Откат: `.research-output/atmosphere6/rollback-58782efd`.
+
+## 21. ATMOSPHERE6.3 — P2 фары и пятно задних фонарей (первая версия)
+
+Владелец (6.2): пыль/частицы темнеют, луна гаснет плавно — P1 принят.
+* **Проход света** (`atmosphere_headlights.hpp`, `headlight_world` из `sun_world`): после каждого
+  мирового прохода, который осветил universal resolver, та же геометрия рисуется ещё раз аддитивно
+  (SRCALPHA/ONE, без записи глубины, LESSEQUAL, туман чёрный): текстура × цвет фары (TFACTOR) ×
+  cookie × рампа ×2. Cookie — `TCI_CAMERASPACEPOSITION` → обратный view → пространство фары →
+  проектор (COUNT3|PROJECTED), форма ближнего света с мягкой отсечкой сверху. Рампа — расстояние вдоль
+  луча / дальность (COUNT2): тексель 0 чёрный → позади фары и дальше дальности света нет.
+* **Машина**: поза = мировая матрица экземпляра из пути кузова (`observe_car`), берётся ближайшая к
+  камере машина, экстраполяция на кадр, если кузов ещё не нарисован. Фары: (0, .65, 2.1) в осях машины,
+  наклон 3.5° вниз, ±38°×±16°, 48 м.
+* **Задние фонари**: второй проектор назад-вниз (32°), красный, 7 м; ярче ×2.2 при торможении
+  (glow-on группа этой машины в наблюдателе фонарей).
+* Отсечение по сфере границ геометрии (кэш в `ResolvedGeometry`). Только освещённые resolver'ом
+  проходы (рельеф, объекты трассы); машины, вода, PS2-трава/физпропы светом фар пока не освещаются.
+* INI: `Headlights`, `HeadlightIntensity/Range/Spread/Height/Pitch/X/Y/Z/R/G/B`, `TailLightGlow`,
+  `TailLightIntensity/Brake/Range`. Лог `atmosphere_headlight`, `atmosphere_headlight_caps`.
+
+DLL `22cead187aff232453d4c0afb28ce6fbf18705dd9374886734dae3c3be220c9f`, CTest 24/24 + 46/46, Python 201 OK.
+Установлена. Откат: `.research-output/atmosphere6/rollback-dd54c333`.

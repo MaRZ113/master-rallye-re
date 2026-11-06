@@ -272,6 +272,20 @@ public:
     // pointer + resource generation and admits later frames by itself.
     // 6.2 night particles (dust clouds 0x164ed0, stones/mud 0x1722ee): one
     // extra stage-1 MODULATE TFACTOR around the DrawPrimitive, restored after.
+    // 6.3 P2 headlights: the last lit course draw (consumed right after it),
+    // car poses seen by the body path, the per-frame lamp projectors.
+    HeadlightStyle headlight_style;
+    struct HeadlightCandidate {uint64_t frame=UINT64_MAX;UINT min=0,vertices=0,start=0,count=0;std::array<float,3> centre{};float radius=0;} headlight_candidate;
+    struct CarPose {uintptr_t instance=0;Mat4 m{},prev{};uint64_t frame=UINT64_MAX,prev_frame=UINT64_MAX;};std::array<CarPose,8> car_poses{};
+    void observe_car(uintptr_t instance,const Mat4& m,uint64_t frame)noexcept{
+        CarPose* slot=nullptr;for(auto& c:car_poses)if(c.instance==instance){slot=&c;break;}
+        if(!slot){for(auto& c:car_poses)if(!c.instance||c.frame==UINT64_MAX||frame>c.frame+120){slot=&c;break;}if(!slot)return;*slot={};slot->instance=instance;}
+        if(slot->frame==frame){slot->m=m;return;}
+        slot->prev=slot->m;slot->prev_frame=slot->frame;slot->m=m;slot->frame=frame;
+    }
+    struct LampProjectors {uint64_t frame=UINT64_MAX;bool head=false,rear=false;LightFrame head_frame,rear_frame;Mat4 head_cookie{},head_ramp{},rear_cookie{},rear_ramp{};float brake=0;} lamp_projectors;
+    IDirect3DTexture8 *headlight_cookie_texture=nullptr,*tail_cookie_texture=nullptr,*headlight_ramp_texture=nullptr;unsigned headlight_caps=0;uint64_t headlight_draws=0,headlight_culled=0;
+    void release_headlights()noexcept{for(auto** t:{&headlight_cookie_texture,&tail_cookie_texture,&headlight_ramp_texture})if(*t){(*t)->Release();*t=nullptr;}}
     struct ParticleSaved {bool pending=false;DWORD stage[5]{},stage2=0,factor=0;} particle;uint64_t particle_draws=0;
     struct GlassTexture {uintptr_t pointer=0;uint64_t generation=0;};std::array<GlassTexture,32> glass_textures{};unsigned glass_next=0;
     bool known_glass(uintptr_t t,uint64_t g)const noexcept{if(!t||!g)return false;for(const auto& x:glass_textures)if(x.pointer==t&&x.generation==g)return true;return false;}
@@ -431,7 +445,7 @@ private:
         sky_u_scale=std::clamp(number(L"CustomSkyUScale",1),.1f,2.f);
         sky_projection=GetPrivateProfileIntW(L"Atmosphere",L"CustomSkyProjection",0,ini_.c_str())==1;sky_haze=std::clamp(number(L"CustomSkyHaze",1),0.f,1.f);
         sun_disk=GetPrivateProfileIntW(L"Atmosphere",L"SunDisk",0,ini_.c_str())==1;sun_halo=GetPrivateProfileIntW(L"Atmosphere",L"SunHalo",0,ini_.c_str())==1;sun_flare=GetPrivateProfileIntW(L"Atmosphere",L"SunFlare",0,ini_.c_str())==1;
-        sun_style=read_sun_style(ini_,night);stars=read_star_style(ini_,night);
+        sun_style=read_sun_style(ini_,night);stars=read_star_style(ini_,night);headlight_style=read_headlight_style(ini_,night);
         regional_base=lighting;apply_regional_values();
         // P0.3 dark diagnostic (Ctrl+Alt+N, LiveTuning): everything that follows
         // the atmosphere goes near-black; whatever stays bright bypasses it.
@@ -442,7 +456,7 @@ public:
     bool enabled()const noexcept{return enabled_;}
     bool custom()const noexcept{return enabled_&&!set_.empty()&&!custom_failed_&&(regional_sky==-2||regional_sky==int(custom_base));}
     void disable()noexcept{enabled_=false;}
-    void reset()noexcept{capture.cancel(world);clear_environment();sun.reset();resolver.clear();body_texture_cache.clear();for(auto*& t:textures_){if(t)t->Release();t=nullptr;}if(scratch)scratch->Release();scratch=nullptr;scratch_size=0;custom_ready_=false;}
+    void reset()noexcept{release_headlights();capture.cancel(world);clear_environment();sun.reset();resolver.clear();body_texture_cache.clear();for(auto*& t:textures_){if(t)t->Release();t=nullptr;}if(scratch)scratch->Release();scratch=nullptr;scratch_size=0;custom_ready_=false;}
     const Pixels& pixels(unsigned layer)const noexcept{return pixels_[layer];}
     bool load(IDirect3DDevice8& n) {
         if(custom_ready_)return true;if(!custom())return false;

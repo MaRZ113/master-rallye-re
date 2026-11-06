@@ -90,6 +90,8 @@ struct ResolvedGeometry {
     // Instanced props (checkpoint boards, placed objects) share one range under
     // several WORLD matrices: the entry remembers the matrix it was lit with.
     std::array<float,16> world{};bool has_world=false;
+    // 6.3: object-space bounding sphere of `original` (headlight culling).
+    std::array<float,4> bounds{};bool has_bounds=false;uint64_t bounds_revision=UINT64_MAX;
     bool lit_for(const std::array<float,16>* w)const noexcept{return w?has_world&&world==*w:!has_world;}
     bool same_source(const uint8_t* v,size_t vn,const uint8_t* i,size_t in,uint64_t vr,uint64_t ir,bool& compared)const noexcept {
         compared=false;if(original.size()!=vn||index_bytes.size()!=in||!v||!i)return false;

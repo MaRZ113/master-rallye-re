@@ -214,6 +214,22 @@ int main(){
         for(size_t i=0;i<field.size();++i){const auto& v=field[i].direction;upper=upper&&v[1]>=0;unit=unit&&std::abs(v[0]*v[0]+v[1]*v[1]+v[2]*v[2]-1)<1e-4f;
             same=same&&v==again[i].direction&&field[i].magnitude==again[i].magnitude;bright=std::max(bright,field[i].magnitude);}
         CHECK(field.size()==500&&upper&&unit&&same&&bright>.5f);
+        // ATMOSPHERE6.3 P2 headlight projector math.
+        CHECK(headlight_cookie(0,.5f)==0&&headlight_cookie(.5f,1)==0&&headlight_cookie(.5f,.55f)>.4f&&headlight_cookie(.5f,.2f)<headlight_cookie(.5f,.55f));
+        CHECK(headlight_ramp(0)==0&&headlight_ramp(1)==0&&headlight_ramp(.05f)>headlight_ramp(.6f)&&headlight_ramp(.6f)>0);
+        CHECK(tail_cookie(.5f,.5f)>.9f&&tail_cookie(.02f,.02f)==0);
+        const Mat4 identity_car{1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1};Projector flat;flat.pitch_degrees=0;
+        const auto beam=light_frame(identity_car,flat);
+        CHECK(beam.valid&&std::abs(beam.forward[2]-1)<1e-5f&&std::abs(beam.right[0]-1)<1e-5f&&std::abs(beam.up[1]-1)<1e-5f&&std::abs(beam.position[2]-2.1f)<1e-5f);
+        Mat4 inverse_view{};CHECK(mat_inverse(identity_car,inverse_view));
+        const auto cookie=cookie_matrix(inverse_view,beam,flat),ramp=ramp_matrix(inverse_view,beam,flat);
+        auto apply=[](const Mat4& m,float x,float y,float z){std::array<float,4> o{};for(unsigned j=0;j<4;++j)o[j]=x*m[j]+y*m[4+j]+z*m[8+j]+m[12+j];return o;};
+        const auto ahead=apply(cookie,0,.65f,12.1f);CHECK(ahead[2]>0&&std::abs(ahead[0]/ahead[2]-.5f)<1e-4f&&std::abs(ahead[1]/ahead[2]-.5f)<1e-4f);
+        const auto right=apply(cookie,3,.65f,12.1f);CHECK(right[0]/right[2]>.5f);
+        const auto r=apply(ramp,0,.65f,12.1f);CHECK(std::abs(r[0]-10/flat.range)<1e-4f&&std::abs(r[1]-.5f)<1e-5f);
+        CHECK(apply(ramp,0,.65f,-5)[0]<0);                                  // behind the lamp -> black ramp texel
+        CHECK(light_reaches(beam,flat,{0,0,20},2)&&!light_reaches(beam,flat,{0,0,-20},2)&&!light_reaches(beam,flat,{0,0,200},2));
+        Mat4 m{2,0,0,0, 0,3,0,0, 0,0,4,0, 1,2,3,1},mi{};CHECK(mat_inverse(m,mi));const auto e=mat_mul(m,mi);CHECK(std::abs(e[0]-1)<1e-5f&&std::abs(e[13])<1e-5f&&std::abs(e[15]-1)<1e-5f);
     }
     SunFx no_depth_sun;Native missing_depth;
     CHECK(no_depth_sun.render(missing_depth,sun_center,true,true,true,nullptr,nullptr)==S_FALSE);CHECK(missing_depth.calls==0);

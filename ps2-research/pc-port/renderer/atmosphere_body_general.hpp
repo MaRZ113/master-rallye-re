@@ -78,6 +78,7 @@ inline HRESULT general(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,U
     frontendmodelintegration::Context owner;
     if(!frontendmodelintegration::fleet_owner(frontendmodelintegration::caller_stack,pc,owner))return S_OK;
     D3DMATRIX world{};if(FAILED(n.GetTransform(D3DTS_WORLD,&world))||!frontendmodelintegration::fleet_owner_world(owner,world))return reject("body_material_owner_world_mismatch");
+    {atmosphere::Mat4 pose{};std::memcpy(pose.data(),&world,64);p->observe_car(owner.owner.instance,pose,d.trace.frame_number());}
     const auto exe=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));atmosphere::NativeMaterialBinding binding;
     if(!atmosphere::native_material_binding(exe,owner.mesh,frontendmodelintegration::word,binding))return reject("body_material_native_binding_missing");
     uint32_t name_id=0;std::string resource;

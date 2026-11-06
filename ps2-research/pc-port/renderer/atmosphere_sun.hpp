@@ -7,6 +7,7 @@
 #include <bitset>
 #include <filesystem>
 #include <fstream>
+#include "atmosphere_headlights.hpp"
 
 namespace gfx2::atmosphere {
 template<class T> inline void sun_drop(T*& p)noexcept{if(p)p->Release();p=nullptr;}
