@@ -299,8 +299,12 @@ public:
     struct LensTexture{uintptr_t pointer=0;uint64_t generation=0;unsigned width=0,height=0;std::vector<uint32_t> pixels;};std::array<LensTexture,16> lens_textures{};size_t lens_texture_next=0;
     std::array<float,3> brake_local{};bool brake_local_valid=false;uint64_t proxy_headlight_vertices=0;
     // 6.6 lamp glints: world lamp centres collected from this frame's lit lamp lens draws.
-    GlintStyle glint_style;struct LampPoint{std::array<float,3> world{},axis{};uintptr_t instance=0;bool front=false;uint8_t kind=0;};   // 6.13 kind: 0 head, 1 tail, 2 brake, 3 reverse
+    GlintStyle glint_style;struct LampPoint{std::array<float,3> world{},axis{};uintptr_t instance=0;bool front=false;uint8_t kind=0;float size=0;};   // 6.13 kind: 0 head, 1 tail, 2 brake, 3 reverse
     std::vector<LampPoint> lamp_points;uint64_t lamp_points_frame=UINT64_MAX,reverse_until=0;uintptr_t reverse_instance=0;
+    // 6.15 lamp rigs (tools/atmosphere_lamp_rig.py): instance -> rig, matched once from a lens draw; braking = glow card seen.
+    LampRigs lamp_rigs;struct RigOwner{uintptr_t instance=0;int rig=-1;uint64_t frame=UINT64_MAX,emitted=UINT64_MAX,braking=UINT64_MAX;};std::array<RigOwner,8> rig_owners{};uint64_t rig_matches=0,rig_misses=0,rig_points=0;
+    RigOwner* rig_owner(uintptr_t instance,uint64_t frame,bool create)noexcept{if(!instance)return nullptr;for(auto& o:rig_owners)if(o.instance==instance){o.frame=frame;return &o;}if(!create)return nullptr;
+        for(auto& o:rig_owners)if(!o.instance||o.frame==UINT64_MAX||frame>o.frame+3600){o={};o.instance=instance;o.frame=frame;return &o;}return nullptr;}
     uint64_t headlight_candidates=0,headlight_no_car=0,headlight_view_changes=0,headlight_off_target=0,headlight_log_frame=0;
     IDirect3DTexture8 *headlight_cookie_texture=nullptr,*tail_cookie_texture=nullptr,*headlight_ramp_texture=nullptr;unsigned headlight_caps=0;uint64_t headlight_draws=0,headlight_culled=0;
     void release_headlights()noexcept{for(auto** t:{&headlight_cookie_texture,&tail_cookie_texture,&headlight_ramp_texture})if(*t){(*t)->Release();*t=nullptr;}}
@@ -466,7 +470,7 @@ private:
         sky_u_scale=std::clamp(number(L"CustomSkyUScale",1),.1f,2.f);
         sky_projection=GetPrivateProfileIntW(L"Atmosphere",L"CustomSkyProjection",0,ini_.c_str())==1;sky_haze=std::clamp(number(L"CustomSkyHaze",1),0.f,1.f);
         sun_disk=GetPrivateProfileIntW(L"Atmosphere",L"SunDisk",0,ini_.c_str())==1;sun_halo=GetPrivateProfileIntW(L"Atmosphere",L"SunHalo",0,ini_.c_str())==1;sun_flare=GetPrivateProfileIntW(L"Atmosphere",L"SunFlare",0,ini_.c_str())==1;
-        sun_style=read_sun_style(ini_,night);stars=read_star_style(ini_,night);headlight_style=read_headlight_style(ini_,night);glint_style=read_glint_style(ini_,night);
+        sun_style=read_sun_style(ini_,night);stars=read_star_style(ini_,night);headlight_style=read_headlight_style(ini_,night);glint_style=read_glint_style(ini_,night);{auto rigs=read_lamp_rigs(ini_);if(rigs.path!=lamp_rigs.path||rigs.rigs.size()!=lamp_rigs.rigs.size()){lamp_rigs=std::move(rigs);for(auto& o:rig_owners)o={};}}
         regional_base=lighting;apply_regional_values();
         // P0.3 dark diagnostic (Ctrl+Alt+N, LiveTuning): everything that follows
         // the atmosphere goes near-black; whatever stays bright bypasses it.

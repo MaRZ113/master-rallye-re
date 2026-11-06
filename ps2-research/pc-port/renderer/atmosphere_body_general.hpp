@@ -114,6 +114,34 @@ inline void record_lamp_points(atmosphere::Pilot& p,uint64_t frame,uintptr_t ins
             if(!duplicate)p.lamp_points.push_back(lp);}
     }catch(...){}
 }
+// 6.15: glints of a car matched to an offline lamp rig (tools/atmosphere_lamp_rig.py). Matching uses the lens
+// draw's texture, indexed vertex count and car-space bounds once per instance; afterwards every frame emits
+// exactly the rig's units at this draw's world matrix: head/fog (front), brake units (tail glint, brake glint
+// while this car's glow card was drawn in the last 2 frames), reverse (lamp_glints shows it only in R).
+// Returns false when the car has no rig (the 6.14 per-draw path then runs).
+inline bool rig_lamp_points(atmosphere::Pilot& p,uint64_t frame,uintptr_t instance,const std::string& texture,const std::vector<uint8_t>& bytes,unsigned stride,
+                            const std::vector<uint32_t>& indices,const D3DMATRIX& w)noexcept{
+    try{
+        if(!p.lamp_rigs.loaded||!instance)return false;auto* o=p.rig_owner(instance,frame,true);if(!o)return false;
+        if(o->rig<0){const size_t n=stride?bytes.size()/stride:0;if(!n||indices.empty())return false;
+            std::array<float,3> lo{1e30f,1e30f,1e30f},hi{-1e30f,-1e30f,-1e30f};std::vector<uint8_t> used(n,0);unsigned count=0;
+            for(const auto i:indices){if(i>=n)return false;if(used[i])continue;used[i]=1;++count;float v[3];std::memcpy(v,bytes.data()+size_t(i)*stride,12);
+                for(unsigned k=0;k<3;++k){lo[k]=std::min(lo[k],v[k]);hi[k]=std::max(hi[k],v[k]);}}
+            o->rig=p.lamp_rigs.match(texture,count,lo,hi);
+            if(o->rig<0){++p.rig_misses;if(p.first_reason(("lamp_rig_miss_"+texture).c_str()))session().write("{\"type\":\"atmosphere_lamp_rig_miss\",\"texture\":"+quote(texture)+",\"vertices\":"+std::to_string(count)+",\"lo\":["+std::to_string(lo[0])+","+std::to_string(lo[1])+","+std::to_string(lo[2])+"],\"hi\":["+std::to_string(hi[0])+","+std::to_string(hi[1])+","+std::to_string(hi[2])+"]}");return false;}
+            ++p.rig_matches;session().write("{\"type\":\"atmosphere_lamp_rig_match\",\"frame\":"+std::to_string(frame)+",\"car\":"+quote(p.lamp_rigs.rigs[size_t(o->rig)].car)+",\"texture\":"+quote(texture)+",\"points\":"+std::to_string(p.lamp_rigs.rigs[size_t(o->rig)].points.size())+"}");}
+        if(o->emitted==frame)return true;o->emitted=frame;lamp_points_begin(p,frame);
+        const bool braking=o->braking!=UINT64_MAX&&o->braking+2>=frame;
+        const std::array<float,3> forward=atmosphere::normalized({w._31,w._32,w._33});
+        for(const auto& q:p.lamp_rigs.rigs[size_t(o->rig)].points){if(p.lamp_points.size()>=128)break;
+            uint8_t kind=q.kind==4?0:q.kind;if(q.kind==2){if(braking)kind=2;else if(q.tail)kind=1;else continue;}
+            const bool front=q.kind==0||q.kind==4;const float x=q.pos[0],y=q.pos[1],z=q.pos[2];
+            atmosphere::Pilot::LampPoint lp;lp.instance=instance;lp.front=front;lp.kind=kind;lp.size=q.kind==4?q.size*.8f:q.size;
+            lp.world={x*w._11+y*w._21+z*w._31+w._41,x*w._12+y*w._22+z*w._32+w._42,x*w._13+y*w._23+z*w._33+w._43};
+            for(unsigned k=0;k<3;++k)lp.axis[k]=front?forward[k]:-forward[k];p.lamp_points.push_back(lp);++p.rig_points;}
+        return true;
+    }catch(...){return false;}
+}
 // 6.13: remember the car-space boxes of a car's breaklightson layer (connected parts).
 inline void remember_brake_boxes(atmosphere::Pilot& p,uint64_t frame,uintptr_t instance,const std::vector<uint8_t>& bytes,unsigned stride,const std::vector<uint32_t>& indices)noexcept{
     const size_t n=stride?bytes.size()/stride:0;if(!n||n>4096)return;
@@ -172,7 +200,7 @@ inline HRESULT night_energy(Device8& d,UINT min,UINT vertices,UINT start,UINT co
                  atmosphereintegration::Geometry g;const unsigned st=fvf==0x152?36u:24u;D3DMATRIX w{};
                  if(atmosphereintegration::geometry(d,*p,min,vertices,start,count,g)&&p->pending.stride==st&&SUCCEEDED(n.GetTransform(D3DTS_WORLD,&w))){
                      remember_brake_boxes(*p,d.trace.frame_number(),owner.owner.instance,g.bytes,st,g.indices);
-                     if(p->glint_style.enabled)record_lamp_points(*p,d.trace.frame_number(),owner.owner.instance,g.bytes,st,g.indices,w,nullptr,0,true,false);
+                     if(p->glint_style.enabled&&!(p->lamp_rigs.loaded&&p->rig_owner(owner.owner.instance,d.trace.frame_number(),false)&&p->rig_owner(owner.owner.instance,d.trace.frame_number(),false)->rig>=0))record_lamp_points(*p,d.trace.frame_number(),owner.owner.instance,g.bytes,st,g.indices,w,nullptr,0,true,false);
                      if(p->first_reason("brake_layer_observed"))session().write("{\"type\":\"atmosphere_brake_layer\",\"frame\":"+std::to_string(d.trace.frame_number())+",\"vertices\":"+std::to_string(vertices)+"}");}
                  if(!p->pending.any())p->pending.release();return S_OK;}}
             for(const auto& raw:binding.names){std::string name=raw;for(auto& c:name)c=char(std::tolower(static_cast<unsigned char>(c)));
@@ -244,8 +272,10 @@ inline HRESULT night_energy(Device8& d,UINT min,UINT vertices,UINT start,UINT co
                     unsigned reverse_vertices=0;for(auto m:mark)reverse_vertices+=m==1;p->lamp_reverse_vertices+=reverse_vertices;
                     if(!reversing)for(UINT v=0;v<vertices;++v)if(mark[v]==1){auto* col=g.bytes.data()+size_t(v)*st+co;for(unsigned k=0;k<3;++k)col[k]=uint8_t(col[k]*2/5);++dimmed;}}
                 if(dimmed){const auto hr=atmosphereintegration::upload(d,*p,min,vertices,g.bytes);if(FAILED(hr))return atmosphereintegration::repair(d);++p->lamp_rear_tints;}
-                D3DMATRIX w{};if(p->glint_style.enabled&&SUCCEEDED(n.GetTransform(D3DTS_WORLD,&w))){if(!tex)tex=lens_texture(d,*p,n);
-                    record_lamp_points(*p,d.trace.frame_number(),owner.owner.instance,g.bytes,st,g.indices,w,tex,uvo,false,false);}}}
+                D3DMATRIX w{};if(p->glint_style.enabled&&SUCCEEDED(n.GetTransform(D3DTS_WORLD,&w))){
+                    std::string texture=binding.names[0];for(auto& c:texture)c=char(std::tolower(static_cast<unsigned char>(c)));
+                    if(!rig_lamp_points(*p,d.trace.frame_number(),owner.owner.instance,texture,g.bytes,st,g.indices,w)){if(!tex)tex=lens_texture(d,*p,n);
+                        record_lamp_points(*p,d.trace.frame_number(),owner.owner.instance,g.bytes,st,g.indices,w,tex,uvo,false,false);}}}}
         if(p->first_reason(("vehicle_night_energy_"+material).c_str()))session().write("{\"type\":\"atmosphere_vehicle_night_energy\",\"factor\":"+std::to_string(factor)+",\"unit\":"+std::to_string(unit)+",\"material\":"+quote(material)+"}");
         return S_OK;
     }catch(...){if(!p->pending.any())p->pending.release();return atmosphereintegration::repair(d);}

@@ -12,6 +12,9 @@
 #include <cmath>
 #include <cstdint>
 #include <string>
+#include <fstream>
+#include <sstream>
+#include <vector>
 #include <windows.h>
 
 namespace gfx2::atmosphere {
@@ -35,6 +38,37 @@ inline GlintStyle read_glint_style(const std::wstring& ini,bool night=false){
     if(path[0]){std::wstring t(path);if(t.size()<2||(t[1]!=L':'&&t[0]!=L'\\'&&t[0]!=L'/')){const auto slash=ini.find_last_of(L"\\/");t=(slash==std::wstring::npos?std::wstring():ini.substr(0,slash+1))+t;}s.texture=t;}
     const float k=number(L"LampGlintIntensity",1,0,3);s.front*=k;s.rear*=k;s.reverse*=k;s.streak=number(L"LampGlintStreakIntensity",s.streak,0,2);
     return s;
+}
+// 6.15 lamp rigs: whole lamp units per car in car space, solved offline by tools/atmosphere_lamp_rig.py
+// from car.dx ($switch(blight) OFF mesh = brake, lens texels = head/tail/reverse; works for mod cars too).
+// A car instance is matched once by one of its lens draws (texture + indexed vertex count + car-space
+// bounds within 6 cm); matched cars get exactly the rig's glints, unmatched ones keep the 6.14 path.
+struct LampRigPoint {uint8_t kind=0;bool tail=false,dark=false;std::array<float,3> pos{};float size=.2f;};   // kind: 0 head, 1 tail, 2 brake, 3 reverse, 4 fog/aux (front)
+struct LampRigDraw {std::string texture;unsigned vertices=0;std::array<float,3> lo{},hi{};};
+struct LampRig {std::string car;std::vector<LampRigDraw> draws;std::vector<LampRigPoint> points;};
+struct LampRigs {
+    std::vector<LampRig> rigs;std::wstring path;bool loaded=false;
+    // best rig for one lens draw; -1 = none
+    int match(const std::string& texture,unsigned vertices,const std::array<float,3>& lo,const std::array<float,3>& hi)const noexcept{
+        int best=-1;float best_score=1e9f;
+        for(size_t r=0;r<rigs.size();++r)for(const auto& d:rigs[r].draws){if(d.texture!=texture)continue;float e=0;
+            for(unsigned k=0;k<3;++k)e=std::max({e,std::abs(d.lo[k]-lo[k]),std::abs(d.hi[k]-hi[k])});
+            if(e>=.06f)continue;const float score=e+(d.vertices==vertices?0.f:.05f);if(score<best_score){best_score=score;best=int(r);}}
+        return best;
+    }
+};
+inline LampRigs read_lamp_rigs(const std::wstring& ini){
+    LampRigs s;wchar_t path[512]{};GetPrivateProfileStringW(L"Atmosphere",L"LampRigs",L"Atmosphere/vehicles/lamp_rigs.txt",path,512,ini.c_str());
+    if(!path[0]||GetPrivateProfileIntW(L"Atmosphere",L"LampRigsEnabled",1,ini.c_str())!=1)return s;
+    std::wstring t(path);if(t.size()<2||(t[1]!=L':'&&t[0]!=L'\\'&&t[0]!=L'/')){const auto slash=ini.find_last_of(L"\\/");t=(slash==std::wstring::npos?std::wstring():ini.substr(0,slash+1))+t;}
+    s.path=t;std::ifstream in(t);if(!in)return s;std::string line;
+    while(std::getline(in,line)){if(line.empty()||line[0]=='#')continue;std::istringstream q(line);std::string tag;q>>tag;
+        if(tag=="car"){LampRig r;q>>r.car;s.rigs.push_back(std::move(r));continue;}
+        if(s.rigs.empty())continue;auto& r=s.rigs.back();
+        if(tag=="draw"){LampRigDraw d;q>>d.texture>>d.vertices>>d.lo[0]>>d.lo[1]>>d.lo[2]>>d.hi[0]>>d.hi[1]>>d.hi[2];if(q)r.draws.push_back(std::move(d));}
+        else if(tag=="point"){unsigned kind=0,tail=0,dark=0;LampRigPoint p;q>>kind>>p.pos[0]>>p.pos[1]>>p.pos[2]>>p.size>>tail>>dark;
+            if(q&&kind<=4&&std::isfinite(p.pos[0]+p.pos[1]+p.pos[2]+p.size)){p.kind=uint8_t(kind);p.tail=tail!=0;p.dark=dark!=0;r.points.push_back(p);}}}
+    s.loaded=!s.rigs.empty();return s;
 }
 inline HeadlightStyle read_headlight_style(const std::wstring& ini,bool night=false){
     HeadlightStyle s;

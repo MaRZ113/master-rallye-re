@@ -223,7 +223,7 @@ inline HRESULT headlight_world(Device8& d,HRESULT draw_hr,uintptr_t pc)noexcept{
             session().write("{\"type\":\"atmosphere_headlight_caps\",\"supported\":"+std::string(p->headlight_caps==1?"true":"false")+"}");}
         ++p->headlight_candidates;
         if(frame>=p->headlight_log_frame+300){p->headlight_log_frame=frame;unsigned reversing=0,braking=0;for(unsigned i=0;i<p->lamp_projectors.count;++i){reversing+=p->lamp_projectors.cars[i].reversing;braking+=p->lamp_projectors.cars[i].brake;}
-            session().write("{\"type\":\"atmosphere_headlight_stats\",\"frame\":"+std::to_string(frame)+",\"candidates\":"+std::to_string(p->headlight_candidates)+",\"draws\":"+std::to_string(p->headlight_draws)+",\"culled\":"+std::to_string(p->headlight_culled)+",\"no_car_frames\":"+std::to_string(p->headlight_no_car)+",\"view_changes\":"+std::to_string(p->headlight_view_changes)+",\"off_target\":"+std::to_string(p->headlight_off_target)+",\"cars\":"+std::to_string(p->lamp_projectors.count)+",\"reversing\":"+std::to_string(reversing)+",\"braking\":"+std::to_string(braking)+",\"proxy_vertices\":"+std::to_string(p->proxy_headlight_vertices)+",\"lamp_points\":"+std::to_string(p->lamp_points.size())+",\"gear_matched\":"+std::to_string(p->gear_matched)+",\"gear_reverse\":"+std::to_string(p->gear_reverse)+",\"pose_held\":"+std::to_string(p->headlight_held)+",\"gaps\":"+std::to_string(p->headlight_gaps)+",\"rear_tints\":"+std::to_string(p->lamp_rear_tints)+",\"reverse_vertices\":"+std::to_string(p->lamp_reverse_vertices)+"}");}
+            session().write("{\"type\":\"atmosphere_headlight_stats\",\"frame\":"+std::to_string(frame)+",\"candidates\":"+std::to_string(p->headlight_candidates)+",\"draws\":"+std::to_string(p->headlight_draws)+",\"culled\":"+std::to_string(p->headlight_culled)+",\"no_car_frames\":"+std::to_string(p->headlight_no_car)+",\"view_changes\":"+std::to_string(p->headlight_view_changes)+",\"off_target\":"+std::to_string(p->headlight_off_target)+",\"cars\":"+std::to_string(p->lamp_projectors.count)+",\"reversing\":"+std::to_string(reversing)+",\"braking\":"+std::to_string(braking)+",\"proxy_vertices\":"+std::to_string(p->proxy_headlight_vertices)+",\"lamp_points\":"+std::to_string(p->lamp_points.size())+",\"gear_matched\":"+std::to_string(p->gear_matched)+",\"gear_reverse\":"+std::to_string(p->gear_reverse)+",\"pose_held\":"+std::to_string(p->headlight_held)+",\"gaps\":"+std::to_string(p->headlight_gaps)+",\"rig_matches\":"+std::to_string(p->rig_matches)+",\"rig_misses\":"+std::to_string(p->rig_misses)+",\"rig_points\":"+std::to_string(p->rig_points)+",\"rear_tints\":"+std::to_string(p->lamp_rear_tints)+",\"reverse_vertices\":"+std::to_string(p->lamp_reverse_vertices)+"}");}
         {courseintegration::Ref<IDirect3DSurface8> target,back;if(FAILED(n.GetRenderTarget(&target.p))||FAILED(n.GetBackBuffer(0,D3DBACKBUFFER_TYPE_MONO,&back.p))||!courseintegration::same_identity(target.p,back.p)){++p->headlight_off_target;return S_OK;}}
         if(p->headlight_caps!=1||FAILED(headlight_textures(n,*p))||!headlight_projectors(d,*p,n))return S_OK;
         DWORD fvf=0,pixel=1;if(FAILED(n.GetVertexShader(&fvf))||!type_supports_headlight(fvf)||FAILED(n.GetPixelShader(&pixel))||pixel)return S_OK;
@@ -368,7 +368,7 @@ inline HRESULT lamp_glints(Device8& d,atmosphere::Pilot& p,IDirect3DDevice8& n,U
         auto quad=[&](std::vector<atmosphere::SunVertex>& out,float rx,float ry,DWORD c){
             const atmosphere::SunVertex a{px-rx-.5f,py-ry-.5f,nz,rhw,c,0,0,0,0},b{px+rx-.5f,py-ry-.5f,nz,rhw,c,1,0,0,0},e{px-rx-.5f,py+ry-.5f,nz,rhw,c,0,1,0,0},f{px+rx-.5f,py+ry-.5f,nz,rhw,c,1,1,0,0};
             for(const auto& q:{a,b,e,e,b,f})out.push_back(q);};
-        const auto rgb=l.front?style.rgb:style.tail_rgb;const std::array<float,3> glint_rgb=l.front?std::array<float,3>{1.f,.93f,.78f}:l.kind>=3?std::array<float,3>{1.f,.97f,.92f}:std::array<float,3>{1.f,.22f,.14f};const float r=std::max(1.5f,pixels(g.glow_degrees)*(.55f+.45f*std::min(1.f,k)));
+        const auto rgb=l.front?style.rgb:style.tail_rgb;const std::array<float,3> glint_rgb=l.front?std::array<float,3>{1.f,.93f,.78f}:l.kind>=3?std::array<float,3>{1.f,.97f,.92f}:std::array<float,3>{1.f,.22f,.14f};const float unit=l.size>0?std::clamp(l.size/.25f,.7f,1.3f):1.f;const float r=std::max(1.5f,pixels(g.glow_degrees)*unit*(.55f+.45f*std::min(1.f,k)));
         quad(glow,r,r,colour(glint_rgb,std::min(1.f,k)));(void)rgb;
         if(g.streak>0&&g.streak_degrees>0){const float star=std::max(r*1.5f,pixels(g.streak_degrees)*(l.front?1.f:.75f)*std::min(1.f,k+.25f));quad(streak,star,star,colour(glint_rgb,std::min(1.f,k*g.streak)));}
     }
@@ -711,11 +711,14 @@ inline void observe_lamp(Device8& d,atmosphere::Pilot& p,UINT min,UINT vertices,
                             for(auto& x:p.brake_boxes)if(x.instance==owner){slot=&x;break;}
                             if(!slot)for(auto& x:p.brake_boxes)if(!x.instance||x.frame==UINT64_MAX||frame>x.frame+3600){slot=&x;break;}
                             if(slot)*slot=boxes;
+                            // 6.15: rig-matched cars only take the brake STATE from the glow card; positions come from the rig.
+                            if(auto* ro=p.lamp_rigs.loaded?p.rig_owner(owner,frame,false):nullptr;ro&&ro->rig>=0){ro->braking=frame;}else{
                             if(p.lamp_points_frame!=frame){p.lamp_points.clear();p.lamp_points_frame=frame;}
                             const std::array<float,3> forward=atmosphere::normalized({w[8],w[9],w[10]});
                             for(unsigned c=0;c<boxes.count&&p.lamp_points.size()<96;++c){const float x=(boxes.lo[c][0]+boxes.hi[c][0])*.5f,y=(boxes.lo[c][1]+boxes.hi[c][1])*.5f,z=boxes.lo[c][2];
                                 if(z>-1.f)continue;atmosphere::Pilot::LampPoint lp;lp.instance=owner;lp.front=false;lp.kind=2;
                                 for(int k=0;k<3;++k){lp.world[k]=x*w[k]+y*w[4+k]+z*w[8+k]+w[12+k];lp.axis[k]=-forward[k];}p.lamp_points.push_back(lp);}
+                            }
                             if(p.first_reason("brake_glow_sections"))session().write("{\"type\":\"atmosphere_brake_glow_sections\",\"frame\":"+std::to_string(frame)+",\"sections\":"+std::to_string(boxes.count)+"}");}}}}}
         const auto& w=s.world;for(int k=0;k<3;++k)s.position[k]=s.local[0]*w[k]+s.local[1]*w[4+k]+s.local[2]*w[8+k]+w[12+k];
         b.samples.push_back(s);
