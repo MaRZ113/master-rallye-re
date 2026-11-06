@@ -7,6 +7,19 @@ namespace gfx2::atmospherebody {
 // brightness. Scale their final colour by the night body energy with one extra
 // TFACTOR stage (after the native stages; alpha, blend, UV untouched).
 // Emissive lamp layers (*lightson*, *glow*) are left bright on purpose.
+// 6.7: car-space centroid of the current draw's vertex range (CPU mirror).
+inline bool lamp_centroid(Device8& d,IDirect3DDevice8& n,UINT min,UINT vertices,std::array<float,3>& out)noexcept{
+    try{
+        if(!vertices||vertices>4096)return false;
+        courseintegration::Ref<IDirect3DVertexBuffer8> vb;UINT stride=0;if(FAILED(n.GetStreamSource(0,&vb.p,&stride))||!vb.p||stride<12||stride>128)return false;
+        courseintegration::Ref<IDirect3DIndexBuffer8> ib;UINT base=0;if(FAILED(n.GetIndices(&ib.p,&base)))return false;
+        const auto generation=d.trace.resources.generation(reinterpret_cast<uintptr_t>(vb.p));if(!generation)return false;
+        std::vector<uint8_t> bytes;uint64_t revision=0;
+        if(!d.copy_buffer_shadow(vb.p,BufferKind::Vertex,generation,(uint64_t(base)+min)*stride,size_t(vertices)*stride,bytes,revision)||bytes.size()<size_t(vertices)*stride)return false;
+        double s[3]{};for(UINT i=0;i<vertices;++i){float v[3];std::memcpy(v,bytes.data()+size_t(i)*stride,12);if(!std::isfinite(v[0]+v[1]+v[2]))return false;for(unsigned k=0;k<3;++k)s[k]+=v[k];}
+        for(unsigned k=0;k<3;++k)out[k]=float(s[k]/vertices);return true;
+    }catch(...){return false;}
+}
 // 6.6: centres of a lamp lens draw (CPU vertex mirror, never locks), split
 // into left/right halves; front/rear from the car-space Z of each centre.
 inline void record_lamp_points(Device8& d,atmosphere::Pilot& p,IDirect3DDevice8& n,uintptr_t instance,UINT min,UINT vertices)noexcept{
@@ -38,7 +51,7 @@ inline HRESULT night_energy(Device8& d,UINT min,UINT vertices,UINT start,UINT co
     try{
         auto& n=*d.native();bool single=false;const auto cert=courseintegration::certificate(d,single);if(!single||!cert.valid)return S_OK;
         DWORD fvf=0,pixel=1;if(FAILED(n.GetVertexShader(&fvf))||FAILED(n.GetPixelShader(&pixel))||pixel||!groundintegration::render(d,n,D3DRS_LIGHTING,FALSE))return S_OK;
-        frontendmodelintegration::Context owner;atmosphere::NativeMaterialBinding binding;std::string material;bool lamp=false;
+        frontendmodelintegration::Context owner;atmosphere::NativeMaterialBinding binding;std::string material;bool lamp=false,rear_lamp=false,brake_zone=false;std::array<float,3> centroid{};
         if(frontendmodelintegration::fleet_owner(frontendmodelintegration::caller_stack,pc,owner)){
             const auto exe=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));
             if(!atmosphere::native_material_binding(exe,owner.mesh,frontendmodelintegration::word,binding))return S_OK;
@@ -49,6 +62,11 @@ inline HRESULT night_energy(Device8& d,UINT min,UINT vertices,UINT start,UINT co
             {std::string primary=binding.names[0];for(auto& c:primary)c=char(std::tolower(static_cast<unsigned char>(c)));
              lamp=p->headlight_style.enabled&&p->headlight_style.lamp_emissive>0&&(primary.find("light")!=std::string::npos||primary.find("lamp")!=std::string::npos)&&
                   primary.find("windscreen")==std::string::npos&&primary.find("glass")==std::string::npos;}
+            // 6.7: car-space centroid of this pass (CPU mirror) -> front/rear; the
+            // off-state brake lamp mesh sits where the glow card was observed.
+            if(p->headlight_style.enabled&&p->headlight_style.lamp_emissive>0&&lamp_centroid(d,n,min,vertices,centroid)){
+                rear_lamp=centroid[2]<0;
+                if(!lamp&&p->brake_local_valid&&std::abs(centroid[1]-p->brake_local[1])<.35f&&std::abs(centroid[2]-p->brake_local[2])<.5f){lamp=true;rear_lamp=true;brake_zone=true;}}
             material=binding.names[0];
         }else{
             // 5.13: windows live under $switch(screen*) nodes, which the fleet
@@ -79,7 +97,11 @@ inline HRESULT night_energy(Device8& d,UINT min,UINT vertices,UINT start,UINT co
         if(FAILED(n.GetRenderState(D3DRS_TEXTUREFACTOR,&s.body_factor)))return S_OK;
         s.body_unit=unit;const DWORD values[]{lamp?DWORD(D3DTOP_MODULATE2X):DWORD(D3DTOP_MODULATE),D3DTA_CURRENT,D3DTA_TFACTOR,D3DTOP_SELECTARG1,D3DTA_CURRENT,D3DTA_CURRENT,D3DTA_CURRENT};
         DWORD factor=(s.body_factor&0xff000000u)|(atmosphere::flat_body_color(0xffffffffu,p->lighting)&0x00ffffffu);
-        if(lamp){const DWORD k=DWORD(std::clamp(std::lround(p->headlight_style.lamp_emissive*.5f*255),0l,255l));factor=(s.body_factor&0xff000000u)|k<<16|k<<8|k;material+="#emissive";}
+        if(lamp){const DWORD k=DWORD(std::clamp(std::lround(p->headlight_style.lamp_emissive*.5f*255),0l,255l));
+            // Rear lenses glow red; their white reverse-lamp texels only while reversing.
+            const auto* own=p->lamp_projectors.frame==d.trace.frame_number()?p->lamp_projectors.find(owner.owner.instance):nullptr;
+            const bool white=!rear_lamp||(own&&own->reversing);const DWORD gb=white?k:DWORD(k*.2f);
+            factor=(s.body_factor&0xff000000u)|k<<16|gb<<8|gb;material+=brake_zone?"#brake_zone":rear_lamp?"#rear_emissive":"#emissive";}
         for(unsigned i:{7u,1u,2u,3u,4u,5u,6u,0u}){s.body_pending|=1u<<i;const auto hr=i==7?n.SetRenderState(D3DRS_TEXTUREFACTOR,factor):n.SetTextureStageState(unit,keys[i],values[i]);
             if(i==7)atmosphereintegration::notify(d,50,pack(D3DRS_TEXTUREFACTOR,factor),hr);else atmosphereintegration::notify(d,63,pack(unit,keys[i],values[i]),hr);if(FAILED(hr))return atmosphereintegration::repair(d);}
         applied=true;
@@ -149,6 +171,12 @@ inline HRESULT general(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,U
     const auto hr=implicit?S_OK:atmosphereintegration::upload(d,*p,min,vertices,g.bytes);if(FAILED(hr)){if(p->pending.any())return atmosphereintegration::repair(d);return reject("body_material_private_upload_failed");}
     if(FAILED(environment_exposure(d,*p)))return atmosphereintegration::repair(d);
     applied=true;p->body_vertices+=changed;
+    // 6.7: this body draw receives the other cars' headlights (sun_world pass).
+    if(p->headlight_style.enabled&&p->lighting.ambient_strength<.5f&&!implicit){const unsigned st=normals?36u:24u;std::array<float,3> lo{1e30f,1e30f,1e30f},hi{-1e30f,-1e30f,-1e30f};
+        for(size_t at=0;at+12<=g.bytes.size();at+=st){float v3[3];std::memcpy(v3,g.bytes.data()+at,12);for(unsigned k=0;k<3;++k){lo[k]=std::min(lo[k],v3[k]);hi[k]=std::max(hi[k],v3[k]);}}
+        if(std::isfinite(lo[0]+hi[0]+lo[1]+hi[1]+lo[2]+hi[2])&&hi[0]>=lo[0]){auto& c=p->headlight_candidate;c.frame=d.trace.frame_number();c.min=min;c.vertices=vertices;c.start=start;c.count=count;c.instance=owner.owner.instance;
+            const float bx=(lo[0]+hi[0])*.5f,by=(lo[1]+hi[1])*.5f,bz=(lo[2]+hi[2])*.5f;c.centre={bx*world._11+by*world._21+bz*world._31+world._41,bx*world._12+by*world._22+bz*world._32+world._42,bx*world._13+by*world._23+bz*world._33+world._43};
+            c.radius=.5f*std::sqrt((hi[0]-lo[0])*(hi[0]-lo[0])+(hi[1]-lo[1])*(hi[1]-lo[1])+(hi[2]-lo[2])*(hi[2]-lo[2]))*std::max({std::hypot(world._11,world._12,world._13),std::hypot(world._21,world._22,world._23),std::hypot(world._31,world._32,world._33)});}}
     if(!debug_original.empty())debug_sample(d,*p,"native_owner_material",family,debug_original.data(),g.bytes.data(),vertices,world);
     if(p->first_reason(("body_native_"+family+part+binding.names[0]).c_str()))session().write("{\"type\":\"atmosphere_body_material\",\"route\":\"native_owner_material\",\"family\":"+quote(family)+",\"primary\":"+quote(binding.names[0])+",\"secondary\":"+quote(binding.names[1])+",\"resource\":"+quote(part)+",\"metadata_payload_sha256\":"+quote(p->body_capabilities.payload_sha)+",\"surface_role\":"+quote(std::string(atmosphere::body_role_name(capability->role)))+",\"private_damage_tree\":"+(owner.owner.private_tree?"true":"false")+",\"geometry_hash_required\":false,\"changed_vertices\":"+std::to_string(changed)+",\"shared_buffer_mutated\":false,\"reflection_uv_changed\":false,\"environment_exposure_requested\":false,\"frame\":"+std::to_string(d.trace.frame_number())+"}");
     return S_OK;

@@ -19,18 +19,20 @@ using Mat4=std::array<float,16>;   // D3D row-vector layout: m[row*4+col], trans
 
 struct Projector {float range=48,half_h_degrees=38,half_v_degrees=16,pitch_degrees=3.5f;std::array<float,3> origin{0,.65f,2.1f};float yaw_sign=1;};
 struct HeadlightStyle {
-    bool enabled=false,tail=true;float intensity=1.25f,tail_intensity=.85f,tail_brake=1.9f,lamp_emissive=1.35f;
+    bool enabled=false,tail=true;unsigned cars=4;float intensity=1.25f,tail_intensity=.85f,tail_brake=1.9f,lamp_emissive=1.35f;
     std::array<float,3> rgb{1.f,.93f,.80f},tail_rgb{1.f,.12f,.06f};
     Projector head{},rear{7.f,62.f,30.f,32.f,{0,.55f,-2.35f},-1};
 };
 // 6.6 GT3-like lamp glints (sprites at every lit lamp lens).
-struct GlintStyle {bool enabled=false;float glow_degrees=1.4f,streak_degrees=6.5f,front=.85f,rear=.5f,streak=.45f,brake=2.f,reverse=.9f;};
+struct GlintStyle {std::wstring texture;bool enabled=false;float glow_degrees=1.3f,streak_degrees=7.5f,front=.9f,rear=.95f,streak=.6f,brake=1.8f,reverse=.9f;};
 inline GlintStyle read_glint_style(const std::wstring& ini,bool night=false){
     GlintStyle s;
     auto number=[&](const wchar_t* key,float fallback,float lo,float hi){wchar_t b[64]{};GetPrivateProfileStringW(L"Atmosphere",key,L"",b,64,ini.c_str());
         wchar_t* end=nullptr;const float v=std::wcstof(b,&end);return end!=b&&*end==0&&std::isfinite(v)?std::clamp(v,lo,hi):fallback;};
     s.enabled=GetPrivateProfileIntW(L"Atmosphere",L"LampGlints",night?1:0,ini.c_str())==1;
     s.glow_degrees=number(L"LampGlintSize",s.glow_degrees,.2f,6);s.streak_degrees=number(L"LampGlintStreak",s.streak_degrees,0,20);
+    wchar_t path[512]{};GetPrivateProfileStringW(L"Atmosphere",L"LampGlintTexture",L"",path,512,ini.c_str());
+    if(path[0]){std::wstring t(path);if(t.size()<2||(t[1]!=L':'&&t[0]!=L'\\'&&t[0]!=L'/')){const auto slash=ini.find_last_of(L"\\/");t=(slash==std::wstring::npos?std::wstring():ini.substr(0,slash+1))+t;}s.texture=t;}
     const float k=number(L"LampGlintIntensity",1,0,3);s.front*=k;s.rear*=k;s.reverse*=k;s.streak=number(L"LampGlintStreakIntensity",s.streak,0,2);
     return s;
 }
@@ -45,7 +47,7 @@ inline HeadlightStyle read_headlight_style(const std::wstring& ini,bool night=fa
     s.head.pitch_degrees=number(L"HeadlightPitch",s.head.pitch_degrees,-10,30);
     s.head.origin={number(L"HeadlightX",s.head.origin[0],-3,3),number(L"HeadlightY",s.head.origin[1],-1,3),number(L"HeadlightZ",s.head.origin[2],-5,5)};
     const wchar_t* colour[3]{L"HeadlightR",L"HeadlightG",L"HeadlightB"};for(unsigned i=0;i<3;++i)s.rgb[i]=number(colour[i],s.rgb[i],0,1);
-    s.lamp_emissive=number(L"LampEmissive",s.lamp_emissive,0,2);
+    s.lamp_emissive=number(L"LampEmissive",s.lamp_emissive,0,2);s.cars=unsigned(std::lround(number(L"HeadlightCars",4,1,4)));
     s.tail_intensity=number(L"TailLightIntensity",s.tail_intensity,0,3);s.tail_brake=number(L"TailLightBrake",s.tail_brake,1,5);s.rear.range=number(L"TailLightRange",s.rear.range,1,30);
     return s;
 }
@@ -118,5 +120,14 @@ inline bool light_reaches(const LightFrame& f,const Projector& p,const std::arra
     const float along=dot3(d,f.forward);if(along<-radius||along>p.range+radius)return false;
     const float spread=std::tan(std::max(p.half_h_degrees,p.half_v_degrees)*.017453293f)*std::max(0.f,along)+radius;
     const float side=std::sqrt(std::max(0.f,dot3(d,d)-along*along));return side<=spread*1.15f+1;
+}
+// CPU light of one projector at a world point (same cookie * ramp as the GPU
+// pass): proxy-drawn layers (PS2 grass, physics props) add it to vertex colour.
+inline float projector_light(const LightFrame& f,const Projector& p,bool head,const std::array<float,3>& point)noexcept{
+    const std::array<float,3> d{point[0]-f.position[0],point[1]-f.position[1],point[2]-f.position[2]};
+    const float lz=dot3(d,f.forward);if(lz<=.05f||lz>=p.range)return 0;
+    const float th=std::tan(p.half_h_degrees*.017453293f),tv=std::tan(p.half_v_degrees*.017453293f);
+    const float u=.5f+.5f*dot3(d,f.right)/(lz*th),v=.5f-.5f*dot3(d,f.up)/(lz*tv);
+    return (head?headlight_cookie(u,v):tail_cookie(u,v))*headlight_ramp(lz/p.range)*2;
 }
 } // namespace gfx2::atmosphere

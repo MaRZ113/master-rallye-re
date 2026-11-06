@@ -205,7 +205,7 @@ class SunFx {
     UINT width_=0,height_=0,tw_=0,th_=0;D3DFORMAT format_=D3DFMT_UNKNOWN;D3DMULTISAMPLE_TYPE msaa_=D3DMULTISAMPLE_NONE;
     uint64_t latched_race_=UINT64_MAX,latched_reset_=UINT64_MAX;unsigned ray_count_=0;std::wstring ray_file_;
     float sprite_dither_=-1,sprite_bloom_dither_=-1;bool sprite_soft_=false;
-    IDirect3DTexture8* star_=nullptr,*streak_=nullptr;std::vector<Star> field_;unsigned field_count_=0,field_seed_=0;std::vector<SunVertex> star_vertices_;
+    IDirect3DTexture8* star_=nullptr,*streak_=nullptr;std::wstring streak_file_;bool streak_from_file_=false;std::vector<Star> field_;unsigned field_count_=0,field_seed_=0;std::vector<SunVertex> star_vertices_;
 public:
     // Procedural sprite intensity, r=1 at the sprite edge. kind: 0 core,
     // 1 glow, 2 ghost, 3 bloom, 4 starburst.
@@ -318,13 +318,28 @@ public:
     // horizontal streak per lamp. Vertices carry the lamp's own depth (pulled
     // slightly toward the camera), depth test on, no depth writes, so the body
     // and the scene hide a lamp exactly like the lens itself.
-    HRESULT lamp_sprites(IDirect3DDevice8& n,const std::vector<SunVertex>& glow,const std::vector<SunVertex>& streak,void* context,SunWriter writer){
+    bool glint_from_file()const noexcept{return streak_from_file_;}
+    HRESULT lamp_sprites(IDirect3DDevice8& n,const std::vector<SunVertex>& glow,const std::vector<SunVertex>& streak,void* context,SunWriter writer,const std::wstring& file=std::wstring()){
+        if(streak_&&streak_file_!=file){sun_drop(streak_);streak_from_file_=false;}
+        // Optional author sprite (256x256 BGRA, 20-byte sky header), e.g. made by
+        // tools/atmosphere_gt3_glare.py from the owner's own GT3 copy; procedural otherwise.
+        if(!streak_&&!file.empty())try{std::ifstream f(std::filesystem::path(file),std::ios::binary|std::ios::ate);
+            if(f&&f.tellg()==std::streamoff(20+256*256*4)){f.seekg(0);std::vector<uint8_t> bytes(20+256*256*4);uint32_t h[5]{};
+                if(f.read(reinterpret_cast<char*>(bytes.data()),bytes.size())){std::memcpy(h,bytes.data(),20);
+                    if(h[0]==0xfeed&&h[3]==256&&h[4]==256&&SUCCEEDED(n.CreateTexture(256,256,1,0,D3DFMT_A8R8G8B8,D3DPOOL_MANAGED,&streak_))&&streak_){
+                        if(SUCCEEDED(sun_upload_pixels(*streak_,bytes.data()+20,256,256)))streak_from_file_=true;else sun_drop(streak_);}}}}catch(...){sun_drop(streak_);}
+        streak_file_=file;
         if(!proof.world||(glow.empty()&&streak.empty()))return S_FALSE;
         if(!star_){if(FAILED(sprite(n,star_,1))||!star_){sun_drop(star_);return S_FALSE;}}
-        if(!streak_){if(FAILED(n.CreateTexture(128,32,1,0,D3DFMT_A8R8G8B8,D3DPOOL_MANAGED,&streak_))||!streak_){sun_drop(streak_);return S_FALSE;}
+        // 6.7 GT3-like lamp star: thin spokes of uneven length (long horizontal
+        // and vertical, medium diagonals, short in-betweens) around a hot core.
+        if(!streak_){if(FAILED(n.CreateTexture(256,256,1,0,D3DFMT_A8R8G8B8,D3DPOOL_MANAGED,&streak_))||!streak_){sun_drop(streak_);return S_FALSE;}
             D3DLOCKED_RECT l{};if(FAILED(streak_->LockRect(0,&l,nullptr,0))||!l.pBits){sun_drop(streak_);return S_FALSE;}
-            for(unsigned y=0;y<32;++y)for(unsigned x=0;x<128;++x){const float dx=(x+.5f)/64-1,dy=(y+.5f)/16-1;
-                const float v=std::clamp(std::exp(-dy*dy*28.f)*std::pow(std::max(0.f,1-std::abs(dx)),2.2f)+.35f*std::exp(-(dx*dx*30+dy*dy*30)),0.f,1.f);
+            constexpr float spokes[][2]{{0,1.f},{90,.85f},{45,.55f},{135,.6f},{22,.32f},{68,.28f},{112,.3f},{158,.34f},{10,.22f},{170,.2f}};
+            for(unsigned y=0;y<256;++y)for(unsigned x=0;x<256;++x){const float dx=(x+.5f)/128-1,dy=(y+.5f)/128-1,r=std::sqrt(dx*dx+dy*dy);float v=0;
+                for(const auto& s:spokes){const float a=s[0]*.017453293f,ca=std::cos(a),sa=std::sin(a);const float along=std::abs(dx*ca+dy*sa),perp=std::abs(-dx*sa+dy*ca);
+                    if(along>=s[1])continue;const float width=.006f+.02f*(1-along/s[1]);v=std::max(v,std::exp(-(perp/width)*(perp/width))*std::pow(1-along/s[1],2.f));}
+                v=std::clamp(v+.75f*std::exp(-r*r*90.f)+.18f*std::exp(-r*r*12.f),0.f,1.f);if(r>=1)v=0;
                 const DWORD c=DWORD(std::lround(v*255)),px=0xff000000u|c<<16|c<<8|c;std::memcpy(static_cast<uint8_t*>(l.pBits)+size_t(y)*l.Pitch+x*4,&px,4);}
             if(FAILED(streak_->UnlockRect(0))){sun_drop(streak_);return S_FALSE;}}
         auto hr=transaction.capture(n,context,writer);if(FAILED(hr))return S_FALSE;

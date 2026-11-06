@@ -275,15 +275,19 @@ public:
     // 6.3 P2 headlights: the last lit course draw (consumed right after it),
     // car poses seen by the body path, the per-frame lamp projectors.
     HeadlightStyle headlight_style;
-    struct HeadlightCandidate {uint64_t frame=UINT64_MAX;UINT min=0,vertices=0,start=0,count=0;std::array<float,3> centre{};float radius=0;} headlight_candidate;
-    struct CarPose {uintptr_t instance=0;Mat4 m{},prev{};uint64_t frame=UINT64_MAX,prev_frame=UINT64_MAX;};std::array<CarPose,8> car_poses{};
+    struct HeadlightCandidate {uint64_t frame=UINT64_MAX;UINT min=0,vertices=0,start=0,count=0;std::array<float,3> centre{};float radius=0;uintptr_t instance=0;} headlight_candidate;
+    struct CarPose {uintptr_t instance=0;Mat4 m{},prev{};uint64_t frame=UINT64_MAX,prev_frame=UINT64_MAX,reverse_until=0;};std::array<CarPose,8> car_poses{};
     void observe_car(uintptr_t instance,const Mat4& m,uint64_t frame)noexcept{
         CarPose* slot=nullptr;for(auto& c:car_poses)if(c.instance==instance){slot=&c;break;}
         if(!slot){for(auto& c:car_poses)if(!c.instance||c.frame==UINT64_MAX||frame>c.frame+120){slot=&c;break;}if(!slot)return;*slot={};slot->instance=instance;}
         if(slot->frame==frame){slot->m=m;return;}
         slot->prev=slot->m;slot->prev_frame=slot->frame;slot->m=m;slot->frame=frame;
     }
-    struct LampProjectors {uint64_t frame=UINT64_MAX;bool head=false,rear=false,have_car=false,reversing=false;uintptr_t instance=0;Mat4 car{},view{};bool view_valid=false;LightFrame head_frame,rear_frame;Mat4 head_cookie{},head_ramp{},rear_cookie{},rear_ramp{};float brake=0;} lamp_projectors;
+    // 6.7: up to four cars (nearest the camera) carry lamps.
+    struct CarLamps {uintptr_t instance=0;Mat4 car{};bool head=false,rear=false,reversing=false,brake=false;LightFrame head_frame,rear_frame;Mat4 head_cookie{},head_ramp{},rear_cookie{},rear_ramp{};};
+    struct LampProjectors {uint64_t frame=UINT64_MAX;std::array<CarLamps,4> cars{};unsigned count=0;Mat4 view{};bool view_valid=false;
+        const CarLamps* find(uintptr_t instance)const noexcept{for(unsigned i=0;i<count;++i)if(cars[i].instance==instance)return &cars[i];return nullptr;}} lamp_projectors;
+    std::array<float,3> brake_local{};bool brake_local_valid=false;uint64_t proxy_headlight_vertices=0;
     // 6.6 lamp glints: world lamp centres collected from this frame's lit lamp lens draws.
     GlintStyle glint_style;struct LampPoint{std::array<float,3> world{},axis{};uintptr_t instance=0;bool front=false;};
     std::vector<LampPoint> lamp_points;uint64_t lamp_points_frame=UINT64_MAX,reverse_until=0;uintptr_t reverse_instance=0;
