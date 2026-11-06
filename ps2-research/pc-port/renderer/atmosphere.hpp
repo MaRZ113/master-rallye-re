@@ -283,7 +283,8 @@ public:
         if(slot->frame==frame){slot->m=m;return;}
         slot->prev=slot->m;slot->prev_frame=slot->frame;slot->m=m;slot->frame=frame;
     }
-    struct LampProjectors {uint64_t frame=UINT64_MAX;bool head=false,rear=false;LightFrame head_frame,rear_frame;Mat4 head_cookie{},head_ramp{},rear_cookie{},rear_ramp{};float brake=0;} lamp_projectors;
+    struct LampProjectors {uint64_t frame=UINT64_MAX;bool head=false,rear=false,have_car=false;Mat4 car{},view{};bool view_valid=false;LightFrame head_frame,rear_frame;Mat4 head_cookie{},head_ramp{},rear_cookie{},rear_ramp{};float brake=0;} lamp_projectors;
+    uint64_t headlight_candidates=0,headlight_no_car=0,headlight_view_changes=0,headlight_off_target=0,headlight_log_frame=0;
     IDirect3DTexture8 *headlight_cookie_texture=nullptr,*tail_cookie_texture=nullptr,*headlight_ramp_texture=nullptr;unsigned headlight_caps=0;uint64_t headlight_draws=0,headlight_culled=0;
     void release_headlights()noexcept{for(auto** t:{&headlight_cookie_texture,&tail_cookie_texture,&headlight_ramp_texture})if(*t){(*t)->Release();*t=nullptr;}}
     struct ParticleSaved {bool pending=false;DWORD stage[5]{},stage2=0,factor=0;} particle;uint64_t particle_draws=0;

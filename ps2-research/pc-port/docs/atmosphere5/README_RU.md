@@ -381,3 +381,16 @@ DLL `dd54c333c24fac9d7319734742f426fa5803b6b8122928a5af102c48fbce6105`, CTest 24
 
 DLL `22cead187aff232453d4c0afb28ce6fbf18705dd9374886734dae3c3be220c9f`, CTest 24/24 + 46/46, Python 201 OK.
 Установлена. Откат: `.research-output/atmosphere6/rollback-dd54c333`.
+
+## 22. ATMOSPHERE6.4 — фары: мигание и пропадание
+
+Владелец (6.3): фонари моргают и большую часть времени не работают.
+* Причина: поза для проектора бралась у любого проверенного экземпляра пути кузова, включая
+  **колёса** (ресурс `wheel`, свои вращающиеся матрицы) — ближайшим к камере часто было колесо, луч
+  крутился вместе с ним. Теперь поза — только ресурс `car` (кузов).
+* Матрицы cookie/рампы пересчитываются при любой смене VIEW внутри кадра (машина выбирается раз в кадр);
+  проход только в backbuffer.
+* Лог `atmosphere_headlight_stats` раз в 300 кадров: candidates, draws, culled, no_car_frames, view_changes, off_target.
+
+DLL `173ef3c59869699efb4dca9d68ae47640ece20b08d48e49475039b11a2fc4c8c`, CTest 24/24 + 46/46, Python 201 OK.
+Установлена. Откат: `.research-output/atmosphere6/rollback-22cead18`.
