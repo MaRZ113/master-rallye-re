@@ -45,7 +45,8 @@ inline GlintStyle read_glint_style(const std::wstring& ini,bool night=false){
 // bounds within 6 cm); matched cars get exactly the rig's glints, unmatched ones keep the 6.14 path.
 struct LampRigPoint {uint8_t kind=0;bool tail=false,dark=false;std::array<float,3> pos{};float size=.2f;};   // kind: 0 head, 1 tail, 2 brake, 3 reverse, 4 fog/aux (front)
 struct LampRigDraw {std::string texture;unsigned vertices=0;std::array<float,3> lo{},hi{};};
-struct LampRig {std::string car;std::vector<LampRigDraw> draws;std::vector<LampRigPoint> points;};
+struct LampRigOff {unsigned vertices=0;std::array<float,3> lo{},hi{};};   // 6.15.1: blight OFF lens (vertex-range bounds)
+struct LampRig {std::string car;std::vector<LampRigDraw> draws;std::vector<LampRigOff> off;std::vector<LampRigPoint> points;};
 struct LampRigs {
     std::vector<LampRig> rigs;std::wstring path;bool loaded=false;
     // best rig for one lens draw; -1 = none
@@ -56,6 +57,13 @@ struct LampRigs {
             if(e>=.06f)continue;const float score=e+(d.vertices==vertices?0.f:.05f);if(score<best_score){best_score=score;best=int(r);}}
         return best;
     }
+    bool owns_texture(int rig,const std::string& texture)const noexcept{if(rig<0||size_t(rig)>=rigs.size())return false;for(const auto& d:rigs[size_t(rig)].draws)if(d.texture==texture)return true;return false;}
+    // blight OFF lens of any rig: same vertex-range bounds within 1.5 cm (the draw has no fleet owner: $switch node)
+    bool blight_off(unsigned vertices,const std::array<float,3>& lo,const std::array<float,3>& hi)const noexcept{
+        for(const auto& r:rigs)for(const auto& o:r.off){float e=0;for(unsigned k=0;k<3;++k)e=std::max({e,std::abs(o.lo[k]-lo[k]),std::abs(o.hi[k]-hi[k])});
+            if(e<.015f&&(o.vertices==vertices||vertices+2>=o.vertices&&vertices<=o.vertices+2))return true;}
+        return false;
+    }
 };
 inline LampRigs read_lamp_rigs(const std::wstring& ini){
     LampRigs s;wchar_t path[512]{};GetPrivateProfileStringW(L"Atmosphere",L"LampRigs",L"Atmosphere/vehicles/lamp_rigs.txt",path,512,ini.c_str());
@@ -65,7 +73,8 @@ inline LampRigs read_lamp_rigs(const std::wstring& ini){
     while(std::getline(in,line)){if(line.empty()||line[0]=='#')continue;std::istringstream q(line);std::string tag;q>>tag;
         if(tag=="car"){LampRig r;q>>r.car;s.rigs.push_back(std::move(r));continue;}
         if(s.rigs.empty())continue;auto& r=s.rigs.back();
-        if(tag=="draw"){LampRigDraw d;q>>d.texture>>d.vertices>>d.lo[0]>>d.lo[1]>>d.lo[2]>>d.hi[0]>>d.hi[1]>>d.hi[2];if(q)r.draws.push_back(std::move(d));}
+        if(tag=="off"){LampRigOff o;q>>o.vertices>>o.lo[0]>>o.lo[1]>>o.lo[2]>>o.hi[0]>>o.hi[1]>>o.hi[2];if(q)r.off.push_back(o);}
+        else if(tag=="draw"){LampRigDraw d;q>>d.texture>>d.vertices>>d.lo[0]>>d.lo[1]>>d.lo[2]>>d.hi[0]>>d.hi[1]>>d.hi[2];if(q)r.draws.push_back(std::move(d));}
         else if(tag=="point"){unsigned kind=0,tail=0,dark=0;LampRigPoint p;q>>kind>>p.pos[0]>>p.pos[1]>>p.pos[2]>>p.size>>tail>>dark;
             if(q&&kind<=4&&std::isfinite(p.pos[0]+p.pos[1]+p.pos[2]+p.size)){p.kind=uint8_t(kind);p.tail=tail!=0;p.dark=dark!=0;r.points.push_back(p);}}}
     s.loaded=!s.rigs.empty();return s;

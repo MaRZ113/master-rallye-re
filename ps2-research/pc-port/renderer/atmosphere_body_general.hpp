@@ -118,18 +118,20 @@ inline void record_lamp_points(atmosphere::Pilot& p,uint64_t frame,uintptr_t ins
 // draw's texture, indexed vertex count and car-space bounds once per instance; afterwards every frame emits
 // exactly the rig's units at this draw's world matrix: head/fog (front), brake units (tail glint, brake glint
 // while this car's glow card was drawn in the last 2 frames), reverse (lamp_glints shows it only in R).
-// Returns false when the car has no rig (the 6.14 per-draw path then runs).
+// Returns false when the car has no rig (the 6.14 per-draw path then runs). 6.15.1: the match is re-checked on
+// every lens draw, because the game reuses instance memory for the next race's cars (Forester got megane's rig).
 inline bool rig_lamp_points(atmosphere::Pilot& p,uint64_t frame,uintptr_t instance,const std::string& texture,const std::vector<uint8_t>& bytes,unsigned stride,
                             const std::vector<uint32_t>& indices,const D3DMATRIX& w)noexcept{
     try{
         if(!p.lamp_rigs.loaded||!instance)return false;auto* o=p.rig_owner(instance,frame,true);if(!o)return false;
-        if(o->rig<0){const size_t n=stride?bytes.size()/stride:0;if(!n||indices.empty())return false;
+        {const size_t n=stride?bytes.size()/stride:0;if(!n||indices.empty())return false;
             std::array<float,3> lo{1e30f,1e30f,1e30f},hi{-1e30f,-1e30f,-1e30f};std::vector<uint8_t> used(n,0);unsigned count=0;
             for(const auto i:indices){if(i>=n)return false;if(used[i])continue;used[i]=1;++count;float v[3];std::memcpy(v,bytes.data()+size_t(i)*stride,12);
                 for(unsigned k=0;k<3;++k){lo[k]=std::min(lo[k],v[k]);hi[k]=std::max(hi[k],v[k]);}}
-            o->rig=p.lamp_rigs.match(texture,count,lo,hi);
-            if(o->rig<0){++p.rig_misses;if(p.first_reason(("lamp_rig_miss_"+texture).c_str()))session().write("{\"type\":\"atmosphere_lamp_rig_miss\",\"texture\":"+quote(texture)+",\"vertices\":"+std::to_string(count)+",\"lo\":["+std::to_string(lo[0])+","+std::to_string(lo[1])+","+std::to_string(lo[2])+"],\"hi\":["+std::to_string(hi[0])+","+std::to_string(hi[1])+","+std::to_string(hi[2])+"]}");return false;}
-            ++p.rig_matches;session().write("{\"type\":\"atmosphere_lamp_rig_match\",\"frame\":"+std::to_string(frame)+",\"car\":"+quote(p.lamp_rigs.rigs[size_t(o->rig)].car)+",\"texture\":"+quote(texture)+",\"points\":"+std::to_string(p.lamp_rigs.rigs[size_t(o->rig)].points.size())+"}");}
+            const int r=p.lamp_rigs.match(texture,count,lo,hi);
+            if(r<0&&o->rig>=0&&p.lamp_rigs.owns_texture(o->rig,texture)){}   // 6.15.1: a deformed lens of the same car keeps its rig
+            else if(r<0){o->rig=-1;++p.rig_misses;if(p.first_reason(("lamp_rig_miss_"+texture).c_str()))session().write("{\"type\":\"atmosphere_lamp_rig_miss\",\"texture\":"+quote(texture)+",\"vertices\":"+std::to_string(count)+",\"lo\":["+std::to_string(lo[0])+","+std::to_string(lo[1])+","+std::to_string(lo[2])+"],\"hi\":["+std::to_string(hi[0])+","+std::to_string(hi[1])+","+std::to_string(hi[2])+"]}");return false;}
+            else if(r!=o->rig){if(o->rig>=0)++p.rig_rematches;o->rig=r;++p.rig_matches;session().write("{\"type\":\"atmosphere_lamp_rig_match\",\"frame\":"+std::to_string(frame)+",\"car\":"+quote(p.lamp_rigs.rigs[size_t(o->rig)].car)+",\"texture\":"+quote(texture)+",\"points\":"+std::to_string(p.lamp_rigs.rigs[size_t(o->rig)].points.size())+"}");}}
         if(o->emitted==frame)return true;o->emitted=frame;lamp_points_begin(p,frame);
         const bool braking=o->braking!=UINT64_MAX&&o->braking+2>=frame;
         const std::array<float,3> forward=atmosphere::normalized({w._31,w._32,w._33});
@@ -182,6 +184,22 @@ inline bool reverse_texel(const atmosphere::Pilot::LensTexture& t,float u,float 
     if(!std::isfinite(u+v))return false;u-=std::floor(u);v-=std::floor(v);
     const unsigned x=std::min(t.width-1,unsigned(u*t.width)),y=std::min(t.height-1,unsigned(v*t.height));return lens_class(t.pixels[size_t(y)*t.width+x])==LensWhite;
 }
+// 6.15.1: the $switch(blight) OFF lens (no fleet owner) is the rear lamp at night: recognised by the vertex-range
+// bounds of a rig's 'off' entry (1.5 cm); it then gets the same emissive stage as the other lamp lenses.
+inline bool rig_blight_off_draw(Device8& d,atmosphere::Pilot& p,IDirect3DDevice8& n,DWORD fvf,UINT min,UINT vertices)noexcept{
+    try{
+        if(!p.lamp_rigs.loaded||!p.headlight_style.enabled||p.headlight_style.lamp_emissive<=0||(fvf!=0x152&&fvf!=0x142)||!vertices||vertices>256)return false;
+        courseintegration::Ref<IDirect3DVertexBuffer8> vb;UINT stride=0;if(FAILED(n.GetStreamSource(0,&vb.p,&stride))||!vb.p||stride<12||stride>128)return false;
+        courseintegration::Ref<IDirect3DIndexBuffer8> ib;UINT base=0;if(FAILED(n.GetIndices(&ib.p,&base)))return false;
+        const auto generation=d.trace.resources.generation(reinterpret_cast<uintptr_t>(vb.p));if(!generation)return false;
+        std::vector<uint8_t> bytes;uint64_t revision=0;
+        if(!d.copy_buffer_shadow(vb.p,BufferKind::Vertex,generation,(uint64_t(base)+min)*stride,size_t(vertices)*stride,bytes,revision)||bytes.size()<size_t(vertices)*stride)return false;
+        std::array<float,3> lo{1e30f,1e30f,1e30f},hi{-1e30f,-1e30f,-1e30f};
+        for(UINT i=0;i<vertices;++i){float v[3];std::memcpy(v,bytes.data()+size_t(i)*stride,12);if(!std::isfinite(v[0]+v[1]+v[2]))return false;for(unsigned k=0;k<3;++k){lo[k]=std::min(lo[k],v[k]);hi[k]=std::max(hi[k],v[k]);}}
+        if(hi[2]>-.5f)return false;   // rear lamps only
+        return p.lamp_rigs.blight_off(vertices,lo,hi);
+    }catch(...){return false;}
+}
 inline HRESULT night_energy(Device8& d,UINT min,UINT vertices,UINT start,UINT count,uintptr_t pc,bool& applied)noexcept {
     applied=false;auto* p=atmosphereintegration::pilot(d);
     if(!p||!p->enabled()||!p->lighting.active()||p->lighting.ambient_strength>=.5f||!count||
@@ -189,7 +207,7 @@ inline HRESULT night_energy(Device8& d,UINT min,UINT vertices,UINT start,UINT co
     try{
         auto& n=*d.native();bool single=false;const auto cert=courseintegration::certificate(d,single);if(!single||!cert.valid)return S_OK;
         DWORD fvf=0,pixel=1;if(FAILED(n.GetVertexShader(&fvf))||FAILED(n.GetPixelShader(&pixel))||pixel||!groundintegration::render(d,n,D3DRS_LIGHTING,FALSE))return S_OK;
-        frontendmodelintegration::Context owner;atmosphere::NativeMaterialBinding binding;std::string material;bool lamp=false,rear_lamp=false,brake_zone=false,reversing=false,mixed=false;std::array<float,3> centroid{};
+        frontendmodelintegration::Context owner;atmosphere::NativeMaterialBinding binding;std::string material;bool lamp=false,rear_lamp=false,brake_zone=false,reversing=false,mixed=false,blight_off=false;std::array<float,3> centroid{};
         if(frontendmodelintegration::fleet_owner(frontendmodelintegration::caller_stack,pc,owner)){
             const auto exe=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));
             if(!atmosphere::native_material_binding(exe,owner.mesh,frontendmodelintegration::word,binding))return S_OK;
@@ -219,6 +237,8 @@ inline HRESULT night_energy(Device8& d,UINT min,UINT vertices,UINT start,UINT co
                 rear_lamp=centroid[2]<-1.2f;
                 if(!lamp&&rear_lamp)if(const auto* boxes=p->brake_boxes_for(owner.owner.instance))if(brake_share(d,n,min,vertices,*boxes)>=.5f){lamp=true;brake_zone=true;}}
             material=binding.names[0];
+        }else if(rig_blight_off_draw(d,*p,n,fvf,min,vertices)){
+            lamp=true;brake_zone=true;blight_off=true;rear_lamp=true;material="rig_blight_off";++p->rig_blight_off;
         }else{
             // 5.13: windows live under $switch(screen*) nodes, which the fleet
             // owner walk does not cover. Accept only this exact call when the
@@ -260,7 +280,7 @@ inline HRESULT night_energy(Device8& d,UINT min,UINT vertices,UINT start,UINT co
         // 6.12: one lens draw may hold front and rear lenses. Only the reverse section changes: rear
         // triangles (car z < -1.2) whose texels are white; their vertices are dimmed while not in reverse
         // and native (bright through the emissive stage) in reverse. Cars without such texels: unchanged.
-        if(lamp&&(fvf==0x152||fvf==0x142)){atmosphereintegration::Geometry g;const unsigned st=fvf==0x152?36u:24u,co=fvf==0x152?24u:12u,uvo=co+4;
+        if(lamp&&!blight_off&&(fvf==0x152||fvf==0x142)){atmosphereintegration::Geometry g;const unsigned st=fvf==0x152?36u:24u,co=fvf==0x152?24u:12u,uvo=co+4;
             if(atmosphereintegration::geometry(d,*p,min,vertices,start,count,g)&&p->pending.stride==st&&g.bytes.size()>=size_t(vertices)*st){
                 const auto* tex=mixed?lens_texture(d,*p,n):nullptr;unsigned dimmed=0;
                 if(tex){std::vector<uint8_t> mark(vertices,0);   // bit0 reverse triangle, bit1 other triangle
