@@ -103,6 +103,56 @@ inline void sun_world(Device8& d,HRESULT hr,uintptr_t pc)noexcept{
        viewport.MinZ!=0||viewport.MaxZ!=1||!courseintegration::perspective(proof.projection)){proof.clear();return;}
     proof.frame=frame;proof.race=cert.race_generation;proof.owner=cert.owner_lifetime;proof.camera=cert.camera;proof.reset=d.ps2_port()->reset_generation();proof.world=true;
 }
+// ATMOSPHERE6.2 night particles. Retail particle batches (dust clouds RVA
+// 0x164ed0, stones/mud 0x1722ee) are DrawPrimitive triangle lists from one
+// dynamic VB: FVF 0x142 world-space vertices, texture*diffuse, alpha blended,
+// no depth writes, no fog, no lighting, so they glow at night. Night only
+// (AmbientStrength < .5): stage 1 multiplies the colour by the moonlit world
+// energy (ambient + half the moon); alpha, blend, UV, vertices untouched.
+inline constexpr uint32_t PARTICLE_DUST_RVA=0x164ed0,PARTICLE_STONE_RVA=0x1722ee;
+inline uint32_t particle_night_factor(const atmosphere::Lighting& s)noexcept{
+    uint32_t out=0xff000000u;
+    for(unsigned i=0;i<3;++i){const float gain=std::clamp((s.ambient[i]*s.ambient_strength+s.sun[i]*s.sun_strength*.5f)*s.exposure*s.world_brightness,0.f,1.f);
+        out|=uint32_t(std::lround(gain*255))<<((2-i)*8);}
+    return out;
+}
+inline HRESULT particle_begin(Device8& d,D3DPRIMITIVETYPE type,UINT,UINT count,uintptr_t pc,bool& pending)noexcept{
+    pending=false;auto* p=pilot(d);
+    const auto exe=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));
+    if(!p||!p->enabled()||!p->lighting.active()||p->lighting.ambient_strength>=.5f||type!=D3DPT_TRIANGLELIST||!count||(pc!=exe+PARTICLE_DUST_RVA&&pc!=exe+PARTICLE_STONE_RVA)||
+       !d.trace.scene_active||d.trace.shadow.recording||d.trace.effective_shadow.recording||GetCurrentThreadId()!=d.trace.render_thread_id()||p->particle.pending)return S_OK;
+    try{
+        auto& n=*d.native();bool single=false;const auto cert=courseintegration::certificate(d,single);if(!single||!cert.valid)return S_OK;
+        DWORD fvf=0,pixel=1;if(FAILED(n.GetVertexShader(&fvf))||fvf!=0x142||FAILED(n.GetPixelShader(&pixel))||pixel||!groundintegration::render(d,n,D3DRS_ALPHABLENDENABLE,TRUE)||
+           !groundintegration::render(d,n,D3DRS_LIGHTING,FALSE)||!groundintegration::stage(d,n,0,D3DTSS_COLOROP,D3DTOP_MODULATE)||!groundintegration::stage(d,n,0,D3DTSS_COLORARG1,D3DTA_TEXTURE)||
+           !groundintegration::stage(d,n,0,D3DTSS_COLORARG2,D3DTA_DIFFUSE)||!groundintegration::stage(d,n,1,D3DTSS_COLOROP,D3DTOP_DISABLE))return S_OK;
+        auto& s=p->particle;constexpr D3DTEXTURESTAGESTATETYPE keys[]{D3DTSS_COLOROP,D3DTSS_COLORARG1,D3DTSS_COLORARG2,D3DTSS_ALPHAOP,D3DTSS_ALPHAARG1};
+        for(unsigned i=0;i<5;++i)if(FAILED(n.GetTextureStageState(1,keys[i],&s.stage[i])))return S_OK;
+        if(FAILED(n.GetTextureStageState(2,D3DTSS_COLOROP,&s.stage2))||s.stage2!=D3DTOP_DISABLE||FAILED(n.GetRenderState(D3DRS_TEXTUREFACTOR,&s.factor)))return S_OK;
+        const DWORD factor=particle_night_factor(p->lighting);
+        s.pending=pending=true;
+        auto hr=n.SetRenderState(D3DRS_TEXTUREFACTOR,factor);notify(d,50,pack(D3DRS_TEXTUREFACTOR,factor),hr);
+        const DWORD values[]{D3DTOP_MODULATE,D3DTA_CURRENT,D3DTA_TFACTOR,D3DTOP_SELECTARG1,D3DTA_CURRENT};
+        for(unsigned i=0;i<5&&SUCCEEDED(hr);++i){hr=n.SetTextureStageState(1,keys[i],values[i]);notify(d,63,pack(1u,keys[i],values[i]),hr);}
+        // The wrapper returns before the draw on failure, so restore here.
+        if(FAILED(hr)){pending=false;HRESULT restored=S_OK;
+            for(int i=4;i>=0;--i){const auto r=n.SetTextureStageState(1,keys[i],s.stage[i]);notify(d,63,pack(1u,keys[i],s.stage[i]),r);if(FAILED(r))restored=r;}
+            {const auto r=n.SetRenderState(D3DRS_TEXTUREFACTOR,s.factor);notify(d,50,pack(D3DRS_TEXTUREFACTOR,s.factor),r);if(FAILED(r))restored=r;}
+            if(SUCCEEDED(restored)){s.pending=false;return S_OK;}return repair(d);}
+        ++p->particle_draws;
+        if(p->first_reason(pc==exe+PARTICLE_DUST_RVA?"night_particles_dust":"night_particles_stones"))session().write("{\"type\":\"atmosphere_night_particles\",\"site\":"+quote(std::string(pc==exe+PARTICLE_DUST_RVA?"dust":"stones"))+",\"factor\":"+std::to_string(factor)+",\"triangles\":"+std::to_string(count)+",\"frame\":"+std::to_string(d.trace.frame_number())+",\"alpha_unchanged\":true}");
+        return S_OK;
+    }catch(...){return repair(d);}
+}
+inline HRESULT particle_end(Device8& d)noexcept{
+    auto* p=pilot(d);if(!p||!p->particle.pending)return S_OK;
+    auto& s=p->particle;auto& n=*d.native();constexpr D3DTEXTURESTAGESTATETYPE keys[]{D3DTSS_COLOROP,D3DTSS_COLORARG1,D3DTSS_COLORARG2,D3DTSS_ALPHAOP,D3DTSS_ALPHAARG1};
+    HRESULT result=S_OK;
+    for(int i=4;i>=0;--i){const auto hr=n.SetTextureStageState(1,keys[i],s.stage[i]);notify(d,63,pack(1u,keys[i],s.stage[i]),hr);if(FAILED(hr)&&SUCCEEDED(result))result=hr;}
+    {const auto hr=n.SetRenderState(D3DRS_TEXTUREFACTOR,s.factor);notify(d,50,pack(D3DRS_TEXTUREFACTOR,s.factor),hr);if(FAILED(hr)&&SUCCEEDED(result))result=hr;}
+    if(SUCCEEDED(result))s.pending=false;else return repair(d);
+    return S_OK;
+}
 inline HRESULT sun_before_ui(Device8& d,bool ui)noexcept{
     capture_boundary(d,ui);
     auto* p=pilot(d);if(!ui||!p||!p->enabled()||!(p->sun_disk||p->sun_halo||p->sun_flare||p->sun_style.vignette>0||p->stars.count)||!d.trace.scene_active||

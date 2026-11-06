@@ -270,6 +270,9 @@ public:
     // 5.14: the classifier loses the Body class on some camera angles, so a
     // proven glass texture (vehicle-only windscreen textures) is remembered by
     // pointer + resource generation and admits later frames by itself.
+    // 6.2 night particles (dust clouds 0x164ed0, stones/mud 0x1722ee): one
+    // extra stage-1 MODULATE TFACTOR around the DrawPrimitive, restored after.
+    struct ParticleSaved {bool pending=false;DWORD stage[5]{},stage2=0,factor=0;} particle;uint64_t particle_draws=0;
     struct GlassTexture {uintptr_t pointer=0;uint64_t generation=0;};std::array<GlassTexture,32> glass_textures{};unsigned glass_next=0;
     bool known_glass(uintptr_t t,uint64_t g)const noexcept{if(!t||!g)return false;for(const auto& x:glass_textures)if(x.pointer==t&&x.generation==g)return true;return false;}
     void remember_glass(uintptr_t t,uint64_t g)noexcept{if(!t||!g||known_glass(t,g))return;glass_textures[glass_next++%glass_textures.size()]={t,g};}

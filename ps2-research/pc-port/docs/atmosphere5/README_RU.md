@@ -343,3 +343,19 @@ DLL `58782efdae9fc14592d5f6232bd9914606b1f1cf2173d852747bfddbb23f5d56`, CTest 24
 
 DLL `2c770553290a2d5894dba1bf944f586f62b96736c8b0ea62c5f105c8ff72af75`, CTest 24/24 + 46/46, Python 201 OK.
 Небо установлено; DLL не установлена (игра запущена): `.research-output/atmosphere6/candidate-6.1/Install-6.1.ps1`.
+
+## 20. ATMOSPHERE6.2 — ночная пыль и частицы
+
+Дамп владельца с пылью: частицы — `DrawPrimitive` треугольниками из одного динамического VB, FVF 0x142
+(мировые вершины, текстура × цвет вершины), alpha blend, без записи глубины, без тумана и света:
+* RVA **0x164ed0** — облака пыли (текстуры 32×32: dirtdust/dustcloud/smokey…, ~290 треугольников);
+* RVA **0x1722ee** — камни/грязь (16×16: brownstone/newmud), пачки по 2–10 треугольников;
+* 0x1881eb (128×128, 5 треуг.) — другой эффект, не трогается.
+
+Ночью (AmbientStrength < .5) вокруг этих вызовов ставится одна стадия 1 `MODULATE TFACTOR` с энергией
+освещённого мира (ambient + половина луны), после вызова восстанавливается; альфа/смешивание/UV не
+меняются. Для этого патч 0001 получил `atmosphereintegration::particle_begin/particle_end` вокруг
+`real_->DrawPrimitive` (под `MRR_ENABLE_PS2_PORT`), lock-хэш патча обновлён. Лог `atmosphere_night_particles`.
+
+DLL `dd54c333c24fac9d7319734742f426fa5803b6b8122928a5af102c48fbce6105`, CTest 24/24 + 46/46, Python 201 OK.
+Установлена в Atmo-copy (включает 6.1). Откат: `.research-output/atmosphere6/rollback-58782efd`.

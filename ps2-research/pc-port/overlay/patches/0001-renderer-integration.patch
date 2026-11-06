@@ -994,7 +994,7 @@ index 1639252..c0cc5b0 100644
   HRESULT hr=real_->GetTransform(type,out);D3DMATRIX native_value{};bool virtualized=false;
   if(SUCCEEDED(hr)&&type<512&&safe_copy(&native_value,out,sizeof(native_value))){
    const auto& logical=trace.shadow.matrices[type];const auto& native=trace.effective_shadow.matrices[type];
-@@ -185,9 +296,25 @@ HRESULT Device8::draw_primitive_at(D3DPRIMITIVETYPE type,UINT start,UINT count,u
+@@ -185,9 +296,31 @@ HRESULT Device8::draw_primitive_at(D3DPRIMITIVETYPE type,UINT start,UINT count,u
    game_fov.clean_view_disarm_count(),game_fov.clean_view_last_disarm_reason(),clean_scope_id!=0,
    game_fov.clean_view_context_trace_frame(),game_fov.clean_view_context_scheduler_generation(),clean_admission.frame);
   skip=skip||suppress_clean_view||suppress_global_hud;
@@ -1017,7 +1017,13 @@ index 1639252..c0cc5b0 100644
 +#else
 + const bool ps2_hud_owned=false;
 +#endif
++#ifdef MRR_ENABLE_PS2_PORT
++ bool particle_pending=false;{const HRESULT particle=(skip||ps2_hud_owned)?S_OK:atmosphereintegration::particle_begin(*this,type,start,count,pc,particle_pending);if(FAILED(particle))return particle;}
++#endif
 + trace.before(70,args,pc);HRESULT hr=(skip||ps2_hud_owned)?S_OK:real_->DrawPrimitive(type,start,count);
++#ifdef MRR_ENABLE_PS2_PORT
++ if(particle_pending){const HRESULT restored=atmosphereintegration::particle_end(*this);if(FAILED(restored)&&SUCCEEDED(hr))hr=restored;}
++#endif
   UiOwnershipDrawState ownership_state{};
   const auto& fvf=trace.shadow.bindings.vertex_shader;ownership_state.fvf_known=fvf.known;ownership_state.fvf=fvf.value;
   const auto& texture0=trace.shadow.bindings.textures[0];ownership_state.texture0_known=texture0.known;ownership_state.texture0=texture0.value;
