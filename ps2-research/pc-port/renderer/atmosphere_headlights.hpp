@@ -19,7 +19,7 @@ using Mat4=std::array<float,16>;   // D3D row-vector layout: m[row*4+col], trans
 
 struct Projector {float range=48,half_h_degrees=38,half_v_degrees=16,pitch_degrees=3.5f;std::array<float,3> origin{0,.65f,2.1f};float yaw_sign=1;};
 struct HeadlightStyle {
-    bool enabled=false,tail=true;float intensity=1.25f,tail_intensity=.45f,tail_brake=2.2f;
+    bool enabled=false,tail=true;float intensity=1.25f,tail_intensity=.85f,tail_brake=1.9f,lamp_emissive=1.35f;
     std::array<float,3> rgb{1.f,.93f,.80f},tail_rgb{1.f,.12f,.06f};
     Projector head{},rear{7.f,62.f,30.f,32.f,{0,.55f,-2.35f},-1};
 };
@@ -34,6 +34,7 @@ inline HeadlightStyle read_headlight_style(const std::wstring& ini,bool night=fa
     s.head.pitch_degrees=number(L"HeadlightPitch",s.head.pitch_degrees,-10,30);
     s.head.origin={number(L"HeadlightX",s.head.origin[0],-3,3),number(L"HeadlightY",s.head.origin[1],-1,3),number(L"HeadlightZ",s.head.origin[2],-5,5)};
     const wchar_t* colour[3]{L"HeadlightR",L"HeadlightG",L"HeadlightB"};for(unsigned i=0;i<3;++i)s.rgb[i]=number(colour[i],s.rgb[i],0,1);
+    s.lamp_emissive=number(L"LampEmissive",s.lamp_emissive,0,2);
     s.tail_intensity=number(L"TailLightIntensity",s.tail_intensity,0,3);s.tail_brake=number(L"TailLightBrake",s.tail_brake,1,5);s.rear.range=number(L"TailLightRange",s.rear.range,1,30);
     return s;
 }
