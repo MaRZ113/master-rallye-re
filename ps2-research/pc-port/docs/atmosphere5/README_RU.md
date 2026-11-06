@@ -282,3 +282,20 @@ DLL `fa0d1462e9f7c4f9e569d1031b24b56856de52dd7f95b5091ef050c0245e8ccb`, CTest 24
 
 DLL `e8bd4795f10ae7c4d42a00945859a0a3cfa78a378f991c27b7fca9a8a3daaeef`, CTest 24/24 + 46/46.
 Не установлена (игра была запущена): `.research-output/atmosphere5/candidate-5.12/Install-5.12.ps1`.
+
+## 17. ATMOSPHERE5.13 — стёкла машины ночью (целые и разбитые)
+
+Владелец (после 5.12): стёкла не темнеют. Дамп кадра с Patrol: окна `winleft`/`winsright`/`winsfront`
+(и разбитые `*broken`, `windscreenc32`) — отдельные проходы 0x152, SRCALPHA/INVSRCALPHA, env
+MODULATEALPHA_ADDCOLOR; они лежат под узлами `$switch(screen*)`, которые owner-walk флота
+(`fleet_owner`) не покрывает, поэтому `night_energy` их пропускал (линзы фар `hlight $glass` — покрывал).
+
+* `atmosphereintegration::begin` запоминает вызов, который классификатор доказал как blended env-проход
+  кузова (`transform.object=Body`, alpha, ENV_STAGE, не CL_OPAQUE, race projection; 0x152/0x142).
+* `night_energy`: если owner-walk не нашёл меш, принимается ровно этот вызов (кадр + аргументы) с
+  SRCALPHA/INVSRCALPHA — та же стадия `MODULATE TFACTOR`, альфа не трогается. Glow 0x102 и
+  непрозрачные lightson не попадают. Лог: `atmosphere_vehicle_night_energy` с
+  `material=classifier_blended_vehicle_glass`.
+
+DLL `32af724d1c0e8433ef4c278bcd9ca8f438a7991b8a7a2098aab6ac1019eb7cb2`, CTest 24/24 + 46/46, Python 201 OK.
+Установлена в Atmo-copy. Откат: `rollback-e8bd4795`.

@@ -263,6 +263,10 @@ public:
     }
     CourseCoverage coverage;
     bool vehicle_glow_fix=false;uint64_t vehicle_glow_draws=0;
+    // 5.13: the draw classifier proved this exact call a blended vehicle body
+    // env pass (conditional $switch windows have no fleet owner walk). Set in
+    // atmosphereintegration::begin, consumed by atmospherebody::night_energy.
+    struct BlendedVehicleProof {uint64_t frame=UINT64_MAX;UINT min=0,vertices=0,start=0,count=0;} blended_vehicle;uint64_t night_glass_draws=0;
     // P0.2 lamp observer: the game swaps a car's lamp layer to the glow-on card
     // while it brakes. Each such draw this frame = one lit lamp group, with its
     // car-local and world centre (night lights, tail-light ground glow).

@@ -648,6 +648,11 @@ inline HRESULT begin(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UIN
         if(FAILED(n.GetRenderTarget(&target.p))||FAILED(n.GetBackBuffer(0,D3DBACKBUFFER_TYPE_MONO,&back.p))||!courseintegration::same_identity(target.p,back.p))return reject(d,*p,"native_target_not_backbuffer");
         DWORD fvf=0,ps=1;if(FAILED(n.GetVertexShader(&fvf))||FAILED(n.GetPixelShader(&ps))||ps||!groundintegration::render(d,n,D3DRS_LIGHTING,FALSE))return reject(d,*p,"fixed_function_shader_or_lighting_mismatch");
         auto& saved=p->pending;if(saved.any())return D3DERR_DEVICELOST;
+        // 5.13: remember a classifier-proven blended vehicle body env pass for
+        // the night energy stage of the body path (windows under $switch nodes).
+        if(classification&&classification->transform.object==ObjectClass::Body&&classification->alpha_blended&&(classification->reasons&ENV_STAGE)&&
+           !(classification->reasons&CL_OPAQUE)&&(classification->reasons&RACE_PROJECTION)&&(fvf==0x152||fvf==0x142))
+            p->blended_vehicle={d.trace.frame_number(),min,vertices,start,count};
         // P0.2 VehicleGlowFix: the PC glow-on layer of a proven vehicle is an
         // XYZ|TEX1 card drawn SRCALPHA/INVSRCALPHA WITH depth writes and no
         // alpha test, so its transparent texels write Z: rectangular edges and

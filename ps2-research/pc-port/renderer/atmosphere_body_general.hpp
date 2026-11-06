@@ -7,18 +7,31 @@ namespace gfx2::atmospherebody {
 // brightness. Scale their final colour by the night body energy with one extra
 // TFACTOR stage (after the native stages; alpha, blend, UV untouched).
 // Emissive lamp layers (*lightson*, *glow*) are left bright on purpose.
-inline HRESULT night_energy(Device8& d,UINT,UINT,UINT,UINT count,uintptr_t pc,bool& applied)noexcept {
+inline HRESULT night_energy(Device8& d,UINT min,UINT vertices,UINT start,UINT count,uintptr_t pc,bool& applied)noexcept {
     applied=false;auto* p=atmosphereintegration::pilot(d);
     if(!p||!p->enabled()||!p->lighting.active()||p->lighting.ambient_strength>=.5f||!count||
        pc!=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+0x17707e||!d.trace.scene_active||d.trace.shadow.recording||d.trace.effective_shadow.recording||GetCurrentThreadId()!=d.trace.render_thread_id())return S_OK;
     try{
         auto& n=*d.native();bool single=false;const auto cert=courseintegration::certificate(d,single);if(!single||!cert.valid)return S_OK;
         DWORD fvf=0,pixel=1;if(FAILED(n.GetVertexShader(&fvf))||FAILED(n.GetPixelShader(&pixel))||pixel||!groundintegration::render(d,n,D3DRS_LIGHTING,FALSE))return S_OK;
-        frontendmodelintegration::Context owner;if(!frontendmodelintegration::fleet_owner(frontendmodelintegration::caller_stack,pc,owner))return S_OK;
-        const auto exe=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));atmosphere::NativeMaterialBinding binding;
-        if(!atmosphere::native_material_binding(exe,owner.mesh,frontendmodelintegration::word,binding))return S_OK;
-        for(const auto& raw:binding.names){std::string name=raw;for(auto& c:name)c=char(std::tolower(static_cast<unsigned char>(c)));
-            if(name.find("lightson")!=std::string::npos||name.find("glow")!=std::string::npos)return S_OK;}
+        frontendmodelintegration::Context owner;atmosphere::NativeMaterialBinding binding;std::string material;
+        if(frontendmodelintegration::fleet_owner(frontendmodelintegration::caller_stack,pc,owner)){
+            const auto exe=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));
+            if(!atmosphere::native_material_binding(exe,owner.mesh,frontendmodelintegration::word,binding))return S_OK;
+            for(const auto& raw:binding.names){std::string name=raw;for(auto& c:name)c=char(std::tolower(static_cast<unsigned char>(c)));
+                if(name.find("lightson")!=std::string::npos||name.find("glow")!=std::string::npos)return S_OK;}
+            material=binding.names[0];
+        }else{
+            // 5.13: windows live under $switch(screen*) nodes, which the fleet
+            // owner walk does not cover. Accept only this exact call when the
+            // draw classifier proved it a blended vehicle body env pass
+            // (SRCALPHA/INVSRCALPHA glass). Emissive lamps are opaque or 0x102.
+            const auto& v=p->blended_vehicle;
+            if(v.frame!=d.trace.frame_number()||v.min!=min||v.vertices!=vertices||v.start!=start||v.count!=count||(fvf!=0x152&&fvf!=0x142)||
+               !groundintegration::render(d,n,D3DRS_ALPHABLENDENABLE,TRUE)||!groundintegration::render(d,n,D3DRS_SRCBLEND,D3DBLEND_SRCALPHA)||
+               !groundintegration::render(d,n,D3DRS_DESTBLEND,D3DBLEND_INVSRCALPHA))return S_OK;
+            p->blended_vehicle={};material="classifier_blended_vehicle_glass";++p->night_glass_draws;
+        }
         DWORD op1=0,op2=0,op3=0;if(FAILED(n.GetTextureStageState(1,D3DTSS_COLOROP,&op1))||FAILED(n.GetTextureStageState(2,D3DTSS_COLOROP,&op2)))return S_OK;
         const DWORD unit=op1==D3DTOP_DISABLE?1:op2==D3DTOP_DISABLE?2:0;if(!unit)return S_OK;
         if(unit==2&&(FAILED(n.GetTextureStageState(3,D3DTSS_COLOROP,&op3))||op3!=D3DTOP_DISABLE))return S_OK;
@@ -33,7 +46,7 @@ inline HRESULT night_energy(Device8& d,UINT,UINT,UINT,UINT count,uintptr_t pc,bo
         for(unsigned i:{7u,1u,2u,3u,4u,5u,6u,0u}){s.body_pending|=1u<<i;const auto hr=i==7?n.SetRenderState(D3DRS_TEXTUREFACTOR,factor):n.SetTextureStageState(unit,keys[i],values[i]);
             if(i==7)atmosphereintegration::notify(d,50,pack(D3DRS_TEXTUREFACTOR,factor),hr);else atmosphereintegration::notify(d,63,pack(unit,keys[i],values[i]),hr);if(FAILED(hr))return atmosphereintegration::repair(d);}
         applied=true;
-        if(p->first_reason("vehicle_night_energy"))session().write("{\"type\":\"atmosphere_vehicle_night_energy\",\"factor\":"+std::to_string(factor)+",\"unit\":"+std::to_string(unit)+",\"material\":"+quote(binding.names[0])+"}");
+        if(p->first_reason(("vehicle_night_energy_"+material).c_str()))session().write("{\"type\":\"atmosphere_vehicle_night_energy\",\"factor\":"+std::to_string(factor)+",\"unit\":"+std::to_string(unit)+",\"material\":"+quote(material)+"}");
         return S_OK;
     }catch(...){if(!p->pending.any())p->pending.release();return atmosphereintegration::repair(d);}
 }
