@@ -461,3 +461,18 @@ DLL `50c4e97dfa2aa83180ff62d776515fab3ced0f4c4c85e358a230350f7c131623`, CTest 24
 
 DLL `e17f563ace05544c52d4ffab37bc1497915e27de40b0a97f1d04866cd24931de`, CTest 24/24 + 46/46, Python 201 OK.
 Установлена. Откат: `.research-output/atmosphere6/rollback-50c4e97d`.
+
+## 27. ATMOSPHERE6.9 — зонд передачи (диагностика для заднего хода по R)
+
+Владелец: свет заднего хода нужен по включённой R, а не только при движении назад.
+* Статический поиск: строки HUD `/Gear/Position`, `Gear Display Position Offset` (FUN_004a8230,
+  поле +0x30 объекта HUD), бинды `GearUp`/`GearDown` (FUN_005a4240, коды 200/0xd0), расчёт
+  передаточных чисел (FUN_0042d0d0) — поле текущей передачи не найдено (обращения HUD к
+  `gaVehicleOutputData` 0x4a804b/0x4a887a лежат вне распознанных Ghidra функций).
+* Зонд `GearProbe=1`: раз в 10 кадров лог `atmosphere_gear_probe` — объект `gaVehicleOutputData`
+  локального игрока (0x80 байт) и его блок машины (payload+8, 0x400 байт) + скорость вдоль оси.
+  Тот же проверенный путь, что у PS2-HUD (Broker → `Car<N>` → `gaVehicleOutputData`). Только чтение.
+  Нужен один заезд владельца: вперёд → стоп → R и постоять → назад → стоп → вперёд.
+
+DLL `2fbd72e087dc2e6168d0e1c3e58d37fcfa9b2f2f91fc2a4daa16e488f8c4cac7`, CTest 24/24 + 46/46, Python 201 OK.
+Установлена (`GearProbe=1` в INI Atmo-copy). Откат: `.research-output/atmosphere6/rollback-e17f563a`.

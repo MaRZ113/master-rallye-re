@@ -287,6 +287,7 @@ public:
     struct CarLamps {uintptr_t instance=0;Mat4 car{};bool head=false,rear=false,reversing=false,brake=false;LightFrame head_frame,rear_frame;Mat4 head_cookie{},head_ramp{},rear_cookie{},rear_ramp{};};
     struct LampProjectors {uint64_t frame=UINT64_MAX;std::array<CarLamps,4> cars{};unsigned count=0;Mat4 view{};bool view_valid=false;
         const CarLamps* find(uintptr_t instance)const noexcept{for(unsigned i=0;i<count;++i)if(cars[i].instance==instance)return &cars[i];return nullptr;}} lamp_projectors;
+    bool gear_probe=false;uint64_t gear_probe_frame=0; // 6.9 diagnostic: log the local car output object to find the gear field
     std::array<float,3> brake_local{};bool brake_local_valid=false;uint64_t proxy_headlight_vertices=0;
     // 6.6 lamp glints: world lamp centres collected from this frame's lit lamp lens draws.
     GlintStyle glint_style;struct LampPoint{std::array<float,3> world{},axis{};uintptr_t instance=0;bool front=false;};
@@ -382,6 +383,7 @@ public:
         capture.enabled=GetPrivateProfileIntW(L"Atmosphere",L"CourseCapture",0,ini_.c_str())==1;
         coverage.enabled=GetPrivateProfileIntW(L"Atmosphere",L"CoverageLedger",0,ini_.c_str())==1;
         vehicle_glow_fix=GetPrivateProfileIntW(L"Atmosphere",L"VehicleGlowFix",0,ini_.c_str())==1;
+        gear_probe=GetPrivateProfileIntW(L"Atmosphere",L"GearProbe",0,ini_.c_str())==1;
 
         pc_water=GetPrivateProfileIntW(L"Atmosphere",L"PCWaterAtmosphere",0,ini_.c_str())==1;
         source_x=number(L"LightX",0);source_y=number(L"LightY",0);source_z=number(L"LightZ",0);radius=std::clamp(number(L"LightRadius",12),.1f,100.f);

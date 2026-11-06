@@ -55,6 +55,21 @@ class HudDamageFeedReader {
         ids_ok_=true;id_reason_="ids_resolved";return true;
     }
 public:
+    // 6.9 gear probe: the same validated path, returning the object pointers only.
+    bool output_object(RaceReadMemory& m,uint32_t base,uint64_t race_generation,uint32_t& payload,uint32_t& vehicle,const char*& reason) noexcept {
+        payload=vehicle=0;reason="no_race_generation";if(!race_generation)return false;
+        if(race_generation!=generation_){generation_=race_generation;resolve(m,base);}
+        if(!ids_ok_){reason=id_reason_;return false;}
+        uint32_t manager=0,begin=0,end=0;
+        if(!pointer(m,base+kHudBrokerRva,manager)||!pointer(m,manager+4,begin)||!word(m,manager+8,end)||end<begin||(end-begin)%0x1c){reason="broker_unreadable";return false;}
+        if(car_id_>=(end-begin)/0x1c){reason="car_record_out_of_range";return false;}
+        const uint32_t record=begin+car_id_*0x1c;uint32_t native_id=0,tag=0,type=0;
+        if(!word(m,record,native_id)||native_id!=car_id_||!word(m,record+8,tag)||tag!=kHudBrokerObjectTag||!pointer(m,record+4,payload)){reason="car_record_not_object";return false;}
+        char name[32]{};
+        if(!word(m,payload+4,type)||!race_pool_text(m,base,type,name,sizeof(name))||std::strcmp(name,"gaVehicleOutputData")){reason="car_object_type_mismatch";return false;}
+        if(!pointer(m,payload+8,vehicle)){reason="vehicle_output_pointers_missing";return false;}
+        reason="ok";return true;
+    }
     void reset() noexcept {generation_=0;ids_ok_=false;id_reason_="not_resolved";}
     HudDamageFeed read(RaceReadMemory& m,uint32_t base,uint64_t race_generation) noexcept {
         HudDamageFeed f;

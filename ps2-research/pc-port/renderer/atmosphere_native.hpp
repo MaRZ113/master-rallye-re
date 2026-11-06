@@ -4,6 +4,7 @@
 #include "atmosphere.hpp"
 #include "buffer_provenance.hpp"
 #include "brake_glow.hpp"
+#include "ps2_hud_damage_feed.hpp"
 
 namespace gfx2::atmosphereintegration {
 inline atmosphere::Pilot* pilot(Device8& d)noexcept{return d.ps2_port()?d.ps2_port()->atmosphere_pilot():nullptr;}
@@ -103,6 +104,7 @@ inline HRESULT headlight_textures(IDirect3DDevice8& n,atmosphere::Pilot& p)noexc
 // extrapolated to this frame when its body was not drawn yet, with its brake
 // and reverse state. Texture matrices depend on the current VIEW and are
 // rebuilt whenever it changes inside the frame.
+inline void gear_probe(Device8& d,atmosphere::Pilot& p,uint64_t frame,float along,bool reversing)noexcept;
 inline bool headlight_projectors(Device8& d,atmosphere::Pilot& p,IDirect3DDevice8& n)noexcept{
     const auto frame=d.trace.frame_number();auto& lp=p.lamp_projectors;const auto& style=p.headlight_style;
     D3DMATRIX view{};if(FAILED(n.GetTransform(D3DTS_VIEW,&view)))return false;atmosphere::Mat4 v{};std::memcpy(v.data(),&view,64);
@@ -122,6 +124,7 @@ inline bool headlight_projectors(Device8& d,atmosphere::Pilot& p,IDirect3DDevice
                 if(along<-.025f)c.reverse_until=UINT64_MAX;else if(along>.02f)c.reverse_until=0;
                 if(c.frame<frame){const float t=float(frame-c.frame);for(unsigned i=12;i<15;++i)L.car[i]+=(c.m[i]-c.prev[i])*t;}}
             L.reversing=c.reverse_until&&frame<=c.reverse_until;
+            if(k==0&&p.gear_probe){float along=0;if(c.prev_frame+1==c.frame){const auto f=atmosphere::normalized({c.m[8],c.m[9],c.m[10]});along=(c.m[12]-c.prev[12])*f[0]+(c.m[13]-c.prev[13])*f[1]+(c.m[14]-c.prev[14])*f[2];}gear_probe(d,p,frame,along,L.reversing);}
             L.head_frame=atmosphere::light_frame(L.car,style.head);L.head=L.head_frame.valid&&style.intensity>0;
             if(style.tail&&style.tail_intensity>0){L.rear_frame=atmosphere::light_frame(L.car,style.rear);L.rear=L.rear_frame.valid;}
             if(p.lamps_last.frame!=UINT64_MAX&&p.lamps_last.frame+2>=frame)for(const auto& s:p.lamps_last.samples){
@@ -135,6 +138,25 @@ inline bool headlight_projectors(Device8& d,atmosphere::Pilot& p,IDirect3DDevice
             if(L.head){L.head_cookie=atmosphere::cookie_matrix(inverse,L.head_frame,style.head);L.head_ramp=atmosphere::ramp_matrix(inverse,L.head_frame,style.head);}
             if(L.rear){L.rear_cookie=atmosphere::cookie_matrix(inverse,L.rear_frame,style.rear);L.rear_ramp=atmosphere::ramp_matrix(inverse,L.rear_frame,style.rear);}}}
     return true;
+}
+// 6.9 diagnostic (GearProbe=1): every 10 frames the local player's
+// gaVehicleOutputData object (0x80 bytes) and its vehicle block (0x400 bytes)
+// are logged with the car's speed along its own axis, so the selected-gear
+// field can be identified offline (forward / stop / reverse selected / reverse).
+inline void gear_probe(Device8& d,atmosphere::Pilot& p,uint64_t frame,float along,bool reversing)noexcept{
+    try{
+        if(!p.gear_probe||frame<p.gear_probe_frame+10)return;p.gear_probe_frame=frame;
+        bool single=false;const auto cert=courseintegration::certificate(d,single);if(!single||!cert.valid)return;
+        static ps2port::HudDamageFeedReader reader;ps2port::HudLiveMemory memory;
+        const auto base=uint32_t(reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr)));uint32_t payload=0,vehicle=0;const char* reason="";
+        if(!reader.output_object(memory,base,cert.race_generation,payload,vehicle,reason)){if(p.first_reason(reason))session().write("{\"type\":\"atmosphere_gear_probe_gate\",\"reason\":"+quote(std::string(reason))+"}");return;}
+        auto hex=[&](uint32_t address,unsigned bytes){std::string out;out.reserve(bytes*2);static const char* digits="0123456789abcdef";
+            for(unsigned at=0;at<bytes;at+=128){uint8_t chunk[128]{};const unsigned n=std::min(128u,bytes-at);if(!ps2port::hud_live_read(address+at,chunk,n))return std::string();
+                for(unsigned i=0;i<n;++i){out+=digits[chunk[i]>>4];out+=digits[chunk[i]&15];}}return out;};
+        const auto object=hex(payload,0x80),block=hex(vehicle,0x400);if(object.empty()||block.empty())return;
+        session().write("{\"type\":\"atmosphere_gear_probe\",\"frame\":"+std::to_string(frame)+",\"along\":"+std::to_string(along)+",\"reversing\":"+std::string(reversing?"true":"false")+
+            ",\"payload\":"+std::to_string(payload)+",\"vehicle\":"+std::to_string(vehicle)+",\"object\":\""+object+"\",\"block\":\""+block+"\"}");
+    }catch(...){}
 }
 // 6.7: headlights on proxy-drawn layers (PS2 grass, physics props): the same
 // projector light evaluated per world vertex and added to its colour.
