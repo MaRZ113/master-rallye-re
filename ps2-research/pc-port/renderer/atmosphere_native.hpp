@@ -117,7 +117,9 @@ inline bool headlight_projectors(Device8& d,atmosphere::Pilot& p,IDirect3DDevice
         for(unsigned k=0;k<found&&lp.count<std::min<unsigned>(style.cars,4);++k){auto& c=p.car_poses[order[k].second];auto& L=lp.cars[lp.count];L={};L.instance=c.instance;L.car=c.m;
             if(c.prev_frame+1==c.frame){const auto f=atmosphere::normalized({c.m[8],c.m[9],c.m[10]});
                 const float along=(c.m[12]-c.prev[12])*f[0]+(c.m[13]-c.prev[13])*f[1]+(c.m[14]-c.prev[14])*f[2];
-                if(along<-.025f)c.reverse_until=frame+12;else if(along>.02f)c.reverse_until=0;
+                // 6.8: latched like a selected reverse gear: on when moving backwards, kept while
+                // stopped, off once the car moves forwards again.
+                if(along<-.025f)c.reverse_until=UINT64_MAX;else if(along>.02f)c.reverse_until=0;
                 if(c.frame<frame){const float t=float(frame-c.frame);for(unsigned i=12;i<15;++i)L.car[i]+=(c.m[i]-c.prev[i])*t;}}
             L.reversing=c.reverse_until&&frame<=c.reverse_until;
             L.head_frame=atmosphere::light_frame(L.car,style.head);L.head=L.head_frame.valid&&style.intensity>0;
@@ -195,6 +197,7 @@ inline HRESULT headlight_world(Device8& d,HRESULT draw_hr,uintptr_t pc)noexcept{
                                L.reversing?std::array<float,3>{1.f,.94f,.86f}:style.tail_rgb,L.reversing?std::max(1.1f,style.tail_intensity):style.tail_intensity*(L.brake?style.tail_brake:1.f),L.brake}};
           for(const auto& lamp:lamps){
             if(!lamp.on)continue;
+            if(cand.instance&&lamp.texture!=p->headlight_cookie_texture)continue;   // 6.8: tail pools light the ground only
             if(!atmosphere::light_reaches(*lamp.f,*lamp.pr,cand.centre,cand.radius)){++p->headlight_culled;continue;}
             HeadlightPass pass;HRESULT hr=S_OK;
             auto rs=[&](DWORD k,DWORD v){if(SUCCEEDED(hr))hr=pass.set_rs(d,n,k,v);};auto ts=[&](unsigned st,DWORD k,DWORD v){if(SUCCEEDED(hr))hr=pass.set_ts(d,n,st,k,v);};

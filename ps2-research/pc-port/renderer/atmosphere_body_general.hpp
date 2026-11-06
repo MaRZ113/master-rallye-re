@@ -36,6 +36,8 @@ inline void record_lamp_points(Device8& d,atmosphere::Pilot& p,IDirect3DDevice8&
         for(UINT i=0;i<vertices;++i){float v[3];std::memcpy(v,bytes.data()+size_t(i)*stride,12);if(!std::isfinite(v[0]+v[1]+v[2]))return;const unsigned side=v[0]<0?0:1;for(unsigned k=0;k<3;++k)sum[side][k]+=v[k];++count[side];}
         const std::array<float,3> forward=atmosphere::normalized({w._31,w._32,w._33});
         for(unsigned side=0;side<2;++side){if(!count[side])continue;const float x=float(sum[side][0]/count[side]),y=float(sum[side][1]/count[side]),z=float(sum[side][2]/count[side]);
+            // 6.8: side repeaters / marker lamps (|Z| < 1.2 m) get no front/rear glint.
+            if(std::abs(z)<1.2f)continue;
             atmosphere::Pilot::LampPoint lp;lp.instance=instance;lp.front=z>0;
             lp.world={x*w._11+y*w._21+z*w._31+w._41,x*w._12+y*w._22+z*w._32+w._42,x*w._13+y*w._23+z*w._33+w._43};
             for(unsigned k=0;k<3;++k)lp.axis[k]=lp.front?forward[k]:-forward[k];
@@ -65,7 +67,7 @@ inline HRESULT night_energy(Device8& d,UINT min,UINT vertices,UINT start,UINT co
             // 6.7: car-space centroid of this pass (CPU mirror) -> front/rear; the
             // off-state brake lamp mesh sits where the glow card was observed.
             if(p->headlight_style.enabled&&p->headlight_style.lamp_emissive>0&&lamp_centroid(d,n,min,vertices,centroid)){
-                rear_lamp=centroid[2]<0;
+                rear_lamp=centroid[2]<-1.2f;
                 if(!lamp&&p->brake_local_valid&&std::abs(centroid[1]-p->brake_local[1])<.35f&&std::abs(centroid[2]-p->brake_local[2])<.5f){lamp=true;rear_lamp=true;brake_zone=true;}}
             material=binding.names[0];
         }else{
