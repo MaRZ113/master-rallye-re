@@ -20,7 +20,7 @@ inline std::string canonical_course(const std::string& id){
         out.push_back(c>='A'&&c<='Z'?char(c+32):char(c));}return out;
 }
 struct Lighting {
-    enum class Mode {Original,Day,GoldenHour};Mode mode=Mode::Original;
+    enum class Mode {Original,Day,GoldenHour,Night};Mode mode=Mode::Original;
     float strength=1,exposure=1,ambient_strength=.8f,sun_strength=.95f,fog_strength=1,world_brightness=1,prelight_contrast=1,prelight_visibility=0;
     std::array<float,3> ambient{.62f,.70f,.88f},sun{1.4f,1.02f,.64f},direction{-.65f,.45f,.61f};
     bool fog_enabled=false;uint32_t fog=0xff98765d;

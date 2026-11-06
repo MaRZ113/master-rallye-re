@@ -78,7 +78,7 @@ inline void sun_transform(Device8& d,D3DTRANSFORMSTATETYPE type,bool exe,uint32_
     auto* p=pilot(d);if(p&&(p->sun_disk||p->sun_halo||p->sun_flare||p->sun_style.vignette>0))p->sun.clear();
 }
 inline void sun_world(Device8& d,HRESULT hr,uintptr_t pc)noexcept{
-    auto* p=pilot(d);if(!p||!p->enabled()||!(p->sun_disk||p->sun_halo||p->sun_flare||p->sun_style.vignette>0)||FAILED(hr)||!d.trace.scene_active||
+    auto* p=pilot(d);if(!p||!p->enabled()||!(p->sun_disk||p->sun_halo||p->sun_flare||p->sun_style.vignette>0||p->stars.count)||FAILED(hr)||!d.trace.scene_active||
         pc!=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+groundintegration::COURSE_DRAW_RETURN_RVA||
         GetCurrentThreadId()!=d.trace.render_thread_id())return;
     auto& proof=p->sun.proof;const auto frame=d.trace.frame_number();
@@ -105,7 +105,7 @@ inline void sun_world(Device8& d,HRESULT hr,uintptr_t pc)noexcept{
 }
 inline HRESULT sun_before_ui(Device8& d,bool ui)noexcept{
     capture_boundary(d,ui);
-    auto* p=pilot(d);if(!ui||!p||!p->enabled()||!(p->sun_disk||p->sun_halo||p->sun_flare||p->sun_style.vignette>0)||!d.trace.scene_active||
+    auto* p=pilot(d);if(!ui||!p||!p->enabled()||!(p->sun_disk||p->sun_halo||p->sun_flare||p->sun_style.vignette>0||p->stars.count)||!d.trace.scene_active||
        d.trace.shadow.recording||d.trace.effective_shadow.recording||GetCurrentThreadId()!=d.trace.render_thread_id())return S_OK;
     auto& sun=p->sun;const auto frame=d.trace.frame_number();if(sun.drawn_frame==frame)return S_OK;
     auto gate=[&](const char* reason){sun.reason=reason;if(p->first_reason(reason)||(d.trace.control.active&&sun.gate_frame!=frame))try{sun.gate_frame=frame;session().write("{\"type\":\"atmosphere_sun_gate\",\"frame\":"+std::to_string(frame)+",\"reason\":"+quote(std::string(reason))+",\"drawn\":false}");}catch(...){}return S_OK;};
@@ -117,6 +117,11 @@ inline HRESULT sun_before_ui(Device8& d,bool ui)noexcept{
     if(FAILED(n.GetRenderTarget(&target.p))||FAILED(n.GetDepthStencilSurface(&depth.p))||!courseintegration::same_identity(target.p,proof.target)||!courseintegration::same_identity(depth.p,proof.depth)||
        FAILED(target.p->GetDesc(&desc))||FAILED(n.GetViewport(&viewport))||viewport.X||viewport.Y||viewport.Width!=desc.Width||viewport.Height!=desc.Height||viewport.MinZ!=0||viewport.MaxZ!=1)return gate("sun_depth_or_viewport_changed");
     sun.drawn_frame=frame;
+    // ATMOSPHERE6 P1: stars behind the moon, same current-frame scene proof.
+    if(p->stars.count){const auto writer=[](void* context,uint32_t slot,const Args& args,HRESULT hr)noexcept{notify(*static_cast<Device8*>(context),slot,args,hr);};
+        try{const auto sr=sun.stars(n,p->stars,p->lighting.direction,frame,desc.Width,desc.Height,&d,writer);if(FAILED(sr))return sr;
+            if(p->first_reason("night_stars")||(d.trace.control.active&&frame%60==0))session().write("{\"type\":\"atmosphere_stars\",\"frame\":"+std::to_string(frame)+",\"count\":"+std::to_string(p->stars.count)+",\"drawn_total\":"+std::to_string(sun.stars_drawn)+",\"frames\":"+std::to_string(sun.stars_frames)+",\"hresult\":"+std::to_string(uint32_t(sr))+",\"depth_writes\":false}");
+        }catch(...){return repair(d);}}
     if(p->sun_style.vignette>0){const auto writer=[](void* context,uint32_t slot,const Args& args,HRESULT hr)noexcept{notify(*static_cast<Device8*>(context),slot,args,hr);};
         const auto vr=sun.vignette(n,desc.Width,desc.Height,p->sun_style.vignette,&d,writer);if(FAILED(vr))return vr;
         if(p->first_reason("art_vignette")||d.trace.control.active)session().write("{\"type\":\"atmosphere_art_overlay\",\"effect\":\"vignette\",\"before_hud\":true,\"requested_triangles\":64,\"new_render_targets\":0,\"hresult\":"+std::to_string(uint32_t(vr))+"}");}

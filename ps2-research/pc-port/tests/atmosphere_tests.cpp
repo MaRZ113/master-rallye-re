@@ -206,6 +206,14 @@ int main(){
         CHECK(shortest<.6f&&longest>.9f);                                    // irregular lengths, not a cartoon star
         const auto defaults=read_sun_style(L"Z:\\missing\\Atmosphere.ini");
         CHECK(defaults.ray_count==72&&defaults.ray_texture.empty()&&defaults.core_degrees==.9f&&defaults.glow_degrees>defaults.core_degrees&&defaults.ray_count%2==0);
+        // ATMOSPHERE6 P1: moon defaults (no spokes/flare, cool core) and stars.
+        const auto moon=read_sun_style(L"Z:\\missing\\Atmosphere.ini",true);
+        CHECK(moon.rays==0&&moon.flare==0&&moon.core>0&&moon.core_rgb[2]>=moon.core_rgb[0]&&moon.glow<defaults.glow);
+        CHECK(read_star_style(L"Z:\\missing\\Atmosphere.ini").count==0&&read_star_style(L"Z:\\missing\\Atmosphere.ini",true).count==1400);
+        const auto field=star_field(500,6),again=star_field(500,6);bool upper=true,unit=true,same=true;float bright=0;
+        for(size_t i=0;i<field.size();++i){const auto& v=field[i].direction;upper=upper&&v[1]>=0;unit=unit&&std::abs(v[0]*v[0]+v[1]*v[1]+v[2]*v[2]-1)<1e-4f;
+            same=same&&v==again[i].direction&&field[i].magnitude==again[i].magnitude;bright=std::max(bright,field[i].magnitude);}
+        CHECK(field.size()==500&&upper&&unit&&same&&bright>.5f);
     }
     SunFx no_depth_sun;Native missing_depth;
     CHECK(no_depth_sun.render(missing_depth,sun_center,true,true,true,nullptr,nullptr)==S_FALSE);CHECK(missing_depth.calls==0);

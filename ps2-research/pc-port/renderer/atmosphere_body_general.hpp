@@ -27,10 +27,17 @@ inline HRESULT night_energy(Device8& d,UINT min,UINT vertices,UINT start,UINT co
             // draw classifier proved it a blended vehicle body env pass
             // (SRCALPHA/INVSRCALPHA glass). Emissive lamps are opaque or 0x102.
             const auto& v=p->blended_vehicle;
-            if(v.frame!=d.trace.frame_number()||v.min!=min||v.vertices!=vertices||v.start!=start||v.count!=count||(fvf!=0x152&&fvf!=0x142)||
-               !groundintegration::render(d,n,D3DRS_ALPHABLENDENABLE,TRUE)||!groundintegration::render(d,n,D3DRS_SRCBLEND,D3DBLEND_SRCALPHA)||
+            const bool proven=v.frame==d.trace.frame_number()&&v.min==min&&v.vertices==vertices&&v.start==start&&v.count==count;
+            if((fvf!=0x152&&fvf!=0x142)||!groundintegration::render(d,n,D3DRS_ALPHABLENDENABLE,TRUE)||!groundintegration::render(d,n,D3DRS_SRCBLEND,D3DBLEND_SRCALPHA)||
                !groundintegration::render(d,n,D3DRS_DESTBLEND,D3DBLEND_INVSRCALPHA))return S_OK;
-            p->blended_vehicle={};material="classifier_blended_vehicle_glass";++p->night_glass_draws;
+            courseintegration::Ref<IDirect3DBaseTexture8> glass;if(FAILED(n.GetTexture(0,&glass.p))||!glass.p)return S_OK;
+            const auto pointer=reinterpret_cast<uintptr_t>(glass.p);const auto generation=d.trace.resources.generation(pointer);
+            // Remembered textures need the env glass stage too (0x152 + camera-normal env).
+            const bool remembered=!proven&&fvf==0x152&&p->known_glass(pointer,generation)&&groundintegration::stage(d,n,1,D3DTSS_COLOROP,D3DTOP_MODULATEALPHA_ADDCOLOR)&&
+                groundintegration::stage(d,n,1,D3DTSS_TEXCOORDINDEX,D3DTSS_TCI_CAMERASPACENORMAL);
+            if(!proven&&!remembered)return S_OK;
+            if(proven)p->remember_glass(pointer,generation);
+            p->blended_vehicle={};material=proven?"classifier_blended_vehicle_glass":"remembered_vehicle_glass";++p->night_glass_draws;
         }
         DWORD op1=0,op2=0,op3=0;if(FAILED(n.GetTextureStageState(1,D3DTSS_COLOROP,&op1))||FAILED(n.GetTextureStageState(2,D3DTSS_COLOROP,&op2)))return S_OK;
         const DWORD unit=op1==D3DTOP_DISABLE?1:op2==D3DTOP_DISABLE?2:0;if(!unit)return S_OK;
@@ -99,6 +106,13 @@ inline HRESULT general(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,U
         if(hr!=S_OK)return FAILED(hr)?hr:reject("body_wheel_energy_unsupported");changed=vertices;}
     else if(!normals){for(size_t at=0;at<g.bytes.size();at+=24){uint32_t before=0;std::memcpy(&before,g.bytes.data()+at+12,4);const auto after=atmosphere::flat_body_color(before,p->lighting);std::memcpy(g.bytes.data()+at+12,&after,4);changed+=before!=after;}}
     else if(!shade(g.bytes,36,24,12,world,p->lighting,false,changed,capability->role,have_view?&view:nullptr))return reject("body_material_invalid_normal_transform");
+    // 5.14 night: the opaque env stage is MODULATEALPHA_ADDCOLOR (current +
+    // current.alpha * env). With blending and alpha test off (checked above)
+    // vertex alpha only weights the reflection, so it carries the night
+    // environment energy (same factor as static reflections). Day unchanged.
+    if(normals&&!flat&&stage_op==D3DTOP_MODULATEALPHA_ADDCOLOR&&p->lighting.ambient_strength<.5f){
+        const float k=float((atmosphere::world_environment_factor(p->lighting)>>8)&255)/255;
+        for(size_t at=27;at<g.bytes.size();at+=36)g.bytes[at]=uint8_t(std::lround(float(g.bytes[at])*k));}
     const auto hr=implicit?S_OK:atmosphereintegration::upload(d,*p,min,vertices,g.bytes);if(FAILED(hr)){if(p->pending.any())return atmosphereintegration::repair(d);return reject("body_material_private_upload_failed");}
     if(FAILED(environment_exposure(d,*p)))return atmosphereintegration::repair(d);
     applied=true;p->body_vertices+=changed;

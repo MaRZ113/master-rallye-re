@@ -267,6 +267,12 @@ public:
     // env pass (conditional $switch windows have no fleet owner walk). Set in
     // atmosphereintegration::begin, consumed by atmospherebody::night_energy.
     struct BlendedVehicleProof {uint64_t frame=UINT64_MAX;UINT min=0,vertices=0,start=0,count=0;} blended_vehicle;uint64_t night_glass_draws=0;
+    // 5.14: the classifier loses the Body class on some camera angles, so a
+    // proven glass texture (vehicle-only windscreen textures) is remembered by
+    // pointer + resource generation and admits later frames by itself.
+    struct GlassTexture {uintptr_t pointer=0;uint64_t generation=0;};std::array<GlassTexture,32> glass_textures{};unsigned glass_next=0;
+    bool known_glass(uintptr_t t,uint64_t g)const noexcept{if(!t||!g)return false;for(const auto& x:glass_textures)if(x.pointer==t&&x.generation==g)return true;return false;}
+    void remember_glass(uintptr_t t,uint64_t g)noexcept{if(!t||!g||known_glass(t,g))return;glass_textures[glass_next++%glass_textures.size()]={t,g};}
     // P0.2 lamp observer: the game swaps a car's lamp layer to the glow-on card
     // while it brakes. Each such draw this frame = one lit lamp group, with its
     // car-local and world centre (night lights, tail-light ground glow).
@@ -287,7 +293,7 @@ public:
     float sky_u_scale=1,sky_haze=1;bool sky_projection=false;std::array<uint64_t,5> category_draws{};uint64_t copied_bytes=0,scene_restore_count=0;
     uint64_t cpu_ticks=0,cpu_calls=0,perf_frame=0,perf_previous_ticks=0,perf_previous_calls=0;std::array<uint64_t,5> category_vertices{};
     bool ps2_water_atmosphere=false,spline_atmosphere=false;
-    bool sun_disk=false,sun_halo=false,sun_flare=false,pc_water=false,pc_water_caps=false;SunFx sun;uint64_t pc_water_draws=0;SunStyle sun_style;
+    bool sun_disk=false,sun_halo=false,sun_flare=false,pc_water=false,pc_water_caps=false;SunFx sun;uint64_t pc_water_draws=0;SunStyle sun_style;StarStyle stars;
     struct MaterialCache {uintptr_t pointer=0;uint64_t generation=0;std::string sha;bool opaque=false;};
     std::array<MaterialCache,1024> material_cache{};size_t material_cache_next=0;
     float source_x=0,source_y=0,source_z=0,radius=12;
@@ -359,7 +365,7 @@ public:
         if(name[0]&&custom_base<=5){set_=std::filesystem::path(name);if(set_.is_relative())set_=std::filesystem::path(ini_).parent_path()/set_;}
         session().write(std::string("{\"type\":\"atmosphere_config\",\"enabled\":true,\"world_lighting\":")+(world?"true":"false")+
             ",\"light_probe\":"+(light_probe?"true":"false")+",\"custom_set_requested\":"+(!set_.empty()?"true":"false")+
-            ",\"lighting_preset\":"+quote(std::string(lighting.mode==Lighting::Mode::GoldenHour?"GoldenHour":lighting.mode==Lighting::Mode::Day?"Day":"Original"))+
+            ",\"lighting_preset\":"+quote(std::string(lighting.mode==Lighting::Mode::GoldenHour?"GoldenHour":lighting.mode==Lighting::Mode::Day?"Day":lighting.mode==Lighting::Mode::Night?"Night":"Original"))+
             ",\"lighting_strength\":"+std::to_string(lighting.strength)+",\"exposure\":"+std::to_string(lighting.exposure)+
             ",\"world_brightness\":"+std::to_string(lighting.world_brightness)+",\"scene_resolver\":"+quote(std::string(universal?"Universal":"LegacyAtlas"))+",\"auto_ground\":"+(auto_ground?"true":"false")+
             ",\"fog_enabled\":"+(lighting.fog_enabled?"true":"false")+",\"fog_color\":"+std::to_string(lighting.fog)+
@@ -396,8 +402,13 @@ private:
         auto number=[&](const wchar_t* key,float fallback){return read_number(key,fallback);};
         auto setting=[&](const wchar_t* key,const wchar_t* fallback){wchar_t b[512]{};GetPrivateProfileStringW(L"Atmosphere",key,fallback,b,512,ini_.c_str());return std::wstring(b);};
         Lighting fresh;const auto mode=setting(L"LightingPreset",L"GoldenHour");
-        fresh.mode=mode==L"GoldenHour"?Lighting::Mode::GoldenHour:mode==L"Day"?Lighting::Mode::Day:Lighting::Mode::Original;
+        fresh.mode=mode==L"GoldenHour"?Lighting::Mode::GoldenHour:mode==L"Day"?Lighting::Mode::Day:mode==L"Night"?Lighting::Mode::Night:Lighting::Mode::Original;
         if(fresh.mode==Lighting::Mode::Day){fresh.ambient={.9f,.94f,1.f};fresh.sun={.3f,.28f,.24f};fresh.ambient_strength=1;fresh.sun_strength=.35f;}
+        // ATMOSPHERE6 P1 static night: weak cold moonlight, low blue ambient
+        // (every night path keys on AmbientStrength < .5), dark blue fog.
+        // Every value stays overridable by the usual INI keys.
+        const bool night=fresh.mode==Lighting::Mode::Night;
+        if(night){fresh.ambient={.42f,.52f,.80f};fresh.sun={.62f,.74f,1.f};fresh.ambient_strength=.30f;fresh.sun_strength=.42f;fresh.direction={.38f,.52f,-.76f};}
         fresh.strength=std::clamp(number(L"LightingStrength",1),0.f,1.f);fresh.exposure=std::clamp(number(L"Exposure",1.05f),.25f,2.f);
         fresh.world_brightness=std::clamp(number(L"WorldBrightness",1),.1f,1.5f);
         fresh.prelight_contrast=std::clamp(number(L"PrelightContrast",1),0.f,1.f);
@@ -405,19 +416,19 @@ private:
         fresh.ambient_strength=std::clamp(number(L"AmbientStrength",fresh.ambient_strength),0.f,2.f);fresh.sun_strength=std::clamp(number(L"SunlightStrength",fresh.sun_strength),0.f,2.f);
         const wchar_t* ambient_keys[]={L"AmbientR",L"AmbientG",L"AmbientB"};const wchar_t* sun_keys[]={L"SunlightR",L"SunlightG",L"SunlightB"};const wchar_t* dir_keys[]={L"SunDirX",L"SunDirY",L"SunDirZ"};
         for(unsigned i=0;i<3;++i){fresh.ambient[i]=std::clamp(number(ambient_keys[i],fresh.ambient[i]),0.f,2.f);fresh.sun[i]=std::clamp(number(sun_keys[i],fresh.sun[i]),0.f,2.f);fresh.direction[i]=std::clamp(number(dir_keys[i],fresh.direction[i]),-1.f,1.f);}
-        fresh.fog_enabled=GetPrivateProfileIntW(L"Atmosphere",L"FogEnabled",0,ini_.c_str())==1;fresh.fog_strength=std::clamp(number(L"FogStrength",1),0.f,1.f);
+        fresh.fog_enabled=GetPrivateProfileIntW(L"Atmosphere",L"FogEnabled",night?1:0,ini_.c_str())==1;fresh.fog_strength=std::clamp(number(L"FogStrength",1),0.f,1.f);
         fresh.surface_tone=GetPrivateProfileIntW(L"Atmosphere",L"SurfaceTone",0,ini_.c_str())==1;
         fresh.tone_contrast=std::clamp(number(L"ToneContrast",1),.5f,1.5f);fresh.tone_shoulder=std::clamp(number(L"ToneShoulder",0),0.f,3.f);
         ps2_water_atmosphere=GetPrivateProfileIntW(L"Atmosphere",L"PS2WaterAtmosphere",0,ini_.c_str())==1;
         spline_atmosphere=GetPrivateProfileIntW(L"Atmosphere",L"SplineAtmosphere",0,ini_.c_str())==1;
         native_wheel_lighting=GetPrivateProfileIntW(L"Atmosphere",L"NativeWheelLighting",1,ini_.c_str())==1;
         fresh.rim=GetPrivateProfileIntW(L"Atmosphere",L"BodyRim",0,ini_.c_str())==1;fresh.rim_strength=std::clamp(number(L"BodyRimStrength",.08f),0.f,.25f);fresh.rim_power=std::clamp(number(L"BodyRimPower",3),1.f,8.f);
-        const auto fog=setting(L"FogColor",L"0x98765d");wchar_t* fog_end=nullptr;const auto fog_value=std::wcstoul(fog.c_str(),&fog_end,0);if(fog_end!=fog.c_str()&&!*fog_end&&fog_value<=0xffffff)fresh.fog=0xff000000u|static_cast<DWORD>(fog_value);else fresh.fog_enabled=false;
+        const auto fog=setting(L"FogColor",night?L"0x0b1322":L"0x98765d");wchar_t* fog_end=nullptr;const auto fog_value=std::wcstoul(fog.c_str(),&fog_end,0);if(fog_end!=fog.c_str()&&!*fog_end&&fog_value<=0xffffff)fresh.fog=0xff000000u|static_cast<DWORD>(fog_value);else fresh.fog_enabled=false;
         lighting=fresh;
         sky_u_scale=std::clamp(number(L"CustomSkyUScale",1),.1f,2.f);
         sky_projection=GetPrivateProfileIntW(L"Atmosphere",L"CustomSkyProjection",0,ini_.c_str())==1;sky_haze=std::clamp(number(L"CustomSkyHaze",1),0.f,1.f);
         sun_disk=GetPrivateProfileIntW(L"Atmosphere",L"SunDisk",0,ini_.c_str())==1;sun_halo=GetPrivateProfileIntW(L"Atmosphere",L"SunHalo",0,ini_.c_str())==1;sun_flare=GetPrivateProfileIntW(L"Atmosphere",L"SunFlare",0,ini_.c_str())==1;
-        sun_style=read_sun_style(ini_);
+        sun_style=read_sun_style(ini_,night);stars=read_star_style(ini_,night);
         regional_base=lighting;apply_regional_values();
         // P0.3 dark diagnostic (Ctrl+Alt+N, LiveTuning): everything that follows
         // the atmosphere goes near-black; whatever stays bright bypasses it.

@@ -106,13 +106,13 @@ def export_pair(image,native,out):
     return {'fog_rgb':fog,'custom_sky_u_scale':.5,'resources':rows,'layer_policy':'native-alpha-preserving palette haze; no duplicated GT3 silhouettes'}
 
 def main():
-    ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--courses',type=Path,required=True);ap.add_argument('--decoder',type=Path,required=True);ap.add_argument('--native',type=Path,required=True);ap.add_argument('--output',type=Path,required=True);a=ap.parse_args()
+    ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--courses',type=Path,required=True);ap.add_argument('--decoder',type=Path,required=True);ap.add_argument('--native',type=Path,required=True);ap.add_argument('--output',type=Path,required=True);ap.add_argument('--course',action='append',help='GT3 course stem (repeatable); default r_deepforest + r_grandvalley');a=ap.parse_args()
     out=a.output.resolve()
     if out.exists():raise ValueError('fresh output required')
     for source in (a.courses.resolve(),a.native.resolve()):
         if out==source or source in out.parents or out in source.parents:raise ValueError('source/output overlap')
     out.mkdir(parents=True);reports=[]
-    for course in ('r_deepforest','r_grandvalley'):
+    for course in (a.course or ['r_deepforest','r_grandvalley']):
         source=a.courses/(course+'.gz');compressed=source.read_bytes();raw=gzip.decompress(compressed);start,end=struct.unpack_from('<2I',raw,0x54)
         model=raw[start:end]
         if not 0<start<end<=len(raw) or model[:4]!=b'GTM1':raise ValueError('invalid GT3 sky member')

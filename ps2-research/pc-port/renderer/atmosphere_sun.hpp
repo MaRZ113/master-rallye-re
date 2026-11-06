@@ -22,8 +22,16 @@ struct SunStyle {
     std::array<float,3> core_rgb{1.f,.98f,.9f},glow_rgb{1.f,.8f,.4f},bloom_rgb{1.f,.6f,.26f};
     float dither=0,vignette=0;bool soft_ghosts=false;
 };
-inline SunStyle read_sun_style(const std::wstring& ini) {
-    SunStyle s;
+// ATMOSPHERE6 P1 MoonFX: LightingPreset=Night reuses the SunFX path with
+// moon defaults (small cool disk, faint cold glow/bloom, no spokes/flare);
+// the moon sits on the light direction like the sun. INI keys still win.
+inline SunStyle moon_style()noexcept {
+    SunStyle s;s.core_degrees=1.1f;s.glow_degrees=4.5f;s.bloom_degrees=16.f;s.ray_degrees=10.f;
+    s.core=.92f;s.glow=.30f;s.bloom=.10f;s.rays=0;s.flare=0;
+    s.core_rgb={.90f,.94f,1.f};s.glow_rgb={.62f,.72f,1.f};s.bloom_rgb={.30f,.40f,.75f};return s;
+}
+inline SunStyle read_sun_style(const std::wstring& ini,bool night=false) {
+    SunStyle s=night?moon_style():SunStyle{};
     auto number=[&](const wchar_t* key,float fallback,float lo,float hi){wchar_t b[64]{};GetPrivateProfileStringW(L"Atmosphere",key,L"",b,64,ini.c_str());
         wchar_t* end=nullptr;const float v=std::wcstof(b,&end);return end!=b&&*end==0&&std::isfinite(v)?std::clamp(v,lo,hi):fallback;};
     s.core_degrees=number(L"SunCoreSize",s.core_degrees,.1f,10.f);s.glow_degrees=number(L"SunGlowSize",s.glow_degrees,.2f,30.f);
@@ -39,6 +47,36 @@ inline SunStyle read_sun_style(const std::wstring& ini) {
     wchar_t path[512]{};GetPrivateProfileStringW(L"Atmosphere",L"SunRaysTexture",L"",path,512,ini.c_str());
     if(path[0]){std::filesystem::path p(path);if(p.is_relative())p=std::filesystem::path(ini).parent_path()/p;s.ray_texture=p.wstring();}
     return s;
+}
+// ATMOSPHERE6 P1 star field: fixed pseudo-random directions on the upper
+// hemisphere, drawn as tiny additive sprites at the far plane with the depth
+// test on (any geometry hides them, like the sun core). Not baked in the sky
+// set: one sky texel spans ~0.7 degrees and would smear a star.
+struct StarStyle {
+    unsigned count=0;float brightness=.75f,size=1.25f,twinkle=.25f,horizon_degrees=10.f,moon_clear_degrees=7.f;unsigned seed=6;
+};
+inline StarStyle read_star_style(const std::wstring& ini,bool night=false) {
+    StarStyle s;
+    auto number=[&](const wchar_t* key,float fallback,float lo,float hi){wchar_t b[64]{};GetPrivateProfileStringW(L"Atmosphere",key,L"",b,64,ini.c_str());
+        wchar_t* end=nullptr;const float v=std::wcstof(b,&end);return end!=b&&*end==0&&std::isfinite(v)?std::clamp(v,lo,hi):fallback;};
+    if(GetPrivateProfileIntW(L"Atmosphere",L"Stars",night?1:0,ini.c_str())!=1)return s;
+    s.count=unsigned(std::lround(number(L"StarCount",1400,0,4000)));s.brightness=number(L"StarBrightness",s.brightness,0,2);
+    s.size=number(L"StarSize",s.size,.5f,4);s.twinkle=number(L"StarTwinkle",s.twinkle,0,1);
+    s.horizon_degrees=number(L"StarHorizonFade",s.horizon_degrees,0,45);s.seed=unsigned(GetPrivateProfileIntW(L"Atmosphere",L"StarSeed",6,ini.c_str()));
+    return s;
+}
+inline float star_hash(unsigned k,unsigned salt)noexcept{uint32_t x=k*0x9e3779b1u^(salt+0x7f4a7c15u)*0x85ebca6bu;x^=x>>15;x*=0x2c1b3c6du;x^=x>>12;x*=0x297a2d39u;x^=x>>15;return float(x>>8)*(1.f/16777216.f);}
+struct Star {std::array<float,3> direction;float magnitude,phase,rate;std::array<float,3> rgb;};
+inline std::vector<Star> star_field(unsigned count,unsigned seed){
+    std::vector<Star> out;out.reserve(count);
+    for(unsigned i=0;i<count;++i){
+        // Uniform over the upper hemisphere (Y up): sin(elevation) uniform.
+        const float sy=star_hash(i,seed*8+1),azimuth=6.2831853f*star_hash(i,seed*8+2),cy=std::sqrt(std::max(0.f,1-sy*sy));
+        const float m=std::pow(star_hash(i,seed*8+3),3.2f);            // many faint, few bright
+        const float t=star_hash(i,seed*8+4);                            // colour temperature
+        const std::array<float,3> rgb=t<.18f?std::array<float,3>{1.f,.82f,.66f}:t>.78f?std::array<float,3>{.74f,.84f,1.f}:std::array<float,3>{.95f,.96f,1.f};
+        out.push_back({{cy*std::cos(azimuth),sy,cy*std::sin(azimuth)},m,6.2831853f*star_hash(i,seed*8+5),.6f+1.8f*star_hash(i,seed*8+6),rgb});}
+    return out;
 }
 // Starburst profile: many soft spokes with pseudo-random length and strength
 // plus a faint radial haze (GT3 Miata reference: rays read as a warm fan, not
@@ -164,6 +202,7 @@ class SunFx {
     UINT width_=0,height_=0,tw_=0,th_=0;D3DFORMAT format_=D3DFMT_UNKNOWN;D3DMULTISAMPLE_TYPE msaa_=D3DMULTISAMPLE_NONE;
     uint64_t latched_race_=UINT64_MAX,latched_reset_=UINT64_MAX;unsigned ray_count_=0;std::wstring ray_file_;
     float sprite_dither_=-1,sprite_bloom_dither_=-1;bool sprite_soft_=false;
+    IDirect3DTexture8* star_=nullptr;std::vector<Star> field_;unsigned field_count_=0,field_seed_=0;std::vector<SunVertex> star_vertices_;
 public:
     // Procedural sprite intensity, r=1 at the sprite edge. kind: 0 core,
     // 1 glow, 2 ghost, 3 bloom, 4 starburst.
@@ -223,9 +262,54 @@ public:
     SunProof proof;SunTransaction transaction;bool ray_from_file=false;
     uint64_t drawn_frame=UINT64_MAX,gate_frame=UINT64_MAX,unsafe_frame=UINT64_MAX,attempts=0,rendered=0,failures=0,cpu_ticks=0;const char* reason="not_requested";HRESULT last_hr=S_OK;
     ~SunFx(){resources();}
-    void resources()noexcept{sun_drop(mask_);sun_drop(resolved_);sun_drop(mask_texture_);sun_drop(disk_);sun_drop(halo_);sun_drop(ghost_);sun_drop(bloom_);sun_drop(rays_);ray_count_=0;ray_file_.clear();sprite_dither_=sprite_bloom_dither_=-1;width_=height_=tw_=th_=0;}
+    void resources()noexcept{sun_drop(star_);sun_drop(mask_);sun_drop(resolved_);sun_drop(mask_texture_);sun_drop(disk_);sun_drop(halo_);sun_drop(ghost_);sun_drop(bloom_);sun_drop(rays_);ray_count_=0;ray_file_.clear();sprite_dither_=sprite_bloom_dither_=-1;width_=height_=tw_=th_=0;}
     void clear()noexcept{proof.clear();}
     void reset()noexcept{proof.clear();transaction.release();resources();latched_race_=latched_reset_=UINT64_MAX;drawn_frame=UINT64_MAX;}
+    uint64_t stars_drawn=0,stars_frames=0;
+    // Stars: one additive triangle list, far-plane depth test, no depth writes,
+    // no render-target change. moon = light direction (stars thin out near it).
+    HRESULT stars(IDirect3DDevice8& n,const StarStyle& style,const std::array<float,3>& moon,uint64_t frame,UINT width,UINT height,void* context,SunWriter writer){
+        if(!proof.world||!style.count||style.brightness<=0||!width||!height)return S_FALSE;
+        const auto& view=proof.view;const auto& projection=proof.projection;
+        if(projection._11<=0||projection._22<=0||projection._34!=1||projection._44!=0)return S_FALSE;
+        if(field_count_!=style.count||field_seed_!=style.seed||field_.size()!=style.count){field_=star_field(style.count,style.seed);field_count_=style.count;field_seed_=style.seed;}
+        if(!star_){if(FAILED(sprite(n,star_,1))||!star_){sun_drop(star_);return S_FALSE;}}
+        const float ml=std::sqrt(moon[0]*moon[0]+moon[1]*moon[1]+moon[2]*moon[2]);
+        const std::array<float,3> m=ml>1e-6f?std::array<float,3>{moon[0]/ml,moon[1]/ml,moon[2]/ml}:std::array<float,3>{0,1,0};
+        const float far_depth=std::nextafter(1.f,0.f),time=float(frame%100000)/30.f,clear=std::cos(style.moon_clear_degrees*.017453293f),fade=std::sin(std::max(style.horizon_degrees,.1f)*.017453293f);
+        const float base=std::max(.5f,style.size*float(height)/1080.f);
+        star_vertices_.clear();star_vertices_.reserve(size_t(style.count)*6);
+        for(const auto& star:field_){const auto& v=star.direction;
+            const float x=v[0]*view._11+v[1]*view._21+v[2]*view._31,y=v[0]*view._12+v[1]*view._22+v[2]*view._32,z=v[0]*view._13+v[1]*view._23+v[2]*view._33;
+            if(z<=.02f)continue;const float nx=(x*projection._11+z*projection._31)/z,ny=(y*projection._22+z*projection._32)/z;
+            if(!std::isfinite(nx)||!std::isfinite(ny)||std::abs(nx)>1.02f||std::abs(ny)>1.02f)continue;
+            float intensity=style.brightness*(.12f+.88f*star.magnitude);
+            intensity*=std::clamp(v[1]/fade,0.f,1.f);                              // horizon haze
+            const float to_moon=v[0]*m[0]+v[1]*m[1]+v[2]*m[2];if(to_moon>clear)intensity*=.6f*std::clamp((1-to_moon)/(1-clear),0.f,1.f);
+            intensity*=1-style.twinkle*.5f*(1+std::sin(time*star.rate+star.phase))*(1-star.magnitude*.6f);
+            if(intensity<.02f)continue;
+            const float px=(nx+1)*width*.5f,py=(1-ny)*height*.5f,r=base*(.8f+1.6f*star.magnitude);
+            DWORD c=0xff000000u;for(unsigned i=0;i<3;++i)c|=DWORD(std::clamp(std::lround(star.rgb[i]*intensity*255),0l,255l))<<(16-8*i);
+            const SunVertex a{px-r-.5f,py-r-.5f,far_depth,1,c,0,0,0,0},b{px+r-.5f,py-r-.5f,far_depth,1,c,1,0,0,0},d{px-r-.5f,py+r-.5f,far_depth,1,c,0,1,0,0},e{px+r-.5f,py+r-.5f,far_depth,1,c,1,1,0,0};
+            for(const auto& q:{a,b,d,d,b,e})star_vertices_.push_back(q);}
+        ++stars_frames;if(star_vertices_.empty())return S_OK;
+        auto hr=transaction.capture(n,context,writer);if(FAILED(hr))return S_FALSE;
+        auto rs=[&](DWORD k,DWORD v){if(SUCCEEDED(hr))hr=transaction.set(n,0,0,k,v);};
+        auto ts=[&](unsigned stage,DWORD k,DWORD v){if(SUCCEEDED(hr))hr=transaction.set(n,1,stage,k,v);};
+        rs(D3DRS_ZENABLE,D3DZB_TRUE);rs(D3DRS_ZWRITEENABLE,FALSE);rs(D3DRS_ZFUNC,D3DCMP_LESSEQUAL);rs(D3DRS_ZBIAS,0);
+        rs(D3DRS_ALPHATESTENABLE,FALSE);rs(D3DRS_ALPHABLENDENABLE,TRUE);rs(D3DRS_SRCBLEND,D3DBLEND_ONE);rs(D3DRS_DESTBLEND,D3DBLEND_ONE);rs(D3DRS_BLENDOP,D3DBLENDOP_ADD);
+        rs(D3DRS_CULLMODE,D3DCULL_NONE);rs(D3DRS_FILLMODE,D3DFILL_SOLID);rs(D3DRS_CLIPPING,TRUE);rs(D3DRS_LIGHTING,FALSE);rs(D3DRS_FOGENABLE,FALSE);rs(D3DRS_STENCILENABLE,FALSE);
+        rs(D3DRS_CLIPPLANEENABLE,0);rs(D3DRS_COLORWRITEENABLE,7);rs(D3DRS_SPECULARENABLE,FALSE);rs(D3DRS_VERTEXBLEND,D3DVBF_DISABLE);rs(D3DRS_INDEXEDVERTEXBLENDENABLE,FALSE);rs(D3DRS_WRAP0,0);
+        if(SUCCEEDED(hr))hr=transaction.set(n,3,0,0,D3DFVF_XYZRHW|D3DFVF_DIFFUSE|D3DFVF_TEX2);if(SUCCEEDED(hr))hr=transaction.set(n,4,0,0,0);
+        if(SUCCEEDED(hr))hr=transaction.set(n,2,0,0,0,star_);if(SUCCEEDED(hr))hr=transaction.set(n,2,1,0,0,nullptr);
+        ts(0,D3DTSS_COLOROP,D3DTOP_MODULATE);ts(0,D3DTSS_COLORARG1,D3DTA_TEXTURE);ts(0,D3DTSS_COLORARG2,D3DTA_DIFFUSE);ts(0,D3DTSS_ALPHAOP,D3DTOP_SELECTARG1);ts(0,D3DTSS_ALPHAARG1,D3DTA_DIFFUSE);
+        ts(0,D3DTSS_RESULTARG,D3DTA_CURRENT);ts(0,D3DTSS_TEXCOORDINDEX,0);ts(0,D3DTSS_TEXTURETRANSFORMFLAGS,D3DTTFF_DISABLE);ts(0,D3DTSS_ADDRESSU,D3DTADDRESS_CLAMP);ts(0,D3DTSS_ADDRESSV,D3DTADDRESS_CLAMP);
+        ts(0,D3DTSS_MINFILTER,D3DTEXF_LINEAR);ts(0,D3DTSS_MAGFILTER,D3DTEXF_LINEAR);ts(0,D3DTSS_MIPFILTER,D3DTEXF_NONE);ts(0,D3DTSS_MAXMIPLEVEL,0);
+        ts(1,D3DTSS_COLOROP,D3DTOP_DISABLE);ts(1,D3DTSS_ALPHAOP,D3DTOP_DISABLE);
+        const unsigned triangles=unsigned(star_vertices_.size()/3);
+        if(SUCCEEDED(hr))hr=transaction.triangles(n,star_vertices_.data(),sizeof(SunVertex),triangles);
+        const auto restored=transaction.restore(n);if(FAILED(restored))return restored;if(FAILED(hr))return S_FALSE;stars_drawn+=triangles/2;return S_OK;
+    }
     HRESULT vignette(IDirect3DDevice8& n,UINT width,UINT height,float strength,void* context,SunWriter writer){
         if(!proof.world||!width||!height||!std::isfinite(strength)||strength<=0)return S_FALSE;
         auto hr=transaction.capture(n,context,writer);if(FAILED(hr))return S_FALSE;
