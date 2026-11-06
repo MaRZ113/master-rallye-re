@@ -223,7 +223,7 @@ inline HRESULT headlight_world(Device8& d,HRESULT draw_hr,uintptr_t pc)noexcept{
             session().write("{\"type\":\"atmosphere_headlight_caps\",\"supported\":"+std::string(p->headlight_caps==1?"true":"false")+"}");}
         ++p->headlight_candidates;
         if(frame>=p->headlight_log_frame+300){p->headlight_log_frame=frame;unsigned reversing=0,braking=0;for(unsigned i=0;i<p->lamp_projectors.count;++i){reversing+=p->lamp_projectors.cars[i].reversing;braking+=p->lamp_projectors.cars[i].brake;}
-            session().write("{\"type\":\"atmosphere_headlight_stats\",\"frame\":"+std::to_string(frame)+",\"candidates\":"+std::to_string(p->headlight_candidates)+",\"draws\":"+std::to_string(p->headlight_draws)+",\"culled\":"+std::to_string(p->headlight_culled)+",\"no_car_frames\":"+std::to_string(p->headlight_no_car)+",\"view_changes\":"+std::to_string(p->headlight_view_changes)+",\"off_target\":"+std::to_string(p->headlight_off_target)+",\"cars\":"+std::to_string(p->lamp_projectors.count)+",\"reversing\":"+std::to_string(reversing)+",\"braking\":"+std::to_string(braking)+",\"proxy_vertices\":"+std::to_string(p->proxy_headlight_vertices)+",\"lamp_points\":"+std::to_string(p->lamp_points.size())+",\"gear_matched\":"+std::to_string(p->gear_matched)+",\"gear_reverse\":"+std::to_string(p->gear_reverse)+",\"pose_held\":"+std::to_string(p->headlight_held)+",\"gaps\":"+std::to_string(p->headlight_gaps)+"}");}
+            session().write("{\"type\":\"atmosphere_headlight_stats\",\"frame\":"+std::to_string(frame)+",\"candidates\":"+std::to_string(p->headlight_candidates)+",\"draws\":"+std::to_string(p->headlight_draws)+",\"culled\":"+std::to_string(p->headlight_culled)+",\"no_car_frames\":"+std::to_string(p->headlight_no_car)+",\"view_changes\":"+std::to_string(p->headlight_view_changes)+",\"off_target\":"+std::to_string(p->headlight_off_target)+",\"cars\":"+std::to_string(p->lamp_projectors.count)+",\"reversing\":"+std::to_string(reversing)+",\"braking\":"+std::to_string(braking)+",\"proxy_vertices\":"+std::to_string(p->proxy_headlight_vertices)+",\"lamp_points\":"+std::to_string(p->lamp_points.size())+",\"gear_matched\":"+std::to_string(p->gear_matched)+",\"gear_reverse\":"+std::to_string(p->gear_reverse)+",\"pose_held\":"+std::to_string(p->headlight_held)+",\"gaps\":"+std::to_string(p->headlight_gaps)+",\"rear_tints\":"+std::to_string(p->lamp_rear_tints)+"}");}
         {courseintegration::Ref<IDirect3DSurface8> target,back;if(FAILED(n.GetRenderTarget(&target.p))||FAILED(n.GetBackBuffer(0,D3DBACKBUFFER_TYPE_MONO,&back.p))||!courseintegration::same_identity(target.p,back.p)){++p->headlight_off_target;return S_OK;}}
         if(p->headlight_caps!=1||FAILED(headlight_textures(n,*p))||!headlight_projectors(d,*p,n))return S_OK;
         DWORD fvf=0,pixel=1;if(FAILED(n.GetVertexShader(&fvf))||!type_supports_headlight(fvf)||FAILED(n.GetPixelShader(&pixel))||pixel)return S_OK;
@@ -353,7 +353,7 @@ inline HRESULT lamp_glints(Device8& d,atmosphere::Pilot& p,IDirect3DDevice8& n,U
         for(auto& x:to)x/=dist;const float facing=std::clamp(atmosphere::dot3(to,l.axis),0.f,1.f);
         bool brake=false;if(!l.front&&p.lamps_last.frame!=UINT64_MAX&&p.lamps_last.frame+2>=frame)for(const auto& s:p.lamps_last.samples){
             const float dx=s.position[0]-l.world[0],dy=s.position[1]-l.world[1],dz=s.position[2]-l.world[2];if(dx*dx+dy*dy+dz*dz<4.f){brake=true;break;}}
-        const auto* owner_lamps=lp.frame==frame?lp.find(l.instance):nullptr;const bool reverse=!l.front&&owner_lamps&&owner_lamps->reversing;
+        const auto* owner_lamps=lp.frame!=UINT64_MAX&&lp.frame+2>=frame?lp.find(l.instance):nullptr;const bool reverse=!l.front&&owner_lamps&&owner_lamps->reversing;
         float k=(l.front?g.front*std::pow(facing,1.6f):g.rear*(brake?g.brake:1.f)*std::pow(facing,1.2f))+.06f;
         k*=1/(1+(dist/90)*(dist/90));if(k<.02f)continue;
         // Pull the sprite 0.35 m toward the camera so the lens itself never hides it.
@@ -903,7 +903,8 @@ inline HRESULT universal_draw(Device8& d,atmosphere::Pilot& p,UINT min,UINT vert
             for(size_t i=0;i<n_vertices;++i){float v3[3];std::memcpy(v3,entry.original.data()+i*saved.stride,12);for(unsigned k=0;k<3;++k){lo[k]=std::min(lo[k],v3[k]);hi[k]=std::max(hi[k],v3[k]);}}
             if(n_vertices&&std::isfinite(lo[0]+hi[0]+lo[1]+hi[1]+lo[2]+hi[2])){for(unsigned k=0;k<3;++k)entry.bounds[k]=(lo[k]+hi[k])*.5f;
                 entry.bounds[3]=.5f*std::sqrt((hi[0]-lo[0])*(hi[0]-lo[0])+(hi[1]-lo[1])*(hi[1]-lo[1])+(hi[2]-lo[2])*(hi[2]-lo[2]));entry.has_bounds=true;entry.bounds_revision=entry.vertex_revision;}}
-        if(entry.has_bounds){auto& c=p.headlight_candidate;c.frame=d.trace.frame_number();c.min=min;c.vertices=vertices;c.start=start;c.count=triangles;
+        if(entry.has_bounds){auto& c=p.headlight_candidate;c.frame=d.trace.frame_number();c.min=min;c.vertices=vertices;c.start=start;c.count=triangles;c.instance=0;   // 6.11: course draw, not a car (stale car id skipped every own-lamp pass)
+           
             const auto& b=entry.bounds;if(world){const auto& w=*world;for(unsigned k=0;k<3;++k)c.centre[k]=b[0]*w[k]+b[1]*w[4+k]+b[2]*w[8+k]+w[12+k];
                 const float scale=std::max({std::hypot(w[0],w[1],w[2]),std::hypot(w[4],w[5],w[6]),std::hypot(w[8],w[9],w[10])});c.radius=b[3]*scale;}
             else{c.centre={b[0],b[1],b[2]};c.radius=b[3];}}}

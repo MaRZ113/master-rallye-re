@@ -32,17 +32,27 @@ inline void record_lamp_points(Device8& d,atmosphere::Pilot& p,IDirect3DDevice8&
         std::vector<uint8_t> bytes;uint64_t revision=0;
         if(!d.copy_buffer_shadow(vb.p,BufferKind::Vertex,generation,(uint64_t(base)+min)*stride,size_t(vertices)*stride,bytes,revision)||bytes.size()<size_t(vertices)*stride)return;
         D3DMATRIX w{};if(FAILED(n.GetTransform(D3DTS_WORLD,&w)))return;
-        std::array<double,3> sum[2]{};unsigned count[2]{};
-        for(UINT i=0;i<vertices;++i){float v[3];std::memcpy(v,bytes.data()+size_t(i)*stride,12);if(!std::isfinite(v[0]+v[1]+v[2]))return;const unsigned side=v[0]<0?0:1;for(unsigned k=0;k<3;++k)sum[side][k]+=v[k];++count[side];}
+        // 6.11: one glint per lens, not per side: vertices are grouped into lens clusters (<= .2 m from the
+        // cluster seed); per quadrant (left/right x front/rear) only the large lenses keep a glint, so small
+        // reflectors / indicators beside a headlight or tail lamp no longer pull the point off the lamp.
+        struct Cluster{std::array<float,3> seed{},lo{},hi{};std::array<double,3> sum{};unsigned count=0;};std::array<Cluster,24> cl{};unsigned clusters=0;
+        for(UINT i=0;i<vertices;++i){float v[3];std::memcpy(v,bytes.data()+size_t(i)*stride,12);if(!std::isfinite(v[0]+v[1]+v[2]))return;
+            Cluster* c=nullptr;for(unsigned k=0;k<clusters;++k){const float dx=cl[k].seed[0]-v[0],dy=cl[k].seed[1]-v[1],dz=cl[k].seed[2]-v[2];if(dx*dx+dy*dy+dz*dz<.04f){c=&cl[k];break;}}
+            if(!c){if(clusters>=cl.size())continue;c=&cl[clusters++];c->seed={v[0],v[1],v[2]};c->lo=c->seed;c->hi=c->seed;}
+            for(unsigned k=0;k<3;++k){c->sum[k]+=v[k];c->lo[k]=std::min(c->lo[k],v[k]);c->hi[k]=std::max(c->hi[k],v[k]);}++c->count;}
+        std::array<float,4> largest{};auto quadrant=[](const Cluster& c){return unsigned(c.sum[0]<0?0:1)+unsigned(c.sum[2]<0?2:0);};
+        auto extent=[](const Cluster& c){return std::max({c.hi[0]-c.lo[0],c.hi[1]-c.lo[1],c.hi[2]-c.lo[2]});};
+        for(unsigned k=0;k<clusters;++k)if(cl[k].count>=3)largest[quadrant(cl[k])]=std::max(largest[quadrant(cl[k])],extent(cl[k]));
         const std::array<float,3> forward=atmosphere::normalized({w._31,w._32,w._33});
-        for(unsigned side=0;side<2;++side){if(!count[side])continue;const float x=float(sum[side][0]/count[side]),y=float(sum[side][1]/count[side]),z=float(sum[side][2]/count[side]);
+        for(unsigned side=0;side<clusters;++side){const auto& c=cl[side];if(c.count<3||extent(c)<.6f*largest[quadrant(c)])continue;
+            const float x=float(c.sum[0]/c.count),y=float(c.sum[1]/c.count),z=float(c.sum[2]/c.count);
             // 6.8: side repeaters / marker lamps (|Z| < 1.2 m) get no front/rear glint.
             if(std::abs(z)<1.2f)continue;
             atmosphere::Pilot::LampPoint lp;lp.instance=instance;lp.front=z>0;
             lp.world={x*w._11+y*w._21+z*w._31+w._41,x*w._12+y*w._22+z*w._32+w._42,x*w._13+y*w._23+z*w._33+w._43};
             for(unsigned k=0;k<3;++k)lp.axis[k]=lp.front?forward[k]:-forward[k];
             bool duplicate=false;for(const auto& q:p.lamp_points){const float dx=q.world[0]-lp.world[0],dy=q.world[1]-lp.world[1],dz=q.world[2]-lp.world[2];
-                if(q.instance==instance&&dx*dx+dy*dy+dz*dz<.09f){duplicate=true;break;}}
+                if(q.instance==instance&&dx*dx+dy*dy+dz*dz<.01f){duplicate=true;break;}}
             if(!duplicate)p.lamp_points.push_back(lp);}
     }catch(...){}
 }
@@ -53,7 +63,7 @@ inline HRESULT night_energy(Device8& d,UINT min,UINT vertices,UINT start,UINT co
     try{
         auto& n=*d.native();bool single=false;const auto cert=courseintegration::certificate(d,single);if(!single||!cert.valid)return S_OK;
         DWORD fvf=0,pixel=1;if(FAILED(n.GetVertexShader(&fvf))||FAILED(n.GetPixelShader(&pixel))||pixel||!groundintegration::render(d,n,D3DRS_LIGHTING,FALSE))return S_OK;
-        frontendmodelintegration::Context owner;atmosphere::NativeMaterialBinding binding;std::string material;bool lamp=false,rear_lamp=false,brake_zone=false;std::array<float,3> centroid{};
+        frontendmodelintegration::Context owner;atmosphere::NativeMaterialBinding binding;std::string material;bool lamp=false,rear_lamp=false,brake_zone=false,reversing=false,mixed=false;std::array<float,3> centroid{};
         if(frontendmodelintegration::fleet_owner(frontendmodelintegration::caller_stack,pc,owner)){
             const auto exe=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));
             if(!atmosphere::native_material_binding(exe,owner.mesh,frontendmodelintegration::word,binding))return S_OK;
@@ -101,12 +111,22 @@ inline HRESULT night_energy(Device8& d,UINT min,UINT vertices,UINT start,UINT co
         DWORD factor=(s.body_factor&0xff000000u)|(atmosphere::flat_body_color(0xffffffffu,p->lighting)&0x00ffffffu);
         if(lamp){const DWORD k=DWORD(std::clamp(std::lround(p->headlight_style.lamp_emissive*.5f*255),0l,255l));
             // Rear lenses glow red; their white reverse-lamp texels only while reversing.
-            const auto* own=p->lamp_projectors.frame==d.trace.frame_number()?p->lamp_projectors.find(owner.owner.instance):nullptr;
-            const bool white=!rear_lamp||(own&&own->reversing);const DWORD gb=white?k:DWORD(k*.2f);
+            const auto* own=p->lamp_projectors.frame!=UINT64_MAX&&p->lamp_projectors.frame+2>=d.trace.frame_number()?p->lamp_projectors.find(owner.owner.instance):nullptr;
+            reversing=own&&own->reversing;mixed=!brake_zone&&(fvf==0x152||fvf==0x142);
+            const bool white=mixed||!rear_lamp||reversing;const DWORD gb=white?k:DWORD(k*.2f);
             factor=(s.body_factor&0xff000000u)|k<<16|gb<<8|gb;material+=brake_zone?"#brake_zone":rear_lamp?"#rear_emissive":"#emissive";}
         for(unsigned i:{7u,1u,2u,3u,4u,5u,6u,0u}){s.body_pending|=1u<<i;const auto hr=i==7?n.SetRenderState(D3DRS_TEXTUREFACTOR,factor):n.SetTextureStageState(unit,keys[i],values[i]);
             if(i==7)atmosphereintegration::notify(d,50,pack(D3DRS_TEXTUREFACTOR,factor),hr);else atmosphereintegration::notify(d,63,pack(unit,keys[i],values[i]),hr);if(FAILED(hr))return atmosphereintegration::repair(d);}
         applied=true;
+        // 6.11: lens atlases (patrollights32 etc.) draw front and rear lenses in one call, so the colour
+        // split is per vertex: rear vertices (car z < -1.2) keep only red unless the car is in reverse,
+        // which lights the white reverse texels. Stage 0 is TEXTURE x DIFFUSE on these meshes.
+        if(lamp&&mixed){atmosphereintegration::Geometry g;const unsigned st=fvf==0x152?36u:24u,co=fvf==0x152?24u:12u;
+            if(atmosphereintegration::geometry(d,*p,min,vertices,start,count,g)&&p->pending.stride==st&&g.bytes.size()>=size_t(vertices)*st){unsigned rear=0;
+                const float gb=reversing?1.f:.14f;
+                for(size_t at=0;at+st<=g.bytes.size();at+=st){float z=0;std::memcpy(&z,g.bytes.data()+at+8,4);if(!(z<-1.2f))continue;
+                    g.bytes[at+co]=uint8_t(std::lround(g.bytes[at+co]*gb));g.bytes[at+co+1]=uint8_t(std::lround(g.bytes[at+co+1]*gb));++rear;}   // BGRA: B,G
+                if(rear){const auto hr=atmosphereintegration::upload(d,*p,min,vertices,g.bytes);if(FAILED(hr))return atmosphereintegration::repair(d);++p->lamp_rear_tints;}}}
         if(lamp&&p->glint_style.enabled)record_lamp_points(d,*p,n,owner.owner.instance,min,vertices);
         if(p->first_reason(("vehicle_night_energy_"+material).c_str()))session().write("{\"type\":\"atmosphere_vehicle_night_energy\",\"factor\":"+std::to_string(factor)+",\"unit\":"+std::to_string(unit)+",\"material\":"+quote(material)+"}");
         return S_OK;
