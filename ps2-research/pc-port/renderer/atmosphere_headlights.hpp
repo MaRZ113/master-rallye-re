@@ -46,7 +46,7 @@ inline GlintStyle read_glint_style(const std::wstring& ini,bool night=false){
 struct LampRigPoint {uint8_t kind=0;bool tail=false,dark=false;std::array<float,3> pos{};float size=.2f;};   // kind: 0 head, 1 tail, 2 brake, 3 reverse, 4 fog/aux (front)
 struct LampRigDraw {std::string texture;unsigned vertices=0;std::array<float,3> lo{},hi{};};
 struct LampRigOff {unsigned vertices=0;std::array<float,3> lo{},hi{};};   // 6.15.1: blight OFF lens (vertex-range bounds)
-struct LampRig {std::string car;std::vector<LampRigDraw> draws;std::vector<LampRigOff> off;std::vector<LampRigPoint> points;};
+struct LampRig {std::string car;std::vector<LampRigDraw> draws;std::vector<LampRigOff> off;std::vector<LampRigPoint> points;std::vector<std::pair<std::string,std::wstring>> masks;};   // 6.16 masks: lens texture -> night lens file
 struct LampRigs {
     std::vector<LampRig> rigs;std::wstring path;bool loaded=false;
     // best rig for one lens draw; -1 = none
@@ -73,7 +73,9 @@ inline LampRigs read_lamp_rigs(const std::wstring& ini){
     while(std::getline(in,line)){if(line.empty()||line[0]=='#')continue;std::istringstream q(line);std::string tag;q>>tag;
         if(tag=="car"){LampRig r;q>>r.car;s.rigs.push_back(std::move(r));continue;}
         if(s.rigs.empty())continue;auto& r=s.rigs.back();
-        if(tag=="off"){LampRigOff o;q>>o.vertices>>o.lo[0]>>o.lo[1]>>o.lo[2]>>o.hi[0]>>o.hi[1]>>o.hi[2];if(q)r.off.push_back(o);}
+        if(tag=="mask"){std::string tex,rel;q>>tex>>rel;if(q&&!rel.empty()){const auto slash=t.find_last_of(L"\\/");std::wstring w(rel.begin(),rel.end());
+            r.masks.emplace_back(tex,(slash==std::wstring::npos?std::wstring():t.substr(0,slash+1))+w);}}
+        else if(tag=="off"){LampRigOff o;q>>o.vertices>>o.lo[0]>>o.lo[1]>>o.lo[2]>>o.hi[0]>>o.hi[1]>>o.hi[2];if(q)r.off.push_back(o);}
         else if(tag=="draw"){LampRigDraw d;q>>d.texture>>d.vertices>>d.lo[0]>>d.lo[1]>>d.lo[2]>>d.hi[0]>>d.hi[1]>>d.hi[2];if(q)r.draws.push_back(std::move(d));}
         else if(tag=="point"){unsigned kind=0,tail=0,dark=0;LampRigPoint p;q>>kind>>p.pos[0]>>p.pos[1]>>p.pos[2]>>p.size>>tail>>dark;
             if(q&&kind<=4&&std::isfinite(p.pos[0]+p.pos[1]+p.pos[2]+p.size)){p.kind=uint8_t(kind);p.tail=tail!=0;p.dark=dark!=0;r.points.push_back(p);}}}

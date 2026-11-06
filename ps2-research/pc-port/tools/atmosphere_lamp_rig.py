@@ -68,6 +68,25 @@ class Tex:
         x = min(t.width - 1, int(u * t.width)); y = min(t.height - 1, int(v * t.height))
         o = (y * t.width + x) * 4; b, g, r, a = t.bgra[o:o + 4]; return (r, g, b)
 
+def raster(P, UV, tex, t):
+    # every texel under triangle t: (3D position, rgb, 3D area per texel)
+    T = tex.t; W, H = T.width, T.height
+    uv = [(UV[v][0] * W, UV[v][1] * H) for v in t]
+    (x0, y0), (x1, y1), (x2, y2) = uv
+    det = (x1 - x0) * (y2 - y0) - (x2 - x0) * (y1 - y0)
+    if abs(det) < 1e-9: return []
+    n, area, _ = tri_info(P, t); per = area / (abs(det) / 2)
+    out = []
+    for py in range(int(math.floor(min(y0, y1, y2))), int(math.ceil(max(y0, y1, y2))) + 1):
+        for px in range(int(math.floor(min(x0, x1, x2))), int(math.ceil(max(x0, x1, x2))) + 1):
+            cx, cy = px + .5, py + .5
+            b1 = ((cx - x0) * (y2 - y0) - (x2 - x0) * (cy - y0)) / det; b2 = ((x1 - x0) * (cy - y0) - (cx - x0) * (y1 - y0)) / det; b0 = 1 - b1 - b2
+            if min(b0, b1, b2) < -1e-6: continue
+            pos = [b0 * P[t[0]][k] + b1 * P[t[1]][k] + b2 * P[t[2]][k] for k in range(3)]
+            o = ((py % H) * W + (px % W)) * 4; b, g, r, a = T.bgra[o:o + 4]
+            out.append((pos, (r, g, b), per, (py % H) * W + (px % W), (cx, cy)))
+    return out
+
 def sub(a, b): return [a[i] - b[i] for i in range(3)]
 def cross(a, b): return [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]]
 
@@ -146,13 +165,19 @@ def solve(root, car):
     if not off_draws: report['warnings'].append('no blight OFF mesh, brake from ON layer')
     brake_tris = [t for d in brake_src for t in tri(d)]
     brakes = merge_close(P, [Unit(P, c, 'brake', 'blight') for c in weld_components(P, brake_tris)], .03) if brake_tris else []
-    brakes = merge_close(P, [u for u in brakes if u.area > 1e-5], .12)
+    # 6.15.2: lamps that exist only in the ON layer (Mattserati inner pair) are brake units too
+    on_tris = [t for d in on_layer for t in tri(d)]
+    if off_draws and on_tris:
+        for c in weld_components(P, on_tris):
+            u = Unit(P, c, 'brake', 'blighton')
+            if u.area > 1e-5 and all(u.gap(b) > .03 for b in brakes): brakes.append(u)
+    brakes = merge_close(P, [u for u in brakes if u.area > 1e-5], .05)
     # lens draws
     off_tex = {d.texture_tuple[0].lower() for d in off_draws}
     # the blight OFF texture is NOT a lens hint (Kangoo/Mattserati use the body livery there)
     lens = [d for d in draws if id(d) not in group and lens_name(d.texture_tuple[0])]
     faces = {}   # class -> [(tri, src)]
-    tri_lum = {}
+    tri_lum = {}; tri_src = {}
     classified = []
     for d in lens:
         name = d.texture_tuple[0].lower(); tx = Tex.get(root, car, name)
@@ -170,7 +195,7 @@ def solve(root, car):
                 cls = max(votes, key=lambda k: (votes[k], k is not None))
             else:
                 cls = 'white' if end == 'front' else 'red'
-            classified.append((t, name, cls, end, facing))
+            classified.append((t, name, cls, end, facing)); tri_src[t] = name
             if tx.t is not None and UV is not None:
                 lum = 0
                 for w in ((1/3, 1/3, 1/3), (.6, .2, .2), (.2, .6, .2), (.2, .2, .6)):
@@ -300,9 +325,36 @@ def solve(root, car):
     whites = [u for u in units_for(('rear', 'white')) if u.face() >= .03]
     reverse = pick(whites, .45, 1, False)
     if not reverse:
+        # 6.15.2: white sections smaller than one triangle (Bruno, megane): classify texels, not triangles
+        texel_rev = []
+        for t, name, cls, end, facing in classified:
+            if end != 'rear' or not facing: continue
+            tx = Tex.get(root, car, name)
+            if tx.t is None or UV is None: continue
+            for pos, rgb, per, *_ in raster(P, UV, tx, t):
+                if tclass(rgb) == 'white': texel_rev.append((pos, per))
+        for s_ in (0, 1):
+            pts_ = [q for q in texel_rev if (q[0][0] < 0) == (s_ == 0)]
+            clusters = []
+            for pos, per in pts_:
+                for cl in clusters:
+                    if any(abs(pos[0] - o[0][0]) < .04 and abs(pos[1] - o[0][1]) < .04 and abs(pos[2] - o[0][2]) < .06 for o in cl[-40:]): cl.append((pos, per)); break
+                else: clusters.append([(pos, per)])
+            if not clusters: continue
+            best = max(clusters, key=lambda cl: sum(q[1] for q in cl)); a_ = sum(q[1] for q in best)
+            if a_ < 4e-4: continue
+            cen = [sum(q[0][k] * q[1] for q in best) / a_ for k in range(3)]
+            reverse.append(('texel', cen, a_, min(q[0][2] for q in best)))
+        if reverse: report['warnings'].append('reverse from lens texels')
+    if not reverse:
         darks = units_for(('rear', 'dark'))
         if darks: reverse = pick(darks, .45, 1, False); [setattr(u, 'cls', 'dark') for u in reverse]
-        report['warnings'].append('reverse from dark lens' if darks else 'no reverse lamp found')
+        report['warnings'].append('reverse from dark lens' if darks else 'no reverse lamp in the model: synthetic at the brake units')
+        if not darks:
+            reverse = []
+            for s_ in (0, 1):
+                bs = [b for b in brakes if side(b) == s_]
+                if bs: b = max(bs, key=lambda b: b.area); reverse.append(('synthetic', b.centre, b.area * .4, b.lo[2]))
     # fold tails overlapping a brake unit into it
     def overlaps(a, b, tol=.04):
         return all(not (a.lo[k] > b.hi[k] + tol or b.lo[k] > a.hi[k] + tol) for k in (0, 1))
@@ -310,17 +362,23 @@ def solve(root, car):
     for u in tails:
         hit = [b for b in brakes if overlaps(u, b, .12)]
         if hit: hit[0].tail = True
-        elif not any(side(b) == side(u) for b in brakes): tail_pts.append(u)
-        else: report.setdefault('ignored_red', []).append([round(x, 3) for x in u.centre])
+        else: tail_pts.append(u)   # 6.15.2: a separate red lamp keeps its own tail glint (Mattserati, Astero pillars)
     for b in brakes: b.tail = True   # the blight OFF lens is the rear lamp at night (tail glint), brighter while braking
     def point(u, role, end):
         if role in ('head', 'fog'):
-            # glint on the bulb: centre weighted by area x texel luminance^3 (the brightest texels of the lens)
-            sw = 0; c = [0, 0, 0]
+            # glint at the lamp's drawn detail: texels weighted by |luminance - median of the lens|^2 (bulb, ring,
+            # reflector lines stand out of a flat glass/background), texel-exact through the UV raster
+            tx_ = []
             for t in u.tris:
-                n_, a_, m_ = tri_info(P, t); w_ = a_ * tri_lum.get(t, .5) ** 3
-                sw += w_; c = [c[k] + m_[k] * w_ for k in range(3)]
-            if sw > 0:
+                tx = Tex.get(root, car, tri_src.get(t, ''))
+                if tx.t is not None and UV is not None: tx_ += raster(P, UV, tx, t)
+            sw = 0; c = [0, 0, 0]
+            if tx_:
+                lums = sorted(.3 * q[1][0] + .59 * q[1][1] + .11 * q[1][2] for q in tx_); med = lums[len(lums) // 2]
+                for pos, rgb, per, *_ in tx_:
+                    w_ = per * ((.3 * rgb[0] + .59 * rgb[1] + .11 * rgb[2] - med) / 255) ** 2
+                    sw += w_; c = [c[k] + pos[k] * w_ for k in range(3)]
+            if sw > 1e-9:
                 bc = [c[k] / sw for k in range(3)]
                 # stay inside the lens footprint
                 u.centre = [min(max(bc[0], u.lo[0]), u.hi[0]), min(max(bc[1], u.lo[1]), u.hi[1]), bc[2]]
@@ -337,12 +395,86 @@ def solve(root, car):
                 'size': round(math.sqrt(u.area), 4), 'extent': [round(u.hi[k] - u.lo[k], 4) for k in range(3)],
                 'also_tail': bool(getattr(u, 'tail', False)), 'sources': sorted(u.src), 'class': u.cls}
     pts = [point(u, 'head', 'front') for u in heads] + [point(u, 'fog', 'front') for u in fogs] + [point(u, 'tail', 'rear') for u in tail_pts] + \
-          [point(u, 'brake', 'rear') for u in brakes] + [point(u, 'reverse', 'rear') for u in reverse]
+          [point(u, 'brake', 'rear') for u in brakes] + [point(u, 'reverse', 'rear') if not isinstance(u, tuple) else
+          {'role': 'reverse', 'side': 'L' if u[1][0] < 0 else 'R', 'pos': [round(u[1][0], 4), round(u[1][1], 4), round(u[3], 4)], 'size': round(math.sqrt(u[2]), 4),
+           'extent': [0, 0, 0], 'also_tail': False, 'sources': [u[0]], 'class': u[0]} for u in reverse]
     if not heads: report['warnings'].append('no headlight')
     if not brakes: report['warnings'].append('no brake unit')
     for s in 'LR':
         if not any(p['role'] == 'head' and p['side'] == s for p in pts): report['warnings'].append(f'no head on {s}')
         if not any(p['role'] in ('brake', 'tail') and p['side'] == s for p in pts): report['warnings'].append(f'no tail/brake on {s}')
+    # 6.16 night lens textures: only the lamp's working area stays emissive. Texels under lens faces at the car's
+    # ends whose own class is white/blue/red are lamp; amber (indicators), dark, stickers and body texels are not.
+    # A head/fog unit whose drawn lamp (bulb, ring, reflector) is clearly smaller than its glass (Navara fog quad)
+    # is cut to the ellipse around those features.
+    masks = {}
+    def mask_of(name):
+        tx = Tex.get(root, car, name)
+        if tx.t is None: return None
+        if name not in masks: masks[name] = [0.0] * (tx.t.width * tx.t.height)
+        return masks[name]
+    cover = {}
+    for t, name, cls, end, facing in classified:
+        if end is None or UV is None: continue
+        m_ = mask_of(name)
+        if m_ is None: continue
+        for pos, rgb, per, idx, _ in raster(P, UV, Tex.get(root, car, name), t):
+            k = tclass(rgb); cover.setdefault(name, set()).add(idx)
+            # everything under the lamp glass glows, except indicators (amber) and red print at the front
+            if k != 'amber' and not (end == 'front' and k == 'red'): m_[idx] = 1.0
+    for d in off_draws:   # the blight OFF lens keeps its texels too (same texture may be shared with a lens draw)
+        name = d.texture_tuple[0].lower(); m_ = mask_of(name) if lens_name(name) else None
+        if m_ is None or UV is None: continue
+        for t in tri(d):
+            for pos, rgb, per, idx, _ in raster(P, UV, Tex.get(root, car, name), t):
+                if tclass(rgb) != 'amber': m_[idx] = 1.0; cover.setdefault(name, set()).add(idx)
+    # stickers / paint printed around the glass: flat bright texels connected to the edge of the covered area
+    for name, cov in cover.items():
+        T = Tex.get(root, car, name).t; W, H = T.width, T.height; m_ = masks[name]
+        L = lambda i: .3 * T.bgra[i * 4 + 2] + .59 * T.bgra[i * 4 + 1] + .11 * T.bgra[i * 4]
+        def nb(i):
+            x, y = i % W, i // W
+            return [((y + dy) % H) * W + (x + dx) % W for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))]
+        flat = set()
+        for i in cov:
+            x, y = i % W, i // W; ls = [L(((y + dy) % H) * W + (x + dx) % W) for dx in (-1, 0, 1) for dy in (-1, 0, 1)]
+            if max(ls) - min(ls) < 14 and L(i) > 150: flat.add(i)
+        seeds = [i for i in flat if any(j not in cov for j in nb(i))]
+        seen = set(seeds)
+        while seeds:
+            i = seeds.pop()
+            for j in nb(i):
+                if j in flat and j not in seen: seen.add(j); seeds.append(j)
+        if len(seen) < .6 * len(cov):
+            for i in seen: m_[i] = 0.0
+        report.setdefault('mask_cuts', []).append({'texture': name, 'flat_edge_cut': len(seen)}) if seen else None
+    report.setdefault('mask_cuts', [])
+    for u in heads + fogs:
+        by_tex = {}
+        for t in u.tris:
+            name = tri_src.get(t)
+            if name and UV is not None and Tex.get(root, car, name).t is not None: by_tex.setdefault(name, []).extend(raster(P, UV, Tex.get(root, car, name), t))
+        for name, tx_ in by_tex.items():
+            if len(tx_) < 24: continue
+            lum = lambda q: .3 * q[1][0] + .59 * q[1][1] + .11 * q[1][2]
+            ls = sorted(lum(q) for q in tx_); med = ls[len(ls) // 2]
+            feat = [q for q in tx_ if abs(lum(q) - med) > 46]
+            if len(feat) < 8: continue
+            mx = sum(q[4][0] for q in feat) / len(feat); my = sum(q[4][1] for q in feat) / len(feat)
+            sxx = sum((q[4][0] - mx) ** 2 for q in feat) / len(feat); syy = sum((q[4][1] - my) ** 2 for q in feat) / len(feat)
+            sxy = sum((q[4][0] - mx) * (q[4][1] - my) for q in feat) / len(feat); det = sxx * syy - sxy * sxy
+            if det <= 1e-6: continue
+            ixx, iyy, ixy = syy / det, sxx / det, -sxy / det
+            d2 = lambda q: ixx * (q[4][0] - mx) ** 2 + 2 * ixy * (q[4][0] - mx) * (q[4][1] - my) + iyy * (q[4][1] - my) ** 2
+            r2 = sorted(d2(q) for q in feat)[int(.95 * (len(feat) - 1))] * 1.25
+            area = math.pi * math.sqrt(det) * r2
+            if area >= .7 * len(set(q[3] for q in tx_)): continue
+            m_ = masks.get(name)
+            cut = 0
+            for q in tx_:
+                if d2(q) > r2 and m_[q[3]] > 0: m_[q[3]] = 0.0; cut += 1
+            report['mask_cuts'].append({'texture': name, 'texels_cut': cut, 'ellipse_texels': round(area)})
+    report['masks'] = masks
     # runtime fingerprints of the lens draws (texture, vertex count, car-space bounds)
     fps = []
     for d in lens + off_draws + on_layer + glow_draws:
@@ -398,6 +530,33 @@ def render(root, car, report, ctx, path):
     img.save(path)
     return img
 
+NIGHT_DIM = .3
+def write_masks(root, rigs, out):
+    import struct
+    for car, r in rigs.items():
+        r['mask_files'] = {}
+        for name, m in (r.pop('masks', None) or {}).items():
+            tx = Tex.get(root, car, name).t
+            if tx is None or not any(m): continue
+            W, H = tx.width, tx.height
+            sm = [0.0] * (W * H)   # 3x3 soft edge
+            for y in range(H):
+                for x in range(W):
+                    acc = 0
+                    for dy in (-1, 0, 1):
+                        for dx in (-1, 0, 1): acc += m[((y + dy) % H) * W + (x + dx) % W]
+                    sm[y * W + x] = max(m[y * W + x] * .75, acc / 9)
+            px = bytearray(tx.bgra)
+            for i in range(W * H):
+                k = NIGHT_DIM + (1 - NIGHT_DIM) * min(1.0, sm[i])
+                for c in range(3): px[i * 4 + c] = int(px[i * 4 + c] * k + .5)
+            rel = f'lamp_masks/{car}/{name}.dxt'; path = out / rel; path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(struct.pack('<5I', 0xfeed, 0, 0, W, H) + bytes(px))
+            prev = Image.frombytes('RGBA', (W, H), bytes(px), 'raw', 'BGRA').convert('RGB')
+            orig = Image.frombytes('RGBA', (W, H), bytes(tx.bgra), 'raw', 'BGRA').convert('RGB')
+            pv = Image.new('RGB', (W * 2 + 4, H)); pv.paste(orig, (0, 0)); pv.paste(prev, (W + 4, 0)); pv.save(path.with_suffix('.png'))
+            r['mask_files'][name] = rel
+
 ROLE_ID = {'head': 0, 'tail': 1, 'brake': 2, 'reverse': 3, 'fog': 4}
 def write_txt(rigs, path):
     # proxy format (renderer/atmosphere_headlights.hpp read_lamp_rigs): car-space metres, z = forward
@@ -409,6 +568,8 @@ def write_txt(rigs, path):
         for d in r['draws']:
             if d['kind'] != 'lens': continue
             lines.append('draw {} {} {}'.format(d['texture'], d['vertices'], ' '.join(f'{x:.3f}' for x in d['lo'] + d['hi'])))
+        for name, rel in sorted(r.get('mask_files', {}).items()):
+            lines.append(f'mask {name} {rel}')
         for d in r['draws']:
             if d['kind'] == 'brake_off':
                 lines.append('off {} {}'.format(d['range_vertices'], ' '.join(f'{x:.3f}' for x in d['range_lo'] + d['range_hi'])))
@@ -434,6 +595,7 @@ def main():
         sheet = Image.new('RGB', (1500, 560 * len(imgs[i:i + 4])))
         for j, im in enumerate(imgs[i:i + 4]): sheet.paste(im, (0, 560 * j))
         sheet.save(out / f'sheet-{i // 4 + 1}.png')
+    write_masks(root, rigs, out)
     write_txt(rigs, out / 'lamp_rigs.txt')
     (out / 'lamp_rigs.json').write_text(json.dumps({'version': 1, 'generator': 'atmosphere_lamp_rig.py 6.15', 'cars': rigs}, indent=1))
 

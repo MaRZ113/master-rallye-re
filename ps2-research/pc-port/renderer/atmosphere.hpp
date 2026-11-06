@@ -303,6 +303,18 @@ public:
     std::vector<LampPoint> lamp_points;uint64_t lamp_points_frame=UINT64_MAX,reverse_until=0;uintptr_t reverse_instance=0;
     // 6.15 lamp rigs (tools/atmosphere_lamp_rig.py): instance -> rig, matched once from a lens draw; braking = glow card seen.
     LampRigs lamp_rigs;struct RigOwner{uintptr_t instance=0;int rig=-1;uint64_t frame=UINT64_MAX,emitted=UINT64_MAX,braking=UINT64_MAX;};std::array<RigOwner,32> rig_owners{};uint64_t rig_matches=0,rig_misses=0,rig_points=0,rig_rematches=0,rig_blight_off=0;
+    // 6.16 night lens textures (tools/atmosphere_lamp_rig.py masks): stage 0 of a rig car's emissive lens pass, so only the lamp's working area glows.
+    struct LensNight{int rig=-1;std::string texture;IDirect3DTexture8* t=nullptr;bool failed=false;};std::vector<LensNight> lens_night;uint64_t lens_night_draws=0;
+    void release_lens_night()noexcept{for(auto& l:lens_night)if(l.t)l.t->Release();lens_night.clear();}
+    IDirect3DTexture8* lens_night_texture(IDirect3DDevice8& n,int rig,const std::string& texture)noexcept{
+        if(rig<0||size_t(rig)>=lamp_rigs.rigs.size())return nullptr;for(auto& l:lens_night)if(l.rig==rig&&l.texture==texture)return l.failed?nullptr:l.t;
+        const std::wstring* file=nullptr;for(const auto& m:lamp_rigs.rigs[size_t(rig)].masks)if(m.first==texture){file=&m.second;break;}if(!file)return nullptr;
+        LensNight l;l.rig=rig;l.texture=texture;l.failed=true;
+        try{std::ifstream f(std::filesystem::path(*file),std::ios::binary|std::ios::ate);if(f){const auto size=size_t(f.tellg());uint32_t h[5]{};f.seekg(0);
+            if(size>20&&f.read(reinterpret_cast<char*>(h),20)&&h[0]==0xfeed&&h[3]&&h[4]&&h[3]<=1024&&h[4]<=1024&&size==20+size_t(h[3])*h[4]*4){std::vector<uint8_t> px(size-20);
+                if(f.read(reinterpret_cast<char*>(px.data()),px.size())&&SUCCEEDED(n.CreateTexture(h[3],h[4],1,0,D3DFMT_A8R8G8B8,D3DPOOL_MANAGED,&l.t))&&l.t){
+                    if(SUCCEEDED(sun_upload_pixels(*l.t,px.data(),h[3],h[4])))l.failed=false;else{l.t->Release();l.t=nullptr;}}}}}catch(...){if(l.t)l.t->Release();l.t=nullptr;l.failed=true;}
+        lens_night.push_back(l);return l.failed?nullptr:l.t;}
     RigOwner* rig_owner(uintptr_t instance,uint64_t frame,bool create)noexcept{if(!instance)return nullptr;for(auto& o:rig_owners)if(o.instance==instance){o.frame=frame;return &o;}if(!create)return nullptr;
         RigOwner* old=&rig_owners[0];for(auto& o:rig_owners){if(!o.instance||o.frame==UINT64_MAX){old=&o;break;}if(o.frame<old->frame)old=&o;}   // 6.15.1: evict the longest unseen
         *old={};old->instance=instance;old->frame=frame;return old;}
@@ -471,7 +483,7 @@ private:
         sky_u_scale=std::clamp(number(L"CustomSkyUScale",1),.1f,2.f);
         sky_projection=GetPrivateProfileIntW(L"Atmosphere",L"CustomSkyProjection",0,ini_.c_str())==1;sky_haze=std::clamp(number(L"CustomSkyHaze",1),0.f,1.f);
         sun_disk=GetPrivateProfileIntW(L"Atmosphere",L"SunDisk",0,ini_.c_str())==1;sun_halo=GetPrivateProfileIntW(L"Atmosphere",L"SunHalo",0,ini_.c_str())==1;sun_flare=GetPrivateProfileIntW(L"Atmosphere",L"SunFlare",0,ini_.c_str())==1;
-        sun_style=read_sun_style(ini_,night);stars=read_star_style(ini_,night);headlight_style=read_headlight_style(ini_,night);glint_style=read_glint_style(ini_,night);{auto rigs=read_lamp_rigs(ini_);if(rigs.path!=lamp_rigs.path||rigs.rigs.size()!=lamp_rigs.rigs.size()){lamp_rigs=std::move(rigs);for(auto& o:rig_owners)o={};}}
+        sun_style=read_sun_style(ini_,night);stars=read_star_style(ini_,night);headlight_style=read_headlight_style(ini_,night);glint_style=read_glint_style(ini_,night);{auto rigs=read_lamp_rigs(ini_);if(rigs.path!=lamp_rigs.path||rigs.rigs.size()!=lamp_rigs.rigs.size()){lamp_rigs=std::move(rigs);for(auto& o:rig_owners)o={};release_lens_night();}}
         regional_base=lighting;apply_regional_values();
         // P0.3 dark diagnostic (Ctrl+Alt+N, LiveTuning): everything that follows
         // the atmosphere goes near-black; whatever stays bright bypasses it.
@@ -482,7 +494,7 @@ public:
     bool enabled()const noexcept{return enabled_;}
     bool custom()const noexcept{return enabled_&&!set_.empty()&&!custom_failed_&&(regional_sky==-2||regional_sky==int(custom_base));}
     void disable()noexcept{enabled_=false;}
-    void reset()noexcept{release_headlights();capture.cancel(world);clear_environment();sun.reset();resolver.clear();body_texture_cache.clear();for(auto*& t:textures_){if(t)t->Release();t=nullptr;}if(scratch)scratch->Release();scratch=nullptr;scratch_size=0;custom_ready_=false;}
+    void reset()noexcept{release_headlights();release_lens_night();capture.cancel(world);clear_environment();sun.reset();resolver.clear();body_texture_cache.clear();for(auto*& t:textures_){if(t)t->Release();t=nullptr;}if(scratch)scratch->Release();scratch=nullptr;scratch_size=0;custom_ready_=false;}
     const Pixels& pixels(unsigned layer)const noexcept{return pixels_[layer];}
     bool load(IDirect3DDevice8& n) {
         if(custom_ready_)return true;if(!custom())return false;

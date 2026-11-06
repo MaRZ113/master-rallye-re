@@ -296,6 +296,13 @@ inline HRESULT night_energy(Device8& d,UINT min,UINT vertices,UINT start,UINT co
                     std::string texture=binding.names[0];for(auto& c:texture)c=char(std::tolower(static_cast<unsigned char>(c)));
                     if(!rig_lamp_points(*p,d.trace.frame_number(),owner.owner.instance,texture,g.bytes,st,g.indices,w)){if(!tex)tex=lens_texture(d,*p,n);
                         record_lamp_points(*p,d.trace.frame_number(),owner.owner.instance,g.bytes,st,g.indices,w,tex,uvo,false,false);}}}}
+        // 6.16: rig cars draw their emissive lens pass with the night lens texture (indicators, stickers, glass
+        // around the lamp darkened offline) so only the lamp's working area glows.
+        if(lamp&&!blight_off&&p->lamp_rigs.loaded&&!p->pending.texture_changed)if(const auto* ro=p->rig_owner(owner.owner.instance,d.trace.frame_number(),false);ro&&ro->rig>=0){
+            std::string texture=binding.names[0];for(auto& c:texture)c=char(std::tolower(static_cast<unsigned char>(c)));
+            if(auto* night=p->lens_night_texture(n,ro->rig,texture)){auto& s2=p->pending;
+                if(SUCCEEDED(n.GetTexture(0,&s2.texture))){s2.texture_changed=true;const auto hr=n.SetTexture(0,night);atmosphereintegration::notify(d,61,pack(0,night),hr);if(FAILED(hr))return atmosphereintegration::repair(d);
+                    ++p->lens_night_draws;material+="#night_lens";}}}
         if(p->first_reason(("vehicle_night_energy_"+material).c_str()))session().write("{\"type\":\"atmosphere_vehicle_night_energy\",\"factor\":"+std::to_string(factor)+",\"unit\":"+std::to_string(unit)+",\"material\":"+quote(material)+"}");
         return S_OK;
     }catch(...){if(!p->pending.any())p->pending.release();return atmosphereintegration::repair(d);}
