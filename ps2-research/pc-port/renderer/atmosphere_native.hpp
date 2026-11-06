@@ -106,7 +106,12 @@ inline bool headlight_projectors(Device8& d,atmosphere::Pilot& p,IDirect3DDevice
         const atmosphere::Pilot::CarPose* best=nullptr;float best_d=1e30f;
         for(const auto& c:p.car_poses){if(!c.instance||c.frame==UINT64_MAX||c.frame+2<frame||c.frame>frame)continue;
             const float dx=c.m[12]-eye[0],dy=c.m[13]-eye[1],dz=c.m[14]-eye[2],dist=dx*dx+dy*dy+dz*dz;if(dist<best_d){best_d=dist;best=&c;}}
-        if(best&&best_d<=60.f*60.f){lp.have_car=true;lp.car=best->m;
+        if(best&&best_d<=60.f*60.f){lp.have_car=true;lp.car=best->m;lp.instance=best->instance;
+            // 6.6 reverse: the body moved backwards along its own axis (held 12 frames).
+            if(best->prev_frame+1==best->frame){const auto f=atmosphere::normalized({best->m[8],best->m[9],best->m[10]});
+                const float along=(best->m[12]-best->prev[12])*f[0]+(best->m[13]-best->prev[13])*f[1]+(best->m[14]-best->prev[14])*f[2];
+                if(along<-.025f){p.reverse_until=frame+12;p.reverse_instance=best->instance;}else if(along>.02f&&p.reverse_instance==best->instance)p.reverse_until=0;}
+            lp.reversing=p.reverse_instance==best->instance&&frame<=p.reverse_until;
             if(best->frame<frame&&best->prev_frame+1==best->frame){const float k=float(frame-best->frame);for(unsigned i=12;i<15;++i)lp.car[i]+=(best->m[i]-best->prev[i])*k;}
             lp.head_frame=atmosphere::light_frame(lp.car,style.head);lp.head=lp.head_frame.valid&&style.intensity>0;
             if(style.tail&&style.tail_intensity>0){lp.rear_frame=atmosphere::light_frame(lp.car,style.rear);lp.rear=lp.rear_frame.valid;}
@@ -159,7 +164,8 @@ inline HRESULT headlight_world(Device8& d,HRESULT draw_hr,uintptr_t pc)noexcept{
         const auto& lp=p->lamp_projectors;const auto& style=p->headlight_style;
         struct Lamp{bool on;const atmosphere::LightFrame* f;const atmosphere::Projector* pr;const atmosphere::Mat4* cookie;const atmosphere::Mat4* ramp;IDirect3DTexture8* texture;std::array<float,3> rgb;float intensity;};
         const Lamp lamps[2]{{lp.head,&lp.head_frame,&style.head,&lp.head_cookie,&lp.head_ramp,p->headlight_cookie_texture,style.rgb,style.intensity},
-                            {lp.rear,&lp.rear_frame,&style.rear,&lp.rear_cookie,&lp.rear_ramp,p->tail_cookie_texture,style.tail_rgb,style.tail_intensity*(lp.brake>0?style.tail_brake:1.f)}};
+                            {lp.rear,&lp.rear_frame,&style.rear,&lp.rear_cookie,&lp.rear_ramp,p->tail_cookie_texture,
+                             lp.reversing?std::array<float,3>{1.f,.94f,.86f}:style.tail_rgb,lp.reversing?std::max(1.1f,style.tail_intensity):style.tail_intensity*(lp.brake>0?style.tail_brake:1.f)}};
         for(const auto& lamp:lamps){
             if(!lamp.on)continue;
             if(!atmosphere::light_reaches(*lamp.f,*lamp.pr,cand.centre,cand.radius)){++p->headlight_culled;continue;}
@@ -187,7 +193,7 @@ inline HRESULT headlight_world(Device8& d,HRESULT draw_hr,uintptr_t pc)noexcept{
 }
 inline void sun_world(Device8& d,HRESULT hr,uintptr_t pc)noexcept{
     (void)headlight_world(d,hr,pc);
-    auto* p=pilot(d);if(!p||!p->enabled()||!(p->sun_disk||p->sun_halo||p->sun_flare||p->sun_style.vignette>0||p->stars.count)||FAILED(hr)||!d.trace.scene_active||
+    auto* p=pilot(d);if(!p||!p->enabled()||!(p->sun_disk||p->sun_halo||p->sun_flare||p->sun_style.vignette>0||p->stars.count||p->glint_style.enabled)||FAILED(hr)||!d.trace.scene_active||
         pc!=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+groundintegration::COURSE_DRAW_RETURN_RVA||
         GetCurrentThreadId()!=d.trace.render_thread_id())return;
     auto& proof=p->sun.proof;const auto frame=d.trace.frame_number();
@@ -262,9 +268,46 @@ inline HRESULT particle_end(Device8& d)noexcept{
     if(SUCCEEDED(result))s.pending=false;else return repair(d);
     return S_OK;
 }
+// 6.6 GT3-like glints at every lamp lens collected this frame (all cars).
+inline HRESULT lamp_glints(Device8& d,atmosphere::Pilot& p,IDirect3DDevice8& n,UINT width,UINT height,uint64_t frame)noexcept{
+    const auto& g=p.glint_style;if(!g.enabled||p.lamp_points_frame!=frame||p.lamp_points.empty()||!width||!height)return S_FALSE;
+    const auto& view=p.sun.proof.view;const auto& proj=p.sun.proof.projection;if(proj._11<=0||proj._22<=0||proj._34!=1||proj._44!=0)return S_FALSE;
+    atmosphere::Mat4 v{},inverse{};std::memcpy(v.data(),&view,64);if(!atmosphere::mat_inverse(v,inverse))return S_FALSE;
+    const std::array<float,3> eye{inverse[12],inverse[13],inverse[14]};const float ppt=height*.5f*proj._22;
+    auto pixels=[&](float degrees){return std::tan(degrees*.017453293f)*ppt;};
+    std::vector<atmosphere::SunVertex> glow,streak;glow.reserve(p.lamp_points.size()*12);streak.reserve(p.lamp_points.size()*12);
+    auto colour=[](const std::array<float,3>& rgb,float k){DWORD c=0xff000000u;for(unsigned i=0;i<3;++i)c|=DWORD(std::clamp(std::lround(rgb[i]*k*255),0l,255l))<<((2-i)*8);return c;};
+    const auto& style=p.headlight_style;const auto& lp=p.lamp_projectors;
+    for(const auto& l:p.lamp_points){
+        std::array<float,3> to{eye[0]-l.world[0],eye[1]-l.world[1],eye[2]-l.world[2]};const float dist=std::sqrt(atmosphere::dot3(to,to));if(dist<.5f||dist>400)continue;
+        for(auto& x:to)x/=dist;const float facing=std::clamp(atmosphere::dot3(to,l.axis),0.f,1.f);
+        bool brake=false;if(!l.front&&p.lamps_last.frame!=UINT64_MAX&&p.lamps_last.frame+2>=frame)for(const auto& s:p.lamps_last.samples){
+            const float dx=s.position[0]-l.world[0],dy=s.position[1]-l.world[1],dz=s.position[2]-l.world[2];if(dx*dx+dy*dy+dz*dz<4.f){brake=true;break;}}
+        const bool reverse=!l.front&&lp.reversing&&lp.instance==l.instance;
+        float k=(l.front?g.front*std::pow(facing,1.6f):g.rear*(brake?g.brake:1.f)*std::pow(facing,1.2f))+.06f;
+        k*=1/(1+(dist/90)*(dist/90));if(k<.02f)continue;
+        // Pull the sprite 0.35 m toward the camera so the lens itself never hides it.
+        std::array<float,3> w{l.world[0]+to[0]*.35f,l.world[1]+to[1]*.35f,l.world[2]+to[2]*.35f};
+        const float x=w[0]*view._11+w[1]*view._21+w[2]*view._31+view._41,y=w[0]*view._12+w[1]*view._22+w[2]*view._32+view._42,z=w[0]*view._13+w[1]*view._23+w[2]*view._33+view._43;
+        if(z<=.3f)continue;const float nx=(x*proj._11+z*proj._31)/z,ny=(y*proj._22+z*proj._32)/z,nz=(z*proj._33+proj._43)/z;
+        if(!std::isfinite(nx+ny+nz)||std::abs(nx)>1.1f||std::abs(ny)>1.1f||nz<=0||nz>=1)continue;
+        const float px=(nx+1)*width*.5f,py=(1-ny)*height*.5f,rhw=1/z;
+        auto quad=[&](std::vector<atmosphere::SunVertex>& out,float rx,float ry,DWORD c){
+            const atmosphere::SunVertex a{px-rx-.5f,py-ry-.5f,nz,rhw,c,0,0,0,0},b{px+rx-.5f,py-ry-.5f,nz,rhw,c,1,0,0,0},e{px-rx-.5f,py+ry-.5f,nz,rhw,c,0,1,0,0},f{px+rx-.5f,py+ry-.5f,nz,rhw,c,1,1,0,0};
+            for(const auto& q:{a,b,e,e,b,f})out.push_back(q);};
+        const auto rgb=l.front?style.rgb:style.tail_rgb;const float r=std::max(1.5f,pixels(g.glow_degrees)*(.55f+.45f*std::min(1.f,k)));
+        quad(glow,r,r,colour(rgb,std::min(1.f,k)));
+        if(g.streak>0&&g.streak_degrees>0)quad(streak,std::max(r,pixels(g.streak_degrees)*std::min(1.f,k+.2f)),r*.3f,colour(rgb,std::min(1.f,k*g.streak)));
+        if(reverse)quad(glow,r*.8f,r*.8f,colour({1.f,.97f,.92f},std::min(1.f,g.reverse*(std::pow(facing,1.2f)+.06f))));
+    }
+    const auto writer=[](void* context,uint32_t slot,const Args& args,HRESULT hr)noexcept{notify(*static_cast<Device8*>(context),slot,args,hr);};
+    const auto hr=p.sun.lamp_sprites(n,glow,streak,&d,writer);
+    if(p.first_reason("lamp_glints")||(d.trace.control.active&&frame%60==0))session().write("{\"type\":\"atmosphere_lamp_glints\",\"frame\":"+std::to_string(frame)+",\"lamps\":"+std::to_string(p.lamp_points.size())+",\"sprites\":"+std::to_string((glow.size()+streak.size())/6)+",\"reversing\":"+std::string(lp.reversing?"true":"false")+",\"hresult\":"+std::to_string(uint32_t(hr))+"}");
+    return hr;
+}
 inline HRESULT sun_before_ui(Device8& d,bool ui)noexcept{
     capture_boundary(d,ui);
-    auto* p=pilot(d);if(!ui||!p||!p->enabled()||!(p->sun_disk||p->sun_halo||p->sun_flare||p->sun_style.vignette>0||p->stars.count)||!d.trace.scene_active||
+    auto* p=pilot(d);if(!ui||!p||!p->enabled()||!(p->sun_disk||p->sun_halo||p->sun_flare||p->sun_style.vignette>0||p->stars.count||p->glint_style.enabled)||!d.trace.scene_active||
        d.trace.shadow.recording||d.trace.effective_shadow.recording||GetCurrentThreadId()!=d.trace.render_thread_id())return S_OK;
     auto& sun=p->sun;const auto frame=d.trace.frame_number();if(sun.drawn_frame==frame)return S_OK;
     auto gate=[&](const char* reason){sun.reason=reason;if(p->first_reason(reason)||(d.trace.control.active&&sun.gate_frame!=frame))try{sun.gate_frame=frame;session().write("{\"type\":\"atmosphere_sun_gate\",\"frame\":"+std::to_string(frame)+",\"reason\":"+quote(std::string(reason))+",\"drawn\":false}");}catch(...){}return S_OK;};
@@ -281,6 +324,7 @@ inline HRESULT sun_before_ui(Device8& d,bool ui)noexcept{
         try{const auto sr=sun.stars(n,p->stars,p->lighting.direction,frame,desc.Width,desc.Height,&d,writer);if(FAILED(sr))return sr;
             if(p->first_reason("night_stars")||(d.trace.control.active&&frame%60==0))session().write("{\"type\":\"atmosphere_stars\",\"frame\":"+std::to_string(frame)+",\"count\":"+std::to_string(p->stars.count)+",\"drawn_total\":"+std::to_string(sun.stars_drawn)+",\"frames\":"+std::to_string(sun.stars_frames)+",\"hresult\":"+std::to_string(uint32_t(sr))+",\"depth_writes\":false}");
         }catch(...){return repair(d);}}
+    if(p->glint_style.enabled){try{const auto gr=lamp_glints(d,*p,n,desc.Width,desc.Height,frame);if(FAILED(gr))return gr;}catch(...){return repair(d);}}
     if(p->sun_style.vignette>0){const auto writer=[](void* context,uint32_t slot,const Args& args,HRESULT hr)noexcept{notify(*static_cast<Device8*>(context),slot,args,hr);};
         const auto vr=sun.vignette(n,desc.Width,desc.Height,p->sun_style.vignette,&d,writer);if(FAILED(vr))return vr;
         if(p->first_reason("art_vignette")||d.trace.control.active)session().write("{\"type\":\"atmosphere_art_overlay\",\"effect\":\"vignette\",\"before_hud\":true,\"requested_triangles\":64,\"new_render_targets\":0,\"hresult\":"+std::to_string(uint32_t(vr))+"}");}

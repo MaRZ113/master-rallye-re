@@ -23,6 +23,17 @@ struct HeadlightStyle {
     std::array<float,3> rgb{1.f,.93f,.80f},tail_rgb{1.f,.12f,.06f};
     Projector head{},rear{7.f,62.f,30.f,32.f,{0,.55f,-2.35f},-1};
 };
+// 6.6 GT3-like lamp glints (sprites at every lit lamp lens).
+struct GlintStyle {bool enabled=false;float glow_degrees=1.4f,streak_degrees=6.5f,front=.85f,rear=.5f,streak=.45f,brake=2.f,reverse=.9f;};
+inline GlintStyle read_glint_style(const std::wstring& ini,bool night=false){
+    GlintStyle s;
+    auto number=[&](const wchar_t* key,float fallback,float lo,float hi){wchar_t b[64]{};GetPrivateProfileStringW(L"Atmosphere",key,L"",b,64,ini.c_str());
+        wchar_t* end=nullptr;const float v=std::wcstof(b,&end);return end!=b&&*end==0&&std::isfinite(v)?std::clamp(v,lo,hi):fallback;};
+    s.enabled=GetPrivateProfileIntW(L"Atmosphere",L"LampGlints",night?1:0,ini.c_str())==1;
+    s.glow_degrees=number(L"LampGlintSize",s.glow_degrees,.2f,6);s.streak_degrees=number(L"LampGlintStreak",s.streak_degrees,0,20);
+    const float k=number(L"LampGlintIntensity",1,0,3);s.front*=k;s.rear*=k;s.reverse*=k;s.streak=number(L"LampGlintStreakIntensity",s.streak,0,2);
+    return s;
+}
 inline HeadlightStyle read_headlight_style(const std::wstring& ini,bool night=false){
     HeadlightStyle s;
     auto number=[&](const wchar_t* key,float fallback,float lo,float hi){wchar_t b[64]{};GetPrivateProfileStringW(L"Atmosphere",key,L"",b,64,ini.c_str());

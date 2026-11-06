@@ -229,6 +229,8 @@ int main(){
         const auto r=apply(ramp,0,.65f,12.1f);CHECK(std::abs(r[0]-10/flat.range)<1e-4f&&std::abs(r[1]-.5f)<1e-5f);
         CHECK(apply(ramp,0,.65f,-5)[0]<0);                                  // behind the lamp -> black ramp texel
         CHECK(light_reaches(beam,flat,{0,0,20},2)&&!light_reaches(beam,flat,{0,0,-20},2)&&!light_reaches(beam,flat,{0,0,200},2));
+        CHECK(!read_glint_style(L"Z:\missing\Atmosphere.ini").enabled&&read_glint_style(L"Z:\missing\Atmosphere.ini",true).enabled);
+        CHECK(read_headlight_style(L"Z:\missing\Atmosphere.ini",true).enabled&&read_headlight_style(L"Z:\missing\Atmosphere.ini",true).lamp_emissive>1);
         Mat4 m{2,0,0,0, 0,3,0,0, 0,0,4,0, 1,2,3,1},mi{};CHECK(mat_inverse(m,mi));const auto e=mat_mul(m,mi);CHECK(std::abs(e[0]-1)<1e-5f&&std::abs(e[13])<1e-5f&&std::abs(e[15]-1)<1e-5f);
     }
     SunFx no_depth_sun;Native missing_depth;

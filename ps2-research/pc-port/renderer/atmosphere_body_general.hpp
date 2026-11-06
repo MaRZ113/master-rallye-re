@@ -7,6 +7,30 @@ namespace gfx2::atmospherebody {
 // brightness. Scale their final colour by the night body energy with one extra
 // TFACTOR stage (after the native stages; alpha, blend, UV untouched).
 // Emissive lamp layers (*lightson*, *glow*) are left bright on purpose.
+// 6.6: centres of a lamp lens draw (CPU vertex mirror, never locks), split
+// into left/right halves; front/rear from the car-space Z of each centre.
+inline void record_lamp_points(Device8& d,atmosphere::Pilot& p,IDirect3DDevice8& n,uintptr_t instance,UINT min,UINT vertices)noexcept{
+    try{
+        const auto frame=d.trace.frame_number();if(p.lamp_points_frame!=frame){p.lamp_points.clear();p.lamp_points_frame=frame;}
+        if(p.lamp_points.size()>=96||!vertices||vertices>4096)return;
+        courseintegration::Ref<IDirect3DVertexBuffer8> vb;UINT stride=0;if(FAILED(n.GetStreamSource(0,&vb.p,&stride))||!vb.p||stride<12||stride>128)return;
+        courseintegration::Ref<IDirect3DIndexBuffer8> ib;UINT base=0;if(FAILED(n.GetIndices(&ib.p,&base)))return;
+        const auto generation=d.trace.resources.generation(reinterpret_cast<uintptr_t>(vb.p));if(!generation)return;
+        std::vector<uint8_t> bytes;uint64_t revision=0;
+        if(!d.copy_buffer_shadow(vb.p,BufferKind::Vertex,generation,(uint64_t(base)+min)*stride,size_t(vertices)*stride,bytes,revision)||bytes.size()<size_t(vertices)*stride)return;
+        D3DMATRIX w{};if(FAILED(n.GetTransform(D3DTS_WORLD,&w)))return;
+        std::array<double,3> sum[2]{};unsigned count[2]{};
+        for(UINT i=0;i<vertices;++i){float v[3];std::memcpy(v,bytes.data()+size_t(i)*stride,12);if(!std::isfinite(v[0]+v[1]+v[2]))return;const unsigned side=v[0]<0?0:1;for(unsigned k=0;k<3;++k)sum[side][k]+=v[k];++count[side];}
+        const std::array<float,3> forward=atmosphere::normalized({w._31,w._32,w._33});
+        for(unsigned side=0;side<2;++side){if(!count[side])continue;const float x=float(sum[side][0]/count[side]),y=float(sum[side][1]/count[side]),z=float(sum[side][2]/count[side]);
+            atmosphere::Pilot::LampPoint lp;lp.instance=instance;lp.front=z>0;
+            lp.world={x*w._11+y*w._21+z*w._31+w._41,x*w._12+y*w._22+z*w._32+w._42,x*w._13+y*w._23+z*w._33+w._43};
+            for(unsigned k=0;k<3;++k)lp.axis[k]=lp.front?forward[k]:-forward[k];
+            bool duplicate=false;for(const auto& q:p.lamp_points){const float dx=q.world[0]-lp.world[0],dy=q.world[1]-lp.world[1],dz=q.world[2]-lp.world[2];
+                if(q.instance==instance&&dx*dx+dy*dy+dz*dz<.09f){duplicate=true;break;}}
+            if(!duplicate)p.lamp_points.push_back(lp);}
+    }catch(...){}
+}
 inline HRESULT night_energy(Device8& d,UINT min,UINT vertices,UINT start,UINT count,uintptr_t pc,bool& applied)noexcept {
     applied=false;auto* p=atmosphereintegration::pilot(d);
     if(!p||!p->enabled()||!p->lighting.active()||p->lighting.ambient_strength>=.5f||!count||
@@ -59,6 +83,7 @@ inline HRESULT night_energy(Device8& d,UINT min,UINT vertices,UINT start,UINT co
         for(unsigned i:{7u,1u,2u,3u,4u,5u,6u,0u}){s.body_pending|=1u<<i;const auto hr=i==7?n.SetRenderState(D3DRS_TEXTUREFACTOR,factor):n.SetTextureStageState(unit,keys[i],values[i]);
             if(i==7)atmosphereintegration::notify(d,50,pack(D3DRS_TEXTUREFACTOR,factor),hr);else atmosphereintegration::notify(d,63,pack(unit,keys[i],values[i]),hr);if(FAILED(hr))return atmosphereintegration::repair(d);}
         applied=true;
+        if(lamp&&p->glint_style.enabled)record_lamp_points(d,*p,n,owner.owner.instance,min,vertices);
         if(p->first_reason(("vehicle_night_energy_"+material).c_str()))session().write("{\"type\":\"atmosphere_vehicle_night_energy\",\"factor\":"+std::to_string(factor)+",\"unit\":"+std::to_string(unit)+",\"material\":"+quote(material)+"}");
         return S_OK;
     }catch(...){if(!p->pending.any())p->pending.release();return atmosphereintegration::repair(d);}

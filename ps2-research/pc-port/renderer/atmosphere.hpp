@@ -283,7 +283,10 @@ public:
         if(slot->frame==frame){slot->m=m;return;}
         slot->prev=slot->m;slot->prev_frame=slot->frame;slot->m=m;slot->frame=frame;
     }
-    struct LampProjectors {uint64_t frame=UINT64_MAX;bool head=false,rear=false,have_car=false;Mat4 car{},view{};bool view_valid=false;LightFrame head_frame,rear_frame;Mat4 head_cookie{},head_ramp{},rear_cookie{},rear_ramp{};float brake=0;} lamp_projectors;
+    struct LampProjectors {uint64_t frame=UINT64_MAX;bool head=false,rear=false,have_car=false,reversing=false;uintptr_t instance=0;Mat4 car{},view{};bool view_valid=false;LightFrame head_frame,rear_frame;Mat4 head_cookie{},head_ramp{},rear_cookie{},rear_ramp{};float brake=0;} lamp_projectors;
+    // 6.6 lamp glints: world lamp centres collected from this frame's lit lamp lens draws.
+    GlintStyle glint_style;struct LampPoint{std::array<float,3> world{},axis{};uintptr_t instance=0;bool front=false;};
+    std::vector<LampPoint> lamp_points;uint64_t lamp_points_frame=UINT64_MAX,reverse_until=0;uintptr_t reverse_instance=0;
     uint64_t headlight_candidates=0,headlight_no_car=0,headlight_view_changes=0,headlight_off_target=0,headlight_log_frame=0;
     IDirect3DTexture8 *headlight_cookie_texture=nullptr,*tail_cookie_texture=nullptr,*headlight_ramp_texture=nullptr;unsigned headlight_caps=0;uint64_t headlight_draws=0,headlight_culled=0;
     void release_headlights()noexcept{for(auto** t:{&headlight_cookie_texture,&tail_cookie_texture,&headlight_ramp_texture})if(*t){(*t)->Release();*t=nullptr;}}
@@ -446,7 +449,7 @@ private:
         sky_u_scale=std::clamp(number(L"CustomSkyUScale",1),.1f,2.f);
         sky_projection=GetPrivateProfileIntW(L"Atmosphere",L"CustomSkyProjection",0,ini_.c_str())==1;sky_haze=std::clamp(number(L"CustomSkyHaze",1),0.f,1.f);
         sun_disk=GetPrivateProfileIntW(L"Atmosphere",L"SunDisk",0,ini_.c_str())==1;sun_halo=GetPrivateProfileIntW(L"Atmosphere",L"SunHalo",0,ini_.c_str())==1;sun_flare=GetPrivateProfileIntW(L"Atmosphere",L"SunFlare",0,ini_.c_str())==1;
-        sun_style=read_sun_style(ini_,night);stars=read_star_style(ini_,night);headlight_style=read_headlight_style(ini_,night);
+        sun_style=read_sun_style(ini_,night);stars=read_star_style(ini_,night);headlight_style=read_headlight_style(ini_,night);glint_style=read_glint_style(ini_,night);
         regional_base=lighting;apply_regional_values();
         // P0.3 dark diagnostic (Ctrl+Alt+N, LiveTuning): everything that follows
         // the atmosphere goes near-black; whatever stays bright bypasses it.
