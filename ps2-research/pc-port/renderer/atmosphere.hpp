@@ -292,7 +292,8 @@ public:
     // gear was seen in a forward gear this race; others keep the 6.8 motion latch. Pose hold = frames a car
     // keeps its lamps (extrapolated) when its body draw was not observed.
     bool reverse_from_gear=true;unsigned headlight_pose_hold=12;uint64_t gear_generation=0;std::array<bool,8> gear_trusted{};
-    uint64_t gear_matched=0,gear_reverse=0,headlight_held=0,headlight_gaps=0,lamp_rear_tints=0;
+    uint64_t gear_matched=0,gear_reverse=0,headlight_held=0,headlight_gaps=0,lamp_rear_tints=0,lamp_reverse_vertices=0;
+    struct LensTexture{uintptr_t pointer=0;uint64_t generation=0;unsigned width=0,height=0;std::vector<uint32_t> pixels;};std::array<LensTexture,16> lens_textures{};size_t lens_texture_next=0;
     std::array<float,3> brake_local{};bool brake_local_valid=false;uint64_t proxy_headlight_vertices=0;
     // 6.6 lamp glints: world lamp centres collected from this frame's lit lamp lens draws.
     GlintStyle glint_style;struct LampPoint{std::array<float,3> world{},axis{};uintptr_t instance=0;bool front=false;};

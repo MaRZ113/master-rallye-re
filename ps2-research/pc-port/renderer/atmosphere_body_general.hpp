@@ -22,39 +22,72 @@ inline bool lamp_centroid(Device8& d,IDirect3DDevice8& n,UINT min,UINT vertices,
 }
 // 6.6: centres of a lamp lens draw (CPU vertex mirror, never locks), split
 // into left/right halves; front/rear from the car-space Z of each centre.
-inline void record_lamp_points(Device8& d,atmosphere::Pilot& p,IDirect3DDevice8& n,uintptr_t instance,UINT min,UINT vertices)noexcept{
+// 6.12 glints: one point per lens = connected triangle components (vertices at the same position are
+// joined across UV seams, touching parts merged), centred on the component's bounds; per quadrant
+// (left/right x front/rear) only lenses >= 50% of the largest face size. Uses the draw's CPU mirror
+// (geometry), never the live stream (a private upload replaces it).
+inline void record_lamp_points(atmosphere::Pilot& p,uint64_t frame,uintptr_t instance,const std::vector<uint8_t>& bytes,unsigned stride,const std::vector<uint32_t>& indices,const D3DMATRIX& w)noexcept{
     try{
-        const auto frame=d.trace.frame_number();if(p.lamp_points_frame!=frame){p.lamp_points.clear();p.lamp_points_frame=frame;}
-        if(p.lamp_points.size()>=96||!vertices||vertices>4096)return;
-        courseintegration::Ref<IDirect3DVertexBuffer8> vb;UINT stride=0;if(FAILED(n.GetStreamSource(0,&vb.p,&stride))||!vb.p||stride<12||stride>128)return;
-        courseintegration::Ref<IDirect3DIndexBuffer8> ib;UINT base=0;if(FAILED(n.GetIndices(&ib.p,&base)))return;
-        const auto generation=d.trace.resources.generation(reinterpret_cast<uintptr_t>(vb.p));if(!generation)return;
-        std::vector<uint8_t> bytes;uint64_t revision=0;
-        if(!d.copy_buffer_shadow(vb.p,BufferKind::Vertex,generation,(uint64_t(base)+min)*stride,size_t(vertices)*stride,bytes,revision)||bytes.size()<size_t(vertices)*stride)return;
-        D3DMATRIX w{};if(FAILED(n.GetTransform(D3DTS_WORLD,&w)))return;
-        // 6.11: one glint per lens, not per side: vertices are grouped into lens clusters (<= .2 m from the
-        // cluster seed); per quadrant (left/right x front/rear) only the large lenses keep a glint, so small
-        // reflectors / indicators beside a headlight or tail lamp no longer pull the point off the lamp.
-        struct Cluster{std::array<float,3> seed{},lo{},hi{};std::array<double,3> sum{};unsigned count=0;};std::array<Cluster,24> cl{};unsigned clusters=0;
-        for(UINT i=0;i<vertices;++i){float v[3];std::memcpy(v,bytes.data()+size_t(i)*stride,12);if(!std::isfinite(v[0]+v[1]+v[2]))return;
-            Cluster* c=nullptr;for(unsigned k=0;k<clusters;++k){const float dx=cl[k].seed[0]-v[0],dy=cl[k].seed[1]-v[1],dz=cl[k].seed[2]-v[2];if(dx*dx+dy*dy+dz*dz<.04f){c=&cl[k];break;}}
-            if(!c){if(clusters>=cl.size())continue;c=&cl[clusters++];c->seed={v[0],v[1],v[2]};c->lo=c->seed;c->hi=c->seed;}
-            for(unsigned k=0;k<3;++k){c->sum[k]+=v[k];c->lo[k]=std::min(c->lo[k],v[k]);c->hi[k]=std::max(c->hi[k],v[k]);}++c->count;}
-        std::array<float,4> largest{};auto quadrant=[](const Cluster& c){return unsigned(c.sum[0]<0?0:1)+unsigned(c.sum[2]<0?2:0);};
-        auto extent=[](const Cluster& c){return std::max({c.hi[0]-c.lo[0],c.hi[1]-c.lo[1],c.hi[2]-c.lo[2]});};
-        for(unsigned k=0;k<clusters;++k)if(cl[k].count>=3)largest[quadrant(cl[k])]=std::max(largest[quadrant(cl[k])],extent(cl[k]));
+        if(p.lamp_points_frame!=frame){p.lamp_points.clear();p.lamp_points_frame=frame;}
+        const size_t n=stride?bytes.size()/stride:0;if(p.lamp_points.size()>=96||!n||n>4096||indices.size()<3)return;
+        std::vector<uint32_t> parent(n);for(uint32_t i=0;i<n;++i)parent[i]=i;
+        auto find=[&](uint32_t a){while(parent[a]!=a){parent[a]=parent[parent[a]];a=parent[a];}return a;};
+        auto join=[&](uint32_t a,uint32_t b){a=find(a);b=find(b);if(a!=b)parent[b]=a;};
+        auto pos=[&](size_t i){std::array<float,3> v{};std::memcpy(v.data(),bytes.data()+i*stride,12);return v;};
+        for(size_t t=0;t+2<indices.size();t+=3){if(indices[t]>=n||indices[t+1]>=n||indices[t+2]>=n)return;join(indices[t],indices[t+1]);join(indices[t],indices[t+2]);}
+        {std::vector<uint32_t> order(n);for(uint32_t i=0;i<n;++i)order[i]=i;std::sort(order.begin(),order.end(),[&](uint32_t a,uint32_t b){return pos(a)[0]<pos(b)[0];});
+         for(size_t a=0;a<n;++a)for(size_t b=a+1;b<n;++b){const auto pa=pos(order[a]),pb=pos(order[b]);if(pb[0]-pa[0]>.001f)break;
+             if(std::abs(pa[1]-pb[1])<=.001f&&std::abs(pa[2]-pb[2])<=.001f)join(order[a],order[b]);}}
+        struct Part{std::array<float,3> lo{1e30f,1e30f,1e30f},hi{-1e30f,-1e30f,-1e30f};unsigned count=0;bool live=true;};std::vector<Part> parts;std::vector<int> slot(n,-1);
+        std::vector<uint8_t> used(n,0);for(auto i:indices)used[i]=1;
+        for(uint32_t i=0;i<n;++i){if(!used[i])continue;const auto r=find(i);if(slot[r]<0){slot[r]=int(parts.size());parts.emplace_back();}auto& q=parts[size_t(slot[r])];const auto v=pos(i);
+            if(!std::isfinite(v[0]+v[1]+v[2]))return;for(unsigned k=0;k<3;++k){q.lo[k]=std::min(q.lo[k],v[k]);q.hi[k]=std::max(q.hi[k],v[k]);}++q.count;}
+        for(bool merged=true;merged;){merged=false;   // lens glass + rim / bulb: touching parts are one lamp
+            for(size_t a=0;a<parts.size();++a)for(size_t b=a+1;b<parts.size();++b){auto& A=parts[a];auto& B=parts[b];if(!A.live||!B.live)continue;bool touch=true;
+                for(unsigned k=0;k<3;++k)if(A.lo[k]>B.hi[k]+.02f||B.lo[k]>A.hi[k]+.02f){touch=false;break;}
+                if(touch){for(unsigned k=0;k<3;++k){A.lo[k]=std::min(A.lo[k],B.lo[k]);A.hi[k]=std::max(A.hi[k],B.hi[k]);}A.count+=B.count;B.live=false;merged=true;}}}
+        auto centre=[](const Part& q,unsigned k){return (q.lo[k]+q.hi[k])*.5f;};
+        auto quadrant=[&](const Part& q){return unsigned(centre(q,0)<0?0:1)+unsigned(centre(q,2)<0?2:0);};
+        auto extent=[](const Part& q){const float x=q.hi[0]-q.lo[0],y=q.hi[1]-q.lo[1];return std::sqrt(x*x+y*y);};   // face size (lenses face +-Z)
+        std::array<float,4> largest{};for(const auto& q:parts)if(q.live&&q.count>=3)largest[quadrant(q)]=std::max(largest[quadrant(q)],extent(q));
         const std::array<float,3> forward=atmosphere::normalized({w._31,w._32,w._33});
-        for(unsigned side=0;side<clusters;++side){const auto& c=cl[side];if(c.count<3||extent(c)<.6f*largest[quadrant(c)])continue;
-            const float x=float(c.sum[0]/c.count),y=float(c.sum[1]/c.count),z=float(c.sum[2]/c.count);
-            // 6.8: side repeaters / marker lamps (|Z| < 1.2 m) get no front/rear glint.
-            if(std::abs(z)<1.2f)continue;
+        for(const auto& q:parts){if(!q.live||q.count<3||extent(q)<.5f*largest[quadrant(q)])continue;
+            if(std::abs(centre(q,2))<1.2f)continue;   // 6.8: side repeaters / marker lamps get no glint
+            const float x=centre(q,0),y=centre(q,1),z=std::abs(q.hi[2])>std::abs(q.lo[2])?q.hi[2]:q.lo[2];   // outer face of the lens
             atmosphere::Pilot::LampPoint lp;lp.instance=instance;lp.front=z>0;
             lp.world={x*w._11+y*w._21+z*w._31+w._41,x*w._12+y*w._22+z*w._32+w._42,x*w._13+y*w._23+z*w._33+w._43};
             for(unsigned k=0;k<3;++k)lp.axis[k]=lp.front?forward[k]:-forward[k];
-            bool duplicate=false;for(const auto& q:p.lamp_points){const float dx=q.world[0]-lp.world[0],dy=q.world[1]-lp.world[1],dz=q.world[2]-lp.world[2];
-                if(q.instance==instance&&dx*dx+dy*dy+dz*dz<.01f){duplicate=true;break;}}
+            bool duplicate=false;for(const auto& o:p.lamp_points){const float dx=o.world[0]-lp.world[0],dy=o.world[1]-lp.world[1],dz=o.world[2]-lp.world[2];
+                if(o.instance==instance&&dx*dx+dy*dy+dz*dz<.0025f){duplicate=true;break;}}
             if(!duplicate)p.lamp_points.push_back(lp);}
     }catch(...){}
+}
+// 6.12 reverse section: rear lens triangles whose texels are white (low saturation, bright) are the
+// reverse lamp. Lens pixels cached by pointer+generation (A8R8G8B8/X8R8G8B8/R5G6B5/X1R5G5B5/A1R5G5B5).
+inline const atmosphere::Pilot::LensTexture* lens_texture(Device8& d,atmosphere::Pilot& p,IDirect3DDevice8& n)noexcept{
+    try{
+        courseintegration::Ref<IDirect3DBaseTexture8> base;if(FAILED(n.GetTexture(0,&base.p))||!base.p||base.p->GetType()!=D3DRTYPE_TEXTURE)return nullptr;
+        const auto pointer=reinterpret_cast<uintptr_t>(base.p);const auto generation=d.trace.resources.generation(pointer);if(!generation)return nullptr;
+        for(auto& c:p.lens_textures)if(c.pointer==pointer&&c.generation==generation)return c.width?&c:nullptr;
+        auto& c=p.lens_textures[p.lens_texture_next++%p.lens_textures.size()];c={};c.pointer=pointer;c.generation=generation;
+        auto* t=static_cast<IDirect3DTexture8*>(base.p);D3DSURFACE_DESC desc{};
+        if(FAILED(t->GetLevelDesc(0,&desc))||!desc.Width||!desc.Height||desc.Width>512||desc.Height>512||desc.Pool==D3DPOOL_DEFAULT)return nullptr;
+        const unsigned bpp=desc.Format==D3DFMT_A8R8G8B8||desc.Format==D3DFMT_X8R8G8B8?4:desc.Format==D3DFMT_R5G6B5||desc.Format==D3DFMT_X1R5G5B5||desc.Format==D3DFMT_A1R5G5B5?2:0;
+        if(!bpp)return nullptr;
+        D3DLOCKED_RECT lock{};if(FAILED(t->LockRect(0,&lock,nullptr,D3DLOCK_READONLY)))return nullptr;
+        std::vector<uint32_t> px(size_t(desc.Width)*desc.Height);const bool valid=lock.pBits&&lock.Pitch>=INT(desc.Width*bpp);
+        if(valid)for(unsigned y=0;y<desc.Height;++y){const auto* row=static_cast<const BYTE*>(lock.pBits)+size_t(y)*lock.Pitch;
+            for(unsigned x=0;x<desc.Width;++x){uint32_t v=0;if(bpp==4)std::memcpy(&v,row+x*4,4);else{uint16_t h=0;std::memcpy(&h,row+x*2,2);unsigned r=0,g=0,b=0;
+                if(desc.Format==D3DFMT_R5G6B5){r=((h>>11)&31)*255/31;g=((h>>5)&63)*255/63;b=(h&31)*255/31;}else{r=((h>>10)&31)*255/31;g=((h>>5)&31)*255/31;b=(h&31)*255/31;}
+                v=0xff000000u|r<<16|g<<8|b;}px[size_t(y)*desc.Width+x]=v;}}
+        if(FAILED(t->UnlockRect(0))||!valid)return nullptr;
+        c.width=desc.Width;c.height=desc.Height;c.pixels=std::move(px);return &c;
+    }catch(...){return nullptr;}
+}
+inline bool reverse_texel(const atmosphere::Pilot::LensTexture& t,float u,float v)noexcept{
+    if(!std::isfinite(u+v))return false;u-=std::floor(u);v-=std::floor(v);
+    const unsigned x=std::min(t.width-1,unsigned(u*t.width)),y=std::min(t.height-1,unsigned(v*t.height));const auto c=t.pixels[size_t(y)*t.width+x];
+    const unsigned r=(c>>16)&255,g=(c>>8)&255,b=c&255,lo=std::min({r,g,b}),hi=std::max({r,g,b});return lo>=140&&hi-lo<=60;
 }
 inline HRESULT night_energy(Device8& d,UINT min,UINT vertices,UINT start,UINT count,uintptr_t pc,bool& applied)noexcept {
     applied=false;auto* p=atmosphereintegration::pilot(d);
@@ -113,21 +146,27 @@ inline HRESULT night_energy(Device8& d,UINT min,UINT vertices,UINT start,UINT co
             // Rear lenses glow red; their white reverse-lamp texels only while reversing.
             const auto* own=p->lamp_projectors.frame!=UINT64_MAX&&p->lamp_projectors.frame+2>=d.trace.frame_number()?p->lamp_projectors.find(owner.owner.instance):nullptr;
             reversing=own&&own->reversing;mixed=!brake_zone&&(fvf==0x152||fvf==0x142);
-            const bool white=mixed||!rear_lamp||reversing;const DWORD gb=white?k:DWORD(k*.2f);
+            (void)rear_lamp;const DWORD gb=k;   // 6.12: lenses keep their own colours (tail, indicators, reverse)
             factor=(s.body_factor&0xff000000u)|k<<16|gb<<8|gb;material+=brake_zone?"#brake_zone":rear_lamp?"#rear_emissive":"#emissive";}
         for(unsigned i:{7u,1u,2u,3u,4u,5u,6u,0u}){s.body_pending|=1u<<i;const auto hr=i==7?n.SetRenderState(D3DRS_TEXTUREFACTOR,factor):n.SetTextureStageState(unit,keys[i],values[i]);
             if(i==7)atmosphereintegration::notify(d,50,pack(D3DRS_TEXTUREFACTOR,factor),hr);else atmosphereintegration::notify(d,63,pack(unit,keys[i],values[i]),hr);if(FAILED(hr))return atmosphereintegration::repair(d);}
         applied=true;
-        // 6.11: lens atlases (patrollights32 etc.) draw front and rear lenses in one call, so the colour
-        // split is per vertex: rear vertices (car z < -1.2) keep only red unless the car is in reverse,
-        // which lights the white reverse texels. Stage 0 is TEXTURE x DIFFUSE on these meshes.
-        if(lamp&&mixed){atmosphereintegration::Geometry g;const unsigned st=fvf==0x152?36u:24u,co=fvf==0x152?24u:12u;
-            if(atmosphereintegration::geometry(d,*p,min,vertices,start,count,g)&&p->pending.stride==st&&g.bytes.size()>=size_t(vertices)*st){unsigned rear=0;
-                const float gb=reversing?1.f:.14f;
-                for(size_t at=0;at+st<=g.bytes.size();at+=st){float z=0;std::memcpy(&z,g.bytes.data()+at+8,4);if(!(z<-1.2f))continue;
-                    g.bytes[at+co]=uint8_t(std::lround(g.bytes[at+co]*gb));g.bytes[at+co+1]=uint8_t(std::lround(g.bytes[at+co+1]*gb));++rear;}   // BGRA: B,G
-                if(rear){const auto hr=atmosphereintegration::upload(d,*p,min,vertices,g.bytes);if(FAILED(hr))return atmosphereintegration::repair(d);++p->lamp_rear_tints;}}}
-        if(lamp&&p->glint_style.enabled)record_lamp_points(d,*p,n,owner.owner.instance,min,vertices);
+        // 6.12: one lens draw may hold front and rear lenses. Only the reverse section changes: rear
+        // triangles (car z < -1.2) whose texels are white; their vertices are dimmed while not in reverse
+        // and native (bright through the emissive stage) in reverse. Cars without such texels: unchanged.
+        if(lamp&&(fvf==0x152||fvf==0x142)){atmosphereintegration::Geometry g;const unsigned st=fvf==0x152?36u:24u,co=fvf==0x152?24u:12u,uvo=co+4;
+            if(atmosphereintegration::geometry(d,*p,min,vertices,start,count,g)&&p->pending.stride==st&&g.bytes.size()>=size_t(vertices)*st){
+                const auto* tex=mixed?lens_texture(d,*p,n):nullptr;unsigned dimmed=0;
+                if(tex){std::vector<uint8_t> mark(vertices,0);   // bit0 reverse triangle, bit1 other triangle
+                    auto f=[&](uint32_t i,unsigned o){float x=0;std::memcpy(&x,g.bytes.data()+size_t(i)*st+o,4);return x;};
+                    for(size_t t=0;t+2<g.indices.size();t+=3){const uint32_t a=g.indices[t],b=g.indices[t+1],c=g.indices[t+2];if(a>=vertices||b>=vertices||c>=vertices)break;
+                        const bool rear=f(a,8)<-1.2f&&f(b,8)<-1.2f&&f(c,8)<-1.2f;
+                        const bool rev=rear&&reverse_texel(*tex,(f(a,uvo)+f(b,uvo)+f(c,uvo))/3,(f(a,uvo+4)+f(b,uvo+4)+f(c,uvo+4))/3);
+                        for(auto v:{a,b,c})mark[v]|=rev?1:2;}
+                    unsigned reverse_vertices=0;for(auto m:mark)reverse_vertices+=m==1;p->lamp_reverse_vertices+=reverse_vertices;
+                    if(!reversing)for(UINT v=0;v<vertices;++v)if(mark[v]==1){auto* col=g.bytes.data()+size_t(v)*st+co;for(unsigned k=0;k<3;++k)col[k]=uint8_t(col[k]*2/5);++dimmed;}}
+                if(dimmed){const auto hr=atmosphereintegration::upload(d,*p,min,vertices,g.bytes);if(FAILED(hr))return atmosphereintegration::repair(d);++p->lamp_rear_tints;}
+                D3DMATRIX w{};if(p->glint_style.enabled&&SUCCEEDED(n.GetTransform(D3DTS_WORLD,&w)))record_lamp_points(*p,d.trace.frame_number(),owner.owner.instance,g.bytes,st,g.indices,w);}}
         if(p->first_reason(("vehicle_night_energy_"+material).c_str()))session().write("{\"type\":\"atmosphere_vehicle_night_energy\",\"factor\":"+std::to_string(factor)+",\"unit\":"+std::to_string(unit)+",\"material\":"+quote(material)+"}");
         return S_OK;
     }catch(...){if(!p->pending.any())p->pending.release();return atmosphereintegration::repair(d);}
