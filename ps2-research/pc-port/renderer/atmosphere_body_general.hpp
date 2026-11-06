@@ -8,6 +8,20 @@ namespace gfx2::atmospherebody {
 // TFACTOR stage (after the native stages; alpha, blend, UV untouched).
 // Emissive lamp layers (*lightson*, *glow*) are left bright on purpose.
 // 6.7: car-space centroid of the current draw's vertex range (CPU mirror).
+// 6.13: share of the current draw's vertices inside a car's brake boxes (+3 cm).
+inline float brake_share(Device8& d,IDirect3DDevice8& n,UINT min,UINT vertices,const atmosphere::Pilot::BrakeBoxes& boxes)noexcept{
+    try{
+        if(!vertices||vertices>4096)return 0;
+        courseintegration::Ref<IDirect3DVertexBuffer8> vb;UINT stride=0;if(FAILED(n.GetStreamSource(0,&vb.p,&stride))||!vb.p||stride<12||stride>128)return 0;
+        courseintegration::Ref<IDirect3DIndexBuffer8> ib;UINT base=0;if(FAILED(n.GetIndices(&ib.p,&base)))return 0;
+        const auto generation=d.trace.resources.generation(reinterpret_cast<uintptr_t>(vb.p));if(!generation)return 0;
+        std::vector<uint8_t> bytes;uint64_t revision=0;
+        if(!d.copy_buffer_shadow(vb.p,BufferKind::Vertex,generation,(uint64_t(base)+min)*stride,size_t(vertices)*stride,bytes,revision)||bytes.size()<size_t(vertices)*stride)return 0;
+        unsigned inside=0;for(UINT i=0;i<vertices;++i){float v[3];std::memcpy(v,bytes.data()+size_t(i)*stride,12);
+            for(unsigned b=0;b<boxes.count;++b){bool in=true;for(unsigned k=0;k<3;++k)if(v[k]<boxes.lo[b][k]-.03f||v[k]>boxes.hi[b][k]+.03f){in=false;break;}if(in){++inside;break;}}}
+        return float(inside)/float(vertices);
+    }catch(...){return 0;}
+}
 inline bool lamp_centroid(Device8& d,IDirect3DDevice8& n,UINT min,UINT vertices,std::array<float,3>& out)noexcept{
     try{
         if(!vertices||vertices>4096)return false;
@@ -22,45 +36,80 @@ inline bool lamp_centroid(Device8& d,IDirect3DDevice8& n,UINT min,UINT vertices,
 }
 // 6.6: centres of a lamp lens draw (CPU vertex mirror, never locks), split
 // into left/right halves; front/rear from the car-space Z of each centre.
-// 6.12 glints: one point per lens = connected triangle components (vertices at the same position are
-// joined across UV seams, touching parts merged), centred on the component's bounds; per quadrant
-// (left/right x front/rear) only lenses >= 50% of the largest face size. Uses the draw's CPU mirror
-// (geometry), never the live stream (a private upload replaces it).
-inline void record_lamp_points(atmosphere::Pilot& p,uint64_t frame,uintptr_t instance,const std::vector<uint8_t>& bytes,unsigned stride,const std::vector<uint32_t>& indices,const D3DMATRIX& w)noexcept{
+// 6.13 lens texel classes (HSV of the texel under the triangle centroid): white (headlight / reverse;
+// reddish hues need lower saturation so pale pink tail sections stay red), red (tail / brake),
+// amber (indicators: no glint). Offline-checked on all retail car.dx lamp draws.
+enum LensClass : uint8_t {LensNone=0,LensWhite=1,LensRed=2,LensAmber=3};
+inline LensClass lens_class(uint32_t argb)noexcept{
+    const float r=((argb>>16)&255)/255.f,g=((argb>>8)&255)/255.f,b=(argb&255)/255.f,hi=std::max({r,g,b}),lo=std::min({r,g,b});
+    if(hi<.25f)return LensNone;const float sat=hi>0?(hi-lo)/hi:0;float h=0;
+    if(hi>lo){if(hi==r)h=std::fmod(60*(g-b)/(hi-lo)+360,360.f);else if(hi==g)h=60*(b-r)/(hi-lo)+120;else h=60*(r-g)/(hi-lo)+240;}
+    const bool reddish=h>=330||h<=15;
+    if(sat<(reddish?.22f:.38f))return hi>=.45f?LensWhite:LensNone;
+    if(reddish)return LensRed;return h<=65?LensAmber:LensNone;
+}
+struct LensTexel{const void* texture=nullptr;unsigned uv=0;};
+// 6.13 glints: one point per lens SECTION = connected triangles of the same texel class (vertices at the
+// same position joined across UV seams), at the section's bounds centre on its outer face. Role by class
+// and end: front white = headlight; rear white = reverse (shown only in R), rear red = tail; the
+// breaklightson layer itself (drawn only while braking) = brake. Amber / dark: no glint.
+inline void record_lamp_points(atmosphere::Pilot& p,uint64_t frame,uintptr_t instance,const std::vector<uint8_t>& bytes,unsigned stride,const std::vector<uint32_t>& indices,
+                               const D3DMATRIX& w,const atmosphere::Pilot::LensTexture* tex,unsigned uv,bool brake_layer,bool red_only)noexcept{
     try{
         if(p.lamp_points_frame!=frame){p.lamp_points.clear();p.lamp_points_frame=frame;}
-        const size_t n=stride?bytes.size()/stride:0;if(p.lamp_points.size()>=96||!n||n>4096||indices.size()<3)return;
+        const size_t n=stride?bytes.size()/stride:0;if(p.lamp_points.size()>=96||!n||n>4096||indices.size()<3||(tex&&uv+8>stride))return;
+        auto f=[&](size_t i,unsigned o){float x=0;std::memcpy(&x,bytes.data()+i*stride+o,4);return x;};
+        const size_t tris=indices.size()/3;std::vector<uint8_t> cls(tris,LensNone);
+        for(size_t t=0;t<tris;++t){const auto a=indices[t*3],b=indices[t*3+1],c=indices[t*3+2];if(a>=n||b>=n||c>=n)return;
+            if(brake_layer){cls[t]=LensRed;continue;}
+            if(tex){float u=(f(a,uv)+f(b,uv)+f(c,uv))/3,v=(f(a,uv+4)+f(b,uv+4)+f(c,uv+4))/3;if(!std::isfinite(u+v))continue;u-=std::floor(u);v-=std::floor(v);
+                const unsigned x=std::min(tex->width-1,unsigned(u*tex->width)),y=std::min(tex->height-1,unsigned(v*tex->height));cls[t]=lens_class(tex->pixels[size_t(y)*tex->width+x]);}
+            else cls[t]=(f(a,8)+f(b,8)+f(c,8))>0?LensWhite:LensRed;   // no readable texture: ends decide
+            if(red_only&&cls[t]!=LensRed)cls[t]=LensNone;}
         std::vector<uint32_t> parent(n);for(uint32_t i=0;i<n;++i)parent[i]=i;
         auto find=[&](uint32_t a){while(parent[a]!=a){parent[a]=parent[parent[a]];a=parent[a];}return a;};
         auto join=[&](uint32_t a,uint32_t b){a=find(a);b=find(b);if(a!=b)parent[b]=a;};
-        auto pos=[&](size_t i){std::array<float,3> v{};std::memcpy(v.data(),bytes.data()+i*stride,12);return v;};
-        for(size_t t=0;t+2<indices.size();t+=3){if(indices[t]>=n||indices[t+1]>=n||indices[t+2]>=n)return;join(indices[t],indices[t+1]);join(indices[t],indices[t+2]);}
-        {std::vector<uint32_t> order(n);for(uint32_t i=0;i<n;++i)order[i]=i;std::sort(order.begin(),order.end(),[&](uint32_t a,uint32_t b){return pos(a)[0]<pos(b)[0];});
-         for(size_t a=0;a<n;++a)for(size_t b=a+1;b<n;++b){const auto pa=pos(order[a]),pb=pos(order[b]);if(pb[0]-pa[0]>.001f)break;
-             if(std::abs(pa[1]-pb[1])<=.001f&&std::abs(pa[2]-pb[2])<=.001f)join(order[a],order[b]);}}
-        struct Part{std::array<float,3> lo{1e30f,1e30f,1e30f},hi{-1e30f,-1e30f,-1e30f};unsigned count=0;bool live=true;};std::vector<Part> parts;std::vector<int> slot(n,-1);
-        std::vector<uint8_t> used(n,0);for(auto i:indices)used[i]=1;
-        for(uint32_t i=0;i<n;++i){if(!used[i])continue;const auto r=find(i);if(slot[r]<0){slot[r]=int(parts.size());parts.emplace_back();}auto& q=parts[size_t(slot[r])];const auto v=pos(i);
-            if(!std::isfinite(v[0]+v[1]+v[2]))return;for(unsigned k=0;k<3;++k){q.lo[k]=std::min(q.lo[k],v[k]);q.hi[k]=std::max(q.hi[k],v[k]);}++q.count;}
-        for(bool merged=true;merged;){merged=false;   // lens glass + rim / bulb: touching parts are one lamp
-            for(size_t a=0;a<parts.size();++a)for(size_t b=a+1;b<parts.size();++b){auto& A=parts[a];auto& B=parts[b];if(!A.live||!B.live)continue;bool touch=true;
-                for(unsigned k=0;k<3;++k)if(A.lo[k]>B.hi[k]+.02f||B.lo[k]>A.hi[k]+.02f){touch=false;break;}
-                if(touch){for(unsigned k=0;k<3;++k){A.lo[k]=std::min(A.lo[k],B.lo[k]);A.hi[k]=std::max(A.hi[k],B.hi[k]);}A.count+=B.count;B.live=false;merged=true;}}}
-        auto centre=[](const Part& q,unsigned k){return (q.lo[k]+q.hi[k])*.5f;};
-        auto quadrant=[&](const Part& q){return unsigned(centre(q,0)<0?0:1)+unsigned(centre(q,2)<0?2:0);};
-        auto extent=[](const Part& q){const float x=q.hi[0]-q.lo[0],y=q.hi[1]-q.lo[1];return std::sqrt(x*x+y*y);};   // face size (lenses face +-Z)
-        std::array<float,4> largest{};for(const auto& q:parts)if(q.live&&q.count>=3)largest[quadrant(q)]=std::max(largest[quadrant(q)],extent(q));
+        // vertex class: the first class touching it; a vertex shared by two classes splits by triangle below
+        std::vector<uint8_t> vclass(n,LensNone);
+        for(size_t t=0;t<tris;++t)if(cls[t]==LensWhite||cls[t]==LensRed){for(unsigned k=0;k<3;++k){auto& vc=vclass[indices[t*3+k]];if(vc==LensNone)vc=cls[t];}}
+        for(size_t t=0;t<tris;++t){if(cls[t]!=LensWhite&&cls[t]!=LensRed)continue;const auto a=indices[t*3],b=indices[t*3+1],c=indices[t*3+2];
+            if(vclass[a]==cls[t]&&vclass[b]==cls[t])join(a,b);if(vclass[a]==cls[t]&&vclass[c]==cls[t])join(a,c);if(vclass[b]==cls[t]&&vclass[c]==cls[t])join(b,c);}
+        {std::vector<uint32_t> order;order.reserve(n);for(uint32_t i=0;i<n;++i)if(vclass[i]!=LensNone)order.push_back(i);
+         std::sort(order.begin(),order.end(),[&](uint32_t a,uint32_t b){return f(a,0)<f(b,0);});
+         for(size_t a=0;a<order.size();++a)for(size_t b=a+1;b<order.size();++b){const auto i=order[a],j=order[b];if(f(j,0)-f(i,0)>.001f)break;
+             if(vclass[i]==vclass[j]&&std::abs(f(i,4)-f(j,4))<=.001f&&std::abs(f(i,8)-f(j,8))<=.001f)join(i,j);}}
+        struct Part{std::array<float,3> lo{1e30f,1e30f,1e30f},hi{-1e30f,-1e30f,-1e30f};unsigned count=0;uint8_t cls=0;};std::vector<Part> parts;std::vector<int> slot(n,-1);
+        for(uint32_t i=0;i<n;++i){if(vclass[i]==LensNone)continue;const auto r=find(i);if(slot[r]<0){slot[r]=int(parts.size());parts.emplace_back();parts.back().cls=vclass[i];}
+            auto& q=parts[size_t(slot[r])];const std::array<float,3> v{f(i,0),f(i,4),f(i,8)};if(!std::isfinite(v[0]+v[1]+v[2]))return;
+            for(unsigned k=0;k<3;++k){q.lo[k]=std::min(q.lo[k],v[k]);q.hi[k]=std::max(q.hi[k],v[k]);}++q.count;}
         const std::array<float,3> forward=atmosphere::normalized({w._31,w._32,w._33});
-        for(const auto& q:parts){if(!q.live||q.count<3||extent(q)<.5f*largest[quadrant(q)])continue;
-            if(std::abs(centre(q,2))<1.2f)continue;   // 6.8: side repeaters / marker lamps get no glint
-            const float x=centre(q,0),y=centre(q,1),z=std::abs(q.hi[2])>std::abs(q.lo[2])?q.hi[2]:q.lo[2];   // outer face of the lens
-            atmosphere::Pilot::LampPoint lp;lp.instance=instance;lp.front=z>0;
+        for(const auto& q:parts){
+            const float cz=(q.lo[2]+q.hi[2])*.5f;if(std::abs(cz)<1.2f||q.count<(brake_layer?3u:4u))continue;   // 6.8: side markers get no glint
+            if(std::hypot(q.hi[0]-q.lo[0],q.hi[1]-q.lo[1])<.05f)continue;
+            const bool front=cz>0;if(front&&q.cls!=LensWhite)continue;
+            const uint8_t kind=brake_layer?2:front?0:q.cls==LensWhite?3:1;
+            const float x=(q.lo[0]+q.hi[0])*.5f,y=(q.lo[1]+q.hi[1])*.5f,z=front?q.hi[2]:q.lo[2];   // outer face
+            atmosphere::Pilot::LampPoint lp;lp.instance=instance;lp.front=front;lp.kind=kind;
             lp.world={x*w._11+y*w._21+z*w._31+w._41,x*w._12+y*w._22+z*w._32+w._42,x*w._13+y*w._23+z*w._33+w._43};
-            for(unsigned k=0;k<3;++k)lp.axis[k]=lp.front?forward[k]:-forward[k];
+            for(unsigned k=0;k<3;++k)lp.axis[k]=front?forward[k]:-forward[k];
             bool duplicate=false;for(const auto& o:p.lamp_points){const float dx=o.world[0]-lp.world[0],dy=o.world[1]-lp.world[1],dz=o.world[2]-lp.world[2];
-                if(o.instance==instance&&dx*dx+dy*dy+dz*dz<.0025f){duplicate=true;break;}}
+                if(o.instance==instance&&o.kind==kind&&dx*dx+dy*dy+dz*dz<.0025f){duplicate=true;break;}}
             if(!duplicate)p.lamp_points.push_back(lp);}
     }catch(...){}
+}
+// 6.13: remember the car-space boxes of a car's breaklightson layer (connected parts).
+inline void remember_brake_boxes(atmosphere::Pilot& p,uint64_t frame,uintptr_t instance,const std::vector<uint8_t>& bytes,unsigned stride,const std::vector<uint32_t>& indices)noexcept{
+    const size_t n=stride?bytes.size()/stride:0;if(!n||n>4096)return;
+    atmosphere::Pilot::BrakeBoxes* slot=nullptr;for(auto& b:p.brake_boxes)if(b.instance==instance){slot=&b;break;}
+    if(!slot){for(auto& b:p.brake_boxes)if(!b.instance||b.frame==UINT64_MAX||frame>b.frame+3600){slot=&b;break;}if(!slot)return;}
+    if(slot->instance==instance&&slot->frame+30>frame&&slot->count)return;   // refreshed twice a second at most
+    std::vector<uint32_t> parent(n);for(uint32_t i=0;i<n;++i)parent[i]=i;
+    auto find=[&](uint32_t a){while(parent[a]!=a){parent[a]=parent[parent[a]];a=parent[a];}return a;};
+    for(size_t t=0;t+2<indices.size();t+=3){if(indices[t]>=n||indices[t+1]>=n||indices[t+2]>=n)return;for(unsigned k=1;k<3;++k){auto a=find(indices[t]),b=find(indices[t+k]);if(a!=b)parent[b]=a;}}
+    atmosphere::Pilot::BrakeBoxes out;out.instance=instance;out.frame=frame;std::vector<int> map(n,-1);
+    for(uint32_t i=0;i<n;++i){const auto r=find(i);if(map[r]<0){if(out.count>=out.lo.size())continue;map[r]=int(out.count++);out.lo[size_t(map[r])]={1e30f,1e30f,1e30f};out.hi[size_t(map[r])]={-1e30f,-1e30f,-1e30f};}
+        const size_t m=size_t(map[r]);float v[3];std::memcpy(v,bytes.data()+size_t(i)*stride,12);for(unsigned k=0;k<3;++k){out.lo[m][k]=std::min(out.lo[m][k],v[k]);out.hi[m][k]=std::max(out.hi[m][k],v[k]);}}
+    *slot=out;
 }
 // 6.12 reverse section: rear lens triangles whose texels are white (low saturation, bright) are the
 // reverse lamp. Lens pixels cached by pointer+generation (A8R8G8B8/X8R8G8B8/R5G6B5/X1R5G5B5/A1R5G5B5).
@@ -86,8 +135,7 @@ inline const atmosphere::Pilot::LensTexture* lens_texture(Device8& d,atmosphere:
 }
 inline bool reverse_texel(const atmosphere::Pilot::LensTexture& t,float u,float v)noexcept{
     if(!std::isfinite(u+v))return false;u-=std::floor(u);v-=std::floor(v);
-    const unsigned x=std::min(t.width-1,unsigned(u*t.width)),y=std::min(t.height-1,unsigned(v*t.height));const auto c=t.pixels[size_t(y)*t.width+x];
-    const unsigned r=(c>>16)&255,g=(c>>8)&255,b=c&255,lo=std::min({r,g,b}),hi=std::max({r,g,b});return lo>=140&&hi-lo<=60;
+    const unsigned x=std::min(t.width-1,unsigned(u*t.width)),y=std::min(t.height-1,unsigned(v*t.height));return lens_class(t.pixels[size_t(y)*t.width+x])==LensWhite;
 }
 inline HRESULT night_energy(Device8& d,UINT min,UINT vertices,UINT start,UINT count,uintptr_t pc,bool& applied)noexcept {
     applied=false;auto* p=atmosphereintegration::pilot(d);
@@ -100,6 +148,16 @@ inline HRESULT night_energy(Device8& d,UINT min,UINT vertices,UINT start,UINT co
         if(frontendmodelintegration::fleet_owner(frontendmodelintegration::caller_stack,pc,owner)){
             const auto exe=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));
             if(!atmosphere::native_material_binding(exe,owner.mesh,frontendmodelintegration::word,binding))return S_OK;
+            {std::string primary=binding.names[0];for(auto& c:primary)c=char(std::tolower(static_cast<unsigned char>(c)));
+             // 6.13: the breaklightson layer (drawn only while braking) marks the brake sections: its parts become
+             // brake glints this frame and the car's brake boxes (brake-zone lens draws). The draw stays native.
+             if(primary.find("breaklightson")!=std::string::npos&&primary.find("glow")==std::string::npos&&(fvf==0x152||fvf==0x142)&&!p->pending.any()){
+                 atmosphereintegration::Geometry g;const unsigned st=fvf==0x152?36u:24u;D3DMATRIX w{};
+                 if(atmosphereintegration::geometry(d,*p,min,vertices,start,count,g)&&p->pending.stride==st&&SUCCEEDED(n.GetTransform(D3DTS_WORLD,&w))){
+                     remember_brake_boxes(*p,d.trace.frame_number(),owner.owner.instance,g.bytes,st,g.indices);
+                     if(p->glint_style.enabled)record_lamp_points(*p,d.trace.frame_number(),owner.owner.instance,g.bytes,st,g.indices,w,nullptr,0,true,false);
+                     if(p->first_reason("brake_layer_observed"))session().write("{\"type\":\"atmosphere_brake_layer\",\"frame\":"+std::to_string(d.trace.frame_number())+",\"vertices\":"+std::to_string(vertices)+"}");}
+                 if(!p->pending.any())p->pending.release();return S_OK;}}
             for(const auto& raw:binding.names){std::string name=raw;for(auto& c:name)c=char(std::tolower(static_cast<unsigned char>(c)));
                 if(name.find("lightson")!=std::string::npos||name.find("glow")!=std::string::npos)return S_OK;}
             // 6.5: lamp lens textures (front white / rear red share one atlas) are
@@ -111,7 +169,7 @@ inline HRESULT night_energy(Device8& d,UINT min,UINT vertices,UINT start,UINT co
             // off-state brake lamp mesh sits where the glow card was observed.
             if(p->headlight_style.enabled&&p->headlight_style.lamp_emissive>0&&lamp_centroid(d,n,min,vertices,centroid)){
                 rear_lamp=centroid[2]<-1.2f;
-                if(!lamp&&p->brake_local_valid&&std::abs(centroid[1]-p->brake_local[1])<.35f&&std::abs(centroid[2]-p->brake_local[2])<.5f){lamp=true;rear_lamp=true;brake_zone=true;}}
+                if(!lamp&&rear_lamp)if(const auto* boxes=p->brake_boxes_for(owner.owner.instance))if(brake_share(d,n,min,vertices,*boxes)>=.5f){lamp=true;brake_zone=true;}}
             material=binding.names[0];
         }else{
             // 5.13: windows live under $switch(screen*) nodes, which the fleet
@@ -166,7 +224,8 @@ inline HRESULT night_energy(Device8& d,UINT min,UINT vertices,UINT start,UINT co
                     unsigned reverse_vertices=0;for(auto m:mark)reverse_vertices+=m==1;p->lamp_reverse_vertices+=reverse_vertices;
                     if(!reversing)for(UINT v=0;v<vertices;++v)if(mark[v]==1){auto* col=g.bytes.data()+size_t(v)*st+co;for(unsigned k=0;k<3;++k)col[k]=uint8_t(col[k]*2/5);++dimmed;}}
                 if(dimmed){const auto hr=atmosphereintegration::upload(d,*p,min,vertices,g.bytes);if(FAILED(hr))return atmosphereintegration::repair(d);++p->lamp_rear_tints;}
-                D3DMATRIX w{};if(p->glint_style.enabled&&SUCCEEDED(n.GetTransform(D3DTS_WORLD,&w)))record_lamp_points(*p,d.trace.frame_number(),owner.owner.instance,g.bytes,st,g.indices,w);}}
+                D3DMATRIX w{};if(p->glint_style.enabled&&SUCCEEDED(n.GetTransform(D3DTS_WORLD,&w))){if(!tex)tex=lens_texture(d,*p,n);
+                    record_lamp_points(*p,d.trace.frame_number(),owner.owner.instance,g.bytes,st,g.indices,w,tex,uvo,false,brake_zone);}}}
         if(p->first_reason(("vehicle_night_energy_"+material).c_str()))session().write("{\"type\":\"atmosphere_vehicle_night_energy\",\"factor\":"+std::to_string(factor)+",\"unit\":"+std::to_string(unit)+",\"material\":"+quote(material)+"}");
         return S_OK;
     }catch(...){if(!p->pending.any())p->pending.release();return atmosphereintegration::repair(d);}

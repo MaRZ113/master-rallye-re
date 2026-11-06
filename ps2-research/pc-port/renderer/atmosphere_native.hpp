@@ -351,10 +351,12 @@ inline HRESULT lamp_glints(Device8& d,atmosphere::Pilot& p,IDirect3DDevice8& n,U
     for(const auto& l:p.lamp_points){
         std::array<float,3> to{eye[0]-l.world[0],eye[1]-l.world[1],eye[2]-l.world[2]};const float dist=std::sqrt(atmosphere::dot3(to,to));if(dist<.5f||dist>400)continue;
         for(auto& x:to)x/=dist;const float facing=std::clamp(atmosphere::dot3(to,l.axis),0.f,1.f);
-        bool brake=false;if(!l.front&&p.lamps_last.frame!=UINT64_MAX&&p.lamps_last.frame+2>=frame)for(const auto& s:p.lamps_last.samples){
-            const float dx=s.position[0]-l.world[0],dy=s.position[1]-l.world[1],dz=s.position[2]-l.world[2];if(dx*dx+dy*dy+dz*dz<4.f){brake=true;break;}}
-        const auto* owner_lamps=lp.frame!=UINT64_MAX&&lp.frame+2>=frame?lp.find(l.instance):nullptr;const bool reverse=!l.front&&owner_lamps&&owner_lamps->reversing;
-        float k=(l.front?g.front*std::pow(facing,1.6f):g.rear*(brake?g.brake:1.f)*std::pow(facing,1.2f))+.06f;
+        // 6.13 roles: head (front white), tail (rear red, always), brake (breaklightson parts, present only
+        // while braking), reverse (rear white, only while the car is in reverse).
+        const auto* owner_lamps=lp.frame!=UINT64_MAX&&lp.frame+2>=frame?lp.find(l.instance):nullptr;
+        if(l.kind==3&&!(owner_lamps&&owner_lamps->reversing))continue;
+        const float rear_k=l.kind==2?g.rear*g.brake:l.kind==3?g.reverse:g.rear*.55f;
+        float k=(l.front?g.front*std::pow(facing,1.6f):rear_k*std::pow(facing,1.2f))+.06f;
         k*=1/(1+(dist/90)*(dist/90));if(k<.02f)continue;
         // Pull the sprite 0.35 m toward the camera so the lens itself never hides it.
         std::array<float,3> w{l.world[0]+to[0]*.35f,l.world[1]+to[1]*.35f,l.world[2]+to[2]*.35f};
@@ -365,15 +367,14 @@ inline HRESULT lamp_glints(Device8& d,atmosphere::Pilot& p,IDirect3DDevice8& n,U
         auto quad=[&](std::vector<atmosphere::SunVertex>& out,float rx,float ry,DWORD c){
             const atmosphere::SunVertex a{px-rx-.5f,py-ry-.5f,nz,rhw,c,0,0,0,0},b{px+rx-.5f,py-ry-.5f,nz,rhw,c,1,0,0,0},e{px-rx-.5f,py+ry-.5f,nz,rhw,c,0,1,0,0},f{px+rx-.5f,py+ry-.5f,nz,rhw,c,1,1,0,0};
             for(const auto& q:{a,b,e,e,b,f})out.push_back(q);};
-        const auto rgb=l.front?style.rgb:style.tail_rgb;const std::array<float,3> glint_rgb=l.front?std::array<float,3>{1.f,.93f,.78f}:std::array<float,3>{1.f,.22f,.14f};const float r=std::max(1.5f,pixels(g.glow_degrees)*(.55f+.45f*std::min(1.f,k)));
+        const auto rgb=l.front?style.rgb:style.tail_rgb;const std::array<float,3> glint_rgb=l.front?std::array<float,3>{1.f,.93f,.78f}:l.kind==3?std::array<float,3>{1.f,.97f,.92f}:std::array<float,3>{1.f,.22f,.14f};const float r=std::max(1.5f,pixels(g.glow_degrees)*(.55f+.45f*std::min(1.f,k)));
         quad(glow,r,r,colour(glint_rgb,std::min(1.f,k)));(void)rgb;
         if(g.streak>0&&g.streak_degrees>0){const float star=std::max(r*1.5f,pixels(g.streak_degrees)*(l.front?1.f:.75f)*std::min(1.f,k+.25f));quad(streak,star,star,colour(glint_rgb,std::min(1.f,k*g.streak)));}
-        if(reverse)quad(glow,r*.8f,r*.8f,colour({1.f,.97f,.92f},std::min(1.f,g.reverse*(std::pow(facing,1.2f)+.06f))));
     }
     const auto writer=[](void* context,uint32_t slot,const Args& args,HRESULT hr)noexcept{notify(*static_cast<Device8*>(context),slot,args,hr);};
     const auto hr=p.sun.lamp_sprites(n,glow,streak,&d,writer,g.texture);
-    if(p.first_reason("lamp_glints")||(d.trace.control.active&&frame%60==0)){unsigned rear=0;for(const auto& l:p.lamp_points)rear+=!l.front;
-        session().write("{\"type\":\"atmosphere_lamp_glints\",\"frame\":"+std::to_string(frame)+",\"lamps\":"+std::to_string(p.lamp_points.size())+",\"rear_lamps\":"+std::to_string(rear)+",\"sprite_from_file\":"+std::string(p.sun.glint_from_file()?"true":"false")+",\"sprites\":"+std::to_string((glow.size()+streak.size())/6)+",\"hresult\":"+std::to_string(uint32_t(hr))+"}");}
+    if(p.first_reason("lamp_glints")||(d.trace.control.active&&frame%60==0)){unsigned rear=0,kinds[4]{};for(const auto& l:p.lamp_points){rear+=!l.front;++kinds[l.kind&3];}
+        session().write("{\"type\":\"atmosphere_lamp_glints\",\"frame\":"+std::to_string(frame)+",\"lamps\":"+std::to_string(p.lamp_points.size())+",\"rear_lamps\":"+std::to_string(rear)+",\"head\":"+std::to_string(kinds[0])+",\"tail\":"+std::to_string(kinds[1])+",\"brake\":"+std::to_string(kinds[2])+",\"reverse\":"+std::to_string(kinds[3])+",\"sprite_from_file\":"+std::string(p.sun.glint_from_file()?"true":"false")+",\"sprites\":"+std::to_string((glow.size()+streak.size())/6)+",\"hresult\":"+std::to_string(uint32_t(hr))+"}");}
     return hr;
 }
 inline HRESULT sun_before_ui(Device8& d,bool ui)noexcept{

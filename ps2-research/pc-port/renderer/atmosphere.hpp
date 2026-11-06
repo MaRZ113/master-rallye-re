@@ -293,10 +293,13 @@ public:
     // keeps its lamps (extrapolated) when its body draw was not observed.
     bool reverse_from_gear=true;unsigned headlight_pose_hold=12;uint64_t gear_generation=0;std::array<bool,8> gear_trusted{};
     uint64_t gear_matched=0,gear_reverse=0,headlight_held=0,headlight_gaps=0,lamp_rear_tints=0,lamp_reverse_vertices=0;
+    // 6.13: car-space boxes of each car's breaklightson layer (seen while braking) -> brake-zone lens draws.
+    struct BrakeBoxes{uintptr_t instance=0;uint64_t frame=UINT64_MAX;unsigned count=0;std::array<std::array<float,3>,8> lo{},hi{};};std::array<BrakeBoxes,8> brake_boxes{};
+    const BrakeBoxes* brake_boxes_for(uintptr_t instance)const noexcept{for(const auto& b:brake_boxes)if(b.instance==instance&&b.count)return &b;return nullptr;}
     struct LensTexture{uintptr_t pointer=0;uint64_t generation=0;unsigned width=0,height=0;std::vector<uint32_t> pixels;};std::array<LensTexture,16> lens_textures{};size_t lens_texture_next=0;
     std::array<float,3> brake_local{};bool brake_local_valid=false;uint64_t proxy_headlight_vertices=0;
     // 6.6 lamp glints: world lamp centres collected from this frame's lit lamp lens draws.
-    GlintStyle glint_style;struct LampPoint{std::array<float,3> world{},axis{};uintptr_t instance=0;bool front=false;};
+    GlintStyle glint_style;struct LampPoint{std::array<float,3> world{},axis{};uintptr_t instance=0;bool front=false;uint8_t kind=0;};   // 6.13 kind: 0 head, 1 tail, 2 brake, 3 reverse
     std::vector<LampPoint> lamp_points;uint64_t lamp_points_frame=UINT64_MAX,reverse_until=0;uintptr_t reverse_instance=0;
     uint64_t headlight_candidates=0,headlight_no_car=0,headlight_view_changes=0,headlight_off_target=0,headlight_log_frame=0;
     IDirect3DTexture8 *headlight_cookie_texture=nullptr,*tail_cookie_texture=nullptr,*headlight_ramp_texture=nullptr;unsigned headlight_caps=0;uint64_t headlight_draws=0,headlight_culled=0;
