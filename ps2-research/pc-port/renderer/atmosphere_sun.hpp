@@ -105,12 +105,14 @@ inline bool sun_position(const std::array<float,3>& direction,const D3DMATRIX& v
     if(z<=.01f*std::sqrt(length))return false;
     const float w=x*projection._14+y*projection._24+z*projection._34;if(!std::isfinite(w)||w<=0)return false;
     const float nx=(x*projection._11+y*projection._21+z*projection._31)/w,ny=(x*projection._12+y*projection._22+z*projection._32)/w;
-    if(!std::isfinite(nx)||!std::isfinite(ny)||std::abs(nx)>=.98f||std::abs(ny)>=.98f)return false;
+    // 6.1: the disk may leave the screen; every layer (core included) fades with
+    // `edge` over the outer ~1/6 of the view instead of popping at the border.
+    if(!std::isfinite(nx)||!std::isfinite(ny)||std::abs(nx)>=1.f||std::abs(ny)>=1.f)return false;
     out.x=(nx+1)*width*.5f;out.y=(1-ny)*height*.5f;
     out.pixels_per_tan=height*.5f*projection._22;
     out.radius=std::clamp(out.pixels(core_degrees),2.f,height*.2f);
     out.edge=std::clamp((1-std::max(std::abs(nx),std::abs(ny)))*6.f,0.f,1.f);
-    return out.x>out.radius+2&&out.y>out.radius+2&&out.x+out.radius+2<width&&out.y+out.radius+2<height;
+    return out.edge>0;
 }
 struct SunProof {
     uint64_t frame=UINT64_MAX,race=0,owner=0,reset=0;uintptr_t camera=0;
@@ -377,7 +379,7 @@ public:
         std::array<float,3> tint{1,.87f,.62f};if(lighting){const float maximum=std::max({lighting->sun[0],lighting->sun[1],lighting->sun[2],.01f});for(unsigned i=0;i<3;++i)tint[i]=std::clamp(lighting->sun[i]/maximum,0.f,1.f);}
         auto warm=[&](const std::array<float,3>& rgb,unsigned i){return rgb[i]*(.55f+.45f*tint[i]);};
         // The core alone is depth-tested at the far plane: geometry cuts it crisply.
-        if(disk&&style.core>0){tex(0,disk_);quad=sun_quad(position.x,position.y,position.radius,color(style.core_rgb[0],style.core_rgb[1],style.core_rgb[2],style.core),0,0);if(SUCCEEDED(hr))hr=transaction.draw(n,quad.data(),sizeof(SunVertex));}
+        if(disk&&style.core>0){tex(0,disk_);quad=sun_quad(position.x,position.y,position.radius,color(style.core_rgb[0],style.core_rgb[1],style.core_rgb[2],style.core*position.edge),0,0);if(SUCCEEDED(hr))hr=transaction.draw(n,quad.data(),sizeof(SunVertex));}
         ts(1,D3DTSS_COLOROP,D3DTOP_MODULATE);tex(1,mask_texture_);
         // Glow, bloom and spokes overlay nearby geometry like GT3, but each of the
         // five current-frame depth samples adds 1/5: fully hidden sun = no light.
@@ -388,7 +390,7 @@ public:
         const float spin=.35f*(position.x/float(width_)-.5f)+.2f*(position.y/float(height_)-.5f);
         const float offsets[5][2]={{0,0},{-.55f,0},{.55f,0},{0,-.55f},{0,.55f}};
         rs(D3DRS_ZENABLE,D3DZB_FALSE);
-        for(const auto& offset:offsets){const float mu=(std::floor(position.x+offset[0]*position.radius)+.5f)/tw_,mv=(std::floor(position.y+offset[1]*position.radius)+.5f)/th_;
+        for(const auto& offset:offsets){const float mu=(std::clamp(std::floor(position.x+offset[0]*position.radius),0.f,float(width_)-1)+.5f)/tw_,mv=(std::clamp(std::floor(position.y+offset[1]*position.radius),0.f,float(height_)-1)+.5f)/th_;
             const float share=.2f*position.edge;
             if(halo&&style.bloom>0){tex(0,bloom_);quad=sun_quad(position.x,position.y,bloom_radius,color(warm(style.bloom_rgb,0),warm(style.bloom_rgb,1),warm(style.bloom_rgb,2),style.bloom*share),mu,mv);if(SUCCEEDED(hr))hr=transaction.draw(n,quad.data(),sizeof(SunVertex));}
             if(halo&&style.glow>0){tex(0,halo_);quad=sun_quad(position.x,position.y,glow_radius,color(warm(style.glow_rgb,0),warm(style.glow_rgb,1),warm(style.glow_rgb,2),style.glow*share),mu,mv);if(SUCCEEDED(hr))hr=transaction.draw(n,quad.data(),sizeof(SunVertex));}
