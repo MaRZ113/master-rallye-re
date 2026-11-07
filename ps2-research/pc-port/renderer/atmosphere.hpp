@@ -383,6 +383,8 @@ public:
         void release()noexcept{if(environment)environment->Release();environment=nullptr;if(texture)texture->Release();if(stream)stream->Release();if(indices)indices->Release();texture=nullptr;stream=nullptr;indices=nullptr;}
     } pending;
     IDirect3DVertexBuffer8* scratch=nullptr;UINT scratch_size=0;
+    // PERF-ATMO1: DYNAMIC DEFAULT upload ring (UploadRing=1); released with the device reset.
+    IDirect3DVertexBuffer8* ring=nullptr;UINT ring_size=0,ring_cursor=0;bool ring_failed=false,upload_ring=false;uint64_t ring_uploads=0,ring_discards=0;
     Pilot(bool supported,const std::wstring& renderer_ini) {
         ini_=(std::filesystem::path(renderer_ini).parent_path()/L"Atmosphere.ini").wstring();
         enabled_=supported&&GetPrivateProfileIntW(L"Atmosphere",L"Enabled",0,ini_.c_str())==1;
@@ -408,6 +410,7 @@ public:
         package_root=setting(L"LightingPackageRoot",L"");if(!package_root.empty()&&package_root.is_relative())package_root=std::filesystem::path(ini_).parent_path()/package_root;
         capture.enabled=GetPrivateProfileIntW(L"Atmosphere",L"CourseCapture",0,ini_.c_str())==1;
         coverage.enabled=GetPrivateProfileIntW(L"Atmosphere",L"CoverageLedger",0,ini_.c_str())==1;
+        upload_ring=GetPrivateProfileIntW(L"Atmosphere",L"UploadRing",0,ini_.c_str())==1;
         vehicle_glow_fix=GetPrivateProfileIntW(L"Atmosphere",L"VehicleGlowFix",0,ini_.c_str())==1;
         gear_probe=GetPrivateProfileIntW(L"Atmosphere",L"GearProbe",0,ini_.c_str())==1;
         reverse_from_gear=GetPrivateProfileIntW(L"Atmosphere",L"ReverseFromGear",1,ini_.c_str())==1;
@@ -494,7 +497,7 @@ public:
     bool enabled()const noexcept{return enabled_;}
     bool custom()const noexcept{return enabled_&&!set_.empty()&&!custom_failed_&&(regional_sky==-2||regional_sky==int(custom_base));}
     void disable()noexcept{enabled_=false;}
-    void reset()noexcept{release_headlights();release_lens_night();capture.cancel(world);clear_environment();sun.reset();resolver.clear();body_texture_cache.clear();for(auto*& t:textures_){if(t)t->Release();t=nullptr;}if(scratch)scratch->Release();scratch=nullptr;scratch_size=0;custom_ready_=false;}
+    void reset()noexcept{release_headlights();release_lens_night();capture.cancel(world);clear_environment();sun.reset();resolver.clear();body_texture_cache.clear();for(auto*& t:textures_){if(t)t->Release();t=nullptr;}if(scratch)scratch->Release();scratch=nullptr;scratch_size=0;if(ring)ring->Release();ring=nullptr;ring_size=ring_cursor=0;ring_failed=false;custom_ready_=false;}
     const Pixels& pixels(unsigned layer)const noexcept{return pixels_[layer];}
     bool load(IDirect3DDevice8& n) {
         if(custom_ready_)return true;if(!custom())return false;

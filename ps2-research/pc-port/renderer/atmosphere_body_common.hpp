@@ -1,7 +1,7 @@
 #pragma once
 #include "atmosphere_native.hpp"
 namespace gfx2::atmospherebody {
-struct Timing {atmosphere::Pilot& p;LARGE_INTEGER start{};Timing(atmosphere::Pilot& x):p(x){QueryPerformanceCounter(&start);}~Timing(){LARGE_INTEGER end{};QueryPerformanceCounter(&end);p.body_cpu_ticks+=end.QuadPart-start.QuadPart;++p.body_calls;}};
+struct Timing {atmosphere::Pilot& p;ps2port::perf::Timer perf{ps2port::perf::AtmoBody};LARGE_INTEGER start{};Timing(atmosphere::Pilot& x):p(x){QueryPerformanceCounter(&start);}~Timing(){LARGE_INTEGER end{};QueryPerformanceCounter(&end);p.body_cpu_ticks+=end.QuadPart-start.QuadPart;++p.body_calls;}};
 // Diffuse exposure is already applied in body_color. Never multiply the final
 // reflection combine again: doing so crushes diffuse AND environment highlights.
 // Keep this hook shared by native and PS2 fleet paths without touching stages.

@@ -475,9 +475,12 @@ void perf2_contracts() {
         CHECK(r.find("\"frames\":30") != std::string::npos);
         CHECK(r.find("hud_context") == std::string::npos);
         // FPS1: frame time of the window (29 frame intervals after the window start) and the bypass state.
-        CHECK(r.find("\"bypass\":\"none\",\"frame_time\":{\"samples\":30") != std::string::npos);
+        // PERF-ATMO1: the atmosphere A/B step sits between the bypass state and the frame time.
+        CHECK(r.find("\"bypass\":\"none\",\"atmo\":\"none\",\"frame_time\":{\"samples\":30") != std::string::npos);
     }
     CHECK(!perf::bypassed(perf::BypassGrass) && perf::kBypassStepCount == 7 && perf::kBypassSteps[6] == 31u);
+    CHECK(!perf::atmo(perf::AtmoRing) && perf::kAtmoStepCount == 7 && perf::kAtmoSteps[4] == perf::AtmoRing && perf::kAtmoSteps[6] == 15u);
+    CHECK(std::string(perf::kCategoryNames[perf::AtmoSunUi]) == "atmo_sun_ui");
     perf::frame(2, 5, writer); CHECK(records.size() == 2);   // a new device restarts the window
     perf::configure(false, 300);
 }

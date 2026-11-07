@@ -5,6 +5,7 @@
 #include "buffer_provenance.hpp"
 #include "brake_glow.hpp"
 #include "ps2_hud_damage_feed.hpp"
+#include "ps2_perf_timing.hpp"
 
 namespace gfx2::atmosphereintegration {
 inline atmosphere::Pilot* pilot(Device8& d)noexcept{return d.ps2_port()?d.ps2_port()->atmosphere_pilot():nullptr;}
@@ -179,6 +180,7 @@ inline void gear_probe(Device8& d,atmosphere::Pilot& p,uint64_t frame,float alon
 // projector light evaluated per world vertex and added to its colour.
 inline void proxy_headlights(Device8& d,atmosphere::Pilot& p,std::vector<ps2port::ObjectVertex>& v)noexcept{
     try{
+        if(ps2port::perf::atmo(ps2port::perf::AtmoHeadlights))return;
         if(!p.headlight_style.enabled||p.lighting.ambient_strength>=.5f||v.empty()||!headlight_projectors(d,p,*d.native()))return;
         const auto& lp=p.lamp_projectors;const auto& style=p.headlight_style;
         for(auto& x:v){const std::array<float,3> w{x.x,x.y,x.z};std::array<float,3> add{};
@@ -211,11 +213,13 @@ struct HeadlightPass {
     ~HeadlightPass(){for(auto*& t:texture)if(t){t->Release();t=nullptr;}}
 };
 inline HRESULT headlight_world(Device8& d,HRESULT draw_hr,uintptr_t pc)noexcept{
+    if(ps2port::perf::atmo(ps2port::perf::AtmoHeadlights))return S_OK;   // PERF-ATMO1 diagnostic A/B
     auto* p=pilot(d);if(!p||!p->enabled()||!p->headlight_style.enabled||FAILED(draw_hr)||!p->lighting.active()||
        pc!=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+groundintegration::COURSE_DRAW_RETURN_RVA||!d.trace.scene_active||
        d.trace.shadow.recording||d.trace.effective_shadow.recording||GetCurrentThreadId()!=d.trace.render_thread_id())return S_OK;
     auto& c=p->headlight_candidate;const auto frame=d.trace.frame_number();if(c.frame!=frame)return S_OK;
     const auto cand=c;c.frame=UINT64_MAX;   // consumed: exactly the draw that just ran
+    ps2port::perf::Timer perf_timer(ps2port::perf::AtmoHeadlight);
     try{
         auto& n=*d.native();
         if(!p->headlight_caps){D3DCAPS8 caps{};p->headlight_caps=SUCCEEDED(n.GetDeviceCaps(&caps))&&caps.MaxTextureBlendStages>=4&&caps.MaxSimultaneousTextures>=3&&
@@ -266,6 +270,7 @@ inline void sun_world(Device8& d,HRESULT hr,uintptr_t pc)noexcept{
     auto* p=pilot(d);if(!p||!p->enabled()||!(p->sun_disk||p->sun_halo||p->sun_flare||p->sun_style.vignette>0||p->stars.count||p->glint_style.enabled)||FAILED(hr)||!d.trace.scene_active||
         pc!=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+groundintegration::COURSE_DRAW_RETURN_RVA||
         GetCurrentThreadId()!=d.trace.render_thread_id())return;
+    ps2port::perf::Timer perf_timer(ps2port::perf::AtmoSunWorld);
     auto& proof=p->sun.proof;const auto frame=d.trace.frame_number();
     const auto& shadow=d.trace.effective_shadow;const auto& shader=shadow.bindings.vertex_shader;
     if(shader.known&&(shader.value==0x142||shader.value==0x242)&&groundintegration::course_world(d)){
@@ -383,6 +388,8 @@ inline HRESULT sun_before_ui(Device8& d,bool ui)noexcept{
     auto* p=pilot(d);if(!ui||!p||!p->enabled()||!(p->sun_disk||p->sun_halo||p->sun_flare||p->sun_style.vignette>0||p->stars.count||p->glint_style.enabled)||!d.trace.scene_active||
        d.trace.shadow.recording||d.trace.effective_shadow.recording||GetCurrentThreadId()!=d.trace.render_thread_id())return S_OK;
     auto& sun=p->sun;const auto frame=d.trace.frame_number();if(sun.drawn_frame==frame)return S_OK;
+    ps2port::perf::Timer perf_timer(ps2port::perf::AtmoSunUi);
+    const bool sun_off=ps2port::perf::atmo(ps2port::perf::AtmoSun),glints_off=ps2port::perf::atmo(ps2port::perf::AtmoGlints);   // PERF-ATMO1 A/B
     auto gate=[&](const char* reason){sun.reason=reason;if(p->first_reason(reason)||(d.trace.control.active&&sun.gate_frame!=frame))try{sun.gate_frame=frame;session().write("{\"type\":\"atmosphere_sun_gate\",\"frame\":"+std::to_string(frame)+",\"reason\":"+quote(std::string(reason))+",\"drawn\":false}");}catch(...){}return S_OK;};
     auto& proof=sun.proof;if(sun.unsafe_frame==frame)return gate("sun_non_depth_writing_course_surface");
     if(!proof.world||proof.frame!=frame)return gate("sun_current_frame_scene_depth_unproven");
@@ -393,15 +400,15 @@ inline HRESULT sun_before_ui(Device8& d,bool ui)noexcept{
        FAILED(target.p->GetDesc(&desc))||FAILED(n.GetViewport(&viewport))||viewport.X||viewport.Y||viewport.Width!=desc.Width||viewport.Height!=desc.Height||viewport.MinZ!=0||viewport.MaxZ!=1)return gate("sun_depth_or_viewport_changed");
     sun.drawn_frame=frame;
     // ATMOSPHERE6 P1: stars behind the moon, same current-frame scene proof.
-    if(p->stars.count){const auto writer=[](void* context,uint32_t slot,const Args& args,HRESULT hr)noexcept{notify(*static_cast<Device8*>(context),slot,args,hr);};
+    if(p->stars.count&&!sun_off){const auto writer=[](void* context,uint32_t slot,const Args& args,HRESULT hr)noexcept{notify(*static_cast<Device8*>(context),slot,args,hr);};
         try{const auto sr=sun.stars(n,p->stars,p->lighting.direction,frame,desc.Width,desc.Height,&d,writer);if(FAILED(sr))return sr;
             if(p->first_reason("night_stars")||(d.trace.control.active&&frame%60==0))session().write("{\"type\":\"atmosphere_stars\",\"frame\":"+std::to_string(frame)+",\"count\":"+std::to_string(p->stars.count)+",\"drawn_total\":"+std::to_string(sun.stars_drawn)+",\"frames\":"+std::to_string(sun.stars_frames)+",\"hresult\":"+std::to_string(uint32_t(sr))+",\"depth_writes\":false}");
         }catch(...){return repair(d);}}
-    if(p->glint_style.enabled){try{const auto gr=lamp_glints(d,*p,n,desc.Width,desc.Height,frame);if(FAILED(gr))return gr;}catch(...){return repair(d);}}
-    if(p->sun_style.vignette>0){const auto writer=[](void* context,uint32_t slot,const Args& args,HRESULT hr)noexcept{notify(*static_cast<Device8*>(context),slot,args,hr);};
+    if(p->glint_style.enabled&&!glints_off){try{const auto gr=lamp_glints(d,*p,n,desc.Width,desc.Height,frame);if(FAILED(gr))return gr;}catch(...){return repair(d);}}
+    if(p->sun_style.vignette>0&&!sun_off){const auto writer=[](void* context,uint32_t slot,const Args& args,HRESULT hr)noexcept{notify(*static_cast<Device8*>(context),slot,args,hr);};
         const auto vr=sun.vignette(n,desc.Width,desc.Height,p->sun_style.vignette,&d,writer);if(FAILED(vr))return vr;
         if(p->first_reason("art_vignette")||d.trace.control.active)session().write("{\"type\":\"atmosphere_art_overlay\",\"effect\":\"vignette\",\"before_hud\":true,\"requested_triangles\":64,\"new_render_targets\":0,\"hresult\":"+std::to_string(uint32_t(vr))+"}");}
-    if(!(p->sun_disk||p->sun_halo||p->sun_flare))return S_OK;
+    if(sun_off||!(p->sun_disk||p->sun_halo||p->sun_flare))return S_OK;
     atmosphere::SunPosition position;if(!atmosphere::sun_position(p->lighting.direction,proof.view,proof.projection,desc.Width,desc.Height,position,p->sun_style.core_degrees))return gate("sun_behind_camera_or_outside_view");
     try{
         const auto writer=[](void* context,uint32_t slot,const Args& args,HRESULT hr)noexcept{notify(*static_cast<Device8*>(context),slot,args,hr);};
@@ -444,7 +451,7 @@ inline void observe(Device8& d,D3DPRIMITIVETYPE type,UINT,UINT vertices,UINT,UIN
             if(down&&!p->seam_key_down){p->world=!p->world;session().write("{\"type\":\"atmosphere_seam_toggle\",\"world_lighting\":"+std::string(p->world?"true":"false")+",\"sky_fog_unchanged\":true,\"frame\":"+std::to_string(frame)+"}");}p->seam_key_down=down;
         }
         if(frame>=p->perf_frame+120){LARGE_INTEGER frequency{};QueryPerformanceFrequency(&frequency);const auto calls=p->cpu_calls-p->perf_previous_calls;
-            session().write("{\"type\":\"atmosphere_cpu_window\",\"frame\":"+std::to_string(frame)+",\"frames\":"+std::to_string(frame-p->perf_frame)+",\"cpu_ms\":"+std::to_string(frequency.QuadPart?1000.0*double(p->cpu_ticks-p->perf_previous_ticks)/double(frequency.QuadPart):0)+",\"calls\":"+std::to_string(calls)+",\"accepted_draws\":"+std::to_string(p->world_draws)+",\"copied_bytes\":"+std::to_string(p->copied_bytes)+",\"road_draws\":"+std::to_string(p->category_draws[1])+",\"terrain_draws\":"+std::to_string(p->category_draws[2])+",\"vegetation_draws\":"+std::to_string(p->category_draws[3])+",\"static_object_draws\":"+std::to_string(p->category_draws[4])+"}");
+            session().write("{\"type\":\"atmosphere_cpu_window\",\"frame\":"+std::to_string(frame)+",\"frames\":"+std::to_string(frame-p->perf_frame)+",\"cpu_ms\":"+std::to_string(frequency.QuadPart?1000.0*double(p->cpu_ticks-p->perf_previous_ticks)/double(frequency.QuadPart):0)+",\"calls\":"+std::to_string(calls)+",\"accepted_draws\":"+std::to_string(p->world_draws)+",\"copied_bytes\":"+std::to_string(p->copied_bytes)+",\"road_draws\":"+std::to_string(p->category_draws[1])+",\"terrain_draws\":"+std::to_string(p->category_draws[2])+",\"vegetation_draws\":"+std::to_string(p->category_draws[3])+",\"static_object_draws\":"+std::to_string(p->category_draws[4])+",\"ring_uploads\":"+std::to_string(p->ring_uploads)+",\"ring_discards\":"+std::to_string(p->ring_discards)+"}");
             const auto ranges=p->resolver.classified_ranges();
             if(p->universal)session().write("{\"type\":\"atmosphere_resolver_window\",\"frame\":"+std::to_string(frame)+",\"race_generation\":"+std::to_string(p->observed_race)+
                 ",\"cache_entries\":"+std::to_string(p->resolver.entries.size())+",\"cache_bytes\":"+std::to_string(p->resolver.bytes)+",\"cache_hits\":"+std::to_string(p->resolver.hits)+
@@ -537,7 +544,32 @@ inline bool geometry(Device8& d,atmosphere::Pilot& p,UINT min,UINT vertices,UINT
         if(index<min||uint64_t(index)>=uint64_t(min)+vertices)return false;g.indices.push_back(index-min);}
     return true;
 }
+// PERF-ATMO1: every private draw used to Lock(0) one shared MANAGED buffer
+// (~100-250 times a frame) that the GPU is still reading for the previous
+// draw. UploadRing=1 (Atmosphere.ini, or F8 step ring_upload) appends to a
+// DYNAMIC DEFAULT ring with NOOVERWRITE and DISCARDs only on wrap; the data is
+// placed at vertex P>=min and SetIndices gets BaseVertexIndex P-min, so the
+// game's own draw arguments still address exactly these vertices.
+inline HRESULT upload_ring(Device8& d,atmosphere::Pilot& p,UINT min,UINT vertices,const std::vector<uint8_t>& bytes)noexcept {
+    auto& n=*d.native();auto& s=p.pending;const UINT stride=s.stride;
+    if(!stride||bytes.size()!=size_t(vertices)*stride)return S_FALSE;
+    constexpr UINT kRing=8u*1024u*1024u;
+    if(!p.ring){if(p.ring_failed)return S_FALSE;
+        const HRESULT created=n.CreateVertexBuffer(kRing,D3DUSAGE_DYNAMIC|D3DUSAGE_WRITEONLY,0,D3DPOOL_DEFAULT,&p.ring);
+        if(FAILED(created)||!p.ring){p.ring=nullptr;p.ring_failed=true;session().write("{\"type\":\"atmosphere_upload_ring\",\"created\":false,\"hresult\":"+std::to_string(uint32_t(created))+"}");return S_FALSE;}
+        p.ring_size=kRing;p.ring_cursor=kRing;session().write("{\"type\":\"atmosphere_upload_ring\",\"created\":true,\"bytes\":"+std::to_string(kRing)+"}");}
+    uint64_t at=std::max<uint64_t>((uint64_t(p.ring_cursor)+stride-1)/stride,min);DWORD flags=D3DLOCK_NOOVERWRITE;
+    if((at+vertices)*stride>p.ring_size){at=min;flags=D3DLOCK_DISCARD;++p.ring_discards;}
+    if((at+vertices)*stride>p.ring_size)return S_FALSE;
+    BYTE* out=nullptr;if(FAILED(p.ring->Lock(UINT(at*stride),UINT(bytes.size()),&out,flags))||!out){if(out)p.ring->Unlock();return S_FALSE;}
+    std::memcpy(out,bytes.data(),bytes.size());if(FAILED(p.ring->Unlock()))return E_FAIL;
+    p.ring_cursor=UINT((at+vertices)*stride);++p.ring_uploads;
+    s.stream_changed=true;auto hr=n.SetStreamSource(0,p.ring,stride);notify(d,83,pack(0,p.ring,stride),hr);
+    if(SUCCEEDED(hr)){s.indices_changed=true;hr=n.SetIndices(s.indices,UINT(at-min));notify(d,85,pack(s.indices,UINT(at-min)),hr);}p.copied_bytes+=bytes.size();return hr;
+}
 inline HRESULT upload(Device8& d,atmosphere::Pilot& p,UINT min,UINT vertices,const std::vector<uint8_t>& bytes)noexcept {
+    ps2port::perf::Timer perf_timer(ps2port::perf::AtmoUpload);
+    if(p.upload_ring||ps2port::perf::atmo(ps2port::perf::AtmoRing)){const auto hr=upload_ring(d,p,min,vertices,bytes);if(hr!=S_FALSE)return hr;}
     auto& n=*d.native();auto& s=p.pending;const UINT size=(min+vertices)*s.stride;
     if(!p.scratch||p.scratch_size<size){if(p.scratch)p.scratch->Release();p.scratch=nullptr;p.scratch_size=0;
         if(FAILED(n.CreateVertexBuffer(size,D3DUSAGE_WRITEONLY,0,D3DPOOL_MANAGED,&p.scratch))||!p.scratch)return E_FAIL;p.scratch_size=size;}
@@ -947,7 +979,9 @@ inline HRESULT begin(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UIN
         !d.trace.scene_active||d.trace.shadow.recording||d.trace.effective_shadow.recording||GetCurrentThreadId()!=d.trace.render_thread_id())return S_OK;
     if(!p->pending.any())p->poll_live(d.trace.frame_number());
     if(p->coverage.pending)p->coverage.reached=true;
+    if(ps2port::perf::atmo(ps2port::perf::AtmoWorldNative)&&!p->pending.any())return S_OK;   // PERF-ATMO1 A/B: native course draw
     struct Timing {atmosphere::Pilot& p;LARGE_INTEGER start{};Timing(atmosphere::Pilot& x):p(x){QueryPerformanceCounter(&start);}~Timing(){LARGE_INTEGER end{};QueryPerformanceCounter(&end);p.cpu_ticks+=end.QuadPart-start.QuadPart;++p.cpu_calls;}} timer(*p);
+    ps2port::perf::Timer perf_timer(ps2port::perf::AtmoWorld);
     try {
         CaptureDraw capture_draw(d,*p,min,vertices,start,count);
         bool single=false;const auto cert=courseintegration::certificate(d,single);

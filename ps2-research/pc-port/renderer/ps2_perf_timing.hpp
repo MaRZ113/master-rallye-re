@@ -19,6 +19,7 @@ enum Category : unsigned {
     FrontendEntry, ReflectionSnapshot, ReflectionClassify, GeometryHash,
     Atmosphere, Water, Ground, XTrail, XTrailGlass, VehiclePartition, ReflectionNote, HudCapture,
     UiGrass, UiSpline, UiBirds, UiRigid, UiCollision, UiCourse, UiReflection, PresentPass, BaselineCertificate,
+    AtmoWorld, AtmoUpload, AtmoBody, AtmoHeadlight, AtmoSunWorld, AtmoSunUi,
     CategoryCount
 };
 inline constexpr const char* kCategoryNames[CategoryCount] = {
@@ -26,7 +27,8 @@ inline constexpr const char* kCategoryNames[CategoryCount] = {
     "race_entry", "wheel_entry", "frontend_entry", "reflection_snapshot", "reflection_classify", "geometry_hash",
     "atmosphere", "water", "ground_detail", "xtrail", "xtrail_glass", "vehicle_partition", "reflection_note", "hud_capture",
     "ui_grass", "ui_spline", "ui_birds", "ui_rigid_props", "ui_collision", "ui_course_objects", "ui_reflection",
-    "present_pass", "baseline_certificate"};
+    "present_pass", "baseline_certificate",
+    "atmo_world", "atmo_upload", "atmo_body", "atmo_headlight", "atmo_sun_world", "atmo_sun_ui"};
 
 // DIAGNOSTIC bypass steps (PS2PerfBypassKey). Only draw-time effects whose skip falls back to the native draw or to
 // no extra draw; vehicle models, reflections and the HUD are never bypassed (their continuity spans frames).
@@ -35,6 +37,13 @@ inline constexpr unsigned kBypassSteps[] = {0, BypassGrass, BypassGround, Bypass
                                             BypassGrass | BypassGround | BypassWater | BypassLive | BypassPresent};
 inline constexpr const char* kBypassNames[] = {"none", "grass", "ground_detail", "water", "live_objects", "motion_blur", "all"};
 inline constexpr unsigned kBypassStepCount = sizeof(kBypassSteps) / sizeof(kBypassSteps[0]);
+// PERF-ATMO1 (docs/perf-atmo1): DIAGNOSTIC atmosphere A/B (F8, only with PS2PerfTiming=1). AtmoRing is not a bypass:
+// it switches the private vertex upload from the shared MANAGED buffer (Lock 0) to a DYNAMIC ring (NOOVERWRITE).
+enum AtmoBypass : unsigned { AtmoHeadlights = 1, AtmoGlints = 2, AtmoSun = 4, AtmoWorldNative = 8, AtmoRing = 16 };
+inline constexpr unsigned kAtmoSteps[] = {0, AtmoHeadlights, AtmoGlints, AtmoSun, AtmoRing, AtmoWorldNative,
+                                          AtmoHeadlights | AtmoGlints | AtmoSun | AtmoWorldNative};
+inline constexpr const char* kAtmoNames[] = {"none", "headlights", "lamp_glints", "sun_fx", "ring_upload", "world_native", "all"};
+inline constexpr unsigned kAtmoStepCount = sizeof(kAtmoSteps) / sizeof(kAtmoSteps[0]);
 inline constexpr unsigned kMaxFrameSamples = 6000;
 
 struct Stat { uint64_t calls = 0, ticks = 0, max = 0; };
@@ -45,10 +54,12 @@ struct State {
     double tick_us = 0;
     uint64_t frame_start = 0; unsigned samples = 0; std::array<float, kMaxFrameSamples> frame_ms{};
     unsigned bypass_key = VK_F7, bypass_step = 0; bool key_down = false;
+    unsigned atmo_key = VK_F8, atmo_step = 0; bool atmo_down = false;
 };
 inline State& state() noexcept { static State s; return s; }
 inline bool enabled() noexcept { return state().enabled; }
 inline bool bypassed(unsigned effect) noexcept { const auto& s = state(); return s.enabled && (kBypassSteps[s.bypass_step] & effect); }
+inline bool atmo(unsigned effect) noexcept { const auto& s = state(); return s.enabled && (kAtmoSteps[s.atmo_step] & effect); }
 inline void configure(bool on, unsigned window, unsigned bypass_key = VK_F7) noexcept {
     auto& s = state(); s = {}; s.enabled = on; s.window = window < 30 ? 30 : window > kMaxFrameSamples ? kMaxFrameSamples : window;
     s.bypass_key = bypass_key;
@@ -85,10 +96,17 @@ template <class Writer> void frame(uint64_t device, uint64_t frame_number, Write
         s.key_down = down; reset_window(s, device, frame_number, t); return;
     }
     s.key_down = down;
+    const bool atmo_down = (GetAsyncKeyState(int(s.atmo_key)) & 0x8000) != 0;
+    if (atmo_down && !s.atmo_down && GetForegroundWindow()) {
+        s.atmo_step = (s.atmo_step + 1) % kAtmoStepCount;
+        try { write(std::string("{\"type\":\"ps2_perf_atmo_bypass\",\"frame\":") + std::to_string(frame_number) + ",\"atmo\":\"" + kAtmoNames[s.atmo_step] + "\"}"); } catch (...) {}
+        s.atmo_down = atmo_down; reset_window(s, device, frame_number, t); return;
+    }
+    s.atmo_down = atmo_down;
     const uint64_t frames = frame_number - s.first_frame; if (frames < s.window) return;
     try {
         std::string r = "{\"type\":\"ps2_perf_timing\",\"frames\":" + std::to_string(frames) + ",\"first_frame\":" + std::to_string(s.first_frame) +
-            ",\"bypass\":\"" + kBypassNames[s.bypass_step] + "\",\"frame_time\":" + frame_time_json(s) + ",\"categories\":{";
+            ",\"bypass\":\"" + kBypassNames[s.bypass_step] + "\",\"atmo\":\"" + kAtmoNames[s.atmo_step] + "\",\"frame_time\":" + frame_time_json(s) + ",\"categories\":{";
         bool first = true;
         for (unsigned i = 0; i < CategoryCount; ++i) { const auto& x = s.stats[i]; if (!x.calls) continue;
             char buf[192]; std::snprintf(buf, sizeof(buf), "%s\"%s\":{\"calls_per_frame\":%.1f,\"us_per_frame\":%.1f,\"max_us\":%.1f}",
