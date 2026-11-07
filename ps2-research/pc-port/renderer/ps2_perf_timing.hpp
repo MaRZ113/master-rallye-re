@@ -20,6 +20,7 @@ enum Category : unsigned {
     Atmosphere, Water, Ground, XTrail, XTrailGlass, VehiclePartition, ReflectionNote, HudCapture,
     UiGrass, UiSpline, UiBirds, UiRigid, UiCollision, UiCourse, UiReflection, PresentPass, BaselineCertificate,
     AtmoWorld, AtmoUpload, AtmoBody, AtmoHeadlight, AtmoSunWorld, AtmoSunUi,
+    AtmoBodyGate, AtmoBodyOwner, AtmoBodyGeometry, AtmoBodyShade,
     CategoryCount
 };
 inline constexpr const char* kCategoryNames[CategoryCount] = {
@@ -28,7 +29,8 @@ inline constexpr const char* kCategoryNames[CategoryCount] = {
     "atmosphere", "water", "ground_detail", "xtrail", "xtrail_glass", "vehicle_partition", "reflection_note", "hud_capture",
     "ui_grass", "ui_spline", "ui_birds", "ui_rigid_props", "ui_collision", "ui_course_objects", "ui_reflection",
     "present_pass", "baseline_certificate",
-    "atmo_world", "atmo_upload", "atmo_body", "atmo_headlight", "atmo_sun_world", "atmo_sun_ui"};
+    "atmo_world", "atmo_upload", "atmo_body", "atmo_headlight", "atmo_sun_world", "atmo_sun_ui",
+    "atmo_body_gate", "atmo_body_owner", "atmo_body_geometry", "atmo_body_shade"};
 
 // DIAGNOSTIC bypass steps (PS2PerfBypassKey). Only draw-time effects whose skip falls back to the native draw or to
 // no extra draw; vehicle models, reflections and the HUD are never bypassed (their continuity spans frames).
@@ -37,12 +39,13 @@ inline constexpr unsigned kBypassSteps[] = {0, BypassGrass, BypassGround, Bypass
                                             BypassGrass | BypassGround | BypassWater | BypassLive | BypassPresent};
 inline constexpr const char* kBypassNames[] = {"none", "grass", "ground_detail", "water", "live_objects", "motion_blur", "all"};
 inline constexpr unsigned kBypassStepCount = sizeof(kBypassSteps) / sizeof(kBypassSteps[0]);
-// PERF-ATMO1 (docs/perf-atmo1): DIAGNOSTIC atmosphere A/B (F8, only with PS2PerfTiming=1). AtmoRing is not a bypass:
+// PERF-ATMO1 (docs/perf-atmo1): DIAGNOSTIC atmosphere A/B (PS2PerfAtmosphereKey, default F6; F8 is the free camera),
+// only with PS2PerfTiming=1. AtmoRing is not a bypass:
 // it switches the private vertex upload from the shared MANAGED buffer (Lock 0) to a DYNAMIC ring (NOOVERWRITE).
-enum AtmoBypass : unsigned { AtmoHeadlights = 1, AtmoGlints = 2, AtmoSun = 4, AtmoWorldNative = 8, AtmoRing = 16 };
-inline constexpr unsigned kAtmoSteps[] = {0, AtmoHeadlights, AtmoGlints, AtmoSun, AtmoRing, AtmoWorldNative,
-                                          AtmoHeadlights | AtmoGlints | AtmoSun | AtmoWorldNative};
-inline constexpr const char* kAtmoNames[] = {"none", "headlights", "lamp_glints", "sun_fx", "ring_upload", "world_native", "all"};
+enum AtmoBypass : unsigned { AtmoHeadlights = 1, AtmoGlints = 2, AtmoSun = 4, AtmoWorldNative = 8, AtmoRing = 16, AtmoBodies = 32 };
+inline constexpr unsigned kAtmoSteps[] = {0, AtmoHeadlights, AtmoGlints, AtmoSun, AtmoRing, AtmoWorldNative, AtmoBodies,
+                                          AtmoHeadlights | AtmoGlints | AtmoSun | AtmoWorldNative | AtmoBodies};
+inline constexpr const char* kAtmoNames[] = {"none", "headlights", "lamp_glints", "sun_fx", "ring_upload", "world_native", "bodies", "all"};
 inline constexpr unsigned kAtmoStepCount = sizeof(kAtmoSteps) / sizeof(kAtmoSteps[0]);
 inline constexpr unsigned kMaxFrameSamples = 6000;
 
@@ -54,15 +57,15 @@ struct State {
     double tick_us = 0;
     uint64_t frame_start = 0; unsigned samples = 0; std::array<float, kMaxFrameSamples> frame_ms{};
     unsigned bypass_key = VK_F7, bypass_step = 0; bool key_down = false;
-    unsigned atmo_key = VK_F8, atmo_step = 0; bool atmo_down = false;
+    unsigned atmo_key = VK_F6, atmo_step = 0; bool atmo_down = false;
 };
 inline State& state() noexcept { static State s; return s; }
 inline bool enabled() noexcept { return state().enabled; }
 inline bool bypassed(unsigned effect) noexcept { const auto& s = state(); return s.enabled && (kBypassSteps[s.bypass_step] & effect); }
 inline bool atmo(unsigned effect) noexcept { const auto& s = state(); return s.enabled && (kAtmoSteps[s.atmo_step] & effect); }
-inline void configure(bool on, unsigned window, unsigned bypass_key = VK_F7) noexcept {
+inline void configure(bool on, unsigned window, unsigned bypass_key = VK_F7, unsigned atmo_key = VK_F6) noexcept {
     auto& s = state(); s = {}; s.enabled = on; s.window = window < 30 ? 30 : window > kMaxFrameSamples ? kMaxFrameSamples : window;
-    s.bypass_key = bypass_key;
+    s.bypass_key = bypass_key; s.atmo_key = atmo_key;
     LARGE_INTEGER f{}; QueryPerformanceFrequency(&f); s.tick_us = f.QuadPart ? 1e6 / double(f.QuadPart) : 0;
 }
 inline uint64_t now() noexcept { LARGE_INTEGER t{}; QueryPerformanceCounter(&t); return uint64_t(t.QuadPart); }
@@ -116,6 +119,9 @@ template <class Writer> void frame(uint64_t device, uint64_t frame_number, Write
     } catch (...) {}
     reset_window(s, device, frame_number, t);
 }
+
+// Adds one measured span (QPC ticks) to a category; for staged timings inside one call.
+inline void add(unsigned c, uint64_t ticks) noexcept { if (!enabled()) return; auto& x = state().stats[c]; ++x.calls; x.ticks += ticks; if (ticks > x.max) x.max = ticks; }
 
 class Timer {
     unsigned c_; uint64_t t0_;

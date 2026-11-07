@@ -479,7 +479,7 @@ void perf2_contracts() {
         CHECK(r.find("\"bypass\":\"none\",\"atmo\":\"none\",\"frame_time\":{\"samples\":30") != std::string::npos);
     }
     CHECK(!perf::bypassed(perf::BypassGrass) && perf::kBypassStepCount == 7 && perf::kBypassSteps[6] == 31u);
-    CHECK(!perf::atmo(perf::AtmoRing) && perf::kAtmoStepCount == 7 && perf::kAtmoSteps[4] == perf::AtmoRing && perf::kAtmoSteps[6] == 15u);
+    CHECK(!perf::atmo(perf::AtmoRing) && perf::kAtmoStepCount == 8 && perf::kAtmoSteps[4] == perf::AtmoRing && perf::kAtmoSteps[7] == 47u && perf::state().atmo_key == VK_F6);
     CHECK(std::string(perf::kCategoryNames[perf::AtmoSunUi]) == "atmo_sun_ui");
     perf::frame(2, 5, writer); CHECK(records.size() == 2);   // a new device restarts the window
     perf::configure(false, 300);

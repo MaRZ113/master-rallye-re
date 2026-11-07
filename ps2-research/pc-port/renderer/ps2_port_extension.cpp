@@ -244,7 +244,9 @@ PS2PortExtension::PS2PortExtension(bool exact_build, const std::string& exe_sha,
         perf::configure(::gfx2::ps2port::config::read_int(L"PS2PerfTiming", 0, ini.c_str()) == 1,
                         ::gfx2::ps2port::config::read_int(L"PS2PerfWindow", 300, ini.c_str()),
                         // FPS1 (docs/perf-fps1): DIAGNOSTIC A/B bypass key, virtual-key code (118 = F7).
-                        ::gfx2::ps2port::config::read_int(L"PS2PerfBypassKey", VK_F7, ini.c_str()));
+                        ::gfx2::ps2port::config::read_int(L"PS2PerfBypassKey", VK_F7, ini.c_str()),
+                        // PERF-ATMO1 (docs/perf-atmo1): DIAGNOSTIC atmosphere A/B key (117 = F6; F8 is the free camera).
+                        ::gfx2::ps2port::config::read_int(L"PS2PerfAtmosphereKey", VK_F6, ini.c_str()));
         // PS2FrontendAllCars=1 (docs/race-modes1): one COMPLETE model per car shown at once (Challenge preview).
         if (::gfx2::ps2port::config::read_int(L"PS2FrontendAllCars", 0, ini.c_str()) == 1 && frontend_model_->fleet_enabled())
             for (auto& m : frontend_extra_) m = std::make_unique<FrontendModel>(build_valid_, ini);
