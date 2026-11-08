@@ -450,7 +450,9 @@ RET
 
 ; --- G4.2 GTYPE: CALL from 0x47B43D (replaces PUSH 0x6F5900 = "" for Frontend/QuickRace/GhostTypeString)
 ; Leaves the string pointer on the stack in place of the return address (net effect = PUSH imm32):
-; GhostMode ? text(0x3F, Frontend/QuickRace/Ghost) : "".
+; GhostMode ? "GHOST TYPE - <type>" (sprintf "%s%s%s" at 0x68EE00 of text 28:2, " - " 0x6B579C,
+; text(0x3F, Frontend/QuickRace/Ghost)) into the writable buffer 0x70CC00 (.data padding, VirtualSize
+; raised to 0x5F000 by the builder) : "".
 gtype_lbl:
 PUSH ECX
 PUSH EDX
@@ -480,6 +482,20 @@ MOV EDX,dword ptr [EAX]
 PUSH 0x3f
 MOV ECX,EAX
 CALL dword ptr [EDX + 0xc]
+PUSH EAX
+PUSH 0x6b579c
+PUSH 0x2
+CALL 0x00485cf0
+MOV EDX,dword ptr [EAX]
+PUSH 0x1c
+MOV ECX,EAX
+CALL dword ptr [EDX + 0xc]
+PUSH EAX
+PUSH 0x68ee00
+PUSH 0x70cc00
+CALL 0x005c20ba
+ADD ESP,0x14
+MOV EAX,0x70cc00
 gtype_done_lbl:
 ADD ESP,0x4
 POP EDX

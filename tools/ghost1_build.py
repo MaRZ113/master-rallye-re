@@ -71,8 +71,9 @@ MENU_CAVE_HEX = (
     "006a04e8587be6ff89c1e8b178e6ff6a016a006a05e8467be6ff89c1e89f78e6ffc36a04e8377be6ff89c1e8"
     "5078e6ff6a05e8297be6ff89c1e84278e6ffc35383ec046850ec68008d4c2404e87f1de4ff8d042450e8b6a6"
     "e4ff89c1e84f7fe4ff31db85c00f95c383c404e8d074dfff8b1089d95bc3515283ec046850ec68008d4c2404"
-    "e8471de4ff8d042450e87ea6e4ff89c1e8177fe4ff85c0b800596f00742d68b4586e008d4c2404e8201de4ff"
-    "8d042450e857a6e4ff89c1e8f07ee4ff50e87a74dfff8b106a3f89c1ff520c83c4045a59870424ffe0"
+    "e8471de4ff8d042450e87ea6e4ff89c1e8177fe4ff85c0b800596f00745b68b4586e008d4c2404e8201de4ff"
+    "8d042450e857a6e4ff89c1e8f07ee4ff50e87a74dfff8b106a3f89c1ff520c50689c576b006a02e86474dfff"
+    "8b106a1c89c1ff520c506800ee68006800cc7000e81538f3ff83c414b800cc700083c4045a59870424ffe0"
 )
 MENU_ENTRY = {"modes": 0x68E390, "diff": 0x68E4D8, "fmt": 0x68E508, "init": 0x68E57D,
               "accept": 0x68E5BA, "start": 0x68E639, "focus": 0x68E6EE, "initshow": 0x68E7AD,
@@ -96,6 +97,7 @@ MENU_STRINGS = [
     (0x68ED80, 'Vehicles/%s/wheel'),
     (0x68EDA0, 'Frontend/QuickModeSelect/LeftArrowGhost'),
     (0x68EDD0, 'Frontend/QuickModeSelect/RightArrowGhost'),
+    (0x68EE00, '%s%s%s'),
 ]
 
 
@@ -146,6 +148,8 @@ def menu_patches() -> list[dict]:
          "why": "Quick Race summary: mode 1 text index = 1 (GHOST) when GhostMode, else 0 (PRACTICE)"},
         {"va": 0x47B43D, "old": "6800596f00", "new": "e8" + rel32(0x47B43D, MENU_ENTRY["gtype"]),
          "why": "Quick Race summary: GhostTypeString = ghost type text in GHOST mode (was always empty)"},
+        {"file_offset": 0x268, "old": "08e60500", "new": "00f00500",
+         "why": ".data VirtualSize 0x5E608 -> 0x5F000: writable buffer 0x70CC00 for GhostTypeString"},
         # G4: Alpha model fallback / UseAlphaModel.
         {"va": 0x4BFE9C, "old": "e819221000", "new": "e8" + rel32(0x4BFE9C, MENU_ENTRY["fmt"]),
          "why": "ghost car model name: plain Vehicles/%s/car if UseAlphaModel=0 or Alpha car.dx missing"},

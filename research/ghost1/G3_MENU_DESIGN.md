@@ -244,3 +244,12 @@ Attract Mode, native GHOST mode with ghost type, five difficulty levels. Impleme
 texts (G4.2), MRallyeExtras.ini options and Alpha fallback. Open: `Match` (Any / Same Car), localised VERY EASY /
 EXTREME, recording outside Quick Race, persisting GhostMode across restarts, moving every patch into the
 release loader DLL.
+
+## G4.3 — "GHOST TYPE - <type>" (2026-11-08)
+
+Owner check of G4.2: mode shows GHOST; the type line must read like the other summary lines
+(`GAME MODE - PRACTICE`). Cave `gtype` now formats `sprintf(0x70CC00, "%s%s%s", text(28,2) "GHOST TYPE",
+" - " (0x6B579C, the separator the summary already uses), text(0x3F, type))`. The buffer lives in the `.data`
+padding: the builder raises `.data` VirtualSize `0x5E608` → `0x5F000` (file offset `0x268`), the next section
+(`.rsrc`) starts at `0x70D000`. `MRallye_ghost.exe` SHA256 `763f7d1c9a37cdd85fa710e7c9cb4fa6048ef536a896813ae8954bd92ee1f194`;
+the G4.2 EXE is in `!backup\ghost-builds\MRallye_ghost4_2.exe`.
