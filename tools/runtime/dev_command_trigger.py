@@ -415,6 +415,7 @@ def find_retail_main_windows(profile_by_pid: dict[int, object] | None = None) ->
     _configure_user32(user32, ctypes)
     _configure_kernel32(kernel32, ctypes)
     candidates: list[TargetWindow] = []
+    with_menu: set[int] = set()
 
     enum_proc_type = getattr(ctypes, "WINFUNCTYPE", ctypes.CFUNCTYPE)(
         wintypes.BOOL, wintypes.HWND, wintypes.LPARAM
@@ -439,12 +440,15 @@ def find_retail_main_windows(profile_by_pid: dict[int, object] | None = None) ->
         user32.GetWindowTextW(hwnd_value, title_buffer, len(title_buffer))
         if not title_buffer.value.startswith(MAIN_TITLE_PREFIX):
             return True
-        if not _has_expected_main_menu(user32, hwnd_value):
+        has_menu = _has_expected_main_menu(user32, hwnd_value)
+        if not has_menu:
             try:
                 if not _verified_menu_less_main(int(pid.value), hwnd_value, profile):
                     return True
             except (OSError, ValueError, RuntimeError):
                 return True
+        else:
+            with_menu.add(int(pid.value))
         candidates.append(
             TargetWindow(
                 pid=int(pid.value),
@@ -458,7 +462,12 @@ def find_retail_main_windows(profile_by_pid: dict[int, object] | None = None) ->
         return True
 
     user32.EnumWindows(callback, 0)
-    return candidates
+    # The d3d8 renderer adds its own menu-less presentation window (title
+    # "Master Rallye (<n> Hz)") next to the native window. When a process still
+    # has the native Game -> Reset/Exit window, that window is the command target
+    # and the menu-less one is not a second main window.
+    return [c for c in candidates
+            if c.pid not in with_menu or _has_expected_main_menu(user32, c.hwnd)]
 
 
 def send_tool_command(target: TargetWindow, tool: str) -> OpenDispatch:

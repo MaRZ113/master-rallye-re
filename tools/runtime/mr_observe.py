@@ -348,8 +348,12 @@ def ensure_tool(process: ProcessCandidate, tool: str, timeout: float = 5.0) -> c
     if not may_open:
         raise core.ObservatoryError("Broker Editor opener is disabled for this build; an already-open audited window may be used.")
     mains = [w for w in commands.find_retail_main_windows({process.pid: process.profile}) if w.pid == process.pid]
+    if len(mains) > 1:
+        raise UserError(f"Broker Editor cannot be opened: {len(mains)} game main windows match. Close extra game windows.",
+                        ", ".join(f"hwnd 0x{w.hwnd:X} {w.title!r}" for w in mains))
     if len(mains) != 1:
-        raise core.ObservatoryError("Broker Editor cannot be opened. Enable Menues/Enabled=True in DataGame/dev.xml, restart the game, and close extra game windows.")
+        raise UserError("Broker Editor cannot be opened: no game main window with the native Game menu was found. "
+                        "Enable Menues/Enabled=True in DataGame/dev.xml and restart the game.")
     print("Opening " + ("Broker Editor" if tool == "broker-editor" else "Flow Builder") + "...")
     report, window = commands.open_tool_once(mains[0], tool, grace=min(timeout, 5.0))
     print("Tool opener: " + report.json())

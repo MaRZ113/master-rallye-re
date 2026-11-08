@@ -193,9 +193,67 @@ def native_dump_post_results_safe(variant):
     """Return Results-Dump safety only for a verified in-memory variant."""
     if variant == "native_stock":
         return False
-    if variant == J1_NATIVE_DUMP_VARIANT_ID:
+    if variant in (J1_NATIVE_DUMP_VARIANT_ID, RENDERER_NULL_GUARD_VARIANT_ID):
         return True
     return None
+
+
+# The modernization d3d8 renderer (modernization/renderer/src/broker_null_guard.cpp,
+# gfx2::build_broker_null_stub) installs the same two NULL guards at run time, but its
+# stubs live in freshly allocated memory and count NULL hits in a renderer counter.
+# Only the exact retail image is patched by the renderer.
+RENDERER_NULL_GUARD_VARIANT_ID = "renderer-broker-null-guard-v1"
+_RENDERER_STRINGLIST_SITE = 0x0060201E
+_RENDERER_STRINGLIST_EMPTY = 0x00602040
+_RENDERER_XMLDATA_SITE = 0x00602153
+_RENDERER_XMLDATA_CONTINUE = 0x0060215A
+_RENDERER_XMLDATA_NULL = 0x0060218E
+
+
+def _rel32(source_end, target):
+    return struct.pack("<i", (target - source_end + 2**31) % 2**32 - 2**31)
+
+
+def renderer_null_stub(site, stub, counter):
+    """Byte-exact port of gfx2::build_broker_null_stub (StringList: 33 bytes, XmlData: 37)."""
+    if site == "stringlist":
+        return (b"\x85\xdb\x0f\x85" + _rel32(stub + 8, stub + 22) +
+                b"\x9c\xf0\xff\x05" + struct.pack("<I", counter) + b"\x9d\xe9" +
+                _rel32(stub + 22, _RENDERER_STRINGLIST_EMPTY) +
+                bytes.fromhex("8b7b043b7b08") + b"\xe9" +
+                _rel32(stub + 33, _RENDERER_STRINGLIST_SITE + 6))
+    return (b"\x9c\x85\xc0\x0f\x84" + _rel32(stub + 9, stub + 22) +
+            b"\x9d\x8b\x10\x8b\xc8\x68" + struct.pack("<I", _RENDERER_XMLDATA_CONTINUE) +
+            b"\xff\x62\x0c\x9d\x9c\xf0\xff\x05" + struct.pack("<I", counter) + b"\x9d\xe9" +
+            _rel32(stub + 37, _RENDERER_XMLDATA_NULL))
+
+
+def _match_renderer_null_guard(read_va, anchor, read_stub=None):
+    """Verify the renderer guard variant against live memory; return trampolines or None."""
+    walker_va = anchor["va"]
+    walker = bytearray(read_va(walker_va, anchor["length"]))
+    sites = (("stringlist", _RENDERER_STRINGLIST_SITE, bytes.fromhex("8b7b043b7b08"), 33, 12),
+             ("xmldata", _RENDERER_XMLDATA_SITE, bytes.fromhex("8b108bc8ff520c"), 37, 27))
+    verified = []
+    for name, site, original, stub_len, counter_off in sites:
+        off = site - walker_va
+        patched = bytes(walker[off:off + len(original)])
+        if patched[0] != 0xE9 or patched[5:] != b"\x90" * (len(original) - 5):
+            return None
+        stub = site + 5 + struct.unpack("<i", patched[1:5])[0]
+        live_stub = (read_stub or read_va)(stub, stub_len)
+        if len(live_stub) != stub_len:
+            return None
+        counter = struct.unpack_from("<I", live_stub, counter_off)[0]
+        if live_stub != renderer_null_stub(name, stub, counter):
+            return None
+        walker[off:off + len(original)] = original
+        verified.append({"name": f"{name}-null-guard", "target_va": f"0x{stub:08X}",
+                         "length": stub_len, "sha256": digest(live_stub),
+                         "counter_va": f"0x{counter:08X}"})
+    if digest(bytes(walker)) != anchor["sha256"]:
+        return None
+    return verified
 
 
 def _semantic_trampoline_variant_matches_reader(read_va, section_for_range, pe, anchor, variant):
@@ -339,7 +397,7 @@ def classify_hardened_walker(read_va, pe, section_for_range=None):
 
 
 def classify_native_dump_walker(read_va, pe, *, profile_sha256, profile_size,
-                                disk_sha256, disk_size, section_for_range=None):
+                                disk_sha256, disk_size, section_for_range=None, read_stub=None):
     """Classify only the exact stock or audited J.1 live walker variants.
 
     ``read_va`` is deliberately small so tests can supply a bounded mock
@@ -392,7 +450,15 @@ def classify_native_dump_walker(read_va, pe, *, profile_sha256, profile_size,
             })
         return {"variant": variant["id"], "walker_sha256": digest(walker),
                 "verified_trampolines": verified}
-    raise ValueError("Live native_dump_walker is neither exact stock nor the audited J.1 hardened variant")
+    try:
+        renderer = _match_renderer_null_guard(read_va, anchor, read_stub)
+    except Exception:  # unreadable stub memory = not this variant
+        renderer = None
+    if renderer is not None:
+        return {"variant": RENDERER_NULL_GUARD_VARIANT_ID, "walker_sha256": digest(walker),
+                "verified_trampolines": renderer}
+    raise ValueError("Live native_dump_walker is neither exact stock, the audited J.1 hardened variant, "
+                     "nor the d3d8 renderer NULL-guard variant")
 
 
 def _registry_profile_for(data, pe, exact_profile):

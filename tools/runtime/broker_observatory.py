@@ -914,6 +914,25 @@ def _uses_live_locator(profile: ObservatoryBuildProfile, capability: str) -> boo
         profile.sha256 != RETAIL_SHA256 or profile.file_size != RETAIL_SIZE)
 
 
+
+def _is_private_exec(kernel32: Any, process: Any, va: int, size: int, ctypes: Any) -> bool:
+    """True when [va, va+size) is one committed MEM_PRIVATE region with an executable protection."""
+    class MBI(ctypes.Structure):
+        _fields_ = [("BaseAddress", ctypes.c_void_p), ("AllocationBase", ctypes.c_void_p),
+                    ("AllocationProtect", ctypes.c_uint32), ("PartitionId", ctypes.c_uint16),
+                    ("RegionSize", ctypes.c_size_t), ("State", ctypes.c_uint32),
+                    ("Protect", ctypes.c_uint32), ("Type", ctypes.c_uint32)]
+    info = MBI()
+    query = kernel32.VirtualQueryEx
+    query.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_size_t]
+    query.restype = ctypes.c_size_t
+    if not query(process, ctypes.c_void_p(va), ctypes.byref(info), ctypes.sizeof(info)):
+        return False
+    base = info.BaseAddress or 0
+    executable = info.Protect & (0x10 | 0x20 | 0x40 | 0x80)
+    return (info.State == 0x1000 and info.Type == 0x20000 and bool(executable)
+            and base <= va and va + size <= base + info.RegionSize)
+
 def _verify_live_located(kernel32: Any, process: Any, module_base: int, ctypes: Any,
                          profile: ObservatoryBuildProfile, capability: str,
                          pe: dict[str, Any]) -> dict[str, Any]:
@@ -1024,9 +1043,16 @@ def _verify_remote_anchors(kernel32: Any, process: Any, module_base: int, ctypes
                 raise ObservatoryError("Native Dump read is outside the verified module image")
             return _read_remote(kernel32, process, module_base + rva, size, ctypes)
 
+        def read_stub(va: int, size: int) -> bytes:
+            # Renderer NULL-guard stubs: small reads from committed, executable,
+            # private (VirtualAlloc) memory outside the module image only.
+            if size > 64 or not _is_private_exec(kernel32, process, va, size, ctypes):
+                raise ObservatoryError("Renderer NULL-guard stub is not in private executable memory")
+            return _read_remote(kernel32, process, va, size, ctypes)
+
         try:
             walker_result = compatibility.classify_native_dump_walker(
-                read_va, pe,
+                read_va, pe, read_stub=read_stub,
                 profile_sha256=profile.sha256,
                 profile_size=profile.file_size,
                 disk_sha256=disk_sha256,
@@ -1035,8 +1061,12 @@ def _verify_remote_anchors(kernel32: Any, process: Any, module_base: int, ctypes
         except Exception as exc:
             raise ObservatoryError(str(exc)) from exc
         variant = walker_result["variant"]
-        if variant not in ("native_stock", "native-hardened-null-safe-stubs-v1"):
+        if variant not in ("native_stock", "native-hardened-null-safe-stubs-v1",
+                           compatibility.RENDERER_NULL_GUARD_VARIANT_ID):
             raise ObservatoryError("Live native Dump walker variant is not explicitly approved")
+        if (variant == compatibility.RENDERER_NULL_GUARD_VARIANT_ID
+                and len(walker_result.get("verified_trampolines", ())) != 2):
+            raise ObservatoryError("Renderer NULL-guard walker did not verify both stubs")
         if variant == "native-hardened-null-safe-stubs-v1":
             if profile.sha256 != RETAIL_SHA256 or profile.file_size != RETAIL_SIZE:
                 raise ObservatoryError("J.1 hardened walker requires the exact pristine retail executable identity")
@@ -1137,11 +1167,13 @@ def _verify_live_capability_open(kernel32: Any, process: Any, pid: int,
     }
     if capability == "native_dump":
         variant = runtime_details.get("variant", "unknown")
-        hardened = variant == "native-hardened-null-safe-stubs-v1"
+        hardened = variant in ("native-hardened-null-safe-stubs-v1",
+                               compatibility.RENDERER_NULL_GUARD_VARIANT_ID)
         report.update({
             "effective_broker_dump_variant": "native_hardened" if hardened else "native_stock" if variant == "native_stock" else "unknown",
             "native_dump_post_results_safe": compatibility.native_dump_post_results_safe(variant),
-            "native_dump_verification": "verified" if variant in ("native_stock", "native-hardened-null-safe-stubs-v1") else "unverified",
+            "native_dump_verification": "verified" if variant in ("native_stock", "native-hardened-null-safe-stubs-v1",
+                                                                compatibility.RENDERER_NULL_GUARD_VARIANT_ID) else "unverified",
             "native_dump_walker_variant": variant,
             "native_dump_walker_sha256": runtime_details.get("walker_sha256"),
             "verified_trampolines": runtime_details.get("verified_trampolines", []),
