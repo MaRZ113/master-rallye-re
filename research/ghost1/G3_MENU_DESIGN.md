@@ -214,3 +214,33 @@ Causes in the QuickModeSelect update `0x47A070`/`0x47A120`:
 
 Builder now refuses overlapping patch ranges (a string overlap was caught this way). Kit G4.1:
 `MRallye_ghost4_1.exe` SHA256 `ce9d7a2679393edc4f374cebf4974abfe5d5320e466f351fff67f2cf310aa275` + updated XML.
+
+## G4.2 — Quick Race summary (2026-11-08)
+
+Owner run of G4.1: GHOST is selectable, no overlay, arrows and Enter work. Broker capture
+(`Observatory-0.3.0-beta/.../20261108-220714_snapshot.json`): `Frontend/QuickRace/GhostMode = 1`,
+`Frontend/QuickRace/Ghost = 1`, `Frontend/QuickModeSelect/GhostText = "BEST EVER"` — the state is right, but the summary
+shows `CurrentModeString = "GAME MODE - PRACTICE"` and an empty `GhostTypeString`.
+
+Summary builder `0x47B040`: mode text = `text(0x3E, mode == 1 ? 0 : mode)` (`0x47B3CA..0x47B3E8`), and
+`GhostTypeString` is always built from `""` (`PUSH 0x6F5900` at `0x47B43D`). G4.2:
+
+| Site | Change |
+|---|---|
+| `0x47B3CF` (13 bytes) | `CALL modeidx; PUSH ECX; JMP 0x47B3E4` — index 1 (GHOST, localised) when GhostMode, else 0 |
+| `0x47B43D` | `PUSH 0x6F5900` → `CALL gtype` (pushes `text(0x3F, Frontend/QuickRace/Ghost)` in GHOST mode, else `""`) |
+
+`QuickRace.xml` already has the `GhostText` egg bound to `GhostTypeString`, so the type appears on the summary.
+Note: `Frontend/QuickRace/GhostMode` is a scene key (not saved); after a game restart the saved mode 1 reopens as
+PRACTICE.
+
+Final kit name: `MRallye_ghost.exe` SHA256 `19fe31e645e69032ed044d1c5e85221c6dacc84659f15dad27d83c3ed1642c87`
+(36 patch entries). Earlier test EXEs were moved to `<game>\!backup\ghost-builds`.
+
+## Ghost Mode status
+
+Done and owner-confirmed: record/save/load/playback, NaN fix, HUD progress icon, translucent Alpha cars, no forced
+Attract Mode, native GHOST mode with ghost type, five difficulty levels. Implemented, pending owner check: summary
+texts (G4.2), MRallyeExtras.ini options and Alpha fallback. Open: `Match` (Any / Same Car), localised VERY EASY /
+EXTREME, recording outside Quick Race, persisting GhostMode across restarts, moving every patch into the
+release loader DLL.

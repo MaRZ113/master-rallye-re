@@ -423,3 +423,66 @@ CALL 0x004f6310
 MOV ECX,EAX
 CALL 0x004f6030
 RET
+
+; --- G4.2 MODEIDX: CALL from 0x47B3CF (Quick Race summary 0x47B040, mode 1 branch) ----------------
+; Returns EAX = text table, EDX = its vtable, ECX = mode text index (1 GHOST if GhostMode, else 0 PRACTICE);
+; the patched caller then does PUSH ECX; JMP 0x47B3E4 (PUSH 0x3E; CALL [EDX+0xC]).
+modeidx_lbl:
+PUSH EBX
+SUB ESP,0x4
+PUSH 0x68ec50
+LEA ECX,[ESP + 0x4]
+CALL 0x004d0580
+LEA EAX,[ESP]
+PUSH EAX
+CALL 0x004d8ec0
+MOV ECX,EAX
+CALL 0x004d6760
+XOR EBX,EBX
+TEST EAX,EAX
+SETNZ BL
+ADD ESP,0x4
+CALL 0x00485cf0
+MOV EDX,dword ptr [EAX]
+MOV ECX,EBX
+POP EBX
+RET
+
+; --- G4.2 GTYPE: CALL from 0x47B43D (replaces PUSH 0x6F5900 = "" for Frontend/QuickRace/GhostTypeString)
+; Leaves the string pointer on the stack in place of the return address (net effect = PUSH imm32):
+; GhostMode ? text(0x3F, Frontend/QuickRace/Ghost) : "".
+gtype_lbl:
+PUSH ECX
+PUSH EDX
+SUB ESP,0x4
+PUSH 0x68ec50
+LEA ECX,[ESP + 0x4]
+CALL 0x004d0580
+LEA EAX,[ESP]
+PUSH EAX
+CALL 0x004d8ec0
+MOV ECX,EAX
+CALL 0x004d6760
+TEST EAX,EAX
+MOV EAX,0x6f5900
+JZ gtype_done_lbl
+PUSH 0x6e58b4
+LEA ECX,[ESP + 0x4]
+CALL 0x004d0580
+LEA EAX,[ESP]
+PUSH EAX
+CALL 0x004d8ec0
+MOV ECX,EAX
+CALL 0x004d6760
+PUSH EAX
+CALL 0x00485cf0
+MOV EDX,dword ptr [EAX]
+PUSH 0x3f
+MOV ECX,EAX
+CALL dword ptr [EDX + 0xc]
+gtype_done_lbl:
+ADD ESP,0x4
+POP EDX
+POP ECX
+XCHG dword ptr [ESP],EAX
+JMP EAX
