@@ -1,6 +1,7 @@
 #pragma once
 #include "atmosphere_body_common.hpp"
 #include "atmosphere_body_binding.hpp"
+#include <unordered_map>
 namespace gfx2::atmospherebody {
 // Night only (AmbientStrength < .5): vehicle passes the body path does not
 // light (glass, lamp lenses, mirrors, reflection-only parts) keep full texture
@@ -307,6 +308,18 @@ inline HRESULT night_energy(Device8& d,UINT min,UINT vertices,UINT start,UINT co
         return S_OK;
     }catch(...){if(!p->pending.any())p->pending.release();return atmosphereintegration::repair(d);}
 }
+// PERF-ATMO2: relit copies of body draws whose source vertices, WORLD (and VIEW
+// for the rim term) and lighting are unchanged (stationary cars, menus, the
+// start grid). A hit requires byte-equal source bytes, so it is exact.
+struct BodyShadeEntry {uintptr_t stream=0;UINT min=0,vertices=0;DWORD fvf=0,stage=0;uint32_t role=0;uint64_t lighting=0;bool rim=false;D3DMATRIX world{},view{};std::vector<uint8_t> source,out;uint64_t changed=0;};
+struct BodyShadeCache {std::unordered_map<uint64_t,BodyShadeEntry> entries;uint64_t race=UINT64_MAX,hits=0,misses=0;};
+inline BodyShadeCache& body_shade_cache()noexcept{static BodyShadeCache c;return c;}
+// Every Lighting field the body colour reads (regional atmospheres change it without an INI reload).
+inline uint64_t lighting_key(const atmosphere::Lighting& s)noexcept{
+    uint64_t h=1469598103934665603ull;auto mix=[&](const void* v,size_t n){const auto* b=static_cast<const uint8_t*>(v);for(size_t i=0;i<n;++i){h^=b[i];h*=1099511628211ull;}};
+    const float f[]{s.strength,s.exposure,s.ambient_strength,s.sun_strength,s.fog_strength,s.world_brightness,s.prelight_contrast,s.prelight_visibility,s.tone_contrast,s.tone_shoulder,s.rim_strength,s.rim_power,
+        s.ambient[0],s.ambient[1],s.ambient[2],s.sun[0],s.sun[1],s.sun[2],s.direction[0],s.direction[1],s.direction[2]};
+    const uint32_t m[]{uint32_t(s.mode),uint32_t(s.surface_tone),uint32_t(s.rim),uint32_t(s.fog_enabled),s.fog};mix(f,sizeof f);mix(m,sizeof m);return h;}
 inline HRESULT general(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,UINT start,UINT count,uintptr_t pc,bool& applied) {
     auto* p=atmosphereintegration::pilot(d);if(!p||!p->enabled()||!p->body_materials||!p->lighting.active()||!vertices||vertices>8192||!count||count>8192||type!=D3DPT_TRIANGLELIST||
        pc!=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr))+0x17707e||!d.trace.scene_active||d.trace.shadow.recording||d.trace.effective_shadow.recording||GetCurrentThreadId()!=d.trace.render_thread_id())return S_OK;
@@ -361,9 +374,18 @@ inline HRESULT general(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,U
     std::vector<uint8_t> debug_original;if(normals&&p->body_debug&&d.trace.control.active)debug_original=g.bytes;
     uint64_t changed=0;
     D3DMATRIX view{};const bool have_view=p->lighting.rim&&SUCCEEDED(n.GetTransform(D3DTS_VIEW,&view));
-    if(implicit){const auto hr=atmosphere::native_wheel_energy(*p,n,[&](uint32_t slot,const Args& a,HRESULT h){atmosphereintegration::notify(d,slot,a,h);});
+    auto& cache=body_shade_cache();if(cache.race!=cert.race_generation){cache.entries.clear();cache.race=cert.race_generation;}
+    const uint64_t cache_key=(uint64_t(reinterpret_cast<uintptr_t>(p->pending.stream))*0x9E3779B97F4A7C15ull)^(uint64_t(min)<<40)^(uint64_t(vertices)<<20)^(uint64_t(fvf)<<8)^capability->role;
+    BodyShadeEntry* cached=nullptr;const uint64_t light_key=lighting_key(p->lighting);
+    if(!implicit){auto it=cache.entries.find(cache_key);
+        if(it!=cache.entries.end()){auto& e=it->second;
+            if(e.stream==reinterpret_cast<uintptr_t>(p->pending.stream)&&e.min==min&&e.vertices==vertices&&e.fvf==fvf&&e.stage==stage_op&&e.role==capability->role&&e.lighting==light_key&&
+               e.rim==have_view&&!std::memcmp(&e.world,&world,64)&&(!have_view||!std::memcmp(&e.view,&view,64))&&e.source==g.bytes)cached=&e;}}
+    if(cached){g.bytes=cached->out;changed=cached->changed;++cache.hits;}
+    else if(implicit){const auto hr=atmosphere::native_wheel_energy(*p,n,[&](uint32_t slot,const Args& a,HRESULT h){atmosphereintegration::notify(d,slot,a,h);});
         if(hr!=S_OK)return FAILED(hr)?hr:reject("body_wheel_energy_unsupported");changed=vertices;}
-    else if(!normals){for(size_t at=0;at<g.bytes.size();at+=24){uint32_t before=0;std::memcpy(&before,g.bytes.data()+at+12,4);const auto after=atmosphere::flat_body_color(before,p->lighting);std::memcpy(g.bytes.data()+at+12,&after,4);changed+=before!=after;}}
+    else{std::vector<uint8_t> source=g.bytes;
+    if(!normals){for(size_t at=0;at<g.bytes.size();at+=24){uint32_t before=0;std::memcpy(&before,g.bytes.data()+at+12,4);const auto after=atmosphere::flat_body_color(before,p->lighting);std::memcpy(g.bytes.data()+at+12,&after,4);changed+=before!=after;}}
     else if(!shade(g.bytes,36,24,12,world,p->lighting,false,changed,capability->role,have_view?&view:nullptr))return reject("body_material_invalid_normal_transform");
     // 5.14 night: the opaque env stage is MODULATEALPHA_ADDCOLOR (current +
     // current.alpha * env). With blending and alpha test off (checked above)
@@ -372,6 +394,9 @@ inline HRESULT general(Device8& d,D3DPRIMITIVETYPE type,UINT min,UINT vertices,U
     if(normals&&!flat&&stage_op==D3DTOP_MODULATEALPHA_ADDCOLOR&&p->lighting.ambient_strength<.5f){
         const float k=float((atmosphere::world_environment_factor(p->lighting)>>8)&255)/255;
         for(size_t at=27;at<g.bytes.size();at+=36)g.bytes[at]=uint8_t(std::lround(float(g.bytes[at])*k));}
+    ++cache.misses;if(cache.entries.size()>=1024)cache.entries.clear();
+    auto& e=cache.entries[cache_key];e.stream=reinterpret_cast<uintptr_t>(p->pending.stream);e.min=min;e.vertices=vertices;e.fvf=fvf;e.stage=stage_op;e.role=capability->role;
+    e.lighting=light_key;e.rim=have_view;e.world=world;e.view=view;e.source=std::move(source);e.out=g.bytes;e.changed=changed;}
     stage(ps2port::perf::AtmoBodyShade);
     const auto hr=implicit?S_OK:atmosphereintegration::upload(d,*p,min,vertices,g.bytes);if(FAILED(hr)){if(p->pending.any())return atmosphereintegration::repair(d);return reject("body_material_private_upload_failed");}
     if(FAILED(environment_exposure(d,*p)))return atmosphereintegration::repair(d);

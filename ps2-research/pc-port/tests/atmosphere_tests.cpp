@@ -133,6 +133,16 @@ int main(){
         Lighting s;s.mode=Lighting::Mode::GoldenHour;const auto old=scene_color(0x7f808080,{0,1,0},s);
         s.tone_contrast=1.4f;s.tone_shoulder=2;CHECK(scene_color(0x7f808080,{0,1,0},s)==old);
         s.surface_tone=true;CHECK(scene_color(0x7f000000,{0,1,0},s)==0x7f000000);CHECK(scene_color(0x7fffffff,{0,1,0},s)>>24==0x7f);
+        {   // PERF-ATMO2: hoisted body colour is bit-identical to the per-vertex original (every role, random inputs).
+            Lighting r=s;r.prelight_contrast=.7f;r.prelight_visibility=.3f;r.direction={.1f,.12f,.79f};uint32_t seed=12345u;unsigned mismatches=0;
+            auto rnd=[&]{seed=seed*1664525u+1013904223u;return float(seed>>8)/16777216.f;};
+            for(uint32_t role=1;role<=11;++role){const ScenePre pre(vehicle_surface_lighting(r,role));
+                for(unsigned i=0;i<4000;++i){const uint32_t c=(uint32_t(rnd()*255)<<24)|(uint32_t(rnd()*255)<<16)|(uint32_t(rnd()*255)<<8)|uint32_t(rnd()*255);
+                    const std::array<float,3> nrm{rnd()*2-1,rnd()*2-1,rnd()*2-1};const bool prepared=i%7==0;
+                    mismatches+=vehicle_surface_color(c,nrm,r,prepared,role)!=vehicle_surface_color(c,nrm,pre,prepared);}}
+            CHECK(mismatches==0);
+            const ScenePre plain(s);CHECK(scene_color(0x7f808080,{0,1,0},plain)==scene_color(0x7f808080,{0,1,0},s));
+        }
         const auto high=scene_color(0xff808080,{0,1,0},s),low=scene_color(0xff404040,{0,1,0},s);
         for(unsigned shift:{0u,8u,16u})CHECK(std::abs(int((high>>shift)&255)-2*int((low>>shift)&255))<=1);
         const auto factor=world_environment_factor(s);s.surface_tone=false;CHECK(factor==world_environment_factor(s));

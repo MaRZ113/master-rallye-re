@@ -22,6 +22,8 @@ using Mat4=std::array<float,16>;   // D3D row-vector layout: m[row*4+col], trans
 
 struct Projector {float range=48,half_h_degrees=38,half_v_degrees=16,pitch_degrees=3.5f;std::array<float,3> origin{0,.65f,2.1f};float yaw_sign=1;};
 struct HeadlightStyle {
+    // PERF-ATMO2: map = all lamp pools rendered once per frame into a top-down light map, one pass per lit course draw.
+    bool map=true;float map_band=6,map_fade=20;
     bool enabled=false,tail=true;unsigned cars=4;float intensity=1.25f,tail_intensity=.85f,tail_brake=1.9f,lamp_emissive=1.35f;
     std::array<float,3> rgb{1.f,.93f,.80f},tail_rgb{1.f,.12f,.06f};
     Projector head{},rear{7.f,62.f,30.f,32.f,{0,.55f,-2.35f},-1};
@@ -87,6 +89,8 @@ inline HeadlightStyle read_headlight_style(const std::wstring& ini,bool night=fa
         wchar_t* end=nullptr;const float v=std::wcstof(b,&end);return end!=b&&*end==0&&std::isfinite(v)?std::clamp(v,lo,hi):fallback;};
     s.enabled=GetPrivateProfileIntW(L"Atmosphere",L"Headlights",night?1:0,ini.c_str())==1;
     s.tail=GetPrivateProfileIntW(L"Atmosphere",L"TailLightGlow",1,ini.c_str())==1;
+    s.map=GetPrivateProfileIntW(L"Atmosphere",L"HeadlightMap",1,ini.c_str())==1;
+    s.map_band=number(L"HeadlightMapBand",s.map_band,1,50);s.map_fade=std::max(s.map_band+1,number(L"HeadlightMapFade",s.map_fade,2,100));
     s.intensity=number(L"HeadlightIntensity",s.intensity,0,3);s.head.range=number(L"HeadlightRange",s.head.range,5,150);
     s.head.half_h_degrees=number(L"HeadlightSpread",s.head.half_h_degrees,10,70);s.head.half_v_degrees=number(L"HeadlightHeight",s.head.half_v_degrees,5,45);
     s.head.pitch_degrees=number(L"HeadlightPitch",s.head.pitch_degrees,-10,30);

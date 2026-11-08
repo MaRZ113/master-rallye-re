@@ -285,7 +285,7 @@ public:
     }
     // 6.7: up to four cars (nearest the camera) carry lamps.
     struct CarLamps {uintptr_t instance=0;Mat4 car{};bool head=false,rear=false,reversing=false,brake=false;LightFrame head_frame,rear_frame;Mat4 head_cookie{},head_ramp{},rear_cookie{},rear_ramp{};};
-    struct LampProjectors {uint64_t frame=UINT64_MAX;std::array<CarLamps,4> cars{};unsigned count=0;Mat4 view{};bool view_valid=false;
+    struct LampProjectors {uint64_t frame=UINT64_MAX;std::array<CarLamps,4> cars{};unsigned count=0;Mat4 view{},inverse{};bool view_valid=false;
         const CarLamps* find(uintptr_t instance)const noexcept{for(unsigned i=0;i<count;++i)if(cars[i].instance==instance)return &cars[i];return nullptr;}} lamp_projectors;
     bool gear_probe=false;uint64_t gear_probe_frame=0; // 6.9 diagnostic: log the local car output object to find the gear field
     // 6.10: reverse lamps follow the selected gear (gaVehicleOutputData vehicle+4 == 0) for every car whose
@@ -320,7 +320,10 @@ public:
         *old={};old->instance=instance;old->frame=frame;return old;}
     uint64_t headlight_candidates=0,headlight_no_car=0,headlight_view_changes=0,headlight_off_target=0,headlight_log_frame=0;
     IDirect3DTexture8 *headlight_cookie_texture=nullptr,*tail_cookie_texture=nullptr,*headlight_ramp_texture=nullptr;unsigned headlight_caps=0;uint64_t headlight_draws=0,headlight_culled=0;
-    void release_headlights()noexcept{for(auto** t:{&headlight_cookie_texture,&tail_cookie_texture,&headlight_ramp_texture})if(*t){(*t)->Release();*t=nullptr;}}
+    // PERF-ATMO2 top-down headlight map (DEFAULT render target, released with the device reset) + height fade.
+    IDirect3DTexture8 *headlight_map=nullptr,*headlight_height_ramp=nullptr;bool headlight_map_failed=false,headlight_map_ok=false;
+    uint64_t headlight_map_frame=UINT64_MAX,headlight_map_renders=0,headlight_map_passes=0;float headlight_map_cx=0,headlight_map_cz=0;
+    void release_headlights()noexcept{for(auto** t:{&headlight_cookie_texture,&tail_cookie_texture,&headlight_ramp_texture,&headlight_map,&headlight_height_ramp})if(*t){(*t)->Release();*t=nullptr;}headlight_map_failed=false;headlight_map_frame=UINT64_MAX;}
     struct ParticleSaved {bool pending=false;DWORD stage[5]{},stage2=0,factor=0;} particle;uint64_t particle_draws=0;
     struct GlassTexture {uintptr_t pointer=0;uint64_t generation=0;};std::array<GlassTexture,32> glass_textures{};unsigned glass_next=0;
     bool known_glass(uintptr_t t,uint64_t g)const noexcept{if(!t||!g)return false;for(const auto& x:glass_textures)if(x.pointer==t&&x.generation==g)return true;return false;}
@@ -383,7 +386,7 @@ public:
         void release()noexcept{if(environment)environment->Release();environment=nullptr;if(texture)texture->Release();if(stream)stream->Release();if(indices)indices->Release();texture=nullptr;stream=nullptr;indices=nullptr;}
     } pending;
     IDirect3DVertexBuffer8* scratch=nullptr;UINT scratch_size=0;
-    // PERF-ATMO1: DYNAMIC DEFAULT upload ring (UploadRing=1); released with the device reset.
+    // PERF-ATMO1: DYNAMIC DEFAULT upload ring (UploadRing, default 1 since PERF-ATMO2); released with the device reset.
     IDirect3DVertexBuffer8* ring=nullptr;UINT ring_size=0,ring_cursor=0;bool ring_failed=false,upload_ring=false;uint64_t ring_uploads=0,ring_discards=0;
     Pilot(bool supported,const std::wstring& renderer_ini) {
         ini_=(std::filesystem::path(renderer_ini).parent_path()/L"Atmosphere.ini").wstring();
@@ -410,7 +413,7 @@ public:
         package_root=setting(L"LightingPackageRoot",L"");if(!package_root.empty()&&package_root.is_relative())package_root=std::filesystem::path(ini_).parent_path()/package_root;
         capture.enabled=GetPrivateProfileIntW(L"Atmosphere",L"CourseCapture",0,ini_.c_str())==1;
         coverage.enabled=GetPrivateProfileIntW(L"Atmosphere",L"CoverageLedger",0,ini_.c_str())==1;
-        upload_ring=GetPrivateProfileIntW(L"Atmosphere",L"UploadRing",0,ini_.c_str())==1;
+        upload_ring=GetPrivateProfileIntW(L"Atmosphere",L"UploadRing",1,ini_.c_str())==1;   // PERF-ATMO2: default on (owner A/B: -0.45 ms, no artifacts)
         vehicle_glow_fix=GetPrivateProfileIntW(L"Atmosphere",L"VehicleGlowFix",0,ini_.c_str())==1;
         gear_probe=GetPrivateProfileIntW(L"Atmosphere",L"GearProbe",0,ini_.c_str())==1;
         reverse_from_gear=GetPrivateProfileIntW(L"Atmosphere",L"ReverseFromGear",1,ini_.c_str())==1;

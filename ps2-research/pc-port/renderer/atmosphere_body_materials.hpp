@@ -30,6 +30,16 @@ inline uint32_t flat_body_color(uint32_t original,const Lighting& lighting) {
 
 enum BodySurfaceRole : uint32_t {Paint=1,OpaqueTrim=2,OpaquePanel=3,OpaqueCover=4,OpaqueHelmet=5,OpaqueFlat=6,OpaqueInterior=7,OpaquePilot=8,WheelRubber=9,WheelMetal=10,OpaqueGlazing=11};
 inline const char* body_role_name(uint32_t role)noexcept{switch(role){case Paint:return "paint";case OpaqueTrim:return "opaque_trim";case OpaquePanel:return "opaque_panel";case OpaqueCover:return "opaque_cover";case OpaqueHelmet:return "opaque_helmet";case OpaqueFlat:return "opaque_flat";case OpaqueInterior:return "interior";case OpaquePilot:return "pilot";case WheelRubber:return "wheel_rubber";case WheelMetal:return "wheel_metal";case OpaqueGlazing:return "opaque_glazing";default:return "unsupported";}}
+// PERF-ATMO2: the per-role body lighting of vehicle_surface_color, built once per draw.
+inline Lighting vehicle_surface_lighting(const Lighting& lighting,uint32_t role){
+    auto s=body_lighting(lighting);
+    if(role==OpaqueFlat||role==OpaqueInterior||role==OpaqueGlazing)s.sun_strength=0;
+    else if(role==OpaquePilot||role==WheelRubber)s.sun_strength*=.35f;
+    return s;
+}
+inline uint32_t vehicle_surface_color(uint32_t original,const std::array<float,3>& normal,const ScenePre& k,bool prepared){
+    if(!k.active)return original;const auto base=prepared?(original&0xff000000u)|0x00666666u:original;return scene_color(base,normal,k);
+}
 inline uint32_t vehicle_surface_color(uint32_t original,const std::array<float,3>& normal,const Lighting& lighting,bool prepared,uint32_t role){
     if(!lighting.active())return original;auto s=body_lighting(lighting);
     if(role==OpaqueFlat||role==OpaqueInterior||role==OpaqueGlazing)s.sun_strength=0;

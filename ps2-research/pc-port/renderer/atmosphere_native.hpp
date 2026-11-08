@@ -151,7 +151,7 @@ inline bool headlight_projectors(Device8& d,atmosphere::Pilot& p,IDirect3DDevice
         if(!lp.count)++p.headlight_no_car;
     }
     if(!lp.count)return false;
-    if(!lp.view_valid||lp.view!=v){if(lp.view_valid)++p.headlight_view_changes;lp.view=v;lp.view_valid=true;
+    if(!lp.view_valid||lp.view!=v){if(lp.view_valid)++p.headlight_view_changes;lp.view=v;lp.inverse=inverse;lp.view_valid=true;
         for(unsigned i=0;i<lp.count;++i){auto& L=lp.cars[i];
             if(L.head){L.head_cookie=atmosphere::cookie_matrix(inverse,L.head_frame,style.head);L.head_ramp=atmosphere::ramp_matrix(inverse,L.head_frame,style.head);}
             if(L.rear){L.rear_cookie=atmosphere::cookie_matrix(inverse,L.rear_frame,style.rear);L.rear_ramp=atmosphere::ramp_matrix(inverse,L.rear_frame,style.rear);}}}
@@ -212,6 +212,84 @@ struct HeadlightPass {
         return result;}
     ~HeadlightPass(){for(auto*& t:texture)if(t){t->Release();t=nullptr;}}
 };
+// PERF-ATMO2: one lamp of a car (head or rear) as the pass/map need it.
+struct HeadlightLamp{bool on;const atmosphere::LightFrame* f;const atmosphere::Projector* pr;const atmosphere::Mat4* cookie;const atmosphere::Mat4* ramp;IDirect3DTexture8* texture;std::array<float,3> rgb;float intensity;bool brake;
+    DWORD factor()const noexcept{DWORD c=0xff000000u;for(unsigned i=0;i<3;++i)c|=DWORD(std::clamp(std::lround(rgb[i]*intensity*.5f*255),0l,255l))<<((2-i)*8);return c;}};
+inline HeadlightLamp headlight_lamp(const atmosphere::Pilot& p,const atmosphere::Pilot::CarLamps& L,bool head)noexcept{
+    const auto& style=p.headlight_style;
+    if(head)return {L.head,&L.head_frame,&style.head,&L.head_cookie,&L.head_ramp,p.headlight_cookie_texture,style.rgb,style.intensity,false};
+    return {L.rear,&L.rear_frame,&style.rear,&L.rear_cookie,&L.rear_ramp,p.tail_cookie_texture,L.reversing?std::array<float,3>{1.f,.94f,.86f}:style.tail_rgb,
+            L.reversing?std::max(1.1f,style.tail_intensity):style.tail_intensity*(L.brake?style.tail_brake:1.f),L.brake};
+}
+// PERF-ATMO2 top-down headlight map: kHeadlightMapSize^2 texels over +-kHeadlightMapHalf m around the
+// camera (snapped to texels). Every lamp is drawn as one world quad on its car's ground plane with the
+// SAME cookie/ramp projector stages as the old per-draw pass, at half energy (the course pass doubles it).
+// A vertical fade (HeadlightMapBand/Fade metres around the reaching car) keeps canopies and bridges dark.
+inline constexpr unsigned kHeadlightMapSize=1024;inline constexpr float kHeadlightMapHalf=240.f;
+inline HRESULT headlight_map_render(Device8& d,atmosphere::Pilot& p,IDirect3DDevice8& n,uint64_t frame)noexcept{
+    p.headlight_map_frame=frame;p.headlight_map_ok=false;
+    auto failed=[&](const char* why,HRESULT hr){p.headlight_map_failed=true;session().write("{\"type\":\"atmosphere_headlight_map\",\"enabled\":false,\"reason\":"+quote(std::string(why))+",\"hresult\":"+std::to_string(uint32_t(hr))+"}");return S_OK;};
+    if(!p.headlight_map){const auto hr=n.CreateTexture(kHeadlightMapSize,kHeadlightMapSize,1,D3DUSAGE_RENDERTARGET,D3DFMT_A8R8G8B8,D3DPOOL_DEFAULT,&p.headlight_map);
+        if(FAILED(hr)||!p.headlight_map){p.headlight_map=nullptr;return failed("map_target_unavailable",hr);}}
+    if(!p.headlight_height_ramp){const auto& style=p.headlight_style;
+        auto hr=n.CreateTexture(256,4,1,0,D3DFMT_A8R8G8B8,D3DPOOL_MANAGED,&p.headlight_height_ramp);if(FAILED(hr)||!p.headlight_height_ramp){p.headlight_height_ramp=nullptr;return failed("height_ramp_unavailable",hr);}
+        D3DLOCKED_RECT l{};hr=p.headlight_height_ramp->LockRect(0,&l,nullptr,0);if(FAILED(hr)||!l.pBits){if(SUCCEEDED(hr))p.headlight_height_ramp->UnlockRect(0);return failed("height_ramp_lock",hr);}
+        for(unsigned y=0;y<4;++y)for(unsigned x=0;x<256;++x){const float dy=std::abs(((x+.5f)/256-.5f)*2*style.map_fade);
+            const float v=dy<=style.map_band?1.f:std::clamp(1-(dy-style.map_band)/(style.map_fade-style.map_band),0.f,1.f);const DWORD c=DWORD(std::lround(v*255)),px=0xff000000u|c<<16|c<<8|c;
+            std::memcpy(static_cast<uint8_t*>(l.pBits)+size_t(y)*l.Pitch+x*4,&px,4);}
+        hr=p.headlight_height_ramp->UnlockRect(0);if(FAILED(hr))return failed("height_ramp_unlock",hr);}
+    const auto& lp=p.lamp_projectors;
+    const float texel=2*kHeadlightMapHalf/kHeadlightMapSize;
+    p.headlight_map_cx=std::round(lp.inverse[12]/texel)*texel;p.headlight_map_cz=std::round(lp.inverse[14]/texel)*texel;
+    const float top=lp.inverse[13]+2000.f,cx=p.headlight_map_cx,cz=p.headlight_map_cz;
+    // Looking down -Y: camera x = world x - cx, camera y = world z - cz, depth = top - world y.
+    const atmosphere::Mat4 view{1,0,0,0, 0,0,-1,0, 0,1,0,0, -cx,-cz,top,1};atmosphere::Mat4 inverse{};if(!atmosphere::mat_inverse(view,inverse))return failed("map_view_singular",E_FAIL);
+    D3DMATRIX projection{};projection._11=projection._22=1/kHeadlightMapHalf;projection._33=1.f/8000.f;projection._44=1;
+    courseintegration::Ref<IDirect3DSurface8> surface;{const auto hr=p.headlight_map->GetSurfaceLevel(0,&surface.p);if(FAILED(hr)||!surface.p)return failed("map_surface",hr);}
+    D3DMATRIX saved[3]{};const D3DTRANSFORMSTATETYPE kinds[3]{D3DTS_VIEW,D3DTS_PROJECTION,D3DTS_WORLD};
+    for(unsigned i=0;i<3;++i)if(FAILED(n.GetTransform(kinds[i],&saved[i])))return failed("transform_capture",E_FAIL);
+    const auto writer=[](void* context,uint32_t slot,const Args& args,HRESULT hr)noexcept{notify(*static_cast<Device8*>(context),slot,args,hr);};
+    atmosphere::SunTransaction tx;HRESULT hr=tx.capture(n,&d,writer);if(FAILED(hr))return failed("state_capture",hr);
+    HeadlightPass stages;   // texture stages 1/2 + their texture matrices, restored below
+    auto rs=[&](DWORD k,DWORD v){if(SUCCEEDED(hr))hr=tx.set(n,0,0,k,v);};auto ts=[&](unsigned st,DWORD k,DWORD v){if(SUCCEEDED(hr))hr=tx.set(n,1,st,k,v);};
+    bool transforms=false;
+    {const D3DVIEWPORT8 viewport{0,0,kHeadlightMapSize,kHeadlightMapSize,0,1};hr=tx.target(n,surface.p,nullptr,viewport);}
+    if(SUCCEEDED(hr))hr=n.Clear(0,nullptr,D3DCLEAR_TARGET,0,1,0);
+    rs(D3DRS_ZENABLE,D3DZB_FALSE);rs(D3DRS_ZWRITEENABLE,FALSE);rs(D3DRS_ALPHATESTENABLE,FALSE);rs(D3DRS_ALPHABLENDENABLE,TRUE);rs(D3DRS_SRCBLEND,D3DBLEND_ONE);rs(D3DRS_DESTBLEND,D3DBLEND_ONE);
+    rs(D3DRS_BLENDOP,D3DBLENDOP_ADD);rs(D3DRS_CULLMODE,D3DCULL_NONE);rs(D3DRS_FILLMODE,D3DFILL_SOLID);rs(D3DRS_LIGHTING,FALSE);rs(D3DRS_FOGENABLE,FALSE);rs(D3DRS_STENCILENABLE,FALSE);
+    rs(D3DRS_CLIPPING,TRUE);rs(D3DRS_CLIPPLANEENABLE,0);rs(D3DRS_COLORWRITEENABLE,15);rs(D3DRS_SPECULARENABLE,FALSE);rs(D3DRS_VERTEXBLEND,D3DVBF_DISABLE);rs(D3DRS_INDEXEDVERTEXBLENDENABLE,FALSE);
+    rs(D3DRS_WRAP0,0);rs(D3DRS_WRAP1,0);rs(D3DRS_WRAP2,0);rs(D3DRS_MULTISAMPLEANTIALIAS,FALSE);
+    if(SUCCEEDED(hr))hr=tx.set(n,3,0,0,D3DFVF_XYZ);if(SUCCEEDED(hr))hr=tx.set(n,4,0,0,0);if(SUCCEEDED(hr))hr=tx.set(n,2,0,0,0,nullptr);
+    ts(0,D3DTSS_COLOROP,D3DTOP_SELECTARG1);ts(0,D3DTSS_COLORARG1,D3DTA_TFACTOR);ts(0,D3DTSS_ALPHAOP,D3DTOP_SELECTARG1);ts(0,D3DTSS_ALPHAARG1,D3DTA_TFACTOR);ts(0,D3DTSS_RESULTARG,D3DTA_CURRENT);
+    ts(0,D3DTSS_TEXTURETRANSFORMFLAGS,D3DTTFF_DISABLE);
+    for(unsigned st=1;st<3;++st){ts(st,D3DTSS_COLOROP,D3DTOP_MODULATE);ts(st,D3DTSS_COLORARG1,D3DTA_TEXTURE);ts(st,D3DTSS_COLORARG2,D3DTA_CURRENT);
+        ts(st,D3DTSS_ALPHAOP,D3DTOP_SELECTARG1);ts(st,D3DTSS_ALPHAARG1,D3DTA_CURRENT);ts(st,D3DTSS_RESULTARG,D3DTA_CURRENT);ts(st,D3DTSS_TEXCOORDINDEX,D3DTSS_TCI_CAMERASPACEPOSITION);
+        ts(st,D3DTSS_TEXTURETRANSFORMFLAGS,st==1?(D3DTTFF_COUNT3|D3DTTFF_PROJECTED):D3DTTFF_COUNT2);ts(st,D3DTSS_ADDRESSU,D3DTADDRESS_CLAMP);ts(st,D3DTSS_ADDRESSV,D3DTADDRESS_CLAMP);
+        ts(st,D3DTSS_MINFILTER,D3DTEXF_LINEAR);ts(st,D3DTSS_MAGFILTER,D3DTEXF_LINEAR);ts(st,D3DTSS_MIPFILTER,D3DTEXF_NONE);}
+    ts(3,D3DTSS_COLOROP,D3DTOP_DISABLE);ts(3,D3DTSS_ALPHAOP,D3DTOP_DISABLE);
+    if(SUCCEEDED(hr)){transforms=true;D3DMATRIX v{};std::memcpy(&v,view.data(),64);D3DMATRIX identity{};identity._11=identity._22=identity._33=identity._44=1;
+        const std::pair<D3DTRANSFORMSTATETYPE,const D3DMATRIX*> sets[3]{{D3DTS_VIEW,&v},{D3DTS_PROJECTION,&projection},{D3DTS_WORLD,&identity}};
+        for(const auto& set:sets)if(SUCCEEDED(hr)){hr=n.SetTransform(set.first,set.second);notify(d,37,pack(set.first,set.second),hr);}}
+    unsigned lamps_drawn=0;
+    for(unsigned ci=0;ci<lp.count&&SUCCEEDED(hr);++ci){const auto& L=lp.cars[ci];
+        for(bool head:{true,false}){if(FAILED(hr))break;const auto lamp=headlight_lamp(p,L,head);if(!lamp.on)continue;
+            const float r=lamp.pr->range+2,x=lamp.f->position[0],z=lamp.f->position[2],y=L.car[13];
+            if(std::abs(x-cx)+r>kHeadlightMapHalf||std::abs(z-cz)+r>kHeadlightMapHalf)continue;   // never let a pool touch the clamped border
+            rs(D3DRS_TEXTUREFACTOR,lamp.factor());
+            if(SUCCEEDED(hr))hr=stages.set_texture(d,n,0,lamp.texture);if(SUCCEEDED(hr))hr=stages.set_texture(d,n,1,p.headlight_ramp_texture);
+            if(SUCCEEDED(hr))hr=stages.set_transform(d,n,0,atmosphere::cookie_matrix(inverse,*lamp.f,*lamp.pr));
+            if(SUCCEEDED(hr))hr=stages.set_transform(d,n,1,atmosphere::ramp_matrix(inverse,*lamp.f,*lamp.pr));
+            const float quad[12]{x-r,y,z-r, x+r,y,z-r, x-r,y,z+r, x+r,y,z+r};
+            if(SUCCEEDED(hr)){hr=tx.draw(n,quad,12);if(SUCCEEDED(hr))++lamps_drawn;}}}
+    HRESULT restored=stages.restore(d,n);
+    if(transforms)for(unsigned i=0;i<3;++i){const auto r2=n.SetTransform(kinds[i],&saved[i]);notify(d,37,pack(kinds[i],&saved[i]),r2);if(FAILED(r2)&&SUCCEEDED(restored))restored=r2;}
+    {const auto r3=tx.restore(n);if(FAILED(r3)&&SUCCEEDED(restored))restored=r3;}
+    if(FAILED(restored))return restored;
+    if(FAILED(hr))return failed("map_draw",hr);
+    p.headlight_map_ok=true;++p.headlight_map_renders;
+    if(p.first_reason("headlight_map"))session().write("{\"type\":\"atmosphere_headlight_map\",\"enabled\":true,\"size\":"+std::to_string(kHeadlightMapSize)+",\"half_metres\":"+std::to_string(kHeadlightMapHalf)+",\"lamps\":"+std::to_string(lamps_drawn)+",\"frame\":"+std::to_string(frame)+"}");
+    return S_OK;
+}
 inline HRESULT headlight_world(Device8& d,HRESULT draw_hr,uintptr_t pc)noexcept{
     if(ps2port::perf::atmo(ps2port::perf::AtmoHeadlights))return S_OK;   // PERF-ATMO1 diagnostic A/B
     auto* p=pilot(d);if(!p||!p->enabled()||!p->headlight_style.enabled||FAILED(draw_hr)||!p->lighting.active()||
@@ -227,39 +305,56 @@ inline HRESULT headlight_world(Device8& d,HRESULT draw_hr,uintptr_t pc)noexcept{
             session().write("{\"type\":\"atmosphere_headlight_caps\",\"supported\":"+std::string(p->headlight_caps==1?"true":"false")+"}");}
         ++p->headlight_candidates;
         if(frame>=p->headlight_log_frame+300){p->headlight_log_frame=frame;unsigned reversing=0,braking=0;for(unsigned i=0;i<p->lamp_projectors.count;++i){reversing+=p->lamp_projectors.cars[i].reversing;braking+=p->lamp_projectors.cars[i].brake;}
-            session().write("{\"type\":\"atmosphere_headlight_stats\",\"frame\":"+std::to_string(frame)+",\"candidates\":"+std::to_string(p->headlight_candidates)+",\"draws\":"+std::to_string(p->headlight_draws)+",\"culled\":"+std::to_string(p->headlight_culled)+",\"no_car_frames\":"+std::to_string(p->headlight_no_car)+",\"view_changes\":"+std::to_string(p->headlight_view_changes)+",\"off_target\":"+std::to_string(p->headlight_off_target)+",\"cars\":"+std::to_string(p->lamp_projectors.count)+",\"reversing\":"+std::to_string(reversing)+",\"braking\":"+std::to_string(braking)+",\"proxy_vertices\":"+std::to_string(p->proxy_headlight_vertices)+",\"lamp_points\":"+std::to_string(p->lamp_points.size())+",\"gear_matched\":"+std::to_string(p->gear_matched)+",\"gear_reverse\":"+std::to_string(p->gear_reverse)+",\"pose_held\":"+std::to_string(p->headlight_held)+",\"gaps\":"+std::to_string(p->headlight_gaps)+",\"rig_matches\":"+std::to_string(p->rig_matches)+",\"rig_misses\":"+std::to_string(p->rig_misses)+",\"rig_points\":"+std::to_string(p->rig_points)+",\"rig_rematches\":"+std::to_string(p->rig_rematches)+",\"rig_blight_off\":"+std::to_string(p->rig_blight_off)+",\"lens_night_draws\":"+std::to_string(p->lens_night_draws)+",\"rear_tints\":"+std::to_string(p->lamp_rear_tints)+",\"reverse_vertices\":"+std::to_string(p->lamp_reverse_vertices)+"}");}
+            session().write("{\"type\":\"atmosphere_headlight_stats\",\"frame\":"+std::to_string(frame)+",\"candidates\":"+std::to_string(p->headlight_candidates)+",\"draws\":"+std::to_string(p->headlight_draws)+",\"map_renders\":"+std::to_string(p->headlight_map_renders)+",\"map_passes\":"+std::to_string(p->headlight_map_passes)+",\"culled\":"+std::to_string(p->headlight_culled)+",\"no_car_frames\":"+std::to_string(p->headlight_no_car)+",\"view_changes\":"+std::to_string(p->headlight_view_changes)+",\"off_target\":"+std::to_string(p->headlight_off_target)+",\"cars\":"+std::to_string(p->lamp_projectors.count)+",\"reversing\":"+std::to_string(reversing)+",\"braking\":"+std::to_string(braking)+",\"proxy_vertices\":"+std::to_string(p->proxy_headlight_vertices)+",\"lamp_points\":"+std::to_string(p->lamp_points.size())+",\"gear_matched\":"+std::to_string(p->gear_matched)+",\"gear_reverse\":"+std::to_string(p->gear_reverse)+",\"pose_held\":"+std::to_string(p->headlight_held)+",\"gaps\":"+std::to_string(p->headlight_gaps)+",\"rig_matches\":"+std::to_string(p->rig_matches)+",\"rig_misses\":"+std::to_string(p->rig_misses)+",\"rig_points\":"+std::to_string(p->rig_points)+",\"rig_rematches\":"+std::to_string(p->rig_rematches)+",\"rig_blight_off\":"+std::to_string(p->rig_blight_off)+",\"lens_night_draws\":"+std::to_string(p->lens_night_draws)+",\"rear_tints\":"+std::to_string(p->lamp_rear_tints)+",\"reverse_vertices\":"+std::to_string(p->lamp_reverse_vertices)+"}");}
         {courseintegration::Ref<IDirect3DSurface8> target,back;if(FAILED(n.GetRenderTarget(&target.p))||FAILED(n.GetBackBuffer(0,D3DBACKBUFFER_TYPE_MONO,&back.p))||!courseintegration::same_identity(target.p,back.p)){++p->headlight_off_target;return S_OK;}}
         if(p->headlight_caps!=1||FAILED(headlight_textures(n,*p))||!headlight_projectors(d,*p,n))return S_OK;
         DWORD fvf=0,pixel=1;if(FAILED(n.GetVertexShader(&fvf))||!type_supports_headlight(fvf)||FAILED(n.GetPixelShader(&pixel))||pixel)return S_OK;
         const auto& lp=p->lamp_projectors;const auto& style=p->headlight_style;
-        struct Lamp{bool on;const atmosphere::LightFrame* f;const atmosphere::Projector* pr;const atmosphere::Mat4* cookie;const atmosphere::Mat4* ramp;IDirect3DTexture8* texture;std::array<float,3> rgb;float intensity;bool brake;};
-        for(unsigned ci=0;ci<lp.count;++ci){const auto& L=lp.cars[ci];
-          if(cand.instance&&cand.instance==L.instance)continue;    // a car never lights itself
-          const Lamp lamps[2]{{L.head,&L.head_frame,&style.head,&L.head_cookie,&L.head_ramp,p->headlight_cookie_texture,style.rgb,style.intensity,false},
-                              {L.rear,&L.rear_frame,&style.rear,&L.rear_cookie,&L.rear_ramp,p->tail_cookie_texture,
-                               L.reversing?std::array<float,3>{1.f,.94f,.86f}:style.tail_rgb,L.reversing?std::max(1.1f,style.tail_intensity):style.tail_intensity*(L.brake?style.tail_brake:1.f),L.brake}};
-          for(const auto& lamp:lamps){
-            if(!lamp.on)continue;
-            if(cand.instance&&lamp.texture!=p->headlight_cookie_texture)continue;   // 6.8: tail pools light the ground only
-            if(!atmosphere::light_reaches(*lamp.f,*lamp.pr,cand.centre,cand.radius)){++p->headlight_culled;continue;}
+        // One additive pass over the draw that just ran: stage 0 = its own diffuse texture x TFACTOR,
+        // stages 1/2 = textures t1/t2 addressed by camera-space position through m1/m2.
+        auto issue=[&](IDirect3DTexture8* t1,IDirect3DTexture8* t2,const atmosphere::Mat4& m1,const atmosphere::Mat4& m2,DWORD factor,bool projected,const char* what,unsigned car,bool brake)->HRESULT{
             HeadlightPass pass;HRESULT hr=S_OK;
             auto rs=[&](DWORD k,DWORD v){if(SUCCEEDED(hr))hr=pass.set_rs(d,n,k,v);};auto ts=[&](unsigned st,DWORD k,DWORD v){if(SUCCEEDED(hr))hr=pass.set_ts(d,n,st,k,v);};
-            DWORD factor=0xff000000u;for(unsigned i=0;i<3;++i)factor|=DWORD(std::clamp(std::lround(lamp.rgb[i]*lamp.intensity*.5f*255),0l,255l))<<((2-i)*8);
             rs(D3DRS_ZWRITEENABLE,FALSE);rs(D3DRS_ZFUNC,D3DCMP_LESSEQUAL);rs(D3DRS_ALPHABLENDENABLE,TRUE);rs(D3DRS_SRCBLEND,D3DBLEND_SRCALPHA);rs(D3DRS_DESTBLEND,D3DBLEND_ONE);
             rs(D3DRS_BLENDOP,D3DBLENDOP_ADD);rs(D3DRS_FOGCOLOR,0);rs(D3DRS_TEXTUREFACTOR,factor);rs(D3DRS_WRAP1,0);rs(D3DRS_WRAP2,0);rs(D3DRS_SPECULARENABLE,FALSE);
             ts(0,D3DTSS_COLOROP,D3DTOP_MODULATE);ts(0,D3DTSS_COLORARG1,D3DTA_TEXTURE);ts(0,D3DTSS_COLORARG2,D3DTA_TFACTOR);ts(0,D3DTSS_ALPHAOP,D3DTOP_SELECTARG1);ts(0,D3DTSS_ALPHAARG1,D3DTA_TEXTURE);ts(0,D3DTSS_RESULTARG,D3DTA_CURRENT);
             for(unsigned st=1;st<3;++st){ts(st,D3DTSS_COLOROP,st==1?D3DTOP_MODULATE:D3DTOP_MODULATE2X);ts(st,D3DTSS_COLORARG1,D3DTA_TEXTURE);ts(st,D3DTSS_COLORARG2,D3DTA_CURRENT);
                 ts(st,D3DTSS_ALPHAOP,D3DTOP_SELECTARG1);ts(st,D3DTSS_ALPHAARG1,D3DTA_CURRENT);ts(st,D3DTSS_RESULTARG,D3DTA_CURRENT);ts(st,D3DTSS_TEXCOORDINDEX,D3DTSS_TCI_CAMERASPACEPOSITION);
-                ts(st,D3DTSS_TEXTURETRANSFORMFLAGS,st==1?(D3DTTFF_COUNT3|D3DTTFF_PROJECTED):D3DTTFF_COUNT2);ts(st,D3DTSS_ADDRESSU,D3DTADDRESS_CLAMP);ts(st,D3DTSS_ADDRESSV,D3DTADDRESS_CLAMP);
+                ts(st,D3DTSS_TEXTURETRANSFORMFLAGS,st==1&&projected?(D3DTTFF_COUNT3|D3DTTFF_PROJECTED):D3DTTFF_COUNT2);ts(st,D3DTSS_ADDRESSU,D3DTADDRESS_CLAMP);ts(st,D3DTSS_ADDRESSV,D3DTADDRESS_CLAMP);
                 ts(st,D3DTSS_MINFILTER,D3DTEXF_LINEAR);ts(st,D3DTSS_MAGFILTER,D3DTEXF_LINEAR);ts(st,D3DTSS_MIPFILTER,D3DTEXF_NONE);}
             ts(3,D3DTSS_COLOROP,D3DTOP_DISABLE);ts(3,D3DTSS_ALPHAOP,D3DTOP_DISABLE);
-            if(SUCCEEDED(hr))hr=pass.set_texture(d,n,0,lamp.texture);if(SUCCEEDED(hr))hr=pass.set_texture(d,n,1,p->headlight_ramp_texture);
-            if(SUCCEEDED(hr))hr=pass.set_transform(d,n,0,*lamp.cookie);if(SUCCEEDED(hr))hr=pass.set_transform(d,n,1,*lamp.ramp);
+            if(SUCCEEDED(hr))hr=pass.set_texture(d,n,0,t1);if(SUCCEEDED(hr))hr=pass.set_texture(d,n,1,t2);
+            if(SUCCEEDED(hr))hr=pass.set_transform(d,n,0,m1);if(SUCCEEDED(hr))hr=pass.set_transform(d,n,1,m2);
             if(SUCCEEDED(hr))hr=n.DrawIndexedPrimitive(D3DPT_TRIANGLELIST,cand.min,cand.vertices,cand.start,cand.count);
-            const auto restored=pass.restore(d,n);if(FAILED(restored))return repair(d);
+            const auto restored=pass.restore(d,n);if(FAILED(restored))return restored;
             if(SUCCEEDED(hr))++p->headlight_draws;
+            if(p->first_reason(what))session().write("{\"type\":\"atmosphere_headlight\",\"pass\":"+quote(std::string(what))+",\"car\":"+std::to_string(car)+",\"frame\":"+std::to_string(frame)+",\"hresult\":"+std::to_string(uint32_t(hr))+",\"brake\":"+std::string(brake?"true":"false")+"}");
+            return S_OK;};
+        // PERF-ATMO2: course draws read every pool from the per-frame top-down map in ONE pass
+        // (was one pass per car and lamp, ~200 a frame at night). Car bodies keep the exact projectors.
+        if(style.map&&!cand.instance&&!p->headlight_map_failed){
+            if(p->headlight_map_frame!=frame){const auto mr=headlight_map_render(d,*p,n,frame);if(FAILED(mr))return repair(d);}
+            if(p->headlight_map_ok){
+                bool any=false;float best=1e30f,height=0;
+                for(unsigned ci=0;ci<lp.count;++ci){const auto& L=lp.cars[ci];
+                    const bool head=L.head&&atmosphere::light_reaches(L.head_frame,style.head,cand.centre,cand.radius),rear=L.rear&&atmosphere::light_reaches(L.rear_frame,style.rear,cand.centre,cand.radius);
+                    if(!head&&!rear)continue;any=true;const float dx=L.car[12]-cand.centre[0],dz=L.car[14]-cand.centre[2],dd=dx*dx+dz*dz;if(dd<best){best=dd;height=L.car[13];}}
+                if(!any){++p->headlight_culled;return S_OK;}
+                atmosphere::Mat4 to_map{},to_height{};const float half=kHeadlightMapHalf,fade=style.map_fade;
+                to_map[0]=.5f/half;to_map[12]=.5f-p->headlight_map_cx*.5f/half;to_map[9]=-.5f/half;to_map[13]=.5f+p->headlight_map_cz*.5f/half;to_map[15]=1;
+                to_height[4]=.5f/fade;to_height[12]=.5f-height*.5f/fade;to_height[13]=.5f;to_height[15]=1;
+                const auto hr=issue(p->headlight_map,p->headlight_height_ramp,atmosphere::mat_mul(lp.inverse,to_map),atmosphere::mat_mul(lp.inverse,to_height),0xffffffffu,false,"headlight_map_pass",0,false);
+                if(FAILED(hr))return repair(d);++p->headlight_map_passes;return S_OK;}
+        }
+        for(unsigned ci=0;ci<lp.count;++ci){const auto& L=lp.cars[ci];
+          if(cand.instance&&cand.instance==L.instance)continue;    // a car never lights itself
+          const HeadlightLamp lamps[2]{headlight_lamp(*p,L,true),headlight_lamp(*p,L,false)};
+          for(const auto& lamp:lamps){
+            if(!lamp.on)continue;
+            if(cand.instance&&lamp.texture!=p->headlight_cookie_texture)continue;   // 6.8: tail pools light the ground only
+            if(!atmosphere::light_reaches(*lamp.f,*lamp.pr,cand.centre,cand.radius)){++p->headlight_culled;continue;}
             const char* what=cand.instance?(lamp.texture==p->headlight_cookie_texture?"headlight_on_car":"tail_light_on_car"):(lamp.texture==p->headlight_cookie_texture?"headlight_pass":"tail_light_pass");
-            if(p->first_reason(what))session().write("{\"type\":\"atmosphere_headlight\",\"pass\":"+quote(std::string(what))+",\"car\":"+std::to_string(ci)+",\"frame\":"+std::to_string(frame)+",\"hresult\":"+std::to_string(uint32_t(hr))+",\"brake\":"+std::string(lamp.brake?"true":"false")+"}");
+            const auto hr=issue(lamp.texture,p->headlight_ramp_texture,*lamp.cookie,*lamp.ramp,lamp.factor(),true,what,ci,lamp.brake);if(FAILED(hr))return repair(d);
           }
         }
         return S_OK;

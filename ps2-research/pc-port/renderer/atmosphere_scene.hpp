@@ -56,6 +56,35 @@ inline uint32_t scene_color(uint32_t color,std::array<float,3> normal,const Ligh
     for(unsigned i=0;i<3;++i)result|=uint32_t(std::clamp(std::lround(rgb[i]),0l,255l))<<((2-i)*8);
     return result;
 }
+// PERF-ATMO2: scene_color with every per-call term hoisted (direction length,
+// ambient/sun products). Same operations in the same order, so the result is
+// bit-identical to scene_color (tests/atmosphere_tests.cpp checks it); used by
+// the per-vertex body loops, where scene_color dominated the frame.
+struct ScenePre {
+    Lighting s;bool active=false;float d2=0;std::array<float,3> ambient{},sun{};
+    explicit ScenePre(const Lighting& l)noexcept:s(l),active(l.active()){for(unsigned i=0;i<3;++i){d2+=s.direction[i]*s.direction[i];ambient[i]=s.ambient[i]*s.ambient_strength;sun[i]=s.sun[i]*s.sun_strength;}}
+};
+inline uint32_t scene_color(uint32_t color,const std::array<float,3>& normal,const ScenePre& k)noexcept {
+    if(!k.active)return color;const auto& s=k.s;
+    float n2=0;for(unsigned i=0;i<3;++i)n2+=normal[i]*normal[i];
+    float nl=0;if(n2>1e-12f&&k.d2>1e-12f){const float q=std::sqrt(n2*k.d2);for(unsigned i=0;i<3;++i)nl+=normal[i]*s.direction[i]/q;}
+    nl=std::clamp(nl,0.f,1.f);
+    const float luminance=(float((color>>16)&255)*.2126f+float((color>>8)&255)*.7152f+float(color&255)*.0722f)/255;
+    const float visibility=1+s.prelight_visibility*(std::clamp((luminance-.08f)/.72f,0.f,1.f)-1);
+    const float target=.65f+(luminance-.65f)*s.prelight_contrast;
+    const float coverage=std::clamp((luminance-.08f)/.25f,0.f,1.f);
+    const float prelight_gain=luminance>1e-6f?1+coverage*(target/luminance-1):1;
+    uint32_t result=color&0xff000000;std::array<float,3> rgb{};float illumination=0;
+    for(unsigned i=0;i<3;++i){const unsigned shift=(2-i)*8;const float old=float((color>>shift)&255);
+        const float gain=(k.ambient[i]+k.sun[i]*nl*visibility)*s.exposure*s.world_brightness;
+        illumination+=gain*(i==0?.2126f:i==1?.7152f:.0722f);
+        rgb[i]=old*(1+s.strength*(prelight_gain*gain-1));}
+    if(s.surface_tone&&illumination>1e-6f){float mapped=std::max(0.f,(illumination-.65f)*s.tone_contrast+.65f);
+        if(mapped>1)mapped=1+(mapped-1)/(1+s.tone_shoulder*(mapped-1));
+        const float ratio=1+s.strength*(mapped/illumination-1);for(auto& c:rgb)c*=ratio;}
+    for(unsigned i=0;i<3;++i)result|=uint32_t(std::clamp(std::lround(rgb[i]),0l,255l))<<((2-i)*8);
+    return result;
+}
 inline uint32_t scene_fog(uint32_t original,const Lighting& s)noexcept {
     if(!s.active()||!s.fog_enabled)return original;uint32_t out=original&0xff000000;
     const float a=std::clamp(s.strength*s.fog_strength,0.f,1.f);
