@@ -33,6 +33,9 @@ using Wheel=void(__thiscall*)(void*);
 constexpr uintptr_t kGeneralInitSlot=0x690b50,kGeneralTickSlot=0x690b4c,kGeneralInit=0x482f30,kGeneralTick=0x4830c0;
 constexpr uintptr_t kSelectInitSlot=0x690b1c,kSelectTickSlot=0x690b18,kSelectInit=0x480b60,kSelectTick=0x481340;
 constexpr uintptr_t kGeneralCommandCall=0x483151,kCommand=0x45d930,kWheelCall=0x44385b,kWheel=0x440fe0;
+// Vehicle Select Left/Right: focus 1 changes class, any other focus scrolls the car carousel (0x481f50).
+constexpr uintptr_t kSelectScrollCall=0x4818c5,kSelectScroll=0x481f50;
+constexpr int kModelButton=3;
 constexpr unsigned kPlayers=2,kCars=256,kRaceCars=8;
 constexpr int kTyreButton=6; // GENERAL rows are 1..5; the native tick ignores IDs above 5.
 std::array<std::array<std::atomic_uint,kCars>,kPlayers> paints{},tires{};
@@ -62,24 +65,26 @@ std::string native_label(const char* value){std::string text(value);for(auto& c:
 void put_text(const char* s,const char* value){const auto text=native_label(value);put_name(s,text.c_str());}
 const extra_package::Vehicle* vehicle(int id){for(const auto& v:extra_package::vehicles)if(v.id==id)return &v;return nullptr;}
 
-// Appearance choices: per-car presets from vehicles.json, otherwise the generic PS2/PC pair.
-constexpr const char* kGenericLabels[]={"PS2","PC"};
-constexpr unsigned kGenericKinds[]={2,1}; // MRExtraVisualV2: 1 = PC bundle, 2 = PS2 bundle
-unsigned paint_count(int id){auto* v=vehicle(id);return v?v->paint_count:2u;}
-const char* paint_label(int id,unsigned i){auto* v=vehicle(id);return v?v->paint_labels[i]:kGenericLabels[i];}
-unsigned paint_kind(int id,unsigned i){auto* v=vehicle(id);return v?v->paint_kinds[i]:kGenericKinds[i];}
+// Appearance: the same PS2/PC pair for every car (owner decision; per-car texture variants retired).
+constexpr const char* kLabels[]={"PS2","PC"};
+constexpr unsigned kKinds[]={2,1}; // MRExtraVisualV2: 1 = PC bundle, 2 = PS2 bundle
+unsigned paint_count(int){return 2u;}
+const char* paint_label(int,unsigned i){return kLabels[i<2?i:0];}
+unsigned paint_kind(int,unsigned i){return kKinds[i<2?i:0];}
+// EXTRA-SET1 state stored preset indexes; keep only whether the preset was the PC bundle.
+unsigned migrate_paint(int id,unsigned stored){auto* v=vehicle(id);if(v)return stored<v->paint_count&&v->paint_kinds[stored]==1?1u:0u;return stored<2?stored:0u;}
 int clamp_player(int p){return p==1?1:0;}
 
-// Folder name of a physical CarID from the native registry (0x45a3c0, 0x34-byte rows, Name at +0x24).
+// Folder name of a physical CarID: native registry 0x45a3c0, 0x34-byte rows, C string at +0x24
+// (the setup loader 0x44d720 copies it with 0x4d1990). Live check: IDs 0..32 incl. SDK cars.
+// Rows past the roster belong to other tables, so path-like or empty strings are rejected.
 const char* family(int id){
  if(id<0||id>=int(kCars))return "";
  auto& slot=families[id];
  if(!slot[0]){
-  const auto table=reinterpret_cast<uintptr_t>(fn<void*(__cdecl*)()>(0x45a3c0)());uint32_t name=0;
-  if(table&&read(table+0x24+uintptr_t(id)*0x34,&name,4)&&name){
-   const char* text=fn<const char*(__thiscall*)(uint32_t*)>(0x4d0570)(&name);
-   char copy[32]{};if(text&&read(reinterpret_cast<uintptr_t>(text),copy,sizeof(copy)-1))std::memcpy(slot.data(),copy,sizeof(copy));
-  }
+  const auto table=reinterpret_cast<uintptr_t>(fn<void*(__cdecl*)()>(0x45a3c0)());uintptr_t text=0;char copy[32]{};
+  if(table&&read(table+0x24+uintptr_t(id)*0x34,&text,4)&&text&&read(text,copy,sizeof(copy)-1)&&copy[0]&&!std::strpbrk(copy,"/\\"))
+   std::memcpy(slot.data(),copy,sizeof(copy));
  }
  return slot.data();
 }
@@ -164,6 +169,11 @@ void look_sync(bool force){
  }
 }
 void __fastcall select_init(void* self,void*,void* argument){fn<Init>(kSelectInit)(self,argument);try{look_sync(true);}catch(...){log("APPEARANCE_MENU_INIT_FAILED");}}
+// Left/Right on MODEL changes only the model, never the carousel.
+void __fastcall select_scroll(void* self,void*,int direction){
+ try{void* buttons=fn<void*(__cdecl*)()>(0x525a80)();if(buttons&&fn<int(__thiscall*)(void*)>(0x525800)(buttons)==kModelButton)return;}catch(...){}
+ fn<void(__thiscall*)(void*,int)>(kSelectScroll)(self,direction);
+}
 uintptr_t __fastcall select_tick(void* self,void*,uint32_t argument){
  const auto result=fn<Tick>(kSelectTick)(self,argument);
  try{look_sync(false);}catch(...){log("APPEARANCE_MENU_UPDATE_FAILED");}
@@ -246,7 +256,7 @@ bool initialize() noexcept {try{
  const auto state=(directory/"MRallyeExtraOptions.state.ini").wstring();
  for(unsigned p=0;p<kPlayers;++p)for(unsigned i=0;i<kCars;++i){wchar_t s[32]{};std::swprintf(s,32,p?L"Player2Car%u":L"Car%u",i);
   const auto paint=GetPrivateProfileIntW(s,L"Paint",0,state.c_str()),tire=GetPrivateProfileIntW(s,L"Tire",0,state.c_str());
-  paints[p][i]=paint<paint_count(int(i))?paint:0;tires[p][i]=tire<extra_options::kTireCount?tire:0;}
+  paints[p][i]=migrate_paint(int(i),paint);tires[p][i]=tire<extra_options::kTireCount?tire:0;}
  pixels.resize(extra_package::binding_count);for(unsigned i=0;i<extra_package::binding_count;++i){const auto& b=extra_package::bindings[i];const size_t size=size_t(b.width)*b.height*4;pixels[i].original=load(b.original,size);pixels[i].derived=load(b.derived,size);}
  for(const auto& api:extra_package::apis){std::array<unsigned char,8> observed{};if(!read(api.va,observed.data(),observed.size())||observed!=api.bytes){log("API_LAYOUT_UNSUPPORTED: no Extra Options hooks installed");return false;}}
  struct Write{uintptr_t address;std::array<unsigned char,5> before,after;unsigned size;};std::vector<Write> writes;
@@ -257,7 +267,8 @@ bool initialize() noexcept {try{
    slot(kGeneralInitSlot,kGeneralInit,reinterpret_cast<void*>(&general_init));slot(kGeneralTickSlot,kGeneralTick,reinterpret_cast<void*>(&general_tick));
    call(kGeneralCommandCall,kCommand,reinterpret_cast<void*>(&general_command));call(kWheelCall,kWheel,reinterpret_cast<void*>(&wheel_update));
   }
-  if(options.liveries){slot(kSelectInitSlot,kSelectInit,reinterpret_cast<void*>(&select_init));slot(kSelectTickSlot,kSelectTick,reinterpret_cast<void*>(&select_tick));}
+  if(options.liveries){slot(kSelectInitSlot,kSelectInit,reinterpret_cast<void*>(&select_init));slot(kSelectTickSlot,kSelectTick,reinterpret_cast<void*>(&select_tick));
+   call(kSelectScrollCall,kSelectScroll,reinterpret_cast<void*>(&select_scroll));}
  }catch(int){log("HOOK_CONFLICT: Extra Options not installed; selected call/vtable mismatch");return false;}
  for(size_t i=0;i<writes.size();++i)if(!patch(writes[i].address,writes[i].after.data(),writes[i].size)){for(size_t j=0;j<=i;++j)patch(writes[j].address,writes[j].before.data(),writes[j].size);log("HOOK_INSTALL_FAILED rolled back");return false;}
  for(unsigned n=0;n<kRaceCars;++n){race_player[n]=-1;race_car[n]=-1;}

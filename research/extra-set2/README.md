@@ -52,10 +52,16 @@ with a non-stock compound has not been matched.
   acts like confirm on the native rows (command 6 → 1). Hooks: init slot `0x690B50`, tick slot
   `0x690B4C`, command call `0x483151`.
 * Vehicle Select (`VehicleSelect.xml`): MODEL row (button 3) below the carousel, Up/Down 1→2→3→1,
-  car name block 25 px lower. Choices are the per-car presets from `research/extra-set1/vehicles.json`
-  (SeatBuggy, Megane, Tata) or PS2/PC for every other car. Selection follows
+  car name block 25 px lower. Choices are PS2 / PC for every car. Selection follows
   `Frontend/VehicleSelect/{PlayerID,CarModel}`, bumps the renderer revision and is saved at once.
   Hooks: init slot `0x690B1C`, tick slot `0x690B18`; the screen ignores command 3 natively.
+  Owner run of `extra-set2-01`: Left/Right on MODEL also scrolled the carousel. The screen maps
+  commands -5/-4 to a class change when focus is button 1 and to a carousel scroll (`0x481F50`) for
+  any other focus; `extra-set2-02` hooks that call (`0x4818C5`) and skips it while the focused button
+  (`0x525A80` → `0x525800`) is MODEL.
+* Every car offers the same PS2 / PC pair (owner decision after the same run); the SeatBuggy
+  "PC sponsor panels (partial)" texture variant and the per-car labels are retired. Stored EXTRA-SET1
+  preset indexes migrate to PC when they were the PC bundle, otherwise PS2.
 * GEARBOX: no hooks, no page edit.
 
 State: `MRallyeExtraOptions.state.ini`, sections `Car<id>` (player 1, EXTRA-SET1 compatible) and
@@ -97,3 +103,13 @@ with Gravel vs Tarmac: `host/MRallyeExtraOptions.log` must show `TIRE_APPLIED`, 
 difference should be felt; `TIRE_BINDING_PENDING` means the controller binding needs work;
 (3) Vehicle Select MODEL row: PS2/PC switches the preview at once for several cars and the race car
 follows; (4) GEARBOX looks and works like stock; (5) Ghost and five difficulties as in GHOST1.
+
+## Fix after owner run of `extra-set2-02`
+
+The carousel showed a blue Privateer Tomcat (SDK ID 32) where Simmbugghini belongs: SDK33 ships its
+own `VehicleSelect.xml` (T3_Car12/13 and re-banked icons for the restored demo cars), and
+`extra-set2-01/02` derived the MODEL page from the retail page, dropping the SDK buttons.
+`extra_set2_frontend.build(stock, base)` now extends the page found in the bundle resource root
+and falls back to stock only when the bundle has none. The registry folder string is read as a C
+string at `+0x24` (live read: IDs 0..32 = Landcruiser … DefTomcat); the earlier Name-ID read left
+the family empty, so PS2/PC only worked for the three preset cars.

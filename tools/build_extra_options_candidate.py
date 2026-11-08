@@ -54,7 +54,7 @@ def package_header():
     pe=pefile.PE(str(RETAIL))
     apis=[]
     for va in [0x4d0580,0x4d8ec0,0x4d6760,0x4d6520,0x4d8000,0x4d85f0,0x4d8880,0x4d11d0,0x407b30,0x5c1cb4,0x5b4c00,
-               0x4d6650,0x4d6fb0,0x4d0570,0x45a3c0,0x4ada50,0x4ac660,0x4b0af0,0x4b0630]:
+               0x4d6650,0x4d6fb0,0x45a3c0,0x4ada50,0x4ac660,0x4b0af0,0x4b0630,0x525a80,0x525800]:
         apis.append('{0x%x,{%s}},'%(va,','.join('0x%02x'%b for b in pe.get_data(va-0x400000,8))))
     plan=json.loads((BASE/'runtime/addon-plan.json').read_text())
     native=json.loads((BASE/'runtime/native-patch-manifest.json').read_text())
@@ -131,7 +131,7 @@ def package(out):
     # EXTRA-SET2: GENERAL tyre row + Vehicle Select MODEL row; GEARBOX stays stock.
     # Ghost Mode needs the GHOST panel QuickModeSelect.xml (GHOST1 G4.1, owner-confirmed).
     import extra_set2_frontend,extra_set2_resources
-    pages=extra_set2_frontend.build(GAME/'Data.sma_unpacked')
+    pages=extra_set2_frontend.build(GAME/'Data.sma_unpacked',bundle/'resource-root')
     pages['DataScene/FrontendScreens/QuickModeSelect.xml']=GHOST_FRONTEND.read_bytes()
     extension=extra_set2_resources.extend_bundle(bundle,pages,stock_archive=ROOT.parent/'Data.sma',
                                                  stock_loose=ROOT.parent/'Data.sma_unpacked',sdk_tools=addon_runtime)

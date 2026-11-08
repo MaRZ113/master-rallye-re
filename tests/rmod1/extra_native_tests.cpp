@@ -30,7 +30,6 @@ bool __fastcall test_bool(void*,void*,uint32_t* k){return numbers[strings[*k]]!=
 float __fastcall test_real(void*,void*,uint32_t* k){return reals[strings[*k]];}
 void __fastcall test_int(void*,void*,uint32_t* k,int v){numbers[strings[*k]]=v;}
 void __fastcall test_name(void*,void*,uint32_t* k,uint32_t* v){texts[strings[*k]]=strings[*v];}
-const char* __fastcall test_text(uint32_t* k,void*){return strings[*k].c_str();}
 void __fastcall test_ctor(uint32_t* to,void*,const char* s){const auto n=std::strlen(s)+1;auto* p=std::malloc(n);std::memcpy(p,s,n);*to=reinterpret_cast<uint32_t>(p);}
 void* __cdecl test_new(size_t n){return std::calloc(1,n);}
 void __cdecl test_delete(uintptr_t p){std::free(reinterpret_cast<void*>(p));}
@@ -40,6 +39,10 @@ int __fastcall test_command(void*,void*,unsigned){return command_value;}
 void __fastcall test_init(void*,void*,void*){}
 uintptr_t __fastcall test_tick(void*,void*,uint32_t x){return x;}
 void __fastcall test_wheel(void*,void*){++wheel_calls;}
+int focused=2,scrolls=0;
+void* __cdecl test_buttons(){return reinterpret_cast<void*>(3);}
+int __fastcall test_focus(void*,void*){return focused;}
+void __fastcall test_scroll(void*,void*,int){++scrolls;}
 void* __cdecl test_object(){return reinterpret_cast<void*>(2);}
 int __fastcall test_quick_car(void*,void*,int p){return numbers[p?"mock/quick/1":"mock/quick/0"];}
 int __fastcall test_cup_car(void*,void*,int p){return numbers[p?"mock/cup/1":"mock/cup/0"];}
@@ -63,7 +66,6 @@ uintptr_t extra_test_resolve(uintptr_t p){
  case 0x4d6650:return reinterpret_cast<uintptr_t>(&test_real);
  case 0x4d8000:return reinterpret_cast<uintptr_t>(&test_int);
  case 0x4d85f0:return reinterpret_cast<uintptr_t>(&test_name);
- case 0x4d0570:return reinterpret_cast<uintptr_t>(&test_text);
  case 0x4d8880:return reinterpret_cast<uintptr_t>(&test_list);
  case 0x4d11d0:return reinterpret_cast<uintptr_t>(&test_ctor);
  case 0x407b30:return reinterpret_cast<uintptr_t>(&test_push);
@@ -78,6 +80,9 @@ uintptr_t extra_test_resolve(uintptr_t p){
  case 0x482f30:case 0x480b60:return reinterpret_cast<uintptr_t>(&test_init);
  case 0x4830c0:case 0x481340:return reinterpret_cast<uintptr_t>(&test_tick);
  case 0x440fe0:return reinterpret_cast<uintptr_t>(&test_wheel);
+ case 0x525a80:return reinterpret_cast<uintptr_t>(&test_buttons);
+ case 0x525800:return reinterpret_cast<uintptr_t>(&test_focus);
+ case 0x481f50:return reinterpret_cast<uintptr_t>(&test_scroll);
  default:throw std::runtime_error("unmapped API");
  }
 }
@@ -98,7 +103,9 @@ int main(int argc,char** argv){try{
  using namespace extra_runtime;
  directory=argv[1];options.enabled=options.tires=options.liveries=true;installed=true;
  for(unsigned n=0;n<kRaceCars;++n){race_player[n]=-1;race_car[n]=-1;}
- for(auto [id,name]:{std::pair{2,"Tata"},{15,"Simmbugghini"},{18,"Megane"},{21,"SeatBuggy"}}){const uint32_t k=intern(name);std::memcpy(registry+0x24+id*0x34,&k,4);}
+ for(auto [id,name]:{std::pair{2,"Tata"},{15,"Simmbugghini"},{18,"Megane"},{21,"SeatBuggy"}}){
+  const auto text=reinterpret_cast<uintptr_t>(name);std::memcpy(registry+0x24+id*0x34,&text,4);
+  static const char display[]="DISPLAY NAME";const auto other=reinterpret_cast<uintptr_t>(display);std::memcpy(registry+0x0c+id*0x34,&other,4);}
 
  // GENERAL page: Quick Race and championship resolve the car like the native setup loader.
  numbers={{"Frontend/InQuickRaceMode",1},{"Frontend/CarSetup/PlayerID",0},{"mock/quick/0",21},{"mock/cup/0",7},{"mock/quick/1",15}};
@@ -150,20 +157,15 @@ int main(int argc,char** argv){try{
  check(MRExtraVisualV2("simmbugghini",-1,0)==1&&MRExtraVisualV1("Simmbugghini",-1,0)==1,"PC bundle in preview, case-insensitive");
  check(MRExtraVisualV2("Tata",-1,0)==0,"other family in preview untouched");
  numbers["Frontend/VehicleSelect/CarModel"]=21;select_tick(nullptr,nullptr,0);
- check(published["Frontend/ExtraOptions/PaintList"].size()==3,"authored SeatBuggy presets");
- paints[0][21]=1;check(MRExtraVisualV2("SeatBuggy",0,1)==3,"race human: PS2 geometry with PC textures");
+ check(published["Frontend/ExtraOptions/PaintList"]==std::vector<std::string>{"PS2","PC"},"SeatBuggy reduced to PS2/PC");
+ paints[0][21]=1;check(MRExtraVisualV2("SeatBuggy",0,1)==1,"race human PC bundle");
  check(MRExtraVisualV2("Megane",1,1)==0,"race AI unchanged");
- paints[0][21]=0;check(MRExtraVisualV2("SeatBuggy",0,1)==2,"race human PS2");paints[0][21]=1;
+ paints[0][21]=0;check(MRExtraVisualV2("SeatBuggy",0,1)==2,"race human PS2");
+ check(MRExtraTextureV1("SeatBuggy",0,1,1,registry,registry,4,-1,0)==FALSE,"texture-transfer variant retired");
+ check(migrate_paint(21,2)==1&&migrate_paint(21,1)==0&&migrate_paint(2,1)==1&&migrate_paint(15,5)==0,"EXTRA-SET1 presets migrate to PS2/PC");
+ focused=3;select_scroll(nullptr,nullptr,1);check(scrolls==0,"Left/Right on MODEL keeps the carousel");
+ focused=2;select_scroll(nullptr,nullptr,1);check(scrolls==1,"carousel still scrolls from its own row");
  options.liveries=false;check(MRExtraVisualV2("SeatBuggy",0,1)==0,"independent appearance toggle");options.liveries=true;
- pixels.resize(extra_package::binding_count);
- const auto& binding=extra_package::bindings[0];const unsigned size=binding.width*binding.height*4;
- std::vector<unsigned char> source(size,33),output(size,77);for(unsigned i=3;i<size;i+=4)source[i]=255;
- pixels[0].original=source;pixels[0].derived=source;pixels[0].derived[0]=64;
- numbers["Frontend/VehicleSelect/CarModel"]=21;select_tick(nullptr,nullptr,0);
- check(MRExtraTextureV1("SeatBuggy",binding.index,binding.width,binding.height,source.data(),output.data(),size,-1,0)!=FALSE,"qualified texture-only upload");
- for(unsigned i=3;i<size;i+=4)check(output[i]==source[i],"texture alpha remains exact");
- check(!MRExtraTextureV1("SeatBuggy",binding.index,binding.width,binding.height,source.data(),output.data(),size,1,1),"AI texture upload isolated");
- source[1]^=1;check(!MRExtraTextureV1("SeatBuggy",binding.index,binding.width,binding.height,source.data(),output.data(),size,-1,0),"mismatched atlas cannot be replaced");
  options.enabled=false;check(MRExtraVisualV1("SeatBuggy",0,1)==0,"customization off passthrough");
- std::cout<<"EXTRA_NATIVE_PASS GENERAL tyre row (Quick Race + championship, two players); human-only compound wheels; Vehicle Select PS2/PC immediate; renderer V1/V2/texture contract\n";return 0;
+ std::cout<<"EXTRA_NATIVE_PASS GENERAL tyre row (Quick Race + championship, two players); human-only compound wheels; Vehicle Select PS2/PC immediate for every car, carousel locked on MODEL; renderer V1/V2 contract\n";return 0;
  }catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}

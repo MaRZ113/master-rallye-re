@@ -151,20 +151,28 @@ def select_page(original: bytes) -> bytes:
     return ET.tostring(root, encoding="utf-8") + b"\n"
 
 
-def build(stock: Path) -> dict[str, bytes]:
-    d = stock / SCREENS
-    return {f"{SCREENS}/VehicleSetup3.xml": general_page((d / "VehicleSetup3.xml").read_bytes(), (d / "VehicleSetup4.xml").read_bytes()),
-            f"{SCREENS}/VehicleSelect.xml": select_page((d / "VehicleSelect.xml").read_bytes())}
+def build(stock: Path, base: Path | None = None) -> dict[str, bytes]:
+    """`base` (e.g. an SDK bundle resource root) wins over stock: SDK33 ships its own
+    VehicleSelect.xml with extra car buttons/icons, which must be extended, not replaced."""
+    def page(name: str) -> bytes:
+        for root in ([base] if base else []) + [stock]:
+            path = root / SCREENS / name
+            if path.is_file():
+                return path.read_bytes()
+        raise FileNotFoundError(name)
+    return {f"{SCREENS}/VehicleSetup3.xml": general_page(page("VehicleSetup3.xml"), page("VehicleSetup4.xml")),
+            f"{SCREENS}/VehicleSelect.xml": select_page(page("VehicleSelect.xml"))}
 
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--stock", type=Path, required=True, help="unpacked retail Data.sma root")
+    ap.add_argument("--base", type=Path, help="resource root whose pages override stock (SDK bundle)")
     ap.add_argument("--output", type=Path, required=True)
     a = ap.parse_args()
     if a.output.exists():
         raise SystemExit(f"{a.output} already exists")
-    pages = build(a.stock)
+    pages = build(a.stock, a.base)
     report = {}
     for rel, raw in pages.items():
         out = a.output / rel

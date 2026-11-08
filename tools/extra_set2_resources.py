@@ -71,6 +71,9 @@ def extend_bundle(bundle: Path, pages: dict[str, bytes], *, stock_archive: Path,
     switch('DataGame/options.xml', 'DirectX/Mode/Fullscreen', 'True')
     page_hashes = {}
     for relative, raw in pages.items():
+        previous = bundle / 'resource-root' / relative
+        if previous.is_file():
+            page_hashes[relative + ' (base)'] = hashlib.sha256(previous.read_bytes()).hexdigest()
         replace(relative, raw, 'native-extra-options-frontend')
         page_hashes[relative] = hashlib.sha256(raw).hexdigest()
     gearbox = 'DataScene/FrontendScreens/VehicleSetup4.xml'
