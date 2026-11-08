@@ -258,7 +258,7 @@ def main() -> None:
     out = ROOT / "src/native/rmod1/extra_ghost_plan.hpp"
     text = header(bytes(page), rows, nops)
     if a.check:
-        if out.read_bytes() != text.encode("ascii"):
+        if out.read_bytes().replace(b"\r\n", b"\n") != text.encode("ascii"):
             raise SystemExit("extra_ghost_plan.hpp differs from the committed listings")
         print("PASS extra_ghost_plan.hpp reproduces from listings")
         return
