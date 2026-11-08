@@ -89,7 +89,7 @@ The exact sample layout and the `0x4BCB00` block still need `0x4BB160`, `0x4BF56
 
 ## 6. Restoration plan
 
-**G1 — enable without a menu (minimal, cheap).** Set `Race/Car0/RecordSpline=1`, `Race/GhostPlayback=1`,
+**G1 — enable without a menu (minimal, cheap; kit and test plan in [G1_RUNTIME_TEST.md](G1_RUNTIME_TEST.md)).** Set `Race/Car0/RecordSpline=1`, `Race/GhostPlayback=1`,
 `Frontend/QuickRace/Ghost=<type>` before a Quick Race (proxy/Broker setters as in PAUSE-MENU1, or constant patches in
 `0x449100`). Put `JumpAlpha` (DX from Nov 2001) and `Ghosts\Italy1.bestever.t2.ghost` next to the game. Expected:
 a ghost Jump on Italy1, and `Ghosts\Italy1.bestever.t2.ghost` / `sessionbest` written after the finish.
