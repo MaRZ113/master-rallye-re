@@ -17,6 +17,7 @@ import argparse
 import hashlib
 import json
 import shutil
+import struct
 import subprocess
 import sys
 from pathlib import Path
@@ -76,6 +77,14 @@ def patches(ghost_type: int) -> list[dict]:
             "old": "5168b4586e00",
             "new": "b8" + ghost_type.to_bytes(4, "little").hex() + "c3",
             "why": f"Frontend/QuickRace/Ghost reader returns constant {ghost_type}",
+        },
+        {
+            # Same redirect the d3d8 renderer's legacy_attract_guard (R-ATTR1) applies in memory,
+            # but only on the exact retail EXE; a patched ghost EXE needs it in the file.
+            "va": 0x464F69,
+            "old": "68841f6b00",
+            "new": "e9d8ffffff",
+            "why": "Loading media-check failure -> stock Race/Starter path (no forced AttractMode)",
         },
         # G1.2: restore Race/Ghost/Progress (HUD ghost marker). Demo 9.3.1
         # gaRaceLineAI (0x46D890) wrote it; retail dropped that branch.
@@ -160,6 +169,45 @@ def copy_retail_alpha(src_dir: Path, dst_dir: Path) -> None:
         raise SystemExit(f"{src_dir}: missing {missing}")
 
 
+DXT_HEADER = 20  # .dxt = 20-byte header + uncompressed BGRA (docs/format-status.md)
+
+
+def make_translucent(car_dir: Path, vehicles_src: Path, alpha_scale: float) -> dict:
+    """G2: turn a retail-copy <Car>Alpha folder into a translucent ghost model.
+
+    Mirrors the demo Alpha folders: every texture alpha is scaled (demo: 0xFF -> 0x7F,
+    cut-outs stay 0) and every draw is alpha-blended (draw core +0x20: byte0 alpha on,
+    byte1 alpha test off -> SRCALPHA/INVSRCALPHA, see master_rallye.material_semantics).
+    Depth write (+0x24 bit 2) is left as authored.
+    """
+    sys.path.insert(0, str(vehicles_src))
+    from master_rallye.dx import parse_dx_bytes  # noqa: E402  (Vehicle SDK reader)
+
+    stats = {"draws_blended": 0, "textures": 0}
+    for name in ("car.dx", "wheel.dx"):
+        path = car_dir / name
+        data = bytearray(path.read_bytes())
+        model = parse_dx_bytes(bytes(data), str(path))
+        for d in model.physical_draws:
+            at = d.core_offset + 0x20
+            if data[at] != 1 or data[at + 1] != 0:
+                data[at], data[at + 1] = 1, 0
+                stats["draws_blended"] += 1
+        if parse_dx_bytes(bytes(data), str(path)).physical_draws.__len__() != len(model.physical_draws):
+            raise SystemExit(f"{path}: draw count changed after flag edit")
+        path.write_bytes(bytes(data))
+    for tex in car_dir.glob("*.dxt"):
+        data = bytearray(tex.read_bytes())
+        w, h = struct.unpack_from("<II", data, 0x0C)
+        if len(data) != DXT_HEADER + w * h * 4:
+            raise SystemExit(f"{tex}: unexpected .dxt size")
+        for i in range(DXT_HEADER + 3, len(data), 4):
+            data[i] = int(data[i] * alpha_scale + 0.5)
+        tex.write_bytes(bytes(data))
+        stats["textures"] += 1
+    return stats
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--retail-exe", type=Path, required=True)
@@ -173,6 +221,11 @@ def main() -> None:
     ap.add_argument("--ghost-type", choices=sorted(GHOST_TYPES), default="bestever")
     ap.add_argument("--upgrader", type=Path, help="R-DEMO tools/upgrade_dx_131_to_135.py (demo-upgrade)")
     ap.add_argument("--exe-name", default="MRallye_ghost1.exe")
+    ap.add_argument("--translucent", action="store_true",
+                    help="G2: blend every Alpha draw and scale texture alpha (needs --vehicles-src)")
+    ap.add_argument("--alpha-scale", type=float, default=127 / 255, help="texture alpha factor (demo: 0x7F/0xFF)")
+    ap.add_argument("--vehicles-src", type=Path,
+                    help="research/vehicles checkout 'src' folder providing master_rallye.dx")
     ap.add_argument("--output", type=Path, required=True)
     a = ap.parse_args()
 
@@ -196,6 +249,12 @@ def main() -> None:
             if a.upgrader is None:
                 raise SystemExit("demo-upgrade needs --upgrader")
             upgrade_alpha(a.upgrader, a.alpha_source / f"{car}Alpha", vehicles / f"{car}Alpha")
+    translucency = {}
+    if a.translucent:
+        if a.vehicles_src is None:
+            raise SystemExit("--translucent needs --vehicles-src")
+        for car in cars:
+            translucency[car] = make_translucent(vehicles / f"{car}Alpha", a.vehicles_src, a.alpha_scale)
     if a.ghosts:
         (a.output / "Ghosts").mkdir()
         for g in a.ghosts:
@@ -205,6 +264,7 @@ def main() -> None:
         "retail_sha256": RETAIL_SHA256,
         "ghost_type": a.ghost_type,
         "patches": applied,
+        "translucency": translucency,
         "files": {str(p.relative_to(a.output)).replace("\\", "/"): sha256(p)
                   for p in sorted(a.output.rglob("*")) if p.is_file()},
     }

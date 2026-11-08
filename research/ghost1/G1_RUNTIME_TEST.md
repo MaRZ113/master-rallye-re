@@ -121,3 +121,35 @@ every GXI texture has alpha 0x7F instead of 0xFF (e.g. `JumpAlpha/Black-tga.gxi`
 separately (different `car.gxm`). `0x4BFE00` itself only sets a flag (`+0x50 → +0x70 |= 1`) and clears `+0x6C`;
 it does not make the model translucent. G2 = build Alpha DX with half-alpha BGRA `.dxt` textures and alpha-blended
 draw materials (retail `.dxt` is a 20-byte header + uncompressed BGRA).
+
+G1.2 owner result (2026-11-08): the ghost icon on the progress bar moves.
+
+## G2 — translucent ghost + no forced AttractMode
+
+### Forced AttractMode after restarts
+
+The legacy Loading media check (`0x464E40`, see R-ATTR1 in
+`modernization/renderer/docs/r-attr1/exact-retail-guard.md`) sets `Race/AttractMode` on every odd loading when the
+CD check fails. The d3d8 renderer's `legacy_attract_guard` applies the fix in memory **only on the exact retail
+EXE**, so it never ran on the patched ghost EXEs and Attract Mode came back after restarts. G2 adds the same
+5-byte redirect to the file: `0x464F69` `68 84 1F 6B 00` → `E9 D8 FF FF FF` (JMP `0x464F46`, stock `Race/Starter`
+path). The idle MainMenu Attract timer is untouched.
+
+### Translucent Alpha cars
+
+Demo Alpha folders differ from the normal cars by texture alpha 0x7F and blended materials. `tools/ghost1_build.py
+--translucent --vehicles-src <research/vehicles>/src` applies the same recipe to the retail-copy Alpha folders:
+
+* every physical draw of `car.dx` and `wheel.dx`: draw core `+0x20` byte0 = 1 (alpha on), byte1 = 0 (alpha test
+  off) → SRCALPHA/INVSRCALPHA blending (`master_rallye.material_semantics`); depth-write bit (`+0x24` bit 2) kept;
+* every `.dxt` (20-byte header + BGRA): alpha × 127/255 (0xFF → 0x7F, cut-outs stay 0).
+
+Jump: 26 of 30 draws switched to blend (4 were already blended glass), 29 textures. 25 cars total.
+
+G2 kit: `MRallye_ghost2.exe` SHA256 `f1e6b77624dfc8f4973ff999e00c7b4bc88cfb49e9c5b7ea72c0dca7361232a9`
+(G1.2 + AttractMode redirect), translucent `DataGx\Vehicles\*Alpha` replacing the G1 copies (shared by all ghost
+EXEs). Test: translucency look, sorting artefacts against the world/own car, Restart several times (no Attract
+Mode), replays.
+
+Loader note ([release plan](FINDINGS.md)): every EXE change here is a (VA, old bytes, new bytes) table entry; the
+cave and the VirtualSize edit become an allocated executable block plus a CALL rewrite in the final loader DLL.
