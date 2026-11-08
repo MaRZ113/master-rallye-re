@@ -35,7 +35,10 @@ std::vector<std::uint8_t> hex(const char* text) {
 // The loose QuickModeSelect.xml carries the GHOST panel (group 5, buttons 10/11); without it the
 // mode hooks would address controls that do not exist.
 bool ghost_frontend_present(const fs::path& dir) {
-    std::ifstream f(dir / "DataScene/FrontendScreens/QuickModeSelect.xml", std::ios::binary);
+    // The game opens loose scenes relative to its working directory (the SDK launcher's
+    // resource root); a plain install has the same folder as the EXE.
+    std::ifstream f("DataScene/FrontendScreens/QuickModeSelect.xml", std::ios::binary);
+    if (!f) f.open(dir / "DataScene/FrontendScreens/QuickModeSelect.xml", std::ios::binary);
     if (!f) return false;
     const std::string xml((std::istreambuf_iterator<char>(f)), {});
     return xml.find("GhostList") != std::string::npos && xml.find("RightArrowGhost") != std::string::npos;

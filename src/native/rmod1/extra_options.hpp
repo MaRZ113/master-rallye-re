@@ -109,35 +109,67 @@ inline ConfigResult parse_config(std::string_view text) {
     return result;
 }
 
+// EXTRA-SET2 tyre compounds. Retail tyre "types" 0..4 are AI grip tiers (the
+// AI writes its difficulty level to enController_Car+0x74); human cars always
+// use type 0, whose five records are per surface. A compound scales the grip
+// fields (PeakMu, CorneringCoeff) of the human wheel's type-0 records.
 enum class Tire : unsigned { Stock, Tarmac, HardDirt, Gravel, Grass, Mud };
-inline constexpr std::array<const char*, 6> kTireNames = {{
-    "", "tarmac", "harddirt", "gravel", "grass", "mud"
+inline constexpr unsigned kTireCount = 6, kSurfaceCount = 5;
+inline constexpr std::array<const char*, kTireCount> kTireLabels = {{
+    "Stock", "Tarmac", "Hard Dirt", "Gravel", "Grass", "Mud"
 }};
+// Broker surface record prefixes (Vehicles/Tyres/<surface>0), ordered by looseness.
+inline constexpr std::array<const char*, kSurfaceCount> kSurfaces = {{
+    "tarmac", "harddirt", "gravel", "grass", "mud"
+}};
+// Record field order of the native loader 0x491120 (12 floats, 0x30 bytes).
+inline constexpr unsigned kTyreFields = 12, kPeakMu = 0, kScaleFactor = 4, kCornering = 5, kCorneringGradient = 6;
+inline constexpr std::array<const char*, kTyreFields> kTyreFieldNames = {{
+    "PeakMu", "SoftRating", "IceRating", "WetRating", "ScaleFactor", "CorneringCoeff",
+    "CorneringCoeffGradient", "PneumaticTrailCoeff", "CamberStiffness", "LongitudinalStiffness",
+    "InflationStiffness", "InflationStiffnessDamping"
+}};
+// +10 % on the compound's own surface, +3 % next to it, then -7 % per step.
+inline float grip_scale(Tire tire, unsigned surface) {
+    const auto c = static_cast<unsigned>(tire);
+    if (c == 0 || c >= kTireCount || surface >= kSurfaceCount) return 1.0f;
+    const unsigned own = c - 1, distance = own > surface ? own - surface : surface - own;
+    return distance == 0 ? 1.10f : 1.10f - 0.07f * static_cast<float>(distance);
+}
 
-struct RaceContext {
-    int race_type = -1;
-    int players = 0;
-    int participant = -1;
-    int player_type = -1;
-    int physical_car_id = -1;
-    int selected_car_id = -1;
-    bool attract = true;
-    bool replay = true;
-    bool already_initialized = true;
+struct Participant {
+    int player_type = -1;   // Race/Car<n>/PlayerType, 1 = human
+    int car_id = -1;        // Race/Car<n>/CarID
+    bool attract = true;    // Race/AttractMode
 };
+// Any race mode: the choice follows the human player and physical CarID, not Race/Type.
+inline bool tire_applies(const Config& config, const Participant& p) {
+    return config.enabled && config.tires && p.player_type == 1 && !p.attract && p.car_id >= 0 && p.car_id < 256;
+}
 
-// No native writes: returns the exact pair an independently validated runtime
-// adapter may use. Stock means passthrough; it never invents a replacement.
-struct TirePlan { bool applies = false; bool passthrough = true; const char* front = nullptr; const char* rear = nullptr; };
-inline TirePlan plan_tires(const Config& config, Tire choice, const RaceContext& ctx, unsigned complete_tables) {
-    const auto index = static_cast<unsigned>(choice);
-    if (!config.enabled || !config.tires || index >= kTireNames.size() || ctx.race_type != 2 ||
-        ctx.players != 1 || ctx.participant != 0 || ctx.player_type != 1 ||
-        ctx.physical_car_id < 0 || ctx.physical_car_id != ctx.selected_car_id ||
-        ctx.attract || ctx.replay || ctx.already_initialized) return {};
-    if (choice == Tire::Stock) return {true, true, nullptr, nullptr};
-    if (!(complete_tables & (1u << index))) return {};
-    return {true, false, kTireNames[index], kTireNames[index]};
+// Wheel record override: scales only records still equal to the stock type-0 record of a
+// known surface, so it is idempotent and never touches AI tiers or foreign data.
+inline bool same(float a, float b) { return a == b; }
+inline int match_surface(const float* record, const float (&stock)[kSurfaceCount][kTyreFields]) {
+    for (unsigned s = 0; s < kSurfaceCount; ++s)
+        if (same(record[kPeakMu], stock[s][kPeakMu]) && same(record[kScaleFactor], stock[s][kScaleFactor]) &&
+            same(record[kCornering], stock[s][kCornering]) && same(record[kCorneringGradient], stock[s][kCorneringGradient]))
+            return static_cast<int>(s);
+    return -1;
+}
+inline unsigned apply_compound(float* records, unsigned count, Tire tire, const float (&stock)[kSurfaceCount][kTyreFields]) {
+    if (tire == Tire::Stock) return 0;
+    unsigned changed = 0;
+    for (unsigned r = 0; r < count; ++r) {
+        float* record = records + r * kTyreFields;
+        const int s = match_surface(record, stock);
+        if (s < 0) continue;
+        const float k = grip_scale(tire, static_cast<unsigned>(s));
+        record[kPeakMu] = stock[s][kPeakMu] * k;
+        record[kCornering] = stock[s][kCornering] * k;
+        ++changed;
+    }
+    return changed;
 }
 
 } // namespace extra_options

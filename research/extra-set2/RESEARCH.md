@@ -33,10 +33,9 @@ Custom), `tarmac` 2 (Landcruiser), `FrontTest`/`RearTest` 4 (Megane, SeatBuggy; 
 Readers: TyreType registration `0x490660`, string reader `0x490720` → `Vehicles/Tyres/<name>/<field>`
 loader `0x490920`, second loader `0x491120`; suspension struct readers `0x496D20` (front) and
 `0x498090` (rear) are the EXTRA-SET1 publication hooks (`0x493935`/`0x493942`).
-Open: how a family name resolves to the per-surface record at runtime (the `harddirt` name has no
-`Vehicles/Tyres/harddirt/` record of its own, and `FrontTest` has none at all). EXTRA-SET1 only
-proved the publication; solver consumption needs a runtime probe (wheel tyre-parameter pointer or
-grip A/B on one surface).
+Resolved in the implementation phase (see `README.md`): the `<surface>0..4` records are tyre
+types indexed by an integer on the controller (AI difficulty tiers, humans type 0), read by the
+wheel update `0x440FE0`; the per-car `TyreType` string is not on that path.
 
 EXTRA-SET1 tyre state is already per physical CarID (256 slots) and not tied to the three livery
 cars; its limits are the Quick Race single-player scope and the GEARBOX host page.

@@ -18,6 +18,7 @@ GENERAL=ROOT.parent/'master-rallye-re-general/ps2-research/pc-port'
 GAME=Path('D:/Game/Master Rallye Pristine')
 BASE=SDK/'.research-output/vehicles/v-def4-1/delivery-final/32/workshop/builds/first/candidate'
 RETAIL=ROOT.parent/'corpora/retail/MRallye.exe'
+GHOST_FRONTEND=ROOT.parent/'DataScene/FrontendScreens/QuickModeSelect.xml'
 
 
 def sha(p):
@@ -52,7 +53,8 @@ def package_header():
     import pefile
     pe=pefile.PE(str(RETAIL))
     apis=[]
-    for va in [0x4d0580,0x4d8ec0,0x4d6760,0x4d6520,0x4d8000,0x4d85f0,0x4d8880,0x4d11d0,0x407b30,0x5c1cb4,0x5b4c00]:
+    for va in [0x4d0580,0x4d8ec0,0x4d6760,0x4d6520,0x4d8000,0x4d85f0,0x4d8880,0x4d11d0,0x407b30,0x5c1cb4,0x5b4c00,
+               0x4d6650,0x4d6fb0,0x4d0570,0x45a3c0,0x4ada50,0x4ac660,0x4b0af0,0x4b0630]:
         apis.append('{0x%x,{%s}},'%(va,','.join('0x%02x'%b for b in pe.get_data(va-0x400000,8))))
     plan=json.loads((BASE/'runtime/addon-plan.json').read_text())
     native=json.loads((BASE/'runtime/native-patch-manifest.json').read_text())
@@ -111,10 +113,9 @@ def build_graphics(out):
 
 def package(out):
     sys.path.insert(0,str(SDK/'tools'))
-    import extra_options_resources as resources
     import addon_runtime
     from build_runtime_launcher import build_launcher
-    delivery=SDK/'.research-output/vehicles/extra-set1'/out.name
+    delivery=SDK/'.research-output/vehicles/extra-set2'/out.name
     if delivery.exists():raise ValueError('private delivery already exists')
     # Verify the accepted bundle before deriving only the native frontend XML.
     original_check=subprocess.run([str(BASE/'launcher/mr-runtime-launcher.exe'),'--verify',str(RETAIL),str(BASE/'runtime')],capture_output=True,text=True,check=True)
@@ -126,9 +127,14 @@ def package(out):
         else:shutil.copyfile(src,dst)
         return dst
     bundle=delivery/'runtime';shutil.copytree(BASE/'runtime',bundle,copy_function=clone)
-    page=(GAME/'Data.sma_unpacked/DataScene/FrontendScreens/VehicleSetup4.xml').read_bytes()
     sys.path.insert(0,str(SDK/'src'))
-    extension=resources.extend_bundle(bundle,page,stock_archive=ROOT.parent/'Data.sma',stock_loose=ROOT.parent/'Data.sma_unpacked')
+    # EXTRA-SET2: GENERAL tyre row + Vehicle Select MODEL row; GEARBOX stays stock.
+    # Ghost Mode needs the GHOST panel QuickModeSelect.xml (GHOST1 G4.1, owner-confirmed).
+    import extra_set2_frontend,extra_set2_resources
+    pages=extra_set2_frontend.build(GAME/'Data.sma_unpacked')
+    pages['DataScene/FrontendScreens/QuickModeSelect.xml']=GHOST_FRONTEND.read_bytes()
+    extension=extra_set2_resources.extend_bundle(bundle,pages,stock_archive=ROOT.parent/'Data.sma',
+                                                 stock_loose=ROOT.parent/'Data.sma_unpacked',sdk_tools=addon_runtime)
     def verify():
         if (bundle/'native-patch-manifest.json').read_bytes()!=(BASE/'runtime/native-patch-manifest.json').read_bytes():raise ValueError('roster plan changed')
         if (bundle/'native-extension.bin').read_bytes()!=(BASE/'runtime/native-extension.bin').read_bytes():raise ValueError('SDK code changed')
@@ -157,7 +163,8 @@ def package(out):
     # local asset directory, not the isolated candidate's empty host folder.
     text=re.sub(r'(?m)^ReflectionSourceGXI=.*$',lambda _:'ReflectionSourceGXI='+str(GAME/'PS2Grass/PS2EnvSource64x64.gxi'),text)
     (host/'PS2Port.ini').write_text(text,encoding='utf-8')
-    (host/'MRallyeExtraOptions.ini').write_text('[General]\nConfigVersion=1\n\n[Customization]\nEnabled=1\nLiveries=1\nTires=1\n')
+    (host/'MRallyeExtraOptions.ini').write_text('[General]\nConfigVersion=1\n\n[Customization]\nEnabled=1\nLiveries=1\nTires=1\n'
+                                                '\n[Ghost]\nEnabled=1\nWithOpponents=0\nRecordAllModes=0\nUseAlphaModel=1\n\n[Difficulty]\nLevels=5\n')
     launch='@echo off\r\n"%~dp0launcher\\mr-runtime-launcher.exe" --integrated "%~dp0host\\MRallye.exe" "%~dp0runtime"\r\nif errorlevel 1 pause\r\n'
     (delivery/'Launch-Extra-Options.cmd').write_bytes(launch.encode('ascii'))
     check=subprocess.run([str(delivery/'launcher/mr-runtime-launcher.exe'),'--preflight-sdk-binding',str(host/'MRallye.exe'),str(bundle)],capture_output=True,text=True)
