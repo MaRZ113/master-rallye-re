@@ -129,3 +129,63 @@ against the loaded record (`0x4BCEB0` reads CarType) or per-car file names. `Use
 folder = redirect the two format strings at `0x4BFE00` (`Vehicles/%sAlpha/car`, `/wheel`) to `Vehicles/%s/car`,
 `/wheel`; the generator in `tools/ghost1_build.py --translucent` already builds Alpha folders for every retail car
 and can run for Vehicle SDK cars at install time.
+
+## G4 — five difficulty levels, MRallyeExtras.ini, Alpha fallback (2026-11-08)
+
+G3 has not been game-tested yet; G4 builds on it (same cave file, strings moved to `0x68EC00`).
+
+### Five difficulty levels
+
+ICont has five AI levels and `0x42DF50` selects `ICont/<level>/Min|Max` by `Race/DifficultyLevel` 0..4
+(VEasy, Easy, Medium, Hard, Extream; absent key = 3). Quick Race wrote `level = menu index + 1`
+(`INC EAX` at `0x47B8C8`), so the 3-entry menu (EASY/MEDIUM/HARD, text group 0x41) only reached levels 1..3.
+
+| Site | Change |
+|---|---|
+| cave `modes` | RaceDifficultyList (EDI in `0x479BB0`) gets "VERY EASY" in front and "EXTREME" at the end (English strings; the EXE has no localised texts for them) |
+| `0x47B8C8` | `INC EAX` → `NOP`: `Race/DifficultyLevel` = menu index (0 VERY EASY … 4 EXTREME) |
+| `0x47A2CD` | `CMP EDI,2` → `CMP EDI,4`: difficulty right arrow up to the fifth entry |
+| `0x47B70D` | summary text `text(0x41, index)` → `PUSH EBP; CALL diff` (level 0/4 → own strings, 1..3 → 0x41:level-1) |
+
+CHECKPOINT keeps its own CountdownDifficulty list and mapping. Note: the menu value is saved in the player
+profile; an old saved index now means one level lower (old MEDIUM = 1 → EASY).
+
+### MRallyeExtras.ini
+
+The Randomizer & Extender validator rejects unknown sections/keys (`CONFIG_UNKNOWN_SECTION`,
+`CONFIG_UNKNOWN_KEY` in `dinput8.dll`), so `[Ghost]` cannot live in `MRallyeRandomizer.ini` until the loader is
+extended. The EXE has no `GetPrivateProfileIntA` import; cave `ini` resolves it through the IAT
+(`GetModuleHandleA` `[0x68F238]`, `GetProcAddress` `[0x68F0C0]`) and reads `.\MRallyeExtras.ini` on every call,
+so edits apply without restarting. Keys (template written by the builder):
+
+* `WithOpponents` (0): ghost also in Quick Race RACE (mode 2) with AI, type = last GHOST TYPE;
+* `RecordAllModes` (0): record in every Quick Race mode (PRACTICE/RACE/CHECKPOINT). Other game modes (Cup,
+  Master Rallye…) never reach `SplineManager::Commit` (`0x47D4C0` saves only for race types 1/2/3), so they would need
+  a separate hook;
+* `UseAlphaModel` (1): translucent Alpha model.
+
+Start cave logic: `playback = GhostMode || (WithOpponents && mode == 2)`, `record = playback || RecordAllModes`.
+
+### Alpha fallback
+
+Both sprintf calls of `0x4BFE00` (`0x4BFE9C` car, `0x4BFEEE` wheel) call cave `fmt`: when `UseAlphaModel = 0`, or
+`GetFileAttributesA("DataGx\Vehicles\<Car>Alpha\car.dx"/"wheel.dx")` fails, the format becomes `Vehicles/%s/car` /
+`Vehicles/%s/wheel` (normal, opaque model). Alpha folders are loose-only, so the check matches what the game can
+load; SDK cars without an Alpha folder fall back automatically.
+
+### Not done yet
+
+`Match = Any / Same Class / Same Car` (files are per class; Same Car needs a CarType check of the loaded record,
+Any needs class-independent lookup) and a native selector for it; localised VERY EASY / EXTREME texts.
+
+Kit G4: `MRallye_ghost4.exe` SHA256 `aa1908e1edcf0a4fedd7fd61c5a72bd0ae96e97daeb33bd290bc2bc5f5024de0`, 34 patch
+entries, `MRallyeExtras.ini`, same XML and Alpha folders as G3/G2. `tools/ghidra/check_cave.py` validates every
+branch/call of an AsmCave listing (0 errors for this cave, end `0x68E6EE`).
+
+### Runtime test (G3 + G4 together)
+
+1. Mode select: PRACTICE / RACE / CHECKPOINT / GHOST; GHOST panel with GHOST TYPE (see G3 steps).
+2. RACE: difficulty cycles VERY EASY / EASY / MEDIUM / HARD / EXTREME; the summary shows the same text; AI pace
+   visibly differs at the extremes.
+3. INI: `WithOpponents = 1` → ghost in RACE with AI; `RecordAllModes = 1` → files after PRACTICE/RACE;
+   `UseAlphaModel = 0` → opaque ghost; renaming one `<Car>Alpha` folder → that car's ghost is opaque, no crash.

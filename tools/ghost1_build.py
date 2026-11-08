@@ -44,24 +44,46 @@ PROGRESS_CAVE_HEX = (
 # G3 native GHOST mode (research/ghost1/ghost3_menu_cave.asm, assembled at MENU_CAVE_VA).
 MENU_CAVE_VA = 0x68E390
 MENU_CAVE_HEX = (
-    "6083ec0889eb6a016a3ee86a0000006a10e80e39f3ff83c40485c0744a89c331c9890b894b04894b08894b0c"
-    "6a006a3fe8440000006a016a3fe83b0000006a026a3fe8320000006800e868008d4c2404e89b21e4ff538d44"
-    "240450e8d0aae4ff89c1e889a4e4ff83c408618d4c241468a8686b00e9c0bbdeff83ec04e8df78dfff8b10ff"
-    "74240cff74240c89c1ff520c508d4c2404e8a62de4ff8d0c24516a01ff730889d9e8f696d7ffff3424e8be67"
-    "f2ff83c408c20800e843fce1ff83f801753283ec046850e868008d4c2404e81d21e4ff8d042450e854aae4ff"
-    "89c1e8ed82e4ff83c40485c0b8010000007405b804000000c3515383ec0431db837c2410047547c744241001"
-    "000000436830e868008d4c2404e8d620e4ff8d042450e80daae4ff89c1e8a682e4ff5068b4586e008d4c2408"
-    "e8b720e4ff8d44240450e8eda9e4ff89c1e8269be4ff6850e868008d4c2404e89820e4ff538d44240450e8cd"
-    "a9e4ff89c1e8069be4ff83c4045b59e95cfbe1ff515383ec046850e868008d4c2404e86920e4ff8d042450e8"
-    "a0a9e4ff89c1e83982e4ff31db85c00f95c368d41d6b008d4c2404e84420e4ff538d44240450e879a9e4ff89"
-    "c1e85295e4ff68bc1d6b008d4c2404e82420e4ff538d44240450e859a9e4ff89c1e83295e4ff83c4045b59e9"
-    "78fbe1ff"
+    "6083ec0889eb6a016a3ee88400000089fb6a016870ec6800e8b50000006a006880ec6800e8a90000006a10e8"
+    "f438f3ff83c40485c0744a89c331c9890b894b04894b08894b0c6a006a3fe8440000006a016a3fe83b000000"
+    "6a026a3fe8320000006800ec68008d4c2404e88121e4ff538d44240450e8b6aae4ff89c1e86fa4e4ff83c408"
+    "618d4c241468a8686b00e9a6bbdeff83ec04e8c578dfff8b10ff74240cff74240c89c1ff520c508d4c2404e8"
+    "8c2de4ff8d0c24516a01ff730889d9e8dc96d7ffff3424e8a467f2ff83c408c2080083ec04ff7424088d4c24"
+    "04e85e2de4ff8b4308837c240c0074038b43048d0c24516a015089d9e8a396d7ffff3424e86b67f2ff83c408"
+    "c208006890ec6800ff1538f2680085c0742768a0ec680050ff15c0f0680085c0741768c0ec6800ff74240cff"
+    "74240c68e0ec6800ffd0c208008b442408c208008b44240485c07508b870ec6800c2040083f8047c08b880ec"
+    "6800c204004850e8f477dfff8b106a4189c1ff520cc2040053565781ec000100008bb42414010000bb20ed68"
+    "00bf70ed680081fee86e6e00740abb40ed6800bf80ed68006a016810ed6800e85bffffff85c07424ffb42418"
+    "010000538d44240850e8643bf3ff83c40c8d042450ff1500f1680083f8ff750789bc241401000081c4000100"
+    "005f5e5be93d3bf3ffe80efbe1ff83f801753283ec046850ec68008d4c2404e8e81fe4ff8d042450e81fa9e4"
+    "ff89c1e8b881e4ff83c40485c0b8010000007405b804000000c3515383ec0431db837c2410047547c7442410"
+    "01000000436830ec68008d4c2404e8a11fe4ff8d042450e8d8a8e4ff89c1e87181e4ff5068b4586e008d4c24"
+    "08e8821fe4ff8d44240450e8b8a8e4ff89c1e8f199e4ff6850ec68008d4c2404e8631fe4ff538d44240450e8"
+    "98a8e4ff89c1e8d199e4ff83c4045b59e927fae1ff51535683ec046850ec68008d4c2404e8331fe4ff8d0424"
+    "50e86aa8e4ff89c1e80381e4ff31db85c00f95c37522e89500e2ff89c1e81efae1ff83f80275116a0068f0ec"
+    "6800e818feffff85c00f95c389de85f675156a006800ed6800e801feffff85c00f95c389de31db68d41d6b00"
+    "8d4c2404e8cf1ee4ff538d44240450e804a8e4ff89c1e8dd93e4ff68bc1d6b008d4c2404e8af1ee4ff568d44"
+    "240450e8e4a7e4ff89c1e8bd93e4ff83c4045e5b59e902fae1ff"
 )
-MENU_ENTRY = {"modes": 0x68E390, "init": 0x68E448, "accept": 0x68E485, "start": 0x68E504}
+MENU_ENTRY = {"modes": 0x68E390, "diff": 0x68E4D8, "fmt": 0x68E508, "init": 0x68E57D,
+              "accept": 0x68E5BA, "start": 0x68E639}
 MENU_STRINGS = [
-    (0x68E800, "Frontend/QuickModeSelect/GhostList"),
-    (0x68E830, "Frontend/QuickModeSelect/Ghost"),
-    (0x68E850, "Frontend/QuickRace/GhostMode"),
+    (0x68EC00, 'Frontend/QuickModeSelect/GhostList'),
+    (0x68EC30, 'Frontend/QuickModeSelect/Ghost'),
+    (0x68EC50, 'Frontend/QuickRace/GhostMode'),
+    (0x68EC70, 'VERY EASY'),
+    (0x68EC80, 'EXTREME'),
+    (0x68EC90, 'kernel32.dll'),
+    (0x68ECA0, 'GetPrivateProfileIntA'),
+    (0x68ECC0, r'.\MRallyeExtras.ini'),
+    (0x68ECE0, 'Ghost'),
+    (0x68ECF0, 'WithOpponents'),
+    (0x68ED00, 'RecordAllModes'),
+    (0x68ED10, 'UseAlphaModel'),
+    (0x68ED20, r'DataGx\Vehicles\%sAlpha\car.dx'),
+    (0x68ED40, r'DataGx\Vehicles\%sAlpha\wheel.dx'),
+    (0x68ED70, 'Vehicles/%s/car'),
+    (0x68ED80, 'Vehicles/%s/wheel'),
 ]
 
 
@@ -86,13 +108,38 @@ def menu_patches() -> list[dict]:
         {"va": 0x47A8EE, "old": "e86d370300", "new": "e8" + rel32(0x47A8EE, MENU_ENTRY["accept"]),
          "why": "QuickModeSelect accept: GHOST -> QuickRace mode 1, GhostMode, ghost type"},
         {"va": 0x47B871, "old": "e87a280300", "new": "e8" + rel32(0x47B871, MENU_ENTRY["start"]),
-         "why": "Quick Race setup: GhostPlayback / Car0 RecordSpline from GhostMode"},
+         "why": "Quick Race setup: GhostPlayback / Car0 RecordSpline from GhostMode + MRallyeExtras.ini"},
+        # G4: five difficulty levels (menu index = ICont level 0..4 VEasy..Extream).
+        {"va": 0x47B8C8, "old": "40", "new": "90",
+         "why": "Quick Race setup: Race/DifficultyLevel = menu index (was index + 1)"},
+        {"va": 0x47A2CD, "old": "83ff02", "new": "83ff04",
+         "why": "QuickModeSelect update: difficulty right arrow while index < 4"},
+        {"va": 0x47B70D, "old": "e8dea500008b10556a418bc8ff520c",
+         "new": "55" + "e8" + rel32(0x47B70E, MENU_ENTRY["diff"]) + "90" * 9,
+         "why": "Quick Race summary: difficulty text for ICont level 0..4 (VERY EASY/EXTREME added)"},
+        # G4: Alpha model fallback / UseAlphaModel.
+        {"va": 0x4BFE9C, "old": "e819221000", "new": "e8" + rel32(0x4BFE9C, MENU_ENTRY["fmt"]),
+         "why": "ghost car model name: plain Vehicles/%s/car if UseAlphaModel=0 or Alpha car.dx missing"},
+        {"va": 0x4BFEEE, "old": "e8c7211000", "new": "e8" + rel32(0x4BFEEE, MENU_ENTRY["fmt"]),
+         "why": "ghost wheel model name: plain Vehicles/%s/wheel if UseAlphaModel=0 or Alpha wheel.dx missing"},
     ]
     for va, text in MENU_STRINGS:
         raw = text.encode("ascii") + bytes(1)
         out.append({"va": va, "old": "00" * len(raw), "new": raw.hex(), "why": f"string {text}"})
     return out
 
+
+EXTRAS_INI = r"""[Ghost]
+; Read by MRallye_ghost EXE builds on every Quick Race start / ghost load (no restart needed).
+; 1 = ghost also appears in Quick Race RACE mode with AI opponents
+;     (uses the GHOST TYPE chosen last time in GHOST mode).
+WithOpponents = 0
+; 1 = record ghost files in every Quick Race mode, not only GHOST.
+RecordAllModes = 0
+; 1 = translucent <Car>Alpha ghost model when DataGx\Vehicles\<Car>Alpha exists;
+; 0 = ghost always uses the normal car model.
+UseAlphaModel = 1
+"""
 
 FORCE_VAS = {0x449245, 0x44926A, 0x4AE0F0}  # G1 constant enables, replaced by the G3 menu
 
@@ -300,6 +347,7 @@ def main() -> None:
         sys.path.insert(0, str(Path(__file__).parent))
         import ghost3_frontend
         ghost3_frontend.main_args(a.frontend_xml, a.output / "DataScene" / "FrontendScreens" / "QuickModeSelect.xml")
+        (a.output / "MRallyeExtras.ini").write_text(EXTRAS_INI, encoding="ascii", newline="\r\n")
 
     vehicles = a.output / "DataGx" / "Vehicles"
     cars = a.cars
