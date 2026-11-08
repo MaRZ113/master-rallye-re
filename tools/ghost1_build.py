@@ -63,10 +63,17 @@ MENU_CAVE_HEX = (
     "50e86aa8e4ff89c1e80381e4ff31db85c00f95c37522e89500e2ff89c1e81efae1ff83f80275116a0068f0ec"
     "6800e818feffff85c00f95c389de85f675156a006800ed6800e801feffff85c00f95c389de31db68d41d6b00"
     "8d4c2404e8cf1ee4ff538d44240450e804a8e4ff89c1e8dd93e4ff68bc1d6b008d4c2404e8af1ee4ff568d44"
-    "240450e8e4a7e4ff89c1e8bd93e4ff83c4045e5b59e902fae1ff"
+    "240450e8e4a7e4ff89c1e8bd93e4ff83c4045e5b59e902fae1ffe80d71e9ff53565083ec0468e86a6b008d4c"
+    "2404e8791ee4ff8d042450e8b0a7e4ff89c1e84980e4ff31db83f8030f94c36830ec68008d4c2404e8531ee4"
+    "ff8d042450e88aa7e4ff89c1e82380e4ff89c631c085f60f9fc021d85068a0ed68008d4c2408e8291ee4ff8d"
+    "44240450e85fa7e4ff89c1e89898e4ff31c083fe020f9cc021d85068d0ed68008d4c2408e8ff1de4ff8d4424"
+    "0450e835a7e4ff89c1e86e98e4ff83c4045883f80a7505b80100000083f80b7505b8030000005e5bc36a016a"
+    "006a04e8587be6ff89c1e8b178e6ff6a016a006a05e8467be6ff89c1e89f78e6ffc36a04e8377be6ff89c1e8"
+    "5078e6ff6a05e8297be6ff89c1e84278e6ffc3"
 )
 MENU_ENTRY = {"modes": 0x68E390, "diff": 0x68E4D8, "fmt": 0x68E508, "init": 0x68E57D,
-              "accept": 0x68E5BA, "start": 0x68E639}
+              "accept": 0x68E5BA, "start": 0x68E639, "focus": 0x68E6EE, "initshow": 0x68E7AD,
+              "exithide": 0x68E7D2}
 MENU_STRINGS = [
     (0x68EC00, 'Frontend/QuickModeSelect/GhostList'),
     (0x68EC30, 'Frontend/QuickModeSelect/Ghost'),
@@ -84,6 +91,8 @@ MENU_STRINGS = [
     (0x68ED40, r'DataGx\Vehicles\%sAlpha\wheel.dx'),
     (0x68ED70, 'Vehicles/%s/car'),
     (0x68ED80, 'Vehicles/%s/wheel'),
+    (0x68EDA0, 'Frontend/QuickModeSelect/LeftArrowGhost'),
+    (0x68EDD0, 'Frontend/QuickModeSelect/RightArrowGhost'),
 ]
 
 
@@ -117,6 +126,17 @@ def menu_patches() -> list[dict]:
         {"va": 0x47B70D, "old": "e8dea500008b10556a418bc8ff520c",
          "new": "55" + "e8" + rel32(0x47B70E, MENU_ENTRY["diff"]) + "90" * 9,
          "why": "Quick Race summary: difficulty text for ICont level 0..4 (VERY EASY/EXTREME added)"},
+        # G4.1: GHOST panel behaviour (owner run: overlay stayed visible, no arrows, Enter ignored).
+        {"va": 0x47A0A9, "old": "83f808", "new": "83f80b",
+         "why": "QuickModeSelect update: accept button IDs 1..11 (GHOST rows are 10/11)"},
+        {"va": 0x47A0E1, "old": "6a04e828c207008bc8e841bf0700",
+         "new": "e8" + rel32(0x47A0E1, MENU_ENTRY["exithide"]) + "90" * 9,
+         "why": "QuickModeSelect exit: hide panel groups 4 and 5 (retail hid only 2..4)"},
+        {"va": 0x47A152, "old": "6a016a006a04e8b3c107008bc8e80cbf0700",
+         "new": "e8" + rel32(0x47A152, MENU_ENTRY["initshow"]) + "90" * 13,
+         "why": "QuickModeSelect first update: reset panel groups 4 and 5 (retail did 2..4)"},
+        {"va": 0x47A3CE, "old": "e82db40a00", "new": "e8" + rel32(0x47A3CE, MENU_ENTRY["focus"]),
+         "why": "QuickModeSelect update: GHOST TYPE row arrows + focus 10/11 -> Arrow1/Arrow2 highlight"},
         # G4: Alpha model fallback / UseAlphaModel.
         {"va": 0x4BFE9C, "old": "e819221000", "new": "e8" + rel32(0x4BFE9C, MENU_ENTRY["fmt"]),
          "why": "ghost car model name: plain Vehicles/%s/car if UseAlphaModel=0 or Alpha car.dx missing"},
@@ -228,9 +248,14 @@ def patch_exe(src: Path, dst: Path, ghost_type: int, menu: bool = False) -> list
         raise SystemExit(f"{src}: not the pinned retail EXE ({RETAIL_SHA256})")
     data = bytearray(src.read_bytes())
     applied = []
+    used: list[tuple[int, int]] = []
     for p in patches(ghost_type, menu):
         off = p["file_offset"] if "file_offset" in p else p["va"] - IMAGE_BASE
         old, new = bytes.fromhex(p["old"]), bytes.fromhex(p["new"])
+        for a, b in used:
+            if off < b and a < off + len(old):
+                raise SystemExit(f"patch at file offset {off:#x} overlaps [{a:#x}, {b:#x})")
+        used.append((off, off + len(old)))
         if len(old) != len(new) or data[off : off + len(old)] != old:
             raise SystemExit(f"unexpected bytes at file offset {off:#x}")
         data[off : off + len(new)] = new

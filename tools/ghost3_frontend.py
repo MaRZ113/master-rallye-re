@@ -8,7 +8,9 @@ Group 5, built from the retail SingleRaceMode widgets so it matches the retail l
 * Mode       (button 10, up/down 11) - shared ModeList/Mode/ModeText keys;
 * GhostType  (button 11, up/down 10) - Frontend/QuickModeSelect/GhostList, /Ghost, /GhostText,
   label = text group 28 index 2 ("GHOST TYPE", localised in the EXE);
-* ModeText / GhostTypeText display eggs.
+* ModeText / GhostTypeText display eggs;
+* GhostLeftArrow2-2 / GhostRightArrow2-2: GHOST TYPE row arrows (clones of the difficulty-row
+  arrows, status keys Frontend/QuickModeSelect/LeftArrowGhost / RightArrowGhost set by cave focus).
 
 Button 10 = 3*mode+1, the focus value written by the patched 0x47A1C2 update.
 The output is a loose override for DataScene/FrontendScreens/QuickModeSelect.xml.
@@ -65,7 +67,13 @@ def build(src: str) -> str:
     ghost_text = setv(ghost_text, "Egg Group", "5")
     ghost_text = setv(ghost_text, "Text*", "Frontend/QuickModeSelect/GhostText")
 
-    panel = f'{indent}<List Name="GhostMode">\n{ghost}{ghost_text}{mode}{mode_text}{indent}</List>\n'
+    arrows = ""
+    for name, key in (("LeftArrow2-2", "LeftArrowGhost"), ("RightArrow2-2", "RightArrowGhost")):
+        arrow = egg(body, name).replace(f'<Egg Name="{name}">', f'<Egg Name="Ghost{name}">')
+        arrow = setv(arrow, "Egg Group", "5")
+        arrow = setv(arrow, "Arrow Status*", f"Frontend/QuickModeSelect/{key}")
+        arrows += arrow
+    panel = f'{indent}<List Name="GhostMode">\n{ghost}{ghost_text}{mode}{mode_text}{arrows}{indent}</List>\n'
     anchor = f'{indent}<List Name="QuickModeSelect">'
     if anchor not in src:
         raise SystemExit("QuickModeSelect list not found")

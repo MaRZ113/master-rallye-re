@@ -325,3 +325,101 @@ POP ESI
 POP EBX
 POP ECX
 JMP 0x004ae0f0
+
+; --- G4.1 FOCUS: CALL from 0x47A3CE (update 0x47A120, replaces CALL 0x525800 = focused button) ----
+; Sets the GHOST TYPE row arrows (Left/RightArrowGhost = mode 3 && ghost > 0 / < 2) and maps
+; focus 10 (GHOST mode row) -> 1 and 11 (GHOST TYPE row) -> 3 for the Arrow1/Arrow2 highlight switch.
+; Strings: 0x68EDA0 "Frontend/QuickModeSelect/LeftArrowGhost", 0x68EDD0 "...RightArrowGhost".
+focus_lbl:
+CALL 0x00525800
+PUSH EBX
+PUSH ESI
+PUSH EAX
+SUB ESP,0x4
+PUSH 0x6b6ae8
+LEA ECX,[ESP + 0x4]
+CALL 0x004d0580
+LEA EAX,[ESP]
+PUSH EAX
+CALL 0x004d8ec0
+MOV ECX,EAX
+CALL 0x004d6760
+XOR EBX,EBX
+CMP EAX,0x3
+SETZ BL
+PUSH 0x68ec30
+LEA ECX,[ESP + 0x4]
+CALL 0x004d0580
+LEA EAX,[ESP]
+PUSH EAX
+CALL 0x004d8ec0
+MOV ECX,EAX
+CALL 0x004d6760
+MOV ESI,EAX
+XOR EAX,EAX
+TEST ESI,ESI
+SETG AL
+AND EAX,EBX
+PUSH EAX
+PUSH 0x68eda0
+LEA ECX,[ESP + 0x8]
+CALL 0x004d0580
+LEA EAX,[ESP + 0x4]
+PUSH EAX
+CALL 0x004d8ec0
+MOV ECX,EAX
+CALL 0x004d8000
+XOR EAX,EAX
+CMP ESI,0x2
+SETL AL
+AND EAX,EBX
+PUSH EAX
+PUSH 0x68edd0
+LEA ECX,[ESP + 0x8]
+CALL 0x004d0580
+LEA EAX,[ESP + 0x4]
+PUSH EAX
+CALL 0x004d8ec0
+MOV ECX,EAX
+CALL 0x004d8000
+ADD ESP,0x4
+POP EAX
+CMP EAX,0xa
+JNZ focus_11_lbl
+MOV EAX,0x1
+focus_11_lbl:
+CMP EAX,0xb
+JNZ focus_ret_lbl
+MOV EAX,0x3
+focus_ret_lbl:
+POP ESI
+POP EBX
+RET
+
+; --- G4.1 INITSHOW: CALL from 0x47A152 (first update: hide panel groups; retail hid 2..4) -------
+initshow_lbl:
+PUSH 0x1
+PUSH 0x0
+PUSH 0x4
+CALL 0x004f6310
+MOV ECX,EAX
+CALL 0x004f6070
+PUSH 0x1
+PUSH 0x0
+PUSH 0x5
+CALL 0x004f6310
+MOV ECX,EAX
+CALL 0x004f6070
+RET
+
+; --- G4.1 EXITHIDE: CALL from 0x47A0E1 (leaving the screen: retail hid groups 2..4) --------------
+exithide_lbl:
+PUSH 0x4
+CALL 0x004f6310
+MOV ECX,EAX
+CALL 0x004f6030
+PUSH 0x5
+CALL 0x004f6310
+MOV ECX,EAX
+CALL 0x004f6030
+RET

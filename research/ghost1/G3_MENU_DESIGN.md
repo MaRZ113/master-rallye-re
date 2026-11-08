@@ -189,3 +189,28 @@ branch/call of an AsmCave listing (0 errors for this cave, end `0x68E6EE`).
    visibly differs at the extremes.
 3. INI: `WithOpponents = 1` → ghost in RACE with AI; `RecordAllModes = 1` → files after PRACTICE/RACE;
    `UseAlphaModel = 0` → opaque ghost; renaming one `<Car>Alpha` folder → that car's ghost is opaque, no crash.
+
+## G4.1 — GHOST panel fixes after the first owner run (2026-11-08)
+
+Owner run of G4: five difficulty levels work (Broker `Race/DifficultyLevel = 4` for EXTREME). GHOST panel problems:
+(1) after selecting GHOST its widgets stayed drawn over other screens (also after Esc); (2) no arrows on the GHOST
+rows; (3) Enter did nothing, so GHOST could not be confirmed.
+
+Causes in the QuickModeSelect update `0x47A070`/`0x47A120`:
+
+1. the first update shows/hides only panel groups 2..4 (`0x47A12E..0x47A164`) and the exit path hides only groups
+   2..4 (`0x47A0C5..0x47A0EE`); group 5 was never hidden;
+2. arrows are separate `gaFrontendArrowAI` eggs: status from `Frontend/QuickModeSelect/<Left|Right>Arrow…` keys,
+   highlight from `Arrow1/2/3`, set by a jump-table switch over focus IDs 1..8 (`0x47A3CE`, `CALL 0x525800`);
+3. the button result `0x45D930` is accepted only for IDs 1..8 (`CMP EAX,8; JG` at `0x47A0A9`).
+
+| Site | Change |
+|---|---|
+| `0x47A0A9` | `CMP EAX,8` → `CMP EAX,0xB` (accept GHOST rows 10/11) |
+| `0x47A0E1` | 14 bytes → `CALL exithide` (hide groups 4 and 5) |
+| `0x47A152` | 18 bytes → `CALL initshow` (reset groups 4 and 5) |
+| `0x47A3CE` | `CALL 0x525800` → `CALL focus`: sets `LeftArrowGhost` (mode 3 && ghost > 0) and `RightArrowGhost` (mode 3 && ghost < 2), maps focus 10 → 1 and 11 → 3 for the highlight switch |
+| XML | `GhostLeftArrow2-2` / `GhostRightArrow2-2` (group 5, clones of the difficulty-row arrows) bound to the new keys |
+
+Builder now refuses overlapping patch ranges (a string overlap was caught this way). Kit G4.1:
+`MRallye_ghost4_1.exe` SHA256 `ce9d7a2679393edc4f374cebf4974abfe5d5320e466f351fff67f2cf310aa275` + updated XML.
