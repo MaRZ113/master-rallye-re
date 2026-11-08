@@ -50,3 +50,42 @@ races (`network_attract_ghost_or_replay`), so PS2 effects are expected to be Sto
 ## Rollback
 
 Delete `MRallye_ghost1.exe`, `Ghosts\` and `DataGx\Vehicles\*Alpha` from the game folder.
+
+## G1 result (owner, 2026-11-08)
+
+Works: the ghost appears and drives (also with AI opponents; the start order sometimes changes when opponents are
+set), ghost files are written and overwritten on improvement, no crashes. Files land in `<game>\Ghosts\`.
+Defects: (1) at some spots the ghost hard-desyncs and flies around the map; (2) the ghost icon on the HUD progress
+bar does not move (it moved in the demo).
+
+## Defect 1 — NaN orientation samples (fixed in G1.1)
+
+`tools/ghost_file.py` decodes `.ghost` files byte-exactly (all owner files end exactly at the declared payload size)
+and audits them. Sample codec (decoder `0x4BADC0`, encoder `0x4BAA10`):
+
+* position: key frame (3 float) every 11 samples or when any axis moves more than 10 m; otherwise int16 deltas
+  (X/Z `s*10/32767`, Y `(s-0x4000)*10/16383`), closed-loop against the decoded position. Overflow is handled by
+  forcing a key frame, so position coding is sound;
+* orientation: forward X as int16/32767, forward Z as int16/16383 with ±0x4000 bias carrying the sign of forward Y,
+  and forward Y rebuilt as `sqrt(1 - x² - z²)`; roll as a signed byte (`sign·(b/127)²·π`);
+* then steering byte, 4 suspension bytes (−0.8…0.25), wheel-spin byte.
+
+For a level car `x² + z²` quantises slightly above 1 (radicand down to −5.3e−5), `FSQRT` returns NaN, and the
+Catmull-Rom playback (`0x4BFAE0`, 4-sample window) produces a NaN matrix for about 0.8 s. Owner files: Italy1 8/866
+and Italy3 14/770 NaN samples; the demo-recorded `Italy1.bestever.t2.ghost` has 5 as well, so the bug is original.
+
+G1.1 patch at `0x4BAF50`: `D9 44 24 20 D8 4C 24 20 DE E9 D9 FA` → `D9 44 24 20 D8 C8 DE E9 D9 E1 D9 FA`
+(`FMUL [esp+20]` → `FMUL ST0,ST0`, freeing two bytes for `FABS` before `FSQRT`). Recomputed forward Y on the NaN
+samples is 0.003–0.007, consistent with neighbours. It fixes existing files too (decode-side only).
+
+Also seen: 20–40 m jumps in 0.2 s at key frames are real car resets after a roll (roll ≈ π just before). Playback
+interpolates across them with Catmull-Rom, so the ghost briefly arcs to the reset point. Not fixed yet.
+
+G1.1 kit: `MRallye_ghost1_1.exe` SHA256 `969dc0a464dd04f826629c68100fd1eb085729c57c1541cdfcdc39238e9a86fd`
+(G1 patches + the FABS patch), installed next to `MRallye_ghost1.exe`; Alpha folders and ghosts unchanged.
+
+## Defect 2 — static HUD ghost icon (open)
+
+HUD marker `0x4A74A0` reads `Race/Ghost/Progress` for the ghost slot. No retail code writes that key; the playback
+only publishes `Race/Ghost/Position` (`0x4BFDC9`). Car progress (`Race/Car%d/Progress`, `Rank`, `LastMarker`) is
+produced by `gaRaceLineAI`. Next: compare with demo 9.3.1 to find the original ghost progress producer.

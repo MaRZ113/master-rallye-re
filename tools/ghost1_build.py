@@ -3,7 +3,7 @@
 
 Builds a patched COPY of the retail MRallye.exe and a loose-file kit:
 
-* ``MRallye_ghost1.exe`` - retail EXE with four byte patches (see PATCHES);
+* ``--exe-name`` (default ``MRallye_ghost1.exe``) - retail EXE with the byte patches in ``patches()``;
 * ``DataGx/Vehicles/<Car>Alpha`` - demo Alpha vehicle resources upgraded from
   DX revision 131 to retail revision 135 with the R-DEMO DX Upgrader;
 * ``Ghosts/*.ghost`` - optional seed ghost files copied unchanged.
@@ -48,6 +48,16 @@ def patches(ghost_type: int) -> list[dict]:
             "old": "6a00",
             "new": "6a01",
             "why": "0x48E9C0: keep Race/GhostPlayback=1 when no ghost record was found",
+        },
+        {
+            # Sample decoder 0x4BADC0 rebuilds forward.y = sqrt(1 - x^2 - z^2) from
+            # quantised x/z; for a level car the radicand is often slightly negative,
+            # FSQRT returns NaN and the ghost matrix is NaN for ~0.8 s ("flying").
+            # FLD a; FMUL [a] -> FLD a; FMUL ST0,ST0 frees 2 bytes for FABS.
+            "va": 0x4BAF50,
+            "old": "d9442420d84c2420dee9d9fa",
+            "new": "d9442420d8c8dee9d9e1d9fa",
+            "why": "ghost sample decode: forward.y = sqrt(|1 - x^2 - z^2|) instead of NaN",
         },
         {
             "va": 0x4AE0F0,
@@ -126,13 +136,14 @@ def main() -> None:
     ap.add_argument("--ghosts", type=Path, nargs="*", default=[], help="seed .ghost files")
     ap.add_argument("--ghost-type", choices=sorted(GHOST_TYPES), default="bestever")
     ap.add_argument("--upgrader", type=Path, help="R-DEMO tools/upgrade_dx_131_to_135.py (demo-upgrade)")
+    ap.add_argument("--exe-name", default="MRallye_ghost1.exe")
     ap.add_argument("--output", type=Path, required=True)
     a = ap.parse_args()
 
     if a.output.exists():
         raise SystemExit(f"{a.output} already exists")
     a.output.mkdir(parents=True)
-    exe = a.output / "MRallye_ghost1.exe"
+    exe = a.output / a.exe_name
     applied = patch_exe(a.retail_exe, exe, GHOST_TYPES[a.ghost_type])
 
     vehicles = a.output / "DataGx" / "Vehicles"
@@ -162,7 +173,7 @@ def main() -> None:
                   for p in sorted(a.output.rglob("*")) if p.is_file()},
     }
     (a.output / "ghost1-manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
-    print(f"kit: {a.output}\nexe sha256: {manifest['files']['MRallye_ghost1.exe']}")
+    print(f"kit: {a.output}\nexe sha256: {sha256(exe)}")
 
 
 if __name__ == "__main__":
