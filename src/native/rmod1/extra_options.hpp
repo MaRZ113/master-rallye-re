@@ -13,6 +13,13 @@ struct Config {
     bool enabled = false;
     bool liveries = false;
     bool tires = false;
+    // [Ghost] / [Difficulty] (EXTRA-GHOST1). The ghost caves re-read the three
+    // [Ghost] child options from this file on every Quick Race start.
+    bool ghost = false;
+    bool ghost_with_opponents = false;
+    bool ghost_record_all_modes = false;
+    bool ghost_use_alpha_model = true;
+    bool five_difficulties = false;
 };
 
 struct ConfigResult {
@@ -31,8 +38,9 @@ inline ConfigResult parse_config(std::string_view text) {
             result.error = "encoding"; return result;
         }
     }
-    bool general = false, customization = false, version = false;
+    bool general = false, customization = false, ghost = false, difficulty = false, version = false;
     bool seen_enabled = false, seen_liveries = false, seen_tires = false;
+    bool seen_ghost[4]{}, seen_levels = false;
     std::string section;
     std::size_t start = 0;
     while (start <= text.size()) {
@@ -44,7 +52,8 @@ inline ConfigResult parse_config(std::string_view text) {
             if (line.front() == '[') {
                 if (line.size() < 3 || line.back() != ']') { result.error = "section syntax"; return result; }
                 section = rmod1::ascii_lower(rmod1::trim_ascii(line.substr(1, line.size() - 2)));
-                bool* seen = section == "general" ? &general : section == "customization" ? &customization : nullptr;
+                bool* seen = section == "general" ? &general : section == "customization" ? &customization :
+                             section == "ghost" ? &ghost : section == "difficulty" ? &difficulty : nullptr;
                 if (!seen || *seen) { result.error = "unknown or duplicate section"; return result; }
                 *seen = true;
             } else {
@@ -70,6 +79,24 @@ inline ConfigResult parse_config(std::string_view text) {
                         result.error = "unknown, duplicate or invalid option"; return result;
                     }
                     *seen = true;
+                } else if (section == "ghost") {
+                    static constexpr const char* keys[] = {"enabled", "withopponents", "recordallmodes", "usealphamodel"};
+                    bool* targets[] = {&parsed.ghost, &parsed.ghost_with_opponents, &parsed.ghost_record_all_modes, &parsed.ghost_use_alpha_model};
+                    unsigned k = 0;
+                    while (k < 4 && key != keys[k]) ++k;
+                    if (k == 4 || seen_ghost[k] || (value != "0" && value != "1")) {
+                        result.error = "unknown, duplicate or invalid ghost option"; return result;
+                    }
+                    // 0/1 only: the caves read these keys with GetPrivateProfileIntA.
+                    *targets[k] = value == "1";
+                    seen_ghost[k] = true;
+                } else if (section == "difficulty" && key == "levels") {
+                    unsigned levels = 0;
+                    if (seen_levels || !rmod1::parse_unsigned(value, levels) || (levels != 4 && levels != 5)) {
+                        result.error = "Difficulty.Levels must be 4 or 5"; return result;
+                    }
+                    parsed.five_difficulties = levels == 5;
+                    seen_levels = true;
                 } else { result.error = "unknown key"; return result; }
             }
         }

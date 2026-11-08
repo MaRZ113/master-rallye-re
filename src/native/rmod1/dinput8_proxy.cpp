@@ -10,6 +10,7 @@
 #include "rmod2_inprocess.hpp"
 #if defined(RMOD_EXTRA_OPTIONS)
 #include "extra_options_runtime.hpp"
+#include "extra_ghost.hpp"
 #endif
 
 namespace {
@@ -76,6 +77,10 @@ BOOL CALLBACK initialize_randomizer_once(PINIT_ONCE, PVOID, PVOID*) {
     } else {
         InterlockedExchange(&g_boot_state, 3);
     }
+#if defined(RMOD_EXTRA_OPTIONS)
+    // Ghost/difficulty hooks are disjoint from the Randomizer plan and need no runtime core.
+    extra_ghost::initialize();
+#endif
     return TRUE; // failure is final for this process; DirectInput still forwards.
 }
 

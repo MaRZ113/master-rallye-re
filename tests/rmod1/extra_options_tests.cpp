@@ -26,6 +26,17 @@ int main(int argc, char** argv) {
         auto bad = extra_options::parse_config(invalid);
         assert(!bad.accepted && !bad.config.enabled && !bad.config.tires && !bad.config.liveries);
     }
+    const auto ghost = extra_options::parse_config(
+        "[General]\nConfigVersion=1\n[Ghost]\nEnabled=1\nWithOpponents=1\nRecordAllModes=0\nUseAlphaModel=0\n[Difficulty]\nLevels=5\n");
+    assert(ghost.accepted && ghost.config.ghost && ghost.config.ghost_with_opponents && !ghost.config.ghost_record_all_modes);
+    assert(!ghost.config.ghost_use_alpha_model && ghost.config.five_difficulties && !ghost.config.enabled);
+    assert(empty.config.ghost_use_alpha_model && !empty.config.ghost && !empty.config.five_difficulties);
+    for (const char* invalid : {"[General]\nConfigVersion=1\n[Ghost]\nEnabled=true\n",
+             "[General]\nConfigVersion=1\n[Ghost]\nEnabled=1\nEnabled=1\n",
+             "[General]\nConfigVersion=1\n[Ghost]\nMatch=Any\n",
+             "[General]\nConfigVersion=1\n[Difficulty]\nLevels=3\n",
+             "[General]\nConfigVersion=1\n[Difficulty]\nLevels=5\n[Difficulty]\nLevels=5\n"})
+        assert(!extra_options::parse_config(invalid).accepted);
     extra_options::RaceContext c{2, 1, 0, 1, 21, 21, false, false, false};
     auto stock = extra_options::plan_tires(options.config, extra_options::Tire::Stock, c, 0);
     assert(stock.applies && stock.passthrough && !stock.front && !stock.rear);

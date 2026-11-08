@@ -503,7 +503,7 @@ bool initialize_impl(char* error, unsigned capacity) {
                 const auto extra = extra_options::parse_config(std::string_view(
                     reinterpret_cast<const char*>(extra_bytes.data()), extra_bytes.size()));
                 if (!extra.accepted) append_log(game_dir.wstring(),"EXTRA_OPTIONS_CONFIG_REJECTED",extra.error);
-                else if (extra.config.enabled && (extra.config.liveries || extra.config.tires))
+                else if ((extra.config.enabled && (extra.config.liveries || extra.config.tires)) || extra.config.ghost || extra.config.five_difficulties)
 #if defined(RMOD_EXTRA_OPTIONS)
                     append_log(game_dir.wstring(),"EXTRA_OPTIONS_REQUESTED","native customization initialized by the owning dinput8 bootstrap");
 #else
@@ -667,3 +667,71 @@ bool initialize_impl(char* error, unsigned capacity) {
 }
 
 bool rmod2_boot::initialize(char* error, unsigned error_capacity) { return initialize_impl(error,error_capacity); }
+
+bool rmod2_boot::apply_native_writes(const NativeWrite* writes, std::size_t count, char* error, unsigned capacity) {
+    try {
+        if (!writes || !count) { set_error(error, capacity, "no native writes"); return false; }
+        std::vector<Patch> patches;
+        for (std::size_t i = 0; i < count; ++i) {
+            const auto& w = writes[i];
+            if (!w.expected || !w.replacement || !w.size || w.size > 256) throw std::runtime_error("native write is malformed");
+            Patch p; p.address = w.address;
+            p.expected.assign(w.expected, w.expected + w.size); p.replacement.assign(w.replacement, w.replacement + w.size);
+            for (const auto& q : patches)
+                if (p.address < q.address + q.expected.size() && q.address < p.address + p.expected.size()) throw std::runtime_error("native writes overlap");
+            MEMORY_BASIC_INFORMATION info{};
+            if (VirtualQuery(reinterpret_cast<void*>(p.address), &info, sizeof(info)) != sizeof(info) || info.Type != MEM_IMAGE ||
+                info.State != MEM_COMMIT || info.Protect != PAGE_EXECUTE_READ ||
+                p.address + p.expected.size() > reinterpret_cast<std::uintptr_t>(info.BaseAddress) + info.RegionSize)
+                throw std::runtime_error("native write target is not pristine executable image");
+            std::array<std::uint8_t, 256> actual{};
+            if (!read_exact(p.address, actual.data(), w.size) || std::memcmp(actual.data(), w.expected, w.size)) throw std::runtime_error(w.id ? w.id : "native preimage differs");
+            patches.push_back(std::move(p));
+        }
+        FrozenThreads frozen; std::string freeze_error;
+        if (!frozen.freeze(freeze_error, patches)) throw std::runtime_error(freeze_error);
+        for (const auto& p : patches) {
+            std::array<std::uint8_t, 256> actual{};
+            if (!read_exact(p.address, actual.data(), p.expected.size()) || std::memcmp(actual.data(), p.expected.data(), p.expected.size()))
+                throw std::runtime_error("native preimage changed during startup quiescence");
+        }
+        SYSTEM_INFO system{}; GetSystemInfo(&system); const std::uintptr_t page_size = system.dwPageSize;
+        std::map<std::uintptr_t, DWORD> protections;
+        for (const auto& p : patches)
+            for (std::uintptr_t page = p.address & ~(page_size - 1); page < p.address + p.replacement.size(); page += page_size) {
+                if (protections.count(page)) continue;
+                DWORD old = 0;
+                if (!VirtualProtect(reinterpret_cast<void*>(page), page_size, PAGE_EXECUTE_READWRITE, &old) || old != PAGE_EXECUTE_READ) {
+                    bool ok = true; DWORD ignored = 0;
+                    if (old && !VirtualProtect(reinterpret_cast<void*>(page), page_size, old, &ignored)) ok = false;
+                    for (auto it = protections.rbegin(); it != protections.rend(); ++it)
+                        if (!VirtualProtect(reinterpret_cast<void*>(it->first), page_size, it->second, &ignored)) ok = false;
+                    if (!ok) TerminateProcess(GetCurrentProcess(), 0xE02Bu);
+                    throw std::runtime_error("cannot open native image page for atomic patch");
+                }
+                protections.emplace(page, old);
+            }
+        std::size_t written = 0; bool ok = true;
+        for (const auto& p : patches) {
+            std::memcpy(reinterpret_cast<void*>(p.address), p.replacement.data(), p.replacement.size()); ++written;
+            std::vector<std::uint8_t> check(p.replacement.size());
+            if (!read_exact(p.address, check.data(), check.size()) || check != p.replacement) { ok = false; break; }
+        }
+        if (!ok) {
+            for (std::size_t i = 0; i < written; ++i) std::memcpy(reinterpret_cast<void*>(patches[i].address), patches[i].expected.data(), patches[i].expected.size());
+            for (std::size_t i = 0; i < written; ++i) {
+                std::vector<std::uint8_t> check(patches[i].expected.size());
+                if (!read_exact(patches[i].address, check.data(), check.size()) || check != patches[i].expected) TerminateProcess(GetCurrentProcess(), 0xE02Bu);
+            }
+        }
+        for (const auto& p : patches) FlushInstructionCache(GetCurrentProcess(), reinterpret_cast<void*>(p.address), p.replacement.size());
+        bool restored = true;
+        for (auto it = protections.rbegin(); it != protections.rend(); ++it) { DWORD ignored = 0; if (!VirtualProtect(reinterpret_cast<void*>(it->first), page_size, it->second, &ignored)) restored = false; }
+        if (!restored) TerminateProcess(GetCurrentProcess(), 0xE02Bu);
+        if (!ok) throw std::runtime_error("native write readback failed; original bytes restored");
+        frozen.resume();
+        return true;
+    } catch (const std::exception& ex) {
+        set_error(error, capacity, ex.what()); return false;
+    }
+}

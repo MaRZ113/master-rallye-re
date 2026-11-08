@@ -87,6 +87,7 @@ def build(output, retail, sdk_manifest, runtime, sdk_root, *, checkpoint='f3', e
                'bcrypt.lib', 'user32.lib', '/NOIMPLIB', '/Brepro', '/OUT:' + str(dll)]
     if extra_header is not None:
         command.insert(command.index('/link'), str(ROOT/'src/native/rmod1/extra_options_runtime.cpp'))
+        command.insert(command.index('/link'), str(ROOT/'src/native/rmod1/extra_ghost.cpp'))
         command.insert(1, '/DRMOD_EXTRA_OPTIONS=1')
     subprocess.run(command, cwd=output, env=env, check=True)
     exports = audit(dll)
