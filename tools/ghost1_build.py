@@ -28,6 +28,18 @@ IMAGE_BASE = 0x400000  # .text, .rdata and .data have raw offset == RVA in retai
 # 0x4BC030 (best ever) reads type 1, 0x4BC170 (session best) reads type 0.
 GHOST_TYPES = {"sessionbest": 0, "bestever": 1, "steelmonkeys": 2}
 
+# Assembled from research/ghost1/ghost_progress_cave.asm with tools/ghidra/AsmCave.java at
+# PROGRESS_CAVE_VA (zero padding after .text VirtualSize). All branches are short; calls are E8 rel32.
+PROGRESS_CAVE_VA = 0x68E2A0
+PROGRESS_CAVE_HEX = (
+    "535657558b74241856ff742418e82ea8e4ff83ec08685cf66a008d4c2404e8bd22e4ff8d042450e8f46ee5ff"
+    "89c1e84d6ae5ff85c0741d8b78048b480885ff741389c829f899bb48000000f7fb89c383fb027d0a83c408"
+    "5d5f5e5bc20800c7442404ffff7f7f31c983cdff8d5738d902d826d8c8d94204d86604d8c8dec1d94208d8"
+    "6608d8c8dec1d8542404dfe09e7306d954240489cdddd84183c24839d97ccd85ed7838896c2404db442404"
+    "4b895c2404da742404d95c240468bc516e008d4c2404e81822e4ffff7424048d44240450e84aabe4ff89c1"
+    "e8539be4ff83c4085d5f5e5bc20800"
+)
+
 
 def patches(ghost_type: int) -> list[dict]:
     return [
@@ -65,6 +77,27 @@ def patches(ghost_type: int) -> list[dict]:
             "new": "b8" + ghost_type.to_bytes(4, "little").hex() + "c3",
             "why": f"Frontend/QuickRace/Ghost reader returns constant {ghost_type}",
         },
+        # G1.2: restore Race/Ghost/Progress (HUD ghost marker). Demo 9.3.1
+        # gaRaceLineAI (0x46D890) wrote it; retail dropped that branch.
+        {
+            "file_offset": 0x218,
+            "old": "94d22800",
+            "new": "00e02800",
+            "why": ".text VirtualSize 0x28D294 -> 0x28E000 so the code cave lies inside the section",
+        },
+        {
+            "va": PROGRESS_CAVE_VA,
+            "old": "00" * (len(PROGRESS_CAVE_HEX) // 2),
+            "new": PROGRESS_CAVE_HEX,
+            "why": "code cave: call the Race/Ghost/Position setter, then Race/Ghost/Progress = "
+                   "nearest RaceLine point / (count-1) (research/ghost1/ghost_progress_cave.asm)",
+        },
+        {
+            "va": 0x4BFDE8,
+            "old": "e8f38c0100",
+            "new": "e8" + ((PROGRESS_CAVE_VA - (0x4BFDE8 + 5)) & 0xFFFFFFFF).to_bytes(4, "little").hex(),
+            "why": "ghost playback update: CALL 0x4D8AE0 (Position setter) -> CALL code cave",
+        },
     ]
 
 
@@ -82,12 +115,15 @@ def patch_exe(src: Path, dst: Path, ghost_type: int) -> list[dict]:
     data = bytearray(src.read_bytes())
     applied = []
     for p in patches(ghost_type):
-        off = p["va"] - IMAGE_BASE
+        off = p["file_offset"] if "file_offset" in p else p["va"] - IMAGE_BASE
         old, new = bytes.fromhex(p["old"]), bytes.fromhex(p["new"])
         if len(old) != len(new) or data[off : off + len(old)] != old:
-            raise SystemExit(f"unexpected bytes at {p['va']:#x}")
+            raise SystemExit(f"unexpected bytes at file offset {off:#x}")
         data[off : off + len(new)] = new
-        applied.append({**p, "va": f"{p['va']:#x}", "file_offset": f"{off:#x}"})
+        entry = {**p, "file_offset": f"{off:#x}"}
+        if "va" in p:
+            entry["va"] = f"{p['va']:#x}"
+        applied.append(entry)
     dst.write_bytes(bytes(data))
     return applied
 

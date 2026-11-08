@@ -89,3 +89,35 @@ G1.1 kit: `MRallye_ghost1_1.exe` SHA256 `969dc0a464dd04f826629c68100fd1eb085729c
 HUD marker `0x4A74A0` reads `Race/Ghost/Progress` for the ghost slot. No retail code writes that key; the playback
 only publishes `Race/Ghost/Position` (`0x4BFDC9`). Car progress (`Race/Car%d/Progress`, `Rank`, `LastMarker`) is
 produced by `gaRaceLineAI`. Next: compare with demo 9.3.1 to find the original ghost progress producer.
+
+G1.1 owner result (2026-11-08): the ghost no longer flies.
+
+## Defect 2 fix — G1.2 ghost progress cave
+
+Demo 9.3.1 `gaRaceLineAI` (ctor/init `0x46DB40`, update `0x46D890`) interned `Race/GhostPlayback`,
+`Race/Ghost/Position`, `Race/Ghost/Progress` and, while GhostPlayback was set, wrote
+`Progress = nearest RaceLine point index / (count - 1)` (brute-force over 0x48-byte RaceLine records, position at
++0x38). Retail rewrote the car branch (windowed search + interpolation, `0x48AE30`) and dropped the ghost branch.
+
+G1.2 restores it without touching `gaRaceLineAI`:
+
+| Patch | Bytes | Effect |
+|---|---|---|
+| file offset `0x218` | `.text` VirtualSize `0x28D294` → `0x28E000` | code cave inside the section |
+| `0x68E2A0` | 231-byte cave (`research/ghost1/ghost_progress_cave.asm`, assembled by `tools/ghidra/AsmCave.java`) | calls the original Position setter, then computes and sets `Race/Ghost/Progress` |
+| `0x4BFDE8` | `E8 F3 8C 01 00` → `E8 B3 E4 1C 00` | playback update calls the cave instead of `0x4D8AE0` |
+
+Helper ABI verified from callee returns: `0x4D8AE0`/`0x4D7ED0` thiscall RET 8, `0x4D0580`/`0x4E4D20` RET 4,
+`0x4D8EC0`/`0x4E51C0` plain RET. All cave branches are short (a 66-prefixed rel16 Jcc chosen by the assembler for
+long branches would truncate EIP; the cave duplicates the epilogue to stay short).
+
+G1.2 kit: `MRallye_ghost1_2.exe` SHA256 `dbf7c7acf5fdfb55109c5ebaadd6ec785f2cd811b9a53c8209c47fd70a62ce54`
+(G1.1 + progress cave). Test: the ghost icon on the progress bar should move with the ghost.
+
+## Translucency (G2, open)
+
+The ghost is opaque in G1.x because `<Car>Alpha` = retail resources. Demo Alpha folders differ from the normal car:
+every GXI texture has alpha 0x7F instead of 0xFF (e.g. `JumpAlpha/Black-tga.gxi`), and the Alpha models are cooked
+separately (different `car.gxm`). `0x4BFE00` itself only sets a flag (`+0x50 → +0x70 |= 1`) and clears `+0x6C`;
+it does not make the model translucent. G2 = build Alpha DX with half-alpha BGRA `.dxt` textures and alpha-blended
+draw materials (retail `.dxt` is a 20-byte header + uncompressed BGRA).
