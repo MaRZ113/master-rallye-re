@@ -4,11 +4,34 @@
 // Branch targets may name labels; they are resolved in fixed-point passes.
 import ghidra.app.script.GhidraScript;
 import ghidra.app.plugin.assembler.*;
+import ghidra.app.plugin.assembler.sleigh.sem.*;
 import ghidra.program.model.address.*;
 import java.nio.file.*;
 import java.util.*;
 
 public class AsmCave extends GhidraScript {
+  // Shortest fully-specified encoding without an operand-size prefix (0x66): in 32-bit code a
+  // 66-prefixed CALL/JMP/Jcc takes a rel16 target and truncates EIP.
+  byte[] pick(Assembler asm, Address at, String ins) throws Exception {
+    AssemblyResolutionResults res = asm.resolveLine(at, ins);
+    byte[] best = null;
+    for (AssemblyResolution r : res) {
+      if (!(r instanceof AssemblyResolvedPatterns)) continue;
+      AssemblyPatternBlock blk = ((AssemblyResolvedPatterns) r).getInstruction();
+      byte[] v = blk.getVals();
+      boolean sizePrefix = false;
+      for (byte x : v) {
+        int p = x & 0xff;
+        if (p == 0x66 || p == 0x67) { sizePrefix = true; break; }
+        if (p != 0xf2 && p != 0xf3 && p != 0x2e && p != 0x3e && p != 0x26 && p != 0x36 && p != 0x64 && p != 0x65) break;
+      }
+      if (sizePrefix) continue;
+      if (best == null || v.length < best.length) best = v;
+    }
+    if (best == null) throw new Exception("no non-66 encoding for: " + ins);
+    return best;
+  }
+
   public void run() throws Exception {
     String[] a = getScriptArgs();
     Path out = Paths.get(a[0]);
@@ -33,7 +56,7 @@ public class AsmCave extends GhidraScript {
         if (ins.matches(".*\\b[A-Za-z_][A-Za-z0-9_]*_lbl\\b.*"))
           ins = ins.replaceAll("\\b[A-Za-z_][A-Za-z0-9_]*_lbl\\b", "0x" + Long.toHexString(pc + 2));
         Address at = toAddr(pc);
-        byte[] b = asm.assembleLine(at, ins);
+        byte[] b = pick(asm, at, ins);
         bytes.add(b); where.add(pc); pc += b.length;
       }
       boolean stable = next.equals(labels);

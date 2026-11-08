@@ -41,9 +41,64 @@ PROGRESS_CAVE_HEX = (
     "e8539be4ff83c4085d5f5e5bc20800"
 )
 
+# G3 native GHOST mode (research/ghost1/ghost3_menu_cave.asm, assembled at MENU_CAVE_VA).
+MENU_CAVE_VA = 0x68E390
+MENU_CAVE_HEX = (
+    "6083ec0889eb6a016a3ee86a0000006a10e80e39f3ff83c40485c0744a89c331c9890b894b04894b08894b0c"
+    "6a006a3fe8440000006a016a3fe83b0000006a026a3fe8320000006800e868008d4c2404e89b21e4ff538d44"
+    "240450e8d0aae4ff89c1e889a4e4ff83c408618d4c241468a8686b00e9c0bbdeff83ec04e8df78dfff8b10ff"
+    "74240cff74240c89c1ff520c508d4c2404e8a62de4ff8d0c24516a01ff730889d9e8f696d7ffff3424e8be67"
+    "f2ff83c408c20800e843fce1ff83f801753283ec046850e868008d4c2404e81d21e4ff8d042450e854aae4ff"
+    "89c1e8ed82e4ff83c40485c0b8010000007405b804000000c3515383ec0431db837c2410047547c744241001"
+    "000000436830e868008d4c2404e8d620e4ff8d042450e80daae4ff89c1e8a682e4ff5068b4586e008d4c2408"
+    "e8b720e4ff8d44240450e8eda9e4ff89c1e8269be4ff6850e868008d4c2404e89820e4ff538d44240450e8cd"
+    "a9e4ff89c1e8069be4ff83c4045b59e95cfbe1ff515383ec046850e868008d4c2404e86920e4ff8d042450e8"
+    "a0a9e4ff89c1e83982e4ff31db85c00f95c368d41d6b008d4c2404e84420e4ff538d44240450e879a9e4ff89"
+    "c1e85295e4ff68bc1d6b008d4c2404e82420e4ff538d44240450e859a9e4ff89c1e83295e4ff83c4045b59e9"
+    "78fbe1ff"
+)
+MENU_ENTRY = {"modes": 0x68E390, "init": 0x68E448, "accept": 0x68E485, "start": 0x68E504}
+MENU_STRINGS = [
+    (0x68E800, "Frontend/QuickModeSelect/GhostList"),
+    (0x68E830, "Frontend/QuickModeSelect/Ghost"),
+    (0x68E850, "Frontend/QuickRace/GhostMode"),
+]
 
-def patches(ghost_type: int) -> list[dict]:
-    return [
+
+def rel32(at: int, target: int) -> str:
+    return ((target - (at + 5)) & 0xFFFFFFFF).to_bytes(4, "little").hex()
+
+
+def menu_patches() -> list[dict]:
+    out = [
+        {"va": MENU_CAVE_VA, "old": "00" * (len(MENU_CAVE_HEX) // 2), "new": MENU_CAVE_HEX,
+         "why": "G3 code caves: ModeList+GhostList, init/accept/start hooks"},
+        {"va": 0x479FC0, "old": "8d4c241468a8686b00",
+         "new": "e9" + rel32(0x479FC0, MENU_ENTRY["modes"]) + "90909090",
+         "why": "list builder 0x479BB0: JMP cave before publishing ModeList (append GHOST, build GhostList)"},
+        {"va": 0x47A1C2, "old": "8bc689771083e800740e4874074875166a07eb066a04eb026a01",
+         "new": "897710" + "8d447601" + "50" + "90" * 18,
+         "why": "QuickModeSelect update: focus button = 3*mode+1 (1/4/7 as before, 10 for GHOST)"},
+        {"va": 0x47A286, "old": "83fe02", "new": "83fe03",
+         "why": "QuickModeSelect update: right mode arrow enabled while mode < 3"},
+        {"va": 0x47A560, "old": "e82b3b0300", "new": "e8" + rel32(0x47A560, MENU_ENTRY["init"]),
+         "why": "QuickModeSelect init: reopen on GHOST when QuickRace mode 1 + GhostMode"},
+        {"va": 0x47A8EE, "old": "e86d370300", "new": "e8" + rel32(0x47A8EE, MENU_ENTRY["accept"]),
+         "why": "QuickModeSelect accept: GHOST -> QuickRace mode 1, GhostMode, ghost type"},
+        {"va": 0x47B871, "old": "e87a280300", "new": "e8" + rel32(0x47B871, MENU_ENTRY["start"]),
+         "why": "Quick Race setup: GhostPlayback / Car0 RecordSpline from GhostMode"},
+    ]
+    for va, text in MENU_STRINGS:
+        raw = text.encode("ascii") + bytes(1)
+        out.append({"va": va, "old": "00" * len(raw), "new": raw.hex(), "why": f"string {text}"})
+    return out
+
+
+FORCE_VAS = {0x449245, 0x44926A, 0x4AE0F0}  # G1 constant enables, replaced by the G3 menu
+
+
+def patches(ghost_type: int, menu: bool = False) -> list[dict]:
+    base = [
         {
             "va": 0x449245,
             "old": "6a00",
@@ -108,6 +163,9 @@ def patches(ghost_type: int) -> list[dict]:
             "why": "ghost playback update: CALL 0x4D8AE0 (Position setter) -> CALL code cave",
         },
     ]
+    if not menu:
+        return base
+    return [p for p in base if p.get("va") not in FORCE_VAS] + menu_patches()
 
 
 def sha256(path: Path) -> str:
@@ -118,12 +176,12 @@ def sha256(path: Path) -> str:
     return h.hexdigest()
 
 
-def patch_exe(src: Path, dst: Path, ghost_type: int) -> list[dict]:
+def patch_exe(src: Path, dst: Path, ghost_type: int, menu: bool = False) -> list[dict]:
     if sha256(src) != RETAIL_SHA256:
         raise SystemExit(f"{src}: not the pinned retail EXE ({RETAIL_SHA256})")
     data = bytearray(src.read_bytes())
     applied = []
-    for p in patches(ghost_type):
+    for p in patches(ghost_type, menu):
         off = p["file_offset"] if "file_offset" in p else p["va"] - IMAGE_BASE
         old, new = bytes.fromhex(p["old"]), bytes.fromhex(p["new"])
         if len(old) != len(new) or data[off : off + len(old)] != old:
@@ -221,6 +279,8 @@ def main() -> None:
     ap.add_argument("--ghost-type", choices=sorted(GHOST_TYPES), default="bestever")
     ap.add_argument("--upgrader", type=Path, help="R-DEMO tools/upgrade_dx_131_to_135.py (demo-upgrade)")
     ap.add_argument("--exe-name", default="MRallye_ghost1.exe")
+    ap.add_argument("--menu", action="store_true", help="G3: native GHOST mode instead of forced ghost")
+    ap.add_argument("--frontend-xml", type=Path, help="retail DataScene/FrontendScreens/QuickModeSelect.xml")
     ap.add_argument("--translucent", action="store_true",
                     help="G2: blend every Alpha draw and scale texture alpha (needs --vehicles-src)")
     ap.add_argument("--alpha-scale", type=float, default=127 / 255, help="texture alpha factor (demo: 0x7F/0xFF)")
@@ -233,7 +293,13 @@ def main() -> None:
         raise SystemExit(f"{a.output} already exists")
     a.output.mkdir(parents=True)
     exe = a.output / a.exe_name
-    applied = patch_exe(a.retail_exe, exe, GHOST_TYPES[a.ghost_type])
+    applied = patch_exe(a.retail_exe, exe, GHOST_TYPES[a.ghost_type], a.menu)
+    if a.menu:
+        if a.frontend_xml is None:
+            raise SystemExit("--menu needs --frontend-xml (retail QuickModeSelect.xml)")
+        sys.path.insert(0, str(Path(__file__).parent))
+        import ghost3_frontend
+        ghost3_frontend.main_args(a.frontend_xml, a.output / "DataScene" / "FrontendScreens" / "QuickModeSelect.xml")
 
     vehicles = a.output / "DataGx" / "Vehicles"
     cars = a.cars
@@ -262,7 +328,8 @@ def main() -> None:
 
     manifest = {
         "retail_sha256": RETAIL_SHA256,
-        "ghost_type": a.ghost_type,
+        "ghost_type": None if a.menu else a.ghost_type,
+        "menu": a.menu,
         "patches": applied,
         "translucency": translucency,
         "files": {str(p.relative_to(a.output)).replace("\\", "/"): sha256(p)

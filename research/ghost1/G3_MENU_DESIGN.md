@@ -55,3 +55,77 @@ spots are original behaviour), Attract Mode no longer appears after restarts, re
   an RGBA tint (`+0x14..+0x20`, used by `0x4A74A0`), so the 3D object class must be checked for an equivalent
   field consumed by the vehicle draw path (`0x576970 → 0x561A40`). If none exists, runtime translucency needs either
   an engine hook in the vehicle draw (force blend + TFACTOR alpha for the ghost instance) or the d3d8 proxy.
+
+## G3 implementation (2026-11-08)
+
+Owner decisions: a separate fourth mode with a ghost type selector, exactly as in the demo; ghost-with-opponents,
+record-in-all-modes and class filtering go to the INI config; Alpha models generated for all cars, with an INI
+switch to use them or not.
+
+Text table facts (retail EXE, records `(group, index, char*)`, all languages present): group 0x3E = mode names
+(0 PRACTICE, **1 GHOST**, 2 RACE, 3 CHECKPOINT; retail ModeList uses 0, 2, 3), group 0x3F = ghost types (0 BEST
+THIS SESSION, 1 BEST EVER, 2 STEEL MONKEYS BEST — identical to the `.ghost` file type index), group 28 index 2 =
+"GHOST TYPE" label. Panels are `Egg Group = mode + 2`; widgets are `gaFrontendMultistateAI` with XML-defined
+Button ID / Up Path / Down Path and Broker StringList/Value/CurrentText keys.
+
+### Data
+
+`tools/ghost3_frontend.py` writes a loose `DataScene/FrontendScreens/QuickModeSelect.xml`: retail file plus a
+`GhostMode` list (Egg Group 5) cloned from the retail SingleRaceMode widgets — `GhostType` (button 11, label 28:2,
+GhostList/Ghost/GhostText keys), `GhostTypeText`, `Mode` (button 10), `ModeText`.
+
+### EXE (`research/ghost1/ghost3_menu_cave.asm`, cave at `0x68E390`, strings at `0x68E800`)
+
+| Site | Change |
+|---|---|
+| `0x479FC0` | JMP cave `modes`: append GHOST (0x3E:1) to ModeList, build and publish `Frontend/QuickModeSelect/GhostList` (0x3F:0..2), replay `LEA ECX,[ESP+0x14]; PUSH 0x6B68A8`, JMP back |
+| `0x47A1C2` | focus = `3*mode+1` (same-size rewrite of the 1/4/7 switch; GHOST = button 10) |
+| `0x47A286` | right mode arrow while `mode < 3` |
+| `0x47A560` | CALL cave `init`: QuickRace mode 1 with `Frontend/QuickRace/GhostMode` → report 4 (menu reopens on GHOST) |
+| `0x47A8EE` | CALL cave `accept`: GHOST → QuickRace mode 1, `GhostMode = 1`, `Frontend/QuickRace/Ghost` = selected type; other modes `GhostMode = 0` |
+| `0x47B871` | CALL cave `start`: `Race/GhostPlayback` = `Race/Car0/RecordSpline` = GhostMode, then the original ghost-type getter |
+
+The G1 force patches (`0x449245`, `0x44926A`, `0x4AE0F0`) are dropped; NaN fix, progress cave, Attract redirect,
+`0x48EB14` (keep playback flag without a record) and translucent Alpha stay. GHOST runs as QuickRace mode 1
+(solo), so every race-side switch stays on a known path.
+
+`tools/ghidra/AsmCave.java` now picks the shortest encoding without 0x66/0x67 prefixes (Ghidra otherwise emits
+`66 E8 rel16` / `67 66 E8` for near local calls, which truncate EIP); the progress cave re-assembles byte-identical.
+
+Kit G3: `MRallye_ghost3.exe` SHA256 `dc2ef19f4507adf6550c3e7d3bedfc3cd4b0728324264aef153c2c42b384f866`, loose
+`DataScene\FrontendScreens\QuickModeSelect.xml` (read by every EXE in the folder; the retail EXE never selects
+mode 3, so the extra panel stays hidden there).
+
+### Runtime test
+
+1. Quick Race → mode select: the mode selector cycles PRACTICE / RACE / CHECKPOINT / GHOST (localised).
+2. On GHOST the panel shows GHOST TYPE with BEST THIS SESSION / BEST EVER / STEEL MONKEYS BEST; up/down moves
+   between the two rows.
+3. Accept, start: the ghost of the chosen type appears (Italy1 T2 has best-ever and session-best files); the
+   QuickRace summary may still label the mode PRACTICE (not handled yet).
+4. Back to the menu: it reopens on GHOST. Choose PRACTICE/RACE: no ghost, no recording.
+5. Regression: RACE with opponents, CHECKPOINT, restarts, replays.
+
+## INI options (next: loader phase)
+
+Planned `[Ghost]` section in the Randomizer & Extender config (`MRallyeRandomizer.ini`, ConfigVersion 2 style,
+validated by the loader):
+
+```ini
+[Ghost]
+; 1 = ghost also in Quick Race RACE mode with AI opponents (uses the GHOST TYPE last chosen).
+WithOpponents = 0
+; 1 = record ghost files in every Quick Race mode, not only GHOST.
+RecordAllModes = 0
+; Which recordings may play: 0 = Any, 1 = Same class (file class = player class, current behaviour),
+; 2 = Same car (also matches the recorded CarType). Later also a native menu selector.
+Match = 1
+; 1 = translucent <Car>Alpha ghost model; 0 = ghost uses the normal car model.
+UseAlphaModel = 1
+```
+
+Notes: files are already per class (`<course>.<type>.t<class>.ghost`); `Same car` needs either the CarType check
+against the loaded record (`0x4BCEB0` reads CarType) or per-car file names. `UseAlphaModel = 0` / missing Alpha
+folder = redirect the two format strings at `0x4BFE00` (`Vehicles/%sAlpha/car`, `/wheel`) to `Vehicles/%s/car`,
+`/wheel`; the generator in `tools/ghost1_build.py --translucent` already builds Alpha folders for every retail car
+and can run for Vehicle SDK cars at install time.
