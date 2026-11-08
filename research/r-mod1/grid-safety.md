@@ -1,54 +1,53 @@
-# Quick Race participant-count and course-start safety
+# Quick Race participant count and course-start safety
 
-## Evidence
+R-MOD1 v13 exposes a static, opt-in one-human range of four through seven AI
+(five through eight total participants). It preserves the v11 five-total
+runtime result as a regression reference. Higher counts are not gameplay
+qualified and must be tested progressively.
 
-- R-AI2 confirmed a five-car race with one human and four unique T1 AI through
-  models, physics, AI, collision, damage, HUD/progress, finish, Results, Replay
-  and return. The exact test profile was Track10 / Italy_S4, player CarID0/T1,
-  Ghost OFF and all-T1 AI.
-- R-AI2.1 confirmed six, seven and eight active participants through the
-  applicable normal-race engine lifecycle. This establishes engine capacity,
-  not safe terrain/obstacle clearance for every course.
-- R-GRID8 audited 36 distinct RaceTest resources and 39 scene records. Every
-  resource has Car0..Car7 actor templates and four StartArea markers; native
-  `0x0048EB40` generates a count-based layout.
-- The R-GRID8 audit has no course statuses recorded and no `PASS_CLEAR` row.
-  Its transforms are predictions only. A human report for the eight-car
-  Italy_S4 start raised unsuitable/nearby geometry concerns.
+## Evidence boundary
 
-## Fail-closed policy in the semantic core
+- R-AI2 confirmed a five-participant full lifecycle on its separate candidate.
+- R-AI2.1 tested six through eight with fixed research rosters. Do not treat
+  those rosters as R-MOD behavior.
+- R-GRID8 structurally audited 36 RaceTest resources. Their actor templates
+  include Car0..Car7 and native placement is generated from StartArea. It did
+  not prove terrain/obstacle clearance for every course.
+- The native `FUN_00458090` chooser supports a caller-provided count and
+  replenishes its shuffled physical-ID pool after unique eligible IDs are
+  consumed. See the exact-build evidence note. Repeated-identity gameplay is
+  pending.
 
-Native one-to-three AI remain stock and do not use participant extension. The
-only extended start profile provisionally admitted for the next R-MOD human
-candidate is the exact five-car R-AI2 qualification envelope:
+## Progressive runtime gate
 
-- Quick Race, one human, split-screen disabled;
-- Track10 / Italy_S4;
-- player physical ID0, class T1;
-- four AI, all class T1;
-- Ghost OFF.
+| Requested AI | Total | Test profile | Current evidence |
+|---:|---:|---|---|
+| 1–3 | 2–4 | ordinary profile | Existing normal-count runtime evidence |
+| 4 | 5 | `experimental-five-total-t1.ini` | v11 human runtime pass; v13 regression pending |
+| 5 | 6 | `experimental-six-total-t1.ini` | Pending human runtime |
+| 6 | 7 | `experimental-seven-total-t1.ini` | Pending human runtime |
+| 7 | 8 | `experimental-eight-total-t1.ini` | Pending human runtime |
 
-This is a reuse of the exact five-car runtime envelope, not an eight-car or
-all-course clearance claim. Even this path still requires a newly composed
-R-MOD candidate and human validation.
+Each profile raises `MaxOpponents` by one. The Start precheck refuses an
+extended request above the selected ceiling, refuses non-Quick-Race modes and
+enforces the Car0..Car7 limit. The raw frontend SplitScreen boolean is logged
+but does not veto Start; actual one-human topology is determined from
+initialized Race/NumPlayers and participant PlayerType. No post-setup native
+veto/observer is installed. It does not impose a permanent Track10, human
+CarID/class, Ghost, or arbitrary unique-ID gate.
 
-Six-to-eight total cars are refused by the core until course/count/roster
-clearance has a runtime-qualified allowlist. Counts 5..7 opponents are not
-enabled merely because the UI can display them or engine structures can carry
-Car5..Car7. The UI extension may be menu-tested separately; Start must be
-blocked when the current track/roster tuple is not qualified. That runtime
-Start guard has not yet been implemented in a game candidate.
+## Course qualification
 
-## Qualification needed for higher counts
+Start with Track10/Italy_S4, one T1 human and Ghost OFF to retain comparability
+with the earlier five-total test; these are test conditions, not universal
+guards. Examine visible placement before accelerating, then the countdown,
+opening seconds, contact, reset/restart, AI behavior, finish, Results and
+frontend return. At each AI-count step, stop on crash, wrong NumCars or
+NumPlayers, missing/duplicate participant slot, invalid CarID/Class/DriverID,
+inactive AI, overlap, terrain contact or unstable handling. Do not proceed to
+the next profile until the current one passes.
 
-For every course/count tuple, capture native generated transforms, actor bounds
-and collision dimensions, check pairwise spacing and static terrain/tree/barrier
-intersections, observe the countdown and first 5–15 seconds, then test restart
-and reset. Class/vehicle size must be represented in the tuple. Test results
-must be human-visible and separate from Broker state. One passing track does
-not qualify all 36. Do not attempt the old Italy_S4 eight-car profile as a
-default safe release path.
-
-The first higher-count human sweep should establish a course-specific safe
-subset and stop on the first overlap, terrain contact, impulse or unstable
-physics. No course is currently allowlisted for six, seven or eight total cars.
+After the first extension is stable, repeat a representative run on a course
+with a different start orientation/layout. No course beyond the human-tested
+set is represented as clearance-qualified. The 36-course structural audit is
+not a substitute for those runs.

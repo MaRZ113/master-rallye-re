@@ -36,7 +36,7 @@ These results are documented in the repository but are not combined into a publi
 
 - **Eight-car Quick Race:** manual in-game testing confirmed normal operation with 6, 7, and 8 total cars, including AI, physics, collisions, damage, HUD/progress, results, Replay, and return to the frontend. Support above eight is not established. Several courses need start-grid adjustments for clean eight-car starts.
 - **Vehicle registry:** research builds have demonstrated additional vehicle identities, including a Mercedes ML-320. This is not a general-purpose vehicle-slot expansion release.
-- **AI opponents:** research builds support mixed vehicle classes and Stock, Mixed, and Diverse opponent policies across tested modes and counts. No public randomizer package is available.
+- **AI opponents:** the standalone Randomizer & AI Extender beta is prepared for owner review; see the [player guide](research/r-mod1/public/README.md). The download has not been published.
 - **Quick Race opponent selector:** One through Seven can be selected in a research build. The full engine/UI combination is not a public release; higher counts require the separately tested capacity work.
 - **Course start grids:** an eight-car audit is documenting course-specific start positions and clearances. It does not imply that every course is ready for eight cars without adjustment.
 
@@ -45,6 +45,14 @@ These results are documented in the repository but are not combined into a publi
 Use GitHub Releases for public packages. Research builds may contain newer work, but they are separate from the released tools and may have narrower compatibility or test coverage. Eight-car racing is confirmed in development builds; a public tester package has not been published.
 
 Review Broker captures before sharing them. They may contain game state, paths, or other local values.
+
+### Master Rallye Randomizer & AI Extender
+
+A standalone beta package is prepared for owner review but has not been
+published. It uses a removable `dinput8.dll` proxy, leaves the original game
+executable unchanged, and is designed to coexist with the graphical
+`d3d8.dll`. Its documented limits and installation steps are in
+[`docs/releases/master-rallye-randomizer-v0.1.0-beta.1.md`](docs/releases/master-rallye-randomizer-v0.1.0-beta.1.md).
 
 ## Blender and modding tools
 

@@ -116,7 +116,22 @@ def selection_code(spec):
     a.emit("2bc150")  # immutable first=end-count; campaign arg is later a log scratch
     a.emit(bytes((0x6a, spec["hint"])))
     a.call(LOADER)
-    a.emit("83f802"); a.branch("0f87", "stock")  # -1/invalid => Stock
+    if spec.get("duplicate_repeat_fallback", False):
+        # G1's Quick Race callback returns 0x100|class only after the unique
+        # eligible IDs are exhausted. Store that mode in the existing native
+        # frame marker; the pool-end hook then excludes humans but not prior
+        # AI CarIDs, allowing the retail refill to repeat a physical model.
+        a.emit("83f802"); a.branch("0f86", "unique_class")
+        a.emit("3d00010000"); a.branch("0f82", "stock")
+        a.emit("3d02010000"); a.branch("0f87", "stock")
+        a.emit("2d00010000")
+        a.emit(bytes((0xc7, 0x44, 0x24, marker + 36)) + b"\xfe\xff\xff\xff")
+        a.branch("e9", "class_decision_ready")
+        a.label("unique_class")
+        a.emit(bytes((0xc7, 0x44, 0x24, marker + 36)) + b"\xff" * 4)
+        a.label("class_decision_ready")
+    else:
+        a.emit("83f802"); a.branch("0f87", "stock")  # -1/invalid => Stock
     a.emit(b"\x89\x84\x24" + struct.pack("<I", spec["cls"] + 36))
     a.emit("8944241c")
     a.emit(bytes((0x89, 0x74, 0x24, slot + 36)))
@@ -128,7 +143,9 @@ def selection_code(spec):
             a.emit(b"\xc7\x84\x24" + struct.pack("<I", offset + 36) + b"\xff" * 4)
     for vector in (spec["primary"], spec["remaining"]):
         a.emit(bytes((0x8d, 0x4c, 0x24, vector + 36))); a.call(0x41FA50)
-    a.emit(bytes((0xc7, 0x44, 0x24, marker + 36)) + b"\xff"*4 + b"\x61\x9d")
+    if not spec.get("duplicate_repeat_fallback", False):
+        a.emit(bytes((0xc7, 0x44, 0x24, marker + 36)) + b"\xff"*4)
+    a.emit("619d")
     if spec["hint"] != 0:
         a.emit("31f6bdffffffffbfffffffff")
     if spec["hint"] == 2:
@@ -147,9 +164,27 @@ def selection_code(spec):
     else:
         a.emit(spec["loop"][1])
     a.branch("e9", spec["loop"][0] + len(bytes.fromhex(spec["loop"][1])))
-    a.label("pool_end"); a.emit(bytes((0x9c,0x83,0x7c,0x24,marker+4,0xff))); a.branch("0f85", "initial_pool")
-    a.emit("9d31ff")
-    a.label("participant"); a.emit(bytes((0x3b,0x7c,0x24,slot))); a.branch("0f8d", "pool_ready")
+    a.label("pool_end")
+    if spec.get("duplicate_repeat_fallback", False):
+        a.emit(bytes((0x9c, 0x83, 0x7c, 0x24, marker + 4, 0xff)))
+        a.branch("0f84", "unique_filter")
+        a.emit(bytes((0x83, 0x7c, 0x24, marker + 4, 0xfe)))
+        a.branch("0f85", "initial_pool")
+        a.emit("9dbf00000000")
+        a.emit(b"\x8b\xb4\x24" + struct.pack("<I", spec["first"]))
+        a.branch("e9", "participant")
+        a.label("unique_filter")
+        a.emit("9dbf00000000")
+        a.emit(bytes((0x8b, 0x74, 0x24, slot)))
+    else:
+        a.emit(bytes((0x9c,0x83,0x7c,0x24,marker+4,0xff))); a.branch("0f85", "initial_pool")
+        a.emit("9d31ff")
+    a.label("participant")
+    if spec.get("duplicate_repeat_fallback", False):
+        a.emit("3bfe")
+    else:
+        a.emit(bytes((0x3b,0x7c,0x24,slot)))
+    a.branch("0f8d", "pool_ready")
     a.emit("57"); a.call(0x4ADA50 if spec["hint"] == 0 else 0x4B0AF0)
     a.emit("8bc8"); a.call(spec["getter"])
     a.emit(bytes((0x89,0x44,0x24,marker)))

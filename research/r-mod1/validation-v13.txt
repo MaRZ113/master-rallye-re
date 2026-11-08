@@ -1,0 +1,48 @@
+R-MOD1-E v13 — SplitScreen false-veto correction
+Date: 2026-10-10
+Branch: research/r-mod1
+Starting HEAD: ea3012a1481cf1d2f8ed3401eedc995c96dbcfb9
+
+Supported retail executable
+  SHA256: bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4
+  Size: 3121214
+
+Candidate: .research-output/r-mod1/first-integrated-candidate-v13
+  Qualification: STATIC_CANDIDATE_NOT_HUMAN_RUNTIME_QUALIFIED
+  Launcher SHA256: a617c8e6494510c569cd429d91a689783a9e60a8388e2501514ed1b00dfb0bd8
+  Runtime DLL SHA256: 01c4b01618af44f105e24635c669848537ea7dddd6c9f8c5afb09ac6d79ba451
+  Runtime plan SHA256: f15447ebb2cc8921be5eda11726391868e91b97cfda7b905dfcf2ca7433ea944
+  Native patch plan file SHA256: b6def5c224a06250baa073d9c618cb31ea39a067c378e2354a4cc8c05744e34b
+  Candidate manifest SHA256: 8f6025e4f0b781da5559c335e81118beb0afaf1eb5e394f66a771ac6144f2a98
+  Active safe INI SHA256: d3e6d8a73cac339bf5537647f2db86421fa21ef81e73a24966719e5a243f2867
+  Native operations: 7; ownership and overlap verified
+  On-disk retail executable modified: no
+  Runtime qualified: no; human runtime pending
+
+Change
+  Removed the pre-setup Start veto based only on raw_frontend_split=1.
+  Raw SplitScreen is still logged; initialized Race/NumPlayers and each participant PlayerType are the actual topology evidence.
+  No post-setup observer or roster veto was reintroduced. Seven native operations and v11 callback/setup ABI are preserved.
+  An actual two-human Race roster fails the experimental one-human qualification oracle in synthetic tests.
+
+First human test
+  Use profiles/experimental-six-total-t1.ini: five AI plus one human; expected Race/NumCars=6 and Race/NumPlayers=1.
+  Record raw_split_screen from the launcher log but do not treat it as a human count. Capture Car0..Car5 CarID/Class/DriverID/PlayerType.
+  If initialized Race/NumPlayers is not 1 or participant roles do not match, stop qualification and preserve the capture/log.
+  Track10, physical ID0 and T1 human are not universal requirements. Do not modify the original MRallye.exe.
+
+Validation
+  PYTHONPATH=src python -m unittest discover -s tests/synthetic -v: 630 run, 629 passed, 0 failed, 0 errors, 1 skipped.
+  Skip: opt-in synthetic child-process test requires RMOD1_RUN_WINDOWS_PREFLIGHT=1; standalone Windows preflight passed.
+  Focused native-plan emitted-code tests: 15 passed
+  Focused review archive integrity tests: 2 passed
+  Native shared-core x86 harness: 224 checks, 0 failures
+  Candidate package negative-path checks: pass
+  Launcher --verify: pass; exact retail SHA and mapped image verified
+  Launcher --preflight: WINDOWS_PASS_BEFORE_NATIVE_WRITES; child terminated before resume
+  Deterministic rebuild: 20/20 package files byte-identical
+  Python compileall: pass
+  git diff --check: pass; only configured LF-to-CRLF notices
+
+Exact standalone command:
+  python tools/test_r_mod1_candidate.py .research-output/r-mod1/first-integrated-candidate-v13 --retail-exe <exact retail>

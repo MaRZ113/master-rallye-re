@@ -15,12 +15,39 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / ".research-output" / "r-mod1"
 FIXED_FILES = (
     "src/native/rmod1/core.hpp",
+    "src/native/rmod1/exception_report.hpp",
+    "src/native/rmod1/image_mapping.hpp",
+    "src/native/rmod1/launcher.cpp",
+    "src/native/rmod1/runtime_core.cpp",
+    "src/native/rmod1/runtime_core.def",
+    "src/native/rmod1/runtime_log.hpp",
     "tests/rmod1/core_tests.cpp",
+    "tests/rmod1/runtime_exception_harness.cpp",
+    "tests/rmod1/runtime_log_harness.cpp",
     "tests/synthetic/test_r_mod1_core.py",
     "tests/synthetic/test_r_mod1_composition.py",
+    "tests/synthetic/test_r_mod1_native_plan.py",
+    "tests/synthetic/test_r_mod1_runtime_log.py",
+    "tests/synthetic/test_r_mod1_diagnostics.py",
+    "tests/synthetic/test_r_mod1_suspended_preflight.py",
+    "tests/synthetic/fixtures/rmod1_v6_randomizer_av.json",
+    "tools/build_r_mod1_candidate.py",
     "tools/r_mod1_composition_audit.py",
     "tools/r_mod1_core_tests.ps1",
+    "tools/r_mod1_native_plan.py",
+    "tools/decode_r_mod1_crash.py",
+    "tools/test_r_mod1_candidate.py",
     "tools/build_r_mod1_review.py",
+    "tools/r_ai1_2_randomizer.py",
+    "tools/r_ai1_hardening.py",
+    "tools/r_ai1_mixed_class.py",
+    "tools/r_ai2_capacity.py",
+    "tools/r_ui1_opponents.py",
+    "tools/patch_vehicle_slot25.py",
+    "research/r-mod1/validation-v12.txt",
+    "research/r-mod1/candidate-v12-self-verification.txt",
+    "research/r-mod1/validation-v13.txt",
+    "research/r-mod1/candidate-v13-self-verification.txt",
 )
 
 
@@ -49,7 +76,7 @@ def payload_paths() -> list[Path]:
     unique = sorted({path.resolve() for path in paths}, key=lambda path: path.relative_to(ROOT).as_posix())
     for path in unique:
         path.relative_to(ROOT)
-        if path.suffix.lower() not in {".md", ".json", ".ini", ".hpp", ".cpp", ".py", ".ps1"}:
+        if path.suffix.lower() not in {".md", ".json", ".ini", ".hpp", ".cpp", ".def", ".py", ".ps1", ".txt"}:
             raise ValueError(f"Refusing non-source review payload: {path.name}")
         if not path.is_file():
             raise FileNotFoundError(path)

@@ -42,6 +42,30 @@ class RMod1CompositionAuditTests(unittest.TestCase):
                 self.assertIn("archive-index.json", names)
                 self.assertNotIn("README.md", names)
                 self.assertIn("research/r-mod1/README.md", names)
+                for required in (
+                    "src/native/rmod1/launcher.cpp",
+                    "src/native/rmod1/image_mapping.hpp",
+                    "src/native/rmod1/runtime_core.cpp",
+                    "src/native/rmod1/runtime_core.def",
+                    "tools/r_mod1_native_plan.py",
+                    "tools/build_r_mod1_candidate.py",
+                    "tools/test_r_mod1_candidate.py",
+                    "tests/synthetic/test_r_mod1_native_plan.py",
+                    "tests/synthetic/test_r_mod1_suspended_preflight.py",
+                    "research/r-mod1/native-integration.md",
+                    "research/r-mod1/native-chooser-count-evidence.md",
+                    "research/r-mod1/native-patch-plan-v12.json",
+                    "research/r-mod1/candidate-v12-manifest.json",
+                    "research/r-mod1/candidate-v12-self-verification.txt",
+                    "research/r-mod1/validation-v12.txt",
+                    "research/r-mod1/native-patch-plan-v13.json",
+                    "research/r-mod1/candidate-v13-manifest.json",
+                    "research/r-mod1/candidate-v13-self-verification.txt",
+                    "research/r-mod1/validation-v13.txt",
+                    "research/r-mod1/runtime-handoff.md",
+                    "research/r-mod1/validation-report.md",
+                ):
+                    self.assertIn(required, names)
                 self.assertFalse(any(name.lower().endswith((".exe", ".dll", ".dx", ".dxt", ".bin", ".dump.bin")) for name in names))
                 index = json.loads(archive.read("archive-index.json"))
                 self.assertTrue(index["source_only"])

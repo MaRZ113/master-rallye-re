@@ -1,0 +1,51 @@
+R-MOD1-E v12 candidate and source validation
+Date: 2026-10-10
+Branch: research/r-mod1
+Starting HEAD: ea3012a1481cf1d2f8ed3401eedc995c96dbcfb9
+
+Supported retail input
+  SHA256: bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4
+  Size: 3121214
+
+Candidate
+  Path: .research-output/r-mod1/first-integrated-candidate-v12
+  Qualification: STATIC_CANDIDATE_NOT_HUMAN_RUNTIME_QUALIFIED
+  Launcher SHA256: 41c0c5bad25b06508d6fd0f308a754fb86edc04ac3e368811de9d8c5405830c4
+  Runtime DLL SHA256: e420f6b236bfa097a03af6c0e056fe3f5caa10fae92281728e037ac840b4c155
+  Native patch plan file SHA256: 81d25632730d401cc606a92ddbd2d71913a071716a50f325671f6f69cad26de4
+  Native plan template SHA256: 81e24a5f4c282018254780e3b08391119160695ffd30413515d19cdb497fb35b
+  Candidate manifest SHA256: 59a932753409aa083f686d6c29e31a86a3282c739a4b6ebfae945c767ce61768
+  Public safe INI SHA256: 246408693c0d296c88fdc5a2a04a22e40734da30ac50add39618f8a3240299c9
+  Image operations: 7; non-overlapping
+  Suspended Windows preflight: WINDOWS_PASS_BEFORE_NATIVE_WRITES
+  On-disk retail EXE modified: no
+
+Commands and results
+  PYTHONPATH=src python -m unittest discover -s tests/synthetic -v
+    Ran 630 tests; 629 passed, 0 failed, 0 errors, 1 skipped; OK.
+    Skip: opt-in synthetic real suspended-child test requires RMOD1_RUN_WINDOWS_PREFLIGHT=1.
+  PYTHONPATH=src python -m unittest discover -s tests/synthetic -p test_r_mod1_native_plan.py -v
+    Ran 15; OK.
+  PYTHONPATH=src python -m unittest discover -s tests/synthetic -p test_r_mod1_core.py -v
+    Ran 1; OK. It compiles and runs tests/rmod1/core_tests.cpp.
+  powershell -NoProfile -ExecutionPolicy Bypass -File tools/r_mod1_core_tests.ps1
+    checks=221 failures=0.
+  python -m compileall src tools tests
+    PASS.
+  git diff --check
+    PASS; Git emitted only configured LF-to-CRLF notices.
+  python tools/build_r_mod1_candidate.py --retail-exe <exact retail> --output .research-output/r-mod1/first-integrated-candidate-v12
+    PASS; x86 runtime and x64 launcher built with MSVC /W4 /WX /Brepro.
+  python tools/test_r_mod1_candidate.py .research-output/r-mod1/first-integrated-candidate-v12 --retail-exe <exact retail>
+    CANDIDATE_STATIC_AND_NEGATIVE_PATHS_PASS; 7 operations; exact-build positive,
+    wrong/missing build, corrupted DLL, malformed/oversized/missing INI, and
+    real Windows suspended-process preflight passed.
+  Deterministic v12 rebuild to first-integrated-candidate-v12-rebuild
+    PASS; all 20/20 package files byte-identical.
+
+Evidence boundary
+  v11: owner-confirmed four AI / five total participants remains the runtime reference.
+  v12: 4..7 AI gate, count handoff, Car0..Car7 bound and native physical-ID
+  pool refill are statically verified. Counts 5..7, repeated-ID race,
+  Results/Replay lifecycle and course clearance remain human-runtime pending.
+  Renderer interoperability: not tested. dinput8 proxy: not started.

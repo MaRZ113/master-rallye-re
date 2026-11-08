@@ -1,0 +1,119 @@
+{
+  "candidate_id": "first-integrated-candidate-v14-f1-r3",
+  "change_summary": "ConfigVersion=2 and stable generation-boundary live policy snapshots for Quick Race",
+  "checkpoint": "f1",
+  "extended_ai_capability": {
+    "actual_human_topology_source": "RACE_NUMPLAYERS_AND_PARTICIPANT_PLAYERTYPE_AFTER_SETUP",
+    "higher_counts": "PENDING_HUMAN_RUNTIME",
+    "maximum_total_participants": 8,
+    "native_physical_chooser": "CLASS_POLICY_SEAMS_ONLY_PHYSICAL_ID_DRIVER_ID_REFILL_BODY_RETAIL",
+    "one_human_qualification_oracle": "experimental_extended_roster_matches",
+    "post_setup_start_veto": "NONE; no observer hook installed",
+    "raw_frontend_split_authoritative": false,
+    "runtime_qualified_maximum_ai": 4,
+    "static_maximum_ai": 7,
+    "static_minimum_ai": 4
+  },
+  "files": [
+    {
+      "path": "MRallyeRandomizerLauncher.exe",
+      "sha256": "51dfacee84f03344c4ff1f302e4a3bdd10e9af5d9c0a9b5e4b1c1ab39def5b33",
+      "size": 390144
+    },
+    {
+      "path": "MRallyeRandomizerRuntime.dll",
+      "sha256": "cf743e356e3198cadd68ce750ff9f8c2cce5cb7caa965a4ee64d40c75f442da3",
+      "size": 150528
+    },
+    {
+      "path": "MRallyeRandomizer.ini",
+      "sha256": "b47affdffa4748f337c405169d46b3b3763e1946931c0fdbd87bb5dc5b6eaacd",
+      "size": 1112
+    },
+    {
+      "path": "native-patch-plan.json",
+      "sha256": "1d609a0f989ebb350a42a0c264c04756ad358d10f81d97496d2f80f43a117989",
+      "size": 6447
+    },
+    {
+      "path": "README.txt",
+      "sha256": "05bd587924b9a5b2ee53b2f9ae1b85bbd0ea6e88fdfe84ef05dde5135dab3155",
+      "size": 1625
+    },
+    {
+      "path": "MRallyeRandomizerCrashDecode.py",
+      "sha256": "ae994d7efdf474b6ab984051477e70cd0f425bd0e8e196a3a0fdf574ae4486f0",
+      "size": 3577
+    },
+    {
+      "path": "exception-capture-self-test.txt",
+      "sha256": "93660a040081704ddf309fe8f9dd822d03b333c460c9a6138dad997584c0f3c2",
+      "size": 92
+    },
+    {
+      "path": "runtime-log-self-test.txt",
+      "sha256": "6b89684d7e3d66436d0b9e45cc364de9968af6596c516dad3b0294b6838c65fa",
+      "size": 57
+    },
+    {
+      "path": "profiles/safe-stock-v2.ini",
+      "sha256": "0c9c64c83f8c16fa2f7e7c0dc49c8b4d551616accc5c362024ca7ac936860d4b",
+      "size": 206
+    },
+    {
+      "path": "profiles/quickrace-t1-v2.ini",
+      "sha256": "ce7eda7d828f8b48c27e7600c079ec4f7fb4fa3289e4c492707f1a41e209873e",
+      "size": 206
+    },
+    {
+      "path": "profiles/quickrace-full-v2.ini",
+      "sha256": "fb48f27d63af1aa743e3ea4679d25b193108ff93a52b98e13882e990756227de",
+      "size": 206
+    },
+    {
+      "path": "profiles/cup-mixed-v2.ini",
+      "sha256": "dde86dad23f5f4a942fff618dcd1b55c7256a56ae89a1c81b805d37535730c87",
+      "size": 206
+    },
+    {
+      "path": "profiles/master-diverse-v2.ini",
+      "sha256": "2040e77d00c0ad63182b25f93c0449ef211af1f0c0fce67cdf1e6e06f1263ea7",
+      "size": 206
+    },
+    {
+      "path": "profiles/invitation-t3-v2.ini",
+      "sha256": "e40855fdbcd960b47334d03f764c59274d3714fd51470508e871f7b52bb14395",
+      "size": 206
+    },
+    {
+      "path": "profiles/challenge-full-v2.ini",
+      "sha256": "e8a2f8b5f9a48ae0c523ed60c341e03468acd8c3198765f2892da9e4d5082bbf",
+      "size": 206
+    },
+    {
+      "path": "profiles/extended-seven-menu-only-v2.ini",
+      "sha256": "527f8dca88b0c3b6497cca823266b276d4f0389335b882031b6d0c1ba5b3ba81",
+      "size": 206
+    },
+    {
+      "path": "self-verification.txt",
+      "sha256": "582e8969194dcffcdc160b66af5ac2fb1a3548923108555a28611a3bf096f27b",
+      "size": 884
+    }
+  ],
+  "mode_scope": [
+    "QuickRace",
+    "LivePolicyReload"
+  ],
+  "on_disk_executable_modified": false,
+  "operation_count": 7,
+  "phase": "R-MOD1-F",
+  "product": "Master Rallye Randomizer & AI Extender",
+  "qualification": "STATIC_CANDIDATE_NOT_HUMAN_RUNTIME_QUALIFIED",
+  "renderer_proxy_modified": false,
+  "runtime_plan_sha256": "06597e1ea451df7427482fde97fbc707b5b7f48e12ad4ffc87acb5f421dac049",
+  "schema_version": 1,
+  "source_executable_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "source_executable_size": 3121214,
+  "suspended_image_preflight": "WINDOWS_PASS_BEFORE_NATIVE_WRITES"
+}

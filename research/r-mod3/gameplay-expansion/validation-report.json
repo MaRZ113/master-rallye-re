@@ -1,0 +1,169 @@
+{
+  "f3_plan": {
+    "operation_count": 17,
+    "overlap_count": 0
+  },
+  "f3_retail_preimages": {
+    "preimage_checked_count": 17
+  },
+  "ghidra_exports": {
+    "004116a0.json": {
+      "address": "004116a0",
+      "assembly_lines": 9
+    },
+    "0044fec0.json": {
+      "address": "0044fec0",
+      "assembly_lines": 222
+    },
+    "00450580.json": {
+      "address": "00450580",
+      "assembly_lines": 41
+    },
+    "00451dd0.json": {
+      "address": "00451dd0",
+      "assembly_lines": 406
+    },
+    "00458090.json": {
+      "address": "00458090",
+      "assembly_lines": 295
+    },
+    "00458980.json": {
+      "address": "00458980",
+      "assembly_lines": 98
+    },
+    "0045abc0.json": {
+      "address": "0045abc0",
+      "assembly_lines": 415
+    },
+    "0047b780.json": {
+      "address": "0047b780",
+      "assembly_lines": 157
+    },
+    "0048eb40.json": {
+      "address": "0048eb40",
+      "assembly_lines": 399
+    }
+  },
+  "git": {
+    "branch": "research/r-mod1",
+    "head": "ea3012a1481cf1d2f8ed3401eedc995c96dbcfb9",
+    "preexisting_changes_preserved": true,
+    "product_source_changes_by_rmod3": false,
+    "rmod3_research_files": [
+      "research/r-mod3/gameplay-expansion/README.md",
+      "research/r-mod3/gameplay-expansion/audit_evidence.py",
+      "research/r-mod3/gameplay-expansion/build_review_archive.py",
+      "research/r-mod3/gameplay-expansion/config-v3-proposal.ini",
+      "research/r-mod3/gameplay-expansion/cross-feature-interactions.md",
+      "research/r-mod3/gameplay-expansion/duplicate-carid-root-cause.md",
+      "research/r-mod3/gameplay-expansion/evidence-and-validation.md",
+      "research/r-mod3/gameplay-expansion/forced-player-car.md",
+      "research/r-mod3/gameplay-expansion/forced-roster-and-grid.md",
+      "research/r-mod3/gameplay-expansion/implementation-roadmap.md",
+      "research/r-mod3/gameplay-expansion/native-hook-map.md",
+      "research/r-mod3/gameplay-expansion/per-mode-opponent-counts.md",
+      "research/r-mod3/gameplay-expansion/player-randomization.md",
+      "research/r-mod3/gameplay-expansion/published-baseline.json",
+      "research/r-mod3/gameplay-expansion/tests/test_audit_evidence.py",
+      "research/r-mod3/gameplay-expansion/validation-report.json",
+      "research/r-mod3/gameplay-expansion/vehicle-sdk-interoperation.md"
+    ],
+    "worktree_clean_at_closeout": false,
+    "worktree_was_dirty_at_start": true
+  },
+  "grid_corpus": {
+    "course_count": 36,
+    "runtime_status_counts": {
+      "NOT_TESTED": 36
+    },
+    "scene_registration_count": 39
+  },
+  "limitations": [
+    "Read-only source/evidence consistency; not gameplay or runtime qualification.",
+    "Seven-AI crash cause remains unknown without a matching exception capture.",
+    "Course clearance remains whatever explicit statuses the source audit records."
+  ],
+  "mode_owners": {
+    "Challenge": {
+      "builder": "0x44FEC0",
+      "frontend_owner": "0x45EA60",
+      "race_type": 7
+    },
+    "Invitation": {
+      "builder": "0x45BE10 -> 0x45ABC0",
+      "frontend_owner": "0x462678 / 0x481722",
+      "race_type": 8
+    },
+    "MasterRallye": {
+      "builder": "0x452590 -> 0x451DD0",
+      "frontend_owner": "0x48157C",
+      "race_type": 5
+    },
+    "QuickRace": {
+      "builder": "0x458090",
+      "frontend_owner": "0x47B780",
+      "race_type": 2
+    },
+    "RallyeCup": {
+      "builder": "0x45BE10 -> 0x45ABC0",
+      "frontend_owner": "0x481722",
+      "race_type": 6
+    }
+  },
+  "phase": "R-MOD3 Gameplay Expansion Feasibility Research",
+  "published_beta": {
+    "asset": "MasterRallye-Randomizer-v0.1.0-beta.1.zip",
+    "asset_sha256": "11f40dd716998539ed0885b7c4ade4d4601597727ced02a26cd1753b9ce84892",
+    "commit": "40e96a879d81dbe8fece1af65f8ccec3ec1334fd",
+    "release_metadata_checked_against_github": true,
+    "tag": "v0.1.0-beta.1"
+  },
+  "research_limits": [
+    "Seven-AI same-class T1/T2 crash cause remains UNKNOWN; no matching exception EIP, parameters, registers or stack trace was available.",
+    "The native chooser has a refill path, but repeated-CarID gameplay safety is not runtime-qualified.",
+    "Mode-specific configurable counts outside Quick Race remain unqualified.",
+    "All 36 course physical grid clearances remain NOT_TESTED.",
+    "No gameplay implementation or new runtime hook was added."
+  ],
+  "retail_file_identity": {
+    "file": "MRallye.exe",
+    "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "size": 3121214
+  },
+  "schema": "rmod3-evidence-audit-v1",
+  "status": "PASS",
+  "validation": {
+    "archive_member_audit": "PASS: 18 members including archive index; all payload hashes verified; no disallowed binary/resource extensions.",
+    "compileall": {
+      "command": "python -m compileall -q research/r-mod3/gameplay-expansion",
+      "exit_code": 0
+    },
+    "deterministic_review_archive": "PASS: two independent builds produced byte-identical ZIPs; output contains the explicit source-only allowlist and SHA256 index.",
+    "evidence_audit": "PASS; 17 F3 operation preimages match exact retail file offsets; zero operation overlaps; 9 Ghidra assembly exports checked; five mode owners checked; 36/36 course statuses explicit and NOT_TESTED",
+    "focused_unittest": {
+      "command": "python -m unittest discover -s research/r-mod3/gameplay-expansion/tests -v",
+      "failed": 0,
+      "passed": 8,
+      "passed_test_names": [
+        "test_exact_identity_accepts_matching_file",
+        "test_exact_identity_rejects_changed_hash_and_size",
+        "test_exact_identity_rejects_missing_file",
+        "test_f3_plan_rejects_overlapping_native_operations",
+        "test_f3_plan_rejects_wrong_build_and_malformed_sizes",
+        "test_grid_audit_keeps_all_runtime_statuses_explicit",
+        "test_mode_map_requires_all_exact_mode_owners",
+        "test_preimage_audit_accepts_exact_and_rejects_altered_byte"
+      ],
+      "skipped": 0
+    },
+    "full_product_suite": "NOT_RUN: research-only phase; no product gameplay source changed; worktree had unrelated pre-existing dirty changes.",
+    "gameplay_runtime": "NOT_PERFORMED",
+    "git_diff_check": {
+      "command": "git diff --check",
+      "exit_code": 0,
+      "note": "Only line-ending advisory warnings for pre-existing dirty tracked files."
+    },
+    "local_markdown_links": "PASS",
+    "new_source_whitespace": "PASS"
+  }
+}

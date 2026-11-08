@@ -1,0 +1,405 @@
+{
+  "checkpoint": "f3",
+  "code_symbols": {
+    "bootstrap": 1879054592,
+    "challenge_consumer": 1879059072,
+    "challenge_gate": 1879048512,
+    "challenge_preview": 1879058432,
+    "challenge_reset_back": 1879059008,
+    "challenge_reset_entry": 1879058944,
+    "choice_gate": 1879048448,
+    "limit_gate": 1879048480,
+    "selector": 1879052288,
+    "selectors": {
+      "MasterRallye": {
+        "base": 1879056384,
+        "labels": {
+          "draw": 1879056512,
+          "filter": 1879056569,
+          "init": 1879056384,
+          "initial_pool": 1879056645,
+          "loop": 1879056404,
+          "next_participant": 1879056615,
+          "next_vehicle": 1879056607,
+          "participant": 1879056538,
+          "pool_end": 1879056523,
+          "pool_ready": 1879056621,
+          "stock": 1879056510
+        }
+      },
+      "QuickRace": {
+        "base": 1879052288,
+        "labels": {
+          "draw": 1879052415,
+          "filter": 1879052475,
+          "init": 1879052288,
+          "initial_pool": 1879052558,
+          "loop": 1879052308,
+          "next_participant": 1879052521,
+          "next_vehicle": 1879052513,
+          "participant": 1879052444,
+          "pool_end": 1879052429,
+          "pool_ready": 1879052527,
+          "stock": 1879052413
+        }
+      },
+      "RallyeCup/Invitation": {
+        "base": 1879057408,
+        "labels": {
+          "cup_dispatch": 1879057567,
+          "cup_normal": 1879057565,
+          "draw": 1879057574,
+          "filter": 1879057631,
+          "init": 1879057408,
+          "initial_pool": 1879057709,
+          "loop": 1879057426,
+          "next_participant": 1879057677,
+          "next_vehicle": 1879057669,
+          "participant": 1879057600,
+          "pool_end": 1879057585,
+          "pool_ready": 1879057683,
+          "stock": 1879057572
+        }
+      }
+    },
+    "start_gate": 1879054080,
+    "ui_list": 1879053568
+  },
+  "data_symbols": {
+    "can_start_fn": 1879113744,
+    "challenge_fn": 1879113760,
+    "choose_class_fn": 1879113736,
+    "config_blob": 1879113984,
+    "configure_fn": 1879113732,
+    "dll_path_utf16": 1879118336,
+    "exports": {
+      "MRCanStartQuickRaceV1": 1879122576,
+      "MRChallengeV1": 1879122672,
+      "MRChooseClassV1": 1879122512,
+      "MRConfigureBlobV1": 1879122480,
+      "MROpponentLimitV1": 1879122544,
+      "MRSetStartPhaseV1": 1879122640
+    },
+    "load_library_w_fn": 1879113752,
+    "module": 1879113728,
+    "opponent_limit_fn": 1879113740,
+    "set_start_phase_fn": 1879113756
+  },
+  "executable_image_modification": false,
+  "feature_selection": {
+    "bootstrap_bit": 4,
+    "opponent_extender_bit": 2,
+    "randomizer_bit": 1
+  },
+  "limits": {
+    "actual_human_topology_source": "RACE_NUMPLAYERS_AND_PARTICIPANT_PLAYERTYPE_AFTER_SETUP",
+    "higher_count_runtime": "PENDING_HUMAN_QUALIFICATION",
+    "maximum_total_participants": 8,
+    "native_ai_maximum": 3,
+    "one_human_qualification_oracle": "experimental_extended_roster_matches",
+    "post_setup_start_veto": "NONE; no observer hook installed",
+    "raw_frontend_split_authoritative": false,
+    "runtime_qualified_extended_ai": 4,
+    "runtime_qualified_total_participants": 5,
+    "static_extended_ai_maximum": 7,
+    "static_extended_ai_minimum": 4,
+    "ui_ai_maximum": 7
+  },
+  "mode_generation_owners": {
+    "Challenge": {
+      "lifetime": "ChallengePreviewCache keyed by event and authored human/opponent; Back/reentry resets; Start consumes same CarID; Retry reuses native attempt",
+      "preview_car_id": 4582453,
+      "preview_model": "Frontend/Challenge/OpponentCar",
+      "preview_name": "Frontend/Challenge/Car2Text",
+      "preview_owner": 4582192,
+      "race_constructor": 4521664,
+      "race_consume_car_id": 4522254,
+      "race_type": 7,
+      "screen_init": 4580592
+    },
+    "Invitation": {
+      "existing_roster": "native event roster reused across stages",
+      "pool_rule": "ordinary T3 IDs 14..20; no bonus/progression T3 additions",
+      "race_type": 8,
+      "shared_builder": "RallyeCup"
+    },
+    "MasterRallye": {
+      "existing_roster": "native save/load reuse",
+      "generation_owner": 4531600,
+      "mutation_boundary": "new competition generation only",
+      "native_selector": 4529616,
+      "race_type": 5,
+      "selection_sites": [
+        4529808,
+        4530386,
+        4530221
+      ]
+    },
+    "QuickRace": {
+      "existing_roster": "restart reuses current native roster",
+      "generation_owner": 4700032,
+      "native_selector": 4554896,
+      "race_type": 2,
+      "selection_sites": [
+        4555019,
+        4555641,
+        4555477
+      ]
+    },
+    "RallyeCup": {
+      "existing_roster": "native RaceData/CompetitorN reused across stages",
+      "generation_owner": 4570640,
+      "native_selector": 4565952,
+      "race_type": 6,
+      "selection_sites": [
+        4566137,
+        4566799,
+        4566630
+      ]
+    }
+  },
+  "operations": [
+    {
+      "expected_original_hex": "558bec6aff",
+      "feature_mask": 4,
+      "file_offset": 1852930,
+      "id": "oep-bootstrap",
+      "owner": "shared-runtime-bootstrap",
+      "purpose": "Load the exact adjacent runtime core and configure it before retail CRT/game constructors.",
+      "replacement_hex": "e9f9d2a36f",
+      "rva": 1852930,
+      "va": 6047234
+    },
+    {
+      "expected_original_hex": "8b84248c000000",
+      "feature_mask": 1,
+      "file_offset": 360715,
+      "id": "quickrace-selector-init",
+      "owner": "quickrace-class-selection",
+      "purpose": "QuickRace native generation boundary; policy selects a class while native code owns physical CarID and DriverID.",
+      "replacement_hex": "e9f08eba6f9090",
+      "rva": 360715,
+      "va": 4555019
+    },
+    {
+      "expected_original_hex": "8d4c2430e81e93fbff",
+      "feature_mask": 1,
+      "file_offset": 361337,
+      "id": "quickrace-selector-loop",
+      "owner": "quickrace-class-selection",
+      "purpose": "QuickRace native generation boundary; policy selects a class while native code owns physical CarID and DriverID.",
+      "replacement_hex": "e9968cba6f90909090",
+      "rva": 361337,
+      "va": 4555641
+    },
+    {
+      "expected_original_hex": "8a942494000000",
+      "feature_mask": 1,
+      "file_offset": 361173,
+      "id": "quickrace-selector-end",
+      "owner": "quickrace-class-selection",
+      "purpose": "QuickRace native generation boundary; policy selects a class while native code owns physical CarID and DriverID.",
+      "replacement_hex": "e9b38dba6f9090",
+      "rva": 361173,
+      "va": 4555477
+    },
+    {
+      "expected_original_hex": "8b842490000000",
+      "feature_mask": 1,
+      "file_offset": 335504,
+      "id": "masterrallye-selector-init",
+      "owner": "masterrallye-class-selection",
+      "purpose": "MasterRallye native generation boundary; policy selects a class while native code owns physical CarID and DriverID.",
+      "replacement_hex": "e96b01bb6f9090",
+      "rva": 335504,
+      "va": 4529808
+    },
+    {
+      "expected_original_hex": "8b44243885c0",
+      "feature_mask": 1,
+      "file_offset": 336082,
+      "id": "masterrallye-selector-loop",
+      "owner": "masterrallye-class-selection",
+      "purpose": "MasterRallye native generation boundary; policy selects a class while native code owns physical CarID and DriverID.",
+      "replacement_hex": "e93dffba6f90",
+      "rva": 336082,
+      "va": 4530386
+    },
+    {
+      "expected_original_hex": "8a8c2490000000",
+      "feature_mask": 1,
+      "file_offset": 335917,
+      "id": "masterrallye-selector-end",
+      "owner": "masterrallye-class-selection",
+      "purpose": "MasterRallye native generation boundary; policy selects a class while native code owns physical CarID and DriverID.",
+      "replacement_hex": "e95900bb6f9090",
+      "rva": 335917,
+      "va": 4530221
+    },
+    {
+      "expected_original_hex": "e8823a0500",
+      "feature_mask": 1,
+      "file_offset": 371833,
+      "id": "cup-invitation-selector-init",
+      "owner": "cup-invitation-class-selection",
+      "purpose": "RallyeCup/Invitation native generation boundary; policy selects a class while native code owns physical CarID and DriverID.",
+      "replacement_hex": "e98277ba6f",
+      "rva": 371833,
+      "va": 4566137
+    },
+    {
+      "expected_original_hex": "8b44243485c0",
+      "feature_mask": 1,
+      "file_offset": 372495,
+      "id": "cup-invitation-selector-loop",
+      "owner": "cup-invitation-class-selection",
+      "purpose": "RallyeCup/Invitation native generation boundary; policy selects a class while native code owns physical CarID and DriverID.",
+      "replacement_hex": "e9fe74ba6f90",
+      "rva": 372495,
+      "va": 4566799
+    },
+    {
+      "expected_original_hex": "8a8c248c000000",
+      "feature_mask": 1,
+      "file_offset": 372326,
+      "id": "cup-invitation-selector-end",
+      "owner": "cup-invitation-class-selection",
+      "purpose": "RallyeCup/Invitation native generation boundary; policy selects a class while native code owns physical CarID and DriverID.",
+      "replacement_hex": "e94676ba6f9090",
+      "rva": 372326,
+      "va": 4566630
+    },
+    {
+      "expected_original_hex": "8b54241489742428",
+      "feature_mask": 2,
+      "file_offset": 499147,
+      "id": "opponent-list-append",
+      "owner": "quickrace-opponent-selector",
+      "purpose": "Append localized number-bank entries up to the configured native AI count.",
+      "replacement_hex": "e93077b86f909090",
+      "rva": 499147,
+      "va": 4693451
+    },
+    {
+      "expected_original_hex": "83fd02",
+      "feature_mask": 2,
+      "file_offset": 500524,
+      "id": "opponent-arrow-bound",
+      "owner": "quickrace-opponent-selector",
+      "purpose": "Allow native right-arrow navigation through index six; launcher materializes max_opponents-1.",
+      "replacement_hex": "83fd06",
+      "rva": 500524,
+      "va": 4694828
+    },
+    {
+      "expected_original_hex": "e86f0a0000",
+      "feature_mask": 2,
+      "file_offset": 503052,
+      "id": "quickrace-start-guard",
+      "owner": "quickrace-opponent-safety-gate",
+      "purpose": "Apply pre-start capability checks, call native Quick Race setup once, then preserve the stock state-10 transition without a pre-scene Race-counter veto.",
+      "replacement_hex": "e9ef69b86f",
+      "rva": 503052,
+      "va": 4697356
+    },
+    {
+      "expected_original_hex": "8bbc3874050000",
+      "feature_mask": 1,
+      "file_offset": 388149,
+      "id": "challenge-preview-identity",
+      "owner": "challenge-preview-cache",
+      "purpose": "Prepare/reuse the exact physical opponent ID consumed by native Challenge name and model publication.",
+      "replacement_hex": "e9c63bba6f9090",
+      "rva": 388149,
+      "va": 4582453
+    },
+    {
+      "expected_original_hex": "e8ba580800",
+      "feature_mask": 1,
+      "file_offset": 386321,
+      "id": "challenge-screen-entry-reset",
+      "owner": "challenge-preview-cache",
+      "purpose": "Invalidate a prior Challenge preview before native screen initialization.",
+      "replacement_hex": "e8ea44ba6f",
+      "rva": 386321,
+      "va": 4580625
+    },
+    {
+      "expected_original_hex": "e871eeffff",
+      "feature_mask": 1,
+      "file_offset": 387738,
+      "id": "challenge-back-reset",
+      "owner": "challenge-preview-cache",
+      "purpose": "Invalidate preview on Back, then tail-call the original frontend transition.",
+      "replacement_hex": "e8a13fba6f",
+      "rva": 387738,
+      "va": 4582042
+    },
+    {
+      "expected_original_hex": "8bbc3874050000",
+      "feature_mask": 1,
+      "file_offset": 327950,
+      "id": "challenge-race-consume",
+      "owner": "challenge-preview-cache",
+      "purpose": "Consume the already prepared absolute ID; Stock and missing cache preserve authored identity.",
+      "replacement_hex": "e96d29bb6f9090",
+      "rva": 327950,
+      "va": 4522254
+    }
+  ],
+  "phase": "R-MOD1-F",
+  "plan_template_sha256": "3c760a475b854fd1435584f04450eada4dd90647ed7bbb7144fbf101e375d89d",
+  "remote_allocations": [
+    {
+      "base": 1879048192,
+      "final_protection": "PAGE_EXECUTE_READ",
+      "name": "rmod1-code",
+      "size": 65536,
+      "template_sha256": "a3130e25ac34b67ea7358f80446f4a3b27a5a232ea85ce6e0307fba197f632b3",
+      "used_size": 10922
+    },
+    {
+      "base": 1879113728,
+      "final_protection": "PAGE_READWRITE",
+      "name": "rmod1-data",
+      "size": 65536,
+      "template_sha256": "6e6d3751ab91c63e4ec626597411dda83c787a5a52d253da14990c9466d67186",
+      "used_size": 8958
+    }
+  ],
+  "renderer_proxy_modified": false,
+  "resource_overlay_required": false,
+  "runtime_core": {
+    "required_exports": [
+      "MRCanStartQuickRaceV1",
+      "MRChallengeV1",
+      "MRChooseClassV1",
+      "MRConfigureBlobV1",
+      "MROpponentLimitV1",
+      "MRSetStartPhaseV1"
+    ],
+    "sha256": "cf743e356e3198cadd68ce750ff9f8c2cce5cb7caa965a4ee64d40c75f442da3",
+    "size": 150528
+  },
+  "runtime_qualified": false,
+  "schema_version": 1,
+  "source_executable": {
+    "image_base": 4194304,
+    "machine": "I386",
+    "sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+    "size": 3121214
+  },
+  "startup": {
+    "dll_init_work_under_loader_lock": false,
+    "entry_va": 6047234,
+    "iat_va": {
+      "ExitProcess": 6877460,
+      "GetProcAddress": 6877376,
+      "LoadLibraryA": 6877368
+    },
+    "method": "external suspended-process launcher + OEP trampoline",
+    "replayed_original_hex": "558bec6aff",
+    "retail_constructors_start_after_configure": true
+  },
+  "status": "STATICALLY_VERIFIED_RUNTIME_PLAN_TEMPLATE"
+}

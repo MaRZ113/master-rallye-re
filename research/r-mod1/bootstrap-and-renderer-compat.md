@@ -1,117 +1,84 @@
 # Bootstrap decision and renderer compatibility
 
-## Decision
+## Decision for the first integrated candidate
 
-Use the external suspended-process launcher as the only supported activation
-path for the first test candidate. Keep a drop-in x86 `dinput8.dll` proxy as an
-optional later adapter, **unsupported until it passes actual Windows runtime
-tests**. Neither adapter has been implemented in this phase; the shared core is
-portable C++ in `src/native/rmod1/core.hpp`.
+The supported test mechanism is an external x64 suspended-process launcher
+plus one x86 runtime-core DLL. The launcher verifies the exact retail image,
+creates that original image suspended, verifies the mapped image, validates
+all operation preimages and allocation ranges, installs the generated plan,
+and resumes only after complete read-back. Any pre-resume failure terminates
+the child. The package never contains or writes a replacement game EXE.
 
-The launcher is the better-supported choice because it can verify the exact
-file, create the original process suspended, validate the entire patch bundle,
-write and read back every operation before resuming the main thread, and
-terminate the still-suspended child on any failure. Its general pattern matches
-the proven J.1 safety ordering. J.1 source is not imported from or linked to the
-Vehicle SDK worktree.
+This is a statically verified candidate, not a Windows game-runtime pass. It
+uses an audited pristine-derived operation template and fixed remote code/data
+addresses. It refuses to relocate those addresses if either region is not
+free. The OEP stub calls the imported `LoadLibraryA("kernel32.dll")`, resolves
+`LoadLibraryW` through the already-resolved `GetProcAddress` IAT, loads the
+adjacent runtime-core DLL by absolute UTF-16 path, resolves its fixed C ABI,
+configures it, and replays the exact five displaced retail entry bytes.
+`DllMain` performs no setup under loader lock. This ordering is statically
+derived from the PE loader contract and audited imports; actual process startup
+is still a human gate.
 
-## Retail build gate
+R-MOD2 BOOT-A now builds an x86 `dinput8.dll` forwarding-only test artifact.
+It checks all six host `dinput8.dll` names and ordinals and compares forwarded
+DirectInput results with the system DLL. It installs no gameplay patches and
+has not yet passed a human game-start/input test. See
+[`rmod2-boot-a.md`](rmod2-boot-a.md). The planned R-MOD integration trigger is
+immediately before the first forwarded `DirectInput8Create`; exact Ghidra
+startup flow places that call during initialization before the frontend loop,
+but actual runtime timing and the complete DLL-plus-renderer matrix remain
+unverified. No work is performed under loader lock.
 
-Only this on-disk image is in scope:
+## Exact executable gate
 
-- filename: `MRallye.exe`
-- SHA256: `bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4`
-- file size: `3,121,214`
-- PE machine: I386 / PE32 (`0x014C`)
-- image base in the audited headers: `0x00400000`
-- entry point RVA: `0x001C4602`
+Only this on-disk image is accepted:
 
-The adapter must also prove the mapped main module path and architecture
-correspond to the verified disk file. Operation addresses are resolved as
-`actual_module_base + RVA`; fixed preferred VAs are not trusted without a live
-mapping check. The original executable is never written. Unknown hashes, a
-wrong size/architecture, unreadable target bytes or any preimage mismatch abort
-before the process is resumed.
+- `MRallye.exe`
+- SHA256 `bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4`
+- size `3,121,214`
+- I386 / PE32, image base `0x00400000`, image size `0x00311000`
+- entry point RVA `0x001C4602`
 
-## Suspended launcher sequence
+The launcher also checks the suspended child's normalized full image path,
+x86 architecture, main-module base/size/header and executable section bytes.
+The audited image has relocations stripped and is loaded at its fixed preferred
+base. Patch targets are resolved from the verified actual module base plus
+RVA. Unknown hashes, other sizes, wrong architecture, unexpected mappings,
+unreadable pages, foreign preimages, overlaps and unavailable fixed remote
+regions fail closed.
 
-1. Parse config and verify the exact retail file and PE32 identity.
-2. Resolve the requested Quick Race feature plan and validate runtime
-   capabilities/course limits.
-3. Validate every patch owner, RVA, byte count, dependency, allocation and
-   overlap. Open the original path read-only.
-4. Create the exact original image with `CREATE_SUSPENDED`; verify the child
-   image path, main-module mapping and architecture.
-5. Allocate all required remote regions RW (never RWX), verify every original
-   instruction/preimage and all branch reachability/fixups, then populate code
-   and data. Finalize code pages RX and data pages with least privilege.
-6. Read back the entire plan. If any step fails, terminate the suspended child
-   and release allocations; never resume a partial installation.
-7. Resume only after all operations and read-backs succeed. On game exit, close
-   launcher handles. No hot-unload is attempted; the process teardown removes
-   all in-memory changes.
+## Renderer compatibility
 
-Process-image equality needs a real PE-aware verifier: compare module identity
-and executable section bytes with relocation/IAT handling, not a blind whole
-mapped-image hash. That verifier and the Win32 launcher are not implemented.
+The launcher leaves the existing graphical `d3d8.dll` and its configuration
+untouched, and sets the original game directory as the child's working
+directory so the same renderer search path is used. That demonstrates
+non-interference by implementation; it does not demonstrate runtime
+compatibility. The graphical proxy may still conflict with process startup,
+input or the patched in-memory hooks.
 
-## `dinput8.dll` feasibility and block
-
-Exact retail import evidence shows a static `DINPUT8.dll` import of
-`DirectInput8Create` at IAT VA `0x0068F020` / RVA `0x0028F020`. The retail
-initialization owner is identified as `FUN_00570E00` (DirectInput creation and
-device setup), called within application-manager startup `FUN_005AFB20`.
-Static PE evidence confirms this import exists; it does not prove that an
-export-triggered installer runs before every affected constructor.
-
-The local 32-bit system `dinput8.dll` export audit lists six exports, ordinal 1
-through 6: `DirectInput8Create`, `DllCanUnloadNow`, `DllGetClassObject`,
-`DllRegisterServer`, `DllUnregisterServer`, and `GetdfDIJoystick`. A proxy must
-forward all six required name/ordinal entry points using the absolute 32-bit
-system DLL path, preserving the stdcall ABI. The stock game itself imports only
-`DirectInput8Create`. This list must be re-audited on each supported OS/runtime;
-it is not a promise that unrelated overlays use no additional exports.
-
-`DllMain` may only capture its instance and disable unnecessary thread
-notifications. It must not read config, hash executables, load another DLL,
-create UI, or install hooks under loader lock. A worker created from DllMain
-cannot be assumed to beat the game entry thread. Synchronously initializing
-inside `DirectInput8Create` would run outside loader lock, but current static
-evidence does not prove that all participant/race constructors are still ahead
-of that call. Until startup order is proven and actual Windows runtime tests
-pass, the proxy is **NOT IMPLEMENTED / NOT SUPPORTED**.
-
-## Renderer requirements
-
-The graphical proxy is a different filename (`d3d8.dll`) from the optional
-bootstrap (`dinput8.dll`). The retail import descriptors list `d3d8.dll` before
-`DINPUT8.dll`; this is static load-order context, not proof of actual runtime
-module initialization order. R-MOD must never replace, overwrite, require or
-modify the graphical `d3d8.dll`. The external launcher is independent of DLL
-search order; when paired with a graphical proxy it launches the same game
-directory and verifies the proxy files remain byte-identical.
-
-The existing renderer research documents static D3D8 forwarding feasibility,
-but no R-MOD renderer coexistence runtime result is established. Required human
-matrix for the release candidate:
-
-| Configuration | Required proof | Current status |
+| Configuration | Current evidence | Release qualification |
 |---|---|---|
-| pristine retail, no mod | vanilla startup, frontend, race, shutdown | R-MOD baseline not freshly tested |
-| graphical `d3d8.dll` proxy only | existing graphics behavior and clean shutdown | STATIC feasibility only; runtime pending |
-| Randomizer launcher only | INI modes/count guards, frontend, race, results, shutdown | launcher/candidate not built |
-| graphical proxy + Randomizer launcher | combined rendering, input/AI/race, results and shutdown | not tested |
+| pristine retail, no mod | exact disk image statically verified; fresh human control pending | human startup, frontend, race and shutdown |
+| graphical `d3d8.dll` proxy only | launcher does not own or replace it | human baseline with exact proxy hash |
+| BOOT-A `dinput8.dll` only | HUMAN BOOT-A PASS; game launches and input/controls work | basic startup/input/renderer pass, broader shutdown/relaunch check |
+| graphical proxy + BOOT-A `dinput8.dll` | HUMAN BOOT-A PASS; both proxies load simultaneously, graphics/input/controls work | BOOT-B activation-specific regression still required |
+| BOOT-B `dinput8.dll` + F3 runtime | first human launch failed closed at overly broad mapped `.text` comparison; corrected virtual-extent candidate is ready | T1 Quick Race, live policy reload, race/Results/shutdown |
+| graphical proxy + BOOT-B | renderer untouched by source; initial BOOT-B failure did not identify whether renderer was relevant | repeat corrected test with the existing renderer in a separate disposable copy |
+| launcher + Randomizer, no graphical proxy | prior candidate built and self-verifier passes | human frontend/race/Results/shutdown |
+| graphical proxy + launcher | no composed runtime evidence | human compatibility pass |
 
-The four-way matrix is mandatory before renderer-compatible release
-qualification. A fifth later test is required before advertising the `dinput8`
-proxy: vanilla, graphical proxy only, DInput proxy only and both proxies,
-including input forwarding, module load paths, early initialization and clean
-shutdown. No such pass is claimed here.
+The launcher is suitable for a bounded test of these configurations, but the
+release is not renderer-qualified until the full matrix passes. No `d3d8.dll`
+is included, replaced, patched or required by the candidate. No Vehicle SDK
+component, addon manifest or addon resource is loaded.
 
-## Compatibility and conflicts
+## Removal and conflicts
 
-Conflicts fail closed on any overlapping byte owner, foreign preimage, unknown
-loaded proxy identity or unsupported graphics wrapper. The Randomizer never
-chains or replaces `d3d8.dll`; it does not install Vehicle SDK components. The
-launcher path and INI can be removed between launches; no original game file is
-owned or changed.
+The mod is external to the retail installation. Disable it by launching the
+game EXE directly; remove the launcher/runtime/config package to uninstall.
+All in-memory changes disappear when the process exits. The launcher does not
+attempt hot-unload. It rejects any non-stock target bytes at a planned patch
+site, which is the conflict gate for another mod owning those locations.
+Unknown renderer proxy identities have not been validated and must remain a
+human-test boundary; the launcher never chains, renames or replaces them.

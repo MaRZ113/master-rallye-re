@@ -1,77 +1,98 @@
 # R-MOD1 — Randomizer & AI Extender
 
-**State: IMPLEMENTATION FOUNDATION ONLY. No game candidate is built or ready to launch.**
+R-MOD1 is a standalone stock-vehicle mod with two independent controls: the
+Randomizer selects AI vehicle policy, and the Opponent Extender exposes the
+native Quick Race selector from one through seven AI. It does not require the
+Vehicle SDK, addon manifests, addon resources or Observatory. The original
+retail executable stays byte-identical on disk; launch uses the external
+suspended-process launcher. A graphical `d3d8.dll` is left untouched.
 
-This branch contains a portable shared semantic core and an audit of the old
-randomizer, count, UI and grid evidence. It does not contain a patched retail
-EXE, process launcher, bootstrap DLL, or an integrated native operation bundle.
-The original executable and the Vehicle SDK worktree are untouched.
+## Current research checkpoints
 
-The core lives in [`src/native/rmod1/core.hpp`](../../src/native/rmod1/core.hpp).
-It is intentionally independent of Win32, Direct3D, game files, assets and the
-Vehicle SDK. The future suspended-process launcher and optional `dinput8.dll`
-adapter must call/link this same core; policy, parsing and native patch checks
-must not be copied into separate implementations.
+R-MOD1-F has three separately reviewable candidates. Each later candidate
+contains the earlier checkpoint's behavior, but each is a distinct package and
+must be human-tested on its own before its added mode scope is called a runtime
+pass:
 
-The current test command is:
+| Checkpoint | Candidate | Scope | Native operations | Evidence status |
+|---|---|---|---:|---|
+| F1 | `first-integrated-candidate-v14-f1-r3` | ConfigVersion=2; strict live policy reload at fresh Quick Race roster generation | 7 | Static and package verification passed; human test pending |
+| F2 | `first-integrated-candidate-v15-f2` | F1 plus new Rallye Cup, Invitation and Master Rallye roster generation owners | 13 | Static and package verification passed; human test pending |
+| F3 | `first-integrated-candidate-v16-f3` | F2 plus synchronized Challenge preview/race opponent identity | 17 | Static and package verification passed; human test pending |
+
+They are not merged into one release candidate. See [status](status.md),
+[runtime handoff](runtime-handoff.md), [architecture](architecture.md), and
+[validation report](validation-report.md). Exact manifests and operation plans
+are recorded as `candidate-v14-f1-manifest.json`,
+`candidate-v15-f2-manifest.json`, `candidate-v16-f3-manifest.json` and their
+corresponding `native-patch-plan-*-f*.json` files.
+
+The exact supported retail build is PE32/I386, 3,121,214 bytes,
+SHA256 `bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4`.
+Unknown builds fail closed. All three checkpoint plans are generated from
+retail preimages, have no overlapping image operations, and passed package
+verification plus Windows suspended-process preflight before native writes.
+The retail EXE is not included in any candidate.
+
+## Feature and evidence boundaries
+
+F1 policy reload applies only when a new Quick Race roster is generated. A
+validated policy and duplicate setting are snapshotted for the whole roster;
+invalid or changing INI content keeps the last valid snapshot. The Quick Race
+participant-count subsystem is startup-scoped and remains separate from class
+randomization.
+
+F2 adds selectors only at the audited new-roster owners. Existing Cup and
+Invitation stage rosters and saved Master Rallye rosters are reused; no stage,
+resume or load reroll hook is added. F3 chooses one absolute Challenge
+opponent identity for both preview and race construction, holds it while the
+preview is visible, and clears it on Back/reentry. Stock remains the authored
+Challenge matchup.
+
+The original chooser retains physical CarID, DriverID, controller and
+participant ownership. Extended five-to-eight total participant behavior is
+not newly qualified by F1/F2/F3. Historical v11 four-AI runtime confirmation
+remains limited to its exact candidate. Historical R-AI mode tests are not
+runtime proof for these new packages. Course clearance and repeated-ID race
+lifecycle remain separate human qualification gates.
+
+## Build and verify
+
+With the full checkout, MSVC x86/x64 Build Tools and the exact retail EXE
+available outside the repository:
 
 ```powershell
-$env:PYTHONPATH = 'src'
-python -m unittest discover -s tests/synthetic -p 'test_r_mod1_*.py' -v
+$env:PYTHONPATH = 'src;tools'
+$env:TEMP = 'D:\CodexScratch'
+$env:TMP = 'D:\CodexScratch'
+python tools/build_r_mod1_candidate.py --checkpoint f1 `
+  --retail-exe 'D:\path\to\MRallye.exe' `
+  --output '.research-output\r-mod1\first-integrated-candidate-v14-f1-r3'
+python tools/test_r_mod1_candidate.py `
+  '.research-output\r-mod1\first-integrated-candidate-v14-f1-r3' `
+  --retail-exe 'D:\path\to\MRallye.exe'
 ```
 
-The fixture compiles the semantic core with C++17 MinGW. The dedicated
-`tools/r_mod1_core_tests.ps1` script also builds and runs the same harness as
-x86 with the installed Visual Studio toolchain. Those checks validate the
-portable core ABI only; they are not a launcher/DLL build or Windows game-
-runtime test.
+Use `--checkpoint f2` with output `first-integrated-candidate-v15-f2`, or
+`--checkpoint f3` with output `first-integrated-candidate-v16-f3`, to build
+the other checkpoints. The builder refuses to overwrite an existing candidate.
+The F1/F2/F3 INI examples live in the generated package and correspond to
+ConfigVersion=2. Read the matching README and use the matching test sequence;
+do not enable modes that are outside that candidate's scope.
 
-The existing INI contract is documented in [`configuration.md`](configuration.md).
-The exact retail identity, renderer matrix and bootstrap decision are in
-[`bootstrap-and-renderer-compat.md`](bootstrap-and-renderer-compat.md). The
-historical interval audit is generated by `python tools/r_mod1_composition_audit.py`.
-Build the compact source-only review archive with
-`python tools/build_r_mod1_review.py`; its index records file SHA256 values
-and the Git branch/HEAD/status. See [`validation-report.md`](validation-report.md)
-for the exact checks and current runtime gate.
+The separate DInput proxy is not implemented or supported. Renderer proxy
+interoperability remains unqualified. No GitHub beta or arbitrary-N runtime
+claim is qualified.
 
-## Evidence boundary
+## Review archive
 
-R-AI1.2 randomizer behavior, R-UI1 menu selection, R-AI2 five-car lifecycle,
-R-AI2.1 six-to-eight participant lifecycle and R-GRID8 corpus layouts came from
-separate research candidates. Their results remain historical evidence at the
-level recorded in [`evidence-inventory.md`](evidence-inventory.md). No result
-here proves those interventions compose in one process.
+After validation, create a compact source/documentation archive:
 
-All 36 RaceTest courses have authored actor templates through Car7 and a dynamic
-grid, but no course has a completed eight-car physical-clearance audit. Five
-cars have a separate exact Track10/T1 runtime proof. The core therefore refuses
-unqualified higher-count starts; see [`grid-safety.md`](grid-safety.md).
+```powershell
+python tools/build_r_mod1_review.py `
+  --date 2026-10-10 `
+  --output '.research-output\r-mod1\r-mod1-f-review-2026-10-10.zip'
+```
 
-## Activation policy
-
-The selected product target is the external suspended-process launcher. Its
-design follows the J.1 ordering principle: verify, create the exact original
-game suspended, validate every preimage and operation, apply the complete plan,
-verify read-back, then resume. The original on-disk `MRallye.exe` never changes.
-The launcher is the intended supported fallback, but this branch does not yet
-contain it; no bootstrap is currently release-supported.
-
-The optional `dinput8.dll` proxy is **not supported or implemented**. Static PE
-evidence proves the game imports `DirectInput8Create`, but does not yet prove a
-proxy can finish initialization before all affected game constructors. Its
-`DllMain` cannot do heavy work under loader lock. The DLL path requires its own
-x86 build, export-forwarding audit, startup-order proof and the complete Windows
-renderer-compatibility matrix before it may be advertised.
-
-Vehicle SDK / Vehicle Runtime, addon manifests and addon resources are not
-loaded or required. `Addons.Include=Auto` means a future caller may provide only
-entries already registered and materializable in the current process; it never
-means directory scanning. R-MOD1 standalone currently has no addon provider.
-
-## Current release gate
-
-Status is **NOT READY FOR HUMAN GAME RUNTIME**. The semantic core tests pass,
-but the shared native integration plan, 32-bit launcher build, executable
-preimage map, course-qualified seven-AI policy, candidate package and graphical
-proxy coexistence runtime tests remain outstanding.
+It records included-file SHA256 values, branch, HEAD and Git status. It excludes
+game binaries, game assets, raw captures and generated runtime packages.

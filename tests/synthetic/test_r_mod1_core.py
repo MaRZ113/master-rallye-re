@@ -29,7 +29,9 @@ class RMod1SharedCoreTests(unittest.TestCase):
             raise AssertionError(f"R-MOD1 C++ core test compilation failed:\n{built.stdout}\n{built.stderr}")
 
     def test_shared_core_semantics_and_fail_closed_guards(self) -> None:
-        completed = subprocess.run([str(OUTPUT)], cwd=ROOT, capture_output=True, text=True)
+        public_ini = ROOT / "research" / "r-mod1" / "MRallyeRandomizer.release.ini"
+        completed = subprocess.run([str(OUTPUT), str(public_ini)], cwd=ROOT,
+                                   capture_output=True, text=True)
         self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr)
         self.assertIn("failures=0", completed.stdout)
         self.assertIn("checks=", completed.stdout)
