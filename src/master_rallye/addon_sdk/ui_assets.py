@@ -22,7 +22,9 @@ def parse_bank(data:bytes):
     """
     if len(data)<16:raise AddonValidationError('short DXB bank')
     magic,version,count=struct.unpack_from('<3I',data)
-    if (magic,version)!=(0xf001,125) or not 1<=count<=128:raise AddonValidationError('unsupported DXB profile')
+    # Every frame needs an 8-byte identity and at least 110 sprite bytes.
+    # Bound parsing by actual input length, not the former SDK policy of128.
+    if (magic,version)!=(0xf001,125) or not 1<=count<=(len(data)-16)//118:raise AddonValidationError('unsupported DXB profile')
     pos=12
     for i in range(count):
         if pos+8>len(data) or struct.unpack_from('<2I',data,pos)!=(i,i):raise AddonValidationError('nonidentity bank mapping')
@@ -48,11 +50,16 @@ def parse_bank(data:bytes):
 
 def append_frame(data,template_frame):
     bank=parse_bank(data);count=bank['count']
-    if count>=128 or not 0<=template_frame<count:raise AddonValidationError('bank frame range exceeded')
+    if not 0<=template_frame<count:raise AddonValidationError('bank frame range exceeded')
     old=bank['names'][template_frame];prefix,frame,suffix=old.rsplit('_',2)
     if frame!=f'{template_frame:03d}' or suffix!='000':raise AddonValidationError('unsupported frame name convention')
     name=f'{prefix}_{count:03d}_000'
-    record=bank['records'][template_frame].replace(old.encode(),name.encode())
+    source=bank['records'][template_frame];parts=[source[:4]];at=4
+    for _ in range(2):
+        length=struct.unpack_from('<I',source,at+48)[0]
+        parts.extend((source[at:at+48],struct.pack('<I',len(name)),name.encode('ascii')))
+        at+=52+length
+    record=b''.join(parts)
     result=struct.pack('<3I',0xf001,125,count+1)+b''.join(struct.pack('<2I',i,i) for i in range(count+1))
     result+=struct.pack('<I',count+1)+b''.join(bank['records'])+record
     after=parse_bank(result)

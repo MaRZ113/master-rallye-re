@@ -25,21 +25,23 @@ def runtime_reference(profile):
     """Actual raw-name publication result, unlike the old intended preview."""
     return profile.get('ride_height_reference_m',{}) if profile.get('ride_height_reference_binding')=='registry_name' else {}
 
-def append_reference(source,image,blob,payload_va,profiles,allocation_size):
+def append_reference(source,image,blob,payload_va,profiles,allocation_size,*,parent_delegate_va=None):
     """Append bounded code to the sealed damage extension; preserve its prefix."""
     active=[]
     for profile in profiles:
         validate_profile(profile,donor_family=profile['donor_family'],runtime_family=profile['runtime_family'])
         if 'ride_height_reference_m' in profile:active.append(profile)
     if not active:return image,blob,None
-    if len(active)>16 or len({p['runtime_family'] for p in active})!=len(active):raise ValueError('duplicate or excessive physics reference families')
+    if len({p['runtime_family'] for p in active})!=len(active):raise ValueError('duplicate physics reference families')
     if hashlib.sha256(source).hexdigest()!=RETAIL_SHA256:raise ValueError('unqualified physics reference executable')
     pe=registry.parse_pe(source);off=registry.va_to_file_offset(pe,CALL,5)
     expected=b'\xe8'+struct.pack('<i',PUBLISH-CALL-5)
     # Caller ABI and frame: family string at caller ESP+18, config at ESP+34;
     # two PUSHes and CALL put them at wrapper ESP+24 and ESP+08 respectively.
     pre=registry.va_to_file_offset(pe,0x44f334,10)
-    if source[pre:pre+10]!=bytes.fromhex('8d4424348d4c241c5055') or source[off:off+5]!=expected or image[off:off+5]!=expected:raise ValueError('physics publisher caller preimage changed')
+    owned=expected if parent_delegate_va is None else b'\xe8'+struct.pack('<i',parent_delegate_va-CALL-5)
+    if parent_delegate_va is not None and not payload_va<=parent_delegate_va<payload_va+len(blob):raise ValueError('physics delegate outside verified parent payload')
+    if source[pre:pre+10]!=bytes.fromhex('8d4424348d4c241c5055') or source[off:off+5]!=expected or image[off:off+5]!=owned:raise ValueError('physics publisher caller preimage changed')
     prefix=blob+b'\x90'*((-len(blob))%16);code=registry._CodeImage(payload_va+len(prefix))
     emit=lambda s:code.emit(bytes.fromhex(s))
     code.label('entry');emit('9c60') # preserve flags and all integer registers
@@ -53,7 +55,7 @@ def append_reference(source,image,blob,payload_va,profiles,allocation_size):
             code.mov_eax_literal('offset'+axle+str(i));emit('d800')
             emit('8b44242c d998');code.emit(struct.pack('<I',offset))
         code.jump('done');code.label('next'+str(i))
-    code.label('done');emit('619d');code.jump(PUBLISH)
+    code.label('done');emit('619d');code.jump(PUBLISH if parent_delegate_va is None else parent_delegate_va)
     for i,p in enumerate(active):
         code.label('family'+str(i));code.emit(reference_match_name(p).encode()+b'\0');code.align(4)
         for axle in ('Front','Rear'):

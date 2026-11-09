@@ -1,0 +1,124 @@
+from __future__ import annotations
+import copy
+import hashlib
+import os
+import subprocess
+import tempfile
+from pathlib import Path
+import struct
+import sys
+import unittest
+
+ROOT = Path(__file__).resolve().parents[2]
+sys.path[:0] = [str(ROOT/'src'), str(ROOT/'tools')]
+import build_runtime_launcher as launcher
+from master_rallye.addon_sdk.capacity_profile import scenario
+
+
+def fixture(count=128):
+    distribution=(8,12,count-20)
+    capacity=scenario(count,distribution)
+    base=0x10000000
+    data=bytearray(524288)
+    descriptor=base+300000
+    cursor=300044
+    def emit(values):
+        nonlocal cursor
+        address=base+cursor
+        struct.pack_into('<'+str(len(values))+'I', data,cursor,*values)
+        cursor+=4*len(values)
+        return address
+    counts=emit([len(ids) for ids in capacity['classes'].values()])
+    pointers_at=cursor; cursor+=12
+    pointers=[]; reverse={}
+    for cls, ids in enumerate(capacity['classes'].values()):
+        pointers.append(emit(ids))
+        reverse.update({i:(cls,n) for n,i in enumerate(ids)})
+    struct.pack_into('<3I',data,pointers_at,*pointers)
+    reverse_classes=emit([reverse[i][0] for i in range(count)])
+    reverse_locals=emit([reverse[i][1] for i in range(count)])
+    struct.pack_into('<4s10I',data,descriptor-base,b'MRVC',1,44,count,52,3,0x45a3c0,counts,base+pointers_at,reverse_classes,reverse_locals)
+    profile={key:'a'*64 for key in ('addon_plan_sha256','native_patch_manifest_sha256','native_patch_operations_sha256','resource_manifest_sha256','resource_index_sha256','reconstructed_reference_file_sha256')}
+    profile.update(retail_exe={'sha256':'a'*64},resource_count=1,profile='sdk-configurable-vehicle-registry',capacity_profile=capacity,
+        vehicle_registry_descriptor=descriptor,sdk_roster_layout={'record_count':count,'addon_ids':list(range(26,count))},
+        native_extension={'address':base,'size':len(data),'sha256':hashlib.sha256(data).hexdigest(),'allocation_size':524288})
+    return profile,bytes(data)
+
+
+class CapacityLauncherTests(unittest.TestCase):
+    def test_generic_profile_accepts_numeric_boundaries(self):
+        for count in (33,128,129,255,256,257,512):
+            profile,data=fixture(count)
+            header=launcher._header(profile,{'operations':[{}]},data).decode()
+            self.assertIn('#define MR_VEHICLE_REGISTRY_DESCRIPTOR',header)
+            self.assertIn(f'44u, {count}u, 52u',header)
+    def test_bad_or_unaligned_budget_rejected(self):
+        for allocation in (524287,1,0x70000000):
+            profile,data=fixture(); profile['native_extension']['allocation_size']=allocation
+            with self.assertRaises(launcher.LauncherBuildError): launcher._header(profile,{'operations':[{}]},data)
+    def test_missing_extension_or_payload_rejected(self):
+        profile,data=fixture()
+        with self.assertRaises(launcher.LauncherBuildError): launcher._header(profile,{'operations':[{}]})
+        profile.pop('native_extension')
+        with self.assertRaises(launcher.LauncherBuildError): launcher._header(profile,{'operations':[{}]},data)
+    def test_descriptor_and_mapping_mutations_rejected(self):
+        profile,data=fixture()
+        for offset in (4,12,16,24,28,40,44):
+            changed=bytearray(data); changed[300000+offset]^=1
+            profile['native_extension']['sha256']=hashlib.sha256(changed).hexdigest()
+            with self.assertRaises(launcher.LauncherBuildError): launcher._header(profile,{'operations':[{}]},bytes(changed))
+    def test_sdk33_order_and_range_are_mandatory(self):
+        profile,data=fixture(); profile['capacity_profile']['classes']['T1'][0:2]=[1,0]
+        with self.assertRaises(launcher.LauncherBuildError): launcher._header(profile,{'operations':[{}]},data)
+    def test_stale_environment_is_filtered_in_child_only(self):
+        source=(ROOT/'runtime_launcher/src/main.cpp').read_text()
+        self.assertNotIn('SetEnvironmentVariable',source)
+        self.assertIn('childEnvironment.data(), workingDirectory.c_str()',source)
+        self.assertIn('name!=L"mr_vehicle_registry_descriptor"',source)
+        self.assertIn('mode != L"--preflight-suspended"',source)
+        self.assertIn('singleton!=0',source)
+
+    def test_capacity_accepts_multiple_disjoint_data_pages(self):
+        profile,data=fixture()
+        profile['native_extension']['writable_ranges']=[{'offset':4096,'size':4096},{'offset':8192,'size':4096}]
+        header=launcher._header(profile,{'operations':[{}]},data).decode()
+        self.assertIn('#define MR_EXTENSION_RW_COUNT 2u',header)
+        profile['native_extension']['writable_ranges'][1]['offset']=4096
+        with self.assertRaises(launcher.LauncherBuildError): launcher._header(profile,{'operations':[{}]},data)
+
+
+class NativeRosterStateTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        value=os.environ.get('MR_CAPACITY_TEST_LAUNCHER')
+        if not value: raise unittest.SkipTest('set MR_CAPACITY_TEST_LAUNCHER to a capacity native launcher')
+        cls.exe=Path(value)
+    def invoke(self,xml,passed):
+        raw=xml.encode() if isinstance(xml,str) else xml
+        with tempfile.TemporaryDirectory(prefix='mr-roster-state-') as tmp:
+            path=Path(tmp)/'PlayerState.xml';path.write_bytes(raw)
+            result=subprocess.run([str(self.exe),'--verify-roster-state',str(path)],capture_output=True,text=True)
+            self.assertEqual(path.read_bytes(),raw)
+        self.assertEqual(result.returncode==0,passed,result.stdout+result.stderr)
+        return result.stdout+result.stderr
+    def test_native_good_ids_entities_and_active_campaign(self):
+        self.invoke('<Game><Broker><Value Name="Frontend/QuickRace/Car0" Type="Int" Value="31"/><Value Name="MasterRallye/GameSaved" Type="Bool" Value="True"/><Value Name="Settings/Player1Name" Type="String" Value="A &amp; B &#x41;"/></Broker></Game>',True)
+    def test_native_class_pairs_and_sentinel(self):
+        self.invoke('<Game><Broker><Value Name="Frontend/QuickRace/Car0" Type="Int" Value="-1"/><Value Name="MasterRallye/Car0/CarID" Type="Int" Value="31"/><Value Name="MasterRallye/Car0/CarClass" Type="Int" Value="1"/></Broker></Game>',True)
+        self.invoke('<Game><Broker><Value Name="MasterRallye/Car0/CarID" Type="Int" Value="31"/><Value Name="MasterRallye/Car0/CarClass" Type="Int" Value="0"/></Broker></Game>',False)
+        self.invoke('<Game><Broker><Value Name="RallyeCup/PlayerT1Car0" Type="Int" Value="31"/></Broker></Game>',False)
+    def test_native_unknown_unsupported_duplicate_and_bad_xml(self):
+        snippets=['<Value Name="Frontend/QuickRace/Car0" Type="Int" Value="2147483647"/>',
+            '<Value Name="Frontend/QuickRace/Car0" Type="Int" Value="-2"/>',
+            '<Value Name="Frontend/QuickRace/Car2" Type="Int" Value="0"/>',
+            '<Value Name="Frontend/QuickRace/Car0" Type="Float" Value="0"/>',
+            '<Value Name="MasterRallye/VehicleClass" Type="Int" Value="3"/>',
+            '<Value Name="X" Type="Int" Value="0"/><Value Name="x" Type="Int" Value="1"/>',
+            '<Value Name="X" Name="Y" Type="Int" Value="0"/>',
+            '<Value Name="X" Type="String" Value="&unknown;"/>']
+        for snippet in snippets:
+            with self.subTest(snippet=snippet): self.invoke('<Game><Broker>'+snippet+'</Broker></Game>',False)
+        for xml in ['<!DOCTYPE Game><Game><Broker></Broker></Game>','<?xml version="1.0" encoding="UTF-16"?><Game><Broker></Broker></Game>','<Game><Broker></Game>','<Game><Broker/></Game>','<Game><Broker></Broker></Game><Game/>',b'<Game><Broker>\xff</Broker></Game>',b'<Game>\x00</Game>']:
+            with self.subTest(xml=xml): self.invoke(xml,False)
+
+if __name__=='__main__': unittest.main()

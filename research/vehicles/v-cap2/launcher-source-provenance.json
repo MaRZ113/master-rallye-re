@@ -1,0 +1,27 @@
+{
+  "source_checkout": "D:\\Game\\Master Rallye\\master-rallye-re-vehicles",
+  "note": "Explicit adoption of accepted uncommitted SDK-binding launcher sources; source checkout unchanged.",
+  "source_files": [
+    {
+      "source": "D:\\Game\\Master Rallye\\master-rallye-re-vehicles\\runtime_launcher\\src\\main.cpp",
+      "sha256": "2ed479a25adf02face1dfe91be84d1d6287baaa21c8423350924bf1035a5295e",
+      "path": "runtime_launcher/src/main.cpp"
+    },
+    {
+      "source": "D:\\Game\\Master Rallye\\master-rallye-re-vehicles\\runtime_launcher\\CMakeLists.txt",
+      "sha256": "a3bd216473771d630ff4da3d6fde0e125aeb11dc20428c711d0b0d404fee9890",
+      "path": "runtime_launcher/CMakeLists.txt"
+    },
+    {
+      "source": "D:\\Game\\Master Rallye\\master-rallye-re-vehicles\\runtime_launcher\\src\\input_proxy_probe.hpp",
+      "sha256": "df4a7b26faeefbffb56ad481c800d81274b781e26a78e3184d15702dcd2b36fe",
+      "path": "runtime_launcher/src/input_proxy_probe.hpp"
+    },
+    {
+      "source": "D:\\Game\\Master Rallye\\master-rallye-re-vehicles\\tools\\build_runtime_launcher.py",
+      "sha256": "78838cf3a0fadfcd053d2c0bb0fd3725aeddb618dcd4a7842d4603a5aaf6bd0b",
+      "path": "tools/build_runtime_launcher.py"
+    }
+  ],
+  "schema": "mr-vcap2-launcher-source-provenance/1"
+}

@@ -11,6 +11,12 @@ def fixture(offset=0):
 
 
 class DamageMultiTests(unittest.TestCase):
+    def test_verified_parent_delegation_deforms_once(self):
+        from tools.vehicle_damage_multi_validate import replay
+        for mismatch in (None,'uv','positions'):
+            report=replay([fixture(),fixture(2)],fixture(2),delegate_va=0x590100,mismatch=mismatch)
+            self.assertEqual(report['native_calls'],1)
+
     def test_singleton_preserves_legacy(self):
         raw=fixture();self.assertEqual(native.payload(raw),native.payload_models([raw]))
 

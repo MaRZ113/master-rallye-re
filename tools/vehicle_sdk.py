@@ -30,6 +30,7 @@ COMMANDS={
     'fitment-overlay':('render_vehicle_fitment_overlay.py',),
     'camera-diagnose':('vehicle_camera_diagnostics.py',),
     'roster-build':('build_sdk_roster.py',),
+    'registry-build':('build_vehicle_registry.py',),
 }
 
 def command(name,args):

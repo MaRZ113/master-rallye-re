@@ -70,18 +70,18 @@ def extend_image(source,base_image,model_data):
     return bytes(image),report
 
 
-def payload_models(models, *, payload_va=PAYLOAD_VA, max_payload=262144):
+def payload_models(models, *, payload_va=PAYLOAD_VA, max_payload=262144, delegate_va=DAMAGE_NATIVE_VA):
     """One deformation call, then full source identities for independent models.
 
     A singleton at the historic address retains the exact legacy byte stream.
     The 256-KiB limit is an explicit SDK storage budget, not an engine limit.
     """
-    if max_payload not in (262144,524288):raise ValueError('unqualified damage storage budget')
+    if type(max_payload)is not int or not 65536<=max_payload<=0x7fffffff:raise ValueError('invalid damage storage budget')
     models=list(models)
-    if not 1<=len(models)<=16:raise ValueError('damage model count outside bounded profile')
+    if not models:raise ValueError('damage model count must be positive')
     if len({hashlib.sha256(data).digest() for data in models})!=len(models):
         raise ValueError('duplicate damage model')
-    if len(models)==1 and payload_va==PAYLOAD_VA:return payload(models[0])
+    if len(models)==1 and payload_va==PAYLOAD_VA and delegate_va==DAMAGE_NATIVE_VA:return payload(models[0])
     qualified=[];identities=set()
     for data in models:
         policy=alpha_ownership(data);m=parse_dx_bytes(data)
@@ -93,7 +93,7 @@ def payload_models(models, *, payload_va=PAYLOAD_VA, max_payload=262144):
     code=registry._CodeImage(payload_va)
     def emit(value):code.emit(bytes.fromhex(value))
     code.label('entry');emit('55 8bec 53 56 57 8bd9')
-    emit('ff7514 ff7510 ff750c ff7508 8bcb');code.call(DAMAGE_NATIVE_VA)
+    emit('ff7514 ff7510 ff750c ff7508 8bcb');code.call(delegate_va)
     emit('50 9c 84c0');code.je('return')
     for i,(m,policy,xyz,uv) in enumerate(qualified):
         n=m.vertex_count;next_label='model'+str(i+1)
@@ -122,7 +122,7 @@ def payload_models(models, *, payload_va=PAYLOAD_VA, max_payload=262144):
         code.label('mask'+str(i));code.emit(bytes.fromhex(policy['mask_hex']));code.align(4)
     result=code.build()
     if len(result)>max_payload:raise ValueError('multi-model damage identity exceeds bounded extension budget')
-    allocation=next(n for n in (65536,131072,262144,524288) if len(result)<=n)
+    allocation=(len(result)+65535)//65536*65536
     return result,{'schema_version':1,'payload_va':payload_va,'payload_size':len(result),'allocation_size':allocation,
         'code_size':code_size,'models':[policy for _,policy,_,_ in qualified],
         'entries':{'entry':payload_va},'identity':'full source XYZ and UV byte equality plus vector lengths; first unique match only',

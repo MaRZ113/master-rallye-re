@@ -9,6 +9,7 @@ import os
 from pathlib import Path
 import shutil
 import subprocess
+import struct
 import tempfile
 from typing import Any, Callable
 
@@ -23,7 +24,53 @@ class LauncherBuildError(RuntimeError):
     pass
 
 
-def _header(profile: dict[str, Any], patch_manifest: dict[str, Any]) -> bytes:
+def _capacity_descriptor(profile, extension, data):
+    from master_rallye.addon_sdk.capacity_profile import validate_profile
+    try:
+        capacity = validate_profile(profile['capacity_profile'])
+    except (KeyError, ValueError, TypeError) as exc:
+        raise LauncherBuildError('invalid capacity profile: '+str(exc)) from exc
+    if set(capacity['classes']) != {'T1', 'T2', 'T3'}:
+        raise LauncherBuildError('runtime capacity supports existing three classes only')
+    count = capacity['record_count']
+    roster = profile.get('sdk_roster_layout')
+    if roster != {'record_count': count, 'addon_ids': list(range(26, count))}:
+        raise LauncherBuildError('capacity roster does not preserve the SDK33 identity range')
+    size, allocation, base = extension.get('size'), extension.get('allocation_size'), extension.get('address')
+    if (type(size) is not int or type(allocation) is not int or base != 0x10000000
+            or size <= 0 or allocation < size or allocation % 65536
+            or allocation + capacity['layout']['allocation_size'] > capacity['memory_budget_bytes']
+            or base + allocation > 0x7fffffff):
+        raise LauncherBuildError('capacity arena exceeds aligned configured memory budget')
+    address = profile.get('vehicle_registry_descriptor')
+    if type(address) is not int or address % 4 or not base <= address <= base+size-44:
+        raise LauncherBuildError('capacity descriptor is outside native payload')
+    if not isinstance(data, bytes) or len(data) != size:
+        raise LauncherBuildError('capacity descriptor requires verified native payload bytes')
+    if hashlib.sha256(data).hexdigest() != extension.get('sha256'):
+        raise LauncherBuildError('capacity payload SHA256 differs from sealed extension')
+    fields = struct.unpack_from('<11I', data, address-base)
+    if fields[:7] != (int.from_bytes(b'MRVC','little'), 1, 44, count, 52, 3, 0x45a3c0):
+        raise LauncherBuildError('capacity descriptor ABI or registry identity mismatch')
+    def words(at, n):
+        if at % 4 or not base <= at or at+n*4 > base+size:
+            raise LauncherBuildError('capacity descriptor table outside native payload')
+        return struct.unpack_from('<'+str(n)+'I', data, at-base)
+    counts = tuple(len(capacity['classes'][c]) for c in ('T1','T2','T3'))
+    if words(fields[7],3) != counts:
+        raise LauncherBuildError('capacity descriptor class counts mismatch')
+    reverse = {}
+    for cls, ptr in enumerate(words(fields[8],3)):
+        ids = capacity['classes']['T'+str(cls+1)]
+        if words(ptr,len(ids)) != tuple(ids):
+            raise LauncherBuildError('capacity descriptor selection mapping mismatch')
+        reverse.update({ident:(cls,slot) for slot,ident in enumerate(ids)})
+    if words(fields[9], count) != tuple(reverse[i][0] for i in range(count)) or words(fields[10], count) != tuple(reverse[i][1] for i in range(count)):
+        raise LauncherBuildError('capacity descriptor reverse mappings mismatch')
+    return fields
+
+
+def _header(profile: dict[str, Any], patch_manifest: dict[str, Any], extension_bytes: bytes | None = None) -> bytes:
     values = {
         "MR_RETAIL_SHA256": profile["retail_exe"]["sha256"],
         "MR_ADDON_PLAN_SHA256": profile["addon_plan_sha256"],
@@ -47,8 +94,15 @@ def _header(profile: dict[str, Any], patch_manifest: dict[str, Any]) -> bytes:
     rows.extend((f"#define MR_PATCH_OPERATION_COUNT {operation_count}u",
                  f"#define MR_RESOURCE_COUNT {resource_count}u"))
     extension = profile.get('native_extension')
+    if profile.get('profile')=='sdk-configurable-vehicle-registry' and not isinstance(extension,dict):
+        raise LauncherBuildError('capacity profile requires native extension')
     if extension is not None:
         allocation=extension.get('allocation_size')
+        configurable=profile.get('profile')=='sdk-configurable-vehicle-registry'
+        if configurable:
+            descriptor=_capacity_descriptor(profile,extension,extension_bytes)
+            rows.extend((f"#define MR_VEHICLE_REGISTRY_DESCRIPTOR {profile['vehicle_registry_descriptor']}u",
+                         '#define MR_VEHICLE_REGISTRY_FIELDS {'+', '.join(str(n)+'u' for n in descriptor)+'}'))
         large_damage=(allocation==131072 and profile.get('profile')=='sdk-native-damage-coverage-alpha'
                       and type(extension.get('size')) is int and extension['size']>65536)
         roster=profile.get('sdk_roster_layout',{})
@@ -59,20 +113,29 @@ def _header(profile: dict[str, Any], patch_manifest: dict[str, Any]) -> bytes:
                   and roster['addon_ids']==list(range(26,roster['record_count'])))
         if (set(extension)-{'writable_ranges'} != {'address','size','sha256','allocation_size'}
                 or extension['address'] != 0x10000000
-                or type(extension['size']) is not int or not 1 <= extension['size'] <= (allocation if combined else 131072 if large_damage else 65536)
-                or (allocation!=65536 and not large_damage and not combined)
+                or type(extension['size']) is not int or not 1 <= extension['size'] <= (allocation if combined or configurable else 131072 if large_damage else 65536)
+                or (allocation!=65536 and not large_damage and not combined and not configurable)
                 or not isinstance(extension['sha256'], str) or len(extension['sha256']) != 64
                 or any(c not in '0123456789abcdef' for c in extension['sha256'])):
             raise LauncherBuildError('unsupported private native extension layout')
         ranges=extension.get('writable_ranges',[])
-        if not isinstance(ranges,list) or len(ranges)>1:
+        if not isinstance(ranges,list) or (not configurable and len(ranges)>1):
             raise LauncherBuildError('unsupported native writable ranges')
-        for region in ranges:
+        range_end=0
+        for region in sorted(ranges,key=lambda r:r.get('offset',-1) if isinstance(r,dict) else -1):
             if (not isinstance(region,dict) or set(region)!={'offset','size'}
                 or type(region['offset']) is not int or type(region['size']) is not int
                 or region['offset']<4096 or region['offset']%4096 or region['size']!=4096
-                or region['offset']+region['size']>extension['size']):
+                or region['offset']+region['size']>extension['size'] or region['offset']<range_end):
                 raise LauncherBuildError('invalid bounded native data page')
+            range_end=region['offset']+region['size']
+        if configurable:
+            rows.extend((f"#define MR_EXTENSION_RW_COUNT {len(ranges)}u", '#define MR_EXTENSION_RW_RANGES {{'+', '.join('{'+str(r['offset'])+'u, '+str(r['size'])+'u}' for r in ranges)+'}}'))
+            classes=struct.unpack_from('<'+str(descriptor[3])+'I',extension_bytes,descriptor[9]-extension['address'])
+            retired=profile.get('retired_vehicle_ids',[])
+            if not isinstance(retired,list) or any(type(i)is not int or not 0<=i<descriptor[3] for i in retired) or len(set(retired))!=len(retired):
+                raise LauncherBuildError('invalid retired physical ID catalog')
+            rows.extend(('#define MR_VEHICLE_REGISTRY_CLASSES {'+', '.join(str(c)+'u' for c in classes)+'}', '#define MR_VEHICLE_RETIRED_IDS {'+', '.join(str(i)+'u' for i in retired)+'}'))
         if ranges:
             rows.extend((f"#define MR_EXTENSION_RW_OFFSET {ranges[0]['offset']}u",f"#define MR_EXTENSION_RW_SIZE {ranges[0]['size']}u"))
         rows.extend((f"#define MR_EXTENSION_SIZE {extension['size']}u",
@@ -85,7 +148,8 @@ def _header(profile: dict[str, Any], patch_manifest: dict[str, Any]) -> bytes:
 def build_launcher(*, bundle: Path, output: Path = DEFAULT_OUTPUT,
                    retail_exe: Path | None = None,
                    generator: str = "Visual Studio 18 2026",
-                   bundle_verifier: Callable[[], dict[str, Any]] | None = None) -> dict[str, Any]:
+                   bundle_verifier: Callable[[], dict[str, Any]] | None = None,
+                   sdk_binding_input: bool = False) -> dict[str, Any]:
     if os.name != "nt":
         raise LauncherBuildError("the native launcher can only be built on Windows")
     bundle = Path(bundle)
@@ -107,11 +171,12 @@ def build_launcher(*, bundle: Path, output: Path = DEFAULT_OUTPUT,
     try:
         include_dir = Path(scratch.name) / "generated"
         include_dir.mkdir()
-        (include_dir / "trusted_profile.hpp").write_bytes(_header(profile, patch_manifest))
+        (include_dir / "trusted_profile.hpp").write_bytes(_header(profile, patch_manifest, (bundle/'native-extension.bin').read_bytes() if profile.get('profile')=='sdk-configurable-vehicle-registry' else None))
         shutil.copytree(include_dir, stage / 'generated')
         build_dir = Path(scratch.name) / "build"
         configure = ["cmake", "-S", str(PROJECT_ROOT / "runtime_launcher"), "-B", str(build_dir),
-                     "-G", generator, "-A", "x64", f"-DPROFILE_INCLUDE_DIR={include_dir}"]
+                     "-G", generator, "-A", "x64", f"-DPROFILE_INCLUDE_DIR={include_dir}",
+                     f"-DMR_ENABLE_SDK_BINDING_INPUT={'ON' if sdk_binding_input else 'OFF'}"]
         subprocess.run(configure, check=True)
         subprocess.run(["cmake", "--build", str(build_dir), "--config", "Release",
                         "--target", "mr-runtime-launcher"], check=True)
@@ -128,6 +193,7 @@ def build_launcher(*, bundle: Path, output: Path = DEFAULT_OUTPUT,
             "artifact_kind": "native external runtime launcher build",
             "status": "STATIC_BUILD_ONLY_NOT_RUNTIME_QUALIFIED",
             "architecture": "x64 launcher / x86 target process",
+            "sdk_binding_input_abi": 1 if sdk_binding_input else None,
             "generator": generator,
             "launcher_sha256": hashlib.sha256(data).hexdigest(),
             "launcher_size": len(data),
@@ -157,10 +223,12 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--retail-exe", type=Path, default=addon_runtime.DEFAULT_RETAIL_EXE)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--generator", default="Visual Studio 18 2026")
+    parser.add_argument("--sdk-binding-input", action="store_true", help="Build the private SDK-binding input ABI test launcher")
     args = parser.parse_args(argv)
     try:
         result = build_launcher(bundle=args.bundle, output=args.output,
-                                retail_exe=args.retail_exe, generator=args.generator)
+                                retail_exe=args.retail_exe, generator=args.generator,
+                                sdk_binding_input=args.sdk_binding_input)
     except (LauncherBuildError, addon_runtime.RuntimeIntegrationError, OSError,
             subprocess.CalledProcessError, ValueError, KeyError, TypeError) as exc:
         print(json.dumps({"status": "FAIL_CLOSED", "error": str(exc)}, indent=2))

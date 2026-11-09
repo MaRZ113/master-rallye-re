@@ -112,6 +112,9 @@ def qualified_wheel_profiles(profiles, resources, rows):
 
 
 def derive(config):
+    if isinstance(config,dict) and config.get('schema')=='mr-vehicle-registry-build/1':
+        from build_vehicle_registry import derive as derive_registry
+        return derive_registry(config)
     if not isinstance(config,dict) or not {'sdk_roster_version','base_runtime','projects'}<=set(config) or set(config)-{'sdk_roster_version','base_runtime','projects','reservations','retail_exe','frontend_profiler','frontend_bulk_read','stock_resource_projects','camera_profiles','frontend_profiles','base_glass_profiles','wheel_profiles','experimental_record_count','selection_order'} or type(config.get('sdk_roster_version')) is not int or config['sdk_roster_version']!=1:raise ValueError('unsupported SDK roster declaration')
     if type(config.get('frontend_profiler',False)) is not bool:raise ValueError('frontend_profiler must be an explicit boolean')
     if type(config.get('frontend_bulk_read',False)) is not bool:raise ValueError('frontend_bulk_read must be an explicit boolean')
@@ -331,6 +334,9 @@ def verify(bundle,context):
     return {'status':'PASS_STATIC_COLLECTION_RUNTIME_BUNDLE','scope':'sdk-multi-addon-roster','resource_count':len(rows),'runtime_qualified':False}
 
 def build(config,output):
+    if isinstance(config,dict) and config.get('schema')=='mr-vehicle-registry-build/1':
+        from build_vehicle_registry import build as build_registry
+        return build_registry(config,output)
     output=runtime._under_research_output(output)
     if output.exists():raise ValueError('candidate output already exists')
     exe=Path(config.get('retail_exe',ROOT.parent/'MRallye.exe')).resolve()

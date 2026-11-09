@@ -1,4 +1,5 @@
 #include <windows.h>
+#include <array>
 #include <winternl.h>
 #include <bcrypt.h>
 #include <filesystem>
@@ -16,6 +17,8 @@
 #include <limits>
 
 #include "trusted_profile.hpp"
+#include "input_proxy_probe.hpp"
+#include "roster_state.hpp"
 
 // Legacy profiles have no allocated native payload and preserve their exact
 // resource/operation contract. New profiles pin every payload byte at build.
@@ -30,6 +33,18 @@
 #define MR_EXTENSION_SHA256 ""
 #endif
 
+#ifndef MR_VEHICLE_REGISTRY_DESCRIPTOR
+#define MR_VEHICLE_REGISTRY_DESCRIPTOR 0u
+#define MR_VEHICLE_REGISTRY_FIELDS {0u}
+#endif
+#ifndef MR_EXTENSION_RW_COUNT
+#define MR_EXTENSION_RW_COUNT 1u
+#define MR_EXTENSION_RW_RANGES {{{MR_EXTENSION_RW_OFFSET, MR_EXTENSION_RW_SIZE}}}
+#endif
+#ifndef MR_VEHICLE_REGISTRY_CLASSES
+#define MR_VEHICLE_REGISTRY_CLASSES {}
+#define MR_VEHICLE_RETIRED_IDS {}
+#endif
 #pragma comment(lib, "bcrypt.lib")
 
 namespace fs = std::filesystem;
@@ -693,8 +708,53 @@ std::vector<uint8_t> VerifyNativeExtension(const fs::path& bundle) {
     }
 }
 
+// The environment is a private child copy: stale capacity hints never leak into
+// a legacy launch and the launcher process environment is never mutated.
+std::vector<wchar_t> ChildRegistryEnvironment(bool installRegistry) {
+    wchar_t* inherited=GetEnvironmentStringsW();
+    if (!inherited) Fail("cannot read child environment");
+    std::vector<std::wstring> entries;
+    for (const wchar_t* at=inherited; *at; at+=std::wcslen(at)+1) {
+        std::wstring entry(at);
+        auto equal=entry.find(L'=',entry[0]==L'=' ? 1 : 0);
+        auto name=Lower(entry.substr(0,equal));
+        if (name!=L"mr_vehicle_registry_descriptor" && name!=L"mr_vehicle_registry_count") entries.push_back(entry);
+    }
+    FreeEnvironmentStringsW(inherited);
+    if (installRegistry && MR_VEHICLE_REGISTRY_DESCRIPTOR) {
+        std::wostringstream value; value << L"MR_VEHICLE_REGISTRY_DESCRIPTOR=0x" << std::hex << MR_VEHICLE_REGISTRY_DESCRIPTOR;
+        entries.push_back(value.str());
+    }
+    std::sort(entries.begin(),entries.end(),[](const auto& a,const auto& b){return Lower(a)<Lower(b);});
+    std::vector<wchar_t> block;
+    for (const auto& entry:entries) {block.insert(block.end(),entry.begin(),entry.end());block.push_back(0);}
+    block.push_back(0); if (entries.empty()) block.push_back(0);
+    return block;
+}
+
+void VerifyRegistryNotConstructed(PROCESS_INFORMATION& pi) {
+    if constexpr (MR_VEHICLE_REGISTRY_DESCRIPTOR != 0) {
+        uint32_t singleton=0xffffffff; SIZE_T received{};
+        if (!ReadProcessMemory(pi.hProcess,reinterpret_cast<const void*>(uintptr_t(0x6f5ed4)),&singleton,sizeof(singleton),&received)
+            || received!=sizeof(singleton) || singleton!=0)
+            Fail("vehicle registry already constructed; capacity cannot replace live owned records");
+    }
+}
+
+void VerifyRegistryDescriptor(PROCESS_INFORMATION& pi) {
+    if constexpr (MR_VEHICLE_REGISTRY_DESCRIPTOR != 0) {
+        constexpr std::array<uint32_t,11> expected=MR_VEHICLE_REGISTRY_FIELDS;
+        std::array<uint32_t,11> actual{}; SIZE_T received{};
+        if (!ReadProcessMemory(pi.hProcess,reinterpret_cast<const void*>(uintptr_t(MR_VEHICLE_REGISTRY_DESCRIPTOR)),actual.data(),sizeof(actual),&received)
+            || received!=sizeof(actual) || actual!=expected)
+            Fail("installed vehicle registry descriptor differs from compiled capacity profile");
+        std::cout << "VEHICLE_REGISTRY_DESCRIPTOR_VERIFIED count=" << actual[3] << " abi=1 stride=52\n";
+    }
+}
+
 void InstallNativeExtension(PROCESS_INFORMATION& pi, const std::vector<uint8_t>& bytes) {
     if constexpr (MR_EXTENSION_SIZE != 0) {
+        VerifyRegistryNotConstructed(pi);
         if (bytes.size() != MR_EXTENSION_SIZE) Fail("private native payload size changed");
         void* target = reinterpret_cast<void*>(static_cast<uintptr_t>(MR_EXTENSION_ADDRESS));
         MEMORY_BASIC_INFORMATION vacant{};
@@ -718,27 +778,31 @@ void InstallNativeExtension(PROCESS_INFORMATION& pi, const std::vector<uint8_t>&
         if (!ReadProcessMemory(pi.hProcess, target, actual.data(), actual.size(), &received)
             || received != actual.size() || actual != bytes)
             Fail("private native payload readback mismatch");
+        VerifyRegistryDescriptor(pi);
         DWORD old{};
         if (!VirtualProtectEx(pi.hProcess, target, MR_EXTENSION_ALLOCATION_SIZE, PAGE_EXECUTE_READ, &old)
             || !FlushInstructionCache(pi.hProcess, target, bytes.size()))
             Fail("private native payload protection/cache preparation failed");
-        if constexpr (MR_EXTENSION_RW_SIZE != 0) {
-            auto* data = static_cast<uint8_t*>(target) + MR_EXTENSION_RW_OFFSET;
-            if (!VirtualProtectEx(pi.hProcess, data, MR_EXTENSION_RW_SIZE, PAGE_READWRITE, &old))
+        struct WritableRegion {uint32_t offset,size;};
+        constexpr std::array<WritableRegion,MR_EXTENSION_RW_COUNT> ranges=MR_EXTENSION_RW_RANGES;
+        for (const auto& range:ranges) {
+            if (!range.size) continue;
+            auto* data = static_cast<uint8_t*>(target) + range.offset;
+            if (!VirtualProtectEx(pi.hProcess, data, range.size, PAGE_READWRITE, &old))
                 Fail("private native data-page protection failed");
             MEMORY_BASIC_INFORMATION dataRegion{};
             if (VirtualQueryEx(pi.hProcess,data,&dataRegion,sizeof(dataRegion)) != sizeof(dataRegion)
                 || dataRegion.Protect != PAGE_READWRITE)
                 Fail("private native data page is not RW/NX");
-            std::cout << "PRIVATE_NATIVE_DATA_PAGE_VERIFIED offset=" << MR_EXTENSION_RW_OFFSET
-                      << " size=" << MR_EXTENSION_RW_SIZE << " protection=RW/NX\n";
+            std::cout << "PRIVATE_NATIVE_DATA_PAGE_VERIFIED offset=" << range.offset
+                      << " size=" << range.size << " protection=RW/NX\n";
         }
         std::cout << "PRIVATE_NATIVE_EXTENSION_INSTALLED bytes=" << bytes.size()
                   << " sha256=" << MR_EXTENSION_SHA256 << "\n";
     }
 }
 
-HANDLE VerifyAdjacentWrappers(const fs::path& exePath) {
+HANDLE VerifyAdjacentWrappers(const fs::path& exePath, HANDLE& pinnedInput) {
     static constexpr const wchar_t* names[] = {
         L"d3d9.dll", L"ddraw.dll", L"dinput8.dll",
         L"dsound.dll", L"winmm.dll", L"version.dll", L"dxgi.dll"
@@ -747,26 +811,75 @@ HANDLE VerifyAdjacentWrappers(const fs::path& exePath) {
     for (const auto* name : names) {
         const auto path = directory / name;
         if (fs::exists(path)) {
+#if defined(MR_ENABLE_SDK_BINDING_INPUT)
+            if (std::wcscmp(name,L"dinput8.dll")==0) {
+                const DWORD attributes=GetFileAttributesW(path.c_str());
+                if (attributes==INVALID_FILE_ATTRIBUTES || (attributes&(FILE_ATTRIBUTE_REPARSE_POINT|FILE_ATTRIBUTE_DIRECTORY)))
+                    Fail("SDK-binding input proxy must be a regular non-linked file");
+                pinnedInput=CreateFileW(path.c_str(),GENERIC_READ|FILE_READ_ATTRIBUTES,FILE_SHARE_READ,
+                                        nullptr,OPEN_EXISTING,FILE_ATTRIBUTE_NORMAL,nullptr);
+                if (pinnedInput==INVALID_HANDLE_VALUE) Fail("cannot pin SDK-binding input proxy");
+                try {
+                    const auto inputBytes=ReadFileBytes(path);
+                    if (!HasSdkBindingAbi(inputBytes)) Fail("input proxy lacks the supported SDK-binding ABI");
+                    if constexpr (MR_VEHICLE_REGISTRY_DESCRIPTOR != 0) {
+                        if (!HasVehicleRegistryAbi(inputBytes))
+                            Fail("input proxy owns legacy SDK33 auto-binding and lacks capacity descriptor ABI; use descriptor-aware Extra Options or remove input proxy from this private copy");
+                    }
+                    std::cout << "INPUT_PROXY_PINNED sdk_binding_abi=1 hash_gate=disabled\n";
+                } catch (...) {CloseHandle(pinnedInput);pinnedInput=INVALID_HANDLE_VALUE;throw;}
+                continue;
+            }
+#endif
             std::wcerr << L"UNQUALIFIED_LOCAL_WRAPPER " << path << L"\n";
             Fail("unqualified local graphics/input/audio wrapper is present");
         }
     }
     const auto graphicsProxy = directory / L"d3d8.dll";
-    if (fs::exists(graphicsProxy)) return OpenPinnedGraphicsProxy(graphicsProxy);
+    if (fs::exists(graphicsProxy)) {
+        try { return OpenPinnedGraphicsProxy(graphicsProxy); }
+        catch (...) { if(pinnedInput!=INVALID_HANDLE_VALUE){CloseHandle(pinnedInput);pinnedInput=INVALID_HANDLE_VALUE;} throw; }
+    }
     return INVALID_HANDLE_VALUE;
 }
 
+void VerifyRosterState(const fs::path& path) {
+    if constexpr (MR_VEHICLE_REGISTRY_DESCRIPTOR != 0) {
+        if (!fs::exists(path)) {std::cout << "ROSTER_STATE_PREFLIGHT_PASS fresh_profile=true\n";return;}
+        const DWORD attrs=GetFileAttributesW(path.c_str());
+        if (attrs==INVALID_FILE_ATTRIBUTES || (attrs&(FILE_ATTRIBUTE_REPARSE_POINT|FILE_ATTRIBUTE_DIRECTORY))
+            || fs::file_size(path)==0 || fs::file_size(path)>4u*1024u*1024u)
+            Fail("PlayerState must be a regular bounded UTF-8 XML file");
+        std::ifstream stream(path,std::ios::binary);
+        if (!stream) Fail("cannot read PlayerState XML");
+        std::vector<uint8_t> bytes(4u*1024u*1024u+1);
+        stream.read(reinterpret_cast<char*>(bytes.data()),static_cast<std::streamsize>(bytes.size()));
+        bytes.resize(static_cast<size_t>(stream.gcount()));
+        if (stream.bad()) Fail("PlayerState XML read failed");
+        const std::vector<uint32_t> classes=MR_VEHICLE_REGISTRY_CLASSES;
+        const std::set<uint32_t> retired=MR_VEHICLE_RETIRED_IDS;
+        const auto report=mr_roster_state::Validate(std::string_view(reinterpret_cast<const char*>(bytes.data()),bytes.size()),classes,retired);
+        std::cout << "ROSTER_STATE_PREFLIGHT_PASS checked_identities=" << report.identities
+                  << " active_competitions=" << report.activeCompetitions << " bytes_modified=false\n";
+    } else Fail("this legacy launcher has no compiled configurable roster state policy");
+}
+
 void Launch(const fs::path& exePath, const fs::path& workingDirectory,
-            const RuntimePlan* plan, const fs::path* nativeBundle = nullptr) {
+            const RuntimePlan* plan, const fs::path* nativeBundle = nullptr, bool preflightOnly = false) {
+    if constexpr (MR_VEHICLE_REGISTRY_DESCRIPTOR != 0) {
+        if (plan && nativeBundle) VerifyRosterState(workingDirectory / L"DataGame" / L"PlayerState.xml");
+    }
     HANDLE pinnedExe = OpenPinnedRetail(exePath);
     if (HashHandle(pinnedExe) != MR_RETAIL_SHA256) {
         CloseHandle(pinnedExe); Fail("pinned executable SHA256 mismatch");
     }
     HANDLE pinnedGraphicsProxy = INVALID_HANDLE_VALUE;
+    HANDLE pinnedInput = INVALID_HANDLE_VALUE;
     if (plan) {
         try {
-            pinnedGraphicsProxy = VerifyAdjacentWrappers(exePath);
+            pinnedGraphicsProxy = VerifyAdjacentWrappers(exePath, pinnedInput);
         } catch (...) {
+            if (pinnedInput != INVALID_HANDLE_VALUE) CloseHandle(pinnedInput);
             CloseHandle(pinnedExe);
             throw;
         }
@@ -776,10 +889,12 @@ void Launch(const fs::path& exePath, const fs::path& workingDirectory,
     startup.cb = sizeof(startup);
     PROCESS_INFORMATION pi{};
     std::wstring command = L"\"" + exePath.wstring() + L"\"";
+    auto childEnvironment=ChildRegistryEnvironment(plan && nativeBundle);
     if (!CreateProcessW(exePath.c_str(), command.data(), nullptr, nullptr, FALSE,
                         CREATE_SUSPENDED | CREATE_UNICODE_ENVIRONMENT,
-                        nullptr, workingDirectory.c_str(), &startup, &pi)) {
+                        childEnvironment.data(), workingDirectory.c_str(), &startup, &pi)) {
         if (pinnedGraphicsProxy != INVALID_HANDLE_VALUE) CloseHandle(pinnedGraphicsProxy);
+        if (pinnedInput != INVALID_HANDLE_VALUE) CloseHandle(pinnedInput);
         CloseHandle(pinnedExe); Fail("CreateProcessW(CREATE_SUSPENDED) failed");
     }
     try {
@@ -804,6 +919,15 @@ void Launch(const fs::path& exePath, const fs::path& workingDirectory,
                 std::cout << "IN_MEMORY_PATCH_SET_VERIFIED operations=" << plan->operations.size()
                           << " reference_reconstruction_sha256=" << MR_REFERENCE_IMAGE_SHA256 << "\n";
         }
+        if (preflightOnly) {
+            if (!TerminateProcess(pi.hProcess, 0) || WaitForSingleObject(pi.hProcess, 10000) != WAIT_OBJECT_0)
+                Fail("cannot terminate suspended preflight process");
+            std::cout << "INTEGRATED_SUSPENDED_PREFLIGHT_PASS game_thread_resumed=false\n";
+            CloseHandle(pi.hThread); CloseHandle(pi.hProcess); CloseHandle(pinnedExe);
+            if (pinnedGraphicsProxy != INVALID_HANDLE_VALUE) CloseHandle(pinnedGraphicsProxy);
+            if (pinnedInput != INVALID_HANDLE_VALUE) CloseHandle(pinnedInput);
+            return;
+        }
         if (ResumeThread(pi.hThread) != 1)
             TerminateSuspended(pi, "ResumeThread failed");
         std::cout << "PROCESS_RESUMED mode=" << (plan ? "integrated" : "bootstrap-only") << "\n";
@@ -816,6 +940,7 @@ void Launch(const fs::path& exePath, const fs::path& workingDirectory,
         std::cout << "PROCESS_EXIT exit_code=" << exitCode << " retail_exe_sha256=" << MR_RETAIL_SHA256 << "\n";
         CloseHandle(pi.hThread); CloseHandle(pi.hProcess); CloseHandle(pinnedExe);
         if (pinnedGraphicsProxy != INVALID_HANDLE_VALUE) CloseHandle(pinnedGraphicsProxy);
+        if (pinnedInput != INVALID_HANDLE_VALUE) CloseHandle(pinnedInput);
     } catch (...) {
         if (pi.hProcess) {
             TerminateProcess(pi.hProcess, 0xE002);
@@ -824,6 +949,7 @@ void Launch(const fs::path& exePath, const fs::path& workingDirectory,
         if (pi.hThread) CloseHandle(pi.hThread);
         if (pi.hProcess) CloseHandle(pi.hProcess);
         if (pinnedGraphicsProxy != INVALID_HANDLE_VALUE) CloseHandle(pinnedGraphicsProxy);
+        if (pinnedInput != INVALID_HANDLE_VALUE) CloseHandle(pinnedInput);
         CloseHandle(pinnedExe);
         throw;
     }
@@ -832,18 +958,21 @@ void Launch(const fs::path& exePath, const fs::path& workingDirectory,
 void VerifyLaunchEnvironment(const fs::path& exePath) {
     HANDLE pinnedExe = OpenPinnedRetail(exePath);
     HANDLE pinnedGraphicsProxy = INVALID_HANDLE_VALUE;
+    HANDLE pinnedInput = INVALID_HANDLE_VALUE;
     try {
         if (HashHandle(pinnedExe) != MR_RETAIL_SHA256)
             Fail("pinned executable SHA256 mismatch");
-        pinnedGraphicsProxy = VerifyAdjacentWrappers(exePath);
+        pinnedGraphicsProxy = VerifyAdjacentWrappers(exePath, pinnedInput);
         std::cout << "LAUNCH_ENVIRONMENT_VERIFIED graphics_proxy="
                   << (pinnedGraphicsProxy == INVALID_HANDLE_VALUE ? "absent" : "pinned-d3d8") << "\n";
     } catch (...) {
         if (pinnedGraphicsProxy != INVALID_HANDLE_VALUE) CloseHandle(pinnedGraphicsProxy);
+        if (pinnedInput != INVALID_HANDLE_VALUE) CloseHandle(pinnedInput);
         CloseHandle(pinnedExe);
         throw;
     }
     if (pinnedGraphicsProxy != INVALID_HANDLE_VALUE) CloseHandle(pinnedGraphicsProxy);
+    if (pinnedInput != INVALID_HANDLE_VALUE) CloseHandle(pinnedInput);
     CloseHandle(pinnedExe);
 }
 
@@ -898,16 +1027,22 @@ int wmain(int argc, wchar_t** argv) {
     try {
         if (argc < 3) {
             std::wcerr << L"Usage:\n"
+                       << L"  mr-runtime-launcher --verify-roster-state <PlayerState.xml>\n"
                        << L"  mr-runtime-launcher --verify <retail-exe> <bundle>\n"
                        << L"  mr-runtime-launcher --verify-launch-environment <retail-exe> <bundle>\n"
                        << L"  mr-runtime-launcher --self-test-native-allocation <retail-exe> <bundle>\n"
                        << L"  mr-runtime-launcher --bootstrap-only <retail-exe>\n"
                        << L"  mr-runtime-launcher --canary-only <retail-exe> <bundle>\n"
-                       << L"  mr-runtime-launcher --integrated <retail-exe> <bundle>\n";
+                       << L"  mr-runtime-launcher --integrated <retail-exe> <bundle>\n"
+                       << L"  mr-runtime-launcher --preflight-suspended <retail-exe> <bundle>\n";
             return 2;
         }
         const std::wstring mode = argv[1];
         const fs::path exePath = fs::absolute(argv[2]);
+        if (mode==L"--verify-roster-state") {
+            if (argc!=3) Fail("--verify-roster-state accepts exactly one PlayerState XML path");
+            VerifyRosterState(exePath);return 0;
+        }
         if (mode == L"--bootstrap-only") {
             if (argc != 3) Fail("--bootstrap-only accepts exactly one executable path");
             FileHashEquals(exePath, MR_RETAIL_SHA256, "retail executable");
@@ -930,7 +1065,11 @@ int wmain(int argc, wchar_t** argv) {
             VerifyLaunchEnvironment(exePath);
             return 0;
         }
-        if (mode != L"--integrated" && mode != L"--canary-only") Fail("unknown launcher mode");
+        if (mode != L"--integrated" && mode != L"--canary-only" && mode != L"--preflight-suspended"
+#if defined(MR_ENABLE_SDK_BINDING_INPUT)
+            && mode != L"--preflight-sdk-binding"
+#endif
+            ) Fail("unknown launcher mode");
         auto plan = ParsePatchPlan(exePath, bundle / L"native-patch-ops.rvp", bundle / L"addon-plan.json");
         if (mode == L"--canary-only") {
             plan.operations.erase(std::remove_if(plan.operations.begin(), plan.operations.end(),
@@ -938,7 +1077,8 @@ int wmain(int argc, wchar_t** argv) {
             if (plan.operations.size() != 1) Fail("bundle must contain exactly one approved no-op canary");
             Launch(exePath, exePath.parent_path(), &plan);
         } else {
-            Launch(exePath, bundle / L"resource-root", &plan, &bundle);
+            Launch(exePath, bundle / L"resource-root", &plan, &bundle,
+                   mode == L"--preflight-sdk-binding" || mode == L"--preflight-suspended");
         }
         return 0;
     } catch (const std::exception& error) {
