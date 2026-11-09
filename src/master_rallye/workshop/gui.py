@@ -126,6 +126,7 @@ class WorkshopApp(AppearancePanels, AudioPanels, VehiclePanels, ShadowPanels, He
         row=ttk.Frame(materials);row.pack(fill='x');ttk.Button(row,text='Restore surface',command=self.restore_surface).pack(side='left',fill='x',expand=True);ttk.Button(row,text='Redo',command=self.redo).pack(side='left',fill='x',expand=True)
         self.original_capture=tk.BooleanVar();ttk.Checkbutton(materials,text='Before current edits (this version)',variable=self.original_capture,command=self.refresh).pack(anchor='w')
         texture_tab,texture_tab_page=scroll_page(tabs,padding=6);tabs.add(texture_tab_page,text='Texture Studio')
+        ttk.Button(texture_tab,text='Live 3D Texture Studio (Qt)',command=self.open_live_texture_studio).pack(fill='x',pady=4)
         self.texture_box=ttk.Combobox(texture_tab,textvariable=self.texture_name,state='readonly');self.texture_box.pack(fill='x');self.texture_box.bind('<<ComboboxSelected>>',lambda e:self.show_texture())
         ttk.Label(texture_tab,textvariable=self.texture_details,wraplength=330).pack(anchor='w',pady=3)
         self.usage_tree=ttk.Treeview(texture_tab,columns=('model','draw','slot'),show='headings',height=4)
@@ -395,6 +396,18 @@ class WorkshopApp(AppearancePanels, AudioPanels, VehiclePanels, ShadowPanels, He
             from master_rallye.dxt import parse_dxt_bytes
             return parse_dxt_bytes((self.project.baseline/self.texture_name.get()).read_bytes())
         return self.project.texture(self.texture_name.get())
+
+    def open_live_texture_studio(self):
+        if self.busy or self.project is None:
+            self.status.set('Open a vehicle and finish the current operation first');return
+        python=self.sdk_root/'.research-output/vehicles/workshop2/qt-env/Scripts/python.exe'
+        viewer=self.sdk_root/'.research-output/vehicles/v-tex2/viewer-build/Release/mr-vehicle-previewer.exe'
+        script=self.sdk_root/'tools/rally_workshop2.py'
+        if not all(path.is_file() for path in (python,viewer,script)):
+            self.status.set('Live Texture Studio needs the optional Qt environment and current viewer; see docs/sdk/V_TEX2_RESULTS.md');return
+        subprocess.Popen([str(python),str(script),'--workspace',str(self.workspace/'qt-textures'),
+                          '--viewer',str(viewer),'--vehicle',str(self.project.root)])
+        self.status.set('Opened the existing Qt editor in TEXTURES; current vehicle state is copied, originals retained')
 
     def detach_texture(self):
         if self.texture_popup and self.texture_popup.winfo_exists():self.texture_popup.lift();return

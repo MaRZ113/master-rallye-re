@@ -63,10 +63,10 @@ class UiAssetTests(unittest.TestCase):
             with zipfile.ZipFile(sma) as z:
                 with self.assertRaises(AddonValidationError):verify_ui_resources(root,addon,z)
 
-    def test_hash_selector_and_path_errors_fail_closed(self):
+    def test_selector_and_path_errors_fail_closed(self):
         with tempfile.TemporaryDirectory() as temp:
             root,addon,sma,cfg=self.fixture(Path(temp))
-            for mutation in ('sha','frame','escape','missing_role'):
+            for mutation in ('frame','escape','missing_role'):
                 c=copy.deepcopy(cfg);a=copy.deepcopy(addon)
                 if mutation=='sha':c['icons']['smallcarsheet']['sha256']='0'*64
                 if mutation=='frame':a['frontend']['smallcarsheet']['frame']=13
@@ -74,6 +74,18 @@ class UiAssetTests(unittest.TestCase):
                 if mutation=='missing_role':del c['icons']['smallcarsheet']
                 (root/'ui-assets.json').write_text(json.dumps(c))
                 with self.assertRaises((AddonValidationError,FileNotFoundError)):build_ui_assets(root,a,sma)
+
+    def test_author_png_hash_is_provenance_and_new_pixels_are_compiled(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root,addon,sma,cfg=self.fixture(Path(temp))
+            assets,before=build_ui_assets(root,addon,sma)
+            (root/'ui/icon.png').write_bytes(gtmat.png_from_rgba(8,4,bytes((200,20,10,255))*32))
+            changed,after=build_ui_assets(root,addon,sma)
+            self.assertNotEqual(assets,changed)
+            for role,row in after['roles'].items():
+                self.assertTrue(row['source_modified'])
+                self.assertEqual(row['declared_png_sha256'],cfg['icons'][role]['sha256'])
+                self.assertNotEqual(row['png_sha256'],row['declared_png_sha256'])
 
     def test_stock_policy_needs_no_sidecar(self):
         self.assertEqual(build_ui_assets(Path('does-not-exist'),{'frontend':{r:{'policy':'stock_frame'} for r in BANKS}},None),({},None))

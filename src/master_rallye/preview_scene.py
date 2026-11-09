@@ -226,9 +226,10 @@ def stage_vehicle(source:Path, output:Path, *, profile:Path|None=None):
     if embedded and instances:
         instances=[] # Exact source geometry already contains all four wheels.
     textures=[];texture_ids={};draws=[];points=[];reports=[];wheel_votes=[]
+    resolver=AssetResolver(source.parent)
     def texture(value):
         if value.strip().casefold()=='null':return -1
-        path=AssetResolver(source.parent).resolve_texture(value)
+        path=resolver.resolve_texture(value)
         if path is None:raise ValueError(f'missing referenced texture: {value}')
         key=str(path.resolve()).casefold()
         if key not in texture_ids:
@@ -266,6 +267,7 @@ def stage_vehicle(source:Path, output:Path, *, profile:Path|None=None):
                 if d.index_count==0:continue
                 if d.draw_index in selected_glass and cases[d.draw_index][1]!=selected_glass[d.draw_index]:continue
                 sem=MaterialSemantics.from_draw(d)
+                if d.texture_tuple[2].strip().casefold()!='null':warnings.append(f'draw {d.draw_index}: TEX2 binding is not emulated by this viewport; no substitute stage')
                 if len(d.texture_slots)!=3:raise ValueError('requires evidenced three texture slots')
                 flags=list(d.flags_0x20)
                 # (base mask bits & 3) must be retained separately from env capability.

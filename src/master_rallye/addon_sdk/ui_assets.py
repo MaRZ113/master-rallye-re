@@ -122,7 +122,8 @@ def build_ui_assets(root,addon,data_sma):
                 current=current/part
                 if current.is_symlink() or getattr(current,'is_junction',lambda:False)():raise AddonValidationError('linked UI path')
             raw=path.read_bytes()
-            if sha(raw)!=item['sha256']:raise AddonValidationError('UI PNG hash mismatch')
+            # Author PNGs are editable inputs. Record actual hashes in the build
+            # report; source manifest hashes are provenance, not an edit lock.
             original=archive_member(archive,prefix+'.dxb');bank=parse_bank(original)
             if bank['count']!=count or addon['frontend'][role]['frame']!=count:raise AddonValidationError('project_frame must append exactly one stock bank frame')
             newbank,name=append_frame(original,template)
@@ -146,7 +147,7 @@ def build_ui_assets(root,addon,data_sma):
             # A new frame must not retain the donor pixel identity/checksum.
             struct.pack_into('<I',pixels,8,zlib.crc32(pixels[20:])&0xffffffff)
             assets[prefix+'.dxb']=newbank;assets[frame_path]=bytes(pixels)
-            report['roles'][role]={'frame':count,'template':template,'dimensions':list(size),'png_sha256':sha(raw),
+            report['roles'][role]={'frame':count,'template':template,'dimensions':list(size),'png_sha256':sha(raw),'declared_png_sha256':item['sha256'],'source_modified':sha(raw)!=item['sha256'],
                 'stock_bank_sha256':sha(original),'bank_path':prefix+'.dxb','frame_path':frame_path,
                 'bank_sha256':sha(newbank),'frame_sha256':sha(assets[frame_path]),'stock_records_byte_identical':True}
             if bounds:report['roles'][role]['alignment']={'method':'stock template alpha bounds','target_bounds':list(bounds),'output_bounds':list(alpha_bounds((*size,rgba)))}

@@ -1,7 +1,7 @@
 """Optional Qt Widgets vertical slice. Legacy Tk remains supported.
 
-The existing D3D9 viewer is a coordinated external window, not an embedded Qt
-renderer. Capture previews are cached. No game or runtime installer is started.
+Source-geometry capture previews remain cached; native Texture Studio embeds
+the existing D3D9 viewer. No game or runtime installer is started.
 """
 from pathlib import Path
 import copy
@@ -106,6 +106,13 @@ class Editor(W.QMainWindow):
         self.button(ml,'Author Glow on selected faces',self.glow)
         self.button(ml,'Remove selected Glow',lambda:self.edit({'op':'remove_glow','faces':self.face_ids()}))
         ml.addWidget(W.QLabel('MR authoring replaces donor effects intentionally.\nSource Fidelity remains separate.\nGlass role does not invent damage zones.'));ml.addStretch()
+        from .qt_textures import TextureStudio
+        layout.removeWidget(split)
+        self.workspaces=W.QTabWidget();layout.addWidget(self.workspaces,1)
+        self.workspaces.addTab(split,'GEOMETRY / MATERIALS')
+        self.textures=TextureStudio(self);self.workspaces.addTab(self.textures,'TEXTURES')
+        textures_action=self.menuBar().addMenu('Vehicle')
+        textures_action.addAction('Open in Texture Studio…',self.open_textures)
         footer=W.QHBoxLayout();self.progress=W.QProgressBar();self.progress.setRange(0,1);footer.addWidget(self.progress)
         self.status=W.QLabel('Ready — original files stay immutable');footer.addWidget(self.status,1)
         cancel=W.QPushButton('Cancel');cancel.clicked.connect(self.cancel);footer.addWidget(cancel);layout.addLayout(footer)
@@ -147,6 +154,8 @@ class Editor(W.QMainWindow):
     def open_source(self):
         path,_=W.QFileDialog.getOpenFileName(self,'Immutable UVS scene','','Source scene (scene.json)')
         if path:self.load_path(Path(path))
+    def open_textures(self):
+        self.workspaces.setCurrentWidget(self.textures);self.textures.open_vehicle()
     def open_edit(self):
         path,_=W.QFileDialog.getOpenFileName(self,'Editable vehicle project',str(self.workspace),'Editable project (*.json)')
         if path:self.load_path(Path(path),editable=True)
@@ -299,12 +308,16 @@ class Editor(W.QMainWindow):
     def view_changed(self,*unused):
         self.cancel();self.photo=None;self.image.setPixmap(QtGui.QPixmap());self.image.setText('Camera changed — Preview reuses geometry and renders the selected view.')
     def undo(self):
+        if self.workspaces.currentWidget() is self.textures:return self.textures.guard(self.textures.undo)
         if self.project and not self.task:self.project.undo();self.refresh()
     def redo(self):
+        if self.workspaces.currentWidget() is self.textures:return self.textures.guard(self.textures.redo)
         if self.project and not self.task:self.project.redo();self.refresh()
     def restore(self):
+        if self.workspaces.currentWidget() is self.textures:return self.textures.guard(self.textures.restore)
         if self.project and not self.task:self.project.restore();self.refresh()
     def save(self):
+        if self.workspaces.currentWidget() is self.textures:return self.textures.guard(self.textures.save_livery)
         if not self.project:return
         if self.task:self.status.setText('Wait or cancel before saving');return
         name=str(self.path)if self.path else W.QFileDialog.getSaveFileName(self,'Save derived project',str(self.workspace/'vehicle.edit.json'),'Editable project (*.json)')[0]
@@ -312,6 +325,7 @@ class Editor(W.QMainWindow):
             try:self.project.save(Path(name));self.path=Path(name);self.status.setText('Derived journal saved atomically')
             except Exception as error:self.status.setText(str(error))
     def preview(self,*,refresh=False):
+        if self.workspaces.currentWidget() is self.textures:return self.textures.guard(self.textures.reload_png)
         if not self.project:return
         scene=self.project.evaluate();root=Path(self.project.document['source_path']).parent;view=self.view.currentText()
         def work(task):
@@ -384,6 +398,7 @@ class Editor(W.QMainWindow):
             capture,hit=value;self.photo=QtGui.QPixmap(str(capture));self.fit_image();self.status.setText(f'Native MR material preview · brake {brake} · cache {hit} · D3D8 NOT TESTED')
         self.run('Native material preview',work,done)
     def closeEvent(self,event):
+        self.textures.stop()
         self.cancel();self.generation+=1
         if self.process and self.process.poll()is None:self.process.terminate()
         event.accept()
@@ -391,8 +406,10 @@ class Editor(W.QMainWindow):
 
 def main(argv=None):
     import argparse
-    p=argparse.ArgumentParser();p.add_argument('--workspace',type=Path,required=True);p.add_argument('--viewer',type=Path,required=True);p.add_argument('--source',type=Path)
+    p=argparse.ArgumentParser();p.add_argument('--workspace',type=Path,required=True);p.add_argument('--viewer',type=Path,required=True);p.add_argument('--source',type=Path);p.add_argument('--vehicle',type=Path)
     args=p.parse_args(argv);app=W.QApplication.instance()or W.QApplication([]);app.setStyle('Fusion')
     window=Editor(args.workspace,args.viewer);window.show()
     if args.source:window.load_path(args.source)
+    if args.vehicle:
+        window.workspaces.setCurrentWidget(window.textures);window.textures.load_vehicle(args.vehicle,args.vehicle.name=='livery.json')
     return app.exec()

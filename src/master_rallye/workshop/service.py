@@ -481,12 +481,14 @@ class WorkshopProject(AudioAuthoring,VehicleAuthoring,AudioImportAuthoring,GTAud
             pixels[offset::4]=bytes(min(255,round(v*gain)) for v in pixels[offset::4])
         self._record();self._apply(name,bytes(pixels),{'operation':'rgb-multiply','rgb':list(rgb),'alpha':'preserved','scope':'whole texture including any baked decals'})
 
-    def replace_png(self,name,path):
+    def replace_png(self,name,path,*,preserve_original_alpha=False):
         self.verify_inputs();template=parse_dxt_bytes(_owned(self.baseline,name).read_bytes());raw=Path(path).read_bytes()
         w,h,rgba=decode_rgba_png(raw)
         if (w,h)!=(template.width,template.height):raise ValueError('Replacement must retain source dimensions')
         native=encode_dxt_pixels(template,rgba,w,h,row_policy=PNG_ROWS_FLIP_VERTICAL)
-        self._record();self._apply(name,native[20:],{'operation':'png-replace','input_sha256':sha(raw),'input_name':Path(path).name,'alpha':'user-supplied'})
+        pixels=bytearray(native[20:])
+        if preserve_original_alpha:pixels[3::4]=template.bgra[3::4]
+        self._record();self._apply(name,bytes(pixels),{'operation':'png-replace','input_sha256':sha(raw),'input_name':Path(path).name,'alpha':'original-preserved' if preserve_original_alpha else 'user-supplied'})
 
     def _apply(self,name,pixels,recipe):
         texture=parse_dxt_bytes(_owned(self.baseline,name).read_bytes())

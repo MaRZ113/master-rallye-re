@@ -447,12 +447,17 @@ class VehicleAuthoring(CameraLabAuthoring,FrontendAuthoring,MarkerAuthoring):
             path=plain_tree(entry['png'])
             if not path.resolve().is_relative_to((self.root/'generated-art').resolve()):raise ValueError('Art must come from this project generation')
             raw=path.read_bytes();w,h,_=decode_rgba_png(raw)
-            if (w,h)!=BANKS[role][3] or sha(raw)!=entry['sha256']:raise ValueError('Generated art dimensions/hash changed')
+            if (w,h)!=BANKS[role][3]:raise ValueError('Generated art dimensions changed')
             if entry['source_model_sha256']!=sha((self.assets/entry['source_model']).read_bytes()):raise ValueError('Art source changed; regenerate before Apply')
             source=plain_tree(entry['source_png'])
             if not source.resolve().is_relative_to((self.root/'generated-art').resolve()):raise ValueError('Art source outside owned generation')
             input_raw=source.read_bytes()
-            if sha(input_raw)!=entry['input_sha256'] or compose_preview(decode_rgba_png(input_raw),role,style=entry.get('profile','mr-native-v1'))[0]!=decode_rgba_png(raw)[2]:raise ValueError('Generated preview does not match canonical single-pass composition')
+            canonical=compose_preview(decode_rgba_png(input_raw),role,style=entry.get('profile','mr-native-v1'))[0]
+            if sha(input_raw)!=entry['input_sha256'] or canonical!=decode_rgba_png(raw)[2] or sha(raw)!=entry['sha256']:
+                # An author may retouch generated native artwork externally.
+                # Pin the final pixels directly, avoiding a second composition.
+                entry=copy.deepcopy(entry);input_raw=raw
+                entry.update(input_sha256=sha(raw),sha256=sha(raw),profile='source-pixels-v1',origin='Custom',historical_original=False,externally_edited=True)
             write_resource(pins/(sha(input_raw)+'.png'),input_raw);state['art'][role]=copy.deepcopy(entry)
         self._vehicle_commit(state)
 
