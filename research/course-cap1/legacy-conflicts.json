@@ -1,0 +1,129 @@
+{
+  "schema": "mr-course-vehicle-conflicts/1",
+  "legacy_source": "tools/patch_invitation_entries.py current owner WIP, read-only",
+  "legacy_change_count": 19,
+  "overlaps": [
+    {
+      "course": {
+        "va": "0x45A3E0",
+        "original": "000c0000",
+        "replacement": "580c0000",
+        "purpose": "registry allocation 0xC00 -> 0xC58 (41 race records)"
+      },
+      "vehicle_operation": "collection_delta_065",
+      "vehicle_file_offset": 369632
+    },
+    {
+      "course": {
+        "va": "0x68E384",
+        "original": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "replacement": "e8a7bfdcff6aff6aff518bcc68a0d46a00e8362ee4ff6a006a006a006a026a036a006a278d8e000c0000e87dbfdcff6aff6aff518bcc68c0d46a00e80c2ee4ff6a006a006a006a026a046a006a288d8e2c0c0000e853bfdcffe9fabbdcff",
+        "purpose": "register Race IDs 39, 40 (code cave)"
+      },
+      "vehicle_operation": "collection_delta_128",
+      "vehicle_file_offset": 2679688
+    },
+    {
+      "course": {
+        "va": "0x68E384",
+        "original": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "replacement": "e8a7bfdcff6aff6aff518bcc68a0d46a00e8362ee4ff6a006a006a006a026a036a006a278d8e000c0000e87dbfdcff6aff6aff518bcc68c0d46a00e80c2ee4ff6a006a006a006a026a046a006a288d8e2c0c0000e853bfdcffe9fabbdcff",
+        "purpose": "register Race IDs 39, 40 (code cave)"
+      },
+      "vehicle_operation": "collection_delta_129",
+      "vehicle_file_offset": 2679695
+    },
+    {
+      "course": {
+        "va": "0x68E384",
+        "original": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "replacement": "e8a7bfdcff6aff6aff518bcc68a0d46a00e8362ee4ff6a006a006a006a026a036a006a278d8e000c0000e87dbfdcff6aff6aff518bcc68c0d46a00e80c2ee4ff6a006a006a006a026a046a006a288d8e2c0c0000e853bfdcffe9fabbdcff",
+        "purpose": "register Race IDs 39, 40 (code cave)"
+      },
+      "vehicle_operation": "collection_delta_130",
+      "vehicle_file_offset": 2679734
+    },
+    {
+      "course": {
+        "va": "0x68E384",
+        "original": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "replacement": "e8a7bfdcff6aff6aff518bcc68a0d46a00e8362ee4ff6a006a006a006a026a036a006a278d8e000c0000e87dbfdcff6aff6aff518bcc68c0d46a00e80c2ee4ff6a006a006a006a026a046a006a288d8e2c0c0000e853bfdcffe9fabbdcff",
+        "purpose": "register Race IDs 39, 40 (code cave)"
+      },
+      "vehicle_operation": "collection_delta_131",
+      "vehicle_file_offset": 2679740
+    },
+    {
+      "course": {
+        "va": "0x68E384",
+        "original": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "replacement": "e8a7bfdcff6aff6aff518bcc68a0d46a00e8362ee4ff6a006a006a006a026a036a006a278d8e000c0000e87dbfdcff6aff6aff518bcc68c0d46a00e80c2ee4ff6a006a006a006a026a046a006a288d8e2c0c0000e853bfdcffe9fabbdcff",
+        "purpose": "register Race IDs 39, 40 (code cave)"
+      },
+      "vehicle_operation": "collection_delta_132",
+      "vehicle_file_offset": 2679760
+    },
+    {
+      "course": {
+        "va": "0x68E3E4",
+        "original": "000000000000000000000000000000000000000000000000000000",
+        "replacement": "837c2404277e08c7442404260000006aff68e8b86800e9081ce2ff",
+        "purpose": "BestTime read guard: race 40 reads race 38 (code cave)"
+      },
+      "vehicle_operation": "collection_delta_133",
+      "vehicle_file_offset": 2679782
+    },
+    {
+      "course": {
+        "va": "0x68E3E4",
+        "original": "000000000000000000000000000000000000000000000000000000",
+        "replacement": "837c2404277e08c7442404260000006aff68e8b86800e9081ce2ff",
+        "purpose": "BestTime read guard: race 40 reads race 38 (code cave)"
+      },
+      "vehicle_operation": "collection_delta_134",
+      "vehicle_file_offset": 2679788
+    },
+    {
+      "course": {
+        "va": "0x68EFC0",
+        "original": "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "replacement": "85ff0f8eabc4dcff83ff030f8fa2c4dcff83fb030f8d99c4dcffe95dc4dcff008d340383fe267e065be91dc5dcff56e81c13e2ffe987c4dcff",
+        "purpose": "progress skip for stages 4/5 (code cave)"
+      },
+      "vehicle_operation": "collection_delta_262",
+      "vehicle_file_offset": 2682790
+    },
+    {
+      "course": {
+        "va": "0x68EFC0",
+        "original": "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "replacement": "85ff0f8eabc4dcff83ff030f8fa2c4dcff83fb030f8d99c4dcffe95dc4dcff008d340383fe267e065be91dc5dcff56e81c13e2ffe987c4dcff",
+        "purpose": "progress skip for stages 4/5 (code cave)"
+      },
+      "vehicle_operation": "collection_delta_263",
+      "vehicle_file_offset": 2682825
+    },
+    {
+      "course": {
+        "va": "0x68EFC0",
+        "original": "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "replacement": "85ff0f8eabc4dcff83ff030f8fa2c4dcff83fb030f8d99c4dcffe95dc4dcff008d340383fe267e065be91dc5dcff56e81c13e2ffe987c4dcff",
+        "purpose": "progress skip for stages 4/5 (code cave)"
+      },
+      "vehicle_operation": "collection_delta_264",
+      "vehicle_file_offset": 2682865
+    },
+    {
+      "course": {
+        "va": "0x464F69",
+        "original": "68841f6b00",
+        "replacement": "e9d8ffffff",
+        "purpose": "Loading media check failure reuses the Race/Starter success path (no forced AttractMode)"
+      },
+      "vehicle_operation": "collection_delta_072",
+      "vehicle_file_offset": 413545
+    }
+  ],
+  "policy": "Do not sequentially layer the legacy five-stage patch on V-CAP3; compose shared owners before runtime qualification",
+  "installed": false
+}
