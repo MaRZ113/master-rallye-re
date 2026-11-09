@@ -1,8 +1,18 @@
 #define RMOD_EXTRA_OPTIONS 1
 #include "../../src/native/rmod1/runtime_core.cpp"
 #include <iostream>
+#include <random>
 using namespace rmod1;
 int main(){
+    g_registry_shuffle_draw=[](int n){return n-1;};
+    std::unordered_set<int> old_draws,new_draws;
+    for(unsigned seed=0;seed<2048;++seed) {
+        std::mt19937 rng(seed);std::vector<int> original{7,8,9,10,11,12,13,27,28,29,30,31,33,34};
+        auto cycle=[&](std::vector<int>& a){for(size_t i=1;i<a.size();++i)std::swap(a[i],a[rng()%i]);};
+        auto old=original;cycle(old);old_draws.insert(old.back());
+        auto fixed=original;unbias_rebuilt_ai_pool(fixed,[&](int n){return int(rng()%unsigned(n));});cycle(fixed);new_draws.insert(fixed.back());
+    }
+    if(old_draws.count(34)||!old_draws.count(33)||new_draws.size()!=14)return 11;
     std::vector<uint32_t> classes(513,1);
     mr_vehicle_registry::DescriptorV1 registry{{'M','R','V','C'},1,44,513,52,3,0x45a3c0,0x1000,0x1010,
         static_cast<uint32_t>(reinterpret_cast<uintptr_t>(classes.data())),0x1020};
@@ -33,6 +43,6 @@ int main(){
     std::vector<int> stock{7,33,34};uint32_t v[4]{0,unsigned(reinterpret_cast<uintptr_t>(stock.data())),unsigned(reinterpret_cast<uintptr_t>(stock.data()+3)),unsigned(reinterpret_cast<uintptr_t>(stock.data()+3))};
     if(!MRFilterAiPoolV1(0,1,v)||v[2]-v[1]!=12||stock[1]!=33)return 9;
     SetEnvironmentVariableW(L"MR_VEHICLE_REGISTRY_DESCRIPTOR",nullptr);
-    std::cout<<"REGISTRY_AI_POOL_PASS production callback, live class identity, Include0/1, independent IDs33/34 and boundaries127/128/254/255/256/512, Invitation eligibility\n";
+    std::cout<<"REGISTRY_AI_POOL_PASS production callback, classes, Include0/1, boundaries, Invitation; 2048 seeded cycles reproduce last-ID starvation and all14 candidates reachable after correction\n";
     return 0;
 }

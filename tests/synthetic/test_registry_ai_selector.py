@@ -30,7 +30,7 @@ class RegistrySelector(unittest.TestCase):
                     for reg in (AX,CX,DX):uc.reg_write(reg,0xdeadbeef)
                     uc.reg_write(FLAGS,0x246);uc.reg_write(SP,cur+16);uc.reg_write(IP,ret)
                 u.hook_add(UC_HOOK_CODE,callback);u.emu_start(labels['pool_end'],labels['unfiltered_pool_end'],count=200)
-                self.assertEqual(len(calls),int(marker!=0));self.assertEqual(u.reg_read(SP),sp)
+                self.assertEqual(len(calls),1);self.assertEqual(u.reg_read(SP),sp)
                 for reg,value in saved.items():self.assertEqual(u.reg_read(reg),value)
 
 if __name__=='__main__':unittest.main()

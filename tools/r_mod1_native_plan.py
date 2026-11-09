@@ -266,7 +266,10 @@ def make_rmod1_selector(spec: dict[str, Any]) -> tuple[bytes, dict[str, int]]:
             # register/flag and the existing participant-exclusion machinery.
             a=CodeBuilder(spec['base']+len(blob));a.emit('9c')
             a.emit(bytes((0x83,0x7c,0x24,spec['marker']+4,0xff)));a.branch('0f84','filter')
-            a.emit(bytes((0x83,0x7c,0x24,spec['marker']+4,0xfe)));a.branch('0f85','done')
+            a.emit(bytes((0x83,0x7c,0x24,spec['marker']+4,0xfe)));a.branch('0f84','filter')
+            # Observe Stock too, but the callback preserves its pool/order
+            # unless the existing extended selector rebuilt it per AI slot.
+            a.emit(bytes((0x83,0x7c,0x24,spec['marker']+4,0)));a.branch('0f85','done')
             a.label('filter');a.emit('60')
             a.emit(bytes((0x8d,0x44,0x24,spec['primary']+36))+b'\x50')
             a.emit(b'\xff\xb4\x24'+struct.pack('<I',spec['cls']+40))

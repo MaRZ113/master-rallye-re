@@ -40,6 +40,10 @@ ChallengeSelection g_challenge;
 std::vector<RegisteredAddon> g_registered;
 std::vector<uint32_t> g_registry_classes;
 std::vector<Vehicle> g_generation_pool;
+struct AiPoolObservation { int cls; std::vector<int> before,after; };
+std::vector<AiPoolObservation> g_ai_observations;
+int g_generation_ai_count=0;
+bool g_quick_report_pending=false;
 std::uint32_t g_challenge_human_offset=0x570;
 #endif
 int runtime_class(int id) {
@@ -204,6 +208,9 @@ int native_draw(int upper) {
     auto singleton = native<NativeSingleton>(0x004D1E90)();
     return native<NativeRange>(0x004D1DF0)(singleton, 0, upper);
 }
+#if defined(RMOD_EXTRA_OPTIONS)
+int (*g_registry_shuffle_draw)(int)=native_draw;
+#endif
 
 std::uint8_t reward_mask() {
     std::uint8_t mask = 0;
@@ -347,6 +354,18 @@ int native_car_id(GameMode mode, int slot) {
     return native<NativeGetSlot>(0x004B0630)(object, slot);
 }
 
+#if defined(RMOD_EXTRA_OPTIONS)
+bool read_final_quick_roster(int& player,std::vector<int>& ai) {
+    void* race=race_state();if(!race)return false;
+    const int count=native<NativeGetObjectInteger>(0x004AC040)(race);
+    if(count<1||count>8)return false;
+    player=native_car_id(GameMode::QuickRace,0);
+    for(int i=1;i<count;++i)ai.push_back(native_car_id(GameMode::QuickRace,i));
+    return true;
+}
+bool (*g_final_roster_reader)(int&,std::vector<int>&)=read_final_quick_roster;
+void (*g_final_roster_sink)(const char*)=append_runtime_log;
+#endif
 GameMode resolve_roster_mode(int hint) {
     void* race = race_state();
     if (!race) return GameMode::Unknown;
@@ -676,6 +695,9 @@ extern "C" __declspec(dllexport) int WINAPI MRChooseClassV1(
     }
 
     const Config snapshot = g_generation_config;
+#if defined(RMOD_EXTRA_OPTIONS)
+    g_generation_ai_count=count;
+#endif
     if (mode == GameMode::QuickRace) {
         const auto count_plan = plan_quick_race(2, static_cast<unsigned>(count), false, snapshot);
         if (!count_plan.allowed) {
@@ -733,7 +755,8 @@ extern "C" __declspec(dllexport) DWORD WINAPI MRFilterAiPoolV1(int hint,int cls,
         const bool owner=(hint==0&&mode==GameMode::QuickRace)||(hint==4&&mode==GameMode::MasterRallye)||
             (hint==2&&(mode==GameMode::RallyeCup||mode==GameMode::Invitation));
         if(!owner||cls<0||cls>2||g_generation_pool.empty())return 0;
-        if(policy_for_mode(g_generation_config,mode)==Policy::Stock)return 1;
+        const bool stock=policy_for_mode(g_generation_config,mode)==Policy::Stock;
+        const bool rebuild=!stock||(mode==GameMode::QuickRace&&g_generation_ai_count>int(kNativeAiMaximum));
         std::array<uint32_t,4> descriptor{};SIZE_T read=0;
         if(!vector||!ReadProcessMemory(GetCurrentProcess(),vector,descriptor.data(),sizeof(descriptor),&read)||read!=sizeof(descriptor))return 0;
         const uint32_t first=descriptor[1],last=descriptor[2],capacity=descriptor[3];
@@ -741,7 +764,10 @@ extern "C" __declspec(dllexport) DWORD WINAPI MRFilterAiPoolV1(int hint,int cls,
            (last-first)/4>25+g_registered.size())return 0;
         std::vector<int> ids((last-first)/4);
         if(!ids.empty()&&(!ReadProcessMemory(GetCurrentProcess(),reinterpret_cast<void*>(uintptr_t(first)),ids.data(),last-first,&read)||read!=last-first))return 0;
-        const auto filtered=filter_registry_ai_pool(ids,g_generation_pool,cls);
+        auto filtered=stock?ids:filter_registry_ai_pool(ids,g_generation_pool,cls);
+        if(g_generation_config.logging_enabled&&g_ai_observations.size()<8&&
+           std::none_of(g_ai_observations.begin(),g_ai_observations.end(),[&](const AiPoolObservation& p){return p.cls==cls&&p.before==ids&&p.after==filtered;}))g_ai_observations.push_back({cls,ids,filtered});
+        if(rebuild)unbias_rebuilt_ai_pool(filtered,g_registry_shuffle_draw);
         SIZE_T written=0;const auto bytes=filtered.size()*sizeof(int);
         if(bytes&&(!WriteProcessMemory(GetCurrentProcess(),reinterpret_cast<void*>(uintptr_t(first)),filtered.data(),bytes,&written)||written!=bytes))return 0;
         const uint32_t end=first+static_cast<uint32_t>(bytes);
@@ -749,14 +775,6 @@ extern "C" __declspec(dllexport) DWORD WINAPI MRFilterAiPoolV1(int hint,int cls,
         if(!WriteProcessMemory(GetCurrentProcess(),end_field,&end,sizeof(end),&written)||written!=sizeof(end)) {
             if(!ids.empty())WriteProcessMemory(GetCurrentProcess(),reinterpret_cast<void*>(uintptr_t(first)),ids.data(),last-first,&written);
             return 0;
-        }
-        if(g_generation_config.logging_enabled) {
-            std::string message="AI_REGISTRY_POOL generation="+std::to_string(g_generation_id)+" class="+std::to_string(cls)+
-                " registered="+std::to_string(g_registered.size())+" include="+std::to_string(g_generation_config.addons==AddonMode::RegisteredOnly)+
-                " native="+std::to_string(ids.size())+" eligible="+std::to_string(filtered.size())+" ids=";
-            for(size_t i=0;i<filtered.size()&&i<64;++i)message+=(i?",":"")+std::to_string(filtered[i]);
-            if(filtered.size()>64)message+="...";
-            append_runtime_log(message.c_str());
         }
         return 1;
     }catch(...){return 0;}
@@ -1006,6 +1024,30 @@ extern "C" __declspec(dllexport) void WINAPI MRSetStartPhaseV1(DWORD phase) {
     if (phase == static_cast<DWORD>(StartPhaseV1::NativeSetupEntered) ||
         phase == static_cast<DWORD>(StartPhaseV1::NativeSetupReturned)) {
         InterlockedExchange(&g_start_phase, static_cast<LONG>(phase));
+#if defined(RMOD_EXTRA_OPTIONS)
+        try {
+            ExclusiveGuard guard(&g_lock);
+            if(phase==static_cast<DWORD>(StartPhaseV1::NativeSetupEntered)) {
+                g_quick_report_pending=true;g_ai_observations.clear();
+            }else if(g_quick_report_pending) {
+                g_quick_report_pending=false;
+                if(!g_generation_config.logging_enabled)return;
+                int player=-1;std::vector<int> ai;
+                if(!g_final_roster_reader(player,ai)){g_final_roster_sink("AI_ROSTER_FINAL unavailable=invalid-native-snapshot");return;}
+                const auto policy=policy_for_mode(g_generation_config,GameMode::QuickRace);
+                const auto list=[](const std::vector<int>& ids){std::string s="[";for(size_t i=0;i<ids.size()&&i<64;++i)s+=(i?",":"")+std::to_string(ids[i]);if(ids.size()>64)s+=",...count="+std::to_string(ids.size());return s+"]";};
+                std::string line="AI_ROSTER_FINAL stage=native-setup-return generation="+std::to_string(g_generation_id)+" policy="+policy_name(policy)+" player="+std::to_string(player)+" ai="+list(ai);
+                for(const auto& pool:g_ai_observations)line+=" pool(class="+std::to_string(pool.cls)+",before="+list(pool.before)+",after="+list(pool.after)+")";
+                for(const auto& row:g_registered) {
+                    bool before=false,after=false;for(const auto& pool:g_ai_observations){before|=std::find(pool.before.begin(),pool.before.end(),row.physical_id)!=pool.before.end();after|=std::find(pool.after.begin(),pool.after.end(),row.physical_id)!=pool.after.end();}
+                    const bool chosen=std::find(ai.begin(),ai.end(),row.physical_id)!=ai.end();
+                    const char* reason=row.physical_id==player?"human-excluded":chosen?"selected":!before?"outside-observed-native-pool":!after?"policy-ineligible":"eligible-not-drawn";
+                    line+=" addon="+std::to_string(row.physical_id)+":"+reason;
+                }
+                g_final_roster_sink(line.c_str());
+            }
+        }catch(...){append_runtime_log("AI_ROSTER_FINAL unavailable=read-error");}
+#endif
     }
 }
 
