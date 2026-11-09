@@ -68,7 +68,9 @@ def validate_manifest(doc, baseline):
 def identity_contract(catalog):
     """Stable routes/identities; intentionally no texture/artwork hashes."""
     value={'courses':sorted((c['key'],c['folder'],c['model']) for c in catalog['courses']),
-           'races':[(r['id'],r['course'],r['scene'],r['icont'],r['native_fields']) for r in catalog['races']],
+           # +C localized caption is visual. Artwork has its own mapping;
+           # the retail image publisher actually reads +4 (the RaceID).
+           'races':[(r['id'],r['course'],r['scene'],r['icont'],r['native_fields'][:2]+r['native_fields'][3:]) for r in catalog['races']],
            'competitions':catalog.get('competitions',[])}
     return hashlib.sha256(json.dumps(value,sort_keys=True,separators=(',',':')).encode()).hexdigest()
 
