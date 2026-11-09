@@ -67,9 +67,11 @@ region change is rejected. Five source
 integration tests for the accepted Renderer build workflow also passed.
 
 The actual 34-record runtime produced a private proxy and core under
-`.research-output/extra-set1/v-cap2-candidate34-03`; its `capacity-build.json`
-records source/runtime hashes, all 263 SDK checks, two composed Challenge hooks
-and the exported ABI. These are offline/native harness results, not gameplay
+`.research-output/extra-set1/v-cap2-candidate34-final`; its `capacity-build.json`
+records source/runtime hashes, all 265 SDK checks, two composed Challenge hooks
+and the exported ABI. The final source/build manifest also records the exact
+source commit, build command and focused native-test evidence. Its two mutable
+pages are at extension offsets 278528 and 385024, each 4096 bytes. These are offline/native harness results, not gameplay
 qualification. Rebuild after changing the composite SDK profile.
 
 Example (run from this worktree, with the existing local `pefile` dependency):
