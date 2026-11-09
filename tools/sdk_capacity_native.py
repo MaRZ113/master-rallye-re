@@ -16,6 +16,12 @@ import addon_collection_runtime as collection
 registry = i0.registry
 
 
+def extend_capacity_profile(source, parent_image, parent_extension, profile, records, **kwargs):
+    """V-CAP opt-in core. Legacy extend_image and SDK33 admission are unchanged."""
+    from sdk_capacity_configurable import build_core
+    return build_core(source,parent_image,parent_extension,profile,records,**kwargs)
+
+
 def validate_rows(rows):
     """Validate resolved rows through the ordinary SDK authorship schema."""
     for row in rows:

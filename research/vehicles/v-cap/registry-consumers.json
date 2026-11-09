@@ -1,0 +1,456 @@
+{
+  "source_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "evidence_id": "ev_2711dabefe1784a932e1bc605776157700563386b0441366643c9140655ed702",
+  "provider": "Ghidra12.1.4 through REA",
+  "direct_getter_callers": [
+    {
+      "address": "0x449020",
+      "symbol": "FUN_00449020",
+      "body": [
+        {
+          "start": "0x449020",
+          "end": "0x4490f2"
+        }
+      ],
+      "role": "general initialization",
+      "role_evidence": "analyst classification from current decompilation and existing native traces",
+      "getter_reference_confirmed": true
+    },
+    {
+      "address": "0x449380",
+      "symbol": "FUN_00449380",
+      "body": [
+        {
+          "start": "0x449380",
+          "end": "0x449a26"
+        }
+      ],
+      "role": "command-line/startup composition",
+      "role_evidence": "analyst classification from current decompilation and existing native traces",
+      "getter_reference_confirmed": true
+    },
+    {
+      "address": "0x449a50",
+      "symbol": "FUN_00449a50",
+      "body": [
+        {
+          "start": "0x449a50",
+          "end": "0x449cd7"
+        }
+      ],
+      "role": "RaceTest mode selection",
+      "role_evidence": "analyst classification from current decompilation and existing native traces",
+      "getter_reference_confirmed": true
+    },
+    {
+      "address": "0x44a510",
+      "symbol": "FUN_0044a510",
+      "body": [
+        {
+          "start": "0x44a510",
+          "end": "0x44a701"
+        }
+      ],
+      "role": "race actor family/colour",
+      "role_evidence": "analyst classification from current decompilation and existing native traces",
+      "getter_reference_confirmed": true
+    },
+    {
+      "address": "0x44a710",
+      "symbol": "FUN_0044a710",
+      "body": [
+        {
+          "start": "0x44a710",
+          "end": "0x44a8d9"
+        }
+      ],
+      "role": "race actor family/colour variant",
+      "role_evidence": "analyst classification from current decompilation and existing native traces",
+      "getter_reference_confirmed": true
+    },
+    {
+      "address": "0x44a8e0",
+      "symbol": "FUN_0044a8e0",
+      "body": [
+        {
+          "start": "0x44a8e0",
+          "end": "0x44b526"
+        }
+      ],
+      "role": "network participant actor composition",
+      "role_evidence": "analyst classification from current decompilation and existing native traces",
+      "getter_reference_confirmed": true
+    },
+    {
+      "address": "0x44b530",
+      "symbol": "FUN_0044b530",
+      "body": [
+        {
+          "start": "0x44b530",
+          "end": "0x44b595"
+        }
+      ],
+      "role": "indirect/common registry getter caller",
+      "role_evidence": "analyst classification from current decompilation and existing native traces",
+      "getter_reference_confirmed": true
+    },
+    {
+      "address": "0x44c780",
+      "symbol": "FUN_0044c780",
+      "body": [
+        {
+          "start": "0x44c780",
+          "end": "0x44cf67"
+        }
+      ],
+      "role": "front suspension tuning",
+      "role_evidence": "analyst classification from current decompilation and existing native traces",
+      "getter_reference_confirmed": true
+    },
+    {
+      "address": "0x44cf70",
+      "symbol": "FUN_0044cf70",
+      "body": [
+        {
+          "start": "0x44cf70",
+          "end": "0x44d717"
+        }
+      ],
+      "role": "rear suspension tuning",
+      "role_evidence": "analyst classification from current decompilation and existing native traces",
+      "getter_reference_confirmed": true
+    },
+    {
+      "address": "0x44d720",
+      "symbol": "FUN_0044d720",
+      "body": [
+        {
+          "start": "0x44d720",
+          "end": "0x44de7c"
+        }
+      ],
+      "role": "engine/tuning family",
+      "role_evidence": "analyst classification from current decompilation and existing native traces",
+      "getter_reference_confirmed": true
+    },
+    {
+      "address": "0x44de80",
+      "symbol": "FUN_0044de80",
+      "body": [
+        {
+          "start": "0x44de80",
+          "end": "0x44e3f5"
+        }
+      ],
+      "role": "gearbox tuning family",
+      "role_evidence": "analyst classification from current decompilation and existing native traces",
+      "getter_reference_confirmed": true
+    },
+    {
+      "address": "0x44e400",
+      "symbol": "FUN_0044e400",
+      "body": [
+        {
+          "start": "0x44e400",
+          "end": "0x44e48b"
+        }
+      ],
+      "role": "setup persistence family",
+      "role_evidence": "analyst classification from current decompilation and existing native traces",
+      "getter_reference_confirmed": true
+    },
+    {
+      "address": "0x44e490",
+      "symbol": "FUN_0044e490",
+      "body": [
+        {
+          "start": "0x44e490",
+          "end": "0x44ed4e"
+        }
+      ],
+      "role": "setup save/restore",
+      "role_evidence": "analyst classification from current decompilation and existing native traces",
+      "getter_reference_confirmed": true
+    },
+    {
+      "address": "0x44ed50",
+      "symbol": "FUN_0044ed50",
+      "body": [
+        {
+          "start": "0x44ed50",
+          "end": "0x44f4a6"
+        }
+      ],
+      "role": "race model/wheel/physics family materialization",
+      "role_evidence": "analyst classification from current decompilation and existing native traces",
+      "getter_reference_confirmed": true
+    },
+    {
+      "address": "0x44fec0",
+      "symbol": "FUN_0044fec0",
+      "body": [
+        {
+          "start": "0x44fec0",
+          "end": "0x4501b0"
+        }
+      ],
+      "role": "RaceTest preset selection",
+      "role_evidence": "analyst classification from current decompilation and existing native traces",
+      "getter_reference_confirmed": true
+    },
+    {
+      "address": "0x451cc0",
+      "symbol": "FUN_00451cc0",
+      "body": [
+        {
+          "start": "0x451cc0",
+          "end": "0x451dc1"
+        }
+      ],
+      "role": "MasterRallye participant selection",
+      "role_evidence": "analyst classification from current decompilation and existing native traces",
+      "getter_reference_confirmed": true
+    },
+    {
+      "address": "0x451dd0",
+      "symbol": "FUN_00451dd0",
+      "body": [
+        {
+          "start": "0x451dd0",
+          "end": "0x45234f"
+        }
+      ],
+      "role": "MasterRallye AI pool",
+      "role_evidence": "analyst classification from current decompilation and existing native traces",
+      "getter_reference_confirmed": true
+    },
+    {
+      "address": "0x453980",
+      "symbol": "FUN_00453980",
+      "body": [
+        {
+          "start": "0x453980",
+          "end": "0x453aab"
+        }
+      ],
+      "role": "MasterRallye per-class selected-car persistence",
+      "role_evidence": "analyst classification from current decompilation and existing native traces",
+      "getter_reference_confirmed": true
+    },
+    {
+      "address": "0x458090",
+      "symbol": "FUN_00458090",
+      "body": [
+        {
+          "start": "0x458090",
+          "end": "0x4584d5"
+        }
+      ],
+      "role": "QuickRace AI pool",
+      "role_evidence": "analyst classification from current decompilation and existing native traces",
+      "getter_reference_confirmed": true
+    },
+    {
+      "address": "0x4584f0",
+      "symbol": "FUN_004584f0",
+      "body": [
+        {
+          "start": "0x4584f0",
+          "end": "0x458866"
+        }
+      ],
+      "role": "alternate native AI pool",
+      "role_evidence": "analyst classification from current decompilation and existing native traces",
+      "getter_reference_confirmed": true
+    },
+    {
+      "address": "0x45bbc0",
+      "symbol": "FUN_0045bbc0",
+      "body": [
+        {
+          "start": "0x45bbc0",
+          "end": "0x45bceb"
+        }
+      ],
+      "role": "RallyeCup per-class selected-car persistence",
+      "role_evidence": "analyst classification from current decompilation and existing native traces",
+      "getter_reference_confirmed": true
+    },
+    {
+      "address": "0x45eb30",
+      "symbol": "FUN_0045eb30",
+      "body": [
+        {
+          "start": "0x45eb30",
+          "end": "0x45f0da"
+        }
+      ],
+      "role": "Challenge RaceTest/frontend",
+      "role_evidence": "analyst classification from current decompilation and existing native traces",
+      "getter_reference_confirmed": true
+    },
+    {
+      "address": "0x45f660",
+      "symbol": "FUN_0045f660",
+      "body": [
+        {
+          "start": "0x45f660",
+          "end": "0x45f729"
+        }
+      ],
+      "role": "common menu/lifecycle caller; final role remains unconfirmed",
+      "role_evidence": "analyst classification from current decompilation and existing native traces",
+      "getter_reference_confirmed": true
+    },
+    {
+      "address": "0x45f760",
+      "symbol": "FUN_0045f760",
+      "body": [
+        {
+          "start": "0x45f760",
+          "end": "0x45f829"
+        }
+      ],
+      "role": "common menu/lifecycle caller; final role remains unconfirmed",
+      "role_evidence": "analyst classification from current decompilation and existing native traces",
+      "getter_reference_confirmed": true
+    },
+    {
+      "address": "0x462220",
+      "symbol": "FUN_00462220",
+      "body": [
+        {
+          "start": "0x462220",
+          "end": "0x4622e9"
+        }
+      ],
+      "role": "common menu/lifecycle caller; final role remains unconfirmed",
+      "role_evidence": "analyst classification from current decompilation and existing native traces",
+      "getter_reference_confirmed": true
+    },
+    {
+      "address": "0x4650b0",
+      "symbol": "FUN_004650b0",
+      "body": [
+        {
+          "start": "0x4650b0",
+          "end": "0x465179"
+        }
+      ],
+      "role": "common menu/lifecycle caller; final role remains unconfirmed",
+      "role_evidence": "analyst classification from current decompilation and existing native traces",
+      "getter_reference_confirmed": true
+    },
+    {
+      "address": "0x46bb30",
+      "symbol": "FUN_0046bb30",
+      "body": [
+        {
+          "start": "0x46bb30",
+          "end": "0x46c3c0"
+        }
+      ],
+      "role": "network/HUD icon publication",
+      "role_evidence": "analyst classification from current decompilation and existing native traces",
+      "getter_reference_confirmed": true
+    },
+    {
+      "address": "0x47b780",
+      "symbol": "FUN_0047b780",
+      "body": [
+        {
+          "start": "0x47b780",
+          "end": "0x47b974"
+        }
+      ],
+      "role": "QuickRace setup and exclusions",
+      "role_evidence": "analyst classification from current decompilation and existing native traces",
+      "getter_reference_confirmed": true
+    },
+    {
+      "address": "0x47c840",
+      "symbol": "FUN_0047c840",
+      "body": [
+        {
+          "start": "0x47c840",
+          "end": "0x47d0ae"
+        }
+      ],
+      "role": "Results icons and names",
+      "role_evidence": "analyst classification from current decompilation and existing native traces",
+      "getter_reference_confirmed": true
+    },
+    {
+      "address": "0x47ed10",
+      "symbol": "FUN_0047ed10",
+      "body": [
+        {
+          "start": "0x47ed10",
+          "end": "0x47f27a"
+        }
+      ],
+      "role": "RaceSelect/RaceTest frontend",
+      "role_evidence": "analyst classification from current decompilation and existing native traces",
+      "getter_reference_confirmed": true
+    },
+    {
+      "address": "0x4800b0",
+      "symbol": "FUN_004800b0",
+      "body": [
+        {
+          "start": "0x4800b0",
+          "end": "0x480179"
+        }
+      ],
+      "role": "common menu/lifecycle caller; final role remains unconfirmed",
+      "role_evidence": "analyst classification from current decompilation and existing native traces",
+      "getter_reference_confirmed": true
+    },
+    {
+      "address": "0x4801b0",
+      "symbol": "FUN_004801b0",
+      "body": [
+        {
+          "start": "0x4801b0",
+          "end": "0x480279"
+        }
+      ],
+      "role": "common menu/lifecycle caller; final role remains unconfirmed",
+      "role_evidence": "analyst classification from current decompilation and existing native traces",
+      "getter_reference_confirmed": true
+    },
+    {
+      "address": "0x4819b0",
+      "symbol": "FUN_004819b0",
+      "body": [
+        {
+          "start": "0x4819b0",
+          "end": "0x481d92"
+        }
+      ],
+      "role": "Vehicle Select stats/unlock/name/network selectedCar",
+      "role_evidence": "analyst classification from current decompilation and existing native traces",
+      "getter_reference_confirmed": true
+    },
+    {
+      "address": "0x4aae70",
+      "symbol": "FUN_004aae70",
+      "body": [
+        {
+          "start": "0x4aae70",
+          "end": "0x4ab03e"
+        }
+      ],
+      "role": "common menu/lifecycle caller; final role remains unconfirmed",
+      "role_evidence": "analyst classification from current decompilation and existing native traces",
+      "getter_reference_confirmed": true
+    }
+  ],
+  "count": 34,
+  "singleton_direct_xrefs": [
+    "0x45a3d6",
+    "0x45a403",
+    "0x45a419"
+  ],
+  "coverage": "Observed direct getter callers and singleton references, not proof of complete indirect/cached-pointer coverage"
+}

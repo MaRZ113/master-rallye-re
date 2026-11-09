@@ -1,0 +1,646 @@
+{
+  "source_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "source_bytes": 3121214,
+  "reference_identity_matches": true,
+  "sites": [
+    {
+      "classification": "Stock Native",
+      "owner": "registry_allocator",
+      "va": "0x45a3df",
+      "file_offset": 369631,
+      "bytes": "68000c0000",
+      "meaning": "PUSH 0xC00; singleton heap object, not global fixed buffer"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "vehicle_lifetime_count",
+      "va": "0x458cf3",
+      "file_offset": 363763,
+      "bytes": "6a1a8d4604",
+      "meaning": "26 records; imm8 is sign-extended into a 32-bit stack argument"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "vehicle_lifetime_count",
+      "va": "0x458e45",
+      "file_offset": 364101,
+      "bytes": "6a1a83c604",
+      "meaning": "26 records; imm8 is sign-extended into a 32-bit stack argument"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "vehicle_lifetime_count",
+      "va": "0x686795",
+      "file_offset": 2647957,
+      "bytes": "6a1a6a348b45f0",
+      "meaning": "26 records; imm8 is sign-extended into a 32-bit stack argument"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_lifetime_base",
+      "va": "0x458d10",
+      "file_offset": 363792,
+      "bytes": "8d8e4c050000",
+      "meaning": "RaceTest starts at registry+0x54C"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_lifetime_base",
+      "va": "0x458e2a",
+      "file_offset": 364074,
+      "bytes": "8d864c050000",
+      "meaning": "RaceTest starts at registry+0x54C"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_lifetime_base",
+      "va": "0x6867b2",
+      "file_offset": 2647986,
+      "bytes": "054c050000",
+      "meaning": "RaceTest starts at registry+0x54C"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x4598fa",
+      "file_offset": 366842,
+      "bytes": "8d8e4c050000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x45992b",
+      "file_offset": 366891,
+      "bytes": "8d8e78050000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x459959",
+      "file_offset": 366937,
+      "bytes": "8d8ea4050000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x459987",
+      "file_offset": 366983,
+      "bytes": "8d8ed0050000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x4599b5",
+      "file_offset": 367029,
+      "bytes": "8d8efc050000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x4599e3",
+      "file_offset": 367075,
+      "bytes": "8d8e28060000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x459a11",
+      "file_offset": 367121,
+      "bytes": "8d8e54060000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x459a3f",
+      "file_offset": 367167,
+      "bytes": "8d8e80060000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x459a6d",
+      "file_offset": 367213,
+      "bytes": "8d8eac060000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x459a9b",
+      "file_offset": 367259,
+      "bytes": "8d8ed8060000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x459ac9",
+      "file_offset": 367305,
+      "bytes": "8d8e04070000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x459af7",
+      "file_offset": 367351,
+      "bytes": "8d8e30070000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x459b25",
+      "file_offset": 367397,
+      "bytes": "8d8e5c070000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x459b53",
+      "file_offset": 367443,
+      "bytes": "8d8e88070000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x459b81",
+      "file_offset": 367489,
+      "bytes": "8d8eb4070000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x459baf",
+      "file_offset": 367535,
+      "bytes": "8d8ee0070000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x459bdd",
+      "file_offset": 367581,
+      "bytes": "8d8e0c080000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x459c0b",
+      "file_offset": 367627,
+      "bytes": "8d8e38080000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x459c39",
+      "file_offset": 367673,
+      "bytes": "8d8e64080000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x459c67",
+      "file_offset": 367719,
+      "bytes": "8d8e90080000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x459c95",
+      "file_offset": 367765,
+      "bytes": "8d8ebc080000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x459cc3",
+      "file_offset": 367811,
+      "bytes": "8d8ee8080000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x459cf1",
+      "file_offset": 367857,
+      "bytes": "8d8e14090000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x459d1f",
+      "file_offset": 367903,
+      "bytes": "8d8e40090000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x459d4d",
+      "file_offset": 367949,
+      "bytes": "8d8e6c090000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x459d7b",
+      "file_offset": 367995,
+      "bytes": "8d8e98090000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x459da9",
+      "file_offset": 368041,
+      "bytes": "8d8ec4090000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x459dd7",
+      "file_offset": 368087,
+      "bytes": "8d8ef0090000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x459e05",
+      "file_offset": 368133,
+      "bytes": "8d8e1c0a0000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x459e33",
+      "file_offset": 368179,
+      "bytes": "8d8e480a0000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x459e61",
+      "file_offset": 368225,
+      "bytes": "8d8e740a0000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x459e8f",
+      "file_offset": 368271,
+      "bytes": "8d8ea00a0000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x459ebd",
+      "file_offset": 368317,
+      "bytes": "8d8ecc0a0000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x459eeb",
+      "file_offset": 368363,
+      "bytes": "8d8ef80a0000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x459f19",
+      "file_offset": 368409,
+      "bytes": "8d8e240b0000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x459f47",
+      "file_offset": 368455,
+      "bytes": "8d8e500b0000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x459f75",
+      "file_offset": 368501,
+      "bytes": "8d8e7c0b0000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x459fa3",
+      "file_offset": 368547,
+      "bytes": "8d8ea80b0000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_initializer",
+      "va": "0x459fd1",
+      "file_offset": 368593,
+      "bytes": "8d8ed40b0000",
+      "meaning": "One of 39 initialized RaceTest rows, stride44"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_consumer_displacement",
+      "va": "0x449cb0",
+      "file_offset": 302256,
+      "bytes": "68050000",
+      "meaning": "Verified displacement operand, not an independent vehicle-count limit"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_consumer_displacement",
+      "va": "0x45003e",
+      "file_offset": 327742,
+      "bytes": "70050000",
+      "meaning": "Verified displacement operand, not an independent vehicle-count limit"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_consumer_displacement",
+      "va": "0x4500b3",
+      "file_offset": 327859,
+      "bytes": "74050000",
+      "meaning": "Verified displacement operand, not an independent vehicle-count limit"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_consumer_displacement",
+      "va": "0x450111",
+      "file_offset": 327953,
+      "bytes": "74050000",
+      "meaning": "Verified displacement operand, not an independent vehicle-count limit"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_consumer_displacement",
+      "va": "0x45ec2c",
+      "file_offset": 388140,
+      "bytes": "70050000",
+      "meaning": "Verified displacement operand, not an independent vehicle-count limit"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_consumer_displacement",
+      "va": "0x45ec38",
+      "file_offset": 388152,
+      "bytes": "74050000",
+      "meaning": "Verified displacement operand, not an independent vehicle-count limit"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_consumer_displacement",
+      "va": "0x47b840",
+      "file_offset": 505920,
+      "bytes": "68050000",
+      "meaning": "Verified displacement operand, not an independent vehicle-count limit"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_consumer_displacement",
+      "va": "0x47ed46",
+      "file_offset": 519494,
+      "bytes": "58050000",
+      "meaning": "Verified displacement operand, not an independent vehicle-count limit"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_consumer_displacement",
+      "va": "0x47ed56",
+      "file_offset": 519510,
+      "bytes": "50050000",
+      "meaning": "Verified displacement operand, not an independent vehicle-count limit"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_consumer_displacement",
+      "va": "0x47f158",
+      "file_offset": 520536,
+      "bytes": "6c050000",
+      "meaning": "Verified displacement operand, not an independent vehicle-count limit"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "racetest_consumer_displacement",
+      "va": "0x47f1f5",
+      "file_offset": 520693,
+      "bytes": "5c050000",
+      "meaning": "Verified displacement operand, not an independent vehicle-count limit"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "frontend_class_counts",
+      "va": "0x480a4a",
+      "file_offset": 526922,
+      "bytes": "b807000000894620894624",
+      "meaning": "T1/T2 counts7/7 at state+20/+24"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "frontend_T3_count",
+      "va": "0x480a62",
+      "file_offset": 526946,
+      "bytes": "c746280b000000",
+      "meaning": "T3 count11 at state+28"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "frontend_position_publisher",
+      "va": "0x4819a4",
+      "file_offset": 530852,
+      "bytes": "83fe0c7cb1",
+      "meaning": "12 position keys; not a registry-sized vehicle buffer"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "frontend_reverse_T1",
+      "va": "0x481e55",
+      "file_offset": 532053,
+      "bytes": "83f807",
+      "meaning": "Signed physical-ID partition threshold7"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "frontend_reverse_T2",
+      "va": "0x481e68",
+      "file_offset": 532072,
+      "bytes": "83f80e",
+      "meaning": "Signed physical-ID partition threshold14"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "result_CarID",
+      "va": "0x47c6d5",
+      "file_offset": 509653,
+      "bytes": "894108",
+      "meaning": "MOV [ECX+8],EAX; 32-bit physical CarID"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "network_selected_physical_id",
+      "va": "0x481c68",
+      "file_offset": 531560,
+      "bytes": "e8b3010000",
+      "meaning": "CALL physical mapping helper481E20"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "network_selected_setter",
+      "va": "0x481c75",
+      "file_offset": 531573,
+      "bytes": "e8c6bb0200",
+      "meaning": "CALL4AD840; stores selected physical ID as Broker Int"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "network_byte_writer",
+      "va": "0x434453",
+      "file_offset": 214099,
+      "bytes": "884605",
+      "meaning": "MOV [ESI+5],AL; selectedCar wire field is one byte"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "network_byte_reader_clear",
+      "va": "0x433f9f",
+      "file_offset": 212895,
+      "bytes": "33d2",
+      "meaning": "Clear EDX before loading unsigned byte"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "network_byte_reader",
+      "va": "0x433fa5",
+      "file_offset": 212901,
+      "bytes": "8a5605",
+      "meaning": "MOV DL,[ESI+5]; physical ID256 would alias0"
+    },
+    {
+      "classification": "Stock Native",
+      "owner": "network_peer_store",
+      "va": "0x434161",
+      "file_offset": 213345,
+      "bytes": "898804080000",
+      "meaning": "MOV [EAX+804],ECX; received identity widened back to dword"
+    }
+  ],
+  "verified_site_count": 69,
+  "raw_direct_call_candidates": [
+    "0x449079",
+    "0x4498dd",
+    "0x449ca2",
+    "0x44a635",
+    "0x44a683",
+    "0x44a7ef",
+    "0x44a824",
+    "0x44a85c",
+    "0x44aa15",
+    "0x44aab6",
+    "0x44aaf3",
+    "0x44ac8d",
+    "0x44ad15",
+    "0x44ad4a",
+    "0x44b01b",
+    "0x44b0bf",
+    "0x44b229",
+    "0x44b252",
+    "0x44b558",
+    "0x44c545",
+    "0x44c7f9",
+    "0x44c85f",
+    "0x44cfe9",
+    "0x44d04f",
+    "0x44d799",
+    "0x44d7ff",
+    "0x44defa",
+    "0x44df60",
+    "0x44e41d",
+    "0x44e50a",
+    "0x44e570",
+    "0x44ede8",
+    "0x44ee56",
+    "0x450036",
+    "0x450059",
+    "0x450093",
+    "0x4500ab",
+    "0x4500c6",
+    "0x450109",
+    "0x450124",
+    "0x451d19",
+    "0x45226b",
+    "0x453984",
+    "0x45843e",
+    "0x4587dc",
+    "0x45bbc4",
+    "0x45ec24",
+    "0x45ec30",
+    "0x45f6b9",
+    "0x45f7b9",
+    "0x462279",
+    "0x465109",
+    "0x46b490",
+    "0x46bb4a",
+    "0x46c042",
+    "0x47b7a0",
+    "0x47b7ed",
+    "0x47b832",
+    "0x47cb4a",
+    "0x47ed3e",
+    "0x47ed4e",
+    "0x47f150",
+    "0x47f1ed",
+    "0x480109",
+    "0x480209",
+    "0x48141c",
+    "0x4819bf",
+    "0x481b9d",
+    "0x481bd5",
+    "0x481c0d",
+    "0x481c45",
+    "0x4ab01e"
+  ],
+  "candidate_coverage": "Byte-pattern candidates in .text; Ghidra function ownership is separate evidence",
+  "registry_layout": {
+    "header": 4,
+    "count": 26,
+    "record_stride": 52,
+    "RaceTest_count": 39,
+    "RaceTest_stride": 44,
+    "bytes": 3072
+  },
+  "maximum_global_CarID": null,
+  "coverage": "Known original storage/lifecycle, 39 RaceTest initializers, 11 direct tail consumers, frontend and paired network sites; not all indirect engine consumers",
+  "status": "PASS_VERIFIED_CAPACITY_SITES; STATIC_NOT_GAMEPLAY"
+}

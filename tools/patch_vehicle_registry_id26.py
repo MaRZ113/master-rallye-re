@@ -296,7 +296,7 @@ class _CodeImage:
 
 
 def _emit_record_initializer(code: _CodeImage, profile: VehicleRecordProfile,
-                             record_offset: int, literal_label: str) -> None:
+                             record_offset: int, literal_label: str, *, wide_immediates: bool = False) -> None:
     code.emit(b"\x83\xEC\x10")  # four tail floats are caller-provided stack values
     for index, bits in enumerate(profile.race_colour_rgba_bits):
         code.emit(b"\xC7\x44\x24" + bytes((index * 4,)) + struct.pack("<I", bits))
@@ -305,6 +305,11 @@ def _emit_record_initializer(code: _CodeImage, profile: VehicleRecordProfile,
     code.call(STRING_CONSTRUCTOR_VA)
     for value in (profile.smallcarsheet_index, *reversed(profile.stats),
                   profile.vehicle_class, profile.slot_id):
+        if wide_immediates:
+            if type(value) is not int or not 0 <= value <= 0x7fffffff:
+                raise PatchError("initializer integer exceeds signed 32-bit ABI")
+            code.emit(b"\x68" + struct.pack("<I", value))
+            continue
         if not 0 <= value <= 0x7F:
             raise PatchError("initializer profile integer does not fit the verified push-imm8 ABI")
         code.emit(b"\x6A" + bytes((value,)))

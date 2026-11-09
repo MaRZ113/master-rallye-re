@@ -1,0 +1,176 @@
+{
+  "source_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "reference_sha256": "bf8aef32407eb6552c05045b8abef149f32983cedd9503b865069b444c5f96b4",
+  "reference_identity_matches": true,
+  "verified_original_instructions": [
+    {
+      "va": "00481C68",
+      "file_offset": 531560,
+      "bytes": "e8b3010000"
+    },
+    {
+      "va": "00481C6D",
+      "file_offset": 531565,
+      "bytes": "50"
+    },
+    {
+      "va": "00481C75",
+      "file_offset": 531573,
+      "bytes": "e8c6bb0200"
+    },
+    {
+      "va": "00481C7A",
+      "file_offset": 531578,
+      "bytes": "e8814afbff"
+    },
+    {
+      "va": "0043440F",
+      "file_offset": 214031,
+      "bytes": "e8ac950700"
+    },
+    {
+      "va": "00434414",
+      "file_offset": 214036,
+      "bytes": "894530"
+    },
+    {
+      "va": "00434450",
+      "file_offset": 214096,
+      "bytes": "8a4530"
+    },
+    {
+      "va": "00434453",
+      "file_offset": 214099,
+      "bytes": "884605"
+    },
+    {
+      "va": "00433F9F",
+      "file_offset": 212895,
+      "bytes": "33d2"
+    },
+    {
+      "va": "00433FA5",
+      "file_offset": 212901,
+      "bytes": "8a5605"
+    },
+    {
+      "va": "00433FAE",
+      "file_offset": 212910,
+      "bytes": "89542428"
+    },
+    {
+      "va": "0043415A",
+      "file_offset": 213338,
+      "bytes": "8b4c2428"
+    },
+    {
+      "va": "00434161",
+      "file_offset": 213345,
+      "bytes": "898804080000"
+    },
+    {
+      "va": "004AD9C1",
+      "file_offset": 711105,
+      "bytes": "685c576e00"
+    },
+    {
+      "va": "004AD9DB",
+      "file_offset": 711131,
+      "bytes": "e8808d0200"
+    },
+    {
+      "va": "004BCC90",
+      "file_offset": 773264,
+      "bytes": "6a04"
+    },
+    {
+      "va": "004BCC99",
+      "file_offset": 773273,
+      "bytes": "e862700100"
+    },
+    {
+      "va": "004BCCB3",
+      "file_offset": 773299,
+      "bytes": "e848700100"
+    },
+    {
+      "va": "004BCF25",
+      "file_offset": 773925,
+      "bytes": "6a04"
+    },
+    {
+      "va": "004BCF2A",
+      "file_offset": 773930,
+      "bytes": "e8816e0100"
+    },
+    {
+      "va": "004BCF51",
+      "file_offset": 773969,
+      "bytes": "e82a27f5ff"
+    }
+  ],
+  "network": {
+    "selectedCar_packet_offset": 5,
+    "width_bits": 8,
+    "receiver_signed": false,
+    "representable_values": [
+      0,
+      255
+    ],
+    "global_engine_maximum_established": false
+  },
+  "ghost_v3_samples": [
+    {
+      "file": "Italy1.bestever.t2.ghost",
+      "sha256": "31770c38fa91c421a53e6acbb0ae160511f2ba134996d50dab67f4b5aae8021b",
+      "bytes": 18808,
+      "family": "Kiasportage",
+      "race": "RaceTest/Italy1",
+      "post_string_u32": [
+        0,
+        4,
+        1076887552,
+        1028443341,
+        1028443341,
+        1072064102,
+        1072064102,
+        1036831949
+      ]
+    },
+    {
+      "file": "Italy1.sessionbest.t2.ghost",
+      "sha256": "31770c38fa91c421a53e6acbb0ae160511f2ba134996d50dab67f4b5aae8021b",
+      "bytes": 18808,
+      "family": "Kiasportage",
+      "race": "RaceTest/Italy1",
+      "post_string_u32": [
+        0,
+        4,
+        1076887552,
+        1028443341,
+        1028443341,
+        1072064102,
+        1072064102,
+        1036831949
+      ]
+    },
+    {
+      "file": "Italy3.bestever.t3.ghost",
+      "sha256": "2c851597bfd3e9d34e810a756b874c57474e27464f73781632203975b52920a9",
+      "bytes": 15711,
+      "family": "Mattserati",
+      "race": "RaceTest/Italy3",
+      "post_string_u32": [
+        0,
+        0,
+        1075838976,
+        1029785518,
+        1029785518,
+        1070805811,
+        1070805811,
+        1036831949
+      ]
+    }
+  ],
+  "limits": "Static paired network selectedCar field and ghost header inspection only; no network/gameplay/file-writer execution."
+}

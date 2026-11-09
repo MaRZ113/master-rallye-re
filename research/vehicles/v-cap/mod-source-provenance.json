@@ -1,0 +1,25 @@
+{
+  "files": [
+    {
+      "path": "D:\\Game\\Master Rallye\\master-rallye-re-rmod1\\src\\native\\rmod1\\extra_options_runtime.cpp",
+      "sha256": "763acb6654eca421db5c856b3c8433a655065df5aa0b14995f1942bb83dcd277",
+      "bytes": 22734
+    },
+    {
+      "path": "D:\\Game\\Master Rallye\\master-rallye-re-rmod1\\src\\native\\rmod1\\extra_options.hpp",
+      "sha256": "e44b9e6f6183e128c3cfb28877df322d33766cf2acdb3cb259d8b30db5e839cd",
+      "bytes": 8988
+    },
+    {
+      "path": "D:\\Game\\Master Rallye\\master-rallye-re-general\\ps2-research\\pc-port\\renderer\\extra_options_bridge.hpp",
+      "sha256": "b155f4dc627f7354a7db8906ca86cedf9217c030ece518ad1e0a169e02af2445",
+      "bytes": 5487
+    }
+  ],
+  "inspection": "Read-only current source, may include owner uncommitted changes; not evidence of exact installed DLL contents",
+  "ExtraOptions_ABI": "0x45583201",
+  "ExtraOptions_per_player_car_capacity": 256,
+  "ExtraOptions_participant_capacity": 8,
+  "renderer_bridge": "family string + participant int; no global vehicle-count field in this ABI",
+  "modified": false
+}
