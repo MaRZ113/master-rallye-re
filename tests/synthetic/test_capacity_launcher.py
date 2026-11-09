@@ -88,6 +88,29 @@ class CapacityLauncherTests(unittest.TestCase):
 
 
 class NativeRosterStateTests(unittest.TestCase):
+    def test_active_competition_requires_matching_dependency_baseline(self):
+        with tempfile.TemporaryDirectory(prefix='mr-competition-') as directory:
+            bundle=Path(directory);path=bundle/'PlayerState.xml'
+            def run(active):
+                raw=('<Game><Broker><Value Name="MasterRallye/GameSaved" Type="Bool" Value="'+str(active).lower()+'"/><Value Name="Frontend/QuickRace/Car0" Type="Int" Value="31"/></Broker></Game>').encode()
+                path.write_bytes(raw)
+                result=subprocess.run([str(self.exe),'--verify-competition-state',str(path),str(bundle)],capture_output=True,text=True)
+                self.assertEqual(path.read_bytes(),raw)
+                return result
+            self.assertNotEqual(run(True).returncode,0)
+            self.assertFalse((bundle/'competition-baseline.txt').exists())
+            result=run(False);self.assertEqual(result.returncode,0,result.stderr)
+            marker=bundle/'competition-baseline.txt';self.assertEqual([len(s) for s in marker.read_text().splitlines()],[64,64])
+            # An imported active save cannot borrow a fresh package baseline.
+            self.assertNotEqual(run(True).returncode,0)
+            # Fixture for the association recorded after a verified owned game
+            # exits normally; the test never runs or alters an installed game.
+            contract=marker.read_text().splitlines()[0]
+            marker.write_text(contract+'\n'+hashlib.sha256(path.read_bytes()).hexdigest()+'\n')
+            self.assertEqual(run(True).returncode,0)
+            marker.write_text('0'*64+'\n');self.assertNotEqual(run(True).returncode,0)
+            self.assertEqual(marker.read_text(),'0'*64+'\n')
+
     @classmethod
     def setUpClass(cls):
         value=os.environ.get('MR_CAPACITY_TEST_LAUNCHER')

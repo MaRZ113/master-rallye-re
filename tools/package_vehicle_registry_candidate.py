@@ -6,6 +6,7 @@ from pathlib import Path
 import os
 import shutil
 import sys
+import re
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path[:0]=[str(ROOT/'src'),str(ROOT/'tools')]
@@ -16,9 +17,9 @@ import addon_collection_runtime as collection
 def sha(path):return runtime.sha256_file(path)
 
 
-def package(candidate,extra,renderer_host):
+def package(candidate,extra,renderer_host,*,registered_ai=False):
     candidate=collection._safe_root(Path(candidate),'private registry candidate');extra=Path(extra);renderer_host=Path(renderer_host)
-    if not candidate.is_relative_to((ROOT/'.research-output/vehicles/v-cap2').resolve()):raise ValueError('Private hosts must remain inside this V-CAP2 output root')
+    if not any(candidate.is_relative_to((ROOT/'.research-output/vehicles'/phase).resolve()) for phase in ('v-cap2','v-cap3')):raise ValueError('Private hosts must remain inside this registry output root')
     profile=json.loads((candidate/'runtime/runtime-profile.json').read_text())
     config=json.loads((candidate/'registry-build.json').read_text())
     built=json.loads((extra/'capacity-build.json').read_text())
@@ -45,11 +46,22 @@ def package(candidate,extra,renderer_host):
             shutil.copyfile(extra/'core/MRallyeRandomizerRuntime.dll',host/'MRallyeRandomizerRuntime.dll')
             for item in ('MRallyeExtraOptions.ini','MRallyeRandomizer.ini'):
                 if (renderer_host/item).exists():shutil.copyfile(renderer_host/item,host/item)
+            if registered_ai:
+                ini=host/'MRallyeRandomizer.ini';lines=[];section='';changed=set()
+                for line in ini.read_text().splitlines(keepends=True):
+                    match=re.match(r'\s*\[([^]]+)\]',line)
+                    if match:section=match[1].casefold()
+                    key='include' if section=='addons' else 'enabled' if section=='logging' else None
+                    if key and re.match(r'\s*'+key+r'\s*=',line,re.I):line=key+' = 1\n';changed.add(section)
+                    if 'standalone release has no complete Vehicle SDK integration' in line:line='; This private candidate uses the verified generated Vehicle Registry.\n'
+                    lines.append(line)
+                if changed!={'addons','logging'}:raise ValueError('Private candidate INI lacks explicit Addons/Logging sections')
+                ini.write_text(''.join(lines))
             if not (host/'VSETAssets').exists() and (renderer_host/'VSETAssets').exists():shutil.copytree(renderer_host/'VSETAssets',host/'VSETAssets')
         rows[name]={p.name:sha(p) for p in host.iterdir() if p.is_file() and p.suffix.lower() in ('.exe','.dll')}
         command='@echo off\r\n"%~dp0launcher\\mr-runtime-launcher.exe" --integrated "%~dp0'+name+'\\MRallye.exe" "%~dp0runtime"\r\nif errorlevel 1 pause\r\n'
         (candidate/('Launch-'+name.removeprefix('host-')+'.cmd')).write_text(command,newline='')
-    report={'schema':'mr-vehicle-registry-private-hosts/1','sdk_manifest_sha256':profile['native_patch_manifest_sha256'],'extra_options_build':str(extra.resolve()),'renderer_source_host':str(renderer_host.resolve()),'hosts':rows,'game_launched':False,'working_installations_modified':False,'qualification':'PREPARED_ONLY; run suspended preflights and owner gameplay separately'}
+    report={'schema':'mr-vehicle-registry-private-hosts/1','sdk_manifest_sha256':profile['native_patch_manifest_sha256'],'extra_options_build':str(extra.resolve()),'renderer_source_host':str(renderer_host.resolve()),'hosts':rows,'private_ini_overrides':{'Addons/Include':1,'Logging/Enabled':1} if registered_ai else {},'game_launched':False,'working_installations_modified':False,'qualification':'PREPARED_ONLY; run suspended preflights and owner gameplay separately'}
     (candidate/'private-hosts.json').write_text(json.dumps(report,indent=2)+'\n')
     return report
 
@@ -57,4 +69,5 @@ def package(candidate,extra,renderer_host):
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__)
     for name in ('candidate','extra','renderer-host'):p.add_argument('--'+name,type=Path,required=True)
-    a=p.parse_args();print(json.dumps(package(a.candidate,a.extra,a.renderer_host),indent=2))
+    p.add_argument('--registered-ai',action='store_true',help='Enable verified registered addons and candidate diagnostics in private copied INIs only')
+    a=p.parse_args();print(json.dumps(package(a.candidate,a.extra,a.renderer_host,registered_ai=a.registered_ai),indent=2))

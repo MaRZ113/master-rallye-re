@@ -101,6 +101,10 @@ def _header(profile: dict[str, Any], patch_manifest: dict[str, Any], extension_b
         configurable=profile.get('profile')=='sdk-configurable-vehicle-registry'
         if configurable:
             descriptor=_capacity_descriptor(profile,extension,extension_bytes)
+            contract=profile.get('competition_contract_sha256','')
+            if contract and (not isinstance(contract,str) or len(contract)!=64 or any(c not in '0123456789abcdef' for c in contract)):
+                raise LauncherBuildError('invalid competition identity/dependency fingerprint')
+            rows.append('#define MR_COMPETITION_CONTRACT_SHA256 "'+contract+'"')
             rows.extend((f"#define MR_VEHICLE_REGISTRY_DESCRIPTOR {profile['vehicle_registry_descriptor']}u",
                          '#define MR_VEHICLE_REGISTRY_FIELDS {'+', '.join(str(n)+'u' for n in descriptor)+'}'))
         large_damage=(allocation==131072 and profile.get('profile')=='sdk-native-damage-coverage-alpha'

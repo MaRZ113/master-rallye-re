@@ -91,7 +91,7 @@ def identity(plan,classes):
 def derive(config):
     if (not isinstance(config,dict) or config.get('schema')!='mr-vehicle-registry-build/1'
         or not {'base_runtime','retail_exe','capacity_profile','projects'}<=set(config)
-        or set(config)-{'schema','base_runtime','retail_exe','capacity_profile','projects','previous_roster','reactivation_migration','wheel_profiles'}):
+        or set(config)-{'schema','base_runtime','retail_exe','capacity_profile','projects','previous_roster','reactivation_migration','wheel_profiles','player_state_source','previous_competition_contract'}):
         raise ValueError('Unsupported vehicle registry build manifest')
     p=validate_profile(config['capacity_profile']);base=Path(config['base_runtime'])
     source=Path(config['retail_exe']).read_bytes()
@@ -107,7 +107,7 @@ def derive(config):
         if type(i)is not int or i!=33+len(rows):raise ValueError('New IDs must append without deleting reservations')
         cls=row['vehicle_class']
         if cls not in canonical or i not in p['classes'][cls]:raise ValueError('Profile and authored class differ')
-        row.update(physical_id=i,class_local_index=len(canonical[cls]))
+        row.update(physical_id=i,class_local_index=p['classes'][cls].index(i))
         canonical[cls].append(i);rows.append(row)
         authored={path:location for path,location,role in resources}
         for path in ('DataGame/vehicles.xml','DataGame/Modifications.xml',*[prefix+suffix for prefix,stock,_,_ in BANKS.values() for suffix in ('.dxb',f'_{stock:03d}_000.dxt')]):
@@ -119,6 +119,10 @@ def derive(config):
         names=[r['identity'][key].casefold() for r in all_rows]
         if len(names)!=len(set(names)):raise ValueError('Resource family collision: '+key)
     if len({r['addon_id'] for r in all_rows})!=len(all_rows):raise ValueError('Addon identity collision')
+    # Record metadata, the native descriptor and the frontend all use the
+    # final selection map. Canonical append slots exist only while cloning
+    # widgets; they must never escape as persisted class-local metadata.
+    for row in all_rows:row['class_local_index']=p['classes'][row['vehicle_class']].index(row['physical_id'])
     plan['addons']=all_rows
     current=identity(plan,p['classes'])
     previous=json.loads(Path(config['previous_roster']).read_text()) if config.get('previous_roster') else before
@@ -151,7 +155,9 @@ def derive(config):
                 if path.casefold() in {k.casefold() for k in output}:raise ValueError('Owned resource collision: '+path)
                 output[path]=value;ownership[path]=a['row']['addon_id']
     scene='DataScene/FrontendScreens/VehicleSelect.xml'
-    output[scene]=roster.probe.scene_append(roster.probe.value(output[scene]),rows)
+    scene_rows=copy.deepcopy(rows)
+    for row in scene_rows:row['class_local_index']=canonical[row['vehicle_class']].index(row['physical_id'])
+    output[scene]=roster.probe.scene_append(roster.probe.value(output[scene]),scene_rows)
     from roster_scene_layout import reorder_scene
     selection={'canonical':canonical,'class_to_physical_ids':p['classes']}
     output[scene]=reorder_scene(output[scene],selection)
@@ -218,8 +224,20 @@ def derive(config):
     parent_model_hashes={runtime.sha256_file(value) for name,value in assets.items() if name.lower().endswith('/car.dx')}
     new_models=[{'physical_id':r['physical_id'],'family':r['identity']['runtime_family'],'car_dx_sha256':roster.probe.sha(roster.probe.value(output[r['assets']['model_package_root']+'/car.dx']))} for r in rows]
     for model in new_models:model['different_bytes_from_parent_models']=model['car_dx_sha256'] not in parent_model_hashes
-    audit={'schema':'mr-vehicle-registry-build/1','runtime_qualified':False,'record_count':p['record_count'],'authored_additions':new_models,'ui':ui,'bindings':bindings,'parent_extension_prefix_preserved':blob[:len((base/'native-extension.bin').read_bytes())]==(base/'native-extension.bin').read_bytes(),'native_hook_count':len(json.loads(pm)['operations']),'mode_boundaries':{'network':'stock unsigned byte, high IDs require native protocol gate; no >254 runtime qualification','active_championship':'identity preflight only; disposable candidate state','challenge':'authored restrictions unchanged'},'owner_checks_required':['native frontend all class slots and return/reentry','AI/player distinct resources, physics and damage','CarSheet/SIDE and Results','fresh competition save/restart']}
+    audit={'schema':'mr-vehicle-registry-build/1','runtime_qualified':False,'record_count':p['record_count'],'authored_additions':new_models,'ui':ui,'bindings':bindings,'parent_extension_prefix_preserved':blob[:len((base/'native-extension.bin').read_bytes())]==(base/'native-extension.bin').read_bytes(),'native_hook_count':len(json.loads(pm)['operations']),'mode_boundaries':{'network':'stock unsigned byte, high IDs require native protocol gate; no >254 runtime qualification','active_championship':'stable identity and gameplay dependency contract; launch baseline also binds exact save; normal owned exit updates association','challenge':'authored restrictions unchanged'},'owner_checks_required':['new class positions and artwork','Extra Options registered AI pools; Stock native behavior','new independent resource player/AI and Results','owned normal-exit competition save/restart']}
     files={'addon-plan.json':plan_raw,'native-patch-manifest.json':pm,'native-patch-ops.rvp':rvp,'native-extension.bin':blob,'runtime-profile.json':canonical_json(profile),'resource-manifest.json':rm,'resource-index.tsv':index,'roster-identity.json':canonical_json(current),'artwork-bindings.json':canonical_json(artwork),'registry-build-audit.json':canonical_json(audit)}
+    from master_rallye.addon_sdk.competition_contract import build_contract
+    from master_rallye.dx import parse_dx_bytes
+    collision={}
+    # DX trailing collision/bounds contains no texture or livery pixels.
+    for row in all_rows:
+        data=roster.probe.value(output[row['assets']['model_package_root']+'/car.dx'])
+        collision[row['identity']['runtime_family']]=roster.probe.sha(parse_dx_bytes(data).trailing.data)
+    gameplay={path:roster.probe.value(output[path]) for path in ('DataGame/vehicles.xml','DataGame/Modifications.xml','DataGame/MasterRallye.xml','DataGame/RallyeCup.xml','DataGame/Race.xml','DataGame/RaceTest.xml') if path in output}
+    contract=build_contract(current,gameplay,all_rows,collision_fingerprints=collision)
+    profile['competition_contract_sha256']=contract['sha256']
+    files['competition-contract.json']=canonical_json(contract)
+    files['runtime-profile.json']=canonical_json(profile)
     return {'resources':output,'files':files,'profile':profile,'image':image,'audit':audit,'previous_identity':previous,'identity':current}
 
 
@@ -236,11 +254,23 @@ def build(config,out,*,compile_launcher=True):
         if isinstance(value,bytes):dest.write_bytes(value)
         else:shutil.copyfile(value,dest)
     from master_rallye.addon_sdk.player_state import seed_player_state
-    seed=seed_player_state(Path(config['retail_exe']).parent,bundle/'resource-root')
+    if config.get('player_state_source'):
+        source=Path(config['player_state_source']);roster.legacy._safe_root(source,'explicit source save')
+        raw=source.read_bytes()
+        if not 1<=len(raw)<=4*1024*1024:raise ValueError('Source save exceeds supported size')
+        dest=bundle/'resource-root/DataGame/PlayerState.xml';dest.parent.mkdir(parents=True,exist_ok=True)
+        with dest.open('xb') as stream:stream.write(raw)
+        seed={'source':str(source.resolve()),'sha256':roster.probe.sha(raw),'copied':True}
+    else:seed=seed_player_state(Path(config['retail_exe']).parent,bundle/'resource-root')
     state=bundle/'resource-root/DataGame/PlayerState.xml'
     if state.exists():
         check=preflight_player_state(state.read_bytes(),ctx['previous_identity'],ctx['identity'],migration=config.get('reactivation_migration'))
         if check['status'].startswith('BLOCKED_'):raise ValueError('Use a separate input game with no active competition for candidate seeding')
+        from master_rallye.addon_sdk.competition_contract import require_compatible
+        previous=json.loads(Path(config['previous_competition_contract']).read_text()) if config.get('previous_competition_contract') else None
+        require_compatible(previous,json.loads(ctx['files']['competition-contract.json']),active=bool(check['active_competitions']))
+    save_hash=roster.probe.sha(state.read_bytes()) if state.exists() else 'NO_SAVE'
+    (bundle/'competition-baseline.txt').write_text(ctx['profile']['competition_contract_sha256']+'\n'+save_hash+'\n')
     copied=time.perf_counter()
     print('V-CAP2: verifying the generated resource set',file=sys.stderr,flush=True)
     verified=verify_bundle(bundle,ctx);checked=time.perf_counter()

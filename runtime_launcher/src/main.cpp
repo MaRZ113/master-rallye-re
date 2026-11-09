@@ -843,9 +843,41 @@ HANDLE VerifyAdjacentWrappers(const fs::path& exePath, HANDLE& pinnedInput) {
     return INVALID_HANDLE_VALUE;
 }
 
-void VerifyRosterState(const fs::path& path) {
+#ifndef MR_COMPETITION_CONTRACT_SHA256
+#define MR_COMPETITION_CONTRACT_SHA256 ""
+#endif
+void VerifyCompetitionBaseline(const fs::path& bundle,bool active,const std::string& saveHash,bool ownedExit=false) {
+    const std::string expected=MR_COMPETITION_CONTRACT_SHA256;
+    if(expected.empty()) {
+        if(active)Fail("active competition has no compiled identity/dependency contract; finish it in its original package");
+        return;
+    }
+    const auto path=bundle/L"competition-baseline.txt";
+    const DWORD attrs=GetFileAttributesW(path.c_str());
+    if(attrs!=INVALID_FILE_ATTRIBUTES&&(attrs&(FILE_ATTRIBUTE_REPARSE_POINT|FILE_ATTRIBUTE_DIRECTORY)))Fail("competition baseline must be a regular file");
+    std::string previous,previousSave;
+    if(fs::exists(path)) {
+        if(fs::file_size(path)>256)Fail("invalid competition baseline size");
+        std::ifstream input(path,std::ios::binary);std::getline(input,previous);std::getline(input,previousSave);
+        if(!previous.empty()&&previous.back()=='\r')previous.pop_back();
+        if(!previousSave.empty()&&previousSave.back()=='\r')previousSave.pop_back();
+    }
+    if(active&&!ownedExit&&(previous!=expected||previousSave!=saveHash))Fail("active competition identity/dependencies or save association changed, or baseline missing; save was not modified; use its original package");
+    if((!active||ownedExit)&&(previous!=expected||previousSave!=saveHash)) {
+        const auto temporary=bundle/L"competition-baseline.pending";
+        HANDLE file=CreateFileW(temporary.c_str(),GENERIC_WRITE,0,nullptr,CREATE_NEW,FILE_ATTRIBUTE_NORMAL,nullptr);
+        if(file==INVALID_HANDLE_VALUE)Fail("cannot create private competition baseline transaction");
+        const std::string data=expected+"\n"+saveHash+"\n";DWORD written=0;
+        const bool okay=WriteFile(file,data.data(),static_cast<DWORD>(data.size()),&written,nullptr)&&written==data.size()&&FlushFileBuffers(file);
+        CloseHandle(file);
+        if(!okay||!MoveFileExW(temporary.c_str(),path.c_str(),MOVEFILE_REPLACE_EXISTING|MOVEFILE_WRITE_THROUGH))Fail("cannot commit private competition baseline");
+    }
+    std::cout<<"COMPETITION_DEPENDENCIES_VERIFIED active="<<active<<" save_modified=false\n";
+}
+
+void VerifyRosterState(const fs::path& path,const fs::path* bundle=nullptr,bool ownedExit=false) {
     if constexpr (MR_VEHICLE_REGISTRY_DESCRIPTOR != 0) {
-        if (!fs::exists(path)) {std::cout << "ROSTER_STATE_PREFLIGHT_PASS fresh_profile=true\n";return;}
+        if (!fs::exists(path)) {if(bundle)VerifyCompetitionBaseline(*bundle,false,"NO_SAVE",ownedExit);std::cout << "ROSTER_STATE_PREFLIGHT_PASS fresh_profile=true\n";return;}
         const DWORD attrs=GetFileAttributesW(path.c_str());
         if (attrs==INVALID_FILE_ATTRIBUTES || (attrs&(FILE_ATTRIBUTE_REPARSE_POINT|FILE_ATTRIBUTE_DIRECTORY))
             || fs::file_size(path)==0 || fs::file_size(path)>4u*1024u*1024u)
@@ -859,7 +891,8 @@ void VerifyRosterState(const fs::path& path) {
         const std::vector<uint32_t> classes=MR_VEHICLE_REGISTRY_CLASSES;
         const std::set<uint32_t> retired=MR_VEHICLE_RETIRED_IDS;
         const auto report=mr_roster_state::Validate(std::string_view(reinterpret_cast<const char*>(bytes.data()),bytes.size()),classes,retired);
-        std::cout << "ROSTER_STATE_PREFLIGHT_PASS checked_identities=" << report.identities
+        if(bundle)VerifyCompetitionBaseline(*bundle,report.activeCompetitions!=0,Sha256Bytes(bytes.data(),bytes.size()),ownedExit);
+        std::cout << (bundle?"ROSTER_STATE_PREFLIGHT_PASS":"ROSTER_STATE_IDENTITY_ONLY_PASS") << " checked_identities=" << report.identities
                   << " active_competitions=" << report.activeCompetitions << " bytes_modified=false\n";
     } else Fail("this legacy launcher has no compiled configurable roster state policy");
 }
@@ -867,7 +900,7 @@ void VerifyRosterState(const fs::path& path) {
 void Launch(const fs::path& exePath, const fs::path& workingDirectory,
             const RuntimePlan* plan, const fs::path* nativeBundle = nullptr, bool preflightOnly = false) {
     if constexpr (MR_VEHICLE_REGISTRY_DESCRIPTOR != 0) {
-        if (plan && nativeBundle) VerifyRosterState(workingDirectory / L"DataGame" / L"PlayerState.xml");
+        if (plan && nativeBundle) VerifyRosterState(workingDirectory / L"DataGame" / L"PlayerState.xml",nativeBundle);
     }
     HANDLE pinnedExe = OpenPinnedRetail(exePath);
     if (HashHandle(pinnedExe) != MR_RETAIL_SHA256) {
@@ -935,6 +968,12 @@ void Launch(const fs::path& exePath, const fs::path& workingDirectory,
             Fail("waiting for the game process failed");
         DWORD exitCode{};
         if (!GetExitCodeProcess(pi.hProcess, &exitCode)) Fail("cannot read the game exit code");
+        if constexpr (MR_VEHICLE_REGISTRY_DESCRIPTOR != 0) {
+            // Only a game actually resumed by this launcher may establish a
+            // new association for the save it produced. Copying an old active
+            // XML into a fresh package cannot inherit that package's baseline.
+            if(exitCode==0&&plan&&nativeBundle)VerifyRosterState(workingDirectory/L"DataGame"/L"PlayerState.xml",nativeBundle,true);
+        }
         if (HashHandle(pinnedExe) != MR_RETAIL_SHA256)
             Fail("retail executable hash changed while the game was running");
         std::cout << "PROCESS_EXIT exit_code=" << exitCode << " retail_exe_sha256=" << MR_RETAIL_SHA256 << "\n";
@@ -1042,6 +1081,10 @@ int wmain(int argc, wchar_t** argv) {
         if (mode==L"--verify-roster-state") {
             if (argc!=3) Fail("--verify-roster-state accepts exactly one PlayerState XML path");
             VerifyRosterState(exePath);return 0;
+        }
+        if(mode==L"--verify-competition-state") {
+            if(argc!=4)Fail("--verify-competition-state requires PlayerState XML and private bundle paths");
+            const fs::path bundle=fs::absolute(argv[3]);VerifyRosterState(exePath,&bundle);return 0;
         }
         if (mode == L"--bootstrap-only") {
             if (argc != 3) Fail("--bootstrap-only accepts exactly one executable path");

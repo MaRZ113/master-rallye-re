@@ -51,7 +51,7 @@ def validate_profile(doc):
         if not isinstance(ids, list) or not ids:
             raise ValueError('Each class requires an explicit nonempty ID list')
         for i in ids: integer(i, 'physical_id', 0, count - 1)
-        if c in SDK33 and ids[:len(SDK33[c])] != SDK33[c]:
+        if c in SDK33 and [i for i in ids if i<33] != SDK33[c]:
             raise ValueError('SDK33 ID/class/relative selection order must remain unchanged')
         flat.extend(ids)
     if len(flat) != count or len(set(flat)) != count:
