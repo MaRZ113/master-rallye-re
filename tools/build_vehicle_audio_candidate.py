@@ -59,7 +59,9 @@ def load_stock_audio_profiles(
         raw = path.read_bytes()
     except OSError as exc:
         raise CandidateError(f"cannot read stock audio matrix: {path}") from exc
-    if sha256(raw) != expected_matrix_sha256.lower():
+    # Git may materialize this text evidence with CRLF on Windows. Line
+    # endings do not alter the qualified profile data or native ABI.
+    if expected_matrix_sha256.lower() not in (sha256(raw), sha256(raw.replace(b"\r\n", b"\n"))):
         raise CandidateError("stock audio matrix SHA256 does not match the pinned evidence")
     try:
         matrix = json.loads(raw)
